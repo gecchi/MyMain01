@@ -40,7 +40,7 @@ RankUpStage::RankUpStage(const char* prm_name) : DefaultScene(prm_name) {
     getSceneDirector()->addSubGroup(pMessage3_);
 
 
-    useProgress(RankUpStage::PROG_END);
+    useProgress(RankUpStage::_BANPEI_-1);
 
     _pBgmPerformer->useBgm(1);
     _pBgmPerformer->set(0, "OGG_RANKUP_THEMA");

@@ -32,6 +32,7 @@ public:
         PROG_PLAY_TRANSIT,
         PROG_PLAY_RANKUP ,
         PROG_FINISH      ,
+        _BANPEI_,
     };
 
     char buf_[60];

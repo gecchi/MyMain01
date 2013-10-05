@@ -30,10 +30,7 @@ MyTorpedo::MyTorpedo(const char* prm_name, MyTorpedoController* prm_pOptionTorpe
     pTailEffectDepository_->config(length_TailEffect_, 0, nullptr);
     for (int i = 0; i < length_TailEffect_; i++) {
         std::string name = std::string(getName())+"'s Tail("+XTOS(i)+")";
-        MyTorpedoTail* pChip = NEW MyTorpedoTail(name.c_str(), this);
-
-        pChip->inactivateImmed();
-        pTailEffectDepository_->addSubLast(pChip);
+        pTailEffectDepository_->put(NEW MyTorpedoTail(name.c_str(), this));
     }
     move_section_ = 0;
     addSubGroup(pTailEffectDepository_);

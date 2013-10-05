@@ -38,7 +38,7 @@ EnemyEmus::EnemyEmus(const char* prm_name) :
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     is_firing_ = false;
-    useProgress(PROG_NOTHING);
+    useProgress(_BANPEI_-1);
 }
 
 void EnemyEmus::onCreateModel() {

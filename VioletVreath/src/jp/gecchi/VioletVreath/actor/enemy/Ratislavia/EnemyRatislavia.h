@@ -23,6 +23,7 @@ public:
         PROG_FLOAT_MOVE,
         PROG_EXPLOSION ,
         PROG_NOTHING   ,
+        _BANPEI_,
     };
 
     /** ÉgÅ[ÉâÉXÇÃîºåa1(ó÷ÇÃîºåa) */

@@ -19,6 +19,7 @@ public:
         PROG_DISP     ,
         PROG_NAMEENTRY,
         PROG_FINISH   ,
+        _BANPEI_,
     };
     NameEntryScene* pNameEntryScene_;
 

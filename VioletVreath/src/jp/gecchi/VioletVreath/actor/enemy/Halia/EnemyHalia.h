@@ -25,6 +25,7 @@ public:
         PROG_FIRE_BEGIN,
         PROG_IN_FIRE   ,
         PROG_CLOSE     ,
+        _BANPEI_,
     };
 
     enum {

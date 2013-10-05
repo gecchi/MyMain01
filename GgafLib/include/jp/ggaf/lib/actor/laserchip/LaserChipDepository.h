@@ -98,7 +98,7 @@ public:
      * (※上位の GgafActorDepository::addSubLast(GgafActor* prm_pSub) を隠蔽)<br>
      * @param prm_pLaserChip レーザーチップ
      */
-    void addSubLast(LaserChip* prm_pLaserChip);
+    void put(LaserChip* prm_pLaserChip);
 
     /**
      * リセット時の処理 .

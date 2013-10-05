@@ -22,6 +22,7 @@ public:
         PROG_FROMATION_MOVE4,
         PROG_FROMATION_MOVE5,
         PROG_LEAVE ,
+        _BANPEI_,
     };
 
 

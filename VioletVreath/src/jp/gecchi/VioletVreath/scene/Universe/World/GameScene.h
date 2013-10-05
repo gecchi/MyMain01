@@ -36,6 +36,7 @@ public:
         PROG_ENDING    ,
         PROG_GAME_OVER ,
         PROG_FINISH    ,
+        _BANPEI_,
     };
 
 

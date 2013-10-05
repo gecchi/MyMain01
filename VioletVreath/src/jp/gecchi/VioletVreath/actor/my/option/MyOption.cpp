@@ -82,7 +82,7 @@ MyOption::MyOption(const char* prm_name, uint32_t prm_no, MyOptionController* pr
 //        pChip->pSource_vY_ = &Q._y;
 //        pChip->pSource_vZ_ = &Q._z;
 
-        pLaserChipDepo_->addSubLast(pChip);
+        pLaserChipDepo_->put(pChip);
     }
     pLaserChipDepo_->config(80, 25, pEffect_LaserIrradiate_);
     addSubGroup(pLaserChipDepo_);
@@ -91,9 +91,7 @@ MyOption::MyOption(const char* prm_name, uint32_t prm_no, MyOptionController* pr
     MyShot001* pShot;
     for (int i = 0; i < 25; i++) { //自弾ストック
         std::string name = std::string(getName()) + "'s Shot001(" + XTOS(i) + ")";
-        pShot = NEW MyShot001(name.c_str());
-        pShot->inactivateImmed();
-        pDepo_MyShots001_->addSubLast(pShot);
+        pDepo_MyShots001_->put(NEW MyShot001(name.c_str()));
     }
     addSubGroup(pDepo_MyShots001_);
 

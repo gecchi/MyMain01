@@ -10,7 +10,7 @@ using namespace VioletVreath;
 
 GameEndingScene::GameEndingScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameEndingScene";
-    useProgress(GameEndingScene::PROG_END);
+    useProgress(GameEndingScene::_BANPEI_-1);
 }
 
 void GameEndingScene::onReset() {

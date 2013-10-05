@@ -38,7 +38,7 @@ public:
      * そのため、登録アクター済みデポジトリを登録して下さい。
      * @param prm_pSub 登録デポジトリ
      */
-    virtual void addSubLast(GgafActor* prm_pSub) override;
+    virtual void put(GgafActor* prm_pSub) override;
 
     /**
      * サブの登録デポジトリの状態更新 .

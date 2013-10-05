@@ -10,7 +10,7 @@ GgafActorDepositoryStore::GgafActorDepositoryStore(const char* prm_name, GgafSta
     setHitAble(false);
 }
 
-void GgafActorDepositoryStore::addSubLast(GgafActor* prm_pSub) {
+void GgafActorDepositoryStore::put(GgafActor* prm_pSub) {
 #ifdef MY_DEBUG
     if (prm_pSub->instanceOf(Obj_GgafActorDepository)) {
         //OK
@@ -23,7 +23,7 @@ void GgafActorDepositoryStore::addSubLast(GgafActor* prm_pSub) {
         }
     }
 #endif
-    GgafActorDepository::addSubLast(prm_pSub);
+    GgafActorDepository::put(prm_pSub);
 }
 
 void GgafActorDepositoryStore::processFinal() {

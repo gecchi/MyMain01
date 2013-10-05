@@ -19,6 +19,7 @@ public:
         PROG_BEGIN   ,
         PROG_PLAY    ,
         PROG_FINISH  ,
+        _BANPEI_,
     };
 
     char buf_[60];

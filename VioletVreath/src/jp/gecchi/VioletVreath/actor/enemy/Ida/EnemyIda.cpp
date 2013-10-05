@@ -21,7 +21,7 @@ EnemyIda::EnemyIda(const char* prm_name) :
     _class_name = "EnemyIda";
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
-    useProgress(PROG_MOVE01);
+    useProgress(_BANPEI_-1);
 }
 
 void EnemyIda::onCreateModel() {

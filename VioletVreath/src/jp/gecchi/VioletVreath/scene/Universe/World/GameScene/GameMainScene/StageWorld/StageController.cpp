@@ -38,7 +38,7 @@ StageController::StageController(const char* prm_name) : DefaultScene(prm_name) 
     getSceneDirector()->addSubGroup(_pSceneSymbol);
 
 
-    useProgress(StageController::PROG_FINISH);
+    useProgress(StageController::_BANPEI_-1);
 }
 
 void StageController::onReset() {

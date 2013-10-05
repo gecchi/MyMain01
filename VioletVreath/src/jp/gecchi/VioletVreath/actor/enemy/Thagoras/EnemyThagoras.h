@@ -25,6 +25,7 @@ public:
         PROG_ENTRY  ,
         PROG_MOVE01 ,
         PROG_LEAVE ,
+        _BANPEI_,
     };
 
     /** 移動スプラインプログラム */

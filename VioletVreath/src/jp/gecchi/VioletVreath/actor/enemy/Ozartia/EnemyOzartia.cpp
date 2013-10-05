@@ -8,6 +8,8 @@
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
+#include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
+#include "EnemyOzartiaLaserChip01.h"
 
 
 using namespace GgafCore;
@@ -19,17 +21,29 @@ EnemyOzartia::EnemyOzartia(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Ozartia", STATUS(EnemyOzartia)) {
     _class_name = "EnemyOzartia";
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    useProgress(PROG1_LEAVE);
-    pProg2_ = createProgress(PROG2_SHOT04);
+    useProgress(_BANPEI1_-1);
+    pProg2_ = createProgress(_BANPEI2_-1);
     is_hit_ = false;
 
+    //バリアブロック
     pDepo_Shot01_ = NEW GgafActorDepository("Depo_OzartiaBlock");
     for (int i = 0; i < 9; i++) {
-        std::string name = "EnemyOzartiaShot01("+XTOS(i)+")";
-        pDepo_Shot01_->addSubLast(NEW EnemyOzartiaShot01(name.c_str()));
+        std::string name = "EnemyOzartiaShot01["+XTOS(i)+"]";
+        pDepo_Shot01_->put(NEW EnemyOzartiaShot01(name.c_str()));
         Sleep(1);
     }
+    addSubGroup(pDepo_Shot01_);
 
+    pDepo_Shot02_ = NEW LaserChipDepository("MyRotLaser");
+    pDepo_Shot02_->config(60, 1, nullptr); //Haliaは弾切れフレームを1にしないとパクパクしちゃいます。
+    EnemyOzartiaLaserChip01* pChip;
+    for (int i = 0; i < 65; i++) { //レーザーストック
+        std::string name = "EnemyOzartiaLaserChip01["+XTOS(i)+"]";
+        pChip = NEW EnemyOzartiaLaserChip01(name.c_str());
+        pChip->setSource(this); //位置向き同期
+        pDepo_Shot02_->put(pChip);
+    }
+    addSubGroup(pDepo_Shot02_);
 }
 
 void EnemyOzartia::onCreateModel() {
@@ -42,6 +56,7 @@ void EnemyOzartia::initialize() {
     _pKurokoA->relateMvFaceAng(true);
     _pKurokoA->setFaceAngVelo(AXIS_X, 2000);
     _pKurokoA->forceMvVeloRange(PX_C(15));
+    setHitAble(false);
 }
 
 void EnemyOzartia::onActive() {

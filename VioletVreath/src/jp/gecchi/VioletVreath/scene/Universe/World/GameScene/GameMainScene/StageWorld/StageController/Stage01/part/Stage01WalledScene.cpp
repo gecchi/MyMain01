@@ -36,7 +36,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
         std::string name = "Wall001_"+XTOS(i);
         pWallAABActor = NEW Wall001(name.c_str());
         pWallAABActor->setScaleR(scale_r);
-        pDepo_WallAAB->addSubLast(pWallAABActor);
+        pDepo_WallAAB->put(pWallAABActor);
         Sleep(1);
     }
     P_COMMON_SCENE->getSceneDirector()->addSubGroup(pDepo_WallAAB);
@@ -49,7 +49,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
         std::string name = "Wall001Prism_"+XTOS(i);
         pWallAAPrismActor = NEW Wall001Prism(name.c_str());
         pWallAAPrismActor->setScaleR(scale_r);
-        pDepo_WallAAPrism->addSubLast(pWallAAPrismActor);
+        pDepo_WallAAPrism->put(pWallAAPrismActor);
         Sleep(1);
     }
     P_COMMON_SCENE->getSceneDirector()->addSubGroup(pDepo_WallAAPrism);

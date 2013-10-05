@@ -32,12 +32,10 @@ EnemyHalia::EnemyHalia(const char* prm_name) :
     pLaserChipDepo_->config(60, 1, nullptr); //Haliaは弾切れフレームを1にしないとパクパクしちゃいます。
     EnemyStraightLaserChip001* pChip;
     for (int i = 0; i < 65; i++) { //レーザーストック
-        std::stringstream name;
-        name <<  "EnemyStraightLaserChip001[" << i << "]";
-        pChip = NEW EnemyStraightLaserChip001(name.str().c_str());
+        std::string name = "EnemyStraightLaserChip001["+XTOS(i)+"]";
+        pChip = NEW EnemyStraightLaserChip001(name.c_str());
         pChip->setSource(this); //位置向き同期
-        pChip->inactivateImmed();
-        pLaserChipDepo_->addSubLast(pChip);
+        pLaserChipDepo_->put(pChip);
     }
     addSubGroup(pLaserChipDepo_);
 
@@ -46,7 +44,7 @@ EnemyHalia::EnemyHalia(const char* prm_name) :
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     _pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
-    useProgress(PROG_CLOSE);
+    useProgress(_BANPEI_-1);
     //初期カメラZ位置
     dZ_camera_init_ = -1 * P_CAM->_cameraZ_org * LEN_UNIT * PX_UNIT;
 }

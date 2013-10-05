@@ -25,6 +25,7 @@ public:
         PROG_INIT ,
         PROG_ENTRY,
         PROG_MOVE ,
+        _BANPEI_,
     };
 
     enum {

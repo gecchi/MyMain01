@@ -4,11 +4,7 @@
 
 namespace VioletVreath {
 
-enum {
-    LOCKON001_PROG_FIRST_LOCK ,
-    LOCKON001_PROG_LOCK       ,
-    LOCKON001_PROG_RELEASE    ,
-};
+
 
 /**
  * ÉçÉbÉNÉIÉì
@@ -19,6 +15,13 @@ enum {
 class EffectLockon001 : public GgafLib::DefaultSpriteSetActor {
 
 public:
+    enum {
+        LOCKON001_PROG_FIRST_LOCK ,
+        LOCKON001_PROG_LOCK       ,
+        LOCKON001_PROG_RELEASE    ,
+        _BANPEI_,
+    };
+
     GgafDxCore::GgafDxGeometricActor* pTarget_;
 
 public:

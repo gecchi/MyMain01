@@ -17,6 +17,7 @@ public:
         PROG_INIT   ,
         PROG_EXEC   ,
         PROG_FINISH ,
+        _BANPEI_,
     };
 
 

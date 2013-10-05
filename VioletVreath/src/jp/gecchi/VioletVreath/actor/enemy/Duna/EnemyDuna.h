@@ -39,6 +39,7 @@ public:
         PROG_MOVE_REV_SMALL_SEMIARC_CW,
         PROG_MOVE_REV_SMALL_SEMIARC_CCW,
         PROG_CLOSE ,
+        _BANPEI_,
     };
 
     GgafDxCore::GgafDxGeoElem next_pos_;

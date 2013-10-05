@@ -367,6 +367,9 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001a.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001b.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartia.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartiaLaserChip01.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartiaShot01.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EffectRatislaviaEye001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EnemyRatislavia.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EnemyRatislaviaEye.cpp" />
@@ -704,6 +707,9 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001a.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001b.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartia.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartiaLaserChip01.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartiaShot01.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EffectRatislaviaEye001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EnemyRatislavia.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EnemyRatislaviaEye.h" />

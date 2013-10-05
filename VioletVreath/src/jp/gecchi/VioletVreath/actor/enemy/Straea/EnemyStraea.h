@@ -29,6 +29,7 @@ public:
         PROG_MOVE ,
         PROG_TURN ,
         PROG_FIRE ,
+        _BANPEI_,
     };
 
     enum {

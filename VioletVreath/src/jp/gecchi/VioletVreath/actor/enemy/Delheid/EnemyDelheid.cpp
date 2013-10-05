@@ -25,8 +25,8 @@ EnemyDelheid::EnemyDelheid(const char* prm_name) :
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_UNDAMAGED, "WAVE_ENEMY_UNDAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    useProgress(PROG_AFTER_LEAD_MOVING);
-    pProg2_ = createProgress(PROG2_CLOSE);
+    useProgress(_BANPEI_-1);
+    pProg2_ = createProgress(_BANPEI2_-1);
     shot_begin_frame_ = 0;
     pKurokoLeader_ = nullptr;
     pDepoShot_ = nullptr;

@@ -30,7 +30,7 @@ EnemyHisbe002::EnemyHisbe002(const char* prm_name) :
         std::stringstream name;
         name <<  "EnemyHisbeLaserChip003[" << i << "]";
         pChip = NEW EnemyHisbeLaserChip003(name.str().c_str());
-        pLaserChipDepo_->addSubLast(pChip);
+        pLaserChipDepo_->put(pChip);
     }
     pLaserChipDepo_->config(240, 1, nullptr); //Hisbeは弾切れフレームを1にしないとパクパクしちゃいます。
     addSubGroup(pLaserChipDepo_);
@@ -39,7 +39,7 @@ EnemyHisbe002::EnemyHisbe002(const char* prm_name) :
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     _pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
-    useProgress(PROG_CLOSE);
+    useProgress(_BANPEI_-1);
 }
 
 void EnemyHisbe002::onCreateModel() {

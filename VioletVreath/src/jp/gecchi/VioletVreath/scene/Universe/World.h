@@ -28,6 +28,7 @@ public:
         PROG_CALM3 ,
         PROG_CALM4 ,
         PROG_MAINLOOP ,
+        _BANPEI_,
     };
 
     bool is_create_GameScene_;

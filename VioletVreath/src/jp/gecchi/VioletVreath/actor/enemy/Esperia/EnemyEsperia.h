@@ -25,6 +25,7 @@ public:
         PROG_FIRE,
         PROG_HATCH_CLOSE,
         PROG_NOTHING,
+        _BANPEI_,
     };
 
     enum {

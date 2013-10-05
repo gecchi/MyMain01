@@ -21,6 +21,7 @@ public:
         PROG_MOVE01_3,
         PROG_MOVE01_4,
         PROG_FINISH  ,
+        _BANPEI_,
     };
 
     enum {

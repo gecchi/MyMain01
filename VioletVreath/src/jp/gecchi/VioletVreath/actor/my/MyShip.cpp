@@ -105,7 +105,7 @@ MyShip::MyShip(const char* prm_name) :
     for (int i = 0; i < 25; i++) { //自弾ストック
         pShot = NEW MyShot001("MY_MyShot001");
         pShot->inactivateImmed();
-        pDepo_MyShots001_->addSubLast(pShot);
+        pDepo_MyShots001_->put(pShot);
     }
     addSubGroup(pDepo_MyShots001_);
 
@@ -115,7 +115,7 @@ MyShip::MyShip(const char* prm_name) :
         std::string name = "MyStraightLaserChip001("+XTOS(i)+")";
         pChip = NEW MyStraightLaserChip001(name.c_str());
         pChip->setPositionSource(this); //位置だけ同期
-        pLaserChipDepo_->addSubLast(pChip);
+        pLaserChipDepo_->put(pChip);
     }
     addSubGroup(pLaserChipDepo_);
 
@@ -728,6 +728,8 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
     //ここにヒットエフェクト
     int vreath = _pStatus->get(STAT_Stamina);
     if (UTIL::calcMyStamina(this, pOther) <= 0) {
+        //自機爆発開催
+        setHitAble(false);
         _pSeTx->play3D(SE_EXPLOSION);
         throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
     }

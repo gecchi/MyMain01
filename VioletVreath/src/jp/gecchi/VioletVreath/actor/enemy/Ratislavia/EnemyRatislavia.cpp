@@ -22,7 +22,7 @@ EnemyRatislavia::EnemyRatislavia(const char* prm_name, const char* prm_model, co
     r1_ = prm_r1;
     r2_ = prm_r2;
     colli_part_num_ = 16; //“–‚½‚è”»’è‹…‚Ì”
-    useProgress(PROG_NOTHING);
+    useProgress(_BANPEI_-1);
 }
 
 void EnemyRatislavia::addSubGroupAsFkOnSurface(GgafDxGeometricActor* prm_pGeoActor, angle prm_angPos1, angle prm_angPos2) {

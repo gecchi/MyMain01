@@ -61,13 +61,14 @@ typedef frame magic_time;
 class Magic : public GgafCore::GgafMainActor {
 public:
     enum {
-        STATE_NOTHING = 1,
-        STATE_RE_CASTING,
-        STATE_CASTING    ,
-        STATE_INVOKING   ,
+        STATE_NOTHING     ,
+        STATE_RE_CASTING  ,
+        STATE_CASTING     ,
+        STATE_INVOKING    ,
         STATE_RE_EFFECTING,
-        STATE_EFFECTING  ,
-        STATE_ABANDONING ,
+        STATE_EFFECTING   ,
+        STATE_ABANDONING  ,
+        _BANPEI_,
     };
 
     /**

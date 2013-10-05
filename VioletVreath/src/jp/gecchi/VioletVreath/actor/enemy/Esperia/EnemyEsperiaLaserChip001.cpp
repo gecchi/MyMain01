@@ -29,7 +29,7 @@ void EnemyEsperiaLaserChip001::initialize() {
     setHitAble(true, false);
     setScaleR(5.0);
     _pKurokoA->relateMvFaceAng(true);
-    useProgress(PROG_NOTHING);
+    useProgress(_BANPEI_-1);
 }
 
 void EnemyEsperiaLaserChip001::onActive() {

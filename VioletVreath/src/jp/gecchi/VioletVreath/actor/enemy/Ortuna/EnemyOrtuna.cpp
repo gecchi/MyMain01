@@ -21,7 +21,7 @@ EnemyOrtuna::EnemyOrtuna(const char* prm_name) :
     _class_name = "EnemyOrtuna";
     _SX=_SY=_SZ=100;
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    useProgress(PROG_MOVE03);
+    useProgress(_BANPEI_-1);
 }
 
 void EnemyOrtuna::onCreateModel() {

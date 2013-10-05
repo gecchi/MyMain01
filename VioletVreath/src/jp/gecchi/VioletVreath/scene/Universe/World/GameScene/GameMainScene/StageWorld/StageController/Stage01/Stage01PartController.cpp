@@ -69,7 +69,7 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
 	orderActorToFactory(10001022, EnemyDuna, "EnemyDuna-40");
 	orderActorToFactory(10001023, EnemyDuna, "EnemyDuna-41");
     // gen01 end
-    useProgress(Stage01PartController::PROG_FAINAL);
+    useProgress(Stage01PartController::_BANPEI_-1);
 }
 
 void Stage01PartController::initialize() {

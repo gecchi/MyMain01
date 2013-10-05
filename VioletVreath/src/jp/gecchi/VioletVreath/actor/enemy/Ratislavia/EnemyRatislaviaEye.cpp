@@ -36,7 +36,7 @@ EnemyRatislaviaEye::EnemyRatislaviaEye(const char* prm_name, EnemyRatislavia* pr
         std::string name = "LaserChip("+ XTOS(i) + ")";
         pChip = NEW EnemyRatislaviaEyeStraightLaserChip001(name.c_str());
         pChip->setSource(this); //ˆÊ’uŒü‚«“¯Šú
-        pLaserChipDepo_->addSubLast(pChip);
+        pLaserChipDepo_->put(pChip);
     }
     addSubGroup(pLaserChipDepo_);
 
@@ -47,7 +47,7 @@ EnemyRatislaviaEye::EnemyRatislaviaEye(const char* prm_name, EnemyRatislavia* pr
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
     _pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
-    useProgress(PROG_CLOSE);
+    useProgress(_BANPEI_-1);
 
     is_wake_ = false;
 }

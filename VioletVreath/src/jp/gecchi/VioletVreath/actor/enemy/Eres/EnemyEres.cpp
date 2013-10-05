@@ -34,9 +34,7 @@ EnemyEres::EnemyEres(const char* prm_name, GgafActorDepository* prm_pDepo_EnemyE
         pDepo_EnemyEresShots001_ = NEW GgafActorDepository("RotEnemyMeshS001");
         EnemyEresShot001* pEresShot001;
         for (int i = 0; i < 32; i++) {
-            pEresShot001 = NEW EnemyEresShot001("EnemyMeshShot");
-            pEresShot001->inactivateTreeImmed(); //Å‰”ñ•\Ž¦
-            pDepo_EnemyEresShots001_->addSubLast(pEresShot001);
+            pDepo_EnemyEresShots001_->put(NEW EnemyEresShot001("EnemyMeshShot"));
         }
         addSubGroup(pDepo_EnemyEresShots001_);
         createGgafActorDepository_ = true;

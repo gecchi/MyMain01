@@ -28,7 +28,7 @@ EnemyDuna::EnemyDuna(const char* prm_name) :
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     effectBlendOne(); //â¡éZçáê¨
     setScaleR(0.3);
-    useProgress(PROG_CLOSE);
+    useProgress(_BANPEI_-1);
 }
 
 void EnemyDuna::onCreateModel() {

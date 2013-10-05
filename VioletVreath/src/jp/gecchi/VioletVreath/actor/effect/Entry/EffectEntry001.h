@@ -22,6 +22,7 @@ public:
         PROG_IN   ,
         PROG_STAY ,
         PROG_OUT  ,
+        _BANPEI_,
     };
 
     EffectEntry001(const char* prm_name);

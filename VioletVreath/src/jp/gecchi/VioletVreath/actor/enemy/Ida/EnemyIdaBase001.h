@@ -16,6 +16,7 @@ public:
     enum {
         PROG_INIT ,
         PROG_MOVE ,
+        _BANPEI_,
     };
     GgafLib::SplineManufactureConnection* pSplManufConnection_;
     GgafLib::SplineKurokoLeader* pKurokoLeader_;

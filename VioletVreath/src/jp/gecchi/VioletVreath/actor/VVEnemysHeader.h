@@ -114,7 +114,7 @@
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Duna/EnemyDuna.h"
 
-#include "jp/gecchi/VioletVreath/actor/enemy/EnemyOzartia/EnemyOzartia.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Ozartia/EnemyOzartia.h"
 
 //"VioletVreathHeader.h"‚Ö‚Ì’Ç‹L‚à–Y‚ê‚¸‚É
 

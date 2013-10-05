@@ -21,6 +21,7 @@ public:
         PROG_MOVE02 ,
         PROG_MOVE03 ,
         PROG_LEAVE ,
+        _BANPEI_,
     };
     //GgafDxCore::GgafDxGeoElem turning_pos_;
 

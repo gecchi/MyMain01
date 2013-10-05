@@ -35,9 +35,7 @@ MyTorpedoController::MyTorpedoController(const char* prm_name,
     pDepo_TorpedoBlast_ = NEW GgafActorDepository("DP_TorpedoBlast");
     for (int i = 0; i < max_torpedo_num_*2; i++) {
         std::string name = std::string(prm_pOrg->getName())+"'s TorpedoBlast("+XTOS(i)+")";
-        MyTorpedoBlast* pTorpedoBlast = NEW MyTorpedoBlast(name.c_str());
-        pTorpedoBlast->inactivateImmed();
-        pDepo_TorpedoBlast_->addSubLast(pTorpedoBlast);
+        pDepo_TorpedoBlast_->put(NEW MyTorpedoBlast(name.c_str()));
     }
     addSubGroup(pDepo_TorpedoBlast_);
 }

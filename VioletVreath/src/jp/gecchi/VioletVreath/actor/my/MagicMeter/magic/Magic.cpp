@@ -108,7 +108,7 @@ r_time_of_invoking_lv_diff_base_(prm_r_time_of_invoking_lv_diff_base) {
     //レベルダウン時は利用率があるので、難しい
     time_of_next_state_ = 0;
     is_working_ = false;
-    useProgress(STATE_ABANDONING);
+    useProgress(_BANPEI_-1);
     temp_hold_status_ = -1;
     temp_hold_new_level_ = 0;
 }

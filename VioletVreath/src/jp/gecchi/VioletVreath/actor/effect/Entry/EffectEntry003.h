@@ -17,6 +17,7 @@ class EffectEntry003 : public EffectEntry {
         PROG_IN   ,
         PROG_STAY ,
         PROG_OUT  ,
+        _BANPEI_,
     };
 
 public:

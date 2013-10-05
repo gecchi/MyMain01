@@ -20,6 +20,7 @@ public:
         PROG_HATCH_OPEN ,
         PROG_FIRE       ,
         PROG_NOTHING    ,
+        _BANPEI_,
     };
 
     enum {

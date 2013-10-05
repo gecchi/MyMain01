@@ -85,7 +85,7 @@ EnemyHisbe::EnemyHisbe(const char* prm_name) :
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     _pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
-    useProgress(PROG_CLOSE);
+    useProgress(_BANPEI_-1);
 }
 
 void EnemyHisbe::onCreateModel() {

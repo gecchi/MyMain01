@@ -13,6 +13,7 @@ public:
         PROG_TURN2,
         PROG_INTO_MYSHIP,
         PROG_NOTHING,
+        _BANPEI_,
     };
     enum {
         SE_FIRE,

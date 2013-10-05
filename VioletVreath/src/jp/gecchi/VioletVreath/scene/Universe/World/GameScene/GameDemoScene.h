@@ -19,6 +19,7 @@ public:
         PROG_DEMOPLAY,
         PROG_RANKING ,
         PROG_FINISH  ,
+        _BANPEI_,
     };
     struct ScoreInfo {
         int rank;

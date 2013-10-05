@@ -33,6 +33,7 @@ public:
         PROG_OPEN,
         PROG_FIRE,
         PROG_CLOSE,
+        _BANPEI_,
     };
     enum {
         SE_DAMAGED  ,

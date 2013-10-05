@@ -23,6 +23,7 @@ public:
         PROG_IN_FIRE   ,
         PROG_FIRE_END  ,
         PROG_CLOSE     ,
+        _BANPEI_,
     };
 
     enum {

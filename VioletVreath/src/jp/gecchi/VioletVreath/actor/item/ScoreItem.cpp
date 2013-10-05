@@ -27,7 +27,7 @@ ScoreItem::ScoreItem(const char* prm_name, const char* prm_model, GgafCore::Ggaf
     _pKurokoA->setFaceAngVelo(AXIS_Z, D_ANG(7));
     _pKurokoA->relateMvFaceAng(true);
     kDX_ = kDY_ = kDZ_ = 0;
-    useProgress(PROG_ABSORB);
+    useProgress(_BANPEI_-1);
     setHitAble(true, false); //‰æ–ÊŠO“–‚½‚è”»’è‚Í–³Œø
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 400000);

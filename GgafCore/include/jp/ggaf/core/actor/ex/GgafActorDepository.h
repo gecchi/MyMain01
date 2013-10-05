@@ -19,6 +19,11 @@ namespace GgafCore {
  * @author Masatoshi Tsuge
  */
 class GgafActorDepository : public GgafDummyActor {
+private:
+    //使用不可
+    void addSubLast(GgafActor* prm_pSub) override {
+    }
+
 public:
     /**
      * コンストラクタ .
@@ -36,7 +41,7 @@ public:
      * また、引数のアクターには inactivateImmed() が実行され、メンバーは非活動状態に強制されます。<BR>
      * @param prm_pSub 貸出メンバーアクター
      */
-    virtual void addSubLast(GgafActor* prm_pSub) override;
+    virtual void put(GgafActor* prm_pSub);
 
     /**
      * activate系は子アクターへは影響させないようにする .
@@ -46,9 +51,6 @@ public:
         activate();
     }
 
-//    virtual void inactivateTree() override {
-//        inactivate();
-//    }
     /**
      * activate系は子アクターへは影響させないする .
      * 子アクター（貸し出しメンバー）は、dispatch() でのみ活動状態にさせるため。
@@ -56,10 +58,6 @@ public:
     virtual void activateTreeDelay(frame prm_offset_frames) override {
         activateDelay(prm_offset_frames);
     }
-
-//    virtual void inactivateTreeDelay(frame prm_offset_frames) override {
-//        inactivateDelay(prm_offset_frames);
-//    }
 
     /**
      * メンバー借り入れを試み、借り入れできれば取得し活動状態にする。 .
@@ -77,7 +75,6 @@ public:
      *     //・・・
      *
      * }
-     *
      * </code></pre>
      *
      * @param prm_offset_frames 活動状態にする遅延フレーム

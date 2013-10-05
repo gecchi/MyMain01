@@ -33,6 +33,7 @@ public:
         PROG_PLAY    ,
         PROG_DESTROY ,
         PROG_END     ,
+        _BANPEI_,
     };
 
     /** Ž©‹@ */

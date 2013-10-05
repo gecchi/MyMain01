@@ -15,7 +15,7 @@ bool Stage::pause_ = false;
 Stage::Stage(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "Stage";
     pScene_StagePartCtrler_ = nullptr;
-    useProgress(Stage::PROG_END);
+    useProgress(Stage::_BANPEI_-1);
 }
 
 void Stage::initialize() {

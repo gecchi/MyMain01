@@ -28,7 +28,6 @@ void GgafSceneDirector::remove() {
 
 GgafGroupHead* GgafSceneDirector::addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor) {
     if (prm_pMainActor->_pSceneDirector) {
-        //_TRACE_("【警告】GgafSceneDirector::addSubGroup("<<getName()<<") すでに"<<prm_pMainActor->_pSceneDirector->_pScene_platform->getName()<<"シーンの監督に所属しています。が、"<<_pScene_platform->getName()<<"シーンの監督に乗り換えます");
         prm_pMainActor->extract();
     }
     GgafGroupHead* pSubGroupActor = searchSubGroupHead(prm_kind);
@@ -39,9 +38,9 @@ GgafGroupHead* GgafSceneDirector::addSubGroup(actorkind prm_kind, GgafMainActor*
        //OK
     }
     pSubGroupActor->addSubLast(prm_pMainActor);
-    prm_pMainActor->setGroupHead(pSubGroupActor);
-    prm_pMainActor->setSceneDirector(this);
-    prm_pMainActor->setPlatformScene(_pScene_platform);
+    prm_pMainActor->setGroupHead(pSubGroupActor);       // TODO:この３行を
+    prm_pMainActor->setSceneDirector(this);             // TODO:なんとか１回で
+    prm_pMainActor->setPlatformScene(_pScene_platform); // TODO:できないものか。
     return pSubGroupActor;
 }
 

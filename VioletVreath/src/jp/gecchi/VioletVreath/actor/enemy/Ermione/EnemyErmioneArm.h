@@ -17,6 +17,7 @@ public:
         PROG_WAITING,
         PROG_NOTHING,
         PROG_AIMING ,
+        _BANPEI_,
     };
 
     enum {

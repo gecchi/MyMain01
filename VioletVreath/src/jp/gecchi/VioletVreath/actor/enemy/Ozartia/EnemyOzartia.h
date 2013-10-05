@@ -26,6 +26,7 @@ public:
         PROG1_MOVE03 ,
         PROG1_MOVE04 ,
         PROG1_LEAVE ,
+        _BANPEI1_,
     };
 
     enum {
@@ -34,6 +35,7 @@ public:
         PROG2_SHOT02 ,
         PROG2_SHOT03 ,
         PROG2_SHOT04 ,
+        _BANPEI2_,
     };
 
     enum {
@@ -61,6 +63,7 @@ public:
     bool is_hit_;
 
     GgafCore::GgafActorDepository* pDepo_Shot01_;
+    GgafLib::LaserChipDepository*  pDepo_Shot02_;
 public:
     /**
      * コンストラクタ

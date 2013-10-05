@@ -11,8 +11,7 @@ GgafActorDepository::GgafActorDepository(const char* prm_name, GgafStatus* prm_p
     setHitAble(false);
 }
 
-void GgafActorDepository::addSubLast(GgafActor* prm_pSub) {
-
+void GgafActorDepository::put(GgafActor* prm_pSub) {
     if (_pSubFirst == nullptr) {
         //í•Ê‚ğˆø‚«Œp‚®
         _pStatus->set(STAT_DEFAULT_ACTOR_KIND, prm_pSub->_pStatus->getUint(STAT_DEFAULT_ACTOR_KIND));
@@ -28,7 +27,6 @@ void GgafActorDepository::addSubLast(GgafActor* prm_pSub) {
     prm_pSub->_pDependenceDepository = this;
     prm_pSub->inactivateImmed(); //‹­§”ñŠˆ“®‚É
     GgafDummyActor::addSubLast(prm_pSub);
-//    _listDispatched.addNext(nullptr);
 }
 
 void GgafActorDepository::onReset() {

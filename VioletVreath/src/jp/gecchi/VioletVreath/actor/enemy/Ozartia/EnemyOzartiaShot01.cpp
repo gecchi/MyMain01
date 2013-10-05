@@ -3,6 +3,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 
 
 using namespace GgafCore;

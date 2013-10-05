@@ -114,12 +114,12 @@ void LaserChipDepository::processFinal() {
     }
 }
 
-void LaserChipDepository::addSubLast(LaserChip* prm_pLaserChip) {
+void LaserChipDepository::put(LaserChip* prm_pLaserChip) {
     _num_chip_max ++;
     _num_continual_dispatch_max++;
     _num_chip_dispatch_able = _num_chip_max/4; //’eØ‚ê‚ÌŽž _num_chip_max/4 —­‚Ü‚Á‚Ä‚©‚ç”­ŽË
     prm_pLaserChip->_pDepo = this;
-    GgafActorDepository::addSubLast(prm_pLaserChip);
+    GgafActorDepository::put(prm_pLaserChip);
 }
 
 void LaserChipDepository::onReset() {

@@ -54,9 +54,9 @@ FormationGeria::FormationGeria(
         pEnemyGeria->_pKurokoA->setMvVelo(prm_veloMv_Geria);
         pEnemyGeria->_pKurokoA->setRzRyMvAng(prm_angRzMv_GeriaMv, prm_angRyMv_GeriaMv);
         pEnemyGeria->_pKurokoB->setVxyzMvVelo(vX_AppBox*prm_veloMv_App,
-                                             vY_AppBox*prm_veloMv_App,
-                                             vZ_AppBox*prm_veloMv_App );
-        pDepo_EnemyGeria_->addSubLast(pEnemyGeria);
+                                              vY_AppBox*prm_veloMv_App,
+                                              vZ_AppBox*prm_veloMv_App );
+        pDepo_EnemyGeria_->put(pEnemyGeria);
     }
     addSubGroup(pDepo_EnemyGeria_);
 }

@@ -32,7 +32,7 @@ pMyShip_Scene_(nullptr),
 pStageWorld_(nullptr) {
 
     _class_name = "GameScene";
-    useProgress(GameScene::PROG_FINISH);
+    useProgress(GameScene::_BANPEI_-1);
     pCommonScene_ = NEW CommonScene("Common");
     pCommonScene_->inactivateImmed();
     addSubLast(pCommonScene_);
