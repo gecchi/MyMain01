@@ -165,9 +165,3 @@ EnemyOzartia::~EnemyOzartia() {
 }
 
 
-
-
-
-
-
-
