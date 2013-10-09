@@ -25,7 +25,7 @@ ScoreItem::ScoreItem(const char* prm_name, const char* prm_model, GgafCore::Ggaf
     _pKurokoA->setFaceAngVelo(AXIS_X, D_ANG(3));
     _pKurokoA->setFaceAngVelo(AXIS_Y, D_ANG(5));
     _pKurokoA->setFaceAngVelo(AXIS_Z, D_ANG(7));
-    _pKurokoA->relateMvFaceAng(true);
+    _pKurokoA->relateFaceWithMvAng(true);
     kDX_ = kDY_ = kDZ_ = 0;
     useProgress(_BANPEI_-1);
     setHitAble(true, false); //‰æ–ÊŠO“–‚½‚è”»’è‚Í–³Œø

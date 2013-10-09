@@ -36,7 +36,7 @@ void EnemyHisbeLaserChip001::onActive() {
     _pStatus->reset();
     _pKurokoA->setMvVelo(30000);
     _pKurokoA->forceRzRyMvAngVeloRange(-D_ANG(45), D_ANG(45));
-    _pKurokoA->relateMvFaceAng(true);
+    _pKurokoA->relateFaceWithMvAng(true);
     //ˆÊ’u‚ÆŒü‚«‚ÍEnemyHisbe‚ªÝ’è
     pKurokoLeader_->stop();
 }

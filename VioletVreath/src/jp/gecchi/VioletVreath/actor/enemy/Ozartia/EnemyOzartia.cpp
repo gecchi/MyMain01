@@ -53,7 +53,7 @@ void EnemyOzartia::onCreateModel() {
 void EnemyOzartia::initialize() {
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
-    _pKurokoA->relateMvFaceAng(true);
+    _pKurokoA->relateFaceWithMvAng(true);
     _pKurokoA->setFaceAngVelo(AXIS_X, 2000);
     _pKurokoA->forceMvVeloRange(PX_C(15));
     setHitAble(false);
@@ -93,10 +93,10 @@ void EnemyOzartia::processBehavior() {
             }
             if (is_hit_ || _pProg->getFrameInProgress() == 10*60) {
                 //ヒットするか、しばらくボーっとしてると移動開始
-                _pProg->changeProbability(25, PROG1_MOVE01,
-                                          25, PROG1_MOVE02,
-                                          25, PROG1_MOVE03,
-                                          25, PROG1_MOVE04 );
+                _pProg->changeProbab(25, PROG1_MOVE01,
+                                     25, PROG1_MOVE02,
+                                     25, PROG1_MOVE03,
+                                     25, PROG1_MOVE04 );
             }
             break;
         }
@@ -121,6 +121,8 @@ void EnemyOzartia::processBehavior() {
             break;
     }
     //<-- 本体移動系の処理 ここまで
+
+    //////////////////////////////////////////////////////////////////////
 
     //ショット発射系処理 ここから --->
     switch (pProg2_->get()) {

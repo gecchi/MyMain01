@@ -35,7 +35,7 @@ void EnemyAllas::onCreateModel() {
 void EnemyAllas::initialize() {
     setHitAble(true);
     _pKurokoA->setFaceAngVelo(AXIS_Z, -7000);
-    _pKurokoA->relateMvFaceAng(true);
+    _pKurokoA->relateFaceWithMvAng(true);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
 }

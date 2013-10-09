@@ -48,7 +48,7 @@ void EnemyOrtuna::processBehavior() {
              position(entry_pos_._X, entry_pos_._Y, entry_pos_._Z);
              _pAFader->setAlpha(0);
              _pKurokoA->setMvVelo(0);
-             _pKurokoA->relateMvFaceAng(true);
+             _pKurokoA->relateFaceWithMvAng(true);
              _pKurokoA->setMvAngTwd(&hanging_pos_);
              velo mv_velo = RF_EnemyOrtuna_MvVelo(G_RANK);
              _pKurokoA->setFaceAngVelo(AXIS_X, mv_velo); //ÇÆÇÈÇÆÇÈÅ`

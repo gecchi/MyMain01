@@ -617,11 +617,9 @@ public:
 
     void reverseMvAng();
 
-
     void setStopTargetMvAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ);
 
     void setStopTargetMvAngTwd(GgafDxGeometricActor* prm_pActor_Target);
-
 
     /**
      * 軸回転方角(Z軸とY軸)を目標にターゲットするシークエンスを実行 .
@@ -684,8 +682,8 @@ public:
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
     inline void turnFaceAngTwd(GgafDxGeometricActor* prm_pActor_Target,
-                        angvelo prm_angVelo, angacce prm_angAcce,
-                        int prm_way, bool prm_optimize_ang) {
+                               angvelo prm_angVelo, angacce prm_angAcce,
+                               int prm_way, bool prm_optimize_ang) {
         turnFaceAngTwd(
                 prm_pActor_Target->_X,
                 prm_pActor_Target->_Y,
@@ -935,7 +933,7 @@ public:
      * false を設定すると、移動方角と向きは独立、デフォルトはこちら。<BR>
      * @param prm_b true:移動方角に伴って軸回転方角を更新/false:移動方角と軸回転方角は独立
      */
-    void relateMvFaceAng(bool prm_b) {
+    void relateFaceWithMvAng(bool prm_b) {
         _relate_RyFaceAng_with_RyMvAng_flg = prm_b;
         _relate_RzFaceAng_with_RzMvAng_flg = prm_b;
     }

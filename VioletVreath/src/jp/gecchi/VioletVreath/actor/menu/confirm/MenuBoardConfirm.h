@@ -24,7 +24,7 @@ public:
     bool condSelectNext() override;
     bool condSelectPrev() override;
     bool condSelectExNext() override;
-    bool condSelectrExPrev() override;
+    bool condSelectExPrev() override;
 
     void onRise() override;
 

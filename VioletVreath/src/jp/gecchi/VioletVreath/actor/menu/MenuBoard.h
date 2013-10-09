@@ -42,7 +42,7 @@ public:
     virtual bool condSelectNext() override;
     virtual bool condSelectPrev() override;
     virtual bool condSelectExNext() override;
-    virtual bool condSelectrExPrev() override;
+    virtual bool condSelectExPrev() override;
     virtual bool condSelectCancel() override;
     virtual void moveCursor(bool prm_smooth = true) override;
     virtual void onMoveCursor(int prm_from, int prm_to) override;

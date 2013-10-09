@@ -176,12 +176,12 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 #endif
 
                     if (VioletVreath::God::g_should_reboot_) {
+                        //再起動
                         Sleep(2000);
                         PROCESS_INFORMATION pi;
                         STARTUPINFO si;
                         ZeroMemory(&si,sizeof(si));
                         si.cb=sizeof(si);
-                        //再起動
                         BOOL r = CreateProcess(
                                     NULL,    //LPCTSTR lpApplicationName,                 // 実行可能モジュールの名前
                                     cmdline, //LPTSTR lpCommandLine,                      // コマンドラインの文字列
@@ -195,7 +195,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                                     &pi  //LPPROCESS_INFORMATION lpProcessInformation // プロセス情報
                         );
                         if (r == 0) {
-                            MessageBox(nullptr, "Cannot Reboot!","orz", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND);
+                            MessageBox(nullptr, "Cannot Reboot! \n すみません、手動で再起動してください。","orz", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND);
                         }
                     }
                     return EXIT_SUCCESS;

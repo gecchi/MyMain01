@@ -104,7 +104,7 @@ public:
      * 進捗番号を確率別で変更 .
      * 【記入例】<br>
      * <code>
-     * _pProg->changeProbability(
+     * _pProg->changeProbab(
      *              60, PROG_MOVE01,
      *               0, PROG_MOVE02,
      *              20, PROG_MOVE03,
@@ -130,7 +130,7 @@ public:
      * @param prm_p1 確率その１
      * @param prm_v1 その確率で変更する進捗番号その１(0～)
      */
-    void changeProbability(uint32_t prm_p1, progress prm_v1, ...);
+    void changeProbab(uint32_t prm_p1, progress prm_v1, ...);
 
     /**
      * 進捗番号を無し PROGRESS_NOTHING(-1) に変更 .

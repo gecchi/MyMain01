@@ -28,7 +28,7 @@ void EnemyEsperiaLaserChip001::initialize() {
     _pColliChecker->setColliAAB_Cube(0, 20000);
     setHitAble(true, false);
     setScaleR(5.0);
-    _pKurokoA->relateMvFaceAng(true);
+    _pKurokoA->relateFaceWithMvAng(true);
     useProgress(_BANPEI_-1);
 }
 

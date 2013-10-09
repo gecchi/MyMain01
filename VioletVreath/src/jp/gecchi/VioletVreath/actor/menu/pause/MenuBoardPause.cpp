@@ -58,11 +58,11 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
     addDisp(pLabel_Title, PX_C(100), PX_C(20));
 
     //特別なメニューカーソルオーダーを構築
-    relateItemExNext(ITEM_BACK_TO_GAME , ITEM_DUMMY1, ITEM_DUMMY5   , ITEM_CONFIG       );
-    relateItemExNext(ITEM_CONFIG       , ITEM_DUMMY2, ITEM_DUMMY6   , ITEM_BACK_TO_TITLE);
-    relateItemExNext(ITEM_BACK_TO_TITLE, ITEM_DUMMY3, ITEM_DUMMY7   , ITEM_REBOOT    );
-    relateItemExNext(ITEM_REBOOT       , ITEM_DUMMY4, ITEM_QUIT_GAME, ITEM_BACK_TO_GAME );
-    relateAllItemCancel(ITEM_BACK_TO_GAME);
+    relateItemToExNext(ITEM_BACK_TO_GAME , ITEM_DUMMY1, ITEM_DUMMY5   , ITEM_CONFIG       );
+    relateItemToExNext(ITEM_CONFIG       , ITEM_DUMMY2, ITEM_DUMMY6   , ITEM_BACK_TO_TITLE);
+    relateItemToExNext(ITEM_BACK_TO_TITLE, ITEM_DUMMY3, ITEM_DUMMY7   , ITEM_REBOOT    );
+    relateItemToExNext(ITEM_REBOOT       , ITEM_DUMMY4, ITEM_QUIT_GAME, ITEM_BACK_TO_GAME );
+    relateAllItemToCancel(ITEM_BACK_TO_GAME);
 
     //メニューカーソルを設定
     CursorPauseMenu* pCursor = NEW CursorPauseMenu("CursorPauseMenu");
@@ -85,7 +85,7 @@ bool MenuBoardPause::condSelectPrev() {
 bool MenuBoardPause::condSelectExNext() {
     return VB->isAutoRepeat(VB_UI_RIGHT) ? true : false;
 }
-bool MenuBoardPause::condSelectrExPrev() {
+bool MenuBoardPause::condSelectExPrev() {
     return VB->isAutoRepeat(VB_UI_LEFT) ? true : false;
 }
 

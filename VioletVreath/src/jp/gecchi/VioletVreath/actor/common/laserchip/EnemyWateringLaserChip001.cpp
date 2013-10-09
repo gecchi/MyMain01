@@ -16,7 +16,7 @@
 //}
 //
 //void EnemyWateringLaserChip001::initialize() {
-//    _pKurokoA->relateMvFaceAng(true);
+//    _pKurokoA->relateFaceWithMvAng(true);
 //    registerHitAreaCube_AutoGenMidColli(80000);
 //    setHitAble(true);
 //    _SX = _SY = _SZ = R_SC(6);

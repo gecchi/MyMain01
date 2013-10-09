@@ -34,7 +34,7 @@ void EnemyThagoras::onCreateModel() {
 void EnemyThagoras::initialize() {
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
-    _pKurokoA->relateMvFaceAng(true);
+    _pKurokoA->relateFaceWithMvAng(true);
     _pKurokoA->setFaceAngVelo(AXIS_X, 2000);
     _pKurokoA->forceMvVeloRange(PX_C(15));
 }

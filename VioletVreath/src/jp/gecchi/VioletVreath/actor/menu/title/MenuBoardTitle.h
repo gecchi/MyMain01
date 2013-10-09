@@ -16,7 +16,7 @@ public:
     enum {
         ITEM_GAME_START = 0 ,
         ITEM_CONFIG,
-        ITEM_DEBUG,
+        ITEM_REBOOT,
         ITEM_QUIT,
     };
 
@@ -26,7 +26,7 @@ public:
     bool condSelectNext() override;
     bool condSelectPrev() override;
     bool condSelectExNext() override;
-    bool condSelectrExPrev() override;
+    bool condSelectExPrev() override;
     void onSelect(int prm_from, int prm_to) override;
     void onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) override;
     void onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) override;

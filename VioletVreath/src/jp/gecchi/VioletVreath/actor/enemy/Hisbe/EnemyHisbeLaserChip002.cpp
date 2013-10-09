@@ -39,7 +39,7 @@ void EnemyHisbeLaserChip002::onActive() {
     RefractionLaserChip::onActive();
     //ステータスリセット
     _pStatus->reset();
-    _pKurokoA->relateMvFaceAng(true);
+    _pKurokoA->relateFaceWithMvAng(true);
 }
 
 void EnemyHisbeLaserChip002::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {

@@ -48,7 +48,7 @@ void EnemyGlajaLance001::onActive() {
                           RND(D_ANG(0), D_ANG(360)),
                           RND(D_ANG(0), D_ANG(360)) );
     _pKurokoA->setFaceAngVelo(D_ANG(33), D_ANG(15), D_ANG(20));
-    _pKurokoA->relateMvFaceAng(true);
+    _pKurokoA->relateFaceWithMvAng(true);
     _pColliChecker->disable(1);
     _pColliChecker->disable(2);
     _pScaler->reset();

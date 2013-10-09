@@ -22,7 +22,7 @@ void EnemyEmusLaserChip001::initialize() {
     setScaleR(5.0);
     setAlpha(0.9);
     _pKurokoA->setMvVelo(300000);
-    _pKurokoA->relateMvFaceAng(true);
+    _pKurokoA->relateFaceWithMvAng(true);
 }
 
 void EnemyEmusLaserChip001::onActive() {

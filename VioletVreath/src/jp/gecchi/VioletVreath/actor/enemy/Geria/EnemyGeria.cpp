@@ -84,7 +84,7 @@ void EnemyGeria::processBehavior() {
 //                if (pShot) {
 //                    shot_num_++;
 //                    pShot->positionAs(this);
-//                    pShot->_pKurokoA->relateMvFaceAng(true);
+//                    pShot->_pKurokoA->relateFaceWithMvAng(true);
 //                    pShot->_pKurokoA->setMvAngTwd(P_MYSHIP);
 //                    pShot->reset();
 //                    do_Shot_ = false;

@@ -47,7 +47,7 @@ void EnemyStraeaLaserChip004::onActive() {
 
     _pKurokoA->setMvVelo(10000);
     _pKurokoA->setMvAcce(400);
-    _pKurokoA->relateMvFaceAng(true);
+    _pKurokoA->relateFaceWithMvAng(true);
     pKurokoLeader_->stop();
     _force_alpha = 1.50; //Å‰‚Í‚¿‚å‚Á‚Æ–¾‚é‚ß
 }

@@ -62,7 +62,7 @@ void MyOptionController::onReset() {
     _pKurokoA->setMvVelo(0);
     _pKurokoA->forceRzRyMvAngVeloRange(-1*angVelo_Turn_, angVelo_Turn_);
     _pKurokoA->setRzRyMvAng(0,0);
-    _pKurokoA->relateMvFaceAng(true);
+    _pKurokoA->relateFaceWithMvAng(true);
     _pKurokoA->behave();
 }
 

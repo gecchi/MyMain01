@@ -25,7 +25,7 @@ void EnemyStraeaLaserChip003::initialize() {
     setScaleR(5.0);
     setAlpha(0.9);
     _pKurokoA->setMvVelo(30000);
-    _pKurokoA->relateMvFaceAng(true);
+    _pKurokoA->relateFaceWithMvAng(true);
 }
 
 void EnemyStraeaLaserChip003::onActive() {

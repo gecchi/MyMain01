@@ -81,7 +81,7 @@ MenuBoardSoundConfig::MenuBoardSoundConfig(const char* prm_name) :
     pCursor->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
     setMainCursor(pCursor);
     //キャンセルアイテム設定
-    relateAllItemCancel(ITEM_INDEX_CANCEL_);
+    relateAllItemToCancel(ITEM_INDEX_CANCEL_);
 
     setTransition(30, PX_C(0), -PX_C(100)); //トランジション（表示非表示時の挙動）
                                             //上から下へ少しスライドさせる

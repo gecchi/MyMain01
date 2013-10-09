@@ -32,7 +32,7 @@ void Shot004Blue::onReset() {
     _pKurokoA->setFaceAngVelo(AXIS_X, D_ANG(3));
     _pKurokoA->setMvVelo(40000);             //ˆÚ“®‘¬“x
     _pKurokoA->setMvAcce(1000);             //ˆÚ“®‘¬“x
-    _pKurokoA->relateMvFaceAng(true);
+    _pKurokoA->relateFaceWithMvAng(true);
 }
 
 void Shot004Blue::onActive() {

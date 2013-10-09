@@ -47,9 +47,6 @@ protected:
         ITEM_RELATION_TO_CANCEL,
     };
 
-
-
-
     /** フェードイン中は true */
     bool _with_rising;
     /** フェードアウト中は true */
@@ -130,23 +127,16 @@ protected:
             _move_frames = 10;
             _move_p1 = 0.2;
             _move_p2 = 0.7;
-//            _X_cursor_target_prev = T::_X;
-//            _Y_cursor_target_prev = T::_Y;
-//            _Z_target_prev = T::_Z;
-
             _X_target_prev = 0;
             _Y_target_prev = 0;
             _Z_target_prev = 0;
-
             _pActor = nullptr;
             _X_adjust = 0;
             _Y_adjust = 0;
             _Z_adjust = 0;
         }
-
-
-
     };
+
 protected:
     /**
      * メインカーソルを選択アイテム(_lstItems のアクティブ要素)へ移動させる .
@@ -253,6 +243,7 @@ public:
      */
     virtual void addItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
                          coord prm_X_local, coord prm_Y_local, coord prm_Z_local);
+
     /**
      * 選択可能メニューアイテム追加し、メニューアイテム間のオーダーも連結追加する .
      * 追加されたアイテムはメニューオブジェクト(this)のサブに登録されるため、
@@ -275,13 +266,12 @@ public:
     }
 
     virtual void positionItem(int prm_index_of_item,
-                            coord prm_X_local, coord prm_Y_local, coord prm_Z_local);
+                              coord prm_X_local, coord prm_Y_local, coord prm_Z_local);
 
     virtual void positionItem(int prm_index_of_item,
-                            coord prm_X_local, coord prm_Y_local) {
+                              coord prm_X_local, coord prm_Y_local) {
         positionItem(prm_index_of_item, prm_X_local, prm_Y_local, 0);
     }
-
 
     /**
      * 選択不可の表示用メニューアイテム(ラベル)を追加する .
@@ -382,7 +372,7 @@ public:
      * @param prm_index_of_toitem 連結元のメニューアイテムのインデックスから
      *                            「次」に対応する連結先のメニューアイテムのインデックス
      */
-    virtual void relateItemExNext(int prm_index_of_fromitem, int prm_index_of_toitem);
+    virtual void relateItemToExNext(int prm_index_of_fromitem, int prm_index_of_toitem);
 
     /**
      * メニューアイテム間のオーダー連結を拡張設定(item1 ⇔ item2  ⇔ item3) .
@@ -390,9 +380,9 @@ public:
      * @param prm_index_of_item2 拡張連結するメニューアイテムのインデックス2
      * @param prm_index_of_item3 拡張連結するメニューアイテムのインデックス3
      */
-    virtual void relateItemExNext(int prm_index_of_item1,
-                                  int prm_index_of_item2,
-                                  int prm_index_of_item3);
+    virtual void relateItemToExNext(int prm_index_of_item1,
+                                    int prm_index_of_item2,
+                                    int prm_index_of_item3 );
     /**
      * メニューアイテム間のオーダー連結を拡張設定(item1 ⇔ item2  ⇔ item3 ⇔ item4) .
      * @param prm_index_of_item1 拡張連結するメニューアイテムのインデックス1
@@ -400,10 +390,10 @@ public:
      * @param prm_index_of_item3 拡張連結するメニューアイテムのインデックス3
      * @param prm_index_of_item4 拡張連結するメニューアイテムのインデックス4
      */
-    virtual void relateItemExNext(int prm_index_of_item1,
-                                  int prm_index_of_item2,
-                                  int prm_index_of_item3,
-                                  int prm_index_of_item4);
+    virtual void relateItemToExNext(int prm_index_of_item1,
+                                    int prm_index_of_item2,
+                                    int prm_index_of_item3,
+                                    int prm_index_of_item4 );
     /**
      * メニューアイテム間のオーダー連結を拡張設定(item1 ⇔ item2  ⇔ item3 ⇔ item4 ⇔ item5).
      * @param prm_index_of_item1 拡張連結するメニューアイテムのインデックス1
@@ -412,14 +402,14 @@ public:
      * @param prm_index_of_item4 拡張連結するメニューアイテムのインデックス4
      * @param prm_index_of_item5 拡張連結するメニューアイテムのインデックス5
      */
-    virtual void relateItemExNext(int prm_index_of_item1,
-                                  int prm_index_of_item2,
-                                  int prm_index_of_item3,
-                                  int prm_index_of_item4,
-                                  int prm_index_of_item5);
+    virtual void relateItemToExNext(int prm_index_of_item1,
+                                    int prm_index_of_item2,
+                                    int prm_index_of_item3,
+                                    int prm_index_of_item4,
+                                    int prm_index_of_item5 );
 
 
-//    virtual void relateItemExNext(int prm_index_of_fromitem, ...);
+//    virtual void relateItemToExNext(int prm_index_of_fromitem, ...);
 
     /**
      * メニューアイテム間のオーダー連結を拡張設定(From ⇔ 自身がTo) .
@@ -432,13 +422,13 @@ public:
      * @param prm_index_of_toitem 連結元のメニューアイテムのインデックスから
      *                            「前」に対応する連結先のメニューアイテムのインデックス
      */
-    virtual void relateItemExPrev(int prm_index_of_fromitem, int prm_index_of_toitem);
+    virtual void relateItemToExPrev(int prm_index_of_fromitem, int prm_index_of_toitem);
 
     /**
      * 既存アイテム全てに対し、「キャンセル（メニューアイテム）」へのオーダー連結を拡張設定する .
      * @param prm_index_of_cancel_item キャンセルアイテムへのアイテムインデックス
      */
-    virtual void relateAllItemCancel(int prm_index_of_cancel_item);
+    virtual void relateAllItemToCancel(int prm_index_of_cancel_item);
 
     /**
      * メニューに設定されているメインカーソルを取得 .
@@ -455,31 +445,37 @@ public:
 
     /**
      * メインカーソルで「次」のアイテム選択＆メインカーソルを移動 .
+     * onSelect() コールバックは必ず発生します。<BR>
      */
     virtual void selectNext();
 
     /**
      * メインカーソルで「前」のアイテム選択＆メインカーソルを移動 .
+     * onSelect() コールバックは必ず発生します。<BR>
      */
     virtual void selectPrev();
 
     /**
      * メインカーソルで「（別の）次」のアイテム選択＆メインカーソルを移動 .
+     * onSelect() コールバックは必ず発生します。<BR>
      */
     virtual void selectExNext();
 
     /**
      * メインカーソルで「（別の）前」のアイテム選択＆メインカーソルを移動 .
+     * onSelect() コールバックは必ず発生します。<BR>
      */
     virtual void selectExPrev();
 
     /**
      * メインカーソルで「キャンセル」アイテム選択＆メインカーソルを移動 .
+     * onSelect() コールバックは必ず発生します。<BR>
      */
     virtual void selectCancel();
 
     /**
      * メインカーソルで指定のインデックスのメニューアイテムを「選択」し、メインカーソルを移動させる .
+     * onSelect() コールバックは必ず発生します。<BR>
      * 内部で moveCursor() がコールバックされ、メインカーソルが移動することになる。<BR>
      * 既に指定のインデックス選択中の場合はメインカーソルは何も移動無し。<BR>
      * ついでに、引数インデックスのアイテムオブジェクトもゲット出来る。<BR>
@@ -490,7 +486,8 @@ public:
 
     /**
      * 補助カーソルで指定のインデックスのメニューアイテムを「選択」し、補助カーソルを移動させる .
-     * 内部で moveCursor() がコールバックされ、メインカーソルが移動することになる。<BR>
+    * onSelect() コールバックは発生しません。<BR>
+     * 内部で moveSupCursor() がコールバックされ、メインカーソルが移動することになる。<BR>
      * 既に指定のインデックス選択中の場合はメインカーソルは何も移動無し。<BR>
      * ついでに、引数インデックスのアイテムオブジェクトもゲット出来る。<BR>
      * @param prm_index ターゲットのアイテムインデックス
@@ -501,10 +498,8 @@ public:
 
     /**
      * メインカーソルで指定のメニューアイテムを「選択」し、メインカーソルを移動させる .
-     * 内部で moveCursor() がコールバックされ、カーソルが移動することになる。<BR>
-     * 既に指定のインデックス選択中の場合はカーソルは何も移動無し。<BR>
-     * ついでに、引数アイテムオブジェクトのインデックスもゲット出来る。<BR>
-     * @param prm_item ターゲットのアイテム
+     * 引数のターゲットアイテムのインデックスを調べて、selectItem(index); を実行します。
+     * @param prm_item ターゲットアイテム
      * @return ターゲットのアイテムインデックス
      */
     virtual int selectItem(GgafDxCore::GgafDxDrawableActor* prm_item);
@@ -656,7 +651,7 @@ public:
      * 下位クラスでオーバーライドして、条件を実装してください。
      * @return true:「もう一つの別の前のメニューアイテム」へ移動の条件成立 / false:不成立
      */
-    virtual bool condSelectrExPrev() = 0;
+    virtual bool condSelectExPrev() = 0;
 
     /**
      * メインカーソルが「キャンセルのメニューアイテム」へ飛ぶ条件を実装する .
@@ -694,8 +689,8 @@ public:
      * 動作をオーバーライドして実装してください。<BR>
      * 【捕捉】<BR>
      * onMoveCursor(int,int) と onSelect(int,int) のコールバックタイミングの差について。<BR>
-     * onSelect(int,int) は、selectXxxxx 系 のメソッドを実行時に、もれなく呼び出されます。<BR>
      * onMoveCursor(int,int) は、selectXxxxx 系のメソッド実行の際、カーソルが移動した場合のみ呼び出されます。<BR>
+     * onSelect(int,int) は、selectXxxxx 系 のメソッドを実行時に、もれなく呼び出されます(たとえ、カーソルが移動しなくても)<BR>
      * 呼び出される順序は、onMoveCursor(int,int)  → onSelect(int,int) の順です。<BR>
      * @param prm_from 移動元のアイテムのインデックス（無い（初期の）場合は -1）
      * @param prm_to   移動先のアイテムのインデックス
@@ -707,8 +702,8 @@ public:
      * 動作をオーバーライドして実装してください。<BR>
      * 【捕捉】<BR>
      * onMoveCursor(int,int) と onSelect(int,int) のコールバックタイミングの差について。<BR>
-     * onSelect(int,int) は、selectXxxxx 系のメソッドを実行時に、もれなく呼び出されます。<BR>
      * onMoveCursor(int,int) は、selectXxxxx 系のメソッド実行の際、カーソルが移動した場合のみ呼び出されます。<BR>
+     * onSelect(int,int) は、selectXxxxx 系 のメソッドを実行時に、もれなく呼び出されます(たとえ、カーソルが移動しなくても)<BR>
      * 呼び出される順序は、onMoveCursor(int,int)  → onSelect(int,int) の順です。<BR>
      * @param prm_from 選択元（今回選択される前）のアイテムのインデックス（無い（初期の）場合は -1）
      * @param prm_to   選択先のアイテムのインデックス
@@ -974,7 +969,7 @@ void MenuActor<T>::addItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
 
 template<class T>
 void MenuActor<T>::positionItem(int prm_index_of_item,
-                              coord prm_X_local, coord prm_Y_local, coord prm_Z_local) {
+                                coord prm_X_local, coord prm_Y_local, coord prm_Z_local) {
     GgafDxCore::GgafDxDrawableActor* p = getItem(prm_index_of_item);
     p->_X_local = prm_X_local;
     p->_Y_local = prm_Y_local;
@@ -995,7 +990,7 @@ void MenuActor<T>::addDisp(GgafDxCore::GgafDxDrawableActor* prm_pDisp,
 
 template<class T>
 void MenuActor<T>::positionDisp(int prm_index_of_item,
-                              coord prm_X_local, coord prm_Y_local, coord prm_Z_local) {
+                                coord prm_X_local, coord prm_Y_local, coord prm_Z_local) {
     GgafDxCore::GgafDxDrawableActor* p = getItem(prm_index_of_item);
     p->_X_local = prm_X_local;
     p->_Y_local = prm_Y_local;
@@ -1003,7 +998,7 @@ void MenuActor<T>::positionDisp(int prm_index_of_item,
 }
 
 template<class T>
-void MenuActor<T>::relateItemExNext(int prm_index_of_fromitem, int prm_index_of_toitem) {
+void MenuActor<T>::relateItemToExNext(int prm_index_of_fromitem, int prm_index_of_toitem) {
     _lstItems.getElemFromFirst(prm_index_of_fromitem)->connect(
             ITEM_RELATION_EX_NEXT, _lstItems.getElemFromFirst(prm_index_of_toitem));
     _lstItems.getElemFromFirst(prm_index_of_toitem)->connect(
@@ -1011,35 +1006,35 @@ void MenuActor<T>::relateItemExNext(int prm_index_of_fromitem, int prm_index_of_
 }
 
 template<class T>
-void MenuActor<T>::relateItemExNext(int prm_index_of_item1,
-                                    int prm_index_of_item2,
-                                    int prm_index_of_item3 ) {
-    relateItemExNext(prm_index_of_item1, prm_index_of_item2);
-    relateItemExNext(prm_index_of_item2, prm_index_of_item3);
+void MenuActor<T>::relateItemToExNext(int prm_index_of_item1,
+                                      int prm_index_of_item2,
+                                      int prm_index_of_item3 ) {
+    relateItemToExNext(prm_index_of_item1, prm_index_of_item2);
+    relateItemToExNext(prm_index_of_item2, prm_index_of_item3);
 }
 
 template<class T>
-void MenuActor<T>::relateItemExNext(int prm_index_of_item1,
-                                    int prm_index_of_item2,
-                                    int prm_index_of_item3,
-                                    int prm_index_of_item4 ) {
-    relateItemExNext(prm_index_of_item1, prm_index_of_item2, prm_index_of_item3);
-    relateItemExNext(prm_index_of_item3, prm_index_of_item4);
+void MenuActor<T>::relateItemToExNext(int prm_index_of_item1,
+                                      int prm_index_of_item2,
+                                      int prm_index_of_item3,
+                                      int prm_index_of_item4 ) {
+    relateItemToExNext(prm_index_of_item1, prm_index_of_item2, prm_index_of_item3);
+    relateItemToExNext(prm_index_of_item3, prm_index_of_item4);
 }
 
 template<class T>
-void MenuActor<T>::relateItemExNext(int prm_index_of_item1,
-                                    int prm_index_of_item2,
-                                    int prm_index_of_item3,
-                                    int prm_index_of_item4,
-                                    int prm_index_of_item5 ) {
-    relateItemExNext(prm_index_of_item1, prm_index_of_item2, prm_index_of_item3, prm_index_of_item4);
-    relateItemExNext(prm_index_of_item4, prm_index_of_item5);
+void MenuActor<T>::relateItemToExNext(int prm_index_of_item1,
+                                      int prm_index_of_item2,
+                                      int prm_index_of_item3,
+                                      int prm_index_of_item4,
+                                      int prm_index_of_item5 ) {
+    relateItemToExNext(prm_index_of_item1, prm_index_of_item2, prm_index_of_item3, prm_index_of_item4);
+    relateItemToExNext(prm_index_of_item4, prm_index_of_item5);
 }
 
 
 //template<class T>
-//void MenuActor<T>::relateItemExNext(int prm_index_of_fromitem, ...) {
+//void MenuActor<T>::relateItemToExNext(int prm_index_of_fromitem, ...) {
 //    va_list pArg;
 //    va_start(pArg, prm_index_of_fromitem);         //可変長引数操作開始
 //        va_arg( argptr, int );
@@ -1051,7 +1046,7 @@ void MenuActor<T>::relateItemExNext(int prm_index_of_item1,
 
 
 template<class T>
-void MenuActor<T>::relateItemExPrev(int prm_index_of_fromitem, int prm_index_of_toitem) {
+void MenuActor<T>::relateItemToExPrev(int prm_index_of_fromitem, int prm_index_of_toitem) {
     _lstItems.getElemFromFirst(prm_index_of_fromitem)->connect(
             ITEM_RELATION_EX_PREV, _lstItems.getElemFromFirst(prm_index_of_toitem));
     _lstItems.getElemFromFirst(prm_index_of_toitem)->connect(
@@ -1059,7 +1054,7 @@ void MenuActor<T>::relateItemExPrev(int prm_index_of_fromitem, int prm_index_of_
 }
 
 template<class T>
-void MenuActor<T>::relateAllItemCancel(int prm_index_of_cancel_item) {
+void MenuActor<T>::relateAllItemToCancel(int prm_index_of_cancel_item) {
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor>::Elem* pCancelElem =
             _lstItems.getElemFromFirst(prm_index_of_cancel_item);
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor>::Elem* pElem =
@@ -1509,7 +1504,7 @@ void MenuActor<T>::processBehavior() {
             selectPrev();
         } else if (condSelectExNext()) {
             selectExNext();
-        } else if (condSelectrExPrev()) {
+        } else if (condSelectExPrev()) {
             selectExPrev();
         } else if (condSelectCancel()) {
             selectCancel();

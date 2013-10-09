@@ -63,7 +63,7 @@ void GgafProgress::change(progress prm_progress) {
     _progress_next = prm_progress;
 }
 
-void GgafProgress::changeProbability(uint32_t prm_p1, progress prm_progress1, ...) {
+void GgafProgress::changeProbab(uint32_t prm_p1, progress prm_progress1, ...) {
     uint32_t r = (uint32_t)(RND(1,100));
     if (prm_p1 >= r) {
         change(prm_progress1);
@@ -76,7 +76,7 @@ void GgafProgress::changeProbability(uint32_t prm_p1, progress prm_progress1, ..
         p_sum += va_arg(args, uint32_t);
 #ifdef MY_DEBUG
         if (p_sum > 100) {
-            throwGgafCriticalException("GgafProgress::changeProbability p_sum="<<p_sum<<" 確率の合計がぴったり100になりません。（va_argで変な場所を読み込んだかも）");
+            throwGgafCriticalException("GgafProgress::changeProbab p_sum="<<p_sum<<" 確率の合計がぴったり100になりません。（va_argで変な場所を読み込んだかも）");
             return;
          }
 #endif
@@ -89,12 +89,12 @@ void GgafProgress::changeProbability(uint32_t prm_p1, progress prm_progress1, ..
     va_end(args);
 #ifdef MY_DEBUG
     if (p_sum != 100) {
-        throwGgafCriticalException("GgafProgress::changeProbability p_sum="<<p_sum<<" 確率の合計がぴったり100になりません。");
+        throwGgafCriticalException("GgafProgress::changeProbab p_sum="<<p_sum<<" 確率の合計がぴったり100になりません。");
     }
 #endif
 }
 
-//void GgafProgress::changeProbability(uint32_t prm_p1, progress prm_progress1, ...) {
+//void GgafProgress::changeProbab(uint32_t prm_p1, progress prm_progress1, ...) {
 //    uint32_t r = (uint32_t)(RND(1,100));
 //    if (prm_p1 <= r) {
 //        change(prm_progress1);
@@ -115,7 +115,7 @@ void GgafProgress::changeProbability(uint32_t prm_p1, progress prm_progress1, ..
 //    va_end(args);
 //#ifdef MY_DEBUG
 //    if (p_sum != 100) {
-//        throwGgafCriticalException("GgafProgress::changeProbability 合計が100%になってない。");
+//        throwGgafCriticalException("GgafProgress::changeProbab 合計が100%になってない。");
 //    }
 //#endif
 //}

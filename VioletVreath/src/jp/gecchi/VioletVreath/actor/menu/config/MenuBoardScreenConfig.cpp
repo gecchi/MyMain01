@@ -59,7 +59,7 @@ MenuBoardScreenConfig::MenuBoardScreenConfig(const char* prm_name) :
         addItem(pLabel);
     }
     //キャンセルアイテム設定
-    relateAllItemCancel(ITEM_CANCEL);
+    relateAllItemToCancel(ITEM_CANCEL);
 
     positionItem(ITEM_SCREEN_MODE     , PX_C(100), PX_C(100));
     positionItem(ITEM_VIEW_NUM        , PX_C(100), PX_C(140));
@@ -113,7 +113,7 @@ bool MenuBoardScreenConfig::condSelectPrev() {
 bool MenuBoardScreenConfig::condSelectExNext() {
     return false;
 }
-bool MenuBoardScreenConfig::condSelectrExPrev() {
+bool MenuBoardScreenConfig::condSelectExPrev() {
     return false;
 }
 

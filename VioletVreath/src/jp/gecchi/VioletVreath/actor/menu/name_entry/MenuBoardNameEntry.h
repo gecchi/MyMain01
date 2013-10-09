@@ -32,7 +32,7 @@ public:
     bool condSelectNext() override;
     bool condSelectPrev() override;
     bool condSelectExNext() override;
-    bool condSelectrExPrev() override;
+    bool condSelectExPrev() override;
     bool condDecision() override;
     bool condCancel() override;
 

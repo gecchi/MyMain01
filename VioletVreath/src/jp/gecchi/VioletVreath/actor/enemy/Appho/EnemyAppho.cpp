@@ -47,7 +47,7 @@ void EnemyAppho::processBehavior() {
              position(entry_pos_._X, entry_pos_._Y, entry_pos_._Z);
              _pAFader->setAlpha(0);
              _pKurokoA->setMvVelo(0);
-             _pKurokoA->relateMvFaceAng(true);
+             _pKurokoA->relateFaceWithMvAng(true);
              _pKurokoA->setMvAngTwd(&hanging_pos_);
              _pKurokoA->setFaceAngVelo(AXIS_X, D_ANG(3));
              UTIL::activateEntryEffectOf(this);
@@ -90,7 +90,7 @@ void EnemyAppho::processBehavior() {
          case PROG_MOVE02: {
              if (_pProg->isJustChanged()) {
                  //移動方向と向きの連携解除
-                 _pKurokoA->relateMvFaceAng(false);
+                 _pKurokoA->relateFaceWithMvAng(false);
                  //滞留ポイント到着、ふらふら気ままな方向へ移動させる
                  _pKurokoA->turnMvAngTwd(_X + RND(-PX_C(100),PX_C(100)),
                                          _Y + RND(-PX_C(100),PX_C(100)),

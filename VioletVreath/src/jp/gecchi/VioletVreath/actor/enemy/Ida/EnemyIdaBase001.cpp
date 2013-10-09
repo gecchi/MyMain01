@@ -22,7 +22,7 @@ EnemyIdaBase001::EnemyIdaBase001(const char* prm_name) :
 
 void EnemyIdaBase001::initialize() {
     EnemyIdaBase::initialize();
-    _pKurokoA->relateMvFaceAng(true);
+    _pKurokoA->relateFaceWithMvAng(true);
     _pKurokoA->setFaceAngVelo(D_ANG(2), D_ANG(0.4), D0ANG );
 }
 

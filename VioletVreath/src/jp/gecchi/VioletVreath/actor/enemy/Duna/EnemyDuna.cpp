@@ -62,7 +62,7 @@ void EnemyDuna::processBehavior() {
         case PROG_INIT: {
             setHitAble(false);
             _pAFader->setAlpha(0);
-            _pKurokoA->relateMvFaceAng(false);
+            _pKurokoA->relateFaceWithMvAng(false);
             _pKurokoA->keepOnTurningFaceAngTwd(pMyShip,
                                                D_ANG(2), 0, TURN_CLOSE_TO,false);
             //_pKurokoA->setMvVelo(RF_EnemyDuna_MvVelo(G_RANK));
@@ -100,8 +100,8 @@ void EnemyDuna::processBehavior() {
                  _pKurokoA->turnRzRyFaceAngTo(0, D180ANG, D_ANG(5), 0, TURN_CLOSE_TO,false);
              }
              if (!_pKurokoA->isTurningMvAng() && !_pKurokoA->isTurningFaceAng()) {
-                 _pKurokoA->relateMvFaceAng(true);
-                 _pProg->changeProbability(
+                 _pKurokoA->relateFaceWithMvAng(true);
+                 _pProg->changeProbab(
                               0, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,
                              25, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW,
                              25, PROG_MOVE_REV_LARGE_SEMIARC_CW,
@@ -153,7 +153,7 @@ void EnemyDuna::processBehavior() {
              }
              if (!_pKurokoA->isTurningMvAng()) {
                  //‡@‚ÌŽŸ‚Ì“®ì
-                 _pProg->changeProbability(
+                 _pProg->changeProbab(
                                0, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
                               10, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  ‡A
                                0, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  ‡B
@@ -175,7 +175,7 @@ void EnemyDuna::processBehavior() {
              }
              if (!_pKurokoA->isTurningMvAng()) {
                  //‡A‚ÌŽŸ‚Ì“®ì
-                 _pProg->changeProbability(
+                 _pProg->changeProbab(
                               10, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
                                0, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  ‡A
                                0, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  ‡B
@@ -203,7 +203,7 @@ void EnemyDuna::processBehavior() {
              }
              if (nprog_ == 1 && !_pKurokoA->isTurningMvAng()) {
                  //‡B‚ÌŽŸ‚Ì“®ì
-                 _pProg->changeProbability(
+                 _pProg->changeProbab(
                                0, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
                               10, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  ‡A
                                0, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  ‡B
@@ -231,7 +231,7 @@ void EnemyDuna::processBehavior() {
              }
              if (nprog_ == 1 && !_pKurokoA->isTurningMvAng()) {
                  //‡C‚ÌŽŸ‚Ì“®ì
-                 _pProg->changeProbability(
+                 _pProg->changeProbab(
                               10, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
                                0, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  ‡A
                                0, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  ‡B
@@ -256,7 +256,7 @@ void EnemyDuna::processBehavior() {
              }
              if (!_pKurokoA->isTurningMvAng()) {
                  //‡D‚ÌŽŸ‚Ì“®ì
-                 _pProg->changeProbability(
+                 _pProg->changeProbab(
                                0, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
                               40, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  ‡A
                                0, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  ‡B
@@ -278,7 +278,7 @@ void EnemyDuna::processBehavior() {
              }
              if (!_pKurokoA->isTurningMvAng()) {
                  //‡E‚ÌŽŸ‚Ì“®ì
-                 _pProg->changeProbability(
+                 _pProg->changeProbab(
                               40, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
                                0, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  ‡A
                               30, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  ‡B
@@ -306,7 +306,7 @@ void EnemyDuna::processBehavior() {
              }
              if (nprog_ == 1 && !_pKurokoA->isTurningMvAng()) {
                  //‡F‚ÌŽŸ‚Ì“®ì
-                 _pProg->changeProbability(
+                 _pProg->changeProbab(
                                0, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
                               40, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  ‡A
                                0, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  ‡B
@@ -334,7 +334,7 @@ void EnemyDuna::processBehavior() {
              }
              if (nprog_ == 1 && !_pKurokoA->isTurningMvAng()) {
                  //‡G‚ÌŽŸ‚Ì“®ì
-                 _pProg->changeProbability(
+                 _pProg->changeProbab(
                               40, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
                                0, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  ‡A
                               30, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  ‡B

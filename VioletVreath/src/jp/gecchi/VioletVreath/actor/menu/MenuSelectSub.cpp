@@ -31,7 +31,7 @@ bool MenuSelectSub::condDecision() {
         //特別に「メニューアイテム：キャンセル」にカーソルがある場合でかつ、VB_UI_CANCEL ボタンの場合は、
         //「メニューアイテム：キャンセル」を「決定」したことにする。
         //現カーソルが「メニューアイテム：キャンセル」にあるかどうかの判断は、
-        //relateAllItemCancel() で定義されたアイテムのインデックスかどうかで判断。
+        //relateAllItemToCancel() で定義されたアイテムのインデックスかどうかで判断。
         return true;
     } else {
         return false;
@@ -55,7 +55,7 @@ bool MenuSelectSub::condSelectPrev() {
 bool MenuSelectSub::condSelectExNext() {
     return false;
 }
-bool MenuSelectSub::condSelectrExPrev() {
+bool MenuSelectSub::condSelectExPrev() {
     return false;
 }
 bool MenuSelectSub::condSelectCancel() {

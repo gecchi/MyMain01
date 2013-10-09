@@ -58,9 +58,9 @@ MenuBoardNameEntry::MenuBoardNameEntry(const char* prm_name) :
 
     //上下オーダーを追加
     for (int i = 0; i < 16; i++) {
-        relateItemExNext(i, i+16, i+32, i+48, ITEM_INDEX_OK_); //最下段は↓でOKへ行く
+        relateItemToExNext(i, i+16, i+32, i+48, ITEM_INDEX_OK_); //最下段は↓でOKへ行く
     }
-    relateItemExNext(ITEM_INDEX_BS_, ITEM_INDEX_OK_); //[BS]から↓もOKへ行く
+    relateItemToExNext(ITEM_INDEX_BS_, ITEM_INDEX_OK_); //[BS]から↓もOKへ行く
 
     //setNameStringBoard()してください
     pLabelInputedName_ = nullptr;
@@ -73,7 +73,7 @@ MenuBoardNameEntry::MenuBoardNameEntry(const char* prm_name) :
 
     selectItem(0);          //カーソルの初期選択アイテムを設定
     setTransition(30, PX_C(0), -PX_C(100)); //トランジションを上から下へ少しスライド
-    relateAllItemCancel(ITEM_INDEX_BS_);       //キャンセル押下時は、[BS]へ移動
+    relateAllItemToCancel(ITEM_INDEX_BS_);       //キャンセル押下時は、[BS]へ移動
     addSubMenu(NEW MenuBoardConfirm("confirm")); //Yes No 問い合わせメニューを生成
 }
 
@@ -128,7 +128,7 @@ bool MenuBoardNameEntry::condSelectExNext() {
         return VB->isAutoRepeat(VB_UI_DOWN);
     }
 }
-bool MenuBoardNameEntry::condSelectrExPrev() {
+bool MenuBoardNameEntry::condSelectExPrev() {
     return VB->isAutoRepeat(VB_UI_UP);
 }
 

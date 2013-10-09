@@ -39,7 +39,7 @@ EnemyEresShot001::EnemyEresShot001(const char* prm_name) :
 
 void EnemyEresShot001::initialize() {
     _pKurokoA->forceMvVeloRange(veloTop_, veloBottom_);
-    _pKurokoA->relateMvFaceAng(true);
+    _pKurokoA->relateFaceWithMvAng(true);
 
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB(0, -30000, -30000, 30000, 30000);

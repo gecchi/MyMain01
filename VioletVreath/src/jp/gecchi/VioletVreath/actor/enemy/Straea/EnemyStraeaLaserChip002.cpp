@@ -33,7 +33,7 @@ void EnemyStraeaLaserChip002::onActive() {
     _pKurokoA->setMvVelo(80000);
     //_pKurokoA->setMvAcce(300);
     //_pKurokoA->forceRyMvAngVeloRange(-90000, 90000);
-    _pKurokoA->relateMvFaceAng(true);
+    _pKurokoA->relateFaceWithMvAng(true);
 }
 
 void EnemyStraeaLaserChip002::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {

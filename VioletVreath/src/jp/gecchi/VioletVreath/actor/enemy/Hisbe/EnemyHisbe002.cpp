@@ -47,7 +47,7 @@ void EnemyHisbe002::onCreateModel() {
 
 void EnemyHisbe002::initialize() {
     _pKurokoA->setFaceAngVelo(AXIS_Y, 500);
-    _pKurokoA->relateMvFaceAng(true);
+    _pKurokoA->relateFaceWithMvAng(true);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliSphere(0, 40000);
 }

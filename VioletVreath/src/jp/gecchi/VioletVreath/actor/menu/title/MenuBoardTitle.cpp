@@ -28,18 +28,17 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
     const char* apItemStr[] = {
           "GAME START",   //0
           "CONFIG",       //1
-          "DEBUG",        //2
+          "REBOOT",       //2
           "QUIT",         //3
     };
     for (int i = ITEM_GAME_START; i <= ITEM_QUIT; i++) {
         LabelMenuItemFont01* pLabel = NEW LabelMenuItemFont01("item");
         pLabel->update(apItemStr[i], ALIGN_CENTER, VALIGN_MIDDLE);
-        pLabel->_pAFader->setAlpha(0.7);
-        pLabel->_pAFader->behave();
+        pLabel->setAlpha(0.7);
         addItem(pLabel, PX_C(100), PX_C(40+(i*18)));
     }
     //キャンセル押下時移動先アイテム
-    relateAllItemCancel(ITEM_QUIT);
+    relateAllItemToCancel(ITEM_QUIT);
     //カーソル設定
     CursorTitleMenu* pCursor = NEW CursorTitleMenu("CursorTitleMenu");
     pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
@@ -63,7 +62,7 @@ bool MenuBoardTitle::condSelectPrev() {
 bool MenuBoardTitle::condSelectExNext() {
     return false;
 }
-bool MenuBoardTitle::condSelectrExPrev() {
+bool MenuBoardTitle::condSelectExPrev() {
     return false;
 }
 
@@ -85,9 +84,11 @@ void MenuBoardTitle::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int 
     if (prm_item_index == ITEM_GAME_START) {
         //GameTitleSceneクラス側でイベント実行
     } else if (prm_item_index == ITEM_CONFIG) {
+        //CONFIGメニュー起動
         riseSubMenu(1, PX_C(50), PX_C(50));
-    } else if (prm_item_index == ITEM_DEBUG) {
-        //
+    } else if (prm_item_index == ITEM_REBOOT) {
+        //確認メニュー起動
+        riseSubMenu(0, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y);
     } else if (prm_item_index == ITEM_QUIT) {
         //確認メニュー起動
         riseSubMenu(0, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y);
@@ -104,20 +105,27 @@ void MenuBoardTitle::processBehavior() {
         //確認メニューの結果の振る舞い実行
         MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
         if (pSubConfirm->isJustDecidedOk()) {
-            ::PostQuitMessage(0);
+            PostQuitMessage(0);
         } else if (pSubConfirm->isJustDecidedCancel()) {
             sinkCurrentSubMenu();
         } else {
 
         }
-    } else if (selected == ITEM_QUIT) {
-
+    } else if (selected == ITEM_REBOOT) { //自身のメニューが"ITEM_REBOOT"を指している場合
+        MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
+        if (pSubConfirm->isJustDecidedOk()) {
+            VioletVreath::God::g_should_reboot_ = true; //再起動フラグセット
+            PostQuitMessage(0);
+        } else if (pSubConfirm->isJustDecidedCancel()) {
+            sinkCurrentSubMenu();
+        }
     }
 
     GgafDxDrawableActor* pItem = getSelectedItem();
-    pItem->_pAFader->behave();
     if (getRisingSubMenu()) {
-        pItem->setAlpha(pItem->_pAFader->_top_alpha); //点滅を停止
+        pItem->setAlpha(1.0); //点滅を停止
+    } else {
+        pItem->_pAFader->behave();
     }
 
 }

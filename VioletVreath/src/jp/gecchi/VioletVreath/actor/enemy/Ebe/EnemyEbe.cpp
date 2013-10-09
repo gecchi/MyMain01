@@ -31,7 +31,7 @@ void EnemyEbe::onCreateModel() {
 }
 
 void EnemyEbe::initialize() {
-    _pKurokoA->relateMvFaceAng(true);
+    _pKurokoA->relateFaceWithMvAng(true);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
 }

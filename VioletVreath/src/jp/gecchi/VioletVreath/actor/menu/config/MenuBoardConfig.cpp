@@ -48,7 +48,7 @@ MenuBoardConfig::MenuBoardConfig(const char* prm_name) :
     pLabel_Title->update("[CONFIG MENU]", ALIGN_CENTER, VALIGN_MIDDLE);
     addDisp(pLabel_Title, PX_C(100), PX_C(40));
     //キャンセルアイテム設定
-    relateAllItemCancel(ITEM_BACK);
+    relateAllItemToCancel(ITEM_BACK);
 
     //メニューカーソルを設定
     CursorConfigMenu* pCursor = NEW CursorConfigMenu("CursorConfigMenu");
