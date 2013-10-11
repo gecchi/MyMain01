@@ -92,7 +92,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     wcex1.hInstance = hInstance;
     wcex1.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_VIOLETVREATH));
     wcex1.hCursor = LoadCursor(nullptr, IDC_ARROW);
-    wcex1.hbrBackground = CreateSolidBrush(RGB(rgb._R, rgb._G, rgb._B));
+    wcex1.hbrBackground = CreateSolidBrush(RGB(rgb._RED, rgb._GREEN, rgb._BLUE));
     wcex1.lpszMenuName = nullptr;//MAKEINTRESOURCE(IDC_VIOLETVREATH);//nullptr; //MAKEINTRESOURCE(IDC_MTSTG17_031);//メニューバーはなし
     wcex1.lpszClassName = szWindowClass;
     wcex1.hIconSm = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_SMALL));
@@ -100,8 +100,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     wcex2.lpszClassName = "secondary";
     DWORD dwStyle = WS_OVERLAPPEDWINDOW;
 
-
-    //_CrtSetBreakAlloc(203659);
 
 #ifdef MY_DEBUG
     #ifdef _MSC_VER

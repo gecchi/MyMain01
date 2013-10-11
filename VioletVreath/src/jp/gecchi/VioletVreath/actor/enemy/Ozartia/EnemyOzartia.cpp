@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "EnemyOzartia.h"
 
-#include "EnemyOzartiaShot01.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
@@ -9,6 +8,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
+#include "EnemyOzartiaShot01.h"
 #include "EnemyOzartiaLaserChip01.h"
 
 
