@@ -14,12 +14,12 @@ namespace GgafDxCore {
  */
 class GgafDxGeoElem : public GgafCore::GgafObject {
 public:
-    coord _X;
-    coord _Y;
-    coord _Z;
-    angle _RX;
-    angle _RY;
-    angle _RZ;
+    coord X;
+    coord Y;
+    coord Z;
+    angle RX;
+    angle RY;
+    angle RZ;
     GgafDxGeoElem* _next;
 
 public:

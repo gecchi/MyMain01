@@ -256,34 +256,34 @@ void EnemyEsperia::processBehavior() {
                         if (pLaserChip) {
                             p = &(paLocalPos_Laser_[i]);
                             //発射元座標に設定
-                            pLaserChip->position(_X+p->_X, _Y+p->_Y, _Z+p->_Z);
+                            pLaserChip->position(_X+p->X, _Y+p->Y, _Z+p->Z);
                             //最初の目標地点(折り返す地点)を設定
                             //シンバルロック付近を避けるためすこしズラス
                             if (dX_ < dZ_)  {
                                 //X方向距離よりZ方向距離が遠い
                                 if (pMyShip->_Z < _Z) {
                                     //自機が手前、エスペリアが奥
-                                    pLaserChip->tX1_ = _X + paPos_Target_[i]._X;
-                                    pLaserChip->tY1_ = _Y + paPos_Target_[i]._Y + turn_dY;
-                                    pLaserChip->tZ1_ = _Z + paPos_Target_[i]._Z + PX_C(100);
+                                    pLaserChip->tX1_ = _X + paPos_Target_[i].X;
+                                    pLaserChip->tY1_ = _Y + paPos_Target_[i].Y + turn_dY;
+                                    pLaserChip->tZ1_ = _Z + paPos_Target_[i].Z + PX_C(100);
                                 } else {
                                     //自機が奥、エスペリアが手前
-                                    pLaserChip->tX1_ = _X + paPos_Target_[i]._X;
-                                    pLaserChip->tY1_ = _Y + paPos_Target_[i]._Y + turn_dY;
-                                    pLaserChip->tZ1_ = _Z + paPos_Target_[i]._Z - PX_C(100);
+                                    pLaserChip->tX1_ = _X + paPos_Target_[i].X;
+                                    pLaserChip->tY1_ = _Y + paPos_Target_[i].Y + turn_dY;
+                                    pLaserChip->tZ1_ = _Z + paPos_Target_[i].Z - PX_C(100);
                                 }
                             } else {
                                 //シンバルロック付近を避けるためX-100
-                                pLaserChip->tX1_ = _X + paPos_Target_[i]._X - PX_C(100);
-                                pLaserChip->tY1_ = _Y + paPos_Target_[i]._Y + turn_dY;
-                                pLaserChip->tZ1_ = _Z + paPos_Target_[i]._Z;
+                                pLaserChip->tX1_ = _X + paPos_Target_[i].X - PX_C(100);
+                                pLaserChip->tY1_ = _Y + paPos_Target_[i].Y + turn_dY;
+                                pLaserChip->tZ1_ = _Z + paPos_Target_[i].Z;
                             }
 
                             pLaserChip->turn_dY_ = turn_dY;
                             //最終目標地点を設定
-                            pLaserChip->tX2_ = pMyShip->_X + paPos_Target_[i]._X;
-                            pLaserChip->tY2_ = pMyShip->_Y + paPos_Target_[i]._Y;
-                            pLaserChip->tZ2_ = pMyShip->_Z + paPos_Target_[i]._Z;
+                            pLaserChip->tX2_ = pMyShip->_X + paPos_Target_[i].X;
+                            pLaserChip->tY2_ = pMyShip->_Y + paPos_Target_[i].Y;
+                            pLaserChip->tZ2_ = pMyShip->_Z + paPos_Target_[i].Z;
                             //速さと加速度
                             pLaserChip->_pKurokoA->setMvVelo(10000); //初期速度
                             pLaserChip->_pKurokoA->setMvAcce(150+(max_laser_way_-i)*10); //少しバラけるように

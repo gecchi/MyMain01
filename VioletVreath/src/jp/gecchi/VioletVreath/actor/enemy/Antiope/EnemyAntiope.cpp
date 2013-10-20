@@ -64,7 +64,7 @@ void EnemyAntiope::processBehavior() {
              if (_pProg->isJustChanged()) {
                  _pKurokoA->setMvVelo(30000);
                  _pKurokoA->setMvAcce(-1000);
-                 _pKurokoB->setVxyzMvVelo(mv_velo_twd_._X, mv_velo_twd_._Y, mv_velo_twd_._Z);
+                 _pKurokoB->setVxyzMvVelo(mv_velo_twd_.X, mv_velo_twd_.Y, mv_velo_twd_.Z);
              }
 
              if (_pKurokoA->_veloMv <= (-30000 + 1000)) {

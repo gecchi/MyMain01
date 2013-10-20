@@ -26,6 +26,7 @@ public:
 //    MyOptionControllerGizmo* pGizmo_;
 //    MyOptionControllerDirectionVector* pDirectionVector_;
 
+    /** オプションコントローラーの毎フレームの絶対座標履歴 */
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_OptCtrlGeoHistory_;
     velo veloOptionsMv_;
 

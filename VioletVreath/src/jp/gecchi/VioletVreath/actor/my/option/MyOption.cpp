@@ -376,13 +376,13 @@ void MyOption::processBehavior() {
             if (pOptionCtrler_->is_free_from_myship_mode_) {
                 //
             } else {
-                GgafDxGeoElem* pGeoOpCon = pOptionCtrler_->pRing_OptCtrlGeoHistory_->getPrev();
+                GgafDxGeoElem* pGeoOpCtrl = pOptionCtrler_->pRing_OptCtrlGeoHistory_->getPrev();
                 if (pVbPlay->isBeingPressed(VB_OPTION)) {
                     //オプションボタン押下時は
                     //radiusPositionをいじらない
-                } else if (pGeoOpCon->_X == pOptionCtrler_->_X &&
-                           pGeoOpCon->_Y == pOptionCtrler_->_Y &&
-                           pGeoOpCon->_Z == pOptionCtrler_->_Z )
+                } else if (pGeoOpCtrl->X == pOptionCtrler_->_X &&
+                           pGeoOpCtrl->Y == pOptionCtrler_->_Y &&
+                           pGeoOpCtrl->Z == pOptionCtrler_->_Z )
                 {
                     //非移動時
                     if (radiusPosition_stopping_ == radiusPosition_) {
@@ -506,9 +506,9 @@ void MyOption::processBehavior() {
     float sinRY = ANG_SIN(pOptionCtrler_pKurokoA->_angFace[AXIS_Y]);
     float cosRY = ANG_COS(pOptionCtrler_pKurokoA->_angFace[AXIS_Y]);
     //全オプションを一つの塊としてOptionControllerを中心にWORLD変換のような旋廻
-    _X = cosRY*cosRZ*Xorg_ + cosRY*-sinRZ*Yorg_ + sinRY*Zorg_;
-    _Y = sinRZ*Xorg_ + cosRZ*Yorg_;
-    _Z = -sinRY*cosRZ*Xorg_ + -sinRY*-sinRZ*Yorg_ + cosRY*Zorg_;
+    coord X = cosRY*cosRZ*Xorg_ + cosRY*-sinRZ*Yorg_ + sinRY*Zorg_;
+    coord Y = sinRZ*Xorg_ + cosRZ*Yorg_;
+    coord Z = -sinRY*cosRZ*Xorg_ + -sinRY*-sinRZ*Yorg_ + cosRY*Zorg_;
 
 
     //懐中電灯の照射角が広がるような回転（Quaternionで実現）
@@ -541,41 +541,27 @@ void MyOption::processBehavior() {
     //Z軸回転、Y軸回転角度を計算
     UTIL::convVectorToRzRy(Q._x, Q._y, Q._z, _RZ, _RY);
 
-    _X += pOptionCtrler_->_X;
-    _Y += pOptionCtrler_->_Y;
-    _Z += pOptionCtrler_->_Z;
+    _X = X + pOptionCtrler_->_X;
+    _Y = Y + pOptionCtrler_->_Y;
+    _Z = Z + pOptionCtrler_->_Z;
 
     //レーザー発射。TODO:最適化
     if (pMyShip->is_shooting_laser_ && pVbPlay->isBeingPressed(VB_SHOT1)) {
         MyOptionWateringLaserChip001* pLaserChip = (MyOptionWateringLaserChip001*)pLaserChipDepo_->dispatch();
-//        MyOptionStraightLaserChip001* pLaserChip = (MyOptionStraightLaserChip001*)pLaserChipDepo_->dispatch();
         if (pLaserChip) {
 //            if (pLaserChipDepo_->_pEffectActor_Irradiate) {
 //                pLaserChipDepo_->_pEffectActor_Irradiate->positionAs(this);
 //            }
-            //ストレート用
-//            pLaserChip->_pKurokoA->behave();
-//            pLaserChip->_pKurokoB->behave();
-//            pLaserChip->pOrg_ = this;
-//            pLaserChip->activate();
-
-              //カーブ用
-//            pLaserChip->_pKurokoA->_vX = Q._x;
-//            pLaserChip->_pKurokoA->_vY = Q._y;
-//            pLaserChip->_pKurokoA->_vZ = Q._z;
-//            pLaserChip->_pKurokoA->_angRzMv = _RZ;
-//            pLaserChip->_pKurokoA->_angRyMv = _RY;
-////            pLaserChip->_pKurokoA->_angFace[AXIS_X] = _pKurokoA->_angFace[AXIS_X];
-//            pLaserChip->_pKurokoA->_angFace[AXIS_Z] = _RZ;
-//            pLaserChip->_pKurokoA->_angFace[AXIS_Y] = _RY;
+            //カーブ用
             int max_velo_renge = pLaserChip->max_velo_renge_;
             int r_max_acce = pLaserChip->r_max_acce_;
-            pLaserChip->_pKurokoB->setVxyzMvVelo(Q._x*max_velo_renge,
-                                                 Q._y*max_velo_renge,
-                                                 Q._z*max_velo_renge);
-            pLaserChip->_pKurokoB->setVxyzMvAcce(Q._x*max_velo_renge/r_max_acce,
-                                                 Q._y*max_velo_renge/r_max_acce,
-                                                 Q._z*max_velo_renge/r_max_acce);
+            velo veloVx = Q._x*max_velo_renge;
+            velo veloVy = Q._y*max_velo_renge;
+            velo veloVz = Q._z*max_velo_renge;
+            pLaserChip->_pKurokoB->setVxyzMvVelo(veloVx, veloVy, veloVz);
+            pLaserChip->_pKurokoB->setVxyzMvAcce(veloVx / r_max_acce,
+                                                 veloVy / r_max_acce,
+                                                 veloVz / r_max_acce );
             pLaserChip->_pKurokoB->behave();
 
             pLaserChip->positionAs(this);

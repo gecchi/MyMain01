@@ -40,14 +40,14 @@ void FormationAntiope001::processBehavior() {
                                                 RND(pMyShip->_Y - renge, pMyShip->_Y + renge),
                                                 RND(pMyShip->_Z - renge, pMyShip->_Z + renge) );
 
-            GgafDxCore::GgafDxGeoElem twd_pos_p(RND(entry_pos._X - renge, entry_pos._X + renge),
-                                                RND(entry_pos._Y - renge, entry_pos._Y + renge),
-                                                RND(entry_pos._Z - renge, entry_pos._Z + renge) );
+            GgafDxCore::GgafDxGeoElem twd_pos_p(RND(entry_pos.X - renge, entry_pos.X + renge),
+                                                RND(entry_pos.Y - renge, entry_pos.Y + renge),
+                                                RND(entry_pos.Z - renge, entry_pos.Z + renge) );
 
             float vX, vY, vZ;
-            UTIL::getNormalizeVector(RND(entry_pos._X - renge, entry_pos._X + renge),
-                                     RND(entry_pos._Y - renge, entry_pos._Y + renge),
-                                     RND(entry_pos._Z - renge, entry_pos._Z + renge),
+            UTIL::getNormalizeVector(RND(entry_pos.X - renge, entry_pos.X + renge),
+                                     RND(entry_pos.Y - renge, entry_pos.Y + renge),
+                                     RND(entry_pos.Z - renge, entry_pos.Z + renge),
                                      vX, vY, vZ);
             coord veloMv = 4000;
 

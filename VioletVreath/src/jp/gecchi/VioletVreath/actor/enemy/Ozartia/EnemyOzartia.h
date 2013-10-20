@@ -1,8 +1,9 @@
 #ifndef ENEMYOZARTIA_H_
 #define ENEMYOZARTIA_H_
-#include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
+#include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 
 #include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+
 
 namespace VioletVreath {
 
@@ -13,7 +14,7 @@ namespace VioletVreath {
  * @since 2013/10/01
  * @author Masatoshi Tsuge
  */
-class EnemyOzartia : public GgafLib::DefaultMeshSetActor {
+class EnemyOzartia : public GgafLib::DefaultMorphMeshActor {
 
 public:
 
@@ -21,17 +22,22 @@ public:
         PROG1_INIT   ,
         PROG1_ENTRY  ,
         PROG1_STAY   ,
-        PROG1_MOVE01 ,
-        PROG1_MOVE02 ,
-        PROG1_MOVE03 ,
-        PROG1_MOVE04 ,
+        PROG1_MV_POS0 ,
+        PROG1_MV_POS1 ,
+        PROG1_MV_POS2 ,
+        PROG1_MV_POS3 ,
+        PROG1_MV_POS4 ,
+        PROG1_MV_POS5 ,
+        PROG1_MOVE_START ,
+        PROG1_MOVING ,
         PROG1_LEAVE ,
         _BANPEI1_,
     };
 
     enum {
         PROG2_WAIT ,
-        PROG2_SHOT01 ,
+        PROG2_SHOT01_01 ,
+        PROG2_SHOT01_02 ,
         PROG2_SHOT02 ,
         PROG2_SHOT03 ,
         PROG2_SHOT04 ,
@@ -64,6 +70,10 @@ public:
 
     GgafCore::GgafActorDepository* pDepo_Shot01_;
     GgafLib::LaserChipDepository*  pDepo_Shot02_;
+
+    GgafDxCore::GgafDxGeoElem posMvTarget_;
+
+    bool faceang_to_ship_;
 public:
     /**
      * コンストラクタ

@@ -120,8 +120,8 @@ void GgafDxBoardSetActor::positionAs(GgafDxGeometricActor* prm_pActor) {
 }
 
 void GgafDxBoardSetActor::positionAs(GgafDxGeoElem* prm_pGeoElem) {
-    _X = prm_pGeoElem->_X;
-    _Y = prm_pGeoElem->_Y;
+    _X = prm_pGeoElem->X;
+    _Y = prm_pGeoElem->Y;
 }
 
 void GgafDxBoardSetActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) {

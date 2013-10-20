@@ -1,13 +1,16 @@
-#ifndef ENEMYOZARTIASHOT01_H_
-#define ENEMYOZARTIASHOT01_H_
+#ifndef ENEMYOZARTIAPILLAR01_H_
+#define ENEMYOZARTIAPILLAR01_H_
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
 namespace VioletVreath {
 
 /**
- * 3D敵弾001 .
+ * オーツァルティアの氷柱（地形続性） .
+ * @version 1.00
+ * @since 2013/10/16
+ * @author Masatoshi Tsuge
  */
-class EnemyOzartiaShot01 : public GgafLib::DefaultMeshSetActor {
+class EnemyOzartiaPillar01 : public GgafLib::DefaultMeshSetActor {
 public:
     enum {
         PROG_INIT   ,
@@ -17,7 +20,7 @@ public:
         _BANPEI_,
     };
 public:
-    EnemyOzartiaShot01(const char* prm_name);
+    EnemyOzartiaPillar01(const char* prm_name);
 
     void initialize() override;
 
@@ -31,9 +34,9 @@ public:
 
     void onInactive() override;
 
-    virtual ~EnemyOzartiaShot01();
+    virtual ~EnemyOzartiaPillar01();
 };
 
 }
-#endif /*ENEMYOZARTIASHOT01_H_*/
+#endif /*ENEMYOZARTIAPILLAR01_H_*/
 

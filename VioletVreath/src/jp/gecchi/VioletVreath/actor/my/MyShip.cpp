@@ -557,10 +557,16 @@ void MyShip::processBehavior() {
     pRing_MyShipGeoHistory2_->next()->set(this);
     if (pVbPlay->isBeingPressed(VB_OPTION)) {
         GgafDxGeoElem* pGeoMyShipPrev = pRing_MyShipGeoHistory2_->getPrev();
-        _X_local += (_X - pGeoMyShipPrev->_X);
-        _Y_local += (_Y - pGeoMyShipPrev->_Y);
-        _Z_local += (_Z - pGeoMyShipPrev->_Z);
+        //(_X_local, _Y_local, _Z_local) は、初期位置(0,0,0) から、
+        //VB_OPTIONを押している間のみ移動した増分座標を保持。
+        _X_local += (_X - pGeoMyShipPrev->X); //移動増分
+        _Y_local += (_Y - pGeoMyShipPrev->Y);
+        _Z_local += (_Z - pGeoMyShipPrev->Z);
     } else {
+        //(_X_local, _Y_local, _Z_local) はVB_OPTIONを離した時の初期位置(0,0,0) からの増分座標がはいっている。
+        //したがって、pRing_MyShipGeoHistory4OptCtrler_は、
+        //自機の絶対座標履歴から、VB_OPTION を押した場合の増分座標を除外した移動座標履歴（絶対座標）となる。
+        //この履歴の座標に(_X_local, _Y_local, _Z_local) に(_X_local, _Y_local, _Z_local)座標を足せば、自機の座標と同値
         pRing_MyShipGeoHistory4OptCtrler_->next()->set(_X - _X_local,
                                                        _Y - _Y_local,
                                                        _Z - _Z_local );
@@ -744,9 +750,9 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
         //現在の移動の逆方向（吹っ飛び威力は２倍に）
         GgafDxGeoElem* pGeoMyShipPrev = pRing_MyShipGeoHistory2_->getPrev();
         float vx1,vy1,vz1;
-        coord dX1 = -(_X - pGeoMyShipPrev->_X);
-        coord dY1 = -(_Y - pGeoMyShipPrev->_Y);
-        coord dZ1 = -(_Z - pGeoMyShipPrev->_Z);
+        coord dX1 = -(_X - pGeoMyShipPrev->X);
+        coord dY1 = -(_Y - pGeoMyShipPrev->Y);
+        coord dZ1 = -(_Z - pGeoMyShipPrev->Z);
         if (dX1 == 0 && dY1 == 0 && dZ1 == 0) {
             vx1 = vy1 = vz1 = 0;
         } else {

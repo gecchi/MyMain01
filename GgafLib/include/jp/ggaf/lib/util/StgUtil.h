@@ -390,23 +390,21 @@ public:
                     //プリズム斜辺と最短距離の円周上のXY座標を求める
                     oppX = (pActor02->_X + pSphere02->_x) + pAAPrism01->_vIH_x * pSphere02->_r;
                     oppY = (pActor02->_Y + pSphere02->_y) + pAAPrism01->_vIH_y * pSphere02->_r;
-                } else {
-                    if (bZc >= aZ2) {
-                        //球の中心Z座標がプリズムのZ幅範囲外の場合
-                        //離れる距離に応じて、球側の半径(pSphere02->_r)を小さくして差分を計算
-                        //小さくする割合は ROOT_1_MINUS_XX (1/4円の解のテーブル配列）を使用。
-                        //                 |
-                        //                 ＼
-                        //        ┌───┐ `─
-                        // z- ←  │      │  → z+
-                        int r = pSphere02->_r * UTIL::ROOT_1_MINUS_XX[(int)((1.0*(bZc - aZ2) / pSphere02->_r)*1000)];
-                        oppX = (pActor02->_X + pSphere02->_x) + pAAPrism01->_vIH_x * r;
-                        oppY = (pActor02->_Y + pSphere02->_y) + pAAPrism01->_vIH_y * r;
-                    } else if (aZ1 >= bZc) {
-                        int r = pSphere02->_r * UTIL::ROOT_1_MINUS_XX[(int)((1.0*(aZ1 - bZc) / pSphere02->_r)*1000)];
-                        oppX = (pActor02->_X + pSphere02->_x) + pAAPrism01->_vIH_x * r;
-                        oppY = (pActor02->_Y + pSphere02->_y) + pAAPrism01->_vIH_y * r;
-                    }
+                } else if (bZc >= aZ2) {
+                    //球の中心Z座標がプリズムのZ幅範囲外の場合
+                    //離れる距離に応じて、球側の半径(pSphere02->_r)を小さくして差分を計算
+                    //小さくする割合は ROOT_1_MINUS_XX (1/4円の解のテーブル配列）を使用。
+                    //                 |
+                    //                 ＼
+                    //        ┌───┐ `─
+                    // z- ←  │      │  → z+
+                    int r = pSphere02->_r * UTIL::ROOT_1_MINUS_XX[(int)((1.0*(bZc - aZ2) / pSphere02->_r)*1000)];
+                    oppX = (pActor02->_X + pSphere02->_x) + pAAPrism01->_vIH_x * r;
+                    oppY = (pActor02->_Y + pSphere02->_y) + pAAPrism01->_vIH_y * r;
+                } else { //if (aZ1 >= bZc) {
+                    int r = pSphere02->_r * UTIL::ROOT_1_MINUS_XX[(int)((1.0*(aZ1 - bZc) / pSphere02->_r)*1000)];
+                    oppX = (pActor02->_X + pSphere02->_x) + pAAPrism01->_vIH_x * r;
+                    oppY = (pActor02->_Y + pSphere02->_y) + pAAPrism01->_vIH_y * r;
                 }
 
                 if (pos & POS_PRISM_pp) {

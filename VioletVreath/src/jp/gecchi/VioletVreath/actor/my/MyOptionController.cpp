@@ -123,25 +123,34 @@ void MyOptionController::processBehavior() {
     }
 
     if (is_free_from_myship_mode_) {
-        if (pVbPlay->isBeingPressed(VB_OPTION) && is_handle_move_mode_) {
-            //オプションの広がり角より、オプション移動速度と、旋回半径増加速度にベクトル分解。
-            //そのうちのオプション移動速度のみを設定。
-            _pKurokoA->setMvVelo(ANG_COS(pOption_->angExpanse_) * veloOptionsMv_);
-            //旋回半径増加速度の処理はMyOptionクラスで行う。
-        } else {
-            is_handle_move_mode_ = false;
+        if (pVbPlay->isBeingPressed(VB_OPTION)){
+            if (is_handle_move_mode_) {
+                //オプションの広がり角より、オプション移動速度と、旋回半径増加速度にベクトル分解。
+                //そのうちのオプション移動速度のみを設定。
+                _pKurokoA->setMvVelo(ANG_COS(pOption_->angExpanse_) * veloOptionsMv_);
+                //旋回半径増加速度の処理はMyOptionクラスで行う。
+            } else {
+                //オプションフリーモードが解除されてる
+            }
+        } else  {
+            is_handle_move_mode_ = false; //VB_OPTION離すと解除
             _pKurokoA->setMvVelo(0);
-            //フリーズオプションのよーな感じに
+            //VB_OPTION 押下と無関係で フリーズオプションのよーな感じになる
             GgafDxGeoElem* pGeoMyShipPrev = pMyShip->pRing_MyShipGeoHistory2_->getPrev();
-            _X += (pMyShip->_X - pGeoMyShipPrev->_X);
-            _Y += (pMyShip->_Y - pGeoMyShipPrev->_Y);
-            _Z += (pMyShip->_Z - pGeoMyShipPrev->_Z);
+            _X += (pMyShip->_X - pGeoMyShipPrev->X);
+            _Y += (pMyShip->_Y - pGeoMyShipPrev->Y);
+            _Z += (pMyShip->_Z - pGeoMyShipPrev->Z);
         }
     } else {
         GgafDxGeoElem* pGeoMyShipTrace = pMyShip->pRing_MyShipGeoHistory4OptCtrler_->getPrev(MyOptionController::o2o_*(no_+1));
-        coord TX = pMyShip->_X_local + pGeoMyShipTrace->_X;
-        coord TY = pMyShip->_Y_local + pGeoMyShipTrace->_Y;
-        coord TZ = pMyShip->_Z_local + pGeoMyShipTrace->_Z;
+        coord TX = pMyShip->_X_local + pGeoMyShipTrace->X;
+        coord TY = pMyShip->_Y_local + pGeoMyShipTrace->Y;
+        coord TZ = pMyShip->_Z_local + pGeoMyShipTrace->Z;
+        //(TX,TY,TZ)は自機の絶対座標履歴に同じ。
+        //VB_OPTION 押下時は、pRing_MyShipGeoHistory4OptCtrler_ に履歴は追加されず、(_X_local, _Y_local, _Z_local) のみ更新。
+        //フリーズオプションの動きとなる。
+        //なんでか忘れたら MyShip::processBehavior() をのコメントを見よ
+
         if (return_to_default_position_seq_) {
             //元の位置へ
             _pKurokoB->setVxyzMvAcce( TX - (_X + _pKurokoB->_veloVxMv*6),
@@ -162,7 +171,7 @@ void MyOptionController::processBehavior() {
             }
 
         } else {
-            position(TX, TY, TZ);
+            position(TX, TY, TZ); //通常のツインビー分身トレース
         }
     }
 

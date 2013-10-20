@@ -24,9 +24,9 @@ void FormationOrtuna001b::onCallUpOrtuna(EnemyOrtuna* prm_pOrtuna, int prm_index
 
     //メンバーは自機前方のYZ平面円周上に整列
     static coord R1 = PX_C(50); //初期配置の半径
-    coord X = pos_._X;
-    coord Y = pos_._Y;
-    coord Z = pos_._Z;
+    coord X = pos_.X;
+    coord Y = pos_.Y;
+    coord Z = pos_.Z;
     prm_pOrtuna->entry_pos_.set(X,
                                 Y + (ANG_SIN(ang) * R1),
                                 Z + (ANG_COS(ang) * R1));

@@ -392,6 +392,8 @@ public:
 	static GgafCore::GgafStatus* resetEnemyOzartiaShot01Status(GgafCore::GgafStatus* p);
 	//オーツァルティアレーザーチップ
 	static GgafCore::GgafStatus* resetEnemyOzartiaLaserChip01Status(GgafCore::GgafStatus* p);
+	//オーツァルティア氷柱
+	static GgafCore::GgafStatus* resetEnemyOzartiaPillar01Status(GgafCore::GgafStatus* p);
     // gen01 end
 };
 

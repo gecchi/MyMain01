@@ -115,7 +115,9 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Duna/EnemyDuna.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Ozartia/EnemyOzartia.h"
-
+#include "jp/gecchi/VioletVreath/actor/enemy/Ozartia/EnemyOzartiaLaserChip01.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Ozartia/EnemyOzartiaShot01.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Ozartia/EnemyOzartiaPillar01.h"
 //"VioletVreathHeader.h"‚Ö‚Ì’Ç‹L‚à–Y‚ê‚¸‚É
 
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"

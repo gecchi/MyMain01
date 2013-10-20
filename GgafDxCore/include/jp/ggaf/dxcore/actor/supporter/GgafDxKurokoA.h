@@ -310,6 +310,22 @@ public:
      */
     void forceMvVeloRange(velo prm_veloMv);
 
+    inline velo getMvVelo() {
+        return _veloMv;
+    }
+    inline velo getMvVeloTop() {
+        return _veloTopMv;
+    }
+    inline velo getMvVeloBottom() {
+        return _veloBottomMv;
+    }
+    inline void setMvVeloTop() {
+        _veloMv = _veloTopMv;
+    }
+    inline void setMvVeloBottom() {
+        _veloMv = _veloBottomMv;
+    }
+
     /**
      * ˆÚ“®‰Á‘¬“x‚ðÝ’è .
      * @param prm_acceMove ˆÚ“®‰Á‘¬“x
@@ -609,9 +625,9 @@ public:
 
     inline void setMvAngTwd(GgafDxGeoElem* prm_pGeoElem) {
         setMvAngTwd(
-            prm_pGeoElem->_X,
-            prm_pGeoElem->_Y,
-            prm_pGeoElem->_Z
+            prm_pGeoElem->X,
+            prm_pGeoElem->Y,
+            prm_pGeoElem->Z
         );
     }
 
@@ -698,9 +714,9 @@ public:
                                angvelo prm_angVelo, angacce prm_angAcce,
                                int prm_way, bool prm_optimize_ang) {
         turnFaceAngTwd(
-                prm_pGeoElem->_X,
-                prm_pGeoElem->_Y,
-                prm_pGeoElem->_Z,
+                prm_pGeoElem->X,
+                prm_pGeoElem->Y,
+                prm_pGeoElem->Z,
                 prm_angVelo,
                 prm_angAcce,
                 prm_way,
@@ -851,9 +867,9 @@ public:
                              angvelo prm_angVelo, angacce prm_angAcce,
                              int prm_way, bool prm_optimize_ang) {
         turnMvAngTwd(
-                prm_pGeoElem->_X,
-                prm_pGeoElem->_Y,
-                prm_pGeoElem->_Z,
+                prm_pGeoElem->X,
+                prm_pGeoElem->Y,
+                prm_pGeoElem->Z,
                 prm_angVelo,
                 prm_angAcce,
                 prm_way,

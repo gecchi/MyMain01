@@ -99,8 +99,8 @@ void GgafDxBoardActor::positionAs(GgafDxGeometricActor* prm_pActor) {
 }
 
 void GgafDxBoardActor::positionAs(GgafDxGeoElem* prm_pGeoElem) {
-    _X = prm_pGeoElem->_X;
-    _Y = prm_pGeoElem->_Y;
+    _X = prm_pGeoElem->X;
+    _Y = prm_pGeoElem->Y;
 }
 
 void GgafDxBoardActor::setScale(scale S) {

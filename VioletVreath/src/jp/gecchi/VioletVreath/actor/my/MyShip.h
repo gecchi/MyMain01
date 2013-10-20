@@ -267,7 +267,10 @@ public:
     angvelo angRXVelo_BeginMZT_; //Rotation axisX angle Velo when I Begin To Move Z with Turbo
     //上の場合は正、下の場合はこれに -1 を乗ずる
 
+    /** VB_OPTION を離した瞬間の座標を(0,0,0)として、そこからの相対座標履歴（VB_OPTION押している時は除外されている） */
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_MyShipGeoHistory4OptCtrler_;
+
+    /** 自機の毎フレームの移動履歴（絶対座標）  */
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_MyShipGeoHistory2_;
     GgafCore::GgafActorDepository* pDepo_MyShots001_;
     GgafLib::LaserChipDepository* pLaserChipDepo_;

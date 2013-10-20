@@ -332,8 +332,8 @@ public:
                     )
                  );
     }
-    template<class T>
-    static double getDistance(GgafDxCore::GgafDxGeometricActor* pA1, T* pA2) {
+
+    static double getDistance(GgafDxCore::GgafDxGeometricActor* pA1, GgafDxCore::GgafDxGeometricActor* pA2) {
         return sqrt(
                       (
                         ((double)(pA2->_X - pA1->_X)) * ((double)(pA2->_X - pA1->_X))
@@ -345,15 +345,38 @@ public:
                     );
     }
 
-    template<class T>
-    static double getDistance(GgafDxCore::GgafDxGeoElem* pA1, T* pA2) {
+    static double getDistance(GgafDxCore::GgafDxGeometricActor* pA1, GgafDxCore::GgafDxGeoElem* pA2) {
         return sqrt(
                       (
-                        ((double)(pA2->_X - pA1->_X)) * ((double)(pA2->_X - pA1->_X))
+                        ((double)(pA2->X - pA1->_X)) * ((double)(pA2->X - pA1->_X))
                       ) + (
-                        ((double)(pA2->_Y - pA1->_Y)) * ((double)(pA2->_Y - pA1->_Y))
+                        ((double)(pA2->Y - pA1->_Y)) * ((double)(pA2->Y - pA1->_Y))
                       ) + (
-                        ((double)(pA2->_Z - pA1->_Z)) * ((double)(pA2->_Z - pA1->_Z))
+                        ((double)(pA2->Z - pA1->_Z)) * ((double)(pA2->Z - pA1->_Z))
+                      )
+                    );
+    }
+
+    static double getDistance(GgafDxCore::GgafDxGeoElem* pA1, GgafDxCore::GgafDxGeometricActor* pA2) {
+        return sqrt(
+                      (
+                        ((double)(pA2->_X - pA1->X)) * ((double)(pA2->_X - pA1->X))
+                      ) + (
+                        ((double)(pA2->_Y - pA1->Y)) * ((double)(pA2->_Y - pA1->Y))
+                      ) + (
+                        ((double)(pA2->_Z - pA1->Z)) * ((double)(pA2->_Z - pA1->Z))
+                      )
+                    );
+    }
+
+    static double getDistance(GgafDxCore::GgafDxGeoElem* pA1 ,GgafDxCore::GgafDxGeoElem* pA2) {
+        return sqrt(
+                      (
+                        ((double)(pA2->X - pA1->X)) * ((double)(pA2->X - pA1->X))
+                      ) + (
+                        ((double)(pA2->Y - pA1->Y)) * ((double)(pA2->Y - pA1->Y))
+                      ) + (
+                        ((double)(pA2->Z - pA1->Z)) * ((double)(pA2->Z - pA1->Z))
                       )
                     );
     }

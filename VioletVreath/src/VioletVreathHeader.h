@@ -538,6 +538,10 @@ class EnemyGlajaLance001;
 class EnemyDuna;
 
 class EnemyOzartia;
+class EnemyOzartiaLaserChip01;
+class EnemyOzartiaShot01;
+class EnemyOzartiaPillar01;
+
 //"VVEnemysHeader.h" Ç‡ÇÌÇ∑ÇÍÇÈÇ»Å`
 
 class DepositoryConnection;

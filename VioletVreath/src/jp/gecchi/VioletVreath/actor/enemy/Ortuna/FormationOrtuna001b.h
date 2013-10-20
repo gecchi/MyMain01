@@ -28,9 +28,9 @@ public:
      * @param Z
      */
     void position(coord X, coord Y, coord Z) {
-        pos_._X = X;
-        pos_._Y = Y;
-        pos_._Z = Z;
+        pos_.X = X;
+        pos_.Y = Y;
+        pos_.Z = Z;
     }
 
     virtual void onCallUpOrtuna(EnemyOrtuna* prm_pOrtuna, int prm_index) override;

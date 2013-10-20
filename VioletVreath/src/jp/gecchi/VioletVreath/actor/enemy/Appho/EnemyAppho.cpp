@@ -44,7 +44,7 @@ void EnemyAppho::processBehavior() {
     switch (_pProg->get()) {
          case PROG_INIT: {
              setHitAble(false);
-             position(entry_pos_._X, entry_pos_._Y, entry_pos_._Z);
+             position(entry_pos_.X, entry_pos_.Y, entry_pos_.Z);
              _pAFader->setAlpha(0);
              _pKurokoA->setMvVelo(0);
              _pKurokoA->relateFaceWithMvAng(true);

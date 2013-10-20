@@ -7,76 +7,76 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxGeoElem::GgafDxGeoElem() : GgafObject() {
-    _X = 0;
-    _Y = 0;
-    _Z = 0;
-    _RX = 0;
-    _RY = 0;
-    _RZ = 0;
+    X = 0;
+    Y = 0;
+    Z = 0;
+    RX = 0;
+    RY = 0;
+    RZ = 0;
     _next = nullptr;
 }
 
 GgafDxGeoElem::GgafDxGeoElem(coord prm_X, coord prm_Y, coord prm_Z) : GgafObject() {
-    _X = prm_X;
-    _Y = prm_Y;
-    _Z = prm_Z;
-    _RX = 0;
-    _RY = 0;
-    _RZ = 0;
+    X = prm_X;
+    Y = prm_Y;
+    Z = prm_Z;
+    RX = 0;
+    RY = 0;
+    RZ = 0;
     _next = nullptr;
 }
 
 GgafDxGeoElem::GgafDxGeoElem(coord prm_X, coord prm_Y, coord prm_Z, angle prm_RX, angle prm_RY, angle prm_RZ) : GgafObject() {
-    _X = prm_X;
-    _Y = prm_Y;
-    _Z = prm_Z;
-    _RX = prm_RX;
-    _RY = prm_RY;
-    _RZ = prm_RZ;
+    X = prm_X;
+    Y = prm_Y;
+    Z = prm_Z;
+    RX = prm_RX;
+    RY = prm_RY;
+    RZ = prm_RZ;
     _next = nullptr;
 }
 
 GgafDxGeoElem::GgafDxGeoElem(GgafDxGeometricActor* prm_pActor) : GgafObject() {
-    _X = prm_pActor->_X;
-    _Y = prm_pActor->_Y;
-    _Z = prm_pActor->_Z;
-    _RX = prm_pActor->_RX;
-    _RY = prm_pActor->_RY;
-    _RZ = prm_pActor->_RZ;
+    X = prm_pActor->_X;
+    Y = prm_pActor->_Y;
+    Z = prm_pActor->_Z;
+    RX = prm_pActor->_RX;
+    RY = prm_pActor->_RY;
+    RZ = prm_pActor->_RZ;
     _next = nullptr;
 }
 
 void GgafDxGeoElem::set(coord prm_X, coord prm_Y, coord prm_Z, angle prm_RX, angle prm_RY, angle prm_RZ) {
-    _X = prm_X;
-    _Y = prm_Y;
-    _Z = prm_Z;
-    _RX = prm_RX;
-    _RY = prm_RY;
-    _RZ = prm_RZ;
+    X = prm_X;
+    Y = prm_Y;
+    Z = prm_Z;
+    RX = prm_RX;
+    RY = prm_RY;
+    RZ = prm_RZ;
 }
 
 void GgafDxGeoElem::set(coord prm_X, coord prm_Y, coord prm_Z) {
-    _X = prm_X;
-    _Y = prm_Y;
-    _Z = prm_Z;
+    X = prm_X;
+    Y = prm_Y;
+    Z = prm_Z;
 }
 
 void GgafDxGeoElem::set(GgafDxGeometricActor* prm_pActor) {
-    _X = prm_pActor->_X;
-    _Y = prm_pActor->_Y;
-    _Z = prm_pActor->_Z;
-    _RX = prm_pActor->_RX;
-    _RY = prm_pActor->_RY;
-    _RZ = prm_pActor->_RZ;
+    X = prm_pActor->_X;
+    Y = prm_pActor->_Y;
+    Z = prm_pActor->_Z;
+    RX = prm_pActor->_RX;
+    RY = prm_pActor->_RY;
+    RZ = prm_pActor->_RZ;
 }
 
 void GgafDxGeoElem::set(GgafDxGeoElem* prm_pGeoElem) {
-    _X = prm_pGeoElem->_X;
-    _Y = prm_pGeoElem->_Y;
-    _Z = prm_pGeoElem->_Z;
-    _RX = prm_pGeoElem->_RX;
-    _RY = prm_pGeoElem->_RY;
-    _RZ = prm_pGeoElem->_RZ;
+    X = prm_pGeoElem->X;
+    Y = prm_pGeoElem->Y;
+    Z = prm_pGeoElem->Z;
+    RX = prm_pGeoElem->RX;
+    RY = prm_pGeoElem->RY;
+    RZ = prm_pGeoElem->RZ;
 
 }
 GgafDxGeoElem::~GgafDxGeoElem() {

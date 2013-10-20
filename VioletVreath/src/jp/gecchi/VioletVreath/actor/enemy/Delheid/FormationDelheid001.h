@@ -32,11 +32,11 @@ public:
      */
     void position(coord X, coord Y, coord Z,
                         angle RZ, angle RY) {
-        geoLocate_._X = X;
-        geoLocate_._Y = Y;
-        geoLocate_._Z = Z;
-        geoLocate_._RZ = RZ;
-        geoLocate_._RY = RY;
+        geoLocate_.X = X;
+        geoLocate_.Y = Y;
+        geoLocate_.Z = Z;
+        geoLocate_.RZ = RZ;
+        geoLocate_.RY = RY;
     }
 
     /**

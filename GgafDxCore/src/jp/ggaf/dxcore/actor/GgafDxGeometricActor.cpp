@@ -356,9 +356,9 @@ void GgafDxGeometricActor::defineRotMvWorldMatrix(void (*prm_pFunc)(GgafDxGeomet
 }
 
 void GgafDxGeometricActor::positionAs(GgafDxGeoElem* prm_pGeoElem) {
-    _X = prm_pGeoElem->_X;
-    _Y = prm_pGeoElem->_Y;
-    _Z = prm_pGeoElem->_Z;
+    _X = prm_pGeoElem->X;
+    _Y = prm_pGeoElem->Y;
+    _Z = prm_pGeoElem->Z;
 }
 
 void GgafDxGeometricActor::rotateAs(GgafDxGeometricActor* prm_pActor) {
@@ -367,9 +367,9 @@ void GgafDxGeometricActor::rotateAs(GgafDxGeometricActor* prm_pActor) {
     _RZ = prm_pActor->_RZ;
 }
 void GgafDxGeometricActor::rotateAs(GgafDxGeoElem* prm_pGeoElem) {
-    _RX = prm_pGeoElem->_RX;
-    _RY = prm_pGeoElem->_RY;
-    _RZ = prm_pGeoElem->_RZ;
+    _RX = prm_pGeoElem->RX;
+    _RY = prm_pGeoElem->RY;
+    _RZ = prm_pGeoElem->RZ;
 }
 
 void GgafDxGeometricActor::scaleAs(GgafDxGeometricActor* prm_pActor) {
