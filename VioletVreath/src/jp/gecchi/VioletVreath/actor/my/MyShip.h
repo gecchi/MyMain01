@@ -34,6 +34,8 @@ namespace VioletVreath {
 #define MY_SHIP_MAX_MP (1000000)
 /** 初期MP */
 #define MY_SHIP_START_MP (1000000)
+/** 時期の移動が停止しても、トレースな状態を維持できるフレーム数 */
+#define TRACE_DELAY_WAIT_FRAME (60)
 /**
  * 自機クラス
  * @version 1.00
@@ -322,7 +324,10 @@ public:
 
     /** 魔法メーター */
     MagicMeter* pMagicMeter_;
-
+    /** オプショントレース→自機停止の際に、自動的にオプションが巻き戻るまでの猶予による停止中true */
+    bool is_trace_waiting_;
+    /** is_trace_waiting_のフラグを切り替えるための時間カウンタ */
+    frame trace_delay_count_;
 
 public:
     MyShip(const char* prm_name);

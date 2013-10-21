@@ -10,6 +10,8 @@
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/CommonScene.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+#include "jp/gecchi/VioletVreath/actor/my/option/EffectMyOption.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -53,6 +55,10 @@ MyOptionController::MyOptionController(const char* prm_name, int prm_no) :
 
     _pSeTx->set(SE_RESTORE, "WAVE_MY_OPTION_RESTORE_001");
     _pSeTx->set(SE_FREE,    "WAVE_MY_OPTION_FREE_001");
+    was_ignited_option_ = false;
+    ignited_option_cnt_mode_ = false;
+    ignite_option_cnt_ = 0;
+    frame_of_ignite_option_ = (no_+1)*10;
 }
 
 void MyOptionController::initialize() {
@@ -71,8 +77,8 @@ void MyOptionController::onActive() {
 }
 
 void MyOptionController::processBehavior() {
-    MyShip* pMyShip = P_MYSHIP;
-    VirtualButton* pVbPlay = VB_PLAY;
+    MyShip* const pMyShip = P_MYSHIP;
+    VirtualButton* const pVbPlay = VB_PLAY;
     vbsta is_double_push_VB_OPTION = pVbPlay->isDoublePushedDown(VB_OPTION,8,8);
     if (is_double_push_VB_OPTION) {
         //もとに戻す
@@ -108,16 +114,43 @@ void MyOptionController::processBehavior() {
         }
     }
 
-    if (pVbPlay->isScrewPushDown(VB_OPTION)) {
-        //オプションフリーモード発動
-        is_free_from_myship_mode_ = true;
-        is_handle_move_mode_ = true;
-        _pKurokoB->setZeroVxyzMvVelo();
-        _pKurokoB->setZeroVxyzMvAcce();
-        if (pOption_->isActive()) {
-            EffectTurbo002* pTurbo002 = dispatchFromCommon(EffectTurbo002);
-            if (pTurbo002) {
-                pTurbo002->positionAs(pOption_);
+    //オプションフリーモードへの判断
+    if (pVbPlay->isBeingPressed(VB_OPTION)) {
+        if (pVbPlay->isDoublePushedDown(VB_TURBO)) { //VB_OPTION + VB_TURBOダブルプッシュ
+            ignited_option_cnt_mode_ = true; //オプション発射カウントモード発動
+        }
+        if (ignited_option_cnt_mode_) {
+            ignite_option_cnt_++; //オプション発射可能までのカウントアップ
+        }
+    } else {
+        //離すとリセット
+        ignited_option_cnt_mode_ = false;
+        ignite_option_cnt_ = 0;
+        was_ignited_option_ = false;
+    }
+
+    if ( ignite_option_cnt_ == frame_of_ignite_option_) { //あとのオプションほどカウントが多く必要
+        //発射点火OK時の処理
+        pOption_->pEffect_->_pScaler->beat(8, 4, 0, 1); //オプションぷるぷる、発射じゅんびOKのエフェクト
+        was_ignited_option_ = true;
+    }
+    //点火OKの時に VB_OPTION + VB_TURBOプッシュで発射
+    if (pVbPlay->isBeingPressed(VB_OPTION) && was_ignited_option_ && pVbPlay->isPushedDown(VB_TURBO)) {
+        ignited_option_cnt_mode_ = false;
+        ignite_option_cnt_ = 0;
+
+        if (was_ignited_option_) {
+            was_ignited_option_ = false;
+
+            is_free_from_myship_mode_ = true;
+            is_handle_move_mode_ = true;
+            _pKurokoB->setZeroVxyzMvVelo();
+            _pKurokoB->setZeroVxyzMvAcce();
+            if (pOption_->isActive()) {
+                EffectTurbo002* pTurbo002 = dispatchFromCommon(EffectTurbo002);
+                if (pTurbo002) {
+                    pTurbo002->positionAs(pOption_);
+                }
             }
         }
     }
@@ -147,11 +180,12 @@ void MyOptionController::processBehavior() {
         coord TY = pMyShip->_Y_local + pGeoMyShipTrace->Y;
         coord TZ = pMyShip->_Z_local + pGeoMyShipTrace->Z;
         //(TX,TY,TZ)は自機の絶対座標履歴に同じ。
-        //VB_OPTION 押下時は、pRing_MyShipGeoHistory4OptCtrler_ に履歴は追加されず、(_X_local, _Y_local, _Z_local) のみ更新。
-        //フリーズオプションの動きとなる。
+        //VB_OPTION 押下時は、pRing_MyShipGeoHistory4OptCtrler_ に履歴は追加されず、
+        //(_X_local, _Y_local, _Z_local) のみ更新され、フリーズオプションの動きとなる。
         //なんでか忘れたら MyShip::processBehavior() をのコメントを見よ
 
         if (return_to_default_position_seq_) {
+            pMyShip->trace_delay_count_ = TRACE_DELAY_WAIT_FRAME; //トレース維持を強制解除
             //元の位置へ
             _pKurokoB->setVxyzMvAcce( TX - (_X + _pKurokoB->_veloVxMv*6),
                                       TY - (_Y + _pKurokoB->_veloVyMv*6),

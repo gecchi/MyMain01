@@ -2,6 +2,10 @@
 #define MYOPTION_H_
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
+
+#define OPT_RADIUS_POS_MIN (PX_C(30))
+#define OPT_RADIUS_POS_MAX (PX_C(1000))
+
 namespace VioletVreath {
 
 //class MyOption : public GgafLib::DefaultMorphMeshActor {
@@ -22,7 +26,7 @@ private:
      * @param prm_radius_offset 半径差分
      * @param prm_min_radius 最低半径距離
      */
-    void addRadiusPosition(int prm_radius_offset, int prm_min_radius = 30000, int prm_max_radius = 1000000);
+    void addRadiusPosition(int prm_radius_offset, int prm_min_radius = OPT_RADIUS_POS_MIN, int prm_max_radius = OPT_RADIUS_POS_MAX);
 
 public:
     enum {
@@ -54,7 +58,7 @@ public:
     angvelo angveloMove_;
     /** [r]円周上初期位置角度（周囲角）（initialize()までに変更可／デフォルト=0） */
     angle angPosition_;
-    /** [r]旋廻円周半径（initialize()までに変更可／デフォルト=200000） */
+    /** [r]現在の旋廻円周半径（initialize()までに変更可／デフォルト=200000） */
     int radiusPosition_;
     /** [r/w]旋廻円周移動速度（随時変更可／デフォルト=1000） */
     velo veloMv_;
@@ -67,6 +71,8 @@ public:
     int radiusPosition_base_;
     /** [r]停止時に戻るべき廻円周半径 */
     int radiusPosition_stopping_;
+    /** [r]半径移動速度(OPTION操作時) */
+    int radiusPosition_velo_;
 
     /** [r]初期旋廻円周移動速度 */
     velo veloMv_base_;
@@ -129,6 +135,7 @@ public:
         angPosition_base_ = prm_angPosition;
         radiusPosition_base_ = prm_radiusPosition;
         radiusPosition_stopping_ = radiusPosition_base_;
+        radiusPosition_velo_ = 3000 * (radiusPosition_base_/60000);
         angExpanse_default_ = prm_angExpanse;
         veloMv_base_ = prm_veloMv;
     }

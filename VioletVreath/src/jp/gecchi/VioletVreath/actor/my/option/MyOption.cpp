@@ -46,6 +46,7 @@ MyOption::MyOption(const char* prm_name, uint32_t prm_no, MyOptionController* pr
     angPosition_base_ = angPosition_;
     radiusPosition_base_ = radiusPosition_;
     radiusPosition_stopping_ = radiusPosition_;
+    radiusPosition_velo_ = 3000 * (radiusPosition_base_/60000);
 
     angExpanse_default_ = angExpanse_;
     veloMv_base_ = veloMv_;
@@ -60,6 +61,7 @@ MyOption::MyOption(const char* prm_name, uint32_t prm_no, MyOptionController* pr
     Yorg_ = _Y;
     Zorg_ = _Z;
 
+    //TODO::EffectMyOption
     pEffect_ = NEW EffectMyOption("EffectMyOption", this);
     addSubGroup(pEffect_);
 
@@ -88,7 +90,6 @@ MyOption::MyOption(const char* prm_name, uint32_t prm_no, MyOptionController* pr
     addSubGroup(pLaserChipDepo_);
 
     pDepo_MyShots001_ = NEW GgafActorDepository("RotShot001");
-    MyShot001* pShot;
     for (int i = 0; i < 25; i++) { //自弾ストック
         std::string name = std::string(getName()) + "'s Shot001(" + XTOS(i) + ")";
         pDepo_MyShots001_->put(NEW MyShot001(name.c_str()));
@@ -246,7 +247,7 @@ void MyOption::processBehavior() {
     _Z = Zorg_;
 
     if (return_to_base_radiusPosition_seq_) {
-        //自動戻り
+        //半径ポジション自動戻り中
         if (radiusPosition_ == radiusPosition_base_) {
             //kk
             return_to_base_radiusPosition_seq_ = false;
@@ -269,7 +270,7 @@ void MyOption::processBehavior() {
     }
 
     if (return_to_base_angExpanse_seq_) {
-        //自動戻り
+        //オプション広がり自動戻り中
         if (angExpanse_ > angExpanse_default_) {
             angExpanse_ -= 2000;
         }
@@ -293,13 +294,13 @@ void MyOption::processBehavior() {
                     angExpanse_ -= angveloExpanseNomal_;
                 }
                 if (pVbPlay->isBeingPressed(VB_UP)) {
-                    addRadiusPosition(3000 * (radiusPosition_base_/60000));
-                    radiusPosition_stopping_+=(3000 * (radiusPosition_base_/60000));
+                    addRadiusPosition(radiusPosition_velo_);
+                    radiusPosition_stopping_ += radiusPosition_velo_;
                     //angExpanse_ += angveloExpanseSlow_;
                 }
                 if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    addRadiusPosition(-3000 * (radiusPosition_base_/60000));
-                    radiusPosition_stopping_+=(-3000 * (radiusPosition_base_/60000));
+                    addRadiusPosition(-radiusPosition_velo_);
+                    radiusPosition_stopping_ -= radiusPosition_velo_;
                     //angExpanse_ -= angveloExpanseSlow_;
                 }
             } else if (pos_camera == VAM_POS_LEFT) {
@@ -310,24 +311,24 @@ void MyOption::processBehavior() {
                     angExpanse_ += angveloExpanseNomal_;
                 }
                 if (pVbPlay->isBeingPressed(VB_UP)) {
-                    addRadiusPosition(3000 * (radiusPosition_base_/60000));
-                    radiusPosition_stopping_+=(+3000 * (radiusPosition_base_/60000));
+                    addRadiusPosition(radiusPosition_velo_);
+                    radiusPosition_stopping_ += radiusPosition_velo_;
                     //angExpanse_ += angveloExpanseSlow_;
                 }
                 if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    addRadiusPosition(-3000 * (radiusPosition_base_/60000));
-                    radiusPosition_stopping_+=(-3000 * (radiusPosition_base_/60000));
+                    addRadiusPosition(-radiusPosition_velo_);
+                    radiusPosition_stopping_ -= radiusPosition_velo_;
                     //angExpanse_ -= angveloExpanseSlow_;
                 }
             } else if (pos_camera == VAM_POS_TOP) {
                 if (pVbPlay->isBeingPressed(VB_RIGHT)) {
-                    addRadiusPosition(3000 * (radiusPosition_base_/60000));
-                    radiusPosition_stopping_+=(3000 * (radiusPosition_base_/60000));
+                    addRadiusPosition(radiusPosition_velo_);
+                    radiusPosition_stopping_ += radiusPosition_velo_;
                     //angExpanse_ += angveloExpanseSlow_;
                 }
                 if (pVbPlay->isBeingPressed(VB_LEFT)) {
-                    addRadiusPosition(-3000 * (radiusPosition_base_/60000));
-                    radiusPosition_stopping_+=(-3000 * (radiusPosition_base_/60000));
+                    addRadiusPosition(-radiusPosition_velo_);
+                    radiusPosition_stopping_ -= radiusPosition_velo_;
                     //angExpanse_ -= angveloExpanseSlow_;
                 }
                 if (pVbPlay->isBeingPressed(VB_UP)) {
@@ -338,13 +339,13 @@ void MyOption::processBehavior() {
                 }
             } else if (pos_camera == VAM_POS_BOTTOM) {
                 if (pVbPlay->isBeingPressed(VB_RIGHT)) {
-                    addRadiusPosition(-3000 * (radiusPosition_base_/60000));
-                    radiusPosition_stopping_+=(-3000 * (radiusPosition_base_/60000));
+                    addRadiusPosition(-radiusPosition_velo_);
+                    radiusPosition_stopping_ -= radiusPosition_velo_;
                     //angExpanse_ -= angveloExpanseSlow_;
                 }
                 if (pVbPlay->isBeingPressed(VB_LEFT)) {
-                    addRadiusPosition(3000 * (radiusPosition_base_/60000));
-                    radiusPosition_stopping_+=(3000 * (radiusPosition_base_/60000));
+                    addRadiusPosition(radiusPosition_velo_);
+                    radiusPosition_stopping_ += radiusPosition_velo_;
                     //angExpanse_ += angveloExpanseSlow_;
                 }
                 if (pVbPlay->isBeingPressed(VB_UP)) {
@@ -361,15 +362,22 @@ void MyOption::processBehavior() {
                     angExpanse_ -= angveloExpanseNomal_;
                 }
                 if (pVbPlay->isBeingPressed(VB_UP)) {
-                    addRadiusPosition(3000 * (radiusPosition_base_/60000));
-                    radiusPosition_stopping_+=(3000 * (radiusPosition_base_/60000));
+                    addRadiusPosition(radiusPosition_velo_);
+                    radiusPosition_stopping_ += radiusPosition_velo_;
                     //angExpanse_ += angveloExpanseSlow_;
                 }
                 if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    addRadiusPosition(-3000 * (radiusPosition_base_/60000));
-                    radiusPosition_stopping_+=(-3000 * (radiusPosition_base_/60000));
+                    addRadiusPosition(-radiusPosition_velo_);
+                    radiusPosition_stopping_ -= radiusPosition_velo_;
                     //angExpanse_ -= angveloExpanseSlow_;
                 }
+            }
+
+            if (radiusPosition_stopping_ < OPT_RADIUS_POS_MIN) {
+                radiusPosition_stopping_ = OPT_RADIUS_POS_MIN;
+            }
+            if (radiusPosition_stopping_ > OPT_RADIUS_POS_MAX) {
+                radiusPosition_stopping_ = OPT_RADIUS_POS_MAX;
             }
             angExpanse_ = UTIL::simplifyAng(angExpanse_);
         } else {
@@ -384,33 +392,39 @@ void MyOption::processBehavior() {
                            pGeoOpCtrl->Y == pOptionCtrler_->_Y &&
                            pGeoOpCtrl->Z == pOptionCtrler_->_Z )
                 {
-                    //非移動時
-                    if (radiusPosition_stopping_ == radiusPosition_) {
-                        //kk
-                    } else if (radiusPosition_stopping_ > radiusPosition_) {
-                        addRadiusPosition(+2000, 1, radiusPosition_stopping_);
-                    } else if (radiusPosition_stopping_ < radiusPosition_) {
-                        addRadiusPosition(-2000, radiusPosition_);
-                    }
-                    if (veloMv_ == veloMv_base_) {
-
-                    } else {
-                        veloMv_ += 100;
-                        if (veloMv_ >= veloMv_base_) {
-                            if (need_adjust_pos_flg_) {
-                                MyOptionController::adjustDefaltAngPosition(radiusPosition_stopping_ / 1000);
-                                need_adjust_pos_flg_ = false;
-                            }
-                            veloMv_ = veloMv_base_;
+                    //オプションコントローラー非移動時、
+                    //元の軌道に戻るために半径座標を増やす。
+                    if (!pMyShip->is_trace_waiting_) {
+                        if (radiusPosition_stopping_ == radiusPosition_) {
+                            //kk
+                        } else if (radiusPosition_stopping_ > radiusPosition_) {
+                            addRadiusPosition(+2000, 1, radiusPosition_stopping_);
+                        } else if (radiusPosition_stopping_ < radiusPosition_) {
+                            addRadiusPosition(-2000, radiusPosition_);
                         }
+                        if (veloMv_ == veloMv_base_) {
+
+                        } else {
+                            veloMv_ += 100;
+                            if (veloMv_ >= veloMv_base_) {
+                                if (need_adjust_pos_flg_) { //位置の再設定要求あり
+                                    MyOptionController::adjustDefaltAngPosition(radiusPosition_stopping_ / 1000);
+                                    need_adjust_pos_flg_ = false;
+                                }
+                                veloMv_ = veloMv_base_;
+                            }
+                        }
+                    } else {
+                        //トレースちょっと待ち
                     }
                 } else {
-                    //移動時
+                    //オプションコントローラーが移動時、
+                    //オプションコントローラーに向かっていくように、半径座標を減らす。
                     if (1 < radiusPosition_) {
                         addRadiusPosition(-3000, 1);
                     }
-                    if (radiusPosition_ < 10000) {
-                        need_adjust_pos_flg_ = true;
+                    if (radiusPosition_ < 10000) { //かなり半径が小さくなってしまった場合
+                        need_adjust_pos_flg_ = true; //非移動時に位置の再設定要求（↑を見よ）
                     }
 
                     veloMv_ -= 200;
@@ -615,4 +629,20 @@ void MyOption::onHit(GgafActor* prm_pOtherActor) {
 
 MyOption::~MyOption() {
 }
+
+
+
+//オブションについて備忘録2013/10/21
+//自機(MyShip) -> オプションコントローラー(MyOptionController) x 9
+//                       それぞれのコントローラーに オプション(MyOption)
+//＜基本動作＞
+//自機はグラディウスオプショントレースの動きをオプションコントローラーについて行っている。
+//オプションは、オプションコントローラーの(0,0,0)の周りを周回軌道で回っている。
+//オプション周回軌道の半径の距離は、オプションコントローラーが移動すると短くなる。
+//オプションコントローラーが移動し続けると、オプションコントローラーの(0,0,0)
+//付近で停止しているように見えるほど半径が小さくなる。
+//オプションコントローラー停止すると、オプションは元の半径の距離に戻ろうとする。
+
+
+
 

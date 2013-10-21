@@ -54,13 +54,13 @@ papOptionCtrler_(nullptr) {
     papOptionCtrler_[5]->pOption_->setMaterialColor(0.8, 1.0, 0.8);
     papOptionCtrler_[5]->pOption_->setAlpha(0.7);
     papOptionCtrler_[6]->pOption_->config(120000, D_ANG(72*2), 0, -1500);
-    papOptionCtrler_[6]->pOption_->setMaterialColor(1.0, 0.8, 0);
+    papOptionCtrler_[6]->pOption_->setMaterialColor(1.0, 0.8, 0.8);
     papOptionCtrler_[6]->pOption_->setAlpha(0.7);
     papOptionCtrler_[7]->pOption_->config(120000, D_ANG(72*3), 0, -1500);
-    papOptionCtrler_[7]->pOption_->setMaterialColor(1.0, 1.0, 1.0);
+    papOptionCtrler_[7]->pOption_->setMaterialColor(1.0, 1.0, 0.0);
     papOptionCtrler_[7]->pOption_->setAlpha(0.7);
     papOptionCtrler_[8]->pOption_->config(120000, D_ANG(72*4), 0, -1500);
-    papOptionCtrler_[8]->pOption_->setMaterialColor(1.0, 1.0, 1.0);
+    papOptionCtrler_[8]->pOption_->setMaterialColor(1.0, 0.0, 1.0);
     papOptionCtrler_[8]->pOption_->setAlpha(0.7);
 
     getSceneDirector()->addSubGroup(pMyShip_);

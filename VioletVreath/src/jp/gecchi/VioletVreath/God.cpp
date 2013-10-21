@@ -106,12 +106,16 @@ GgafUniverse* God::createUniverse() {
 void God::clean() {
     if (!_was_cleaned) {
         if (VB_PLAY->_is_replaying) {
-            //VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_REPADD.rep");
+#ifdef MY_DEBUG
+            VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_REPADD.rep");
+#endif
         } else {
             VB_PLAY->_pRpy->outputFile(FILE_OUTPUT_PLAY_REPLAY);
         }
         if (VB_UI->_is_replaying) {
-            //VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_REPADD.rep");
+#ifdef MY_DEBUG
+            VB_PLAY->_pRpy->outputFile("VB_UI_LAST_REPADD.rep");
+#endif
         } else {
             VB_UI->_pRpy->outputFile(FILE_OUTPUT_UI_REPLAY);
         }

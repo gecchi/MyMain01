@@ -43,6 +43,15 @@ public:
     angvelo angVelo_Turn_;
     int renge_;
 
+    /** オプションフリーモードへの準備の点火カウンター */
+    frame ignite_option_cnt_;
+    /** オプションフリーモードへ移行するための、必要な点火のカウント時間 */
+    frame frame_of_ignite_option_;
+    /** オプションフリーモードへの準備の点火カウントモードの場合 true */
+    bool ignited_option_cnt_mode_;
+    /** 点火され、オプションフリーモードへの移行可能な状態の場合 true */
+    bool was_ignited_option_;
+
     enum {
         SE_RESTORE  ,
         SE_FREE  ,

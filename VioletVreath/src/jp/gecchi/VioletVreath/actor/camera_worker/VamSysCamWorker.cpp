@@ -81,9 +81,9 @@ void VamSysCamWorker::processBehavior() {
     //カメラ位置番号を決定処理
     is_cam_pos_option_back_ = false;
     if (pVbPlay->isBeingPressed(VB_OPTION)) { //オプション操作時
-        if (pVbPlay->isBeingPressed(VB_VIEW)) {
-            is_cam_pos_option_back_ = true;
-        }
+        //if (pVbPlay->isBeingPressed(VB_VIEW)) {
+        //    is_cam_pos_option_back_ = true; //TODO:オプション操作中のオプション[0]の背面に回る
+        //}
     } else if (pVbPlay->isPushedDown(VB_VIEW)) { //ビューボタンプッシュ                              //オプション非操作時（通常時）
         _TRACE_("VB_VIEW!! now pos_camera_="<<pos_camera_);
         if (pos_camera_ < VAM_POS_TO_BEHIND) { //背面ビューポイントではない場合、
@@ -117,8 +117,7 @@ void VamSysCamWorker::processBehavior() {
     static coord Dx = PX_C(PROPERTY::GAME_BUFFER_WIDTH/4);
     static int Ddx_hw = (int)((PROPERTY::GAME_BUFFER_WIDTH*LEN_UNIT/2) - (PROPERTY::GAME_BUFFER_HEIGHT*LEN_UNIT/2));
 
-    if (is_cam_pos_option_back_) {
-        //オプション操作中のオプション背面に回る
+    if (is_cam_pos_option_back_) { //TODO:オプション操作中のオプション[0]背面に回る
         coord d = dZ_camera_init_*0.6;
         move_target_X_CAM = pOptCtrler->_X + pOptCtrler->_pKurokoA->_vX*-d;
         move_target_Y_CAM = pOptCtrler->_Y + pOptCtrler->_pKurokoA->_vY*-d;
@@ -261,7 +260,7 @@ void VamSysCamWorker::processBehavior() {
     //VB_VIEW押した時の処理
     if (pVbPlay->isBeingPressed(VB_VIEW)) {
         //VB_VIEWを押しっぱなし中は、ゆっくりな移動速度に制限
-        cam_velo_renge = cam_velo_renge_ / 100;
+        cam_velo_renge = cam_velo_renge_ * 0.02;
     } else {
         //通常のカメラ移動速度制限にする
         cam_velo_renge = cam_velo_renge_;

@@ -254,6 +254,9 @@ MyShip::MyShip(const char* prm_name) :
     r_blown_velo_attenuate_ = 0.8;
 
     invincible_frames_ = 60 * 10;
+
+    trace_delay_count_ = 0;
+    is_trace_waiting_ = false;
 }
 void MyShip::onCreateModel() {
     _pModel->setSpecular(5.0, 1.0);
@@ -567,9 +570,26 @@ void MyShip::processBehavior() {
         //したがって、pRing_MyShipGeoHistory4OptCtrler_は、
         //自機の絶対座標履歴から、VB_OPTION を押した場合の増分座標を除外した移動座標履歴（絶対座標）となる。
         //この履歴の座標に(_X_local, _Y_local, _Z_local) に(_X_local, _Y_local, _Z_local)座標を足せば、自機の座標と同値
-        pRing_MyShipGeoHistory4OptCtrler_->next()->set(_X - _X_local,
-                                                       _Y - _Y_local,
-                                                       _Z - _Z_local );
+        GgafDxGeoElem* pGeo = pRing_MyShipGeoHistory4OptCtrler_->getCurrent();
+        if (pGeo->X == _X - _X_local && pGeo->Y == _Y - _Y_local && pGeo->Z == _Z - _Z_local) {
+            //移動していない場合
+            trace_delay_count_++;
+            if (trace_delay_count_ > TRACE_DELAY_WAIT_FRAME) { //1秒間トレースな状態を維持できるようにする。
+                pRing_MyShipGeoHistory4OptCtrler_->next()->set(_X - _X_local,
+                                                               _Y - _Y_local,
+                                                               _Z - _Z_local );
+                is_trace_waiting_ = false;
+            } else {
+                is_trace_waiting_ = true;
+            }
+        } else {
+            trace_delay_count_ = 0;
+            pRing_MyShipGeoHistory4OptCtrler_->next()->set(_X - _X_local,
+                                                           _Y - _Y_local,
+                                                           _Z - _Z_local );
+            is_trace_waiting_ = false;
+        }
+
     }
 
     //毎フレームの呼吸の消費
@@ -1274,7 +1294,6 @@ void MyShip::move_WAY_ZRIGHT_DOWN_BEHIND() {
 /////////////////TURBO_BEGIN
 
 void MyShip::turbo_WAY_NONE() {
-
 }
 
 
