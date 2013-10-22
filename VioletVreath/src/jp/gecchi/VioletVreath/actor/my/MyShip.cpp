@@ -332,16 +332,6 @@ void MyShip::processBehavior() {
     VirtualButton* pVbPlay = VB_PLAY;
     int pos_camera = P_VAM->pos_camera_;
 
-    if (!can_control_) {
-        return;
-    }
-
-    //息切れ
-    if (_pStatus->get(STAT_Stamina) < 0) {
-        _pStatus->set(STAT_Stamina, 0);
-        return; //操作不可
-    }
-
     //VAMSystemの実装
     // (Viewpoint Adaptive Moving System 視点適応型移動システム)
     stc_ = pVbPlay->getBeingPressedStick();
@@ -428,6 +418,15 @@ void MyShip::processBehavior() {
     if (pVbPlay->isReleasedUp(VB_DOWN)) {
         way_switch_.OFF_DOWN();  // ↓ を離す
     }
+
+    //way_switch_スイッチ制御をさせておかないと、pVbPlay(isPushedDown,isReleasedUp) 判定が
+    //ずれると困る
+    //なのでここでreturn
+    //操作拒否
+    if (!can_control_) {
+        return;
+    }
+
     MoveWay prev_way = way_;
     way_ = (MoveWay)(way_switch_.getIndex()); //上記を考慮された方向値が入る
     if (prev_way != way_) {
@@ -435,32 +434,37 @@ void MyShip::processBehavior() {
     } else {
         is_just_change_way_ = false;
     }
-    if (pVbPlay->isBeingPressed(VB_OPTION)) {
-        int tmp = iMoveSpeed_;
-        iMoveSpeed_ /= 8; //オプション操作中移動は遅い
-        (this->*paFuncMove[way_])();   //方向値に応じた移動処理メソッドを呼び出す
-        iMoveSpeed_ = tmp;
-    } else {
-        (this->*paFuncMove[way_])();   //方向値に応じた移動処理メソッドを呼び出す
-    }
 
-    if (pVbPlay->isPushedDown(VB_TURBO)) {
-        UTIL::activateProperEffect01Of(this); //ターボ開始のエフェクト
-        (this->*paFuncTurbo[way_])(); //方向値に応じたターボ開始処理メソッドを呼び出す
-        _pSeTx->play3D(SE_TURBO);
+    if (_pStatus->get(STAT_Stamina) < 0) {
+        //息切れ
     } else {
-        //Notターボ開始時
-        if (pVbPlay->isBeingPressed(VB_TURBO)) {
-            //ターボボタンを押し続けることで、速度減衰がゆるやかになり、
-            //移動距離を伸ばす
-            _pKurokoB->_veloVxMv *= 0.99;
-            _pKurokoB->_veloVyMv *= 0.99;
-            _pKurokoB->_veloVzMv *= 0.99;
+        if (pVbPlay->isBeingPressed(VB_OPTION)) {
+            int tmp = iMoveSpeed_;
+            iMoveSpeed_ /= 8; //オプション操作中移動は遅い
+            (this->*paFuncMove[way_])();   //方向値に応じた移動処理メソッドを呼び出す
+            iMoveSpeed_ = tmp;
         } else {
-            //ターボを離した場合、速度減衰。
-            _pKurokoB->_veloVxMv *= 0.8;
-            _pKurokoB->_veloVyMv *= 0.8;
-            _pKurokoB->_veloVzMv *= 0.8;
+            (this->*paFuncMove[way_])();   //方向値に応じた移動処理メソッドを呼び出す
+        }
+
+        if (pVbPlay->isPushedDown(VB_TURBO)) {
+            UTIL::activateProperEffect01Of(this); //ターボ開始のエフェクト
+            (this->*paFuncTurbo[way_])(); //方向値に応じたターボ開始処理メソッドを呼び出す
+            _pSeTx->play3D(SE_TURBO);
+        } else {
+            //Notターボ開始時
+            if (pVbPlay->isBeingPressed(VB_TURBO)) {
+                //ターボボタンを押し続けることで、速度減衰がゆるやかになり、
+                //移動距離を伸ばす
+                _pKurokoB->_veloVxMv *= 0.99;
+                _pKurokoB->_veloVyMv *= 0.99;
+                _pKurokoB->_veloVzMv *= 0.99;
+            } else {
+                //ターボを離した場合、速度減衰。
+                _pKurokoB->_veloVxMv *= 0.8;
+                _pKurokoB->_veloVyMv *= 0.8;
+                _pKurokoB->_veloVzMv *= 0.8;
+            }
         }
     }
 
@@ -532,12 +536,15 @@ void MyShip::processBehavior() {
         blown_veloZ_ *= r_blown_velo_attenuate_;
     }
 
+
     if (is_diving_) {
         //突入モーション時は、移動範囲制御無し
     } else {
         //通常移動範囲制御
         if (_Y > MyShip::lim_Y_top_) {
             _Y = MyShip::lim_Y_top_;
+            _TRACE_("天井にぶつかった！");
+
         } else if (_Y < MyShip::lim_Y_bottom_ ) {
             _Y = MyShip::lim_Y_bottom_;
         }

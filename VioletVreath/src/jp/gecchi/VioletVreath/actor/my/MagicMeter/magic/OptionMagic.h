@@ -14,7 +14,6 @@ class OptionMagic : public Magic {
 
 public:
     GgafDxCore::GgafDxDrawableActor** papEffect_;
-    float r_effect_;
 //    int old_level_;
     OptionMagic(const char* prm_name, int* prm_pMP);
 

@@ -189,11 +189,22 @@ public:
                 sw_DOWN_ = false;
             }
         }
+
         inline int getIndex() {
             //3i”¨10i”•ÏŠ·
             //_TRACE_("way_.X, way_.Y, way_.Z="<<way_.X<<","<<way_.Y<<","<< way_.Z);
             return (3*3*(SGN(way_.X)+1)) + (3*(SGN(way_.Y)+1)) + (SGN(way_.Z)+1);
         }
+
+        inline void dump() {
+            _TEXT_(way_.X<<way_.Y<<way_.Z<<","<<
+                   "["<<sw_UP_<<sw_LEFT_<<sw_RIGHT_<<sw_DOWN_<<"],"<<
+                   on_UP_.X<<on_UP_.Y<<on_UP_.Z<<","<<
+                   on_LEFT_.X<<on_LEFT_.Y<<on_LEFT_.Z<<","<<
+                   on_RIGHT_.X<<on_RIGHT_.Y<<on_RIGHT_.Z<<","<<
+                   on_DOWN_.X<<on_DOWN_.Y<<on_DOWN_.Z<<"");
+        }
+
     };
 public:
     /** ˆÚ“®YÀ•WãŒÀ */

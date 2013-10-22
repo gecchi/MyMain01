@@ -130,9 +130,10 @@ void MyOption::onReset() {
     _pKurokoA->setRyMvAngVelo(0);//∵半径Ｒ＝速度Ｖ／角速度ω
     _Z = ANG_COS(angPosition_)*radiusPosition_; //X軸中心回転なのでXYではなくてZY
     _Y = ANG_SIN(angPosition_)*radiusPosition_; //X軸の正の方向を向いて時計回りに配置
-                                                                    //ワールド変換の（左手法）のX軸回転とはと逆の回転なので注意
+                                                //ワールド変換の（左手法）のX軸回転とはと逆の回転なので注意
     _X = 0;
     _pKurokoA->setFaceAngVelo(AXIS_X, 4000);
+    //ローカル座標系を、(Xorg_,Yorg_,Zorg_) へ退避
     Xorg_ = _X;
     Yorg_ = _Y;
     Zorg_ = _Z;
@@ -242,6 +243,10 @@ void MyOption::processBehavior() {
     VirtualButton* pVbPlay = VB_PLAY;
     GgafDxKurokoA* const pKurokoA = _pKurokoA;
     //処理メイン
+
+    //退避していたローカル座標系を、(Xorg_,Yorg_,Zorg_) を
+    //_pKurokoAのメソッドを利用するため、(_X,_Y,_Z)へコピー
+    //これ以降processBehavior()内の(_X,_Y,_Z)はローカル座標系
     _X = Xorg_;
     _Y = Yorg_;
     _Z = Zorg_;
@@ -486,8 +491,8 @@ void MyOption::processBehavior() {
     angPosition_ = UTIL::simplifyAng(angPosition_+angveloMove_);
 
     pKurokoA->behave();
-    //_pKurokoB->behave();
-
+    //pKurokoAを使って、(_X,_Y,_Z)ローカル座標系の計算ができたので、
+    //(_X,_Y,_Z)のローカル座標系結果を、(Xorg_,Yorg_,Zorg_) に上書きコピーで更新する。
     Xorg_ = _X;
     Yorg_ = _Y;
     Zorg_ = _Z;
@@ -495,7 +500,7 @@ void MyOption::processBehavior() {
     //＜メモ＞
     //ここまでで、GgafDxKurokoAの機能のみで、
     //以下のような状態までもっていく。
-    //(100,0,0) から原点を見たイメージ、自は原点
+    //(100,0,0) 辺りから原点を見たイメージ、自（MyOptionController）は原点
     //↑y軸  →z軸  ・x軸（奥から手前、手前が正）
     //
     //
@@ -555,9 +560,12 @@ void MyOption::processBehavior() {
     //Z軸回転、Y軸回転角度を計算
     UTIL::convVectorToRzRy(Q._x, Q._y, Q._z, _RZ, _RY);
 
+    //最終的にな(_X,_Y,_Z)に絶対座標系の座標値に更新。
     _X = X + pOptionCtrler_->_X;
     _Y = Y + pOptionCtrler_->_Y;
     _Z = Z + pOptionCtrler_->_Z;
+    //ちなみにローカル座標系結果は、(Xorg_,Yorg_,Zorg_)
+
 
     //レーザー発射。TODO:最適化
     if (pMyShip->is_shooting_laser_ && pVbPlay->isBeingPressed(VB_SHOT1)) {

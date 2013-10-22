@@ -232,6 +232,8 @@ public:
     // gen01 start
 	//自機
 	static GgafCore::GgafStatus* resetMyShipStatus(GgafCore::GgafStatus* p);
+	//マジックエネルギー
+	static GgafCore::GgafStatus* resetMyMagicEnagyStatus(GgafCore::GgafStatus* p);
 	//自機レーザー
 	static GgafCore::GgafStatus* resetMyStraightLaserChip001Status(GgafCore::GgafStatus* p);
 	//オプションカーブレーザー

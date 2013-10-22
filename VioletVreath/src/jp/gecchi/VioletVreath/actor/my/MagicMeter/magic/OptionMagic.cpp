@@ -44,9 +44,9 @@ OptionMagic::OptionMagic(const char* prm_name, int* prm_pMP)
         papEffect_[i]->inactivateImmed();
         addSubGroup(papEffect_[i]);
     }
-    r_effect_ = 1.0;
 }
 void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
+    //放射状にエフェクト放出
     MyShip* pMyShip = P_MYSHIP;
     angle* paAng_way = NEW angle[prm_new_level-prm_now_level];
     UTIL::getRadialAngle2D(0, prm_new_level-prm_now_level, paAng_way);
@@ -62,30 +62,39 @@ void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
         }
     }
     GgafDxDrawableActor* pEffect;
-    velo rvelo = PX_C(10);
+    velo rvelo = PX_C(3);
     for (int lv = prm_now_level+1, n = 0; lv <= prm_new_level; lv++, n++) {
         pEffect = papEffect_[lv-1];
         pEffect->_pKurokoB->resetMv();
         pEffect->_pKurokoB->setVxyzMvVelo(-rvelo,
-                                          (ANG_SIN(paAng_way[n])+RND(-D_ANG(5),-D_ANG(5)))*(rvelo-RND(PX_C(0),PX_C(5))),
-                                          (ANG_COS(paAng_way[n])+RND(-D_ANG(5),-D_ANG(5)))*(rvelo-RND(PX_C(0),PX_C(5)))
-                                         );
-        pEffect->_pKurokoB->execGravitationMvSequenceTwd(pMyShip,
-                                                         rvelo, 200, 1);
+                                          ANG_SIN(paAng_way[n]) * rvelo,
+                                          ANG_COS(paAng_way[n]) * rvelo
+                                         ); //放射状にエフェクト放出
         pEffect->setAlpha(0.9);
-        pEffect->setScaleR(2.0f);
+        pEffect->setScaleR(1.0f);
         pEffect->activate();
     }
 
     GGAF_DELETEARR(paAng_way);
-    r_effect_ = 1.0;
 }
 
 void OptionMagic::processCastingBehavior(int prm_now_level, int prm_new_level){
-    r_effect_ += 0.02;
-    for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
-        papEffect_[lv-1]->setScaleR(r_effect_);
+
+    frame t = _pProg->getFrameInProgress();
+    float s = 10.0f * (1.0f * t / time_of_next_state_);
+    if (s < 1.0f) {
+        s = 1.0f;
     }
+    for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
+        papEffect_[lv-1]->setScaleR(s);
+    }
+
+    if (t == 60) {
+       for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
+            papEffect_[lv-1]->_pKurokoB->execGravitationMvSequenceTwd(P_MYSHIP, 10000, 200, 2000);
+        }
+    }
+
 }
 
 void OptionMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm_result_invoke) {
@@ -98,14 +107,14 @@ void OptionMagic::processCastFinish(int prm_now_level, int prm_new_level, int pr
 }
 
 void OptionMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
-    r_effect_ = 1;
     for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
         MyOptionController* p = P_MYSHIP_SCENE->papOptionCtrler_[lv-1];
+        p->pOption_->onReset(); //←これをしないとオプションの(Xorg_,Yorg_,Zorg_)が反映されない
         papEffect_[lv-1]->_pKurokoB->execGravitationMvSequenceTwd(
                                          p->_X + p->pOption_->Xorg_,
                                          p->_Y + p->pOption_->Yorg_,
                                          p->_Z + p->pOption_->Zorg_,
-                                         20000, 300, 200000
+                                         40000, 200, 200000
                                      );
     }
 }
@@ -130,21 +139,24 @@ void OptionMagic::processEffectBegin(int prm_last_level, int prm_now_level)  {
     for (int lv = prm_last_level+1; lv <= prm_now_level; lv++) {
         MyOptionController* p = P_MYSHIP_SCENE->papOptionCtrler_[lv-1];
         papEffect_[lv-1]->inactivateDelay(120); //非活動の保険
-        papEffect_[lv-1]->_pKurokoB->_gravitation_mv_seq_pActor_target = p->pOption_;
+        papEffect_[lv-1]->positionAs(p->pOption_);
+        papEffect_[lv-1]->_pKurokoB->stopGravitationMvSequence();
     }
 }
 
 void OptionMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {
-    r_effect_ -= 0.01f;
     //レベルアップ時、エフェクトの処理
-    for (int lv = prm_last_level+1; lv <= prm_now_level; lv++) {
-        MyOptionController* p = P_MYSHIP_SCENE->papOptionCtrler_[lv-1];
-        papEffect_[lv-1]->setAlpha(r_effect_);
-//        papEffect_[lv-1]->setScaleR(3.0f+(1.0f-r_effect_)*4.0);
-        papEffect_[lv-1]->positionAs(p->pOption_);
-        p->pOption_->setAlpha(1.0f-r_effect_);
+    frame t = _pProg->getFrameInProgress();
+    if (t < 120) {
+        float a = t*(1.0/120);
+        for (int lv = prm_last_level+1; lv <= prm_now_level; lv++) {
+            MyOptionController* p = P_MYSHIP_SCENE->papOptionCtrler_[lv-1];
+            papEffect_[lv-1]->setAlpha(1.0f - a);
+            papEffect_[lv-1]->positionAs(p->pOption_);
+            p->pOption_->setAlpha(a);
+        }
     }
-    if (r_effect_ < 0) {
+    if (t == 120) {
         for (int lv = prm_last_level+1; lv <= prm_now_level; lv++) {
             MyOptionController* p = P_MYSHIP_SCENE->papOptionCtrler_[lv-1];
             papEffect_[lv-1]->inactivate();

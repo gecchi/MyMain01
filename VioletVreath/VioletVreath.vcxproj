@@ -369,6 +369,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001b.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartia.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartiaLaserChip01.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartiaPillar01.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartiaShot01.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EffectRatislaviaEye001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EnemyRatislavia.cpp" />
@@ -480,6 +481,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MpBar.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\VreathBar.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyLockonController.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyMagicEnagy.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyOptionController.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyOptionControllerDirectionVector.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyOptionControllerGizmo.cpp" />
@@ -709,6 +711,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001b.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartia.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartiaLaserChip01.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\ozartia\enemyozartiapillar01.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartiaShot01.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EffectRatislaviaEye001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EnemyRatislavia.h" />
@@ -820,6 +823,7 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\magicmeter\mpbar.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\VreathBar.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyLockonController.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyMagicEnagy.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyOptionController.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyOptionControllerDirectionVector.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyOptionControllerGizmo.h" />
