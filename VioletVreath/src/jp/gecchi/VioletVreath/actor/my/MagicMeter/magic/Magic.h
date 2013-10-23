@@ -175,8 +175,6 @@ public:
 
     /** [r]次の進捗状態になる為に必要なフレーム数(を一時保持) */
     magic_time time_of_next_state_;
-    /** [r]レベルアップ中かどうか */
-    bool is_working_;
 
     progress temp_hold_status_;
     int temp_hold_new_level_;

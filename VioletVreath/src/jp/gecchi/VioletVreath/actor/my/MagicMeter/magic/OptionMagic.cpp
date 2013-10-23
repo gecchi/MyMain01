@@ -10,6 +10,7 @@
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectOptionMagic001.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyMagicEnergyCore.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -46,6 +47,7 @@ OptionMagic::OptionMagic(const char* prm_name, int* prm_pMP)
     }
 }
 void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
+    _TRACE_("OptionMagic::processCastBegin("<<prm_now_level<<","<<prm_new_level<<")");
     //放射状にエフェクト放出
     MyShip* pMyShip = P_MYSHIP;
     angle* paAng_way = NEW angle[prm_new_level-prm_now_level];
@@ -54,27 +56,35 @@ void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
         if (papEffect_[i]->isActive()) {
             if (i+1 > prm_new_level) {
                 papEffect_[i]->inactivateImmed();
-                papEffect_[i]->positionAs(pMyShip);
+                papEffect_[i]->positionAs(pMyShip->pMyMagicEnergyCore_);
             }
         } else {
             papEffect_[i]->inactivateImmed();
-            papEffect_[i]->positionAs(pMyShip);
+            papEffect_[i]->positionAs(pMyShip->pMyMagicEnergyCore_);
         }
     }
+
+    velo veloVxMv = pMyShip->pMyMagicEnergyCore_->_pKurokoB->_veloVxMv;
+    velo veloVyMv = pMyShip->pMyMagicEnergyCore_->_pKurokoB->_veloVyMv;
+    velo veloVzMv = pMyShip->pMyMagicEnergyCore_->_pKurokoB->_veloVzMv;
+
+
+
     GgafDxDrawableActor* pEffect;
-    velo rvelo = PX_C(3);
     for (int lv = prm_now_level+1, n = 0; lv <= prm_new_level; lv++, n++) {
         pEffect = papEffect_[lv-1];
         pEffect->_pKurokoB->resetMv();
-        pEffect->_pKurokoB->setVxyzMvVelo(-rvelo,
-                                          ANG_SIN(paAng_way[n]) * rvelo,
-                                          ANG_COS(paAng_way[n]) * rvelo
+        pEffect->_pKurokoB->setVxyzMvVelo(
+                veloVxMv*0.8,
+                veloVyMv + (ANG_SIN(paAng_way[n]) * PX_C(3)),
+                veloVzMv + (ANG_COS(paAng_way[n]) * PX_C(3))
                                          ); //放射状にエフェクト放出
+        pEffect->_pKurokoB->execGravitationMvSequenceTwd(P_MYSHIP, 10000, 200, 2000);
         pEffect->setAlpha(0.9);
         pEffect->setScaleR(1.0f);
         pEffect->activate();
     }
-
+    pMyShip->pMyMagicEnergyCore_->execOptionMagic();
     GGAF_DELETEARR(paAng_way);
 }
 
@@ -88,16 +98,19 @@ void OptionMagic::processCastingBehavior(int prm_now_level, int prm_new_level){
     for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
         papEffect_[lv-1]->setScaleR(s);
     }
-
+    /*
     if (t == 60) {
        for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
             papEffect_[lv-1]->_pKurokoB->execGravitationMvSequenceTwd(P_MYSHIP, 10000, 200, 2000);
         }
     }
+    */
 
 }
 
 void OptionMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm_result_invoke) {
+    _TRACE_("OptionMagic::processCastFinish("<<prm_now_level<<","<<prm_new_level<<")");
+
     if (prm_result_invoke == MAGIC_INVOKE_NG_MP_IS_SHORT) {
         //詠唱したけど、MPが足りなかった
         for (int i = 0; i < max_level_; i++) {
@@ -107,41 +120,67 @@ void OptionMagic::processCastFinish(int prm_now_level, int prm_new_level, int pr
 }
 
 void OptionMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
+    _TRACE_("OptionMagic::processInvokeBegin("<<prm_now_level<<","<<prm_new_level<<")");
+
     for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
         MyOptionController* p = P_MYSHIP_SCENE->papOptionCtrler_[lv-1];
-        p->pOption_->onReset(); //←これをしないとオプションの(Xorg_,Yorg_,Zorg_)が反映されない
+//        p->pOption_->onReset(); //←これをしないとオプションの(Xorg_,Yorg_,Zorg_)が反映されない
         papEffect_[lv-1]->_pKurokoB->execGravitationMvSequenceTwd(
                                          p->_X + p->pOption_->Xorg_,
                                          p->_Y + p->pOption_->Yorg_,
                                          p->_Z + p->pOption_->Zorg_,
-                                         40000, 200, 200000
+                                         40000, 400, 200000
                                      );
     }
 }
 
 void OptionMagic::processInvokingBehavior(int prm_now_level, int prm_new_level)  {
+    for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
+        MyOptionController* p = P_MYSHIP_SCENE->papOptionCtrler_[lv-1];
+        papEffect_[lv-1]->_pKurokoB->_gravitation_mv_seq_target_X = p->_X + p->pOption_->Xorg_;
+        papEffect_[lv-1]->_pKurokoB->_gravitation_mv_seq_target_Y = p->_Y + p->pOption_->Yorg_;
+        papEffect_[lv-1]->_pKurokoB->_gravitation_mv_seq_target_Z = p->_Z + p->pOption_->Zorg_;
+    }
+
 }
 
 void OptionMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) {
-}
+    _TRACE_("OptionMagic::processInvokeFinish("<<prm_now_level<<","<<prm_new_level<<","<<prm_result_effect<<")");
+    if (prm_result_effect == MAGIC_EFFECT_NG_MP_IS_SHORT) {
+        //今から効果発動という時に、MPが足りなかった
+        for (int i = 0; i < max_level_; i++) {
+            papEffect_[i]->inactivateImmed();
+        }
+    } else {
 
-int OptionMagic::effect(int prm_level) {
-    int r = Magic::effect(prm_level);
-    //オプション有効にする。
-    //(processEffectBegin 時、 option は一度はbehave()されて座標を計算しておいてほしい）
-    MyOptionController::setNumOption(prm_level);
-    MyOptionController::adjustDefaltAngPosition(60);
-    return r;
+    }
 }
 
 void OptionMagic::processEffectBegin(int prm_last_level, int prm_now_level)  {
+    _TRACE_("OptionMagic::processEffectBegin("<<prm_last_level<<","<<prm_now_level<<")");
+            
+    MyOptionController::setNumOption(prm_now_level);
     //レベルアップ時、エフェクトの処理
     for (int lv = prm_last_level+1; lv <= prm_now_level; lv++) {
         MyOptionController* p = P_MYSHIP_SCENE->papOptionCtrler_[lv-1];
+        //ダブルプッシュした時と同じ
+        p->_pKurokoA->turnRzRyMvAngTo(D0ANG, D0ANG,
+                                   D_ANG(20), 0,
+                                   TURN_CLOSE_TO,
+                                   false );
+        p->is_free_from_myship_mode_ = false;
+        p->is_handle_move_mode_ = false;
+        p->return_to_default_position_seq_ = true;
+        p->pOption_->return_to_base_radiusPosition_seq_ = true;
+        p->pOption_->return_to_base_angExpanse_seq_= true;
+
+
         papEffect_[lv-1]->inactivateDelay(120); //非活動の保険
-        papEffect_[lv-1]->positionAs(p->pOption_);
         papEffect_[lv-1]->_pKurokoB->stopGravitationMvSequence();
+        papEffect_[lv-1]->positionAs(p->pOption_);
     }
+
+    MyOptionController::adjustDefaltAngPosition(180, prm_last_level, prm_now_level-1);
 }
 
 void OptionMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {

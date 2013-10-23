@@ -289,7 +289,7 @@ public:
     GgafLib::LaserChipDepository* pLaserChipDepo_;
 
     EffectTurbo001* pEffectTurbo001_;
-
+    MyMagicEnergyCore* pMyMagicEnergyCore_;
 //    //debug ---->
 //    GgafCore::GgafActorDepository* pDepo_TestGuShot_;
 //    GgafCore::GgafActorDepository* pDepo_TestChokiShot_;

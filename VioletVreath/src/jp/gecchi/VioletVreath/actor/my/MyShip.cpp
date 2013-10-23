@@ -22,6 +22,7 @@
 #include "jp/gecchi/VioletVreath/Properties.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/DamageDispBar.h"
+#include "MyMagicEnergyCore.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -132,8 +133,8 @@ MyShip::MyShip(const char* prm_name) :
 //    pEffectTurbo002_ = NEW EffectTurbo002("EffectTurbo002");
 //    addSubGroup(pEffectTurbo002_);
 
-
-
+    pMyMagicEnergyCore_ = NEW MyMagicEnergyCore("MyMagicEnergyCore");
+    addSubGroup(pMyMagicEnergyCore_);
 
     //トレース用履歴
     pRing_MyShipGeoHistory4OptCtrler_ = NEW GgafLinkedListRing<GgafDxGeoElem>();

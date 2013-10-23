@@ -21,6 +21,7 @@ public:
     static int max_option_num_;
     /** [r]トレース時のオプションとオプションの間隔 */
     static int o2o_;
+    /** 自身のオプションインデックス 0 ～ now_option_num_-1 */
     int no_;
     MyOption* pOption_;
 //    MyOptionControllerGizmo* pGizmo_;
@@ -44,7 +45,7 @@ public:
     int renge_;
 
     /** オプションフリーモードへの準備の点火カウンター */
-    frame ignite_option_cnt_;
+    int ignite_option_cnt_;
     /** オプションフリーモードへ移行するための、必要な点火のカウント時間 */
     frame frame_of_ignite_option_;
     /** オプションフリーモードへの準備の点火カウントモードの場合 true */
@@ -83,7 +84,7 @@ public:
     static void setNumOption(int prm_num);
 
     static void adjustDefaltAngPosition(frame prm_spent_frame);
-
+    static void adjustDefaltAngPosition(frame prm_spent_frame, int prm_start_opt_no, int prm_end_opt_no);
     virtual ~MyOptionController();
 
 

@@ -129,15 +129,16 @@ public:
             velo prm_veloMv)
     {
         angPosition_ = prm_angPosition;
-        radiusPosition_ = prm_radiusPosition;
         angExpanse_ = prm_angExpanse;
         veloMv_ = prm_veloMv;
         angPosition_base_ = prm_angPosition;
         radiusPosition_base_ = prm_radiusPosition;
+        radiusPosition_ = radiusPosition_base_;
         radiusPosition_stopping_ = radiusPosition_base_;
         radiusPosition_velo_ = 3000 * (radiusPosition_base_/60000);
         angExpanse_default_ = prm_angExpanse;
         veloMv_base_ = prm_veloMv;
+        reset();
     }
     void onCreateModel() override;
 

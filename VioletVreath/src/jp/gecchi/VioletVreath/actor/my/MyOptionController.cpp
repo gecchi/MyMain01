@@ -22,7 +22,7 @@ int MyOptionController::max_option_num_ = 9;
 int MyOptionController::o2o_ = 15;
 int MyOptionController::now_option_num_ = 0;
 //MyOptionController::MyOptionController(const char* prm_name, int prm_no) :
-//        DefaultMeshSetActor(prm_name, "8/momomo") {
+//        DefaultMeshSetActor(prm_name, "8/myvic") {
 
 MyOptionController::MyOptionController(const char* prm_name, int prm_no) :
   GgafDxGeometricActor(prm_name, nullptr, nullptr) {
@@ -123,23 +123,22 @@ void MyOptionController::processBehavior() {
             ignite_option_cnt_++; //オプション発射可能までのカウントアップ
         }
     } else {
-        //離すとリセット
+        //VB_OPTION離すとリセット
         ignited_option_cnt_mode_ = false;
         ignite_option_cnt_ = 0;
         was_ignited_option_ = false;
     }
 
-    if ( ignite_option_cnt_ == frame_of_ignite_option_) { //あとのオプションほどカウントが多く必要
+    if ( ignite_option_cnt_ == (MyOptionController::now_option_num_ - no_)*10) { //最初のオプションほどカウントが多く必要
         //発射点火OK時の処理
         pOption_->pEffect_->_pScaler->beat(8, 4, 0, 1); //オプションぷるぷる、発射じゅんびOKのエフェクト
         was_ignited_option_ = true;
     }
-    //点火OKの時に VB_OPTION + VB_TURBOプッシュで発射
-    if (pVbPlay->isBeingPressed(VB_OPTION) && was_ignited_option_ && pVbPlay->isPushedDown(VB_TURBO)) {
-        ignited_option_cnt_mode_ = false;
+    //点火OKの時に VB_OPTION + VB_TURBO離しで発射
+    if (pVbPlay->isReleasedUp(VB_TURBO)) {
+        ignited_option_cnt_mode_ = false; //VB_TURBON離すとリセット
         ignite_option_cnt_ = 0;
-
-        if (was_ignited_option_) {
+        if (pVbPlay->isBeingPressed(VB_OPTION) && was_ignited_option_) { //点火OKだった
             was_ignited_option_ = false;
 
             is_free_from_myship_mode_ = true;
@@ -232,7 +231,6 @@ void MyOptionController::setNumOption(int prm_num) {
         }
     }
 }
-
 void MyOptionController::adjustDefaltAngPosition(frame prm_spent_frame) {
     MyShipScene* pMyShipScene = P_MYSHIP_SCENE;
     if (MyOptionController::now_option_num_ <= 4) {
@@ -245,6 +243,26 @@ void MyOptionController::adjustDefaltAngPosition(frame prm_spent_frame) {
         }
         for (int i = 4; i < MyOptionController::now_option_num_; i++) {
             pMyShipScene->papOptionCtrler_[i]->pOption_->adjustAngPosition((D360ANG/(MyOptionController::now_option_num_-4))*(i-4), prm_spent_frame);
+        }
+    }
+}
+
+void MyOptionController::adjustDefaltAngPosition(frame prm_spent_frame, int prm_start_opt_no, int prm_end_opt_no) {
+    MyShipScene* pMyShipScene = P_MYSHIP_SCENE;
+    if (MyOptionController::now_option_num_ <= 4) {
+        for (int i = prm_start_opt_no; i < prm_end_opt_no; i++) {
+            pMyShipScene->papOptionCtrler_[i]->pOption_->adjustAngPosition((D360ANG/MyOptionController::now_option_num_)*i,prm_spent_frame);
+        }
+    } else if (MyOptionController::now_option_num_ > 4) {
+        for (int i = 0; i < 4; i++) {
+            if (prm_start_opt_no <= i && i <= prm_end_opt_no) {
+                pMyShipScene->papOptionCtrler_[i]->pOption_->adjustAngPosition((D360ANG/4)*i, prm_spent_frame);
+            }
+        }
+        for (int i = 4; i < MyOptionController::now_option_num_; i++) {
+            if (prm_start_opt_no <= i && i <= prm_end_opt_no) {
+                pMyShipScene->papOptionCtrler_[i]->pOption_->adjustAngPosition((D360ANG/(MyOptionController::now_option_num_-4))*(i-4), prm_spent_frame);
+            }
         }
     }
 }

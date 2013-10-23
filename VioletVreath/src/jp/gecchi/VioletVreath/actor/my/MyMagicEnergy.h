@@ -1,5 +1,5 @@
-#ifndef MYMAGICENAGY_H_
-#define MYMAGICENAGY_H_
+#ifndef MYMAGICENERGY_H_
+#define MYMAGICENERGY_H_
 #include "jp/ggaf/lib/actor/DefaultMeshActor.h"
 
 namespace VioletVreath {
@@ -10,21 +10,25 @@ namespace VioletVreath {
  * @since 2013/10/22
  * @author Masatoshi Tsuge
  */
-class MyMagicEnagy : public GgafLib::DefaultMeshActor {
+class MyMagicEnergy : public GgafLib::DefaultMeshActor {
+public:
+    /** 親オプション */
+    MyMagicEnergyCore* pCore_;
 
 public:
-   MyMagicEnagy(const char* prm_name);
+   MyMagicEnergy(const char* prm_name, MyMagicEnergyCore* prm_pCore);
 
-    void onCreateModel() override {
-    }
+    void onCreateModel() override;
 
     void initialize() override;
 
     void onActive() override;
 
     void processBehavior() override;
-
+//    void processSettlementBehavior() override;
     void processJudgement() override;
+
+    void processPreDraw() override;
 
     void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
@@ -38,9 +42,9 @@ public:
 
     bool isOutOfUniverse() override;
 
-    virtual ~MyMagicEnagy();
+    virtual ~MyMagicEnergy();
 };
 
 }
-#endif /*MYMAGICENAGY_H_*/
+#endif /*MYMAGICENERGY_H_*/
 

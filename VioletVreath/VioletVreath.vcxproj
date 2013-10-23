@@ -481,7 +481,8 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MpBar.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\VreathBar.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyLockonController.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyMagicEnagy.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyMagicEnergy.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyMagicEnergyCore.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyOptionController.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyOptionControllerDirectionVector.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyOptionControllerGizmo.cpp" />
@@ -823,7 +824,8 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\magicmeter\mpbar.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\VreathBar.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyLockonController.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyMagicEnagy.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyMagicEnergy.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyMagicEnergyCore.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyOptionController.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyOptionControllerDirectionVector.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyOptionControllerGizmo.h" />

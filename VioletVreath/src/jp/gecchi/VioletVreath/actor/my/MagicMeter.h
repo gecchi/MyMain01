@@ -33,7 +33,7 @@ class MagicMeter : public GgafLib::DefaultBoardSetActor {
         SE_EXECUTE_LEVELDOWN_MAGIC ,
         SE_EXECUTE_CANCEL_LEVELUP_MAGIC   ,
         SE_EXECUTE_CANCEL_LEVELDOWN_MAGIC ,
-        SE_CANT_INVOKE_MAGIC       ,
+        SE_NG_MP_IS_SHORT       ,
         SE_EFFECT_MAGIC    ,
         SE_NOTICE_LEVELDOWN_MAGIC,
         SE_BAD_OPERATION   ,

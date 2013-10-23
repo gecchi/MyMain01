@@ -142,7 +142,7 @@ height_(PX_C(height_px_)) {
     _pSeTx->set(SE_EXECUTE_LEVELDOWN_MAGIC       , "WAVE_MM_EXECUTE_LEVELDOWN_MAGIC");  //レベルダウン実行時
     _pSeTx->set(SE_EXECUTE_CANCEL_LEVELUP_MAGIC  , "WAVE_MM_EXECUTE_CANCEL_LEVELUP_MAGIC");  //（詠唱キャンセルして）レベルアップ実行時
     _pSeTx->set(SE_EXECUTE_CANCEL_LEVELDOWN_MAGIC, "WAVE_MM_EXECUTE_CANCEL_LEVELDOWN_MAGIC");  //（詠唱キャンセルして）レベルダウン実行時
-    _pSeTx->set(SE_CANT_INVOKE_MAGIC             , "WAVE_MM_CANT_INVOKE_MAGIC");  //詠唱完了時、MPが足りないため発動できない場合
+    _pSeTx->set(SE_NG_MP_IS_SHORT                , "WAVE_MM_NG_MP_IS_SHORT");  //MPが足りないため発動あるいは効果開始できない場合
     _pSeTx->set(SE_EFFECT_MAGIC                  , "WAVE_MM_EFFECT_MAGIC");  //発動が完了し、効果発生時
     _pSeTx->set(SE_NOTICE_LEVELDOWN_MAGIC        , "WAVE_MM_NOTICE_LEVELDOWN_MAGIC");  //レベルダウン発生予告
     _pSeTx->set(SE_BAD_OPERATION                 , "WAVE_MM_BAD_OPERATION");  //操作ミス。出来ない入力、ブブー
@@ -516,7 +516,13 @@ void MagicMeter::processBehavior() {
         //空詠唱（詠唱したが、詠唱完了時、MPが足りなかった）
         if (pMagicProg->get() == Magic::STATE_NOTHING && pMagicProg->isJustChangedFrom(Magic::STATE_CASTING)) {
             papLvCastingCur_[m]->markOff(); //マークオフ！
-            _pSeTx->play(SE_CANT_INVOKE_MAGIC);
+            _pSeTx->play(SE_NG_MP_IS_SHORT);
+        }
+
+        //空発動（発動したが、発動完了時、MPが足りなかったので、効果開始出来なかった）
+        if (pMagicProg->get() == Magic::STATE_NOTHING && pMagicProg->isJustChangedFrom(Magic::STATE_INVOKING)) {
+            papLvCastingCur_[m]->markOff(); //マークオフ！
+            _pSeTx->play(SE_NG_MP_IS_SHORT);
         }
 
         //即効性魔法終了時

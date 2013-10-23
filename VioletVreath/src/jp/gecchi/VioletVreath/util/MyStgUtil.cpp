@@ -686,7 +686,7 @@ GgafStatus* MyStgUtil::resetMyShipStatus(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetMyMagicEnagyStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetMyMagicEnergyCoreStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_BODY_CHIKEI_THRU);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 0 );  //ロックオン可否

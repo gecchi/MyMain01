@@ -35,7 +35,6 @@ MyOption::MyOption(const char* prm_name, uint32_t prm_no, MyOptionController* pr
     angveloMove_ = 0;//旋廻移動角速度（読み出し専用）
 
     angPosition_ = 0;     //円周上初期位置角度（周囲角）（上書き初期設定可）
-    radiusPosition_ = 150000;     //旋廻半径距離（上書き初期設定可）
     veloMv_ = 5000;     //旋廻移動速度（上書き初期設定可）
     angExpanse_ = 0;      //オプションの広がり角の回転角（上書き初期設定可）
 
@@ -44,8 +43,9 @@ MyOption::MyOption(const char* prm_name, uint32_t prm_no, MyOptionController* pr
     adjust_angPos_seq_spent_frame_ = 0;
 
     angPosition_base_ = angPosition_;
-    radiusPosition_base_ = radiusPosition_;
-    radiusPosition_stopping_ = radiusPosition_;
+    radiusPosition_base_ = 150000; //旋廻半径距離（上書き初期設定可）
+    radiusPosition_= radiusPosition_base_;
+    radiusPosition_stopping_ = radiusPosition_base_;
     radiusPosition_velo_ = 3000 * (radiusPosition_base_/60000);
 
     angExpanse_default_ = angExpanse_;
@@ -143,7 +143,7 @@ void MyOption::onReset() {
     adjust_angPos_seq_new_angPosition_base_ = angPosition_;
     adjust_angPos_seq_spent_frame_ = 0;
 
-    radiusPosition_stopping_ = radiusPosition_;
+    radiusPosition_stopping_ = radiusPosition_base_;
 }
 
 void MyOption::onActive() {
@@ -239,6 +239,21 @@ void MyOption::adjustAngPosition(angle prm_new_angPosition_base, frame prm_spent
 
 
 void MyOption::processBehavior() {
+//    if (no_ == 3 ) {
+//        if (getBehaveingFrame() == 5418 || getBehaveingFrame()==5427) {
+//            _TRACE_("きたで");
+//        }
+//        if (_pKurokoA->_angveloRzMv == 0 || _pKurokoA->_angveloRzMv == 360000) {
+//            if (veloMv_ == 1000) {
+//                if (radiusPosition_ == 1) {
+//                    _TRACE_(getBehaveingFrame()<<":before 遠ざかる成立！！！");
+//                }
+//            }
+//
+//        }
+//        _TRACE_(getBehaveingFrame()<<":before radiusPosition_="<<radiusPosition_<<" radiusPosition_stopping_="<<radiusPosition_stopping_<<" _angveloRzMv="<<(_pKurokoA->_angveloRzMv)<<" veloMv_="<<veloMv_);
+//    }
+
     MyShip* pMyShip = P_MYSHIP;
     VirtualButton* pVbPlay = VB_PLAY;
     GgafDxKurokoA* const pKurokoA = _pKurokoA;
@@ -617,6 +632,18 @@ void MyOption::processBehavior() {
         }
     }
 //    _pSeTx->behave();
+
+//    if (no_ == 3 ) {
+//        if (_pKurokoA->_angveloRzMv == 0 || _pKurokoA->_angveloRzMv == 360000) {
+//            if (veloMv_ == 1000) {
+//                if (radiusPosition_ == 1) {
+//                    _TRACE_(getBehaveingFrame()<<":before 遠ざかる成立！！！");
+//                }
+//            }
+//
+//        }
+//        _TRACE_(getBehaveingFrame()<<":after  radiusPosition_="<<radiusPosition_<<" radiusPosition_stopping_="<<radiusPosition_stopping_<<" _angveloRzMv="<<(_pKurokoA->_angveloRzMv)<<" veloMv_="<<veloMv_);
+//    }
 
 }
 

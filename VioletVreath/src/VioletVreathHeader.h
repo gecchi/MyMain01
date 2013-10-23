@@ -313,6 +313,8 @@ class MyOptionWateringLaserChip001;
 class MyOptionStraightLaserChip001;
 class MyStraightLaserChip001;
 class MyShip;
+class MyMagicEnergyCore;
+class MyMagicEnergy;
 class MyLockonController;
 class MyOptionController;
 class MyOptionControllerGizmo;

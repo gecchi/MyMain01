@@ -13,7 +13,7 @@ using namespace VioletVreath;
 
 
 EffectMyOption::EffectMyOption(const char* prm_name, MyOption* prm_pOption) :
-        DefaultMeshSetActor(prm_name, "8/option_energy", nullptr) {
+        DefaultMeshSetActor(prm_name, "8/EffectMyOption", nullptr) {
     effectBlendOne(); //加算合成するTechnique指定
     pOption_ = prm_pOption;
     setZEnable(true);        //Zバッファは考慮して描画
