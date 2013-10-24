@@ -12,17 +12,17 @@
 #include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
-#include "MyStraightLaserChip001.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectTurbo001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/DamageDispBar.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyMagicEnergyCore.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShot001.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyStraightLaserChip001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyTorpedoController.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/Properties.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/DamageDispBar.h"
-#include "MyMagicEnergyCore.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

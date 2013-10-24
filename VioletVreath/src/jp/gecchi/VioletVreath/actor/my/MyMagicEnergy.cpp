@@ -2,10 +2,10 @@
 #include "MyMagicEnergy.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
-#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "MyMagicEnergyCore.h"
-#include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyMagicEnergyCore.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

@@ -63,20 +63,15 @@ void LaserMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int p
     pEffect_->inactivate();
 }
 
-int LaserMagic::effect(int prm_level) {
-    int r = Magic::effect(prm_level);
-    if (prm_level > 0) {
+void LaserMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
+    if (prm_now_level > 0) {
         P_MYSHIP->can_shoot_laser_ = true;
-        MyStraightLaserChip001::chengeTex(prm_level-1);
-        MyOptionWateringLaserChip001::chengeTex(prm_level-1);
+        MyStraightLaserChip001::chengeTex(prm_now_level-1);
+        MyOptionWateringLaserChip001::chengeTex(prm_now_level-1);
     } else {
+        //レベル0へレベルダウン時
         P_MYSHIP->can_shoot_laser_ = false;
     }
-
-    return r;
-}
-
-void LaserMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
 }
 
 void LaserMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {

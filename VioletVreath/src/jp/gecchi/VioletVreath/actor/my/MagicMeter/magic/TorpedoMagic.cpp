@@ -67,14 +67,9 @@ void TorpedoMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int
     pEffect_->inactivate();
 }
 
-int TorpedoMagic::effect(int prm_level) {
-    int r = Magic::effect(prm_level);
-    //光子魚雷発射可能数を変更。
-    MyTorpedoController::torpedo_num_ = prm_level;
-    return r;
-}
-
 void TorpedoMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
+    //光子魚雷発射可能数を変更。
+    MyTorpedoController::torpedo_num_ = prm_now_level;
 }
 
 void TorpedoMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {

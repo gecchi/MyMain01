@@ -39,7 +39,6 @@ void TractorMagic::processCastingBehavior(int prm_now_level, int prm_new_level) 
 void TractorMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm_result_invoke) {
 }
 
-
 void TractorMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
 }
 void TractorMagic::processInvokingBehavior(int prm_now_level, int prm_new_level) {
@@ -48,19 +47,12 @@ void TractorMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int
     P_MYSHIP->effectFlush(30); //フラッシュ
 }
 
-int TractorMagic::effect(int prm_level) {
-    _TRACE_("TractorMagic::effect 前 is_tracting_="<<is_tracting_<<" level_="<<level_<<" prm_level="<<prm_level);
-    int r = Magic::effect(prm_level);
-    if ( prm_level == 0) {
+void TractorMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
+    if ( prm_now_level == 0) {
         is_tracting_ = false;
     } else {
         is_tracting_ = true;
     }
-    _TRACE_("TractorMagic::effect 後 is_tracting_="<<is_tracting_<<" level_="<<level_<<" prm_level="<<prm_level);
-    return r;
-}
-
-void TractorMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
 }
 void TractorMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {
 }

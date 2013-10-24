@@ -73,7 +73,7 @@ public:
 
     /** メータ主カーソル */
     MagicMeterCursor001* pMainCur_;
-    /** 各魔法(配列)のレベルのカーソル */
+    /** 各魔法(配列)のレベルのカーソル(↑↓操作移動) */
     MagicLvCursor001** papLvTgtMvCur_;
     /** 各魔法(配列)の現レベル強調表示用カーソル */
     MagicLvCursor002** papLvNowCur_;

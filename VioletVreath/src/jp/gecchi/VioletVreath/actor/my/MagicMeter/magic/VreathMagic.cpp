@@ -144,14 +144,10 @@ void VreathMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int 
     pEffect_->inactivate();
 }
 
-int VreathMagic::effect(int prm_level) {
-    int r = Magic::effect(prm_level);
-    //レベルの値に応じて、processEffectingBehavior()にて呼吸をおこなうので、ここでの設定は特に無い。
-    return r;
-}
-
 void VreathMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
-
+    if ( prm_now_level > 0) {
+    } else {
+    }
 }
 void VreathMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {
     if (beat_time_[prm_now_level] > 0) {
@@ -163,6 +159,9 @@ void VreathMagic::processEffectingBehavior(int prm_last_level, int prm_now_level
 #endif
         int add_vreath = apaInt_vreath_per_frame_[prm_now_level][f] * r_add_vreath_[prm_now_level];
         P_MYSHIP->_pStatus->plus(STAT_Stamina, add_vreath);
+    } else {
+        //レベル0へレベルダウン時
+
     }
 }
 

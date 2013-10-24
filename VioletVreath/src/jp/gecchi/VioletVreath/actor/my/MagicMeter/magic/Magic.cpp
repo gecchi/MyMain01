@@ -363,8 +363,8 @@ void Magic::cancel() {
 void Magic::processBehavior() {
     prev_frame_level_ = level_;
         //_TRACE_("Magic::processBehavior() F="<<getBehaveingFrame()<<" begin _pProg->get()="<<_pProg->get());
-
-    switch (_pProg->get()) {
+    progress prog = _pProg->get();
+    switch (prog) {
         /////////////////////////////////////// 待機
         case STATE_NOTHING: {
             break;
@@ -385,12 +385,12 @@ void Magic::processBehavior() {
             //詠唱中処理
             processCastingBehavior(level_, new_level_); //コールバック
             if (_pProg->getFrameInProgress() >= time_of_next_state_) {
-                _TRACE_("Magic::processBehavior() ["<<getName()<<"] 詠唱完！");
                 //詠唱終了
                 int now_lv = level_;
                 int new_lv = new_level_;
-                int r = invoke(new_level_);
+                int r = invoke(new_level_); //→ STATE_INVOKING or STATE_NOTHING
                 processCastFinish(now_lv, new_lv, r);  //コールバック
+                _TRACE_("Magic::processBehavior() ["<<getName()<<"] 詠唱(STATE_CASTING)ステータス終了！");
             }
             break;
         }
@@ -405,12 +405,12 @@ void Magic::processBehavior() {
             //発動中処理
             processInvokingBehavior(level_, new_level_);  //コールバック
             if (_pProg->getFrameInProgress() >= time_of_next_state_) {
-                _TRACE_("Magic::processBehavior() ["<<getName()<<"] 発動完！");
                 //発動終了
                 int now_lv = level_;
                 int new_lv = new_level_;
-                int r = effect(new_level_);
+                int r = effect(new_level_); //→ STATE_EFFECTING or STATE_RE_EFFECTING or STATE_NOTHING
                 processInvokeFinish(now_lv, new_lv, r); //コールバック
+                _TRACE_("Magic::processBehavior() ["<<getName()<<"] 発動(STATE_INVOKING)ステータス終了！");
             }
             break;
         }
@@ -455,8 +455,6 @@ void Magic::processBehavior() {
                 } else {
                 }
 
-
-
                 //今回の新たなレベルを設定
                 if (last_level_ < level_) {
                     //レベルアップだった場合
@@ -464,8 +462,8 @@ void Magic::processBehavior() {
                 } else if (last_level_ > level_) {
                     //レベルダウンだった場合、今回持続時間は前回の続き
                     if (level_ == 0) {
-                        _TRACE_("Magic::processBehavior() ["<<getName()<<"] (0レベル指定)による魔法終了。last_level_="<<last_level_<<" level_="<<level_);
-                        _pProg->change(STATE_NOTHING); //レベルダウン(0レベル指定)による魔法終了
+                         _pProg->change(STATE_NOTHING); //レベルダウン(0レベル指定)による魔法終了
+                        _TRACE_("Magic::processBehavior() ["<<getName()<<"] (0レベル指定)による効果(STATE_EFFECTING)ステータス終了。last_level_="<<last_level_<<" level_="<<level_);
                     }
                 } else {
                 }
@@ -480,92 +478,95 @@ void Magic::processBehavior() {
         default :
             break;
     }
-    /////////////////////////////////////// 効果持続中
-    //case STATE_EFFECTING: or STATE_NOTHING:
+    ///////////////////////////////////////
 
     if (temp_hold_status_ != -1) {
         //一時退避ステータスがある場合、もとに戻す
         if (temp_hold_status_ == STATE_CASTING) {
-            _TRACE_("Magic::processBehavior() ["<<getName()<<"] 自動再cast()！ temp_hold_new_level_="<<temp_hold_new_level_);
+            _TRACE_("Magic::processBehavior() ["<<getName()<<"] 持続時間満期レベルダウン時に詠唱中だったのでここで自動再詠唱！ cast("<<temp_hold_new_level_<<")");
             cast(temp_hold_new_level_); //再詠唱
         } else if (temp_hold_status_  == STATE_INVOKING) {
-            _TRACE_("Magic::processBehavior() ["<<getName()<<"] 自動再invoke()！ temp_hold_new_level_="<<temp_hold_new_level_);
+            _TRACE_("Magic::processBehavior() ["<<getName()<<"] 持続時間満期レベルダウン時に詠唱中だったのでここで自動再発動！ invoke("<<temp_hold_new_level_<<")");
             invoke(temp_hold_new_level_); //再発動
         }
 
         temp_hold_status_ = -1;
     }
 
-    if (_pProg->get() != STATE_NOTHING) {
+    //ここで level_ > 0 ならば、何らか効果中
 
-        if (time_of_effect_base_ == 0) {
+
+    if (level_ > 0) {
+        if (_pProg->isJustChangedTo(STATE_EFFECTING) && time_of_effect_base_ == 0) {
             //即効性魔法
-            if (level_ > 0) {
+            processEffectingBehavior(last_level_, level_);//コールバック
+            for (int lv = 1; lv <= level_; lv++) { //全レベルリセットを設定
+                 lvinfo_[lv].remainingtime_of_effect_ = 0; //効果持続終了残り時間を0
+            }
+            new_level_ = 0;
+            last_level_ = level_;
+            level_ = new_level_; //level_ == 0 になるので以降の処理がスキップ
+            processEffectFinish(last_level_); //コールバック
+            _pProg->change(STATE_NOTHING); //レベルダウン(0レベル指定)による魔法終了
+            _TRACE_("Magic::processBehavior() ["<<getName()<<"] 即効性魔法だったため、コールバック、level_=0 にしてSTATE_NOTHINGへ。last_level_="<<last_level_<<" level_="<<level_);
+        }
+    }
+
+    if (level_ > 0) {
+        //効果持続魔法（コスト計算）
+        processEffectingBehavior(last_level_, level_); //コールバック
+        lvinfo_[level_].remainingtime_of_effect_ --; //効果持続残り時間減少
+
+        if (keep_cost_base_ != 0) {
+            //維持コストがかかる場合の処理
+            *pMP_ += -1*lvinfo_[level_].keep_cost_; //維持コスト減少
+            //MP枯渇？
+            if (*pMP_ <= 0) {
+                //MP枯渇による持続終了時
+                *pMP_ = 0;
                 for (int lv = 1; lv <= level_; lv++) { //全レベルリセットを設定
                      lvinfo_[lv].remainingtime_of_effect_ = 0; //効果持続終了残り時間を0
                 }
                 new_level_ = 0;
                 last_level_ = level_;
-                level_ = new_level_;
+                level_ = new_level_; //枯渇時 level_ == 0 になるので以降の処理がスキップ
                 processEffectFinish(last_level_); //コールバック MP枯渇による魔法終了
                 _pProg->change(STATE_NOTHING); //レベルダウン(0レベル指定)による魔法終了
-            }
-        } else {
-            //効果持続魔法
-            if (level_ > 0) {
-                processEffectingBehavior(last_level_, level_); //コールバック
-                lvinfo_[level_].remainingtime_of_effect_ --; //効果持続残り時間減少
-
-                if (keep_cost_base_ != 0) {
-                    //維持コストがかかる場合の処理
-                    *pMP_ += -1*lvinfo_[level_].keep_cost_; //維持コスト減少
-                    //MP枯渇？
-                    if (*pMP_ <= 0) {
-                        //MP枯渇による持続終了時
-                        _TRACE_("Magic::processBehavior() ["<<getName()<<"] MP枯渇による持続終了、全レベルリセット");
-                        *pMP_ = 0;
-                        for (int lv = 1; lv <= level_; lv++) { //全レベルリセットを設定
-                             lvinfo_[lv].remainingtime_of_effect_ = 0; //効果持続終了残り時間を0
-                        }
-                        new_level_ = 0;
-                        last_level_ = level_;
-                        level_ = new_level_;
-                        processEffectFinish(last_level_); //コールバック MP枯渇による魔法終了
-                        _pProg->change(STATE_NOTHING); //レベルダウン(0レベル指定)による魔法終了
-                    }
-                }
-            }
-
-            if (level_ > 0) {
-                //持続時間満期処理
-                if (lvinfo_[level_].remainingtime_of_effect_ == 0) {
-                    //effect(level_-1); をおこないたいのやまやまだが、
-                    //持続時間満期によるレベルダウンは、操作によるレベルダウンとは状況が少し異なり、
-                    //上位レベルを詠唱中、または発動中だった場合 effect の後に、ステータスを元に戻す必要がある。
-                    progress prog = _pProg->get();
-                    if (prog == STATE_CASTING) {
-                        _TRACE_("Magic::processBehavior() ["<<getName()<<"] 効果持続中・・・・、 現在詠唱中で持続時間満期処理");
-                        temp_hold_status_ = _pProg->get(); //そこで、現ステータスを一時退避(やや苦しい・・・)
-                        temp_hold_new_level_ = new_level_; //詠唱又は発動しようとしていた新レベルも保持
-                    } else if (prog == STATE_INVOKING) {
-                        _TRACE_("Magic::processBehavior() ["<<getName()<<"] 効果持続中・・・・、 現在発動中で持続時間満期処理");
-                        temp_hold_status_ = _pProg->get(); //そこで、現ステータスを一時退避(やや苦しい・・・)
-                        temp_hold_new_level_ = new_level_; //詠唱又は発動しようとしていた新レベルも保持
-                    } else {
-                        _TRACE_("Magic::processBehavior() ["<<getName()<<"] 効果持続中・・・・、普通に持続時間満期処理 (^_^)");
-                    }
-
-                    effect(level_-1); //レベルダウン(-1)を行う。
-                    if (level_ == 0) { //現レベルが１で、レベルダウン(-1)によりnothingになった場合
-                        processEffectFinish(last_level_); //コールバック
-                        _pProg->change(STATE_NOTHING); //レベルダウン(0レベル指定)による魔法終了
-                    }
-
-                }
+                _TRACE_("Magic::processBehavior() ["<<getName()<<"] MP枯渇による持続終了、全レベルリセット、STATE_NOTHINGへ");
             }
         }
-
     }
+
+    if (level_ > 0) {
+        if (lvinfo_[level_].remainingtime_of_effect_ == 0) {
+            //持続時間満期処理
+             _TRACE_("Magic::processBehavior() ["<<getName()<<"] 持続時間満期処理 lv="<<level_<<"→"<<(level_-1)<<"");
+            //effect(level_-1); をおこないたいのやまやまだが、
+            //持続時間満期によるレベルダウンは、操作によるレベルダウンとは状況が少し異なり、
+            //上位レベルを詠唱中、または発動中だった場合 effect の後に、ステータスを元に戻す必要がある。
+            if (prog == STATE_CASTING) {
+                _TRACE_("Magic::processBehavior() ["<<getName()<<"] 効果持続中・・・・、現在詠唱中で持続時間満期処理。effect() 後再詠唱予約");
+                temp_hold_status_ = _pProg->get(); //そこで、現ステータスを一時退避(やや苦しい・・・)
+                temp_hold_new_level_ = new_level_; //詠唱又は発動しようとしていた新レベルも保持
+            } else if (prog == STATE_INVOKING) {
+                _TRACE_("Magic::processBehavior() ["<<getName()<<"] 効果持続中・・・・、現在発動中で持続時間満期処理。effect() 後発動予約");
+                temp_hold_status_ = _pProg->get(); //そこで、現ステータスを一時退避(やや苦しい・・・)
+                temp_hold_new_level_ = new_level_; //詠唱又は発動しようとしていた新レベルも保持
+            } else {
+                //STATE_EFFECTING
+                _TRACE_("Magic::processBehavior() ["<<getName()<<"] 効果持続中・・・・、普通に持続時間満期処理 (^_^)");
+            }
+
+            effect(level_-1); //レベルダウン(-1)を行う。
+            if (level_ == 0) { //現レベルが１で、レベルダウン(-1)によりnothingになった場合
+                processEffectFinish(last_level_); //コールバック
+                _TRACE_("Magic::processBehavior() ["<<getName()<<"] 持続時間満期でレベル0になりました。STATE_NOTHINGへ遷移");
+                _pProg->change(STATE_NOTHING); //レベルダウン(0レベル指定)による魔法終了
+            }
+
+        }
+    }
+
     //_TRACE_("Magic::processBehavior() F="<<getBehaveingFrame()<<" after _pProg->get()="<<_pProg->get());
 
 }

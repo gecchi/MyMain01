@@ -25,8 +25,13 @@ public:
 
     void initialize() override;
     void moveSmoothTo(int prm_lv, frame prm_spent=10); //意図的に 上位の moveSmoothTo を hide してます。
-
+    /**
+     * 操作不可状態表示 .
+     */
     void dispDisable();
+    /**
+     * 操作可能状態表示 .
+     */
     void dispEnable();
 
     virtual ~MagicLvCursor002();

@@ -47,6 +47,11 @@ void CollisionChecker3D::setColliSphere(int prm_index, coord x, coord y, coord z
         throwGgafCriticalException("CollisionChecker3D::setColliSphere()["<<getTargetActor()->getName()<<"]  要素インデックス"<<prm_index<<"はSPHEREでなかったため、更新はできません。");
     }
 #endif
+#ifdef MY_DEBUG
+    if (r < 0) {
+        throwGgafCriticalException("CollisionChecker3D::setColliSphere()["<<getTargetActor()->getName()<<"]  要素インデックス"<<prm_index<<"のSPHEREの半径が負の数です。r="<<r);
+    }
+#endif
     ColliSphere* pSphere = (ColliSphere*)_pCollisionArea->_papColliPart[prm_index];
     pSphere->_shape_kind = COLLI_SPHERE;
     pSphere->_is_valid_flg = true;

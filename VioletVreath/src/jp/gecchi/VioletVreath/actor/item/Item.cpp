@@ -19,12 +19,7 @@ Item::Item(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat)
 
 TractorMagic* Item::getTractorMagic() {
     if (pTractorMagic_ == nullptr) {
-        pTractorMagic_ = dynamic_cast<TractorMagic*>(P_MAGICMETER->lstMagic_.getFromFirst(0));
-#ifdef MY_DEBUG
-        if (pTractorMagic_ == nullptr) {
-            throwGgafCriticalException("Item::Item TractorMagicのメーター位置がおかしいです。");
-        }
-#endif
+        pTractorMagic_ = P_MAGICMETER->pTractorMagic_;
     }
     return pTractorMagic_;
 }

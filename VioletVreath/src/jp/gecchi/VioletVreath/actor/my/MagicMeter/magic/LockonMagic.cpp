@@ -67,14 +67,9 @@ void LockonMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int 
     pEffect_->inactivate();
 }
 
-int LockonMagic::effect(int prm_level) {
-    int r = Magic::effect(prm_level);
-    //光子魚雷発射可能数を変更。
-    MyLockonController::lockon_num_ = prm_level;
-    return r;
-}
-
 void LockonMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
+    //光子魚雷発射可能数を変更。
+    MyLockonController::lockon_num_ = prm_now_level;
 }
 
 void LockonMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {

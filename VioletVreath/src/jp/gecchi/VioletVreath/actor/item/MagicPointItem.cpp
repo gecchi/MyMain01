@@ -9,6 +9,7 @@
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/TractorMagic.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyMagicEnergyCore.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -73,6 +74,8 @@ void MagicPointItem::onActive() {
 }
 
 void MagicPointItem::processBehavior() {
+    MyShip* pMyShip = P_MYSHIP;
+
     //通常移動
     if (_pProg->get() == PROG_DRIFT) {
         //TractorMagic発動中はPROG_ATTACHへ移行
@@ -86,25 +89,25 @@ void MagicPointItem::processBehavior() {
 
     //自機と当たり判定がヒットし、自機に向かう動き
     if (_pProg->get() == PROG_ATTACH) {
-        MyShip* pMyShip = P_MYSHIP;
+        MyMagicEnergyCore* pE = pMyShip->pMyMagicEnergyCore_;
         if (_pProg->isJustChanged()) {
             //自機に引力で引き寄せられるような動き設定
             _pKurokoB->setVxyzMvVelo(_pKurokoA->_vX*_pKurokoA->_veloMv,
                                      _pKurokoA->_vY*_pKurokoA->_veloMv,
                                      _pKurokoA->_vZ*_pKurokoA->_veloMv);
-            _pKurokoB->execGravitationMvSequenceTwd(pMyShip,
-                                                    PX_C(50), 200, PX_C(200));
+            _pKurokoB->execGravitationMvSequenceTwd(pE,
+                                                    PX_C(50), 300, PX_C(300));
             _pKurokoA->stopMv();
         }
 
         //かつ自機近辺に到達？
-        if (ABS(pMyShip->_X - _X) < PX_C(20) &&
-            ABS(pMyShip->_Y - _Y) < PX_C(20) &&
-            ABS(pMyShip->_Z - _Z) < PX_C(20) )
+        if (ABS(pE->_X - _X) < PX_C(20) &&
+            ABS(pE->_Y - _Y) < PX_C(20) &&
+            ABS(pE->_Z - _Z) < PX_C(20) )
         {
-            kDX_ = pMyShip->_X - _X;
-            kDY_ = pMyShip->_Y - _Y;
-            kDZ_ = pMyShip->_Z - _Z;
+            kDX_ = pE->_X - _X;
+            kDY_ = pE->_Y - _Y;
+            kDZ_ = pE->_Z - _Z;
             _pProg->change(PROG_ABSORB); //吸着吸収へ
         }
 
@@ -112,15 +115,15 @@ void MagicPointItem::processBehavior() {
 
     //自機近辺に到達し、吸着、吸収中の動き
     if (_pProg->get() == PROG_ABSORB) {
-        MyShip* pMyShip = P_MYSHIP;
+        MyMagicEnergyCore* pE = pMyShip->pMyMagicEnergyCore_;
         if (_pProg->isJustChanged()) {
             _pKurokoB->setZeroVxyzMvVelo();
             _pKurokoB->setZeroVxyzMvAcce();
             _pKurokoB->stopGravitationMvSequence();
         }
-        _X = pMyShip->_X + kDX_;
-        _Y = pMyShip->_Y + kDY_;
-        _Z = pMyShip->_Z + kDZ_;
+        _X = pE->_X + kDX_;
+        _Y = pE->_Y + kDY_;
+        _Z = pE->_Z + kDZ_;
         addScale(-100);
         pMyShip->mp_ += 12; //ここ調整！
 

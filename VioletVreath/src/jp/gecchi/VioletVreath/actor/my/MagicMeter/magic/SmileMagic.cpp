@@ -70,25 +70,17 @@ void SmileMagic::processInvokingBehavior(int prm_now_level, int prm_new_level) {
 void SmileMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) {
 }
 
-
-int SmileMagic::effect(int prm_level) {
-    int r = Magic::effect(prm_level);
-    return r;
-}
-
 void SmileMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
     _TRACE_("SmileMagic::processEffectBegin (^_^)SMILE(^_^)SMILE(^_^)SMILE(^_^)SMILE(^_^)SMILE");
+    pMoji_->inactivate();
 }
 
 void SmileMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {
-    //即効性魔法は processEffectingBehavior はコールされないはず
-    throwGgafCriticalException("SmileMagic::processEffectingBehavior 即効性魔法は processEffectingBehavior はコールされないはず");
-//    _TRACE_("SmileMagic::processEffectingBehavior (^_^)SMILE(^_^)SMILE(^_^)SMILE(^_^)SMILE(^_^)SMILE");
+    _TRACE_("SmileMagic::processEffectingBehavior １回だけのはず");
 }
 
 void SmileMagic::processEffectFinish(int prm_justbefore_level) {
-    pMoji_->inactivate();
-    _TRACE_("SmileMagic::processEffectFinish (^_^)SMILE(^_^)SMILE(^_^)SMILE(^_^)SMILE(^_^)SMILE");
+    _TRACE_("SmileMagic::processEffectFinish １回だけのはず");
 }
 
 SmileMagic::~SmileMagic() {
