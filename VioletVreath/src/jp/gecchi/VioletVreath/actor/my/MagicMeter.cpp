@@ -230,6 +230,8 @@ void MagicMeter::onActive() {
 }
 
 void MagicMeter::processBehavior() {
+
+    ////////////////////////魔法メーターについての処理//////////////////////////
     VirtualButton* pVbPlay = VB_PLAY;
 
     if (pVbPlay->isBeingPressed(VB_POWERUP)) {
@@ -325,8 +327,8 @@ void MagicMeter::processBehavior() {
             pMpCostDispBar_->setQty(0);
         }
 
-        //Vreathバー
-        if (active_idx == 6) {
+        //Vreathバーがアクティブだった場合、Vreath増分表示
+        if (pActiveMagic == pVreathMagic_) {
             VreathMagic* pVM = (VreathMagic*)pActiveMagic;
             if (r_roll_[active_idx] > 0.01f) {
                 if (papLvTgtMvCur_[active_idx]->point_lv_ == pVM->level_) {
@@ -374,14 +376,13 @@ void MagicMeter::processBehavior() {
                     break;
                 }
                 case MAGIC_CAST_OK_LEVELUP: {
-                    pSeTx4Cast_->play(active_idx);
                     _pSeTx->play(SE_EXECUTE_LEVELUP_MAGIC);
                     papLvTgtMvCur_[active_idx]->blink(); //ピカピカ！
                     //LEVELUP 時は既にpActiveMagic->new_level_ がアップ予定レベル
                     papLvCastingCur_[active_idx]->markOnLevelUpCast(pActiveMagic->new_level_);
                     break;
                 }
-                case MAGIC_CAST_OK_LEVELDOWN: {
+                case MAGIC_CAST_LEVELDOWN: {
                     _pSeTx->play(SE_EXECUTE_LEVELDOWN_MAGIC);
                     papLvTgtMvCur_[active_idx]->blink(); //ピカピカ！
                     //LEVELDOWN 時は既に effect(new_lv) 実行済みのため、現レベル pActiveMagic->level_ となる
@@ -395,7 +396,6 @@ void MagicMeter::processBehavior() {
                         //現在詠唱中のレベルで再度押下
                         //なにもしない
                     } else {
-                        pSeTx4Cast_->play(active_idx);
                         _pSeTx->play(SE_EXECUTE_CANCEL_LEVELUP_MAGIC);
                         papLvTgtMvCur_[active_idx]->blink(); //ピカピカ！
                         //LEVELUP 時は既にpActiveMagic->new_level_ がアップ予定レベル
@@ -403,7 +403,7 @@ void MagicMeter::processBehavior() {
                     }
                     break;
                 }
-                case MAGIC_CAST_OK_CANCEL_AND_LEVELDOWN: {
+                case MAGIC_CAST_CANCEL_AND_LEVELDOWN: {
                     _pSeTx->play(SE_EXECUTE_CANCEL_LEVELDOWN_MAGIC);
                     papLvTgtMvCur_[active_idx]->blink(); //ピカピカ！
                     //LEVELDOWN 時は既に effect(new_lv) 実行済みのため、現レベル pActiveMagic->level_ となる
@@ -429,7 +429,8 @@ void MagicMeter::processBehavior() {
     } else if (getAlpha() > 1.0f) {
         setAlpha(1.0f); //アクティブ時のハッキリ表示
     }
-    //毎フレームの各魔法表示についての処理
+
+    ////////////////////////各魔法についての処理//////////////////////////
     GgafProgress* pMagicProg;
     Magic* pMagic = nullptr;
     int pMagic_level, pMagic_new_level;
@@ -457,6 +458,12 @@ void MagicMeter::processBehavior() {
             r_roll_velo_[m] = 0.0f;
         }
 
+        //詠唱開始
+        if (pMagicProg->isJustChangedTo(Magic::STATE_CASTING)) {
+            if (pMagic_new_level > pMagic_level) {
+                pSeTx4Cast_->play(m);
+            }
+        }
         //詠唱中
         if (pMagicProg->get() == Magic::STATE_CASTING) {
             if (pMagic->new_level_ > pMagic_level) {
@@ -470,10 +477,9 @@ void MagicMeter::processBehavior() {
             pSeTx4Cast_->stop(m); //消音
         }
 
-        //INVOKING開始時
+        //発動開始時
         if (pMagicProg->isJustChangedTo(Magic::STATE_INVOKING)) {
             if (pMagic_new_level > pMagic_level) {
-                //レベルアップ時
                 pSeTx4Invoke_->play(m);
             }
             pLvTgtMvCur->dispDisable(); //操作不可表示
@@ -493,7 +499,8 @@ void MagicMeter::processBehavior() {
             }
             pLvCastingCur->markOnInvoke(pMagic_new_level);
         }
-        //INVOKING中
+
+        //発動中
         if (pMagicProg->get() == Magic::STATE_INVOKING) {
             if (pMagic->new_level_ > pMagic_level) {
                 //レベルアップ時
@@ -501,7 +508,8 @@ void MagicMeter::processBehavior() {
                 pSeTx4Invoke_->get(m)->setFrequencyRate(1.0f + (f*3.0f));//音程を上げる
             }
         }
-        //INVOKINGではなくなった
+
+        //発動ではなくなった
         if (pMagicProg->isJustChangedFrom(Magic::STATE_INVOKING)) {
             pSeTx4Invoke_->stop(m); //消音
             pLvTgtMvCur->dispEnable(); //操作不可表示を解除
@@ -509,17 +517,10 @@ void MagicMeter::processBehavior() {
             pLvNowCur->blink();
         }
 
-        //EFFECTING開始時
-        if (pMagicProg->isJustChangedTo(Magic::STATE_EFFECTING)) {
-            if (pMagic->last_level_ < pMagic->level_) {
-                //レベルアップSTATE_EFFECTINGだったならば
-                _pSeTx->play(SE_EFFECT_MAGIC);
-                pLvCastingCur->markOnEffect(pMagic_level);
-            } else {
-                //レベルダウンEFFECT_BEGEINだったならば
-                //markOnLevelDownCast() した直後である。
-                //「CASTING」１ループのアニメーションがある為、何もしない。
-            }
+        //レベルアップ時
+        if (pMagic->prev_frame_level_ != pMagic_level && pMagic->prev_frame_level_ < pMagic_level) {
+            _pSeTx->play(SE_EFFECT_MAGIC);
+            pLvCastingCur->markOnEffect(pMagic_level);
         }
 
         //レベルダウン時
@@ -536,25 +537,28 @@ void MagicMeter::processBehavior() {
 
         //STATE_NOTHINGへ移行した
         if (pMagicProg->isJustChangedTo(Magic::STATE_NOTHING)) {
-            if (pMagicProg->isJustChangedFrom(Magic::STATE_CASTING)) {
-                //空詠唱（詠唱したが、詠唱完了時、MPが足りなかった）
-                _TRACE_("SE_NG_MP_IS_SHORT 嘘詠唱 ");
+            if (pMagicProg->isJustChangedFrom(Magic::STATE_CASTING)) { //詠唱→STATE_NOTHING
+                //空詠唱（詠唱をキャンセルした、あるいは、詠唱したが詠唱完了時にMPが足りなかった）
+                //TODO:現在は 手動のキャンセル（レベル０へのレベルダウン含む）でもここに来る。MP_IS_SHORTの時のキャンセルだけ判定したい
+                _TRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] SE_NG_MP_IS_SHORT 空詠唱乙 ");
                 pLvCastingCur->markOff(); //マークオフ！
-                pLvTgtMvCur->moveSmoothTo(pLvNowCur->point_lv_); //レベルカーソルをアクティブレベルに戻す
+                pLvNowCur->moveSmoothTo(pMagic_level);
+                pLvTgtMvCur->moveSmoothTo(pMagic_level); //レベルカーソルをアクティブレベルに戻す
                 _pSeTx->play(SE_NG_MP_IS_SHORT);
             }
-            if (pMagicProg->isJustChangedFrom(Magic::STATE_INVOKING)) {
+            if (pMagicProg->isJustChangedFrom(Magic::STATE_INVOKING)) {  //発動→STATE_NOTHING
                 //空発動（発動したが、発動完了時、MPが足りなかったので、効果開始出来なかった）
-                _TRACE_("SE_NG_MP_IS_SHORT 空発動 ");
+                _TRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] SE_NG_MP_IS_SHORT 空発動乙 ");
                 pLvCastingCur->markOff(); //マークオフ！
-                pLvTgtMvCur->moveSmoothTo(pLvNowCur->point_lv_); //レベルカーソルをアクティブレベルに戻す
+                pLvNowCur->moveSmoothTo(pMagic_level);
+                pLvTgtMvCur->moveSmoothTo(pMagic_level); //レベルカーソルをアクティブレベルに戻す
                 _pSeTx->play(SE_NG_MP_IS_SHORT);
             }
-            if (pMagicProg->isJustChangedFrom(Magic::STATE_EFFECTING)) {
-                //この条件だけでは、レベル0へレベルダウン と 即効性魔法終了
-                if (pMagic->time_of_effect_base_ == 0) {
+
+            if (pMagicProg->isJustChangedFrom(Magic::STATE_EFFECT_START)) { //STATE_EFFECT_START→STATE_NOTHING
+                if (pMagic_level > 0 && pMagic->time_of_effect_base_ == 0) {
                     //即効性魔法終了時
-                    _TRACE_("即効性魔法、発動して終了");
+                    _TRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] 即効性魔法、発動して終了");
                     pLvCastingCur->markOnEffect(pMagic_level);
                     pLvNowCur->moveSmoothTo(pMagic_level);
                 }
