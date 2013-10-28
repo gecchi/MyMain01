@@ -30,9 +30,9 @@ public:
     coord colli_box_dX_;
     coord colli_box_dY_;
     coord colli_box_dZ_;
-    int box_num_X_;
-    int box_num_Y_;
-    int box_num_Z_;
+    int box_num_x_;
+    int box_num_y_;
+    int box_num_z_;
 
 public:
     EnemyDrastea(const char* prm_name);
@@ -40,9 +40,9 @@ public:
     void config(coord prm_colli_box_dx,
                 coord prm_colli_box_dY,
                 coord prm_colli_box_dZ,
-                int prm_box_num_X,
-                int prm_box_num_Y,
-                int prm_box_num_Z );
+                int prm_box_num_x,
+                int prm_box_num_y,
+                int prm_box_num_z );
 
     void onCreateModel() override;
 

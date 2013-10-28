@@ -208,17 +208,17 @@ public:
     };
 public:
     /** 移動Y座標上限 */
-    static coord lim_Y_top_;
+    static coord lim_y_top_;
     /** 移動Y座標下限 */
-    static coord lim_Y_bottom_;
+    static coord lim_y_bottom_;
     /** 移動X座標上限 */
-    static coord lim_X_front_;
+    static coord lim_x_front_;
     /** 移動X座標下限 */
-    static coord lim_X_behaind_;
+    static coord lim_x_behaind_;
     /** 移動Z座標上限 */
-    static coord lim_Z_left_;
+    static coord lim_z_left_;
     /** 移動Z座標下限 */
-    static coord lim_Z_right_;
+    static coord lim_z_right_;
 
     MyShipWaySwitch way_switch_;
     void (MyShip::*paFuncMove[3*3*3])();
@@ -261,23 +261,23 @@ public:
     //これもZ軸が絡む場合、うまくこの値から計算しよう
 
     /** 奥(+Z)又は手前(-Z)へ通常移動開始時のX軸回転角速度の初速度 */
-    angvelo angRXVelo_BeginMZ_; //Rotation axisX angle Velo when I Begin To Move Z
+    angvelo angRxVelo_BeginMZ_; //Rotation axisX angle Velo when I Begin To Move Z
     //奥の場合は正、手前の場合はこれに -1 を乗ずる
 
     /** 奥(+Z)又は手前(-Z)へ通常移動中のX軸回転角速度の角加速度 */
-    angacce angRXAcce_MZ_; //Rotation axisX angle Acce while I Move Z
+    angacce angRxAcce_MZ_; //Rotation axisX angle Acce while I Move Z
     //奥の場合は正、手前の場合はこれに -1 を乗ずる
 
     /** 奥(+Z)又は手前(-Z)へ移動中のX軸回転角速度の上限角速度 */
-    angvelo angRXTopVelo_MZ_; //Rotation axisX Top angle Velo while I Move Z
+    angvelo angRxTopVelo_MZ_; //Rotation axisX Top angle Velo while I Move Z
     //下限角速度はこれに -1 を乗ずる
 
     /** 奥(+Z)又は手前(-Z)へ通常Z移動中のX軸回転角の停止角度 */
-    angle angRXStop_MZ_; //Rotation axisX Stop angle while I Move Z
+    angle angRxStop_MZ_; //Rotation axisX Stop angle while I Move Z
 
 
     /** 上(+Y)又は下(-Y)へTurbo移動開始時のZ軸回転角速度の初速度 */
-    angvelo angRXVelo_BeginMZT_; //Rotation axisX angle Velo when I Begin To Move Z with Turbo
+    angvelo angRxVelo_BeginMZT_; //Rotation axisX angle Velo when I Begin To Move Z with Turbo
     //上の場合は正、下の場合はこれに -1 を乗ずる
 
     /** VB_OPTION を離した瞬間の座標を(0,0,0)として、そこからの相対座標履歴（VB_OPTION押している時は除外されている） */

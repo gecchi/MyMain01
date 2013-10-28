@@ -205,12 +205,12 @@ void GgafLinearOctree::registerElem(GgafLinearOctreeElem* prm_pElem,
            "differ_bit_pos="<<differ_bit_pos<<" shift_num="<<shift_num<<" morton_order_space_num="<<morton_order_space_num<<"\n"<<
            "index="<<index<<" _num_space="<<_num_space
         );
-        _TRACE_("Min_X_index="<<((uint32_t)((tX1 - _root_X1) / _top_level_dX)));
-        _TRACE_("Min_Y_index="<<((uint32_t)((tY1 - _root_Y1) / _top_level_dY)));
-        _TRACE_("Min_Z_index="<<((uint32_t)((tZ1 - _root_Z1) / _top_level_dZ)));
-        _TRACE_("Man_X_index="<<((uint32_t)((tX2 - _root_X1) / _top_level_dX)));
-        _TRACE_("Man_Y_index="<<((uint32_t)((tY2 - _root_Y1) / _top_level_dY)));
-        _TRACE_("Man_Z_index="<<((uint32_t)((tZ2 - _root_Z1) / _top_level_dZ)));
+        _TRACE_("Min_x_index="<<((uint32_t)((tX1 - _root_X1) / _top_level_dX)));
+        _TRACE_("Min_y_index="<<((uint32_t)((tY1 - _root_Y1) / _top_level_dY)));
+        _TRACE_("Min_z_index="<<((uint32_t)((tZ1 - _root_Z1) / _top_level_dZ)));
+        _TRACE_("Man_x_index="<<((uint32_t)((tX2 - _root_X1) / _top_level_dX)));
+        _TRACE_("Man_y_index="<<((uint32_t)((tY2 - _root_Y1) / _top_level_dY)));
+        _TRACE_("Man_z_index="<<((uint32_t)((tZ2 - _root_Z1) / _top_level_dZ)));
     }
 #endif
 

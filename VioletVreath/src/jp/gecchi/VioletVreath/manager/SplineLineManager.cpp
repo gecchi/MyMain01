@@ -42,10 +42,10 @@ SplineLine* SplineLineManager::processCreateResource(char* prm_idstr, void* prm_
     if (UTIL::strcmp_ascii("Spl_00201_", prm_idstr) == 0) {
         //Œã•û‚©‚ç
         double p[][3] = { //           X  ,                       Y ,                         Z
-           { MyShip::lim_X_behaind_ - 500000.0 ,                      0.0 ,  MyShip::lim_Z_left_ * 0.8 },
-           {                          3000000 , MyShip::lim_Y_top_ * 0.2 ,                        0.0 },
-           {                          3000000 , MyShip::lim_Y_top_ * 0.5 , MyShip::lim_Z_right_ * 0.3 },
-           {                          3000000 , MyShip::lim_Y_top_ * 1.0 ,                        0.0 },
+           { MyShip::lim_x_behaind_ - 500000.0 ,                      0.0 ,  MyShip::lim_z_left_ * 0.8 },
+           {                          3000000 , MyShip::lim_y_top_ * 0.2 ,                        0.0 },
+           {                          3000000 , MyShip::lim_y_top_ * 0.5 , MyShip::lim_z_right_ * 0.3 },
+           {                          3000000 , MyShip::lim_y_top_ * 1.0 ,                        0.0 },
            {                          3000000 ,                      0.0 ,                        0.0 }
         };
         pResource = NEW SplineLine(p, 5, 0.2); //—±“x 0.2
@@ -54,11 +54,11 @@ SplineLine* SplineLineManager::processCreateResource(char* prm_idstr, void* prm_
     if (UTIL::strcmp_ascii("Spl_00202_", prm_idstr) == 0) {
         //Œã•û‚©‚ç
         double p[][3] = { //           X  ,                          Y ,                         Z
-           { MyShip::lim_X_behaind_ - 500000.0 ,                         0.0 , MyShip::lim_Z_right_ * 0.8 },
-           { MyShip::lim_X_front_ * 1.5        , MyShip::lim_Y_bottom_ * 0.2 ,                        0.0 },
-           { MyShip::lim_X_front_ * 2.5        , MyShip::lim_Y_bottom_ * 0.5 ,  MyShip::lim_Z_left_ * 0.3 },
-           { MyShip::lim_X_front_ * 2.2        , MyShip::lim_Y_bottom_ * 1.0 ,                        0.0 },
-           { MyShip::lim_X_front_ * 2.0        ,                         0.0 ,                        0.0 }
+           { MyShip::lim_x_behaind_ - 500000.0 ,                         0.0 , MyShip::lim_z_right_ * 0.8 },
+           { MyShip::lim_x_front_ * 1.5        , MyShip::lim_y_bottom_ * 0.2 ,                        0.0 },
+           { MyShip::lim_x_front_ * 2.5        , MyShip::lim_y_bottom_ * 0.5 ,  MyShip::lim_z_left_ * 0.3 },
+           { MyShip::lim_x_front_ * 2.2        , MyShip::lim_y_bottom_ * 1.0 ,                        0.0 },
+           { MyShip::lim_x_front_ * 2.0        ,                         0.0 ,                        0.0 }
         };
         pResource = NEW SplineLine(p, 5, 0.2); //—±“x 0.2
     }
@@ -109,11 +109,11 @@ SplineLine* SplineLineManager::processCreateResource(char* prm_idstr, void* prm_
         };
         for (int i = 0; i < 17; i++) {
             //X
-            p[i][0] = p[i][0] * MyShip::lim_X_front_;
+            p[i][0] = p[i][0] * MyShip::lim_x_front_;
             //Y
-            p[i][1] = p[i][1] * MyShip::lim_Y_top_;
+            p[i][1] = p[i][1] * MyShip::lim_y_top_;
             //Z
-            p[i][2] = p[i][2] * MyShip::lim_Z_left_;
+            p[i][2] = p[i][2] * MyShip::lim_z_left_;
 
         }
         pResource = NEW SplineLine(p, 17, 0.2); //—±“x 0.2

@@ -19,7 +19,7 @@ TurboMeter::TurboMeter(const char* prm_name) : DefaultBoardActor(prm_name, "Turb
     max_val_ = 1000.0f;
     unit_px_ = max_px_ / max_val_;
     val_ = 1.0f;
-    _SX = _SY = 1000;
+    _sx = _sy = 1000;
 }
 
 void TurboMeter::initialize() {
@@ -34,7 +34,7 @@ void TurboMeter::processBehavior() {
     //sx_ += 0.01;
     val_ = P_MYSHIP->veloBeginMT_;
     float length_px = unit_px_ * val_;
-    _SX = R_SC(length_px / _pBoardModel->_fSize_BoardModelWidthPx);
+    _sx = R_SC(length_px / _pBoardModel->_fSize_BoardModelWidthPx);
     _pUvFlipper->behave();
 }
 

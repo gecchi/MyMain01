@@ -71,9 +71,9 @@ void EnemyGlaja::processBehavior() {
          case PROG_MOVE01: {
              if (_pProg->isJustChanged()) {
                  next_pos_.set(
-                             pMyShip->_X + PX_C(300) + RND(PX_C(-100), PX_C(100)),
-                             pMyShip->_Y + RND(PX_C(-400), PX_C(400)),
-                             pMyShip->_Z + RND(PX_C(-400), PX_C(400))
+                             pMyShip->_x + PX_C(300) + RND(PX_C(-100), PX_C(100)),
+                             pMyShip->_y + RND(PX_C(-400), PX_C(400)),
+                             pMyShip->_z + RND(PX_C(-400), PX_C(400))
                            ); //次の移動目標座標
                  //スィーっとnext_pos_へ移動
                  _pKurokoA->setMvAngTwd(&next_pos_);
@@ -145,7 +145,7 @@ void EnemyGlaja::processBehavior() {
     _pKurokoA->behave();
     _pMorpher->behave();
     _pAFader->behave();
-//_TRACE_("EnemyGlaja f:"<<getBehaveingFrame()<<"  pProg="<<_pProg->get()<<"   X,Y,Z="<<_X<<","<<_Y<<","<<_Z<<" ");
+//_TRACE_("EnemyGlaja f:"<<getBehaveingFrame()<<"  pProg="<<_pProg->get()<<"   X,Y,Z="<<_x<<","<<_y<<","<<_z<<" ");
 }
 
 void EnemyGlaja::processJudgement() {

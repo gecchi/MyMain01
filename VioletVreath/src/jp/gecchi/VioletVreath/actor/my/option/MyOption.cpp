@@ -57,9 +57,9 @@ MyOption::MyOption(const char* prm_name, uint32_t prm_no, MyOptionController* pr
     angveloExpanseNomal_ = 3000;
     angveloExpanseSlow_ = 1000;
 
-    Xorg_ = _X;
-    Yorg_ = _Y;
-    Zorg_ = _Z;
+    Xorg_ = _x;
+    Yorg_ = _y;
+    Zorg_ = _z;
 
     //TODO::EffectMyOption
     pEffect_ = NEW EffectMyOption("EffectMyOption", this);
@@ -118,7 +118,7 @@ void MyOption::onCreateModel() {
 }
 
 void MyOption::initialize() {
-    _SX=_SY=_SZ=100;
+    _sx=_sy=_sz=100;
 }
 
 void MyOption::onReset() {
@@ -128,15 +128,15 @@ void MyOption::onReset() {
     _pKurokoA->setRyMvAng(-D90ANG);
     _pKurokoA->setRzMvAngVelo(angveloMove_);//∵半径Ｒ＝速度Ｖ／角速度ω
     _pKurokoA->setRyMvAngVelo(0);//∵半径Ｒ＝速度Ｖ／角速度ω
-    _Z = ANG_COS(angPosition_)*radiusPosition_; //X軸中心回転なのでXYではなくてZY
-    _Y = ANG_SIN(angPosition_)*radiusPosition_; //X軸の正の方向を向いて時計回りに配置
+    _z = ANG_COS(angPosition_)*radiusPosition_; //X軸中心回転なのでXYではなくてZY
+    _y = ANG_SIN(angPosition_)*radiusPosition_; //X軸の正の方向を向いて時計回りに配置
                                                 //ワールド変換の（左手法）のX軸回転とはと逆の回転なので注意
-    _X = 0;
+    _x = 0;
     _pKurokoA->setFaceAngVelo(AXIS_X, 4000);
     //ローカル座標系を、(Xorg_,Yorg_,Zorg_) へ退避
-    Xorg_ = _X;
-    Yorg_ = _Y;
-    Zorg_ = _Z;
+    Xorg_ = _x;
+    Yorg_ = _y;
+    Zorg_ = _z;
     angPosition_ = _pKurokoA->_angRzMv;
 
     adjust_angPos_seq_progress_ = 0;
@@ -154,13 +154,13 @@ void MyOption::onActive() {
 }
 
 void MyOption::addRadiusPosition(int prm_radius_offset, int prm_min_radius, int prm_max_radius) {
-    //    _X = Xorg_;
-    //    _Y = Yorg_;
-    //    _Z = Zorg_;
+    //    _x = Xorg_;
+    //    _y = Yorg_;
+    //    _z = Zorg_;
     //より後
-    //    Xorg_ = _X;
-    //    Yorg_ = _Y;
-    //    Zorg_ = _Z;
+    //    Xorg_ = _x;
+    //    Yorg_ = _y;
+    //    Zorg_ = _z;
     //より前
     //でしか呼び出してはいけません。
 
@@ -192,18 +192,18 @@ void MyOption::addRadiusPosition(int prm_radius_offset, int prm_min_radius, int 
 
 
 void MyOption::setRadiusPosition(int prm_radius) {
-//    _X = Xorg_;
-//    _Y = Yorg_;
-//    _Z = Zorg_;
+//    _x = Xorg_;
+//    _y = Yorg_;
+//    _z = Zorg_;
 //より後
-//    Xorg_ = _X;
-//    Yorg_ = _Y;
-//    Zorg_ = _Z;
+//    Xorg_ = _x;
+//    Yorg_ = _y;
+//    Zorg_ = _z;
 //より前
 //でしか呼び出してはいけません。
     radiusPosition_ = prm_radius;
     if (radiusPosition_ == -1  || radiusPosition_ == 0 || radiusPosition_ == 1) {
-        _Z = _Y = 0;
+        _z = _y = 0;
         _pKurokoA->setRzMvAng(D90ANG);
         angveloMove_ = 0;
         _pKurokoA->setRzMvAngVelo(angveloMove_);
@@ -211,20 +211,20 @@ void MyOption::setRadiusPosition(int prm_radius) {
 
     }
 
-    angle angZY_ROTANG_X;
+    angle angZY_ROTANG_x;
     if (radiusPosition_ > 0) {
-        angZY_ROTANG_X = UTIL::getAngle2D(_Z, _Y); //自分の位置
-        _Z = radiusPosition_ * ANG_COS(angZY_ROTANG_X);
-        _Y = radiusPosition_ * ANG_SIN(angZY_ROTANG_X);
+        angZY_ROTANG_x = UTIL::getAngle2D(_z, _y); //自分の位置
+        _z = radiusPosition_ * ANG_COS(angZY_ROTANG_x);
+        _y = radiusPosition_ * ANG_SIN(angZY_ROTANG_x);
     } else {
-        angZY_ROTANG_X = UTIL::getAngle2D(-_Z, -_Y); //自分の位置
-        _Z = radiusPosition_ * ANG_COS(angZY_ROTANG_X);
-        _Y = radiusPosition_ * ANG_SIN(angZY_ROTANG_X);
+        angZY_ROTANG_x = UTIL::getAngle2D(-_z, -_y); //自分の位置
+        _z = radiusPosition_ * ANG_COS(angZY_ROTANG_x);
+        _y = radiusPosition_ * ANG_SIN(angZY_ROTANG_x);
     }
     //もしprm_lenが0の場合、理論的には元の位置に戻るはずなのだが、
     //誤差丸め込みのため、微妙に位置が変わる。
-    //よって、移動方角、移動角速度を現在の位置(_Z,_Y)で再設定しなければズレる。
-    _pKurokoA->setRzMvAng(angZY_ROTANG_X + D90ANG);
+    //よって、移動方角、移動角速度を現在の位置(_z,_y)で再設定しなければズレる。
+    _pKurokoA->setRzMvAng(angZY_ROTANG_x + D90ANG);
     angveloMove_ = ((1.0*veloMv_ / radiusPosition_)*(double)D180ANG)/PI;
     _pKurokoA->setRzMvAngVelo(angveloMove_);
 }
@@ -260,11 +260,11 @@ void MyOption::processBehavior() {
     //処理メイン
 
     //退避していたローカル座標系を、(Xorg_,Yorg_,Zorg_) を
-    //_pKurokoAのメソッドを利用するため、(_X,_Y,_Z)へコピー
-    //これ以降processBehavior()内の(_X,_Y,_Z)はローカル座標系
-    _X = Xorg_;
-    _Y = Yorg_;
-    _Z = Zorg_;
+    //_pKurokoAのメソッドを利用するため、(_x,_y,_z)へコピー
+    //これ以降processBehavior()内の(_x,_y,_z)はローカル座標系
+    _x = Xorg_;
+    _y = Yorg_;
+    _z = Zorg_;
 
     if (return_to_base_radiusPosition_seq_) {
         //半径ポジション自動戻り中
@@ -408,9 +408,9 @@ void MyOption::processBehavior() {
                 if (pVbPlay->isBeingPressed(VB_OPTION)) {
                     //オプションボタン押下時は
                     //radiusPositionをいじらない
-                } else if (pGeoOpCtrl->X == pOptionCtrler_->_X &&
-                           pGeoOpCtrl->Y == pOptionCtrler_->_Y &&
-                           pGeoOpCtrl->Z == pOptionCtrler_->_Z )
+                } else if (pGeoOpCtrl->x == pOptionCtrler_->_x &&
+                           pGeoOpCtrl->y == pOptionCtrler_->_y &&
+                           pGeoOpCtrl->z == pOptionCtrler_->_z )
                 {
                     //オプションコントローラー非移動時、
                     //元の軌道に戻るために半径座標を増やす。
@@ -466,9 +466,9 @@ void MyOption::processBehavior() {
             angle angPosition_now;
             //自分の角度位置取得
             if (radiusPosition_ > 0) {
-                angPosition_now = UTIL::getAngle2D(_Z, _Y);
+                angPosition_now = UTIL::getAngle2D(_z, _y);
             } else {
-                angPosition_now = UTIL::getAngle2D(-_Z, -_Y);
+                angPosition_now = UTIL::getAngle2D(-_z, -_y);
             }
             //現在の角距離
             angle ang_diff = UTIL::getAngDiff(angPosition_now, adjust_angPos_seq_new_angPosition_base_, SGN(veloMv_));
@@ -493,9 +493,9 @@ void MyOption::processBehavior() {
                 pKurokoA->setMvVelo(veloMv_);
                 pKurokoA->setRzMvAng(UTIL::simplifyAng(angPosition_base_ + D90ANG));
                 pKurokoA->setRzMvAngVelo(angveloMove_);//∵半径Ｒ＝速度Ｖ／角速度ω
-                _Z = ANG_COS(angPosition_base_)*radiusPosition_; //X軸中心回転なのでXYではなくてZY
-                _Y = ANG_SIN(angPosition_base_)*radiusPosition_; //X軸の正の方向を向いて時計回りに配置
-                _X = 0;
+                _z = ANG_COS(angPosition_base_)*radiusPosition_; //X軸中心回転なのでXYではなくてZY
+                _y = ANG_SIN(angPosition_base_)*radiusPosition_; //X軸の正の方向を向いて時計回りに配置
+                _x = 0;
                 adjust_angPos_seq_progress_ = 0;
             }
         }
@@ -506,11 +506,11 @@ void MyOption::processBehavior() {
     angPosition_ = UTIL::simplifyAng(angPosition_+angveloMove_);
 
     pKurokoA->behave();
-    //pKurokoAを使って、(_X,_Y,_Z)ローカル座標系の計算ができたので、
-    //(_X,_Y,_Z)のローカル座標系結果を、(Xorg_,Yorg_,Zorg_) に上書きコピーで更新する。
-    Xorg_ = _X;
-    Yorg_ = _Y;
-    Zorg_ = _Z;
+    //pKurokoAを使って、(_x,_y,_z)ローカル座標系の計算ができたので、
+    //(_x,_y,_z)のローカル座標系結果を、(Xorg_,Yorg_,Zorg_) に上書きコピーで更新する。
+    Xorg_ = _x;
+    Yorg_ = _y;
+    Zorg_ = _z;
 
     //＜メモ＞
     //ここまでで、GgafDxKurokoAの機能のみで、
@@ -573,12 +573,12 @@ void MyOption::processBehavior() {
     Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
     //Q._x, Q._y, Q._z が回転後の座標となる
     //Z軸回転、Y軸回転角度を計算
-    UTIL::convVectorToRzRy(Q._x, Q._y, Q._z, _RZ, _RY);
+    UTIL::convVectorToRzRy(Q._x, Q._y, Q._z, _rz, _ry);
 
-    //最終的にな(_X,_Y,_Z)に絶対座標系の座標値に更新。
-    _X = X + pOptionCtrler_->_X;
-    _Y = Y + pOptionCtrler_->_Y;
-    _Z = Z + pOptionCtrler_->_Z;
+    //最終的にな(_x,_y,_z)に絶対座標系の座標値に更新。
+    _x = X + pOptionCtrler_->_x;
+    _y = Y + pOptionCtrler_->_y;
+    _z = Z + pOptionCtrler_->_z;
     //ちなみにローカル座標系結果は、(Xorg_,Yorg_,Zorg_)
 
 
@@ -602,8 +602,8 @@ void MyOption::processBehavior() {
             pLaserChip->_pKurokoB->behave();
 
             pLaserChip->positionAs(this);
-            pLaserChip->_RZ = _RZ;
-            pLaserChip->_RY = _RY;
+            pLaserChip->_rz = _rz;
+            pLaserChip->_ry = _ry;
             pLaserChip->pOrg_ = this;
 
             if (pLaserChip->_pChip_front == nullptr) {
@@ -621,8 +621,8 @@ void MyOption::processBehavior() {
             GgafDxKurokoA* const pShot_pKurokoA = pShot->_pKurokoA;
             _pSeTx->play3D(SE_FIRE_SHOT);
             pShot->positionAs(this);
-            pShot_pKurokoA->setFaceAng(_RX, _RY, _RZ);
-            pShot_pKurokoA->setRzRyMvAng(_RZ, _RY);
+            pShot_pKurokoA->setFaceAng(_rx, _ry, _rz);
+            pShot_pKurokoA->setRzRyMvAng(_rz, _ry);
         }
     }
     //光子魚雷発射

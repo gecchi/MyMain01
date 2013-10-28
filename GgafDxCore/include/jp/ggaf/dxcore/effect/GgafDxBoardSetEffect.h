@@ -18,10 +18,10 @@ public:
     D3DXHANDLE _h_tex_blink_threshold;
     D3DXHANDLE _ah_offset_u[28];
     D3DXHANDLE _ah_offset_v[28];
-    D3DXHANDLE _ah_transformed_X[28];
-    D3DXHANDLE _ah_transformed_Y[28];
+    D3DXHANDLE _ah_transformed_x[28];
+    D3DXHANDLE _ah_transformed_y[28];
     D3DXHANDLE _ah_alpha[28];
-    D3DXHANDLE _ah_depth_Z[28];
+    D3DXHANDLE _ah_depth_z[28];
 
 public:
     /**

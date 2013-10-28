@@ -55,7 +55,7 @@ void EnemyHisbeLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
 
 void EnemyHisbeLaserChip001::processBehaviorHeadChip() {
     if (pNearestScrollingScene_ && pNearestScrollingScene_->_pFuncScrolling == WalledScene::scrollX) {
-        pKurokoLeader_->_X_start -= pNearestScrollingScene_->getScrollSpeed();
+        pKurokoLeader_->_x_start -= pNearestScrollingScene_->getScrollSpeed();
     }
 
     if (getActiveFrame() == 2) {
@@ -67,7 +67,7 @@ void EnemyHisbeLaserChip001::processBehaviorHeadChip() {
 
 void EnemyHisbeLaserChip001::processJudgement() {
     if (isOutOfUniverse()) {
-        if (_X >= GgafDxUniverse::_X_gone_right) {
+        if (_x >= GgafDxUniverse::_x_gone_right) {
             //WALLì‡é¿å±
         } else {
             sayonara();

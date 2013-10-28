@@ -16,8 +16,8 @@ public:
     enum {
         SE_MOVE_CURSOR   ,
     };
-    coord target_X_;
-    coord target_Y_;
+    coord target_x_;
+    coord target_y_;
 
 public:
     MenuSelectSub(const char* prm_name, const char* prm_model);
@@ -37,7 +37,7 @@ public:
     virtual void initialize() override;
 
     /**
-     * 表示完了位置を現在の_X, _Yで設定しメニュー(自身)を起動 .
+     * 表示完了位置を現在の_x, _yで設定しメニュー(自身)を起動 .
      * 通常は他のオブジェクトから呼び出されるメソッドです。
      */
     virtual void riseMe() override;
@@ -46,20 +46,20 @@ public:
      * 表示完了位置を指定してメニュー(自身)を起動 .
      * 引数座標はスライドが完了して落ち着く座標を指定。
      * 通常は他のオブジェクトから呼び出されるメソッドです。
-     * @param prm_target_X 表示完了X座標
-     * @param prm_target_Y 表示完了Y座標
+     * @param prm_target_x 表示完了X座標
+     * @param prm_target_y 表示完了Y座標
      */
-    virtual void rise(coord prm_target_X, coord prm_target_Y);
+    virtual void rise(coord prm_target_x, coord prm_target_y);
 
     /**
      * 表示完了位置を指定してサブメニューを起動 .
      * 引数座標はサブメニューがスライドが完了して落ち着く座標を指定。
      * (※ void MenuActor<T>::riseSubMenu(int prm_index) を隠蔽)
      * @param prm_index サブメニューインデックス(追加した順番。0～)
-     * @param prm_target_X サブメニュー表示完了X座標
-     * @param prm_target_Y サブメニュー表示完了Y座標
+     * @param prm_target_x サブメニュー表示完了X座標
+     * @param prm_target_y サブメニュー表示完了Y座標
      */
-    virtual void riseSubMenu(int prm_index, coord prm_target_X, coord prm_target_Y);
+    virtual void riseSubMenu(int prm_index, coord prm_target_x, coord prm_target_y);
 
     void onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) override {
     }

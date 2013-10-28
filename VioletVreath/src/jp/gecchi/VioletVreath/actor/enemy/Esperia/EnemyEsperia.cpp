@@ -72,11 +72,11 @@ void EnemyEsperia::onActive() {
     _pKurokoA->setMvVelo(1000);
     dX_= dZ_ = 0;
     //出現位置
-    static coord appearances_renge_Z = (MyShip::lim_Z_left_ - MyShip::lim_Z_right_) * 3;
-    static coord appearances_renge_Y = (MyShip::lim_Y_top_ - MyShip::lim_Y_bottom_) * 3;
-    _X = GgafDxUniverse::_X_gone_right - 1000;
-    _Y = RND(-(appearances_renge_Y/2) , +(appearances_renge_Y/2));
-    _Z = RND(-(appearances_renge_Z/2) , +(appearances_renge_Z/2));
+    static coord appearances_renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 3;
+    static coord appearances_renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 3;
+    _x = GgafDxUniverse::_x_gone_right - 1000;
+    _y = RND(-(appearances_renge_y/2) , +(appearances_renge_y/2));
+    _z = RND(-(appearances_renge_z/2) , +(appearances_renge_z/2));
 
     _pProg->reset(PROG_ENTRY);
 }
@@ -201,17 +201,17 @@ void EnemyEsperia::processBehavior() {
                     //  とする
                     coord total_laser_effect = laser_density*(now_laser_way_-1)+1; //すだれレーザーのすだれ距離（範囲）
 
-                    dX_ = ABS(_X - pMyShip->_X);
-                    dZ_ = ABS(_Z - pMyShip->_Z);
+                    dX_ = ABS(_x - pMyShip->_x);
+                    dZ_ = ABS(_z - pMyShip->_z);
                     if (dX_ < dZ_)  {
                         //(a)(d) の場合、X方向距離よりZ方向距離が遠い
                         for (int i = 0, tX = -total_laser_effect/2; i < now_laser_way_; i++, tX+=laser_density) {
                             paPos_Target_[i].set(tX, 0, 0);
                         }
                     } else {
-                        if (pMyShip->_X < _X) { //自機より前
+                        if (pMyShip->_x < _x) { //自機より前
                             //(b)(c)の場合、Z方向距離よりX方向距離が遠い
-                            if (pMyShip->_Z < _Z) {
+                            if (pMyShip->_z < _z) {
                                 //(b)自機が手前、エスペリアが奥
                                 for (int i = 0, tZ = total_laser_effect/2; i < now_laser_way_; i++, tZ-=laser_density) {
                                     paPos_Target_[i].set(0, 0, tZ);
@@ -223,7 +223,7 @@ void EnemyEsperia::processBehavior() {
                                 }
                             }
                         } else { //自機より後ろ (e)(f)
-                            if (pMyShip->_Z < _Z) {
+                            if (pMyShip->_z < _z) {
                                 //(e)自機が手前、エスペリアが奥
                                 for (int i = 0, tZ = -total_laser_effect/2; i < now_laser_way_; i++, tZ+=laser_density) {
                                     paPos_Target_[i].set(0, 0, tZ);
@@ -256,34 +256,34 @@ void EnemyEsperia::processBehavior() {
                         if (pLaserChip) {
                             p = &(paLocalPos_Laser_[i]);
                             //発射元座標に設定
-                            pLaserChip->position(_X+p->X, _Y+p->Y, _Z+p->Z);
+                            pLaserChip->position(_x+p->x, _y+p->y, _z+p->z);
                             //最初の目標地点(折り返す地点)を設定
                             //シンバルロック付近を避けるためすこしズラス
                             if (dX_ < dZ_)  {
                                 //X方向距離よりZ方向距離が遠い
-                                if (pMyShip->_Z < _Z) {
+                                if (pMyShip->_z < _z) {
                                     //自機が手前、エスペリアが奥
-                                    pLaserChip->tX1_ = _X + paPos_Target_[i].X;
-                                    pLaserChip->tY1_ = _Y + paPos_Target_[i].Y + turn_dY;
-                                    pLaserChip->tZ1_ = _Z + paPos_Target_[i].Z + PX_C(100);
+                                    pLaserChip->tX1_ = _x + paPos_Target_[i].x;
+                                    pLaserChip->tY1_ = _y + paPos_Target_[i].y + turn_dY;
+                                    pLaserChip->tZ1_ = _z + paPos_Target_[i].z + PX_C(100);
                                 } else {
                                     //自機が奥、エスペリアが手前
-                                    pLaserChip->tX1_ = _X + paPos_Target_[i].X;
-                                    pLaserChip->tY1_ = _Y + paPos_Target_[i].Y + turn_dY;
-                                    pLaserChip->tZ1_ = _Z + paPos_Target_[i].Z - PX_C(100);
+                                    pLaserChip->tX1_ = _x + paPos_Target_[i].x;
+                                    pLaserChip->tY1_ = _y + paPos_Target_[i].y + turn_dY;
+                                    pLaserChip->tZ1_ = _z + paPos_Target_[i].z - PX_C(100);
                                 }
                             } else {
                                 //シンバルロック付近を避けるためX-100
-                                pLaserChip->tX1_ = _X + paPos_Target_[i].X - PX_C(100);
-                                pLaserChip->tY1_ = _Y + paPos_Target_[i].Y + turn_dY;
-                                pLaserChip->tZ1_ = _Z + paPos_Target_[i].Z;
+                                pLaserChip->tX1_ = _x + paPos_Target_[i].x - PX_C(100);
+                                pLaserChip->tY1_ = _y + paPos_Target_[i].y + turn_dY;
+                                pLaserChip->tZ1_ = _z + paPos_Target_[i].z;
                             }
 
                             pLaserChip->turn_dY_ = turn_dY;
                             //最終目標地点を設定
-                            pLaserChip->tX2_ = pMyShip->_X + paPos_Target_[i].X;
-                            pLaserChip->tY2_ = pMyShip->_Y + paPos_Target_[i].Y;
-                            pLaserChip->tZ2_ = pMyShip->_Z + paPos_Target_[i].Z;
+                            pLaserChip->tX2_ = pMyShip->_x + paPos_Target_[i].x;
+                            pLaserChip->tY2_ = pMyShip->_y + paPos_Target_[i].y;
+                            pLaserChip->tZ2_ = pMyShip->_z + paPos_Target_[i].z;
                             //速さと加速度
                             pLaserChip->_pKurokoA->setMvVelo(10000); //初期速度
                             pLaserChip->_pKurokoA->setMvAcce(150+(max_laser_way_-i)*10); //少しバラけるように
@@ -365,9 +365,9 @@ coord EnemyEsperia::getTurnDY(GgafDxCore::GgafDxGeometricActor* pThis,
     //  ／    :<------------->|
     //        :     DT(引数)  |
     //
-    //DY = DT・tan(5°) - (敵_Y - 自機_Y)
+    //DY = DT・tan(5°) - (敵_y - 自機_y)
     static double tan5 = tan(5*(PI/180.0)); //５度上から打ち下ろす
-    coord dY = pThis->_Y - pMyShip->_Y;
+    coord dY = pThis->_y - pMyShip->_y;
     coord TurnDY = DT*tan5 - dY;
     if (TurnDY < PX_C(100)) {
         return PX_C(100);

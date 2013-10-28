@@ -114,9 +114,9 @@ void EnemyRatislavia::processBehavior() {
                     pPart = _pColliChecker->_pCollisionArea->_papColliPart[j];
                     pE = dispatchDelayFromCommon(EffectExplosion004, RND(1,10));
                     if (pE) {
-                        pE->position(_X + pPart->_cx + RND(-r2_, +r2_),
-                                   _Y + pPart->_cy + RND(-r2_, +r2_),
-                                   _Z + pPart->_cz + RND(-r2_, +r2_));
+                        pE->position(_x + pPart->_cx + RND(-r2_, +r2_),
+                                   _y + pPart->_cy + RND(-r2_, +r2_),
+                                   _z + pPart->_cz + RND(-r2_, +r2_));
                     }
                 }
             }
@@ -131,9 +131,9 @@ void EnemyRatislavia::processBehavior() {
                     pPart = _pColliChecker->_pCollisionArea->_papColliPart[j];
                     pE = dispatchFromCommon(EffectExplosion004);
                     if (pE) {
-                        pE->position(_X + pPart->_cx,
-                                   _Y + pPart->_cy,
-                                   _Z + pPart->_cz);
+                        pE->position(_x + pPart->_cx,
+                                   _y + pPart->_cy,
+                                   _z + pPart->_cz);
                     }
                 }
                 sayonara();
@@ -175,7 +175,7 @@ int EnemyRatislavia::isOutOfView() {
 }
 
 bool EnemyRatislavia::isOutOfUniverse() {
-    if (GgafDxCore::GgafDxUniverse::_X_gone_left < _X) {
+    if (GgafDxCore::GgafDxUniverse::_x_gone_left < _x) {
         return false;
     } else {
         return true;

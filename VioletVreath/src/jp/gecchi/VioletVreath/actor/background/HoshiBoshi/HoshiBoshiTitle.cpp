@@ -15,7 +15,7 @@ HoshiBoshiTitle::HoshiBoshiTitle(const char* prm_name) :
     _class_name = "HoshiBoshiTitle";
     //¯X‚ÍDIRECTX‹——£-1.0`1.0i-10px`10px)‚ÉŽû‚Ü‚Á‚Ä‚¢‚é‘O’ñB
     far_rate_ = 10.0f;
-    _SX = _SY = _SZ =  (P_CAM->_zf*LEN_UNIT)*far_rate_;
+    _sx = _sy = _sz =  (P_CAM->_zf*LEN_UNIT)*far_rate_;
 }
 
 void HoshiBoshiTitle::onActive() {
@@ -23,10 +23,10 @@ void HoshiBoshiTitle::onActive() {
 }
 
 void HoshiBoshiTitle::processBehavior() {
-    if (_X < -CAM_ZF_*far_rate_) {
-        _X += (CAM_ZF_*far_rate_*2);
+    if (_x < -CAM_ZF_*far_rate_) {
+        _x += (CAM_ZF_*far_rate_*2);
     } else {
-        _X -= 10000*far_rate_;
+        _x -= 10000*far_rate_;
     }
     _pUvFlipper->behave();
     _pAFader->behave();

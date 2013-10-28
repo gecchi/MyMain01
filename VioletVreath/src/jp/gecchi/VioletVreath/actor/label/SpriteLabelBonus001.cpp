@@ -57,7 +57,7 @@ void SpriteLabelBonus001::processBehavior() {
                                         D_ANG(1), 0, TURN_CLOSE_TO, true);
             }
 
-            if (ABS(P_CAM->_X - _X) < PX_C(200) ||  _pProg->getFrameInProgress() >= 60+30+120) {
+            if (ABS(P_CAM->_x - _x) < PX_C(200) ||  _pProg->getFrameInProgress() >= 60+30+120) {
                 _pProg->changeNext();
             }
             break;

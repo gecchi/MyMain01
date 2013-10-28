@@ -31,12 +31,12 @@ void GgafDxFkFormation::registerFormationFkBase(GgafDxGeometricActor* prm_pFkBas
 }
 
 void GgafDxFkFormation::addFormationMember(GgafDxGeometricActor* prm_pMember,
-                                           int prm_X_init_local,
-                                           int prm_Y_init_local,
-                                           int prm_Z_init_local,
-                                           int prm_RX_init_local,
-                                           int prm_RY_init_local,
-                                           int prm_RZ_init_local) {
+                                           int prm_x_init_local,
+                                           int prm_y_init_local,
+                                           int prm_z_init_local,
+                                           int prm_rx_init_local,
+                                           int prm_ry_init_local,
+                                           int prm_rz_init_local) {
 
 #ifdef MY_DEBUG
     if (wasDeclaredEnd() || _will_inactivate_after_flg) {
@@ -53,12 +53,12 @@ void GgafDxFkFormation::addFormationMember(GgafDxGeometricActor* prm_pMember,
     _num_formation_member++;
     prm_pMember->_pFormation = this; //メンバーへフォーメーションを設定
     pFkBase->addSubGroupAsFk(prm_pMember,
-                             prm_X_init_local,
-                             prm_Y_init_local,
-                             prm_Z_init_local,
-                             prm_RX_init_local,
-                             prm_RY_init_local,
-                             prm_RZ_init_local);
+                             prm_x_init_local,
+                             prm_y_init_local,
+                             prm_z_init_local,
+                             prm_rx_init_local,
+                             prm_ry_init_local,
+                             prm_rz_init_local);
     prm_pMember->inactivateImmed(); //フォーメーションなのでCallUpを待つため
 }
 

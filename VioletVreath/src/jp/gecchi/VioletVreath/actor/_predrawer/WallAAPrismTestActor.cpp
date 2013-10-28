@@ -23,7 +23,7 @@ void WallAAPrismTestActor::onCreateModel() {
 
 
 bool WallAAPrismTestActor::isOutOfUniverse() {
-    if (GgafDxUniverse::_X_gone_left < _X) {
+    if (GgafDxUniverse::_x_gone_left < _x) {
         return false;
     }
     return true;

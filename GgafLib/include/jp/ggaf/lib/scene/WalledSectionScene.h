@@ -26,9 +26,9 @@ class WalledSectionScene : public DefaultScene {
         /** プリズム位置情報(> 0の場合はプリズム、0の場合はBOX) */
         int _pos_prism;
         /** 表示時のY座標 */
-        int _Y;
+        int _y;
         /** 表示時のZ座標 */
-        int _Z;
+        int _z;
         /** 可視表示面情報 */
         int _wall_draw_face;
         /** 当たり判定領域AAB情報 */
@@ -49,7 +49,7 @@ public:
     /** [r]壁ブロックの幅（１つのWallPartsActorオブジェクトのZ座標軸長さ）*/
     coord _wall_width;
     /** [r]外壁表示X座標位置 */
-    coord _wall_start_X;
+    coord _wall_start_x;
     /** [r]繰り返し回数 */
     int _loop_num;
     /** [r]繰り返しカウンタ */
@@ -88,7 +88,7 @@ public:
      * new した後、initialize() が実行されるまでに config して下さい。
      * @param prm_pDepo_WallAAB 壁ブロック（WallAABActorオブジェクト）が登録されているデポジトリ
      * @param prm_pDepo_WallAAPrism 壁プリズムブロック（WallAAPrismActorオブジェクト）が登録されているデポジトリ
-     * @param prm_wall_start_X 外壁出現X座標位置
+     * @param prm_wall_start_x 外壁出現X座標位置
      * @param prm_wall_dep 壁ブロックの長さ（１つのWallPartsActorオブジェクトのX座標軸長さ）
      * @param prm_wall_width 壁ブロックの高さ（１つのWallPartsActorオブジェクトのY座標軸長さ）
      * @param prm_wall_height 壁ブロックの高さ（１つのWallPartsActorオブジェクトのZ座標軸長さ）
@@ -96,7 +96,7 @@ public:
     virtual void config(
             GgafCore::GgafActorDepository* prm_pDepo_WallAAB,
             GgafCore::GgafActorDepository* prm_pDepo_WallAAPrism,
-            coord prm_wall_start_X,
+            coord prm_wall_start_x,
             coord prm_wall_dep, coord prm_wall_width, coord prm_wall_height);
 
     /**
@@ -133,9 +133,9 @@ public:
      * オーバーライドしてもいいのよ。
      * @param prm_loop_count セクションのループ数カウント(0～)
      * @param prm_wall_count セクションのYZ面ブロックセット数カウント(0～)
-     * @param prm_wall_X 出現したYZ面のブロックのX座標
+     * @param prm_wall_x 出現したYZ面のブロックのX座標
      */
-    virtual void onBlockLaunch(int prm_loop_count, int prm_wall_count, coord prm_wall_X) {};
+    virtual void onBlockLaunch(int prm_loop_count, int prm_wall_count, coord prm_wall_x) {};
 
     virtual ~WalledSectionScene();
 };

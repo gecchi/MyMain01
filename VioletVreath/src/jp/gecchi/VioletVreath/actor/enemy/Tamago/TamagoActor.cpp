@@ -63,7 +63,7 @@ void TamagoActor::processJudgement() {
 }
 
 void TamagoActor::onHit(GgafActor* prm_pOtherActor) {
-    _TRACE_("TamagoActorヒットしました。("<<_X<<","<<_Y<<","<<_Z<<")");
+    _TRACE_("TamagoActorヒットしました。("<<_x<<","<<_y<<","<<_z<<")");
 }
 
 TamagoActor::~TamagoActor() {

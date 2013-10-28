@@ -21,12 +21,12 @@ _pSeTx(new GgafDxSeTransmitterForActor(this)) {
     _obj_class |= Obj_GgafDxGeometricActor;
     _class_name = "GgafDxGeometricActor";
     _is_2D = false;
-    _X = _Y = _Z = 0;
-    _RX = _RY = _RZ = 0;
-    _SX = _SY = _SZ = R_SC(1.0);
-    _fX = C_DX(_X);
-    _fY = C_DX(_Y);
-    _fZ = C_DX(_Z);
+    _x = _y = _z = 0;
+    _rx = _ry = _rz = 0;
+    _sx = _sy = _sz = R_SC(1.0);
+    _fX = C_DX(_x);
+    _fY = C_DX(_y);
+    _fZ = C_DX(_z);
     _bounding_sphere_radius = 0;
     _rate_of_bounding_sphere_radius = 1.0f;
     _pChecker = prm_pChecker;
@@ -40,18 +40,18 @@ _pSeTx(new GgafDxSeTransmitterForActor(this)) {
     _dest_from_vppln_right = 0;
     _dest_from_vppln_front = 0;
     _dest_from_vppln_back = 0;
-    _X_local  = _X;
-    _Y_local  = _Y;
-    _Z_local  = _Z;
-    _RX_local = _RX;
-    _RY_local = _RY;
-    _RZ_local = _RZ;
-    _X_final  = _X;
-    _Y_final  = _Y;
-    _Z_final  = _Z;
-    _RX_final = _RX;
-    _RY_final = _RY;
-    _RZ_final = _RZ;
+    _x_local  = _x;
+    _y_local  = _y;
+    _z_local  = _z;
+    _rx_local = _rx;
+    _ry_local = _ry;
+    _rz_local = _rz;
+    _x_final  = _x;
+    _y_final  = _y;
+    _z_final  = _z;
+    _rx_final = _rx;
+    _ry_final = _ry;
+    _rz_final = _rz;
     _pFormation = nullptr;
 
     _is_local = false;
@@ -72,20 +72,20 @@ void GgafDxGeometricActor::processSettlementBehavior() {
     }
 
     //DirectXの単位に座標を変換しておく（World変換行列作成時にも使用されます）
-    _fX = C_DX(_X);
-    _fY = C_DX(_Y);
-    _fZ = C_DX(_Z);
+    _fX = C_DX(_x);
+    _fY = C_DX(_y);
+    _fZ = C_DX(_z);
     //World変換行列（_matWorld）を更新
     if (_pFunc_calcRotMvWorldMatrix) {
         //回転×移動のみ計算し _matWorldRotMv に保持
         (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
         //回転×移動 の前に スケールを考慮して、
         //最終的な _matWorld  行列(拡大×回転×移動)を保持
-        if (_SX != LEN_UNIT) {
-            float Sx = SC_R(_SX);
-            _matWorld._11 = Sx * _matWorldRotMv._11;
-            _matWorld._12 = Sx * _matWorldRotMv._12;
-            _matWorld._13 = Sx * _matWorldRotMv._13;
+        if (_sx != LEN_UNIT) {
+            float sx = SC_R(_sx);
+            _matWorld._11 = sx * _matWorldRotMv._11;
+            _matWorld._12 = sx * _matWorldRotMv._12;
+            _matWorld._13 = sx * _matWorldRotMv._13;
         } else {
             _matWorld._11 = _matWorldRotMv._11;
             _matWorld._12 = _matWorldRotMv._12;
@@ -93,11 +93,11 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         }
         _matWorld._14 = _matWorldRotMv._14;
 
-        if (_SY != LEN_UNIT) {
-            float Sy = SC_R(_SY);
-            _matWorld._21 = Sy * _matWorldRotMv._21;
-            _matWorld._22 = Sy * _matWorldRotMv._22;
-            _matWorld._23 = Sy * _matWorldRotMv._23;
+        if (_sy != LEN_UNIT) {
+            float sy = SC_R(_sy);
+            _matWorld._21 = sy * _matWorldRotMv._21;
+            _matWorld._22 = sy * _matWorldRotMv._22;
+            _matWorld._23 = sy * _matWorldRotMv._23;
         } else {
             _matWorld._21 = _matWorldRotMv._21;
             _matWorld._22 = _matWorldRotMv._22;
@@ -105,11 +105,11 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         }
         _matWorld._24 = _matWorldRotMv._24;
 
-        if (_SZ != LEN_UNIT) {
-            float Sz = SC_R(_SZ);
-            _matWorld._31 = Sz * _matWorldRotMv._31;
-            _matWorld._32 = Sz * _matWorldRotMv._32;
-            _matWorld._33 = Sz * _matWorldRotMv._33;
+        if (_sz != LEN_UNIT) {
+            float sz = SC_R(_sz);
+            _matWorld._31 = sz * _matWorldRotMv._31;
+            _matWorld._32 = sz * _matWorldRotMv._32;
+            _matWorld._33 = sz * _matWorldRotMv._33;
         } else {
             _matWorld._31 = _matWorldRotMv._31;
             _matWorld._32 = _matWorldRotMv._32;
@@ -139,15 +139,15 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         _fX = _matWorld._41;
         _fY = _matWorld._42;
         _fZ = _matWorld._43;
-        _X = DX_C(_fX);
-        _Y = DX_C(_fY);
-        _Z = DX_C(_fZ);
+        _x = DX_C(_fX);
+        _y = DX_C(_fY);
+        _z = DX_C(_fZ);
 
-        //UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13, _RZ, _RY);
+        //UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13, _rz, _ry);
 
-        //TODO:絶対座標系の_RX, _RY, _RZ に変換は保留
+        //TODO:絶対座標系の_rx, _ry, _rz に変換は保留
         //     現在の最終的な向きを、RzRyで取得求める方法は以下の通り、
-        //     フレームワークでは _RX, _RY, _RZ はどうでもよく変換行列があれば良い。
+        //     フレームワークでは _rx, _ry, _rz はどうでもよく変換行列があれば良い。
         //     したがって計算をスキップできる。
         //     UTIL::convVectorToRzRy() の計算負荷が無視できないと考えたため、ここで計算しない。
         //     計算で求めるんならば以下の方法で行える
@@ -175,10 +175,10 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         //
         //となる。本アプリでは、モデルは全て(1,0,0)を前方としているため
         //最終的な方向ベクトルは（Xorg_*mat_11, Xorg_*mat_12, Xorg_*mat_13) となる。
-        //この方向ベクトルを _RZ _RY 表現すれば良い。
+        //この方向ベクトルを _rz _ry 表現すれば良い。
         //計算しやすいようにXorg_を1と置いて
         //
-        //UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13, _RZ, _RY);
+        //UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13, _rz, _ry);
         //となる
     }
 
@@ -230,12 +230,12 @@ void GgafDxGeometricActor::processSettlementBehavior() {
 
 GgafGroupHead* GgafDxGeometricActor::addSubGroupAsFk(actorkind prm_kind,
                                                      GgafDxGeometricActor* prm_pGeoActor,
-                                                     coord prm_X_init_local,
-                                                     coord prm_Y_init_local,
-                                                     coord prm_Z_init_local,
-                                                     coord prm_RX_init_local,
-                                                     coord prm_RY_init_local,
-                                                     coord prm_RZ_init_local) {
+                                                     coord prm_x_init_local,
+                                                     coord prm_y_init_local,
+                                                     coord prm_z_init_local,
+                                                     coord prm_rx_init_local,
+                                                     coord prm_ry_init_local,
+                                                     coord prm_rz_init_local) {
 #ifdef MY_DEBUG
     if (_pFunc_calcRotMvWorldMatrix) {
         //OK
@@ -247,36 +247,36 @@ GgafGroupHead* GgafDxGeometricActor::addSubGroupAsFk(actorkind prm_kind,
     GgafGroupHead* pGroupHead = addSubGroup(prm_kind, prm_pGeoActor);
     prm_pGeoActor->_pActor_Base = this;
     prm_pGeoActor->changeGeoLocal();
-    prm_pGeoActor->_X = prm_X_init_local;
-    prm_pGeoActor->_Y = prm_Y_init_local;
-    prm_pGeoActor->_Z = prm_Z_init_local;
-    prm_pGeoActor->_pKurokoA->_angFace[AXIS_X]  = prm_RX_init_local;
-    prm_pGeoActor->_pKurokoA->_angFace[AXIS_Y]  = prm_RY_init_local;
-    prm_pGeoActor->_pKurokoA->_angFace[AXIS_Z]  = prm_RZ_init_local;
-    prm_pGeoActor->_pKurokoA->_angRzMv = prm_RZ_init_local;
-    prm_pGeoActor->_pKurokoA->_angRyMv = prm_RY_init_local;
-    prm_pGeoActor->_RX = prm_RX_init_local;
-    prm_pGeoActor->_RY = prm_RY_init_local;
-    prm_pGeoActor->_RZ = prm_RZ_init_local;
+    prm_pGeoActor->_x = prm_x_init_local;
+    prm_pGeoActor->_y = prm_y_init_local;
+    prm_pGeoActor->_z = prm_z_init_local;
+    prm_pGeoActor->_pKurokoA->_angFace[AXIS_X]  = prm_rx_init_local;
+    prm_pGeoActor->_pKurokoA->_angFace[AXIS_Y]  = prm_ry_init_local;
+    prm_pGeoActor->_pKurokoA->_angFace[AXIS_Z]  = prm_rz_init_local;
+    prm_pGeoActor->_pKurokoA->_angRzMv = prm_rz_init_local;
+    prm_pGeoActor->_pKurokoA->_angRyMv = prm_ry_init_local;
+    prm_pGeoActor->_rx = prm_rx_init_local;
+    prm_pGeoActor->_ry = prm_ry_init_local;
+    prm_pGeoActor->_rz = prm_rz_init_local;
     prm_pGeoActor->changeGeoFinal();
     return pGroupHead;
 }
 
 GgafGroupHead* GgafDxGeometricActor::addSubGroupAsFk(GgafDxGeometricActor* prm_pGeoActor,
-                                                     coord prm_X_init_local,
-                                                     coord prm_Y_init_local,
-                                                     coord prm_Z_init_local,
-                                                     coord prm_RX_init_local,
-                                                     coord prm_RY_init_local,
-                                                     coord prm_RZ_init_local) {
+                                                     coord prm_x_init_local,
+                                                     coord prm_y_init_local,
+                                                     coord prm_z_init_local,
+                                                     coord prm_rx_init_local,
+                                                     coord prm_ry_init_local,
+                                                     coord prm_rz_init_local) {
     return addSubGroupAsFk(prm_pGeoActor->_pStatus->getUint(STAT_DEFAULT_ACTOR_KIND),
                            prm_pGeoActor,
-                           prm_X_init_local,
-                           prm_Y_init_local,
-                           prm_Z_init_local,
-                           prm_RX_init_local,
-                           prm_RY_init_local,
-                           prm_RZ_init_local);
+                           prm_x_init_local,
+                           prm_y_init_local,
+                           prm_z_init_local,
+                           prm_rx_init_local,
+                           prm_ry_init_local,
+                           prm_rz_init_local);
 }
 
 bool GgafDxGeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {
@@ -334,12 +334,12 @@ int GgafDxGeometricActor::isOutOfView() {
 }
 
 bool GgafDxGeometricActor::isOutOfUniverse() {
-    if (GgafDxUniverse::_X_gone_left < _X) {
-        if (_X < GgafDxUniverse::_X_gone_right) {
-            if (GgafDxUniverse::_Y_gone_bottom < _Y) {
-                if (_Y < GgafDxUniverse::_Y_gone_top) {
-                    if (GgafDxUniverse::_Z_gone_near < _Z) {
-                        if (_Z < GgafDxUniverse::_Z_gone_far) {
+    if (GgafDxUniverse::_x_gone_left < _x) {
+        if (_x < GgafDxUniverse::_x_gone_right) {
+            if (GgafDxUniverse::_y_gone_bottom < _y) {
+                if (_y < GgafDxUniverse::_y_gone_top) {
+                    if (GgafDxUniverse::_z_gone_near < _z) {
+                        if (_z < GgafDxUniverse::_z_gone_far) {
                             return false;
                         }
                     }
@@ -356,26 +356,26 @@ void GgafDxGeometricActor::defineRotMvWorldMatrix(void (*prm_pFunc)(GgafDxGeomet
 }
 
 void GgafDxGeometricActor::positionAs(GgafDxGeoElem* prm_pGeoElem) {
-    _X = prm_pGeoElem->X;
-    _Y = prm_pGeoElem->Y;
-    _Z = prm_pGeoElem->Z;
+    _x = prm_pGeoElem->x;
+    _y = prm_pGeoElem->y;
+    _z = prm_pGeoElem->z;
 }
 
 void GgafDxGeometricActor::rotateAs(GgafDxGeometricActor* prm_pActor) {
-    _RX = prm_pActor->_RX;
-    _RY = prm_pActor->_RY;
-    _RZ = prm_pActor->_RZ;
+    _rx = prm_pActor->_rx;
+    _ry = prm_pActor->_ry;
+    _rz = prm_pActor->_rz;
 }
 void GgafDxGeometricActor::rotateAs(GgafDxGeoElem* prm_pGeoElem) {
-    _RX = prm_pGeoElem->RX;
-    _RY = prm_pGeoElem->RY;
-    _RZ = prm_pGeoElem->RZ;
+    _rx = prm_pGeoElem->rx;
+    _ry = prm_pGeoElem->ry;
+    _rz = prm_pGeoElem->rz;
 }
 
 void GgafDxGeometricActor::scaleAs(GgafDxGeometricActor* prm_pActor) {
-    _SX = prm_pActor->_SX;
-    _SY = prm_pActor->_SY;
-    _SZ = prm_pActor->_SZ;
+    _sx = prm_pActor->_sx;
+    _sy = prm_pActor->_sy;
+    _sz = prm_pActor->_sz;
 }
 
 void GgafDxGeometricActor::onEnd() {
@@ -390,7 +390,7 @@ GgafDxGeometricActor::~GgafDxGeometricActor() {
 }
 
 void GgafDxGeometricActor::dump() {
-    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"]("<<_X<<","<<_Y<<","<<_Z<<")"<<DUMP_FLGS);
+    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"]("<<_x<<","<<_y<<","<<_z<<")"<<DUMP_FLGS);
     GgafActor* pActor_tmp = _pSubFirst;
     if (_pSubFirst) {
         while (true) {
@@ -410,7 +410,7 @@ void GgafDxGeometricActor::dump() {
 }
 
 void GgafDxGeometricActor::dump(std::string prm_parent) {
-    _TRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"]("<<_X<<","<<_Y<<","<<_Z<<")"<<DUMP_FLGS);
+    _TRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"]("<<_x<<","<<_y<<","<<_z<<")"<<DUMP_FLGS);
     GgafActor* pActor_tmp = _pSubFirst;
     if (_pSubFirst) {
         while (true) {

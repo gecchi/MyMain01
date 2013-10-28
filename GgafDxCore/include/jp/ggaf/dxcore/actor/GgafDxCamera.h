@@ -10,7 +10,7 @@ namespace GgafDxCore {
  * 本クラスは神(GgafDxGod)と連動ています。メンバを操作すると、その通りにカメラの位置と注視点が操作できます。<BR>
  * processPreDraw メソッドが実装されており、その中で神(GgafDxGod)のカメラに座標情報を上書きします。<BR>
  * <BR>
- * _X,_Y,_Z             ・・・ カメラの位置 <BR>
+ * _x,_y,_z             ・・・ カメラの位置 <BR>
  * <BR>
  * ＜使い方＞<BR>
  * 継承し、processBehavior() 等を オーバーライドして好きに座標を動かすがよい<BR>
@@ -88,12 +88,12 @@ public:
     /** [r/w]注視点 **/
     GgafDxCameraViewPoint* _pViewPoint;
 
-    coord _X_prev, _Y_prev, _Z_prev;
+    coord _x_prev, _y_prev, _z_prev;
 
-    coord _X_buffer_left;
-    coord _X_buffer_right;
-    coord _Y_buffer_top;
-    coord _Y_buffer_bottom;
+    coord _x_buffer_left;
+    coord _x_buffer_right;
+    coord _y_buffer_top;
+    coord _y_buffer_bottom;
 
 public:
     /**

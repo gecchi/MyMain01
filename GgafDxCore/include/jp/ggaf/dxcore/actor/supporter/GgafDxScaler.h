@@ -7,7 +7,7 @@ namespace GgafDxCore {
 /**
  * 拡大縮小支援クラス.
  * GgafDxGeometricActor のメンバの<BR>
- * _SX , _SY, _SZ  ・・・ アクターのスケール<BR>
+ * _sx , _sy, _sz  ・・・ アクターのスケール<BR>
  * を、簡単に操作するために設計した。<BR>
  * 拡大縮小1.0倍（スケール無し）は、本クラスでのスケール値1000に相当する。
  * [日本語]     → [本クラスのスケール値]
@@ -26,7 +26,7 @@ namespace GgafDxCore {
  */
 class GgafDxScaler : public GgafCore::GgafObject {
 
-public: //_SX , _SY, _SZ 操作関連 //////////////////////////////////////////////
+public: //_sx , _sy, _sz 操作関連 //////////////////////////////////////////////
     /** [r]対象アクター */
     GgafDxGeometricActor* const _pActor;
     /** [r/w]各軸のスケール(1000 で 1倍) */

@@ -37,7 +37,7 @@ _pUvFlipper(NEW GgafDxUvFlipper(_pBoardModel->_papTextureConnection[0]->peek()))
     _alpha = 1.0f;
     _is_2D = true;
     _pFunc_calcRotMvWorldMatrix = nullptr;
-    _Z = 0;
+    _z = 0;
     setZEnable(false);
     setZWriteEnable(false);
 }
@@ -46,37 +46,37 @@ void GgafDxBoardActor::processDraw() {
     ID3DXEffect* pID3DXEffect = _pBoardEffect->_pID3DXEffect;
 
     HRESULT hr;
-    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedX, float(C_PX(_X)));
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedX, float(C_PX(_x)));
     checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_hTransformedX) に失敗しました。3");
-    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedY, float(C_PX(_Y)));
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedY, float(C_PX(_y)));
     checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_hTransformedY) に失敗しました。3");
 
     if (_align == ALIGN_RIGHT) {
-        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_X, (float)(-_pBoardModel->_fSize_BoardModelWidthPx));
+        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_x, (float)(-_pBoardModel->_fSize_BoardModelWidthPx));
     } else if (_align == ALIGN_CENTER) {
-        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_X, (float)(-_pBoardModel->_fSize_BoardModelWidthPx*0.5));
+        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_x, (float)(-_pBoardModel->_fSize_BoardModelWidthPx*0.5));
     } else { //ALIGN_LEFT
-        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_X, 0.0f);
+        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_x, 0.0f);
     }
-    checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_h_local_left_top_X) に失敗しました。");
+    checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_h_local_left_top_x) に失敗しました。");
     if (_valign == VALIGN_BOTTOM) {
-        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_Y, (float)(-_pBoardModel->_fSize_BoardModelHeightPx));
+        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_y, (float)(-_pBoardModel->_fSize_BoardModelHeightPx));
     } else if (_valign == VALIGN_MIDDLE) {
-        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_Y, (float)(-_pBoardModel->_fSize_BoardModelHeightPx*0.5));
+        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_y, (float)(-_pBoardModel->_fSize_BoardModelHeightPx*0.5));
     } else { //VALIGN_TOP
-        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_Y, 0.0f);
+        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_y, 0.0f);
     }
-    checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_h_local_left_top_Y) に失敗しました。");
+    checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_h_local_left_top_y) に失敗しました。");
 
-    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hDepthZ, float(C_PX(_Z)));
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hDepthZ, float(C_PX(_z)));
     checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_hDepthZ) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_alpha, _alpha);
     checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_h_alpha) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSx, SC_R(_SX));
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSx, SC_R(_sx));
     checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_sx) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSy, SC_R(_SY));
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSy, SC_R(_sy));
     checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_sy) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_Rz, ANG_RAD(_RZ));
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_Rz, ANG_RAD(_rz));
     checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_h_Rz) に失敗しました。");
 
     _pBoardModel->GgafDxBoardModel::draw(this);
@@ -94,45 +94,45 @@ void GgafDxBoardActor::setValign(GgafDxValign prm_valign) {
 }
 
 void GgafDxBoardActor::positionAs(GgafDxGeometricActor* prm_pActor) {
-    _X = prm_pActor->_X;
-    _Y = prm_pActor->_Y;
+    _x = prm_pActor->_x;
+    _y = prm_pActor->_y;
 }
 
 void GgafDxBoardActor::positionAs(GgafDxGeoElem* prm_pGeoElem) {
-    _X = prm_pGeoElem->X;
-    _Y = prm_pGeoElem->Y;
+    _x = prm_pGeoElem->x;
+    _y = prm_pGeoElem->y;
 }
 
 void GgafDxBoardActor::setScale(scale S) {
-    _SX = S;
-    _SY = S;
+    _sx = S;
+    _sy = S;
 }
 
 void GgafDxBoardActor::setScale(scale SX, scale SY) {
-    _SX = SX;
-    _SY = SY;
+    _sx = SX;
+    _sy = SY;
 }
 
 void GgafDxBoardActor::setScale(scale SX, scale SY, scale SZ) {
-    _SX = SX;
-    _SY = SY;
-    _SZ = SZ; //_SZは2Dでは使用されないが、GgafDxScaler::behave() 内の判定で役に立つ。
+    _sx = SX;
+    _sy = SY;
+    _sz = SZ; //_szは2Dでは使用されないが、GgafDxScaler::behave() 内の判定で役に立つ。
 }
 
 void GgafDxBoardActor::setScaleR(float prm_rate) {
-    _SX = R_SC(prm_rate);
-    _SY = R_SC(prm_rate);
+    _sx = R_SC(prm_rate);
+    _sy = R_SC(prm_rate);
 }
 
 void GgafDxBoardActor::setScaleR(float prm_x_rate, float prm_y_rate) {
-    _SX = R_SC(prm_x_rate);
-    _SY = R_SC(prm_y_rate);
+    _sx = R_SC(prm_x_rate);
+    _sy = R_SC(prm_y_rate);
 }
 
 void GgafDxBoardActor::setScaleR(float prm_x_rate, float prm_y_rate, float prm_z_rate) {
-    _SX = R_SC(prm_x_rate);
-    _SY = R_SC(prm_y_rate);
-    _SZ = R_SC(prm_z_rate); //_SZは2Dでは使用されないが、GgafDxScaler::behave() 内の判定で役に立つ。
+    _sx = R_SC(prm_x_rate);
+    _sy = R_SC(prm_y_rate);
+    _sz = R_SC(prm_z_rate); //_szは2Dでは使用されないが、GgafDxScaler::behave() 内の判定で役に立つ。
 }
 
 GgafDxBoardActor::~GgafDxBoardActor() {

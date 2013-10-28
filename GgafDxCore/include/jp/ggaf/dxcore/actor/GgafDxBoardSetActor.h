@@ -40,12 +40,12 @@ private:
      */
     GgafCore::GgafGroupHead* addSubGroupAsFk(actorkind prm_kind,
                                              GgafDxGeometricActor* prm_pGeoActor,
-                                             int prm_X_init_local,
-                                             int prm_Y_init_local,
-                                             int prm_Z_init_local,
-                                             int prm_RX_init_local,
-                                             int prm_RY_init_local,
-                                             int prm_RZ_init_local) override {
+                                             int prm_x_init_local,
+                                             int prm_y_init_local,
+                                             int prm_z_init_local,
+                                             int prm_rx_init_local,
+                                             int prm_ry_init_local,
+                                             int prm_rz_init_local) override {
         throwGgafCriticalException("GgafDxBoardSetActor::addSubGroupAsFk() は使用不可です。");
         return nullptr;
     }
@@ -55,12 +55,12 @@ private:
      * @return
      */
     GgafCore::GgafGroupHead* addSubGroupAsFk(GgafDxGeometricActor* prm_pGeoActor,
-                                             int prm_X_init_local,
-                                             int prm_Y_init_local,
-                                             int prm_Z_init_local,
-                                             int prm_RX_init_local,
-                                             int prm_RY_init_local,
-                                             int prm_RZ_init_local) override {
+                                             int prm_x_init_local,
+                                             int prm_y_init_local,
+                                             int prm_z_init_local,
+                                             int prm_rx_init_local,
+                                             int prm_ry_init_local,
+                                             int prm_rz_init_local) override {
         throwGgafCriticalException("GgafDxBoardSetActor::addSubGroupAsFk() は使用不可です。");
         return nullptr;
     }

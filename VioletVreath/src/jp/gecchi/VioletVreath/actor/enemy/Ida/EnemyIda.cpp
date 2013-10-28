@@ -68,9 +68,9 @@ void EnemyIda::processBehavior() {
             }
             //自機へ向ける
             GgafDxGeometricActor* pTargetActor = P_MYSHIP;
-            coord MvX = pTargetActor->_X - _X_final; //_X_finalは絶対座標
-            coord MvY = pTargetActor->_Y - _Y_final;
-            coord MvZ = pTargetActor->_Z - _Z_final;
+            coord MvX = pTargetActor->_x - _x_final; //_x_finalは絶対座標
+            coord MvY = pTargetActor->_y - _y_final;
+            coord MvZ = pTargetActor->_z - _z_final;
             //ベースまでの(回転×平行移動)行列の逆行列取得
             D3DXMATRIX* pBaseInvMat = _pActor_Base->getInvMatWorldRotMv();
             //ローカル座標で向いておくべき方向ベクトル計算

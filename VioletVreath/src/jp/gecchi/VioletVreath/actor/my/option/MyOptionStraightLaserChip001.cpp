@@ -31,7 +31,7 @@ void MyOptionStraightLaserChip001::initialize() {
     _pKurokoA->setRzRyMvAng(0,0);
     registerHitAreaCube_AutoGenMidColli(60000);
     setHitAble(true);
-    _SX = _SY = _SZ = R_SC(5);
+    _sx = _sy = _sz = R_SC(5);
     _alpha = 0.99;
     _bounding_sphere_radius = 20.0;
 }
@@ -104,9 +104,9 @@ void MyOptionStraightLaserChip001::processBehavior() {
     //根元からレーザー表示のため強制的に座標補正
     if (onChangeToActive()) {
         positionAs(pOrg_);
-//        _tmpX = _X;
-//        _tmpY = _Y;
-//        _tmpZ = _Z;
+//        _tmpX = _x;
+//        _tmpY = _y;
+//        _tmpZ = _z;
     }
 }
 

@@ -38,7 +38,7 @@ void MyMagicEnergy::onActive() {
 
 void MyMagicEnergy::processBehavior() {
     positionAs(pCore_);
-    setScale(pCore_->_SX);
+    setScale(pCore_->_sx);
     _pKurokoA->behave();
 }
 

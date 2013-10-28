@@ -17,7 +17,7 @@ public:
 
     int cd_;
 
-    int cam_X_, cam_Y_, cam_Z_, vp_X_, vp_Y_, vp_Z_;
+    int cam_x_, cam_y_, cam_z_, vp_x_, vp_y_, vp_z_;
 
     bool mdz_flg_;
     double mdz_vx_, mdz_vy_, mdz_vz_, mdz_t_;

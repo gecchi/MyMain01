@@ -26,9 +26,9 @@ public:
     LabelScoreFont* pLabelG_SCORE;
     LabelGecchi16Font* pLabelG_RANK;
     LabelGecchi16Font* pLabel_STAMINA_;
-    LabelGecchi8Font* pLabel_JIKI_X_;
-    LabelGecchi8Font* pLabel_JIKI_Y_;
-    LabelGecchi8Font* pLabel_JIKI_Z_;
+    LabelGecchi8Font* pLabel_JIKI_x_;
+    LabelGecchi8Font* pLabel_JIKI_y_;
+    LabelGecchi8Font* pLabel_JIKI_z_;
     LabelRankFont* pRankFont_;
 
 public:

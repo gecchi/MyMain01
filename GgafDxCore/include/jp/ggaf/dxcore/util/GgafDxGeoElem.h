@@ -14,26 +14,26 @@ namespace GgafDxCore {
  */
 class GgafDxGeoElem : public GgafCore::GgafObject {
 public:
-    coord X;
-    coord Y;
-    coord Z;
-    angle RX;
-    angle RY;
-    angle RZ;
+    coord x;
+    coord y;
+    coord z;
+    angle rx;
+    angle ry;
+    angle rz;
     GgafDxGeoElem* _next;
 
 public:
     GgafDxGeoElem();
 
-    GgafDxGeoElem(coord prm_X, coord prm_Y, coord prm_Z);
+    GgafDxGeoElem(coord prm_x, coord prm_y, coord prm_z);
 
-    GgafDxGeoElem(coord prm_X, coord prm_Y, coord prm_Z, angle prm_RX, angle prm_RY, angle prm_RZ);
+    GgafDxGeoElem(coord prm_x, coord prm_y, coord prm_z, angle prm_rx, angle prm_ry, angle prm_rz);
 
     GgafDxGeoElem(GgafDxGeometricActor* prm_pActor);
 
-    void set(coord prm_X, coord prm_Y, coord prm_Z, angle prm_RX, angle prm_RY, angle prm_RZ);
+    void set(coord prm_x, coord prm_y, coord prm_z, angle prm_rx, angle prm_ry, angle prm_rz);
 
-    void set(coord prm_X, coord prm_Y, coord prm_Z);
+    void set(coord prm_x, coord prm_y, coord prm_z);
 
     void set(GgafDxGeometricActor* prm_pActor);
 

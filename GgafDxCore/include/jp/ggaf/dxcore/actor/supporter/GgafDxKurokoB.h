@@ -13,7 +13,7 @@ namespace GgafDxCore {
  * <BR>
  * それはさて置き、つまり座標計算支援（共通化）クラスその２です。<BR>
  * GgafDxGeometricActor のメンバの<BR>
- *  _X, _Y, _Z  ・・・ アクターの座標<BR>
+ *  _x, _y, _z  ・・・ アクターの座標<BR>
  * を、各成分毎に簡単に操作するために作成。<BR>
  * @version 1.00
  * @since 2008/08/20
@@ -61,9 +61,9 @@ public:
     /** [r/w]Z軸方向移動加速度下限*/
     acce _acceBottomVzMv;
 
-    coord _gravitation_mv_seq_target_X;
-    coord _gravitation_mv_seq_target_Y;
-    coord _gravitation_mv_seq_target_Z;
+    coord _gravitation_mv_seq_target_x;
+    coord _gravitation_mv_seq_target_y;
+    coord _gravitation_mv_seq_target_z;
     GgafDxGeometricActor* _gravitation_mv_seq_pActor_target;
     velo _gravitation_mv_seq_max_velo;
     acce _gravitation_mv_seq_acce;

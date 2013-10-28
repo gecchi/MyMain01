@@ -7,10 +7,10 @@
 #endif
 #define UTIL Mogera::MgrUtil
 
-#define LT_X (Mogera::MgrUtil::left_top_X_)
-#define LT_Y (Mogera::MgrUtil::left_top_Y_)
-#define C_X (Mogera::MgrUtil::center_X_)
-#define C_Y (Mogera::MgrUtil::center_Y_)
+#define LT_x (Mogera::MgrUtil::left_top_x_)
+#define LT_y (Mogera::MgrUtil::left_top_y_)
+#define C_x (Mogera::MgrUtil::center_x_)
+#define C_y (Mogera::MgrUtil::center_y_)
 
 namespace Mogera {
 
@@ -23,10 +23,10 @@ namespace Mogera {
  */
 class MgrUtil : public GgafLib::StgUtil {
 public:
-    static coord left_top_X_;
-    static coord left_top_Y_;
-    static coord center_X_;
-    static coord center_Y_;
+    static coord left_top_x_;
+    static coord left_top_y_;
+    static coord center_x_;
+    static coord center_y_;
 };
 
 }

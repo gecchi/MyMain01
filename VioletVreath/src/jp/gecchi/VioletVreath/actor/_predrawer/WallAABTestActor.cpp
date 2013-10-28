@@ -23,7 +23,7 @@ void WallAABTestActor::onCreateModel() {
 
 
 bool WallAABTestActor::isOutOfUniverse() {
-    if (GgafDxUniverse::_X_gone_left < _X) {
+    if (GgafDxUniverse::_x_gone_left < _x) {
         return false;
     }
     return true;

@@ -277,14 +277,14 @@ GgafDxDrawableActor* MyStgUtil::activateRevengeShotOf(GgafDxGeometricActor* prm_
         case SHOT_RV_GOLDEN_ANG_WAY: {
             MyShip* pM = P_MYSHIP;
             angle rz,ry;
-            UTIL::convVectorToRzRy(pM->_X - prm_pActor->_X,
-                                   pM->_Y - prm_pActor->_Y,
-                                   pM->_Z - prm_pActor->_Z,
+            UTIL::convVectorToRzRy(pM->_x - prm_pActor->_x,
+                                   pM->_y - prm_pActor->_y,
+                                   pM->_z - prm_pActor->_z,
                                    rz, ry);
 
-            pI = UTIL::shotWayGoldenAng(prm_pActor->_X,
-                                        prm_pActor->_Y,
-                                        prm_pActor->_Z,
+            pI = UTIL::shotWayGoldenAng(prm_pActor->_x,
+                                        prm_pActor->_y,
+                                        prm_pActor->_z,
                                         rz, ry,
                                         getCommonDepository(Shot004),
                                         PX_C(20),

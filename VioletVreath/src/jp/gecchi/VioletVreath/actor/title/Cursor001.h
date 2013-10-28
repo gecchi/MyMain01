@@ -28,7 +28,7 @@ public:
     void moveTo(int X, int Y);
 
     void moveTo(GgafDxCore::GgafDxGeometricActor* prm_pActor) {
-        moveTo(prm_pActor->_X, prm_pActor->_Y);
+        moveTo(prm_pActor->_x, prm_pActor->_y);
     }
     virtual ~Cursor001();
 };

@@ -21,9 +21,9 @@ public:
     /** 原点から初期カメラZ位置の距離 */
     coord dZ_camera_init_;
     //カメラの移動目標座標
-    coord move_target_X_CAM_, move_target_Y_CAM_, move_target_Z_CAM_;
+    coord move_target_x_CAM_, move_target_y_CAM_, move_target_z_CAM_;
     //カメラのビューポイントの移動目標座標
-    coord move_target_X_VP_, move_target_Y_VP_, move_target_Z_VP_;
+    coord move_target_x_VP_, move_target_y_VP_, move_target_z_VP_;
     //カメラの目標UPアングル値
     angle move_target_XY_CAM_UP_;
     angle angXY_nowCamUp_;

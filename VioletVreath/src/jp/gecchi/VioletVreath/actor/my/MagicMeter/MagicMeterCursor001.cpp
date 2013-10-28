@@ -21,8 +21,8 @@ MagicMeterCursor001::MagicMeterCursor001(const char* prm_name, MagicMeter* prm_p
 }
 void MagicMeterCursor001::initialize() {
     setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-    _X = tX_ = pMagicMeter_->_X + pMagicMeter_->width_*pMagicMeter_->lstMagic_.getCurrentIndex() + (pMagicMeter_->width_/2);
-    _Y = tY_ = pMagicMeter_->_Y + (pMagicMeter_->height_/2);
+    _x = tX_ = pMagicMeter_->_x + pMagicMeter_->width_*pMagicMeter_->lstMagic_.getCurrentIndex() + (pMagicMeter_->width_/2);
+    _y = tY_ = pMagicMeter_->_y + (pMagicMeter_->height_/2);
     _pUvFlipper->setActivePtn(0);
 }
 
@@ -32,8 +32,8 @@ void MagicMeterCursor001::onActive() {
 
 void MagicMeterCursor001::processBehavior() {
     if (_pKurokoA->isSlidingMv() == false) {
-        _X = tX_;
-        _Y = tY_;
+        _x = tX_;
+        _y = tY_;
     }
     setAlpha(pMagicMeter_->getAlpha());
     _pKurokoA->behave();
@@ -45,10 +45,10 @@ void MagicMeterCursor001::processJudgement() {
 }
 
 void MagicMeterCursor001::moveTo(int prm_magic_mater_index) {
-    tX_ = pMagicMeter_->_X + pMagicMeter_->width_*prm_magic_mater_index + (pMagicMeter_->width_/2);
-    tY_ = pMagicMeter_->_Y + (pMagicMeter_->height_/2);
+    tX_ = pMagicMeter_->_x + pMagicMeter_->width_*prm_magic_mater_index + (pMagicMeter_->width_/2);
+    tY_ = pMagicMeter_->_y + (pMagicMeter_->height_/2);
     _pKurokoA->setMvAngTwd(tX_, tY_);
-    _pKurokoA->slideMvByDT(0, UTIL::getDistance(_X, _Y, tX_, tY_),
+    _pKurokoA->slideMvByDT(0, UTIL::getDistance(_x, _y, tX_, tY_),
                            12, 0.2, 0.4);
 }
 

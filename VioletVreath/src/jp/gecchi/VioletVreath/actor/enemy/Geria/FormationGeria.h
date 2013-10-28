@@ -28,9 +28,9 @@ public:
      * @param prm_X2_app         Geria出現範囲AABの右下奥X座標（ローカル座標）
      * @param prm_Y2_app         Geria出現範囲AABの右下奥Y座標（ローカル座標）
      * @param prm_Z2_app         Geria出現範囲AABの右下奥Z座標（ローカル座標）
-     * @param prm_X              Geria出現範囲AABの中心X座標（絶対座標）
-     * @param prm_Y              Geria出現範囲AABの中心Y座標（絶対座標）
-     * @param prm_Z              Geria出現範囲AABの中心Z座標（絶対座標）
+     * @param prm_x              Geria出現範囲AABの中心X座標（絶対座標）
+     * @param prm_y              Geria出現範囲AABの中心Y座標（絶対座標）
+     * @param prm_z              Geria出現範囲AABの中心Z座標（絶対座標）
      * @param prm_veloMv_App     Geria出現範囲AAB全体の移動速度
      * @param prm_angRzMv_AppBox Geria出現範囲AAB全体の移動方角のZ軸回転角
      * @param prm_angRyMv_AppBox Geria出現範囲AAB全体の移動方角のY軸回転角
@@ -44,7 +44,7 @@ public:
     FormationGeria(const char* prm_name,
             int prm_X1_app, int prm_Y1_app, int prm_Z1_app,
             int prm_X2_app, int prm_Y2_app, int prm_Z2_app,
-            int prm_X, int prm_Y, int prm_Z,
+            int prm_x, int prm_y, int prm_z,
             velo prm_veloMv_App,
             angle prm_angRzMv_AppBox, angle prm_angRyMv_AppBox,
             velo prm_veloMv_Geria,

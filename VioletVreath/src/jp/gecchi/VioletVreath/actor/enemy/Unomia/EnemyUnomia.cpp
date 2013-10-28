@@ -83,7 +83,7 @@ void EnemyUnomia::processBehavior() {
             if (_pProg->isJustChanged()) {
                 //自機へ方向転換
                 _pKurokoA->turnMvAngTwd(
-                               P_MYSHIP->_X, _Y, P_MYSHIP->_Z,
+                               P_MYSHIP->_x, _y, P_MYSHIP->_z,
                                2000, 0,
                                TURN_CLOSE_TO, true
                            );
@@ -178,7 +178,7 @@ void EnemyUnomia::processBehavior() {
 //                }
 //            }
 ////            //自機へ方向転換
-//            _pKurokoA->turnMvAngTwd(P_MYSHIP->_X, _Y, P_MYSHIP->_Z,
+//            _pKurokoA->turnMvAngTwd(P_MYSHIP->_x, _y, P_MYSHIP->_z,
 //                                                2000, 0,
 //                                                TURN_CLOSE_TO);
 //            iMovePatternNo_++; //次の行動パターンへ

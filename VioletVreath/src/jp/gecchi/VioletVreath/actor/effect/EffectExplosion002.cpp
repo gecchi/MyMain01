@@ -26,13 +26,13 @@ void EffectExplosion002::onActive() {
     _pUvFlipper->setActivePtnToTop();
     _pUvFlipper->exec(FLIP_ORDER_NOLOOP, 1); //パラパラアニメ無し
     _alpha = 0.99;
-    _SX = _SY = _SZ = 1000;
+    _sx = _sy = _sz = 1000;
 }
 
 void EffectExplosion002::processBehavior() {
     _alpha -= 0.03;
-    _SX+= 100;
-    _SY+= 100;
+    _sx+= 100;
+    _sy+= 100;
     _pUvFlipper->behave();
     _pKurokoA->behave();
     _pScaler->behave();

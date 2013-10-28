@@ -34,18 +34,18 @@ void Horizon001::initialize() {
     _pScaler->setScale(1000);
     position(0, PX_C(-100), 0);
     _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB(0, Universe::_X_gone_left  + (chip_width_*2),
+    _pColliChecker->setColliAAB(0, Universe::_x_gone_left  + (chip_width_*2),
                                    0,
-                                   Universe::_Z_gone_near  + (chip_width_*2),
-                                   Universe::_X_gone_right - (chip_width_*2),
-                                   Universe::_Y_gone_bottom - (chip_width_*2),
-                                   Universe::_Z_gone_far - (chip_width_*2));
+                                   Universe::_z_gone_near  + (chip_width_*2),
+                                   Universe::_x_gone_right - (chip_width_*2),
+                                   Universe::_y_gone_bottom - (chip_width_*2),
+                                   Universe::_z_gone_far - (chip_width_*2));
     setBumpMapTexture("bumpstar_nmap.bmp");
 }
 void Horizon001::processBehavior() {
-    _X = _X - PX_C(8);
-    if (ABS(_X) >= chip_width_) {
-        _X = 0;
+    _x = _x - PX_C(8);
+    if (ABS(_x) >= chip_width_) {
+        _x = 0;
     }
 }
 

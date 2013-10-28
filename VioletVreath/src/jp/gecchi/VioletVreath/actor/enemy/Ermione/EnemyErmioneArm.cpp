@@ -83,15 +83,15 @@ void EnemyErmioneArm::processBehavior() {
                 if (RND(1, 60) != 1) {
                     //通常の自機を狙う方向ベクトル
                     GgafDxGeometricActor* pTargetActor = P_MYSHIP;
-                    MvX = pTargetActor->_X - _X; //ここでの _X, _Y, _Z は絶対座標であることがポイント
-                    MvY = (pTargetActor->_Y + PX_C(50)) - _Y; //自機のやや上を狙う
-                    MvZ = pTargetActor->_Z - _Z;
+                    MvX = pTargetActor->_x - _x; //ここでの _x, _y, _z は絶対座標であることがポイント
+                    MvY = (pTargetActor->_y + PX_C(50)) - _y; //自機のやや上を狙う
+                    MvZ = pTargetActor->_z - _z;
                 } else {
                     //たま～に逆方向を目標にして、触手に動きを強要する
                     GgafDxGeometricActor* pTargetActor = P_MYSHIP;
-                    MvX = _X - pTargetActor->_X;
-                    MvY = _Y - pTargetActor->_Y;
-                    MvZ = _Z - pTargetActor->_Z;
+                    MvX = _x - pTargetActor->_x;
+                    MvY = _y - pTargetActor->_y;
+                    MvZ = _z - pTargetActor->_z;
                 }
                 //逆行列取得
                 D3DXMATRIX* pBaseInvMatRM = _pActor_Base->getInvMatWorldRotMv();

@@ -97,9 +97,9 @@ void MyOptionWateringLaserChip001::processBehavior() {
     if (getActiveFrame() > 6) {
         if (lockon_st_ == 1) {
             if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheTree()) {
-                moveChip(pMainLockOnTarget->_X,
-                         pMainLockOnTarget->_Y,
-                         pMainLockOnTarget->_Z );
+                moveChip(pMainLockOnTarget->_x,
+                         pMainLockOnTarget->_y,
+                         pMainLockOnTarget->_z );
             } else {
                 //_pKurokoB->setZeroVxyzMvAcce();
                 lockon_st_ = 2;
@@ -109,11 +109,11 @@ void MyOptionWateringLaserChip001::processBehavior() {
         if (lockon_st_ == 2) {
             if (_pLeader) {
                 if (_pLeader == this) {
-                    moveChip(_X + _pKurokoB->_veloVxMv*4+1,
-                             _Y + _pKurokoB->_veloVyMv*2+1,
-                             _Z + _pKurokoB->_veloVzMv*2+1 );
+                    moveChip(_x + _pKurokoB->_veloVxMv*4+1,
+                             _y + _pKurokoB->_veloVyMv*2+1,
+                             _z + _pKurokoB->_veloVzMv*2+1 );
                 } else {
-                    moveChip(_pLeader->_X, _pLeader->_Y, _pLeader->_Z);
+                    moveChip(_pLeader->_x, _pLeader->_y, _pLeader->_z);
                 }
             }
         }
@@ -123,9 +123,9 @@ void MyOptionWateringLaserChip001::processBehavior() {
     //根元からレーザー表示のため強制的に座標補正
     if (onChangeToActive()) {
         positionAs(pOrg_);
-        _tmpX = _X;
-        _tmpY = _Y;
-        _tmpZ = _Z;
+        _tmpX = _x;
+        _tmpY = _y;
+        _tmpZ = _z;
     }
 
 }
@@ -153,9 +153,9 @@ void MyOptionWateringLaserChip001::moveChip(int tX, int tY, int tZ) {
 
     GgafDxKurokoB* const pKurokoB = _pKurokoB;
     //自→的
-    int vTx = tX - _X;
-    int vTy = tY - _Y;
-    int vTz = tZ - _Z;
+    int vTx = tX - _x;
+    int vTy = tY - _y;
+    int vTz = tZ - _z;
 
     //自→仮自。上図の |仮自| = 5*vM
     int vVMx = pKurokoB->_veloVxMv*5;
@@ -190,33 +190,33 @@ void MyOptionWateringLaserChip001::moveChip(int tX, int tY, int tZ) {
     if (lVM > max_velo_renge_/2) {
         angle RZ_temp, RY_temp;
         UTIL::convVectorToRzRy(vVMx, vVMy, vVMz, RZ_temp, RY_temp);
-        angle angDRZ = UTIL::getAngDiff(RZ_temp, _RZ);
-        angle angDRY = UTIL::getAngDiff(RY_temp, _RY);
+        angle angDRZ = UTIL::getAngDiff(RZ_temp, _rz);
+        angle angDRY = UTIL::getAngDiff(RY_temp, _ry);
         if (-4000 <= angDRZ) {
-            _RZ -= 4000;
+            _rz -= 4000;
         } else if (angDRZ <= 4000) {
-            _RZ += 4000;
+            _rz += 4000;
         } else {
-            _RZ += angDRZ;
+            _rz += angDRZ;
         }
         if (-4000 <= angDRY) {
-            _RY -= 4000;
+            _ry -= 4000;
         } else if (angDRY <= 4000) {
-            _RY += 4000;
+            _ry += 4000;
         } else {
-            _RY += angDRY;
+            _ry += angDRY;
         }
-        if (_RZ >= D360ANG) {
-            _RZ -= D360ANG;
+        if (_rz >= D360ANG) {
+            _rz -= D360ANG;
         }
-        if (_RZ < 0) {
-            _RZ += D360ANG;
+        if (_rz < 0) {
+            _rz += D360ANG;
         }
-        if (_RY >= D360ANG) {
-            _RY -= D360ANG;
+        if (_ry >= D360ANG) {
+            _ry -= D360ANG;
         }
-        if (_RY < 0) {
-            _RY += D360ANG;
+        if (_ry < 0) {
+            _ry += D360ANG;
         }
     }
 

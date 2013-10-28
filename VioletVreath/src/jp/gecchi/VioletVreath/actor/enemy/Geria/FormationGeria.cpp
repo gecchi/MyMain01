@@ -19,7 +19,7 @@ FormationGeria::FormationGeria(
             const char* prm_name,
             int prm_X1_app, int prm_Y1_app, int prm_Z1_app,
             int prm_X2_app, int prm_Y2_app, int prm_Z2_app,
-            int prm_X, int prm_Y, int prm_Z,
+            int prm_x, int prm_y, int prm_z,
             velo prm_veloMv_App,
             angle prm_angRzMv_AppBox, angle prm_angRyMv_AppBox,
             velo prm_veloMv_Geria,
@@ -35,9 +35,9 @@ FormationGeria::FormationGeria(
     Y2_app_ = prm_Y2_app;
     Z2_app_ = prm_Z2_app;
 
-    _X = prm_X;
-    _Y = prm_Y;
-    _Z = prm_Z;
+    _x = prm_x;
+    _y = prm_y;
+    _z = prm_z;
     _pKurokoA->setMvVelo(prm_veloMv_App);
     _pKurokoA->setRzRyMvAng(prm_angRzMv_AppBox, prm_angRyMv_AppBox);
     float vX_AppBox, vY_AppBox, vZ_AppBox;
@@ -68,9 +68,9 @@ void FormationGeria::processBehavior() {
     if (getActiveFrame() % frame_app_interval_ == 0) {
         EnemyGeria* pEnemyGeria = (EnemyGeria*)pDepo_EnemyGeria_->dispatch();
         if (pEnemyGeria) {
-            pEnemyGeria->_X = RND(X1_app_, X2_app_) + _X;
-            pEnemyGeria->_Y = RND(Y1_app_, Y2_app_) + _Y;
-            pEnemyGeria->_Z = RND(Z1_app_, Z2_app_) + _Z;
+            pEnemyGeria->_x = RND(X1_app_, X2_app_) + _x;
+            pEnemyGeria->_y = RND(Y1_app_, Y2_app_) + _y;
+            pEnemyGeria->_z = RND(Z1_app_, Z2_app_) + _z;
         }
     }
     _pKurokoA->behave();

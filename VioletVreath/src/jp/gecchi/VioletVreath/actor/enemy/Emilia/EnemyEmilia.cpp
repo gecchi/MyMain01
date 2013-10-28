@@ -31,11 +31,11 @@ void EnemyEmilia::onActive() {
     //ステータスリセット
     UTIL::resetEnemyEmiliaStatus(_pStatus);
     setHitAble(true);
-    static coord appearances_renge_Z = (MyShip::lim_Z_left_ - MyShip::lim_Z_right_) * 3;
-    static coord appearances_renge_Y = (MyShip::lim_Y_top_ - MyShip::lim_Y_bottom_) * 3;
-    _X = GgafDxUniverse::_X_gone_right - 1000;
-    _Y = RND(-(appearances_renge_Y/2) , +(appearances_renge_Y/2));
-    _Z = RND(-(appearances_renge_Z/2) , +(appearances_renge_Z/2));
+    static coord appearances_renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 3;
+    static coord appearances_renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 3;
+    _x = GgafDxUniverse::_x_gone_right - 1000;
+    _y = RND(-(appearances_renge_y/2) , +(appearances_renge_y/2));
+    _z = RND(-(appearances_renge_z/2) , +(appearances_renge_z/2));
     _pKurokoA->setMvAngTwd(0, D180ANG);
     _pKurokoA->addRyMvAng(RND(D_ANG(-5), D_ANG(+5)));
     _pKurokoA->addRzMvAng(RND(D_ANG(-5), D_ANG(+5)));

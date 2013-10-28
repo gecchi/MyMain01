@@ -19,7 +19,7 @@ public:
         SE_FIRE,
     };
     /** 発射時のY座標 */
-    coord begin_Y_;
+    coord begin_y_;
     /** 屈折までのY軸方向距離 */
     coord turn_dY_;
     /** 目標座標1(屈折ポイント) */

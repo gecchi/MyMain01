@@ -18,13 +18,13 @@ void FormationOrtuna001a::onCallUpOrtuna(EnemyOrtuna* prm_pOrtuna, int prm_index
     int d = 300;
     MyShip* pMyShip = P_MYSHIP;
 
-    coord X = RND(pMyShip->_X+PX_C(d), pMyShip->_X + (PX_C(d)*3));
-    coord Y = pMyShip->_Y + RND(-PX_C(d),PX_C(d));
-    coord Z = pMyShip->_Z + RND(-PX_C(d),PX_C(d));
+    coord X = RND(pMyShip->_x+PX_C(d), pMyShip->_x + (PX_C(d)*3));
+    coord Y = pMyShip->_y + RND(-PX_C(d),PX_C(d));
+    coord Z = pMyShip->_z + RND(-PX_C(d),PX_C(d));
     prm_pOrtuna->entry_pos_.set( X, Y, Z);
 
     static coord R = PX_C(200);
-    coord ang = UTIL::getAngle2D(Z - pMyShip->_Z, Y - pMyShip->_Y);
+    coord ang = UTIL::getAngle2D(Z - pMyShip->_z, Y - pMyShip->_y);
     prm_pOrtuna->hanging_pos_.set( X,
                                    Y + (ANG_SIN(ang) * R),
                                    Z + (ANG_COS(ang) * R));

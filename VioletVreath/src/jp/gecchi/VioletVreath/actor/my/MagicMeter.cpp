@@ -193,8 +193,8 @@ void MagicMeter::load(std::stringstream& sts) {
 }
 
 void MagicMeter::initialize() {
-    pMpBar_->position(_X, _Y + height_ + PX_C(16));
-    pVreathBar_->position(_X, _Y + height_ + PX_C(16) + PX_C(16) );
+    pMpBar_->position(_x, _y + height_ + PX_C(16));
+    pVreathBar_->position(_x, _y + height_ + PX_C(16) + PX_C(16) );
     pMagicMeterStatus_->positionAs(this);
 
     _pUvFlipper->exec(FLIP_ORDER_LOOP, 10); //アニメ順序
@@ -361,7 +361,7 @@ void MagicMeter::processBehavior() {
                     break;
                 }
                 case MAGIC_CAST_NG_MP_IS_SHORT: {
-                    _pSeTx->play(SE_BAD_OPERATION);
+                    _pSeTx->play(SE_NG_MP_IS_SHORT);
                     break;
                 }
                 case MAGIC_CAST_NOTHING: {
@@ -525,7 +525,13 @@ void MagicMeter::processBehavior() {
 
         //レベルダウン時
         if (pMagic->prev_frame_level_ != pMagic_level && pMagic->prev_frame_level_ > pMagic_level) {
-            _pSeTx->play(SE_EXECUTE_LEVELDOWN_MAGIC);
+            if (pMagic->time_of_effect_base_ == 0) {
+                //速攻魔法の終了のレベルダウン場合
+                _TRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] 速攻魔法のレベルダウンのためSEは鳴らさない");
+            } else {
+                //レベルダウン
+                _pSeTx->play(SE_EXECUTE_LEVELDOWN_MAGIC);
+            }
             if (pLvTgtMvCur->point_lv_ == pMagic->prev_frame_level_) {
                 //カーソルがレベルダウン前のレベルにセットしてあれば、
                 //こっそり、カーソルも一つ下に移動
@@ -538,29 +544,35 @@ void MagicMeter::processBehavior() {
         //STATE_NOTHINGへ移行した
         if (pMagicProg->isJustChangedTo(Magic::STATE_NOTHING)) {
             if (pMagicProg->isJustChangedFrom(Magic::STATE_CASTING)) { //詠唱→STATE_NOTHING
-                //空詠唱（詠唱をキャンセルした、あるいは、詠唱したが詠唱完了時にMPが足りなかった）
-                //TODO:現在は 手動のキャンセル（レベル０へのレベルダウン含む）でもここに来る。MP_IS_SHORTの時のキャンセルだけ判定したい
-                _TRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] SE_NG_MP_IS_SHORT 空詠唱乙 ");
+                //空詠唱（詠唱をキャンセルした or レベル０へレベルダウン or 詠唱したが詠唱完了時にMPが足りなかった）
+                _TRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] 詠唱→STATE_NOTHING 空詠唱乙。");
                 pLvCastingCur->markOff(); //マークオフ！
                 pLvNowCur->moveSmoothTo(pMagic_level);
                 pLvTgtMvCur->moveSmoothTo(pMagic_level); //レベルカーソルをアクティブレベルに戻す
-                _pSeTx->play(SE_NG_MP_IS_SHORT);
+                if (pMagic->last_invoke_ == MAGIC_INVOKE_NG_MP_IS_SHORT) {
+                    _TRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] 詠唱キャンセルの原因は、MAGIC_INVOKE_NG_MP_IS_SHORT");
+                    _pSeTx->play(SE_NG_MP_IS_SHORT);
+                }
             }
             if (pMagicProg->isJustChangedFrom(Magic::STATE_INVOKING)) {  //発動→STATE_NOTHING
                 //空発動（発動したが、発動完了時、MPが足りなかったので、効果開始出来なかった）
-                _TRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] SE_NG_MP_IS_SHORT 空発動乙 ");
+                _TRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] 発動→STATE_NOTHING 空発動乙 ");
                 pLvCastingCur->markOff(); //マークオフ！
                 pLvNowCur->moveSmoothTo(pMagic_level);
                 pLvTgtMvCur->moveSmoothTo(pMagic_level); //レベルカーソルをアクティブレベルに戻す
-                _pSeTx->play(SE_NG_MP_IS_SHORT);
+                if (pMagic->last_effect_ == MAGIC_EFFECT_NG_MP_IS_SHORT) {
+                    _TRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] 発動キャンセルの原因は、MAGIC_EFFECT_NG_MP_IS_SHORT");
+                    _pSeTx->play(SE_NG_MP_IS_SHORT);
+                }
             }
 
             if (pMagicProg->isJustChangedFrom(Magic::STATE_EFFECT_START)) { //STATE_EFFECT_START→STATE_NOTHING
                 if (pMagic_level > 0 && pMagic->time_of_effect_base_ == 0) {
                     //即効性魔法終了時
-                    _TRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] 即効性魔法、発動して終了");
+                    _TRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] STATE_EFFECT_START→STATE_NOTHING 即効性魔法、発動して終了");
                     pLvCastingCur->markOnEffect(pMagic_level);
                     pLvNowCur->moveSmoothTo(pMagic_level);
+                    pLvTgtMvCur->moveSmoothTo(pMagic_level);
                 }
             }
         }
@@ -603,9 +615,9 @@ void MagicMeter::processDraw() {
     int len_magics = lstMagic_.length();
     int n = 0;
     float u,v;
-    float x = float(C_PX(_X));
-    float y = float(C_PX(_Y));
-    float z = float(C_PX(_Z));
+    float x = float(C_PX(_x));
+    float y = float(C_PX(_y));
+    float z = float(C_PX(_z));
     float alpha = getAlpha();
     for (int i = 0; i < len_magics; i++) {
         pMagic = pElem->_pValue;//一周したのでアクティブであるはず
@@ -613,12 +625,12 @@ void MagicMeter::processDraw() {
         n = 0;
         float wx = width_px_*i;
         //マジックメーター背景
-        hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_X[n], x + wx);
-        checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_X) に失敗しました。");
-        hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_Y[n], y) ;
-        checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_Y) に失敗しました。");
-        hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_depth_Z[n], z);
-        checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_depth_Z) に失敗しました。");
+        hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_x[n], x + wx);
+        checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_x) に失敗しました。");
+        hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_y[n], y) ;
+        checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_y) に失敗しました。");
+        hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_depth_z[n], z);
+        checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_depth_z) に失敗しました。");
         hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_alpha[n], alpha);
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_alpha) に失敗しました。");
         if (pMagic_level > 0 && pMagic->lvinfo_[pMagic_level].remainingtime_of_effect_ <= fraeme_of_notice_remaind_) {
@@ -633,12 +645,12 @@ void MagicMeter::processDraw() {
         n++;
 
         //マジックメーター上の現在のマジックレベル表示
-        hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_X[n], x + wx);
-        checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_X) に失敗しました。");
-        hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_Y[n], y);
-        checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_Y) に失敗しました。");
-        hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_depth_Z[n], z);
-        checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_depth_Z) に失敗しました。");
+        hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_x[n], x + wx);
+        checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_x) に失敗しました。");
+        hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_y[n], y);
+        checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_y) に失敗しました。");
+        hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_depth_z[n], z);
+        checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_depth_z) に失敗しました。");
         hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_alpha[n], alpha);
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_alpha) に失敗しました。");
         _pUvFlipper->getUV(pMagic->lvinfo_[pMagic_level].pno_, u, v);
@@ -654,12 +666,12 @@ void MagicMeter::processDraw() {
             int lv_slecter_num = pMagic->max_level_+1;
             for (int j = 0; j < lv_slecter_num; j++) {
                 //魔法名
-                hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_X[n], x + wx);
-                checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_X) に失敗しました。");
-                hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_Y[n], y - (height_px_*(j+1)*rr));
-                checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_Y) に失敗しました。");
-                hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_depth_Z[n], z);
-                checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_depth_Z) に失敗しました。");
+                hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_x[n], x + wx);
+                checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_x) に失敗しました。");
+                hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_y[n], y - (height_px_*(j+1)*rr));
+                checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_y) に失敗しました。");
+                hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_depth_z[n], z);
+                checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_depth_z) に失敗しました。");
                 hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_alpha[n], alpha*rr); //アクティブなら濃いめ
                 checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_alpha) に失敗しました。");
 

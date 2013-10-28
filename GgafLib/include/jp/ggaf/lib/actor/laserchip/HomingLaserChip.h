@@ -24,18 +24,18 @@ class HomingLaserChip : public LaserChip {
 public:
     /** 先導チップ（本当の先頭チップ）フラグ */
     bool _is_leader; //本当の先頭チップとは、レーザー移動中にちぎれて発生するにわか先頭チップでは無いという意味。
-    int _begining_X;
-    int _begining_Y;
-    int _begining_Z;
-    angle _begining_RX;
-    angle _begining_RY;
-    angle _begining_RZ;
-    int _prev_X;
-    int _prev_Y;
-    int _prev_Z;
-    angle _prev_RX;
-    angle _prev_RY;
-    angle _prev_RZ;
+    int _begining_x;
+    int _begining_y;
+    int _begining_z;
+    angle _begining_rx;
+    angle _begining_ry;
+    angle _begining_rz;
+    int _prev_x;
+    int _prev_y;
+    int _prev_z;
+    angle _prev_rx;
+    angle _prev_ry;
+    angle _prev_rz;
     /** [r]発射開始座標固定か否か(true:固定、呼び元の座標等を上書きして、最初の[0]の座標に強制上書き/false:非固定。スクロールシーン配下等の場合は false が良い */
     bool _is_fix_begin_pos;
 

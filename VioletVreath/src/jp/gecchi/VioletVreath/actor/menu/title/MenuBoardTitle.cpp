@@ -88,10 +88,10 @@ void MenuBoardTitle::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int 
         riseSubMenu(1, PX_C(50), PX_C(50));
     } else if (prm_item_index == ITEM_REBOOT) {
         //確認メニュー起動
-        riseSubMenu(0, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y);
+        riseSubMenu(0, getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y);
     } else if (prm_item_index == ITEM_QUIT) {
         //確認メニュー起動
-        riseSubMenu(0, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y);
+        riseSubMenu(0, getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y);
     }
 }
 

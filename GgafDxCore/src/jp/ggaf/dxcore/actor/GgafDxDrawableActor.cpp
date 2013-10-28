@@ -154,14 +154,14 @@ void GgafDxDrawableActor::processPreDraw() {
     if (_alpha > 0.0f && isActiveInTheTree()) { //isActiveInTheTree() で判定すると、
         if (_is_2D) {
 //            _now_drawdepth = GgafDxUniverse::setDrawDepthLevel(
-//                                (int)((1.0*_Z/LEN_UNIT) * MAX_DRAW_DEPTH_LEVEL),
+//                                (int)((1.0*_z/LEN_UNIT) * MAX_DRAW_DEPTH_LEVEL),
 //                                this
 //                             );
             if (((GgafDxScene*)getPlatformScene())->_master_alpha <= 0.0f) {
                 //描画しないので登録なし
             } else {
                 if (_specal_drawdepth < 0) { //特別な描画深度指定無し
-                    _now_drawdepth = GgafDxUniverse::setDrawDepthLevel(_Z, this); //2Dは_Zはプライオリティに使用。
+                    _now_drawdepth = GgafDxUniverse::setDrawDepthLevel(_z, this); //2Dは_zはプライオリティに使用。
                 } else {
                     //特別な描画深度指定有り
                     if (GgafDxUniverse::_apAlphaActorFirstList_DrawDepthLevel[_specal_drawdepth] == nullptr) {

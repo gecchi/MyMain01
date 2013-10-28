@@ -76,26 +76,26 @@ public:
      * prm_pMemberを配下に登録します。<BR>
      * <BR>
      * 引数の編隊メンバーアクターは、次の２つのメソッドの使用が可能となります。 <BR>
-     * _X,_Y,_Z,_RX,_RY,_RZ をローカル（thisからの相対）に切り替える・・・changeGeoLocal()<BR>
-     * _X,_Y,_Z,_RX,_RY,_RZ 絶対座標に切り替える                    ・・・changeGeoFinal()<BR>
+     * _x,_y,_z,_rx,_ry,_rz をローカル（thisからの相対）に切り替える・・・changeGeoLocal()<BR>
+     * _x,_y,_z,_rx,_ry,_rz 絶対座標に切り替える                    ・・・changeGeoFinal()<BR>
      * 【注意】<BR>
      * 黒衣A(_pKurokoA) は、ローカル座標系でのみ使用可能となります。<BR>
      * 従属アクターprocessBehavior() の処理を抜ける前には、changeGeoFinal() で絶対座標に戻しておく必要があります。<BR>
      * @param prm_pMember 従属させるアクター
-     * @param prm_X_init_local  従属アクターのローカル(this)位置からのX座標位置
-     * @param prm_Y_init_local  従属アクターのローカル(this)位置からのY座標位置
-     * @param prm_Z_init_local  従属アクターのローカル(this)位置からのZ座標位置
-     * @param prm_RX_init_local 従属アクターのローカル(this)回転からのX軸回転値
-     * @param prm_RY_init_local 従属アクターのローカル(this)回転からのY軸回転値
-     * @param prm_RZ_init_local 従属アクターのローカル(this)回転からのZ軸回転値
+     * @param prm_x_init_local  従属アクターのローカル(this)位置からのX座標位置
+     * @param prm_y_init_local  従属アクターのローカル(this)位置からのY座標位置
+     * @param prm_z_init_local  従属アクターのローカル(this)位置からのZ座標位置
+     * @param prm_rx_init_local 従属アクターのローカル(this)回転からのX軸回転値
+     * @param prm_ry_init_local 従属アクターのローカル(this)回転からのY軸回転値
+     * @param prm_rz_init_local 従属アクターのローカル(this)回転からのZ軸回転値
      */
     virtual void addFormationMember(GgafDxGeometricActor* prm_pMember,
-                                    int prm_X_init_local,
-                                    int prm_Y_init_local,
-                                    int prm_Z_init_local,
-                                    int prm_RX_init_local,
-                                    int prm_RY_init_local,
-                                    int prm_RZ_init_local);
+                                    int prm_x_init_local,
+                                    int prm_y_init_local,
+                                    int prm_z_init_local,
+                                    int prm_rx_init_local,
+                                    int prm_ry_init_local,
+                                    int prm_rz_init_local);
 
     /**
      * 登録した編隊のメンバーを順番に取得します.

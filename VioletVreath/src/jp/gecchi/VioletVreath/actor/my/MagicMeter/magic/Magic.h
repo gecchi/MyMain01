@@ -180,6 +180,9 @@ public:
     progress temp_hold_status_;
     int temp_hold_new_level_;
 
+    int last_cast_;
+    int last_invoke_;
+    int last_effect_;
 public:
 
     /**
@@ -428,11 +431,6 @@ public:
      * @return
      */
     int chkEffectAble(int prm_level);
-
-    /**
-     * 魔法をキャンセルする .
-     */
-    virtual void cancel();
 
     /**
      * ダウンレベル実行時の還元MPを計算して返す .

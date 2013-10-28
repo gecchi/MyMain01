@@ -22,13 +22,13 @@ GgafDxBoardEffect::GgafDxBoardEffect(char* prm_effect_name) : GgafDxEffect(prm_e
     _h_alpha = _pID3DXEffect->GetParameterByName( nullptr, "g_alpha" );
     _h_offset_u = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u" );
     _h_offset_v = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v" );
-    _hTransformedX = _pID3DXEffect->GetParameterByName( nullptr, "g_transformed_X" );
-    _hTransformedY = _pID3DXEffect->GetParameterByName( nullptr, "g_transformed_Y" );
+    _hTransformedX = _pID3DXEffect->GetParameterByName( nullptr, "g_transformed_x" );
+    _hTransformedY = _pID3DXEffect->GetParameterByName( nullptr, "g_transformed_y" );
 
-    _h_local_left_top_X = _pID3DXEffect->GetParameterByName( nullptr, "g_local_left_top_X" );
-    _h_local_left_top_Y = _pID3DXEffect->GetParameterByName( nullptr, "g_local_left_top_Y" );
+    _h_local_left_top_x = _pID3DXEffect->GetParameterByName( nullptr, "g_local_left_top_x" );
+    _h_local_left_top_y = _pID3DXEffect->GetParameterByName( nullptr, "g_local_left_top_y" );
 
-    _hDepthZ = _pID3DXEffect->GetParameterByName( nullptr, "g_depth_Z" );
+    _hDepthZ = _pID3DXEffect->GetParameterByName( nullptr, "g_depth_z" );
     _hSx = _pID3DXEffect->GetParameterByName( nullptr, "g_sx" );
     _hSy = _pID3DXEffect->GetParameterByName( nullptr, "g_sy" );
     _h_Rz = _pID3DXEffect->GetParameterByName( nullptr, "g_rz" );

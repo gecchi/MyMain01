@@ -30,24 +30,24 @@ public:
     /** [r] 画面外種別。isOutOfView()が内部で使用。未計算時は -1 */
     int _offscreen_kind;
 
-    /** [r/w]ワールドX座標( _X : DirectXのX座標 : 初期カメラ位置での画面上ピクセル = 1000 : 0.1 : 約 1px  ) */
-    coord _X;
-    /** [r/w]ワールドY座標( _Y : DirectXのY座標 : 初期カメラ位置での画面上ピクセル = 1000 : 0.1 : 約 1px  ) */
-    coord _Y;
-    /** [r/w]ワールドZ座標( _Z : DirectXのZ座標 : 初期カメラ位置での画面上ピクセル = 1000 : 0.1 : 約 1px  ) */
-    coord _Z;
-    /** [r/w]ワールドX軸回転角(_RX : Degree = 1000 : 1度) */
-    angle _RX;
-    /** [r/w]ワールドY軸回転角(_RY : Degree = 1000 : 1度) */
-    angle _RY;
-    /** [r/w]ワールドZ軸回転角(_RZ : Degree = 1000 : 1度) */
-    angle _RZ;
-    /** [r/w]ワールドX軸方向スケール(_SX : 倍率 = 1000 : 1.0倍) */
-    scale _SX;
-    /** [r/w]ワールドY軸方向スケール(_SY : 倍率 = 1000 : 1.0倍) */
-    scale _SY;
-    /** [r/w]ワールドZ軸方向スケール(_SZ : 倍率 = 1000 : 1.0倍) */
-    scale _SZ;
+    /** [r/w]ワールドX座標( _x : DirectXのX座標 : 初期カメラ位置での画面上ピクセル = 1000 : 0.1 : 約 1px  ) */
+    coord _x;
+    /** [r/w]ワールドY座標( _y : DirectXのY座標 : 初期カメラ位置での画面上ピクセル = 1000 : 0.1 : 約 1px  ) */
+    coord _y;
+    /** [r/w]ワールドZ座標( _z : DirectXのZ座標 : 初期カメラ位置での画面上ピクセル = 1000 : 0.1 : 約 1px  ) */
+    coord _z;
+    /** [r/w]ワールドX軸回転角(_rx : Degree = 1000 : 1度) */
+    angle _rx;
+    /** [r/w]ワールドY軸回転角(_ry : Degree = 1000 : 1度) */
+    angle _ry;
+    /** [r/w]ワールドZ軸回転角(_rz : Degree = 1000 : 1度) */
+    angle _rz;
+    /** [r/w]ワールドX軸方向スケール(_sx : 倍率 = 1000 : 1.0倍) */
+    scale _sx;
+    /** [r/w]ワールドY軸方向スケール(_sy : 倍率 = 1000 : 1.0倍) */
+    scale _sy;
+    /** [r/w]ワールドZ軸方向スケール(_sz : 倍率 = 1000 : 1.0倍) */
+    scale _sz;
     /** [r]黒衣A */
     GgafDxKurokoA* const _pKurokoA;
     /** [r]黒衣B */
@@ -61,11 +61,11 @@ public:
     dxcoord _bounding_sphere_radius;
     /** [r]モデルの境界球半径倍率 */
     dxcoord _rate_of_bounding_sphere_radius;
-    /** [r]内部で _X から計算されるDirectXのワールドX座標(_X : _fX = 1000 : 0.1) */
+    /** [r]内部で _x から計算されるDirectXのワールドX座標(_x : _fX = 1000 : 0.1) */
     dxcoord _fX;
-    /** [r]内部で _Y から計算されるDirectYのワールドY座標(_Y : _fY = 1000 : 0.1) */
+    /** [r]内部で _y から計算されるDirectYのワールドY座標(_y : _fY = 1000 : 0.1) */
     dxcoord _fY;
-    /** [r]内部で _Z から計算されるDirectZのワールドZ座標(_Z : _fZ = 1000 : 0.1) */
+    /** [r]内部で _z から計算されるDirectZのワールドZ座標(_z : _fZ = 1000 : 0.1) */
     dxcoord _fZ;
     /** [r]視錐台上面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
     dxcoord _dest_from_vppln_top;
@@ -93,49 +93,49 @@ public:
     /** [r]土台となるアクター、土台が無い場合はnullptr（IK用） */
     GgafDxCore::GgafDxGeometricActor* _pActor_Base;
     /** [r]土台アクター上でのワールドX座標 */
-    coord _X_local;
+    coord _x_local;
     /** [r]土台アクター上でのワールドY座標 */
-    coord _Y_local;
+    coord _y_local;
     /** [r]土台アクター上でのワールドZ座標 */
-    coord _Z_local;
+    coord _z_local;
     /** [r]土台アクター上でのワールドX軸回転角 */
-    angle _RX_local;
+    angle _rx_local;
     /** [r]土台アクター上でのワールドY軸回転角 */
-    angle _RY_local;
+    angle _ry_local;
     /** [r]土台アクター上でのワールドZ軸回転角 */
-    angle _RZ_local;
+    angle _rz_local;
 
-    coord _X_final;
-    coord _Y_final;
-    coord _Z_final;
-    angle _RX_final;
-    angle _RY_final;
-    angle _RZ_final;
+    coord _x_final;
+    coord _y_final;
+    coord _z_final;
+    angle _rx_final;
+    angle _ry_final;
+    angle _rz_final;
 
     bool _is_local;
 
     //補足メモ
-    //【_X, _Y, _Z の単位について】
-    //座標値 _X, _Y, _Z は独自の単位である。
-    //DirectX座標(float)系の値の１.0に相当する X, _Y, _Z座標値は、LEN_UNIT(=1000)倍のPX_UNIT(=10)倍の整数値である。
+    //【_x, _y, _z の単位について】
+    //座標値 _x, _y, _z は独自の単位である。
+    //DirectX座標(float)系の値の１.0に相当する X, _y, _z座標値は、LEN_UNIT(=1000)倍のPX_UNIT(=10)倍の整数値である。
     //つまり10000倍。DirectX座標単位の１.0は、ゲーム画面上で10px相当の大きさになる（ようにカメラを引いている）。
-    //例えば、_X = 5000 は、画面で初期カメラ位置で 5px の幅に見え、DirectX座標では0.5になる（ように設計している）。
-    //_X,_Y,_Z     → ピクセル の変換。    ・・・ _X,_Y,_Z を LEN_UNIT(=1000)で割る。
+    //例えば、_x = 5000 は、画面で初期カメラ位置で 5px の幅に見え、DirectX座標では0.5になる（ように設計している）。
+    //_x,_y,_z     → ピクセル の変換。    ・・・ _x,_y,_z を LEN_UNIT(=1000)で割る。
     //DirectX座標  → ピクセル の変換。    ・・・ DirectX座標を、PX_UNIT(=10)を掛け算する。
-    //_X,_Y,_Z     → DirectX座標 の変換。 ・・・ _X,_Y,_Z を LEN_UNIT*PX_UNIT(=10000)で割る。
-    //実は、描画の直前に_X,_Y,_Z を入力として、 LEN_UNIT*PX_UNIT 除算し、ワールド変換行列の値に使用されている。
+    //_x,_y,_z     → DirectX座標 の変換。 ・・・ _x,_y,_z を LEN_UNIT*PX_UNIT(=10000)で割る。
+    //実は、描画の直前に_x,_y,_z を入力として、 LEN_UNIT*PX_UNIT 除算し、ワールド変換行列の値に使用されている。
     //わざわざこんなことをしているのは、ゲーム中の座標計算は全て整数で行い、少しでも速度を上げたかったため。
     //昔(ｲﾂﾔﾈﾝ;)はよく使っていた手法と思うのだが、現在では 最適化されている float や double でもかなり速いので、
     //本当にこの設計でよかったのだろうか…、いや、速くなってると信じる。
     //
-    //【_RX, _RY, _RZ の単位について】
+    //【_rx, _ry, _rz の単位について】
     //独自単位の「アングル値」を採る。
     //「アングル値」とは 0~3600000 の値で、見た目では 角度値(Degree)の 1000倍の精度の値である。
     //(但し、実際は内部では Degree の 10倍の精度である。3600方向の単位方向ベクトルテーブルと対応させる設計)
     //1度は1000、0.5度は500。直角の値は90000、水平は180000である。
     //中心角と同じく3時の方向を0とし、軸の正方向を向いて反時計回りにアングル値は増えるものとする。
     //
-    //【_SX, _SY, _SZ の単位について】
+    //【_sx, _sy, _sz の単位について】
     //値1000が1.0倍のスケール意味する。したがってデフォルトは1000になっている。
     //描画の直前に 1000 で除算され、拡大縮小率に変換し使用する。
 
@@ -171,7 +171,7 @@ public:
     /**
      * 判定処理事前処理 .
      * processBehavior() 後、座標計算事後処理として次の処理を行う <BR>
-     * ①自身の座標情報(_X,_Y,_Z)から以下のメンバの更新を行う。 <BR>
+     * ①自身の座標情報(_x,_y,_z)から以下のメンバの更新を行う。 <BR>
      *     _fX <BR>
      *     _fY <BR>
      *     _fZ <BR>
@@ -235,9 +235,9 @@ public:
      * @param Z
      */
     virtual void position(coord X, coord Y, coord Z) {
-        _X = X;
-        _Y = Y;
-        _Z = Z;
+        _x = X;
+        _y = Y;
+        _z = Z;
     }
 
     /**
@@ -246,25 +246,25 @@ public:
      * @param Y
      */
     virtual void position(coord X, coord Y) {
-        _X = X;
-        _Y = Y;
+        _x = X;
+        _y = Y;
     }
 
     /**
-     * X軸Y軸Z軸各軸スケール(_SX, _SY, _SZ)を同じ値で設定。
+     * X軸Y軸Z軸各軸スケール(_sx, _sy, _sz)を同じ値で設定。
      * 【注意】
      * _pScaler->behave(); が存在すると上書きされますよ。
      * @param S スケール値(1000 で 1.0倍)
      */
     virtual void setScale(scale S) {
-        _SX = S;
-        _SY = S;
-        _SZ = S;
+        _sx = S;
+        _sy = S;
+        _sz = S;
         setBoundingSphereRadiusRate(SC_R(S));
     }
 
     /**
-     * X軸Y軸Z軸スケール(_SX, _SY, _SZ)をそれぞれ値で設定。
+     * X軸Y軸Z軸スケール(_sx, _sy, _sz)をそれぞれ値で設定。
      * 【注意】
      * _pScaler->behave(); が存在すると上書きされますよ！。
      * @param SX X軸スケール値(1000 で 1.0倍)
@@ -272,23 +272,23 @@ public:
      * @param SZ Z軸スケール値(1000 で 1.0倍)
      */
     virtual void setScale(scale SX, scale SY, scale SZ) {
-        _SX = SX;
-        _SY = SY;
-        _SZ = SZ;
-        setBoundingSphereRadiusRate(SC_R(MAX3(_SX,_SY,_SZ)));
+        _sx = SX;
+        _sy = SY;
+        _sz = SZ;
+        setBoundingSphereRadiusRate(SC_R(MAX3(_sx,_sy,_sz)));
     }
 
     /**
-     * X軸Y軸スケール(_SX, _SY)のみを値で設定。
+     * X軸Y軸スケール(_sx, _sy)のみを値で設定。
      * 【注意】
      * _pScaler->behave(); が存在すると上書きされますよ！。
      * @param SX X軸スケール値(1000 で 1.0倍)
      * @param SY Y軸スケール値(1000 で 1.0倍)
      */
     virtual void setScale(scale SX, scale SY) {
-        _SX = SX;
-        _SY = SY;
-        setBoundingSphereRadiusRate(SC_R(MAX3(_SX,_SY,_SZ)));
+        _sx = SX;
+        _sy = SY;
+        setBoundingSphereRadiusRate(SC_R(MAX3(_sx,_sy,_sz)));
     }
 
     /**
@@ -299,9 +299,9 @@ public:
      * @param prm_rate 倍率
      */
     virtual void setScaleR(float prm_rate) {
-        _SX = R_SC(prm_rate);
-        _SY = R_SC(prm_rate);
-        _SZ = R_SC(prm_rate);
+        _sx = R_SC(prm_rate);
+        _sy = R_SC(prm_rate);
+        _sz = R_SC(prm_rate);
         setBoundingSphereRadiusRate(prm_rate);
     }
 
@@ -315,9 +315,9 @@ public:
      * @param prm_z_rate Z軸倍率
      */
     virtual void setScaleR(float prm_x_rate, float prm_y_rate, float prm_z_rate) {
-        _SX = R_SC(prm_x_rate);
-        _SY = R_SC(prm_y_rate);
-        _SZ = R_SC(prm_z_rate);
+        _sx = R_SC(prm_x_rate);
+        _sy = R_SC(prm_y_rate);
+        _sz = R_SC(prm_z_rate);
         setBoundingSphereRadiusRate(MAX3(prm_x_rate, prm_y_rate, prm_z_rate));
     }
 
@@ -330,66 +330,66 @@ public:
      * @param prm_y_rate Y軸倍率
      */
     virtual void setScaleR(float prm_x_rate, float prm_y_rate) {
-        _SX = R_SC(prm_x_rate);
-        _SY = R_SC(prm_y_rate);
-        setBoundingSphereRadiusRate(MAX3(prm_x_rate, prm_y_rate, SC_R(_SZ)));
+        _sx = R_SC(prm_x_rate);
+        _sy = R_SC(prm_y_rate);
+        setBoundingSphereRadiusRate(MAX3(prm_x_rate, prm_y_rate, SC_R(_sz)));
     }
 
     /**
-     * X軸Y軸Z軸各軸スケール(_SX, _SY, _SZ)を同じ値で加算。
+     * X軸Y軸Z軸各軸スケール(_sx, _sy, _sz)を同じ値で加算。
      * 【注意】
      * _pScaler->behave(); が存在すると上書きされますよ！。
      * @param dS 加算するスケール値
      */
     virtual void addScale(scale dS) {
-        _SX += dS;
-        _SY += dS;
-        _SZ += dS;
-        setBoundingSphereRadiusRate(SC_R(MAX3(_SX,_SY,_SZ)));
+        _sx += dS;
+        _sy += dS;
+        _sz += dS;
+        setBoundingSphereRadiusRate(SC_R(MAX3(_sx,_sy,_sz)));
     }
 
     /**
-     * 座標(_X, _Y, _Z)をコピーして設定 .
+     * 座標(_x, _y, _z)をコピーして設定 .
      * @param prm_pActor コピー元アクター
      */
     virtual void positionAs(GgafDxGeometricActor* prm_pActor) {
-        _X = prm_pActor->_X;
-        _Y = prm_pActor->_Y;
-        _Z = prm_pActor->_Z;
+        _x = prm_pActor->_x;
+        _y = prm_pActor->_y;
+        _z = prm_pActor->_z;
     }
 
     /**
-     * 座標(_X, _Y, _Z)をコピーして設定 .
+     * 座標(_x, _y, _z)をコピーして設定 .
      * @param prm_pGeoElem 座標オブジェクト
      */
     virtual void positionAs(GgafDxGeoElem* prm_pGeoElem);
 
 
-    virtual void rotate(angle RX, angle RY, angle RZ) {
-        _RX = RX;
-        _RY = RY;
-        _RZ = RZ;
+    virtual void rotate(angle rx, angle ry, angle rz) {
+        _rx = rx;
+        _ry = ry;
+        _rz = rz;
     }
 
-    virtual void face(angle RZ, angle RY) {
-        _RZ = RZ;
-        _RY = RY;
+    virtual void face(angle rz, angle ry) {
+        _rz = rz;
+        _ry = ry;
     }
 
     /**
-     * 回転角度(_RX, _RY, _RZ)をコピーして設定 .
+     * 回転角度(_rx, _ry, _rz)をコピーして設定 .
      * @param prm_pActor コピー元アクター
      */
     virtual void rotateAs(GgafDxGeometricActor* prm_pActor);
 
     /**
-     * 回転角度(_RX, _RY, _RZ)をコピーして設定 .
+     * 回転角度(_rx, _ry, _rz)をコピーして設定 .
      * @param prm_pGeoElem 座標オブジェクト
      */
     virtual void rotateAs(GgafDxGeoElem* prm_pGeoElem);
 
     /**
-     * X軸Y軸Z軸スケール(_SX, _SY, _SZ)をコピーして設定 .
+     * X軸Y軸Z軸スケール(_sx, _sy, _sz)をコピーして設定 .
      * @param prm_pActor コピー元アクター
      */
     virtual void scaleAs(GgafDxGeometricActor* prm_pActor);
@@ -411,80 +411,80 @@ public:
     /**
      * 引数のアクターを、自身のサブアクターとして追加し、姿勢をフォワードキネマティクスで設定する。
      * 引数の従属アクターは、次の２つのメソッドの使用が可能となります。 <BR>
-     * _X,_Y,_Z,_RX,_RY,_RZ をローカル（thisからの相対）に切り替える・・・changeGeoLocal()<BR>
-     * _X,_Y,_Z,_RX,_RY,_RZ 絶対座標に切り替える                    ・・・changeGeoFinal()<BR>
+     * _x,_y,_z,_rx,_ry,_rz をローカル（thisからの相対）に切り替える・・・changeGeoLocal()<BR>
+     * _x,_y,_z,_rx,_ry,_rz 絶対座標に切り替える                    ・・・changeGeoFinal()<BR>
      * 【注意】<BR>
      * 黒衣A(_pKurokoA) は、ローカル座標系でのみ使用可能となります。<BR>
      * 従属アクターprocessBehavior() の処理を抜ける前には、changeGeoFinal() で絶対座標に戻しておく必要があります。<BR>
      * @param prm_kind     種別
      * @param prm_pGeoActor 従属させるアクター
-     * @param prm_X_init_local  従属アクターのローカル(this)位置からのX座標位置
-     * @param prm_Y_init_local  従属アクターのローカル(this)位置からのY座標位置
-     * @param prm_Z_init_local  従属アクターのローカル(this)位置からのZ座標位置
-     * @param prm_RX_init_local 従属アクターのローカル(this)回転からのX軸回転値
-     * @param prm_RY_init_local 従属アクターのローカル(this)回転からのY軸回転値
-     * @param prm_RZ_init_local 従属アクターのローカル(this)回転からのZ軸回転値
+     * @param prm_x_init_local  従属アクターのローカル(this)位置からのX座標位置
+     * @param prm_y_init_local  従属アクターのローカル(this)位置からのY座標位置
+     * @param prm_z_init_local  従属アクターのローカル(this)位置からのZ座標位置
+     * @param prm_rx_init_local 従属アクターのローカル(this)回転からのX軸回転値
+     * @param prm_ry_init_local 従属アクターのローカル(this)回転からのY軸回転値
+     * @param prm_rz_init_local 従属アクターのローカル(this)回転からのZ軸回転値
      * @return 種別トップの団長
      */
     virtual GgafCore::GgafGroupHead* addSubGroupAsFk(actorkind prm_kind,
                                                      GgafDxGeometricActor* prm_pGeoActor,
-                                                     int prm_X_init_local,
-                                                     int prm_Y_init_local,
-                                                     int prm_Z_init_local,
-                                                     int prm_RX_init_local,
-                                                     int prm_RY_init_local,
-                                                     int prm_RZ_init_local);
+                                                     int prm_x_init_local,
+                                                     int prm_y_init_local,
+                                                     int prm_z_init_local,
+                                                     int prm_rx_init_local,
+                                                     int prm_ry_init_local,
+                                                     int prm_rz_init_local);
 
     /**
      * 引数のアクターを、自身のサブアクターとして追加し、姿勢をフォワードキネマティクスで設定する。
      * 引数の従属アクターは、次の２つのメソッドの使用が可能となります。 <BR>
-     * _X,_Y,_Z,_RX,_RY,_RZ をローカル（thisからの相対）に切り替える・・・changeGeoLocal()<BR>
-     * _X,_Y,_Z,_RX,_RY,_RZ 絶対座標に切り替える                    ・・・changeGeoFinal()<BR>
+     * _x,_y,_z,_rx,_ry,_rz をローカル（thisからの相対）に切り替える・・・changeGeoLocal()<BR>
+     * _x,_y,_z,_rx,_ry,_rz 絶対座標に切り替える                    ・・・changeGeoFinal()<BR>
      * 【注意】<BR>
      * 黒衣A(_pKurokoA) は、ローカル座標系でのみ使用可能となります。<BR>
      * 従属アクターprocessBehavior() の処理を抜ける前には、changeGeoFinal() で絶対座標に戻しておく必要があります。<BR>
      * @param prm_pGeoActor 従属させるアクター
-     * @param prm_X_init_local  従属アクターのローカル(this)位置からのX座標位置
-     * @param prm_Y_init_local  従属アクターのローカル(this)位置からのY座標位置
-     * @param prm_Z_init_local  従属アクターのローカル(this)位置からのZ座標位置
-     * @param prm_RX_init_local 従属アクターのローカル(this)回転からのX軸回転値
-     * @param prm_RY_init_local 従属アクターのローカル(this)回転からのY軸回転値
-     * @param prm_RZ_init_local 従属アクターのローカル(this)回転からのZ軸回転値
+     * @param prm_x_init_local  従属アクターのローカル(this)位置からのX座標位置
+     * @param prm_y_init_local  従属アクターのローカル(this)位置からのY座標位置
+     * @param prm_z_init_local  従属アクターのローカル(this)位置からのZ座標位置
+     * @param prm_rx_init_local 従属アクターのローカル(this)回転からのX軸回転値
+     * @param prm_ry_init_local 従属アクターのローカル(this)回転からのY軸回転値
+     * @param prm_rz_init_local 従属アクターのローカル(this)回転からのZ軸回転値
      * @return 種別トップの団長
      */
     virtual GgafCore::GgafGroupHead* addSubGroupAsFk(GgafDxGeometricActor* prm_pGeoActor,
-                                                     int prm_X_init_local,
-                                                     int prm_Y_init_local,
-                                                     int prm_Z_init_local,
-                                                     int prm_RX_init_local,
-                                                     int prm_RY_init_local,
-                                                     int prm_RZ_init_local);
+                                                     int prm_x_init_local,
+                                                     int prm_y_init_local,
+                                                     int prm_z_init_local,
+                                                     int prm_rx_init_local,
+                                                     int prm_ry_init_local,
+                                                     int prm_rz_init_local);
 
     /**
-     * 座標系(_X,_Y,_Z,_RX,_RY,_RZ )を絶対座標系を退避して、ローカル座標(土台からの相対座標)に置き換える .
+     * 座標系(_x,_y,_z,_rx,_ry,_rz )を絶対座標系を退避して、ローカル座標(土台からの相対座標)に置き換える .
      */
     inline void changeGeoLocal() {
         if (_is_local) {
             return;
         } else {
-            _X_final  = _X;
-            _Y_final  = _Y;
-            _Z_final  = _Z;
-            _RX_final = _RX;
-            _RY_final = _RY;
-            _RZ_final = _RZ;
-            _X  = _X_local;
-            _Y  = _Y_local;
-            _Z  = _Z_local;
-            _RX = _RX_local;
-            _RY = _RY_local;
-            _RZ = _RZ_local;
+            _x_final  = _x;
+            _y_final  = _y;
+            _z_final  = _z;
+            _rx_final = _rx;
+            _ry_final = _ry;
+            _rz_final = _rz;
+            _x  = _x_local;
+            _y  = _y_local;
+            _z  = _z_local;
+            _rx = _rx_local;
+            _ry = _ry_local;
+            _rz = _rz_local;
             _is_local = true;
         }
     }
 
     /**
-     * 座標系(_X,_Y,_Z,_RX,_RY,_RZ)を退避していた絶対座標に戻す .
+     * 座標系(_x,_y,_z,_rx,_ry,_rz)を退避していた絶対座標に戻す .
      * ローカル座標の変更に伴う絶対座標の更新は、自動で<BR>
      * processSettlementBehavior()で行われる作りになっている。<BR>
      * processBehavior() の処理の最後で実行することを想定。<BR>
@@ -492,18 +492,18 @@ public:
      */
     inline void changeGeoFinal() {
         if (_is_local) {
-            _X_local = _X;
-            _Y_local = _Y;
-            _Z_local = _Z;
-            _RX_local = _RX;
-            _RY_local = _RY;
-            _RZ_local = _RZ;
-            _X  = _X_final;
-            _Y  = _Y_final;
-            _Z  = _Z_final;
-            _RX = _RX_final;
-            _RY = _RY_final;
-            _RZ = _RZ_final;
+            _x_local = _x;
+            _y_local = _y;
+            _z_local = _z;
+            _rx_local = _rx;
+            _ry_local = _ry;
+            _rz_local = _rz;
+            _x  = _x_final;
+            _y  = _y_final;
+            _z  = _z_final;
+            _rx = _rx_final;
+            _ry = _ry_final;
+            _rz = _rz_final;
             _is_local = false;
         } else {
             return;

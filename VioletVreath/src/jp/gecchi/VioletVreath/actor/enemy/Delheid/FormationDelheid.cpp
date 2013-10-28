@@ -80,20 +80,20 @@ void FormationDelheid::processBehavior() {
              pDummy_->_pKurokoA->setMvVelo(RV_MvVelo_);
              onCallUpDelheid(pDummy_); //メンバー(Delheid)のフォーメーション開始座標と方向を得る
              pDummy_->pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION); //座標計算のためスタート＆オプション指定が必要
-             coord next_X, next_Y, next_Z;             //開始+1 の補完点座標
-             coord end_X, end_Y, end_Z;                //最終の補完点座標
-             coord end_prev_X, end_prev_Y, end_prev_Z; //最終-1 の補完点座標
-             pDummy_->pKurokoLeader_->getPointCoord(1, next_X, next_Y, next_Z);//[0] or [1] を気をつけよ
+             coord next_x, next_y, next_z;             //開始+1 の補完点座標
+             coord end_x, end_y, end_z;                //最終の補完点座標
+             coord end_prev_x, end_prev_y, end_prev_z; //最終-1 の補完点座標
+             pDummy_->pKurokoLeader_->getPointCoord(1, next_x, next_y, next_z);//[0] or [1] を気をつけよ
              int spl_point_num = pDummy_->pKurokoLeader_->getPointNum(); //補完点の数
-             pDummy_->pKurokoLeader_->getPointCoord(spl_point_num-1, end_X, end_Y, end_Z);
-             pDummy_->pKurokoLeader_->getPointCoord(spl_point_num-2, end_prev_X, end_prev_Y, end_prev_Z);
+             pDummy_->pKurokoLeader_->getPointCoord(spl_point_num-1, end_x, end_y, end_z);
+             pDummy_->pKurokoLeader_->getPointCoord(spl_point_num-2, end_prev_x, end_prev_y, end_prev_z);
              //出現開始位置アリサナを配備
              pAlisana_start->positionAs(pDummy_);
-             pAlisana_start->_pKurokoA->setFaceAngTwd(next_X, next_Y, next_Z); //向きセット
+             pAlisana_start->_pKurokoA->setFaceAngTwd(next_x, next_y, next_z); //向きセット
              pAlisana_start->acitve_open(); //ハッチオープン
              //終了位置にアリサナを配備
-             pAlisana_goal->position(end_X, end_Y, end_Z);
-             pAlisana_goal->_pKurokoA->setFaceAngTwd(end_prev_X, end_prev_Y, end_prev_Z);
+             pAlisana_goal->position(end_x, end_y, end_z);
+             pAlisana_goal->_pKurokoA->setFaceAngTwd(end_prev_x, end_prev_y, end_prev_z);
              pAlisana_goal->acitve_open((frame)(pDummy_->pKurokoLeader_->getTotalDistance() / RV_MvVelo_)); //ハッチオープン予約
 
              pDummy_->sayonara(); //ありがとうダミー

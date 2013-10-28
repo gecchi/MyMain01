@@ -16,14 +16,14 @@ void MyShipDivingCamWorker::initialize() {
 void MyShipDivingCamWorker::onSwitchCameraWork() {
     CameraWorker::onSwitchCameraWork();
     MyShip* pMyShip = P_MYSHIP;
-    setMoveTargetCam(-PX_C(300), pMyShip->_Y, pMyShip->_Z);
+    setMoveTargetCam(-PX_C(300), pMyShip->_y, pMyShip->_z);
     setMoveTargetCamVpBy(pMyShip);
 }
 void MyShipDivingCamWorker::processBehavior() {
     MyShip* pMyShip = P_MYSHIP;
     frame f = getSwitchedFrame();
-    coord dx = ABS(P_MYSHIP->_X);
-    static coord dc = ABS(Universe::_X_gone_left);
+    coord dx = ABS(P_MYSHIP->_x);
+    static coord dc = ABS(Universe::_x_gone_left);
     static coord r = PX_C(500);
     double t = (1.0-(1.0*dx / dc)); //t=0.0Å®1.0
     angle a = UTIL::simplifyAng(D180ANG*t);

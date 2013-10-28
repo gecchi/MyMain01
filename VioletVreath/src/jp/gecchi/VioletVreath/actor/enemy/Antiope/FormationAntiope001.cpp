@@ -36,18 +36,18 @@ void FormationAntiope001::processBehavior() {
         if (getActiveFrame() % interval_frames_ == 0) {
             MyShip* pMyShip = P_MYSHIP;
             coord renge = PX_C(1200);
-            GgafDxCore::GgafDxGeoElem entry_pos(RND(pMyShip->_X - (renge*0.5), pMyShip->_X + (renge*1.5)),
-                                                RND(pMyShip->_Y - renge, pMyShip->_Y + renge),
-                                                RND(pMyShip->_Z - renge, pMyShip->_Z + renge) );
+            GgafDxCore::GgafDxGeoElem entry_pos(RND(pMyShip->_x - (renge*0.5), pMyShip->_x + (renge*1.5)),
+                                                RND(pMyShip->_y - renge, pMyShip->_y + renge),
+                                                RND(pMyShip->_z - renge, pMyShip->_z + renge) );
 
-            GgafDxCore::GgafDxGeoElem twd_pos_p(RND(entry_pos.X - renge, entry_pos.X + renge),
-                                                RND(entry_pos.Y - renge, entry_pos.Y + renge),
-                                                RND(entry_pos.Z - renge, entry_pos.Z + renge) );
+            GgafDxCore::GgafDxGeoElem twd_pos_p(RND(entry_pos.x - renge, entry_pos.x + renge),
+                                                RND(entry_pos.y - renge, entry_pos.y + renge),
+                                                RND(entry_pos.z - renge, entry_pos.z + renge) );
 
             float vX, vY, vZ;
-            UTIL::getNormalizeVector(RND(entry_pos.X - renge, entry_pos.X + renge),
-                                     RND(entry_pos.Y - renge, entry_pos.Y + renge),
-                                     RND(entry_pos.Z - renge, entry_pos.Z + renge),
+            UTIL::getNormalizeVector(RND(entry_pos.x - renge, entry_pos.x + renge),
+                                     RND(entry_pos.y - renge, entry_pos.y + renge),
+                                     RND(entry_pos.z - renge, entry_pos.z + renge),
                                      vX, vY, vZ);
             coord veloMv = 4000;
 

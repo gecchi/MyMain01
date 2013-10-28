@@ -88,8 +88,8 @@ void EnemyDuna::processBehavior() {
          case PROG_ENTRY_MOVE01: {
              if (_pProg->isJustChanged()) {
              }
-             _X -= PX_C(10);
-             if (_X  < pMyShip->_X + PX_C(1000)) {
+             _x -= PX_C(10);
+             if (_x  < pMyShip->_x + PX_C(1000)) {
                  _pProg->changeNext();
              }
              break;
@@ -355,7 +355,7 @@ void EnemyDuna::processBehavior() {
     _pKurokoB->behave();
     _pMorpher->behave();
     _pAFader->behave();
-//_TRACE_("EnemyDuna f:"<<getBehaveingFrame()<<"  pProg="<<_pProg->get()<<"   X,Y,Z="<<_X<<","<<_Y<<","<<_Z<<" ");
+//_TRACE_("EnemyDuna f:"<<getBehaveingFrame()<<"  pProg="<<_pProg->get()<<"   X,Y,Z="<<_x<<","<<_y<<","<<_z<<" ");
 }
 
 void EnemyDuna::processJudgement() {

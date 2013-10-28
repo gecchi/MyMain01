@@ -21,9 +21,9 @@ using namespace GgafDxCore;
 //＜軸回転の角度の変数名表現＞
 //軸回転は rot または r で書くようにする。 angRx とか、とにかく "R" か "r" が変数名に入ってる
 //＜例＞
-//angRx rotX rX Rx rX radRx ・・・ X軸回転に関連している変数名
-//angRy rotY rY Ry rY radRy ・・・ Y軸回転に関連している変数名
-//angRz rotZ rX Rz rZ radRz ・・・ Z軸回転に関連している変数名
+//angRx rotX rx Rx rx radRx ・・・ X軸回転に関連している変数名
+//angRy rotY ry Ry ry radRy ・・・ Y軸回転に関連している変数名
+//angRz rotZ rx Rz rz radRz ・・・ Z軸回転に関連している変数名
 //これらもその時々により精度が変わっているかもしれない。
 //また左手系(X軸は右へ行くと正、Y軸は上に行くと正、Z軸は奥へ行くと正）を前提としているため、
 //これらの軸回転angle値の正の値とは通常は、軸を向いて反時計回りの方向を表す。
@@ -73,13 +73,13 @@ float GgafDxUtil::ROOT_1_MINUS_XX[1000];
 angle GgafDxUtil::SLANT2ANG[100000 + 1];
 
 //こんなんいるのでは！
-//angle GgafDxUtil::PROJANG_XY_ZX_YZ_TO_ROTANG_Z[D90SANG+1][D90SANG+1];
+//angle GgafDxUtil::PROJANG_XY_ZX_YZ_TO_ROTANG_z[D90SANG+1][D90SANG+1];
 
 
-angle GgafDxUtil::PROJANG_XY_XZ_TO_ROTANG_Z[D90SANG+1][D90SANG+1];
-angle GgafDxUtil::PROJANG_XY_XZ_TO_ROTANG_Y_REV[D90SANG+1][D90SANG+1];
-angle GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_X_REV[D90SANG+1][D90SANG+1];
-angle GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_Y[D90SANG+1][D90SANG+1];
+angle GgafDxUtil::PROJANG_XY_XZ_TO_ROTANG_z[D90SANG+1][D90SANG+1];
+angle GgafDxUtil::PROJANG_XY_XZ_TO_ROTANG_y_REV[D90SANG+1][D90SANG+1];
+angle GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_x_REV[D90SANG+1][D90SANG+1];
+angle GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_y[D90SANG+1][D90SANG+1];
 double GgafDxUtil::SMOOTH_DV[3600+1];
 angle GgafDxUtil::GOLDEN_ANG[1000];
 uint32_t GgafDxUtil::BITNUM[33];
@@ -208,7 +208,7 @@ void GgafDxUtil::init() {
             nvx = t * vx;
             nvy = t * vy;
             nvz = t * vz;
-            //convVectorToRzRy((float)nvx,(float)nvy,(float)nvz,rZ,rY,30);
+            //convVectorToRzRy((float)nvx,(float)nvy,(float)nvz,rz,ry,30);
             //単位ベクトルからRxRyを求める
             _srv.getFaceAngClosely(
                     (uint32_t)(nvx*1000000),
@@ -218,9 +218,9 @@ void GgafDxUtil::init() {
                     ry_rev,
                     9999
             );
-            PROJANG_XY_XZ_TO_ROTANG_Z[prj_ang_xy][prj_ang_xz] = rz*SANG_RATE;
-            PROJANG_XY_XZ_TO_ROTANG_Y_REV[prj_ang_xy][prj_ang_xz] = ry_rev*SANG_RATE;
-            //_TRACE_("["<<prj_ang_xy<<"]["<<prj_ang_xz<<"]=("<<PROJANG_XY_XZ_TO_ROTANG_Z[prj_ang_xy][prj_ang_xz]<<","<<PROJANG_XY_XZ_TO_ROTANG_Y_REV[prj_ang_xy][prj_ang_xz]<<")");
+            PROJANG_XY_XZ_TO_ROTANG_z[prj_ang_xy][prj_ang_xz] = rz*SANG_RATE;
+            PROJANG_XY_XZ_TO_ROTANG_y_REV[prj_ang_xy][prj_ang_xz] = ry_rev*SANG_RATE;
+            //_TRACE_("["<<prj_ang_xy<<"]["<<prj_ang_xz<<"]=("<<PROJANG_XY_XZ_TO_ROTANG_z[prj_ang_xy][prj_ang_xz]<<","<<PROJANG_XY_XZ_TO_ROTANG_y_REV[prj_ang_xy][prj_ang_xz]<<")");
 
         }
     }
@@ -239,7 +239,7 @@ void GgafDxUtil::init() {
             nvx = t * vx;
             nvy = t * vy;
             nvz = t * vz;
-            //convVectorToRzRy((float)nvx,(float)nvy,(float)nvz,rZ,rY,30);
+            //convVectorToRzRy((float)nvx,(float)nvy,(float)nvz,rz,ry,30);
             //単位ベクトルからRxRyを求める
             _srv.getFaceAngClosely(
                     (uint32_t)(nvx*1000000),
@@ -255,10 +255,10 @@ void GgafDxUtil::init() {
             int rx_rev = rz;
             //(0,0,1.0)を0°としY軸の正の方を向いて反時計回りを正の角(ry)を考える
             //これは上で求めたry_revをD90ANGから引いた値である。
-            PROJANG_ZY_ZX_TO_ROTANG_X_REV[prj_ang_zy][prj_ang_zx] = rx_rev*SANG_RATE;
-            PROJANG_ZY_ZX_TO_ROTANG_Y[prj_ang_zy][prj_ang_zx] = D90ANG - ry_rev*SANG_RATE;
-            //_TRACE_("PROJANG_ZY_ZX_TO_ROTANG_Y["<<prj_ang_zy<<"]["<<prj_ang_zx<<"] = D90ANG - "<<ry_rev<<"*SANG_RATE = "<<PROJANG_ZY_ZX_TO_ROTANG_Y[prj_ang_zy][prj_ang_zx]);
-            //_TRACE_("["<<prj_ang_xy<<"]["<<prj_ang_xz<<"]=("<<PROJANG_XY_XZ_TO_ROTANG_Z[prj_ang_xy][prj_ang_xz]<<","<<PROJANG_XY_XZ_TO_ROTANG_Y_REV[prj_ang_xy][prj_ang_xz]<<")");
+            PROJANG_ZY_ZX_TO_ROTANG_x_REV[prj_ang_zy][prj_ang_zx] = rx_rev*SANG_RATE;
+            PROJANG_ZY_ZX_TO_ROTANG_y[prj_ang_zy][prj_ang_zx] = D90ANG - ry_rev*SANG_RATE;
+            //_TRACE_("PROJANG_ZY_ZX_TO_ROTANG_y["<<prj_ang_zy<<"]["<<prj_ang_zx<<"] = D90ANG - "<<ry_rev<<"*SANG_RATE = "<<PROJANG_ZY_ZX_TO_ROTANG_y[prj_ang_zy][prj_ang_zx]);
+            //_TRACE_("["<<prj_ang_xy<<"]["<<prj_ang_xz<<"]=("<<PROJANG_XY_XZ_TO_ROTANG_z[prj_ang_xy][prj_ang_xz]<<","<<PROJANG_XY_XZ_TO_ROTANG_y_REV[prj_ang_xy][prj_ang_xz]<<")");
         }
     }
 
@@ -466,9 +466,9 @@ angle GgafDxUtil::getAngDiff(angle angFrom, angle angTo, int prm_way) {
                                "angFrom=" << angFrom << "/angTo=" << angTo<<"/prm_way="<<prm_way);
 }
 
-void GgafDxUtil::rotXY(int prm_X, int prm_Y, angle prm_ang, int& out_X, int& out_Y) {
-    out_X = (int)(floor((prm_X * GgafDxUtil::COS[prm_ang/SANG_RATE]) - (prm_Y * GgafDxUtil::SIN[prm_ang/SANG_RATE])));
-    out_Y = (int)(floor((prm_X * GgafDxUtil::SIN[prm_ang/SANG_RATE]) + (prm_Y * GgafDxUtil::COS[prm_ang/SANG_RATE])));
+void GgafDxUtil::rotXY(int prm_x, int prm_y, angle prm_ang, int& out_x, int& out_y) {
+    out_x = (int)(floor((prm_x * GgafDxUtil::COS[prm_ang/SANG_RATE]) - (prm_y * GgafDxUtil::SIN[prm_ang/SANG_RATE])));
+    out_y = (int)(floor((prm_x * GgafDxUtil::SIN[prm_ang/SANG_RATE]) + (prm_y * GgafDxUtil::COS[prm_ang/SANG_RATE])));
 }
 
 // 線分の当たり判定 (x11,y11)-(x12,y12) × (x21,y21)-(x22,y22)
@@ -516,11 +516,11 @@ coord GgafDxUtil::getDistance(coord x1, coord y1, coord x2, coord y2) {
 void GgafDxUtil::convVectorToRzRy(coord vx,
                                   coord vy,
                                   coord vz,
-                                  angle& out_angRZ,
-                                  angle& out_angRY ) {
+                                  angle& out_angRz,
+                                  angle& out_angRy ) {
     if (vz == 0) {
-        out_angRZ = GgafDxUtil::getAngle2D(vx, vy);
-        out_angRY = 0;
+        out_angRz = GgafDxUtil::getAngle2D(vx, vy);
+        out_angRy = 0;
         return;
     }
 
@@ -538,11 +538,11 @@ void GgafDxUtil::convVectorToRzRy(coord vx,
 
     angle rotZ, rotY_rev;
     if (0 <= prj_rXZ && prj_rXZ <= D45ANG) {
-        rotZ = GgafDxUtil::PROJANG_XY_XZ_TO_ROTANG_Z[(int)(prj_rXY*0.01)][(int)(prj_rXZ*0.01)];
-        rotY_rev = GgafDxUtil::PROJANG_XY_XZ_TO_ROTANG_Y_REV[(int)(prj_rXY*0.01)][(int)(prj_rXZ*0.01)];
+        rotZ = GgafDxUtil::PROJANG_XY_XZ_TO_ROTANG_z[(int)(prj_rXY*0.01)][(int)(prj_rXZ*0.01)];
+        rotY_rev = GgafDxUtil::PROJANG_XY_XZ_TO_ROTANG_y_REV[(int)(prj_rXY*0.01)][(int)(prj_rXZ*0.01)];
     } else if (D45ANG <= prj_rXZ && prj_rXZ <= D90ANG) {
-        rotZ = GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_X_REV[(int)(prj_rZY*0.01)][(int)(prj_rZX*0.01)];
-        rotY_rev = D90ANG - GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_Y[(int)(prj_rZY*0.01)][(int)(prj_rZX*0.01)];
+        rotZ = GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_x_REV[(int)(prj_rZY*0.01)][(int)(prj_rZX*0.01)];
+        rotY_rev = D90ANG - GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_y[(int)(prj_rZY*0.01)][(int)(prj_rZX*0.01)];
     } else {
         throwGgafCriticalException("GgafDxUtil::getRzRyAng 範囲が破綻してます。prj_rXZ="<<prj_rXZ<<" 引数:"<<vx<<","<<vy<<","<<vz);
     }
@@ -557,40 +557,40 @@ void GgafDxUtil::convVectorToRzRy(coord vx,
 #endif
     //象限によって回転角を補正
     if (vx >= 0 && vy >= 0 && vz >= 0) { //第一象限
-        out_angRZ = rotZ;
-        out_angRY = (D360ANG - rotY_rev);
+        out_angRz = rotZ;
+        out_angRy = (D360ANG - rotY_rev);
     } else if (vx <= 0 && vy >= 0 && vz >= 0) { //第二象限
-        out_angRZ = rotZ;
-        out_angRY = (D180ANG + rotY_rev);
+        out_angRz = rotZ;
+        out_angRy = (D180ANG + rotY_rev);
     } else if (vx <= 0 && vy <= 0 && vz >= 0) { //第三象限
-        out_angRZ = (D360ANG - rotZ);
-        out_angRY = (D180ANG + rotY_rev);
+        out_angRz = (D360ANG - rotZ);
+        out_angRy = (D180ANG + rotY_rev);
     } else if (vx >= 0 && vy <= 0 && vz >= 0) { //第四象限
-        out_angRZ = (D360ANG - rotZ);
-        out_angRY = (D360ANG - rotY_rev);
+        out_angRz = (D360ANG - rotZ);
+        out_angRy = (D360ANG - rotY_rev);
     } else if (vx >= 0 && vy >= 0 && vz <= 0) { //第五象限
-        out_angRZ = rotZ;
-        out_angRY = rotY_rev;
+        out_angRz = rotZ;
+        out_angRy = rotY_rev;
     } else if (vx <= 0 && vy >= 0 && vz <= 0) { //第六象限
-        out_angRZ = rotZ;
-        out_angRY = (D180ANG - rotY_rev);
+        out_angRz = rotZ;
+        out_angRy = (D180ANG - rotY_rev);
     } else if (vx <= 0 && vy <= 0 && vz <= 0) { //第七象限
-        out_angRZ = (D360ANG - rotZ);
-        out_angRY = (D180ANG - rotY_rev);
+        out_angRz = (D360ANG - rotZ);
+        out_angRy = (D180ANG - rotY_rev);
     } else if (vx >= 0 && vy <= 0 && vz <= 0) { //第八象限
-        out_angRZ = (D360ANG - rotZ);
-        out_angRY = rotY_rev;
+        out_angRz = (D360ANG - rotZ);
+        out_angRy = rotY_rev;
     } else {
         throwGgafCriticalException("GgafDxUtil::getRzRyAng ありえません。vx,vy,vz="<<vx<<","<<vy<<","<<vz);
     }
 
 #if MY_DEBUG
-    if (D360ANG < out_angRZ || 0 > out_angRZ || D360ANG < out_angRY || 0 > out_angRY) {
-        throwGgafCriticalException("GgafDxUtil::getRzRyAng 範囲外です要調査。\n out_angRZ,out_angRY="<<out_angRZ<<","<<out_angRY<<" vx,vy,vz="<<vx<<","<<vy<<","<<vz);
+    if (D360ANG < out_angRz || 0 > out_angRz || D360ANG < out_angRy || 0 > out_angRy) {
+        throwGgafCriticalException("GgafDxUtil::getRzRyAng 範囲外です要調査。\n out_angRz,out_angRy="<<out_angRz<<","<<out_angRy<<" vx,vy,vz="<<vx<<","<<vy<<","<<vz);
     }
 #endif
-//    out_angRZ = simplifyAng(out_angRZ);
-//    out_angRY = simplifyAng(out_angRY);
+//    out_angRz = simplifyAng(out_angRz);
+//    out_angRy = simplifyAng(out_angRy);
 }
 
 
@@ -600,13 +600,13 @@ void GgafDxUtil::convVectorToRzRy(coord vx,
                                   float& out_nvx,
                                   float& out_nvy,
                                   float& out_nvz,
-                                  angle& out_angRZ,
-                                  angle& out_angRY) {
+                                  angle& out_angRz,
+                                  angle& out_angRy) {
 
     GgafDxUtil::convVectorToRzRy(vx, vy, vz,
-                                 out_angRZ, out_angRY );
+                                 out_angRz, out_angRy );
 
-    GgafDxUtil::convRzRyToVector(out_angRZ, out_angRY,
+    GgafDxUtil::convRzRyToVector(out_angRz, out_angRy,
                                  out_nvx, out_nvy, out_nvz);
 
 }
@@ -641,126 +641,126 @@ void GgafDxUtil::getNormalizeVector(dxcoord x,
 }
 
 
-void GgafDxUtil::convRzRyToVector(angle prm_angRZ,
-                                  angle prm_angRY,
+void GgafDxUtil::convRzRyToVector(angle prm_angRz,
+                                  angle prm_angRy,
                                   float& out_nvx,
                                   float& out_nvy,
                                   float& out_nvz) {
     //void GgafDxSphereRadiusVectors::getVectorClosely(int out_angFaceY, int prm_angZ, uint16_t& out_x, uint16_t& out_y, uint16_t& out_z) {
     //回転角によって象限を考慮し、getVectorCloselyのパラメータ角(< 900)を出す
-    int Xsign, Ysign, Zsign;
-    s_ang rZ, rY_rev;
+    int xsign, ysign, zsign;
+    s_ang rz, ry_rev;
 
-    if (0 <= prm_angRZ && prm_angRZ < D90ANG) {
-        rZ = (prm_angRZ - D0ANG) * (1.0 / SANG_RATE);
-        if (0 <= prm_angRY && prm_angRY < D90ANG) { //第五象限
-            rY_rev = prm_angRY * (1.0 / SANG_RATE);
-            Xsign = 1;
-            Ysign = 1;
-            Zsign = -1;
-        } else if (D90ANG <= prm_angRY && prm_angRY < D180ANG) { //第六象限
-            rY_rev = (D180ANG - prm_angRY) * (1.0 / SANG_RATE);
-            Xsign = -1;
-            Ysign = 1;
-            Zsign = -1;
-        } else if (D180ANG <= prm_angRY && prm_angRY < D270ANG) { //第二象限
-            rY_rev = (prm_angRY - D180ANG) * (1.0 / SANG_RATE);
-            Xsign = -1;
-            Ysign = 1;
-            Zsign = 1;
-        } else if (D270ANG <= prm_angRY && prm_angRY <= D360ANG) { //第一象限
-            rY_rev = (D360ANG - prm_angRY) * (1.0 / SANG_RATE);
-            Xsign = 1;
-            Ysign = 1;
-            Zsign = 1;
+    if (0 <= prm_angRz && prm_angRz < D90ANG) {
+        rz = (prm_angRz - D0ANG) * (1.0 / SANG_RATE);
+        if (0 <= prm_angRy && prm_angRy < D90ANG) { //第五象限
+            ry_rev = prm_angRy * (1.0 / SANG_RATE);
+            xsign = 1;
+            ysign = 1;
+            zsign = -1;
+        } else if (D90ANG <= prm_angRy && prm_angRy < D180ANG) { //第六象限
+            ry_rev = (D180ANG - prm_angRy) * (1.0 / SANG_RATE);
+            xsign = -1;
+            ysign = 1;
+            zsign = -1;
+        } else if (D180ANG <= prm_angRy && prm_angRy < D270ANG) { //第二象限
+            ry_rev = (prm_angRy - D180ANG) * (1.0 / SANG_RATE);
+            xsign = -1;
+            ysign = 1;
+            zsign = 1;
+        } else if (D270ANG <= prm_angRy && prm_angRy <= D360ANG) { //第一象限
+            ry_rev = (D360ANG - prm_angRy) * (1.0 / SANG_RATE);
+            xsign = 1;
+            ysign = 1;
+            zsign = 1;
         } else {
-            throwGgafCriticalException("getNormalizeVectorZY: なんかおかしいですぜ(1) prm_angRZ="<<prm_angRZ<<" prm_angRY="<<prm_angRY);
+            throwGgafCriticalException("getNormalizeVectorZY: なんかおかしいですぜ(1) prm_angRz="<<prm_angRz<<" prm_angRy="<<prm_angRy);
         }
-    } else if (D90ANG <= prm_angRZ && prm_angRZ < D180ANG) {
-        rZ = (D180ANG - prm_angRZ) * (1.0 / SANG_RATE);
+    } else if (D90ANG <= prm_angRz && prm_angRz < D180ANG) {
+        rz = (D180ANG - prm_angRz) * (1.0 / SANG_RATE);
 
-        if (0 <= prm_angRY && prm_angRY < D90ANG) { //第二象限
-            rY_rev = prm_angRY * (1.0 / SANG_RATE);
-            Xsign = -1;
-            Ysign = 1;
-            Zsign = 1;
-        } else if (D90ANG <= prm_angRY && prm_angRY < D180ANG) { //第一象限
-            rY_rev = (D180ANG - prm_angRY) * (1.0 / SANG_RATE);
-            Xsign = 1;
-            Ysign = 1;
-            Zsign = 1;
-        } else if (D180ANG <= prm_angRY && prm_angRY < D270ANG) { //第五象限
-            rY_rev = (prm_angRY - D180ANG) * (1.0 / SANG_RATE);
-            Xsign = 1;
-            Ysign = 1;
-            Zsign = -1;
-        } else if (D270ANG <= prm_angRY && prm_angRY <= D360ANG) { //第六象限
-            rY_rev = (D360ANG - prm_angRY) * (1.0 / SANG_RATE);
-            Xsign = -1;
-            Ysign = 1;
-            Zsign = -1;
+        if (0 <= prm_angRy && prm_angRy < D90ANG) { //第二象限
+            ry_rev = prm_angRy * (1.0 / SANG_RATE);
+            xsign = -1;
+            ysign = 1;
+            zsign = 1;
+        } else if (D90ANG <= prm_angRy && prm_angRy < D180ANG) { //第一象限
+            ry_rev = (D180ANG - prm_angRy) * (1.0 / SANG_RATE);
+            xsign = 1;
+            ysign = 1;
+            zsign = 1;
+        } else if (D180ANG <= prm_angRy && prm_angRy < D270ANG) { //第五象限
+            ry_rev = (prm_angRy - D180ANG) * (1.0 / SANG_RATE);
+            xsign = 1;
+            ysign = 1;
+            zsign = -1;
+        } else if (D270ANG <= prm_angRy && prm_angRy <= D360ANG) { //第六象限
+            ry_rev = (D360ANG - prm_angRy) * (1.0 / SANG_RATE);
+            xsign = -1;
+            ysign = 1;
+            zsign = -1;
         } else {
-            throwGgafCriticalException("getNormalizeVectorZY: なんかおかしいですぜ(2) prm_angRZ="<<prm_angRZ<<" prm_angRY="<<prm_angRY);
+            throwGgafCriticalException("getNormalizeVectorZY: なんかおかしいですぜ(2) prm_angRz="<<prm_angRz<<" prm_angRy="<<prm_angRy);
         }
 
-    } else if (D180ANG <= prm_angRZ && prm_angRZ < D270ANG) {
-        rZ = (prm_angRZ - D180ANG) * (1.0 / SANG_RATE);
-        if (0 <= prm_angRY && prm_angRY < D90ANG) { //第三象限
-            rY_rev = prm_angRY * (1.0 / SANG_RATE);
-            Xsign = -1;
-            Ysign = -1;
-            Zsign = 1;
-        } else if (D90ANG <= prm_angRY && prm_angRY < D180ANG) { //第四象限
-            rY_rev = (D180ANG - prm_angRY) * (1.0 / SANG_RATE);
-            Xsign = 1;
-            Ysign = -1;
-            Zsign = 1;
-        } else if (D180ANG <= prm_angRY && prm_angRY < D270ANG) { //第八象限
-            rY_rev = (prm_angRY - D180ANG) * (1.0 / SANG_RATE);
-            Xsign = 1;
-            Ysign = -1;
-            Zsign = -1;
-        } else if (D270ANG <= prm_angRY && prm_angRY <= D360ANG) { //第七象限
-            rY_rev = (D360ANG - prm_angRY) * (1.0 / SANG_RATE);
-            Xsign = -1;
-            Ysign = -1;
-            Zsign = -1;
+    } else if (D180ANG <= prm_angRz && prm_angRz < D270ANG) {
+        rz = (prm_angRz - D180ANG) * (1.0 / SANG_RATE);
+        if (0 <= prm_angRy && prm_angRy < D90ANG) { //第三象限
+            ry_rev = prm_angRy * (1.0 / SANG_RATE);
+            xsign = -1;
+            ysign = -1;
+            zsign = 1;
+        } else if (D90ANG <= prm_angRy && prm_angRy < D180ANG) { //第四象限
+            ry_rev = (D180ANG - prm_angRy) * (1.0 / SANG_RATE);
+            xsign = 1;
+            ysign = -1;
+            zsign = 1;
+        } else if (D180ANG <= prm_angRy && prm_angRy < D270ANG) { //第八象限
+            ry_rev = (prm_angRy - D180ANG) * (1.0 / SANG_RATE);
+            xsign = 1;
+            ysign = -1;
+            zsign = -1;
+        } else if (D270ANG <= prm_angRy && prm_angRy <= D360ANG) { //第七象限
+            ry_rev = (D360ANG - prm_angRy) * (1.0 / SANG_RATE);
+            xsign = -1;
+            ysign = -1;
+            zsign = -1;
         } else {
-            throwGgafCriticalException("getNormalizeVectorZY: なんかおかしいですぜ(3) prm_angRZ="<<prm_angRZ<<" prm_angRY="<<prm_angRY);
+            throwGgafCriticalException("getNormalizeVectorZY: なんかおかしいですぜ(3) prm_angRz="<<prm_angRz<<" prm_angRy="<<prm_angRy);
         }
-    } else if (D270ANG <= prm_angRZ && prm_angRZ <= D360ANG) {
-        rZ = (D360ANG - prm_angRZ) * (1.0 / SANG_RATE);
-        if (0 <= prm_angRY && prm_angRY < D90ANG) { //第八象限
-            rY_rev = prm_angRY * (1.0 / SANG_RATE);
-            Xsign = 1;
-            Ysign = -1;
-            Zsign = -1;
-        } else if (D90ANG <= prm_angRY && prm_angRY < D180ANG) { //第七象限
-            rY_rev = (D180ANG - prm_angRY) * (1.0 / SANG_RATE);
-            Xsign = -1;
-            Ysign = -1;
-            Zsign = -1;
-        } else if (D180ANG <= prm_angRY && prm_angRY < D270ANG) { //第三象限
-            rY_rev = (prm_angRY - D180ANG) * (1.0 / SANG_RATE);
-            Xsign = -1;
-            Ysign = -1;
-            Zsign = 1;
-        } else if (D270ANG <= prm_angRY && prm_angRY <= D360ANG) { //第四象限
-            rY_rev = (D360ANG - prm_angRY) * (1.0 / SANG_RATE);
-            Xsign = 1;
-            Ysign = -1;
-            Zsign = 1;
+    } else if (D270ANG <= prm_angRz && prm_angRz <= D360ANG) {
+        rz = (D360ANG - prm_angRz) * (1.0 / SANG_RATE);
+        if (0 <= prm_angRy && prm_angRy < D90ANG) { //第八象限
+            ry_rev = prm_angRy * (1.0 / SANG_RATE);
+            xsign = 1;
+            ysign = -1;
+            zsign = -1;
+        } else if (D90ANG <= prm_angRy && prm_angRy < D180ANG) { //第七象限
+            ry_rev = (D180ANG - prm_angRy) * (1.0 / SANG_RATE);
+            xsign = -1;
+            ysign = -1;
+            zsign = -1;
+        } else if (D180ANG <= prm_angRy && prm_angRy < D270ANG) { //第三象限
+            ry_rev = (prm_angRy - D180ANG) * (1.0 / SANG_RATE);
+            xsign = -1;
+            ysign = -1;
+            zsign = 1;
+        } else if (D270ANG <= prm_angRy && prm_angRy <= D360ANG) { //第四象限
+            ry_rev = (D360ANG - prm_angRy) * (1.0 / SANG_RATE);
+            xsign = 1;
+            ysign = -1;
+            zsign = 1;
         } else {
-            throwGgafCriticalException("getNormalizeVectorZY: なんかおかしいですぜ(4) prm_angRZ="<<prm_angRZ<<" prm_angRY="<<prm_angRY);
+            throwGgafCriticalException("getNormalizeVectorZY: なんかおかしいですぜ(4) prm_angRz="<<prm_angRz<<" prm_angRy="<<prm_angRy);
         }
     } else {
-        throwGgafCriticalException("getNormalizeVectorZY: なんかおかしいですぜ(5) prm_angRZ="<<prm_angRZ<<" prm_angRY="<<prm_angRY);
+        throwGgafCriticalException("getNormalizeVectorZY: なんかおかしいですぜ(5) prm_angRz="<<prm_angRz<<" prm_angRy="<<prm_angRy);
     }
     uint32_t vx, vy, vz;
-    GgafDxUtil::_srv.getVectorClosely(rY_rev, rZ, vx, vy, vz);
-    out_nvx = Xsign * (int)vx * (1.0 / 1000000.0);
-    out_nvy = Ysign * (int)vy * (1.0 / 1000000.0);
-    out_nvz = Zsign * (int)vz * (1.0 / 1000000.0);
+    GgafDxUtil::_srv.getVectorClosely(ry_rev, rz, vx, vy, vz);
+    out_nvx = xsign * (int)vx * (1.0 / 1000000.0);
+    out_nvy = ysign * (int)vy * (1.0 / 1000000.0);
+    out_nvz = zsign * (int)vz * (1.0 / 1000000.0);
 }
 
 
@@ -770,33 +770,33 @@ void GgafDxUtil::setWorldMatrix_ScRxRzRyMv(GgafDxGeometricActor* prm_pActor, D3D
     //World変換
     //拡大縮小 × X軸回転 × Z軸回転 × Y軸回転 × 平行移動 の変換行列を設定<BR>
     //※XYZの順でないことに注意
-    // | Sx*cosRz*cosRy                           , Sx*sinRz       , Sx*cosRz*-sinRy                           , 0|
-    // | (Sy* cosRx*-sinRz*cosRy + Sy*sinRx*sinRy), Sy*cosRx*cosRz , (Sy* cosRx*-sinRz*-sinRy + Sy*sinRx*cosRy), 0|
-    // | (Sz*-sinRx*-sinRz*cosRy + Sz*cosRx*sinRy), Sz*-sinRx*cosRz, (Sz*-sinRx*-sinRz*-sinRy + Sz*cosRx*cosRy), 0|
+    // | sx*cosRz*cosRy                           , sx*sinRz       , sx*cosRz*-sinRy                           , 0|
+    // | (sy* cosRx*-sinRz*cosRy + sy*sinRx*sinRy), sy*cosRx*cosRz , (sy* cosRx*-sinRz*-sinRy + sy*sinRx*cosRy), 0|
+    // | (sz*-sinRx*-sinRz*cosRy + sz*cosRx*sinRy), sz*-sinRx*cosRz, (sz*-sinRx*-sinRz*-sinRy + sz*cosRx*cosRy), 0|
     // | dx                                       , dy             , dz                                        , 1|
-    float sinRx = ANG_SIN(prm_pActor->_RX);
-    float cosRx = ANG_COS(prm_pActor->_RX);
-    float sinRy = ANG_SIN(prm_pActor->_RY);
-    float cosRy = ANG_COS(prm_pActor->_RY);
-    float sinRz = ANG_SIN(prm_pActor->_RZ);
-    float cosRz = ANG_COS(prm_pActor->_RZ);
-    float Sx = SC_R(prm_pActor->_SX);
-    float Sy = SC_R(prm_pActor->_SY);
-    float Sz = SC_R(prm_pActor->_SZ);
+    float sinRx = ANG_SIN(prm_pActor->_rx);
+    float cosRx = ANG_COS(prm_pActor->_rx);
+    float sinRy = ANG_SIN(prm_pActor->_ry);
+    float cosRy = ANG_COS(prm_pActor->_ry);
+    float sinRz = ANG_SIN(prm_pActor->_rz);
+    float cosRz = ANG_COS(prm_pActor->_rz);
+    float sx = SC_R(prm_pActor->_sx);
+    float sy = SC_R(prm_pActor->_sy);
+    float sz = SC_R(prm_pActor->_sz);
 
-    out_matWorld._11 = Sx * cosRz *cosRy;
-    out_matWorld._12 = Sx * sinRz;
-    out_matWorld._13 = Sx * cosRz * -sinRy;
+    out_matWorld._11 = sx * cosRz *cosRy;
+    out_matWorld._12 = sx * sinRz;
+    out_matWorld._13 = sx * cosRz * -sinRy;
     out_matWorld._14 = 0.0f;
 
-    out_matWorld._21 = (Sy * cosRx * -sinRz *  cosRy) + (Sy * sinRx * sinRy);
-    out_matWorld._22 =  Sy * cosRx *  cosRz;
-    out_matWorld._23 = (Sy * cosRx * -sinRz * -sinRy) + (Sy * sinRx * cosRy);
+    out_matWorld._21 = (sy * cosRx * -sinRz *  cosRy) + (sy * sinRx * sinRy);
+    out_matWorld._22 =  sy * cosRx *  cosRz;
+    out_matWorld._23 = (sy * cosRx * -sinRz * -sinRy) + (sy * sinRx * cosRy);
     out_matWorld._24 = 0.0f;
 
-    out_matWorld._31 = (Sz * -sinRx * -sinRz *  cosRy) + (Sz * cosRx * sinRy);
-    out_matWorld._32 =  Sz * -sinRx *  cosRz;
-    out_matWorld._33 = (Sz * -sinRx * -sinRz * -sinRy) + (Sz * cosRx * cosRy);
+    out_matWorld._31 = (sz * -sinRx * -sinRz *  cosRy) + (sz * cosRx * sinRy);
+    out_matWorld._32 =  sz * -sinRx *  cosRz;
+    out_matWorld._33 = (sz * -sinRx * -sinRz * -sinRy) + (sz * cosRx * cosRy);
     out_matWorld._34 = 0.0f;
 
     out_matWorld._41 = prm_pActor->_fX;
@@ -806,10 +806,10 @@ void GgafDxUtil::setWorldMatrix_ScRxRzRyMv(GgafDxGeometricActor* prm_pActor, D3D
     /*
      //前のやり方
      D3DXMATRIX matrixRotX, matrixRotY, matrixRotZ, matrixTrans;
-     D3DXMatrixRotationY(&matrixRotX, GgafDxUtil::RAD_UNITLEN[s_RX]/LEN_UNIT);
-     D3DXMatrixRotationX(&matrixRotY, GgafDxUtil::RAD_UNITLEN[s_RY]/LEN_UNIT);
-     D3DXMatrixRotationZ(&matrixRotZ, GgafDxUtil::RAD_UNITLEN[s_RZ]/LEN_UNIT);
-     D3DXMatrixTranslation(&matrixTrans, _X/LEN_UNIT, _Y/LEN_UNIT, _Z/LEN_UNIT);
+     D3DXMatrixRotationY(&matrixRotX, GgafDxUtil::RAD_UNITLEN[s_rx]/LEN_UNIT);
+     D3DXMatrixRotationX(&matrixRotY, GgafDxUtil::RAD_UNITLEN[s_ry]/LEN_UNIT);
+     D3DXMatrixRotationZ(&matrixRotZ, GgafDxUtil::RAD_UNITLEN[s_rz]/LEN_UNIT);
+     D3DXMatrixTranslation(&matrixTrans, _x/LEN_UNIT, _y/LEN_UNIT, _z/LEN_UNIT);
      D3DXMATRIX matrixWorld = matrixRotX * matrixRotY * matrixRotZ * matrixTrans;
      */
 }
@@ -822,10 +822,10 @@ void GgafDxUtil::setWorldMatrix_RzRy(GgafDxGeometricActor* prm_pActor, D3DXMATRI
     // | -sinRz*cosRy, cosRz, -sinRz*-sinRy,   0  |
     // |        sinRy,     0,         cosRy,   0  |
     // |            0,     0,             0,   1  |
-    float sinRy = ANG_SIN(prm_pActor->_RY);
-    float cosRy = ANG_COS(prm_pActor->_RY);
-    float sinRz = ANG_SIN(prm_pActor->_RZ);
-    float cosRz = ANG_COS(prm_pActor->_RZ);
+    float sinRy = ANG_SIN(prm_pActor->_ry);
+    float cosRy = ANG_COS(prm_pActor->_ry);
+    float sinRz = ANG_SIN(prm_pActor->_rz);
+    float cosRz = ANG_COS(prm_pActor->_rz);
 
     out_matWorld._11 = cosRz*cosRy;
     out_matWorld._12 = sinRz;
@@ -891,12 +891,12 @@ void GgafDxUtil::setWorldMatrix_RxRzRy(GgafDxGeometricActor* prm_pActor, D3DXMAT
     // | ( cosRx*-sinRz*cosRy + sinRx*sinRy),    cosRx*cosRz, ( cosRx*-sinRz*-sinRy + sinRx*cosRy),   0  |
     // | (-sinRx*-sinRz*cosRy + cosRx*sinRy),   -sinRx*cosRz, (-sinRx*-sinRz*-sinRy + cosRx*cosRy),   0  |
     // |                                   0,              0,                                    0,   1  |
-    float sinRx = ANG_SIN(prm_pActor->_RX);
-    float cosRx = ANG_COS(prm_pActor->_RX);
-    float sinRy = ANG_SIN(prm_pActor->_RY);
-    float cosRy = ANG_COS(prm_pActor->_RY);
-    float sinRz = ANG_SIN(prm_pActor->_RZ);
-    float cosRz = ANG_COS(prm_pActor->_RZ);
+    float sinRx = ANG_SIN(prm_pActor->_rx);
+    float cosRx = ANG_COS(prm_pActor->_rx);
+    float sinRy = ANG_SIN(prm_pActor->_ry);
+    float cosRy = ANG_COS(prm_pActor->_ry);
+    float sinRz = ANG_SIN(prm_pActor->_rz);
+    float cosRz = ANG_COS(prm_pActor->_rz);
 
     out_matWorld._11 = cosRz * cosRy;
     out_matWorld._12 = sinRz;
@@ -919,7 +919,7 @@ void GgafDxUtil::setWorldMatrix_RxRzRy(GgafDxGeometricActor* prm_pActor, D3DXMAT
     out_matWorld._44 = 1.0f;
 }
 
-void GgafDxUtil::setWorldMatrix_RxRzRy(angle prm_RX, angle prm_RZ, angle prm_RY, D3DXMATRIX& out_matWorld) {
+void GgafDxUtil::setWorldMatrix_RxRzRy(angle prm_rx, angle prm_rz, angle prm_ry, D3DXMATRIX& out_matWorld) {
     //World変換
     //単位行列 × X軸回転 × Z軸回転 × Y軸回転 の変換行列を作成
     //※XYZの順でないことに注意
@@ -927,12 +927,12 @@ void GgafDxUtil::setWorldMatrix_RxRzRy(angle prm_RX, angle prm_RZ, angle prm_RY,
     // | ( cosRx*-sinRz*cosRy + sinRx*sinRy),    cosRx*cosRz, ( cosRx*-sinRz*-sinRy + sinRx*cosRy),   0  |
     // | (-sinRx*-sinRz*cosRy + cosRx*sinRy),   -sinRx*cosRz, (-sinRx*-sinRz*-sinRy + cosRx*cosRy),   0  |
     // |                                   0,              0,                                    0,   1  |
-    float sinRx = ANG_SIN(prm_RX);
-    float cosRx = ANG_COS(prm_RX);
-    float sinRy = ANG_SIN(prm_RY);
-    float cosRy = ANG_COS(prm_RY);
-    float sinRz = ANG_SIN(prm_RZ);
-    float cosRz = ANG_COS(prm_RZ);
+    float sinRx = ANG_SIN(prm_rx);
+    float cosRx = ANG_COS(prm_rx);
+    float sinRy = ANG_SIN(prm_ry);
+    float cosRy = ANG_COS(prm_ry);
+    float sinRz = ANG_SIN(prm_rz);
+    float cosRz = ANG_COS(prm_rz);
 
     out_matWorld._11 = cosRz * cosRy;
     out_matWorld._12 = sinRz;
@@ -957,27 +957,27 @@ void GgafDxUtil::setWorldMatrix_RxRzRy(angle prm_RX, angle prm_RZ, angle prm_RY,
 
 
 void GgafDxUtil::setWorldMatrix_ScRzRyMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
-    float sinRz = ANG_SIN(prm_pActor->_RZ);
-    float cosRz = ANG_COS(prm_pActor->_RZ);
-    float sinRy = ANG_SIN(prm_pActor->_RY);
-    float cosRy = ANG_COS(prm_pActor->_RY);
-    float Sx = SC_R(prm_pActor->_SX);
-    float Sy = SC_R(prm_pActor->_SY);
-    float Sz = SC_R(prm_pActor->_SZ);
+    float sinRz = ANG_SIN(prm_pActor->_rz);
+    float cosRz = ANG_COS(prm_pActor->_rz);
+    float sinRy = ANG_SIN(prm_pActor->_ry);
+    float cosRy = ANG_COS(prm_pActor->_ry);
+    float sx = SC_R(prm_pActor->_sx);
+    float sy = SC_R(prm_pActor->_sy);
+    float sz = SC_R(prm_pActor->_sz);
 
-    out_matWorld._11 = Sx*cosRz*cosRy;
-    out_matWorld._12 = Sx*sinRz;
-    out_matWorld._13 = Sx*cosRz*-sinRy;
+    out_matWorld._11 = sx*cosRz*cosRy;
+    out_matWorld._12 = sx*sinRz;
+    out_matWorld._13 = sx*cosRz*-sinRy;
     out_matWorld._14 = 0.0f;
 
-    out_matWorld._21 = Sy*-sinRz*cosRy;
-    out_matWorld._22 = Sy*cosRz;
-    out_matWorld._23 = Sy*-sinRz*-sinRy;
+    out_matWorld._21 = sy*-sinRz*cosRy;
+    out_matWorld._22 = sy*cosRz;
+    out_matWorld._23 = sy*-sinRz*-sinRy;
     out_matWorld._24 = 0.0f;
 
-    out_matWorld._31 = Sz*sinRy;
+    out_matWorld._31 = sz*sinRy;
     out_matWorld._32 = 0.0f;
-    out_matWorld._33 = Sz*cosRy;
+    out_matWorld._33 = sz*cosRy;
     out_matWorld._34 = 0.0f;
 
     out_matWorld._41 = prm_pActor->_fX;
@@ -989,31 +989,31 @@ void GgafDxUtil::setWorldMatrix_ScRzRyMv(GgafDxGeometricActor* prm_pActor, D3DXM
 
 
 void GgafDxUtil::mulWorldMatrix_RzRyScMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
-    //    |  cosRz*cosRy*Sx  sinRz*Sy   cosRz*-sinRy*Sz   0 |
-    //    | -sinRz*cosRy*Sx  cosRz*Sy  -sinRz*-sinRy*Sz   0 |
-    //    |  sinRy*Sx        0          cosRy*Sz          0 |
+    //    |  cosRz*cosRy*sx  sinRz*sy   cosRz*-sinRy*sz   0 |
+    //    | -sinRz*cosRy*sx  cosRz*sy  -sinRz*-sinRy*sz   0 |
+    //    |  sinRy*sx        0          cosRy*sz          0 |
     //    |  dx              dy         dz                1 |
-    float sinRy = ANG_SIN(prm_pActor->_RY);
-    float cosRy = ANG_COS(prm_pActor->_RY);
-    float sinRz = ANG_SIN(prm_pActor->_RZ);
-    float cosRz = ANG_COS(prm_pActor->_RZ);
-    float Sx = SC_R(prm_pActor->_SX);
-    float Sy = SC_R(prm_pActor->_SY);
-    float Sz = SC_R(prm_pActor->_SZ);
+    float sinRy = ANG_SIN(prm_pActor->_ry);
+    float cosRy = ANG_COS(prm_pActor->_ry);
+    float sinRz = ANG_SIN(prm_pActor->_rz);
+    float cosRz = ANG_COS(prm_pActor->_rz);
+    float sx = SC_R(prm_pActor->_sx);
+    float sy = SC_R(prm_pActor->_sy);
+    float sz = SC_R(prm_pActor->_sz);
 
-    out_matWorld._11 = cosRz*cosRy*Sx;
-    out_matWorld._12 = sinRz*Sy;
-    out_matWorld._13 = cosRz*-sinRy*Sz;
+    out_matWorld._11 = cosRz*cosRy*sx;
+    out_matWorld._12 = sinRz*sy;
+    out_matWorld._13 = cosRz*-sinRy*sz;
     out_matWorld._14 = 0.0f;
 
-    out_matWorld._21 = -sinRz*cosRy*Sx;
-    out_matWorld._22 = cosRz*Sy;
-    out_matWorld._23 = -sinRz*-sinRy*Sz;
+    out_matWorld._21 = -sinRz*cosRy*sx;
+    out_matWorld._22 = cosRz*sy;
+    out_matWorld._23 = -sinRz*-sinRy*sz;
     out_matWorld._24 = 0.0f;
 
-    out_matWorld._31 = sinRy*Sx;
+    out_matWorld._31 = sinRy*sx;
     out_matWorld._32 = 0.0f;
-    out_matWorld._33 = cosRy*Sz;
+    out_matWorld._33 = cosRy*sz;
     out_matWorld._34 = 0.0f;
 
     out_matWorld._41 = prm_pActor->_fX;
@@ -1026,33 +1026,33 @@ void GgafDxUtil::setWorldMatrix_RxRzRyScMv(GgafDxGeometricActor* prm_pActor, D3D
     //World変換
     //単位行列 × X軸回転 × Z軸回転 × Y軸回転 × 拡大縮小 × 平行移動　の変換行列を作成
     //※XYZの順でないことに注意
-    // |                         cosRz*cosRy*Sx,          sinRz*Sy,                         cosRz*-sinRy*Sz,   0  |
-    // | ( cosRx*-sinRz*cosRy + sinRx*sinRy)*Sx,    cosRx*cosRz*Sy, ( cosRx*-sinRz*-sinRy + sinRx*cosRy)*Sz,   0  |
-    // | (-sinRx*-sinRz*cosRy + cosRx*sinRy)*Sx,   -sinRx*cosRz*Sy, (-sinRx*-sinRz*-sinRy + cosRx*cosRy)*Sz,   0  |
+    // |                         cosRz*cosRy*sx,          sinRz*sy,                         cosRz*-sinRy*sz,   0  |
+    // | ( cosRx*-sinRz*cosRy + sinRx*sinRy)*sx,    cosRx*cosRz*sy, ( cosRx*-sinRz*-sinRy + sinRx*cosRy)*sz,   0  |
+    // | (-sinRx*-sinRz*cosRy + cosRx*sinRy)*sx,   -sinRx*cosRz*sy, (-sinRx*-sinRz*-sinRy + cosRx*cosRy)*sz,   0  |
     // |                                     dx,                dy,                                      dz,   1  |
-    float sinRx = ANG_SIN(prm_pActor->_RX);
-    float cosRx = ANG_COS(prm_pActor->_RX);
-    float sinRy = ANG_SIN(prm_pActor->_RY);
-    float cosRy = ANG_COS(prm_pActor->_RY);
-    float sinRz = ANG_SIN(prm_pActor->_RZ);
-    float cosRz = ANG_COS(prm_pActor->_RZ);
-    float Sx = SC_R(prm_pActor->_SX);
-    float Sy = SC_R(prm_pActor->_SY);
-    float Sz = SC_R(prm_pActor->_SZ);
+    float sinRx = ANG_SIN(prm_pActor->_rx);
+    float cosRx = ANG_COS(prm_pActor->_rx);
+    float sinRy = ANG_SIN(prm_pActor->_ry);
+    float cosRy = ANG_COS(prm_pActor->_ry);
+    float sinRz = ANG_SIN(prm_pActor->_rz);
+    float cosRz = ANG_COS(prm_pActor->_rz);
+    float sx = SC_R(prm_pActor->_sx);
+    float sy = SC_R(prm_pActor->_sy);
+    float sz = SC_R(prm_pActor->_sz);
 
-    out_matWorld._11 = cosRz * cosRy * Sx;
-    out_matWorld._12 = sinRz * Sy;
-    out_matWorld._13 = cosRz * -sinRy * Sz;
+    out_matWorld._11 = cosRz * cosRy * sx;
+    out_matWorld._12 = sinRz * sy;
+    out_matWorld._13 = cosRz * -sinRy * sz;
     out_matWorld._14 = 0.0f;
 
-    out_matWorld._21 = ((cosRx * -sinRz * cosRy) + (sinRx * sinRy)) * Sx;
-    out_matWorld._22 = cosRx * cosRz * Sy;
-    out_matWorld._23 = ((cosRx * -sinRz * -sinRy) + (sinRx * cosRy)) * Sz;
+    out_matWorld._21 = ((cosRx * -sinRz * cosRy) + (sinRx * sinRy)) * sx;
+    out_matWorld._22 = cosRx * cosRz * sy;
+    out_matWorld._23 = ((cosRx * -sinRz * -sinRy) + (sinRx * cosRy)) * sz;
     out_matWorld._24 = 0.0f;
 
-    out_matWorld._31 = ((-sinRx * -sinRz * cosRy) + (cosRx * sinRy)) * Sx;
-    out_matWorld._32 = -sinRx * cosRz * Sy;
-    out_matWorld._33 = ((-sinRx * -sinRz * -sinRy) + (cosRx * cosRy)) * Sz;
+    out_matWorld._31 = ((-sinRx * -sinRz * cosRy) + (cosRx * sinRy)) * sx;
+    out_matWorld._32 = -sinRx * cosRz * sy;
+    out_matWorld._33 = ((-sinRx * -sinRz * -sinRy) + (cosRx * cosRy)) * sz;
     out_matWorld._34 = 0.0f;
 
     out_matWorld._41 = prm_pActor->_fX;
@@ -1065,34 +1065,34 @@ void GgafDxUtil::setWorldMatrix_RxRzRyScMv(GgafDxGeometricActor* prm_pActor, D3D
 void GgafDxUtil::setWorldMatrix_RxRyRzScMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //World変換
     //単位行列 × X軸回転 × Y軸回転 × Z軸回転 × 拡大縮小 × 平行移動　の変換行列を作成
-    //    |                           cosRy*cosRz*Sx,                        cosRy*sinRz*Sy  ,      -sinRy*Sz,  0 |
-    //    | ((sinRx*sinRy*cosRz +  cosRx*-sinRz)*Sx), ((sinRx*sinRy*sinRz +  cosRx*cosRz)*Sy), sinRx*cosRy*Sz,  0 |
-    //    | ((cosRx*sinRy*cosRz + -sinRx*-sinRz)*Sx), ((cosRx*sinRy*sinRz + -sinRx*cosRz)*Sy), cosRx*cosRy*Sz,  0 |
+    //    |                           cosRy*cosRz*sx,                        cosRy*sinRz*sy  ,      -sinRy*sz,  0 |
+    //    | ((sinRx*sinRy*cosRz +  cosRx*-sinRz)*sx), ((sinRx*sinRy*sinRz +  cosRx*cosRz)*sy), sinRx*cosRy*sz,  0 |
+    //    | ((cosRx*sinRy*cosRz + -sinRx*-sinRz)*sx), ((cosRx*sinRy*sinRz + -sinRx*cosRz)*sy), cosRx*cosRy*sz,  0 |
     //    |                                       dx,                                      dy,             dz,  1 |
 
-    float sinRx = ANG_SIN(prm_pActor->_RX);
-    float cosRx = ANG_COS(prm_pActor->_RX);
-    float sinRy = ANG_SIN(prm_pActor->_RY);
-    float cosRy = ANG_COS(prm_pActor->_RY);
-    float sinRz = ANG_SIN(prm_pActor->_RZ);
-    float cosRz = ANG_COS(prm_pActor->_RZ);
-    float Sx = SC_R(prm_pActor->_SX);
-    float Sy = SC_R(prm_pActor->_SY);
-    float Sz = SC_R(prm_pActor->_SZ);
+    float sinRx = ANG_SIN(prm_pActor->_rx);
+    float cosRx = ANG_COS(prm_pActor->_rx);
+    float sinRy = ANG_SIN(prm_pActor->_ry);
+    float cosRy = ANG_COS(prm_pActor->_ry);
+    float sinRz = ANG_SIN(prm_pActor->_rz);
+    float cosRz = ANG_COS(prm_pActor->_rz);
+    float sx = SC_R(prm_pActor->_sx);
+    float sy = SC_R(prm_pActor->_sy);
+    float sz = SC_R(prm_pActor->_sz);
 
-    out_matWorld._11 = cosRy*cosRz*Sx;
-    out_matWorld._12 = cosRy*sinRz*Sy;
-    out_matWorld._13 = -sinRy*Sz;
+    out_matWorld._11 = cosRy*cosRz*sx;
+    out_matWorld._12 = cosRy*sinRz*sy;
+    out_matWorld._13 = -sinRy*sz;
     out_matWorld._14 = 0.0f;
 
-    out_matWorld._21 = ((sinRx*sinRy*cosRz) + (cosRx*-sinRz))*Sx;
-    out_matWorld._22 = ((sinRx*sinRy*sinRz) + (cosRx*cosRz))*Sy;
-    out_matWorld._23 = sinRx*cosRy*Sz;
+    out_matWorld._21 = ((sinRx*sinRy*cosRz) + (cosRx*-sinRz))*sx;
+    out_matWorld._22 = ((sinRx*sinRy*sinRz) + (cosRx*cosRz))*sy;
+    out_matWorld._23 = sinRx*cosRy*sz;
     out_matWorld._24 = 0.0f;
 
-    out_matWorld._31 = ((cosRx*sinRy*cosRz) + (-sinRx*-sinRz))*Sx;
-    out_matWorld._32 = ((cosRx*sinRy*sinRz) + (-sinRx* cosRz))*Sy;
-    out_matWorld._33 = cosRx*cosRy*Sz;
+    out_matWorld._31 = ((cosRx*sinRy*cosRz) + (-sinRx*-sinRz))*sx;
+    out_matWorld._32 = ((cosRx*sinRy*sinRz) + (-sinRx* cosRz))*sy;
+    out_matWorld._33 = cosRx*cosRy*sz;
     out_matWorld._34 = 0.0f;
 
     out_matWorld._41 = prm_pActor->_fX;
@@ -1107,33 +1107,33 @@ void GgafDxUtil::setWorldMatrix_RxRzRxScMv(GgafDxGeometricActor* prm_pActor, D3D
     //World変換
     //単位行列 × X軸回転 × Z軸回転 × X軸回転 × 拡大縮小 × 平行移動　の変換行列を作成.
     //※Y軸回転がありません。RYは２回目のX軸回転となる
-    //|         cosRz*Sx,                          sinRz*cosRy*Sy ,                          sinRz*sinRy*Sz, 0 |
-    //|  cosRx*-sinRz*Sx, (( cosRx*cosRz*cosRy + sinRx*-sinRy)*Sy), (( cosRx*cosRz*sinRy + sinRx*cosRy)*Sz), 0 |
-    //| -sinRx*-sinRz*Sx, ((-sinRx*cosRz*cosRy + cosRx*-sinRy)*Sy), ((-sinRx*cosRz*sinRy + cosRx*cosRy)*Sz), 0 |
+    //|         cosRz*sx,                          sinRz*cosRy*sy ,                          sinRz*sinRy*sz, 0 |
+    //|  cosRx*-sinRz*sx, (( cosRx*cosRz*cosRy + sinRx*-sinRy)*sy), (( cosRx*cosRz*sinRy + sinRx*cosRy)*sz), 0 |
+    //| -sinRx*-sinRz*sx, ((-sinRx*cosRz*cosRy + cosRx*-sinRy)*sy), ((-sinRx*cosRz*sinRy + cosRx*cosRy)*sz), 0 |
     //|               dx,                                       dy,                                      dz, 1 |
-    float sinRx = ANG_SIN(prm_pActor->_RX);
-    float cosRx = ANG_COS(prm_pActor->_RX);
-    float sinRy = ANG_SIN(prm_pActor->_RY);
-    float cosRy = ANG_COS(prm_pActor->_RY);
-    float sinRz = ANG_SIN(prm_pActor->_RZ);
-    float cosRz = ANG_COS(prm_pActor->_RZ);
-    float Sx = SC_R(prm_pActor->_SX);
-    float Sy = SC_R(prm_pActor->_SY);
-    float Sz = SC_R(prm_pActor->_SZ);
+    float sinRx = ANG_SIN(prm_pActor->_rx);
+    float cosRx = ANG_COS(prm_pActor->_rx);
+    float sinRy = ANG_SIN(prm_pActor->_ry);
+    float cosRy = ANG_COS(prm_pActor->_ry);
+    float sinRz = ANG_SIN(prm_pActor->_rz);
+    float cosRz = ANG_COS(prm_pActor->_rz);
+    float sx = SC_R(prm_pActor->_sx);
+    float sy = SC_R(prm_pActor->_sy);
+    float sz = SC_R(prm_pActor->_sz);
 
-    out_matWorld._11 = cosRz * Sx;
-    out_matWorld._12 = sinRz * cosRy * Sy;
-    out_matWorld._13 = sinRz * sinRy * Sz;
+    out_matWorld._11 = cosRz * sx;
+    out_matWorld._12 = sinRz * cosRy * sy;
+    out_matWorld._13 = sinRz * sinRy * sz;
     out_matWorld._14 = 0.0f;
 
-    out_matWorld._21 = cosRx * -sinRz * Sx;
-    out_matWorld._22 = (( cosRx * cosRz * cosRy) + (sinRx * -sinRy)) * Sy;
-    out_matWorld._23 = (( cosRx * cosRz * sinRy) + (sinRx *  cosRy)) * Sz;
+    out_matWorld._21 = cosRx * -sinRz * sx;
+    out_matWorld._22 = (( cosRx * cosRz * cosRy) + (sinRx * -sinRy)) * sy;
+    out_matWorld._23 = (( cosRx * cosRz * sinRy) + (sinRx *  cosRy)) * sz;
     out_matWorld._24 = 0.0f;
 
-    out_matWorld._31 = -sinRx * -sinRz * Sx;
-    out_matWorld._32 = ((-sinRx * cosRz * cosRy) + (cosRx * -sinRy)) * Sy;
-    out_matWorld._33 = ((-sinRx * cosRz * sinRy) + (cosRx *  cosRy)) * Sz;
+    out_matWorld._31 = -sinRx * -sinRz * sx;
+    out_matWorld._32 = ((-sinRx * cosRz * cosRy) + (cosRx * -sinRy)) * sy;
+    out_matWorld._33 = ((-sinRx * cosRz * sinRy) + (cosRx *  cosRy)) * sz;
     out_matWorld._34 = 0.0f;
 
     out_matWorld._41 = prm_pActor->_fX;
@@ -1150,8 +1150,8 @@ void GgafDxUtil::setWorldMatrix_RzMv(GgafDxGeometricActor* prm_pActor, D3DXMATRI
     // |-sinZ , cosZ , 0  , 0  |
     // |0     , 0    , 1  , 0  |
     // |dx    , dy   , dz , 1  |
-    float sinRz = ANG_SIN(prm_pActor->_RZ);
-    float cosRz = ANG_COS(prm_pActor->_RZ);
+    float sinRz = ANG_SIN(prm_pActor->_rz);
+    float cosRz = ANG_COS(prm_pActor->_rz);
     out_matWorld._11 = cosRz;
     out_matWorld._12 = sinRz;
     out_matWorld._13 = 0.0f;
@@ -1178,29 +1178,29 @@ void GgafDxUtil::setWorldMatrix_RzMv(GgafDxGeometricActor* prm_pActor, D3DXMATRI
 void GgafDxUtil::setWorldMatrix_ScRzMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //World変換
     //単位行列 × 拡大縮小 × Z軸回転 × 平行移動　の変換行列を作成
-    // |Sx*cosZ , Sx*sinZ , 0    , 0  |
-    // |Sy*-sinZ, Sy*cosZ , 0    , 0  |
-    // |0       , 0       , Sz   , 0  |
+    // |sx*cosZ , sx*sinZ , 0    , 0  |
+    // |sy*-sinZ, sy*cosZ , 0    , 0  |
+    // |0       , 0       , sz   , 0  |
     // |dx      , dy      , dz   , 1  |
-    float sinRz = ANG_SIN(prm_pActor->_RZ);
-    float cosRz = ANG_COS(prm_pActor->_RZ);
-    float Sx = SC_R(prm_pActor->_SX);
-    float Sy = SC_R(prm_pActor->_SY);
-    float Sz = SC_R(prm_pActor->_SZ);
+    float sinRz = ANG_SIN(prm_pActor->_rz);
+    float cosRz = ANG_COS(prm_pActor->_rz);
+    float sx = SC_R(prm_pActor->_sx);
+    float sy = SC_R(prm_pActor->_sy);
+    float sz = SC_R(prm_pActor->_sz);
 
-    out_matWorld._11 = Sx * cosRz;
-    out_matWorld._12 = Sx * sinRz;
+    out_matWorld._11 = sx * cosRz;
+    out_matWorld._12 = sx * sinRz;
     out_matWorld._13 = 0.0f;
     out_matWorld._14 = 0.0f;
 
-    out_matWorld._21 = Sy * -sinRz;
-    out_matWorld._22 = Sy * cosRz;
+    out_matWorld._21 = sy * -sinRz;
+    out_matWorld._22 = sy * cosRz;
     out_matWorld._23 = 0.0f;
     out_matWorld._24 = 0.0f;
 
     out_matWorld._31 = 0.0f;
     out_matWorld._32 = 0.0f;
-    out_matWorld._33 = Sz;
+    out_matWorld._33 = sz;
     out_matWorld._34 = 0.0f;
 
     out_matWorld._41 = prm_pActor->_fX;
@@ -1211,32 +1211,32 @@ void GgafDxUtil::setWorldMatrix_ScRzMv(GgafDxGeometricActor* prm_pActor, D3DXMAT
 
 
 void GgafDxUtil::setWorldMatrix_ScMvRxRzRy(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
-    float sinRx = ANG_SIN(prm_pActor->_RX);
-    float cosRx = ANG_COS(prm_pActor->_RX);
-    float sinRy = ANG_SIN(prm_pActor->_RY);
-    float cosRy = ANG_COS(prm_pActor->_RY);
-    float sinRz = ANG_SIN(prm_pActor->_RZ);
-    float cosRz = ANG_COS(prm_pActor->_RZ);
-    float Sx = SC_R(prm_pActor->_SX);
-    float Sy = SC_R(prm_pActor->_SY);
-    float Sz = SC_R(prm_pActor->_SZ);
+    float sinRx = ANG_SIN(prm_pActor->_rx);
+    float cosRx = ANG_COS(prm_pActor->_rx);
+    float sinRy = ANG_SIN(prm_pActor->_ry);
+    float cosRy = ANG_COS(prm_pActor->_ry);
+    float sinRz = ANG_SIN(prm_pActor->_rz);
+    float cosRz = ANG_COS(prm_pActor->_rz);
+    float sx = SC_R(prm_pActor->_sx);
+    float sy = SC_R(prm_pActor->_sy);
+    float sz = SC_R(prm_pActor->_sz);
     dxcoord dx = prm_pActor->_fX;
     dxcoord dy = prm_pActor->_fY;
     dxcoord dz = prm_pActor->_fZ;
 
-    out_matWorld._11 = Sx*cosRz*cosRy;
-    out_matWorld._12 = Sx*sinRz;
-    out_matWorld._13 = Sx*cosRz*-sinRy;
+    out_matWorld._11 = sx*cosRz*cosRy;
+    out_matWorld._12 = sx*sinRz;
+    out_matWorld._13 = sx*cosRz*-sinRy;
     out_matWorld._14 = 0.0f;
 
-    out_matWorld._21 = Sy*cosRx*-sinRz*cosRy + Sy*sinRx*sinRy;
-    out_matWorld._22 = Sy*cosRx*cosRz;
-    out_matWorld._23 = Sy*cosRx*-sinRz*-sinRy + Sy*sinRx*cosRy;
+    out_matWorld._21 = sy*cosRx*-sinRz*cosRy + sy*sinRx*sinRy;
+    out_matWorld._22 = sy*cosRx*cosRz;
+    out_matWorld._23 = sy*cosRx*-sinRz*-sinRy + sy*sinRx*cosRy;
     out_matWorld._24 = 0.0f;
 
-    out_matWorld._31 = Sz*-sinRx*-sinRz*cosRy + Sz*cosRx*sinRy;
-    out_matWorld._32 = Sz*-sinRx*cosRz;
-    out_matWorld._33 = Sz*-sinRx*-sinRz*-sinRy + Sz*cosRx*cosRy;
+    out_matWorld._31 = sz*-sinRx*-sinRz*cosRy + sz*cosRx*sinRy;
+    out_matWorld._32 = sz*-sinRx*cosRz;
+    out_matWorld._33 = sz*-sinRx*-sinRz*-sinRy + sz*cosRx*cosRy;
     out_matWorld._34 = 0.0f;
 
     out_matWorld._41 = (dx*cosRz + (dy*cosRx + dz*-sinRx)*-sinRz)*cosRy + ((dy*sinRx + dz*cosRx))*sinRy;
@@ -1263,23 +1263,23 @@ void GgafDxUtil::updateWorldMatrix_Mv(GgafDxGeometricActor* prm_pActor, D3DXMATR
 
 
 void GgafDxUtil::setWorldMatrix_BxyzScMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
-    float Sx = SC_R(prm_pActor->_SX);
-    float Sy = SC_R(prm_pActor->_SY);
-    float Sz = SC_R(prm_pActor->_SZ);
+    float sx = SC_R(prm_pActor->_sx);
+    float sy = SC_R(prm_pActor->_sy);
+    float sz = SC_R(prm_pActor->_sz);
 
-    out_matWorld._11 = _pCam->_matView._11 * Sx;
-    out_matWorld._12 = _pCam->_matView._21 * Sy;
-    out_matWorld._13 = _pCam->_matView._31 * Sz;
+    out_matWorld._11 = _pCam->_matView._11 * sx;
+    out_matWorld._12 = _pCam->_matView._21 * sy;
+    out_matWorld._13 = _pCam->_matView._31 * sz;
     out_matWorld._14 = 0.0f;
 
-    out_matWorld._21 = _pCam->_matView._12 * Sx;
-    out_matWorld._22 = _pCam->_matView._22 * Sy;
-    out_matWorld._23 = _pCam->_matView._32 * Sz;
+    out_matWorld._21 = _pCam->_matView._12 * sx;
+    out_matWorld._22 = _pCam->_matView._22 * sy;
+    out_matWorld._23 = _pCam->_matView._32 * sz;
     out_matWorld._24 = 0.0f;
 
-    out_matWorld._31 = _pCam->_matView._13 * Sx;
-    out_matWorld._32 = _pCam->_matView._23 * Sy;
-    out_matWorld._33 = _pCam->_matView._33 * Sz;
+    out_matWorld._31 = _pCam->_matView._13 * sx;
+    out_matWorld._32 = _pCam->_matView._23 * sy;
+    out_matWorld._33 = _pCam->_matView._33 * sz;
     out_matWorld._34 = 0.0f;
 
     out_matWorld._41 = prm_pActor->_fX;
@@ -1316,25 +1316,25 @@ void GgafDxUtil::setWorldMatrix_BxyzMv(GgafDxGeometricActor* prm_pActor, D3DXMAT
 
 void GgafDxUtil::setWorldMatrix_ScRzBxyzMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
 
-    float sinRz = ANG_SIN(prm_pActor->_RZ);
-    float cosRz = ANG_COS(prm_pActor->_RZ);
-    float Sx = SC_R(prm_pActor->_SX);
-    float Sy = SC_R(prm_pActor->_SY);
-    float Sz = SC_R(prm_pActor->_SZ);
+    float sinRz = ANG_SIN(prm_pActor->_rz);
+    float cosRz = ANG_COS(prm_pActor->_rz);
+    float sx = SC_R(prm_pActor->_sx);
+    float sy = SC_R(prm_pActor->_sy);
+    float sz = SC_R(prm_pActor->_sz);
 
-    out_matWorld._11 = Sx*cosRz*_pCam->_matView._11 + Sx*sinRz*_pCam->_matView._12;
-    out_matWorld._12 = Sx*cosRz*_pCam->_matView._21 + Sx*sinRz*_pCam->_matView._22;
-    out_matWorld._13 = Sx*cosRz*_pCam->_matView._31 + Sx*sinRz*_pCam->_matView._32;
+    out_matWorld._11 = sx*cosRz*_pCam->_matView._11 + sx*sinRz*_pCam->_matView._12;
+    out_matWorld._12 = sx*cosRz*_pCam->_matView._21 + sx*sinRz*_pCam->_matView._22;
+    out_matWorld._13 = sx*cosRz*_pCam->_matView._31 + sx*sinRz*_pCam->_matView._32;
     out_matWorld._14 = 0.0f;
 
-    out_matWorld._21 = Sy*-sinRz*_pCam->_matView._11 + Sy*cosRz*_pCam->_matView._12;
-    out_matWorld._22 = Sy*-sinRz*_pCam->_matView._21 + Sy*cosRz*_pCam->_matView._22;
-    out_matWorld._23 = Sy*-sinRz*_pCam->_matView._31 + Sy*cosRz*_pCam->_matView._32;
+    out_matWorld._21 = sy*-sinRz*_pCam->_matView._11 + sy*cosRz*_pCam->_matView._12;
+    out_matWorld._22 = sy*-sinRz*_pCam->_matView._21 + sy*cosRz*_pCam->_matView._22;
+    out_matWorld._23 = sy*-sinRz*_pCam->_matView._31 + sy*cosRz*_pCam->_matView._32;
     out_matWorld._24 = 0.0f;
 
-    out_matWorld._31 = Sz*_pCam->_matView._13;
-    out_matWorld._32 = Sz*_pCam->_matView._32;
-    out_matWorld._33 = Sz*_pCam->_matView._33;
+    out_matWorld._31 = sz*_pCam->_matView._13;
+    out_matWorld._32 = sz*_pCam->_matView._32;
+    out_matWorld._33 = sz*_pCam->_matView._33;
     out_matWorld._34 = 0.0f;
 
     out_matWorld._41 = prm_pActor->_fX;
@@ -1348,34 +1348,34 @@ void GgafDxUtil::mulWorldMatrix_ScRxRzRyMv(GgafDxGeometricActor* prm_pActor, D3D
     //World変換
     //拡大縮小 × X軸回転 × Z軸回転 × Y軸回転 × 平行移動 の変換行列を設定<BR>
     //※XYZの順でないことに注意
-    // | Sx*cosRz*cosRy                           , Sx*sinRz       , Sx*cosRz*-sinRy                           , 0|
-    // | (Sy* cosRx*-sinRz*cosRy + Sy*sinRx*sinRy), Sy*cosRx*cosRz , (Sy* cosRx*-sinRz*-sinRy + Sy*sinRx*cosRy), 0|
-    // | (Sz*-sinRx*-sinRz*cosRy + Sz*cosRx*sinRy), Sz*-sinRx*cosRz, (Sz*-sinRx*-sinRz*-sinRy + Sz*cosRx*cosRy), 0|
+    // | sx*cosRz*cosRy                           , sx*sinRz       , sx*cosRz*-sinRy                           , 0|
+    // | (sy* cosRx*-sinRz*cosRy + sy*sinRx*sinRy), sy*cosRx*cosRz , (sy* cosRx*-sinRz*-sinRy + sy*sinRx*cosRy), 0|
+    // | (sz*-sinRx*-sinRz*cosRy + sz*cosRx*sinRy), sz*-sinRx*cosRz, (sz*-sinRx*-sinRz*-sinRy + sz*cosRx*cosRy), 0|
     // | dx                                       , dy             , dz                                        , 1|
     D3DXMATRIX matScRxRzRyMv;
-    float sinRx = ANG_SIN(prm_pActor->_RX);
-    float cosRx = ANG_COS(prm_pActor->_RX);
-    float sinRy = ANG_SIN(prm_pActor->_RY);
-    float cosRy = ANG_COS(prm_pActor->_RY);
-    float sinRz = ANG_SIN(prm_pActor->_RZ);
-    float cosRz = ANG_COS(prm_pActor->_RZ);
-    float Sx = SC_R(prm_pActor->_SX);
-    float Sy = SC_R(prm_pActor->_SY);
-    float Sz = SC_R(prm_pActor->_SZ);
+    float sinRx = ANG_SIN(prm_pActor->_rx);
+    float cosRx = ANG_COS(prm_pActor->_rx);
+    float sinRy = ANG_SIN(prm_pActor->_ry);
+    float cosRy = ANG_COS(prm_pActor->_ry);
+    float sinRz = ANG_SIN(prm_pActor->_rz);
+    float cosRz = ANG_COS(prm_pActor->_rz);
+    float sx = SC_R(prm_pActor->_sx);
+    float sy = SC_R(prm_pActor->_sy);
+    float sz = SC_R(prm_pActor->_sz);
 
-    matScRxRzRyMv._11 = Sx * cosRz *cosRy;
-    matScRxRzRyMv._12 = Sx * sinRz;
-    matScRxRzRyMv._13 = Sx * cosRz * -sinRy;
+    matScRxRzRyMv._11 = sx * cosRz *cosRy;
+    matScRxRzRyMv._12 = sx * sinRz;
+    matScRxRzRyMv._13 = sx * cosRz * -sinRy;
     matScRxRzRyMv._14 = 0.0f;
 
-    matScRxRzRyMv._21 = (Sy * cosRx * -sinRz *  cosRy) + (Sy * sinRx * sinRy);
-    matScRxRzRyMv._22 = Sy * cosRx *  cosRz;
-    matScRxRzRyMv._23 = (Sy * cosRx * -sinRz * -sinRy) + (Sy * sinRx * cosRy);
+    matScRxRzRyMv._21 = (sy * cosRx * -sinRz *  cosRy) + (sy * sinRx * sinRy);
+    matScRxRzRyMv._22 = sy * cosRx *  cosRz;
+    matScRxRzRyMv._23 = (sy * cosRx * -sinRz * -sinRy) + (sy * sinRx * cosRy);
     matScRxRzRyMv._24 = 0.0f;
 
-    matScRxRzRyMv._31 = (Sz * -sinRx * -sinRz *  cosRy) + (Sz * cosRx * sinRy);
-    matScRxRzRyMv._32 = Sz * -sinRx *  cosRz;
-    matScRxRzRyMv._33 = (Sz * -sinRx * -sinRz * -sinRy) + (Sz * cosRx * cosRy);
+    matScRxRzRyMv._31 = (sz * -sinRx * -sinRz *  cosRy) + (sz * cosRx * sinRy);
+    matScRxRzRyMv._32 = sz * -sinRx *  cosRz;
+    matScRxRzRyMv._33 = (sz * -sinRx * -sinRz * -sinRy) + (sz * cosRx * cosRy);
     matScRxRzRyMv._34 = 0.0f;
 
     matScRxRzRyMv._41 = prm_pActor->_fX;
@@ -1390,8 +1390,8 @@ void GgafDxUtil::mulWorldMatrix_ScRxRzRyMv(GgafDxGeometricActor* prm_pActor, D3D
 
 void GgafDxUtil::setWorldMatrix_RzBxyzMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     D3DXMATRIX& matView = _pCam->_matView;
-    float sinRz = ANG_SIN(prm_pActor->_RZ);
-    float cosRz = ANG_COS(prm_pActor->_RZ);
+    float sinRz = ANG_SIN(prm_pActor->_rz);
+    float cosRz = ANG_COS(prm_pActor->_rz);
 
     out_matWorld._11 = cosRz*matView._11 + sinRz*matView._12;
     out_matWorld._12 = cosRz*matView._21 + sinRz*matView._22;
@@ -1414,19 +1414,19 @@ void GgafDxUtil::setWorldMatrix_RzBxyzMv(GgafDxGeometricActor* prm_pActor, D3DXM
     out_matWorld._44 = 1.0f;
 }
 void GgafDxUtil::setWorldMatrix_ScMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
-    out_matWorld._11 = SC_R(prm_pActor->_SX);
+    out_matWorld._11 = SC_R(prm_pActor->_sx);
     out_matWorld._12 = 0.0f;
     out_matWorld._13 = 0.0f;
     out_matWorld._14 = 0.0f;
 
     out_matWorld._21 = 0.0f;
-    out_matWorld._22 = SC_R(prm_pActor->_SY);
+    out_matWorld._22 = SC_R(prm_pActor->_sy);
     out_matWorld._23 = 0.0f;
     out_matWorld._24 = 0.0f;
 
     out_matWorld._31 = 0.0f;
     out_matWorld._32 = 0.0f;
-    out_matWorld._33 = SC_R(prm_pActor->_SZ);
+    out_matWorld._33 = SC_R(prm_pActor->_sz);
     out_matWorld._34 = 0.0f;
 
     out_matWorld._41 = prm_pActor->_fX;

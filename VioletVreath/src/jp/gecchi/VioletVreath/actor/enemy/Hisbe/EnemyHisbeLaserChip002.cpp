@@ -75,7 +75,7 @@ void EnemyHisbeLaserChip002::onRefractionFinish(int prm_num_refraction)  {
 void EnemyHisbeLaserChip002::processBehavior() {
 
     if (pNearestScrollingScene_ && pNearestScrollingScene_->_pFuncScrolling == WalledScene::scrollX) {
-        pKurokoLeader_->_X_start -= pNearestScrollingScene_->getScrollSpeed();
+        pKurokoLeader_->_x_start -= pNearestScrollingScene_->getScrollSpeed();
     }
     RefractionLaserChip::processBehavior();
 
@@ -86,7 +86,7 @@ void EnemyHisbeLaserChip002::processBehavior() {
 
 void EnemyHisbeLaserChip002::processJudgement() {
     if (isOutOfUniverse()) {
-        if (_X >= GgafDxUniverse::_X_gone_right) {
+        if (_x >= GgafDxUniverse::_x_gone_right) {
             //WALLì‡é¿å±
         } else {
             sayonara();

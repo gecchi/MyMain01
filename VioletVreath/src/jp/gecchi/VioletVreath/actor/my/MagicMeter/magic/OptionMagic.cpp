@@ -121,9 +121,9 @@ void OptionMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
         MyOptionController* p = P_MYSHIP_SCENE->papOptionCtrler_[lv-1];
 //        p->pOption_->onReset(); //←これをしないとオプションの(Xorg_,Yorg_,Zorg_)が反映されない
         papEffect_[lv-1]->_pKurokoB->execGravitationMvSequenceTwd(
-                                         p->_X + p->pOption_->Xorg_,
-                                         p->_Y + p->pOption_->Yorg_,
-                                         p->_Z + p->pOption_->Zorg_,
+                                         p->_x + p->pOption_->Xorg_,
+                                         p->_y + p->pOption_->Yorg_,
+                                         p->_z + p->pOption_->Zorg_,
                                          40000, 400, 200000
                                      );
     }
@@ -137,9 +137,9 @@ void OptionMagic::processInvokingCancel(int prm_now_level) {
 void OptionMagic::processInvokingBehavior(int prm_now_level, int prm_new_level)  {
     for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
         MyOptionController* p = P_MYSHIP_SCENE->papOptionCtrler_[lv-1];
-        papEffect_[lv-1]->_pKurokoB->_gravitation_mv_seq_target_X = p->_X + p->pOption_->Xorg_;
-        papEffect_[lv-1]->_pKurokoB->_gravitation_mv_seq_target_Y = p->_Y + p->pOption_->Yorg_;
-        papEffect_[lv-1]->_pKurokoB->_gravitation_mv_seq_target_Z = p->_Z + p->pOption_->Zorg_;
+        papEffect_[lv-1]->_pKurokoB->_gravitation_mv_seq_target_x = p->_x + p->pOption_->Xorg_;
+        papEffect_[lv-1]->_pKurokoB->_gravitation_mv_seq_target_y = p->_y + p->pOption_->Yorg_;
+        papEffect_[lv-1]->_pKurokoB->_gravitation_mv_seq_target_z = p->_z + p->pOption_->Zorg_;
     }
 
 }
@@ -181,11 +181,9 @@ void OptionMagic::processEffectBegin(int prm_last_level, int prm_now_level)  {
 
             MyOptionController::adjustDefaltAngPosition(180, prm_last_level, prm_now_level-1);
         }
+    } else if (prm_last_level > prm_now_level) {  //レベルダウン
+         turnoffOptionEffect();
     }
-//    else if (prm_last_level > prm_now_level) {  //レベルダウン
-//         MyOptionController::setNumOption(prm_now_level);
-//         turnoffOptionEffect();
-//    }
 
 
 }

@@ -43,14 +43,14 @@ void MagicLvCursor003::processPreDraw() {
     //Y座標ロール追従は行うので、その部分のみ実装を行うことにする。
     //MagicLvCursor::processPreDraw(); 及び、MagicLvCursor::processAfterDraw() の処理を変更したら、
     //ここも変更せよ。
-    tmp_Y_ = _Y; //退避
-    _Y += (1.0 * pMagicMeter_->height_ * (point_lv_+1) * (1.0 - pMagicMeter_->r_roll_[magic_index_]));
+    tmp_y_ = _y; //退避
+    _y += (1.0 * pMagicMeter_->height_ * (point_lv_+1) * (1.0 - pMagicMeter_->r_roll_[magic_index_]));
     DefaultBoardActor::processPreDraw();
 }
 
 void MagicLvCursor003::processAfterDraw() {
     DefaultBoardActor::processAfterDraw();
-    _Y = tmp_Y_; //復帰
+    _y = tmp_y_; //復帰
 }
 
 void MagicLvCursor003::markOff() {

@@ -18,8 +18,8 @@ MyShot001::MyShot001(const char* prm_name) :
 
 void MyShot001::initialize() {
     setHitAble(false);
-    _SX = R_SC(45);
-    _SY = _SZ = R_SC(35);
+    _sx = R_SC(45);
+    _sy = _sz = R_SC(35);
     setBoundingSphereRadiusRate(45.0f);
     setAlpha(0.99);
     _pColliChecker->makeCollision(1);

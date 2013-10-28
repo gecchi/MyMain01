@@ -28,8 +28,8 @@ namespace GgafDxCore {
 class GgafDxUtil : public GgafCore::GgafUtil {
 
     struct AngleSet {
-        angle RZ[D360SANG+1];
-        angle RY[D360SANG+1];
+        angle rz[D360SANG+1];
+        angle ry[D360SANG+1];
     };
 
 public:
@@ -64,22 +64,22 @@ public:
      * 平面射影時にできるなす角 → 2軸の回転角  の変換テーブル(その1-1) .
      * 方向ベクトルを、[XY平面へ射影した時のなす角][XZ平面へ射影した時のなす角] → 元の方向ベクトルのZ軸回転角 の変換テーブル
      */
-    static angle PROJANG_XY_XZ_TO_ROTANG_Z[D90SANG+1][D90SANG+1];
+    static angle PROJANG_XY_XZ_TO_ROTANG_z[D90SANG+1][D90SANG+1];
     /**
      * 平面射影時にできるなす角 → 2軸の回転角  の変換テーブル(その1-2) .
      * 方向ベクトルを、[XY平面へ射影した時のなす角][XZ平面へ射影した時のなす角] → 元の方向ベクトルのY軸(逆)回転角 の変換テーブル
      */
-    static angle PROJANG_XY_XZ_TO_ROTANG_Y_REV[D90SANG+1][D90SANG+1];
+    static angle PROJANG_XY_XZ_TO_ROTANG_y_REV[D90SANG+1][D90SANG+1];
     /**
      * 平面射影時にできるなす角 → 2軸の回転角  の変換テーブル(その2-1) .
      * 方向ベクトルを、[ZY平面へ射影した時のなす角][ZX平面へ射影した時のなす角] → 元の方向ベクトルのX軸(逆)回転角 の変換テーブル
      */
-    static angle PROJANG_ZY_ZX_TO_ROTANG_X_REV[D90SANG+1][D90SANG+1];
+    static angle PROJANG_ZY_ZX_TO_ROTANG_x_REV[D90SANG+1][D90SANG+1];
     /**
      * 平面射影時にできるなす角 → 2軸の回転角  の変換テーブル(その2-2) .
      * 方向ベクトルを、[ZY平面へ射影した時のなす角][ZX平面へ射影した時のなす角] → 元の方向ベクトルのY軸回転角 の変換テーブル
      */
-    static angle PROJANG_ZY_ZX_TO_ROTANG_Y[D90SANG+1][D90SANG+1];
+    static angle PROJANG_ZY_ZX_TO_ROTANG_y[D90SANG+1][D90SANG+1];
 
     /**
      * v = 1 - cos(2πt)
@@ -291,13 +291,13 @@ public:
 
     /**
      *
-     * @param prm_X
-     * @param prm_Y
+     * @param prm_x
+     * @param prm_y
      * @param prm_ang
-     * @param out_X
-     * @param out_Y
+     * @param out_x
+     * @param out_y
      */
-    static void rotXY(coord prm_X, coord prm_Y, angle prm_ang, coord& out_X, coord& out_Y);
+    static void rotXY(coord prm_x, coord prm_y, angle prm_ang, coord& out_x, coord& out_y);
 
     /**
      * 距離計算(2D) .
@@ -336,11 +336,11 @@ public:
     static double getDistance(GgafDxCore::GgafDxGeometricActor* pA1, GgafDxCore::GgafDxGeometricActor* pA2) {
         return sqrt(
                       (
-                        ((double)(pA2->_X - pA1->_X)) * ((double)(pA2->_X - pA1->_X))
+                        ((double)(pA2->_x - pA1->_x)) * ((double)(pA2->_x - pA1->_x))
                       ) + (
-                        ((double)(pA2->_Y - pA1->_Y)) * ((double)(pA2->_Y - pA1->_Y))
+                        ((double)(pA2->_y - pA1->_y)) * ((double)(pA2->_y - pA1->_y))
                       ) + (
-                        ((double)(pA2->_Z - pA1->_Z)) * ((double)(pA2->_Z - pA1->_Z))
+                        ((double)(pA2->_z - pA1->_z)) * ((double)(pA2->_z - pA1->_z))
                       )
                     );
     }
@@ -348,11 +348,11 @@ public:
     static double getDistance(GgafDxCore::GgafDxGeometricActor* pA1, GgafDxCore::GgafDxGeoElem* pA2) {
         return sqrt(
                       (
-                        ((double)(pA2->X - pA1->_X)) * ((double)(pA2->X - pA1->_X))
+                        ((double)(pA2->x - pA1->_x)) * ((double)(pA2->x - pA1->_x))
                       ) + (
-                        ((double)(pA2->Y - pA1->_Y)) * ((double)(pA2->Y - pA1->_Y))
+                        ((double)(pA2->y - pA1->_y)) * ((double)(pA2->y - pA1->_y))
                       ) + (
-                        ((double)(pA2->Z - pA1->_Z)) * ((double)(pA2->Z - pA1->_Z))
+                        ((double)(pA2->z - pA1->_z)) * ((double)(pA2->z - pA1->_z))
                       )
                     );
     }
@@ -360,11 +360,11 @@ public:
     static double getDistance(GgafDxCore::GgafDxGeoElem* pA1, GgafDxCore::GgafDxGeometricActor* pA2) {
         return sqrt(
                       (
-                        ((double)(pA2->_X - pA1->X)) * ((double)(pA2->_X - pA1->X))
+                        ((double)(pA2->_x - pA1->x)) * ((double)(pA2->_x - pA1->x))
                       ) + (
-                        ((double)(pA2->_Y - pA1->Y)) * ((double)(pA2->_Y - pA1->Y))
+                        ((double)(pA2->_y - pA1->y)) * ((double)(pA2->_y - pA1->y))
                       ) + (
-                        ((double)(pA2->_Z - pA1->Z)) * ((double)(pA2->_Z - pA1->Z))
+                        ((double)(pA2->_z - pA1->z)) * ((double)(pA2->_z - pA1->z))
                       )
                     );
     }
@@ -372,11 +372,11 @@ public:
     static double getDistance(GgafDxCore::GgafDxGeoElem* pA1 ,GgafDxCore::GgafDxGeoElem* pA2) {
         return sqrt(
                       (
-                        ((double)(pA2->X - pA1->X)) * ((double)(pA2->X - pA1->X))
+                        ((double)(pA2->x - pA1->x)) * ((double)(pA2->x - pA1->x))
                       ) + (
-                        ((double)(pA2->Y - pA1->Y)) * ((double)(pA2->Y - pA1->Y))
+                        ((double)(pA2->y - pA1->y)) * ((double)(pA2->y - pA1->y))
                       ) + (
-                        ((double)(pA2->Z - pA1->Z)) * ((double)(pA2->Z - pA1->Z))
+                        ((double)(pA2->z - pA1->z)) * ((double)(pA2->z - pA1->z))
                       )
                     );
     }
@@ -392,8 +392,8 @@ public:
      * @param out_nvx [out]単位ベクトルX要素
      * @param out_nvy [out]単位ベクトルY要素
      * @param out_nvz [out]単位ベクトルZ要素
-     * @param out_angRZ [out]Z軸回転アングル値
-     * @param out_angRY [out]Y軸回転アングル値
+     * @param out_angRz [out]Z軸回転アングル値
+     * @param out_angRy [out]Y軸回転アングル値
      */
     static void convVectorToRzRy(coord x,
                                  coord y,
@@ -401,8 +401,8 @@ public:
                                  float& out_nvx,
                                  float& out_nvy,
                                  float& out_nvz,
-                                 angle& out_angRZ,
-                                 angle& out_angRY);
+                                 angle& out_angRz,
+                                 angle& out_angRy);
 
     /**
      * 原点(0,0,0) からパラメータ座標(vx,vy,vz) を向く方向ベクトルに対応する「Z軸回転のアングル値」と「Y軸回転のアングル値」を取得 .
@@ -411,10 +411,10 @@ public:
      * @param vx [in]X座標
      * @param vy [in]Y座標
      * @param vz [in]Z座標
-     * @param out_angRZ [out]Z軸回転アングル値
-     * @param out_angRY [out]Y軸回転アングル値
+     * @param out_angRz [out]Z軸回転アングル値
+     * @param out_angRy [out]Y軸回転アングル値
      */
-    static void convVectorToRzRy(coord vx, coord vy, coord vz, angle& out_angRZ, angle& out_angRY);
+    static void convVectorToRzRy(coord vx, coord vy, coord vz, angle& out_angRz, angle& out_angRy);
 
     /**
      * 原点(0,0,0) からパラメータ座標を向く方向ベクトル(単位ベクトル)に対応する「Z軸回転のアングル値」と「Y軸回転のアングル値」を取得 .
@@ -427,23 +427,23 @@ public:
      * @param nvx [in]単位ベクトルX要素
      * @param nvy [in]単位ベクトルY要素
      * @param nvz [in]単位ベクトルZ要素
-     * @param out_angRZ [out]Z軸回転アングル値
-     * @param out_angRY [out]Y軸回転アングル値
+     * @param out_angRz [out]Z軸回転アングル値
+     * @param out_angRy [out]Y軸回転アングル値
      */
-    static void convVectorToRzRy(double nvx, double nvy, double nvz, angle& out_angRZ, angle& out_angRY) {
+    static void convVectorToRzRy(double nvx, double nvy, double nvz, angle& out_angRz, angle& out_angRy) {
         convVectorToRzRy((int)(nvx*LEN_UNIT*PX_UNIT),
                          (int)(nvy*LEN_UNIT*PX_UNIT),
                          (int)(nvz*LEN_UNIT*PX_UNIT),
-                         out_angRZ,
-                         out_angRY );
+                         out_angRz,
+                         out_angRy );
     }
 
-    static void convVectorToRzRy(float nvx, float nvy, float nvz, angle& out_angRZ, angle& out_angRY) {
+    static void convVectorToRzRy(float nvx, float nvy, float nvz, angle& out_angRz, angle& out_angRy) {
         convVectorToRzRy((int)(nvx*LEN_UNIT*PX_UNIT),
                          (int)(nvy*LEN_UNIT*PX_UNIT),
                          (int)(nvz*LEN_UNIT*PX_UNIT),
-                         out_angRZ,
-                         out_angRY );
+                         out_angRz,
+                         out_angRy );
     }
 
 
@@ -452,14 +452,14 @@ public:
      * 本クラスの中核とも言うべきメソッドその2<BR>
      * Z軸Y軸回転方角 -> 方向ベクトル の変換<BR>
      * 計算せずにテーブル参照で高速に行う。<BR>
-     * @param prm_angRZ [in]Z軸回転アングル値
-     * @param prm_angRY [in]Y軸回転アングル値
+     * @param prm_angRz [in]Z軸回転アングル値
+     * @param prm_angRy [in]Y軸回転アングル値
      * @param out_nvx [out]単位ベクトルX要素
      * @param out_nvy [out]単位ベクトルY要素
      * @param out_nvz [out]単位ベクトルZ要素
      */
-    static void convRzRyToVector(angle prm_angRZ,
-                                 angle prm_angRY,
+    static void convRzRyToVector(angle prm_angRz,
+                                 angle prm_angRy,
                                  float& out_nvx,
                                  float& out_nvy,
                                  float& out_nvz);
@@ -730,7 +730,7 @@ public:
     static void setWorldMatrix_RzRy(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
     static void setWorldMatrix_RxRzRy(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
-    static void setWorldMatrix_RxRzRy(angle prm_RX, angle prm_RZ, angle prm_RY, D3DXMATRIX& out_matWorld);
+    static void setWorldMatrix_RxRzRy(angle prm_rx, angle prm_rz, angle prm_ry, D3DXMATRIX& out_matWorld);
     static void setWorldMatrix_RzRy(angle prm_Rz, angle prm_Ry, D3DXMATRIX& out_matWorld);
 
 
@@ -754,7 +754,7 @@ public:
     /**
      * world変換行列設定 .
      * X軸回転 × Z軸回転 × X軸回転 × 拡大縮小 × 平行移動 の変換行列を設定<BR>
-     * ※Y軸回転がありません。_RYは２回目のX軸回転となる<BR>
+     * ※Y軸回転がありません。_ryは２回目のX軸回転となる<BR>
      * @param prm_pActor [in]対象アクター
      * @param out_matWorld [out]world変換行列
      */
@@ -809,12 +809,12 @@ public:
         // | (cosRx*-sinRz*cosRy + sinRx*sinRy) , cosRx*cosRz , (cosRx*-sinRz*-sinRy + sinRx*cosRy) , 0 |
         // | (-sinRx*-sinRz*cosRy + cosRx*sinRy), -sinRx*cosRz, (-sinRx*-sinRz*-sinRy + cosRx*cosRy), 0 |
         // | dx                                 , dy          , dz                                  , 1 |
-        float sinRx = ANG_SIN(prm_pActor->_RX);
-        float cosRx = ANG_COS(prm_pActor->_RX);
-        float sinRy = ANG_SIN(prm_pActor->_RY);
-        float cosRy = ANG_COS(prm_pActor->_RY);
-        float sinRz = ANG_SIN(prm_pActor->_RZ);
-        float cosRz = ANG_COS(prm_pActor->_RZ);
+        float sinRx = ANG_SIN(prm_pActor->_rx);
+        float cosRx = ANG_COS(prm_pActor->_rx);
+        float sinRy = ANG_SIN(prm_pActor->_ry);
+        float cosRy = ANG_COS(prm_pActor->_ry);
+        float sinRz = ANG_SIN(prm_pActor->_rz);
+        float cosRz = ANG_COS(prm_pActor->_rz);
 
         out_matWorld._11 = cosRz*cosRy;
         out_matWorld._12 = sinRz;

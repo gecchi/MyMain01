@@ -32,12 +32,12 @@ public:
                              GgafDxCore::GgafDxGeometricActor* pActor02, ColliAAB* pAAB02 ) {
         //＜AAB と AAB＞
         //軸が一致しない確率が高そうな順番(X>Z>Y)に判定
-        if (pActor01->_X + pAAB01->_x2 >= pActor02->_X + pAAB02->_x1) {
-            if (pActor01->_X + pAAB01->_x1 <= pActor02->_X + pAAB02->_x2) {
-                if (pActor01->_Z + pAAB01->_z2 >= pActor02->_Z + pAAB02->_z1) {
-                    if (pActor01->_Z + pAAB01->_z1 <= pActor02->_Z + pAAB02->_z2) {
-                        if (pActor01->_Y + pAAB01->_y2 >= pActor02->_Y + pAAB02->_y1) {
-                            if (pActor01->_Y + pAAB01->_y1 <= pActor02->_Y + pAAB02->_y2) {
+        if (pActor01->_x + pAAB01->_x2 >= pActor02->_x + pAAB02->_x1) {
+            if (pActor01->_x + pAAB01->_x1 <= pActor02->_x + pAAB02->_x2) {
+                if (pActor01->_z + pAAB01->_z2 >= pActor02->_z + pAAB02->_z1) {
+                    if (pActor01->_z + pAAB01->_z1 <= pActor02->_z + pAAB02->_z2) {
+                        if (pActor01->_y + pAAB01->_y2 >= pActor02->_y + pAAB02->_y1) {
+                            if (pActor01->_y + pAAB01->_y1 <= pActor02->_y + pAAB02->_y2) {
                                 return true;
                             }
                         }
@@ -54,9 +54,9 @@ public:
         //球1 ： 中心点の座標P1(x1, y1, z1), 半径r1
         //球2 ： 中心点の座標P2(x2, y2, z2), 半径r2
         //(x2-x1)^2 + (y2-y1)^2 + (z2-z1)^2 <= (r1+r2)^2
-        double d2 = (double)((pActor02->_X+pSphere02->_x) - (pActor01->_X+pSphere01->_x)) * ((pActor02->_X+pSphere02->_x) - (pActor01->_X+pSphere01->_x)) +
-                    (double)((pActor02->_Y+pSphere02->_y) - (pActor01->_Y+pSphere01->_y)) * ((pActor02->_Y+pSphere02->_y) - (pActor01->_Y+pSphere01->_y)) +
-                    (double)((pActor02->_Z+pSphere02->_z) - (pActor01->_Z+pSphere01->_z)) * ((pActor02->_Z+pSphere02->_z) - (pActor01->_Z+pSphere01->_z));
+        double d2 = (double)((pActor02->_x+pSphere02->_x) - (pActor01->_x+pSphere01->_x)) * ((pActor02->_x+pSphere02->_x) - (pActor01->_x+pSphere01->_x)) +
+                    (double)((pActor02->_y+pSphere02->_y) - (pActor01->_y+pSphere01->_y)) * ((pActor02->_y+pSphere02->_y) - (pActor01->_y+pSphere01->_y)) +
+                    (double)((pActor02->_z+pSphere02->_z) - (pActor01->_z+pSphere01->_z)) * ((pActor02->_z+pSphere02->_z) - (pActor01->_z+pSphere01->_z));
         if (d2 <= (double)(pSphere02->_r + pSphere01->_r) * (pSphere02->_r + pSphere01->_r)
         ) {
             return true;
@@ -68,15 +68,15 @@ public:
     static inline bool isHit(GgafDxCore::GgafDxGeometricActor* pActor01, ColliAAB*    pAAB01,
                              GgafDxCore::GgafDxGeometricActor* pActor02, ColliSphere* pSphere02) {
         //＜AAB と 球＞
-        coord o_scx = pActor02->_X + pSphere02->_cx;
-        coord o_scy = pActor02->_Y + pSphere02->_cy;
-        coord o_scz = pActor02->_Z + pSphere02->_cz;
-        coord bx1 = pActor01->_X + pAAB01->_x1;
-        coord bx2 = pActor01->_X + pAAB01->_x2;
-        coord by1 = pActor01->_Y + pAAB01->_y1;
-        coord by2 = pActor01->_Y + pAAB01->_y2;
-        coord bz1 = pActor01->_Z + pAAB01->_z1;
-        coord bz2 = pActor01->_Z + pAAB01->_z2;
+        coord o_scx = pActor02->_x + pSphere02->_cx;
+        coord o_scy = pActor02->_y + pSphere02->_cy;
+        coord o_scz = pActor02->_z + pSphere02->_cz;
+        coord bx1 = pActor01->_x + pAAB01->_x1;
+        coord bx2 = pActor01->_x + pAAB01->_x2;
+        coord by1 = pActor01->_y + pAAB01->_y1;
+        coord by2 = pActor01->_y + pAAB01->_y2;
+        coord bz1 = pActor01->_z + pAAB01->_z1;
+        coord bz2 = pActor01->_z + pAAB01->_z2;
         double square_length = 0; //球の中心とAABの最短距離を二乗した値
         if(o_scx < bx1) {
             square_length += (double)(o_scx - bx1) * (o_scx - bx1);
@@ -108,19 +108,19 @@ public:
     static inline bool isHit(GgafDxCore::GgafDxGeometricActor* pActor01, ColliAAPrism* pAAPrism01,
                              GgafDxCore::GgafDxGeometricActor* pActor02, ColliAAB*     pAAB02     ) {
         //＜プリズム と AAB＞
-        int aX1 = pActor01->_X + pAAPrism01->_x1;
-        int aY1 = pActor01->_Y + pAAPrism01->_y1;
-        int aZ1 = pActor01->_Z + pAAPrism01->_z1;
-        int aX2 = pActor01->_X + pAAPrism01->_x2;
-        int aY2 = pActor01->_Y + pAAPrism01->_y2;
-        int aZ2 = pActor01->_Z + pAAPrism01->_z2;
+        int aX1 = pActor01->_x + pAAPrism01->_x1;
+        int aY1 = pActor01->_y + pAAPrism01->_y1;
+        int aZ1 = pActor01->_z + pAAPrism01->_z1;
+        int aX2 = pActor01->_x + pAAPrism01->_x2;
+        int aY2 = pActor01->_y + pAAPrism01->_y2;
+        int aZ2 = pActor01->_z + pAAPrism01->_z2;
 
-        int bX1 = pActor02->_X + pAAB02->_x1;
-        int bY1 = pActor02->_Y + pAAB02->_y1;
-        int bZ1 = pActor02->_Z + pAAB02->_z1;
-        int bX2 = pActor02->_X + pAAB02->_x2;
-        int bY2 = pActor02->_Y + pAAB02->_y2;
-        int bZ2 = pActor02->_Z + pAAB02->_z2;
+        int bX1 = pActor02->_x + pAAB02->_x1;
+        int bY1 = pActor02->_y + pAAB02->_y1;
+        int bZ1 = pActor02->_z + pAAB02->_z1;
+        int bX2 = pActor02->_x + pAAB02->_x2;
+        int bY2 = pActor02->_y + pAAB02->_y2;
+        int bZ2 = pActor02->_z + pAAB02->_z2;
 
         if (aZ2 >= bZ1 && aZ1 <= bZ2 && aY2 >= bY1 && aY1 <= bY2 && aX2 >= bX1 && aX1 <= bX2) {
             //この時点でAAB と AAB ならばヒット
@@ -128,7 +128,7 @@ public:
             double a = pAAPrism01->_a;
             if (pos & POS_PRISM_XY) { //XY平面スライスのプリズム
                 //ワールド座標でのプリズム境界線の切片を求める b = y - ax
-                double b = ((pActor01->_Y+pAAPrism01->_cy) - pAAPrism01->_a * (pActor01->_X+pAAPrism01->_cx)) + pAAPrism01->_b;
+                double b = ((pActor01->_y+pAAPrism01->_cy) - pAAPrism01->_a * (pActor01->_x+pAAPrism01->_cx)) + pAAPrism01->_b;
 
                 if (pos & POS_PRISM_pp) {
                     //            ↑ y+
@@ -206,7 +206,7 @@ public:
                 }
             } else if (pos & POS_PRISM_YZ) {//YZ平面スライスのプリズム
                 //ワールド座標でのプリズム境界線の切片を求める b = z - ay
-                int b = ((pActor01->_Z+pAAPrism01->_cz) - pAAPrism01->_a * (pActor01->_Y+pAAPrism01->_cy)) + pAAPrism01->_b;
+                int b = ((pActor01->_z+pAAPrism01->_cz) - pAAPrism01->_a * (pActor01->_y+pAAPrism01->_cy)) + pAAPrism01->_b;
                 if (pos & POS_PRISM_pp) {
                     //            ↑ z+
                     //
@@ -282,7 +282,7 @@ public:
 
             } else if (pos & POS_PRISM_ZX) {
                 //ワールド座標でのプリズム境界線の切片を求める b = x - az
-                int b = ((pActor01->_X+pAAPrism01->_cx) - pAAPrism01->_a * (pActor01->_Z+pAAPrism01->_cz)) + pAAPrism01->_b;
+                int b = ((pActor01->_x+pAAPrism01->_cx) - pAAPrism01->_a * (pActor01->_z+pAAPrism01->_cz)) + pAAPrism01->_b;
                 if (pos & POS_PRISM_pp) {
                     //            ↑ x+
                     //
@@ -366,12 +366,12 @@ public:
                              GgafDxCore::GgafDxGeometricActor* pActor02, ColliSphere*  pSphere02  ) {
         //＜プリズム と 球＞
         //MEMO:厳密な当たり判定計算は行っていません。
-        int aX1 = pActor01->_X + pAAPrism01->_x1;
-        int aY1 = pActor01->_Y + pAAPrism01->_y1;
-        int aZ1 = pActor01->_Z + pAAPrism01->_z1;
-        int aX2 = pActor01->_X + pAAPrism01->_x2;
-        int aY2 = pActor01->_Y + pAAPrism01->_y2;
-        int aZ2 = pActor01->_Z + pAAPrism01->_z2;
+        int aX1 = pActor01->_x + pAAPrism01->_x1;
+        int aY1 = pActor01->_y + pAAPrism01->_y1;
+        int aZ1 = pActor01->_z + pAAPrism01->_z1;
+        int aX2 = pActor01->_x + pAAPrism01->_x2;
+        int aY2 = pActor01->_y + pAAPrism01->_y2;
+        int aZ2 = pActor01->_z + pAAPrism01->_z2;
 
         //AAB 対 球でまず判定する
         if (isHit(pActor01, (ColliAAB*)pAAPrism01,
@@ -381,15 +381,15 @@ public:
             double a = pAAPrism01->_a;
             if (pos & POS_PRISM_XY) { //XY平面スライスのプリズム
                 //ワールド座標でのプリズム境界線の切片を求める b = y - ax
-                double b = ((pActor01->_Y+pAAPrism01->_cy) - pAAPrism01->_a * (pActor01->_X+pAAPrism01->_cx)) + pAAPrism01->_b;
+                double b = ((pActor01->_y+pAAPrism01->_cy) - pAAPrism01->_a * (pActor01->_x+pAAPrism01->_cx)) + pAAPrism01->_b;
 
                 int oppX, oppY;
-                int bZc = pActor02->_Z + pSphere02->_cz; //球の中心Z座標
+                int bZc = pActor02->_z + pSphere02->_cz; //球の中心Z座標
                 if (aZ1 < bZc && bZc < aZ2) {
                     //球の中心Z座標がプリズムのZ幅範囲内ならば、予め保持している_vIH_x,_vIH_yを使用して
                     //プリズム斜辺と最短距離の円周上のXY座標を求める
-                    oppX = (pActor02->_X + pSphere02->_x) + pAAPrism01->_vIH_x * pSphere02->_r;
-                    oppY = (pActor02->_Y + pSphere02->_y) + pAAPrism01->_vIH_y * pSphere02->_r;
+                    oppX = (pActor02->_x + pSphere02->_x) + pAAPrism01->_vIH_x * pSphere02->_r;
+                    oppY = (pActor02->_y + pSphere02->_y) + pAAPrism01->_vIH_y * pSphere02->_r;
                 } else if (bZc >= aZ2) {
                     //球の中心Z座標がプリズムのZ幅範囲外の場合
                     //離れる距離に応じて、球側の半径(pSphere02->_r)を小さくして差分を計算
@@ -399,12 +399,12 @@ public:
                     //        ┌───┐ `─
                     // z- ←  │      │  → z+
                     int r = pSphere02->_r * UTIL::ROOT_1_MINUS_XX[(int)((1.0*(bZc - aZ2) / pSphere02->_r)*1000)];
-                    oppX = (pActor02->_X + pSphere02->_x) + pAAPrism01->_vIH_x * r;
-                    oppY = (pActor02->_Y + pSphere02->_y) + pAAPrism01->_vIH_y * r;
+                    oppX = (pActor02->_x + pSphere02->_x) + pAAPrism01->_vIH_x * r;
+                    oppY = (pActor02->_y + pSphere02->_y) + pAAPrism01->_vIH_y * r;
                 } else { //if (aZ1 >= bZc) {
                     int r = pSphere02->_r * UTIL::ROOT_1_MINUS_XX[(int)((1.0*(aZ1 - bZc) / pSphere02->_r)*1000)];
-                    oppX = (pActor02->_X + pSphere02->_x) + pAAPrism01->_vIH_x * r;
-                    oppY = (pActor02->_Y + pSphere02->_y) + pAAPrism01->_vIH_y * r;
+                    oppX = (pActor02->_x + pSphere02->_x) + pAAPrism01->_vIH_x * r;
+                    oppY = (pActor02->_y + pSphere02->_y) + pAAPrism01->_vIH_y * r;
                 }
 
                 if (pos & POS_PRISM_pp) {
@@ -483,22 +483,22 @@ public:
                 }
             } else if (pos & POS_PRISM_YZ) {//YZ平面スライスのプリズム
                 //ワールド座標でのプリズム境界線の切片を求める b = z - ay
-                int b = ((pActor01->_Z+pAAPrism01->_cz) - pAAPrism01->_a * (pActor01->_Y+pAAPrism01->_cy)) + pAAPrism01->_b;
+                int b = ((pActor01->_z+pAAPrism01->_cz) - pAAPrism01->_a * (pActor01->_y+pAAPrism01->_cy)) + pAAPrism01->_b;
                 int oppY, oppZ;
 
-                int bXc = pActor02->_X + pSphere02->_cx;
+                int bXc = pActor02->_x + pSphere02->_cx;
                 if (aX1 < bXc && bXc < aX2) {
-                    oppY = (pActor02->_Y + pSphere02->_y) + pAAPrism01->_vIH_x * pSphere02->_r;
-                    oppZ = (pActor02->_Z + pSphere02->_z) + pAAPrism01->_vIH_y * pSphere02->_r;
+                    oppY = (pActor02->_y + pSphere02->_y) + pAAPrism01->_vIH_x * pSphere02->_r;
+                    oppZ = (pActor02->_z + pSphere02->_z) + pAAPrism01->_vIH_y * pSphere02->_r;
                 } else {
                     if (bXc >= aX2) {
                         int r = pSphere02->_r * UTIL::ROOT_1_MINUS_XX[(int)((1.0*(bXc - aX2) / pSphere02->_r)*1000)];
-                        oppY = (pActor02->_Y + pSphere02->_y) + pAAPrism01->_vIH_x * r;
-                        oppZ = (pActor02->_Z + pSphere02->_z) + pAAPrism01->_vIH_y * r;
+                        oppY = (pActor02->_y + pSphere02->_y) + pAAPrism01->_vIH_x * r;
+                        oppZ = (pActor02->_z + pSphere02->_z) + pAAPrism01->_vIH_y * r;
                     } else if (aX1 >= bXc) {
                         int r = pSphere02->_r * UTIL::ROOT_1_MINUS_XX[(int)((1.0*(aX1 - bXc) / pSphere02->_r)*1000)];
-                        oppY = (pActor02->_Y + pSphere02->_y) + pAAPrism01->_vIH_x * r;
-                        oppZ = (pActor02->_Z + pSphere02->_z) + pAAPrism01->_vIH_y * r;
+                        oppY = (pActor02->_y + pSphere02->_y) + pAAPrism01->_vIH_x * r;
+                        oppZ = (pActor02->_z + pSphere02->_z) + pAAPrism01->_vIH_y * r;
                     }
                 }
                 if (pos & POS_PRISM_pp) {
@@ -576,21 +576,21 @@ public:
 
             } else if (pos & POS_PRISM_ZX) {
                 //ワールド座標でのプリズム境界線の切片を求める b = x - az
-                int b = ((pActor01->_X+pAAPrism01->_cx) - pAAPrism01->_a * (pActor01->_Z+pAAPrism01->_cz)) + pAAPrism01->_b;
+                int b = ((pActor01->_x+pAAPrism01->_cx) - pAAPrism01->_a * (pActor01->_z+pAAPrism01->_cz)) + pAAPrism01->_b;
                 int oppZ,oppX;
-                int bYc = pActor02->_Y + pSphere02->_cy;
+                int bYc = pActor02->_y + pSphere02->_cy;
                 if (aY1 < bYc && bYc < aY2) {
-                    oppZ = (pActor02->_Z + pSphere02->_z) + pAAPrism01->_vIH_x * pSphere02->_r;
-                    oppX = (pActor02->_X + pSphere02->_x) + pAAPrism01->_vIH_y * pSphere02->_r;
+                    oppZ = (pActor02->_z + pSphere02->_z) + pAAPrism01->_vIH_x * pSphere02->_r;
+                    oppX = (pActor02->_x + pSphere02->_x) + pAAPrism01->_vIH_y * pSphere02->_r;
                 } else {
                     if (bYc >= aY2) {
                         int r = pSphere02->_r * UTIL::ROOT_1_MINUS_XX[(int)((1.0*(bYc - aY2) / pSphere02->_r)*1000)];
-                        oppZ = (pActor02->_Z + pSphere02->_z) + pAAPrism01->_vIH_x * r;
-                        oppX = (pActor02->_X + pSphere02->_x) + pAAPrism01->_vIH_y * r;
+                        oppZ = (pActor02->_z + pSphere02->_z) + pAAPrism01->_vIH_x * r;
+                        oppX = (pActor02->_x + pSphere02->_x) + pAAPrism01->_vIH_y * r;
                     } else if (aY1 >= bYc) {
                         int r = pSphere02->_r * UTIL::ROOT_1_MINUS_XX[(int)((1.0*(aY1 - bYc) / pSphere02->_r)*1000)];
-                        oppZ = (pActor02->_Z + pSphere02->_z) + pAAPrism01->_vIH_x * r;
-                        oppX = (pActor02->_X + pSphere02->_x) + pAAPrism01->_vIH_y * r;
+                        oppZ = (pActor02->_z + pSphere02->_z) + pAAPrism01->_vIH_x * r;
+                        oppX = (pActor02->_x + pSphere02->_x) + pAAPrism01->_vIH_y * r;
                     }
                 }
                 if (pos & POS_PRISM_pp) {
@@ -674,13 +674,13 @@ public:
     /**
      * 弾を複数個撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
-     * ・ショットの _X, _Y, _Z 座標 <BR>
+     * ・ショットの _x, _y, _z 座標 <BR>
      * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>
-     * @param prm_X               発射元X座標
-     * @param prm_Y               発射元Y座標
-     * @param prm_Z               発射元Z座標
-     * @param prm_RZ              発射方向Rz
-     * @param prm_RY              発射方向Ry
+     * @param prm_x               発射元X座標
+     * @param prm_y               発射元Y座標
+     * @param prm_z               発射元Z座標
+     * @param prm_rz              発射方向Rz
+     * @param prm_ry              発射方向Ry
      * @param prm_pDepo_Shot      発射するショットのデポジトリ
      * @param prm_r               発射元と発射するショットの初期表示位置距離(発射元からの半径)。0より大きい値の必要有り。
      * @param prm_velo_first      初弾のショット初期速度
@@ -691,8 +691,8 @@ public:
      * @param pFunc_CallBackDispatched 弾がデポジトリから dispach() された時に呼び出すコールバック。
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
-    static GgafDxCore::GgafDxDrawableActor* shotWay001(coord prm_X, coord prm_Y, coord prm_Z,
-                                                       angle prm_RZ, angle prm_RY,
+    static GgafDxCore::GgafDxDrawableActor* shotWay001(coord prm_x, coord prm_y, coord prm_z,
+                                                       angle prm_rz, angle prm_ry,
                                                        GgafCore::GgafActorDepository* prm_pDepo_Shot,
                                                        coord prm_r,
                                                        velo prm_velo_first, acce prm_acce,
@@ -700,16 +700,16 @@ public:
                                                        void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxDrawableActor*, int, int) = nullptr);
 
     /**
-     * 発射元が向いている方向（_RZ > _RY）に向かって 弾を複数個撃つ .
+     * 発射元が向いている方向（_rz > _ry）に向かって 弾を複数個撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
-     * ・ショットの _X, _Y, _Z 座標 <BR>
+     * ・ショットの _x, _y, _z 座標 <BR>
      * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>
-     * @param prm_from_X          発射元X座標
-     * @param prm_from_Y          発射元Y座標
-     * @param prm_from_Z          発射元Z座標
-     * @param prm_to_X            目標X座標
-     * @param prm_to_Y            目標Y座標
-     * @param prm_to_Z            目標Z座標
+     * @param prm_from_x          発射元X座標
+     * @param prm_from_y          発射元Y座標
+     * @param prm_from_z          発射元Z座標
+     * @param prm_to_x            目標X座標
+     * @param prm_to_y            目標Y座標
+     * @param prm_to_z            目標Z座標
      * @param prm_pDepo_Shot      発射するショットのデポジトリ
      * @param prm_r               発射元と発射するショットの初期表示位置距離(発射元からの半径)。0より大きい値の必要有り。
      * @param prm_velo_first      初弾のショット初期速度。初弾以降の初期速度は prm_attenuated を乗じていく。
@@ -720,8 +720,8 @@ public:
      * @param pFunc_CallBackDispatched
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
-    static GgafDxCore::GgafDxDrawableActor* shotWay001(coord prm_from_X, coord prm_from_Y, coord prm_from_Z,
-                                                       coord prm_to_X, coord prm_to_Y, coord prm_to_Z,
+    static GgafDxCore::GgafDxDrawableActor* shotWay001(coord prm_from_x, coord prm_from_y, coord prm_from_z,
+                                                       coord prm_to_x, coord prm_to_y, coord prm_to_z,
                                                        GgafCore::GgafActorDepository* prm_pDepo_Shot,
                                                        coord prm_r,
                                                        velo prm_velo_first, acce prm_acce,
@@ -729,9 +729,9 @@ public:
                                                        void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxDrawableActor*, int, int) = nullptr);
 
     /**
-     * 発射元が向いている方向（_RZ > _RY）に向かって 弾を複数個撃つ .
+     * 発射元が向いている方向（_rz > _ry）に向かって 弾を複数個撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
-     * ・ショットの _X, _Y, _Z 座標 <BR>
+     * ・ショットの _x, _y, _z 座標 <BR>
      * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>
      * @param prm_pFrom           発射元
      * @param prm_pDepo_Shot      発射するショットのデポジトリ
@@ -754,13 +754,13 @@ public:
 
     /**
      * N-Way弾（Rz変化）を複数セット撃つ .
-     * prm_RX, prm_RZ, prm_RY = (0,0,0) で、XY平面上にRz変化の N-Way弾 を放ちます。
-     * @param prm_X                発射元X座標
-     * @param prm_Y                発射元Y座標
-     * @param prm_Z                発射元Z座標
-     * @param prm_RX               N Wayの回転角
-     * @param prm_RZ               発射方向Rz
-     * @param prm_RY               発射方向Ry
+     * prm_rx, prm_rz, prm_ry = (0,0,0) で、XY平面上にRz変化の N-Way弾 を放ちます。
+     * @param prm_x                発射元X座標
+     * @param prm_y                発射元Y座標
+     * @param prm_z                発射元Z座標
+     * @param prm_rx               N Wayの回転角
+     * @param prm_rz               発射方向Rz
+     * @param prm_ry               発射方向Ry
      * @param prm_pDepo_Shot       発射するショットのデポジトリ
      * @param prm_r                発射元と発射するショットの初期表示位置距離(発射元からの半径)。0より大きい値の必要有り。
      * @param prm_way_N            N-Way数（Rz変化）
@@ -773,8 +773,8 @@ public:
      * @param pFunc_CallBackDispatched
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
-    static GgafDxCore::GgafDxDrawableActor* shotWay002(coord prm_X, coord prm_Y, coord prm_Z,
-                                                       angle prm_RX, angle prm_RZ, angle prm_RY,
+    static GgafDxCore::GgafDxDrawableActor* shotWay002(coord prm_x, coord prm_y, coord prm_z,
+                                                       angle prm_rx, angle prm_rz, angle prm_ry,
                                                        GgafCore::GgafActorDepository* prm_pDepo_Shot,
                                                        coord prm_r,
                                                        int prm_way_N,
@@ -784,9 +784,9 @@ public:
                                                        void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxDrawableActor*, int, int, int) = nullptr);
 
     /**
-     * 発射元が向いている方向（_RX, _RZ > _RY）N-Way弾（Rz変化）を複数セット撃つ .
+     * 発射元が向いている方向（_rx, _rz > _ry）N-Way弾（Rz変化）を複数セット撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
-     * ・ショットの _X, _Y, _Z 座標 <BR>
+     * ・ショットの _x, _y, _z 座標 <BR>
      * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>
      * @param prm_pFrom                  発射元
      * @param prm_pDepo_Shot             発射するショットのデポジトリ
@@ -813,14 +813,14 @@ public:
     /**
      * N*M-Way弾を複数セット撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
-     * ・ショットの _X, _Y, _Z 座標 <BR>
+     * ・ショットの _x, _y, _z 座標 <BR>
      * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>
-     * @param prm_X                発射元X座標
-     * @param prm_Y                発射元Y座標
-     * @param prm_Z                発射元Z座標
-     * @param prm_RX               N*M 長方形の回転角
-     * @param prm_RZ               発射方向Rz
-     * @param prm_RY               発射方向Ry
+     * @param prm_x                発射元X座標
+     * @param prm_y                発射元Y座標
+     * @param prm_z                発射元Z座標
+     * @param prm_rx               N*M 長方形の回転角
+     * @param prm_rz               発射方向Rz
+     * @param prm_ry               発射方向Ry
      * @param prm_pDepo_Shot1      発射するショットのデポジトリその１
      * @param prm_paUint32_dotmat1 ショットその１を使用するドットマトリックス
      * @param prm_pDepo_Shot2      発射するショットのデポジトリその２
@@ -840,8 +840,8 @@ public:
      * @param pFunc_CallBackDispatched
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
-    static GgafDxCore::GgafDxDrawableActor* shotWay003(coord prm_X, coord prm_Y, coord prm_Z,
-                                                       angle prm_RX, angle prm_RZ, angle prm_RY,
+    static GgafDxCore::GgafDxDrawableActor* shotWay003(coord prm_x, coord prm_y, coord prm_z,
+                                                       angle prm_rx, angle prm_rz, angle prm_ry,
                                                        GgafCore::GgafActorDepository* prm_pDepo_Shot1, uint32_t* prm_paUint32_dotmat1,
                                                        GgafCore::GgafActorDepository* prm_pDepo_Shot2, uint32_t* prm_paUint32_dotmat2,
                                                        GgafCore::GgafActorDepository* prm_pDepo_Shot3, uint32_t* prm_paUint32_dotmat3,
@@ -854,9 +854,9 @@ public:
 
 
     /**
-     * 発射元が向いている方向（_RX > _RZ > _RY）に向かって N*M-Way弾を複数セット撃つ .
+     * 発射元が向いている方向（_rx > _rz > _ry）に向かって N*M-Way弾を複数セット撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
-     * ・ショットの _X, _Y, _Z 座標 <BR>
+     * ・ショットの _x, _y, _z 座標 <BR>
      * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>
      * @param prm_pFrom            発射元
      * @param prm_pDepo_Shot1      発射するショットのデポジトリその１
@@ -894,13 +894,13 @@ public:
     /**
      * 拡散放射弾を複数セット同時に撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
-     * ・ショットの _X, _Y, _Z 座標 <BR>
+     * ・ショットの _x, _y, _z 座標 <BR>
      * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>
-     * @param prm_X               発射元X座標
-     * @param prm_Y               発射元Y座標
-     * @param prm_Z               発射元Z座標
-     * @param prm_RZ              発射方向Rz
-     * @param prm_RY              発射方向Ry
+     * @param prm_x               発射元X座標
+     * @param prm_y               発射元Y座標
+     * @param prm_z               発射元Z座標
+     * @param prm_rz              発射方向Rz
+     * @param prm_ry              発射方向Ry
      * @param prm_pDepo_Shot      発射するショットのデポジトリ
      * @param prm_r               発射元と発射するショットの初期表示位置距離(発射元からの半径)。0より大きい値の必要有り。
      * @param prm_radial_way_num  １セット放射Way数
@@ -920,8 +920,8 @@ public:
      *                                 prm_way_index      何WAY目の弾であるか         (0～)
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
-    static GgafDxCore::GgafDxDrawableActor* shotWay004(coord prm_X, coord prm_Y, coord prm_Z,
-                                                       angle prm_RZ, angle prm_RY,
+    static GgafDxCore::GgafDxDrawableActor* shotWay004(coord prm_x, coord prm_y, coord prm_z,
+                                                       angle prm_rz, angle prm_ry,
                                                        GgafCore::GgafActorDepository* prm_pDepo_Shot,
                                                        coord prm_r,
                                                        int prm_radial_way_num, angle prm_expanse_angle,
@@ -930,9 +930,9 @@ public:
                                                        void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxDrawableActor*, int, int, int) = nullptr);
 
     /**
-     * 発射元が向いている方向（_RZ > _RY）に向かって拡散放射弾を複数セット同時に撃つ .
+     * 発射元が向いている方向（_rz > _ry）に向かって拡散放射弾を複数セット同時に撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
-     * ・ショットの _X, _Y, _Z 座標 <BR>
+     * ・ショットの _x, _y, _z 座標 <BR>
      * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>
      * @param prm_pFrom           発射元
      * @param prm_pDepo_Shot      発射するショットのデポジトリ
@@ -965,13 +965,13 @@ public:
     /**
      * 黄金角拡散放射弾を複数セット同時に撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
-     * ・ショットの _X, _Y, _Z 座標 <BR>
+     * ・ショットの _x, _y, _z 座標 <BR>
      * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>
-     * @param prm_X               発射元X座標
-     * @param prm_Y               発射元Y座標
-     * @param prm_Z               発射元Z座標
-     * @param prm_RZ              発射方向Rz
-     * @param prm_RY              発射方向Ry
+     * @param prm_x               発射元X座標
+     * @param prm_y               発射元Y座標
+     * @param prm_z               発射元Z座標
+     * @param prm_rz              発射方向Rz
+     * @param prm_ry              発射方向Ry
      * @param prm_pDepo_Shot      発射するショットのデポジトリ
      * @param prm_r               発射元と発射するショットの初期表示位置距離(発射元からの半径)。0より大きい値の必要有り。
      * @param prm_way_num         １セット発射数(1～999)
@@ -985,8 +985,8 @@ public:
      * @param pFunc_CallBackDispatched
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
-    static GgafDxCore::GgafDxDrawableActor* shotWayGoldenAng(coord prm_X, coord prm_Y, coord prm_Z,
-                                                             angle prm_RZ, angle prm_RY,
+    static GgafDxCore::GgafDxDrawableActor* shotWayGoldenAng(coord prm_x, coord prm_y, coord prm_z,
+                                                             angle prm_rz, angle prm_ry,
                                                              GgafCore::GgafActorDepository* prm_pDepo_Shot,
                                                              coord prm_r,
                                                              int prm_way_num,
@@ -996,9 +996,9 @@ public:
                                                              void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxDrawableActor*, int, int, int) = nullptr);
 
     /**
-     * 発射元が向いている方向（_RZ > _RY）に向かって黄金角拡散放射弾を複数セット同時に撃つ .
+     * 発射元が向いている方向（_rz > _ry）に向かって黄金角拡散放射弾を複数セット同時に撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
-     * ・ショットの _X, _Y, _Z 座標 <BR>
+     * ・ショットの _x, _y, _z 座標 <BR>
      * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>
      * @param prm_pFrom           発射元
      * @param prm_pDepo_Shot      発射するショットのデポジトリ

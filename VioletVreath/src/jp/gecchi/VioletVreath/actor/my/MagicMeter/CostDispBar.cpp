@@ -21,18 +21,18 @@ void CostDispBar::initialize() {
 
 void CostDispBar::onReset() {
     positionAs(pSourceBar_);
-    _SX = pSourceBar_->_SX;
+    _sx = pSourceBar_->_sx;
     setQty(0);
 }
 
 void CostDispBar::onActive() {
     positionAs(pSourceBar_);
-    _SX = pSourceBar_->_SX;
+    _sx = pSourceBar_->_sx;
     setQty(0);
 }
 
 void CostDispBar::processBehavior() {
-    _X = pSourceBar_->_X + PX_C(pSourceBar_->getBarPx()); //pSourceBar_先端の座標
+    _x = pSourceBar_->_x + PX_C(pSourceBar_->getBarPx()); //pSourceBar_先端の座標
     if (getQty() > 0) {
         //正の値は主メーターの増分値を青で示すようにする。
         _pUvFlipper->setActivePtn(4);//青
@@ -45,17 +45,17 @@ void CostDispBar::processBehavior() {
 //        _pUvFlipper->setActivePtn(0);//赤
 //        pixcoord px = pSourceBar_->pPxQty_->getPx() - pPxQty_->getPx();
 //        if (px > 0) {
-//            _X = pSourceBar_->_X +  PX_C(px);
+//            _x = pSourceBar_->_x +  PX_C(px);
 //            setScaleR(pPxQty_->getPx() * rate_org_width_, 1.0); //横方向に倍率で伸ばす
 //        } else {
 //            //元メーターからははみ出ないようにする
-//            _X = pSourceBar_->_X;
-//            _SX = pSourceBar_->_SX;
+//            _x = pSourceBar_->_x;
+//            _sx = pSourceBar_->_sx;
 //        }
 //    } else {
 //        //負の値はコストがマイナス、つまり元の値が増える。主メーターの増分値を青で示すようにする。
 //        _pUvFlipper->setActivePtn(1);
-//        _X = pSourceBar_->_X + PX_C(pSourceBar_->pPxQty_->getPx());
+//        _x = pSourceBar_->_x + PX_C(pSourceBar_->pPxQty_->getPx());
 //        setScaleR(-1.0 * pPxQty_->getPx() * rate_org_width_, 1.0); //横方向に倍率で伸ばす
 //    }
 //    _pUvFlipper->behave();

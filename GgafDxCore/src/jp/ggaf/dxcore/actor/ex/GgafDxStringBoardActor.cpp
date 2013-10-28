@@ -161,7 +161,7 @@ void GgafDxStringBoardActor::processDraw() {
     ID3DXEffect* pID3DXEffect = pBoardSetEffect->_pID3DXEffect;
     GgafDxBoardSetModel* pBoardSetModel = _pBoardSetModel;
     HRESULT hr;
-    pixcoord y = C_PX(_Y);
+    pixcoord y = C_PX(_y);
     if (_align == ALIGN_LEFT || _align == ALIGN_CENTER) {
         if (_valign == VALIGN_BOTTOM) {
             y = y - (_chr_height_px*_nn);
@@ -181,14 +181,14 @@ void GgafDxStringBoardActor::processDraw() {
             y = y + ((_chr_height_px*_nn) - _chr_height_px);
         }
     }
-    hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_Y[0], y);
-    checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_ah_transformed_Y) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_depth_Z[0], float(C_PX(_Z)));
-    checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_ah_depth_Z) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_y[0], y);
+    checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_ah_transformed_y) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_depth_z[0], float(C_PX(_z)));
+    checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_ah_depth_z) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_alpha[0], _alpha); //íçà”ÅFÉAÉãÉtÉ@ÇÕï∂éöÇ≤Ç∆ÇÕïsâ¬
     checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_ah_alpha) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
-    pixcoord X = C_PX(_X);
+    pixcoord X = C_PX(_x);
     if (_align == ALIGN_LEFT || _align == ALIGN_CENTER) {
         int nnn = 0; // num of \n now
         pixcoord x = X - (_align == ALIGN_CENTER ? _aWidth_line_px[nnn]/2 : 0);
@@ -213,8 +213,8 @@ void GgafDxStringBoardActor::processDraw() {
                 x = X - (_align == ALIGN_CENTER ? _aWidth_line_px[nnn]/2 : 0);
                 x_tmp = x;
                 y += _chr_height_px;
-                hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_Y[0], y);
-                checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_ah_transformed_Y) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+                hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_y[0], y);
+                checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_ah_transformed_y) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
                 pos++;
                 continue;
@@ -225,8 +225,8 @@ void GgafDxStringBoardActor::processDraw() {
             int w = ((_chr_width_px - _aWidthPx[_draw_string[pos]]) / 2);
             x = x_tmp - w;
             x_tmp = x + _chr_width_px - w;
-            hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_X[draw_set_cnt], float(x));
-            checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_ah_transformed_X) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_x[draw_set_cnt], float(x));
+            checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_ah_transformed_x) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             _pUvFlipper->getUV(pattno, u, v);
             hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_offset_u[draw_set_cnt], u);
             checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_h_offset_u) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
@@ -262,8 +262,8 @@ void GgafDxStringBoardActor::processDraw() {
                 x = X;
                 x_tmp = x;
                 y -= _chr_height_px;
-                hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_Y[0], y);
-                checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_ah_transformed_Y) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+                hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_y[0], y);
+                checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_ah_transformed_y) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
                 pos--;
                 continue;
@@ -274,8 +274,8 @@ void GgafDxStringBoardActor::processDraw() {
             w = ((_chr_width_px - _aWidthPx[_draw_string[pos]]) / 2);
             x = x_tmp - (w + _aWidthPx[_draw_string[pos]]);
             x_tmp = x + w;
-            hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_X[draw_set_cnt], float(x));
-            checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_ah_transformed_X) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_x[draw_set_cnt], float(x));
+            checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_ah_transformed_x) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             _pUvFlipper->getUV(pattno, u, v);
             hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_offset_u[draw_set_cnt], u);
             checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_h_offset_u) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

@@ -240,7 +240,7 @@ void MenuBoardNameEntry::processBehavior() {
         std::string s = "      " + std::string(len, ' ') + " [OK]?";
         pLabelSelectedChar_->update(s.c_str());
     }
-    //pLabelSelectedChar_->_X = pLabelInputedName_->_X + PX_C(pLabelInputedName_->_chr_width_px * len);
+    //pLabelSelectedChar_->_x = pLabelInputedName_->_x + PX_C(pLabelInputedName_->_chr_width_px * len);
 }
 
 void MenuBoardNameEntry::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
@@ -261,7 +261,7 @@ void MenuBoardNameEntry::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, 
     } else if (prm_item_index == ITEM_INDEX_OK_) {
         //[OK]で決定（振る舞い）の処理終了
         //確認サブメニュー起動
-        riseSubMenu(0, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y);
+        riseSubMenu(0, getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y);
     } else {
         //その他アイテム（入力文字）で決定（振る舞い）の処理
         if (len >= QUERYRANKING_NAME_LEN) {

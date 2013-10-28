@@ -21,8 +21,8 @@ public:
     D3DXHANDLE _hTransformedX;
     D3DXHANDLE _hTransformedY;
 
-    D3DXHANDLE _h_local_left_top_X;
-    D3DXHANDLE _h_local_left_top_Y;
+    D3DXHANDLE _h_local_left_top_x;
+    D3DXHANDLE _h_local_left_top_y;
 
     D3DXHANDLE _hSx;
     D3DXHANDLE _hSy;

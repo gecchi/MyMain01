@@ -87,15 +87,15 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, double prm_rad_fovX, double prm
     _pViewPoint = NEW GgafDxCameraViewPoint();
     _pViewPoint->position(0, 0, 0);
 
-    _X_buffer_left   = PX_C(PROPERTY::GAME_BUFFER_WIDTH) / -2;
-    _X_buffer_right  = PX_C(PROPERTY::GAME_BUFFER_WIDTH) / 2;
-    _Y_buffer_top    = PX_C(PROPERTY::GAME_BUFFER_HEIGHT) / 2;
-    _Y_buffer_bottom = PX_C(PROPERTY::GAME_BUFFER_HEIGHT) / -2;
+    _x_buffer_left   = PX_C(PROPERTY::GAME_BUFFER_WIDTH) / -2;
+    _x_buffer_right  = PX_C(PROPERTY::GAME_BUFFER_WIDTH) / 2;
+    _y_buffer_top    = PX_C(PROPERTY::GAME_BUFFER_HEIGHT) / 2;
+    _y_buffer_bottom = PX_C(PROPERTY::GAME_BUFFER_HEIGHT) / -2;
     GgafDxGod::_pID3DDevice9->GetViewport(&_viewport);
 
-    _X_prev = 0;
-    _Y_prev = 0;
-    _Z_prev = 0;
+    _x_prev = 0;
+    _y_prev = 0;
+    _z_prev = 0;
 }
 
 void GgafDxCamera::initialize() {
@@ -220,9 +220,9 @@ void GgafDxCamera::processBehavior() {
                                 )
         );
     //}
-    _X_prev = _X;
-    _Y_prev = _Y;
-    _Z_prev = _Z;
+    _x_prev = _x;
+    _y_prev = _y;
+    _z_prev = _z;
 }
 
 
@@ -231,9 +231,9 @@ void GgafDxCamera::processJudgement() {
     _pVecCamFromPoint->x = _fX;
     _pVecCamFromPoint->y = _fY;
     _pVecCamFromPoint->z = _fZ;
-    _pVecCamLookatPoint->x = C_DX(_pViewPoint->_X);
-    _pVecCamLookatPoint->y = C_DX(_pViewPoint->_Y);
-    _pVecCamLookatPoint->z = C_DX(_pViewPoint->_Z);
+    _pVecCamLookatPoint->x = C_DX(_pViewPoint->_x);
+    _pVecCamLookatPoint->y = C_DX(_pViewPoint->_y);
+    _pVecCamLookatPoint->z = C_DX(_pViewPoint->_z);
     D3DXMatrixLookAtLH(&_matView, _pVecCamFromPoint, _pVecCamLookatPoint, _pVecCamUp);
 }
 
@@ -242,18 +242,18 @@ GgafDxCameraViewPoint* GgafDxCamera::getViewPoint() {
 }
 
 void GgafDxCamera::setDefaultPosition() {
-    _X = 0;
-    _Y = 0;
-    _Z = DX_C(_cameraZ_org);
-    _pViewPoint->_X = 0;
-    _pViewPoint->_Y = 0;
-    _pViewPoint->_Z = 0;
+    _x = 0;
+    _y = 0;
+    _z = DX_C(_cameraZ_org);
+    _pViewPoint->_x = 0;
+    _pViewPoint->_y = 0;
+    _pViewPoint->_z = 0;
     _pVecCamUp->x = 0.0f;
     _pVecCamUp->y = 1.0f;
     _pVecCamUp->z = 0.0f;
 }
 bool GgafDxCamera::isMoving() {
-    if (_X_prev == _X && _Y_prev == _Y && _Z_prev == _Z) {
+    if (_x_prev == _x && _y_prev == _y && _z_prev == _z) {
         return false;
     } else {
         return true;

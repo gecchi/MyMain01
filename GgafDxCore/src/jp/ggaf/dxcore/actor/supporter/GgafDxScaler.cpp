@@ -129,7 +129,7 @@ void GgafDxScaler::behave() {
         }
     }
     //Actor‚É”½‰f
-    if (_pActor->_SX != _scale[AXIS_X] || _pActor->_SY != _scale[AXIS_Y] || _pActor->_SZ != _scale[AXIS_Z]) {
+    if (_pActor->_sx != _scale[AXIS_X] || _pActor->_sy != _scale[AXIS_Y] || _pActor->_sz != _scale[AXIS_Z]) {
         _pActor->setScale(_scale[AXIS_X], _scale[AXIS_Y], _scale[AXIS_Z]);
     }
 }

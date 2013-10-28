@@ -38,7 +38,7 @@ void ScoreItem::initialize() {
 }
 
 void ScoreItem::onActive() {
-    // _X, _Y, _Z は発生元座標に設定済み
+    // _x, _y, _z は発生元座標に設定済み
     setHitAble(true, false);
 
     _pKurokoB->forceVxyzMvVeloRange(-30000, 30000);
@@ -57,20 +57,20 @@ void ScoreItem::onActive() {
     _pKurokoA->forceMvVeloRange(0, 20000);
     float vX, vY, vZ;
     UTIL::getNormalizeVector(
-            pMyShip->_X - _X,
-            pMyShip->_Y - _Y,
-            pMyShip->_Z - _Z,
+            pMyShip->_x - _x,
+            pMyShip->_y - _y,
+            pMyShip->_z - _z,
             vX, vY, vZ);
     int d = PX_C(200);
     int r = PX_C(75);
-    _pKurokoA->setMvAngTwd((coord)(_X + (vX * d) + RND(-r, +r)),
-                           (coord)(_Y + (vY * d) + RND(-r, +r)),
-                           (coord)(_Z + (vZ * d) + RND(-r, +r)) );
+    _pKurokoA->setMvAngTwd((coord)(_x + (vX * d) + RND(-r, +r)),
+                           (coord)(_y + (vY * d) + RND(-r, +r)),
+                           (coord)(_z + (vZ * d) + RND(-r, +r)) );
     _pKurokoA->setMvVelo(2000);
     _pKurokoA->setMvAcce(100);
 
     _pProg->reset(PROG_DRIFT);
-    _SX = _SY = _SZ = 1000;
+    _sx = _sy = _sz = 1000;
 }
 
 void ScoreItem::processBehavior() {
@@ -99,13 +99,13 @@ void ScoreItem::processBehavior() {
         }
 
         //かつ自機近辺に到達？
-        if (ABS(pMyShip->_X - _X) < 20000 &&
-            ABS(pMyShip->_Y - _Y) < 20000 &&
-            ABS(pMyShip->_Z - _Z) < 20000 ) {
+        if (ABS(pMyShip->_x - _x) < 20000 &&
+            ABS(pMyShip->_y - _y) < 20000 &&
+            ABS(pMyShip->_z - _z) < 20000 ) {
 
-            kDX_ = pMyShip->_X - _X;
-            kDY_ = pMyShip->_Y - _Y;
-            kDZ_ = pMyShip->_Z - _Z;
+            kDX_ = pMyShip->_x - _x;
+            kDY_ = pMyShip->_y - _y;
+            kDZ_ = pMyShip->_z - _z;
             _pProg->change(PROG_ABSORB); //吸着吸収へ
         }
 
@@ -119,13 +119,13 @@ void ScoreItem::processBehavior() {
             _pKurokoB->setZeroVxyzMvAcce();
             _pKurokoB->stopGravitationMvSequence();
         }
-        _X = pMyShip->_X + kDX_;
-        _Y = pMyShip->_Y + kDY_;
-        _Z = pMyShip->_Z + kDZ_;
-        _SX -= 100;
-        _SY -= 100;
-        _SZ -= 100;
-        if (_SX < 5) {
+        _x = pMyShip->_x + kDX_;
+        _y = pMyShip->_y + kDY_;
+        _z = pMyShip->_z + kDZ_;
+        _sx -= 100;
+        _sy -= 100;
+        _sz -= 100;
+        if (_sx < 5) {
             _pSeTx->play(0);
             _pProg->changeNothing();
             sayonara(); //終了

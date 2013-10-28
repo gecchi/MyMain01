@@ -26,14 +26,14 @@ void DamageDispBar::initialize() {
 
 void DamageDispBar::onReset() {
     positionAs(pSourceBar_);
-    _SX = pSourceBar_->_SX;
+    _sx = pSourceBar_->_sx;
     setQty(0);
     _pUvFlipper->setActivePtn(0);//赤
 }
 
 void DamageDispBar::onActive() {
     positionAs(pSourceBar_);
-    _SX = pSourceBar_->_SX;
+    _sx = pSourceBar_->_sx;
     setQty(0);
     _pUvFlipper->setActivePtn(0);//赤
 }
@@ -41,7 +41,7 @@ void DamageDispBar::onActive() {
 void DamageDispBar::processBehavior() {
     if (damege_disp_timer_ > 0) {
 
-        _X = pSourceBar_->_X + PX_C(pSourceBar_->getBarPx()); //pSourceBar_先端の座標
+        _x = pSourceBar_->_x + PX_C(pSourceBar_->getBarPx()); //pSourceBar_先端の座標
 
         _pUvFlipper->behave();
 

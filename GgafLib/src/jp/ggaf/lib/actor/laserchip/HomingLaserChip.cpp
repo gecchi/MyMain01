@@ -12,18 +12,18 @@ HomingLaserChip::HomingLaserChip(const char* prm_name, const char* prm_model, Gg
     _class_name = "HomingLaserChip";
     _is_leader = false;
 
-    _begining_X = _X;
-    _begining_Y = _Y;
-    _begining_Z = _Z;
-    _begining_RX = _RX;
-    _begining_RY = _RY;
-    _begining_RZ = _RZ;
-    _prev_X = _X;
-    _prev_Y = _Y;
-    _prev_Z = _Z;
-    _prev_RX = _RX;
-    _prev_RY = _RY;
-    _prev_RZ = _RZ;
+    _begining_x = _x;
+    _begining_y = _y;
+    _begining_z = _z;
+    _begining_rx = _rx;
+    _begining_ry = _ry;
+    _begining_rz = _rz;
+    _prev_x = _x;
+    _prev_y = _y;
+    _prev_z = _z;
+    _prev_rx = _rx;
+    _prev_ry = _ry;
+    _prev_rz = _rz;
     _is_fix_begin_pos = true;
 }
 
@@ -38,28 +38,28 @@ void HomingLaserChip::onActive() {
         //_TRACE_("HomingLaserChip::onActive() "<<getName()<<" pChip_front == nullptr");
         _is_leader = true;
         //自身が先頭の場合
-        _begining_X = _X;
-        _begining_Y = _Y;
-        _begining_Z = _Z;
-        _begining_RX = _RX;
-        _begining_RY = _RY;
-        _begining_RZ = _RZ;
+        _begining_x = _x;
+        _begining_y = _y;
+        _begining_z = _z;
+        _begining_rx = _rx;
+        _begining_ry = _ry;
+        _begining_rz = _rz;
     } else {
         _is_leader = false;
         //_TRACE_("HomingLaserChip::onActive() "<<getName()<<" pChip_front =="<<(pChip_front->getName()));
-        _begining_X = pChip_front->_begining_X;
-        _begining_Y = pChip_front->_begining_Y;
-        _begining_Z = pChip_front->_begining_Z;
-        _begining_RX = pChip_front->_begining_RX;
-        _begining_RY = pChip_front->_begining_RY;
-        _begining_RZ = pChip_front->_begining_RZ;
+        _begining_x = pChip_front->_begining_x;
+        _begining_y = pChip_front->_begining_y;
+        _begining_z = pChip_front->_begining_z;
+        _begining_rx = pChip_front->_begining_rx;
+        _begining_ry = pChip_front->_begining_ry;
+        _begining_rz = pChip_front->_begining_rz;
         if (_is_fix_begin_pos) {
-            _X = _begining_X;
-            _Y = _begining_Y;
-            _Z = _begining_Z;
-            _RX = _begining_RX;
-            _RY = _begining_RY;
-            _RZ = _begining_RZ;
+            _x = _begining_x;
+            _y = _begining_y;
+            _z = _begining_z;
+            _rx = _begining_rx;
+            _ry = _begining_ry;
+            _rz = _begining_rz;
         }
     }
 }
@@ -96,11 +96,11 @@ void HomingLaserChip::onInactive() {
         if (pChip_behind) {
             int D = (int)(sqrt(
                               (
-                                ((double)(pChip_behind->_X - _X)) * ((double)(pChip_behind->_X - _X))
+                                ((double)(pChip_behind->_x - _x)) * ((double)(pChip_behind->_x - _x))
                               ) + (
-                                ((double)(pChip_behind->_Y - _Y)) * ((double)(pChip_behind->_Y - _Y))
+                                ((double)(pChip_behind->_y - _y)) * ((double)(pChip_behind->_y - _y))
                               ) + (
-                                ((double)(pChip_behind->_Z - _Z)) * ((double)(pChip_behind->_Z - _Z))
+                                ((double)(pChip_behind->_z - _z)) * ((double)(pChip_behind->_z - _z))
                               )
                             )
                          );
@@ -155,26 +155,26 @@ void HomingLaserChip::processBehavior() {
         //数珠繋ぎになる。
         if (pChip_front == nullptr) {
             //本当の先頭チップか、或いはにわか先頭チップの場合の共通処理
-            _prev_X  = _X;
-            _prev_Y  = _Y;
-            _prev_Z  = _Z;
-            _prev_RX = _RX;
-            _prev_RY = _RY;
-            _prev_RZ = _RZ;
+            _prev_x  = _x;
+            _prev_y  = _y;
+            _prev_z  = _z;
+            _prev_rx = _rx;
+            _prev_ry = _ry;
+            _prev_rz = _rz;
             processBehaviorHeadChip(); //先頭チップのみ移動実装
         } else {
-            _prev_X  = _X;
-            _prev_Y  = _Y;
-            _prev_Z  = _Z;
-            _prev_RX = _RX;
-            _prev_RY = _RY;
-            _prev_RZ = _RZ;
-            _X  = pChip_front->_prev_X;
-            _Y  = pChip_front->_prev_Y;
-            _Z  = pChip_front->_prev_Z;
-            _RX = pChip_front->_prev_RX;
-            _RY = pChip_front->_prev_RY;
-            _RZ = pChip_front->_prev_RZ;
+            _prev_x  = _x;
+            _prev_y  = _y;
+            _prev_z  = _z;
+            _prev_rx = _rx;
+            _prev_ry = _ry;
+            _prev_rz = _rz;
+            _x  = pChip_front->_prev_x;
+            _y  = pChip_front->_prev_y;
+            _z  = pChip_front->_prev_z;
+            _rx = pChip_front->_prev_rx;
+            _ry = pChip_front->_prev_ry;
+            _rz = pChip_front->_prev_rz;
         }
     }
 }

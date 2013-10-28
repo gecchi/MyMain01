@@ -40,15 +40,15 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     pLabel_STAMINA_->position(PX_C(PROPERTY::GAME_BUFFER_WIDTH), PX_C(50));
     getSceneDirector()->addSubGroup(pLabel_STAMINA_);
 
-    pLabel_JIKI_X_ = NEW LabelGecchi8Font("JIKI_X");
-    pLabel_JIKI_Y_ = NEW LabelGecchi8Font("JIKI_Y");
-    pLabel_JIKI_Z_ = NEW LabelGecchi8Font("JIKI_Z");
-    pLabel_JIKI_X_->position(PX_C(1), PX_C(PROPERTY::GAME_BUFFER_HEIGHT - 8*3-1));
-    pLabel_JIKI_Y_->position(PX_C(1), PX_C(PROPERTY::GAME_BUFFER_HEIGHT - 8*2-1));
-    pLabel_JIKI_Z_->position(PX_C(1), PX_C(PROPERTY::GAME_BUFFER_HEIGHT - 8*1-1));
-    getSceneDirector()->addSubGroup(pLabel_JIKI_X_);
-    getSceneDirector()->addSubGroup(pLabel_JIKI_Y_);
-    getSceneDirector()->addSubGroup(pLabel_JIKI_Z_);
+    pLabel_JIKI_x_ = NEW LabelGecchi8Font("JIKI_x");
+    pLabel_JIKI_y_ = NEW LabelGecchi8Font("JIKI_y");
+    pLabel_JIKI_z_ = NEW LabelGecchi8Font("JIKI_z");
+    pLabel_JIKI_x_->position(PX_C(1), PX_C(PROPERTY::GAME_BUFFER_HEIGHT - 8*3-1));
+    pLabel_JIKI_y_->position(PX_C(1), PX_C(PROPERTY::GAME_BUFFER_HEIGHT - 8*2-1));
+    pLabel_JIKI_z_->position(PX_C(1), PX_C(PROPERTY::GAME_BUFFER_HEIGHT - 8*1-1));
+    getSceneDirector()->addSubGroup(pLabel_JIKI_x_);
+    getSceneDirector()->addSubGroup(pLabel_JIKI_y_);
+    getSceneDirector()->addSubGroup(pLabel_JIKI_z_);
 
     pRankFont_ = NEW LabelRankFont("RankFont"); //LabelRankFont‚Í ALIGN_RIGHT,VALIGN_BOTTOM ŒÅ’è
     pRankFont_->position(PX_C(PROPERTY::GAME_BUFFER_WIDTH), PX_C(PROPERTY::GAME_BUFFER_HEIGHT));
@@ -76,12 +76,12 @@ void GameMainScene::processBehavior() {
     sprintf(buf_, "STAMINA %7d", pMyShip->_pStatus->get(STAT_Stamina));
     pLabel_STAMINA_->update(buf_);
 
-    sprintf(buf_, "X:%8d", pMyShip->_X);
-    pLabel_JIKI_X_->update(buf_);
-    sprintf(buf_, "Y:%8d", pMyShip->_Y);
-    pLabel_JIKI_Y_->update(buf_);
-    sprintf(buf_, "Z:%8d", pMyShip->_Z);
-    pLabel_JIKI_Z_->update(buf_);
+    sprintf(buf_, "X:%8d", pMyShip->_x);
+    pLabel_JIKI_x_->update(buf_);
+    sprintf(buf_, "Y:%8d", pMyShip->_y);
+    pLabel_JIKI_y_->update(buf_);
+    sprintf(buf_, "Z:%8d", pMyShip->_z);
+    pLabel_JIKI_z_->update(buf_);
 
     switch (_pProg->get()) {
         case GameMainScene::PROG_INIT: {

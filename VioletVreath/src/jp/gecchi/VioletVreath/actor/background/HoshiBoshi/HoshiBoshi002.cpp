@@ -37,10 +37,10 @@ void HoshiBoshi002::onActive() {
 }
 
 void HoshiBoshi002::processBehavior() {
-    if (_X < -CAM_ZF_) {
-        _X += (CAM_ZF_*2);
+    if (_x < -CAM_ZF_) {
+        _x += (CAM_ZF_*2);
     } else {
-        _X -= 10000;
+        _x -= 10000;
     }
 
     _pUvFlipper->behave();
@@ -49,9 +49,9 @@ void HoshiBoshi002::processBehavior() {
 void HoshiBoshi002::processSettlementBehavior() {
     //‰æ–ÊŠO”»’è–³‚µ‚É”º‚È‚¢ˆ—ŠÈ—ª‰»
     //GgafDxGeometricActor::processSettlementBehavior() ‚Æ“¯Šú‚ğæ‚é–I
-    _fX = C_DX(_X);
-    _fY = C_DX(_Y);
-    _fZ = C_DX(_Z);
+    _fX = C_DX(_x);
+    _fY = C_DX(_y);
+    _fZ = C_DX(_z);
 }
 
 void HoshiBoshi002::processJudgement() {

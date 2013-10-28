@@ -53,21 +53,21 @@ void CubeMapMeshTestActor::processBehavior() {
 //        _TRACE_("slideMv!!");
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_W)) {
-//        _X = _X - 2000;
+//        _x = _x - 2000;
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_R)) {
-//        _X = _X + 2000;
+//        _x = _x + 2000;
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_3)) {
-//        _Y = _Y + 2000;
+//        _y = _y + 2000;
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_E)) {
-//        _Y = _Y - 2000;
+//        _y = _y - 2000;
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_4)) {
-//        _X = 0;
+//        _x = 0;
 //    }
-////    _TRACE_(getActiveFrame() <<":"<<_X<<","<<_Y<<","<<_Z);
+////    _TRACE_(getActiveFrame() <<":"<<_x<<","<<_y<<","<<_z);
 //
 //
 //    _pKurokoA->behave();

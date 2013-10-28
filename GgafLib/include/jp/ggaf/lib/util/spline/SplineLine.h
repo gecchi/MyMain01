@@ -130,11 +130,11 @@ public:
     void compute(double prm_accuracy);
 
     /** 制御点X座標の配列 */
-    double* _X_basepoint;
+    double* _x_basepoint;
     /** 制御点Y座標の配列 */
-    double* _Y_basepoint;
+    double* _y_basepoint;
     /** 制御点Z座標の配列 */
-    double* _Z_basepoint;
+    double* _z_basepoint;
     /** 制御点座標数 */
     int _num_basepoint;
 
@@ -143,11 +143,11 @@ public:
     BSpline _zs;
 
     /** 補完点（制御点含む）X座標の配列 */
-    double* _X_compute;
+    double* _x_compute;
     /** 補完点（制御点含む）Y座標の配列 */
-    double* _Y_compute;
+    double* _y_compute;
     /** 補完点（制御点含む）Z座標の配列 */
-    double* _Z_compute;
+    double* _z_compute;
     /** 補完点座標数 */
     int _rnum;
     /** 補完粒度(1.0 で制御点＝補完点、0.5 で、制御点間に補完点を１つ挿入、0.1で補完点９個 */

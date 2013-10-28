@@ -30,7 +30,7 @@ void DefaultScene::processSettlementBehavior() {
     if (_pFuncScrolling && _is_active_flg && !_was_paused_flg && _can_live_flg) {
         executeFuncLowerTree(_pFuncScrolling, &_scroll_speed, nullptr);
         //ここの executeFuncLowerTree の第２第３引数は、
-        //このメソッドのエディタ上の直ぐ上に記述してある DefaultScene::scroll_X の受取り引数 p1 ,p2 と対応する
+        //このメソッドのエディタ上の直ぐ上に記述してある DefaultScene::scroll_x の受取り引数 p1 ,p2 と対応する
         //  this           → GgafObject* pThat
         //  &_scroll_speed → void* p1
         //  nullptr        → void* p2

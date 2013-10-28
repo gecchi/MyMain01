@@ -21,9 +21,9 @@ EnemyDrastea::EnemyDrastea(const char* prm_name) :
     colli_box_dX_ = 1;
     colli_box_dY_ = 1;
     colli_box_dZ_ = 1;
-    box_num_X_ = 1;
-    box_num_Y_ = 1;
-    box_num_Z_ = 1;
+    box_num_x_ = 1;
+    box_num_y_ = 1;
+    box_num_z_ = 1;
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
 }
@@ -32,16 +32,16 @@ void EnemyDrastea::config(
     coord prm_colli_box_dx,
     coord prm_colli_box_dY,
     coord prm_colli_box_dZ,
-    int prm_box_num_X,
-    int prm_box_num_Y,
-    int prm_box_num_Z
+    int prm_box_num_x,
+    int prm_box_num_y,
+    int prm_box_num_z
 ) {
     colli_box_dX_  = prm_colli_box_dx;
     colli_box_dY_  = prm_colli_box_dY;
     colli_box_dZ_  = prm_colli_box_dZ;
-    box_num_X_     = prm_box_num_X;
-    box_num_Y_     = prm_box_num_Y;
-    box_num_Z_     = prm_box_num_Z;
+    box_num_x_     = prm_box_num_x;
+    box_num_y_     = prm_box_num_y;
+    box_num_z_     = prm_box_num_z;
 }
 
 void EnemyDrastea::onCreateModel() {
@@ -54,15 +54,15 @@ void EnemyDrastea::initialize() {
     setCubeMap("BkSky_cubemap.dds",0.3);
     config(PX_C(30),PX_C(30),PX_C(30),
            6, 1, 6);
-    int colli_areas = box_num_X_ * box_num_Y_ * box_num_Z_;
+    int colli_areas = box_num_x_ * box_num_y_ * box_num_z_;
     _pColliChecker->makeCollision(colli_areas);
     int n = 0;
-    coord actor_width_dX = colli_box_dX_*box_num_X_;
-    coord actor_width_dY = colli_box_dY_*box_num_Y_;
-    coord actor_width_dZ = colli_box_dZ_*box_num_Z_;
-    for (int nx = 0; nx < box_num_X_; nx++) {
-        for (int ny = 0; ny < box_num_Y_; ny++) {
-            for (int nz = 0; nz < box_num_Z_; nz++) {
+    coord actor_width_dX = colli_box_dX_*box_num_x_;
+    coord actor_width_dY = colli_box_dY_*box_num_y_;
+    coord actor_width_dZ = colli_box_dZ_*box_num_z_;
+    for (int nx = 0; nx < box_num_x_; nx++) {
+        for (int ny = 0; ny < box_num_y_; ny++) {
+            for (int nz = 0; nz < box_num_z_; nz++) {
                 _pColliChecker->setColliAAB(n,
                                    -(actor_width_dX/2) + (colli_box_dX_*nx),
                                    -(actor_width_dY/2) + (colli_box_dY_*ny),
@@ -84,11 +84,11 @@ void EnemyDrastea::onActive() {
     _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);
     _pKurokoA->setFaceAngVelo(AXIS_Y, 300);
     _pKurokoA->setFaceAngVelo(AXIS_X, 700);
-    static coord appearances_renge_Z = (MyShip::lim_Z_left_ - MyShip::lim_Z_right_) * 3;
-    static coord appearances_renge_Y = (MyShip::lim_Y_top_ - MyShip::lim_Y_bottom_) * 3;
-    _X = GgafDxUniverse::_X_gone_right - 1000;
-    _Y = RND(-(appearances_renge_Y/2) , +(appearances_renge_Y/2));
-    _Z = RND(-(appearances_renge_Z/2) , +(appearances_renge_Z/2));
+    static coord appearances_renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 3;
+    static coord appearances_renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 3;
+    _x = GgafDxUniverse::_x_gone_right - 1000;
+    _y = RND(-(appearances_renge_y/2) , +(appearances_renge_y/2));
+    _z = RND(-(appearances_renge_z/2) , +(appearances_renge_z/2));
     setHitAble(true);
 }
 

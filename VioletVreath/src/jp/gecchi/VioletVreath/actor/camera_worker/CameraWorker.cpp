@@ -21,36 +21,36 @@ CameraWorker::CameraWorker(const char* prm_name) : GgafMainActor(prm_name, nullp
     burenai_speed_ = 10000;
     cam_velo_renge_ = 30000;
     stop_renge_ = 60000;
-    move_target_X_CAM_ = 0;
-    move_target_Y_CAM_ = 0;
-    move_target_Z_CAM_ = 0;
-    move_target_X_VP_ =  0;
-    move_target_Y_VP_ =  0;
-    move_target_Z_VP_ =  0;
+    move_target_x_CAM_ = 0;
+    move_target_y_CAM_ = 0;
+    move_target_z_CAM_ = 0;
+    move_target_x_VP_ =  0;
+    move_target_y_VP_ =  0;
+    move_target_z_VP_ =  0;
     frame_of_behaving_since_onSwitch_ = 0;
     //注意：Cameraはまだ生成されていないためここでP_CAMは使用不可
 }
 
 void CameraWorker::setMoveTargetCamBy(GgafDxCore::GgafDxGeometricActor* pTarget) {
-    move_target_X_CAM_ = pTarget->_X;
-    move_target_Y_CAM_ = pTarget->_Y;
-    move_target_Z_CAM_ = pTarget->_Z;
+    move_target_x_CAM_ = pTarget->_x;
+    move_target_y_CAM_ = pTarget->_y;
+    move_target_z_CAM_ = pTarget->_z;
 }
 void CameraWorker::setMoveTargetCamVpBy(GgafDxCore::GgafDxGeometricActor* pTarget) {
-    move_target_X_VP_ = pTarget->_X;
-    move_target_Y_VP_ = pTarget->_Y;
-    move_target_Z_VP_ = pTarget->_Z;
+    move_target_x_VP_ = pTarget->_x;
+    move_target_y_VP_ = pTarget->_y;
+    move_target_z_VP_ = pTarget->_z;
 }
 
 void CameraWorker::setMoveTargetCam(coord X, coord Y, coord Z) {
-    move_target_X_CAM_ = X;
-    move_target_Y_CAM_ = Y;
-    move_target_Z_CAM_ = Z;
+    move_target_x_CAM_ = X;
+    move_target_y_CAM_ = Y;
+    move_target_z_CAM_ = Z;
 }
 void CameraWorker::setMoveTargetCamVp(coord X, coord Y, coord Z) {
-    move_target_X_VP_ = X;
-    move_target_Y_VP_ = Y;
-    move_target_Z_VP_ = Z;
+    move_target_x_VP_ = X;
+    move_target_y_VP_ = Y;
+    move_target_z_VP_ = Z;
 }
 void CameraWorker::lockCamVp(GgafDxCore::GgafDxGeometricActor* pTarget) {
     pLockOnTarget_ = pTarget;
@@ -96,18 +96,18 @@ void CameraWorker::processBehavior() {
     //カメラ、及びビューポイントの移動速度を求める。
 
     //カメラの目標座標までの各軸の距離（座標差分）
-    int dX_CAM = move_target_X_CAM_ - pCam->_X;
-    int dY_CAM = move_target_Y_CAM_ - pCam->_Y;
-    int dZ_CAM = move_target_Z_CAM_ - pCam->_Z;
+    int dX_CAM = move_target_x_CAM_ - pCam->_x;
+    int dY_CAM = move_target_y_CAM_ - pCam->_y;
+    int dZ_CAM = move_target_z_CAM_ - pCam->_z;
     if ( pLockOnTarget_) {
-        move_target_X_VP_ = pLockOnTarget_->_X;
-        move_target_Y_VP_ = pLockOnTarget_->_Y;
-        move_target_Z_VP_ = pLockOnTarget_->_Z;
+        move_target_x_VP_ = pLockOnTarget_->_x;
+        move_target_y_VP_ = pLockOnTarget_->_y;
+        move_target_z_VP_ = pLockOnTarget_->_z;
     }
     //ビューポイントの目標座標までの各軸の距離（座標差分）
-    int dX_VP = move_target_X_VP_ - pVP->_X;
-    int dY_VP = move_target_Y_VP_ - pVP->_Y;
-    int dZ_VP = move_target_Z_VP_ - pVP->_Z;
+    int dX_VP = move_target_x_VP_ - pVP->_x;
+    int dY_VP = move_target_y_VP_ - pVP->_y;
+    int dZ_VP = move_target_z_VP_ - pVP->_z;
     static const velo veloVxRenge = 4000;
     static const velo veloVyRenge = 4000;
     static const velo veloVzRenge = 4000;

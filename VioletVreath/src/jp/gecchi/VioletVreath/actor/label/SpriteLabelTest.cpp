@@ -96,24 +96,24 @@ void SpriteLabelTest::processBehavior() {
 //    if (GgafDxInput::isBeingPressedKey(DIK_SPACE)) {
 //        //ボタン１（スペースキー）を押しながらの場合
 //        if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
-//            _Z += PX_C(2); //奥
+//            _z += PX_C(2); //奥
 //        }
 //        if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
-//            _Z -= PX_C(2); //手前
+//            _z -= PX_C(2); //手前
 //        }
 //    } else {
 //        //ボタン１（スペースキー）を離している場合
 //        if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
-//            _X += PX_C(2); //右
+//            _x += PX_C(2); //右
 //        }
 //        if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
-//            _X -= PX_C(2); //左
+//            _x -= PX_C(2); //左
 //        }
 //        if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
-//            _Y += PX_C(2); //上
+//            _y += PX_C(2); //上
 //        }
 //        if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
-//            _Y -= PX_C(2); //下
+//            _y -= PX_C(2); //下
 //        }
 //    }
 }

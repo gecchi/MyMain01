@@ -180,7 +180,7 @@ void EnemyHisbe::processBehavior() {
 
 void EnemyHisbe::processJudgement() {
     if (isOutOfUniverse()) {
-        if (_X >= GgafDxUniverse::_X_gone_right) {
+        if (_x >= GgafDxUniverse::_x_gone_right) {
             //WALLì‡é¿å±
         } else {
             sayonara();

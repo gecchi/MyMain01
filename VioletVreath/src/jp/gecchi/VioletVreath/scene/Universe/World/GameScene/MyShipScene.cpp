@@ -142,16 +142,16 @@ void MyShipScene::processBehavior() {
                     throwGgafCriticalException("VreathMagic‚ª‚ ‚è‚Ü‚¹‚ñB");
                 }
 
-                pMyShip_->_X = Universe::_X_gone_left + 1000;
+                pMyShip_->_x = Universe::_x_gone_left + 1000;
                 pMyShip_->can_control_ = true;
                 pMyShip_->is_diving_ = true;
                 pMyShip_->activate();
                 MyShipDivingCamWorker* pCamWorker =
                         (MyShipDivingCamWorker*)(P_UNIVERSE->switchCameraWork("MyShipDivingCamWorker"));
             }
-            pMyShip_->_X += PX_C(30); //30000;
-            if (pMyShip_->_X > 0) {
-                pMyShip_->_X = 0;
+            pMyShip_->_x += PX_C(30); //30000;
+            if (pMyShip_->_x > 0) {
+                pMyShip_->_x = 0;
                 pMyShip_->is_diving_ = false;
                 _pProg->change(MyShipScene::PROG_PLAY);
             }

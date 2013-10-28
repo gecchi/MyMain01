@@ -27,12 +27,12 @@ GgafDxDrawableActor* GgafDxUniverse::_apAlphaActorLastList_DrawDepthLevel[MAX_DR
 GgafDxDrawableActor* GgafDxUniverse::_pActor_DrawActive = nullptr;
 std::string GgafDxUniverse::_seqkey_se_delay = "_SE_D_";
 
-coord GgafDxUniverse::_X_gone_left   = 0;
-coord GgafDxUniverse::_X_gone_right  = 0;
-coord GgafDxUniverse::_Y_gone_top    = 0;
-coord GgafDxUniverse::_Y_gone_bottom = 0;
-coord GgafDxUniverse::_Z_gone_far   = 0;
-coord GgafDxUniverse::_Z_gone_near  = 0;
+coord GgafDxUniverse::_x_gone_left   = 0;
+coord GgafDxUniverse::_x_gone_right  = 0;
+coord GgafDxUniverse::_y_gone_top    = 0;
+coord GgafDxUniverse::_y_gone_bottom = 0;
+coord GgafDxUniverse::_z_gone_far   = 0;
+coord GgafDxUniverse::_z_gone_near  = 0;
 
 
 GgafDxUniverse::SeArray::SeArray() {
@@ -90,13 +90,13 @@ GgafDxUniverse::GgafDxUniverse(const char* prm_name, GgafDxCamera* prm_pCamera) 
 
     //カメラの写す範囲。
     coord F = DX_C(_pCamera->_zf);
-    _X_gone_right  = +F;
-    _X_gone_left   = -F;
-    _Y_gone_top    = +F;
-    _Y_gone_bottom = -F;
-    _Z_gone_far    = +F;
-    _Z_gone_near   = -F;
-    _TRACE_("Gone=X ("<<_X_gone_left<<" ~ "<<_X_gone_right<<") Y("<<_Y_gone_bottom<<" ~ "<<_Y_gone_top<<") Z("<<_Z_gone_near<<" ~ "<<_Z_gone_far<<")");
+    _x_gone_right  = +F;
+    _x_gone_left   = -F;
+    _y_gone_top    = +F;
+    _y_gone_bottom = -F;
+    _z_gone_far    = +F;
+    _z_gone_near   = -F;
+    _TRACE_("Gone=X ("<<_x_gone_left<<" ~ "<<_x_gone_right<<") Y("<<_y_gone_bottom<<" ~ "<<_y_gone_top<<") Z("<<_z_gone_near<<" ~ "<<_z_gone_far<<")");
 
     _pRing_pSeArray = NEW GgafLinkedListRing<SeArray>();
     for (int i = 0; i < PROPERTY::MAX_SE_DELAY; i++) { //GGAF_END_DELAYは最大解放遅れフレームだが、遠方SEの遅延の最高フレーム数としても使う

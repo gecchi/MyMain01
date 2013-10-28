@@ -27,7 +27,7 @@ public:
     /** [r]魚雷の移動軌跡エフェクトのデポジトリ */
     GgafLib::LaserChipDepository* pTailEffectDepository_;
     /** [r]魚雷発射時の座標 */
-    int begin_X_,begin_Y_,begin_Z_;
+    int begin_x_,begin_y_,begin_z_;
     /** [r]到達目標のアクター。nullptrの場合は自機前方のゲーム領域境界点を目標とする仕組み */
     GgafDxCore::GgafDxGeometricActor* pTarget_;
 

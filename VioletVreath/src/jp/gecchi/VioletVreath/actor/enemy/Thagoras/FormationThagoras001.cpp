@@ -149,9 +149,9 @@ void FormationThagoras001::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor,
         pThagoras->pKurokoLeader_ = papSplManufConn_[prm_col]->peek()->
                                       createKurokoLeader(pThagoras->_pKurokoA);
     }
-    pThagoras->pKurokoLeader_->fixStartPosition(entry_pos_.X                      ,
-                                                entry_pos_.Y + (prm_col*PX_C(30)) ,
-                                                entry_pos_.Z                       );
+    pThagoras->pKurokoLeader_->fixStartPosition(entry_pos_.x                      ,
+                                                entry_pos_.y + (prm_col*PX_C(30)) ,
+                                                entry_pos_.z                       );
 
     pThagoras->position( RND(PX_C(-2600), PX_C(2600)),
                          RND(PX_C(-2600), PX_C(2600)),

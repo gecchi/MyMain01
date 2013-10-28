@@ -22,7 +22,7 @@ PauseCamWorker::PauseCamWorker(const char* prm_name) : CameraWorker(prm_name) {
     mdz_flg_ = false;
     pVPGuide_ = nullptr;
     mdz_vx_ = mdz_vy_ = mdz_vz_ = mdz_t_ = 0.0;
-    cam_X_ = cam_Y_ = cam_Z_ = vp_X_ = vp_Y_ = vp_Z_ = 0;
+    cam_x_ = cam_y_ = cam_z_ = vp_x_ = vp_y_ = vp_z_ = 0;
 //    orderActorToFactory(UTIL::easy_hash("VPGuide"), ViewPointGuide, "VPGuide");
 //    pVPGuide_ = (ViewPointGuide*)(obtainActorFromFactory(UTIL::easy_hash("VPGuide")));
     pVPGuide_ = createInFactory(ViewPointGuide, "VPGuide");
@@ -63,18 +63,18 @@ void PauseCamWorker::processBehavior() {
             cd_ = cw;
         }
         if (!pCam->_pKurokoA->isSlidingMv()) {
-            move_target_X_CAM_ = pCam->_X;
-            move_target_Y_CAM_ = pCam->_Y;
-            move_target_Z_CAM_ = pCam->_Z;
+            move_target_x_CAM_ = pCam->_x;
+            move_target_y_CAM_ = pCam->_y;
+            move_target_z_CAM_ = pCam->_z;
         }
         if (!pVP->_pKurokoA->isSlidingMv()) {
             //正確なVPに再設定
-            pVP->_X = DX_C(pCam->_pVecCamLookatPoint->x);
-            pVP->_Y = DX_C(pCam->_pVecCamLookatPoint->y);
-            pVP->_Z = DX_C(pCam->_pVecCamLookatPoint->z);
-            move_target_X_VP_ = pVP->_X;
-            move_target_Y_VP_ = pVP->_Y;
-            move_target_Z_VP_ = pVP->_Z;
+            pVP->_x = DX_C(pCam->_pVecCamLookatPoint->x);
+            pVP->_y = DX_C(pCam->_pVecCamLookatPoint->y);
+            pVP->_z = DX_C(pCam->_pVecCamLookatPoint->z);
+            move_target_x_VP_ = pVP->_x;
+            move_target_y_VP_ = pVP->_y;
+            move_target_z_VP_ = pVP->_z;
         }
     }
 
@@ -137,9 +137,9 @@ void PauseCamWorker::processBehavior() {
         //視点を中心にカメラが回転移動
         if (GgafDxInput::isBeingPressedMouseButton(0) && (mdx != 0 || mdy != 0)) {
             //視点→カメラ の方向ベクトル(x,y,z)
-            double x = move_target_X_CAM_ - move_target_X_VP_;
-            double y = move_target_Y_CAM_ - move_target_Y_VP_;
-            double z = move_target_Z_CAM_ - move_target_Z_VP_;
+            double x = move_target_x_CAM_ - move_target_x_VP_;
+            double y = move_target_y_CAM_ - move_target_y_VP_;
+            double z = move_target_z_CAM_ - move_target_z_VP_;
 
             angle rz1 = UTIL::getAngle2D(x, y);
 
@@ -158,16 +158,16 @@ void PauseCamWorker::processBehavior() {
                 move_target_XY_CAM_UP_ += UTIL::getAngDiff(rz1, rz2);
                 move_target_XY_CAM_UP_ = UTIL::simplifyAng(move_target_XY_CAM_UP_);
             }
-            move_target_X_CAM_ = Q._x + move_target_X_VP_;
-            move_target_Y_CAM_ = Q._y + move_target_Y_VP_;
-            move_target_Z_CAM_ = Q._z + move_target_Z_VP_;
+            move_target_x_CAM_ = Q._x + move_target_x_VP_;
+            move_target_y_CAM_ = Q._y + move_target_y_VP_;
+            move_target_z_CAM_ = Q._z + move_target_z_VP_;
         }
         //カメラを中心に視点が回転移動
         if (GgafDxInput::isBeingPressedMouseButton(1) && (mdx != 0 || mdy != 0)) {
             //カメラ→視点 の方向ベクトル(x,y,z)
-            double x = move_target_X_VP_ - move_target_X_CAM_;
-            double y = move_target_Y_VP_ - move_target_Y_CAM_;
-            double z = move_target_Z_VP_ - move_target_Z_CAM_;
+            double x = move_target_x_VP_ - move_target_x_CAM_;
+            double y = move_target_y_VP_ - move_target_y_CAM_;
+            double z = move_target_z_VP_ - move_target_z_CAM_;
             angle rz1 = UTIL::getAngle2D(x, y);
             //回転させたい角度
             double ang = (PI) * (d/cd_);
@@ -182,9 +182,9 @@ void PauseCamWorker::processBehavior() {
                 move_target_XY_CAM_UP_ = UTIL::simplifyAng(move_target_XY_CAM_UP_);
             }
             //Q.x_, Q.y_, Q.z_ が回転後の座標となる
-            move_target_X_VP_ = Q._x + move_target_X_CAM_;
-            move_target_Y_VP_ = Q._y + move_target_Y_CAM_;
-            move_target_Z_VP_ = Q._z + move_target_Z_CAM_;
+            move_target_x_VP_ = Q._x + move_target_x_CAM_;
+            move_target_y_VP_ = Q._y + move_target_y_CAM_;
+            move_target_z_VP_ = Q._z + move_target_z_CAM_;
         }
         //カメラをと視点が平行移動
         if (GgafDxInput::isBeingPressedMouseButton(2) && (mdx != 0 || mdy != 0)) {
@@ -193,9 +193,9 @@ void PauseCamWorker::processBehavior() {
             double sinHalf = sin(ang/2); //回転させたい角度
             double cosHalf = cos(ang/2);
 
-            double x = move_target_X_VP_ - move_target_X_CAM_;
-            double y = move_target_Y_VP_ - move_target_Y_CAM_;
-            double z = move_target_Z_VP_ - move_target_Z_CAM_;
+            double x = move_target_x_VP_ - move_target_x_CAM_;
+            double y = move_target_y_VP_ - move_target_y_CAM_;
+            double z = move_target_z_VP_ - move_target_z_CAM_;
 
             //正規化
             double d3 = sqrt(x * x + y * y + z * z);
@@ -210,13 +210,13 @@ void PauseCamWorker::processBehavior() {
 
             double r = ((d/cd_) * PX_C(PROPERTY::GAME_BUFFER_WIDTH*2));
 
-            move_target_X_CAM_ += (Q._x*r);
-            move_target_Y_CAM_ += (Q._y*r);
-            move_target_Z_CAM_ += (Q._z*r);
+            move_target_x_CAM_ += (Q._x*r);
+            move_target_y_CAM_ += (Q._y*r);
+            move_target_z_CAM_ += (Q._z*r);
 
-            move_target_X_VP_ += (Q._x*r);
-            move_target_Y_VP_ += (Q._y*r);
-            move_target_Z_VP_ += (Q._z*r);
+            move_target_x_VP_ += (Q._x*r);
+            move_target_y_VP_ += (Q._y*r);
+            move_target_z_VP_ += (Q._z*r);
         }
 
     } else if (mdz != 0 || (GgafDxInput::isBeingPressedMouseButton(0) && GgafDxInput::isBeingPressedMouseButton(1))) {
@@ -224,28 +224,28 @@ void PauseCamWorker::processBehavior() {
         if (mdz_flg_ == false) {
             mdz_total_ = 0;
             if (!pCam->_pKurokoA->isSlidingMv()) {
-                move_target_X_CAM_ = pCam->_X;
-                move_target_Y_CAM_ = pCam->_Y;
-                move_target_Z_CAM_ = pCam->_Z;
+                move_target_x_CAM_ = pCam->_x;
+                move_target_y_CAM_ = pCam->_y;
+                move_target_z_CAM_ = pCam->_z;
             }
             if (!pVP->_pKurokoA->isSlidingMv()) {
-                pVP->_X = DX_C(pCam->_pVecCamLookatPoint->x);
-                pVP->_Y = DX_C(pCam->_pVecCamLookatPoint->y);
-                pVP->_Z = DX_C(pCam->_pVecCamLookatPoint->z);
-                move_target_X_VP_ = pVP->_X;
-                move_target_Y_VP_ = pVP->_Y;
-                move_target_Z_VP_ = pVP->_Z;
+                pVP->_x = DX_C(pCam->_pVecCamLookatPoint->x);
+                pVP->_y = DX_C(pCam->_pVecCamLookatPoint->y);
+                pVP->_z = DX_C(pCam->_pVecCamLookatPoint->z);
+                move_target_x_VP_ = pVP->_x;
+                move_target_y_VP_ = pVP->_y;
+                move_target_z_VP_ = pVP->_z;
             }
-            cam_X_ = pCam->_X;
-            cam_Y_ = pCam->_Y;
-            cam_Z_ = pCam->_Z;
-            vp_X_ = pVP->_X;
-            vp_Y_ = pVP->_Y;
-            vp_Z_ = pVP->_Z;
+            cam_x_ = pCam->_x;
+            cam_y_ = pCam->_y;
+            cam_z_ = pCam->_z;
+            vp_x_ = pVP->_x;
+            vp_y_ = pVP->_y;
+            vp_z_ = pVP->_z;
             //カメラ → 視点 の方向ベクトル
-            double vx = pVP->_X - pCam->_X;
-            double vy = pVP->_Y - pCam->_Y;
-            double vz = pVP->_Z - pCam->_Z;
+            double vx = pVP->_x - pCam->_x;
+            double vy = pVP->_y - pCam->_y;
+            double vz = pVP->_z - pCam->_z;
             double t = 1.0 / sqrt(vx * vx + vy * vy + vz * vz);
             mdz_vx_ = t * vx;
             mdz_vy_ = t * vy;
@@ -253,46 +253,46 @@ void PauseCamWorker::processBehavior() {
         }
 //        mdz_total_ += mdz; //連続ホイール回転時、加算
 //        double r = (mdz_total_*PX_UNIT*LEN_UNIT/10.0);
-//        move_target_X_CAM_ = cam_X_ + mdz_vx_*r;
-//        move_target_Y_CAM_ = cam_Y_ + mdz_vy_*r;
-//        move_target_Z_CAM_ = cam_Z_ + mdz_vz_*r;
-//        move_target_X_VP_  = vp_X_ + mdz_vx_*r;
-//        move_target_Y_VP_  = vp_Y_ + mdz_vy_*r;
-//        move_target_Z_VP_  = vp_Z_ + mdz_vz_*r;
+//        move_target_x_CAM_ = cam_x_ + mdz_vx_*r;
+//        move_target_y_CAM_ = cam_y_ + mdz_vy_*r;
+//        move_target_z_CAM_ = cam_z_ + mdz_vz_*r;
+//        move_target_x_VP_  = vp_x_ + mdz_vx_*r;
+//        move_target_y_VP_  = vp_y_ + mdz_vy_*r;
+//        move_target_z_VP_  = vp_z_ + mdz_vz_*r;
         double r = 0.0;
         if (mdz != 0) {
             r = (mdz*PX_UNIT*LEN_UNIT/10.0);
         } else if ((GgafDxInput::isBeingPressedMouseButton(0) && GgafDxInput::isBeingPressedMouseButton(1))) {
             r = ((1.0*mdy/cd_) * PROPERTY::GAME_BUFFER_WIDTH*2)*LEN_UNIT;
         }
-        move_target_X_CAM_ += mdz_vx_*r;
-        move_target_Y_CAM_ += mdz_vy_*r;
-        move_target_Z_CAM_ += mdz_vz_*r;
-        move_target_X_VP_  += mdz_vx_*r;
-        move_target_Y_VP_  += mdz_vy_*r;
-        move_target_Z_VP_  += mdz_vz_*r;
+        move_target_x_CAM_ += mdz_vx_*r;
+        move_target_y_CAM_ += mdz_vy_*r;
+        move_target_z_CAM_ += mdz_vz_*r;
+        move_target_x_VP_  += mdz_vx_*r;
+        move_target_y_VP_  += mdz_vy_*r;
+        move_target_z_VP_  += mdz_vz_*r;
         mdz_flg_ = true;
     } else {
         mdz_flg_ = false;
     }
 
-    if (ABS(move_target_X_CAM_ - pCam->_X) < 10 && ABS(move_target_Y_CAM_ - pCam->_Y) < 10 && ABS(move_target_Z_CAM_ - pCam->_Z) < 10) {
+    if (ABS(move_target_x_CAM_ - pCam->_x) < 10 && ABS(move_target_y_CAM_ - pCam->_y) < 10 && ABS(move_target_z_CAM_ - pCam->_z) < 10) {
         //OK
     } else {
-        pCam->_pKurokoA->setMvAngTwd(move_target_X_CAM_, move_target_Y_CAM_, move_target_Z_CAM_);
+        pCam->_pKurokoA->setMvAngTwd(move_target_x_CAM_, move_target_y_CAM_, move_target_z_CAM_);
 
-        int td1 = UTIL::getDistance(pCam->_X, pCam->_Y, pCam->_Z,
-                                           move_target_X_CAM_, move_target_Y_CAM_, move_target_Z_CAM_);
+        int td1 = UTIL::getDistance(pCam->_x, pCam->_y, pCam->_z,
+                                           move_target_x_CAM_, move_target_y_CAM_, move_target_z_CAM_);
         if (ABS(td1) > 10) {
             pCam->_pKurokoA->slideMvByDT(0, td1, 20, 0.4, 0.6);
         }
     }
-    if (ABS(move_target_X_VP_ - pVP->_X) < 10 && ABS(move_target_Y_VP_ - pVP->_Y) < 10 && ABS(move_target_Z_VP_ - pVP->_Z) < 10) {
+    if (ABS(move_target_x_VP_ - pVP->_x) < 10 && ABS(move_target_y_VP_ - pVP->_y) < 10 && ABS(move_target_z_VP_ - pVP->_z) < 10) {
         //OK
     } else {
-        pVP->_pKurokoA->setMvAngTwd(move_target_X_VP_, move_target_Y_VP_, move_target_Z_VP_);
-        int td2 = UTIL::getDistance(pVP->_X, pVP->_Y, pVP->_Z,
-                                           move_target_X_VP_, move_target_Y_VP_, move_target_Z_VP_);
+        pVP->_pKurokoA->setMvAngTwd(move_target_x_VP_, move_target_y_VP_, move_target_z_VP_);
+        int td2 = UTIL::getDistance(pVP->_x, pVP->_y, pVP->_z,
+                                           move_target_x_VP_, move_target_y_VP_, move_target_z_VP_);
         if (ABS(td2) > 10) {
             pVP->_pKurokoA->slideMvByDT(0, td2, 20, 0.4, 0.6);
         }

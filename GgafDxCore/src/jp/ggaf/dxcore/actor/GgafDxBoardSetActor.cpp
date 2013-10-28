@@ -50,7 +50,7 @@ _pUvFlipper(NEW GgafDxUvFlipper(_pBoardSetModel->_papTextureConnection[0]->peek(
     setZEnable(false);
     setZWriteEnable(false);
 
-    _Z = 0;
+    _z = 0;
 }
 
 void GgafDxBoardSetActor::processDraw() {
@@ -69,25 +69,25 @@ void GgafDxBoardSetActor::processDraw() {
                 pBoardSetActor = (GgafDxBoardSetActor*)pDrawActor;
 
                 if (_align == ALIGN_RIGHT) {
-                    hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_X[draw_set_num], C_PX(pBoardSetActor->_X) - pBoardSetActor->_width_px);
+                    hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_x[draw_set_num], C_PX(pBoardSetActor->_x) - pBoardSetActor->_width_px);
                 } else if (_align == ALIGN_CENTER) {
-                    hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_X[draw_set_num], C_PX(pBoardSetActor->_X) - (pBoardSetActor->_harf_width_px));
+                    hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_x[draw_set_num], C_PX(pBoardSetActor->_x) - (pBoardSetActor->_harf_width_px));
                 } else {
                     //ALIGN_LEFT
-                    hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_X[draw_set_num], C_PX(pBoardSetActor->_X));
+                    hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_x[draw_set_num], C_PX(pBoardSetActor->_x));
                 }
-                checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ah_transformed_X) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+                checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ah_transformed_x) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
                 if (_valign == VALIGN_BOTTOM) {
-                    hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_Y[draw_set_num], C_PX(pBoardSetActor->_Y) - pBoardSetActor->_height_px);
+                    hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_y[draw_set_num], C_PX(pBoardSetActor->_y) - pBoardSetActor->_height_px);
                 } else if (_valign == VALIGN_MIDDLE) {
-                    hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_Y[draw_set_num], C_PX(pBoardSetActor->_Y) - (pBoardSetActor->_harf_height_px));
+                    hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_y[draw_set_num], C_PX(pBoardSetActor->_y) - (pBoardSetActor->_harf_height_px));
                 } else {
                     //VALIGN_TOP
-                    hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_Y[draw_set_num], C_PX(pBoardSetActor->_Y));
+                    hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_y[draw_set_num], C_PX(pBoardSetActor->_y));
                 }
-                checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ah_transformed_Y) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-                hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_depth_Z[draw_set_num], C_PX(pBoardSetActor->_Z));
-                checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ah_depth_Z) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+                checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ah_transformed_y) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+                hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_depth_z[draw_set_num], C_PX(pBoardSetActor->_z));
+                checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ah_depth_z) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
                 hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_alpha[draw_set_num], pBoardSetActor->_alpha);
                 checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ah_alpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
@@ -115,13 +115,13 @@ void GgafDxBoardSetActor::processDraw() {
 }
 
 void GgafDxBoardSetActor::positionAs(GgafDxGeometricActor* prm_pActor) {
-    _X = prm_pActor->_X;
-    _Y = prm_pActor->_Y;
+    _x = prm_pActor->_x;
+    _y = prm_pActor->_y;
 }
 
 void GgafDxBoardSetActor::positionAs(GgafDxGeoElem* prm_pGeoElem) {
-    _X = prm_pGeoElem->X;
-    _Y = prm_pGeoElem->Y;
+    _x = prm_pGeoElem->x;
+    _y = prm_pGeoElem->y;
 }
 
 void GgafDxBoardSetActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) {

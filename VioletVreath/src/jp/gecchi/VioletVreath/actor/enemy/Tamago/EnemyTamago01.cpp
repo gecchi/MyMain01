@@ -67,9 +67,9 @@ void EnemyTamago01::initialize() {
 
 
     //_pColliChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
-    _X = -50000;
-    _Y = 200000;
-    _Z = 100000;
+    _x = -50000;
+    _y = 200000;
+    _z = 100000;
     _pScaler->setScale(1000);
 }
 
@@ -132,7 +132,7 @@ void EnemyTamago01::processBehavior() {
 
     if (iMovePatternNo_ == 1) {
         //スプライン移動終了時
-        _pKurokoA->turnMvAngTwd(P_MYSHIP->_X+800000, P_MYSHIP->_Y, P_MYSHIP->_Z,
+        _pKurokoA->turnMvAngTwd(P_MYSHIP->_x+800000, P_MYSHIP->_y, P_MYSHIP->_z,
                                             2000, 0,
                                             TURN_CLOSE_TO, false);
         iMovePatternNo_++; //次の行動パターンへ
@@ -154,7 +154,7 @@ void EnemyTamago01::processBehavior() {
             int way = 8;
             angle* paAng_way = NEW angle[way];
             angle target_RzRy_Rz, target_RzRy_Ry;
-            UTIL::convVectorToRzRy(P_MYSHIP->_X - _X, P_MYSHIP->_Y - _Y, P_MYSHIP->_Z - _Z,
+            UTIL::convVectorToRzRy(P_MYSHIP->_x - _x, P_MYSHIP->_y - _y, P_MYSHIP->_z - _z,
                                    target_RzRy_Rz, target_RzRy_Ry);
             angle target_RyRz_Ry, target_RyRz_Rz;
             UTIL::convRzRyToRyRz(target_RzRy_Rz, target_RzRy_Ry, target_RyRz_Ry, target_RyRz_Rz);

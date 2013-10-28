@@ -235,10 +235,10 @@ void GgafDxStringSpriteActor::processDraw() {
             dx = dx_tmp - w;
             dx_tmp = dx + _chr_width_px - w;
 
-            hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_X[draw_set_cnt], PX_DX(dx));
-            checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_X) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-            hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_Y[draw_set_cnt], PX_DX(dy));
-            checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_Y) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_x[draw_set_cnt], PX_DX(dx));
+            checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_x) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_y[draw_set_cnt], PX_DX(dy));
+            checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_y) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             _pUvFlipper->getUV(pattno, u, v);
             hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_offset_u[draw_set_cnt], u);
             checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_offset_u) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
@@ -281,10 +281,10 @@ void GgafDxStringSpriteActor::processDraw() {
             w = ((_chr_width_px - _aWidthPx[_draw_string[pos]]) / 2);
             dx = dx_tmp - (w + _aWidthPx[_draw_string[pos]]);
             dx_tmp = dx + w;
-            hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_X[draw_set_cnt], PX_DX(dx));
-            checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_X) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-            hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_Y[draw_set_cnt], PX_DX(dy));
-            checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_Y) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_x[draw_set_cnt], PX_DX(dx));
+            checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_x) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_y[draw_set_cnt], PX_DX(dy));
+            checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_y) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             _pUvFlipper->getUV(pattno, u, v);
             hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_offset_u[draw_set_cnt], u);
             checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_offset_u) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

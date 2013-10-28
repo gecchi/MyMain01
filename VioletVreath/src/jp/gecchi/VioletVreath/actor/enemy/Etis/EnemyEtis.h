@@ -18,9 +18,9 @@ public:
         SE_DAMAGED   ,
         SE_EXPLOSION ,
     };
-    int width_X_;
-    int height_Z_;
-    int depth_Y_;
+    int width_x_;
+    int height_z_;
+    int depth_y_;
 
 public:
     EnemyEtis(const char* prm_name);

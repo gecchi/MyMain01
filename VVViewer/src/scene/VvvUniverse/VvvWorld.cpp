@@ -47,12 +47,12 @@ void VvvWorld::processBehavior() {
     if (GgafDxInput::isPushedDownKey(DIK_F1)) {
         //カメラを初期位置へ
         VvvCamera* pCam = P_CAM;
-        pCamWorker_->move_target_X_CAM_ = 0;
-        pCamWorker_->move_target_Y_CAM_ = 0;
-        pCamWorker_->move_target_Z_CAM_ = DX_C(pCam->_cameraZ_org);
-        pCamWorker_->move_target_X_VP_ =  0;
-        pCamWorker_->move_target_Y_VP_ =  0;
-        pCamWorker_->move_target_Z_VP_ =  0;
+        pCamWorker_->move_target_x_CAM_ = 0;
+        pCamWorker_->move_target_y_CAM_ = 0;
+        pCamWorker_->move_target_z_CAM_ = DX_C(pCam->_cameraZ_org);
+        pCamWorker_->move_target_x_VP_ =  0;
+        pCamWorker_->move_target_y_VP_ =  0;
+        pCamWorker_->move_target_z_VP_ =  0;
         pCamWorker_->move_target_XY_CAM_UP_ = D90ANG;
     } else if (GgafDxInput::isPushedDownKey(DIK_F2)) {
         //ターゲット変更のみ
@@ -74,9 +74,9 @@ void VvvWorld::processBehavior() {
             }
             listActorInfo_.getCurrent()->pActor_->effectFlush(30);
             GgafDxDrawableActor* pT = listActorInfo_.getCurrent()->pActor_;
-            pCamWorker_->move_target_X_VP_ =  pT->_X;
-            pCamWorker_->move_target_Y_VP_ =  pT->_Y;
-            pCamWorker_->move_target_Z_VP_ =  pT->_Z;
+            pCamWorker_->move_target_x_VP_ =  pT->_x;
+            pCamWorker_->move_target_y_VP_ =  pT->_y;
+            pCamWorker_->move_target_z_VP_ =  pT->_z;
             pCamWorker_->move_target_XY_CAM_UP_ = D90ANG;
         }
 
@@ -213,27 +213,27 @@ void VvvWorld::processBehavior() {
         } else if (GgafDxInput::isBeingPressedKey(DIK_R)) {
             //軸回転
             if (GgafDxInput::isBeingPressedKey(DIK_PGUP)) {
-                pActor->_RX = UTIL::simplifyAng(pActor->_RX + D_ANG(d));
+                pActor->_rx = UTIL::simplifyAng(pActor->_rx + D_ANG(d));
             }
             if (GgafDxInput::isBeingPressedKey(DIK_PGDN)) {
-                pActor->_RX = UTIL::simplifyAng(pActor->_RX - D_ANG(d));
+                pActor->_rx = UTIL::simplifyAng(pActor->_rx - D_ANG(d));
             }
             if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
-                pActor->_RZ = UTIL::simplifyAng(pActor->_RZ + D_ANG(d));
+                pActor->_rz = UTIL::simplifyAng(pActor->_rz + D_ANG(d));
             }
             if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
-                pActor->_RZ = UTIL::simplifyAng(pActor->_RZ - D_ANG(d));
+                pActor->_rz = UTIL::simplifyAng(pActor->_rz - D_ANG(d));
             }
             if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
-                pActor->_RY = UTIL::simplifyAng(pActor->_RY + D_ANG(d));
+                pActor->_ry = UTIL::simplifyAng(pActor->_ry + D_ANG(d));
             }
             if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
-                pActor->_RY = UTIL::simplifyAng(pActor->_RY - D_ANG(d));
+                pActor->_ry = UTIL::simplifyAng(pActor->_ry - D_ANG(d));
             }
             if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
-                pActor->_RX = 0;
-                pActor->_RY = 0;
-                pActor->_RZ = 0;
+                pActor->_rx = 0;
+                pActor->_ry = 0;
+                pActor->_rz = 0;
             }
         } else if (GgafDxInput::isBeingPressedKey(DIK_C)) {
             //環境マップテクスチャ映りこみ率
@@ -285,27 +285,27 @@ void VvvWorld::processBehavior() {
         } else {
             //平行移動
             if (GgafDxInput::isBeingPressedKey(DIK_PGUP)) {
-                pActor->_Z += PX_C(d); //奥
+                pActor->_z += PX_C(d); //奥
             }
             if (GgafDxInput::isBeingPressedKey(DIK_PGDN)) {
-                pActor->_Z -= PX_C(d); //手前
+                pActor->_z -= PX_C(d); //手前
             }
             if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
-                pActor->_X += PX_C(d); //右
+                pActor->_x += PX_C(d); //右
             }
             if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
-                pActor->_X -= PX_C(d); //左
+                pActor->_x -= PX_C(d); //左
             }
             if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
-                pActor->_Y += PX_C(d); //上
+                pActor->_y += PX_C(d); //上
             }
             if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
-                pActor->_Y -= PX_C(d); //下
+                pActor->_y -= PX_C(d); //下
             }
             if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
-                pActor->_X = 0;
-                pActor->_Y = 0;
-                pActor->_Z = 0;
+                pActor->_x = 0;
+                pActor->_y = 0;
+                pActor->_z = 0;
             }
         }
 

@@ -26,7 +26,7 @@ MagicLvCursor::MagicLvCursor(const char* prm_name, const char* prm_model, MagicM
                                    "MagicMeterに登録されていません。");
     }
     point_lv_ = 0;
-    tmp_Y_ = _Y;
+    tmp_y_ = _y;
     tmp_alpha_ = _alpha;
     tX_ = 0;
     tY_ = 0;
@@ -36,8 +36,8 @@ MagicLvCursor::MagicLvCursor(const char* prm_name, const char* prm_model, MagicM
 void MagicLvCursor::initialize() {
     setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     //MagicMeterの座標が定まってから行うこと
-    _X = tX_ = pMagicMeter_->_X + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
-    _Y = tY_ = pMagicMeter_->_Y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
+    _x = tX_ = pMagicMeter_->_x + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
+    _y = tY_ = pMagicMeter_->_y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
     _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
     _pScaler->forceRange(1000, 3000);
 }
@@ -46,8 +46,8 @@ void MagicLvCursor::processBehavior() {
 
     if (_pKurokoA->isJustFinishSlidingMv()) {
         //理想位置に補正
-        _X = tX_;
-        _Y = tY_;
+        _x = tX_;
+        _y = tY_;
     }
     _pKurokoA->behave();
     _pUvFlipper->behave();
@@ -66,8 +66,8 @@ void MagicLvCursor::processPreDraw() {
     tmp_alpha_ = getAlpha();//退避
     setAlpha(alpha_r*tmp_alpha_*pMagicMeter_->getAlpha());
     //ここで、ロール分Y座標を補正
-    tmp_Y_ = _Y; //退避
-    _Y += (1.0 * pMagicMeter_->height_ * (point_lv_+1) * (1.0 - rr));
+    tmp_y_ = _y; //退避
+    _y += (1.0 * pMagicMeter_->height_ * (point_lv_+1) * (1.0 - rr));
     DefaultBoardActor::processPreDraw();
 
     //Y座標ロール追従処理を変えたら、MagicLvCursor003::processPreDraw() も同様の変更を！
@@ -75,7 +75,7 @@ void MagicLvCursor::processPreDraw() {
 
 void MagicLvCursor::processAfterDraw() {
     DefaultBoardActor::processAfterDraw();
-    _Y = tmp_Y_; //復帰
+    _y = tmp_y_; //復帰
     setAlpha(tmp_alpha_); //復帰
 
     //Y座標ロール追従処理を変えたら、MagicLvCursor003::processAfterDraw() も同様の変更を！
@@ -85,8 +85,8 @@ void MagicLvCursor::moveTo(int prm_lv) {
     _pKurokoA->_slide_mv_flg = false;
     _pKurokoA->stopMv();
     point_lv_ = prm_lv;
-    _X = tX_ = pMagicMeter_->_X + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
-    _Y = tY_ = pMagicMeter_->_Y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
+    _x = tX_ = pMagicMeter_->_x + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
+    _y = tY_ = pMagicMeter_->_y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
 }
 
 void MagicLvCursor::moveSmoothTo(int prm_lv, frame prm_target_frames, float prm_p1, float prm_p2) {
@@ -94,10 +94,10 @@ void MagicLvCursor::moveSmoothTo(int prm_lv, frame prm_target_frames, float prm_
     //Y座標のロール（スライド表示）の分考慮せずにY座標のLVカーソル移動計算を行っている。
     //processPreDraw()でロール分を補正する。
     point_lv_ = prm_lv;
-    tX_ = pMagicMeter_->_X + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
-    tY_ = pMagicMeter_->_Y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
+    tX_ = pMagicMeter_->_x + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
+    tY_ = pMagicMeter_->_y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
     _pKurokoA->setMvAngTwd(tX_, tY_);
-    _pKurokoA->slideMvByDT(0, UTIL::getDistance(_X, _Y, tX_, tY_),
+    _pKurokoA->slideMvByDT(0, UTIL::getDistance(_x, _y, tX_, tY_),
                                         (int)prm_target_frames, prm_p1, prm_p2); //ロールを考慮せずにとりあえず移動
 }
 

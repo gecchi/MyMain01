@@ -70,7 +70,7 @@ void EnemyHalia::onActive() {
     _pMorpher->setWeight(1, 0.0);
     _pKurokoA->setFaceAngVelo(AXIS_X, 1000);
     _pKurokoA->slideMvByVD(veloTopMv_, 1000,
-                                         MyShip::lim_X_front_-_X, 0.4, 0.6);
+                                         MyShip::lim_x_front_-_x, 0.4, 0.6);
     _pProg->reset(PROG_MOVE);
     iMovePatternNo_ = 0; //行動パターンリセット
 }
@@ -96,7 +96,7 @@ void EnemyHalia::processBehavior() {
             break;
         }
         case PROG_FIRE_BEGIN: {
-            if ( _X - P_MYSHIP->_X > -dZ_camera_init_) {
+            if ( _x - P_MYSHIP->_x > -dZ_camera_init_) {
                 _pProg->change(PROG_IN_FIRE);
             } else {
                 //背後からは撃たない。

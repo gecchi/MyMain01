@@ -18,7 +18,7 @@ Shot003::Shot003(const char* prm_name) :
 
 void Shot003::initialize() {
     setHitAble(false);
-    _SX = _SY = _SZ = R_SC(50);
+    _sx = _sy = _sz = R_SC(50);
     setAlpha(0.99); //”¼“§–¾‚É‚·‚é‚±‚Æ‚Å—¼–ÊƒŒƒ“ƒ_ƒŠƒ“ƒO
     effectBlendOne(); //‰ÁŽZ‡¬
     _pColliChecker->makeCollision(1);

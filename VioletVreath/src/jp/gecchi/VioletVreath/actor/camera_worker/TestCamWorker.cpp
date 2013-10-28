@@ -30,9 +30,9 @@ void TestCamWorker::processBehavior() {
     Camera* pCam = P_CAM;
     GgafDxGeometricActor* pVP = pCam->getViewPoint();
     pVP->positionAs(P_MYSHIP);
-    P_CAM->_X += 2000;
-    P_CAM->_Y += 2000;
-    P_CAM->_Z += 2000;
+    P_CAM->_x += 2000;
+    P_CAM->_y += 2000;
+    P_CAM->_z += 2000;
 }
 
 void TestCamWorker::processJudgement() {

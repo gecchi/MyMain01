@@ -28,10 +28,10 @@ void Wall001::processBehavior() {
 //    } else {
 //        setHitAble(true, false);//©‹@‚ª‹–ì“à‚Ìê‡A‹–ìŠO•Ç‚Í“–‚½‚è”»’è–³‚µ
 //    }
-//    _TRACE_(getName()<<":"<<_X<<","<<_Y<<","<<_Z);
+//    _TRACE_(getName()<<":"<<_x<<","<<_y<<","<<_z);
 }
 //bool Wall001::isOutOfUniverse() {
-//    if (GgafDxUniverse::_X_gone_left/2 < _X) {
+//    if (GgafDxUniverse::_x_gone_left/2 < _x) {
 //        return false;
 //    }
 //    return true;

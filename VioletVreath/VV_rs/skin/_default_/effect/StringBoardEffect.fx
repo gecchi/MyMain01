@@ -16,9 +16,9 @@ float g_alpha_master;
 
 //float g_offset_u; //テクスチャU座標増分
 //float g_offset_v; //テクスチャV座標増分
-//float g_transformed_X; //変換済みX座標(px)
-//float g_transformed_Y; //変換済みY座標(px)
-//float g_depth_Z; //深度Z (0 ～ +1)
+//float g_transformed_x; //変換済みX座標(px)
+//float g_transformed_y; //変換済みY座標(px)
+//float g_depth_z; //深度Z (0 ～ +1)
 //float g_alpha; //α
 //
 

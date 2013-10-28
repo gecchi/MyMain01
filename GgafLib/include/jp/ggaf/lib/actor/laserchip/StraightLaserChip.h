@@ -25,17 +25,17 @@ class StraightLaserChip : public LaserChip {
 
 public:
     /** レーザーの位置を同期するための、X座標変数場所 */
-    int* _pSource_X;
+    int* _pSource_x;
     /** レーザーの位置を同期するための、Y座標変数場所 */
-    int* _pSource_Y;
+    int* _pSource_y;
     /** レーザーの位置を同期するための、Z座標変数場所 */
-    int* _pSource_Z;
+    int* _pSource_z;
     /** レーザーの向き方向のを同期するための、X軸回転アングル値変数場所 */
-    angle* _pSource_RX;
+    angle* _pSource_rx;
     /** レーザーの向き方向のを同期するための、Y軸回転アングル値変数場所 */
-    angle* _pSource_RY;
+    angle* _pSource_ry;
     /** レーザーの向き方向のを同期するための、Z軸回転アングル値変数場所 */
-    angle* _pSource_RZ;
+    angle* _pSource_rz;
     /** レーザーの移動方向を同期するための、単位方向ベクトルX成分変数場所 */
     float* _pSource_vX;
     /** レーザーの移動方向を同期するための、単位方向ベクトルY成分変数場所 */
@@ -72,12 +72,12 @@ public:
      * @param prm_pGeoActor 発射元アクター
      */
     void setSource(GgafDxCore::GgafDxGeometricActor* prm_pGeoActor) {
-        _pSource_X = &prm_pGeoActor->_X;
-        _pSource_Y = &prm_pGeoActor->_Y;
-        _pSource_Z = &prm_pGeoActor->_Z;
-        _pSource_RX = &prm_pGeoActor->_RX;
-        _pSource_RY = &prm_pGeoActor->_RY;
-        _pSource_RZ = &prm_pGeoActor->_RZ;
+        _pSource_x = &prm_pGeoActor->_x;
+        _pSource_y = &prm_pGeoActor->_y;
+        _pSource_z = &prm_pGeoActor->_z;
+        _pSource_rx = &prm_pGeoActor->_rx;
+        _pSource_ry = &prm_pGeoActor->_ry;
+        _pSource_rz = &prm_pGeoActor->_rz;
         _pSource_vX = &prm_pGeoActor->_pKurokoA->_vX;
         _pSource_vY = &prm_pGeoActor->_pKurokoA->_vY;
         _pSource_vZ = &prm_pGeoActor->_pKurokoA->_vZ;
@@ -90,12 +90,12 @@ public:
      * @param prm_pGeoActor 発射元アクター
      */
     void setPositionSource(GgafDxCore::GgafDxGeometricActor* prm_pGeoActor) {
-        _pSource_X = &prm_pGeoActor->_X;
-        _pSource_Y = &prm_pGeoActor->_Y;
-        _pSource_Z = &prm_pGeoActor->_Z;
-        _pSource_RX = &_RX;
-        _pSource_RY = &_RY;
-        _pSource_RZ = &_RZ;
+        _pSource_x = &prm_pGeoActor->_x;
+        _pSource_y = &prm_pGeoActor->_y;
+        _pSource_z = &prm_pGeoActor->_z;
+        _pSource_rx = &_rx;
+        _pSource_ry = &_ry;
+        _pSource_rz = &_rz;
         _pSource_vX = &_pKurokoA->_vX;
         _pSource_vY = &_pKurokoA->_vY;
         _pSource_vZ = &_pKurokoA->_vZ;
@@ -108,12 +108,12 @@ public:
      * @param prm_pGeoActor 発射元アクター
      */
     void setAngleSource(GgafDxCore::GgafDxGeometricActor* prm_pGeoActor) {
-        _pSource_X = &_X;
-        _pSource_Y = &_Y;
-        _pSource_Z = &_Z;
-        _pSource_RX = &prm_pGeoActor->_RX;
-        _pSource_RY = &prm_pGeoActor->_RY;
-        _pSource_RZ = &prm_pGeoActor->_RZ;
+        _pSource_x = &_x;
+        _pSource_y = &_y;
+        _pSource_z = &_z;
+        _pSource_rx = &prm_pGeoActor->_rx;
+        _pSource_ry = &prm_pGeoActor->_ry;
+        _pSource_rz = &prm_pGeoActor->_rz;
         _pSource_vX = &prm_pGeoActor->_pKurokoA->_vX;
         _pSource_vY = &prm_pGeoActor->_pKurokoA->_vY;
         _pSource_vZ = &prm_pGeoActor->_pKurokoA->_vZ;

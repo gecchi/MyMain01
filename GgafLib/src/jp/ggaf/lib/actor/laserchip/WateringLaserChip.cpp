@@ -20,17 +20,17 @@ void WateringLaserChip::onActive() {
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     //その際 は、本クラスの onActive() メソッドも呼び出してください。
     LaserChip::onActive();
-    _tmpX = _X;
-    _tmpY = _Y;
-    _tmpZ = _Z;
+    _tmpX = _x;
+    _tmpY = _y;
+    _tmpZ = _z;
 }
 
 void WateringLaserChip::processBehavior() {
     _pKurokoB->behave();
     //座標をコピー
-    _tmpX = _X;
-    _tmpY = _Y;
-    _tmpZ = _Z;
+    _tmpX = _x;
+    _tmpY = _y;
+    _tmpZ = _z;
 }
 void WateringLaserChip::processSettlementBehavior() {
     //平均曲線座標設定。(レーザーを滑らかにするノーマライズ）
@@ -63,16 +63,16 @@ void WateringLaserChip::processSettlementBehavior() {
         } else if (pF->_is_active_flg && pB->_is_active_flg) {
             //_pChip_behind == nullptr の判定だけではだめ。_pChip_behind->_is_active_flg と判定すること
             //なぜなら dispatch の瞬間に_pChip_behind != nullptr となるが、active()により有効になるのは次フレームだから
-            //_X,_Y,_Z にはまだ変な値が入っている。
+            //_x,_y,_z にはまだ変な値が入っている。
 
             //中間座標に再設定
-//            _X = (pF->_tmpX + _tmpX + pB->_tmpX) / 3; //intの割り算だしまぁいいか
-//            _Y = (pF->_tmpY + _tmpY + pB->_tmpY) / 3;
-//            _Z = (pF->_tmpZ + _tmpZ + pB->_tmpZ) / 3;
+//            _x = (pF->_tmpX + _tmpX + pB->_tmpX) / 3; //intの割り算だしまぁいいか
+//            _y = (pF->_tmpY + _tmpY + pB->_tmpY) / 3;
+//            _z = (pF->_tmpZ + _tmpZ + pB->_tmpZ) / 3;
 
-            _X = ((pF->_tmpX + pB->_tmpX)/2 + _tmpX)/2;
-            _Y = ((pF->_tmpY + pB->_tmpY)/2 + _tmpY)/2;
-            _Z = ((pF->_tmpZ + pB->_tmpZ)/2 + _tmpZ)/2;
+            _x = ((pF->_tmpX + pB->_tmpX)/2 + _tmpX)/2;
+            _y = ((pF->_tmpY + pB->_tmpY)/2 + _tmpY)/2;
+            _z = ((pF->_tmpZ + pB->_tmpZ)/2 + _tmpZ)/2;
         }
         LaserChip::processSettlementBehavior();
     }

@@ -45,19 +45,19 @@ public:
     int _max_loop;
 
     /** [r]始点X座標 */
-    coord _X_start;
+    coord _x_start;
     /** [r]始点Y座標 */
-    coord _Y_start;
+    coord _y_start;
     /** [r]始点Z座標 */
-    coord _Z_start;
+    coord _z_start;
 
-    coord _offset_X;
-    coord _offset_Y;
-    coord _offset_Z;
+    coord _offset_x;
+    coord _offset_y;
+    coord _offset_z;
 
-    int _flip_X;
-    int _flip_Y;
-    int _flip_Z;
+    int _flip_x;
+    int _flip_y;
+    int _flip_z;
     /** [r]アクターの現在位置からスプライン始点までの距離。start()時点で更新される。 */
     int _distance_to_begin;
     /** [r]現在向かっている最中の補完点(基準点も含む)の数 */
@@ -80,31 +80,31 @@ public:
      * 内部で、adjustAxisXFlip() adjustAxisYFlip() adjustAxisZFlip() が考慮され、
      * さらに Manufacture のXYZ方向の補正割合が乗じられた後、一番最後に
      * adjustCoordOffset()  が考慮され差分加算されます。<BR>
-     * @param prm_offset_X X軸方向補正増加分
-     * @param prm_offset_Y Y軸方向補正増加分
-     * @param prm_offset_Z Z軸方向補正増加分
+     * @param prm_offset_x X軸方向補正増加分
+     * @param prm_offset_y Y軸方向補正増加分
+     * @param prm_offset_z Z軸方向補正増加分
      */
-    virtual void adjustCoordOffset(coord prm_offset_X, coord prm_offset_Y, coord prm_offset_Z);
+    virtual void adjustCoordOffset(coord prm_offset_x, coord prm_offset_y, coord prm_offset_z);
 
     /**
      * スプラインの各座標点を、X軸反転します。
      */
     virtual void adjustAxisXFlip() {
-        _flip_X = -_flip_X;
+        _flip_x = -_flip_x;
     }
 
     /**
      * スプラインの各座標点を、Y軸反転します。
      */
     virtual void adjustAxisYFlip() {
-        _flip_Y = -_flip_Y;
+        _flip_y = -_flip_y;
     }
 
     /**
      * スプラインの各座標点を、Z反転します。
      */
     virtual void adjustAxisZFlip() {
-        _flip_Z = -_flip_Z;
+        _flip_z = -_flip_z;
     }
 
     /**
@@ -215,11 +215,11 @@ public:
      * 補完点の座標を取得する。
      * @param prm_index 補完点インデックス(0～) <BR>
      *                  開始点インデックス：0 ～ 最終点インデックス：getPointNum()-1
-     * @param out_X 戻り値X座標
-     * @param out_Y 戻り値Y座標
-     * @param out_Z 戻り値Z座標
+     * @param out_x 戻り値X座標
+     * @param out_y 戻り値Y座標
+     * @param out_z 戻り値Z座標
      */
-    virtual void getPointCoord(int prm_index, coord &out_X, coord&out_Y, coord &out_Z);
+    virtual void getPointCoord(int prm_index, coord &out_x, coord&out_y, coord &out_z);
 
     /**
      * スプラインの開始座標を引数の座標に固定（start()時に影響しない）。
@@ -228,15 +228,15 @@ public:
      * 想定使用方法は、本メソッド実行で開始座標を設定した後、<BR>
      * 実際の移動するアクターの座標は別の場所に設定して、スプライン移動を開始、<BR>
      * そうするとスプライン曲線軌道に徐々に合流するような効果を演出することができる。<BR>
-     * @param prm_X
-     * @param prm_Y
-     * @param prm_Z
+     * @param prm_x
+     * @param prm_y
+     * @param prm_z
      */
-    void fixStartPosition(coord prm_X, coord prm_Y, coord prm_Z) {
+    void fixStartPosition(coord prm_x, coord prm_y, coord prm_z) {
         _is_fix_start_pos = true;
-        _X_start = prm_X;
-        _Y_start = prm_Y;
-        _Z_start = prm_Z;
+        _x_start = prm_x;
+        _y_start = prm_y;
+        _z_start = prm_z;
     }
 
     /**

@@ -14,7 +14,7 @@ TitleBoard::TitleBoard(const char* prm_name) : DefaultBoardActor(prm_name, "Titl
     setZWriteEnable(false);
 }
 void TitleBoard::initialize() {
-    _Z = 10; //メニューを表に出すために、タイトルは奥へ・・・
+    _z = 10; //メニューを表に出すために、タイトルは奥へ・・・
 }
 
 void TitleBoard::onActive() {
@@ -30,11 +30,11 @@ void TitleBoard::processDraw() {
     //横に２連結
     _pUvFlipper->setActivePtn(0);
     DefaultBoardActor::processDraw();
-    coord tmpX = _X;
-    _X += PX_C(600);
+    coord tmpX = _x;
+    _x += PX_C(600);
     _pUvFlipper->setActivePtn(1);
     DefaultBoardActor::processDraw();
-    _X = tmpX;
+    _x = tmpX;
 }
 
 TitleBoard::~TitleBoard() {

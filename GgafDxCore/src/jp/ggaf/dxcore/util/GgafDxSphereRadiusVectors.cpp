@@ -37,7 +37,7 @@ void GgafDxSphereRadiusVectors::getFaceAngClosely(uint32_t prm_x,
     static class COMPARE_ABLE_SR_VECTOR target;
     target.set(0, prm_y, 0);
 
-    //rZ(y要素)のバイナリサーチ
+    //rz(y要素)のバイナリサーチ
     int top, bottom, center, center_prev;
     top = 0;
     bottom = (D90SANG+1)*(D90SANG+1) - 1;

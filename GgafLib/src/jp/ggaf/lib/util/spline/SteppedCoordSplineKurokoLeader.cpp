@@ -61,9 +61,9 @@ void SteppedCoordSplineKurokoLeader::restart() {
     SplineLine* pSpl = _pSteppedSplManuf->_sp;
     if (_option == RELATIVE_DIRECTION) {
         if (!_is_fix_start_pos) {
-            _X_start = (_flip_X * pSpl->_X_compute[0] * _pSteppedSplManuf->_rate_X) + _offset_X - _pActor_target->_X;
-            _Y_start = (_flip_Y * pSpl->_Y_compute[0] * _pSteppedSplManuf->_rate_Y) + _offset_Y - _pActor_target->_Y;
-            _Z_start = (_flip_Z * pSpl->_Z_compute[0] * _pSteppedSplManuf->_rate_Z) + _offset_Z - _pActor_target->_Z;
+            _x_start = (_flip_x * pSpl->_x_compute[0] * _pSteppedSplManuf->_rate_x) + _offset_x - _pActor_target->_x;
+            _y_start = (_flip_y * pSpl->_y_compute[0] * _pSteppedSplManuf->_rate_y) + _offset_y - _pActor_target->_y;
+            _z_start = (_flip_z * pSpl->_z_compute[0] * _pSteppedSplManuf->_rate_z) + _offset_z - _pActor_target->_z;
         }
         GgafDxKurokoA* const pKurokoA_target = _pActor_target->_pKurokoA;
         _SIN_RzMv_begin = ANG_SIN(pKurokoA_target->_angRzMv);
@@ -72,15 +72,15 @@ void SteppedCoordSplineKurokoLeader::restart() {
         _COS_RyMv_begin = ANG_COS(pKurokoA_target->_angRyMv);
     } else if (_option == RELATIVE_COORD) {
         if (!_is_fix_start_pos) {
-            _X_start = (_flip_X * pSpl->_X_compute[0] * _pSteppedSplManuf->_rate_X) + _offset_X - _pActor_target->_X;
-            _Y_start = (_flip_Y * pSpl->_Y_compute[0] * _pSteppedSplManuf->_rate_Y) + _offset_Y - _pActor_target->_Y;
-            _Z_start = (_flip_Z * pSpl->_Z_compute[0] * _pSteppedSplManuf->_rate_Z) + _offset_Z - _pActor_target->_Z;
+            _x_start = (_flip_x * pSpl->_x_compute[0] * _pSteppedSplManuf->_rate_x) + _offset_x - _pActor_target->_x;
+            _y_start = (_flip_y * pSpl->_y_compute[0] * _pSteppedSplManuf->_rate_y) + _offset_y - _pActor_target->_y;
+            _z_start = (_flip_z * pSpl->_z_compute[0] * _pSteppedSplManuf->_rate_z) + _offset_z - _pActor_target->_z;
         }
     } else { //ABSOLUTE_COORD
         if (!_is_fix_start_pos) {
-            _X_start = (_flip_X * pSpl->_X_compute[0] * _pSteppedSplManuf->_rate_X) + _offset_X;
-            _Y_start = (_flip_Y * pSpl->_Y_compute[0] * _pSteppedSplManuf->_rate_Y) + _offset_Y;
-            _Z_start = (_flip_Z * pSpl->_Z_compute[0] * _pSteppedSplManuf->_rate_Z) + _offset_Z;
+            _x_start = (_flip_x * pSpl->_x_compute[0] * _pSteppedSplManuf->_rate_x) + _offset_x;
+            _y_start = (_flip_y * pSpl->_y_compute[0] * _pSteppedSplManuf->_rate_y) + _offset_y;
+            _z_start = (_flip_z * pSpl->_z_compute[0] * _pSteppedSplManuf->_rate_z) + _offset_z;
         }
    }
 }

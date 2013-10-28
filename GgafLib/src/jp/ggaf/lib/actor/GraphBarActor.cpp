@@ -57,31 +57,31 @@ void GraphBarActor::processDraw() {
     }
 #endif
     if (_valign == VALIGN_BOTTOM) {
-        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_Y, (float)(-_pBoardModel->_fSize_BoardModelHeightPx));
+        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_y, (float)(-_pBoardModel->_fSize_BoardModelHeightPx));
     } else if (_valign == VALIGN_MIDDLE) {
-        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_Y, (float)(-_pBoardModel->_fSize_BoardModelHeightPx*0.5));
+        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_y, (float)(-_pBoardModel->_fSize_BoardModelHeightPx*0.5));
     } else { //VALIGN_TOP
-        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_Y, 0.0f);
+        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_y, 0.0f);
     }
-    checkDxException(hr, D3D_OK, "GraphBarActor::processDraw() SetFloat(_h_local_left_top_Y) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "GraphBarActor::processDraw() SetFloat(_h_local_left_top_y) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
-    hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_Rz, ANG_RAD(_RZ));
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_Rz, ANG_RAD(_rz));
     checkDxException(hr, D3D_OK, "GraphBarActor::processDraw() SetFloat(_h_Rz) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedX, (float)(C_PX(_X)));
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedX, (float)(C_PX(_x)));
     checkDxException(hr, D3D_OK, "GraphBarActor::processDraw() SetFloat(_hTransformedX) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B3");
-    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedY, (float)(C_PX(_Y)));
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedY, (float)(C_PX(_y)));
     checkDxException(hr, D3D_OK, "GraphBarActor::processDraw() SetFloat(_hTransformedY) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B3");
 
-    hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_X, 0.0f);
-    checkDxException(hr, D3D_OK, "GraphBarActor::processDraw() SetFloat(_h_local_left_top_X) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_x, 0.0f);
+    checkDxException(hr, D3D_OK, "GraphBarActor::processDraw() SetFloat(_h_local_left_top_x) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
-    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hDepthZ, (float)(C_PX(_Z)));
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hDepthZ, (float)(C_PX(_z)));
     checkDxException(hr, D3D_OK, "GraphBarActor::processDraw() SetFloat(_hDepthZ) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_alpha, _alpha);
     checkDxException(hr, D3D_OK, "GraphBarActor::processDraw() SetFloat(_h_alpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSx, bar_width * _rate_org_chip_width * SC_R(_SX));
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSx, bar_width * _rate_org_chip_width * SC_R(_sx));
     checkDxException(hr, D3D_OK, "GraphBarActor::processDraw() SetFloat(_sx) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSy, SC_R(_SY));
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSy, SC_R(_sy));
     checkDxException(hr, D3D_OK, "GraphBarActor::processDraw() SetFloat(_sy) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     _pBoardModel->GgafDxBoardModel::draw(this);
 }

@@ -38,7 +38,7 @@ void MagicPointItem::initialize() {
 }
 
 void MagicPointItem::onActive() {
-    // _X, _Y, _Z は発生元座標に設定済み
+    // _x, _y, _z は発生元座標に設定済み
     setHitAble(true, false);
 
     _pKurokoB->forceVxyzMvVeloRange(-30000, 30000);
@@ -57,20 +57,20 @@ void MagicPointItem::onActive() {
     _pKurokoA->forceMvVeloRange(0, 20000);
     float vX, vY, vZ;
     UTIL::getNormalizeVector(
-            pMyShip->_X - _X,
-            pMyShip->_Y - _Y,
-            pMyShip->_Z - _Z,
+            pMyShip->_x - _x,
+            pMyShip->_y - _y,
+            pMyShip->_z - _z,
             vX, vY, vZ);
     int d = PX_C(200);
     int r = PX_C(75);
-    _pKurokoA->setMvAngTwd( (coord)(_X + (vX * d) + RND(-r, +r)),
-                            (coord)(_Y + (vY * d) + RND(-r, +r)),
-                            (coord)(_Z + (vZ * d) + RND(-r, +r)) );
+    _pKurokoA->setMvAngTwd( (coord)(_x + (vX * d) + RND(-r, +r)),
+                            (coord)(_y + (vY * d) + RND(-r, +r)),
+                            (coord)(_z + (vZ * d) + RND(-r, +r)) );
     _pKurokoA->setMvVelo(2000);
     _pKurokoA->setMvAcce(100);
 
     _pProg->reset(PROG_DRIFT);
-    _SX = _SY = _SZ = 1000;
+    _sx = _sy = _sz = 1000;
 }
 
 void MagicPointItem::processBehavior() {
@@ -101,13 +101,13 @@ void MagicPointItem::processBehavior() {
         }
 
         //かつ自機近辺に到達？
-        if (ABS(pE->_X - _X) < PX_C(20) &&
-            ABS(pE->_Y - _Y) < PX_C(20) &&
-            ABS(pE->_Z - _Z) < PX_C(20) )
+        if (ABS(pE->_x - _x) < PX_C(20) &&
+            ABS(pE->_y - _y) < PX_C(20) &&
+            ABS(pE->_z - _z) < PX_C(20) )
         {
-            kDX_ = pE->_X - _X;
-            kDY_ = pE->_Y - _Y;
-            kDZ_ = pE->_Z - _Z;
+            kDX_ = pE->_x - _x;
+            kDY_ = pE->_y - _y;
+            kDZ_ = pE->_z - _z;
             _pProg->change(PROG_ABSORB); //吸着吸収へ
         }
 
@@ -121,13 +121,13 @@ void MagicPointItem::processBehavior() {
             _pKurokoB->setZeroVxyzMvAcce();
             _pKurokoB->stopGravitationMvSequence();
         }
-        _X = pE->_X + kDX_;
-        _Y = pE->_Y + kDY_;
-        _Z = pE->_Z + kDZ_;
+        _x = pE->_x + kDX_;
+        _y = pE->_y + kDY_;
+        _z = pE->_z + kDZ_;
         addScale(-100);
         pMyShip->mp_ += 12; //ここ調整！
 
-        if (_SX < 100) {
+        if (_sx < 100) {
             _pSeTx->play(SE_GET_ITEM);
             _pProg->changeNothing();
             sayonara(); //終了

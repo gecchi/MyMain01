@@ -81,7 +81,7 @@ void WallPartsActor::processPreDraw() {
 }
 
 bool WallPartsActor::isOutOfUniverse() {
-    if (_X+_wall_dep < GgafDxUniverse::_X_gone_left) {
+    if (_x+_wall_dep < GgafDxUniverse::_x_gone_left) {
         return true;
     } else {
         return false;

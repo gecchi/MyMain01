@@ -49,7 +49,7 @@ void MyStraightLaserChip001::initialize() {
     _pColliChecker->setColliAAB_WHD(0,120000,60000,60000);
 
     setHitAble(true);
-    _SX = _SY = _SZ = R_SC(5);
+    _sx = _sy = _sz = R_SC(5);
     _alpha = 0.99;
     _bounding_sphere_radius = 20.0;
 }

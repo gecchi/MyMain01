@@ -73,37 +73,37 @@ void ColliAAB::set(coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, b
     _is_valid_flg = true;
 }
 
-void ColliAAB::rotateRxRzRy(angle rX, angle rY, angle rZ) {
-    s_ang s_RX = rX * (1.0 / SANG_RATE);
-    s_ang s_RY = rY * (1.0 / SANG_RATE);
-    s_ang s_RZ  =rZ * (1.0 / SANG_RATE);
+void ColliAAB::rotateRxRzRy(angle rx, angle ry, angle rz) {
+    s_ang s_rx = rx * (1.0 / SANG_RATE);
+    s_ang s_ry = ry * (1.0 / SANG_RATE);
+    s_ang s_rz  =rz * (1.0 / SANG_RATE);
     //当たり判定領域軸回転
     coord wk_cx = _base_cx;
     coord wk_cy = _base_cy;
     coord wk_cz = _base_cz;
 
     if (_rotX) {
-        _cy = (wk_cy * UTIL::COS[s_RX]) - (wk_cz * UTIL::SIN[s_RX]);
-        _cz = (wk_cy * UTIL::SIN[s_RX]) + (wk_cz * UTIL::COS[s_RX]);
+        _cy = (wk_cy * UTIL::COS[s_rx]) - (wk_cz * UTIL::SIN[s_rx]);
+        _cz = (wk_cy * UTIL::SIN[s_rx]) + (wk_cz * UTIL::COS[s_rx]);
         wk_cy = _cy;
         wk_cz = _cz;
     }
 
     //
     if (_rotZ) {
-        _cx = (wk_cx * UTIL::COS[s_RZ]) - (wk_cy * UTIL::SIN[s_RZ]);
-        _cy = (wk_cx * UTIL::SIN[s_RZ]) + (wk_cy * UTIL::COS[s_RZ]);
+        _cx = (wk_cx * UTIL::COS[s_rz]) - (wk_cy * UTIL::SIN[s_rz]);
+        _cy = (wk_cx * UTIL::SIN[s_rz]) + (wk_cy * UTIL::COS[s_rz]);
         wk_cx = _cx;
         wk_cy = _cy;
     }
 
     if (_rotY) {
-//            _cz = (wk_cz * UTIL::COS[s_RY]) - (wk_cx * UTIL::SIN[s_RY]);
-//            _cx = (wk_cz * UTIL::SIN[s_RY]) + (wk_cx * UTIL::COS[s_RY]);
+//            _cz = (wk_cz * UTIL::COS[s_ry]) - (wk_cx * UTIL::SIN[s_ry]);
+//            _cx = (wk_cz * UTIL::SIN[s_ry]) + (wk_cx * UTIL::COS[s_ry]);
         //↑こうかと一瞬思ったが
         //RYは、(1,0,0)を０度として、Y軸の方向を向いて反時計回りなのでこうなる
-        _cx = (wk_cx * UTIL::COS[D360SANG-s_RY]) - (wk_cz * UTIL::SIN[D360SANG-s_RY]);
-        _cz = (wk_cx * UTIL::SIN[D360SANG-s_RY]) + (wk_cz * UTIL::COS[D360SANG-s_RY]);
+        _cx = (wk_cx * UTIL::COS[D360SANG-s_ry]) - (wk_cz * UTIL::SIN[D360SANG-s_ry]);
+        _cz = (wk_cx * UTIL::SIN[D360SANG-s_ry]) + (wk_cz * UTIL::COS[D360SANG-s_ry]);
         wk_cz = _cz;
         wk_cx = _cx;
     }

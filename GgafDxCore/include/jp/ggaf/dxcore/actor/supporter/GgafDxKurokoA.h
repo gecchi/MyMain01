@@ -17,8 +17,8 @@ namespace GgafDxCore {
  * <BR>
  * それはさて置き、つまりは座標計算支援（共通化）クラスです。<BR>
  * GgafDxGeometricActor のメンバの<BR>
- *  _X,  _Y,  _Z  ・・・ アクターの座標<BR>
- * _RX, _RY, _RZ  ・・・ アクターの軸回転角度<BR>
+ *  _x,  _y,  _z  ・・・ アクターの座標<BR>
+ * _rx, _ry, _rz  ・・・ アクターの軸回転角度<BR>
  * を変化させます。方向ベクトル、速度、距離、時間、によって管理操作するために作成したクラス。<BR>
  * 共通の基本的な移動、回転は黒衣Aに任せて、<BR>
  * アクター固有の特殊な移動回転動作を processBehave() に直接記述。という設計思想。<BR>
@@ -41,7 +41,7 @@ public:
 
 
 
-public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
+public: //_rx , _ry, _rz 操作関連 //////////////////////////////////////////////
     /** [r/w]キャラの向き(各軸回転方角の方角(0～360,000)) */
     angle _angFace[3];
     /** [r/w]軸回転方角の角速度（軸回転方角に毎フレーム加算する方角） */
@@ -74,16 +74,16 @@ public:
     void setFaceAng(axis prm_axis, angle prm_angFace);
     /**
      * Actorの正面方角を設定。<BR>
-     * @param prm_axis_X_angFace X軸方角のアングル値(-360,000～360,000)
-     * @param prm_axis_Y_angFace Y軸方角のアングル値(-360,000～360,000)
-     * @param prm_axis_Z_angFace Z軸方角のアングル値(-360,000～360,000)
+     * @param prm_axis_x_angFace X軸方角のアングル値(-360,000～360,000)
+     * @param prm_axis_y_angFace Y軸方角のアングル値(-360,000～360,000)
+     * @param prm_axis_z_angFace Z軸方角のアングル値(-360,000～360,000)
      */
-    void setFaceAng(angle prm_axis_X_angFace,
-                    angle prm_axis_Y_angFace,
-                    angle prm_axis_Z_angFace) {
-        setFaceAng(AXIS_X, prm_axis_X_angFace);
-        setFaceAng(AXIS_Y, prm_axis_Y_angFace);
-        setFaceAng(AXIS_Z, prm_axis_Z_angFace);
+    void setFaceAng(angle prm_axis_x_angFace,
+                    angle prm_axis_y_angFace,
+                    angle prm_axis_z_angFace) {
+        setFaceAng(AXIS_X, prm_axis_x_angFace);
+        setFaceAng(AXIS_Y, prm_axis_y_angFace);
+        setFaceAng(AXIS_Z, prm_axis_z_angFace);
     }
 
     void setFaceAngByMvAng() {
@@ -161,13 +161,13 @@ public:
 
     /**
      * 軸回転方角の角速度（軸回転方角に毎フレーム加算する値）を設定 .
-     * @param prm_axis_X_angveloRot X軸回転の角速度
-     * @param prm_axis_Y_angveloRot Y軸回転の角速度
-     * @param prm_axis_Z_angveloRot Z軸回転の角速度
+     * @param prm_axis_x_angveloRot X軸回転の角速度
+     * @param prm_axis_y_angveloRot Y軸回転の角速度
+     * @param prm_axis_z_angveloRot Z軸回転の角速度
      */
-    void setFaceAngVelo(angvelo prm_axis_X_angveloRot,
-                        angvelo prm_axis_Y_angveloRot,
-                        angvelo prm_axis_Z_angveloRot);
+    void setFaceAngVelo(angvelo prm_axis_x_angveloRot,
+                        angvelo prm_axis_y_angveloRot,
+                        angvelo prm_axis_z_angveloRot);
 
     void forceFaceAngVeloRange(axis prm_axis,
                                angvelo prm_angveloRot01,
@@ -181,7 +181,7 @@ public:
 
     ////////////////////////////////////////////////////MOVER
 
-public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
+public: //_x, _y, _z 操作関連 //////////////////////////////////////////////
     /** [r]キャラの移動方角単位ベクトル */
     float _vX, _vY, _vZ;
     /** [r/w]移動方角のZ軸回転角 */
@@ -607,7 +607,7 @@ public:
      * @param prm_tY 目標Y座標
      */
     inline void setMvAngTwd(coord prm_tX, coord prm_tY) {
-        setMvAngTwd(prm_tX, prm_tY, _pActor->_Z);
+        setMvAngTwd(prm_tX, prm_tY, _pActor->_z);
     }
 
     /**
@@ -617,17 +617,17 @@ public:
      */
     inline void setMvAngTwd(GgafDxGeometricActor* prm_pActor_Target) {
         setMvAngTwd(
-            prm_pActor_Target->_X,
-            prm_pActor_Target->_Y,
-            prm_pActor_Target->_Z
+            prm_pActor_Target->_x,
+            prm_pActor_Target->_y,
+            prm_pActor_Target->_z
         );
     }
 
     inline void setMvAngTwd(GgafDxGeoElem* prm_pGeoElem) {
         setMvAngTwd(
-            prm_pGeoElem->X,
-            prm_pGeoElem->Y,
-            prm_pGeoElem->Z
+            prm_pGeoElem->x,
+            prm_pGeoElem->y,
+            prm_pGeoElem->z
         );
     }
 
@@ -701,9 +701,9 @@ public:
                                angvelo prm_angVelo, angacce prm_angAcce,
                                int prm_way, bool prm_optimize_ang) {
         turnFaceAngTwd(
-                prm_pActor_Target->_X,
-                prm_pActor_Target->_Y,
-                prm_pActor_Target->_Z,
+                prm_pActor_Target->_x,
+                prm_pActor_Target->_y,
+                prm_pActor_Target->_z,
                 prm_angVelo,
                 prm_angAcce,
                 prm_way,
@@ -714,9 +714,9 @@ public:
                                angvelo prm_angVelo, angacce prm_angAcce,
                                int prm_way, bool prm_optimize_ang) {
         turnFaceAngTwd(
-                prm_pGeoElem->X,
-                prm_pGeoElem->Y,
-                prm_pGeoElem->Z,
+                prm_pGeoElem->x,
+                prm_pGeoElem->y,
+                prm_pGeoElem->z,
                 prm_angVelo,
                 prm_angAcce,
                 prm_way,
@@ -825,9 +825,9 @@ public:
                                  angvelo prm_angVelo, angacce prm_angAcce,
                                  int prm_way, bool prm_optimize_ang) {
         keepOnTurningFaceAngTwd(
-                prm_pActor_Target->_X,
-                prm_pActor_Target->_Y,
-                prm_pActor_Target->_Z,
+                prm_pActor_Target->_x,
+                prm_pActor_Target->_y,
+                prm_pActor_Target->_z,
                 prm_angVelo, prm_angAcce,
                 prm_way, prm_optimize_ang);
         _taget_face_ang_alltime_pActor = prm_pActor_Target;
@@ -853,9 +853,9 @@ public:
                              angvelo prm_angVelo, angacce prm_angAcce,
                              int prm_way, bool prm_optimize_ang) {
         turnMvAngTwd(
-                prm_pActor_Target->_X,
-                prm_pActor_Target->_Y,
-                prm_pActor_Target->_Z,
+                prm_pActor_Target->_x,
+                prm_pActor_Target->_y,
+                prm_pActor_Target->_z,
                 prm_angVelo,
                 prm_angAcce,
                 prm_way,
@@ -867,9 +867,9 @@ public:
                              angvelo prm_angVelo, angacce prm_angAcce,
                              int prm_way, bool prm_optimize_ang) {
         turnMvAngTwd(
-                prm_pGeoElem->X,
-                prm_pGeoElem->Y,
-                prm_pGeoElem->Z,
+                prm_pGeoElem->x,
+                prm_pGeoElem->y,
+                prm_pGeoElem->z,
                 prm_angVelo,
                 prm_angAcce,
                 prm_way,

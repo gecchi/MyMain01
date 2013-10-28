@@ -65,12 +65,12 @@ public:
 
     /**
      * 判定領域の軸回平行移動を行う。
-     * @param rX ローカルX軸回転アングル値(0~360000)
-     * @param rY ローカルY軸回転アングル値(0~360000)
-     * @param rZ ローカルZ軸回転アングル値(0~360000)
+     * @param rx ローカルX軸回転アングル値(0~360000)
+     * @param ry ローカルY軸回転アングル値(0~360000)
+     * @param rz ローカルZ軸回転アングル値(0~360000)
      * @return
      */
-    virtual void rotateRxRzRy(angle rX, angle rY, angle rZ) {
+    virtual void rotateRxRzRy(angle rx, angle ry, angle rz) {
     }
 
     virtual ~GgafDxCollisionPart();

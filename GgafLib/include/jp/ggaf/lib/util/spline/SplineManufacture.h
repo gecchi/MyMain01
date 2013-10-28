@@ -46,11 +46,11 @@ public:
     /** スプライン曲線の補完点生成、保持するクラス */
     SplineLine* _sp;
     /** X軸方向補正割合 */
-    double _rate_X;
+    double _rate_x;
     /** Y軸方向補正割合 */
-    double _rate_Y;
+    double _rate_y;
     /** Z軸方向補正割合 */
-    double _rate_Z;
+    double _rate_z;
     /** [r]次の補完点までの距離のテーブル */
     coord* _paDistance_to;
     /** [r]距離の合計 _paDistance_to[0] ～ _paDistance_to[n]  */
@@ -77,11 +77,11 @@ public:
      * このメソッドを実行した場合、点の点の距離が変わるため、<BR>
      * 下位クラスの実装によっては、内部保持テーブル情報を更新するために、<BR>
      * ※calculate() を実行しないと反映しません。
-     * @param prm_rate_X X軸方向補正割合
-     * @param prm_rate_Y Y軸方向補正割合
-     * @param prm_rate_Z Z軸方向補正割合
+     * @param prm_rate_x X軸方向補正割合
+     * @param prm_rate_y Y軸方向補正割合
+     * @param prm_rate_z Z軸方向補正割合
      */
-    virtual void adjustAxisRate(double prm_rate_X, double prm_rate_Y, double prm_rate_Z);
+    virtual void adjustAxisRate(double prm_rate_x, double prm_rate_y, double prm_rate_z);
 
     /**
      * 初期化（計算）処理 .

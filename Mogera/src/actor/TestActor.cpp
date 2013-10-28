@@ -12,7 +12,7 @@ TestActor::TestActor(const char* prm_name) :
 
 void TestActor::initialize() {
     setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL);
-    position(C_X, C_Y);
+    position(C_x, C_y);
     setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
 //    _pKurokoA->setFaceAngVelo(AXIS_Z, D_ANG(1));
 }

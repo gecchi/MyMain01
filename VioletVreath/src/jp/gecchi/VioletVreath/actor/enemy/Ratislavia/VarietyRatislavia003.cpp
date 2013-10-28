@@ -26,9 +26,9 @@ VarietyRatislavia003::VarietyRatislavia003(const char* prm_name) : EnemyRatislav
 
 void VarietyRatislavia003::initialize() {
     EnemyRatislavia::initialize();
-    _X = GgafDxCore::GgafDxUniverse::_X_gone_right+r1_+r2_;
-    _Y = 0;
-    _Z = MyShip::lim_Z_right_;
+    _x = GgafDxCore::GgafDxUniverse::_x_gone_right+r1_+r2_;
+    _y = 0;
+    _z = MyShip::lim_z_right_;
     _pKurokoA->setRzRyMvAng(D180ANG, 0);
     _pKurokoA->setMvVelo(3000);
     _pKurokoA->setFaceAngVelo(AXIS_Z, -20);

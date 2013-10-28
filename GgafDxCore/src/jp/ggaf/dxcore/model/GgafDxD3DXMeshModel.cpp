@@ -115,9 +115,9 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
 }
 
 //シェーダー実装前
-//        if (pTargetActor->_SX == LEN_UNIT &&
-//            pTargetActor->_SY == LEN_UNIT &&
-//            pTargetActor->_SZ == LEN_UNIT)
+//        if (pTargetActor->_sx == LEN_UNIT &&
+//            pTargetActor->_sy == LEN_UNIT &&
+//            pTargetActor->_sz == LEN_UNIT)
 //        {
 //            hr = _pID3DXMesh->DrawSubset(i); //なんて便利なメソッド！
 //        } else {

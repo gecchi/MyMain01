@@ -21,9 +21,9 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
     std::string classname = "";
     int turn_way = -1;
     bool turn_optimize = true;
-    double rate_X = 1.0f;
-    double rate_Y = 1.0f;
-    double rate_Z = 1.0f;
+    double rate_x = 1.0f;
+    double rate_y = 1.0f;
+    double rate_z = 1.0f;
 
     std::string spl_data_file="";
     std::string spl_filename = PROPERTY::DIR_SPLINE + std::string(prm_idstr) + ".spl";
@@ -40,19 +40,19 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
     }
 
     if (UTIL::isExistKey("MAG_X", &mapSplPropperties)) {
-        rate_X = atof(mapSplPropperties["MAG_X"].c_str());
+        rate_x = atof(mapSplPropperties["MAG_X"].c_str());
     } else {
         throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [MAG_X] ‚ªŽw’è‚³‚ê‚Ä‚Ü‚¹‚ñB");
     }
 
     if (UTIL::isExistKey("MAG_Y", &mapSplPropperties)) {
-        rate_Y = atof(mapSplPropperties["MAG_Y"].c_str());
+        rate_y = atof(mapSplPropperties["MAG_Y"].c_str());
     } else {
         throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [MAG_Y] ‚ªŽw’è‚³‚ê‚Ä‚Ü‚¹‚ñB");
     }
 
     if (UTIL::isExistKey("MAG_Z", &mapSplPropperties)) {
-        rate_Z = atof(mapSplPropperties["MAG_Z"].c_str());
+        rate_z = atof(mapSplPropperties["MAG_Z"].c_str());
     } else {
         throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [MAG_Z] ‚ªŽw’è‚³‚ê‚Ä‚Ü‚¹‚ñB");
     }
@@ -115,21 +115,21 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
                                                     angveloRzRyMv,
                                                     turn_way,
                                                     turn_optimize);
-        pSplManuf->adjustAxisRate(rate_X, rate_Y, rate_Z); //Šg‘åk¬
+        pSplManuf->adjustAxisRate(rate_x, rate_y, rate_z); //Šg‘åk¬
         pSplManuf->calculate();
     } else if (classname.find("FixedVelocitySpline") != std::string::npos) {
         pSplManuf = NEW FixedVelocitySplineManufacture(spl_data_file.c_str(),
                                                        angveloRzRyMv,
                                                        turn_way,
                                                        turn_optimize);
-        pSplManuf->adjustAxisRate(rate_X, rate_Y, rate_Z); //Šg‘åk¬
+        pSplManuf->adjustAxisRate(rate_x, rate_y, rate_z); //Šg‘åk¬
         pSplManuf->calculate();
     } else if (classname.find("SteppedCoordSpline") != std::string::npos) {
         pSplManuf = NEW SteppedCoordSplineManufacture(spl_data_file.c_str(),
                                                       // angveloRzRyMv,
                                                       turn_way,
                                                       turn_optimize);
-        pSplManuf->adjustAxisRate(rate_X, rate_Y, rate_Z); //Šg‘åk¬
+        pSplManuf->adjustAxisRate(rate_x, rate_y, rate_z); //Šg‘åk¬
         pSplManuf->calculate();
     } else {
         throwGgafCriticalException("SplineManufactureManager::processCreateResource _classname="<<classname<< "‚Í•s–¾‚ÈƒNƒ‰ƒX‚Å‚·");

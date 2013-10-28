@@ -10,12 +10,12 @@ StraightLaserChip::StraightLaserChip(const char* prm_name, const char* prm_model
 //    _pPosSourceActor = nullptr;
 //    _pAngleSourceActor = nullptr;
     _pSourceActor = nullptr;
-    _pSource_X = &_X;
-    _pSource_Y = &_Y;
-    _pSource_Z = &_Z;
-    _pSource_RX = &_RX;
-    _pSource_RY = &_RY;
-    _pSource_RZ = &_RZ;
+    _pSource_x = &_x;
+    _pSource_y = &_y;
+    _pSource_z = &_z;
+    _pSource_rx = &_rx;
+    _pSource_ry = &_ry;
+    _pSource_rz = &_rz;
     _pSource_vX = &_pKurokoA->_vX;
     _pSource_vY = &_pKurokoA->_vY;
     _pSource_vZ = &_pKurokoA->_vZ;
@@ -26,23 +26,23 @@ void StraightLaserChip::processBehavior() {
     if (_pSourceActor) {
         if (_pSourceActor->wasDeclaredEnd()) {
             _pSourceActor = nullptr;
-            _pSource_X = &_X;
-            _pSource_Y = &_Y;
-            _pSource_Z = &_Z;
-            _pSource_RX = &_RX;
-            _pSource_RY = &_RY;
-            _pSource_RZ = &_RZ;
+            _pSource_x = &_x;
+            _pSource_y = &_y;
+            _pSource_z = &_z;
+            _pSource_rx = &_rx;
+            _pSource_ry = &_ry;
+            _pSource_rz = &_rz;
             _pSource_vX = &_pKurokoA->_vX;
             _pSource_vY = &_pKurokoA->_vY;
             _pSource_vZ = &_pKurokoA->_vZ;
         } else {
-            _RX = (*_pSource_RX);
-            _RY = (*_pSource_RY);
-            _RZ = (*_pSource_RZ);
+            _rx = (*_pSource_rx);
+            _ry = (*_pSource_ry);
+            _rz = (*_pSource_rz);
             velo v = _veloMv * (velo)getActiveFrame();
-            _X = (*_pSource_X) + ((*_pSource_vX) * v );
-            _Y = (*_pSource_Y) + ((*_pSource_vY) * v );
-            _Z = (*_pSource_Z) + ((*_pSource_vZ) * v );
+            _x = (*_pSource_x) + ((*_pSource_vX) * v );
+            _y = (*_pSource_y) + ((*_pSource_vY) * v );
+            _z = (*_pSource_z) + ((*_pSource_vZ) * v );
         }
     }
 }

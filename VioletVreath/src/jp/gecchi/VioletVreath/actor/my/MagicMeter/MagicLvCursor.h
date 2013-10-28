@@ -23,7 +23,7 @@ public:
     int point_lv_;
 
     /** 退避用 */
-    coord tmp_Y_;
+    coord tmp_y_;
     /** 退避用 */
     float tmp_alpha_;
     /** 移動目標X座標 */

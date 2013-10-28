@@ -18,7 +18,7 @@ using namespace VioletVreath;
 EnemyAppho::EnemyAppho(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Appho", STATUS(EnemyAppho)) {
     _class_name = "EnemyAppho";
-    _SX=_SY=_SZ=100;
+    _sx=_sy=_sz=100;
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(_BANPEI_-1);
 }
@@ -44,7 +44,7 @@ void EnemyAppho::processBehavior() {
     switch (_pProg->get()) {
          case PROG_INIT: {
              setHitAble(false);
-             position(entry_pos_.X, entry_pos_.Y, entry_pos_.Z);
+             positionAs(&entry_pos_);
              _pAFader->setAlpha(0);
              _pKurokoA->setMvVelo(0);
              _pKurokoA->relateFaceWithMvAng(true);
@@ -83,7 +83,7 @@ void EnemyAppho::processBehavior() {
              if (_pKurokoA->isJustFinishSlidingMv()) {
                  _pProg->changeNext();
              }
-             //_TRACE_("PROG_MOVE01:"<<_X<<","<<_Y<<","<<_Z<<","<<_pKurokoA->_veloMv<<","<<_pKurokoA->_accMv);
+             //_TRACE_("PROG_MOVE01:"<<_x<<","<<_y<<","<<_z<<","<<_pKurokoA->_veloMv<<","<<_pKurokoA->_accMv);
              break;
          }
 
@@ -92,9 +92,9 @@ void EnemyAppho::processBehavior() {
                  //移動方向と向きの連携解除
                  _pKurokoA->relateFaceWithMvAng(false);
                  //滞留ポイント到着、ふらふら気ままな方向へ移動させる
-                 _pKurokoA->turnMvAngTwd(_X + RND(-PX_C(100),PX_C(100)),
-                                         _Y + RND(-PX_C(100),PX_C(100)),
-                                         _Z + RND(-PX_C(100),PX_C(100)),
+                 _pKurokoA->turnMvAngTwd(_x + RND(-PX_C(100),PX_C(100)),
+                                         _y + RND(-PX_C(100),PX_C(100)),
+                                         _z + RND(-PX_C(100),PX_C(100)),
                                          100, 0, TURN_CLOSE_TO, false);
                  //ゆっくり自機の方へ向かせる
                  _pKurokoA->turnFaceAngTwd(P_MYSHIP,

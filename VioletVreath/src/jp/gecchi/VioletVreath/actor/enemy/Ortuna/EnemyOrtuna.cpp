@@ -19,7 +19,7 @@ using namespace VioletVreath;
 EnemyOrtuna::EnemyOrtuna(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Ortuna", STATUS(EnemyOrtuna)) {
     _class_name = "EnemyOrtuna";
-    _SX=_SY=_SZ=100;
+    _sx=_sy=_sz=100;
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(_BANPEI_-1);
 }

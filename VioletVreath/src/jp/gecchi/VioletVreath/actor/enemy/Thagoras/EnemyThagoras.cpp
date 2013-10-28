@@ -93,9 +93,9 @@ void EnemyThagoras::processBehavior() {
     _pAFader->behave();
     _pKurokoA->behave();
 
-    _SX = pActor4Sc_->_SX;
-    _SY = pActor4Sc_->_SY;
-    _SZ = pActor4Sc_->_SZ;
+    _sx = pActor4Sc_->_sx;
+    _sy = pActor4Sc_->_sy;
+    _sz = pActor4Sc_->_sz;
 }
 
 void EnemyThagoras::processJudgement() {

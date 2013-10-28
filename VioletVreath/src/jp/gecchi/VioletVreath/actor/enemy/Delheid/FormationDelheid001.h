@@ -27,16 +27,16 @@ public:
      * @param X
      * @param Y
      * @param Z
-     * @param RZ
-     * @param RY
+     * @param rz
+     * @param ry
      */
-    void position(coord X, coord Y, coord Z,
-                        angle RZ, angle RY) {
-        geoLocate_.X = X;
-        geoLocate_.Y = Y;
-        geoLocate_.Z = Z;
-        geoLocate_.RZ = RZ;
-        geoLocate_.RY = RY;
+    void position(coord x, coord y, coord z,
+                        angle rz, angle ry) {
+        geoLocate_.x = x;
+        geoLocate_.y = y;
+        geoLocate_.z = z;
+        geoLocate_.rz = rz;
+        geoLocate_.ry = ry;
     }
 
     /**

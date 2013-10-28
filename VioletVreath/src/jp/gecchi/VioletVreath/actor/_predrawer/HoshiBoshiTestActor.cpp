@@ -36,7 +36,7 @@ HoshiBoshiTestActor::HoshiBoshiTestActor(const char* prm_name) :
     setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL);//Å[•”‚ÌŸ‚­‚ç‚¢‚ÉEE
     //¯‚ÍDIRECTX‹——£-1.0`1.0‚Éû‚Ü‚Á‚Ä‚¢‚é‘O’ñ‚ÅA
     //Œ»‹óŠÔ‚Ì‘å‚«‚³‚ÉU‚ç‚Î‚ç‚¹‚é
-    _SX = _SY = _SZ =  P_CAM->_zf*1000;
+    _sx = _sy = _sz =  P_CAM->_zf*1000;
 }
 
 int HoshiBoshiTestActor::isOutOfView() {
@@ -58,10 +58,10 @@ void HoshiBoshiTestActor::onActive() {
 }
 
 void HoshiBoshiTestActor::processBehavior() {
-    if (_X < -CAM_ZF_) {
-        _X += (CAM_ZF_*2);
+    if (_x < -CAM_ZF_) {
+        _x += (CAM_ZF_*2);
     } else {
-        _X -= 1000;
+        _x -= 1000;
     }
     _pUvFlipper->behave();
 }
@@ -69,9 +69,9 @@ void HoshiBoshiTestActor::processBehavior() {
 void HoshiBoshiTestActor::processSettlementBehavior() {
     //‰æ–ÊŠO”»’è–³‚µ‚É”º‚È‚¢ˆ—ŠÈ—ª‰»
     //GgafDxGeometricActor::processSettlementBehavior() ‚Æ“¯Šú‚ğæ‚é–I
-    _fX = C_DX(_X);
-    _fY = C_DX(_Y);
-    _fZ = C_DX(_Z);
+    _fX = C_DX(_x);
+    _fY = C_DX(_y);
+    _fZ = C_DX(_z);
     (*_pFunc_calcRotMvWorldMatrix)(this, _matWorld); //ƒ[ƒ‹ƒh•ÏŠ·
 }
 
@@ -101,29 +101,29 @@ void HoshiBoshiTestActor::setWorldMatrix_HoshiBoshiTestActor(GgafDxGeometricActo
     //World•ÏŠ·
     //Šg‘åk¬ ~ X²‰ñ“] ~ Z²‰ñ“] ~ Y²‰ñ“] ~ •½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ğİ’è<BR>
     //¦XYZ‚Ì‡‚Å‚È‚¢‚±‚Æ‚É’ˆÓ
-    float sinRx = ANG_SIN(prm_pActor->_RX);
-    float cosRx = ANG_COS(prm_pActor->_RX);
-    float sinRy = ANG_SIN(prm_pActor->_RY);
-    float cosRy = ANG_COS(prm_pActor->_RY);
-    float sinRz = ANG_SIN(prm_pActor->_RZ);
-    float cosRz = ANG_COS(prm_pActor->_RZ);
-    float Sx = SC_R(prm_pActor->_SX);
-    float Sy = SC_R(prm_pActor->_SY);
-    float Sz = SC_R(prm_pActor->_SZ);
+    float sinRx = ANG_SIN(prm_pActor->_rx);
+    float cosRx = ANG_COS(prm_pActor->_rx);
+    float sinRy = ANG_SIN(prm_pActor->_ry);
+    float cosRy = ANG_COS(prm_pActor->_ry);
+    float sinRz = ANG_SIN(prm_pActor->_rz);
+    float cosRz = ANG_COS(prm_pActor->_rz);
+    float sx = SC_R(prm_pActor->_sx);
+    float sy = SC_R(prm_pActor->_sy);
+    float sz = SC_R(prm_pActor->_sz);
 
-    out_matWorld._11 = Sx * cosRz *cosRy;
-    out_matWorld._12 = Sx * sinRz;
-    out_matWorld._13 = Sx * cosRz * -sinRy;
+    out_matWorld._11 = sx * cosRz *cosRy;
+    out_matWorld._12 = sx * sinRz;
+    out_matWorld._13 = sx * cosRz * -sinRy;
     out_matWorld._14 = 0.0f;
 
-    out_matWorld._21 = (Sy * cosRx * -sinRz *  cosRy) + (Sy * sinRx * sinRy);
-    out_matWorld._22 = Sy * cosRx *  cosRz;
-    out_matWorld._23 = (Sy * cosRx * -sinRz * -sinRy) + (Sy * sinRx * cosRy);
+    out_matWorld._21 = (sy * cosRx * -sinRz *  cosRy) + (sy * sinRx * sinRy);
+    out_matWorld._22 = sy * cosRx *  cosRz;
+    out_matWorld._23 = (sy * cosRx * -sinRz * -sinRy) + (sy * sinRx * cosRy);
     out_matWorld._24 = 0.0f;
 
-    out_matWorld._31 = (Sz * -sinRx * -sinRz *  cosRy) + (Sz * cosRx * sinRy);
-    out_matWorld._32 = Sz * -sinRx *  cosRz;
-    out_matWorld._33 = (Sz * -sinRx * -sinRz * -sinRy) + (Sz * cosRx * cosRy);
+    out_matWorld._31 = (sz * -sinRx * -sinRz *  cosRy) + (sz * cosRx * sinRy);
+    out_matWorld._32 = sz * -sinRx *  cosRz;
+    out_matWorld._33 = (sz * -sinRx * -sinRz * -sinRy) + (sz * cosRx * cosRy);
     out_matWorld._34 = 0.0f;
 
     out_matWorld._41 = prm_pActor->_fX;

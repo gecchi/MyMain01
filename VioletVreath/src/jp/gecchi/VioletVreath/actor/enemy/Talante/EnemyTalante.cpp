@@ -75,11 +75,11 @@ void EnemyTalante::processBehavior() {
         case PROG_MOVE01_2: {
             if (_pProg->isJustChanged()) {
             }
-            if (Z_ok_ == false && pMyShip->_Z - PX_C(5) <= _Z && _Z <= pMyShip->_Z + PX_C(5)) {
+            if (Z_ok_ == false && pMyShip->_z - PX_C(5) <= _z && _z <= pMyShip->_z + PX_C(5)) {
                 //Z座標揃った
                 Z_ok_ = true;
                 _pKurokoA->addMvVelo(2000);
-                if (pMyShip->_Y <= _Y) {
+                if (pMyShip->_y <= _y) {
                     //真下へ折れる
                     _pKurokoA->turnRzRyMvAngTo(D270ANG, D0ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
@@ -90,11 +90,11 @@ void EnemyTalante::processBehavior() {
                 }
             }
 
-            if (Y_ok_ == false && pMyShip->_Y - PX_C(5) <= _Y && _Y <= pMyShip->_Y + PX_C(5)) {
+            if (Y_ok_ == false && pMyShip->_y - PX_C(5) <= _y && _y <= pMyShip->_y + PX_C(5)) {
                 //Y座標揃った
                 Y_ok_ = true;
                 _pKurokoA->addMvVelo(2000);
-                if (pMyShip->_Z <= _Z) {
+                if (pMyShip->_z <= _z) {
                     //奥の自機の方向折れる
                     _pKurokoA->turnRzRyMvAngTo(D0ANG, D90ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
@@ -120,7 +120,7 @@ void EnemyTalante::processBehavior() {
         case PROG_MOVE01_3: {
             if (_pProg->isJustChanged()) {
                 //X軸方向に動く
-                if (pMyShip->_X <= _X) {
+                if (pMyShip->_x <= _x) {
                     //左へ折れる
                     _pKurokoA->turnRzRyMvAngTo(D180ANG, D0ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);

@@ -83,7 +83,7 @@ void EnemyEbe::processBehavior() {
 
         case PROG_MOVE02_1: {
             if (_pProg->isJustChanged()) {
-                _pKurokoA->turnMvAngTwd(_X - PX_C(300), _Y, _Z,
+                _pKurokoA->turnMvAngTwd(_x - PX_C(300), _y, _z,
                                         D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
 

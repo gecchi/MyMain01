@@ -36,7 +36,7 @@ void EnemyIrce::initialize() {
     _pKurokoA->setMvVelo(3000);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB(0, -10000, -10000, -10000, 10000, 10000, 10000);
-    _X = PX_C(200);
+    _x = PX_C(200);
 }
 
 void EnemyIrce::onActive() {

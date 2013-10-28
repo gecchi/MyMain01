@@ -46,12 +46,12 @@ void ColliAABActor::drawHitarea(CollisionChecker3D* prm_pColliChecker) {
                     ColliAAB* box = (ColliAAB*)papColliPart[i];
                     //_TRACE_("drawHitarea name="<<prm_pColliChecker->getTargetActor()->getName()<<" index="<<i);
 
-                    drawBox(pActor->_X + box->_x1,
-                            pActor->_Y + box->_y1,
-                            pActor->_Z + box->_z1,
-                            pActor->_X + box->_x2,
-                            pActor->_Y + box->_y2,
-                            pActor->_Z + box->_z2);
+                    drawBox(pActor->_x + box->_x1,
+                            pActor->_y + box->_y1,
+                            pActor->_z + box->_z1,
+                            pActor->_x + box->_x2,
+                            pActor->_y + box->_y2,
+                            pActor->_z + box->_z2);
                     GgafGod::_num_actor_drawing--; //当たり判定表示は表示オブジェクト数にカウントしない
                 }
             }

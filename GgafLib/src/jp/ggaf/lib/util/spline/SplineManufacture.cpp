@@ -17,9 +17,9 @@ SplineManufacture::SplineManufacture(const char* prm_source_file) : GgafObject()
     _pSplSrc = _pSplSrcCon->peek();
     _sp = _pSplSrc->_pSp;
     _paDistance_to = NEW coord[_sp->_rnum];
-    _rate_X = 1.0;
-    _rate_Y = 1.0;
-    _rate_Z = 1.0;
+    _rate_x = 1.0;
+    _rate_y = 1.0;
+    _rate_z = 1.0;
     _total_distance = 0;
 }
 SplineManufacture::SplineManufacture(SplineSource* prm_pSplSrc) {
@@ -28,31 +28,31 @@ SplineManufacture::SplineManufacture(SplineSource* prm_pSplSrc) {
     _pSplSrc = prm_pSplSrc;
     _sp = _pSplSrc->_pSp;
     _paDistance_to = NEW coord[_sp->_rnum];
-    _rate_X = 1.0;
-    _rate_Y = 1.0;
-    _rate_Z = 1.0;
+    _rate_x = 1.0;
+    _rate_y = 1.0;
+    _rate_z = 1.0;
     _total_distance = 0;
 }
-void SplineManufacture::adjustAxisRate(double prm_rate_X, double prm_rate_Y, double prm_rate_Z) {
-    _rate_X = prm_rate_X;
-    _rate_Y = prm_rate_Y;
-    _rate_Z = prm_rate_Z;
+void SplineManufacture::adjustAxisRate(double prm_rate_x, double prm_rate_y, double prm_rate_z) {
+    _rate_x = prm_rate_x;
+    _rate_y = prm_rate_y;
+    _rate_z = prm_rate_z;
 }
 void SplineManufacture::calculate() {
     coord x_from, y_from, z_from;
     coord x_to, y_to, z_to;
 
-    x_to = _sp->_X_compute[0]*_rate_X;
-    y_to = _sp->_Y_compute[0]*_rate_Y;
-    z_to = _sp->_Z_compute[0]*_rate_Z;
+    x_to = _sp->_x_compute[0]*_rate_x;
+    y_to = _sp->_y_compute[0]*_rate_y;
+    z_to = _sp->_z_compute[0]*_rate_z;
 
     for (int t = 1; t < _sp->_rnum; t ++) {
         x_from = x_to;
         y_from = y_to;
         z_from = z_to;
-        x_to = _sp->_X_compute[t]*_rate_X;
-        y_to = _sp->_Y_compute[t]*_rate_Y;
-        z_to = _sp->_Z_compute[t]*_rate_Z;
+        x_to = _sp->_x_compute[t]*_rate_x;
+        y_to = _sp->_y_compute[t]*_rate_y;
+        z_to = _sp->_z_compute[t]*_rate_z;
         _paDistance_to[t] = UTIL::getDistance(
                                     x_from,
                                     y_from,

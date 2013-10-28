@@ -58,8 +58,8 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
         _papaWallInfo[i] = NEW WallInfo[_paWallInfoLen[i]];
         for (int j = 0; j < _paWallInfoLen[i]; j++) {
             ifs >> _papaWallInfo[i][j]._pos_prism >>
-                   _papaWallInfo[i][j]._Y >>
-                   _papaWallInfo[i][j]._Z >>
+                   _papaWallInfo[i][j]._y >>
+                   _papaWallInfo[i][j]._z >>
                    _papaWallInfo[i][j]._wall_draw_face >>
                    _papaWallInfo[i][j]._aColliBoxStretch[0] >>
                    _papaWallInfo[i][j]._aColliBoxStretch[1] >>
@@ -74,7 +74,7 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
     }
     ifs.close();
     _pWallPartsLast = nullptr;;
-    _wall_start_X = 0;
+    _wall_start_x = 0;
     _pDepo_WallAAB = nullptr;
     _pDepo_WallAAPrism = nullptr;
     _TRACE_("WalledSectionScene::WalledSectionScene "<<prm_data_filename<<" done");
@@ -83,14 +83,14 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
 void WalledSectionScene::config(
         GgafActorDepository* prm_pDepo_WallAAB,
         GgafActorDepository* prm_pDepo_WallAAPrism,
-        coord prm_wall_start_X,
+        coord prm_wall_start_x,
         coord prm_wall_dep, coord prm_wall_width, coord prm_wall_height) {
     _pDepo_WallAAB = prm_pDepo_WallAAB;
     _pDepo_WallAAPrism = prm_pDepo_WallAAPrism;
     _wall_dep = prm_wall_dep;
     _wall_width = prm_wall_width;
     _wall_height = prm_wall_height;
-    _wall_start_X = prm_wall_start_X + (_wall_dep/2);
+    _wall_start_x = prm_wall_start_x + (_wall_dep/2);
 }
 
 void WalledSectionScene::initialize() {
@@ -110,7 +110,7 @@ void WalledSectionScene::processBehavior() {
     velo parent_scroll_speed =_pWalledScene->getScrollSpeed();
     if (!_is_loop_end && parent_scroll_speed != 0) {
 
-        if (_pWallPartsLast == nullptr || (_wall_start_X - _pWallPartsLast->_X) >= _wall_dep) {
+        if (_pWallPartsLast == nullptr || (_wall_start_x - _pWallPartsLast->_x) >= _wall_dep) {
             //_pWallPartsLast は、本セクションシーン内での最終表示壁AABB。
             //初めての時はnullptr
 
@@ -146,16 +146,16 @@ void WalledSectionScene::processBehavior() {
                 pWallParts->config(this, pWallInfo->_pos_prism,
                                          pWallInfo->_wall_draw_face,
                                          pWallInfo->_aColliBoxStretch);
-                pWallParts->position( _pWallPartsLast==nullptr ? _wall_start_X : _pWallPartsLast->_X + _wall_dep,
-                                    ((-_area_height/2) + pWallInfo->_Y) * _wall_height,
-                                    ((-_area_width/2)  + pWallInfo->_Z) * _wall_width   );
+                pWallParts->position( _pWallPartsLast==nullptr ? _wall_start_x : _pWallPartsLast->_x + _wall_dep,
+                                    ((-_area_height/2) + pWallInfo->_y) * _wall_height,
+                                    ((-_area_width/2)  + pWallInfo->_z) * _wall_width   );
                 pWallParts->activateImmed();
                 pWallParts->onActive();
             }
             _pWallPartsLast = pWallParts;
             _frame_of_launch_next = (frame)(_wall_dep / parent_scroll_speed);
 
-            onBlockLaunch(_cnt_loop, _cnt_area_len, _pWallPartsLast==nullptr ? _wall_start_X : _pWallPartsLast->_X + _wall_dep); //コールバック
+            onBlockLaunch(_cnt_loop, _cnt_area_len, _pWallPartsLast==nullptr ? _wall_start_x : _pWallPartsLast->_x + _wall_dep); //コールバック
             _cnt_area_len++;
 
         }

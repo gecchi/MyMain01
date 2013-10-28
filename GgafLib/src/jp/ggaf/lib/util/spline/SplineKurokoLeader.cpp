@@ -16,15 +16,15 @@ SplineKurokoLeader::SplineKurokoLeader(SplineManufacture* prm_pManufacture, Ggaf
     _pManufacture = prm_pManufacture;
     _pActor_target = prm_pKurokoA->_pActor;
     _option = ABSOLUTE_COORD;
-    _X_start = 0;
-    _Y_start = 0;
-    _Z_start = 0;
-    _offset_X = 0;
-    _offset_Y = 0;
-    _offset_Z = 0;
-    _flip_X = 1;
-    _flip_Y = 1;
-    _flip_Z = 1;
+    _x_start = 0;
+    _y_start = 0;
+    _z_start = 0;
+    _offset_x = 0;
+    _offset_y = 0;
+    _offset_z = 0;
+    _flip_x = 1;
+    _flip_y = 1;
+    _flip_z = 1;
     _was_started = false;
     _is_leading = false;
     if (prm_pManufacture) {
@@ -41,11 +41,11 @@ SplineKurokoLeader::SplineKurokoLeader(SplineManufacture* prm_pManufacture, Ggaf
 }
 
 
-void SplineKurokoLeader::getPointCoord(int prm_point_index, coord &out_X, coord&out_Y, coord &out_Z) {
+void SplineKurokoLeader::getPointCoord(int prm_point_index, coord &out_x, coord&out_y, coord &out_z) {
     SplineLine* pSpl = _pManufacture->_sp;
-    out_X = (coord)(_flip_X*pSpl->_X_compute[prm_point_index]*_pManufacture->_rate_X + _offset_X);
-    out_Y = (coord)(_flip_Y*pSpl->_Y_compute[prm_point_index]*_pManufacture->_rate_Y + _offset_Y);
-    out_Z = (coord)(_flip_Z*pSpl->_Z_compute[prm_point_index]*_pManufacture->_rate_Z + _offset_Z);
+    out_x = (coord)(_flip_x*pSpl->_x_compute[prm_point_index]*_pManufacture->_rate_x + _offset_x);
+    out_y = (coord)(_flip_y*pSpl->_y_compute[prm_point_index]*_pManufacture->_rate_y + _offset_y);
+    out_z = (coord)(_flip_z*pSpl->_z_compute[prm_point_index]*_pManufacture->_rate_z + _offset_z);
 }
 
 
@@ -53,20 +53,20 @@ void SplineKurokoLeader::setManufacture(SplineManufacture* prm_pManufacture) {
     _pManufacture = prm_pManufacture;
     _pActor_target = nullptr;
     _option = ABSOLUTE_COORD;
-    _offset_X = 0;
-    _offset_Y = 0;
-    _offset_Z = 0;
-    _flip_X = 1;
-    _flip_Y = 1;
-    _flip_Z = 1;
+    _offset_x = 0;
+    _offset_y = 0;
+    _offset_z = 0;
+    _flip_x = 1;
+    _flip_y = 1;
+    _flip_z = 1;
     _was_started = false;
     _is_leading = false;
 }
 
-void SplineKurokoLeader::adjustCoordOffset(coord prm_offset_X, coord prm_offset_Y, coord prm_offset_Z) {
-    _offset_X = prm_offset_X;
-    _offset_Y = prm_offset_Y;
-    _offset_Z = prm_offset_Z;
+void SplineKurokoLeader::adjustCoordOffset(coord prm_offset_x, coord prm_offset_y, coord prm_offset_z) {
+    _offset_x = prm_offset_x;
+    _offset_y = prm_offset_y;
+    _offset_z = prm_offset_z;
 }
 
 void SplineKurokoLeader::start(SplinTraceOption prm_option, int prm_max_loop) {
@@ -77,14 +77,14 @@ void SplineKurokoLeader::start(SplinTraceOption prm_option, int prm_max_loop) {
         _leading_frames = 0;
         _max_loop = prm_max_loop;
         _cnt_loop = 1;
-        SplineKurokoLeader::getPointCoord(0, _X_start, _Y_start, _Z_start);
+        SplineKurokoLeader::getPointCoord(0, _x_start, _y_start, _z_start);
         _distance_to_begin = UTIL::getDistance(
-                                _pActor_target->_X,
-                                _pActor_target->_Y,
-                                _pActor_target->_Z,
-                                _X_start,
-                                _Y_start,
-                                _Z_start
+                                _pActor_target->_x,
+                                _pActor_target->_y,
+                                _pActor_target->_z,
+                                _x_start,
+                                _y_start,
+                                _z_start
                              );
     } else {
         throwGgafCriticalException("SplineKurokoLeader::exec ManufactureÇ™Ç†ÇËÇ‹ÇπÇÒÅB_pActor_target="<<_pActor_target->getName());
@@ -96,7 +96,7 @@ void SplineKurokoLeader::stop() {
 
 
 void SplineKurokoLeader::setAbsoluteBeginCoord() {
-    SplineKurokoLeader::getPointCoord(0, _pActor_target->_X, _pActor_target->_Y, _pActor_target->_Z);
+    SplineKurokoLeader::getPointCoord(0, _pActor_target->_x, _pActor_target->_y, _pActor_target->_z);
 }
 void SplineKurokoLeader::behave() {
 
@@ -113,19 +113,19 @@ void SplineKurokoLeader::behave() {
                 _cnt_loop++;
 
                 _leading_frames = 0;
-                SplineKurokoLeader::getPointCoord(0, _X_start, _Y_start, _Z_start);
+                SplineKurokoLeader::getPointCoord(0, _x_start, _y_start, _z_start);
                 _distance_to_begin = UTIL::getDistance(
-                                        _pActor_target->_X,
-                                        _pActor_target->_Y,
-                                        _pActor_target->_Z,
-                                        _X_start,
-                                        _Y_start,
-                                        _Z_start
+                                        _pActor_target->_x,
+                                        _pActor_target->_y,
+                                        _pActor_target->_z,
+                                        _x_start,
+                                        _y_start,
+                                        _z_start
                                      );
             }
 
         }
-        SplineKurokoLeader::getPointCoord(point_index, _pActor_target->_X, _pActor_target->_Y, _pActor_target->_Z);
+        SplineKurokoLeader::getPointCoord(point_index, _pActor_target->_x, _pActor_target->_y, _pActor_target->_z);
         _leading_frames++;
     }
 }

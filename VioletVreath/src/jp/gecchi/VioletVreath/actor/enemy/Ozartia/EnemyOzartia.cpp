@@ -28,7 +28,7 @@ EnemyOzartia::EnemyOzartia(const char* prm_name) :
     useProgress(_BANPEI1_-1);
     pProg2_ = createProgress(_BANPEI2_-1);
     is_hit_ = false;
-    _SX=_SY=_SZ=100;
+    _sx=_sy=_sz=100;
 
 //    //バリアブロック
 //    pDepo_Shot01_ = NEW GgafActorDepository("Depo_OzartiaBlock");
@@ -116,49 +116,49 @@ void EnemyOzartia::processBehavior() {
         //////////// 移動先決定 ////////////
         case PROG1_MV_POS0: {
             //自機の正面付近へ
-            posMvTarget_.set(pMyShip->_X + D_MOVE + ASOBI,
-                             pMyShip->_Y          + ASOBI,
-                             pMyShip->_Z          + ASOBI );
+            posMvTarget_.set(pMyShip->_x + D_MOVE + ASOBI,
+                             pMyShip->_y          + ASOBI,
+                             pMyShip->_z          + ASOBI );
             _pProg->change(PROG1_MOVE_START);
             break;
         }
         case PROG1_MV_POS1: {
             //自機の上
-            posMvTarget_.set(pMyShip->_X            + ASOBI,
-                             pMyShip->_Y + D_MOVE/2 + ASOBI,
-                             pMyShip->_Z            + ASOBI );
+            posMvTarget_.set(pMyShip->_x            + ASOBI,
+                             pMyShip->_y + D_MOVE/2 + ASOBI,
+                             pMyShip->_z            + ASOBI );
             _pProg->change(PROG1_MOVE_START);
             break;
         }
         case PROG1_MV_POS2: {
             //自機の右
-            posMvTarget_.set(pMyShip->_X          + ASOBI,
-                             pMyShip->_Y          + ASOBI,
-                             pMyShip->_Z - D_MOVE + ASOBI );
+            posMvTarget_.set(pMyShip->_x          + ASOBI,
+                             pMyShip->_y          + ASOBI,
+                             pMyShip->_z - D_MOVE + ASOBI );
             _pProg->change(PROG1_MOVE_START);
             break;
         }
         case PROG1_MV_POS3: {
             //自機の下
-            posMvTarget_.set(pMyShip->_X            + ASOBI,
-                             pMyShip->_Y - D_MOVE/2 + ASOBI,
-                             pMyShip->_Z            + ASOBI );
+            posMvTarget_.set(pMyShip->_x            + ASOBI,
+                             pMyShip->_y - D_MOVE/2 + ASOBI,
+                             pMyShip->_z            + ASOBI );
             _pProg->change(PROG1_MOVE_START);
             break;
         }
         case PROG1_MV_POS4: {
             //自機の左
-            posMvTarget_.set(pMyShip->_X          + ASOBI,
-                             pMyShip->_Y          + ASOBI,
-                             pMyShip->_Z + D_MOVE + ASOBI );
+            posMvTarget_.set(pMyShip->_x          + ASOBI,
+                             pMyShip->_y          + ASOBI,
+                             pMyShip->_z + D_MOVE + ASOBI );
             _pProg->change(PROG1_MOVE_START);
             break;
         }
         case PROG1_MV_POS5: {
             //自機の後ろ
-            posMvTarget_.set(pMyShip->_X - D_MOVE + ASOBI,
-                             pMyShip->_Y          + ASOBI,
-                             pMyShip->_Z          + ASOBI );
+            posMvTarget_.set(pMyShip->_x - D_MOVE + ASOBI,
+                             pMyShip->_y          + ASOBI,
+                             pMyShip->_z          + ASOBI );
             _pProg->change(PROG1_MOVE_START);
             break;
         }

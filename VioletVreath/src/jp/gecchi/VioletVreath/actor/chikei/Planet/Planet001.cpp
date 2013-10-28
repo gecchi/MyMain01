@@ -32,7 +32,7 @@ void Planet001::onCreateModel() {
 
 void Planet001::initialize() {
     setAlpha(0.99);
-    _X = (GgafDxUniverse::_X_gone_right*10);
+    _x = (GgafDxUniverse::_x_gone_right*10);
     _pScaler->setScale(1000*1000);
     _pKurokoA->setFaceAng(AXIS_Z, D90ANG - D_ANG(30));
     _pKurokoA->setFaceAng(AXIS_Y, D45ANG);
@@ -44,35 +44,35 @@ void Planet001::initialize() {
 void Planet001::processBehavior() {
     //巨大オブジェクト移動テスト
     if (GgafDxInput::isBeingPressedKey(DIK_I)) {
-        _X += PX_C(100);
+        _x += PX_C(100);
     }
     if (GgafDxInput::isBeingPressedKey(DIK_O)) {
-        _X += PX_C(1000);
+        _x += PX_C(1000);
     }
     if (GgafDxInput::isBeingPressedKey(DIK_U)) {
-        _X -= PX_C(100);
+        _x -= PX_C(100);
     }
     if (GgafDxInput::isBeingPressedKey(DIK_Y)) {
-        _X -= PX_C(1000);
+        _x -= PX_C(1000);
     }
 
     if (GgafDxInput::isBeingPressedKey(DIK_8)) {
-        _Y += PX_C(100);
+        _y += PX_C(100);
     }
     if (GgafDxInput::isBeingPressedKey(DIK_J)) {
-        _Y -= PX_C(100);
+        _y -= PX_C(100);
     }
 
     if (GgafDxInput::isBeingPressedKey(DIK_M)) {
-        _Y -= PX_C(1000);
+        _y -= PX_C(1000);
     }
 
 
     if (GgafDxInput::isBeingPressedKey(DIK_9)) {
-        _Z += PX_C(100);
+        _z += PX_C(100);
     }
     if (GgafDxInput::isBeingPressedKey(DIK_K)) {
-        _Z -= PX_C(100);
+        _z -= PX_C(100);
     }
 
     if (GgafDxInput::isBeingPressedKey(DIK_0)) {
@@ -83,9 +83,9 @@ void Planet001::processBehavior() {
     }
 
     if (GgafDxInput::isPushedDownKey(DIK_O)) {
-        _TRACE_("Planet001  "<<_X<<","<<_Y<<","<<_Z<<" scale="<<_RX);
+        _TRACE_("Planet001  "<<_x<<","<<_y<<","<<_z<<" scale="<<_rx);
     }
-    //_X = _X - PX_C(1);
+    //_x = _x - PX_C(1);
     _pScaler->behave();
     _pKurokoA->behave();
 

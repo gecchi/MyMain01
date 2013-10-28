@@ -11,9 +11,9 @@ FormationUnomia002a::FormationUnomia002a(const char* prm_name) : FormationUnomia
 }
 void FormationUnomia002a::onCallUpUnomia(EnemyUnomia* pEnemyUnomia, int col) {
 //    pEnemyUnomia->pKurokoLeader_->adjustAxisRate(
-//                                        MyShip::lim_X_front_, //X•ûŒü”{—¦
-//                                        MyShip::lim_Y_top_,   //Y•ûŒü”{—¦
-//                                        MyShip::lim_Z_left_  //Z•ûŒü”{—¦
+//                                        MyShip::lim_x_front_, //X•ûŒü”{—¦
+//                                        MyShip::lim_y_top_,   //Y•ûŒü”{—¦
+//                                        MyShip::lim_z_left_  //Z•ûŒü”{—¦
 //                                    );
 //    pEnemyUnomia->pKurokoLeader_->adjustCoordOffset(0, col*50*1000, col*50*1000);
 //    pEnemyUnomia->position(papSplLineConnection_[col]->peek()->pSp_->_Xbasepoint_[0], 0, 0);

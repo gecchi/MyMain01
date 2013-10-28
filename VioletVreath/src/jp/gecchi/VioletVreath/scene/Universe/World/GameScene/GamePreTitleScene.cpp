@@ -62,12 +62,12 @@ void GamePreTitleScene::processBehavior() {
 //    //TEST
 //    if (GgafDxInput::isBeingPressedKey(DIK_Y)) {
 //        for (int i = 0; i < 9; i++) {
-//            papSpriteLabel_[i]->_Z -= PX_C(2);
+//            papSpriteLabel_[i]->_z -= PX_C(2);
 //        }
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_U)) {
 //        for (int i = 0; i < 9; i++) {
-//            papSpriteLabel_[i]->_Z += PX_C(2);
+//            papSpriteLabel_[i]->_z += PX_C(2);
 //        }
 //    }
 //    //TEST
@@ -92,9 +92,9 @@ void GamePreTitleScene::processBehavior() {
                 pLabel01_->update(PX_C(100), PX_C(50), "TORIAEZU TEKI WO TAOSINI IKOUZE ! BY GECCHI");
             } else if (_pProg->getFrameInProgress() > 361) {
                 //タイトルが下からニューっと
-                pTitleBoard_->_Y -= PX_C(1);
-                if (pTitleBoard_->_Y <= PX_C(90)) {
-                    pTitleBoard_->_Y = PX_C(90);
+                pTitleBoard_->_y -= PX_C(1);
+                if (pTitleBoard_->_y <= PX_C(90)) {
+                    pTitleBoard_->_y = PX_C(90);
                     _pProg->change(GamePreTitleScene::PROG_FINISH);
                 }
             }

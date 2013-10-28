@@ -13,8 +13,8 @@ using namespace VioletVreath;
 MenuSelectSub::MenuSelectSub(const char* prm_name, const char* prm_model) :
         StringBoardMenu(prm_name, prm_model) {
     _class_name = "MenuSelectSub";
-    target_X_ = _X;
-    target_Y_ = _Y;
+    target_x_ = _x;
+    target_y_ = _y;
     _pSeTx->set(SE_MOVE_CURSOR   , "WAVE_MENU_MOVE_CURSOR"   );
     setFadeFrames(0);
     activateImmed(); //選択メニューなので、初期状態は活動状態をデフォルトとする
@@ -63,19 +63,19 @@ bool MenuSelectSub::condSelectCancel() {
 }
 
 void MenuSelectSub::riseMe() {
-    target_X_ = _X;
-    target_Y_ = _Y;
+    target_x_ = _x;
+    target_y_ = _y;
     StringBoardMenu::riseMe();
 }
 
-void MenuSelectSub::rise(coord prm_target_X, coord prm_target_Y) {
-    target_X_ = prm_target_X;
-    target_Y_ = prm_target_Y;
+void MenuSelectSub::rise(coord prm_target_x, coord prm_target_y) {
+    target_x_ = prm_target_x;
+    target_y_ = prm_target_y;
     StringBoardMenu::riseMe();
 }
 
-void MenuSelectSub::riseSubMenu(int prm_index, coord prm_target_X, coord prm_target_Y) {
-    StringBoardMenu::getSubMenu(prm_index)->position(prm_target_X, prm_target_Y); //←によりvoid MenuSelectSub::riseMe() に来た時にターゲット設定される
+void MenuSelectSub::riseSubMenu(int prm_index, coord prm_target_x, coord prm_target_y) {
+    StringBoardMenu::getSubMenu(prm_index)->position(prm_target_x, prm_target_y); //←によりvoid MenuSelectSub::riseMe() に来た時にターゲット設定される
     StringBoardMenu::riseSubMenu(prm_index);
 }
 
@@ -100,7 +100,7 @@ void MenuSelectSub::onRise() {
 }
 
 void MenuSelectSub::processBehavior() {
-    position(target_X_, target_Y_);
+    position(target_x_, target_y_);
     _pKurokoA->behave();
     StringBoardMenu::processBehavior();
     //メニュー選択アイテム、表示アイテム、カーソルは、

@@ -26,9 +26,9 @@ EnemyStraea::EnemyStraea(const char* prm_name) :
     //レーザー
     laser_way_ = 3;
     cnt_laserchip_ = 0;
-    _X = 0;
-    _Y = 0;
-    _Z = 0;
+    _x = 0;
+    _y = 0;
+    _z = 0;
     laser_length_ = 30;
     laser_interval_ = 300;
     angveloTurn_ = 5000;
@@ -61,9 +61,9 @@ EnemyStraea::EnemyStraea(const char* prm_name) :
         for (int j = 0; j < laser_way_; j++) {
             Ry = UTIL::simplifyAng(paAng_way[j]);
             UTIL::convRzRyToVector(Rz, Ry, vx, vy, vz);
-            papaPosLaser_[i][j].X = vx * PX_C(100);
-            papaPosLaser_[i][j].Y = vy * PX_C(100);
-            papaPosLaser_[i][j].Z = vz * PX_C(100);
+            papaPosLaser_[i][j].x = vx * PX_C(100);
+            papaPosLaser_[i][j].y = vy * PX_C(100);
+            papaPosLaser_[i][j].z = vz * PX_C(100);
         }
     }
     GGAF_DELETEARR(paAng_way);
@@ -92,7 +92,7 @@ void EnemyStraea::initialize() {
 void EnemyStraea::onActive() {
     _pStatus->reset();
     setHitAble(false);
-    _X = GgafDxCore::GgafDxUniverse::_X_gone_right - 1000;
+    _x = GgafDxCore::GgafDxUniverse::_x_gone_right - 1000;
     _pProg->reset(PROG_ENTRY);
 }
 
@@ -192,11 +192,11 @@ void EnemyStraea::processBehavior() {
                                 // vY = Xorg_*mat_12 + Yorg_*mat_22 + Zorg_*mat_32
                                 // vZ = Xorg_*mat_13 + Yorg_*mat_23 + Zorg_*mat_33
                                 p = &(papaPosLaser_[i][j]);
-                                vX = p->X*matWorldRot._11 + p->Y*matWorldRot._21 + p->Z*matWorldRot._31;
-                                vY = p->X*matWorldRot._12 + p->Y*matWorldRot._22 + p->Z*matWorldRot._32;
-                                vZ = p->X*matWorldRot._13 + p->Y*matWorldRot._23 + p->Z*matWorldRot._33;
+                                vX = p->x*matWorldRot._11 + p->y*matWorldRot._21 + p->z*matWorldRot._31;
+                                vY = p->x*matWorldRot._12 + p->y*matWorldRot._22 + p->z*matWorldRot._32;
+                                vZ = p->x*matWorldRot._13 + p->y*matWorldRot._23 + p->z*matWorldRot._33;
                                 UTIL::convVectorToRzRy(vX, vY, vZ, Rz, Ry); //現在の最終的な向きを、RzRyで取得
-                                pLaserChip->position(_X+vX, _Y+vY, _Z+vZ);
+                                pLaserChip->position(_x+vX, _y+vY, _z+vZ);
                                 pLaserChip->_pKurokoA->setRzRyMvAng(Rz, Ry);
                                 pLaserChip->_pKurokoA->_angFace[AXIS_Z] = Rz;
                                 pLaserChip->_pKurokoA->_angFace[AXIS_Y] = Ry;

@@ -13,20 +13,20 @@ using namespace VioletVreath;
 MenuBoard::MenuBoard(const char* prm_name, const char* prm_model) :
         StringBoardMenu(prm_name, prm_model) {
     _class_name = "MenuBoard";
-    slide_from_offset_X_ = 0;
-    slide_from_offset_Y_ = 0;
-    target_X_ = _X;
-    target_Y_ = _Y;
+    slide_from_offset_x_ = 0;
+    slide_from_offset_y_ = 0;
+    target_x_ = _x;
+    target_y_ = _y;
     _pSeTx->set(SE_ON_RISEN      , "WAVE_MENU_ON_RISEN"      );
     _pSeTx->set(SE_MOVE_CURSOR   , "WAVE_MENU_MOVE_CURSOR"   );
     _pSeTx->set(SE_DECIDED_CANCEL, "WAVE_MENU_DECIDED_CANCEL");
 }
 
 void MenuBoard::setTransition(frame prm_menu_fade_frames,
-                              coord prm_slide_from_offset_X, coord prm_slide_from_offset_Y) {
+                              coord prm_slide_from_offset_x, coord prm_slide_from_offset_y) {
     setFadeFrames(prm_menu_fade_frames);
-    slide_from_offset_X_ = prm_slide_from_offset_X;
-    slide_from_offset_Y_ = prm_slide_from_offset_Y;
+    slide_from_offset_x_ = prm_slide_from_offset_x;
+    slide_from_offset_y_ = prm_slide_from_offset_y;
 }
 
 bool MenuBoard::condDecision() {
@@ -80,19 +80,19 @@ bool MenuBoard::condSelectCancel() {
 }
 
 void MenuBoard::riseMe() {
-    target_X_ = _X;
-    target_Y_ = _Y;
+    target_x_ = _x;
+    target_y_ = _y;
     StringBoardMenu::riseMe();
 }
 
-void MenuBoard::rise(coord prm_target_X, coord prm_target_Y) {
-    target_X_ = prm_target_X;
-    target_Y_ = prm_target_Y;
+void MenuBoard::rise(coord prm_target_x, coord prm_target_y) {
+    target_x_ = prm_target_x;
+    target_y_ = prm_target_y;
     StringBoardMenu::riseMe();
 }
 
-void MenuBoard::riseSubMenu(int prm_index, coord prm_target_X, coord prm_target_Y) {
-    StringBoardMenu::getSubMenu(prm_index)->position(prm_target_X, prm_target_Y); //←によりvoid MenuBoard::riseMe() に来た時にターゲット設定される
+void MenuBoard::riseSubMenu(int prm_index, coord prm_target_x, coord prm_target_y) {
+    StringBoardMenu::getSubMenu(prm_index)->position(prm_target_x, prm_target_y); //←によりvoid MenuBoard::riseMe() に来た時にターゲット設定される
     StringBoardMenu::riseSubMenu(prm_index);
 }
 
@@ -114,10 +114,10 @@ void MenuBoard::initialize() {
 
 void MenuBoard::onRise() {
     //スライドイントランジション
-    position(target_X_ + slide_from_offset_X_,
-             target_Y_ + slide_from_offset_Y_);
-    _pKurokoA->setMvAngTwd(target_X_, target_Y_);
-    _pKurokoA->slideMvByDT(0, UTIL::getDistance(_X, _Y, target_X_, target_Y_),
+    position(target_x_ + slide_from_offset_x_,
+             target_y_ + slide_from_offset_y_);
+    _pKurokoA->setMvAngTwd(target_x_, target_y_);
+    _pKurokoA->slideMvByDT(0, UTIL::getDistance(_x, _y, target_x_, target_y_),
                            _fade_frames, 0.2, 0.3 );
     _pSeTx->play(SE_ON_RISEN);
 }
@@ -127,7 +127,7 @@ void MenuBoard::processBehavior() {
         //スライド中
     } else {
         //スライド終了時、目的の座標へ補正
-        position(target_X_, target_Y_);
+        position(target_x_, target_y_);
     }
 
     _pKurokoA->behave();
@@ -142,11 +142,11 @@ void MenuBoard::processJudgement() {
 
 void MenuBoard::onSink() {
     //スライドアウトトランジション
-    _pKurokoA->setMvAngTwd(target_X_ + slide_from_offset_X_,
-                           target_Y_ + slide_from_offset_Y_);
+    _pKurokoA->setMvAngTwd(target_x_ + slide_from_offset_x_,
+                           target_y_ + slide_from_offset_y_);
     _pKurokoA->slideMvByDT(0, UTIL::getDistance(
-                                _X, _Y,
-                                target_X_+slide_from_offset_X_, target_Y_+slide_from_offset_Y_
+                                _x, _y,
+                                target_x_+slide_from_offset_x_, target_y_+slide_from_offset_y_
                               ),
                            _fade_frames, 0.2, 0.3 );
 }

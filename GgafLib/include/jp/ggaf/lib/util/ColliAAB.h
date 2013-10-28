@@ -30,7 +30,7 @@ public:
 
     void set(coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, bool rotX, bool rotY, bool rotZ);
 
-    void rotateRxRzRy(angle rX, angle rY, angle rZ) override;
+    void rotateRxRzRy(angle rx, angle ry, angle rz) override;
 
     virtual ~ColliAAB();
 };

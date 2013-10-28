@@ -51,8 +51,8 @@ void SmileMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     pMoji_->activate();
 }
 void SmileMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
-    pMoji_->_X += 1000;
-    pMoji_->_Y += 1000;
+    pMoji_->_x += 1000;
+    pMoji_->_y += 1000;
     pMoji_->_pKurokoA->behave();
 }
 void SmileMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm_result_invoke) {

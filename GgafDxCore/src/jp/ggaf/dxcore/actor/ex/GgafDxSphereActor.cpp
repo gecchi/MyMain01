@@ -28,16 +28,16 @@ GgafDxSphereActor::GgafDxSphereActor(const char* prm_name,
 void GgafDxSphereActor::drawSphere(coord prm_x, coord prm_y, coord prm_z, coord prm_r) {
     //_TRACE_("drawBox ("<<prm_x1<<","<<prm_y1<<","<<prm_z1<<","<<prm_x2<<","<<prm_y2<<","<<prm_z2<<")");
     //’¼Œa‚ª1‚Ì‹…ƒ‚ƒfƒ‹‚Å‚ ‚é‚½‚ßƒXƒP[ƒ‹‚Í‚Q”{‚µ‚Ä‚¨‚­
-    _SX = prm_r*2;
-    _SY = prm_r*2;
-    _SZ = prm_r*2;
-    _RZ = 0;
-    _X = prm_x;
-    _Y = prm_y;
-    _Z = prm_z;
-    _fX = C_DX(_X);
-    _fY = C_DX(_Y);
-    _fZ = C_DX(_Z);
+    _sx = prm_r*2;
+    _sy = prm_r*2;
+    _sz = prm_r*2;
+    _rz = 0;
+    _x = prm_x;
+    _y = prm_y;
+    _z = prm_z;
+    _fX = C_DX(_x);
+    _fY = C_DX(_y);
+    _fZ = C_DX(_z);
     UTIL::setWorldMatrix_ScRzMv(this, _matWorld);
     processDraw();
 }

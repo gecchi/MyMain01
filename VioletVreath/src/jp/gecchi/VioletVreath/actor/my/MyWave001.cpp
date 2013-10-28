@@ -62,9 +62,9 @@ void MyWave001::processBehavior() {
         _pKurokoA->setFaceAng(AXIS_Y, P_MYSHIP->_pKurokoA->_angFace[AXIS_Y]);
         _pKurokoA->setRzRyMvAng(P_MYSHIP->_pKurokoA->_angFace[AXIS_Z],
                                 P_MYSHIP->_pKurokoA->_angFace[AXIS_Y]);
-        //		_X = P_MYSHIP->_X;
-        //		_Y = P_MYSHIP->_Y;
-        //		_Z = P_MYSHIP->_Z;
+        //		_x = P_MYSHIP->_x;
+        //		_y = P_MYSHIP->_y;
+        //		_z = P_MYSHIP->_z;
     } else {
         //通常処理
         //behaveUvFlip();
@@ -89,7 +89,7 @@ void MyWave001::processJudgement() {
 
 void MyWave001::onHit(GgafActor* prm_pOtherActor) {
     //_TRACE_("MyWave001::onHit ショットがヒットしました");
-    //_TRACE_("MyWave001ヒットしました。("<<_X<<","<<_Y<<")");
+    //_TRACE_("MyWave001ヒットしました。("<<_x<<","<<_y<<")");
     sayonara();
 }
 

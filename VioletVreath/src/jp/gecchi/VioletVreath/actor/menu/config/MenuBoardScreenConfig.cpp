@@ -222,7 +222,7 @@ void MenuBoardScreenConfig::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pIte
         GgafDxCore::GgafDxGod::chengeViewAspect(PROPERTY::FIXED_GAME_VIEW_ASPECT);
         sinkMe();
     } else if (prm_item_index == ITEM_OK) { //保存のOK
-        riseSubMenu(0, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y - PX_C(50)); //SAVE確認メニュー起動
+        riseSubMenu(0, getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y - PX_C(50)); //SAVE確認メニュー起動
     } else {
 
     }

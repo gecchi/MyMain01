@@ -46,7 +46,7 @@ public:
      * @param prm_wall_dep      壁ブロック１個のX軸方向の幅
      * @param prm_wall_width    壁ブロック１個のZ軸方向の幅
      * @param prm_wall_height   壁ブロック１個のY軸方向の幅
-     * @param prm_wall_start_X  外壁出現のX座標位置
+     * @param prm_wall_start_x  外壁出現のX座標位置
      * @param prm_papSection    セクションシーン配列へのポインタ
      * @param prm_section_num   セクションシーン数
      * @param prm_pDepo_WallAABox 壁ブロック(WallAABActor)を供給するデポジトリ（※initialize()時、配下に強制移動）
@@ -54,7 +54,7 @@ public:
      */
     void buildWalledScene(
             coord prm_wall_dep, coord prm_wall_width, coord prm_wall_height,
-            coord prm_wall_start_X,
+            coord prm_wall_start_x,
             WalledSectionScene** prm_papSection, int prm_section_num,
             GgafCore::GgafActorDepository* prm_pDepo_WallAABox,
             GgafCore::GgafActorDepository* prm_pDepo_WallAAPrism = nullptr

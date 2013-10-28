@@ -31,7 +31,7 @@ void EffectLockon001_Sub::onActive() {
     pEffectLockon001_Main_ = (EffectLockon001_Main*)getParent()->getSubFirst();
     _pUvFlipper->setActivePtnToTop();
     setAlpha(0.01);
-    _SX = _SY = _SZ = pEffectLockon001_Main_->_SX;
+    _sx = _sy = _sz = pEffectLockon001_Main_->_sx;
     _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);        //右回転
     //_pSeTx->play3D(0); //ロックオンSE
     if (pTarget_) {
@@ -57,13 +57,13 @@ void EffectLockon001_Sub::processBehavior() {
             }
         }
         //縮小完了後、Mainのビートに合わせる
-        _SX = _SY = _SZ = pEffectLockon001_Main_->_SX;
+        _sx = _sy = _sz = pEffectLockon001_Main_->_sx;
         _pKurokoA->_angveloFace[AXIS_Z] = pEffectLockon001_Main_->_pKurokoA->_angveloFace[AXIS_Z];
         if (pTarget_) {
             if (pTarget_->isActiveInTheTree() || pTarget_->_will_activate_after_flg) {
-                if (ABS(pTarget_->_X-_X) <= PX_C(200) &&
-                    ABS(pTarget_->_Y-_Y) <= PX_C(200) &&
-                    ABS(pTarget_->_Z-_Z) <= PX_C(200)) {
+                if (ABS(pTarget_->_x-_x) <= PX_C(200) &&
+                    ABS(pTarget_->_y-_y) <= PX_C(200) &&
+                    ABS(pTarget_->_z-_z) <= PX_C(200)) {
                     positionAs(pTarget_);
                     _pKurokoA->setMvVelo(0);
                 } else {
@@ -81,7 +81,7 @@ void EffectLockon001_Sub::processBehavior() {
     if (_pProg->get() == LOCKON001_PROG_RELEASE) {
         pTarget_ = nullptr;
         addAlpha(-0.05);
-        _SX = _SY = _SZ = pEffectLockon001_Main_->_SX;
+        _sx = _sy = _sz = pEffectLockon001_Main_->_sx;
         _pKurokoA->_angveloFace[AXIS_Z] = pEffectLockon001_Main_->_pKurokoA->_angveloFace[AXIS_Z];
         if ( getAlpha() < 0.0f) {
             inactivate();

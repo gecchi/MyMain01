@@ -21,10 +21,10 @@ EnemyEres::EnemyEres(const char* prm_name, GgafActorDepository* prm_pDepo_EnemyE
         DefaultMeshSetActor(prm_name, "Eres", STATUS(EnemyEres)) {
     _class_name = "EnemyEres";
     iMovePatternNo_ = 0;
-    _X = -356000; //開始座標
-    _Y = 0;
-    _Z = -680000;
-    X_turn_ = P_CAM->_X_buffer_right - 30000;
+    _x = -356000; //開始座標
+    _y = 0;
+    _z = -680000;
+    X_turn_ = P_CAM->_x_buffer_right - 30000;
     Y_turn_ = -10000;
     Z_turn_ = 0;
 
@@ -73,7 +73,7 @@ void EnemyEres::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
     //方向転換
-    if (iMovePatternNo_ == 0 && _X > 400000) {
+    if (iMovePatternNo_ == 0 && _x > 400000) {
 
         angle way[32];
         //UTIL::getWayAngle2D(180000, 8, 10000, way);
@@ -82,14 +82,14 @@ void EnemyEres::processBehavior() {
         for (int i = 0; i < 16; i++) {
             pTama = (GgafDxDrawableActor*)pDepo_EnemyEresShots001_->dispatch();
             if (pTama) {
-                pTama->position(_X, _Y, _Z);
+                pTama->position(_x, _y, _z);
                 pTama->_pKurokoA->setRzRyMvAng(-D90ANG + way[i], D90ANG);
             }
         }
         for (int i = 16; i < 32; i++) {
             pTama = (GgafDxDrawableActor*)pDepo_EnemyEresShots001_->dispatch();
             if (pTama) {
-                pTama->position(_X, _Y, _Z);
+                pTama->position(_x, _y, _z);
                 pTama->_pKurokoA->setRzRyMvAng(-D90ANG - way[i], -D90ANG);
             }
         }
@@ -129,7 +129,7 @@ void EnemyEres::onInactive() {
 }
 
 bool EnemyEres::isOutOfUniverse() {
-    if (_X < P_CAM->_X_buffer_left - 20000000) {
+    if (_x < P_CAM->_x_buffer_left - 20000000) {
         return true;
     } else {
         return false;

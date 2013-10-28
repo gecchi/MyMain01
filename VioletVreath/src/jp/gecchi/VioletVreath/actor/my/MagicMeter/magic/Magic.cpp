@@ -110,6 +110,12 @@ r_time_of_invoking_lv_diff_base_(prm_r_time_of_invoking_lv_diff_base) {
     useProgress(_BANPEI_-1);
     temp_hold_status_ = -1;
     temp_hold_new_level_ = 0;
+
+
+    last_cast_ = MAGIC_CAST_NOTHING;
+    last_invoke_ = MAGIC_INVOKE_NOTHING;
+    last_effect_ = MAGIC_EFFECT_NOTHING;
+
 }
 
 void Magic::init() {
@@ -185,7 +191,7 @@ int Magic::chkCastAble(int prm_new_level) {
             if (level_up_cost_[level_][prm_new_level] <= *pMP_) {
                 return MAGIC_CAST_OK_LEVELUP; //詠唱レベルアップOK
             } else {
-                return MAGIC_CAST_NG_MP_IS_SHORT; //MPが足りないため、再詠唱レベルアップ不可
+                return MAGIC_CAST_NG_MP_IS_SHORT; //MPが足りないため、詠唱レベルアップ不可
             }
         } else { //level_==prm_new_level
             return MAGIC_CAST_NOTHING; //何もしない。
@@ -194,8 +200,12 @@ int Magic::chkCastAble(int prm_new_level) {
 }
 
 int Magic::cast(int prm_new_level) {
-    int r = chkCastAble(prm_new_level);
-    switch (r) {
+    last_cast_ = MAGIC_CAST_NOTHING;
+    last_invoke_ = MAGIC_INVOKE_NOTHING;
+    last_effect_ = MAGIC_EFFECT_NOTHING;
+
+    int last_cast = chkCastAble(prm_new_level);
+    switch (last_cast) {
         case MAGIC_CAST_NG_INVOKING_NOW: {
             //効果発動中のため詠唱不可だったので、何もしない。
             break;
@@ -246,7 +256,8 @@ int Magic::cast(int prm_new_level) {
             break;
         }
     }
-    return r;
+    last_cast_ = last_cast;
+    return last_cast_;
 }
 
 int Magic::chkInvokeAble(int prm_new_level) {
@@ -288,8 +299,12 @@ int Magic::chkEffectAble(int prm_level) {
 }
 
 int Magic::invoke(int prm_new_level) {
-    int r = chkInvokeAble(prm_new_level);
-    switch (r) {
+    last_cast_ = MAGIC_CAST_NOTHING;
+    last_invoke_ = MAGIC_INVOKE_NOTHING;
+    last_effect_ = MAGIC_EFFECT_NOTHING;
+
+    int last_invoke = chkInvokeAble(prm_new_level);
+    switch (last_invoke) {
         case MAGIC_INVOKE_NG_INVOKING_NOW: {
             //あり得ない
             throwGgafCriticalException("Magic::invoke("<<prm_new_level<<") "<<getName()<<" が MAGIC_INVOKE_NG_INVOKING_NOW は、このタイミングであり得ないはずです。");
@@ -317,13 +332,17 @@ int Magic::invoke(int prm_new_level) {
             break;
         }
     }
-    return r;
+    last_invoke_ = last_invoke;
+    return last_invoke_;
 }
 
 int Magic::effect(int prm_level) {
-    int r = chkEffectAble(prm_level);
+    last_cast_ = MAGIC_CAST_NOTHING;
+    last_invoke_ = MAGIC_INVOKE_NOTHING;
+    last_effect_ = MAGIC_EFFECT_NOTHING;
 
-    switch (r) {
+    int last_effect = chkEffectAble(prm_level);
+    switch (last_effect) {
         case MAGIC_EFFECT_NG_MP_IS_SHORT: {
             //throwGgafCriticalException("Magic::effect("<<prm_level<<") "<<getName()<<" が MAGIC_EFFECT_NG_MP_IS_SHORT は、このタイミングであり得ないはずです。");
             //ありうる
@@ -368,12 +387,8 @@ int Magic::effect(int prm_level) {
         }
 
     }
-    return r;
-}
-
-void Magic::cancel() {
-    new_level_ = level_;
-    _pProg->change(STATE_NOTHING);
+    last_effect_ = last_effect;
+    return last_effect_;
 }
 
 void Magic::processBehavior() {
@@ -523,12 +538,12 @@ void Magic::processBehavior() {
             for (int lv = 1; lv <= level_; lv++) { //全レベルリセットを設定
                  lvinfo_[lv].remainingtime_of_effect_ = 0; //効果持続終了残り時間を0
             }
-            int r = effect(0); //→STATE_NOTHING
-            if (r == MAGIC_EFFECT_FINISH) {
-                _TRACE_("Magic::processBehavior() ["<<getName()<<"] 即効性魔法のため、いきなり持続終了。last_level_="<<last_level_<<" level_="<<level_);
-                break;
-            }
+            int r = effect(0); //→STATE_NOTHING, r == MAGIC_EFFECT_FINISH
+            _TRACE_("Magic::processBehavior() ["<<getName()<<"] 即効性魔法のため、いきなり持続終了。last_level_="<<last_level_<<" level_="<<level_);
+            break;
         }
+
+
         //即効性魔法以外
         //効果持続魔法（コスト計算）
         //維持コストあり？
@@ -542,11 +557,9 @@ void Magic::processBehavior() {
                 for (int lv = 1; lv <= level_; lv++) { //全レベルリセットを設定
                      lvinfo_[lv].remainingtime_of_effect_ = 0; //効果持続終了残り時間を0
                 }
-                int r = effect(0); //→STATE_NOTHING
-                if (r == MAGIC_EFFECT_FINISH) {
-                    _TRACE_("Magic::processBehavior() ["<<getName()<<"] MP枯渇による持続終了。");
-                    break;
-                }
+                int r = effect(0); //→STATE_NOTHING r == MAGIC_EFFECT_FINISH
+                _TRACE_("Magic::processBehavior() ["<<getName()<<"] MP枯渇による持続終了。");
+                break;
             }
         }
 

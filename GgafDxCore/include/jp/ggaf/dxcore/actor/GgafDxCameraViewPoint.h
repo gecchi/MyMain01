@@ -13,7 +13,7 @@ namespace GgafDxCore {
 class GgafDxCameraViewPoint : public GgafDxGeometricActor {
 
 public:
-    coord _X_prev, _Y_prev, _Z_prev;
+    coord _x_prev, _y_prev, _z_prev;
     frame _offset_frames;
 
 public:

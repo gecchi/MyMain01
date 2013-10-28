@@ -67,8 +67,8 @@ void EnemyGeria::processBehavior() {
         } else if (getActiveFrame() == frame_when_shot_ + 60) {
             MyShip* pM = P_MYSHIP;
             GgafDxGeometricActor* pLast =
-              UTIL::shotWay001(_X, _Y, _Z,
-                               pM->_X, pM->_Y, pM->_Z,
+              UTIL::shotWay001(_x, _y, _z,
+                               pM->_x, pM->_y, pM->_z,
                                getCommonDepository(Shot004),
                                PX_C(10),
                                10000, 100,
@@ -97,8 +97,8 @@ void EnemyGeria::processBehavior() {
     } else {
         if (can_Shot_) {
             MyShip* pM = P_MYSHIP;
-            if (pM->_Z - 500000 < _Z && _Z < pM->_Z + 500000 &&
-                pM->_Y - 500000 < _Y && _Y < pM->_Y + 500000 &&
+            if (pM->_z - 500000 < _z && _z < pM->_z + 500000 &&
+                pM->_y - 500000 < _y && _y < pM->_y + 500000 &&
                 max_shots_ > shot_num_
             ) {
                 frame_when_shot_ = getActiveFrame() + RND(0,60) + 1;

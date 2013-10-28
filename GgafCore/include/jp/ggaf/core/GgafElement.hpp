@@ -850,7 +850,7 @@ public:
      * あと、ラムダ式とキャプチャーを使わせてください。<BR>
      *
      * ＜使用例＞<BR>
-     * XXXXActor 配下のオブジェクト全てのアクター(但しGgafDxGeometricActor)のメンバ変数 _X に、
+     * XXXXActor 配下のオブジェクト全てのアクター(但しGgafDxGeometricActor)のメンバ変数 _x に、
      * XXXXActorメンバ変数 _velo の値を加算させる。<BR>
      * XXXXActor クラスの実装サンプルを以下に記す<BR>
      * <code><pre>
@@ -862,7 +862,7 @@ public:
      *     static void addX(GgafObject* pThat, void* p1, void* p2) {
      *         if (pThat->instanceOf(Obj_GgafDxGeometricActor)) { //GgafDxGeometricActorならば
      *             GgafDxGeometricActor* pActor = (GgafDxGeometricActor*)pThat;
-     *             pActor->_X += (*((int*)p1));  //_X 加算。p1 には velo_ へのポインタが渡ってくる
+     *             pActor->_x += (*((int*)p1));  //_x 加算。p1 には velo_ へのポインタが渡ってくる
      *         }
      *     }
      *

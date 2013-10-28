@@ -50,10 +50,10 @@ public:
      * @param Y
      * @param Z
      */
-    void position(coord X, coord Y, coord Z) {
-        entry_pos_.X = X;
-        entry_pos_.Y = Y;
-        entry_pos_.Z = Z;
+    void position(coord x, coord y, coord z) {
+        entry_pos_.x = x;
+        entry_pos_.y = y;
+        entry_pos_.z = z;
     }
 
     virtual ~FormationThagoras();

@@ -66,17 +66,17 @@ public:
     static GgafDxDrawableActor* _pActor_DrawActive;
 
     /** [r]アプリケーション領域、X座標の最小値 */
-    static coord _X_gone_left;
+    static coord _x_gone_left;
     /** [r]アプリケーション領域、X座標の最大値 */
-    static coord _X_gone_right;
+    static coord _x_gone_right;
     /** [r]アプリケーション領域、Y座標の最大値 */
-    static coord _Y_gone_top;
+    static coord _y_gone_top;
     /** [r]アプリケーション領域、Y座標の最小値 */
-    static coord _Y_gone_bottom;
+    static coord _y_gone_bottom;
     /** [r]アプリケーション領域、Z座標の最大値 */
-    static coord _Z_gone_far;
+    static coord _z_gone_far;
     /** [r]アプリケーション領域、Z座標の最小値 */
-    static coord _Z_gone_near;
+    static coord _z_gone_near;
     static std::string _seqkey_se_delay;
 
 //    D3DCOLORVALUE _colFog;

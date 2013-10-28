@@ -30,9 +30,9 @@ VarietyRatislavia001::VarietyRatislavia001(const char* prm_name) :
 
 void VarietyRatislavia001::initialize() {
     EnemyRatislavia::initialize();
-    _X = GgafDxCore::GgafDxUniverse::_X_gone_right+r1_+r2_;
-    _Y = 0;
-    _Z = 0;
+    _x = GgafDxCore::GgafDxUniverse::_x_gone_right+r1_+r2_;
+    _y = 0;
+    _z = 0;
     _pKurokoA->setRzRyMvAng(D180ANG, 0);
     _pKurokoA->setMvVelo(2000);
     _pKurokoA->setFaceAngVelo(AXIS_Z, 60);
@@ -44,7 +44,7 @@ void VarietyRatislavia001::processBehavior() {
         if (pEnemyRatislaviaEye_->is_wake_) {
 
         } else {
-            if (_X - P_MYSHIP->_X < PX_C(2000)) {
+            if (_x - P_MYSHIP->_x < PX_C(2000)) {
                 pEnemyRatislaviaEye_->wake(); //Ç¨ÇÂÇÎÇËÇÒÅI
             }
         }

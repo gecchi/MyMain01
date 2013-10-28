@@ -18,9 +18,9 @@ private:
     int cnt_laserchip_;
 
     struct PosLaser {
-        int X;
-        int Y;
-        int Z;
+        int x;
+        int y;
+        int z;
     };
 
 public:

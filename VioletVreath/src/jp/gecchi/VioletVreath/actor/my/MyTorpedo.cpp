@@ -22,9 +22,9 @@ MyTorpedo::MyTorpedo(const char* prm_name, MyTorpedoController* prm_pOptionTorpe
     _class_name = "MyTorpedo";
     pOptionTorpedoCtrler_ = prm_pOptionTorpedoController;
     length_TailEffect_ = 8;
-    begin_X_ = _X;
-    begin_Y_ = _Y;
-    begin_Z_ = _Z;
+    begin_x_ = _x;
+    begin_y_ = _y;
+    begin_z_ = _z;
 
     pTailEffectDepository_ = NEW LaserChipDepository("Depo_TorpedoTailEffect");
     pTailEffectDepository_->config(length_TailEffect_, 0, nullptr);
@@ -56,7 +56,7 @@ void MyTorpedo::onActive() {
     GgafDxKurokoA* const pKurokoA = _pKurokoA;
     _pStatus->reset();
     setAlpha(0.3);
-    _SX = _SY = _SZ = 100;
+    _sx = _sy = _sz = 100;
     _pScaler->setScale(100);
     _pScaler->scaleLinerStep(7000, 500);
     pKurokoA->setFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
@@ -74,9 +74,9 @@ void MyTorpedo::onActive() {
     pKurokoA->setRzRyMvAngVelo(0);
     pKurokoA->setRzRyMvAngAcce(0);
     pKurokoA->stopTurnMvAngSequence();
-    begin_X_ = _X;
-    begin_Y_ = _Y;
-    begin_Z_ = _Z;
+    begin_x_ = _x;
+    begin_y_ = _y;
+    begin_z_ = _z;
     setHitAble(true);
     _pProg->reset(MyTorpedo_IN_FIRE);
     move_section_ = 0;
@@ -98,7 +98,7 @@ void MyTorpedo::processBehavior() {
         if (pTailEffectDepository_->_num_chip_active < length_TailEffect_) {
             MyTorpedoTail* pTailEffect = (MyTorpedoTail*)pTailEffectDepository_->dispatch();
             if (pTailEffect) {
-                pTailEffect->position(begin_X_,begin_Y_,begin_Z_);
+                pTailEffect->position(begin_x_,begin_y_,begin_z_);
             }
         }
         //‹›—‹‚Ìƒ€[ƒu
@@ -111,12 +111,12 @@ void MyTorpedo::processBehavior() {
                                            TURN_ANTICLOSE_TO, false);
                 } else {
                     pKurokoA->turnRzRyMvAngTo(
-                                pOptionTorpedoCtrler_->pOrg_->_RZ, pOptionTorpedoCtrler_->pOrg_->_RY,
+                                pOptionTorpedoCtrler_->pOrg_->_rz, pOptionTorpedoCtrler_->pOrg_->_ry,
                                 1000, 100,
                                 TURN_CLOSE_TO, false);
 
 //                    pKurokoA->turnMvAngTwd(
-//                                GgafDxUniverse::_X_gone_right, P_MYSHIP->_Y, P_MYSHIP->_Z,
+//                                GgafDxUniverse::_x_gone_right, P_MYSHIP->_y, P_MYSHIP->_z,
 //                                2000, 200,
 //                                TURN_ANTICLOSE_TO, false);
                 }
@@ -151,7 +151,7 @@ void MyTorpedo::processBehavior() {
                         }
                     } else {
                         pKurokoA->turnRzRyMvAngTo(
-                                    pOptionTorpedoCtrler_->pOrg_->_RZ, pOptionTorpedoCtrler_->pOrg_->_RY,
+                                    pOptionTorpedoCtrler_->pOrg_->_rz, pOptionTorpedoCtrler_->pOrg_->_ry,
                                     1000, 200,
                                     TURN_CLOSE_TO, false);
                     }
@@ -178,9 +178,9 @@ void MyTorpedo::processBehavior() {
 //                            angle out_angRy_Target;
 //                            angle out_d_angRz;
 //                            angle out_d_angRy;
-//                            UTIL::convVectorToRzRy(pTarget_->_X - _X,
-//                                                   pTarget_->_Y - _Y,
-//                                                   pTarget_->_Z - _Z,
+//                            UTIL::convVectorToRzRy(pTarget_->_x - _x,
+//                                                   pTarget_->_y - _y,
+//                                                   pTarget_->_z - _z,
 //                                                   out_angRz_Target,
 //                                                   out_angRy_Target);
 //                            out_d_angRz = pKurokoA->getRzMvAngDistance(out_angRz_Target, TURN_CLOSE_TO);
@@ -195,7 +195,7 @@ void MyTorpedo::processBehavior() {
                         }
                     } else {
                         pKurokoA->turnRzRyMvAngTo(
-                                    pOptionTorpedoCtrler_->pOrg_->_RZ, pOptionTorpedoCtrler_->pOrg_->_RY,
+                                    pOptionTorpedoCtrler_->pOrg_->_rz, pOptionTorpedoCtrler_->pOrg_->_ry,
                                     300, 0,
                                     TURN_CLOSE_TO, false);
 

@@ -38,7 +38,7 @@ public:
      */
     void processBehavior() override;
     void moveTo(GgafDxCore::GgafDxGeometricActor* pT) {
-        moveTo(pT->_X,pT->_Y,pT->_Z);
+        moveTo(pT->_x,pT->_y,pT->_z);
     }
     void moveTo(coord X, coord Y, coord Z);
     void sinkMe();

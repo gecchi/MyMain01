@@ -28,16 +28,16 @@ GgafDxAABActor::GgafDxAABActor(const char* prm_name,
 
 void GgafDxAABActor::drawBox(coord prm_x1, coord prm_y1, coord prm_z1, coord prm_x2, coord prm_y2, coord prm_z2) {
     //_TRACE_("drawBox ("<<prm_x1<<","<<prm_y1<<","<<prm_z1<<","<<prm_x2<<","<<prm_y2<<","<<prm_z2<<")");
-    _SX = (prm_x2 - prm_x1);
-    _SY = (prm_y2 - prm_y1);
-    _SZ = (prm_z2 - prm_z1);
-    _RZ = 0;
-    _X = prm_x1 + (prm_x2 - prm_x1) / 2;
-    _Y = prm_y1 + (prm_y2 - prm_y1) / 2;
-    _Z = prm_z1 + (prm_z2 - prm_z1) / 2;
-    _fX = C_DX(_X);
-    _fY = C_DX(_Y);
-    _fZ = C_DX(_Z);
+    _sx = (prm_x2 - prm_x1);
+    _sy = (prm_y2 - prm_y1);
+    _sz = (prm_z2 - prm_z1);
+    _rz = 0;
+    _x = prm_x1 + (prm_x2 - prm_x1) / 2;
+    _y = prm_y1 + (prm_y2 - prm_y1) / 2;
+    _z = prm_z1 + (prm_z2 - prm_z1) / 2;
+    _fX = C_DX(_x);
+    _fY = C_DX(_y);
+    _fZ = C_DX(_z);
     UTIL::setWorldMatrix_ScRzMv(this, _matWorld);
     processDraw();
 }

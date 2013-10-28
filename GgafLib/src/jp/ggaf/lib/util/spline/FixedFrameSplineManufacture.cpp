@@ -82,9 +82,9 @@ void FixedFrameSplineManufacture::calculate() {
     //                  X----o----o----o-----X--------o---------o--------o-------X
     //                  ^                    ^        ^                          ^
     //                  |                    |        |                          |
-    //            (sp._X_compute[0],         | (sp._X_compute[5],        sp._X_compute[8]
-    //             sp._Y_compute[0],         |  sp._Y_compute[5],        sp._Y_compute[8]
-    //             sp._Z_compute[0])         |  sp._Z_compute[5])        sp._Z_compute[8]
+    //            (sp._x_compute[0],         | (sp._x_compute[5],        sp._x_compute[8]
+    //             sp._y_compute[0],         |  sp._y_compute[5],        sp._y_compute[8]
+    //             sp._z_compute[0])         |  sp._z_compute[5])        sp._z_compute[8]
     //                  |                    |                                   |
     //              (制御点[0][0],       (制御点[1][0],                       (制御点[2][0],
     //               制御点[0][1],        制御点[1][1],                        制御点[2][1],

@@ -69,9 +69,9 @@ void GgafDxSeTransmitterForActor::play3D(int prm_id) {
     //距離計算
     //遅延なし、音量100％の場所をP_CAMの場所とする
     //自身とP_CAMの距離
-    double DX = C_PX(pCam->_X - _pActor->_X);
-    double DY = C_PX(pCam->_Y - _pActor->_Y);
-    double DZ = C_PX(pCam->_Z - _pActor->_Z);
+    double DX = C_PX(pCam->_x - _pActor->_x);
+    double DY = C_PX(pCam->_y - _pActor->_y);
+    double DZ = C_PX(pCam->_z - _pActor->_z);
     double d = sqrt(DX*DX + DY*DY + DZ*DZ); //dはピクセル
     int vol =  VOLUME_MIN_3D + ((1.0 - (d / (DX_PX(pCam->_zf)*0.6) )) * VOLUME_RANGE_3D); // 0.6 は調整補正、最遠でもMAX*0.4倍の音量となる。
                                                                                           // 値を減らすと、遠くても音量がより大きくなる。
@@ -151,12 +151,12 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
                         //距離計算
                         //遅延なし、音量100％の場所をP_CAMの場所とする
                         //自身とP_CAMの距離
-                        double DX = C_PX(pCam->_X - _pActor->_X);
-                        double DY = C_PX(pCam->_Y - _pActor->_Y);
-                        double DZ = C_PX(pCam->_Z - _pActor->_Z);
+                        double DX = C_PX(pCam->_x - _pActor->_x);
+                        double DY = C_PX(pCam->_y - _pActor->_y);
+                        double DZ = C_PX(pCam->_z - _pActor->_z);
 
                         //備忘録
-                        //例えば消滅時の爆発だった場合、_pActor->_X みたいに、消滅後も値を参照したい。
+                        //例えば消滅時の爆発だった場合、_pActor->_x みたいに、消滅後も値を参照したい。
                         //そこで GGAF_END_DELAY が重要になっている
 
                         //リアルタイムの音量を計算

@@ -18,7 +18,7 @@ EnemyEsperiaLaserChip001::EnemyEsperiaLaserChip001(const char* prm_name) :
     _class_name = "EnemyEsperiaLaserChip001";
     tX1_ = tY1_ = tZ1_ = 0;
     tX2_ = tY2_ = tZ2_ = 0;
-    begin_Y_ = 0;
+    begin_y_ = 0;
     turn_dY_ = 0;
     _pSeTx->set(SE_FIRE , "WAVE_ENEMY_FIRE_LASER_001");
 }
@@ -36,7 +36,7 @@ void EnemyEsperiaLaserChip001::onActive() {
     HomingLaserChip::onActive();
     //ステータスリセット
     _pStatus->reset();
-    begin_Y_ = _Y;
+    begin_y_ = _y;
     _pKurokoA->stopTurnMvAngSequence();
     _pKurokoA->setRzRyMvAngVelo(0);
     if (_pChip_front == nullptr) {
@@ -77,7 +77,7 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
                                         TURN_CLOSE_TO, true);
             }
 
-            if (_Y > begin_Y_+turn_dY_ || _pProg->getFrameInProgress() > 300) {
+            if (_y > begin_y_+turn_dY_ || _pProg->getFrameInProgress() > 300) {
                 _pProg->changeNext();
             }
             break;

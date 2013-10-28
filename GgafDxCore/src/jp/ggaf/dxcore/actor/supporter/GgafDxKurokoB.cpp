@@ -7,7 +7,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 // ＜軸方向移動: VxMv VyMv VzMv＞
 // 上記の移動体系とはまったく別に、独立して X軸、Y軸、Z軸に平行な移動指定ができる。
-// 「X軸方向移動速度」「Y軸方向移動速度」「Z軸方向移動速度」を設定すると、毎フレーム(_X,_Y,_Z)にそれぞれの移動増分が
+// 「X軸方向移動速度」「Y軸方向移動速度」「Z軸方向移動速度」を設定すると、毎フレーム(_x,_y,_z)にそれぞれの移動増分が
 // 加算される。
 
 GgafDxKurokoB::GgafDxKurokoB(GgafDxGeometricActor* prm_pActor) : GgafObject(),
@@ -46,9 +46,9 @@ _pActor(prm_pActor) {
     _acceTopVzMv = PX_C(256);
     _acceBottomVzMv = -PX_C(256);
 
-    _gravitation_mv_seq_target_X = 0;
-    _gravitation_mv_seq_target_Y = 0;
-    _gravitation_mv_seq_target_Z = 0;
+    _gravitation_mv_seq_target_x = 0;
+    _gravitation_mv_seq_target_y = 0;
+    _gravitation_mv_seq_target_z = 0;
     _gravitation_mv_seq_pActor_target = nullptr;
     _gravitation_mv_seq_max_velo = 1000;
     _gravitation_mv_seq_acce = 1000;
@@ -61,13 +61,13 @@ void GgafDxKurokoB::behave() {
     if(_gravitation_mv_seq_flg) {
         coord dX, dY, dZ;
         if (_gravitation_mv_seq_pActor_target) {
-            dX = _gravitation_mv_seq_pActor_target->_X - _pActor->_X;
-            dY = _gravitation_mv_seq_pActor_target->_Y - _pActor->_Y;
-            dZ = _gravitation_mv_seq_pActor_target->_Z - _pActor->_Z;
+            dX = _gravitation_mv_seq_pActor_target->_x - _pActor->_x;
+            dY = _gravitation_mv_seq_pActor_target->_y - _pActor->_y;
+            dZ = _gravitation_mv_seq_pActor_target->_z - _pActor->_z;
         } else {
-            dX = _gravitation_mv_seq_target_X - _pActor->_X;
-            dY = _gravitation_mv_seq_target_Y - _pActor->_Y;
-            dZ = _gravitation_mv_seq_target_Z - _pActor->_Z;
+            dX = _gravitation_mv_seq_target_x - _pActor->_x;
+            dY = _gravitation_mv_seq_target_y - _pActor->_y;
+            dZ = _gravitation_mv_seq_target_z - _pActor->_z;
         }
         coord dX_abs = ABS(dX);
         coord dY_abs = ABS(dY);
@@ -157,9 +157,9 @@ void GgafDxKurokoB::behave() {
     }
 
     //Actorに反映
-    _pActor->_X += _veloVxMv;
-    _pActor->_Y += _veloVyMv;
-    _pActor->_Z += _veloVzMv;
+    _pActor->_x += _veloVxMv;
+    _pActor->_y += _veloVyMv;
+    _pActor->_z += _veloVzMv;
 }
 
 int GgafDxKurokoB::dot(int prm_vX, int prm_vY, int prm_vZ) {
@@ -410,9 +410,9 @@ void GgafDxKurokoB::execGravitationMvSequenceTwd(coord prm_tX, coord prm_tY, coo
                                                  velo prm_max_velo,
                                                  acce prm_acce,
                                                  int prm_stop_renge ) {
-    _gravitation_mv_seq_target_X = prm_tX;
-    _gravitation_mv_seq_target_Y = prm_tY;
-    _gravitation_mv_seq_target_Z = prm_tZ;
+    _gravitation_mv_seq_target_x = prm_tX;
+    _gravitation_mv_seq_target_y = prm_tY;
+    _gravitation_mv_seq_target_z = prm_tZ;
     _gravitation_mv_seq_pActor_target = nullptr;
     _gravitation_mv_seq_max_velo = prm_max_velo;
     _gravitation_mv_seq_acce = prm_acce;
@@ -428,9 +428,9 @@ void GgafDxKurokoB::execGravitationMvSequenceTwd(GgafDxGeometricActor* prm_pActo
                                                  velo prm_max_velo,
                                                  acce prm_acce,
                                                  int prm_stop_renge ) {
-    _gravitation_mv_seq_target_X = 0;
-    _gravitation_mv_seq_target_Y = 0;
-    _gravitation_mv_seq_target_Z = 0;
+    _gravitation_mv_seq_target_x = 0;
+    _gravitation_mv_seq_target_y = 0;
+    _gravitation_mv_seq_target_z = 0;
     _gravitation_mv_seq_pActor_target = prm_pActor_target;
     _gravitation_mv_seq_max_velo = prm_max_velo;
     _gravitation_mv_seq_acce = prm_acce;

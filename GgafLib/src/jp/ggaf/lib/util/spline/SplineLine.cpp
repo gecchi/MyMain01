@@ -7,13 +7,13 @@ using namespace GgafLib;
 
 
 SplineLine::SplineLine() : GgafObject() {
-    _X_basepoint = nullptr;
-    _Y_basepoint = nullptr;
-    _Z_basepoint = nullptr;
+    _x_basepoint = nullptr;
+    _y_basepoint = nullptr;
+    _z_basepoint = nullptr;
     _num_basepoint = 0;
-    _X_compute = nullptr;
-    _Y_compute = nullptr;
-    _Z_compute = nullptr;
+    _x_compute = nullptr;
+    _y_compute = nullptr;
+    _z_compute = nullptr;
     _rnum = 0;
     _accuracy = 1.0;
 }
@@ -25,39 +25,39 @@ SplineLine::SplineLine(double prm_paaEstablish[][3], int prm_num, double prm_acc
 
 void SplineLine::init(double prm_paaEstablish[][3], int prm_num, double prm_accuracy) {
     _num_basepoint = prm_num;
-    _X_basepoint = NEW double[prm_num];
-    _Y_basepoint = NEW double[prm_num];
-    _Z_basepoint = NEW double[prm_num];
+    _x_basepoint = NEW double[prm_num];
+    _y_basepoint = NEW double[prm_num];
+    _z_basepoint = NEW double[prm_num];
     for (int i = 0; i < prm_num; i++) {
-        _X_basepoint[i] = prm_paaEstablish[i][0];
-        _Y_basepoint[i] = prm_paaEstablish[i][1];
-        _Z_basepoint[i] = prm_paaEstablish[i][2];
+        _x_basepoint[i] = prm_paaEstablish[i][0];
+        _y_basepoint[i] = prm_paaEstablish[i][1];
+        _z_basepoint[i] = prm_paaEstablish[i][2];
     }
-    _xs.init(_X_basepoint, prm_num);
-    _ys.init(_Y_basepoint, prm_num);
-    _zs.init(_Z_basepoint, prm_num);
-    _X_compute = nullptr;
-    _Y_compute = nullptr;
-    _Z_compute = nullptr;
+    _xs.init(_x_basepoint, prm_num);
+    _ys.init(_y_basepoint, prm_num);
+    _zs.init(_z_basepoint, prm_num);
+    _x_compute = nullptr;
+    _y_compute = nullptr;
+    _z_compute = nullptr;
     compute(prm_accuracy);
 }
 
 void SplineLine::compute(double prm_accuracy) {
     _rnum = _num_basepoint/prm_accuracy;
-    if (_X_compute) {
-        GGAF_DELETEARR(_X_compute);
-        GGAF_DELETEARR(_Y_compute);
-        GGAF_DELETEARR(_Z_compute);
+    if (_x_compute) {
+        GGAF_DELETEARR(_x_compute);
+        GGAF_DELETEARR(_y_compute);
+        GGAF_DELETEARR(_z_compute);
     }
-    _X_compute = NEW double[_rnum];
-    _Y_compute = NEW double[_rnum];
-    _Z_compute = NEW double[_rnum];
+    _x_compute = NEW double[_rnum];
+    _y_compute = NEW double[_rnum];
+    _z_compute = NEW double[_rnum];
 
     int index = 0;
     for (double t = 0.0; t <= (_num_basepoint+0.000001) - 1.0; t += prm_accuracy) { //0.000001 は最後を成立させるため
-        _X_compute[index] = _xs.compute(t);
-        _Y_compute[index] = _ys.compute(t);
-        _Z_compute[index] = _zs.compute(t);
+        _x_compute[index] = _xs.compute(t);
+        _y_compute[index] = _ys.compute(t);
+        _z_compute[index] = _zs.compute(t);
         index++;
     }
     _rnum = index;
@@ -65,11 +65,11 @@ void SplineLine::compute(double prm_accuracy) {
 
 SplineLine::~SplineLine() {
     _TRACE_("SplineLine::~SplineLine() ");
-    GGAF_DELETEARR(_X_basepoint);
-    GGAF_DELETEARR(_Y_basepoint);
-    GGAF_DELETEARR(_Z_basepoint);
+    GGAF_DELETEARR(_x_basepoint);
+    GGAF_DELETEARR(_y_basepoint);
+    GGAF_DELETEARR(_z_basepoint);
     //イニシャライズされる前に解放されるかもしれない
-    GGAF_DELETEARR_NULLABLE(_X_compute);
-    GGAF_DELETEARR_NULLABLE(_Y_compute);
-    GGAF_DELETEARR_NULLABLE(_Z_compute);
+    GGAF_DELETEARR_NULLABLE(_x_compute);
+    GGAF_DELETEARR_NULLABLE(_y_compute);
+    GGAF_DELETEARR_NULLABLE(_z_compute);
 }

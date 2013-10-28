@@ -66,7 +66,7 @@ void EnemyOmulus::onActive() {
 
 void EnemyOmulus::processBehavior() {
     //ボーンにあたるアクターのメモ
-    //_X, _Y, _Z, _RX, _RY, _RZ について２つの座標系セットを切り替えが必要な仕様です。
+    //_x, _y, _z, _rx, _ry, _rz について２つの座標系セットを切り替えが必要な仕様です。
     //それぞれローカル座標、最終（絶対）座標と呼ぶことにします。
     //・最終（絶対）座標 ・・・ 普通のワールド座標系の事です。
     //・ローカル座標     ・・・ 親アクターの基点(0,0,0)からの相対的な座標系を意味します。
@@ -76,7 +76,7 @@ void EnemyOmulus::processBehavior() {
     //    しかし、８分木登録や、当たり判定や、ターゲット座標など、他のオブジェクトからワールド座標を参照する等、
     //    基本状態は最終（絶対）座標系。
     //    processBehavior()開始時は 最終（絶対）座標系(changeGeoFinal())の状態となっている。
-    //  ②processBehavior()内で必要に応じて changeGeoLocal() でメンバー _X, _Y, _Z, _RX, _RY, _RZ をローカル座標系に
+    //  ②processBehavior()内で必要に応じて changeGeoLocal() でメンバー _x, _y, _z, _rx, _ry, _rz をローカル座標系に
     //    切り替えることが可能。移動等の座標計算を行う。
     //  ③但し processBehavior() を抜ける際には必ず最終座標(changeGeoFinal())の状態に戻しておく事。
     //  ④最終（絶対）座標と、ローカル座標は互いに独立し、干渉はしないが、
@@ -84,22 +84,22 @@ void EnemyOmulus::processBehavior() {
 
     //＜changeGeoLocal(); 実行時＞
     //ローカル座標系に切替えます。
-    //・_X, _Y, _Z     ・・・ は、ローカル座標を意味するようになります。
-    //                        changeGeoLocal(); を実行すると自動的に_X, _Y, _Z に
+    //・_x, _y, _z     ・・・ は、ローカル座標を意味するようになります。
+    //                        changeGeoLocal(); を実行すると自動的に_x, _y, _z に
     //                        ローカル座標値に切り替わります。
-    //・_RX, _RY, _RZ  ・・・ は、ローカル座標での軸回転値を意味するようになります。
-    //                        changeGeoLocal(); を実行すると自動的に_RX, _RY, _RZに
+    //・_rx, _ry, _rz  ・・・ は、ローカル座標での軸回転値を意味するようになります。
+    //                        changeGeoLocal(); を実行すると自動的に_rx, _ry, _rzに
     //                        ローカル座標軸回転値に切り替わります。
 
     //＜changeGeoFinal(); 実行時＞
     //最終（絶対）座標系に切り替えます。
-    //・_X, _Y, _Z    ・・・ 毎フレーム GgafDxGeometricActor::processSettlementBehavior() で計算され自動更新されてます。
-    //                       processBehavior() で changeGeoFinal() を行うと、１フレーム前の_X, _Y, _Zに切り替わる事になります。
-    //                       _X, _Y, _Z は参照専用。値を代入しても意味が有りません
-    //・_RX, _RY, _RZ ・・・ 毎フレーム GgafDxGeometricActor::processSettlementBehavior() 自動代入されません！
-    //                       changeGeoFinal(); を実行しても、_RX, _RY, _RZ は以前の最終（絶対）座標系の値が
+    //・_x, _y, _z    ・・・ 毎フレーム GgafDxGeometricActor::processSettlementBehavior() で計算され自動更新されてます。
+    //                       processBehavior() で changeGeoFinal() を行うと、１フレーム前の_x, _y, _zに切り替わる事になります。
+    //                       _x, _y, _z は参照専用。値を代入しても意味が有りません
+    //・_rx, _ry, _rz ・・・ 毎フレーム GgafDxGeometricActor::processSettlementBehavior() 自動代入されません！
+    //                       changeGeoFinal(); を実行しても、_rx, _ry, _rz は以前の最終（絶対）座標系の値が
     //                       入りっぱなしで変化しません。
-    //                       他のオブジェクトから、ボーンにあたるアクターを参照するとき、_RX, _RY, _RZは全く信用できません。
+    //                       他のオブジェクトから、ボーンにあたるアクターを参照するとき、_rx, _ry, _rzは全く信用できません。
 
     //＜注意＞
     //・GgafDxKurokoA(_pKurokoA)の behave() 以外メソッドは、常にローカル座標の操作とする。
@@ -208,9 +208,9 @@ void EnemyOmulus::processBehavior() {
         //
 
         //MvX MvY MvZ を求める
-        int MvX = P_MYSHIP->_X - _X;
-        int MvY = P_MYSHIP->_Y - _Y;
-        int MvZ = P_MYSHIP->_Z - _Z;
+        int MvX = P_MYSHIP->_x - _x;
+        int MvY = P_MYSHIP->_y - _y;
+        int MvZ = P_MYSHIP->_z - _z;
         //逆行列取得
         D3DXMATRIX* pBaseInvMatRM = _pActor_Base->getInvMatWorldRotMv();
         //ローカル座標でのターゲットとなる方向ベクトル計算

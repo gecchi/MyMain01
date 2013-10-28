@@ -28,7 +28,7 @@ void MgrActor::processBehavior() {
 
 
 //    if (GgafDxInput::isBeingPressedKey(DIK_P)) {
-//        _SX+=10; _SY+=10;
+//        _sx+=10; _sy+=10;
 //    }
 
 //    _pKurokoA->behave();

@@ -40,7 +40,7 @@ FixedVelocitySplineKurokoLeader::FixedVelocitySplineKurokoLeader(GgafDxKurokoA* 
     _SIN_RyMv_begin = 0.0f;
     _COS_RyMv_begin = 0.0f;
 }
-void FixedVelocitySplineKurokoLeader::getPointCoord(int prm_point_index, coord& out_X, coord& out_Y, coord& out_Z) {
+void FixedVelocitySplineKurokoLeader::getPointCoord(int prm_point_index, coord& out_x, coord& out_y, coord& out_z) {
 #ifdef MY_DEBUG
     if (prm_point_index >= _pFixedVeloSplManuf->_sp->_rnum) {
         throwGgafCriticalException("FixedVelocitySplineKurokoLeader::getPointCoord ポイントのインデックスオーバー。"<<
@@ -50,9 +50,9 @@ void FixedVelocitySplineKurokoLeader::getPointCoord(int prm_point_index, coord& 
 
 
     SplineLine* pSpl = _pFixedVeloSplManuf->_sp;
-    double dx = _flip_X*pSpl->_X_compute[prm_point_index]*_pFixedVeloSplManuf->_rate_X + _offset_X;
-    double dy = _flip_Y*pSpl->_Y_compute[prm_point_index]*_pFixedVeloSplManuf->_rate_Y + _offset_Y;
-    double dz = _flip_Z*pSpl->_Z_compute[prm_point_index]*_pFixedVeloSplManuf->_rate_Z + _offset_Z;
+    double dx = _flip_x*pSpl->_x_compute[prm_point_index]*_pFixedVeloSplManuf->_rate_x + _offset_x;
+    double dy = _flip_y*pSpl->_y_compute[prm_point_index]*_pFixedVeloSplManuf->_rate_y + _offset_y;
+    double dz = _flip_z*pSpl->_z_compute[prm_point_index]*_pFixedVeloSplManuf->_rate_z + _offset_z;
     if (_option == RELATIVE_DIRECTION) {
         if (_is_leading == false) {
             GgafDxKurokoA* const pKurokoA_target = _pActor_target->_pKurokoA;
@@ -61,9 +61,9 @@ void FixedVelocitySplineKurokoLeader::getPointCoord(int prm_point_index, coord& 
             _SIN_RyMv_begin = ANG_SIN(pKurokoA_target->_angRyMv);
             _COS_RyMv_begin = ANG_COS(pKurokoA_target->_angRyMv);
             if (!_is_fix_start_pos) {
-                _X_start = _pActor_target->_X;
-                _Y_start = _pActor_target->_Y;
-                _Z_start = _pActor_target->_Z;
+                _x_start = _pActor_target->_x;
+                _y_start = _pActor_target->_y;
+                _z_start = _pActor_target->_z;
             }
         }
         //    平行移動 ＞ Z軸回転 ＞ Y軸回転 の 平行移動部分 tx,ty,tz
@@ -71,27 +71,27 @@ void FixedVelocitySplineKurokoLeader::getPointCoord(int prm_point_index, coord& 
         //    | -sinRz*cosRy                           , cosRz                , -sinRz*-sinRy                           , 0 |
         //    | sinRy                                  , 0                    , cosRy                                   , 0 |
         //    | (dx*cosRz + dy*-sinRz)*cosRy + dz*sinRy, (dx*sinRz + dy*cosRz), (dx*cosRz + dy*-sinRz)*-sinRy + dz*cosRy, 1 |
-        out_X = ((dx * _COS_RzMv_begin + dy * -_SIN_RzMv_begin) *  _COS_RyMv_begin + dz * _SIN_RyMv_begin) + _X_start;
-        out_Y =  (dx * _SIN_RzMv_begin + dy *  _COS_RzMv_begin)                                            + _Y_start;
-        out_Z = ((dx * _COS_RzMv_begin + dy * -_SIN_RzMv_begin) * -_SIN_RyMv_begin + dz * _COS_RyMv_begin) + _Z_start;
+        out_x = ((dx * _COS_RzMv_begin + dy * -_SIN_RzMv_begin) *  _COS_RyMv_begin + dz * _SIN_RyMv_begin) + _x_start;
+        out_y =  (dx * _SIN_RzMv_begin + dy *  _COS_RzMv_begin)                                            + _y_start;
+        out_z = ((dx * _COS_RzMv_begin + dy * -_SIN_RzMv_begin) * -_SIN_RyMv_begin + dz * _COS_RyMv_begin) + _z_start;
 
     } else if (_option == RELATIVE_COORD) {
         //相対座標ターゲット
         if (_is_leading == false) {
             if (!_is_fix_start_pos) {
-                _X_start = _pActor_target->_X;
-                _Y_start = _pActor_target->_Y;
-                _Z_start = _pActor_target->_Z;
+                _x_start = _pActor_target->_x;
+                _y_start = _pActor_target->_y;
+                _z_start = _pActor_target->_z;
             }
         }
-        out_X = dx + _X_start;
-        out_Y = dy + _Y_start;
-        out_Z = dz + _Z_start;
+        out_x = dx + _x_start;
+        out_y = dy + _y_start;
+        out_z = dz + _z_start;
     } else { //ABSOLUTE_COORD
         //絶対座標ターゲット
-        out_X = dx;
-        out_Y = dy;
-        out_Z = dz;
+        out_x = dx;
+        out_y = dy;
+        out_z = dz;
     }
 }
 
@@ -113,13 +113,13 @@ void FixedVelocitySplineKurokoLeader::restart() {
     _point_index = -1;//最初は始点[0]に向かうので、始点前の-1になる。
 
     SplineLine* pSpl = _pFixedVeloSplManuf->_sp;
-    double P0X = _flip_X * pSpl->_X_compute[0] * _pFixedVeloSplManuf->_rate_X + _offset_X;
-    double P0Y = _flip_Y * pSpl->_Y_compute[0] * _pFixedVeloSplManuf->_rate_Y + _offset_Y;
-    double P0Z = _flip_Z * pSpl->_Z_compute[0] * _pFixedVeloSplManuf->_rate_Z + _offset_Z;
+    double P0X = _flip_x * pSpl->_x_compute[0] * _pFixedVeloSplManuf->_rate_x + _offset_x;
+    double P0Y = _flip_y * pSpl->_y_compute[0] * _pFixedVeloSplManuf->_rate_y + _offset_y;
+    double P0Z = _flip_z * pSpl->_z_compute[0] * _pFixedVeloSplManuf->_rate_z + _offset_z;
     if (!_is_fix_start_pos) {
-        _X_start = _pActor_target->_X;
-        _Y_start = _pActor_target->_Y;
-        _Z_start = _pActor_target->_Z;
+        _x_start = _pActor_target->_x;
+        _y_start = _pActor_target->_y;
+        _z_start = _pActor_target->_z;
     }
     if (_option == RELATIVE_DIRECTION) {
         GgafDxKurokoA* const pKurokoA_target = _pActor_target->_pKurokoA;
@@ -138,9 +138,9 @@ void FixedVelocitySplineKurokoLeader::restart() {
                                   );
     } else { //ABSOLUTE_COORD
         _distance_to_begin = UTIL::getDistance(
-                                (double)(_pActor_target->_X),
-                                (double)(_pActor_target->_Y),
-                                (double)(_pActor_target->_Z),
+                                (double)(_pActor_target->_x),
+                                (double)(_pActor_target->_y),
+                                (double)(_pActor_target->_z),
                                 P0X, P0Y, P0Z
                              );
    }
