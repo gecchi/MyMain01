@@ -354,7 +354,6 @@ void MagicMeter::processBehavior() {
         //「決定」時
         if (pVbPlay->isPushedDown(VB_SHOT1) || pVbPlay->isPushedDown(VB_SHOT2) || pVbPlay->isPushedDown(VB_TURBO)) {
             int r = pActiveMagic->cast(papLvTgtMvCur_[active_idx]->point_lv_);
-
             switch (r) {
                 case MAGIC_CAST_NG_INVOKING_NOW: {
                     _pSeTx->play(SE_BAD_OPERATION);
@@ -362,54 +361,6 @@ void MagicMeter::processBehavior() {
                 }
                 case MAGIC_CAST_NG_MP_IS_SHORT: {
                     _pSeTx->play(SE_NG_MP_IS_SHORT);
-                    break;
-                }
-                case MAGIC_CAST_NOTHING: {
-                    papLvNowCur_[active_idx]->moveSmoothTo(pActiveMagic->level_);
-                    break;
-                }
-                case MAGIC_CAST_CANCEL: {
-                    _pSeTx->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
-                    papLvTgtMvCur_[active_idx]->blink(); //ピカピカ！
-                    papLvCastingCur_[active_idx]->markOnLevelDownCast(pActiveMagic->level_);
-                    papLvNowCur_[active_idx]->moveSmoothTo(pActiveMagic->level_);
-                    break;
-                }
-                case MAGIC_CAST_OK_LEVELUP: {
-                    _pSeTx->play(SE_EXECUTE_LEVELUP_MAGIC);
-                    papLvTgtMvCur_[active_idx]->blink(); //ピカピカ！
-                    //LEVELUP 時は既にpActiveMagic->new_level_ がアップ予定レベル
-                    papLvCastingCur_[active_idx]->markOnLevelUpCast(pActiveMagic->new_level_);
-                    break;
-                }
-                case MAGIC_CAST_LEVELDOWN: {
-                    _pSeTx->play(SE_EXECUTE_LEVELDOWN_MAGIC);
-                    papLvTgtMvCur_[active_idx]->blink(); //ピカピカ！
-                    //LEVELDOWN 時は既に effect(new_lv) 実行済みのため、現レベル pActiveMagic->level_ となる
-                    papLvCastingCur_[active_idx]->markOnLevelDownCast(pActiveMagic->level_);
-                    papLvNowCur_[active_idx]->moveSmoothTo(pActiveMagic->level_);
-                    papLvNowCur_[active_idx]->blink();
-                    break;
-                }
-                case MAGIC_CAST_OK_CANCEL_AND_LEVELUP: {
-                    if ( papLvCastingCur_[active_idx]->point_lv_ ==  papLvTgtMvCur_[active_idx]->point_lv_) {
-                        //現在詠唱中のレベルで再度押下
-                        //なにもしない
-                    } else {
-                        _pSeTx->play(SE_EXECUTE_CANCEL_LEVELUP_MAGIC);
-                        papLvTgtMvCur_[active_idx]->blink(); //ピカピカ！
-                        //LEVELUP 時は既にpActiveMagic->new_level_ がアップ予定レベル
-                        papLvCastingCur_[active_idx]->markOnLevelUpCast(pActiveMagic->new_level_);
-                    }
-                    break;
-                }
-                case MAGIC_CAST_CANCEL_AND_LEVELDOWN: {
-                    _pSeTx->play(SE_EXECUTE_CANCEL_LEVELDOWN_MAGIC);
-                    papLvTgtMvCur_[active_idx]->blink(); //ピカピカ！
-                    //LEVELDOWN 時は既に effect(new_lv) 実行済みのため、現レベル pActiveMagic->level_ となる
-                    papLvCastingCur_[active_idx]->markOnLevelDownCast(pActiveMagic->level_);
-                    papLvNowCur_[active_idx]->moveSmoothTo(pActiveMagic->level_);
-                    papLvNowCur_[active_idx]->blink();
                     break;
                 }
             }
@@ -460,8 +411,51 @@ void MagicMeter::processBehavior() {
 
         //詠唱開始
         if (pMagicProg->isJustChangedTo(Magic::STATE_CASTING)) {
-            if (pMagic_new_level > pMagic_level) {
-                pSeTx4Cast_->play(m);
+            switch (pMagic->last_cast_) {
+                case MAGIC_CAST_OK_LEVELUP: {
+                    _pSeTx->play(SE_EXECUTE_LEVELUP_MAGIC);
+                    pSeTx4Cast_->play(m);
+                    papLvTgtMvCur_[m]->blink(); //ピカピカ！
+                    papLvCastingCur_[m]->markOnLevelUpCast(pMagic_new_level);
+                    break;
+                }
+                case MAGIC_CAST_LEVELDOWN: {
+                    _pSeTx->play(SE_EXECUTE_LEVELDOWN_MAGIC);
+                    papLvTgtMvCur_[m]->blink(); //ピカピカ！
+                    papLvNowCur_[m]->moveSmoothTo(pMagic_new_level);
+                    papLvNowCur_[m]->blink();
+                    if (pMagic_new_level > 0) {
+                        //レベル0以外へのレベルダウンならば EFFECT エフェクト
+                        papLvCastingCur_[m]->markOnLevelDownCast(pMagic_new_level);
+                    }
+                    break;
+                }
+                case MAGIC_CAST_OK_CANCEL_AND_LEVELUP: {
+                    if ( papLvCastingCur_[m]->point_lv_ ==  papLvTgtMvCur_[m]->point_lv_) {
+                        //現在詠唱中のレベルで再度押下
+                        //なにもしない
+                    } else {
+                        _pSeTx->play(SE_EXECUTE_CANCEL_LEVELUP_MAGIC);
+                        pSeTx4Cast_->play(m);
+                        papLvTgtMvCur_[m]->blink(); //ピカピカ！
+                        papLvCastingCur_[m]->markOnLevelUpCast(pMagic_new_level);
+                    }
+                    break;
+                }
+                case MAGIC_CAST_CANCEL_AND_LEVELDOWN: {
+                    _pSeTx->play(SE_EXECUTE_CANCEL_LEVELDOWN_MAGIC);
+                    papLvTgtMvCur_[m]->blink(); //ピカピカ！
+                    papLvNowCur_[m]->moveSmoothTo(pMagic_new_level);
+                    papLvNowCur_[m]->blink();
+                    if (pMagic_new_level > 0) {
+                        //レベル0以外へのレベルダウンならば EFFECT エフェクト
+                        papLvCastingCur_[m]->markOnLevelDownCast(pMagic_new_level);
+                    }
+                    break;
+                }
+                default: {
+                    throwGgafCriticalException("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] おかしい。来るはずがない。pMagic->last_cast_="<<(pMagic->last_cast_));
+                }
             }
         }
         //詠唱中
@@ -479,27 +473,31 @@ void MagicMeter::processBehavior() {
 
         //発動開始時
         if (pMagicProg->isJustChangedTo(Magic::STATE_INVOKING)) {
-            if (pMagic_new_level > pMagic_level) {
-                pSeTx4Invoke_->play(m);
+            switch (pMagic->last_invoke_) {
+                case MAGIC_INVOKE_OK_LEVELUP: {
+                    pSeTx4Invoke_->play(m);
+                    pLvTgtMvCur->dispDisable(); //操作不可表示
+                    pLvNowCur->dispDisable();
+                    if (pLvTgtMvCur->point_lv_ == pMagic_level) {
+                        //カーソルが現レベルを指している場合に限り
+                        //新しいレベルにこっそり動かしてあげる。
+                        pLvTgtMvCur->moveSmoothTo(pMagic_new_level);
+                    }
+                    frame time_of_invoking = (frame)(pMagic->level_up_time_of_invoking_[pMagic_level][pMagic_new_level]);
+                    pLvNowCur->moveSmoothTo(pMagic_new_level, time_of_invoking); //INVOKINGに合わせて動く
+                    pLvCastingCur->markOnInvoke(pMagic_new_level);
+                    break;
+                }
+                case MAGIC_INVOKE_OK_LEVELDOWN: {
+                    //レベルダウンは、詠唱開始時に現在レベル強調表示のカーソル移動が既におこなわれている。
+                    //ので、ここでは何もしない。
+                    break;
+                }
+                default: {
+                    throwGgafCriticalException("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] おかしい。来るはずがない。pMagic->last_invoke_="<<(pMagic->last_invoke_));
+                }
             }
-            pLvTgtMvCur->dispDisable(); //操作不可表示
-            pLvNowCur->dispDisable();
-            if (pLvTgtMvCur->point_lv_ == pMagic_level) {
-                //カーソルが現レベルを指している場合に限り
-                //新しいレベルにこっそり動かしてあげる。
-                pLvTgtMvCur->moveSmoothTo(pMagic_new_level);
-            }
-            if (pMagic_new_level > pMagic_level) {
-                //レベルアップ時
-                frame time_of_invoking = (frame)(pMagic->level_up_time_of_invoking_[pMagic_level][pMagic_new_level]);
-                pLvNowCur->moveSmoothTo(pMagic_new_level, time_of_invoking); //INVOKINGに合わせて動く
-            } else {
-                //レベルダウン時
-                pLvNowCur->moveSmoothTo(pMagic_new_level, 1); //即効で動く
-            }
-            pLvCastingCur->markOnInvoke(pMagic_new_level);
         }
-
         //発動中
         if (pMagicProg->get() == Magic::STATE_INVOKING) {
             if (pMagic->new_level_ > pMagic_level) {
@@ -508,50 +506,70 @@ void MagicMeter::processBehavior() {
                 pSeTx4Invoke_->get(m)->setFrequencyRate(1.0f + (f*3.0f));//音程を上げる
             }
         }
-
         //発動ではなくなった
         if (pMagicProg->isJustChangedFrom(Magic::STATE_INVOKING)) {
             pSeTx4Invoke_->stop(m); //消音
             pLvTgtMvCur->dispEnable(); //操作不可表示を解除
             pLvNowCur->dispEnable();
-            pLvNowCur->blink();
         }
 
-        //レベルアップ時
-        if (pMagic->prev_frame_level_ != pMagic_level && pMagic->prev_frame_level_ < pMagic_level) {
-            _pSeTx->play(SE_EFFECT_MAGIC);
-            pLvCastingCur->markOnEffect(pMagic_level);
-        }
 
-        //レベルダウン時
-        if (pMagic->prev_frame_level_ != pMagic_level && pMagic->prev_frame_level_ > pMagic_level) {
-            if (pMagic->time_of_effect_base_ == 0) {
-                //速攻魔法の終了のレベルダウン場合
-                _TRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] 速攻魔法のレベルダウンのためSEは鳴らさない");
-            } else {
-                //レベルダウン
-                _pSeTx->play(SE_EXECUTE_LEVELDOWN_MAGIC);
+        //効果開始時
+        if (pMagicProg->isJustChangedTo(Magic::STATE_EFFECT_START)) {
+            switch (pMagic->last_effect_) {
+                case MAGIC_EFFECT_OK_LEVELUP: {
+                    if (pMagic->time_of_effect_base_ == 0) {
+                        //即効性魔法の場合
+                        _pSeTx->play(SE_EFFECT_MAGIC);
+                        pLvCastingCur->markOnEffect(pMagic_level);
+                    } else {
+                        //通常魔法の場合
+                        _pSeTx->play(SE_EFFECT_MAGIC);
+                        pLvCastingCur->markOnEffect(pMagic_level);
+                    }
+                    break;
+                }
+                case MAGIC_EFFECT_OK_LEVELDOWN: {
+                    if (pMagic->time_of_effect_base_ == 0) {
+                        //速攻魔法の終了のレベルダウン場合
+                        _TRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] 速攻魔法のレベルダウンのレベルダウン");
+                        pLvNowCur->moveSmoothTo(pMagic_level);
+                    } else {
+                        //普通のレベルダウン
+                        _pSeTx->play(SE_EXECUTE_LEVELDOWN_MAGIC);
+                        if (pLvTgtMvCur->point_lv_ == pMagic->last_level_) {
+                            //持続時間満期、あるいはMP枯渇時、
+                            //カーソルがレベルダウン前の現行レベルを指していれば、
+                            //こっそり、カーソルも一緒に移動
+                            pLvTgtMvCur->moveSmoothTo(pMagic_level);
+                        }
+                        pLvNowCur->moveSmoothTo(pMagic_level);
+                        pLvNowCur->blink();
+                        if (pMagic_level > 0) {
+                            papLvCastingCur_[m]->markOnEffect(pMagic_level);
+                        }
+                    }
+                    break;
+                }
+                default: {
+                    throwGgafCriticalException("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] おかしい。来るはずがない。pMagic->last_effect_="<<(pMagic->last_effect_));
+                }
             }
-            if (pLvTgtMvCur->point_lv_ == pMagic->prev_frame_level_) {
-                //カーソルがレベルダウン前のレベルにセットしてあれば、
-                //こっそり、カーソルも一つ下に移動
-                pLvTgtMvCur->moveSmoothTo(pMagic_level);
-            }
-            pLvNowCur->moveSmoothTo(pMagic_level);
-            pLvNowCur->blink();
         }
 
         //STATE_NOTHINGへ移行した
         if (pMagicProg->isJustChangedTo(Magic::STATE_NOTHING)) {
             if (pMagicProg->isJustChangedFrom(Magic::STATE_CASTING)) { //詠唱→STATE_NOTHING
-                //空詠唱（詠唱をキャンセルした or レベル０へレベルダウン or 詠唱したが詠唱完了時にMPが足りなかった）
+                //空詠唱（詠唱をキャンセルした or 詠唱したが詠唱完了時にMPが足りなかった）
                 _TRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] 詠唱→STATE_NOTHING 空詠唱乙。");
                 pLvCastingCur->markOff(); //マークオフ！
                 pLvNowCur->moveSmoothTo(pMagic_level);
                 pLvTgtMvCur->moveSmoothTo(pMagic_level); //レベルカーソルをアクティブレベルに戻す
                 if (pMagic->last_invoke_ == MAGIC_INVOKE_NG_MP_IS_SHORT) {
-                    _TRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] 詠唱キャンセルの原因は、MAGIC_INVOKE_NG_MP_IS_SHORT");
+                    _TRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] 空詠唱乙の原因は MAGIC_INVOKE_NG_MP_IS_SHORT だったため ");
                     _pSeTx->play(SE_NG_MP_IS_SHORT);
+                } else {
+                    _pSeTx->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
                 }
             }
             if (pMagicProg->isJustChangedFrom(Magic::STATE_INVOKING)) {  //発動→STATE_NOTHING
@@ -561,23 +579,13 @@ void MagicMeter::processBehavior() {
                 pLvNowCur->moveSmoothTo(pMagic_level);
                 pLvTgtMvCur->moveSmoothTo(pMagic_level); //レベルカーソルをアクティブレベルに戻す
                 if (pMagic->last_effect_ == MAGIC_EFFECT_NG_MP_IS_SHORT) {
-                    _TRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] 発動キャンセルの原因は、MAGIC_EFFECT_NG_MP_IS_SHORT");
+                    _TRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] 空発動乙の原因は MAGIC_EFFECT_NG_MP_IS_SHORT だったため ");
                     _pSeTx->play(SE_NG_MP_IS_SHORT);
-                }
-            }
-
-            if (pMagicProg->isJustChangedFrom(Magic::STATE_EFFECT_START)) { //STATE_EFFECT_START→STATE_NOTHING
-                if (pMagic_level > 0 && pMagic->time_of_effect_base_ == 0) {
-                    //即効性魔法終了時
-                    _TRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] STATE_EFFECT_START→STATE_NOTHING 即効性魔法、発動して終了");
-                    pLvCastingCur->markOnEffect(pMagic_level);
-                    pLvNowCur->moveSmoothTo(pMagic_level);
-                    pLvTgtMvCur->moveSmoothTo(pMagic_level);
+                } else {
+                    _pSeTx->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
                 }
             }
         }
-
-
 
         //もうすぐレベルダウン警告
         if (pMagic->lvinfo_[pMagic_level].remainingtime_of_effect_ == fraeme_of_notice_remaind_) {

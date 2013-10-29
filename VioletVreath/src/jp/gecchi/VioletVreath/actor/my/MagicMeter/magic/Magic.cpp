@@ -2,6 +2,7 @@
 #include "Magic.h"
 
 #include "jp/ggaf/lib/util/PxQuantity.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -35,10 +36,15 @@ r_time_of_invoking_lv_diff_base_(prm_r_time_of_invoking_lv_diff_base) {
     new_level_  = 0;
     last_level_ = 0;
     level_      = 0;
+
+    level_nextframe_ = 0;
+    new_level_nextframe_ = 0;
+    last_level_nextframe_ = 0;
+
     prev_frame_level_ = level_;
 
     //各レベル別持続時間及び、コスト、詠唱時間、発動時間、効果持続時間、維持コストを予め設定
-    lvinfo_[0].remainingtime_of_effect_ = 0;
+    lvinfo_[0].remainingtime_of_effect_ = MAX_MAGIC_TIME;
     lvinfo_[0].cost_             = 0;
     lvinfo_[0].time_of_casting_  = 0;
     lvinfo_[0].time_of_invoking_ = 0;
@@ -110,8 +116,6 @@ r_time_of_invoking_lv_diff_base_(prm_r_time_of_invoking_lv_diff_base) {
     useProgress(_BANPEI_-1);
     temp_hold_status_ = -1;
     temp_hold_new_level_ = 0;
-
-
     last_cast_ = MAGIC_CAST_NOTHING;
     last_invoke_ = MAGIC_INVOKE_NOTHING;
     last_effect_ = MAGIC_EFFECT_NOTHING;
@@ -126,9 +130,19 @@ void Magic::onReset() {
     new_level_  = 0;
     last_level_ = 0;
     level_      = 0;
+    prev_frame_level_ = level_;
+
+    level_nextframe_ = 0;
+    new_level_nextframe_ = 0;
+    last_level_nextframe_ = 0;
+
+    last_cast_ = MAGIC_CAST_NOTHING;
+    last_invoke_ = MAGIC_INVOKE_NOTHING;
+    last_effect_ = MAGIC_EFFECT_NOTHING;
+
     _pProg->reset(STATE_NOTHING);
     //各レベル別持続時間及び、維持コストを予め設定
-    lvinfo_[0].remainingtime_of_effect_ = 0;
+    lvinfo_[0].remainingtime_of_effect_ = MAX_MAGIC_TIME;
     lvinfo_[1].remainingtime_of_effect_ = 0;
     for (int i = 2; i <= max_level_; i++) {
         lvinfo_[i].remainingtime_of_effect_ = 0;
@@ -146,9 +160,9 @@ void Magic::save(std::stringstream& sts) {
            last_level_ << " ";
     for (int lv = 0; lv < MMETER_MAX_LEVEL+1; lv++) {
         sts <<  lvinfo_[lv].remainingtime_of_effect_ << " " <<
-                lvinfo_[lv].time_of_effect_           << " " <<
-                lvinfo_[lv].keep_cost_                << " " <<
-                lvinfo_[lv].pno_                      << " ";
+                lvinfo_[lv].time_of_effect_          << " " <<
+                lvinfo_[lv].keep_cost_               << " " <<
+                lvinfo_[lv].pno_                     << " ";
     }
 }
 
@@ -223,28 +237,29 @@ int Magic::cast(int prm_new_level) {
             //再詠唱のレベルが、現在の効果持続レベルと同じレベルを指定したため、
             //詠唱中止(キャンセル)扱いになる。
             _TRACE_("Magic::cast("<<prm_new_level<<") ["<<getName()<<"] 判定→MAGIC_CAST_CANCEL!");
-            new_level_ = prm_new_level;
+            new_level_nextframe_ = prm_new_level;
             _pProg->change(STATE_NOTHING);
             break;
         }
         case MAGIC_CAST_OK_LEVELUP: {
             //現在の効果持続レベルより高いレベルを詠唱しようとしている。
             _TRACE_("Magic::cast("<<prm_new_level<<") ["<<getName()<<"] 判定→MAGIC_CAST_OK_LEVELUP!");
-            new_level_ = prm_new_level;
+            new_level_nextframe_ = prm_new_level;
             _pProg->change(STATE_CASTING);
             break;
         }
         case MAGIC_CAST_LEVELDOWN: {
             //現在の効果持続レベルより低いレベルを詠唱しようとしている。
             _TRACE_("Magic::cast("<<prm_new_level<<") ["<<getName()<<"] 判定→MAGIC_CAST_LEVELDOWN!");
-            effect(prm_new_level);
+            new_level_nextframe_ = prm_new_level;
+            _pProg->change(STATE_CASTING);
             break;
         }
         case MAGIC_CAST_OK_CANCEL_AND_LEVELUP: {
             //他のレベルを詠唱中に再詠唱を行おうとしている
             //再詠唱のレベルが、現在の効果持続レベルより高い。
             _TRACE_("Magic::cast("<<prm_new_level<<") ["<<getName()<<"] 判定→MAGIC_CAST_OK_CANCEL_AND_LEVELUP!");
-            new_level_ = prm_new_level;
+            new_level_nextframe_ = prm_new_level;
             _pProg->change(STATE_RE_CASTING);
             break;
         }
@@ -252,7 +267,8 @@ int Magic::cast(int prm_new_level) {
             //他のレベルを詠唱中に再詠唱を行おうとしている
             //再詠唱のレベルが、現在の効果持続レベルより低い。
             _TRACE_("Magic::cast("<<prm_new_level<<") ["<<getName()<<"] 判定→MAGIC_CAST_CANCEL_AND_LEVELDOWN!");
-            effect(prm_new_level);
+            new_level_nextframe_ = prm_new_level;
+            _pProg->change(STATE_RE_CASTING);
             break;
         }
     }
@@ -281,11 +297,7 @@ int Magic::chkInvokeAble(int prm_new_level) {
 
 int Magic::chkEffectAble(int prm_level) {
     if (level_ > prm_level) {
-        if (prm_level == 0) {
-            return MAGIC_EFFECT_FINISH;
-        } else {
-            return MAGIC_EFFECT_OK_LEVELDOWN;
-        }
+        return MAGIC_EFFECT_OK_LEVELDOWN;
     } else if (level_ < prm_level) {
         if (level_up_cost_[level_][prm_level] <= *pMP_) {
             return MAGIC_EFFECT_OK_LEVELUP;
@@ -317,13 +329,14 @@ int Magic::invoke(int prm_new_level) {
         }
         case MAGIC_INVOKE_OK_LEVELUP: {
             _TRACE_("Magic::invoke("<<prm_new_level<<") ["<<getName()<<"] 判定→MAGIC_INVOKE_OK_LEVELUP!");
-            new_level_ = prm_new_level;
+            new_level_nextframe_ = prm_new_level;
             _pProg->change(STATE_INVOKING);
             break;
         }
         case MAGIC_INVOKE_OK_LEVELDOWN: {
             _TRACE_("Magic::invoke("<<prm_new_level<<") ["<<getName()<<"] 判定→MAGIC_INVOKE_OK_LEVELDOWN!");
-            effect(prm_new_level);
+            new_level_nextframe_ = prm_new_level;
+            _pProg->change(STATE_INVOKING);
             break;
         }
         case MAGIC_INVOKE_NOTHING: {
@@ -346,43 +359,33 @@ int Magic::effect(int prm_level) {
         case MAGIC_EFFECT_NG_MP_IS_SHORT: {
             //throwGgafCriticalException("Magic::effect("<<prm_level<<") "<<getName()<<" が MAGIC_EFFECT_NG_MP_IS_SHORT は、このタイミングであり得ないはずです。");
             //ありうる
-            _TRACE_("Magic::effect("<<prm_level<<") ["<<getName()<<"] 判定→MAGIC_EFFECT_NG_MP_IS_SHORT!");
+            _TRACE_("Magic::effect("<<prm_level<<") ["<<getName()<<"] 判定→MAGIC_EFFECT_NG_MP_IS_SHORT、change(STATE_NOTHING)");
             _pProg->change(STATE_NOTHING);
             break;
         }
         case MAGIC_EFFECT_NOTHING: {
             if (prm_level == 0) {
                 //effect(0) の処理。コレは onResetで行われる初期化。
+                _TRACE_("Magic::effect("<<prm_level<<") ["<<getName()<<"] 判定→MAGIC_EFFECT_NOTHING、なにもしません");
             } else {
                 throwGgafCriticalException("Magic::effect("<<prm_level<<") "<<getName()<<" が MAGIC_EFFECT_NOTHING は、このタイミングであり得ないはずです。");
             }
             break;
         }
         case MAGIC_EFFECT_OK_LEVELUP: {
-            _TRACE_("Magic::effect("<<prm_level<<") ["<<getName()<<"] 判定→MAGIC_EFFECT_OK_LEVELUP!");
+            _TRACE_("Magic::effect("<<prm_level<<") ["<<getName()<<"] 判定→MAGIC_EFFECT_OK_LEVELUP、change(STATE_EFFECT_START)");
             //レベル更新
-            last_level_ = level_;
-            level_ = prm_level;
-            processEffectBegin(last_level_, level_); //効果持続開始コールバック
+            last_level_nextframe_ = level_;
+            level_nextframe_ = prm_level;
             _pProg->change(STATE_EFFECT_START);
             break;
         }
         case MAGIC_EFFECT_OK_LEVELDOWN: {
-            _TRACE_("Magic::effect("<<prm_level<<") ["<<getName()<<"] 判定→MAGIC_EFFECT_OK_LEVELDOWN!");
+            _TRACE_("Magic::effect("<<prm_level<<") ["<<getName()<<"] 判定→MAGIC_EFFECT_OK_LEVELDOWN、change(STATE_RE_EFFECT)");
             //レベル更新
-            last_level_ = level_;
-            level_ = prm_level;
-            processEffectBegin(last_level_, level_); //効果持続開始コールバック
+            last_level_nextframe_ = level_;
+            level_nextframe_ = prm_level;
             _pProg->change(STATE_RE_EFFECT); //現在 STATE_EFFECT_START のため
-            break;
-        }
-        case MAGIC_EFFECT_FINISH: {
-            _TRACE_("Magic::effect("<<prm_level<<") ["<<getName()<<"] 判定→MAGIC_EFFECT_FINISH!");
-            //レベル更新
-            last_level_ = level_;
-            level_ = prm_level;
-            processEffectFinish(last_level_);  //コールバック
-            _pProg->change(STATE_NOTHING); //魔法効果終了
             break;
         }
 
@@ -390,18 +393,25 @@ int Magic::effect(int prm_level) {
     last_effect_ = last_effect;
     return last_effect_;
 }
-
-void Magic::processBehavior() {
+void Magic::nextFrame() {
+    GgafMainActor::nextFrame();
     prev_frame_level_ = level_;
-        //_TRACE_("Magic::processBehavior() F="<<getBehaveingFrame()<<" begin _pProg->get()="<<_pProg->get());
+
+    level_ = level_nextframe_;
+    new_level_ = new_level_nextframe_;
+    last_level_ =  last_level_nextframe_;
+}
+void Magic::processBehavior() {
     progress prog = _pProg->get();
     switch (prog) {
         /////////////////////////////////////// 待機
         case STATE_NOTHING: {
             if (_pProg->isJustChanged()) {
                 if (_pProg->isJustChangedFrom(STATE_CASTING)) {
+                    _TRACE_("Magic::processBehavior() ["<<getName()<<"] 詠唱キャンセル終了！");
                     processCastingCancel(level_); //コールバック
                 } else if (_pProg->isJustChangedFrom(STATE_INVOKING)) {
+                    _TRACE_("Magic::processBehavior() ["<<getName()<<"] 発動キャンセル終了！");
                     processInvokingCancel(level_); //コールバック
                 }
             }
@@ -410,6 +420,7 @@ void Magic::processBehavior() {
 
         /////////////////////////////////////// 詠唱中キャンセル再詠唱
         case STATE_RE_CASTING: {
+            _TRACE_("Magic::processBehavior() ["<<getName()<<"] 詠唱キャンセル再詠唱！");
             processCastingCancel(level_); //コールバック
             _pProg->change(STATE_CASTING);
             break;
@@ -423,12 +434,10 @@ void Magic::processBehavior() {
             }
             //詠唱中処理
             processCastingBehavior(level_, new_level_); //コールバック
-            if (_pProg->getFrameInProgress() >= time_of_next_state_) {
-                //詠唱終了
-                int now_lv = level_;
-                int new_lv = new_level_;
-                int r = invoke(new_level_); //→ STATE_INVOKING or STATE_NOTHING
-                processCastFinish(now_lv, new_lv, r);  //コールバック
+            if (level_ > new_level_ || _pProg->getFrameInProgress() >= time_of_next_state_) {
+                //レベルダウン時は即効で、あるいは詠唱終了時
+                int r = invoke(new_level_);
+                processCastFinish(level_, new_level_, r);  //コールバック
                 _TRACE_("Magic::processBehavior() ["<<getName()<<"] 詠唱(STATE_CASTING)ステータス終了！");
             }
             break;
@@ -443,12 +452,10 @@ void Magic::processBehavior() {
             }
             //発動中処理
             processInvokingBehavior(level_, new_level_);  //コールバック
-            if (_pProg->getFrameInProgress() >= time_of_next_state_) {
-                //発動終了
-                int now_lv = level_;
-                int new_lv = new_level_;
-                int r = effect(new_level_); //→ STATE_EFFECT_START or STATE_RE_EFFECT or STATE_NOTHING
-                processInvokeFinish(now_lv, new_lv, r); //コールバック
+            if (level_ > new_level_ || _pProg->getFrameInProgress() >= time_of_next_state_) {
+                //レベルダウン時は即効で、あるいは発動終了
+                int r = effect(new_level_);
+                processInvokeFinish(level_, new_level_, r); //コールバック
                 _TRACE_("Magic::processBehavior() ["<<getName()<<"] 発動(STATE_INVOKING)ステータス終了！");
             }
             break;
@@ -463,15 +470,20 @@ void Magic::processBehavior() {
         case STATE_EFFECT_START: {
             if (_pProg->isJustChanged()) { //持続開始
                 _TRACE_("Magic::processBehavior() ["<<getName()<<"] STATE_EFFECT_START begin");
+
+                processEffectBegin(last_level_, level_); //効果持続開始コールバック
+
                 //MP消費計算
                 if (last_level_ < level_) {
                     _TRACE_("Magic::processBehavior() ["<<getName()<<"] レベルアップだった。last_level_="<<last_level_<<" level_="<<level_);
                     //レベルアップだった場合
-                    //飛び越された間のレベルは停止して効果持続終了残り時間を満タンを設定
-                    for (int lv = last_level_+1; lv <= level_-1; lv++) {
+                    //効果持続時間設定。飛び越された間のレベルも効果持続終了残り時間を満タンを設定
+                    for (int lv = last_level_+1; lv <= level_; lv++) {
                         lvinfo_[lv].remainingtime_of_effect_ = lvinfo_[lv].time_of_effect_; //持続時間を満タン
                     }
+
                     *pMP_ -= level_up_cost_[last_level_][level_]; //MP消費
+                    _TRACE_("Magic::processBehavior() ["<<getName()<<"] "<<level_up_cost_[last_level_][level_]<<"MP消費("<<((*pMP_)+level_up_cost_[last_level_][level_])<<"→"<<(*pMP_)<<")");
                     if (*pMP_ < 0) {
                         *pMP_ = 0;
                     }
@@ -482,31 +494,26 @@ void Magic::processBehavior() {
                         if (lvinfo_[last_level_].time_of_effect_ > 0) {
                             //MP還元
                             magic_point rmp = calcReduceMp(last_level_, level_);
-                            _TRACE_("Magic::processBehavior() ["<<getName()<<"] MP還元="<<rmp);
                             *pMP_ += rmp;
+                            _TRACE_("Magic::processBehavior() ["<<getName()<<"] "<<rmp<<"MP還元("<<((*pMP_)-rmp)<<"→"<<(*pMP_)<<")");
+                            if (*pMP_ > MY_SHIP_MAX_MP) {
+                                *pMP_ = MY_SHIP_MAX_MP;
+                            }
                         }
                     }
 
                     //飛び越された間のレベルは停止して効果持続終了残り時間をリセットを設定
-                    for (int lv = level_+1 ; lv <= last_level_-1; lv++) {
-                        lvinfo_[lv].remainingtime_of_effect_ = 0; //果持続終了残り時間を0
+                    for (int lv = last_level_; lv >= level_+1; lv--) {
+                        lvinfo_[lv].remainingtime_of_effect_ = 0; //効果持続終了残り時間を0
                     }
+                    //level_の効果持続時間は前の続き
                 } else {
                     //last_level_ == level_
                 }
 
-                //今回の新たなレベルを設定
-                if (last_level_ < level_) {
-                    //レベルアップだった場合
-                    lvinfo_[level_].remainingtime_of_effect_ = lvinfo_[level_].time_of_effect_; //今回持続時間を満タン
-                } else if (last_level_ > level_) {
-                    //レベルダウンだった場合、今回持続時間は前回の続き
-                } else {
-                }
             }
 
             //持続中処理はここに処理は記述しないこと。
-            //level_ > 0
             _pProg->change(STATE_NOTHING);
             break;
         }
@@ -527,22 +534,20 @@ void Magic::processBehavior() {
         }
         temp_hold_status_ = -1;
     }
+    //魔法効果中・・・
+    processEffectingBehavior(last_level_, level_); //コールバック
 
     do { //break 脱出用
     if (level_ > 0) {
-        //魔法効果中・・・
-        processEffectingBehavior(last_level_, level_); //コールバック
-
         if (_pProg->isJustChangedTo(STATE_EFFECT_START) && time_of_effect_base_ == 0) {
             //即効性魔法のため終了
             for (int lv = 1; lv <= level_; lv++) { //全レベルリセットを設定
                  lvinfo_[lv].remainingtime_of_effect_ = 0; //効果持続終了残り時間を0
             }
-            int r = effect(0); //→STATE_NOTHING, r == MAGIC_EFFECT_FINISH
+            effect(0);
             _TRACE_("Magic::processBehavior() ["<<getName()<<"] 即効性魔法のため、いきなり持続終了。last_level_="<<last_level_<<" level_="<<level_);
             break;
         }
-
 
         //即効性魔法以外
         //効果持続魔法（コスト計算）
@@ -557,7 +562,7 @@ void Magic::processBehavior() {
                 for (int lv = 1; lv <= level_; lv++) { //全レベルリセットを設定
                      lvinfo_[lv].remainingtime_of_effect_ = 0; //効果持続終了残り時間を0
                 }
-                int r = effect(0); //→STATE_NOTHING r == MAGIC_EFFECT_FINISH
+                effect(0);
                 _TRACE_("Magic::processBehavior() ["<<getName()<<"] MP枯渇による持続終了。");
                 break;
             }
@@ -582,11 +587,9 @@ void Magic::processBehavior() {
                 //STATE_EFFECT_START
                 _TRACE_("Magic::processBehavior() ["<<getName()<<"] 効果持続中・・・・、普通に持続時間満期処理 (^_^)");
             }
-            int r = effect(level_-1); //0→STATE_NOTHING、1以上→STATE_RE_EFFECT
-            if (r == MAGIC_EFFECT_FINISH) { //現レベルが１で、満期レベルダウン(-1)によりnothingになった場合
-                _TRACE_("Magic::processBehavior() ["<<getName()<<"] 持続時間満期で持続終了。");
-                break;
-            }
+            effect(level_-1);
+            _TRACE_("Magic::processBehavior() ["<<getName()<<"] 持続時間満期で持続終了。");
+            break;
         }
     }
     } while(false);

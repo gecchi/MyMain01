@@ -128,6 +128,10 @@ void VreathMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
     pEffect_->_pScaler->addScale(10);
 }
 
+void VreathMagic::processCastingCancel(int prm_now_level) {
+    pEffect_->inactivate();
+}
+
 void VreathMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm_result_invoke) {
 }
 
@@ -138,6 +142,10 @@ void VreathMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
 
 void VreathMagic::processInvokingBehavior(int prm_now_level, int prm_new_level) {
     pEffect_->_pScaler->addScale(100);
+}
+
+void VreathMagic::processInvokingCancel(int prm_now_level) {
+    pEffect_->inactivate();
 }
 
 void VreathMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) {
@@ -161,11 +169,8 @@ void VreathMagic::processEffectingBehavior(int prm_last_level, int prm_now_level
         P_MYSHIP->_pStatus->plus(STAT_Stamina, add_vreath);
     } else {
         //レベル0へレベルダウン時
-
+        pEffect_->inactivate();
     }
-}
-
-void VreathMagic::processEffectFinish(int prm_justbefore_level) {
 }
 
 int VreathMagic::calcTotalVreath(int prm_now_level, int prm_target_up_level) {

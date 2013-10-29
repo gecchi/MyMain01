@@ -6,6 +6,7 @@ namespace VioletVreath {
 
 typedef int magic_point;
 typedef frame magic_time;
+#define MAX_MAGIC_TIME MAX_FRAME
 
 #define MAGIC_CAST_NG_INVOKING_NOW          (-5)
 #define MAGIC_CAST_NG_MP_IS_SHORT           (-4)
@@ -23,7 +24,6 @@ typedef frame magic_time;
 #define MAGIC_INVOKE_OK_LEVELDOWN    (2)
 
 #define MAGIC_EFFECT_NG_MP_IS_SHORT (-2)
-#define MAGIC_EFFECT_FINISH         (-1)
 #define MAGIC_EFFECT_NOTHING        (0)
 #define MAGIC_EFFECT_OK_LEVELUP     (1)
 #define MAGIC_EFFECT_OK_LEVELDOWN   (2)
@@ -133,6 +133,10 @@ public:
     int last_level_;
     /** [r]１フレーム前のレベル */
     int prev_frame_level_;
+
+    int level_nextframe_;
+    int new_level_nextframe_;
+    int last_level_nextframe_;
 
     /** [r]本魔法発動に必要なコストの基本単位 */
     const magic_point cost_base_;
@@ -265,6 +269,8 @@ public:
 
     void onReset() override;
 
+    void nextFrame() override;
+
     void processBehavior() override;
 
     void processJudgement() override {}
@@ -293,11 +299,11 @@ public:
      *                                             →詠唱中止。進捗ステータスが STATE_NOTHING への遷移を実行した。
      * @retval  MAGIC_CAST_OK_LEVELUP              現在の効果持続レベルより高いレベルを詠唱を指定ので、
      *                                             →詠唱シークエンス開始、進捗ステータスを STATE_CASTING への遷移を実行した。
-     * @retval  MAGIC_CAST_LEVELDOWN            現在の効果持続レベルより低いレベルを詠唱を指定ので、
+     * @retval  MAGIC_CAST_LEVELDOWN               現在の効果持続レベルより低いレベルを詠唱を指定ので、
      *                                             →魔法効果開始 effect(prm_new_level) を実行した。
      * @retval  MAGIC_CAST_OK_CANCEL_AND_LEVELUP   他のレベルを詠唱中に再詠唱を行おうとしていて、再詠唱のレベルが、現在の効果持続レベルより高ので、
      *                                             →再詠唱シークエンス開始、進捗ステータスが STATE_RE_CASTING への遷移を実行した。
-     * @retval  MAGIC_CAST_CANCEL_AND_LEVELDOWN 他のレベルを詠唱中に再詠唱を行おうとしていて、再詠唱のレベルが、現在の効果持続レベルより低いので、
+     * @retval  MAGIC_CAST_CANCEL_AND_LEVELDOWN    他のレベルを詠唱中に再詠唱を行おうとしていて、再詠唱のレベルが、現在の効果持続レベルより低いので、
      *                                             →魔法効果開始 effect(prm_new_level) を実行した。
      */
     virtual int cast(int prm_new_level);
@@ -305,34 +311,36 @@ public:
     /**
      * 魔法詠唱開始コールバック(１回だけコールバック) .
      * 次のタイミングで呼び出される。<BR>
-     * ・詠唱中ではない状態→効果中レベルより高い魔法の詠唱実行時<BR>
-     * ・現在詠唱中→効果中レベルより高い魔法の詠唱で、現在詠唱中レベルの以外の詠唱実行時<BR>
-     * 【注意】レベルダウン時はコールされません（詠唱自体が無い扱い）<BR>
+     * ・詠唱中ではない状態→効果中レベル以外のレベルの魔法の詠唱実行時<BR>
+     * ・現在詠唱中→効果中レベル以外のレベルの魔法の詠唱実行時<BR>
      * @param prm_now_level 現在のレベル(0～ )
      * @param prm_new_level 詠唱する新しいレベル(1～ )
      */
-    virtual void processCastBegin(int prm_now_level, int prm_new_level) {};
+    virtual void processCastBegin(int prm_now_level, int prm_new_level) = 0;
 
     /**
      * 魔法詠唱中コールバック(毎フレームコールバック) .
-     * 【注意】レベルダウン時はコールされません（詠唱自体が無い扱い）
+     * 【注意】レベルダウン時は１回だけコールされ processCastFinish() が実行されます。
      * @param prm_now_level 現在のレベル(0～ )
      * @param prm_new_level 詠唱中の新しいレベル(1～ )
      */
-    virtual void processCastingBehavior(int prm_now_level, int prm_new_level) {};
+    virtual void processCastingBehavior(int prm_now_level, int prm_new_level) = 0;
 
-    virtual void processCastingCancel(int prm_now_level) {};
+    /**
+     * 魔法詠唱中、詠唱キャンセル時のコールバック .
+     * @param prm_now_level 現在のレベル(0～ )
+     */
+    virtual void processCastingCancel(int prm_now_level) = 0;
 
     /**
      * 魔法詠唱終了コールバック(１回だけコールバック) .
-     * 【注意】レベルダウン時はコールされません（詠唱自体が無い扱い）
      * @param prm_now_level 現在のレベル(0～ )
      * @param prm_new_level 詠唱中完了し発動予定の新しいレベル(1～ )
      */
-    virtual void processCastFinish(int prm_now_level, int prm_new_level, int prm_result_invoke) {};
+    virtual void processCastFinish(int prm_now_level, int prm_new_level, int prm_result_invoke) = 0;
 
     /**
-     * 発動開始実行 .
+     * 発動開始実行(１回だけコールバック) .
      * @param prm_new_level 発動する新しいレベル
      * @return 発動実行の処理状況
      */
@@ -340,29 +348,27 @@ public:
 
     /**
      * 魔法発動開始コールバック。ここまでくると詠唱キャンセルは不可とする。(１回だけコールバック) .
-     * 【注意】レベルダウン時はコールされません（発動自体が無い扱い）
      * @param prm_now_level 現在のレベル(0～ )
      * @param prm_new_level 発動させようとしている新しいレベル(1～ )
      */
-    virtual void processInvokeBegin(int prm_now_level, int prm_new_level) {};
+    virtual void processInvokeBegin(int prm_now_level, int prm_new_level) = 0;
 
     /**
      * 魔法発動中コールバック(毎フレームコールバック) .
-     * 【注意】レベルダウン時はコールされません（発動自体が無い扱い）
+     * 【注意】レベルダウン時は１回だけコールされ processInvokeFinish() が実行されます。
      * @param prm_now_level 現在のレベル(0～ )
      * @param prm_new_level 現在発動中の新しいレベル(1～ )
      */
-    virtual void processInvokingBehavior(int prm_now_level, int prm_new_level) {};
+    virtual void processInvokingBehavior(int prm_now_level, int prm_new_level) = 0;
 
-    virtual void processInvokingCancel(int prm_now_level) {};
+    virtual void processInvokingCancel(int prm_now_level) = 0;
     /**
      * 魔法発動終了コールバック(１回だけコールバック) .
-     * 【注意】レベルダウン時はコールされません（発動自体が無い扱い）
      * @param prm_now_level 魔法発動終了直前の、現在のレベル。(0～ )
      * @param prm_new_level 魔法発動終了直後の、昇格すべき新しいレベル。(1～ )
      * @param prm_result_effect invoke()の結果
      */
-    virtual void processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) {};
+    virtual void processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) = 0;
 
     /**
      * 効果発揮実行 .
@@ -373,47 +379,32 @@ public:
     /**
      * 魔法効果持続開始コールバック(１回だけコールバック) .
      * 次のタイミングで呼び出される
-     * ・魔法発動終了 → 魔法効果持続開始（prm_last_level < prm_now_level）<BR>
-     * ・任意状況→レベル0以外へ手動レベルダウン （prm_last_level > prm_now_level）<BR>
-     * ・持続効果中→レベル0以外へ効果時間満期レベルダウン （prm_last_level > prm_now_level）<BR>
-     * 【注意】MP枯渇による魔法が終了時は呼び出されません。
+     * ・魔法発動終了 → 魔法効果持続開始時（prm_last_level < prm_now_level）<BR>
+     * ・レベルダウン実行時 （手動 or 効果時間満期 or コストあり魔法のMP枯渇）<BR>
      * @param prm_last_level 効果持続が開始される前のレベル。(レベルアップ時：0～ ／レベルダウン時：1～)
-     * @param prm_now_level 効果持続が開始されたレベル。(レベルアップ時：1～ ／レベルダウン時：1～)
+     * @param prm_now_level 効果持続が開始されたレベル。(レベルアップ時：1～ ／レベルダウン時：0～)
      */
-    virtual void processEffectBegin(int prm_last_level, int prm_now_level) {};
+    virtual void processEffectBegin(int prm_last_level, int prm_now_level) = 0;
 
     /**
      * 魔法効果持続中コールバック(毎フレームコールバック) .
      * 即効性魔法(time_of_effect_base_==0)の魔法は１回だけコールバックされることになります。
-     * 【注意】MP枯渇による魔法が終了時は呼び出されません。
+     * 【注意】レベル0でも、内部的にはレベル0の魔法が効果持続中と考えられ本メソッドは呼び出され続けます。
      * @param prm_last_level  以前のレベル。
      * @param prm_now_level 現在(持続中)のレベル。
      */
-    virtual void processEffectingBehavior(int prm_last_level, int prm_now_level) {};
-
-    /**
-     * 魔法持続全終了コールバック(１回だけコールバック) .
-     * 次のタイミングで呼び出される。
-     * ・即効性魔法を実行した時。<BR>
-     * ・効果持続中→維持コストによりMP枯渇となり魔法が終了した時。<BR>
-     * ・効果持続中→効果時間満期レベルダウンが、レベル0へだった時。<BR>
-     * ・任意状況→レベル0への手動レベルダウン<BR>
-     * （補足：レベル0にならないレベルダウン時は、魔法効果が継続し、終了する訳ではないので呼び出されません。
-     *         但しその場合、レベルダウンタイミングで processEffectBegin() はコールバックされます。）<BR>
-     * @param prm_justbefore_level 効果持続が終了する直前のレベル(注意：現レベルではない。ちなみに現在レベルは必ず0)。
-     */
-    virtual void processEffectFinish(int prm_justbefore_level) {};
+    virtual void processEffectingBehavior(int prm_last_level, int prm_now_level) = 0;
 
     /**
      * そのレベルの魔法が詠唱実行できるか調べる
      * @param prm_new_level 詠唱するレベル
-     * @retval MAGIC_CAST_NG_INVOKING_NOW          (-3)  現在発動中のた為、不可
-     * @retval MAGIC_CAST_NG_MP_IS_SHORT           (-2)  レベルアップ詠唱となるが、MPが足りないた為、不可
-     * @retval MAGIC_CAST_CANCEL                   (-1)  現在詠唱中で、引数のレベルは、現在のレベルと一致。つまり詠唱キャンセル指示になる。（可能・不可能で言えば可能）
-     * @retval MAGIC_CAST_NOTHING                  (0)   引数のレベルは、現在のレベルと一致。なにも指示してないことになる。（可能・不可能で言えば可能）
-     * @retval MAGIC_CAST_OK_LEVELUP               (1)   レベルアップ詠唱となる。MPが足りる為可能
+     * @retval MAGIC_CAST_NG_INVOKING_NOW       (-3)  現在発動中のた為、不可
+     * @retval MAGIC_CAST_NG_MP_IS_SHORT        (-2)  レベルアップ詠唱となるが、MPが足りないた為、不可
+     * @retval MAGIC_CAST_CANCEL                (-1)  現在詠唱中で、引数のレベルは、現在のレベルと一致。つまり詠唱キャンセル指示になる。（可能・不可能で言えば可能）
+     * @retval MAGIC_CAST_NOTHING               (0)   引数のレベルは、現在のレベルと一致。なにも指示してないことになる。（可能・不可能で言えば可能）
+     * @retval MAGIC_CAST_OK_LEVELUP            (1)   レベルアップ詠唱となる。MPが足りる為可能
      * @retval MAGIC_CAST_LEVELDOWN             (2)   レベルダウン詠唱となる。もちろん可能
-     * @retval MAGIC_CAST_OK_CANCEL_AND_LEVELUP    (3)   現在の詠唱をキャンセルしてのレベルアップ詠唱となる。MPが足りる為可能
+     * @retval MAGIC_CAST_OK_CANCEL_AND_LEVELUP (3)   現在の詠唱をキャンセルしてのレベルアップ詠唱となる。MPが足りる為可能
      * @retval MAGIC_CAST_CANCEL_AND_LEVELDOWN  (4)   現在の詠唱をキャンセルしてのレベルダウン詠唱となる。もちろん可能
      */
     int chkCastAble(int prm_new_level);
@@ -441,6 +432,7 @@ public:
      * @return
      */
     magic_point calcReduceMp(int prm_now_level, int prm_target_down_level);
+
 
     virtual ~Magic();
 };

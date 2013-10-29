@@ -6,6 +6,7 @@
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectSpeedMagic.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyMagicEnergyCore.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -37,7 +38,7 @@ SpeedMagic::SpeedMagic(const char* prm_name, int*prm_pMP)
     addSubGroup(pEffect_);
 }
 void SpeedMagic::processCastBegin(int prm_now_level, int prm_new_level) {
-    pEffect_->positionAs(P_MYSHIP);
+    pEffect_->positionAs(P_MYSHIP->pMyMagicEnergyCore_);
     pEffect_->setAlpha(0.9);
     pEffect_->_pKurokoA->setFaceAngVelo(AXIS_Z, 100);
     pEffect_->_pScaler->setScale(1000);
@@ -45,8 +46,12 @@ void SpeedMagic::processCastBegin(int prm_now_level, int prm_new_level) {
 }
 
 void SpeedMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
-    pEffect_->positionAs(P_MYSHIP);
+    pEffect_->positionAs(P_MYSHIP->pMyMagicEnergyCore_);
     pEffect_->_pScaler->addScale(10);
+}
+
+void SpeedMagic::processCastingCancel(int prm_now_level) {
+    pEffect_->inactivate();
 }
 
 void SpeedMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm_result_invoke) {
@@ -61,6 +66,10 @@ void SpeedMagic::processInvokingBehavior(int prm_now_level, int prm_new_level) {
     pEffect_->_pScaler->addScale(100);
 }
 
+void SpeedMagic::processInvokingCancel(int prm_now_level) {
+    pEffect_->inactivate();
+}
+
 void SpeedMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) {
     pEffect_->inactivate();
 }
@@ -70,10 +79,6 @@ void SpeedMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
 }
 
 void SpeedMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {
-}
-
-void SpeedMagic::processEffectFinish(int prm_justbefore_level) {
-    P_MYSHIP->setMoveSpeedLv((0+1)*4);
 }
 
 SpeedMagic::~SpeedMagic() {

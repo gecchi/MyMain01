@@ -36,12 +36,17 @@ void TractorMagic::processCastBegin(int prm_now_level, int prm_new_level) {
 }
 void TractorMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
 }
+void TractorMagic::processCastingCancel(int prm_now_level) {
+}
 void TractorMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm_result_invoke) {
 }
 
 void TractorMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
 }
 void TractorMagic::processInvokingBehavior(int prm_now_level, int prm_new_level) {
+}
+void TractorMagic::processInvokingCancel(int prm_now_level) {
+
 }
 void TractorMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) {
     P_MYSHIP->effectFlush(30); //フラッシュ
@@ -55,11 +60,6 @@ void TractorMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
     }
 }
 void TractorMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {
-}
-void TractorMagic::processEffectFinish(int prm_justbefore_level) {
-    _TRACE_("TractorMagic::effect 前 is_tracting_="<<is_tracting_<<" level_="<<level_<<" prm_justbefore_level="<<prm_justbefore_level);
-    is_tracting_ = false;
-    _TRACE_("TractorMagic::effect 後 is_tracting_="<<is_tracting_<<" level_="<<level_<<" prm_justbefore_level="<<prm_justbefore_level);
 }
 
 TractorMagic::~TractorMagic() {

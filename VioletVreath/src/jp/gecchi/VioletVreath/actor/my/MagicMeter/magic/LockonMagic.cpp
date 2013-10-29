@@ -7,6 +7,7 @@
 #include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyMagicEnergyCore.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -39,7 +40,7 @@ LockonMagic::LockonMagic(const char* prm_name, int* prm_pMP)
 }
 
 void LockonMagic::processCastBegin(int prm_now_level, int prm_new_level) {
-    pEffect_->positionAs(P_MYSHIP);
+    pEffect_->positionAs(P_MYSHIP->pMyMagicEnergyCore_);
     pEffect_->setAlpha(0.9);
     pEffect_->_pKurokoA->setFaceAngVelo(AXIS_Z, 100);
     pEffect_->_pScaler->setScale(1000);
@@ -47,8 +48,12 @@ void LockonMagic::processCastBegin(int prm_now_level, int prm_new_level) {
 }
 
 void LockonMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
-    pEffect_->positionAs(P_MYSHIP);
+    pEffect_->positionAs(P_MYSHIP->pMyMagicEnergyCore_);
     pEffect_->_pScaler->addScale(10);
+}
+
+void LockonMagic::processCastingCancel(int prm_now_level) {
+    pEffect_->inactivate();
 }
 
 void LockonMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm_result_invoke) {
@@ -63,6 +68,10 @@ void LockonMagic::processInvokingBehavior(int prm_now_level, int prm_new_level) 
     pEffect_->_pScaler->addScale(100);
 }
 
+void LockonMagic::processInvokingCancel(int prm_now_level) {
+    pEffect_->inactivate();
+}
+
 void LockonMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) {
     pEffect_->inactivate();
 }
@@ -73,11 +82,6 @@ void LockonMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
 }
 
 void LockonMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {
-}
-
-void LockonMagic::processEffectFinish(int prm_justbefore_level) {
-    _TRACE_("ロックオン亡くなったで！！！");
-    MyLockonController::lockon_num_ = 0;
 }
 
 LockonMagic::~LockonMagic() {

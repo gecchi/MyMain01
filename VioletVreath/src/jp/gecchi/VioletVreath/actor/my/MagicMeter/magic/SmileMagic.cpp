@@ -38,6 +38,7 @@ SmileMagic::SmileMagic(const char* prm_name, int* prm_pMP)
 }
 
 void SmileMagic::processCastBegin(int prm_now_level, int prm_new_level) {
+    _TRACE_("SmileMagic::processCastBegin(prm_now_level="<<prm_now_level<<",prm_new_level="<<prm_new_level<<")");
     pMoji_->positionAs(P_MYSHIP);
     pMoji_->setAlpha(0.9);
     //ƒjƒRƒjƒRƒr[ƒ€”­ŽË
@@ -55,11 +56,18 @@ void SmileMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
     pMoji_->_y += 1000;
     pMoji_->_pKurokoA->behave();
 }
-void SmileMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm_result_invoke) {
+
+void SmileMagic::processCastingCancel(int prm_now_level) {
+    _TRACE_("SmileMagic::processCastFinish(prm_now_level="<<prm_now_level<<")");
+    pMoji_->inactivate();
 }
 
+void SmileMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm_result_invoke) {
+    _TRACE_("SmileMagic::processCastFinish(prm_now_level="<<prm_now_level<<",prm_new_level="<<prm_new_level<<",r="<<prm_result_invoke<<")");
+}
 
 void SmileMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
+    _TRACE_("SmileMagic::processInvokeBegin(prm_now_level="<<prm_now_level<<",prm_new_level="<<prm_new_level<<")");
     pMoji_->_pKurokoA->setFaceAngVelo(AXIS_Z, 5000);
 }
 
@@ -67,20 +75,29 @@ void SmileMagic::processInvokingBehavior(int prm_now_level, int prm_new_level) {
     pMoji_->_pKurokoA->behave();
 }
 
-void SmileMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) {
-}
-
-void SmileMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
-    _TRACE_("SmileMagic::processEffectBegin (^_^)SMILE(^_^)SMILE(^_^)SMILE(^_^)SMILE(^_^)SMILE");
+void SmileMagic::processInvokingCancel(int prm_now_level) {
+    _TRACE_("SmileMagic::processInvokingCancel(prm_now_level="<<prm_now_level<<")");
     pMoji_->inactivate();
 }
 
-void SmileMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {
-    _TRACE_("SmileMagic::processEffectingBehavior ‚P‰ñ‚¾‚¯‚Ì‚Í‚¸");
+void SmileMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) {
+    _TRACE_("SmileMagic::processInvokeFinish(prm_now_level="<<prm_now_level<<",prm_new_level="<<prm_new_level<<", r="<<prm_result_effect<<")");
 }
 
-void SmileMagic::processEffectFinish(int prm_justbefore_level) {
-    _TRACE_("SmileMagic::processEffectFinish ‚P‰ñ‚¾‚¯‚Ì‚Í‚¸");
+void SmileMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
+    if (prm_now_level > 0) {
+        _TRACE_("SmileMagic::processEffectBegin(prm_last_level="<<prm_last_level<<",prm_now_level="<<prm_now_level<<") (^_^)SMILE(^_^)SMILE(^_^)SMILE(^_^)SMILE(^_^)SMILE");
+    }
+    if (prm_now_level == 0) {
+        _TRACE_("SmileMagic::processEffectBegin(prm_last_level="<<prm_last_level<<",prm_now_level="<<prm_now_level<<") I—¹`");
+        pMoji_->inactivate();
+    }
+}
+
+void SmileMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {
+    if (prm_now_level > 0) {
+        _TRACE_("SmileMagic::processEffectingBehavior ‚P‰ñ‚¾‚¯‚Ì‚Í‚¸");
+    }
 }
 
 SmileMagic::~SmileMagic() {

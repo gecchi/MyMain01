@@ -7,6 +7,7 @@
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectLaserMagic.h"
 #include "jp/gecchi/VioletVreath/actor/my/option/MyOptionWateringLaserChip001.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyMagicEnergyCore.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -35,7 +36,7 @@ LaserMagic::LaserMagic(const char* prm_name, int* prm_pMP)
 }
 
 void LaserMagic::processCastBegin(int prm_now_level, int prm_new_level) {
-    pEffect_->positionAs(P_MYSHIP);
+    pEffect_->positionAs(P_MYSHIP->pMyMagicEnergyCore_);
     pEffect_->setAlpha(0.9);
     pEffect_->_pKurokoA->setFaceAngVelo(AXIS_Z, 100);
     pEffect_->_pScaler->setScale(1000);
@@ -43,8 +44,12 @@ void LaserMagic::processCastBegin(int prm_now_level, int prm_new_level) {
 }
 
 void LaserMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
-    pEffect_->positionAs(P_MYSHIP);
+    pEffect_->positionAs(P_MYSHIP->pMyMagicEnergyCore_);
     pEffect_->_pScaler->addScale(10);
+}
+
+void LaserMagic::processCastingCancel(int prm_now_level) {
+    pEffect_->inactivate();
 }
 
 void LaserMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm_result_invoke) {
@@ -52,11 +57,15 @@ void LaserMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm
 
 void LaserMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
     pEffect_->_pScaler->setScale(1000);
-    pEffect_->_pKurokoA->setFaceAngVelo(AXIS_Z, 3000);
+    pEffect_->_pKurokoA->setFaceAngVelo(AXIS_Z, -3000);
 }
 
 void LaserMagic::processInvokingBehavior(int prm_now_level, int prm_new_level) {
     pEffect_->_pScaler->addScale(100);
+}
+
+void LaserMagic::processInvokingCancel(int prm_now_level) {
+    pEffect_->inactivate();
 }
 
 void LaserMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) {
@@ -75,10 +84,6 @@ void LaserMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
 }
 
 void LaserMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {
-}
-
-void LaserMagic::processEffectFinish(int prm_justbefore_level) {
-
 }
 
 

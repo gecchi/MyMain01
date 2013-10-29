@@ -51,6 +51,10 @@ void TorpedoMagic::processCastingBehavior(int prm_now_level, int prm_new_level) 
     pEffect_->_pScaler->addScale(10);
 }
 
+void TorpedoMagic::processCastingCancel(int prm_now_level) {
+    pEffect_->inactivate();
+}
+
 void TorpedoMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm_result_invoke) {
 }
 
@@ -63,6 +67,10 @@ void TorpedoMagic::processInvokingBehavior(int prm_now_level, int prm_new_level)
     pEffect_->_pScaler->addScale(100);
 }
 
+void TorpedoMagic::processInvokingCancel(int prm_now_level) {
+    pEffect_->inactivate();
+}
+
 void TorpedoMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) {
     pEffect_->inactivate();
 }
@@ -73,10 +81,6 @@ void TorpedoMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
 }
 
 void TorpedoMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {
-}
-
-void TorpedoMagic::processEffectFinish(int prm_justbefore_level) {
-    MyTorpedoController::torpedo_num_ = 0;
 }
 
 TorpedoMagic::~TorpedoMagic() {
