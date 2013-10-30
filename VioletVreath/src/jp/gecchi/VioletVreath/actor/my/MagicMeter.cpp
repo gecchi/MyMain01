@@ -319,9 +319,14 @@ void MagicMeter::processBehavior() {
             } else {
                 //カーソルが現在より低いレベルを指している場合
                 //正の青の表示
-                pMpCostDispBar_->setQty(
-                  pActiveMagic->calcReduceMp(pActiveMagic->level_,  papLvTgtMvCur_[active_idx]->point_lv_)
-                );
+                if (pActiveMagic->keep_cost_base_ <= 0) {
+                    //維持コスト無しの場合のみMP還元バー表示
+                    pMpCostDispBar_->setQty(
+                      pActiveMagic->calcReduceMp(pActiveMagic->level_,  papLvTgtMvCur_[active_idx]->point_lv_)
+                    );
+                } else {
+                    //維持コスト有りの場合、MP還元は無い
+                }
             }
         } else {
             pMpCostDispBar_->setQty(0);
@@ -450,6 +455,9 @@ void MagicMeter::processBehavior() {
                     if (pMagic_new_level > 0) {
                         //レベル0以外へのレベルダウンならば EFFECT エフェクト
                         papLvCastingCur_[m]->markOnLevelDownCast(pMagic_new_level);
+                    } else {
+                        //レベル0以外へのレベルダウンならば、おしまい。
+                        papLvCastingCur_[m]->markOff();
                     }
                     break;
                 }
@@ -462,8 +470,8 @@ void MagicMeter::processBehavior() {
         if (pMagicProg->get() == Magic::STATE_CASTING) {
             if (pMagic->new_level_ > pMagic_level) {
                 //レベルアップなら音程アップ
-                float f = ((float)(pMagicProg->getFrameInProgress())) / ((float)(pMagic->time_of_next_state_));
-                pSeTx4Cast_->get(m)->setFrequencyRate(1.0f + (f*3.0f));
+                float r = ((float)(pMagicProg->getFrameInProgress())) / ((float)(pMagic->time_of_next_state_));
+                pSeTx4Cast_->get(m)->setFrequencyRate(1.0f + (r*3.0f));
             }
         }
         //詠唱中ではなくなった
@@ -502,8 +510,8 @@ void MagicMeter::processBehavior() {
         if (pMagicProg->get() == Magic::STATE_INVOKING) {
             if (pMagic->new_level_ > pMagic_level) {
                 //レベルアップ時
-                float f = ((float)(pMagicProg->getFrameInProgress())) / ((float)(pMagic->time_of_next_state_));
-                pSeTx4Invoke_->get(m)->setFrequencyRate(1.0f + (f*3.0f));//音程を上げる
+                float r = ((float)(pMagicProg->getFrameInProgress())) / ((float)(pMagic->time_of_next_state_));
+                pSeTx4Invoke_->get(m)->setFrequencyRate(1.0f + (r*3.0f));//音程を上げる
             }
         }
         //発動ではなくなった

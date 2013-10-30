@@ -79,11 +79,6 @@ void GgafDxKurokoB::behave() {
             dY *= rr;
             dZ *= rr;
         }
-//        acce X_acce = _gravitation_mv_seq_acce * (1.0*dX_abs / dmax);
-//        acce Y_acce = _gravitation_mv_seq_acce * (1.0*dY_abs / dmax);
-//        acce Z_acce = _gravitation_mv_seq_acce * (1.0*dZ_abs / dmax);
-
-
         double r_acce = 1.7*_gravitation_mv_seq_acce / dmax;
         acce X_acce = r_acce * dX_abs;
         acce Y_acce = r_acce * dY_abs;

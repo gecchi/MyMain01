@@ -70,10 +70,12 @@ void GgafDxStringBoardActor::update(const char* prm_str) {
         _draw_string[i] = (int)(prm_str[i]); //ï€éù
         if (prm_str[i] == '\n') {
             nn++;
+            _aWidth_line_px[nn] = 0;
             continue;
         }
         if (prm_str[i] == '\0') {
             nn++;
+            _aWidth_line_px[nn] = 0;
             break;
         }
 #ifdef MY_DEBUG

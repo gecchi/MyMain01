@@ -457,14 +457,14 @@ void MyShip::processBehavior() {
             if (pVbPlay->isBeingPressed(VB_TURBO)) {
                 //ターボボタンを押し続けることで、速度減衰がゆるやかになり、
                 //移動距離を伸ばす
-                _pKurokoB->_veloVxMv *= 0.99;
-                _pKurokoB->_veloVyMv *= 0.99;
-                _pKurokoB->_veloVzMv *= 0.99;
+                _pKurokoB->_veloVxMv *= 0.96;
+                _pKurokoB->_veloVyMv *= 0.96;
+                _pKurokoB->_veloVzMv *= 0.96;
             } else {
                 //ターボを離した場合、速度減衰。
-                _pKurokoB->_veloVxMv *= 0.8;
-                _pKurokoB->_veloVyMv *= 0.8;
-                _pKurokoB->_veloVzMv *= 0.8;
+                _pKurokoB->_veloVxMv *= 0.75;
+                _pKurokoB->_veloVyMv *= 0.75;
+                _pKurokoB->_veloVzMv *= 0.75;
             }
         }
     }
@@ -725,11 +725,12 @@ void MyShip::processJudgement() {
     }
 
     //光子魚雷発射
-    if (pVbPlay->isBeingPressed(VB_SHOT2)) {
+    if (pVbPlay->isPushedDown(VB_SHOT2)) {
         if (this->pTorpedoCtrler_->fire()) {
             _pSeTx->play3D(MyShip::SE_FIRE_TORPEDO);
         }
     }
+
 //    if (pVbPlay->isBeingPressed(VB_SHOT2)) {
 //        MyOptionController** papOptCtrler = P_MYSHIP_SCENE->papOptionCtrler_;
 //        for (int i = 0; i < MyOptionController::now_option_num_; i++) {

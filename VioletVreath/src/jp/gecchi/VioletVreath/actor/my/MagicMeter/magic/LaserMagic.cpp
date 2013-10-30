@@ -36,16 +36,22 @@ LaserMagic::LaserMagic(const char* prm_name, int* prm_pMP)
 }
 
 void LaserMagic::processCastBegin(int prm_now_level, int prm_new_level) {
-    pEffect_->positionAs(P_MYSHIP->pMyMagicEnergyCore_);
-    pEffect_->setAlpha(0.9);
-    pEffect_->_pKurokoA->setFaceAngVelo(AXIS_Z, 100);
-    pEffect_->_pScaler->setScale(1000);
-    pEffect_->activate();
+    if (prm_new_level > prm_now_level) {
+        pEffect_->positionAs(P_MYSHIP->pMyMagicEnergyCore_);
+        pEffect_->setAlpha(0.9);
+        pEffect_->_pKurokoA->setFaceAngVelo(AXIS_Z, 100);
+        pEffect_->_pScaler->setScale(1000);
+        pEffect_->activate();
+    } else {
+
+    }
 }
 
 void LaserMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
-    pEffect_->positionAs(P_MYSHIP->pMyMagicEnergyCore_);
-    pEffect_->_pScaler->addScale(10);
+    if (prm_new_level > prm_now_level) {
+        pEffect_->positionAs(P_MYSHIP->pMyMagicEnergyCore_);
+        pEffect_->_pScaler->addScale(10);
+    }
 }
 
 void LaserMagic::processCastingCancel(int prm_now_level) {
@@ -53,15 +59,22 @@ void LaserMagic::processCastingCancel(int prm_now_level) {
 }
 
 void LaserMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm_result_invoke) {
+    if (prm_new_level > prm_now_level) {
+
+    }
 }
 
 void LaserMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
-    pEffect_->_pScaler->setScale(1000);
-    pEffect_->_pKurokoA->setFaceAngVelo(AXIS_Z, -3000);
+    if (prm_new_level > prm_now_level) {
+        pEffect_->_pScaler->setScale(1000);
+        pEffect_->_pKurokoA->setFaceAngVelo(AXIS_Z, -3000);
+    }
 }
 
 void LaserMagic::processInvokingBehavior(int prm_now_level, int prm_new_level) {
-    pEffect_->_pScaler->addScale(100);
+    if (prm_new_level > prm_now_level) {
+        pEffect_->_pScaler->addScale(100);
+    }
 }
 
 void LaserMagic::processInvokingCancel(int prm_now_level) {

@@ -188,14 +188,14 @@ void MyOptionController::processBehavior() {
             //Œ³‚ÌˆÊ’u‚Ö
             _pKurokoB->setVxyzMvAcce( TX - (_x + _pKurokoB->_veloVxMv*6),
                                       TY - (_y + _pKurokoB->_veloVyMv*6),
-                                      TZ - (_z + _pKurokoB->_veloVzMv*6)  );
+                                      TZ - (_z + _pKurokoB->_veloVzMv*6) );
             if (ABS(_x - TX) < 10000 &&
                 ABS(_y - TY) < 10000 &&
                 ABS(_z - TZ) < 10000 &&
                 ABS(_pKurokoB->_veloVxMv) < 20000 &&
                 ABS(_pKurokoB->_veloVyMv) < 20000 &&
-                ABS(_pKurokoB->_veloVzMv) < 20000
-            ) {
+                ABS(_pKurokoB->_veloVzMv) < 20000)
+            {
                 //‚à‚Ç‚Á‚½I
                 _pKurokoB->setZeroVxyzMvVelo();
                 _pKurokoB->setZeroVxyzMvAcce();
@@ -250,8 +250,10 @@ void MyOptionController::adjustDefaltAngPosition(frame prm_spent_frame) {
 void MyOptionController::adjustDefaltAngPosition(frame prm_spent_frame, int prm_start_opt_no, int prm_end_opt_no) {
     MyShipScene* pMyShipScene = P_MYSHIP_SCENE;
     if (MyOptionController::now_option_num_ <= 4) {
-        for (int i = prm_start_opt_no; i < prm_end_opt_no; i++) {
-            pMyShipScene->papOptionCtrler_[i]->pOption_->adjustAngPosition((D360ANG/MyOptionController::now_option_num_)*i,prm_spent_frame);
+        for (int i = 0; i < MyOptionController::now_option_num_; i++) {
+            if (prm_start_opt_no <= i && i <= prm_end_opt_no) {
+                pMyShipScene->papOptionCtrler_[i]->pOption_->adjustAngPosition((D360ANG/MyOptionController::now_option_num_)*i,prm_spent_frame);
+            }
         }
     } else if (MyOptionController::now_option_num_ > 4) {
         for (int i = 0; i < 4; i++) {

@@ -34,8 +34,8 @@ namespace VioletVreath {
 #define MY_SHIP_MAX_MP (100000)
 /** 初期MP */
 #define MY_SHIP_START_MP (100000)
-/** 時期の移動が停止しても、トレースな状態を維持できるフレーム数 */
-#define TRACE_DELAY_WAIT_FRAME (60)
+/** 自機の移動が停止しても、トレースな状態を維持できるフレーム数 */
+#define TRACE_DELAY_WAIT_FRAME (90)
 /**
  * 自機クラス
  * @version 1.00

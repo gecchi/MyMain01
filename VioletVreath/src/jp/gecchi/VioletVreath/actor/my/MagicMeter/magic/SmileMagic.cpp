@@ -14,7 +14,7 @@ using namespace VioletVreath;
 SmileMagic::SmileMagic(const char* prm_name, int* prm_pMP)
     : Magic(prm_name, prm_pMP,
             5,               //max_level
-            100 , 1.0, 1.0,  //基本魔法コスト, ＋１レベル毎のコスト増加率  , 飛びレベル時のコスト削減率
+            500 , 1.0, 1.0,  //基本魔法コスト, ＋１レベル毎のコスト増加率  , 飛びレベル時のコスト削減率
             60  , 1.0, 0.9,  //基本詠唱時間  , ＋１レベル毎の詠唱時間増加率, 飛びレベル時の詠唱時間削減率
             60  , 1.0, 0.9,  //基本発動時間  , ＋１レベル毎の発動時間増加率, 飛びレベル時の発動時間削減率
             0   , 0.0,       //基本持続時間  , ＋１レベル毎の持続時間の乗率
@@ -32,29 +32,32 @@ SmileMagic::SmileMagic(const char* prm_name, int* prm_pMP)
     lvinfo_[0].pno_ = 60;
 
     pMoji_ = NEW SpriteLabelTest("(^_^)");
-    pMoji_->update("SMILE(^_^)SMILE");
     pMoji_->inactivateImmed();
     addSubGroup(pMoji_);
 }
 
 void SmileMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     _TRACE_("SmileMagic::processCastBegin(prm_now_level="<<prm_now_level<<",prm_new_level="<<prm_new_level<<")");
-    pMoji_->positionAs(P_MYSHIP);
-    pMoji_->setAlpha(0.9);
-    //ニコニコビーム発射
-    std::string s = "";
-    for (int i = 0; i < prm_new_level; i++) {
-        s += "(^_^)SMILE!\n";
+    if (prm_new_level > prm_now_level) {
+        pMoji_->positionAs(P_MYSHIP);
+        pMoji_->setAlpha(0.9);
+        //ニコニコビーム発射
+        std::string s = "";
+        for (int i = 0; i < prm_new_level; i++) {
+            s += "(^_^)SMILE!\n";
+        }
+        pMoji_->update(s.c_str());
+        pMoji_->_pKurokoA->setFaceAng(0,0,0);
+        pMoji_->_pKurokoA->setFaceAngVelo(0,0,0);
+        pMoji_->activate();
     }
-    pMoji_->update(s.c_str());
-    pMoji_->_pKurokoA->setFaceAng(0,0,0);
-    pMoji_->_pKurokoA->setFaceAngVelo(0,0,0);
-    pMoji_->activate();
 }
 void SmileMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
-    pMoji_->_x += 1000;
-    pMoji_->_y += 1000;
-    pMoji_->_pKurokoA->behave();
+    if (prm_new_level > prm_now_level) {
+        pMoji_->_x += 1000;
+        pMoji_->_y += 1000;
+        pMoji_->_pKurokoA->behave();
+    }
 }
 
 void SmileMagic::processCastingCancel(int prm_now_level) {
@@ -68,11 +71,15 @@ void SmileMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm
 
 void SmileMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
     _TRACE_("SmileMagic::processInvokeBegin(prm_now_level="<<prm_now_level<<",prm_new_level="<<prm_new_level<<")");
-    pMoji_->_pKurokoA->setFaceAngVelo(AXIS_Z, 5000);
+    if (prm_new_level > prm_now_level) {
+        pMoji_->_pKurokoA->setFaceAngVelo(AXIS_Z, 5000);
+    }
 }
 
 void SmileMagic::processInvokingBehavior(int prm_now_level, int prm_new_level) {
-    pMoji_->_pKurokoA->behave();
+    if (prm_new_level > prm_now_level) {
+        pMoji_->_pKurokoA->behave();
+    }
 }
 
 void SmileMagic::processInvokingCancel(int prm_now_level) {

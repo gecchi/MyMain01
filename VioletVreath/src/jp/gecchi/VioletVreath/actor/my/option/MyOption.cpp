@@ -239,21 +239,6 @@ void MyOption::adjustAngPosition(angle prm_new_angPosition_base, frame prm_spent
 
 
 void MyOption::processBehavior() {
-//    if (no_ == 3 ) {
-//        if (getBehaveingFrame() == 5418 || getBehaveingFrame()==5427) {
-//            _TRACE_("きたで");
-//        }
-//        if (_pKurokoA->_angveloRzMv == 0 || _pKurokoA->_angveloRzMv == 360000) {
-//            if (veloMv_ == 1000) {
-//                if (radiusPosition_ == 1) {
-//                    _TRACE_(getBehaveingFrame()<<":before 遠ざかる成立！！！");
-//                }
-//            }
-//
-//        }
-//        _TRACE_(getBehaveingFrame()<<":before radiusPosition_="<<radiusPosition_<<" radiusPosition_stopping_="<<radiusPosition_stopping_<<" _angveloRzMv="<<(_pKurokoA->_angveloRzMv)<<" veloMv_="<<veloMv_);
-//    }
-
     MyShip* pMyShip = P_MYSHIP;
     VirtualButton* pVbPlay = VB_PLAY;
     GgafDxKurokoA* const pKurokoA = _pKurokoA;
@@ -626,7 +611,7 @@ void MyOption::processBehavior() {
         }
     }
     //光子魚雷発射
-    if (pVbPlay->isBeingPressed(VB_SHOT2)) {
+    if (pVbPlay->isPushedDown(VB_SHOT2)) {
         if (pTorpedoCtrler_->fire()) {
             _pSeTx->play3D(SE_FIRE_TORPEDO);
         }

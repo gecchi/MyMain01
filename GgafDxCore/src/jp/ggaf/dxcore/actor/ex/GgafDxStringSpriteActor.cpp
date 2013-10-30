@@ -75,6 +75,7 @@ void GgafDxStringSpriteActor::update(const char* prm_str) {
                 max_len_px = _aWidth_line_px[_nn];
             }
             nn++;
+            _aWidth_line_px[nn] = 0;
             continue;
         }
         if (prm_str[i] == '\0') {
@@ -82,6 +83,7 @@ void GgafDxStringSpriteActor::update(const char* prm_str) {
                 max_len_px = _aWidth_line_px[_nn];
             }
             nn++;
+            _aWidth_line_px[nn] = 0;
             break;
         }
 #ifdef MY_DEBUG

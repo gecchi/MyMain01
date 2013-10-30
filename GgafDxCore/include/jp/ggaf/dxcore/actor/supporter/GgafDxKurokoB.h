@@ -276,6 +276,19 @@ public:
                                       coord prm_stop_renge);
 
     /**
+     * 重力により物体が引き寄せられるかような感じの動きみたいな感じっぽいの目標座標を更新設定 .
+     * @param prm_tX 引き寄せられて到達する目標のX座標
+     * @param prm_tY 引き寄せられて到達する目標のY座標
+     * @param prm_tZ 引き寄せられて到達する目標のZ座標
+     */
+    void setGravitationTwd(coord prm_tX, coord prm_tY, coord prm_tZ) {
+        _gravitation_mv_seq_target_x = prm_tX;
+        _gravitation_mv_seq_target_y = prm_tY;
+        _gravitation_mv_seq_target_z = prm_tZ;
+        _gravitation_mv_seq_pActor_target = nullptr;
+    }
+
+    /**
      * 重力により物体が引き寄せられるかような感じの動きみたいな感じっぽいのを実行 .
      * 説明は、
      * execGravitationMvSequenceTwd(coord,coord,coord,velo,acce,int)
@@ -289,6 +302,17 @@ public:
                                       velo prm_max_velo,
                                       acce prm_acce,
                                       coord prm_stop_renge);
+
+    /**
+     * 重力により物体が引き寄せられるかような感じの動きみたいな感じっぽいの目標座標を更新設定 .
+     * @param prm_pActor_target 引き寄せられて到達する目標座標となるアクター
+     */
+    void setGravitationTwd(GgafDxGeometricActor* prm_pActor_target) {
+        _gravitation_mv_seq_target_x = 0;
+        _gravitation_mv_seq_target_y = 0;
+        _gravitation_mv_seq_target_z = 0;
+        _gravitation_mv_seq_pActor_target = prm_pActor_target;
+    }
 
     /**
      * 黒衣Bの仕事を引継ぐ .
