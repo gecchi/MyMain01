@@ -146,7 +146,9 @@ MyShip::MyShip(const char* prm_name) :
 //        pRing_MyShipGeoOffsetHistory_->addLast(NEW GgafDxGeoElem(this));
     }
 
-
+    //X, Y    方向のスイッチで、普通の2次元の8方向レバー・・・で、
+    //X, Y, Z 方向のスイッチで、3次元の26方向レバーを考えた。
+    //
     //     X   Y   Z
     //    -----------
     //    -1  -1  -1
@@ -479,11 +481,8 @@ void MyShip::processBehavior() {
         //_pKurokoA->setFaceAngAcce(AXIS_X, angRxAcce_MZ_*2);
     }
 
-    //左右が未入力なら、機体を水平にする（但し勢いよく回っていない場合に限る。setStopTargetFaceAngの第4引数より角速度がゆるい場合受け入れ）
-    if (pVbPlay->isBeingPressed(VB_LEFT) || pVbPlay->isBeingPressed(VB_RIGHT)) {
-
-    } else {
-
+    //Z軸方向に移動中でない場合、機体を水平にする（但し勢いよく回っていない場合に限る。setStopTargetFaceAngの第4引数より角速度がゆるい場合受け入れ）
+    if (way_switch_.way_.Z == 0) {
         angle dist = _pKurokoA->getFaceAngDistance(AXIS_X, 0, TURN_CLOSE_TO);
         if (0 <= dist && dist < D180ANG) {
             _pKurokoA->setFaceAngAcce(AXIS_X, angRxAcce_MZ_);
@@ -544,8 +543,6 @@ void MyShip::processBehavior() {
         //通常移動範囲制御
         if (_y > MyShip::lim_y_top_) {
             _y = MyShip::lim_y_top_;
-            _TRACE_("天井にぶつかった！");
-
         } else if (_y < MyShip::lim_y_bottom_ ) {
             _y = MyShip::lim_y_bottom_;
         }
@@ -597,7 +594,6 @@ void MyShip::processBehavior() {
                                                            _z - _z_local );
             is_trace_waiting_ = false;
         }
-
     }
 
     //毎フレームの呼吸の消費

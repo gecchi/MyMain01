@@ -36,7 +36,7 @@ public:
     };
 
     //一時変数達
-    int Xorg_,Yorg_,Zorg_;
+    coord x_org_,y_org_,z_org_;
 
     /** [r]親アクター */
     MyOptionController* pOptionCtrler_;

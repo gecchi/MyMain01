@@ -57,9 +57,9 @@ MyOption::MyOption(const char* prm_name, uint32_t prm_no, MyOptionController* pr
     angveloExpanseNomal_ = 3000;
     angveloExpanseSlow_ = 1000;
 
-    Xorg_ = _x;
-    Yorg_ = _y;
-    Zorg_ = _z;
+    x_org_ = _x;
+    y_org_ = _y;
+    z_org_ = _z;
 
     //TODO::EffectMyOption
     pEffect_ = NEW EffectMyOption("EffectMyOption", this);
@@ -133,10 +133,10 @@ void MyOption::onReset() {
                                                 //ワールド変換の（左手法）のX軸回転とはと逆の回転なので注意
     _x = 0;
     _pKurokoA->setFaceAngVelo(AXIS_X, 4000);
-    //ローカル座標系を、(Xorg_,Yorg_,Zorg_) へ退避
-    Xorg_ = _x;
-    Yorg_ = _y;
-    Zorg_ = _z;
+    //ローカル座標系を、(x_org_,y_org_,z_org_) へ退避
+    x_org_ = _x;
+    y_org_ = _y;
+    z_org_ = _z;
     angPosition_ = _pKurokoA->_angRzMv;
 
     adjust_angPos_seq_progress_ = 0;
@@ -154,13 +154,13 @@ void MyOption::onActive() {
 }
 
 void MyOption::addRadiusPosition(int prm_radius_offset, int prm_min_radius, int prm_max_radius) {
-    //    _x = Xorg_;
-    //    _y = Yorg_;
-    //    _z = Zorg_;
+    //    _x = x_org_;
+    //    _y = y_org_;
+    //    _z = z_org_;
     //より後
-    //    Xorg_ = _x;
-    //    Yorg_ = _y;
-    //    Zorg_ = _z;
+    //    x_org_ = _x;
+    //    y_org_ = _y;
+    //    z_org_ = _z;
     //より前
     //でしか呼び出してはいけません。
 
@@ -192,13 +192,13 @@ void MyOption::addRadiusPosition(int prm_radius_offset, int prm_min_radius, int 
 
 
 void MyOption::setRadiusPosition(int prm_radius) {
-//    _x = Xorg_;
-//    _y = Yorg_;
-//    _z = Zorg_;
+//    _x = x_org_;
+//    _y = y_org_;
+//    _z = z_org_;
 //より後
-//    Xorg_ = _x;
-//    Yorg_ = _y;
-//    Zorg_ = _z;
+//    x_org_ = _x;
+//    y_org_ = _y;
+//    z_org_ = _z;
 //より前
 //でしか呼び出してはいけません。
     radiusPosition_ = prm_radius;
@@ -244,12 +244,12 @@ void MyOption::processBehavior() {
     GgafDxKurokoA* const pKurokoA = _pKurokoA;
     //処理メイン
 
-    //退避していたローカル座標系を、(Xorg_,Yorg_,Zorg_) を
+    //退避していたローカル座標系を、(x_org_,y_org_,z_org_) を
     //_pKurokoAのメソッドを利用するため、(_x,_y,_z)へコピー
     //これ以降processBehavior()内の(_x,_y,_z)はローカル座標系
-    _x = Xorg_;
-    _y = Yorg_;
-    _z = Zorg_;
+    _x = x_org_;
+    _y = y_org_;
+    _z = z_org_;
 
     if (return_to_base_radiusPosition_seq_) {
         //半径ポジション自動戻り中
@@ -492,10 +492,10 @@ void MyOption::processBehavior() {
 
     pKurokoA->behave();
     //pKurokoAを使って、(_x,_y,_z)ローカル座標系の計算ができたので、
-    //(_x,_y,_z)のローカル座標系結果を、(Xorg_,Yorg_,Zorg_) に上書きコピーで更新する。
-    Xorg_ = _x;
-    Yorg_ = _y;
-    Zorg_ = _z;
+    //(_x,_y,_z)のローカル座標系結果を、(x_org_,y_org_,z_org_) に上書きコピーで更新する。
+    x_org_ = _x;
+    y_org_ = _y;
+    z_org_ = _z;
 
     //＜メモ＞
     //ここまでで、GgafDxKurokoAの機能のみで、
@@ -520,14 +520,14 @@ void MyOption::processBehavior() {
     //ダミーのアクターを連結しようとしたがいろいろ難しい、Quaternion を使わざるを得ない（のではないか；）。
     //TODO:最適化すべし、Quaternionは便利だが避けたい。いつか汎用化
     GgafDxKurokoA* const pOptionCtrler_pKurokoA = pOptionCtrler_->_pKurokoA;
-    float sinRZ = ANG_SIN(pOptionCtrler_pKurokoA->_angFace[AXIS_Z]);
-    float cosRZ = ANG_COS(pOptionCtrler_pKurokoA->_angFace[AXIS_Z]);
-    float sinRY = ANG_SIN(pOptionCtrler_pKurokoA->_angFace[AXIS_Y]);
-    float cosRY = ANG_COS(pOptionCtrler_pKurokoA->_angFace[AXIS_Y]);
+    float sin_rz = ANG_SIN(pOptionCtrler_pKurokoA->_angFace[AXIS_Z]);
+    float cos_rz = ANG_COS(pOptionCtrler_pKurokoA->_angFace[AXIS_Z]);
+    float sin_ry = ANG_SIN(pOptionCtrler_pKurokoA->_angFace[AXIS_Y]);
+    float cos_ry = ANG_COS(pOptionCtrler_pKurokoA->_angFace[AXIS_Y]);
     //全オプションを一つの塊としてOptionControllerを中心にWORLD変換のような旋廻
-    coord X = cosRY*cosRZ*Xorg_ + cosRY*-sinRZ*Yorg_ + sinRY*Zorg_;
-    coord Y = sinRZ*Xorg_ + cosRZ*Yorg_;
-    coord Z = -sinRY*cosRZ*Xorg_ + -sinRY*-sinRZ*Yorg_ + cosRY*Zorg_;
+    coord X = cos_ry*cos_rz*x_org_ + cos_ry*-sin_rz*y_org_ + sin_ry*z_org_;
+    coord Y = sin_rz*x_org_ + cos_rz*y_org_;
+    coord Z = -sin_ry*cos_rz*x_org_ + -sin_ry*-sin_rz*y_org_ + cos_ry*z_org_;
 
 
     //懐中電灯の照射角が広がるような回転（Quaternionで実現）
@@ -544,9 +544,9 @@ void MyOption::processBehavior() {
     //ある座標(x, y, z)＝方向ベクトル(pOptionCtrler_pKurokoA->_vX,pOptionCtrler_pKurokoA->_vY,pOptionCtrler_pKurokoA->_vZ)
     //回転軸  (α, β, γ)=(vX_axis, vY_axis, vZ_axis) 、
     //回転角θ= angExpanse_
-    float vX_axis = cosRY*cosRZ*pKurokoA->_vX + cosRY*-sinRZ*pKurokoA->_vY + sinRY*pKurokoA->_vZ;
-    float vY_axis = sinRZ*pKurokoA->_vX + cosRZ*pKurokoA->_vY;
-    float vZ_axis = -sinRY*cosRZ*pKurokoA->_vX + -sinRY*-sinRZ*pKurokoA->_vY + cosRY*pKurokoA->_vZ;
+    float vX_axis = cos_ry*cos_rz*pKurokoA->_vX + cos_ry*-sin_rz*pKurokoA->_vY + sin_ry*pKurokoA->_vZ;
+    float vY_axis = sin_rz*pKurokoA->_vX + cos_rz*pKurokoA->_vY;
+    float vZ_axis = -sin_ry*cos_rz*pKurokoA->_vX + -sin_ry*-sin_rz*pKurokoA->_vY + cos_ry*pKurokoA->_vZ;
     float sinHalf = ANG_SIN(angExpanse_/2); //angExpanse_=回転させたい角度
     float cosHalf = ANG_COS(angExpanse_/2);
 
@@ -564,7 +564,7 @@ void MyOption::processBehavior() {
     _x = X + pOptionCtrler_->_x;
     _y = Y + pOptionCtrler_->_y;
     _z = Z + pOptionCtrler_->_z;
-    //ちなみにローカル座標系結果は、(Xorg_,Yorg_,Zorg_)
+    //ちなみにローカル座標系結果は、(x_org_,y_org_,z_org_)
 
 
     //レーザー発射。TODO:最適化

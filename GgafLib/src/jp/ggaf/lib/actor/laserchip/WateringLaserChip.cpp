@@ -43,24 +43,7 @@ void WateringLaserChip::processSettlementBehavior() {
     } else {
         WateringLaserChip* pF = (WateringLaserChip*)_pChip_front;
         WateringLaserChip* pB = (WateringLaserChip*)_pChip_behind;
-
-        if (pF == nullptr) {
-//            //先端
-//            if (_pChip_behind != nullptr && _pChip_behind->isActiveInTheTree()) {
-//                //普通の先端
-//            } else {
-//                //先端で末端
-//                //どこへでもいきなはれ
-//            }
-        } else if (pB == nullptr) {
-//            //末端
-//            if (_pChip_front != nullptr && _pChip_front->isActiveInTheTree()) {
-//                //普通の末端
-//            } else {
-//                //末端で先端
-//                //どこへでもいきなはれ
-//            }
-        } else if (pF->_is_active_flg && pB->_is_active_flg) {
+        if (pF && pB && pF->_is_active_flg && pB->_is_active_flg) {
             //_pChip_behind == nullptr の判定だけではだめ。_pChip_behind->_is_active_flg と判定すること
             //なぜなら dispatch の瞬間に_pChip_behind != nullptr となるが、active()により有効になるのは次フレームだから
             //_x,_y,_z にはまだ変な値が入っている。

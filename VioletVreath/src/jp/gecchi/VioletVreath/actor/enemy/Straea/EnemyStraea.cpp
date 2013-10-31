@@ -180,17 +180,17 @@ void EnemyStraea::processBehavior() {
                             pLaserChip = papapLaserChipDepo_[i][j]->dispatch();
                             if (pLaserChip) {
                                 //レーザーの向きを計算
-                                //ローカルでのショットの方向ベクトルを(Xorg_,Yorg_,Zorg_)、
+                                //ローカルでのショットの方向ベクトルを(x_org_,y_org_,z_org_)、
                                 //ワールド変換行列の回転部分（matWorldRot)の成分を mat_xx、
                                 //最終的な方向ベクトルを(vX, vY, vZ) とすると
                                 //
                                 //                       | mat_11 mat_12 mat_13 |
-                                // | Xorg_ Yorg_ Zorg_ | | mat_21 mat_22 mat_23 | = | vX vY vZ |
+                                // | x_org_ y_org_ z_org_ | | mat_21 mat_22 mat_23 | = | vX vY vZ |
                                 //                       | mat_31 mat_32 mat_33 |
                                 //よって
-                                // vX = Xorg_*mat_11 + Yorg_*mat_21 + Zorg_*mat_31
-                                // vY = Xorg_*mat_12 + Yorg_*mat_22 + Zorg_*mat_32
-                                // vZ = Xorg_*mat_13 + Yorg_*mat_23 + Zorg_*mat_33
+                                // vX = x_org_*mat_11 + y_org_*mat_21 + z_org_*mat_31
+                                // vY = x_org_*mat_12 + y_org_*mat_22 + z_org_*mat_32
+                                // vZ = x_org_*mat_13 + y_org_*mat_23 + z_org_*mat_33
                                 p = &(papaPosLaser_[i][j]);
                                 vX = p->x*matWorldRot._11 + p->y*matWorldRot._21 + p->z*matWorldRot._31;
                                 vY = p->x*matWorldRot._12 + p->y*matWorldRot._22 + p->z*matWorldRot._32;

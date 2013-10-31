@@ -154,29 +154,29 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         //
         //＜説明＞
         //方向ベクトルはワールド変換行列の積（_matWorldRotMv)で変換され、現在の最終的な向きに向く。
-        //大元の方向ベクトルを(Xorg_,Yorg_,Zorg_)、
+        //大元の方向ベクトルを(x_org_,y_org_,z_org_)、
         //ワールド変換行列の回転部分の積（_matWorldRotMv)の成分を mat_xx、
         //最終的な方向ベクトルを(vX, vY, vZ) とすると
         //
         //                      | mat_11 mat_12 mat_13 |
-        //| Xorg_ Yorg_ Zorg_ | | mat_21 mat_22 mat_23 | = | vX vY vZ |
+        //| x_org_ y_org_ z_org_ | | mat_21 mat_22 mat_23 | = | vX vY vZ |
         //                      | mat_31 mat_32 mat_33 |
         //となる。
         //
-        //vX = Xorg_*mat_11 + Yorg_*mat_21 + Zorg_*mat_31
-        //vY = Xorg_*mat_12 + Yorg_*mat_22 + Zorg_*mat_32
-        //vZ = Xorg_*mat_13 + Yorg_*mat_23 + Zorg_*mat_33
+        //vX = x_org_*mat_11 + y_org_*mat_21 + z_org_*mat_31
+        //vY = x_org_*mat_12 + y_org_*mat_22 + z_org_*mat_32
+        //vZ = x_org_*mat_13 + y_org_*mat_23 + z_org_*mat_33
         //
         //さてここで、大元が前方の単位方向ベクトル(1,0,0)の場合はどうなるか？を考えると
         //
-        //vX = Xorg_*mat_11
-        //vY = Xorg_*mat_12
-        //vZ = Xorg_*mat_13
+        //vX = x_org_*mat_11
+        //vY = x_org_*mat_12
+        //vZ = x_org_*mat_13
         //
         //となる。本アプリでは、モデルは全て(1,0,0)を前方としているため
-        //最終的な方向ベクトルは（Xorg_*mat_11, Xorg_*mat_12, Xorg_*mat_13) となる。
+        //最終的な方向ベクトルは（x_org_*mat_11, x_org_*mat_12, x_org_*mat_13) となる。
         //この方向ベクトルを _rz _ry 表現すれば良い。
-        //計算しやすいようにXorg_を1と置いて
+        //計算しやすいようにx_org_を1と置いて
         //
         //UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13, _rz, _ry);
         //となる

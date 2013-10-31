@@ -997,15 +997,15 @@ void GgafDxModelManager::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_
     for (std::list<Frm::Bone*>::iterator iteBone = model_pModel3D->_toplevel_Skelettons.begin() ;
             iteBone != model_pModel3D->_toplevel_Skelettons.end(); iteBone++) {
 
-        _TRACE_("(*iteBone)->_Name="<<((*iteBone)->_Name));
+        _TRACE_("GgafDxModelManager : (*iteBone)->_Name="<<((*iteBone)->_Name));
 
         if ((*iteBone)) {
             Frm::Matrix* pMatPos = &((*iteBone)->_MatrixPos);
             if (pMatPos == 0 || pMatPos== nullptr || pMatPos->isIdentity()) {
                 //FrameTransformMatrix は単位行列
-                _TRACE_("FrameTransformMatrix is Identity");
+                _TRACE_("GgafDxModelManager : FrameTransformMatrix is Identity");
             } else {
-                _TRACE_("Execute FrameTransform!");
+                _TRACE_("GgafDxModelManager : Execute FrameTransform!");
                 D3DXMATRIX FrameTransformMatrix;
                 FrameTransformMatrix._11 = pMatPos->data[0];
                 FrameTransformMatrix._12 = pMatPos->data[1];
@@ -1075,7 +1075,7 @@ void GgafDxModelManager::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_
                             pVtx_MeshModel->bin_z = vecBinormal.z;
 
                         } else {
-                            throwGgafCriticalException("バンプマップ未だ作ってないよ prm_pModel="<<prm_pModel->getName()<<" _obj_model="<<prm_pModel->_obj_model);
+                            throwGgafCriticalException("GgafDxModelManager バンプマップ未だ作ってないよ prm_pModel="<<prm_pModel->getName()<<" _obj_model="<<prm_pModel->_obj_model);
                         }
                     }
                 }
@@ -1130,7 +1130,7 @@ void GgafDxModelManager::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_
                     pVtx_MeshModel->bin_z = vec.z;
                 }
             } else {
-                throwGgafCriticalException("バンプマップ未だ作ってないよ prm_pModel="<<prm_pModel->getName()<<" _obj_model="<<prm_pModel->_obj_model);
+                throwGgafCriticalException("GgafDxModelManager バンプマップ未だ作ってないよ prm_pModel="<<prm_pModel->getName()<<" _obj_model="<<prm_pModel->_obj_model);
             }
 
 

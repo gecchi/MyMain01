@@ -36,6 +36,7 @@ MyOptionWateringLaserChip001::MyOptionWateringLaserChip001(const char* prm_name)
     max_acce_renge_ = 0;
     max_velo_renge_ = 160000; //この値を大きくすると、最高速度が早くなる。
     r_max_acce_ = 20; //この値を大きくすると、カーブが緩くなる
+    rr_max_acce_ = 1.0 / r_max_acce_; //計算簡素化用
     if (!MyOptionWateringLaserChip001::pModel_) {
         if (_pModel->_num_materials != 3) {
             throwGgafCriticalException("MyOptionWateringLaserChip001::onCreateModel() MyOptionWateringLaserChip001モデルは、マテリアが３つ必要です。");
@@ -151,16 +152,15 @@ void MyOptionWateringLaserChip001::moveChip(int tX, int tY, int tZ) {
     //
     // vVP が動きたい方向。vVPを求める！
 
-    GgafDxKurokoB* const pKurokoB = _pKurokoB;
     //自→的
     int vTx = tX - _x;
     int vTy = tY - _y;
     int vTz = tZ - _z;
 
     //自→仮自。上図の |仮自| = 5*vM
-    int vVMx = pKurokoB->_veloVxMv*5;
-    int vVMy = pKurokoB->_veloVyMv*5;
-    int vVMz = pKurokoB->_veloVzMv*5;
+    int vVMx = _pKurokoB->_veloVxMv*5;
+    int vVMy = _pKurokoB->_veloVyMv*5;
+    int vVMz = _pKurokoB->_veloVzMv*5;
 
     //|仮自|
     int lVM = MAX3(ABS(vVMx), ABS(vVMy), ABS(vVMz)); //仮自ベクトル大きさ簡易版
@@ -172,26 +172,26 @@ void MyOptionWateringLaserChip001::moveChip(int tX, int tY, int tZ) {
     //|仮的| > |仮自| という関係を維持するためにかけた適当な割合
 
     //vVP 仮自→仮的 の加速度設定
-    double accX = ((vTx * r) - vVMx) / r_max_acce_;
-    double accY = ((vTy * r) - vVMy) / r_max_acce_;
-    double accZ = ((vTz * r) - vVMz) / r_max_acce_;
+    double accX = ((vTx * r) - vVMx) * rr_max_acce_;
+    double accY = ((vTy * r) - vVMy) * rr_max_acce_;
+    double accZ = ((vTz * r) - vVMz) * rr_max_acce_;
 
     if (_pChip_front == nullptr) {
-        //先頭はやや速めに
-        pKurokoB->setVxMvAcce(accX+SGN(accX)*5); //SGN(accX)*5 を加算するのは、加速度を0にしないため
-        pKurokoB->setVyMvAcce(accY+SGN(accY)*5);
-        pKurokoB->setVzMvAcce(accZ+SGN(accZ)*5);
+        //先頭はやや速めに。SGN(accX)*5 を加算するのは、加速度を0にしないため
+        _pKurokoB->setVxyzMvAcce(accX + SGN(accX)*5.0,
+                                 accY + SGN(accY)*5.0,
+                                 accZ + SGN(accZ)*5.0);
     } else {
-        pKurokoB->setVxMvAcce(accX+SGN(accX)*3); //SGN(accX)*3 を加算するのは、加速度を0にしないため
-        pKurokoB->setVyMvAcce(accY+SGN(accY)*3);
-        pKurokoB->setVzMvAcce(accZ+SGN(accZ)*3);
+        _pKurokoB->setVxyzMvAcce(accX + SGN(accX)*3.0,
+                                 accY + SGN(accY)*3.0,
+                                 accZ + SGN(accZ)*3.0);
     }
     //ネジレ描画が汚くならないように回転を制限
     if (lVM > max_velo_renge_/2) {
-        angle RZ_temp, RY_temp;
-        UTIL::convVectorToRzRy(vVMx, vVMy, vVMz, RZ_temp, RY_temp);
-        angle angDRZ = UTIL::getAngDiff(RZ_temp, _rz);
-        angle angDRY = UTIL::getAngDiff(RY_temp, _ry);
+        angle rz_temp, ry_temp;
+        UTIL::convVectorToRzRy(vVMx, vVMy, vVMz, rz_temp, ry_temp);
+        angle angDRZ = UTIL::getAngDiff(rz_temp, _rz);
+        angle angDRY = UTIL::getAngDiff(ry_temp, _ry);
         if (-4000 <= angDRZ) {
             _rz -= 4000;
         } else if (angDRZ <= 4000) {

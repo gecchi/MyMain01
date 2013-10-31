@@ -1100,7 +1100,7 @@ void ToolBox::IO_Model_X::MapMeshToBones(Frm::Bone* &pBone) {
     if (pBone->_MeshName.empty())
         pBone->_MeshName = _LoadMesh->_Name;
 
-    _TRACE_("Bone" << pBone->_Name << "is linked to mesh" << pBone->_MeshName);
+    _TRACE_("Bone" << pBone->_Name << "is linked to meshu" << pBone->_MeshName <<"v");
 
     if (!pBone->_Bones.empty())
         for (std::list<Frm::Bone*>::iterator i = pBone->_Bones.begin(); i
