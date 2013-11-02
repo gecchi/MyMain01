@@ -102,6 +102,8 @@ GgafDxUniverse::GgafDxUniverse(const char* prm_name, GgafDxCamera* prm_pCamera) 
     for (int i = 0; i < PROPERTY::MAX_SE_DELAY; i++) { //GGAF_END_DELAYは最大解放遅れフレームだが、遠方SEの遅延の最高フレーム数としても使う
         _pRing_pSeArray->addLast(NEW SeArray(), true);
     }
+    _pRing_pSeArray->fixIndex();
+
     GgafRepeatSeq::create(_seqkey_se_delay, 0, 8); //ズレSE再生フレーム
 }
 

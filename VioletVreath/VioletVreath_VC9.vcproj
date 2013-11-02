@@ -638,6 +638,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartiaPillar01.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartiaShot01.cpp"
 				>
 			</File>
@@ -1083,6 +1087,14 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MyLockonController.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MyMagicEnergy.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MyMagicEnergyCore.cpp"
 				>
 			</File>
 			<File
@@ -1984,6 +1996,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartiaPillar01.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartiaShot01.h"
 				>
 			</File>
@@ -2433,6 +2449,14 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MyLockonController.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MyMagicEnergy.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MyMagicEnergyCore.h"
 				>
 			</File>
 			<File

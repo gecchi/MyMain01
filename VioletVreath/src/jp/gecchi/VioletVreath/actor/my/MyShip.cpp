@@ -145,6 +145,8 @@ MyShip::MyShip(const char* prm_name) :
         pRing_MyShipGeoHistory2_->addLast(NEW GgafDxGeoElem(0,0,0));
 //        pRing_MyShipGeoOffsetHistory_->addLast(NEW GgafDxGeoElem(this));
     }
+    pRing_MyShipGeoHistory4OptCtrler_->fixIndex();
+    pRing_MyShipGeoHistory2_->fixIndex();
 
     //X, Y    方向のスイッチで、普通の2次元の8方向レバー・・・で、
     //X, Y, Z 方向のスイッチで、3次元の26方向レバーを考えた。

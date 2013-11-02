@@ -2966,8 +2966,10 @@ class DotWriter:
                     labels.append(label)
             if function.called is not None:
                 labels.append("%u%s" % (function.called, MULTIPLICATION_SIGN))
-                labels.append("%.03f pmc" % ((function[TOTAL_TIME_RATIO] * 100.0)/(function.called/1000000.0)))
-                labels.append("(%.03f pmc)" % ((function[TIME_RATIO] * 100.0)/(function.called/1000000.0)))
+                
+            if function.called > 1:
+                labels.append("1call %f u%%" % (((function[TOTAL_TIME_RATIO] * 100.0)/function.called) * 1000.0 * 1000.0) )
+                labels.append("(1call %f u%%)" % (((function[TIME_RATIO] * 100.0)/function.called) * 1000.0 * 1000.0) )
 
             if function.weight is not None:
                 weight = function.weight
