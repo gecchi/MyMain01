@@ -20,7 +20,7 @@ public:
         PROG_SELECT   ,
         PROG_GAMESTART,
         PROG_FINISH   ,
-        _BANPEI_,
+        PROG_BANPEI,
     };
 
     GgafDxCore::GgafDxSeConnection* pSeConnection_exec_;

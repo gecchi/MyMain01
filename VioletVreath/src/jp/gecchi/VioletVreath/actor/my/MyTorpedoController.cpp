@@ -53,13 +53,11 @@ void MyTorpedoController::onActive() {
 }
 
 void MyTorpedoController::processBehavior() {
-    if (in_firing_) {
-        in_firing_ = false;
-        for (int i = 0; i < firing_num_; i++) {
-            if (papTorpedo_[i]->isActiveInTheTree()) {
-                in_firing_ = true;
-                break;
-            }
+    in_firing_ = false;
+    for (int i = 0; i < firing_num_; i++) {
+        if (papTorpedo_[i]->isActive()) {
+            in_firing_ = true;
+            break;
         }
     }
 }
@@ -122,27 +120,27 @@ bool MyTorpedoController::fire() {
             UTIL::setWorldMatrix_RzRy(UTIL::simplifyAng(pOrg_->_rz - D90ANG), pOrg_->_ry,
                                       matRotZ);
             float vx, vy, vz;
-            coord X1,Y1,Z1, X2, Y2, Z2;
+            coord x1, y1, z1, x2, y2, z2;
             coord rz,ry;
             for (int i = 0; i < firing_num_; i++) {
                 UTIL::convRzRyToVector(expanse_rz, ang_way, vx, vy, vz);
-                X1 = vx * r;
-                Y1 = vy * r;
-                Z1 = vz * r;
-                //(X1,Y1,Z1) はオプションの頭の上のメガホン上の座標、
-                //これをRZを-90度回転させメガホンをオプションの前方に向ける→(X2,Y2,Z2)
-                X2 = X1*matRotZ._11 + Y1*matRotZ._21 + Z1*matRotZ._31;
-                Y2 = X1*matRotZ._12 + Y1*matRotZ._22 + Z1*matRotZ._32;
-                Z2 = X1*matRotZ._13 + Y1*matRotZ._23 + Z1*matRotZ._33;
-                papTorpedo_[i]->position(pOrg_->_x + X2,
-                                         pOrg_->_y + Y2,
-                                         pOrg_->_z + Z2);
+                x1 = vx * r;
+                y1 = vy * r;
+                z1 = vz * r;
+                //(x1,y1,z1) はオプションの頭の上のメガホン上の座標、
+                //これをRZを-90度回転させメガホンをオプションの前方に向ける→(x2,y2,z2)
+                x2 = x1*matRotZ._11 + y1*matRotZ._21 + z1*matRotZ._31;
+                y2 = x1*matRotZ._12 + y1*matRotZ._22 + z1*matRotZ._32;
+                z2 = x1*matRotZ._13 + y1*matRotZ._23 + z1*matRotZ._33;
+                papTorpedo_[i]->position(pOrg_->_x + x2,
+                                         pOrg_->_y + y2,
+                                         pOrg_->_z + z2);
                 if (target_num == 0) {
                     papTorpedo_[i]->pTarget_ = nullptr;
                 } else {
                     papTorpedo_[i]->pTarget_ = pLockonCtrler_->pRingTarget_->getNext(i);
                 }
-                UTIL::convVectorToRzRy(X2, Y2, Z2, rz, ry);
+                UTIL::convVectorToRzRy(x2, y2, z2, rz, ry);
                 papTorpedo_[i]->_pKurokoA->setRzRyMvAng(rz, ry); //飛ぶ方向
                 papTorpedo_[i]->activate();
                 ang_way = UTIL::addAng(ang_way, ang_way_offset); //次の放射状の魚雷へ

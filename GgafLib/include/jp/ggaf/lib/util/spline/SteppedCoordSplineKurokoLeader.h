@@ -27,10 +27,10 @@ public:
     int _point_index;
 
     //ŒvŽZ—p
-    float _SIN_RzMv_begin;
-    float _COS_RzMv_begin;
-    float _SIN_RyMv_begin;
-    float _COS_RyMv_begin;
+    float _sinRzMv_begin;
+    float _cosRzMv_begin;
+    float _sinRyMv_begin;
+    float _cosRyMv_begin;
 
 public:
     /**

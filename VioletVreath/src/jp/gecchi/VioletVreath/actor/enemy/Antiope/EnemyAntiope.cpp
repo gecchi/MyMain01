@@ -17,7 +17,7 @@ EnemyAntiope::EnemyAntiope(const char* prm_name, const char* prm_model, GgafStat
         DefaultMeshSetActor(prm_name, prm_model, prm_pStat) {
     _class_name = "EnemyAntiope";
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    useProgress(_BANPEI_-1);
+    useProgress(PROG_BANPEI-1);
 }
 
 void EnemyAntiope::onCreateModel() {

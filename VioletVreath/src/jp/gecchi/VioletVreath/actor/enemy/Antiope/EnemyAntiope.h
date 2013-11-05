@@ -26,7 +26,7 @@ public:
         PROG_ENTRY ,
         PROG_MOVE01,
         PROG_LEAVE ,
-        _BANPEI_,
+        PROG_BANPEI,
     };
 
     GgafDxCore::GgafDxGeoElem mv_velo_twd_;

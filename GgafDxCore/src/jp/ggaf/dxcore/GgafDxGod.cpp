@@ -61,9 +61,9 @@ GgafDxGod::GgafDxGod() : GgafGod() {
 
     CmRandomNumberGenerator::getInstance()->changeSeed(19740722UL); //19740722 Seed
     GgafRgb rgb_border = GgafRgb(PROPERTY::BORDER_COLOR);
-    _color_border = D3DCOLOR_RGBA(rgb_border._RED, rgb_border._GREEN, rgb_border._BLUE, 0);
+    _color_border = D3DCOLOR_RGBA(rgb_border._red, rgb_border._green, rgb_border._blue, 0);
     GgafRgb rgb_bg = GgafRgb(PROPERTY::BG_COLOR);
-    _color_clear = D3DCOLOR_RGBA(rgb_bg._RED, rgb_bg._GREEN, rgb_bg._BLUE, 0);
+    _color_clear = D3DCOLOR_RGBA(rgb_bg._red, rgb_bg._green, rgb_bg._blue, 0);
     _pRenderTexture = nullptr;
     _pRenderTextureSurface = nullptr;
     _pRenderTextureZ = nullptr;
@@ -1030,8 +1030,8 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
 #endif
 
     GgafCore::GgafRgb rgb = GgafCore::GgafRgb(PROPERTY::BORDER_COLOR);
-    prm_wndclass1.hbrBackground = CreateSolidBrush(RGB(rgb._RED, rgb._GREEN, rgb._BLUE));
-    prm_wndclass2.hbrBackground = CreateSolidBrush(RGB(rgb._RED, rgb._GREEN, rgb._BLUE));
+    prm_wndclass1.hbrBackground = CreateSolidBrush(RGB(rgb._red, rgb._green, rgb._blue));
+    prm_wndclass2.hbrBackground = CreateSolidBrush(RGB(rgb._red, rgb._green, rgb._blue));
     // ウインドウの生成
     if (PROPERTY::FULL_SCREEN) {
         if (PROPERTY::DUAL_VIEW) {

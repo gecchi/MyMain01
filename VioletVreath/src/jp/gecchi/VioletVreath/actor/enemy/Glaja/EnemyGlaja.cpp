@@ -25,7 +25,7 @@ EnemyGlaja::EnemyGlaja(const char* prm_name) :
     pConn_Shot_ = connect_DepositoryManager("GlajaLance001");
     effectBlendOne(); //â¡éZçáê¨
     setScaleR(0.3);
-    useProgress(_BANPEI_-1);
+    useProgress(PROG_BANPEI-1);
 }
 
 void EnemyGlaja::onCreateModel() {

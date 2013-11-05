@@ -24,10 +24,10 @@ public:
     FixedFrameSplineManufacture* _pFixedFrameSplManuf;
 
     //ŒvZ—p’è”
-    float _SIN_RzMv_begin;
-    float _COS_RzMv_begin;
-    float _SIN_RyMv_begin;
-    float _COS_RyMv_begin;
+    float _sinRzMv_begin;
+    float _cosRzMv_begin;
+    float _sinRyMv_begin;
+    float _cosRyMv_begin;
     frame _hosei_frames;
     /** ‘O‰ñ‚Ì_point_index */
     int _prev_point_index;

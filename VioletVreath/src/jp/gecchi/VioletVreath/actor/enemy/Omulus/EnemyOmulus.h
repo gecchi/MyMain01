@@ -22,7 +22,7 @@ public:
         PROG_INIT       ,
         PROG_HATCH_CLOSE,
         PROG_HATCH_OPEN ,
-        _BANPEI_,
+        PROG_BANPEI,
     };
 
     enum {

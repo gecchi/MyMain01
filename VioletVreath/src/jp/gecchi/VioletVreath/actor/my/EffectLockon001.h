@@ -19,7 +19,7 @@ public:
         LOCKON001_PROG_FIRST_LOCK ,
         LOCKON001_PROG_LOCK       ,
         LOCKON001_PROG_RELEASE    ,
-        _BANPEI_,
+        PROG_BANPEI,
     };
 
     GgafDxCore::GgafDxGeometricActor* pTarget_;

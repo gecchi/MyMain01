@@ -21,7 +21,7 @@ EnemyTalante::EnemyTalante(const char* prm_name) :
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
     Z_ok_ = Y_ok_ = false;
-    useProgress(_BANPEI_-1);
+    useProgress(PROG_BANPEI-1);
 }
 
 void EnemyTalante::onCreateModel() {

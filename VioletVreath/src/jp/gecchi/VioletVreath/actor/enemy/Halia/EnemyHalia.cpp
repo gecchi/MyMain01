@@ -44,7 +44,7 @@ EnemyHalia::EnemyHalia(const char* prm_name) :
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     _pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
-    useProgress(_BANPEI_-1);
+    useProgress(PROG_BANPEI-1);
     //‰ŠúƒJƒƒ‰ZˆÊ’u
     dZ_camera_init_ = -1 * P_CAM->_cameraZ_org * LEN_UNIT * PX_UNIT;
 }

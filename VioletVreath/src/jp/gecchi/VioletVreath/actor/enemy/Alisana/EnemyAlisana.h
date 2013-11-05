@@ -21,7 +21,7 @@ public:
         PROG_HATCH_OPEN_DONE,
         PROG_HATCH_CLOSE,
         PROG_LEAVE,
-        _BANPEI_,
+        PROG_BANPEI,
     };
     enum {
         SE_DAMAGED  ,

@@ -15,10 +15,10 @@ using namespace GgafLib;
 FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKurokoA* const prm_pKurokoA_target) :
         SplineKurokoLeader(prm_pManufacture, prm_pKurokoA_target) {
     _pFixedFrameSplManuf = (FixedFrameSplineManufacture*)prm_pManufacture;
-    _SIN_RzMv_begin = 0;
-    _COS_RzMv_begin = 0;
-    _SIN_RyMv_begin = 0;
-    _COS_RyMv_begin = 0;
+    _sinRzMv_begin = 0;
+    _cosRzMv_begin = 0;
+    _sinRyMv_begin = 0;
+    _cosRyMv_begin = 0;
     _point_index = 0;
     _prev_point_index = -1;
     _hosei_frames = 0;
@@ -33,10 +33,10 @@ FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(GgafDxKurokoA* const 
     _pFixedFrameSplManuf->calculate();//これも忘れないように。いずれこのタイプは消す
     _pManufacture = _pFixedFrameSplManuf;
 
-    _SIN_RzMv_begin = 0.0f;
-    _COS_RzMv_begin = 0.0f;
-    _SIN_RyMv_begin = 0.0f;
-    _COS_RyMv_begin = 0.0f;
+    _sinRzMv_begin = 0.0f;
+    _cosRzMv_begin = 0.0f;
+    _sinRyMv_begin = 0.0f;
+    _cosRyMv_begin = 0.0f;
     _point_index = 0;
     _prev_point_index = -1;
     _hosei_frames = 0;
@@ -57,10 +57,10 @@ void FixedFrameSplineKurokoLeader::getPointCoord(int prm_point_index, coord &out
     if (_option == RELATIVE_DIRECTION) {
         if (_is_leading == false) {
             GgafDxKurokoA* const pKurokoA_target = _pActor_target->_pKurokoA;
-            _SIN_RzMv_begin = ANG_SIN(pKurokoA_target->_angRzMv);
-            _COS_RzMv_begin = ANG_COS(pKurokoA_target->_angRzMv);
-            _SIN_RyMv_begin = ANG_SIN(pKurokoA_target->_angRyMv);
-            _COS_RyMv_begin = ANG_COS(pKurokoA_target->_angRyMv);
+            _sinRzMv_begin = ANG_SIN(pKurokoA_target->_angRzMv);
+            _cosRzMv_begin = ANG_COS(pKurokoA_target->_angRzMv);
+            _sinRyMv_begin = ANG_SIN(pKurokoA_target->_angRyMv);
+            _cosRyMv_begin = ANG_COS(pKurokoA_target->_angRyMv);
             if (!_is_fix_start_pos) {
                 _x_start = _pActor_target->_x;
                 _y_start = _pActor_target->_y;
@@ -72,9 +72,9 @@ void FixedFrameSplineKurokoLeader::getPointCoord(int prm_point_index, coord &out
         //    | -sinRz*cosRy                           , cosRz                , -sinRz*-sinRy                           , 0 |
         //    | sinRy                                  , 0                    , cosRy                                   , 0 |
         //    | (dx*cosRz + dy*-sinRz)*cosRy + dz*sinRy, (dx*sinRz + dy*cosRz), (dx*cosRz + dy*-sinRz)*-sinRy + dz*cosRy, 1 |
-        out_x = ((dx*_COS_RzMv_begin + dy*-_SIN_RzMv_begin) *  _COS_RyMv_begin + dz*_SIN_RyMv_begin) + _x_start;
-        out_y =  (dx*_SIN_RzMv_begin + dy* _COS_RzMv_begin)                                          + _y_start;
-        out_z = ((dx*_COS_RzMv_begin + dy*-_SIN_RzMv_begin) * -_SIN_RyMv_begin + dz*_COS_RyMv_begin) + _z_start;
+        out_x = ((dx*_cosRzMv_begin + dy*-_sinRzMv_begin) *  _cosRyMv_begin + dz*_sinRyMv_begin) + _x_start;
+        out_y =  (dx*_sinRzMv_begin + dy* _cosRzMv_begin)                                          + _y_start;
+        out_z = ((dx*_cosRzMv_begin + dy*-_sinRzMv_begin) * -_sinRyMv_begin + dz*_cosRyMv_begin) + _z_start;
     } else if (_option == RELATIVE_COORD) {
         //相対座標ターゲット
         if (_is_leading == false) {
@@ -122,10 +122,10 @@ void FixedFrameSplineKurokoLeader::restart() {
         _z_start = _pActor_target->_z;
     }
     if (_option == RELATIVE_DIRECTION) {
-        _SIN_RzMv_begin = ANG_SIN(_pActor_target->_pKurokoA->_angRzMv);
-        _COS_RzMv_begin = ANG_COS(_pActor_target->_pKurokoA->_angRzMv);
-        _SIN_RyMv_begin = ANG_SIN(_pActor_target->_pKurokoA->_angRyMv);
-        _COS_RyMv_begin = ANG_COS(_pActor_target->_pKurokoA->_angRyMv);
+        _sinRzMv_begin = ANG_SIN(_pActor_target->_pKurokoA->_angRzMv);
+        _cosRzMv_begin = ANG_COS(_pActor_target->_pKurokoA->_angRzMv);
+        _sinRyMv_begin = ANG_SIN(_pActor_target->_pKurokoA->_angRyMv);
+        _cosRyMv_begin = ANG_COS(_pActor_target->_pKurokoA->_angRyMv);
         _distance_to_begin = UTIL::getDistance(
                                        0.0  , 0.0  , 0.0  ,
                                        P0X, P0Y, P0Z

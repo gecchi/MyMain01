@@ -19,14 +19,14 @@ public:
         PROG_SPLINE_MOVING,
         PROG_AFTER_LEAD,
         PROG_AFTER_LEAD_MOVING,
-        _BANPEI_,
+        PROG_BANPEI,
     };
     enum {
         PROG2_WAIT,
         PROG2_OPEN,
         PROG2_SHOT,
         PROG2_CLOSE,
-        _BANPEI2_,
+        PROG_BANPEI2_,
     };
     enum {
         MPH_CLOSE,

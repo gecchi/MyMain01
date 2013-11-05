@@ -8,12 +8,12 @@ bool GgafRgb::_is_init = false;
 std::map<std::string, std::string> GgafRgb::_cname;
 
 GgafRgb::GgafRgb() : GgafObject(),
-        _allowedChars("0123456789abcdefABCDEF#") , _RED(0), _GREEN(0), _BLUE(0), _r(0), _g(0), _b(0), _hex(""), _is_valid(true) {
+        _allowedChars("0123456789abcdefABCDEF#") , _red(0), _green(0), _blue(0), _r(0), _g(0), _b(0), _hex(""), _is_valid(true) {
     init();
 }
 
 GgafRgb::GgafRgb(std::string prm_str_color) : GgafObject(),
-        _allowedChars("0123456789abcdefABCDEF#") , _RED(0), _GREEN(0), _BLUE(0), _r(0), _g(0), _b(0), _hex(""), _is_valid(true) {
+        _allowedChars("0123456789abcdefABCDEF#") , _red(0), _green(0), _blue(0), _r(0), _g(0), _b(0), _hex(""), _is_valid(true) {
     init();
     set(prm_str_color);
 }
@@ -795,12 +795,12 @@ void GgafRgb::set(std::string prm_str_color) {
     }
     _is_valid = isValid();
     if (_is_valid) {
-        _RED = UTIL::hex2dec(_hex.substr(0, 2));
-        _GREEN = UTIL::hex2dec(_hex.substr(2, 2));
-        _BLUE = UTIL::hex2dec(_hex.substr(4, 2));
-        _r = _RED / 255.0f;
-        _g = _GREEN / 255.0f;
-        _b = _BLUE / 255.0f;
+        _red = UTIL::hex2dec(_hex.substr(0, 2));
+        _green = UTIL::hex2dec(_hex.substr(2, 2));
+        _blue = UTIL::hex2dec(_hex.substr(4, 2));
+        _r = _red / 255.0f;
+        _g = _green / 255.0f;
+        _b = _blue / 255.0f;
     } else {
         if (GgafRgb::_cname.find(prm_str_color) == GgafRgb::_cname.end()) {
             throwGgafCriticalException("GgafRgb::set HEX値(色名)からRGBに変換出来ません。prm_str_color="<<prm_str_color);
@@ -810,12 +810,12 @@ void GgafRgb::set(std::string prm_str_color) {
                 _hex.erase(_hex.begin());
             }
             _is_valid = true;
-            _RED = UTIL::hex2dec(_hex.substr(0, 2));
-            _GREEN = UTIL::hex2dec(_hex.substr(2, 2));
-            _BLUE = UTIL::hex2dec(_hex.substr(4, 2));
-            _r = _RED / 255.0f;
-            _g = _GREEN / 255.0f;
-            _b = _BLUE / 255.0f;
+            _red = UTIL::hex2dec(_hex.substr(0, 2));
+            _green = UTIL::hex2dec(_hex.substr(2, 2));
+            _blue = UTIL::hex2dec(_hex.substr(4, 2));
+            _r = _red / 255.0f;
+            _g = _green / 255.0f;
+            _b = _blue / 255.0f;
         }
 
     }
@@ -823,8 +823,8 @@ void GgafRgb::set(std::string prm_str_color) {
 
 std::string GgafRgb::toStr() {
     std::ostringstream oss;
-    oss << "#" << UTIL::dec2hex(_RED,2) <<
-                  UTIL::dec2hex(_GREEN,2) <<
-                  UTIL::dec2hex(_BLUE,2);
+    oss << "#" << UTIL::dec2hex(_red,2) <<
+                  UTIL::dec2hex(_green,2) <<
+                  UTIL::dec2hex(_blue,2);
     return oss.str();
 }

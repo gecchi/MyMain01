@@ -28,10 +28,10 @@ public:
     /** [r]次の変わり目となる補間点(基準点も含む)に到達する_leadning_fFrames */
     float _fFrame_of_next;
     //計算用
-    float _SIN_RzMv_begin;
-    float _COS_RzMv_begin;
-    float _SIN_RyMv_begin;
-    float _COS_RyMv_begin;
+    float _sinRzMv_begin;
+    float _cosRzMv_begin;
+    float _sinRyMv_begin;
+    float _cosRyMv_begin;
 
 public:
     /**

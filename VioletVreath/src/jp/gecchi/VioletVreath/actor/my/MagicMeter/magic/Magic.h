@@ -69,7 +69,7 @@ public:
         STATE_RE_EFFECT,
         STATE_EFFECT_START   ,
         STATE_ABANDONING  ,
-        _BANPEI_,
+        PROG_BANPEI,
     };
 
     /**

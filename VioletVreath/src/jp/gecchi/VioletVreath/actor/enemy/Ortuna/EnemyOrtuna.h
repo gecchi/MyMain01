@@ -33,7 +33,7 @@ public:
         PROG_MOVE01 ,
         PROG_MOVE02 ,
         PROG_MOVE03 ,
-        _BANPEI_,
+        PROG_BANPEI,
     };
     /** [r]出現座標(フォーメーションオブジェクトが設定) */
     GgafDxCore::GgafDxGeoElem entry_pos_;

@@ -31,7 +31,7 @@ public:
         PROG1_MOVE_START ,
         PROG1_MOVING ,
         PROG1_LEAVE ,
-        _BANPEI1_,
+        PROG_BANPEI1_,
     };
 
     enum {
@@ -41,7 +41,7 @@ public:
         PROG2_SHOT02 ,
         PROG2_SHOT03 ,
         PROG2_SHOT04 ,
-        _BANPEI2_,
+        PROG_BANPEI2_,
     };
 
     enum {

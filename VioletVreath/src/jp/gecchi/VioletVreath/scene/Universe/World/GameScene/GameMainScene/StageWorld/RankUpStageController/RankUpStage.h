@@ -16,7 +16,7 @@ public:
         PROG_PLAYING ,
         PROG_RESULT  ,
         PROG_END     ,
-        _BANPEI_,
+        PROG_BANPEI,
     };
 
     GgafDxCore::GgafDxSeConnection* pSeConnection_all_hit_;

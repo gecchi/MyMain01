@@ -86,8 +86,10 @@ public:
         bool _is_last_flg;
         /** [r/w]delete時に_pValueもdeleteするかどうかのフラグ */
         bool _is_delete_value;
-
+        /** [r]先頭要素からのインデックス(0～)。indexedValue()実行で作成される */
         int _idx;
+
+    public:
         /**
          * コンストラクタ
          * @param prm_pValue 値（ポインタ）
@@ -163,8 +165,9 @@ public:
     int _num_elem;
     /** [r]関連要素数 */
     int _relation_num;
-
+    /** [r]インデックスに対する要素値の配列、indexedValue()実行で作成される */
     T** _papLinerVal;
+
 public:
     /**
      * コンストラクタ .
@@ -172,20 +175,6 @@ public:
      * @param prm_extend_relation_num 拡張関連要素数
      */
     GgafLinkedListRing(int prm_extend_relation_num = 0);
-
-
-    void fixIndex() {
-        if (_papLinerVal) {
-            GGAF_DELETEARR(_papLinerVal);
-        }
-        Elem* p = _pElem_first;
-        _papLinerVal = NEW T*[length()];
-        for (int i = 0; i < length(); i++) {
-            p->_idx = i;
-            _papLinerVal[i] = p->_pValue;
-            p = p->_pNext;
-        }
-    }
 
     /**
      * デストラクタ.
@@ -815,6 +804,14 @@ public:
         return pElem_return;
     }
 
+    /**
+     * インデックスを作成 .
+     * 要素値の配列を別途作成し、内部保持します。
+     * インデックスが引数で値を取得するメソッドのパフォーマンスが上がります。
+     * 但し要素数を変更すると、再構築の必要があります。
+     * 要素値を追加後、要素数が変化しないリストならば、本メソッドを実行しましょう。
+     */
+    void indexedValue();
 
     /**
      * 全ての要素値に対して指定の関数を実行させる .
@@ -882,7 +879,6 @@ GgafLinkedListRing<T>::GgafLinkedListRing(int prm_extend_relation_num) :
     _relation_num = prm_extend_relation_num;
     _papLinerVal = nullptr;
 }
-
 
 //template<class T>
 //T* GgafLinkedListRing<T>::getFromFirst(int n) {
@@ -1326,6 +1322,20 @@ int GgafLinkedListRing<T>::indexOf(T* prm_pVal) {
 template<class T>
 int GgafLinkedListRing<T>::length() {
     return _num_elem;
+}
+
+template<class T>
+void GgafLinkedListRing<T>::indexedValue() {
+   if (_papLinerVal) {
+       GGAF_DELETEARR(_papLinerVal);
+   }
+   Elem* p = _pElem_first;
+   _papLinerVal = NEW T*[length()];
+   for (int i = 0; i < length(); i++) {
+       p->_idx = i;
+       _papLinerVal[i] = p->_pValue;
+       p = p->_pNext;
+   }
 }
 
 template<class T>

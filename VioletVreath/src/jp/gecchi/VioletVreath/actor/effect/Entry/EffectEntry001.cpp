@@ -17,7 +17,7 @@ EffectEntry001::EffectEntry001(const char* prm_name) :
 
 void EffectEntry001::initialize() {
     EffectEntry::initialize();
-    useProgress(_BANPEI_-1);
+    useProgress(PROG_BANPEI-1);
 }
 
 void EffectEntry001::onActive() {

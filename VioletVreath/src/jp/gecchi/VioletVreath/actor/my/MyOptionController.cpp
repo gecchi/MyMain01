@@ -175,9 +175,9 @@ void MyOptionController::processBehavior() {
         }
     } else {
         GgafDxGeoElem* pGeoMyShipTrace = pMyShip->pRing_MyShipGeoHistory4OptCtrler_->getPrev(MyOptionController::o2o_*(no_+1));
-        coord TX = pMyShip->_x_local + pGeoMyShipTrace->x;
-        coord TY = pMyShip->_y_local + pGeoMyShipTrace->y;
-        coord TZ = pMyShip->_z_local + pGeoMyShipTrace->z;
+        coord tx = pMyShip->_x_local + pGeoMyShipTrace->x;
+        coord ty = pMyShip->_y_local + pGeoMyShipTrace->y;
+        coord tz = pMyShip->_z_local + pGeoMyShipTrace->z;
         //(TX,TY,TZ)は自機の絶対座標履歴に同じ。
         //VB_OPTION 押下時は、pRing_MyShipGeoHistory4OptCtrler_ に履歴は追加されず、
         //(_x_local, _y_local, _z_local) のみ更新され、フリーズオプションの動きとなる。
@@ -186,12 +186,12 @@ void MyOptionController::processBehavior() {
         if (return_to_default_position_seq_) {
             pMyShip->trace_delay_count_ = TRACE_DELAY_WAIT_FRAME; //トレース維持を強制解除
             //元の位置へ
-            _pKurokoB->setVxyzMvAcce( TX - (_x + _pKurokoB->_veloVxMv*6),
-                                      TY - (_y + _pKurokoB->_veloVyMv*6),
-                                      TZ - (_z + _pKurokoB->_veloVzMv*6) );
-            if (ABS(_x - TX) < 10000 &&
-                ABS(_y - TY) < 10000 &&
-                ABS(_z - TZ) < 10000 &&
+            _pKurokoB->setVxyzMvAcce( tx - (_x + _pKurokoB->_veloVxMv*6),
+                                      ty - (_y + _pKurokoB->_veloVyMv*6),
+                                      tz - (_z + _pKurokoB->_veloVzMv*6) );
+            if (ABS(_x - tx) < 10000 &&
+                ABS(_y - ty) < 10000 &&
+                ABS(_z - tz) < 10000 &&
                 ABS(_pKurokoB->_veloVxMv) < 20000 &&
                 ABS(_pKurokoB->_veloVyMv) < 20000 &&
                 ABS(_pKurokoB->_veloVzMv) < 20000)
@@ -199,12 +199,12 @@ void MyOptionController::processBehavior() {
                 //もどった！
                 _pKurokoB->setZeroVxyzMvVelo();
                 _pKurokoB->setZeroVxyzMvAcce();
-                position(TX, TY, TZ);
+                position(tx, ty, tz);
                 return_to_default_position_seq_ = false;
             }
 
         } else {
-            position(TX, TY, TZ); //通常のツインビー分身トレース
+            position(tx, ty, tz); //通常のツインビー分身トレース
         }
     }
 

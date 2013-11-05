@@ -110,6 +110,9 @@ void MenuBoard::onSelect(int prm_from, int prm_to) {
 }
 
 void MenuBoard::initialize() {
+    //インデックス作成
+    _lstItems.indexedValue();
+    _lstDispActors.indexedValue();
 }
 
 void MenuBoard::onRise() {

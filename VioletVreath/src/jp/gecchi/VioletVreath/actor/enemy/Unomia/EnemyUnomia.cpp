@@ -23,7 +23,7 @@ EnemyUnomia::EnemyUnomia(const char* prm_name) :
     pDepo_Shot_ = nullptr;
     pDepo_ShotEffect_ = nullptr;
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
-    useProgress(_BANPEI_-1);
+    useProgress(PROG_BANPEI-1);
 }
 
 void EnemyUnomia::onCreateModel() {

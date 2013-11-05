@@ -18,7 +18,7 @@ GgafDxCollisionArea::GgafDxCollisionArea(int prm_colli_part_num) : GgafObject() 
     } else {
         throwGgafCriticalException("GgafDxCollisionArea::GgafDxCollisionArea óvëfêîÇ™ïsê≥ÅBprm_colli_part_num="<<prm_colli_part_num);
     }
-    _AABB_X1=_AABB_Y1=_AABB_Z1=_AABB_X2=_AABB_Y2=_AABB_Z2 = 0;
+    _aabb_x1=_aabb_y1=_aabb_z1=_aabb_x2=_aabb_y2=_aabb_z2 = 0;
 
     _hit_colli_part_index = -1;
 }
@@ -33,14 +33,14 @@ void GgafDxCollisionArea::updateAABB() {
     }
 #endif
     if (pColliPart->_is_valid_flg) {
-        _AABB_X1 = pColliPart->_aab_x1;
-        _AABB_Y1 = pColliPart->_aab_y1;
-        _AABB_Z1 = pColliPart->_aab_z1;
-        _AABB_X2 = pColliPart->_aab_x2;
-        _AABB_Y2 = pColliPart->_aab_y2;
-        _AABB_Z2 = pColliPart->_aab_z2;
+        _aabb_x1 = pColliPart->_aab_x1;
+        _aabb_y1 = pColliPart->_aab_y1;
+        _aabb_z1 = pColliPart->_aab_z1;
+        _aabb_x2 = pColliPart->_aab_x2;
+        _aabb_y2 = pColliPart->_aab_y2;
+        _aabb_z2 = pColliPart->_aab_z2;
     } else {
-        _AABB_X1=_AABB_Y1=_AABB_Z1=_AABB_X2=_AABB_Y2=_AABB_Z2 = 0;
+        _aabb_x1=_aabb_y1=_aabb_z1=_aabb_x2=_aabb_y2=_aabb_z2 = 0;
     }
     if (_colli_part_num == 1) {
         return;
@@ -48,24 +48,24 @@ void GgafDxCollisionArea::updateAABB() {
         for (int i = 1; i < _colli_part_num; i++) {
             pColliPart = _papColliPart[i];
             if (pColliPart->_is_valid_flg) {
-                if (pColliPart->_aab_x1 < _AABB_X1) {
-                    _AABB_X1 = pColliPart->_aab_x1;
+                if (pColliPart->_aab_x1 < _aabb_x1) {
+                    _aabb_x1 = pColliPart->_aab_x1;
                 }
-                if (pColliPart->_aab_y1 < _AABB_Y1) {
-                    _AABB_Y1 = pColliPart->_aab_y1;
+                if (pColliPart->_aab_y1 < _aabb_y1) {
+                    _aabb_y1 = pColliPart->_aab_y1;
                 }
-                if (pColliPart->_aab_z1 < _AABB_Z1) {
-                    _AABB_Z1 = pColliPart->_aab_z1;
+                if (pColliPart->_aab_z1 < _aabb_z1) {
+                    _aabb_z1 = pColliPart->_aab_z1;
                 }
 
-                if (pColliPart->_aab_x2 > _AABB_X2) {
-                    _AABB_X2 = pColliPart->_aab_x2;
+                if (pColliPart->_aab_x2 > _aabb_x2) {
+                    _aabb_x2 = pColliPart->_aab_x2;
                 }
-                if (pColliPart->_aab_y2 > _AABB_Y2) {
-                    _AABB_Y2 = pColliPart->_aab_y2;
+                if (pColliPart->_aab_y2 > _aabb_y2) {
+                    _aabb_y2 = pColliPart->_aab_y2;
                 }
-                if (pColliPart->_aab_z2 > _AABB_Z2) {
-                    _AABB_Z2 = pColliPart->_aab_z2;
+                if (pColliPart->_aab_z2 > _aabb_z2) {
+                    _aabb_z2 = pColliPart->_aab_z2;
                 }
             }
         }

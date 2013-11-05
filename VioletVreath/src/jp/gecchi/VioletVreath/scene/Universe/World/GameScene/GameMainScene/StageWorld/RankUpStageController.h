@@ -28,7 +28,7 @@ public:
         PROG_INIT  ,
         PROG_PLAY  ,
         PROG_FINISH,
-        _BANPEI_,
+        PROG_BANPEI,
     };
 
     char buf_[60];

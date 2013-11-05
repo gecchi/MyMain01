@@ -9,7 +9,6 @@
 #include "jp/gecchi/VioletVreath/actor/menu/confirm/MenuBoardConfirm.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/Properties.h"
-#include "jp/gecchi/VioletVreath/actor/menu/MenuSelectSub.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelMenuItemFont01.h"
 
 using namespace GgafCore;

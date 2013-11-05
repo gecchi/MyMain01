@@ -34,7 +34,7 @@ public:
         PROG_OPEN ,
         PROG_FIRE ,
         PROG_CLOSE ,
-        _BANPEI_,
+        PROG_BANPEI,
     };
     DepositoryConnection* pConn_Shot_;
     GgafDxCore::GgafDxGeoElem next_pos_;

@@ -18,7 +18,7 @@ class GgafDxCollisionArea : public GgafCore::GgafObject {
 
 public:
     /** 8分木登録のための全当たり判定要素含む全体の外側の軸平行境界直方体 */
-    coord _AABB_X1, _AABB_Y1, _AABB_Z1, _AABB_X2, _AABB_Y2, _AABB_Z2;
+    coord _aabb_x1, _aabb_y1, _aabb_z1, _aabb_x2, _aabb_y2, _aabb_z2;
     //AABB(軸平行境界直方体:Axis-Aligned Bounding Box)
 
     /** 当たり判定領域要素の配列 */

@@ -60,7 +60,7 @@ public:
     enum {
         PROG_NOMALDISP,
         PROG_RANKUP   ,
-        _BANPEI_,
+        PROG_BANPEI,
     };
     enum {
         SE_RANK_UP  ,

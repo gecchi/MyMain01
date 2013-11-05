@@ -25,8 +25,8 @@ EnemyOzartia::EnemyOzartia(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Ozartia", STATUS(EnemyOzartia)) {
     _class_name = "EnemyOzartia";
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    useProgress(_BANPEI1_-1);
-    pProg2_ = createProgress(_BANPEI2_-1);
+    useProgress(PROG_BANPEI1_-1);
+    pProg2_ = createProgress(PROG_BANPEI2_-1);
     is_hit_ = false;
     _sx=_sy=_sz=100;
 

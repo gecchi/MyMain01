@@ -14,7 +14,7 @@ public:
         PROG_ENTRY  ,
         PROG_MOVE01 ,
         PROG_LEAVE  ,
-        _BANPEI_,
+        PROG_BANPEI,
     };
 public:
     EnemyOzartiaShot01(const char* prm_name);

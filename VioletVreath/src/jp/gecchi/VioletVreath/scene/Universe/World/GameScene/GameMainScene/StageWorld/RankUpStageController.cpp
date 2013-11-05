@@ -32,7 +32,7 @@ RankUpStageController::RankUpStageController(const char* prm_name) : DefaultScen
 
     pSeConn_RankUpStageExec_ = connect_SeManager("WAVE_RANK_UP_STAGE_EXEC");
 
-    useProgress(RankUpStageController::_BANPEI_-1);
+    useProgress(RankUpStageController::PROG_BANPEI-1);
     ready(G_RANKUP_LEVEL + 1);
 }
 void RankUpStageController::startRunkUpStage(int prm_rank_up_level) {

@@ -19,7 +19,7 @@ public:
         PROG_OPE     ,
         PROG_DECIDE  ,
         PROG_END     ,
-        _BANPEI_,
+        PROG_BANPEI,
     };
 
 public:

@@ -76,7 +76,7 @@ papOptionCtrler_(nullptr) {
     pLabelZanki_ = NEW LabelGecchi16Font("zankdisp");
     getSceneDirector()->addSubGroup(pLabelZanki_);
 
-    useProgress(_BANPEI_-1);
+    useProgress(PROG_BANPEI-1);
 
 }
 

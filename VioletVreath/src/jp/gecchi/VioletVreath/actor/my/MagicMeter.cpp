@@ -61,12 +61,11 @@ height_(PX_C(height_px_)) {
     lstMagic_.addLast(pSmileMagic_  );
 
     int magic_num = lstMagic_.length();
-
     for (int i = 0; i < magic_num; i++) {
         addSubGroup(lstMagic_.getNext(i));
     }
 
-    papLvTgtMvCur_     = NEW MagicLvCursor001*[magic_num];
+    papLvTgtMvCur_   = NEW MagicLvCursor001*[magic_num];
     papLvNowCur_     = NEW MagicLvCursor002*[magic_num];
     papLvCastingCur_ = NEW MagicLvCursor003*[magic_num];
     r_roll_      = NEW float[magic_num];

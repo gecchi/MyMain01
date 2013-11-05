@@ -18,7 +18,7 @@ public:
         PROG_BEGIN   ,
         PROG_PLAYING ,
         PROG_END     ,
-        _BANPEI_,
+        PROG_BANPEI,
     };
 
     static bool pause_;

@@ -17,7 +17,7 @@ public:
         PROG_MOVE01 ,
         PROG_MOVE02 ,
         PROG_LEAVE ,
-        _BANPEI_,
+        PROG_BANPEI,
     };
 
 public:

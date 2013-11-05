@@ -54,7 +54,7 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     pRankFont_->position(PX_C(PROPERTY::GAME_BUFFER_WIDTH), PX_C(PROPERTY::GAME_BUFFER_HEIGHT));
     getSceneDirector()->addSubGroup(pRankFont_);
 
-    useProgress(GameMainScene::_BANPEI_-1);
+    useProgress(GameMainScene::PROG_BANPEI-1);
 }
 
 void GameMainScene::onReset() {

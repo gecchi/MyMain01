@@ -24,7 +24,7 @@ public:
     enum {
         PROG_INIT   ,
         PROG_FAINAL ,
-        _BANPEI_,
+        PROG_BANPEI,
     };
 
 public:

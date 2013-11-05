@@ -19,7 +19,7 @@ public:
         PROG_INIT ,
         PROG_ENTRY,
         PROG_MOVE01,
-        _BANPEI_,
+        PROG_BANPEI,
     };
 
     enum {

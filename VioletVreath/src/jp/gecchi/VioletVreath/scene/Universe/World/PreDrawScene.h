@@ -19,7 +19,7 @@ public:
         PROG_INIT ,
         PROG_CALM ,
         PROG_WAIT ,
-        _BANPEI_,
+        PROG_BANPEI,
     };
     int order_id_begin_;
     int order_id_end_;

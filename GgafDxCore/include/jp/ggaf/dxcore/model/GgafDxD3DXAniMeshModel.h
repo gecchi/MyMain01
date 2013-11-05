@@ -21,7 +21,6 @@ public:
     GgafDxAllocHierarchyWorldFrame* _pAH;
     D3DXFRAME_WORLD* _pFR;
     ID3DXAnimationController* _pAcBase;
-    FLOAT _Ang;
     int _anim_ticks_per_second;
     /** 60フレーム(1秒)で1ループする場合の1フレーム辺りの時間 */
 //    double _advance_time_per_frame0;//60フレーム(1秒)で1ループすることを標準設定とする。

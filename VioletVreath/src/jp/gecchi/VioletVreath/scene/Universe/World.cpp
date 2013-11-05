@@ -172,7 +172,7 @@ void World::initialize() {
 
     orderSceneToFactory(1, PreDrawScene, "PreDraw");
     orderSceneToFactory(2, GameScene, "Game");
-    useProgress(World::_BANPEI_-1);
+    useProgress(World::PROG_BANPEI-1);
     _pProg->reset(World::PROG_INIT);
 }
 

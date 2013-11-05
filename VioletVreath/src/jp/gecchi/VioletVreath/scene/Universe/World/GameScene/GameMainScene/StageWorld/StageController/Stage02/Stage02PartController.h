@@ -25,7 +25,7 @@ public:
     enum {
         PROG_INIT   ,
         PROG_FAINAL ,
-        _BANPEI_,
+        PROG_BANPEI,
     };
     frame frame_prog_fainal_;
 

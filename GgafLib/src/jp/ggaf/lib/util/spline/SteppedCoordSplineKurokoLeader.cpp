@@ -18,10 +18,10 @@ SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(SplineManufacture
     _leadning_fFrames = 0.0f;
     _fFrame_of_next = -0.00001f;
     _point_index = 0;
-    _SIN_RzMv_begin = 0.0f;
-    _COS_RzMv_begin = 0.0f;
-    _SIN_RyMv_begin = 0.0f;
-    _COS_RyMv_begin = 0.0f;
+    _sinRzMv_begin = 0.0f;
+    _cosRzMv_begin = 0.0f;
+    _sinRyMv_begin = 0.0f;
+    _cosRyMv_begin = 0.0f;
 }
 
 SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(GgafDxKurokoA* const prm_pKurokoA_target,
@@ -35,10 +35,10 @@ SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(GgafDxKurokoA* co
     _leadning_fFrames = 0.0f;
     _fFrame_of_next = -0.00001f;
     _point_index = 0;
-    _SIN_RzMv_begin = 0.0f;
-    _COS_RzMv_begin = 0.0f;
-    _SIN_RyMv_begin = 0.0f;
-    _COS_RyMv_begin = 0.0f;
+    _sinRzMv_begin = 0.0f;
+    _cosRzMv_begin = 0.0f;
+    _sinRyMv_begin = 0.0f;
+    _cosRyMv_begin = 0.0f;
 }
 
 void SteppedCoordSplineKurokoLeader::start(SplinTraceOption prm_option, int prm_max_loop) {
@@ -66,10 +66,10 @@ void SteppedCoordSplineKurokoLeader::restart() {
             _z_start = (_flip_z * pSpl->_z_compute[0] * _pSteppedSplManuf->_rate_z) + _offset_z - _pActor_target->_z;
         }
         GgafDxKurokoA* const pKurokoA_target = _pActor_target->_pKurokoA;
-        _SIN_RzMv_begin = ANG_SIN(pKurokoA_target->_angRzMv);
-        _COS_RzMv_begin = ANG_COS(pKurokoA_target->_angRzMv);
-        _SIN_RyMv_begin = ANG_SIN(pKurokoA_target->_angRyMv);
-        _COS_RyMv_begin = ANG_COS(pKurokoA_target->_angRyMv);
+        _sinRzMv_begin = ANG_SIN(pKurokoA_target->_angRzMv);
+        _cosRzMv_begin = ANG_COS(pKurokoA_target->_angRzMv);
+        _sinRyMv_begin = ANG_SIN(pKurokoA_target->_angRyMv);
+        _cosRyMv_begin = ANG_COS(pKurokoA_target->_angRyMv);
     } else if (_option == RELATIVE_COORD) {
         if (!_is_fix_start_pos) {
             _x_start = (_flip_x * pSpl->_x_compute[0] * _pSteppedSplManuf->_rate_x) + _offset_x - _pActor_target->_x;

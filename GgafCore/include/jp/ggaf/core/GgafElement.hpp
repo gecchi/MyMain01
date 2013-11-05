@@ -950,7 +950,6 @@ void GgafElement<T>::nextFrame() {
     }
     _was_paused_flg = _was_paused_flg_in_next_frame;
     if (!_was_paused_flg) {
-
         _frame_of_life++;
         if (_will_end_after_flg && _frame_of_life_when_end == _frame_of_life) {
             //終了の時だ
@@ -961,7 +960,7 @@ void GgafElement<T>::nextFrame() {
         _on_change_to_inactive_flg = false;
 
         if (_can_live_flg) {
-            if(_was_initialize_flg == false) {
+            if (!_was_initialize_flg) {
                 initialize();       //初期化
                 _was_initialize_flg = true;
                 reset(); //リセット
@@ -1005,12 +1004,8 @@ void GgafElement<T>::nextFrame() {
             _is_already_reset = false;
         }
 
-    }
+        updateActiveInTheTree();     //_is_active_in_the_tree_flg を更新
 
-    //_is_active_in_the_tree_flg を更新
-    updateActiveInTheTree();
-
-    if (!_was_paused_flg) {
         if (_is_active_in_the_tree_flg) {
             _frame_of_behaving++;
             // 進捗を反映
@@ -1573,7 +1568,6 @@ void GgafElement<T>::throwEventUpperTree(hashval prm_no, void* prm_pSource) {
         }
     }
 }
-
 
 template<class T>
 bool GgafElement<T>::isDisappear() {

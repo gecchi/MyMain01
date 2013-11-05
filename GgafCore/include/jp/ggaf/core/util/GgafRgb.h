@@ -20,11 +20,11 @@ private :
     bool isValid();
 public:
     /** [r/w] Redíl(0Å`255) */
-    size_t _RED;
+    size_t _red;
     /** [r/w] Greeníl(0Å`255) */
-    size_t _GREEN;
+    size_t _green;
     /** [r/w] Brueíl(0Å`255) */
-    size_t _BLUE;
+    size_t _blue;
     /** [r/w] Redíl(0.0Å`1.0) */
     float _r;
     /** [r/w] Greeníl(0.0Å`1.0) */

@@ -19,7 +19,7 @@ public:
         PROG_INPUT    ,
         PROG_DONE_DISP,
         PROG_FINISH   ,
-        _BANPEI_,
+        PROG_BANPEI,
     };
 
     WorldBoundNameEntry* pWorldBound_;

@@ -36,6 +36,11 @@ coord GgafDxUniverse::_z_gone_near  = 0;
 
 
 GgafDxUniverse::SeArray::SeArray() {
+#ifdef MY_DEBUG
+    if (PROPERTY::MAX_SE_AT_ONCE > 64) {
+        throwGgafCriticalException("プロパティ値 MAX_SE_AT_ONCE が、上限(64)を超えています。プロパティファイルを確認してください。PROPERTY::MAX_SE_AT_ONCE="<<PROPERTY::MAX_SE_AT_ONCE);
+    }
+#endif
     _p = 0;
     for (int i = 0; i < PROPERTY::MAX_SE_AT_ONCE; i++) {
         _apSe[i] = nullptr;
@@ -102,7 +107,7 @@ GgafDxUniverse::GgafDxUniverse(const char* prm_name, GgafDxCamera* prm_pCamera) 
     for (int i = 0; i < PROPERTY::MAX_SE_DELAY; i++) { //GGAF_END_DELAYは最大解放遅れフレームだが、遠方SEの遅延の最高フレーム数としても使う
         _pRing_pSeArray->addLast(NEW SeArray(), true);
     }
-    _pRing_pSeArray->fixIndex();
+    _pRing_pSeArray->indexedValue();
 
     GgafRepeatSeq::create(_seqkey_se_delay, 0, 8); //ズレSE再生フレーム
 }
@@ -123,13 +128,11 @@ void GgafDxUniverse::registerSe(GgafDxSe* prm_pSe,
     //F = f%(900/_bpm)
     //F = 0の場合、今がそう f
     //F != 0 の場合 {f/(900/_bpm)の商 * (900/_bpm)} + (900/_bpm) が直近未来の16分音符タイミング
-    //TODO:温めていたのにインベーダーエクストリームに先をこされてしまった！！＋α新要素が欲しい。！！
+    //TODO:温めていたのにインベーダーエクストリームに先をこされてしまった(と思ってる)！！＋α新要素が欲しい。！！
 
     //SEの鳴るタイミングを 0～8フレームをずらしてバラつかせる
-
     _pRing_pSeArray->getNext(prm_delay+1+(GgafRepeatSeq::nextVal(_seqkey_se_delay)))->
                      add(prm_pSe, prm_volume, prm_pan, prm_rate_frequency, prm_pActor);
-    //_pRing_pSeArray->getNext(prm_delay+1)->add(prm_pSe, prm_volume, prm_pan, prm_rate_frequency);
 }
 
 void GgafDxUniverse::processSettlementBehavior() {

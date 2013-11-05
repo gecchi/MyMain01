@@ -151,12 +151,12 @@ void CollisionChecker3D::updateHitArea() {
 
         //‚W•ª–Ø‚É“o˜^I
         _pElem->_kindbit = pActor->getMyGroupHead()->_kind;
-        _pLinearOctree->registerElem(_pElem, pActor->_x + pCollisionArea->_AABB_X1,
-                                             pActor->_y + pCollisionArea->_AABB_Y1,
-                                             pActor->_z + pCollisionArea->_AABB_Z1,
-                                             pActor->_x + pCollisionArea->_AABB_X2,
-                                             pActor->_y + pCollisionArea->_AABB_Y2,
-                                             pActor->_z + pCollisionArea->_AABB_Z2);
+        _pLinearOctree->registerElem(_pElem, pActor->_x + pCollisionArea->_aabb_x1,
+                                             pActor->_y + pCollisionArea->_aabb_y1,
+                                             pActor->_z + pCollisionArea->_aabb_z1,
+                                             pActor->_x + pCollisionArea->_aabb_x2,
+                                             pActor->_y + pCollisionArea->_aabb_y2,
+                                             pActor->_z + pCollisionArea->_aabb_z2);
 
     }
 }

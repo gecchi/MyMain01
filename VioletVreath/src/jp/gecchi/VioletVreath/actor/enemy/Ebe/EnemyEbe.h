@@ -20,7 +20,7 @@ public:
         PROG_SPLINE_MOVE,
         PROG_MOVE02_1   ,
         PROG_MOVE02_2   ,
-        _BANPEI_,
+        PROG_BANPEI,
     };
 
     enum {

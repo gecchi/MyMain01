@@ -23,7 +23,7 @@ EffectLockon001::EffectLockon001(const char* prm_name, const char* prm_model_id)
 
     setHitAble(false); //“–‚½‚è”»’è–³‚µ
     _pSeTx->set(0, "WAVE_LOCKON_001"); //Œø‰Ê‰¹’è‹`
-    useProgress(_BANPEI_-1);
+    useProgress(PROG_BANPEI-1);
 }
 
 void EffectLockon001::initialize() {

@@ -30,7 +30,7 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
 	orderActorToFactory(10000000, EnemyOzartia, "EnemyOzartia-1");
 	orderActorToFactory(10000001, EnemyOzartia, "EnemyOzartia-2");
     // gen01 end
-    useProgress(Stage01PartController::_BANPEI_-1);
+    useProgress(Stage01PartController::PROG_BANPEI-1);
 }
 
 void Stage01PartController::initialize() {

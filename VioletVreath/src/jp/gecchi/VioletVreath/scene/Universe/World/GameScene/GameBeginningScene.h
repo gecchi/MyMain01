@@ -20,7 +20,7 @@ public:
         PROG_SELECT_MODE,
         PROG_DECIDE     ,
         PROG_FINISH     ,
-        _BANPEI_,
+        PROG_BANPEI,
     };
 
     LabelGecchi16Font* pLabel01_;
