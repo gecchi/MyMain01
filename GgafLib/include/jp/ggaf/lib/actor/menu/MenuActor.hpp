@@ -1176,8 +1176,6 @@ void MenuActor<T>::addSupCursor(GgafDxCore::GgafDxDrawableActor* prm_pCursorActo
                                  int prm_cursor_move_frames,
                                  float prm_cursor_move_p1,
                                  float prm_cursor_move_p2) {
-
-
     MenuActor<T>::SupCursor* pSupCursor = NEW MenuActor<T>::SupCursor();
     pSupCursor->_pActor = prm_pCursorActor;
     pSupCursor->_pActor->_alpha = T::_alpha;
@@ -1440,8 +1438,8 @@ void MenuActor<T>::riseMe() {
     for (int i = 0; i < _lstItems.length(); i++) {
         p = pElem->_pValue;
         p->position(T::_x + p->_x_local,
-                  T::_y + p->_y_local,
-                  T::_z + p->_z_local);
+                    T::_y + p->_y_local,
+                    T::_z + p->_z_local);
         p->setAlpha(T::getAlpha());
         p->activate();
         pElem = pElem->_pNext;

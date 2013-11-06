@@ -118,11 +118,14 @@ int GgafRepeatSeq::nextVal(std::string& ID) {
 #ifdef MY_DEBUG
     if (isExist(ID) ) {
 #endif
-        mapNowval[ID] = mapNowval[ID] + 1;
-        if (mapNowval[ID] > mapMaxval[ID]) {
+        int val = mapNowval[ID];
+        int next_val = val + 1;
+        if (next_val > mapMaxval[ID]) {
             mapNowval[ID] = mapMinval[ID];
+        } else {
+            mapNowval[ID] = next_val;
         }
-        return mapNowval[ID];
+        return val;
 #ifdef MY_DEBUG
     } else {
         throwGgafCriticalException("GgafRepeatSeq::nextVal() ID="<<ID<<"‚Í‘¶Ý‚µ‚Ü‚¹‚ñ");

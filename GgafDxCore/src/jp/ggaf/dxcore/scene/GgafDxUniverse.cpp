@@ -68,7 +68,6 @@ void GgafDxUniverse::SeArray::add(GgafDxSe* prm_pSe, int prm_volume, float prm_p
 void GgafDxUniverse::SeArray::play(int index) {
     _apSe[index]->play(_volume[index], _pan[index], _rate_frequency[index]);
     _apSe[index]->_pActor_LastPlayed = _apActor[index];
-
     _apActor[index] = nullptr;
     _apSe[index] = nullptr;
 }
@@ -145,7 +144,7 @@ void GgafDxUniverse::processSettlementBehavior() {
         }
         pSeArray->_p = 0; //ƒŠƒZƒbƒg
     }
-    GgafRepeatSeq::setMax(_seqkey_se_delay); //ŽŸ‚ÌnextVal‚Å0‚ð•Ô‚·ˆ×
+    GgafRepeatSeq::setMin(_seqkey_se_delay); //ŽŸ‚ÌnextVal‚Å0‚ð•Ô‚·ˆ×
 }
 
 void GgafDxUniverse::draw() {

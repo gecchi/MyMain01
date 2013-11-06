@@ -918,7 +918,7 @@ _frame_of_life(0),
 _frame_of_behaving(0),
 _frame_of_behaving_since_onActive(0),
 _is_active_flg(true),
-_is_active_in_the_tree_flg(true),
+_is_active_in_the_tree_flg(false),
 _was_paused_flg(false),
 _can_live_flg(true),
 _was_paused_flg_in_next_frame(false),
@@ -952,20 +952,11 @@ void GgafElement<T>::nextFrame() {
     if (!_was_paused_flg) {
         _frame_of_life++;
         if (_will_end_after_flg && _frame_of_life_when_end == _frame_of_life) {
-            //終了の時だ
-            _can_live_flg = false;
+            _can_live_flg = false; //終了の時だ
         }
-
         _on_change_to_active_flg = false;
         _on_change_to_inactive_flg = false;
-
         if (_can_live_flg) {
-            if (!_was_initialize_flg) {
-                initialize();       //初期化
-                _was_initialize_flg = true;
-                reset(); //リセット
-            }
-
             if (_is_active_flg) {  //現在activate
                 if (_frame_of_life == 1) { //現在activate で １フレーム目
                     _on_change_to_active_flg = true;  //onActive確定
@@ -1002,56 +993,59 @@ void GgafElement<T>::nextFrame() {
                 }
             }
             _is_already_reset = false;
-        }
 
-        updateActiveInTheTree();     //_is_active_in_the_tree_flg を更新
+            updateActiveInTheTree();     //_is_active_in_the_tree_flg を更新
 
-        if (_is_active_in_the_tree_flg) {
-            _frame_of_behaving++;
-            // 進捗を反映
-            if (_pProg) {
-                _pProg->update();
+            if (_is_active_in_the_tree_flg) {
+                _frame_of_behaving++;
+                // 進捗を反映
+                if (_pProg) {
+                    _pProg->update();
+                }
+                _frame_of_behaving_since_onActive++;
             }
-            _frame_of_behaving_since_onActive++;
-        }
-        //onActive処理
-        if (_on_change_to_active_flg) {
-            _frame_of_behaving_since_onActive = 1; //リセット
-            onActive(); //コールバック
-            _frame_of_life_when_activation = 0;
-            _will_activate_after_flg = false;
-        }
-        //onInactive処理
-        if (_on_change_to_inactive_flg) {
-            onInactive(); //コールバック
-            _frame_of_life_when_inactivation = 0;
-            _will_inactivate_after_flg = false;
+            //onActive処理
+            if (_on_change_to_active_flg) {
+                if (!_was_initialize_flg) {
+                    initialize();       //初期化
+                    _was_initialize_flg = true;
+                    reset(); //リセット
+                }
+                _frame_of_behaving_since_onActive = 1; //リセット
+                onActive(); //コールバック
+                _frame_of_life_when_activation = 0;
+                _will_activate_after_flg = false;
+            }
+            //onInactive処理
+            if (_on_change_to_inactive_flg) {
+                onInactive(); //コールバック
+                _frame_of_life_when_inactivation = 0;
+                _will_inactivate_after_flg = false;
+            }
         }
     }
 
-    //配下のnextFrame()実行
-    T* pElement = GgafNode<T>::_pSubFirst;
+    //配下の全ノードに再帰的にnextFrame()実行
+    T* pElement = GgafNode<T>::_pSubFirst; //一つ配下の先頭ノード
     if (pElement) {
-        while(true) {
-            if (pElement->_is_last_flg) {
-                //末尾
-                pElement->nextFrame();
-                if (pElement->_can_live_flg == false) {
-                    pElement->onEnd();
-                    GgafGarbageBox::_pGarbageBox->add(pElement); //ゴミ箱へ
-                }
-                break;
+        while(!pElement->_is_last_flg) {
+            //一つ配下の先頭～中間ノードに nextFrame()
+            pElement->nextFrame();
+            if (pElement->_can_live_flg) {
+                pElement = pElement->_pNext;
             } else {
-                //中間
-                pElement->nextFrame();
-                if (pElement->_can_live_flg == false) {
-                    pElement->onEnd();
-                    pElement = pElement->_pNext; //一個進ませて退避させてから
-                    GgafGarbageBox::_pGarbageBox->add(pElement->_pPrev); //一個前をゴミ箱へ(連結が切れる)
-                } else {
-                    pElement = pElement->_pNext;
-                }
+                pElement->onEnd();
+                pElement = pElement->_pNext; //一個進ませて退避させてから
+                GgafGarbageBox::_pGarbageBox->add(pElement->_pPrev); //一個前をゴミ箱へ(連結が切れる)
             }
+        }
+        //一つ配下の末尾ノードに nextFrame()
+        pElement->nextFrame();
+        if (pElement->_can_live_flg) {
+            //OK何もしない
+        } else {
+            pElement->onEnd();
+            GgafGarbageBox::_pGarbageBox->add(pElement); //ゴミ箱へ
         }
     }
 
@@ -1066,9 +1060,7 @@ void GgafElement<T>::nextFrame() {
 template<class T>
 void GgafElement<T>::behave() {
     if ( _is_active_flg && _is_active_in_the_tree_flg && _can_live_flg && !_was_paused_flg) {
-        if (_was_initialize_flg) {
-            processBehavior();    //ユーザー実装用
-        }
+        processBehavior();    //ユーザー実装用
         callRecursive(&GgafElement<T>::behave); //再帰
     }
 }
@@ -1076,9 +1068,7 @@ void GgafElement<T>::behave() {
 template<class T>
 void GgafElement<T>::settleBehavior() {
     if ( _is_active_flg && _is_active_in_the_tree_flg && _can_live_flg) { //_was_paused_flg は忘れていません
-        if (_was_initialize_flg) {
-            processSettlementBehavior(); //フレームワーク用
-        }
+        processSettlementBehavior(); //フレームワーク用
         callRecursive(&GgafElement<T>::settleBehavior); //再帰
     }
 }
@@ -1086,9 +1076,7 @@ void GgafElement<T>::settleBehavior() {
 template<class T>
 void GgafElement<T>::judge() {
     if ( _is_active_flg && _is_active_in_the_tree_flg && _can_live_flg && !_was_paused_flg) {
-        if (_was_initialize_flg) {
-            processJudgement();    //ユーザー実装用
-        }
+        processJudgement();    //ユーザー実装用
         callRecursive(&GgafElement<T>::judge); //再帰
     }
 }
@@ -1096,9 +1084,7 @@ void GgafElement<T>::judge() {
 template<class T>
 void GgafElement<T>::preDraw() {
     if ( _is_active_flg && _is_active_in_the_tree_flg && _can_live_flg) {
-        if (_was_initialize_flg) {
-            processPreDraw();
-        }
+        processPreDraw();
         callRecursive(&GgafElement<T>::preDraw); //再帰
     }
 }
@@ -1106,9 +1092,7 @@ void GgafElement<T>::preDraw() {
 template<class T>
 void GgafElement<T>::draw() {
     if ( _is_active_flg && _is_active_in_the_tree_flg && _can_live_flg) {
-        if (_was_initialize_flg) {
-            processDraw();
-        }
+        processDraw();
         callRecursive(&GgafElement<T>::draw); //再帰
     }
 }
@@ -1116,9 +1100,7 @@ void GgafElement<T>::draw() {
 template<class T>
 void GgafElement<T>::afterDraw() {
     if ( _is_active_flg && _is_active_in_the_tree_flg && _can_live_flg) {
-        if (_was_initialize_flg) {
-            processAfterDraw();
-        }
+        processAfterDraw();
         callRecursive(&GgafElement<T>::afterDraw); //再帰
     }
 }
@@ -1126,9 +1108,7 @@ void GgafElement<T>::afterDraw() {
 template<class T>
 void GgafElement<T>::doFinally() {
     if ( _is_active_flg && _is_active_in_the_tree_flg && _can_live_flg && !_was_paused_flg) {
-        if (_was_initialize_flg) {
-            processFinal();
-        }
+        processFinal();
         callRecursive(&GgafElement<T>::doFinally); //再帰
     }
 }

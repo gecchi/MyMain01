@@ -41,11 +41,9 @@ public:
     static bool isExist(std::string& ID);
     static bool isExist(const char* ID);
     /**
-     * 順序オブジェクトから次の値を採番する .
+     * 順序オブジェクトから採番し、内部カウントを次の値にセットしておく .
      * @param ID 作成時の順序オブジェクトID
-     * @return 前回値の＋１された値。
-     *         但し、生成直後は最小値を返す。
-     *         また、最大値の次を採番すると最小値を返す（戻る）。
+     * @return 現在の値
      */
     static int nextVal(std::string& ID);
     static int nextVal(const char* ID);
