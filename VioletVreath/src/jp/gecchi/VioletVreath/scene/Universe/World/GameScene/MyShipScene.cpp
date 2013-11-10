@@ -26,7 +26,7 @@ pMyShip_(nullptr),
 papOptionCtrler_(nullptr) {
     _class_name = "MyShipScene";
     pMyShip_ = NEW MyShip("MYSHIP");
-    pMyShip_->inactivateImmed(); //配下に仮登録のアクター発送者とかあるし
+    pMyShip_->inactivate(); //配下に仮登録のアクター発送者とかあるし
     papOptionCtrler_ = NEW MyOptionController*[MyOptionController::max_option_num_];
     for (int i = 0; i < MyOptionController::max_option_num_; i ++) {
         std::string name = "MyOpCtrler("+XTOS(i)+")";
@@ -66,7 +66,7 @@ papOptionCtrler_(nullptr) {
     getSceneDirector()->addSubGroup(pMyShip_);
 
     pEffectMyShipExplosion_ = NEW EffectMyShipExplosion("EffectMyShipExplosion");
-    pEffectMyShipExplosion_->inactivateImmed();
+    pEffectMyShipExplosion_->inactivate();
     getSceneDirector()->addSubGroup(pEffectMyShipExplosion_);
     pVamSysCamWorker_ = nullptr;
     //z_ = 0.99;//たぶん最背面 （0 <= z_ < 1.0）Z=(0～+1)
@@ -102,6 +102,7 @@ void MyShipScene::onReset() {
 }
 
 void MyShipScene::onActive() {
+    _TRACE_("MyShipScene onActive()");
 }
 
 void MyShipScene::processBehavior() {

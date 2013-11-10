@@ -72,7 +72,7 @@ void GgafProgress::changeProbab(uint32_t prm_p1, progress prm_progress1, ...) {
     uint32_t p_sum = (uint32_t)prm_p1;
     va_list args;
     va_start(args, prm_progress1);
-    while(p_sum < 100) {
+    while (p_sum < 100) {
         p_sum += va_arg(args, uint32_t);
 #ifdef MY_DEBUG
         if (p_sum > 100) {

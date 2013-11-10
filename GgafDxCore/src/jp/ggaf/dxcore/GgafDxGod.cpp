@@ -1941,7 +1941,7 @@ void GgafDxGod::presentUniversalVisualize() {
     if (_is_device_lost_flg) {
         _TRACE_("【デバイスロスト処理/リソース解放】協調性レベルチェック BEGIN ------>");
         //for(int i = 0; i < 300; i++) {
-        while(true) {
+        while (true) {
             if (_can_wddm) {
                 hr = ((IDirect3DDevice9Ex*)GgafDxGod::_pID3DDevice9)->CheckDeviceState(_pHWndPrimary);
                 if (hr == D3DERR_DEVICELOST || hr == S_PRESENT_OCCLUDED) {

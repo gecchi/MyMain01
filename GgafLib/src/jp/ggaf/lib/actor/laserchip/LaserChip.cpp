@@ -228,40 +228,35 @@ void LaserChip::processDraw() {
     LaserChip* pLaserChip = nullptr;
     int model_set_num = _pMeshSetModel->_set_num;
 
-    while (true) {
-        if (pDrawActor)  {
-            if (pDrawActor->_pModel == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
-                pLaserChip = (LaserChip*)pDrawActor;
+    while (pDrawActor) {
+        if (pDrawActor->_pModel == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
+            pLaserChip = (LaserChip*)pDrawActor;
+            //もしここらへんで意味不明なエラーになったら、
+            //GgafDxSpriteLaserChipActorの[MEMO]を読み直せ！
+            if (pLaserChip->_pChip_front) {
+                //自身ワールド変換行列
+                hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[draw_set_num], &(pLaserChip->_matWorld));
+                checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(g_matWorld) に失敗しました。");
+                //一つ前方のワールド変換行列
+                hr = pID3DXEffect->SetMatrix(this->_ah_matWorld_front[draw_set_num], &(pLaserChip->_pChip_front->_matWorld));
+                checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_h_matWorld_front) に失敗しました。1");
+                //チップ種別
+                hr = pID3DXEffect->SetInt(this->_ah_kind[draw_set_num], pLaserChip->_chip_kind);
+                checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetInt(_hKind) に失敗しました。2");
 
-                //もしここらへんで意味不明なエラーになったら、
-                //GgafDxSpriteLaserChipActorの[MEMO]を読み直せ！
-                if (pLaserChip->_pChip_front) {
-                    //自身ワールド変換行列
-                    hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[draw_set_num], &(pLaserChip->_matWorld));
-                    checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(g_matWorld) に失敗しました。");
-                    //一つ前方のワールド変換行列
-                    hr = pID3DXEffect->SetMatrix(this->_ah_matWorld_front[draw_set_num], &(pLaserChip->_pChip_front->_matWorld));
-                    checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_h_matWorld_front) に失敗しました。1");
-                    //チップ種別
-                    hr = pID3DXEffect->SetInt(this->_ah_kind[draw_set_num], pLaserChip->_chip_kind);
-                    checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetInt(_hKind) に失敗しました。2");
-
-                    hr = pID3DXEffect->SetFloat(this->_ah_force_alpha[draw_set_num], pLaserChip->_force_alpha);
-                    checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetFloat(_ah_force_alpha) に失敗しました。2");
-                } else {
-                    //先端チップは描画不要
-                    pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
-                    continue;
-                }
-
-                draw_set_num++;
-                if (draw_set_num >= model_set_num) {
-                    break;
-                }
-                pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
+                hr = pID3DXEffect->SetFloat(this->_ah_force_alpha[draw_set_num], pLaserChip->_force_alpha);
+                checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetFloat(_ah_force_alpha) に失敗しました。2");
             } else {
+                //先端チップは描画不要
+                pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
+                continue;
+            }
+
+            draw_set_num++;
+            if (draw_set_num >= model_set_num) {
                 break;
             }
+            pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
         } else {
             break;
         }

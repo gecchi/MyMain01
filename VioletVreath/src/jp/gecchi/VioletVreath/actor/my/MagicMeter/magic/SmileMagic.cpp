@@ -32,8 +32,13 @@ SmileMagic::SmileMagic(const char* prm_name, int* prm_pMP)
     lvinfo_[0].pno_ = 60;
 
     pMoji_ = NEW SpriteLabelTest("(^_^)");
-    pMoji_->inactivateImmed();
+    pMoji_->inactivate();
     addSubGroup(pMoji_);
+}
+
+void SmileMagic::onReset() {
+    Magic::onReset();
+    pMoji_->inactivate();
 }
 
 void SmileMagic::processCastBegin(int prm_now_level, int prm_new_level) {

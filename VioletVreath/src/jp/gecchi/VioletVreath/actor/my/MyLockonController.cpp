@@ -20,12 +20,12 @@ MyLockonController::MyLockonController(const char* prm_name) :
     _class_name = "MyLockonController";
     pRingTarget_ = NEW GgafLinkedListRing<GgafDxCore::GgafDxGeometricActor>();
     pMainLockonEffect_ = NEW EffectLockon001_Main("MAIN");
-    pMainLockonEffect_->inactivateImmed();
+    pMainLockonEffect_->inactivate();
     addSubLast(pMainLockonEffect_);
     for (int i = 1; i < MyLockonController::max_lockon_num_; i++) {
         std::string name = "SubLockon("+XTOS(i)+")";
         EffectLockon001_Sub* pSubLockon = NEW EffectLockon001_Sub(name.c_str());
-        pSubLockon->inactivateImmed();
+        pSubLockon->inactivate();
         addSubLast(pSubLockon);
     }
 }
@@ -173,7 +173,7 @@ void MyLockonController::releaseAllLockon() {
     pRingTarget_->removeAll();
     //ロックオンエフェクトをインアクティブにする
     GgafMainActor* pLockonEffect = (GgafMainActor*)getSubFirst();
-    while (true) {
+    while (pLockonEffect) {
         ((EffectLockon001*)pLockonEffect)->releaseLockon();
         if (pLockonEffect->isLast()) {
             break;

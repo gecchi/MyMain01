@@ -51,7 +51,7 @@ VreathMagic::VreathMagic(const char* prm_name, int* prm_pMP)
     lvinfo_[0].pno_ = 60;
 
     pEffect_ = NEW EffectVreathMagic001("EffectVreathMagic001");
-    pEffect_->inactivateImmed();
+    pEffect_->inactivate();
     addSubGroup(pEffect_);
 
     for (int i = 0; i <= MMETER_MAX_LEVEL; i++) {
@@ -115,6 +115,11 @@ VreathMagic::VreathMagic(const char* prm_name, int* prm_pMP)
     }
 }
 
+void VreathMagic::onReset() {
+    Magic::onReset();
+    pEffect_->inactivate();
+}
+
 void VreathMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
         pEffect_->positionAs(P_MYSHIP);
@@ -163,6 +168,8 @@ void VreathMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int 
 void VreathMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
     if ( prm_now_level > 0) {
     } else {
+        //レベル0へレベルダウン時
+        pEffect_->inactivate();
     }
 }
 void VreathMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {
@@ -176,8 +183,7 @@ void VreathMagic::processEffectingBehavior(int prm_last_level, int prm_now_level
         int add_vreath = apaInt_vreath_per_frame_[prm_now_level][f] * r_add_vreath_[prm_now_level];
         P_MYSHIP->_pStatus->plus(STAT_Stamina, add_vreath);
     } else {
-        //レベル0へレベルダウン時
-        pEffect_->inactivate();
+
     }
 }
 

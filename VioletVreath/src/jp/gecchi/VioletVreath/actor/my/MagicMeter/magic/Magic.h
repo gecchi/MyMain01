@@ -265,25 +265,25 @@ public:
 
     void init();
 
-    void initialize() override {}
+    virtual void initialize() override {}
 
-    void onReset() override;
+    virtual void onReset() override;
 
-    void nextFrame() override;
+    virtual void nextFrame() override;
 
-    void processBehavior() override;
+    virtual void processBehavior() override;
 
-    void processJudgement() override {}
+    virtual void processJudgement() override {}
 
-    void processDraw() override {}
+    virtual void processDraw() override {}
 
-    void processFinal() override {}
+    virtual void processFinal() override {}
 
-    void onCatchEvent(hashval prm_no, void* prm_pSource) override {}
+    virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {}
 
-    void save(std::stringstream& sts);
+    virtual void save(std::stringstream& sts);
 
-    void load(std::stringstream& sts);
+    virtual void load(std::stringstream& sts);
 
     /**
      * ârè•äJéné¿çs .

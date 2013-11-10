@@ -22,7 +22,7 @@ GgafGroupHead* FormationTableScene::addToTable(GgafFormation* prm_pFormationActo
         throwGgafCriticalException("FormationTableScene::addToTable() TreeFormation ˆÈŠO‚ª“o˜^‚³‚ê‚Ä‚¢‚Ü‚·B");
     }
     prm_pFormationActor->_offset_frames_end = FORMATION_END_DELAY;
-    prm_pFormationActor->inactivateImmed();
+    prm_pFormationActor->inactivate();
     _table.addLast(NEW TblElem(prm_pFormationActor, prm_max_delay_offset), true);
 
     return getSceneDirector()->addSubGroup(prm_pFormationActor);

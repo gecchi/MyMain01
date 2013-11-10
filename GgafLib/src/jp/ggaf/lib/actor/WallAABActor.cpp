@@ -87,23 +87,22 @@ void WallAABActor::processDraw() {
     GgafDxDrawableActor* pDrawActor = this;
     WallPartsActor* pWallPartsActor = nullptr;
     int model_set_num = _pMeshSetModel->_set_num;
-    while (true) {
-        if (pDrawActor)  {
-            if (pDrawActor->_pModel == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
-                pWallPartsActor = (WallPartsActor*)pDrawActor;
+    while (pDrawActor) {
+        if (pDrawActor->_pModel == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
+            pWallPartsActor = (WallPartsActor*)pDrawActor;
 //                _TRACE_("WallAABActor::processDraw() pWallPartsActor->_wall_draw_face="<<(pWallPartsActor->_wall_draw_face)<<" befor._matWorld._14="<<(pWallPartsActor->_matWorld._14));
 
-                //pWallPartsActor->_matWorld._14 = pWallPartsActor->_wall_draw_face;  //描画面番号をワールド変換行列のmatWorld._14 に埋め込む
+            //pWallPartsActor->_matWorld._14 = pWallPartsActor->_wall_draw_face;  //描画面番号をワールド変換行列のmatWorld._14 に埋め込む
 
-                hr = pID3DXEffect->SetInt(_ah_wall_draw_face[draw_set_num], pWallPartsActor->_wall_draw_face);
-                checkDxException(hr, D3D_OK, "WallPartsActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
+            hr = pID3DXEffect->SetInt(_ah_wall_draw_face[draw_set_num], pWallPartsActor->_wall_draw_face);
+            checkDxException(hr, D3D_OK, "WallPartsActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
 
-                hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[draw_set_num], &(pWallPartsActor->_matWorld));
-                checkDxException(hr, D3D_OK, "WallPartsActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
+            hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[draw_set_num], &(pWallPartsActor->_matWorld));
+            checkDxException(hr, D3D_OK, "WallPartsActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
 
-                //_set_num 19を18に、あるいは２とか３に減らしてみたはどうか
-                //FXをVS_2_0 に変えてみてはどうか
-                //
+            //_set_num 19を18に、あるいは２とか３に減らしてみたはどうか
+            //FXをVS_2_0 に変えてみてはどうか
+            //
 
 
 
@@ -114,14 +113,11 @@ void WallAABActor::processDraw() {
 //                _TRACE_(mat._41<<","<<mat._42<<","<<mat._43<<","<<mat._44);
 //                _TRACE_("------------");
 
-                draw_set_num++;
-                if (draw_set_num >= model_set_num) {
-                    break;
-                }
-                pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
-            } else {
+            draw_set_num++;
+            if (draw_set_num >= model_set_num) {
                 break;
             }
+            pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
         } else {
             break;
         }

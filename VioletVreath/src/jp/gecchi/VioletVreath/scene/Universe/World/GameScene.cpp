@@ -34,13 +34,13 @@ pStageWorld_(nullptr) {
     _class_name = "GameScene";
     useProgress(GameScene::PROG_BANPEI-1);
     pCommonScene_ = NEW CommonScene("Common");
-    pCommonScene_->inactivateImmed();
+    pCommonScene_->inactivate();
     addSubLast(pCommonScene_);
     pMyShip_Scene_ = NEW MyShipScene("MyShipScene");
-    pMyShip_Scene_->inactivateImmed();
+    pMyShip_Scene_->inactivate();
     addSubLast(pMyShip_Scene_);
     pStageWorld_ = new StageWorld("StageWorld");
-    pStageWorld_->inactivateImmed();
+    pStageWorld_->inactivate();
     addSubLast(pStageWorld_);
 
     pMenuBoardPause_ = NEW MenuBoardPause("MenuBoardPause");
@@ -78,7 +78,7 @@ void GameScene::onReset() {
         if (pSubScene) {
             pSubScene->resetTree();
             pSubScene->fadeinSceneTree(0);
-            pSubScene->inactivateImmed();
+            pSubScene->inactivate();
         }
     }
     P_UNIVERSE->resetCamWorker();

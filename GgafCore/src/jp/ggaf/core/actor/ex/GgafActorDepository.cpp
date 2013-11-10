@@ -25,7 +25,7 @@ void GgafActorDepository::put(GgafActor* prm_pSub) {
 #endif
     }
     prm_pSub->_pDependenceDepository = this;
-    prm_pSub->inactivateImmed(); //強制非活動に
+    prm_pSub->inactivate(); //強制非活動に _will_activate_after_flg = false; になる。
     GgafDummyActor::addSubLast(prm_pSub);
 }
 
@@ -35,15 +35,17 @@ void GgafActorDepository::onReset() {
         return;
     }
     GgafActor* pActor = getSubFirst();
-    while (true) {
+    while (pActor) {
+        pActor->reset();
         if (pActor->isActive()) {
             //TODO:・・・ちょっと悩みどころ
-            pActor->_on_change_to_inactive_flg = true;
+            pActor->inactivateImmed();
+            pActor->_will_activate_after_flg = false;
             pActor->onInactive();
-            pActor->_frame_of_life_when_inactivation = 0;
-            pActor->_will_inactivate_after_flg = false;
+        } else {
+            //TODO:・・・ちょっと悩みどころ
+            pActor->_will_activate_after_flg = false;
         }
-        pActor->inactivateImmed();
         if (pActor->isLast()) {
             break;
         } else {
@@ -65,16 +67,14 @@ void GgafActorDepository::end(frame prm_offset_frames) {
     _frame_of_life_when_end = _frame_of_life + end_frame_delay + GGAF_END_DELAY;
     inactivateDelay(prm_offset_frames); //指定フレームにはinactivateが行われるのは同じ
 
-    if (_pSubFirst) {
-        GgafActor* pElementTemp = _pSubFirst;
-        while(true) {
-            end_frame_delay -= 2;
-            pElementTemp->end(end_frame_delay);
-            if (pElementTemp->_is_last_flg) {
-                break;
-            } else {
-                pElementTemp = pElementTemp->_pNext;
-            }
+    GgafActor* pElementTemp = _pSubFirst;
+    while (pElementTemp) {
+        end_frame_delay -= 2;
+        pElementTemp->end(end_frame_delay);
+        if (pElementTemp->_is_last_flg) {
+            break;
+        } else {
+            pElementTemp = pElementTemp->_pNext;
         }
     }
 }

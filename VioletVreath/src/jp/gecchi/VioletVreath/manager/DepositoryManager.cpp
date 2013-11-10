@@ -136,7 +136,8 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     } else if (UTIL::strcmp_ascii("EnemyUnomia4Formation", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("EnemyUnomiaDepo");
         for (int i = 0; i < 800; i++) {
-            pResource->put(NEW EnemyUnomia("Unomia"));
+			std::string name = "Unomia["+XTOS(i)+"]";
+            pResource->put(NEW EnemyUnomia(name.c_str()));
             Sleep(1);
         }
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);

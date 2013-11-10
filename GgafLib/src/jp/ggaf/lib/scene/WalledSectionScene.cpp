@@ -139,6 +139,7 @@ void WalledSectionScene::processBehavior() {
                     }
                 }
                 if (pWallParts->isActiveInTheTree()) {
+                    //–³—‚â‚è‰¡Žæ‚è‚µ‚½
                     pWallParts->inactivateImmed();
                     pWallParts->onInactive();
                 }
@@ -151,6 +152,7 @@ void WalledSectionScene::processBehavior() {
                                     ((-_area_width/2)  + pWallInfo->_z) * _wall_width   );
                 pWallParts->activateImmed();
                 pWallParts->onActive();
+                pWallParts->_frame_of_behaving_since_onActive = 1; //ƒŠƒZƒbƒg
             }
             _pWallPartsLast = pWallParts;
             _frame_of_launch_next = (frame)(_wall_dep / parent_scroll_speed);

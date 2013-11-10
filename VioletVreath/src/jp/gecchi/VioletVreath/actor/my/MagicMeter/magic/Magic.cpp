@@ -146,7 +146,6 @@ void Magic::onReset() {
     lvinfo_[1].remainingtime_of_effect_ = 0;
     for (int i = 2; i <= max_level_; i++) {
         lvinfo_[i].remainingtime_of_effect_ = 0;
-        effect(0); //各魔法レベル0を実行
     }
     time_of_next_state_ = 0;
     temp_hold_status_ = -1;
@@ -370,7 +369,6 @@ int Magic::effect(int prm_level) {
         }
         case MAGIC_EFFECT_NOTHING: {
             if (prm_level == 0) {
-                //effect(0) の処理。コレは onResetで行われる初期化。
                 _TRACE_("Magic::effect("<<prm_level<<") ["<<getName()<<"] 判定→MAGIC_EFFECT_NOTHING、なにもしません");
             } else {
                 throwGgafCriticalException("Magic::effect("<<prm_level<<") "<<getName()<<" が MAGIC_EFFECT_NOTHING は、このタイミングであり得ないはずです。");
@@ -597,7 +595,7 @@ void Magic::processBehavior() {
             break;
         }
     }
-    } while(false); //<--break 脱出用、ここまで
+    }while(false); //<--break 脱出用、ここまで
 
 
     //_TRACE_("Magic::processBehavior() F="<<getBehaveingFrame()<<" after _pProg->get()="<<_pProg->get());

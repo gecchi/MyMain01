@@ -25,10 +25,14 @@ public:
      */
     void initialize() override;
 
+    void onActive() override;
+
     /**
      * ƒLƒƒƒ‰‚ÌU‚é•‘‚¢ˆ— .
      */
     void processBehavior() override;
+
+    void onInactive() override;
 
     virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 

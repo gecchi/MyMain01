@@ -184,10 +184,10 @@ P_COMMON_DEPO(Shot004) ( NEW GgafActorDepository("CommonDepo_Shot004") )
 //                std::stringstream name;
 //                name <<  "EnemyStraeaLaserChip002["<<nLaser<<"]["<<nChip<<"]";
 //                pChip = NEW EnemyStraeaLaserChip002(name.str().c_str());
-//                pChip->inactivateImmed();
+//                pChip->inactivate();
 //                pLaserChipDepo->addSubLast(pChip);
 //            }
-//            pLaserChipDepo->inactivateImmed();
+//            pLaserChipDepo->inactivate();
 //            pDepo_LaserChipDepository_->addSubLast(pLaserChipDepo);
 //        }
 //        getSceneDirector()->addSubGroup(pDepo_LaserChipDepository_);

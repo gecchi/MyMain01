@@ -67,7 +67,7 @@ MyOption::MyOption(const char* prm_name, uint32_t prm_no, MyOptionController* pr
 
     //レーザー発射エフェクト
 //    pEffect_LaserIrradiate_ = NEW EffectLockon001_Main("OP_Eff_Ref");
-//    pEffect_LaserIrradiate_->inactivateImmed();
+//    pEffect_LaserIrradiate_->inactivate();
 //    addSubGroup(pEffect_LaserIrradiate_);
     pEffect_LaserIrradiate_ = nullptr;
     pLaserChipDepo_ = NEW LaserChipDepository("ROTLaser");

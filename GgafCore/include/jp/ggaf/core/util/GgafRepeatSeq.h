@@ -25,7 +25,8 @@ public:
      * @param min Å¬’l
      * @param max Å‘å’l
      */
-    static void create(std::string ID, int min, int max);
+    static void create(std::string& ID, int min, int max);
+    static void create(const char* ID, int min, int max);
 
     static void set(std::string& ID, int val);
     static void set(const char* ID, int val);

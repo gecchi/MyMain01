@@ -34,9 +34,15 @@ SpeedMagic::SpeedMagic(const char* prm_name, int*prm_pMP)
     lvinfo_[0].pno_ = 126;
 
     pEffect_ = NEW EffectSpeedMagic("EffectSpeedMagic");
-    pEffect_->inactivateImmed();
+    pEffect_->inactivate();
     addSubGroup(pEffect_);
 }
+
+void SpeedMagic::onReset() {
+    Magic::onReset();
+    P_MYSHIP->setMoveSpeedLv((0+1)*2);
+}
+
 void SpeedMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
         pEffect_->positionAs(P_MYSHIP->pMyMagicEnergyCore_);
@@ -83,7 +89,7 @@ void SpeedMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int p
 }
 
 void SpeedMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
-    P_MYSHIP->setMoveSpeedLv((prm_now_level+1)*4);
+    P_MYSHIP->setMoveSpeedLv((prm_now_level+1)*2);
 }
 
 void SpeedMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {

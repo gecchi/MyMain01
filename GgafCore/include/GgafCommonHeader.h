@@ -87,7 +87,7 @@
             GgafCore::GgafLogger::writeln(ss); \
             (POINTER) = nullptr; \
         } \
-    } while(0)
+    }while(0)
 
     /** nullptr はありえない、普通の delete[] */
     #define GGAF_DELETEARR(POINTER) do { \
@@ -102,7 +102,7 @@
             GgafCore::GgafLogger::writeln(ss); \
             (POINTER) = nullptr; \
         } \
-    } while(0)
+    }while(0)
 
     /** nullptr かどうか不明な、特別な delete */
     #define GGAF_DELETE_NULLABLE(POINTER) do { \
@@ -113,7 +113,7 @@
         } else { \
             (POINTER) = nullptr; \
         } \
-    } while(0)
+    }while(0)
 
     /** nullptr かどうか不明な、特別な delete[] */
     #define GGAF_DELETEARR_NULLABLE(POINTER) do { \
@@ -124,7 +124,7 @@
         } else { \
             (POINTER) = nullptr; \
         } \
-    } while(0)
+    }while(0)
 
     /** nullptrかどうか不明なRelease() */
     #define GGAF_RELEASE_NULLABLE(POINTER) do { \
@@ -149,7 +149,7 @@
         } else { \
             (POINTER) = nullptr; \
         } \
-    } while(0)
+    }while(0)
 
     /** nullptrはありえないRelease() */
     #define GGAF_RELEASE(POINTER) do { \
@@ -178,7 +178,7 @@
             GgafCore::GgafLogger::writeln(ss); \
             (POINTER) = nullptr; \
         } \
-    } while(0)
+    }while(0)
 
     /** 自明で検査不要の何も言わないRelease() */
     #define GGAF_RELEASE_BY_FROCE(POINTER) do { \
@@ -188,7 +188,7 @@
         } else { \
             (POINTER) = nullptr; \
         } \
-    } while(0)
+    }while(0)
 
 #else
 //自分用リリースビルド時
@@ -291,8 +291,9 @@
                     "("<<(_frame_of_life_when_end==MAX_FRAME ? 0 : _frame_of_life_when_end)<<")"<< \
                     ","<< \
                     _will_mv_first_in_next_frame_flg<< \
-                    _will_mv_last_in_next_frame_flg
-
+                    _will_mv_last_in_next_frame_flg<< \
+                    ","<< \
+                    "prog="<<"("<<(_pProg?_pProg->_progress_prev:-9)<<")"<<(_pProg?_pProg->_progress:-9)<<"("<<(_pProg?_pProg->_progress_next:-9)<<")"
 
 /** 共通遅延解放フレーム数 */
 #define GGAF_END_DELAY (60*60)

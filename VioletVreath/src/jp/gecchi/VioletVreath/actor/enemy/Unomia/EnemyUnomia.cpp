@@ -38,7 +38,6 @@ void EnemyUnomia::initialize() {
 }
 
 void EnemyUnomia::onReset() {
-
 }
 
 void EnemyUnomia::config(
@@ -202,6 +201,10 @@ void EnemyUnomia::processJudgement() {
 }
 
 void EnemyUnomia::onHit(GgafActor* prm_pOtherActor) {
+    if (strcmp(_name, "Unomia[0]") == 0) {
+        _TRACE_("EnemyUnomia::onHit()");
+    }
+
     bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //”j‰óŽž

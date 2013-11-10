@@ -13,7 +13,7 @@ EffectLockon001::EffectLockon001(const char* prm_name, const char* prm_model_id)
         DefaultSpriteSetActor(prm_name, prm_model_id, nullptr) {
     _class_name = "EffectLockon001";
     pTarget_ = nullptr;
-    inactivateImmed();
+    inactivate();
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ワールド変換はビルボードでRz回転に強制
     effectBlendOne(); //エフェクトテクニックは加算合成に強制
     setZEnable(false);      //Zバッファは考慮無しに強制

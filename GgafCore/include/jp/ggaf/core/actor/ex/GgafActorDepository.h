@@ -93,7 +93,7 @@ public:
             //① レーザーチップのセット借り入れで、GgafActorDepositoryStore::dispatch() を行い、チップのセットのデポジトリを得たが、直ぐに使用せず１フレーム以上ほっといた後、
             //   得たデポジトリから、チップdispatch()しようとした場合。
             //     → この場合、以下の警告メッセージが連続で表示されることになるので修正しなければならない。
-            throwGgafCriticalException("GgafActorDepository::dispatch() this="<<getName()<<"("<<this<<") が非活動な雰囲気です。");
+            throwGgafCriticalException("GgafActorDepository::dispatch() this="<<getName()<<"("<<this<<") が非活動なデポジトリにdispatch()した雰囲気です。");
         }
 #endif
         frame offset_frames = (prm_offset_frames < 1 ? 1 : prm_offset_frames);
@@ -120,18 +120,17 @@ public:
     /**
      * 強制的にアクター取り出し .
      * アクター発送者の暇そうなサブメンバー（active中、またはactive予約されていない）が
-     * 居ない場合は、活動中のメンバーを無理やり取得する。<BR>
+     * 居ない場合は、活動中のメンバーを無理やり横取りして取得する。<BR>
      * dispatch() を試みて取り出せない場合、強制的にメンバー達の先頭メンバーを返します。<BR>
      * <b>＜注意＞</b><BR>
-     * 取り出し後、アクターに active() を実行しても、そのアクターが既に
-     * isActiveInTheTree() → true の状態もありうるため、onActive() コールバックは
-     * 呼ばれない可能性がある。<BR>
-     * 無理やりにonActive() コールバックを呼び出したい場合に次のようなコードに
-     * しなければいけないかも知れない。
+     * 取り出し後、アクターに active() を実行しても、そのアクターが既に活動状態の可能性があり、つまり
+     * isActiveInTheTree() → true の状態もありうるため、onActive() コールバックは呼ばれない可能性がある。<BR>
+     * 無理やりにonInctive(); onActive(); コールバックを呼び出したい場合に次のようなコードに
+     * しなければいけないかも知れない。<BR>
      * <pre><code>
      * GgafMainActor* pActor = pDepository->dispatchForce();
      * if (pActor->isActiveInTheTree()) {
-     *     pActor->inactivateImmed();
+     *     pActor->onInctive();
      *     pActor->_frame_of_behaving_since_onActive = 1;
      *     pActor->onActive();
      * }

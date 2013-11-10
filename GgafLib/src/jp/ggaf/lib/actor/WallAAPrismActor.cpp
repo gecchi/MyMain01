@@ -119,22 +119,18 @@ void WallAAPrismActor::processDraw() {
     GgafDxDrawableActor* pDrawActor = this;
     WallPartsActor* pWallPartsActor = nullptr;
     int model_set_num = _pMeshSetModel->_set_num;
-    while (true) {
-        if (pDrawActor)  {
-            if (pDrawActor->_pModel == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
-                pWallPartsActor = (WallPartsActor*)pDrawActor;
-                pWallPartsActor->_matWorld._14 = pWallPartsActor->_wall_draw_face;  //描画面番号をワールド変換行列のmatWorld._14 に埋め込む
-                pWallPartsActor->_matWorld._24 = pWallPartsActor->_pos_prism;  //プリズム位置情報ををワールド変換行列のmatWorld._24 に埋め込む
-                hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[draw_set_num], &(pWallPartsActor->_matWorld));
-                checkDxException(hr, D3D_OK, "WallAAPrismActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
-                draw_set_num++;
-                if (draw_set_num >= model_set_num) {
-                    break;
-                }
-                pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
-            } else {
+    while (pDrawActor) {
+        if (pDrawActor->_pModel == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
+            pWallPartsActor = (WallPartsActor*)pDrawActor;
+            pWallPartsActor->_matWorld._14 = pWallPartsActor->_wall_draw_face;  //描画面番号をワールド変換行列のmatWorld._14 に埋め込む
+            pWallPartsActor->_matWorld._24 = pWallPartsActor->_pos_prism;  //プリズム位置情報ををワールド変換行列のmatWorld._24 に埋め込む
+            hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[draw_set_num], &(pWallPartsActor->_matWorld));
+            checkDxException(hr, D3D_OK, "WallAAPrismActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
+            draw_set_num++;
+            if (draw_set_num >= model_set_num) {
                 break;
             }
+            pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
         } else {
             break;
         }

@@ -31,7 +31,7 @@ StageController::StageController(const char* prm_name) : DefaultScene(prm_name) 
     pStageMainCannel_ = nullptr;
 
     pTransitStage_ = NEW TransitStage("TransitStage");
-    pTransitStage_->inactivateImmed();
+    pTransitStage_->inactivate();
     addSubLast(pTransitStage_);
 
     _pSceneSymbol = NEW LabelSceneSymbol("LabelSceneSymbol");

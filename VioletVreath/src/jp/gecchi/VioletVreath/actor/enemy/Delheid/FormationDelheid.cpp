@@ -20,17 +20,17 @@ FormationDelheid::FormationDelheid(const char* prm_name)
     _class_name = "FormationDelheid";
 
     pAlisana_start = NEW EnemyAlisana("Alisana_START");
-    pAlisana_start->inactivateImmed();
+    pAlisana_start->inactivate();
     addSubGroup(pAlisana_start);
 
     pAlisana_goal = NEW EnemyAlisana("Alisana_GOAL");
-    pAlisana_goal->inactivateImmed();
+    pAlisana_goal->inactivate();
     addSubGroup(pAlisana_goal);
 
     //軌道計算用のダミー
     pDummy_ = NEW EnemyDelheid("DammyEnemyDelheid");
     pDummy_->pKurokoLeader_ = nullptr;
-    pDummy_->inactivateImmed();
+    pDummy_->inactivate();
     addSubGroup(pDummy_);
 
     //編隊隊員デポジトリセット

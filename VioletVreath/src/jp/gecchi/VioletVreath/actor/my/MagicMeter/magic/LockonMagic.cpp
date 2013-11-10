@@ -35,8 +35,13 @@ LockonMagic::LockonMagic(const char* prm_name, int* prm_pMP)
     lvinfo_[0].pno_ = 58;
 
     pEffect_ = NEW EffectLockonMagic("EffectLockonMagic");
-    pEffect_->inactivateImmed();
+    pEffect_->inactivate();
     addSubGroup(pEffect_);
+}
+
+void LockonMagic::onReset() {
+    Magic::onReset();
+    MyLockonController::lockon_num_ = 0;
 }
 
 void LockonMagic::processCastBegin(int prm_now_level, int prm_new_level) {

@@ -176,7 +176,7 @@ void GgafScene::inactivateTreeImmed() {
 
 void GgafScene::inactivateImmed() {
     GgafElement<GgafScene>::inactivateImmed();
-    _pSceneDirector->inactivateImmed();
+    _pSceneDirector->inactivate();
 }
 
 void GgafScene::pauseTree() {
@@ -253,16 +253,13 @@ void GgafScene::sayonara(frame prm_offset_frames) {
         GgafElement<GgafScene>::end(prm_offset_frames);
     }
 
-    GgafScene* pScene;
-    if (_pSubFirst) {
-        pScene = _pSubFirst;
-        while (true) {
-            pScene->sayonara(prm_offset_frames);
-            if (pScene->_is_last_flg) {
-                break;
-            } else {
-                pScene = pScene->_pNext;
-            }
+    GgafScene* pScene = _pSubFirst;
+    while (pScene) {
+        pScene->sayonara(prm_offset_frames);
+        if (pScene->_is_last_flg) {
+            break;
+        } else {
+            pScene = pScene->_pNext;
         }
     }
 }
@@ -297,18 +294,16 @@ void GgafScene::dump() {
     if (_pSceneDirector) {
         _pSceneDirector->dump();
         GgafScene* pScene_tmp = _pSubFirst;
-        if (_pSubFirst) {
-            while (true) {
-                pScene_tmp->dump("\t");
-                if (pScene_tmp->_pNext) {
-                    pScene_tmp = pScene_tmp->_pNext;
-                } else {
-                    _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
-                    break;
-                }
-                if (pScene_tmp->_is_first_flg) {
-                    break;
-                }
+        while (pScene_tmp) {
+            pScene_tmp->dump("\t");
+            if (pScene_tmp->_pNext) {
+                pScene_tmp = pScene_tmp->_pNext;
+            } else {
+                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
+                break;
+            }
+            if (pScene_tmp->_is_first_flg) {
+                break;
             }
         }
     }
@@ -319,18 +314,16 @@ void GgafScene::dump(std::string prm_parent) {
     if (_pSceneDirector) {
         _pSceneDirector->dump(prm_parent + "\t\t\t\t\t\t\t\t");
         GgafScene* pScene_tmp = _pSubFirst;
-        if (_pSubFirst) {
-            while (true) {
-                pScene_tmp->dump(prm_parent + "\t");
-                if (pScene_tmp->_pNext) {
-                    pScene_tmp = pScene_tmp->_pNext;
-                } else {
-                    _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
-                    break;
-                }
-                if (pScene_tmp->_is_first_flg) {
-                    break;
-                }
+        while (pScene_tmp) {
+            pScene_tmp->dump(prm_parent + "\t");
+            if (pScene_tmp->_pNext) {
+                pScene_tmp = pScene_tmp->_pNext;
+            } else {
+                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
+                break;
+            }
+            if (pScene_tmp->_is_first_flg) {
+                break;
             }
         }
     }

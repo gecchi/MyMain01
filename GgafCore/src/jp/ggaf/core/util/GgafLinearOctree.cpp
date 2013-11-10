@@ -237,7 +237,7 @@ void GgafLinearOctree::registerElem(GgafLinearOctreeElem* prm_pElem,
 
 void GgafLinearOctree::clearElem() {
     GgafLinearOctreeElem* pElem = _pRegElemFirst;
-    while(pElem) {
+    while (pElem) {
         pElem->clear();
         pElem = pElem->_pRegLinkNext;
     }

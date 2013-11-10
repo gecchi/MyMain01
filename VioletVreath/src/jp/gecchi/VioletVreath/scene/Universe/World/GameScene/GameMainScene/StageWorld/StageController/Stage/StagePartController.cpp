@@ -15,26 +15,21 @@ StagePartController::StagePartController(const char* prm_name) : DefaultScene(pr
 void StagePartController::fadeout_stop_AllPartSceneBgm() {
     _TRACE_("StagePartController::fadeout_stop_AllPartSceneBgm() ----->begin");
     GgafDxScene* pScene = (GgafDxScene*)(getSubFirst());
-    if (pScene) {
-        while(true) {
-            if (pScene->isLast()) {
-                if (pScene->_pBgmPerformer) {
-                    pScene->_pBgmPerformer->fadeout_stop();
-                }
-                break;
-            } else {
-                if (pScene->_pBgmPerformer) {
-
-                    pScene->_pBgmPerformer->fadeout_stop();
-                }
-                pScene = (GgafDxScene*)(pScene->getNext());
+    while (pScene) {
+        if (pScene->isLast()) {
+            if (pScene->_pBgmPerformer) {
+                pScene->_pBgmPerformer->fadeout_stop();
             }
+            break;
+        } else {
+            if (pScene->_pBgmPerformer) {
+                pScene->_pBgmPerformer->fadeout_stop();
+            }
+            pScene = (GgafDxScene*)(pScene->getNext());
         }
     }
     _TRACE_("StagePartController::fadeout_stop_AllPartSceneBgm() <---- end");
 }
-
-
 
 StagePartController::~StagePartController() {
 }

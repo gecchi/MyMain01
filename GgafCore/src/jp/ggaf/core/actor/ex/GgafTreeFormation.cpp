@@ -35,7 +35,7 @@ void GgafTreeFormation::addFormationMember(GgafActor* prm_pSub) {
     }
     prm_pSub->_pFormation = this; //メンバーへフォーメーションを設定
     GgafFormation::addSubLast(prm_pSub);
-    prm_pSub->inactivateImmed(); //フォーメーションなので
+    prm_pSub->inactivate(); //フォーメーションなので
 }
 
 void GgafTreeFormation::processFinal() {

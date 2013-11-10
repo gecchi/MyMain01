@@ -31,8 +31,13 @@ LaserMagic::LaserMagic(const char* prm_name, int* prm_pMP)
     lvinfo_[0].pno_ = 124;
 
     pEffect_ = NEW EffectLaserMagic("EffectLaserMagic");
-    pEffect_->inactivateImmed();
+    pEffect_->inactivate();
     addSubGroup(pEffect_);
+}
+
+void LaserMagic::onReset() {
+    Magic::onReset();
+    P_MYSHIP->can_shoot_laser_ = false;
 }
 
 void LaserMagic::processCastBegin(int prm_now_level, int prm_new_level) {

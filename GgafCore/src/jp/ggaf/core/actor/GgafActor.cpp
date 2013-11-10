@@ -32,16 +32,13 @@ GgafActor::~GgafActor() {
 
 void GgafActor::setPlatformScene(GgafScene* prm_pScene_platform) {
     _pScene_platform = prm_pScene_platform;
-    GgafActor* pActor_tmp;
-    if (_pSubFirst) {
-        pActor_tmp = _pSubFirst;
-        while (true) {
-            pActor_tmp->setPlatformScene(prm_pScene_platform);
-            if (pActor_tmp->_is_last_flg) {
-                break;
-            } else {
-                pActor_tmp = pActor_tmp->_pNext;
-            }
+    GgafActor* pActor_tmp = _pSubFirst;
+    while (pActor_tmp) {
+        pActor_tmp->setPlatformScene(prm_pScene_platform);
+        if (pActor_tmp->_is_last_flg) {
+            break;
+        } else {
+            pActor_tmp = pActor_tmp->_pNext;
         }
     }
 }
@@ -57,32 +54,26 @@ void GgafActor::setHitAble(bool prm_can_hit_flg) {
 void GgafActor::setHitAbleTree(bool prm_can_hit_flg, bool prm_can_hit_out_of_view_flg) {
     _can_hit_flg = prm_can_hit_flg;
     _can_hit_out_of_view = prm_can_hit_out_of_view_flg;
-    GgafActor* pActor_tmp;
-    if (_pSubFirst) {
-        pActor_tmp = _pSubFirst;
-        while (true) {
-            pActor_tmp->setHitAble(prm_can_hit_flg, prm_can_hit_out_of_view_flg);
-            if (pActor_tmp->_is_last_flg) {
-                break;
-            } else {
-                pActor_tmp = pActor_tmp->_pNext;
-            }
+    GgafActor* pActor_tmp = _pSubFirst;
+    while (pActor_tmp) {
+        pActor_tmp->setHitAble(prm_can_hit_flg, prm_can_hit_out_of_view_flg);
+        if (pActor_tmp->_is_last_flg) {
+            break;
+        } else {
+            pActor_tmp = pActor_tmp->_pNext;
         }
     }
 }
 
 void GgafActor::setHitAbleTree(bool prm_can_hit_flg) {
     _can_hit_flg = prm_can_hit_flg;
-    GgafActor* pActor_tmp;
-    if (_pSubFirst) {
-        pActor_tmp = _pSubFirst;
-        while (true) {
-            pActor_tmp->setHitAble(prm_can_hit_flg);
-            if (pActor_tmp->_is_last_flg) {
-                break;
-            } else {
-                pActor_tmp = pActor_tmp->_pNext;
-            }
+    GgafActor* pActor_tmp = _pSubFirst;
+    while (pActor_tmp) {
+        pActor_tmp->setHitAble(prm_can_hit_flg);
+        if (pActor_tmp->_is_last_flg) {
+            break;
+        } else {
+            pActor_tmp = pActor_tmp->_pNext;
         }
     }
 }
@@ -105,16 +96,13 @@ void GgafActor::sayonara(frame prm_offset_frames) {
     } else {
         end(prm_offset_frames);
     }
-    GgafActor* pActor;
-    if (_pSubFirst) {
-        pActor = _pSubFirst;
-        while (true) {
-            pActor->sayonara(prm_offset_frames);
-            if (pActor->_is_last_flg) {
-                break;
-            } else {
-                pActor = pActor->_pNext;
-            }
+    GgafActor* pActor = _pSubFirst;
+    while (pActor) {
+        pActor->sayonara(prm_offset_frames);
+        if (pActor->_is_last_flg) {
+            break;
+        } else {
+            pActor = pActor->_pNext;
         }
     }
 }
@@ -139,19 +127,17 @@ void GgafActor::dump() {
     _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"]"<<DUMP_FLGS);
 
     GgafActor* pActor_tmp = _pSubFirst;
-    if (_pSubFirst) {
-        while (true) {
-            pActor_tmp->dump("\t\t\t\t\t\t\t\tÅb");
-            if (pActor_tmp->_pNext) {
-                pActor_tmp = pActor_tmp->_pNext;
-            } else {
-                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
-                break;
-            }
-            if (pActor_tmp->_is_first_flg) {
-                _TRACE_("\t\t\t\t\t\t\t\tÑ§Ñü");
-                break;
-            }
+    while (pActor_tmp) {
+        pActor_tmp->dump("\t\t\t\t\t\t\t\tÅb");
+        if (pActor_tmp->_pNext) {
+            pActor_tmp = pActor_tmp->_pNext;
+        } else {
+            _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
+            break;
+        }
+        if (pActor_tmp->_is_first_flg) {
+            _TRACE_("\t\t\t\t\t\t\t\tÑ§Ñü");
+            break;
         }
     }
 }
@@ -159,19 +145,17 @@ void GgafActor::dump() {
 void GgafActor::dump(std::string prm_parent) {
     _TRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"]"<<DUMP_FLGS);
     GgafActor* pActor_tmp = _pSubFirst;
-    if (_pSubFirst) {
-        while (true) {
-            pActor_tmp->dump(prm_parent + "Åb");
-            if (pActor_tmp->_pNext) {
-                pActor_tmp = pActor_tmp->_pNext;
-            } else {
-                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
-                break;
-            }
-            if (pActor_tmp->_is_first_flg) {
-                _TRACE_(prm_parent+"Ñ§Ñü");
-                break;
-            }
+    while (pActor_tmp) {
+        pActor_tmp->dump(prm_parent + "Åb");
+        if (pActor_tmp->_pNext) {
+            pActor_tmp = pActor_tmp->_pNext;
+        } else {
+            _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
+            break;
+        }
+        if (pActor_tmp->_is_first_flg) {
+            _TRACE_(prm_parent+"Ñ§Ñü");
+            break;
         }
     }
 }

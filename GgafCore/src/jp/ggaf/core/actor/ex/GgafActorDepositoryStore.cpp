@@ -33,7 +33,10 @@ void GgafActorDepositoryStore::processFinal() {
             bool is_inactive_all = false; //全メンバーが非活動の場合true
             GgafMainActor* pActor = (GgafMainActor*)(pSubDepository->getSubFirst()->getPrev()); //お尻から見る(アクティブは後ろに回されているためブレイク確立が高い）
             while (true) {
-                if (pActor->_is_active_flg) {
+                if (pActor->_is_active_flg || pActor->_will_activate_after_flg) {
+                //dispatch の
+                //if (pActor->_is_active_flg == false && pActor->_will_activate_after_flg == false) {
+                //の対偶の条件で判定すること。
                     break;
                 }
                 if (pActor->_is_first_flg) {

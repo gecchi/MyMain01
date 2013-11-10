@@ -130,8 +130,11 @@ void GgafDxUniverse::registerSe(GgafDxSe* prm_pSe,
     //TODO:温めていたのにインベーダーエクストリームに先をこされてしまった(と思ってる)！！＋α新要素が欲しい。！！
 
     //SEの鳴るタイミングを 0～8フレームをずらしてバラつかせる
-    _pRing_pSeArray->getNext(prm_delay+1+(GgafRepeatSeq::nextVal(_seqkey_se_delay)))->
-                     add(prm_pSe, prm_volume, prm_pan, prm_rate_frequency, prm_pActor);
+    int delay = prm_delay+1+(GgafRepeatSeq::nextVal(_seqkey_se_delay));
+    if (delay > PROPERTY::MAX_SE_DELAY-1) {
+        delay = PROPERTY::MAX_SE_DELAY-1;
+    }
+    _pRing_pSeArray->getNext(delay)->add(prm_pSe, prm_volume, prm_pan, prm_rate_frequency, prm_pActor);
 }
 
 void GgafDxUniverse::processSettlementBehavior() {

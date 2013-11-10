@@ -24,7 +24,7 @@ void GgafLinearOctreeElem::clear() {
     //情報リセット
     uint32_t index = _pSpace_current->_my_index;
     GgafLinearOctreeSpace* paSpace = _pLinearOctree->_paSpace;
-    while(true) {
+    while (true) {
         if (paSpace[index]._kindinfobit == 0 ) {
             break;
         } else {
@@ -80,7 +80,7 @@ void GgafLinearOctreeElem::belongTo(GgafLinearOctreeSpace* prm_pSpace_target) {
     GgafLinearOctreeSpace* paSpace = _pLinearOctree->_paSpace;
     uint32_t this_kindbit = this->_kindbit;
     //親空間すべてに要素種別情報を流す
-    while(true) {
+    while (true) {
         if (paSpace[index]._kindinfobit & this_kindbit) {
             //もう種別情報が設定済みならば、それ以上の親も設定済みの為、抜ける
             break;

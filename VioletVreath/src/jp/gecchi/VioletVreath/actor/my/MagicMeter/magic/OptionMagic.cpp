@@ -42,9 +42,15 @@ OptionMagic::OptionMagic(const char* prm_name, int* prm_pMP)
     papEffect_ = NEW GgafDxDrawableActor*[max_level_];
     for (int i = 0; i < max_level_; i++) {
         papEffect_[i] = NEW EffectOptionMagic001("EF");
-        papEffect_[i]->inactivateImmed();
+        papEffect_[i]->inactivate();
         addSubGroup(papEffect_[i]);
     }
+}
+
+void OptionMagic::onReset() {
+    Magic::onReset();
+    turnoffOptionEffect();
+    MyOptionController::setNumOption(0);
 }
 
 void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
@@ -199,7 +205,7 @@ void OptionMagic::processEffectingBehavior(int prm_last_level, int prm_now_level
 void OptionMagic::turnoffOptionEffect() {
     _TRACE_(getBehaveingFrame()<<":OptionMagic::turnoffOptionEffect()");
     for (int i = 0; i < max_level_; i++) {
-        papEffect_[i]->inactivateImmed();
+        papEffect_[i]->inactivate();
     }
 }
 

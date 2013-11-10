@@ -44,19 +44,17 @@ GgafSceneDirector* GgafGroupHead::getSceneDirector() {
 
 void GgafGroupHead::setSceneDirector(GgafSceneDirector* prm_pSceneDirector) {
     _pSceneDirector = prm_pSceneDirector;
-    if (_pSubFirst) {
-        GgafActor* pActor = getSubFirst();
-        while (true) {
-            if (pActor->instanceOf(Obj_GgafMainActor)) {
-                ((GgafMainActor*)(pActor))->setSceneDirector(prm_pSceneDirector);
-            } else if (pActor->instanceOf(Obj_GgafGroupHead)) {
-                ((GgafGroupHead*)(pActor))->setSceneDirector(prm_pSceneDirector);
-            }
-            if (pActor->_is_last_flg) {
-                break;
-            } else {
-                pActor = pActor->getNext();
-            }
+    GgafActor* pActor = getSubFirst();
+    while (pActor) {
+        if (pActor->instanceOf(Obj_GgafMainActor)) {
+            ((GgafMainActor*)(pActor))->setSceneDirector(prm_pSceneDirector);
+        } else if (pActor->instanceOf(Obj_GgafGroupHead)) {
+            ((GgafGroupHead*)(pActor))->setSceneDirector(prm_pSceneDirector);
+        }
+        if (pActor->_is_last_flg) {
+            break;
+        } else {
+            pActor = pActor->getNext();
         }
     }
 }

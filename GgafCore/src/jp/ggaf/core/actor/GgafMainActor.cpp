@@ -40,39 +40,35 @@ void GgafMainActor::updateActiveInTheTree() {
 
 void GgafMainActor::setSceneDirector(GgafSceneDirector* prm_pSceneDirector) {
     _pSceneDirector = prm_pSceneDirector;
-    if (_pSubFirst) {
-        GgafActor* pActor = getSubFirst();
-        while (true) {
-            if (pActor->instanceOf(Obj_GgafMainActor)) {
-                ((GgafMainActor*)(pActor))->setSceneDirector(prm_pSceneDirector);
-            } else if (pActor->instanceOf(Obj_GgafGroupHead)) {
-                ((GgafGroupHead*)(pActor))->setSceneDirector(prm_pSceneDirector);
-            }
-            if (pActor->_is_last_flg) {
-                break;
-            } else {
-                pActor = pActor->getNext();
-            }
+    GgafActor* pActor = getSubFirst();
+    while (pActor) {
+        if (pActor->instanceOf(Obj_GgafMainActor)) {
+            ((GgafMainActor*)(pActor))->setSceneDirector(prm_pSceneDirector);
+        } else if (pActor->instanceOf(Obj_GgafGroupHead)) {
+            ((GgafGroupHead*)(pActor))->setSceneDirector(prm_pSceneDirector);
+        }
+        if (pActor->_is_last_flg) {
+            break;
+        } else {
+            pActor = pActor->getNext();
         }
     }
 }
 
 void GgafMainActor::setGroupHead(GgafGroupHead* prm_pGroupHead) {
     _pGroupHead = prm_pGroupHead;
-    if (_pSubFirst) {
-        GgafActor* pActor = getSubFirst();
-        while (true) {
-            if (pActor->instanceOf(Obj_GgafMainActor)) {
-                ((GgafMainActor*)(pActor))->setGroupHead(prm_pGroupHead);
-            } else if (pActor->instanceOf(Obj_GgafGroupHead)) {
-                //スルーする
-                //下位ツリーにGgafGroupHeadがあれば、そのツリーには影響させないこととする
-            }
-            if (pActor->_is_last_flg) {
-                break;
-            } else {
-                pActor = pActor->getNext();
-            }
+    GgafActor* pActor = getSubFirst();
+    while (pActor) {
+        if (pActor->instanceOf(Obj_GgafMainActor)) {
+            ((GgafMainActor*)(pActor))->setGroupHead(prm_pGroupHead);
+        } else if (pActor->instanceOf(Obj_GgafGroupHead)) {
+            //スルーする
+            //下位ツリーにGgafGroupHeadがあれば、そのツリーには影響させないこととする
+        }
+        if (pActor->_is_last_flg) {
+            break;
+        } else {
+            pActor = pActor->getNext();
         }
     }
 }

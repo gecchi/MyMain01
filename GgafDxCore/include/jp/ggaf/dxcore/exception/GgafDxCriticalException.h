@@ -11,7 +11,7 @@
             ss <<__FILE__<<"("<<__LINE__<<") : " << X; \
             throw GgafDxCore::GgafDxCriticalException(ss.str(),HR); \
         } \
-    } while(0)
+    }while(0)
 #else
     #define checkDxException(HR, OKVAL, X)
 #endif
@@ -20,7 +20,7 @@
     std::stringstream ss; \
     ss <<__FILE__<<"("<<__LINE__<<") : " << X; \
     throw GgafDxCore::GgafDxCriticalException(ss.str(),HR); \
-} while(0)
+}while(0)
 
 namespace GgafDxCore {
 

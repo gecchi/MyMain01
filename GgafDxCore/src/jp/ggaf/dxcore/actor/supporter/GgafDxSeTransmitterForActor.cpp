@@ -90,7 +90,9 @@ void GgafDxSeTransmitterForActor::play3D(int prm_id) {
     angle ang = UTIL::getAngle2D(fDist_VpVerticalCenter, -_pActor->_dest_from_vppln_front );
     float pan = ANG_COS(ang) * 0.9; //0.9は完全に右のみ或いは左のみから聞こえるのをやや緩和
 
-    int delay = (d / (pCam->_zf*PX_UNIT))*PROPERTY::MAX_SE_DELAY-10; //10フレーム底上げ
+    int delay = (d / DX_PX(pCam->_zf))*PROPERTY::MAX_SE_DELAY - 10; //10フレーム底上げ
+                                                                    //pCam->_zf はカメラの表示範囲の最遠距離
+                                                                    //最遠に位置したアクターのSEはMAX_SE_DELAYフレーム遅れる
     if (delay < 0) {
         delay = 0;
     } else if (delay > PROPERTY::MAX_SE_DELAY) {

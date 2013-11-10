@@ -14,7 +14,7 @@ using namespace VioletVreath;
 EffectCondensation001::EffectCondensation001(const char* prm_name) :
         DefaultSpriteSetActor(prm_name, "8/Lockon001", nullptr) {
     _class_name = "EffectCondensation001";
-    inactivateImmed();
+    inactivate();
     effectBlendOne(); //加算合成
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ビルボードRz回転
     setHitAble(false); //当たり判定無し

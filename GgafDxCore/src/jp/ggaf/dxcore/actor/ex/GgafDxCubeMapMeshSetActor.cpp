@@ -44,24 +44,20 @@ void GgafDxCubeMapMeshSetActor::processDraw() {
     GgafDxDrawableActor* pDrawActor = this;
     GgafDxCubeMapMeshSetActor* pCubeMapMeshSetActor = nullptr;
     int model_set_num = _pCubeMapMeshSetModel->_set_num;
-    while (true) {
-        if (pDrawActor)  {
-            if (pDrawActor->_pModel == _pCubeMapMeshSetModel && pDrawActor->_hash_technique == _hash_technique ) {
-                pCubeMapMeshSetActor = (GgafDxCubeMapMeshSetActor*)pDrawActor;
-                if (getCubeMapTexture() == pCubeMapMeshSetActor->getCubeMapTexture() &&
-                      (_reflectance-0.00001f < pCubeMapMeshSetActor->_reflectance && pCubeMapMeshSetActor->_reflectance < _reflectance+0.00001f)) {
-                    hr = pID3DXEffect->SetMatrix(_pCubeMapMeshSetEffect->_ah_matWorld[draw_set_num], &(pCubeMapMeshSetActor->_matWorld));
-                    checkDxException(hr, D3D_OK, "GgafDxMeshSetActor::processDraw() SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-                    hr = pID3DXEffect->SetValue(_pCubeMapMeshSetEffect->_ah_materialDiffuse[draw_set_num], &(pCubeMapMeshSetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
-                    checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() SetValue(g_colMaterialDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-                    draw_set_num++;
-                    if (draw_set_num >= model_set_num) {
-                        break;
-                    }
-                    pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
-                } else {
+    while (pDrawActor) {
+        if (pDrawActor->_pModel == _pCubeMapMeshSetModel && pDrawActor->_hash_technique == _hash_technique ) {
+            pCubeMapMeshSetActor = (GgafDxCubeMapMeshSetActor*)pDrawActor;
+            if (getCubeMapTexture() == pCubeMapMeshSetActor->getCubeMapTexture() &&
+                  (_reflectance-0.00001f < pCubeMapMeshSetActor->_reflectance && pCubeMapMeshSetActor->_reflectance < _reflectance+0.00001f)) {
+                hr = pID3DXEffect->SetMatrix(_pCubeMapMeshSetEffect->_ah_matWorld[draw_set_num], &(pCubeMapMeshSetActor->_matWorld));
+                checkDxException(hr, D3D_OK, "GgafDxMeshSetActor::processDraw() SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+                hr = pID3DXEffect->SetValue(_pCubeMapMeshSetEffect->_ah_materialDiffuse[draw_set_num], &(pCubeMapMeshSetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
+                checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() SetValue(g_colMaterialDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+                draw_set_num++;
+                if (draw_set_num >= model_set_num) {
                     break;
                 }
+                pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
             } else {
                 break;
             }

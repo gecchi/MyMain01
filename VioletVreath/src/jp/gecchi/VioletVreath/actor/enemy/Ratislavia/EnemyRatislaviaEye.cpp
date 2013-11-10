@@ -41,7 +41,7 @@ EnemyRatislaviaEye::EnemyRatislaviaEye(const char* prm_name, EnemyRatislavia* pr
     addSubGroup(pLaserChipDepo_);
 
     pEffect_ = NEW EffectRatislaviaEye001("EffectRatislaviaEye001");
-    pEffect_->inactivateImmed();
+    pEffect_->inactivate();
     addSubGroup(pEffect_);
 
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");

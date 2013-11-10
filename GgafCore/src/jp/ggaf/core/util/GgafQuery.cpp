@@ -61,7 +61,7 @@ void GgafQuery::exportToFile(std::string prm_file_name) {
             //ƒwƒbƒ_•¶š—ño—Í
             int c = 0;
             GgafRecord::iterator it = r->begin();
-            while( it != r->end() ) {
+            while ( it != r->end() ) {
                 if (it == r->begin()) {
                     ofs << ((*it).first);
                 } else {

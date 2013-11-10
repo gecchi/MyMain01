@@ -12,7 +12,7 @@ FormationEtis001::FormationEtis001(const char* prm_name) : TreeFormation(prm_nam
     _class_name = "FormationEtis001";
     for (int i = 0; i < NUM_ETIS_FORMATION001; i++) {
         apEnemyEtis_[i] = NEW EnemyEtis("Etis01");
-        apEnemyEtis_[i]->inactivateImmed();
+        apEnemyEtis_[i]->inactivate();
         addFormationMember(apEnemyEtis_[i] );
     }
 }

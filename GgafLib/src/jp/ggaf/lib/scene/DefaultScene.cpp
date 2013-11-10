@@ -43,7 +43,7 @@ DefaultScene* DefaultScene::getNearestScrollingScene() {
         return this;
     } else {
         GgafScene* pScene = this;
-        while(true) {
+        while (true) {
             pScene = pScene->getParent();
             if (pScene) {
                 if (pScene->instanceOf(Obj_DefaultScene)) {
@@ -64,7 +64,7 @@ WalledScene* DefaultScene::getNearestWalledScene() {
         return (WalledScene*)this;
     } else {
         GgafScene* pScene = this;
-        while(true) {
+        while (true) {
             pScene = pScene->getParent();
             if (pScene) {
                 if (pScene->instanceOf(Obj_WalledScene)) {

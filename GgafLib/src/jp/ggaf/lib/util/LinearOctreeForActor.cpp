@@ -31,7 +31,7 @@ void LinearOctreeForActor::executeHitChk(uint32_t prm_index) {
     LinearOctreeActorElem* pElem = ((LinearOctreeActorElem*)(_paSpace[prm_index]._pElem_first));
     GgafLinearOctreeElem* pElem_last = _paSpace[prm_index]._pElem_last;
     if (pElem) {
-        while(true) {
+        while (true) {
             if (pElem->_kindbit & _kind_groupA) {
                 _stackCurrentSpaceActor_GroupA.push(pElem->_pActor);
             }
@@ -63,22 +63,14 @@ void LinearOctreeForActor::executeHitChk(uint32_t prm_index) {
         //(現空間スタックも開放)
         int stackParentSpaceActor_GroupA_p = _stackParentSpaceActor_GroupA._p; //スタックポインタ保存
         int stackParentSpaceActor_GroupB_p = _stackParentSpaceActor_GroupB._p;
+
         GgafActor* pActor;
-        while (true) {
-            pActor = _stackCurrentSpaceActor_GroupA.pop();
-            if (pActor) {
-                _stackParentSpaceActor_GroupA.push(pActor);
-            } else {
-                break;
-            }
+        while (pActor = _stackCurrentSpaceActor_GroupA.pop()) { //  I know "=" , not "=="
+            _stackParentSpaceActor_GroupA.push(pActor);
         }
-        while (true) {
-            pActor = _stackCurrentSpaceActor_GroupB.pop();
-            if (pActor) {
-                _stackParentSpaceActor_GroupB.push(pActor);
-            } else {
-                break;
-            }
+
+        while (pActor = _stackCurrentSpaceActor_GroupB.pop()) { //  I know "=" , not "=="
+            _stackParentSpaceActor_GroupB.push(pActor);
         }
 
         //子空間へもぐるが良い

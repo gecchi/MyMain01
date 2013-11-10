@@ -13,7 +13,7 @@ using namespace VioletVreath;
 EffectWormhole001::EffectWormhole001(const char* prm_name) :
         EffectWormhole(prm_name, "8/EffectWormhole001") {
     _class_name = "EffectWormhole001";
-    inactivateImmed();
+    inactivate();
     effectBlendOne(); //加算合成
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ビルボードRz回転
     setHitAble(false); //当たり判定無し

@@ -30,7 +30,7 @@ Formation001<T>::Formation001(const char* prm_name, GgafCore::GgafActorDepositor
         T* pActor;
         for (int i = 0; i < ACTOR_NUM_FORMATION001; i++) {
             pActor = NEW T("Actor_Formation001");
-            pActor->inactivateImmed(); //Å‰”ñ•\Ž¦
+            pActor->inactivate(); //Å‰”ñ•\Ž¦
             pDepo_->addSubLast(pActor);
         }
     } else {

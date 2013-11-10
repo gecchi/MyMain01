@@ -45,7 +45,7 @@ void GameDemoScene::onReset() {
     int cnt = (int)(G_RANKING.getCount());
     for (int i = 0; i < cnt; i++) {
         papLabel_Ranking_[i]->update("");
-        papLabel_Ranking_[i]->inactivateImmed();
+        papLabel_Ranking_[i]->inactivate();
     }
 //    fadeinScene(0);
 }

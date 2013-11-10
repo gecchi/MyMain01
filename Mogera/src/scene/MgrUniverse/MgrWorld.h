@@ -38,6 +38,8 @@ public:
     GgafLib::PxQuantity qtyMp_;
     int mp_;
 //    GgafLib::PxQuantity* pBarVal_;
+
+    static std::string key_;
     /**
      * コンストラクタ .
      * @param prm_name 名称

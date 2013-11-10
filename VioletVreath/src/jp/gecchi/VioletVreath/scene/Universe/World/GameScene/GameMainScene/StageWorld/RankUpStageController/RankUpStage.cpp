@@ -25,7 +25,7 @@ RankUpStage::RankUpStage(const char* prm_name) : DefaultScene(prm_name) {
     _obj_class |= Obj_RankUpStage;
 
     pWorldBoundSpace_  = NEW WorldBoundSpaceRankUp("BG_RankUp");
-    pWorldBoundSpace_->inactivateImmed();
+    pWorldBoundSpace_->inactivate();
     getSceneDirector()->addSubGroup(pWorldBoundSpace_);
     pHoshiBoshi_ = NEW HoshiBoshiRankUp("HoshiBoshiRankUp");
     getSceneDirector()->addSubGroup( pHoshiBoshi_);

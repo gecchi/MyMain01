@@ -43,7 +43,7 @@ void GgafDxScene::fadeinSceneTree(int prm_frame_fade) {
         }
 #endif
         GgafDxScene* pScene = (GgafDxScene*)getSubFirst();
-        while(true) {
+        while (true) {
             pScene->fadeinSceneTree(prm_frame_fade);
             if (pScene->isLast()) {
                 break;
@@ -83,7 +83,7 @@ void GgafDxScene::fadeoutSceneTree(int prm_frame_fade) {
         }
 #endif
         GgafDxScene* pScene = (GgafDxScene*)getSubFirst();
-        while(true) {
+        while (true) {
             pScene->fadeoutSceneTree(prm_frame_fade);
             if (pScene->isLast()) {
                 break;
@@ -133,7 +133,7 @@ void GgafDxScene::fadeoutSceneWithBgmTree(int prm_frame_fade) {
         }
 #endif
         GgafDxScene* pScene = (GgafDxScene*)getSubFirst();
-        while(true) {
+        while (true) {
             pScene->fadeoutSceneWithBgmTree(prm_frame_fade);
             if (pScene->isLast()) {
                 break;

@@ -29,7 +29,7 @@ void LaserChipDepository::config(int prm_num_continual_dispatch_max,
     _num_chip_interval = prm_num_chip_interval;
     _pEffectActor_Irradiate = prm_pEffectActor_Irradiate;
     if (_pEffectActor_Irradiate) {
-        _pEffectActor_Irradiate->inactivateImmed();
+        _pEffectActor_Irradiate->inactivate();
     }
 }
 

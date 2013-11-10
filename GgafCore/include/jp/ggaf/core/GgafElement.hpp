@@ -41,14 +41,12 @@ private:
      */
     inline void callRecursive(void (GgafElement<T>::*pFunc)()) {
         T* pElementTemp = GgafNode<T>::_pSubFirst;
-        if (pElementTemp) {
-            while(true) {
-                (pElementTemp->*pFunc)(); //実行
-                if (pElementTemp->_is_last_flg) {
-                    break;
-                } else {
-                    pElementTemp = pElementTemp->_pNext;
-                }
+        while (pElementTemp) {
+            (pElementTemp->*pFunc)(); //実行
+            if (pElementTemp->_is_last_flg) {
+                break;
+            } else {
+                pElementTemp = pElementTemp->_pNext;
             }
         }
     }
@@ -60,14 +58,12 @@ private:
      */
     inline void callRecursive(void (GgafElement<T>::*pFunc)(frame), frame prm_frame) {
         T* pElementTemp = GgafNode<T>::_pSubFirst;
-        if (pElementTemp) {
-            while(true) {
-                (pElementTemp->*pFunc)(prm_frame); //実行
-                if (pElementTemp->_is_last_flg) {
-                    break;
-                } else {
-                    pElementTemp = pElementTemp->_pNext;
-                }
+        while (pElementTemp) {
+            (pElementTemp->*pFunc)(prm_frame); //実行
+            if (pElementTemp->_is_last_flg) {
+                break;
+            } else {
+                pElementTemp = pElementTemp->_pNext;
             }
         }
     }
@@ -917,15 +913,15 @@ _was_initialize_flg(false),
 _frame_of_life(0),
 _frame_of_behaving(0),
 _frame_of_behaving_since_onActive(0),
-_is_active_flg(true),
+_is_active_flg(false),
 _is_active_in_the_tree_flg(false),
 _was_paused_flg(false),
 _can_live_flg(true),
 _was_paused_flg_in_next_frame(false),
 _will_end_after_flg(false),
 _frame_of_life_when_end(MAX_FRAME),
-_will_activate_after_flg(false),
-_frame_of_life_when_activation(0),
+_will_activate_after_flg(true),    //初回フレームにアクティブになるため
+_frame_of_life_when_activation(1), //初回フレームにアクティブになるために1
 _will_inactivate_after_flg(false),
 _frame_of_life_when_inactivation(0),
 _on_change_to_active_flg(false),
@@ -958,38 +954,21 @@ void GgafElement<T>::nextFrame() {
         _on_change_to_inactive_flg = false;
         if (_can_live_flg) {
             if (_is_active_flg) {  //現在activate
-                if (_frame_of_life == 1) { //現在activate で １フレーム目
-                    _on_change_to_active_flg = true;  //onActive確定
-                } else { //現在activate で ２フレーム目以降
-
-                    if (_will_inactivate_after_flg) {  //現在activate で、２フレーム目以降で、
-                                                       //さらに inactivate予定
-                        if (_frame_of_life == _frame_of_life_when_inactivation) { //現在activate で、２フレーム目以降で、
-                                                                                  //inactivate予定で、今inactivateになる時が来た
-                            _is_active_flg = false; //活動フラグOFF
-                            _on_change_to_inactive_flg = true; //onInactive確定
-                        } else { //現在activate で、２フレーム目以降で、inactivate予定だが、
-                                 //未だinactivateになる時ではなかった
-                            //特に何もない
-                        }
-                    } else { //現在activate で、２フレーム目以降で、
-                             //さらに inactivateもありゃしません。
-                        //特に何もない
+                if (_will_inactivate_after_flg) {  //現在activate で、２フレーム目以降で、
+                                                   //さらに inactivate予定
+                    if (_frame_of_life == _frame_of_life_when_inactivation) { //現在activate で、２フレーム目以降で、
+                                                                              //inactivate予定で、今inactivateになる時が来た
+                        _is_active_flg = false; //活動フラグOFF
+                        _on_change_to_inactive_flg = true; //onInactive確定
                     }
                 }
             } else { //現在inactivate
                 if (_will_activate_after_flg) { //現在inactivate だが、activate予定。
-
                     if(_frame_of_life == _frame_of_life_when_activation) { //現在inactivate だが、activate予定
                                                                            //そして、activateになる時が来た
                         _is_active_flg = true; //活動フラグON
                         _on_change_to_active_flg = true;  //onActive処理
-                    } else { //現在inactivate だが、activate予定
-                             //そして、まだactivateになる時は来ない
-                        //特に何もない
                     }
-                } else {  //現在inactivate で、activate予定も無し・・・
-                    //特に何もない
                 }
             }
             _is_already_reset = false;
@@ -1028,7 +1007,7 @@ void GgafElement<T>::nextFrame() {
     //配下の全ノードに再帰的にnextFrame()実行
     T* pElement = GgafNode<T>::_pSubFirst; //一つ配下の先頭ノード
     if (pElement) {
-        while(!pElement->_is_last_flg) {
+        while (!pElement->_is_last_flg) {
             //一つ配下の先頭～中間ノードに nextFrame()
             pElement->nextFrame();
             if (pElement->_can_live_flg) {
@@ -1059,7 +1038,7 @@ void GgafElement<T>::nextFrame() {
 
 template<class T>
 void GgafElement<T>::behave() {
-    if ( _is_active_flg && _is_active_in_the_tree_flg && _can_live_flg && !_was_paused_flg) {
+    if (_is_active_in_the_tree_flg && !_was_paused_flg) {
         processBehavior();    //ユーザー実装用
         callRecursive(&GgafElement<T>::behave); //再帰
     }
@@ -1067,7 +1046,7 @@ void GgafElement<T>::behave() {
 
 template<class T>
 void GgafElement<T>::settleBehavior() {
-    if ( _is_active_flg && _is_active_in_the_tree_flg && _can_live_flg) { //_was_paused_flg は忘れていません
+    if (_is_active_in_the_tree_flg) { //_was_paused_flg は忘れていません
         processSettlementBehavior(); //フレームワーク用
         callRecursive(&GgafElement<T>::settleBehavior); //再帰
     }
@@ -1075,7 +1054,7 @@ void GgafElement<T>::settleBehavior() {
 
 template<class T>
 void GgafElement<T>::judge() {
-    if ( _is_active_flg && _is_active_in_the_tree_flg && _can_live_flg && !_was_paused_flg) {
+    if (_is_active_in_the_tree_flg && !_was_paused_flg) {
         processJudgement();    //ユーザー実装用
         callRecursive(&GgafElement<T>::judge); //再帰
     }
@@ -1083,7 +1062,7 @@ void GgafElement<T>::judge() {
 
 template<class T>
 void GgafElement<T>::preDraw() {
-    if ( _is_active_flg && _is_active_in_the_tree_flg && _can_live_flg) {
+    if (_is_active_in_the_tree_flg) {
         processPreDraw();
         callRecursive(&GgafElement<T>::preDraw); //再帰
     }
@@ -1091,7 +1070,7 @@ void GgafElement<T>::preDraw() {
 
 template<class T>
 void GgafElement<T>::draw() {
-    if ( _is_active_flg && _is_active_in_the_tree_flg && _can_live_flg) {
+    if (_is_active_in_the_tree_flg) {
         processDraw();
         callRecursive(&GgafElement<T>::draw); //再帰
     }
@@ -1099,7 +1078,7 @@ void GgafElement<T>::draw() {
 
 template<class T>
 void GgafElement<T>::afterDraw() {
-    if ( _is_active_flg && _is_active_in_the_tree_flg && _can_live_flg) {
+    if (_is_active_in_the_tree_flg) {
         processAfterDraw();
         callRecursive(&GgafElement<T>::afterDraw); //再帰
     }
@@ -1107,7 +1086,7 @@ void GgafElement<T>::afterDraw() {
 
 template<class T>
 void GgafElement<T>::doFinally() {
-    if ( _is_active_flg && _is_active_in_the_tree_flg && _can_live_flg && !_was_paused_flg) {
+    if (_is_active_in_the_tree_flg && !_was_paused_flg) {
         processFinal();
         callRecursive(&GgafElement<T>::doFinally); //再帰
     }
@@ -1160,7 +1139,14 @@ void GgafElement<T>::activateTree() {
 template<class T>
 void GgafElement<T>::activateImmed() {
     if (_can_live_flg) {
+        if (!_was_initialize_flg) {
+            initialize();       //初期化
+            _was_initialize_flg = true;
+            reset(); //リセット
+        }
         _is_active_flg = true;
+        _will_activate_after_flg = true;
+        updateActiveInTheTree();
     }
 }
 
@@ -1190,6 +1176,13 @@ void GgafElement<T>::activateDelay(frame prm_offset_frames) {
 #endif
         //既にinactivateDelay()実行済みの場合は
         //そのinactivateDelay()は無効化される。
+        //
+        //inactivate();
+        //activate();
+        //の順に実行すると、activate() が無条件で勝つ
+        //activate();
+        //inactivate();
+        //の順に実行すると、inactivate() が勝つ
         _will_inactivate_after_flg = false;
 
         //既にactivateDelay()実行済みの場合は、今回指定算フレームで上書きする（後勝ち）。
@@ -1262,7 +1255,12 @@ void GgafElement<T>::inactivateDelay(frame prm_offset_frames) {
         if (_will_activate_after_flg) {
             //既にactivateDelay()実行済みの場合
             if (_frame_of_life_when_activation >= _frame_of_life + prm_offset_frames) {
-                //inactive 予定よりも後に active 予定ならば、(activeにはならないため)無効にする。
+                //inactive と同フレーム、または inactive 予定よりも後に active 予定ならば、
+                //(activeにはならないようにするため)_will_activate_after_flg を無効にする。
+                //
+                //activate();
+                //inactivate();
+                //の順に実行すると、inactivate() が勝つ
                 _will_activate_after_flg = false;
             }
         }
@@ -1296,8 +1294,16 @@ void GgafElement<T>::inactivateTreeDelay(frame prm_offset_frames) {
 
 template<class T>
 void GgafElement<T>::inactivateImmed() {
+#ifdef MY_DEBUG
+    if (_frame_of_life == 0) {
+        throwGgafCriticalException("inactivateImmed() アクター生成後すぐにinactivateImmed()することは無意味でおかしい。 name="<<GgafNode<T>::_name<<" this="<<this);
+    }
+#endif
     if (_can_live_flg) {
         _is_active_flg = false;
+        _will_inactivate_after_flg = true;
+        _frame_of_life_when_inactivation = _frame_of_life;
+        updateActiveInTheTree();
     }
 }
 
@@ -1387,15 +1393,13 @@ void GgafElement<T>::end(frame prm_offset_frames) {
     inactivateDelay(prm_offset_frames);
     //指定フレーム時には、まずinactivateが行われ、+GGAF_END_DELAY フレーム後 _can_live_flg = falseになる。
     //onEnd()は _can_live_flg = false 時発生
-    if (GgafNode<T>::_pSubFirst) {
-        T* pElementTemp = GgafNode<T>::_pSubFirst;
-        while(true) {
-            pElementTemp->end(prm_offset_frames);
-            if (pElementTemp->_is_last_flg) {
-                break;
-            } else {
-                pElementTemp = pElementTemp->_pNext;
-            }
+    T* pElementTemp = GgafNode<T>::_pSubFirst;
+    while (pElementTemp) {
+        pElementTemp->end(prm_offset_frames);
+        if (pElementTemp->_is_last_flg) {
+            break;
+        } else {
+            pElementTemp = pElementTemp->_pNext;
         }
     }
 }
@@ -1406,7 +1410,7 @@ bool GgafElement<T>::isActive() {
 }
 template<class T>
 bool GgafElement<T>::isActiveInTheTree() {
-    return ( _is_active_flg && _is_active_in_the_tree_flg && _can_live_flg) ? true : false;
+    return (_is_active_in_the_tree_flg && _can_live_flg) ? true : false;
 }
 
 template<class T>
@@ -1448,7 +1452,7 @@ void GgafElement<T>::clean(int prm_num_cleaning) {
     T* pElementTemp = GgafNode<T>::_pSubFirst->_pPrev;
     T* pWk;
 
-    while(GgafGarbageBox::_cnt_cleaned < prm_num_cleaning) {
+    while (GgafGarbageBox::_cnt_cleaned < prm_num_cleaning) {
         if (pElementTemp->_pSubFirst) {
             //子の子がまだのっている場合さらにもぐる
             pElementTemp->clean(prm_num_cleaning);
@@ -1502,15 +1506,13 @@ void GgafElement<T>::executeFuncLowerTree(void (*pFunc)(GgafObject*, void*, void
         } else {
 
         }
-        if (GgafNode<T>::_pSubFirst) {
-            T* pElementTemp = GgafNode<T>::_pSubFirst;
-            while(true) {
-                pElementTemp->executeFuncLowerTree(pFunc, prm1, prm2);
-                if (pElementTemp->_is_last_flg) {
-                    break;
-                } else {
-                    pElementTemp = pElementTemp->_pNext;
-                }
+        T* pElementTemp = GgafNode<T>::_pSubFirst;
+        while (pElementTemp) {
+            pElementTemp->executeFuncLowerTree(pFunc, prm1, prm2);
+            if (pElementTemp->_is_last_flg) {
+                break;
+            } else {
+                pElementTemp = pElementTemp->_pNext;
             }
         }
     }
@@ -1520,15 +1522,13 @@ template<class T>
 void GgafElement<T>::throwEventLowerTree(hashval prm_no, void* prm_pSource) {
     if (_can_live_flg) {
         onCatchEvent(prm_no, prm_pSource);
-        if (GgafNode<T>::_pSubFirst) {
-            T* pElementTemp = GgafNode<T>::_pSubFirst;
-            while(true) {
-                pElementTemp->throwEventLowerTree(prm_no, prm_pSource);
-                if (pElementTemp->_is_last_flg) {
-                    break;
-                } else {
-                    pElementTemp = pElementTemp->_pNext;
-                }
+        T* pElementTemp = GgafNode<T>::_pSubFirst;
+        while (pElementTemp) {
+            pElementTemp->throwEventLowerTree(prm_no, prm_pSource);
+            if (pElementTemp->_is_last_flg) {
+                break;
+            } else {
+                pElementTemp = pElementTemp->_pNext;
             }
         }
     }

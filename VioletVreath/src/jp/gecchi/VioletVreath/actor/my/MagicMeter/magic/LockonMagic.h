@@ -18,6 +18,8 @@ public:
 public:
     LockonMagic(const char* prm_name, int* prm_pMP);
 
+    void onReset() override;
+
     void processCastBegin(int prm_now_level, int prm_new_level) override;
     void processCastingBehavior(int prm_now_level, int prm_new_level) override;
     void processCastingCancel(int prm_now_level) override;

@@ -1645,10 +1645,10 @@ void GgafDxModelManager::restoreD3DXAniMeshModel(GgafDxD3DXAniMeshModel* prm_pD3
     bool isdone = false;
     int anim_ticks_per_second = 4800;
     std::string data;
-    while(isdone == false && !ifs.eof()) {
+    while (isdone == false && !ifs.eof()) {
         ifs >> data;
         if (data == "AnimTicksPerSecond" || data == "AnimTicksPerSecond{") {
-            while(isdone == false) {
+            while (isdone == false) {
                 ifs >> data;
                 if (data == "{") {
                     continue;

@@ -34,8 +34,13 @@ TorpedoMagic::TorpedoMagic(const char* prm_name, int* prm_pMP)
     lvinfo_[0].pno_ = 122;
 
     pEffect_ = NEW EffectTorpedoMagic("EffectTorpedoMagic");
-    pEffect_->inactivateImmed();
+    pEffect_->inactivate();
     addSubGroup(pEffect_);
+}
+
+void TorpedoMagic::onReset() {
+    Magic::onReset();
+    MyTorpedoController::torpedo_num_ = 0;
 }
 
 void TorpedoMagic::processCastBegin(int prm_now_level, int prm_new_level) {

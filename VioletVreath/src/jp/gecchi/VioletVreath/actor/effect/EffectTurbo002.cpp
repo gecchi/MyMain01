@@ -13,7 +13,7 @@ using namespace VioletVreath;
 EffectTurbo002::EffectTurbo002(const char* prm_name) :
         DefaultSpriteActor(prm_name, "Turbo002", nullptr) {
     _class_name = "EffectTurbo002";
-    inactivateImmed();
+    inactivate();
     effectBlendOne(); //â¡éZçáê¨
     setHitAble(false); //ìñÇΩÇËîªíËñ≥Çµ
 }

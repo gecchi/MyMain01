@@ -32,6 +32,11 @@ TractorMagic::TractorMagic(const char* prm_name, int* prm_pMP)
     is_tracting_ = false;
 }
 
+void TractorMagic::onReset() {
+    Magic::onReset();
+    is_tracting_ = false;
+}
+
 void TractorMagic::processCastBegin(int prm_now_level, int prm_new_level) {
 }
 void TractorMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {

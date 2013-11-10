@@ -48,7 +48,7 @@ void WalledScene::buildWalledScene(
         prm_papSection[i]->config(_pDepo_WallAAB, _pDepo_WallAAPrism,
                                   prm_wall_start_x,
                                   prm_wall_dep, prm_wall_width, prm_wall_height);
-        prm_papSection[i]->inactivateImmed();
+        prm_papSection[i]->inactivate();
         _ringHoldSection.addLast(prm_papSection[i], false);
     }
     // 0b 00abcdef

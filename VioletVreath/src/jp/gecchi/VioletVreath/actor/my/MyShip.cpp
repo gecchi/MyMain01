@@ -105,7 +105,7 @@ MyShip::MyShip(const char* prm_name) :
     MyShot001* pShot;
     for (int i = 0; i < 25; i++) { //自弾ストック
         pShot = NEW MyShot001("MY_MyShot001");
-        pShot->inactivateImmed();
+        pShot->inactivate();
         pDepo_MyShots001_->put(pShot);
     }
     addSubGroup(pDepo_MyShots001_);
@@ -327,6 +327,7 @@ void MyShip::onActive() {
     pTorpedoCtrler_->onActive();
 }
 void MyShip::onInactive() {
+    _TRACE_("MyShip::onInactive()");
     //レーザーやロックンターゲットや魚雷がサブにいるため
     //個別に呼び出す
     pLockonCtrler_->onInactive();

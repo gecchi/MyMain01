@@ -10,7 +10,7 @@ using namespace VioletVreath;
 EffectRatislaviaEye001::EffectRatislaviaEye001(const char* prm_name) :
         DefaultSpriteActor(prm_name, "EffectRatislaviaEye001", nullptr) {
     _class_name = "EffectRatislaviaEye001";
-    inactivateImmed();
+    inactivate();
     effectBlendOne(); //‰ÁZ‡¬
     setHitAble(false); //“–‚½‚è”»’è–³‚µ
     cnt_ = 0;

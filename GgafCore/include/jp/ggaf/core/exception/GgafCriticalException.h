@@ -7,7 +7,7 @@
     std::stringstream ss; \
     ss <<__FILE__<<"("<<__LINE__<<") : "<< X; \
     throw GgafCore::GgafCriticalException(ss.str()); \
-} while(0)
+}while(0)
 
 namespace GgafCore {
 

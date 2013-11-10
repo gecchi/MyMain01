@@ -1094,8 +1094,18 @@ template<class T>
 T* GgafLinkedListRing<T>::getNext(int n) {
     Elem* pElem = _pElemActive;
     if (_papLinerVal) {
+        //インデックス利用
         int i = pElem->_idx + n;
-        return _papLinerVal[(i > (_num_elem-1) ? i - _num_elem : i)];
+        if (i > (_num_elem-1)) {
+            while (i > (_num_elem-1)) {
+                i -= _num_elem;
+            }
+        } else if (i < 0) {
+            while (i < 0) {
+                i += _num_elem;
+            }
+        }
+        return _papLinerVal[i];
     } else {
         //従来の方法
         for (int i = 0; i < n; i++) {
@@ -1107,14 +1117,25 @@ T* GgafLinkedListRing<T>::getNext(int n) {
 
 template<class T>
 T* GgafLinkedListRing<T>::getFromFirst(int n) {
-    if (_pElem_first == nullptr) {
+    Elem* pElem = _pElem_first;
+    if (pElem == nullptr) {
         return nullptr;
     }
     if (_papLinerVal) {
-        return _papLinerVal[n];
+        //インデックス利用
+        int i = pElem->_idx + n;
+        if (i > (_num_elem-1)) {
+            while (i > (_num_elem-1)) {
+                i -= _num_elem;
+            }
+        } else if (i < 0) {
+            while (i < 0) {
+                i += _num_elem;
+            }
+        }
+        return _papLinerVal[i];
     } else {
         //従来の方法
-        Elem* pElem = _pElem_first;
         for (int i = 0; i < n; i++) {
             pElem = pElem->_pNext;
         }
@@ -1132,8 +1153,19 @@ template<class T>
 T* GgafLinkedListRing<T>::getPrev(int n) {
     Elem* pElem = _pElemActive;
     if (_papLinerVal) {
+        //インデックス利用
         int i = pElem->_idx - n;
-        return _papLinerVal[(i < 0 ? _num_elem + i : i)];
+        if (i > (_num_elem-1)) {
+            while (i > (_num_elem-1)) {
+                i -= _num_elem;
+            }
+        } else if (i < 0) {
+            while (i < 0) {
+                i += _num_elem;
+            }
+        }
+        return _papLinerVal[i];
+
     } else {
         //従来の方法
         for (int i = 0; i < n; i++) {

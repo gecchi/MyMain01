@@ -59,7 +59,7 @@ void GgafDxFkFormation::addFormationMember(GgafDxGeometricActor* prm_pMember,
                              prm_rx_init_local,
                              prm_ry_init_local,
                              prm_rz_init_local);
-    prm_pMember->inactivateImmed(); //フォーメーションなのでCallUpを待つため
+    prm_pMember->inactivate(); //フォーメーションなのでCallUpを待つため
 }
 
 void GgafDxFkFormation::processFinal() {

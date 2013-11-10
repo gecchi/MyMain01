@@ -28,7 +28,7 @@ MyTorpedoController::MyTorpedoController(const char* prm_name,
     for (int i = 0; i < max_torpedo_num_; i++) {
         std::string name = std::string(prm_pOrg->getName())+"'s Torpedo("+XTOS(i)+")";
         papTorpedo_[i] = NEW MyTorpedo(name.c_str(), this);
-        papTorpedo_[i]->inactivateImmed();
+        papTorpedo_[i]->inactivate();
         addSubGroup(papTorpedo_[i]);
     }
 
@@ -47,7 +47,7 @@ void MyTorpedoController::onActive() {
     in_firing_ = false;
     for (int i = 0; i < max_torpedo_num_; i++) {
         papTorpedo_[i]->pTarget_ = nullptr;
-        papTorpedo_[i]->inactivateImmed();
+        papTorpedo_[i]->inactivate();
     }
     pDepo_TorpedoBlast_->reset();
 }
@@ -69,7 +69,7 @@ void MyTorpedoController::onInactive() {
     in_firing_ = false;
     for (int i = 0; i < max_torpedo_num_; i++) {
         papTorpedo_[i]->pTarget_ = nullptr;
-        papTorpedo_[i]->inactivateImmed();
+        papTorpedo_[i]->inactivate();
     }
     pDepo_TorpedoBlast_->reset();
 }

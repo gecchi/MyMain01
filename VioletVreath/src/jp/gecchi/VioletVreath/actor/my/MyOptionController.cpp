@@ -38,7 +38,7 @@ MyOptionController::MyOptionController(const char* prm_name, int prm_no) :
     std::string name = "MyOption("+XTOS(no_)+")";
     pOption_ = NEW MyOption(name.c_str(), no_, this);
     addSubGroup(pOption_);
-    pOption_->inactivateImmed();
+    pOption_->inactivate();
 
 //    //ÉMÉYÉÇ
 //    pGizmo_ = NEW MyOptionControllerGizmo("MyPGizmo");

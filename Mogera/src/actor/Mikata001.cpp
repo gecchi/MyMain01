@@ -22,6 +22,9 @@ void Mikata001::initialize() {
     //黒衣AにキャラのZ軸回転の角速度を設定(毎フレーム2度)
     _pKurokoA->setFaceAngVelo(AXIS_Z, D_ANG(2));
 }
+void Mikata001::onActive() {
+    _TRACE_("Mikata001::onActive()!!! _frame_of_life="<<_frame_of_life<<" _frame_of_behaving_since_onActive="<<_frame_of_behaving_since_onActive);
+}
 
 void Mikata001::processBehavior() {
     VirtualButton* vb = P_WORLD->vb_;
@@ -39,6 +42,10 @@ void Mikata001::processBehavior() {
         _y -= PX_C(2); //下
     }
     _pKurokoA->behave(); //黒衣Aを活動させる（Z軸回転する）
+}
+
+void Mikata001::onInactive() {
+    _TRACE_("Mikata001::onInactive()!!! _frame_of_life="<<_frame_of_life<<" _frame_of_behaving_since_onActive="<<_frame_of_behaving_since_onActive);
 }
 
 void Mikata001::onHit(GgafCore::GgafActor* prm_pOtherActor) {

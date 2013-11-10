@@ -32,13 +32,13 @@ GgafDxSe* GgafDxSeManager::processCreateResource(char* prm_idstr, void* prm_pCon
 }
 
 void GgafDxSeManager::updateVolume() {
-    while(_is_connecting_resource) {
+    while (_is_connecting_resource) {
         Sleep(1);
     }
     GgafDxSeConnection* pConne = (GgafDxSeConnection*)_pConn_first;
     while (pConne) {
         pConne->peek()->setVolume(GGAF_MAX_VOLUME);
-        while(_is_connecting_resource) { //ŠÈˆÕ”r‘¼
+        while (_is_connecting_resource) { //ŠÈˆÕ”r‘¼
             Sleep(1);
         }
         pConne = (GgafDxSeConnection*)(pConne->getNext());
