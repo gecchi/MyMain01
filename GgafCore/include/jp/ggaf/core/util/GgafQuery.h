@@ -150,11 +150,16 @@ public:
     /**
      * レコードを末尾行に追加します .
      * GgafRecord オブジェクトのポインタを渡して下さい。<BR>
-     * 本クエリオブジェクト開放時に、全GgafRecordの解放が行われるので、
-     * 呼び元で GgafRecord オブジェクトの delete は不要。(むしろ行わないで下さい)
+     * 本クエリオブジェクト開放時に、全GgafRecordの解放が行われる仕様です。
+     * 呼び元で GgafRecord オブジェクトの delete は不要。(むしろ、出来ません。行わないで下さい)
      * @param prm_pRow ヒープに作成したレコードオブジェクト（のポインタ）
      */
     void addRow(GgafRecord* prm_pRow);
+
+    /**
+     * レコードを末尾行に空レコードを追加します
+     */
+    void addNewRow();
 
     /**
      * AとBのレコードの場所(INDEX)を入れ替えます. <BR>

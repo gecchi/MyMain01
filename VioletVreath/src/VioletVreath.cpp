@@ -409,7 +409,7 @@ BOOL CustmizeSysMenu(HWND hWnd)
     int i;
     i=5; InsertMenu(hMenu, i, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR)0, "");
     i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING, MY_IDM_RESET_WINDOW_SIZE, "Reset window size of beginning.");
-    i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING, MY_IDM_RESET_DOT_BY_DOT_WINDOW_SIZE , "Reset window size of Dot by Dot.");
+    i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING, MY_IDM_RESET_DOT_BY_DOT_WINDOW_SIZE , "Reset window size of dot=pixel.");
     i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR)menu_aspect, "Game view aspect.");
     i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR)menu_vp    , "Game view position.");
     i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR)0, "");
