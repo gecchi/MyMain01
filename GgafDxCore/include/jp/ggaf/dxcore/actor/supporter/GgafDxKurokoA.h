@@ -95,11 +95,11 @@ public:
     }
     /**
      * Actorの自身の座標から対象座標点に向いた方向に、Z軸回転方角とY軸回転方角を設定<BR>
-     * @param prm_tX 対象点X座標
-     * @param prm_tY 対象点Y座標
-     * @param prm_tZ 対象点Z座標
+     * @param prm_tx 対象点X座標
+     * @param prm_ty 対象点Y座標
+     * @param prm_tz 対象点Z座標
      */
-    void setFaceAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ);
+    void setFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz);
 
     /**
      * 現在の Actor の軸回転方角へ加算（負で減算）。<BR>
@@ -142,14 +142,14 @@ public:
     /**
      * Actorの目標回転方向自動停止機能を有効(現在XY座標からの対象XY座標で設定)<BR>
      * @param   prm_axis    回転軸（AXIS_X / AXIS_Y / AXIS_Z)
-     * @param   prm_tX  対象X座標
-     * @param   prm_tY  対象Y座標
+     * @param   prm_tx  対象X座標
+     * @param   prm_ty  対象Y座標
      * @param   prm_way_allow  自動停止機能が有効になる回転方向
      * @param   prm_angveloAllowRyMv 自動停止機能が有効になる回転角速度
      */
     void setStopTargetFaceAngTwd(axis prm_axis,
-                                 coord prm_tX,
-                                 coord prm_tY,
+                                 coord prm_tx,
+                                 coord prm_ty,
                                  int prm_way_allow = TURN_BOTH,
                                  angvelo prm_angveloAllowRyMv = D180ANG);
     /**
@@ -175,7 +175,7 @@ public:
 
     void setFaceAngAcce(axis prm_axis, angacce prm_angacceRot);
 
-    angle getFaceAngDistance(axis prm_axis, coord prm_tX, coord prm_tY, int prm_way);
+    angle getFaceAngDistance(axis prm_axis, coord prm_tx, coord prm_ty, int prm_way);
 
     angle getFaceAngDistance(axis prm_axis, angle prm_angTargetRot, int prm_way);
 
@@ -274,9 +274,9 @@ public: //_x, _y, _z 操作関連 //////////////////////////////////////////////
 
     bool _taget_face_ang_alltime_flg;
     GgafDxGeometricActor* _taget_face_ang_alltime_pActor;
-    coord _taget_face_ang_alltime_tX;
-    coord _taget_face_ang_alltime_tY;
-    coord _taget_face_ang_alltime_tZ;
+    coord _taget_face_ang_alltime_tx;
+    coord _taget_face_ang_alltime_ty;
+    coord _taget_face_ang_alltime_tz;
     angvelo  _taget_face_ang_alltime_angVelo;
     angacce _taget_face_ang_alltime_angAcce;
     int _taget_face_ang_alltime_way;
@@ -475,7 +475,7 @@ public:
 
     void setRzMvAngAcce(angacce prm_angacceRzMv);
 
-    angle getRzMvAngDistanceTwd(coord prm_tX, coord prm_tY, int prm_way);
+    angle getRzMvAngDistanceTwd(coord prm_tx, coord prm_ty, int prm_way);
 
     /**
      * 自身の移動方角のZ軸回転角( _angRzMv )と、ターゲットの回転角との差分を取得.
@@ -550,7 +550,7 @@ public:
 
     void setRyMvAngAcce(angacce prm_angacceRyMv);
 
-    angle getRyMvAngDistanceTwd(coord prm_tX, coord prm_tY, int prm_way);
+    angle getRyMvAngDistanceTwd(coord prm_tx, coord prm_ty, int prm_way);
 
     angle getRyMvAngDistance(angle prm_angTargetRyMv, int prm_way);
 
@@ -593,21 +593,21 @@ public:
     /**
      * 目標座標点を座標指定で移動方角(RzRy)を設定。.
      * 方向ベクトル正規化も内部で行なう。
-     * @param prm_tX 目標X座標
-     * @param prm_tY 目標Y座標
-     * @param prm_tZ 目標Z座標
+     * @param prm_tx 目標X座標
+     * @param prm_ty 目標Y座標
+     * @param prm_tz 目標Z座標
      */
-    void setMvAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ);
+    void setMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz);
 
     /**
      * 目標座標点を座標指定で移動方角(RzRy)を設定。.
      * 但し奥行き(Z座標は)無視して計算を行う。
      * 方向ベクトル正規化も内部で行なう。
-     * @param prm_tX 目標X座標
-     * @param prm_tY 目標Y座標
+     * @param prm_tx 目標X座標
+     * @param prm_ty 目標Y座標
      */
-    inline void setMvAngTwd(coord prm_tX, coord prm_tY) {
-        setMvAngTwd(prm_tX, prm_tY, _pActor->_z);
+    inline void setMvAngTwd(coord prm_tx, coord prm_ty) {
+        setMvAngTwd(prm_tx, prm_ty, _pActor->_z);
     }
 
     /**
@@ -633,7 +633,7 @@ public:
 
     void reverseMvAng();
 
-    void setStopTargetMvAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ);
+    void setStopTargetMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz);
 
     void setStopTargetMvAngTwd(GgafDxGeometricActor* prm_pActor_Target);
 
@@ -660,9 +660,9 @@ public:
 
     /**
      * 軸回転方角を目標にターゲットするシークエンスを実行 .
-     * @param prm_tX 目標X座標
-     * @param prm_tY 目標Y座標
-     * @param prm_tZ 目標Z座標
+     * @param prm_tx 目標X座標
+     * @param prm_ty 目標Y座標
+     * @param prm_tz 目標Z座標
      * @param prm_angVelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
      * @param prm_angAcce 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
@@ -676,7 +676,7 @@ public:
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
-    void turnFaceAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ,
+    void turnFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
                         angvelo prm_angVelo, angacce prm_angAcce,
                         int prm_way, bool prm_optimize_ang);
 
@@ -783,9 +783,9 @@ public:
 
     /**
      * 移動方角を目標にターゲットするシークエンスを実行 .
-     * @param prm_tX 目標X座標
-     * @param prm_tY 目標Y座標
-     * @param prm_tZ 目標Z座標
+     * @param prm_tx 目標X座標
+     * @param prm_ty 目標Y座標
+     * @param prm_tz 目標Z座標
      * @param prm_angVelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
      * @param prm_angAcce 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
@@ -799,21 +799,21 @@ public:
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
-    void turnMvAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ,
+    void turnMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
                       angvelo prm_angVelo, angacce prm_angAcce,
                       int prm_way, bool prm_optimize_ang);
 
-    void keepOnTurningFaceAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ,
+    void keepOnTurningFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
                                  angvelo prm_angVelo, angacce prm_angAcce,
                                  int prm_way, bool prm_optimize_ang) {
-        turnFaceAngTwd(prm_tX, prm_tY, prm_tZ,
+        turnFaceAngTwd(prm_tx, prm_ty, prm_tz,
                        prm_angVelo,  prm_angAcce,
                        prm_way, prm_optimize_ang );
         _taget_face_ang_alltime_flg = true;
         _taget_face_ang_alltime_pActor = nullptr;
-        _taget_face_ang_alltime_tX = prm_tX;
-        _taget_face_ang_alltime_tY = prm_tY;
-        _taget_face_ang_alltime_tZ = prm_tZ;
+        _taget_face_ang_alltime_tx = prm_tx;
+        _taget_face_ang_alltime_ty = prm_ty;
+        _taget_face_ang_alltime_tz = prm_tz;
         _taget_face_ang_alltime_angVelo = prm_angVelo;
         _taget_face_ang_alltime_angAcce = prm_angAcce;
         _taget_face_ang_alltime_way = prm_way;

@@ -111,7 +111,8 @@ void GgafDxStringSpriteActor::update(char* prm_str) {
     _aWidth_line_px[0] = 0;
     int nn = 0;
     pixcoord max_len_px = 0;
-    for (int i = 0; i < _len+1; i++) {
+    int len = _len;
+    for (int i = 0; i < len+1; i++) {
         _draw_string[i] = prm_str[i]; //•ÛŽ
         if (prm_str[i] == '\n') {
             if (max_len_px < _aWidth_line_px[_nn]) {

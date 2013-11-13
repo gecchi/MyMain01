@@ -16,9 +16,9 @@ class MagicMeterCursor001 : public GgafLib::DefaultBoardActor {
 
 public:
     /** 移動目標X座標 */
-    coord tX_;
+    coord tx_;
     /** 移動目標Y座標 */
-    coord tY_;
+    coord ty_;
     /** 退避用 */
     float tmp_alpha_;
     MagicMeter* pMagicMeter_;

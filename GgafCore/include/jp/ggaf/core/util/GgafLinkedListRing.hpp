@@ -855,7 +855,8 @@ public:
             return;
         } else {
             Elem* pElem = _pElem_first;
-            for (int i = 0; i < _num_elem; i++) {
+            int n = _num_elem;
+            for (int i = 0; i < n; i++) {
                 pFunc(pElem->_pValue, prm1, prm2);
                 pElem = pElem -> _pNext;
             }
@@ -1221,7 +1222,8 @@ int GgafLinkedListRing<T>::getCurrentIndex() {
         } else {
             //]—ˆ‚Ì•û–@
             Elem* pElem = _pElem_first;
-            for (int i = 0; i < _num_elem; i++) {
+            int n = _num_elem;
+            for (int i = 0; i < n; i++) {
                 if (pElem == _pElemActive) {
                     return i;
                 } else {

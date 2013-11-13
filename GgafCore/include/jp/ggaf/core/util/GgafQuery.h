@@ -84,13 +84,14 @@ public:
      * @return データ値
      */
     std::string getVal(std::string& prm_col, int prm_index);
+
     /**
      * データを取得 .
      * @param prm_col   列名
      * @param prm_index レコードindex(0～)
      * @return データ値
      */
-    std::string getVal(const char*  prm_col, int prm_index);
+    std::string getVal(const char* prm_col, int prm_index);
 
     /**
      * データを上書き設定します .
@@ -105,21 +106,21 @@ public:
      * @param prm_index  レコードindex(0～)
      * @param prm_val    上書きする設定値
      */
-    void setVal(const char*  prm_col, int prm_index, std::string& prm_val);
+    void setVal(const char* prm_col, int prm_index, std::string& prm_val);
     /**
      * データを上書き設定します .
      * @param prm_col    列名
      * @param prm_index  レコードindex(0～)
      * @param prm_val    上書きする設定値
      */
-    void setVal(std::string& prm_col, int prm_index, const char*  prm_val);
+    void setVal(std::string& prm_col, int prm_index, const char* prm_val);
     /**
      * データを上書き設定します .
      * @param prm_col    列名
      * @param prm_index  レコードindex(0～)
      * @param prm_val    上書きする設定値
      */
-    void setVal(const char*  prm_col, int prm_index, const char*  prm_val);
+    void setVal(const char* prm_col, int prm_index, const char* prm_val);
 
     /**
      * レコードを取得します。 .

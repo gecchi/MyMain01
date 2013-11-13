@@ -53,11 +53,11 @@ public:
      * @param y 当たり判定の球の中心ローカルY座標
      * @param z 当たり判定の球の中心ローカルZ座標
      * @param r 当たり判定の球の半径
-     * @param rotX 当たり判定の球を、向きに伴ってローカルX軸での回転平行移動を行う場合 true
-     * @param rotY 当たり判定の球を、向きに伴ってローカルY軸での回転平行移動を行う場合 true
-     * @param rotZ 当たり判定の球を、向きに伴ってローカルZ軸での回転平行移動を行う場合 true
+     * @param rot_X 当たり判定の球を、向きに伴ってローカルX軸での回転平行移動を行う場合 true
+     * @param rot_y 当たり判定の球を、向きに伴ってローカルY軸での回転平行移動を行う場合 true
+     * @param rot_z 当たり判定の球を、向きに伴ってローカルZ軸での回転平行移動を行う場合 true
      */
-    void setColliSphere(int prm_index, coord x, coord y, coord z, coord r, bool rotX, bool rotY, bool rotZ);
+    void setColliSphere(int prm_index, coord x, coord y, coord z, coord r, bool rot_X, bool rot_y, bool rot_z);
 
     /**
      * 当たり判定領域要素を球として定義 .
@@ -92,14 +92,14 @@ public:
      * @param x2 右下奥X座標
      * @param y2 右下奥Y座標
      * @param z2 右下奥Z座標
-     * @param rotX 当たり判定の直方体を、向きに伴ってローカルX軸での回転平行移動を行う場合 true
-     * @param rotY 当たり判定の直方体を、向きに伴ってローカルY軸での回転平行移動を行う場合 true
-     * @param rotZ 当たり判定の直方体を、向きに伴ってローカルZ軸での回転平行移動を行う場合 true
+     * @param rot_X 当たり判定の直方体を、向きに伴ってローカルX軸での回転平行移動を行う場合 true
+     * @param rot_y 当たり判定の直方体を、向きに伴ってローカルY軸での回転平行移動を行う場合 true
+     * @param rot_z 当たり判定の直方体を、向きに伴ってローカルZ軸での回転平行移動を行う場合 true
      */
     void setColliAAB(int prm_index,
                      coord x1, coord y1, coord z1,
                      coord x2, coord y2, coord z2,
-                     bool rotX, bool rotY, bool rotZ);
+                     bool rot_X, bool rot_y, bool rot_z);
 
     /**
      * 当たり判定領域要素を軸平行直方体として定義 .
@@ -196,13 +196,13 @@ public:
      * @param y 当たり判定の立方体の中心ローカルY座標
      * @param z 当たり判定の立方体の中心ローカルZ座標
      * @param prm_edge １辺の長さ
-     * @param rotX 当たり判定の立方体を、向きに伴ってローカルX軸での回転平行移動を行う場合 true
-     * @param rotY 当たり判定の立方体を、向きに伴ってローカルY軸での回転平行移動を行う場合 true
-     * @param rotZ 当たり判定の立方体を、向きに伴ってローカルZ軸での回転平行移動を行う場合 true
+     * @param rot_X 当たり判定の立方体を、向きに伴ってローカルX軸での回転平行移動を行う場合 true
+     * @param rot_y 当たり判定の立方体を、向きに伴ってローカルY軸での回転平行移動を行う場合 true
+     * @param rot_z 当たり判定の立方体を、向きに伴ってローカルZ軸での回転平行移動を行う場合 true
      */
-    void setColliAAB_Cube(int prm_index, coord x, coord y, coord z, coord prm_edge, bool rotX, bool rotY, bool rotZ) {
+    void setColliAAB_Cube(int prm_index, coord x, coord y, coord z, coord prm_edge, bool rot_X, bool rot_y, bool rot_z) {
         int h = prm_edge / 2;
-        setColliAAB(prm_index, x-h, y-h, z-h, x+h, y+h, z+h, rotX, rotY, rotZ);
+        setColliAAB(prm_index, x-h, y-h, z-h, x+h, y+h, z+h, rot_X, rot_y, rot_z);
     }
 
 
@@ -217,11 +217,11 @@ public:
      * @param y2 右下奥Y座標
      * @param z2 右下奥Z座標
      * @param pos_prism プリズム位置（POS_PRISM_**_**)
-     * @param rotX 当たり判定の直方体を、向きに伴ってローカルX軸での回転平行移動を行う場合 true
-     * @param rotY 当たり判定の直方体を、向きに伴ってローカルY軸での回転平行移動を行う場合 true
-     * @param rotZ 当たり判定の直方体を、向きに伴ってローカルZ軸での回転平行移動を行う場合 true
+     * @param rot_X 当たり判定の直方体を、向きに伴ってローカルX軸での回転平行移動を行う場合 true
+     * @param rot_y 当たり判定の直方体を、向きに伴ってローカルY軸での回転平行移動を行う場合 true
+     * @param rot_z 当たり判定の直方体を、向きに伴ってローカルZ軸での回転平行移動を行う場合 true
      */
-    void setColliAAPrism(int prm_index, coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, int pos_prism, bool rotX, bool rotY, bool rotZ);
+    void setColliAAPrism(int prm_index, coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, int pos_prism, bool rot_X, bool rot_y, bool rot_z);
 
     /**
      * 当たり判定領域要素を軸平行直方体として定義 .
@@ -284,14 +284,14 @@ public:
      * @param y 当たり判定の立方体の中心ローカルY座標
      * @param z 当たり判定の立方体の中心ローカルZ座標
      * @param prm_edge １辺の長さ
-     * @param rotX 当たり判定の立方体を、向きに伴ってローカルX軸での回転平行移動を行う場合 true
-     * @param rotY 当たり判定の立方体を、向きに伴ってローカルY軸での回転平行移動を行う場合 true
-     * @param rotZ 当たり判定の立方体を、向きに伴ってローカルZ軸での回転平行移動を行う場合 true
+     * @param rot_X 当たり判定の立方体を、向きに伴ってローカルX軸での回転平行移動を行う場合 true
+     * @param rot_y 当たり判定の立方体を、向きに伴ってローカルY軸での回転平行移動を行う場合 true
+     * @param rot_z 当たり判定の立方体を、向きに伴ってローカルZ軸での回転平行移動を行う場合 true
      * @param pos_prism プリズム位置（GgafDxAAPrismActor の #define 定義参照)
      */
-    void setColliAAPrism_Cube(int prm_index, coord x, coord y, coord z, coord prm_edge, int pos_prism, bool rotX, bool rotY, bool rotZ) {
+    void setColliAAPrism_Cube(int prm_index, coord x, coord y, coord z, coord prm_edge, int pos_prism, bool rot_X, bool rot_y, bool rot_z) {
         int h = prm_edge / 2;
-        setColliAAPrism(prm_index, x-h, y-h, z-h, x+h, y+h, z+h, pos_prism, rotX, rotY, rotZ);
+        setColliAAPrism(prm_index, x-h, y-h, z-h, x+h, y+h, z+h, pos_prism, rot_X, rot_y, rot_z);
     }
 
     /**

@@ -184,10 +184,11 @@ public:
                         GgafDxValign prm_valign);
 
     inline void getDrawString(char* out_paCh) {
-        for (int i = 0; i < _len; i++) {
+        int len = _len;
+        for (int i = 0; i < len; i++) {
             out_paCh[i] = _draw_string[i];
         }
-        out_paCh[_len] = '\0';
+        out_paCh[len] = '\0';
     }
 
     virtual ~GgafDxStringSpriteActor();

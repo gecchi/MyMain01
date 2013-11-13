@@ -401,13 +401,13 @@ void GgafDxKurokoB::setVxyzMvAcce(acce prm_acceVxMv, acce prm_acceVyMv, acce prm
     }
 }
 
-void GgafDxKurokoB::execGravitationMvSequenceTwd(coord prm_tX, coord prm_tY, coord prm_tZ,
+void GgafDxKurokoB::execGravitationMvSequenceTwd(coord prm_tx, coord prm_ty, coord prm_tz,
                                                  velo prm_max_velo,
                                                  acce prm_acce,
                                                  int prm_stop_renge ) {
-    _gravitation_mv_seq_target_x = prm_tX;
-    _gravitation_mv_seq_target_y = prm_tY;
-    _gravitation_mv_seq_target_z = prm_tZ;
+    _gravitation_mv_seq_target_x = prm_tx;
+    _gravitation_mv_seq_target_y = prm_ty;
+    _gravitation_mv_seq_target_z = prm_tz;
     _gravitation_mv_seq_pActor_target = nullptr;
     _gravitation_mv_seq_max_velo = prm_max_velo;
     _gravitation_mv_seq_acce = prm_acce;

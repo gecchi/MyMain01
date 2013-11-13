@@ -28,16 +28,16 @@ MagicLvCursor::MagicLvCursor(const char* prm_name, const char* prm_model, MagicM
     point_lv_ = 0;
     tmp_y_ = _y;
     tmp_alpha_ = _alpha;
-    tX_ = 0;
-    tY_ = 0;
+    tx_ = 0;
+    ty_ = 0;
     setZWriteEnable(false);
 }
 
 void MagicLvCursor::initialize() {
     setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     //MagicMeterの座標が定まってから行うこと
-    _x = tX_ = pMagicMeter_->_x + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
-    _y = tY_ = pMagicMeter_->_y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
+    _x = tx_ = pMagicMeter_->_x + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
+    _y = ty_ = pMagicMeter_->_y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
     _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
     _pScaler->forceRange(1000, 3000);
 }
@@ -46,8 +46,8 @@ void MagicLvCursor::processBehavior() {
 
     if (_pKurokoA->isJustFinishSlidingMv()) {
         //理想位置に補正
-        _x = tX_;
-        _y = tY_;
+        _x = tx_;
+        _y = ty_;
     }
     _pKurokoA->behave();
     _pUvFlipper->behave();
@@ -85,8 +85,8 @@ void MagicLvCursor::moveTo(int prm_lv) {
     _pKurokoA->_slide_mv_flg = false;
     _pKurokoA->stopMv();
     point_lv_ = prm_lv;
-    _x = tX_ = pMagicMeter_->_x + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
-    _y = tY_ = pMagicMeter_->_y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
+    _x = tx_ = pMagicMeter_->_x + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
+    _y = ty_ = pMagicMeter_->_y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
 }
 
 void MagicLvCursor::moveSmoothTo(int prm_lv, frame prm_target_frames, float prm_p1, float prm_p2) {
@@ -94,10 +94,10 @@ void MagicLvCursor::moveSmoothTo(int prm_lv, frame prm_target_frames, float prm_
     //Y座標のロール（スライド表示）の分考慮せずにY座標のLVカーソル移動計算を行っている。
     //processPreDraw()でロール分を補正する。
     point_lv_ = prm_lv;
-    tX_ = pMagicMeter_->_x + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
-    tY_ = pMagicMeter_->_y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
-    _pKurokoA->setMvAngTwd(tX_, tY_);
-    _pKurokoA->slideMvByDT(0, UTIL::getDistance(_x, _y, tX_, tY_),
+    tx_ = pMagicMeter_->_x + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
+    ty_ = pMagicMeter_->_y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
+    _pKurokoA->setMvAngTwd(tx_, ty_);
+    _pKurokoA->slideMvByDT(0, UTIL::getDistance(_x, _y, tx_, ty_),
                                         (int)prm_target_frames, prm_p1, prm_p2); //ロールを考慮せずにとりあえず移動
 }
 

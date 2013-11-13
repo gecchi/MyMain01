@@ -17,7 +17,7 @@ ColliAAB::ColliAAB() : GgafDxCollisionPart() {
     _shape_kind = COLLI_AAB;
 }
 
-void ColliAAB::set(coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, bool rotX, bool rotY, bool rotZ) {
+void ColliAAB::set(coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, bool rot_X, bool rot_y, bool rot_z) {
     if (x1 < x2) {
         _x1 = x1;
         _x2 = x2;
@@ -53,10 +53,10 @@ void ColliAAB::set(coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, b
     _cx = _base_cx;
     _cy = _base_cy;
     _cz = _base_cz;
-    _rotX = rotX;
-    _rotY = rotY;
-    _rotZ = rotZ;
-    if (_rotX || _rotY || _rotZ) {
+    _rot_X = rot_X;
+    _rot_y = rot_y;
+    _rot_z = rot_z;
+    if (_rot_X || _rot_y || _rot_z) {
         _rot = true;
     } else {
         _rot = false;
@@ -82,7 +82,7 @@ void ColliAAB::rotateRxRzRy(angle rx, angle ry, angle rz) {
     coord wk_cy = _base_cy;
     coord wk_cz = _base_cz;
 
-    if (_rotX) {
+    if (_rot_X) {
         _cy = (wk_cy * UTIL::COS[s_rx]) - (wk_cz * UTIL::SIN[s_rx]);
         _cz = (wk_cy * UTIL::SIN[s_rx]) + (wk_cz * UTIL::COS[s_rx]);
         wk_cy = _cy;
@@ -90,14 +90,14 @@ void ColliAAB::rotateRxRzRy(angle rx, angle ry, angle rz) {
     }
 
     //
-    if (_rotZ) {
+    if (_rot_z) {
         _cx = (wk_cx * UTIL::COS[s_rz]) - (wk_cy * UTIL::SIN[s_rz]);
         _cy = (wk_cx * UTIL::SIN[s_rz]) + (wk_cy * UTIL::COS[s_rz]);
         wk_cx = _cx;
         wk_cy = _cy;
     }
 
-    if (_rotY) {
+    if (_rot_y) {
 //            _cz = (wk_cz * UTIL::COS[s_ry]) - (wk_cx * UTIL::SIN[s_ry]);
 //            _cx = (wk_cz * UTIL::SIN[s_ry]) + (wk_cx * UTIL::COS[s_ry]);
         //ª‚±‚¤‚©‚ÆˆêuŽv‚Á‚½‚ª

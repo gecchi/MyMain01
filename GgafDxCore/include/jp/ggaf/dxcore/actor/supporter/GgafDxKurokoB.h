@@ -263,28 +263,28 @@ public:
      * 各軸それぞれ、目標に近づくと軸速度は0に近づく、という訳で重力とは物理的に動きが異なります。<BR>
      * でも、重力で引き付けるかのような効果を期待出来ます。<BR>
      * 数学的には、目標の座標に限りなく近づくだけで、目標座標と一致することはありません。<BR>
-     * @param prm_tX 引き寄せられて到達する目標のX座標
-     * @param prm_tY 引き寄せられて到達する目標のY座標
-     * @param prm_tZ 引き寄せられて到達する目標のZ座標
+     * @param prm_tx 引き寄せられて到達する目標のX座標
+     * @param prm_ty 引き寄せられて到達する目標のY座標
+     * @param prm_tz 引き寄せられて到達する目標のZ座標
      * @param prm_max_velo 引き寄せられている最中の各軸(XYZ)の軸移動速度上限値
      * @param prm_acce 引き寄せられている最中の各軸(XYZ)の軸移動加速度上限値
      * @param prm_stop_renge 速度が抑えられる目標座標からの各軸の距離
      */
-    void execGravitationMvSequenceTwd(coord prm_tX, coord prm_tY, coord prm_tZ,
+    void execGravitationMvSequenceTwd(coord prm_tx, coord prm_ty, coord prm_tz,
                                       velo prm_max_velo,
                                       acce prm_acce,
                                       coord prm_stop_renge);
 
     /**
      * 重力により物体が引き寄せられるかような感じの動きみたいな感じっぽいの目標座標を更新設定 .
-     * @param prm_tX 引き寄せられて到達する目標のX座標
-     * @param prm_tY 引き寄せられて到達する目標のY座標
-     * @param prm_tZ 引き寄せられて到達する目標のZ座標
+     * @param prm_tx 引き寄せられて到達する目標のX座標
+     * @param prm_ty 引き寄せられて到達する目標のY座標
+     * @param prm_tz 引き寄せられて到達する目標のZ座標
      */
-    void setGravitationTwd(coord prm_tX, coord prm_tY, coord prm_tZ) {
-        _gravitation_mv_seq_target_x = prm_tX;
-        _gravitation_mv_seq_target_y = prm_tY;
-        _gravitation_mv_seq_target_z = prm_tZ;
+    void setGravitationTwd(coord prm_tx, coord prm_ty, coord prm_tz) {
+        _gravitation_mv_seq_target_x = prm_tx;
+        _gravitation_mv_seq_target_y = prm_ty;
+        _gravitation_mv_seq_target_z = prm_tz;
         _gravitation_mv_seq_pActor_target = nullptr;
     }
 

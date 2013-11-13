@@ -1,0 +1,48 @@
+Option Explicit Off
+Imports System
+Imports EnvDTE
+Imports EnvDTE80
+Imports EnvDTE90
+Imports EnvDTE90a
+Imports EnvDTE100
+Imports System.Diagnostics
+
+Public Module Module1
+
+
+
+    Sub SwitchSrc()
+        'DESCRIPTION: Hと(CPP,C)のファイルを開く
+
+        Dim FileName As String, OpenName As String
+        Dim i As Integer
+        On Error Resume Next
+
+        FileName = DTE.ActiveDocument.FullName
+        FileName = LCase(FileName)
+
+        i = InStr(FileName, ".h")
+        If (i > 0) Then
+            OpenName = Left(FileName, i) & "cpp"
+            DTE.Documents.Open(OpenName)
+            OpenName = OpenName.Replace("\include", "\src")
+            DTE.Documents.Open(OpenName)
+            Exit Sub
+        End If
+
+
+
+        i = InStr(FileName, ".cpp")
+        If i > 0 Then
+            OpenName = Left(FileName, i) & "h"
+            DTE.Documents.Open(OpenName)
+            OpenName = OpenName.Replace("\src", "\include")
+            DTE.Documents.Open(OpenName)
+            Exit Sub
+        End If
+
+
+
+
+    End Sub
+End Module

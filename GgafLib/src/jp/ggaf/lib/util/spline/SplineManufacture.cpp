@@ -45,8 +45,8 @@ void SplineManufacture::calculate() {
     x_to = _sp->_x_compute[0]*_rate_x;
     y_to = _sp->_y_compute[0]*_rate_y;
     z_to = _sp->_z_compute[0]*_rate_z;
-
-    for (int t = 1; t < _sp->_rnum; t ++) {
+    int rnum = _sp->_rnum;
+    for (int t = 1; t < rnum; t ++) {
         x_from = x_to;
         y_from = y_to;
         z_from = z_to;

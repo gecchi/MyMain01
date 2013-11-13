@@ -16,7 +16,7 @@ ColliSphere::ColliSphere() : GgafDxCollisionPart() {
     _shape_kind = COLLI_SPHERE;
 }
 
-void ColliSphere::set(coord x, coord y, coord z, coord r, bool rotX, bool rotY, bool rotZ) {
+void ColliSphere::set(coord x, coord y, coord z, coord r, bool rot_X, bool rot_y, bool rot_z) {
     _x = x;
     _y = y;
     _z = z;
@@ -35,10 +35,10 @@ void ColliSphere::set(coord x, coord y, coord z, coord r, bool rotX, bool rotY, 
     _cx = _base_cx;
     _cy = _base_cy;
     _cz = _base_cz;
-    _rotX = rotX;
-    _rotY = rotY;
-    _rotZ = rotZ;
-    if (_rotX || _rotY || _rotZ) {
+    _rot_X = rot_X;
+    _rot_y = rot_y;
+    _rot_z = rot_z;
+    if (_rot_X || _rot_y || _rot_z) {
         _rot = true;
     } else {
         _rot = false;
@@ -65,7 +65,7 @@ void ColliSphere::rotateRxRzRy(angle rx, angle ry, angle rz) {
     wk_cy = _base_cy;
     wk_cz = _base_cz;
 
-    if (_rotX) {
+    if (_rot_X) {
         _cy = (wk_cy * UTIL::COS[s_rx]) - (wk_cz * UTIL::SIN[s_rx]);
         _cz = (wk_cy * UTIL::SIN[s_rx]) + (wk_cz * UTIL::COS[s_rx]);
         wk_cy = _cy;
@@ -73,14 +73,14 @@ void ColliSphere::rotateRxRzRy(angle rx, angle ry, angle rz) {
     }
 
     //
-    if (_rotZ) {
+    if (_rot_z) {
         _cx = (wk_cx * UTIL::COS[s_rz]) - (wk_cy * UTIL::SIN[s_rz]);
         _cy = (wk_cx * UTIL::SIN[s_rz]) + (wk_cy * UTIL::COS[s_rz]);
         wk_cx = _cx;
         wk_cy = _cy;
     }
 
-    if (_rotY) {
+    if (_rot_y) {
 //            _cz = (wk_cz * UTIL::COS[s_ry]) - (wk_cx * UTIL::SIN[s_ry]);
 //            _cx = (wk_cz * UTIL::SIN[s_ry]) + (wk_cx * UTIL::COS[s_ry]);
         //Å™Ç±Ç§Ç©Ç∆àÍèuévÇ¡ÇΩÇ™

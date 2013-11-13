@@ -10,7 +10,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 
-Magic::Magic(const char*  prm_name, int* prm_pMP,
+Magic::Magic(const char* prm_name, int* prm_pMP,
              int prm_max_level,
              magic_point prm_cost_base            , double prm_r_every_lv_cost             , double prm_r_cost_lv_diff_base,
              magic_time  prm_time_of_casting_base , double prm_r_every_lv_time_of_casting  , double prm_r_time_of_casting_lv_diff_base,

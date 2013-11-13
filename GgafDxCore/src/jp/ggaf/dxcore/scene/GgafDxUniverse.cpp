@@ -142,7 +142,8 @@ void GgafDxUniverse::processSettlementBehavior() {
     //SEを鳴らす
     SeArray* pSeArray = _pRing_pSeArray->next(); //一つ進めてSE配列取得
     if (pSeArray->_p > 0) {
-        for (int p = 0; p < pSeArray->_p; p++) {
+        int se_p = pSeArray->_p;
+        for (int p = 0; p < se_p; p++) {
             pSeArray->play(p);
         }
         pSeArray->_p = 0; //リセット

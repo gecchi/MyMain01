@@ -142,7 +142,8 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
     float pan = 0.0f;
     int vol = 0;
     float rate_frequency = 1.0;
-    for (int i = 0; i < _se_num; i++) {
+    int se_num = _se_num;
+    for (int i = 0; i < se_num; i++) {
         if (_paBool_is_playing_3d[i]) {
             if (_papSeConnection[i]) {
                 GgafDxSe* pSe = _papSeConnection[i]->peek();

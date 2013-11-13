@@ -30,7 +30,7 @@ CollisionChecker3D::CollisionChecker3D(GgafDxGeometricActor* prm_pActor) : GgafD
 }
 
 
-void CollisionChecker3D::setColliSphere(int prm_index, coord x, coord y, coord z, coord r, bool rotX, bool rotY, bool rotZ) {
+void CollisionChecker3D::setColliSphere(int prm_index, coord x, coord y, coord z, coord r, bool rot_X, bool rot_y, bool rot_z) {
 #ifdef MY_DEBUG
     if (_pCollisionArea == nullptr) {
         throwGgafCriticalException("CollisionChecker3D::setColli_AABB()["<<getTargetActor()->getName()<<"]  まず makeCollision を実行して、要素数を宣言してください。");
@@ -55,7 +55,7 @@ void CollisionChecker3D::setColliSphere(int prm_index, coord x, coord y, coord z
     ColliSphere* pSphere = (ColliSphere*)_pCollisionArea->_papColliPart[prm_index];
     pSphere->_shape_kind = COLLI_SPHERE;
     pSphere->_is_valid_flg = true;
-    pSphere->set(x, y, z, r, rotX, rotY, rotZ);
+    pSphere->set(x, y, z, r, rot_X, rot_y, rot_z);
     _need_update_aabb = true;
 }
 
@@ -67,9 +67,9 @@ void CollisionChecker3D::setColliAAB(int prm_index,
                                      coord x2,
                                      coord y2,
                                      coord z2,
-                                     bool rotX,
-                                     bool rotY,
-                                     bool rotZ) {
+                                     bool rot_X,
+                                     bool rot_y,
+                                     bool rot_z) {
 #ifdef MY_DEBUG
     if (_pCollisionArea == nullptr) {
         throwGgafCriticalException("CollisionChecker3D::setColliAAB()["<<getTargetActor()->getName()<<"]  まず makeCollision を実行して、要素数を宣言してください。");
@@ -89,7 +89,7 @@ void CollisionChecker3D::setColliAAB(int prm_index,
     ColliAAB* pAAB = (ColliAAB*)_pCollisionArea->_papColliPart[prm_index];
     pAAB->_shape_kind = COLLI_AAB;
     pAAB->_is_valid_flg = true;
-    pAAB->set(x1, y1, z1, x2, y2, z2, rotX, rotY, rotZ);
+    pAAB->set(x1, y1, z1, x2, y2, z2, rot_X, rot_y, rot_z);
     _need_update_aabb = true;
 }
 
@@ -97,7 +97,7 @@ void CollisionChecker3D::setColliAAPrism(int prm_index,
                                          coord x1, coord y1, coord z1,
                                          coord x2, coord y2, coord z2,
                                          int pos_prism,
-                                         bool rotX, bool rotY, bool rotZ) {
+                                         bool rot_X, bool rot_y, bool rot_z) {
 #ifdef MY_DEBUG
     if (_pCollisionArea == nullptr) {
         throwGgafCriticalException("CollisionChecker3D::setColliAAPrism()["<<getTargetActor()->getName()<<"]  まず makeCollision を実行して、要素数を宣言してください。");
@@ -117,7 +117,7 @@ void CollisionChecker3D::setColliAAPrism(int prm_index,
     ColliAAPrism* pAAPrism = (ColliAAPrism*)_pCollisionArea->_papColliPart[prm_index];
     pAAPrism->_shape_kind = COLLI_AAPRISM;
     pAAPrism->_is_valid_flg = true;
-    pAAPrism->set(x1, y1, z1, x2, y2, z2, pos_prism, rotX, rotY, rotZ);
+    pAAPrism->set(x1, y1, z1, x2, y2, z2, pos_prism, rot_X, rot_y, rot_z);
     _need_update_aabb = true;
 }
 

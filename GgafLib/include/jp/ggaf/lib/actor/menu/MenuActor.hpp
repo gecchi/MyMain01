@@ -1059,7 +1059,8 @@ void MenuActor<T>::relateAllItemToCancel(int prm_index_of_cancel_item) {
             _lstItems.getElemFromFirst(prm_index_of_cancel_item);
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor>::Elem* pElem =
             _lstItems.getElemFirst();
-    for (int i = 0; i < _lstItems.length(); i++) {
+    int n = _lstItems.length();
+    for (int i = 0; i < n; i++) {
         pElem->connect(ITEM_RELATION_TO_CANCEL, pCancelElem);
         pElem = pElem->_pNext;
     }
@@ -1435,7 +1436,8 @@ void MenuActor<T>::riseMe() {
     //メニューアイテム初期配置
     GgafDxCore::GgafDxDrawableActor* p;
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor>::Elem* pElem = _lstItems.getElemFirst();
-    for (int i = 0; i < _lstItems.length(); i++) {
+    int n_i = _lstItems.length();
+    for (int i = 0; i < n_i; i++) {
         p = pElem->_pValue;
         p->position(T::_x + p->_x_local,
                     T::_y + p->_y_local,
@@ -1446,7 +1448,8 @@ void MenuActor<T>::riseMe() {
     }
     //表示アイテム初期配置
     pElem = _lstDispActors.getElemFirst();
-    for (int i = 0; i < _lstDispActors.length(); i++) {
+    int n_da = _lstDispActors.length();
+    for (int i = 0; i < n_da; i++) {
         p = pElem->_pValue;
         p->position(T::_x + p->_x_local,
                     T::_y + p->_y_local,
@@ -1459,7 +1462,8 @@ void MenuActor<T>::riseMe() {
     if (_pCursorActor) {
         _pCursorActor->activate();
     }
-    for (int i = 0; i < _lstSupCursor.length(); i++) {
+    int n_sc = _lstSupCursor.length();
+    for (int i = 0; i < n_sc; i++) {
         _lstSupCursor.getFromFirst(i)->_pActor->activate();
     }
 }
@@ -1513,7 +1517,8 @@ void MenuActor<T>::processBehavior() {
         _pCursorActor->_pKurokoA->behave();
         //メインカーソル側で、_pKurokoA->behave() しないように注意
     }
-    for (int i = 0; i < _lstSupCursor.length(); i++) {
+    int n_sc = _lstSupCursor.length();
+    for (int i = 0; i < n_sc; i++) {
         _lstSupCursor.getFromFirst(i)->_pActor->_pKurokoA->behave();
         //補助カーソル側で、_pKurokoA->behave() しないように注意
     }
@@ -1521,7 +1526,8 @@ void MenuActor<T>::processBehavior() {
     //メニューアイテムをメニューに追従
     GgafDxCore::GgafDxDrawableActor* p;
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor>::Elem* pElem = _lstItems.getElemFirst();
-    for (int i = 0; i < _lstItems.length(); i++) {
+    int n_i = _lstItems.length();
+    for (int i = 0; i < n_i; i++) {
         p = pElem->_pValue;
         p->position(T::_x + p->_x_local,
                     T::_y + p->_y_local,
@@ -1533,7 +1539,8 @@ void MenuActor<T>::processBehavior() {
     }
     //表示アイテムをメニューに追従
     pElem = _lstDispActors.getElemFirst();
-    for (int i = 0; i < _lstDispActors.length(); i++) {
+    int n_da = _lstDispActors.length();
+    for (int i = 0; i < n_da; i++) {
         p = pElem->_pValue;
         p->position(T::_x + p->_x_local,
                     T::_y + p->_y_local,
@@ -1562,7 +1569,7 @@ void MenuActor<T>::processBehavior() {
         _pCursorActor->setAlpha(T::getAlpha());
     }
     //補助カーソルをメニューアイテムに追従
-    for (int i = 0; i < _lstSupCursor.length(); i++) {
+    for (int i = 0; i < n_sc; i++) {
         SupCursor* pSupCursor = _lstSupCursor.getFromFirst(i);
         GgafDxCore::GgafDxDrawableActor* pTargetItem = _lstItems.getFromFirst(pSupCursor->_select_index);
         GgafDxCore::GgafDxDrawableActor* pSupCursorActor = pSupCursor->_pActor;
@@ -1583,7 +1590,8 @@ void MenuActor<T>::processBehavior() {
     }
 
     //サブメニューのriseMe() sinkMe() 時
-    for (int i = 0; i < _lstSubMenu.length(); i++) {
+    int n_sm = _lstSubMenu.length();
+    for (int i = 0; i < n_sm; i++) {
         MenuActor<T>* pSubMenu = _lstSubMenu.getFromFirst(i);
         if (pSubMenu->isJustRisen()) {
             disableControll(); //サブメニューが立ち上がったので、自身は操作不可

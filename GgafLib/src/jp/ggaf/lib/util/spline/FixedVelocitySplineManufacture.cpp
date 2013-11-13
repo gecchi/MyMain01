@@ -84,7 +84,8 @@ void FixedVelocitySplineManufacture::calculate() {
     //
     SplineManufacture::calculate();
     _paFrame_need_at[0] = 0; //始点に行くまでに必要なフレーム数は不明
-    for (int t = 1; t < _sp->_rnum; t ++) {
+    int rnum = _sp->_rnum;
+    for (int t = 1; t < rnum; t ++) {
         //距離 paDistanceTo[t] を、速度 _veloMvUnit(=1000) で移動するのに必要なフレーム数を求める。
         //時間＝距離÷速さ
         _paFrame_need_at[t] = _paFrame_need_at[t-1] + (float)(1.0*_paDistance_to[t] / _veloMvUnit);

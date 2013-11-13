@@ -275,7 +275,7 @@ public:
 //                                           int prm_nWay, angle prm_angClearance,
 //                                           angle* out_paAngleRz, angle* out_paAngleRy);
 
-//    static void getMoveRzRyWayShot3D_XZ(int prm_nWay, angle prm_angClearance, coord prm_tX, coord prm_tY, coord prm_tZ,
+//    static void getMoveRzRyWayShot3D_XZ(int prm_nWay, angle prm_angClearance, coord prm_tx, coord prm_ty, coord prm_tz,
 //                                        angle& out_angFaceZ, angle* out_paAngRotY);
 
 
@@ -297,7 +297,7 @@ public:
      * @param out_x
      * @param out_y
      */
-    static void rotXY(coord prm_x, coord prm_y, angle prm_ang, coord& out_x, coord& out_y);
+    static void rotxy(coord prm_x, coord prm_y, angle prm_ang, coord& out_x, coord& out_y);
 
     /**
      * ‹——£ŒvŽZ(2D) .

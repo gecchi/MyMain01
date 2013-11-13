@@ -21,9 +21,9 @@ using namespace GgafDxCore;
 //＜軸回転の角度の変数名表現＞
 //軸回転は rot または r で書くようにする。 angRx とか、とにかく "R" か "r" が変数名に入ってる
 //＜例＞
-//angRx rotX rx Rx rx radRx ・・・ X軸回転に関連している変数名
-//angRy rotY ry Ry ry radRy ・・・ Y軸回転に関連している変数名
-//angRz rotZ rx Rz rz radRz ・・・ Z軸回転に関連している変数名
+//angRx rot_X rx Rx rx radRx ・・・ X軸回転に関連している変数名
+//angRy rot_y ry Ry ry radRy ・・・ Y軸回転に関連している変数名
+//angRz rot_z rx Rz rz radRz ・・・ Z軸回転に関連している変数名
 //これらもその時々により精度が変わっているかもしれない。
 //また左手系(X軸は右へ行くと正、Y軸は上に行くと正、Z軸は奥へ行くと正）を前提としているため、
 //これらの軸回転angle値の正の値とは通常は、軸を向いて反時計回りの方向を表す。
@@ -46,8 +46,8 @@ using namespace GgafDxCore;
 //angXY は ３次元空間の Z=0 のXY平面上に限り、angRz とみなすことが出来ます。
 //このようにして計算を行っている箇所があり、
 //「平面の中心角、または直線の成す角度 として値を求めたけども、軸回転として読み替えた、或いは、使いたかった」
-//という場合は rotXY という変数にしています。
-//つまり rotXY = angXY or angRz
+//という場合は rotxy という変数にしています。
+//つまり rotxy = angXY or angRz
 //angXY -> angRz は角度0°の位置(方向ベクトル(x,y,z)=(1,0,0))、正の回転方向が一致するのでわかりやすいです。
 
 //「めも」
@@ -55,7 +55,7 @@ using namespace GgafDxCore;
 //angZX -> angRy の場合は正の回転方向は一致しますが、角度0°の位置が(x,y,z)=(1,0,0) ではなくなってしまうため、キャラの軸回転には向きません
 //
 //そこで
-//rotXZ = angXZ or angRy_rev
+//rot_XZ = angXZ or angRy_rev
 //のように "rev" 「逆周りですよ」と書くようにした。角度0°の位置を優先した結果、こんなややこしいことになっている！
 
 
@@ -379,10 +379,10 @@ void GgafDxUtil::convRzRyToRyRz(angle prm_Rz, angle prm_Ry, angle& out_Ry, angle
 //
 //}
 
-//void GgafDxUtil::getMoveRzRyWayShot3D_XZ(int prm_nWay, angle prm_angClearance, coord prm_tX, coord prm_tY, coord prm_tZ,
+//void GgafDxUtil::getMoveRzRyWayShot3D_XZ(int prm_nWay, angle prm_angClearance, coord prm_tx, coord prm_ty, coord prm_tz,
 //                                          angle& out_angFaceZ, angle* out_paAngRotY) {
 //    angle tRz, tRy;
-//    convVectorToRzRy(prm_tX, prm_tY, prm_tZ, tRy, tRy);
+//    convVectorToRzRy(prm_tx, prm_ty, prm_tz, tRy, tRy);
 //
 //    angle angStart = addAng(tRy, ((prm_nWay - 1) * prm_angClearance) / -2);
 //    for (int i = 0; i < prm_nWay; i++) {
@@ -466,7 +466,7 @@ angle GgafDxUtil::getAngDiff(angle angFrom, angle angTo, int prm_way) {
                                "angFrom=" << angFrom << "/angTo=" << angTo<<"/prm_way="<<prm_way);
 }
 
-void GgafDxUtil::rotXY(int prm_x, int prm_y, angle prm_ang, int& out_x, int& out_y) {
+void GgafDxUtil::rotxy(int prm_x, int prm_y, angle prm_ang, int& out_x, int& out_y) {
     out_x = (int)(floor((prm_x * GgafDxUtil::COS[prm_ang/SANG_RATE]) - (prm_y * GgafDxUtil::SIN[prm_ang/SANG_RATE])));
     out_y = (int)(floor((prm_x * GgafDxUtil::SIN[prm_ang/SANG_RATE]) + (prm_y * GgafDxUtil::COS[prm_ang/SANG_RATE])));
 }
@@ -536,13 +536,13 @@ void GgafDxUtil::convVectorToRzRy(coord vx,
     angle prj_rZY = GgafDxUtil::getAngle2D(ABS(vz), ABS(vy)); //Rz
     angle prj_rZX = GgafDxUtil::getAngle2D(ABS(vz), ABS(vx));
 
-    angle rotZ, rotY_rev;
+    angle rot_z, rot_y_rev;
     if (0 <= prj_rXZ && prj_rXZ <= D45ANG) {
-        rotZ = GgafDxUtil::PROJANG_XY_XZ_TO_ROTANG_z[(int)(prj_rXY*0.01)][(int)(prj_rXZ*0.01)];
-        rotY_rev = GgafDxUtil::PROJANG_XY_XZ_TO_ROTANG_y_REV[(int)(prj_rXY*0.01)][(int)(prj_rXZ*0.01)];
+        rot_z = GgafDxUtil::PROJANG_XY_XZ_TO_ROTANG_z[(int)(prj_rXY*0.01)][(int)(prj_rXZ*0.01)];
+        rot_y_rev = GgafDxUtil::PROJANG_XY_XZ_TO_ROTANG_y_REV[(int)(prj_rXY*0.01)][(int)(prj_rXZ*0.01)];
     } else if (D45ANG <= prj_rXZ && prj_rXZ <= D90ANG) {
-        rotZ = GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_x_REV[(int)(prj_rZY*0.01)][(int)(prj_rZX*0.01)];
-        rotY_rev = D90ANG - GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_y[(int)(prj_rZY*0.01)][(int)(prj_rZX*0.01)];
+        rot_z = GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_x_REV[(int)(prj_rZY*0.01)][(int)(prj_rZX*0.01)];
+        rot_y_rev = D90ANG - GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_y[(int)(prj_rZY*0.01)][(int)(prj_rZX*0.01)];
     } else {
         throwGgafCriticalException("GgafDxUtil::getRzRyAng 範囲が破綻してます。prj_rXZ="<<prj_rXZ<<" 引数:"<<vx<<","<<vy<<","<<vz);
     }
@@ -557,29 +557,29 @@ void GgafDxUtil::convVectorToRzRy(coord vx,
 #endif
     //象限によって回転角を補正
     if (vx >= 0 && vy >= 0 && vz >= 0) { //第一象限
-        out_angRz = rotZ;
-        out_angRy = (D360ANG - rotY_rev);
+        out_angRz = rot_z;
+        out_angRy = (D360ANG - rot_y_rev);
     } else if (vx <= 0 && vy >= 0 && vz >= 0) { //第二象限
-        out_angRz = rotZ;
-        out_angRy = (D180ANG + rotY_rev);
+        out_angRz = rot_z;
+        out_angRy = (D180ANG + rot_y_rev);
     } else if (vx <= 0 && vy <= 0 && vz >= 0) { //第三象限
-        out_angRz = (D360ANG - rotZ);
-        out_angRy = (D180ANG + rotY_rev);
+        out_angRz = (D360ANG - rot_z);
+        out_angRy = (D180ANG + rot_y_rev);
     } else if (vx >= 0 && vy <= 0 && vz >= 0) { //第四象限
-        out_angRz = (D360ANG - rotZ);
-        out_angRy = (D360ANG - rotY_rev);
+        out_angRz = (D360ANG - rot_z);
+        out_angRy = (D360ANG - rot_y_rev);
     } else if (vx >= 0 && vy >= 0 && vz <= 0) { //第五象限
-        out_angRz = rotZ;
-        out_angRy = rotY_rev;
+        out_angRz = rot_z;
+        out_angRy = rot_y_rev;
     } else if (vx <= 0 && vy >= 0 && vz <= 0) { //第六象限
-        out_angRz = rotZ;
-        out_angRy = (D180ANG - rotY_rev);
+        out_angRz = rot_z;
+        out_angRy = (D180ANG - rot_y_rev);
     } else if (vx <= 0 && vy <= 0 && vz <= 0) { //第七象限
-        out_angRz = (D360ANG - rotZ);
-        out_angRy = (D180ANG - rotY_rev);
+        out_angRz = (D360ANG - rot_z);
+        out_angRy = (D180ANG - rot_y_rev);
     } else if (vx >= 0 && vy <= 0 && vz <= 0) { //第八象限
-        out_angRz = (D360ANG - rotZ);
-        out_angRy = rotY_rev;
+        out_angRz = (D360ANG - rot_z);
+        out_angRy = rot_y_rev;
     } else {
         throwGgafCriticalException("GgafDxUtil::getRzRyAng ありえません。vx,vy,vz="<<vx<<","<<vy<<","<<vz);
     }

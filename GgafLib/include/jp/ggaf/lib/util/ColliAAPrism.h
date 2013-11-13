@@ -28,7 +28,7 @@ public:
 public:
     ColliAAPrism();
 
-    void set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_prism, bool rotX, bool rotY, bool rotZ);
+    void set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_prism, bool rot_X, bool rot_y, bool rot_z);
 
     virtual ~ColliAAPrism();
 };

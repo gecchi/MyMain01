@@ -96,7 +96,8 @@ void FixedFrameSplineManufacture::calculate() {
     //                  <-->
     //                  _spent_frame = １区間は 120/8 Frame = prm_spent_frame / (sp._rnum-1);
     SplineManufacture::calculate();
-    for (int t = 1; t < _sp->_rnum; t ++) {
+    int rnum = _sp->_rnum;
+    for (int t = 1; t < rnum; t ++) {
         //距離 paDistanceTo[t] を、時間frm_segment で移動するために必要な速度を求める。
         //速さ＝距離÷時間
         _paSPMvVeloTo[t] = (velo)(_paDistance_to[t] / _fFrame_of_segment);

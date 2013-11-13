@@ -9,6 +9,7 @@ std::map<std::string, int> GgafRepeatSeq::mapNowval;
 std::map<std::string, int> GgafRepeatSeq::mapMaxval;
 std::map<std::string, int> GgafRepeatSeq::mapMinval;
 
+
 void GgafRepeatSeq::create(std::string& ID, int min, int max) {
 #ifdef MY_DEBUG
     if (isExist(ID)) {
@@ -22,16 +23,15 @@ void GgafRepeatSeq::create(std::string& ID, int min, int max) {
 }
 
 void GgafRepeatSeq::create(const char* ID, int min, int max) {
-    std::string s_id = std::string(ID);
 #ifdef MY_DEBUG
-    if (isExist(s_id)) {
+    if (isExist(ID)) {
         throwGgafCriticalException("GgafRepeatSeq::create() ID="<<ID<<"は既に存在します(2)");
     }
 #endif
     _TRACE_("シークエンスを作成します。 GgafRepeatSeq::create("<<ID<<","<<min<<","<<max<<")");
-    mapNowval[s_id] = min;
-    mapMaxval[s_id] = max;
-    mapMinval[s_id] = min;
+    mapNowval[ID] = min;
+    mapMaxval[ID] = max;
+    mapMinval[ID] = min;
 }
 void GgafRepeatSeq::set(std::string& ID, int val) {
 #ifdef MY_DEBUG
@@ -46,11 +46,10 @@ void GgafRepeatSeq::set(std::string& ID, int val) {
 }
 
 void GgafRepeatSeq::set(const char* ID, int val) {
-    std::string s_id = std::string(ID);
 #ifdef MY_DEBUG
-    if (isExist(s_id) ) {
+    if (isExist(ID) ) {
 #endif
-        mapNowval[s_id] = val;
+        mapNowval[ID] = val;
 #ifdef MY_DEBUG
     } else {
         throwGgafCriticalException("GgafRepeatSeq::set() ID="<<ID<<"は存在しません。");
@@ -71,14 +70,13 @@ void GgafRepeatSeq::setMax(std::string& ID) {
 }
 
 void GgafRepeatSeq::setMax(const char* ID) {
-    std::string s_id = std::string(ID);
 #ifdef MY_DEBUG
-    if (isExist(s_id) ) {
+    if (isExist(ID) ) {
 #endif
-        mapNowval[s_id] = mapMaxval[s_id];
+        mapNowval[ID] = mapMaxval[ID];
 #ifdef MY_DEBUG
     } else {
-        throwGgafCriticalException("GgafRepeatSeq::setMax() ID="<<s_id<<"は存在しません。");
+        throwGgafCriticalException("GgafRepeatSeq::setMax() ID="<<ID<<"は存在しません。");
     }
 #endif
 }
@@ -96,14 +94,13 @@ void GgafRepeatSeq::setMin(std::string& ID) {
 }
 
 void GgafRepeatSeq::setMin(const char* ID) {
-    std::string s_id = std::string(ID);
 #ifdef MY_DEBUG
-    if (isExist(s_id) ) {
+    if (isExist(ID) ) {
 #endif
-    mapNowval[s_id] = mapMinval[s_id];
+    mapNowval[ID] = mapMinval[ID];
 #ifdef MY_DEBUG
     } else {
-        throwGgafCriticalException("GgafRepeatSeq::setMin() ID="<<s_id<<"は存在しません。");
+        throwGgafCriticalException("GgafRepeatSeq::setMin() ID="<<ID<<"は存在しません。");
     }
 #endif
 }
@@ -118,8 +115,7 @@ bool GgafRepeatSeq::isExist(std::string& ID) {
 }
 
 bool GgafRepeatSeq::isExist(const char* ID) {
-    std::string s_id = std::string(ID);
-    std::map<std::string, int>::iterator i = mapNowval.find(s_id);
+    std::map<std::string, int>::iterator i = mapNowval.find(ID);
     if(i != mapNowval.end()){
         return true;
     } else {
@@ -147,16 +143,15 @@ int GgafRepeatSeq::nextVal(std::string& ID) {
 #endif
 }
 int GgafRepeatSeq::nextVal(const char* ID) {
-    std::string s_id = std::string(ID);
 #ifdef MY_DEBUG
-    if (isExist(s_id) ) {
+    if (isExist(ID) ) {
 #endif
-        int val = mapNowval[s_id];
+        int val = mapNowval[ID];
         int next_val = val + 1;
-        if (next_val > mapMaxval[s_id]) {
-            mapNowval[s_id] = mapMinval[s_id];
+        if (next_val > mapMaxval[ID]) {
+            mapNowval[ID] = mapMinval[ID];
         } else {
-            mapNowval[s_id] = next_val;
+            mapNowval[ID] = next_val;
         }
         return val;
 #ifdef MY_DEBUG

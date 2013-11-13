@@ -28,7 +28,7 @@ public:
 public:
     ColliAAB();
 
-    void set(coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, bool rotX, bool rotY, bool rotZ);
+    void set(coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, bool rot_X, bool rot_y, bool rot_z);
 
     void rotateRxRzRy(angle rx, angle ry, angle rz) override;
 

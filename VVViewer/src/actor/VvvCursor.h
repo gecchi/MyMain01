@@ -18,7 +18,7 @@ public:
         CUR_ON_MOVE,
         CUR_STAY,
     };
-    coord tX_, tY_, tZ_;
+    coord tx_, ty_, tz_;
 
 public:
     /**

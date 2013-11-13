@@ -19,9 +19,9 @@ VvvCursor::VvvCursor(const char* prm_name) :
     setZEnable(false);      //Zバッファは考慮無しに強制
     setZWriteEnable(false); //Zバッファは書き込み無しに強制
     setSpecialDrawDepth(1); //描画順序を最前面描画に強制。ロックオンエフェクトが隠れないようにするため。
-    tX_ = _x;
-    tY_ = _y;
-    tZ_ = _z;
+    tx_ = _x;
+    ty_ = _y;
+    tz_ = _z;
     useProgress(10);
     _pProg->reset(CUR_SINK);
 }
@@ -58,9 +58,9 @@ void VvvCursor::processBehavior() {
     }
     if (_pKurokoA->isJustFinishSlidingMv()) {
         //理想位置に補正
-        _x = tX_;
-        _y = tY_;
-        _z = tZ_;
+        _x = tx_;
+        _y = ty_;
+        _z = tz_;
     }
     _pUvFlipper->behave();
     _pKurokoA->behave();
@@ -75,11 +75,11 @@ void VvvCursor::moveTo(coord X, coord Y, coord Z) {
     _pKurokoA->_slide_mv_flg = false;
     _pKurokoA->setMvVelo(0);
     _pKurokoA->setMvAcce(0);
-    tX_ = X;
-    tY_ = Y;
-    tZ_ = Z;
-    _pKurokoA->setMvAngTwd(tX_, tY_, tZ_);
-    _pKurokoA->slideMvByDT(0, UTIL::getDistance(_x, _y, _z, tX_, tY_, tZ_),
+    tx_ = X;
+    ty_ = Y;
+    tz_ = Z;
+    _pKurokoA->setMvAngTwd(tx_, ty_, tz_);
+    _pKurokoA->slideMvByDT(0, UTIL::getDistance(_x, _y, _z, tx_, ty_, tz_),
                                         20, 0.3f, 0.7f);
     _pProg->change(CUR_ON_MOVE);
 }

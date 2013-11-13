@@ -53,7 +53,7 @@ void GgafDepositoryFormation::processFinal() {
     if (_listFollower.length() > 0) {
         //編隊メンバー状況チェック
         GgafActor* pFollower;
-        for (int i = 0; i < _listFollower.length(); i++) { //
+        for (int i = 0; i < _listFollower.length(); i++) { //ループで _listFollower.remove() するので、ローカルに落とせない
             pFollower = _listFollower.getCurrent();
             if (_can_live_flg) {
                 if (pFollower->_is_active_flg) {

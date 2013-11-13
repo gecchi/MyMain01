@@ -54,62 +54,22 @@ MgrWorld::MgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
 //    pBar_->position(C_x, C_y+PX_C(100));
 //    getSceneDirector()->addSubGroup(pBar_);
 //
-//    pTeki_ = NEW Teki001("Teki001");
-//    getSceneDirector()->addSubGroup(MGR_TEKI, pTeki_);
+    pTeki_ = NEW Teki001("Teki001");
+    getSceneDirector()->addSubGroup(MGR_TEKI, pTeki_);
 
     pMikata_ = NEW Mikata001("Mikata001");
     getSceneDirector()->addSubGroup(MGR_MIKATA, pMikata_) ;
 
 //
-//    LabelGecchi16Font* pMsg = NEW LabelGecchi16Font("Msg");
-//    pMsg->update("HELLO!");
-//    pMsg->position(LT_x, LT_y);
-//    getSceneDirector()->addSubGroup(pMsg);
+    LabelGecchi16Font* pMsg = NEW LabelGecchi16Font("Msg");
+    pMsg->update("HELLO!");
+    pMsg->position(LT_x, LT_y);
+    getSceneDirector()->addSubGroup(pMsg);
 
     VirtualButton::_keyboardmap.BUTTON1 = DIK_SPACE; //ボタン１=スペースキー とする。
     VirtualButton::_keyboardmap.UI_DEBUG = DIK_Q;
     vb_ = NEW VirtualButton();
 
-
-
-
-
-
-
-    GgafQuery qry;
-    qry.addNewRow();
-
-
-    std::string key1="XXX";
-    qry.setVal(key1, 0, "vvvv");
-    std::string v1 = qry.getVal("XXX", 0);
-    _TRACE_("v1="<<v1);
-    std::string v2 = qry.getVal(key1, 0);
-    _TRACE_("v2="<<v2);
-
-
-    std::string key2="ZZZ";
-    std::string val2="zzz";
-    qry.setVal("ZZZ", 0, val2);
-    std::string v3 = qry.getVal("ZZZ", 0);
-    _TRACE_("v3="<<v3);
-    std::string v4 = qry.getVal(key2, 0);
-    _TRACE_("v4="<<v4);
-
-    std::string key3="QQQ";
-    qry.setVal("QQQ", 0, "qqq");
-    std::string v5 = qry.getVal("QQQ", 0);
-    _TRACE_("v5="<<v5);
-    std::string v6 = qry.getVal(key3, 0);
-    _TRACE_("v6="<<v6);
-
-    std::string key4="EEE";
-    std::string val4="eeee";
-    qry.setVal(key4, 0, val4);
-    std::string v7 = qry.getVal("EEE", 0);
-    _TRACE_("v7="<<v7);
-    std::string v8 = qry.getVal(key4, 0);
-    _TRACE_("v8="<<v8);
 
 }
 
