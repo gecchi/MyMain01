@@ -12,18 +12,18 @@ using namespace GgafCore;
 
 GgafLinearOctree::GgafLinearOctree(int prm_level) : GgafObject() {
     _top_space_level = prm_level;
-    _top_level_dX = 0;
-    _top_level_dY = 0;
-    _top_level_dZ = 0;
-    _r_top_level_dX = 0.0;
-    _r_top_level_dY = 0.0;
-    _r_top_level_dZ = 0.0;
-    _root_X1 = 0;
-    _root_Y1 = 0;
-    _root_Z1 = 0;
-    _root_X2 = 0;
-    _root_Y2 = 0;
-    _root_Z2 = 0;
+    _top_level_dx = 0;
+    _top_level_dy = 0;
+    _top_level_dz = 0;
+    _r_top_level_dx = 0.0;
+    _r_top_level_dy = 0.0;
+    _r_top_level_dz = 0.0;
+    _root_x1 = 0;
+    _root_y1 = 0;
+    _root_z1 = 0;
+    _root_x2 = 0;
+    _root_y2 = 0;
+    _root_z2 = 0;
     //べき乗作成
     _pa_8pow = NEW uint32_t[(prm_level+1)+1];
     _pa_8pow[0] = 1;
@@ -41,59 +41,59 @@ GgafLinearOctree::GgafLinearOctree(int prm_level) : GgafObject() {
     _pRegElemFirst = nullptr;
 }
 
-void GgafLinearOctree::setRootSpace(int X1, int Y1, int Z1, int X2, int Y2, int Z2) {
-    _root_X1 = X1;
-    _root_Y1 = Y1;
-    _root_Z1 = Z1;
-    _root_X2 = X2;
-    _root_Y2 = Y2;
-    _root_Z2 = Z2;
-    _top_level_dX = ((_root_X2-_root_X1) / ((float)(1<<_top_space_level))) + 1;
-    _top_level_dY = ((_root_Y2-_root_Y1) / ((float)(1<<_top_space_level))) + 1;
-    _top_level_dZ = ((_root_Z2-_root_Z1) / ((float)(1<<_top_space_level))) + 1; //+1は空間数をオーバーしないように余裕をもたせるため
-    _r_top_level_dX = 1.0 / _top_level_dX;
-    _r_top_level_dY = 1.0 / _top_level_dY;
-    _r_top_level_dZ = 1.0 / _top_level_dZ;
+void GgafLinearOctree::setRootSpace(int x1, int y1, int z1, int x2, int y2, int z2) {
+    _root_x1 = x1;
+    _root_y1 = y1;
+    _root_z1 = z1;
+    _root_x2 = x2;
+    _root_y2 = y2;
+    _root_z2 = z2;
+    _top_level_dx = ((_root_x2-_root_x1) / ((float)(1<<_top_space_level))) + 1;
+    _top_level_dy = ((_root_y2-_root_y1) / ((float)(1<<_top_space_level))) + 1;
+    _top_level_dz = ((_root_z2-_root_z1) / ((float)(1<<_top_space_level))) + 1; //+1は空間数をオーバーしないように余裕をもたせるため
+    _r_top_level_dx = 1.0 / _top_level_dx;
+    _r_top_level_dy = 1.0 / _top_level_dy;
+    _r_top_level_dz = 1.0 / _top_level_dz;
 
-    _TRACE_("八分木レベル0空間=" << _root_X2-_root_X1 << "x" << _root_Y2-_root_Y1 << "x" << _root_Z2-_root_Z1);
-    _TRACE_("八分木レベル"<<_top_space_level<<"空間=" << _top_level_dX << "x" << _top_level_dY << "x" << _top_level_dZ);
+    _TRACE_("八分木レベル0空間=" << _root_x2-_root_x1 << "x" << _root_y2-_root_y1 << "x" << _root_z2-_root_z1);
+    _TRACE_("八分木レベル"<<_top_space_level<<"空間=" << _top_level_dx << "x" << _top_level_dy << "x" << _top_level_dz);
 }
 
 void GgafLinearOctree::registerElem(GgafLinearOctreeElem* prm_pElem,
-                                    int tX1, int tY1, int tZ1,
-                                    int tX2, int tY2, int tZ2) {
+                                    int tx1, int ty1, int tz1,
+                                    int tx2, int ty2, int tz2) {
 
     //はみ出る場合は補正
-    if (tX1 <= _root_X1)  { tX1 = _root_X1+1; }
-    if (tX2 >= _root_X2)  { tX2 = _root_X2-1; }
-    if (tY1 <= _root_Y1)  { tY1 = _root_Y1+1; }
-    if (tY2 >= _root_Y2)  { tY2 = _root_Y2-1; }
-    if (tZ1 <= _root_Z1)  { tZ1 = _root_Z1+1; }
-    if (tZ2 >= _root_Z2)  { tZ2 = _root_Z2-1; }
+    tx1 = tx1<=_root_x1 ? _root_x1+1 : tx1;
+    tx2 = tx2>=_root_x2 ? _root_x2-1 : tx2;
+    ty1 = ty1<=_root_y1 ? _root_y1+1 : ty1;
+    ty2 = ty2>=_root_y2 ? _root_y2-1 : ty2;
+    tz1 = tz1<=_root_z1 ? _root_z1+1 : tz1;
+    tz2 = tz2>=_root_z2 ? _root_z2-1 : tz2;
 
     //軸座標の大小が裏返った場合、つまりLevel0より外か、Level0全体より大きい場合は無視する
-    if (tX1 >= tX2 || tY1 >= tY2 || tZ1 >= tZ2) {
+    if (tx1 >= tx2 || ty1 >= ty2 || tz1 >= tz2) {
         return; //空間外は登録しない
     }
 
     //BOX領域座標から空間配列要素番号（線形八分木配列の要素番号）を算出 .
     //まず、BOXの所属空間 Level と、その空間Levelのモートン順序通し空間番号を求め
     //モートン順序通し空間番号から計算して配列のIndexを求める。
-    uint32_t index = 0xffffffff; //tX1,tY1,tZ1,tX2,tY2,tZ2 から、これ(index)を求める
+    uint32_t index = 0xffffffff; //tx1,ty1,tz1,tx2,ty2,tz2 から、これ(index)を求める
 
     //BOXの左下手前のXYZ座標点が所属する空間は、最大レベル空間でモートン順序通し空間番号は何番かを取得
     uint32_t minnum_in_toplevel = getMortonOrderNumFromXYZindex(
-                                    (uint32_t)((tX1 - _root_X1) * _r_top_level_dX),
-                                    (uint32_t)((tY1 - _root_Y1) * _r_top_level_dY),
-                                    (uint32_t)((tZ1 - _root_Z1) * _r_top_level_dZ)
+                                    (uint32_t)((tx1 - _root_x1) * _r_top_level_dx),
+                                    (uint32_t)((ty1 - _root_y1) * _r_top_level_dy),
+                                    (uint32_t)((tz1 - _root_z1) * _r_top_level_dz)
                                   );
 
     //BOXの右上奥のXYZ座標点が所属する空間は、最大レベル空間でモートン順序通し空間番号は何番かを取得
     uint32_t maxnum_in_toplevel = getMortonOrderNumFromXYZindex(
-                                    (uint32_t)((tX2 - _root_X1) * _r_top_level_dX),
-                                    (uint32_t)((tY2 - _root_Y1) * _r_top_level_dY),
-                                    (uint32_t)((tZ2 - _root_Z1) * _r_top_level_dZ)
-                                  );                 //↑_root_X2,_root_Y2,_root_Z2 と間違えていません。
+                                    (uint32_t)((tx2 - _root_x1) * _r_top_level_dx),
+                                    (uint32_t)((ty2 - _root_y1) * _r_top_level_dy),
+                                    (uint32_t)((tz2 - _root_z1) * _r_top_level_dz)
+                                  );                 //↑_root_x2,_root_y2,_root_z2 と間違えていません。
 
 
     //引数のBOXは、どのレベルの空間に所属しているのか取得
@@ -198,19 +198,19 @@ void GgafLinearOctree::registerElem(GgafLinearOctreeElem* prm_pElem,
 
         _TRACE_(
            "GgafLinearOctree::registerElem() 空間オーバー !. \n"<<
-           "Root=("<<_root_X1<<","<<_root_Y1<<","<<_root_Z1<<")-("<<_root_X2<<","<<_root_Y2<<","<<_root_Z2<<")\n"<<
-           "Elem=("<<tX1<<","<<tY1<<","<<tZ1<<")-("<<tX2<<","<<tY2<<","<<tZ2<<")\n"<<
-           "_top_level_dX="<<_top_level_dX<<" _top_level_dY="<<_top_level_dY<<" _top_level_dZ="<<_top_level_dZ<<"\n"<<
+           "Root=("<<_root_x1<<","<<_root_y1<<","<<_root_z1<<")-("<<_root_x2<<","<<_root_y2<<","<<_root_z2<<")\n"<<
+           "Elem=("<<tx1<<","<<ty1<<","<<tz1<<")-("<<tx2<<","<<ty2<<","<<tz2<<")\n"<<
+           "_top_level_dx="<<_top_level_dx<<" _top_level_dy="<<_top_level_dy<<" _top_level_dz="<<_top_level_dz<<"\n"<<
            "minnum_in_toplevel="<<minnum_in_toplevel<<" maxnum_in_toplevel="<<maxnum_in_toplevel<<"\n"<<
            "differ_bit_pos="<<differ_bit_pos<<" shift_num="<<shift_num<<" morton_order_space_num="<<morton_order_space_num<<"\n"<<
            "index="<<index<<" _num_space="<<_num_space
         );
-        _TRACE_("Min_x_index="<<((uint32_t)((tX1 - _root_X1) / _top_level_dX)));
-        _TRACE_("Min_y_index="<<((uint32_t)((tY1 - _root_Y1) / _top_level_dY)));
-        _TRACE_("Min_z_index="<<((uint32_t)((tZ1 - _root_Z1) / _top_level_dZ)));
-        _TRACE_("Man_x_index="<<((uint32_t)((tX2 - _root_X1) / _top_level_dX)));
-        _TRACE_("Man_y_index="<<((uint32_t)((tY2 - _root_Y1) / _top_level_dY)));
-        _TRACE_("Man_z_index="<<((uint32_t)((tZ2 - _root_Z1) / _top_level_dZ)));
+        _TRACE_("Min_x_index="<<((uint32_t)((tx1 - _root_x1) / _top_level_dx)));
+        _TRACE_("Min_y_index="<<((uint32_t)((ty1 - _root_y1) / _top_level_dy)));
+        _TRACE_("Min_z_index="<<((uint32_t)((tz1 - _root_z1) / _top_level_dz)));
+        _TRACE_("Man_x_index="<<((uint32_t)((tx2 - _root_x1) / _top_level_dx)));
+        _TRACE_("Man_y_index="<<((uint32_t)((ty2 - _root_y1) / _top_level_dy)));
+        _TRACE_("Man_z_index="<<((uint32_t)((tz2 - _root_z1) / _top_level_dz)));
     }
 #endif
 

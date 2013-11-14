@@ -27,7 +27,7 @@ public:
 public:
     ColliSphere();
 
-    void set(coord x, coord y, coord z, coord r, bool rot_X, bool rot_y, bool rot_z);
+    void set(coord x, coord y, coord z, coord r, bool rot_x, bool rot_y, bool rot_z);
 
     void rotateRxRzRy(angle rx, angle ry, angle rz) override;
 

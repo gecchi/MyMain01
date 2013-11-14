@@ -13,11 +13,11 @@ using namespace GgafLib;
 
 DefaultMorphMeshActor::DefaultMorphMeshActor(const char* prm_name, const char* prm_model_id, GgafStatus* prm_pStat) :
     GgafDxMorphMeshActor(prm_name,
-                          prm_model_id,
-                          "DefaultMorphMeshEffect",
-                          "DefaultMorphMeshTechnique",
-                          prm_pStat,
-                          NEW CollisionChecker3D(this) ),
+                         prm_model_id,
+                         "DefaultMorphMeshEffect",
+                         "DefaultMorphMeshTechnique",
+                         prm_pStat,
+                         NEW CollisionChecker3D(this) ),
 _pScaler(new GgafDxScaler(this)) {
 
     _class_name = "DefaultMorphMeshActor";

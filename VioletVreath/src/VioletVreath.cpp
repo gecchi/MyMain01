@@ -6,10 +6,12 @@
 #include "jp/ggaf/lib/util/VBReplayRecorder.h"
 
 #define MY_IDM_RESET_WINDOW_SIZE  10
-#define MY_IDM_RESET_DOT_BY_DOT_WINDOW_SIZE  11
-#define MY_IDM_SAVE               12
-#define MY_IDM_REBOOT             13
-#define MY_IDM_ABOUT              14
+#define MY_IDM_RESET_PIXEL_BY_DOT_WINDOW_SIZE  11
+#define MY_IDM_RESET_PIXEL_BY_2DOT_WINDOW_SIZE  12
+#define MY_IDM_RESET_PIXEL_BY_3DOT_WINDOW_SIZE  13
+#define MY_IDM_SAVE               14
+#define MY_IDM_REBOOT             15
+#define MY_IDM_ABOUT              16
 #define MY_IDM_VPOS_1             21
 #define MY_IDM_VPOS_2             22
 #define MY_IDM_VPOS_3             23
@@ -289,14 +291,34 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                         GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, PROPERTY::SINGLE_VIEW_WINDOW_WIDTH, PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT);
                     }
                 }
-            } else if(wParam == MY_IDM_RESET_DOT_BY_DOT_WINDOW_SIZE) {
-                //dot by dot ウィンドウサイズにリセット
+            } else if(wParam == MY_IDM_RESET_PIXEL_BY_DOT_WINDOW_SIZE) {
+                //pixel by dot ウィンドウサイズにリセット
                 if (!PROPERTY::FULL_SCREEN) {
                     if (PROPERTY::DUAL_VIEW) {
                         GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, PROPERTY::RENDER_TARGET_BUFFER_WIDTH/2, PROPERTY::RENDER_TARGET_BUFFER_HEIGHT);
                         GgafDxCore::GgafDxGod::resetWindowsize(hWnd2, PROPERTY::RENDER_TARGET_BUFFER_WIDTH/2, PROPERTY::RENDER_TARGET_BUFFER_HEIGHT);
                     } else {
                         GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, PROPERTY::RENDER_TARGET_BUFFER_WIDTH, PROPERTY::RENDER_TARGET_BUFFER_HEIGHT);
+                    }
+                }
+            } else if(wParam == MY_IDM_RESET_PIXEL_BY_2DOT_WINDOW_SIZE) {
+                //pixel by 2*2dot ウィンドウサイズにリセット
+                if (!PROPERTY::FULL_SCREEN) {
+                    if (PROPERTY::DUAL_VIEW) {
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, PROPERTY::RENDER_TARGET_BUFFER_WIDTH/2*2, PROPERTY::RENDER_TARGET_BUFFER_HEIGHT*2);
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd2, PROPERTY::RENDER_TARGET_BUFFER_WIDTH/2*2, PROPERTY::RENDER_TARGET_BUFFER_HEIGHT*2);
+                    } else {
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, PROPERTY::RENDER_TARGET_BUFFER_WIDTH*2, PROPERTY::RENDER_TARGET_BUFFER_HEIGHT*2);
+                    }
+                }
+            } else if(wParam == MY_IDM_RESET_PIXEL_BY_3DOT_WINDOW_SIZE) {
+                //pixel by 3*3dot ウィンドウサイズにリセット
+                if (!PROPERTY::FULL_SCREEN) {
+                    if (PROPERTY::DUAL_VIEW) {
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, PROPERTY::RENDER_TARGET_BUFFER_WIDTH/2*3, PROPERTY::RENDER_TARGET_BUFFER_HEIGHT*3);
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd2, PROPERTY::RENDER_TARGET_BUFFER_WIDTH/2*3, PROPERTY::RENDER_TARGET_BUFFER_HEIGHT*3);
+                    } else {
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, PROPERTY::RENDER_TARGET_BUFFER_WIDTH*3, PROPERTY::RENDER_TARGET_BUFFER_HEIGHT*3);
                     }
                 }
             } else if(wParam == MY_IDM_SAVE) {
@@ -405,16 +427,21 @@ BOOL CustmizeSysMenu(HWND hWnd)
     InsertMenu(menu_aspect, 0, MF_STRING | MF_BYPOSITION, MY_IDM_ASPECT_FIXED, "Fix");
     InsertMenu(menu_aspect, 1, MF_STRING | MF_BYPOSITION, MY_IDM_ASPECT_STRETCH, "Stretch");
 
+    HMENU reset_window_size = CreateMenu();
+    InsertMenu(reset_window_size, 0, MF_STRING | MF_BYPOSITION, MY_IDM_RESET_WINDOW_SIZE, "size of beginning.");
+    InsertMenu(reset_window_size, 1, MF_STRING | MF_BYPOSITION, MY_IDM_RESET_PIXEL_BY_DOT_WINDOW_SIZE, "size of pixel = 1dot");
+    InsertMenu(reset_window_size, 2, MF_STRING | MF_BYPOSITION, MY_IDM_RESET_PIXEL_BY_2DOT_WINDOW_SIZE, "size of pixel = 2*2dot.");
+    InsertMenu(reset_window_size, 3, MF_STRING | MF_BYPOSITION, MY_IDM_RESET_PIXEL_BY_3DOT_WINDOW_SIZE, "size of pixel = 3*3dot.");
+
     HMENU hMenu = GetSystemMenu(hWnd, FALSE);
     int i;
     i=5; InsertMenu(hMenu, i, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR)0, "");
-    i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING, MY_IDM_RESET_WINDOW_SIZE, "Reset window size of beginning.");
-    i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING, MY_IDM_RESET_DOT_BY_DOT_WINDOW_SIZE , "Reset window size of dot=pixel.");
-    i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR)menu_aspect, "Game view aspect.");
-    i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR)menu_vp    , "Game view position.");
+    i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR)reset_window_size, "Reset window size. >>");
+    i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR)menu_aspect, "Game view aspect. >>");
+    i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR)menu_vp    , "Game view position. >>");
     i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR)0, "");
     i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING, MY_IDM_SAVE ,"Save window size and view.");
-    i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING, MY_IDM_REBOOT ,"Quit and Reboot...");
+    i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING, MY_IDM_REBOOT ,"Reboot...");
     i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR)0, "");
     i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING, MY_IDM_ABOUT, "About");
 

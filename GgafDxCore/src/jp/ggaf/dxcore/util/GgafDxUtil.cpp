@@ -21,7 +21,7 @@ using namespace GgafDxCore;
 //＜軸回転の角度の変数名表現＞
 //軸回転は rot または r で書くようにする。 angRx とか、とにかく "R" か "r" が変数名に入ってる
 //＜例＞
-//angRx rot_X rx Rx rx radRx ・・・ X軸回転に関連している変数名
+//angRx rot_x rx Rx rx radRx ・・・ X軸回転に関連している変数名
 //angRy rot_y ry Ry ry radRy ・・・ Y軸回転に関連している変数名
 //angRz rot_z rx Rz rz radRz ・・・ Z軸回転に関連している変数名
 //これらもその時々により精度が変わっているかもしれない。
@@ -55,7 +55,7 @@ using namespace GgafDxCore;
 //angZX -> angRy の場合は正の回転方向は一致しますが、角度0°の位置が(x,y,z)=(1,0,0) ではなくなってしまうため、キャラの軸回転には向きません
 //
 //そこで
-//rot_XZ = angXZ or angRy_rev
+//rot_xZ = angXZ or angRy_rev
 //のように "rev" 「逆周りですよ」と書くようにした。角度0°の位置を優先した結果、こんなややこしいことになっている！
 
 

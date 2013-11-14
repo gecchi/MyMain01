@@ -46,8 +46,8 @@ void FormationThagoras::onActive() {
 
 void FormationThagoras::processBehavior() {
     if (canCallUp() && getActiveFrame() % call_up_interval_ == 0) {
-
-        for (int col = 0; col < pXpmHd_->columns_; col++) {
+        int xpm_cols = pXpmHd_->columns_;
+        for (int col = 0; col < xpm_cols; col++) {
             char c = pXpmHd_->pixels_[cnt_call_up_row_][col];
             if (c != pXpmHd_->c_px_non_) {
                 EnemyThagoras* pThagoras = (EnemyThagoras*)callUpMember();

@@ -16,8 +16,8 @@ ColliAAPrism::ColliAAPrism() : ColliAAB() {
     _vIH_y = 0;
 }
 
-void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_prism, bool rot_X, bool rot_y, bool rot_z) {
-    ColliAAB::set(x1, y1, z1, x2, y2, z2, rot_X, rot_y, rot_z);
+void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_prism, bool rot_x, bool rot_y, bool rot_z) {
+    ColliAAB::set(x1, y1, z1, x2, y2, z2, rot_x, rot_y, rot_z);
 
     //   y  = ax + b
     //   a  = (y2-y1)/(x2-x1)

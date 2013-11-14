@@ -30,7 +30,7 @@ public:
 
     /** 移動スプラインプログラム */
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
-
+    /** 鼓動(スケール)を同期させる為のダミーアクター */
     GgafLib::DefaultGeometricActor* pActor4Sc_;
 public:
     /**

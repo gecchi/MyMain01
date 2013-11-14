@@ -114,27 +114,27 @@ public:
     /** [r]八分木の空間に登録を行った要素の先頭要素 */
     GgafLinearOctreeElem* _pRegElemFirst;
     /** [r]root空間の対角の頂点となるx座標の小さい方 */
-    int _root_X1;
+    int _root_x1;
     /** [r]root空間の対角の頂点となるy座標の小さい方 */
-    int _root_Y1;
+    int _root_y1;
     /** [r]root空間の対角の頂点となるz座標の小さい方 */
-    int _root_Z1;
+    int _root_z1;
     /** [r]root空間の対角の頂点となるx座標大きい方 */
-    int _root_X2;
+    int _root_x2;
     /** [r]root空間の対角の頂点となるy座標大きい方 */
-    int _root_Y2;
+    int _root_y2;
     /** [r]root空間の対角の頂点となるz座標大きい方 */
-    int _root_Z2;
+    int _root_z2;
     /** [r]最小空間(=最高分割の空間)の1空間のX軸方向の距離 */
-    int _top_level_dX;
+    int _top_level_dx;
     /** [r]最小空間(=最高分割の空間)の1空間のY軸方向の距離 */
-    int _top_level_dY;
+    int _top_level_dy;
     /** [r]最小空間(=最高分割の空間)の1空間のZ軸方向の距離 */
-    int _top_level_dZ;
+    int _top_level_dz;
 
-    double _r_top_level_dX;
-    double _r_top_level_dY;
-    double _r_top_level_dZ;
+    double _r_top_level_dx;
+    double _r_top_level_dy;
+    double _r_top_level_dz;
 
     /** [r]8の累乗の値を予め計算して保持している配列 */
     uint32_t* _pa_8pow;
@@ -153,30 +153,30 @@ public:
     /**
      * 空間レベル0の実範囲を更新.
      * 随時変更可能。
-     * @param X1 構築する外枠の空間座標
-     * @param Y1 〃
-     * @param Z1 〃
-     * @param X2 〃
-     * @param Y2 〃
-     * @param Z2 〃
+     * @param x1 構築する外枠の空間座標
+     * @param y1 〃
+     * @param z1 〃
+     * @param x2 〃
+     * @param y2 〃
+     * @param z2 〃
      */
-    virtual void setRootSpace(int X1, int Y1, int Z1,
-                              int X2, int Y2, int Z2);
+    virtual void setRootSpace(int x1, int y1, int z1,
+                              int x2, int y2, int z2);
 
     /**
      * 要素を八分木空間に登録する
      * 空間番号範囲外になった場合は無視される。
      * @param prm_pElem 要素
-     * @param tX1 要素対象オブジェクトの外枠の座標
-     * @param tY1 〃
-     * @param tZ1 〃
-     * @param tX2 〃
-     * @param tY2 〃
-     * @param tZ2 〃
+     * @param tx1 要素対象オブジェクトの外枠の座標
+     * @param ty1 〃
+     * @param tz1 〃
+     * @param tx2 〃
+     * @param ty2 〃
+     * @param tz2 〃
      */
     void registerElem(GgafLinearOctreeElem* prm_pElem,
-                      int tX1, int tY1, int tZ1,
-                      int tX2, int tY2, int tZ2);
+                      int tx1, int ty1, int tz1,
+                      int tx2, int ty2, int tz2);
 
     /**
      * 八分木空間に登録されている全要素を消去する（未所属状態にする）.
