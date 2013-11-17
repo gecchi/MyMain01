@@ -11,12 +11,12 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-#define DAMAGE_DISP_DELAY (3*60)
 DamageDispBar::DamageDispBar(const char* prm_name, GgafLib::GraphBarActor* prm_pTargetSourceBar)
       : GraphBarActor(prm_name, "CostDispBar") {
     _class_name = "DamageDispBar";
     pSourceBar_ = prm_pTargetSourceBar;
     damege_disp_timer_ = 0;
+    velo_clear_damege_ = -100;
 }
 
 void DamageDispBar::initialize() {
@@ -42,14 +42,12 @@ void DamageDispBar::processBehavior() {
     if (damege_disp_timer_ > 0) {
 
         _x = pSourceBar_->_x + PX_C(pSourceBar_->getBarPx()); //pSourceBar_先端の座標
-
         _pUvFlipper->behave();
-
         damege_disp_timer_--;
     } else {
         //0へ向かう
         if (getQty() > 0) {
-            incQty(-100);
+            incQty(velo_clear_damege_);
             if (getQty() < 0) {
                 setQty(0);
             }
@@ -65,7 +63,8 @@ void DamageDispBar::onInactive() {
 
 void DamageDispBar::addDamage(int prm_val) {
     incQty(prm_val);
-    damege_disp_timer_ = DAMAGE_DISP_DELAY; //表示時間リセット
+    damege_disp_timer_ = 2*60; //赤表示の２秒表示時間リセット
+    velo_clear_damege_ = -1* ((getQty() / 30) + 1); //0.5秒でするするっと赤が消える
 }
 
 DamageDispBar::~DamageDispBar() {

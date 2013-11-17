@@ -667,7 +667,7 @@ GgafStatus* MyStgUtil::resetMyShipStatus(GgafStatus* p) {
 	p->set(STAT_FlushAble, 0 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
 	p->set(STAT_AddRankPoint, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
 	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
-	p->set(STAT_Stamina, 30000000 );  //‘Ì—Í
+	p->set(STAT_Stamina, 300000 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
 	p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦

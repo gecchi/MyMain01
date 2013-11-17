@@ -9,6 +9,7 @@ class DamageDispBar : public GgafLib::GraphBarActor {
 public:
     /** 内容量 */
     GgafLib::GraphBarActor* pSourceBar_;
+    int velo_clear_damege_;
     frame damege_disp_timer_;
 public:
     /**
@@ -30,6 +31,10 @@ public:
 
     void onInactive() override;
 
+    /**
+     * 赤のばーでダメージ表示
+     * @param prm_val ダメージ有りで正の数
+     */
     void addDamage(int prm_val);
 
 

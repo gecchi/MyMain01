@@ -53,7 +53,7 @@ public:
 
 
     /**
-     * 連動させる値の変数を設定 .
+     * メータと連動させる値の変数（のポインタ）を設定 .
      * @param prm_pInt_target_value メーター値変数のポインタ(int*)を設定
      */
     void link(int* prm_pInt_target_value) {

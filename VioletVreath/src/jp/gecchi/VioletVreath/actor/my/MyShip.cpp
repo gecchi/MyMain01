@@ -258,7 +258,7 @@ MyShip::MyShip(const char* prm_name) :
 
     r_blown_velo_attenuate_ = 0.8;
 
-    invincible_frames_ = 60 * 10;
+    invincible_frames_ = 0;
 
     trace_delay_count_ = 0;
     is_trace_waiting_ = false;
@@ -317,6 +317,8 @@ void MyShip::onReset() {
 
     mp_ = MY_SHIP_START_MP;
     _pStatus->reset();
+
+    setInvincibleFrames(60 * 10); //“oê‚Ì–³“GŠÔ
 }
 
 void MyShip::onActive() {
@@ -768,8 +770,8 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
         throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
     }
     int damage = vreath - _pStatus->get(STAT_Stamina);
-    if (damage > 0){
-        pMagicMeter_->pDamageDispBar_->addDamage(damage);
+    if (damage > 0) {
+        pMagicMeter_->pDamageDispBar_->addDamage(damage > vreath ? vreath : damage);
     }
 
     //•Ç‚Ìê‡“Á•Ê‚Èˆ—
