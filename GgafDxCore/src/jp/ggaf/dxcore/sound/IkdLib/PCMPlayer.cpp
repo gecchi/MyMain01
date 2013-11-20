@@ -177,7 +177,7 @@ bool PCMPlayer::initializeBuffer() {
     if (_pPCMDecoder == nullptr) {
         return false;
     }
- ___BeginSynchronized2; //これが効いてる
+    BEGIN_SYNCHRONIZED2; //これが効いてる
     _pPCMDecoder->setHead(); // 頭出し
     HRESULT hr = _pDSBuffer->SetCurrentPosition(0);
     checkDxException(hr, DS_OK , "PCMPlayer::initializeBuffer()  SetCurrentPosition( 0 ) に失敗しました。");
@@ -194,7 +194,7 @@ bool PCMPlayer::initializeBuffer() {
         //checkDxException(hr, DS_OK , "PCMPlayer::initializeBuffer() Lock に失敗しました。");
         //↑TODO:ロック失敗している場合がある。仕方ないのでエラーチェックはコメントにする。
         //  起こった場合、メモリリークしているっぽい。長い期間悩んだが放置・・。
-        //クリティカルセクション___BeginSynchronized2 ～ ___EndSynchronized2 で挟むようにしてみた。
+        //クリティカルセクション   BEGIN_SYNCHRONIZED2 ～    END_SYNCHRONIZED2 で挟むようにしてみた。
         //追記：クリティカルセクションで囲むように修正してから、長い期間安定している。
 
         if (SUCCEEDED(hr)) {
@@ -215,12 +215,12 @@ bool PCMPlayer::initializeBuffer() {
                 //あきらめる
                 _TRACE_("PCMPlayer::initializeBuffer() もうLockをあきらめて解放します。いいんかそれで");
                 clear();
-             ___EndSynchronized2;
+                END_SYNCHRONIZED2;
                 return false;
             }
         }
     }
- ___EndSynchronized2;
+    END_SYNCHRONIZED2;
     return true;
 }
 
@@ -241,7 +241,7 @@ void PCMPlayer::streamThread(void* playerPtr) {
     bool waitFinish = false;
 
     while (player->_is_terminate == false) {
-     ___BeginSynchronized2;
+        BEGIN_SYNCHRONIZED2;
         switch (player->getState()) {
             case STATE_PLAY: // 再生中
                 // ストリーム再生
@@ -291,7 +291,7 @@ void PCMPlayer::streamThread(void* playerPtr) {
             default:
                 break;
         }
-     ___EndSynchronized2;
+        END_SYNCHRONIZED2;
 
         // 終了位置判定チェック
         if (isEnd) {

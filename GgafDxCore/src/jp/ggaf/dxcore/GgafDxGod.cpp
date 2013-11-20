@@ -1907,7 +1907,7 @@ void GgafDxGod::presentUniversalVisualize() {
             //工場休止
             _TRACE_("【デバイスロスト処理】工場停止 BEGIN ------>");
             GgafFactory::beginRest();
-         ___EndSynchronized1; // <----- 排他終了
+            END_SYNCHRONIZED1; // <----- 排他終了
             for (int i = 0; GgafFactory::isResting() == false; i++) {
                 Sleep(10); //工場が落ち着くまで待つ
                 if (i > 10*60*100) {
@@ -1915,7 +1915,7 @@ void GgafDxGod::presentUniversalVisualize() {
                     break;
                 }
             }
-         ___BeginSynchronized1; // ----->排他開始
+            BEGIN_SYNCHRONIZED1; // ----->排他開始
             _TRACE_("【デバイスロスト処理】工場停止 <-------- END");
 
             _TRACE_("【デバイスロスト処理】リソース解放 BEGIN ------>");

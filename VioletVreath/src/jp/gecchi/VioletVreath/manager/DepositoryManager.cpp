@@ -136,7 +136,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     } else if (UTIL::strcmp_ascii("EnemyUnomia4Formation", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("EnemyUnomiaDepo");
         for (int i = 0; i < 800; i++) {
-			std::string name = "Unomia["+XTOS(i)+"]";
+            std::string name = "Unomia["+XTOS(i)+"]";
             pResource->put(NEW EnemyUnomia(name.c_str()));
             Sleep(1);
         }
@@ -245,6 +245,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
             std::string name = "EffectLaserRefraction001["+XTOS(i)+"]";
             pEffect = NEW EffectLaserRefraction001(name.c_str());
             pDepoEffect->put(pEffect);
+            Sleep(1);
         }
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pDepoEffect);
 

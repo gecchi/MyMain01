@@ -154,9 +154,9 @@ void* GgafFactory::obtain(uint32_t prm_id, GgafObject* prm_org) {
                     } else {
                     }
 #endif
-                 ___EndSynchronized1; // <----- 排他終了
+                    END_SYNCHRONIZED1; // <----- 排他終了
                     Sleep(5);
-                 ___BeginSynchronized1; // ----->排他開始
+                    BEGIN_SYNCHRONIZED1; // ----->排他開始
                     waittime += 5;
                     if (pOrder->_progress == 1) {
                         //着手済み
@@ -307,7 +307,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
                 _is_resting_flg = false;
             }
 
-         ___BeginSynchronized1; // ----->排他開始
+            BEGIN_SYNCHRONIZED1; // ----->排他開始
             if (CREATING_ORDER) {
                 if (CREATING_ORDER->_progress == 0) { //未着手ならまず作る
                     TRACE2("GgafFactory::work ＜工場長＞ よし、注文["<<CREATING_ORDER->_id<<"]は未着手(_progress == "<<CREATING_ORDER->_progress<<")だな。ゆえに今から作ります！");
@@ -319,7 +319,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
                     void* arg3 = CREATING_ORDER->_pArg3;
                     TRACE2("GgafFactory::work ＜工場長＞ 製造開始！["<<CREATING_ORDER->_id<<"] (σ ｀・ω・´)σ ");
                     Sleep(2);
-                 ___EndSynchronized1; // <----- 排他終了
+                    END_SYNCHRONIZED1; // <----- 排他終了
 //#ifdef MY_DEBUG
 //try {
 //#endif
@@ -337,13 +337,13 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
 //}
 //#endif
 
-                 ___BeginSynchronized1; // ----->排他開始
+                    BEGIN_SYNCHRONIZED1; // ----->排他開始
                     Sleep(2);
                     TRACE2("GgafFactory::work ＜工場長＞ 製造完了！品番["<<CREATING_ORDER->_id<<"] (^_^)v");
                     if (CREATING_ORDER == nullptr) {
                         TRACE2("GgafFactory::work ＜工場長＞ ガーン！。せっかく作ったのにキャンセルっすか・・・。破棄します。pObjectをdelete!");
                         GGAF_DELETE(pObject);
-                     ___EndSynchronized1; // <----- 排他終了
+                        END_SYNCHRONIZED1; // <----- 排他終了
                         continue;
                     } else {
                         CREATING_ORDER = pOrder_InManufacturing_save; //ポインタ復帰
@@ -358,7 +358,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
             if (ROOT_ORDER == nullptr) {
                 //無条件待機
                 TRACE2("GgafFactory::work ＜工場長＞ 工場には何～んもありません。さぁなんでも注文来い来い！！・・・ないのん？。（待機）");
-             ___EndSynchronized1; // <----- 排他終了
+                END_SYNCHRONIZED1; // <----- 排他終了
                 if (GgafGod::_pGod->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) {
                     TRACE2("GgafFactory::work ＜工場長＞ FPSは高いよなぁ、その間を利用してゴミ箱掃除でもやっときます。1");
                     GgafGarbageBox::_pGarbageBox->clean(5); //暇なので、ゴミ箱掃除
@@ -368,11 +368,11 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
                 if (ROOT_ORDER != nullptr && ROOT_ORDER->_pOrder_prev->_progress == 0) {
                     TRACE2("GgafFactory::work ＜工場長＞ ・・・未製造の注文がある気配。["<<ROOT_ORDER->_pOrder_prev->_id<<"]なのか？。");
                     CREATING_ORDER = CREATING_ORDER->_pOrder_next;
-                 ___EndSynchronized1; // <----- 排他終了
+                    END_SYNCHRONIZED1; // <----- 排他終了
                     continue;
                 } else {
                     TRACE2("GgafFactory::work ＜工場長＞ さて、未製造注文は無し。あ～棚に製造済のがたまってるす、早く取に来やがれ！。（待機）");
-                 ___EndSynchronized1; // <----- 排他終了
+                    END_SYNCHRONIZED1; // <----- 排他終了
                     if (GgafGod::_pGod->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) {
                         TRACE2("GgafFactory::work ＜工場長＞ FPSは高いなぁ、その間を利用してゴミ箱掃除でもやっときます。2");
                         GgafGarbageBox::_pGarbageBox->clean(5); //暇なので、ゴミ箱掃除

@@ -9,10 +9,10 @@
 
 namespace GgafCore {
 
-#define  ___BeginSynchronized1   ::EnterCriticalSection(&(GgafCore::GgafGod::CS1))
-#define  ___EndSynchronized1     ::LeaveCriticalSection(&(GgafCore::GgafGod::CS1))
-#define  ___BeginSynchronized2   ::EnterCriticalSection(&(GgafCore::GgafGod::CS2))
-#define  ___EndSynchronized2     ::LeaveCriticalSection(&(GgafCore::GgafGod::CS2))
+#define  BEGIN_SYNCHRONIZED1   ::EnterCriticalSection(&(GgafCore::GgafGod::CS1))
+#define  END_SYNCHRONIZED1     ::LeaveCriticalSection(&(GgafCore::GgafGod::CS1))
+#define  BEGIN_SYNCHRONIZED2   ::EnterCriticalSection(&(GgafCore::GgafGod::CS2))
+#define  END_SYNCHRONIZED2     ::LeaveCriticalSection(&(GgafCore::GgafGod::CS2))
 #define  SLOWDOWN_MODE_DEFAULT 0
 #define  SLOWDOWN_MODE_40FPS 1
 #define  SLOWDOWN_MODE_30FPS 2

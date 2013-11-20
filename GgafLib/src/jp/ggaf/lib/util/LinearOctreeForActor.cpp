@@ -29,8 +29,8 @@ void LinearOctreeForActor::executeAllHitChk(actorkind prm_groupA, actorkind prm_
 
 void LinearOctreeForActor::executeHitChk(uint32_t prm_index) {
     LinearOctreeActorElem* pElem = ((LinearOctreeActorElem*)(_paSpace[prm_index]._pElem_first));
-    GgafLinearOctreeElem* pElem_last = _paSpace[prm_index]._pElem_last;
     if (pElem) {
+        GgafLinearOctreeElem* pElem_last = _paSpace[prm_index]._pElem_last;
         while (true) {
             if (pElem->_kindbit & _kind_groupA) {
                 _stackCurrentSpaceActor_GroupA.push(pElem->_pActor);

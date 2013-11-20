@@ -53,7 +53,7 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
     //板ポリゴンモデル定義ファイル(拡張子sprx)のフォーマット定義
     HRESULT hr;
     D3DXFileCreate( &_pID3DXFile_sprx );
-    const char* paChar_SpriteModelineTemplate =
+    static const char* sprite_model_xfile_template =
     "xof 0303txt 0032\n" \
     "template SpriteDef {" \
     "   <E4EECE4C-E106-11DC-9B62-346D55D89593>" \
@@ -64,16 +64,16 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
     "   DWORD  TextureSplitCols;" \
     "}";
 
-    hr = _pID3DXFile_sprx->RegisterTemplates(paChar_SpriteModelineTemplate, (DWORD)(strlen(paChar_SpriteModelineTemplate)));
+    hr = _pID3DXFile_sprx->RegisterTemplates(sprite_model_xfile_template, (DWORD)(strlen(sprite_model_xfile_template)));
 #ifdef MY_DEBUG
     if(hr != S_OK) {
-        throwGgafCriticalException("[GgafDxModelManager::GgafDxModelManager] RegisterTemplatesに失敗しました。paChar_SpriteModelineTemplate を確認して下さい。");
+        throwGgafCriticalException("[GgafDxModelManager::GgafDxModelManager] RegisterTemplatesに失敗しました。sprite_model_xfile_template を確認して下さい。");
     }
 #endif
 
     //ポイントスプライト定義ファイル(拡張子psprx)のフォーマット定義
     D3DXFileCreate( &_pID3DXFile_psprx );
-    const char* paChar_PointSpriteModelineTemplate =
+    static const char* pointsprite_model_xfile_template =
             "xof 0303txt 0032\n" \
             "template Vector {\n" \
             "  <3d82ab5e-62da-11cf-ab39-0020af71e433>\n" \
@@ -100,7 +100,7 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
             "  array  FLOAT     InitScale[VerticesNum];\n" \
             "}\n" \
             "\n";
-    hr = _pID3DXFile_psprx->RegisterTemplates(paChar_PointSpriteModelineTemplate, (DWORD)(strlen(paChar_PointSpriteModelineTemplate)));
+    hr = _pID3DXFile_psprx->RegisterTemplates(pointsprite_model_xfile_template, (DWORD)(strlen(pointsprite_model_xfile_template)));
 #ifdef MY_DEBUG
     if(hr != S_OK) {
         throwGgafCriticalException("[GgafDxModelManager::GgafDxModelManager] RegisterTemplatesに失敗しました。\""<<PROPERTY::DIR_SPRITE_MODEL[0]<<"ggaf_pointspritemodel_define.x\"を確認して下さい。");
@@ -1507,15 +1507,16 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
     GGAF_DELETEARR(paXfileName);
 
     //モデルに保持させる
-    prm_pMorphMeshModel->_papModel3D = model_papModel3D;
-    prm_pMorphMeshModel->_papMeshesFront = model_papMeshesFront;
-    prm_pMorphMeshModel->_paIdxBuffer_org = model_paIdxBuffer_org;
+    prm_pMorphMeshModel->_papModel3D              = model_papModel3D;
+    prm_pMorphMeshModel->_papMeshesFront          = model_papMeshesFront;
+    prm_pMorphMeshModel->_paIdxBuffer_org         = model_paIdxBuffer_org;
     prm_pMorphMeshModel->_paVtxBuffer_org_primary = model_paVtxBuffer_org_primary;
     prm_pMorphMeshModel->_papaVtxBuffer_org_morph = model_papaVtxBuffer_org_morph;
-    prm_pMorphMeshModel->_paIndexParam = model_paIndexParam;
-    prm_pMorphMeshModel->_paMaterial_default = model_paMaterial;
-    prm_pMorphMeshModel->_papTextureConnection = model_papTextureConnection;
-    prm_pMorphMeshModel->_num_materials = model_nMaterials;
+    prm_pMorphMeshModel->_paIndexParam            = model_paIndexParam;
+    prm_pMorphMeshModel->_paMaterial_default      = model_paMaterial;
+    prm_pMorphMeshModel->_papTextureConnection    = model_papTextureConnection;
+    prm_pMorphMeshModel->_num_materials           = model_nMaterials;
+
 }
 
 void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMeshModel) {
@@ -1538,14 +1539,14 @@ void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMesh
     HRESULT hr;
     //Xファイルのファイルロード
     hr = D3DXLoadMeshFromX(
-           xfile_name.c_str(),         //[in]  LPCTSTR pFilename
-           prm_pD3DXMeshModel->_dwOptions, //[in]  DWORD Options  D3DXMESH_SYSTEMMEM D3DXMESH_VB_DYNAMIC
-           GgafDxGod::_pID3DDevice9,   //[in]  LPDIRECT3DDEVICE9 pDevice
-           nullptr,                       //[out] LPD3DXBUFFER* ppAdjacency
-           &pID3DXBuffer,              //[out] LPD3DXBUFFER* ppMaterials
-           nullptr,                       //[out] LPD3DXBUFFER* ppEffectInstances
-           &_num_materials,            //[out] DWORD* pNumMaterials
-           &pID3DXMesh                 //[out] LPD3DXMESH* pMesh
+            xfile_name.c_str(),             //[in]  LPCTSTR pFilename
+            prm_pD3DXMeshModel->_dwOptions, //[in]  DWORD Options  D3DXMESH_SYSTEMMEM D3DXMESH_VB_DYNAMIC
+            GgafDxGod::_pID3DDevice9,       //[in]  LPDIRECT3DDEVICE9 pDevice
+            nullptr,                        //[out] LPD3DXBUFFER* ppAdjacency
+            &pID3DXBuffer,                  //[out] LPD3DXBUFFER* ppMaterials
+            nullptr,                        //[out] LPD3DXBUFFER* ppEffectInstances
+            &_num_materials,                //[out] DWORD* pNumMaterials
+            &pID3DXMesh                     //[out] LPD3DXMESH* pMesh
          );
     checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreD3DXMeshModel] D3DXLoadMeshFromXによるロードが失敗。対象="<<xfile_name);
 
@@ -1612,12 +1613,11 @@ void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMesh
     }
 
     //メッシュ、マテリアル、テクスチャの参照、マテリアル数をモデルオブジェクトに保持させる
-    prm_pD3DXMeshModel->_pID3DXMesh = pID3DXMesh;
-    prm_pD3DXMeshModel->_paMaterial_default = model_paMaterial;
-    prm_pD3DXMeshModel->_papTextureConnection = model_papTextureConnection;
-    prm_pD3DXMeshModel->_num_materials = _num_materials;
+    prm_pD3DXMeshModel->_pID3DXMesh             = pID3DXMesh;
+    prm_pD3DXMeshModel->_paMaterial_default     = model_paMaterial;
+    prm_pD3DXMeshModel->_papTextureConnection   = model_papTextureConnection;
+    prm_pD3DXMeshModel->_num_materials          = _num_materials;
     prm_pD3DXMeshModel->_bounding_sphere_radius = 10.0f; //TODO:境界球半径大きさとりあえず100px
-
 }
 
 void GgafDxModelManager::restoreD3DXAniMeshModel(GgafDxD3DXAniMeshModel* prm_pD3DXAniMeshModel) {
@@ -2913,16 +2913,16 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
     model_paMaterial[0].Diffuse.a = 1.0f;
 
     //モデルに保持させる
-    prm_pPointSpriteModel->_paMaterial_default = model_paMaterial;
-    prm_pPointSpriteModel->_papTextureConnection = model_papTextureConnection;
-    prm_pPointSpriteModel->_num_materials = 1;
-    prm_pPointSpriteModel->_fSquareSize = model_fSquareSize;
-    prm_pPointSpriteModel->_fTexSize = texWidth;
-    prm_pPointSpriteModel->_texture_split_rowcol = model_texture_split_rowcol;
-    prm_pPointSpriteModel->_vertices_num = model_vertices_num;
-    prm_pPointSpriteModel->_size_vertices = model_size_vertices;
-    prm_pPointSpriteModel->_size_vertex_unit = model_size_vertex_unit;
-    prm_pPointSpriteModel->_paVtxBuffer_org = model_paVtxBuffer_org;
+    prm_pPointSpriteModel->_paMaterial_default     = model_paMaterial;
+    prm_pPointSpriteModel->_papTextureConnection   = model_papTextureConnection;
+    prm_pPointSpriteModel->_num_materials          = 1;
+    prm_pPointSpriteModel->_fSquareSize            = model_fSquareSize;
+    prm_pPointSpriteModel->_fTexSize               = texWidth;
+    prm_pPointSpriteModel->_texture_split_rowcol   = model_texture_split_rowcol;
+    prm_pPointSpriteModel->_vertices_num           = model_vertices_num;
+    prm_pPointSpriteModel->_size_vertices          = model_size_vertices;
+    prm_pPointSpriteModel->_size_vertex_unit       = model_size_vertex_unit;
+    prm_pPointSpriteModel->_paVtxBuffer_org        = model_paVtxBuffer_org;
     prm_pPointSpriteModel->_bounding_sphere_radius = model_bounding_sphere_radius;
     pID3DXFileData->Unlock();
     GGAF_DELETEARR(paD3DVECTOR_Vertices);

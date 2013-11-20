@@ -129,7 +129,7 @@ void GgafGod::be() {
 
         if (_is_behaved_flg == false) {
             _is_behaved_flg = true;
-         ___BeginSynchronized1; // ----->排他開始
+            BEGIN_SYNCHRONIZED1; // ----->排他開始
             _frame_of_God++;
             presentUniversalMoment(); //①
             executeUniversalJudge();  //②
@@ -145,14 +145,14 @@ void GgafGod::be() {
                 makeUniversalMaterialize(); //③
                 //但し makeUniversalMaterialize() によりオーバーするかもしれない。
             }
-         ___EndSynchronized1;  // <-----排他終了
+            END_SYNCHRONIZED1;  // <-----排他終了
         }
 
         _time_at_beginning_frame = timeGetTime();
 
         if (_time_at_beginning_frame >= _time_of_next_view) {
             //描画タイミングフレームになった、或いは過ぎている場合
-         ___BeginSynchronized1;  // ----->排他開始
+            BEGIN_SYNCHRONIZED1;  // ----->排他開始
             if (_is_materialized_flg) { // ③ makeUniversalMaterialize() 実行済みの場合
                 //描画有り（スキップなし）
                 presentUniversalVisualize(); _visualize_frames++; //④
@@ -176,7 +176,7 @@ void GgafGod::be() {
                 }
             }
             _is_behaved_flg = false;
-         ___EndSynchronized1;    // <-----排他終了
+            END_SYNCHRONIZED1;    // <-----排他終了
 
             //fps計算
             if (_time_at_beginning_frame >= _time_calc_fps_next) {
@@ -262,22 +262,22 @@ void GgafGod::clean() {
             _handleFactory01 = nullptr;
             _TRACE_("GgafGod::~GgafGod() 無事に工場スレッドを終了。クリティカルセクション解除");
 
-    #ifdef MY_DEBUG
+#ifdef MY_DEBUG
             //ツリー構造表示
             _TRACE_("Dumping _pUniverse ...");
             _pUniverse->dump();
-    #endif
+#endif
 
             //工場掃除
             _TRACE_("GgafFactory::clean()");
             GgafFactory::clean();
             //ゴミ箱
-    #ifdef MY_DEBUG
+#ifdef MY_DEBUG
             _TRACE_("Dumping GgafGarbageBox::_pGarbageBox->_pDisusedScene ...");
             GgafGarbageBox::_pGarbageBox->_pDisusedScene->dump();
             _TRACE_("GgafGarbageBox::_pGarbageBox->_pDisusedActor ...");
             GgafGarbageBox::_pGarbageBox->_pDisusedActor->dump();
-    #endif
+#endif
             _TRACE_("GGAF_DELETE(GgafGarbageBox::_pGarbageBox);");
             GGAF_DELETE(GgafGarbageBox::_pGarbageBox);
             //この世で生きている物も掃除

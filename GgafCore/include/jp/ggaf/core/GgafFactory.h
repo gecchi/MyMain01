@@ -155,9 +155,9 @@ public:
      * ROOT_ORDER が指している製品の連結リストを全て解放する<BR>
      * 注意：必ず以下のようにクリティカルセクションで囲んで呼び出してください！。<BR>
      * ＜コード例＞ <BR>
-     *  ___BeginSynchronized1; // ----->排他開始<BR>
+     *     BEGIN_SYNCHRONIZED1; // ----->排他開始<BR>
      * GgafFactory::clean();<BR>
-     *  ___EndSynchronized1; // <----- 排他終了<BR>
+     *     END_SYNCHRONIZED1; // <----- 排他終了<BR>
      */
     static void clean();
 

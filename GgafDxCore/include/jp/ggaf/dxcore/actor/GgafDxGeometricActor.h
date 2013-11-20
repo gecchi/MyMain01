@@ -230,24 +230,24 @@ public:
 
     /**
      * ワールド座標を設定 .
-     * @param X
-     * @param Y
-     * @param Z
+     * @param x
+     * @param y
+     * @param z
      */
-    virtual void position(coord X, coord Y, coord Z) {
-        _x = X;
-        _y = Y;
-        _z = Z;
+    virtual void position(coord x, coord y, coord z) {
+        _x = x;
+        _y = y;
+        _z = z;
     }
 
     /**
      * ワールド座標を設定 .
-     * @param X
-     * @param Y
+     * @param x
+     * @param y
      */
-    virtual void position(coord X, coord Y) {
-        _x = X;
-        _y = Y;
+    virtual void position(coord x, coord y) {
+        _x = x;
+        _y = y;
     }
 
     /**
@@ -256,25 +256,25 @@ public:
      * _pScaler->behave(); が存在すると上書きされますよ。
      * @param S スケール値(1000 で 1.0倍)
      */
-    virtual void setScale(scale S) {
-        _sx = S;
-        _sy = S;
-        _sz = S;
-        setBoundingSphereRadiusRate(SC_R(S));
+    virtual void setScale(scale s) {
+        _sx = s;
+        _sy = s;
+        _sz = s;
+        setBoundingSphereRadiusRate(SC_R(s));
     }
 
     /**
      * X軸Y軸Z軸スケール(_sx, _sy, _sz)をそれぞれ値で設定。
      * 【注意】
      * _pScaler->behave(); が存在すると上書きされますよ！。
-     * @param SX X軸スケール値(1000 で 1.0倍)
-     * @param SY Y軸スケール値(1000 で 1.0倍)
-     * @param SZ Z軸スケール値(1000 で 1.0倍)
+     * @param sx X軸スケール値(1000 で 1.0倍)
+     * @param sy Y軸スケール値(1000 で 1.0倍)
+     * @param sz Z軸スケール値(1000 で 1.0倍)
      */
-    virtual void setScale(scale SX, scale SY, scale SZ) {
-        _sx = SX;
-        _sy = SY;
-        _sz = SZ;
+    virtual void setScale(scale sx, scale sy, scale sz) {
+        _sx = sx;
+        _sy = sy;
+        _sz = sz;
         setBoundingSphereRadiusRate(SC_R(MAX3(_sx,_sy,_sz)));
     }
 
@@ -282,12 +282,12 @@ public:
      * X軸Y軸スケール(_sx, _sy)のみを値で設定。
      * 【注意】
      * _pScaler->behave(); が存在すると上書きされますよ！。
-     * @param SX X軸スケール値(1000 で 1.0倍)
-     * @param SY Y軸スケール値(1000 で 1.0倍)
+     * @param sx X軸スケール値(1000 で 1.0倍)
+     * @param sy Y軸スケール値(1000 で 1.0倍)
      */
-    virtual void setScale(scale SX, scale SY) {
-        _sx = SX;
-        _sy = SY;
+    virtual void setScale(scale sx, scale sy) {
+        _sx = sx;
+        _sy = sy;
         setBoundingSphereRadiusRate(SC_R(MAX3(_sx,_sy,_sz)));
     }
 

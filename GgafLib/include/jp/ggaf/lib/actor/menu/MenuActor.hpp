@@ -179,7 +179,7 @@ public:
     /** [r]メニューフェイドイン・アウト時のアルファ速度 */
     float _velo_alpha_fade;
     /** [r]サブメニューのリスト */
-    GgafCore::GgafLinkedListRing<MenuActor<T>> _lstSubMenu;
+    GgafCore::GgafLinkedListRing<MenuActor<T> > _lstSubMenu;
     /** [r]サブカーソルのリスト */
     GgafCore::GgafLinkedListRing<SupCursor> _lstSupCursor;
 

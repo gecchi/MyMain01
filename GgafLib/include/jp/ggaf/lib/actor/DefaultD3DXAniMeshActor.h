@@ -26,7 +26,6 @@ namespace GgafLib {
  */
 class DefaultD3DXAniMeshActor : public GgafDxCore::GgafDxD3DXAniMeshActor {
 
-
 public:
     /** 拡大縮小支援オブジェクト */
     GgafDxCore::GgafDxScaler* const _pScaler;

@@ -23,8 +23,8 @@ EnemyErmione::EnemyErmione(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Ermione", STATUS(EnemyErmione)) {
     _class_name = "EnemyErmione";
 
-    num_arm_ = 6; //腕の数
-    num_arm_part_ = 7;  //腕の節数（3以上）
+    num_arm_ = 6; //腕の合計本数
+    num_arm_part_ = 11;  //各腕の節数（3以上）
     angle pos_rz[] = {D_ANG(0),   D_ANG(90),   D_ANG(180),  D_ANG(270), D_ANG(0) , D_ANG(0)  }; //生やす場所
     angle pos_ry[] = {D_ANG(0),   D_ANG(0),    D_ANG(0)  ,  D_ANG(0)  , D_ANG(90), D_ANG(270) };
     static coord R = PX_C(100);     //本体Ermioneの半径
@@ -79,7 +79,7 @@ EnemyErmione::EnemyErmione(const char* prm_name) :
             } else {
                 //節が根本以外場合
                 //先に行くほど可動範囲と回転スピードが大きくする（これで、FKなのにIKっぽくも見える！）
-                paArm_[arm].papArmPart_[i]->config(D_ANG(25+(i*2.5)), 20+(i*60));
+                paArm_[arm].papArmPart_[i]->config(D_ANG(10+(i*2.5)), 10+(i*20));
                 //一つ前の腕の節を土台とするFK設定
                 paArm_[arm].papArmPart_[i-1]->addSubGroupAsFk(
                                                paArm_[arm].papArmPart_[i],
@@ -141,9 +141,10 @@ void EnemyErmione::processBehavior() {
                 _pKurokoA->setMvVelo(1000);
 //                _pKurokoA->setFaceAngVelo(20, 67, 99);
                 _pKurokoA->turnFaceAngTwd(P_MYSHIP,
-                                          1, 10,
+                                          300, 0,
                                           TURN_ANTICLOSE_TO, false);
                 _pKurokoA->setMvAngTwd(P_MYSHIP);
+                _pKurokoA->setFaceAngVelo(AXIS_X, 150);
             }
             break;
         }

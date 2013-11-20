@@ -80,7 +80,7 @@ void EnemyErmioneArm::processBehavior() {
 
                 //MvX MvY MvZ を求める
                 int MvX,MvY,MvZ;
-                if (RND(1, 60) != 1) {
+                if (RND(1, 60) > 20) {
                     //通常の自機を狙う方向ベクトル
                     GgafDxGeometricActor* pTargetActor = P_MYSHIP;
                     MvX = pTargetActor->_x - _x; //ここでの _x, _y, _z は絶対座標であることがポイント
