@@ -190,36 +190,36 @@ void EnemyOmulus::processBehavior() {
         //自機へ方向を向ける
         //考え方：ローカル座標系で予めどの方向に向いておけば、最終的に自機に向くことになるかを求める
         //
-        //自機への向くための変換前状態でのターゲット位置を(TvX, TvY, TvZ) とおき、
+        //自機への向くための変換前状態でのターゲット位置を(tvx, tvy, tvz) とおき、
         //「土台まで」の行列の積（_pActor_Base->_matWorldRotMv) を b_mat_xx とする。
-        //現在の最終座標から自機への向きのベクトルを、(MvX, MvY, MvZ) とすると、
+        //現在の最終座標から自機への向きのベクトルを、(mvx, mvy, mvz) とすると、
         //
         //                | b_mat_11 b_mat_12 b_mat_13 |
-        //| TvX TvY TvZ | | b_mat_21 b_mat_22 b_mat_23 | = | MvX MvY MvZ |
+        //| tvx tvy tvz | | b_mat_21 b_mat_22 b_mat_23 | = | mvx mvy mvz |
         //                | b_mat_31 b_mat_32 b_mat_33 |
         //
-        //となる。ローカル座標で(TvX, TvY, TvZ) の方向を向けると、
+        //となる。ローカル座標で(tvx, tvy, tvz) の方向を向けると、
         //最終的に自機に向くことになる。
-        //逆行列を掛けて(TvX, TvY, TvZ) を求めれば良い
+        //逆行列を掛けて(tvx, tvy, tvz) を求めれば良い
         //
         //                                   | b_mat_11 b_mat_12 b_mat_13 | -1
-        // | TvX TvY TvZ | = | MvX MvY MvZ | | b_mat_21 b_mat_22 b_mat_23 |
+        // | tvx tvy tvz | = | mvx mvy mvz | | b_mat_21 b_mat_22 b_mat_23 |
         //                                   | b_mat_31 b_mat_32 b_mat_33 |
         //
 
-        //MvX MvY MvZ を求める
-        int MvX = P_MYSHIP->_x - _x;
-        int MvY = P_MYSHIP->_y - _y;
-        int MvZ = P_MYSHIP->_z - _z;
+        //mvx mvy mvz を求める
+        int mvx = P_MYSHIP->_x - _x;
+        int mvy = P_MYSHIP->_y - _y;
+        int mvz = P_MYSHIP->_z - _z;
         //逆行列取得
         D3DXMATRIX* pBaseInvMatRM = _pActor_Base->getInvMatWorldRotMv();
         //ローカル座標でのターゲットとなる方向ベクトル計算
-        int TvX = MvX*pBaseInvMatRM->_11 + MvY*pBaseInvMatRM->_21 + MvZ * pBaseInvMatRM->_31;
-        int TvY = MvX*pBaseInvMatRM->_12 + MvY*pBaseInvMatRM->_22 + MvZ * pBaseInvMatRM->_32;
-        int TvZ = MvX*pBaseInvMatRM->_13 + MvY*pBaseInvMatRM->_23 + MvZ * pBaseInvMatRM->_33;
+        int tvx = mvx*pBaseInvMatRM->_11 + mvy*pBaseInvMatRM->_21 + mvz * pBaseInvMatRM->_31;
+        int tvy = mvx*pBaseInvMatRM->_12 + mvy*pBaseInvMatRM->_22 + mvz * pBaseInvMatRM->_32;
+        int tvz = mvx*pBaseInvMatRM->_13 + mvy*pBaseInvMatRM->_23 + mvz * pBaseInvMatRM->_33;
         //自動方向向きシークエンス開始
         angle angRz_Target, angRy_Target;
-        UTIL::convVectorToRzRy(TvX, TvY, TvZ, angRz_Target, angRy_Target);
+        UTIL::convVectorToRzRy(tvx, tvy, tvz, angRz_Target, angRy_Target);
         _pKurokoA->turnRzRyMvAngTo(angRz_Target, angRy_Target,
                                    1000, 0,
                                    TURN_CLOSE_TO, false);

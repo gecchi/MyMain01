@@ -24,6 +24,7 @@ EnemyErmioneArm::EnemyErmioneArm(const char* prm_name, const char* prm_model, Gg
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001"); //腕破壊
     useProgress(PROG_BANPEI-1);
+    behave_frames_ = 0;
 }
 
 
@@ -51,7 +52,10 @@ void EnemyErmioneArm::processBehavior() {
         }
 
         case PROG_NOTHING: {
-            if (_pProg->getFrameInProgress() == 10) {
+            if (_pProg->isJustChanged() ) {
+                behave_frames_ = RND(30, 60);
+            }
+            if (_pProg->getFrameInProgress() == behave_frames_) {
                 _pProg->change(PROG_AIMING);
             }
             break;
@@ -63,45 +67,45 @@ void EnemyErmioneArm::processBehavior() {
                 //考え方：ローカル座標系で予めどの方向に向いておけば、最終的に自機に向くことになるかを求める
                 //
                 //自機への向くための変換前状態で、
-                //ローカル座標で「向いておけばいいのではないか」の方向のベクトルを(TvX, TvY, TvZ) とおき、
+                //ローカル座標で「向いておけばいいのではないか」の方向のベクトルを(tvx, tvy, tvz) とおき、
                 //「土台まで」の行列の積（_pActor_Base->_matWorldRotMv) を b_mat_xx とする。
-                //現在の最終座標から自機への向きのベクトルを、(MvX, MvY, MvZ) とすると、
+                //現在の最終座標から自機への向きのベクトルを、(mvx, mvy, mvz) とすると、
                 //
                 //                | b_mat_11 b_mat_12 b_mat_13 |
-                //| TvX TvY TvZ | | b_mat_21 b_mat_22 b_mat_23 | = | MvX MvY MvZ |
+                //| tvx tvy tvz | | b_mat_21 b_mat_22 b_mat_23 | = | mvx mvy mvz |
                 //                | b_mat_31 b_mat_32 b_mat_33 |
                 //
-                //となるはずだ。(TvX, TvY, TvZ)について解く。逆行列を掛けて求めれば良い。
+                //となるはずだ。(tvx, tvy, tvz)について解く。逆行列を掛けて求めれば良い。
                 //
                 //                                   | b_mat_11 b_mat_12 b_mat_13 | -1
-                // | TvX TvY TvZ | = | MvX MvY MvZ | | b_mat_21 b_mat_22 b_mat_23 |
+                // | tvx tvy tvz | = | mvx mvy mvz | | b_mat_21 b_mat_22 b_mat_23 |
                 //                                   | b_mat_31 b_mat_32 b_mat_33 |
                 //
 
-                //MvX MvY MvZ を求める
-                int MvX,MvY,MvZ;
-                if (RND(1, 60) > 20) {
+                //mvx mvy mvz を求める
+                int mvx,mvy,mvz;
+                if (RND(1, 100) < 80) {
                     //通常の自機を狙う方向ベクトル
                     GgafDxGeometricActor* pTargetActor = P_MYSHIP;
-                    MvX = pTargetActor->_x - _x; //ここでの _x, _y, _z は絶対座標であることがポイント
-                    MvY = (pTargetActor->_y + PX_C(50)) - _y; //自機のやや上を狙う
-                    MvZ = pTargetActor->_z - _z;
+                    mvx = pTargetActor->_x - _x; //ここでの _x, _y, _z は絶対座標であることがポイント
+                    mvy = (pTargetActor->_y + PX_C(50)) - _y; //自機のやや上を狙う
+                    mvz = pTargetActor->_z - _z;
                 } else {
                     //たま～に逆方向を目標にして、触手に動きを強要する
                     GgafDxGeometricActor* pTargetActor = P_MYSHIP;
-                    MvX = _x - pTargetActor->_x;
-                    MvY = _y - pTargetActor->_y;
-                    MvZ = _z - pTargetActor->_z;
+                    mvx = _x - pTargetActor->_x;
+                    mvy = _y - pTargetActor->_y;
+                    mvz = _z - pTargetActor->_z;
                 }
                 //逆行列取得
                 D3DXMATRIX* pBaseInvMatRM = _pActor_Base->getInvMatWorldRotMv();
                 //ローカル座標でのターゲットとなる方向ベクトル計算
-                int TvX = MvX*pBaseInvMatRM->_11 + MvY*pBaseInvMatRM->_21 + MvZ * pBaseInvMatRM->_31;
-                int TvY = MvX*pBaseInvMatRM->_12 + MvY*pBaseInvMatRM->_22 + MvZ * pBaseInvMatRM->_32;
-                int TvZ = MvX*pBaseInvMatRM->_13 + MvY*pBaseInvMatRM->_23 + MvZ * pBaseInvMatRM->_33;
+                int tvx = mvx*pBaseInvMatRM->_11 + mvy*pBaseInvMatRM->_21 + mvz * pBaseInvMatRM->_31;
+                int tvy = mvx*pBaseInvMatRM->_12 + mvy*pBaseInvMatRM->_22 + mvz * pBaseInvMatRM->_32;
+                int tvz = mvx*pBaseInvMatRM->_13 + mvy*pBaseInvMatRM->_23 + mvz * pBaseInvMatRM->_33;
                 //自動方向向きシークエンス開始
                 angle angRz_Target, angRy_Target;
-                UTIL::convVectorToRzRy(TvX, TvY, TvZ, angRz_Target, angRy_Target);
+                UTIL::convVectorToRzRy(tvx, tvy, tvz, angRz_Target, angRy_Target);
                 //計算の結果、angRz_Target angRy_Target に向けば、自機に向ける
 
                 //angRz_Target、angRy_Target 可動範囲内に制限する
@@ -117,7 +121,7 @@ void EnemyErmioneArm::processBehavior() {
                 }
                 _pKurokoA->turnRzRyFaceAngTo(
                                 angRz_Target, angRy_Target,
-                                aiming_ang_velo_, aiming_ang_velo_*0.05,
+                                aiming_ang_velo_, aiming_ang_velo_*0.04,
                                 TURN_CLOSE_TO, false);
             }
             if (_pKurokoA->isTurningMvAng()) {

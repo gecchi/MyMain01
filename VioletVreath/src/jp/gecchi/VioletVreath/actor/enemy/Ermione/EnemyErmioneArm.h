@@ -27,7 +27,7 @@ public:
 
     angvelo aiming_ang_velo_;
     angle aiming_movable_limit_ang_;
-
+    frame behave_frames_;
 public:
     /**
      * コンストラクタ

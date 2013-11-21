@@ -30,7 +30,7 @@ void Shot004::onReset() {
     setScaleR(3.0);
     setAlpha(0.99); //”¼“§–¾‚É‚·‚é‚±‚Æ‚Å—¼–ÊƒŒƒ“ƒ_ƒŠƒ“ƒO
     _pKurokoA->setFaceAngVelo(AXIS_X, D_ANG(3));
-    _pKurokoA->setMvVelo(40000);
+    _pKurokoA->setMvVelo(30000);
     _pKurokoA->setMvAcce(1000);
     _pKurokoA->relateFaceWithMvAng(true);
 }

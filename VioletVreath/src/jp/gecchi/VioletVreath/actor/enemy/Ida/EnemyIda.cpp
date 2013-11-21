@@ -68,18 +68,18 @@ void EnemyIda::processBehavior() {
             }
             //自機へ向ける
             GgafDxGeometricActor* pTargetActor = P_MYSHIP;
-            coord MvX = pTargetActor->_x - _x_final; //_x_finalは絶対座標
-            coord MvY = pTargetActor->_y - _y_final;
-            coord MvZ = pTargetActor->_z - _z_final;
+            coord mvx = pTargetActor->_x - _x_final; //_x_finalは絶対座標
+            coord mvy = pTargetActor->_y - _y_final;
+            coord mvz = pTargetActor->_z - _z_final;
             //ベースまでの(回転×平行移動)行列の逆行列取得
             D3DXMATRIX* pBaseInvMat = _pActor_Base->getInvMatWorldRotMv();
             //ローカル座標で向いておくべき方向ベクトル計算
-            coord TvX = MvX*pBaseInvMat->_11 + MvY*pBaseInvMat->_21 + MvZ*pBaseInvMat->_31;
-            coord TvY = MvX*pBaseInvMat->_12 + MvY*pBaseInvMat->_22 + MvZ*pBaseInvMat->_32;
-            coord TvZ = MvX*pBaseInvMat->_13 + MvY*pBaseInvMat->_23 + MvZ*pBaseInvMat->_33;
+            coord tvx = mvx*pBaseInvMat->_11 + mvy*pBaseInvMat->_21 + mvz*pBaseInvMat->_31;
+            coord tvy = mvx*pBaseInvMat->_12 + mvy*pBaseInvMat->_22 + mvz*pBaseInvMat->_32;
+            coord tvz = mvx*pBaseInvMat->_13 + mvy*pBaseInvMat->_23 + mvz*pBaseInvMat->_33;
 
             angle angRz_Target, angRy_Target;
-            UTIL::convVectorToRzRy(TvX, TvY, TvZ, angRz_Target, angRy_Target); //RzRyに置き換える
+            UTIL::convVectorToRzRy(tvx, tvy, tvz, angRz_Target, angRy_Target); //RzRyに置き換える
             _pKurokoA->setRzRyMvAng(angRz_Target, angRy_Target);
             break;
         }
