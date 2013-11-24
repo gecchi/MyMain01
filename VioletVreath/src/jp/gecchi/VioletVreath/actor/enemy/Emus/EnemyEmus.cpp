@@ -28,7 +28,7 @@ EnemyEmus::EnemyEmus(const char* prm_name) :
     is_open_hatch_ = false;
     frame_of_open_interval_  = 3*60;
     frame_of_close_interval_ = 5*60;
-    frame_of_morph_interval_   = 120;
+    frame_of_morph_interval_ = 120;
 
     pConn_LaserChipDepoStore_ = connect_DepositoryManager(
              "EnemyEmusLaserChip001DepoStore"
@@ -38,7 +38,7 @@ EnemyEmus::EnemyEmus(const char* prm_name) :
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     is_firing_ = false;
-    useProgress(PROG_BANPEI-1);
+    useProgress(PROG_BANPEI);
 }
 
 void EnemyEmus::onCreateModel() {
@@ -77,7 +77,7 @@ void EnemyEmus::processBehavior() {
         case PROG_HATCH_CLOSE: {
             if (_pProg->isJustChanged()) {
                 _pMorpher->morphLinerUntil(MORPHTARGET_HATCH_OPEN,
-                                                0.0f, frame_of_morph_interval_);
+                                           0.0f, frame_of_morph_interval_);
                 _pKurokoA->setFaceAngVelo(AXIS_X, 0);
             }
 
@@ -90,7 +90,7 @@ void EnemyEmus::processBehavior() {
         case PROG_HATCH_OPEN: {
             if (_pProg->isJustChanged()) {
                 _pMorpher->morphLinerUntil(MORPHTARGET_HATCH_OPEN,
-                                                1.0f, frame_of_morph_interval_);
+                                           1.0f, frame_of_morph_interval_);
                 _pKurokoA->setFaceAngVelo(AXIS_X, 3000);
             }
             if (_pProg->getFrameInProgress() == (frame_of_morph_interval_/2)) {
@@ -113,10 +113,10 @@ void EnemyEmus::processBehavior() {
                 LaserChip* pChip = pLaserChipDepo_->dispatch();
                 if (pChip) {
                     pChip->positionAs(this);
-                    angle Rz, Ry;  //現在の最終的な向きを、RzRyで取得する
+                    angle rz, ry;  //現在の最終的な向きを、RzRyで取得する
                     UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
-                                           Rz, Ry); //現在の最終的な向きを、RzRyで取得！
-                    pChip->_pKurokoA->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
+                                           rz, ry); //現在の最終的な向きを、RzRyで取得！
+                    pChip->_pKurokoA->setRzRyMvAng(rz, ry); //RzRyでMoverに設定
                 } else {
                     is_firing_ = false;
                 }

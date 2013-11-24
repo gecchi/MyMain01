@@ -23,7 +23,7 @@ EnemyErmioneArm::EnemyErmioneArm(const char* prm_name, const char* prm_model, Gg
 
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001"); //˜r”j‰ó
-    useProgress(PROG_BANPEI-1);
+    useProgress(PROG_BANPEI);
     behave_frames_ = 0;
 }
 

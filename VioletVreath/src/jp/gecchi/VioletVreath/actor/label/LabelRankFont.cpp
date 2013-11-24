@@ -138,7 +138,7 @@ LabelRankFont::LabelRankFont(const char* prm_name) :
     tmp_rank_ = 0;
     setAlign(ALIGN_RIGHT, VALIGN_BOTTOM);
     _pSeTx->set(SE_RANK_UP  , "WAVE_RANK_UP");
-    useProgress(PROG_BANPEI-1);
+    useProgress(PROG_BANPEI);
 }
 
 void LabelRankFont::onCreateModel() {

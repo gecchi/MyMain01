@@ -44,7 +44,7 @@ EnemyHalia::EnemyHalia(const char* prm_name) :
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     _pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
-    useProgress(PROG_BANPEI-1);
+    useProgress(PROG_BANPEI);
     //初期カメラZ位置
     dZ_camera_init_ = -1 * P_CAM->_cameraZ_org * LEN_UNIT * PX_UNIT;
 }
@@ -69,8 +69,8 @@ void EnemyHalia::onActive() {
     _pMorpher->setWeight(0, 1.0);
     _pMorpher->setWeight(1, 0.0);
     _pKurokoA->setFaceAngVelo(AXIS_X, 1000);
-    _pKurokoA->slideMvByVD(veloTopMv_, 1000,
-                                         MyShip::lim_x_front_-_x, 0.4, 0.6);
+    _pKurokoA->slideMvByVD(veloTopMv_, 1000, MyShip::lim_x_front_-_x,
+                           0.4, 0.6);
     _pProg->reset(PROG_MOVE);
     iMovePatternNo_ = 0; //行動パターンリセット
 }
@@ -157,7 +157,7 @@ void EnemyHalia::onHit(GgafActor* prm_pOtherActor) {
             _pSeTx->play3D(SE_DAMAGED);
         }
     } else {
-    	_pSeTx->play3D(SE_UNDAMAGED);
+        _pSeTx->play3D(SE_UNDAMAGED);
     }
 }
 

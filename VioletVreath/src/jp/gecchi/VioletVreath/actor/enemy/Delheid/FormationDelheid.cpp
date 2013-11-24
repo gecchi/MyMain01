@@ -40,7 +40,7 @@ FormationDelheid::FormationDelheid(const char* prm_name)
     pConn_ShotDepo_ = connect_DepositoryManager("EnemyDelheidShot");
 
     updateRankParameter();
-    useProgress(PROG_BANPEI-1);
+    useProgress(PROG_BANPEI);
 }
 
 void FormationDelheid::updateRankParameter() {

@@ -20,7 +20,7 @@ EnemyAppho::EnemyAppho(const char* prm_name) :
     _class_name = "EnemyAppho";
     _sx=_sy=_sz=100;
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    useProgress(PROG_BANPEI-1);
+    useProgress(PROG_BANPEI);
 }
 
 void EnemyAppho::onCreateModel() {

@@ -51,7 +51,7 @@ EnemyEsperia::EnemyEsperia(const char* prm_name) :
     _pSeTx->set(SE_FIRE       , "WAVE_ENEMY_FIRE_LASER_001");
     _pSeTx->set(SE_HATCH_CLOSE, "WAVE_HATCH_CLOSE_001");
     dX_= dZ_ = 0;
-    useProgress(PROG_BANPEI-1);
+    useProgress(PROG_BANPEI);
 }
 
 void EnemyEsperia::onCreateModel() {

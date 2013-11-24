@@ -23,7 +23,7 @@ EnemyEbe::EnemyEbe(const char* prm_name) :
     pDepo_ShotEffect_ = nullptr;
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
-    useProgress(PROG_BANPEI-1);
+    useProgress(PROG_BANPEI);
 }
 
 void EnemyEbe::onCreateModel() {

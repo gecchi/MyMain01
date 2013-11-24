@@ -91,7 +91,7 @@ EnemyErmione::EnemyErmione(const char* prm_name) :
 
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    useProgress(PROG_BANPEI-1);
+    useProgress(PROG_BANPEI);
 }
 
 void EnemyErmione::onCreateModel() {
@@ -131,6 +131,11 @@ void EnemyErmione::processBehavior() {
             if (getAlpha() > 0.8) {
                 setHitAble(true);
                 throwEventLowerTree(EVENT_ERMIONE_ENTRY_DONE);
+                _pKurokoA->setMvVelo(10);
+                _pKurokoA->turnFaceAngTwd(P_MYSHIP,
+                                          300, 0,
+                                          TURN_ANTICLOSE_TO, false);
+                _pKurokoA->setMvAngTwd(P_MYSHIP);
                 _pProg->changeNext();
             }
             break;
@@ -138,13 +143,9 @@ void EnemyErmione::processBehavior() {
 
         case PROG_MOVE: {
             if (_pProg->isJustChanged()) {
-                _pKurokoA->setMvVelo(10);
-//                _pKurokoA->setFaceAngVelo(20, 67, 99);
-                _pKurokoA->turnFaceAngTwd(P_MYSHIP,
-                                          300, 0,
-                                          TURN_ANTICLOSE_TO, false);
-                _pKurokoA->setMvAngTwd(P_MYSHIP);
                 _pKurokoA->setFaceAngVelo(AXIS_X, 150);
+                _pKurokoA->setFaceAngVelo(AXIS_Y, 130);
+                _pKurokoA->setFaceAngVelo(AXIS_Z, 110);
             }
             break;
         }

@@ -22,7 +22,7 @@ EnemyGlajaLance001::EnemyGlajaLance001(const char* prm_name) :
     effectBlendOne(); //â¡éZçáê¨
     setZEnable(true);
     setZWriteEnable(false);
-    useProgress(PROG_BANPEI-1);
+    useProgress(PROG_BANPEI);
 }
 
 void EnemyGlajaLance001::initialize() {
