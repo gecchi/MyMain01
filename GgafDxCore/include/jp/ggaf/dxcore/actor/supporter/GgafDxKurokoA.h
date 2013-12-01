@@ -259,7 +259,7 @@ public: //_x, _y, _z 操作関連 //////////////////////////////////////////////
     /** [r]なめらかな移動シークエンスで設定された目標移動距離 */
     coord _slide_mv_target_distance;
     /** [r]なめらかな移動シークエンスに開始から現在までの移動距離 */
-    coord _slide_mv_mv_distance;
+    coord _slide_mv_moved_distances;
     /** [r]なめらかな移動シークエンスで設定された目標時間 */
     int  _slide_mv_target_frames;
     /** [r]なめらかな移動シークエンスに開始から現在までの経過時間 */
@@ -298,14 +298,20 @@ public: //_x, _y, _z 操作関連 //////////////////////////////////////////////
     angvelo _smooth_turn_rz_faceang_top_angvelo;
     /** [r]なめらかなrz方角回転シークエンスで設定された終了時の速度 */
     angvelo _smooth_turn_rz_faceang_end_angvelo;
-    /** [r]なめらかなrz方角回転シークエンスで設定された目標回転距離 */
-    angle _smooth_turn_rz_faceang_target_angle;
-    /** [r]なめらかなrz方角回転シークエンスに開始から現在までの回転距離 */
+    /** [r]なめらかなrz方角回転シークエンスで設定された目標角度到達までに必要な移動回転距離合計（正負回転距離を含む） */
+    angle _smooth_turn_rz_faceang_target_distanceangle;
+    /** [r]なめらかなrz方角回転シークエンスで回転した合計回転距離（正負回転距離を含む） */
     angle _smooth_turn_rz_faceang_turned_angles;
+
+    angacce _smooth_turn_rz_faceang_angacce_a0;
+    /** [r]なめらかなrz方角回転シークエンスで設定された目標回転方向の正負 */
+    int _smooth_turn_rz_faceang_targetangle_sgn;
     /** [r]なめらかなrz方角回転シークエンスで設定された目標時間 */
     int  _smooth_turn_rz_faceang_target_frames;
     /** [r]なめらかなrz方角回転シークエンスに開始から現在までの経過時間 */
     int  _smooth_turn_rz_faceang_frame_of_spent;
+
+    int  _smooth_turn_rz_faceang_p0;
     /** [r]なめらかなrz方角回転シークエンスで設定された加速～等速へ切り替わる位置 */
     int  _smooth_turn_rz_faceang_p1;
     /** [r]なめらかなrz方角回転シークエンスで設定された等速～減速へ切り替わる位置 */
@@ -391,7 +397,7 @@ public:
     void setMvAcce(acce prm_acceMove);
 
     /**
-     * 移動加速度を、「停止時移動距離」により設定する .
+     * 移動加速度を、「停止移動距離」により設定する .
      * <pre><code>
      *
      *    速度(v)
@@ -414,6 +420,16 @@ public:
      * @return 必要な時間フレーム(Te)。参考値にどうぞ。
      */
     frame setMvAcceToStop(coord prm_target_distance);
+
+
+    /**
+     * 軸回転方角の角加速度を、「停止の距離角」により設定する .
+     * @param prm_axis 回転軸(AXIS_X / AXIS_Y / AXIS_Z)
+     * @param prm_target_angle_distance 停止の移動角度距離(D)
+     * @return 必要な時間フレーム(Te)。参考値にどうぞ。
+     */
+    frame setFaceAngAcceToStop(axis prm_axis, angle prm_target_angle_distance);
+
 
     /**
      * 移動加速度を、「目標到達速度」「移動距離(達するまでに費やす距離)」により設定 .
@@ -446,6 +462,15 @@ public:
     frame setMvAcceByD(coord prm_target_distance, velo prm_target_velo);
 
     /**
+     * 軸回転方角の角加速度を「距離角(達するまでに費やす距離)」「目標到達時角速度」により設定 .
+     * @param prm_axis 回転軸(AXIS_X / AXIS_Y / AXIS_Z)
+     * @param prm_target_angle_distance
+     * @param prm_target_angvelo
+     * @return 必要な時間フレーム(Te)。参考値にどうぞ。
+     */
+    frame setFaceAngAcceByD(axis prm_axis, angle prm_target_angle_distance, angvelo prm_target_angvelo);
+
+    /**
      * 移動加速度を、「目標到達速度」「費やす時間」により設定 .
      * <pre><code>
      *
@@ -470,10 +495,19 @@ public:
      * 上図のような状態を想定し、目標到達速度(Vt)と、その到達時間(Te) から、加速度(a)を計算し設定している。<BR>
      * 移動距離(D)は、パラメータにより変化するため指定不可。<BR>
      * @param prm_target_frames 費やす時間(Te)
-     * @param prm_target_velo  目標到達速度(Vt)
+     * @param prm_target_velo   目標到達速度(Vt)
      * @return 移動距離(D)
      */
     coord setMvAcceByT(frame prm_target_frames, velo prm_target_velo);
+
+    /**
+     * 軸回転方角の角加速度を「目標到達角速度」「費やす時間」により設定 .
+     * @param prm_axis 回転軸(AXIS_X / AXIS_Y / AXIS_Z)
+     * @param prm_target_frames  費やす時間(Te)
+     * @param prm_target_angvelo 目標到達速度(Vt)
+     * @return 移動角距離(D)
+     */
+    angle setFaceAngAcceByT(axis prm_axis, frame prm_target_frames, angvelo prm_target_angvelo);
 
     /**
      * Actorの移動方角（Z軸回転）を設定。<BR>
@@ -861,7 +895,7 @@ public:
 
 
     /**
-     * (作成中！！！！)目標の軸回転方角(Z軸)へ滑らかにターンするシークエンスを実行(時間指定、角速度変動) .
+     * 目標の軸回転方角(Z軸)へ滑らかに回転するシークエンスを実行(時間指定、角速度変動) .
      * 角回転移動に費やされる時間(Te)を3つのセクションに分け、次のような角速度制御を自動的に行う。<BR>
      * ・時間 0     ～ 時間 p1*Te まで ・・・ 現在の角速度からトップ角速度まで加速(or速度)しながら回転<BR>
      * ・時間 p1*Te ～ 時間 p2*Te まで ・・・ トップスピードで等速角速度で等速回転<BR>
@@ -874,13 +908,13 @@ public:
      *     |
      *     |                        ω0:現時点の角速度
      *     |                        ωe:最終速度           ・・・引数で指定
-     *     |                          D:目標移動角（距離） ・・・引数の目標軸回転方角から内部計算。
+     *     |                         θ:目標移動角（距離） ・・・引数の目標軸回転方角から内部計算。
      *  ωt|....___________          Te:目標時間（フレーム数）・・・引数で指定
      *     |   /:         :＼        p1:トップスピードに達する時刻となるような、Teに対する割合(0.0～1.0)
      *  ωe|../.:.........:..＼      p2:減速を開始時刻となるような、Teに対する割合(0.0～1.0)
      *     | /  :         :    |    ωt:移動角（距離）・目標時間から導きだされるトップ角速度
      *     |/   :         :    |
-     *  ω0|    :    D    :    |
+     *  ω0|    :    θ   :    |
      *     |    :         :    |
      *   --+----+---------+----+-----> 時間(t:フレーム)
      *   0 |  p1*Te     p2*Te  Te
@@ -889,14 +923,6 @@ public:
      * @param prm_angRz_Target 目標軸回転方角(Z軸)
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
-     * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。
-     *                         true: 引数の prm_angRz_Target, prm_angRy_Target までの距離と、<BR>
-     *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、<BR>
-     *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。<BR>
-     *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
-     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は<BR>
-     *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
-     *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe)
      * @param prm_target_frames 費やす時間(Te)(フレーム数を指定、負の数は不可)
      * @param prm_p1 トップスピードに達する時刻となるような、Teに対する割合(p1)
@@ -904,9 +930,52 @@ public:
      * @param prm_endacc_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
     void turnSmoothlyRzFaceAngByDtTo(
-            angle prm_angRz_Target, int prm_way, bool prm_optimize_ang,
+            angle prm_angRz_Target, int prm_way,
             angvelo prm_end_angvelo,
             int prm_target_frames, float prm_p1, float prm_p2,
+            bool prm_endacc_flg = true);
+
+    /**
+     * 目標の軸回転方角(Z軸)へ滑らかに回転するシークエンスを実行(速度・距離指定、時間変動) .
+     * 移動距離を3つのセクション(θ1,θ2,θ3)に分け、次のような角速度制御を自動的に行う。<BR>
+     * ・距離角 0       ～ 距離角 θ1         まで ・・・ 現在のθ速度からトップスピードまで角加速(or減速)回転<BR>
+     * ・距離角 θ1     ～ 距離角 θ1+θ2     まで ・・・ トップスピードで等速角回転<BR>
+     * ・距離角 θ1+θ2 ～ 距離角 θ1+θ2+θ3 まで ・・・ トップスピードから最終スピードへ角減速(or加速)回転<BR>
+     * ※下図参照<BR>
+     * <pre>
+     *    角速度(ω)
+     *     ^
+     *     |                        ω0:現時点の速度
+     *     |                        ωt:トップスピード
+     *     |                        ωe:最終速度
+     *     |       θ=θ1+θ2+θ3    θ:目標回転距離角(D=d1+d2+d3)
+     *  ωt|....___________          p1:トップスピードに達する角距離となるような、角距離(θ)に対する割合
+     *     |   /|         |＼            つまり     θ1 = θ*p1 となるような p1 (0.0～1.0)
+     *  ωe|../.|.........|..＼      p2:減速を開始距離となるような、距離(D)に対する割合
+     *     | /  |         |    |         つまり θ1+θ2 = θ*p2 となるような p2 (0.0～1.0)
+     *     |/   |         |    |     Te:費やされる必要時間（フレーム数）
+     *  ω0|θ1 |   θ2   |θ3 |
+     *     |    |         |    |
+     *   --+----+---------+----+-----> 時間(t:フレーム)
+     *   0 |                  Te
+     *
+     * </pre>
+     * トップスピード(ωt)、最終スピード(ωe)、目標回転距離角(θ)、及び p1, p2 を指定する。<BR>
+     * 費やされる時間(Te)は内部で自動計し決定される。<BR>
+     * <BR>
+     * @param prm_angRz_Target 目標軸回転方角(Z軸) （これにより、目標回転距離角θが内部で算出される）
+     * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
+     *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
+     * @param prm_top_angvelo トップ角速度(ωt)
+     * @param prm_end_angvelo 最終角速度(ωe)
+     * @param prm_p1 トップスピードに達する距離となるような、回転距離角(θ)に対する割合。(θ1 = θ*prm_p1)
+     * @param prm_p2 角回転の減速を開始角となるような、回転距離角(θ)に対する割合 (θ1+θ2 = θ*p2)
+     * @param prm_endacc_flg true:目標時間に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
+     */
+    void turnSmoothlyRzFaceAngByVdTo(
+            angle prm_angRz_Target, int prm_way,
+            angvelo prm_top_angvelo, angvelo prm_end_angvelo,
+            float prm_p1, float prm_p2,
             bool prm_endacc_flg = true);
 
 
