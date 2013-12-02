@@ -256,8 +256,12 @@ public: //_x, _y, _z 操作関連 //////////////////////////////////////////////
     velo _slide_mv_top_velo;
     /** [r]なめらかな移動シークエンスで設定された終了時の速度 */
     velo _slide_mv_end_velo;
-    /** [r]なめらかな移動シークエンスで設定された目標移動距離 */
+    /** [r]なめらかな移動シークエンスで設定された目標移動距離合計（正負回転距離を含む） */
     coord _slide_mv_target_distance;
+    /** [r]なめらかな移動シークエンスで設定された目標移動距離 */
+    coord _slide_mv_target_distance2;
+    int _slide_mv_target_sgn;
+
     /** [r]なめらかな移動シークエンスに開始から現在までの移動距離 */
     coord _slide_mv_moved_distances;
     /** [r]なめらかな移動シークエンスで設定された目標時間 */
@@ -265,11 +269,15 @@ public: //_x, _y, _z 操作関連 //////////////////////////////////////////////
     /** [r]なめらかな移動シークエンスに開始から現在までの経過時間 */
     int  _slide_mv_frame_of_spent;
     /** [r]なめらかな移動シークエンスで設定された加速～等速へ切り替わる位置 */
-    int  _slide_mv_p1;
+    double  _slide_mv_p1;
     /** [r]なめらかな移動シークエンスで設定された等速～減速へ切り替わる位置 */
-    int  _slide_mv_p2;
+    double  _slide_mv_p2;
     /** [r]なめらかな移動シークエンスの進捗状況 */
     int  _slide_mv_progress;
+
+    double  _slide_mv_p0;
+    acce _slide_mv_angacce_a0;
+
 
     bool _taget_face_ang_alltime_flg;
     GgafDxGeometricActor* _taget_face_ang_alltime_pActor;
@@ -284,12 +292,6 @@ public: //_x, _y, _z 操作関連 //////////////////////////////////////////////
 
 
 
-
-
-
-
-
-
     /** [r]なめらかなrz方角回転シークエンスを実行中はtrue */
     bool _smooth_turn_rz_faceang_flg;
     /** [r]なめらかなrz方角回転シークエンスを実行完了時の加速度設定（true：加速度0に設定／false:加速度をそのままにしておく） */
@@ -300,9 +302,13 @@ public: //_x, _y, _z 操作関連 //////////////////////////////////////////////
     angvelo _smooth_turn_rz_faceang_end_angvelo;
     /** [r]なめらかなrz方角回転シークエンスで設定された目標角度到達までに必要な移動回転距離合計（正負回転距離を含む） */
     angle _smooth_turn_rz_faceang_target_distanceangle;
+    /** [r]なめらかなrz方角回転シークエンスで設定された目標角度の距離 */
+    angle _smooth_turn_rz_faceang_target_distanceangle2;
+    /** [r]なめらかなrz方角回転シークエンスで設定された目標角度 */
+    angle _smooth_turn_rz_faceang_target_angle;
     /** [r]なめらかなrz方角回転シークエンスで回転した合計回転距離（正負回転距離を含む） */
     angle _smooth_turn_rz_faceang_turned_angles;
-
+    /** [r]なめらかなrz方角回転シークエンスで設定された回復時角加速度 */
     angacce _smooth_turn_rz_faceang_angacce_a0;
     /** [r]なめらかなrz方角回転シークエンスで設定された目標回転方向の正負 */
     int _smooth_turn_rz_faceang_targetangle_sgn;
@@ -310,12 +316,12 @@ public: //_x, _y, _z 操作関連 //////////////////////////////////////////////
     int  _smooth_turn_rz_faceang_target_frames;
     /** [r]なめらかなrz方角回転シークエンスに開始から現在までの経過時間 */
     int  _smooth_turn_rz_faceang_frame_of_spent;
-
-    int  _smooth_turn_rz_faceang_p0;
+    /** [r]なめらかなrz方角回転シークエンスで設定された角速度の正負が切り替わるポイント */
+    double  _smooth_turn_rz_faceang_p0;
     /** [r]なめらかなrz方角回転シークエンスで設定された加速～等速へ切り替わる位置 */
-    int  _smooth_turn_rz_faceang_p1;
+    double  _smooth_turn_rz_faceang_p1;
     /** [r]なめらかなrz方角回転シークエンスで設定された等速～減速へ切り替わる位置 */
-    int  _smooth_turn_rz_faceang_p2;
+    double  _smooth_turn_rz_faceang_p2;
     /** [r]なめらかなrz方角回転シークエンスの進捗状況 */
     int  _smooth_turn_rz_faceang_progress;
 
@@ -464,8 +470,8 @@ public:
     /**
      * 軸回転方角の角加速度を「距離角(達するまでに費やす距離)」「目標到達時角速度」により設定 .
      * @param prm_axis 回転軸(AXIS_X / AXIS_Y / AXIS_Z)
-     * @param prm_target_angle_distance
-     * @param prm_target_angvelo
+     * @param prm_target_angle_distance 目標到達角速度に達するまでに費やす回転距離(D)
+     * @param prm_target_angvelo 目標到達角速度(Vt)
      * @return 必要な時間フレーム(Te)。参考値にどうぞ。
      */
     frame setFaceAngAcceByD(axis prm_axis, angle prm_target_angle_distance, angvelo prm_target_angvelo);

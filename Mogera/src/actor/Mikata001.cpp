@@ -41,6 +41,58 @@ void Mikata001::processBehavior() {
     if (vb->isBeingPressed(VB_DOWN)) {
         _y -= PX_C(2); //‰º
     }
+
+
+
+
+
+
+
+
+
+    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_D)) {
+        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_D)!!!!!");
+        _pKurokoA->_slide_mv_flg = false;
+        _pKurokoA->addMvVelo(PX_C(2));
+    }
+    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_F)) {
+        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_F)!!!!!");
+        _pKurokoA->_slide_mv_flg = false;
+        _pKurokoA->addMvVelo(-PX_C(2));
+    }
+
+    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_A)) {
+        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_A)!!!!!");
+        _pKurokoA->slideMvByVD(
+                        PX_C(10) , PX_C(0), PX_C(-320) - _x,
+                        0.3, 0.6,
+                        true
+                    );
+    }
+    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_S)) {
+        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_S)!!!!!");
+        _pKurokoA->slideMvByVD(
+                        PX_C(10) , PX_C(0), PX_C(320) - _x,
+                        0.3, 0.6,
+                        true
+                    );
+    }
+    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Z)) {
+        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Q)!!!!!");
+        _pKurokoA->slideMvByDT(
+                PX_C(0) , PX_C(-320) - _x, 120,
+                0.3, 0.6,
+                true
+            );
+    }
+    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_X)) {
+        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_W)!!!!!");
+        _pKurokoA->slideMvByDT(
+                PX_C(0) , PX_C(320) - _x, 120,
+                0.3, 0.6,
+                true
+            );
+    }
     _pKurokoA->behave(); //•ˆßA‚ğŠˆ“®‚³‚¹‚éiZ²‰ñ“]‚·‚éj
 }
 

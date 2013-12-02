@@ -3,6 +3,7 @@
 
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+#include <math.h>
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -142,6 +143,155 @@ _pActor(prm_pActor) {
 
 void GgafDxKurokoA::behave() {
 
+    //なめらか回転シークエンス起動時
+    if (_smooth_turn_rz_faceang_flg) {
+        if (_smooth_turn_rz_faceang_target_frames < 0) {
+            //目標距離指定の場合
+            if (_smooth_turn_rz_faceang_progress == 0) {
+                //回復フェーズ
+                setFaceAngAcce(AXIS_Z, _smooth_turn_rz_faceang_angacce_a0);
+                _smooth_turn_rz_faceang_progress++;
+            }
+            if (_smooth_turn_rz_faceang_progress == 1) {
+                //回復中
+                if (_smooth_turn_rz_faceang_turned_angles >= _smooth_turn_rz_faceang_p0) {
+                    //加速設定
+                    setFaceAngAcce(AXIS_Z, 0);
+                    setFaceAngVelo(AXIS_Z, 0);
+                    //θ1、θ2、θ3再設定
+                    _smooth_turn_rz_faceang_target_distanceangle2 = getFaceAngDistance(
+                            AXIS_Z,
+                            _smooth_turn_rz_faceang_target_angle,
+                            _smooth_turn_rz_faceang_targetangle_sgn == 1 ? TURN_COUNTERCLOCKWISE  : TURN_CLOCKWISE); //θ
+                    _smooth_turn_rz_faceang_target_distanceangle = ABS(_smooth_turn_rz_faceang_target_distanceangle2);
+                    _smooth_turn_rz_faceang_turned_angles = 0;
+                    _smooth_turn_rz_faceang_p1 = _smooth_turn_rz_faceang_target_distanceangle * _smooth_turn_rz_faceang_p1;
+                    _smooth_turn_rz_faceang_p2 = _smooth_turn_rz_faceang_target_distanceangle * _smooth_turn_rz_faceang_p2;
+                    _smooth_turn_rz_faceang_progress++;
+                }
+            }
+            if (_smooth_turn_rz_faceang_progress == 2) {
+                    setFaceAngAcceByD(
+                        AXIS_Z,
+                        _smooth_turn_rz_faceang_p1*_smooth_turn_rz_faceang_targetangle_sgn,
+                        _smooth_turn_rz_faceang_top_angvelo);
+                    if (ABS(_angacceFace[AXIS_Z]) > ABS(_smooth_turn_rz_faceang_target_distanceangle2)) {
+                        _angacceFace[AXIS_Z] = _smooth_turn_rz_faceang_target_distanceangle2;
+                    } else if (ABS(_angacceFace[AXIS_Z]) > ABS(_smooth_turn_rz_faceang_top_angvelo)) {
+                        _angacceFace[AXIS_Z] = _smooth_turn_rz_faceang_top_angvelo;
+                    }
+                _smooth_turn_rz_faceang_progress++;
+            }
+            if (_smooth_turn_rz_faceang_progress == 3) {
+                //加速中
+                if (_smooth_turn_rz_faceang_turned_angles >= _smooth_turn_rz_faceang_p1) {
+                    //p1 に到達すれば 等速へ
+                    setFaceAngAcce(AXIS_Z, 0);
+                    setFaceAngVelo(AXIS_Z, _smooth_turn_rz_faceang_top_angvelo);
+                    _smooth_turn_rz_faceang_progress++;
+                }
+            }
+            if (_smooth_turn_rz_faceang_progress == 4) {
+
+                //等速中
+                if (_smooth_turn_rz_faceang_turned_angles >= _smooth_turn_rz_faceang_p2) {
+                    angle ang_diff_to_end = _smooth_turn_rz_faceang_target_distanceangle-_smooth_turn_rz_faceang_turned_angles;
+
+                    //p2 に到達すれば 次回フレームから減速へ
+                    setFaceAngAcceByD(
+                        AXIS_Z,
+                        ABS(ang_diff_to_end)*_smooth_turn_rz_faceang_targetangle_sgn,
+                        _smooth_turn_rz_faceang_end_angvelo);
+                    if (ABS(_angacceFace[AXIS_Z]) > ABS(ang_diff_to_end)) {
+                        //設定された加速度で行くと、最終的な目標角度を超えてしまっている場合。
+                        _angacceFace[AXIS_Z] = ang_diff_to_end; //補正
+                    } else if (ABS(_angacceFace[AXIS_Z]) > ABS(_smooth_turn_rz_faceang_end_angvelo)) {
+                        _angacceFace[AXIS_Z] = _smooth_turn_rz_faceang_end_angvelo;
+                    }
+                    _smooth_turn_rz_faceang_progress++;
+                }
+            }
+            if (_smooth_turn_rz_faceang_progress == 5) {
+                //減速中
+                if (_pActor->getBehaveingFrame() % 4U == 0) {
+                    //補正・補正・補正
+                    angle ang_diff_to_end = _smooth_turn_rz_faceang_target_distanceangle - _smooth_turn_rz_faceang_turned_angles;
+                    setFaceAngAcceByD(
+                            AXIS_Z,
+                            ang_diff_to_end*_smooth_turn_rz_faceang_targetangle_sgn,
+                            _smooth_turn_rz_faceang_end_angvelo);
+                    if (ABS(_angacceFace[AXIS_Z]) > ABS(ang_diff_to_end)) {
+                        _angacceFace[AXIS_Z] = ang_diff_to_end;
+                    } else if (ABS(_angacceFace[AXIS_Z]) > ABS(_smooth_turn_rz_faceang_end_angvelo)) {
+                        _angacceFace[AXIS_Z] = _smooth_turn_rz_faceang_end_angvelo;
+                    }
+                }
+                if (_smooth_turn_rz_faceang_turned_angles >= _smooth_turn_rz_faceang_target_distanceangle) {
+                    //目標距離へ到達
+                    if (_smooth_turn_rz_faceang_end_angvelo == 0) {
+                        setFaceAng(AXIS_Z, _smooth_turn_rz_faceang_target_angle);
+                        setFaceAngVelo(AXIS_Z, 0);
+                    } else {
+                        setFaceAngVelo(AXIS_Z, _smooth_turn_rz_faceang_end_angvelo);
+                    }
+                    if (_smooth_turn_rz_faceang_endacc_flg) {
+                        setFaceAngAcce(AXIS_Z, 0);
+                    }
+                    _smooth_turn_rz_faceang_progress++;
+                    _smooth_turn_rz_faceang_flg = false; //おしまい
+                }
+            }
+        } else {
+            //目標時間指定の場合
+            if (_smooth_turn_rz_faceang_progress == 0) {
+                //加速設定
+                setFaceAngAcceByT(AXIS_Z, _smooth_turn_rz_faceang_p1, _smooth_turn_rz_faceang_top_angvelo);
+                _smooth_turn_rz_faceang_progress++;
+            }
+            if (_smooth_turn_rz_faceang_progress == 1) {
+                //加速中
+                if (_smooth_turn_rz_faceang_frame_of_spent >= _smooth_turn_rz_faceang_p1) {
+                    //p1 に到達すれば 等速へ
+                    setFaceAngAcce(AXIS_Z, 0);
+                    setFaceAngVelo(AXIS_Z, _smooth_turn_rz_faceang_top_angvelo);
+                    _smooth_turn_rz_faceang_progress++;
+                }
+            }
+            if (_smooth_turn_rz_faceang_progress == 2) {
+                //等速中
+                if (_smooth_turn_rz_faceang_frame_of_spent >= _smooth_turn_rz_faceang_p2) {
+                    //p2 に到達すれば 次回フレームから減速へ
+                    setFaceAngAcceByT(AXIS_Z, _smooth_turn_rz_faceang_target_frames - _smooth_turn_rz_faceang_frame_of_spent, _smooth_turn_rz_faceang_end_angvelo);
+                    _smooth_turn_rz_faceang_progress++;
+                }
+            }
+            if (_smooth_turn_rz_faceang_progress == 3) {
+                //減速中
+                if (_pActor->getBehaveingFrame() % 4U == 0) {
+                    //補正・補正・補正
+                    setFaceAngAcceByT(AXIS_Z, _smooth_turn_rz_faceang_target_frames - _smooth_turn_rz_faceang_frame_of_spent, _smooth_turn_rz_faceang_end_angvelo);
+                }
+
+                if (_smooth_turn_rz_faceang_frame_of_spent >= _smooth_turn_rz_faceang_target_frames) {
+                    //目標距離へ到達
+//                    if (_smooth_turn_rz_faceang_end_angvelo == 0) {
+//                        setFaceAng(AXIS_Z, _smooth_turn_rz_faceang_target_angle);
+//                        setFaceAngVelo(AXIS_Z, 0);
+//                    } else {
+                        setFaceAngVelo(AXIS_Z, _smooth_turn_rz_faceang_end_angvelo);
+//                    }
+                    if (_smooth_turn_rz_faceang_endacc_flg) {
+                        setFaceAngAcce(AXIS_Z, 0);
+                    }
+                    _smooth_turn_rz_faceang_progress++;
+                    _smooth_turn_rz_faceang_flg = false; //おしまい
+                }
+            }
+        }
+    } else {
+        _smooth_turn_rz_faceang_progress = -1;
+    }
+
     //正面方角処理
     for (int i = 0; i < 3; i++) {
         if (_face_ang_targeting_flg[i]) { //ターゲット方向がある場合
@@ -201,153 +351,12 @@ void GgafDxKurokoA::behave() {
         }
     }
 
-
-
-    //なめらか回転シークエンス起動時
-    if (_smooth_turn_rz_faceang_flg) {
-        if (_smooth_turn_rz_faceang_target_frames < 0) {
-            //目標距離指定の場合
-            if (_smooth_turn_rz_faceang_progress == 0) {
-                //回復フェーズ
-                setFaceAngAcce(AXIS_Z, _smooth_turn_rz_faceang_angacce_a0);
-                _smooth_turn_rz_faceang_progress++;
-            } else if (_smooth_turn_rz_faceang_progress == 1) {
-                //回復中
-                if (_smooth_turn_rz_faceang_turned_angles >= _smooth_turn_rz_faceang_p0) {
-                    _smooth_turn_rz_faceang_progress++;
-                }
-            } else if (_smooth_turn_rz_faceang_progress == 2) {
-                //加速設定
-                setFaceAngAcceByD(
-                    AXIS_Z,
-                    _smooth_turn_rz_faceang_p1-_smooth_turn_rz_faceang_turned_angles,
-                    _smooth_turn_rz_faceang_top_angvelo);
-                _smooth_turn_rz_faceang_progress++;
-            } else if (_smooth_turn_rz_faceang_progress == 3) {
-                //加速中
-                if (_smooth_turn_rz_faceang_turned_angles >= _smooth_turn_rz_faceang_p1) {
-                    //p1 に到達すれば 等速へ
-                    setFaceAngAcce(AXIS_Z, 0);
-                    setFaceAngVelo(AXIS_Z, _smooth_turn_rz_faceang_top_angvelo);
-                    _smooth_turn_rz_faceang_progress++;
-                }
-            } else if (_smooth_turn_rz_faceang_progress == 4) {
-                //等速中
-                if (_smooth_turn_rz_faceang_turned_angles >= _smooth_turn_rz_faceang_p2) {
-                    //p2 に到達すれば 次回フレームから減速へ
-                    setFaceAngAcceByD(
-                        AXIS_Z,
-                        _smooth_turn_rz_faceang_target_distanceangle - _smooth_turn_rz_faceang_turned_angles,
-                        _smooth_turn_rz_faceang_end_angvelo);
-                    _smooth_turn_rz_faceang_progress++;
-                }
-            } else if (_smooth_turn_rz_faceang_progress == 5) {
-                //減速中
-                if (_pActor->getBehaveingFrame() % 4U == 0) {
-                    //補正・補正・補正
-                    setFaceAngAcceByD(
-                            AXIS_Z,
-                            _smooth_turn_rz_faceang_target_distanceangle - _smooth_turn_rz_faceang_turned_angles,
-                            _smooth_turn_rz_faceang_end_angvelo);
-                }
-                if (_smooth_turn_rz_faceang_turned_angles >= _smooth_turn_rz_faceang_target_distanceangle) {
-                    //目標距離へ到達
-                    setFaceAngVelo(AXIS_Z, _smooth_turn_rz_faceang_end_angvelo);
-                    if (_smooth_turn_rz_faceang_endacc_flg) {
-                        setFaceAngAcce(AXIS_Z, 0);
-                    }
-                    _smooth_turn_rz_faceang_progress++;
-                    _smooth_turn_rz_faceang_flg = false; //おしまい
-                }
-            }
-        } else {
-            //目標時間指定の場合
-            if (_smooth_turn_rz_faceang_progress == 0) {
-                _TRACE_("_smooth_turn_rz_faceang_progress == 0");
-                _TRACE_("_smooth_turn_rz_faceang_p1="<<_smooth_turn_rz_faceang_p1<<" _smooth_turn_rz_faceang_top_angvelo="<<_smooth_turn_rz_faceang_top_angvelo);
-                //加速設定
-                setFaceAngAcceByT(AXIS_Z, _smooth_turn_rz_faceang_p1, _smooth_turn_rz_faceang_top_angvelo);
-                _smooth_turn_rz_faceang_progress++;
-            } else if (_smooth_turn_rz_faceang_progress == 1) {
-                _TRACE_("_smooth_turn_rz_faceang_progress == 1");
-                _TRACE_("_smooth_turn_rz_faceang_frame_of_spent="<<_smooth_turn_rz_faceang_frame_of_spent<<" _smooth_turn_rz_faceang_p1="<<_smooth_turn_rz_faceang_p1);
-                //加速中
-                if (_smooth_turn_rz_faceang_frame_of_spent >= _smooth_turn_rz_faceang_p1) {
-                    //p1 に到達すれば 等速へ
-                    setFaceAngAcce(AXIS_Z, 0);
-                    setFaceAngVelo(AXIS_Z, _smooth_turn_rz_faceang_top_angvelo);
-                    _smooth_turn_rz_faceang_progress++;
-                }
-            } else if (_smooth_turn_rz_faceang_progress == 2) {
-                _TRACE_("_smooth_turn_rz_faceang_progress == 2");
-                _TRACE_("_smooth_turn_rz_faceang_frame_of_spent="<<_smooth_turn_rz_faceang_frame_of_spent<<"  _smooth_turn_rz_faceang_p2="<<_smooth_turn_rz_faceang_p2);
-                //等速中
-                if (_smooth_turn_rz_faceang_frame_of_spent >= _smooth_turn_rz_faceang_p2) {
-                    //p2 に到達すれば 次回フレームから減速へ
-                    setFaceAngAcceByT(AXIS_Z, _smooth_turn_rz_faceang_target_frames - _smooth_turn_rz_faceang_frame_of_spent, _smooth_turn_rz_faceang_end_angvelo);
-                    _smooth_turn_rz_faceang_progress++;
-                }
-            } else if (_smooth_turn_rz_faceang_progress == 3) {
-
-                _TRACE_("_smooth_turn_rz_faceang_progress == 3");
-                _TRACE_("_smooth_turn_rz_faceang_frame_of_spent="<<_smooth_turn_rz_faceang_frame_of_spent<<"  _smooth_turn_rz_faceang_target_frames="<<_smooth_turn_rz_faceang_target_frames);
-
-                //減速中
-                if (_pActor->getBehaveingFrame() % 4U == 0) {
-                    //補正・補正・補正
-                    setFaceAngAcceByT(AXIS_Z, _smooth_turn_rz_faceang_target_frames - _smooth_turn_rz_faceang_frame_of_spent, _smooth_turn_rz_faceang_end_angvelo);
-                }
-
-                if (_smooth_turn_rz_faceang_frame_of_spent >= _smooth_turn_rz_faceang_target_frames) {
-
-                    _TRACE_("//目標距離へ到達");
-                    _TRACE_("_smooth_turn_rz_faceang_frame_of_spent="<<_smooth_turn_rz_faceang_frame_of_spent<<"  _smooth_turn_rz_faceang_target_frames="<<_smooth_turn_rz_faceang_target_frames);
-
-
-                    //目標距離へ到達
-                    setFaceAngVelo(AXIS_Z, _smooth_turn_rz_faceang_end_angvelo);
-                    if (_smooth_turn_rz_faceang_endacc_flg) {
-                        setFaceAngAcce(AXIS_Z, 0);
-                    }
-                    _smooth_turn_rz_faceang_progress++;
-                    _smooth_turn_rz_faceang_flg = false; //おしまい
-                }
-            }
-        }
-    } else {
-        _smooth_turn_rz_faceang_progress = -1;
-    }
-
     if (_smooth_turn_rz_faceang_flg) {
         _smooth_turn_rz_faceang_frame_of_spent++;
         _smooth_turn_rz_faceang_turned_angles += ABS(_angveloFace[AXIS_Z]);
     } else {
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     //Actorに反映
@@ -365,15 +374,44 @@ void GgafDxKurokoA::behave() {
     } else if (_veloMv < _veloBottomMv) {
         _veloMv = _veloBottomMv;
     }
+
+
     //なめらか移動シークエンス起動時
     if (_slide_mv_flg) {
         if (_slide_mv_target_frames < 0) {
             //目標距離指定の場合
             if (_slide_mv_progress == 0) {
-                //加速設定
-                setMvAcceByD(_slide_mv_p1, _slide_mv_top_velo);
+                //回復フェーズ
+                setMvAcce(_slide_mv_angacce_a0);
                 _slide_mv_progress++;
-            } else if (_slide_mv_progress == 1) {
+            }
+            if (_slide_mv_progress == 1) {
+                //回復中
+                if (_slide_mv_moved_distances >= _slide_mv_p0) {
+                    //加速設定
+                    setMvAcce(0);
+                    setMvVelo(0);
+                    //θ1、θ2、θ3再設定
+                    _slide_mv_target_distance = _slide_mv_target_distance - _slide_mv_moved_distances;
+                    _slide_mv_target_distance2 = ABS(_slide_mv_target_distance) * _slide_mv_target_sgn;
+                    _slide_mv_moved_distances = 0;
+                    _slide_mv_p1 = _slide_mv_target_distance * _slide_mv_p1;
+                    _slide_mv_p2 = _slide_mv_target_distance * _slide_mv_p2;
+                    _slide_mv_progress++;
+                }
+            }
+            if (_slide_mv_progress == 2) {
+                    setMvAcceByD(
+                        _slide_mv_p1*_slide_mv_target_sgn,
+                        _slide_mv_top_velo);
+                    if (ABS(_accMv) > ABS(_slide_mv_target_distance2)) {
+                        _accMv = _slide_mv_target_distance2;
+                    } else if (ABS(_accMv) > ABS(_slide_mv_top_velo)) {
+                        _accMv = _slide_mv_top_velo;
+                    }
+                _slide_mv_progress++;
+            }
+            if (_slide_mv_progress == 3) {
                 //加速中
                 if (_slide_mv_moved_distances >= _slide_mv_p1) {
                     //p1 に到達すれば 等速へ
@@ -381,20 +419,40 @@ void GgafDxKurokoA::behave() {
                     setMvVelo(_slide_mv_top_velo);
                     _slide_mv_progress++;
                 }
-            } else if (_slide_mv_progress == 2) {
+            }
+            if (_slide_mv_progress == 4) {
+
                 //等速中
                 if (_slide_mv_moved_distances >= _slide_mv_p2) {
+                    coord ang_diff_to_end = _slide_mv_target_distance-_slide_mv_moved_distances;
+
                     //p2 に到達すれば 次回フレームから減速へ
-                    setMvAcceByD(_slide_mv_target_distance - _slide_mv_moved_distances, _slide_mv_end_velo);
+                    setMvAcceByD(
+                        ABS(ang_diff_to_end)*_slide_mv_target_sgn,
+                        _slide_mv_end_velo);
+                    if (ABS(_accMv) > ABS(ang_diff_to_end)) {
+                        //設定された加速度で行くと、最終的な目標角度を超えてしまっている場合。
+                        _accMv = ang_diff_to_end; //補正
+                    } else if (ABS(_accMv) > ABS(_slide_mv_end_velo)) {
+                        _accMv = _slide_mv_end_velo;
+                    }
                     _slide_mv_progress++;
                 }
-            } else if (_slide_mv_progress == 3) {
+            }
+            if (_slide_mv_progress == 5) {
                 //減速中
-                if (_pActor->getBehaveingFrame() % 8U == 0) {
+                if (_pActor->getBehaveingFrame() % 4U == 0) {
                     //補正・補正・補正
-                    setMvAcceByD(_slide_mv_target_distance - _slide_mv_moved_distances, _slide_mv_end_velo);
+                    coord ang_diff_to_end = _slide_mv_target_distance - _slide_mv_moved_distances;
+                    setMvAcceByD(
+                            ang_diff_to_end*_slide_mv_target_sgn,
+                            _slide_mv_end_velo);
+                    if (ABS(_accMv) > ABS(ang_diff_to_end)) {
+                        _accMv = ang_diff_to_end;
+                    } else if (ABS(_accMv) > ABS(_slide_mv_end_velo)) {
+                        _accMv = _slide_mv_end_velo;
+                    }
                 }
-
                 if (_slide_mv_moved_distances >= _slide_mv_target_distance) {
                     //目標距離へ到達
                     setMvVelo(_slide_mv_end_velo);
@@ -411,7 +469,8 @@ void GgafDxKurokoA::behave() {
                 //加速設定
                 setMvAcceByT(_slide_mv_p1, _slide_mv_top_velo);
                 _slide_mv_progress++;
-            } else if (_slide_mv_progress == 1) {
+            }
+            if (_slide_mv_progress == 1) {
                 //加速中
                 if (_slide_mv_frame_of_spent >= _slide_mv_p1) {
                     //p1 に到達すれば 等速へ
@@ -419,22 +478,23 @@ void GgafDxKurokoA::behave() {
                     setMvVelo(_slide_mv_top_velo);
                     _slide_mv_progress++;
                 }
-            } else if (_slide_mv_progress == 2) {
+            }
+            if (_slide_mv_progress == 2) {
                 //等速中
                 if (_slide_mv_frame_of_spent >= _slide_mv_p2) {
                     //p2 に到達すれば 次回フレームから減速へ
                     setMvAcceByT(_slide_mv_target_frames - _slide_mv_frame_of_spent, _slide_mv_end_velo);
                     _slide_mv_progress++;
                 }
-            } else if (_slide_mv_progress == 3) {
+            }
+            if (_slide_mv_progress == 3) {
                 //減速中
-                if (_pActor->getBehaveingFrame() % 8U == 0) {
+                if (_pActor->getBehaveingFrame() % 4U == 0) {
                     //補正・補正・補正
                     setMvAcceByT(_slide_mv_target_frames - _slide_mv_frame_of_spent, _slide_mv_end_velo);
                 }
 
                 if (_slide_mv_frame_of_spent >= _slide_mv_target_frames) {
-                    //目標距離へ到達
                     setMvVelo(_slide_mv_end_velo);
                     if (_slide_mv_endacc_flg) {
                         setMvAcce(0);
@@ -448,15 +508,6 @@ void GgafDxKurokoA::behave() {
         _slide_mv_progress = -1;
     }
 
-    if (_slide_mv_flg) {
-        if (_slide_mv_target_frames < 0) {
-            _slide_mv_moved_distances+=ABS(_veloMv);
-        } else {
-            _slide_mv_frame_of_spent++;
-        }
-    } else {
-
-    }
 
     ///////////
     //目標移動方角（Z軸回転）アングル自動停止機能使用時の場合
@@ -567,6 +618,19 @@ void GgafDxKurokoA::behave() {
             addRyMvAng(_angveloRyMv);
         }
         //}
+    }
+
+
+
+
+    if (_slide_mv_flg) {
+        if (_slide_mv_target_frames < 0) {
+            _slide_mv_moved_distances+=ABS(_veloMv);
+        } else {
+            _slide_mv_frame_of_spent++;
+        }
+    } else {
+
     }
     ///////////////
     if (_taget_face_ang_alltime_flg && _face_ang_targeting_flg[AXIS_Z] == false && _face_ang_targeting_flg[AXIS_Y] == false) {
@@ -873,6 +937,7 @@ frame GgafDxKurokoA::setFaceAngAcceByD(axis prm_axis, angle prm_target_angle_dis
     } else if (acc < 0.0) {
         acc -= 0.5;
     }
+    _TRACE_("_angacceFace[prm_axis] = "<<((angacce)(acc)));
     _angacceFace[prm_axis] = acc;
     return (frame)((1.0*prm_target_angvelo - _angveloFace[prm_axis]) / acc); //使用フレーム数
 }
@@ -953,58 +1018,232 @@ angle GgafDxKurokoA::setFaceAngAcceByT(axis prm_axis, frame prm_target_frames, a
 void GgafDxKurokoA::slideMvByDT(velo prm_end_velo, coord prm_target_distance,
                                 int prm_target_frames, float prm_p1, float prm_p2,
                                 bool prm_endacc_flg) {
-    _slide_mv_flg = true;
-    _slide_mv_p1 = (int)(prm_target_frames*prm_p1);
-    _slide_mv_p2 = (int)(prm_target_frames*prm_p2);
-    _slide_mv_end_velo = prm_end_velo;
-    _slide_mv_target_distance = prm_target_distance;
-    _slide_mv_moved_distances = 0;
-    _slide_mv_target_frames = prm_target_frames;
-    _slide_mv_frame_of_spent = 0;
-    _slide_mv_progress = 0;
+    int s_target_distance = SGN(prm_target_distance);                     //θの正負
+    int s_w0 = SGN(_veloMv); //ω0の正負
 
-    //＜トップスピード(Vt) を計算＞
-    //
-    //    速度(v)
-    //     ^
-    //     |                          D:目標移動距離
-    //     |                         V0:現時点の速度
-    //     |                         Vt:トップスピード
-    //     |                         Ve:最終速度
-    //   Vt|....＿＿＿＿＿           Te:目標時間（フレーム数）
-    //     |   /:         :＼        p1:トップスピードに達する時刻となるような、Teに対する割合
-    //   Ve|../.:.........:..＼      p2:減速を開始時刻となるような、Teに対する割合
-    //     | /  :         :    |        (0.0 < p1 < p2 < 1.0)
-    //     |/   :         :    |
-    //   V0|    :    D    :    |
-    //     |    :         :    |
-    //   --+----+---------+----+-----> 時間(t:フレーム)
-    //   0 |  p1*Te     p2*Te  Te
-    //
-    // 移動距離Dは、左の台形＋中央の長方形＋右の台形 の面積である、
-    // D = (1/2) (V0 + Vt) p1 Te + Vt (p2-p1)Te  +  (1/2) (Ve + Vt) (1-p2)Te
-    // これをVtについて解く
-    // Vt = ( 2D - p1 Te V0 + (p2 - 1) Te Ve ) / ( (p2 - p1 + 1) Te )
-    _slide_mv_top_velo =
-         ((2.0*prm_target_distance) - (prm_p1*prm_target_frames*_veloMv) + ((prm_p2-1.0)*prm_target_frames*prm_end_velo))
-         / ((prm_p2-prm_p1+1.0)*prm_target_frames);
+    if (s_w0 == 0 || s_target_distance == s_w0) {  //正負が一致
+        _slide_mv_flg = true;
+        _slide_mv_p1 = (int)(prm_target_frames*prm_p1);
+        _slide_mv_p2 = (int)(prm_target_frames*prm_p2);
+        _slide_mv_end_velo = prm_end_velo;
+        _slide_mv_target_frames = prm_target_frames;
+        _slide_mv_frame_of_spent = 0;
+        _slide_mv_progress = 0;
 
+        //＜トップスピード(Vt) を計算＞
+        //
+        //    速度(v)
+        //     ^
+        //     |                          D:目標移動距離
+        //     |                         V0:現時点の速度
+        //     |                         Vt:トップスピード
+        //     |                         Ve:最終速度
+        //   Vt|....＿＿＿＿＿           Te:目標時間（フレーム数）
+        //     |   /:         :＼        p1:トップスピードに達する時刻となるような、Teに対する割合
+        //   Ve|../.:.........:..＼      p2:減速を開始時刻となるような、Teに対する割合
+        //     | /  :         :    |        (0.0 < p1 < p2 < 1.0)
+        //     |/   :         :    |
+        //   V0|    :    D    :    |
+        //     |    :         :    |
+        //   --+----+---------+----+-----> 時間(t:フレーム)
+        //   0 |  p1*Te     p2*Te  Te
+        //
+        // 移動距離Dは、左の台形＋中央の長方形＋右の台形 の面積である、
+        // D = (1/2) (V0 + Vt) p1 Te + Vt (p2-p1)Te  +  (1/2) (Ve + Vt) (1-p2)Te
+        // これをVtについて解く
+        // Vt = ( 2D - p1 Te V0 + (p2 - 1) Te Ve ) / ( (p2 - p1 + 1) Te )
+        _slide_mv_top_velo =
+             ((2.0*prm_target_distance) - (prm_p1*prm_target_frames*_veloMv) + ((prm_p2-1.0)*prm_target_frames*prm_end_velo))
+             / ((prm_p2-prm_p1+1.0)*prm_target_frames);
+    } else {
+
+//        速度(v)
+//         ^
+//         |                           D2-D1:目標移動距離
+//         |                              V0:現時点の速度
+//         |                              Vt:トップスピード
+//         |                              Ve:最終速度
+//       Wt|................＿＿＿＿＿＿           Te:目標時間（フレーム数）
+//         |               /:  |       :＼        p1:トップスピードに達する時刻となるような、Teに対する割合
+//       We|............../.:..|.......:..＼      p2:減速を開始時刻となるような、Teに対する割合
+//         |             /  :  |       :    |        (0.0 < p1 < p2 < 1.0)
+//         |         a  /   :  |       :    |
+//         |           /    s  |  D    :    |
+//         |          /     :  |       :    |
+//       --+---------/------+--+-------+----+-----> 時間(t:フレーム)
+//       0 |        /Ts    T1         T2   Te
+//         |   -s  /
+//         |      /
+//         |     /
+//         |    /
+//         |   /
+//         |  /
+//         | /
+//       W0|/
+//         |
+//
+//    時間 t が 0 ～ T1 時の角速度を w とすると
+//    直線 W = a*t + W0 より
+//    t = T1 の時  W = Wt  であるので
+//    Wt = a*T1 + W0
+//    a = -(W0-Wt)/T1 ・・・(1)
+//
+//    t = Ts の時  W = 0  であるので
+//    0 = a*Ts + W0  ・・・(2)
+//    (1)を(2)へ代入
+//    0 = (-(W0-Wt)/T1)*Ts + W0
+//    Ts = (T1*W0)/(W0-Wt) ・・・(3)
+//    よってsは
+//    -s = (1/2)*Ts* W0
+//    s = (1/2)*Ts*-W0
+//    (3)を代入
+//    s = (1/2)*( (T1*W0)/(W0-Wt) )*-W0
+//    s = -(T1*W0^2)/(2*(W0-Wt))  ・・・(4)
+//
+//    Wtを求める
+//    D+s = 左の三角形＋中央の長方形＋右の台形 の面積である、
+//    D+s =  ( (1/2)*(T1-Ts)*Wt )  +  ( (T2-T1) * Wt )  +  ( (1/2)*(Wt+We)*(Te-T2) )   ・・・(5)
+//    (3)(4)を(5)へ代入
+//    D+(-(T1*W0^2)/(2*(W0-Wt))) =  ( (1/2)*(T1-((T1*W0)/(W0-Wt)))*Wt )  +  ( (T2-T1) * Wt )  +  ( (1/2)*(Wt+We)*(Te-T2) )
+//    Wtについて解く
+//    Wt=-(T1*W0-We*T2-2*D+Te*We)/(T2-T1+Te)
+        double W0 = _veloMv;
+        double We = ABS(prm_end_velo) * s_target_distance;
+        double T1 = prm_target_frames*prm_p1;
+        double T2 = prm_target_frames*prm_p2;
+        double Te = prm_target_frames;
+        double D = prm_target_distance;
+        double Wt = -(T1*W0-We*T2-2*D+Te*We)/(T2-T1+Te);
+        double Ts = (T1*W0)/(W0-Wt);
+
+        _slide_mv_flg = true;
+        _slide_mv_p0 = Ts;
+        _slide_mv_p1 = T1;
+        _slide_mv_p2 = T2;
+        _slide_mv_end_velo = prm_end_velo;
+        _slide_mv_target_frames = Te;
+        _slide_mv_frame_of_spent = 0;
+        _slide_mv_progress = 0;
+        _slide_mv_top_velo = Wt;
+    }
 }
 
 void GgafDxKurokoA::slideMvByVD(velo prm_top_velo, velo prm_end_velo,
                                 coord prm_target_distance, float prm_p1, float prm_p2,
                                 bool prm_endacc_flg) {
-    _slide_mv_flg = true;
-    _slide_mv_endacc_flg = prm_endacc_flg;
-    _slide_mv_top_velo = prm_top_velo;
-    _slide_mv_end_velo = prm_end_velo;
-    _slide_mv_target_distance = prm_target_distance;
-    _slide_mv_moved_distances = 0;
-    _slide_mv_target_frames = -1; //目標時間は使わない場合は負を設定しておく(条件分岐で使用)
-    _slide_mv_frame_of_spent = 0;
-    _slide_mv_p1 = (int)(prm_target_distance*prm_p1);
-    _slide_mv_p2 = (int)(prm_target_distance*prm_p2);
-    _slide_mv_progress = 0;
+    int s_target_distance = SGN(prm_target_distance);                     //θの正負
+    int s_w0 = SGN(_veloMv); //ω0の正負
+
+    if (s_w0 == 0 || s_target_distance == s_w0) {  //正負が一致
+        //【パターン１】
+        //
+        //        角速度(ω)                       ω0:現時点の速度      (_angveloFace[])
+        //         ^                               ωt:トップスピード    (prm_top_angvelo)
+        //         |                               ωe:最終速度          (prm_end_angvelo)
+        //         |                                θ:目標回転距離角θ  (θ1+θ2+θ3)                     ・・・ 計算して求める
+        //         |                                p1:トップスピードに達する角距離となるような、角距離(θ)に対する割合
+        //         |       θ=θ1+θ2+θ3               つまり     θ1 = θ*p1 となるような p1 (0.0～1.0)
+        //      ωt|....___________                 p2:減速を開始距離となるような、距離(D)に対する割合
+        //         |   /|         |＼                   つまり θ1+θ2 = θ*p2 となるような p2 (0.0～1.0)
+        //      ωe|../.|.........|..＼             T1: θ1     = θ*p1 に費やされる必要時間フレーム数     ・・・ 計算して求める
+        //         | /  |         |    |            T2: θ1+θ2 = θ*p2 に費やされる必要時間フレーム数     ・・・ 計算して求める
+        //         |/   |         |    |            Te:費やされる必要時間フレーム数                        ・・・ 計算して求める
+        //      ω0|θ1 |   θ2   |θ3 |
+        //         |    |         |    |
+        //       --+----+---------+----+-----> 時間(t:フレーム)
+        //       0 |    T1        T2   Te
+        //
+
+        double W0 = _veloMv;
+        double Wt = ABS(prm_top_velo) * s_target_distance;
+        double We = ABS(prm_end_velo) * s_target_distance;
+        _slide_mv_flg = true;
+        _slide_mv_endacc_flg = prm_endacc_flg;
+        _slide_mv_top_velo = Wt;
+        _slide_mv_end_velo = We;
+        _slide_mv_target_distance = ABS(prm_target_distance);
+        _slide_mv_target_distance2 = prm_target_distance;
+        _slide_mv_moved_distances = 0;
+        _slide_mv_target_sgn = s_target_distance;
+        _slide_mv_target_frames = -1; //時間未使用
+        _slide_mv_frame_of_spent = 0;
+        _slide_mv_p0 = 0; //未使用
+        _slide_mv_p1 = ABS(_slide_mv_target_distance) * prm_p1;
+        _slide_mv_p2 = ABS(_slide_mv_target_distance) * prm_p2;
+        _slide_mv_progress = 2; //回復フェーズを飛ばす
+    } else {
+
+        //                                                      ω0:現時点の速度      (_angveloFace[])
+        //        速度(v)                                       ωt:トップスピード    (prm_top_angvelo)
+        //        ^                                              ωe:最終速度          (prm_end_angvelo)
+        //        |                                               θ:スタート時点の角度からの目標回転距離角                     ・・・ 計算して求める
+        //        |                                              θp:角速度０になってからの目標回転距離角(θp1 + θp2 + θp3)   ・・・ 計算して求める
+        //        |                                                s:角速度０になるまでの逆回転距離                             ・・・ 計算して求める
+        //        |                                               p1:トップスピードに達する角距離となるような、角距離(θ)に対する割合
+        //        |           θ  = (θp1-s) + θp2 + θp3                 つまり θp1 = θp*p1 となるような p1 (0.0～1.0)    引数
+        //        |           θp = θp1 + θp2 + θp3            p2:減速を開始距離となるような、距離(D)に対する割合
+        //     ωt|...............___________                          つまり θp1+θp2 = θp*p2 となるような p2 (0.0～1.0)  引数
+        //        |            A /|         |＼B                  T0: 角速度０になるまでに費やされる必要時間フレーム数  ・・・ 計算して求める
+        //        |             / |         |  ＼                 T1: θp1      = θp*p1 に費やされる必要時間フレーム数  ・・・ 計算して求める
+        //        |            /  |         |    ＼               T2: θp1+θp2 = θp*p2 に費やされる必要時間フレーム数  ・・・ 計算して求める
+        //        |           /   |         |      ＼             Te:費やされる必要時間フレーム数                        ・・・ 計算して求める
+        //        |          /θp1|   θp2  | θp3   ＼
+        //        |         /:    |         |          ＼
+        //     ωe|......../.:....|.........|............＼  C
+        //        |       /  :    |         |             |
+        //        |      / s :    |         |             |
+        //   -----+-----+----+----+---------+-------------+----------> 時間(t:フレーム)
+        //      0 | s／ Ts       T1        T2            Te
+        //        |／
+        //     ω0| ^    <-s-><-----------θ-------------->
+        //        | |
+        //        | |    <--------------θp--------------->
+        //        | |
+        //        | |    <--θp1--><--θp2--><----θp3---->
+        //        | |
+        //        | 初期回復角加速度(a0)固定
+        //        |
+        //
+        //
+        //        時間 t が 0 ～ Ts 時の角速度を W とすると
+        //        直線 W = a0*t - W0 より    (※初期回復角加速度(a0)は定数)
+        //        t = Ts の時  W = 0  であるので
+        //        0 = a0*Ts - W0
+        //        Ts = W0/a0  ・・・(1)
+        //        また
+        //        s = (1/2) * Ts * -W0       (∵三角形の面積)
+        //        これに(1)を代入
+        //        s = (1/2) * (W0/a0) * -W0
+        //        s = -(W0^2)/(2*a0)  ・・・(2)
+        //        また
+        //
+        //        D + s =  Dp = (Dp1 + Dp2 + Dp3) ・・・(3)
+        //        より
+        //        Dp = D + (-W0^2/(2*a0))  ・・・(4)
+        double W0 = _veloMv;
+        double Wt = ABS(prm_top_velo) * s_target_distance;
+        double We = ABS(prm_end_velo) * s_target_distance;
+        double a0 = 500 * -s_w0; //初期角速度の正負逆
+        double s = -(W0*W0)/(2*a0);
+        double Dp = s + prm_target_distance;
+        _slide_mv_flg = true;
+        _slide_mv_endacc_flg = prm_endacc_flg;
+        _slide_mv_top_velo = Wt;
+        _slide_mv_end_velo = We;
+        _slide_mv_target_distance = ABS(s) + ABS(Dp);
+        _slide_mv_target_distance2 = prm_target_distance;
+        _slide_mv_moved_distances = 0;
+        _slide_mv_angacce_a0 = a0;
+        _slide_mv_target_sgn = s_target_distance;
+        _slide_mv_target_frames = -1; //時間未使用
+        _slide_mv_frame_of_spent = 0;
+        _slide_mv_p0 = ABS(s);
+        _slide_mv_p1 = prm_p1;
+        _slide_mv_p2 = prm_p2;
+        _slide_mv_progress = 0; //回復フェーズから
+
+    }
+
 }
 
 
@@ -1909,45 +2148,119 @@ void GgafDxKurokoA::turnSmoothlyRzFaceAngByDtTo(
         int prm_target_frames, float prm_p1, float prm_p2,
         bool prm_endacc_flg) {
 
-    angle dang = getFaceAngDistance(AXIS_Z, prm_angRz_Target, prm_way);
+    angle target_angle_distance = getFaceAngDistance(AXIS_Z, prm_angRz_Target, prm_way);
     _taget_face_ang_alltime_pActor = nullptr;
     _taget_face_ang_alltime_flg = false;
+    int s_target_angle_distance = SGN(target_angle_distance);                     //θの正負
+    int s_w0 = SGN(_angveloFace[AXIS_Z]); //ω0の正負
 
-    _smooth_turn_rz_faceang_flg = true;
-    _smooth_turn_rz_faceang_p1 = (int)(prm_target_frames*prm_p1);
-    _smooth_turn_rz_faceang_p2 = (int)(prm_target_frames*prm_p2);
-    _smooth_turn_rz_faceang_end_angvelo = prm_end_angvelo;
-    _smooth_turn_rz_faceang_target_distanceangle = dang;
-    _smooth_turn_rz_faceang_target_frames = prm_target_frames;
-    _smooth_turn_rz_faceang_frame_of_spent = 0;
-    _smooth_turn_rz_faceang_progress = 0;
+    if (s_w0 == 0 || s_target_angle_distance == s_w0) {  //正負が一致
+        _smooth_turn_rz_faceang_flg = true;
+        _smooth_turn_rz_faceang_p1 = (int)(prm_target_frames*prm_p1);
+        _smooth_turn_rz_faceang_p2 = (int)(prm_target_frames*prm_p2);
+        _smooth_turn_rz_faceang_target_angle = prm_angRz_Target;
+        _smooth_turn_rz_faceang_end_angvelo = prm_end_angvelo;
+        _smooth_turn_rz_faceang_target_frames = prm_target_frames;
+        _smooth_turn_rz_faceang_frame_of_spent = 0;
+        _smooth_turn_rz_faceang_progress = 0;
 
-    //＜トップスピード(Vt) を計算＞
-    //
-    //    速度(v)
-    //     ^
-    //     |                          D:目標移動距離
-    //     |                         V0:現時点の速度
-    //     |                         Vt:トップスピード
-    //     |                         Ve:最終速度
-    //   Vt|....＿＿＿＿＿           Te:目標時間（フレーム数）
-    //     |   /:         :＼        p1:トップスピードに達する時刻となるような、Teに対する割合
-    //   Ve|../.:.........:..＼      p2:減速を開始時刻となるような、Teに対する割合
-    //     | /  :         :    |        (0.0 < p1 < p2 < 1.0)
-    //     |/   :         :    |
-    //   V0|    :    D    :    |
-    //     |    :         :    |
-    //   --+----+---------+----+-----> 時間(t:フレーム)
-    //   0 |  p1*Te     p2*Te  Te
-    //
-    // 移動距離Dは、左の台形＋中央の長方形＋右の台形 の面積である、
-    // D = (1/2) (V0 + Vt) p1 Te + Vt (p2-p1)Te  +  (1/2) (Ve + Vt) (1-p2)Te
-    // これをVtについて解く
-    // Vt = ( 2D - p1 Te V0 + (p2 - 1) Te Ve ) / ( (p2 - p1 + 1) Te )
-    _smooth_turn_rz_faceang_top_angvelo =
-         ((2.0*dang) - (prm_p1*prm_target_frames*_angveloFace[AXIS_Z]) + ((prm_p2-1.0)*prm_target_frames*prm_end_angvelo))
-         / ((prm_p2-prm_p1+1.0)*prm_target_frames);
+        //＜トップスピード(Vt) を計算＞
+        //
+        //    速度(v)
+        //     ^
+        //     |                          D:目標移動距離
+        //     |                         V0:現時点の速度
+        //     |                         Vt:トップスピード
+        //     |                         Ve:最終速度
+        //   Vt|....＿＿＿＿＿           Te:目標時間（フレーム数）
+        //     |   /:         :＼        p1:トップスピードに達する時刻となるような、Teに対する割合
+        //   Ve|../.:.........:..＼      p2:減速を開始時刻となるような、Teに対する割合
+        //     | /  :         :    |        (0.0 < p1 < p2 < 1.0)
+        //     |/   :         :    |
+        //   V0|    :    D    :    |
+        //     |    :         :    |
+        //   --+----+---------+----+-----> 時間(t:フレーム)
+        //   0 |  p1*Te     p2*Te  Te
+        //
+        // 移動距離Dは、左の台形＋中央の長方形＋右の台形 の面積である、
+        // D = (1/2) (V0 + Vt) p1 Te + Vt (p2-p1)Te  +  (1/2) (Ve + Vt) (1-p2)Te
+        // これをVtについて解く
+        // Vt = ( 2D - p1 Te V0 + (p2 - 1) Te Ve ) / ( (p2 - p1 + 1) Te )
+        _smooth_turn_rz_faceang_top_angvelo =
+             ((2.0*target_angle_distance) - (prm_p1*prm_target_frames*_angveloFace[AXIS_Z]) + ((prm_p2-1.0)*prm_target_frames*prm_end_angvelo))
+             / ((prm_p2-prm_p1+1.0)*prm_target_frames);
+    } else {
 
+//        速度(v)
+//         ^
+//         |                           D2-D1:目標移動距離
+//         |                              V0:現時点の速度
+//         |                              Vt:トップスピード
+//         |                              Ve:最終速度
+//       Wt|................＿＿＿＿＿＿           Te:目標時間（フレーム数）
+//         |               /:  |       :＼        p1:トップスピードに達する時刻となるような、Teに対する割合
+//       We|............../.:..|.......:..＼      p2:減速を開始時刻となるような、Teに対する割合
+//         |             /  :  |       :    |        (0.0 < p1 < p2 < 1.0)
+//         |         a  /   :  |       :    |
+//         |           /    s  |  D    :    |
+//         |          /     :  |       :    |
+//       --+---------/------+--+-------+----+-----> 時間(t:フレーム)
+//       0 |        /Ts    T1         T2   Te
+//         |   -s  /
+//         |      /
+//         |     /
+//         |    /
+//         |   /
+//         |  /
+//         | /
+//       W0|/
+//         |
+//
+//    時間 t が 0 ～ T1 時の角速度を w とすると
+//    直線 W = a*t + W0 より
+//    t = T1 の時  W = Wt  であるので
+//    Wt = a*T1 + W0
+//    a = -(W0-Wt)/T1 ・・・(1)
+//
+//    t = Ts の時  W = 0  であるので
+//    0 = a*Ts + W0  ・・・(2)
+//    (1)を(2)へ代入
+//    0 = (-(W0-Wt)/T1)*Ts + W0
+//    Ts = (T1*W0)/(W0-Wt) ・・・(3)
+//    よってsは
+//    -s = (1/2)*Ts* W0
+//    s = (1/2)*Ts*-W0
+//    (3)を代入
+//    s = (1/2)*( (T1*W0)/(W0-Wt) )*-W0
+//    s = -(T1*W0^2)/(2*(W0-Wt))  ・・・(4)
+//
+//    Wtを求める
+//    D+s = 左の三角形＋中央の長方形＋右の台形 の面積である、
+//    D+s =  ( (1/2)*(T1-Ts)*Wt )  +  ( (T2-T1) * Wt )  +  ( (1/2)*(Wt+We)*(Te-T2) )   ・・・(5)
+//    (3)(4)を(5)へ代入
+//    D+(-(T1*W0^2)/(2*(W0-Wt))) =  ( (1/2)*(T1-((T1*W0)/(W0-Wt)))*Wt )  +  ( (T2-T1) * Wt )  +  ( (1/2)*(Wt+We)*(Te-T2) )
+//    Wtについて解く
+//    Wt=-(T1*W0-We*T2-2*D+Te*We)/(T2-T1+Te)
+        double W0 = _angveloFace[AXIS_Z];
+        double We = ABS(prm_end_angvelo) * s_target_angle_distance;
+        double T1 = prm_target_frames*prm_p1;
+        double T2 = prm_target_frames*prm_p2;
+        double Te = prm_target_frames;
+        double D = target_angle_distance;
+        double Wt = -(T1*W0-We*T2-2*D+Te*We)/(T2-T1+Te);
+        double Ts = (T1*W0)/(W0-Wt);
+
+        _smooth_turn_rz_faceang_flg = true;
+        _smooth_turn_rz_faceang_p0 = Ts;
+        _smooth_turn_rz_faceang_p1 = T1;
+        _smooth_turn_rz_faceang_p2 = T2;
+        _smooth_turn_rz_faceang_target_angle = prm_angRz_Target;
+        _smooth_turn_rz_faceang_end_angvelo = prm_end_angvelo;
+        _smooth_turn_rz_faceang_target_frames = Te;
+        _smooth_turn_rz_faceang_frame_of_spent = 0;
+        _smooth_turn_rz_faceang_progress = 0;
+        _smooth_turn_rz_faceang_top_angvelo = Wt;
+    }
 }
 
 
@@ -1991,13 +2304,15 @@ void GgafDxKurokoA::turnSmoothlyRzFaceAngByVdTo(
         _smooth_turn_rz_faceang_top_angvelo = Wt;
         _smooth_turn_rz_faceang_end_angvelo = We;
         _smooth_turn_rz_faceang_target_distanceangle = ABS(target_angle_distance);
+        _smooth_turn_rz_faceang_target_distanceangle2 = target_angle_distance;
+        _smooth_turn_rz_faceang_target_angle = prm_angRz_Target;
         _smooth_turn_rz_faceang_turned_angles = 0;
         _smooth_turn_rz_faceang_targetangle_sgn = s_target_angle_distance;
         _smooth_turn_rz_faceang_target_frames = -1; //時間未使用
         _smooth_turn_rz_faceang_frame_of_spent = 0;
         _smooth_turn_rz_faceang_p0 = 0; //未使用
-        _smooth_turn_rz_faceang_p1 = ABS(target_angle_distance) * prm_p1;
-        _smooth_turn_rz_faceang_p2 = ABS(target_angle_distance) * prm_p2;
+        _smooth_turn_rz_faceang_p1 = ABS(_smooth_turn_rz_faceang_target_distanceangle) * prm_p1;
+        _smooth_turn_rz_faceang_p2 = ABS(_smooth_turn_rz_faceang_target_distanceangle) * prm_p2;
         _smooth_turn_rz_faceang_progress = 2; //回復フェーズを飛ばす
     } else {
 
@@ -2054,41 +2369,40 @@ void GgafDxKurokoA::turnSmoothlyRzFaceAngByVdTo(
         double a0 = 500 * -s_w0; //初期角速度の正負逆
         double s = -(W0*W0)/(2*a0);
         double Dp = s + target_angle_distance;
-
-        _TRACE_("a0="<<a0);
-        _TRACE_("s="<<s);
-        _TRACE_("Dp="<<Dp);
         _smooth_turn_rz_faceang_flg = true;
         _smooth_turn_rz_faceang_endacc_flg = prm_endacc_flg;
         _smooth_turn_rz_faceang_top_angvelo = Wt;
         _smooth_turn_rz_faceang_end_angvelo = We;
-        _smooth_turn_rz_faceang_target_distanceangle = ABS(Dp) + ABS(s);
+        _smooth_turn_rz_faceang_target_distanceangle = ABS(s) + ABS(Dp);
+        _smooth_turn_rz_faceang_target_distanceangle2 = target_angle_distance;
+        _smooth_turn_rz_faceang_target_angle = prm_angRz_Target;
         _smooth_turn_rz_faceang_turned_angles = 0;
         _smooth_turn_rz_faceang_angacce_a0 = a0;
         _smooth_turn_rz_faceang_targetangle_sgn = s_target_angle_distance;
         _smooth_turn_rz_faceang_target_frames = -1; //時間未使用
         _smooth_turn_rz_faceang_frame_of_spent = 0;
         _smooth_turn_rz_faceang_p0 = ABS(s);
-        _smooth_turn_rz_faceang_p1 = ABS(s)  +  (ABS(Dp) * prm_p1);
-        _smooth_turn_rz_faceang_p2 = ABS(s)  +  (ABS(Dp) * prm_p2);
+        _smooth_turn_rz_faceang_p1 = prm_p1;
+        _smooth_turn_rz_faceang_p2 = prm_p2;
         _smooth_turn_rz_faceang_progress = 0; //回復フェーズから
 
     }
-    _TRACE_("GgafDxKurokoA::turnSmoothlyRzFaceAngByVdTo");
-    _TRACE_("_smooth_turn_rz_faceang_flg="<<_smooth_turn_rz_faceang_flg);
-    _TRACE_("_smooth_turn_rz_faceang_endacc_flg="<<_smooth_turn_rz_faceang_endacc_flg);
-    _TRACE_("_smooth_turn_rz_faceang_top_angvelo="<<_smooth_turn_rz_faceang_top_angvelo);
-    _TRACE_("_smooth_turn_rz_faceang_end_angvelo="<<_smooth_turn_rz_faceang_end_angvelo);
-    _TRACE_("_smooth_turn_rz_faceang_target_distanceangle="<<_smooth_turn_rz_faceang_target_distanceangle);
-    _TRACE_("_smooth_turn_rz_faceang_turned_angles="<<_smooth_turn_rz_faceang_turned_angles);
-    _TRACE_("_smooth_turn_rz_faceang_angacce_a0="<<_smooth_turn_rz_faceang_angacce_a0);
-    _TRACE_("_smooth_turn_rz_faceang_targetangle_sgn="<<_smooth_turn_rz_faceang_targetangle_sgn);
-    _TRACE_("_smooth_turn_rz_faceang_target_frames="<<_smooth_turn_rz_faceang_target_frames);
-    _TRACE_("_smooth_turn_rz_faceang_frame_of_spent="<<_smooth_turn_rz_faceang_frame_of_spent);
-    _TRACE_("_smooth_turn_rz_faceang_p0="<<_smooth_turn_rz_faceang_p0);
-    _TRACE_("_smooth_turn_rz_faceang_p1="<<_smooth_turn_rz_faceang_p1);
-    _TRACE_("_smooth_turn_rz_faceang_p2="<<_smooth_turn_rz_faceang_p2);
-    _TRACE_("_smooth_turn_rz_faceang_progress="<<_smooth_turn_rz_faceang_progress);
+//    _TRACE_("GgafDxKurokoA::turnSmoothlyRzFaceAngByVdTo");
+//    _TRACE_("_smooth_turn_rz_faceang_flg="<<_smooth_turn_rz_faceang_flg);
+//    _TRACE_("_smooth_turn_rz_faceang_endacc_flg="<<_smooth_turn_rz_faceang_endacc_flg);
+//    _TRACE_("_smooth_turn_rz_faceang_top_angvelo="<<_smooth_turn_rz_faceang_top_angvelo);
+//    _TRACE_("_smooth_turn_rz_faceang_end_angvelo="<<_smooth_turn_rz_faceang_end_angvelo);
+//    _TRACE_("_smooth_turn_rz_faceang_target_distanceangle="<<_smooth_turn_rz_faceang_target_distanceangle);
+//    _TRACE_("_smooth_turn_rz_faceang_target_distanceangle2="<<_smooth_turn_rz_faceang_target_distanceangle2);
+//    _TRACE_("_smooth_turn_rz_faceang_turned_angles="<<_smooth_turn_rz_faceang_turned_angles);
+//    _TRACE_("_smooth_turn_rz_faceang_angacce_a0="<<_smooth_turn_rz_faceang_angacce_a0);
+//    _TRACE_("_smooth_turn_rz_faceang_targetangle_sgn="<<_smooth_turn_rz_faceang_targetangle_sgn);
+//    _TRACE_("_smooth_turn_rz_faceang_target_frames="<<_smooth_turn_rz_faceang_target_frames);
+//    _TRACE_("_smooth_turn_rz_faceang_frame_of_spent="<<_smooth_turn_rz_faceang_frame_of_spent);
+//    _TRACE_("_smooth_turn_rz_faceang_p0="<<_smooth_turn_rz_faceang_p0);
+//    _TRACE_("_smooth_turn_rz_faceang_p1="<<_smooth_turn_rz_faceang_p1);
+//    _TRACE_("_smooth_turn_rz_faceang_p2="<<_smooth_turn_rz_faceang_p2);
+//    _TRACE_("_smooth_turn_rz_faceang_progress="<<_smooth_turn_rz_faceang_progress);
 
 
 

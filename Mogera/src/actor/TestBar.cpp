@@ -40,13 +40,22 @@ void TestBar::processBehavior() {
 //                        true
 //                    );
 //    }
-
+    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_D)) {
+        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_D)!!!!!");
+        _pKurokoA->_smooth_turn_rz_faceang_flg = false;
+        _pKurokoA->setFaceAngVelo(AXIS_Z, _pKurokoA->_angveloFace[AXIS_Z] + D_ANG(2));
+    }
+        if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_F)) {
+        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_F)!!!!!");
+        _pKurokoA->_smooth_turn_rz_faceang_flg = false;
+        _pKurokoA->setFaceAngVelo(AXIS_Z, _pKurokoA->_angveloFace[AXIS_Z] - D_ANG(2));
+    }
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_A)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_A)!!!!!");
         _pKurokoA->turnSmoothlyRzFaceAngByVdTo(
                         D_ANG(180), TURN_CLOSE_TO,
-                        D_ANG(5), 0,
+                        D_ANG(10), D_ANG(0),
                         0.3, 0.6,
                         true
                     );
@@ -55,7 +64,25 @@ void TestBar::processBehavior() {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_S)!!!!!");
         _pKurokoA->turnSmoothlyRzFaceAngByVdTo(
                         D_ANG(0), TURN_CLOSE_TO,
-                        D_ANG(5), 0,
+                        D_ANG(10), D_ANG(0),
+                        0.3, 0.6,
+                        true
+                    );
+    }
+    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Z)) {
+        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Q)!!!!!");
+        _pKurokoA->turnSmoothlyRzFaceAngByDtTo(
+                        D_ANG(180), TURN_CLOSE_TO,
+                        D_ANG(0),120,
+                        0.3, 0.6,
+                        true
+                    );
+    }
+    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_X)) {
+        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_W)!!!!!");
+        _pKurokoA->turnSmoothlyRzFaceAngByDtTo(
+                        D_ANG(0), TURN_CLOSE_TO,
+                        D_ANG(0),120,
                         0.3, 0.6,
                         true
                     );
