@@ -21,17 +21,17 @@ public:
     /** [r]対象アクター */
     GgafDxMorphMeshActor* const _pActor;
     /** [r/w]各モーフターゲットの重み(0.0 ～ 1.0) */
-    float _weight[MAX_MORPH_TARGET+1];
+    double _weight[MAX_MORPH_TARGET+1];
     /** [r/w]各モーフターゲットへ設定された目標の重み(0.0 ～ 1.0) */
-    float _target_weight[MAX_MORPH_TARGET+1];
+    double _target_weight[MAX_MORPH_TARGET+1];
     /** [r/w]各モーフターゲットへ重み上限(0.0 ～ 1.0) */
-    float _top_weight[MAX_MORPH_TARGET+1];
+    double _top_weight[MAX_MORPH_TARGET+1];
     /** [r/w]各モーフターゲットへ重み下限(0.0 ～ 1.0) */
-    float _bottom_weight[MAX_MORPH_TARGET+1];
+    double _bottom_weight[MAX_MORPH_TARGET+1];
     /** [r/w]各モーフターゲットへの毎フレーム重み速度 */
-    float _velo_weight[MAX_MORPH_TARGET+1];
+    double _velo_weight[MAX_MORPH_TARGET+1];
     /** [r/w]各モーフターゲットへの毎フレーム重み加速度 */
-    float _acce_weight[MAX_MORPH_TARGET+1];
+    double _acce_weight[MAX_MORPH_TARGET+1];
     int _halfloop_cnt[MAX_MORPH_TARGET+1];
     /** [r]停止予定の片道ループ数 */
     int _stop_halfloop_num[MAX_MORPH_TARGET+1];
@@ -71,7 +71,7 @@ public:
      * @param prm_weight1 重み１(上限 or 下限)
      * @param prm_weight2 重み２(下限 or 上限)
      */
-    void forceWeightRange(int prm_target_mesh_no, float prm_weight1, float prm_weight2) {
+    void forceWeightRange(int prm_target_mesh_no, double prm_weight1, double prm_weight2) {
         if (prm_weight1 < prm_weight2) {
             _top_weight[prm_target_mesh_no] = prm_weight2;
             _bottom_weight[prm_target_mesh_no] = prm_weight1;
@@ -86,7 +86,7 @@ public:
      * @param prm_target_mesh_no モーフターゲットメッシュNO(1～)
      * @param prm_weight 重み 重み0.0～1.0。それ以上も可能
      */
-    inline void setWeight(int prm_target_mesh_no, float prm_weight) {
+    inline void setWeight(int prm_target_mesh_no, double prm_weight) {
         if (_top_weight[prm_target_mesh_no] < prm_weight) {
             _weight[prm_target_mesh_no] = _top_weight[prm_target_mesh_no];
         } else if (_bottom_weight[prm_target_mesh_no] > prm_weight) {
@@ -100,7 +100,7 @@ public:
      * 全モーフターゲットの重みを直接指定
      * @param prm_target_mesh_no 重み0.0～1.0。それ以上も可能
      */
-    void setWeight(float prm_weight);
+    void setWeight(double prm_weight);
 
     /**
      * モーフターゲットの重みを加算(負で減算) .
@@ -108,7 +108,7 @@ public:
      * @param prm_target_mesh_no モーフターゲットメッシュNO(1～)
      * @param prm_weight
      */
-    void addWeight(int prm_target_mesh_no, float prm_weight_offset) {
+    void addWeight(int prm_target_mesh_no, double prm_weight_offset) {
         setWeight(prm_target_mesh_no, _weight[prm_target_mesh_no] + prm_weight_offset);
     }
 
@@ -152,7 +152,7 @@ public:
      * @param prm_target_weight ターゲットメッシュの目標重み(0.0～1.0)
      * @param prm_spend_frame 費やすフレーム数
      */
-    void morphLinerUntil(int prm_target_mesh_no, float prm_target_weight, frame prm_spend_frame);
+    void morphLinerUntil(int prm_target_mesh_no, double prm_target_weight, frame prm_spend_frame);
 
     /**
      * モーフターゲットへ一定速度でモーフィングする（重み差分指定） .
@@ -160,7 +160,7 @@ public:
      * @param prm_target_weight ターゲットメッシュの目標重み(0.0～1.0)
      * @param prm_velo_weight 毎フレーム加算する重み差分(>0.0)。正の重みを指定する事。加算か減算かは自動判断する。
      */
-    void morphLinerStep(int prm_target_mesh_no, float prm_target_weight, float prm_velo_weight);
+    void morphLinerStep(int prm_target_mesh_no, double prm_target_weight, double prm_velo_weight);
 
     /**
      * モーフターゲットへ加速指定でモーフィングする（重み速度、重み加速度差指定） .
@@ -171,7 +171,7 @@ public:
      * @param prm_velo_weight 初期重み速度（正負を意識してください）
      * @param prm_acce_weight 重み加速度（正負を意識してください）
      */
-    void morphAcceStep(int prm_target_mesh_no, float prm_target_weight, float prm_velo_weight, float prm_acce_weight);
+    void morphAcceStep(int prm_target_mesh_no, double prm_target_weight, double prm_velo_weight, double prm_acce_weight);
 
     /**
      * モーフターゲットへ一定速度でモーフィングし、一定速度で元に戻る。これをループ指定する。（１ループのフレーム数指定） .
@@ -179,7 +179,7 @@ public:
      * @param prm_beat_target_frames １ループ(変化して元に戻るまで)に費やすフレーム
      * @param prm_beat_num ループする回数(0.5 回単位で指定可能)
      */
-    void loopLiner(int prm_target_mesh_no, frame prm_beat_target_frames, float prm_beat_num = -1);
+    void loopLiner(int prm_target_mesh_no, frame prm_beat_target_frames, double prm_beat_num = -1);
 
     /**
      * 三角波の波形を重みとしてモーフィングする。 .
@@ -212,7 +212,7 @@ public:
               frame prm_beat_target_frames,
               frame prm_attack_frames,
               frame prm_rest_frames,
-              float prm_beat_num = -1);
+              double prm_beat_num = -1);
 
     /**
      * 毎フレームの振る舞いメソッド。<BR>

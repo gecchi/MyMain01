@@ -95,7 +95,7 @@ public:
      * レーザーチップストックの追加 .
      * 好きなだけ追加して下さい。
      * 追加すればするほど玉切れがおきにくい。<br>
-     * (※上位の GgafActorDepository::addSubLast(GgafActor* prm_pSub) を隠蔽)<br>
+     * (※上位の GgafActorDepository::put(GgafActor* prm_pSub) を隠蔽)<br>
      * @param prm_pLaserChip レーザーチップ
      */
     void put(LaserChip* prm_pLaserChip); //hide, void GgafActorDepository::put(GgafActor* prm_pSub)

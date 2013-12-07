@@ -7,7 +7,7 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
@@ -61,7 +61,7 @@ void EnemyRatislaviaEye::onCreateModel() {
 
 void EnemyRatislaviaEye::initialize() {
     setHitAble(true);
-    _pKurokoA->relateFaceWithMvAng(true);
+    _pKuroko->relateFaceWithMvAng(true);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliSphere(0, 200000);
 }
@@ -73,8 +73,8 @@ void EnemyRatislaviaEye::onActive() {
     _pProg->reset(PROG_MOVE);
     positionAs(pRatislavia_);
     rotateAs(pRatislavia_);
-    _pKurokoA->setRzRyMvAngVelo(pRatislavia_->_pKurokoA->_angveloFace[AXIS_Z],
-                                pRatislavia_->_pKurokoA->_angveloFace[AXIS_Y]);
+    _pKuroko->setRzRyMvAngVelo(pRatislavia_->_pKuroko->_angveloFace[AXIS_Z],
+                                pRatislavia_->_pKuroko->_angveloFace[AXIS_Y]);
 }
 
 void EnemyRatislaviaEye::processBehavior() {
@@ -93,15 +93,15 @@ void EnemyRatislaviaEye::processBehavior() {
             if (_pProg->getFrameInProgress() > 240) {
                 _pProg->changeNext();
             }
-            _pKurokoA->takeoverMvFrom(pRatislavia_->_pKurokoA);
-            _pKurokoA->setRzRyMvAngVelo(pRatislavia_->_pKurokoA->_angveloFace[AXIS_Z],
-                                        pRatislavia_->_pKurokoA->_angveloFace[AXIS_Y]);
+            _pKuroko->takeoverMvFrom(pRatislavia_->_pKuroko);
+            _pKuroko->setRzRyMvAngVelo(pRatislavia_->_pKuroko->_angveloFace[AXIS_Z],
+                                        pRatislavia_->_pKuroko->_angveloFace[AXIS_Y]);
             break;
         }
 
         case PROG_TURN: {
             if (_pProg->isJustChanged()) {
-                _pKurokoA->turnMvAngTwd(P_MYSHIP,
+                _pKuroko->turnMvAngTwd(P_MYSHIP,
                                         D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
             if (_pProg->getFrameInProgress() > 240) {
@@ -112,7 +112,7 @@ void EnemyRatislaviaEye::processBehavior() {
 
         case PROG_FIRE_BEGIN: {
             if (_pProg->isJustChanged()) {
-                //_pKurokoA->turnMvAngTwd(P_MYSHIP, D_ANG(1), 0, TURN_ANTICLOSE_TO, false);
+                //_pKuroko->turnMvAngTwd(P_MYSHIP, D_ANG(1), 0, TURN_ANTICLOSE_TO, false);
                 pEffect_->activate();
             }
             pEffect_->positionAs(this);
@@ -123,7 +123,7 @@ void EnemyRatislaviaEye::processBehavior() {
         }
         case PROG_IN_FIRE: {
             if (_pProg->isJustChanged()) {
-                _pKurokoA->turnMvAngTwd(P_MYSHIP,
+                _pKuroko->turnMvAngTwd(P_MYSHIP,
                                         10, 0, TURN_CLOSE_TO, false);
             }
             LaserChip* pChip = pLaserChipDepo_->dispatch();
@@ -139,8 +139,8 @@ void EnemyRatislaviaEye::processBehavior() {
         case PROG_FIRE_END: {
             if (_pProg->isJustChanged()) {
                 _pMorpher->morphLinerUntil(1, 0.0, 180); //•Â‚¶‚é
-                _pKurokoA->setRzRyMvAngVelo(pRatislavia_->_pKurokoA->_angveloFace[AXIS_Z],
-                                            pRatislavia_->_pKurokoA->_angveloFace[AXIS_Y]);
+                _pKuroko->setRzRyMvAngVelo(pRatislavia_->_pKuroko->_angveloFace[AXIS_Z],
+                                            pRatislavia_->_pKuroko->_angveloFace[AXIS_Y]);
             }
             //d’¼
             if (_pProg->getFrameInProgress() >= 300) {
@@ -153,7 +153,7 @@ void EnemyRatislaviaEye::processBehavior() {
             break;
     }
 
-    _pKurokoA->behave();
+    _pKuroko->behave();
     _pMorpher->behave();
     _pSeTx->behave();
 }

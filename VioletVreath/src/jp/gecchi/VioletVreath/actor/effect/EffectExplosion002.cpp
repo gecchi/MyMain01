@@ -2,7 +2,7 @@
 #include "EffectExplosion002.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 
 using namespace GgafCore;
@@ -34,7 +34,7 @@ void EffectExplosion002::processBehavior() {
     _sx+= 100;
     _sy+= 100;
     _pUvFlipper->behave();
-    _pKurokoA->behave();
+    _pKuroko->behave();
     _pScaler->behave();
 }
 

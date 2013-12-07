@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "FormationAllas002.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Allas/EnemyAllas.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
@@ -29,7 +29,7 @@ FormationAllas002::FormationAllas002(const char* prm_name) :
     for (int i = 0; i < num_Allas_; i++) {
         papAllas_[i] = NEW EnemyAllas("Allas01");
         //スプライン移動プログラム設定
-        SplineKurokoLeader* pProgram = pSplManufConnection_->peek()->createKurokoLeader(papAllas_[i]->_pKurokoA); //移動速度固定
+        SplineKurokoLeader* pProgram = pSplManufConnection_->peek()->createKurokoLeader(papAllas_[i]->_pKuroko); //移動速度固定
         papAllas_[i]->config(pProgram, nullptr, nullptr);
         //papAllas_[i]->setDepository_Shot(pDepoConnection_->peek()); //弾設定
         papAllas_[i]->inactivate();
@@ -40,7 +40,7 @@ FormationAllas002::FormationAllas002(const char* prm_name) :
 void FormationAllas002::onActive() {
     for (int i = 0; i < num_Allas_; i++) {
         papAllas_[i]->position(MyShip::lim_x_behaind_ *2 , P_MYSHIP->_y+300000,  P_MYSHIP->_z);
-        papAllas_[i]->_pKurokoA->setMvVelo(velo_mv_);
+        papAllas_[i]->_pKuroko->setMvVelo(velo_mv_);
         papAllas_[i]->activateDelay(i*interval_frames_ + 1);//interval_frames_間隔でActiveにする。
     }
 }

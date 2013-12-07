@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "FormationIda001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ida/EnemyIda.h"
 #include "EnemyIdaBase001.h"

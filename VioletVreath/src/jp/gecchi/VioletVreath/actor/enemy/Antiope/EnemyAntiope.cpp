@@ -2,9 +2,9 @@
 #include "EnemyAntiope.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
@@ -16,6 +16,7 @@ using namespace VioletVreath;
 EnemyAntiope::EnemyAntiope(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
         DefaultMeshSetActor(prm_name, prm_model, prm_pStat) {
     _class_name = "EnemyAntiope";
+    pAxMver_ = NEW GgafDxAxesMover(this);
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
 }
@@ -42,9 +43,9 @@ void EnemyAntiope::processBehavior() {
          case PROG_INIT: {
              setHitAble(false);
              _pAFader->setAlpha(0);
-             _pKurokoA->stopMv();
-             _pKurokoA->setFaceAngVelo(AXIS_X, D_ANG(10));
-             _pKurokoB->setZeroVxyzMvVelo();
+             _pKuroko->stopMv();
+             _pKuroko->setFaceAngVelo(AXIS_X, D_ANG(10));
+             pAxMver_->setZeroVxyzMvVelo();
              UTIL::activateEntryEffectOf(this);
              _pProg->changeNext();
              break;
@@ -62,14 +63,14 @@ void EnemyAntiope::processBehavior() {
 
          case PROG_MOVE01: {
              if (_pProg->isJustChanged()) {
-                 _pKurokoA->setMvVelo(30000);
-                 _pKurokoA->setMvAcce(-1000);
-                 _pKurokoB->setVxyzMvVelo(mv_velo_twd_.x, mv_velo_twd_.y, mv_velo_twd_.z);
+                 _pKuroko->setMvVelo(30000);
+                 _pKuroko->setMvAcce(-1000);
+                 pAxMver_->setVxyzMvVelo(mv_velo_twd_.x, mv_velo_twd_.y, mv_velo_twd_.z);
              }
 
-             if (_pKurokoA->_veloMv <= (-30000 + 1000)) {
-                 _pKurokoA->stopMv();
-                 _pKurokoB->setZeroVxyzMvVelo();
+             if (_pKuroko->_veloMv <= (-30000 + 1000)) {
+                 _pKuroko->stopMv();
+                 pAxMver_->setZeroVxyzMvVelo();
                  _pProg->changeNext();
              }
              break;
@@ -91,9 +92,9 @@ void EnemyAntiope::processBehavior() {
              break;
      }
 
-//    _TRACE_(this<<":"<<getActiveFrame()<<" "<<_x<<","<<_y<<","<<_z<<"  ("<<_pKurokoA->_veloMv<<") "<<_pKurokoA->_vX<<","<<_pKurokoA->_vY<<","<<_pKurokoA->_vZ<<"");
-    _pKurokoA->behave();
-    _pKurokoB->behave();
+//    _TRACE_(this<<":"<<getActiveFrame()<<" "<<_x<<","<<_y<<","<<_z<<"  ("<<_pKuroko->_veloMv<<") "<<_pKuroko->_vX<<","<<_pKuroko->_vY<<","<<_pKuroko->_vZ<<"");
+    _pKuroko->behave();
+    pAxMver_->behave();
     _pAFader->behave();
 }
 
@@ -116,4 +117,5 @@ void EnemyAntiope::onInactive() {
 }
 
 EnemyAntiope::~EnemyAntiope() {
+    GGAF_DELETE(pAxMver_);
 }

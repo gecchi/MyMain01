@@ -26,6 +26,8 @@ public:
         SE_DAMAGED   ,
         SE_EXPLOSION ,
     };
+    /** ïΩçsà⁄ìÆéxâá */
+    GgafDxCore::GgafDxAxesMover* pAxMver_;
 
     coord colli_box_dX_;
     coord colli_box_dY_;

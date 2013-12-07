@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Shot004.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion001.h"
@@ -29,10 +29,10 @@ void Shot004::initialize() {
 void Shot004::onReset() {
     setScaleR(3.0);
     setAlpha(0.99); //半透明にすることで両面レンダリング
-    _pKurokoA->setFaceAngVelo(AXIS_X, D_ANG(3));
-    _pKurokoA->setMvVelo(30000);
-    _pKurokoA->setMvAcce(1000);
-    _pKurokoA->relateFaceWithMvAng(true);
+    _pKuroko->setFaceAngVelo(AXIS_X, D_ANG(3));
+    _pKuroko->setMvVelo(30000);
+    _pKuroko->setMvAcce(1000);
+    _pKuroko->relateFaceWithMvAng(true);
 }
 
 void Shot004::onActive() {
@@ -46,7 +46,7 @@ void Shot004::processBehavior() {
     //弾なので不要
 
     //座標に反映
-    _pKurokoA->behave();
+    _pKuroko->behave();
 }
 
 void Shot004::processJudgement() {

@@ -2,7 +2,7 @@
 #include "EffectEntry002.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -27,7 +27,7 @@ void EffectEntry002::onActive() {
     EffectEntry::onActive();
     //_pUvFlipper->setActivePtnToTop();
     _pScaler->setScale(1);
-    _pKurokoA->setFaceAngVelo(AXIS_Z, 4000);
+    _pKuroko->setFaceAngVelo(AXIS_Z, 4000);
 }
 
 void EffectEntry002::processBehavior() {
@@ -42,7 +42,7 @@ void EffectEntry002::processBehavior() {
         sayonara();
     }
     //_pUvFlipper->behave();
-    _pKurokoA->behave();
+    _pKuroko->behave();
     _pScaler->behave();
 }
 

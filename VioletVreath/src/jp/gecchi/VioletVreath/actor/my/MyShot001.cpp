@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MyShot001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -25,18 +25,18 @@ void MyShot001::initialize() {
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB(0, -PX_C(50), -PX_C(50), -PX_C(50),
                                     PX_C(50),  PX_C(50),  PX_C(50));
-    _pKurokoA->setFaceAngVelo(AXIS_X, D_ANG(12));
+    _pKuroko->setFaceAngVelo(AXIS_X, D_ANG(12));
 }
 
 void MyShot001::onActive() {
     _pStatus->reset();
     setHitAble(true);
-    _pKurokoA->setMvVelo(PX_C(70));
-    _pKurokoA->setMvAcce(100);
+    _pKuroko->setMvVelo(PX_C(70));
+    _pKuroko->setMvAcce(100);
 }
 
 void MyShot001::processBehavior() {
-    _pKurokoA->behave();
+    _pKuroko->behave();
 }
 
 void MyShot001::processJudgement() {

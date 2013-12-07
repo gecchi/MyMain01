@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "TestChoki.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
@@ -24,7 +24,7 @@ void TestChoki::onActive() {
 void TestChoki::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-    _pKurokoA->behave();
+    _pKuroko->behave();
     //_pSeTx->behave();
     dispStamina();
 }

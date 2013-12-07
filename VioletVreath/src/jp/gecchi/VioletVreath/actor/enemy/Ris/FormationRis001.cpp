@@ -2,7 +2,7 @@
 #include "FormationRis001.h"
 
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/spline/FixedVelocitySplineKurokoLeader.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ris/EnemyRis.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
@@ -26,7 +26,7 @@ FormationRis001::FormationRis001(const char* prm_name) : TreeFormation(prm_name)
         EnemyRis* pRis = NEW EnemyRis("Ris01");
         //スプライン移動プログラム設定
         SplineKurokoLeader* pProgram = NEW FixedVelocitySplineKurokoLeader(
-                                         pRis->_pKurokoA, pSplLineConnection_->peek(), 10000); //移動速度固定
+                                         pRis->_pKuroko, pSplLineConnection_->peek(), 10000); //移動速度固定
         pRis->config(pProgram, pDepoConnection_->peek(), nullptr);
         addFormationMember(pRis);
     }
@@ -43,7 +43,7 @@ void FormationRis001::processBehavior() {
         EnemyRis* pRis = (EnemyRis*)callUpMember();
         if (pRis) {
             pRis->position(MyShip::lim_x_behaind_ - 500000, 0, MyShip::lim_z_left_ * 0.8);
-            pRis->_pKurokoA->setMvVelo(velo_mv_);
+            pRis->_pKuroko->setMvVelo(velo_mv_);
         }
     }
 }

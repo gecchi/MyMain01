@@ -2,7 +2,7 @@
 #include "EnemyEresShot001.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -38,8 +38,8 @@ EnemyEresShot001::EnemyEresShot001(const char* prm_name) :
 }
 
 void EnemyEresShot001::initialize() {
-    _pKurokoA->forceMvVeloRange(veloTop_, veloBottom_);
-    _pKurokoA->relateFaceWithMvAng(true);
+    _pKuroko->forceMvVeloRange(veloTop_, veloBottom_);
+    _pKuroko->relateFaceWithMvAng(true);
 
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
@@ -50,8 +50,8 @@ void EnemyEresShot001::onActive() {
     _pStatus->reset();
 
     //oŒ»
-    _pKurokoA->setMvVelo(velo1st_);
-    _pKurokoA->setMvAcce(iMoveAcce_1st_);
+    _pKuroko->setMvVelo(velo1st_);
+    _pKuroko->setMvAcce(iMoveAcce_1st_);
 
     setHitAble(true);
 }
@@ -63,22 +63,22 @@ void EnemyEresShot001::processBehavior() {
     //•ûŒü“]Š·ŠJn
     if (getActiveFrame() == frame_TurnBegin_) {
 
-        _pKurokoA->turnMvAngTwd(P_MYSHIP,
+        _pKuroko->turnMvAngTwd(P_MYSHIP,
                                 angVelo_Turn_, 0,
                                 TURN_CLOSE_TO,true);
-        _pKurokoA->setMvAcce(iMoveAcce_2nd_);
+        _pKuroko->setMvAcce(iMoveAcce_2nd_);
     }
 
     //•ûŒü“]Š·I—¹
     if (getActiveFrame() == frame_TurnBegin_ + frame_TurnInterval_) {
-        _pKurokoA->setRzRyMvAngVelo(0);
-        _pKurokoA->_mv_ang_ry_target_flg = false;
-        _pKurokoA->_mv_ang_rz_target_flg = false;
+        _pKuroko->setRzRyMvAngVelo(0);
+        _pKuroko->_mv_ang_ry_target_flg = false;
+        _pKuroko->_mv_ang_rz_target_flg = false;
     }
 
     //behaveUvFlip();
     //À•W‚É”½‰f
-    _pKurokoA->behave();
+    _pKuroko->behave();
     //_pSeTx->behave();
 }
 

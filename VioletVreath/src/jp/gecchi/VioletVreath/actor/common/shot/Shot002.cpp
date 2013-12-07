@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Shot002.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
@@ -29,9 +29,9 @@ void Shot002::onActive() {
     _pStatus->reset();
     setHitAble(true);
     _pScaler->setScale(2000);
-    _pKurokoA->relateFaceWithMvAng(true);
-    _pKurokoA->setMvVelo(RF_Shot002_MvVelo(G_RANK));
-    _pKurokoA->setFaceAngVelo(AXIS_X, RF_Shot002_AngVelo(G_RANK));
+    _pKuroko->relateFaceWithMvAng(true);
+    _pKuroko->setMvVelo(RF_Shot002_MvVelo(G_RANK));
+    _pKuroko->setFaceAngVelo(AXIS_X, RF_Shot002_AngVelo(G_RANK));
 }
 
 void Shot002::processBehavior() {
@@ -39,18 +39,18 @@ void Shot002::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
     if (getActiveFrame() == 70) {
-        _pKurokoA->turnMvAngTwd(P_MYSHIP,
+        _pKuroko->turnMvAngTwd(P_MYSHIP,
                                 3000, 0,
                                 TURN_CLOSE_TO, true);
     }
 
-    if (getActiveFrame() > 70 && !_pKurokoA->isTurningMvAng()) {
-        _pKurokoA->turnMvAngTwd(P_MYSHIP,
+    if (getActiveFrame() > 70 && !_pKuroko->isTurningMvAng()) {
+        _pKuroko->turnMvAngTwd(P_MYSHIP,
                                 100, 0,
                                 TURN_CLOSE_TO, true);
     }
     //À•W‚É”½‰f
-    _pKurokoA->behave();
+    _pKuroko->behave();
     _pScaler->behave();
     _pSeTx->behave();
 }

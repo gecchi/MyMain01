@@ -5,7 +5,7 @@
 #include "jp/ggaf/core/actor/GgafGroupHead.h"
 #include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/lib/util/spline/FixedVelocitySplineKurokoLeader.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Eres/EnemyEresShot001.h"
@@ -45,9 +45,9 @@ EnemyEres::EnemyEres(const char* prm_name, GgafActorDepository* prm_pDepo_EnemyE
     }
 
     pSplLineConnection_ = connect_SplineLineManager("Spl_001");
-    pProgram_EresMove_ = NEW FixedVelocitySplineKurokoLeader(_pKurokoA, pSplLineConnection_->peek(), 5000); //移動速度固定
+    pProgram_EresMove_ = NEW FixedVelocitySplineKurokoLeader(_pKuroko, pSplLineConnection_->peek(), 5000); //移動速度固定
 
-//    pProgram_EresMove_ = NEW FixedFrameSplineKurokoLeader(_pKurokoA, pSplLineConnection_->peek(), 600, 5000); //移動フレーム数固定
+//    pProgram_EresMove_ = NEW FixedFrameSplineKurokoLeader(_pKuroko, pSplLineConnection_->peek(), 600, 5000); //移動フレーム数固定
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
 }
 
@@ -61,9 +61,9 @@ void EnemyEres::onActive() {
     _pStatus->reset();
     iMovePatternNo_ = 0;
     frame_Active_ = 0;
-    _pKurokoA->relateFaceWithMvAng(true);
-    _pKurokoA->setFaceAngVelo(AXIS_X, 6000);
-    _pKurokoA->setMvVelo(8000);
+    _pKuroko->relateFaceWithMvAng(true);
+    _pKuroko->setFaceAngVelo(AXIS_X, 6000);
+    _pKuroko->setMvVelo(8000);
     pProgram_EresMove_->start(SplineKurokoLeader::ABSOLUTE_COORD); //スプライン移動を開始
     frame_Active_ = 0;
 }
@@ -83,21 +83,21 @@ void EnemyEres::processBehavior() {
             pTama = (GgafDxDrawableActor*)pDepo_EnemyEresShots001_->dispatch();
             if (pTama) {
                 pTama->position(_x, _y, _z);
-                pTama->_pKurokoA->setRzRyMvAng(-D90ANG + way[i], D90ANG);
+                pTama->_pKuroko->setRzRyMvAng(-D90ANG + way[i], D90ANG);
             }
         }
         for (int i = 16; i < 32; i++) {
             pTama = (GgafDxDrawableActor*)pDepo_EnemyEresShots001_->dispatch();
             if (pTama) {
                 pTama->position(_x, _y, _z);
-                pTama->_pKurokoA->setRzRyMvAng(-D90ANG - way[i], -D90ANG);
+                pTama->_pKuroko->setRzRyMvAng(-D90ANG - way[i], -D90ANG);
             }
         }
 
         iMovePatternNo_++;
     }
     pProgram_EresMove_->behave(); //スプライン移動を進める
-    _pKurokoA->behave(); //次の座標へ移動
+    _pKuroko->behave(); //次の座標へ移動
     //_pSeTx->behave();
     frame_Active_++;
 }

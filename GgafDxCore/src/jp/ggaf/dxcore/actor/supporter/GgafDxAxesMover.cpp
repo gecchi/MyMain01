@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 
 #include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
 
@@ -10,7 +10,7 @@ using namespace GgafDxCore;
 // 「X軸方向移動速度」「Y軸方向移動速度」「Z軸方向移動速度」を設定すると、毎フレーム(_x,_y,_z)にそれぞれの移動増分が
 // 加算される。
 
-GgafDxKurokoB::GgafDxKurokoB(GgafDxGeometricActor* prm_pActor) : GgafObject(),
+GgafDxAxesMover::GgafDxAxesMover(GgafDxGeometricActor* prm_pActor) : GgafObject(),
 _pActor(prm_pActor) {
 
     //X軸方向移動速度（X移動座標増分）＝ 0 px/fream
@@ -57,7 +57,7 @@ _pActor(prm_pActor) {
 
 }
 
-void GgafDxKurokoB::behave() {
+void GgafDxAxesMover::behave() {
     if(_gravitation_mv_seq_flg) {
         coord dX, dY, dZ;
         if (_gravitation_mv_seq_pActor_target) {
@@ -157,11 +157,11 @@ void GgafDxKurokoB::behave() {
     _pActor->_z += _veloVzMv;
 }
 
-int GgafDxKurokoB::dot(int prm_vX, int prm_vY, int prm_vZ) {
+int GgafDxAxesMover::dot(int prm_vX, int prm_vY, int prm_vZ) {
     return (prm_vX * _veloVxMv) + (prm_vY *_veloVyMv) + (prm_vZ*_veloVzMv);
 }
 
-void GgafDxKurokoB::forceVxMvVeloRange(velo prm_veloVxMv01, velo prm_veloVxMv02) {
+void GgafDxAxesMover::forceVxMvVeloRange(velo prm_veloVxMv01, velo prm_veloVxMv02) {
     if (prm_veloVxMv01 < prm_veloVxMv02) {
         _veloTopVxMv = prm_veloVxMv02;
         _veloBottomVxMv = prm_veloVxMv01;
@@ -172,7 +172,7 @@ void GgafDxKurokoB::forceVxMvVeloRange(velo prm_veloVxMv01, velo prm_veloVxMv02)
     setVxMvVelo(_veloVxMv); //再設定して範囲内に補正
 }
 
-void GgafDxKurokoB::setVxMvVelo(velo prm_veloVxMv) {
+void GgafDxAxesMover::setVxMvVelo(velo prm_veloVxMv) {
     if (prm_veloVxMv > _veloTopVxMv) {
         _veloVxMv = _veloTopVxMv;
     } else if (prm_veloVxMv < _veloBottomVxMv) {
@@ -182,7 +182,7 @@ void GgafDxKurokoB::setVxMvVelo(velo prm_veloVxMv) {
     }
 }
 
-void GgafDxKurokoB::addVxMvVelo(velo prm_veloVxMv) {
+void GgafDxAxesMover::addVxMvVelo(velo prm_veloVxMv) {
     _veloVxMv += prm_veloVxMv;
     if (_veloVxMv > _veloTopVxMv) {
         _veloVxMv = _veloTopVxMv;
@@ -191,7 +191,7 @@ void GgafDxKurokoB::addVxMvVelo(velo prm_veloVxMv) {
     }
 }
 
-void GgafDxKurokoB::setVxMvAcce(acce prm_acceVxMv) {
+void GgafDxAxesMover::setVxMvAcce(acce prm_acceVxMv) {
     if (prm_acceVxMv > _acceTopVxMv) {
         _acceVxMv = _acceTopVxMv;
     } else if (prm_acceVxMv < _acceBottomVxMv) {
@@ -201,11 +201,11 @@ void GgafDxKurokoB::setVxMvAcce(acce prm_acceVxMv) {
     }
 }
 
-void GgafDxKurokoB::addVxMvAcce(acce prm_acceVxMv) {
+void GgafDxAxesMover::addVxMvAcce(acce prm_acceVxMv) {
     setVxMvAcce(_acceVxMv + prm_acceVxMv);
 }
 
-void GgafDxKurokoB::forceVxMvAcceRange(acce prm_acceVxMv01, acce prm_acceVxMv02) {
+void GgafDxAxesMover::forceVxMvAcceRange(acce prm_acceVxMv01, acce prm_acceVxMv02) {
     if (prm_acceVxMv01 < prm_acceVxMv02) {
         _acceTopVxMv = prm_acceVxMv02;
         _acceBottomVxMv = prm_acceVxMv01;
@@ -216,7 +216,7 @@ void GgafDxKurokoB::forceVxMvAcceRange(acce prm_acceVxMv01, acce prm_acceVxMv02)
     setVxMvAcce(_acceVxMv); //再設定して範囲内に補正
 }
 
-void GgafDxKurokoB::forceVyMvVeloRange(velo prm_veloVyMv01, velo prm_veloVyMv02) {
+void GgafDxAxesMover::forceVyMvVeloRange(velo prm_veloVyMv01, velo prm_veloVyMv02) {
     if (prm_veloVyMv01 < prm_veloVyMv02) {
         _veloTopVyMv = prm_veloVyMv02;
         _veloBottomVyMv = prm_veloVyMv01;
@@ -227,7 +227,7 @@ void GgafDxKurokoB::forceVyMvVeloRange(velo prm_veloVyMv01, velo prm_veloVyMv02)
     setVyMvVelo(_veloVyMv); //再設定して範囲内に補正
 }
 
-void GgafDxKurokoB::setVyMvVelo(velo prm_veloVyMv) {
+void GgafDxAxesMover::setVyMvVelo(velo prm_veloVyMv) {
     if (prm_veloVyMv > _veloTopVyMv) {
         _veloVyMv = _veloTopVyMv;
     } else if (prm_veloVyMv < _veloBottomVyMv) {
@@ -237,7 +237,7 @@ void GgafDxKurokoB::setVyMvVelo(velo prm_veloVyMv) {
     }
 }
 
-void GgafDxKurokoB::addVyMvVelo(velo prm_veloVyMv) {
+void GgafDxAxesMover::addVyMvVelo(velo prm_veloVyMv) {
     _veloVyMv += prm_veloVyMv;
     if (_veloVyMv > _veloTopVyMv) {
         _veloVyMv = _veloTopVyMv;
@@ -246,7 +246,7 @@ void GgafDxKurokoB::addVyMvVelo(velo prm_veloVyMv) {
     }
 }
 
-void GgafDxKurokoB::setVyMvAcce(acce prm_acceVyMv) {
+void GgafDxAxesMover::setVyMvAcce(acce prm_acceVyMv) {
     if (prm_acceVyMv > _acceTopVyMv) {
         _acceVyMv = _acceTopVyMv;
     } else if (prm_acceVyMv < _acceBottomVyMv) {
@@ -256,11 +256,11 @@ void GgafDxKurokoB::setVyMvAcce(acce prm_acceVyMv) {
     }
 }
 
-void GgafDxKurokoB::addVyMvAcce(acce prm_acceVyMv) {
+void GgafDxAxesMover::addVyMvAcce(acce prm_acceVyMv) {
     setVyMvAcce(_acceVyMv + prm_acceVyMv);
 }
 
-void GgafDxKurokoB::forceVyMvAcceRange(acce prm_acceVyMv01, acce prm_acceVyMv02) {
+void GgafDxAxesMover::forceVyMvAcceRange(acce prm_acceVyMv01, acce prm_acceVyMv02) {
     if (prm_acceVyMv01 < prm_acceVyMv02) {
         _acceTopVyMv = prm_acceVyMv02;
         _acceBottomVyMv = prm_acceVyMv01;
@@ -271,7 +271,7 @@ void GgafDxKurokoB::forceVyMvAcceRange(acce prm_acceVyMv01, acce prm_acceVyMv02)
     setVyMvAcce(_acceVyMv); //再設定して範囲内に補正
 }
 
-void GgafDxKurokoB::forceVzMvVeloRange(velo prm_veloVzMv01, velo prm_veloVzMv02) {
+void GgafDxAxesMover::forceVzMvVeloRange(velo prm_veloVzMv01, velo prm_veloVzMv02) {
     if (prm_veloVzMv01 < prm_veloVzMv02) {
         _veloTopVzMv = prm_veloVzMv02;
         _veloBottomVzMv = prm_veloVzMv01;
@@ -282,7 +282,7 @@ void GgafDxKurokoB::forceVzMvVeloRange(velo prm_veloVzMv01, velo prm_veloVzMv02)
     setVzMvVelo(_veloVzMv); //再設定して範囲内に補正
 }
 
-void GgafDxKurokoB::setVzMvVelo(velo prm_veloVzMv) {
+void GgafDxAxesMover::setVzMvVelo(velo prm_veloVzMv) {
     if (prm_veloVzMv > _veloTopVzMv) {
         _veloVzMv = _veloTopVzMv;
     } else if (prm_veloVzMv < _veloBottomVzMv) {
@@ -292,7 +292,7 @@ void GgafDxKurokoB::setVzMvVelo(velo prm_veloVzMv) {
     }
 }
 
-void GgafDxKurokoB::addVzMvVelo(velo prm_veloVzMv) {
+void GgafDxAxesMover::addVzMvVelo(velo prm_veloVzMv) {
     _veloVzMv += prm_veloVzMv;
     if (_veloVzMv > _veloTopVzMv) {
         _veloVzMv = _veloTopVzMv;
@@ -301,7 +301,7 @@ void GgafDxKurokoB::addVzMvVelo(velo prm_veloVzMv) {
     }
 }
 
-void GgafDxKurokoB::setVzMvAcce(acce prm_acceVzMv) {
+void GgafDxAxesMover::setVzMvAcce(acce prm_acceVzMv) {
     if (prm_acceVzMv > _acceTopVzMv) {
         _acceVzMv = _acceTopVzMv;
     } else if (prm_acceVzMv < _acceBottomVzMv) {
@@ -311,11 +311,11 @@ void GgafDxKurokoB::setVzMvAcce(acce prm_acceVzMv) {
     }
 }
 
-void GgafDxKurokoB::addVzMvAcce(acce prm_acceVzMv) {
+void GgafDxAxesMover::addVzMvAcce(acce prm_acceVzMv) {
     setVzMvAcce(_acceVzMv + prm_acceVzMv);
 }
 
-void GgafDxKurokoB::forceVzMvAcceRange(acce prm_acceVzMv01, acce prm_acceVzMv02) {
+void GgafDxAxesMover::forceVzMvAcceRange(acce prm_acceVzMv01, acce prm_acceVzMv02) {
     if (prm_acceVzMv01 < prm_acceVzMv02) {
         _acceTopVzMv = prm_acceVzMv02;
         _acceBottomVzMv = prm_acceVzMv01;
@@ -326,7 +326,7 @@ void GgafDxKurokoB::forceVzMvAcceRange(acce prm_acceVzMv01, acce prm_acceVzMv02)
     setVzMvAcce(_acceVzMv); //再設定して範囲内に補正
 }
 
-void GgafDxKurokoB::forceVxyzMvVeloRange(velo prm_veloVxyzMv01, velo prm_veloVxyzMv02) {
+void GgafDxAxesMover::forceVxyzMvVeloRange(velo prm_veloVxyzMv01, velo prm_veloVxyzMv02) {
     if (prm_veloVxyzMv01 < prm_veloVxyzMv02) {
         _veloTopVxMv = prm_veloVxyzMv02;
         _veloBottomVxMv = prm_veloVxyzMv01;
@@ -347,13 +347,13 @@ void GgafDxKurokoB::forceVxyzMvVeloRange(velo prm_veloVxyzMv01, velo prm_veloVxy
     setVyMvVelo(_veloVyMv);
     setVzMvVelo(_veloVzMv);
 }
-void GgafDxKurokoB::forceVxyzMvAcceRange(acce prm_acceVxyzMv01, acce prm_acceVxyzMv02) {
+void GgafDxAxesMover::forceVxyzMvAcceRange(acce prm_acceVxyzMv01, acce prm_acceVxyzMv02) {
     forceVxMvAcceRange(prm_acceVxyzMv01, prm_acceVxyzMv02);
     forceVyMvAcceRange(prm_acceVxyzMv01, prm_acceVxyzMv02);
     forceVzMvAcceRange(prm_acceVxyzMv01, prm_acceVxyzMv02);
 }
 
-void GgafDxKurokoB::setVxyzMvVelo(velo prm_veloVxMv, velo prm_veloVyMv, velo prm_veloVzMv) {
+void GgafDxAxesMover::setVxyzMvVelo(velo prm_veloVxMv, velo prm_veloVyMv, velo prm_veloVzMv) {
     if (prm_veloVxMv > _veloTopVxMv) {
         _veloVxMv = _veloTopVxMv;
     } else if (prm_veloVxMv < _veloBottomVxMv) {
@@ -377,7 +377,7 @@ void GgafDxKurokoB::setVxyzMvVelo(velo prm_veloVxMv, velo prm_veloVyMv, velo prm
     }
 }
 
-void GgafDxKurokoB::setVxyzMvAcce(acce prm_acceVxMv, acce prm_acceVyMv, acce prm_acceVzMv) {
+void GgafDxAxesMover::setVxyzMvAcce(acce prm_acceVxMv, acce prm_acceVyMv, acce prm_acceVzMv) {
     if (prm_acceVxMv > _acceTopVxMv) {
         _acceVxMv = _acceTopVxMv;
     } else if (prm_acceVxMv < _acceBottomVxMv) {
@@ -401,7 +401,7 @@ void GgafDxKurokoB::setVxyzMvAcce(acce prm_acceVxMv, acce prm_acceVyMv, acce prm
     }
 }
 
-void GgafDxKurokoB::execGravitationMvSequenceTwd(coord prm_tx, coord prm_ty, coord prm_tz,
+void GgafDxAxesMover::execGravitationMvSequenceTwd(coord prm_tx, coord prm_ty, coord prm_tz,
                                                  velo prm_max_velo,
                                                  acce prm_acce,
                                                  int prm_stop_renge ) {
@@ -419,7 +419,7 @@ void GgafDxKurokoB::execGravitationMvSequenceTwd(coord prm_tx, coord prm_ty, coo
     forceVzMvVeloRange(-prm_max_velo, prm_max_velo);
 }
 
-void GgafDxKurokoB::execGravitationMvSequenceTwd(GgafDxGeometricActor* prm_pActor_target,
+void GgafDxAxesMover::execGravitationMvSequenceTwd(GgafDxGeometricActor* prm_pActor_target,
                                                  velo prm_max_velo,
                                                  acce prm_acce,
                                                  int prm_stop_renge ) {
@@ -437,48 +437,48 @@ void GgafDxKurokoB::execGravitationMvSequenceTwd(GgafDxGeometricActor* prm_pActo
     forceVzMvVeloRange(-prm_max_velo, prm_max_velo);
 }
 
-void GgafDxKurokoB::takeoverMvFrom(GgafDxKurokoB* const prm_pKurokoB) {
+void GgafDxAxesMover::takeoverMvFrom(GgafDxAxesMover* const prmpAxMver_) {
 
     // X軸方向移動速度
-    _veloVxMv = prm_pKurokoB->_veloVxMv;
+    _veloVxMv = prmpAxMver_->_veloVxMv;
     // X軸方向移動速度上限
-    _veloTopVxMv = prm_pKurokoB->_veloTopVxMv;
+    _veloTopVxMv = prmpAxMver_->_veloTopVxMv;
     // X軸方向移動速度下限
-    _veloBottomVxMv = prm_pKurokoB->_veloBottomVxMv;
+    _veloBottomVxMv = prmpAxMver_->_veloBottomVxMv;
     // X軸方向移動加速度
-    _acceVxMv = prm_pKurokoB->_acceVxMv;
+    _acceVxMv = prmpAxMver_->_acceVxMv;
     // X軸方向移動加速度上限
-    _acceTopVxMv = prm_pKurokoB->_acceTopVxMv;
+    _acceTopVxMv = prmpAxMver_->_acceTopVxMv;
     // X軸方向移動加速度下限
-    _acceBottomVxMv = prm_pKurokoB->_acceBottomVxMv;
+    _acceBottomVxMv = prmpAxMver_->_acceBottomVxMv;
     // Y軸方向移動速度
-    _veloVyMv = prm_pKurokoB->_veloVyMv;
+    _veloVyMv = prmpAxMver_->_veloVyMv;
     // Y軸方向移動速度上限
-    _veloTopVyMv = prm_pKurokoB->_veloTopVyMv;
+    _veloTopVyMv = prmpAxMver_->_veloTopVyMv;
     // Y軸方向移動速度下限
-    _veloBottomVyMv = prm_pKurokoB->_veloBottomVyMv;
+    _veloBottomVyMv = prmpAxMver_->_veloBottomVyMv;
     // Y軸方向移動加速度
-    _acceVyMv = prm_pKurokoB->_acceVyMv;
+    _acceVyMv = prmpAxMver_->_acceVyMv;
     // Y軸方向移動加速度上限
-    _acceTopVyMv = prm_pKurokoB->_acceTopVyMv;
+    _acceTopVyMv = prmpAxMver_->_acceTopVyMv;
     // Y軸方向移動加速度下限
-    _acceBottomVyMv = prm_pKurokoB->_acceBottomVyMv;
+    _acceBottomVyMv = prmpAxMver_->_acceBottomVyMv;
     // Z軸方向移動速度
-    _veloVzMv = prm_pKurokoB->_veloVzMv;
+    _veloVzMv = prmpAxMver_->_veloVzMv;
     // Z軸方向移動速度上限
-    _veloTopVzMv = prm_pKurokoB->_veloTopVzMv;
+    _veloTopVzMv = prmpAxMver_->_veloTopVzMv;
     // Z軸方向移動速度下限
-    _veloBottomVzMv = prm_pKurokoB->_veloBottomVzMv;
+    _veloBottomVzMv = prmpAxMver_->_veloBottomVzMv;
     // Z軸方向移動加速度
-    _acceVzMv = prm_pKurokoB->_acceVzMv;
+    _acceVzMv = prmpAxMver_->_acceVzMv;
     // Z軸方向移動加速度上限
-    _acceTopVzMv = prm_pKurokoB->_acceTopVzMv;
+    _acceTopVzMv = prmpAxMver_->_acceTopVzMv;
     // Z軸方向移動加速度下限
-    _acceBottomVzMv = prm_pKurokoB->_acceBottomVzMv;
+    _acceBottomVzMv = prmpAxMver_->_acceBottomVzMv;
 
 }
 
-void GgafDxKurokoB::resetMv() {
+void GgafDxAxesMover::resetMv() {
     //X軸方向移動速度（X移動座標増分）＝ 0 px/fream
     _veloVxMv = 0;
     //X軸方向移動速度上限 ＝ 256 px/fream
@@ -515,5 +515,5 @@ void GgafDxKurokoB::resetMv() {
     _gravitation_mv_seq_flg = false;
 }
 
-GgafDxKurokoB::~GgafDxKurokoB() {
+GgafDxAxesMover::~GgafDxAxesMover() {
 }

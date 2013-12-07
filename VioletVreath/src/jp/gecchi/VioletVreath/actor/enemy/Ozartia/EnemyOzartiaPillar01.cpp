@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "EnemyOzartiaPillar01.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
@@ -70,7 +70,7 @@ void EnemyOzartiaPillar01::processBehavior() {
         default :
             break;
     }
-    _pKurokoA->behave();
+    _pKuroko->behave();
 }
 
 void EnemyOzartiaPillar01::processJudgement() {

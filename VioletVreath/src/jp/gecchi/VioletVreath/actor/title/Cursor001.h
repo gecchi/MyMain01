@@ -13,6 +13,9 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class Cursor001 : public GgafLib::DefaultBoardActor {
+public:
+    /** •ˆß‚Ì•èA */
+    GgafDxCore::GgafDxKurokoAsstA* pKurokoAsstA_;
 
 public:
     Cursor001(const char* prm_name);

@@ -3,7 +3,7 @@
 
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Delheid/EnemyDelheid.h"
 
 using namespace GgafCore;
@@ -19,7 +19,7 @@ FormationDelheid001::FormationDelheid001(const char* prm_name) :
 
 void FormationDelheid001::onCallUpDelheid(EnemyDelheid* pEnemyDelheid) {
     pEnemyDelheid->positionAs(&geoLocate_);
-    pEnemyDelheid->_pKurokoA->setRzRyMvAng(geoLocate_.rz, geoLocate_.ry);
+    pEnemyDelheid->_pKuroko->setRzRyMvAng(geoLocate_.rz, geoLocate_.ry);
 }
 
 GgafLib::SplineManufacture* FormationDelheid001::getSplManuf() {

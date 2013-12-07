@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "FormationGeria.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Geria/EnemyGeria.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -27,6 +27,7 @@ FormationGeria::FormationGeria(
             int prm_nGeriaStock,
             int prm_frame_app_interval) : DefaultGeometricActor(prm_name, nullptr) {
     _class_name = "FormationGeria";
+    pAxMver_ = NEW GgafDxAxesMover(this);
 
     X1_app_ = prm_X1_app;
     Y1_app_ = prm_Y1_app;
@@ -38,8 +39,8 @@ FormationGeria::FormationGeria(
     _x = prm_x;
     _y = prm_y;
     _z = prm_z;
-    _pKurokoA->setMvVelo(prm_veloMv_App);
-    _pKurokoA->setRzRyMvAng(prm_angRzMv_AppBox, prm_angRyMv_AppBox);
+    _pKuroko->setMvVelo(prm_veloMv_App);
+    _pKuroko->setRzRyMvAng(prm_angRzMv_AppBox, prm_angRyMv_AppBox);
     float vX_AppBox, vY_AppBox, vZ_AppBox;
     UTIL::convRzRyToVector(prm_angRzMv_AppBox, prm_angRyMv_AppBox,
                            vX_AppBox, vY_AppBox, vZ_AppBox);
@@ -50,10 +51,10 @@ FormationGeria::FormationGeria(
     for (int i = 0; i < prm_nGeriaStock; i++) {
         std::string name = "Geria"+XTOS(i);
         EnemyGeria* pEnemyGeria = NEW EnemyGeria(name.c_str());
-        pEnemyGeria->_pKurokoA->relateFaceWithMvAng(true);
-        pEnemyGeria->_pKurokoA->setMvVelo(prm_veloMv_Geria);
-        pEnemyGeria->_pKurokoA->setRzRyMvAng(prm_angRzMv_GeriaMv, prm_angRyMv_GeriaMv);
-        pEnemyGeria->_pKurokoB->setVxyzMvVelo(vX_AppBox*prm_veloMv_App,
+        pEnemyGeria->_pKuroko->relateFaceWithMvAng(true);
+        pEnemyGeria->_pKuroko->setMvVelo(prm_veloMv_Geria);
+        pEnemyGeria->_pKuroko->setRzRyMvAng(prm_angRzMv_GeriaMv, prm_angRyMv_GeriaMv);
+        pEnemyGeria->pAxMver_->setVxyzMvVelo(vX_AppBox*prm_veloMv_App,
                                               vY_AppBox*prm_veloMv_App,
                                               vZ_AppBox*prm_veloMv_App );
         pDepo_EnemyGeria_->put(pEnemyGeria);
@@ -73,9 +74,10 @@ void FormationGeria::processBehavior() {
             pEnemyGeria->_z = RND(Z1_app_, Z2_app_) + _z;
         }
     }
-    _pKurokoA->behave();
-    _pKurokoB->behave();
+    _pKuroko->behave();
+    pAxMver_->behave();
 }
 
 FormationGeria::~FormationGeria() {
+    GGAF_DELETE(pAxMver_);
 }

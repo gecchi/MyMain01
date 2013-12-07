@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MyOptionControllerGizmo.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -23,7 +23,7 @@ void MyOptionControllerGizmo::onActive() {
 }
 
 void MyOptionControllerGizmo::processBehavior() {
-    _pKurokoA->behave();
+    _pKuroko->behave();
 }
 
 void MyOptionControllerGizmo::processJudgement() {

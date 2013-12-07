@@ -4,7 +4,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
@@ -118,7 +118,7 @@ void EnemyErmione::processBehavior() {
         case PROG_INIT: {
             setHitAble(false);
             _pAFader->setAlpha(0);
-            _pKurokoA->setMvVelo(0);
+            _pKuroko->setMvVelo(0);
             UTIL::activateEntryEffectOf(this);
             _pProg->changeNext();
             break;
@@ -131,11 +131,11 @@ void EnemyErmione::processBehavior() {
             if (getAlpha() > 0.8) {
                 setHitAble(true);
                 throwEventLowerTree(EVENT_ERMIONE_ENTRY_DONE);
-                _pKurokoA->setMvVelo(10);
-                _pKurokoA->turnFaceAngTwd(P_MYSHIP,
+                _pKuroko->setMvVelo(10);
+                _pKuroko->turnFaceAngTwd(P_MYSHIP,
                                           300, 0,
                                           TURN_ANTICLOSE_TO, false);
-                _pKurokoA->setMvAngTwd(P_MYSHIP);
+                _pKuroko->setMvAngTwd(P_MYSHIP);
                 _pProg->changeNext();
             }
             break;
@@ -143,9 +143,9 @@ void EnemyErmione::processBehavior() {
 
         case PROG_MOVE: {
             if (_pProg->isJustChanged()) {
-                _pKurokoA->setFaceAngVelo(AXIS_X, 150);
-                _pKurokoA->setFaceAngVelo(AXIS_Y, 130);
-                _pKurokoA->setFaceAngVelo(AXIS_Z, 110);
+                _pKuroko->setFaceAngVelo(AXIS_X, 150);
+                _pKuroko->setFaceAngVelo(AXIS_Y, 130);
+                _pKuroko->setFaceAngVelo(AXIS_Z, 110);
             }
             break;
         }
@@ -154,7 +154,7 @@ void EnemyErmione::processBehavior() {
             break;
     }
     _pAFader->behave();
-    _pKurokoA->behave();
+    _pKuroko->behave();
     _pMorpher->behave();
     _pSeTx->behave();
 }

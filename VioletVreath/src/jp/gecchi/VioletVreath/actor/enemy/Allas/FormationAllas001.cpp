@@ -24,7 +24,7 @@ FormationAllas001::FormationAllas001(const char* prm_name) :
     pDepoConnection_ = nullptr;
     for (int i = 0; i < num_Allas_; i++) {
         EnemyAllas* pAllas= NEW EnemyAllas("Allas01");
-        SplineKurokoLeader* pKurokoLeader = pSplManufConnection_->peek()->createKurokoLeader(pAllas->_pKurokoA);
+        SplineKurokoLeader* pKurokoLeader = pSplManufConnection_->peek()->createKurokoLeader(pAllas->_pKuroko);
         pAllas->config(pKurokoLeader, nullptr, nullptr);
         addFormationMember(pAllas);
     }

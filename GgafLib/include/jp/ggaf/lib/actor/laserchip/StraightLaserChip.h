@@ -2,7 +2,7 @@
 #define GGAFLIB_STRAIGHTLASERCHIP_H_
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 
 namespace GgafLib {
 
@@ -78,9 +78,9 @@ public:
         _pSource_rx = &prm_pGeoActor->_rx;
         _pSource_ry = &prm_pGeoActor->_ry;
         _pSource_rz = &prm_pGeoActor->_rz;
-        _pSource_vX = &prm_pGeoActor->_pKurokoA->_vX;
-        _pSource_vY = &prm_pGeoActor->_pKurokoA->_vY;
-        _pSource_vZ = &prm_pGeoActor->_pKurokoA->_vZ;
+        _pSource_vX = &prm_pGeoActor->_pKuroko->_vX;
+        _pSource_vY = &prm_pGeoActor->_pKuroko->_vY;
+        _pSource_vZ = &prm_pGeoActor->_pKuroko->_vZ;
         _pSourceActor = prm_pGeoActor;
     }
 
@@ -96,9 +96,9 @@ public:
         _pSource_rx = &_rx;
         _pSource_ry = &_ry;
         _pSource_rz = &_rz;
-        _pSource_vX = &_pKurokoA->_vX;
-        _pSource_vY = &_pKurokoA->_vY;
-        _pSource_vZ = &_pKurokoA->_vZ;
+        _pSource_vX = &_pKuroko->_vX;
+        _pSource_vY = &_pKuroko->_vY;
+        _pSource_vZ = &_pKuroko->_vZ;
         _pSourceActor = prm_pGeoActor;
     }
 
@@ -114,9 +114,9 @@ public:
         _pSource_rx = &prm_pGeoActor->_rx;
         _pSource_ry = &prm_pGeoActor->_ry;
         _pSource_rz = &prm_pGeoActor->_rz;
-        _pSource_vX = &prm_pGeoActor->_pKurokoA->_vX;
-        _pSource_vY = &prm_pGeoActor->_pKurokoA->_vY;
-        _pSource_vZ = &prm_pGeoActor->_pKurokoA->_vZ;
+        _pSource_vX = &prm_pGeoActor->_pKuroko->_vX;
+        _pSource_vY = &prm_pGeoActor->_pKuroko->_vY;
+        _pSource_vZ = &prm_pGeoActor->_pKuroko->_vZ;
         _pSourceActor = prm_pGeoActor;
     }
 

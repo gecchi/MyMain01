@@ -11,8 +11,6 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class MagicPointItem : public Item {
-    /** ‹z’…·•ªÀ•W */
-    int kDX_, kDY_, kDZ_;
 
 public:
     enum {
@@ -26,6 +24,10 @@ public:
         SE_GET_ITEM ,
     };
 
+    /** •½sˆÚ“®x‰‡ */
+    GgafDxCore::GgafDxAxesMover* pAxMver_;
+    /** ‹z’…·•ªÀ•W */
+    int kDX_, kDY_, kDZ_;
 public:
     MagicPointItem(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
 

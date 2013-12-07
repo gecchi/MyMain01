@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "EffectMyOption.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/gecchi/VioletVreath/actor/my/option/MyOption.h"
@@ -28,9 +28,9 @@ void EffectMyOption::onCreateModel() {
 }
 
 void EffectMyOption::initialize() {
-    _pKurokoA->setFaceAngVelo(AXIS_X, D_ANG(5));
-    _pKurokoA->setFaceAngVelo(AXIS_Y, D_ANG(3));
-    _pKurokoA->setFaceAngVelo(AXIS_Z, D_ANG(1));
+    _pKuroko->setFaceAngVelo(AXIS_X, D_ANG(5));
+    _pKuroko->setFaceAngVelo(AXIS_Y, D_ANG(3));
+    _pKuroko->setFaceAngVelo(AXIS_Z, D_ANG(1));
     _pScaler->setScale(R_SC(1));
     _pScaler->forceRange(R_SC(1), R_SC(4.0));
 //    _pScaler->beat(AXIS_X, 30, 10, 1, -1);
@@ -53,7 +53,7 @@ void EffectMyOption::processBehavior() {
 //        _pProg->change(2);
 //    }
     positionAs(pOption_);
-    _pKurokoA->behave();
+    _pKuroko->behave();
     _pScaler->behave();
 }
 

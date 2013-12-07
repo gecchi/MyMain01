@@ -2,7 +2,7 @@
 #include "EnemyOrtuna.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
@@ -47,11 +47,11 @@ void EnemyOrtuna::processBehavior() {
              setHitAble(false);
              positionAs(&entry_pos_);
              _pAFader->setAlpha(0);
-             _pKurokoA->setMvVelo(0);
-             _pKurokoA->relateFaceWithMvAng(true);
-             _pKurokoA->setMvAngTwd(&hanging_pos_);
+             _pKuroko->setMvVelo(0);
+             _pKuroko->relateFaceWithMvAng(true);
+             _pKuroko->setMvAngTwd(&hanging_pos_);
              velo mv_velo = RF_EnemyOrtuna_MvVelo(G_RANK);
-             _pKurokoA->setFaceAngVelo(AXIS_X, mv_velo); //‚®‚é‚®‚é`
+             _pKuroko->setFaceAngVelo(AXIS_X, mv_velo); //‚®‚é‚®‚é`
              _pMorpher->setWeight(0.0);
              UTIL::activateEntryEffectOf(this);
              _pProg->changeNext();
@@ -74,15 +74,15 @@ void EnemyOrtuna::processBehavior() {
                  //velo mv_velo = RF_EnemyOrtuna_MvVelo(G_RANK);
                  velo mv_velo = PX_C(20);
                  coord d = UTIL::getDistance(this, &hanging_pos_);
-                 _pKurokoA->setMvVelo(mv_velo);//¨‚¢‚æ‚­ƒ|[ƒ“‚Æ
-                 hanging_pos_frames_ = _pKurokoA->setMvAcceByD(d, PX_C(1));
+                 _pKuroko->setMvVelo(mv_velo);//¨‚¢‚æ‚­ƒ|[ƒ“‚Æ
+                 hanging_pos_frames_ = _pKuroko->setMvAcceByD(d, PX_C(1));
              }
 
-             _pKurokoA->setFaceAngVelo(AXIS_X, _pKurokoA->_veloMv); //¨‚¢‚É”ä—á‚µ‚Ä‚®‚é‚®‚é`
+             _pKuroko->setFaceAngVelo(AXIS_X, _pKuroko->_veloMv); //¨‚¢‚É”ä—á‚µ‚Ä‚®‚é‚®‚é`
 
              if (_pProg->getFrameInProgress() > hanging_pos_frames_) {
-                 _pKurokoA->setMvVelo(PX_C(1));
-                 _pKurokoA->setMvAcce(0);
+                 _pKuroko->setMvVelo(PX_C(1));
+                 _pKuroko->setMvAcce(0);
                  _pProg->changeNext();
              }
              break;
@@ -92,15 +92,15 @@ void EnemyOrtuna::processBehavior() {
              if (_pProg->isJustChanged()) {
                  //•ûŒü“]Š·
                  //‚ä‚Á‚­‚è©‹@‚Ì•û‚ÖŒü‚©‚¹‚é
-                 _pKurokoA->turnMvAngTwd(P_MYSHIP,
+                 _pKuroko->turnMvAngTwd(P_MYSHIP,
                                          D_ANG(3), 0, TURN_CLOSE_TO, true);
                  _pMorpher->morphLinerUntil(MPH_OPEN, 1.0, 60);
              }
              //‘Ø—¯’†
              if (_pProg->getFrameInProgress() % 16U == 0) {
-                 if (_pKurokoA->isTurningMvAng()) {
+                 if (_pKuroko->isTurningMvAng()) {
                      //‚¿‚å‚­‚¿‚å‚­©‹@‚ğŒ©‚Â‚ß‚é
-                     _pKurokoA->turnFaceAngTwd(P_MYSHIP,
+                     _pKuroko->turnFaceAngTwd(P_MYSHIP,
                                                D_ANG(1), 0, TURN_CLOSE_TO, true);
                  }
              }
@@ -113,10 +113,10 @@ void EnemyOrtuna::processBehavior() {
                      GgafDxDrawableActor* pShot = UTIL::activateAttackShotOf(this);
                      if (pShot) {
                          pShot->activateDelay(1+(i*10)); //‚Î‚ç‚Â‚©‚¹Bactivate ƒ^ƒCƒ~ƒ“ƒOã‘‚«I
-                         pShot->_pKurokoA->setRzRyMvAng(_pKurokoA->_angFace[AXIS_Z],
-                                                        _pKurokoA->_angFace[AXIS_Y]);
-                         pShot->_pKurokoA->setMvVelo(shot_velo);
-                         pShot->_pKurokoA->setMvAcce(100);
+                         pShot->_pKuroko->setRzRyMvAng(_pKuroko->_angFace[AXIS_Z],
+                                                        _pKuroko->_angFace[AXIS_Y]);
+                         pShot->_pKuroko->setMvVelo(shot_velo);
+                         pShot->_pKuroko->setMvAcce(100);
                      }
                  }
              }
@@ -129,8 +129,8 @@ void EnemyOrtuna::processBehavior() {
          case PROG_MOVE03: {
              //‚³‚æ‚È‚ç`
              if (_pProg->isJustChanged()) {
-                 _pKurokoA->setMvVelo(PX_C(4));
-                 _pKurokoA->setMvAcce(100);
+                 _pKuroko->setMvVelo(PX_C(4));
+                 _pKuroko->setMvAcce(100);
              }
              break;
          }
@@ -139,7 +139,7 @@ void EnemyOrtuna::processBehavior() {
              break;
      }
 
-    _pKurokoA->behave();
+    _pKuroko->behave();
     _pMorpher->behave();
     //_pSeTx->behave();
 }

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "EnemyOmulus.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
@@ -45,7 +45,7 @@ void EnemyOmulus::onCreateModel() {
 
 void EnemyOmulus::initialize() {
     setHitAble(true);
-    _pKurokoA->relateFaceWithMvAng(true);
+    _pKuroko->relateFaceWithMvAng(true);
     _pMorpher->forceWeightRange(MORPHTARGET_HATCH_OPEN, 0.0f, 1.0f);
     _pMorpher->setWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     _pColliChecker->makeCollision(1);
@@ -72,7 +72,7 @@ void EnemyOmulus::processBehavior() {
     //・ローカル座標     ・・・ 親アクターの基点(0,0,0)からの相対的な座標系を意味します。
     //                          座標計算はこちらで行って下さい。
     //＜方針＞
-    //  ①座標計算は主にローカル座標系の計算である。GgafDxKurokoA でローカル座標系の操作を行うこととする。
+    //  ①座標計算は主にローカル座標系の計算である。GgafDxKuroko でローカル座標系の操作を行うこととする。
     //    しかし、８分木登録や、当たり判定や、ターゲット座標など、他のオブジェクトからワールド座標を参照する等、
     //    基本状態は最終（絶対）座標系。
     //    processBehavior()開始時は 最終（絶対）座標系(changeGeoFinal())の状態となっている。
@@ -102,13 +102,13 @@ void EnemyOmulus::processBehavior() {
     //                       他のオブジェクトから、ボーンにあたるアクターを参照するとき、_rx, _ry, _rzは全く信用できません。
 
     //＜注意＞
-    //・GgafDxKurokoA(_pKurokoA)の behave() 以外メソッドは、常にローカル座標の操作とする。
+    //・GgafDxKuroko(_pKuroko)の behave() 以外メソッドは、常にローカル座標の操作とする。
     //  behave()以外メソッドは実際に座標計算しているわけではないので、
     //  changeGeoFinal()時、changeGeoLocal()時に関係なく、呼び出し可能。
-    //・GgafDxKurokoA(_pKurokoA)の behave() メソッドは座標を１フレーム後の状態にする計算を行う。
+    //・GgafDxKuroko(_pKuroko)の behave() メソッドは座標を１フレーム後の状態にする計算を行う。
     //  したがって、次のように ローカル座標時(changeGeoLocal()時)で呼び出す事とする。
     //    changeGeoLocal();
-    //    _pKurokoA->behave();
+    //    _pKuroko->behave();
     //    changeGeoFinal();
     //TODO:混在感をもっとなくす。
 
@@ -121,7 +121,7 @@ void EnemyOmulus::processBehavior() {
             if (_pProg->isJustChanged()) {
                 _pMorpher->morphLinerUntil(MORPHTARGET_HATCH_OPEN,
                                                 0.0f, frame_of_morph_interval_);
-                _pKurokoA->setFaceAngVelo(AXIS_X, -3000);
+                _pKuroko->setFaceAngVelo(AXIS_X, -3000);
             }
 
             //次へ
@@ -134,7 +134,7 @@ void EnemyOmulus::processBehavior() {
             if (_pProg->isJustChanged()) {
                 _pMorpher->morphLinerUntil(MORPHTARGET_HATCH_OPEN,
                                                 1.0f, frame_of_morph_interval_);
-                _pKurokoA->setFaceAngVelo(AXIS_X, 0);
+                _pKuroko->setFaceAngVelo(AXIS_X, 0);
             }
 
             //オープン時敵出現処理
@@ -168,7 +168,7 @@ void EnemyOmulus::processBehavior() {
                             angle Rz, Ry;
                             UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
                                                    Rz, Ry); //現在の最終的な向きを、RzRyで取得！
-                            pActor->_pKurokoA->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
+                            pActor->_pKuroko->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
                             pActor->positionAs(this);
                             pActor->reset();
                         }
@@ -220,7 +220,7 @@ void EnemyOmulus::processBehavior() {
         //自動方向向きシークエンス開始
         angle angRz_Target, angRy_Target;
         UTIL::convVectorToRzRy(tvx, tvy, tvz, angRz_Target, angRy_Target);
-        _pKurokoA->turnRzRyMvAngTo(angRz_Target, angRy_Target,
+        _pKuroko->turnRzRyMvAngTo(angRz_Target, angRy_Target,
                                    1000, 0,
                                    TURN_CLOSE_TO, false);
     }
@@ -228,9 +228,9 @@ void EnemyOmulus::processBehavior() {
     _pScaler->behave();
     _pMorpher->behave();
 
-    //_pKurokoAの計算はローカルで行う
+    //_pKurokoの計算はローカルで行う
     changeGeoLocal();
-    _pKurokoA->behave();
+    _pKuroko->behave();
     changeGeoFinal();
 
 }

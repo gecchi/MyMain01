@@ -13,6 +13,9 @@ class FormationGeria : public GgafLib::DefaultGeometricActor {
     GgafCore::GgafActorDepository* pDepo_EnemyGeria_;
 
 public:
+    /** •½sˆÚ“®x‰‡ */
+    GgafDxCore::GgafDxAxesMover* pAxMver_;
+
     /** oŒ»”ÍˆÍ•BOX */
     int X1_app_, Y1_app_, Z1_app_, X2_app_, Y2_app_, Z2_app_;
     int frame_app_interval_;

@@ -5,7 +5,7 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 
 using namespace GgafCore;
@@ -31,14 +31,14 @@ void EffectMyShipExplosion::onActive() {
     positionAs(P_MYSHIP);
     _alpha = 0.99;
     _pScaler->setScale(8000);
-    _pKurokoA->setFaceAngVelo(AXIS_Z, 2000);
+    _pKuroko->setFaceAngVelo(AXIS_Z, 2000);
 }
 
 void EffectMyShipExplosion::processBehavior() {
     _alpha -= 0.01;
     positionAs(P_MYSHIP);
     _pUvFlipper->behave();
-    _pKurokoA->behave();
+    _pKuroko->behave();
     _pScaler->behave();
 }
 

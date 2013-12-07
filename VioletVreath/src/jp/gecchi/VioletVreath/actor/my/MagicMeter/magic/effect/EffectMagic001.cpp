@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "EffectMagic001.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -11,6 +11,7 @@ using namespace VioletVreath;
 EffectMagic001::EffectMagic001(const char* prm_name)
                : DefaultMeshSetActor(prm_name, "EffectMagic001", nullptr) {
     _class_name = "EffectMagic001";
+    pAxMver_ = NEW GgafDxAxesMover(this);
     effectBlendOne(); //加算合成するTechnique指定
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(false);  //Zバッファは書き込み無し
@@ -23,12 +24,12 @@ void EffectMagic001::initialize() {
 }
 
 void EffectMagic001::onActive() {
-    _pKurokoA->setFaceAngVelo(PX_C(3), PX_C(5), PX_C(7));
+    _pKuroko->setFaceAngVelo(PX_C(3), PX_C(5), PX_C(7));
 }
 
 void EffectMagic001::processBehavior() {
-    _pKurokoA->behave();
-    _pKurokoB->behave();
+    _pKuroko->behave();
+    pAxMver_->behave();
 }
 
 void EffectMagic001::processJudgement() {
@@ -41,4 +42,5 @@ void EffectMagic001::onInactive() {
 }
 
 EffectMagic001::~EffectMagic001() {
+    GGAF_DELETE(pAxMver_);
 }

@@ -2,7 +2,7 @@
 #include "EnemyTalante.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -29,8 +29,8 @@ void EnemyTalante::onCreateModel() {
 }
 
 void EnemyTalante::initialize() {
-    _pKurokoA->relateFaceWithMvAng(true);
-    _pKurokoA->setFaceAngVelo(AXIS_X, 5000);
+    _pKuroko->relateFaceWithMvAng(true);
+    _pKuroko->setFaceAngVelo(AXIS_X, 5000);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
 }
@@ -45,9 +45,9 @@ void EnemyTalante::onActive() {
     _pStatus->reset();
     setHitAble(true);
     Z_ok_ = Y_ok_ = false;
-    _pKurokoA->setMvAcce(0);
-    _pKurokoA->setMvVelo(4000);
-    _pKurokoA->forceMvVeloRange(50000);
+    _pKuroko->setMvAcce(0);
+    _pKuroko->setMvVelo(4000);
+    _pKuroko->forceMvVeloRange(50000);
     _pProg->reset(PROG_INIT);
 }
 
@@ -78,14 +78,14 @@ void EnemyTalante::processBehavior() {
             if (Z_ok_ == false && pMyShip->_z - PX_C(5) <= _z && _z <= pMyShip->_z + PX_C(5)) {
                 //Z座標揃った
                 Z_ok_ = true;
-                _pKurokoA->addMvVelo(2000);
+                _pKuroko->addMvVelo(2000);
                 if (pMyShip->_y <= _y) {
                     //真下へ折れる
-                    _pKurokoA->turnRzRyMvAngTo(D270ANG, D0ANG,
+                    _pKuroko->turnRzRyMvAngTo(D270ANG, D0ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 } else {
                     //真上へ折れる
-                    _pKurokoA->turnRzRyMvAngTo(D90ANG, D0ANG,
+                    _pKuroko->turnRzRyMvAngTo(D90ANG, D0ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 }
             }
@@ -93,19 +93,19 @@ void EnemyTalante::processBehavior() {
             if (Y_ok_ == false && pMyShip->_y - PX_C(5) <= _y && _y <= pMyShip->_y + PX_C(5)) {
                 //Y座標揃った
                 Y_ok_ = true;
-                _pKurokoA->addMvVelo(2000);
+                _pKuroko->addMvVelo(2000);
                 if (pMyShip->_z <= _z) {
                     //奥の自機の方向折れる
-                    _pKurokoA->turnRzRyMvAngTo(D0ANG, D90ANG,
+                    _pKuroko->turnRzRyMvAngTo(D0ANG, D90ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 } else {
                     //手前の自機の方向折れる
-                    _pKurokoA->turnRzRyMvAngTo(D0ANG, D270ANG,
+                    _pKuroko->turnRzRyMvAngTo(D0ANG, D270ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 }
             }
 
-            if (_pKurokoA->isTurningMvAng() == false) {
+            if (_pKuroko->isTurningMvAng() == false) {
                 if (Y_ok_ && Z_ok_) {
                     //Z座標Y座標揃ったら次の動きへ
                     _pProg->changeNext();
@@ -122,15 +122,15 @@ void EnemyTalante::processBehavior() {
                 //X軸方向に動く
                 if (pMyShip->_x <= _x) {
                     //左へ折れる
-                    _pKurokoA->turnRzRyMvAngTo(D180ANG, D0ANG,
+                    _pKuroko->turnRzRyMvAngTo(D180ANG, D0ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 } else {
                     //右へ折れる
-                    _pKurokoA->turnRzRyMvAngTo(D0ANG, D0ANG,
+                    _pKuroko->turnRzRyMvAngTo(D0ANG, D0ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 }
             }
-            if (_pKurokoA->isTurningMvAng() == false) {
+            if (_pKuroko->isTurningMvAng() == false) {
                 _pProg->changeNext(); //次の動きへ
             }
             break;
@@ -138,13 +138,13 @@ void EnemyTalante::processBehavior() {
 
         case PROG_MOVE01_4: {
             if (_pProg->isJustChanged()) {
-                _pKurokoA->setMvAcce(300);//加速開始
+                _pKuroko->setMvAcce(300);//加速開始
             }
             break;
         }
 
     }
-    _pKurokoA->behave();
+    _pKuroko->behave();
 
     //_pSeTx->behave();
 }

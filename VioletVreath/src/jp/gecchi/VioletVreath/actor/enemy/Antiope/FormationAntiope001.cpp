@@ -5,7 +5,7 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Antiope/EnemyAntiopeP.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Antiope/EnemyAntiopeN.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -54,19 +54,19 @@ void FormationAntiope001::processBehavior() {
             EnemyAntiopeP* pP = (EnemyAntiopeP*)pDepoConnection_AntiopeP_->peek()->dispatch();
             if (pP) {
                 pP->positionAs(&entry_pos);
-                pP->_pKurokoA->setMvAngTwd(&twd_pos_p);
-                pP->_pKurokoA->setFaceAngByMvAng();
-                pP->_pKurokoA->stopMv();
+                pP->_pKuroko->setMvAngTwd(&twd_pos_p);
+                pP->_pKuroko->setFaceAngByMvAng();
+                pP->_pKuroko->stopMv();
                 pP->mv_velo_twd_.set(vX*veloMv, vY*veloMv, vZ*veloMv);
             }
 
             EnemyAntiopeN* pN = (EnemyAntiopeN*)pDepoConnection_AntiopeN_->peek()->dispatch();
             if (pN) {
                 pN->positionAs(&entry_pos);
-                pN->_pKurokoA->setMvAngTwd(&twd_pos_p);
-                pN->_pKurokoA->reverseMvAng();
-                pN->_pKurokoA->setFaceAngByMvAng();
-                pN->_pKurokoA->stopMv();
+                pN->_pKuroko->setMvAngTwd(&twd_pos_p);
+                pN->_pKuroko->reverseMvAng();
+                pN->_pKuroko->setFaceAngByMvAng();
+                pN->_pKuroko->stopMv();
                 pN->mv_velo_twd_.set(vX*veloMv, vY*veloMv, vZ*veloMv);
             }
             cnt_Antiope_++;

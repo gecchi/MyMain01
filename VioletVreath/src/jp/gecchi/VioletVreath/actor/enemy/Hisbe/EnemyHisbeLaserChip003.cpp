@@ -2,7 +2,7 @@
 #include "EnemyHisbeLaserChip003.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
@@ -18,7 +18,7 @@ EnemyHisbeLaserChip003::EnemyHisbeLaserChip003(const char* prm_name) :
         WateringLaserChip(prm_name, "HisbeLaserChip003", STATUS(EnemyHisbeLaserChip003)) {
     _class_name = "EnemyHisbeLaserChip003";
     pSplManufConnection_ = connect_SplineManufactureManager("EnemyHisbeLaserChip003"); //ゴスパー曲線
-    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(_pKurokoA);
+    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(_pKuroko);
     pKurokoLeader_->adjustCoordOffset(PX_C(100), 0, 0);
     sp_index_ = 0;
     pNearestScrollingScene_ = nullptr;
@@ -30,7 +30,7 @@ void EnemyHisbeLaserChip003::initialize() {
     setScaleR(5.0);
     setAlpha(0.9);
 
-    _pKurokoA->relateFaceWithMvAng(true);
+    _pKuroko->relateFaceWithMvAng(true);
     sp_index_ = 0;
     pNearestScrollingScene_ = ((DefaultScene*)getPlatformScene())->getNearestScrollingScene();
 }
@@ -50,13 +50,13 @@ void EnemyHisbeLaserChip003::processBehavior() {
     if (sp_index_ > (pKurokoLeader_->_pManufacture->_sp->_rnum -1)) {
 
     } else {
-        _pKurokoA->setMvVelo(pKurokoLeader_->getSegmentDistance(sp_index_));
+        _pKuroko->setMvVelo(pKurokoLeader_->getSegmentDistance(sp_index_));
         sp_index_++;
     }
-    //pKurokoLeader_->behave(); 内部で pKurokoA->_veloMv を参照し次フレーム数決定してるので、
-    //１フレームで次の点に到達するべく、pKurokoLeader_->behave(); の前に pKurokoA->setMvVelo() で設定しなければいけない。
+    //pKurokoLeader_->behave(); 内部で pKuroko->_veloMv を参照し次フレーム数決定してるので、
+    //１フレームで次の点に到達するべく、pKurokoLeader_->behave(); の前に pKuroko->setMvVelo() で設定しなければいけない。
     pKurokoLeader_->behave();
-    _pKurokoA->behave();
+    _pKuroko->behave();
     WateringLaserChip::processBehavior();
 }
 void EnemyHisbeLaserChip003::processSettlementBehavior() {

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "HoshiBoshiTestActor.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 #include "jp/ggaf/dxcore/effect/GgafDxPointSpriteEffect.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"

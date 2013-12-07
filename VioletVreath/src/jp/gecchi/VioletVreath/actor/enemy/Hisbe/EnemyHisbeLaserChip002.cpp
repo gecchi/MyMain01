@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "EnemyHisbeLaserChip002.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
 #include "jp/ggaf/lib/manager/SplineManufactureConnection.h"
@@ -22,7 +22,7 @@ EnemyHisbeLaserChip002::EnemyHisbeLaserChip002(const char* prm_name) :
         RefractionLaserChip(prm_name, "HisbeLaserChip002", STATUS(EnemyHisbeLaserChip002)) {
     _class_name = "EnemyHisbeLaserChip002";
     pSplManufConnection_ = connect_SplineManufactureManager("EnemyHisbeLaserChip002"); //ヒルベルト曲線
-    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(_pKurokoA);
+    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(_pKuroko);
     pKurokoLeader_->adjustCoordOffset(PX_C(100), 0, 0);
     pNearestScrollingScene_ = nullptr;
 }
@@ -39,7 +39,7 @@ void EnemyHisbeLaserChip002::onActive() {
     RefractionLaserChip::onActive();
     //ステータスリセット
     _pStatus->reset();
-    _pKurokoA->relateFaceWithMvAng(true);
+    _pKuroko->relateFaceWithMvAng(true);
 }
 
 void EnemyHisbeLaserChip002::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
@@ -64,7 +64,7 @@ void EnemyHisbeLaserChip002::onRefractionFinish(int prm_num_refraction)  {
     }
 
     pKurokoLeader_->behave();
-    _pKurokoA->behave();
+    _pKuroko->behave();
 
     if (pKurokoLeader_->isFinished()) {
         EnemyHisbeLaserChip002::end_active_frame_ = getActiveFrame(); //終了フレームセット

@@ -13,6 +13,7 @@ namespace VVViewer {
 class VvvCamWorker : public GgafLib::DefaultGeometricActor {
 
 public:
+
     int cd_;
 
     int cam_x_, cam_y_, cam_z_, vp_x_, vp_y_, vp_z_;

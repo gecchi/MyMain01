@@ -1,9 +1,10 @@
 #include "stdafx.h"
 #include "MenuBoard.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/gecchi/VioletVreath/God.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAsstA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -13,6 +14,7 @@ using namespace VioletVreath;
 MenuBoard::MenuBoard(const char* prm_name, const char* prm_model) :
         StringBoardMenu(prm_name, prm_model) {
     _class_name = "MenuBoard";
+    pKurokoAsstA_ = NEW GgafDxKurokoAsstA(_pKuroko);
     slide_from_offset_x_ = 0;
     slide_from_offset_y_ = 0;
     target_x_ = _x;
@@ -119,21 +121,21 @@ void MenuBoard::onRise() {
     //スライドイントランジション
     position(target_x_ + slide_from_offset_x_,
              target_y_ + slide_from_offset_y_);
-    _pKurokoA->setMvAngTwd(target_x_, target_y_);
-    _pKurokoA->slideMvByDT(0, UTIL::getDistance(_x, _y, target_x_, target_y_),
-                           _fade_frames, 0.2, 0.3 );
+    _pKuroko->setMvAngTwd(target_x_, target_y_);
+    pKurokoAsstA_->slideMvByDt(UTIL::getDistance(_x, _y, target_x_, target_y_), _fade_frames,
+                           0.2, 0.3, 0);
     _pSeTx->play(SE_ON_RISEN);
 }
 
 void MenuBoard::processBehavior() {
-    if (_pKurokoA->isSlidingMv()) {
+    if (pKurokoAsstA_->isSlidingMv()) {
         //スライド中
     } else {
         //スライド終了時、目的の座標へ補正
         position(target_x_, target_y_);
     }
-
-    _pKurokoA->behave();
+    pKurokoAsstA_->behave();
+    _pKuroko->behave();
     StringBoardMenu::processBehavior();
     //メニュー選択アイテム、表示アイテム、カーソルは、
     //ボード座標を基にしているため、自身の座標確定後に
@@ -145,14 +147,15 @@ void MenuBoard::processJudgement() {
 
 void MenuBoard::onSink() {
     //スライドアウトトランジション
-    _pKurokoA->setMvAngTwd(target_x_ + slide_from_offset_x_,
+    _pKuroko->setMvAngTwd(target_x_ + slide_from_offset_x_,
                            target_y_ + slide_from_offset_y_);
-    _pKurokoA->slideMvByDT(0, UTIL::getDistance(
+    pKurokoAsstA_->slideMvByDt(UTIL::getDistance(
                                 _x, _y,
                                 target_x_+slide_from_offset_x_, target_y_+slide_from_offset_y_
-                              ),
-                           _fade_frames, 0.2, 0.3 );
+                           ), _fade_frames,
+                           0.2, 0.3, 0);
 }
 
 MenuBoard::~MenuBoard() {
+    GGAF_DELETE(pKurokoAsstA_);
 }

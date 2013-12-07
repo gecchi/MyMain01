@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MyOptionControllerDirectionVector.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -17,14 +17,14 @@ MyOptionControllerDirectionVector::MyOptionControllerDirectionVector(const char*
 void MyOptionControllerDirectionVector::initialize() {
     setAlpha(0.3);
     setHitAble(false);
-    _pKurokoA->relateFaceWithMvAng(true);
+    _pKuroko->relateFaceWithMvAng(true);
 }
 
 void MyOptionControllerDirectionVector::onActive() {
 }
 
 void MyOptionControllerDirectionVector::processBehavior() {
-    _pKurokoA->behave();
+    _pKuroko->behave();
 }
 
 void MyOptionControllerDirectionVector::processJudgement() {

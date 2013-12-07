@@ -16,7 +16,7 @@
 //}
 //
 //void EnemyWateringLaserChip001::initialize() {
-//    _pKurokoA->relateFaceWithMvAng(true);
+//    _pKuroko->relateFaceWithMvAng(true);
 //    registerHitAreaCube_AutoGenMidColli(80000);
 //    setHitAble(true);
 //    _sx = _sy = _sz = R_SC(6);
@@ -28,10 +28,10 @@
 //void EnemyWateringLaserChip001::onActive() {
 //    UTIL::resetEnemyWateringLaserChip001Status(_pStatus);
 //    WateringLaserChip::onActive();
-//    _pKurokoA->setMvVelo(0);
-//    _pKurokoA->setVxMvAcce(0);
-//    _pKurokoA->setVyMvAcce(0);
-//    _pKurokoA->setVzMvAcce(0);
+//    _pKuroko->setMvVelo(0);
+//    _pKuroko->setVxMvAcce(0);
+//    _pKuroko->setVyMvAcce(0);
+//    _pKuroko->setVzMvAcce(0);
 //    if (pOrg_->pLockonTarget_ && pOrg_->pLockonTarget_->isActiveInTheTree()) {
 //        if (_pChip_front == nullptr) {
 //            //先端チップ
@@ -51,43 +51,43 @@
 //        pOrg_->pLockonTarget_ = nullptr;
 //    }
 //    renge_ = 150000;
-//    _pKurokoA->forceVxMvVeloRange(-renge_, renge_);
-//    _pKurokoA->forceVyMvVeloRange(-renge_, renge_);
-//    _pKurokoA->forceVzMvVeloRange(-renge_, renge_);
+//    _pKuroko->forceVxMvVeloRange(-renge_, renge_);
+//    _pKuroko->forceVyMvVeloRange(-renge_, renge_);
+//    _pKuroko->forceVzMvVeloRange(-renge_, renge_);
 //    maxAcceRange_= renge_ / 30;
-//    _pKurokoA->forceVxMvAcceRange(-maxAcceRange_, maxAcceRange_);
-//    _pKurokoA->forceVyMvAcceRange(-maxAcceRange_, maxAcceRange_);
-//    _pKurokoA->forceVzMvAcceRange(-maxAcceRange_, maxAcceRange_);
+//    _pKuroko->forceVxMvAcceRange(-maxAcceRange_, maxAcceRange_);
+//    _pKuroko->forceVyMvAcceRange(-maxAcceRange_, maxAcceRange_);
+//    _pKuroko->forceVzMvAcceRange(-maxAcceRange_, maxAcceRange_);
 //}
 //
 //void EnemyWateringLaserChip001::processBehavior() {
 //    if (lockon_st_ == 1) {
 //        if (getActiveFrame() < 100) {
 //            maxAcceRange_+=100;
-//            _pKurokoA->forceVxMvAcceRange(-maxAcceRange_, maxAcceRange_);
-//            _pKurokoA->forceVyMvAcceRange(-maxAcceRange_, maxAcceRange_);
-//            _pKurokoA->forceVzMvAcceRange(-maxAcceRange_, maxAcceRange_);
+//            _pKuroko->forceVxMvAcceRange(-maxAcceRange_, maxAcceRange_);
+//            _pKuroko->forceVyMvAcceRange(-maxAcceRange_, maxAcceRange_);
+//            _pKuroko->forceVzMvAcceRange(-maxAcceRange_, maxAcceRange_);
 //            if (pOrg_->pLockonTarget_ && pOrg_->pLockonTarget_->isActiveInTheTree()) {
 //                float rate = 8.0 - 0.06*getActiveFrame(); //0.06 * 120 = 8.0
 //                rate = rate > 0 ? rate : 0;
-//                int fdx = pOrg_->pLockonTarget_->_x - (_x + _pKurokoA->_veloVxMv*rate);
-//                int fdy = pOrg_->pLockonTarget_->_y - (_y + _pKurokoA->_veloVyMv*rate);
-//                int fdz = pOrg_->pLockonTarget_->_z - (_z + _pKurokoA->_veloVzMv*rate);
-//                _pKurokoA->setVxMvAcce(fdx);
-//                _pKurokoA->setVyMvAcce(fdy);
-//                _pKurokoA->setVzMvAcce(fdz);
+//                int fdx = pOrg_->pLockonTarget_->_x - (_x + _pKuroko->_veloVxMv*rate);
+//                int fdy = pOrg_->pLockonTarget_->_y - (_y + _pKuroko->_veloVyMv*rate);
+//                int fdz = pOrg_->pLockonTarget_->_z - (_z + _pKuroko->_veloVzMv*rate);
+//                _pKuroko->setVxMvAcce(fdx);
+//                _pKuroko->setVyMvAcce(fdy);
+//                _pKuroko->setVzMvAcce(fdz);
 ////                //上記のホーミングは優秀だが、距離に応じて減速していくため移動する敵には永遠に当たらない。
 ////                //ある程度近づいたら見切りで直進させる
 ////                int dx = pOrg_->pLockonTarget_->_x - _x;
 ////                int dy = pOrg_->pLockonTarget_->_y - _y;
 ////                int dz = pOrg_->pLockonTarget_->_z - _z;
 ////                if (ABS(dx)+ABS(dy)+ABS(dz) < 150*1000) {
-////                    _pKurokoA->setVxMvVelo(dx);
-////                    _pKurokoA->setVyMvVelo(dy);
-////                    _pKurokoA->setVzMvVelo(dz);
-////                    _pKurokoA->setVxMvAcce(dx/10);
-////                    _pKurokoA->setVyMvAcce(dy/10);
-////                    _pKurokoA->setVzMvAcce(dz/10);
+////                    _pKuroko->setVxMvVelo(dx);
+////                    _pKuroko->setVyMvVelo(dy);
+////                    _pKuroko->setVzMvVelo(dz);
+////                    _pKuroko->setVxMvAcce(dx/10);
+////                    _pKuroko->setVyMvAcce(dy/10);
+////                    _pKuroko->setVzMvAcce(dz/10);
 ////                    lockon_st_ = 2;
 ////                }
 //
@@ -100,38 +100,38 @@
 //    } else if (lockon_st_ == 2) {
 //        int dx, dy, dz;
 //        if (_pChip_front == nullptr) {
-////            _pKurokoA->addVxMvAcce(_pKurokoA->acceVxMv_);
-////            _pKurokoA->addVyMvAcce(_pKurokoA->acceVyMv_);
-////            _pKurokoA->addVzMvAcce(_pKurokoA->acceVzMv_);
+////            _pKuroko->addVxMvAcce(_pKuroko->acceVxMv_);
+////            _pKuroko->addVyMvAcce(_pKuroko->acceVyMv_);
+////            _pKuroko->addVzMvAcce(_pKuroko->acceVzMv_);
 //        } else if (_pChip_front->_pChip_front == nullptr) {
 //            //新たなターゲットを作成
-//            dx = _pChip_front->_x - (_x + _pKurokoA->_veloVxMv);
-//            dy = _pChip_front->_y - (_y + _pKurokoA->_veloVyMv);
-//            dz = _pChip_front->_z - (_z + _pKurokoA->_veloVzMv);
-//            _pKurokoA->setVxMvAcce(dx);
-//            _pKurokoA->setVyMvAcce(dy);
-//            _pKurokoA->setVzMvAcce(dz);
+//            dx = _pChip_front->_x - (_x + _pKuroko->_veloVxMv);
+//            dy = _pChip_front->_y - (_y + _pKuroko->_veloVyMv);
+//            dz = _pChip_front->_z - (_z + _pKuroko->_veloVzMv);
+//            _pKuroko->setVxMvAcce(dx);
+//            _pKuroko->setVyMvAcce(dy);
+//            _pKuroko->setVzMvAcce(dz);
 //        } else if (_pChip_front->_pChip_front->_pChip_front == nullptr) {
-//            dx = _pChip_front->_pChip_front->_x - (_x + _pKurokoA->_veloVxMv*2);
-//            dy = _pChip_front->_pChip_front->_y - (_y + _pKurokoA->_veloVyMv*2);
-//            dz = _pChip_front->_pChip_front->_z - (_z + _pKurokoA->_veloVzMv*2);
-//            _pKurokoA->setVxMvAcce(dx);
-//            _pKurokoA->setVyMvAcce(dy);
-//            _pKurokoA->setVzMvAcce(dz);
+//            dx = _pChip_front->_pChip_front->_x - (_x + _pKuroko->_veloVxMv*2);
+//            dy = _pChip_front->_pChip_front->_y - (_y + _pKuroko->_veloVyMv*2);
+//            dz = _pChip_front->_pChip_front->_z - (_z + _pKuroko->_veloVzMv*2);
+//            _pKuroko->setVxMvAcce(dx);
+//            _pKuroko->setVyMvAcce(dy);
+//            _pKuroko->setVzMvAcce(dz);
 //        } else if (_pChip_front->_pChip_front->_pChip_front->_pChip_front == nullptr) {
-//            dx = _pChip_front->_pChip_front->_pChip_front->_x - (_x + _pKurokoA->_veloVxMv*3);
-//            dy = _pChip_front->_pChip_front->_pChip_front->_y - (_y + _pKurokoA->_veloVyMv*3);
-//            dz = _pChip_front->_pChip_front->_pChip_front->_z - (_z + _pKurokoA->_veloVzMv*3);
-//            _pKurokoA->setVxMvAcce(dx);
-//            _pKurokoA->setVyMvAcce(dy);
-//            _pKurokoA->setVzMvAcce(dz);
+//            dx = _pChip_front->_pChip_front->_pChip_front->_x - (_x + _pKuroko->_veloVxMv*3);
+//            dy = _pChip_front->_pChip_front->_pChip_front->_y - (_y + _pKuroko->_veloVyMv*3);
+//            dz = _pChip_front->_pChip_front->_pChip_front->_z - (_z + _pKuroko->_veloVzMv*3);
+//            _pKuroko->setVxMvAcce(dx);
+//            _pKuroko->setVyMvAcce(dy);
+//            _pKuroko->setVzMvAcce(dz);
 //        } else {
-//            dx = _pChip_front->_pChip_front->_pChip_front->_pChip_front->_x - (_x + _pKurokoA->_veloVxMv*3);
-//            dy = _pChip_front->_pChip_front->_pChip_front->_pChip_front->_y - (_y + _pKurokoA->_veloVyMv*3);
-//            dz = _pChip_front->_pChip_front->_pChip_front->_pChip_front->_z - (_z + _pKurokoA->_veloVzMv*3);
-//            _pKurokoA->setVxMvAcce(dx);
-//            _pKurokoA->setVyMvAcce(dy);
-//            _pKurokoA->setVzMvAcce(dz);
+//            dx = _pChip_front->_pChip_front->_pChip_front->_pChip_front->_x - (_x + _pKuroko->_veloVxMv*3);
+//            dy = _pChip_front->_pChip_front->_pChip_front->_pChip_front->_y - (_y + _pKuroko->_veloVyMv*3);
+//            dz = _pChip_front->_pChip_front->_pChip_front->_pChip_front->_z - (_z + _pKuroko->_veloVzMv*3);
+//            _pKuroko->setVxMvAcce(dx);
+//            _pKuroko->setVyMvAcce(dy);
+//            _pKuroko->setVzMvAcce(dz);
 //        }
 //    }
 //    if (_pChip_front == nullptr) {
@@ -166,14 +166,14 @@
 //                            break;
 //                        }
 //                    }
-//                    pTip->_pKurokoA->setVxMvVelo(pChipPrev->_pKurokoA->_veloVxMv*2);
-//                    pTip->_pKurokoA->setVyMvVelo(pChipPrev->_pKurokoA->_veloVyMv*2);
-//                    pTip->_pKurokoA->setVzMvVelo(pChipPrev->_pKurokoA->_veloVzMv*2);
+//                    pTip->_pKuroko->setVxMvVelo(pChipPrev->_pKuroko->_veloVxMv*2);
+//                    pTip->_pKuroko->setVyMvVelo(pChipPrev->_pKuroko->_veloVyMv*2);
+//                    pTip->_pKuroko->setVzMvVelo(pChipPrev->_pKuroko->_veloVzMv*2);
 //                    //ターゲットがなくなり、レーザーの「ハジけた感（解放感）」を演出するため
 //                    //加速度の正負逆を設定する。
-//                    pTip->_pKurokoA->setVxMvAcce(-(pChipPrev->_pKurokoA->acceVxMv_));
-//                    pTip->_pKurokoA->setVyMvAcce(-(pChipPrev->_pKurokoA->acceVyMv_));
-//                    pTip->_pKurokoA->setVzMvAcce(-(pChipPrev->_pKurokoA->acceVzMv_));
+//                    pTip->_pKuroko->setVxMvAcce(-(pChipPrev->_pKuroko->acceVxMv_));
+//                    pTip->_pKuroko->setVyMvAcce(-(pChipPrev->_pKuroko->acceVyMv_));
+//                    pTip->_pKuroko->setVzMvAcce(-(pChipPrev->_pKuroko->acceVzMv_));
 //                }
 //            } else {
 //                //オプションのロックオン以外のアクターに命中した場合
@@ -204,30 +204,30 @@
 //        sayonara();
 //    }
 ////        if (pOrg_->pLockonTarget_) {
-////            _pKurokoA->setVxMvVelo(-(_pKurokoA->_veloVxMv));
-////            _pKurokoA->setVyMvVelo(-(_pKurokoA->_veloVyMv));
-////            _pKurokoA->setVzMvVelo(-(_pKurokoA->_veloVzMv));
+////            _pKuroko->setVxMvVelo(-(_pKuroko->_veloVxMv));
+////            _pKuroko->setVyMvVelo(-(_pKuroko->_veloVyMv));
+////            _pKuroko->setVzMvVelo(-(_pKuroko->_veloVzMv));
 ////        }
 //
 //////        if (pOrg_->pLockonTarget_) {
-////            _pKurokoA->setVxMvVelo(-(_pKurokoA->_veloVxMv));
-////            //_pKurokoA->setVxMvAcce(-(_pKurokoA->acceVxMv_));
-////            _pKurokoA->setVyMvVelo(-(_pKurokoA->_veloVyMv));
-////            //_pKurokoA->setVyMvAcce(-(_pKurokoA->acceVyMv_));
-////            _pKurokoA->setVzMvVelo(-(_pKurokoA->_veloVzMv));
-////            //_pKurokoA->setVzMvAcce(-(_pKurokoA->acceVzMv_));
-////            _pKurokoA->behave();
+////            _pKuroko->setVxMvVelo(-(_pKuroko->_veloVxMv));
+////            //_pKuroko->setVxMvAcce(-(_pKuroko->acceVxMv_));
+////            _pKuroko->setVyMvVelo(-(_pKuroko->_veloVyMv));
+////            //_pKuroko->setVyMvAcce(-(_pKuroko->acceVyMv_));
+////            _pKuroko->setVzMvVelo(-(_pKuroko->_veloVzMv));
+////            //_pKuroko->setVzMvAcce(-(_pKuroko->acceVzMv_));
+////            _pKuroko->behave();
 //////        }
 //
-////        if (ABS(_pKurokoA->_veloVxMv) >= ABS(_pKurokoA->_veloVyMv) && ABS(_pKurokoA->_veloVxMv) >= ABS(_pKurokoA->_veloVzMv)) {
-////            _pKurokoA->setVxMvVelo(-(_pKurokoA->_veloVxMv));
-////            _pKurokoA->setVxMvAcce(-(_pKurokoA->acceVxMv_));
-////        } else if (ABS(_pKurokoA->_veloVyMv) >= ABS(_pKurokoA->_veloVxMv) && ABS(_pKurokoA->_veloVyMv) >= ABS(_pKurokoA->_veloVzMv)) {
-////            _pKurokoA->setVyMvVelo(-(_pKurokoA->_veloVyMv));
-////            _pKurokoA->setVyMvAcce(-(_pKurokoA->acceVyMv_));
-////        } else if (ABS(_pKurokoA->_veloVzMv) >= ABS(_pKurokoA->_veloVxMv) && ABS(_pKurokoA->_veloVzMv) >= ABS(_pKurokoA->_veloVyMv)) {
-////            _pKurokoA->setVzMvVelo(-(_pKurokoA->_veloVzMv));
-////            _pKurokoA->setVzMvAcce(-(_pKurokoA->acceVzMv_));
+////        if (ABS(_pKuroko->_veloVxMv) >= ABS(_pKuroko->_veloVyMv) && ABS(_pKuroko->_veloVxMv) >= ABS(_pKuroko->_veloVzMv)) {
+////            _pKuroko->setVxMvVelo(-(_pKuroko->_veloVxMv));
+////            _pKuroko->setVxMvAcce(-(_pKuroko->acceVxMv_));
+////        } else if (ABS(_pKuroko->_veloVyMv) >= ABS(_pKuroko->_veloVxMv) && ABS(_pKuroko->_veloVyMv) >= ABS(_pKuroko->_veloVzMv)) {
+////            _pKuroko->setVyMvVelo(-(_pKuroko->_veloVyMv));
+////            _pKuroko->setVyMvAcce(-(_pKuroko->acceVyMv_));
+////        } else if (ABS(_pKuroko->_veloVzMv) >= ABS(_pKuroko->_veloVxMv) && ABS(_pKuroko->_veloVzMv) >= ABS(_pKuroko->_veloVyMv)) {
+////            _pKuroko->setVzMvVelo(-(_pKuroko->_veloVzMv));
+////            _pKuroko->setVzMvAcce(-(_pKuroko->acceVzMv_));
 ////        }
 //
 //

@@ -15,6 +15,8 @@ namespace VioletVreath {
 class MagicMeterCursor001 : public GgafLib::DefaultBoardActor {
 
 public:
+    /** 黒衣の助手A */
+    GgafDxCore::GgafDxKurokoAsstA* pKurokoAsstA_;
     /** 移動目標X座標 */
     coord tx_;
     /** 移動目標Y座標 */

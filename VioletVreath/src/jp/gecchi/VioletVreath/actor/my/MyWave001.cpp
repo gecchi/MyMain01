@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MyWave001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -20,11 +20,11 @@ MyWave001::MyWave001(const char* prm_name) :
 void MyWave001::initialize() {
     //exec(FLIP_OSCILLATE_LOOP, 2);
 
-    _pKurokoA->setRzMvAngVelo(0);
-    //_pKurokoA->setFaceAngVelo(AXIS_Z, 2*1000);
-    //_pKurokoA->setRzMvAng(0);
-    //_pKurokoA->setFaceAng(AXIS_Z, 0);
-    _pKurokoA->setMvVelo(20000);
+    _pKuroko->setRzMvAngVelo(0);
+    //_pKuroko->setFaceAngVelo(AXIS_Z, 2*1000);
+    //_pKuroko->setRzMvAng(0);
+    //_pKuroko->setFaceAng(AXIS_Z, 0);
+    _pKuroko->setMvVelo(20000);
 
     _pColliChecker->makeCollision(7);
     _pColliChecker->setColliAAB(0,  -10000,  -10000,  -10000,   10000,   10000,   10000, true, true, true);
@@ -58,10 +58,10 @@ void MyWave001::processBehavior() {
         _pScaler->behave();
         setHitAble(true);
         positionAs(P_MYSHIP);
-        _pKurokoA->setFaceAng(AXIS_Z, P_MYSHIP->_pKurokoA->_angFace[AXIS_Z]);
-        _pKurokoA->setFaceAng(AXIS_Y, P_MYSHIP->_pKurokoA->_angFace[AXIS_Y]);
-        _pKurokoA->setRzRyMvAng(P_MYSHIP->_pKurokoA->_angFace[AXIS_Z],
-                                P_MYSHIP->_pKurokoA->_angFace[AXIS_Y]);
+        _pKuroko->setFaceAng(AXIS_Z, P_MYSHIP->_pKuroko->_angFace[AXIS_Z]);
+        _pKuroko->setFaceAng(AXIS_Y, P_MYSHIP->_pKuroko->_angFace[AXIS_Y]);
+        _pKuroko->setRzRyMvAng(P_MYSHIP->_pKuroko->_angFace[AXIS_Z],
+                                P_MYSHIP->_pKuroko->_angFace[AXIS_Y]);
         //		_x = P_MYSHIP->_x;
         //		_y = P_MYSHIP->_y;
         //		_z = P_MYSHIP->_z;
@@ -70,7 +70,7 @@ void MyWave001::processBehavior() {
         //behaveUvFlip();
         //À•W‚É”½‰f
         _pScaler->behave();
-        _pKurokoA->behave();
+        _pKuroko->behave();
     }
 }
 

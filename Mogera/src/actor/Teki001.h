@@ -13,6 +13,8 @@ namespace Mogera {
 class Teki001 : public GgafLib::DefaultMeshActor {
 
 public:
+    GgafDxCore::GgafDxKurokoAsstB* pAsstB_;
+
     /**
      * コンストラクタ
      * @param prm_name

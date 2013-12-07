@@ -2,7 +2,7 @@
 #include "EnemyStraeaLaserChip002.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
@@ -30,10 +30,10 @@ void EnemyStraeaLaserChip002::onActive() {
     //ステータスリセット
     _pStatus->reset();
 
-    _pKurokoA->setMvVelo(80000);
-    //_pKurokoA->setMvAcce(300);
-    //_pKurokoA->forceRyMvAngVeloRange(-90000, 90000);
-    _pKurokoA->relateFaceWithMvAng(true);
+    _pKuroko->setMvVelo(80000);
+    //_pKuroko->setMvAcce(300);
+    //_pKuroko->forceRyMvAngVeloRange(-90000, 90000);
+    _pKuroko->relateFaceWithMvAng(true);
 }
 
 void EnemyStraeaLaserChip002::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
@@ -66,16 +66,16 @@ void EnemyStraeaLaserChip002::onRefractionFinish(int prm_num_refraction)  {
                                P_MYSHIP->_z - _z,
                                out_angRz_Target,
                                out_angRy_Target);
-        out_d_angRz = _pKurokoA->getRzMvAngDistance(out_angRz_Target, TURN_CLOSE_TO);
-        out_d_angRy = _pKurokoA->getRyMvAngDistance(out_angRy_Target, TURN_CLOSE_TO);
-        _pKurokoA->addRzMvAng(SGN(out_d_angRz)*20000);
-        _pKurokoA->addRyMvAng(SGN(out_d_angRy)*30000);
-//        _pKurokoA->turnMvAngTwd(
+        out_d_angRz = _pKuroko->getRzMvAngDistance(out_angRz_Target, TURN_CLOSE_TO);
+        out_d_angRy = _pKuroko->getRyMvAngDistance(out_angRy_Target, TURN_CLOSE_TO);
+        _pKuroko->addRzMvAng(SGN(out_d_angRz)*20000);
+        _pKuroko->addRyMvAng(SGN(out_d_angRy)*30000);
+//        _pKuroko->turnMvAngTwd(
 //                        P_MYSHIP,
 //                        90000, 0,
 //                        TURN_CLOSE_TO, false);
 
-//        _pKurokoA->setMvAngTwd(P_MYSHIP);
+//        _pKuroko->setMvAngTwd(P_MYSHIP);
     }
 }
 

@@ -6,8 +6,8 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
 #include "jp/ggaf/core/util/GgafResourceConnection.hpp"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
@@ -25,10 +25,10 @@ GgafDxCore::GgafDxModel* MyOptionWateringLaserChip001::pModel_  = nullptr;
 char MyOptionWateringLaserChip001::aaTextureName[3][51];
 int MyOptionWateringLaserChip001::tex_no_ = 0;
 
-
 MyOptionWateringLaserChip001::MyOptionWateringLaserChip001(const char* prm_name) :
         WateringLaserChip(prm_name, "MyOptionWateringLaserChip001", STATUS(MyOptionWateringLaserChip001)) {
     _class_name = "MyOptionWateringLaserChip001";
+    pAxMver_ = NEW GgafDxAxesMover(this);
     default_stamina_ = _pStatus->get(STAT_Stamina);
     pOrg_ = nullptr;
     lockon_st_ = 0;
@@ -49,7 +49,7 @@ MyOptionWateringLaserChip001::MyOptionWateringLaserChip001(const char* prm_name)
 }
 
 void MyOptionWateringLaserChip001::initialize() {
-    _pKurokoA->relateFaceWithMvAng(true);
+    _pKuroko->relateFaceWithMvAng(true);
     registerHitAreaCube_AutoGenMidColli(80000);
     setHitAble(true);
     setScaleR(6.0);
@@ -84,13 +84,13 @@ void MyOptionWateringLaserChip001::onActive() {
             lockon_st_ = pF->lockon_st_;//一つ前のロックオン情報を引き継ぐ
         }
     }
-    _pKurokoB->setZeroVxyzMvAcce(); //加速度リセット
+    pAxMver_->setZeroVxyzMvAcce(); //加速度リセット
     //Vxyzの速度はオプション側で設定される
 
 
-    _pKurokoB->forceVxyzMvVeloRange(-max_velo_renge_, max_velo_renge_);
+    pAxMver_->forceVxyzMvVeloRange(-max_velo_renge_, max_velo_renge_);
     max_acce_renge_ = max_velo_renge_/r_max_acce_;
-    _pKurokoB->forceVxyzMvAcceRange(-max_acce_renge_, max_acce_renge_);
+    pAxMver_->forceVxyzMvAcceRange(-max_acce_renge_, max_acce_renge_);
 }
 
 void MyOptionWateringLaserChip001::processBehavior() {
@@ -102,7 +102,7 @@ void MyOptionWateringLaserChip001::processBehavior() {
                          pMainLockOnTarget->_y,
                          pMainLockOnTarget->_z );
             } else {
-                //_pKurokoB->setZeroVxyzMvAcce();
+                //pAxMver_->setZeroVxyzMvAcce();
                 lockon_st_ = 2;
             }
         }
@@ -110,15 +110,16 @@ void MyOptionWateringLaserChip001::processBehavior() {
         if (lockon_st_ == 2) {
             if (_pLeader) {
                 if (_pLeader == this) {
-                    moveChip(_x + _pKurokoB->_veloVxMv*4+1,
-                             _y + _pKurokoB->_veloVyMv*2+1,
-                             _z + _pKurokoB->_veloVzMv*2+1 );
+                    moveChip(_x + pAxMver_->_veloVxMv*4+1,
+                             _y + pAxMver_->_veloVyMv*2+1,
+                             _z + pAxMver_->_veloVzMv*2+1 );
                 } else {
                     moveChip(_pLeader->_x, _pLeader->_y, _pLeader->_z);
                 }
             }
         }
     }
+    pAxMver_->behave();
 
     WateringLaserChip::processBehavior();//座標を移動させてから呼び出すこと
     //根元からレーザー表示のため強制的に座標補正
@@ -158,9 +159,9 @@ void MyOptionWateringLaserChip001::moveChip(int tX, int tY, int tZ) {
     int vTz = tZ - _z;
 
     //自→仮自。上図の |仮自| = 5*vM
-    int vVMx = _pKurokoB->_veloVxMv*5;
-    int vVMy = _pKurokoB->_veloVyMv*5;
-    int vVMz = _pKurokoB->_veloVzMv*5;
+    int vVMx = pAxMver_->_veloVxMv*5;
+    int vVMy = pAxMver_->_veloVyMv*5;
+    int vVMz = pAxMver_->_veloVzMv*5;
 
     //|仮自|
     int lVM = MAX3(ABS(vVMx), ABS(vVMy), ABS(vVMz)); //仮自ベクトル大きさ簡易版
@@ -178,11 +179,11 @@ void MyOptionWateringLaserChip001::moveChip(int tX, int tY, int tZ) {
 
     if (_pChip_front == nullptr) {
         //先頭はやや速めに。SGN(accX)*5 を加算するのは、加速度を0にしないため
-        _pKurokoB->setVxyzMvAcce(accX + SGN(accX)*5.0,
+        pAxMver_->setVxyzMvAcce(accX + SGN(accX)*5.0,
                                  accY + SGN(accY)*5.0,
                                  accZ + SGN(accZ)*5.0);
     } else {
-        _pKurokoB->setVxyzMvAcce(accX + SGN(accX)*3.0,
+        pAxMver_->setVxyzMvAcce(accX + SGN(accX)*3.0,
                                  accY + SGN(accY)*3.0,
                                  accZ + SGN(accZ)*3.0);
     }
@@ -292,6 +293,7 @@ void MyOptionWateringLaserChip001::chengeTex(int prm_tex_no) {
 }
 
 MyOptionWateringLaserChip001::~MyOptionWateringLaserChip001() {
+    GGAF_DELETE(pAxMver_);
     MyOptionWateringLaserChip001::pModel_ = nullptr;
 }
 

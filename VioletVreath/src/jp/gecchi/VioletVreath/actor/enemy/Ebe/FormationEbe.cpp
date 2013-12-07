@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "FormationEbe.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ebe/EnemyEbe.h"
@@ -41,10 +41,10 @@ void FormationEbe::processBehavior() {
     if (canCallUp() && (getActiveFrame() % RV_IntervalFrames_ == 0)) {
         EnemyEbe* pEbe = (EnemyEbe*)callUpMember(RV_NumFormation_);
         if (pEbe) {
-            SplineKurokoLeader* pKurokoLeader = getSplManuf()->createKurokoLeader(pEbe->_pKurokoA);
+            SplineKurokoLeader* pKurokoLeader = getSplManuf()->createKurokoLeader(pEbe->_pKuroko);
             GgafActorDepository* pDepo_Shot = pConn_ShotDepo_ ? pConn_ShotDepo_->peek() : nullptr;
             pEbe->config(pKurokoLeader, pDepo_Shot, nullptr);
-            pEbe->_pKurokoA->setMvVelo(RV_MvVelo_);
+            pEbe->_pKuroko->setMvVelo(RV_MvVelo_);
             onCallUpEbe(pEbe); //下位フォーメーションクラス個別実装の処理
         }
     }

@@ -17,7 +17,7 @@ public:
     frame _offset_frames;
 
 public:
-    GgafDxCameraViewPoint();
+    GgafDxCameraViewPoint(const char* prm_name);
 
     virtual void initialize() override;
 

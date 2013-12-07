@@ -110,7 +110,7 @@
       <AdditionalIncludeDirectories>.\src;..\GgafLib\include;..\GgafDxCore\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
-      <ExceptionHandling>Async</ExceptionHandling>
+      <ExceptionHandling>Sync</ExceptionHandling>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <FloatingPointModel>Fast</FloatingPointModel>
@@ -150,7 +150,7 @@
       <AdditionalIncludeDirectories>.\src;..\GgafLib\include;..\GgafDxCore\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN64;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
-      <ExceptionHandling>Async</ExceptionHandling>
+      <ExceptionHandling>Sync</ExceptionHandling>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <FloatingPointModel>Fast</FloatingPointModel>
@@ -187,9 +187,9 @@
       <AdditionalIncludeDirectories>.\src;..\GgafLib\include;..\GgafDxCore\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
-      <FloatingPointModel>Precise</FloatingPointModel>
+      <FloatingPointModel>Fast</FloatingPointModel>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -224,9 +224,9 @@
       <AdditionalIncludeDirectories>.\src;..\GgafLib\include;..\GgafDxCore\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN64;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
-      <FloatingPointModel>Precise</FloatingPointModel>
+      <FloatingPointModel>Fast</FloatingPointModel>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -505,6 +505,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestPaShot.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\title\Cursor001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\title\TitleBoard.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\ViewPoint.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\ViewPointGuide.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\CubeMapMeshSetTestActor.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\CubeMapMeshTestActor.cpp" />
@@ -848,6 +849,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestPaShot.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\title\Cursor001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\title\TitleBoard.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\viewpoint.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\ViewPointGuide.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VVCommonActorsHeader.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VVEnemysHeader.h" />

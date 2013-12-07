@@ -13,6 +13,10 @@ namespace VioletVreath {
 class EffectMagic001 : public GgafLib::DefaultMeshSetActor {
 
 public:
+    /** •½sˆÚ“®x‰‡ */
+    GgafDxCore::GgafDxAxesMover* pAxMver_;
+
+public:
     EffectMagic001(const char* prm_name);
 
     void onCreateModel() override {

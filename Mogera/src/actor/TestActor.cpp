@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "actor/TestActor.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "util/MgrUtil.h"
 
 using namespace Mogera;
@@ -14,11 +14,11 @@ void TestActor::initialize() {
     setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL);
     position(C_x, C_y);
     setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-//    _pKurokoA->setFaceAngVelo(AXIS_Z, D_ANG(1));
+//    _pKuroko->setFaceAngVelo(AXIS_Z, D_ANG(1));
 }
 
 void TestActor::processBehavior() {
-//    _pKurokoA->behave(); //黒衣Aを活動させる（Z軸回転する）
+//    _pKuroko->behave(); //黒衣を活動させる（Z軸回転する）
 }
 
 TestActor::~TestActor() {

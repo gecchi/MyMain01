@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "EnemyEmiliaBase.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -23,7 +23,7 @@ void EnemyEmiliaBase::onCreateModel() {
 void EnemyEmiliaBase::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-    _pKurokoA->behave();
+    _pKuroko->behave();
 }
 
 void EnemyEmiliaBase::processJudgement() {
@@ -53,10 +53,10 @@ void EnemyEmiliaBase::appearFragment(const char* prm_dp_name) {
         EnemyEmiliaBase* pFragment = (EnemyEmiliaBase*)(pDepoConn->peek()->dispatch());
         if (pFragment) {
             pFragment->positionAs(this);
-            pFragment->_pKurokoA->takeoverMvFrom(this->_pKurokoA);
-            pFragment->_pKurokoA->setMvVelo(pFragment->_pKurokoA->_veloMv/2); //半分のスピードへ
-            pFragment->_pKurokoA->addRyMvAng(RND(D_ANG(-45), D_ANG(+45)));
-            pFragment->_pKurokoA->addRzMvAng(RND(D_ANG(-45), D_ANG(+45)));
+            pFragment->_pKuroko->takeoverMvFrom(this->_pKuroko);
+            pFragment->_pKuroko->setMvVelo(pFragment->_pKuroko->_veloMv/2); //半分のスピードへ
+            pFragment->_pKuroko->addRyMvAng(RND(D_ANG(-45), D_ANG(+45)));
+            pFragment->_pKuroko->addRzMvAng(RND(D_ANG(-45), D_ANG(+45)));
         }
     }
     pDepoConn->close();

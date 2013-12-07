@@ -1,17 +1,11 @@
-#ifndef GGAFDXCORE_GGAFDXKUROKOB_H_
-#define GGAFDXCORE_GGAFDXKUROKOB_H_
+#ifndef GGAFDXCORE_GGAFDXAXESMOVER_H_
+#define GGAFDXCORE_GGAFDXAXESMOVER_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafDxCore {
 
 /**
- * 黒衣B .
- * 黒衣Bは我々の目には触れませんが、演者(アクター)を持ち上げ、「平行移動」を行わせる世話人です。<BR>
- * 「平行移動」に特化しており、黒衣Aの「方向移動」「向きの回転」とは専門分野が違います。<BR>
- * 黒衣Aと黒衣Bが協力すれば、かなり複雑な動きを演者に行わせることができます。
- * 演者一人につき、黒衣Bが標準で一人付属しています。<BR>
- * <BR>
- * それはさて置き、つまり座標計算支援（共通化）クラスその２です。<BR>
+ * 平行移動支援 .
  * GgafDxGeometricActor のメンバの<BR>
  *  _x, _y, _z  ・・・ アクターの座標<BR>
  * を、各成分毎に簡単に操作するために作成。<BR>
@@ -19,7 +13,7 @@ namespace GgafDxCore {
  * @since 2008/08/20
  * @author Masatoshi Tsuge
  */
-class GgafDxKurokoB : public GgafCore::GgafObject {
+class GgafDxAxesMover : public GgafCore::GgafObject {
 
 public:
     /** [r]対象アクター */
@@ -75,7 +69,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pActor  適用Actor
      */
-    GgafDxKurokoB(GgafDxGeometricActor* prm_pActor);
+    GgafDxAxesMover(GgafDxGeometricActor* prm_pActor);
 
     int dot(int prm_vX, int prm_vY, int prm_vZ);
     /**
@@ -315,24 +309,24 @@ public:
     }
 
     /**
-     * 黒衣Bの仕事を引継ぐ .
-     * 他の GgafDxKurokoB オブジェクトを状態を自身に引継ぐ .
-     * @param prm_pKurokoB 引継元
+     * 平行移動支援の仕事を引継ぐ .
+     * 他の GgafDxAxesMover オブジェクトを状態を自身に引継ぐ .
+     * @param prmpAxMver_ 引継元
      */
-    void takeoverMvFrom(GgafDxKurokoB* const prm_pKurokoB);
+    void takeoverMvFrom(GgafDxAxesMover* const prmpAxMver_);
 
     void resetMv();
 
     /**
-     * 黒衣Bが振る舞う .
-     * 黒衣B機能を利用する場合は、このメソッドを毎フレーム呼び出し実行してください。<BR>
-     * 逆に黒衣Bを必要としない場合は、このメソッドを呼び出さないことで、パフォーマンスに影響を与えません。<BR>
+     * 平行移動支援が振る舞う .
+     * 平行移動支援機能を利用する場合は、このメソッドを毎フレーム呼び出し実行してください。<BR>
+     * 逆に平行移動支援を必要としない場合は、このメソッドを呼び出さないことで、パフォーマンスに影響を与えません。<BR>
      */
     virtual void behave();
 
-    virtual ~GgafDxKurokoB();
+    virtual ~GgafDxAxesMover();
 };
 
 }
-#endif /*GGAFDXCORE_GGAFDXKUROKOB_H_*/
+#endif /*GGAFDXCORE_GGAFDXAXESMOVER_H_*/
 

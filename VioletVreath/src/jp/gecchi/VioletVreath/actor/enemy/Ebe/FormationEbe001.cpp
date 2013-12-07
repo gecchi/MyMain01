@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "FormationEbe001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ebe/EnemyEbe.h"
 
@@ -26,7 +26,7 @@ void FormationEbe001::onCallUpEbe(EnemyEbe* pEnemyEbe) {
 //    pEnemyEbe->pKurokoLeader_->adjustAxisYFlip();
 //    pEnemyEbe->pKurokoLeader_->setAbsoluteBeginCoord();
     pEnemyEbe->position(PX_C(300), PX_C(-300), PX_C(0));
-    pEnemyEbe->_pKurokoA->setMvAngTwd(PX_C(300), PX_C(0), PX_C(0));
+    pEnemyEbe->_pKuroko->setMvAngTwd(PX_C(300), PX_C(0), PX_C(0));
 }
 
 void FormationEbe001::processBehavior() {

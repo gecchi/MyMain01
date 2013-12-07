@@ -11,10 +11,15 @@ namespace VVViewer {
  * @author Masatoshi Tsuge
  */
 class VvvCamera : public GgafLib::DefaultCamera {
-
+public:
+    /** •½sˆÚ“®x‰‡ */
+    GgafDxCore::GgafDxAxesMover* pAxMver_;
+    /** •ˆß‚Ì•èA */
+    GgafDxCore::GgafDxKurokoAsstA* pKurokoAsstA_;
 public:
     VvvCamera(const char* prm_name);
-
+    GgafDxCore::GgafDxCameraViewPoint* createViewPoint() override;
+    void processBehavior() override;
     virtual ~VvvCamera();
 };
 

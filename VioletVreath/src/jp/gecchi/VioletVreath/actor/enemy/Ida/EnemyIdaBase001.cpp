@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "EnemyIdaBase001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/DefaultGod.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 #include "jp/ggaf/lib/manager/SplineManufactureConnection.h"
@@ -16,14 +16,14 @@ EnemyIdaBase001::EnemyIdaBase001(const char* prm_name) :
         EnemyIdaBase(prm_name) {
 
     pSplManufConnection_ = connect_SplineManufactureManager("EnemyIdaBase001");
-    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(_pKurokoA);
+    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(_pKuroko);
     useProgress(PROG_BANPEI);
 }
 
 void EnemyIdaBase001::initialize() {
     EnemyIdaBase::initialize();
-    _pKurokoA->relateFaceWithMvAng(true);
-    _pKurokoA->setFaceAngVelo(D_ANG(2), D_ANG(0.4), D0ANG );
+    _pKuroko->relateFaceWithMvAng(true);
+    _pKuroko->setFaceAngVelo(D_ANG(2), D_ANG(0.4), D0ANG );
 }
 
 void EnemyIdaBase001::onActive() {
@@ -46,7 +46,7 @@ void EnemyIdaBase001::processBehavior() {
     }
 
     pKurokoLeader_->behave();
-    _pKurokoA->behave();
+    _pKuroko->behave();
 }
 
 EnemyIdaBase001::~EnemyIdaBase001() {

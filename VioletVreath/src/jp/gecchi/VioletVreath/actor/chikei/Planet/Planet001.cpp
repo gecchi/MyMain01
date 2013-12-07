@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Planet001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
 #include "Planet001Atmosphere.h"
@@ -34,9 +34,9 @@ void Planet001::initialize() {
     setAlpha(0.99);
     _x = (GgafDxUniverse::_x_gone_right*10);
     _pScaler->setScale(1000*1000);
-    _pKurokoA->setFaceAng(AXIS_Z, D90ANG - D_ANG(30));
-    _pKurokoA->setFaceAng(AXIS_Y, D45ANG);
-    _pKurokoA->setFaceAngVelo(AXIS_X, 500); //Ž©“]‚Ì‘¬‚³
+    _pKuroko->setFaceAng(AXIS_Z, D90ANG - D_ANG(30));
+    _pKuroko->setFaceAng(AXIS_Y, D45ANG);
+    _pKuroko->setFaceAngVelo(AXIS_X, 500); //Ž©“]‚Ì‘¬‚³
 
 //    pAtmosphere_->_pScaler->setScale(_pScaler->_scale[0]);
 //    pAtmosphere_->positionAs(this);
@@ -87,7 +87,7 @@ void Planet001::processBehavior() {
     }
     //_x = _x - PX_C(1);
     _pScaler->behave();
-    _pKurokoA->behave();
+    _pKuroko->behave();
 
 //    pAtmosphere_->_pScaler->setScale(_pScaler->_scale[0]);
 //    pAtmosphere_->positionAs(this);

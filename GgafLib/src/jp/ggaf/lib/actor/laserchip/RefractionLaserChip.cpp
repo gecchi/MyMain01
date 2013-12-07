@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "jp/ggaf/lib/actor/laserchip/RefractionLaserChip.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 
 using namespace GgafCore;
@@ -117,18 +117,18 @@ void RefractionLaserChip::onInactive() {
     //ちょっと無駄っぽいけど、さもなくば先頭の次のチップが領域外に向かって移動するとは限らないので、やはり必要。
     if (_pChip_behind) {
         RefractionLaserChip* const pChip_behind = (RefractionLaserChip*)_pChip_behind;
-        GgafDxKurokoA* const pChip_behind_pKurokoA = pChip_behind->_pKurokoA;
-        GgafDxKurokoA* const pKurokoA = _pKurokoA;
+        GgafDxKuroko* const pChip_behind_pKuroko = pChip_behind->_pKuroko;
+        GgafDxKuroko* const pKuroko = _pKuroko;
 
-        pChip_behind_pKurokoA->_vX = pKurokoA->_vX;
-        pChip_behind_pKurokoA->_vY = pKurokoA->_vY;
-        pChip_behind_pKurokoA->_vZ = pKurokoA->_vZ;
-        pChip_behind_pKurokoA->_angRzMv = pKurokoA->_angRzMv;
-        pChip_behind_pKurokoA->_angRyMv = pKurokoA->_angRyMv;
-        pChip_behind_pKurokoA->_veloMv = pKurokoA->_veloMv;
-        pChip_behind_pKurokoA->_angFace[AXIS_X] = pKurokoA->_angFace[AXIS_X];
-        pChip_behind_pKurokoA->_angFace[AXIS_Y] = pKurokoA->_angFace[AXIS_Y];
-        pChip_behind_pKurokoA->_angFace[AXIS_Z] = pKurokoA->_angFace[AXIS_Z];
+        pChip_behind_pKuroko->_vX = pKuroko->_vX;
+        pChip_behind_pKuroko->_vY = pKuroko->_vY;
+        pChip_behind_pKuroko->_vZ = pKuroko->_vZ;
+        pChip_behind_pKuroko->_angRzMv = pKuroko->_angRzMv;
+        pChip_behind_pKuroko->_angRyMv = pKuroko->_angRyMv;
+        pChip_behind_pKuroko->_veloMv = pKuroko->_veloMv;
+        pChip_behind_pKuroko->_angFace[AXIS_X] = pKuroko->_angFace[AXIS_X];
+        pChip_behind_pKuroko->_angFace[AXIS_Y] = pKuroko->_angFace[AXIS_Y];
+        pChip_behind_pKuroko->_angFace[AXIS_Z] = pKuroko->_angFace[AXIS_Z];
         pChip_behind->_cnt_refraction = _cnt_refraction;
         pChip_behind->_frame_refraction_enter = _frame_refraction_enter;
         pChip_behind->_frame_refraction_out = _frame_refraction_out;
@@ -207,7 +207,7 @@ void RefractionLaserChip::processBehavior() {
                     _frame_refraction_enter = getBehaveingFrame() + _frame_between_refraction;
                     //座標を変えず方向だけ転換
                     int X = _x; int Y = _y; int Z = _z;
-                    _pKurokoA->behave(); //
+                    _pKuroko->behave(); //
                     _x = X; _y = Y; _z = Z;
                     _is_refracting = false;
 
@@ -216,9 +216,9 @@ void RefractionLaserChip::processBehavior() {
             }
 
             if (!_is_refracting) {
-                //_is_refracting中は停止しなくてはいけないため_pKurokoA->behave()を実行しない。
-                //_pKurokoA->behave();以外で座標を操作している場合は、完全な停止にならないので注意
-                _pKurokoA->behave();
+                //_is_refracting中は停止しなくてはいけないため_pKuroko->behave()を実行しない。
+                //_pKuroko->behave();以外で座標を操作している場合は、完全な停止にならないので注意
+                _pKuroko->behave();
             }
 
         } else {

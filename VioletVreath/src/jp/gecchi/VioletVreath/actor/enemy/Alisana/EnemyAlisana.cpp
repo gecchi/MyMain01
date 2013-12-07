@@ -2,7 +2,7 @@
 #include "EnemyAlisana.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
@@ -45,7 +45,7 @@ void EnemyAlisana::initialize() {
 void EnemyAlisana::onActive() {
     _pStatus->reset();
     _pProg->reset(PROG_INIT);
-    _pKurokoA->setFaceAngVelo(AXIS_X, 200);
+    _pKuroko->setFaceAngVelo(AXIS_X, 200);
 }
 
 void EnemyAlisana::processBehavior() {
@@ -116,7 +116,7 @@ void EnemyAlisana::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     _pAFader->behave();
     _pMorpher->behave();
-    _pKurokoA->behave();
+    _pKuroko->behave();
 }
 
 void EnemyAlisana::processJudgement() {

@@ -13,6 +13,9 @@ namespace VioletVreath {
  */
 class EnemyHalia : public GgafLib::DefaultMorphMeshActor {
 //class EnemyHalia : public GgafLib::CubeMapMorphMeshActor {
+
+    /** 黒衣の助手A */
+    GgafDxCore::GgafDxKurokoAsstA* pKurokoAsstA_;
     /** 移動スプラインプログラム */
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
 

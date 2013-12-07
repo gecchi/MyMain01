@@ -13,6 +13,8 @@ namespace VioletVreath {
 class MagicLvCursor : public GgafLib::DefaultBoardActor {
 
 public:
+    /** 黒衣の助手A */
+    GgafDxCore::GgafDxKurokoAsstA* pKurokoAsstA_;
     /** [r]カーソル対象の魔法 */
     Magic* pMagic_;
     /** [r]魔法メーター */

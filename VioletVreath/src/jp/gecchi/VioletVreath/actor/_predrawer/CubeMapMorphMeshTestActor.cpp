@@ -2,7 +2,7 @@
 #include "CubeMapMorphMeshTestActor.h"
 
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
 
 using namespace GgafCore;
@@ -34,7 +34,7 @@ void CubeMapMorphMeshTestActor::onActive() {
 //    _pMorpher->beat(2, 240, 90, 30, -1);
 //    _pMorpher->beat(3, 240, 120, 30, -1);
 //    _pMorpher->beat(4, 240, 150, 30, -1);
-//    _pKurokoA->setFaceAngVelo(AXIS_Y, 500);
+//    _pKuroko->setFaceAngVelo(AXIS_Y, 500);
 }
 
 
@@ -98,7 +98,7 @@ void CubeMapMorphMeshTestActor::processBehavior() {
 //    }
 //    _pMorpher->behave();
 //    /////////////モーフテスト////////////////
-//    _pKurokoA->behave();
+//    _pKuroko->behave();
 //    _pMorpher->behave();
 }
 

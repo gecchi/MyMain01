@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "TestEnemy.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/gecchi/VioletVreath/actor/label/SpriteLabelTest.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"

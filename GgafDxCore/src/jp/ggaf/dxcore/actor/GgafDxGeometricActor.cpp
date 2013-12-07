@@ -3,8 +3,8 @@
 
 #include "jp/ggaf/core/util/GgafStatus.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxChecker.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
 
@@ -14,8 +14,7 @@ using namespace GgafDxCore;
 GgafDxGeometricActor::GgafDxGeometricActor(const char* prm_name,
                                            GgafStatus* prm_pStat,
                                            GgafDxChecker* prm_pChecker) : GgafDxBaseActor(prm_name, prm_pStat),
-_pKurokoA(new GgafDxKurokoA(this)),
-_pKurokoB(new GgafDxKurokoB(this)),
+_pKuroko(new GgafDxKuroko(this)),
 _pSeTx(new GgafDxSeTransmitterForActor(this)) {
 
     _obj_class |= Obj_GgafDxGeometricActor;
@@ -250,11 +249,11 @@ GgafGroupHead* GgafDxGeometricActor::addSubGroupAsFk(actorkind prm_kind,
     prm_pGeoActor->_x = prm_x_init_local;
     prm_pGeoActor->_y = prm_y_init_local;
     prm_pGeoActor->_z = prm_z_init_local;
-    prm_pGeoActor->_pKurokoA->_angFace[AXIS_X]  = prm_rx_init_local;
-    prm_pGeoActor->_pKurokoA->_angFace[AXIS_Y]  = prm_ry_init_local;
-    prm_pGeoActor->_pKurokoA->_angFace[AXIS_Z]  = prm_rz_init_local;
-    prm_pGeoActor->_pKurokoA->_angRzMv = prm_rz_init_local;
-    prm_pGeoActor->_pKurokoA->_angRyMv = prm_ry_init_local;
+    prm_pGeoActor->_pKuroko->_angFace[AXIS_X]  = prm_rx_init_local;
+    prm_pGeoActor->_pKuroko->_angFace[AXIS_Y]  = prm_ry_init_local;
+    prm_pGeoActor->_pKuroko->_angFace[AXIS_Z]  = prm_rz_init_local;
+    prm_pGeoActor->_pKuroko->_angRzMv = prm_rz_init_local;
+    prm_pGeoActor->_pKuroko->_angRyMv = prm_ry_init_local;
     prm_pGeoActor->_rx = prm_rx_init_local;
     prm_pGeoActor->_ry = prm_ry_init_local;
     prm_pGeoActor->_rz = prm_rz_init_local;
@@ -384,8 +383,7 @@ void GgafDxGeometricActor::onEnd() {
 }
 
 GgafDxGeometricActor::~GgafDxGeometricActor() {
-    delete _pKurokoA;
-    delete _pKurokoB;
+    delete _pKuroko;
     delete _pSeTx;
 }
 

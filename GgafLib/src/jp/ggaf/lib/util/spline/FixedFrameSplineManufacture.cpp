@@ -106,8 +106,8 @@ void FixedFrameSplineManufacture::calculate() {
     _paDistance_to[0] = 0;   //énì_Ç‹Ç≈ÇÃãóó£Ç»Ç«ï™Ç©ÇÁÇ»Ç¢ÅB
 }
 
-SplineKurokoLeader* FixedFrameSplineManufacture::createKurokoLeader(GgafDxCore::GgafDxKurokoA* const prm_pKurokoA) {
-    return NEW FixedFrameSplineKurokoLeader(this, prm_pKurokoA);
+SplineKurokoLeader* FixedFrameSplineManufacture::createKurokoLeader(GgafDxCore::GgafDxKuroko* const prm_pKuroko) {
+    return NEW FixedFrameSplineKurokoLeader(this, prm_pKuroko);
 }
 
 FixedFrameSplineManufacture::~FixedFrameSplineManufacture() {

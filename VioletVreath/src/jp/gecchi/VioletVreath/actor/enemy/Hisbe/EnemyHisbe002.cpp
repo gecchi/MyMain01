@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "EnemyHisbe002.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
@@ -46,8 +46,8 @@ void EnemyHisbe002::onCreateModel() {
 }
 
 void EnemyHisbe002::initialize() {
-    _pKurokoA->setFaceAngVelo(AXIS_Y, 500);
-    _pKurokoA->relateFaceWithMvAng(true);
+    _pKuroko->setFaceAngVelo(AXIS_Y, 500);
+    _pKuroko->relateFaceWithMvAng(true);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliSphere(0, 40000);
 }
@@ -84,7 +84,7 @@ void EnemyHisbe002::processBehavior() {
             LaserChip* pLaser = pLaserChipDepo_->dispatch();
             if (pLaser) {
                 pLaser->positionAs(this);
-                pLaser->_pKurokoA->setRzRyMvAng(_pKurokoA->_angFace[AXIS_Z], _pKurokoA->_angFace[AXIS_Y]);
+                pLaser->_pKuroko->setRzRyMvAng(_pKuroko->_angFace[AXIS_Z], _pKuroko->_angFace[AXIS_Y]);
                                    //レーザーのスプラインがRELATIVE_DIRECTIONのためMvAngの設定が必要。
                 if (pLaser->_pChip_front == nullptr) {
                     _pSeTx->play3D(SE_FIRE);
@@ -108,7 +108,7 @@ void EnemyHisbe002::processBehavior() {
             break;
     }
 
-    _pKurokoA->behave();
+    _pKuroko->behave();
     _pMorpher->behave();
     _pSeTx->behave();
 }

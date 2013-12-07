@@ -3,7 +3,7 @@
 
 #include "jp/ggaf/core/actor/ex/GgafActorDepositoryStore.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
@@ -68,8 +68,8 @@ void EnemyEsperia::initialize() {
 void EnemyEsperia::onActive() {
     _pStatus->reset();
     setHitAble(false);
-    _pKurokoA->setRzRyMvAng(0, D180ANG);
-    _pKurokoA->setMvVelo(1000);
+    _pKuroko->setRzRyMvAng(0, D180ANG);
+    _pKuroko->setMvVelo(1000);
     dX_= dZ_ = 0;
     //出現位置
     static coord appearances_renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 3;
@@ -285,8 +285,8 @@ void EnemyEsperia::processBehavior() {
                             pLaserChip->tY2_ = pMyShip->_y + paPos_Target_[i].y;
                             pLaserChip->tZ2_ = pMyShip->_z + paPos_Target_[i].z;
                             //速さと加速度
-                            pLaserChip->_pKurokoA->setMvVelo(10000); //初期速度
-                            pLaserChip->_pKurokoA->setMvAcce(150+(max_laser_way_-i)*10); //少しバラけるように
+                            pLaserChip->_pKuroko->setMvVelo(10000); //初期速度
+                            pLaserChip->_pKuroko->setMvAcce(150+(max_laser_way_-i)*10); //少しバラけるように
                         }
                     }
                 }
@@ -315,7 +315,7 @@ void EnemyEsperia::processBehavior() {
             break;
         }
     }
-    _pKurokoA->behave();
+    _pKuroko->behave();
     _pMorpher->behave();
 }
 

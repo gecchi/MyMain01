@@ -2,7 +2,7 @@
 #include "EffectWormhole.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafCore;
@@ -27,7 +27,7 @@ void EffectWormhole::onActive() {
     _pScaler->forceRange(30000, 1000); //スケーリング・範囲
     _pScaler->setScale(30000);
     _pScaler->scaleLinerUntil(1000, 30);//スケーリング・60F費やして1000に縮小
-    _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);        //回転
+    _pKuroko->setFaceAngVelo(AXIS_Z, 1000);        //回転
 }
 
 void EffectWormhole::processBehavior() {
@@ -40,7 +40,7 @@ void EffectWormhole::processBehavior() {
         _pScaler->forceRange(1000, 2000);
         _pScaler->beat(30, 2, 2, -1); //無限ループ
     }
-    _pKurokoA->behave();
+    _pKuroko->behave();
     _pScaler->behave();
 }
 

@@ -2,7 +2,7 @@
 #include "jp/ggaf/lib/util/spline/SteppedCoordSplineKurokoLeader.h"
 
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/spline/SplineLine.h"
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
@@ -12,8 +12,8 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKurokoA* const prm_pKurokoA_target) :
-        SplineKurokoLeader(prm_pManufacture, prm_pKurokoA_target) {
+SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKuroko* const prm_pKuroko_target) :
+        SplineKurokoLeader(prm_pManufacture, prm_pKuroko_target) {
     _pSteppedSplManuf = (SteppedCoordSplineManufacture*)prm_pManufacture;
     _leadning_fFrames = 0.0f;
     _fFrame_of_next = -0.00001f;
@@ -24,10 +24,10 @@ SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(SplineManufacture
     _cosRyMv_begin = 0.0f;
 }
 
-SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(GgafDxKurokoA* const prm_pKurokoA_target,
+SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(GgafDxKuroko* const prm_pKuroko_target,
                                                                  SplineLine* prmpSpl,
                                                                  angvelo prm_angveloRzRyMv):
-        SplineKurokoLeader(nullptr, prm_pKurokoA_target) { //nullptrで渡す事により、_is_created_pManufacture が falseになる
+        SplineKurokoLeader(nullptr, prm_pKuroko_target) { //nullptrで渡す事により、_is_created_pManufacture が falseになる
     _pSteppedSplManuf = NEW SteppedCoordSplineManufacture(NEW SplineSource(prmpSpl), prm_angveloRzRyMv);
     _pSteppedSplManuf->calculate(); //忘れないように。いずれこのタイプは消す
     _pManufacture = _pSteppedSplManuf; //基底メンバーセット。忘れないように。いずれこのタイプは消す
@@ -65,11 +65,11 @@ void SteppedCoordSplineKurokoLeader::restart() {
             _y_start = (_flip_y * pSpl->_y_compute[0] * _pSteppedSplManuf->_rate_y) + _offset_y - _pActor_target->_y;
             _z_start = (_flip_z * pSpl->_z_compute[0] * _pSteppedSplManuf->_rate_z) + _offset_z - _pActor_target->_z;
         }
-        GgafDxKurokoA* const pKurokoA_target = _pActor_target->_pKurokoA;
-        _sinRzMv_begin = ANG_SIN(pKurokoA_target->_angRzMv);
-        _cosRzMv_begin = ANG_COS(pKurokoA_target->_angRzMv);
-        _sinRyMv_begin = ANG_SIN(pKurokoA_target->_angRyMv);
-        _cosRyMv_begin = ANG_COS(pKurokoA_target->_angRyMv);
+        GgafDxKuroko* const pKuroko_target = _pActor_target->_pKuroko;
+        _sinRzMv_begin = ANG_SIN(pKuroko_target->_angRzMv);
+        _cosRzMv_begin = ANG_COS(pKuroko_target->_angRzMv);
+        _sinRyMv_begin = ANG_SIN(pKuroko_target->_angRyMv);
+        _cosRyMv_begin = ANG_COS(pKuroko_target->_angRyMv);
     } else if (_option == RELATIVE_COORD) {
         if (!_is_fix_start_pos) {
             _x_start = (_flip_x * pSpl->_x_compute[0] * _pSteppedSplManuf->_rate_x) + _offset_x - _pActor_target->_x;

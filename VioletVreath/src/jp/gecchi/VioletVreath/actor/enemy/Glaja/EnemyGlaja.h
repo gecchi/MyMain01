@@ -36,6 +36,8 @@ public:
         PROG_CLOSE ,
         PROG_BANPEI,
     };
+    /** çïàﬂÇÃèïéËA */
+    GgafDxCore::GgafDxKurokoAsstA* pKurokoAsstA_;
     DepositoryConnection* pConn_Shot_;
     GgafDxCore::GgafDxGeoElem next_pos_;
     int num_fire_;

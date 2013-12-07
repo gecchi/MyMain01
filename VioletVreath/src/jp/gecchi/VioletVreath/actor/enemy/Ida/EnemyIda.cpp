@@ -2,7 +2,7 @@
 #include "EnemyIda.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
@@ -29,7 +29,7 @@ void EnemyIda::onCreateModel() {
 }
 
 void EnemyIda::initialize() {
-    _pKurokoA->relateFaceWithMvAng(true);
+    _pKuroko->relateFaceWithMvAng(true);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
 }
@@ -47,7 +47,7 @@ void EnemyIda::processBehavior() {
     switch (_pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
-            _pKurokoA->setFaceAngVelo(AXIS_X, D_ANG(4));
+            _pKuroko->setFaceAngVelo(AXIS_X, D_ANG(4));
             _pAFader->setAlpha(0);
              UTIL::activateEntryEffectOf(this);
             _pProg->changeNext();
@@ -80,13 +80,13 @@ void EnemyIda::processBehavior() {
 
             angle angRz_Target, angRy_Target;
             UTIL::convVectorToRzRy(tvx, tvy, tvz, angRz_Target, angRy_Target); //RzRy‚É’u‚«Š·‚¦‚é
-            _pKurokoA->setRzRyMvAng(angRz_Target, angRy_Target);
+            _pKuroko->setRzRyMvAng(angRz_Target, angRy_Target);
             break;
         }
     }
 
     _pAFader->behave();
-    _pKurokoA->behave();
+    _pKuroko->behave();
 
     changeGeoFinal(); //â‘ÎÀ•WŒn‚Ö
 }

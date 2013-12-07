@@ -31,6 +31,9 @@ public:
         PROG_MOVE04 ,
         PROG_BANPEI ,
     };
+
+    /** 黒衣の助手A */
+    GgafDxCore::GgafDxKurokoAsstA* pKurokoAsstA_;
     /** [r]出現座標(フォーメーションオブジェクトが設定) */
     GgafDxCore::GgafDxGeoElem entry_pos_;
     /** [r]ウロウロする座標(フォーメーションオブジェクトが設定) */

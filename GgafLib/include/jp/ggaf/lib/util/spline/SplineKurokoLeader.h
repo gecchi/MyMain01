@@ -6,7 +6,7 @@ namespace GgafLib {
 
 /**
  * スプライン曲線移動を実行するためのオブジェクト .
- * 黒衣Aに指示を出して移動を先導します。
+ * 黒衣に指示を出して移動を先導します。
  * @version 1.00
  * @since 2009/10/27
  * @author Masatoshi Tsuge
@@ -17,7 +17,7 @@ public:
     enum SplinTraceOption {
         ABSOLUTE_COORD,     //絶対座標移動
         RELATIVE_COORD,     //スプライン座標の(0,0,0)を、アクターの現座標とし相対座標で計算
-        RELATIVE_DIRECTION, //スプライン座標の(0,0,0)を、アクターの現座標とし相対座標とし、アクターの現在向き（_pKurokoA の _angRzMv, _angRyMv)でスプライン座標群をワールド変換。
+        RELATIVE_DIRECTION, //スプライン座標の(0,0,0)を、アクターの現座標とし相対座標とし、アクターの現在向き（_pKuroko の _angRzMv, _angRyMv)でスプライン座標群をワールド変換。
     };
 
     /** スプライン情報セット */
@@ -36,7 +36,7 @@ public:
      * [r]オプション
      * ABSOLUTE_COORD     : 絶対座標移動。
      * RELATIVE_COORD     : 始点を現座標とし、スプライン座標群は相対移動で計算。
-     * RELATIVE_DIRECTION : 始点を現座標とし、さらに現在の向き（_pKurokoA の _angRzMv, _angRyMv)でスプライン座標群をワールド変換。
+     * RELATIVE_DIRECTION : 始点を現座標とし、さらに現在の向き（_pKuroko の _angRzMv, _angRyMv)でスプライン座標群をワールド変換。
      */
     SplinTraceOption _option;
     /** [r] ループカウンタ */
@@ -69,9 +69,9 @@ public:
     /**
      * コンストラクタ .
      * @param prm_pManufacture
-     * @param prm_pKurokoA
+     * @param prm_pKuroko
      */
-    SplineKurokoLeader(SplineManufacture* prm_pManufacture,  GgafDxCore::GgafDxKurokoA* const prm_pKurokoA);
+    SplineKurokoLeader(SplineManufacture* prm_pManufacture,  GgafDxCore::GgafDxKuroko* const prm_pKuroko);
 
     /**
      * 各補完点を読み込み時、X軸方向、Y軸方向、Z軸方向それぞれに加算(平行移動)し、補正します .
@@ -139,7 +139,7 @@ public:
     virtual void behave();
 
     /**
-     * 黒衣Aを先導中か否か .
+     * 黒衣を先導中か否か .
      * @return true:先導中 / false:先導が終了している
      */
     inline bool isLeading() {
@@ -147,7 +147,7 @@ public:
     }
 
     /**
-     * 黒衣Aを先導が終了したか否か。 .
+     * 黒衣を先導が終了したか否か。 .
      * @return true:先導が終了している / false:まだ開始していないか、先導中
      */
     inline bool isFinished() {

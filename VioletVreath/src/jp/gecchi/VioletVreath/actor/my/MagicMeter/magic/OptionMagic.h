@@ -13,7 +13,7 @@ namespace VioletVreath {
 class OptionMagic : public Magic {
 
 public:
-    GgafDxCore::GgafDxDrawableActor** papEffect_;
+    EffectOptionMagic001** papEffect_;
 //    int old_level_;
     OptionMagic(const char* prm_name, int* prm_pMP);
 

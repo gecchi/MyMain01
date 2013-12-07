@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "FormationEmilia.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Emilia/EnemyEmilia.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -46,7 +46,7 @@ void FormationEmilia::processBehavior() {
         if (canCallUp() && (getActiveFrame() % R_interval_frames_ == 0)) {
             EnemyEmilia* pEmilia = (EnemyEmilia*)callUpMember();
             if (pEmilia) {
-                pEmilia->_pKurokoA->setMvVelo(R_mv_velo_);
+                pEmilia->_pKuroko->setMvVelo(R_mv_velo_);
             }
         }
     }

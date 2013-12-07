@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "FormationAllas001b.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Allas/EnemyAllas.h"
 
@@ -17,7 +17,7 @@ FormationAllas001b::FormationAllas001b(const char* prm_name) : FormationAllas001
 void FormationAllas001b::onCallUpAllas(EnemyAllas* prm_pAllas) {
     prm_pAllas->pKurokoLeader_->adjustAxisYFlip();
     prm_pAllas->pKurokoLeader_->setAbsoluteBeginCoord();
-    prm_pAllas->_pKurokoA->setMvVelo(velo_mv_);
+    prm_pAllas->_pKuroko->setMvVelo(velo_mv_);
 }
 
 FormationAllas001b::~FormationAllas001b() {

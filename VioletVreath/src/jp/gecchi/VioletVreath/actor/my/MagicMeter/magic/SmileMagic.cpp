@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "SmileMagic.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/gecchi/VioletVreath/actor/label/SpriteLabelTest.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
@@ -52,8 +52,8 @@ void SmileMagic::processCastBegin(int prm_now_level, int prm_new_level) {
             s += "(^_^)SMILE!\n";
         }
         pMoji_->update(s.c_str());
-        pMoji_->_pKurokoA->setFaceAng(0,0,0);
-        pMoji_->_pKurokoA->setFaceAngVelo(0,0,0);
+        pMoji_->_pKuroko->setFaceAng(0,0,0);
+        pMoji_->_pKuroko->setFaceAngVelo(0,0,0);
         pMoji_->activate();
     }
 }
@@ -61,7 +61,7 @@ void SmileMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
         pMoji_->_x += 1000;
         pMoji_->_y += 1000;
-        pMoji_->_pKurokoA->behave();
+        pMoji_->_pKuroko->behave();
     }
 }
 
@@ -77,13 +77,13 @@ void SmileMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm
 void SmileMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
     _TRACE_("SmileMagic::processInvokeBegin(prm_now_level="<<prm_now_level<<",prm_new_level="<<prm_new_level<<")");
     if (prm_new_level > prm_now_level) {
-        pMoji_->_pKurokoA->setFaceAngVelo(AXIS_Z, 5000);
+        pMoji_->_pKuroko->setFaceAngVelo(AXIS_Z, 5000);
     }
 }
 
 void SmileMagic::processInvokingBehavior(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
-        pMoji_->_pKurokoA->behave();
+        pMoji_->_pKuroko->behave();
     }
 }
 

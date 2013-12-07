@@ -4,7 +4,7 @@
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "jp/ggaf/core/actor/ex/GgafActorDepositoryStore.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
@@ -85,8 +85,8 @@ void EnemyStraea::onCreateModel() {
 void EnemyStraea::initialize() {
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliSphere(0, PX_C(200));
-    _pKurokoA->setRzRyMvAng(0, D180ANG);
-    _pKurokoA->setMvVelo(PX_C(5));
+    _pKuroko->setRzRyMvAng(0, D180ANG);
+    _pKuroko->setMvVelo(PX_C(5));
 }
 
 void EnemyStraea::onActive() {
@@ -106,7 +106,7 @@ void EnemyStraea::processBehavior() {
                 UTIL::activateEntryEffectOf(this);
                 _pAFader->setAlpha(0);
                 _pAFader->fadeLinerUntil(0.98, 20);
-                _pKurokoA->setFaceAngVelo(AXIS_X, 4000);
+                _pKuroko->setFaceAngVelo(AXIS_X, 4000);
             }
             if (!_pAFader->isFading()) {
                 setHitAble(true);
@@ -118,9 +118,9 @@ void EnemyStraea::processBehavior() {
         case PROG_MOVE: {
             if (_pProg->isJustChanged()) {
                 angle v = angveloTurn_ / 50;
-                _pKurokoA->setFaceAngVelo(RND(-v, v), RND(-v, v), RND(-v, v));
-                _pKurokoA->setMvVelo(2000);
-                //_pKurokoA->setMvVelo(0);
+                _pKuroko->setFaceAngVelo(RND(-v, v), RND(-v, v), RND(-v, v));
+                _pKuroko->setMvVelo(2000);
+                //_pKuroko->setMvVelo(0);
             }
             if (getActiveFrame() % laser_interval_ == 0) {
                 _pProg->changeNext();
@@ -131,16 +131,16 @@ void EnemyStraea::processBehavior() {
         case PROG_TURN: {
             if (_pProg->isJustChanged()) {
                 //ターン開始
-                _pKurokoA->turnFaceAngTwd(P_MYSHIP,
+                _pKuroko->turnFaceAngTwd(P_MYSHIP,
                                           angveloTurn_, 0, TURN_ANTICLOSE_TO, false);
                 cnt_laserchip_ = 0;
             }
-            if (_pKurokoA->isTurningFaceAng()) {
+            if (_pKuroko->isTurningFaceAng()) {
                 //ターン中
             } else {
                 //自機にがいた方向に振り向きが完了時
-                _pKurokoA->setFaceAngVelo(angveloTurn_*2, 0, 0);
-                _pKurokoA->setMvVelo(0);
+                _pKuroko->setFaceAngVelo(angveloTurn_*2, 0, 0);
+                _pKuroko->setMvVelo(0);
                 _pProg->changeNext();
             }
             break;
@@ -197,9 +197,9 @@ void EnemyStraea::processBehavior() {
                                 vZ = p->x*matWorldRot._13 + p->y*matWorldRot._23 + p->z*matWorldRot._33;
                                 UTIL::convVectorToRzRy(vX, vY, vZ, Rz, Ry); //現在の最終的な向きを、RzRyで取得
                                 pLaserChip->position(_x+vX, _y+vY, _z+vZ);
-                                pLaserChip->_pKurokoA->setRzRyMvAng(Rz, Ry);
-                                pLaserChip->_pKurokoA->_angFace[AXIS_Z] = Rz;
-                                pLaserChip->_pKurokoA->_angFace[AXIS_Y] = Ry;
+                                pLaserChip->_pKuroko->setRzRyMvAng(Rz, Ry);
+                                pLaserChip->_pKuroko->_angFace[AXIS_Z] = Rz;
+                                pLaserChip->_pKuroko->_angFace[AXIS_Y] = Ry;
                             }
                         }
                     }
@@ -211,7 +211,7 @@ void EnemyStraea::processBehavior() {
         }
     }
     _pSeTx->behave();
-    _pKurokoA->behave();
+    _pKuroko->behave();
 }
 
 void EnemyStraea::processJudgement() {

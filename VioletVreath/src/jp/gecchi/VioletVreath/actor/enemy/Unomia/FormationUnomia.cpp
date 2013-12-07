@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "FormationUnomia.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -64,9 +64,9 @@ void FormationUnomia::processBehavior() {
             EnemyUnomia* pUnomia = (EnemyUnomia*)callUpMember(RF_num_formation_col_*RF_num_formation_row_);
             if (pUnomia) {
                 SplineKurokoLeader* pKurokoLeader = papSplManufConnection_[i]->peek()->
-                                              createKurokoLeader(pUnomia->_pKurokoA);
+                                              createKurokoLeader(pUnomia->_pKuroko);
                 pUnomia->config(pKurokoLeader, nullptr, nullptr);
-                pUnomia->_pKurokoA->setMvVelo(RF_mv_velo_);
+                pUnomia->_pKuroko->setMvVelo(RF_mv_velo_);
                 onCallUpUnomia(pUnomia, i); //フォーメーション個別実装の処理
             }
         }
@@ -83,9 +83,9 @@ void FormationUnomia::processBehavior() {
             pShot = (GgafDxGeometricActor*)pDepo_Shot_->dispatch();
             if (pShot) {
                 pShot->positionAs(pUnomia);
-                pShot->_pKurokoA->setMvAngTwd(pMy);
-                pShot->_pKurokoA->setMvVelo(PX_C(10));
-                pShot->_pKurokoA->setMvAcce(0);
+                pShot->_pKuroko->setMvAngTwd(pMy);
+                pShot->_pKuroko->setMvVelo(PX_C(10));
+                pShot->_pKuroko->setMvAcce(0);
             }
             pFollower = _listFollower.next();
         }

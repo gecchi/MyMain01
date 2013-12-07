@@ -78,12 +78,12 @@ void NameEntryScene::processBehavior() {
                 pLabel01_->update(PX_C(62), PX_C(32), "PLEASE ENTRY YOUR NAME!!!!");
                 pNameEntryBoard_->rise(PX_C(50), PX_C(10)); //ネームエントリー板出現
 
-                pLabelInputedName_->_pKurokoA->setFaceAngVelo(AXIS_X, 1700);
-                pLabelInputedName_->_pKurokoA->setFaceAngVelo(AXIS_Y, 1500);
-                pLabelInputedName_->_pKurokoA->setFaceAngVelo(AXIS_Z, 1000);
+                pLabelInputedName_->_pKuroko->setFaceAngVelo(AXIS_X, 1700);
+                pLabelInputedName_->_pKuroko->setFaceAngVelo(AXIS_Y, 1500);
+                pLabelInputedName_->_pKuroko->setFaceAngVelo(AXIS_Z, 1000);
 
             }
-            pLabelInputedName_->_pKurokoA->behave();
+            pLabelInputedName_->_pKuroko->behave();
             pLabelSelectedChar_->rotateAs(pLabelInputedName_);
             pLabelSelectedChar_->_pAFader->behave(); //チカチカ
             //EVENT_MENU_NAMEENTRY_DONE まち。
@@ -97,10 +97,10 @@ void NameEntryScene::processBehavior() {
                 pNameEntryBoard_->sinkMe(); //ネームエントリー板消去
                 pLabelSelectedChar_->inactivate(); //選択表示文字消去
                 pLabelInputedName_->_pAFader->beat(10, 5, 0, 0, -1); //入力ネーム点滅
-                pLabelInputedName_->_pKurokoA->turnRzRyFaceAngTo(D0ANG, D0ANG,
+                pLabelInputedName_->_pKuroko->turnRzRyFaceAngTo(D0ANG, D0ANG,
                                                                  8000, 0,
                                                                  TURN_COUNTERCLOCKWISE, false);//急いで正常姿勢へ
-                pLabelInputedName_->_pKurokoA->turnRxSpinAngTo(D0ANG, 8000, 0, TURN_COUNTERCLOCKWISE);
+                pLabelInputedName_->_pKuroko->spinRxFaceAngTo(D0ANG, 8000, 0, TURN_COUNTERCLOCKWISE);
                 //ここでハイスコア更新処理
                 char* cstr = NEW char[pLabelInputedName_->_len + 1];
                 for (int i = 0; i < pLabelInputedName_->_len; i++) {
@@ -120,7 +120,7 @@ void NameEntryScene::processBehavior() {
                 _pProg->change(NameEntryScene::PROG_FINISH);
             }
 
-            pLabelInputedName_->_pKurokoA->behave();
+            pLabelInputedName_->_pKuroko->behave();
             pLabelSelectedChar_->rotateAs(pLabelInputedName_);
             pLabelInputedName_->_pAFader->behave(); //点滅チカチカ
             break;

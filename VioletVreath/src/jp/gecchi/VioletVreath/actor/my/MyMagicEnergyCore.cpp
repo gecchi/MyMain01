@@ -2,8 +2,8 @@
 #include "MyMagicEnergyCore.h"
 
 #include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
@@ -21,7 +21,7 @@ using namespace VioletVreath;
 MyMagicEnergyCore::MyMagicEnergyCore(const char* prm_name) :
         DefaultMeshActor(prm_name, "MagicEnergyCore", STATUS(MyMagicEnergyCore)) {
     _class_name = "MyMagicEnergyCore";
-
+    pAxMver_ = NEW GgafDxAxesMover(this);
     MyMagicEnergy* p = NEW MyMagicEnergy("MyMagicEnergy", this);
     addSubLast(p);
     setAlpha(0.7);
@@ -38,7 +38,7 @@ void MyMagicEnergyCore::initialize() {
 }
 
 void MyMagicEnergyCore::onActive() {
-    _pKurokoB->execGravitationMvSequenceTwd(P_MYSHIP, 10000, 200, 2000);
+    pAxMver_->execGravitationMvSequenceTwd(P_MYSHIP, 10000, 200, 2000);
 }
 
 void MyMagicEnergyCore::processBehavior() {
@@ -57,8 +57,8 @@ void MyMagicEnergyCore::processBehavior() {
     }
 
     _pScaler->behave();
-    _pKurokoB->behave();
-    _pKurokoA->behave();
+    pAxMver_->behave();
+    _pKuroko->behave();
 }
 
 void MyMagicEnergyCore::processJudgement() {
@@ -78,6 +78,6 @@ bool MyMagicEnergyCore::isOutOfUniverse() {
     return false;
 }
 
-
 MyMagicEnergyCore::~MyMagicEnergyCore() {
+    GGAF_DELETE(pAxMver_);
 }

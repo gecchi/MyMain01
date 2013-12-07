@@ -1,6 +1,8 @@
 #ifndef MIKATA001_H_
 #define MIKATA001_H_
 #include "jp/ggaf/lib/actor/DefaultMeshActor.h"
+#include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
+#include "jp/ggaf/dxcore/util/GgafDxAccelerator.hpp"
 
 namespace Mogera {
 
@@ -10,9 +12,11 @@ namespace Mogera {
  * @since 2013/08/30
  * @author Masatoshi Tsuge
  */
-class Mikata001 : public GgafLib::DefaultMeshActor {
+class Mikata001 : public GgafLib::DefaultMorphMeshActor {
 
 public:
+    GgafDxCore::GgafDxKurokoAsstA* pAsstA_;
+    GgafDxCore::GgafDxMorpherAsstA* pMorpherAsstA_;
     /**
      * コンストラクタ
      * @param prm_name

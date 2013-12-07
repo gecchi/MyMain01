@@ -2,7 +2,7 @@
 #include "MyOptionStraightLaserChip001.h"
 
 #include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
@@ -28,7 +28,7 @@ MyOptionStraightLaserChip001::MyOptionStraightLaserChip001(const char* prm_name)
 }
 
 void MyOptionStraightLaserChip001::initialize() {
-    _pKurokoA->setRzRyMvAng(0,0);
+    _pKuroko->setRzRyMvAng(0,0);
     registerHitAreaCube_AutoGenMidColli(60000);
     setHitAble(true);
     _sx = _sy = _sz = R_SC(5);
@@ -41,8 +41,8 @@ void MyOptionStraightLaserChip001::onActive() {
     StraightLaserChip::onActive();
 
     GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
-    _pKurokoA->setMvVelo(80000);
-    _pKurokoA->setMvAcce(300);
+    _pKuroko->setMvVelo(80000);
+    _pKuroko->setMvAcce(300);
     is_lockon_ = false;
     if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheTree()) {
         if (_pChip_front == nullptr) {

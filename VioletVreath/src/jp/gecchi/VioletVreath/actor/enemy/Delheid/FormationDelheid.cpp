@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "FormationDelheid.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/spline/SplineManufacture.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Alisana/EnemyAlisana.h"
@@ -76,8 +76,8 @@ void FormationDelheid::processBehavior() {
          case PROG_INIT: {
              updateRankParameter();
              //ダミー(pDummy_)を使ってメンバーのスプライン移動の開始位置と方向、終了位置と方向を予め求める
-             pDummy_->config(getSplManuf()->createKurokoLeader(pDummy_->_pKurokoA), nullptr);
-             pDummy_->_pKurokoA->setMvVelo(RV_MvVelo_);
+             pDummy_->config(getSplManuf()->createKurokoLeader(pDummy_->_pKuroko), nullptr);
+             pDummy_->_pKuroko->setMvVelo(RV_MvVelo_);
              onCallUpDelheid(pDummy_); //メンバー(Delheid)のフォーメーション開始座標と方向を得る
              pDummy_->pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION); //座標計算のためスタート＆オプション指定が必要
              coord next_x, next_y, next_z;             //開始+1 の補完点座標
@@ -89,11 +89,11 @@ void FormationDelheid::processBehavior() {
              pDummy_->pKurokoLeader_->getPointCoord(spl_point_num-2, end_prev_x, end_prev_y, end_prev_z);
              //出現開始位置アリサナを配備
              pAlisana_start->positionAs(pDummy_);
-             pAlisana_start->_pKurokoA->setFaceAngTwd(next_x, next_y, next_z); //向きセット
+             pAlisana_start->_pKuroko->setFaceAngTwd(next_x, next_y, next_z); //向きセット
              pAlisana_start->acitve_open(); //ハッチオープン
              //終了位置にアリサナを配備
              pAlisana_goal->position(end_x, end_y, end_z);
-             pAlisana_goal->_pKurokoA->setFaceAngTwd(end_prev_x, end_prev_y, end_prev_z);
+             pAlisana_goal->_pKuroko->setFaceAngTwd(end_prev_x, end_prev_y, end_prev_z);
              pAlisana_goal->acitve_open((frame)(pDummy_->pKurokoLeader_->getTotalDistance() / RV_MvVelo_)); //ハッチオープン予約
 
              pDummy_->sayonara(); //ありがとうダミー
@@ -126,12 +126,12 @@ void FormationDelheid::processBehavior() {
                          //機数 RV_NumFormation_ 機まで招集
                          EnemyDelheid* pDelheid = (EnemyDelheid*)callUpMember(RV_NumFormation_);
                          if (pDelheid) {
-                             pDelheid->config(getSplManuf()->createKurokoLeader(pDelheid->_pKurokoA),
+                             pDelheid->config(getSplManuf()->createKurokoLeader(pDelheid->_pKuroko),
                                                pConn_ShotDepo_->peek() );
-                             pDelheid->_pKurokoA->forceMvVeloRange(RV_MvVelo_*2);
-                             pDelheid->_pKurokoA->setMvVelo(RV_MvVelo_);
+                             pDelheid->_pKuroko->forceMvVeloRange(RV_MvVelo_*2);
+                             pDelheid->_pKuroko->setMvVelo(RV_MvVelo_);
 
-                             pDelheid->_pKurokoA->setMvAcce(0);
+                             pDelheid->_pKuroko->setMvAcce(0);
                              onCallUpDelheid(pDelheid); //下位フォーメーションクラス個別実装の処理
                          } else {
                              //招集おしまい
@@ -212,14 +212,14 @@ void FormationDelheid::order1(GgafCore::GgafActor* prm_pDelheid, void* prm1, voi
     //各メンバー減速
     EnemyDelheid* pMember = (EnemyDelheid*)prm_pDelheid;
     FormationDelheid* pFormation = (FormationDelheid*)prm1;
-    pMember->_pKurokoA->setMvAcceByT(120, -(pFormation->RV_MvVelo_/8));
+    pMember->_pKuroko->setMvAcceByT(120, -(pFormation->RV_MvVelo_/8));
 }
 
 void FormationDelheid::order2(GgafCore::GgafActor* prm_pDelheid, void* prm1, void* prm2) {
     //各メンバー停滞&発射
     EnemyDelheid* pMember = (EnemyDelheid*)prm_pDelheid;
     FormationDelheid* pFormation = (FormationDelheid*)prm1;
-    pMember->_pKurokoA->setMvAcce(0);
+    pMember->_pKuroko->setMvAcce(0);
     pMember->open_shot(); //ショット発射！
 }
 
@@ -227,7 +227,7 @@ void FormationDelheid::order3(GgafCore::GgafActor* prm_pDelheid, void* prm1, voi
     //各メンバー再始動
     EnemyDelheid* pMember = (EnemyDelheid*)prm_pDelheid;
     FormationDelheid* pFormation = (FormationDelheid*)prm1;
-    pMember->_pKurokoA->setMvAcceByT(120, pFormation->RV_MvVelo_);
+    pMember->_pKuroko->setMvAcceByT(120, pFormation->RV_MvVelo_);
 }
 
 void FormationDelheid::onSayonaraAll() {

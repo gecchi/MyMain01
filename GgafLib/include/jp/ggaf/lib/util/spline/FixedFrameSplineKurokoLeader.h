@@ -10,7 +10,7 @@ namespace GgafLib {
  * 中間の補完点～次の補完点までを、均等に割った時間で移動します。<BR>
  * 補完点の密度が薄いところは移動速度増。<BR>
  * 補完点の密度が濃いところは移動速度減。<BR>
- * そのように動作するよう、黒衣A(GgafDxCore::GgafDxKurokoA)に指示を出して移動を実現します。<BR>
+ * そのように動作するよう、黒衣(GgafDxCore::GgafDxKuroko)に指示を出して移動を実現します。<BR>
  * @version 1.00
  * @since 2009/10/28
  * @author Masatoshi Tsuge
@@ -36,12 +36,12 @@ public:
     /**
      *
      * @param prm_pManufacture calculate()済みのSplineManufactureを設定すること
-     * @param prm_pKurokoA
+     * @param prm_pKuroko
      */
     FixedFrameSplineKurokoLeader(SplineManufacture* prm_pManufacture,
-                                 GgafDxCore::GgafDxKurokoA* const prm_pKurokoA);
+                                 GgafDxCore::GgafDxKuroko* const prm_pKuroko);
 
-    FixedFrameSplineKurokoLeader(GgafDxCore::GgafDxKurokoA* const prm_pKurokoA,
+    FixedFrameSplineKurokoLeader(GgafDxCore::GgafDxKuroko* const prm_pKuroko,
                                  SplineLine* prmpSpl,
                                  frame prm_spent_frame,
                                  angvelo prm_angveloRzRyMv);
@@ -50,7 +50,7 @@ public:
      * @param prm_option オプション ABSOLUTE_COORD:絶対座標移動
      *                              RELATIVE_COORD:始点をActorの現座標とみなし、そこからの相対座標移動
      *                              RELATIVE_DIRECTION:始点をActorの現座標とみなし、
-     *                                                 アクターの現在向き（_pKurokoA の _angRzMv, _angRyMv)でスプライン座標群をワールド変換。
+     *                                                 アクターの現在向き（_pKuroko の _angRzMv, _angRyMv)でスプライン座標群をワールド変換。
      * @param prm_max_loop 繰り返し回数。0以下で無限ループ
      */
     void start(SplinTraceOption prm_option, int prm_max_loop = 1) override;

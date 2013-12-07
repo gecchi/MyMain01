@@ -2,7 +2,7 @@
 #include "EnemyEmus.h"
 
 #include "jp/ggaf/core/actor/ex/GgafActorDepositoryStore.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
@@ -50,7 +50,7 @@ void EnemyEmus::onCreateModel() {
 
 void EnemyEmus::initialize() {
     setHitAble(true);
-    _pKurokoA->relateFaceWithMvAng(true);
+    _pKuroko->relateFaceWithMvAng(true);
     _pMorpher->forceWeightRange(MORPHTARGET_HATCH_OPEN, 0.0f, 1.0f);
     _pMorpher->setWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     _pColliChecker->makeCollision(1);
@@ -78,7 +78,7 @@ void EnemyEmus::processBehavior() {
             if (_pProg->isJustChanged()) {
                 _pMorpher->morphLinerUntil(MORPHTARGET_HATCH_OPEN,
                                            0.0f, frame_of_morph_interval_);
-                _pKurokoA->setFaceAngVelo(AXIS_X, 0);
+                _pKuroko->setFaceAngVelo(AXIS_X, 0);
             }
 
             //次へ
@@ -91,7 +91,7 @@ void EnemyEmus::processBehavior() {
             if (_pProg->isJustChanged()) {
                 _pMorpher->morphLinerUntil(MORPHTARGET_HATCH_OPEN,
                                            1.0f, frame_of_morph_interval_);
-                _pKurokoA->setFaceAngVelo(AXIS_X, 3000);
+                _pKuroko->setFaceAngVelo(AXIS_X, 3000);
             }
             if (_pProg->getFrameInProgress() == (frame_of_morph_interval_/2)) {
                 //開くモーションが半分以上まで到達したなら
@@ -116,7 +116,7 @@ void EnemyEmus::processBehavior() {
                     angle rz, ry;  //現在の最終的な向きを、RzRyで取得する
                     UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
                                            rz, ry); //現在の最終的な向きを、RzRyで取得！
-                    pChip->_pKurokoA->setRzRyMvAng(rz, ry); //RzRyでMoverに設定
+                    pChip->_pKuroko->setRzRyMvAng(rz, ry); //RzRyでMoverに設定
                 } else {
                     is_firing_ = false;
                 }
@@ -135,9 +135,9 @@ void EnemyEmus::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
     _pMorpher->behave();
-    //_pKurokoAの計算はローカルで行う
+    //_pKurokoの計算はローカルで行う
     changeGeoLocal();
-    _pKurokoA->behave();
+    _pKuroko->behave();
     changeGeoFinal();
 
 }

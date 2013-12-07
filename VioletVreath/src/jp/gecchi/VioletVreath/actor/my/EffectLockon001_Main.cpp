@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "EffectLockon001_Main.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
@@ -35,7 +35,7 @@ void EffectLockon001_Main::onActive() {
     _pScaler->forceRange(60000, 2000); //スケーリング・範囲
     _pScaler->setScale(60000); //(6000%)
     _pScaler->scaleLinerUntil(2000, 25);//スケーリング・25F費やして2000(200%)に縮小
-    _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);        //回転
+    _pKuroko->setFaceAngVelo(AXIS_Z, 1000);        //回転
     _pSeTx->play3D(0); //ロックオンSE
 
     if (pTarget_) {
@@ -66,12 +66,12 @@ void EffectLockon001_Main::processBehavior() {
                     ABS(pTarget_->_y-_y) <= PX_C(200) &&
                     ABS(pTarget_->_z-_z) <= PX_C(200)) {
                     positionAs(pTarget_);
-                    _pKurokoA->setMvVelo(0);
-                    _pKurokoA->_angveloFace[AXIS_Z] = 1000;
+                    _pKuroko->setMvVelo(0);
+                    _pKuroko->_angveloFace[AXIS_Z] = 1000;
                 } else {
-                    _pKurokoA->_angveloFace[AXIS_Z] = 3000; //速周り
-                    _pKurokoA->setMvAngTwd(pTarget_);
-                    _pKurokoA->setMvVelo(PX_C(200));
+                    _pKuroko->_angveloFace[AXIS_Z] = 3000; //速周り
+                    _pKuroko->setMvAngTwd(pTarget_);
+                    _pKuroko->setMvVelo(PX_C(200));
                 }
             } else {
                 _pProg->change(LOCKON001_PROG_RELEASE);
@@ -91,7 +91,7 @@ void EffectLockon001_Main::processBehavior() {
     }
 
     _pUvFlipper->behave();
-    _pKurokoA->behave();
+    _pKuroko->behave();
     _pScaler->behave();
 
 }
@@ -116,7 +116,7 @@ void EffectLockon001_Main::lockon(GgafDxGeometricActor* prm_pTarget) {
     } else if (_pProg->get() == LOCKON001_PROG_RELEASE) {
         _pScaler->forceRange(60000, 2000); //スケーリング・範囲
         _pScaler->scaleLinerUntil(2000, 25);//スケーリング・20F費やして2000(200%)に縮小
-        _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);   //回転
+        _pKuroko->setFaceAngVelo(AXIS_Z, 1000);   //回転
         _pSeTx->play3D(0); //ロックオンSE
         _pProg->change(LOCKON001_PROG_FIRST_LOCK);
     }
@@ -127,12 +127,12 @@ void EffectLockon001_Main::releaseLockon() {
         if (_pProg->get() == LOCKON001_PROG_FIRST_LOCK) {
             _pScaler->forceRange(60000, 2000); //スケーリング・範囲
             _pScaler->scaleLinerUntil(60000, 60);//スケーリング
-            _pKurokoA->setFaceAngVelo(AXIS_Z, _pKurokoA->_angveloFace[AXIS_Z]*-3); //速く逆回転
+            _pKuroko->setFaceAngVelo(AXIS_Z, _pKuroko->_angveloFace[AXIS_Z]*-3); //速く逆回転
             _pProg->change(LOCKON001_PROG_RELEASE);
         } else if (_pProg->get() == LOCKON001_PROG_LOCK) {
             _pScaler->forceRange(60000, 2000); //スケーリング・範囲
             _pScaler->scaleLinerUntil(60000, 60);//スケーリング
-            _pKurokoA->setFaceAngVelo(AXIS_Z, _pKurokoA->_angveloFace[AXIS_Z]*-3); //速く逆回転
+            _pKuroko->setFaceAngVelo(AXIS_Z, _pKuroko->_angveloFace[AXIS_Z]*-3); //速く逆回転
             _pProg->change(LOCKON001_PROG_RELEASE);
         } else if (_pProg->get() == LOCKON001_PROG_RELEASE) {
             //何も無し

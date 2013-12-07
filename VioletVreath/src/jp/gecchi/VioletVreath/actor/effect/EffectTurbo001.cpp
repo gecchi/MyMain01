@@ -2,7 +2,7 @@
 #include "EffectTurbo001.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -29,12 +29,12 @@ void EffectTurbo001::initialize() {
 
 void EffectTurbo001::onActive() {
     _pUvFlipper->setActivePtnToTop();
-    _pKurokoA->setFaceAngVelo(AXIS_Z, 3000);        //‰ñ“]
+    _pKuroko->setFaceAngVelo(AXIS_Z, 3000);        //‰ñ“]
 }
 
 void EffectTurbo001::processBehavior() {
     _pUvFlipper->behave();
-    _pKurokoA->behave();
+    _pKuroko->behave();
     _pScaler->behave();
 }
 

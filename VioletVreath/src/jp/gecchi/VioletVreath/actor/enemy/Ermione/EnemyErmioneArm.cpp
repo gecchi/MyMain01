@@ -4,7 +4,7 @@
 
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
@@ -119,12 +119,12 @@ void EnemyErmioneArm::processBehavior() {
                 } else if (D180ANG <= angRy_Target && angRy_Target <= D360ANG - aiming_movable_limit_ang_) {
                     angRy_Target = D360ANG - aiming_movable_limit_ang_;
                 }
-                _pKurokoA->turnRzRyFaceAngTo(
+                _pKuroko->turnRzRyFaceAngTo(
                                 angRz_Target, angRy_Target,
                                 aiming_ang_velo_, aiming_ang_velo_*0.04,
                                 TURN_CLOSE_TO, false);
             }
-            if (_pKurokoA->isTurningMvAng()) {
+            if (_pKuroko->isTurningMvAng()) {
                 // 待機
             } else {
                 _pProg->change(PROG_NOTHING);
@@ -137,16 +137,16 @@ void EnemyErmioneArm::processBehavior() {
     }
 
     //＜注意＞
-    //・GgafDxKurokoA(_pKurokoA)の behave() 以外メソッドは、常にローカル座標の操作とする。
+    //・GgafDxKuroko(_pKuroko)の behave() 以外メソッドは、常にローカル座標の操作とする。
     //  behave()以外メソッドは実際に座標計算しているわけではないので、
     //  changeGeoFinal()時、changeGeoLocal()時に関係なく、呼び出し可能。
-    //・GgafDxKurokoA(_pKurokoA)の behave() メソッドは座標を１フレーム後の状態にする計算を行う。
+    //・GgafDxKuroko(_pKuroko)の behave() メソッドは座標を１フレーム後の状態にする計算を行う。
     //  したがって、次のように ローカル座標時(changeGeoLocal()時)で呼び出す事とする。
     //    changeGeoLocal();
-    //    _pKurokoA->behave();
+    //    _pKuroko->behave();
     //    changeGeoFinal();
     changeGeoLocal();
-    _pKurokoA->behave();
+    _pKuroko->behave();
     changeGeoFinal();
     //_pScaler->behave();
     if (_pActor_Base) {

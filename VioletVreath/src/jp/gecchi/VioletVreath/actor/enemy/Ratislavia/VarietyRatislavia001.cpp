@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "VarietyRatislavia001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Omulus/EnemyOmulus.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ratislavia/EnemyRatislaviaEye.h"
@@ -33,10 +33,10 @@ void VarietyRatislavia001::initialize() {
     _x = GgafDxCore::GgafDxUniverse::_x_gone_right+r1_+r2_;
     _y = 0;
     _z = 0;
-    _pKurokoA->setRzRyMvAng(D180ANG, 0);
-    _pKurokoA->setMvVelo(2000);
-    _pKurokoA->setFaceAngVelo(AXIS_Z, 60);
-    _pKurokoA->setFaceAngVelo(AXIS_Y, 70);
+    _pKuroko->setRzRyMvAng(D180ANG, 0);
+    _pKuroko->setMvVelo(2000);
+    _pKuroko->setFaceAngVelo(AXIS_Z, 60);
+    _pKuroko->setFaceAngVelo(AXIS_Y, 70);
 }
 
 void VarietyRatislavia001::processBehavior() {

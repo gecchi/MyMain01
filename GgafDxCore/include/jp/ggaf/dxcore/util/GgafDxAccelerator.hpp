@@ -1,0 +1,513 @@
+#ifndef GGAFDXCORE_GGAFDXACCELERATOR_H_
+#define GGAFDXCORE_GGAFDXACCELERATOR_H_
+#include "jp/ggaf/core/GgafObject.h"
+#include "jp/ggaf/core/util/GgafUtil.h"
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+
+using GgafDxCore::GgafDxUtil;
+
+namespace GgafDxCore {
+
+/**
+ * 値の加速器 .
+ * @version 1.00
+ * @since 2013/12/05
+ * @author Masatoshi Tsuge
+ */
+template<class T>
+class GgafDxAccelerator : public GgafCore::GgafObject {
+public:
+
+
+    class SmoothPrm {
+     public:
+         /** [r]なめらか移動シークエンスを実行中はtrue */
+         bool _flg;
+         /** [r]なめらか移動シークエンスを実行完了時の加速度設定（true：加速度0に設定／false:加速度をそのままにしておく） */
+         bool _endacc_flg;
+         /** [r]なめらか移動シークエンスで設定されたトップスピード（等速移動時速度） */
+         T _top_velo;
+         /** [r]なめらか移動シークエンスで設定された終了時の速度 */
+         T _end_velo;
+         /** [r]なめらか移動シークエンスで設定された目標位置到達までに必要な実質の移動距離（正負移動距離を含む） */
+         T _target_distance;
+         /** [r]なめらか移動シークエンスで設定された目標位置までの直線距離 */
+         T _target_distance2;
+         /** [r]なめらか移動シークエンスで今までに移動した移動距離合計（正負移動距離を含む） */
+         T _moved;
+         T _moved2;
+         /** [r]なめらか移動シークエンスで移動速度正負を反転するまでの設定された回復時加速度 */
+         T _acce_a0;
+         /** [r]なめらか移動シークエンスで設定された目標移動方向の正負 */
+         int _target_sgn;
+         /** [r]なめらか移動シークエンスで設定された目標時間 */
+         int  _target_frames;
+         /** [r]なめらか移動シークエンスに開始から現在までの経過時間 */
+         int  _frame_of_spent;
+         /** [r]なめらか移動シークエンスで設定された角速度の正負が切り替わるポイント */
+         double  _p0;
+         /** [r]なめらか移動シークエンスで設定された加速～等速へ切り替わる位置 */
+         double  _p1;
+         /** [r]なめらか移動シークエンスで設定された等速～減速へ切り替わる位置 */
+         double  _p2;
+         /** [r]なめらか移動シークエンスの進捗状況 */
+         int  _progress;
+     public:
+         SmoothPrm() {
+             _flg = false;
+             _endacc_flg = true;
+             _top_velo = 0;
+             _end_velo = 0;
+             _target_distance = 0;
+             _target_distance2 = 0;
+             _moved = 0;
+             _moved2 = 0;
+             _acce_a0 = 0;
+             _target_sgn = 1;
+             _target_frames = 0;
+             _frame_of_spent = 0;
+             _p0 = 0;
+             _p1 = 0;
+             _p2 = 0;
+             _progress = -1;
+         }
+    };
+    T _value;
+    T _velo;
+    T _acce;
+    SmoothPrm _prm;
+public:
+    GgafDxAccelerator() {
+        _value = 0;
+        _velo = 0;
+        _acce = 0;
+    }
+
+    void accelerateByDt(T prm_target_value_distance,
+                       frame prm_target_frames,
+                       double prm_p1, double prm_p2, T prm_end_velo,
+                       bool prm_endacc_flg = true) {
+        int s_d = SGN(prm_target_value_distance);
+        int sgn_W0 = SGN(_velo);
+        if (ZEROd_EQ(prm_target_value_distance)) {
+            return;
+        }
+        if (sgn_W0 == 0 || s_d == sgn_W0) {  //正負が一致
+            //＜トップスピード(Vt) を計算＞
+            //
+            //    速度(v)
+            //     ^
+            //     |                          D:目標移動距離
+            //     |                         V0:現時点の速度
+            //     |                         Vt:トップスピード
+            //     |                         Ve:最終速度
+            //   Vt|....＿＿＿＿＿           Te:目標時間（フレーム数）
+            //     |   /:         :＼        p1:トップスピードに達する時刻となるような、Teに対する割合
+            //   Ve|../.:.........:..＼      p2:減速を開始時刻となるような、Teに対する割合
+            //     | /  :         :    |        (0.0 < p1 < p2 < 1.0)
+            //     |/   :         :    |
+            //   V0|    :    D    :    |
+            //     |    :         :    |
+            //   --+----+---------+----+-----> 時間(t:フレーム)
+            //   0 |    T1        T2   Te
+            //
+            // 移動距離Dは、左の台形＋中央の長方形＋右の台形 の面積である、
+            // D = (1/2)*(V0+Vt)*T1 + Vt*(T2-T1)  +  (1/2)*(Ve+Vt)*(Te-T2);
+            // これをVtについて解く
+            // Vt=-(T1*V0-Ve*T2-2*D+Te*Ve)/(T2-T1+Te)
+            double V0 = _velo;
+            double Ve = ABS(prm_end_velo) * s_d;
+            double T1 = prm_target_frames*prm_p1;
+            double T2 = prm_target_frames*prm_p2;
+            double Te = prm_target_frames;
+            double D  = prm_target_value_distance;
+            double Vt = -(T1*V0-Ve*T2-2.0*D+Te*Ve)/(T2-T1+Te);
+            _prm._flg = true;
+            _prm._target_distance = ABS(D);
+            _prm._target_distance2 = D;
+            _prm._moved = 0;
+            _prm._moved2 = 0;
+            _prm._target_sgn = s_d;
+            _prm._p1 = T1;
+            _prm._p2 = T2;
+            _prm._top_velo = Vt;
+            _prm._end_velo = Ve;
+            _prm._target_frames = Te;
+            _prm._frame_of_spent = 0;
+            _prm._progress = 0;
+        } else {
+            //        速度(v)
+            //         ^
+            //         |                           D2-D1:目標移動距離
+            //         |                              V0:現時点の速度
+            //         |                              Vt:トップスピード
+            //         |                              Ve:最終速度
+            //       Vt|................＿＿＿＿＿＿           Te:目標時間（フレーム数）
+            //         |               /:  |       :＼        p1:トップスピードに達する時刻となるような、Teに対する割合
+            //       Ve|............../.:..|.......:..＼      p2:減速を開始時刻となるような、Teに対する割合
+            //         |             /  :  |       :    |        (0.0 < p1 < p2 < 1.0)
+            //         |         a  /   :  |       :    |
+            //         |           /    s  |  D    :    |
+            //         |          /     :  |       :    |
+            //       --+---------/------+--+-------+----+-----> 時間(t:フレーム)
+            //       0 |        /Ts    T1         T2   Te
+            //         |   -s  /
+            //         |      /
+            //         |     /
+            //         |    /
+            //         |   /
+            //         |  /
+            //         | /
+            //       V0|/
+            //         |
+            //
+            //    時間 t が 0 ～ T1 時の角速度を w とすると
+            //    直線 V = a*t + V0 より
+            //    t = T1 の時  V = Vt  であるので
+            //    Vt = a*T1 + V0
+            //    a = -(V0-Vt)/T1 ・・・(1)
+            //
+            //    t = Ts の時  V = 0  であるので
+            //    0 = a*Ts + V0  ・・・(2)
+            //    (1)を(2)へ代入
+            //    0 = (-(V0-Vt)/T1)*Ts + V0
+            //    Ts = (T1*V0)/(V0-Vt) ・・・(3)
+            //
+            //    よってsは
+            //    s = (1/2)*Ts*-V0
+            //    (3)を代入
+            //    s = (1/2)*( (T1*V0)/(V0-Vt) )*-V0
+            //    s = -(T1*V0^2)/(2*(V0-Vt))  ・・・(4)
+            //
+            //    Vtを求める
+            //    D+s = 左の三角形＋中央の長方形＋右の台形 の面積である、
+            //    D+s =  ( (1/2)*(T1-Ts)*Vt )  +  ( (T2-T1) * Vt )  +  ( (1/2)*(Vt+Ve)*(Te-T2) )   ・・・(5)
+            //    (3)(4)を(5)へ代入
+            //    D+(-(T1*V0^2)/(2*(V0-Vt))) =  ( (1/2)*(T1-((T1*V0)/(V0-Vt)))*Vt )  +  ( (T2-T1) * Vt )  +  ( (1/2)*(Vt+Ve)*(Te-T2) )
+            //    Vtについて解く
+            //    Vt=-(T1*V0-Ve*T2-2*D+Te*Ve)/(T2-T1+Te)
+            double V0 = _velo;
+            double Ve = ABS(prm_end_velo) * s_d;
+            double T1 = prm_target_frames*prm_p1;
+            double T2 = prm_target_frames*prm_p2;
+            double Te = prm_target_frames;
+            double D = prm_target_value_distance;
+            double Vt = -(T1*V0-Ve*T2-2.0*D+Te*Ve)/(T2-T1+Te);
+            double Ts = (T1*V0)/(V0-Vt);
+            double s = (1.0/2.0)*Ts*-V0;
+            _prm._flg = true;
+            _prm._p0 = Ts;
+            _prm._p1 = T1;
+            _prm._p2 = T2;
+            _prm._target_distance = ABS(s)+ ABS(s) + ABS(D);
+            _prm._target_distance2 = D;
+            _prm._target_sgn = s_d;
+            _prm._moved = 0;
+            _prm._moved2 = 0;
+            _prm._top_velo = Vt;
+            _prm._end_velo = Ve;
+            _prm._target_frames = Te;
+            _prm._frame_of_spent = 0;
+            _prm._progress = 0;
+        }
+
+    }
+
+    void accelerateByVd(T prm_top_velo,
+                       T prm_target_value_distance,
+                       double prm_p1, double prm_p2, T prm_end_velo,
+                       bool prm_endacc_flg = true) {
+        int s_d = SGN(prm_target_value_distance);
+        int sgn_W0 = SGN(_velo);
+        if (ZEROd_EQ(prm_target_value_distance)) {
+            return;
+        }
+        if (sgn_W0 == 0 || s_d == sgn_W0) {  //正負が一致
+            //
+            //        角速度(V)                        V0:現時点の速度     (_veloMv)
+            //         ^                               Vt:トップスピード   (prm_top_angvelo)
+            //         |                               Ve:最終速度         (prm_end_angvelo)
+            //         |                                D:目標回転距離角D  (D1+D2+D3)                     ・・・ 計算して求める
+            //         |                               p1:トップスピードに達する角距離となるような、角距離(D)に対する割合
+            //         |       D=D1+D2+D3                  つまり     D1 = D*p1 となるような p1 (0.0～1.0)
+            //       Vt|....___________                p2:減速を開始距離となるような、距離(D)に対する割合
+            //         |   /|         |＼                   つまり D1+D2 = D*p2 となるような p2 (0.0～1.0)
+            //       Ve|../.|.........|..＼            T1: D1     = D*p1 に費やされる必要時間フレーム数     ・・・ 計算して求める
+            //         | /  |         |    |           T2: D1+D2 = D*p2 に費やされる必要時間フレーム数     ・・・ 計算して求める
+            //         |/   |         |    |           Te:費やされる必要時間フレーム数                        ・・・ 計算して求める
+            //       V0| D1 |    D2   | D3 |
+            //         |    |         |    |
+            //       --+----+---------+----+-----> 時間(t:フレーム)
+            //       0 |    T1        T2   Te
+            double V0 = _velo;
+            double Vt = ABS(prm_top_velo) * s_d;
+            double Ve = ABS(prm_end_velo) * s_d;
+            _prm._flg = true;
+            _prm._endacc_flg = prm_endacc_flg;
+            _prm._top_velo = Vt;
+            _prm._end_velo = Ve;
+            _prm._target_distance = ABS(prm_target_value_distance);
+            _prm._target_distance2 = prm_target_value_distance;
+            _prm._moved = 0;
+            _prm._moved2 = 0;
+            _prm._target_sgn = s_d;
+            _prm._target_frames = -1; //時間未使用
+            _prm._frame_of_spent = 0;
+            _prm._p0 = 0; //未使用
+            _prm._p1 = ABS(_prm._target_distance) * prm_p1;
+            _prm._p2 = ABS(_prm._target_distance) * prm_p2;
+            _prm._progress = 2; //回復フェーズを飛ばす
+        } else {
+            //                                                       V0:現時点の速度      (_veloMv)
+            //        速度(v)                                        Vt:トップスピード    (prm_top_angvelo)
+            //        ^                                              Ve:最終速度          (prm_end_angvelo)
+            //        |                                               D:スタート時点の角度からの目標回転距離角                     ・・・ 計算して求める
+            //        |                                              Dp:角速度０になってからの目標回転距離角(Dp1 + Dp2 + Dp3)   ・・・ 計算して求める
+            //        |                                               s:角速度０になるまでの逆回転距離                             ・・・ 計算して求める
+            //        |                                              p1:トップスピードに達する角距離となるような、角距離(D)に対する割合
+            //        |           D  = (Dp1-s) + Dp2 + Dp3                 つまり Dp1 = Dp*p1 となるような p1 (0.0～1.0)    引数
+            //        |           Dp = Dp1 + Dp2 + Dp3               p2:減速を開始距離となるような、距離(D)に対する割合
+            //      Vt|...............___________                          つまり Dp1+Dp2 = Dp*p2 となるような p2 (0.0～1.0)  引数
+            //        |            A /|         |＼B                 T0: 角速度０になるまでに費やされる必要時間フレーム数  ・・・ 計算して求める
+            //        |             / |         |  ＼                T1: Dp1     = Dp*p1 に費やされる必要時間フレーム数  ・・・ 計算して求める
+            //        |            /  |         |    ＼              T2: Dp1+Dp2 = Dp*p2 に費やされる必要時間フレーム数  ・・・ 計算して求める
+            //        |           /   |         |      ＼            Te:費やされる必要時間フレーム数                        ・・・ 計算して求める
+            //        |          / Dp1|    Dp2  |  Dp3   ＼
+            //        |         /:    |         |          ＼
+            //      Ve|......../.:....|.........|............＼  C
+            //        |       /  :    |         |             |
+            //        |      / s :    |         |             |
+            //   -----+-----+----+----+---------+-------------+----------> 時間(t:フレーム)
+            //      0 | s／ Ts       T1        T2            Te
+            //        |／
+            //      V0| ^    <-s-><------------D-------------->
+            //        | |
+            //        | |    <---------------Dp--------------->
+            //        | |
+            //        | |    <---Dp1--><---Dp2--><-----Dp3---->
+            //        | |
+            //        | 初期回復角加速度(a0)固定
+            //        |
+            //
+            //
+            //        時間 t が 0 ～ Ts 時の角速度を V とすると
+            //        直線 V = a0*t + V0 より    (※初期回復角加速度(a0)は定数)
+            //        t = Ts の時  V = 0  であるので
+            //        0 = a0*Ts + V0
+            //        Ts = -V0/a0  ・・・(1)
+            //        また
+            //        s = (1/2) * Ts * -V0       (∵三角形の面積)
+            //        これに(1)を代入
+            //        s = (1/2) * (-V0/a0) * -V0
+            //        s = V0^2/(2*a0)  ・・・(2)
+            //        また
+            //
+            //        D + s =  Dp = (Dp1 + Dp2 + Dp3) ・・・(3)
+            //        より
+            //        Dp = D + (V0^2/(2*a0))  ・・・(4)
+            double V0 = _velo;
+            double Vt = ABS(prm_top_velo) * s_d;
+            double Ve = ABS(prm_end_velo) * s_d;
+            double a0 = ABS(prm_top_velo)*0.05 * -sgn_W0;
+            double s = (V0*V0)/(2.0*a0);
+            double Dp = s + prm_target_value_distance;
+            _prm._flg = true;
+            _prm._endacc_flg = prm_endacc_flg;
+            _prm._top_velo = Vt;
+            _prm._end_velo = Ve;
+            _prm._target_distance = ABS(s) + ABS(Dp);
+            _prm._target_distance2 = prm_target_value_distance;
+            _prm._moved = 0;
+            _prm._moved2 = 0;
+            _prm._acce_a0 = a0;
+            _prm._target_sgn = s_d;
+            _prm._target_frames = -1; //時間未使用
+            _prm._frame_of_spent = 0;
+            _prm._p0 = ABS(s);
+            _prm._p1 = prm_p1;
+            _prm._p2 = prm_p2;
+            _prm._progress = 0; //回復フェーズから
+        }
+    }
+
+    bool isAcce() {
+        return _prm._flg;
+    }
+
+    void behave() {
+        //なめらか移動シークエンス起動時
+        if (_prm._flg) {
+            if (_prm._target_frames < 0) {
+                //目標距離指定の場合
+                if (_prm._progress == 0) {
+                    //回復フェーズ
+                    _acce = _prm._acce_a0;
+                    _prm._progress++;
+                }
+                if (_prm._progress == 1) {
+                    //回復中
+                    if (_prm._moved >= _prm._p0) {
+                        //加速設定
+                        _acce = 0.0;
+                        _velo = 0.0;
+                        //再設定
+                        _prm._target_distance = _prm._target_distance - _prm._moved;
+                        _prm._moved = 0.0;
+                        _prm._p1 = _prm._target_distance * _prm._p1;
+                        _prm._p2 = _prm._target_distance * _prm._p2;
+                        _prm._progress++;
+                    }
+                }
+                if (_prm._progress == 2) {
+                    T acc = UTIL::getAcceByVd(_velo, _prm._top_velo, _prm._p1*_prm._target_sgn);
+                    _acce = acc;
+                    if (ABS(_acce) > ABS(_prm._target_distance2)) {
+                        _acce = _prm._target_distance2;
+                    } else if (ABS(_acce) > ABS(_prm._top_velo)) {
+                        _acce = _prm._top_velo;
+                    }
+                    _prm._progress++;
+                }
+                if (_prm._progress == 3) {
+                    //加速中
+                    if (_prm._moved >= _prm._p1) {
+                        //p1 に到達すれば 等速へ
+                        _acce = 0;
+                        _velo = _prm._top_velo;
+                        T diff_to_end = _prm._target_distance2 - _prm._moved2;
+                        if (ABS(_velo) > ABS(diff_to_end)) {
+                            _velo = diff_to_end;
+                        }
+                        _prm._progress++;
+                    }
+                }
+                if (_prm._progress == 4) {
+                    //等速中
+                    if (_prm._moved >= _prm._p2) {
+                        T diff_to_end = _prm._target_distance2 - _prm._moved2;
+                        if (!ZEROd_EQ(diff_to_end)) {
+                            //p2 に到達すれば 次回フレームから減速へ
+                            T acc = UTIL::getAcceByVd(_velo, _prm._end_velo, diff_to_end);
+                            _acce = acc;
+                            if (ABS(_velo)+ABS(acc) > ABS(diff_to_end)) {
+                                _acce = diff_to_end-_velo;
+                            }
+                        }
+                        _prm._progress++;
+                    }
+                }
+                if (_prm._progress == 5) {
+                    //減速中
+                    T diff_to_end = _prm._target_distance2 - _prm._moved2;
+                    //t=(2*D)/V
+                    double t = (2.0*diff_to_end)/_velo; //残フレーム数
+                    if (t > 1 && _prm._frame_of_spent % 4U == 0) {
+                        //補正・補正・補正
+                        if (!ZEROd_EQ(diff_to_end)) {
+                            T acc = UTIL::getAcceByVd(_velo, _prm._end_velo, diff_to_end);
+                            _acce = acc;
+                            if (ABS(_velo)+ABS(acc) > ABS(diff_to_end)) {
+                                _acce = diff_to_end-_velo;
+                            }
+                        }
+                    }
+                    T end_velo = _prm._end_velo;
+
+                    if ( ABS(_prm._target_distance2 - _prm._moved2) <=  ABS(_prm._top_velo)*0.00001 ||
+                         (ZEROd_EQ(_prm._top_velo)  || (_prm._top_velo > 0  && diff_to_end <= 0) || (_prm._top_velo < 0  && diff_to_end >= 0) ) || //通り越したか
+                         (ZEROd_EQ(_velo+end_velo)  || (_velo+end_velo  >  0 && _velo +end_velo + _acce < 0 ) || (_velo+end_velo  <  0 && _velo +end_velo+_acce > 0) ) //届かず反転したか
+                    ) {
+                        //目標距離へ到達
+                        if (ZEROd_EQ(end_velo)) {
+                            _velo =(_prm._target_distance2 - _prm._moved2);   //バッチリ合わせる
+                        } else {
+                            _velo = _prm._end_velo;
+                        }
+                        if (_prm._endacc_flg) {
+                            _acce = 0.0;
+                        }
+                        _prm._progress++;
+                    }
+                } else if (_prm._progress == 6) {
+                    _velo = _prm._end_velo;
+                    _prm._flg = false; //おしまい
+                }
+            } else {
+                //目標時間指定の場合
+                if (_prm._progress == 0) {
+                    //加速設定
+                    T acc = UTIL::getAcceByTv(_prm._p1, _velo, _prm._top_velo);
+                    _acce = acc;
+                    _prm._progress++;
+                }
+                if (_prm._progress == 1) {
+                    //加速中
+                    if (_prm._frame_of_spent >= _prm._p1) {
+                        //p1 に到達すれば 等速へ
+                        _acce = 0;
+                        _velo = _prm._top_velo;
+                        _prm._progress++;
+                    }
+                }
+                if (_prm._progress == 2) {
+                    //等速中
+                    if (_prm._frame_of_spent >= _prm._p2) {
+                        //p2 に到達すれば 次回フレームから減速へ
+                        T acc = UTIL::getAcceByTv(_prm._target_frames - _prm._frame_of_spent, _velo, _prm._end_velo);
+                        _acce = acc;
+                        _prm._progress++;
+                    }
+                }
+                if (_prm._progress == 3) {
+                    //減速中
+                    if (_prm._frame_of_spent % 4U == 0) {
+                        //補正・補正・補正
+                        //最後の台形補正
+                        //D = (1/2)*(V+Ve)*Te
+                        double Ve = _prm._end_velo;
+                        double Te = _prm._target_frames - _prm._frame_of_spent;
+                        if (Te > 0) {
+                            double D = _prm._target_distance2 - _prm._moved2;
+                            double V =(2.0*D-Te*Ve)/Te;
+                            _velo = V;
+                            T acc = UTIL::getAcceByTv(_prm._target_frames - _prm._frame_of_spent, _velo, _prm._end_velo);
+                            _acce = acc;
+                        }
+                    }
+                    if (_prm._frame_of_spent > _prm._target_frames) {
+                        if (ZEROd_EQ(_prm._end_velo)) {
+                            _velo = (_prm._target_distance2 - _prm._moved2); //バッチリ合わせる
+                        } else {
+                            _velo = _prm._end_velo;
+                        }
+                        if (_prm._endacc_flg) {
+                            _acce = 0;
+                        }
+                        _prm._progress++;
+                    }
+                } else if (_prm._progress == 4) {
+                    _velo = _prm._end_velo;
+                    _prm._flg = false; //おしまい
+                }
+            }
+
+            _velo += _acce;
+            _value += _velo;
+
+            _prm._moved += ABS(_velo);
+            _prm._moved2 += _velo;
+
+            _prm._frame_of_spent++;
+        } else {
+            _prm._progress = -1;
+        }
+
+    }
+
+    virtual ~GgafDxAccelerator() {
+    }
+};
+
+}
+#endif /*GGAFDXCORE_GGAFDXACCELERATOR_H_*/
+

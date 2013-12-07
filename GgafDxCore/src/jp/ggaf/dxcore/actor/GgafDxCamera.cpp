@@ -2,7 +2,7 @@
 #include "jp/ggaf/dxcore/actor/GgafDxCamera.h"
 
 #include "jp/ggaf/dxcore/GgafDxProperties.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
 #include "jp/ggaf/dxcore/GgafDxGod.h"
 
@@ -76,16 +76,13 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, double prm_rad_fovX, double prm
     }
 
     position(0, 0, DX_C(_cameraZ));
-    _pKurokoA->setMvAngTwd(0,0,0);
-    _pKurokoA->setMvVelo(0);
-    _pKurokoA->setRzMvAngVelo(0);
-    _pKurokoA->setRyMvAngVelo(0);
-    _pKurokoA->_mv_ang_rz_target_flg = true;
-    _pKurokoA->_mv_ang_ry_target_flg = true;
+    _pKuroko->setMvAngTwd(0,0,0);
+    _pKuroko->setMvVelo(0);
+    _pKuroko->setRzMvAngVelo(0);
+    _pKuroko->setRyMvAngVelo(0);
+    _pKuroko->_mv_ang_rz_target_flg = true;
+    _pKuroko->_mv_ang_ry_target_flg = true;
     setHitAble(false);
-
-    _pViewPoint = NEW GgafDxCameraViewPoint();
-    _pViewPoint->position(0, 0, 0);
 
     _x_buffer_left   = PX_C(PROPERTY::GAME_BUFFER_WIDTH) / -2;
     _x_buffer_right  = PX_C(PROPERTY::GAME_BUFFER_WIDTH) / 2;
@@ -96,9 +93,17 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, double prm_rad_fovX, double prm
     _x_prev = 0;
     _y_prev = 0;
     _z_prev = 0;
+
+    _pViewPoint = nullptr;
+}
+
+GgafDxCameraViewPoint* GgafDxCamera::createViewPoint() {
+    return NEW GgafDxCameraViewPoint("GgafDxCameraViewPoint");
 }
 
 void GgafDxCamera::initialize() {
+    _pViewPoint = createViewPoint();
+    _pViewPoint->position(0, 0, 0);
     addSubLast(_pViewPoint);
 }
 

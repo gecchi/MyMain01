@@ -2,7 +2,7 @@
 #include "CubeMapMeshSetTestActor.h"
 
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
 
 using namespace GgafCore;
@@ -30,11 +30,11 @@ void CubeMapMeshSetTestActor::initialize() {
 }
 
 void CubeMapMeshSetTestActor::onActive() {
-    _pKurokoA->setFaceAngVelo(AXIS_Y, 200);
+    _pKuroko->setFaceAngVelo(AXIS_Y, 200);
 }
 
 void CubeMapMeshSetTestActor::processBehavior() {
-    _pKurokoA->behave();
+    _pKuroko->behave();
 }
 
 CubeMapMeshSetTestActor::~CubeMapMeshSetTestActor() {

@@ -28,6 +28,8 @@ public:
         PROG_LEAVE ,
         PROG_BANPEI,
     };
+    /** ïΩçsà⁄ìÆéxâá */
+    GgafDxCore::GgafDxAxesMover* pAxMver_;
 
     GgafDxCore::GgafDxGeoElem mv_velo_twd_;
 public:

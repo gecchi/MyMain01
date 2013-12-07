@@ -220,6 +220,9 @@ public:
     /** ˆÚ“®ZÀ•W‰ºŒÀ */
     static coord lim_z_right_;
 
+    /** •½sˆÚ“®x‰‡ */
+    GgafDxCore::GgafDxAxesMover* pAxMver_;
+
     MyShipWaySwitch way_switch_;
     void (MyShip::*paFuncMove[3*3*3])();
     void (MyShip::*paFuncTurbo[3*3*3])();

@@ -13,6 +13,10 @@ namespace VioletVreath {
 class MyMagicEnergyCore : public GgafLib::DefaultMeshActor {
 
 public:
+    /** •½sˆÚ“®x‰‡ */
+    GgafDxCore::GgafDxAxesMover* pAxMver_;
+
+public:
    MyMagicEnergyCore(const char* prm_name);
 
     void onCreateModel() override;

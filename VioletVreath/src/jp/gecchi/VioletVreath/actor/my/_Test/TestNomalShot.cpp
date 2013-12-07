@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "TestNomalShot.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -27,11 +27,11 @@ void TestNomalShot::initialize() {
 void TestNomalShot::onActive() {
     _pStatus->reset();
     setHitAble(true);
-    _pKurokoA->setMvVelo(PX_C(30));
+    _pKuroko->setMvVelo(PX_C(30));
 }
 
 void TestNomalShot::processBehavior() {
-    _pKurokoA->behave();
+    _pKuroko->behave();
 }
 
 void TestNomalShot::processJudgement() {

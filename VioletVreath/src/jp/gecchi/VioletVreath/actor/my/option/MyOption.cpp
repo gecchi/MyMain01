@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "MyOption.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/dxcore/util/GgafDxQuaternion.h"
@@ -123,21 +123,21 @@ void MyOption::initialize() {
 
 void MyOption::onReset() {
     angveloMove_ = ((1.0f*veloMv_ / radiusPosition_)*(double)D180ANG)/PI;
-    _pKurokoA->setMvVelo(veloMv_);
-    _pKurokoA->setRzMvAng(angPosition_+D90ANG);
-    _pKurokoA->setRyMvAng(-D90ANG);
-    _pKurokoA->setRzMvAngVelo(angveloMove_);//∵半径Ｒ＝速度Ｖ／角速度ω
-    _pKurokoA->setRyMvAngVelo(0);//∵半径Ｒ＝速度Ｖ／角速度ω
+    _pKuroko->setMvVelo(veloMv_);
+    _pKuroko->setRzMvAng(angPosition_+D90ANG);
+    _pKuroko->setRyMvAng(-D90ANG);
+    _pKuroko->setRzMvAngVelo(angveloMove_);//∵半径Ｒ＝速度Ｖ／角速度ω
+    _pKuroko->setRyMvAngVelo(0);//∵半径Ｒ＝速度Ｖ／角速度ω
     _z = ANG_COS(angPosition_)*radiusPosition_; //X軸中心回転なのでXYではなくてZY
     _y = ANG_SIN(angPosition_)*radiusPosition_; //X軸の正の方向を向いて時計回りに配置
                                                 //ワールド変換の（左手法）のX軸回転とはと逆の回転なので注意
     _x = 0;
-    _pKurokoA->setFaceAngVelo(AXIS_X, 4000);
+    _pKuroko->setFaceAngVelo(AXIS_X, 4000);
     //ローカル座標系を、(x_org_,y_org_,z_org_) へ退避
     x_org_ = _x;
     y_org_ = _y;
     z_org_ = _z;
-    angPosition_ = _pKurokoA->_angRzMv;
+    angPosition_ = _pKuroko->_angRzMv;
 
     adjust_angPos_seq_progress_ = 0;
     adjust_angPos_seq_new_angPosition_base_ = angPosition_;
@@ -204,9 +204,9 @@ void MyOption::setRadiusPosition(int prm_radius) {
     radiusPosition_ = prm_radius;
     if (radiusPosition_ == -1  || radiusPosition_ == 0 || radiusPosition_ == 1) {
         _z = _y = 0;
-        _pKurokoA->setRzMvAng(D90ANG);
+        _pKuroko->setRzMvAng(D90ANG);
         angveloMove_ = 0;
-        _pKurokoA->setRzMvAngVelo(angveloMove_);
+        _pKuroko->setRzMvAngVelo(angveloMove_);
         return;
 
     }
@@ -224,9 +224,9 @@ void MyOption::setRadiusPosition(int prm_radius) {
     //もしprm_lenが0の場合、理論的には元の位置に戻るはずなのだが、
     //誤差丸め込みのため、微妙に位置が変わる。
     //よって、移動方角、移動角速度を現在の位置(_z,_y)で再設定しなければズレる。
-    _pKurokoA->setRzMvAng(angZY_ROTANG_x + D90ANG);
+    _pKuroko->setRzMvAng(angZY_ROTANG_x + D90ANG);
     angveloMove_ = ((1.0*veloMv_ / radiusPosition_)*(double)D180ANG)/PI;
-    _pKurokoA->setRzMvAngVelo(angveloMove_);
+    _pKuroko->setRzMvAngVelo(angveloMove_);
 }
 
 
@@ -241,11 +241,11 @@ void MyOption::adjustAngPosition(angle prm_new_angPosition_base, frame prm_spent
 void MyOption::processBehavior() {
     MyShip* pMyShip = P_MYSHIP;
     VirtualButton* pVbPlay = VB_PLAY;
-    GgafDxKurokoA* const pKurokoA = _pKurokoA;
+    GgafDxKuroko* const pKuroko = _pKuroko;
     //処理メイン
 
     //退避していたローカル座標系を、(x_org_,y_org_,z_org_) を
-    //_pKurokoAのメソッドを利用するため、(_x,_y,_z)へコピー
+    //_pKurokoのメソッドを利用するため、(_x,_y,_z)へコピー
     //これ以降processBehavior()内の(_x,_y,_z)はローカル座標系
     _x = x_org_;
     _y = y_org_;
@@ -467,17 +467,17 @@ void MyOption::processBehavior() {
             //必要な角速度差分に対応する移動速度を求める
             velo veloMv_offset =  (2.0*PI*radiusPosition_ * angvelo_offset) / D360ANG;
             //速度設定
-            pKurokoA->setRzMvAngVelo(angveloMove_ + angvelo_offset);
-            pKurokoA->setMvVelo(veloMv_ + veloMv_offset);
+            pKuroko->setRzMvAngVelo(angveloMove_ + angvelo_offset);
+            pKuroko->setMvVelo(veloMv_ + veloMv_offset);
             adjust_angPos_seq_spent_frame_--;
 
             if (adjust_angPos_seq_spent_frame_ == 0) {
                 angPosition_base_ = adjust_angPos_seq_new_angPosition_base_;
                 //誤差修正のため理想位置に再設定
                 angveloMove_ = ((1.0*veloMv_ / radiusPosition_)*(double)D180ANG)/PI;
-                pKurokoA->setMvVelo(veloMv_);
-                pKurokoA->setRzMvAng(UTIL::simplifyAng(angPosition_base_ + D90ANG));
-                pKurokoA->setRzMvAngVelo(angveloMove_);//∵半径Ｒ＝速度Ｖ／角速度ω
+                pKuroko->setMvVelo(veloMv_);
+                pKuroko->setRzMvAng(UTIL::simplifyAng(angPosition_base_ + D90ANG));
+                pKuroko->setRzMvAngVelo(angveloMove_);//∵半径Ｒ＝速度Ｖ／角速度ω
                 _z = ANG_COS(angPosition_base_)*radiusPosition_; //X軸中心回転なのでXYではなくてZY
                 _y = ANG_SIN(angPosition_base_)*radiusPosition_; //X軸の正の方向を向いて時計回りに配置
                 _x = 0;
@@ -486,19 +486,19 @@ void MyOption::processBehavior() {
         }
     } else {
          //通常時
-        pKurokoA->setMvVelo(veloMv_);
+        pKuroko->setMvVelo(veloMv_);
     }
     angPosition_ = UTIL::simplifyAng(angPosition_+angveloMove_);
 
-    pKurokoA->behave();
-    //pKurokoAを使って、(_x,_y,_z)ローカル座標系の計算ができたので、
+    pKuroko->behave();
+    //pKurokoを使って、(_x,_y,_z)ローカル座標系の計算ができたので、
     //(_x,_y,_z)のローカル座標系結果を、(x_org_,y_org_,z_org_) に上書きコピーで更新する。
     x_org_ = _x;
     y_org_ = _y;
     z_org_ = _z;
 
     //＜メモ＞
-    //ここまでで、GgafDxKurokoAの機能のみで、
+    //ここまでで、GgafDxKurokoの機能のみで、
     //以下のような状態までもっていく。
     //(100,0,0) 辺りから原点を見たイメージ、自（MyOptionController）は原点
     //↑y軸  →z軸  ・x軸（奥から手前、手前が正）
@@ -519,11 +519,11 @@ void MyOption::processBehavior() {
     //しかしまだ色々と回転したいため。あとは普通に計算（力技）で、座標回転、向き回転を行なう。
     //ダミーのアクターを連結しようとしたがいろいろ難しい、Quaternion を使わざるを得ない（のではないか；）。
     //TODO:最適化すべし、Quaternionは便利だが避けたい。いつか汎用化
-    GgafDxKurokoA* const pOptionCtrler_pKurokoA = pOptionCtrler_->_pKurokoA;
-    float sin_rz = ANG_SIN(pOptionCtrler_pKurokoA->_angFace[AXIS_Z]);
-    float cos_rz = ANG_COS(pOptionCtrler_pKurokoA->_angFace[AXIS_Z]);
-    float sin_ry = ANG_SIN(pOptionCtrler_pKurokoA->_angFace[AXIS_Y]);
-    float cos_ry = ANG_COS(pOptionCtrler_pKurokoA->_angFace[AXIS_Y]);
+    GgafDxKuroko* const pOptionCtrler_pKuroko = pOptionCtrler_->_pKuroko;
+    float sin_rz = ANG_SIN(pOptionCtrler_pKuroko->_angFace[AXIS_Z]);
+    float cos_rz = ANG_COS(pOptionCtrler_pKuroko->_angFace[AXIS_Z]);
+    float sin_ry = ANG_SIN(pOptionCtrler_pKuroko->_angFace[AXIS_Y]);
+    float cos_ry = ANG_COS(pOptionCtrler_pKuroko->_angFace[AXIS_Y]);
     //全オプションを一つの塊としてOptionControllerを中心にWORLD変換のような旋廻
     coord X = cos_ry*cos_rz*x_org_ + cos_ry*-sin_rz*y_org_ + sin_ry*z_org_;
     coord Y = sin_rz*x_org_ + cos_rz*y_org_;
@@ -541,20 +541,20 @@ void MyOption::processBehavior() {
     //R P Q = (0; 答え)
     //が答えとなる
 
-    //ある座標(x, y, z)＝方向ベクトル(pOptionCtrler_pKurokoA->_vX,pOptionCtrler_pKurokoA->_vY,pOptionCtrler_pKurokoA->_vZ)
+    //ある座標(x, y, z)＝方向ベクトル(pOptionCtrler_pKuroko->_vX,pOptionCtrler_pKuroko->_vY,pOptionCtrler_pKuroko->_vZ)
     //回転軸  (α, β, γ)=(vX_axis, vY_axis, vZ_axis) 、
     //回転角θ= angExpanse_
-    float vX_axis = cos_ry*cos_rz*pKurokoA->_vX + cos_ry*-sin_rz*pKurokoA->_vY + sin_ry*pKurokoA->_vZ;
-    float vY_axis = sin_rz*pKurokoA->_vX + cos_rz*pKurokoA->_vY;
-    float vZ_axis = -sin_ry*cos_rz*pKurokoA->_vX + -sin_ry*-sin_rz*pKurokoA->_vY + cos_ry*pKurokoA->_vZ;
+    float vX_axis = cos_ry*cos_rz*pKuroko->_vX + cos_ry*-sin_rz*pKuroko->_vY + sin_ry*pKuroko->_vZ;
+    float vY_axis = sin_rz*pKuroko->_vX + cos_rz*pKuroko->_vY;
+    float vZ_axis = -sin_ry*cos_rz*pKuroko->_vX + -sin_ry*-sin_rz*pKuroko->_vY + cos_ry*pKuroko->_vZ;
     float sinHalf = ANG_SIN(angExpanse_/2); //angExpanse_=回転させたい角度
     float cosHalf = ANG_COS(angExpanse_/2);
 
     GgafDxQuaternion Q(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf); //R
     Q.mul(0,
-          pOptionCtrler_pKurokoA->_vX,
-          pOptionCtrler_pKurokoA->_vY,
-          pOptionCtrler_pKurokoA->_vZ); //R*P 回転軸が現在の進行方向ベクトルとなる
+          pOptionCtrler_pKuroko->_vX,
+          pOptionCtrler_pKuroko->_vY,
+          pOptionCtrler_pKuroko->_vZ); //R*P 回転軸が現在の進行方向ベクトルとなる
     Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
     //Q._x, Q._y, Q._z が回転後の座標となる
     //Z軸回転、Y軸回転角度を計算
@@ -580,11 +580,11 @@ void MyOption::processBehavior() {
             velo veloVx = Q._x*max_velo_renge;
             velo veloVy = Q._y*max_velo_renge;
             velo veloVz = Q._z*max_velo_renge;
-            pLaserChip->_pKurokoB->setVxyzMvVelo(veloVx, veloVy, veloVz);
-            pLaserChip->_pKurokoB->setVxyzMvAcce(veloVx / r_max_acce,
+            pLaserChip->pAxMver_->setVxyzMvVelo(veloVx, veloVy, veloVz);
+            pLaserChip->pAxMver_->setVxyzMvAcce(veloVx / r_max_acce,
                                                  veloVy / r_max_acce,
                                                  veloVz / r_max_acce );
-            pLaserChip->_pKurokoB->behave();
+            pLaserChip->pAxMver_->behave();
 
             pLaserChip->positionAs(this);
             pLaserChip->_rz = _rz;
@@ -603,11 +603,11 @@ void MyOption::processBehavior() {
     if (pMyShip->just_shot_) {
         MyShot001* pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
         if (pShot) {
-            GgafDxKurokoA* const pShot_pKurokoA = pShot->_pKurokoA;
+            GgafDxKuroko* const pShot_pKuroko = pShot->_pKuroko;
             _pSeTx->play3D(SE_FIRE_SHOT);
             pShot->positionAs(this);
-            pShot_pKurokoA->setFaceAng(_rx, _ry, _rz);
-            pShot_pKurokoA->setRzRyMvAng(_rz, _ry);
+            pShot_pKuroko->setFaceAng(_rx, _ry, _rz);
+            pShot_pKuroko->setRzRyMvAng(_rz, _ry);
         }
     }
     //光子魚雷発射
@@ -619,7 +619,7 @@ void MyOption::processBehavior() {
 //    _pSeTx->behave();
 
 //    if (no_ == 3 ) {
-//        if (_pKurokoA->_angveloRzMv == 0 || _pKurokoA->_angveloRzMv == 360000) {
+//        if (_pKuroko->_angveloRzMv == 0 || _pKuroko->_angveloRzMv == 360000) {
 //            if (veloMv_ == 1000) {
 //                if (radiusPosition_ == 1) {
 //                    _TRACE_(getBehaveingFrame()<<":before 遠ざかる成立！！！");
@@ -627,7 +627,7 @@ void MyOption::processBehavior() {
 //            }
 //
 //        }
-//        _TRACE_(getBehaveingFrame()<<":after  radiusPosition_="<<radiusPosition_<<" radiusPosition_stopping_="<<radiusPosition_stopping_<<" _angveloRzMv="<<(_pKurokoA->_angveloRzMv)<<" veloMv_="<<veloMv_);
+//        _TRACE_(getBehaveingFrame()<<":after  radiusPosition_="<<radiusPosition_<<" radiusPosition_stopping_="<<radiusPosition_stopping_<<" _angveloRzMv="<<(_pKuroko->_angveloRzMv)<<" veloMv_="<<veloMv_);
 //    }
 
 }

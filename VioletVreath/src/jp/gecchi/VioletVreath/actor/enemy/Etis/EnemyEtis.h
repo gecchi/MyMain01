@@ -18,6 +18,9 @@ public:
         SE_DAMAGED   ,
         SE_EXPLOSION ,
     };
+    /** •½sˆÚ“®x‰‡ */
+    GgafDxCore::GgafDxAxesMover* pAxMver_;
+
     int width_x_;
     int height_z_;
     int depth_y_;

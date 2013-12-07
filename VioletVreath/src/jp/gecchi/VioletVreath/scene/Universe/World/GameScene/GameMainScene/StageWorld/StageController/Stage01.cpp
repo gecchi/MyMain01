@@ -43,8 +43,8 @@ Stage01::Stage01(const char* prm_name) : Stage(prm_name) {
     //debug ---->
 //    EnemyHisbe* pTest = NEW EnemyHisbe("tst");
 //    pTest->position(PX_C(0),PX_C(0), PX_C(100));
-//    pTest->_pKurokoA->setFaceAngTwd(PX_C(100), PX_C(100), PX_C(100));
-//    pTest->_pKurokoA->behave();
+//    pTest->_pKuroko->setFaceAngTwd(PX_C(100), PX_C(100), PX_C(100));
+//    pTest->_pKuroko->behave();
 //    getSceneDirector()->addSubGroup(pTest);
     //<-----debug
 

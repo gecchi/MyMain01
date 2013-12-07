@@ -2,7 +2,7 @@
 #include "EffectEntry001.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -24,8 +24,8 @@ void EffectEntry001::onActive() {
     EffectEntry::onActive();
     _pScaler->forceRange(1, 20000);
     _pScaler->setScaleToBottom();
-    _pKurokoA->setFaceAng(D0ANG, D0ANG, D0ANG);
-    _pKurokoA->setFaceAngVelo(3000, 5000, 7000);
+    _pKuroko->setFaceAng(D0ANG, D0ANG, D0ANG);
+    _pKuroko->setFaceAngVelo(3000, 5000, 7000);
     _pProg->reset(PROG_INIT);
 }
 
@@ -65,7 +65,7 @@ void EffectEntry001::processBehavior() {
             break;
     }
     _pScaler->behave();
-    _pKurokoA->behave();
+    _pKuroko->behave();
 }
 
 void EffectEntry001::config(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames) {

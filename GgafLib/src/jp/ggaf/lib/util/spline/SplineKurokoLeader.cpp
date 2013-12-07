@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/spline/SplineLine.h"
 #include "jp/ggaf/lib/util/spline/SplineManufacture.h"
@@ -11,10 +11,10 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-SplineKurokoLeader::SplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKurokoA* const prm_pKurokoA) :
+SplineKurokoLeader::SplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKuroko* const prm_pKuroko) :
         GgafObject() {
     _pManufacture = prm_pManufacture;
-    _pActor_target = prm_pKurokoA->_pActor;
+    _pActor_target = prm_pKuroko->_pActor;
     _option = ABSOLUTE_COORD;
     _x_start = 0;
     _y_start = 0;

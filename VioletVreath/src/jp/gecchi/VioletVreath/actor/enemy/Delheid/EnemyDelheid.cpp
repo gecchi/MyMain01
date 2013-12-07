@@ -3,7 +3,7 @@
 
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxChecker.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
@@ -63,9 +63,9 @@ void EnemyDelheid::onActive() {
     _pStatus->reset();
     setHitAble(true);
     _pMorpher->reset();
-    _pKurokoA->setFaceAng(AXIS_X, 0);
-    _pKurokoA->setMvAcce(0);
-    _pKurokoA->keepOnTurningFaceAngTwd(P_MYSHIP,
+    _pKuroko->setFaceAng(AXIS_X, 0);
+    _pKuroko->setMvAcce(0);
+    _pKuroko->keepOnTurningFaceAngTwd(P_MYSHIP,
                                        D_ANG(1), 0, TURN_CLOSE_TO, false);
     _pProg->reset(PROG_INIT);
     pProg2_->reset(PROG2_WAIT);
@@ -160,9 +160,9 @@ void EnemyDelheid::processBehavior() {
     }
     //-----------------------------------------------
 
-    _pKurokoA->_angveloFace[AXIS_X] = _pKurokoA->_veloMv/2;
+    _pKuroko->_angveloFace[AXIS_X] = _pKuroko->_veloMv/2;
     pKurokoLeader_->behave(); //ƒXƒvƒ‰ƒCƒ“ˆÚ“®‚ğU‚é•‘‚¢
-    _pKurokoA->behave();
+    _pKuroko->behave();
     _pMorpher->behave();
 }
 

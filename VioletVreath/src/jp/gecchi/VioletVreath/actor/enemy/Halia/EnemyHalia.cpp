@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "EnemyHalia.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
@@ -14,6 +14,7 @@
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAsstA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -25,6 +26,7 @@ EnemyHalia::EnemyHalia(const char* prm_name) :
         //CubeMapMorphMeshActor(prm_name, "1/HaliaCM", STATUS(EnemyHalia)) {
 
     _class_name = "EnemyHalia";
+    pKurokoAsstA_ = NEW GgafDxKurokoAsstA(_pKuroko);
     veloTopMv_ = 20000;
     iMovePatternNo_ = 0;
     pKurokoLeader_ = nullptr;
@@ -58,7 +60,7 @@ void EnemyHalia::onCreateModel() {
 
 void EnemyHalia::initialize() {
     setHitAble(true);
-    _pKurokoA->relateFaceWithMvAng(true);
+    _pKuroko->relateFaceWithMvAng(true);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliSphere(0, 90000);
     setScaleR(0.3);
@@ -68,9 +70,9 @@ void EnemyHalia::onActive() {
     _pStatus->reset();
     _pMorpher->setWeight(0, 1.0);
     _pMorpher->setWeight(1, 0.0);
-    _pKurokoA->setFaceAngVelo(AXIS_X, 1000);
-    _pKurokoA->slideMvByVD(veloTopMv_, 1000, MyShip::lim_x_front_-_x,
-                           0.4, 0.6);
+    _pKuroko->setFaceAngVelo(AXIS_X, 1000);
+    pKurokoAsstA_->slideMvByVd(veloTopMv_, MyShip::lim_x_front_-_x,
+                           0.4, 0.6, 1000);
     _pProg->reset(PROG_MOVE);
     iMovePatternNo_ = 0; //行動パターンリセット
 }
@@ -80,9 +82,9 @@ void EnemyHalia::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     switch (_pProg->get()) {
         case PROG_MOVE: {
-            if (!_pKurokoA->isSlidingMv()) {
+            if (!pKurokoAsstA_->isSlidingMv()) {
                 _pMorpher->morphAcceStep(1, 1.0, 0.0, 0.0004); //開く 0.0004 開く速さ
-                _pKurokoA->turnMvAngTwd(P_MYSHIP,
+                _pKuroko->turnMvAngTwd(P_MYSHIP,
                                         0, 100,
                                         TURN_CLOSE_TO, false);
                 _pProg->changeNext();
@@ -106,7 +108,7 @@ void EnemyHalia::processBehavior() {
         }
         case PROG_IN_FIRE: {
             if (getActiveFrame() % 16U == 0) {
-                _pKurokoA->turnMvAngTwd(P_MYSHIP,
+                _pKuroko->turnMvAngTwd(P_MYSHIP,
                                         10, 0,
                                         TURN_CLOSE_TO, false);
             }
@@ -114,7 +116,7 @@ void EnemyHalia::processBehavior() {
             if (pLaser) {
                 if (pLaser->_pChip_front == nullptr) {
                     _pSeTx->play3D(SE_FIRE);
-                    _pKurokoA->setFaceAngVelo(AXIS_X, 5000);//発射中は速い回転
+                    _pKuroko->setFaceAngVelo(AXIS_X, 5000);//発射中は速い回転
                 }
             } else {
                 _pProg->change(PROG_CLOSE);
@@ -124,9 +126,8 @@ void EnemyHalia::processBehavior() {
         case PROG_CLOSE: {
             //１サイクルレーザー打ち切った
             _pMorpher->morphLinerUntil(1, 0.0, 60); //閉じる
-            _pKurokoA->slideMvByVD(veloTopMv_, 1000, 1500000, 0.4, 0.6);
-//            _pKurokoA->slideMvByDT(200, 1000000, 180);
-            _pKurokoA->setFaceAngVelo(AXIS_X, 1000);
+            pKurokoAsstA_->slideMvByVd(veloTopMv_, 1500000, 0.4, 0.6, 1000);
+            _pKuroko->setFaceAngVelo(AXIS_X, 1000);
             _pProg->change(PROG_MOVE);
             break;
         }
@@ -134,8 +135,8 @@ void EnemyHalia::processBehavior() {
         default:
             break;
     }
-
-    _pKurokoA->behave();
+    pKurokoAsstA_->behave();
+    _pKuroko->behave();
     _pMorpher->behave();
     _pSeTx->behave();
 }
@@ -166,5 +167,6 @@ void EnemyHalia::onInactive() {
 }
 
 EnemyHalia::~EnemyHalia() {
+    GGAF_DELETE(pKurokoAsstA_);
     GGAF_DELETE_NULLABLE(pKurokoLeader_);
 }

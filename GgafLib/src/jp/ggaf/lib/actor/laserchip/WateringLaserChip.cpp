@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "jp/ggaf/lib/actor/laserchip/WateringLaserChip.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -26,7 +26,6 @@ void WateringLaserChip::onActive() {
 }
 
 void WateringLaserChip::processBehavior() {
-    _pKurokoB->behave();
     //座標をコピー
     _tmpX = _x;
     _tmpY = _y;

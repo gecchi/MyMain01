@@ -3,13 +3,15 @@
 
 #include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
-#include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "jp/ggaf/dxcore/util/GgafDxQuaternion.h"
 #include "jp/gecchi/VioletVreath/actor/ViewPointGuide.h"
 #include "jp/gecchi/VioletVreath/Properties.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World.h"
+#include "jp/gecchi/VioletVreath/actor/ViewPoint.h"
+#include "jp/gecchi/VioletVreath/actor/Camera.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAsstA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -35,8 +37,8 @@ void PauseCamWorker::initialize() {
 
 
 void PauseCamWorker::processBehavior() {
-    GgafDxCamera* pCam = P_CAM;
-    GgafDxGeometricActor* pVP = pCam->getViewPoint();
+    Camera* pCam = P_CAM;
+    ViewPoint* pVP = (ViewPoint*)(pCam->getViewPoint());
     GgafDxInput::updateMouseState();
 
     long mx,my,mz,mdx,mdy,mdz;
@@ -62,12 +64,12 @@ void PauseCamWorker::processBehavior() {
         } else {
             cd_ = cw;
         }
-        if (!pCam->_pKurokoA->isSlidingMv()) {
+        if (!pCam->pKurokoAsstA_->isSlidingMv()) {
             move_target_x_CAM_ = pCam->_x;
             move_target_y_CAM_ = pCam->_y;
             move_target_z_CAM_ = pCam->_z;
         }
-        if (!pVP->_pKurokoA->isSlidingMv()) {
+        if (!pVP->pKurokoAsstA_->isSlidingMv()) {
             //³Šm‚ÈVP‚ÉÄÝ’è
             pVP->_x = DX_C(pCam->_pVecCamLookatPoint->x);
             pVP->_y = DX_C(pCam->_pVecCamLookatPoint->y);
@@ -223,12 +225,12 @@ void PauseCamWorker::processBehavior() {
         stop_renge_ = 60000;
         if (mdz_flg_ == false) {
             mdz_total_ = 0;
-            if (!pCam->_pKurokoA->isSlidingMv()) {
+            if (!pCam->pKurokoAsstA_->isSlidingMv()) {
                 move_target_x_CAM_ = pCam->_x;
                 move_target_y_CAM_ = pCam->_y;
                 move_target_z_CAM_ = pCam->_z;
             }
-            if (!pVP->_pKurokoA->isSlidingMv()) {
+            if (!pVP->pKurokoAsstA_->isSlidingMv()) {
                 pVP->_x = DX_C(pCam->_pVecCamLookatPoint->x);
                 pVP->_y = DX_C(pCam->_pVecCamLookatPoint->y);
                 pVP->_z = DX_C(pCam->_pVecCamLookatPoint->z);
@@ -279,22 +281,22 @@ void PauseCamWorker::processBehavior() {
     if (ABS(move_target_x_CAM_ - pCam->_x) < 10 && ABS(move_target_y_CAM_ - pCam->_y) < 10 && ABS(move_target_z_CAM_ - pCam->_z) < 10) {
         //OK
     } else {
-        pCam->_pKurokoA->setMvAngTwd(move_target_x_CAM_, move_target_y_CAM_, move_target_z_CAM_);
+        pCam->_pKuroko->setMvAngTwd(move_target_x_CAM_, move_target_y_CAM_, move_target_z_CAM_);
 
         int td1 = UTIL::getDistance(pCam->_x, pCam->_y, pCam->_z,
                                            move_target_x_CAM_, move_target_y_CAM_, move_target_z_CAM_);
         if (ABS(td1) > 10) {
-            pCam->_pKurokoA->slideMvByDT(0, td1, 20, 0.4, 0.6);
+            pCam->pKurokoAsstA_->slideMvByDt(td1, 20, 0.4, 0.6, 0);
         }
     }
     if (ABS(move_target_x_VP_ - pVP->_x) < 10 && ABS(move_target_y_VP_ - pVP->_y) < 10 && ABS(move_target_z_VP_ - pVP->_z) < 10) {
         //OK
     } else {
-        pVP->_pKurokoA->setMvAngTwd(move_target_x_VP_, move_target_y_VP_, move_target_z_VP_);
+        pVP->_pKuroko->setMvAngTwd(move_target_x_VP_, move_target_y_VP_, move_target_z_VP_);
         int td2 = UTIL::getDistance(pVP->_x, pVP->_y, pVP->_z,
                                            move_target_x_VP_, move_target_y_VP_, move_target_z_VP_);
         if (ABS(td2) > 10) {
-            pVP->_pKurokoA->slideMvByDT(0, td2, 20, 0.4, 0.6);
+            pVP->pKurokoAsstA_->slideMvByDt(td2, 20, 0.4, 0.6, 0);
         }
     }
 
@@ -313,11 +315,6 @@ void PauseCamWorker::processBehavior() {
         pCam->_pVecCamUp->y = ANG_SIN(angXY_nowCamUp_);
         pCam->_pVecCamUp->z = 0.0f;
     }
-
-
-    pCam->_pKurokoA->behave();
-    pVP->_pKurokoA->behave();
-
 }
 
 PauseCamWorker::~PauseCamWorker() {

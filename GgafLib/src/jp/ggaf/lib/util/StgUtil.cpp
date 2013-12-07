@@ -3,7 +3,7 @@
 
 #include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
 #include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -32,9 +32,9 @@ GgafDxDrawableActor* StgUtil::shotWay001(coord prm_x, coord prm_y, coord prm_z,
             pActor_Shot->position(prm_x + X,
                                   prm_y + Y,
                                   prm_z + Z);
-            pActor_Shot->_pKurokoA->setRzRyMvAng(prm_rz, prm_ry);
-            pActor_Shot->_pKurokoA->setMvVelo(now_velo);
-            pActor_Shot->_pKurokoA->setMvAcce(now_acce);
+            pActor_Shot->_pKuroko->setRzRyMvAng(prm_rz, prm_ry);
+            pActor_Shot->_pKuroko->setMvVelo(now_velo);
+            pActor_Shot->_pKuroko->setMvAcce(now_acce);
             if (pFunc_CallBackDispatched) {
                 pFunc_CallBackDispatched(pActor_Shot, dispatch_num, n);
             }
@@ -122,9 +122,9 @@ GgafDxDrawableActor* StgUtil::shotWay002(coord prm_x, coord prm_y, coord prm_z,
                 pActor_Shot->position(prm_x + paGeo[i].x,
                                       prm_y + paGeo[i].y,
                                       prm_z + paGeo[i].z);
-                pActor_Shot->_pKurokoA->setRzRyMvAng(paGeo[i].rz, paGeo[i].ry);
-                pActor_Shot->_pKurokoA->setMvVelo(now_velo);
-                pActor_Shot->_pKurokoA->setMvAcce(now_acce);
+                pActor_Shot->_pKuroko->setRzRyMvAng(paGeo[i].rz, paGeo[i].ry);
+                pActor_Shot->_pKuroko->setMvVelo(now_velo);
+                pActor_Shot->_pKuroko->setMvAcce(now_acce);
                 if (pFunc_CallBackDispatched) {
                     pFunc_CallBackDispatched(pActor_Shot, dispatch_num, n, i);
                 }
@@ -238,9 +238,9 @@ GgafDxDrawableActor* StgUtil::shotWay003(coord prm_x, coord prm_y, coord prm_z,
                     pActor_Shot->position(prm_x + papaGeo[i][j].x,
                                           prm_y + papaGeo[i][j].y,
                                           prm_z + papaGeo[i][j].z);
-                    pActor_Shot->_pKurokoA->setRzRyMvAng(papaGeo[i][j].rz, papaGeo[i][j].ry);
-                    pActor_Shot->_pKurokoA->setMvVelo(now_velo);
-                    pActor_Shot->_pKurokoA->setMvAcce(now_acce);
+                    pActor_Shot->_pKuroko->setRzRyMvAng(papaGeo[i][j].rz, papaGeo[i][j].ry);
+                    pActor_Shot->_pKuroko->setMvVelo(now_velo);
+                    pActor_Shot->_pKuroko->setMvAcce(now_acce);
                     if (pFunc_CallBackDispatched) {
                         pFunc_CallBackDispatched(pActor_Shot, dispatch_num, n, depo_no, i, j);
                     }
@@ -327,11 +327,11 @@ GgafDxDrawableActor* StgUtil::shotWay004(coord prm_x, coord prm_y, coord prm_z,
                 pActor_Shot->position(prm_x + paGeo[i].x,
                                       prm_y + paGeo[i].y,
                                       prm_z + paGeo[i].z);
-                pActor_Shot->_pKurokoA->setRzRyMvAng(paGeo[i].rz, paGeo[i].ry);
-                pActor_Shot->_pKurokoA->setMvVelo(now_velo);
-                pActor_Shot->_pKurokoA->setMvAcce(now_acce);
-//                pActor_Shot->_pKurokoA->_angFace[AXIS_Z] = Rz;
-//                pActor_Shot->_pKurokoA->_angFace[AXIS_Y] = Ry;
+                pActor_Shot->_pKuroko->setRzRyMvAng(paGeo[i].rz, paGeo[i].ry);
+                pActor_Shot->_pKuroko->setMvVelo(now_velo);
+                pActor_Shot->_pKuroko->setMvAcce(now_acce);
+//                pActor_Shot->_pKuroko->_angFace[AXIS_Z] = Rz;
+//                pActor_Shot->_pKuroko->_angFace[AXIS_Y] = Ry;
                 if (pFunc_CallBackDispatched) {
                     pFunc_CallBackDispatched(pActor_Shot, dispatch_num, n, i);
                 }
@@ -402,11 +402,11 @@ GgafDxDrawableActor* StgUtil::shotWayGoldenAng(coord prm_x, coord prm_y, coord p
                 pActor_Shot->position(prm_x + paGeo[i].x,
                                       prm_y + paGeo[i].y,
                                       prm_z + paGeo[i].z);
-                pActor_Shot->_pKurokoA->setRzRyMvAng(paGeo[i].rz, paGeo[i].ry);
-                pActor_Shot->_pKurokoA->setMvVelo(now_velo);
-                pActor_Shot->_pKurokoA->setMvAcce(now_acce);
-//                pActor_Shot->_pKurokoA->_angFace[AXIS_Z] = Rz;
-//                pActor_Shot->_pKurokoA->_angFace[AXIS_Y] = Ry;
+                pActor_Shot->_pKuroko->setRzRyMvAng(paGeo[i].rz, paGeo[i].ry);
+                pActor_Shot->_pKuroko->setMvVelo(now_velo);
+                pActor_Shot->_pKuroko->setMvAcce(now_acce);
+//                pActor_Shot->_pKuroko->_angFace[AXIS_Z] = Rz;
+//                pActor_Shot->_pKuroko->_angFace[AXIS_Y] = Ry;
                 if (pFunc_CallBackDispatched) {
                     pFunc_CallBackDispatched(pActor_Shot, dispatch_num, n, i);
                 }

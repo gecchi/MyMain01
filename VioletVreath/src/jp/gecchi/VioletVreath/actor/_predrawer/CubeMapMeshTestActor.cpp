@@ -2,7 +2,7 @@
 #include "CubeMapMeshTestActor.h"
 
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
 
 using namespace GgafCore;
@@ -29,7 +29,7 @@ void CubeMapMeshTestActor::initialize() {
 
     position(0,0,0);
     setScaleR(0.2);
-    _pKurokoA->setRzRyMvAng(0,0);
+    _pKuroko->setRzRyMvAng(0,0);
 }
 
 void CubeMapMeshTestActor::onActive() {
@@ -37,40 +37,6 @@ void CubeMapMeshTestActor::onActive() {
 
 
 void CubeMapMeshTestActor::processBehavior() {
-//    if (GgafDxInput::isPushedDownKey(DIK_T)) {
-////        _pKurokoA->slideMvByDT(0, 600*1000, 180, 0.4, 0.6, true);
-//        _pKurokoA->slideMvByVD(10*1000, 0, 600*1000, 0.4, 0.6);
-//        _TRACE_("slideMv!!");
-//    }
-//    if (GgafDxInput::isPushedDownKey(DIK_Y)) {
-////        _pKurokoA->slideMvByDT(0, 600*1000, 180, 0.1, 0.3, true);
-//        _pKurokoA->slideMvByVD(10*1000, 0, 600*1000, 0.1, 0.3);
-//        _TRACE_("slideMv!!");
-//    }
-//    if (GgafDxInput::isPushedDownKey(DIK_U)) {
-////        _pKurokoA->slideMvByDT(0, 600*1000, 180, 0.7, 0.9, true);
-//        _pKurokoA->slideMvByVD(10*1000, 0, 600*1000, 0.7, 0.9);
-//        _TRACE_("slideMv!!");
-//    }
-//    if (GgafDxInput::isBeingPressedKey(DIK_W)) {
-//        _x = _x - 2000;
-//    }
-//    if (GgafDxInput::isBeingPressedKey(DIK_R)) {
-//        _x = _x + 2000;
-//    }
-//    if (GgafDxInput::isBeingPressedKey(DIK_3)) {
-//        _y = _y + 2000;
-//    }
-//    if (GgafDxInput::isBeingPressedKey(DIK_E)) {
-//        _y = _y - 2000;
-//    }
-//    if (GgafDxInput::isBeingPressedKey(DIK_4)) {
-//        _x = 0;
-//    }
-////    _TRACE_(getActiveFrame() <<":"<<_x<<","<<_y<<","<<_z);
-//
-//
-//    _pKurokoA->behave();
 }
 
 CubeMapMeshTestActor::~CubeMapMeshTestActor() {

@@ -2,7 +2,7 @@
 #include "EnemyStraeaLaserChip003.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
@@ -16,7 +16,7 @@ EnemyStraeaLaserChip003::EnemyStraeaLaserChip003(const char* prm_name) :
         WateringLaserChip(prm_name, "StraeaLaserChip001", STATUS(EnemyStraeaLaserChip003)) {
     _class_name = "EnemyStraeaLaserChip003";
     pSplManufConnection_ = connect_SplineManufactureManager("GURUGURU");
-    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(_pKurokoA);
+    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(_pKuroko);
 }
 
 void EnemyStraeaLaserChip003::initialize() {
@@ -24,8 +24,8 @@ void EnemyStraeaLaserChip003::initialize() {
     setHitAble(true, false);
     setScaleR(5.0);
     setAlpha(0.9);
-    _pKurokoA->setMvVelo(30000);
-    _pKurokoA->relateFaceWithMvAng(true);
+    _pKuroko->setMvVelo(30000);
+    _pKuroko->relateFaceWithMvAng(true);
 }
 
 void EnemyStraeaLaserChip003::onActive() {
@@ -37,7 +37,7 @@ void EnemyStraeaLaserChip003::onActive() {
 
 void EnemyStraeaLaserChip003::processBehavior() {
     pKurokoLeader_->behave();
-    _pKurokoA->behave();
+    _pKuroko->behave();
     WateringLaserChip::processBehavior();
 }
 

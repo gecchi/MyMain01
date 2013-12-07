@@ -2,7 +2,7 @@
 #include "EnemyThagoras.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
@@ -35,9 +35,9 @@ void EnemyThagoras::onCreateModel() {
 void EnemyThagoras::initialize() {
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
-    _pKurokoA->relateFaceWithMvAng(true);
-    _pKurokoA->setFaceAngVelo(AXIS_X, 2000);
-    _pKurokoA->forceMvVeloRange(PX_C(15));
+    _pKuroko->relateFaceWithMvAng(true);
+    _pKuroko->setFaceAngVelo(AXIS_X, 2000);
+    _pKuroko->forceMvVeloRange(PX_C(15));
 }
 
 void EnemyThagoras::onActive() {
@@ -92,7 +92,7 @@ void EnemyThagoras::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     pKurokoLeader_->behave(); //ƒXƒvƒ‰ƒCƒ“ˆÚ“®‚ðU‚é•‘‚¢
     _pAFader->behave();
-    _pKurokoA->behave();
+    _pKuroko->behave();
     //ŒÛ“®‚ð“¯Šú
     _sx = pActor4Sc_->_sx;
     _sy = pActor4Sc_->_sy;

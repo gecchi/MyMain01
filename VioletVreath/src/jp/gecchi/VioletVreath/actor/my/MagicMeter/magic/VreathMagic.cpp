@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "VreathMagic.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectVreathMagic001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
@@ -124,7 +124,7 @@ void VreathMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
         pEffect_->positionAs(P_MYSHIP);
         pEffect_->setAlpha(0.9);
-        pEffect_->_pKurokoA->setFaceAngVelo(AXIS_Z, 100);
+        pEffect_->_pKuroko->setFaceAngVelo(AXIS_Z, 100);
         pEffect_->_pScaler->setScale(1000);
         pEffect_->activate();
     }
@@ -147,7 +147,7 @@ void VreathMagic::processCastFinish(int prm_now_level, int prm_new_level, int pr
 void VreathMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
         pEffect_->_pScaler->setScale(1000);
-        pEffect_->_pKurokoA->setFaceAngVelo(AXIS_Z, 3000);
+        pEffect_->_pKuroko->setFaceAngVelo(AXIS_Z, 3000);
     }
 }
 

@@ -16,6 +16,7 @@ class VvvGod;
 class VvvUniverse;
 class VvvWorld;
 class VvvCamera;
+class VvvViewPoint;
 class VvvCursor;
 class VvvGrid;
 class VvvCamWorker;

@@ -2,7 +2,7 @@
 #include "EnemyDuna.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
@@ -11,7 +11,7 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -25,6 +25,7 @@ using namespace VioletVreath;
 EnemyDuna::EnemyDuna(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Duna", STATUS(EnemyDuna)) {
     _class_name = "EnemyDuna";
+    pAxMver_ = NEW GgafDxAxesMover(this);
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     effectBlendOne(); //‰ÁŽZ‡¬
     setScaleR(0.3);
@@ -55,21 +56,21 @@ void EnemyDuna::processBehavior() {
 
     MyShip* pMyShip = P_MYSHIP;
     if (_pProg->isJustChanged()) {
-        _pKurokoB->execGravitationMvSequenceTwd(pMyShip, PX_C(3), 30, PX_C(1));
+        pAxMver_->execGravitationMvSequenceTwd(pMyShip, PX_C(3), 30, PX_C(1));
     }
 
     switch (_pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
             _pAFader->setAlpha(0);
-            _pKurokoA->relateFaceWithMvAng(false);
-            _pKurokoA->keepOnTurningFaceAngTwd(pMyShip,
+            _pKuroko->relateFaceWithMvAng(false);
+            _pKuroko->keepOnTurningFaceAngTwd(pMyShip,
                                                D_ANG(2), 0, TURN_CLOSE_TO,false);
-            //_pKurokoA->setMvVelo(RF_EnemyDuna_MvVelo(G_RANK));
-                         _pKurokoA->setMvVelo(PX_C(6));
-            _pKurokoA->setRzRyMvAng(0, D90ANG);
-            _pKurokoA->setRzMvAngVelo(D_ANG(12));
-            _pKurokoA->setRzMvAngAcce(D_ANG(0.05));
+            //_pKuroko->setMvVelo(RF_EnemyDuna_MvVelo(G_RANK));
+                         _pKuroko->setMvVelo(PX_C(6));
+            _pKuroko->setRzRyMvAng(0, D90ANG);
+            _pKuroko->setRzMvAngVelo(D_ANG(12));
+            _pKuroko->setRzMvAngAcce(D_ANG(0.05));
             _pMorpher->setWeight(0.0);
             UTIL::activateEntryEffectOf(this);
             _pProg->changeNext();
@@ -96,11 +97,11 @@ void EnemyDuna::processBehavior() {
          }
          case PROG_ENTRY_MOVE02: {
              if (_pProg->isJustChanged()) {
-                 _pKurokoA->turnRzRyMvAngTo(0, D180ANG, D_ANG(5), 0, TURN_CLOSE_TO,false);
-                 _pKurokoA->turnRzRyFaceAngTo(0, D180ANG, D_ANG(5), 0, TURN_CLOSE_TO,false);
+                 _pKuroko->turnRzRyMvAngTo(0, D180ANG, D_ANG(5), 0, TURN_CLOSE_TO,false);
+                 _pKuroko->turnRzRyFaceAngTo(0, D180ANG, D_ANG(5), 0, TURN_CLOSE_TO,false);
              }
-             if (!_pKurokoA->isTurningMvAng() && !_pKurokoA->isTurningFaceAng()) {
-                 _pKurokoA->relateFaceWithMvAng(true);
+             if (!_pKuroko->isTurningMvAng() && !_pKuroko->isTurningFaceAng()) {
+                 _pKuroko->relateFaceWithMvAng(true);
                  _pProg->changeProbab(
                               0, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,
                              25, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW,
@@ -148,10 +149,10 @@ void EnemyDuna::processBehavior() {
 
          case PROG_MOVE_ORDER_LARGE_SEMIARC_CW: {  //‡@
              if (_pProg->isJustChanged()) {
-                 _pKurokoA->turnRzMvAngTo(_pKurokoA->_angRzMv - SEMIARC_ANG,
+                 _pKuroko->turnRzMvAngTo(_pKuroko->_angRzMv - SEMIARC_ANG,
                                           LARGE_SEMIARC_ANGVELO, 0, TURN_CLOCKWISE);
              }
-             if (!_pKurokoA->isTurningMvAng()) {
+             if (!_pKuroko->isTurningMvAng()) {
                  //‡@‚ÌŽŸ‚Ì“®ì
                  _pProg->changeProbab(
                                0, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
@@ -170,10 +171,10 @@ void EnemyDuna::processBehavior() {
          case PROG_MOVE_ORDER_LARGE_SEMIARC_CCW: { //‡A
              if (_pProg->isJustChanged()) {
                  //‰~ŒÊˆÚ“®
-                 _pKurokoA->turnRzMvAngTo(_pKurokoA->_angRzMv + SEMIARC_ANG,
+                 _pKuroko->turnRzMvAngTo(_pKuroko->_angRzMv + SEMIARC_ANG,
                                           LARGE_SEMIARC_ANGVELO, 0, TURN_COUNTERCLOCKWISE);
              }
-             if (!_pKurokoA->isTurningMvAng()) {
+             if (!_pKuroko->isTurningMvAng()) {
                  //‡A‚ÌŽŸ‚Ì“®ì
                  _pProg->changeProbab(
                               10, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
@@ -191,17 +192,17 @@ void EnemyDuna::processBehavior() {
          case PROG_MOVE_REV_LARGE_SEMIARC_CW: {  //‡B
              if (_pProg->isJustChanged()) {
                  //‚Ü‚¸ŠJŽnó‘Ô‚Ì^— •ûŒü‚ÉŒü‚­
-                 _pKurokoA->turnRzMvAngTo(_pKurokoA->_angRzMv - D180ANG,
+                 _pKuroko->turnRzMvAngTo(_pKuroko->_angRzMv - D180ANG,
                                           REV_TURN_ANGVELO, 0, TURN_CLOSE_TO);
                  nprog_ = 0;
              }
-             if (nprog_ == 0 && !_pKurokoA->isTurningMvAng()) {
+             if (nprog_ == 0 && !_pKuroko->isTurningMvAng()) {
                  //‰~ŒÊˆÚ“®
-                 _pKurokoA->turnRzMvAngTo(_pKurokoA->_angRzMv - SEMIARC_ANG,
+                 _pKuroko->turnRzMvAngTo(_pKuroko->_angRzMv - SEMIARC_ANG,
                                           LARGE_SEMIARC_ANGVELO, 0, TURN_CLOCKWISE);
                  nprog_ = 1;
              }
-             if (nprog_ == 1 && !_pKurokoA->isTurningMvAng()) {
+             if (nprog_ == 1 && !_pKuroko->isTurningMvAng()) {
                  //‡B‚ÌŽŸ‚Ì“®ì
                  _pProg->changeProbab(
                                0, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
@@ -219,17 +220,17 @@ void EnemyDuna::processBehavior() {
          case PROG_MOVE_REV_LARGE_SEMIARC_CCW: {  //‡C
              if (_pProg->isJustChanged()) {
                  //‚Ü‚¸ŠJŽnó‘Ô‚Ì^— •ûŒü‚ÉŒü‚­
-                 _pKurokoA->turnRzMvAngTo(_pKurokoA->_angRzMv + D180ANG,
+                 _pKuroko->turnRzMvAngTo(_pKuroko->_angRzMv + D180ANG,
                                           REV_TURN_ANGVELO, 0, TURN_CLOSE_TO);
                  nprog_ = 0;
              }
-             if (nprog_ == 0 && !_pKurokoA->isTurningMvAng()) {
+             if (nprog_ == 0 && !_pKuroko->isTurningMvAng()) {
                  //‰~ŒÊˆÚ“®
-                 _pKurokoA->turnRzMvAngTo(_pKurokoA->_angRzMv + SEMIARC_ANG,
+                 _pKuroko->turnRzMvAngTo(_pKuroko->_angRzMv + SEMIARC_ANG,
                                           LARGE_SEMIARC_ANGVELO, 0, TURN_COUNTERCLOCKWISE);
                  nprog_ = 1;
              }
-             if (nprog_ == 1 && !_pKurokoA->isTurningMvAng()) {
+             if (nprog_ == 1 && !_pKuroko->isTurningMvAng()) {
                  //‡C‚ÌŽŸ‚Ì“®ì
                  _pProg->changeProbab(
                               10, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
@@ -251,10 +252,10 @@ void EnemyDuna::processBehavior() {
 
          case PROG_MOVE_ORDER_SMALL_SEMIARC_CW: {  //‡D
              if (_pProg->isJustChanged()) {
-                 _pKurokoA->turnRzMvAngTo(_pKurokoA->_angRzMv - SEMIARC_ANG,
+                 _pKuroko->turnRzMvAngTo(_pKuroko->_angRzMv - SEMIARC_ANG,
                                           SMALL_SEMIARC_ANGVELO, 0, TURN_CLOCKWISE);
              }
-             if (!_pKurokoA->isTurningMvAng()) {
+             if (!_pKuroko->isTurningMvAng()) {
                  //‡D‚ÌŽŸ‚Ì“®ì
                  _pProg->changeProbab(
                                0, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
@@ -273,10 +274,10 @@ void EnemyDuna::processBehavior() {
          case PROG_MOVE_ORDER_SMALL_SEMIARC_CCW: { //‡E
              if (_pProg->isJustChanged()) {
                  //‰~ŒÊˆÚ“®
-                 _pKurokoA->turnRzMvAngTo(_pKurokoA->_angRzMv + SEMIARC_ANG,
+                 _pKuroko->turnRzMvAngTo(_pKuroko->_angRzMv + SEMIARC_ANG,
                                           SMALL_SEMIARC_ANGVELO, 0, TURN_COUNTERCLOCKWISE);
              }
-             if (!_pKurokoA->isTurningMvAng()) {
+             if (!_pKuroko->isTurningMvAng()) {
                  //‡E‚ÌŽŸ‚Ì“®ì
                  _pProg->changeProbab(
                               40, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
@@ -294,17 +295,17 @@ void EnemyDuna::processBehavior() {
          case PROG_MOVE_REV_SMALL_SEMIARC_CW: {  //‡F
              if (_pProg->isJustChanged()) {
                  //‚Ü‚¸ŠJŽnó‘Ô‚Ì^— •ûŒü‚ÉŒü‚­
-                 _pKurokoA->turnRzMvAngTo(_pKurokoA->_angRzMv - D180ANG,
+                 _pKuroko->turnRzMvAngTo(_pKuroko->_angRzMv - D180ANG,
                                           REV_TURN_ANGVELO, 0, TURN_CLOSE_TO);
                  nprog_ = 0;
              }
-             if (nprog_ == 0 && !_pKurokoA->isTurningMvAng()) {
+             if (nprog_ == 0 && !_pKuroko->isTurningMvAng()) {
                  //‰~ŒÊˆÚ“®
-                 _pKurokoA->turnRzMvAngTo(_pKurokoA->_angRzMv - SEMIARC_ANG,
+                 _pKuroko->turnRzMvAngTo(_pKuroko->_angRzMv - SEMIARC_ANG,
                                           SMALL_SEMIARC_ANGVELO, 0, TURN_CLOCKWISE);
                  nprog_ = 1;
              }
-             if (nprog_ == 1 && !_pKurokoA->isTurningMvAng()) {
+             if (nprog_ == 1 && !_pKuroko->isTurningMvAng()) {
                  //‡F‚ÌŽŸ‚Ì“®ì
                  _pProg->changeProbab(
                                0, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
@@ -322,17 +323,17 @@ void EnemyDuna::processBehavior() {
          case PROG_MOVE_REV_SMALL_SEMIARC_CCW: {  //‡G
              if (_pProg->isJustChanged()) {
                  //‚Ü‚¸ŠJŽnó‘Ô‚Ì^— •ûŒü‚ÉŒü‚­
-                 _pKurokoA->turnRzMvAngTo(_pKurokoA->_angRzMv + D180ANG,
+                 _pKuroko->turnRzMvAngTo(_pKuroko->_angRzMv + D180ANG,
                                           REV_TURN_ANGVELO, 0, TURN_CLOSE_TO);
                  nprog_ = 0;
              }
-             if (nprog_ == 0 && !_pKurokoA->isTurningMvAng()) {
+             if (nprog_ == 0 && !_pKuroko->isTurningMvAng()) {
                  //‰~ŒÊˆÚ“®
-                 _pKurokoA->turnRzMvAngTo(_pKurokoA->_angRzMv + SEMIARC_ANG,
+                 _pKuroko->turnRzMvAngTo(_pKuroko->_angRzMv + SEMIARC_ANG,
                                           SMALL_SEMIARC_ANGVELO, 0, TURN_COUNTERCLOCKWISE);
                  nprog_ = 1;
              }
-             if (nprog_ == 1 && !_pKurokoA->isTurningMvAng()) {
+             if (nprog_ == 1 && !_pKuroko->isTurningMvAng()) {
                  //‡G‚ÌŽŸ‚Ì“®ì
                  _pProg->changeProbab(
                               40, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
@@ -351,8 +352,8 @@ void EnemyDuna::processBehavior() {
              break;
      }
 
-    _pKurokoA->behave();
-    _pKurokoB->behave();
+    _pKuroko->behave();
+    pAxMver_->behave();
     _pMorpher->behave();
     _pAFader->behave();
 //_TRACE_("EnemyDuna f:"<<getBehaveingFrame()<<"  pProg="<<_pProg->get()<<"   X,Y,Z="<<_x<<","<<_y<<","<<_z<<" ");
@@ -382,4 +383,5 @@ void EnemyDuna::onDispatchedShot(GgafDxCore::GgafDxDrawableActor* prm_pActor, in
 }
 
 EnemyDuna::~EnemyDuna() {
+    GGAF_DELETE(pAxMver_);
 }

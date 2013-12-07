@@ -2,7 +2,7 @@
 #include "MyStraightLaserChip001.h"
 
 #include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
@@ -44,7 +44,7 @@ MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) :
 
 void MyStraightLaserChip001::initialize() {
     pOrg_ = P_MYSHIP;
-    _pKurokoA->setRzRyMvAng(0,0);
+    _pKuroko->setRzRyMvAng(0,0);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_WHD(0,120000,60000,60000);
 
@@ -64,8 +64,8 @@ void MyStraightLaserChip001::onActive() {
     StraightLaserChip::onActive();
 
     GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
-    _pKurokoA->setMvVelo(80000);
-    _pKurokoA->setMvAcce(1000);
+    _pKuroko->setMvVelo(80000);
+    _pKuroko->setMvAcce(1000);
     if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheTree()) {
         if (_pChip_front == nullptr) {
             //先端チップ

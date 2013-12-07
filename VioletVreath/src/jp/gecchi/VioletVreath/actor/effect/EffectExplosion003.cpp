@@ -2,7 +2,7 @@
 #include "EffectExplosion003.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
@@ -37,7 +37,7 @@ void EffectExplosion003::onActive() {
 void EffectExplosion003::processBehavior() {
     _alpha -= 0.01;
     _pUvFlipper->behave();
-    _pKurokoA->behave();
+    _pKuroko->behave();
     _pScaler->behave();
 }
 

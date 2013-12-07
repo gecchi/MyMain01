@@ -2,7 +2,7 @@
 #include "EnemyIrce.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
@@ -32,8 +32,8 @@ void EnemyIrce::onCreateModel() {
 void EnemyIrce::initialize() {
     setHitAble(true);
     _pScaler->setScale(1000);
-    _pKurokoA->relateFaceWithMvAng(true);
-    _pKurokoA->setMvVelo(3000);
+    _pKuroko->relateFaceWithMvAng(true);
+    _pKuroko->setMvVelo(3000);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB(0, -10000, -10000, -10000, 10000, 10000, 10000);
     _x = PX_C(200);
@@ -47,9 +47,9 @@ void EnemyIrce::onActive() {
 void EnemyIrce::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-    _pKurokoA->turnMvAngTwd(P_MYSHIP,
+    _pKuroko->turnMvAngTwd(P_MYSHIP,
                             50, 0, TURN_CLOSE_TO, true);
-    _pKurokoA->behave();
+    _pKuroko->behave();
     _pScaler->behave();
     //_pSeTx->behave();
 }

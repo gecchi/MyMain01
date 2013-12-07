@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "EnemyHisbe.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
@@ -92,7 +92,7 @@ void EnemyHisbe::onCreateModel() {
 }
 
 void EnemyHisbe::initialize() {
-    _pKurokoA->relateFaceWithMvAng(true);
+    _pKuroko->relateFaceWithMvAng(true);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliSphere(0, 40000);
 
@@ -145,7 +145,7 @@ void EnemyHisbe::processBehavior() {
                 LaserChip* pLaser = pLaserChipDepo_->dispatch();
                 if (pLaser) {
                     pLaser->positionAs(this);
-                    pLaser->_pKurokoA->setRzRyMvAng(_pKurokoA->_angFace[AXIS_Z], _pKurokoA->_angFace[AXIS_Y]);
+                    pLaser->_pKuroko->setRzRyMvAng(_pKuroko->_angFace[AXIS_Z], _pKuroko->_angFace[AXIS_Y]);
                                        //レーザーのスプラインがRELATIVE_DIRECTIONのためMvAngの設定が必要。
                     if (pLaser->_pChip_front == nullptr) {
                         _pSeTx->play3D(SE_FIRE);
@@ -173,7 +173,7 @@ void EnemyHisbe::processBehavior() {
         default:
             break;
     }
-    _pKurokoA->behave();
+    _pKuroko->behave();
     _pMorpher->behave();
     _pSeTx->behave();
 }

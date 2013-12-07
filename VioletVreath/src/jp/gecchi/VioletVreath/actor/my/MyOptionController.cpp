@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "MyOptionController.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectTurbo002.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyOptionController.h"
 #include "jp/gecchi/VioletVreath/actor/my/option/MyOption.h"
@@ -26,6 +26,7 @@ int MyOptionController::now_option_num_ = 0;
 
 MyOptionController::MyOptionController(const char* prm_name, int prm_no) :
   GgafDxGeometricActor(prm_name, nullptr, nullptr) {
+    pAxMver_ = NEW GgafDxAxesMover(this);
     no_ = prm_no;
     is_handle_move_mode_ = false;
     is_free_from_myship_mode_ = false;
@@ -33,8 +34,8 @@ MyOptionController::MyOptionController(const char* prm_name, int prm_no) :
     angVelo_Turn_ = 3000;
     veloOptionsMv_ = 20000;
     renge_ = 80000;
-    _pKurokoB->forceVxyzMvVeloRange(-renge_, renge_);
-    _pKurokoB->forceVxyzMvAcceRange(-renge_ / 30, renge_ / 30);
+    pAxMver_->forceVxyzMvVeloRange(-renge_, renge_);
+    pAxMver_->forceVxyzMvAcceRange(-renge_ / 30, renge_ / 30);
     std::string name = "MyOption("+XTOS(no_)+")";
     pOption_ = NEW MyOption(name.c_str(), no_, this);
     addSubGroup(pOption_);
@@ -65,11 +66,11 @@ void MyOptionController::initialize() {
 }
 
 void MyOptionController::onReset() {
-    _pKurokoA->setMvVelo(0);
-    _pKurokoA->forceRzRyMvAngVeloRange(-1*angVelo_Turn_, angVelo_Turn_);
-    _pKurokoA->setRzRyMvAng(0,0);
-    _pKurokoA->relateFaceWithMvAng(true);
-    _pKurokoA->behave();
+    _pKuroko->setMvVelo(0);
+    _pKuroko->forceRzRyMvAngVeloRange(-1*angVelo_Turn_, angVelo_Turn_);
+    _pKuroko->setRzRyMvAng(0,0);
+    _pKuroko->relateFaceWithMvAng(true);
+    _pKuroko->behave();
 }
 
 void MyOptionController::onActive() {
@@ -82,7 +83,7 @@ void MyOptionController::processBehavior() {
     vbsta is_double_push_VB_OPTION = pVbPlay->isDoublePushedDown(VB_OPTION,8,8);
     if (is_double_push_VB_OPTION) {
         //もとに戻す
-        _pKurokoA->turnRzRyMvAngTo(D0ANG, D0ANG,
+        _pKuroko->turnRzRyMvAngTo(D0ANG, D0ANG,
                                    D_ANG(20), 0,
                                    TURN_CLOSE_TO,
                                    false );
@@ -101,16 +102,16 @@ void MyOptionController::processBehavior() {
     } else if (pVbPlay->isBeingPressed(VB_OPTION) && !pVbPlay->isBeingPressed(VB_TURBO)) {
         //オプション向き操作
         if (pVbPlay->isBeingPressed(VB_UP)) {
-            _pKurokoA->addRzMvAng(angVelo_Turn_);
+            _pKuroko->addRzMvAng(angVelo_Turn_);
         }
         if (pVbPlay->isBeingPressed(VB_DOWN)) {
-            _pKurokoA->addRzMvAng(-angVelo_Turn_);
+            _pKuroko->addRzMvAng(-angVelo_Turn_);
         }
         if (pVbPlay->isBeingPressed(VB_RIGHT)) {
-            _pKurokoA->addRyMvAng(angVelo_Turn_);
+            _pKuroko->addRyMvAng(angVelo_Turn_);
         }
         if (pVbPlay->isBeingPressed(VB_LEFT)) {
-            _pKurokoA->addRyMvAng(-angVelo_Turn_);
+            _pKuroko->addRyMvAng(-angVelo_Turn_);
         }
     }
 
@@ -143,8 +144,8 @@ void MyOptionController::processBehavior() {
 
             is_free_from_myship_mode_ = true;
             is_handle_move_mode_ = true;
-            _pKurokoB->setZeroVxyzMvVelo();
-            _pKurokoB->setZeroVxyzMvAcce();
+            pAxMver_->setZeroVxyzMvVelo();
+            pAxMver_->setZeroVxyzMvAcce();
             if (pOption_->isActive()) {
                 EffectTurbo002* pTurbo002 = dispatchFromCommon(EffectTurbo002);
                 if (pTurbo002) {
@@ -159,14 +160,14 @@ void MyOptionController::processBehavior() {
             if (is_handle_move_mode_) {
                 //オプションの広がり角より、オプション移動速度と、旋回半径増加速度にベクトル分解。
                 //そのうちのオプション移動速度のみを設定。
-                _pKurokoA->setMvVelo(ANG_COS(pOption_->angExpanse_) * veloOptionsMv_);
+                _pKuroko->setMvVelo(ANG_COS(pOption_->angExpanse_) * veloOptionsMv_);
                 //旋回半径増加速度の処理はMyOptionクラスで行う。
             } else {
                 //オプションフリーモードが解除されてる
             }
         } else  {
             is_handle_move_mode_ = false; //VB_OPTION離すと解除
-            _pKurokoA->setMvVelo(0);
+            _pKuroko->setMvVelo(0);
             //VB_OPTION 押下と無関係で フリーズオプションのよーな感じになる
             GgafDxGeoElem* pGeoMyShipPrev = pMyShip->pRing_MyShipGeoHistory2_->getPrev();
             _x += (pMyShip->_x - pGeoMyShipPrev->x);
@@ -186,19 +187,19 @@ void MyOptionController::processBehavior() {
         if (return_to_default_position_seq_) {
             pMyShip->trace_delay_count_ = TRACE_DELAY_WAIT_FRAME; //トレース維持を強制解除
             //元の位置へ
-            _pKurokoB->setVxyzMvAcce( tx - (_x + _pKurokoB->_veloVxMv*6),
-                                      ty - (_y + _pKurokoB->_veloVyMv*6),
-                                      tz - (_z + _pKurokoB->_veloVzMv*6) );
+            pAxMver_->setVxyzMvAcce( tx - (_x + pAxMver_->_veloVxMv*6),
+                                      ty - (_y + pAxMver_->_veloVyMv*6),
+                                      tz - (_z + pAxMver_->_veloVzMv*6) );
             if (ABS(_x - tx) < 10000 &&
                 ABS(_y - ty) < 10000 &&
                 ABS(_z - tz) < 10000 &&
-                ABS(_pKurokoB->_veloVxMv) < 20000 &&
-                ABS(_pKurokoB->_veloVyMv) < 20000 &&
-                ABS(_pKurokoB->_veloVzMv) < 20000)
+                ABS(pAxMver_->_veloVxMv) < 20000 &&
+                ABS(pAxMver_->_veloVyMv) < 20000 &&
+                ABS(pAxMver_->_veloVzMv) < 20000)
             {
                 //もどった！
-                _pKurokoB->setZeroVxyzMvVelo();
-                _pKurokoB->setZeroVxyzMvAcce();
+                pAxMver_->setZeroVxyzMvVelo();
+                pAxMver_->setZeroVxyzMvAcce();
                 position(tx, ty, tz);
                 return_to_default_position_seq_ = false;
             }
@@ -210,10 +211,10 @@ void MyOptionController::processBehavior() {
 
 //    //ギズモ
 //    pDirectionVector_->positionAs(this);
-//    pDirectionVector_->_pKurokoA->setRzRyMvAng(_pKurokoA->_angRzMv, _pKurokoA->_angRyMv);
+//    pDirectionVector_->_pKuroko->setRzRyMvAng(_pKuroko->_angRzMv, _pKuroko->_angRyMv);
 
-    _pKurokoA->behave();
-    _pKurokoB->behave();
+    _pKuroko->behave();
+    pAxMver_->behave();
 
     pRing_OptCtrlGeoHistory_->next()->set(this);
 }
@@ -269,6 +270,7 @@ void MyOptionController::adjustDefaltAngPosition(frame prm_spent_frame, int prm_
     }
 }
 MyOptionController::~MyOptionController() {
+    GGAF_DELETE(pAxMver_);
     GGAF_DELETE(pRing_OptCtrlGeoHistory_);
 }
 

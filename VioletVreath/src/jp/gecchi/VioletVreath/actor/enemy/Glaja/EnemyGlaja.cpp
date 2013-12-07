@@ -2,7 +2,7 @@
 #include "EnemyGlaja.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
@@ -12,6 +12,7 @@
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Glaja/EnemyGlajaLance001.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAsstA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -21,6 +22,7 @@ using namespace VioletVreath;
 EnemyGlaja::EnemyGlaja(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Glaja", STATUS(EnemyGlaja)) {
     _class_name = "EnemyGlaja";
+    pKurokoAsstA_ = NEW GgafDxKurokoAsstA(_pKuroko);
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     pConn_Shot_ = connect_DepositoryManager("GlajaLance001");
     effectBlendOne(); //加算合成
@@ -51,7 +53,7 @@ void EnemyGlaja::processBehavior() {
          case PROG_INIT: {
              setHitAble(false);
              _pAFader->setAlpha(0);
-             _pKurokoA->keepOnTurningFaceAngTwd(pMyShip,
+             _pKuroko->keepOnTurningFaceAngTwd(pMyShip,
                                                 D_ANG(2), 0, TURN_CLOSE_TO, false);
              _pMorpher->setWeight(0.0);
              UTIL::activateEntryEffectOf(this);
@@ -77,14 +79,14 @@ void EnemyGlaja::processBehavior() {
                              pMyShip->_z + RND(PX_C(-400), PX_C(400))
                            ); //次の移動目標座標
                  //スィーっとnext_pos_へ移動
-                 _pKurokoA->setMvAngTwd(&next_pos_);
+                 _pKuroko->setMvAngTwd(&next_pos_);
                  velo Vt = RF_EnemyGlaja_MvVelo(G_RANK);
                  velo Ve = 100;
                  coord D = UTIL::getDistance(this, &next_pos_);
-                 _pKurokoA->slideMvByVD(Vt, Ve, D, 0.1, 0.5, true);
+                 pKurokoAsstA_->slideMvByVd(Vt, D, 0.1, 0.5, Ve, true);
              }
 
-             if (_pKurokoA->isJustFinishSlidingMv()) {
+             if (pKurokoAsstA_->isJustFinishSlidingMv()) {
                  _pProg->changeNext();
              }
              break;
@@ -142,8 +144,8 @@ void EnemyGlaja::processBehavior() {
          default:
              break;
      }
-
-    _pKurokoA->behave();
+    pKurokoAsstA_->behave();
+    _pKuroko->behave();
     _pMorpher->behave();
     _pAFader->behave();
 //_TRACE_("EnemyGlaja f:"<<getBehaveingFrame()<<"  pProg="<<_pProg->get()<<"   X,Y,Z="<<_x<<","<<_y<<","<<_z<<" ");
@@ -174,4 +176,6 @@ void EnemyGlaja::onDispatchedShot(GgafDxCore::GgafDxDrawableActor* prm_pActor, i
 
 EnemyGlaja::~EnemyGlaja() {
     pConn_Shot_->close();
+    GGAF_DELETE(pKurokoAsstA_);
+
 }

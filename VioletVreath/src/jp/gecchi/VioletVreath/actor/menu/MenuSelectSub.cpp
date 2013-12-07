@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MenuSelectSub.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/gecchi/VioletVreath/God.h"
 
@@ -101,7 +101,7 @@ void MenuSelectSub::onRise() {
 
 void MenuSelectSub::processBehavior() {
     position(target_x_, target_y_);
-    _pKurokoA->behave();
+    _pKuroko->behave();
     StringBoardMenu::processBehavior();
     //メニュー選択アイテム、表示アイテム、カーソルは、
     //ボード座標を基にしているため、自身の座標確定後に

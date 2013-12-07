@@ -2,7 +2,7 @@
 #include "EnemyStraeaLaserChip004.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
@@ -19,7 +19,7 @@ EnemyStraeaLaserChip004::EnemyStraeaLaserChip004(const char* prm_name) :
         HomingLaserChip(prm_name, "StraeaLaserChip001", STATUS(EnemyStraeaLaserChip004)) {
     _class_name = "EnemyStraeaLaserChip004";
     pSplManufConnection_ = connect_SplineManufactureManager("GURUGURU");
-    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(_pKurokoA);
+    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(_pKuroko);
 //    if (pTexCon1_ == nullptr) {
 //        pTexCon1_ = connect_ModelTextureManager("StraeaLaserChip001.png");
 //        pTexCon2_ = connect_ModelTextureManager("EsperiaLaserChip001.png");
@@ -45,9 +45,9 @@ void EnemyStraeaLaserChip004::onActive() {
     //ステータスリセット
     _pStatus->reset();
 
-    _pKurokoA->setMvVelo(10000);
-    _pKurokoA->setMvAcce(400);
-    _pKurokoA->relateFaceWithMvAng(true);
+    _pKuroko->setMvVelo(10000);
+    _pKuroko->setMvAcce(400);
+    _pKuroko->relateFaceWithMvAng(true);
     pKurokoLeader_->stop();
     _force_alpha = 1.50; //最初はちょっと明るめ
 }
@@ -81,7 +81,7 @@ void EnemyStraeaLaserChip004::processBehaviorHeadChip() {
         pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION); //向いた方向にワールド変換
     }
     pKurokoLeader_->behave(); //←途中でちょんぎれたらだめじゃん
-    _pKurokoA->behave();
+    _pKuroko->behave();
 }
 
 void EnemyStraeaLaserChip004::onHit(GgafActor* prm_pOtherActor) {

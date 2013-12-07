@@ -3,7 +3,7 @@
 #include "EnemyErmione.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -65,7 +65,7 @@ void EnemyErmioneArmHead::processBehavior() {
             angle rz, ry;
             UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
                                    rz, ry); //現在の最終的な向きを、RzRyで取得！
-            pShot->_pKurokoA->setRzRyMvAng(rz, ry); //RzRyでMoverに設定
+            pShot->_pKuroko->setRzRyMvAng(rz, ry); //RzRyでMoverに設定
             pShot->positionAs(this);
             pShot->reset();
         }

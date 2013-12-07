@@ -16,7 +16,6 @@ namespace VioletVreath {
 class EnemyDuna : public GgafLib::DefaultMorphMeshActor {
 
 public:
-
     enum {
         MPH_OPEN = 1,
     };
@@ -41,6 +40,8 @@ public:
         PROG_CLOSE ,
         PROG_BANPEI,
     };
+    /** ïΩçsà⁄ìÆéxâá */
+    GgafDxCore::GgafDxAxesMover* pAxMver_;
 
     GgafDxCore::GgafDxGeoElem next_pos_;
     int num_fire_;

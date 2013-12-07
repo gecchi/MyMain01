@@ -672,7 +672,7 @@ public:
      * @param Vt 目標到達速度(Vt)
      * @return 必要な加速度(a)
      */
-    static inline double getAcceByD(double D, double V0, double Vt) {
+    static inline double getAcceByVd(double V0, double Vt, double D) {
         //D = (1/2) (V0 + Vt) Te   ・・・①
         //a = (Vt - V0) / Te       ・・・②
         //②より Te = (Vt - V0) / a
@@ -682,6 +682,10 @@ public:
         return ((Vt*Vt) - (V0*V0)) / (2.0*D);
     }
 
+//    static inline double getTimeByD(double D, double V0, double Vt) {
+//
+//
+//    }
     /**
      * 移動加速度を、「費やす時間」「現時点の速度」「目標到達速度」により求める .
      * <pre><code>
@@ -709,7 +713,7 @@ public:
      * @param Vt 目標到達速度(Vt)
      * @return 必要な加速度(a)
      */
-    static inline double getAcceByT(double Te, double V0, double Vt) {
+    static inline double getAcceByTv(double Te, double V0, double Vt) {
         //a = (Vt-V0) / Te
         return (Vt - V0) / Te;
     }

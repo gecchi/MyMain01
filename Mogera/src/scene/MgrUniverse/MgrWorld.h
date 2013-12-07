@@ -34,7 +34,7 @@ public:
     Teki001* pTeki_;
     Mikata001* pMikata_;
     TestBar* pTestBar_;
-
+    TestCappedBar* pBar_;
     GgafLib::PxQuantity qtyMp_;
     int mp_;
 //    GgafLib::PxQuantity* pBarVal_;

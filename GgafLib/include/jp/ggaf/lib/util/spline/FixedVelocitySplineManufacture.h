@@ -62,10 +62,10 @@ public:
     /**
      * SplineKurokoLeaderオブジェクトの生成 .
      * インスタンスは FixedVelocitySplineKurokoLeader です。
-     * @param prm_pKurokoA スプライン移動させる対象アクター
+     * @param prm_pKuroko スプライン移動させる対象アクター
      * @return SplineKurokoLeaderオブジェクト
      */
-    SplineKurokoLeader* createKurokoLeader(GgafDxCore::GgafDxKurokoA* const prm_pKurokoA) override;
+    SplineKurokoLeader* createKurokoLeader(GgafDxCore::GgafDxKuroko* const prm_pKuroko) override;
 
     virtual ~FixedVelocitySplineManufacture();
 };

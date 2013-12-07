@@ -2,7 +2,7 @@
 #include "EnemyEmusLaserChip001.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafCore;
@@ -21,8 +21,8 @@ void EnemyEmusLaserChip001::initialize() {
     setHitAble(true, false);
     setScaleR(5.0);
     setAlpha(0.9);
-    _pKurokoA->setMvVelo(300000);
-    _pKurokoA->relateFaceWithMvAng(true);
+    _pKuroko->setMvVelo(300000);
+    _pKuroko->relateFaceWithMvAng(true);
 }
 
 void EnemyEmusLaserChip001::onActive() {
@@ -32,7 +32,7 @@ void EnemyEmusLaserChip001::onActive() {
 }
 
 void EnemyEmusLaserChip001::processBehavior() {
-    _pKurokoA->behave();
+    _pKuroko->behave();
     WateringLaserChip::processBehavior();
 }
 

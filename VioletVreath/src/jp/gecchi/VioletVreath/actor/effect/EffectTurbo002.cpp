@@ -2,7 +2,7 @@
 #include "EffectTurbo002.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 
 using namespace GgafCore;
@@ -30,14 +30,14 @@ void EffectTurbo002::onActive() {
     _pScaler->forceRange(100000, 1000); //スケーリング・範囲
     _pScaler->setScale(1000);
     _pScaler->scaleLinerUntil(100000, 60);//スケーリング・60F費やして1000に縮小
-    _pKurokoA->setFaceAng(AXIS_Y, D90ANG);
-    _pKurokoA->setFaceAngVelo(AXIS_Z, 2000);
+    _pKuroko->setFaceAng(AXIS_Y, D90ANG);
+    _pKuroko->setFaceAngVelo(AXIS_Z, 2000);
 }
 
 void EffectTurbo002::processBehavior() {
     addAlpha(-(1.0/60.0));
     _pUvFlipper->behave();
-    _pKurokoA->behave();
+    _pKuroko->behave();
     _pScaler->behave();
 }
 

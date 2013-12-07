@@ -2,7 +2,7 @@
 #include "MyTorpedo.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
@@ -53,27 +53,27 @@ void MyTorpedo::onReset() {
 }
 
 void MyTorpedo::onActive() {
-    GgafDxKurokoA* const pKurokoA = _pKurokoA;
+    GgafDxKuroko* const pKuroko = _pKuroko;
     _pStatus->reset();
     setAlpha(0.3);
     _sx = _sy = _sz = 100;
     _pScaler->setScale(100);
     _pScaler->scaleLinerStep(7000, 500);
-    pKurokoA->setFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
+    pKuroko->setFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
     if (pTarget_) {
-        pKurokoA->forceMvVeloRange(4000, 100000);
-        pKurokoA->setMvVelo(20000);
-        pKurokoA->setMvAcce(-600); //最初減速
+        pKuroko->forceMvVeloRange(4000, 100000);
+        pKuroko->setMvVelo(20000);
+        pKuroko->setMvAcce(-600); //最初減速
     } else {
-        pKurokoA->forceMvVeloRange(4000, 70000);
-        pKurokoA->setMvVelo(10000);
-        pKurokoA->setMvAcce(-500); //最初減速
+        pKuroko->forceMvVeloRange(4000, 70000);
+        pKuroko->setMvVelo(10000);
+        pKuroko->setMvAcce(-500); //最初減速
     }
 
-    pKurokoA->forceRzRyMvAngVeloRange(-40000, 40000);
-    pKurokoA->setRzRyMvAngVelo(0);
-    pKurokoA->setRzRyMvAngAcce(0);
-    pKurokoA->stopTurnMvAngSequence();
+    pKuroko->forceRzRyMvAngVeloRange(-40000, 40000);
+    pKuroko->setRzRyMvAngVelo(0);
+    pKuroko->setRzRyMvAngAcce(0);
+    pKuroko->stopTurnMvAngSequence();
     begin_x_ = _x;
     begin_y_ = _y;
     begin_z_ = _z;
@@ -83,7 +83,7 @@ void MyTorpedo::onActive() {
 }
 
 void MyTorpedo::processBehavior() {
-    GgafDxKurokoA* const pKurokoA = _pKurokoA;
+    GgafDxKuroko* const pKuroko = _pKuroko;
     if (_pProg->get() == MyTorpedo_RELEASE) {
         if (pTailEffectDepository_->_num_chip_active == 0) {
             //軌跡エフェクトが全て非活動になった場合
@@ -103,19 +103,19 @@ void MyTorpedo::processBehavior() {
         }
         //魚雷のムーブ
         if (move_section_ == 0) {
-            if (pKurokoA->_veloMv == pKurokoA->_veloBottomMv) { //減速終了
-                pKurokoA->setMvAcce(500);
+            if (pKuroko->_veloMv == pKuroko->_veloBottomMv) { //減速終了
+                pKuroko->setMvAcce(500);
                 if (pTarget_) {
-                    pKurokoA->turnMvAngTwd(pTarget_,
+                    pKuroko->turnMvAngTwd(pTarget_,
                                            2000, 200,
                                            TURN_ANTICLOSE_TO, false);
                 } else {
-                    pKurokoA->turnRzRyMvAngTo(
+                    pKuroko->turnRzRyMvAngTo(
                                 pOptionTorpedoCtrler_->pOrg_->_rz, pOptionTorpedoCtrler_->pOrg_->_ry,
                                 1000, 100,
                                 TURN_CLOSE_TO, false);
 
-//                    pKurokoA->turnMvAngTwd(
+//                    pKuroko->turnMvAngTwd(
 //                                GgafDxUniverse::_x_gone_right, P_MYSHIP->_y, P_MYSHIP->_z,
 //                                2000, 200,
 //                                TURN_ANTICLOSE_TO, false);
@@ -126,7 +126,7 @@ void MyTorpedo::processBehavior() {
 
         //ムーブ１
         if (move_section_ == 1) {
-            if (pKurokoA->isTurningMvAng()) {
+            if (pKuroko->isTurningMvAng()) {
                 //TURN_ANTICLOSE_TOターゲット完了を待つ
             } else {
                 //TURN_ANTICLOSE_TOターゲット完了
@@ -140,17 +140,17 @@ void MyTorpedo::processBehavior() {
                     if (pTarget_) {
                         if (pTarget_->isActiveInTheTree())  {
 
-                            pKurokoA->turnMvAngTwd(pTarget_,
+                            pKuroko->turnMvAngTwd(pTarget_,
                                                    1000, 200,
                                                    TURN_CLOSE_TO, false);
 
                         } else {
                             //まっすぐ
-                            pKurokoA->setRzRyMvAngVelo(0);
-                            pKurokoA->setRzRyMvAngAcce(0);
+                            pKuroko->setRzRyMvAngVelo(0);
+                            pKuroko->setRzRyMvAngAcce(0);
                         }
                     } else {
-                        pKurokoA->turnRzRyMvAngTo(
+                        pKuroko->turnRzRyMvAngTo(
                                     pOptionTorpedoCtrler_->pOrg_->_rz, pOptionTorpedoCtrler_->pOrg_->_ry,
                                     1000, 200,
                                     TURN_CLOSE_TO, false);
@@ -169,7 +169,7 @@ void MyTorpedo::processBehavior() {
                     if (pTarget_) {
                         if (pTarget_->isActiveInTheTree())  {
 
-                            pKurokoA->turnMvAngTwd(pTarget_,
+                            pKuroko->turnMvAngTwd(pTarget_,
                                                    500, 0,
                                                    TURN_CLOSE_TO, false);
 
@@ -183,18 +183,18 @@ void MyTorpedo::processBehavior() {
 //                                                   pTarget_->_z - _z,
 //                                                   out_angRz_Target,
 //                                                   out_angRy_Target);
-//                            out_d_angRz = pKurokoA->getRzMvAngDistance(out_angRz_Target, TURN_CLOSE_TO);
-//                            out_d_angRy = pKurokoA->getRyMvAngDistance(out_angRy_Target, TURN_CLOSE_TO);
-//                            pKurokoA->addRzMvAng(SGN(out_d_angRz)*30000);
-//                            pKurokoA->addRyMvAng(SGN(out_d_angRy)*30000);
+//                            out_d_angRz = pKuroko->getRzMvAngDistance(out_angRz_Target, TURN_CLOSE_TO);
+//                            out_d_angRy = pKuroko->getRyMvAngDistance(out_angRy_Target, TURN_CLOSE_TO);
+//                            pKuroko->addRzMvAng(SGN(out_d_angRz)*30000);
+//                            pKuroko->addRyMvAng(SGN(out_d_angRy)*30000);
 
                         } else {
                             //まっすぐ
-                            pKurokoA->setRzRyMvAngVelo(0);
-                            pKurokoA->setRzRyMvAngAcce(0);
+                            pKuroko->setRzRyMvAngVelo(0);
+                            pKuroko->setRzRyMvAngAcce(0);
                         }
                     } else {
-                        pKurokoA->turnRzRyMvAngTo(
+                        pKuroko->turnRzRyMvAngTo(
                                     pOptionTorpedoCtrler_->pOrg_->_rz, pOptionTorpedoCtrler_->pOrg_->_ry,
                                     300, 0,
                                     TURN_CLOSE_TO, false);
@@ -209,11 +209,11 @@ void MyTorpedo::processBehavior() {
         }
         //ムーブ４
         if (move_section_ == 4) {
-            pKurokoA->setRzRyMvAngVelo(0);
-            pKurokoA->setRzRyMvAngAcce(0);
+            pKuroko->setRzRyMvAngVelo(0);
+            pKuroko->setRzRyMvAngAcce(0);
         }
 
-        pKurokoA->behave();
+        pKuroko->behave();
         _pScaler->behave();
     }
 }
@@ -227,7 +227,7 @@ void MyTorpedo::processJudgement() {
             pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約
             pTailEffect = pTailEffect->getNext();
         }
-        _pKurokoA->setMvVelo(0);
+        _pKuroko->setMvVelo(0);
         //自身のinactive()はprocessBehavior()で行われ
         //魚雷の移動エフェクトが全てinactive()になった際に自身もinactive()する
     }
@@ -248,7 +248,7 @@ void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
         pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約
         pTailEffect = pTailEffect->getNext();
     }
-    _pKurokoA->setMvVelo(0);
+    _pKuroko->setMvVelo(0);
     //自身のinactive()はprocessBehavior()で行われ
     //魚雷の移動エフェクトが全てinactive()になった際に自身もinactive()する
 

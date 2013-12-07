@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "EnemyRis.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
@@ -35,8 +35,8 @@ void EnemyRis::onCreateModel() {
 
 void EnemyRis::initialize() {
     setHitAble(true);
-    _pKurokoA->relateFaceWithMvAng(true);
-    _pKurokoA->setFaceAngVelo(AXIS_X, 5000);
+    _pKuroko->relateFaceWithMvAng(true);
+    _pKuroko->setFaceAngVelo(AXIS_X, 5000);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
 }
@@ -81,7 +81,7 @@ void EnemyRis::processBehavior() {
                     pActor_Shot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
                     if (pActor_Shot) {
                         pActor_Shot->positionAs(this);
-                        pActor_Shot->_pKurokoA->setRzRyMvAng(paAng_way[i], D90ANG);
+                        pActor_Shot->_pKuroko->setRzRyMvAng(paAng_way[i], D90ANG);
                     }
                 }
                 GGAF_DELETEARR(paAng_way);
@@ -94,7 +94,7 @@ void EnemyRis::processBehavior() {
                 }
             }
             //自機へ方向転換
-            _pKurokoA->turnMvAngTwd(P_MYSHIP,
+            _pKuroko->turnMvAngTwd(P_MYSHIP,
                                     3000, 0,
                                     TURN_CLOSE_TO, true);
             iMovePatternNo_++; //次の行動パターンへ
@@ -103,10 +103,10 @@ void EnemyRis::processBehavior() {
         case 3:  //【行動パターン３：自機へグルッと逆回転で方向転換開始】
             if (_z-10000 < P_MYSHIP->_z && P_MYSHIP->_z < _z+10000) {
                 //自機とZ軸が接近したらグルッと逆回転で方向転換
-                _pKurokoA->turnMvAngTwd(MyShip::lim_x_behaind_ - 500000 , _y, _z,
+                _pKuroko->turnMvAngTwd(MyShip::lim_x_behaind_ - 500000 , _y, _z,
                                         10000, 0,
                                         TURN_CLOSE_TO, true);
-                _pKurokoA->setMvAcce(100);
+                _pKuroko->setMvAcce(100);
                 iMovePatternNo_++;
             } else {
                 //自機とZ軸が接近するまで待つ
@@ -120,7 +120,7 @@ void EnemyRis::processBehavior() {
     if (pKurokoLeader_) {
         pKurokoLeader_->behave(); //スプライン移動を振る舞い
     }
-    _pKurokoA->behave();
+    _pKuroko->behave();
     //_pSeTx->behave();
 }
 

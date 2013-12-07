@@ -1,14 +1,15 @@
 #include "stdafx.h"
 #include "VamSysCamWorker.h"
 
-#include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyOptionController.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/Properties.h"
 #include "jp/gecchi/VioletVreath/scene/Universe.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/actor/Camera.h"
+#include "jp/gecchi/VioletVreath/actor/ViewPoint.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -37,8 +38,8 @@ VamSysCamWorker::VamSysCamWorker(const char* prm_name) : CameraWorker(prm_name) 
     is_cam_pos_option_back_ = false;
 }
 void VamSysCamWorker::initialize() {
-    GgafDxCamera* pCam = P_CAM;
-    GgafDxGeometricActor* pVP = pCam->getViewPoint();
+    Camera* pCam = P_CAM;
+    ViewPoint* pVP = (ViewPoint*)(pCam->getViewPoint());
 
     //初期カメラZ位置
     dZ_camera_init_ = -DX_C(pCam->_cameraZ_org);
@@ -52,8 +53,8 @@ void VamSysCamWorker::initialize() {
     pos_camera_ = VAM_POS_RIGHT;
 
     cam_velo_renge_ = 30000;
-    pCam->_pKurokoB->forceVxyzMvVeloRange(-cam_velo_renge_, cam_velo_renge_);
-    pVP->_pKurokoB->forceVxyzMvVeloRange(-cam_velo_renge_, cam_velo_renge_);
+    pCam->pAxMver_->forceVxyzMvVeloRange(-cam_velo_renge_, cam_velo_renge_);
+    pVP->pAxMver_->forceVxyzMvVeloRange(-cam_velo_renge_, cam_velo_renge_);
 
     stop_renge_ = 60000;
     angXY_nowCamUp_ = UTIL::getAngle2D(pCam->_pVecCamUp->x, pCam->_pVecCamUp->y);
@@ -72,11 +73,11 @@ void VamSysCamWorker::processBehavior() {
         return; //MyShipSceneシーンが未だならカメラワーク禁止
     }
 
-    GgafDxCamera* pCam = P_CAM;
-    GgafDxGeometricActor* pVP = pCam->getViewPoint();
+    Camera* pCam = P_CAM;
+    ViewPoint* pVP = (ViewPoint*)(pCam->getViewPoint());
     MyOptionController* pOptCtrler = P_MYSHIP_SCENE->papOptionCtrler_[0];
-    GgafDxKurokoB* const pCamKurokoB = pCam->_pKurokoB;
-    GgafDxKurokoB* const pVpKurokoB = pVP->_pKurokoB;
+    GgafDxAxesMover* const pCamAxesMover = pCam->pAxMver_;
+    GgafDxAxesMover* const pVpAxesMover = pVP->pAxMver_;
 
     //カメラ位置番号を決定処理
     is_cam_pos_option_back_ = false;
@@ -119,13 +120,13 @@ void VamSysCamWorker::processBehavior() {
 
     if (is_cam_pos_option_back_) { //TODO:オプション操作中のオプション[0]背面に回る
         coord d = dZ_camera_init_*0.6;
-        move_target_x_CAM = pOptCtrler->_x + pOptCtrler->_pKurokoA->_vX*-d;
-        move_target_y_CAM = pOptCtrler->_y + pOptCtrler->_pKurokoA->_vY*-d;
-        move_target_z_CAM = pOptCtrler->_z + pOptCtrler->_pKurokoA->_vZ*-d;
-        move_target_x_VP = pOptCtrler->_x + pOptCtrler->_pKurokoA->_vX*d;
-        move_target_y_VP = pOptCtrler->_y + pOptCtrler->_pKurokoA->_vY*d;
-        move_target_z_VP = pOptCtrler->_z + pOptCtrler->_pKurokoA->_vZ*d;
-        move_target_XY_CAM_UP = UTIL::simplifyAng(pOptCtrler->_pKurokoA->_angRzMv+D90ANG);
+        move_target_x_CAM = pOptCtrler->_x + pOptCtrler->_pKuroko->_vX*-d;
+        move_target_y_CAM = pOptCtrler->_y + pOptCtrler->_pKuroko->_vY*-d;
+        move_target_z_CAM = pOptCtrler->_z + pOptCtrler->_pKuroko->_vZ*-d;
+        move_target_x_VP = pOptCtrler->_x + pOptCtrler->_pKuroko->_vX*d;
+        move_target_y_VP = pOptCtrler->_y + pOptCtrler->_pKuroko->_vY*d;
+        move_target_z_VP = pOptCtrler->_z + pOptCtrler->_pKuroko->_vZ*d;
+        move_target_XY_CAM_UP = UTIL::simplifyAng(pOptCtrler->_pKuroko->_angRzMv+D90ANG);
 
     } else {//通常時VAM
         if (pos_camera_ < VAM_POS_TO_BEHIND) {
@@ -283,8 +284,8 @@ void VamSysCamWorker::processBehavior() {
         }
     }
     //カメラの移動速度の最大、最小制限を設定
-    pCamKurokoB->forceVxyzMvVeloRange(-cam_velo_renge, cam_velo_renge);
-    pVpKurokoB->forceVxyzMvVeloRange(-cam_velo_renge, cam_velo_renge);
+    pCamAxesMover->forceVxyzMvVeloRange(-cam_velo_renge, cam_velo_renge);
+    pVpAxesMover->forceVxyzMvVeloRange(-cam_velo_renge, cam_velo_renge);
 
     //カメラとビューポイントの移動座標を制限。
     //自機移動範囲に応じて、画面端の感じを演出するため。(無くとも問題ない？)
@@ -432,73 +433,73 @@ void VamSysCamWorker::processBehavior() {
         }
     }
 
-    velo last_CAM_veloVxMv = pCamKurokoB->_veloVxMv;
+    velo last_CAM_veloVxMv = pCamAxesMover->_veloVxMv;
     velo  new_CAM_veloVxMv = pMyShip_->iMoveSpeed_*(dX_CAM*1.0 / stop_renge_);
     if (last_CAM_veloVxMv-veloVxRenge <= new_CAM_veloVxMv && new_CAM_veloVxMv <= last_CAM_veloVxMv+veloVxRenge) {
-        pCamKurokoB->setVxMvVelo(new_CAM_veloVxMv);
+        pCamAxesMover->setVxMvVelo(new_CAM_veloVxMv);
     } else {
         if (last_CAM_veloVxMv-veloVxRenge > new_CAM_veloVxMv) {
-            pCamKurokoB->setVxMvVelo(last_CAM_veloVxMv-veloVxRenge);
+            pCamAxesMover->setVxMvVelo(last_CAM_veloVxMv-veloVxRenge);
         } else if (new_CAM_veloVxMv > last_CAM_veloVxMv+veloVxRenge) {
-            pCamKurokoB->setVxMvVelo(last_CAM_veloVxMv+veloVxRenge);
+            pCamAxesMover->setVxMvVelo(last_CAM_veloVxMv+veloVxRenge);
         }
     }
-    velo last_VP_veloVxMv = pVpKurokoB->_veloVxMv;
+    velo last_VP_veloVxMv = pVpAxesMover->_veloVxMv;
     velo  new_VP_veloVxMv = pMyShip_->iMoveSpeed_*(dX_VP*1.0 / stop_renge_);
     if (last_VP_veloVxMv-veloVxRenge <= new_VP_veloVxMv && new_VP_veloVxMv <= last_VP_veloVxMv+veloVxRenge) {
-        pVpKurokoB->setVxMvVelo(new_VP_veloVxMv);
+        pVpAxesMover->setVxMvVelo(new_VP_veloVxMv);
     } else {
         if (last_VP_veloVxMv-veloVxRenge > new_VP_veloVxMv) {
-            pVpKurokoB->setVxMvVelo(last_VP_veloVxMv-veloVxRenge);
+            pVpAxesMover->setVxMvVelo(last_VP_veloVxMv-veloVxRenge);
         } else if (new_VP_veloVxMv > last_VP_veloVxMv+veloVxRenge) {
-            pVpKurokoB->setVxMvVelo(last_VP_veloVxMv+veloVxRenge);
+            pVpAxesMover->setVxMvVelo(last_VP_veloVxMv+veloVxRenge);
         }
     }
 
-    velo last_CAM_veloVyMv = pCamKurokoB->_veloVyMv;
+    velo last_CAM_veloVyMv = pCamAxesMover->_veloVyMv;
     velo  new_CAM_veloVyMv = pMyShip_->iMoveSpeed_*(dY_CAM*1.0 / stop_renge_);
     if (last_CAM_veloVyMv-veloVyRenge <= new_CAM_veloVyMv && new_CAM_veloVyMv <= last_CAM_veloVyMv+veloVyRenge) {
-        pCamKurokoB->setVyMvVelo(new_CAM_veloVyMv);
+        pCamAxesMover->setVyMvVelo(new_CAM_veloVyMv);
     } else {
         if (last_CAM_veloVyMv-veloVyRenge > new_CAM_veloVyMv) {
-            pCamKurokoB->setVyMvVelo(last_CAM_veloVyMv-veloVyRenge);
+            pCamAxesMover->setVyMvVelo(last_CAM_veloVyMv-veloVyRenge);
         } else if (new_CAM_veloVyMv > last_CAM_veloVyMv+veloVyRenge) {
-            pCamKurokoB->setVyMvVelo(last_CAM_veloVyMv+veloVyRenge);
+            pCamAxesMover->setVyMvVelo(last_CAM_veloVyMv+veloVyRenge);
         }
     }
-    velo last_VP_veloVyMv = pVpKurokoB->_veloVyMv;
+    velo last_VP_veloVyMv = pVpAxesMover->_veloVyMv;
     velo  new_VP_veloVyMv = pMyShip_->iMoveSpeed_*(dY_VP*1.0 / stop_renge_);
     if (last_VP_veloVyMv-veloVyRenge <= new_VP_veloVyMv && new_VP_veloVyMv <= last_VP_veloVyMv+veloVyRenge) {
-        pVpKurokoB->setVyMvVelo(new_VP_veloVyMv);
+        pVpAxesMover->setVyMvVelo(new_VP_veloVyMv);
     } else {
         if (last_VP_veloVyMv-veloVyRenge > new_VP_veloVyMv) {
-            pVpKurokoB->setVyMvVelo(last_VP_veloVyMv-veloVyRenge);
+            pVpAxesMover->setVyMvVelo(last_VP_veloVyMv-veloVyRenge);
         } else if (new_VP_veloVyMv > last_VP_veloVyMv+veloVyRenge) {
-            pVpKurokoB->setVyMvVelo(last_VP_veloVyMv+veloVyRenge);
+            pVpAxesMover->setVyMvVelo(last_VP_veloVyMv+veloVyRenge);
         }
     }
 
-    velo last_CAM_veloVzMv = pCamKurokoB->_veloVzMv;
+    velo last_CAM_veloVzMv = pCamAxesMover->_veloVzMv;
     velo  new_CAM_veloVzMv = pMyShip_->iMoveSpeed_*(dZ_CAM*1.0 / stop_renge_);
     if (last_CAM_veloVzMv-veloVzRenge <= new_CAM_veloVzMv && new_CAM_veloVzMv <= last_CAM_veloVzMv+veloVzRenge) {
-        pCamKurokoB->setVzMvVelo(new_CAM_veloVzMv);
+        pCamAxesMover->setVzMvVelo(new_CAM_veloVzMv);
     } else {
         if (last_CAM_veloVzMv-veloVzRenge > new_CAM_veloVzMv) {
-            pCamKurokoB->setVzMvVelo(last_CAM_veloVzMv-veloVzRenge);
+            pCamAxesMover->setVzMvVelo(last_CAM_veloVzMv-veloVzRenge);
         } else if (new_CAM_veloVzMv > last_CAM_veloVzMv+veloVzRenge) {
-            pCamKurokoB->setVzMvVelo(last_CAM_veloVzMv+veloVzRenge);
+            pCamAxesMover->setVzMvVelo(last_CAM_veloVzMv+veloVzRenge);
         }
     }
 
-    velo last_VP_veloVzMv = pVpKurokoB->_veloVzMv;
+    velo last_VP_veloVzMv = pVpAxesMover->_veloVzMv;
     velo  new_VP_veloVzMv = pMyShip_->iMoveSpeed_*(dZ_VP*1.0 / stop_renge_);
     if (last_VP_veloVzMv-veloVzRenge <= new_VP_veloVzMv && new_VP_veloVzMv <= last_VP_veloVzMv+veloVzRenge) {
-        pVpKurokoB->setVzMvVelo(new_VP_veloVzMv);
+        pVpAxesMover->setVzMvVelo(new_VP_veloVzMv);
     } else {
         if (last_VP_veloVzMv-veloVzRenge > new_VP_veloVzMv) {
-            pVpKurokoB->setVzMvVelo(last_VP_veloVzMv-veloVzRenge);
+            pVpAxesMover->setVzMvVelo(last_VP_veloVzMv-veloVzRenge);
         } else if (new_VP_veloVzMv > last_VP_veloVzMv+veloVzRenge) {
-            pVpKurokoB->setVzMvVelo(last_VP_veloVzMv+veloVzRenge);
+            pVpAxesMover->setVzMvVelo(last_VP_veloVzMv+veloVzRenge);
         }
     }
 
@@ -517,10 +518,7 @@ void VamSysCamWorker::processBehavior() {
         pCam->_pVecCamUp->z = 0.0f;
     }
 
-    pCamKurokoB->behave();
-    pVpKurokoB->behave();
-
-//    _TRACE_(getActiveFrame()<<","<<dX_CAM<<","<<dY_CAM<<","<<dZ_CAM<<","<<pCam->_x<<","<<pCam->_y<<","<<pCam->_z<<","<<last_CAM_veloVxMv<<","<<new_CAM_veloVxMv<<","<<last_CAM_veloVyMv<<","<<new_CAM_veloVyMv<<","<<last_CAM_veloVzMv<<","<<new_CAM_veloVzMv<<","<<pCamKurokoB->_veloVxMv<<","<<pCamKurokoB->_veloVyMv<<","<<pCamKurokoB->_veloVzMv);
+//    _TRACE_(getActiveFrame()<<","<<dX_CAM<<","<<dY_CAM<<","<<dZ_CAM<<","<<pCam->_x<<","<<pCam->_y<<","<<pCam->_z<<","<<last_CAM_veloVxMv<<","<<new_CAM_veloVxMv<<","<<last_CAM_veloVyMv<<","<<new_CAM_veloVyMv<<","<<last_CAM_veloVzMv<<","<<new_CAM_veloVzMv<<","<<pCamAxesMover->_veloVxMv<<","<<pCamAxesMover->_veloVyMv<<","<<pCamAxesMover->_veloVzMv);
 
 }
 VamSysCamWorker::~VamSysCamWorker() {

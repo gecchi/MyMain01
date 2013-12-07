@@ -3,8 +3,8 @@
 
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -18,6 +18,7 @@ using namespace VioletVreath;
 EnemyDrastea::EnemyDrastea(const char* prm_name) :
         CubeMapMeshSetActor(prm_name, "Drastea", STATUS(EnemyDrastea)) {
     _class_name = "EnemyDrastea";
+    pAxMver_ = NEW GgafDxAxesMover(this);
     colli_box_dX_ = 1;
     colli_box_dY_ = 1;
     colli_box_dZ_ = 1;
@@ -79,11 +80,11 @@ void EnemyDrastea::initialize() {
 
 void EnemyDrastea::onActive() {
     _pStatus->reset();
-    _pKurokoA->setMvVelo(0);
-    _pKurokoB->setVxMvVelo(-3000);
-    _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);
-    _pKurokoA->setFaceAngVelo(AXIS_Y, 300);
-    _pKurokoA->setFaceAngVelo(AXIS_X, 700);
+    _pKuroko->setMvVelo(0);
+    pAxMver_->setVxMvVelo(-3000);
+    _pKuroko->setFaceAngVelo(AXIS_Z, 1000);
+    _pKuroko->setFaceAngVelo(AXIS_Y, 300);
+    _pKuroko->setFaceAngVelo(AXIS_X, 700);
     static coord appearances_renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 3;
     static coord appearances_renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 3;
     _x = GgafDxUniverse::_x_gone_right - 1000;
@@ -96,8 +97,8 @@ void EnemyDrastea::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     //座標に反映
-    _pKurokoA->behave();
-    _pKurokoB->behave();
+    _pKuroko->behave();
+    pAxMver_->behave();
     _pSeTx->behave();
 }
 
@@ -123,5 +124,6 @@ void EnemyDrastea::onInactive() {
 }
 
 EnemyDrastea::~EnemyDrastea() {
+    GGAF_DELETE(pAxMver_);
 }
 

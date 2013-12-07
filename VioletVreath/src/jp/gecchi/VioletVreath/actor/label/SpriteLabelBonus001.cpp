@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "SpriteLabelBonus001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Universe.h"
 
@@ -31,8 +31,8 @@ void SpriteLabelBonus001::initialize() {
 
 void SpriteLabelBonus001::onDispatched(GgafDxGeometricActor* prm_pOrgActor) {
     positionAs(prm_pOrgActor);
-    _pKurokoA->takeoverMvFrom(prm_pOrgActor->_pKurokoA);
-    _pKurokoA->setMvAcce(300);
+    _pKuroko->takeoverMvFrom(prm_pOrgActor->_pKuroko);
+    _pKuroko->setMvAcce(300);
     setAlpha(0.7);
     _pProg->reset(PROG_INIT);
 }
@@ -48,12 +48,12 @@ void SpriteLabelBonus001::processBehavior() {
             //‚µ‚Î‚ç‚­’¼i
             if (_pProg->getFrameInProgress() == 60) {
                 //ƒJƒƒ‰‚ÉŒü‚©‚Á‚Ä•ûŒü“]Š·1
-                _pKurokoA->turnMvAngTwd(P_CAM,
+                _pKuroko->turnMvAngTwd(P_CAM,
                                         D_ANG(3), 0, TURN_CLOSE_TO, true);
             }
             if (_pProg->getFrameInProgress() == 60+30) {
                 //ƒJƒƒ‰‚ÉŒü‚©‚Á‚Ä•ûŒü“]Š·2
-                _pKurokoA->turnMvAngTwd(P_CAM,
+                _pKuroko->turnMvAngTwd(P_CAM,
                                         D_ANG(1), 0, TURN_CLOSE_TO, true);
             }
 
@@ -82,7 +82,7 @@ void SpriteLabelBonus001::processBehavior() {
             break;
     }
 
-    _pKurokoA->behave();
+    _pKuroko->behave();
 }
 
 SpriteLabelBonus001::~SpriteLabelBonus001() {

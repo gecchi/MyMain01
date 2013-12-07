@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "EnemyEtis.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
@@ -19,6 +19,7 @@ using namespace VioletVreath;
 EnemyEtis::EnemyEtis(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Etis", STATUS(EnemyEtis)) {
     _class_name = "EnemyEtis";
+    pAxMver_ = NEW GgafDxAxesMover(this);
     width_x_ = 220*2*LEN_UNIT;
     height_z_ = 220*2*LEN_UNIT;
     depth_y_ = 36*2*LEN_UNIT;
@@ -47,9 +48,9 @@ void EnemyEtis::initialize() {
 void EnemyEtis::onActive() {
     _pStatus->reset();
     setAlpha(1.0);
-    _pKurokoA->setMvVelo(0);
-    _pKurokoB->setVxMvVelo(-3000);
-    _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);
+    _pKuroko->setMvVelo(0);
+    pAxMver_->setVxMvVelo(-3000);
+    _pKuroko->setFaceAngVelo(AXIS_Z, 1000);
     static coord renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 3;
     static coord renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 3;
     _x = GgafDxUniverse::_x_gone_right - 1000;
@@ -62,8 +63,8 @@ void EnemyEtis::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     //座標に反映
-    _pKurokoA->behave();
-    _pKurokoB->behave();
+    _pKuroko->behave();
+    pAxMver_->behave();
     _pSeTx->behave();
 }
 
@@ -89,5 +90,6 @@ void EnemyEtis::onInactive() {
 }
 
 EnemyEtis::~EnemyEtis() {
+    GGAF_DELETE(pAxMver_);
 }
 

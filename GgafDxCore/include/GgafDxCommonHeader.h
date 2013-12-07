@@ -112,13 +112,13 @@ typedef int angjerk;
 typedef int s_ang;
 
 /** 軸型(AXIS_X / AXIS_Y / AXIS_Z) */
-enum GgafDxAxis {
+enum {
     AXIS_X = 0,
     AXIS_Y,
     AXIS_Z
 };
 
-typedef GgafDxAxis axis;
+typedef int axis;
 
 
 /** アプリの座標 → DirectX座標 変換 */
@@ -241,6 +241,7 @@ enum GgafDxMorphingMethod {
     TARGET_MORPH_SIN,          //!< TODO:未実装
     LOOP_MORPH_SIN,            //!< TODO:未実装
     TARGET_MORPH_ACCELERATION,
+    TARGET_MORPH_NATURALLY,
     LOOP_MORPH_PARABOLA,       //!< TODO:未実装
     TARGET_MORPH_PARABOLA_REV, //!< TODO:未実装
     LOOP_MORPH_PARABOLA_REV    //!< TODO:未実装
@@ -418,6 +419,10 @@ class GgafDxScene;
 class GgafDxUniverse;
 
 class GgafDxUtil;
+
+template<class T>
+class GgafDxAccelerator;
+
 class GgafDxAgainstWay;
 class GgafDxSphereRadiusVectors;
 class GgafDxQuaternion;
@@ -425,13 +430,16 @@ class GgafDxCollisionArea;
 class GgafDxCollisionPart;
 class GgafDxGeoElem;
 class GgafDxGeoChain;
-class GgafDxKurokoA;
-class GgafDxKurokoB;
+class GgafDxKuroko;
+class GgafDxKurokoAsstA;
+class GgafDxKurokoAsstB;
+class GgafDxAxesMover;
 class GgafDxChecker;
 class GgafDxScaler;
 class GgafDxAlphaFader;
 class GgafDxColorist;
 class GgafDxMorpher;
+class GgafDxMorpherAsstA;
 class GgafDxSeTransmitter;
 class GgafDxSeTransmitterForActor;
 class GgafDxBgmPerformer;

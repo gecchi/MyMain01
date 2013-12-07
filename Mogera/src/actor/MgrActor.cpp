@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "actor/MgrActor.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "util/MgrUtil.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
@@ -18,7 +18,7 @@ MgrActor::MgrActor(const char* prm_name) :
 }
 
 void MgrActor::initialize() {
-//    _pKurokoA->setFaceAngVelo(AXIS_Z, D_ANG(1));
+//    _pKuroko->setFaceAngVelo(AXIS_Z, D_ANG(1));
 //    _pScaler->forceRange(500, 3000);
 //    _pScaler->beat(120, 60, 5, -1);
 }
@@ -31,7 +31,7 @@ void MgrActor::processBehavior() {
 //        _sx+=10; _sy+=10;
 //    }
 
-//    _pKurokoA->behave();
+//    _pKuroko->behave();
 }
 
 MgrActor::~MgrActor() {

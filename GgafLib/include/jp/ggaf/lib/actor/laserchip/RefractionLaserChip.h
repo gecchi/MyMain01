@@ -12,7 +12,7 @@ namespace GgafLib {
  * ・移動方向は直進、但し一定間隔で移動方向が変化 <BR>
  * と言うべきか、ダライアスのボスの多段レーザーと言うべきか、そんな感じ。<BR>
  * デポジトリ登録前にconfig()で設定してください。<BR>
- * KurokoA で移動します。dispatch() したら、初期座標と KurokoA（速度・方向）を設定して下さい。<BR>
+ * Kuroko で移動します。dispatch() したら、初期座標と Kuroko（速度・方向）を設定して下さい。<BR>
  * @version 1.00
  * @since 2010/01/19
  * @author Masatoshi Tsuge

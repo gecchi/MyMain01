@@ -2,7 +2,7 @@
 #include "EnemyAllas.h"
 
 #include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
@@ -34,8 +34,8 @@ void EnemyAllas::onCreateModel() {
 
 void EnemyAllas::initialize() {
     setHitAble(true);
-    _pKurokoA->setFaceAngVelo(AXIS_Z, -7000);
-    _pKurokoA->relateFaceWithMvAng(true);
+    _pKuroko->setFaceAngVelo(AXIS_Z, -7000);
+    _pKuroko->relateFaceWithMvAng(true);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
 }
@@ -96,7 +96,7 @@ void EnemyAllas::processBehavior() {
                     pActor_Shot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
                     if (pActor_Shot) {
                         pActor_Shot->positionAs(this);
-                        pActor_Shot->_pKurokoA->setRzRyMvAng(paAng_way[i], D90ANG);
+                        pActor_Shot->_pKuroko->setRzRyMvAng(paAng_way[i], D90ANG);
                         pActor_Shot->activate();
                     }
                 }
@@ -110,7 +110,7 @@ void EnemyAllas::processBehavior() {
                 }
             }
 //            //自機へ方向転換
-            _pKurokoA->turnMvAngTwd(P_MYSHIP->_x, _y, P_MYSHIP->_z,
+            _pKuroko->turnMvAngTwd(P_MYSHIP->_x, _y, P_MYSHIP->_z,
                                     2000, 0,
                                     TURN_CLOSE_TO, true);
             iMovePatternNo_++; //次の行動パターンへ
@@ -126,7 +126,7 @@ void EnemyAllas::processBehavior() {
     if (pKurokoLeader_) {
         pKurokoLeader_->behave(); //スプライン移動を振る舞い
     }
-    _pKurokoA->behave();
+    _pKuroko->behave();
     //_pSeTx->behave();
 }
 

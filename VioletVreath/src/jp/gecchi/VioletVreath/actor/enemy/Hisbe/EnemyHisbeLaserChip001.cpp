@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "EnemyHisbeLaserChip001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
@@ -19,7 +19,7 @@ EnemyHisbeLaserChip001::EnemyHisbeLaserChip001(const char* prm_name) :
         HomingLaserChip(prm_name, "HisbeLaserChip001", STATUS(EnemyHisbeLaserChip001)) {
     _class_name = "EnemyHisbeLaserChip001";
     pSplManufConnection_ = connect_SplineManufactureManager("EnemyHisbeLaserChip002"); //ヒルベルト曲線
-    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(_pKurokoA);
+    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(_pKuroko);
     pNearestScrollingScene_ = nullptr;
 }
 
@@ -34,9 +34,9 @@ void EnemyHisbeLaserChip001::onActive() {
     HomingLaserChip::onActive();
     //ステータスリセット
     _pStatus->reset();
-    _pKurokoA->setMvVelo(30000);
-    _pKurokoA->forceRzRyMvAngVeloRange(-D_ANG(45), D_ANG(45));
-    _pKurokoA->relateFaceWithMvAng(true);
+    _pKuroko->setMvVelo(30000);
+    _pKuroko->forceRzRyMvAngVeloRange(-D_ANG(45), D_ANG(45));
+    _pKuroko->relateFaceWithMvAng(true);
     //位置と向きはEnemyHisbeが設定
     pKurokoLeader_->stop();
 }
@@ -62,7 +62,7 @@ void EnemyHisbeLaserChip001::processBehaviorHeadChip() {
         pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION); //向いた方向にワールド変換
     }
     pKurokoLeader_->behave();
-    _pKurokoA->behave();
+    _pKuroko->behave();
 }
 
 void EnemyHisbeLaserChip001::processJudgement() {

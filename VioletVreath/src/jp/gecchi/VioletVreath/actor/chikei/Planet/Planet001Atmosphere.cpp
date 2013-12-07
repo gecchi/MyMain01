@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Planet001Atmosphere.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
@@ -26,12 +26,12 @@ void Planet001Atmosphere::onCreateModel() {
 
 void Planet001Atmosphere::initialize() {
     setAlpha(0.9);
-    _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);
+    _pKuroko->setFaceAngVelo(AXIS_Z, 1000);
 }
 
 void Planet001Atmosphere::processBehavior() {
     _pScaler->behave();
-    _pKurokoA->behave();
+    _pKuroko->behave();
 }
 
 Planet001Atmosphere::~Planet001Atmosphere() {

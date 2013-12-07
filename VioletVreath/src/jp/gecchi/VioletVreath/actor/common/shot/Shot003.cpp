@@ -2,7 +2,7 @@
 #include "Shot003.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 
@@ -27,14 +27,14 @@ void Shot003::initialize() {
 
 void Shot003::onActive() {
     setHitAble(true);
-    _pKurokoA->setMvVelo(20000);
+    _pKuroko->setMvVelo(20000);
 
 }
 
 void Shot003::processBehavior() {
     //加算ランクポイントを減少
     //座標に反映
-    _pKurokoA->behave();
+    _pKuroko->behave();
 }
 
 void Shot003::processJudgement() {

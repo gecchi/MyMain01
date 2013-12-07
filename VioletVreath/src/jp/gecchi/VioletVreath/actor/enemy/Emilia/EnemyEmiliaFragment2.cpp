@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "EnemyEmiliaFragment2.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -23,7 +23,7 @@ void EnemyEmiliaFragment2::initialize() {
     setScaleR(0.1);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliSphere(0, PX_C(30));
-    _pKurokoA->setFaceAngVelo(D_ANG(0), D_ANG(10), D_ANG(0));
+    _pKuroko->setFaceAngVelo(D_ANG(0), D_ANG(10), D_ANG(0));
 }
 
 void EnemyEmiliaFragment2::onActive() {

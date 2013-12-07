@@ -2,7 +2,7 @@
 #include "jp/ggaf/lib/util/spline/FixedVelocitySplineKurokoLeader.h"
 
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/spline/SplineLine.h"
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
@@ -12,8 +12,8 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-FixedVelocitySplineKurokoLeader::FixedVelocitySplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKurokoA* const prm_pKurokoA_target) :
-        SplineKurokoLeader(prm_pManufacture, prm_pKurokoA_target) {
+FixedVelocitySplineKurokoLeader::FixedVelocitySplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKuroko* const prm_pKuroko_target) :
+        SplineKurokoLeader(prm_pManufacture, prm_pKuroko_target) {
     _pFixedVeloSplManuf = (FixedVelocitySplineManufacture*)prm_pManufacture;
     _leadning_fFrames = 0.0f;
     _fFrame_of_next = -0.00001f;
@@ -24,10 +24,10 @@ FixedVelocitySplineKurokoLeader::FixedVelocitySplineKurokoLeader(SplineManufactu
     _cosRyMv_begin = 0.0f;
 }
 
-FixedVelocitySplineKurokoLeader::FixedVelocitySplineKurokoLeader(GgafDxKurokoA* const prm_pKurokoA_target,
+FixedVelocitySplineKurokoLeader::FixedVelocitySplineKurokoLeader(GgafDxKuroko* const prm_pKuroko_target,
                                                                  SplineLine* prmpSpl,
                                                                  angvelo prm_angveloRzRyMv):
-        SplineKurokoLeader(nullptr, prm_pKurokoA_target) { //nullptrで渡す事により、_is_created_pManufacture が falseになる
+        SplineKurokoLeader(nullptr, prm_pKuroko_target) { //nullptrで渡す事により、_is_created_pManufacture が falseになる
     _pFixedVeloSplManuf = NEW FixedVelocitySplineManufacture(NEW SplineSource(prmpSpl), prm_angveloRzRyMv);
     _pFixedVeloSplManuf->calculate(); //忘れないように。いずれこのタイプは消す
     _pManufacture = _pFixedVeloSplManuf; //基底メンバーセット。忘れないように。いずれこのタイプは消す
@@ -55,11 +55,11 @@ void FixedVelocitySplineKurokoLeader::getPointCoord(int prm_point_index, coord& 
     double dz = _flip_z*pSpl->_z_compute[prm_point_index]*_pFixedVeloSplManuf->_rate_z + _offset_z;
     if (_option == RELATIVE_DIRECTION) {
         if (_is_leading == false) {
-            GgafDxKurokoA* const pKurokoA_target = _pActor_target->_pKurokoA;
-            _sinRzMv_begin = ANG_SIN(pKurokoA_target->_angRzMv);
-            _cosRzMv_begin = ANG_COS(pKurokoA_target->_angRzMv);
-            _sinRyMv_begin = ANG_SIN(pKurokoA_target->_angRyMv);
-            _cosRyMv_begin = ANG_COS(pKurokoA_target->_angRyMv);
+            GgafDxKuroko* const pKuroko_target = _pActor_target->_pKuroko;
+            _sinRzMv_begin = ANG_SIN(pKuroko_target->_angRzMv);
+            _cosRzMv_begin = ANG_COS(pKuroko_target->_angRzMv);
+            _sinRyMv_begin = ANG_SIN(pKuroko_target->_angRyMv);
+            _cosRyMv_begin = ANG_COS(pKuroko_target->_angRyMv);
             if (!_is_fix_start_pos) {
                 _x_start = _pActor_target->_x;
                 _y_start = _pActor_target->_y;
@@ -122,11 +122,11 @@ void FixedVelocitySplineKurokoLeader::restart() {
         _z_start = _pActor_target->_z;
     }
     if (_option == RELATIVE_DIRECTION) {
-        GgafDxKurokoA* const pKurokoA_target = _pActor_target->_pKurokoA;
-        _sinRzMv_begin = ANG_SIN(pKurokoA_target->_angRzMv);
-        _cosRzMv_begin = ANG_COS(pKurokoA_target->_angRzMv);
-        _sinRyMv_begin = ANG_SIN(pKurokoA_target->_angRyMv);
-        _cosRyMv_begin = ANG_COS(pKurokoA_target->_angRyMv);
+        GgafDxKuroko* const pKuroko_target = _pActor_target->_pKuroko;
+        _sinRzMv_begin = ANG_SIN(pKuroko_target->_angRzMv);
+        _cosRzMv_begin = ANG_COS(pKuroko_target->_angRzMv);
+        _sinRyMv_begin = ANG_SIN(pKuroko_target->_angRyMv);
+        _cosRyMv_begin = ANG_COS(pKuroko_target->_angRyMv);
         _distance_to_begin = UTIL::getDistance(
                                        0.0, 0.0, 0.0,
                                        P0X, P0Y, P0Z
@@ -147,7 +147,7 @@ void FixedVelocitySplineKurokoLeader::restart() {
 }
 void FixedVelocitySplineKurokoLeader::behave() {
     if (_is_leading) {
-        GgafDxKurokoA* const pKurokoA_target = _pActor_target->_pKurokoA;
+        GgafDxKuroko* const pKuroko_target = _pActor_target->_pKuroko;
         //変わり目
         if (_leadning_fFrames >= _fFrame_of_next) {
             _point_index++;
@@ -166,7 +166,7 @@ void FixedVelocitySplineKurokoLeader::behave() {
 
             coord X, Y, Z;
             getPointCoord(_point_index, X, Y, Z);
-            pKurokoA_target->turnMvAngTwd(X, Y, Z,
+            pKuroko_target->turnMvAngTwd(X, Y, Z,
                                           _pFixedVeloSplManuf->_angveloRzRyMv, 0,
                                           _pFixedVeloSplManuf->_turn_way,
                                           _pFixedVeloSplManuf->_turn_optimize);
@@ -185,8 +185,8 @@ void FixedVelocitySplineKurokoLeader::behave() {
         //キャラの速度が1000ならば、_leadning_fFrames ++;
         //キャラの速度が2000ならば  _leadning_fFrames += 2.0;
         //キャラの速度が500ならば、 _leadning_fFrames += 0.5
-//        _leadning_fFrames += (1.0*pKurokoA_target->_veloMv / LEN_UNIT);
-        _leadning_fFrames += (pKurokoA_target->_veloMv * (1.0 / LEN_UNIT));
+//        _leadning_fFrames += (1.0*pKuroko_target->_veloMv / LEN_UNIT);
+        _leadning_fFrames += (pKuroko_target->_veloMv * (1.0 / LEN_UNIT));
     }
 }
 

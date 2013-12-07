@@ -1,13 +1,15 @@
 #include "stdafx.h"
 #include "EnemyGeria.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/CommonScene.h"
+
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -17,6 +19,7 @@ using namespace VioletVreath;
 EnemyGeria::EnemyGeria(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Geria", STATUS(EnemyGeria)) {
     _class_name = "EnemyGeria";
+    pAxMver_ = NEW GgafDxAxesMover(this);
     iMovePatternNo_ = 0;
     max_shots_ = 1;
     shot_num_ = 0;
@@ -39,8 +42,8 @@ void EnemyGeria::initialize() {
     setHitAble(false);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 45000);
-    _pKurokoA->setFaceAngVelo(AXIS_Z, -7000);
-    _pKurokoA->forceMvVeloRange(1, _pKurokoA->_veloMv);
+    _pKuroko->setFaceAngVelo(AXIS_Z, -7000);
+    _pKuroko->forceMvVeloRange(1, _pKuroko->_veloMv);
 }
 
 void EnemyGeria::onActive() {
@@ -50,10 +53,10 @@ void EnemyGeria::onActive() {
     can_Shot_ = true;
     shot_num_ = 0;
     frame_when_shot_ = 0;
-    velo_mv_begin_ = _pKurokoA->_veloTopMv; //初期移動速度を保存
-    _pKurokoA->setMvVelo(velo_mv_begin_); //再加速
-    _pKurokoA->setFaceAng(AXIS_X, 0);
-    //_pKurokoA->turnMvAngTwd(P_MYSHIP, 50, 0, TURN_CLOSE_TO, false);
+    velo_mv_begin_ = _pKuroko->_veloTopMv; //初期移動速度を保存
+    _pKuroko->setMvVelo(velo_mv_begin_); //再加速
+    _pKuroko->setFaceAng(AXIS_X, 0);
+    //_pKuroko->turnMvAngTwd(P_MYSHIP, 50, 0, TURN_CLOSE_TO, false);
 }
 
 void EnemyGeria::processBehavior() {
@@ -62,8 +65,8 @@ void EnemyGeria::processBehavior() {
 
     if (do_Shot_) {
         if (getActiveFrame() == frame_when_shot_) {
-            _pKurokoA->setMvVelo(PX_C(3)); //減速
-            _pKurokoA->turnRxSpinAngTo(D180ANG, D_ANG(3), 0, TURN_CLOCKWISE);
+            _pKuroko->setMvVelo(PX_C(3)); //減速
+            _pKuroko->spinRxFaceAngTo(D180ANG, D_ANG(3), 0, TURN_CLOCKWISE);
         } else if (getActiveFrame() == frame_when_shot_ + 60) {
             MyShip* pM = P_MYSHIP;
             GgafDxGeometricActor* pLast =
@@ -84,15 +87,15 @@ void EnemyGeria::processBehavior() {
 //                if (pShot) {
 //                    shot_num_++;
 //                    pShot->positionAs(this);
-//                    pShot->_pKurokoA->relateFaceWithMvAng(true);
-//                    pShot->_pKurokoA->setMvAngTwd(P_MYSHIP);
+//                    pShot->_pKuroko->relateFaceWithMvAng(true);
+//                    pShot->_pKuroko->setMvAngTwd(P_MYSHIP);
 //                    pShot->reset();
 //                    do_Shot_ = false;
 //                    effectFlush(2); //フラッシュ
 //                    _pSeTx->play3D(1);
 //                }
 
-            _pKurokoA->setMvVelo(velo_mv_begin_); //再加速
+            _pKuroko->setMvVelo(velo_mv_begin_); //再加速
         }
     } else {
         if (can_Shot_) {
@@ -106,7 +109,7 @@ void EnemyGeria::processBehavior() {
             }
         }
     }
-    _pKurokoA->behave();
+    _pKuroko->behave();
 }
 
 void EnemyGeria::processJudgement() {
@@ -130,6 +133,7 @@ void EnemyGeria::onHit(GgafActor* prm_pOtherActor) {
 }
 
 EnemyGeria::~EnemyGeria() {
+    GGAF_DELETE(pAxMver_);
 }
 
 void EnemyGeria::callbackDispatched(GgafDxDrawableActor* prm_pDispatched, int prm_dispatched_seq, int prm_set_seq) {

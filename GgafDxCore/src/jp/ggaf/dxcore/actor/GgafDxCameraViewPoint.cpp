@@ -1,13 +1,13 @@
 #include "stdafx.h"
 #include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxCameraViewPoint::GgafDxCameraViewPoint() :
-        GgafDxGeometricActor("ViewPoint", nullptr, nullptr) {
+GgafDxCameraViewPoint::GgafDxCameraViewPoint(const char* prm_name) :
+        GgafDxGeometricActor(prm_name, nullptr, nullptr) {
     _class_name = "GgafDxCameraViewPoint";
     _x_prev = 0;
     _y_prev = 0;
@@ -16,7 +16,7 @@ GgafDxCameraViewPoint::GgafDxCameraViewPoint() :
 }
 
 void GgafDxCameraViewPoint::initialize() {
-    _pKurokoA->setMvVelo(0);
+    _pKuroko->setMvVelo(0);
 }
 
 void GgafDxCameraViewPoint::processBehavior() {

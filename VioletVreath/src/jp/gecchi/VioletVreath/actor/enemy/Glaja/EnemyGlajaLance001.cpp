@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "EnemyGlajaLance001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion001.h"
@@ -42,13 +42,13 @@ void EnemyGlajaLance001::onReset() {
 }
 
 void EnemyGlajaLance001::onActive() {
-    _pKurokoA->setMvAcce(0);
-    _pKurokoA->setMvVelo(PX_C(3));
-    _pKurokoA->setFaceAng(0,
+    _pKuroko->setMvAcce(0);
+    _pKuroko->setMvVelo(PX_C(3));
+    _pKuroko->setFaceAng(0,
                           RND(D_ANG(0), D_ANG(360)),
                           RND(D_ANG(0), D_ANG(360)) );
-    _pKurokoA->setFaceAngVelo(D_ANG(33), D_ANG(15), D_ANG(20));
-    _pKurokoA->relateFaceWithMvAng(true);
+    _pKuroko->setFaceAngVelo(D_ANG(33), D_ANG(15), D_ANG(20));
+    _pKuroko->relateFaceWithMvAng(true);
     _pColliChecker->disable(1);
     _pColliChecker->disable(2);
     _pScaler->reset();
@@ -63,7 +63,7 @@ void EnemyGlajaLance001::processBehavior() {
     switch (_pProg->get()) {
         case PROG_INIT: {
             setHitAble(true, false);
-            //_pKurokoA->setMvAngTwd(&turning_pos_);
+            //_pKuroko->setMvAngTwd(&turning_pos_);
             _pProg->changeNext();
             break;
         }
@@ -79,8 +79,8 @@ void EnemyGlajaLance001::processBehavior() {
         case PROG_AIM_ANIME01: {
             if (_pProg->isJustChanged()) {
                 //シャキーンと槍になる！（伸びる！）
-                _pKurokoA->stopMv();
-                _pKurokoA->setFaceAngVelo(0, 0, 0);
+                _pKuroko->stopMv();
+                _pKuroko->setFaceAngVelo(0, 0, 0);
                 _pScaler->scaleAcceStep(AXIS_X, R_SC(30), R_SC(1), R_SC(0.1));
             }
             if (!_pScaler->isScaling()) {
@@ -95,19 +95,19 @@ void EnemyGlajaLance001::processBehavior() {
         case PROG_AIM_ANIME02: {
             if (_pProg->isJustChanged()) {
                 //自機にグルンと向く
-                _pKurokoA->turnFaceAngTwd(pMyShip,
+                _pKuroko->turnFaceAngTwd(pMyShip,
                                           D_ANG(20),0,TURN_ANTICLOSE_TO,false);
             }
-            if (!_pKurokoA->isTurningFaceAng()) {
+            if (!_pKuroko->isTurningFaceAng()) {
                 _pProg->changeNext();
             }
             break;
         }
         case PROG_MOVE02: {
             if (_pProg->isJustChanged()) {
-                _pKurokoA->setMvAngByFaceAng(); //今向いてる方向にこれから移動する
-                _pKurokoA->setMvVelo(-PX_C(2)); //ちょっとバックして貯めを表現
-                _pKurokoA->setFaceAng(AXIS_X, D_ANG(27)); //スピンスピン
+                _pKuroko->setMvAngByFaceAng(); //今向いてる方向にこれから移動する
+                _pKuroko->setMvVelo(-PX_C(2)); //ちょっとバックして貯めを表現
+                _pKuroko->setFaceAng(AXIS_X, D_ANG(27)); //スピンスピン
             }
             if (_pProg->getFrameInProgress() >= 10) {
                 _pProg->changeNext();
@@ -117,7 +117,7 @@ void EnemyGlajaLance001::processBehavior() {
         case PROG_MOVE03: {
             if (_pProg->isJustChanged()) {
                 //ズキューーンと移動
-                _pKurokoA->setMvVelo(PX_C(60));
+                _pKuroko->setMvVelo(PX_C(60));
             }
             //画面外 or HIT まで待機
             break;
@@ -133,7 +133,7 @@ void EnemyGlajaLance001::processBehavior() {
     }
     //座標に反映
     _pScaler->behave();
-    _pKurokoA->behave();
+    _pKuroko->behave();
 }
 
 void EnemyGlajaLance001::processJudgement() {
@@ -152,7 +152,7 @@ void EnemyGlajaLance001::onHit(GgafActor* prm_pOtherActor) {
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         setHitAble(false);
         UTIL::activateExplosionEffectOf(this); //爆発エフェクト
-        _pKurokoA->stopMv();
+        _pKuroko->stopMv();
         sayonara(90);
         _pProg->change(PROG_LEAVE);
     }

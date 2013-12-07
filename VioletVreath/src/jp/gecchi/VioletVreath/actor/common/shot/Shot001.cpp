@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Shot001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
@@ -22,7 +22,7 @@ Shot001::Shot001(const char* prm_name) :
     _class_name = "Shot001";
     _pSeTx->set(0, "WAVE_EXPLOSION_002");
     pSplLineConnection_ = (SplineLineConnection*)(P_GOD->pSpl3DManager_->connect("Spl_HAN", this)); //スプライン定義
-    pKurokoLeader_ = NEW FixedVelocitySplineKurokoLeader(_pKurokoA, pSplLineConnection_->peek(), 10000); //移動速度固定
+    pKurokoLeader_ = NEW FixedVelocitySplineKurokoLeader(_pKuroko, pSplLineConnection_->peek(), 10000); //移動速度固定
 }
 
 void Shot001::initialize() {
@@ -35,9 +35,9 @@ void Shot001::initialize() {
 void Shot001::onActive() {
     _pStatus->reset();
     setHitAble(true);
-    _pKurokoA->relateFaceWithMvAng(true);
-    _pKurokoA->setMvVelo(RF_Shot001_MvVelo(G_RANK));    //移動速度
-    _pKurokoA->setFaceAngVelo(AXIS_X, RF_Shot001_AngVelo(G_RANK)); //きりもみ具合
+    _pKuroko->relateFaceWithMvAng(true);
+    _pKuroko->setMvVelo(RF_Shot001_MvVelo(G_RANK));    //移動速度
+    _pKuroko->setFaceAngVelo(AXIS_X, RF_Shot001_AngVelo(G_RANK)); //きりもみ具合
     pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION);
     _pScaler->beat(30,5,2,-1);
 }
@@ -47,7 +47,7 @@ void Shot001::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     //座標に反映
     pKurokoLeader_->behave(); //スプライン移動を振る舞い
-    _pKurokoA->behave();
+    _pKuroko->behave();
     _pScaler->behave();
 }
 

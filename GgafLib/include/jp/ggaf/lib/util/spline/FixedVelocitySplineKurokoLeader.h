@@ -10,7 +10,7 @@ namespace GgafLib {
  * 次の補完点までの距離を測り、現在の移動速度から、測った距離を減算し「残り移動距離」を求める。
  * 残り移動距離が0になれば、次の補完点に向きを変えながらまた距離を測る・・・を繰り返します。<BR>
  * 補完点の密度が薄いところでも濃いところでも移動速度に影響はありません。<BR>
- * そのように動作するよう、黒衣A(GgafDxCore::GgafDxKurokoA)に指示を出して移動を実現します。<BR>
+ * そのように動作するよう、黒衣(GgafDxCore::GgafDxKuroko)に指示を出して移動を実現します。<BR>
  * @version 1.00
  * @since 2009/10/28
  * @author Masatoshi Tsuge
@@ -37,19 +37,19 @@ public:
     /**
      * コンストラクタ .
      * @param prm_pManufacture calculate()済みのSplineManufactureを設定すること
-     * @param prm_pKurokoA 対象のアクターの黒衣A
+     * @param prm_pKuroko 対象のアクターの黒衣
      */
-    FixedVelocitySplineKurokoLeader(SplineManufacture* prm_pManufacture,  GgafDxCore::GgafDxKurokoA* const prm_pKurokoA);
+    FixedVelocitySplineKurokoLeader(SplineManufacture* prm_pManufacture,  GgafDxCore::GgafDxKuroko* const prm_pKuroko);
 
     /**
      * コンストラクタ .
      * 等速移動のための必要な情報を事前計算し、オブジェクトに溜め込みます。
-     * @param prm_pKurokoA 対象のアクターの黒衣A
+     * @param prm_pKuroko 対象のアクターの黒衣
      * @param prm_sp 計算済みスプラインオブジェクト
      * @param prm_angveloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
      * @return
      */
-    FixedVelocitySplineKurokoLeader(GgafDxCore::GgafDxKurokoA* const prm_pKurokoA,
+    FixedVelocitySplineKurokoLeader(GgafDxCore::GgafDxKuroko* const prm_pKuroko,
                                     SplineLine* prm_sp,
                                     angvelo prm_angveloRzRyMv);
 
@@ -59,7 +59,7 @@ public:
      * @param prm_option オプション ABSOLUTE_COORD:絶対座標移動
      *                              RELATIVE_COORD:始点をActorの現座標とみなし、そこからの相対座標移動
      *                              RELATIVE_DIRECTION:始点をActorの現座標とみなし、
-     *                                                 アクターの現在向き（_pKurokoA の _angRzMv, _angRyMv)でスプライン座標群をワールド変換。
+     *                                                 アクターの現在向き（_pKuroko の _angRzMv, _angRyMv)でスプライン座標群をワールド変換。
      * @param prm_max_loop 繰り返し回数。0以下で無限ループ
      */
     void start(SplinTraceOption prm_option, int prm_max_loop = 1) override;

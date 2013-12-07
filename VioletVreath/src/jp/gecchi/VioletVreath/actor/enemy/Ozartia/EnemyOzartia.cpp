@@ -4,7 +4,7 @@
 #include "EnemyOzartiaShot01.h"
 #include "EnemyOzartiaLaserChip01.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
@@ -13,6 +13,7 @@
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAsstA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -24,6 +25,7 @@ using namespace VioletVreath;
 EnemyOzartia::EnemyOzartia(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Ozartia", STATUS(EnemyOzartia)) {
     _class_name = "EnemyOzartia";
+    pKurokoAsstA_ = NEW GgafDxKurokoAsstA(_pKuroko);
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI1_-1);
     pProg2_ = createProgress(PROG_BANPEI2_-1);
@@ -60,8 +62,8 @@ void EnemyOzartia::onCreateModel() {
 void EnemyOzartia::initialize() {
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
-    _pKurokoA->relateFaceWithMvAng(false); //独立
-    _pKurokoA->forceMvVeloRange(PX_C(1), PX_C(8));
+    _pKuroko->relateFaceWithMvAng(false); //独立
+    _pKuroko->forceMvVeloRange(PX_C(1), PX_C(8));
     setHitAble(false);
 }
 
@@ -99,8 +101,8 @@ void EnemyOzartia::processBehavior() {
         case PROG1_STAY: {
             if (_pProg->isJustChanged()) {
                 faceang_to_ship_ = true;
-                _pKurokoA->setMvAcce(0);
-                _pKurokoA->turnMvAngTwd(pMyShip, D_ANG(1), 0, TURN_ANTICLOSE_TO, false);
+                _pKuroko->setMvAcce(0);
+                _pKuroko->turnMvAngTwd(pMyShip, D_ANG(1), 0, TURN_ANTICLOSE_TO, false);
             }
             if (is_hit_ || _pProg->getFrameInProgress() == 5*60) {
                 //ヒットするか、しばらくボーっとしてると移動開始
@@ -167,11 +169,11 @@ void EnemyOzartia::processBehavior() {
             if (_pProg->isJustChanged()) {
                 //ターン
                 faceang_to_ship_ = false;
-                _pKurokoA->setMvVeloBottom();
-                _pKurokoA->setMvAcce(10); //微妙に加速
-                _pKurokoA->turnMvAngTwd(&posMvTarget_, D_ANG(2), 0, TURN_CLOSE_TO, false);
+                _pKuroko->setMvVeloBottom();
+                _pKuroko->setMvAcce(10); //微妙に加速
+                _pKuroko->turnMvAngTwd(&posMvTarget_, D_ANG(2), 0, TURN_CLOSE_TO, false);
             }
-            if (!_pKurokoA->isTurningMvAng()) {
+            if (!_pKuroko->isTurningMvAng()) {
                 //ターンしたら移動へ
                 _pProg->change(PROG1_MOVING);
             }
@@ -180,11 +182,10 @@ void EnemyOzartia::processBehavior() {
         case PROG1_MOVING: {
             if (_pProg->isJustChanged()) {
                 //自機の正面付近へスイーっと行きます
-                _pKurokoA->slideMvByVD(_pKurokoA->getMvVeloTop(), _pKurokoA->getMvVeloBottom(),
-                                       UTIL::getDistance(this, &posMvTarget_),
-                                       0.3f, 0.7f, true);
+                pKurokoAsstA_->slideMvByVd(_pKuroko->getMvVeloTop(), UTIL::getDistance(this, &posMvTarget_),
+                                       0.3f, 0.7f, _pKuroko->getMvVeloBottom(), true);
             }
-            if (!_pKurokoA->isSlidingMv()) {
+            if (!pKurokoAsstA_->isSlidingMv()) {
                 //到着したら終了
                 _pProg->change(PROG1_STAY);
             }
@@ -234,18 +235,19 @@ void EnemyOzartia::processBehavior() {
 
     if (faceang_to_ship_) {
         //自機向きモード
-        if (!_pKurokoA->isTurningFaceAng()) {
-            _pKurokoA->turnFaceAngTwd(pMyShip, D_ANG(5), 0, TURN_CLOSE_TO, false);
+        if (!_pKuroko->isTurningFaceAng()) {
+            _pKuroko->turnFaceAngTwd(pMyShip, D_ANG(5), 0, TURN_CLOSE_TO, false);
         }
     } else {
         //進行方向向きモード
-        if (!_pKurokoA->isTurningFaceAng()) {
-            _pKurokoA->turnRzRyFaceAngTo(_pKurokoA->_angRzMv,_pKurokoA->_angRyMv,
+        if (!_pKuroko->isTurningFaceAng()) {
+            _pKuroko->turnRzRyFaceAngTo(_pKuroko->_angRzMv,_pKuroko->_angRyMv,
                                           D_ANG(2), 0, TURN_CLOSE_TO, false);
         }
     }
     _pAFader->behave();
-    _pKurokoA->behave();
+    pKurokoAsstA_->behave();
+    _pKuroko->behave();
     is_hit_ = false;
 }
 
@@ -271,7 +273,7 @@ void EnemyOzartia::onInactive() {
 }
 
 EnemyOzartia::~EnemyOzartia() {
+    GGAF_DELETE(pKurokoAsstA_);
     GGAF_DELETE(pProg2_);
 }
-
 

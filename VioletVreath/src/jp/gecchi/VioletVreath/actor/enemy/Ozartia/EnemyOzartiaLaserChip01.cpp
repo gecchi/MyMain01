@@ -2,7 +2,7 @@
 #include "EnemyOzartiaLaserChip01.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafCore;
@@ -17,7 +17,7 @@ EnemyOzartiaLaserChip01::EnemyOzartiaLaserChip01(const char* prm_name) :
 }
 
 void EnemyOzartiaLaserChip01::initialize() {
-    _pKurokoA->setRzRyMvAng(0,0);
+    _pKuroko->setRzRyMvAng(0,0);
     registerHitAreaCube_AutoGenMidColli(20000);
     setHitAble(true, false); //‰æ–ÊŠO“–‚½‚è”»’è‚Í–³‚µ
     setScaleR(5.0);
@@ -26,8 +26,8 @@ void EnemyOzartiaLaserChip01::initialize() {
 
 void EnemyOzartiaLaserChip01::onActive() {
     StraightLaserChip::onActive();
-    _pKurokoA->setMvVelo(100000);
-    _pKurokoA->setMvAcce(300);
+    _pKuroko->setMvVelo(100000);
+    _pKuroko->setMvAcce(300);
     _pStatus->reset();
 }
 

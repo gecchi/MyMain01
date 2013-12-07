@@ -18,6 +18,9 @@ public:
         CUR_ON_MOVE,
         CUR_STAY,
     };
+
+    /** •ˆß‚Ì•èA */
+    GgafDxCore::GgafDxKurokoAsstA* pKurokoAsstA_;
     coord tx_, ty_, tz_;
 
 public:

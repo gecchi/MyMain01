@@ -2,7 +2,7 @@
 #include "EnemyEbe.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
@@ -31,7 +31,7 @@ void EnemyEbe::onCreateModel() {
 }
 
 void EnemyEbe::initialize() {
-    _pKurokoA->relateFaceWithMvAng(true);
+    _pKuroko->relateFaceWithMvAng(true);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
 }
@@ -53,8 +53,8 @@ void EnemyEbe::onActive() {
     }
     _pStatus->reset();
     setHitAble(true);
-    _pKurokoA->setFaceAng(AXIS_X, 0);
-    _pKurokoA->setMvAcce(0);
+    _pKuroko->setFaceAng(AXIS_X, 0);
+    _pKuroko->setMvAcce(0);
     _pProg->reset(PROG_MOVE01_1);
 }
 
@@ -65,7 +65,7 @@ void EnemyEbe::processBehavior() {
 
     switch (_pProg->get()) {
         case PROG_MOVE01_1: {
-            if ((int)(_pProg->getFrameInProgress()) > (int)(PX_C(300) / ABS(_pKurokoA->_veloMv))) {
+            if ((int)(_pProg->getFrameInProgress()) > (int)(PX_C(300) / ABS(_pKuroko->_veloMv))) {
                 _pProg->changeNext();
             }
             break;
@@ -83,7 +83,7 @@ void EnemyEbe::processBehavior() {
 
         case PROG_MOVE02_1: {
             if (_pProg->isJustChanged()) {
-                _pKurokoA->turnMvAngTwd(_x - PX_C(300), _y, _z,
+                _pKuroko->turnMvAngTwd(_x - PX_C(300), _y, _z,
                                         D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
 
@@ -92,7 +92,7 @@ void EnemyEbe::processBehavior() {
     }
 
     pKurokoLeader_->behave(); //ƒXƒvƒ‰ƒCƒ“ˆÚ“®‚ðU‚é•‘‚¢
-    _pKurokoA->behave();
+    _pKuroko->behave();
 }
 
 void EnemyEbe::processJudgement() {

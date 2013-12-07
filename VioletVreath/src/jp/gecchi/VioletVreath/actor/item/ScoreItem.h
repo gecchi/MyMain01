@@ -11,8 +11,6 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class ScoreItem : public Item {
-    /** ‹z’…·•ªÀ•W */
-    int kDX_, kDY_, kDZ_;
 
 public:
     enum {
@@ -21,7 +19,10 @@ public:
         PROG_ABSORB     , //‹z’…’†(‹z’…Ï)ó‘Ô
         PROG_BANPEI,
     };
-
+    /** ‹z’…·•ªÀ•W */
+    int kDX_, kDY_, kDZ_;
+    /** •½sˆÚ“®x‰‡ */
+    GgafDxCore::GgafDxAxesMover* pAxMver_;
 public:
     ScoreItem(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
 

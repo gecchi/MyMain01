@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "EnemyEsperiaLaserChip001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -28,7 +28,7 @@ void EnemyEsperiaLaserChip001::initialize() {
     _pColliChecker->setColliAAB_Cube(0, 20000);
     setHitAble(true, false);
     setScaleR(5.0);
-    _pKurokoA->relateFaceWithMvAng(true);
+    _pKuroko->relateFaceWithMvAng(true);
     useProgress(PROG_BANPEI);
 }
 
@@ -37,10 +37,10 @@ void EnemyEsperiaLaserChip001::onActive() {
     //ステータスリセット
     _pStatus->reset();
     begin_y_ = _y;
-    _pKurokoA->stopTurnMvAngSequence();
-    _pKurokoA->setRzRyMvAngVelo(0);
+    _pKuroko->stopTurnMvAngSequence();
+    _pKuroko->setRzRyMvAngVelo(0);
     if (_pChip_front == nullptr) {
-        _pKurokoA->setMvAngTwd(tX1_, tY1_, tZ1_);
+        _pKuroko->setMvAngTwd(tX1_, tY1_, tZ1_);
         _pProg->reset(PROG_MOVE_UP);
     } else {
         _pProg->reset(PROG_NOTHING);
@@ -69,10 +69,10 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
     switch (_pProg->get()) {
         case PROG_MOVE_UP: {
             //レーザー上昇
-            if (!_pKurokoA->isTurningMvAng()) {
+            if (!_pKuroko->isTurningMvAng()) {
 
                 //補正
-                _pKurokoA->turnMvAngTwd(tX1_, tY1_, tZ1_,
+                _pKuroko->turnMvAngTwd(tX1_, tY1_, tZ1_,
                                         D_ANG(5), 0,
                                         TURN_CLOSE_TO, true);
             }
@@ -86,12 +86,12 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
         case PROG_TURN1: {
             //自機より少し上の座標で屈折
             if (_pProg->isJustChanged()) {
-                _pKurokoA->setMvVelo(_pKurokoA->_veloMv/3); //屈折時少しスローダウン
-                _pKurokoA->turnMvAngTwd(tX2_, tY2_, tZ2_,
+                _pKuroko->setMvVelo(_pKuroko->_veloMv/3); //屈折時少しスローダウン
+                _pKuroko->turnMvAngTwd(tX2_, tY2_, tZ2_,
                                         D_ANG(10), 0,
                                         TURN_CLOSE_TO, true);
             }
-            if (!_pKurokoA->isTurningMvAng()) {
+            if (!_pKuroko->isTurningMvAng()) {
                 _pProg->changeNext();
             }
             break;
@@ -100,7 +100,7 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
         case PROG_TURN2: {
             //屈折補正
             if (_pProg->getFrameInProgress() % 8U == 0) {
-                _pKurokoA->turnMvAngTwd(tX2_, tY2_, tZ2_,
+                _pKuroko->turnMvAngTwd(tX2_, tY2_, tZ2_,
                                         D_ANG(5), 0,
                                         TURN_CLOSE_TO, true);
             }
@@ -113,16 +113,16 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
         case PROG_INTO_MYSHIP: {
             if (_pProg->isJustChanged()) {
                 _pSeTx->play3D(SE_FIRE);
-                _pKurokoA->setMvVelo(_pKurokoA->_veloMv*2);
+                _pKuroko->setMvVelo(_pKuroko->_veloMv*2);
             }
             if (_pProg->getFrameInProgress() % 16U == 0) {
-                _pKurokoA->turnMvAngTwd(tX2_, tY2_, tZ2_,
+                _pKuroko->turnMvAngTwd(tX2_, tY2_, tZ2_,
                                         100, 0,
                                         TURN_CLOSE_TO, true);
             }
             if (_pProg->getFrameInProgress() > 90) {
-                _pKurokoA->stopTurnMvAngSequence();
-                _pKurokoA->setRzRyMvAngVelo(0);
+                _pKuroko->stopTurnMvAngSequence();
+                _pKuroko->setRzRyMvAngVelo(0);
                 _pProg->changeNext();
             }
             break;
@@ -131,7 +131,7 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
             break;
         }
     }
-    _pKurokoA->behave();
+    _pKuroko->behave();
     _pSeTx->behave();
 }
 

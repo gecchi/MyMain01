@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "EffectCondensation001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -32,7 +32,7 @@ void EffectCondensation001::onActive() {
     _pScaler->forceRange(30000, 1000); //スケーリング・範囲
     _pScaler->setScale(30000);
     _pScaler->scaleLinerUntil(1000, 30);//スケーリング・60F費やして1000に縮小
-    _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);        //回転
+    _pKuroko->setFaceAngVelo(AXIS_Z, 1000);        //回転
 }
 
 void EffectCondensation001::processBehavior() {
@@ -46,7 +46,7 @@ void EffectCondensation001::processBehavior() {
         _pScaler->beat(30, 2, 2, -1); //無限ループ
     }
     _pUvFlipper->behave();
-    _pKurokoA->behave();
+    _pKuroko->behave();
     _pScaler->behave();
 }
 

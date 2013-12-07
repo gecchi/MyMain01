@@ -147,6 +147,8 @@ public:
 
     virtual GgafDxCameraViewPoint* getViewPoint();
 
+    virtual GgafDxCameraViewPoint* createViewPoint();
+
     bool isMoving();
 
     virtual ~GgafDxCamera(); //デストラクタ

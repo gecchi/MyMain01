@@ -4,7 +4,7 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -31,8 +31,8 @@ void EnemyUnomia::onCreateModel() {
 }
 
 void EnemyUnomia::initialize() {
-    _pKurokoA->relateFaceWithMvAng(true);
-    _pKurokoA->setFaceAngVelo(AXIS_X, -4000);
+    _pKuroko->relateFaceWithMvAng(true);
+    _pKuroko->setFaceAngVelo(AXIS_X, -4000);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
 }
@@ -58,7 +58,7 @@ void EnemyUnomia::onActive() {
     }
     _pStatus->reset();
     setHitAble(true);
-    _pKurokoA->setFaceAng(AXIS_X, 0);
+    _pKuroko->setFaceAng(AXIS_X, 0);
     iMovePatternNo_ = 0; //行動パターンリセット
     _pProg->reset(PROG_ENTRY);
 }
@@ -81,7 +81,7 @@ void EnemyUnomia::processBehavior() {
         case PROG_MOVE01_1: {
             if (_pProg->isJustChanged()) {
                 //自機へ方向転換
-                _pKurokoA->turnMvAngTwd(
+                _pKuroko->turnMvAngTwd(
                                P_MYSHIP->_x, _y, P_MYSHIP->_z,
                                2000, 0,
                                TURN_CLOSE_TO, true
@@ -98,7 +98,7 @@ void EnemyUnomia::processBehavior() {
 //                    pActor_Shot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
 //                    if (pActor_Shot) {
 //                        pActor_Shot->positionAs(this);
-//                        pActor_Shot->_pKurokoA->setRzRyMvAng(paAng_way[i], D90ANG);
+//                        pActor_Shot->_pKuroko->setRzRyMvAng(paAng_way[i], D90ANG);
 //                    }
 //                }
 //                GGAF_DELETEARR(paAng_way);
@@ -164,7 +164,7 @@ void EnemyUnomia::processBehavior() {
 //                    pActor_Shot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
 //                    if (pActor_Shot) {
 //                        pActor_Shot->positionAs(this);
-//                        pActor_Shot->_pKurokoA->setRzRyMvAng(paAng_way[i], D90ANG);
+//                        pActor_Shot->_pKuroko->setRzRyMvAng(paAng_way[i], D90ANG);
 //                    }
 //                }
 //                GGAF_DELETEARR(paAng_way);
@@ -177,7 +177,7 @@ void EnemyUnomia::processBehavior() {
 //                }
 //            }
 ////            //自機へ方向転換
-//            _pKurokoA->turnMvAngTwd(P_MYSHIP->_x, _y, P_MYSHIP->_z,
+//            _pKuroko->turnMvAngTwd(P_MYSHIP->_x, _y, P_MYSHIP->_z,
 //                                                2000, 0,
 //                                                TURN_CLOSE_TO);
 //            iMovePatternNo_++; //次の行動パターンへ
@@ -191,7 +191,7 @@ void EnemyUnomia::processBehavior() {
 //    }
 
     pKurokoLeader_->behave(); //スプライン移動を振る舞い
-    _pKurokoA->behave();
+    _pKuroko->behave();
 }
 
 void EnemyUnomia::processJudgement() {

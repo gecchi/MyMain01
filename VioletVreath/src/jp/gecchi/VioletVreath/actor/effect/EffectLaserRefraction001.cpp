@@ -2,7 +2,7 @@
 #include "EffectLaserRefraction001.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -27,14 +27,14 @@ void EffectLaserRefraction001::onActive() {
     //_pUvFlipper->exec(FLIP_ORDER_LOOP, 1); //パラパラアニメ無し
     setAlpha(0.5);
     _pScaler->setScale(R_SC(6));
-    _pKurokoA->setFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
+    _pKuroko->setFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
 }
 
 void EffectLaserRefraction001::processBehavior() {
     _pScaler->addScale(100);
 
     //_pUvFlipper->behave();
-    _pKurokoA->behave();
+    _pKuroko->behave();
     _pScaler->behave();
 }
 

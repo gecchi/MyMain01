@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MyMagicEnergy.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyMagicEnergyCore.h"
@@ -28,9 +28,9 @@ void MyMagicEnergy::onCreateModel() {
 }
 
 void MyMagicEnergy::initialize() {
-    _pKurokoA->setFaceAngVelo(AXIS_X, 1111);
-    _pKurokoA->setFaceAngVelo(AXIS_Y, 1333);
-    _pKurokoA->setFaceAngVelo(AXIS_Z, 1777);
+    _pKuroko->setFaceAngVelo(AXIS_X, 1111);
+    _pKuroko->setFaceAngVelo(AXIS_Y, 1333);
+    _pKuroko->setFaceAngVelo(AXIS_Z, 1777);
 }
 
 void MyMagicEnergy::onActive() {
@@ -39,7 +39,7 @@ void MyMagicEnergy::onActive() {
 void MyMagicEnergy::processBehavior() {
     positionAs(pCore_);
     setScale(pCore_->_sx);
-    _pKurokoA->behave();
+    _pKuroko->behave();
 }
 
 void MyMagicEnergy::processJudgement() {

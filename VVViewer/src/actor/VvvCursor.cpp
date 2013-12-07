@@ -1,11 +1,12 @@
 #include "stdafx.h"
 #include "VvvCursor.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAsstA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -14,6 +15,7 @@ using namespace VVViewer;
 
 VvvCursor::VvvCursor(const char* prm_name) :
         GgafLib::DefaultSpriteActor(prm_name, "Cursor") {
+    pKurokoAsstA_ = NEW GgafDxKurokoAsstA(_pKuroko);
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ワールド変換はビルボードでRz回転に強制
     effectBlendOne(); //エフェクトテクニックは加算合成に強制
     setZEnable(false);      //Zバッファは考慮無しに強制
@@ -29,7 +31,7 @@ VvvCursor::VvvCursor(const char* prm_name) :
 void VvvCursor::initialize() {
     //座標設定
     _x = _y = _z = 0; //(0,0,0) は画面の中心
-    _pKurokoA->_angveloFace[AXIS_Z] = 1000;
+    _pKuroko->_angveloFace[AXIS_Z] = 1000;
     _pScaler->forceRange(2000, 4000);
     _pScaler->beat(30, 2, 2, -1); //無限ループ
     _pAFader->setAlpha(0);
@@ -56,14 +58,15 @@ void VvvCursor::processBehavior() {
             break;
         }
     }
-    if (_pKurokoA->isJustFinishSlidingMv()) {
+    if (pKurokoAsstA_->isJustFinishSlidingMv()) {
         //理想位置に補正
         _x = tx_;
         _y = ty_;
         _z = tz_;
     }
     _pUvFlipper->behave();
-    _pKurokoA->behave();
+    pKurokoAsstA_->behave();
+    _pKuroko->behave();
     _pScaler->behave();
     _pAFader->behave();
 }
@@ -72,17 +75,17 @@ void VvvCursor::sinkMe() {
 }
 
 void VvvCursor::moveTo(coord X, coord Y, coord Z) {
-    _pKurokoA->_slide_mv_flg = false;
-    _pKurokoA->setMvVelo(0);
-    _pKurokoA->setMvAcce(0);
+    pKurokoAsstA_->stopSlidingMv();
+    _pKuroko->setMvVelo(0);
+    _pKuroko->setMvAcce(0);
     tx_ = X;
     ty_ = Y;
     tz_ = Z;
-    _pKurokoA->setMvAngTwd(tx_, ty_, tz_);
-    _pKurokoA->slideMvByDT(0, UTIL::getDistance(_x, _y, _z, tx_, ty_, tz_),
-                                        20, 0.3f, 0.7f);
+    _pKuroko->setMvAngTwd(tx_, ty_, tz_);
+    pKurokoAsstA_->slideMvByDt( UTIL::getDistance(_x, _y, _z, tx_, ty_, tz_), 20, 0.3f, 0.7f, 0);
     _pProg->change(CUR_ON_MOVE);
 }
 
 VvvCursor::~VvvCursor() {
+    GGAF_DELETE(pKurokoAsstA_);
 }

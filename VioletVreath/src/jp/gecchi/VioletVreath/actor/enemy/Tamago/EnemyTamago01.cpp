@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "EnemyTamago01.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
@@ -46,10 +46,10 @@ void EnemyTamago01::onCreateModel() {
 void EnemyTamago01::initialize() {
 
     setHitAble(true);
-    _pKurokoA->relateFaceWithMvAng(true);
-    _pKurokoA->setFaceAngVelo(AXIS_X, 1000);
-    _pKurokoA->setMvAngTwd(900000, 300000, 300000);
-    _pKurokoA->setMvVelo(3000);
+    _pKuroko->relateFaceWithMvAng(true);
+    _pKuroko->setFaceAngVelo(AXIS_X, 1000);
+    _pKuroko->setMvAngTwd(900000, 300000, 300000);
+    _pKuroko->setMvVelo(3000);
     _pColliChecker->makeCollision(1);
 //    _pColliChecker->setColliAAPrism_Cube(0, 200000,POS_PRISM_ZX_pp);
 //        _pColliChecker->setColliAAPrism_WHD(0,0,0,300000,100000,200000,100000,POS_PRISM_YZ_pn);
@@ -132,7 +132,7 @@ void EnemyTamago01::processBehavior() {
 
     if (iMovePatternNo_ == 1) {
         //スプライン移動終了時
-        _pKurokoA->turnMvAngTwd(P_MYSHIP->_x+800000, P_MYSHIP->_y, P_MYSHIP->_z,
+        _pKuroko->turnMvAngTwd(P_MYSHIP->_x+800000, P_MYSHIP->_y, P_MYSHIP->_z,
                                             2000, 0,
                                             TURN_CLOSE_TO, false);
         iMovePatternNo_++; //次の行動パターンへ
@@ -146,7 +146,7 @@ void EnemyTamago01::processBehavior() {
 
     }
     if (getBehaveingFrame() % 30U == 0) {
-        _pKurokoA->turnMvAngTwd(P_MYSHIP,
+        _pKuroko->turnMvAngTwd(P_MYSHIP,
                                 2000,0,TURN_CLOSE_TO, false);
 
         if (pDepo_Shot_) {
@@ -163,8 +163,8 @@ void EnemyTamago01::processBehavior() {
             for (int i = 0; i < way; i++) {
                 pActor = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
                 if (pActor) {
-                    pActor->_pKurokoA->relateFaceWithMvAng(true);
-                    pActor->_pKurokoA->setRzRyMvAng_by_RyRz(paAng_way[i], target_RyRz_Rz);
+                    pActor->_pKuroko->relateFaceWithMvAng(true);
+                    pActor->_pKuroko->setRzRyMvAng_by_RyRz(paAng_way[i], target_RyRz_Rz);
                     pActor->positionAs(this);
                 }
             }
@@ -182,7 +182,7 @@ void EnemyTamago01::processBehavior() {
     if (pProgram_Tamago01Move_) {
         pProgram_Tamago01Move_->behave();
     }
-    _pKurokoA->behave();
+    _pKuroko->behave();
     _pScaler->behave();
     _pUvFlipper->behave();
     //_pSeTx->behave();
