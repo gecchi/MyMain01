@@ -88,6 +88,10 @@ void Universe::initialize() {
 }
 
 void Universe::processBehavior() {
+    if (pActiveCamWorker_->frame_of_behaving_since_onSwitch_== 0) {
+        pActiveCamWorker_->onSwitchCameraWork(); //コールバック
+    }
+    pActiveCamWorker_->frame_of_behaving_since_onSwitch_++;
     DefaultUniverse::processBehavior();
 }
 
@@ -117,7 +121,7 @@ CameraWorker* Universe::switchCameraWork(const char* prm_pID) {
         //パラメータの CameraWork を活動へ
         pCamWorker->activate();
         pCamWorker->frame_of_behaving_since_onSwitch_ = 0; //switch後フレームカウンタリセット
-        pCamWorker->onSwitchCameraWork(); //コールバック
+//        pCamWorker->onSwitchCameraWork(); //コールバック
         if (getSceneDirector()->getSubFirst()->getSub(pCamWorker)) {
             //２回目以降の
         } else {

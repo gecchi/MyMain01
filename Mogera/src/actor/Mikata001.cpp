@@ -38,6 +38,8 @@ void Mikata001::onActive() {
 }
 
 void Mikata001::processBehavior() {
+//    _TRACE_("Mikata001:before  _weight[1]="<<_weight[1]<<"");
+//    _TRACE_("Mikata001:before _x="<<_x);
     VirtualButton* vb = P_WORLD->vb_;
 
     if (vb->isBeingPressed(VB_RIGHT)) {
@@ -56,20 +58,20 @@ void Mikata001::processBehavior() {
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_1)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_1)!!!!!");
-        pMorpherAsstA_->morphByDt(1, 1.0 - _weight[1], 90, 0.5, 0.5, 0.02, true);
+        pMorpherAsstA_->morphByDt(1, 1.0 - _weight[1], 60, 0.3, 0.5, 0.00, true);
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_2)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_2)!!!!!");
-        pMorpherAsstA_->morphByDt(1,0.0 - _weight[1], 90, 0.5, 0.5, 0.02, true);
+        pMorpherAsstA_->morphByDt(1,0.0 - _weight[1], 60, 0.3, 0.5, 0.00, true);
     }
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_3)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_3)!!!!!");
-        pMorpherAsstA_->morphByVd(1,0.04, 1.0 - _weight[1],  0.4, 0.5, 0.02, true);
+        pMorpherAsstA_->morphByVd(1,0.04, 1.0 - _weight[1],  0.4, 0.5, 0.00, true);
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_4)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_4)!!!!!");
-        pMorpherAsstA_->morphByVd(1,0.04, 0.0 - _weight[1], 0.4, 0.5, 0.02, true);
+        pMorpherAsstA_->morphByVd(1,0.04, 0.0 - _weight[1], 0.4, 0.5, 0.00, true);
     }
 
 
@@ -91,11 +93,11 @@ void Mikata001::processBehavior() {
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_A)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_A)!!!!!");
-        pAsstA_->slideMvByVd(PX_C(10), PX_C(-320)-_x, 0.3, 0.6, PX_C(0), true);
+        pAsstA_->slideMvByVd(PX_C(10), PX_C(-320)-_x, 0.3, 0.7, PX_C(0), true);
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_S)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_S)!!!!!");
-        pAsstA_->slideMvByVd(PX_C(10), PX_C(320) - _x, 0.3, 0.6, PX_C(0), true);
+        pAsstA_->slideMvByVd(PX_C(10), PX_C(320) - _x, 0.4, 0.6, PX_C(0), true);
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Z)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Q)!!!!!");
@@ -114,6 +116,9 @@ void Mikata001::processBehavior() {
     _pKuroko->behave(); //•ˆß‚ðŠˆ“®‚³‚¹‚éiZŽ²‰ñ“]‚·‚éj
     pMorpherAsstA_->behave();
     _pMorpher->behave();
+//    _TRACE_("Mikata001:after _x="<<_x);
+//_TRACE_("Mikata001:after  _weight[1]="<<_weight[1]<<"");
+//_TRACE_("-----------------------------------------");
 }
 
 void Mikata001::onInactive() {

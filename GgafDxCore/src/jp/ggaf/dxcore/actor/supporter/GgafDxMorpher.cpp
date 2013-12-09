@@ -109,11 +109,6 @@ void GgafDxMorpher::behave() {
         } else {
 
         }
-
-        _TRACE_("_weight["<<i<<"]="<<_weight[i]<<" _velo_weight["<<i<<"]="<<_velo_weight[i]<<" _acce_weight["<<i<<"]="<< _acce_weight[i]);
-
-
-
         _pActor->_weight[i] = this->_weight[i];
     }
 }

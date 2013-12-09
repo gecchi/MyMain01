@@ -5,6 +5,8 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/gecchi/VioletVreath/scene/Universe.h"
 #include "jp/gecchi/VioletVreath/actor/ViewPoint.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAsstA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -62,8 +64,25 @@ void CameraWorker::unlockCamVp() {
 
 void CameraWorker::onSwitchCameraWork() {
     Camera* pCam = P_CAM;
+    ViewPoint* pVP = (ViewPoint*)(pCam->getViewPoint());
     setMoveTargetCamBy(pCam);
-    setMoveTargetCamVpBy(pCam->getViewPoint());
+    setMoveTargetCamVpBy(pVP);
+    pCam->_pKuroko->stopMv();
+    pCam->_pKuroko->stopTurnMvAngSequence();
+    pCam->_pKuroko->stopTurnFaceAngSequence();
+    pCam->pKurokoAsstA_->stopSlidingMv();
+    pCam->pAxMver_->stopGravitationMvSequence();
+    pCam->pAxMver_->setZeroVxyzMvVelo();
+    pCam->pAxMver_->setZeroVxyzMvAcce();
+
+    pVP->_pKuroko->stopMv();
+    pVP->_pKuroko->stopTurnMvAngSequence();
+    pVP->_pKuroko->stopTurnFaceAngSequence();
+    pVP->pKurokoAsstA_->stopSlidingMv();
+    pVP->pAxMver_->stopGravitationMvSequence();
+    pVP->pAxMver_->setZeroVxyzMvVelo();
+    pVP->pAxMver_->setZeroVxyzMvAcce();
+
     angXY_nowCamUp_ = UTIL::getAngle2D(pCam->_pVecCamUp->x, pCam->_pVecCamUp->y);
     move_target_XY_CAM_UP_ = angXY_nowCamUp_;
     //frame_of_behaving_since_onSwitch_ = 0; は Universe::switchCameraWork() が行う。
@@ -82,7 +101,6 @@ void CameraWorker::onCameBackFromOtherCameraWork() {
 void CameraWorker::processBehavior() {
 
     //DefaultCameraWorker::processBehavior();
-    frame_of_behaving_since_onSwitch_++;
     //初期カメラ移動範囲制限
 //    float revise = 0.7; //斜めから見るので補正値を掛ける。1.0の場合は原点からでドンピシャ。これは微調整を繰り返した
     Camera* pCam = P_CAM;

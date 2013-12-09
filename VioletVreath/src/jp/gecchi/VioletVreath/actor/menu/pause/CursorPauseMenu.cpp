@@ -2,6 +2,7 @@
 #include "CursorPauseMenu.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/ggaf/dxcore/util/GgafDxInput.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -20,6 +21,9 @@ void CursorPauseMenu::onActive() {
 }
 
 void CursorPauseMenu::processBehavior() {
+    if (GgafDxCore::GgafDxInput::isBeingPressedKey(DIK_P)) {
+        _TRACE_("Cursor:"<<getBehaveingFrame()<<":_x,_y,_z="<<_x<<","<<_y<<","<<_z<<"");
+    }
     _pUvFlipper->behave();
 }
 

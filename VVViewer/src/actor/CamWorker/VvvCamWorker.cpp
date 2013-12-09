@@ -282,25 +282,32 @@ void VvvCamWorker::processBehavior() {
         mdz_flg_ = false;
     }
 
-    if (ABS(move_target_x_CAM_ - pCam->_x) < 10 && ABS(move_target_y_CAM_ - pCam->_y) < 10 && ABS(move_target_z_CAM_ - pCam->_z) < 10) {
+    if (ABS(move_target_x_CAM_ - pCam->_x) < 20 && ABS(move_target_y_CAM_ - pCam->_y) < 20 && ABS(move_target_z_CAM_ - pCam->_z) < 20) {
         //OK
     } else {
         pCam->_pKuroko->setMvAngTwd(move_target_x_CAM_, move_target_y_CAM_, move_target_z_CAM_);
 
         int td1 = UTIL::getDistance(pCam->_x, pCam->_y, pCam->_z,
                                     move_target_x_CAM_, move_target_y_CAM_, move_target_z_CAM_);
-        if (ABS(td1) > 10) {
-            pCam->pKurokoAsstA_->slideMvByDt(td1, 20, 0.4, 0.6, 0);
+        if (ABS(td1) > 20) {
+            if (pCam->pKurokoAsstA_->isSlidingMv() && pCam->pKurokoAsstA_->_smthMv._prm._progress == 1) {
+
+            } else {
+                pCam->pKurokoAsstA_->slideMvByDt(td1, 20, 0.4, 0.6, 0);
+            }
         }
     }
-    if (ABS(move_target_x_VP_ - pVP->_x) < 10 && ABS(move_target_y_VP_ - pVP->_y) < 10 && ABS(move_target_z_VP_ - pVP->_z) < 10) {
+    if (ABS(move_target_x_VP_ - pVP->_x) < 20 && ABS(move_target_y_VP_ - pVP->_y) < 20 && ABS(move_target_z_VP_ - pVP->_z) < 20) {
         //OK
     } else {
         pVP->_pKuroko->setMvAngTwd(move_target_x_VP_, move_target_y_VP_, move_target_z_VP_);
         int td2 = UTIL::getDistance(pVP->_x, pVP->_y, pVP->_z,
                                     move_target_x_VP_, move_target_y_VP_, move_target_z_VP_);
-        if (ABS(td2) > 10) {
-            pVP->pKurokoAsstA_->slideMvByDt(td2, 20, 0.4, 0.6, 0);
+        if (ABS(td2) > 20) {
+            if (pVP->pKurokoAsstA_->isSlidingMv() && pVP->pKurokoAsstA_->_smthMv._prm._progress == 1) {
+            } else {
+                pVP->pKurokoAsstA_->slideMvByDt(td2, 20, 0.4, 0.6, 0);
+            }
         }
     }
 
