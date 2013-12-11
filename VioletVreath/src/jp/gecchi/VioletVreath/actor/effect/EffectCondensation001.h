@@ -13,6 +13,10 @@ namespace VioletVreath {
 class EffectCondensation001 : public GgafLib::DefaultSpriteSetActor {
 
 public:
+    /** 拡大縮小支援オブジェクト */
+    GgafDxCore::GgafDxScaler* pScaler_;
+
+public:
     EffectCondensation001(const char* prm_name);
 
     void initialize() override;

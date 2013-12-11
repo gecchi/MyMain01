@@ -12,6 +12,7 @@ using namespace VioletVreath;
 WorldBoundTitle::WorldBoundTitle(const char* prm_name) :
         WorldBoundActor(prm_name, "0/WorldBoundTitle") {
     _class_name = "WorldBoundTitle";
+    pAFader_ = NEW GgafDxAlphaFader(this);
     //setCubeMapTexture("BkSky_cubemap.dds");
     setCubeMapTexture("BkSpace_cubemap.dds");
 }
@@ -35,16 +36,17 @@ void WorldBoundTitle::onActive() {
 }
 
 void WorldBoundTitle::processBehavior() {
-    _pAFader->behave();
+    pAFader_->behave();
 }
 void WorldBoundTitle::processJudgement() {
 }
 
 void WorldBoundTitle::fadein() {
-    _pAFader->setToBottom();
-    _pAFader->fadeLinerUntil(1.0, 120);
+    pAFader_->setToBottom();
+    pAFader_->fadeLinerUntil(1.0, 120);
 }
 
 WorldBoundTitle::~WorldBoundTitle() {
+    GGAF_DELETE(pAFader_);
 }
 

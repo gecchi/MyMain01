@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpherAsstA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpherHelperA.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
 #include "jp/ggaf/dxcore/util/GgafDxAccelerator.hpp"
@@ -10,7 +10,7 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxMorpherAsstA::GgafDxMorpherAsstA(GgafDxMorpher* prm_pMaster) : GgafObject(),
+GgafDxMorpherHelperA::GgafDxMorpherHelperA(GgafDxMorpher* prm_pMaster) : GgafObject(),
         _pMaster(prm_pMaster) {
     _target_num = prm_pMaster->_pActor->_pMorphMeshModel->_morph_target_num;
 
@@ -21,7 +21,7 @@ GgafDxMorpherAsstA::GgafDxMorpherAsstA(GgafDxMorpher* prm_pMaster) : GgafObject(
     }
 }
 
-void GgafDxMorpherAsstA::behave() {
+void GgafDxMorpherHelperA::behave() {
     for (int i = 1; i <= _target_num; i++) {
         bool flg = _pa_smthMph[i]._prm._flg;
         _pa_smthMph[i].behave();
@@ -32,7 +32,7 @@ void GgafDxMorpherAsstA::behave() {
     }
 }
 
-void GgafDxMorpherAsstA::morphByDt(int prm_target_mesh_no,
+void GgafDxMorpherHelperA::morphByDt(int prm_target_mesh_no,
                                       float prm_target_distance, int prm_target_frames,
                                       float prm_p1, float prm_p2, float prm_end_velo,
                                       bool prm_endacc_flg) {
@@ -44,7 +44,7 @@ void GgafDxMorpherAsstA::morphByDt(int prm_target_mesh_no,
                                                    prm_endacc_flg);
 }
 
-void GgafDxMorpherAsstA::morphByVd(int prm_target_mesh_no,
+void GgafDxMorpherHelperA::morphByVd(int prm_target_mesh_no,
                                       float prm_top_velo, float prm_target_distance,
                                       float prm_p1, float prm_p2, float prm_end_velo,
                                       bool prm_endacc_flg) {
@@ -56,7 +56,7 @@ void GgafDxMorpherAsstA::morphByVd(int prm_target_mesh_no,
                                                    prm_endacc_flg);
 }
 
-GgafDxMorpherAsstA::~GgafDxMorpherAsstA() {
+GgafDxMorpherHelperA::~GgafDxMorpherHelperA() {
     GGAF_DELETEARR(_pa_smthMph);
 }
 

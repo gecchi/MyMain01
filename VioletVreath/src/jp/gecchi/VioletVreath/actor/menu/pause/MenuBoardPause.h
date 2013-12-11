@@ -20,7 +20,7 @@ public:
         ITEM_BACK_TO_TITLE,
         ITEM_REBOOT,
 
-        ITEM_DUMMY1,
+        ITEM_HIDE_MENU,
         ITEM_DUMMY2,
         ITEM_DUMMY3,
         ITEM_DUMMY4,
@@ -30,6 +30,8 @@ public:
         ITEM_DUMMY7,
         ITEM_QUIT_GAME
     };
+
+    bool toggle_HIDE_MENU_;
 
 public:
     MenuBoardPause(const char* prm_name);

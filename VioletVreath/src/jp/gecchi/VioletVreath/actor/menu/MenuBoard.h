@@ -21,8 +21,6 @@ public:
         SE_DECIDED_CANCEL,
     };
 
-    /** •ˆß‚Ì•èA */
-    GgafDxCore::GgafDxKurokoAsstA* pKurokoAsstA_;
     coord slide_from_offset_x_;
     coord slide_from_offset_y_;
     coord target_x_;

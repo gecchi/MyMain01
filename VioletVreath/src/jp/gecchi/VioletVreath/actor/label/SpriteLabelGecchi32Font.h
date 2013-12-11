@@ -13,6 +13,10 @@ namespace VioletVreath {
 class SpriteLabelGecchi32Font : public GgafLib::StringSpriteActor {
 
 public:
+    /** フィードイン・フェードアウト支援 */
+    GgafDxCore::GgafDxAlphaFader* pAFader_;
+
+public:
     SpriteLabelGecchi32Font(const char* prm_name);
 
     virtual void onCreateModel() override;

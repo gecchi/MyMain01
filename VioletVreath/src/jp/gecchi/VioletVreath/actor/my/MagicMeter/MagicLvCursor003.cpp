@@ -32,7 +32,7 @@ void MagicLvCursor003::initialize() {
     _pUvFlipper->setActivePtn(3);
     _pUvFlipper->exec(NOT_ANIMATED);
 
-    _pScaler->forceRange(1000, 10000);
+    pScaler_->forceRange(1000, 10000);
 }
 
 void MagicLvCursor003::processPreDraw() {
@@ -55,32 +55,32 @@ void MagicLvCursor003::processAfterDraw() {
 
 void MagicLvCursor003::markOff() {
     _pUvFlipper->stopFlip();
-    _pAFader->reset();
-    _pAFader->setAlpha(0);
+    pAFader_->reset();
+    pAFader_->setAlpha(0);
 }
 
 void MagicLvCursor003::markOnLevelUpCast(int prm_lv) {
-    _pAFader->setAlpha(0);
-    _pAFader->fadeLinerUntil(1.0, 20);
+    pAFader_->setAlpha(0);
+    pAFader_->fadeLinerUntil(1.0, 20);
     moveTo(prm_lv);
     _pUvFlipper->setFlipPtnRange(0,3);
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
-    _pScaler->setScale(10000);
-    _pScaler->scaleLinerUntil(1000, 20);
+    pScaler_->setScale(10000);
+    pScaler_->scaleLinerUntil(1000, 20);
     _pKuroko->setFaceAng(AXIS_Z, D180ANG);
     _pKuroko->turnRzFaceAngTo(0, D180ANG/20, 0, TURN_COUNTERCLOCKWISE);
 }
 
 void MagicLvCursor003::markOnLevelDownCast(int prm_lv) {
-    _pAFader->setAlpha(1.0);
-    _pAFader->fadeLinerUntil(0, 20);
+    pAFader_->setAlpha(1.0);
+    pAFader_->fadeLinerUntil(0, 20);
     moveTo(prm_lv);
     _pUvFlipper->setFlipPtnRange(8, 11);
     _pUvFlipper->setActivePtn(8);
     _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
-    _pScaler->setScale(1000);
-    _pScaler->scaleLinerUntil(10000, 20);
+    pScaler_->setScale(1000);
+    pScaler_->scaleLinerUntil(10000, 20);
 }
 
 void MagicLvCursor003::markOnInvoke(int prm_lv) {
@@ -91,14 +91,14 @@ void MagicLvCursor003::markOnInvoke(int prm_lv) {
 }
 
 void MagicLvCursor003::markOnEffect(int prm_lv) {
-    _pAFader->setAlpha(1.0);
-    _pAFader->fadeLinerUntil(0, 20);
+    pAFader_->setAlpha(1.0);
+    pAFader_->fadeLinerUntil(0, 20);
     moveTo(prm_lv);
     _pUvFlipper->setFlipPtnRange(8, 11);
     _pUvFlipper->setActivePtn(8);
     _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
-    _pScaler->setScale(1000);
-    _pScaler->scaleLinerUntil(10000, 20);
+    pScaler_->setScale(1000);
+    pScaler_->scaleLinerUntil(10000, 20);
 }
 
 MagicLvCursor003::~MagicLvCursor003() {

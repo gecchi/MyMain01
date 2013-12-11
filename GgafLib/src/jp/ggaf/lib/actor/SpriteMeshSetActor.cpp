@@ -15,8 +15,7 @@ SpriteMeshSetActor::SpriteMeshSetActor(const char* prm_name, const char* prm_mod
     GgafDxSpriteMeshSetActor(prm_name,
                               prm_model,
                               prm_pStat,
-                              NEW CollisionChecker3D(this) ),
-_pScaler(new GgafDxScaler(this)) {
+                              NEW CollisionChecker3D(this) ) {
 
     _class_name = "SpriteMeshSetActor";
     _pColliChecker = (CollisionChecker3D*)_pChecker;
@@ -28,5 +27,5 @@ void SpriteMeshSetActor::drawHitArea() {
 
 SpriteMeshSetActor::~SpriteMeshSetActor() {
     GGAF_DELETE(_pColliChecker);
-    delete _pScaler;
 }
+

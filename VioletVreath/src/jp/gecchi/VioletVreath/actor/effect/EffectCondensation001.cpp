@@ -14,6 +14,7 @@ using namespace VioletVreath;
 EffectCondensation001::EffectCondensation001(const char* prm_name) :
         DefaultSpriteSetActor(prm_name, "8/Lockon001", nullptr) {
     _class_name = "EffectCondensation001";
+    pScaler_ = NEW GgafDxScaler(this);
     inactivate();
     effectBlendOne(); //加算合成
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ビルボードRz回転
@@ -29,9 +30,9 @@ void EffectCondensation001::initialize() {
 void EffectCondensation001::onActive() {
     _pUvFlipper->setActivePtnToTop();
     setAlpha(0.01);
-    _pScaler->forceRange(30000, 1000); //スケーリング・範囲
-    _pScaler->setScale(30000);
-    _pScaler->scaleLinerUntil(1000, 30);//スケーリング・60F費やして1000に縮小
+    pScaler_->forceRange(30000, 1000); //スケーリング・範囲
+    pScaler_->setScale(30000);
+    pScaler_->scaleLinerUntil(1000, 30);//スケーリング・60F費やして1000に縮小
     _pKuroko->setFaceAngVelo(AXIS_Z, 1000);        //回転
 }
 
@@ -40,14 +41,14 @@ void EffectCondensation001::processBehavior() {
         addAlpha(0.05);
     }
 
-    if (_pScaler->_method[0] == NOSCALE) {
+    if (pScaler_->_method[0] == NOSCALE) {
         //縮小完了後、Beat
-        _pScaler->forceRange(1000, 2000);
-        _pScaler->beat(30, 2, 2, -1); //無限ループ
+        pScaler_->forceRange(1000, 2000);
+        pScaler_->beat(30, 2, 2, -1); //無限ループ
     }
     _pUvFlipper->behave();
     _pKuroko->behave();
-    _pScaler->behave();
+    pScaler_->behave();
 }
 
 void EffectCondensation001::processJudgement() {
@@ -60,4 +61,6 @@ void EffectCondensation001::onInactive() {
 }
 
 EffectCondensation001::~EffectCondensation001() {
+    GGAF_DELETE(pScaler_);
 }
+

@@ -7,8 +7,8 @@
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAsstA.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpherAsstA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpherHelperA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -17,8 +17,6 @@ using namespace Mogera;
 
 Mikata001::Mikata001(const char* prm_name) :
         GgafLib::DefaultMorphMeshActor(prm_name, "1/Halia") { //Guruguru.x が参照される。
-                pAsstA_ = NEW GgafDxKurokoAsstA(_pKuroko);
-                pMorpherAsstA_= NEW GgafDxMorpherAsstA(_pMorpher);
 }
 
 void Mikata001::initialize() {
@@ -58,20 +56,20 @@ void Mikata001::processBehavior() {
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_1)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_1)!!!!!");
-        pMorpherAsstA_->morphByDt(1, 1.0 - _weight[1], 60, 0.3, 0.5, 0.00, true);
+        _pMorpher->helperA()->morphByDt(1, 1.0 - _weight[1], 60, 0.3, 0.5, 0.00, true);
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_2)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_2)!!!!!");
-        pMorpherAsstA_->morphByDt(1,0.0 - _weight[1], 60, 0.3, 0.5, 0.00, true);
+        _pMorpher->helperA()->morphByDt(1,0.0 - _weight[1], 60, 0.3, 0.5, 0.00, true);
     }
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_3)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_3)!!!!!");
-        pMorpherAsstA_->morphByVd(1,0.04, 1.0 - _weight[1],  0.4, 0.5, 0.00, true);
+        _pMorpher->helperA()->morphByVd(1,0.04, 1.0 - _weight[1],  0.4, 0.5, 0.00, true);
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_4)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_4)!!!!!");
-        pMorpherAsstA_->morphByVd(1,0.04, 0.0 - _weight[1], 0.4, 0.5, 0.00, true);
+        _pMorpher->helperA()->morphByVd(1,0.04, 0.0 - _weight[1], 0.4, 0.5, 0.00, true);
     }
 
 
@@ -82,39 +80,35 @@ void Mikata001::processBehavior() {
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_D)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_D)!!!!!");
-        pAsstA_->_smthMv._prm._flg = false;
         _pKuroko->addMvVelo(PX_C(2));
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_F)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_F)!!!!!");
-        pAsstA_->_smthMv._prm._flg = false;
         _pKuroko->addMvVelo(-PX_C(2));
     }
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_A)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_A)!!!!!");
-        pAsstA_->slideMvByVd(PX_C(10), PX_C(-320)-_x, 0.3, 0.7, PX_C(0), true);
+        _pKuroko->helperA()->slideMvByVd(PX_C(10), PX_C(-320)-_x, 0.3, 0.7, PX_C(0), true);
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_S)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_S)!!!!!");
-        pAsstA_->slideMvByVd(PX_C(10), PX_C(320) - _x, 0.4, 0.6, PX_C(0), true);
+        _pKuroko->helperA()->slideMvByVd(PX_C(10), PX_C(320) - _x, 0.4, 0.6, PX_C(0), true);
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Z)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Q)!!!!!");
-        pAsstA_->slideMvByDt(PX_C(-320) - _x, 120, 0.3, 0.6, PX_C(0), true);
+        _pKuroko->helperA()->slideMvByDt(PX_C(-320) - _x, 120, 0.3, 0.6, PX_C(0), true);
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_X)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_W)!!!!!");
-        pAsstA_->slideMvByDt(PX_C(320) - _x, 120, 0.3, 0.6, PX_C(0), true);
+        _pKuroko->helperA()->slideMvByDt(PX_C(320) - _x, 120, 0.3, 0.6, PX_C(0), true);
     }
 
 
 
 
 
-    pAsstA_->behave();
     _pKuroko->behave(); //黒衣を活動させる（Z軸回転する）
-    pMorpherAsstA_->behave();
     _pMorpher->behave();
 //    _TRACE_("Mikata001:after _x="<<_x);
 //_TRACE_("Mikata001:after  _weight[1]="<<_weight[1]<<"");
@@ -130,5 +124,4 @@ void Mikata001::onHit(GgafCore::GgafActor* prm_pOtherActor) {
 }
 
 Mikata001::~Mikata001() {
-    GGAF_DELETE(pAsstA_);
 }

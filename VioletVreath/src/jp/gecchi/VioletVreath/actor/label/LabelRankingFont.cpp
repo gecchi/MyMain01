@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "LabelRankingFont.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -10,6 +11,7 @@ LabelRankingFont::LabelRankingFont(const char* prm_name) :
         StringBoardActor(prm_name, "Ranking_16Font")
 {
     _class_name = "LabelRankingFont";
+    pAFader_ = NEW GgafDxAlphaFader(this);
 }
 
 void LabelRankingFont::onCreateModel() {
@@ -22,5 +24,6 @@ void LabelRankingFont::processBehavior() {
 }
 
 LabelRankingFont::~LabelRankingFont() {
+    GGAF_DELETE(pAFader_);
 }
 

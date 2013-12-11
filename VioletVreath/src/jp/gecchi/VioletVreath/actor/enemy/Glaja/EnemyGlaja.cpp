@@ -12,7 +12,7 @@
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Glaja/EnemyGlajaLance001.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAsstA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -22,7 +22,7 @@ using namespace VioletVreath;
 EnemyGlaja::EnemyGlaja(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Glaja", STATUS(EnemyGlaja)) {
     _class_name = "EnemyGlaja";
-    pKurokoAsstA_ = NEW GgafDxKurokoAsstA(_pKuroko);
+    pAFader_ = NEW GgafDxAlphaFader(this);
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     pConn_Shot_ = connect_DepositoryManager("GlajaLance001");
     effectBlendOne(); //‰ÁŽZ‡¬
@@ -52,7 +52,7 @@ void EnemyGlaja::processBehavior() {
     switch (_pProg->get()) {
          case PROG_INIT: {
              setHitAble(false);
-             _pAFader->setAlpha(0);
+             pAFader_->setAlpha(0);
              _pKuroko->keepOnTurningFaceAngTwd(pMyShip,
                                                 D_ANG(2), 0, TURN_CLOSE_TO, false);
              _pMorpher->setWeight(0.0);
@@ -62,7 +62,7 @@ void EnemyGlaja::processBehavior() {
          }
          case PROG_ENTRY: {
              if (_pProg->getFrameInProgress() == 60) {
-                 _pAFader->fadeLinerUntil(1.0, 60);
+                 pAFader_->fadeLinerUntil(1.0, 60);
              }
              if (getAlpha() > 0.5) {
                  setHitAble(true);
@@ -83,10 +83,10 @@ void EnemyGlaja::processBehavior() {
                  velo Vt = RF_EnemyGlaja_MvVelo(G_RANK);
                  velo Ve = 100;
                  coord D = UTIL::getDistance(this, &next_pos_);
-                 pKurokoAsstA_->slideMvByVd(Vt, D, 0.1, 0.5, Ve, true);
+                 _pKuroko->helperA()->slideMvByVd(Vt, D, 0.1, 0.5, Ve, true);
              }
 
-             if (pKurokoAsstA_->isJustFinishSlidingMv()) {
+             if (_pKuroko->helperA()->isJustFinishSlidingMv()) {
                  _pProg->changeNext();
              }
              break;
@@ -144,10 +144,9 @@ void EnemyGlaja::processBehavior() {
          default:
              break;
      }
-    pKurokoAsstA_->behave();
     _pKuroko->behave();
     _pMorpher->behave();
-    _pAFader->behave();
+    pAFader_->behave();
 //_TRACE_("EnemyGlaja f:"<<getBehaveingFrame()<<"  pProg="<<_pProg->get()<<"   X,Y,Z="<<_x<<","<<_y<<","<<_z<<" ");
 }
 
@@ -176,6 +175,5 @@ void EnemyGlaja::onDispatchedShot(GgafDxCore::GgafDxDrawableActor* prm_pActor, i
 
 EnemyGlaja::~EnemyGlaja() {
     pConn_Shot_->close();
-    GGAF_DELETE(pKurokoAsstA_);
-
+    GGAF_DELETE(pAFader_);
 }

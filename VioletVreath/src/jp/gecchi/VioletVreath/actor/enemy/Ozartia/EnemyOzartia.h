@@ -63,8 +63,8 @@ public:
         SE_SHOT04 ,
     };
 
-    /** 黒衣の助手A */
-    GgafDxCore::GgafDxKurokoAsstA* pKurokoAsstA_;
+    /** フィードイン・フェードアウト支援 */
+    GgafDxCore::GgafDxAlphaFader* pAFader_;
     /** ショット関連の進捗状態 */
     GgafCore::GgafProgress* pProg2_;
 

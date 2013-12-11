@@ -23,6 +23,7 @@ class TestActor;
 class TestBar;
 class TestCappedBar;
 class Teki001;
+class Teki002;
 class Mikata001;
 class MgrUtil;
 }

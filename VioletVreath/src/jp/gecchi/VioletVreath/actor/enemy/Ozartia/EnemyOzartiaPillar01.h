@@ -19,6 +19,9 @@ public:
         PROG_LEAVE  ,
         PROG_BANPEI,
     };
+
+    /** フィードイン・フェードアウト支援 */
+    GgafDxCore::GgafDxAlphaFader* pAFader_;
 public:
     EnemyOzartiaPillar01(const char* prm_name);
 

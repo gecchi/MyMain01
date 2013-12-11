@@ -187,9 +187,10 @@
     <ClCompile Include="src\jp\ggaf\dxcore\actor\interface\GgafDxIBumpMapActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxAxesMover.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxKuroko.cpp" />
-    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoAsstA.cpp" />
-    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoAsstB.cpp" />
-    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxMorpherAsstA.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoHelperA.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoHelperB.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoHelperC.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxMorpherHelperA.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxSeTransmitterForActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\scene\supporter\GgafDxBgmPerformerForScene.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\sound\CWaveDecorder.cpp" />
@@ -310,9 +311,10 @@
     <ClInclude Include="include\jp\ggaf\dxcore\actor\interface\GgafDxIBumpMapActor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxaxesmover.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxkuroko.h" />
-    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxkurokoassta.h" />
-    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoAsstB.h" />
-    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\GgafDxMorpherAsstA.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxkurokohelpera.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxkurokohelperb.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxkurokohelperc.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxmorpherhelpera.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxsetransmitterforactor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\scene\supporter\ggafdxbgmperformerforscene.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\sound\CWaveDecorder.h" />

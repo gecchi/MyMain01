@@ -17,8 +17,7 @@ DefaultD3DXAniMeshActor::DefaultD3DXAniMeshActor(const char* prm_name, const cha
                            "DefaultD3DXAniMeshEffect",
                            "DefaultD3DXAniMeshTechnique",
                            prm_pStat,
-                           NEW CollisionChecker3D(this) ),
-_pScaler(new GgafDxScaler(this)) {
+                           NEW CollisionChecker3D(this) ) {
     _class_name = "DefaultD3DXAniMeshActor";
     _pColliChecker = (CollisionChecker3D*)_pChecker;
 }
@@ -29,5 +28,4 @@ void DefaultD3DXAniMeshActor::drawHitArea() {
 
 DefaultD3DXAniMeshActor::~DefaultD3DXAniMeshActor() {
     GGAF_DELETE(_pColliChecker);
-    delete _pScaler;
 }

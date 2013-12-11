@@ -14,6 +14,7 @@ using namespace VioletVreath;
 EnemyOzartiaShot01::EnemyOzartiaShot01(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "myvic", STATUS(EnemyOzartiaShot01)) {
     _class_name = "EnemyOzartiaShot01";
+    pAFader_ = NEW GgafDxAlphaFader(this);
 }
 
 void EnemyOzartiaShot01::initialize() {
@@ -33,14 +34,14 @@ void EnemyOzartiaShot01::processBehavior() {
     switch (_pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
-            _pAFader->setAlpha(0);
+            pAFader_->setAlpha(0);
             UTIL::activateEntryEffectOf(this);
             _pProg->changeNext();
             break;
         }
         case PROG_ENTRY: {
             if (_pProg->isJustChanged()) {
-                _pAFader->fadeLinerUntil(1.0, 15);
+                pAFader_->fadeLinerUntil(1.0, 15);
             }
             if (_pProg->getFrameInProgress() == 8) {
                 setHitAble(true);
@@ -59,7 +60,7 @@ void EnemyOzartiaShot01::processBehavior() {
         case PROG_LEAVE: {
              if (_pProg->isJustChanged()) {
                  UTIL::activateLeaveEffectOf(this);
-                 _pAFader->fadeLinerUntil(0.0, 15);
+                 pAFader_->fadeLinerUntil(0.0, 15);
              }
              if (_pProg->getFrameInProgress() == 60) {
                  sayonara();
@@ -97,4 +98,5 @@ void EnemyOzartiaShot01::onInactive() {
 }
 
 EnemyOzartiaShot01::~EnemyOzartiaShot01() {
+    GGAF_DELETE(pAFader_);
 }

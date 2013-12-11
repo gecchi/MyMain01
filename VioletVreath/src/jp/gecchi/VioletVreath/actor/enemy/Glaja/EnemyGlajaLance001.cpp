@@ -19,6 +19,7 @@ using namespace VioletVreath;
 EnemyGlajaLance001::EnemyGlajaLance001(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "GlajaLance001", STATUS(EnemyGlajaLance001)) {
     _class_name = "EnemyGlajaLance001";
+    pScaler_ = NEW GgafDxScaler(this);
     effectBlendOne(); //加算合成
     setZEnable(true);
     setZWriteEnable(false);
@@ -51,8 +52,8 @@ void EnemyGlajaLance001::onActive() {
     _pKuroko->relateFaceWithMvAng(true);
     _pColliChecker->disable(1);
     _pColliChecker->disable(2);
-    _pScaler->reset();
-    _pScaler->behave();
+    pScaler_->reset();
+    pScaler_->behave();
     _pStatus->reset();
     setAlpha(0.99);
     _pProg->reset(PROG_INIT);
@@ -81,9 +82,9 @@ void EnemyGlajaLance001::processBehavior() {
                 //シャキーンと槍になる！（伸びる！）
                 _pKuroko->stopMv();
                 _pKuroko->setFaceAngVelo(0, 0, 0);
-                _pScaler->scaleAcceStep(AXIS_X, R_SC(30), R_SC(1), R_SC(0.1));
+                pScaler_->scaleAcceStep(AXIS_X, R_SC(30), R_SC(1), R_SC(0.1));
             }
-            if (!_pScaler->isScaling()) {
+            if (!pScaler_->isScaling()) {
                 //槍の両端当たり判定出現
                 _pColliChecker->enable(1);
                 _pColliChecker->enable(2);
@@ -132,7 +133,7 @@ void EnemyGlajaLance001::processBehavior() {
         }
     }
     //座標に反映
-    _pScaler->behave();
+    pScaler_->behave();
     _pKuroko->behave();
 }
 
@@ -159,4 +160,5 @@ void EnemyGlajaLance001::onHit(GgafActor* prm_pOtherActor) {
 }
 
 EnemyGlajaLance001::~EnemyGlajaLance001() {
+    GGAF_DELETE(pScaler_);
 }

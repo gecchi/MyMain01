@@ -10,6 +10,7 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -19,6 +20,8 @@ using namespace VioletVreath;
 EnemyIda::EnemyIda(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Ida", STATUS(EnemyIda)) {
     _class_name = "EnemyIda";
+    pScaler_ = NEW GgafDxScaler(this);
+    pAFader_ = NEW GgafDxAlphaFader(this);
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //îöî≠
     useProgress(PROG_BANPEI);
@@ -48,14 +51,14 @@ void EnemyIda::processBehavior() {
         case PROG_INIT: {
             setHitAble(false);
             _pKuroko->setFaceAngVelo(AXIS_X, D_ANG(4));
-            _pAFader->setAlpha(0);
+            pAFader_->setAlpha(0);
              UTIL::activateEntryEffectOf(this);
             _pProg->changeNext();
             break;
         }
         case PROG_ENTRY: {
             if (_pProg->isJustChanged()) {
-                _pAFader->fadeLinerUntil(1.0, 30);
+                pAFader_->fadeLinerUntil(1.0, 30);
             }
             if (_pProg->getFrameInProgress() == 25) {
                 setHitAble(true);
@@ -85,7 +88,7 @@ void EnemyIda::processBehavior() {
         }
     }
 
-    _pAFader->behave();
+    pAFader_->behave();
     _pKuroko->behave();
 
     changeGeoFinal(); //ê‚ëŒç¿ïWånÇ÷
@@ -112,6 +115,8 @@ void EnemyIda::onInactive() {
 }
 
 EnemyIda::~EnemyIda() {
+    GGAF_DELETE(pScaler_);
+    GGAF_DELETE(pAFader_);
 }
 
 

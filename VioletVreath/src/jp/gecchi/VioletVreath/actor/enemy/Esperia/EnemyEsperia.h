@@ -38,6 +38,9 @@ public:
 
     /** [r]エスペリア１艦が発車する際の最大レーザーWay数 */
     static int max_laser_way_;
+
+    /** フィードイン・フェードアウト支援 */
+    GgafDxCore::GgafDxAlphaFader* pAFader_;
     /** [r]本エスペリアの今回のレーザーWay数 */
     int now_laser_way_;
     /** [r]発射レーザーチップの数（レーザー長さ） */

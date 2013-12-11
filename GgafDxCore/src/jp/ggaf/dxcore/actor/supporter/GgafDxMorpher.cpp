@@ -4,15 +4,19 @@
 #include "jp/ggaf/dxcore/actor/GgafDxMorphMeshActor.h"
 #include "jp/ggaf/dxcore/model/GgafDxMorphMeshModel.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpherHelperA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxMorpher::GgafDxMorpher(GgafDxMorphMeshActor* prm_pActor) : GgafObject(),
 _pActor(prm_pActor) {
+    _pHelperA = nullptr;
     reset();
 }
-
+GgafDxMorpherHelperA* GgafDxMorpher::helperA() {
+    return _pHelperA ? _pHelperA : _pHelperA = NEW GgafDxMorpherHelperA(this);
+}
 void GgafDxMorpher::reset() {
     for (int i = 0; i <= MAX_MORPH_TARGET; i++) {
         //i=0‚ÍŽÀŽ¿–¢Žg—pB
@@ -34,6 +38,9 @@ void GgafDxMorpher::reset() {
 }
 
 void GgafDxMorpher::behave() {
+    if (_pHelperA) {
+        _pHelperA->behave();
+    }
     int morph_target_num = _pActor->_pMorphMeshModel->_morph_target_num;
     GgafDxMorphingMethod method;
     for (int i = 1; i <= morph_target_num; i++) {
@@ -207,4 +214,5 @@ bool GgafDxMorpher::isMorphing() {
 }
 
 GgafDxMorpher::~GgafDxMorpher() {
+    GGAF_DELETE_NULLABLE(_pHelperA);
 }

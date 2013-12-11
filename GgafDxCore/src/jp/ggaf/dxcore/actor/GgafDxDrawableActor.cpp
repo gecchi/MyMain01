@@ -25,7 +25,6 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
                                          GgafStatus* prm_pStat,
                                          GgafDxChecker* prm_pChecker) :
   GgafDxGeometricActor(prm_name, prm_pStat, prm_pChecker),
-_pAFader(new GgafDxAlphaFader(this)) ,
 _pModelCon((GgafDxModelConnection*)GgafDxGod::_pModelManager->connect(
                   std::string(prm_model).c_str(),
                   this)),
@@ -78,7 +77,6 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
                                          GgafStatus* prm_pStat,
                                          GgafDxChecker* prm_pChecker) :
   GgafDxGeometricActor(prm_name, prm_pStat, prm_pChecker),
-_pAFader(new GgafDxAlphaFader(this)) ,
 _pModelCon((GgafDxModelConnection*)GgafDxGod::_pModelManager->connect(
                     (std::string(prm_model_type) + std::string("/") + std::string(prm_model_id)).c_str(),
                     this)),
@@ -366,7 +364,6 @@ void GgafDxDrawableActor::effectDefault() {
 }
 
 GgafDxDrawableActor::~GgafDxDrawableActor() {
-    delete _pAFader;
     GGAF_DELETEARR(_technique);
     GGAF_DELETEARR(_temp_technique);
     GGAF_DELETEARR(_paMaterial);

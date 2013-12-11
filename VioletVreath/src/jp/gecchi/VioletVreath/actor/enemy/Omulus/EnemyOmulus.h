@@ -30,6 +30,8 @@ public:
         SE_EXPLOSION,
     };
 
+    /** 拡大縮小支援オブジェクト */
+    GgafDxCore::GgafDxScaler* pScaler_;
     /** [r]状況 */
     bool is_open_hatch_;
     /** [r/w]ハッチが開いているフレーム間隔 */

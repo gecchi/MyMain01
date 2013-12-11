@@ -68,7 +68,7 @@ void RankUpStage::processBehavior() {
                 pMessage1_->update("RANKUPSTAGE::PROG_BEGIN");
                 std::string m = "RUNKUP LEVEL:" + XTOS(G_RANKUP_LEVEL) ;
                 pMessage2_->update(m.c_str());
-                pMessage2_->_pAFader->beat(120,30,30,30,-1);
+                pMessage2_->pAFader_->beat(120,30,30,30,-1);
                 _pBgmPerformer->play_fadein(0);
             }
 
@@ -140,7 +140,7 @@ void RankUpStage::processBehavior() {
         default:
             break;
     }
-    pMessage2_->_pAFader->behave();
+    pMessage2_->pAFader_->behave();
 
 }
 

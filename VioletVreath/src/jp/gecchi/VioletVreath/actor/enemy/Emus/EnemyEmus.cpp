@@ -24,6 +24,7 @@ using namespace VioletVreath;
 EnemyEmus::EnemyEmus(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Emus", STATUS(EnemyEmus)) {
     _class_name = "EnemyEmus";
+    pScaler_ = NEW GgafDxScaler(this);
     _pActor_Base = nullptr;
     is_open_hatch_ = false;
     frame_of_open_interval_  = 3*60;
@@ -55,9 +56,9 @@ void EnemyEmus::initialize() {
     _pMorpher->setWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 200000);
-    _pScaler->setScale(1000);
-    _pScaler->forceRange(1000, 1200);
-    _pScaler->beat(30, 5, 5, -1);
+    pScaler_->setScale(1000);
+    pScaler_->forceRange(1000, 1200);
+    pScaler_->beat(30, 5, 5, -1);
 }
 
 void EnemyEmus::onActive() {
@@ -172,5 +173,6 @@ void EnemyEmus::onInactive() {
 }
 
 EnemyEmus::~EnemyEmus() {
+    GGAF_DELETE(pScaler_);
     pConn_LaserChipDepoStore_->close();
 }

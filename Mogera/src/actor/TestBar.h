@@ -8,7 +8,6 @@ class TestBar : public GgafLib::GraphBarActor {
 
 public:
 
-    GgafDxCore::GgafDxKurokoAsstB* pAsstB_;
 
     /**
      *

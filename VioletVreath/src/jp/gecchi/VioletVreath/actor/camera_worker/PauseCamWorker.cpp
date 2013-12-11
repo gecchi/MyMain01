@@ -11,7 +11,7 @@
 #include "jp/gecchi/VioletVreath/scene/Universe/World.h"
 #include "jp/gecchi/VioletVreath/actor/ViewPoint.h"
 #include "jp/gecchi/VioletVreath/actor/Camera.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAsstA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -41,6 +41,9 @@ void PauseCamWorker::processBehavior() {
     ViewPoint* pVP = (ViewPoint*)(pCam->getViewPoint());
     GgafDxInput::updateMouseState();
 
+    //TODO:精度を上げるアイディア
+    //マウスポイントの履歴を取り、mdx,mdy,mdzは、３フレームほど過去との差にすると回転軸が安定するだろう
+
     long mx,my,mz,mdx,mdy,mdz;
     GgafDxInput::getMousePointer(&mx, &my, &mz);
     GgafDxInput::getMousePointer_REL(&mdx, &mdy, &mdz);
@@ -64,12 +67,12 @@ void PauseCamWorker::processBehavior() {
         } else {
             cd_ = cw;
         }
-        if (!pCam->pKurokoAsstA_->isSlidingMv()) {
+        if (!pCam->_pKuroko->helperA()->isSlidingMv()) {
             move_target_x_CAM_ = pCam->_x;
             move_target_y_CAM_ = pCam->_y;
             move_target_z_CAM_ = pCam->_z;
         }
-        if (!pVP->pKurokoAsstA_->isSlidingMv()) {
+        if (!pVP->_pKuroko->helperA()->isSlidingMv()) {
             //正確なVPに再設定
             pVP->_x = DX_C(pCam->_pVecCamLookatPoint->x);
             pVP->_y = DX_C(pCam->_pVecCamLookatPoint->y);
@@ -143,7 +146,7 @@ void PauseCamWorker::processBehavior() {
             double y = move_target_y_CAM_ - move_target_y_VP_;
             double z = move_target_z_CAM_ - move_target_z_VP_;
 
-            angle rz1 = UTIL::getAngle2D(x, y);
+            angle rz1 = UTIL::getAngle2D(z, y);
 
             //回転させたい角度
             double ang = (PI) * (d/cd_);
@@ -153,13 +156,14 @@ void PauseCamWorker::processBehavior() {
             GgafDxQuaternion Q(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
             Q.mul(0,x,y,z);//R*P 回転軸が現在の進行方向ベクトルとなる
             Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
-            angle rz2 = UTIL::getAngle2D(Q._x,Q._y);
+            angle rz2 = UTIL::getAngle2D(Q._z,Q._y);
 
             //Q.x_, Q.y_, Q.z_ が回転後の座標となる
-            if (ABS(mdy) > ABS(mdx)/2) { //上下ブレ補正
+            //if (ABS(mdy) > ABS(mdx)/2) { //上下ブレ補正
+                //ZY平面での、カメラ→視点ベクトルの移動前移動後のベクトルのなす角
                 move_target_XY_CAM_UP_ += UTIL::getAngDiff(rz1, rz2);
                 move_target_XY_CAM_UP_ = UTIL::simplifyAng(move_target_XY_CAM_UP_);
-            }
+            //}
             move_target_x_CAM_ = Q._x + move_target_x_VP_;
             move_target_y_CAM_ = Q._y + move_target_y_VP_;
             move_target_z_CAM_ = Q._z + move_target_z_VP_;
@@ -170,7 +174,7 @@ void PauseCamWorker::processBehavior() {
             double x = move_target_x_VP_ - move_target_x_CAM_;
             double y = move_target_y_VP_ - move_target_y_CAM_;
             double z = move_target_z_VP_ - move_target_z_CAM_;
-            angle rz1 = UTIL::getAngle2D(x, y);
+            angle rz1 = UTIL::getAngle2D(z, y);
             //回転させたい角度
             double ang = (PI) * (d/cd_);
             double sinHalf = sin(ang/2);
@@ -178,11 +182,12 @@ void PauseCamWorker::processBehavior() {
             GgafDxQuaternion Q(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
             Q.mul(0,x,y,z);//R*P 回転軸が現在の進行方向ベクトルとなる
             Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
-            angle rz2 = UTIL::getAngle2D(Q._x,Q._y);
-            if (ABS(mdy) > ABS(mdx)/2) { //上下ブレ補正
+            angle rz2 = UTIL::getAngle2D(Q._z,Q._y);
+            //if (ABS(mdy) > ABS(mdx)/2) { //上下ブレ補正
+            //ZY平面での、カメラ→視点ベクトルの移動前移動後のベクトルのなす角でUPの回転角とする
                 move_target_XY_CAM_UP_ += UTIL::getAngDiff(rz1, rz2);
                 move_target_XY_CAM_UP_ = UTIL::simplifyAng(move_target_XY_CAM_UP_);
-            }
+            //}
             //Q.x_, Q.y_, Q.z_ が回転後の座標となる
             move_target_x_VP_ = Q._x + move_target_x_CAM_;
             move_target_y_VP_ = Q._y + move_target_y_CAM_;
@@ -225,12 +230,12 @@ void PauseCamWorker::processBehavior() {
         stop_renge_ = 60000;
         if (mdz_flg_ == false) {
             mdz_total_ = 0;
-            if (!pCam->pKurokoAsstA_->isSlidingMv()) {
+            if (!pCam->_pKuroko->helperA()->isSlidingMv()) {
                 move_target_x_CAM_ = pCam->_x;
                 move_target_y_CAM_ = pCam->_y;
                 move_target_z_CAM_ = pCam->_z;
             }
-            if (!pVP->pKurokoAsstA_->isSlidingMv()) {
+            if (!pVP->_pKuroko->helperA()->isSlidingMv()) {
                 pVP->_x = DX_C(pCam->_pVecCamLookatPoint->x);
                 pVP->_y = DX_C(pCam->_pVecCamLookatPoint->y);
                 pVP->_z = DX_C(pCam->_pVecCamLookatPoint->z);
@@ -285,10 +290,10 @@ void PauseCamWorker::processBehavior() {
         int td1 = UTIL::getDistance(pCam->_x, pCam->_y, pCam->_z,
                                     move_target_x_CAM_, move_target_y_CAM_, move_target_z_CAM_);
         if (ABS(td1) > 20  ) {
-            if (pCam->pKurokoAsstA_->isSlidingMv() && pCam->pKurokoAsstA_->_smthMv._prm._progress == 1) {
+            if (pCam->_pKuroko->helperA()->isSlidingMv() && pCam->_pKuroko->helperA()->_smthMv._prm._progress == 1) {
 
             } else {
-                pCam->pKurokoAsstA_->slideMvByDt(td1, 20, 0.4, 0.6, 0);
+                pCam->_pKuroko->helperA()->slideMvByDt(td1, 20, 0.4, 0.6, 0);
             }
         }
     }
@@ -299,10 +304,10 @@ void PauseCamWorker::processBehavior() {
         int td2 = UTIL::getDistance(pVP->_x, pVP->_y, pVP->_z,
                                     move_target_x_VP_, move_target_y_VP_, move_target_z_VP_);
         if (ABS(td2) > 20) {
-            if (pVP->pKurokoAsstA_->isSlidingMv() && pVP->pKurokoAsstA_->_smthMv._prm._progress == 1) {
+            if (pVP->_pKuroko->helperA()->isSlidingMv() && pVP->_pKuroko->helperA()->_smthMv._prm._progress == 1) {
 
             } else {
-                pVP->pKurokoAsstA_->slideMvByDt(td2, 20, 0.4, 0.6, 0);
+                pVP->_pKuroko->helperA()->slideMvByDt(td2, 20, 0.4, 0.6, 0);
             }
         }
     }
@@ -318,9 +323,9 @@ void PauseCamWorker::processBehavior() {
             angXY_nowCamUp_ += (angvelo_cam_up * SGN(da));
         }
         angXY_nowCamUp_ = UTIL::simplifyAng(angXY_nowCamUp_);
-        pCam->_pVecCamUp->x = ANG_COS(angXY_nowCamUp_);
+        pCam->_pVecCamUp->x = 0.0f;
         pCam->_pVecCamUp->y = ANG_SIN(angXY_nowCamUp_);
-        pCam->_pVecCamUp->z = 0.0f;
+        pCam->_pVecCamUp->z = ANG_COS(angXY_nowCamUp_);
     }
 }
 

@@ -13,6 +13,10 @@ namespace VioletVreath {
 class EffectMyShipExplosion : public GgafLib::DefaultSpriteSetActor {
 
 public:
+    /** 拡大縮小支援オブジェクト */
+    GgafDxCore::GgafDxScaler* pScaler_;
+
+public:
     EffectMyShipExplosion(const char* prm_name);
 
     void initialize() override;

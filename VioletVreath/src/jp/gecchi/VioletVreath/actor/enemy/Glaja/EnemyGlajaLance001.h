@@ -24,6 +24,8 @@ public:
         PROG_BANPEI,
     };
     //GgafDxCore::GgafDxGeoElem turning_pos_;
+    /** 拡大縮小支援オブジェクト */
+    GgafDxCore::GgafDxScaler* pScaler_;
 
 public:
     EnemyGlajaLance001(const char* prm_name);

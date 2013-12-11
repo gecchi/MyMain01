@@ -8,6 +8,7 @@ namespace VioletVreath {
  * 3D敵弾001 .
  */
 class EnemyOzartiaShot01 : public GgafLib::DefaultMeshSetActor {
+
 public:
     enum {
         PROG_INIT   ,
@@ -16,6 +17,10 @@ public:
         PROG_LEAVE  ,
         PROG_BANPEI,
     };
+
+    /** フィードイン・フェードアウト支援 */
+    GgafDxCore::GgafDxAlphaFader* pAFader_;
+
 public:
     EnemyOzartiaShot01(const char* prm_name);
 

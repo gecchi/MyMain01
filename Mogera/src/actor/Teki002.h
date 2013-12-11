@@ -1,5 +1,5 @@
-#ifndef TEKI001_H_
-#define TEKI001_H_
+#ifndef TEKI002_H_
+#define TEKI002_H_
 #include "jp/ggaf/lib/actor/DefaultMeshActor.h"
 
 namespace Mogera {
@@ -10,7 +10,7 @@ namespace Mogera {
  * @since 2013/08/30
  * @author Masatoshi Tsuge
  */
-class Teki001 : public GgafLib::DefaultMeshActor {
+class Teki002 : public GgafLib::DefaultMeshActor {
 
 public:
 
@@ -19,7 +19,7 @@ public:
      * @param prm_name
      * @return
      */
-    Teki001(const char* prm_name);
+    Teki002(const char* prm_name);
 
     /**
      * ƒLƒƒƒ‰‚Ì‰Šúˆ— .
@@ -31,9 +31,9 @@ public:
      */
     void processBehavior() override;
 
-    virtual ~Teki001();
+    virtual ~Teki002();
 };
 
 }
-#endif /*TEKI001_H_*/
+#endif /*TEKI002_H_*/
 

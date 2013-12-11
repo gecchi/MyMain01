@@ -16,6 +16,7 @@ using namespace VioletVreath;
 EnemyAntiope::EnemyAntiope(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
         DefaultMeshSetActor(prm_name, prm_model, prm_pStat) {
     _class_name = "EnemyAntiope";
+    pAFader_ = NEW GgafDxAlphaFader(this);
     pAxMver_ = NEW GgafDxAxesMover(this);
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
@@ -42,7 +43,7 @@ void EnemyAntiope::processBehavior() {
     switch (_pProg->get()) {
          case PROG_INIT: {
              setHitAble(false);
-             _pAFader->setAlpha(0);
+             pAFader_->setAlpha(0);
              _pKuroko->stopMv();
              _pKuroko->setFaceAngVelo(AXIS_X, D_ANG(10));
              pAxMver_->setZeroVxyzMvVelo();
@@ -52,7 +53,7 @@ void EnemyAntiope::processBehavior() {
          }
          case PROG_ENTRY: {
              if (_pProg->isJustChanged()) {
-                 _pAFader->fadeLinerUntil(1.0, 30);
+                 pAFader_->fadeLinerUntil(1.0, 30);
              }
              if (_pProg->getFrameInProgress() == 30) {
                  setHitAble(true);
@@ -80,7 +81,7 @@ void EnemyAntiope::processBehavior() {
          case PROG_LEAVE: {
              if (_pProg->isJustChanged()) {
                  UTIL::activateLeaveEffectOf(this);
-                 _pAFader->fadeLinerUntil(0.0, 15);
+                 pAFader_->fadeLinerUntil(0.0, 15);
              }
              if (_pProg->getFrameInProgress() == 15) {
                  setHitAble(false);
@@ -95,7 +96,7 @@ void EnemyAntiope::processBehavior() {
 //    _TRACE_(this<<":"<<getActiveFrame()<<" "<<_x<<","<<_y<<","<<_z<<"  ("<<_pKuroko->_veloMv<<") "<<_pKuroko->_vX<<","<<_pKuroko->_vY<<","<<_pKuroko->_vZ<<"");
     _pKuroko->behave();
     pAxMver_->behave();
-    _pAFader->behave();
+    pAFader_->behave();
 }
 
 void EnemyAntiope::processJudgement() {
@@ -117,5 +118,6 @@ void EnemyAntiope::onInactive() {
 }
 
 EnemyAntiope::~EnemyAntiope() {
+    GGAF_DELETE(pAFader_);
     GGAF_DELETE(pAxMver_);
 }

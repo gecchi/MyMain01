@@ -9,7 +9,7 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAsstA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -19,7 +19,7 @@ using namespace VioletVreath;
 EnemyAppho::EnemyAppho(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Appho", STATUS(EnemyAppho)) {
     _class_name = "EnemyAppho";
-    pKurokoAsstA_ = NEW GgafDxKurokoAsstA(_pKuroko);
+    pAFader_ = NEW GgafDxAlphaFader(this);
     _sx=_sy=_sz=100;
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
@@ -47,7 +47,7 @@ void EnemyAppho::processBehavior() {
          case PROG_INIT: {
              setHitAble(false);
              positionAs(&entry_pos_);
-             _pAFader->setAlpha(0);
+             pAFader_->setAlpha(0);
              _pKuroko->setMvVelo(0);
              _pKuroko->relateFaceWithMvAng(true);
              _pKuroko->setMvAngTwd(&hanging_pos_);
@@ -58,7 +58,7 @@ void EnemyAppho::processBehavior() {
          }
          case PROG_ENTRY: {
              if (_pProg->getFrameInProgress() == 60) {
-                 _pAFader->fadeLinerUntil(1.0, 60);
+                 pAFader_->fadeLinerUntil(1.0, 60);
              }
              if (getAlpha() > 0.5) {
                  setHitAble(true);
@@ -72,7 +72,7 @@ void EnemyAppho::processBehavior() {
                  //滞留ポイントへGO!
                  velo mv_velo = RF_EnemyAppho_MvVelo(G_RANK);
                  coord d = UTIL::getDistance(this, &hanging_pos_);
-                 pKurokoAsstA_->slideMvByVd(mv_velo, d,
+                 _pKuroko->helperA()->slideMvByVd(mv_velo, d,
                                         0.2, 0.8, RND(-PX_C(0.5),PX_C(0.5)));
              }
              //滞留ポイントまで移動中
@@ -81,7 +81,7 @@ void EnemyAppho::processBehavior() {
                  _pKuroko->turnFaceAngTwd(P_MYSHIP, D_ANG(0.5), 0,
                                            TURN_CLOSE_TO, true);
              }
-             if (pKurokoAsstA_->isJustFinishSlidingMv()) {
+             if (_pKuroko->helperA()->isJustFinishSlidingMv()) {
                  _pProg->changeNext();
              }
              //_TRACE_("PROG_MOVE01:"<<_x<<","<<_y<<","<<_z<<","<<_pKuroko->_veloMv<<","<<_pKuroko->_accMv);
@@ -164,7 +164,6 @@ void EnemyAppho::processBehavior() {
          default:
              break;
      }
-    pKurokoAsstA_->behave();
     _pKuroko->behave();
     //_pSeTx->behave();
 }
@@ -190,5 +189,5 @@ void EnemyAppho::onInactive() {
 }
 
 EnemyAppho::~EnemyAppho() {
-    GGAF_DELETE(pKurokoAsstA_);
+    GGAF_DELETE(pAFader_);
 }

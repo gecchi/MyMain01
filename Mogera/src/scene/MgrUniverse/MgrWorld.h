@@ -30,8 +30,8 @@ public:
     GgafLib::VirtualButton* vb_;
     TestActor* pBack_;
     MgrActor* pMgrActor1_;
-    /** テストキャラ */
     Teki001* pTeki_;
+    Teki002* pTeki002_;
     Mikata001* pMikata_;
     TestBar* pTestBar_;
     TestCappedBar* pBar_;

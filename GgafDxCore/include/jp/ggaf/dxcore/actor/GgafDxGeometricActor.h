@@ -251,7 +251,7 @@ public:
     /**
      * X軸Y軸Z軸各軸スケール(_sx, _sy, _sz)を同じ値で設定。
      * 【注意】
-     * _pScaler->behave(); が存在すると上書きされますよ。
+     * pScaler_->behave(); が存在すると上書きされますよ。
      * @param S スケール値(1000 で 1.0倍)
      */
     virtual void setScale(scale s) {
@@ -264,7 +264,7 @@ public:
     /**
      * X軸Y軸Z軸スケール(_sx, _sy, _sz)をそれぞれ値で設定。
      * 【注意】
-     * _pScaler->behave(); が存在すると上書きされますよ！。
+     * pScaler_->behave(); が存在すると上書きされますよ！。
      * @param sx X軸スケール値(1000 で 1.0倍)
      * @param sy Y軸スケール値(1000 で 1.0倍)
      * @param sz Z軸スケール値(1000 で 1.0倍)
@@ -279,7 +279,7 @@ public:
     /**
      * X軸Y軸スケール(_sx, _sy)のみを値で設定。
      * 【注意】
-     * _pScaler->behave(); が存在すると上書きされますよ！。
+     * pScaler_->behave(); が存在すると上書きされますよ！。
      * @param sx X軸スケール値(1000 で 1.0倍)
      * @param sy Y軸スケール値(1000 で 1.0倍)
      */
@@ -293,7 +293,7 @@ public:
      * X軸Y軸Z軸全ての軸スケールを割合で設定。
      * 1.0 で 元のモデルの大きさから1.0倍。
      * 【注意】
-     * _pScaler->behave(); が存在すると上書きされますよ！。
+     * pScaler_->behave(); が存在すると上書きされますよ！。
      * @param prm_rate 倍率
      */
     virtual void setScaleR(float prm_rate) {
@@ -307,7 +307,7 @@ public:
      * X軸Y軸Z軸各軸スケールを割合で設定。
      * 1.0 で 元のモデルの大きさから1.0倍。
      * 【注意】
-     * _pScaler->behave(); が存在すると上書きされますよ！。
+     * pScaler_->behave(); が存在すると上書きされますよ！。
      * @param prm_x_rate X軸倍率
      * @param prm_y_rate Y軸倍率
      * @param prm_z_rate Z軸倍率
@@ -323,7 +323,7 @@ public:
      * X軸Y軸のみスケールを割合で設定。
      * 1.0 で 元のモデルの大きさから1.0倍。
      * 【注意】
-     * _pScaler->behave(); が存在すると上書きされますよ！。
+     * pScaler_->behave(); が存在すると上書きされますよ！。
      * @param prm_x_rate X軸倍率
      * @param prm_y_rate Y軸倍率
      */
@@ -336,7 +336,7 @@ public:
     /**
      * X軸Y軸Z軸各軸スケール(_sx, _sy, _sz)を同じ値で加算。
      * 【注意】
-     * _pScaler->behave(); が存在すると上書きされますよ！。
+     * pScaler_->behave(); が存在すると上書きされますよ！。
      * @param dS 加算するスケール値
      */
     virtual void addScale(scale dS) {

@@ -9,6 +9,8 @@ namespace VioletVreath {
 class EffectMyOption : public GgafLib::DefaultMeshSetActor {
 
 public:
+    /** 拡大縮小支援オブジェクト */
+    GgafDxCore::GgafDxScaler* pScaler_;
     /** 親オプション */
     MyOption* pOption_;
 

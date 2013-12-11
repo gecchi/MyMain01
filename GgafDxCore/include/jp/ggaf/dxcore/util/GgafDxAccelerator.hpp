@@ -467,7 +467,7 @@ public:
                         //t = 1;
                         //補正しない(_veloがあまりにも小さいため、t が爆発する)
                     } else {
-                        if (_prm._frame_of_spent % 4U == 0) {
+                        if (_prm._frame_of_spent % 2U == 0) {
     //                      if (t > 3 && ABS(diff_to_end) > ABS(_prm._top_velo)*0.0001 && _prm._frame_of_spent % 4U == 0) {
                             //_TRACE_("t="<<t<<" が爆発してないので、補正・補正・補正");
                             //補正・補正・補正
@@ -537,7 +537,7 @@ public:
                 }
                 if (_prm._progress == 1) {
                     //加速中
-                    if (_prm._frame_of_spent >= _prm._p1) {
+                    if (_prm._frame_of_spent >= (int)(_prm._p1)) {
                         //p1 に到達すれば 等速へ
                         _acce = 0;
                         _velo = _prm._top_velo;
@@ -547,10 +547,10 @@ public:
                 if (_prm._progress == 2) {
                     //_TRACE_("等速中 _prm._frame_of_spent="<<_prm._frame_of_spent<<" _prm._p2="<<_prm._p2);
                     //等速中
-                    if (_prm._frame_of_spent >= _prm._p2) {
+                    if (_prm._frame_of_spent >= (int)(_prm._p2)) {
                         //_TRACE_("p2 に到達すれば 次回フレームから減速へ _prm._frame_of_spent="<<_prm._frame_of_spent<<" _prm._p2="<<_prm._p2);
                         //p2 に到達すれば 次回フレームから減速へ
-                        T acc = UTIL::getAcceByTv(_prm._target_frames - _prm._frame_of_spent + 1, _velo, _prm._end_velo);
+                        T acc = UTIL::getAcceByTv(_prm._target_frames - _prm._frame_of_spent, _velo, _prm._end_velo);
                         _acce = acc;
                         //_TRACE_("減速加速度 _acce="<<_acce);
                         _prm._progress++;
@@ -559,7 +559,7 @@ public:
                 if (_prm._progress == 3) {
                     //減速中
                     //_TRACE_("減速中");
-                    if (_prm._frame_of_spent % 4U == 0) {
+                    if (_prm._frame_of_spent % 2U == 0) {
                         //_TRACE_("補正・補正・補正");
                         //補正・補正・補正
                         //最後の台形補正
@@ -575,7 +575,7 @@ public:
                             //_TRACE_("V = "<<V);
                             _velo = V;
                             //_TRACE_("速度 _velo = "<<_velo<<" に補正");
-                            T acc = UTIL::getAcceByTv(_prm._target_frames - _prm._frame_of_spent + 1, _velo, _prm._end_velo);
+                            T acc = UTIL::getAcceByTv(_prm._target_frames - _prm._frame_of_spent, _velo, _prm._end_velo);
                             _acce = acc;
                             //_TRACE_("加速度 _acce = "<<_acce<<" に補正");
                         }
@@ -625,6 +625,11 @@ public:
         } else {
             _prm._progress = -1;
         }
+#ifdef MY_DEBUG
+        if (_prm._frame_of_spent > 60*60*10) {
+            //_TRACE_("＜警告＞GgafDxAccelerator::behave() 10分以上滑りっぱなしなんですが！")
+        }
+#endif
 
     }
 

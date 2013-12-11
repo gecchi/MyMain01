@@ -14,6 +14,7 @@ using namespace VioletVreath;
 Planet001Atmosphere::Planet001Atmosphere(const char* prm_name) :
         DefaultMeshActor(prm_name, "Planet001Atmosphere", nullptr) {
     _class_name = "Planet001Atmosphere";
+    pScaler_ = NEW GgafDxScaler(this);
     setHitAble(false);
     setZEnable(true);        //Zバッファは考慮
     setZWriteEnable(false);  //Zバッファは書き込み無し
@@ -30,10 +31,11 @@ void Planet001Atmosphere::initialize() {
 }
 
 void Planet001Atmosphere::processBehavior() {
-    _pScaler->behave();
+    pScaler_->behave();
     _pKuroko->behave();
 }
 
 Planet001Atmosphere::~Planet001Atmosphere() {
+    GGAF_DELETE(pScaler_);
 }
 

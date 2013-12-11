@@ -25,8 +25,7 @@ WallPartsActor::WallPartsActor(const char* prm_name,
                                            prm_effect_id,
                                            prm_technique,
                                            prm_pStat,
-                                           NEW CollisionChecker3D(this) ),
-_pScaler(new GgafDxScaler(this)) {
+                                           NEW CollisionChecker3D(this) ) {
     _class_name = "WallPartsActor";
     _obj_class |= Obj_WallPartsActor;
     _pColliChecker = (CollisionChecker3D*)_pChecker;
@@ -38,7 +37,6 @@ _pScaler(new GgafDxScaler(this)) {
     _wall_width = 0;
     _wall_height = 0;
     setHitAble(true);
-
 }
 
 void WallPartsActor::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
@@ -147,5 +145,4 @@ void WallPartsActor::drawHitArea() {
 
 WallPartsActor::~WallPartsActor() {
     GGAF_DELETE(_pColliChecker);
-    delete _pScaler;
 }

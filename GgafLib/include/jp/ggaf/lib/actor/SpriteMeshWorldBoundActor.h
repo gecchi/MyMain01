@@ -13,10 +13,6 @@ namespace GgafLib {
 class SpriteMeshWorldBoundActor : public GgafDxCore::GgafDxSpriteMeshActor {
 
 public:
-    /** 拡大縮小支援オブジェクト */
-    GgafDxCore::GgafDxScaler* const _pScaler;
-
-public:
     SpriteMeshWorldBoundActor(const char* prm_name,
                               const char* prm_model,
                               GgafCore::GgafStatus* prm_pStat=nullptr);

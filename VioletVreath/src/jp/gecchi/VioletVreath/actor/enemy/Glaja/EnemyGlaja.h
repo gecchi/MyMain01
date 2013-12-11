@@ -36,8 +36,9 @@ public:
         PROG_CLOSE ,
         PROG_BANPEI,
     };
-    /** 黒衣の助手A */
-    GgafDxCore::GgafDxKurokoAsstA* pKurokoAsstA_;
+
+    /** フィードイン・フェードアウト支援 */
+    GgafDxCore::GgafDxAlphaFader* pAFader_;
     DepositoryConnection* pConn_Shot_;
     GgafDxCore::GgafDxGeoElem next_pos_;
     int num_fire_;

@@ -1,5 +1,5 @@
-#ifndef GGAFDXCORE_GGAFDXKUROKOASSTA_H_
-#define GGAFDXCORE_GGAFDXKUROKOASSTA_H_
+#ifndef GGAFDXCORE_GGAFDXKUROKOHELPERA_H_
+#define GGAFDXCORE_GGAFDXKUROKOHELPERA_H_
 #include "jp/ggaf/core/GgafObject.h"
 #include "jp/ggaf/dxcore/util/GgafDxAccelerator.hpp"
 
@@ -12,7 +12,7 @@ namespace GgafDxCore {
  * @since 2013/12/05
  * @author Masatoshi Tsuge
  */
-class GgafDxKurokoAsstA : public GgafCore::GgafObject {
+class GgafDxKurokoHelperA : public GgafCore::GgafObject {
 
 public:
     /** [r]師匠 */
@@ -23,7 +23,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pMaster  師匠
      */
-    GgafDxKurokoAsstA(GgafDxKuroko* prm_pMaster);
+    GgafDxKurokoHelperA(GgafDxKuroko* prm_pMaster);
 
 
     /**
@@ -124,9 +124,9 @@ public:
      */
     virtual void behave();
 
-    virtual ~GgafDxKurokoAsstA();
+    virtual ~GgafDxKurokoHelperA();
 };
 
 }
-#endif /*GGAFDXCORE_GGAFDXKUROKOASSTA_H_*/
+#endif /*GGAFDXCORE_GGAFDXKUROKOHELPERA_H_*/
 

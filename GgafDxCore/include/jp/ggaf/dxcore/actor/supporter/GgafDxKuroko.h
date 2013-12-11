@@ -32,6 +32,10 @@ public:
     /** [r]対象アクター */
     GgafDxGeometricActor* const _pActor;
 
+    GgafDxKurokoHelperA* _pHelperA;
+    GgafDxKurokoHelperB* _pHelperB;
+    GgafDxKurokoHelperC* _pHelperC;
+
 public:
     /**
      * コンストラクタ<BR>
@@ -39,6 +43,9 @@ public:
      */
     GgafDxKuroko(GgafDxGeometricActor* prm_pActor);
 
+    GgafDxKurokoHelperA* helperA();
+    GgafDxKurokoHelperB* helperB();
+    GgafDxKurokoHelperC* helperC();
 
 
 public: //_rx , _ry, _rz 操作関連 //////////////////////////////////////////////

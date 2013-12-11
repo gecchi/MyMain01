@@ -8,6 +8,7 @@
 #include "jp/gecchi/VioletVreath/actor/menu/confirm/MenuBoardConfirm.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/gecchi/VioletVreath/Properties.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -37,7 +38,7 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
           "BACK TO TITLE",  //2
           "REBOOT",         //3
 
-          "DUMMY1",         //4
+          "HIDE MENU",         //4
           "DUMMY2",         //5
           "DUMMY3",         //6
           "DUMMY4",         //7
@@ -58,7 +59,7 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
     addDisp(pLabel_Title, PX_C(100), PX_C(20));
 
     //特別なメニューカーソルオーダーを構築
-    relateItemToExNext(ITEM_BACK_TO_GAME , ITEM_DUMMY1, ITEM_DUMMY5   , ITEM_CONFIG       );
+    relateItemToExNext(ITEM_BACK_TO_GAME , ITEM_HIDE_MENU, ITEM_DUMMY5   , ITEM_CONFIG       );
     relateItemToExNext(ITEM_CONFIG       , ITEM_DUMMY2, ITEM_DUMMY6   , ITEM_BACK_TO_TITLE);
     relateItemToExNext(ITEM_BACK_TO_TITLE, ITEM_DUMMY3, ITEM_DUMMY7   , ITEM_REBOOT    );
     relateItemToExNext(ITEM_REBOOT       , ITEM_DUMMY4, ITEM_QUIT_GAME, ITEM_BACK_TO_GAME );
@@ -75,6 +76,8 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
     addSubMenu(NEW MenuBoardConfirm("confirm")); //Yes No 問い合わせメニューをサブメニューに追加
     //コンフィグサブメニュー
     addSubMenu(NEW MenuBoardConfig("config"));
+
+    toggle_HIDE_MENU_ = false;
 }
 bool MenuBoardPause::condSelectNext() {
     return VB->isAutoRepeat(VB_UI_DOWN) ? true : false;
@@ -126,6 +129,12 @@ void MenuBoardPause::processBehavior() {
         }
     }
 
+    if (selected != ITEM_HIDE_MENU) {
+        if (toggle_HIDE_MENU_) {
+            toggle_HIDE_MENU_ = false;
+            _x += PX_C(PROPERTY::GAME_BUFFER_WIDTH);
+        }
+    }
 }
 
 void MenuBoardPause::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
@@ -139,6 +148,14 @@ void MenuBoardPause::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int 
         riseSubMenu(0, getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y + PX_C(50)); //確認メニュー起動
     } else if (prm_item_index == ITEM_QUIT_GAME) {
         riseSubMenu(0, getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y + PX_C(50)); //確認メニュー起動
+    } else if (prm_item_index == ITEM_HIDE_MENU) {
+        if (toggle_HIDE_MENU_) {
+            toggle_HIDE_MENU_ = false;
+            _x += PX_C(PROPERTY::GAME_BUFFER_WIDTH);
+        } else {
+            toggle_HIDE_MENU_ = true;
+            _x -= PX_C(PROPERTY::GAME_BUFFER_WIDTH);
+        }
     }
 }
 void MenuBoardPause::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {

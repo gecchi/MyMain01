@@ -14,7 +14,7 @@
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAsstA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -26,7 +26,6 @@ EnemyHalia::EnemyHalia(const char* prm_name) :
         //CubeMapMorphMeshActor(prm_name, "1/HaliaCM", STATUS(EnemyHalia)) {
 
     _class_name = "EnemyHalia";
-    pKurokoAsstA_ = NEW GgafDxKurokoAsstA(_pKuroko);
     veloTopMv_ = 20000;
     iMovePatternNo_ = 0;
     pKurokoLeader_ = nullptr;
@@ -71,7 +70,7 @@ void EnemyHalia::onActive() {
     _pMorpher->setWeight(0, 1.0);
     _pMorpher->setWeight(1, 0.0);
     _pKuroko->setFaceAngVelo(AXIS_X, 1000);
-    pKurokoAsstA_->slideMvByVd(veloTopMv_, MyShip::lim_x_front_-_x,
+    _pKuroko->helperA()->slideMvByVd(veloTopMv_, MyShip::lim_x_front_-_x,
                            0.4, 0.6, 1000);
     _pProg->reset(PROG_MOVE);
     iMovePatternNo_ = 0; //行動パターンリセット
@@ -82,7 +81,7 @@ void EnemyHalia::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     switch (_pProg->get()) {
         case PROG_MOVE: {
-            if (!pKurokoAsstA_->isSlidingMv()) {
+            if (!_pKuroko->helperA()->isSlidingMv()) {
                 _pMorpher->morphAcceStep(1, 1.0, 0.0, 0.0004); //開く 0.0004 開く速さ
                 _pKuroko->turnMvAngTwd(P_MYSHIP,
                                         0, 100,
@@ -126,7 +125,7 @@ void EnemyHalia::processBehavior() {
         case PROG_CLOSE: {
             //１サイクルレーザー打ち切った
             _pMorpher->morphLinerUntil(1, 0.0, 60); //閉じる
-            pKurokoAsstA_->slideMvByVd(veloTopMv_, 1500000, 0.4, 0.6, 1000);
+            _pKuroko->helperA()->slideMvByVd(veloTopMv_, 1500000, 0.4, 0.6, 1000);
             _pKuroko->setFaceAngVelo(AXIS_X, 1000);
             _pProg->change(PROG_MOVE);
             break;
@@ -135,7 +134,6 @@ void EnemyHalia::processBehavior() {
         default:
             break;
     }
-    pKurokoAsstA_->behave();
     _pKuroko->behave();
     _pMorpher->behave();
     _pSeTx->behave();
@@ -167,6 +165,5 @@ void EnemyHalia::onInactive() {
 }
 
 EnemyHalia::~EnemyHalia() {
-    GGAF_DELETE(pKurokoAsstA_);
     GGAF_DELETE_NULLABLE(pKurokoLeader_);
 }

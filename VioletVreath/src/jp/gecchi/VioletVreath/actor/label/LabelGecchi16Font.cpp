@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "LabelGecchi16Font.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -10,6 +11,8 @@ LabelGecchi16Font::LabelGecchi16Font(const char* prm_name) :
         StringBoardActor(prm_name, "Gecchi_16Font")
 {
     _class_name = "LabelGecchi16Font";
+    pAFader_ = NEW GgafDxAlphaFader(this);
+
     _aWidthPx[' '] = 8;
     _aWidthPx['!'] = 10;
     _aWidthPx['"'] = 10;
@@ -86,5 +89,6 @@ void LabelGecchi16Font::processBehavior() {
 }
 
 LabelGecchi16Font::~LabelGecchi16Font() {
+    GGAF_DELETE(pAFader_);
 }
 

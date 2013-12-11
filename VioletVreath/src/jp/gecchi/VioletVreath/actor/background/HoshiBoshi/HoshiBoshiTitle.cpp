@@ -13,6 +13,7 @@ using namespace VioletVreath;
 HoshiBoshiTitle::HoshiBoshiTitle(const char* prm_name) :
         HoshiBoshi(prm_name, "HoshiBoshi001") {
     _class_name = "HoshiBoshiTitle";
+    pAFader_ = NEW GgafDxAlphaFader(this);
     //¯X‚ÍDIRECTX‹——£-1.0`1.0i-10px`10px)‚ÉŽû‚Ü‚Á‚Ä‚¢‚é‘O’ñB
     far_rate_ = 10.0f;
     _sx = _sy = _sz =  (P_CAM->_zf*LEN_UNIT)*far_rate_;
@@ -29,15 +30,16 @@ void HoshiBoshiTitle::processBehavior() {
         _x -= 10000*far_rate_;
     }
     _pUvFlipper->behave();
-    _pAFader->behave();
+    pAFader_->behave();
 }
 
 void HoshiBoshiTitle::processJudgement() {
 }
 
 void HoshiBoshiTitle::fadein() {
-    _pAFader->setToBottom();
-    _pAFader->fadeLinerUntil(1.0, 240);
+    pAFader_->setToBottom();
+    pAFader_->fadeLinerUntil(1.0, 240);
 }
 HoshiBoshiTitle::~HoshiBoshiTitle() {
+    GGAF_DELETE(pAFader_);
 }

@@ -22,6 +22,7 @@ using namespace VioletVreath;
 EnemyThagoras::EnemyThagoras(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Thagoras", STATUS(EnemyThagoras)) {
     _class_name = "EnemyThagoras";
+    pAFader_ = NEW GgafDxAlphaFader(this);
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
     pKurokoLeader_ = nullptr; //フォーメーションオブジェクトが設定する
@@ -50,14 +51,14 @@ void EnemyThagoras::processBehavior() {
     switch (_pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
-            _pAFader->setAlpha(0);
+            pAFader_->setAlpha(0);
             UTIL::activateEntryEffectOf(this);
             _pProg->changeNext();
             break;
         }
         case PROG_ENTRY: {
             if (_pProg->isJustChanged()) {
-                _pAFader->fadeLinerUntil(1.0, 30);
+                pAFader_->fadeLinerUntil(1.0, 30);
             }
             if (_pProg->getFrameInProgress() == 10) {
                 setHitAble(true);
@@ -77,7 +78,7 @@ void EnemyThagoras::processBehavior() {
         case PROG_LEAVE: {
             if (_pProg->isJustChanged()) {
                 UTIL::activateLeaveEffectOf(this);
-                _pAFader->fadeLinerUntil(0.0, 30);
+                pAFader_->fadeLinerUntil(0.0, 30);
             }
             if (_pProg->getFrameInProgress() == 60) {
                 sayonara();
@@ -91,7 +92,7 @@ void EnemyThagoras::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     pKurokoLeader_->behave(); //スプライン移動を振る舞い
-    _pAFader->behave();
+    pAFader_->behave();
     _pKuroko->behave();
     //鼓動を同期
     _sx = pActor4Sc_->_sx;
@@ -120,5 +121,6 @@ void EnemyThagoras::onInactive() {
 }
 
 EnemyThagoras::~EnemyThagoras() {
+    GGAF_DELETE(pAFader_);
     GGAF_DELETE_NULLABLE(pKurokoLeader_);
 }

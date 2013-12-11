@@ -13,6 +13,9 @@ namespace VioletVreath {
 class EffectRatislaviaEye001 : public GgafLib::DefaultSpriteActor {
 
 public:
+    /** 拡大縮小支援オブジェクト */
+    GgafDxCore::GgafDxScaler* pScaler_;
+
     int cnt_;
 
 public:

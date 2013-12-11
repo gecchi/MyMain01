@@ -27,9 +27,6 @@ void EnemyErmioneArmHead::initialize() {
     EnemyErmioneArm::initialize();
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
-    _pScaler->setScale(1000);
-    _pScaler->forceRange(1000, 1200);
-    _pScaler->beat(30, 5, 5, -1);
 }
 
 

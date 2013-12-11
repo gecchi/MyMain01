@@ -13,6 +13,10 @@ namespace VioletVreath {
 class WorldBoundTitle : public GgafLib::WorldBoundActor {
 
 public:
+    /** フィードイン・フェードアウト支援 */
+    GgafDxCore::GgafDxAlphaFader* pAFader_;
+
+public:
     /**
      * コンストラクタ
      * @param prm_name

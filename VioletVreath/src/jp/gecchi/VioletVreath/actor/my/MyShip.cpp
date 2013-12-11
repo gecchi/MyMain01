@@ -288,8 +288,6 @@ void MyShip::initialize() {
 //    _pColliChecker->setColliSphere(4, 0,0,100000, 30000, true, true, true);
 
     _pKuroko->setMvVelo(0);
-    _pScaler->setScale(1000);
-    _pScaler->forceRange(1000, 7000);
 
     //setMaterialColor(1.0, 0.5, 0.5);
     setAlpha(1.0);
@@ -505,7 +503,6 @@ void MyShip::processBehavior() {
     //À•W‚É”½‰f
     _pKuroko->behave();
     pAxMver_->behave();
-    _pScaler->behave();
     _pSeTx->behave();
 
     if (invincible_frames_ > 0) {

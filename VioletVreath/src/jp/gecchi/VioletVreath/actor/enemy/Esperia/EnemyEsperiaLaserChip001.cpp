@@ -73,8 +73,8 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
 
                 //補正
                 _pKuroko->turnMvAngTwd(tX1_, tY1_, tZ1_,
-                                        D_ANG(5), 0,
-                                        TURN_CLOSE_TO, true);
+                                       D_ANG(5), 0,
+                                       TURN_CLOSE_TO, true);
             }
 
             if (_y > begin_y_+turn_dY_ || _pProg->getFrameInProgress() > 300) {
@@ -88,8 +88,8 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
             if (_pProg->isJustChanged()) {
                 _pKuroko->setMvVelo(_pKuroko->_veloMv/3); //屈折時少しスローダウン
                 _pKuroko->turnMvAngTwd(tX2_, tY2_, tZ2_,
-                                        D_ANG(10), 0,
-                                        TURN_CLOSE_TO, true);
+                                       D_ANG(10), 0,
+                                       TURN_CLOSE_TO, true);
             }
             if (!_pKuroko->isTurningMvAng()) {
                 _pProg->changeNext();
@@ -101,8 +101,8 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
             //屈折補正
             if (_pProg->getFrameInProgress() % 8U == 0) {
                 _pKuroko->turnMvAngTwd(tX2_, tY2_, tZ2_,
-                                        D_ANG(5), 0,
-                                        TURN_CLOSE_TO, true);
+                                       D_ANG(5), 0,
+                                       TURN_CLOSE_TO, true);
             }
             if (_pProg->getFrameInProgress() > 60) {
                 _pProg->changeNext();
@@ -117,8 +117,8 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
             }
             if (_pProg->getFrameInProgress() % 16U == 0) {
                 _pKuroko->turnMvAngTwd(tX2_, tY2_, tZ2_,
-                                        100, 0,
-                                        TURN_CLOSE_TO, true);
+                                       100, 0,
+                                       TURN_CLOSE_TO, true);
             }
             if (_pProg->getFrameInProgress() > 90) {
                 _pKuroko->stopTurnMvAngSequence();

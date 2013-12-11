@@ -21,6 +21,10 @@ class EffectEntry003 : public EffectEntry {
     };
 
 public:
+    /** 拡大縮小支援オブジェクト */
+    GgafDxCore::GgafDxScaler* pScaler_;
+
+public:
     EffectEntry003(const char* prm_name);
 
     void initialize() override;

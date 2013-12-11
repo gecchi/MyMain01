@@ -16,6 +16,7 @@ using namespace VioletVreath;
 Planet001::Planet001(const char* prm_name) :
         DefaultMeshActor(prm_name, "Planet001", nullptr) {
     _class_name = "Planet001";
+    pScaler_ = NEW GgafDxScaler(this);
     setHitAble(false);
     setZEnable(true);        //Zバッファは考慮
     setZWriteEnable(false);  //Zバッファは書き込み無し
@@ -33,12 +34,12 @@ void Planet001::onCreateModel() {
 void Planet001::initialize() {
     setAlpha(0.99);
     _x = (GgafDxUniverse::_x_gone_right*10);
-    _pScaler->setScale(1000*1000);
+    pScaler_->setScale(1000*1000);
     _pKuroko->setFaceAng(AXIS_Z, D90ANG - D_ANG(30));
     _pKuroko->setFaceAng(AXIS_Y, D45ANG);
     _pKuroko->setFaceAngVelo(AXIS_X, 500); //自転の速さ
 
-//    pAtmosphere_->_pScaler->setScale(_pScaler->_scale[0]);
+//    pAtmosphere_->pScaler_->setScale(pScaler_->_scale[0]);
 //    pAtmosphere_->positionAs(this);
 }
 void Planet001::processBehavior() {
@@ -76,23 +77,24 @@ void Planet001::processBehavior() {
     }
 
     if (GgafDxInput::isBeingPressedKey(DIK_0)) {
-        _pScaler->addScale(10000);
+        pScaler_->addScale(10000);
     }
     if (GgafDxInput::isBeingPressedKey(DIK_L)) {
-        _pScaler->addScale(-10000);
+        pScaler_->addScale(-10000);
     }
 
     if (GgafDxInput::isPushedDownKey(DIK_O)) {
         _TRACE_("Planet001  "<<_x<<","<<_y<<","<<_z<<" scale="<<_rx);
     }
     //_x = _x - PX_C(1);
-    _pScaler->behave();
+    pScaler_->behave();
     _pKuroko->behave();
 
-//    pAtmosphere_->_pScaler->setScale(_pScaler->_scale[0]);
+//    pAtmosphere_->pScaler_->setScale(pScaler_->_scale[0]);
 //    pAtmosphere_->positionAs(this);
 }
 
 Planet001::~Planet001() {
+    GGAF_DELETE(pScaler_);
 }
 

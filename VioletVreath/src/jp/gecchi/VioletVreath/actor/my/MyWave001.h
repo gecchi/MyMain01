@@ -7,6 +7,10 @@ namespace VioletVreath {
 class MyWave001 : public GgafLib::DefaultMeshActor {
 
 public:
+    /** 拡大縮小支援オブジェクト */
+    GgafDxCore::GgafDxScaler* pScaler_;
+
+public:
     MyWave001(const char* prm_name);
 
     void initialize() override;

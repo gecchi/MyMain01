@@ -17,6 +17,7 @@
 #include "util/MgrUtil.h"
 #include "jp/ggaf/core/util/GgafRepeatSeq.h"
 #include "jp/ggaf/core/util/GgafQuery.h"
+#include "actor/Teki002.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -64,6 +65,8 @@ MgrWorld::MgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     pMsg->position(LT_x, LT_y);
     getSceneDirector()->addSubGroup(pMsg);
 
+    pTeki002_ = NEW Teki002("Teki002");
+    getSceneDirector()->addSubGroup(MGR_TEKI, pTeki002_);
     VirtualButton::_keyboardmap.BUTTON1 = DIK_SPACE; //ボタン１=スペースキー とする。
     VirtualButton::_keyboardmap.UI_DEBUG = DIK_Q;
     vb_ = NEW VirtualButton();
@@ -72,12 +75,12 @@ MgrWorld::MgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
 }
 
 void MgrWorld::initialize() {
-    //pMgrActor1_->inactivate();
-    //pTeki_->inactivate();
-    //pMikata_->inactivate();
-    //pBar_->inactivate();
-    //pTestBar_->inactivate();
-
+    pMgrActor1_->inactivate();
+    pTeki_->inactivate();
+    pMikata_->inactivate();
+    pBar_->inactivate();
+    pTestBar_->inactivate();
+    //pTeki002_->inactivate();
     pTeki_->position(0, PX_C(240)/2);
     pMikata_->position(0, PX_C(-240));
 }

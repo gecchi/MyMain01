@@ -17,8 +17,7 @@ CubeMapMeshSetActor::CubeMapMeshSetActor(const char* prm_name, const char* prm_m
                               "CubeMapMeshSetEffect",
                               "CubeMapMeshSetTechnique",
                               prm_pStat,
-                              NEW CollisionChecker3D(this) ),
-_pScaler(new GgafDxScaler(this)) {
+                              NEW CollisionChecker3D(this) ) {
     _class_name = "CubeMapMeshSetActor";
     _pColliChecker = (CollisionChecker3D*)_pChecker;
 }
@@ -29,5 +28,4 @@ void CubeMapMeshSetActor::drawHitArea() {
 
 CubeMapMeshSetActor::~CubeMapMeshSetActor() {
     GGAF_DELETE(_pColliChecker);
-    delete _pScaler;
 }

@@ -12,6 +12,7 @@ using namespace VioletVreath;
 WorldBoundNameEntry::WorldBoundNameEntry(const char* prm_name) :
         WorldBoundActor(prm_name, "0/WorldBoundNameEntry") {
     _class_name = "WorldBoundNameEntry";
+    pAFader_ = NEW GgafDxAlphaFader(this);
     //setCubeMapTexture("BkSky_cubemap.dds");
     setCubeMapTexture("BkSky_cubemap.dds");
 }
@@ -33,7 +34,7 @@ void WorldBoundNameEntry::onActive() {
 }
 
 void WorldBoundNameEntry::processBehavior() {
-    _pAFader->behave();
+    pAFader_->behave();
 }
 
 void WorldBoundNameEntry::processJudgement() {
@@ -41,15 +42,16 @@ void WorldBoundNameEntry::processJudgement() {
 
 void WorldBoundNameEntry::fadein() {
     activate();
-    _pAFader->setToBottom();
-    _pAFader->fadeLinerUntil(1.0, 120);
+    pAFader_->setToBottom();
+    pAFader_->fadeLinerUntil(1.0, 120);
 }
 
 void WorldBoundNameEntry::fadeout() {
-    _pAFader->fadeLinerUntil(0.0, 120);
+    pAFader_->fadeLinerUntil(0.0, 120);
     inactivateDelay(120);
 }
 
 WorldBoundNameEntry::~WorldBoundNameEntry() {
+    GGAF_DELETE(pAFader_);
 }
 

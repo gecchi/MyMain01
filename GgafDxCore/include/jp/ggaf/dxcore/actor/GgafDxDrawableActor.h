@@ -56,8 +56,6 @@ public:
     int _specal_drawdepth;
     /** [r]一時テクニック適用中の場合 true */
     bool _is_temp_technique;
-    /** [r]フィードインフェードアウト支援 */
-    GgafDxAlphaFader* const _pAFader;
     /** [r]モデル資源接続 */
     GgafDxModelConnection* const _pModelCon;
     /** [r]モデル資源 */

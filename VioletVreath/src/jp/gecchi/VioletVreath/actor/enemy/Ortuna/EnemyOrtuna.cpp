@@ -19,6 +19,7 @@ using namespace VioletVreath;
 EnemyOrtuna::EnemyOrtuna(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Ortuna", STATUS(EnemyOrtuna)) {
     _class_name = "EnemyOrtuna";
+    pAFader_ = NEW GgafDxAlphaFader(this);
     _sx=_sy=_sz=100;
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
@@ -46,7 +47,7 @@ void EnemyOrtuna::processBehavior() {
          case PROG_INIT: {
              setHitAble(false);
              positionAs(&entry_pos_);
-             _pAFader->setAlpha(0);
+             pAFader_->setAlpha(0);
              _pKuroko->setMvVelo(0);
              _pKuroko->relateFaceWithMvAng(true);
              _pKuroko->setMvAngTwd(&hanging_pos_);
@@ -59,7 +60,7 @@ void EnemyOrtuna::processBehavior() {
          }
          case PROG_ENTRY: {
              if (_pProg->getFrameInProgress() == 60) {
-                 _pAFader->fadeLinerUntil(1.0, 60);
+                 pAFader_->fadeLinerUntil(1.0, 60);
              }
              if (getAlpha() > 0.5) {
                  setHitAble(true);
@@ -165,4 +166,5 @@ void EnemyOrtuna::onInactive() {
 }
 
 EnemyOrtuna::~EnemyOrtuna() {
+    GGAF_DELETE(pAFader_);
 }

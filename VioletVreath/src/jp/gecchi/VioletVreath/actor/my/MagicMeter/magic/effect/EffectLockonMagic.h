@@ -13,6 +13,10 @@ namespace VioletVreath {
 class EffectLockonMagic : public GgafLib::DefaultSpriteActor {
 
 public:
+    /** 拡大縮小支援オブジェクト */
+    GgafDxCore::GgafDxScaler* pScaler_;
+
+public:
     EffectLockonMagic(const char* prm_name);
 
     void initialize() override;

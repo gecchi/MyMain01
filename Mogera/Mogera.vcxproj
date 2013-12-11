@@ -215,6 +215,7 @@
     <ClInclude Include="src\actor\MgrCamera.h" />
     <ClInclude Include="src\actor\Mikata001.h" />
     <ClInclude Include="src\actor\Teki001.h" />
+    <ClInclude Include="src\actor\Teki002.h" />
     <ClInclude Include="src\actor\TestActor.h" />
     <ClInclude Include="src\actor\testbar.h" />
     <ClInclude Include="src\actor\testcappedbar.h" />
@@ -258,6 +259,7 @@
     </ClCompile>
     <ClCompile Include="src\actor\Mikata001.cpp" />
     <ClCompile Include="src\actor\Teki001.cpp" />
+    <ClCompile Include="src\actor\Teki002.cpp" />
     <ClCompile Include="src\actor\TestActor.cpp" />
     <ClCompile Include="src\actor\TestBar.cpp" />
     <ClCompile Include="src\actor\TestCappedBar.cpp" />

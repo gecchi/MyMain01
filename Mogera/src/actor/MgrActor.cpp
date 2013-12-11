@@ -19,12 +19,12 @@ MgrActor::MgrActor(const char* prm_name) :
 
 void MgrActor::initialize() {
 //    _pKuroko->setFaceAngVelo(AXIS_Z, D_ANG(1));
-//    _pScaler->forceRange(500, 3000);
-//    _pScaler->beat(120, 60, 5, -1);
+//    pScaler_->forceRange(500, 3000);
+//    pScaler_->beat(120, 60, 5, -1);
 }
 
 void MgrActor::processBehavior() {
-//    _pScaler->behave();
+//    pScaler_->behave();
 
 
 //    if (GgafDxInput::isBeingPressedKey(DIK_P)) {

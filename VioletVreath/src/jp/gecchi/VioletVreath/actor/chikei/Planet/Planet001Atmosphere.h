@@ -13,6 +13,10 @@ namespace VioletVreath {
 class Planet001Atmosphere : public GgafLib::DefaultMeshActor {
 
 public:
+    /** 拡大縮小支援オブジェクト */
+    GgafDxCore::GgafDxScaler* pScaler_;
+
+public:
     Planet001Atmosphere(const char* prm_name);
 
     virtual void onCreateModel() override;

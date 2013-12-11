@@ -13,6 +13,10 @@ namespace VioletVreath {
 class LabelGecchi16Font : public GgafLib::StringBoardActor {
 
 public:
+    /** フィードイン・フェードアウト支援 */
+    GgafDxCore::GgafDxAlphaFader* pAFader_;
+
+public:
     LabelGecchi16Font(const char* prm_name);
 
     virtual void onCreateModel() override;

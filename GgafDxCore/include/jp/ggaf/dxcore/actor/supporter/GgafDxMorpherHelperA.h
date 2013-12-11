@@ -1,5 +1,5 @@
-#ifndef GGAFDXCORE_GGAFDXMORPHERASSTA_H_
-#define GGAFDXCORE_GGAFDXMORPHERASSTA_H_
+#ifndef GGAFDXCORE_GGAFDXMORPHERHELPERA_H_
+#define GGAFDXCORE_GGAFDXMORPHERHELPERA_H_
 #include "jp/ggaf/core/GgafObject.h"
 #include "jp/ggaf/dxcore/util/GgafDxAccelerator.hpp"
 
@@ -11,7 +11,7 @@ namespace GgafDxCore {
  * @since 2013/12/06
  * @author Masatoshi Tsuge
  */
-class GgafDxMorpherAsstA : public GgafCore::GgafObject {
+class GgafDxMorpherHelperA : public GgafCore::GgafObject {
 
 public:
     /** [r]師匠 */
@@ -23,7 +23,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pMaster  師匠
      */
-    GgafDxMorpherAsstA(GgafDxMorpher* prm_pMaster);
+    GgafDxMorpherHelperA(GgafDxMorpher* prm_pMaster);
 
 
     /**
@@ -112,9 +112,9 @@ public:
      */
     virtual void behave();
 
-    virtual ~GgafDxMorpherAsstA();
+    virtual ~GgafDxMorpherHelperA();
 };
 
 }
-#endif /*GGAFDXCORE_GGAFDXMORPHERASSTA_H_*/
+#endif /*GGAFDXCORE_GGAFDXMORPHERHELPERA_H_*/
 

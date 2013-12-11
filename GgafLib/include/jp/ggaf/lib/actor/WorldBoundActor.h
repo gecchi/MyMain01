@@ -13,9 +13,6 @@ namespace GgafLib {
 class WorldBoundActor : public GgafDxCore::GgafDxWorldBoundActor {
 
 public:
-    /** 拡大縮小支援オブジェクト */
-    GgafDxCore::GgafDxScaler* const _pScaler;
-
     frame _offset_frames;
 
 public:

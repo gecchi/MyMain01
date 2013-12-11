@@ -40,6 +40,9 @@ public:
         PROG_CLOSE ,
         PROG_BANPEI,
     };
+
+    /** フィードイン・フェードアウト支援 */
+    GgafDxCore::GgafDxAlphaFader* pAFader_;
     /** 平行移動支援 */
     GgafDxCore::GgafDxAxesMover* pAxMver_;
 

@@ -13,6 +13,9 @@ namespace VioletVreath {
 class Planet001 : public GgafLib::DefaultMeshActor {
 
 public:
+    /** 拡大縮小支援オブジェクト */
+    GgafDxCore::GgafDxScaler* pScaler_;
+
     Planet001Atmosphere* pAtmosphere_;
 
 public:

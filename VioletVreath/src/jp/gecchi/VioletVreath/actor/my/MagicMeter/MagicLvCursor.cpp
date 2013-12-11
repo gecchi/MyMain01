@@ -8,7 +8,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/Magic.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAsstA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -19,7 +19,8 @@ using namespace VioletVreath;
 MagicLvCursor::MagicLvCursor(const char* prm_name, const char* prm_model, MagicMeter* prm_pMagicMeter, Magic* prm_pMagic) :
         DefaultBoardActor(prm_name, prm_model) {
     _class_name = "MagicLvCursor";
-    pKurokoAsstA_ = NEW GgafDxKurokoAsstA(_pKuroko);
+    pAFader_ = NEW GgafDxAlphaFader(this);
+    pScaler_ = NEW GgafDxScaler(this);
     pMagicMeter_ = prm_pMagicMeter;
     pMagic_ = prm_pMagic;
     magic_index_ = pMagicMeter_->lstMagic_.indexOf(pMagic_);
@@ -41,27 +42,26 @@ void MagicLvCursor::initialize() {
     _x = tx_ = pMagicMeter_->_x + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
     _y = ty_ = pMagicMeter_->_y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
     _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
-    _pScaler->forceRange(1000, 3000);
+    pScaler_->forceRange(1000, 3000);
 }
 
 void MagicLvCursor::processBehavior() {
 
 
-    pKurokoAsstA_->behave();
     _pKuroko->behave();
-    if (pKurokoAsstA_->isJustFinishSlidingMv()) {
+    if (_pKuroko->helperA()->isJustFinishSlidingMv()) {
         //理想位置に補正
         _x = tx_;
         _y = ty_;
     }
     _pUvFlipper->behave();
-    _pAFader->behave();
-    _pScaler->behave();
+    pAFader_->behave();
+    pScaler_->behave();
 }
 void MagicLvCursor::processPreDraw() {
     //カーソル関連は
     //少し早めに薄くなる（消える）ようにした
-    //基本は_pAFader、描画時のみロール同期の半透明を考慮
+    //基本はpAFader_、描画時のみロール同期の半透明を考慮
     float rr = pMagicMeter_->r_roll_[magic_index_];
     float alpha_r = rr * 2 - 1.0f;
     if (alpha_r < 0.0f) {
@@ -86,7 +86,7 @@ void MagicLvCursor::processAfterDraw() {
 }
 
 void MagicLvCursor::moveTo(int prm_lv) {
-    pKurokoAsstA_->stopSlidingMv();
+    _pKuroko->helperA()->stopSlidingMv();
     _pKuroko->stopMv();
     point_lv_ = prm_lv;
     _x = tx_ = pMagicMeter_->_x + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
@@ -101,15 +101,16 @@ void MagicLvCursor::moveSmoothTo(int prm_lv, frame prm_target_frames, float prm_
     tx_ = pMagicMeter_->_x + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
     ty_ = pMagicMeter_->_y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
     _pKuroko->setMvAngTwd(tx_, ty_);
-    pKurokoAsstA_->slideMvByDt(UTIL::getDistance(_x, _y, tx_, ty_), (int)prm_target_frames,
+    _pKuroko->helperA()->slideMvByDt(UTIL::getDistance(_x, _y, tx_, ty_), (int)prm_target_frames,
                            prm_p1, prm_p2, 0); //ロールを考慮せずにとりあえず移動
 }
 
 void MagicLvCursor::blink() {
-    _pAFader->beat(6, 3, 0, 0, 7.5); //ピカピカ、+0.5は最後は表示終了為
-    _pScaler->beat(12, 6, 0, 3);
+    pAFader_->beat(6, 3, 0, 0, 7.5); //ピカピカ、+0.5は最後は表示終了為
+    pScaler_->beat(12, 6, 0, 3);
 }
 
 MagicLvCursor::~MagicLvCursor() {
-    GGAF_DELETE(pKurokoAsstA_);
+    GGAF_DELETE(pAFader_);
+    GGAF_DELETE(pScaler_);
 }

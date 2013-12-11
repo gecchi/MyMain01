@@ -20,6 +20,7 @@ using namespace VioletVreath;
 MyTorpedo::MyTorpedo(const char* prm_name, MyTorpedoController* prm_pOptionTorpedoController)
                : DefaultMeshSetActor(prm_name, "EffectLaserRefraction001", STATUS(MyTorpedo)) {
     _class_name = "MyTorpedo";
+    pScaler_ = NEW GgafDxScaler(this);
     pOptionTorpedoCtrler_ = prm_pOptionTorpedoController;
     length_TailEffect_ = 8;
     begin_x_ = _x;
@@ -57,8 +58,8 @@ void MyTorpedo::onActive() {
     _pStatus->reset();
     setAlpha(0.3);
     _sx = _sy = _sz = 100;
-    _pScaler->setScale(100);
-    _pScaler->scaleLinerStep(7000, 500);
+    pScaler_->setScale(100);
+    pScaler_->scaleLinerStep(7000, 500);
     pKuroko->setFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
     if (pTarget_) {
         pKuroko->forceMvVeloRange(4000, 100000);
@@ -214,7 +215,7 @@ void MyTorpedo::processBehavior() {
         }
 
         pKuroko->behave();
-        _pScaler->behave();
+        pScaler_->behave();
     }
 }
 
@@ -260,4 +261,5 @@ void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
 }
 
 MyTorpedo::~MyTorpedo() {
+    GGAF_DELETE(pScaler_);
 }

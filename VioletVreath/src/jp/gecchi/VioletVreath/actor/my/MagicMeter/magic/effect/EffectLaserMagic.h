@@ -13,6 +13,10 @@ namespace VioletVreath {
 class EffectLaserMagic : public GgafLib::DefaultSpriteActor {
 
 public:
+    /** 拡大縮小支援オブジェクト */
+    GgafDxCore::GgafDxScaler* pScaler_;
+
+public:
     EffectLaserMagic(const char* prm_name);
 
     void initialize() override;

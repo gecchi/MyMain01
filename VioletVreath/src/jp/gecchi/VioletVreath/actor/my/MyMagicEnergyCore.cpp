@@ -21,6 +21,7 @@ using namespace VioletVreath;
 MyMagicEnergyCore::MyMagicEnergyCore(const char* prm_name) :
         DefaultMeshActor(prm_name, "MagicEnergyCore", STATUS(MyMagicEnergyCore)) {
     _class_name = "MyMagicEnergyCore";
+    pScaler_ = NEW GgafDxScaler(this);
     pAxMver_ = NEW GgafDxAxesMover(this);
     MyMagicEnergy* p = NEW MyMagicEnergy("MyMagicEnergy", this);
     addSubLast(p);
@@ -45,7 +46,7 @@ void MyMagicEnergyCore::processBehavior() {
     double s = (P_MYSHIP->mp_ * (1.0 / MY_SHIP_MAX_MP));
 
     //MP‚É˜A“®‚µ‚Ä‘å‚«‚­‚È‚é
-    _pScaler->scaleLinerStep(
+    pScaler_->scaleLinerStep(
                 s * MAX_SCALSE_MagicEnergyCore,
                 100
              );
@@ -56,7 +57,7 @@ void MyMagicEnergyCore::processBehavior() {
         _pColliChecker->disable(0);
     }
 
-    _pScaler->behave();
+    pScaler_->behave();
     pAxMver_->behave();
     _pKuroko->behave();
 }
@@ -79,5 +80,6 @@ bool MyMagicEnergyCore::isOutOfUniverse() {
 }
 
 MyMagicEnergyCore::~MyMagicEnergyCore() {
+    GGAF_DELETE(pScaler_);
     GGAF_DELETE(pAxMver_);
 }

@@ -12,6 +12,7 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Ermione/EnemyErmioneArmWeak.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ermione/EnemyErmioneArmHead.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ermione/EnemyErmioneArmBody.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperB.h"
 
 
 using namespace GgafCore;
@@ -22,12 +23,12 @@ using namespace VioletVreath;
 EnemyErmione::EnemyErmione(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Ermione", STATUS(EnemyErmione)) {
     _class_name = "EnemyErmione";
-
+    pAFader_ = NEW GgafDxAlphaFader(this);
     num_arm_ = 6; //˜r‚Ì‡Œv–{”
     num_arm_part_ = 11;  //Še˜r‚Ìß”i3ˆÈãj
     angle pos_rz[] = {D_ANG(0),   D_ANG(90),   D_ANG(180),  D_ANG(270), D_ANG(0) , D_ANG(0)  }; //¶‚â‚·êŠ
     angle pos_ry[] = {D_ANG(0),   D_ANG(0),    D_ANG(0)  ,  D_ANG(0)  , D_ANG(90), D_ANG(270) };
-    static coord R = PX_C(100);     //–{‘ÌErmione‚Ì”¼Œa
+    static coord R = PX_C(130);     //–{‘ÌErmione‚Ì”¼Œa
     static coord arm_R = PX_C(45);  //‰Â“®•”‚Ì˜r‚ÌŠÖß‚PŒÂ‚Ì”¼Œa
 
     //ŽŸ‚Ì‚æ‚¤‚ÈƒcƒŠ[\‘¢‚ðì‚é(˜r‚ª‚R–{‚Ìê‡)
@@ -79,12 +80,12 @@ EnemyErmione::EnemyErmione(const char* prm_name) :
             } else {
                 //ß‚ªª–{ˆÈŠOê‡
                 //æ‚És‚­‚Ù‚Ç‰Â“®”ÍˆÍ‚Æ‰ñ“]ƒXƒs[ƒh‚ª‘å‚«‚­‚·‚éi‚±‚ê‚ÅAFK‚È‚Ì‚ÉIK‚Á‚Û‚­‚àŒ©‚¦‚éIj
-                paArm_[arm].papArmPart_[i]->config(D_ANG(10+(i*4)), 30+(i*20));
+                paArm_[arm].papArmPart_[i]->config(D_ANG(10+(i*5)), 100+(i*50));
                 //ˆê‚Â‘O‚Ì˜r‚Ìß‚ð“y‘ä‚Æ‚·‚éFKÝ’è
                 paArm_[arm].papArmPart_[i-1]->addSubGroupAsFk(
                                                paArm_[arm].papArmPart_[i],
                                                arm_R, 0, 0,
-                                               D0ANG, D0ANG, D0ANG);
+                                               D0ANG, D0ANG, D0ANG); //“y‘äˆÚs‚Í^‚Á’¼‚®‚Â‚¯‚é‚Ì‚Å Face rz,ry=0,0 ‚Å—Ç‚¢
             }
         }
     }
@@ -117,7 +118,7 @@ void EnemyErmione::processBehavior() {
     switch (_pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
-            _pAFader->setAlpha(0);
+            pAFader_->setAlpha(0);
             _pKuroko->setMvVelo(0);
             UTIL::activateEntryEffectOf(this);
             _pProg->changeNext();
@@ -126,16 +127,17 @@ void EnemyErmione::processBehavior() {
 
         case PROG_ENTRY: {
             if (_pProg->getFrameInProgress() == 120) {
-                _pAFader->fadeAcceStep(1.0, 0.000, 0.0001);
+                pAFader_->fadeAcceStep(1.0, 0.000, 0.0001);
             }
             if (getAlpha() > 0.8) {
                 setHitAble(true);
                 throwEventLowerTree(EVENT_ERMIONE_ENTRY_DONE);
-                _pKuroko->setMvVelo(10);
-                _pKuroko->turnFaceAngTwd(P_MYSHIP,
-                                          300, 0,
-                                          TURN_ANTICLOSE_TO, false);
                 _pKuroko->setMvAngTwd(P_MYSHIP);
+                _pKuroko->setMvVelo(10);
+                _pKuroko->helperB()->turnCalmRzRyFaceAngByDtTwd(
+                        P_MYSHIP, TURN_CLOSE_TO, true, 60*30,
+                        0.4, 0.6, 0, true);
+
                 _pProg->changeNext();
             }
             break;
@@ -143,9 +145,9 @@ void EnemyErmione::processBehavior() {
 
         case PROG_MOVE: {
             if (_pProg->isJustChanged()) {
-                _pKuroko->setFaceAngVelo(AXIS_X, 150);
-                _pKuroko->setFaceAngVelo(AXIS_Y, 130);
-                _pKuroko->setFaceAngVelo(AXIS_Z, 110);
+                _pKuroko->setFaceAngVelo(AXIS_X, 15);
+                _pKuroko->setFaceAngVelo(AXIS_Y, 13);
+                _pKuroko->setFaceAngVelo(AXIS_Z, 11);
             }
             break;
         }
@@ -153,7 +155,7 @@ void EnemyErmione::processBehavior() {
         default:
             break;
     }
-    _pAFader->behave();
+    pAFader_->behave();
     _pKuroko->behave();
     _pMorpher->behave();
     _pSeTx->behave();
@@ -186,5 +188,6 @@ void EnemyErmione::addArm(angle prm_rz, angle prm_ry) {
 }
 
 EnemyErmione::~EnemyErmione() {
+    GGAF_DELETE(pAFader_);
     GGAF_DELETEARR(paArm_);
 }

@@ -18,9 +18,8 @@ using namespace VioletVreath;
 EnemyAlisana::EnemyAlisana(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Alisana", STATUS(EnemyAlisana)) {
     _class_name = "EnemyAlisana";
-    _pActor_Base = nullptr;
-    frame_of_morph_interval_   = 120;
-
+    pAFader_ = NEW GgafDxAlphaFader(this);
+    frame_of_morph_interval_ = 120;
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
@@ -53,14 +52,14 @@ void EnemyAlisana::processBehavior() {
     switch (_pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
-            _pAFader->setAlpha(0);
+            pAFader_->setAlpha(0);
             UTIL::activateEntryEffectOf(this);
             _pProg->changeNext();
             break;
         }
         case PROG_ENTRY: {
             if (_pProg->isJustChanged()) {
-                _pAFader->fadeLinerUntil(0.7, 30);
+                pAFader_->fadeLinerUntil(0.7, 30);
             }
             if (_pProg->getFrameInProgress() == 20) {
                 setHitAble(true);
@@ -101,7 +100,7 @@ void EnemyAlisana::processBehavior() {
             if (_pProg->isJustChanged()) {
                 setHitAble(false);
                 UTIL::activateLeaveEffectOf(this);
-                _pAFader->fadeLinerUntil(0.0, 30);
+                pAFader_->fadeLinerUntil(0.0, 30);
             }
             if (_pProg->getFrameInProgress() == 60) {
                 sayonara();
@@ -114,7 +113,7 @@ void EnemyAlisana::processBehavior() {
     }
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-    _pAFader->behave();
+    pAFader_->behave();
     _pMorpher->behave();
     _pKuroko->behave();
 }
@@ -154,4 +153,5 @@ void EnemyAlisana::close_sayonara() {
 
 
 EnemyAlisana::~EnemyAlisana() {
+    GGAF_DELETE(pAFader_);
 }

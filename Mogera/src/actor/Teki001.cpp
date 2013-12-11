@@ -6,16 +6,16 @@
 #include <dinput.h>
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "GgafDxCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAsstB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperB.h"
 
+using namespace GgafCore;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace Mogera;
-using GgafLib::CollisionChecker3D;
-using GgafDxCore::GgafDxKurokoAsstB;
 
 Teki001::Teki001(const char* prm_name) :
         GgafLib::DefaultMeshActor(prm_name, "jiki") { //Guruguru.x が参照される。
 
-    pAsstB_ = NEW GgafDxKurokoAsstB(_pKuroko);
 }
 
 void Teki001::initialize() {
@@ -89,21 +89,19 @@ void Teki001::processBehavior() {
     int dz = PX_C(100)*sz;
 
     if (pressD && press1) {
-        pAsstB_->turnCalmRzRyFaceAngByVdTwd(
+        _pKuroko->helperB()->turnCalmRzRyFaceAngByVdTwd(
                 D_ANG(2),
                 _x + dx, _y + dy, _z + dz, TURN_CLOSE_TO, true,
                 0.3, 0.7, 0, true);
     }
     if (pressT && press1) {
-        pAsstB_->turnCalmRzRyFaceAngByDtTwd(
+        _pKuroko->helperB()->turnCalmRzRyFaceAngByDtTwd(
                 _x + dx, _y + dy, _z + dz, TURN_CLOSE_TO, true,
                 60,
                 0.3, 0.7, 0, true);
     }
-    pAsstB_->behave();
     _pKuroko->behave(); //黒衣を活動させる（Z軸回転する）
 }
 
 Teki001::~Teki001() {
-    GGAF_DELETE(pAsstB_);
 }

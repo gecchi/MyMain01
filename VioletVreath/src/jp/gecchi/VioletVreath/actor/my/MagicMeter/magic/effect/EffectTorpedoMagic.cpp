@@ -14,6 +14,7 @@ using namespace VioletVreath;
 EffectTorpedoMagic::EffectTorpedoMagic(const char* prm_name) :
         DefaultSpriteActor(prm_name, "EffectTorpedoMagic", nullptr) {
     _class_name = "EffectTorpedoMagic";
+    pScaler_ = NEW GgafDxScaler(this);
     effectBlendOne(); //加算合成Technique
     setZEnable(true);       //Zバッファは考慮有り
     setZWriteEnable(false); //Zバッファは書き込み無し
@@ -32,7 +33,7 @@ void EffectTorpedoMagic::onActive() {
 void EffectTorpedoMagic::processBehavior() {
     _pUvFlipper->behave();
     _pKuroko->behave();
-    _pScaler->behave();
+    pScaler_->behave();
 }
 
 void EffectTorpedoMagic::processJudgement() {
@@ -42,4 +43,5 @@ void EffectTorpedoMagic::onInactive() {
 }
 
 EffectTorpedoMagic::~EffectTorpedoMagic() {
+    GGAF_DELETE(pScaler_);
 }

@@ -4,7 +4,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAsstA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -14,7 +14,6 @@ using namespace VioletVreath;
 MenuBoard::MenuBoard(const char* prm_name, const char* prm_model) :
         StringBoardMenu(prm_name, prm_model) {
     _class_name = "MenuBoard";
-    pKurokoAsstA_ = NEW GgafDxKurokoAsstA(_pKuroko);
     slide_from_offset_x_ = 0;
     slide_from_offset_y_ = 0;
     target_x_ = _x;
@@ -122,19 +121,16 @@ void MenuBoard::onRise() {
     position(target_x_ + slide_from_offset_x_,
              target_y_ + slide_from_offset_y_);
     _pKuroko->setMvAngTwd(target_x_, target_y_);
-    pKurokoAsstA_->slideMvByDt(UTIL::getDistance(_x, _y, target_x_, target_y_), _fade_frames,
+    _pKuroko->helperA()->slideMvByDt(UTIL::getDistance(_x, _y, target_x_, target_y_), _fade_frames,
                            0.2, 0.3, 0);
     _pSeTx->play(SE_ON_RISEN);
 }
 
 void MenuBoard::processBehavior() {
-    if (pKurokoAsstA_->isSlidingMv()) {
-        //スライド中
-    } else {
+    if (_pKuroko->helperA()->isJustFinishSlidingMv()) {
         //スライド終了時、目的の座標へ補正
         position(target_x_, target_y_);
     }
-    pKurokoAsstA_->behave();
     _pKuroko->behave();
     StringBoardMenu::processBehavior();
     //メニュー選択アイテム、表示アイテム、カーソルは、
@@ -149,7 +145,7 @@ void MenuBoard::onSink() {
     //スライドアウトトランジション
     _pKuroko->setMvAngTwd(target_x_ + slide_from_offset_x_,
                            target_y_ + slide_from_offset_y_);
-    pKurokoAsstA_->slideMvByDt(UTIL::getDistance(
+    _pKuroko->helperA()->slideMvByDt(UTIL::getDistance(
                                 _x, _y,
                                 target_x_+slide_from_offset_x_, target_y_+slide_from_offset_y_
                            ), _fade_frames,
@@ -157,5 +153,4 @@ void MenuBoard::onSink() {
 }
 
 MenuBoard::~MenuBoard() {
-    GGAF_DELETE(pKurokoAsstA_);
 }

@@ -17,8 +17,7 @@ DefaultMorphMeshActor::DefaultMorphMeshActor(const char* prm_name, const char* p
                          "DefaultMorphMeshEffect",
                          "DefaultMorphMeshTechnique",
                          prm_pStat,
-                         NEW CollisionChecker3D(this) ),
-_pScaler(new GgafDxScaler(this)) {
+                         NEW CollisionChecker3D(this) ) {
 
     _class_name = "DefaultMorphMeshActor";
     _pColliChecker = (CollisionChecker3D*)_pChecker;
@@ -28,8 +27,6 @@ void DefaultMorphMeshActor::drawHitArea() {
     ColliAABActor::get()->drawHitarea(_pColliChecker); ColliAAPrismActor::get()->drawHitarea(_pColliChecker); ColliSphereActor::get()->drawHitarea(_pColliChecker);
 }
 
-
 DefaultMorphMeshActor::~DefaultMorphMeshActor() {
     GGAF_DELETE(_pColliChecker);
-    delete _pScaler;
 }

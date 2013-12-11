@@ -18,6 +18,8 @@ public:
         SE_EXPLOSION,
     };
 
+    /** 拡大縮小支援オブジェクト */
+    GgafDxCore::GgafDxScaler* pScaler_;
     /** 行動パターン番号 */
     int iMovePatternNo_;
 

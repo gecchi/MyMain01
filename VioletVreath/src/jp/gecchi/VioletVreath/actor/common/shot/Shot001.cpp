@@ -20,6 +20,7 @@ using namespace VioletVreath;
 Shot001::Shot001(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Flora", STATUS(Shot001)) {
     _class_name = "Shot001";
+    pScaler_ = NEW GgafDxScaler(this);
     _pSeTx->set(0, "WAVE_EXPLOSION_002");
     pSplLineConnection_ = (SplineLineConnection*)(P_GOD->pSpl3DManager_->connect("Spl_HAN", this)); //スプライン定義
     pKurokoLeader_ = NEW FixedVelocitySplineKurokoLeader(_pKuroko, pSplLineConnection_->peek(), 10000); //移動速度固定
@@ -28,8 +29,8 @@ Shot001::Shot001(const char* prm_name) :
 void Shot001::initialize() {
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, PX_C(16));
-    _pScaler->setScale(2000);
-    _pScaler->forceRange(2000, 3000);
+    pScaler_->setScale(2000);
+    pScaler_->forceRange(2000, 3000);
 }
 
 void Shot001::onActive() {
@@ -39,7 +40,7 @@ void Shot001::onActive() {
     _pKuroko->setMvVelo(RF_Shot001_MvVelo(G_RANK));    //移動速度
     _pKuroko->setFaceAngVelo(AXIS_X, RF_Shot001_AngVelo(G_RANK)); //きりもみ具合
     pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION);
-    _pScaler->beat(30,5,2,-1);
+    pScaler_->beat(30,5,2,-1);
 }
 
 void Shot001::processBehavior() {
@@ -48,7 +49,7 @@ void Shot001::processBehavior() {
     //座標に反映
     pKurokoLeader_->behave(); //スプライン移動を振る舞い
     _pKuroko->behave();
-    _pScaler->behave();
+    pScaler_->behave();
 }
 
 void Shot001::processJudgement() {
@@ -79,5 +80,6 @@ void Shot001::onInactive() {
 
 Shot001::~Shot001() {
     GGAF_DELETE(pKurokoLeader_);
+    GGAF_DELETE(pScaler_);
     pSplLineConnection_->close();
 }

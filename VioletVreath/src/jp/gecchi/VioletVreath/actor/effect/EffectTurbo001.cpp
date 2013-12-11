@@ -15,6 +15,7 @@ using namespace VioletVreath;
 EffectTurbo001::EffectTurbo001(const char* prm_name) :
         DefaultSpriteActor(prm_name, "Turbo001", nullptr) {
     _class_name = "EffectTurbo001";
+    pScaler_ = NEW GgafDxScaler(this);
     inactivate();
     effectBlendOne(); //‰ÁŽZ‡¬
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ƒrƒ‹ƒ{[ƒhRz‰ñ“]
@@ -35,7 +36,7 @@ void EffectTurbo001::onActive() {
 void EffectTurbo001::processBehavior() {
     _pUvFlipper->behave();
     _pKuroko->behave();
-    _pScaler->behave();
+    pScaler_->behave();
 }
 
 void EffectTurbo001::processJudgement() {
@@ -50,4 +51,5 @@ void EffectTurbo001::onInactive() {
 }
 
 EffectTurbo001::~EffectTurbo001() {
+    GGAF_DELETE(pScaler_);
 }

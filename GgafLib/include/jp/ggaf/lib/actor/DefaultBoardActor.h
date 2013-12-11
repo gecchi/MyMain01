@@ -13,8 +13,6 @@ namespace GgafLib {
  * <TR bgcolor="#AABBCC"><TH>参照変数</TH><TH>概要</TH><TH>CLASS名</TH></TR>
  * <TR><TD>_pProg</TD><TD>進捗管理</TD><TD>GgafCore::GgafProgress</TD></TR>
  * <TR><TD>_pKrokoA</TD><TD>黒衣。移動支援(※正面方角回転機能はZ軸回転のみ有効)</TD><TD>GgafDxCore::GgafDxKuroko</TD></TR>
- * <TR><TD>_pAFader</TD><TD>フィードイン・アウト支援</TD><TD> GgafDxCore::GgafDxAlphaFader</TD></TR>
- * <TR><TD>_pScaler</TD><TD>拡大縮小支援</TD><TD>GgafDxCore::GgafDxScaler</TD></TR>
  * <TR><TD>_pUvFlipper</TD><TD>パラパラアニメーション支援</TD><TD>GgafDxCore::GgafDxUvFlipper</TD></TR>
  * <TR><TD>_pSeTx</TD><TD>効果音発生管理</TD><TD>GgafDxCore::GgafDxSeTransmitter</TD></TR>
  * </TABLE>
@@ -23,10 +21,6 @@ namespace GgafLib {
  * @author Masatoshi Tsuge
  */
 class DefaultBoardActor : public GgafDxCore::GgafDxBoardActor {
-
-public:
-    /** 拡大縮小支援オブジェクト */
-    GgafDxCore::GgafDxScaler* const _pScaler;
 
 public:
     DefaultBoardActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat = nullptr);

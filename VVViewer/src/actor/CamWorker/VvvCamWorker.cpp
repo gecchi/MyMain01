@@ -10,7 +10,7 @@
 #include "actor/VvvCamera.h"
 #include "scene/VvvUniverse.h"
 #include "actor/VvvViewPoint.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAsstA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -68,12 +68,12 @@ void VvvCamWorker::processBehavior() {
         } else {
             cd_ = cw;
         }
-        if (!pCam->pKurokoAsstA_->isSlidingMv()) {
+        if (!pCam->_pKuroko->helperA()->isSlidingMv()) {
             move_target_x_CAM_ = pCam->_x;
             move_target_y_CAM_ = pCam->_y;
             move_target_z_CAM_ = pCam->_z;
         }
-        if (!pVP->pKurokoAsstA_->isSlidingMv()) {
+        if (!pVP->_pKuroko->helperA()->isSlidingMv()) {
             //正確なVPに再設定
             pVP->_x = DX_C(pCam->_pVecCamLookatPoint->x);
             pVP->_y = DX_C(pCam->_pVecCamLookatPoint->y);
@@ -96,8 +96,9 @@ void VvvCamWorker::processBehavior() {
 
         //ワールド回転軸方向ベクトル、(vX_axis, vY_axis, vZ_axis) を計算 begin =======>
 
-        //平面回転軸(vx,vy)を求める
-        //double a = asin(1.0*dx/dy); //a XY平面のなす角 90度回転 x→y y→-x
+        //XY平面で直交する回転軸(vx,vy)を求める
+        //double a = asin(1.0*dx/dy);
+        //a XY平面のなす角 90度回転 x→y y→-x
         double vx = mdy;
         double vy = -mdx;
         double vz = 0;
@@ -107,16 +108,18 @@ void VvvCamWorker::processBehavior() {
         vx = t * vx;
         vy = t * vy;
         vz = 0;
-        //平面回転軸(vx,vy)をVPのワールド空間軸に変換
+        //XY平面での直交回転軸(vx,vy)をVPのワールド空間での軸（ベクトル）に変換
         //VP→CAMのワールド空間方向ベクトルを法線とする平面上に回転軸ベクトルは存在する
 
         D3DXMATRIX InvView;
-        D3DXMatrixInverse( &InvView, nullptr, &pCam->_matView);
-        //(vx,vy,vz) * InvView
-        // 11_, 12_, 13_, 14_
-        // 21_, 22_, 23_, 24_
-        // 31_, 32_, 33_, 34_
-        // vx*11_ + vy*21_ + vz*31_ + 41_, vx*12_ + vy*22_ + vz*32_ + 42_, vx*13_ + vy*23_ + vz*33_ + 43_, vx*14_ + vy*24_ + vz*34_ + 44_
+        D3DXMatrixInverse( &InvView, nullptr, &pCam->_matView); //ビュー変換逆行列、ビューをワールドに変換できる。
+        //ビュー上つまり、上記のXY平面での直交回転軸(vx,vy,0)にビュー変換逆行列をかけてワールドにしようと考えた。
+        //(vx,vy,vz) * InvView =
+        // |                            11_,                            12_,                            13_,                            14_ |
+        // |                            21_,                            22_,                            23_,                            24_ |
+        // |                            31_,                            32_,                            33_,                            34_ |
+        // | vx*11_ + vy*21_ + vz*31_ + 41_, vx*12_ + vy*22_ + vz*32_ + 42_, vx*13_ + vy*23_ + vz*33_ + 43_, vx*14_ + vy*24_ + vz*34_ + 44_ |
+
         //方向ベクトル(0,0,0)->(vx,vy,vz) を逆ビュー変換
         //変換後方向ベクトル = (vx,vy,vz)変換後座標 - (0,0,0)変換後座標
         //               <------------  (vx,vy,vz)変換後座標-------------------------->    <-- (0,0,0)変換後座標 -->
@@ -142,12 +145,12 @@ void VvvCamWorker::processBehavior() {
 
         //視点を中心にカメラが回転移動
         if (GgafDxInput::isBeingPressedMouseButton(0) && (mdx != 0 || mdy != 0)) {
-            //視点→カメラ の方向ベクトル(x,y,z)
+            //視点→カメラ の方向ベクトル(x,y,z) を回転させる
             double x = move_target_x_CAM_ - move_target_x_VP_;
             double y = move_target_y_CAM_ - move_target_y_VP_;
             double z = move_target_z_CAM_ - move_target_z_VP_;
 
-            angle rz1 = UTIL::getAngle2D(x, y);
+            angle rz1 = UTIL::getAngle2D(z, y);
 
             //回転させたい角度
             double ang = (PI) * (d/cd_);
@@ -157,13 +160,13 @@ void VvvCamWorker::processBehavior() {
             GgafDxQuaternion Q(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
             Q.mul(0,x,y,z);//R*P 回転軸が現在の進行方向ベクトルとなる
             Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
-            angle rz2 = UTIL::getAngle2D(Q._x,Q._y);
+            angle rz2 = UTIL::getAngle2D(Q._z,Q._y);
 
             //Q.x_, Q.y_, Q.z_ が回転後の座標となる
-            if (ABS(mdy) > ABS(mdx)/2) { //上下ブレ補正
+//            if (ABS(mdy) > ABS(mdx)/2) { //上下ブレ補正
                 move_target_XY_CAM_UP_ += UTIL::getAngDiff(rz1, rz2);
                 move_target_XY_CAM_UP_ = UTIL::simplifyAng(move_target_XY_CAM_UP_);
-            }
+//            }
             move_target_x_CAM_ = Q._x + move_target_x_VP_;
             move_target_y_CAM_ = Q._y + move_target_y_VP_;
             move_target_z_CAM_ = Q._z + move_target_z_VP_;
@@ -174,7 +177,7 @@ void VvvCamWorker::processBehavior() {
             double x = move_target_x_VP_ - move_target_x_CAM_;
             double y = move_target_y_VP_ - move_target_y_CAM_;
             double z = move_target_z_VP_ - move_target_z_CAM_;
-            angle rz1 = UTIL::getAngle2D(x, y);
+            angle rz1 = UTIL::getAngle2D(z, y);
             //回転させたい角度
             double ang = (PI) * (d/cd_);
             double sinHalf = sin(ang/2);
@@ -182,11 +185,12 @@ void VvvCamWorker::processBehavior() {
             GgafDxQuaternion Q(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
             Q.mul(0,x,y,z);//R*P 回転軸が現在の進行方向ベクトルとなる
             Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
-            angle rz2 = UTIL::getAngle2D(Q._x,Q._y);
-            if (ABS(mdy) > ABS(mdx)/2) { //上下ブレ補正
+            angle rz2 = UTIL::getAngle2D(Q._z,Q._y);
+//            if (ABS(mdy) > ABS(mdx)/2) { //上下ブレ補正
+                //ZY平面での、カメラ→視点ベクトルの移動前移動後のベクトルのなす角
                 move_target_XY_CAM_UP_ += UTIL::getAngDiff(rz1, rz2);
                 move_target_XY_CAM_UP_ = UTIL::simplifyAng(move_target_XY_CAM_UP_);
-            }
+//            }
             //Q.x_, Q.y_, Q.z_ が回転後の座標となる
             move_target_x_VP_ = Q._x + move_target_x_CAM_;
             move_target_y_VP_ = Q._y + move_target_y_CAM_;
@@ -229,12 +233,12 @@ void VvvCamWorker::processBehavior() {
         stop_renge_ = 60000;
         if (mdz_flg_ == false) {
             mdz_total_ = 0;
-            if (!pCam->pKurokoAsstA_->isSlidingMv()) {
+            if (!pCam->_pKuroko->helperA()->isSlidingMv()) {
                 move_target_x_CAM_ = pCam->_x;
                 move_target_y_CAM_ = pCam->_y;
                 move_target_z_CAM_ = pCam->_z;
             }
-            if (!pVP->pKurokoAsstA_->isSlidingMv()) {
+            if (!pVP->_pKuroko->helperA()->isSlidingMv()) {
                 pVP->_x = DX_C(pCam->_pVecCamLookatPoint->x);
                 pVP->_y = DX_C(pCam->_pVecCamLookatPoint->y);
                 pVP->_z = DX_C(pCam->_pVecCamLookatPoint->z);
@@ -290,10 +294,10 @@ void VvvCamWorker::processBehavior() {
         int td1 = UTIL::getDistance(pCam->_x, pCam->_y, pCam->_z,
                                     move_target_x_CAM_, move_target_y_CAM_, move_target_z_CAM_);
         if (ABS(td1) > 20) {
-            if (pCam->pKurokoAsstA_->isSlidingMv() && pCam->pKurokoAsstA_->_smthMv._prm._progress == 1) {
+            if (pCam->_pKuroko->helperA()->isSlidingMv() && pCam->_pKuroko->helperA()->_smthMv._prm._progress == 1) {
 
             } else {
-                pCam->pKurokoAsstA_->slideMvByDt(td1, 20, 0.4, 0.6, 0);
+                pCam->_pKuroko->helperA()->slideMvByDt(td1, 20, 0.4, 0.6, 0);
             }
         }
     }
@@ -304,14 +308,14 @@ void VvvCamWorker::processBehavior() {
         int td2 = UTIL::getDistance(pVP->_x, pVP->_y, pVP->_z,
                                     move_target_x_VP_, move_target_y_VP_, move_target_z_VP_);
         if (ABS(td2) > 20) {
-            if (pVP->pKurokoAsstA_->isSlidingMv() && pVP->pKurokoAsstA_->_smthMv._prm._progress == 1) {
+            if (pVP->_pKuroko->helperA()->isSlidingMv() && pVP->_pKuroko->helperA()->_smthMv._prm._progress == 1) {
             } else {
-                pVP->pKurokoAsstA_->slideMvByDt(td2, 20, 0.4, 0.6, 0);
+                pVP->_pKuroko->helperA()->slideMvByDt(td2, 20, 0.4, 0.6, 0);
             }
         }
     }
 
-
+    _TRACE_("move_target_XY_CAM_UP_="<<move_target_XY_CAM_UP_);
     //カメラのUPを計算
     angvelo angvelo_cam_up = 30000 / 20;
     if (angXY_nowCamUp_ != move_target_XY_CAM_UP_) {
@@ -322,9 +326,9 @@ void VvvCamWorker::processBehavior() {
             angXY_nowCamUp_ += (angvelo_cam_up * SGN(da));
         }
         angXY_nowCamUp_ = UTIL::simplifyAng(angXY_nowCamUp_);
-        pCam->_pVecCamUp->x = ANG_COS(angXY_nowCamUp_);
+        pCam->_pVecCamUp->x =0.0f;
         pCam->_pVecCamUp->y = ANG_SIN(angXY_nowCamUp_);
-        pCam->_pVecCamUp->z = 0.0f;
+        pCam->_pVecCamUp->z =  ANG_COS(angXY_nowCamUp_);
     }
 }
 

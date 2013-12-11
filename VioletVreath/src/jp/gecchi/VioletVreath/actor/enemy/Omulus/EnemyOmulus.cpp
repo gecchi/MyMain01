@@ -22,7 +22,7 @@ using namespace VioletVreath;
 EnemyOmulus::EnemyOmulus(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Omulus", STATUS(EnemyOmulus)) {
     _class_name = "EnemyOmulus";
-    _pActor_Base = nullptr;
+    pScaler_ = NEW GgafDxScaler(this);
     is_open_hatch_ = false;
     frame_of_open_interval_  = 3*60;
     frame_of_close_interval_ = 20*60;
@@ -50,9 +50,9 @@ void EnemyOmulus::initialize() {
     _pMorpher->setWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 200000);
-    _pScaler->setScale(1000);
-    _pScaler->forceRange(1000, 1200);
-    _pScaler->beat(30, 5, 5, -1);
+    pScaler_->setScale(1000);
+    pScaler_->forceRange(1000, 1200);
+    pScaler_->beat(30, 5, 5, -1);
     pDepo_Fired_ = pDepoConnection_->peek();
 }
 
@@ -225,7 +225,7 @@ void EnemyOmulus::processBehavior() {
                                    TURN_CLOSE_TO, false);
     }
 
-    _pScaler->behave();
+    pScaler_->behave();
     _pMorpher->behave();
 
     //_pKurokoの計算はローカルで行う
@@ -266,4 +266,5 @@ void EnemyOmulus::onInactive() {
 
 EnemyOmulus::~EnemyOmulus() {
     pDepoConnection_->close();
+    GGAF_DELETE(pScaler_);
 }

@@ -53,12 +53,15 @@ public:
     /** [r]ビート時、内部進捗番号 */
     int _beat_progres[MAX_MORPH_TARGET+1];
 
+    GgafDxMorpherHelperA* _pHelperA;
 public:
     /**
      * コンストラクタ<BR>
      * @param	prm_pActor	適用Actor
      */
     GgafDxMorpher(GgafDxMorphMeshActor* prm_pActor);
+
+    GgafDxMorpherHelperA* helperA();
 
     /**
      * リセット

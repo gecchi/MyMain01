@@ -28,6 +28,8 @@ public:
         PROG_BANPEI,
     };
 
+    /** フィードイン・フェードアウト支援 */
+    GgafDxCore::GgafDxAlphaFader* pAFader_;
     /** 移動スプラインプログラム */
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
     /** 鼓動(スケール)を同期させる為のダミーアクター */

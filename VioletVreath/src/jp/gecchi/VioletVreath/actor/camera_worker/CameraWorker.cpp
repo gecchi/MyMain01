@@ -6,7 +6,7 @@
 #include "jp/gecchi/VioletVreath/scene/Universe.h"
 #include "jp/gecchi/VioletVreath/actor/ViewPoint.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAsstA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -70,7 +70,7 @@ void CameraWorker::onSwitchCameraWork() {
     pCam->_pKuroko->stopMv();
     pCam->_pKuroko->stopTurnMvAngSequence();
     pCam->_pKuroko->stopTurnFaceAngSequence();
-    pCam->pKurokoAsstA_->stopSlidingMv();
+    pCam->_pKuroko->helperA()->stopSlidingMv();
     pCam->pAxMver_->stopGravitationMvSequence();
     pCam->pAxMver_->setZeroVxyzMvVelo();
     pCam->pAxMver_->setZeroVxyzMvAcce();
@@ -78,7 +78,7 @@ void CameraWorker::onSwitchCameraWork() {
     pVP->_pKuroko->stopMv();
     pVP->_pKuroko->stopTurnMvAngSequence();
     pVP->_pKuroko->stopTurnFaceAngSequence();
-    pVP->pKurokoAsstA_->stopSlidingMv();
+    pVP->_pKuroko->helperA()->stopSlidingMv();
     pVP->pAxMver_->stopGravitationMvSequence();
     pVP->pAxMver_->setZeroVxyzMvVelo();
     pVP->pAxMver_->setZeroVxyzMvAcce();

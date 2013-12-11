@@ -19,6 +19,8 @@ public:
         ITEM_REBOOT,
         ITEM_QUIT,
     };
+    /** フィードイン・フェードアウト支援 */
+    GgafDxCore::GgafDxAlphaFader** papItemAFader_;
 
 public:
     MenuBoardTitle(const char* prm_name);

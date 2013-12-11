@@ -20,6 +20,9 @@ public:
     enum {
         SE_EXPLOSION,
     };
+
+    /** 拡大縮小支援オブジェクト */
+    GgafDxCore::GgafDxScaler* pScaler_;
     /** [r]親アクターとなる魚雷コンローラー */
     MyTorpedoController* pOptionTorpedoCtrler_;
     /** [r]魚雷の移動軌跡エフェクトの数 */

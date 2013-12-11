@@ -14,6 +14,7 @@ using namespace VioletVreath;
 EffectExplosion001::EffectExplosion001(const char* prm_name) :
         DefaultSpriteSetActor(prm_name, "EffectExplosion001", nullptr) {
     _class_name = "EffectExplosion001";
+    pScaler_ = NEW GgafDxScaler(this);
     effectBlendOne(); //加算合成Technique指定
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //XYZ軸ビルボード
 }
@@ -37,7 +38,7 @@ void EffectExplosion001::processBehavior() {
     _sy+= 100;
     _pUvFlipper->behave();
     _pKuroko->behave();
-    _pScaler->behave();
+    pScaler_->behave();
 }
 
 void EffectExplosion001::processJudgement() {
@@ -52,4 +53,5 @@ void EffectExplosion001::onInactive() {
 
 
 EffectExplosion001::~EffectExplosion001() {
+    GGAF_DELETE(pScaler_);
 }

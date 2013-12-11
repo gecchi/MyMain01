@@ -15,6 +15,7 @@ using namespace VioletVreath;
 EffectMyOption::EffectMyOption(const char* prm_name, MyOption* prm_pOption) :
         DefaultMeshSetActor(prm_name, "8/EffectMyOption", nullptr) {
     effectBlendOne(); //加算合成するTechnique指定
+    pScaler_ = NEW GgafDxScaler(this);
     pOption_ = prm_pOption;
     setZEnable(true);        //Zバッファは考慮して描画
     setZWriteEnable(false);  //Zバッファは書き込み無し
@@ -31,11 +32,11 @@ void EffectMyOption::initialize() {
     _pKuroko->setFaceAngVelo(AXIS_X, D_ANG(5));
     _pKuroko->setFaceAngVelo(AXIS_Y, D_ANG(3));
     _pKuroko->setFaceAngVelo(AXIS_Z, D_ANG(1));
-    _pScaler->setScale(R_SC(1));
-    _pScaler->forceRange(R_SC(1), R_SC(4.0));
-//    _pScaler->beat(AXIS_X, 30, 10, 1, -1);
-//    _pScaler->beat(AXIS_Y, 30, 15, 1, -1);
-//    _pScaler->beat(AXIS_Z, 30, 20, 1, -1);
+    pScaler_->setScale(R_SC(1));
+    pScaler_->forceRange(R_SC(1), R_SC(4.0));
+//    pScaler_->beat(AXIS_X, 30, 10, 1, -1);
+//    pScaler_->beat(AXIS_Y, 30, 15, 1, -1);
+//    pScaler_->beat(AXIS_Z, 30, 20, 1, -1);
 
 }
 
@@ -49,12 +50,12 @@ void EffectMyOption::onActive() {
 
 void EffectMyOption::processBehavior() {
 //    if (_pProg->get() == 1) {
-//        _pScaler->beat(30,8,2,-1);
+//        pScaler_->beat(30,8,2,-1);
 //        _pProg->change(2);
 //    }
     positionAs(pOption_);
     _pKuroko->behave();
-    _pScaler->behave();
+    pScaler_->behave();
 }
 
 void EffectMyOption::processJudgement() {
@@ -70,5 +71,6 @@ void EffectMyOption::onHit(GgafActor* prm_pOtherActor) {
 }
 
 EffectMyOption::~EffectMyOption() {
+    GGAF_DELETE(pScaler_);
 }
 

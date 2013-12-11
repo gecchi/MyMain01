@@ -31,11 +31,13 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
           "REBOOT",       //2
           "QUIT",         //3
     };
+    papItemAFader_ = NEW GgafDxAlphaFader*[ITEM_QUIT+1];
     for (int i = ITEM_GAME_START; i <= ITEM_QUIT; i++) {
         LabelMenuItemFont01* pLabel = NEW LabelMenuItemFont01("item");
         pLabel->update(apItemStr[i], ALIGN_CENTER, VALIGN_MIDDLE);
         pLabel->setAlpha(0.7);
         addItem(pLabel, PX_C(100), PX_C(40+(i*18)));
+        papItemAFader_[i] = NEW GgafDxAlphaFader(pLabel);
     }
     //キャンセル押下時移動先アイテム
     relateAllItemToCancel(ITEM_QUIT);
@@ -70,13 +72,13 @@ void MenuBoardTitle::onSelect(int prm_from, int prm_to) {
     if (prm_from > -1) {
         //非選択項目は点滅させない
         //で、ちょっと暗く
-        getItem(prm_from)->_pAFader->reset();
-        getItem(prm_from)->_pAFader->setAlpha(0.7);
-        getItem(prm_from)->_pAFader->behave();
+        papItemAFader_[prm_from]->reset();
+        papItemAFader_[prm_from]->setAlpha(0.7);
+        papItemAFader_[prm_from]->behave();
     }
     //選択項目を点滅
     if (prm_to > -1) {
-        getItem(prm_to)->_pAFader->beat(20,10,0,0,-1);
+        papItemAFader_[prm_to]->beat(20,10,0,0,-1);
     }
 }
 
@@ -121,13 +123,16 @@ void MenuBoardTitle::processBehavior() {
         }
     }
 
-    GgafDxDrawableActor* pItem = getSelectedItem();
     if (getRisingSubMenu()) {
-        pItem->setAlpha(1.0); //点滅を停止
+        getSelectedItem()->setAlpha(1.0); //点滅を停止
     } else {
-        pItem->_pAFader->behave();
+        papItemAFader_[getSelectedIndex()]->behave();
     }
 
 }
 MenuBoardTitle::~MenuBoardTitle() {
+    for (int i = ITEM_GAME_START; i <= ITEM_QUIT; i++) {
+        GGAF_DELETE(papItemAFader_[i]);
+    }
+    GGAF_DELETEARR(papItemAFader_);
 }

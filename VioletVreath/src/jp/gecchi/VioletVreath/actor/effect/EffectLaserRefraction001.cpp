@@ -12,6 +12,7 @@ using namespace VioletVreath;
 EffectLaserRefraction001::EffectLaserRefraction001(const char* prm_name)
                : DefaultMeshSetActor(prm_name, "EffectLaserRefraction001", nullptr) {
     _class_name = "EffectLaserRefraction001";
+    pScaler_ = NEW GgafDxScaler(this);
     effectBlendOne(); //加算合成するTechnique指定
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(false);  //Zバッファは書き込み無し
@@ -26,16 +27,16 @@ void EffectLaserRefraction001::onActive() {
     //_pUvFlipper->setActivePtnToTop();
     //_pUvFlipper->exec(FLIP_ORDER_LOOP, 1); //パラパラアニメ無し
     setAlpha(0.5);
-    _pScaler->setScale(R_SC(6));
+    pScaler_->setScale(R_SC(6));
     _pKuroko->setFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
 }
 
 void EffectLaserRefraction001::processBehavior() {
-    _pScaler->addScale(100);
+    pScaler_->addScale(100);
 
     //_pUvFlipper->behave();
     _pKuroko->behave();
-    _pScaler->behave();
+    pScaler_->behave();
 }
 
 void EffectLaserRefraction001::processJudgement() {
@@ -48,4 +49,5 @@ void EffectLaserRefraction001::onInactive() {
 }
 
 EffectLaserRefraction001::~EffectLaserRefraction001() {
+    GGAF_DELETE(pScaler_);
 }

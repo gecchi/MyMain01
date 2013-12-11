@@ -14,6 +14,10 @@ namespace VioletVreath {
 class Shot002 : public GgafLib::DefaultMeshSetActor {
 
 public:
+    /** 拡大縮小支援オブジェクト */
+    GgafDxCore::GgafDxScaler* pScaler_;
+
+public:
     Shot002(const char* prm_name);
 
     void initialize() override;

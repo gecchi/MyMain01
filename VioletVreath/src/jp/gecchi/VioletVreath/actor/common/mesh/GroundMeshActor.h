@@ -12,8 +12,6 @@ namespace VioletVreath {
 class GroundMeshActor : public GgafDxCore::GgafDxMeshActor {
 
 public:
-    GgafDxCore::GgafDxScaler* const _pScaler;
-
     frame offset_frames_;
 
     GgafLib::CollisionChecker3D* _pColliChecker;

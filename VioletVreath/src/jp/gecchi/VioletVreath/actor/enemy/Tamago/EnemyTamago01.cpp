@@ -23,8 +23,8 @@ using namespace VioletVreath;
 
 EnemyTamago01::EnemyTamago01(const char* prm_name) :
         SpriteMeshSetActor(prm_name, "8/tamago", STATUS(EnemyTamago01)) { //8/‚ð‚¢‚ê‚Æ‚©‚È‚¢‚Æƒ†ƒj[ƒN‚É‚È‚ç‚È‚¢
-
     _class_name = "EnemyTamago01";
+    pScaler_ = NEW GgafDxScaler(this);
     iMovePatternNo_ = 0;
     pProgram_Tamago01Move_ = nullptr;
     pDepoConnection_ = nullptr;
@@ -70,7 +70,7 @@ void EnemyTamago01::initialize() {
     _x = -50000;
     _y = 200000;
     _z = 100000;
-    _pScaler->setScale(1000);
+    pScaler_->setScale(1000);
 }
 
 void EnemyTamago01::onActive() {
@@ -89,10 +89,10 @@ void EnemyTamago01::onActive() {
 void EnemyTamago01::processBehavior() {
 
 //    if (GgafDxInput::isBeingPressedKey(DIK_Q)) {
-//        _pScaler->addScale(500);
+//        pScaler_->addScale(500);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_W)) {
-//        _pScaler->addScale(-500);
+//        pScaler_->addScale(-500);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_1)) {
 //        _pModel->_pTexBlinker->->addScale(2000);
@@ -183,7 +183,7 @@ void EnemyTamago01::processBehavior() {
         pProgram_Tamago01Move_->behave();
     }
     _pKuroko->behave();
-    _pScaler->behave();
+    pScaler_->behave();
     _pUvFlipper->behave();
     //_pSeTx->behave();
 }
@@ -212,6 +212,7 @@ void EnemyTamago01::onInactive() {
 }
 
 EnemyTamago01::~EnemyTamago01() {
+    GGAF_DELETE(pScaler_);
     pDepoConnection_->close();
     GGAF_DELETE_NULLABLE(pProgram_Tamago01Move_);
 }

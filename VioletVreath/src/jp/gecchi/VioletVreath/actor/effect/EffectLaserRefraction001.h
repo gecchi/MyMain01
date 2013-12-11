@@ -13,6 +13,10 @@ namespace VioletVreath {
 class EffectLaserRefraction001 : public GgafLib::DefaultMeshSetActor {
 
 public:
+    /** 拡大縮小支援オブジェクト */
+    GgafDxCore::GgafDxScaler* pScaler_;
+
+public:
     EffectLaserRefraction001(const char* prm_name);
 
     void onCreateModel() override {

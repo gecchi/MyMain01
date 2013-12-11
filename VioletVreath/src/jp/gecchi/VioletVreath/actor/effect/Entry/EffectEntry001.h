@@ -13,6 +13,10 @@ namespace VioletVreath {
 class EffectEntry001 : public EffectEntry {
 
 public:
+    /** 拡大縮小支援オブジェクト */
+    GgafDxCore::GgafDxScaler* pScaler_;
+
+public:
     frame scale_in_frames_;
     frame duration_frames_;
     frame scale_out_frames_;

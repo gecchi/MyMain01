@@ -14,6 +14,7 @@ using namespace VioletVreath;
 EffectExplosion003::EffectExplosion003(const char* prm_name) :
         DefaultSpriteSetActor(prm_name, "EffectExplosion003", nullptr) {
     _class_name = "EffectExplosion003";
+    pScaler_ = NEW GgafDxScaler(this);
     //加算合成Technique指定
     effectBlendOne();
     //ワールド変換行列はビルボード指定
@@ -22,15 +23,15 @@ EffectExplosion003::EffectExplosion003(const char* prm_name) :
 
 void EffectExplosion003::initialize() {
     _pUvFlipper->setFlipPtnRange(0, 63);
-    _pScaler->forceRange(500, 2000);
+    pScaler_->forceRange(500, 2000);
     setHitAble(false);
 }
 
 void EffectExplosion003::onActive() {
     _pUvFlipper->setActivePtnToTop();
     _pUvFlipper->exec(FLIP_ORDER_NOLOOP, 1);
-    _pScaler->setScale(500);
-    _pScaler->scaleLinerUntil(2000, 64);
+    pScaler_->setScale(500);
+    pScaler_->scaleLinerUntil(2000, 64);
     setAlpha(0.99);
 }
 
@@ -38,7 +39,7 @@ void EffectExplosion003::processBehavior() {
     _alpha -= 0.01;
     _pUvFlipper->behave();
     _pKuroko->behave();
-    _pScaler->behave();
+    pScaler_->behave();
 }
 
 void EffectExplosion003::processJudgement() {
@@ -48,4 +49,5 @@ void EffectExplosion003::processJudgement() {
 }
 
 EffectExplosion003::~EffectExplosion003() {
+    GGAF_DELETE(pScaler_);
 }

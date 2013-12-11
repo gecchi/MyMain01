@@ -1,15 +1,22 @@
 #include "stdafx.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 
+#include <math.h>
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
-#include <math.h>
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperC.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxKuroko::GgafDxKuroko(GgafDxGeometricActor* prm_pActor) : GgafObject(),
 _pActor(prm_pActor) {
+
+    _pHelperA = nullptr;
+    _pHelperB = nullptr;
+    _pHelperC = nullptr;
 
     for (int ax = 0; ax < 3; ax++) { // i=0:X軸、1:Y軸、2:Z軸 を表す
         //正面方角
@@ -112,9 +119,25 @@ _pActor(prm_pActor) {
     _taget_face_ang_alltime_optimize_ang = true;
 
 }
-
+GgafDxKurokoHelperA* GgafDxKuroko::helperA() {
+    return _pHelperA ? _pHelperA : _pHelperA = NEW GgafDxKurokoHelperA(this);
+}
+GgafDxKurokoHelperB* GgafDxKuroko::helperB() {
+    return _pHelperB ? _pHelperB : _pHelperB = NEW GgafDxKurokoHelperB(this);
+}
+GgafDxKurokoHelperC* GgafDxKuroko::helperC() {
+    return _pHelperC ? _pHelperC : _pHelperC = NEW GgafDxKurokoHelperC(this);
+}
 void GgafDxKuroko::behave() {
-
+    if (_pHelperA) {
+        _pHelperA->behave();
+    }
+    if (_pHelperB) {
+        _pHelperB->behave();
+    }
+    if (_pHelperC) {
+        _pHelperC->behave();
+    }
     //正面方角処理
     for (axis ax = 0; ax < 3; ax++) {
         if (_face_ang_targeting_flg[ax]) { //ターゲット方向がある場合
@@ -1575,8 +1598,10 @@ void GgafDxKuroko::takeoverMvFrom(GgafDxKuroko* const prm_pKuroko) {
 }
 
 GgafDxKuroko::~GgafDxKuroko() {
+    GGAF_DELETE_NULLABLE(_pHelperA);
+    GGAF_DELETE_NULLABLE(_pHelperB);
+    GGAF_DELETE_NULLABLE(_pHelperC);
 }
-
 
 
 // 【備忘録メモ】本クラスの考え方とコメントの単語の表現

@@ -13,6 +13,10 @@ namespace VioletVreath {
 class LabelRankingFont : public GgafLib::StringBoardActor {
 
 public:
+    /** フィードイン・フェードアウト支援 */
+    GgafDxCore::GgafDxAlphaFader* pAFader_;
+
+public:
     LabelRankingFont(const char* prm_name);
 
     virtual void onCreateModel() override;

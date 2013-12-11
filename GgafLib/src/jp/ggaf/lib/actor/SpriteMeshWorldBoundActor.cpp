@@ -20,8 +20,7 @@ SpriteMeshWorldBoundActor::SpriteMeshWorldBoundActor(const char* prm_name,
         GgafDxSpriteMeshActor(prm_name,
                                prm_model,
                                prm_pStat,
-                               nullptr),
-_pScaler(new GgafDxScaler(this)) {
+                               nullptr) {
 
     _class_name = "SpriteMeshWorldBoundActor";
     changeEffectTechnique("NoLight"); //NoLightでベタ塗りテクニック
@@ -55,5 +54,5 @@ void SpriteMeshWorldBoundActor::processSettlementBehavior() {
 //}
 
 SpriteMeshWorldBoundActor::~SpriteMeshWorldBoundActor() {
-    delete _pScaler;
 }
+

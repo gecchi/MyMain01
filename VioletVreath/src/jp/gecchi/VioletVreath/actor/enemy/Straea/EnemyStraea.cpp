@@ -22,7 +22,7 @@ using namespace VioletVreath;
 
 EnemyStraea::EnemyStraea(const char* prm_name) :
         DefaultMeshActor(prm_name, "Straea", STATUS(EnemyStraea)) {
-
+    pAFader_ = NEW GgafDxAlphaFader(this);
     //ƒŒ[ƒU[
     laser_way_ = 3;
     cnt_laserchip_ = 0;
@@ -104,15 +104,15 @@ void EnemyStraea::processBehavior() {
         case PROG_ENTRY: {
             if (_pProg->isJustChanged()) {
                 UTIL::activateEntryEffectOf(this);
-                _pAFader->setAlpha(0);
-                _pAFader->fadeLinerUntil(0.98, 20);
+                pAFader_->setAlpha(0);
+                pAFader_->fadeLinerUntil(0.98, 20);
                 _pKuroko->setFaceAngVelo(AXIS_X, 4000);
             }
-            if (!_pAFader->isFading()) {
+            if (!pAFader_->isFading()) {
                 setHitAble(true);
                 _pProg->changeNext();
             }
-            _pAFader->behave();
+            pAFader_->behave();
             break;
         }
         case PROG_MOVE: {
@@ -324,6 +324,7 @@ void EnemyStraea::onInactive() {
 
 
 EnemyStraea::~EnemyStraea() {
+    GGAF_DELETE(pAFader_);
     pConn_RefractionEffectDepository_->close();
     pConn_LaserChipDepoStore_->close();
     pConn_ShotDepo2_->close();

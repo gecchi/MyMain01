@@ -15,6 +15,7 @@ using namespace VioletVreath;
 MyTorpedoBlast::MyTorpedoBlast(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "MyTorpedoBlast",STATUS(MyTorpedoBlast)) {
     _class_name = "MyTorpedoBlast";
+    pScaler_ = NEW GgafDxScaler(this);
     effectBlendOne(); //‰ÁŽZ‡¬‚·‚éTechniqueŽw’è
     setAlpha(0.3);
     setZEnable(true);        //Zƒoƒbƒtƒ@‚Íl—¶—L‚è
@@ -34,18 +35,18 @@ void MyTorpedoBlast::onReset() {
     _pStatus->reset();
     _pColliChecker->setColliSphere(0, PX_C(10));
     _pKuroko->setMvVelo(0);
-    _pScaler->setScale(R_SC(1));
-    _pScaler->forceRange(R_SC(1), R_SC(400));
-    _pScaler->beat(120, 120/2, 0, 1); //1‰ñ–c‚ç‚ñ‚Å‚µ‚Ú‚Þ
+    pScaler_->setScale(R_SC(1));
+    pScaler_->forceRange(R_SC(1), R_SC(400));
+    pScaler_->beat(120, 120/2, 0, 1); //1‰ñ–c‚ç‚ñ‚Å‚µ‚Ú‚Þ
 }
 
 void MyTorpedoBlast::processBehavior() {
-    if (_pScaler->_method[AXIS_X] == NOSCALE) {
+    if (pScaler_->_method[AXIS_X] == NOSCALE) {
         sayonara();//–c‚ç‚ñ‚Å‚µ‚Ú‚Þ‚ªI—¹Žž
     } else {
-        _pColliChecker->setColliSphere(0, _pScaler->_scale[AXIS_X]); //“–‚½‚è”»’è‚à•Ï‰»
+        _pColliChecker->setColliSphere(0, pScaler_->_scale[AXIS_X]); //“–‚½‚è”»’è‚à•Ï‰»
         _pKuroko->behave();
-        _pScaler->behave();
+        pScaler_->behave();
     }
 }
 
@@ -59,4 +60,5 @@ void MyTorpedoBlast::onHit(GgafActor* prm_pOtherActor) {
 }
 
 MyTorpedoBlast::~MyTorpedoBlast() {
+    GGAF_DELETE(pScaler_);
 }

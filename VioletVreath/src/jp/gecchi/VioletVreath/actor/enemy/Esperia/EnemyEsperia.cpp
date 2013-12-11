@@ -25,7 +25,7 @@ int EnemyEsperia::max_laser_way_ = RF_EnemyEsperia_ShotWay(1.0);
 
 EnemyEsperia::EnemyEsperia(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Esperia", STATUS(EnemyEsperia)) {
-
+    pAFader_ = NEW GgafDxAlphaFader(this);
     cnt_laserchip_ = 0;
     laser_length_ = 40;
     now_laser_way_ = 0;
@@ -89,14 +89,14 @@ void EnemyEsperia::processBehavior() {
         case PROG_ENTRY: {
             if (_pProg->isJustChanged()) {
                 UTIL::activateEntryEffectOf(this);
-                _pAFader->setAlpha(0);
-                _pAFader->fadeLinerUntil(0.98, 20);
+                pAFader_->setAlpha(0);
+                pAFader_->fadeLinerUntil(0.98, 20);
             }
-            if (!_pAFader->isFading()) {
+            if (!pAFader_->isFading()) {
                 setHitAble(true);
                 _pProg->changeNext();
             }
-            _pAFader->behave();
+            pAFader_->behave();
             break;
         }
         case PROG_MOVE: {
@@ -377,6 +377,7 @@ coord EnemyEsperia::getTurnDY(GgafDxCore::GgafDxGeometricActor* pThis,
 }
 
 EnemyEsperia::~EnemyEsperia() {
+    GGAF_DELETE(pAFader_);
     pConn_LaserChipDepoStore_->close();
     GGAF_DELETEARR(paLocalPos_Laser_);
     GGAF_DELETEARR(paPos_Target_);

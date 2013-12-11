@@ -25,6 +25,7 @@ using namespace VioletVreath;
 EnemyDuna::EnemyDuna(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Duna", STATUS(EnemyDuna)) {
     _class_name = "EnemyDuna";
+    pAFader_ = NEW GgafDxAlphaFader(this);
     pAxMver_ = NEW GgafDxAxesMover(this);
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     effectBlendOne(); //‰ÁŽZ‡¬
@@ -62,7 +63,7 @@ void EnemyDuna::processBehavior() {
     switch (_pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
-            _pAFader->setAlpha(0);
+            pAFader_->setAlpha(0);
             _pKuroko->relateFaceWithMvAng(false);
             _pKuroko->keepOnTurningFaceAngTwd(pMyShip,
                                                D_ANG(2), 0, TURN_CLOSE_TO,false);
@@ -78,7 +79,7 @@ void EnemyDuna::processBehavior() {
         }
          case PROG_ENTRY_EFFECT: {
              if (_pProg->getFrameInProgress() == 60) {
-                 _pAFader->fadeLinerUntil(1.0, 60);
+                 pAFader_->fadeLinerUntil(1.0, 60);
              }
              if (getAlpha() > 0.5) {
                  setHitAble(true);
@@ -355,7 +356,7 @@ void EnemyDuna::processBehavior() {
     _pKuroko->behave();
     pAxMver_->behave();
     _pMorpher->behave();
-    _pAFader->behave();
+    pAFader_->behave();
 //_TRACE_("EnemyDuna f:"<<getBehaveingFrame()<<"  pProg="<<_pProg->get()<<"   X,Y,Z="<<_x<<","<<_y<<","<<_z<<" ");
 }
 
@@ -383,5 +384,6 @@ void EnemyDuna::onDispatchedShot(GgafDxCore::GgafDxDrawableActor* prm_pActor, in
 }
 
 EnemyDuna::~EnemyDuna() {
+    GGAF_DELETE(pAFader_);
     GGAF_DELETE(pAxMver_);
 }

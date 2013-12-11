@@ -17,6 +17,7 @@ using namespace VioletVreath;
 Shot002::Shot002(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Flora", STATUS(Shot002)) {
     _class_name = "Shot002";
+    pScaler_ = NEW GgafDxScaler(this);
     _pSeTx->set(0, "WAVE_EXPLOSION_002");
 }
 
@@ -28,7 +29,7 @@ void Shot002::initialize() {
 void Shot002::onActive() {
     _pStatus->reset();
     setHitAble(true);
-    _pScaler->setScale(2000);
+    pScaler_->setScale(2000);
     _pKuroko->relateFaceWithMvAng(true);
     _pKuroko->setMvVelo(RF_Shot002_MvVelo(G_RANK));
     _pKuroko->setFaceAngVelo(AXIS_X, RF_Shot002_AngVelo(G_RANK));
@@ -51,7 +52,7 @@ void Shot002::processBehavior() {
     }
     //À•W‚É”½‰f
     _pKuroko->behave();
-    _pScaler->behave();
+    pScaler_->behave();
     _pSeTx->behave();
 }
 
@@ -75,5 +76,5 @@ void Shot002::onHit(GgafActor* prm_pOtherActor) {
 }
 
 Shot002::~Shot002() {
-
+    GGAF_DELETE(pScaler_);
 }

@@ -16,8 +16,7 @@ WorldBoundActor::WorldBoundActor(const char* prm_name, const char* prm_model) :
                               "WorldBoundEffect",
                               "WorldBoundTechnique",
                               nullptr,
-                              nullptr),
-_pScaler(new GgafDxScaler(this)) {
+                              nullptr) {
 
     _class_name = "WorldBoundActor";
     _offset_frames = 0;
@@ -61,5 +60,4 @@ void WorldBoundActor::processSettlementBehavior() {
 //}
 
 WorldBoundActor::~WorldBoundActor() {
-    delete _pScaler;
 }

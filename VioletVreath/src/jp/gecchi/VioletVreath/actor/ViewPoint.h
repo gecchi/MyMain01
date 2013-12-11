@@ -14,8 +14,6 @@ class ViewPoint : public GgafDxCore::GgafDxCameraViewPoint {
 public:
     /** •½sˆÚ“®x‰‡ */
     GgafDxCore::GgafDxAxesMover* pAxMver_;
-    /** •ˆß‚Ì•èA */
-    GgafDxCore::GgafDxKurokoAsstA* pKurokoAsstA_;
 
 public:
     ViewPoint(const char* prm_name);

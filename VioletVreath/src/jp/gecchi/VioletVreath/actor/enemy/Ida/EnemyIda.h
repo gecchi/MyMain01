@@ -27,6 +27,11 @@ public:
         SE_EXPLOSION,
     };
 
+    /** 拡大縮小支援オブジェクト */
+    GgafDxCore::GgafDxScaler* pScaler_;
+    /** フィードイン・フェードアウト支援 */
+    GgafDxCore::GgafDxAlphaFader* pAFader_;
+
 public:
     /**
      * コンストラクタ

@@ -13,7 +13,7 @@
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAsstA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -25,7 +25,7 @@ using namespace VioletVreath;
 EnemyOzartia::EnemyOzartia(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Ozartia", STATUS(EnemyOzartia)) {
     _class_name = "EnemyOzartia";
-    pKurokoAsstA_ = NEW GgafDxKurokoAsstA(_pKuroko);
+    pAFader_ = NEW GgafDxAlphaFader(this);
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI1_-1);
     pProg2_ = createProgress(PROG_BANPEI2_-1);
@@ -83,14 +83,14 @@ void EnemyOzartia::processBehavior() {
     switch (_pProg->get()) {
         case PROG1_INIT: {
             setHitAble(false);
-            _pAFader->setAlpha(0);
+            pAFader_->setAlpha(0);
             UTIL::activateEntryEffectOf(this);
             _pProg->changeNext();
             break;
         }
         case PROG1_ENTRY: {
             if (_pProg->isJustChanged()) {
-                _pAFader->fadeLinerUntil(1.0, 30);
+                pAFader_->fadeLinerUntil(1.0, 30);
             }
             if (_pProg->getFrameInProgress() == 15) {
                 setHitAble(true);
@@ -182,10 +182,10 @@ void EnemyOzartia::processBehavior() {
         case PROG1_MOVING: {
             if (_pProg->isJustChanged()) {
                 //自機の正面付近へスイーっと行きます
-                pKurokoAsstA_->slideMvByVd(_pKuroko->getMvVeloTop(), UTIL::getDistance(this, &posMvTarget_),
+                _pKuroko->helperA()->slideMvByVd(_pKuroko->getMvVeloTop(), UTIL::getDistance(this, &posMvTarget_),
                                        0.3f, 0.7f, _pKuroko->getMvVeloBottom(), true);
             }
-            if (!pKurokoAsstA_->isSlidingMv()) {
+            if (!_pKuroko->helperA()->isSlidingMv()) {
                 //到着したら終了
                 _pProg->change(PROG1_STAY);
             }
@@ -195,7 +195,7 @@ void EnemyOzartia::processBehavior() {
         case PROG1_LEAVE: {
             if (_pProg->isJustChanged()) {
                 UTIL::activateLeaveEffectOf(this);
-                _pAFader->fadeLinerUntil(0.0, 30);
+                pAFader_->fadeLinerUntil(0.0, 30);
             }
             if (_pProg->getFrameInProgress() == 60) {
                 sayonara();
@@ -245,8 +245,7 @@ void EnemyOzartia::processBehavior() {
                                           D_ANG(2), 0, TURN_CLOSE_TO, false);
         }
     }
-    _pAFader->behave();
-    pKurokoAsstA_->behave();
+    pAFader_->behave();
     _pKuroko->behave();
     is_hit_ = false;
 }
@@ -273,7 +272,7 @@ void EnemyOzartia::onInactive() {
 }
 
 EnemyOzartia::~EnemyOzartia() {
-    GGAF_DELETE(pKurokoAsstA_);
+    GGAF_DELETE(pAFader_);
     GGAF_DELETE(pProg2_);
 }
 

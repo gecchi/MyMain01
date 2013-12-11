@@ -28,7 +28,7 @@ NameEntryScene::NameEntryScene(const char* prm_name) : DefaultScene(prm_name) {
     getSceneDirector()->addSubGroup(pLabelInputedName_);
 
     pLabelSelectedChar_ = NEW SpriteLabelGecchi32Font("SelectedChar");
-    pLabelSelectedChar_->_pAFader->beat(60, 10, 0, 0, -1); //チカチカ点滅
+    pLabelSelectedChar_->pAFader_->beat(60, 10, 0, 0, -1); //チカチカ点滅
     pLabelSelectedChar_->positionAs(pLabelInputedName_);
     getSceneDirector()->addSubGroup(pLabelSelectedChar_);
 
@@ -85,7 +85,7 @@ void NameEntryScene::processBehavior() {
             }
             pLabelInputedName_->_pKuroko->behave();
             pLabelSelectedChar_->rotateAs(pLabelInputedName_);
-            pLabelSelectedChar_->_pAFader->behave(); //チカチカ
+            pLabelSelectedChar_->pAFader_->behave(); //チカチカ
             //EVENT_MENU_NAMEENTRY_DONE まち。
             break;
         }
@@ -96,7 +96,7 @@ void NameEntryScene::processBehavior() {
                 _TRACE_("NameEntryScene::processBehavior() Prog has Just Changed (to NameEntryScene::PROG_DONE_DISP)");
                 pNameEntryBoard_->sinkMe(); //ネームエントリー板消去
                 pLabelSelectedChar_->inactivate(); //選択表示文字消去
-                pLabelInputedName_->_pAFader->beat(10, 5, 0, 0, -1); //入力ネーム点滅
+                pLabelInputedName_->pAFader_->beat(10, 5, 0, 0, -1); //入力ネーム点滅
                 pLabelInputedName_->_pKuroko->turnRzRyFaceAngTo(D0ANG, D0ANG,
                                                                  8000, 0,
                                                                  TURN_COUNTERCLOCKWISE, false);//急いで正常姿勢へ
@@ -122,7 +122,7 @@ void NameEntryScene::processBehavior() {
 
             pLabelInputedName_->_pKuroko->behave();
             pLabelSelectedChar_->rotateAs(pLabelInputedName_);
-            pLabelInputedName_->_pAFader->behave(); //点滅チカチカ
+            pLabelInputedName_->pAFader_->behave(); //点滅チカチカ
             break;
         }
 

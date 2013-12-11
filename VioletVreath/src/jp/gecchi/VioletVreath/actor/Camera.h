@@ -14,8 +14,6 @@ class Camera : public GgafLib::DefaultCamera {
 public:
     /** •½sˆÚ“®x‰‡ */
     GgafDxCore::GgafDxAxesMover* pAxMver_;
-    /** •ˆß‚Ì•èA */
-    GgafDxCore::GgafDxKurokoAsstA* pKurokoAsstA_;
 public:
     Camera(const char* prm_name);
 
