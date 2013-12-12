@@ -60,10 +60,10 @@ public:
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe) （内部で正負がprm_angular_distanceの正負に合わせられる）
      * @param prm_endacc_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
-    void turnCalmRzMvAngByDt(angle prm_angular_distance, int prm_target_frames,
+    void turnRzMvAngByDt(angle prm_angular_distance, int prm_target_frames,
                              float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                              bool prm_endacc_flg);
-    void turnCalmRyMvAngByDt(angle prm_angular_distance, int prm_target_frames,
+    void turnRyMvAngByDt(angle prm_angular_distance, int prm_target_frames,
                              float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                              bool prm_endacc_flg);
     /**
@@ -77,7 +77,7 @@ public:
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe) （内部で正負がprm_angular_distanceの正負に合わせられる）
      * @param prm_endacc_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
-    void turnCalmRzMvAngByDtTo(angle prm_ang_rz_target, int prm_way, int prm_target_frames,
+    void turnRzMvAngByDtTo(angle prm_ang_rz_target, int prm_way, int prm_target_frames,
                                float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                                bool prm_endacc_flg);
 
@@ -92,7 +92,7 @@ public:
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe) （内部で正負がprm_angular_distanceの正負に合わせられる）
      * @param prm_endacc_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
-    void turnCalmRyMvAngByDtTo(angle prm_ang_rt_target, int prm_way, int prm_target_frames,
+    void turnRyMvAngByDtTo(angle prm_ang_rt_target, int prm_way, int prm_target_frames,
                              float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                              bool prm_endacc_flg);
 
@@ -116,7 +116,7 @@ public:
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe)
      * @param prm_endacc_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
-    void turnCalmRzRyMvAngByDtTwd(
+    void turnRzRyMvAngByDtTo(
             angle prm_ang_rz_target, angle prm_ang_ry_target, int prm_way, bool prm_optimize_ang,
             int prm_target_frames,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -136,7 +136,7 @@ public:
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe)
      * @param prm_endacc_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
-    void turnCalmMvAngByDtTwd(
+    void turnMvAngByDtTwd(
             coord prm_tx, coord prm_ty, coord prm_tz, int prm_way, bool prm_optimize_ang,
             int prm_target_frames,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -154,7 +154,7 @@ public:
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe)
      * @param prm_endacc_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
-    void turnCalmMvAngByDtTwd(
+    void turnMvAngByDtTwd(
             GgafDxGeometricActor* prm_pActor_Target, int prm_way, bool prm_optimize_ang,
             int prm_target_frames,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -196,44 +196,54 @@ public:
      * @param prm_end_angvelo 最終角速度(ωe)
      * @param prm_endacc_flg true:目標時間に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
-    void turnCalmRzMvAngByVd(
+    void turnRzMvAngByVd(
             angvelo prm_top_angvelo, angle prm_angular_distance,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_endacc_flg);
-    void turnCalmRyMvAngByVd(
+    void turnRyMvAngByVd(
             angvelo prm_top_angvelo, angle prm_angular_distance,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_endacc_flg);
 
 
-    void turnCalmRzMvAngByVdTo(
+    void turnRzMvAngByVdTo(
             angvelo prm_top_angvelo, angle prm_ang_rz_target, int prm_way,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_endacc_flg);
 
-    void turnCalmRyMvAngByVdTo(
+    void turnRyMvAngByVdTo(
             angvelo prm_top_angvelo, angle prm_ang_ry_target, int prm_way,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_endacc_flg);
 
 
-    void turnCalmRzRyMvAngByVdTwd(
+    void turnRzRyMvAngByVdTo(
             angvelo prm_top_angvelo,
             angle prm_ang_rz_target, angle prm_ang_ry_target, int prm_way, bool prm_optimize_ang,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_endacc_flg);
 
-    void turnCalmMvAngByVdTwd(
+    void turnMvAngByVdTwd(
             angvelo prm_top_angvelo,
             coord prm_tx, coord prm_ty, coord prm_tz, int prm_way, bool prm_optimize_ang,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_endacc_flg);
 
-    void turnCalmMvAngByVdTwd(
+    void turnMvAngByVdTwd(
             angvelo prm_top_angvelo,
             GgafDxGeometricActor* prm_pActor_Target, int prm_way, bool prm_optimize_ang,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_endacc_flg);
+
+
+    inline bool isTurningMvAng() {
+        return (_smthMvRzAng._prm._flg || _smthMvRyAng._prm._flg) ? true : false;
+    }
+
+    inline void stopTurnMvAng() {
+        _smthMvRzAng._prm._flg = false;
+        _smthMvRyAng._prm._flg = false;
+    }
 
    /**
      * 黒衣の助手が振る舞う .

@@ -164,12 +164,12 @@ void FixedVelocitySplineKurokoLeader::behave() {
                 }
             }
 
-            coord X, Y, Z;
-            getPointCoord(_point_index, X, Y, Z);
-            pKuroko_target->turnMvAngTwd(X, Y, Z,
-                                          _pFixedVeloSplManuf->_angveloRzRyMv, 0,
-                                          _pFixedVeloSplManuf->_turn_way,
-                                          _pFixedVeloSplManuf->_turn_optimize);
+            coord x, y, z;
+            getPointCoord(_point_index, x, y, z);
+            pKuroko_target->turnMvAngTwd(x, y, z,
+                                         _pFixedVeloSplManuf->_angveloRzRyMv, 0,
+                                         _pFixedVeloSplManuf->_turn_way,
+                                         _pFixedVeloSplManuf->_turn_optimize);
             if (_point_index == 0) {
                 //最初の必然ブレイク、始点へ行く
                 //始点までに必要なフレーム数取得

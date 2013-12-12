@@ -31,7 +31,7 @@ void Teki002::processBehavior() {
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Z)) {
         angle trz = UTIL::simplifyAng(_pKuroko->_angFace[AXIS_Z] + D_ANG(170));
-        _pKuroko->helperC()->turnCalmRzRyMvAngByDtTwd(
+        _pKuroko->helperC()->turnRzRyMvAngByDtTo(
                 trz, 0, TURN_COUNTERCLOCKWISE, false,
                 60,
                 0.5, 0.5, 0,
@@ -39,7 +39,7 @@ void Teki002::processBehavior() {
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_X)) {
         angle trz = UTIL::simplifyAng(_pKuroko->_angFace[AXIS_Z] + D_ANG(170));
-        _pKuroko->helperC()->turnCalmRzRyMvAngByDtTwd(
+        _pKuroko->helperC()->turnRzRyMvAngByDtTo(
                 trz, 0, TURN_CLOCKWISE, false,
                 60,
                 0.5, 0.5, 0,

@@ -68,16 +68,16 @@ void CameraWorker::onSwitchCameraWork() {
     setMoveTargetCamBy(pCam);
     setMoveTargetCamVpBy(pVP);
     pCam->_pKuroko->stopMv();
-    pCam->_pKuroko->stopTurnMvAngSequence();
-    pCam->_pKuroko->stopTurnFaceAngSequence();
+    pCam->_pKuroko->stopTurnMvAng();
+    pCam->_pKuroko->stopTurnFaceAng();
     pCam->_pKuroko->helperA()->stopSlidingMv();
     pCam->pAxMver_->stopGravitationMvSequence();
     pCam->pAxMver_->setZeroVxyzMvVelo();
     pCam->pAxMver_->setZeroVxyzMvAcce();
 
     pVP->_pKuroko->stopMv();
-    pVP->_pKuroko->stopTurnMvAngSequence();
-    pVP->_pKuroko->stopTurnFaceAngSequence();
+    pVP->_pKuroko->stopTurnMvAng();
+    pVP->_pKuroko->stopTurnFaceAng();
     pVP->_pKuroko->helperA()->stopSlidingMv();
     pVP->pAxMver_->stopGravitationMvSequence();
     pVP->pAxMver_->setZeroVxyzMvVelo();

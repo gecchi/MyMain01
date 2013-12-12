@@ -191,11 +191,11 @@ void FixedFrameSplineKurokoLeader::behave() {
         //変わり目
         if (_prev_point_index != _point_index) {
             _prev_point_index = _point_index;
-            coord X, Y, Z;
-            getPointCoord(_point_index, X, Y, Z);
-            pKuroko_target->turnMvAngTwd(X, Y, Z,
-                                          _pFixedFrameSplManuf->_angveloRzRyMv, 0,
-                                          _pFixedFrameSplManuf->_turn_way, _pFixedFrameSplManuf->_turn_optimize);
+            coord x, y, z;
+            getPointCoord(_point_index, x, y, z);
+            pKuroko_target->turnMvAngTwd(x, y, z,
+                                         _pFixedFrameSplManuf->_angveloRzRyMv, 0,
+                                         _pFixedFrameSplManuf->_turn_way, _pFixedFrameSplManuf->_turn_optimize);
 
             if (_point_index == 0) {
                 //現座標と開始が離れている。

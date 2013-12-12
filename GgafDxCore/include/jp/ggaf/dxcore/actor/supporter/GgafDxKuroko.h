@@ -589,10 +589,6 @@ public:
 
     void forceRzRyMvAngVeloRange(angvelo prm_angveloRzRyMv01, angvelo prm_angveloRzRyMv02);
 
-    void setRzRyMvAngVelo(angvelo prm_angveloRzRyMv);
-
-    void setRzRyMvAngAcce(angacce prm_angacceRzRyMv);
-
     void setRzRyMvAngVelo(angvelo prm_angveloRzMv, angvelo prm_angveloRyMv);
 
     void setRzRyMvAngAcce(angacce prm_angacceRzMv, angacce prm_angacceRyMv);
@@ -989,46 +985,21 @@ public:
                        angvelo prm_angVelo, angacce prm_angAcce,
                        int prm_way);
 
-    void stopTurnMvAngSequence() {
-        _mv_ang_rz_target_flg = false;
-        _mv_ang_rz_target_stop_flg = false;
-        _mv_ang_ry_target_flg = false;
-        _mv_ang_rz_target_stop_flg = false;
-    }
+    void stopTurnMvAng();
 
-    void stopTurnFaceAngSequence() {
-        _face_ang_targeting_flg[AXIS_X] = false;
-        _face_ang_targeting_flg[AXIS_Y] = false;
-        _face_ang_targeting_flg[AXIS_Z] = false;
-        _taget_face_ang_alltime_pActor = nullptr;
-        _taget_face_ang_alltime_flg = false;
-    }
+    void stopTurnFaceAng();
 
     /**
      * 目標軸回転方角にターゲットするシークエンスが実行中か .
      * @return true:実行中/false:実行中でない
      */
-    bool isTurningFaceAng() {
-        if (_face_ang_targeting_flg[AXIS_X] ||
-            _face_ang_targeting_flg[AXIS_Y] ||
-            _face_ang_targeting_flg[AXIS_Z] ) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    bool isTurningFaceAng();
 
     /**
      * 目標移動方角にターゲットするシークエンスが実行中か .
      * @return true:実行中/false:実行中でない
      */
-    bool isTurningMvAng() {
-        if (_mv_ang_rz_target_flg || _mv_ang_ry_target_flg) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    bool isTurningMvAng();
 
     /**
      * 移動方角に伴って軸回転方角を更新 .
@@ -1052,10 +1023,7 @@ public:
     /**
      * 移動を停止します。
      */
-    void stopMv() {
-        setMvAcce(0);
-        setMvVelo(0);
-    }
+    void stopMv();
 
     /**
      * 黒衣が振る舞う .

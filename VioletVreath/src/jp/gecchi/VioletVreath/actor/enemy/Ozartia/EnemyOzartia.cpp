@@ -28,7 +28,7 @@ EnemyOzartia::EnemyOzartia(const char* prm_name) :
     pAFader_ = NEW GgafDxAlphaFader(this);
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI1_-1);
-    pProg2_ = createProgress(PROG_BANPEI2_-1);
+    pProg2_ = createProgress(PROG2_BANPEI-1);
     is_hit_ = false;
     _sx=_sy=_sz=100;
 

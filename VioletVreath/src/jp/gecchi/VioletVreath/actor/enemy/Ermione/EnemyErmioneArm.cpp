@@ -126,13 +126,13 @@ void EnemyErmioneArm::processBehavior() {
     //                                angRz_Target, angRy_Target,
     //                                aiming_ang_velo_, aiming_ang_velo_*0.04,
     //                                TURN_CLOSE_TO, false);
-                    _pKuroko->helperB()->turnCalmRzRyFaceAngByVdTo(
+                    _pKuroko->helperB()->turnRzRyFaceAngByVdTo(
                             aiming_ang_velo_,
                             angRz_Target, angRy_Target, TURN_CLOSE_TO, false,
                             0.4, 0.6, 0, true);
                 }
             }
-            if (_pKuroko->helperB()->isTurning()) {
+            if (_pKuroko->isTurningFaceAng()) {
                 // ‘Ò‹@
             } else {
                 _pProg->change(PROG_NOTHING);

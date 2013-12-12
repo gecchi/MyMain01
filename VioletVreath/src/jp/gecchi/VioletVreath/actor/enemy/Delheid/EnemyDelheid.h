@@ -26,7 +26,7 @@ public:
         PROG2_OPEN,
         PROG2_SHOT,
         PROG2_CLOSE,
-        PROG_BANPEI2_,
+        PROG2_BANPEI,
     };
     enum {
         MPH_CLOSE,

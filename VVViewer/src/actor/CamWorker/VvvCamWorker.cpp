@@ -315,7 +315,7 @@ void VvvCamWorker::processBehavior() {
         }
     }
 
-    _TRACE_("move_target_XY_CAM_UP_="<<move_target_XY_CAM_UP_);
+//    _TRACE_("move_target_XY_CAM_UP_="<<move_target_XY_CAM_UP_);
     //ƒJƒƒ‰‚ÌUP‚ðŒvŽZ
     angvelo angvelo_cam_up = 30000 / 20;
     if (angXY_nowCamUp_ != move_target_XY_CAM_UP_) {

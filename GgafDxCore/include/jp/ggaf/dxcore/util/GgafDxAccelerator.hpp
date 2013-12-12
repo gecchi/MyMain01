@@ -456,7 +456,7 @@ public:
                     T diff_to_end = _prm._target_distance2 - _prm._moved2;
                     //Te=(2*D)/(V0+Vt)
 
-                    //double t = (2.0*diff_to_end)/(_velo+_prm._end_velo); //残フレーム数
+                   // double t = (2.0*diff_to_end)/(_velo+_prm._end_velo); //残フレーム数
                     //_TRACE_("double t = (2.0*diff_to_end)/(_velo+_prm._end_velo); //残フレーム数");
                     //_TRACE_("double t = (2.0*"<<diff_to_end<<")/("<<_velo<<"+"<<_prm._end_velo<<"); //残フレーム数");
                     //_TRACE_("double t = ("<<2.0*diff_to_end<<")/("<<_velo+_prm._end_velo<<"); //残フレーム数");
@@ -627,7 +627,7 @@ public:
         }
 #ifdef MY_DEBUG
         if (_prm._frame_of_spent > 60*60*10) {
-            //_TRACE_("＜警告＞GgafDxAccelerator::behave() 10分以上滑りっぱなしなんですが！")
+            throwGgafCriticalException("GgafDxAccelerator::behave() 10分以上滑りっぱなしなんですが！");
         }
 #endif
 

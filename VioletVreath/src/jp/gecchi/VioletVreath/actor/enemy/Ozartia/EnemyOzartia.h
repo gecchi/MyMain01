@@ -41,7 +41,7 @@ public:
         PROG2_SHOT02 ,
         PROG2_SHOT03 ,
         PROG2_SHOT04 ,
-        PROG_BANPEI2_,
+        PROG2_BANPEI,
     };
 
     enum {

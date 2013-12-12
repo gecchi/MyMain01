@@ -71,7 +71,7 @@ void EnemyEresShot001::processBehavior() {
 
     //•ûŒü“]Š·I—¹
     if (getActiveFrame() == frame_TurnBegin_ + frame_TurnInterval_) {
-        _pKuroko->setRzRyMvAngVelo(0);
+        _pKuroko->setRzRyMvAngVelo(0,0);
         _pKuroko->_mv_ang_ry_target_flg = false;
         _pKuroko->_mv_ang_rz_target_flg = false;
     }

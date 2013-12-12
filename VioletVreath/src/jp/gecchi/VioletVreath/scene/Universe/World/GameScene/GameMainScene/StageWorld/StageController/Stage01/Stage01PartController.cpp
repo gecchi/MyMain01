@@ -23,10 +23,11 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {100,1000};
+	frame f[] = {1,400};
 	_paFrame_NextEvent = new frame[2];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 2;
+	orderActorToFactory(10000000, EnemyGlaja, "EnemyGlaja-1");
     // gen01 end
     useProgress(Stage01PartController::PROG_BANPEI-1);
 }
@@ -41,16 +42,13 @@ void Stage01PartController::processBehavior() {
     // gen02 start
 	if (getBehaveingFrame() == _paFrame_NextEvent[_cnt_event]) {
 		switch (getBehaveingFrame()) {
-			case 100: {
-				orderActorToFactory(10000000, EnemyErmione, "EnemyErmione-1");
+			case 1: {
 				break;
 			}
-			case 1000: {
-				EnemyErmione* p = (EnemyErmione*)obtainActorFromFactory(10000000);
+			case 400: {
+				EnemyGlaja* p = (EnemyGlaja*)obtainActorFromFactory(10000000);
 				getSceneDirector()->addSubGroup(p);
-				p->_x = 1000000;
-				p->_y = 0;
-				p->_z = 500000;
+				p->position(100000,0,0);
 				break;
 			}
 			default :

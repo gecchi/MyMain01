@@ -32,7 +32,7 @@ void GgafDxKurokoHelperC::behave() {
     }
 }
 
-void GgafDxKurokoHelperC::turnCalmRzMvAngByDt(
+void GgafDxKurokoHelperC::turnRzMvAngByDt(
                         angle prm_angular_distance, int prm_target_frames,
                         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                         bool prm_endacc_flg ) {
@@ -44,7 +44,7 @@ void GgafDxKurokoHelperC::turnCalmRzMvAngByDt(
                            prm_p1,prm_p2,prm_end_angvelo,
                            prm_endacc_flg);
 }
-void GgafDxKurokoHelperC::turnCalmRyMvAngByDt(
+void GgafDxKurokoHelperC::turnRyMvAngByDt(
                         angle prm_angular_distance, int prm_target_frames,
                         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                         bool prm_endacc_flg ) {
@@ -57,7 +57,7 @@ void GgafDxKurokoHelperC::turnCalmRyMvAngByDt(
                            prm_endacc_flg);
 }
 
-void GgafDxKurokoHelperC::turnCalmRzMvAngByVd(
+void GgafDxKurokoHelperC::turnRzMvAngByVd(
         angvelo prm_top_angvelo, angle prm_angular_distance,
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
         bool prm_endacc_flg) {
@@ -68,7 +68,7 @@ void GgafDxKurokoHelperC::turnCalmRzMvAngByVd(
                                 prm_p1,prm_p2, prm_end_angvelo,
                                 prm_endacc_flg);
 }
-void GgafDxKurokoHelperC::turnCalmRyMvAngByVd(
+void GgafDxKurokoHelperC::turnRyMvAngByVd(
         angvelo prm_top_angvelo, angle prm_angular_distance,
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
         bool prm_endacc_flg) {
@@ -81,24 +81,24 @@ void GgafDxKurokoHelperC::turnCalmRyMvAngByVd(
 }
 
 
-void GgafDxKurokoHelperC::turnCalmRzMvAngByDtTo(angle prm_ang_rz_target, int prm_way, int prm_target_frames,
+void GgafDxKurokoHelperC::turnRzMvAngByDtTo(angle prm_ang_rz_target, int prm_way, int prm_target_frames,
                                               float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                                               bool prm_endacc_flg) {
     angle angular_distance = _pMaster->getRzMvAngDistance(prm_ang_rz_target, prm_way);
-    turnCalmRzMvAngByDt(angular_distance, prm_target_frames,
+    turnRzMvAngByDt(angular_distance, prm_target_frames,
                         prm_p1, prm_p2, prm_end_angvelo,
                         prm_endacc_flg);
 }
-void GgafDxKurokoHelperC::turnCalmRyMvAngByDtTo(angle prm_ang_ry_target, int prm_way, int prm_target_frames,
+void GgafDxKurokoHelperC::turnRyMvAngByDtTo(angle prm_ang_ry_target, int prm_way, int prm_target_frames,
                                               float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                                               bool prm_endacc_flg) {
     angle angular_distance = _pMaster->getRyMvAngDistance(prm_ang_ry_target, prm_way);
-    turnCalmRyMvAngByDt(angular_distance, prm_target_frames,
+    turnRyMvAngByDt(angular_distance, prm_target_frames,
                         prm_p1, prm_p2, prm_end_angvelo,
                         prm_endacc_flg);
 }
 
-void GgafDxKurokoHelperC::turnCalmRzRyMvAngByDtTwd(
+void GgafDxKurokoHelperC::turnRzRyMvAngByDtTo(
         angle prm_ang_rz_target, angle prm_ang_ry_target, int prm_way, bool prm_optimize_ang,
         int prm_target_frames,
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -114,15 +114,15 @@ void GgafDxKurokoHelperC::turnCalmRzRyMvAngByDtTwd(
         out_ry_angular_distance = _pMaster->getRyMvAngDistance(prm_ang_ry_target, prm_way);
     }
 
-    turnCalmRzMvAngByDt(out_rz_angular_distance, prm_target_frames,
+    turnRzMvAngByDt(out_rz_angular_distance, prm_target_frames,
                         prm_p1, prm_p2, prm_end_angvelo,
                         prm_endacc_flg);
-    turnCalmRyMvAngByDt(out_ry_angular_distance, prm_target_frames,
+    turnRyMvAngByDt(out_ry_angular_distance, prm_target_frames,
                         prm_p1, prm_p2, prm_end_angvelo,
                         prm_endacc_flg);
 }
 
-void GgafDxKurokoHelperC::turnCalmMvAngByDtTwd(
+void GgafDxKurokoHelperC::turnMvAngByDtTwd(
         coord prm_tx, coord prm_ty, coord prm_tz, int prm_way, bool prm_optimize_ang,
         int prm_target_frames,
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -134,7 +134,7 @@ void GgafDxKurokoHelperC::turnCalmMvAngByDtTwd(
                            prm_tz - _pMaster->_pActor->_z,
                            out_angRz_Target,
                            out_angRy_Target);
-    turnCalmRzRyMvAngByDtTwd(
+    turnRzRyMvAngByDtTo(
             out_angRz_Target, out_angRy_Target, prm_way, prm_optimize_ang,
             prm_target_frames,
             prm_p1, prm_p2, prm_end_angvelo,
@@ -142,12 +142,12 @@ void GgafDxKurokoHelperC::turnCalmMvAngByDtTwd(
 
 }
 
-void GgafDxKurokoHelperC::turnCalmMvAngByDtTwd(
+void GgafDxKurokoHelperC::turnMvAngByDtTwd(
                     GgafDxGeometricActor* prm_pActor_Target, int prm_way, bool prm_optimize_ang,
                     int prm_target_frames,
                     float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                     bool prm_endacc_flg) {
-    turnCalmMvAngByDtTwd(
+    turnMvAngByDtTwd(
             prm_pActor_Target->_x, prm_pActor_Target->_y, prm_pActor_Target->_z, prm_way, prm_optimize_ang,
             prm_target_frames,
             prm_p1, prm_p2, prm_end_angvelo,
@@ -155,28 +155,28 @@ void GgafDxKurokoHelperC::turnCalmMvAngByDtTwd(
 }
 
 
-void GgafDxKurokoHelperC::turnCalmRzMvAngByVdTo(
+void GgafDxKurokoHelperC::turnRzMvAngByVdTo(
         angvelo prm_top_angvelo, angle prm_ang_rz_target, int prm_way,
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
         bool prm_endacc_flg) {
         angle angular_distance = _pMaster->getRzMvAngDistance(prm_ang_rz_target, prm_way);
-        turnCalmRzMvAngByVd(prm_top_angvelo, angular_distance,
+        turnRzMvAngByVd(prm_top_angvelo, angular_distance,
                             prm_p1, prm_p2, prm_end_angvelo,
                             prm_endacc_flg);
 }
 
-void GgafDxKurokoHelperC::turnCalmRyMvAngByVdTo(
+void GgafDxKurokoHelperC::turnRyMvAngByVdTo(
         angvelo prm_top_angvelo, angle prm_ang_ry_target, int prm_way,
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
         bool prm_endacc_flg) {
         angle angular_distance = _pMaster->getRyMvAngDistance(prm_ang_ry_target, prm_way);
-        turnCalmRyMvAngByVd(
+        turnRyMvAngByVd(
                 prm_top_angvelo, angular_distance,
                 prm_p1, prm_p2, prm_end_angvelo,
                 prm_endacc_flg);
 }
 
-void GgafDxKurokoHelperC::turnCalmRzRyMvAngByVdTwd(
+void GgafDxKurokoHelperC::turnRzRyMvAngByVdTo(
         angvelo prm_top_angvelo,
         angle prm_ang_rz_target, angle prm_ang_ry_target, int prm_way, bool prm_optimize_ang,
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -194,24 +194,24 @@ void GgafDxKurokoHelperC::turnCalmRzRyMvAngByVdTwd(
     double dry = ABS(out_ry_angular_distance);
     if (drz > dry) {
         double drr = dry / drz;
-        turnCalmRzMvAngByVd(prm_top_angvelo, out_rz_angular_distance,
+        turnRzMvAngByVd(prm_top_angvelo, out_rz_angular_distance,
                             prm_p1, prm_p2, prm_end_angvelo,
                             prm_endacc_flg);
-        turnCalmRyMvAngByVd(prm_top_angvelo*drr, out_ry_angular_distance,
+        turnRyMvAngByVd(prm_top_angvelo*drr, out_ry_angular_distance,
                             prm_p1, prm_p2, prm_end_angvelo,
                             prm_endacc_flg);
     } else {
         double drr = drz / dry;
-        turnCalmRzMvAngByVd(prm_top_angvelo*drr, out_rz_angular_distance,
+        turnRzMvAngByVd(prm_top_angvelo*drr, out_rz_angular_distance,
                             prm_p1, prm_p2, prm_end_angvelo,
                             prm_endacc_flg);
-        turnCalmRyMvAngByVd(prm_top_angvelo, out_ry_angular_distance,
+        turnRyMvAngByVd(prm_top_angvelo, out_ry_angular_distance,
                             prm_p1, prm_p2, prm_end_angvelo,
                             prm_endacc_flg);
     }
 }
 
-void GgafDxKurokoHelperC::turnCalmMvAngByVdTwd(
+void GgafDxKurokoHelperC::turnMvAngByVdTwd(
         angvelo prm_top_angvelo,
         coord prm_tx, coord prm_ty, coord prm_tz, int prm_way, bool prm_optimize_ang,
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -223,20 +223,20 @@ void GgafDxKurokoHelperC::turnCalmMvAngByVdTwd(
                            prm_tz - _pMaster->_pActor->_z,
                            out_angRz_Target,
                            out_angRy_Target);
-    turnCalmRzRyMvAngByVdTwd(
+    turnRzRyMvAngByVdTo(
             prm_top_angvelo,
             out_angRz_Target, out_angRy_Target, prm_way, prm_optimize_ang,
             prm_p1, prm_p2, prm_end_angvelo,
             prm_endacc_flg);
 }
 
-void GgafDxKurokoHelperC::turnCalmMvAngByVdTwd(
+void GgafDxKurokoHelperC::turnMvAngByVdTwd(
         angvelo prm_top_angvelo,
         GgafDxGeometricActor* prm_pActor_Target, int prm_way, bool prm_optimize_ang,
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
         bool prm_endacc_flg) {
 
-    turnCalmMvAngByVdTwd(
+    turnMvAngByVdTwd(
             prm_top_angvelo,
             prm_pActor_Target->_x, prm_pActor_Target->_y, prm_pActor_Target->_z, prm_way, prm_optimize_ang,
             prm_p1, prm_p2, prm_end_angvelo,

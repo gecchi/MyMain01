@@ -226,15 +226,16 @@ public:
 
     /**
      * アングル値の差を取る .
+     * TURN_CLOSE_TO         ・・・ ターゲットの回転角と距離が近い方の回転方向で取得、左回りで正、又は、右回りの負の値になる。<BR>
+     * TURN_ANTICLOSE_TO     ・・・ ターゲットの回転角と距離が遠回りの方の回転方向で取得、左回りで正、又は、右回りの負の値になる。<BR>
      * TURN_COUNTERCLOCKWISE ・・・ 回転方向が左回りで差異角取得、正の値で返る。<BR>
      * TURN_CLOCKWISE        ・・・ 回転方向が右回りで差異角取得、負の値で返る。<BR>
-     * TURN_CLOSE_TO         ・・・ ターゲットの回転角と距離が近い方の回転方向で取得、左回りで正、又は、右回りの負の値になる。<BR>
-     * @param angFrom
-     * @param angTo
-     * @param prm_way TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO
+     * @param prm_angFrom
+     * @param prm_angTo
+     * @param prm_way TURN_CLOSE_TO/TURN_ANTICLOSE_TO/TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE
      * @return アングル値の差（結果が 反時計周りは正、時計回りは負)
      */
-    static angle getAngDiff(angle angFrom, angle angTo, int prm_way=TURN_CLOSE_TO);
+    static angle getAngDiff(angle prm_angFrom, angle prm_angTo, int prm_way=TURN_CLOSE_TO);
 
     /**
      * 平面上において、'N'way弾(N=整数)の射出アングル値をセット(配列)で取得 .

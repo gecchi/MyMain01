@@ -60,7 +60,7 @@ public:
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe) （内部で正負がprm_angular_distanceの正負に合わせられる）
      * @param prm_endacc_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
-    void turnCalmFaceAngByDt(axis prm_axis,
+    void turnFaceAngByDt(axis prm_axis,
                              angle prm_angular_distance, int prm_target_frames,
                              float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                              bool prm_endacc_flg);
@@ -76,7 +76,7 @@ public:
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe) （内部で正負がprm_angular_distanceの正負に合わせられる）
      * @param prm_endacc_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
-    void turnCalmRzFaceAngByDtTo(angle prm_ang_rz_target, int prm_way, int prm_target_frames,
+    void turnRzFaceAngByDtTo(angle prm_ang_rz_target, int prm_way, int prm_target_frames,
                                  float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                                  bool prm_endacc_flg);
 
@@ -91,7 +91,7 @@ public:
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe) （内部で正負がprm_angular_distanceの正負に合わせられる）
      * @param prm_endacc_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
-    void turnCalmRyFaceAngByDtTo(angle prm_ang_rt_target, int prm_way, int prm_target_frames,
+    void turnRyFaceAngByDtTo(angle prm_ang_rt_target, int prm_way, int prm_target_frames,
                              float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                              bool prm_endacc_flg);
     /**
@@ -105,7 +105,7 @@ public:
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe) （内部で正負がprm_angular_distanceの正負に合わせられる）
      * @param prm_endacc_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
-    void spinCalmRxFaceAngByDtTo(angle prm_ang_rx_target, int prm_way, int prm_target_frames,
+    void spinRxFaceAngByDtTo(angle prm_ang_rx_target, int prm_way, int prm_target_frames,
                                      float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                                      bool prm_endacc_flg);
 
@@ -129,7 +129,7 @@ public:
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe)
      * @param prm_endacc_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
-    void turnCalmRzRyFaceAngByDtTo(
+    void turnRzRyFaceAngByDtTo(
             angle prm_ang_rz_target, angle prm_ang_ry_target, int prm_way, bool prm_optimize_ang,
             int prm_target_frames,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -149,7 +149,7 @@ public:
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe)
      * @param prm_endacc_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
-    void turnCalmRzRyFaceAngByDtTwd(
+    void turnFaceAngByDtTwd(
             coord prm_tx, coord prm_ty, coord prm_tz, int prm_way, bool prm_optimize_ang,
             int prm_target_frames,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -167,7 +167,7 @@ public:
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe)
      * @param prm_endacc_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
-    void turnCalmRzRyFaceAngByDtTwd(
+    void turnFaceAngByDtTwd(
             GgafDxGeometricActor* prm_pActor_Target, int prm_way, bool prm_optimize_ang,
             int prm_target_frames,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -209,66 +209,61 @@ public:
      * @param prm_end_angvelo 最終角速度(ωe)
      * @param prm_endacc_flg true:目標時間に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
-    void turnCalmFaceAngByVd(
+    void turnFaceAngByVd(
             axis prm_axis,
             angvelo prm_top_angvelo, angle prm_angular_distance,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_endacc_flg);
 
-    void turnCalmRzFaceAngByVdTo(
+    void turnRzFaceAngByVdTo(
             angvelo prm_top_angvelo, angle prm_ang_rz_target, int prm_way,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_endacc_flg);
 
-    void turnCalmRyFaceAngByVdTo(
+    void turnRyFaceAngByVdTo(
             angvelo prm_top_angvelo, angle prm_ang_ry_target, int prm_way,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_endacc_flg);
 
-    void spinCalmRxFaceAngByVdTo(
+    void spinRxFaceAngByVdTo(
             angvelo prm_top_angvelo, angle prm_ang_rx_target, int prm_way,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_endacc_flg);
 
 
-    void turnCalmRzRyFaceAngByVdTo(
+    void turnRzRyFaceAngByVdTo(
             angvelo prm_top_angvelo,
             angle prm_ang_rz_target, angle prm_ang_ry_target, int prm_way, bool prm_optimize_ang,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_endacc_flg);
 
-    void turnCalmRzRyFaceAngByVdTwd(
+    void turnFaceAngByVdTwd(
             angvelo prm_top_angvelo,
             coord prm_tx, coord prm_ty, coord prm_tz, int prm_way, bool prm_optimize_ang,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_endacc_flg);
 
-    void turnCalmRzRyFaceAngByVdTwd(
+    void turnFaceAngByVdTwd(
             angvelo prm_top_angvelo,
             GgafDxGeometricActor* prm_pActor_Target, int prm_way, bool prm_optimize_ang,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_endacc_flg);
 
-    bool isTurning() {
-        if (_smthFaceAng[AXIS_Z]._prm._flg || _smthFaceAng[AXIS_Y]._prm._flg) {
+    inline bool isTurningFaceAng() {
+        if (_smthFaceAng[AXIS_X]._prm._flg || _smthFaceAng[AXIS_Y]._prm._flg || _smthFaceAng[AXIS_Z]._prm._flg) {
             return true;
         } else {
             return false;
         }
     }
-//
-//    void stopTurning() {
-//        _smthMv._prm._flg = false;
-//    }
-//
-//    bool isJustFinishTurn() {
-//        if (_smthMv._prm._flg == false && _smthMv._prm._progress != -1) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-   /**
+
+    inline void stopTurnFaceAng() {
+        _smthFaceAng[AXIS_X]._prm._flg = false;
+        _smthFaceAng[AXIS_Y]._prm._flg = false;
+        _smthFaceAng[AXIS_Z]._prm._flg = false;
+    }
+
+    /**
      * 黒衣の助手が振る舞う .
      * 助手が、師匠にいろいろ設定を行いますので、師匠が振る舞う(behave())前に実行しましょう。
      */

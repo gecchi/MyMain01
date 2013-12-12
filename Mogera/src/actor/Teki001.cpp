@@ -89,13 +89,13 @@ void Teki001::processBehavior() {
     int dz = PX_C(100)*sz;
 
     if (pressD && press1) {
-        _pKuroko->helperB()->turnCalmRzRyFaceAngByVdTwd(
+        _pKuroko->helperB()->turnFaceAngByVdTwd(
                 D_ANG(2),
                 _x + dx, _y + dy, _z + dz, TURN_CLOSE_TO, true,
                 0.3, 0.7, 0, true);
     }
     if (pressT && press1) {
-        _pKuroko->helperB()->turnCalmRzRyFaceAngByDtTwd(
+        _pKuroko->helperB()->turnFaceAngByDtTwd(
                 _x + dx, _y + dy, _z + dz, TURN_CLOSE_TO, true,
                 60,
                 0.3, 0.7, 0, true);

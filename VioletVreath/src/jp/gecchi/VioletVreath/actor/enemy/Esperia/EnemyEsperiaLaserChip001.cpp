@@ -37,8 +37,8 @@ void EnemyEsperiaLaserChip001::onActive() {
     //ステータスリセット
     _pStatus->reset();
     begin_y_ = _y;
-    _pKuroko->stopTurnMvAngSequence();
-    _pKuroko->setRzRyMvAngVelo(0);
+    _pKuroko->stopTurnMvAng();
+    _pKuroko->setRzRyMvAngVelo(0,0);
     if (_pChip_front == nullptr) {
         _pKuroko->setMvAngTwd(tX1_, tY1_, tZ1_);
         _pProg->reset(PROG_MOVE_UP);
@@ -121,8 +121,8 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
                                        TURN_CLOSE_TO, true);
             }
             if (_pProg->getFrameInProgress() > 90) {
-                _pKuroko->stopTurnMvAngSequence();
-                _pKuroko->setRzRyMvAngVelo(0);
+                _pKuroko->stopTurnMvAng();
+                _pKuroko->setRzRyMvAngVelo(0,0);
                 _pProg->changeNext();
             }
             break;

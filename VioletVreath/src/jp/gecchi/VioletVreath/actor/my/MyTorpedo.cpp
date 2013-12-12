@@ -72,9 +72,9 @@ void MyTorpedo::onActive() {
     }
 
     pKuroko->forceRzRyMvAngVeloRange(-40000, 40000);
-    pKuroko->setRzRyMvAngVelo(0);
-    pKuroko->setRzRyMvAngAcce(0);
-    pKuroko->stopTurnMvAngSequence();
+    pKuroko->setRzRyMvAngVelo(0,0);
+    pKuroko->setRzRyMvAngAcce(0,0);
+    pKuroko->stopTurnMvAng();
     begin_x_ = _x;
     begin_y_ = _y;
     begin_z_ = _z;
@@ -147,8 +147,8 @@ void MyTorpedo::processBehavior() {
 
                         } else {
                             //‚Ü‚Á‚·‚®
-                            pKuroko->setRzRyMvAngVelo(0);
-                            pKuroko->setRzRyMvAngAcce(0);
+                            pKuroko->setRzRyMvAngVelo(0,0);
+                            pKuroko->setRzRyMvAngAcce(0,0);
                         }
                     } else {
                         pKuroko->turnRzRyMvAngTo(
@@ -191,8 +191,8 @@ void MyTorpedo::processBehavior() {
 
                         } else {
                             //‚Ü‚Á‚·‚®
-                            pKuroko->setRzRyMvAngVelo(0);
-                            pKuroko->setRzRyMvAngAcce(0);
+                            pKuroko->setRzRyMvAngVelo(0,0);
+                            pKuroko->setRzRyMvAngAcce(0,0);
                         }
                     } else {
                         pKuroko->turnRzRyMvAngTo(
@@ -210,8 +210,8 @@ void MyTorpedo::processBehavior() {
         }
         //ƒ€[ƒu‚S
         if (move_section_ == 4) {
-            pKuroko->setRzRyMvAngVelo(0);
-            pKuroko->setRzRyMvAngAcce(0);
+            pKuroko->setRzRyMvAngVelo(0,0);
+            pKuroko->setRzRyMvAngAcce(0,0);
         }
 
         pKuroko->behave();

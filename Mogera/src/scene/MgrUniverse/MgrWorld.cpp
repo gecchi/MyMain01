@@ -79,8 +79,8 @@ void MgrWorld::initialize() {
     pTeki_->inactivate();
     pMikata_->inactivate();
     pBar_->inactivate();
-    pTestBar_->inactivate();
-    //pTeki002_->inactivate();
+    //pTestBar_->inactivate();
+    pTeki002_->inactivate();
     pTeki_->position(0, PX_C(240)/2);
     pMikata_->position(0, PX_C(-240));
 }

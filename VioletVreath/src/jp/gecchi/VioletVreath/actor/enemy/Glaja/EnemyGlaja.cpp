@@ -54,7 +54,7 @@ void EnemyGlaja::processBehavior() {
              setHitAble(false);
              pAFader_->setAlpha(0);
              _pKuroko->keepOnTurningFaceAngTwd(pMyShip,
-                                                D_ANG(2), 0, TURN_CLOSE_TO, false);
+                                               D_ANG(2), 0, TURN_CLOSE_TO, false);
              _pMorpher->setWeight(0.0);
              UTIL::activateEntryEffectOf(this);
              _pProg->changeNext();
@@ -177,3 +177,4 @@ EnemyGlaja::~EnemyGlaja() {
     pConn_Shot_->close();
     GGAF_DELETE(pAFader_);
 }
+
