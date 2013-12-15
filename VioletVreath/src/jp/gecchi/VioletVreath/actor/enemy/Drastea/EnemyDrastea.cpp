@@ -18,7 +18,7 @@ using namespace VioletVreath;
 EnemyDrastea::EnemyDrastea(const char* prm_name) :
         CubeMapMeshSetActor(prm_name, "Drastea", STATUS(EnemyDrastea)) {
     _class_name = "EnemyDrastea";
-    pAxMver_ = NEW GgafDxAxesMover(this);
+    pAxsMver_ = NEW GgafDxAxesMover(this);
     colli_box_dX_ = 1;
     colli_box_dY_ = 1;
     colli_box_dZ_ = 1;
@@ -81,7 +81,7 @@ void EnemyDrastea::initialize() {
 void EnemyDrastea::onActive() {
     _pStatus->reset();
     _pKuroko->setMvVelo(0);
-    pAxMver_->setVxMvVelo(-3000);
+    pAxsMver_->setVxMvVelo(-3000);
     _pKuroko->setFaceAngVelo(AXIS_Z, 1000);
     _pKuroko->setFaceAngVelo(AXIS_Y, 300);
     _pKuroko->setFaceAngVelo(AXIS_X, 700);
@@ -98,7 +98,7 @@ void EnemyDrastea::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     //À•W‚É”½‰f
     _pKuroko->behave();
-    pAxMver_->behave();
+    pAxsMver_->behave();
     _pSeTx->behave();
 }
 
@@ -124,6 +124,6 @@ void EnemyDrastea::onInactive() {
 }
 
 EnemyDrastea::~EnemyDrastea() {
-    GGAF_DELETE(pAxMver_);
+    GGAF_DELETE(pAxsMver_);
 }
 

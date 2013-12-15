@@ -182,10 +182,10 @@ void EnemyOzartia::processBehavior() {
         case PROG1_MOVING: {
             if (_pProg->isJustChanged()) {
                 //自機の正面付近へスイーっと行きます
-                _pKuroko->helperA()->slideMvByVd(_pKuroko->getMvVeloTop(), UTIL::getDistance(this, &posMvTarget_),
+                _pKuroko->hlprA()->slideMvByVd(_pKuroko->getMvVeloTop(), UTIL::getDistance(this, &posMvTarget_),
                                        0.3f, 0.7f, _pKuroko->getMvVeloBottom(), true);
             }
-            if (!_pKuroko->helperA()->isSlidingMv()) {
+            if (!_pKuroko->hlprA()->isSlidingMv()) {
                 //到着したら終了
                 _pProg->change(PROG1_STAY);
             }

@@ -195,19 +195,26 @@ void GgafDxKurokoHelperC::turnRzRyMvAngByVdTo(
     if (drz > dry) {
         double drr = dry / drz;
         turnRzMvAngByVd(prm_top_angvelo, out_rz_angular_distance,
-                            prm_p1, prm_p2, prm_end_angvelo,
-                            prm_endacc_flg);
+                        prm_p1, prm_p2, prm_end_angvelo,
+                        prm_endacc_flg);
         turnRyMvAngByVd(prm_top_angvelo*drr, out_ry_angular_distance,
-                            prm_p1, prm_p2, prm_end_angvelo,
-                            prm_endacc_flg);
-    } else {
+                        prm_p1, prm_p2, prm_end_angvelo,
+                        prm_endacc_flg);
+    } else if (drz < dry) {
         double drr = drz / dry;
         turnRzMvAngByVd(prm_top_angvelo*drr, out_rz_angular_distance,
-                            prm_p1, prm_p2, prm_end_angvelo,
-                            prm_endacc_flg);
+                        prm_p1, prm_p2, prm_end_angvelo,
+                        prm_endacc_flg);
         turnRyMvAngByVd(prm_top_angvelo, out_ry_angular_distance,
-                            prm_p1, prm_p2, prm_end_angvelo,
-                            prm_endacc_flg);
+                        prm_p1, prm_p2, prm_end_angvelo,
+                        prm_endacc_flg);
+    } else {
+        turnRzMvAngByVd(prm_top_angvelo, out_rz_angular_distance,
+                        prm_p1, prm_p2, prm_end_angvelo,
+                        prm_endacc_flg);
+        turnRyMvAngByVd(prm_top_angvelo, out_ry_angular_distance,
+                        prm_p1, prm_p2, prm_end_angvelo,
+                        prm_endacc_flg);
     }
 }
 

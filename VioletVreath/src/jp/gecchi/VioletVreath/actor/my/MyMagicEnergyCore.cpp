@@ -22,7 +22,7 @@ MyMagicEnergyCore::MyMagicEnergyCore(const char* prm_name) :
         DefaultMeshActor(prm_name, "MagicEnergyCore", STATUS(MyMagicEnergyCore)) {
     _class_name = "MyMagicEnergyCore";
     pScaler_ = NEW GgafDxScaler(this);
-    pAxMver_ = NEW GgafDxAxesMover(this);
+    pAxsMver_ = NEW GgafDxAxesMover(this);
     MyMagicEnergy* p = NEW MyMagicEnergy("MyMagicEnergy", this);
     addSubLast(p);
     setAlpha(0.7);
@@ -39,7 +39,7 @@ void MyMagicEnergyCore::initialize() {
 }
 
 void MyMagicEnergyCore::onActive() {
-    pAxMver_->execGravitationMvSequenceTwd(P_MYSHIP, 10000, 200, 2000);
+    pAxsMver_->execGravitationMvSequenceTwd(P_MYSHIP, 10000, 200, 2000);
 }
 
 void MyMagicEnergyCore::processBehavior() {
@@ -58,7 +58,7 @@ void MyMagicEnergyCore::processBehavior() {
     }
 
     pScaler_->behave();
-    pAxMver_->behave();
+    pAxsMver_->behave();
     _pKuroko->behave();
 }
 
@@ -81,5 +81,5 @@ bool MyMagicEnergyCore::isOutOfUniverse() {
 
 MyMagicEnergyCore::~MyMagicEnergyCore() {
     GGAF_DELETE(pScaler_);
-    GGAF_DELETE(pAxMver_);
+    GGAF_DELETE(pAxsMver_);
 }

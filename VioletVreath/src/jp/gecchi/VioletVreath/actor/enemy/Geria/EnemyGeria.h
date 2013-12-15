@@ -13,7 +13,7 @@ public:
         SE_FIRE     ,
     };
     /** 平行移動支援 */
-    GgafDxCore::GgafDxAxesMover* pAxMver_;
+    GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
     int iMovePatternNo_;
     /** 弾発射効果エフェクト */

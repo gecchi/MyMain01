@@ -19,7 +19,7 @@ public:
         SE_EXPLOSION ,
     };
     /** •½sˆÚ“®x‰‡ */
-    GgafDxCore::GgafDxAxesMover* pAxMver_;
+    GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
     int width_x_;
     int height_z_;

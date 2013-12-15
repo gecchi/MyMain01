@@ -26,7 +26,7 @@ EnemyOmulus::EnemyOmulus(const char* prm_name) :
     is_open_hatch_ = false;
     frame_of_open_interval_  = 3*60;
     frame_of_close_interval_ = 20*60;
-    frame_of_morph_interval_   = 120;
+    frame_of_morph_interval_ = 120;
 
     pDepo_Fired_ = nullptr;
     pDepoConnection_ = connect_DepositoryManager("Talante");

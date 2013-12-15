@@ -17,7 +17,7 @@ using namespace VioletVreath;
 ScoreItem::ScoreItem(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat)
                : Item(prm_name, prm_model, prm_pStat) {
     _class_name = "ScoreItem";
-    pAxMver_ = NEW GgafDxAxesMover(this);
+    pAxsMver_ = NEW GgafDxAxesMover(this);
     effectBlendOne(); //加算合成するTechnique指定
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(false);  //Zバッファは書き込み無し
@@ -42,10 +42,10 @@ void ScoreItem::onActive() {
     // _x, _y, _z は発生元座標に設定済み
     setHitAble(true, false);
 
-    pAxMver_->forceVxyzMvVeloRange(-30000, 30000);
-    pAxMver_->setZeroVxyzMvVelo();
-    pAxMver_->setZeroVxyzMvAcce();
-    pAxMver_->stopGravitationMvSequence();
+    pAxsMver_->forceVxyzMvVeloRange(-30000, 30000);
+    pAxsMver_->setZeroVxyzMvVelo();
+    pAxsMver_->setZeroVxyzMvAcce();
+    pAxsMver_->stopGravitationMvSequence();
 
     //初期方向設定
     MyShip* pMyShip = P_MYSHIP;
@@ -91,10 +91,10 @@ void ScoreItem::processBehavior() {
         MyShip* pMyShip = P_MYSHIP;
         if (_pProg->isJustChanged()) {
             //自機に引力で引き寄せられるような動き設定
-            pAxMver_->setVxyzMvVelo(_pKuroko->_vX*_pKuroko->_veloMv,
+            pAxsMver_->setVxyzMvVelo(_pKuroko->_vX*_pKuroko->_veloMv,
                                      _pKuroko->_vY*_pKuroko->_veloMv,
                                      _pKuroko->_vZ*_pKuroko->_veloMv);
-            pAxMver_->execGravitationMvSequenceTwd(pMyShip,
+            pAxsMver_->execGravitationMvSequenceTwd(pMyShip,
                                                     PX_C(20), 200, PX_C(100));
             _pKuroko->stopMv();
         }
@@ -116,9 +116,9 @@ void ScoreItem::processBehavior() {
     if (_pProg->get() == PROG_ABSORB) {
         MyShip* pMyShip = P_MYSHIP;
         if (_pProg->isJustChanged()) {
-            pAxMver_->setZeroVxyzMvVelo();
-            pAxMver_->setZeroVxyzMvAcce();
-            pAxMver_->stopGravitationMvSequence();
+            pAxsMver_->setZeroVxyzMvVelo();
+            pAxsMver_->setZeroVxyzMvAcce();
+            pAxsMver_->stopGravitationMvSequence();
         }
         _x = pMyShip->_x + kDX_;
         _y = pMyShip->_y + kDY_;
@@ -134,7 +134,7 @@ void ScoreItem::processBehavior() {
         G_SCORE += 100;
     }
     _pKuroko->behave();
-    pAxMver_->behave();
+    pAxsMver_->behave();
 }
 
 void ScoreItem::processJudgement() {
@@ -172,5 +172,5 @@ void ScoreItem::onHit(GgafActor* prm_pOtherActor) {
 }
 
 ScoreItem::~ScoreItem() {
-    GGAF_DELETE(pAxMver_);
+    GGAF_DELETE(pAxsMver_);
 }

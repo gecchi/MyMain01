@@ -94,7 +94,7 @@ void EnemyOrtuna::processBehavior() {
                  //方向転換
                  //ゆっくり自機の方へ向かせる
                  _pKuroko->turnMvAngTwd(P_MYSHIP,
-                                         D_ANG(3), 0, TURN_CLOSE_TO, true);
+                                        D_ANG(3), 0, TURN_CLOSE_TO, true);
                  _pMorpher->morphLinerUntil(MPH_OPEN, 1.0, 60);
              }
              //滞留中
@@ -102,7 +102,7 @@ void EnemyOrtuna::processBehavior() {
                  if (_pKuroko->isTurningMvAng()) {
                      //ちょくちょく自機を見つめる
                      _pKuroko->turnFaceAngTwd(P_MYSHIP,
-                                               D_ANG(1), 0, TURN_CLOSE_TO, true);
+                                              D_ANG(1), 0, TURN_CLOSE_TO, true);
                  }
              }
 
@@ -115,7 +115,7 @@ void EnemyOrtuna::processBehavior() {
                      if (pShot) {
                          pShot->activateDelay(1+(i*10)); //ばらつかせ。activate タイミング上書き！
                          pShot->_pKuroko->setRzRyMvAng(_pKuroko->_angFace[AXIS_Z],
-                                                        _pKuroko->_angFace[AXIS_Y]);
+                                                       _pKuroko->_angFace[AXIS_Y]);
                          pShot->_pKuroko->setMvVelo(shot_velo);
                          pShot->_pKuroko->setMvAcce(100);
                      }

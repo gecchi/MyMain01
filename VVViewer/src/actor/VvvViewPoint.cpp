@@ -11,15 +11,15 @@ using namespace VVViewer;
 VvvViewPoint::VvvViewPoint(const char* prm_name) :
         GgafDxCameraViewPoint(prm_name) {
     _class_name = "VvvViewPoint";
-    pAxMver_ = NEW GgafDxAxesMover(this);
+    pAxsMver_ = NEW GgafDxAxesMover(this);
 }
 
 void VvvViewPoint::processBehavior() {
     GgafDxCameraViewPoint::processBehavior();
-    pAxMver_->behave();
+    pAxsMver_->behave();
     _pKuroko->behave();
 }
 
 VvvViewPoint::~VvvViewPoint() {
-    GGAF_DELETE(pAxMver_);
+    GGAF_DELETE(pAxsMver_);
 }

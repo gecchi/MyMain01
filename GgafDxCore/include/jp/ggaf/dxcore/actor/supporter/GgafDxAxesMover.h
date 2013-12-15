@@ -311,9 +311,9 @@ public:
     /**
      * 平行移動支援の仕事を引継ぐ .
      * 他の GgafDxAxesMover オブジェクトを状態を自身に引継ぐ .
-     * @param prmpAxMver_ 引継元
+     * @param prmpAxsMver_ 引継元
      */
-    void takeoverMvFrom(GgafDxAxesMover* const prmpAxMver_);
+    void takeoverMvFrom(GgafDxAxesMover* const prmpAxsMver_);
 
     void resetMv();
 

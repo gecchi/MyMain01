@@ -70,18 +70,18 @@ void CameraWorker::onSwitchCameraWork() {
     pCam->_pKuroko->stopMv();
     pCam->_pKuroko->stopTurnMvAng();
     pCam->_pKuroko->stopTurnFaceAng();
-    pCam->_pKuroko->helperA()->stopSlidingMv();
-    pCam->pAxMver_->stopGravitationMvSequence();
-    pCam->pAxMver_->setZeroVxyzMvVelo();
-    pCam->pAxMver_->setZeroVxyzMvAcce();
+    pCam->_pKuroko->hlprA()->stopSlidingMv();
+    pCam->pAxsMver_->stopGravitationMvSequence();
+    pCam->pAxsMver_->setZeroVxyzMvVelo();
+    pCam->pAxsMver_->setZeroVxyzMvAcce();
 
     pVP->_pKuroko->stopMv();
     pVP->_pKuroko->stopTurnMvAng();
     pVP->_pKuroko->stopTurnFaceAng();
-    pVP->_pKuroko->helperA()->stopSlidingMv();
-    pVP->pAxMver_->stopGravitationMvSequence();
-    pVP->pAxMver_->setZeroVxyzMvVelo();
-    pVP->pAxMver_->setZeroVxyzMvAcce();
+    pVP->_pKuroko->hlprA()->stopSlidingMv();
+    pVP->pAxsMver_->stopGravitationMvSequence();
+    pVP->pAxsMver_->setZeroVxyzMvVelo();
+    pVP->pAxsMver_->setZeroVxyzMvAcce();
 
     angXY_nowCamUp_ = UTIL::getAngle2D(pCam->_pVecCamUp->x, pCam->_pVecCamUp->y);
     move_target_XY_CAM_UP_ = angXY_nowCamUp_;
@@ -108,8 +108,8 @@ void CameraWorker::processBehavior() {
 
     int cam_velo_renge = cam_velo_renge_;  //カメラの移動速度の最大、最小敷居値
     //カメラの移動速度の最大、最小制限を設定
-    pCam->pAxMver_->forceVxyzMvVeloRange(-cam_velo_renge, cam_velo_renge);
-    pVP->pAxMver_->forceVxyzMvVeloRange(-cam_velo_renge, cam_velo_renge);
+    pCam->pAxsMver_->forceVxyzMvVeloRange(-cam_velo_renge, cam_velo_renge);
+    pVP->pAxsMver_->forceVxyzMvVeloRange(-cam_velo_renge, cam_velo_renge);
 
     //カメラ、及びビューポイントの移動速度を求める。
 
@@ -130,72 +130,72 @@ void CameraWorker::processBehavior() {
     static const velo veloVyRenge = 4000;
     static const velo veloVzRenge = 4000;
 
-    velo last_CAM_veloVxMv = pCam->pAxMver_->_veloVxMv;
+    velo last_CAM_veloVxMv = pCam->pAxsMver_->_veloVxMv;
     velo  new_CAM_veloVxMv = burenai_speed_*(dX_CAM*1.0 / stop_renge_);
     if (last_CAM_veloVxMv-veloVxRenge <= new_CAM_veloVxMv && new_CAM_veloVxMv <= last_CAM_veloVxMv+veloVxRenge) {
-        pCam->pAxMver_->setVxMvVelo(new_CAM_veloVxMv);
+        pCam->pAxsMver_->setVxMvVelo(new_CAM_veloVxMv);
     } else {
         if (last_CAM_veloVxMv-veloVxRenge > new_CAM_veloVxMv) {
-            pCam->pAxMver_->setVxMvVelo(last_CAM_veloVxMv-veloVxRenge);
+            pCam->pAxsMver_->setVxMvVelo(last_CAM_veloVxMv-veloVxRenge);
         } else if (new_CAM_veloVxMv > last_CAM_veloVxMv+veloVxRenge) {
-            pCam->pAxMver_->setVxMvVelo(last_CAM_veloVxMv+veloVxRenge);
+            pCam->pAxsMver_->setVxMvVelo(last_CAM_veloVxMv+veloVxRenge);
         }
     }
-    velo last_VP_veloVxMv = pVP->pAxMver_->_veloVxMv;
+    velo last_VP_veloVxMv = pVP->pAxsMver_->_veloVxMv;
     velo  new_VP_veloVxMv = burenai_speed_*(dX_VP*1.0 / stop_renge_);
     if (last_VP_veloVxMv-veloVxRenge <= new_VP_veloVxMv && new_VP_veloVxMv <= last_VP_veloVxMv+veloVxRenge) {
-        pVP->pAxMver_->setVxMvVelo(new_VP_veloVxMv);
+        pVP->pAxsMver_->setVxMvVelo(new_VP_veloVxMv);
     } else {
         if (last_VP_veloVxMv-veloVxRenge > new_VP_veloVxMv) {
-            pVP->pAxMver_->setVxMvVelo(last_VP_veloVxMv-veloVxRenge);
+            pVP->pAxsMver_->setVxMvVelo(last_VP_veloVxMv-veloVxRenge);
         } else if (new_VP_veloVxMv > last_VP_veloVxMv+veloVxRenge) {
-            pVP->pAxMver_->setVxMvVelo(last_VP_veloVxMv+veloVxRenge);
+            pVP->pAxsMver_->setVxMvVelo(last_VP_veloVxMv+veloVxRenge);
         }
     }
 
-    velo last_CAM_veloVyMv = pCam->pAxMver_->_veloVyMv;
+    velo last_CAM_veloVyMv = pCam->pAxsMver_->_veloVyMv;
     velo  new_CAM_veloVyMv = burenai_speed_*(dY_CAM*1.0 / stop_renge_);
     if (last_CAM_veloVyMv-veloVyRenge <= new_CAM_veloVyMv && new_CAM_veloVyMv <= last_CAM_veloVyMv+veloVyRenge) {
-        pCam->pAxMver_->setVyMvVelo(new_CAM_veloVyMv);
+        pCam->pAxsMver_->setVyMvVelo(new_CAM_veloVyMv);
     } else {
         if (last_CAM_veloVyMv-veloVyRenge > new_CAM_veloVyMv) {
-            pCam->pAxMver_->setVyMvVelo(last_CAM_veloVyMv-veloVyRenge);
+            pCam->pAxsMver_->setVyMvVelo(last_CAM_veloVyMv-veloVyRenge);
         } else if (new_CAM_veloVyMv > last_CAM_veloVyMv+veloVyRenge) {
-            pCam->pAxMver_->setVyMvVelo(last_CAM_veloVyMv+veloVyRenge);
+            pCam->pAxsMver_->setVyMvVelo(last_CAM_veloVyMv+veloVyRenge);
         }
     }
-    velo last_VP_veloVyMv = pVP->pAxMver_->_veloVyMv;
+    velo last_VP_veloVyMv = pVP->pAxsMver_->_veloVyMv;
     velo  new_VP_veloVyMv = burenai_speed_*(dY_VP*1.0 / stop_renge_);
     if (last_VP_veloVyMv-veloVyRenge <= new_VP_veloVyMv && new_VP_veloVyMv <= last_VP_veloVyMv+veloVyRenge) {
-        pVP->pAxMver_->setVyMvVelo(new_VP_veloVyMv);
+        pVP->pAxsMver_->setVyMvVelo(new_VP_veloVyMv);
     } else {
         if (last_VP_veloVyMv-veloVyRenge > new_VP_veloVyMv) {
-            pVP->pAxMver_->setVyMvVelo(last_VP_veloVyMv-veloVyRenge);
+            pVP->pAxsMver_->setVyMvVelo(last_VP_veloVyMv-veloVyRenge);
         } else if (new_VP_veloVyMv > last_VP_veloVyMv+veloVyRenge) {
-            pVP->pAxMver_->setVyMvVelo(last_VP_veloVyMv+veloVyRenge);
+            pVP->pAxsMver_->setVyMvVelo(last_VP_veloVyMv+veloVyRenge);
         }
     }
 
-    velo last_CAM_veloVzMv = pCam->pAxMver_->_veloVzMv;
+    velo last_CAM_veloVzMv = pCam->pAxsMver_->_veloVzMv;
     velo  new_CAM_veloVzMv = burenai_speed_*(dZ_CAM*1.0 / stop_renge_);
     if (last_CAM_veloVzMv-veloVzRenge <= new_CAM_veloVzMv && new_CAM_veloVzMv <= last_CAM_veloVzMv+veloVzRenge) {
-        pCam->pAxMver_->setVzMvVelo(new_CAM_veloVzMv);
+        pCam->pAxsMver_->setVzMvVelo(new_CAM_veloVzMv);
     } else {
         if (last_CAM_veloVzMv-veloVzRenge > new_CAM_veloVzMv) {
-            pCam->pAxMver_->setVzMvVelo(last_CAM_veloVzMv-veloVzRenge);
+            pCam->pAxsMver_->setVzMvVelo(last_CAM_veloVzMv-veloVzRenge);
         } else if (new_CAM_veloVzMv > last_CAM_veloVzMv+veloVzRenge) {
-            pCam->pAxMver_->setVzMvVelo(last_CAM_veloVzMv+veloVzRenge);
+            pCam->pAxsMver_->setVzMvVelo(last_CAM_veloVzMv+veloVzRenge);
         }
     }
-    velo last_VP_veloVzMv = pVP->pAxMver_->_veloVzMv;
+    velo last_VP_veloVzMv = pVP->pAxsMver_->_veloVzMv;
     velo  new_VP_veloVzMv = burenai_speed_*(dZ_VP*1.0 / stop_renge_);
     if (last_VP_veloVzMv-veloVzRenge <= new_VP_veloVzMv && new_VP_veloVzMv <= last_VP_veloVzMv+veloVzRenge) {
-        pVP->pAxMver_->setVzMvVelo(new_VP_veloVzMv);
+        pVP->pAxsMver_->setVzMvVelo(new_VP_veloVzMv);
     } else {
         if (last_VP_veloVzMv-veloVzRenge > new_VP_veloVzMv) {
-            pVP->pAxMver_->setVzMvVelo(last_VP_veloVzMv-veloVzRenge);
+            pVP->pAxsMver_->setVzMvVelo(last_VP_veloVzMv-veloVzRenge);
         } else if (new_VP_veloVzMv > last_VP_veloVzMv+veloVzRenge) {
-            pVP->pAxMver_->setVzMvVelo(last_VP_veloVzMv+veloVzRenge);
+            pVP->pAxsMver_->setVzMvVelo(last_VP_veloVzMv+veloVzRenge);
         }
     }
 

@@ -27,19 +27,19 @@ void TestBar::initialize() {
 void TestBar::processBehavior() {
    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_D)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_D)!!!!!");
-        _pKuroko->helperB()->_smthFaceAng[AXIS_Z]._prm._flg = false;
+        _pKuroko->hlprB()->_smthFaceAng[AXIS_Z]._prm._flg = false;
         _pKuroko->setFaceAngVelo(AXIS_Z, _pKuroko->_angveloFace[AXIS_Z] + D_ANG(2));
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_F)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_F)!!!!!");
-        _pKuroko->helperB()->_smthFaceAng[AXIS_Z]._prm._flg = false;
+        _pKuroko->hlprB()->_smthFaceAng[AXIS_Z]._prm._flg = false;
         _pKuroko->setFaceAngVelo(AXIS_Z, _pKuroko->_angveloFace[AXIS_Z] - D_ANG(2));
     }
 
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_A)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_A)!!!!!");
-        _pKuroko->helperB()->turnRzFaceAngByVdTo(
+        _pKuroko->hlprB()->turnRzFaceAngByVdTo(
                         D_ANG(3), D_ANG(180), TURN_CLOSE_TO,
                         0.3, 0.6, D_ANG(0),
                         true
@@ -47,7 +47,7 @@ void TestBar::processBehavior() {
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_S)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_S)!!!!!");
-        _pKuroko->helperB()->turnRzFaceAngByVdTo(
+        _pKuroko->hlprB()->turnRzFaceAngByVdTo(
                         D_ANG(3), D_ANG(0), TURN_CLOSE_TO,
                         0.3, 0.6, D_ANG(0),
                         true
@@ -55,7 +55,7 @@ void TestBar::processBehavior() {
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Z)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Z)!!!!!");
-        _pKuroko->helperB()->turnRzFaceAngByDtTo(
+        _pKuroko->hlprB()->turnRzFaceAngByDtTo(
                         D_ANG(180), TURN_ANTICLOSE_TO, 30,
                         0.3, 0.6, D_ANG(0),
                         true
@@ -63,7 +63,7 @@ void TestBar::processBehavior() {
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_X)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_X)!!!!!");
-        _pKuroko->helperB()->turnRzFaceAngByDtTo(
+        _pKuroko->hlprB()->turnRzFaceAngByDtTo(
                         D_ANG(0), TURN_ANTICLOSE_TO, 30,
                         0.3, 0.6, D_ANG(0),
                         true
@@ -72,7 +72,7 @@ void TestBar::processBehavior() {
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_C)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_C)!!!!!");
-        _pKuroko->helperB()->turnFaceAngByDt(AXIS_Z,
+        _pKuroko->hlprB()->turnFaceAngByDt(AXIS_Z,
                         D_ANG(360+360), 60,
                         0.3, 0.6, D_ANG(0),
                         true
@@ -80,7 +80,7 @@ void TestBar::processBehavior() {
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_V)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_V)!!!!!");
-        _pKuroko->helperB()->turnFaceAngByDt(AXIS_Z,
+        _pKuroko->hlprB()->turnFaceAngByDt(AXIS_Z,
                         D_ANG(-360-360), 60,
                         0.3, 0.6, D_ANG(0),
                         true
@@ -88,7 +88,7 @@ void TestBar::processBehavior() {
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_B)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_B)!!!!!");
-        _pKuroko->helperB()->turnFaceAngByVd(AXIS_Z,
+        _pKuroko->hlprB()->turnFaceAngByVd(AXIS_Z,
                         D_ANG(10),  D_ANG(360+360),
                         0.3, 0.6, D_ANG(0),
                         true
@@ -96,7 +96,7 @@ void TestBar::processBehavior() {
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_N)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_N)!!!!!");
-        _pKuroko->helperB()->turnFaceAngByVd(AXIS_Z,
+        _pKuroko->hlprB()->turnFaceAngByVd(AXIS_Z,
                         D_ANG(10), D_ANG(-360-360),
                         0.3, 0.6, D_ANG(0),
                         true

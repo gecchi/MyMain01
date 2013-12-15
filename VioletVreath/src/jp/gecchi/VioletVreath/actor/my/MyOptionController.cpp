@@ -26,7 +26,7 @@ int MyOptionController::now_option_num_ = 0;
 
 MyOptionController::MyOptionController(const char* prm_name, int prm_no) :
   GgafDxGeometricActor(prm_name, nullptr, nullptr) {
-    pAxMver_ = NEW GgafDxAxesMover(this);
+    pAxsMver_ = NEW GgafDxAxesMover(this);
     no_ = prm_no;
     is_handle_move_mode_ = false;
     is_free_from_myship_mode_ = false;
@@ -34,8 +34,8 @@ MyOptionController::MyOptionController(const char* prm_name, int prm_no) :
     angVelo_Turn_ = 3000;
     veloOptionsMv_ = 20000;
     renge_ = 80000;
-    pAxMver_->forceVxyzMvVeloRange(-renge_, renge_);
-    pAxMver_->forceVxyzMvAcceRange(-renge_ / 30, renge_ / 30);
+    pAxsMver_->forceVxyzMvVeloRange(-renge_, renge_);
+    pAxsMver_->forceVxyzMvAcceRange(-renge_ / 30, renge_ / 30);
     std::string name = "MyOption("+XTOS(no_)+")";
     pOption_ = NEW MyOption(name.c_str(), no_, this);
     addSubGroup(pOption_);
@@ -144,8 +144,8 @@ void MyOptionController::processBehavior() {
 
             is_free_from_myship_mode_ = true;
             is_handle_move_mode_ = true;
-            pAxMver_->setZeroVxyzMvVelo();
-            pAxMver_->setZeroVxyzMvAcce();
+            pAxsMver_->setZeroVxyzMvVelo();
+            pAxsMver_->setZeroVxyzMvAcce();
             if (pOption_->isActive()) {
                 EffectTurbo002* pTurbo002 = dispatchFromCommon(EffectTurbo002);
                 if (pTurbo002) {
@@ -187,19 +187,19 @@ void MyOptionController::processBehavior() {
         if (return_to_default_position_seq_) {
             pMyShip->trace_delay_count_ = TRACE_DELAY_WAIT_FRAME; //トレース維持を強制解除
             //元の位置へ
-            pAxMver_->setVxyzMvAcce( tx - (_x + pAxMver_->_veloVxMv*6),
-                                      ty - (_y + pAxMver_->_veloVyMv*6),
-                                      tz - (_z + pAxMver_->_veloVzMv*6) );
+            pAxsMver_->setVxyzMvAcce( tx - (_x + pAxsMver_->_veloVxMv*6),
+                                      ty - (_y + pAxsMver_->_veloVyMv*6),
+                                      tz - (_z + pAxsMver_->_veloVzMv*6) );
             if (ABS(_x - tx) < 10000 &&
                 ABS(_y - ty) < 10000 &&
                 ABS(_z - tz) < 10000 &&
-                ABS(pAxMver_->_veloVxMv) < 20000 &&
-                ABS(pAxMver_->_veloVyMv) < 20000 &&
-                ABS(pAxMver_->_veloVzMv) < 20000)
+                ABS(pAxsMver_->_veloVxMv) < 20000 &&
+                ABS(pAxsMver_->_veloVyMv) < 20000 &&
+                ABS(pAxsMver_->_veloVzMv) < 20000)
             {
                 //もどった！
-                pAxMver_->setZeroVxyzMvVelo();
-                pAxMver_->setZeroVxyzMvAcce();
+                pAxsMver_->setZeroVxyzMvVelo();
+                pAxsMver_->setZeroVxyzMvAcce();
                 position(tx, ty, tz);
                 return_to_default_position_seq_ = false;
             }
@@ -214,7 +214,7 @@ void MyOptionController::processBehavior() {
 //    pDirectionVector_->_pKuroko->setRzRyMvAng(_pKuroko->_angRzMv, _pKuroko->_angRyMv);
 
     _pKuroko->behave();
-    pAxMver_->behave();
+    pAxsMver_->behave();
 
     pRing_OptCtrlGeoHistory_->next()->set(this);
 }
@@ -270,7 +270,7 @@ void MyOptionController::adjustDefaltAngPosition(frame prm_spent_frame, int prm_
     }
 }
 MyOptionController::~MyOptionController() {
-    GGAF_DELETE(pAxMver_);
+    GGAF_DELETE(pAxsMver_);
     GGAF_DELETE(pRing_OptCtrlGeoHistory_);
 }
 

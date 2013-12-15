@@ -12,7 +12,7 @@ using namespace VioletVreath;
 ViewPoint::ViewPoint(const char* prm_name) :
         GgafDxCameraViewPoint(prm_name) {
     _class_name = "ViewPoint";
-    pAxMver_ = NEW GgafDxAxesMover(this);
+    pAxsMver_ = NEW GgafDxAxesMover(this);
 }
 
 void ViewPoint::initialize() {
@@ -21,10 +21,10 @@ void ViewPoint::initialize() {
 
 void ViewPoint::processBehavior() {
     GgafDxCameraViewPoint::processBehavior();
-    pAxMver_->behave();
+    pAxsMver_->behave();
     _pKuroko->behave();
 }
 
 ViewPoint::~ViewPoint() {
-    GGAF_DELETE(pAxMver_);
+    GGAF_DELETE(pAxsMver_);
 }

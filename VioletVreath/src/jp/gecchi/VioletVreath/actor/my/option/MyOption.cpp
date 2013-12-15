@@ -580,11 +580,11 @@ void MyOption::processBehavior() {
             velo veloVx = Q._x*max_velo_renge;
             velo veloVy = Q._y*max_velo_renge;
             velo veloVz = Q._z*max_velo_renge;
-            pLaserChip->pAxMver_->setVxyzMvVelo(veloVx, veloVy, veloVz);
-            pLaserChip->pAxMver_->setVxyzMvAcce(veloVx / r_max_acce,
+            pLaserChip->pAxsMver_->setVxyzMvVelo(veloVx, veloVy, veloVz);
+            pLaserChip->pAxsMver_->setVxyzMvAcce(veloVx / r_max_acce,
                                                  veloVy / r_max_acce,
                                                  veloVz / r_max_acce );
-            pLaserChip->pAxMver_->behave();
+            pLaserChip->pAxsMver_->behave();
 
             pLaserChip->positionAs(this);
             pLaserChip->_rz = _rz;

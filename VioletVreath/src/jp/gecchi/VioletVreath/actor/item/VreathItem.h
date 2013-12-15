@@ -24,7 +24,7 @@ public:
     /** ‹z’…·•ªÀ•W */
     int kDX_, kDY_, kDZ_;
     /** •½sˆÚ“®x‰‡ */
-    GgafDxCore::GgafDxAxesMover* pAxMver_;
+    GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
 public:
     VreathItem(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);

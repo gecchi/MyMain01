@@ -78,8 +78,8 @@ public:
      * @param prm_endacc_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
     void turnRzMvAngByDtTo(angle prm_ang_rz_target, int prm_way, int prm_target_frames,
-                               float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                               bool prm_endacc_flg);
+                           float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                           bool prm_endacc_flg);
 
     /**
      * 目標の移動方角(Y軸)へ滑らかに回転するシークエンスを実行(時間指定、角速度変動) .
@@ -93,8 +93,8 @@ public:
      * @param prm_endacc_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
     void turnRyMvAngByDtTo(angle prm_ang_rt_target, int prm_way, int prm_target_frames,
-                             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                             bool prm_endacc_flg);
+                           float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                           bool prm_endacc_flg);
 
     /**
      * 目標の移動方角へ滑らかに回転するシークエンスを実行(時間指定、角速度変動) .
@@ -200,11 +200,11 @@ public:
             angvelo prm_top_angvelo, angle prm_angular_distance,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_endacc_flg);
+
     void turnRyMvAngByVd(
             angvelo prm_top_angvelo, angle prm_angular_distance,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_endacc_flg);
-
 
     void turnRzMvAngByVdTo(
             angvelo prm_top_angvelo, angle prm_ang_rz_target, int prm_way,
@@ -215,7 +215,6 @@ public:
             angvelo prm_top_angvelo, angle prm_ang_ry_target, int prm_way,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_endacc_flg);
-
 
     void turnRzRyMvAngByVdTo(
             angvelo prm_top_angvelo,

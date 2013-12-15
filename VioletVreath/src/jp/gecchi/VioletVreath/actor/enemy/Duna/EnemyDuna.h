@@ -44,7 +44,7 @@ public:
     /** フィードイン・フェードアウト支援 */
     GgafDxCore::GgafDxAlphaFader* pAFader_;
     /** 平行移動支援 */
-    GgafDxCore::GgafDxAxesMover* pAxMver_;
+    GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
     GgafDxCore::GgafDxGeoElem next_pos_;
     int num_fire_;

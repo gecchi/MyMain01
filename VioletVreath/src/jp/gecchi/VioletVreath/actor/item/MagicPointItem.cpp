@@ -19,7 +19,7 @@ using namespace VioletVreath;
 MagicPointItem::MagicPointItem(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat)
                : Item(prm_name, prm_model, prm_pStat) {
     _class_name = "MagicPointItem";
-    pAxMver_ = NEW GgafDxAxesMover(this);
+    pAxsMver_ = NEW GgafDxAxesMover(this);
     effectBlendOne(); //加算合成するTechnique指定
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(false);  //Zバッファは書き込み無し
@@ -42,10 +42,10 @@ void MagicPointItem::onActive() {
     // _x, _y, _z は発生元座標に設定済み
     setHitAble(true, false);
 
-    pAxMver_->forceVxyzMvVeloRange(-30000, 30000);
-    pAxMver_->setZeroVxyzMvVelo();
-    pAxMver_->setZeroVxyzMvAcce();
-    pAxMver_->stopGravitationMvSequence();
+    pAxsMver_->forceVxyzMvVeloRange(-30000, 30000);
+    pAxsMver_->setZeroVxyzMvVelo();
+    pAxsMver_->setZeroVxyzMvAcce();
+    pAxsMver_->stopGravitationMvSequence();
 
     //初期方向設定
     MyShip* pMyShip = P_MYSHIP;
@@ -93,10 +93,10 @@ void MagicPointItem::processBehavior() {
         MyMagicEnergyCore* pE = pMyShip->pMyMagicEnergyCore_;
         if (_pProg->isJustChanged()) {
             //自機に引力で引き寄せられるような動き設定
-            pAxMver_->setVxyzMvVelo(_pKuroko->_vX*_pKuroko->_veloMv,
+            pAxsMver_->setVxyzMvVelo(_pKuroko->_vX*_pKuroko->_veloMv,
                                      _pKuroko->_vY*_pKuroko->_veloMv,
                                      _pKuroko->_vZ*_pKuroko->_veloMv);
-            pAxMver_->execGravitationMvSequenceTwd(pE,
+            pAxsMver_->execGravitationMvSequenceTwd(pE,
                                                     PX_C(50), 300, PX_C(300));
             _pKuroko->stopMv();
         }
@@ -118,9 +118,9 @@ void MagicPointItem::processBehavior() {
     if (_pProg->get() == PROG_ABSORB) {
         MyMagicEnergyCore* pE = pMyShip->pMyMagicEnergyCore_;
         if (_pProg->isJustChanged()) {
-            pAxMver_->setZeroVxyzMvVelo();
-            pAxMver_->setZeroVxyzMvAcce();
-            pAxMver_->stopGravitationMvSequence();
+            pAxsMver_->setZeroVxyzMvVelo();
+            pAxsMver_->setZeroVxyzMvAcce();
+            pAxsMver_->stopGravitationMvSequence();
         }
         _x = pE->_x + kDX_;
         _y = pE->_y + kDY_;
@@ -135,7 +135,7 @@ void MagicPointItem::processBehavior() {
         }
     }
     _pKuroko->behave();
-    pAxMver_->behave();
+    pAxsMver_->behave();
 }
 
 void MagicPointItem::processJudgement() {
@@ -172,6 +172,6 @@ void MagicPointItem::onHit(GgafActor* prm_pOtherActor) {
 }
 
 MagicPointItem::~MagicPointItem() {
-    GGAF_DELETE(pAxMver_);
+    GGAF_DELETE(pAxsMver_);
 }
 

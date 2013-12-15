@@ -115,8 +115,8 @@ void EnemyRatislavia::processBehavior() {
                     pE = dispatchDelayFromCommon(EffectExplosion004, RND(1,10));
                     if (pE) {
                         pE->position(_x + pPart->_cx + RND(-r2_, +r2_),
-                                   _y + pPart->_cy + RND(-r2_, +r2_),
-                                   _z + pPart->_cz + RND(-r2_, +r2_));
+                                     _y + pPart->_cy + RND(-r2_, +r2_),
+                                     _z + pPart->_cz + RND(-r2_, +r2_));
                     }
                 }
             }
@@ -132,8 +132,8 @@ void EnemyRatislavia::processBehavior() {
                     pE = dispatchFromCommon(EffectExplosion004);
                     if (pE) {
                         pE->position(_x + pPart->_cx,
-                                   _y + pPart->_cy,
-                                   _z + pPart->_cz);
+                                     _y + pPart->_cy,
+                                     _z + pPart->_cz);
                     }
                 }
                 sayonara();

@@ -62,18 +62,18 @@ void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
         MyMagicEnergyCore* pCore = pMyShip->pMyMagicEnergyCore_;
         angle* paAng_way = NEW angle[prm_new_level-prm_now_level];
         UTIL::getRadialAngle2D(0, prm_new_level-prm_now_level, paAng_way);
-        velo veloVxMv = pCore->pAxMver_->_veloVxMv;
-        velo veloVyMv = pCore->pAxMver_->_veloVyMv;
-        velo veloVzMv = pCore->pAxMver_->_veloVzMv;
+        velo veloVxMv = pCore->pAxsMver_->_veloVxMv;
+        velo veloVyMv = pCore->pAxsMver_->_veloVyMv;
+        velo veloVzMv = pCore->pAxsMver_->_veloVzMv;
         EffectOptionMagic001* pEffect;
         for (int lv = prm_now_level+1, n = 0; lv <= prm_new_level; lv++, n++) {
             pEffect = papEffect_[lv-1];
             pEffect->positionAs(pCore);
-            pEffect->pAxMver_->resetMv();
-            pEffect->pAxMver_->setVxyzMvVelo(veloVxMv*0.8,
+            pEffect->pAxsMver_->resetMv();
+            pEffect->pAxsMver_->setVxyzMvVelo(veloVxMv*0.8,
                                               veloVyMv + (ANG_SIN(paAng_way[n]) * PX_C(3)),
                                               veloVzMv + (ANG_COS(paAng_way[n]) * PX_C(3)) ); //放射状にエフェクト放出
-            pEffect->pAxMver_->execGravitationMvSequenceTwd(P_MYSHIP, 10000, 200, 2000);
+            pEffect->pAxsMver_->execGravitationMvSequenceTwd(P_MYSHIP, 10000, 200, 2000);
             pEffect->setAlpha(0.9);
             pEffect->setScaleR(1.0f);
             _TRACE_(getBehaveingFrame()<<":OptionMagic::processCastBegin("<<prm_now_level<<","<<prm_new_level<<") papEffect_["<<(lv-1)<<"]->activate();");
@@ -115,7 +115,7 @@ void OptionMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
         //レベルアップ時
         for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
             MyOptionController* p = P_MYSHIP_SCENE->papOptionCtrler_[lv-1];
-            papEffect_[lv-1]->pAxMver_->execGravitationMvSequenceTwd(
+            papEffect_[lv-1]->pAxsMver_->execGravitationMvSequenceTwd(
                                              p->_x + p->pOption_->x_org_,
                                              p->_y + p->pOption_->y_org_,
                                              p->_z + p->pOption_->z_org_,
@@ -135,7 +135,7 @@ void OptionMagic::processInvokingBehavior(int prm_now_level, int prm_new_level) 
         //レベルアップ時
         for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
             MyOptionController* p = P_MYSHIP_SCENE->papOptionCtrler_[lv-1];
-            papEffect_[lv-1]->pAxMver_->setGravitationTwd(p->_x + p->pOption_->x_org_,
+            papEffect_[lv-1]->pAxsMver_->setGravitationTwd(p->_x + p->pOption_->x_org_,
                                                            p->_y + p->pOption_->y_org_,
                                                            p->_z + p->pOption_->z_org_ );
         }
@@ -168,7 +168,7 @@ void OptionMagic::processEffectBegin(int prm_last_level, int prm_now_level)  {
 
             papEffect_[lv-1]->inactivateDelay(120); //非活動の保険
             _TRACE_(getBehaveingFrame()<<":OptionMagic::processEffectBegin("<<prm_last_level<<","<<prm_now_level<<") papEffect_["<<(lv-1)<<"]->inactivateDelay(120);");
-            papEffect_[lv-1]->pAxMver_->stopGravitationMvSequence();
+            papEffect_[lv-1]->pAxsMver_->stopGravitationMvSequence();
             papEffect_[lv-1]->positionAs(p->pOption_);
 
             MyOptionController::adjustDefaltAngPosition(180, prm_last_level, prm_now_level-1);

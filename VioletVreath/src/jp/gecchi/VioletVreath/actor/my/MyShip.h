@@ -221,7 +221,7 @@ public:
     static coord lim_z_right_;
 
     /** ïΩçsà⁄ìÆéxâá */
-    GgafDxCore::GgafDxAxesMover* pAxMver_;
+    GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
     MyShipWaySwitch way_switch_;
     void (MyShip::*paFuncMove[3*3*3])();

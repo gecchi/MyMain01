@@ -11,7 +11,7 @@ using namespace GgafLib;
 using namespace VVViewer;
 
 VvvCamera::VvvCamera(const char* prm_name) : GgafLib::DefaultCamera(prm_name) {
-    pAxMver_ = NEW GgafDxAxesMover(this);
+    pAxsMver_ = NEW GgafDxAxesMover(this);
 }
 GgafDxCameraViewPoint* VvvCamera::createViewPoint() {
     VvvViewPoint* pVP = NEW VvvViewPoint("ViewPoint");
@@ -19,10 +19,10 @@ GgafDxCameraViewPoint* VvvCamera::createViewPoint() {
 }
 void VvvCamera::processBehavior() {
     DefaultCamera::processBehavior();
-    pAxMver_->behave();
+    pAxsMver_->behave();
     _pKuroko->behave();
 }
 
 VvvCamera::~VvvCamera() {
-    GGAF_DELETE(pAxMver_);
+    GGAF_DELETE(pAxsMver_);
 }

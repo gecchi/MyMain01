@@ -70,7 +70,7 @@ void EnemyHalia::onActive() {
     _pMorpher->setWeight(0, 1.0);
     _pMorpher->setWeight(1, 0.0);
     _pKuroko->setFaceAngVelo(AXIS_X, 1000);
-    _pKuroko->helperA()->slideMvByVd(veloTopMv_, MyShip::lim_x_front_-_x,
+    _pKuroko->hlprA()->slideMvByVd(veloTopMv_, MyShip::lim_x_front_-_x,
                            0.4, 0.6, 1000);
     _pProg->reset(PROG_MOVE);
     iMovePatternNo_ = 0; //行動パターンリセット
@@ -81,7 +81,7 @@ void EnemyHalia::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     switch (_pProg->get()) {
         case PROG_MOVE: {
-            if (!_pKuroko->helperA()->isSlidingMv()) {
+            if (!_pKuroko->hlprA()->isSlidingMv()) {
                 _pMorpher->morphAcceStep(1, 1.0, 0.0, 0.0004); //開く 0.0004 開く速さ
                 _pKuroko->turnMvAngTwd(P_MYSHIP,
                                         0, 100,
@@ -125,7 +125,7 @@ void EnemyHalia::processBehavior() {
         case PROG_CLOSE: {
             //１サイクルレーザー打ち切った
             _pMorpher->morphLinerUntil(1, 0.0, 60); //閉じる
-            _pKuroko->helperA()->slideMvByVd(veloTopMv_, 1500000, 0.4, 0.6, 1000);
+            _pKuroko->hlprA()->slideMvByVd(veloTopMv_, 1500000, 0.4, 0.6, 1000);
             _pKuroko->setFaceAngVelo(AXIS_X, 1000);
             _pProg->change(PROG_MOVE);
             break;

@@ -121,13 +121,13 @@ void MenuBoard::onRise() {
     position(target_x_ + slide_from_offset_x_,
              target_y_ + slide_from_offset_y_);
     _pKuroko->setMvAngTwd(target_x_, target_y_);
-    _pKuroko->helperA()->slideMvByDt(UTIL::getDistance(_x, _y, target_x_, target_y_), _fade_frames,
+    _pKuroko->hlprA()->slideMvByDt(UTIL::getDistance(_x, _y, target_x_, target_y_), _fade_frames,
                            0.2, 0.3, 0);
     _pSeTx->play(SE_ON_RISEN);
 }
 
 void MenuBoard::processBehavior() {
-    if (_pKuroko->helperA()->isJustFinishSlidingMv()) {
+    if (_pKuroko->hlprA()->isJustFinishSlidingMv()) {
         //スライド終了時、目的の座標へ補正
         position(target_x_, target_y_);
     }
@@ -145,7 +145,7 @@ void MenuBoard::onSink() {
     //スライドアウトトランジション
     _pKuroko->setMvAngTwd(target_x_ + slide_from_offset_x_,
                            target_y_ + slide_from_offset_y_);
-    _pKuroko->helperA()->slideMvByDt(UTIL::getDistance(
+    _pKuroko->hlprA()->slideMvByDt(UTIL::getDistance(
                                 _x, _y,
                                 target_x_+slide_from_offset_x_, target_y_+slide_from_offset_y_
                            ), _fade_frames,

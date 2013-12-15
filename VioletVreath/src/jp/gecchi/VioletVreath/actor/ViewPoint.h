@@ -13,7 +13,7 @@ namespace VioletVreath {
 class ViewPoint : public GgafDxCore::GgafDxCameraViewPoint {
 public:
     /** •½sˆÚ“®x‰‡ */
-    GgafDxCore::GgafDxAxesMover* pAxMver_;
+    GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
 public:
     ViewPoint(const char* prm_name);

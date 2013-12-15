@@ -11,11 +11,11 @@ using namespace GgafDxCore;
 
 GgafDxMorpher::GgafDxMorpher(GgafDxMorphMeshActor* prm_pActor) : GgafObject(),
 _pActor(prm_pActor) {
-    _pHelperA = nullptr;
+    _pHlprA = nullptr;
     reset();
 }
-GgafDxMorpherHelperA* GgafDxMorpher::helperA() {
-    return _pHelperA ? _pHelperA : _pHelperA = NEW GgafDxMorpherHelperA(this);
+GgafDxMorpherHelperA* GgafDxMorpher::hlprA() {
+    return _pHlprA ? _pHlprA : _pHlprA = NEW GgafDxMorpherHelperA(this);
 }
 void GgafDxMorpher::reset() {
     for (int i = 0; i <= MAX_MORPH_TARGET; i++) {
@@ -38,8 +38,8 @@ void GgafDxMorpher::reset() {
 }
 
 void GgafDxMorpher::behave() {
-    if (_pHelperA) {
-        _pHelperA->behave();
+    if (_pHlprA) {
+        _pHlprA->behave();
     }
     int morph_target_num = _pActor->_pMorphMeshModel->_morph_target_num;
     GgafDxMorphingMethod method;
@@ -214,5 +214,5 @@ bool GgafDxMorpher::isMorphing() {
 }
 
 GgafDxMorpher::~GgafDxMorpher() {
-    GGAF_DELETE_NULLABLE(_pHelperA);
+    GGAF_DELETE_NULLABLE(_pHlprA);
 }

@@ -22,7 +22,7 @@ class MyOptionWateringLaserChip001 : public GgafLib::WateringLaserChip {
 
 public:
     /** 平行移動支援 */
-    GgafDxCore::GgafDxAxesMover* pAxMver_;
+    GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
     /** [r]ロックオンしている場合 true */
     bool is_lockon_;

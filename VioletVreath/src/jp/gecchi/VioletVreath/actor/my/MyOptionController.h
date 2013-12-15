@@ -23,7 +23,7 @@ public:
     static int o2o_;
 
     /** 平行移動支援 */
-    GgafDxCore::GgafDxAxesMover* pAxMver_;
+    GgafDxCore::GgafDxAxesMover* pAxsMver_;
     /** 自身のオプションインデックス 0 ～ now_option_num_-1 */
     int no_;
     MyOption* pOption_;

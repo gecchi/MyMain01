@@ -437,44 +437,44 @@ void GgafDxAxesMover::execGravitationMvSequenceTwd(GgafDxGeometricActor* prm_pAc
     forceVzMvVeloRange(-prm_max_velo, prm_max_velo);
 }
 
-void GgafDxAxesMover::takeoverMvFrom(GgafDxAxesMover* const prmpAxMver_) {
+void GgafDxAxesMover::takeoverMvFrom(GgafDxAxesMover* const prmpAxsMver_) {
 
     // X軸方向移動速度
-    _veloVxMv = prmpAxMver_->_veloVxMv;
+    _veloVxMv = prmpAxsMver_->_veloVxMv;
     // X軸方向移動速度上限
-    _veloTopVxMv = prmpAxMver_->_veloTopVxMv;
+    _veloTopVxMv = prmpAxsMver_->_veloTopVxMv;
     // X軸方向移動速度下限
-    _veloBottomVxMv = prmpAxMver_->_veloBottomVxMv;
+    _veloBottomVxMv = prmpAxsMver_->_veloBottomVxMv;
     // X軸方向移動加速度
-    _acceVxMv = prmpAxMver_->_acceVxMv;
+    _acceVxMv = prmpAxsMver_->_acceVxMv;
     // X軸方向移動加速度上限
-    _acceTopVxMv = prmpAxMver_->_acceTopVxMv;
+    _acceTopVxMv = prmpAxsMver_->_acceTopVxMv;
     // X軸方向移動加速度下限
-    _acceBottomVxMv = prmpAxMver_->_acceBottomVxMv;
+    _acceBottomVxMv = prmpAxsMver_->_acceBottomVxMv;
     // Y軸方向移動速度
-    _veloVyMv = prmpAxMver_->_veloVyMv;
+    _veloVyMv = prmpAxsMver_->_veloVyMv;
     // Y軸方向移動速度上限
-    _veloTopVyMv = prmpAxMver_->_veloTopVyMv;
+    _veloTopVyMv = prmpAxsMver_->_veloTopVyMv;
     // Y軸方向移動速度下限
-    _veloBottomVyMv = prmpAxMver_->_veloBottomVyMv;
+    _veloBottomVyMv = prmpAxsMver_->_veloBottomVyMv;
     // Y軸方向移動加速度
-    _acceVyMv = prmpAxMver_->_acceVyMv;
+    _acceVyMv = prmpAxsMver_->_acceVyMv;
     // Y軸方向移動加速度上限
-    _acceTopVyMv = prmpAxMver_->_acceTopVyMv;
+    _acceTopVyMv = prmpAxsMver_->_acceTopVyMv;
     // Y軸方向移動加速度下限
-    _acceBottomVyMv = prmpAxMver_->_acceBottomVyMv;
+    _acceBottomVyMv = prmpAxsMver_->_acceBottomVyMv;
     // Z軸方向移動速度
-    _veloVzMv = prmpAxMver_->_veloVzMv;
+    _veloVzMv = prmpAxsMver_->_veloVzMv;
     // Z軸方向移動速度上限
-    _veloTopVzMv = prmpAxMver_->_veloTopVzMv;
+    _veloTopVzMv = prmpAxsMver_->_veloTopVzMv;
     // Z軸方向移動速度下限
-    _veloBottomVzMv = prmpAxMver_->_veloBottomVzMv;
+    _veloBottomVzMv = prmpAxsMver_->_veloBottomVzMv;
     // Z軸方向移動加速度
-    _acceVzMv = prmpAxMver_->_acceVzMv;
+    _acceVzMv = prmpAxsMver_->_acceVzMv;
     // Z軸方向移動加速度上限
-    _acceTopVzMv = prmpAxMver_->_acceTopVzMv;
+    _acceTopVzMv = prmpAxsMver_->_acceTopVzMv;
     // Z軸方向移動加速度下限
-    _acceBottomVzMv = prmpAxMver_->_acceBottomVzMv;
+    _acceBottomVzMv = prmpAxsMver_->_acceBottomVzMv;
 
 }
 

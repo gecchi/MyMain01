@@ -49,7 +49,7 @@ void MagicLvCursor::processBehavior() {
 
 
     _pKuroko->behave();
-    if (_pKuroko->helperA()->isJustFinishSlidingMv()) {
+    if (_pKuroko->hlprA()->isJustFinishSlidingMv()) {
         //理想位置に補正
         _x = tx_;
         _y = ty_;
@@ -86,7 +86,7 @@ void MagicLvCursor::processAfterDraw() {
 }
 
 void MagicLvCursor::moveTo(int prm_lv) {
-    _pKuroko->helperA()->stopSlidingMv();
+    _pKuroko->hlprA()->stopSlidingMv();
     _pKuroko->stopMv();
     point_lv_ = prm_lv;
     _x = tx_ = pMagicMeter_->_x + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
@@ -101,7 +101,7 @@ void MagicLvCursor::moveSmoothTo(int prm_lv, frame prm_target_frames, float prm_
     tx_ = pMagicMeter_->_x + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
     ty_ = pMagicMeter_->_y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
     _pKuroko->setMvAngTwd(tx_, ty_);
-    _pKuroko->helperA()->slideMvByDt(UTIL::getDistance(_x, _y, tx_, ty_), (int)prm_target_frames,
+    _pKuroko->hlprA()->slideMvByDt(UTIL::getDistance(_x, _y, tx_, ty_), (int)prm_target_frames,
                            prm_p1, prm_p2, 0); //ロールを考慮せずにとりあえず移動
 }
 

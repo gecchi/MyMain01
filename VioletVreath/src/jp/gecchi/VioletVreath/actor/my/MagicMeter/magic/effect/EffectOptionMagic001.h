@@ -14,7 +14,7 @@ class EffectOptionMagic001 : public GgafLib::DefaultMeshSetActor {
 
 public:
     /** •½sˆÚ“®x‰‡ */
-    GgafDxCore::GgafDxAxesMover* pAxMver_;
+    GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
 public:
     EffectOptionMagic001(const char* prm_name);

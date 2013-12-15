@@ -53,6 +53,7 @@ void EnemyGlaja::processBehavior() {
          case PROG_INIT: {
              setHitAble(false);
              pAFader_->setAlpha(0);
+             _TRACE_("keepOnTurningFaceAngTwd keepOnTurningFaceAngTwd");
              _pKuroko->keepOnTurningFaceAngTwd(pMyShip,
                                                D_ANG(2), 0, TURN_CLOSE_TO, false);
              _pMorpher->setWeight(0.0);
@@ -83,10 +84,10 @@ void EnemyGlaja::processBehavior() {
                  velo Vt = RF_EnemyGlaja_MvVelo(G_RANK);
                  velo Ve = 100;
                  coord D = UTIL::getDistance(this, &next_pos_);
-                 _pKuroko->helperA()->slideMvByVd(Vt, D, 0.1, 0.5, Ve, true);
+                 _pKuroko->hlprA()->slideMvByVd(Vt, D, 0.1, 0.5, Ve, true);
              }
 
-             if (_pKuroko->helperA()->isJustFinishSlidingMv()) {
+             if (_pKuroko->hlprA()->isJustFinishSlidingMv()) {
                  _pProg->changeNext();
              }
              break;

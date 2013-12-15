@@ -19,7 +19,7 @@ using namespace VioletVreath;
 EnemyGeria::EnemyGeria(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Geria", STATUS(EnemyGeria)) {
     _class_name = "EnemyGeria";
-    pAxMver_ = NEW GgafDxAxesMover(this);
+    pAxsMver_ = NEW GgafDxAxesMover(this);
     iMovePatternNo_ = 0;
     max_shots_ = 1;
     shot_num_ = 0;
@@ -70,13 +70,13 @@ void EnemyGeria::processBehavior() {
         } else if (getActiveFrame() == frame_when_shot_ + 60) {
             MyShip* pM = P_MYSHIP;
             GgafDxGeometricActor* pLast =
-              UTIL::shotWay001(_x, _y, _z,
-                               pM->_x, pM->_y, pM->_z,
-                               getCommonDepository(Shot004),
-                               PX_C(10),
-                               10000, 100,
-                               3, 5, 0.9,
-                               EnemyGeria::callbackDispatched);
+                  UTIL::shotWay001(_x, _y, _z,
+                                   pM->_x, pM->_y, pM->_z,
+                                   getCommonDepository(Shot004),
+                                   PX_C(10),
+                                   10000, 100,
+                                   3, 5, 0.9,
+                                   EnemyGeria::callbackDispatched);
             if (pLast) {
                 shot_num_++;
                 do_Shot_ = false;
@@ -133,7 +133,7 @@ void EnemyGeria::onHit(GgafActor* prm_pOtherActor) {
 }
 
 EnemyGeria::~EnemyGeria() {
-    GGAF_DELETE(pAxMver_);
+    GGAF_DELETE(pAxsMver_);
 }
 
 void EnemyGeria::callbackDispatched(GgafDxDrawableActor* prm_pDispatched, int prm_dispatched_seq, int prm_set_seq) {

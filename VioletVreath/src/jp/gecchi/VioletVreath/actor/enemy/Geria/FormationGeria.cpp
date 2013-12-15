@@ -27,7 +27,7 @@ FormationGeria::FormationGeria(
             int prm_nGeriaStock,
             int prm_frame_app_interval) : DefaultGeometricActor(prm_name, nullptr) {
     _class_name = "FormationGeria";
-    pAxMver_ = NEW GgafDxAxesMover(this);
+    pAxsMver_ = NEW GgafDxAxesMover(this);
 
     X1_app_ = prm_X1_app;
     Y1_app_ = prm_Y1_app;
@@ -54,7 +54,7 @@ FormationGeria::FormationGeria(
         pEnemyGeria->_pKuroko->relateFaceWithMvAng(true);
         pEnemyGeria->_pKuroko->setMvVelo(prm_veloMv_Geria);
         pEnemyGeria->_pKuroko->setRzRyMvAng(prm_angRzMv_GeriaMv, prm_angRyMv_GeriaMv);
-        pEnemyGeria->pAxMver_->setVxyzMvVelo(vX_AppBox*prm_veloMv_App,
+        pEnemyGeria->pAxsMver_->setVxyzMvVelo(vX_AppBox*prm_veloMv_App,
                                               vY_AppBox*prm_veloMv_App,
                                               vZ_AppBox*prm_veloMv_App );
         pDepo_EnemyGeria_->put(pEnemyGeria);
@@ -75,9 +75,9 @@ void FormationGeria::processBehavior() {
         }
     }
     _pKuroko->behave();
-    pAxMver_->behave();
+    pAxsMver_->behave();
 }
 
 FormationGeria::~FormationGeria() {
-    GGAF_DELETE(pAxMver_);
+    GGAF_DELETE(pAxsMver_);
 }

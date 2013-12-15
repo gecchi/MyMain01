@@ -53,8 +53,8 @@ void VamSysCamWorker::initialize() {
     pos_camera_ = VAM_POS_RIGHT;
 
     cam_velo_renge_ = 30000;
-    pCam->pAxMver_->forceVxyzMvVeloRange(-cam_velo_renge_, cam_velo_renge_);
-    pVP->pAxMver_->forceVxyzMvVeloRange(-cam_velo_renge_, cam_velo_renge_);
+    pCam->pAxsMver_->forceVxyzMvVeloRange(-cam_velo_renge_, cam_velo_renge_);
+    pVP->pAxsMver_->forceVxyzMvVeloRange(-cam_velo_renge_, cam_velo_renge_);
 
     stop_renge_ = 60000;
     angXY_nowCamUp_ = UTIL::getAngle2D(pCam->_pVecCamUp->x, pCam->_pVecCamUp->y);
@@ -76,8 +76,8 @@ void VamSysCamWorker::processBehavior() {
     Camera* pCam = P_CAM;
     ViewPoint* pVP = (ViewPoint*)(pCam->getViewPoint());
     MyOptionController* pOptCtrler = P_MYSHIP_SCENE->papOptionCtrler_[0];
-    GgafDxAxesMover* const pCamAxesMover = pCam->pAxMver_;
-    GgafDxAxesMover* const pVpAxesMover = pVP->pAxMver_;
+    GgafDxAxesMover* const pCamAxesMover = pCam->pAxsMver_;
+    GgafDxAxesMover* const pVpAxesMover = pVP->pAxsMver_;
 
     //ƒJƒƒ‰ˆÊ’u”Ô†‚ğŒˆ’èˆ—
     is_cam_pos_option_back_ = false;

@@ -17,7 +17,7 @@ EnemyAntiope::EnemyAntiope(const char* prm_name, const char* prm_model, GgafStat
         DefaultMeshSetActor(prm_name, prm_model, prm_pStat) {
     _class_name = "EnemyAntiope";
     pAFader_ = NEW GgafDxAlphaFader(this);
-    pAxMver_ = NEW GgafDxAxesMover(this);
+    pAxsMver_ = NEW GgafDxAxesMover(this);
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
 }
@@ -46,7 +46,7 @@ void EnemyAntiope::processBehavior() {
              pAFader_->setAlpha(0);
              _pKuroko->stopMv();
              _pKuroko->setFaceAngVelo(AXIS_X, D_ANG(10));
-             pAxMver_->setZeroVxyzMvVelo();
+             pAxsMver_->setZeroVxyzMvVelo();
              UTIL::activateEntryEffectOf(this);
              _pProg->changeNext();
              break;
@@ -66,12 +66,12 @@ void EnemyAntiope::processBehavior() {
              if (_pProg->isJustChanged()) {
                  _pKuroko->setMvVelo(30000);
                  _pKuroko->setMvAcce(-1000);
-                 pAxMver_->setVxyzMvVelo(mv_velo_twd_.x, mv_velo_twd_.y, mv_velo_twd_.z);
+                 pAxsMver_->setVxyzMvVelo(mv_velo_twd_.x, mv_velo_twd_.y, mv_velo_twd_.z);
              }
 
              if (_pKuroko->_veloMv <= (-30000 + 1000)) {
                  _pKuroko->stopMv();
-                 pAxMver_->setZeroVxyzMvVelo();
+                 pAxsMver_->setZeroVxyzMvVelo();
                  _pProg->changeNext();
              }
              break;
@@ -95,7 +95,7 @@ void EnemyAntiope::processBehavior() {
 
 //    _TRACE_(this<<":"<<getActiveFrame()<<" "<<_x<<","<<_y<<","<<_z<<"  ("<<_pKuroko->_veloMv<<") "<<_pKuroko->_vX<<","<<_pKuroko->_vY<<","<<_pKuroko->_vZ<<"");
     _pKuroko->behave();
-    pAxMver_->behave();
+    pAxsMver_->behave();
     pAFader_->behave();
 }
 
@@ -119,5 +119,5 @@ void EnemyAntiope::onInactive() {
 
 EnemyAntiope::~EnemyAntiope() {
     GGAF_DELETE(pAFader_);
-    GGAF_DELETE(pAxMver_);
+    GGAF_DELETE(pAxsMver_);
 }

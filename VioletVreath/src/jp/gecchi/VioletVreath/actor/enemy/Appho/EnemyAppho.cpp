@@ -72,7 +72,7 @@ void EnemyAppho::processBehavior() {
                  //滞留ポイントへGO!
                  velo mv_velo = RF_EnemyAppho_MvVelo(G_RANK);
                  coord d = UTIL::getDistance(this, &hanging_pos_);
-                 _pKuroko->helperA()->slideMvByVd(mv_velo, d,
+                 _pKuroko->hlprA()->slideMvByVd(mv_velo, d,
                                         0.2, 0.8, RND(-PX_C(0.5),PX_C(0.5)));
              }
              //滞留ポイントまで移動中
@@ -81,7 +81,7 @@ void EnemyAppho::processBehavior() {
                  _pKuroko->turnFaceAngTwd(P_MYSHIP, D_ANG(0.5), 0,
                                            TURN_CLOSE_TO, true);
              }
-             if (_pKuroko->helperA()->isJustFinishSlidingMv()) {
+             if (_pKuroko->hlprA()->isJustFinishSlidingMv()) {
                  _pProg->changeNext();
              }
              //_TRACE_("PROG_MOVE01:"<<_x<<","<<_y<<","<<_z<<","<<_pKuroko->_veloMv<<","<<_pKuroko->_accMv);

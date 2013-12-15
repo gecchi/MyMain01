@@ -208,10 +208,19 @@ void GgafDxKurokoHelperB::turnRzRyFaceAngByVdTo(
                         prm_top_angvelo*drr, out_ry_angular_distance,
                         prm_p1, prm_p2, prm_end_angvelo,
                         prm_endacc_flg);
-    } else {
+    } else if (drz < dry) {
         double drr = drz / dry;
         turnFaceAngByVd(AXIS_Z,
                         prm_top_angvelo*drr, out_rz_angular_distance,
+                        prm_p1, prm_p2, prm_end_angvelo,
+                        prm_endacc_flg);
+        turnFaceAngByVd(AXIS_Y,
+                        prm_top_angvelo, out_ry_angular_distance,
+                        prm_p1, prm_p2, prm_end_angvelo,
+                        prm_endacc_flg);
+    } else {
+        turnFaceAngByVd(AXIS_Z,
+                        prm_top_angvelo, out_rz_angular_distance,
                         prm_p1, prm_p2, prm_end_angvelo,
                         prm_endacc_flg);
         turnFaceAngByVd(AXIS_Y,

@@ -12,7 +12,7 @@ using namespace VioletVreath;
 Camera::Camera(const char* prm_name) :
         DefaultCamera(prm_name, PI * 90.0 / 180.0) {
     _class_name = "Camera";
-    pAxMver_ = NEW GgafDxAxesMover(this);
+    pAxsMver_ = NEW GgafDxAxesMover(this);
 }
 
 GgafDxCameraViewPoint* Camera::createViewPoint() {
@@ -26,10 +26,10 @@ void Camera::initialize() {
 
 void Camera::processBehavior() {
     DefaultCamera::processBehavior();
-    pAxMver_->behave();
+    pAxsMver_->behave();
     _pKuroko->behave();
 }
 
 Camera::~Camera() {
-    GGAF_DELETE(pAxMver_);
+    GGAF_DELETE(pAxsMver_);
 }

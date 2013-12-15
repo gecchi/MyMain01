@@ -147,8 +147,8 @@ public:
      * @return
      */
     GgafDxGeometricActor(const char* prm_name,
-                          GgafCore::GgafStatus* prm_pStat,
-                          GgafDxChecker* prm_pChecker);
+                         GgafCore::GgafStatus* prm_pStat,
+                         GgafDxChecker* prm_pChecker);
 
     /**
      * 次のアクターを取得

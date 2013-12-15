@@ -64,8 +64,8 @@ void EnemyEresShot001::processBehavior() {
     if (getActiveFrame() == frame_TurnBegin_) {
 
         _pKuroko->turnMvAngTwd(P_MYSHIP,
-                                angVelo_Turn_, 0,
-                                TURN_CLOSE_TO,true);
+                               angVelo_Turn_, 0,
+                               TURN_CLOSE_TO, true);
         _pKuroko->setMvAcce(iMoveAcce_2nd_);
     }
 

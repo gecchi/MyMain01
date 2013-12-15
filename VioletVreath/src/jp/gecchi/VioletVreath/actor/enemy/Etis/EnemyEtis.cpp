@@ -19,7 +19,7 @@ using namespace VioletVreath;
 EnemyEtis::EnemyEtis(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Etis", STATUS(EnemyEtis)) {
     _class_name = "EnemyEtis";
-    pAxMver_ = NEW GgafDxAxesMover(this);
+    pAxsMver_ = NEW GgafDxAxesMover(this);
     width_x_ = 220*2*LEN_UNIT;
     height_z_ = 220*2*LEN_UNIT;
     depth_y_ = 36*2*LEN_UNIT;
@@ -49,7 +49,7 @@ void EnemyEtis::onActive() {
     _pStatus->reset();
     setAlpha(1.0);
     _pKuroko->setMvVelo(0);
-    pAxMver_->setVxMvVelo(-3000);
+    pAxsMver_->setVxMvVelo(-3000);
     _pKuroko->setFaceAngVelo(AXIS_Z, 1000);
     static coord renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 3;
     static coord renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 3;
@@ -64,7 +64,7 @@ void EnemyEtis::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     //À•W‚É”½‰f
     _pKuroko->behave();
-    pAxMver_->behave();
+    pAxsMver_->behave();
     _pSeTx->behave();
 }
 
@@ -90,6 +90,6 @@ void EnemyEtis::onInactive() {
 }
 
 EnemyEtis::~EnemyEtis() {
-    GGAF_DELETE(pAxMver_);
+    GGAF_DELETE(pAxsMver_);
 }
 

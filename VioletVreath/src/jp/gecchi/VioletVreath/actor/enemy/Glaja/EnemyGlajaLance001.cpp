@@ -97,7 +97,7 @@ void EnemyGlajaLance001::processBehavior() {
         case PROG_AIM_ANIME02: {
             if (_pProg->isJustChanged()) {
                 //Ž©‹@‚ÉƒOƒ‹ƒ“‚ÆŒü‚­
-                _pKuroko->helperB()->turnFaceAngByDtTwd(pMyShip, TURN_ANTICLOSE_TO, false,
+                _pKuroko->hlprB()->turnFaceAngByDtTwd(pMyShip, TURN_ANTICLOSE_TO, false,
                                                         30, 0.2, 0.4, 0, true );
             }
             if (!_pKuroko->isTurningFaceAng()) {

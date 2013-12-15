@@ -134,7 +134,7 @@ void EnemyErmione::processBehavior() {
                 throwEventLowerTree(EVENT_ERMIONE_ENTRY_DONE);
                 _pKuroko->setMvAngTwd(P_MYSHIP);
                 _pKuroko->setMvVelo(10);
-                _pKuroko->helperB()->turnFaceAngByDtTwd(
+                _pKuroko->hlprB()->turnFaceAngByDtTwd(
                         P_MYSHIP, TURN_CLOSE_TO, true, 60*30,
                         0.4, 0.6, 0, true);
 

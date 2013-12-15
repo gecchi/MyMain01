@@ -144,11 +144,11 @@ HRESULT GgafDxMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_dr
                 hr = pID3DXEffect->BeginPass(pass);
                 checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() "<<pass+1<<"パス目 BeginPass("<<pass<<") に失敗しました。");
                 pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
-                                                               idxparam.BaseVertexIndex,
-                                                               idxparam.MinIndex,
-                                                               idxparam.NumVertices,
-                                                               idxparam.StartIndex,
-                                                               idxparam.PrimitiveCount);
+                                              idxparam.BaseVertexIndex,
+                                              idxparam.MinIndex,
+                                              idxparam.NumVertices,
+                                              idxparam.StartIndex,
+                                              idxparam.PrimitiveCount);
                 hr = pID3DXEffect->EndPass();
                 checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() "<<pass+1<<"パス目 EndPass() に失敗しました。");
             }

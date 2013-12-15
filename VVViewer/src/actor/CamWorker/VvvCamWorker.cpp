@@ -68,12 +68,12 @@ void VvvCamWorker::processBehavior() {
         } else {
             cd_ = cw;
         }
-        if (!pCam->_pKuroko->helperA()->isSlidingMv()) {
+        if (!pCam->_pKuroko->hlprA()->isSlidingMv()) {
             move_target_x_CAM_ = pCam->_x;
             move_target_y_CAM_ = pCam->_y;
             move_target_z_CAM_ = pCam->_z;
         }
-        if (!pVP->_pKuroko->helperA()->isSlidingMv()) {
+        if (!pVP->_pKuroko->hlprA()->isSlidingMv()) {
             //³Šm‚ÈVP‚ÉÄÝ’è
             pVP->_x = DX_C(pCam->_pVecCamLookatPoint->x);
             pVP->_y = DX_C(pCam->_pVecCamLookatPoint->y);
@@ -233,12 +233,12 @@ void VvvCamWorker::processBehavior() {
         stop_renge_ = 60000;
         if (mdz_flg_ == false) {
             mdz_total_ = 0;
-            if (!pCam->_pKuroko->helperA()->isSlidingMv()) {
+            if (!pCam->_pKuroko->hlprA()->isSlidingMv()) {
                 move_target_x_CAM_ = pCam->_x;
                 move_target_y_CAM_ = pCam->_y;
                 move_target_z_CAM_ = pCam->_z;
             }
-            if (!pVP->_pKuroko->helperA()->isSlidingMv()) {
+            if (!pVP->_pKuroko->hlprA()->isSlidingMv()) {
                 pVP->_x = DX_C(pCam->_pVecCamLookatPoint->x);
                 pVP->_y = DX_C(pCam->_pVecCamLookatPoint->y);
                 pVP->_z = DX_C(pCam->_pVecCamLookatPoint->z);
@@ -294,10 +294,10 @@ void VvvCamWorker::processBehavior() {
         int td1 = UTIL::getDistance(pCam->_x, pCam->_y, pCam->_z,
                                     move_target_x_CAM_, move_target_y_CAM_, move_target_z_CAM_);
         if (ABS(td1) > 20) {
-            if (pCam->_pKuroko->helperA()->isSlidingMv() && pCam->_pKuroko->helperA()->_smthMv._prm._progress == 1) {
+            if (pCam->_pKuroko->hlprA()->isSlidingMv() && pCam->_pKuroko->hlprA()->_smthMv._prm._progress == 1) {
 
             } else {
-                pCam->_pKuroko->helperA()->slideMvByDt(td1, 20, 0.4, 0.6, 0);
+                pCam->_pKuroko->hlprA()->slideMvByDt(td1, 20, 0.4, 0.6, 0);
             }
         }
     }
@@ -308,9 +308,9 @@ void VvvCamWorker::processBehavior() {
         int td2 = UTIL::getDistance(pVP->_x, pVP->_y, pVP->_z,
                                     move_target_x_VP_, move_target_y_VP_, move_target_z_VP_);
         if (ABS(td2) > 20) {
-            if (pVP->_pKuroko->helperA()->isSlidingMv() && pVP->_pKuroko->helperA()->_smthMv._prm._progress == 1) {
+            if (pVP->_pKuroko->hlprA()->isSlidingMv() && pVP->_pKuroko->hlprA()->_smthMv._prm._progress == 1) {
             } else {
-                pVP->_pKuroko->helperA()->slideMvByDt(td2, 20, 0.4, 0.6, 0);
+                pVP->_pKuroko->hlprA()->slideMvByDt(td2, 20, 0.4, 0.6, 0);
             }
         }
     }

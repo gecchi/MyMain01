@@ -27,7 +27,7 @@ public:
         SE_EXPLOSION ,
     };
     /** ïΩçsà⁄ìÆéxâá */
-    GgafDxCore::GgafDxAxesMover* pAxMver_;
+    GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
     coord colli_box_dX_;
     coord colli_box_dY_;

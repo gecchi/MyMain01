@@ -13,7 +13,7 @@ namespace VVViewer {
 class VvvViewPoint : public GgafDxCore::GgafDxCameraViewPoint {
 public:
     /** •½sˆÚ“®x‰‡ */
-    GgafDxCore::GgafDxAxesMover* pAxMver_;
+    GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
 public:
     VvvViewPoint(const char* prm_name);

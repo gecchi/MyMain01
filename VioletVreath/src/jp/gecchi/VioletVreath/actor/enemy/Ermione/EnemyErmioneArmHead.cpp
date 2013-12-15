@@ -29,7 +29,6 @@ void EnemyErmioneArmHead::initialize() {
     _pColliChecker->setColliAAB_Cube(0, 40000);
 }
 
-
 void EnemyErmioneArmHead::processBehavior() {
     EnemyErmioneArm::processBehavior();
 

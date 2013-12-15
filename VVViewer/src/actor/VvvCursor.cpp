@@ -62,7 +62,7 @@ void VvvCursor::processBehavior() {
 
     _pUvFlipper->behave();
     _pKuroko->behave();
-    if (_pKuroko->helperA()->isJustFinishSlidingMv()) {
+    if (_pKuroko->hlprA()->isJustFinishSlidingMv()) {
         //—‘zˆÊ’u‚É•â³
         _x = tx_;
         _y = ty_;
@@ -77,14 +77,14 @@ void VvvCursor::sinkMe() {
 }
 
 void VvvCursor::moveTo(coord X, coord Y, coord Z) {
-    _pKuroko->helperA()->stopSlidingMv();
+    _pKuroko->hlprA()->stopSlidingMv();
     _pKuroko->setMvVelo(0);
     _pKuroko->setMvAcce(0);
     tx_ = X;
     ty_ = Y;
     tz_ = Z;
     _pKuroko->setMvAngTwd(tx_, ty_, tz_);
-    _pKuroko->helperA()->slideMvByDt( UTIL::getDistance(_x, _y, _z, tx_, ty_, tz_), 20, 0.3f, 0.7f, 0);
+    _pKuroko->hlprA()->slideMvByDt( UTIL::getDistance(_x, _y, _z, tx_, ty_, tz_), 20, 0.3f, 0.7f, 0);
     _pProg->change(CUR_ON_MOVE);
 }
 

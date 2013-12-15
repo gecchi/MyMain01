@@ -14,7 +14,7 @@ class FormationGeria : public GgafLib::DefaultGeometricActor {
 
 public:
     /** •½sˆÚ“®x‰‡ */
-    GgafDxCore::GgafDxAxesMover* pAxMver_;
+    GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
     /** oŒ»”ÍˆÍ•BOX */
     int X1_app_, Y1_app_, Z1_app_, X2_app_, Y2_app_, Z2_app_;

@@ -13,7 +13,7 @@ namespace VioletVreath {
 class Camera : public GgafLib::DefaultCamera {
 public:
     /** •½sˆÚ“®x‰‡ */
-    GgafDxCore::GgafDxAxesMover* pAxMver_;
+    GgafDxCore::GgafDxAxesMover* pAxsMver_;
 public:
     Camera(const char* prm_name);
 
