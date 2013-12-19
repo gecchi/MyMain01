@@ -186,6 +186,7 @@
     <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxFkFormation.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\interface\GgafDxIBumpMapActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxAxesMover.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxAxesMoverHelperA.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxKuroko.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoHelperA.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoHelperB.cpp" />
@@ -310,6 +311,7 @@
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ex\ggafdxfkformation.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\interface\GgafDxIBumpMapActor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxaxesmover.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxaxesmoverhelpera.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxkuroko.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxkurokohelpera.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxkurokohelperb.h" />

@@ -88,9 +88,17 @@ void Universe::initialize() {
 }
 
 void Universe::processBehavior() {
-    if (pActiveCamWorker_->frame_of_behaving_since_onSwitch_== 0) {
-        pActiveCamWorker_->onSwitchCameraWork(); //コールバック
+    if (!pActiveCamWorker_->_was_initialize_flg) {
+        pActiveCamWorker_->initialize();
     }
+    if (pActiveCamWorker_->onChangeToActive()) {
+        if (pActiveCamWorker_->frame_of_behaving_since_onSwitch_== 0) {
+            pActiveCamWorker_->onSwitchCameraWork(); //コールバック
+        } else {
+            pActiveCamWorker_->onCameBackFromOtherCameraWork(); //コールバック
+        }
+    }
+
     pActiveCamWorker_->frame_of_behaving_since_onSwitch_++;
     DefaultUniverse::processBehavior();
 }
@@ -168,7 +176,7 @@ CameraWorker* Universe::undoCameraWork() {
             pActiveCamWorker_ = pCamWorker;
             if (pActiveCamWorker_) {
                 //１つ前の CameraWork を活動へ
-                pActiveCamWorker_->onCameBackFromOtherCameraWork();  //コールバック
+//                pActiveCamWorker_->onCameBackFromOtherCameraWork();  //コールバック
                 pActiveCamWorker_->activate();
             } else {
                 stack_CamWorkerConnection_.dump();
@@ -207,10 +215,10 @@ void Universe::resetCamWorker() {
     Camera* pCam = P_CAM;
     pCam->setDefaultPosition();
     pActiveCamWorker_ = stack_CamWorkerConnection_.getLast()->peek();
-    pActiveCamWorker_->setMoveTargetCamBy(pCam);
-    pActiveCamWorker_->setMoveTargetCamVpBy(pCam->getViewPoint());
-    pActiveCamWorker_->angXY_nowCamUp_ = UTIL::getAngle2D((double)(pCam->_pVecCamUp->x), (double)(pCam->_pVecCamUp->y));
-    pActiveCamWorker_->move_target_XY_CAM_UP_ = pActiveCamWorker_->angXY_nowCamUp_;
+    pActiveCamWorker_->slideMvCamTo(pCam, 60);
+    pActiveCamWorker_->slideMvVpTo(pCam->getViewPoint(), 60);
+//    pActiveCamWorker_->angXY_nowCamUp_ = UTIL::getAngle2D((double)(pCam->_pVecCamUp->z), (double)(pCam->_pVecCamUp->y));
+//    pActiveCamWorker_->move_target_ZY_CAM_UP_ = pActiveCamWorker_->angXY_nowCamUp_;
     pActiveCamWorker_->activate();
 //    _TRACE_("resetCamWorker end---");
 //    stack_CamWorkerConnection_.dump();

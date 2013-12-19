@@ -2,6 +2,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 
 #include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverHelperA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -12,7 +13,7 @@ using namespace GgafDxCore;
 
 GgafDxAxesMover::GgafDxAxesMover(GgafDxGeometricActor* prm_pActor) : GgafObject(),
 _pActor(prm_pActor) {
-
+    _pHlprA = nullptr;
     //X軸方向移動速度（X移動座標増分）＝ 0 px/fream
     _veloVxMv = 0;
     //X軸方向移動速度上限 ＝ 256 px/fream
@@ -57,7 +58,15 @@ _pActor(prm_pActor) {
 
 }
 
+GgafDxAxesMoverHelperA* GgafDxAxesMover::hlprA() {
+    return _pHlprA ? _pHlprA : _pHlprA = NEW GgafDxAxesMoverHelperA(this);
+}
+
 void GgafDxAxesMover::behave() {
+    if (_pHlprA) {
+        _pHlprA->behave();
+    }
+
     if(_gravitation_mv_seq_flg) {
         coord dX, dY, dZ;
         if (_gravitation_mv_seq_pActor_target) {
@@ -516,4 +525,5 @@ void GgafDxAxesMover::resetMv() {
 }
 
 GgafDxAxesMover::~GgafDxAxesMover() {
+    GGAF_DELETE_NULLABLE(_pHlprA);
 }

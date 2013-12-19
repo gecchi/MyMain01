@@ -24,8 +24,6 @@ class VamSysCamWorker : public CameraWorker {
 
 public:
     MyShip* pMyShip_;
-    /** 原点から初期カメラZ位置の距離 */
-//    int dZ_camera_init_;
 
     /** カメラY座標上限 */
     coord lim_CAM_top_;
@@ -52,17 +50,10 @@ public:
     /** ビューポイントZ座標下限 */
     coord lim_VP_zright_;
 
-//    /** 現在のカメラのUPのアングル値 */
-//    angle angXY_nowCamUp_;
     /** 画面背後時用Z軸補正範囲差分 */
     coord correction_width_;
     /** 画面背後時用Y軸補正範囲差分 */
     coord correction_height_;
-    /** カメラの最高速度（上限、負数で下限） */
-//    int cam_velo_renge_;
-    /** カメラの速度が、丁度自機の通常移動速度の1.0倍となるカメラ目標座標からの距離。 */
-//    int stop_renge_; //カメラ目標座標距離が、これより小さいと、     1.0倍より減
-//                     //カメラ目標座標距離が、これより大きいとさいと 1.0倍より超
     /** カメラ目標座標に加えられるZ軸座標オフセット補正値 */
     coord stop_dZ_;
     /** カメラ目標座標に加えられるY軸座標オフセット補正値 */
@@ -70,10 +61,20 @@ public:
     /** カメラはオプション背面中である場合true */
     bool is_cam_pos_option_back_;
 
+    int pos_camera_;
+    int pos_camera_prev_;
+    coord dZ_camera_init_;
+    int target_up_face_no_prev_;
+
+    coord move_target_x_CAM_prev_, move_target_y_CAM_prev_, move_target_z_CAM_prev_;
+    //カメラのビューポイントの移動目標座標
+    coord move_target_x_VP_prev_, move_target_y_VP_prev_, move_target_z_VP_prev_;
 public:
     VamSysCamWorker(const char* prm_name);
 
     virtual void initialize() override;
+
+    virtual void onActive() override;
 
     virtual void processBehavior() override;
 

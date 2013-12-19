@@ -24,7 +24,7 @@ VvvCamWorker::VvvCamWorker(const char* prm_name) : DefaultGeometricActor(prm_nam
     mdz_flg_ = false;
     mdz_vx_ = mdz_vy_ = mdz_vz_ = mdz_t_ = 0.0;
     cam_x_ = cam_y_ = cam_z_ = vp_x_ = vp_y_ = vp_z_ = 0;
-    move_target_XY_CAM_UP_ = D90ANG;
+    move_target_ZY_CAM_UP_ = D90ANG;
     angXY_nowCamUp_ = D90ANG;
     stop_renge_ = 60000;
     move_target_x_CAM_ = 0;
@@ -164,8 +164,8 @@ void VvvCamWorker::processBehavior() {
 
             //Q.x_, Q.y_, Q.z_ が回転後の座標となる
 //            if (ABS(mdy) > ABS(mdx)/2) { //上下ブレ補正
-                move_target_XY_CAM_UP_ += UTIL::getAngDiff(rz1, rz2);
-                move_target_XY_CAM_UP_ = UTIL::simplifyAng(move_target_XY_CAM_UP_);
+                move_target_ZY_CAM_UP_ += UTIL::getAngDiff(rz1, rz2);
+                move_target_ZY_CAM_UP_ = UTIL::simplifyAng(move_target_ZY_CAM_UP_);
 //            }
             move_target_x_CAM_ = Q._x + move_target_x_VP_;
             move_target_y_CAM_ = Q._y + move_target_y_VP_;
@@ -188,8 +188,8 @@ void VvvCamWorker::processBehavior() {
             angle rz2 = UTIL::getAngle2D(Q._z,Q._y);
 //            if (ABS(mdy) > ABS(mdx)/2) { //上下ブレ補正
                 //ZY平面での、カメラ→視点ベクトルの移動前移動後のベクトルのなす角
-                move_target_XY_CAM_UP_ += UTIL::getAngDiff(rz1, rz2);
-                move_target_XY_CAM_UP_ = UTIL::simplifyAng(move_target_XY_CAM_UP_);
+                move_target_ZY_CAM_UP_ += UTIL::getAngDiff(rz1, rz2);
+                move_target_ZY_CAM_UP_ = UTIL::simplifyAng(move_target_ZY_CAM_UP_);
 //            }
             //Q.x_, Q.y_, Q.z_ が回転後の座標となる
             move_target_x_VP_ = Q._x + move_target_x_CAM_;
@@ -297,7 +297,7 @@ void VvvCamWorker::processBehavior() {
             if (pCam->_pKuroko->hlprA()->isSlidingMv() && pCam->_pKuroko->hlprA()->_smthMv._prm._progress == 1) {
 
             } else {
-                pCam->_pKuroko->hlprA()->slideMvByDt(td1, 20, 0.4, 0.6, 0);
+                pCam->_pKuroko->hlprA()->slideMvByDt(td1, 20, 0.4, 0.6, 0, true);
             }
         }
     }
@@ -310,18 +310,18 @@ void VvvCamWorker::processBehavior() {
         if (ABS(td2) > 20) {
             if (pVP->_pKuroko->hlprA()->isSlidingMv() && pVP->_pKuroko->hlprA()->_smthMv._prm._progress == 1) {
             } else {
-                pVP->_pKuroko->hlprA()->slideMvByDt(td2, 20, 0.4, 0.6, 0);
+                pVP->_pKuroko->hlprA()->slideMvByDt(td2, 20, 0.4, 0.6, 0, true);
             }
         }
     }
 
-//    _TRACE_("move_target_XY_CAM_UP_="<<move_target_XY_CAM_UP_);
+//    _TRACE_("move_target_ZY_CAM_UP_="<<move_target_ZY_CAM_UP_);
     //カメラのUPを計算
     angvelo angvelo_cam_up = 30000 / 20;
-    if (angXY_nowCamUp_ != move_target_XY_CAM_UP_) {
-        angle da = UTIL::getAngDiff(angXY_nowCamUp_, move_target_XY_CAM_UP_);
+    if (angXY_nowCamUp_ != move_target_ZY_CAM_UP_) {
+        angle da = UTIL::getAngDiff(angXY_nowCamUp_, move_target_ZY_CAM_UP_);
         if (-angvelo_cam_up < da && da < angvelo_cam_up) {
-            angXY_nowCamUp_ = move_target_XY_CAM_UP_;
+            angXY_nowCamUp_ = move_target_ZY_CAM_UP_;
         } else {
             angXY_nowCamUp_ += (angvelo_cam_up * SGN(da));
         }

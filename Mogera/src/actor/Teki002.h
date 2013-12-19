@@ -13,6 +13,7 @@ namespace Mogera {
 class Teki002 : public GgafLib::DefaultMeshActor {
 
 public:
+    GgafDxCore::GgafDxAxesMover* pAxMvr_;
 
     /**
      * コンストラクタ

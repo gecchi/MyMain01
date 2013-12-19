@@ -538,49 +538,49 @@ public:
         ry1 = ry2;
     }
 
-    /**
-     * RzRyの最適化を試みる。
-     * 方向を変えず、Z軸回転+Y軸回転もう一つの組み合わせと比較し。
-     * @param rz1
-     * @param ry1
-     */
-    static void optimizeRzRy(angle& rz1, angle& ry1) {
-        int rz2 = 0;
-        int ry2 = 0;
-        if (0 <= rz1 && rz1 < D90ANG) {
-            rz2 = D180ANG - rz1;
-
-            if (0 <= ry1 && ry1 < D180ANG) {
-                ry2 = ry1 + D180ANG;
-            } else {
-                ry2 = ry1 - D180ANG;
-            }
-        } else if (D90ANG <= rz1 && rz1 < D180ANG) {
-            rz2 = D180ANG - rz1;
-            if (0 <= ry1 && ry1 < D180ANG) {
-                ry2 = ry1 + D180ANG;
-            } else {
-                ry2 = ry1 - D180ANG;
-            }
-        } else if (D180ANG <= rz1 && rz1 < D270ANG) {
-            rz2 = D180ANG + (D360ANG - rz1);
-            if (0 <= ry1 && ry1 < D180ANG) {
-                ry2 = ry1 + D180ANG;
-            } else {
-                ry2 = ry1 - D180ANG;
-            }
-        } else if (D270ANG <= rz1 && rz1 <= D360ANG) {
-            rz2 = D180ANG + (D360ANG - rz1);
-            if (0 <= ry1 && ry1 < D180ANG) {
-                ry2 = ry1 + D180ANG;
-            } else {
-                ry2 = ry1 - D180ANG;
-            }
-        }
-        rz1 = rz2;
-        ry1 = ry2;
-    }
-
+//    /**
+//     * RzRyの最適化を試みる。
+//     * 方向を変えず、Z軸回転+Y軸回転もう一つの組み合わせと比較し。
+//     * @param rz1
+//     * @param ry1
+//     */
+//    static void optimizeRzRy(angle& rz1, angle& ry1) {
+//        int rz2 = 0;
+//        int ry2 = 0;
+//        if (0 <= rz1 && rz1 < D90ANG) {
+//            rz2 = D180ANG - rz1;
+//
+//            if (0 <= ry1 && ry1 < D180ANG) {
+//                ry2 = ry1 + D180ANG;
+//            } else {
+//                ry2 = ry1 - D180ANG;
+//            }
+//        } else if (D90ANG <= rz1 && rz1 < D180ANG) {
+//            rz2 = D180ANG - rz1;
+//            if (0 <= ry1 && ry1 < D180ANG) {
+//                ry2 = ry1 + D180ANG;
+//            } else {
+//                ry2 = ry1 - D180ANG;
+//            }
+//        } else if (D180ANG <= rz1 && rz1 < D270ANG) {
+//            rz2 = D180ANG + (D360ANG - rz1);
+//            if (0 <= ry1 && ry1 < D180ANG) {
+//                ry2 = ry1 + D180ANG;
+//            } else {
+//                ry2 = ry1 - D180ANG;
+//            }
+//        } else if (D270ANG <= rz1 && rz1 <= D360ANG) {
+//            rz2 = D180ANG + (D360ANG - rz1);
+//            if (0 <= ry1 && ry1 < D180ANG) {
+//                ry2 = ry1 + D180ANG;
+//            } else {
+//                ry2 = ry1 - D180ANG;
+//            }
+//        }
+//        rz1 = rz2;
+//        ry1 = ry2;
+//    }
+//
 
     static inline angle simplifyAng(angle prm_ang) {
         if (0 <= prm_ang && prm_ang < D360ANG) {

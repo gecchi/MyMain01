@@ -435,6 +435,7 @@ class GgafDxKurokoHelperA;
 class GgafDxKurokoHelperB;
 class GgafDxKurokoHelperC;
 class GgafDxAxesMover;
+class GgafDxAxesMoverHelperA;
 class GgafDxChecker;
 class GgafDxScaler;
 class GgafDxAlphaFader;

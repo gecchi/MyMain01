@@ -122,7 +122,7 @@ void MenuBoard::onRise() {
              target_y_ + slide_from_offset_y_);
     _pKuroko->setMvAngTwd(target_x_, target_y_);
     _pKuroko->hlprA()->slideMvByDt(UTIL::getDistance(_x, _y, target_x_, target_y_), _fade_frames,
-                           0.2, 0.3, 0);
+                           0.2, 0.3, 0, true);
     _pSeTx->play(SE_ON_RISEN);
 }
 
@@ -149,7 +149,7 @@ void MenuBoard::onSink() {
                                 _x, _y,
                                 target_x_+slide_from_offset_x_, target_y_+slide_from_offset_y_
                            ), _fade_frames,
-                           0.2, 0.3, 0);
+                           0.2, 0.3, 0, true);
 }
 
 MenuBoard::~MenuBoard() {

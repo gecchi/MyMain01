@@ -145,6 +145,8 @@ public:
 
     virtual void setDefaultPosition();
 
+    virtual void setVecCamUp(float prm_up_x, float prm_up_y, float prm_up_z);
+
     virtual GgafDxCameraViewPoint* getViewPoint();
 
     virtual GgafDxCameraViewPoint* createViewPoint();

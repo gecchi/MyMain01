@@ -11,28 +11,30 @@ MyShipDivingCamWorker::MyShipDivingCamWorker(const char* prm_name) : CameraWorke
     _class_name = "MyShipDivingCamWorker";
 }
 void MyShipDivingCamWorker::initialize() {
+    CameraWorker::initialize();
 }
 
-void MyShipDivingCamWorker::onSwitchCameraWork() {
-    CameraWorker::onSwitchCameraWork();
+void MyShipDivingCamWorker::onActive() {
+    CameraWorker::onActive();
     MyShip* pMyShip = P_MYSHIP;
-    setMoveTargetCam(-PX_C(300), pMyShip->_y, pMyShip->_z);
-    setMoveTargetCamVpBy(pMyShip);
+    slideMvCamTo(-PX_C(300), pMyShip->_y, pMyShip->_z , 60);
+    slideMvVpTo(pMyShip, 60);
 }
 void MyShipDivingCamWorker::processBehavior() {
-    MyShip* pMyShip = P_MYSHIP;
-    frame f = getSwitchedFrame();
-    coord dx = ABS(P_MYSHIP->_x);
-    static coord dc = ABS(Universe::_x_gone_left);
-    static coord r = PX_C(500);
-    double t = (1.0-(1.0*dx / dc)); //t=0.0Å®1.0
-    angle a = UTIL::simplifyAng(D180ANG*t);
-    coord Y = ANG_SIN(a) * r;
-    coord Z = -ANG_COS(a) * r;
-    setMoveTargetCam(-PX_C(300), Y , Z);
-    setMoveTargetCamVpBy(pMyShip);
-
-    CameraWorker::processBehavior();
+    if (getActiveFrame() > 30) {
+        MyShip* pMyShip = P_MYSHIP;
+        frame f = getSwitchedFrame();
+        coord dx = ABS(P_MYSHIP->_x);
+        static const coord dc = ABS(Universe::_x_gone_left);
+        static const coord r = PX_C(500);
+        double t = (1.0-(1.0*dx / dc)); //t=0.0Å®1.0
+        angle a = UTIL::simplifyAng(D180ANG*t*2);
+        coord y = ANG_SIN(a) * r;
+        coord z = -ANG_COS(a) * r;
+        slideMvCamTo(PX_C(300), y , z, 20);
+        slideMvVpTo(pMyShip, 10);
+        CameraWorker::processBehavior();
+    }
 }
 
 MyShipDivingCamWorker::~MyShipDivingCamWorker() {

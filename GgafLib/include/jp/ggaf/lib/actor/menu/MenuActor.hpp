@@ -1366,7 +1366,7 @@ void MenuActor<T>::moveCursor(bool prm_smooth) {
                                                           pTargetItem->_y + _y_cursor_adjust,
                                                           pTargetItem->_z + _z_cursor_adjust ),
                                         _cursor_move_frames,
-                                        _cursor_move_p1, _cursor_move_p2, 0
+                                        _cursor_move_p1, _cursor_move_p2, 0 , true
                                       );
             _x_cursor_target_prev = pTargetItem->_x;
             _y_cursor_target_prev = pTargetItem->_y;
@@ -1405,7 +1405,7 @@ void MenuActor<T>::moveSupCursor(int prm_supcur_no, bool prm_smooth) {
                                                             pTargetItem->_y + pSupCursor->_y_adjust,
                                                             pTargetItem->_z + pSupCursor->_z_adjust ),
                                           pSupCursor->_move_frames,
-                                          pSupCursor->_move_p1, pSupCursor->_move_p2, 0
+                                          pSupCursor->_move_p1, pSupCursor->_move_p2, 0 , true
                                         );
             pSupCursor->_x_target_prev = pTargetItem->_x;
             pSupCursor->_y_target_prev = pTargetItem->_y;

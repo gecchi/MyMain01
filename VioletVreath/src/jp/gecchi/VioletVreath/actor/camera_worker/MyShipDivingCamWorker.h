@@ -16,7 +16,7 @@ public:
     MyShipDivingCamWorker(const char* prm_name);
 
     virtual void initialize() override;
-    virtual void onSwitchCameraWork();
+    virtual void onActive() override;
     virtual void processBehavior() override;
 
     virtual ~MyShipDivingCamWorker();

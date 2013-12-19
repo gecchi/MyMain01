@@ -53,7 +53,7 @@ void MagicMeterCursor001::moveTo(int prm_magic_mater_index) {
     ty_ = pMagicMeter_->_y + (pMagicMeter_->height_/2);
     _pKuroko->setMvAngTwd(tx_, ty_);
     _pKuroko->hlprA()->slideMvByDt(UTIL::getDistance(_x, _y, tx_, ty_), 12,
-                               0.2, 0.4, 0);
+                               0.2, 0.4, 0, true);
 }
 
 MagicMeterCursor001::~MagicMeterCursor001() {

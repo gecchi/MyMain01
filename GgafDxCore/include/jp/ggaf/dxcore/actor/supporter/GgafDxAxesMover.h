@@ -64,12 +64,16 @@ public:
     coord _gravitation_mv_seq_stop_renge;
     bool _gravitation_mv_seq_flg;
 
+    GgafDxAxesMoverHelperA* _pHlprA;
+
 public:
     /**
      * コンストラクタ<BR>
      * @param   prm_pActor  適用Actor
      */
     GgafDxAxesMover(GgafDxGeometricActor* prm_pActor);
+
+    GgafDxAxesMoverHelperA* hlprA();
 
     int dot(int prm_vX, int prm_vY, int prm_vZ);
     /**

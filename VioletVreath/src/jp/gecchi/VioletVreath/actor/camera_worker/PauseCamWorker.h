@@ -17,7 +17,7 @@ public:
 
     int cd_;
 
-    int cam_x_, cam_y_, cam_z_, vp_x_, vp_y_, vp_z_;
+//    int cam_x_, cam_y_, cam_z_, vp_x_, vp_y_, vp_z_;
 
     bool mdz_flg_;
     double mdz_vx_, mdz_vy_, mdz_vz_, mdz_t_;
@@ -28,7 +28,7 @@ public:
 
     virtual void initialize() override;
 
-
+    virtual void onActive() override;
     virtual void processBehavior() override;
 
     virtual void processJudgement() override {

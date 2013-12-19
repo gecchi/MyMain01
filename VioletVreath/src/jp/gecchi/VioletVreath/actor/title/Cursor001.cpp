@@ -33,7 +33,7 @@ void Cursor001::processJudgement() {
 
 void Cursor001::moveTo(int X, int Y) {
     _pKuroko->setMvAngTwd(X, Y);
-    _pKuroko->hlprA()->slideMvByDt(UTIL::getDistance(_x, _y, (coord)X, (coord)Y), 8, 0.2, 0.3, 0);
+    _pKuroko->hlprA()->slideMvByDt(UTIL::getDistance(_x, _y, (coord)X, (coord)Y), 8, 0.2, 0.3, 0, true);
 }
 
 Cursor001::~Cursor001() {

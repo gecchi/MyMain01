@@ -1,30 +1,32 @@
-#ifndef GGAFDXCORE_GGAFDXKUROKOHELPERA_H_
-#define GGAFDXCORE_GGAFDXKUROKOHELPERA_H_
+#ifndef GGAFDXCORE_GGAFDXAXESMOVERHELPERA_H_
+#define GGAFDXCORE_GGAFDXAXESMOVERHELPERA_H_
 #include "jp/ggaf/core/GgafObject.h"
 #include "jp/ggaf/dxcore/util/GgafDxAccelerator.hpp"
+#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 
 namespace GgafDxCore {
 
 /**
- * 黒衣の助手A .
- * 師匠(黒衣)の補佐を行います。
+ * 黒衣Bの助手A .
+ * 師匠(黒衣B)の補佐を行います。
  * @version 1.00
- * @since 2013/12/05
+ * @since 2013/12/16
  * @author Masatoshi Tsuge
  */
-class GgafDxKurokoHelperA : public GgafCore::GgafObject {
+class GgafDxAxesMoverHelperA : public GgafCore::GgafObject {
 
 public:
     /** [r]師匠 */
-    GgafDxKuroko* _pMaster;
-    GgafDxAccelerator<int> _smthMv;
+    GgafDxAxesMover* _pMaster;
+    GgafDxAccelerator<coord> _smthVxMv;
+    GgafDxAccelerator<coord> _smthVyMv;
+    GgafDxAccelerator<coord> _smthVzMv;
 public:
     /**
      * コンストラクタ<BR>
      * @param   prm_pMaster  師匠
      */
-    GgafDxKurokoHelperA(GgafDxKuroko* prm_pMaster);
-
+    GgafDxAxesMoverHelperA(GgafDxAxesMover* prm_pMaster);
 
     /**
      * なめらかな移動速度を変化させるシークエンスを実行(時間・距離指定、速度変動) .
@@ -61,9 +63,37 @@ public:
      * @param prm_end_velo 最終スピード(Ve)
      * @param prm_endacc_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
-    void slideMvByDt(coord prm_target_distance, int prm_target_frames,
-                     float prm_p1, float prm_p2, velo prm_end_velo,
-                     bool prm_endacc_flg);
+    void slideVxMvByDt(coord prm_target_distance, int prm_target_frames,
+                       float prm_p1, float prm_p2, velo prm_end_velo,
+                       bool prm_endacc_flg);
+
+    void slideVyMvByDt(coord prm_target_distance, int prm_target_frames,
+                       float prm_p1, float prm_p2, velo prm_end_velo,
+                       bool prm_endacc_flg);
+
+    void slideVzMvByDt(coord prm_target_distance, int prm_target_frames,
+                       float prm_p1, float prm_p2, velo prm_end_velo,
+                       bool prm_endacc_flg);
+
+    void slideVxyzMvByDt(coord prm_x_target_distance, coord prm_y_target_distance, coord prm_z_target_distance,
+                         int prm_target_frames,
+                         float prm_p1, float prm_p2, velo prm_end_velo,
+                         bool prm_endacc_flg) {
+        slideVxMvByDt(prm_x_target_distance, prm_target_frames,
+                      prm_p1, prm_p2, prm_end_velo,
+                      prm_endacc_flg);
+        slideVyMvByDt(prm_y_target_distance, prm_target_frames,
+                      prm_p1, prm_p2, prm_end_velo,
+                      prm_endacc_flg);
+        slideVzMvByDt(prm_z_target_distance, prm_target_frames,
+                      prm_p1, prm_p2, prm_end_velo,
+                      prm_endacc_flg);
+    }
+
+    void slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
+                           int prm_target_frames,
+                           float prm_p1, float prm_p2, velo prm_end_velo,
+                           bool prm_endacc_flg);
 
     /**
      * なめらかな移動速度を変化させるシークエンスを実行(速度・距離指定、時間変動) .
@@ -100,33 +130,58 @@ public:
      * @param prm_end_velo 最終スピード(Ve)
      * @param prm_endacc_flg true:目標時間に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
-    void slideMvByVd(velo prm_top_velo, coord prm_target_distance,
-                     float prm_p1, float prm_p2, velo prm_end_velo,
-                     bool prm_endacc_flg);
+    void slideVxMvByVd(velo prm_top_velo, coord prm_target_distance,
+                       float prm_p1, float prm_p2, velo prm_end_velo,
+                       bool prm_endacc_flg);
+
+    void slideVyMvByVd(velo prm_top_velo, coord prm_target_distance,
+                       float prm_p1, float prm_p2, velo prm_end_velo,
+                       bool prm_endacc_flg);
+
+    void slideVzMvByVd(velo prm_top_velo, coord prm_target_distance,
+                       float prm_p1, float prm_p2, velo prm_end_velo,
+                       bool prm_endacc_flg);
+
+    void slideVxyzMvByVd(velo prm_top_velo,
+                         coord prm_x_target_distance, coord prm_y_target_distance, coord prm_z_target_distance,
+                         float prm_p1, float prm_p2, velo prm_end_velo,
+                         bool prm_endacc_flg);
+
+    void slideVxyzMvByVdTo(velo prm_top_velo,
+                          coord prm_x_target, coord prm_y_target, coord prm_z_target,
+                          float prm_p1, float prm_p2, velo prm_end_velo,
+                          bool prm_endacc_flg);
+
     bool isSlidingMv() {
-        return _smthMv._prm._flg;
-    }
-
-    void stopSlidingMv() {
-        _smthMv._prm._flg = false;
-    }
-
-    bool isJustFinishSlidingMv() {
-        if (_smthMv._prm._flg == false && _smthMv._prm._progress != -1) {
+        if (_smthVxMv._prm._flg || _smthVyMv._prm._flg || _smthVzMv._prm._flg) {
             return true;
         } else {
             return false;
         }
     }
-   /**
-     * 黒衣の助手が振る舞う .
-     * 助手が、師匠にいろいろ設定を行いますので、師匠が振る舞う(behave())前に実行しましょう。
-     */
+
+    void stopSlidingMv() {
+        _smthVxMv._prm._flg = false;
+        _smthVyMv._prm._flg = false;
+        _smthVzMv._prm._flg = false;
+    }
+
+    bool isJustFinishSlidingMv() {
+        if (isSlidingMv()) {
+            return false;
+        } else {
+            if (_smthVxMv._prm._progress != -1 || _smthVyMv._prm._progress != -1 || _smthVzMv._prm._progress != -1) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
     virtual void behave();
 
-    virtual ~GgafDxKurokoHelperA();
+    virtual ~GgafDxAxesMoverHelperA();
 };
 
 }
-#endif /*GGAFDXCORE_GGAFDXKUROKOHELPERA_H_*/
+#endif /*GGAFDXCORE_GGAFDXAXESMOVERHELPERA_H_*/
 

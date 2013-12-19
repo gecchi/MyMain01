@@ -84,7 +84,7 @@ void VvvCursor::moveTo(coord X, coord Y, coord Z) {
     ty_ = Y;
     tz_ = Z;
     _pKuroko->setMvAngTwd(tx_, ty_, tz_);
-    _pKuroko->hlprA()->slideMvByDt( UTIL::getDistance(_x, _y, _z, tx_, ty_, tz_), 20, 0.3f, 0.7f, 0);
+    _pKuroko->hlprA()->slideMvByDt( UTIL::getDistance(_x, _y, _z, tx_, ty_, tz_), 20, 0.3f, 0.7f, 0, true);
     _pProg->change(CUR_ON_MOVE);
 }
 

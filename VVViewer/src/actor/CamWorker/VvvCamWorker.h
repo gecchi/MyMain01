@@ -28,7 +28,7 @@ public:
     //カメラのビューポイントの移動目標座標
     coord move_target_x_VP_, move_target_y_VP_, move_target_z_VP_;
     //カメラの目標UPアングル値
-    angle move_target_XY_CAM_UP_;
+    angle move_target_ZY_CAM_UP_;
     angle angXY_nowCamUp_;
     /** カメラの速度が、丁度自機の通常移動速度の1.0倍となるカメラ目標座標からの距離。 */
     coord stop_renge_; //カメラ目標座標距離が、これより小さいと、     1.0倍より減

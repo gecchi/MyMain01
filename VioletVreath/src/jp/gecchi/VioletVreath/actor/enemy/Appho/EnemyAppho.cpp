@@ -73,7 +73,7 @@ void EnemyAppho::processBehavior() {
                  velo mv_velo = RF_EnemyAppho_MvVelo(G_RANK);
                  coord d = UTIL::getDistance(this, &hanging_pos_);
                  _pKuroko->hlprA()->slideMvByVd(mv_velo, d,
-                                        0.2, 0.8, RND(-PX_C(0.5),PX_C(0.5)));
+                                        0.2, 0.8, RND(-PX_C(0.5),PX_C(0.5)), true);
              }
              //‘Ø—¯ƒ|ƒCƒ“ƒg‚Ü‚ÅˆÚ“®’†
              if (_pProg->getFrameInProgress() % 32U == 0) {

@@ -53,7 +53,7 @@ void VvvWorld::processBehavior() {
         pCamWorker_->move_target_x_VP_ =  0;
         pCamWorker_->move_target_y_VP_ =  0;
         pCamWorker_->move_target_z_VP_ =  0;
-        pCamWorker_->move_target_XY_CAM_UP_ = D90ANG;
+        pCamWorker_->move_target_ZY_CAM_UP_ = D90ANG;
     } else if (GgafDxInput::isPushedDownKey(DIK_F2)) {
         //ターゲット変更のみ
         if (listActorInfo_.length() > 0) {
@@ -77,7 +77,7 @@ void VvvWorld::processBehavior() {
             pCamWorker_->move_target_x_VP_ =  pT->_x;
             pCamWorker_->move_target_y_VP_ =  pT->_y;
             pCamWorker_->move_target_z_VP_ =  pT->_z;
-            pCamWorker_->move_target_XY_CAM_UP_ = D90ANG;
+            pCamWorker_->move_target_ZY_CAM_UP_ = D90ANG;
         }
 
     } else if (GgafDxInput::isPushedDownKey(DIK_DELETE)) {

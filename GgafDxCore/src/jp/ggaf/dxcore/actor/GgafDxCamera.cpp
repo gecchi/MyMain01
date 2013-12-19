@@ -225,21 +225,24 @@ void GgafDxCamera::processBehavior() {
                                 )
         );
     //}
-    _x_prev = _x;
-    _y_prev = _y;
-    _z_prev = _z;
+
 }
 
 
 
 void GgafDxCamera::processJudgement() {
+    _x_prev = _x;
+    _y_prev = _y;
+    _z_prev = _z;
+
     _pVecCamFromPoint->x = _fX;
     _pVecCamFromPoint->y = _fY;
     _pVecCamFromPoint->z = _fZ;
     _pVecCamLookatPoint->x = C_DX(_pViewPoint->_x);
     _pVecCamLookatPoint->y = C_DX(_pViewPoint->_y);
     _pVecCamLookatPoint->z = C_DX(_pViewPoint->_z);
-    D3DXMatrixLookAtLH(&_matView, _pVecCamFromPoint, _pVecCamLookatPoint, _pVecCamUp);
+    D3DXMatrixLookAtLH(&_matView,
+                       _pVecCamFromPoint, _pVecCamLookatPoint, _pVecCamUp);
 }
 
 GgafDxCameraViewPoint* GgafDxCamera::getViewPoint() {
@@ -256,6 +259,11 @@ void GgafDxCamera::setDefaultPosition() {
     _pVecCamUp->x = 0.0f;
     _pVecCamUp->y = 1.0f;
     _pVecCamUp->z = 0.0f;
+}
+void GgafDxCamera::setVecCamUp(float prm_up_x, float prm_up_y, float prm_up_z) {
+    _pVecCamUp->x = prm_up_x;
+    _pVecCamUp->y = prm_up_y;
+    _pVecCamUp->z = prm_up_z;
 }
 bool GgafDxCamera::isMoving() {
     if (_x_prev == _x && _y_prev == _y && _z_prev == _z) {

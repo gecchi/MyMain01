@@ -71,7 +71,7 @@ void EnemyHalia::onActive() {
     _pMorpher->setWeight(1, 0.0);
     _pKuroko->setFaceAngVelo(AXIS_X, 1000);
     _pKuroko->hlprA()->slideMvByVd(veloTopMv_, MyShip::lim_x_front_-_x,
-                           0.4, 0.6, 1000);
+                           0.4, 0.6, 1000, true);
     _pProg->reset(PROG_MOVE);
     iMovePatternNo_ = 0; //行動パターンリセット
 }
@@ -125,7 +125,7 @@ void EnemyHalia::processBehavior() {
         case PROG_CLOSE: {
             //１サイクルレーザー打ち切った
             _pMorpher->morphLinerUntil(1, 0.0, 60); //閉じる
-            _pKuroko->hlprA()->slideMvByVd(veloTopMv_, 1500000, 0.4, 0.6, 1000);
+            _pKuroko->hlprA()->slideMvByVd(veloTopMv_, 1500000, 0.4, 0.6, 1000, true);
             _pKuroko->setFaceAngVelo(AXIS_X, 1000);
             _pProg->change(PROG_MOVE);
             break;

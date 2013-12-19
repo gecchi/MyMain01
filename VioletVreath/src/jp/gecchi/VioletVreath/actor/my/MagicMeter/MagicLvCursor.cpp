@@ -102,7 +102,7 @@ void MagicLvCursor::moveSmoothTo(int prm_lv, frame prm_target_frames, float prm_
     ty_ = pMagicMeter_->_y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
     _pKuroko->setMvAngTwd(tx_, ty_);
     _pKuroko->hlprA()->slideMvByDt(UTIL::getDistance(_x, _y, tx_, ty_), (int)prm_target_frames,
-                           prm_p1, prm_p2, 0); //ロールを考慮せずにとりあえず移動
+                           prm_p1, prm_p2, 0, true); //ロールを考慮せずにとりあえず移動
 }
 
 void MagicLvCursor::blink() {
