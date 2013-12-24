@@ -102,9 +102,7 @@ GgafDxCameraViewPoint* GgafDxCamera::createViewPoint() {
 }
 
 void GgafDxCamera::initialize() {
-    _pViewPoint = createViewPoint();
-    _pViewPoint->position(0, 0, 0);
-    addSubLast(_pViewPoint);
+
 }
 
 void GgafDxCamera::processBehavior() {
@@ -246,16 +244,23 @@ void GgafDxCamera::processJudgement() {
 }
 
 GgafDxCameraViewPoint* GgafDxCamera::getViewPoint() {
-    return _pViewPoint;
+    if (_pViewPoint) {
+        return _pViewPoint;
+    } else {
+        _pViewPoint = createViewPoint();
+        _pViewPoint->position(0, 0, 0);
+        addSubLast(_pViewPoint);
+        return _pViewPoint;
+    }
 }
 
 void GgafDxCamera::setDefaultPosition() {
     _x = 0;
     _y = 0;
     _z = DX_C(_cameraZ_org);
-    _pViewPoint->_x = 0;
-    _pViewPoint->_y = 0;
-    _pViewPoint->_z = 0;
+    getViewPoint()->_x = 0;
+    getViewPoint()->_y = 0;
+    getViewPoint()->_z = 0;
     _pVecCamUp->x = 0.0f;
     _pVecCamUp->y = 1.0f;
     _pVecCamUp->z = 0.0f;

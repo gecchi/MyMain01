@@ -91,6 +91,13 @@ public:
         int s_d = SGN(prm_target_value_distance);
         int sgn_W0 = SGN(_velo);
         if (ZEROd_EQ(prm_target_value_distance)) {
+            //ãóó£Ç™0Ç»ÇÃÇ≈ë¶çèèIóπ
+            _velo = ABS(prm_end_velo) * s_d;
+            if (prm_endacc_flg) {
+                _acce = (T)0.0;
+            }
+            _prm._progress = -9;
+            _prm._endacc_flg = false;
             return;
         }
         //_TRACE_("GgafDxAccelerator::accelerateByDt COME!");
@@ -270,6 +277,13 @@ public:
         int s_d = SGN(prm_target_value_distance);
         int sgn_W0 = SGN(_velo);
         if (ZEROd_EQ(prm_target_value_distance)) {
+            //ãóó£Ç™0Ç»ÇÃÇ≈ë¶çèèIóπ
+            _velo = ABS(prm_end_velo) * s_d;
+            if (prm_endacc_flg) {
+                _acce = (T)0.0;
+            }
+            _prm._progress = -9;
+            _prm._endacc_flg = false;
             return;
         }
         //_TRACE_("s_d="<<s_d<<" sgn_W0="<<sgn_W0);

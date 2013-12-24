@@ -44,9 +44,9 @@ void CameraWorker::initialize() {
     t_cam_up_face_ = pCam_->up_face_;
 }
 void CameraWorker::onActive() {
+    //現在のターゲットを再ターゲット
     slideMvCamTo(t_x_CAM_, t_y_CAM_, t_z_CAM_, 60);
     slideMvVpTo(t_x_VP_, t_y_VP_, t_z_VP_, 60);
-    _TRACE_("name="<<getName()<<" CameraWorker::onActive()");
 }
 
 void CameraWorker::onSwitchCameraWork() {

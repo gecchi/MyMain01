@@ -20,6 +20,9 @@ public:
 
     virtual void processBehavior() override;
 
+    void slideMvTo(coord tx, coord ty, coord tz, frame t);
+    void slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t);
+
     virtual ~VvvViewPoint(); //デストラクタ
 };
 

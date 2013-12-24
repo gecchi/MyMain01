@@ -47,13 +47,9 @@ void VvvWorld::processBehavior() {
     if (GgafDxInput::isPushedDownKey(DIK_F1)) {
         //カメラを初期位置へ
         VvvCamera* pCam = P_CAM;
-        pCamWorker_->move_target_x_CAM_ = 0;
-        pCamWorker_->move_target_y_CAM_ = 0;
-        pCamWorker_->move_target_z_CAM_ = DX_C(pCam->_cameraZ_org);
-        pCamWorker_->move_target_x_VP_ =  0;
-        pCamWorker_->move_target_y_VP_ =  0;
-        pCamWorker_->move_target_z_VP_ =  0;
-        pCamWorker_->move_target_ZY_CAM_UP_ = D90ANG;
+        pCamWorker_->slideMvCamTo(0,0,DX_C(pCam->_cameraZ_org),60);
+        pCamWorker_->slideMvVpTo(0,0,0,60);
+        pCam->setCamUpFace(2);
     } else if (GgafDxInput::isPushedDownKey(DIK_F2)) {
         //ターゲット変更のみ
         if (listActorInfo_.length() > 0) {
@@ -74,10 +70,7 @@ void VvvWorld::processBehavior() {
             }
             listActorInfo_.getCurrent()->pActor_->effectFlush(30);
             GgafDxDrawableActor* pT = listActorInfo_.getCurrent()->pActor_;
-            pCamWorker_->move_target_x_VP_ =  pT->_x;
-            pCamWorker_->move_target_y_VP_ =  pT->_y;
-            pCamWorker_->move_target_z_VP_ =  pT->_z;
-            pCamWorker_->move_target_ZY_CAM_UP_ = D90ANG;
+            pCamWorker_->slideMvVpTo(pT->_x, pT->_y, pT->_z, 60);
         }
 
     } else if (GgafDxInput::isPushedDownKey(DIK_DELETE)) {

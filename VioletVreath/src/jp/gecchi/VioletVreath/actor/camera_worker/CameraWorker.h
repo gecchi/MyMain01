@@ -6,7 +6,8 @@ namespace VioletVreath {
 
 /**
  * カメラマン .
- * VioletVreath::Camera, VioletVreath::ViewPoint, さらに UPの方向ベクトル pUp_ を管理。
+ * カメラ(VioletVreath::Camera)と、視点(VioletVreath::ViewPoint) を操り、
+ * さらに UPの方向ベクトル pUp_ を管理します。
  * @version 1.00
  * @since 2010/10/25
  * @author Masatoshi Tsuge
@@ -14,9 +15,13 @@ namespace VioletVreath {
 class CameraWorker : public GgafCore::GgafMainActor {
 
 public:
+    /** [r]カメラへの参照 */
     Camera* pCam_;
+    /** [r]視点への参照 */
     ViewPoint* pVp_;
+    /** [r]カメラのUPベクトルにコピーされて同期を取るベクトル座標のアクター */
     GgafLib::DefaultGeometricActor* pUp_;
+    /** [r]pUp_を滑らかに移動させるためのヘルパー */
     GgafDxCore::GgafDxAxesMover* pAxsMver_Up_;
     /** カメラマンの移動目標座標 */
     coord t_x_CAM_, t_y_CAM_, t_z_CAM_;
@@ -25,6 +30,7 @@ public:
     /** カメラマンの頭の方向番号 */
     int t_cam_up_face_;
     frame frame_of_behaving_since_onSwitch_;
+
 public:
     CameraWorker(const char* prm_name);
 
@@ -56,9 +62,6 @@ public:
         return false;
     }
 
-//
-//    void unlockCamVp();
-
     inline frame getSwitchedFrame() {
         return frame_of_behaving_since_onSwitch_;
     }
@@ -67,8 +70,6 @@ public:
     void slideMvVpTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t);
     void slideMvCamTo(coord tx, coord ty, coord tz, frame t);
     void slideMvVpTo(coord tx, coord ty, coord tz, frame t);
-
-
     virtual ~CameraWorker(); //デストラクタ
 };
 

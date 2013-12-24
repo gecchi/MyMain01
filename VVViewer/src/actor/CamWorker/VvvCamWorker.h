@@ -13,31 +13,36 @@ namespace VVViewer {
 class VvvCamWorker : public GgafLib::DefaultGeometricActor {
 
 public:
+    /** [r]カメラへの参照 */
+    VvvCamera* pCam_;
+    /** [r]視点への参照 */
+    VvvViewPoint* pVp_;
+    /** [r]カメラのUPベクトルにコピーされて同期を取るベクトル座標のアクター */
+    GgafLib::DefaultGeometricActor* pUp_;
+    /** [r]pUp_を滑らかに移動させるためのヘルパー */
+    GgafDxCore::GgafDxAxesMover* pAxsMver_Up_;
+    /** カメラマンの移動目標座標 */
+    coord t_x_CAM_, t_y_CAM_, t_z_CAM_;
+    /** カメラマンのビューポイントの移動目標座標 */
+    coord t_x_VP_, t_y_VP_, t_z_VP_;
+    /** カメラマンの頭の方向番号 */
+    int t_cam_up_face_;
+    frame frame_of_behaving_since_onSwitch_;
 
     int cd_;
-
-    int cam_x_, cam_y_, cam_z_, vp_x_, vp_y_, vp_z_;
-
     bool mdz_flg_;
     double mdz_vx_, mdz_vy_, mdz_vz_, mdz_t_;
     int mdz_total_;
-    /** 原点から初期カメラZ位置の距離 */
-    coord dZ_camera_init_;
-    //カメラの移動目標座標
-    coord move_target_x_CAM_, move_target_y_CAM_, move_target_z_CAM_;
-    //カメラのビューポイントの移動目標座標
-    coord move_target_x_VP_, move_target_y_VP_, move_target_z_VP_;
-    //カメラの目標UPアングル値
-    angle move_target_ZY_CAM_UP_;
-    angle angXY_nowCamUp_;
-    /** カメラの速度が、丁度自機の通常移動速度の1.0倍となるカメラ目標座標からの距離。 */
-    coord stop_renge_; //カメラ目標座標距離が、これより小さいと、     1.0倍より減
-                     //カメラ目標座標距離が、これより大きいとさいと 1.0倍より超
 public:
     VvvCamWorker(const char* prm_name);
+    void slideMvCamTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t);
+    void slideMvVpTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t);
+    void slideMvCamTo(coord tx, coord ty, coord tz, frame t);
+    void slideMvVpTo(coord tx, coord ty, coord tz, frame t);
 
     virtual void initialize() override;
 
+    virtual void onActive() override;
 
     virtual void processBehavior() override;
 

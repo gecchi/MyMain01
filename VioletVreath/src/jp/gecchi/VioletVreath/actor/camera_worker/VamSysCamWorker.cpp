@@ -66,7 +66,7 @@ void VamSysCamWorker::initialize() {
 void VamSysCamWorker::onActive() {
     CameraWorker::onActive();
     if (pos_camera_ == VAM_POS_RIGHT || pos_camera_ == VAM_POS_LEFT || pos_camera_ > VAM_POS_TO_BEHIND) {
-        pCam_->setCamUpFace(2);
+        pCam_->setCamUpFace(2, 40/2);
     }
     move_target_x_CAM_prev_ -= 1; //ブレイクさせて、座標を以前の状態に補正させる
     move_target_x_VP_prev_ -= 1;  //ブレイクさせて、座標を以前の状態に補正させる
@@ -367,19 +367,19 @@ void VamSysCamWorker::processBehavior() {
          move_target_z_CAM_prev_ != move_target_z_CAM    ) {
         slideMvCamTo(move_target_x_CAM,
                      move_target_y_CAM,
-                     move_target_z_CAM, 90);
+                     move_target_z_CAM, 40);
     }
     if ( move_target_x_VP_prev_ != move_target_x_VP    ||
          move_target_y_VP_prev_ != move_target_y_VP    ||
          move_target_z_VP_prev_ != move_target_z_VP      ) {
         slideMvVpTo(move_target_x_VP,
                     move_target_y_VP,
-                    move_target_z_VP, 90);
+                    move_target_z_VP, 40);
     }
 
-    if (getBehaveingFrame() % 60 == 0) {
+    if (getBehaveingFrame() % 30 == 0) {
         if (pos_camera_ == VAM_POS_RIGHT || pos_camera_ == VAM_POS_LEFT || pos_camera_ > VAM_POS_TO_BEHIND) {
-            pCam_->setCamUpFace(2);
+            pCam_->setCamUpFace(2, 40/2);
         }
     }
 

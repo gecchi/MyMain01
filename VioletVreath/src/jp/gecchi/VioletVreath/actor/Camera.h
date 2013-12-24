@@ -49,7 +49,7 @@ public:
      * カメラのUP面番号、引数の面番号にセットし、UPベクトルをスライド移動を開始させます。
      * @param prm_cam_up_face カメラのUP面番号
      */
-    void setCamUpFace(int prm_cam_up_face);
+    void setCamUpFace(int prm_cam_up_face, frame prm_t);
 
     /**
      * カメラを指定位置に滑らか移動させます。 .
