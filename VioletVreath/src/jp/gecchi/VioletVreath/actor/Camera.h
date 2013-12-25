@@ -13,22 +13,33 @@ namespace VioletVreath {
 class Camera : public GgafLib::DefaultCamera {
 
     coord tx_, ty_, tz_;
-    int vcv_face_;
-    int vcv_face_prev_;
+
     static int cnvVec2FaceNo(float vx, float vy, float vz);
     static void cnvFaceNo2Vec(int face_no, float& out_vx, float& out_vy, float& out_vz);
 
 public:
 
-    int up_face_;
+    enum {
+        FACE_FRONT = 1,
+        FACE_BEHIND = 6,
+        FACE_TOP = 2,
+        FACE_BOTTOM = 5,
+        FACE_ZLEFT = 3,
+        FACE_ZRIGHT = 4,
+    };
 
+    int up_face_;
+    /** [r]カメラ→視線ベクトルが突き刺さる面番号 */
+    int vcv_face_;
+    /** [r]カメラ→視線ベクトルが突き刺さる面番号 */
+    int vcv_face_prev_;
 
     /** 平行移動支援 */
     GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
-    /** カメラのUPベクトル用アクター */
+    /** [r]カメラのUPベクトルにコピーされて同期を取るベクトル座標のアクター */
     GgafLib::DefaultGeometricActor* pUp_;
-    /** pUp_ の平行移動支援 */
+    /** [r]pUp_を滑らかに移動させるためのヘルパー */
     GgafDxCore::GgafDxAxesMover* pAxsMver_Up_;
 
     Camera(const char* prm_name);
@@ -46,10 +57,21 @@ public:
     int getCamToVpFaceNo();
 
     /**
-     * カメラのUP面番号、引数の面番号にセットし、UPベクトルをスライド移動を開始させます。
-     * @param prm_cam_up_face カメラのUP面番号
+     * カメラのUPを設定、UPベクトルをスライド移動を開始させます。
+     * @param tx カメラのUPベクトルX要素ターゲット
+     * @param ty カメラのUPベクトルY要素ターゲット
+     * @param tz カメラのUPベクトルZ要素ターゲット
+     * @param t スライド移動所要時間
      */
-    void setCamUpFace(int prm_cam_up_face, frame prm_t);
+    void slideUpCamTo(coord tx, coord ty, coord tz, frame t);
+
+    /**
+     * カメラのUPを面番号で設定、UPベクトルをスライド移動を開始させます。
+     * @param prm_face_no カメラのUP面番号
+     * @param prm_t スライド移動所要時間
+     *
+     */
+    void slideUpCamTo(int prm_face_no, frame prm_t);
 
     /**
      * カメラを指定位置に滑らか移動させます。 .

@@ -49,7 +49,7 @@ void VvvWorld::processBehavior() {
         VvvCamera* pCam = P_CAM;
         pCamWorker_->slideMvCamTo(0,0,DX_C(pCam->_cameraZ_org),60);
         pCamWorker_->slideMvVpTo(0,0,0,60);
-        pCam->setCamUpFace(2);
+        pCam->slideUpCamTo(2);
     } else if (GgafDxInput::isPushedDownKey(DIK_F2)) {
         //ターゲット変更のみ
         if (listActorInfo_.length() > 0) {

@@ -10,6 +10,7 @@
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/actor/Camera.h"
 #include "jp/gecchi/VioletVreath/actor/ViewPoint.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverHelperA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -54,19 +55,17 @@ void VamSysCamWorker::initialize() {
     target_up_face_no_prev_ = pCam_->up_face_;
     //画面背後用範囲差分
     //背後のZ座標はdZ_camera_init_/2
-    correction_width_ = 0;//(PROPERTY::GAME_BUFFER_WIDTH*LEN_UNIT/2)/4;
-    correction_height_ = 0;//(PROPERTY::GAME_BUFFER_HEIGHT*LEN_UNIT/2)/4;
+    correction_width_ = PX_C(30); //(PROPERTY::GAME_BUFFER_WIDTH*LEN_UNIT/2)/4;
+    correction_height_ = PX_C(30); //(PROPERTY::GAME_BUFFER_HEIGHT*LEN_UNIT/2)/4;
     pos_camera_ = VAM_POS_RIGHT;
     pos_camera_prev_ = -100;
-    stop_dZ_ = 0;
-    stop_dY_ = 0;
     _TRACE_("VamSysCamWorker::initialize() this="<<this);
     dump();
 }
 void VamSysCamWorker::onActive() {
     CameraWorker::onActive();
     if (pos_camera_ == VAM_POS_RIGHT || pos_camera_ == VAM_POS_LEFT || pos_camera_ > VAM_POS_TO_BEHIND) {
-        pCam_->setCamUpFace(2, 40/2);
+        pCam_->slideUpCamTo(Camera::FACE_TOP, 40/2);
     }
     move_target_x_CAM_prev_ -= 1; //ブレイクさせて、座標を以前の状態に補正させる
     move_target_x_VP_prev_ -= 1;  //ブレイクさせて、座標を以前の状態に補正させる
@@ -377,9 +376,28 @@ void VamSysCamWorker::processBehavior() {
                     move_target_z_VP, 40);
     }
 
-    if (getBehaveingFrame() % 30 == 0) {
+
+    //UPを補正
+    if (onChangeToActive() || pos_camera_prev_ != pos_camera_) {
+        GgafDxAxesMoverHelperA* hlprA = pCam_->pAxsMver_->hlprA();
+        int fx = hlprA->_smthVxMv._prm._flg ? hlprA->_smthVxMv._prm._target_frames : 10;
+        int fy = hlprA->_smthVyMv._prm._flg ? hlprA->_smthVyMv._prm._target_frames : 10;
+        int fz = hlprA->_smthVzMv._prm._flg ? hlprA->_smthVzMv._prm._target_frames : 10;
+        frame up_frames = (frame)(MAX3(fx,fy,fz) / 2) ; //半分のフレーム時間でUP変更を完了させる
         if (pos_camera_ == VAM_POS_RIGHT || pos_camera_ == VAM_POS_LEFT || pos_camera_ > VAM_POS_TO_BEHIND) {
-            pCam_->setCamUpFace(2, 40/2);
+            pCam_->slideUpCamTo(Camera::FACE_TOP, up_frames);
+        } else if (pos_camera_ == VAM_POS_TOP) {
+            if (pCam_->vcv_face_ == Camera::FACE_BEHIND) {
+                pCam_->slideUpCamTo(Camera::FACE_BOTTOM, up_frames);
+            } else {
+                pCam_->slideUpCamTo(Camera::FACE_FRONT, up_frames);
+            }
+        } else if (pos_camera_ == VAM_POS_BOTTOM) {
+            if (pCam_->vcv_face_ == Camera::FACE_BEHIND) {
+                pCam_->slideUpCamTo(Camera::FACE_BOTTOM, up_frames);
+            } else {
+                pCam_->slideUpCamTo(Camera::FACE_BEHIND, up_frames);
+            }
         }
     }
 

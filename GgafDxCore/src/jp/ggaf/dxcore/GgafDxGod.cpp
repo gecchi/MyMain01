@@ -77,6 +77,11 @@ GgafDxGod::GgafDxGod() : GgafGod() {
     _secondary_screen_y = 0;
 
     _can_wddm = true;//‚Æ‚è‚ ‚¦‚¸
+    _primary = 0;
+    _secondary = 1;
+    _paPresetPrm = nullptr;
+    _paDisplayMode = nullptr;
+
 }
 
 

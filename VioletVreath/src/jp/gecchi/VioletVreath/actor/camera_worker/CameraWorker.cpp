@@ -63,6 +63,7 @@ void CameraWorker::onCameBackFromOtherCameraWork() {
 }
 
 void CameraWorker::processBehavior() {
+    behaveAutoCamUp();
 }
 
 void CameraWorker::slideMvCamTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t) {
@@ -82,6 +83,33 @@ void CameraWorker::slideMvVpTo(coord tx, coord ty, coord tz, frame t) {
     t_y_VP_ = ty;
     t_z_VP_ = tz;
     pVp_->slideMvTo(tx, ty, tz, t);
+}
+void CameraWorker::behaveAutoCamUp() {
+#ifdef MY_DEBUG
+    int bk_up_face_ = pCam_->up_face_;
+#endif
+    if (pCam_->vcv_face_ != pCam_->vcv_face_prev_) {
+        GgafDxAxesMoverHelperA* hlprA = pCam_->pAxsMver_->hlprA();
+        int fx = hlprA->_smthVxMv._prm._flg ? hlprA->_smthVxMv._prm._target_frames : 10;
+        int fy = hlprA->_smthVyMv._prm._flg ? hlprA->_smthVyMv._prm._target_frames : 10;
+        int fz = hlprA->_smthVzMv._prm._flg ? hlprA->_smthVzMv._prm._target_frames : 10;
+        frame up_frames = (frame)(MAX3(fx,fy,fz) / 2) ; //半分のフレーム時間でUP変更を完了させる
+        if (pCam_->vcv_face_ == pCam_->up_face_) {
+            //今のUP(up_face_)の面にカメラ→視点ベクトル(vcv_face_)が突き刺さる場合
+            //以前のカメラ→視点(vcv_face_prev_) の真裏の面にUPが移動
+            pCam_->slideUpCamTo(7 - pCam_->vcv_face_prev_, up_frames);
+        } else if (pCam_->vcv_face_ == 7 - pCam_->up_face_) {  //up_face_の裏面
+             //今のUP(up_face_)の面の真裏にカメラ→視点ベクトル(vcv_face_)が突き刺さる場合
+             //以前のカメラ→視点(vcv_face_prev_) の面がUPに変更
+            pCam_->slideUpCamTo(pCam_->vcv_face_prev_, up_frames);
+        } else {
+            //変化しない
+            pCam_->slideUpCamTo(pCam_->up_face_, up_frames);
+        }
+        _TRACE_("CameraWorker::behaveAutoCamUp() up_frames="<<up_frames<<" vcv="<<pCam_->vcv_face_prev_<<"→"<<pCam_->vcv_face_<<" up_face_="<<bk_up_face_<<"→"<<pCam_->up_face_<<"");
+    }
+//    _TRACE_("cam=("<<_x<<","<<_y<<","<<_z<<") vp=("<< pVP->_x <<","<< pVP->_y <<","<< pVP->_z <<")  UP=("<< pUp_->_x <<","<< pUp_->_y <<","<< pUp_->_z <<") CAM_UP=("<< _pVecCamUp->x <<","<< _pVecCamUp->y <<","<< _pVecCamUp->z <<")");
+//    _TRACE_("vcv="<<vcv_face_prev_<<"→"<<vcv_face_<<" up_face_="<<bk_up_face_<<"→"<<up_face_<<"");
 }
 CameraWorker::~CameraWorker() {
 

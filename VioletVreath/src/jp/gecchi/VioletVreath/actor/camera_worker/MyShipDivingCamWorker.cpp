@@ -19,6 +19,7 @@ void MyShipDivingCamWorker::onActive() {
     MyShip* pMyShip = P_MYSHIP;
     slideMvCamTo(-PX_C(300), pMyShip->_y, pMyShip->_z , 60);
     slideMvVpTo(pMyShip, 60);
+    pCam_->slideUpCamTo(Camera::FACE_TOP, 120);
 }
 void MyShipDivingCamWorker::processBehavior() {
     if (getActiveFrame() > 30) {
@@ -33,7 +34,6 @@ void MyShipDivingCamWorker::processBehavior() {
         coord z = -ANG_COS(a) * r;
         slideMvCamTo(PX_C(300), y , z, 20);
         slideMvVpTo(pMyShip, 10);
-        CameraWorker::processBehavior();
     }
 }
 

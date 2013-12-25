@@ -17,10 +17,6 @@ public:
     VvvCamera* pCam_;
     /** [r]視点への参照 */
     VvvViewPoint* pVp_;
-    /** [r]カメラのUPベクトルにコピーされて同期を取るベクトル座標のアクター */
-    GgafLib::DefaultGeometricActor* pUp_;
-    /** [r]pUp_を滑らかに移動させるためのヘルパー */
-    GgafDxCore::GgafDxAxesMover* pAxsMver_Up_;
     /** カメラマンの移動目標座標 */
     coord t_x_CAM_, t_y_CAM_, t_z_CAM_;
     /** カメラマンのビューポイントの移動目標座標 */

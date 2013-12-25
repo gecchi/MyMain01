@@ -54,10 +54,6 @@ public:
     coord correction_width_;
     /** 画面背後時用Y軸補正範囲差分 */
     coord correction_height_;
-    /** カメラ目標座標に加えられるZ軸座標オフセット補正値 */
-    coord stop_dZ_;
-    /** カメラ目標座標に加えられるY軸座標オフセット補正値 */
-    coord stop_dY_;
     /** カメラはオプション背面中である場合true */
     bool is_cam_pos_option_back_;
 

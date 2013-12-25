@@ -18,10 +18,7 @@ namespace VioletVreath {
 
 #define EQ_OPTION 1
 #define EQ_MAX_OPTION 0
-/** ソフト連射数 */
-#define SOFT_RAPIDSHOT_NUM 3
-/** ソフト連射間隔 */
-#define SOFT_RAPIDSHOT_INTERVAL 4
+
 
 //#define MY_SHIP_VREATH_COST (500)
 //無呼吸時 1000000/500/60 = 約33.3秒で死ぬ
@@ -343,6 +340,12 @@ public:
     /** is_trace_waiting_のフラグを切り替えるための時間カウンタ */
     frame trace_delay_count_;
 
+
+    /** ソフト連射間隔 */
+    int soft_rapidshot_interval_;
+
+    /** ソフト連射数 */
+    int soft_rapidshot_num_;
 public:
     MyShip(const char* prm_name);
 

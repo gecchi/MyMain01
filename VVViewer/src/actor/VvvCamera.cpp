@@ -65,14 +65,14 @@ void VvvCamera::processBehavior() {
             if (vcv_face_ == up_face_) {
                 //今のUP(up_face_)の面にカメラ→視点ベクトル(vcv_face_)が突き刺さる場合
                 //以前のカメラ→視点(vcv_face_prev_) の真裏の面にUPが移動
-                setCamUpFace(7 - vcv_face_prev_);
+                slideUpCamTo(7 - vcv_face_prev_);
             } else if (vcv_face_ == 7 - up_face_) {  //up_face_の裏面
                  //今のUP(up_face_)の面の真裏にカメラ→視点ベクトル(vcv_face_)が突き刺さる場合
                  //以前のカメラ→視点(vcv_face_prev_) の面がUPに変更
-                setCamUpFace(vcv_face_prev_);
+                slideUpCamTo(vcv_face_prev_);
             } else {
                 //変化しない
-                setCamUpFace(up_face_);
+                slideUpCamTo(up_face_);
             }
         }
     }
@@ -184,13 +184,13 @@ void VvvCamera::cnvFaceNo2Vec(int face_no, float& out_vx, float& out_vy, float& 
     } else if (face_no == 4) {
         out_vx = 0.0f;   out_vy = 0.0f;   out_vz = -1.0f;
     } else {
-        throwGgafCriticalException("VvvCameraWorker::setCamUpFace() face_no="<<face_no);
+        throwGgafCriticalException("VvvCameraWorker::slideUpCamTo() face_no="<<face_no);
     }
 }
-void VvvCamera::setCamUpFace(int prm_cam_up_face) {
-    up_face_ = prm_cam_up_face;
+void VvvCamera::slideUpCamTo(int prm_face_no) {
+    up_face_ = prm_face_no;
     dxcoord up_x, up_y, up_z;
-    VvvCamera::cnvFaceNo2Vec(prm_cam_up_face, up_x, up_y, up_z);
+    VvvCamera::cnvFaceNo2Vec(prm_face_no, up_x, up_y, up_z);
     pAxsMver_Up_->hlprA()->
              slideVxyzMvByDtTo(DX_C(up_x), DX_C(up_y), DX_C(up_z), 60, 0.3, 0.4, 0, true);
 }

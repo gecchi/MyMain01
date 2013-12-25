@@ -264,6 +264,9 @@ MyShip::MyShip(const char* prm_name) :
 
     trace_delay_count_ = 0;
     is_trace_waiting_ = false;
+
+    soft_rapidshot_interval_ = 4;
+    soft_rapidshot_num_ = 3;
 }
 void MyShip::onCreateModel() {
     _pModel->setSpecular(5.0, 1.0);
@@ -695,27 +698,27 @@ void MyShip::processJudgement() {
     //1プッシュで4F毎に最大3発
     if (pVbPlay->isPushedDown(VB_SHOT1) && !pVbPlay->isBeingPressed(VB_POWERUP)) {
         is_being_soft_rapidshot_ = true;
-        if (frame_soft_rapidshot_ >= SOFT_RAPIDSHOT_INTERVAL) {
-            //SOFT_RAPIDSHOT_INTERVAL フレームより遅い場合
+        if (frame_soft_rapidshot_ >= soft_rapidshot_interval_) {
+            //soft_rapidshot_interval_ フレームより遅い場合
             //連射と連射のつなぎ目が無いようにする
-            frame_soft_rapidshot_ = frame_soft_rapidshot_ % SOFT_RAPIDSHOT_INTERVAL;
+            frame_soft_rapidshot_ = frame_soft_rapidshot_ % soft_rapidshot_interval_;
         } else {
-            //SOFT_RAPIDSHOT_INTERVAL フレームより速い連射の場合
+            //soft_rapidshot_interval_ フレームより速い連射の場合
             //これを受け入れて強制的に発射できる(手動連射のほうが速く連射できるようにしたい。)
             frame_soft_rapidshot_ = 0;
         }
     }
     just_shot_ = false;
     if (is_being_soft_rapidshot_) {
-        if (frame_soft_rapidshot_ % SOFT_RAPIDSHOT_INTERVAL == 0) {
+        if (frame_soft_rapidshot_ % soft_rapidshot_interval_ == 0) {
             just_shot_ = true;//たった今ショットしましたフラグ
             MyShot001* pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
             if (pShot) {
                 _pSeTx->play3D(SE_FIRE_SHOT);
                 pShot->positionAs(this);
             }
-            if (frame_soft_rapidshot_ >= SOFT_RAPIDSHOT_INTERVAL*(SOFT_RAPIDSHOT_NUM-1)) {
-                //SOFT_RAPIDSHOT_NUM 発打ち終えたらソフト連射終了
+            if (frame_soft_rapidshot_ >= soft_rapidshot_interval_*(soft_rapidshot_num_-1)) {
+                //soft_rapidshot_num_ 発打ち終えたらソフト連射終了
                 is_being_soft_rapidshot_ = false;
             }
         }

@@ -39,12 +39,12 @@ void Camera::initialize() {
 
 void Camera::processBehavior() {
 
-    ViewPoint* pVP = (ViewPoint*)getViewPoint();
+    ViewPoint* pVp = (ViewPoint*)getViewPoint();
 
-    vcv_face_prev_ = vcv_face_;
 
     pAxsMver_Up_->behave();
 
+    //カメラのUPを反映
     float v_up_x, v_up_y, v_up_z;
     UTIL::getNormalizeVector (
             pUp_->_x,
@@ -55,35 +55,21 @@ void Camera::processBehavior() {
 
     pAxsMver_->behave();
     _pKuroko->behave();
-#ifdef MY_DEBUG
-    int bk_up_face_ = up_face_;
-#endif
-    if (isMoving() || pVP->isMoving()) {
-        vcv_face_ = getCamToVpFaceNo();
-        if (vcv_face_ != vcv_face_prev_) {
-            GgafDxAxesMoverHelperA* hlprA = pAxsMver_->hlprA();
-            int fx = hlprA->_smthVxMv._prm._flg ? hlprA->_smthVxMv._prm._target_frames : 10;
-            int fy = hlprA->_smthVyMv._prm._flg ? hlprA->_smthVyMv._prm._target_frames : 10;
-            int fz = hlprA->_smthVzMv._prm._flg ? hlprA->_smthVzMv._prm._target_frames : 10;
-            frame up_frames = (frame)(MAX3(fx,fy,fz) / 2) ; //半分のフレーム時間でUP変更を完了させる
-            if (vcv_face_ == up_face_) {
-                //今のUP(up_face_)の面にカメラ→視点ベクトル(vcv_face_)が突き刺さる場合
-                //以前のカメラ→視点(vcv_face_prev_) の真裏の面にUPが移動
-                setCamUpFace(7 - vcv_face_prev_, up_frames);
-            } else if (vcv_face_ == 7 - up_face_) {  //up_face_の裏面
-                 //今のUP(up_face_)の面の真裏にカメラ→視点ベクトル(vcv_face_)が突き刺さる場合
-                 //以前のカメラ→視点(vcv_face_prev_) の面がUPに変更
-                setCamUpFace(vcv_face_prev_, up_frames);
-            } else {
-                //変化しない
-                setCamUpFace(up_face_, up_frames);
-            }
-            _TRACE_("Camera::processBehavior() up_frames="<<up_frames<<" vcv="<<vcv_face_prev_<<"→"<<vcv_face_<<" up_face_="<<bk_up_face_<<"→"<<up_face_<<"");
-        }
-    }
-//    _TRACE_("cam=("<<_x<<","<<_y<<","<<_z<<") vp=("<< pVP->_x <<","<< pVP->_y <<","<< pVP->_z <<")  UP=("<< pUp_->_x <<","<< pUp_->_y <<","<< pUp_->_z <<") CAM_UP=("<< _pVecCamUp->x <<","<< _pVecCamUp->y <<","<< _pVecCamUp->z <<")");
-//    _TRACE_("vcv="<<vcv_face_prev_<<"→"<<vcv_face_<<" up_face_="<<bk_up_face_<<"→"<<up_face_<<"");
+
     DefaultCamera::processBehavior();
+
+
+
+
+    vcv_face_prev_ = vcv_face_;
+    if (isMoving() || pVp->isMoving()) {  //isMoving()は座標移動後でないと意味が無い
+         vcv_face_ = getCamToVpFaceNo();
+    }
+#ifdef MY_DEBUG
+    if (vcv_face_prev_!=vcv_face_) {
+        _TRACE_("Camera::processBehavior()  vcv="<<vcv_face_prev_<<"→"<<vcv_face_<<"");
+    }
+#endif
 
 }
 
@@ -188,15 +174,26 @@ void Camera::cnvFaceNo2Vec(int face_no, float& out_vx, float& out_vy, float& out
     } else if (face_no == 4) {
         out_vx = 0.0f;   out_vy = 0.0f;   out_vz = -1.0f;
     } else {
-        throwGgafCriticalException("CameraWorker::setCamUpFace() face_no="<<face_no);
+        throwGgafCriticalException("CameraWorker::slideUpCamTo() face_no="<<face_no);
     }
 }
-void Camera::setCamUpFace(int prm_cam_up_face, frame prm_t) {
-    up_face_ = prm_cam_up_face;
+void Camera::slideUpCamTo(int prm_face_no, frame prm_t) {
     dxcoord up_x, up_y, up_z;
-    Camera::cnvFaceNo2Vec(prm_cam_up_face, up_x, up_y, up_z);
+    Camera::cnvFaceNo2Vec(prm_face_no, up_x, up_y, up_z);
+    slideUpCamTo(DX_C(up_x), DX_C(up_y), DX_C(up_z), prm_t);
+}
+
+void Camera::slideUpCamTo(coord tx, coord ty, coord tz, frame t) {
     pAxsMver_Up_->hlprA()->
-             slideVxyzMvByDtTo(DX_C(up_x), DX_C(up_y), DX_C(up_z), prm_t, 0.3, 0.4, 0, true);
+             slideVxyzMvByDtTo(tx, ty, tz, t, 0.3, 0.4, 0, true);
+    int up_face_wk = up_face_;
+    up_face_ = Camera::cnvVec2FaceNo(C_DX(tx), C_DX(ty), C_DX(tz));
+
+#ifdef MY_DEBUG
+    if (up_face_wk != up_face_) {
+        _TRACE_("Camera::slideUpCamTo  up_face_="<<up_face_wk<<"→"<<up_face_<<"");
+    }
+#endif
 }
 Camera::~Camera() {
     GGAF_DELETE(pAxsMver_Up_);
