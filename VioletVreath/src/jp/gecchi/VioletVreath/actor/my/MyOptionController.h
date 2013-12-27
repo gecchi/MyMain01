@@ -21,6 +21,8 @@ public:
     static int max_option_num_;
     /** [r]トレース時のオプションとオプションの間隔 */
     static int o2o_;
+    /** [r]現在装備中のオプション数 */
+    static int now_option_num_;
 
     /** 平行移動支援 */
     GgafDxCore::GgafDxAxesMover* pAxsMver_;
@@ -34,8 +36,7 @@ public:
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_OptCtrlGeoHistory_;
     velo veloOptionsMv_;
 
-    /** [r]現在のオプション数 */
-    static int now_option_num_;
+
     /** [r]オプションフリーモードの場合 true */
     bool is_free_from_myship_mode_;
     /** [r]オプションフリーモード時の、オプション操作モードの場合 true */

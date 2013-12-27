@@ -236,9 +236,10 @@ void GgafDxCamera::processJudgement() {
     _pVecCamFromPoint->x = _fX;
     _pVecCamFromPoint->y = _fY;
     _pVecCamFromPoint->z = _fZ;
-    _pVecCamLookatPoint->x = C_DX(_pViewPoint->_x);
-    _pVecCamLookatPoint->y = C_DX(_pViewPoint->_y);
-    _pVecCamLookatPoint->z = C_DX(_pViewPoint->_z);
+    GgafDxCameraViewPoint* pVp = getViewPoint();
+    _pVecCamLookatPoint->x = C_DX(pVp->_x);
+    _pVecCamLookatPoint->y = C_DX(pVp->_y);
+    _pVecCamLookatPoint->z = C_DX(pVp->_z);
     D3DXMatrixLookAtLH(&_matView,
                        _pVecCamFromPoint, _pVecCamLookatPoint, _pVecCamUp);
 }
@@ -258,9 +259,10 @@ void GgafDxCamera::setDefaultPosition() {
     _x = 0;
     _y = 0;
     _z = DX_C(_cameraZ_org);
-    getViewPoint()->_x = 0;
-    getViewPoint()->_y = 0;
-    getViewPoint()->_z = 0;
+    GgafDxCameraViewPoint* pVp = getViewPoint();
+    pVp->_x = 0;
+    pVp->_y = 0;
+    pVp->_z = 0;
     _pVecCamUp->x = 0.0f;
     _pVecCamUp->y = 1.0f;
     _pVecCamUp->z = 0.0f;

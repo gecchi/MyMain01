@@ -69,6 +69,13 @@ void CameraWorker::processBehavior() {
 void CameraWorker::slideMvCamTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t) {
     slideMvCamTo(pTarget->_x, pTarget->_y, pTarget->_z, t);
 }
+
+
+void CameraWorker::slideMvCamTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t,
+                                float prm_x_p1, float prm_y_p1, float prm_z_p1) {
+     slideMvCamTo(pTarget->_x, pTarget->_y, pTarget->_z, t, prm_x_p1, prm_y_p1, prm_z_p1);
+
+}
 void CameraWorker::slideMvVpTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t) {
     slideMvVpTo(pTarget->_x, pTarget->_y, pTarget->_z, t);
 }
@@ -78,6 +85,15 @@ void CameraWorker::slideMvCamTo(coord tx, coord ty, coord tz, frame t) {
     t_z_CAM_ = tz;
     pCam_->slideMvTo(tx, ty, tz, t);
 }
+void CameraWorker::slideMvCamTo(coord tx, coord ty, coord tz, frame t,
+            float prm_x_p1, float prm_y_p1, float prm_z_p1) {
+    t_x_CAM_ = tx;
+    t_y_CAM_ = ty;
+    t_z_CAM_ = tz;
+    pCam_->slideMvTo(tx, ty, tz, t, prm_x_p1, prm_y_p1, prm_z_p1);
+}
+
+
 void CameraWorker::slideMvVpTo(coord tx, coord ty, coord tz, frame t) {
     t_x_VP_ = tx;
     t_y_VP_ = ty;
@@ -110,6 +126,36 @@ void CameraWorker::behaveAutoCamUp() {
     }
 //    _TRACE_("cam=("<<_x<<","<<_y<<","<<_z<<") vp=("<< pVP->_x <<","<< pVP->_y <<","<< pVP->_z <<")  UP=("<< pUp_->_x <<","<< pUp_->_y <<","<< pUp_->_z <<") CAM_UP=("<< _pVecCamUp->x <<","<< _pVecCamUp->y <<","<< _pVecCamUp->z <<")");
 //    _TRACE_("vcv="<<vcv_face_prev_<<"¨"<<vcv_face_<<" up_face_="<<bk_up_face_<<"¨"<<up_face_<<"");
+}
+//void CameraWorker::stopNaturallyCam(coord distance, frame t) {
+//    float vx,vy,vz;
+//    GgafDxAxesMover* pAxMvr = pCam_->pAxsMver_;
+//    UTIL::getNormalizeVector(
+//            pAxMvr->_veloVxMv,
+//            pAxMvr->_veloVyMv,
+//            pAxMvr->_veloVzMv,
+//            vx,vy,vz);
+//    pAxMvr->hlprA()->slideVxyzMvByDt(distance*vx, distance*vy, distance*vz,
+//                                     t,
+//                                     0.0, 0.0, 0, true);
+//}
+//void CameraWorker::stopNaturallyVp(coord distance, frame t) {
+//    float vx,vy,vz;
+//    GgafDxAxesMover* pAxMvr = pVp_->pAxsMver_;
+//    UTIL::getNormalizeVector(
+//            pAxMvr->_veloVxMv,
+//            pAxMvr->_veloVyMv,
+//            pAxMvr->_veloVzMv,
+//            vx,vy,vz);
+//    pAxMvr->hlprA()->slideVxyzMvByDt(distance*vx, distance*vy, distance*vz,
+//                                     t,
+//                                     0.0, 0.0, 0, true);
+//}
+void CameraWorker::stopMvCam() {
+    pCam_->pAxsMver_->stopMv();
+}
+void CameraWorker::stopMvVp() {
+    pVp_->pAxsMver_->stopMv();
 }
 CameraWorker::~CameraWorker() {
 

@@ -579,10 +579,15 @@ public:
             } else {
                 //ñ⁄ïWéûä‘éwíËÇÃèÍçá
                 if (_prm._progress == 0) {
-                    //â¡ë¨ê›íË
-                    T acc = UTIL::getAcceByTv(_prm._p1, _velo, _prm._top_velo);
-                    _acce = acc;
-                    _prm._progress++;
+                    if (ZEROd_EQ(_prm._p1)) {
+                        _acce = 0;
+                        _prm._progress++;
+                    } else {
+                        //â¡ë¨ê›íË
+                        T acc = UTIL::getAcceByTv(_prm._p1, _velo, _prm._top_velo);
+                        _acce = acc;
+                        _prm._progress++;
+                    }
                 }
                 if (_prm._progress == 1) {
                     //â¡ë¨íÜ

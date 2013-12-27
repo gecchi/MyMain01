@@ -55,14 +55,14 @@ public:
     /** [r/w]Z軸方向移動加速度下限*/
     acce _acceBottomVzMv;
 
-    coord _gravitation_mv_seq_target_x;
-    coord _gravitation_mv_seq_target_y;
-    coord _gravitation_mv_seq_target_z;
-    GgafDxGeometricActor* _gravitation_mv_seq_pActor_target;
-    velo _gravitation_mv_seq_max_velo;
-    acce _gravitation_mv_seq_acce;
-    coord _gravitation_mv_seq_stop_renge;
-    bool _gravitation_mv_seq_flg;
+    coord _grv_mv_target_x;
+    coord _grv_mv_target_y;
+    coord _grv_mv_target_z;
+    GgafDxGeometricActor* _grv_mv_pActor_target;
+    velo _grv_mv_max_velo;
+    acce _grv_mv_acce;
+    coord _grv_mv_stop_renge;
+    bool _grv_mv_flg;
 
     GgafDxAxesMoverHelperA* _pHlprA;
 
@@ -220,6 +220,46 @@ public:
      */
     void setVxyzMvAcce(acce prm_acceVxMv, acce prm_acceVyMv, acce prm_acceVzMv);
 
+
+
+    /**
+     * 移動加速度を、「目標到達速度」「費やす時間」により設定 .
+     * <pre><code>
+     *
+     *    速度(v)
+     *     ^        a:加速度（_accMv に設定される)
+     *     |        D:移動距離 （戻り値）
+     *     |       V0:現時点の速度（= 現在の _veloMv が使用される）
+     *     |       Vt:目標到達速度（引数）
+     *     |       Te:目標到達速度に達した時の時間（引数）
+     *   Vt|........
+     *     |      ／|
+     *     |    ／  |
+     *     |  ／    |   斜辺の傾きa
+     *     |／      |
+     *   V0|    D   |
+     *     |        |
+     *   --+--------+---> 時間(tフレーム)
+     *   0 |        Te
+     *
+     *    a = (Vt-V0) / Te
+     * </code></pre>
+     * 上図のような状態を想定し、目標到達速度(Vt)と、その到達時間(Te) から、加速度(a)を計算し設定している。<BR>
+     * 移動距離(D)は、パラメータにより変化するため指定不可。<BR>
+     * @param prm_target_frames 費やす時間(Te)
+     * @param prm_target_velo   目標到達速度(Vt)
+     * @return 移動距離(D)
+     */
+    coord setVxAcceByT(frame prm_target_frames, velo prm_target_velo);
+    coord setVyAcceByT(frame prm_target_frames, velo prm_target_velo);
+    coord setVzAcceByT(frame prm_target_frames, velo prm_target_velo);
+    void setVxyzAcceByT(frame prm_target_frames, velo prm_target_velo) {
+        setVxAcceByT(prm_target_frames, prm_target_velo);
+        setVyAcceByT(prm_target_frames, prm_target_velo);
+        setVzAcceByT(prm_target_frames, prm_target_velo);
+    }
+
+
     /**
      * X軸Y軸Z軸方向の移動速度を 0 に設定する。
      */
@@ -238,7 +278,7 @@ public:
      * 重力により物体が引き寄せられるかような感じの動きみたいな感じっぽいのをやめる .
      */
     void stopGravitationMvSequence() {
-        _gravitation_mv_seq_flg = false;
+        _grv_mv_flg = false;
     }
 
     /**
@@ -246,7 +286,7 @@ public:
      * @return true:最中/false:そうでない
      */
     bool isGravitationMvSequence() {
-        return _gravitation_mv_seq_flg;
+        return _grv_mv_flg;
     }
 
     /**
@@ -280,10 +320,10 @@ public:
      * @param prm_tz 引き寄せられて到達する目標のZ座標
      */
     void setGravitationTwd(coord prm_tx, coord prm_ty, coord prm_tz) {
-        _gravitation_mv_seq_target_x = prm_tx;
-        _gravitation_mv_seq_target_y = prm_ty;
-        _gravitation_mv_seq_target_z = prm_tz;
-        _gravitation_mv_seq_pActor_target = nullptr;
+        _grv_mv_target_x = prm_tx;
+        _grv_mv_target_y = prm_ty;
+        _grv_mv_target_z = prm_tz;
+        _grv_mv_pActor_target = nullptr;
     }
 
     /**
@@ -306,10 +346,10 @@ public:
      * @param prm_pActor_target 引き寄せられて到達する目標座標となるアクター
      */
     void setGravitationTwd(GgafDxGeometricActor* prm_pActor_target) {
-        _gravitation_mv_seq_target_x = 0;
-        _gravitation_mv_seq_target_y = 0;
-        _gravitation_mv_seq_target_z = 0;
-        _gravitation_mv_seq_pActor_target = prm_pActor_target;
+        _grv_mv_target_x = 0;
+        _grv_mv_target_y = 0;
+        _grv_mv_target_z = 0;
+        _grv_mv_pActor_target = prm_pActor_target;
     }
 
     /**
@@ -319,6 +359,14 @@ public:
      */
     void takeoverMvFrom(GgafDxAxesMover* const prmpAxsMver_);
 
+    /**
+     * GgafDxAxesMoverによるアクター移動を停止する。
+     */
+    void stopMv();
+
+    /**
+     * 速度、加速度をリセット、各上限下限を初期設定。
+     */
     void resetMv();
 
     /**

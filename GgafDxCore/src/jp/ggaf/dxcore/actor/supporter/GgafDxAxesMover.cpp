@@ -3,6 +3,7 @@
 
 #include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverHelperA.h"
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -47,14 +48,14 @@ _pActor(prm_pActor) {
     _acceTopVzMv = PX_C(256);
     _acceBottomVzMv = -PX_C(256);
 
-    _gravitation_mv_seq_target_x = 0;
-    _gravitation_mv_seq_target_y = 0;
-    _gravitation_mv_seq_target_z = 0;
-    _gravitation_mv_seq_pActor_target = nullptr;
-    _gravitation_mv_seq_max_velo = 1000;
-    _gravitation_mv_seq_acce = 1000;
-    _gravitation_mv_seq_stop_renge = 1000;
-    _gravitation_mv_seq_flg = false;
+    _grv_mv_target_x = 0;
+    _grv_mv_target_y = 0;
+    _grv_mv_target_z = 0;
+    _grv_mv_pActor_target = nullptr;
+    _grv_mv_max_velo = 1000;
+    _grv_mv_acce = 1000;
+    _grv_mv_stop_renge = 1000;
+    _grv_mv_flg = false;
 
 }
 
@@ -67,42 +68,42 @@ void GgafDxAxesMover::behave() {
         _pHlprA->behave();
     }
 
-    if(_gravitation_mv_seq_flg) {
+    if(_grv_mv_flg) {
         coord dX, dY, dZ;
-        if (_gravitation_mv_seq_pActor_target) {
-            dX = _gravitation_mv_seq_pActor_target->_x - _pActor->_x;
-            dY = _gravitation_mv_seq_pActor_target->_y - _pActor->_y;
-            dZ = _gravitation_mv_seq_pActor_target->_z - _pActor->_z;
+        if (_grv_mv_pActor_target) {
+            dX = _grv_mv_pActor_target->_x - _pActor->_x;
+            dY = _grv_mv_pActor_target->_y - _pActor->_y;
+            dZ = _grv_mv_pActor_target->_z - _pActor->_z;
         } else {
-            dX = _gravitation_mv_seq_target_x - _pActor->_x;
-            dY = _gravitation_mv_seq_target_y - _pActor->_y;
-            dZ = _gravitation_mv_seq_target_z - _pActor->_z;
+            dX = _grv_mv_target_x - _pActor->_x;
+            dY = _grv_mv_target_y - _pActor->_y;
+            dZ = _grv_mv_target_z - _pActor->_z;
         }
         coord dX_abs = ABS(dX);
         coord dY_abs = ABS(dY);
         coord dZ_abs = ABS(dZ);
         coord dmax = MAX3(dX_abs, dY_abs, dZ_abs);//距離簡易計算
-        if (dmax > _gravitation_mv_seq_max_velo) {
-            double rr = 1.0*_gravitation_mv_seq_max_velo / dmax;
+        if (dmax > _grv_mv_max_velo) {
+            double rr = 1.0*_grv_mv_max_velo / dmax;
             dX *= rr;
             dY *= rr;
             dZ *= rr;
         }
-        double r_acce = 1.7*_gravitation_mv_seq_acce / dmax;
+        double r_acce = 1.7*_grv_mv_acce / dmax;
         acce X_acce = r_acce * dX_abs;
         acce Y_acce = r_acce * dY_abs;
         acce Z_acce = r_acce * dZ_abs;
-        if (X_acce > _gravitation_mv_seq_acce) {
-            X_acce = _gravitation_mv_seq_acce;
+        if (X_acce > _grv_mv_acce) {
+            X_acce = _grv_mv_acce;
         }
-        if (Y_acce > _gravitation_mv_seq_acce) {
-            Y_acce = _gravitation_mv_seq_acce;
+        if (Y_acce > _grv_mv_acce) {
+            Y_acce = _grv_mv_acce;
         }
-        if (Z_acce > _gravitation_mv_seq_acce) {
-            Z_acce = _gravitation_mv_seq_acce;
+        if (Z_acce > _grv_mv_acce) {
+            Z_acce = _grv_mv_acce;
         }
         velo last_veloVxMv = _veloVxMv;
-        velo new_veloVxMv = _gravitation_mv_seq_max_velo * (dX * 1.0 / _gravitation_mv_seq_stop_renge);
+        velo new_veloVxMv = _grv_mv_max_velo * (dX * 1.0 / _grv_mv_stop_renge);
         if (last_veloVxMv - X_acce <= new_veloVxMv &&
                                       new_veloVxMv <= last_veloVxMv + X_acce) {
             _veloVxMv = new_veloVxMv;
@@ -115,7 +116,7 @@ void GgafDxAxesMover::behave() {
         }
 
         velo last_veloVyMv = _veloVyMv;
-        velo new_veloVyMv = _gravitation_mv_seq_max_velo * (dY * 1.0 / _gravitation_mv_seq_stop_renge);
+        velo new_veloVyMv = _grv_mv_max_velo * (dY * 1.0 / _grv_mv_stop_renge);
         if (last_veloVyMv - Y_acce <= new_veloVyMv &&
                                       new_veloVyMv <= last_veloVyMv + Y_acce) {
             _veloVyMv = new_veloVyMv;
@@ -128,7 +129,7 @@ void GgafDxAxesMover::behave() {
         }
 
         velo last_veloVzMv = _veloVzMv;
-        velo new_veloVzMv = _gravitation_mv_seq_max_velo * (dZ * 1.0 / _gravitation_mv_seq_stop_renge);
+        velo new_veloVzMv = _grv_mv_max_velo * (dZ * 1.0 / _grv_mv_stop_renge);
         if (last_veloVzMv - Z_acce <= new_veloVzMv &&
                                       new_veloVzMv <= last_veloVzMv + Z_acce) {
             _veloVzMv = new_veloVzMv;
@@ -409,19 +410,52 @@ void GgafDxAxesMover::setVxyzMvAcce(acce prm_acceVxMv, acce prm_acceVyMv, acce p
         _acceVzMv = prm_acceVzMv;
     }
 }
+coord GgafDxAxesMover::setVxAcceByT(frame prm_target_frames, velo prm_target_velo) {
+    double acc = UTIL::getAcceByTv(prm_target_frames, _veloVxMv, prm_target_velo);
+    if (acc > 0.0) {
+        acc += 0.5;
+    } else if (acc < 0.0) {
+        acc -= 0.5;
+    }
+    setVxMvAcce(acc);
+    //  D = (1/2) (Vo + Vt) Te
+    return ((_veloVxMv + prm_target_velo) * prm_target_frames) / 2 ;
+}
+coord GgafDxAxesMover::setVyAcceByT(frame prm_target_frames, velo prm_target_velo) {
+    double acc = UTIL::getAcceByTv(prm_target_frames, _veloVyMv, prm_target_velo);
+    if (acc > 0.0) {
+        acc += 0.5;
+    } else if (acc < 0.0) {
+        acc -= 0.5;
+    }
+    setVyMvAcce(acc);
+    //  D = (1/2) (Vo + Vt) Te
+    return ((_veloVyMv + prm_target_velo) * prm_target_frames) / 2 ;
+}
+coord GgafDxAxesMover::setVzAcceByT(frame prm_target_frames, velo prm_target_velo) {
+    double acc = UTIL::getAcceByTv(prm_target_frames, _veloVzMv, prm_target_velo);
+    if (acc > 0.0) {
+        acc += 0.5;
+    } else if (acc < 0.0) {
+        acc -= 0.5;
+    }
+    setVzMvAcce(acc);
+    //  D = (1/2) (Vo + Vt) Te
+    return ((_veloVzMv + prm_target_velo) * prm_target_frames) / 2 ;
+}
 
 void GgafDxAxesMover::execGravitationMvSequenceTwd(coord prm_tx, coord prm_ty, coord prm_tz,
                                                  velo prm_max_velo,
                                                  acce prm_acce,
                                                  int prm_stop_renge ) {
-    _gravitation_mv_seq_target_x = prm_tx;
-    _gravitation_mv_seq_target_y = prm_ty;
-    _gravitation_mv_seq_target_z = prm_tz;
-    _gravitation_mv_seq_pActor_target = nullptr;
-    _gravitation_mv_seq_max_velo = prm_max_velo;
-    _gravitation_mv_seq_acce = prm_acce;
-    _gravitation_mv_seq_stop_renge = prm_stop_renge;
-    _gravitation_mv_seq_flg = true;
+    _grv_mv_target_x = prm_tx;
+    _grv_mv_target_y = prm_ty;
+    _grv_mv_target_z = prm_tz;
+    _grv_mv_pActor_target = nullptr;
+    _grv_mv_max_velo = prm_max_velo;
+    _grv_mv_acce = prm_acce;
+    _grv_mv_stop_renge = prm_stop_renge;
+    _grv_mv_flg = true;
 
     forceVxMvVeloRange(-prm_max_velo, prm_max_velo);
     forceVyMvVeloRange(-prm_max_velo, prm_max_velo);
@@ -432,14 +466,14 @@ void GgafDxAxesMover::execGravitationMvSequenceTwd(GgafDxGeometricActor* prm_pAc
                                                  velo prm_max_velo,
                                                  acce prm_acce,
                                                  int prm_stop_renge ) {
-    _gravitation_mv_seq_target_x = 0;
-    _gravitation_mv_seq_target_y = 0;
-    _gravitation_mv_seq_target_z = 0;
-    _gravitation_mv_seq_pActor_target = prm_pActor_target;
-    _gravitation_mv_seq_max_velo = prm_max_velo;
-    _gravitation_mv_seq_acce = prm_acce;
-    _gravitation_mv_seq_stop_renge = prm_stop_renge;
-    _gravitation_mv_seq_flg = true;
+    _grv_mv_target_x = 0;
+    _grv_mv_target_y = 0;
+    _grv_mv_target_z = 0;
+    _grv_mv_pActor_target = prm_pActor_target;
+    _grv_mv_max_velo = prm_max_velo;
+    _grv_mv_acce = prm_acce;
+    _grv_mv_stop_renge = prm_stop_renge;
+    _grv_mv_flg = true;
 
     forceVxMvVeloRange(-prm_max_velo, prm_max_velo);
     forceVyMvVeloRange(-prm_max_velo, prm_max_velo);
@@ -486,7 +520,14 @@ void GgafDxAxesMover::takeoverMvFrom(GgafDxAxesMover* const prmpAxsMver_) {
     _acceBottomVzMv = prmpAxsMver_->_acceBottomVzMv;
 
 }
-
+void GgafDxAxesMover::stopMv() {
+    setZeroVxyzMvVelo();
+    setZeroVxyzMvAcce();
+    stopGravitationMvSequence();
+    if (_pHlprA) {
+        _pHlprA->stopSlidingMv();
+    }
+}
 void GgafDxAxesMover::resetMv() {
     //X軸方向移動速度（X移動座標増分）＝ 0 px/fream
     _veloVxMv = 0;
@@ -521,7 +562,7 @@ void GgafDxAxesMover::resetMv() {
     _acceTopVzMv = PX_C(256);
     _acceBottomVzMv = -PX_C(256);
 
-    _gravitation_mv_seq_flg = false;
+    _grv_mv_flg = false;
 }
 
 GgafDxAxesMover::~GgafDxAxesMover() {

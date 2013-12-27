@@ -29,10 +29,10 @@ void MyShipDivingCamWorker::processBehavior() {
         static const coord dc = ABS(Universe::_x_gone_left);
         static const coord r = PX_C(500);
         double t = (1.0-(1.0*dx / dc)); //t=0.0Å®1.0
-        angle a = UTIL::simplifyAng(D180ANG*t*2);
+        angle a = UTIL::simplifyAng((D180ANG)*t); //180ìxâÒì]ÉJÉÅÉâÇ™ÇÆÇÈÅ[ÇÒÇ∆âÒÇ∑
         coord y = ANG_SIN(a) * r;
         coord z = -ANG_COS(a) * r;
-        slideMvCamTo(PX_C(300), y , z, 20);
+        slideMvCamTo(PX_C(300), y , z, 10);
         slideMvVpTo(pMyShip, 10);
     }
 }

@@ -61,12 +61,22 @@ public:
     inline frame getSwitchedFrame() {
         return frame_of_behaving_since_onSwitch_;
     }
-
     void slideMvCamTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t);
-    void slideMvVpTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t);
+    void slideMvCamTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t,
+                      float prm_x_p1, float prm_y_p1, float prm_z_p1);
     void slideMvCamTo(coord tx, coord ty, coord tz, frame t);
+    void slideMvCamTo(coord tx, coord ty, coord tz, frame t,
+                      float prm_x_p1, float prm_y_p1, float prm_z_p1);
+
+
+    void slideMvVpTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t);
     void slideMvVpTo(coord tx, coord ty, coord tz, frame t);
 
+//    void stopNaturallyCam(coord distance, frame t);
+//    void stopNaturallyVp(coord distance, frame t);
+
+    void stopMvCam();
+    void stopMvVp();
     void behaveAutoCamUp();
     virtual ~CameraWorker(); //デストラクタ
 };

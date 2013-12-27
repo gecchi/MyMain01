@@ -38,12 +38,8 @@ void Camera::initialize() {
 }
 
 void Camera::processBehavior() {
-
     ViewPoint* pVp = (ViewPoint*)getViewPoint();
-
-
     pAxsMver_Up_->behave();
-
     //ÉJÉÅÉâÇÃUPÇîΩâf
     float v_up_x, v_up_y, v_up_z;
     UTIL::getNormalizeVector (
@@ -52,14 +48,10 @@ void Camera::processBehavior() {
             pUp_->_z,
             v_up_x, v_up_y, v_up_z );
     setVecCamUp(v_up_x, v_up_y, v_up_z );
-
     pAxsMver_->behave();
     _pKuroko->behave();
 
     DefaultCamera::processBehavior();
-
-
-
 
     vcv_face_prev_ = vcv_face_;
     if (isMoving() || pVp->isMoving()) {  //isMoving()ÇÕç¿ïWà⁄ìÆå„Ç≈Ç»Ç¢Ç∆à”ñ°Ç™ñ≥Ç¢
@@ -77,10 +69,26 @@ void Camera::slideMvTo(coord tx, coord ty, coord tz, frame t) {
     //_TRACE_(" Camera::slideMvTo("<<tx<<","<<ty<<","<<tz<<",t="<<t<<")");
     pAxsMver_->hlprA()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
-                              0.3, 0.4, 0, true);
+                              0.3, 0.7, 0, true);
 }
 void Camera::slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t) {
     slideMvTo(pTarget->_x, pTarget->_y, pTarget->_z, t);
+}
+
+void Camera::slideMvTo(coord tx, coord ty, coord tz, frame t,
+                       float prm_x_p1, float prm_y_p1, float prm_z_p1) {
+    //_TRACE_(" Camera::slideMvTo("<<tx<<","<<ty<<","<<tz<<",t="<<t<<")");
+    pAxsMver_->hlprA()->slideVxyzMvByDtTo(
+                              tx, ty, tz, t,
+                              prm_x_p1, prm_x_p1, 0,
+                              prm_y_p1, prm_y_p1, 0,
+                              prm_z_p1, prm_z_p1, 0,
+                              true);
+}
+void Camera::slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t,
+        float prm_x_p1, float prm_y_p1, float prm_z_p1) {
+    slideMvTo(pTarget->_x, pTarget->_y, pTarget->_z, t,
+            prm_x_p1,prm_y_p1,prm_z_p1);
 }
 int Camera::getCamToVpFaceNo() {
     float vcv_x, vcv_y, vcv_z;

@@ -87,6 +87,27 @@ void GgafDxAxesMoverHelperA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_t
                      prm_endacc_flg);
 }
 
+void GgafDxAxesMoverHelperA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
+                       int prm_target_frames,
+                       float prm_x_p1, float prm_x_p2, velo prm_x_end_velo,
+                       float prm_y_p1, float prm_y_p2, velo prm_y_end_velo,
+                       float prm_z_p1, float prm_z_p2, velo prm_z_end_velo,
+                       bool prm_endacc_flg) {
+
+
+    slideVxyzMvByDt( prm_x_target - _pMaster->_pActor->_x,
+                     prm_y_target - _pMaster->_pActor->_y,
+                     prm_z_target - _pMaster->_pActor->_z,
+                     prm_target_frames,
+                     prm_x_p1,  prm_x_p2,  prm_x_end_velo,
+                     prm_y_p1,  prm_y_p2,  prm_y_end_velo,
+                     prm_z_p1,  prm_z_p2,  prm_z_end_velo,
+                     prm_endacc_flg);
+
+
+}
+
+
 
 void GgafDxAxesMoverHelperA::slideVxMvByVd(velo prm_top_velo, coord prm_target_distance,
                                            float prm_p1, float prm_p2, velo prm_end_velo,

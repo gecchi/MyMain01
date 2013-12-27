@@ -19,7 +19,7 @@ Teki002::Teki002(const char* prm_name) :
 }
 
 void Teki002::initialize() {
-    setScaleR(10.0);
+    setScaleR(2.0);
 
 //    _pKuroko->setMvAngTwd(PX_C(320),0,0);
 //    _pKuroko->setMvVelo(PX_C(0));
@@ -29,16 +29,55 @@ void Teki002::initialize() {
 }
 
 void Teki002::processBehavior() {
-    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_C)) {
-        position(-1000000,0,0);
-        pAxMvr_->setVxMvVelo(-23643);
+    if (GgafDxCore::GgafDxInput::isBeingPressedKey(DIK_1)) {
+        pAxMvr_->hlprA()->slideVxyzMvByDtTo(PX_C(250),PX_C(250), 0,
+                                          120,
+                                          0.1, 0.1, 0,
+                                          0.9, 0.9, 0,
+                                          0.3, 0.7, 0,
+                                          true);
     }
-    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_SPACE)) {
-        position(0,0,0);
-        pAxMvr_->hlprA()->slideVxMvByVd(
-                1168,1721,
-                0.3, 0.4, 0, true);
+
+    if (GgafDxCore::GgafDxInput::isBeingPressedKey(DIK_2)) {
+        pAxMvr_->hlprA()->slideVxyzMvByDtTo(PX_C(250),PX_C(250), 0,
+                                          120,
+                                          0.9, 0.9, 0,
+                                          0.1, 0.1, 0,
+                                          0.3, 0.7, 0,
+                                          true);
     }
+
+
+    if (GgafDxCore::GgafDxInput::isBeingPressedKey(DIK_3)) {
+        pAxMvr_->hlprA()->slideVxyzMvByDtTo(PX_C(-250),PX_C(-250), 0,
+                                          120,
+                                          0.3, 0.7, 0,
+                                          0.3, 0.7, 0,
+                                          0.3, 0.7, 0,
+                                          true);
+    }
+
+
+    if (GgafDxCore::GgafDxInput::isBeingPressedKey(DIK_SPACE)) {
+        float vx,vy,vz;
+        UTIL::getNormalizeVector(pAxMvr_->_veloVxMv,pAxMvr_->_veloVyMv,pAxMvr_->_veloVzMv,
+                                 vx,vy,vz);
+        pAxMvr_->hlprA()->slideVxyzMvByDt(PX_C(10)*vx, PX_C(10)*vy, PX_C(10)*vz,
+                                              10,
+                                              0.0,0.0, 0, true);
+    }
+
+
+//    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_C)) {
+//        position(-1000000,0,0);
+//        pAxMvr_->setVxMvVelo(-23643);
+//    }
+//    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_SPACE)) {
+//        position(0,0,0);
+//        pAxMvr_->hlprA()->slideVxMvByVd(
+//                1168,1721,
+//                0.3, 0.4, 0, true);
+//    }
 //    int sx = 0;
 //    int sy = 0;
 //    int sz = 0;

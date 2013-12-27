@@ -60,11 +60,9 @@ public:
     int pos_camera_;
     int pos_camera_prev_;
     coord dZ_camera_init_;
-    int target_up_face_no_prev_;
 
-    coord move_target_x_CAM_prev_, move_target_y_CAM_prev_, move_target_z_CAM_prev_;
-    //カメラのビューポイントの移動目標座標
-    coord move_target_x_VP_prev_, move_target_y_VP_prev_, move_target_z_VP_prev_;
+    frame cam_mv_frame_;
+    frame cam_mv_frame_base_;
 public:
     VamSysCamWorker(const char* prm_name);
 

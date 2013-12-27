@@ -82,13 +82,16 @@ public:
      */
     void slideMvTo(coord tx, coord ty, coord tz, frame t);
 
+    void slideMvTo(coord tx, coord ty, coord tz, frame t,
+                   float prm_x_p1, float prm_y_p1, float prm_z_p1);
     /**
      * カメラを指のアクターの位置に滑らか移動させます。 .
      * @param pTarget
      * @param t 所要フレーム
      */
     void slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t);
-
+    void slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t,
+            float prm_x_p1, float prm_y_p1, float prm_z_p1);
     virtual ~Camera(); //デストラクタ
 };
 
