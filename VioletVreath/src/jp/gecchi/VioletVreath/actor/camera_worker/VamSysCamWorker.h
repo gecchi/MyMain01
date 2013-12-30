@@ -63,6 +63,7 @@ public:
 
     frame cam_mv_frame_;
     frame cam_mv_frame_base_;
+    coord mv_t_x_CAM_prev_, mv_t_y_CAM_prev_, mv_t_z_CAM_prev_;
 public:
     VamSysCamWorker(const char* prm_name);
 

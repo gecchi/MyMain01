@@ -42,6 +42,9 @@ VamSysCamWorker::VamSysCamWorker(const char* prm_name) : CameraWorker(prm_name) 
     pos_camera_ = VAM_POS_RIGHT;
     cam_mv_frame_base_ = 50;
     cam_mv_frame_ = cam_mv_frame_base_;
+    mv_t_x_CAM_prev_ = 0;
+    mv_t_y_CAM_prev_ = 0;
+    mv_t_z_CAM_prev_ = 0;
 }
 void VamSysCamWorker::initialize() {
     CameraWorker::initialize();
@@ -55,6 +58,9 @@ void VamSysCamWorker::initialize() {
     correction_height_ = PX_C(30); //(PROPERTY::GAME_BUFFER_HEIGHT*LEN_UNIT/2)/4;
     pos_camera_ = VAM_POS_RIGHT;
     pos_camera_prev_ = -100;
+    mv_t_x_CAM_prev_ = 0;
+    mv_t_y_CAM_prev_ = 0;
+    mv_t_z_CAM_prev_ = 0;
     _TRACE_("VamSysCamWorker::initialize() this="<<this);
     dump();
 }
@@ -69,7 +75,7 @@ void VamSysCamWorker::processBehavior() {
     if (pMyShip_ == nullptr) {
         return; //MyShipSceneシーンが未だならカメラワーク禁止
     }
-    Camera* pCam = P_CAM;
+    Camera* pCam = pCam_;
     ViewPoint* pVP = (ViewPoint*)(pCam->getViewPoint());
     MyOptionController* pOptCtrler = P_MYSHIP_SCENE->papOptionCtrler_[0];
 
@@ -336,7 +342,12 @@ void VamSysCamWorker::processBehavior() {
 
     //ターゲットへ移動
     if (onChangeToActive() ||
-        pVbPlay->isPushedDown(VB_VIEW) || pVbPlay->isReleasedUp(VB_VIEW) ) {
+        pVbPlay->isPushedDown(VB_VIEW) || pVbPlay->isReleasedUp(VB_VIEW) ||
+        mv_t_x_CAM_prev_ != mv_t_x_CAM ||
+        mv_t_y_CAM_prev_ != mv_t_y_CAM ||
+        mv_t_z_CAM_prev_ != mv_t_z_CAM ) {
+
+
 
         //VB_VIEW押した時の処理
         if (pVbPlay->isBeingPressed(VB_VIEW)) {
@@ -355,10 +366,20 @@ void VamSysCamWorker::processBehavior() {
                     pVpAxMvr->_veloVzMv*0.1);
             cam_mv_frame_ = cam_mv_frame_base_ * 20;
         } else {
-            //通常のカメラ移動速度制限に戻す
-            cam_mv_frame_ = cam_mv_frame_base_;
+			cam_mv_frame_ = cam_mv_frame_base_;
+			/*
+            if (pos_camera_prev_ == pos_camera_ &&
+                      ( mv_t_x_CAM_prev_ != mv_t_x_CAM ||
+                        mv_t_y_CAM_prev_ != mv_t_y_CAM ||
+                        mv_t_z_CAM_prev_ != mv_t_z_CAM ) ) {
+                cam_mv_frame_ = cam_mv_frame_base_  * 0.1 + 1;
+            } 
+			*/
         }
-        _TRACE_("VamSysCamWorker::processBehavior() ターゲットへ移動 cam_mv_frame_="<<cam_mv_frame_<<" pos_camera_="<<pos_camera_);
+
+
+
+//        _TRACE_("VamSysCamWorker::processBehavior() ターゲットへ移動 cam_mv_frame_="<<cam_mv_frame_<<" pos_camera_="<<pos_camera_);
         //ターゲットへカメラ移動
         if (pos_camera_ < VAM_POS_TO_BEHIND) {
             if (pos_camera_ == VAM_POS_RIGHT) {
@@ -428,6 +449,9 @@ void VamSysCamWorker::processBehavior() {
 
 
     pos_camera_prev_ = pos_camera_;
+    mv_t_x_CAM_prev_ = mv_t_x_CAM;
+    mv_t_y_CAM_prev_ = mv_t_y_CAM;
+    mv_t_z_CAM_prev_ = mv_t_z_CAM;
 }
 VamSysCamWorker::~VamSysCamWorker() {
 }
