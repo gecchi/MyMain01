@@ -366,18 +366,15 @@ void VamSysCamWorker::processBehavior() {
                     pVpAxMvr->_veloVzMv*0.1);
             cam_mv_frame_ = cam_mv_frame_base_ * 20;
         } else {
-			cam_mv_frame_ = cam_mv_frame_base_;
-			/*
-            if (pos_camera_prev_ == pos_camera_ &&
-                      ( mv_t_x_CAM_prev_ != mv_t_x_CAM ||
-                        mv_t_y_CAM_prev_ != mv_t_y_CAM ||
-                        mv_t_z_CAM_prev_ != mv_t_z_CAM ) ) {
-                cam_mv_frame_ = cam_mv_frame_base_  * 0.1 + 1;
-            } 
-			*/
+            cam_mv_frame_ = cam_mv_frame_base_;
+            if ( pos_camera_ > VAM_POS_TO_BEHIND &&
+                mv_t_x_CAM_prev_ == mv_t_x_CAM &&
+                    (   mv_t_y_CAM_prev_ != mv_t_y_CAM ||
+                        mv_t_z_CAM_prev_ != mv_t_z_CAM   )
+            ) {
+                cam_mv_frame_ = cam_mv_frame_base_ * 0.2 + 1;
+            }
         }
-
-
 
 //        _TRACE_("VamSysCamWorker::processBehavior() ターゲットへ移動 cam_mv_frame_="<<cam_mv_frame_<<" pos_camera_="<<pos_camera_);
         //ターゲットへカメラ移動

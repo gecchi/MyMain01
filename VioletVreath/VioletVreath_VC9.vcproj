@@ -1502,6 +1502,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\ViewPoint.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\ViewPointGuide.cpp"
 				>
 			</File>
@@ -2845,6 +2849,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\VarietyRatislavia004.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\ViewPoint.h"
 				>
 			</File>
 			<File
