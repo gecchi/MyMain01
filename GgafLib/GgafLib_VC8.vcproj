@@ -170,10 +170,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\src\jp\ggaf\lib\util\AmountGraph.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\jp\ggaf\lib\util\ColliAAB.cpp"
 				>
 			</File>
@@ -310,6 +306,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\ggaf\lib\actor\GraphBarActor.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\ggaf\lib\actor\GraphCappedBarActor.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\ggaf\lib\actor\laserchip\HomingLaserChip.cpp"
 				>
 			</File>
@@ -326,6 +330,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\ggaf\lib\util\PxQuantity.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\ggaf\lib\actor\laserchip\RefractionLaserChip.cpp"
 				>
 			</File>
@@ -336,24 +344,6 @@
 			<File
 				RelativePath=".\src\jp\ggaf\lib\actor\SingleLaser.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\jp\ggaf\lib\util\spline\SplineKurokoLeader.cpp"
@@ -489,10 +479,6 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath=".\include\jp\ggaf\lib\util\AmountGraph.h"
-				>
-			</File>
 			<File
 				RelativePath=".\include\jp\ggaf\lib\util\ColliAAB.h"
 				>
@@ -638,6 +624,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\jp\ggaf\lib\actor\GraphBarActor.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\jp\ggaf\lib\actor\GraphCappedBarActor.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\jp\ggaf\lib\actor\laserchip\HomingLaserChip.h"
 				>
 			</File>
@@ -659,6 +653,10 @@
 			</File>
 			<File
 				RelativePath=".\include\jp\ggaf\lib\actor\menu\MenuActor.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\include\jp\ggaf\lib\util\PxQuantity.h"
 				>
 			</File>
 			<File

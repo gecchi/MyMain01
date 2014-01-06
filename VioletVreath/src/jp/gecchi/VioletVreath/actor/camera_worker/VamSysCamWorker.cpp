@@ -65,8 +65,8 @@ void VamSysCamWorker::initialize() {
     dump();
 }
 void VamSysCamWorker::onActive() {
-    CameraWorker::onActive();
-    cam_mv_frame_ = cam_mv_frame_base_;
+    //CameraWorker::onActive();
+    //cam_mv_frame_ = cam_mv_frame_base_;
 }
 
 void VamSysCamWorker::processBehavior() {
@@ -244,8 +244,8 @@ void VamSysCamWorker::processBehavior() {
             throwGgafCriticalException("VamSysCamWorker::processBehavior() 不正なpos_camera_="<<pos_camera_);
         }
         //カメラの目標座標、ビューポイントの目標座標について、現在の動いている方向への若干画面寄りを行う。（ﾅﾝﾉｺｯﾁｬ）
-        mv_t_z_CAM -= (pMyShip_->_z*0.05);
-        mv_t_y_CAM -= (pMyShip_->_y*0.05);
+        mv_t_z_CAM -= (pMyShip_->_z*0.08);
+        mv_t_y_CAM -= (pMyShip_->_y*0.08);
     }
 
     //カメラ移動座標を制限。
@@ -367,7 +367,11 @@ void VamSysCamWorker::processBehavior() {
             cam_mv_frame_ = cam_mv_frame_base_ * 20;
         } else {
             cam_mv_frame_ = cam_mv_frame_base_;
-            if ( pos_camera_ > VAM_POS_TO_BEHIND &&
+            if (MAX3(ABS(mv_t_x_CAM - pCam_->_x),
+                     ABS(mv_t_y_CAM - pCam_->_y),
+                     ABS(mv_t_z_CAM - pCam_->_z) ) > PX_C(4000)) {
+                cam_mv_frame_ = cam_mv_frame_base_ * 3; //遠方の場合、到達時間に少し余裕を持つ
+            } else if ( pos_camera_ > VAM_POS_TO_BEHIND &&
                 mv_t_x_CAM_prev_ == mv_t_x_CAM &&
                     (   mv_t_y_CAM_prev_ != mv_t_y_CAM ||
                         mv_t_z_CAM_prev_ != mv_t_z_CAM   )

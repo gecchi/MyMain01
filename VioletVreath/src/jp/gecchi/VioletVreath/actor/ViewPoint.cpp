@@ -26,9 +26,11 @@ void ViewPoint::processBehavior() {
     GgafDxCameraViewPoint::processBehavior();
     pAxsMver_->behave();
     _pKuroko->behave();
+    ((DefaultMeshActor*)getSubFirst())->positionAs(this);
 }
 
 void ViewPoint::slideMvTo(coord tx, coord ty, coord tz, frame t) {
+    //_TRACE_(" ViewPoint::slideMvTo("<<tx<<","<<ty<<","<<tz<<",t="<<t<<")  now("<<_x<<","<<_y<<","<<_z<<")");
     //ƒJƒƒ‰‚Ê‚é‚Á‚ÆˆÚ“®
     pAxsMver_->hlprA()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,

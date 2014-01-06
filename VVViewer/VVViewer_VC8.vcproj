@@ -256,6 +256,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\actor\VvvViewPoint.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\scene\VvvUniverse\VvvWorld.cpp"
 				>
 			</File>
@@ -295,6 +299,10 @@
 			</File>
 			<File
 				RelativePath=".\src\scene\VvvUniverse.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\actor\VvvViewPoint.h"
 				>
 			</File>
 			<File

@@ -62,11 +62,12 @@ void Camera::processBehavior() {
         _TRACE_("Camera::processBehavior()  vcv="<<vcv_face_prev_<<"¨"<<vcv_face_<<"");
     }
 #endif
-
+//    _TRACE_("Camera::processBehavior()  ("<<_x<<","<<_y<<","<<_z<<") "<<
+//            "pAxsMver_=("<<pAxsMver_->hlprA()->_smthVxMv._prm._flg<<","<<pAxsMver_->hlprA()->_smthVyMv._prm._flg<<","<<pAxsMver_->hlprA()->_smthVzMv._prm._flg<<")");
 }
 
 void Camera::slideMvTo(coord tx, coord ty, coord tz, frame t) {
-    //_TRACE_(" Camera::slideMvTo("<<tx<<","<<ty<<","<<tz<<",t="<<t<<")");
+//    _TRACE_(" Camera::slideMvTo("<<tx<<","<<ty<<","<<tz<<",t="<<t<<") now("<<_x<<","<<_y<<","<<_z<<")");
     pAxsMver_->hlprA()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               0.3, 0.7, 0, true);
@@ -77,7 +78,7 @@ void Camera::slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t) {
 
 void Camera::slideMvTo(coord tx, coord ty, coord tz, frame t,
                        float prm_x_p1, float prm_y_p1, float prm_z_p1) {
-    //_TRACE_(" Camera::slideMvTo("<<tx<<","<<ty<<","<<tz<<",t="<<t<<")");
+//    _TRACE_(" Camera::slideMvTo("<<tx<<","<<ty<<","<<tz<<",t="<<t<<")  now("<<_x<<","<<_y<<","<<_z<<")(2)");
     pAxsMver_->hlprA()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               prm_x_p1, prm_x_p1, 0,

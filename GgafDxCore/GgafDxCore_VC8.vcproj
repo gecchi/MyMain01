@@ -206,6 +206,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxAxesMover.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxAxesMoverHelperA.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxBaseActor.cpp"
 				>
 			</File>
@@ -224,24 +232,6 @@
 			<File
 				RelativePath=".\src\jp\ggaf\dxcore\sound\GgafDxBgmPerformer.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\jp\ggaf\dxcore\scene\supporter\GgafDxBgmPerformerForScene.cpp"
@@ -404,11 +394,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoA.cpp"
+				RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxKuroko.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoB.cpp"
+				RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoHelperA.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoHelperB.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoHelperC.cpp"
 				>
 			</File>
 			<File
@@ -449,6 +447,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxMorpher.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxMorpherHelperA.cpp"
 				>
 			</File>
 			<File
@@ -510,24 +512,6 @@
 			<File
 				RelativePath=".\src\jp\ggaf\dxcore\sound\GgafDxSeTransmitter.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxSeTransmitterForActor.cpp"
@@ -712,6 +696,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\jp\ggaf\dxcore\util\GgafDxAccelerator.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\include\jp\ggaf\dxcore\util\GgafDxAgainstWay.h"
 				>
 			</File>
@@ -729,6 +717,14 @@
 			</File>
 			<File
 				RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxAlphaFader.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxAxesMover.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxAxesMoverHelperA.h"
 				>
 			</File>
 			<File
@@ -920,11 +916,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoA.h"
+				RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxKuroko.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoB.h"
+				RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoHelperA.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoHelperB.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoHelperC.h"
 				>
 			</File>
 			<File
@@ -965,6 +969,10 @@
 			</File>
 			<File
 				RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxMorpher.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxMorpherHelperA.h"
 				>
 			</File>
 			<File
