@@ -143,6 +143,16 @@ _pEffect((GgafDxEffect*)_pEffectCon->peek())
 }
 
 void GgafDxDrawableActor::processPreDraw() {
+
+#ifdef MY_DEBUG
+    if (getPlatformScene()->instanceOf(Obj_GgafDxScene)) {
+        //OK
+    } else {
+        throwGgafCriticalException("GgafDxDrawableActor::processPreDraw() name="<<getName()<<"を描画登録しようとしましたが、所属シーンが name="<<getName()<<"->getPlatformScene()["<<(getPlatformScene()->getName())<<"]が、GgafDxScene に変換不可です。this="<<this<<" \n"<<
+                "getPlatformScene()->_obj_class="<<getPlatformScene()->_obj_class<< " Obj_GgafDxScene="<<Obj_GgafDxScene<<" \n"<<
+                "(getPlatformScene()->_obj_class & Obj_GgafDxScene)="<<((getPlatformScene()->_obj_class) & Obj_GgafDxScene) <<" ==?? Obj_GgafDxScene("<<Obj_GgafDxScene<<")");
+    }
+#endif
     if (_pModel->_is_init_model == false) {
         onCreateModel(); //モデル作成時の初期処理
         _pModel->_is_init_model = true;

@@ -6,6 +6,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/actor/DefaultMeshActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverHelperA.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyOptionControllerGizmo.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -15,7 +16,6 @@ ViewPoint::ViewPoint(const char* prm_name) :
         GgafDxCameraViewPoint(prm_name) {
     _class_name = "ViewPoint";
     pAxsMver_ = NEW GgafDxAxesMover(this);
-    addSubFirst(NEW DefaultMeshActor("VP_GIZUMO", "Gizmo", nullptr));
 }
 
 void ViewPoint::initialize() {
@@ -26,7 +26,6 @@ void ViewPoint::processBehavior() {
     GgafDxCameraViewPoint::processBehavior();
     pAxsMver_->behave();
     _pKuroko->behave();
-    ((DefaultMeshActor*)getSubFirst())->positionAs(this);
 }
 
 void ViewPoint::slideMvTo(coord tx, coord ty, coord tz, frame t) {

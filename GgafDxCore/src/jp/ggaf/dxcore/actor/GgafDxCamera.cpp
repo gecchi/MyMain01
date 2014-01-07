@@ -251,17 +251,6 @@ GgafDxCameraViewPoint* GgafDxCamera::getViewPoint() {
         _pViewPoint = createViewPoint();
         _pViewPoint->position(0, 0, 0);
         addSubGroup(_pViewPoint);// 問題有り
-
-//        ---------------------------
-//        不本意な事態
-//        ---------------------------
-//
-//        ・src\jp\ggaf\dxcore\scene\GgafDxUniverse.cpp(175) : GgafDxUniverse::draw() err2. _pActor_DrawActive[VP_GIZUMO->getPlatformScene()[MYUNIVERSE]が、GgafDxScene に変換不可です。this=MYUNIVERSE
-//        (※「Shift + Ctrl + C」でメッセージはコピーできます。)
-//        ---------------------------
-//        OK
-//        ---------------------------
-
         return _pViewPoint;
     }
 }

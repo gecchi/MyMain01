@@ -172,7 +172,9 @@ void GgafDxUniverse::draw() {
             if (pDrawActor->getPlatformScene()->instanceOf(Obj_GgafDxScene)) {
                 //OK
             } else {
-                throwGgafCriticalException("GgafDxUniverse::draw() err2. _pActor_DrawActive["<<(pDrawActor->getName())<<"->getPlatformScene()["<<(_pActor_DrawActive->getPlatformScene()->getName())<<"]が、GgafDxScene に変換不可です。this="<<getName());
+                throwGgafCriticalException("GgafDxUniverse::draw() err2. 描画アクターの所属シーン _pActor_DrawActive["<<(pDrawActor->getName())<<"->getPlatformScene()["<<(pDrawActor->getPlatformScene()->getName())<<"]が、GgafDxScene に変換不可です。this="<<getName()<<" \n"<<
+                        "pDrawActor->getPlatformScene()->_obj_class="<<pDrawActor->getPlatformScene()->_obj_class<< " Obj_GgafDxScene="<<Obj_GgafDxScene<<" \n"<<
+                        "(pDrawActor->getPlatformScene()->_obj_class & Obj_GgafDxScene)="<<((pDrawActor->getPlatformScene()->_obj_class) & Obj_GgafDxScene) <<" ==?? Obj_GgafDxScene("<<Obj_GgafDxScene<<")");
             }
 #endif
             //各所属シーンのαカーテンを設定する。

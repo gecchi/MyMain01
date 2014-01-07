@@ -9,14 +9,14 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 MyOptionControllerGizmo::MyOptionControllerGizmo(const char* prm_name) :
-        DefaultMeshActor(prm_name, "Nothing", nullptr) {
+        DefaultMeshActor(prm_name, "Gizmo", nullptr) {
     _class_name = "MyOptionControllerGizmo";
     ptn_no_ = 0;
 }
 
 void MyOptionControllerGizmo::initialize() {
     setHitAble(false);
-    setAlpha(0.5);
+    //setAlpha(0.5);
 }
 
 void MyOptionControllerGizmo::onActive() {
