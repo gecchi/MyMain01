@@ -114,9 +114,13 @@ public:
 
     //補足メモ
     //【_x, _y, _z の単位について】
-    //座標値 _x, _y, _z は独自の単位である。
-    //DirectX座標(float)系の値の１.0に相当する X, _y, _z座標値は、LEN_UNIT(=1000)倍のPX_UNIT(=10)倍の整数値である。
-    //つまり10000倍。DirectX座標単位の１.0は、ゲーム画面上で10px相当の大きさになる（ようにカメラを引いている）。
+    //本フレームワークでは、３つの座標単位(スケール)がある。
+    //dxcoord  ・・・ DirectX座標単位。
+    //coord    ・・・ アプリケーション独自の内部座標単位。（これがメイン）
+    //pixcoord ・・・ カメラが初期位置かつ、z=0 の xy平面にキャラがいた場合の、画面上でのピクセル値単位
+    //座標値 _x, _y, _z は coord (これがメイン)である。
+    //DirectX座標(float)系の値の1.0に相当する _x, _y, _z 座標値は、LEN_UNIT(=1000)倍のPX_UNIT(=10)倍の整数値である。
+    //また、DirectX座標系単位の1.0は、ゲーム画面上で10px相当の大きさになる（ようにカメラを引いている）。
     //例えば、_x = 5000 は、画面で初期カメラ位置で 5px の幅に見え、DirectX座標では0.5になる（ように設計している）。
     //_x,_y,_z     → ピクセル の変換。    ・・・ _x,_y,_z を LEN_UNIT(=1000)で割る。
     //DirectX座標  → ピクセル の変換。    ・・・ DirectX座標を、PX_UNIT(=10)を掛け算する。
@@ -136,7 +140,6 @@ public:
     //【_sx, _sy, _sz の単位について】
     //値1000が1.0倍のスケール意味する。したがってデフォルトは1000になっている。
     //描画の直前に 1000 で除算され、拡大縮小率に変換し使用する。
-
 
 public:
     /**
@@ -262,7 +265,7 @@ public:
     }
 
     /**
-     * X軸Y軸Z軸スケール(_sx, _sy, _sz)をそれぞれ値で設定。
+     * X軸Y軸Z軸スケール _sx, _sy, _sz をそれぞれ値で設定。
      * 【注意】
      * pScaler_->behave(); が存在すると上書きされますよ！。
      * @param sx X軸スケール値(1000 で 1.0倍)
@@ -375,19 +378,19 @@ public:
     }
 
     /**
-     * 回転角度(_rx, _ry, _rz)をコピーして設定 .
+     * 回転角度 _rx, _ry, _rz をコピーして設定 .
      * @param prm_pActor コピー元アクター
      */
     virtual void rotateAs(GgafDxGeometricActor* prm_pActor);
 
     /**
-     * 回転角度(_rx, _ry, _rz)をコピーして設定 .
+     * 回転角度 _rx, _ry, _rz をコピーして設定 .
      * @param prm_pGeoElem 座標オブジェクト
      */
     virtual void rotateAs(GgafDxGeoElem* prm_pGeoElem);
 
     /**
-     * X軸Y軸Z軸スケール(_sx, _sy, _sz)をコピーして設定 .
+     * X軸Y軸Z軸スケール _sx, _sy, _sz をコピーして設定 .
      * @param prm_pActor コピー元アクター
      */
     virtual void scaleAs(GgafDxGeometricActor* prm_pActor);
@@ -459,7 +462,7 @@ public:
                                                      int prm_rz_init_local);
 
     /**
-     * 座標系(_x,_y,_z,_rx,_ry,_rz )を絶対座標系を退避して、ローカル座標(土台からの相対座標)に置き換える .
+     * 座標と回転 _x,_y,_z,_rx,_ry,_rz を絶対座標系を退避して、ローカル座標(土台からの相対座標)に置き換える .
      */
     inline void changeGeoLocal() {
         if (_is_local) {
@@ -482,7 +485,7 @@ public:
     }
 
     /**
-     * 座標系(_x,_y,_z,_rx,_ry,_rz)を退避していた絶対座標に戻す .
+     * 座標と回転 _x,_y,_z,_rx,_ry,_rz を退避していた絶対座標に戻す .
      * ローカル座標の変更に伴う絶対座標の更新は、自動で<BR>
      * processSettlementBehavior()で行われる作りになっている。<BR>
      * processBehavior() の処理の最後で実行することを想定。<BR>
@@ -510,7 +513,7 @@ public:
 
 
     /**
-     * 本アクターが３Dの場合、 回転×移動のワールド変換行列を計算する関数を定義 .
+     * 本アクターが3Dの場合、 回転×移動のワールド変換行列を計算する関数を定義 .
      * 拡大縮小はこのワールド変換行列の前に乗じられ、最終的な行列を完成させる。（拡大縮小×回転×移動）。<BR>
      * 通常の描画可能なアクターは、GgafDxUtil::setWorldMatrix_RxRzRyMv() 等が設定済みのため
      * 呼び出す必要がない。<BR>
