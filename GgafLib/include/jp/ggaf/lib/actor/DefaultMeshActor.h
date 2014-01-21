@@ -12,7 +12,7 @@ namespace GgafLib {
  * <TABLE border=1>
  * <TR bgcolor="#AABBCC"><TH>QÆ•Ï”</TH><TH>ŠT—v</TH><TH>CLASS–¼</TH></TR>
  * <TR><TD>_pProg</TD><TD>i’»ŠÇ—</TD><TD>GgafCore::GgafProgress</TD></TR>
- * <TR><TD>_pKrokoA</TD><TD>•ˆßBˆÚ“®‰ñ“]x‰‡</TD><TD>GgafDxCore::GgafDxKuroko</TD></TR>
+ * <TR><TD>_pKroko</TD><TD>•ˆßBˆÚ“®‰ñ“]x‰‡</TD><TD>GgafDxCore::GgafDxKuroko</TD></TR>
  * <TR><TD>_pSeTx</TD><TD>Œø‰Ê‰¹”­¶ŠÇ—</TD><TD>GgafDxCore::GgafDxSeTransmitter</TD></TR>
  * <TR><TD>_pColliChecker</TD><TD>Õ“Ë”»’èx‰‡</TD><TD>GgafLib::CollisionChecker3D</TD></TR>
  * </TABLE>

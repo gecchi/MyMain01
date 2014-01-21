@@ -13,11 +13,11 @@ using namespace GgafLib;
 
 DefaultD3DXMeshActor::DefaultD3DXMeshActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
     GgafDxD3DXMeshActor(prm_name,
-                         prm_model,
-                         "DefaultMeshEffect",
-                         "DefaultMeshTechnique",
-                         prm_pStat,
-                         NEW CollisionChecker3D(this) ) {
+                        prm_model,
+                        "DefaultMeshEffect",
+                        "DefaultMeshTechnique",
+                        prm_pStat,
+                        NEW CollisionChecker3D(this) ) {
     _class_name = "DefaultD3DXMeshActor";
     _pColliChecker = (CollisionChecker3D*)_pChecker;
 }

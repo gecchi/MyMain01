@@ -13,11 +13,11 @@ using namespace GgafLib;
 
 CubeMapMeshActor::CubeMapMeshActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
     GgafDxCubeMapMeshActor(prm_name,
-                     prm_model,
-                     "CubeMapMeshEffect",
-                     "CubeMapMeshTechnique",
-                     prm_pStat,
-                     NEW CollisionChecker3D(this) ) {
+                           prm_model,
+                           "CubeMapMeshEffect",
+                           "CubeMapMeshTechnique",
+                           prm_pStat,
+                           NEW CollisionChecker3D(this) ) {
     _class_name = "CubeMapMeshActor";
     _pColliChecker = (CollisionChecker3D*)_pChecker;
 }

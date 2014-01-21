@@ -13,11 +13,11 @@ using namespace GgafLib;
 
 DefaultSpriteActor::DefaultSpriteActor(const char* prm_name, const char* prm_model_id, GgafStatus* prm_pStat) :
     GgafDxSpriteActor(prm_name,
-                       prm_model_id,
-                       "DefaultSpriteEffect",
-                       "DefaultSpriteTechnique",
-                       prm_pStat,
-                       NEW CollisionChecker3D(this) ) {
+                      prm_model_id,
+                      "DefaultSpriteEffect",
+                      "DefaultSpriteTechnique",
+                      prm_pStat,
+                      NEW CollisionChecker3D(this) ) {
     _class_name = "DefaultSpriteActor";
     _pColliChecker = (CollisionChecker3D*)_pChecker;
     setZWriteEnable(false);
