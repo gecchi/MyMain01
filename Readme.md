@@ -1,11 +1,10 @@
 # Ggaf
-__Ggaf__ is DirectX C++ Game Apprication Framework (original).
+__Ggaf__ is C++ Game Apprication Framework. (DirectX)
 
 *GgafCore*, *GgafDxCore*, *GgafLib* are part of framework project.
 
 ## VioletVreath
-*VioletVreath* is shooter game for Windows XP+ (XP, Vista, 7), using my framework.
-
+*VioletVreath* is shooter game for Windows (XP, Vista, 7, 8?), using my framework.
 It's main project.
 
 ##VVViewer
@@ -13,6 +12,9 @@ It's main project.
 
 ##SimpleSample
 *SimpleSample* is simple sample of framework usage.
+
+##Mogera
+*Mogera* is test implement for framework.
 
 ---------------------------------------------------------------------
 
