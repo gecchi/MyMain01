@@ -206,13 +206,13 @@
     <ClCompile Include="src\jp\ggaf\core\GgafOrder.cpp" />
     <ClCompile Include="src\jp\ggaf\core\GgafProgress.cpp" />
     <ClCompile Include="src\jp\ggaf\core\GgafProperties.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\GgafQuery.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafRepeatSeq.cpp" />
     <ClCompile Include="src\jp\ggaf\core\scene\GgafScene.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafRgb.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafStasus.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\ex\GgafTreeFormation.cpp" />
     <ClCompile Include="src\jp\ggaf\core\scene\GgafUniverse.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\GgafTable.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafUtil.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -254,7 +254,6 @@
     <ClInclude Include="include\jp\ggaf\core\GgafOrder.h" />
     <ClInclude Include="include\jp\ggaf\core\GgafProgress.h" />
     <ClInclude Include="include\jp\ggaf\core\GgafProperties.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\ggafquery.h" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafRepeatSeq.h" />
     <ClInclude Include="include\jp\ggaf\core\util\ggafresourceconnection.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\ggafresourcemanager.hpp" />
@@ -263,6 +262,7 @@
     <ClInclude Include="include\jp\ggaf\core\util\GgafStatus.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\ex\GgafTreeFormation.h" />
     <ClInclude Include="include\jp\ggaf\core\scene\GgafUniverse.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\ggaftable.h" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafUtil.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>

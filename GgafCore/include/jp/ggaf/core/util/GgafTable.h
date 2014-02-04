@@ -1,15 +1,15 @@
-#ifndef GGAFCORE_GGAFQUERY_H_
-#define GGAFCORE_GGAFQUERY_H_
+#ifndef GGAFCORE_GGAFTABLE_H_
+#define GGAFCORE_GGAFTABLE_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <string>
 #include <vector>
 #include <map>
 
-/** GgafQueryの１レコードの型 */
+/** GgafTableの１レコードの型 */
 typedef std::map<std::string, std::string> GgafRecord;
-/** GgafQueryファイルのセパレータ */
-#define GGAFQUERY_SEPA "\t"
+/** GgafTableファイルのセパレータ */
+#define GGAFTABLE_SEPA "\t"
 
 namespace GgafCore {
 
@@ -20,7 +20,7 @@ namespace GgafCore {
  * @since 2012/10/02
  * @author Masatoshi Tsuge
  */
-class GgafQuery : public GgafCore::GgafObject {
+class GgafTable : public GgafCore::GgafObject {
 
 private:
     /**
@@ -54,7 +54,7 @@ public:
     /**
      * 内容が空のクエリを作成 .
      */
-    GgafQuery();
+    GgafTable();
 
     /**
      * TSVでファイルを読み込んで、クエリを作成 .
@@ -213,7 +213,7 @@ public:
     static inline std::vector<std::string> split(std::string str) {
         std::vector<std::string> r;
         size_t cutAt;
-        while ((cutAt = str.find_first_of(GGAFQUERY_SEPA)) != str.npos) {
+        while ((cutAt = str.find_first_of(GGAFTABLE_SEPA)) != str.npos) {
             r.push_back(str.substr(0, cutAt));
             str = str.substr(cutAt + 1);
         }
@@ -222,8 +222,8 @@ public:
     }
 
     void dump();
-    virtual ~GgafQuery();
+    virtual ~GgafTable();
 };
 
 }
-#endif /*GGAFCORE_GGAFQUERY_H_*/
+#endif /*GGAFCORE_GGAFTABLE_H_*/

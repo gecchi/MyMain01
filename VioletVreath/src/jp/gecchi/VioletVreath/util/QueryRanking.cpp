@@ -9,7 +9,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 
-QueryRanking::QueryRanking() : GgafQuery() {
+QueryRanking::QueryRanking() : GgafTable() {
 }
 
 void QueryRanking::init() {
@@ -29,7 +29,7 @@ void QueryRanking::addRow(std::string& prm_name, int prm_score) {
     (*r)["NAME"]    = prm_name;
     (*r)["SCORE"]   = UTIL::padZeroStr(prm_score, QUERYRANKINGG_SCORELEN);
     (*r)["REGDATE"] = UTIL::getSystemDateTimeStr();
-    GgafQuery::addRow(r);
+    GgafTable::addRow(r);
 }
 
 void QueryRanking::sort() {

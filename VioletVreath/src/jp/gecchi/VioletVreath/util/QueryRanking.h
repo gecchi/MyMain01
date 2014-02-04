@@ -1,6 +1,6 @@
 #ifndef QUERYRANKING_H_
 #define QUERYRANKING_H_
-#include "jp/ggaf/core/util/GgafQuery.h"
+#include "jp/ggaf/core/util/GgafTable.h"
 
 namespace VioletVreath {
 
@@ -15,7 +15,7 @@ namespace VioletVreath {
  * @since 2012/10/15
  * @author Masatoshi Tsuge
  */
-class QueryRanking : public GgafCore::GgafQuery {
+class QueryRanking : public GgafCore::GgafTable {
 
 public:
     QueryRanking();

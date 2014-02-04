@@ -393,7 +393,7 @@ class GgafLinearOctreeSpace;
 class GgafLinearOctreeElem;
 
 class GgafCurtain;
-class GgafQuery;
+class GgafTable;
 }
 
 #endif /*GGAFCOMMONHEADER_H_*/

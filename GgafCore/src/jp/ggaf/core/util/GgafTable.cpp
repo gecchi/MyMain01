@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "jp/ggaf/core/util/GgafQuery.h"
+#include "jp/ggaf/core/util/GgafTable.h"
 
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
 #include <fstream>
@@ -8,13 +8,13 @@
 
 using namespace GgafCore;
 
-GgafQuery::GgafQuery() : GgafObject() {
+GgafTable::GgafTable() : GgafObject() {
 }
 
-void GgafQuery::importFromFile(std::string prm_file_name) {
+void GgafTable::importFromFile(std::string prm_file_name) {
     std::ifstream ifs(prm_file_name.c_str());
     if (ifs.fail()) {
-        throwGgafCriticalException("GgafQuery "<<prm_file_name<<" が開けません");
+        throwGgafCriticalException("GgafTable "<<prm_file_name<<" が開けません");
     }
     GgafRecord* r;
     std::string line; // ファイルから読み込んだテキストを入れる
@@ -28,14 +28,14 @@ void GgafQuery::importFromFile(std::string prm_file_name) {
         }
         if (n == 0) {
             //ヘッダ行として読み込む
-            header = GgafQuery::split(line);
+            header = GgafTable::split(line);
             header_num = header.size();
             n++;
             continue;
         } else {
             r = NEW GgafRecord();
             //通常データ行
-            std::vector<std::string> data = GgafQuery::split(line);
+            std::vector<std::string> data = GgafTable::split(line);
             for (int j = 0; j < header_num; j++) {
                 r->insert( GgafRecord::value_type( header[j], data[j]) );
             }
@@ -45,10 +45,10 @@ void GgafQuery::importFromFile(std::string prm_file_name) {
     }
 }
 
-void GgafQuery::exportToFile(std::string prm_file_name) {
+void GgafTable::exportToFile(std::string prm_file_name) {
 #ifdef MY_DEBUG
     if (getCount() == 0) {
-        _TRACE_("GgafQuery#exportToFile: 書きだすデータがありません");
+        _TRACE_("GgafTable#exportToFile: 書きだすデータがありません");
     }
 #endif
     std::ofstream ofs(prm_file_name.c_str());
@@ -86,11 +86,11 @@ void GgafQuery::exportToFile(std::string prm_file_name) {
     GGAF_DELETEARR(header);
 }
 
-size_t GgafQuery::getCount() {
+size_t GgafTable::getCount() {
     return _lstTtable.size();
 }
 
-bool GgafQuery::hasRecord() {
+bool GgafTable::hasRecord() {
     if (getCount() == 0) {
         return false;
     } else {
@@ -98,10 +98,10 @@ bool GgafQuery::hasRecord() {
     }
 }
 
-std::string GgafQuery::getVal(std::string& prm_col, int prm_index) {
+std::string GgafTable::getVal(std::string& prm_col, int prm_index) {
 #ifdef MY_DEBUG
     if (((int)getCount()) < prm_index+1) {
-        throwGgafCriticalException("GgafQuery#getVal: レコードインデックス prm_index="<<prm_index<<" が、存在しません");
+        throwGgafCriticalException("GgafTable#getVal: レコードインデックス prm_index="<<prm_index<<" が、存在しません");
     }
 #endif
     GgafRecord* r = _lstTtable[prm_index];
@@ -111,10 +111,10 @@ std::string GgafQuery::getVal(std::string& prm_col, int prm_index) {
         return "";
     }
 }
-std::string GgafQuery::getVal(const char* prm_col, int prm_index) {
+std::string GgafTable::getVal(const char* prm_col, int prm_index) {
 #ifdef MY_DEBUG
     if (((int)getCount()) < prm_index+1) {
-        throwGgafCriticalException("GgafQuery#getVal: レコードインデックス prm_index="<<prm_index<<" が、存在しません");
+        throwGgafCriticalException("GgafTable#getVal: レコードインデックス prm_index="<<prm_index<<" が、存在しません");
     }
 #endif
     GgafRecord* r = _lstTtable[prm_index];
@@ -125,57 +125,57 @@ std::string GgafQuery::getVal(const char* prm_col, int prm_index) {
     }
 }
 
-void GgafQuery::setVal(std::string& prm_col, int prm_index, std::string& prm_val) {
+void GgafTable::setVal(std::string& prm_col, int prm_index, std::string& prm_val) {
 #ifdef MY_DEBUG
     if (((int)getCount()) < prm_index+1) {
-        throwGgafCriticalException("GgafQuery#setVal: レコードインデックス prm_index="<<prm_index<<" が、存在しません");
+        throwGgafCriticalException("GgafTable#setVal: レコードインデックス prm_index="<<prm_index<<" が、存在しません");
     }
 #endif
     GgafRecord* r = _lstTtable[prm_index];
     (*r)[prm_col] = prm_val;
 }
-void GgafQuery::setVal(const char* prm_col, int prm_index, std::string& prm_val) {
+void GgafTable::setVal(const char* prm_col, int prm_index, std::string& prm_val) {
 #ifdef MY_DEBUG
     if (((int)getCount()) < prm_index+1) {
-        throwGgafCriticalException("GgafQuery#setVal: レコードインデックス prm_index="<<prm_index<<" が、存在しません");
+        throwGgafCriticalException("GgafTable#setVal: レコードインデックス prm_index="<<prm_index<<" が、存在しません");
     }
 #endif
     GgafRecord* r = _lstTtable[prm_index];
     (*r)[prm_col] = prm_val;
 }
-void GgafQuery::setVal(std::string& prm_col, int prm_index, const char* prm_val) {
+void GgafTable::setVal(std::string& prm_col, int prm_index, const char* prm_val) {
 #ifdef MY_DEBUG
     if (((int)getCount()) < prm_index+1) {
-        throwGgafCriticalException("GgafQuery#setVal: レコードインデックス prm_index="<<prm_index<<" が、存在しません");
+        throwGgafCriticalException("GgafTable#setVal: レコードインデックス prm_index="<<prm_index<<" が、存在しません");
     }
 #endif
     GgafRecord* r = _lstTtable[prm_index];
     (*r)[prm_col] = prm_val;
 }
-void GgafQuery::setVal(const char* prm_col, int prm_index, const char* prm_val) {
+void GgafTable::setVal(const char* prm_col, int prm_index, const char* prm_val) {
 #ifdef MY_DEBUG
     if (((int)getCount()) < prm_index+1) {
-        throwGgafCriticalException("GgafQuery#setVal: レコードインデックス prm_index="<<prm_index<<" が、存在しません");
+        throwGgafCriticalException("GgafTable#setVal: レコードインデックス prm_index="<<prm_index<<" が、存在しません");
     }
 #endif
     GgafRecord* r = _lstTtable[prm_index];
     (*r)[prm_col] = prm_val;
 }
 
-GgafRecord* GgafQuery::getRecord(int prm_index) {
+GgafRecord* GgafTable::getRecord(int prm_index) {
 #ifdef MY_DEBUG
     if (((int)getCount()) < prm_index+1) {
-        throwGgafCriticalException("GgafQuery#getRecord: レコードインデックス prm_index="<<prm_index<<" が、存在しません");
+        throwGgafCriticalException("GgafTable#getRecord: レコードインデックス prm_index="<<prm_index<<" が、存在しません");
     }
 #endif
     return _lstTtable[prm_index];
 }
 
-void GgafQuery::removeRow(int prm_index) {
+void GgafTable::removeRow(int prm_index) {
 #ifdef MY_DEBUG
     if ((int)(_lstTtable.size()) < prm_index) {
         throwGgafCriticalException(
-                "GgafQuery#removeRow: 削除レコードINDEXは存在しません。本クエリsize="<<_lstTtable.size()<<"/引数の削除INDEX="<<prm_index);
+                "GgafTable#removeRow: 削除レコードINDEXは存在しません。本クエリsize="<<_lstTtable.size()<<"/引数の削除INDEX="<<prm_index);
     }
 #endif
     //TODO:ここでDELETEしないといけない
@@ -183,18 +183,18 @@ void GgafQuery::removeRow(int prm_index) {
     GGAF_DELETE(r);
     _lstTtable.erase(_lstTtable.begin() + prm_index);
 }
-void GgafQuery::removeRows(int prm_start_index) {
+void GgafTable::removeRows(int prm_start_index) {
     removeRows(prm_start_index, getCount()-1);
 }
-void GgafQuery::removeRows(int prm_start_index, int prm_end_index) {
+void GgafTable::removeRows(int prm_start_index, int prm_end_index) {
 #ifdef MY_DEBUG
     if ((int)(_lstTtable.size()) < prm_start_index) {
         throwGgafCriticalException(
-                "GgafQuery#removeRows: 削除レコードINDEXは存在しません。本クエリsize="<<_lstTtable.size()<<"/引数prm_start_index="<<prm_start_index);
+                "GgafTable#removeRows: 削除レコードINDEXは存在しません。本クエリsize="<<_lstTtable.size()<<"/引数prm_start_index="<<prm_start_index);
     }
     if ((int)(_lstTtable.size()) < prm_end_index) {
         throwGgafCriticalException(
-                "GgafQuery#removeRows: 削除レコードINDEXは存在しません。本クエリsize="<<_lstTtable.size()<<"/引数prm_end_index="<<prm_end_index);
+                "GgafTable#removeRows: 削除レコードINDEXは存在しません。本クエリsize="<<_lstTtable.size()<<"/引数prm_end_index="<<prm_end_index);
     }
 #endif
     for (int i = prm_start_index; i <= prm_end_index; i++) {
@@ -204,23 +204,23 @@ void GgafQuery::removeRows(int prm_start_index, int prm_end_index) {
     _lstTtable.erase(_lstTtable.begin() + prm_start_index, _lstTtable.begin() + (prm_end_index + 1)); //+1は正しい。
 }
 
-void GgafQuery::addRow(GgafRecord* prm_pRow) {
+void GgafTable::addRow(GgafRecord* prm_pRow) {
     _lstTtable.push_back(prm_pRow);
 }
 
-void GgafQuery::addNewRow() {
+void GgafTable::addNewRow() {
     GgafRecord* pRow = NEW GgafRecord();
     _lstTtable.push_back(pRow);
 }
 
 
-void GgafQuery::swapIndex(int prm_index_A, int prm_index_B) {
+void GgafTable::swapIndex(int prm_index_A, int prm_index_B) {
     GgafRecord* pRecordA = _lstTtable[prm_index_A];
     _lstTtable[prm_index_A] = _lstTtable[prm_index_B];
     _lstTtable[prm_index_B] = pRecordA;
 }
 
-void GgafQuery::sortBy(std::string prm_col[], int prm_col_num, int prm_begin_index, int prm_end_index, bool prm_blank_is_max) {
+void GgafTable::sortBy(std::string prm_col[], int prm_col_num, int prm_begin_index, int prm_end_index, bool prm_blank_is_max) {
     if (prm_begin_index < prm_end_index) {
         GgafRecord* pPivotRecord = _lstTtable[(prm_begin_index + prm_end_index) / 2];
         _lstTtable[(prm_begin_index + prm_end_index) / 2] = _lstTtable[prm_begin_index];
@@ -278,27 +278,27 @@ void GgafQuery::sortBy(std::string prm_col[], int prm_col_num, int prm_begin_ind
     }
 }
 
-void GgafQuery::sortBy(std::string prm_col[], int prm_col_num, bool prm_blank_is_max) {
+void GgafTable::sortBy(std::string prm_col[], int prm_col_num, bool prm_blank_is_max) {
     if (getCount() > 0) {
         sortBy(prm_col, prm_col_num, 0, _lstTtable.size() - 1, prm_blank_is_max);
     }
 }
 
-void GgafQuery::sortBy(const char* prm_col, bool prm_blank_is_max) {
+void GgafTable::sortBy(const char* prm_col, bool prm_blank_is_max) {
     std::string col[1] = { prm_col };
     sortBy(col, 1, prm_blank_is_max);
 }
 
-void GgafQuery::sortBy(const char* prm_col1, const char* prm_col2, bool prm_blank_is_max) {
+void GgafTable::sortBy(const char* prm_col1, const char* prm_col2, bool prm_blank_is_max) {
     std::string col[2] = { prm_col1, prm_col2 };
     sortBy(col, 2, prm_blank_is_max);
 }
 
-void GgafQuery::sortBy(const char* prm_col1, const char* prm_col2, const char* prm_col3, bool prm_blank_is_max) {
+void GgafTable::sortBy(const char* prm_col1, const char* prm_col2, const char* prm_col3, bool prm_blank_is_max) {
     std::string col[3] = { prm_col1, prm_col2, prm_col3 };
     sortBy(col, 3, prm_blank_is_max);
 }
-void GgafQuery::sortDescBy(std::string prm_col[], int prm_col_num, int prm_begin_index, int prm_end_index,
+void GgafTable::sortDescBy(std::string prm_col[], int prm_col_num, int prm_begin_index, int prm_end_index,
                 bool prm_blank_is_max) {
     if (prm_begin_index < prm_end_index) {
         GgafRecord* pPivotRecord = _lstTtable[(prm_begin_index + prm_end_index) / 2];
@@ -357,28 +357,28 @@ void GgafQuery::sortDescBy(std::string prm_col[], int prm_col_num, int prm_begin
     }
 }
 
-void GgafQuery::sortDescBy(std::string prm_col[], int prm_col_num, bool prm_blank_is_max) {
+void GgafTable::sortDescBy(std::string prm_col[], int prm_col_num, bool prm_blank_is_max) {
     if (getCount() > 0) {
         sortDescBy(prm_col, prm_col_num, 0, _lstTtable.size() - 1, prm_blank_is_max);
     }
 }
 
-void GgafQuery::sortDescBy(const char* prm_col, bool prm_blank_is_max) {
+void GgafTable::sortDescBy(const char* prm_col, bool prm_blank_is_max) {
     std::string col[1] = { prm_col };
     sortDescBy(col, 1, prm_blank_is_max);
 }
 
-void GgafQuery::sortDescBy(const char* prm_col1, const char* prm_col2, bool prm_blank_is_max) {
+void GgafTable::sortDescBy(const char* prm_col1, const char* prm_col2, bool prm_blank_is_max) {
     std::string col[2] = { prm_col1, prm_col2 };
     sortDescBy(col, 2, prm_blank_is_max);
 }
 
-void GgafQuery::sortDescBy(const char* prm_col1, const char* prm_col2, const char* prm_col3, bool prm_blank_is_max) {
+void GgafTable::sortDescBy(const char* prm_col1, const char* prm_col2, const char* prm_col3, bool prm_blank_is_max) {
     std::string col[3] = { prm_col1, prm_col2, prm_col3 };
     sortDescBy(col, 3, prm_blank_is_max);
 }
 
-void GgafQuery::dump() {
+void GgafTable::dump() {
     for (int i = 0; i < (int)_lstTtable.size(); i++) {
         GgafRecord* r = _lstTtable[i];
         _TEXT_("["<<i<<"]=");
@@ -391,7 +391,7 @@ void GgafQuery::dump() {
     }
 }
 
-GgafQuery::~GgafQuery() {
+GgafTable::~GgafTable() {
     for (int i = 0; i < (int)getCount(); i++) {
         GgafRecord* r = _lstTtable[i];
         GGAF_DELETE(r);

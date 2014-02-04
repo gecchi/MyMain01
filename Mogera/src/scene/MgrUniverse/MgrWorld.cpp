@@ -16,7 +16,7 @@
 #include "actor/TestCappedBar.h"
 #include "util/MgrUtil.h"
 #include "jp/ggaf/core/util/GgafRepeatSeq.h"
-#include "jp/ggaf/core/util/GgafQuery.h"
+#include "jp/ggaf/core/util/GgafTable.h"
 #include "actor/Teki002.h"
 
 using namespace GgafCore;
