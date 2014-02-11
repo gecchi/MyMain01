@@ -17,8 +17,6 @@ public:
 
     void onActive() override;
 
-    void executeHitChk_MeAnd(GgafActor* prm_pOtherActor) override;
-
     void onRefractionBegin(int prm_num_refraction) override;
 
     void onRefractionFinish(int prm_num_refraction) override;

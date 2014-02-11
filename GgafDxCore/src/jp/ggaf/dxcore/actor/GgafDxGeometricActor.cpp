@@ -131,7 +131,7 @@ void GgafDxGeometricActor::processSettlementBehavior() {
 
     if (_pActor_Base) {
         //絶対座標に変換
-        D3DXMatrixMultiply(&_matWorld, &_matWorld, &(_pActor_Base->_matWorldRotMv)); //合成
+        D3DXMatrixMultiply(&_matWorld     , &_matWorld     , &(_pActor_Base->_matWorldRotMv)); //合成
         D3DXMatrixMultiply(&_matWorldRotMv, &_matWorldRotMv, &(_pActor_Base->_matWorldRotMv)); //合成
         changeGeoFinal();
         //ワールド変換行列から飛行移動を取り出し最終的な座標とする
@@ -142,7 +142,7 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         _y = DX_C(_fY);
         _z = DX_C(_fZ);
 
-        //UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13, _rz, _ry);
+        UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13, _rz, _ry);
 
         //TODO:絶対座標系の_rx, _ry, _rz に変換は保留
         //     現在の最終的な向きを、RzRyで取得求める方法は以下の通り、
@@ -226,7 +226,9 @@ void GgafDxGeometricActor::processSettlementBehavior() {
     }
 }
 
-
+//void GgafDxGeometricActor::updateGeoFinalFromLocal() {
+//
+//}
 GgafGroupHead* GgafDxGeometricActor::addSubGroupAsFk(actorkind prm_kind,
                                                      GgafDxGeometricActor* prm_pGeoActor,
                                                      coord prm_x_init_local,
@@ -359,7 +361,11 @@ void GgafDxGeometricActor::positionAs(GgafDxGeoElem* prm_pGeoElem) {
     _y = prm_pGeoElem->y;
     _z = prm_pGeoElem->z;
 }
-
+void GgafDxGeometricActor::positionAboutAs(GgafDxGeoElem* prm_pGeoElem, coord margin) {
+    _x = RND_ABOUT(prm_pGeoElem->x, margin);
+    _y = RND_ABOUT(prm_pGeoElem->y, margin);
+    _z = RND_ABOUT(prm_pGeoElem->z, margin);
+}
 void GgafDxGeometricActor::rotateAs(GgafDxGeometricActor* prm_pActor) {
     _rx = prm_pActor->_rx;
     _ry = prm_pActor->_ry;

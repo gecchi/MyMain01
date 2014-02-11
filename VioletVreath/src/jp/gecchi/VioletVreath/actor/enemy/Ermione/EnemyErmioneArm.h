@@ -5,7 +5,7 @@
 namespace VioletVreath {
 
 /**
- * 敵機エミオネの触手基底 .
+ * 敵機エルミオネの触手基底 .
  * @version 1.00
  * @since 2012/11/06
  * @author Masatoshi Tsuge

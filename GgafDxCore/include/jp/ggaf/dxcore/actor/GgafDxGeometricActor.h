@@ -251,6 +251,13 @@ public:
         _y = y;
     }
 
+
+    virtual void positionAbout(coord x, coord y, coord z, coord margin) {
+        _x = RND_ABOUT(x, margin);
+        _y = RND_ABOUT(y, margin);
+        _z = RND_ABOUT(z, margin);
+    }
+
     /**
      * X軸Y軸Z軸各軸スケール(_sx, _sy, _sz)を同じ値で設定。
      * 【注意】
@@ -366,6 +373,15 @@ public:
     virtual void positionAs(GgafDxGeoElem* prm_pGeoElem);
 
 
+    virtual void positionAboutAs(GgafDxGeometricActor* prm_pActor, coord margin) {
+        _x = RND_ABOUT(prm_pActor->_x, margin);
+        _y = RND_ABOUT(prm_pActor->_y, margin);
+        _z = RND_ABOUT(prm_pActor->_z, margin);
+    }
+
+    virtual void positionAboutAs(GgafDxGeoElem* prm_pGeoElem, coord margin);
+
+
     virtual void rotate(angle rx, angle ry, angle rz) {
         _rx = rx;
         _ry = ry;
@@ -465,52 +481,60 @@ public:
      * 座標と回転 _x,_y,_z,_rx,_ry,_rz を絶対座標系を退避して、ローカル座標(土台からの相対座標)に置き換える .
      */
     inline void changeGeoLocal() {
-        if (_is_local) {
-            return;
-        } else {
-            _x_final  = _x;
-            _y_final  = _y;
-            _z_final  = _z;
-            _rx_final = _rx;
-            _ry_final = _ry;
-            _rz_final = _rz;
-            _x  = _x_local;
-            _y  = _y_local;
-            _z  = _z_local;
-            _rx = _rx_local;
-            _ry = _ry_local;
-            _rz = _rz_local;
-            _is_local = true;
+#ifdef MY_DEBUG
+        if (!_pActor_Base) {
+            throwGgafCriticalException("changeGeoLocal() : 土台アクターがありません。確認して下さい。this="<<getName()<<"("<<this<<")");
         }
+        if (_is_local) {
+            throwGgafCriticalException("changeGeoLocal() : 既にローカル座標系です。対応を確認して下さい。this="<<getName()<<"("<<this<<")");
+        }
+#endif
+        _x_final  = _x;
+        _y_final  = _y;
+        _z_final  = _z;
+        _rx_final = _rx;
+        _ry_final = _ry;
+        _rz_final = _rz;
+        _x  = _x_local;
+        _y  = _y_local;
+        _z  = _z_local;
+        _rx = _rx_local;
+        _ry = _ry_local;
+        _rz = _rz_local;
+        _is_local = true;
     }
 
     /**
      * 座標と回転 _x,_y,_z,_rx,_ry,_rz を退避していた絶対座標に戻す .
-     * ローカル座標の変更に伴う絶対座標の更新は、自動で<BR>
-     * processSettlementBehavior()で行われる作りになっている。<BR>
+     * ローカル座標の変更に伴う絶対座標の更新は、processSettlementBehavior()で行われる作りになっている。<BR>
      * processBehavior() の処理の最後で実行することを想定。<BR>
      * したがって、changeGeoFinal() で座標更新されるわけではないので注意。<BR>
      */
     inline void changeGeoFinal() {
-        if (_is_local) {
-            _x_local = _x;
-            _y_local = _y;
-            _z_local = _z;
-            _rx_local = _rx;
-            _ry_local = _ry;
-            _rz_local = _rz;
-            _x  = _x_final;
-            _y  = _y_final;
-            _z  = _z_final;
-            _rx = _rx_final;
-            _ry = _ry_final;
-            _rz = _rz_final;
-            _is_local = false;
-        } else {
-            return;
+#ifdef MY_DEBUG
+        if (!_pActor_Base) {
+            throwGgafCriticalException("changeGeoFinal() : 土台アクターがありません。確認して下さい。this="<<getName()<<"("<<this<<")");
         }
+        if (!_is_local) {
+            throwGgafCriticalException("changeGeoFinal() : 既にローカル座標系です。対応を確認して下さい。this="<<getName()<<"("<<this<<")");
+        }
+#endif
+        _x_local = _x;
+        _y_local = _y;
+        _z_local = _z;
+        _rx_local = _rx;
+        _ry_local = _ry;
+        _rz_local = _rz;
+        _x  = _x_final;
+        _y  = _y_final;
+        _z  = _z_final;
+        _rx = _rx_final;
+        _ry = _ry_final;
+        _rz = _rz_final;
+        _is_local = false;
     }
 
+//    void updateGeoFinalFromLocal();
 
     /**
      * 本アクターが3Dの場合、 回転×移動のワールド変換行列を計算する関数を定義 .

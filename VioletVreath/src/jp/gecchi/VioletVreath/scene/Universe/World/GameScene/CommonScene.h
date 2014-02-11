@@ -20,6 +20,8 @@
 #define dispatchForceFromCommon(X)         ( (X*)(getCommonDepository(X)->dispatchForce()) )
 #define dispatchForceDelayFromCommon(X, F) ( (X*)(getCommonDepository(X)->dispatchForce((F))) )
 
+#define P_COMMON_STORE(X)                   pStore_##X##_
+
 namespace VioletVreath {
 
 /**
@@ -61,6 +63,11 @@ public:
 
     /** 汎用出現エフェクトその３用、常備デポジトリ */
     GgafCore::GgafActorDepository* const P_COMMON_DEPO(Shot004);
+
+    /**  */
+    GgafCore::GgafActorDepositoryStore* const pStore_EnemyWateringLaser001_;
+    GgafCore::GgafActorDepositoryStore* const pStore_EnemyStraightLaser001_;
+
 public:
     CommonScene(const char* prm_name);
     /**

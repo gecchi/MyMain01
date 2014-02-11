@@ -13,39 +13,30 @@ using namespace VioletVreath;
 EnemyStraightLaserChip001::EnemyStraightLaserChip001(const char* prm_name) :
         StraightLaserChip(prm_name, "EnemyStraightLaserChip001", STATUS(EnemyStraightLaserChip001)) {
     _class_name = "EnemyStraightLaserChip001";
-    _veloMv = 100000;
+    setMvVelo(PX_C(100));
 }
 
 void EnemyStraightLaserChip001::initialize() {
     _pKuroko->setRzRyMvAng(0,0);
     registerHitAreaCube_AutoGenMidColli(20000);
-    setHitAble(true, false); //画面外当たり判定は無し
-    setScaleR(5.0);
-    setAlpha(0.9);
+    setHitAble(true);
+    setScaleR(6.0);
+    setAlpha(0.99);
 }
 
 void EnemyStraightLaserChip001::onActive() {
     StraightLaserChip::onActive();
-    _pKuroko->setMvVelo(100000);
-    _pKuroko->setMvAcce(300);
     _pStatus->reset();
 }
-
-void EnemyStraightLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
-    if (((GgafMainActor*)prm_pOtherActor)->getKind() & KIND_CHIKEI) {
-        if (_chip_kind != 2 || _can_chikei_hit) {
-            GgafDxDrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
-        } else {
-            return;
-        }
-    } else {
-        GgafDxDrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
-    }
+void EnemyStraightLaserChip001::processBehavior() {
+    StraightLaserChip::processBehavior();
 }
 
 void EnemyStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
+        setHitAble(false); //以降同一フレーム内でヒットさせない。
+        UTIL::activateExplosionEffectOf(this); //爆発エフェクト出現
         sayonara();
     }
 }

@@ -77,7 +77,7 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
 
 void LaserChip::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
     if (prm_pOtherActor->instanceOf(Obj_WallPartsActor)) {
-        if (_chip_kind != 2 || _can_chikei_hit) {
+        if (_chip_kind == 3 || _can_chikei_hit) {  //3:中間先頭チップ か、1/8の地形当たり判定有りチップ
             GgafDxDrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
         } else {
             return;
@@ -108,8 +108,8 @@ void LaserChip::processSettlementBehavior() {
     //      -==========<>            レーザーは
     //
     //      -= === === === <>        こんなふうに分断されています。
-    //
-    //    | -=|===|===|===|<> |     左図はレーザーをオブジェクトで区切ったつもりの図
+    //                               縦に区切られている線の箇所が LaserChip オブジェクトです。
+    //    | -=|===|===|===|<> |      左図はレーザーをオブジェクトで区切ったつもりの図
     //
     //    <--><--><--><--><-->^
     //    ^   ^   ^   ^   ^   |
@@ -160,7 +160,6 @@ void LaserChip::processSettlementBehavior() {
             coord abs_dX = ABS(dX);
             coord abs_dY = ABS(dY);
             coord abs_dZ = ABS(dZ);
-
 
             if (abs_dX < _hitarea_edge_length &&
                 abs_dY < _hitarea_edge_length &&
@@ -246,15 +245,14 @@ void LaserChip::processDraw() {
 
                 hr = pID3DXEffect->SetFloat(this->_ah_force_alpha[draw_set_num], pLaserChip->_force_alpha);
                 checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetFloat(_ah_force_alpha) に失敗しました。2");
+
+                draw_set_num++;
+                if (draw_set_num >= model_set_num) {
+                    break;
+                }
+
             } else {
                 //先端チップは描画不要
-                pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
-                continue;
-            }
-
-            draw_set_num++;
-            if (draw_set_num >= model_set_num) {
-                break;
             }
             pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
         } else {

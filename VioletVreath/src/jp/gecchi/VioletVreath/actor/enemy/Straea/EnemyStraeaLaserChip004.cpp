@@ -52,18 +52,6 @@ void EnemyStraeaLaserChip004::onActive() {
     _force_alpha = 1.50; //Å‰‚Í‚¿‚å‚Á‚Æ–¾‚é‚ß
 }
 
-void EnemyStraeaLaserChip004::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
-    if (((GgafMainActor*)prm_pOtherActor)->getKind() & KIND_CHIKEI) {
-        if (_chip_kind != 2 || _can_chikei_hit) {
-            GgafDxDrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
-        } else {
-            return;
-        }
-    } else {
-        GgafDxDrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
-    }
-}
-
 void EnemyStraeaLaserChip004::processBehaviorHeadChip() {
 //    //--->debug
 //    if (GgafDxInput::isBeingPressedKey(DIK_N)) {

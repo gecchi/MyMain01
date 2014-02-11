@@ -13,8 +13,6 @@ public:
 
     void onActive() override;
 
-    void executeHitChk_MeAnd(GgafActor* prm_pOtherActor) override;
-
     /**
      * 先頭チップの動きを定義
      */

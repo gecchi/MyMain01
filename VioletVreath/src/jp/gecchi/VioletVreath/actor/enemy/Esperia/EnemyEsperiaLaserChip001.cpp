@@ -28,6 +28,7 @@ void EnemyEsperiaLaserChip001::initialize() {
     _pColliChecker->setColliAAB_Cube(0, 20000);
     setHitAble(true, false);
     setScaleR(5.0);
+    _pKuroko->forceMvVeloRange(PX_C(100));
     _pKuroko->relateFaceWithMvAng(true);
     useProgress(PROG_BANPEI);
 }
@@ -38,7 +39,6 @@ void EnemyEsperiaLaserChip001::onActive() {
     _pStatus->reset();
     begin_y_ = _y;
     _pKuroko->stopTurnMvAng();
-    _pKuroko->setRzRyMvAngVelo(0,0);
     if (_pChip_front == nullptr) {
         _pKuroko->setMvAngTwd(tX1_, tY1_, tZ1_);
         _pProg->reset(PROG_MOVE_UP);
@@ -52,18 +52,6 @@ void EnemyEsperiaLaserChip001::onActive() {
     //tX2_, tY2_, tZ2_;
 }
 
-void EnemyEsperiaLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
-    if (((GgafMainActor*)prm_pOtherActor)->getKind() & KIND_CHIKEI) {
-        if (_chip_kind != 2 || _can_chikei_hit) {
-            GgafDxDrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
-        } else {
-            return;
-        }
-    } else {
-        GgafDxDrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
-    }
-}
-
 void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
     MyShip* pMyShip = P_MYSHIP;
     switch (_pProg->get()) {
@@ -74,7 +62,7 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
                 //補正
                 _pKuroko->turnMvAngTwd(tX1_, tY1_, tZ1_,
                                        D_ANG(5), 0,
-                                       TURN_CLOSE_TO, true);
+                                       TURN_CLOSE_TO, false);
             }
 
             if (_y > begin_y_+turn_dY_ || _pProg->getFrameInProgress() > 300) {
@@ -89,7 +77,7 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
                 _pKuroko->setMvVelo(_pKuroko->_veloMv/3); //屈折時少しスローダウン
                 _pKuroko->turnMvAngTwd(tX2_, tY2_, tZ2_,
                                        D_ANG(10), 0,
-                                       TURN_CLOSE_TO, true);
+                                       TURN_CLOSE_TO, false);
             }
             if (!_pKuroko->isTurningMvAng()) {
                 _pProg->changeNext();
@@ -102,7 +90,8 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
             if (_pProg->getFrameInProgress() % 8U == 0) {
                 _pKuroko->turnMvAngTwd(tX2_, tY2_, tZ2_,
                                        D_ANG(5), 0,
-                                       TURN_CLOSE_TO, true);
+                                       TURN_CLOSE_TO, false);
+                _pKuroko->setMvVelo(_pKuroko->_veloMv*2);
             }
             if (_pProg->getFrameInProgress() > 60) {
                 _pProg->changeNext();
@@ -113,12 +102,11 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
         case PROG_INTO_MYSHIP: {
             if (_pProg->isJustChanged()) {
                 _pSeTx->play3D(SE_FIRE);
-                _pKuroko->setMvVelo(_pKuroko->_veloMv*2);
             }
             if (_pProg->getFrameInProgress() % 16U == 0) {
                 _pKuroko->turnMvAngTwd(tX2_, tY2_, tZ2_,
                                        100, 0,
-                                       TURN_CLOSE_TO, true);
+                                       TURN_CLOSE_TO, false);
             }
             if (_pProg->getFrameInProgress() > 90) {
                 _pKuroko->stopTurnMvAng();

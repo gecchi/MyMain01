@@ -78,6 +78,7 @@ enum {
     STAT_ProperEffect01Kind,              //その他固有エフェクト０１
     STAT_FormationDestroyedItemKind,      //編隊全滅時アイテム種別
     STAT_AttackShotKind,                  //ショット種別
+    STAT_DepositoryKind,                  //ショット種別
     STAT_RevengeShotKind,                 //打ち返し種別
 
     STAT_BANPEI,   //番兵（配列要素数に使用される、一番最後に記述すること）

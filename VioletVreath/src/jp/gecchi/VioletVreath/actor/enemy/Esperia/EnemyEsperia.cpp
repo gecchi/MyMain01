@@ -70,6 +70,7 @@ void EnemyEsperia::onActive() {
     setHitAble(false);
     _pKuroko->setRzRyMvAng(0, D180ANG);
     _pKuroko->setMvVelo(1000);
+
     dX_= dZ_ = 0;
     //出現位置
     static coord appearances_renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 3;
@@ -77,6 +78,10 @@ void EnemyEsperia::onActive() {
     _x = GgafDxUniverse::_x_gone_right - 1000;
     _y = RND(-(appearances_renge_y/2) , +(appearances_renge_y/2));
     _z = RND(-(appearances_renge_z/2) , +(appearances_renge_z/2));
+
+
+   // positionAboutAs(P_MYSHIP, PX_C(400));
+
 
     _pProg->reset(PROG_ENTRY);
 }
@@ -286,7 +291,7 @@ void EnemyEsperia::processBehavior() {
                             pLaserChip->tZ2_ = pMyShip->_z + paPos_Target_[i].z;
                             //速さと加速度
                             pLaserChip->_pKuroko->setMvVelo(10000); //初期速度
-                            pLaserChip->_pKuroko->setMvAcce(150+(max_laser_way_-i)*10); //少しバラけるように
+                            pLaserChip->_pKuroko->setMvAcce(150+(max_laser_way_-i)*20); //少しバラけるように
                         }
                     }
                 }
@@ -347,8 +352,8 @@ void EnemyEsperia::onInactive() {
 }
 
 coord EnemyEsperia::getTurnDY(GgafDxCore::GgafDxGeometricActor* pThis,
-                               GgafDxCore::GgafDxGeometricActor* pMyShip,
-                               coord DT) {
+                              GgafDxCore::GgafDxGeometricActor* pMyShip,
+                              coord DT) {
     //                        ^ Y
     //                        |
     //                        |…………

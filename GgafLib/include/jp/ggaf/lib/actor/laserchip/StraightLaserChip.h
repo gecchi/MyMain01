@@ -2,8 +2,6 @@
 #define GGAFLIB_STRAIGHTLASERCHIP_H_
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-
 namespace GgafLib {
 
 /**
@@ -36,12 +34,13 @@ public:
     angle* _pSource_ry;
     /** レーザーの向き方向のを同期するための、Z軸回転アングル値変数場所 */
     angle* _pSource_rz;
-    /** レーザーの移動方向を同期するための、単位方向ベクトルX成分変数場所 */
-    float* _pSource_vX;
-    /** レーザーの移動方向を同期するための、単位方向ベクトルY成分変数場所 */
-    float* _pSource_vY;
-    /** レーザーの移動方向を同期するための、単位方向ベクトルZ成分変数場所 */
-    float* _pSource_vZ;
+
+    int source_x;
+    int source_y;
+    int source_z;
+    angle source_rx;
+    angle source_ry;
+    angle source_rz;
     /** [r/w]移動速度 */
     velo _veloMv;
 
@@ -54,16 +53,16 @@ public:
 
     virtual void initialize() override {}
 
+    virtual void processBehavior() override {}
+
     /**
      * レーザーチップ座標計算等処理 .
      * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
-     * その際 は、本クラスの processBehavior() メソッドも呼び出してください。
+     * その際 は、本クラスの processSettlementBehavior() メソッドも呼び出してください。
      */
-    virtual void processBehavior() override;
+    virtual void processSettlementBehavior() override;
 
     virtual void processJudgement() override {}
-
-    virtual void processSettlementBehavior() override;
 
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {}
 
@@ -78,9 +77,6 @@ public:
         _pSource_rx = &prm_pGeoActor->_rx;
         _pSource_ry = &prm_pGeoActor->_ry;
         _pSource_rz = &prm_pGeoActor->_rz;
-        _pSource_vX = &prm_pGeoActor->_pKuroko->_vX;
-        _pSource_vY = &prm_pGeoActor->_pKuroko->_vY;
-        _pSource_vZ = &prm_pGeoActor->_pKuroko->_vZ;
         _pSourceActor = prm_pGeoActor;
     }
 
@@ -93,12 +89,6 @@ public:
         _pSource_x = &prm_pGeoActor->_x;
         _pSource_y = &prm_pGeoActor->_y;
         _pSource_z = &prm_pGeoActor->_z;
-        _pSource_rx = &_rx;
-        _pSource_ry = &_ry;
-        _pSource_rz = &_rz;
-        _pSource_vX = &_pKuroko->_vX;
-        _pSource_vY = &_pKuroko->_vY;
-        _pSource_vZ = &_pKuroko->_vZ;
         _pSourceActor = prm_pGeoActor;
     }
 
@@ -108,17 +98,13 @@ public:
      * @param prm_pGeoActor 発射元アクター
      */
     void setAngleSource(GgafDxCore::GgafDxGeometricActor* prm_pGeoActor) {
-        _pSource_x = &_x;
-        _pSource_y = &_y;
-        _pSource_z = &_z;
         _pSource_rx = &prm_pGeoActor->_rx;
         _pSource_ry = &prm_pGeoActor->_ry;
         _pSource_rz = &prm_pGeoActor->_rz;
-        _pSource_vX = &prm_pGeoActor->_pKuroko->_vX;
-        _pSource_vY = &prm_pGeoActor->_pKuroko->_vY;
-        _pSource_vZ = &prm_pGeoActor->_pKuroko->_vZ;
         _pSourceActor = prm_pGeoActor;
     }
+
+    void setMvVelo(coord prm_velo);
 
     virtual ~StraightLaserChip();
 };

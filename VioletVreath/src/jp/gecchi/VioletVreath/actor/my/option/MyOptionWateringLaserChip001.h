@@ -52,8 +52,6 @@ public:
 
     void processBehavior() override;
 
-    void executeHitChk_MeAnd(GgafActor* prm_pOtherActor) override;
-
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     /**

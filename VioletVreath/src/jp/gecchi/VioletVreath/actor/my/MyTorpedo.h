@@ -36,6 +36,8 @@ public:
 
     int move_section_;
 
+    angle trz_,try_;
+
 public:
     /**
      * コンストラクタ .

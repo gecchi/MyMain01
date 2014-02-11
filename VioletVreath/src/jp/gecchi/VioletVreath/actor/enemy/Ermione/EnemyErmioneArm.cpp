@@ -86,7 +86,7 @@ void EnemyErmioneArm::processBehavior() {
                     //
                     //mvx mvy mvz を求める
                     int mvx,mvy,mvz;
-                    if (RND(1, 100) < 90) {
+                    if (RND(1, 100) < 98) {
                         //通常の自機を狙う方向ベクトル
                         GgafDxGeometricActor* pTargetActor = P_MYSHIP;
                         mvx = pTargetActor->_x - _x; //ここでの _x, _y, _z は絶対座標であることがポイント
@@ -122,14 +122,14 @@ void EnemyErmioneArm::processBehavior() {
                         angRy_Target = D360ANG - aiming_movable_limit_ang_;
                     }
 
-    //                _pKuroko->turnRzRyFaceAngTo(
-    //                                angRz_Target, angRy_Target,
-    //                                aiming_ang_velo_, aiming_ang_velo_*0.04,
-    //                                TURN_CLOSE_TO, false);
-                    _pKuroko->hlprB()->turnRzRyFaceAngByVdTo(
-                            aiming_ang_velo_,
-                            angRz_Target, angRy_Target, TURN_CLOSE_TO, false,
-                            0.4, 0.6, 0, true);
+                    _pKuroko->turnRzRyFaceAngTo(
+                                    angRz_Target, angRy_Target,
+                                    aiming_ang_velo_, aiming_ang_velo_*0.04,
+                                    TURN_CLOSE_TO, false);
+//                    _pKuroko->hlprB()->turnRzRyFaceAngByVdTo(
+//                            aiming_ang_velo_,
+//                            angRz_Target, angRy_Target, TURN_CLOSE_TO, false,
+//                            0.4, 0.6, 0, true);
                 }
             }
             if (_pKuroko->isTurningFaceAng()) {

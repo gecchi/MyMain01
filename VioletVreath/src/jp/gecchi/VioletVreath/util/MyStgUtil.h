@@ -90,6 +90,12 @@ public:
         SHOT_RV_GOLDEN_ANG_WAY,
     };
 
+    enum DepoKind {
+        DEPO_NOTHING,
+        DEPO_LASER001,
+        DEPO_LASER002,
+    };
+
 
     /**
      * 自機側の優位性を調べる
@@ -148,6 +154,9 @@ public:
      * @return
      */
     static GgafDxCore::GgafDxDrawableActor* activateAttackShotOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
+
+    /**     */
+    static GgafCore::GgafActorDepository* getDepositoryOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
 
     /**
      * 打ち返し弾 .
@@ -244,10 +253,18 @@ public:
 	static GgafCore::GgafStatus* resetMyTorpedoStatus(GgafCore::GgafStatus* p);
 	//トゥピード爆風
 	static GgafCore::GgafStatus* resetMyTorpedoBlastStatus(GgafCore::GgafStatus* p);
-	//敵ストレートレーザー001
+	//汎用ショット001
+	static GgafCore::GgafStatus* resetShot001Status(GgafCore::GgafStatus* p);
+	//汎用ショット002
+	static GgafCore::GgafStatus* resetShot002Status(GgafCore::GgafStatus* p);
+	//汎用ショット003ミニレーザー
+	static GgafCore::GgafStatus* resetShot003Status(GgafCore::GgafStatus* p);
+	//汎用ミニレーザーショット
+	static GgafCore::GgafStatus* resetShot004Status(GgafCore::GgafStatus* p);
+	//汎用敵ストレートレーザー001
 	static GgafCore::GgafStatus* resetEnemyStraightLaserChip001Status(GgafCore::GgafStatus* p);
-	//敵カーブレーザー001
-	static GgafCore::GgafStatus* resetEnemyCurveLaserChip001Status(GgafCore::GgafStatus* p);
+	//汎用敵カーブレーザー001
+	static GgafCore::GgafStatus* resetEnemyWateringLaserChip001Status(GgafCore::GgafStatus* p);
 	//エレス
 	static GgafCore::GgafStatus* resetEnemyEresStatus(GgafCore::GgafStatus* p);
 	//エレスショット001
@@ -276,18 +293,10 @@ public:
 	static GgafCore::GgafStatus* resetEnemyGeriaStatus(GgafCore::GgafStatus* p);
 	//ハリラ
 	static GgafCore::GgafStatus* resetEnemyHaliaStatus(GgafCore::GgafStatus* p);
-	//汎用ショット001
-	static GgafCore::GgafStatus* resetShot001Status(GgafCore::GgafStatus* p);
-	//汎用ショット002
-	static GgafCore::GgafStatus* resetShot002Status(GgafCore::GgafStatus* p);
 	//たまご１
 	static GgafCore::GgafStatus* resetEnemyTamago01Status(GgafCore::GgafStatus* p);
 	//イルケ
 	static GgafCore::GgafStatus* resetEnemyIrceStatus(GgafCore::GgafStatus* p);
-	//汎用ショット003ミニレーザー
-	static GgafCore::GgafStatus* resetShot003Status(GgafCore::GgafStatus* p);
-	//ミニレーザーショット
-	static GgafCore::GgafStatus* resetShot004Status(GgafCore::GgafStatus* p);
 	//ラティスラヴィア（トーラス）
 	static GgafCore::GgafStatus* resetEnemyRatislaviaStatus(GgafCore::GgafStatus* p);
 	//地形ボックス001

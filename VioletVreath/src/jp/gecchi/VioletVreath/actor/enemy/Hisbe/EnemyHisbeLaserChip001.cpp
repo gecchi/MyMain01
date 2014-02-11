@@ -41,18 +41,6 @@ void EnemyHisbeLaserChip001::onActive() {
     pKurokoLeader_->stop();
 }
 
-void EnemyHisbeLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
-    if (((GgafMainActor*)prm_pOtherActor)->getKind() & KIND_CHIKEI) {
-        if (_chip_kind != 2 || _can_chikei_hit) {
-            GgafDxDrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
-        } else {
-            return;
-        }
-    } else {
-        GgafDxDrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
-    }
-}
-
 void EnemyHisbeLaserChip001::processBehaviorHeadChip() {
     if (pNearestScrollingScene_ && pNearestScrollingScene_->_pFuncScrolling == WalledScene::scrollX) {
         pKurokoLeader_->_x_start -= pNearestScrollingScene_->getScrollSpeed();

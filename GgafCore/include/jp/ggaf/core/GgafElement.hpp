@@ -829,8 +829,8 @@ public:
      * 汎用オブジェクトなど、一度生成して使いまわす(deleteしない)場合、<BR>
      * 消失時に inactivate() 、出現時 activate() を繰り返すことが想定される。<BR>
      * そのような場合に、何フレーム目かを取得する際に都合が良いメソッド。<BR>
-     * onActive() コールバック条件成立時にリセット(0)される。<BR>
-     * getBehaveingFrame() と同じタイミングで加算される。processBehavior()では、1 ～ を返す。
+     * onActive() コールバック条件成立時にリセット(0)され、onActive() 内では、常に 0 を返す。<BR>
+     * getBehaveingFrame() と同じタイミングで加算される。processBehavior()では、1 ～ を返す。<BR>
      * @return onActive() からの振る舞いフレーム数
      */
     inline frame getActiveFrame() {
@@ -990,10 +990,11 @@ void GgafElement<T>::nextFrame() {
                     _was_initialize_flg = true;
                     reset(); //リセット
                 }
-                _frame_of_behaving_since_onActive = 1; //リセット
+                _frame_of_behaving_since_onActive = 0; //リセット
                 onActive(); //コールバック
                 _frame_of_life_when_activation = 0;
                 _will_activate_after_flg = false;
+                _frame_of_behaving_since_onActive = 1;
             }
             //onInactive処理
             if (_on_change_to_inactive_flg) {

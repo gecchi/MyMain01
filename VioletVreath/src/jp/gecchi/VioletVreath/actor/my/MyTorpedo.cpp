@@ -40,7 +40,7 @@ MyTorpedo::MyTorpedo(const char* prm_name, MyTorpedoController* prm_pOptionTorpe
     setZWriteEnable(false);  //Zバッファは書き込み無し
     pTarget_ = nullptr;
     useProgress(10);
-
+    trz_ = try_ = 0;
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_TORPEDO");
 }
 
@@ -81,6 +81,9 @@ void MyTorpedo::onActive() {
     setHitAble(true);
     _pProg->reset(MyTorpedo_IN_FIRE);
     move_section_ = 0;
+    //非ターゲット時の方向、オプションの向いてる方向に飛ばす
+    trz_ = pOptionTorpedoCtrler_->pOrg_->_rz;
+    try_ = pOptionTorpedoCtrler_->pOrg_->_ry;
 }
 
 void MyTorpedo::processBehavior() {
@@ -103,29 +106,25 @@ void MyTorpedo::processBehavior() {
             }
         }
         //魚雷のムーブ
-        if (move_section_ == 0) {
-            if (pKuroko->_veloMv == pKuroko->_veloBottomMv) { //減速終了
+        if (move_section_ == 0) { //発射開始～減速完了まで
+            if (pKuroko->_veloMv == pKuroko->_veloBottomMv) { //減速終了時
                 pKuroko->setMvAcce(500);
                 if (pTarget_) {
+                    //ターゲッティング時は、TURN_ANTICLOSE_TO で動きを見せてターゲット
                     pKuroko->turnMvAngTwd(pTarget_,
                                            2000, 200,
                                            TURN_ANTICLOSE_TO, false);
                 } else {
                     pKuroko->turnRzRyMvAngTo(
-                                pOptionTorpedoCtrler_->pOrg_->_rz, pOptionTorpedoCtrler_->pOrg_->_ry,
+                                trz_, try_,
                                 1000, 100,
                                 TURN_CLOSE_TO, false);
-
-//                    pKuroko->turnMvAngTwd(
-//                                GgafDxUniverse::_x_gone_right, P_MYSHIP->_y, P_MYSHIP->_z,
-//                                2000, 200,
-//                                TURN_ANTICLOSE_TO, false);
                 }
                 move_section_++;
             }
         }
 
-        //ムーブ１
+        //ムーブ１ 減速完了～方向転換完了
         if (move_section_ == 1) {
             if (pKuroko->isTurningMvAng()) {
                 //TURN_ANTICLOSE_TOターゲット完了を待つ
@@ -134,25 +133,26 @@ void MyTorpedo::processBehavior() {
                 move_section_++;
             }
         }
-        //ムーブ２
+        //ムーブ２ 方向転換完了～120フレーム間はやや強い角速度でターゲット補正
         if (move_section_ == 2) {
             if (getActiveFrame() < 120) {
                 if (getActiveFrame() % 16U == 0) {
                     if (pTarget_) {
                         if (pTarget_->isActiveInTheTree())  {
-
+                            //ターゲット有り
                             pKuroko->turnMvAngTwd(pTarget_,
                                                    1000, 200,
                                                    TURN_CLOSE_TO, false);
 
                         } else {
-                            //まっすぐ
+                            //ターゲット消失時、そのまままっすぐ
                             pKuroko->setRzRyMvAngVelo(0,0);
                             pKuroko->setRzRyMvAngAcce(0,0);
                         }
                     } else {
+                        //ターゲット無し（オプションの向いている方向へ）
                         pKuroko->turnRzRyMvAngTo(
-                                    pOptionTorpedoCtrler_->pOrg_->_rz, pOptionTorpedoCtrler_->pOrg_->_ry,
+                                    trz_, try_,
                                     1000, 200,
                                     TURN_CLOSE_TO, false);
                     }
@@ -163,40 +163,25 @@ void MyTorpedo::processBehavior() {
                 move_section_++;
             }
         }
-        //ムーブ３
+        //ムーブ３ ～300フレーム間は緩やかな角速度でターゲット補正
         if (move_section_ == 3) {
             if (getActiveFrame() < 300) {
                 if (getActiveFrame() % 16U == 0) {
                     if (pTarget_) {
                         if (pTarget_->isActiveInTheTree())  {
-
+                            //ターゲット有り
                             pKuroko->turnMvAngTwd(pTarget_,
-                                                   500, 0,
-                                                   TURN_CLOSE_TO, false);
-
-//                            //カクカクっと反射っぽく
-//                            angle out_angRz_Target;
-//                            angle out_angRy_Target;
-//                            angle out_d_angRz;
-//                            angle out_d_angRy;
-//                            UTIL::convVectorToRzRy(pTarget_->_x - _x,
-//                                                   pTarget_->_y - _y,
-//                                                   pTarget_->_z - _z,
-//                                                   out_angRz_Target,
-//                                                   out_angRy_Target);
-//                            out_d_angRz = pKuroko->getRzMvAngDistance(out_angRz_Target, TURN_CLOSE_TO);
-//                            out_d_angRy = pKuroko->getRyMvAngDistance(out_angRy_Target, TURN_CLOSE_TO);
-//                            pKuroko->addRzMvAng(SGN(out_d_angRz)*30000);
-//                            pKuroko->addRyMvAng(SGN(out_d_angRy)*30000);
-
+                                                  500, 0,
+                                                  TURN_CLOSE_TO, false);
                         } else {
-                            //まっすぐ
+                            //ターゲット消失時、そのまままっすぐ
                             pKuroko->setRzRyMvAngVelo(0,0);
                             pKuroko->setRzRyMvAngAcce(0,0);
                         }
                     } else {
+                        //ターゲット無し（オプションの向いている方向へ）
                         pKuroko->turnRzRyMvAngTo(
-                                    pOptionTorpedoCtrler_->pOrg_->_rz, pOptionTorpedoCtrler_->pOrg_->_ry,
+                                    trz_, try_,
                                     300, 0,
                                     TURN_CLOSE_TO, false);
 
@@ -213,7 +198,6 @@ void MyTorpedo::processBehavior() {
             pKuroko->setRzRyMvAngVelo(0,0);
             pKuroko->setRzRyMvAngAcce(0,0);
         }
-
         pKuroko->behave();
         pScaler_->behave();
     }

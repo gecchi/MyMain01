@@ -10,7 +10,7 @@ HASHVAL(EVENT_ERMIONE_SAYONARA);
 HASHVAL(EVENT_ERMIONE_ENTRY_DONE);
 
 /**
- * 敵機エミオネ  .
+ * 敵機エルミオネ  .
  * グラの触手に挑戦ッッ！！！
  * @version 1.00
  * @since 2012/11/05
@@ -62,27 +62,27 @@ public:
     void onCreateModel() override;
 
     /**
-     * エミオネの初期処理（インスタンス生成後保証）
+     * エルミオネの初期処理（インスタンス生成後保証）
      */
     void initialize() override;
 
     /**
-     * エミオネがアクティブになった瞬間の処理 .
+     * エルミオネがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 
     /**
-     * エミオネの振る舞い .
+     * エルミオネの振る舞い .
      */
     void processBehavior() override;
 
     /**
-     * エミオネの振る舞い後の判定処理 .
+     * エルミオネの振る舞い後の判定処理 .
      */
     void processJudgement() override;
 
     /**
-     * エミオネの衝突時処理 .
+     * エルミオネの衝突時処理 .
      * @param prm_pOtherActor 衝突対象
      */
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;

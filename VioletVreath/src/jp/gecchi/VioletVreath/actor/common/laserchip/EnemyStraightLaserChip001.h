@@ -14,7 +14,7 @@ public:
 
     void onActive() override;
 
-    void executeHitChk_MeAnd(GgafActor* prm_pOtherActor) override;
+    void processBehavior() override;
 
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 

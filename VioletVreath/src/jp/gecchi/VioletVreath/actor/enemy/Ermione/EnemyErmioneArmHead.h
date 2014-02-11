@@ -5,7 +5,7 @@
 namespace VioletVreath {
 
 /**
- * 敵機エミオネの触手の頭 .
+ * 敵機エルミオネの触手の頭 .
  * グラの触手に挑戦ッッ！！！
  * @version 1.00
  * @since 2012/11/05
@@ -14,10 +14,7 @@ namespace VioletVreath {
 class EnemyErmioneArmHead : public EnemyErmioneArm {
 
 public:
-    /** [r/w]ハッチから発射されるアクターをメンバーに持つデポジトリ */
-//    DepositoryConnection* pDepoConnection_;
-//    GgafCore::GgafActorDepository* pDepo_Fired_;
-
+    GgafLib::LaserChipDepository* pDepoLaser_;
 public:
     EnemyErmioneArmHead(const char* prm_name);
 

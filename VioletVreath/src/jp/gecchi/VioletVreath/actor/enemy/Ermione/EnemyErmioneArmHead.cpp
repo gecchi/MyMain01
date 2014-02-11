@@ -7,6 +7,9 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
+#include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
+#include "jp/ggaf/lib/actor/laserchip/StraightLaserChip.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -16,8 +19,7 @@ using namespace VioletVreath;
 EnemyErmioneArmHead::EnemyErmioneArmHead(const char* prm_name) :
         EnemyErmioneArm(prm_name, "ErmioneArmHead", STATUS(EnemyErmioneArmHead)) {
     _class_name = "EnemyErmioneArmHead";
-//    pDepoConnection_ = connect_DepositoryManager("Shot004"); //弾
-//    pDepo_Fired_ = pDepoConnection_->peek();
+    pDepoLaser_  = nullptr;
 }
 
 void EnemyErmioneArmHead::onCreateModel() {
@@ -30,40 +32,32 @@ void EnemyErmioneArmHead::initialize() {
 }
 
 void EnemyErmioneArmHead::processBehavior() {
+    bool shot = false;
+    if (_pProg->get() == PROG_NOTHING || _pProg->get() == PROG_AIMING) { //出現間隔
+        shot = true;
+        if (pDepoLaser_) {
+
+        } else {
+            pDepoLaser_ = (LaserChipDepository*)UTIL::getDepositoryOf(this);
+        }
+    }
+
     EnemyErmioneArm::processBehavior();
 
-    if (getActiveFrame() % 10U == 0 &&
-        (_pProg->get() == PROG_NOTHING || _pProg->get() == PROG_AIMING)) { //出現間隔
-        GgafDxDrawableActor* pShot = UTIL::activateAttackShotOf(this);
-        if (pShot) {
-            //＜現在の最終的な向きを、RzRyで取得する＞
-            //方向ベクトルはワールド変換行列の積（_matWorldRotMv)で変換され、現在の最終的な向きに向く。
-            //元の方向ベクトルを(x_org_,y_org_,z_org_)、
-            //ワールド変換行列の回転部分の積（_matWorldRotMv)の成分を mat_xx、
-            //最終的な方向ベクトルを(vX, vY, vZ) とすると
-            //
-            //                          | mat_11 mat_12 mat_13 |
-            // | x_org_ y_org_ z_org_ | | mat_21 mat_22 mat_23 | = | vX vY vZ |
-            //                          | mat_31 mat_32 mat_33 |
-            //
-            //vX = x_org_*mat_11 + y_org_*mat_21 + z_org_*mat_31
-            //vY = x_org_*mat_12 + y_org_*mat_22 + z_org_*mat_32
-            //vZ = x_org_*mat_13 + y_org_*mat_23 + z_org_*mat_33
-            //
-            //さてここで、元々が前方の単位方向ベクトル(1,0,0)の場合はどうなるか考えると
-            //
-            //vX = x_org_*mat_11
-            //vY = x_org_*mat_12
-            //vZ = x_org_*mat_13
-            //
-            //となる。本アプリでは、モデルは全て(1,0,0)を前方としているため
-            //最終的な方向ベクトルは（x_org_*mat_11, x_org_*mat_12, x_org_*mat_13) である。
-            angle rz, ry;
-            UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
-                                   rz, ry); //現在の最終的な向きを、RzRyで取得！
-            pShot->_pKuroko->setRzRyMvAng(rz, ry); //RzRyでMoverに設定
-            pShot->positionAs(this);
-            pShot->reset();
+    if (shot) { //出現間隔
+        LaserChip* pChip = nullptr;
+        if (pDepoLaser_) {
+            pChip = pDepoLaser_->dispatch();
+        }
+
+        if (pChip) {
+            //DEPO_LASER001の場合
+            pChip->_pKuroko->setFaceAng(_rx, _ry, _rz);
+            pChip->_pKuroko->setRzRyMvAng(_rz, _ry); //RzRyでMoverに設定
+            pChip->positionAs(this);
+
+            //DEPO_LASER002の場合
+            //((StraightLaserChip*)pChip)->setSource(this);
         }
     }
 

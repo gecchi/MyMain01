@@ -8,6 +8,7 @@
 #include "jp/gecchi/VioletVreath/actor/my/option/MyOptionWateringLaserChip001.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyMagicEnergyCore.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

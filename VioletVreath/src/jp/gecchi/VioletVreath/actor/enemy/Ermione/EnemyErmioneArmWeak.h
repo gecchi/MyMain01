@@ -5,7 +5,7 @@
 namespace VioletVreath {
 
 /**
- * 敵機エミオネの触手の弱点 .
+ * 敵機エルミオネの触手の弱点 .
  * @version 1.00
  * @since 2012/11/05
  * @author Masatoshi Tsuge

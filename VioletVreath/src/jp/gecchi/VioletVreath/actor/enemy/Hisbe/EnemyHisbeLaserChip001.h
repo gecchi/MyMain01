@@ -16,14 +16,13 @@ public:
     GgafLib::SplineManufactureConnection* pSplManufConnection_;
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
     GgafLib::DefaultScene* pNearestScrollingScene_;
+
 public:
     EnemyHisbeLaserChip001(const char* prm_name);
 
     void initialize() override;
 
     void onActive() override;
-
-    void executeHitChk_MeAnd(GgafActor* prm_pOtherActor) override;
 
     /**
      * 先頭チップの動きを定義
@@ -33,7 +32,6 @@ public:
     void processJudgement() override;
 
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
-
 
     virtual ~EnemyHisbeLaserChip001();
 

@@ -7,7 +7,7 @@ namespace GgafDxCore {
 
 /**
  * 黒衣の助手C .
- * 師匠(黒衣)の補佐を行います。
+ * 師匠(黒衣)の移動方角角速度の補佐を行います。
  * @version 1.00
  * @since 2013/12/10
  * @author Masatoshi Tsuge

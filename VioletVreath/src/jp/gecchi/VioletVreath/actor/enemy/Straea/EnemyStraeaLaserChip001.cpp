@@ -34,18 +34,6 @@ void EnemyStraeaLaserChip001::onActive() {
     _pKuroko->relateFaceWithMvAng(true);
 }
 
-void EnemyStraeaLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
-    if (((GgafMainActor*)prm_pOtherActor)->getKind() & KIND_CHIKEI) {
-        if (_chip_kind != 2 || _can_chikei_hit) {
-            GgafDxDrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
-        } else {
-            return;
-        }
-    } else {
-        GgafDxDrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
-    }
-}
-
 void EnemyStraeaLaserChip001::processBehaviorHeadChip() {
     if (getActiveFrame() == 40) {
         _pKuroko->turnMvAngTwd(P_MYSHIP,

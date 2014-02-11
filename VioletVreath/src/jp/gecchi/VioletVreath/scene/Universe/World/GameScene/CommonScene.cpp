@@ -3,6 +3,8 @@
 
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
+#include "jp/ggaf/core/actor/ex/GgafActorDepositoryStore.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -23,7 +25,10 @@ P_COMMON_DEPO(EffectEntry001) ( NEW GgafActorDepository("CommonDepo_EffectEntry0
 P_COMMON_DEPO(EffectEntry002) ( NEW GgafActorDepository("CommonDepo_EffectEntry002") ),
 P_COMMON_DEPO(EffectEntry003) ( NEW GgafActorDepository("CommonDepo_EffectEntry003") ),
 P_COMMON_DEPO(SpriteLabelBonus001) ( NEW GgafActorDepository("CommonDepo_SpriteLabelBonus001") ),
-P_COMMON_DEPO(Shot004) ( NEW GgafActorDepository("CommonDepo_Shot004") )
+P_COMMON_DEPO(Shot004) ( NEW GgafActorDepository("CommonDepo_Shot004") ),
+pStore_EnemyWateringLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_EnemyWateringLaser001") ),
+pStore_EnemyStraightLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_EnemyStraightLaser001_") )
+
 {
     _class_name = "CommonScene";
 
@@ -32,7 +37,6 @@ P_COMMON_DEPO(Shot004) ( NEW GgafActorDepository("CommonDepo_Shot004") )
 
     //汎用爆発エフェクト EffectExplosion001
     {
-//        P_COMMON_DEPO(EffectExplosion001) = NEW GgafActorDepository("CommonDepo_Explosion001");
         for (int i = 0; i < 300; i++) {
             std::string name = "EffectExplosion001("+XTOS(i)+")";
             P_COMMON_DEPO(EffectExplosion001)->put(NEW EffectExplosion001(name.c_str()));
@@ -101,7 +105,6 @@ P_COMMON_DEPO(Shot004) ( NEW GgafActorDepository("CommonDepo_Shot004") )
         getSceneDirector()->addSubGroup(P_COMMON_DEPO(EffectTurbo002));
     }
 
-
     //汎用出現エフェクト EffectEntry001
     {
         for (int i = 0; i < 200; i++) {
@@ -119,6 +122,7 @@ P_COMMON_DEPO(Shot004) ( NEW GgafActorDepository("CommonDepo_Shot004") )
         }
         getSceneDirector()->addSubGroup(P_COMMON_DEPO(EffectEntry002));
     }
+
     //汎用出現エフェクト EffectEntry003
     {
         for (int i = 0; i < 30; i++) {
@@ -146,7 +150,34 @@ P_COMMON_DEPO(Shot004) ( NEW GgafActorDepository("CommonDepo_Shot004") )
         getSceneDirector()->addSubGroup(P_COMMON_DEPO(Shot004));
     }
 
-
+    //汎用Wateringレーザー
+    {
+        LaserChipDepository* pLaserChipDepo;
+        for (int laser_no = 0; laser_no < 100; laser_no++) { //セット本数
+            std::string name_depo = "LaserChipDepo["+XTOS(laser_no)+"]";
+            pLaserChipDepo = NEW LaserChipDepository(name_depo.c_str());
+            for (int chip_no = 0; chip_no < 100; chip_no++) { //１本の長さ
+                std::string name_chip = "EnemyWateringLaserChip001["+XTOS(laser_no)+"]["+XTOS(chip_no)+"]";
+                pLaserChipDepo->put(NEW EnemyWateringLaserChip001(name_chip.c_str()));
+            }
+            pStore_EnemyWateringLaser001_->put(pLaserChipDepo);
+        }
+        getSceneDirector()->addSubGroup(pStore_EnemyWateringLaser001_);
+    }
+    //汎用ストレートレーザー
+    {
+        LaserChipDepository* pLaserChipDepo;
+        for (int laser_no = 0; laser_no < 10; laser_no++) { //セット本数
+            std::string name_depo = "LaserChipDepo["+XTOS(laser_no)+"]";
+            pLaserChipDepo = NEW LaserChipDepository(name_depo.c_str());
+            for (int chip_no = 0; chip_no < 80; chip_no++) { //１本の長さ
+                std::string name_chip = "EnemyStraightLaserChip001["+XTOS(laser_no)+"]["+XTOS(chip_no)+"]";
+                pLaserChipDepo->put(NEW EnemyStraightLaserChip001(name_chip.c_str()));
+            }
+            pStore_EnemyStraightLaser001_->put(pLaserChipDepo);
+        }
+        getSceneDirector()->addSubGroup(pStore_EnemyStraightLaser001_);
+    }
     //    { //EnemyShot001
     //        pDepo_EnemyShots001_ = NEW GgafActorDepository("TAMAS001");
     //        EnemyEresShot001* pEnemyShot;
