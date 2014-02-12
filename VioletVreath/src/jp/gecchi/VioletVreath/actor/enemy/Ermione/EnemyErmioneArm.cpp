@@ -122,6 +122,7 @@ void EnemyErmioneArm::processBehavior() {
                         angRy_Target = D360ANG - aiming_movable_limit_ang_;
                     }
 
+                    _TRACE_("(_rz,_ry=("<<_rz<<","<<_ry<<" trz=("<<angRz_Target<<","<<angRy_Target<<")");
                     _pKuroko->turnRzRyFaceAngTo(
                                     angRz_Target, angRy_Target,
                                     aiming_ang_velo_, aiming_ang_velo_*0.04,

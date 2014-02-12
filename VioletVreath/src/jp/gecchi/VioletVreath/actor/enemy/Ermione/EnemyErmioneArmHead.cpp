@@ -52,7 +52,7 @@ void EnemyErmioneArmHead::processBehavior() {
 
         if (pChip) {
             //DEPO_LASER001‚Ìê‡
-            pChip->_pKuroko->setFaceAng(_rx, _ry, _rz);
+            pChip->setFaceAng(_rx, _ry, _rz);
             pChip->_pKuroko->setRzRyMvAng(_rz, _ry); //RzRy‚ÅMover‚ÉÝ’è
             pChip->positionAs(this);
 

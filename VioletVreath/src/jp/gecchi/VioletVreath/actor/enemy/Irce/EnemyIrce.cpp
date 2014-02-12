@@ -32,7 +32,7 @@ void EnemyIrce::onCreateModel() {
 
 void EnemyIrce::initialize() {
     setHitAble(true);
-    pScaler_->setScale(1000);
+    setScale(1000);
     _pKuroko->relateFaceWithMvAng(true);
     _pKuroko->setMvVelo(3000);
     _pColliChecker->makeCollision(1);

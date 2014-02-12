@@ -34,7 +34,7 @@ void EffectLockon001_Main::onActive() {
     _pUvFlipper->setActivePtnToTop();
     setAlpha(0.01);
     pScaler_->forceRange(60000, 2000); //スケーリング・範囲
-    pScaler_->setScale(60000); //(6000%)
+    setScale(60000); //(6000%)
     pScaler_->scaleLinerUntil(2000, 25);//スケーリング・25F費やして2000(200%)に縮小
     _pKuroko->setFaceAngVelo(AXIS_Z, 1000);        //回転
     _pSeTx->play3D(0); //ロックオンSE
@@ -86,7 +86,7 @@ void EffectLockon001_Main::processBehavior() {
         pTarget_ = nullptr;
         addAlpha(-0.05);
         if (pScaler_->_method[0] == NOSCALE || getAlpha() < 0.0f) {
-            pScaler_->setScale(2000);
+            setScale(2000);
             inactivate();
         }
     }

@@ -53,7 +53,7 @@ void EnemyEbe::onActive() {
     }
     _pStatus->reset();
     setHitAble(true);
-    _pKuroko->setFaceAng(AXIS_X, 0);
+    setRzFaceAng(0);
     _pKuroko->setMvAcce(0);
     _pProg->reset(PROG_MOVE01_1);
 }

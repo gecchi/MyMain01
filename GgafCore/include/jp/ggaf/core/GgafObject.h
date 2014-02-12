@@ -12,16 +12,18 @@ typedef uint32_t classkind;
  * @author Masatoshi Tsuge
  */
 class GgafObject {
-    static int _obj_seq;
-
+    static uint64_t _obj_seq;
+    uint64_t _id;
 public:
-    int _id;
+
     /** [r]インスタンス種類 */
     classkind _obj_class;
 
 public:
     GgafObject();
-
+    uint64_t getId() {
+        return _id;
+    }
     /**
      * 識別名取得 .
      * @return 識別名

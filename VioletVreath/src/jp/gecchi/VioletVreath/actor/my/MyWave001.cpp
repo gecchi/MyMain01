@@ -24,7 +24,7 @@ void MyWave001::initialize() {
     _pKuroko->setRzMvAngVelo(0);
     //_pKuroko->setFaceAngVelo(AXIS_Z, 2*1000);
     //_pKuroko->setRzMvAng(0);
-    //_pKuroko->setFaceAng(AXIS_Z, 0);
+    //setRzFaceAng(0);
     _pKuroko->setMvVelo(20000);
 
     _pColliChecker->makeCollision(7);
@@ -54,15 +54,15 @@ void MyWave001::initialize() {
 void MyWave001::processBehavior() {
     if (onChangeToActive()) {
         //oŒ»Žž‹¤’Êˆ—
-        pScaler_->setScale(1000);
+        setScale(1000);
         pScaler_->scaleLinerStep(100000,100);
         pScaler_->behave();
         setHitAble(true);
         positionAs(P_MYSHIP);
-        _pKuroko->setFaceAng(AXIS_Z, P_MYSHIP->_pKuroko->_angFace[AXIS_Z]);
-        _pKuroko->setFaceAng(AXIS_Y, P_MYSHIP->_pKuroko->_angFace[AXIS_Y]);
-        _pKuroko->setRzRyMvAng(P_MYSHIP->_pKuroko->_angFace[AXIS_Z],
-                                P_MYSHIP->_pKuroko->_angFace[AXIS_Y]);
+        setRzFaceAng(P_MYSHIP->_rz);
+        setRyFaceAng(P_MYSHIP->_ry);
+        _pKuroko->setRzRyMvAng(P_MYSHIP->_rz,
+                                P_MYSHIP->_ry);
         //		_x = P_MYSHIP->_x;
         //		_y = P_MYSHIP->_y;
         //		_z = P_MYSHIP->_z;

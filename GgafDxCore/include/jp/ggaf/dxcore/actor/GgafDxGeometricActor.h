@@ -393,6 +393,9 @@ public:
         _ry = ry;
     }
 
+
+
+
     /**
      * 回転角度 _rx, _ry, _rz をコピーして設定 .
      * @param prm_pActor コピー元アクター
@@ -405,6 +408,52 @@ public:
      */
     virtual void rotateAs(GgafDxGeoElem* prm_pGeoElem);
 
+
+
+
+
+
+
+
+
+
+
+//    /**
+//     * Actorの正面方角（軸単位）を設定。<BR>
+//     * @param   prm_axis    回転軸(AXIS_X / AXIS_Y / AXIS_Z)
+//     * @param   prm_angFace 方角のアングル値(-360,000～360,000)
+//     */
+//    void setFaceAng(axis prm_axis, angle prm_angFace);
+
+    void setRzFaceAng(angle prm_angFace);
+    void setRyFaceAng(angle prm_angFace);
+    void setRxFaceAng(angle prm_angFace);
+
+    /**
+     * Actorの正面方角を設定。<BR>
+     * @param prm_axis_x_angFace X軸方角のアングル値(-360,000～360,000)
+     * @param prm_axis_y_angFace Y軸方角のアングル値(-360,000～360,000)
+     * @param prm_axis_z_angFace Z軸方角のアングル値(-360,000～360,000)
+     */
+    void setFaceAng(angle prm_axis_x_angFace,
+                    angle prm_axis_y_angFace,
+                    angle prm_axis_z_angFace) {
+        setRyFaceAng(prm_axis_x_angFace);
+        setRxFaceAng(prm_axis_y_angFace);
+        setRzFaceAng(prm_axis_z_angFace);
+    }
+    /**
+     * Actorの自身の座標から対象座標点に向いた方向に、Z軸回転方角とY軸回転方角を設定<BR>
+     * @param prm_tx 対象点X座標
+     * @param prm_ty 対象点Y座標
+     * @param prm_tz 対象点Z座標
+     */
+    void setFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz);
+
+//    void setFaceAngByMvAng() {
+//        setFaceAng(AXIS_Z, _angRzMv);
+//        setFaceAng(AXIS_Y, _angRyMv);
+//    }
     /**
      * X軸Y軸Z軸スケール _sx, _sy, _sz をコピーして設定 .
      * @param prm_pActor コピー元アクター

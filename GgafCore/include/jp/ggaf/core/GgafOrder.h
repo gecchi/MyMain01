@@ -38,14 +38,14 @@ private:
 
 public:
     /** 注文識別ID */
-    uint32_t _id;
+    uint64_t _order_id;
     /** 進捗具合（0:未着手/1:製造中/2:製造済み） */
     int _progress;
     /** 商品へのポインタ */
     GgafObject* _pObject_creation;
 
 public:
-    GgafOrder(uint32_t prm_id);
+    GgafOrder(uint64_t prm_order_id);
     virtual ~GgafOrder();
 };
 

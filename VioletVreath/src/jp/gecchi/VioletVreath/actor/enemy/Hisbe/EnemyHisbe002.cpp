@@ -84,7 +84,7 @@ void EnemyHisbe002::processBehavior() {
             LaserChip* pLaser = pLaserChipDepo_->dispatch();
             if (pLaser) {
                 pLaser->positionAs(this);
-                pLaser->_pKuroko->setRzRyMvAng(_pKuroko->_angFace[AXIS_Z], _pKuroko->_angFace[AXIS_Y]);
+                pLaser->_pKuroko->setRzRyMvAng(_rz, _ry);
                                    //レーザーのスプラインがRELATIVE_DIRECTIONのためMvAngの設定が必要。
                 if (pLaser->_pChip_front == nullptr) {
                     _pSeTx->play3D(SE_FIRE);

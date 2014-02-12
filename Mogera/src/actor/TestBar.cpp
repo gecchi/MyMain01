@@ -103,11 +103,11 @@ void TestBar::processBehavior() {
                     );
     }
 
-        _TRACE_(getBehaveingFrame() << "testbar before angFace[AXIS_Z]="<<_pKuroko->_angFace[AXIS_Z] << " angveloFace[AXIS_Z]="<<_pKuroko->_angveloFace[AXIS_Z]<<" _angacceFace[AXIS_Z]="<<_pKuroko->_angacceFace[AXIS_Z]<<"");
+    _TRACE_(getBehaveingFrame() << "testbar before _apActorFaceAng[AXIS_Z]="<<(*(_pKuroko->_apActorFaceAng[AXIS_Z])) << " angveloFace[AXIS_Z]="<<_pKuroko->_angveloFace[AXIS_Z]<<" _angacceFace[AXIS_Z]="<<_pKuroko->_angacceFace[AXIS_Z]<<"");
 
     _pKuroko->behave();
 
-    _TRACE_(getBehaveingFrame() << "testbar after angFace[AXIS_Z]="<<_pKuroko->_angFace[AXIS_Z] << " angveloFace[AXIS_Z]="<<_pKuroko->_angveloFace[AXIS_Z]<<" _angacceFace[AXIS_Z]="<<_pKuroko->_angacceFace[AXIS_Z]<<"");
+    _TRACE_(getBehaveingFrame() << "testbar after _apActorFaceAng[AXIS_Z]="<<(*(_pKuroko->_apActorFaceAng[AXIS_Z])) << " angveloFace[AXIS_Z]="<<_pKuroko->_angveloFace[AXIS_Z]<<" _angacceFace[AXIS_Z]="<<_pKuroko->_angacceFace[AXIS_Z]<<"");
 //    _pUvFlipper->behave();
 }
 TestBar::~TestBar() {

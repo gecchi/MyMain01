@@ -34,12 +34,12 @@ void Planet001::onCreateModel() {
 void Planet001::initialize() {
     setAlpha(0.99);
     _x = (GgafDxUniverse::_x_gone_right*10);
-    pScaler_->setScale(1000*1000);
-    _pKuroko->setFaceAng(AXIS_Z, D90ANG - D_ANG(30));
-    _pKuroko->setFaceAng(AXIS_Y, D45ANG);
+    setScale(1000*1000);
+    setRzFaceAng(D90ANG - D_ANG(30));
+    setRyFaceAng(D45ANG);
     _pKuroko->setFaceAngVelo(AXIS_X, 500); //Ž©“]‚Ì‘¬‚³
 
-//    pAtmosphere_->pScaler_->setScale(pScaler_->_scale[0]);
+//    pAtmosphere_->setScale(pScaler_->_scale[0]);
 //    pAtmosphere_->positionAs(this);
 }
 void Planet001::processBehavior() {
@@ -77,10 +77,10 @@ void Planet001::processBehavior() {
     }
 
     if (GgafDxInput::isBeingPressedKey(DIK_0)) {
-        pScaler_->addScale(10000);
+        addScale(10000);
     }
     if (GgafDxInput::isBeingPressedKey(DIK_L)) {
-        pScaler_->addScale(-10000);
+        addScale(-10000);
     }
 
     if (GgafDxInput::isPushedDownKey(DIK_O)) {
@@ -90,7 +90,7 @@ void Planet001::processBehavior() {
     pScaler_->behave();
     _pKuroko->behave();
 
-//    pAtmosphere_->pScaler_->setScale(pScaler_->_scale[0]);
+//    pAtmosphere_->setScale(pScaler_->_scale[0]);
 //    pAtmosphere_->positionAs(this);
 }
 

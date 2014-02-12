@@ -14,7 +14,8 @@ class Teki002 : public GgafLib::DefaultMeshActor {
 
 public:
     GgafDxCore::GgafDxAxesMover* pAxMvr_;
-
+    /** 拡大縮小支援オブジェクト */
+    GgafDxCore::GgafDxScaler* pScaler_;
     /**
      * コンストラクタ
      * @param prm_name

@@ -293,7 +293,10 @@
                     _will_mv_first_in_next_frame_flg<< \
                     _will_mv_last_in_next_frame_flg<< \
                     ","<< \
-                    "prog="<<"("<<(_pProg?_pProg->_progress_prev:-9)<<")"<<(_pProg?_pProg->_progress:-9)<<"("<<(_pProg?_pProg->_progress_next:-9)<<")"
+                    "prog="<<"("<<(_pProg?_pProg->_progress_prev:-9)<<")"<<(_pProg?_pProg->_progress:-9)<<"("<<(_pProg?_pProg->_progress_next:-9)<<")"<< \
+                    ","<< \
+                    "id="<<getId()
+
 
 /** ‹¤’Ê’x‰„‰ð•úƒtƒŒ[ƒ€” */
 #define GGAF_END_DELAY (60*60)

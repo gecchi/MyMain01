@@ -58,7 +58,7 @@ void EnemyUnomia::onActive() {
     }
     _pStatus->reset();
     setHitAble(true);
-    _pKuroko->setFaceAng(AXIS_X, 0);
+    setRzFaceAng(0);
     iMovePatternNo_ = 0; //行動パターンリセット
     _pProg->reset(PROG_ENTRY);
 }

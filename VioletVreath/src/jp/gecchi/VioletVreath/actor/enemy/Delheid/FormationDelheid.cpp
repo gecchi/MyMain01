@@ -89,11 +89,11 @@ void FormationDelheid::processBehavior() {
              pDummy_->pKurokoLeader_->getPointCoord(spl_point_num-2, end_prev_x, end_prev_y, end_prev_z);
              //出現開始位置アリサナを配備
              pAlisana_start->positionAs(pDummy_);
-             pAlisana_start->_pKuroko->setFaceAngTwd(next_x, next_y, next_z); //向きセット
+             pAlisana_start->setFaceAngTwd(next_x, next_y, next_z); //向きセット
              pAlisana_start->acitve_open(); //ハッチオープン
              //終了位置にアリサナを配備
              pAlisana_goal->position(end_x, end_y, end_z);
-             pAlisana_goal->_pKuroko->setFaceAngTwd(end_prev_x, end_prev_y, end_prev_z);
+             pAlisana_goal->setFaceAngTwd(end_prev_x, end_prev_y, end_prev_z);
              pAlisana_goal->acitve_open((frame)(pDummy_->pKurokoLeader_->getTotalDistance() / RV_MvVelo_)); //ハッチオープン予約
 
              pDummy_->sayonara(); //ありがとうダミー

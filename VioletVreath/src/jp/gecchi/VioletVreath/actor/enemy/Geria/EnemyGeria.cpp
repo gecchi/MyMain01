@@ -55,7 +55,7 @@ void EnemyGeria::onActive() {
     frame_when_shot_ = 0;
     velo_mv_begin_ = _pKuroko->_veloTopMv; //‰ŠúˆÚ“®‘¬“x‚ð•Û‘¶
     _pKuroko->setMvVelo(velo_mv_begin_); //Ä‰Á‘¬
-    _pKuroko->setFaceAng(AXIS_X, 0);
+    setRzFaceAng(0);
     //_pKuroko->turnMvAngTwd(P_MYSHIP, 50, 0, TURN_CLOSE_TO, false);
 }
 

@@ -70,7 +70,7 @@ void EnemyTamago01::initialize() {
     _x = -50000;
     _y = 200000;
     _z = 100000;
-    pScaler_->setScale(1000);
+    setScale(1000);
 }
 
 void EnemyTamago01::onActive() {
@@ -89,10 +89,10 @@ void EnemyTamago01::onActive() {
 void EnemyTamago01::processBehavior() {
 
 //    if (GgafDxInput::isBeingPressedKey(DIK_Q)) {
-//        pScaler_->addScale(500);
+//        addScale(500);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_W)) {
-//        pScaler_->addScale(-500);
+//        addScale(-500);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_1)) {
 //        _pModel->_pTexBlinker->->addScale(2000);

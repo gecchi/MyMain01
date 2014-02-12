@@ -3,8 +3,8 @@
 
 using namespace GgafCore;
 
-GgafOrder::GgafOrder(uint32_t prm_id) : GgafObject() {
-    _id = prm_id;
+GgafOrder::GgafOrder(uint64_t prm_order_id) : GgafObject() {
+    _order_id = prm_order_id;
     _pOrderer = nullptr;
     _pOrder_next = nullptr;
     _pOrder_prev = nullptr;

@@ -330,8 +330,8 @@ GgafDxDrawableActor* StgUtil::shotWay004(coord prm_x, coord prm_y, coord prm_z,
                 pActor_Shot->_pKuroko->setRzRyMvAng(paGeo[i].rz, paGeo[i].ry);
                 pActor_Shot->_pKuroko->setMvVelo(now_velo);
                 pActor_Shot->_pKuroko->setMvAcce(now_acce);
-//                pActor_Shot->_pKuroko->_angFace[AXIS_Z] = Rz;
-//                pActor_Shot->_pKuroko->_angFace[AXIS_Y] = Ry;
+//                pActor_Shot->_rz = Rz;
+//                pActor_Shot->_ry = Ry;
                 if (pFunc_CallBackDispatched) {
                     pFunc_CallBackDispatched(pActor_Shot, dispatch_num, n, i);
                 }
@@ -405,8 +405,8 @@ GgafDxDrawableActor* StgUtil::shotWayGoldenAng(coord prm_x, coord prm_y, coord p
                 pActor_Shot->_pKuroko->setRzRyMvAng(paGeo[i].rz, paGeo[i].ry);
                 pActor_Shot->_pKuroko->setMvVelo(now_velo);
                 pActor_Shot->_pKuroko->setMvAcce(now_acce);
-//                pActor_Shot->_pKuroko->_angFace[AXIS_Z] = Rz;
-//                pActor_Shot->_pKuroko->_angFace[AXIS_Y] = Ry;
+//                pActor_Shot->_rz = Rz;
+//                pActor_Shot->_ry = Ry;
                 if (pFunc_CallBackDispatched) {
                     pFunc_CallBackDispatched(pActor_Shot, dispatch_num, n, i);
                 }

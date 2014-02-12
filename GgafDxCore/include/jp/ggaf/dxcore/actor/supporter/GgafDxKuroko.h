@@ -49,8 +49,8 @@ public:
 
 
 public: //_rx , _ry, _rz 操作関連 //////////////////////////////////////////////
-    /** [r/w]キャラの向き(各軸回転方角の方角(0～360,000)) */
-    angle _angFace[3];
+    /** [r]対象キャラの向き(_rx, _ry, _rz)への参照 */
+    angle* _apActorFaceAng[3];
     /** [r/w]軸回転方角の角速度（軸回転方角に毎フレーム加算する方角） */
     angvelo _angveloFace[3];
     /** [r/w]軸回転方角の角速度上限(最高値は360,000) */
@@ -73,62 +73,9 @@ public: //_rx , _ry, _rz 操作関連 //////////////////////////////////////////////
     angvelo _face_ang_target_allow_velo[3]; //この角速度より小さい値の場合機能有効とするz
 
 public:
-    /**
-     * Actorの正面方角（軸単位）を設定。<BR>
-     * @param   prm_axis    回転軸(AXIS_X / AXIS_Y / AXIS_Z)
-     * @param   prm_angFace 方角のアングル値(-360,000～360,000)
-     */
-    void setFaceAng(axis prm_axis, angle prm_angFace);
-    /**
-     * Actorの正面方角を設定。<BR>
-     * @param prm_axis_x_angFace X軸方角のアングル値(-360,000～360,000)
-     * @param prm_axis_y_angFace Y軸方角のアングル値(-360,000～360,000)
-     * @param prm_axis_z_angFace Z軸方角のアングル値(-360,000～360,000)
-     */
-    void setFaceAng(angle prm_axis_x_angFace,
-                    angle prm_axis_y_angFace,
-                    angle prm_axis_z_angFace) {
-        setFaceAng(AXIS_X, prm_axis_x_angFace);
-        setFaceAng(AXIS_Y, prm_axis_y_angFace);
-        setFaceAng(AXIS_Z, prm_axis_z_angFace);
-    }
-
-    void setFaceAngByMvAng() {
-        setFaceAng(AXIS_Z, _angRzMv);
-        setFaceAng(AXIS_Y, _angRyMv);
-    }
     void setMvAngByFaceAng() {
-        setRzRyMvAng(_angFace[AXIS_Z], _angFace[AXIS_Y]);
+        setRzRyMvAng(_pActor->_rz, _pActor->_ry);
     }
-    /**
-     * Actorの自身の座標から対象座標点に向いた方向に、Z軸回転方角とY軸回転方角を設定<BR>
-     * @param prm_tx 対象点X座標
-     * @param prm_ty 対象点Y座標
-     * @param prm_tz 対象点Z座標
-     */
-    void setFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz);
-
-    /**
-     * 現在の Actor の軸回転方角へ加算（負で減算）。<BR>
-     *
-     * 引数に渡すのは、軸回転方角の増分です。Actorの軸回転方角（_angFace）を相対指定できるメソッドです。<BR>
-     * 加算後の軸回転方角のアングル値はが単純化されます。
-     * 引数である加算（減算）する軸回転方角は、軸回転角角速度の上限と下限の間の範囲に限ります。<BR>
-     * つまり、引数の有効な範囲は以下の通りとなります。<BR>
-     *
-     *   _angveloBottomFace[prm_axis] ≦ 引数の回転軸方角値の増分 ≦ _angveloTopFace[prm_axis]  です。<BR>
-     *
-     * もし加算（減算）後、範囲外になった場合、直近の範囲内の値に強制的に抑えられます。<BR>
-     * 【補足】<BR>
-     * デフォルトの回転加速度の上限と下限は、 -360000 , 360000です。
-     *  <BR>
-     *
-     * @param   prm_axis    回転軸（AXIS_X / AXIS_Y / AXIS_Z)
-     * @param   prm_angDistance 回転軸方角値の増分アングル値
-     */
-    void addFaceAng(axis prm_axis, angle prm_angDistance);
-
-
     /**
      * Actorの目標の軸回転方角自動停止機能を有効(目標の軸回転方角設定)<BR>
      * 引数に設定された軸回転方角になると、軸回転方角角速度及び軸回転方角角加速度を 0 にし、回転を停止させます。<BR>
@@ -181,7 +128,6 @@ public:
                                angvelo prm_angveloRot02);
 
     void setFaceAngAcce(axis prm_axis, angacce prm_angacceRot);
-
     angle getFaceAngDistance(axis prm_axis, coord prm_tx, coord prm_ty, int prm_way);
 
     angle getFaceAngDistance(axis prm_axis, angle prm_angTargetRot, int prm_way);

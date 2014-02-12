@@ -98,7 +98,8 @@ typedef float dxcoord;
 
 /** アプリケーションスケール単位 (目安： 1 scale  =  0.001 倍) */
 typedef int scale;
-
+typedef int scalevelo;
+typedef int scaleacce;
 /** アプリケーション角度単位 (目安： 1 angle  =  0.001 度) */
 typedef int angle;
 /** アプリケーション角度単位系の角速度 */

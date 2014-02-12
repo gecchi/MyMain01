@@ -27,7 +27,7 @@ void EffectEntry002::initialize() {
 void EffectEntry002::onActive() {
     EffectEntry::onActive();
     //_pUvFlipper->setActivePtnToTop();
-    pScaler_->setScale(1);
+    setScale(1);
     _pKuroko->setFaceAngVelo(AXIS_Z, 4000);
 }
 

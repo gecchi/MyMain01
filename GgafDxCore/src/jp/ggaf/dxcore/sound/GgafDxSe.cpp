@@ -52,7 +52,7 @@ GgafDxSe::GgafDxSe(char* prm_wave_key) : GgafObject() {
 
     _pActor_LastPlayed = nullptr;
     _can_looping = false;
-    _TRACE_("GgafDxSe::GgafDxSe("<<prm_wave_key<<") _wave_file_name="<<_wave_file_name<<" this="<<this<<" _id="<<_id);
+    _TRACE_("GgafDxSe::GgafDxSe("<<prm_wave_key<<") _wave_file_name="<<_wave_file_name<<" this="<<this<<" _id="<<getId());
 }
 
 

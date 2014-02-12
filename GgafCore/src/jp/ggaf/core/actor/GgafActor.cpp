@@ -20,13 +20,13 @@ GgafActor::GgafActor(const char* prm_name, GgafStatus* prm_pStat) :
     _can_hit_out_of_view = true;
     _pDependenceDepository = nullptr;
     _pFormation = nullptr;
-    _TRACE_("new "<<_class_name<<"("<<this<<")["<<prm_name<<"]");
+    _TRACE_("new "<<_class_name<<"("<<this<<")["<<prm_name<<"] _id="<<getId());
 }
 
 GgafActor::~GgafActor() {
     _pFormation = nullptr;
     GGAF_DELETE(_pStatus);
-    _TRACE_("delete "<<_class_name<<"("<<this<<")["<<getName()<<"]");
+    _TRACE_("delete "<<_class_name<<"("<<this<<")["<<getName()<<"] _id="<<getId());
     //OutputDebugStringA("*");
 }
 

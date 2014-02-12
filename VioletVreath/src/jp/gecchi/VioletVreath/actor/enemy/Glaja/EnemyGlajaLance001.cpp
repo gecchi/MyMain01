@@ -46,7 +46,7 @@ void EnemyGlajaLance001::onReset() {
 void EnemyGlajaLance001::onActive() {
     _pKuroko->setMvAcce(0);
     _pKuroko->setMvVelo(PX_C(3));
-    _pKuroko->setFaceAng(0,
+    setFaceAng(0,
                           RND(D_ANG(0), D_ANG(360)),
                           RND(D_ANG(0), D_ANG(360)) );
     _pKuroko->setFaceAngVelo(D_ANG(33), D_ANG(15), D_ANG(20));
@@ -109,7 +109,7 @@ void EnemyGlajaLance001::processBehavior() {
             if (_pProg->isJustChanged()) {
                 _pKuroko->setMvAngByFaceAng(); //今向いてる方向にこれから移動する
                 _pKuroko->setMvVelo(-PX_C(2)); //ちょっとバックして貯めを表現
-                _pKuroko->setFaceAng(AXIS_X, D_ANG(27)); //スピンスピン
+                setRzFaceAng(D_ANG(27)); //スピンスピン
             }
             if (_pProg->getFrameInProgress() >= 10) {
                 _pProg->changeNext();

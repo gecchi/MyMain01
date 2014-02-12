@@ -198,8 +198,8 @@ void EnemyStraea::processBehavior() {
                                 UTIL::convVectorToRzRy(vX, vY, vZ, Rz, Ry); //Œ»Ý‚ÌÅI“I‚ÈŒü‚«‚ðARzRy‚ÅŽæ“¾
                                 pLaserChip->position(_x+vX, _y+vY, _z+vZ);
                                 pLaserChip->_pKuroko->setRzRyMvAng(Rz, Ry);
-                                pLaserChip->_pKuroko->_angFace[AXIS_Z] = Rz;
-                                pLaserChip->_pKuroko->_angFace[AXIS_Y] = Ry;
+                                pLaserChip->_rz = Rz;
+                                pLaserChip->_ry = Ry;
                             }
                         }
                     }

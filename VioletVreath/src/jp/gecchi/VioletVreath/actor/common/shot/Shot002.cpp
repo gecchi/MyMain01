@@ -29,7 +29,7 @@ void Shot002::initialize() {
 void Shot002::onActive() {
     _pStatus->reset();
     setHitAble(true);
-    pScaler_->setScale(2000);
+    setScale(2000);
     _pKuroko->relateFaceWithMvAng(true);
     _pKuroko->setMvVelo(RF_Shot002_MvVelo(G_RANK));
     _pKuroko->setFaceAngVelo(AXIS_X, RF_Shot002_AngVelo(G_RANK));

@@ -23,13 +23,13 @@ void EffectRatislaviaEye001::initialize() {
 void EffectRatislaviaEye001::onActive() {
     cnt_ = 0;
     pScaler_->forceRange(100000, 1); //スケーリング・範囲
-    pScaler_->setScale(100000);
+    setScale(100000);
     pScaler_->beat(30, 0, 0, 3);
 }
 
 void EffectRatislaviaEye001::processBehavior() {
     pScaler_->behave();
-    setAlpha( 1.3 - (pScaler_->_scale[0] / 100000.0 ) );
+    setAlpha( 1.3 - (_sx / 100000.0 ) );
 }
 
 void EffectRatislaviaEye001::processJudgement() {

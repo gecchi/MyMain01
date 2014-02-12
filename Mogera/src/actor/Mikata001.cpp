@@ -25,7 +25,7 @@ void Mikata001::initialize() {
     setHitAble(true);
     setScaleR(0.5);
     //黒衣にキャラのZ軸回転の角速度を設定(毎フレーム2度)
-    _pKuroko->setFaceAng(AXIS_Y, D_ANG(90));
+    setRyFaceAng(D_ANG(90));
 
 //    _pKuroko->setFaceAngVelo(AXIS_Z, D_ANG(2));
 

@@ -114,8 +114,8 @@ void EnemyOrtuna::processBehavior() {
                      GgafDxDrawableActor* pShot = UTIL::activateAttackShotOf(this);
                      if (pShot) {
                          pShot->activateDelay(1+(i*10)); //ばらつかせ。activate タイミング上書き！
-                         pShot->_pKuroko->setRzRyMvAng(_pKuroko->_angFace[AXIS_Z],
-                                                       _pKuroko->_angFace[AXIS_Y]);
+                         pShot->_pKuroko->setRzRyMvAng(_rz,
+                                                       _ry);
                          pShot->_pKuroko->setMvVelo(shot_velo);
                          pShot->_pKuroko->setMvAcce(100);
                      }

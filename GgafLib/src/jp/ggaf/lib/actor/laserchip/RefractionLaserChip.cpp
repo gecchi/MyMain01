@@ -126,9 +126,9 @@ void RefractionLaserChip::onInactive() {
         pChip_behind_pKuroko->_angRzMv = pKuroko->_angRzMv;
         pChip_behind_pKuroko->_angRyMv = pKuroko->_angRyMv;
         pChip_behind_pKuroko->_veloMv = pKuroko->_veloMv;
-        pChip_behind_pKuroko->_angFace[AXIS_X] = pKuroko->_angFace[AXIS_X];
-        pChip_behind_pKuroko->_angFace[AXIS_Y] = pKuroko->_angFace[AXIS_Y];
-        pChip_behind_pKuroko->_angFace[AXIS_Z] = pKuroko->_angFace[AXIS_Z];
+        pChip_behind->_rx = _rx;
+        pChip_behind->_ry = _ry;
+        pChip_behind->_rz = _rz;
         pChip_behind->_cnt_refraction = _cnt_refraction;
         pChip_behind->_frame_refraction_enter = _frame_refraction_enter;
         pChip_behind->_frame_refraction_out = _frame_refraction_out;

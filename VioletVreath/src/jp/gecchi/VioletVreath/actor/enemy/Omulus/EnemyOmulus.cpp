@@ -50,7 +50,7 @@ void EnemyOmulus::initialize() {
     _pMorpher->setWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 200000);
-    pScaler_->setScale(1000);
+    setScale(1000);
     pScaler_->forceRange(1000, 1200);
     pScaler_->beat(30, 5, 5, -1);
     pDepo_Fired_ = pDepoConnection_->peek();

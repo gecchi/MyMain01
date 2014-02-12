@@ -29,7 +29,7 @@ Shot001::Shot001(const char* prm_name) :
 void Shot001::initialize() {
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, PX_C(16));
-    pScaler_->setScale(2000);
+    setScale(2000);
     pScaler_->forceRange(2000, 3000);
 }
 

@@ -52,7 +52,7 @@ void SmileMagic::processCastBegin(int prm_now_level, int prm_new_level) {
             s += "(^_^)SMILE!\n";
         }
         pMoji_->update(s.c_str());
-        pMoji_->_pKuroko->setFaceAng(0,0,0);
+        pMoji_->setFaceAng(0,0,0);
         pMoji_->_pKuroko->setFaceAngVelo(0,0,0);
         pMoji_->activate();
     }

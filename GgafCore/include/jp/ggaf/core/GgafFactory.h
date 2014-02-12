@@ -25,7 +25,7 @@ class GgafFactory {
 private:
     /**
      * 工場に注文を行う .
-     * @param prm_id	注文識別ID番号
+     * @param prm_order_id	注文識別ID番号
      * @param prm_pFunc	実際に製造処理を行う関数のポインタ
      * @param prm_pOrderer 発注者
      * @param prm_pArg1	製造処理を行う関数への引数1
@@ -33,7 +33,7 @@ private:
      * @param prm_pArg3	製造処理を行う関数への引数3
      *
      */
-    static void order(uint32_t prm_id,
+    static void order(uint64_t prm_order_id,
                       GgafObject* (*prm_pFunc)(void*, void*, void*),
                       GgafObject* prm_pOrderer,
                       void* prm_pArg1,
@@ -43,11 +43,11 @@ private:
     /**
      * 注文した商品を取り出す .
      * 未製造だった場合、製造が完了するまで待つ。<BR>
-     * @param   prm_id	注文識別ID番号
+     * @param   prm_order_id	注文識別ID番号
      * @param   prm_org 注文元（デバッグ用）
      * @return	製品のポインタ
      */
-    static void* obtain(uint32_t prm_id, GgafObject* prm_org);
+    static void* obtain(uint64_t prm_order_id, GgafObject* prm_org);
 
 public:
     /** 先頭の注文 */
@@ -80,13 +80,13 @@ public:
      * @param prm_pArg3 製造処理を行う関数への引数3
      */
     template<class X>
-    static void orderActor(uint32_t prm_id,
+    static void orderActor(uint64_t prm_order_id,
                            X* (*prm_pFunc)(void*, void*, void*),
                            GgafObject* prm_pOrderer,
                            void* prm_pArg1,
                            void* prm_pArg2,
                            void* prm_pArg3) {
-        order(prm_id, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pArg1, prm_pArg2, prm_pArg3);
+        order(prm_order_id, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pArg1, prm_pArg2, prm_pArg3);
     }
 
     /**
@@ -100,13 +100,13 @@ public:
      * @param prm_pArg3	製造処理を行う関数への引数3
      */
     template<class X>
-    static void orderScene(uint32_t prm_id,
+    static void orderScene(uint64_t prm_order_id,
                            X* (*prm_pFunc)(void*, void*, void*),
                            GgafObject* prm_pOrderer,
                            void* prm_pArg1,
                            void* prm_pArg2,
                            void* prm_pArg3) {
-        order(prm_id, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pArg1, prm_pArg2, prm_pArg3);
+        order(prm_order_id, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pArg1, prm_pArg2, prm_pArg3);
     }
 
     /**
@@ -117,7 +117,7 @@ public:
      * @param   prm_org 注文元（デバッグ用）
      * @return	生成されたアクターのポインタ
      */
-    static GgafMainActor* obtainActor(uint32_t prm_id, GgafObject* prm_org);
+    static GgafMainActor* obtainActor(uint64_t prm_order_id, GgafObject* prm_org);
 
     /**
      * 注文したシーンを取り出す。（メインスレッドが使用） .
@@ -127,7 +127,7 @@ public:
      * @param   prm_org 注文元（デバッグ用）
      * @return	生成されたシーンのポインタ
      */
-    static GgafMainScene* obtainScene(uint32_t prm_id, GgafObject* prm_org);
+    static GgafMainScene* obtainScene(uint64_t prm_order_id, GgafObject* prm_org);
 
 
     template<class X>
@@ -144,10 +144,10 @@ public:
 
     /**
      * 注文した商品が出来上がっているか調べる。（メインスレッドが使用） .
-     * @param   prm_id   注文識別ID
+     * @param   prm_order_id   注文識別ID
      * @return   注文識別IDの商品の進捗具合(-2:工場自体が動いてない/-1:注文すらしていない/0:注文済みで工場未着手/1:製造中/2:製造済み）
      */
-    static int chkProgress(uint32_t prm_id);
+    static int chkProgress(uint64_t prm_order_id);
 
     /**
      * 工場を掃除する（メインスレッドが使用） .
@@ -213,6 +213,8 @@ public:
         X* p = NEW X((char*)p1);
         return p;
     }
+
+    static void debuginfo();
 
 
 };

@@ -31,7 +31,7 @@ void EffectMyShipExplosion::onActive() {
     _pUvFlipper->exec(FLIP_ORDER_NOLOOP, 20);
     positionAs(P_MYSHIP);
     _alpha = 0.99;
-    pScaler_->setScale(8000);
+    setScale(8000);
     _pKuroko->setFaceAngVelo(AXIS_Z, 2000);
 }
 

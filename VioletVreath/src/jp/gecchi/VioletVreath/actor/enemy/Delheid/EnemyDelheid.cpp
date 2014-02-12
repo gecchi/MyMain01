@@ -62,7 +62,7 @@ void EnemyDelheid::onActive() {
     _pStatus->reset();
     setHitAble(true);
     _pMorpher->reset();
-    _pKuroko->setFaceAng(AXIS_X, 0);
+    setRzFaceAng(0);
     _pKuroko->setMvAcce(0);
     _pKuroko->keepOnTurningFaceAngTwd(P_MYSHIP,
                                        D_ANG(1), 0, TURN_CLOSE_TO, false);

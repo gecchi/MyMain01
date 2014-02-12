@@ -14,7 +14,7 @@ GgafScene::GgafScene(const char* prm_name) : GgafElement<GgafScene> (prm_name) {
     _pSceneDirector = NEW GgafSceneDirector(this);
     _once_in_n_time = 1;
 #ifdef MY_DEBUG
-    _TRACE_("new "<<_class_name<<"("<<this<<")["<<prm_name<<"]");
+    _TRACE_("new "<<_class_name<<"("<<this<<")["<<prm_name<<"] _id="<<getId());
 #else
 
 #endif
@@ -23,7 +23,7 @@ GgafScene::GgafScene(const char* prm_name) : GgafElement<GgafScene> (prm_name) {
 GgafScene::~GgafScene() {
 
 #ifdef MY_DEBUG
-    _TRACE_("delete "<<_class_name<<"("<<this<<")["<<getName()<<"]");
+    _TRACE_("delete "<<_class_name<<"("<<this<<")["<<getName()<<"] _id="<<getId());
 #else
     //OutputDebugStringA("*");
 #endif

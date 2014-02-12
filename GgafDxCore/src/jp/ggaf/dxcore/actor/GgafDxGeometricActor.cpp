@@ -7,6 +7,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -251,14 +252,12 @@ GgafGroupHead* GgafDxGeometricActor::addSubGroupAsFk(actorkind prm_kind,
     prm_pGeoActor->_x = prm_x_init_local;
     prm_pGeoActor->_y = prm_y_init_local;
     prm_pGeoActor->_z = prm_z_init_local;
-    prm_pGeoActor->_pKuroko->_angFace[AXIS_X]  = prm_rx_init_local;
-    prm_pGeoActor->_pKuroko->_angFace[AXIS_Y]  = prm_ry_init_local;
-    prm_pGeoActor->_pKuroko->_angFace[AXIS_Z]  = prm_rz_init_local;
-    prm_pGeoActor->_pKuroko->_angRzMv = prm_rz_init_local;
-    prm_pGeoActor->_pKuroko->_angRyMv = prm_ry_init_local;
     prm_pGeoActor->_rx = prm_rx_init_local;
     prm_pGeoActor->_ry = prm_ry_init_local;
     prm_pGeoActor->_rz = prm_rz_init_local;
+    prm_pGeoActor->_pKuroko->_angRzMv = prm_rz_init_local;
+    prm_pGeoActor->_pKuroko->_angRyMv = prm_ry_init_local;
+
     prm_pGeoActor->changeGeoFinal();
     return pGroupHead;
 }
@@ -376,6 +375,31 @@ void GgafDxGeometricActor::rotateAs(GgafDxGeoElem* prm_pGeoElem) {
     _ry = prm_pGeoElem->ry;
     _rz = prm_pGeoElem->rz;
 }
+
+//void GgafDxGeometricActor::setFaceAng(axis prm_axis, angle prm_angFace) {
+//    _angFace[prm_axis] = UTIL::simplifyAng(prm_angFace);
+//}
+
+void GgafDxGeometricActor::setRzFaceAng(angle prm_angFace) {
+    _rz = UTIL::simplifyAng(prm_angFace);
+}
+void GgafDxGeometricActor::setRyFaceAng(angle prm_angFace) {
+    _ry = UTIL::simplifyAng(prm_angFace);
+}
+void GgafDxGeometricActor::setRxFaceAng(angle prm_angFace) {
+    _rx = UTIL::simplifyAng(prm_angFace);
+}
+
+void GgafDxGeometricActor::setFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz) {
+    UTIL::convVectorToRzRy(
+                   prm_tx - _x,
+                   prm_ty - _y,
+                   prm_tz - _z,
+                   _rz,
+                   _ry
+                 );
+}
+
 
 void GgafDxGeometricActor::scaleAs(GgafDxGeometricActor* prm_pActor) {
     _sx = prm_pActor->_sx;

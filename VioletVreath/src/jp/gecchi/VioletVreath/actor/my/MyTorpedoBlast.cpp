@@ -35,7 +35,7 @@ void MyTorpedoBlast::onReset() {
     _pStatus->reset();
     _pColliChecker->setColliSphere(0, PX_C(10));
     _pKuroko->setMvVelo(0);
-    pScaler_->setScale(R_SC(1));
+    setScale(R_SC(1));
     pScaler_->forceRange(R_SC(1), R_SC(400));
     pScaler_->beat(120, 120/2, 0, 1); //1‰ñ–c‚ç‚ñ‚Å‚µ‚Ú‚Ş
 }
@@ -44,7 +44,7 @@ void MyTorpedoBlast::processBehavior() {
     if (pScaler_->_method[AXIS_X] == NOSCALE) {
         sayonara();//–c‚ç‚ñ‚Å‚µ‚Ú‚Ş‚ªI—¹
     } else {
-        _pColliChecker->setColliSphere(0, pScaler_->_scale[AXIS_X]); //“–‚½‚è”»’è‚à•Ï‰»
+        _pColliChecker->setColliSphere(0, _sx); //“–‚½‚è”»’è‚à•Ï‰»
         _pKuroko->behave();
         pScaler_->behave();
     }

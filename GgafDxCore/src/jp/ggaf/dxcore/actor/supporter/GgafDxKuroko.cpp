@@ -18,9 +18,11 @@ _pActor(prm_pActor) {
     _pHlprB = nullptr;
     _pHlprC = nullptr;
 
+    _apActorFaceAng[0] = &(prm_pActor->_rx);
+    _apActorFaceAng[1] = &(prm_pActor->_ry);
+    _apActorFaceAng[2] = &(prm_pActor->_rz);
+
     for (int ax = 0; ax < 3; ax++) { // i=0:Xé≤ÅA1:Yé≤ÅA2:Zé≤ Çï\Ç∑
-        //ê≥ñ ï˚äp
-        _angFace[ax] = 0; //0 angle ÇÕ ÇRéûÇÃï˚äpÇå¸Ç¢ÇƒÇ¢ÇÈ
         //ê≥ñ ï˚äpÇÃäpë¨ìxÅiê≥ñ ï˚äpÇÃëùï™Åj= 0 angle/fream
         _angveloFace[ax] = 0; //1ÉtÉåÅ[ÉÄÇ…â¡éZÇ≥ÇÍÇÈê≥ñ ï˚äpÇÃäpëùï™ÅBÉfÉtÉHÉãÉgÇÕê≥ñ ï˚äpÇÃäpëùï™ñ≥ÇµÅAÇ¬Ç‹ÇËêUÇËå¸Ç´ñ≥ÇµÅB
         //ê≥ñ ï˚äpÇÃäpë¨ìxè„å¿ ÅÅ 360,000 angle/fream
@@ -141,36 +143,39 @@ void GgafDxKuroko::behave() {
 
     //ê≥ñ ï˚äpèàóù
     for (axis ax = 0; ax < 3; ax++) {
+
+        _angveloFace[ax] += _angacceFace[ax];
+        if (_angveloFace[ax] > _angveloTopFace[ax]) {
+            _angveloFace[ax] = _angveloTopFace[ax];
+        } else if (_angveloFace[ax] < _angveloBottomFace[ax]) {
+            _angveloFace[ax] = _angveloBottomFace[ax];
+        }
+
         if (_face_ang_targeting_flg[ax]) { //É^Å[ÉQÉbÉgï˚å¸Ç™Ç†ÇÈèÍçá
-            _angveloFace[ax] += _angacceFace[ax];
-            if (_angveloFace[ax] > _angveloTopFace[ax]) {
-                _angveloFace[ax] = _angveloTopFace[ax];
-            } else if (_angveloFace[ax] < _angveloBottomFace[ax]) {
-                _angveloFace[ax] = _angveloBottomFace[ax];
-            }
+
             if (_angveloFace[ax] > 0) { //îΩéûåvâÒÇËÇÃèÍçá
                 angle angDistance = getFaceAngDistance(ax, _angTargetFace[ax], TURN_COUNTERCLOCKWISE);
-                if (_angveloFace[ax] > angDistance && _face_ang_target_allow_way[ax] != TURN_CLOCKWISE
-                        && _face_ang_target_allow_velo[ax] >= _angveloFace[ax]) {
-                    addFaceAng(ax, angDistance);
+                if (_angveloFace[ax] > angDistance && _face_ang_target_allow_way[ax] != TURN_CLOCKWISE &&
+                        _face_ang_target_allow_velo[ax] >= _angveloFace[ax]) {
+                    _angveloFace[ax] = angDistance;
                     if (_face_ang_targeting_stop_flg[ax]) {
                         _face_ang_targeting_flg[ax] = false; //ÉtÉâÉOÇñﬂÇµÇƒèIóπ
                         _face_ang_targeting_stop_flg[ax] = false;
                     }
                 } else {
-                    addFaceAng(ax, _angveloFace[ax]);
+                    // Ç»Ç…Ç‡ÇµÇ»Ç≠ÇƒÇÊÇ¢
                 }
             } else if (_angveloFace[ax] < 0) { //éûåvâÒÇËÇÃèÍçá
                 angle angDistance = getFaceAngDistance(ax, _angTargetFace[ax], TURN_CLOCKWISE);
                 if (_angveloFace[ax] < angDistance && _face_ang_target_allow_way[ax] != TURN_COUNTERCLOCKWISE
                         && -1 * _face_ang_target_allow_velo[ax] <= _angveloFace[ax]) { //ñ⁄ïWÇçsÇ´âﬂÇ¨ÇƒÇµÇ‹Ç¢ÇªÇ§ÅEÅEÅEÇ»ì˙
-                    addFaceAng(ax, angDistance);
+                    _angveloFace[ax] = angDistance;
                     if (_face_ang_targeting_stop_flg[ax]) {
                         _face_ang_targeting_flg[ax] = false; //ÉtÉâÉOÇñﬂÇµÇƒèIóπ
                         _face_ang_targeting_stop_flg[ax] = false;
                     }
                 } else {
-                    addFaceAng(ax, _angveloFace[ax]);
+                    // Ç»Ç…Ç‡ÇµÇ»Ç≠ÇƒÇÊÇ¢
                 }
             } else {
                 //_angveloFace[ax] == 0
@@ -183,32 +188,25 @@ void GgafDxKuroko::behave() {
                 }
             }
 
+            //ActorÇ…îΩâf
+            (*(_apActorFaceAng[ax])) = UTIL::simplifyAng((*(_apActorFaceAng[ax])) + _angveloFace[ax]);
             if (_face_ang_targeting_flg[ax] == false) {
                 //ñ⁄ïWï˚å¸Ç…ìûíBÇµÇΩéûÇÃèàóù
                 //_angveloTopFace[ax] = D360ANG; //ê≥ñ ï˚äpÇÃäpë¨ìxè„å¿ ÅÅ 360,000 angle/fream
                 //_angveloBottomFace[ax] = D360ANG * -1; //ê≥ñ ï˚äpÇÃäpë¨ìxâ∫å¿ ÅÅ -360,000 angle/fream
-
                 //ñ⁄ïWï˚å¸Ç…ìûíBÇµÇΩéûÅAí‚é~èàóùÇçsÇ»Ç§
                 _angacceFace[ax] = 0; //é≤âÒì]ï˚å¸äpÅAäpë¨ìxÇÇOÇ÷
                 setFaceAngVelo(ax, 0); //é≤âÒì]ï˚å¸äpÅAäpâ¡ë¨ìxÇÇOÇ÷
             }
 
         } else {
-            //if (_angacceFace[ax] != 0) {
-            //ÉtÉåÅ[ÉÄñàÇÃê≥ñ ï˚äpê˘âÙÇÃèàóù
-            _angveloFace[ax] += _angacceFace[ax];
-            if (_angveloFace[ax] != 0) {
-                addFaceAng(ax, _angveloFace[ax]);
-            }
-            //}
+            //É^Å[ÉQÉbÉgï˚å¸Ç™ñ≥Ç¢èÍçá
+            //ActorÇ…îΩâf
+            (*(_apActorFaceAng[ax])) = UTIL::simplifyAng((*(_apActorFaceAng[ax])) +  _angveloFace[ax]);
         }
 
     }
 
-    //ActorÇ…îΩâf
-    _pActor->_rx = _angFace[AXIS_X];
-    _pActor->_ry = _angFace[AXIS_Y];
-    _pActor->_rz = _angFace[AXIS_Z];
 
     ///////////////////////////////////////////////////Mover
 
@@ -359,31 +357,6 @@ void GgafDxKuroko::behave() {
     _pActor->_z += (coord)(_vZ * _veloMv);
 }
 
-void GgafDxKuroko::setFaceAng(axis prm_axis, angle prm_angFace) {
-    _angFace[prm_axis] = UTIL::simplifyAng(prm_angFace);
-}
-
-void GgafDxKuroko::setFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz) {
-    UTIL::convVectorToRzRy(
-                   prm_tx - _pActor->_x,
-                   prm_ty - _pActor->_y,
-                   prm_tz - _pActor->_z,
-                   _angFace[AXIS_Z],
-                   _angFace[AXIS_Y]
-                 );
-}
-
-void GgafDxKuroko::addFaceAng(axis prm_axis, angle prm_angDistance) {
-    angle angOffsetrot_FaceAng;
-    angOffsetrot_FaceAng = prm_angDistance;
-    if (_angveloBottomFace[prm_axis] > prm_angDistance) {
-        angOffsetrot_FaceAng = _angveloBottomFace[prm_axis];
-    } else if (prm_angDistance > _angveloTopFace[prm_axis]) {
-        angOffsetrot_FaceAng = _angveloTopFace[prm_axis];
-    }
-    setFaceAng(prm_axis, _angFace[prm_axis] + angOffsetrot_FaceAng);
-}
-
 void GgafDxKuroko::setFaceAngVelo(axis prm_axis, angvelo prm_angveloRot) {
     if (prm_angveloRot > _angveloTopFace[prm_axis]) {
         _angveloFace[prm_axis] = _angveloTopFace[prm_axis];
@@ -451,7 +424,7 @@ angle GgafDxKuroko::getFaceAngDistance(axis prm_axis, coord prm_tx, coord prm_ty
 }
 
 angle GgafDxKuroko::getFaceAngDistance(axis prm_axis, angle prm_angTargetRot, int prm_way) {
-    return UTIL::getAngDiff(_angFace[prm_axis], prm_angTargetRot, prm_way);
+    return UTIL::getAngDiff( (*(_apActorFaceAng[prm_axis])),  prm_angTargetRot, prm_way);
 }
 
 void GgafDxKuroko::forceMvVeloRange(velo prm_velo) {
@@ -610,7 +583,7 @@ void GgafDxKuroko::setRzMvAng(angle prm_ang) {
         UTIL::convRzRyToVector(_angRzMv, _angRyMv, _vX, _vY, _vZ);
     }
     if (_relate_RzFaceAng_with_RzMvAng_flg) {
-        setFaceAng(AXIS_Z, _angRzMv);
+        _pActor->_rz = _angRzMv;
     }
 }
 
@@ -679,7 +652,7 @@ void GgafDxKuroko::setRyMvAng(angle prm_ang) {
         UTIL::convRzRyToVector(_angRzMv, _angRyMv, _vX, _vY, _vZ);
     }
     if (_relate_RyFaceAng_with_RyMvAng_flg) {
-        setFaceAng(AXIS_Y, _angRyMv);
+        _pActor->_ry = _angRyMv;
     }
 }
 
@@ -922,10 +895,10 @@ void GgafDxKuroko::setRzRyMvAng(angle prm_angRz, angle prm_angRy) {
         UTIL::convRzRyToVector(_angRzMv, _angRyMv, _vX, _vY, _vZ);
     }
     if (_relate_RzFaceAng_with_RzMvAng_flg) {
-        setFaceAng(AXIS_Z, _angRzMv);
+        _pActor->_rz = _angRzMv;
     }
     if (_relate_RyFaceAng_with_RyMvAng_flg) {
-        setFaceAng(AXIS_Y, _angRyMv);
+        _pActor->_ry = _angRyMv;
     }
 }
 
@@ -938,10 +911,10 @@ void GgafDxKuroko::setRzRyMvAng_by_RyRz(angle prm_angRyRz_Ry, angle prm_angRyRz_
     _vZ = out_vY;
     UTIL::convVectorToRzRy(_vX, _vZ, _vY, _angRzMv, _angRyMv);
     if (_relate_RzFaceAng_with_RzMvAng_flg) {
-        setFaceAng(AXIS_Z, _angRzMv);
+        _pActor->_rz = _angRzMv;
     }
     if (_relate_RyFaceAng_with_RyMvAng_flg) {
-        setFaceAng(AXIS_Y, _angRyMv);
+        _pActor->_ry = _angRyMv;
     }
 }
 
@@ -953,10 +926,10 @@ void GgafDxKuroko::setMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz) {
                            _vX, _vY, _vZ,
                            _angRzMv, _angRyMv );
     if (_relate_RzFaceAng_with_RzMvAng_flg) {
-        setFaceAng(AXIS_Z, _angRzMv);
+        _pActor->_rz = _angRzMv;
     }
     if (_relate_RyFaceAng_with_RyMvAng_flg) {
-        setFaceAng(AXIS_Y, _angRyMv);
+        _pActor->_ry = _angRyMv;
     }
 }
 
@@ -966,7 +939,7 @@ void GgafDxKuroko::reverseMvAng() {
     _vZ = -_vZ;
     _angRzMv = UTIL::simplifyAng(_angRzMv-D180ANG);
     if (_relate_RzFaceAng_with_RzMvAng_flg) {
-        setFaceAng(AXIS_Z, _angRzMv);
+        _pActor->_rz = _angRzMv;
     }
 }
 
@@ -1089,7 +1062,7 @@ void GgafDxKuroko::turnFaceAng(axis prm_axis,
     int s = SGN(prm_angular_distance);
     setFaceAngVelo(prm_axis, ABS(prm_angVelo)*s);
     setFaceAngAcce(prm_axis, ABS(prm_angAcce)*s);
-    setStopTargetFaceAng(prm_axis, _angFace[prm_axis] + prm_angular_distance);
+    setStopTargetFaceAng(prm_axis, (*(_apActorFaceAng[prm_axis])) + prm_angular_distance);
     _taget_face_ang_alltime_pActor = nullptr;
     _taget_face_ang_alltime_flg = false;
 }

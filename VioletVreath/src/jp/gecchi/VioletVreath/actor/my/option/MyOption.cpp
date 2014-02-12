@@ -520,10 +520,10 @@ void MyOption::processBehavior() {
     //ダミーのアクターを連結しようとしたがいろいろ難しい、Quaternion を使わざるを得ない（のではないか；）。
     //TODO:最適化すべし、Quaternionは便利だが避けたい。いつか汎用化
     GgafDxKuroko* const pOptionCtrler_pKuroko = pOptionCtrler_->_pKuroko;
-    float sin_rz = ANG_SIN(pOptionCtrler_pKuroko->_angFace[AXIS_Z]);
-    float cos_rz = ANG_COS(pOptionCtrler_pKuroko->_angFace[AXIS_Z]);
-    float sin_ry = ANG_SIN(pOptionCtrler_pKuroko->_angFace[AXIS_Y]);
-    float cos_ry = ANG_COS(pOptionCtrler_pKuroko->_angFace[AXIS_Y]);
+    float sin_rz = ANG_SIN(pOptionCtrler_->_rz);
+    float cos_rz = ANG_COS(pOptionCtrler_->_rz);
+    float sin_ry = ANG_SIN(pOptionCtrler_->_ry);
+    float cos_ry = ANG_COS(pOptionCtrler_->_ry);
     //全オプションを一つの塊としてOptionControllerを中心にWORLD変換のような旋廻
     coord X = cos_ry*cos_rz*x_org_ + cos_ry*-sin_rz*y_org_ + sin_ry*z_org_;
     coord Y = sin_rz*x_org_ + cos_rz*y_org_;
@@ -606,7 +606,7 @@ void MyOption::processBehavior() {
             GgafDxKuroko* const pShot_pKuroko = pShot->_pKuroko;
             _pSeTx->play3D(SE_FIRE_SHOT);
             pShot->positionAs(this);
-            pShot_pKuroko->setFaceAng(_rx, _ry, _rz);
+            pShot->setFaceAng(_rx, _ry, _rz);
             pShot_pKuroko->setRzRyMvAng(_rz, _ry);
         }
     }

@@ -58,7 +58,7 @@ void MyTorpedo::onActive() {
     _pStatus->reset();
     setAlpha(0.3);
     _sx = _sy = _sz = 100;
-    pScaler_->setScale(100);
+    setScale(100);
     pScaler_->scaleLinerStep(7000, 500);
     pKuroko->setFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
     if (pTarget_) {

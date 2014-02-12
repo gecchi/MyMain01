@@ -30,17 +30,19 @@ public: //_sx , _sy, _sz 操作関連 //////////////////////////////////////////////
     /** [r]対象アクター */
     GgafDxGeometricActor* const _pActor;
     /** [r/w]各軸のスケール(1000 で 1倍) */
-    int _scale[3]; //[0]:X軸、[1]:Y軸、[2]:Z軸。以降同様に  [3]・・・X軸、Y軸、Z軸の意
+//    int _scale[3]; //[0]:X軸、[1]:Y軸、[2]:Z軸。以降同様に  [3]・・・X軸、Y軸、Z軸の意
+
+    scale* _apActorScale[3];
     /** [r/w]各軸の目標のスケール */
-    int _target_scale[3];
+    scale _target_scale[3];
     /** [r/w]各軸のスケール上限 */
-    int _top_scale[3];
+    scale _top_scale[3];
     /** [r/w]各軸のスケール下限 */
-    int _bottom_scale[3];
+    scale _bottom_scale[3];
     /** [r/w]各軸の毎フレームのスケールの増分 */
-    int _velo_scale[3];
+    scalevelo _velo_scale[3];
     /** [r/w]各軸の毎フレームのスケールの増分の増分 */
-    int _acce_scale[3];
+    scaleacce _acce_scale[3];
     /** [r]各軸のループカウント（2で拡大縮小ワンセット、1ならば拡大or縮小の片道） */
     int _one_way_cnt[3];
     /** [r]各軸のストップする予定のループカウント */
@@ -68,51 +70,7 @@ public:
     GgafDxScaler(GgafDxGeometricActor* prm_pActor);
 
     /**
-     * スケールを相対指定（全軸指定）
-     * @param prm_scale_diff スケール値増分
-     */
-    inline void addScale(int prm_scale_diff) {
-        for (int a = 0; a < 3; a++) {
-            addScale((axis)a, prm_scale_diff);
-        }
-    }
-
-    /**
-     * スケールを相対指定（軸単位で指定）
-     * @param prm_axis 軸
-     * @param prm_scale_diff スケール値増分
-     */
-    inline void addScale(axis prm_axis, int prm_scale_diff) {
-        setScale(prm_axis, _scale[prm_axis] + prm_scale_diff);
-    }
-
-    /**
-     * スケールを絶対指定（全軸指定）
-     * @param prm_scale スケール値
-     */
-    inline void setScale(int prm_scale) {
-        for (int a = 0; a < 3; a++) {
-            setScale((axis)a, prm_scale);
-        }
-    }
-
-    /**
-     * スケールを絶対指定（軸単位で指定）
-     * @param prm_axis 軸
-     * @param prm_scale スケール値
-     */
-    inline void setScale(axis prm_axis, int prm_scale) {
-        if (_top_scale[prm_axis] < prm_scale) {
-            _scale[prm_axis] = _top_scale[prm_axis];
-        } else if (_bottom_scale[prm_axis] > prm_scale) {
-            _scale[prm_axis] = _bottom_scale[prm_axis];
-        } else {
-            _scale[prm_axis] = prm_scale;
-        }
-    }
-
-    /**
-     * スケールの上限下限を設定（全軸指定） .
+     * スケーラーによるスケールの上限下限を設定（全軸指定） .
      * 引数の大小は気にせず渡して(内部で自動判別)
      * @param prm_scale1 スケール値1
      * @param prm_scale2 スケール値2
@@ -120,12 +78,11 @@ public:
     void forceRange(int prm_scale1, int prm_scale2) {
         for (int a = 0; a < 3; a++) {
             forceRange((axis)a, prm_scale1, prm_scale2);
-            setScale((axis)a, _scale[a]);
         }
     }
 
     /**
-     * スケールの上限下限を設定（軸単位で指定）
+     * スケーラーによるスケールの上限下限を設定（軸単位で指定）
      * @param prm_axis 軸
      * @param prm_scale1 スケール値1
      * @param prm_scale2 スケール値2
@@ -140,36 +97,15 @@ public:
         }
     }
 
-    /**
-     * スケールをリセット （全軸指定） .
-     * 本オブジェクト(GgafDxScaler)によって変化さえる前の
-     * 初期の大きさに戻す。
-     */
-    void setScaleToBottom() {
-        for (int a = 0; a < 3; a++) {
-            setScaleToBottom((axis)a);
-        }
+    scale getTop(axis prm_axis)  {
+        return _top_scale[prm_axis];
+    }
+    scale getBottom(axis prm_axis)  {
+        return _bottom_scale[prm_axis];
     }
 
-    /**
-     * スケールをリセット （軸単位で指定）
-     * 本オブジェクト(GgafDxScaler)によって変化さえる前の
-     * 初期の大きさに戻す。
-     * @param prm_axis 軸
-     */
-    void setScaleToBottom(axis prm_axis) {
-        _scale[prm_axis] = _bottom_scale[prm_axis];
-    }
-
-    void setScaleToTop() {
-        for (int a = 0; a < 3; a++) {
-            setScaleToTop((axis)a);
-        }
-    }
-    void setScaleToTop(axis prm_axis) {
-        _scale[prm_axis] = _top_scale[prm_axis];
-    }
-
+    scale getTop();
+    scale getBottom();
     /**
      * スケーリングを停止させる。 （全軸指定） .
      */
@@ -254,7 +190,7 @@ public:
 
     /**
      * 反復等速スケーリング（全軸・フレーム数指定） .
-     * 目標のスケールへ一定速度でスケーリングし、一定速度で元に戻る。これをループ指定する。（１ループのフレーム数指定） .
+     * 上限スケールへ一定速度でスケーリングし、一定速度で下スケールへ戻る。これをループ指定する。（１ループのフレーム数指定） .
      * @param prm_beat_target_frames １ループ(変化して元に戻るまで)に費やすフレーム
      * @param prm_beat_num ループする回数(0.5 回単位で指定可能)
      */
@@ -262,7 +198,7 @@ public:
 
     /**
      * 反復等速スケーリング（軸単位・フレーム数指定）
-     * 目標のスケールへ一定速度でスケーリングし、一定速度で元に戻る。
+     * 上限スケールへ一定速度でスケーリングし、一定速度で下スケールへ戻る。
      * これをループ指定する。（１ループのフレーム数指定） .
      * @param prm_axis 軸
      * @param prm_beat_target_frames １ループ(変化して元に戻るまで)に費やすフレーム

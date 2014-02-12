@@ -29,9 +29,9 @@ void EffectTurbo002::onActive() {
     _pUvFlipper->setActivePtnToTop();
     setAlpha(0.4);
     pScaler_->forceRange(100000, 1000); //スケーリング・範囲
-    pScaler_->setScale(1000);
+    setScale(1000);
     pScaler_->scaleLinerUntil(100000, 60);//スケーリング・60F費やして1000に縮小
-    _pKuroko->setFaceAng(AXIS_Y, D90ANG);
+    setRyFaceAng(D90ANG);
     _pKuroko->setFaceAngVelo(AXIS_Z, 2000);
 }
 
