@@ -32,37 +32,33 @@ void EnemyErmioneArmHead::initialize() {
 }
 
 void EnemyErmioneArmHead::processBehavior() {
-    bool shot = false;
     if (_pProg->get() == PROG_NOTHING || _pProg->get() == PROG_AIMING) { //oŒ»ŠÔŠu
-        shot = true;
-        if (pDepoLaser_) {
-
-        } else {
+        if (!pDepoLaser_) {
             pDepoLaser_ = (LaserChipDepository*)UTIL::getDepositoryOf(this);
         }
+    } else {
+        pDepoLaser_ = nullptr;
     }
 
     EnemyErmioneArm::processBehavior();
+}
 
-    if (shot) { //oŒ»ŠÔŠu
-        LaserChip* pChip = nullptr;
-        if (pDepoLaser_) {
-            pChip = pDepoLaser_->dispatch();
-        }
-
+void EnemyErmioneArmHead::processSettlementBehavior() {
+    EnemyErmioneArm::processSettlementBehavior();
+    LaserChip* pChip = nullptr;
+    if (pDepoLaser_) {
+        pChip = pDepoLaser_->dispatch();
         if (pChip) {
             //DEPO_LASER001‚Ìê‡
             pChip->setFaceAng(_rx, _ry, _rz);
-            pChip->_pKuroko->setRzRyMvAng(_rz, _ry); //RzRy‚ÅMover‚ÉÝ’è
+            pChip->_pKuroko->setRzRyMvAng(_rz, _ry); //â‘ÎÀ•WŒn
             pChip->positionAs(this);
 
             //DEPO_LASER002‚Ìê‡
             //((StraightLaserChip*)pChip)->setSource(this);
         }
     }
-
 }
-
 
 void EnemyErmioneArmHead::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;

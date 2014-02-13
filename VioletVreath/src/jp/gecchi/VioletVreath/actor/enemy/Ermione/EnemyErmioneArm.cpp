@@ -39,6 +39,9 @@ void EnemyErmioneArm::onActive() {
 }
 
 void EnemyErmioneArm::processBehavior() {
+
+    changeGeoLocal(); //ローカル座標の操作とする。
+
     switch (_pProg->get()) {
         case PROG_INIT: {
             _pProg->change(PROG_WAITING);
@@ -86,18 +89,18 @@ void EnemyErmioneArm::processBehavior() {
                     //
                     //mvx mvy mvz を求める
                     int mvx,mvy,mvz;
-                    if (RND(1, 100) < 98) {
-                        //通常の自機を狙う方向ベクトル
+                    if (RND(1, 100) < 96) {
+                        //絶対座標系で通常の自機を狙う方向ベクトル
                         GgafDxGeometricActor* pTargetActor = P_MYSHIP;
-                        mvx = pTargetActor->_x - _x; //ここでの _x, _y, _z は絶対座標であることがポイント
-                        mvy = (pTargetActor->_y + PX_C(50)) - _y; //自機のやや上を狙う
-                        mvz = pTargetActor->_z - _z;
+                        mvx = pTargetActor->_x - _x_final; //ここで自身の _x, _y, _z は絶対座標(_x_final)であることがポイント
+                        mvy = (pTargetActor->_y + PX_C(50)) - _y_final; //自機のやや上を狙う
+                        mvz = pTargetActor->_z - _z_final;
                     } else {
                         //たま～に逆方向を目標にして、触手に動きを強要する
                         GgafDxGeometricActor* pTargetActor = P_MYSHIP;
-                        mvx = _x - pTargetActor->_x;
-                        mvy = _y - pTargetActor->_y;
-                        mvz = _z - pTargetActor->_z;
+                        mvx = _x_final - pTargetActor->_x;
+                        mvy = _y_final - pTargetActor->_y;
+                        mvz = _z_final - pTargetActor->_z;
                     }
                     //逆行列取得
                     D3DXMATRIX* pBaseInvMatRM = _pActor_Base->getInvMatWorldRotMv();
@@ -122,15 +125,10 @@ void EnemyErmioneArm::processBehavior() {
                         angRy_Target = D360ANG - aiming_movable_limit_ang_;
                     }
 
-                    _TRACE_("(_rz,_ry=("<<_rz<<","<<_ry<<" trz=("<<angRz_Target<<","<<angRy_Target<<")");
                     _pKuroko->turnRzRyFaceAngTo(
                                     angRz_Target, angRy_Target,
                                     aiming_ang_velo_, aiming_ang_velo_*0.04,
                                     TURN_CLOSE_TO, false);
-//                    _pKuroko->hlprB()->turnRzRyFaceAngByVdTo(
-//                            aiming_ang_velo_,
-//                            angRz_Target, angRy_Target, TURN_CLOSE_TO, false,
-//                            0.4, 0.6, 0, true);
                 }
             }
             if (_pKuroko->isTurningFaceAng()) {
@@ -139,11 +137,6 @@ void EnemyErmioneArm::processBehavior() {
                 _pProg->change(PROG_NOTHING);
             }
 
-//            if (_pKuroko->isTurningMvAng()) {
-//                // 待機
-//            } else {
-//                _pProg->change(PROG_NOTHING);
-//            }
             break;
         }
 
@@ -151,16 +144,6 @@ void EnemyErmioneArm::processBehavior() {
             break;
     }
 
-    //＜注意＞
-    //・GgafDxKuroko(_pKuroko)の behave() 以外メソッドは、常にローカル座標の操作とする。
-    //  behave()以外メソッドは実際に座標計算しているわけではないので、
-    //  changeGeoFinal()時、changeGeoLocal()時に関係なく、呼び出し可能。
-    //・GgafDxKuroko(_pKuroko)の behave() メソッドは座標を１フレーム後の状態にする計算を行う。
-    //  したがって、次のように ローカル座標時(changeGeoLocal()時)で呼び出す事とする。
-    //    changeGeoLocal();
-    //    _pKuroko->behave();
-    //    changeGeoFinal();
-    changeGeoLocal();
     _pKuroko->behave();
     changeGeoFinal();
     //pScaler_->behave();

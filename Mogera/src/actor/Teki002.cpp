@@ -18,6 +18,9 @@ Teki002::Teki002(const char* prm_name) :
         GgafLib::DefaultMeshActor(prm_name, "jiki") { //Guruguru.x ‚ªŽQÆ‚³‚ê‚éB
     pAxMvr_ = NEW GgafDxAxesMover(this);
     pScaler_ = NEW GgafDxScaler(this);
+
+    angRz_Target_ = 0;
+    angRy_Target_ = 0;
 }
 
 void Teki002::initialize() {
@@ -90,6 +93,32 @@ void Teki002::processBehavior() {
         pScaler_->beat(120, 30, 20, 3);
     }
 
+    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Z)) {
+        angRz_Target_ = D_ANG(RND(0,360-1));
+        angRy_Target_ = D_ANG(RND(0,360-1));
+    }
+    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_X)) {
+        angle aiming_ang_velo_ = D_ANG(1);
+        angle aiming_movable_limit_ang_ = D_ANG(45);
+        angle wkrz = angRz_Target_;
+        angle wkry = angRy_Target_;
+        if (aiming_movable_limit_ang_ <= angRz_Target_ && angRz_Target_ <= D180ANG) {
+            angRz_Target_ = aiming_movable_limit_ang_;
+        } else if (D180ANG <= angRz_Target_ && angRz_Target_ <= D360ANG - aiming_movable_limit_ang_) {
+            angRz_Target_ = D360ANG - aiming_movable_limit_ang_;
+        }
+        if (aiming_movable_limit_ang_ <= angRy_Target_ && angRy_Target_ <= D180ANG) {
+            angRy_Target_ = aiming_movable_limit_ang_;
+        } else if (D180ANG <= angRy_Target_ && angRy_Target_ <= D360ANG - aiming_movable_limit_ang_) {
+            angRy_Target_ = D360ANG - aiming_movable_limit_ang_;
+        }
+
+        _TRACE_("‘O("<<wkrz<<","<<wkry<<") Œã("<<angRz_Target_<<","<<angRy_Target_<<")");
+        _pKuroko->turnRzRyFaceAngTo(
+                        angRz_Target_, angRy_Target_,
+                        aiming_ang_velo_, aiming_ang_velo_*0.04,
+                        TURN_CLOSE_TO, false);
+    }
 //    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_C)) {
 //        position(-1000000,0,0);
 //        pAxMvr_->setVxMvVelo(-23643);

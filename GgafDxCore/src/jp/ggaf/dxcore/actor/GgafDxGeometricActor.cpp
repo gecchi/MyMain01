@@ -124,10 +124,11 @@ void GgafDxGeometricActor::processSettlementBehavior() {
     }
 
     //デフォルトでは、_matWorldRotMv = 回転変換行列 × 平行移動変換行列
-    //                _matWorld      = スケール変換行列 × _matWorldRotMv となるようにしている。
+    //                _matWorld      = 拡大縮小変換行列 × _matWorldRotMv となるようにしている。
     //つまり _matWorld = 拡大縮小＞回転＞平行移動
     //_matWorldRotMv は addSubGroupAsFk() 実行時に使用されるために作成している。
-    //従って addSubGroupAsFk() を使用しないならば、processSettlementBehavior() をオーバーライドし、
+    //従って addSubGroupAsFk() を絶対使用しないならば、_matWorldRotMvの計算は不要。
+    //processSettlementBehavior() をオーバーライドし、
     //変換行列作成をもっと単純化することで、少し最適化が可能。
 
     if (_pActor_Base) {
@@ -135,7 +136,7 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         D3DXMatrixMultiply(&_matWorld     , &_matWorld     , &(_pActor_Base->_matWorldRotMv)); //合成
         D3DXMatrixMultiply(&_matWorldRotMv, &_matWorldRotMv, &(_pActor_Base->_matWorldRotMv)); //合成
         changeGeoFinal();
-        //ワールド変換行列から飛行移動を取り出し最終的な座標とする
+        //ワールド変換行列×土台ワールド変換行列の「回転×移動」のみの積）から平行移動部分を取り出し最終的な座標とする
         _fX = _matWorld._41;
         _fY = _matWorld._42;
         _fZ = _matWorld._43;
@@ -143,14 +144,16 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         _y = DX_C(_fY);
         _z = DX_C(_fZ);
 
+        //ローカルでのface方向が合成済みのワールド変換行列の「回転×移動」のみの積(_matWorldRotMv)があるので、
+        //ベクトル(1,0,0)に合成済み変換行列を掛ければ最終的なface方向を得れる
         UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13, _rz, _ry);
+        _rx = _rx_local; //そのまま
 
         //TODO:絶対座標系の_rx, _ry, _rz に変換は保留
         //     現在の最終的な向きを、RzRyで取得求める方法は以下の通り、
         //     フレームワークでは _rx, _ry, _rz はどうでもよく変換行列があれば良い。
-        //     したがって計算をスキップできる。
-        //     UTIL::convVectorToRzRy() の計算負荷が無視できないと考えたため、ここで計算しない。
-        //     計算で求めるんならば以下の方法で行える
+        //     したがって計算をスキップできる場合もある。
+        //     UTIL::convVectorToRzRy() の計算負荷と相談。
         //
         //＜説明＞
         //方向ベクトルはワールド変換行列の積（_matWorldRotMv)で変換され、現在の最終的な向きに向く。
@@ -158,9 +161,9 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         //ワールド変換行列の回転部分の積（_matWorldRotMv)の成分を mat_xx、
         //最終的な方向ベクトルを(vX, vY, vZ) とすると
         //
-        //                      | mat_11 mat_12 mat_13 |
+        //                         | mat_11 mat_12 mat_13 |
         //| x_org_ y_org_ z_org_ | | mat_21 mat_22 mat_23 | = | vX vY vZ |
-        //                      | mat_31 mat_32 mat_33 |
+        //                         | mat_31 mat_32 mat_33 |
         //となる。
         //
         //vX = x_org_*mat_11 + y_org_*mat_21 + z_org_*mat_31
@@ -255,8 +258,8 @@ GgafGroupHead* GgafDxGeometricActor::addSubGroupAsFk(actorkind prm_kind,
     prm_pGeoActor->_rx = prm_rx_init_local;
     prm_pGeoActor->_ry = prm_ry_init_local;
     prm_pGeoActor->_rz = prm_rz_init_local;
-    prm_pGeoActor->_pKuroko->_angRzMv = prm_rz_init_local;
-    prm_pGeoActor->_pKuroko->_angRyMv = prm_ry_init_local;
+//    prm_pGeoActor->_pKuroko->_angRzMv = prm_rz_init_local;
+//    prm_pGeoActor->_pKuroko->_angRyMv = prm_ry_init_local;
 
     prm_pGeoActor->changeGeoFinal();
     return pGroupHead;

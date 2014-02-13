@@ -111,6 +111,7 @@ void* GgafFactory::obtain(uint64_t prm_order_id, GgafObject* prm_org) {
 
     if (pOrder == nullptr) {
         //注文が無いよエラー発生！、エラーメッセージを作る。
+        _TRACE_("GgafFactory::obtain 注文が無いよエラー発生！");
         debuginfo();
         std::string name_org;
         if (prm_org->instanceOf(Obj_GgafScene)) {
@@ -136,6 +137,7 @@ void* GgafFactory::obtain(uint64_t prm_order_id, GgafObject* prm_org) {
 #else
 
                     if (waittime > 1000*600) { //約10分
+                        _TRACE_("GgafFactory::obtain タイムアウトエラー発生！");
                         debuginfo();
                         //タイムアウトエラー発生！、エラーメッセージを作る。
                         std::string name_org;
@@ -150,7 +152,7 @@ void* GgafFactory::obtain(uint64_t prm_order_id, GgafObject* prm_org) {
                         } else if (pOrder->_pOrderer->instanceOf(Obj_GgafActor)) {
                             name_orderer = ((GgafActor*)pOrder->_pOrderer)->getName();
                         }
-                        throwGgafCriticalException("GgafFactory::obtain Error! ["<<prm_id<<"]の製造待ち時間タイムアウト、取得できません。\n"<<
+                        throwGgafCriticalException("GgafFactory::obtain Error! ["<<prm_order_id<<"]の製造待ち時間タイムアウト、取得できません。\n"<<
                                                    "何らかの理由でメインスレッドが停止している可能性が大きいです。"<<
                                                    "発注者(order呼び元)="<<name_orderer<<"("<<pOrder->_pOrderer<<")／受取人(obtain呼び元)="<<name_org<<"("<<prm_org<<")");
                     } else {
@@ -211,6 +213,7 @@ void* GgafFactory::obtain(uint64_t prm_order_id, GgafObject* prm_org) {
             }
         } else {
             if (pOrder->_is_last_order_flg) {
+                _TRACE_("GgafFactory::obtain 注文の形跡が無い、取得出来ないエラー発生！");
                 debuginfo();
                 //注文の形跡が無い、取得出来ないエラー発生！、エラーメッセージを作る。
                 std::string name_orderer;

@@ -24,6 +24,8 @@ public:
 
     void processBehavior() override;
 
+    void processSettlementBehavior() override;
+
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     virtual ~EnemyErmioneArmHead();

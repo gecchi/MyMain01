@@ -31,10 +31,10 @@ EnemyEmus::EnemyEmus(const char* prm_name) :
     frame_of_close_interval_ = 5*60;
     frame_of_morph_interval_ = 120;
 
-    pConn_LaserChipDepoStore_ = connect_DepositoryManager(
-             "EnemyEmusLaserChip001DepoStore"
-         );
-    pLaserChipDepoStore_ = (GgafActorDepositoryStore*)(pConn_LaserChipDepoStore_->peek());
+//    pConn_LaserChipDepoStore_ = connect_DepositoryManager(
+//             "EnemyEmusLaserChip001DepoStore"
+//         );
+//    pLaserChipDepoStore_ = (GgafActorDepositoryStore*)(pConn_LaserChipDepoStore_->peek());
     pLaserChipDepo_ = nullptr;
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
@@ -69,7 +69,7 @@ void EnemyEmus::onActive() {
 }
 
 void EnemyEmus::processBehavior() {
-
+    changeGeoLocal(); //計算はローカル座標系
     switch (_pProg->get()) {
         case PROG_INIT: {
             _pProg->change(PROG_HATCH_CLOSE);
@@ -102,29 +102,21 @@ void EnemyEmus::processBehavior() {
         }
         case PROG_FIRE: {
             if (_pProg->isJustChanged()) {
-                pLaserChipDepo_ = (LaserChipDepository*)(pLaserChipDepoStore_->dispatch()); //レーザーセット一本借り入れを試みる
+
+                if (!pLaserChipDepo_) {
+                    pLaserChipDepo_ = (LaserChipDepository*)UTIL::getDepositoryOf(this);
+                }
                 if(pLaserChipDepo_) {
                     is_firing_ = true; //レーザーセットの借り入れ出来た
                 } else {
                     is_firing_ = false; //レーザーセットが借りれなかった
                 }
             }
-            //オープン時レーザー
-            if (is_firing_) {
-                LaserChip* pChip = pLaserChipDepo_->dispatch();
-                if (pChip) {
-                    pChip->positionAs(this);
-                    angle rz, ry;  //現在の最終的な向きを、RzRyで取得する
-                    UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
-                                           rz, ry); //現在の最終的な向きを、RzRyで取得！
-                    pChip->_pKuroko->setRzRyMvAng(rz, ry); //RzRyでMoverに設定
-                } else {
-                    is_firing_ = false;
-                }
-            }
+
 
             if (_pProg->getFrameInProgress() >= (frame_of_morph_interval_/2) + frame_of_open_interval_) {
                 is_firing_ = false;
+                pLaserChipDepo_ = nullptr;
                 _pProg->change(PROG_HATCH_CLOSE);
             }
             break;
@@ -136,11 +128,22 @@ void EnemyEmus::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
     _pMorpher->behave();
-    //_pKurokoの計算はローカルで行う
-    changeGeoLocal();
     _pKuroko->behave();
     changeGeoFinal();
+}
 
+void EnemyEmus::processSettlementBehavior() {
+    DefaultMorphMeshActor::processSettlementBehavior();
+    //絶対座標が更新されてから～オープン時レーザー
+    if (is_firing_) {
+        LaserChip* pChip = pLaserChipDepo_->dispatch();
+        if (pChip) {
+            pChip->position(_x, _y, _z);
+            pChip->_pKuroko->setRzRyMvAng(_rz, _ry); //絶対座標系での向き
+        } else {
+            is_firing_ = false;
+        }
+    }
 }
 
 void EnemyEmus::processJudgement() {
@@ -174,5 +177,5 @@ void EnemyEmus::onInactive() {
 
 EnemyEmus::~EnemyEmus() {
     GGAF_DELETE(pScaler_);
-    pConn_LaserChipDepoStore_->close();
+//    pConn_LaserChipDepoStore_->close();
 }

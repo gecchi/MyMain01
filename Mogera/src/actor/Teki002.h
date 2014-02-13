@@ -16,6 +16,9 @@ public:
     GgafDxCore::GgafDxAxesMover* pAxMvr_;
     /** 拡大縮小支援オブジェクト */
     GgafDxCore::GgafDxScaler* pScaler_;
+
+    angle angRz_Target_;
+    angle angRy_Target_;
     /**
      * コンストラクタ
      * @param prm_name

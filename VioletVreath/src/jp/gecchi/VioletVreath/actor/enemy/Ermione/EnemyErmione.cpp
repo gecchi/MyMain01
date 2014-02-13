@@ -24,7 +24,7 @@ EnemyErmione::EnemyErmione(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Ermione", STATUS(EnemyErmione)) {
     _class_name = "EnemyErmione";
     pAFader_ = NEW GgafDxAlphaFader(this);
-    num_arm_ = 1; //腕の合計本数
+    num_arm_ = 6; //腕の合計本数
     num_arm_part_ = 11;  //各腕の節数（3以上）
     angle pos_rz[] = {D_ANG(0),   D_ANG(90),   D_ANG(180),  D_ANG(270), D_ANG(0) , D_ANG(0)  }; //生やす場所
     angle pos_ry[] = {D_ANG(0),   D_ANG(0),    D_ANG(0)  ,  D_ANG(0)  , D_ANG(90), D_ANG(270) };
@@ -80,7 +80,7 @@ EnemyErmione::EnemyErmione(const char* prm_name) :
             } else {
                 //節が根本以外場合
                 //先に行くほど可動範囲と回転スピードが大きくする（これで、FKなのにIKっぽくも見える！）
-                paArm_[arm].papArmPart_[i]->config(D_ANG(10+(i*5)), 100+(i*50));
+                paArm_[arm].papArmPart_[i]->config(D_ANG(10+(i*2.5)), 20+(i*60));
                 //一つ前の腕の節を土台とするFK設定
                 paArm_[arm].papArmPart_[i-1]->addSubGroupAsFk(
                                                paArm_[arm].papArmPart_[i],

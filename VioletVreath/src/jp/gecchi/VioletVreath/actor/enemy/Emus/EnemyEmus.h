@@ -40,10 +40,10 @@ public:
     /** [r/w]ハッチ開＞閉 及び、閉＞開 のモーフアニメーションフレーム数 */
     frame frame_of_morph_interval_;
 
-    /** [r]レーザーセットのストアー(レーザーチップのデポジトリのデポジトリ) */
-    GgafCore::GgafActorDepositoryStore* pLaserChipDepoStore_;
-    /** [r]デポジトリマネージャーへの接続 */
-    DepositoryConnection* pConn_LaserChipDepoStore_;
+//    /** [r]レーザーセットのストアー(レーザーチップのデポジトリのデポジトリ) */
+//    GgafCore::GgafActorDepositoryStore* pLaserChipDepoStore_;
+//    /** [r]デポジトリマネージャーへの接続 */
+//    DepositoryConnection* pConn_LaserChipDepoStore_;
     /** [r]レーザーセット(レーザーチップのデポジトリ) */
     GgafLib::LaserChipDepository* pLaserChipDepo_;
 
@@ -75,6 +75,8 @@ public:
      * エムスの振る舞い .
      */
     void processBehavior() override;
+
+    void processSettlementBehavior() override;
     /**
      * エムスの振る舞い後の判定処理 .
      */

@@ -65,6 +65,9 @@ void EnemyOmulus::onActive() {
 }
 
 void EnemyOmulus::processBehavior() {
+    //ローカルで計算を行う
+    changeGeoLocal();
+
     //ボーンにあたるアクターのメモ
     //_x, _y, _z, _rx, _ry, _rz について２つの座標系セットを切り替えが必要な仕様です。
     //それぞれローカル座標、最終（絶対）座標と呼ぶことにします。
@@ -133,48 +136,10 @@ void EnemyOmulus::processBehavior() {
         case PROG_HATCH_OPEN: {
             if (_pProg->isJustChanged()) {
                 _pMorpher->morphLinerUntil(MORPHTARGET_HATCH_OPEN,
-                                                1.0f, frame_of_morph_interval_);
+                                           1.0f, frame_of_morph_interval_);
                 _pKuroko->setFaceAngVelo(AXIS_X, 0);
             }
-
-            //オープン時敵出現処理
-            if (_pMorpher->_weight[MORPHTARGET_HATCH_OPEN] > 0.5) { //モーションが半分以上まで到達したなら
-                if (_pProg->getFrameInProgress() % (frame)(RF_EnemyOmulus_ShotInterval(G_RANK)) == 0) { //出現間隔
-                    if (pDepo_Fired_) {
-                        GgafDxDrawableActor* pActor = (GgafDxDrawableActor*)pDepo_Fired_->dispatch();
-                        if (pActor) {
-                            //＜現在の最終的な向きを、RzRyで取得する＞
-                            //方向ベクトルはワールド変換行列の積（_matWorldRotMv)で変換され、現在の最終的な向きに向く。
-                            //元の方向ベクトルを(x_org_,y_org_,z_org_)、
-                            //ワールド変換行列の回転部分の積（_matWorldRotMv)の成分を mat_xx、
-                            //最終的な方向ベクトルを(vX, vY, vZ) とすると
-                            //
-                            //                          | mat_11 mat_12 mat_13 |
-                            // | x_org_ y_org_ z_org_ | | mat_21 mat_22 mat_23 | = | vX vY vZ |
-                            //                          | mat_31 mat_32 mat_33 |
-                            //
-                            //vX = x_org_*mat_11 + y_org_*mat_21 + z_org_*mat_31
-                            //vY = x_org_*mat_12 + y_org_*mat_22 + z_org_*mat_32
-                            //vZ = x_org_*mat_13 + y_org_*mat_23 + z_org_*mat_33
-                            //
-                            //さてここで、元々が前方の単位方向ベクトル(1,0,0)の場合はどうなるか考えると
-                            //
-                            //vX = x_org_*mat_11
-                            //vY = x_org_*mat_12
-                            //vZ = x_org_*mat_13
-                            //
-                            //となる。本アプリでは、モデルは全て(1,0,0)を前方としているため
-                            //最終的な方向ベクトルは（x_org_*mat_11, x_org_*mat_12, x_org_*mat_13) である。
-                            angle Rz, Ry;
-                            UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
-                                                   Rz, Ry); //現在の最終的な向きを、RzRyで取得！
-                            pActor->_pKuroko->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
-                            pActor->positionAs(this);
-                            pActor->reset();
-                        }
-                    }
-                }
-            }
+            //processJudgement()でショット発射
             if (_pProg->getFrameInProgress() >= frame_of_open_interval_+ frame_of_morph_interval_) {
                 _pProg->change(PROG_HATCH_CLOSE);
             }
@@ -186,56 +151,76 @@ void EnemyOmulus::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
-    if (getActiveFrame() % 10U == 0                   && 1 == 2) {
-        //自機へ方向を向ける
-        //考え方：ローカル座標系で予めどの方向に向いておけば、最終的に自機に向くことになるかを求める
-        //
-        //自機への向くための変換前状態でのターゲット位置を(tvx, tvy, tvz) とおき、
-        //「土台まで」の行列の積（_pActor_Base->_matWorldRotMv) を b_mat_xx とする。
-        //現在の最終座標から自機への向きのベクトルを、(mvx, mvy, mvz) とすると、
-        //
-        //                | b_mat_11 b_mat_12 b_mat_13 |
-        //| tvx tvy tvz | | b_mat_21 b_mat_22 b_mat_23 | = | mvx mvy mvz |
-        //                | b_mat_31 b_mat_32 b_mat_33 |
-        //
-        //となる。ローカル座標で(tvx, tvy, tvz) の方向を向けると、
-        //最終的に自機に向くことになる。
-        //逆行列を掛けて(tvx, tvy, tvz) を求めれば良い
-        //
-        //                                   | b_mat_11 b_mat_12 b_mat_13 | -1
-        // | tvx tvy tvz | = | mvx mvy mvz | | b_mat_21 b_mat_22 b_mat_23 |
-        //                                   | b_mat_31 b_mat_32 b_mat_33 |
-        //
-
-        //mvx mvy mvz を求める
-        int mvx = P_MYSHIP->_x - _x;
-        int mvy = P_MYSHIP->_y - _y;
-        int mvz = P_MYSHIP->_z - _z;
-        //逆行列取得
-        D3DXMATRIX* pBaseInvMatRM = _pActor_Base->getInvMatWorldRotMv();
-        //ローカル座標でのターゲットとなる方向ベクトル計算
-        int tvx = mvx*pBaseInvMatRM->_11 + mvy*pBaseInvMatRM->_21 + mvz * pBaseInvMatRM->_31;
-        int tvy = mvx*pBaseInvMatRM->_12 + mvy*pBaseInvMatRM->_22 + mvz * pBaseInvMatRM->_32;
-        int tvz = mvx*pBaseInvMatRM->_13 + mvy*pBaseInvMatRM->_23 + mvz * pBaseInvMatRM->_33;
-        //自動方向向きシークエンス開始
-        angle angRz_Target, angRy_Target;
-        UTIL::convVectorToRzRy(tvx, tvy, tvz, angRz_Target, angRy_Target);
-        _pKuroko->turnRzRyMvAngTo(angRz_Target, angRy_Target,
-                                   1000, 0,
-                                   TURN_CLOSE_TO, false);
-    }
+//    if (getActiveFrame() % 10U == 0                   && 1 == 2) {
+//        //自機へ方向を向ける
+//        //考え方：ローカル座標系で予めどの方向に向いておけば、最終的に自機に向くことになるかを求める
+//        //
+//        //自機への向くための変換前状態でのターゲット位置を(tvx, tvy, tvz) とおき、
+//        //「土台まで」の行列の積（_pActor_Base->_matWorldRotMv) を b_mat_xx とする。
+//        //現在の最終座標から自機への向きのベクトルを、(mvx, mvy, mvz) とすると、
+//        //
+//        //                | b_mat_11 b_mat_12 b_mat_13 |
+//        //| tvx tvy tvz | | b_mat_21 b_mat_22 b_mat_23 | = | mvx mvy mvz |
+//        //                | b_mat_31 b_mat_32 b_mat_33 |
+//        //
+//        //となる。ローカル座標で(tvx, tvy, tvz) の方向を向けると、
+//        //最終的に自機に向くことになる。
+//        //逆行列を掛けて(tvx, tvy, tvz) を求めれば良い
+//        //
+//        //                                   | b_mat_11 b_mat_12 b_mat_13 | -1
+//        // | tvx tvy tvz | = | mvx mvy mvz | | b_mat_21 b_mat_22 b_mat_23 |
+//        //                                   | b_mat_31 b_mat_32 b_mat_33 |
+//        //
+//
+//        //mvx mvy mvz を求める
+//        int mvx = P_MYSHIP->_x - _x;
+//        int mvy = P_MYSHIP->_y - _y;
+//        int mvz = P_MYSHIP->_z - _z;
+//        //逆行列取得
+//        D3DXMATRIX* pBaseInvMatRM = _pActor_Base->getInvMatWorldRotMv();
+//        //ローカル座標でのターゲットとなる方向ベクトル計算
+//        int tvx = mvx*pBaseInvMatRM->_11 + mvy*pBaseInvMatRM->_21 + mvz * pBaseInvMatRM->_31;
+//        int tvy = mvx*pBaseInvMatRM->_12 + mvy*pBaseInvMatRM->_22 + mvz * pBaseInvMatRM->_32;
+//        int tvz = mvx*pBaseInvMatRM->_13 + mvy*pBaseInvMatRM->_23 + mvz * pBaseInvMatRM->_33;
+//        //自動方向向きシークエンス開始
+//        angle angRz_Target, angRy_Target;
+//        UTIL::convVectorToRzRy(tvx, tvy, tvz, angRz_Target, angRy_Target);
+//        _pKuroko->turnRzRyMvAngTo(angRz_Target, angRy_Target,
+//                                   1000, 0,
+//                                   TURN_CLOSE_TO, false);
+//    }
 
     pScaler_->behave();
     _pMorpher->behave();
 
-    //_pKurokoの計算はローカルで行う
-    changeGeoLocal();
     _pKuroko->behave();
     changeGeoFinal();
-
 }
-
+void EnemyOmulus::processSettlementBehavior() {
+    DefaultMorphMeshActor::processSettlementBehavior();
+    //絶対座標が更新されてから～
+    switch (_pProg->get()) {
+        case PROG_HATCH_OPEN: {
+            //オープン時敵出現処理
+            if (_pMorpher->_weight[MORPHTARGET_HATCH_OPEN] > 0.5) { //モーションが半分以上まで到達したなら
+                if (_pProg->getFrameInProgress() % (frame)(RF_EnemyOmulus_ShotInterval(G_RANK)) == 0) { //出現間隔
+                    if (pDepo_Fired_) {
+                        GgafDxDrawableActor* pActor = (GgafDxDrawableActor*)pDepo_Fired_->dispatch();
+                        if (pActor) {
+                            pActor->_pKuroko->setRzRyMvAng(_rz, _ry); //絶対座標系での向き
+                            pActor->position(_x, _y, _z);
+                            pActor->reset();
+                        }
+                    }
+                }
+            }
+        }
+        default :
+            break;
+    }
+}
 void EnemyOmulus::processJudgement() {
+
     if (_pActor_Base != nullptr && _pActor_Base->isActiveInTheTree()) {
 //        (*(_pActor_Base->_pFunc_calcRotMvWorldMatrix))(_pActor_Base, _matWorld);
     } else {

@@ -4,6 +4,10 @@
 
 namespace VioletVreath {
 
+/**
+ * エムス用レーザーチップ .
+ * 汎用レーザーに切り替えたので現在未使用
+ */
 class EnemyEmusLaserChip001 : public GgafLib::WateringLaserChip {
 
 public:

@@ -1319,7 +1319,7 @@ GgafStatus* MyStgUtil::resetEnemyEmusStatus(GgafStatus* p) {
 	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
 	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
 	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+	p->set(STAT_DepositoryKind, DEPO_LASER001);  //デポジトリ種別
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
