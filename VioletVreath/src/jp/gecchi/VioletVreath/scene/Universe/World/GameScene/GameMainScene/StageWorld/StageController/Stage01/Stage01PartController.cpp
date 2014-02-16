@@ -28,7 +28,7 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 10;
 	orderSceneToFactory(10000000, Stage01_01, "Stage01_01-1");
-	orderActorToFactory(10000005, EnemyErmione, "EnemyErmione-2");
+	orderActorToFactory(10000005, EnemyHisbe, "EnemyHisbe-2");
     // gen01 end
     useProgress(Stage01PartController::PROG_BANPEI-1);
 }
@@ -53,7 +53,7 @@ void Stage01PartController::processBehavior() {
 				break;
 			}
 			case 500: {
-				EnemyErmione* p = (EnemyErmione*)obtainActorFromFactory(10000005);
+				EnemyHisbe* p = (EnemyHisbe*)obtainActorFromFactory(10000005);
 				getSceneDirector()->addSubGroup(p);
 				p->_x = 500000;
 				p->_y = 0;

@@ -381,7 +381,7 @@ public:
 	static GgafCore::GgafStatus* resetEnemyApphoStatus(GgafCore::GgafStatus* p);
 	//アンティオペ
 	static GgafCore::GgafStatus* resetEnemyAntiopeStatus(GgafCore::GgafStatus* p);
-	//デルハイド
+	//デルヘイド
 	static GgafCore::GgafStatus* resetEnemyDelheidStatus(GgafCore::GgafStatus* p);
 	//アリサナ
 	static GgafCore::GgafStatus* resetEnemyAlisanaStatus(GgafCore::GgafStatus* p);

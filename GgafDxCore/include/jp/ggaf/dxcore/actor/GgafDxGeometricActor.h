@@ -438,8 +438,8 @@ public:
     void setFaceAng(angle prm_axis_x_angFace,
                     angle prm_axis_y_angFace,
                     angle prm_axis_z_angFace) {
-        setRyFaceAng(prm_axis_x_angFace);
-        setRxFaceAng(prm_axis_y_angFace);
+        setRxFaceAng(prm_axis_x_angFace);
+        setRyFaceAng(prm_axis_y_angFace);
         setRzFaceAng(prm_axis_z_angFace);
     }
     /**

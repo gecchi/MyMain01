@@ -5,7 +5,7 @@
 namespace VioletVreath {
 
 /**
- * 敵機デルハイド用フォーメーション基底 .
+ * 敵機デルヘイド用フォーメーション基底 .
  * @version 1.00
  * @since 2013/04/15
  * @author Masatoshi Tsuge
@@ -26,9 +26,9 @@ public:
     };
 
 
-    /** デルハイド借り入れ元Depository資源への接続 */
+    /** デルヘイド借り入れ元Depository資源への接続 */
     DepositoryConnection* pConn_DelheidDepo_;
-    /** デルハイドの発射弾の借り入れ元Depository資源への接続 */
+    /** デルヘイドの発射弾の借り入れ元Depository資源への接続 */
     DepositoryConnection* pConn_ShotDepo_;
     /** 始点・終点の座標計算のためのダミー */
     EnemyDelheid* pDummy_;

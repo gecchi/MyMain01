@@ -5,7 +5,7 @@
 namespace VioletVreath {
 
 /**
- * 敵機デルハイド .
+ * 敵機デルヘイド .
  * 超連射68Kの３面の連なった編隊の敵の改！
  * @version 1.00
  * @since 2013/04/15
@@ -63,27 +63,27 @@ public:
                 GgafCore::GgafActorDepository* prm_pDepoShot);
 
     /**
-     * デルハイドの初期処理（インスタンス生成後保証）
+     * デルヘイドの初期処理（インスタンス生成後保証）
      */
     void initialize() override;
 
     /**
-     * デルハイドのがアクティブになった瞬間の処理 .
+     * デルヘイドのがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 
     /**
-     * デルハイドの振る舞い .
+     * デルヘイドの振る舞い .
      */
     void processBehavior() override;
 
     /**
-     * デルハイドの振る舞い後の判定処理 .
+     * デルヘイドの振る舞い後の判定処理 .
      */
     void processJudgement() override;
 
     /**
-     * デルハイドの衝突時処理 .
+     * デルヘイドの衝突時処理 .
      * @param prm_pOtherActor 衝突対象
      */
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;

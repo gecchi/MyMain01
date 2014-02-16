@@ -277,10 +277,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\ggaf\core\util\GgafQuery.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\jp\ggaf\core\util\GgafRepeatSeq.cpp"
 				>
 			</File>
@@ -298,6 +294,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\ggaf\core\util\GgafStasus.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\ggaf\core\util\GgafTable.cpp"
 				>
 			</File>
 			<File
@@ -467,10 +467,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\core\util\GgafQuery.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\jp\ggaf\core\util\GgafRepeatSeq.h"
 				>
 			</File>
@@ -496,6 +492,10 @@
 			</File>
 			<File
 				RelativePath=".\include\jp\ggaf\core\util\GgafStatus.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\jp\ggaf\core\util\GgafTable.h"
 				>
 			</File>
 			<File

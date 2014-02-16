@@ -7,7 +7,7 @@
 namespace VioletVreath {
 
 /**
- * 敵機デルハイド用フォーメーション001グループ .
+ * 敵機デルヘイド用フォーメーション001グループ .
  * @version 1.00
  * @since 2013/04/15
  * @author Masatoshi Tsuge

@@ -166,7 +166,7 @@ enum {
 // アテンティオペ編隊001(FormationAntiope001) のランク式
 #define RF_FormationAntiope001_Num(X)  (300+(X)*300)  //隊数
 #define RF_FormationAntiope001_LaunchInterval(X)  (2 + (2 - ((X)>1.0?1.0:(X))*2))  //出現間隔
-// デルハイド編隊(FormationDelheid) のランク式
+// デルヘイド編隊(FormationDelheid) のランク式
 #define RF_FormationDelheid_Num(X)  (30+(X)*10)  //隊数
 #define RF_FormationDelheid_MvVelo(X)  (10000 + (X)*10000)  //移動速度
 #define RF_FormationDelheid_ShotWay(X)  (7+(X)*5)  //発射弾(Way)数
