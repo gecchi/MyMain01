@@ -153,7 +153,7 @@ pStore_EnemyStraightLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_Enem
     //汎用Wateringレーザー
     {
         LaserChipDepository* pLaserChipDepo;
-        for (int laser_no = 0; laser_no < 100; laser_no++) { //セット本数
+        for (int laser_no = 0; laser_no < 8; laser_no++) { //セット本数
             std::string name_depo = "LaserChipDepo["+XTOS(laser_no)+"]";
             pLaserChipDepo = NEW LaserChipDepository(name_depo.c_str());
             for (int chip_no = 0; chip_no < 100; chip_no++) { //１本の長さ

@@ -144,7 +144,7 @@ public:
      * @param prm_target_scale 目標スケール
      * @param prm_spend_frame 費やすフレーム数
      */
-    void scaleLinerUntil(axis prm_axis, int prm_target_scale, frame prm_spend_frame);
+    void scaleLinerUntil(axis prm_axis, scale prm_target_scale, frame prm_spend_frame);
 
     /**
      * 片道等速スケーリング（全軸・スケール速度指定） .
@@ -152,7 +152,7 @@ public:
      * @param prm_target_scale 目標スケール
      * @param prm_velo_scale 毎フレーム加算するスケール差分(>0.0)。正のスケールを指定する事。加算か減算かは自動判断する。
      */
-    void scaleLinerStep(int prm_target_scale, int prm_velo_scale);
+    void scaleLinerStep(scale prm_target_scale, int prm_velo_scale);
 
     /**
      * 片道等速スケーリング（軸単位・スケール速度指定） .
@@ -161,7 +161,7 @@ public:
      * @param prm_target_scale 目標スケール
      * @param prm_velo_scale 毎フレーム加算するスケール差分(>0.0)。正のスケールを指定する事。加算か減算かは自動判断する。
      */
-    void scaleLinerStep(axis prm_axis, int prm_target_scale, int prm_velo_scale);
+    void scaleLinerStep(axis prm_axis, scale prm_target_scale, scalevelo prm_velo_scale);
 
     /**
      * 片道加速スケーリング（全軸・スケール速度・スケール加速度指定） .
@@ -174,7 +174,7 @@ public:
      * @param prm_velo_scale 初期スケール速度
      * @param prm_acce_scale スケール加速度
      */
-    void scaleAcceStep(int prm_target_scale, int prm_velo_scale, int prm_acce_scale);
+    void scaleAcceStep(scale prm_target_scale, scalevelo prm_velo_scale, scaleacce prm_acce_scale);
 
     /**
      * 片道加速スケーリング（軸単位・スケール速度・スケール加速度指定） .
@@ -186,7 +186,7 @@ public:
      * @param prm_velo_scale 初期スケール速度
      * @param prm_acce_scale スケール加速度
      */
-    void scaleAcceStep(axis prm_axis, int prm_target_scale, int prm_velo_scale, int prm_acce_scale);
+    void scaleAcceStep(axis prm_axis, scale prm_target_scale, scalevelo prm_velo_scale, scaleacce prm_acce_scale);
 
     /**
      * 反復等速スケーリング（全軸・フレーム数指定） .

@@ -31,7 +31,6 @@ private:
      * @param prm_pArg1	»‘¢ˆ—‚ğs‚¤ŠÖ”‚Ö‚Ìˆø”1
      * @param prm_pArg2	»‘¢ˆ—‚ğs‚¤ŠÖ”‚Ö‚Ìˆø”2
      * @param prm_pArg3	»‘¢ˆ—‚ğs‚¤ŠÖ”‚Ö‚Ìˆø”3
-     *
      */
     static void order(uint64_t prm_order_id,
                       GgafObject* (*prm_pFunc)(void*, void*, void*),
@@ -137,8 +136,8 @@ public:
                          void* prm_pArg2,
                          void* prm_pArg3,
                          GgafObject* prm_org) {
-        order(UINT_MAX, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pArg1, prm_pArg2, prm_pArg3);
-        return (X*)(obtain(UINT_MAX, prm_org));
+        order(_UI64_MAX, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pArg1, prm_pArg2, prm_pArg3);
+        return (X*)(obtain(_UI64_MAX, prm_org));
     }
 
 
