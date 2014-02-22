@@ -381,40 +381,17 @@ public:
 
     virtual void positionAboutAs(GgafDxGeoElem* prm_pGeoElem, coord margin);
 
-
-    virtual void rotate(angle rx, angle ry, angle rz) {
-        _rx = rx;
-        _ry = ry;
-        _rz = rz;
-    }
-
-    virtual void face(angle rz, angle ry) {
-        _rz = rz;
-        _ry = ry;
-    }
-
-
-
-
     /**
      * 回転角度 _rx, _ry, _rz をコピーして設定 .
      * @param prm_pActor コピー元アクター
      */
-    virtual void rotateAs(GgafDxGeometricActor* prm_pActor);
+    virtual void setFaceAngAs(GgafDxGeometricActor* prm_pActor);
 
     /**
      * 回転角度 _rx, _ry, _rz をコピーして設定 .
      * @param prm_pGeoElem 座標オブジェクト
      */
-    virtual void rotateAs(GgafDxGeoElem* prm_pGeoElem);
-
-
-
-
-
-
-
-
+    virtual void setFaceAngAs(GgafDxGeoElem* prm_pGeoElem);
 
 
 

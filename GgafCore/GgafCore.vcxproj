@@ -264,6 +264,8 @@
     <ClInclude Include="include\jp\ggaf\core\scene\GgafUniverse.h" />
     <ClInclude Include="include\jp\ggaf\core\util\ggaftable.h" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafUtil.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\GgafValueAccelerator.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\util\GgafValueTransitioner.hpp" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -27,16 +27,16 @@ void GgafActorDepositoryStore::put(GgafActor* prm_pSub) {
 }
 
 void GgafActorDepositoryStore::processFinal() {
-    GgafActorDepository* pSubDepository = (GgafActorDepository*)getSubFirst();
-    while (true) {
+    GgafActor* pSubDepository = getSubFirst(); //子はデポジトリのはず
+    while (pSubDepository) {
         if (pSubDepository->_is_active_flg && !(pSubDepository->_will_inactivate_after_flg)) {
             bool is_inactive_all = false; //全メンバーが非活動の場合true
-            GgafMainActor* pActor = (GgafMainActor*)(pSubDepository->getSubFirst()->getPrev()); //お尻から見る(アクティブは後ろに回されているためブレイク確立が高い）
+            GgafActor* pActor = pSubDepository->getSubFirst()->getPrev(); //お尻から見る(アクティブは後ろに回されているためブレイク確立が高い）
             while (true) {
                 if (pActor->_is_active_flg || pActor->_will_activate_after_flg) {
-                //dispatch の
-                //if (pActor->_is_active_flg == false && pActor->_will_activate_after_flg == false) {
-                //の対偶の条件で判定すること。
+                    //dispatch の
+                    //if (pActor->_is_active_flg == false && pActor->_will_activate_after_flg == false) {
+                    //の対偶の条件で判定すること。
                     break;
                 }
                 if (pActor->_is_first_flg) {
@@ -53,6 +53,7 @@ void GgafActorDepositoryStore::processFinal() {
         if (pSubDepository->_is_last_flg) {
             break;
         }
-        pSubDepository = (GgafActorDepository*)(pSubDepository->getNext());
+        pSubDepository = pSubDepository->getNext();
     }
 }
+

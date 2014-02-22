@@ -55,7 +55,7 @@ void MyWave001::processBehavior() {
     if (onChangeToActive()) {
         //oŒ»Žž‹¤’Êˆ—
         setScale(1000);
-        pScaler_->scaleLinerStep(100000,100);
+        pScaler_->transitionLinerStep(100000,100);
         pScaler_->behave();
         setHitAble(true);
         positionAs(P_MYSHIP);

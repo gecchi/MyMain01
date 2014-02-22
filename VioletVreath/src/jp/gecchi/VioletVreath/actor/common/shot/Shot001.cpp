@@ -40,7 +40,7 @@ void Shot001::onActive() {
     _pKuroko->setMvVelo(RF_Shot001_MvVelo(G_RANK));    //ˆÚ“®‘¬“x
     _pKuroko->setFaceAngVelo(AXIS_X, RF_Shot001_AngVelo(G_RANK)); //‚«‚è‚à‚Ý‹ï‡
     pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION);
-    pScaler_->beat(30,5,2,-1);
+    pScaler_->beat(30,5,0,2,-1);
 }
 
 void Shot001::processBehavior() {

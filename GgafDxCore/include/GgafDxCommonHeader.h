@@ -122,6 +122,9 @@ enum {
 typedef int axis;
 
 
+#define MAX_SCALE (2147483647)
+
+
 /** アプリの座標 → DirectX座標 変換 */
 #define C_DX(X)  ( (dxcoord)((X) * (1.0 / (LEN_UNIT * PX_UNIT))) )
 /** DirectX座標 → アプリの座標 変換 */
@@ -149,6 +152,8 @@ typedef int axis;
 #define SC_R(X) ( (float)((X) * (1.0 / LEN_UNIT)) )
 /** 拡大率 → アプリのスケール値 変換 */
 #define R_SC(X) ( (scale)((X) * LEN_UNIT) )
+
+
 
 /** 度数法 0 度に対応するアプリのアングル値定数 */
 #define D0ANG   (0)
@@ -420,9 +425,6 @@ class GgafDxScene;
 class GgafDxUniverse;
 
 class GgafDxUtil;
-
-template<class T>
-class GgafDxAccelerator;
 
 class GgafDxAgainstWay;
 class GgafDxSphereRadiusVectors;

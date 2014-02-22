@@ -38,7 +38,7 @@ FormationThagoras::FormationThagoras(const char* prm_name,
 }
 void FormationThagoras::initialize() {
     pScaler_->forceRange(R_SC(1.0), R_SC(2.0));
-    pScaler_->beat(50, 10, 1, -1);
+    pScaler_->beat(50, 10, 0, 40, -1);
 }
 
 void FormationThagoras::onActive() {

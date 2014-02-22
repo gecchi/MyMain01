@@ -132,7 +132,7 @@ void MyOptionController::processBehavior() {
 
     if ( ignite_option_cnt_ == (MyOptionController::now_option_num_ - no_)*10) { //最初のオプションほどカウントが多く必要
         //発射点火OK時の処理
-        pOption_->pEffect_->pScaler_->beat(8, 4, 0, 1); //オプションぷるぷる、発射じゅんびOKのエフェクト
+        pOption_->pEffect_->pScaler_->beat(8, 4, 0, 4, 1); //オプションぷるぷる、発射じゅんびOKのエフェクト
         was_ignited_option_ = true;
     }
     //点火OKの時に VB_OPTION + VB_TURBO離しで発射

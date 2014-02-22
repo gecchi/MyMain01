@@ -30,7 +30,7 @@ void EffectTurbo002::onActive() {
     setAlpha(0.4);
     pScaler_->forceRange(100000, 1000); //スケーリング・範囲
     setScale(1000);
-    pScaler_->scaleLinerUntil(100000, 60);//スケーリング・60F費やして1000に縮小
+    pScaler_->transitionLinerUntil(100000, 60);//スケーリング・60F費やして1000に縮小
     setRyFaceAng(D90ANG);
     _pKuroko->setFaceAngVelo(AXIS_Z, 2000);
 }

@@ -2,7 +2,7 @@
 #define MIKATA001_H_
 #include "jp/ggaf/lib/actor/DefaultMeshActor.h"
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
-#include "jp/ggaf/dxcore/util/GgafDxAccelerator.hpp"
+#include "jp/ggaf/core/util/GgafValueAccelerator.hpp"
 
 namespace Mogera {
 

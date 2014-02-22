@@ -34,7 +34,7 @@ void VvvCursor::initialize() {
     _x = _y = _z = 0; //(0,0,0) は画面の中心
     _pKuroko->_angveloFace[AXIS_Z] = 1000;
     pScaler_->forceRange(2000, 4000);
-    pScaler_->beat(30, 2, 2, -1); //無限ループ
+    pScaler_->beat(30, 2, 0, 28, -1); //無限ループ
     pAFader_->setAlpha(0);
 }
 

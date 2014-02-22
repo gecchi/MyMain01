@@ -2,7 +2,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpherHelperA.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
-#include "jp/ggaf/dxcore/util/GgafDxAccelerator.hpp"
+#include "jp/ggaf/core/util/GgafValueAccelerator.hpp"
 #include "jp/ggaf/dxcore/actor/GgafDxMorphMeshActor.h"
 #include "jp/ggaf/dxcore/model/GgafDxMorphMeshModel.h"
 
@@ -14,7 +14,7 @@ GgafDxMorpherHelperA::GgafDxMorpherHelperA(GgafDxMorpher* prm_pMaster) : GgafObj
         _pMaster(prm_pMaster) {
     _target_num = prm_pMaster->_pActor->_pMorphMeshModel->_morph_target_num;
 
-    _pa_smthMph = NEW GgafDxAccelerator<float>[_target_num+1];
+    _pa_smthMph = NEW GgafValueAccelerator<float>[_target_num+1];
     for (int i = 1; i <= _target_num; i++) {
         _pa_smthMph[i]._velo = _pMaster->_velo_weight[i];
         _pa_smthMph[i]._acce = _pMaster->_acce_weight[i];

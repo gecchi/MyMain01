@@ -322,7 +322,6 @@
     <ClInclude Include="include\jp\ggaf\dxcore\sound\CWaveDecorder.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\sound\ggafdxbgmperformer.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\sound\ggafdxsetransmitter.h" />
-    <ClInclude Include="include\jp\ggaf\dxcore\util\ggafdxaccelerator.hpp" />
     <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\framework\Frm_3DMath.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\framework\Frm_IO.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\framework\Frm_Material.h" />

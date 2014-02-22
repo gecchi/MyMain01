@@ -34,10 +34,10 @@ void EffectEntry002::onActive() {
 void EffectEntry002::processBehavior() {
     EffectEntry::processBehavior();
     if (getActiveFrame() == 1) {
-        pScaler_->scaleLinerUntil(R_SC(1.0), 60);
+        pScaler_->transitionLinerUntil(R_SC(1.0), 60);
     }
     if (getActiveFrame() == 120) {
-        pScaler_->scaleLinerUntil(R_SC(0.0), 60);
+        pScaler_->transitionLinerUntil(R_SC(0.0), 60);
     }
     if (getActiveFrame() == 180) {
         sayonara();

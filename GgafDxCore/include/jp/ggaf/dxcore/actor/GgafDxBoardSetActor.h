@@ -65,11 +65,11 @@ private:
         return nullptr;
     }
 
-    void rotateAs(GgafDxGeoElem* prm_pActor) override {
-        throwGgafCriticalException("GgafDxBoardSetActor::rotateAs() は使用不可です。");
+    void setFaceAngAs(GgafDxGeoElem* prm_pActor) override {
+        throwGgafCriticalException("GgafDxBoardSetActor::setFaceAngAs() は使用不可です。");
     }
-    void rotateAs(GgafDxGeometricActor* prm_pActor) override {
-        throwGgafCriticalException("GgafDxBoardSetActor::rotateAs() は使用不可です。");
+    void setFaceAngAs(GgafDxGeometricActor* prm_pActor) override {
+        throwGgafCriticalException("GgafDxBoardSetActor::setFaceAngAs() は使用不可です。");
     }
     void setScale(scale S) override {
         throwGgafCriticalException("GgafDxBoardSetActor::setScale() は使用不可です。");

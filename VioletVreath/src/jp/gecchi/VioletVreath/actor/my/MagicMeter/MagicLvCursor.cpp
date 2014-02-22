@@ -107,7 +107,7 @@ void MagicLvCursor::moveSmoothTo(int prm_lv, frame prm_target_frames, float prm_
 
 void MagicLvCursor::blink() {
     pAFader_->beat(6, 3, 0, 0, 7.5); //ピカピカ、+0.5は最後は表示終了為
-    pScaler_->beat(12, 6, 0, 3);
+    pScaler_->beat(12, 6, 0, 6, 3);
 }
 
 MagicLvCursor::~MagicLvCursor() {

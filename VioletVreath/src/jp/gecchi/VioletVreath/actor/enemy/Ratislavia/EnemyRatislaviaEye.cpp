@@ -72,7 +72,7 @@ void EnemyRatislaviaEye::onActive() {
     _pMorpher->setWeight(1, 0.0);
     _pProg->reset(PROG_MOVE);
     positionAs(pRatislavia_);
-    rotateAs(pRatislavia_);
+    setFaceAngAs(pRatislavia_);
     _pKuroko->setRzRyMvAngVelo(pRatislavia_->_pKuroko->_angveloFace[AXIS_Z],
                                 pRatislavia_->_pKuroko->_angveloFace[AXIS_Y]);
 }

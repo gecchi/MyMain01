@@ -9,6 +9,7 @@
 #include <sstream>
 #include <limits.h>
 #include <iomanip>
+#include "jp/ggaf/core/exception/GgafCriticalException.h"
 
 #define HASHVAL(X) const static hashval X = GgafCore::GgafUtil::easy_hash(#X)
 
@@ -91,6 +92,131 @@ public:
         }
         return r;
     }
+
+
+
+    /**
+     * 移動加速度を、「停止時移動距離」「現時点の速度」により求める .
+     * <pre><code>
+     *
+     *    速度(v)
+     *     ^       a:減加速度    ・・・今回求める値
+     *     |       D:移動距離    ・・・引数
+     *     |      V0:現時点の速度・・・引数
+     *   V0|      Te:停止するフレーム・・・求めません
+     *     |＼
+     *     |  ＼
+     *     |    ＼ 斜辺の傾きa
+     *     |   D  ＼
+     *     |        ＼
+     *   --+----------＼-----> 時間(t)
+     *   0 |          Te
+     * </code></pre>
+     * 上図のような状態を想定し、引数の距離(D)から、加速度(a)を計算し設定している。<BR>
+     * 停止までのフレーム(Te) は 距離(D) により変化するため指定不可。<BR>
+     * @param D  v目標到達速度に達するまでに費やす距離(D)
+     * @param V0 現時点の速度(V0)
+     * @return 必要な加速度(a)
+     */
+    static inline double getAcceToStop(double D, double V0) {
+#ifdef MY_DEBUG
+        if (ZEROd_EQ(D)) {
+            throwGgafCriticalException("GgafDxUtil::getAcceToStop() DがZEROです。D="<<D);
+        }
+#endif
+        // D = (1/2) V0 Te  ・・・①
+        // a = -V0 / Te     ・・・②
+        // ①より
+        // Te = 2D / V0
+        // これを②へ代入
+        // a = -V0 / (2D / V0)
+        // ∴ a = -(V0^2) / 2D
+        return -(V0*V0) / (2.0*D);
+    }
+
+    /**
+     * 移動加速度を、「移動距離」「現時点の速度」「目標到達速度」により求める .
+     * <pre><code>
+     *    速度(v)
+     *     ^        a:加速度      ・・・今回求める値
+     *     |        D:移動距離    ・・・引数
+     *     |       V0:現時点の速度・・・引数
+     *     |       Vt:目標到達速度・・・引数
+     *     |       Te:目標到達速度に達した時の時間・・・求めません
+     *   Vt|........
+     *     |      ／|
+     *     |    ／  |
+     *     |  ／    |   斜辺の傾きa
+     *     |／      |
+     *   V0|    D   |
+     *     |        |
+     *   --+--------+---> 時間(t)
+     *   0 |        Te
+     *
+     * </code></pre>
+     * 上図のような状態を想定し、目標到達速度(Vt)と、移動距離(D)から、加速度(a)を計算し設定している。<BR>
+     * 目標到達まで必要なフレーム(Te) はパラメータにより変化するため指定不可。<BR>
+     * @param D  v目標到達速度に達するまでに費やす距離(D)
+     * @param V0 現時点の速度(V0)
+     * @param Vt 目標到達速度(Vt)
+     * @return 必要な加速度(a)
+     */
+    static inline double getAcceByVd(double V0, double Vt, double D) {
+#ifdef MY_DEBUG
+        if (ZEROd_EQ(D)) {
+            throwGgafCriticalException("GgafDxUtil::getAcceByVd() DがZEROです。D="<<D);
+        }
+#endif
+        //D = (1/2) (V0 + Vt) Te   ・・・①
+        //a = (Vt - V0) / Te       ・・・②
+        //②より Te = (Vt - V0) / a
+        //これを①へ代入
+        //D = (Vt^2 - V0^2) / 2a
+        //∴ a = (Vt^2 - V0^2) / 2D
+        return ((Vt*Vt) - (V0*V0)) / (2.0*D);
+    }
+
+//    static inline double getTimeByD(double D, double V0, double Vt) {
+//
+//
+//    }
+    /**
+     * 移動加速度を、「費やす時間」「現時点の速度」「目標到達速度」により求める .
+     * <pre><code>
+     *    速度(v)
+     *     ^        a:加速度      ・・・今回求める値
+     *     |        D:移動距離    ・・・求めません
+     *     |       V0:現時点の速度・・・引数
+     *     |       Vt:目標到達速度・・・引数
+     *     |       Te:目標到達速度に達した時の時間・・・引数
+     *   Vt|........
+     *     |      ／|
+     *     |    ／  |
+     *     |  ／    |   斜辺の傾きa
+     *     |／      |
+     *   V0|    D   |
+     *     |        |
+     *   --+--------+---> 時間(tフレーム)
+     *   0 |        Te
+     *
+     * </code></pre>
+     * 上図のような状態を想定し、目標到達速度(Vt)と、その到達時間(Te) から、加速度(a)を計算し設定している。<BR>
+     * 移動距離(D)は、パラメータにより変化するため指定不可。<BR>
+     * @param Te 費やす時間(Te)
+     * @param V0 現時点の速度(V0)
+     * @param Vt 目標到達速度(Vt)
+     * @return 必要な加速度(a)
+     */
+    static inline double getAcceByTv(double Te, double V0, double Vt) {
+#ifdef MY_DEBUG
+        if (ZEROd_EQ(Te)) {
+            throwGgafCriticalException("GgafDxUtil::getAcceByTv() TeがZEROです。Te="<<Te);
+        }
+#endif
+        //a = (Vt-V0) / Te
+        return (Vt - V0) / Te;
+    }
+
 
     /**
      * float 用 0 っぽいのかどうか判定 .

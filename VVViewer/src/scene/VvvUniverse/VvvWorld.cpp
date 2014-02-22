@@ -424,7 +424,7 @@ void VvvWorld::processBehavior() {
                     ((CubeMapMorphMeshActor*)pNewActor)->setCubeMap(file_name.c_str(), 0.5);
                 }
                 pNewActor->positionAs(pCurrentActor);
-                pNewActor->rotateAs(pCurrentActor);
+                pNewActor->setFaceAngAs(pCurrentActor);
                 pNewActor->scaleAs(pCurrentActor);
                 getSceneDirector()->addSubGroup(pNewActor);
                 ActorInfo* pActorInfoNew = NEW ActorInfo(pNewActor, listActorInfo_.getCurrent()->modelfile_);

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverHelperA.h"
 
-#include "jp/ggaf/dxcore/util/GgafDxAccelerator.hpp"
+#include "jp/ggaf/core/util/GgafValueAccelerator.hpp"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 

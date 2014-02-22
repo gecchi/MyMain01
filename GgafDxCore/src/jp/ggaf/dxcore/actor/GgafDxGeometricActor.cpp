@@ -368,12 +368,12 @@ void GgafDxGeometricActor::positionAboutAs(GgafDxGeoElem* prm_pGeoElem, coord ma
     _y = RND_ABOUT(prm_pGeoElem->y, margin);
     _z = RND_ABOUT(prm_pGeoElem->z, margin);
 }
-void GgafDxGeometricActor::rotateAs(GgafDxGeometricActor* prm_pActor) {
+void GgafDxGeometricActor::setFaceAngAs(GgafDxGeometricActor* prm_pActor) {
     _rx = prm_pActor->_rx;
     _ry = prm_pActor->_ry;
     _rz = prm_pActor->_rz;
 }
-void GgafDxGeometricActor::rotateAs(GgafDxGeoElem* prm_pGeoElem) {
+void GgafDxGeometricActor::setFaceAngAs(GgafDxGeoElem* prm_pGeoElem) {
     _rx = prm_pGeoElem->rx;
     _ry = prm_pGeoElem->ry;
     _rz = prm_pGeoElem->rz;

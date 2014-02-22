@@ -84,7 +84,7 @@ void NameEntryScene::processBehavior() {
 
             }
             pLabelInputedName_->_pKuroko->behave();
-            pLabelSelectedChar_->rotateAs(pLabelInputedName_);
+            pLabelSelectedChar_->setFaceAngAs(pLabelInputedName_);
             pLabelSelectedChar_->pAFader_->behave(); //チカチカ
             //EVENT_MENU_NAMEENTRY_DONE まち。
             break;
@@ -121,7 +121,7 @@ void NameEntryScene::processBehavior() {
             }
 
             pLabelInputedName_->_pKuroko->behave();
-            pLabelSelectedChar_->rotateAs(pLabelInputedName_);
+            pLabelSelectedChar_->setFaceAngAs(pLabelInputedName_);
             pLabelInputedName_->pAFader_->behave(); //点滅チカチカ
             break;
         }

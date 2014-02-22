@@ -318,7 +318,7 @@
 typedef uint32_t actorkind;
 /** フレーム(アプリケーション時間) */
 typedef uint32_t frame;
-#define MAX_FRAME (UINT_MAX)
+#define MAX_FRAME (0xffffffff)
 
 #define Obj_SceneBit              (0x80000000U)       //0b 10000000 00000000 00000000 00000000
 
@@ -364,6 +364,12 @@ class GgafElement;
 
 template<class T>
 class GgafLinkedListRing;
+
+template <class VAL_TYPE>
+class GgafValueAccelerator;
+
+template <class VAL_TYPE, int N>
+class GgafValueTransitioner;
 
 class GgafFactory;
 class GgafGarbageBox;

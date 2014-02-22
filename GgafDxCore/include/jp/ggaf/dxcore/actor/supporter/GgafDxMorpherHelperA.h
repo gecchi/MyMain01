@@ -1,7 +1,7 @@
 #ifndef GGAFDXCORE_GGAFDXMORPHERHELPERA_H_
 #define GGAFDXCORE_GGAFDXMORPHERHELPERA_H_
 #include "jp/ggaf/core/GgafObject.h"
-#include "jp/ggaf/dxcore/util/GgafDxAccelerator.hpp"
+#include "jp/ggaf/core/util/GgafValueAccelerator.hpp"
 
 namespace GgafDxCore {
 
@@ -16,7 +16,7 @@ class GgafDxMorpherHelperA : public GgafCore::GgafObject {
 public:
     /** [r]étè† */
     GgafDxMorpher* _pMaster;
-    GgafDxAccelerator<float>* _pa_smthMph;
+    GgafCore::GgafValueAccelerator<float>* _pa_smthMph;
     int _target_num;
 public:
     /**

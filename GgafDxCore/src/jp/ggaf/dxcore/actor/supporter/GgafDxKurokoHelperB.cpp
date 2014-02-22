@@ -2,7 +2,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperB.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/util/GgafDxAccelerator.hpp"
+#include "jp/ggaf/core/util/GgafValueAccelerator.hpp"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 

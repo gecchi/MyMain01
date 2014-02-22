@@ -46,7 +46,7 @@ void MyMagicEnergyCore::processBehavior() {
     double s = (P_MYSHIP->mp_ * (1.0 / MY_SHIP_MAX_MP));
 
     //MP‚É˜A“®‚µ‚Ä‘å‚«‚­‚È‚é
-    pScaler_->scaleLinerStep(
+    pScaler_->transitionLinerStep(
                 s * MAX_SCALSE_MagicEnergyCore,
                 100
              );

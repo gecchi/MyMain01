@@ -35,7 +35,7 @@ void EffectLockon001_Main::onActive() {
     setAlpha(0.01);
     pScaler_->forceRange(60000, 2000); //スケーリング・範囲
     setScale(60000); //(6000%)
-    pScaler_->scaleLinerUntil(2000, 25);//スケーリング・25F費やして2000(200%)に縮小
+    pScaler_->transitionLinerUntil(2000, 25);//スケーリング・25F費やして2000(200%)に縮小
     _pKuroko->setFaceAngVelo(AXIS_Z, 1000);        //回転
     _pSeTx->play3D(0); //ロックオンSE
 
@@ -58,7 +58,7 @@ void EffectLockon001_Main::processBehavior() {
         if (pScaler_->_method[0] == NOSCALE) {
             //縮小完了後、Beat
             pScaler_->forceRange(2000, 4000);
-            pScaler_->beat(50, 4, 2, -1); //無限ループ
+            pScaler_->beat(50, 4, 0, 46, -1); //無限ループ
             _pProg->change(LOCKON001_PROG_LOCK);
         }
         if (pTarget_) {
@@ -116,7 +116,7 @@ void EffectLockon001_Main::lockon(GgafDxGeometricActor* prm_pTarget) {
     } else if (_pProg->get() == LOCKON001_PROG_LOCK) {
     } else if (_pProg->get() == LOCKON001_PROG_RELEASE) {
         pScaler_->forceRange(60000, 2000); //スケーリング・範囲
-        pScaler_->scaleLinerUntil(2000, 25);//スケーリング・20F費やして2000(200%)に縮小
+        pScaler_->transitionLinerUntil(2000, 25);//スケーリング・20F費やして2000(200%)に縮小
         _pKuroko->setFaceAngVelo(AXIS_Z, 1000);   //回転
         _pSeTx->play3D(0); //ロックオンSE
         _pProg->change(LOCKON001_PROG_FIRST_LOCK);
@@ -127,12 +127,12 @@ void EffectLockon001_Main::releaseLockon() {
     if (isActiveInTheTree()) {
         if (_pProg->get() == LOCKON001_PROG_FIRST_LOCK) {
             pScaler_->forceRange(60000, 2000); //スケーリング・範囲
-            pScaler_->scaleLinerUntil(60000, 60);//スケーリング
+            pScaler_->transitionLinerUntil(60000, 60);//スケーリング
             _pKuroko->setFaceAngVelo(AXIS_Z, _pKuroko->_angveloFace[AXIS_Z]*-3); //速く逆回転
             _pProg->change(LOCKON001_PROG_RELEASE);
         } else if (_pProg->get() == LOCKON001_PROG_LOCK) {
             pScaler_->forceRange(60000, 2000); //スケーリング・範囲
-            pScaler_->scaleLinerUntil(60000, 60);//スケーリング
+            pScaler_->transitionLinerUntil(60000, 60);//スケーリング
             _pKuroko->setFaceAngVelo(AXIS_Z, _pKuroko->_angveloFace[AXIS_Z]*-3); //速く逆回転
             _pProg->change(LOCKON001_PROG_RELEASE);
         } else if (_pProg->get() == LOCKON001_PROG_RELEASE) {

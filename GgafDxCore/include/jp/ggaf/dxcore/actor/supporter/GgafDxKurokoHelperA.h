@@ -1,7 +1,7 @@
 #ifndef GGAFDXCORE_GGAFDXKUROKOHELPERA_H_
 #define GGAFDXCORE_GGAFDXKUROKOHELPERA_H_
 #include "jp/ggaf/core/GgafObject.h"
-#include "jp/ggaf/dxcore/util/GgafDxAccelerator.hpp"
+#include "jp/ggaf/core/util/GgafValueAccelerator.hpp"
 
 namespace GgafDxCore {
 
@@ -17,7 +17,7 @@ class GgafDxKurokoHelperA : public GgafCore::GgafObject {
 public:
     /** [r]師匠 */
     GgafDxKuroko* _pMaster;
-    GgafDxAccelerator<int> _smthMv;
+    GgafCore::GgafValueAccelerator<int> _smthMv;
 public:
     /**
      * コンストラクタ<BR>

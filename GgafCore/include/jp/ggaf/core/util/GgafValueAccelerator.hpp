@@ -1,12 +1,10 @@
-#ifndef GGAFDXCORE_GGAFDXACCELERATOR_H_
-#define GGAFDXCORE_GGAFDXACCELERATOR_H_
+#ifndef GGAFCORE_GGAFVALUEACCELERATOR_H_
+#define GGAFCORE_GGAFVALUEACCELERATOR_H_
 #include "jp/ggaf/core/GgafObject.h"
 #include "jp/ggaf/core/util/GgafUtil.h"
-#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
-using GgafDxCore::GgafDxUtil;
 
-namespace GgafDxCore {
+namespace GgafCore {
 
 /**
  * 値の加速器 .
@@ -14,8 +12,8 @@ namespace GgafDxCore {
  * @since 2013/12/05
  * @author Masatoshi Tsuge
  */
-template<class T>
-class GgafDxAccelerator : public GgafCore::GgafObject {
+template<class VAL_TYPE>
+class GgafValueAccelerator : public GgafObject {
 public:
 
 
@@ -26,19 +24,19 @@ public:
          /** [r]なめらか移動シークエンスを実行完了時の加速度設定（true：加速度0に設定／false:加速度をそのままにしておく） */
          bool _endacc_flg;
          /** [r]なめらか移動シークエンスで設定されたトップスピード（等速移動時速度） */
-         T _top_velo;
+         VAL_TYPE _top_velo;
          /** [r]なめらか移動シークエンスで設定された終了時の速度 */
-         T _end_velo;
+         VAL_TYPE _end_velo;
          /** [r]なめらか移動シークエンスで設定された目標位置到達までに必要な実質の移動距離（正のみ。負の移動も加算した場合のいdぽう距離総和） */
-         T _target_distance;
+         VAL_TYPE _target_distance;
          /** [r]なめらか移動シークエンスで設定された目標位置までの直線距離（正負有り） */
-         T _target_distance2;
+         VAL_TYPE _target_distance2;
          /** [r]なめらか移動シークエンスで今までに実質移動した移動距離合計（今までの移動速度の絶対値の加算合計） */
-         T _moved;
+         VAL_TYPE _moved;
          /** [r]なめらか移動シークエンスで今までの移動距離の和（今までの移動速度（正負そのままの加算合計） */
-         T _moved2;
+         VAL_TYPE _moved2;
          /** [r]なめらか移動シークエンスで移動速度正負を反転するまでの設定された回復時加速度 */
-         T _acce_a0;
+         VAL_TYPE _acce_a0;
          /** [r]なめらか移動シークエンスで設定された目標移動方向の正負 */
          int _target_sgn;
          /** [r]なめらか移動シークエンスで設定された目標時間 */
@@ -73,20 +71,20 @@ public:
              _progress = -1;
          }
     };
-    T _value;
-    T _velo;
-    T _acce;
+    VAL_TYPE _value;
+    VAL_TYPE _velo;
+    VAL_TYPE _acce;
     SmoothPrm _prm;
 public:
-    GgafDxAccelerator() {
+    GgafValueAccelerator() {
         _value = 0;
         _velo = 0;
         _acce = 0;
     }
 
-    void accelerateByDt(T prm_target_value_distance,
+    void accelerateByDt(VAL_TYPE prm_target_value_distance,
                         frame prm_target_frames,
-                        double prm_p1, double prm_p2, T prm_end_velo,
+                        double prm_p1, double prm_p2, VAL_TYPE prm_end_velo,
                         bool prm_endacc_flg) {
         int s_d = SGN(prm_target_value_distance);
         int sgn_W0 = SGN(_velo);
@@ -94,13 +92,13 @@ public:
             //距離が0なので即刻終了
             _velo = ABS(prm_end_velo) * s_d;
             if (prm_endacc_flg) {
-                _acce = (T)0.0;
+                _acce = (VAL_TYPE)0.0;
             }
             _prm._progress = -9;
             _prm._endacc_flg = false;
             return;
         }
-        //_TRACE_("GgafDxAccelerator::accelerateByDt COME!");
+        //_TRACE_("GgafValueAccelerator::accelerateByDt COME!");
         //_TRACE_("prm_target_value_distance="<<prm_target_value_distance);
         //_TRACE_("prm_target_frames="<<prm_target_frames);
         //_TRACE_("prm_p1="<<prm_p1);
@@ -269,10 +267,10 @@ public:
 
     }
 
-    void accelerateByVd(T prm_top_velo,
-                       T prm_target_value_distance,
-                       double prm_p1, double prm_p2, T prm_end_velo,
-                       bool prm_endacc_flg) {
+    void accelerateByVd(VAL_TYPE prm_top_velo,
+                        VAL_TYPE prm_target_value_distance,
+                        double prm_p1, double prm_p2, VAL_TYPE prm_end_velo,
+                        bool prm_endacc_flg) {
         //_TRACE_("prm_target_value_distance="<<prm_target_value_distance<<" _velo="<<_velo);
         int s_d = SGN(prm_target_value_distance);
         int sgn_W0 = SGN(_velo);
@@ -280,7 +278,7 @@ public:
             //距離が0なので即刻終了
             _velo = ABS(prm_end_velo) * s_d;
             if (prm_endacc_flg) {
-                _acce = (T)0.0;
+                _acce = (VAL_TYPE)0.0;
             }
             _prm._progress = -9;
             _prm._endacc_flg = false;
@@ -456,7 +454,7 @@ public:
                     }
                     if (_prm._progress == 2) {
                         if (!ZEROd_EQ(_prm._p1)) {
-                            T acc = UTIL::getAcceByVd(_velo, _prm._top_velo, _prm._p1*_prm._target_sgn);
+                            VAL_TYPE acc = UTIL::getAcceByVd(_velo, _prm._top_velo, _prm._p1*_prm._target_sgn);
                             _acce = acc;
                             if (ABS(_acce) > ABS(_prm._target_distance2)) {
                                 _acce = _prm._target_distance2;
@@ -476,7 +474,7 @@ public:
                             //p1 に到達すれば 等速へ
                             _acce = 0;
                             _velo = _prm._top_velo;
-                            T diff_to_end = _prm._target_distance2 - _prm._moved2;
+                            VAL_TYPE diff_to_end = _prm._target_distance2 - _prm._moved2;
                             if (ABS(_velo) > ABS(diff_to_end)) {
                                 _velo = diff_to_end;
                             }
@@ -489,10 +487,10 @@ public:
                         if (_prm._moved >= _prm._p2) {
                             //p2 に到達すれば 次回フレームから減速へ
                             //_TRACE_("p2 に到達すれば 次回フレームから減速へ");
-                            T diff_to_end = _prm._target_distance2 - _prm._moved2;
+                            VAL_TYPE diff_to_end = _prm._target_distance2 - _prm._moved2;
                             if (!ZEROd_EQ(diff_to_end)) {
                                 //_TRACE_("diff_to_end="<<diff_to_end<<" 減速加速度を求めれる");
-                                T acc = UTIL::getAcceByVd(_velo, _prm._end_velo, diff_to_end);
+                                VAL_TYPE acc = UTIL::getAcceByVd(_velo, _prm._end_velo, diff_to_end);
                                 _acce = acc;
                                 //_TRACE_("減速加速度 _acce="<<acc<<" ????");
                                 if (ABS(_velo)+ABS(acc) > ABS(diff_to_end)) {
@@ -506,7 +504,7 @@ public:
                     if (_prm._progress == 5) {
                          //_TRACE_("減速中");
                         //減速中
-                        T diff_to_end = _prm._target_distance2 - _prm._moved2;
+                        VAL_TYPE diff_to_end = _prm._target_distance2 - _prm._moved2;
                         //Te=(2*D)/(V0+Vt)
 
                         //double t = (2.0*diff_to_end)/(_velo+_prm._end_velo); //残フレーム数    //＃＃ここもコメント
@@ -525,7 +523,7 @@ public:
                                 //_TRACE_("t="<<t<<" が爆発してないので、補正・補正・補正");
                                 //補正・補正・補正
                                 if (!ZEROd_EQ(diff_to_end)) {
-                                    T acc = UTIL::getAcceByVd(_velo, _prm._end_velo, diff_to_end);
+                                    VAL_TYPE acc = UTIL::getAcceByVd(_velo, _prm._end_velo, diff_to_end);
                                     _acce = acc;
                                     //_TRACE_("減速加速度再設定 _acce="<<acc<<" ????");
                                     if (ABS(_velo)+ABS(acc) > ABS(diff_to_end)) {
@@ -535,7 +533,7 @@ public:
                                 }
                             }
                         }
-                        T end_velo = _prm._end_velo;
+                        VAL_TYPE end_velo = _prm._end_velo;
 
                         if ( ZEROd_EQ(diff_to_end)  ||
                              ABS(diff_to_end) <=  ABS(_prm._top_velo)*0.0001 ||
@@ -553,7 +551,7 @@ public:
                             //_TRACE_("おしまいな雰囲気");
                             _velo = _prm._end_velo;
                             if (_prm._endacc_flg) {
-                                _acce = (T)0.0;
+                                _acce = (VAL_TYPE)0.0;
                             }
                             if (ZEROd_EQ(end_velo)) {
                                 //最終速度が0の場合、バッチリ合わせを試みる。
@@ -561,7 +559,7 @@ public:
                                     //既にバッチリあっていました
                                     //_TRACE_("既にバッチリあっていました");
                                     //_TRACE_("おしまい11早！!!");
-                                    _velo = (T)0.0;
+                                    _velo = (VAL_TYPE)0.0;
                                     _prm._flg = false; //おしまい
                                 } else {
                                     //ずれてるのでもう１フレーム頑張ってバッチリ合わせる
@@ -577,7 +575,7 @@ public:
                         }
                     } else if (_prm._progress == 6) {
                         //_TRACE_("よしバッチリ合わせておしまい");
-                        _velo = (T)0.0;
+                        _velo = (VAL_TYPE)0.0;
                         _prm._flg = false; //おしまい
                     }
                 } else {
@@ -588,7 +586,7 @@ public:
                             _prm._progress++;
                         } else {
                             //加速設定
-                            T acc = UTIL::getAcceByTv(_prm._p1, _velo, _prm._top_velo);
+                            VAL_TYPE acc = UTIL::getAcceByTv(_prm._p1, _velo, _prm._top_velo);
                             _acce = acc;
                             _prm._progress++;
                         }
@@ -608,7 +606,7 @@ public:
                         if (_prm._frame_of_spent >= (int)(_prm._p2)) {
                             //_TRACE_("p2 に到達すれば 次回フレームから減速へ _prm._frame_of_spent="<<_prm._frame_of_spent<<" _prm._p2="<<_prm._p2);
                             //p2 に到達すれば 次回フレームから減速へ
-                            T acc = UTIL::getAcceByTv(_prm._target_frames - _prm._frame_of_spent, _velo, _prm._end_velo);
+                            VAL_TYPE acc = UTIL::getAcceByTv(_prm._target_frames - _prm._frame_of_spent, _velo, _prm._end_velo);
                             _acce = acc;
                             //_TRACE_("減速加速度 _acce="<<_acce);
                             _prm._progress++;
@@ -633,7 +631,7 @@ public:
                                 //_TRACE_("V = "<<V);
                                 _velo = V;
                                 //_TRACE_("速度 _velo = "<<_velo<<" に補正");
-                                T acc = UTIL::getAcceByTv(_prm._target_frames - _prm._frame_of_spent, _velo, _prm._end_velo);
+                                VAL_TYPE acc = UTIL::getAcceByTv(_prm._target_frames - _prm._frame_of_spent, _velo, _prm._end_velo);
                                 _acce = acc;
                                 //_TRACE_("加速度 _acce = "<<_acce<<" に補正");
                             }
@@ -643,7 +641,7 @@ public:
                             //_TRACE_("_prm._frame_of_spent >= _prm._target_frames 成立、おしまいな雰囲気");
                             _velo = _prm._end_velo;
                             if (_prm._endacc_flg) {
-                                _acce = (T)0.0;
+                                _acce = (VAL_TYPE)0.0;
                             }
                             if (ZEROd_EQ(_prm._end_velo)) {
                                 //最終速度が0の場合、バッチリ合わせを試みる。
@@ -651,7 +649,7 @@ public:
                                     //既にバッチリあっていました
                                     //_TRACE_("既にバッチリあっていました");
                                     //_TRACE_("おしまい1早！");
-                                    _velo = (T)0.0;
+                                    _velo = (VAL_TYPE)0.0;
                                     _prm._flg = false; //おしまい
                                 } else {
                                     //ずれてる。
@@ -667,7 +665,7 @@ public:
                         }
                     } else if (_prm._progress == 4) {
                         //_TRACE_("バッチリ合わせておしまい");
-                        _velo = (T)0.0;
+                        _velo = (VAL_TYPE)0.0;
                         _prm._flg = false; //おしまい
                     }
                 }
@@ -686,16 +684,16 @@ public:
         }
 #ifdef MY_DEBUG
         if (_prm._frame_of_spent > 60*60*10) {
-            throwGgafCriticalException("GgafDxAccelerator::behave() 10分以上滑りっぱなしなんですが！");
+            throwGgafCriticalException("GgafValueAccelerator::behave() 10分以上滑りっぱなしなんですが！");
         }
 #endif
 
     }
 
-    virtual ~GgafDxAccelerator() {
+    virtual ~GgafValueAccelerator() {
     }
 };
 
 }
-#endif /*GGAFDXCORE_GGAFDXACCELERATOR_H_*/
+#endif /*GGAFCORE_GGAFVALUEACCELERATOR_H_*/
 

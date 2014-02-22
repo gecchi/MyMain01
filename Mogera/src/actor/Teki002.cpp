@@ -3,6 +3,7 @@
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperC.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
@@ -24,8 +25,8 @@ Teki002::Teki002(const char* prm_name) :
 }
 
 void Teki002::initialize() {
-    setScaleR(2.0);
-    pScaler_->forceRange(1000, 6000);
+    setScale(4000);
+    pScaler_->forceRange(2000, 6000);
 //    _pKuroko->setMvAngTwd(PX_C(320),0,0);
 //    _pKuroko->setMvVelo(PX_C(0));
 //    _pKuroko->relateFaceWithMvAng(true);
@@ -73,52 +74,74 @@ void Teki002::processBehavior() {
     }
 
 
-    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_A)) {
-        setScale(2000);
+    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Q)) {
+        setScale(4000);
     }
+
+    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_A)) {
+        pScaler_->transitionLinerUntil(6000, 180);
+    }
+    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Z)) {
+        pScaler_->transitionLinerUntil(2000, 180);
+    }
+
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_S)) {
-        pScaler_->scaleLinerUntil(5000, 120);
+        pScaler_->transitionLinerStep(6000, 100);
+    }
+    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_X)) {
+        pScaler_->transitionLinerStep(2000, -100);
     }
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_D)) {
-        pScaler_->scaleAcceStep(5000, 100,100);
+        pScaler_->transitionAcceStep(6000, 100, -10);
+    }
+    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_C)) {
+        pScaler_->transitionAcceStep(2000, -10, -10);
     }
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_F)) {
-        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_F)");
-        pScaler_->loopLiner(120, 3);
+        pScaler_->loopLiner(120, 3, true);
     }
-
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_G)) {
-        pScaler_->beat(120, 30, 20, 3);
+        pScaler_->loopLiner(120, 3, false);
+    }
+    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_H)) {
+        pScaler_->beat(120, 40, 30, 20, 4);
     }
 
-    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Z)) {
-        angRz_Target_ = D_ANG(RND(0,360-1));
-        angRy_Target_ = D_ANG(RND(0,360-1));
+    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_J)) {
+        pScaler_->beat(40, 0, 20, 0, 4);
     }
-    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_X)) {
-        angle aiming_ang_velo_ = D_ANG(1);
-        angle aiming_movable_limit_ang_ = D_ANG(45);
-        angle wkrz = angRz_Target_;
-        angle wkry = angRy_Target_;
-        if (aiming_movable_limit_ang_ <= angRz_Target_ && angRz_Target_ <= D180ANG) {
-            angRz_Target_ = aiming_movable_limit_ang_;
-        } else if (D180ANG <= angRz_Target_ && angRz_Target_ <= D360ANG - aiming_movable_limit_ang_) {
-            angRz_Target_ = D360ANG - aiming_movable_limit_ang_;
-        }
-        if (aiming_movable_limit_ang_ <= angRy_Target_ && angRy_Target_ <= D180ANG) {
-            angRy_Target_ = aiming_movable_limit_ang_;
-        } else if (D180ANG <= angRy_Target_ && angRy_Target_ <= D360ANG - aiming_movable_limit_ang_) {
-            angRy_Target_ = D360ANG - aiming_movable_limit_ang_;
-        }
+    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_K)) {
+        pScaler_->beat(60, 10, 0, 40, 3);
+    }
 
-        _TRACE_("‘O("<<wkrz<<","<<wkry<<") Œã("<<angRz_Target_<<","<<angRy_Target_<<")");
-        _pKuroko->turnRzRyFaceAngTo(
-                        angRz_Target_, angRy_Target_,
-                        aiming_ang_velo_, aiming_ang_velo_*0.04,
-                        TURN_CLOSE_TO, false);
-    }
+//    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Z)) {
+//        angRz_Target_ = D_ANG(RND(0,360-1));
+//        angRy_Target_ = D_ANG(RND(0,360-1));
+//    }
+//    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_X)) {
+//        angle aiming_ang_velo_ = D_ANG(1);
+//        angle aiming_movable_limit_ang_ = D_ANG(45);
+//        angle wkrz = angRz_Target_;
+//        angle wkry = angRy_Target_;
+//        if (aiming_movable_limit_ang_ <= angRz_Target_ && angRz_Target_ <= D180ANG) {
+//            angRz_Target_ = aiming_movable_limit_ang_;
+//        } else if (D180ANG <= angRz_Target_ && angRz_Target_ <= D360ANG - aiming_movable_limit_ang_) {
+//            angRz_Target_ = D360ANG - aiming_movable_limit_ang_;
+//        }
+//        if (aiming_movable_limit_ang_ <= angRy_Target_ && angRy_Target_ <= D180ANG) {
+//            angRy_Target_ = aiming_movable_limit_ang_;
+//        } else if (D180ANG <= angRy_Target_ && angRy_Target_ <= D360ANG - aiming_movable_limit_ang_) {
+//            angRy_Target_ = D360ANG - aiming_movable_limit_ang_;
+//        }
+//
+//        _TRACE_("‘O("<<wkrz<<","<<wkry<<") Œã("<<angRz_Target_<<","<<angRy_Target_<<")");
+//        _pKuroko->turnRzRyFaceAngTo(
+//                        angRz_Target_, angRy_Target_,
+//                        aiming_ang_velo_, aiming_ang_velo_*0.04,
+//                        TURN_CLOSE_TO, false);
+//    }
 //    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_C)) {
 //        position(-1000000,0,0);
 //        pAxMvr_->setVxMvVelo(-23643);

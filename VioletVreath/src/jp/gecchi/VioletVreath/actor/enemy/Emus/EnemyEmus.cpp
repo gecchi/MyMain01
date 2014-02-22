@@ -58,7 +58,7 @@ void EnemyEmus::initialize() {
     _pColliChecker->setColliAAB_Cube(0, 200000);
     setScale(1000);
     pScaler_->forceRange(1000, 1200);
-    pScaler_->beat(30, 5, 5, -1);
+    pScaler_->beat(30, 5, 0, 20, -1);
 }
 
 void EnemyEmus::onActive() {

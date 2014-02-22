@@ -34,7 +34,7 @@ void EffectEntry003::processBehavior() {
     EffectEntry::processBehavior();
     switch (_pProg->get()) {
         case PROG_INIT: {
-            pScaler_->scaleLinerTop(20);
+            pScaler_->transitionLinerToTop(20);
             _pProg->changeNext();
             break;
         }
@@ -48,7 +48,7 @@ void EffectEntry003::processBehavior() {
 
         case PROG_STAY: {
             if (_pProg->getFrameInProgress() >= 10) {
-                pScaler_->scaleLinerBottom(20);
+                pScaler_->transitionLinerToBottom(20);
                 _pProg->changeNext();
             }
             break;

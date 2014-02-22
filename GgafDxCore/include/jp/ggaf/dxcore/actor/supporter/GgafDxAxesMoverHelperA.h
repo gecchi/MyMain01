@@ -1,7 +1,7 @@
 #ifndef GGAFDXCORE_GGAFDXAXESMOVERHELPERA_H_
 #define GGAFDXCORE_GGAFDXAXESMOVERHELPERA_H_
 #include "jp/ggaf/core/GgafObject.h"
-#include "jp/ggaf/dxcore/util/GgafDxAccelerator.hpp"
+#include "jp/ggaf/core/util/GgafValueAccelerator.hpp"
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 
 namespace GgafDxCore {
@@ -19,11 +19,11 @@ public:
     /** [r]師匠 */
     GgafDxAxesMover* _pMaster;
     /** X軸方向加速装置 */
-    GgafDxAccelerator<coord> _smthVxMv;
+    GgafCore::GgafValueAccelerator<coord> _smthVxMv;
     /** Y軸方向加速装置 */
-    GgafDxAccelerator<coord> _smthVyMv;
+    GgafCore::GgafValueAccelerator<coord> _smthVyMv;
     /** Z軸方向加速装置 */
-    GgafDxAccelerator<coord> _smthVzMv;
+    GgafCore::GgafValueAccelerator<coord> _smthVzMv;
 public:
     /**
      * コンストラクタ<BR>

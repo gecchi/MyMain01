@@ -67,7 +67,7 @@ void MagicLvCursor003::markOnLevelUpCast(int prm_lv) {
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
     setScale(10000);
-    pScaler_->scaleLinerUntil(1000, 20);
+    pScaler_->transitionLinerUntil(1000, 20);
     setRzFaceAng(D180ANG);
     _pKuroko->turnRzFaceAngTo(0, D180ANG/20, 0, TURN_COUNTERCLOCKWISE);
 }
@@ -80,7 +80,7 @@ void MagicLvCursor003::markOnLevelDownCast(int prm_lv) {
     _pUvFlipper->setActivePtn(8);
     _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
     setScale(1000);
-    pScaler_->scaleLinerUntil(10000, 20);
+    pScaler_->transitionLinerUntil(10000, 20);
 }
 
 void MagicLvCursor003::markOnInvoke(int prm_lv) {
@@ -98,7 +98,7 @@ void MagicLvCursor003::markOnEffect(int prm_lv) {
     _pUvFlipper->setActivePtn(8);
     _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
     setScale(1000);
-    pScaler_->scaleLinerUntil(10000, 20);
+    pScaler_->transitionLinerUntil(10000, 20);
 }
 
 MagicLvCursor003::~MagicLvCursor003() {
