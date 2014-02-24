@@ -56,12 +56,12 @@ void MagicLvCursor003::processAfterDraw() {
 void MagicLvCursor003::markOff() {
     _pUvFlipper->stopFlip();
     pAFader_->reset();
-    pAFader_->setAlpha(0);
+    setAlpha(0);
 }
 
 void MagicLvCursor003::markOnLevelUpCast(int prm_lv) {
-    pAFader_->setAlpha(0);
-    pAFader_->fadeLinerUntil(1.0, 20);
+    setAlpha(0);
+    pAFader_->transitionLinerUntil(1.0, 20);
     moveTo(prm_lv);
     _pUvFlipper->setFlipPtnRange(0,3);
     _pUvFlipper->setActivePtn(0);
@@ -73,8 +73,8 @@ void MagicLvCursor003::markOnLevelUpCast(int prm_lv) {
 }
 
 void MagicLvCursor003::markOnLevelDownCast(int prm_lv) {
-    pAFader_->setAlpha(1.0);
-    pAFader_->fadeLinerUntil(0, 20);
+    setAlpha(1.0);
+    pAFader_->transitionLinerUntil(0, 20);
     moveTo(prm_lv);
     _pUvFlipper->setFlipPtnRange(8, 11);
     _pUvFlipper->setActivePtn(8);
@@ -91,8 +91,8 @@ void MagicLvCursor003::markOnInvoke(int prm_lv) {
 }
 
 void MagicLvCursor003::markOnEffect(int prm_lv) {
-    pAFader_->setAlpha(1.0);
-    pAFader_->fadeLinerUntil(0, 20);
+    setAlpha(1.0);
+    pAFader_->transitionLinerUntil(0, 20);
     moveTo(prm_lv);
     _pUvFlipper->setFlipPtnRange(8, 11);
     _pUvFlipper->setActivePtn(8);

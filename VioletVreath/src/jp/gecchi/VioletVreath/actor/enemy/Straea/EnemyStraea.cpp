@@ -104,11 +104,11 @@ void EnemyStraea::processBehavior() {
         case PROG_ENTRY: {
             if (_pProg->isJustChanged()) {
                 UTIL::activateEntryEffectOf(this);
-                pAFader_->setAlpha(0);
-                pAFader_->fadeLinerUntil(0.98, 20);
+                setAlpha(0);
+                pAFader_->transitionLinerUntil(0.98, 20);
                 _pKuroko->setFaceAngVelo(AXIS_X, 4000);
             }
-            if (!pAFader_->isFading()) {
+            if (!pAFader_->isTransitioning()) {
                 setHitAble(true);
                 _pProg->changeNext();
             }

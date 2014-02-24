@@ -51,14 +51,14 @@ void EnemyThagoras::processBehavior() {
     switch (_pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
-            pAFader_->setAlpha(0);
+            setAlpha(0);
             UTIL::activateEntryEffectOf(this);
             _pProg->changeNext();
             break;
         }
         case PROG_ENTRY: {
             if (_pProg->isJustChanged()) {
-                pAFader_->fadeLinerUntil(1.0, 30);
+                pAFader_->transitionLinerUntil(1.0, 30);
             }
             if (_pProg->getFrameInProgress() == 10) {
                 setHitAble(true);
@@ -78,7 +78,7 @@ void EnemyThagoras::processBehavior() {
         case PROG_LEAVE: {
             if (_pProg->isJustChanged()) {
                 UTIL::activateLeaveEffectOf(this);
-                pAFader_->fadeLinerUntil(0.0, 30);
+                pAFader_->transitionLinerUntil(0.0, 30);
             }
             if (_pProg->getFrameInProgress() == 60) {
                 sayonara();

@@ -19,4 +19,5 @@
 *.rep
 *.qry
 /back.properties
+*.log
 

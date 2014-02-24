@@ -105,8 +105,8 @@ void EnemyErmione::initialize() {
 
 void EnemyErmione::onActive() {
     _pStatus->reset();
-    _pMorpher->setWeight(0, 1.0);
-    _pMorpher->setWeight(1, 0.0);
+    setWeight(0, 1.0);
+    setWeight(1, 0.0);
 
     _pProg->reset(PROG_INIT);
     setHitAble(false);
@@ -118,7 +118,7 @@ void EnemyErmione::processBehavior() {
     switch (_pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
-            pAFader_->setAlpha(0);
+            setAlpha(0);
             _pKuroko->setMvVelo(0);
             UTIL::activateEntryEffectOf(this);
             _pProg->changeNext();
@@ -127,7 +127,7 @@ void EnemyErmione::processBehavior() {
 
         case PROG_ENTRY: {
             if (_pProg->getFrameInProgress() == 120) {
-                pAFader_->fadeAcceStep(1.0, 0.000, 0.0001);
+                pAFader_->transitionAcceStep(1.0, 0.000, 0.0001);
             }
             if (getAlpha() > 0.8) {
                 setHitAble(true);

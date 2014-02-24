@@ -15,6 +15,8 @@ namespace GgafDxCore {
 class GgafDxMorphMeshActor : public GgafDxDrawableActor {
 
 public:
+
+    int _morph_target_num;
     /** [r]モデル資源 */
     GgafDxMorphMeshModel* const _pMorphMeshModel;
     /** [r]エフェクト資源 */
@@ -70,6 +72,23 @@ public:
      * @return モーフターゲットメッシュ数
      */
     int getMorphTergetNum();
+
+    /**
+     * モーフターゲットの重みを直接指定 .
+     * @param prm_target_mesh_no モーフターゲットメッシュNO(1 ～)
+     * @param prm_weight 重み 重み0.0～1.0。それ以上も可能
+     */
+    void setWeight(int prm_target_mesh_no, float prm_weight);
+
+    /**
+     * 全モーフターゲットの重みを直接指定
+     * @param prm_target_mesh_no 重み0.0～1.0。それ以上も可能
+     */
+    void setWeight(float prm_weight);
+
+    float getWeight(int prm_target_mesh_no);
+
+    void addWeight(int prm_target_mesh_no, float prm_add_weight);
 
     /**
      * α設定.

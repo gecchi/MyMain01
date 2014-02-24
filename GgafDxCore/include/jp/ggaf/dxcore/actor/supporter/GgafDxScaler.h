@@ -2,8 +2,6 @@
 #define GGAFDXCORE_GGAFDXSCALER_H_
 #include "jp/ggaf/core/util/GgafValueTransitioner.hpp"
 
-using GgafCore::GgafValueTransitioner;
-
 namespace GgafDxCore {
 
 /**
@@ -26,7 +24,7 @@ namespace GgafDxCore {
  * @since 2009/05/22
  * @author Masatoshi Tsuge
  */
-class GgafDxScaler : public GgafValueTransitioner<scale, 3 > {
+class GgafDxScaler : public GgafCore::GgafValueTransitioner<scale, 3 > {
 
 public:
     /** [r]対象アクター */
@@ -38,7 +36,7 @@ public:
      * @param   prm_pActor  適用対象のActor
      */
     GgafDxScaler(GgafDxGeometricActor* prm_pActor);
-
+    virtual void reset() override;
     virtual scale getValue(int idx) override;
     virtual void setValue(int idx, scale value) override;
 

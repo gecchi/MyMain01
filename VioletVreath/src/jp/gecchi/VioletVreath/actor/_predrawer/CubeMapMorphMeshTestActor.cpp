@@ -25,7 +25,7 @@ void CubeMapMorphMeshTestActor::onCreateModel() {
 
 void CubeMapMorphMeshTestActor::initialize() {
     setHitAble(false);
-//    _pMorpher->setWeight(0, 1.0);
+//    setWeight(0, 1.0);
 //    setScaleR(0.1);
 }
 
@@ -45,56 +45,56 @@ void CubeMapMorphMeshTestActor::processBehavior() {
 //    if (GgafDxInput::isBeingPressedKey(DIK_1)) {
 //        _pMorpher->beat(1, 30, 3, 22);
 //    } else if (GgafDxInput::isBeingPressedKey(DIK_7)) {
-//        _pMorpher->stopImmed(1);
+//        _pMorpher->stop(1);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_2)) {
-//        _pMorpher->morphAcceStep(2, 1.0f, 0, 0.002f);
+//        _pMorpher->transitionAcceStep(2, 1.0f, 0, 0.002f);
 //    } else if (GgafDxInput::isBeingPressedKey(DIK_8)) {
-//        _pMorpher->morphAcceStep(2, 0, 0, -0.004f);
+//        _pMorpher->transitionAcceStep(2, 0, 0, -0.004f);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_3)) {
 //        _pMorpher->beat(3, 20, 13, 2);
 //    } else if (GgafDxInput::isBeingPressedKey(DIK_9)) {
-//        _pMorpher->stopImmed(3);
+//        _pMorpher->stop(3);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_4)) {
 //        _pMorpher->beat(4, 60, 3, 20);
 //    } else if (GgafDxInput::isBeingPressedKey(DIK_0)) {
-//        _pMorpher->stopImmed(4);
+//        _pMorpher->stop(4);
 //    }
 //    _pMorpher->behave();
 
 //    if (GgafDxInput::isBeingPressedKey(DIK_1)) {
-//        _pMorpher->morphLinerUntil(1, 1.0, 30);
-//        _pMorpher->morphLinerUntil(2, 0, 30);
-//        _pMorpher->morphLinerUntil(3, 0, 30);
-//        _pMorpher->morphLinerUntil(4, 0, 30);
+//        _pMorpher->transitionLinerUntil(1, 1.0, 30);
+//        _pMorpher->transitionLinerUntil(2, 0, 30);
+//        _pMorpher->transitionLinerUntil(3, 0, 30);
+//        _pMorpher->transitionLinerUntil(4, 0, 30);
 //    } else if (GgafDxInput::isBeingPressedKey(DIK_7)) {
-//        _pMorpher->morphLinerUntil(1, 0, 30);
+//        _pMorpher->transitionLinerUntil(1, 0, 30);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_2)) {
-//        _pMorpher->morphLinerUntil(1, 0, 30);
-//        _pMorpher->morphLinerUntil(2, 1.0, 30);
-//        _pMorpher->morphLinerUntil(3, 0, 30);
-//        _pMorpher->morphLinerUntil(4, 0, 30);
+//        _pMorpher->transitionLinerUntil(1, 0, 30);
+//        _pMorpher->transitionLinerUntil(2, 1.0, 30);
+//        _pMorpher->transitionLinerUntil(3, 0, 30);
+//        _pMorpher->transitionLinerUntil(4, 0, 30);
 //    } else if (GgafDxInput::isBeingPressedKey(DIK_8)) {
-//        _pMorpher->morphLinerUntil(2, 0, 30);
+//        _pMorpher->transitionLinerUntil(2, 0, 30);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_3)) {
-//        _pMorpher->morphLinerUntil(1, 0, 30);
-//        _pMorpher->morphLinerUntil(2, 0, 30);
-//        _pMorpher->morphLinerUntil(3, 1.0, 30);
-//        _pMorpher->morphLinerUntil(4, 0, 30);
+//        _pMorpher->transitionLinerUntil(1, 0, 30);
+//        _pMorpher->transitionLinerUntil(2, 0, 30);
+//        _pMorpher->transitionLinerUntil(3, 1.0, 30);
+//        _pMorpher->transitionLinerUntil(4, 0, 30);
 //    } else if (GgafDxInput::isBeingPressedKey(DIK_9)) {
-//        _pMorpher->morphLinerUntil(3, 0, 30);
+//        _pMorpher->transitionLinerUntil(3, 0, 30);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_4)) {
-//        _pMorpher->morphLinerUntil(1, 0, 30);
-//        _pMorpher->morphLinerUntil(2, 0, 30);
-//        _pMorpher->morphLinerUntil(3, 0, 30);
-//        _pMorpher->morphLinerUntil(4, 1.0, 30);
+//        _pMorpher->transitionLinerUntil(1, 0, 30);
+//        _pMorpher->transitionLinerUntil(2, 0, 30);
+//        _pMorpher->transitionLinerUntil(3, 0, 30);
+//        _pMorpher->transitionLinerUntil(4, 1.0, 30);
 //    } else if (GgafDxInput::isBeingPressedKey(DIK_0)) {
-//        _pMorpher->morphLinerUntil(4, 0, 30);
+//        _pMorpher->transitionLinerUntil(4, 0, 30);
 //    }
 //    _pMorpher->behave();
 //    /////////////モーフテスト////////////////

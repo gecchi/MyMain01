@@ -83,14 +83,14 @@ void EnemyOzartia::processBehavior() {
     switch (_pProg->get()) {
         case PROG1_INIT: {
             setHitAble(false);
-            pAFader_->setAlpha(0);
+            setAlpha(0);
             UTIL::activateEntryEffectOf(this);
             _pProg->changeNext();
             break;
         }
         case PROG1_ENTRY: {
             if (_pProg->isJustChanged()) {
-                pAFader_->fadeLinerUntil(1.0, 30);
+                pAFader_->transitionLinerUntil(1.0, 30);
             }
             if (_pProg->getFrameInProgress() == 15) {
                 setHitAble(true);
@@ -195,7 +195,7 @@ void EnemyOzartia::processBehavior() {
         case PROG1_LEAVE: {
             if (_pProg->isJustChanged()) {
                 UTIL::activateLeaveEffectOf(this);
-                pAFader_->fadeLinerUntil(0.0, 30);
+                pAFader_->transitionLinerUntil(0.0, 30);
             }
             if (_pProg->getFrameInProgress() == 60) {
                 sayonara();
@@ -220,7 +220,7 @@ void EnemyOzartia::processBehavior() {
         case PROG2_SHOT01_01: {
             if (_pProg->isJustChanged()) {
                 faceang_to_ship_ = true;
-                _pMorpher->morphLinerUntil(MPH_SHOT01, 1.0, 120);
+                _pMorpher->transitionLinerUntil(MPH_SHOT01, 1.0, 120);
             }
             if (_pProg->getFrameInProgress() == 120) {
                 _pProg->change(PROG2_SHOT01_02);

@@ -113,10 +113,10 @@ void EnemyDelheid::processBehavior() {
         }
         case PROG2_OPEN: {
             if (pProg2_->isJustChanged()) {
-                _pMorpher->morphAcceStep(MPH_OPEN, 1.1, 0, 0.001);
+                _pMorpher->transitionAcceStep(MPH_OPEN, 1.1, 0, 0.001);
             }
-            if (!_pMorpher->isMorphing()) {
-                _pMorpher->setWeight(MPH_OPEN, 1.0);
+            if (!_pMorpher->isTransitioning()) {
+                setWeight(MPH_OPEN, 1.0);
                 pProg2_->changeNext();
             }
             break;
@@ -148,9 +148,9 @@ void EnemyDelheid::processBehavior() {
         }
         case PROG2_CLOSE: {
             if (pProg2_->isJustChanged()) {
-                _pMorpher->morphAcceStep(MPH_OPEN, 0.0, 0, -0.01);
+                _pMorpher->transitionAcceStep(MPH_OPEN, 0.0, 0, -0.01);
             }
-            if (!_pMorpher->isMorphing()) {
+            if (!_pMorpher->isTransitioning()) {
                 pProg2_->changeNothing();
             }
 
@@ -197,7 +197,7 @@ void EnemyDelheid::processJudgement() {
 }
 
 void EnemyDelheid::onHit(GgafActor* prm_pOtherActor) {
-    if (_pMorpher->_weight[MPH_OPEN] > 0.1) {
+    if (getWeight(MPH_OPEN) > 0.1) {
         bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
         if (was_destroyed) {
             //”j‰óŽž

@@ -67,8 +67,8 @@ void EnemyHalia::initialize() {
 
 void EnemyHalia::onActive() {
     _pStatus->reset();
-    _pMorpher->setWeight(0, 1.0);
-    _pMorpher->setWeight(1, 0.0);
+    setWeight(0, 1.0);
+    setWeight(1, 0.0);
     _pKuroko->setFaceAngVelo(AXIS_X, 1000);
     _pKuroko->hlprA()->slideMvByVd(veloTopMv_, MyShip::lim_x_front_-_x,
                            0.4, 0.6, 1000, true);
@@ -82,7 +82,7 @@ void EnemyHalia::processBehavior() {
     switch (_pProg->get()) {
         case PROG_MOVE: {
             if (!_pKuroko->hlprA()->isSlidingMv()) {
-                _pMorpher->morphAcceStep(1, 1.0, 0.0, 0.0004); //開く 0.0004 開く速さ
+                _pMorpher->transitionAcceStep(1, 1.0, 0.0, 0.0004); //開く 0.0004 開く速さ
                 _pKuroko->turnMvAngTwd(P_MYSHIP,
                                         0, 100,
                                         TURN_CLOSE_TO, false);
@@ -124,7 +124,7 @@ void EnemyHalia::processBehavior() {
         }
         case PROG_CLOSE: {
             //１サイクルレーザー打ち切った
-            _pMorpher->morphLinerUntil(1, 0.0, 60); //閉じる
+            _pMorpher->transitionLinerUntil(1, 0.0, 60); //閉じる
             _pKuroko->hlprA()->slideMvByVd(veloTopMv_, 1500000, 0.4, 0.6, 1000, true);
             _pKuroko->setFaceAngVelo(AXIS_X, 1000);
             _pProg->change(PROG_MOVE);
@@ -146,7 +146,7 @@ void EnemyHalia::processJudgement() {
 }
 
 void EnemyHalia::onHit(GgafActor* prm_pOtherActor) {
-    if (_pMorpher->_weight[1] > 0.1) { //口が空いてたら
+    if (getWeight(1) > 0.1) { //口が空いてたら
         bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
         if (was_destroyed) {
             //破壊時

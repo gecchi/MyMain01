@@ -16,7 +16,10 @@ _pActor(prm_pActor) {
     _apActorScale[2] = &(prm_pActor->_sz);
     forceRange(0, MAX_SCALE);
 }
-
+void GgafDxScaler::reset() {
+    GgafValueTransitioner<scale, 3 >::reset();
+    forceRange(0, MAX_SCALE);
+}
 scale GgafDxScaler::getValue(int idx) {
     return (*(_apActorScale[idx]));
 }

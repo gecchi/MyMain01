@@ -72,8 +72,8 @@ void GameDemoScene::processBehavior() {
                 _TRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to GameDemoScene::PROG_DEMOPLAY)");
                 pLabel01_->update(100*1000, 100*1000, "DEMOPLAY NOW");
                 pLabel02_->update(100*1000, 150*1000, "GAME OVER");
-                pLabel02_->pAFader_->setToTop();
-                pLabel02_->pAFader_->beat(60,3,27,27,-1);
+                pLabel02_->setAlpha(pLabel02_->pAFader_->getTop());
+                pLabel02_->pAFader_->beat(60, 3, 27, 3,-1);
             }
 
 //            if (_pProg->getFrameInProgress() % 60 == 0) {
@@ -103,13 +103,13 @@ void GameDemoScene::processBehavior() {
                             G_RANKING.getVal("REGDATE", i).c_str());
                     papLabel_Ranking_[i]->update(buf);
                     papLabel_Ranking_[i]->position(PX_C(400), PX_C(50+(i*22)));
-                    papLabel_Ranking_[i]->pAFader_->setToBottom();
-                    papLabel_Ranking_[i]->pAFader_->beat(25*60, 2*60, 20*60, 1*60, 1); //フェードイン・しばらくしてフェードアウト
+                    papLabel_Ranking_[i]->setAlpha(papLabel_Ranking_[i]->pAFader_->getBottom());
+                    papLabel_Ranking_[i]->pAFader_->beat(25*60, 2*60, 20*60, 2*60, 1); //フェードイン・しばらくしてフェードアウト
                     papLabel_Ranking_[i]->activateDelay((i+1)*12); //上から順番にぼやーっと表示していく
                 }
             }
 
-            if (papLabel_Ranking_[ranking_num-1]->pAFader_->isFading()) {
+            if (papLabel_Ranking_[ranking_num-1]->pAFader_->isTransitioning()) {
                 //一番最後のFaderがまだ動いてるならば
                 for (int i = 0; i < ranking_num; i++) {
                     if (papLabel_Ranking_[i]->isActive()) {

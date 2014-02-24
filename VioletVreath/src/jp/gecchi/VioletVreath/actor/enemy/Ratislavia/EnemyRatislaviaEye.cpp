@@ -68,8 +68,8 @@ void EnemyRatislaviaEye::initialize() {
 
 void EnemyRatislaviaEye::onActive() {
     _pStatus->reset();
-    _pMorpher->setWeight(0, 1.0);
-    _pMorpher->setWeight(1, 0.0);
+    setWeight(0, 1.0);
+    setWeight(1, 0.0);
     _pProg->reset(PROG_MOVE);
     positionAs(pRatislavia_);
     setFaceAngAs(pRatislavia_);
@@ -88,7 +88,7 @@ void EnemyRatislaviaEye::processBehavior() {
         }
         case PROG_OPEN: {
             if (_pProg->isJustChanged()) {
-                _pMorpher->morphLinerUntil(1, 1.0, 180); //ŠJ‚­
+                _pMorpher->transitionLinerUntil(1, 1.0, 180); //ŠJ‚­
             }
             if (_pProg->getFrameInProgress() > 240) {
                 _pProg->changeNext();
@@ -138,7 +138,7 @@ void EnemyRatislaviaEye::processBehavior() {
         }
         case PROG_FIRE_END: {
             if (_pProg->isJustChanged()) {
-                _pMorpher->morphLinerUntil(1, 0.0, 180); //•Â‚¶‚é
+                _pMorpher->transitionLinerUntil(1, 0.0, 180); //•Â‚¶‚é
                 _pKuroko->setRzRyMvAngVelo(pRatislavia_->_pKuroko->_angveloFace[AXIS_Z],
                                             pRatislavia_->_pKuroko->_angveloFace[AXIS_Y]);
             }

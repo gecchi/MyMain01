@@ -1,6 +1,8 @@
 #ifndef GGAFCORE_GGAFVALUETRANSITIONER_H_
 #define GGAFCORE_GGAFVALUETRANSITIONER_H_
 #include "jp/ggaf/core/GgafObject.h"
+#include "jp/ggaf/core/util/GgafUtil.h"
+#include "GgafCommonHeader.h"
 
 namespace GgafCore {
 
@@ -85,7 +87,7 @@ public:
      * @param prm1 遷移値1
      * @param prm2 遷移値2
      */
-    void forceRange(int prm1, int prm2) {
+    void forceRange(VAL_TYPE prm1, VAL_TYPE prm2) {
         for (int i = 0; i < N; i++) {
             forceRange(i, prm1, prm2);
         }
@@ -97,7 +99,7 @@ public:
      * @param prm1 遷移値1
      * @param prm2 遷移値2
      */
-    void forceRange(int prm_idx, int prm1, int prm2) {
+    void forceRange(int prm_idx, VAL_TYPE prm1, VAL_TYPE prm2) {
         if (prm1 < prm2) {
             _bottom[prm_idx] = prm1;
             _top[prm_idx] = prm2;
@@ -107,23 +109,23 @@ public:
         }
     }
 
-    VAL_TYPE getTop(int prm_idx)  {
+    virtual VAL_TYPE getTop(int prm_idx)  {
         return _top[prm_idx];
     }
-    VAL_TYPE getBottom(int prm_idx)  {
+    virtual VAL_TYPE getBottom(int prm_idx)  {
         return _bottom[prm_idx];
     }
 
-    VAL_TYPE getTop() {
+    virtual VAL_TYPE getTop() {
         return MIN3(_top[0], _top[1], _top[2]);
     }
-    VAL_TYPE getBottom() {
+    virtual VAL_TYPE getBottom() {
         return MAX3(_bottom[0],_bottom[1],_bottom[2]);
     }
     /**
      * 値遷移を停止させる。 （全軸指定） .
      */
-    void stop() {
+    virtual void stop() {
         for (int i = 0; i < N; i++) {
             stop(i);
         }
@@ -133,7 +135,7 @@ public:
      * 値遷移を停止させる。 （軸単位で指定）.
      * @param prm_idx
      */
-    void stop(int prm_idx) {
+    virtual void stop(int prm_idx) {
         _velo[prm_idx] = 0;
         _acce[prm_idx] = 0;
         _method[prm_idx] = NO_TRANSITION;
@@ -145,7 +147,7 @@ public:
      * @param prm_target_T 目標遷移
      * @param prm_spend_frame 費やすフレーム数
      */
-    void transitionLinerUntil(int prm_target, frame prm_spend_frame) {
+    virtual void transitionLinerUntil(int prm_target, frame prm_spend_frame) {
         for (int i = 0; i < N; i++) {
             transitionLinerUntil(i, prm_target, prm_spend_frame);
         }
@@ -158,7 +160,7 @@ public:
      * @param prm_target_T 目標遷移
      * @param prm_spend_frame 費やすフレーム数
      */
-    void transitionLinerUntil(int prm_idx, VAL_TYPE prm_target, frame prm_spend_frame) {
+    virtual void transitionLinerUntil(int prm_idx, VAL_TYPE prm_target, frame prm_spend_frame) {
         _beat_frame_count[prm_idx] = 0;
         _beat_target_frames[prm_idx] = prm_spend_frame;
         _target[prm_idx] = prm_target;
@@ -177,7 +179,7 @@ public:
      * 上限遷移へ片道等速値遷移（全軸・持続フレーム数指定） .
      * @param prm_spend_frame 費やすフレーム数
      */
-    void transitionLinerToTop(frame prm_spend_frame) {
+    virtual void transitionLinerToTop(frame prm_spend_frame) {
         transitionLinerUntil(MIN3(_top[0],_top[1],_top[2]), prm_spend_frame);
     }
 
@@ -185,7 +187,7 @@ public:
      * 下限遷移へ片道等速値遷移（全軸・持続フレーム数指定） .
      * @param prm_spend_frame 費やすフレーム数
      */
-    void transitionLinerToBottom(frame prm_spend_frame) {
+    virtual void transitionLinerToBottom(frame prm_spend_frame) {
         transitionLinerUntil(MAX3(_bottom[0],_bottom[1],_bottom[2]), prm_spend_frame);
     }
 
@@ -196,7 +198,7 @@ public:
      * @param prm_target_T 目標遷移
      * @param prm_velo_T 毎フレーム加算する遷移差分(>0.0)。正の遷移を指定する事。加算か減算かは自動判断する。
      */
-    void transitionLinerStep(VAL_TYPE prm_target, VAL_TYPE prm_velo) {
+    virtual void transitionLinerStep(VAL_TYPE prm_target, VAL_TYPE prm_velo) {
         for (int i = 0; i < N; i++) {
             transitionLinerStep(i, prm_target, prm_velo);
         }
@@ -209,7 +211,7 @@ public:
      * @param prm_target_T 目標遷移
      * @param prm_velo_T 毎フレーム加算する遷移差分(>0.0)。正の遷移を指定する事。加算か減算かは自動判断する。
      */
-    void transitionLinerStep(int prm_idx, VAL_TYPE prm_target, VAL_TYPE prm_velo) {
+    virtual void transitionLinerStep(int prm_idx, VAL_TYPE prm_target, VAL_TYPE prm_velo) {
         _method[prm_idx] = TARGET_LINER_STEP;
         _velo[prm_idx] = prm_velo;
         _target[prm_idx] = prm_target;
@@ -228,7 +230,7 @@ public:
      * @param prm_velo_T 初期遷移速度
      * @param prm_acce_T 遷移加速度
      */
-    void transitionAcceStep(VAL_TYPE prm_target, VAL_TYPE prm_velo, VAL_TYPE prm_acce) {
+    virtual void transitionAcceStep(VAL_TYPE prm_target, VAL_TYPE prm_velo, VAL_TYPE prm_acce) {
         for (int i = 0; i < N; i++) {
             transitionAcceStep(i, prm_target, prm_velo, prm_acce);
         }
@@ -244,7 +246,7 @@ public:
      * @param prm_velo_T 初期遷移速度
      * @param prm_acce_T 遷移加速度
      */
-    void transitionAcceStep(int prm_idx, VAL_TYPE prm_target, VAL_TYPE prm_velo, VAL_TYPE prm_acce) {
+    virtual void transitionAcceStep(int prm_idx, VAL_TYPE prm_target, VAL_TYPE prm_velo, VAL_TYPE prm_acce) {
         _method[prm_idx] = TARGET_ACCELERATION_STEP;
         _target[prm_idx] = prm_target;
         _velo[prm_idx] = prm_velo;
@@ -275,7 +277,7 @@ public:
      * @param prm_beat_num ループする回数(1.2回など少数で指定可能、-1 でほぼ無限ループ)
      * @param prm_is_to_top true:初めはTOPに遷移する／false:初めはBOTTOMに遷移
      */
-    void loopLiner(int prm_idx, frame prm_roop_frames, double prm_beat_num, bool prm_is_to_top) {
+    virtual void loopLiner(int prm_idx, frame prm_roop_frames, double prm_beat_num, bool prm_is_to_top) {
         VAL_TYPE val = getValue(prm_idx);
         _method[prm_idx] = BEAT_LINER;
         _beat_frame_count[prm_idx] = 0;
@@ -288,12 +290,12 @@ public:
         }
         if (prm_is_to_top) {
             _velo[prm_idx] = 1.0*(_top[prm_idx] - val) / ((int)prm_roop_frames / 2.0);
-            if (_velo[prm_idx] == 0) {
+            if (ZEROd_EQ(_velo[prm_idx])) {
                 _velo[prm_idx] = _top[prm_idx] - val;
             }
         } else {
             _velo[prm_idx] = 1.0*(_bottom[prm_idx] - val) / ((int)prm_roop_frames / 2.0);
-            if (_velo[prm_idx] == 0) {
+            if (ZEROd_EQ(_velo[prm_idx])) {
                 _velo[prm_idx] = _bottom[prm_idx] - val;
             }
         }
@@ -326,11 +328,11 @@ public:
      * @param prm_attenuate_frames 上図で④のフレーム数
      * @param prm_beat_num ループ数(-1で無限)
      */
-    void beat(frame prm_roop_frames,
-              frame prm_attack_frames,
-              frame prm_sustain_frames,
-              frame prm_attenuate_frames,
-              double prm_beat_num) {
+    virtual void beat(frame prm_roop_frames,
+                      frame prm_attack_frames,
+                      frame prm_sustain_frames,
+                      frame prm_attenuate_frames,
+                      double prm_beat_num) {
         for (int i = 0; i < N; i++) {
             beat(i, prm_roop_frames, prm_attack_frames, prm_sustain_frames, prm_attenuate_frames, prm_beat_num);
         }
@@ -364,12 +366,12 @@ public:
      * @param prm_attenuate_frames 上図で④のフレーム数
      * @param prm_beat_num ループ数(-1で無限)
      */
-    void beat(int prm_idx,
-              frame prm_roop_frames,
-              frame prm_attack_frames,
-              frame prm_sustain_frames,
-              frame prm_attenuate_frames,
-              double prm_beat_num) {
+    virtual void beat(int prm_idx,
+                      frame prm_roop_frames,
+                      frame prm_attack_frames,
+                      frame prm_sustain_frames,
+                      frame prm_attenuate_frames,
+                      double prm_beat_num) {
         _method[prm_idx] = BEAT_TRIANGLEWAVE;
         _beat_frame_count[prm_idx] = 0;
         _beat_frame_count_in_roop[prm_idx] = 0;
@@ -396,7 +398,7 @@ public:
      * @param prm_idx 軸
      * @return true/false
      */
-    bool isScaling(int prm_idx) {
+    virtual bool isTransitioning(int prm_idx) {
         if (_method[prm_idx] == NO_TRANSITION) {
             return false;
         } else {
@@ -408,7 +410,7 @@ public:
      * 値遷移中かどうか調べる .
      * @return true/false
      */
-    bool isScaling() {
+    virtual bool isTransitioning() {
         for (int i = 0; i < N; i++) {
             if (_method[i] != NO_TRANSITION) {
                 return true;
@@ -441,9 +443,9 @@ public:
      * 本クラスの機能を利用する場合は、このメソッドを<BR>
      * 毎フレーム実行することが必要。
      */
-    virtual void behave() {
+    virtual void behave(int s = 0, int n = N) {
 
-        for (int i = 0; i < N; i++) {
+        for (int i = s; i < n; i++) {
             TransitionMethod method = _method[i];
             VAL_TYPE val = getValue(i);
             VAL_TYPE top = _top[i];
@@ -495,10 +497,6 @@ public:
                         _beat_frame_count_in_roop[i] = 0;
                     }
 
-                    if (_beat_frame_count[i] == _beat_target_frames[i]) {
-                        stop(i);//終了
-                    }
-
                 } else if (method == BEAT_TRIANGLEWAVE) {
                     frame cnt = (_beat_frame_count_in_roop[i]++);
 
@@ -546,7 +544,11 @@ public:
             } else if (bottom >  val) {
                 val =  bottom;
             }
+
+
             setValue(i, val);
+
+            _TRACE_("_beat_frame_count["<<i<<"]="<<_beat_frame_count[i]<<" _beat_target_frames["<<i<<"]="<<_beat_target_frames[i]<<" _velo["<<i<<"]="<<_velo[i]<<" val="<<val);
 
             if (_beat_frame_count[i] == _beat_target_frames[i]) {
                 stop(i);//終了

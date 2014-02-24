@@ -52,14 +52,14 @@ void EnemyAlisana::processBehavior() {
     switch (_pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
-            pAFader_->setAlpha(0);
+            setAlpha(0);
             UTIL::activateEntryEffectOf(this);
             _pProg->changeNext();
             break;
         }
         case PROG_ENTRY: {
             if (_pProg->isJustChanged()) {
-                pAFader_->fadeLinerUntil(0.7, 30);
+                pAFader_->transitionLinerUntil(0.7, 30);
             }
             if (_pProg->getFrameInProgress() == 20) {
                 setHitAble(true);
@@ -69,10 +69,10 @@ void EnemyAlisana::processBehavior() {
         }
         case PROG_HATCH_OPEN: {
             if (_pProg->isJustChanged()) {
-                _pMorpher->morphLinerUntil(MPH_HATCH_OPEN,
+                _pMorpher->transitionLinerUntil(MPH_HATCH_OPEN,
                                            1.0, frame_of_morph_interval_);
             }
-            if (!_pMorpher->isMorphing()) {
+            if (!_pMorpher->isTransitioning()) {
                 _pProg->changeNext();
             }
             break;
@@ -88,10 +88,10 @@ void EnemyAlisana::processBehavior() {
         //-----------------------------------------------------------------------
         case PROG_HATCH_CLOSE: {
             if (_pProg->isJustChanged()) {
-                _pMorpher->morphLinerUntil(MPH_HATCH_OPEN,
+                _pMorpher->transitionLinerUntil(MPH_HATCH_OPEN,
                                            0.0, frame_of_morph_interval_);
             }
-            if (!_pMorpher->isMorphing()) {
+            if (!_pMorpher->isTransitioning()) {
                 _pProg->changeNext();
             }
             break;
@@ -100,7 +100,7 @@ void EnemyAlisana::processBehavior() {
             if (_pProg->isJustChanged()) {
                 setHitAble(false);
                 UTIL::activateLeaveEffectOf(this);
-                pAFader_->fadeLinerUntil(0.0, 30);
+                pAFader_->transitionLinerUntil(0.0, 30);
             }
             if (_pProg->getFrameInProgress() == 60) {
                 sayonara();
@@ -147,7 +147,7 @@ bool EnemyAlisana::isOpenDone() {
     }
 }
 void EnemyAlisana::close_sayonara() {
-    _pMorpher->stopImmed();
+    _pMorpher->stop();
     _pProg->change(PROG_HATCH_CLOSE);
 }
 

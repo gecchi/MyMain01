@@ -85,7 +85,7 @@ void EnemyGlajaLance001::processBehavior() {
                 _pKuroko->setFaceAngVelo(0, 0, 0);
                 pScaler_->transitionAcceStep(AXIS_X, R_SC(30), R_SC(1), R_SC(0.1));
             }
-            if (!pScaler_->isScaling()) {
+            if (!pScaler_->isTransitioning()) {
                 //‘„‚Ì—¼’[“–‚½‚è”»’èoŒ»
                 _pColliChecker->enable(1);
                 _pColliChecker->enable(2);

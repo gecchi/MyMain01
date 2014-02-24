@@ -40,7 +40,7 @@ void EffectEntry001::processBehavior() {
         }
 
         case PROG_IN: {
-            if (pScaler_->isScaling() == false) {
+            if (pScaler_->isTransitioning() == false) {
                 _pProg->changeNext();
             }
             break;
@@ -55,7 +55,7 @@ void EffectEntry001::processBehavior() {
         }
 
         case PROG_OUT: {
-            if (pScaler_->isScaling() == false) {
+            if (pScaler_->isTransitioning() == false) {
                 _pProg->changeNothing();
                 sayonara();
             }

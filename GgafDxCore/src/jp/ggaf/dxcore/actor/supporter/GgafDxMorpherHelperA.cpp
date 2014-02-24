@@ -16,8 +16,8 @@ GgafDxMorpherHelperA::GgafDxMorpherHelperA(GgafDxMorpher* prm_pMaster) : GgafObj
 
     _pa_smthMph = NEW GgafValueAccelerator<float>[_target_num+1];
     for (int i = 1; i <= _target_num; i++) {
-        _pa_smthMph[i]._velo = _pMaster->_velo_weight[i];
-        _pa_smthMph[i]._acce = _pMaster->_acce_weight[i];
+        _pa_smthMph[i]._velo = _pMaster->_velo[i];
+        _pa_smthMph[i]._acce = _pMaster->_acce[i];
     }
 }
 
@@ -26,8 +26,8 @@ void GgafDxMorpherHelperA::behave() {
         bool flg = _pa_smthMph[i]._prm._flg;
         _pa_smthMph[i].behave();
         if (flg) {
-            _pMaster->_velo_weight[i] = _pa_smthMph[i]._velo - _pa_smthMph[i]._acce;
-            _pMaster->_acce_weight[i] = _pa_smthMph[i]._acce;
+            _pMaster->_velo[i] = _pa_smthMph[i]._velo - _pa_smthMph[i]._acce;
+            _pMaster->_acce[i] = _pa_smthMph[i]._acce;
         }
     }
 }
@@ -37,8 +37,8 @@ void GgafDxMorpherHelperA::morphByDt(int prm_target_mesh_no,
                                       float prm_p1, float prm_p2, float prm_end_velo,
                                       bool prm_endacc_flg) {
     _pa_smthMph[prm_target_mesh_no]._value = 0;
-    _pa_smthMph[prm_target_mesh_no]._velo = _pMaster->_velo_weight[prm_target_mesh_no];
-    _pa_smthMph[prm_target_mesh_no]._acce = _pMaster->_acce_weight[prm_target_mesh_no];
+    _pa_smthMph[prm_target_mesh_no]._velo = _pMaster->_velo[prm_target_mesh_no];
+    _pa_smthMph[prm_target_mesh_no]._acce = _pMaster->_acce[prm_target_mesh_no];
     _pa_smthMph[prm_target_mesh_no].accelerateByDt(prm_target_distance, prm_target_frames,
                                                    prm_p1,prm_p2,prm_end_velo,
                                                    prm_endacc_flg);
@@ -49,8 +49,8 @@ void GgafDxMorpherHelperA::morphByVd(int prm_target_mesh_no,
                                       float prm_p1, float prm_p2, float prm_end_velo,
                                       bool prm_endacc_flg) {
     _pa_smthMph[prm_target_mesh_no]._value = 0;
-    _pa_smthMph[prm_target_mesh_no]._velo = _pMaster->_velo_weight[prm_target_mesh_no];
-    _pa_smthMph[prm_target_mesh_no]._acce = _pMaster->_acce_weight[prm_target_mesh_no];
+    _pa_smthMph[prm_target_mesh_no]._velo = _pMaster->_velo[prm_target_mesh_no];
+    _pa_smthMph[prm_target_mesh_no]._acce = _pMaster->_acce[prm_target_mesh_no];
     _pa_smthMph[prm_target_mesh_no].accelerateByVd(prm_top_velo, prm_target_distance,
                                                    prm_p1,prm_p2,prm_end_velo,
                                                    prm_endacc_flg);

@@ -128,9 +128,9 @@ void EnemyHisbe::processBehavior() {
 
         case PROG_OPEN: {
             if (_pProg->isJustChanged()) {
-                _pMorpher->morphLinerUntil(1, 1.0, 120);
+                _pMorpher->transitionLinerUntil(1, 1.0, 120);
             }
-            if (!_pMorpher->isMorphing()) {
+            if (!_pMorpher->isTransitioning()) {
                 //完全に開いたら
                 _pProg->changeNext();
             }
@@ -162,8 +162,8 @@ void EnemyHisbe::processBehavior() {
 
         case PROG_CLOSE: {
             //１サイクルレーザー打ち切った
-            _pMorpher->morphLinerUntil(1, 0.0, 120); //閉じる
-            if (!_pMorpher->isMorphing()) {
+            _pMorpher->transitionLinerUntil(1, 0.0, 120); //閉じる
+            if (!_pMorpher->isTransitioning()) {
                 //完全に閉じたら
                 _pProg->change(PROG_WAIT);
             }

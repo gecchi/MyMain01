@@ -47,20 +47,20 @@ void EnemyOrtuna::processBehavior() {
          case PROG_INIT: {
              setHitAble(false);
              positionAs(&entry_pos_);
-             pAFader_->setAlpha(0);
+             setAlpha(0);
              _pKuroko->setMvVelo(0);
              _pKuroko->relateFaceWithMvAng(true);
              _pKuroko->setMvAngTwd(&hanging_pos_);
              velo mv_velo = RF_EnemyOrtuna_MvVelo(G_RANK);
              _pKuroko->setFaceAngVelo(AXIS_X, mv_velo); //‚®‚é‚®‚é`
-             _pMorpher->setWeight(0.0);
+             setWeight(0.0);
              UTIL::activateEntryEffectOf(this);
              _pProg->changeNext();
              break;
          }
          case PROG_ENTRY: {
              if (_pProg->getFrameInProgress() == 60) {
-                 pAFader_->fadeLinerUntil(1.0, 60);
+                 pAFader_->transitionLinerUntil(1.0, 60);
              }
              if (getAlpha() > 0.5) {
                  setHitAble(true);
@@ -95,7 +95,7 @@ void EnemyOrtuna::processBehavior() {
                  //‚ä‚Á‚­‚èŽ©‹@‚Ì•û‚ÖŒü‚©‚¹‚é
                  _pKuroko->turnMvAngTwd(P_MYSHIP,
                                         D_ANG(3), 0, TURN_CLOSE_TO, true);
-                 _pMorpher->morphLinerUntil(MPH_OPEN, 1.0, 60);
+                 _pMorpher->transitionLinerUntil(MPH_OPEN, 1.0, 60);
              }
              //‘Ø—¯’†
              if (_pProg->getFrameInProgress() % 16U == 0) {

@@ -63,7 +63,7 @@ void EnemyDuna::processBehavior() {
     switch (_pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
-            pAFader_->setAlpha(0);
+            setAlpha(0);
             _pKuroko->relateFaceWithMvAng(false);
             _pKuroko->keepOnTurningFaceAngTwd(pMyShip,
                                                D_ANG(2), 0, TURN_CLOSE_TO,false);
@@ -72,14 +72,14 @@ void EnemyDuna::processBehavior() {
             _pKuroko->setRzRyMvAng(0, D90ANG);
             _pKuroko->setRzMvAngVelo(D_ANG(12));
             _pKuroko->setRzMvAngAcce(D_ANG(0.05));
-            _pMorpher->setWeight(0.0);
+            setWeight(0.0);
             UTIL::activateEntryEffectOf(this);
             _pProg->changeNext();
             break;
         }
          case PROG_ENTRY_EFFECT: {
              if (_pProg->getFrameInProgress() == 60) {
-                 pAFader_->fadeLinerUntil(1.0, 60);
+                 pAFader_->transitionLinerUntil(1.0, 60);
              }
              if (getAlpha() > 0.5) {
                  setHitAble(true);

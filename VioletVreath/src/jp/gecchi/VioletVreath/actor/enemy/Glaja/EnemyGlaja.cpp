@@ -52,18 +52,18 @@ void EnemyGlaja::processBehavior() {
     switch (_pProg->get()) {
          case PROG_INIT: {
              setHitAble(false);
-             pAFader_->setAlpha(0);
+             setAlpha(0);
              _TRACE_("keepOnTurningFaceAngTwd keepOnTurningFaceAngTwd");
              _pKuroko->keepOnTurningFaceAngTwd(pMyShip,
                                                D_ANG(2), 0, TURN_CLOSE_TO, false);
-             _pMorpher->setWeight(0.0);
+             setWeight(0.0);
              UTIL::activateEntryEffectOf(this);
              _pProg->changeNext();
              break;
          }
          case PROG_ENTRY: {
              if (_pProg->getFrameInProgress() == 60) {
-                 pAFader_->fadeLinerUntil(1.0, 60);
+                 pAFader_->transitionLinerUntil(1.0, 60);
              }
              if (getAlpha() > 0.5) {
                  setHitAble(true);
@@ -104,7 +104,7 @@ void EnemyGlaja::processBehavior() {
 
          case PROG_OPEN: {
              if (_pProg->isJustChanged()) {
-                 _pMorpher->morphLinerUntil(MPH_OPEN, 1.0, 30);
+                 _pMorpher->transitionLinerUntil(MPH_OPEN, 1.0, 30);
              }
              if (_pProg->getFrameInProgress() == 30) {
                  _pProg->changeNext();
@@ -134,7 +134,7 @@ void EnemyGlaja::processBehavior() {
 
          case PROG_CLOSE: {
              if (_pProg->isJustChanged()) {
-                 _pMorpher->morphLinerUntil(MPH_OPEN, 0.0, 30);
+                 _pMorpher->transitionLinerUntil(MPH_OPEN, 0.0, 30);
              }
              if (_pProg->getFrameInProgress() == 30) {
                  _pProg->change(PROG_MOVE01); //ŒJ‚è•Ô‚µ

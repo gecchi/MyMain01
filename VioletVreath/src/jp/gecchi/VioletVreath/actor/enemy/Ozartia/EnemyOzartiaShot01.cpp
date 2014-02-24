@@ -34,14 +34,14 @@ void EnemyOzartiaShot01::processBehavior() {
     switch (_pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
-            pAFader_->setAlpha(0);
+            setAlpha(0);
             UTIL::activateEntryEffectOf(this);
             _pProg->changeNext();
             break;
         }
         case PROG_ENTRY: {
             if (_pProg->isJustChanged()) {
-                pAFader_->fadeLinerUntil(1.0, 15);
+                pAFader_->transitionLinerUntil(1.0, 15);
             }
             if (_pProg->getFrameInProgress() == 8) {
                 setHitAble(true);
@@ -60,7 +60,7 @@ void EnemyOzartiaShot01::processBehavior() {
         case PROG_LEAVE: {
              if (_pProg->isJustChanged()) {
                  UTIL::activateLeaveEffectOf(this);
-                 pAFader_->fadeLinerUntil(0.0, 15);
+                 pAFader_->transitionLinerUntil(0.0, 15);
              }
              if (_pProg->getFrameInProgress() == 60) {
                  sayonara();

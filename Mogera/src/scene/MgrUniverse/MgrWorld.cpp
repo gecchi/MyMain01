@@ -77,10 +77,10 @@ MgrWorld::MgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
 void MgrWorld::initialize() {
     pMgrActor1_->inactivate();
     pTeki_->inactivate();
-    pMikata_->inactivate();
+    //pMikata_->inactivate();
     pBar_->inactivate();
     pTestBar_->inactivate();
-    //pTeki002_->inactivate();
+    pTeki002_->inactivate();
     pTeki_->position(0, PX_C(240)/2);
     pMikata_->position(0, PX_C(-240));
 }

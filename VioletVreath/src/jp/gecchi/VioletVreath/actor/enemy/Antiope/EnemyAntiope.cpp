@@ -43,7 +43,7 @@ void EnemyAntiope::processBehavior() {
     switch (_pProg->get()) {
          case PROG_INIT: {
              setHitAble(false);
-             pAFader_->setAlpha(0);
+             setAlpha(0);
              _pKuroko->stopMv();
              _pKuroko->setFaceAngVelo(AXIS_X, D_ANG(10));
              pAxsMver_->setZeroVxyzMvVelo();
@@ -53,7 +53,7 @@ void EnemyAntiope::processBehavior() {
          }
          case PROG_ENTRY: {
              if (_pProg->isJustChanged()) {
-                 pAFader_->fadeLinerUntil(1.0, 30);
+                 pAFader_->transitionLinerUntil(1.0, 30);
              }
              if (_pProg->getFrameInProgress() == 30) {
                  setHitAble(true);
@@ -81,7 +81,7 @@ void EnemyAntiope::processBehavior() {
          case PROG_LEAVE: {
              if (_pProg->isJustChanged()) {
                  UTIL::activateLeaveEffectOf(this);
-                 pAFader_->fadeLinerUntil(0.0, 15);
+                 pAFader_->transitionLinerUntil(0.0, 15);
              }
              if (_pProg->getFrameInProgress() == 15) {
                  setHitAble(false);

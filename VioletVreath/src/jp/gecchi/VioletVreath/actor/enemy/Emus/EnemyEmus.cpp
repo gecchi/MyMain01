@@ -52,8 +52,8 @@ void EnemyEmus::onCreateModel() {
 void EnemyEmus::initialize() {
     setHitAble(true);
     _pKuroko->relateFaceWithMvAng(true);
-    _pMorpher->forceWeightRange(MORPHTARGET_HATCH_OPEN, 0.0f, 1.0f);
-    _pMorpher->setWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
+    _pMorpher->forceRange(MORPHTARGET_HATCH_OPEN, 0.0f, 1.0f);
+    setWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 200000);
     setScale(1000);
@@ -63,7 +63,7 @@ void EnemyEmus::initialize() {
 
 void EnemyEmus::onActive() {
     _pStatus->reset();
-    _pMorpher->setWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
+    setWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     is_open_hatch_ = false;
     _pProg->reset(PROG_HATCH_CLOSE);
 }
@@ -77,7 +77,7 @@ void EnemyEmus::processBehavior() {
         }
         case PROG_HATCH_CLOSE: {
             if (_pProg->isJustChanged()) {
-                _pMorpher->morphLinerUntil(MORPHTARGET_HATCH_OPEN,
+                _pMorpher->transitionLinerUntil(MORPHTARGET_HATCH_OPEN,
                                            0.0f, frame_of_morph_interval_);
                 _pKuroko->setFaceAngVelo(AXIS_X, 0);
             }
@@ -90,7 +90,7 @@ void EnemyEmus::processBehavior() {
         }
         case PROG_HATCH_OPEN: {
             if (_pProg->isJustChanged()) {
-                _pMorpher->morphLinerUntil(MORPHTARGET_HATCH_OPEN,
+                _pMorpher->transitionLinerUntil(MORPHTARGET_HATCH_OPEN,
                                            1.0f, frame_of_morph_interval_);
                 _pKuroko->setFaceAngVelo(AXIS_X, 3000);
             }

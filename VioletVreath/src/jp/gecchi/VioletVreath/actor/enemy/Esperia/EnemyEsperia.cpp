@@ -94,10 +94,10 @@ void EnemyEsperia::processBehavior() {
         case PROG_ENTRY: {
             if (_pProg->isJustChanged()) {
                 UTIL::activateEntryEffectOf(this);
-                pAFader_->setAlpha(0);
-                pAFader_->fadeLinerUntil(0.98, 20);
+                setAlpha(0);
+                pAFader_->transitionLinerUntil(0.98, 20);
             }
-            if (!pAFader_->isFading()) {
+            if (!pAFader_->isTransitioning()) {
                 setHitAble(true);
                 _pProg->changeNext();
             }
@@ -117,7 +117,7 @@ void EnemyEsperia::processBehavior() {
         case PROG_HATCH_OPEN: {
             if (_pProg->isJustChanged()) {
                 _pSeTx->play3D(SE_HATCH_OPEN);
-                _pMorpher->morphLinerUntil(1, 1.0, 120);
+                _pMorpher->transitionLinerUntil(1, 1.0, 120);
             }
             if (_pProg->getFrameInProgress() == 120) {
                 _pProg->changeNext();
@@ -305,7 +305,7 @@ void EnemyEsperia::processBehavior() {
         case PROG_HATCH_CLOSE: {
             if (_pProg->isJustChanged()) {
                 _pSeTx->play3D(SE_HATCH_CLOSE);
-                _pMorpher->morphLinerUntil(1, 0.0, 120);
+                _pMorpher->transitionLinerUntil(1, 0.0, 120);
             }
             if (_pProg->getFrameInProgress() == 120) {
                 _pProg->changeNext();

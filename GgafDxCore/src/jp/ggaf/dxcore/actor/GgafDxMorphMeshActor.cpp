@@ -38,6 +38,7 @@ _pMorpher(new GgafDxMorpher(this)) {
     for (int i = 1; i <= MAX_MORPH_TARGET; i++) {
         _weight[i] = 0.0f;
     }
+    _morph_target_num = _pMorphMeshModel->_morph_target_num;
 }
 
 
@@ -69,8 +70,39 @@ _pMorpher(new GgafDxMorpher(this)) {
     for (int i = 1; i <= MAX_MORPH_TARGET; i++) {
         _weight[i] = 0.0f;
     }
+    _morph_target_num = _pMorphMeshModel->_morph_target_num;
+}
+void GgafDxMorphMeshActor::setWeight(int prm_target_mesh_no, float prm_weight) {
+#ifdef MY_DEBUG
+    if (prm_target_mesh_no < 1 || _morph_target_num > prm_target_mesh_no) {
+        throwGgafCriticalException("GgafDxMorphMeshActor::setWeight() prm_target_mesh_no(="<<prm_target_mesh_no<<") が、範囲外です。(有効範囲は 1～"<<_morph_target_num<<") ");
+    }
+#endif
+     _weight[prm_target_mesh_no] = prm_weight;
+}
+void GgafDxMorphMeshActor::setWeight(float prm_weight) {
+    for (int i = 1; i <= _morph_target_num; i++) {
+        _weight[i] = prm_weight;
+    }
 }
 
+float GgafDxMorphMeshActor::getWeight(int prm_target_mesh_no) {
+#ifdef MY_DEBUG
+    if (prm_target_mesh_no < 1 || _morph_target_num > prm_target_mesh_no) {
+        throwGgafCriticalException("GgafDxMorphMeshActor::setWeight() prm_target_mesh_no(="<<prm_target_mesh_no<<") が、範囲外です。(有効範囲は 1～"<<_morph_target_num<<") ");
+    }
+#endif
+    return _weight[prm_target_mesh_no];
+}
+
+void GgafDxMorphMeshActor::addWeight(int prm_target_mesh_no, float prm_add_weight) {
+#ifdef MY_DEBUG
+    if (prm_target_mesh_no < 1 || _morph_target_num > prm_target_mesh_no) {
+        throwGgafCriticalException("GgafDxMorphMeshActor::setWeight() prm_target_mesh_no(="<<prm_target_mesh_no<<") が、範囲外です。(有効範囲は 1～"<<_morph_target_num<<") ");
+    }
+#endif
+    _weight[prm_target_mesh_no] += prm_add_weight;
+}
 void GgafDxMorphMeshActor::setAlpha(float prm_alpha) {
     _alpha = prm_alpha;
     //GgafDxMorphMeshActorはメッシュαも設定（シェーダーで参照するため）

@@ -46,8 +46,8 @@ void EnemyOmulus::onCreateModel() {
 void EnemyOmulus::initialize() {
     setHitAble(true);
     _pKuroko->relateFaceWithMvAng(true);
-    _pMorpher->forceWeightRange(MORPHTARGET_HATCH_OPEN, 0.0f, 1.0f);
-    _pMorpher->setWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
+    _pMorpher->forceRange(MORPHTARGET_HATCH_OPEN, 0.0f, 1.0f);
+    setWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 200000);
     setScale(1000);
@@ -58,7 +58,7 @@ void EnemyOmulus::initialize() {
 
 void EnemyOmulus::onActive() {
     _pStatus->reset();
-    _pMorpher->setWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
+    setWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     is_open_hatch_ = false;
 //    frame_of_moment_nextopen_ = frame_of_close_interval_;
     _pProg->reset(PROG_HATCH_CLOSE);
@@ -122,7 +122,7 @@ void EnemyOmulus::processBehavior() {
         }
         case PROG_HATCH_CLOSE: {
             if (_pProg->isJustChanged()) {
-                _pMorpher->morphLinerUntil(MORPHTARGET_HATCH_OPEN,
+                _pMorpher->transitionLinerUntil(MORPHTARGET_HATCH_OPEN,
                                                 0.0f, frame_of_morph_interval_);
                 _pKuroko->setFaceAngVelo(AXIS_X, -3000);
             }
@@ -135,7 +135,7 @@ void EnemyOmulus::processBehavior() {
         }
         case PROG_HATCH_OPEN: {
             if (_pProg->isJustChanged()) {
-                _pMorpher->morphLinerUntil(MORPHTARGET_HATCH_OPEN,
+                _pMorpher->transitionLinerUntil(MORPHTARGET_HATCH_OPEN,
                                            1.0f, frame_of_morph_interval_);
                 _pKuroko->setFaceAngVelo(AXIS_X, 0);
             }
@@ -202,7 +202,7 @@ void EnemyOmulus::processSettlementBehavior() {
     switch (_pProg->get()) {
         case PROG_HATCH_OPEN: {
             //オープン時敵出現処理
-            if (_pMorpher->_weight[MORPHTARGET_HATCH_OPEN] > 0.5) { //モーションが半分以上まで到達したなら
+            if (getWeight(MORPHTARGET_HATCH_OPEN) > 0.5) { //モーションが半分以上まで到達したなら
                 if (_pProg->getFrameInProgress() % (frame)(RF_EnemyOmulus_ShotInterval(G_RANK)) == 0) { //出現間隔
                     if (pDepo_Fired_) {
                         GgafDxDrawableActor* pActor = (GgafDxDrawableActor*)pDepo_Fired_->dispatch();

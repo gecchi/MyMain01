@@ -47,7 +47,7 @@ void EnemyAppho::processBehavior() {
          case PROG_INIT: {
              setHitAble(false);
              positionAs(&entry_pos_);
-             pAFader_->setAlpha(0);
+             setAlpha(0);
              _pKuroko->setMvVelo(0);
              _pKuroko->relateFaceWithMvAng(true);
              _pKuroko->setMvAngTwd(&hanging_pos_);
@@ -58,7 +58,7 @@ void EnemyAppho::processBehavior() {
          }
          case PROG_ENTRY: {
              if (_pProg->getFrameInProgress() == 60) {
-                 pAFader_->fadeLinerUntil(1.0, 60);
+                 pAFader_->transitionLinerUntil(1.0, 60);
              }
              if (getAlpha() > 0.5) {
                  setHitAble(true);
