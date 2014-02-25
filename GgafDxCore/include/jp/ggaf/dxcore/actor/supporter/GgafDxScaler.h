@@ -19,7 +19,6 @@ namespace GgafDxCore {
  * スケール・・・現在（のフレーム）の拡大縮小状態、スケール値
  * スケーリング・・・フレーム間の拡大縮小状態の遷移
  * 2009/05/22 GgafDxKuroko から分割した。
- * TODO:GgafDxScaler,GgafDxMorpher,GgafDxTextureBlinker を共通化する。
  * @version 1.00
  * @since 2009/05/22
  * @author Masatoshi Tsuge
@@ -29,15 +28,20 @@ class GgafDxScaler : public GgafCore::GgafValueTransitioner<scale, 3 > {
 public:
     /** [r]対象アクター */
     GgafDxGeometricActor* const _pActor;
+    /** [r]スケールプロパティへの参照 */
     scale* _apActorScale[3];
+
 public:
     /**
      * コンストラクタ<BR>
      * @param   prm_pActor  適用対象のActor
      */
     GgafDxScaler(GgafDxGeometricActor* prm_pActor);
+
     virtual void reset() override;
+
     virtual scale getValue(int idx) override;
+
     virtual void setValue(int idx, scale value) override;
 
     virtual ~GgafDxScaler();

@@ -39,7 +39,7 @@ public:
 
     /** [rw]モデルの境界球半径。画面外判定に利用される */
     FLOAT _bounding_sphere_radius;
-    /** [r]点滅強度 (0.0 <= _fblink <= 1.0)。GgafDxTextureBlinkerにより操作すること */
+    /** [r]点滅強度 (0.0 <= _power_blink <= 1.0)。GgafDxTextureBlinkerにより操作すること */
     FLOAT _power_blink;
     /** [r]点滅対象RGB値(0.0 <= tex2D()のrgbの何れか <= 1.0)。GgafDxTextureBlinkerにより操作すること */
     FLOAT _blink_threshold;
@@ -76,6 +76,46 @@ public:
     }
 
     /**
+     * 色強度と、対象色しきい値を設定 .
+     * 対象色しきい値とは、色強度が影響を与える対象のテクスチャの色の強さ具合です。<BR>
+     * ピクセルシェーダーにおいて、<BR>
+     * ・ここまでの計算した色（テクスチャやライト考慮済み）・・・ colOut.rgba<BR>
+     * ・テクスチャの色 ・・・ colTex.rgba<BR>
+     * ・対象色しきい値 ・・・ g_tex_blink_threshold<BR>
+     * ・現在の色強度値 ・・・ g_tex_blink_power<BR>
+     * とした場合、以下の様な処理を行なっています。<BR>
+     * <code><pre>
+     * <BR>
+     * if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
+     *     colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
+     * }
+     * </pre></code>
+     * ゼビウスの地上物の赤い点滅のようなエフェクトを簡単に実現するために実装・・(ﾅﾝﾉｺｺｯﾁｬ
+     * @param prm_power_blink 色強度値1 (負の数 ～ 0:黒 ～ 1.0:等倍強度 ～ )
+     * @param prm_blink_threshold 色強度値が影響する対象色しきい値 (0.0 ～ 1.0)
+     */
+    void setBlinkPower(float prm_power_blink, float prm_blink_threshold) {
+        _power_blink = prm_power_blink;
+        _blink_threshold = prm_blink_threshold;
+    }
+
+    /**
+     * 色強度値のみを設定 .
+     * @param prm_power_blink 色強度値1 (負の数 ～ 0:黒 ～ 1.0:等倍強度 ～ )
+     */
+    void setBlinkPower(float prm_power_blink) {
+        _power_blink = prm_power_blink;
+    }
+
+    /**
+     * 色強度値を取得 .
+     * @return 色強度値
+     */
+    float getBlinkPower() {
+        return _power_blink;
+    }
+
+    /**
      * モデルのスペキュラー強度を設定 .
      * 両方の引数に 0 以外の数値を設定すると、スペキュラーが有効になります。
      * 次のように設定するとスペキュラーを無効に出来ます。（デフォルトはスペキュラーを無効）
@@ -97,17 +137,13 @@ public:
      */
     virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num = 1) = 0;
 
-
     /**
-     * マテリアルのテクスチャを小生的に上書き設定 .
-     * 該当マテリアル番号の既存のテクスチャは close() される。
-     * @param prm_material_no マテリアル番号
-     * @param prm_texture テクスチャ
+     * マテリアルのテクスチャを入れ替えて切り替える。 .
+     * 予めモデルに複数のテクスチャ(マテリアル)を登録して置く必要がある。<BR>
+     * 具体的には X ファイルで予め複数マテリアルエントリ（テクスチャ）を書いておく。<BR>
+     * @param prm_texture0 予めモデルに複数のテクスチャの切り替える先のテクスチャID
+     *                    （＝GgafDxTextureManager にエントリされている識別文字列）
      */
-//    virtual void setMaterialTexture(int prm_material_no, const char* prm_texture);
-
-//    virtual GgafDxTextureConnection* setMaterialTextureCon(int prm_material_no, GgafDxTextureConnection* prm_pTexCon);
-
     virtual void swapTopTextureOrder(const char* prm_texture0);
 
     /**

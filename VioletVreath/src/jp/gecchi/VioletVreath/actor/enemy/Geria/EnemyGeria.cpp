@@ -32,10 +32,6 @@ EnemyGeria::EnemyGeria(const char* prm_name) :
 }
 
 void EnemyGeria::onCreateModel() {
-//    _pModel->_pTexBlinker->setBlinkableRange(0.5, 2.0);
-//    _pModel->_pTexBlinker->setPower(0.5);
-//    _pModel->_pTexBlinker->beat(60, 3, 1, -1);
-//    _pModel->blink_threshold_ = 0.8;
 }
 
 void EnemyGeria::initialize() {

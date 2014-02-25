@@ -32,7 +32,7 @@ void GgafDxMorpher::behave(int s, int n) {
     if (_pHlprA) {
         _pHlprA->behave();
     }
-    GgafValueTransitioner<float, (MAX_MORPH_TARGET+1) >::behave(1, _pActor->_morph_target_num + 1);
+    GgafValueTransitioner<float, (MAX_MORPH_TARGET+1) >::behave(1, _pActor->_morph_target_num);
 }
 
 

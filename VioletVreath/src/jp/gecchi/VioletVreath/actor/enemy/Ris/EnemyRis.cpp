@@ -28,9 +28,9 @@ EnemyRis::EnemyRis(const char* prm_name)
 }
 
 void EnemyRis::onCreateModel() {
-    _pModel->_pTexBlinker->setBlinkableRange(0.9, 0.5, 2.0);
-    _pModel->_pTexBlinker->setPower(0.5);
-    _pModel->_pTexBlinker->beat(60, 3, 1, -1);
+    _pModel->setBlinkPower(0.5, 0.9);
+    _pModel->_pTexBlinker->forceRange(0.5, 2.0);
+    _pModel->_pTexBlinker->beat(60, 3, 0, 57, -1);
 }
 
 void EnemyRis::initialize() {

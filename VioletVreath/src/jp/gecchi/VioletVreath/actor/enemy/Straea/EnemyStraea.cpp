@@ -77,9 +77,9 @@ EnemyStraea::EnemyStraea(const char* prm_name) :
 }
 
 void EnemyStraea::onCreateModel() {
-    _pModel->_pTexBlinker->setBlinkableRange(0.97, 0.5, 12.0);
-    _pModel->_pTexBlinker->setPower(1.0);
-    _pModel->_pTexBlinker->beat(60*6, 60*2, 60*2, -1);
+    _pModel->setBlinkPower(1.0, 0.97);
+    _pModel->_pTexBlinker->forceRange(0.5, 12.0);
+    _pModel->_pTexBlinker->beat(60*6, 60*2, 0, 60*2, -1);
 }
 
 void EnemyStraea::initialize() {

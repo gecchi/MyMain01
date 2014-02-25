@@ -43,10 +43,10 @@ EnemyEmus::EnemyEmus(const char* prm_name) :
 }
 
 void EnemyEmus::onCreateModel() {
-    _pModel->_pTexBlinker->setBlinkableRange(0.9, 0.1, 1.0);
-    _pModel->_pTexBlinker->setPower(0.1);
-    _pModel->_pTexBlinker->beat(120, 60, 1, -1);
     _pModel->setSpecular(5.0, 1.0);
+    _pModel->setBlinkPower(0.1, 0.9);
+    _pModel->_pTexBlinker->forceRange(0.1, 1.0);
+    _pModel->_pTexBlinker->beat(120, 60, 0, 60, -1);
 }
 
 void EnemyEmus::initialize() {

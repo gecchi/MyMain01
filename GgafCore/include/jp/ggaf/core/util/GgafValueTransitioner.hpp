@@ -55,7 +55,18 @@ public:
     frame _beat_frame_count[N];
 
 protected:
+    /**
+     * 値を取得する（要実装） .
+     * @param idx
+     * @return
+     */
     virtual VAL_TYPE getValue(int idx) = 0;
+
+    /**
+     * 値を設定する（要実装） .
+     * @param idx
+     * @param value
+     */
     virtual void setValue(int idx, VAL_TYPE value) = 0;
 
 public:
@@ -147,7 +158,7 @@ public:
      * @param prm_target_T 目標遷移
      * @param prm_spend_frame 費やすフレーム数
      */
-    virtual void transitionLinerUntil(int prm_target, frame prm_spend_frame) {
+    virtual void transitionLinerUntil(VAL_TYPE prm_target, frame prm_spend_frame) {
         for (int i = 0; i < N; i++) {
             transitionLinerUntil(i, prm_target, prm_spend_frame);
         }
@@ -165,7 +176,6 @@ public:
         _beat_target_frames[prm_idx] = prm_spend_frame;
         _target[prm_idx] = prm_target;
         _method[prm_idx] = TARGET_LINER_TO;
-
         //最初のアタックまでの速度
         VAL_TYPE val = getValue(prm_idx);
         if (_beat_target_frames[prm_idx] > 0 ) {
@@ -291,12 +301,12 @@ public:
         if (prm_is_to_top) {
             _velo[prm_idx] = 1.0*(_top[prm_idx] - val) / ((int)prm_roop_frames / 2.0);
             if (ZEROd_EQ(_velo[prm_idx])) {
-                _velo[prm_idx] = _top[prm_idx] - val;
+                _velo[prm_idx] = 1; //正であればよい
             }
         } else {
             _velo[prm_idx] = 1.0*(_bottom[prm_idx] - val) / ((int)prm_roop_frames / 2.0);
             if (ZEROd_EQ(_velo[prm_idx])) {
-                _velo[prm_idx] = _bottom[prm_idx] - val;
+                _velo[prm_idx] = -1; //負であればよい
             }
         }
     }
@@ -421,7 +431,6 @@ public:
 
     virtual void reset() {
         for (int i = 0; i < N; i++) {
-    //        [i] = R_SC(1.0);;
             _velo[i] = 0;
             _acce[i] = 0;
             _target[i] = 0;
@@ -438,29 +447,28 @@ public:
         }
     }
 
+
     /**
      * 毎フレームの振る舞いメソッド。<BR>
      * 本クラスの機能を利用する場合は、このメソッドを<BR>
      * 毎フレーム実行することが必要。
+     * @param s 適用開始インデックス
+     * @param n 適用インデックス数
      */
     virtual void behave(int s = 0, int n = N) {
 
-        for (int i = s; i < n; i++) {
+        for (int i = s; i < s+n; i++) {
             TransitionMethod method = _method[i];
             VAL_TYPE val = getValue(i);
             VAL_TYPE top = _top[i];
             VAL_TYPE bottom = _bottom[i];
             _beat_frame_count[i]++;
-
-
             _velo[i] += _acce[i];
             val += _velo[i];
 
             if (method == NO_TRANSITION) {
                 //何もしない
-
             } else {
-
                 if (method == TARGET_LINER_TO) {
                     if (_beat_frame_count[i] == _beat_target_frames[i]) {
                         val = _target[i];
@@ -472,8 +480,8 @@ public:
                         stop(i);//終了
                     }
                 } else if (method == BEAT_LINER) {
-                    frame cnt = (_beat_frame_count_in_roop[i]++);
-
+                    _beat_frame_count_in_roop[i]++;
+                    frame cnt = _beat_frame_count_in_roop[i];
                     if (cnt == _beat_roop_frames[i]/2) {
                         //折り返し
                         if (_velo[i] > 0) { //山
@@ -484,7 +492,6 @@ public:
                             _velo[i] = (VAL_TYPE)( (2.0*(top-bottom)) / ((double)_beat_roop_frames[i]) ); //上りの速度
                         }
                     }
-
                     if (cnt == _beat_roop_frames[i]) {
                         //１ループ終了
                         if (_velo[i] > 0) { //山
@@ -498,14 +505,13 @@ public:
                     }
 
                 } else if (method == BEAT_TRIANGLEWAVE) {
-                    frame cnt = (_beat_frame_count_in_roop[i]++);
-
+                    _beat_frame_count_in_roop[i]++;
+                    frame cnt = _beat_frame_count_in_roop[i];
                     //アタック終了時
                     if (cnt == _beat_frame_of_attack_finish[i]) {
                         val = top;
                         _velo[i] = 0;
                     }
-
                     //維持終時
                     if (cnt == _beat_frame_of_sustain_finish[i]) {
                         val = top;
@@ -517,13 +523,11 @@ public:
                             _velo[i] = bottom-top;
                         }
                     }
-
                     //減衰終了
                     if (cnt == _beat_frame_of_attenuate_finish[i]) {
                         val = bottom;
                         _velo[i] = 0;
                     }
-
                     //休憩終了
                     if (cnt == _beat_roop_frames[i]) {
                         val = bottom;
@@ -545,10 +549,7 @@ public:
                 val =  bottom;
             }
 
-
-            setValue(i, val);
-
-            _TRACE_("_beat_frame_count["<<i<<"]="<<_beat_frame_count[i]<<" _beat_target_frames["<<i<<"]="<<_beat_target_frames[i]<<" _velo["<<i<<"]="<<_velo[i]<<" val="<<val);
+            setValue(i, val); //反映
 
             if (_beat_frame_count[i] == _beat_target_frames[i]) {
                 stop(i);//終了

@@ -38,9 +38,9 @@ pDepo_Shot_ = nullptr;
 }
 
 void EnemyTamago01::onCreateModel() {
-    _pModel->_pTexBlinker->setBlinkableRange(0.9, 0.1, 1.0);
-    _pModel->_pTexBlinker->setPower(0.1);
-    _pModel->_pTexBlinker->beat(120, 60, 1, -1);
+    _pModel->setBlinkPower(0.1, 0.9);
+    _pModel->_pTexBlinker->forceRange(0.1, 1.0);
+    _pModel->_pTexBlinker->beat(120, 60, 0, 60, -1);
 }
 
 void EnemyTamago01::initialize() {

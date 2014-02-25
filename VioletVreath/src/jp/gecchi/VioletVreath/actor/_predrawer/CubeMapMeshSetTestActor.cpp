@@ -18,9 +18,9 @@ CubeMapMeshSetTestActor::CubeMapMeshSetTestActor(const char* prm_name) :
 }
 
 void CubeMapMeshSetTestActor::onCreateModel() {
-    _pModel->_pTexBlinker->setBlinkableRange(0.6, 0.1, 1.0);
-    _pModel->_pTexBlinker->setPower(0.1);
-    _pModel->_pTexBlinker->beat(120, 60, 1, -1);
+    _pModel->setBlinkPower(0.1, 0.6);
+    _pModel->_pTexBlinker->forceRange(0.1, 1.0);
+    _pModel->_pTexBlinker->beat(120, 60, 0, 60, -1);
     _pModel->setSpecular(5.0, 1.0);
 }
 

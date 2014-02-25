@@ -10,7 +10,6 @@ namespace GgafDxCore {
  * 重み _weight[] <BR>
  * を簡単に操作するために設計。<BR>
  * 尚 _weight[] は、[0]は未使用、[1]～[n]がモーフターゲット1～nの重み <BR>
- * TODO:GgafDxScaler,GgafDxMorpher,GgafDxTextureBlinker を共通化する。
  * @version 1.00
  * @since 2009/05/11
  * @author Masatoshi Tsuge
@@ -20,8 +19,9 @@ class GgafDxMorpher : public GgafCore::GgafValueTransitioner<float, (MAX_MORPH_T
 public:
     /** [r]対象アクター */
     GgafDxMorphMeshActor* const _pActor;
-
+    /** [r]モーファーの助手 */
     GgafDxMorpherHelperA* _pHlprA;
+
 public:
     /**
      * コンストラクタ<BR>
@@ -32,10 +32,12 @@ public:
     GgafDxMorpherHelperA* hlprA();
 
     void reset() override;
+
     float getValue(int idx) override;
+
     void setValue(int idx, float value) override;
 
-    void behave(int s = 0, int n = (MAX_MORPH_TARGET+1)) override;
+    void behave(int s = 1, int n = MAX_MORPH_TARGET) override;
 
     virtual ~GgafDxMorpher();
 };

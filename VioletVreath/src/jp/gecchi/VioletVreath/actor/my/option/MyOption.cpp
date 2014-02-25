@@ -111,9 +111,6 @@ MyOption::MyOption(const char* prm_name, uint32_t prm_no, MyOptionController* pr
 }
 
 void MyOption::onCreateModel() {
-//    _pModel->_pTexBlinker->setBlinkableRange(0.9, 0.3, 2.0);
-//    _pModel->_pTexBlinker->setPower(1.0);
-//    _pModel->_pTexBlinker->beat(120, 10, 1, -1);
     _pModel->setSpecular(5.0, 1.0);
 }
 

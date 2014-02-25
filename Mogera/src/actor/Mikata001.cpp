@@ -128,7 +128,7 @@ void Mikata001::processBehavior() {
         _pMorpher->transitionAcceStep(1, 1.0, 0.001, 0.001);
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_C)) {
-        _pMorpher->transitionAcceStep(1, 0.0, -0.001, 0.001);
+        _pMorpher->transitionAcceStep(1, 0.0, -0.001, -0.001);
     }
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_F)) {

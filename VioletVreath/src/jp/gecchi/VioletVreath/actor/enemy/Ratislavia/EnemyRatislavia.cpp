@@ -73,9 +73,6 @@ void EnemyRatislavia::makeCollisionArea(int prm_nSphere){
 }
 
 void EnemyRatislavia::onCreateModel() {
-//    _pModel->_pTexBlinker->setBlinkableRange(0.7, 0.2, 3.0);
-//    _pModel->_pTexBlinker->setPower(0.5);
-//    _pModel->_pTexBlinker->beat(60*20, 60*9, 60*3, -1);
 }
 
 void EnemyRatislavia::initialize() {

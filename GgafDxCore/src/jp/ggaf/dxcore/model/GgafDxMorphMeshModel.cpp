@@ -211,7 +211,6 @@ void GgafDxMorphMeshModel::release() {
         GGAF_DELETE(_papModel3D[pattern]);
     }
 
-
     GGAF_DELETEARR(_paIDirect3DVertexBuffer9_morph);
     GGAF_DELETEARR(_papaVtxBuffer_org_morph);
     GGAF_RELEASE(_pIDirect3DIndexBuffer9);

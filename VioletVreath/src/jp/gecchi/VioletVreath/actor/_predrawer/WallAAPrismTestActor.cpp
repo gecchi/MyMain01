@@ -16,11 +16,10 @@ WallAAPrismTestActor::WallAAPrismTestActor(const char* prm_name) :
 }
 
 void WallAAPrismTestActor::onCreateModel() {
-    _pModel->_pTexBlinker->setBlinkableRange(0.5, 0.2, 3.0);
-    _pModel->_pTexBlinker->setPower(0.5);
-    _pModel->_pTexBlinker->beat(10*20, 10*9, 10*3, -1);
+    _pModel->setBlinkPower(0.5, 0.5);
+    _pModel->_pTexBlinker->forceRange(0.2, 3.0);
+    _pModel->_pTexBlinker->beat(10*20, 10*9, 0, 10*9, -1);
 }
-
 
 bool WallAAPrismTestActor::isOutOfUniverse() {
     if (GgafDxUniverse::_x_gone_left < _x) {
