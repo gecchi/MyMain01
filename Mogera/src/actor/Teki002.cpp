@@ -100,10 +100,10 @@ void Teki002::processBehavior() {
     }
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_F)) {
-        pScaler_->loopLiner(120, 3, true);
+        pScaler_->transitionLinerLoop(120, 3, true);
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_G)) {
-        pScaler_->loopLiner(120, 3, false);
+        pScaler_->transitionLinerLoop(120, 3, false);
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_H)) {
         pScaler_->beat(120, 40, 30, 20, 4);

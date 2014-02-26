@@ -15,6 +15,8 @@ namespace Mogera {
 class Mikata001 : public GgafLib::DefaultMorphMeshActor {
 
 public:
+    GgafDxCore::GgafDxColorist* pColorist;
+
     /**
      * コンストラクタ
      * @param prm_name

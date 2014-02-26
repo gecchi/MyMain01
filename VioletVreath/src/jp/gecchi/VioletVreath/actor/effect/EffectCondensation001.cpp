@@ -41,7 +41,7 @@ void EffectCondensation001::processBehavior() {
         addAlpha(0.05);
     }
 
-    if (pScaler_->_method[0] == NOSCALE) {
+    if (!pScaler_->isTransitioning()) {
         //k¬Š®—¹ŒãABeat
         pScaler_->forceRange(1000, 2000);
         pScaler_->beat(30, 2, 0, 26, -1); //–³ŒÀƒ‹[ƒv

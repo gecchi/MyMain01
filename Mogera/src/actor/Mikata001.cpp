@@ -9,6 +9,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperA.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpherHelperA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxColorist.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -17,20 +18,21 @@ using namespace Mogera;
 
 Mikata001::Mikata001(const char* prm_name) :
         GgafLib::DefaultMorphMeshActor(prm_name, "1/Halia") { //Guruguru.x が参照される。
+    pColorist = NEW GgafDxColorist(this);
 }
 
 void Mikata001::initialize() {
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, PX_C(40));
+    pColorist->forceRange(0, 4.0);
     setHitAble(true);
     setScaleR(0.5);
     //黒衣にキャラのZ軸回転の角速度を設定(毎フレーム2度)
     setRyFaceAng(D_ANG(90));
-
 //    _pKuroko->setFaceAngVelo(AXIS_Z, D_ANG(2));
-
     //acc_x._value = _x;
 }
+
 void Mikata001::onActive() {
     _TRACE_("Mikata001::onActive()!!! _frame_of_life="<<_frame_of_life<<" _frame_of_behaving_since_onActive="<<_frame_of_behaving_since_onActive);
 }
@@ -106,48 +108,92 @@ void Mikata001::processBehavior() {
 
 
 
-    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Q)) {
-        setWeight(1,0.7);
+//    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Q)) {
+//        setWeight(1,0.7);
+//    }
+//
+//    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_A)) {
+//        _pMorpher->transitionLinerUntil(1, 1.0, 180);
+//    }
+//    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Z)) {
+//        _pMorpher->transitionLinerUntil(1, 0.0, 180);
+//    }
+//
+//    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_S)) {
+//        _pMorpher->transitionLinerStep(1, 1.0, 0.01);
+//    }
+//    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_X)) {
+//        _pMorpher->transitionLinerStep(1, 0.0, -0.01);
+//    }
+//
+//    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_D)) {
+//        _pMorpher->transitionAcceStep(1, 1.0, 0.001, 0.001);
+//    }
+//    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_C)) {
+//        _pMorpher->transitionAcceStep(1, 0.0, -0.001, -0.001);
+//    }
+//
+//    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_F)) {
+//        _pMorpher->transitionLinerLoop(1, 120, 3, true);
+//    }
+//    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_G)) {
+//        _pMorpher->transitionLinerLoop(1, 120, 3, false);
+//    }
+//    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_H)) {
+//        _pMorpher->beat(1, 120, 40, 30, 20, 4);
+//    }
+//
+//    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_J)) {
+//        _pMorpher->beat(1, 40, 0, 20, 0, 4);
+//    }
+//    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_K)) {
+//        _pMorpher->beat(1, 60, 10, 0, 40, 3);
+//    }
+
+
+    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_W)) {
+        setMaterialColor(1.0, 1.0, 1.0);
     }
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_A)) {
-        _pMorpher->transitionLinerUntil(1, 1.0, 180);
+        pColorist->transitionLinerUntil(4.0, 180);
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Z)) {
-        _pMorpher->transitionLinerUntil(1, 0.0, 180);
+        pColorist->transitionLinerUntil(0.0, 180);
     }
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_S)) {
-        _pMorpher->transitionLinerStep(1, 1.0, 0.01);
+        pColorist->transitionLinerStep(4.0, 0.01);
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_X)) {
-        _pMorpher->transitionLinerStep(1, 0.0, -0.01);
+        pColorist->transitionLinerStep(0.0, -0.01);
     }
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_D)) {
-        _pMorpher->transitionAcceStep(1, 1.0, 0.001, 0.001);
+        pColorist->transitionAcceStep(4.0, 0.001, 0.001);
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_C)) {
-        _pMorpher->transitionAcceStep(1, 0.0, -0.001, -0.001);
+        pColorist->transitionAcceStep(0.0, -0.001, -0.001);
     }
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_F)) {
-        _pMorpher->loopLiner(1, 120, 3, true);
+        pColorist->transitionLinerLoop(120, 3, true);
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_G)) {
-        _pMorpher->loopLiner(1, 120, 3, false);
+        pColorist->transitionLinerLoop(120, 3, false);
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_H)) {
-        _pMorpher->beat(1, 120, 40, 30, 20, 4);
+        pColorist->beat(120, 40, 30, 20, 4);
     }
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_J)) {
-        _pMorpher->beat(1, 40, 0, 20, 0, 4);
+        pColorist->beat(40, 0, 20, 0, 4);
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_K)) {
-        _pMorpher->beat(1, 60, 10, 0, 40, 3);
+        pColorist->beat(60, 10, 0, 40, 3);
     }
 
+    pColorist->behave();
     _pKuroko->behave(); //黒衣を活動させる（Z軸回転する）
     _pMorpher->behave();
 //    _TRACE_("Mikata001:after _x="<<_x);
@@ -164,4 +210,5 @@ void Mikata001::onHit(GgafCore::GgafActor* prm_pOtherActor) {
 }
 
 Mikata001::~Mikata001() {
+    GGAF_DELETE(pColorist);
 }

@@ -41,7 +41,7 @@ void MyTorpedoBlast::onReset() {
 }
 
 void MyTorpedoBlast::processBehavior() {
-    if (pScaler_->_method[AXIS_X] == NOSCALE) {
+    if (!pScaler_->isTransitioning()) {
         sayonara();//–c‚ç‚ñ‚Å‚µ‚Ú‚Þ‚ªI—¹Žž
     } else {
         _pColliChecker->setColliSphere(0, _sx); //“–‚½‚è”»’è‚à•Ï‰»

@@ -106,7 +106,13 @@ public:
     void setBlinkPower(float prm_power_blink) {
         _power_blink = prm_power_blink;
     }
-
+    /**
+     * 色強度反映対象の色しきい値を設定 .
+     * @param prm_blink_threshold 色強度値が影響する対象色しきい値 (0.0 ～ 1.0)
+     */
+    void setBlinkThreshold(float prm_blink_threshold) {
+        _blink_threshold = prm_blink_threshold;
+    }
     /**
      * 色強度値を取得 .
      * @return 色強度値

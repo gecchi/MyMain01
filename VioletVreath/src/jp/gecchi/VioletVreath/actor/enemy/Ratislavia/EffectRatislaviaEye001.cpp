@@ -33,7 +33,7 @@ void EffectRatislaviaEye001::processBehavior() {
 }
 
 void EffectRatislaviaEye001::processJudgement() {
-    if (pScaler_->_method[0] == NOSCALE) {
+    if (!pScaler_->isTransitioning()) {
         inactivate();
     }
 }

@@ -104,10 +104,10 @@ void EnemyTamago01::processBehavior() {
 //        _pModel->_pTexBlinker->->transitionAcceStep(3000, 0, 3);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_4)) {
-//        _pModel->_pTexBlinker->->loopLiner(20, -1);
+//        _pModel->_pTexBlinker->->transitionLinerLoop(20, -1);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_5)) {
-//        _pModel->_pTexBlinker->->loopLiner(10, 5);
+//        _pModel->_pTexBlinker->->transitionLinerLoop(10, 5);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_6)) {
 //        _pModel->_pTexBlinker->->beat(20, 2 ,5, -1);

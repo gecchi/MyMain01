@@ -38,11 +38,11 @@ public:
      */
     GgafDxScaler(GgafDxGeometricActor* prm_pActor);
 
-    virtual void reset() override;
+    void reset() override;
 
-    virtual scale getValue(int idx) override;
+    scale getValue(int idx) override;
 
-    virtual void setValue(int idx, scale value) override;
+    void setValue(int idx, scale value) override;
 
     virtual ~GgafDxScaler();
 };

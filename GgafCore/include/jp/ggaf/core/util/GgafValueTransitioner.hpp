@@ -20,12 +20,8 @@ class GgafValueTransitioner : public GgafObject {
         TARGET_LINER_STEP,
         BEAT_LINER,
         BEAT_TRIANGLEWAVE,
-        TARGET_SIN,          //!< TODO:未実装
-        BEAT_SIN,            //!< TODO:未実装
+        BEAT_TRIGONOMETRIC,
         TARGET_ACCELERATION_STEP,
-        BEAT_PARABOLA,       //!< TODO:未実装
-        TARGET_PARABOLA_REV, //!< TODO:未実装
-        BEAT_PARABOLA_REV    //!< TODO:未実装
     };
 public:
     /** [r/w]各軸の目標の遷移 */
@@ -272,9 +268,9 @@ public:
      * @param prm_beat_num ループする回数(1.2回など少数で指定可能、-1 でほぼ無限ループ)
      * @param prm_is_to_top true:初めはTOPに遷移する／false:初めはBOTTOMに遷移
      */
-    void loopLiner(frame prm_roop_frames, double prm_beat_num, bool prm_is_to_top) {
+    void transitionLinerLoop(frame prm_roop_frames, double prm_beat_num, bool prm_is_to_top) {
         for (int i = 0; i < N; i++) {
-            loopLiner(i, prm_roop_frames, prm_beat_num, prm_is_to_top);
+            transitionLinerLoop(i, prm_roop_frames, prm_beat_num, prm_is_to_top);
         }
     }
 
@@ -287,7 +283,7 @@ public:
      * @param prm_beat_num ループする回数(1.2回など少数で指定可能、-1 でほぼ無限ループ)
      * @param prm_is_to_top true:初めはTOPに遷移する／false:初めはBOTTOMに遷移
      */
-    virtual void loopLiner(int prm_idx, frame prm_roop_frames, double prm_beat_num, bool prm_is_to_top) {
+    virtual void transitionLinerLoop(int prm_idx, frame prm_roop_frames, double prm_beat_num, bool prm_is_to_top) {
         VAL_TYPE val = getValue(prm_idx);
         _method[prm_idx] = BEAT_LINER;
         _beat_frame_count[prm_idx] = 0;
@@ -310,6 +306,31 @@ public:
             }
         }
     }
+
+
+//    virtual void transitionTrigonometricLoop(int prm_idx, frame prm_roop_frames, double prm_beat_num, bool prm_is_to_top) {
+//        VAL_TYPE val = getValue(prm_idx);
+//        _method[prm_idx] = BEAT_TRIGONOMETRIC;
+//        _beat_frame_count[prm_idx] = 0;
+//        _beat_frame_count_in_roop[prm_idx] = 0;
+//        _beat_roop_frames[prm_idx] = prm_roop_frames;
+//        if (prm_beat_num < 0) {
+//            _beat_target_frames[prm_idx] = MAX_FRAME;
+//        } else {
+//            _beat_target_frames[prm_idx] = prm_roop_frames * prm_beat_num;
+//        }
+//        if (prm_is_to_top) {
+//            _velo[prm_idx] = 1.0*(_top[prm_idx] - val) / ((int)prm_roop_frames / 2.0);
+//            if (ZEROd_EQ(_velo[prm_idx])) {
+//                _velo[prm_idx] = 1; //正であればよい
+//            }
+//        } else {
+//            _velo[prm_idx] = 1.0*(_bottom[prm_idx] - val) / ((int)prm_roop_frames / 2.0);
+//            if (ZEROd_EQ(_velo[prm_idx])) {
+//                _velo[prm_idx] = -1; //負であればよい
+//            }
+//        }
+//    }
 
     /**
      * 台形波の波形で値を遷移する。（全軸指定）.
@@ -503,7 +524,11 @@ public:
                         }
                         _beat_frame_count_in_roop[i] = 0;
                     }
-
+                } else if (method == BEAT_TRIGONOMETRIC) {
+//                    _beat_frame_count_in_roop[i]++;
+//                    frame cnt = _beat_frame_count_in_roop[i];
+//                    angle p = (double)cnt / (double)_beat_roop_frames[i]
+//                    val =(-ANG_COS(p) + 1.0) * (top-bottom)
                 } else if (method == BEAT_TRIANGLEWAVE) {
                     _beat_frame_count_in_roop[i]++;
                     frame cnt = _beat_frame_count_in_roop[i];

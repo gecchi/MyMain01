@@ -25,8 +25,11 @@ public:
      * @param   prm_pActor  ìKópëŒè€ÇÃActor
      */
     GgafDxAlphaFader(GgafDxDrawableActor* prm_pActor);
+
     void reset() override;
+
     float getValue(int idx) override;
+
     void setValue(int idx, float value) override;
 
     virtual ~GgafDxAlphaFader();

@@ -55,7 +55,7 @@ void EffectLockon001_Main::processBehavior() {
         if (getAlpha() < 1.0) {
             addAlpha(0.01);
         }
-        if (pScaler_->_method[0] == NOSCALE) {
+        if (!pScaler_->isTransitioning()) {
             //k¬Š®—¹ŒãABeat
             pScaler_->forceRange(2000, 4000);
             pScaler_->beat(50, 4, 0, 46, -1); //–³ŒÀƒ‹[ƒv
@@ -85,7 +85,7 @@ void EffectLockon001_Main::processBehavior() {
     if (_pProg->get() == LOCKON001_PROG_RELEASE) {
         pTarget_ = nullptr;
         addAlpha(-0.05);
-        if (pScaler_->_method[0] == NOSCALE || getAlpha() < 0.0f) {
+        if (!pScaler_->isTransitioning() || getAlpha() < 0.0f) {
             setScale(2000);
             inactivate();
         }

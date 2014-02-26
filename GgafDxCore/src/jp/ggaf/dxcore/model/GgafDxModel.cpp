@@ -19,8 +19,8 @@ _pTexBlinker(new GgafDxTextureBlinker(this)) {
     _num_materials = 0;
     _papTextureConnection = nullptr;
     _bounding_sphere_radius = 0;
-    _power_blink = -1.0f;
-    _blink_threshold = 1.1f;
+    _power_blink = 1.0f;
+    _blink_threshold = 1.000001f;
     _blinker_frames = 0;
     _is_init_model = false;
     _set_num = 1; //デフォルト最大同描画数１
