@@ -43,8 +43,7 @@ void EnemyErmioneArmHead::processBehavior() {
     EnemyErmioneArm::processBehavior();
 }
 
-void EnemyErmioneArmHead::processSettlementBehavior() {
-    EnemyErmioneArm::processSettlementBehavior();
+void  EnemyErmioneArmHead::processJudgement() {
     LaserChip* pChip = nullptr;
     if (pDepoLaser_) {
         pChip = pDepoLaser_->dispatch();
@@ -61,6 +60,9 @@ void EnemyErmioneArmHead::processSettlementBehavior() {
 }
 
 void EnemyErmioneArmHead::onHit(GgafActor* prm_pOtherActor) {
+
+
+
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 //    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
 //        setHitAble(false);

@@ -53,7 +53,7 @@ void EnemyEmus::initialize() {
     setHitAble(true);
     _pKuroko->relateFaceWithMvAng(true);
     _pMorpher->forceRange(MORPHTARGET_HATCH_OPEN, 0.0f, 1.0f);
-    setWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
+    setMorphWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 200000);
     setScale(1000);
@@ -63,7 +63,7 @@ void EnemyEmus::initialize() {
 
 void EnemyEmus::onActive() {
     _pStatus->reset();
-    setWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
+    setMorphWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     is_open_hatch_ = false;
     _pProg->reset(PROG_HATCH_CLOSE);
 }
@@ -132,8 +132,7 @@ void EnemyEmus::processBehavior() {
     changeGeoFinal();
 }
 
-void EnemyEmus::processSettlementBehavior() {
-    DefaultMorphMeshActor::processSettlementBehavior();
+void EnemyEmus::processJudgement() {
     //絶対座標が更新されてから～オープン時レーザー
     if (is_firing_) {
         LaserChip* pChip = pLaserChipDepo_->dispatch();
@@ -144,9 +143,7 @@ void EnemyEmus::processSettlementBehavior() {
             is_firing_ = false;
         }
     }
-}
 
-void EnemyEmus::processJudgement() {
     if (_pActor_Base != nullptr && _pActor_Base->isActiveInTheTree()) {
 //        (*(_pActor_Base->_pFunc_calcRotMvWorldMatrix))(_pActor_Base, _matWorld);
     } else {

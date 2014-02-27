@@ -47,7 +47,7 @@ void EnemyOmulus::initialize() {
     setHitAble(true);
     _pKuroko->relateFaceWithMvAng(true);
     _pMorpher->forceRange(MORPHTARGET_HATCH_OPEN, 0.0f, 1.0f);
-    setWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
+    setMorphWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 200000);
     setScale(1000);
@@ -58,7 +58,7 @@ void EnemyOmulus::initialize() {
 
 void EnemyOmulus::onActive() {
     _pStatus->reset();
-    setWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
+    setMorphWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     is_open_hatch_ = false;
 //    frame_of_moment_nextopen_ = frame_of_close_interval_;
     _pProg->reset(PROG_HATCH_CLOSE);
@@ -196,13 +196,13 @@ void EnemyOmulus::processBehavior() {
     _pKuroko->behave();
     changeGeoFinal();
 }
-void EnemyOmulus::processSettlementBehavior() {
-    DefaultMorphMeshActor::processSettlementBehavior();
+
+void EnemyOmulus::processJudgement() {
     //絶対座標が更新されてから～
     switch (_pProg->get()) {
         case PROG_HATCH_OPEN: {
             //オープン時敵出現処理
-            if (getWeight(MORPHTARGET_HATCH_OPEN) > 0.5) { //モーションが半分以上まで到達したなら
+            if (getMorphWeight(MORPHTARGET_HATCH_OPEN) > 0.5) { //モーションが半分以上まで到達したなら
                 if (_pProg->getFrameInProgress() % (frame)(RF_EnemyOmulus_ShotInterval(G_RANK)) == 0) { //出現間隔
                     if (pDepo_Fired_) {
                         GgafDxDrawableActor* pActor = (GgafDxDrawableActor*)pDepo_Fired_->dispatch();
@@ -214,12 +214,12 @@ void EnemyOmulus::processSettlementBehavior() {
                     }
                 }
             }
+            break;
         }
         default :
             break;
     }
-}
-void EnemyOmulus::processJudgement() {
+
 
     if (_pActor_Base != nullptr && _pActor_Base->isActiveInTheTree()) {
 //        (*(_pActor_Base->_pFunc_calcRotMvWorldMatrix))(_pActor_Base, _matWorld);

@@ -105,7 +105,7 @@ void EnemyErmione::initialize() {
 
 void EnemyErmione::onActive() {
     _pStatus->reset();
-    setWeight(1, 0.0);
+    setMorphWeight(1, 0.0);
 
     _pProg->reset(PROG_INIT);
     setHitAble(false);

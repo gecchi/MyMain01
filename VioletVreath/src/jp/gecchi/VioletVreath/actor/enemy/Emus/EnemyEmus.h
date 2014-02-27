@@ -76,7 +76,6 @@ public:
      */
     void processBehavior() override;
 
-    void processSettlementBehavior() override;
     /**
      * ƒGƒ€ƒX‚ÌU‚é•‘‚¢Œã‚Ì”»’èˆ— .
      */

@@ -78,17 +78,17 @@ public:
      * @param prm_target_mesh_no モーフターゲットメッシュNO(1 ～)
      * @param prm_weight 重み 重み0.0～1.0。それ以上も可能
      */
-    void setWeight(int prm_target_mesh_no, float prm_weight);
+    void setMorphWeight(int prm_target_mesh_no, float prm_weight);
 
     /**
      * 全モーフターゲットの重みを直接指定
      * @param prm_target_mesh_no 重み0.0～1.0。それ以上も可能
      */
-    void setWeight(float prm_weight);
+    void setMorphWeight(float prm_weight);
 
-    float getWeight(int prm_target_mesh_no);
+    float getMorphWeight(int prm_target_mesh_no);
 
-    void addWeight(int prm_target_mesh_no, float prm_add_weight);
+    void addMorphWeight(int prm_target_mesh_no, float prm_add_weight);
 
     /**
      * α設定.

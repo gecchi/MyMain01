@@ -116,7 +116,7 @@ void EnemyDelheid::processBehavior() {
                 _pMorpher->transitionAcceStep(MPH_OPEN, 1.1, 0, 0.001);
             }
             if (!_pMorpher->isTransitioning()) {
-                setWeight(MPH_OPEN, 1.0);
+                setMorphWeight(MPH_OPEN, 1.0);
                 pProg2_->changeNext();
             }
             break;
@@ -197,7 +197,7 @@ void EnemyDelheid::processJudgement() {
 }
 
 void EnemyDelheid::onHit(GgafActor* prm_pOtherActor) {
-    if (getWeight(MPH_OPEN) > 0.1) {
+    if (getMorphWeight(MPH_OPEN) > 0.1) {
         bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
         if (was_destroyed) {
             //”j‰óŽž

@@ -191,7 +191,4 @@ void GraphCappedBarActor::processDraw() {
 }
 
 GraphCappedBarActor::~GraphCappedBarActor() {
-    if (_is_new_PxQuantity) {
-        GGAF_DELETE(_pPxQty);
-    }
 }

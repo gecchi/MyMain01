@@ -68,8 +68,7 @@ void EnemyRatislaviaEye::initialize() {
 
 void EnemyRatislaviaEye::onActive() {
     _pStatus->reset();
-    setWeight(0, 1.0);
-    setWeight(1, 0.0);
+    setMorphWeight(1, 0.0);
     _pProg->reset(PROG_MOVE);
     positionAs(pRatislavia_);
     setFaceAngAs(pRatislavia_);

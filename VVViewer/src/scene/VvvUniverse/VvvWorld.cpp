@@ -307,9 +307,9 @@ void VvvWorld::processBehavior() {
             if (pMorphMeshActor) {
                 for (int i = 1; i <= pMorphMeshActor->_morph_target_num; i++) {
                     if (GgafDxInput::isBeingPressedKey(DIK_1 + (i-1))) {
-                        pMorphMeshActor->addWeight(i, 0.01);
+                        pMorphMeshActor->addMorphWeight(i, 0.01);
                     } else {
-                        pMorphMeshActor->addWeight(i, -0.01);
+                        pMorphMeshActor->addMorphWeight(i, -0.01);
                     }
                 }
             }

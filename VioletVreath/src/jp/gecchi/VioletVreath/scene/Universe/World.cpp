@@ -177,6 +177,15 @@ void World::initialize() {
 }
 
 void World::processBehavior() {
+
+#ifdef MY_DEBUG
+    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_T)) {
+        _TRACE_("-------------------- World dump() start --------------------------------");
+        dump();
+        _TRACE_("-------------------- World dump() end   --------------------------------");
+    }
+#endif
+
     switch (_pProg->get()) {
         case World::PROG_INIT: {
             if (GgafFactory::chkProgress(1) == 2) {

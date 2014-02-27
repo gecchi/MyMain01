@@ -146,15 +146,9 @@ void* GgafFactory::obtain(uint64_t prm_order_id, GgafObject* prm_org) {
                         } else if (prm_org->instanceOf(Obj_GgafActor)) {
                             name_org = ((GgafActor*)prm_org)->getName();
                         }
-                        std::string name_orderer;
-                        if (pOrder->_pOrderer->instanceOf(Obj_GgafScene)) {
-                            name_orderer = ((GgafScene*)pOrder->_pOrderer)->getName();
-                        } else if (pOrder->_pOrderer->instanceOf(Obj_GgafActor)) {
-                            name_orderer = ((GgafActor*)pOrder->_pOrderer)->getName();
-                        }
                         throwGgafCriticalException("GgafFactory::obtain Error! ["<<prm_order_id<<"]の製造待ち時間タイムアウト、取得できません。\n"<<
                                                    "何らかの理由でメインスレッドが停止している可能性が大きいです。"<<
-                                                   "発注者(order呼び元)="<<name_orderer<<"("<<pOrder->_pOrderer<<")／受取人(obtain呼び元)="<<name_org<<"("<<prm_org<<")");
+                                                   "発注者(order呼び元)=("<<pOrder->_pOrderer<<")／受取人(obtain呼び元)="<<name_org<<"("<<prm_org<<")");
                     } else {
                     }
 #endif
@@ -216,12 +210,6 @@ void* GgafFactory::obtain(uint64_t prm_order_id, GgafObject* prm_org) {
                 _TRACE_("GgafFactory::obtain 注文の形跡が無い、取得出来ないエラー発生！");
                 debuginfo();
                 //注文の形跡が無い、取得出来ないエラー発生！、エラーメッセージを作る。
-                std::string name_orderer;
-                if (pOrder->_pOrderer->instanceOf(Obj_GgafScene)) {
-                    name_orderer = ((GgafScene*)pOrder->_pOrderer)->getName();
-                } else if (pOrder->_pOrderer->instanceOf(Obj_GgafActor)) {
-                    name_orderer = ((GgafActor*)pOrder->_pOrderer)->getName();
-                }
                 std::string name_org;
                 if (prm_org->instanceOf(Obj_GgafScene)) {
                     name_org = ((GgafScene*)prm_org)->getName();
@@ -231,7 +219,7 @@ void* GgafFactory::obtain(uint64_t prm_order_id, GgafObject* prm_org) {
                 throwGgafCriticalException("GgafFactory::obtain Error! ＜工場長＞全部探しましたけど、そんな注文(prm_order_id="<<prm_order_id<<")は、ありません。\n "<<
                                            "oreder() と obtain() の対応が取れていません。oreder()漏れ、或いは同じ obtain() を２回以上してませんか？。\n"<<
                                            "情報：受取人(obtain呼び元)="<<name_org<<"("<<prm_org<<") でした。\n" <<
-                                           "（※ちなみに、現在工場の最終オーダーは、注文番号(_order_id="<<pOrder->_order_id<<")で、発注者(order呼び元)="<<name_orderer<<"("<<pOrder->_pOrderer<<") でした）");
+                                           "（※ちなみに、現在工場の最終オーダーは、注文番号(_order_id="<<pOrder->_order_id<<")で、発注者(order呼び元)=("<<pOrder->_pOrderer<<") でした）");
             } else {
                 pOrder = pOrder->_pOrder_next;
             }
@@ -303,12 +291,6 @@ void GgafFactory::debuginfo() {
         GgafOrder* p = ROOT_ORDER;
         if (p) {
             while(p) {
-                std::string name_orderer;
-                if (p->_pOrderer->instanceOf(Obj_GgafScene)) {
-                    name_orderer = ((GgafScene*)p->_pOrderer)->getName();
-                } else if (p->_pOrderer->instanceOf(Obj_GgafActor)) {
-                    name_orderer = ((GgafActor*)p->_pOrderer)->getName();
-                }
 
                 if (p->_pObject_creation) {
 
@@ -323,13 +305,13 @@ void GgafFactory::debuginfo() {
                     _TRACE_("・注文ID="<<p->_order_id<<", "<<
                             "進捗="<<p->_progress<<", "<<
                             "商品="<<name_creation<<"("<<p->_pObject_creation<<")"<<", "<<
-                            "発注者="<<name_orderer<<"("<<p->_pOrderer<<")"
+                            "発注者=("<<p->_pOrderer<<")"
                     );
                 } else {
                     _TRACE_("・注文ID="<<p->_order_id<<", "<<
                             "進捗="<<p->_progress<<", "<<
                             "商品=nullptr,"<<
-                            "発注者="<<name_orderer<<"("<<p->_pOrderer<<")"
+                            "発注者=("<<p->_pOrderer<<")"
                     );
                 }
                 p = p->_pOrder_next;

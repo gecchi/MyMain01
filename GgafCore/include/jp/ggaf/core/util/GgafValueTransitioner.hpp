@@ -24,26 +24,26 @@ class GgafValueTransitioner : public GgafObject {
         TARGET_ACCELERATION_STEP,
     };
 public:
-    /** [r/w]各軸の目標の遷移 */
+    /** [r/w]各対象インデックスの目標の遷移 */
     VAL_TYPE _target[N];
-    /** [r/w]各軸の遷移上限 */
+    /** [r/w]各対象インデックスの遷移上限 */
     VAL_TYPE _top[N];
-    /** [r/w]各軸の遷移下限 */
+    /** [r/w]各対象インデックスの遷移下限 */
     VAL_TYPE _bottom[N];
-    /** [r/w]各軸の毎フレームの遷移の増分 */
+    /** [r/w]各対象インデックスの毎フレームの遷移の増分 */
     VAL_TYPE _velo[N];
-    /** [r/w]各軸の毎フレームの遷移の増分の増分 */
+    /** [r/w]各対象インデックスの毎フレームの遷移の増分の増分 */
     VAL_TYPE _acce[N];
-    /** [r]各軸の値遷移方法 */
+    /** [r]各対象インデックスの値遷移方法 */
     TransitionMethod _method[N];
-    /** [r]ビート時、各軸の三角波の波形で値遷移のアタックフレーム数 */
+    /** [r]ビート時、各対象インデックスの三角波の波形で値遷移のアタックフレーム数 */
     frame _beat_frame_of_attack_finish[N];
     frame _beat_frame_of_sustain_finish[N];
-    /** [r]ビート時、各軸のアタックから下限までのフレーム数 */
+    /** [r]ビート時、各対象インデックスのアタックから下限までのフレーム数 */
     frame _beat_frame_of_attenuate_finish[N];
-    /** [r]ビート時、各軸の三角波の波形で値遷移のレストフレーム数 */
+    /** [r]ビート時、各対象インデックスの三角波の波形で値遷移のレストフレーム数 */
     frame _beat_roop_frames[N];
-    /** [r]ビート時、各軸の値遷移に費やすフレーム数 */
+    /** [r]ビート時、各対象インデックスの値遷移に費やすフレーム数 */
     frame _beat_target_frames[N];
     /** [r]ビート時、内部カウンター */
     frame _beat_frame_count_in_roop[N];
@@ -89,7 +89,7 @@ public:
     }
 
     /**
-     * スケーラーによる遷移の上限下限を設定（全軸指定） .
+     * スケーラーによる遷移の上限下限を設定（全対象インデックス指定） .
      * 引数の大小は気にせず渡して(内部で自動判別)
      * @param prm1 遷移値1
      * @param prm2 遷移値2
@@ -101,8 +101,8 @@ public:
     }
 
     /**
-     * スケーラーによる遷移の上限下限を設定（軸単位で指定）
-     * @param prm_idx 軸
+     * スケーラーによる遷移の上限下限を設定（対象インデックス単位で指定）
+     * @param prm_idx 対象インデックス
      * @param prm1 遷移値1
      * @param prm2 遷移値2
      */
@@ -130,7 +130,7 @@ public:
         return MAX3(_bottom[0],_bottom[1],_bottom[2]);
     }
     /**
-     * 値遷移を停止させる。 （全軸指定） .
+     * 値遷移を停止させる。 （全対象インデックス指定） .
      */
     virtual void stop() {
         for (int i = 0; i < N; i++) {
@@ -139,7 +139,7 @@ public:
     }
 
     /**
-     * 値遷移を停止させる。 （軸単位で指定）.
+     * 値遷移を停止させる。 （対象インデックス単位で指定）.
      * @param prm_idx
      */
     virtual void stop(int prm_idx) {
@@ -149,7 +149,7 @@ public:
     }
 
     /**
-     * 片道等速値遷移（全軸・持続フレーム数指定） .
+     * 片道等速値遷移（全対象インデックス・持続フレーム数指定） .
      * 目標の遷移へ一定速度で値遷移する
      * @param prm_target_T 目標遷移
      * @param prm_spend_frame 費やすフレーム数
@@ -161,9 +161,9 @@ public:
     }
 
     /**
-     * 片道等速値遷移（軸単位・持続フレーム数指定） .
+     * 片道等速値遷移（対象インデックス単位・持続フレーム数指定） .
      * 目標の遷移へ一定速度で値遷移する。
-     * @param prm_idx 軸
+     * @param prm_idx 対象インデックス
      * @param prm_target_T 目標遷移
      * @param prm_spend_frame 費やすフレーム数
      */
@@ -182,7 +182,7 @@ public:
     }
 
     /**
-     * 上限遷移へ片道等速値遷移（全軸・持続フレーム数指定） .
+     * 上限遷移へ片道等速値遷移（全対象インデックス・持続フレーム数指定） .
      * @param prm_spend_frame 費やすフレーム数
      */
     virtual void transitionLinerToTop(frame prm_spend_frame) {
@@ -190,16 +190,15 @@ public:
     }
 
     /**
-     * 下限遷移へ片道等速値遷移（全軸・持続フレーム数指定） .
+     * 下限遷移へ片道等速値遷移（全対象インデックス・持続フレーム数指定） .
      * @param prm_spend_frame 費やすフレーム数
      */
     virtual void transitionLinerToBottom(frame prm_spend_frame) {
         transitionLinerUntil(MAX3(_bottom[0],_bottom[1],_bottom[2]), prm_spend_frame);
     }
 
-
     /**
-     * 片道等速値遷移（全軸・遷移速度指定） .
+     * 片道等速値遷移（全対象インデックス・遷移速度指定） .
      * 目標の遷移へ一定速度で値遷移する
      * @param prm_target_T 目標遷移
      * @param prm_velo_T 毎フレーム加算する遷移差分(>0.0)。正の遷移を指定する事。加算か減算かは自動判断する。
@@ -211,9 +210,9 @@ public:
     }
 
     /**
-     * 片道等速値遷移（軸単位・遷移速度指定） .
+     * 片道等速値遷移（対象インデックス単位・遷移速度指定） .
      * 目標の遷移へ一定速度で値遷移する（遷移差分指定） .
-     * @param prm_idx 軸
+     * @param prm_idx 対象インデックス
      * @param prm_target_T 目標遷移
      * @param prm_velo_T 毎フレーム加算する遷移差分(>0.0)。正の遷移を指定する事。加算か減算かは自動判断する。
      */
@@ -226,7 +225,7 @@ public:
     }
 
     /**
-     * 片道加速値遷移（全軸・遷移速度・遷移加速度指定） .
+     * 片道加速値遷移（全対象インデックス・遷移速度・遷移加速度指定） .
      * 目標の遷移へ加速指定で値遷移する
      * 遷移加速度を0に指定すると transitionLinerStep とほぼ同じ意味になる。
      * transitionLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（できない）。
@@ -243,11 +242,11 @@ public:
     }
 
     /**
-     * 片道加速値遷移（軸単位・遷移速度・遷移加速度指定） .
+     * 片道加速値遷移（対象インデックス単位・遷移速度・遷移加速度指定） .
      * 目標の遷移へ加速指定で値遷移する（遷移速度、遷移加速度差指定） .
      * 遷移加速度を0に指定すると transitionLinerStep とほぼ同じ意味になる。
      * transitionLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（できない）。
-     * @param prm_idx 軸
+     * @param prm_idx 対象インデックス
      * @param prm_target_T 目標遷移
      * @param prm_velo_T 初期遷移速度
      * @param prm_acce_T 遷移加速度
@@ -262,7 +261,7 @@ public:
     }
 
     /**
-     * 反復等速値遷移（全軸・フレーム数指定） .
+     * 反復等速値遷移（全対象インデックス・フレーム数指定） .
      * 上限遷移へ一定速度で値遷移し、一定速度で下遷移へ戻る。これをループ指定する。（１ループのフレーム数指定） .
      * @param prm_roop_frames １ループ(変化して元に戻るまで)に費やすフレーム
      * @param prm_beat_num ループする回数(1.2回など少数で指定可能、-1 でほぼ無限ループ)
@@ -275,10 +274,10 @@ public:
     }
 
     /**
-     * 反復等速値遷移（軸単位・フレーム数指定）
+     * 反復等速値遷移（対象インデックス単位・フレーム数指定）
      * 上限遷移へ一定速度で値遷移し、一定速度で下遷移へ戻る。
      * これをループ指定する。（１ループのフレーム数指定） .
-     * @param prm_idx 軸
+     * @param prm_idx 対象インデックス
      * @param prm_roop_frames １ループ(変化して元に戻るまで)に費やすフレーム
      * @param prm_beat_num ループする回数(1.2回など少数で指定可能、-1 でほぼ無限ループ)
      * @param prm_is_to_top true:初めはTOPに遷移する／false:初めはBOTTOMに遷移
@@ -333,7 +332,7 @@ public:
 //    }
 
     /**
-     * 台形波の波形で値を遷移する。（全軸指定）.
+     * 台形波の波形で値を遷移する。（全対象インデックス指定）.
      * <PRE>
      * ⑤  _ _ _   ＿＿＿   _ _ _ _ _ _ _ _ _    ＿＿＿   _ _ _ _ _ _ _ _ _
      *            /:    :＼                     /      ＼
@@ -350,8 +349,8 @@ public:
      * ② アタックまでのフレーム数<BR>
      * ③ 維持フレーム数<BR>
      * ④ 減衰フレーム数<BR>
-     * ⑤ 遷移上限(_top[軸] 配列が保持)<BR>
-     * ⑥ 遷移下限(_bottom[軸] 配列が保持)<BR>
+     * ⑤ 遷移上限(_top[対象インデックス] 配列が保持)<BR>
+     * ⑥ 遷移下限(_bottom[対象インデックス] 配列が保持)<BR>
      * この内 ①～④を引数で設定、⑤⑥はforceRange()の設定値が使用される。<BR>
      * @param prm_roop_frames 上図で①のフレーム数
      * @param prm_attack_frames 上図で②のフレーム数
@@ -370,7 +369,7 @@ public:
     }
 
     /**
-     * 台形波の波形で値を遷移する。（軸別指定）.
+     * 台形波の波形で値を遷移する。（対象インデックス別指定）.
      * <PRE>
      * ⑤  _ _ _   ＿＿＿   _ _ _ _ _ _ _ _ _    ＿＿＿   _ _ _ _ _ _ _ _ _
      *            /:    :＼                     /      ＼
@@ -387,10 +386,10 @@ public:
      * ② アタックまでのフレーム数<BR>
      * ③ 維持フレーム数<BR>
      * ④ 減衰フレーム数<BR>
-     * ⑤ 遷移上限(_top[軸] 配列が保持)<BR>
-     * ⑥ 遷移下限(_bottom[軸] 配列が保持)<BR>
+     * ⑤ 遷移上限(_top[対象インデックス] 配列が保持)<BR>
+     * ⑥ 遷移下限(_bottom[対象インデックス] 配列が保持)<BR>
      * この内 ①～④を引数で設定、⑤⑥はforceRange()の設定値が使用される。<BR>
-     * @param prm_idx 軸
+     * @param prm_idx 対象インデックス
      * @param prm_roop_frames 上図で①のフレーム数
      * @param prm_attack_frames 上図で②のフレーム数
      * @param prm_sustain_frames 上図で③のフレーム数
@@ -426,7 +425,7 @@ public:
 
     /**
      * 値遷移中かどうか調べる .
-     * @param prm_idx 軸
+     * @param prm_idx 対象インデックス
      * @return true/false
      */
     virtual bool isTransitioning(int prm_idx) {
@@ -467,7 +466,6 @@ public:
             _method[i] = NO_TRANSITION;
         }
     }
-
 
     /**
      * 毎フレームの振る舞いメソッド。<BR>
@@ -524,7 +522,7 @@ public:
                         }
                         _beat_frame_count_in_roop[i] = 0;
                     }
-                } else if (method == BEAT_TRIGONOMETRIC) {
+//                } else if (method == BEAT_TRIGONOMETRIC) {
 //                    _beat_frame_count_in_roop[i]++;
 //                    frame cnt = _beat_frame_count_in_roop[i];
 //                    angle p = (double)cnt / (double)_beat_roop_frames[i]
@@ -580,11 +578,9 @@ public:
                 stop(i);//終了
             }
         }
-
     }
 
     virtual ~GgafValueTransitioner() {
-
     }
 };
 

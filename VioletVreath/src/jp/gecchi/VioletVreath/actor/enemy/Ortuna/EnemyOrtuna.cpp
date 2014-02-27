@@ -53,7 +53,7 @@ void EnemyOrtuna::processBehavior() {
              _pKuroko->setMvAngTwd(&hanging_pos_);
              velo mv_velo = RF_EnemyOrtuna_MvVelo(G_RANK);
              _pKuroko->setFaceAngVelo(AXIS_X, mv_velo); //‚®‚é‚®‚é`
-             setWeight(0.0);
+             setMorphWeight(0.0);
              UTIL::activateEntryEffectOf(this);
              _pProg->changeNext();
              break;

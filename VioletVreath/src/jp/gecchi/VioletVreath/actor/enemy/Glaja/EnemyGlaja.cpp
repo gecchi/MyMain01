@@ -56,7 +56,7 @@ void EnemyGlaja::processBehavior() {
              _TRACE_("keepOnTurningFaceAngTwd keepOnTurningFaceAngTwd");
              _pKuroko->keepOnTurningFaceAngTwd(pMyShip,
                                                D_ANG(2), 0, TURN_CLOSE_TO, false);
-             setWeight(0.0);
+             setMorphWeight(0.0);
              UTIL::activateEntryEffectOf(this);
              _pProg->changeNext();
              break;

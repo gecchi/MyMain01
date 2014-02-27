@@ -67,8 +67,8 @@ void EnemyHalia::initialize() {
 
 void EnemyHalia::onActive() {
     _pStatus->reset();
-    setWeight(0, 1.0);
-    setWeight(1, 0.0);
+    setMorphWeight(0, 1.0);
+    setMorphWeight(1, 0.0);
     _pKuroko->setFaceAngVelo(AXIS_X, 1000);
     _pKuroko->hlprA()->slideMvByVd(veloTopMv_, MyShip::lim_x_front_-_x,
                            0.4, 0.6, 1000, true);
@@ -146,7 +146,7 @@ void EnemyHalia::processJudgement() {
 }
 
 void EnemyHalia::onHit(GgafActor* prm_pOtherActor) {
-    if (getWeight(1) > 0.1) { //Œû‚ª‹ó‚¢‚Ä‚½‚ç
+    if (getMorphWeight(1) > 0.1) { //Œû‚ª‹ó‚¢‚Ä‚½‚ç
         bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
         if (was_destroyed) {
             //”j‰óŽž

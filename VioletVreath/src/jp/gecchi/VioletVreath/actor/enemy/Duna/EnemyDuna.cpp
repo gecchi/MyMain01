@@ -72,7 +72,7 @@ void EnemyDuna::processBehavior() {
             _pKuroko->setRzRyMvAng(0, D90ANG);
             _pKuroko->setRzMvAngVelo(D_ANG(12));
             _pKuroko->setRzMvAngAcce(D_ANG(0.05));
-            setWeight(0.0);
+            setMorphWeight(0.0);
             UTIL::activateEntryEffectOf(this);
             _pProg->changeNext();
             break;

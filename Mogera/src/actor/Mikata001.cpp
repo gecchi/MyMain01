@@ -109,7 +109,7 @@ void Mikata001::processBehavior() {
 
 
 //    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Q)) {
-//        setWeight(1,0.7);
+//        setMorphWeight(1,0.7);
 //    }
 //
 //    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_A)) {
