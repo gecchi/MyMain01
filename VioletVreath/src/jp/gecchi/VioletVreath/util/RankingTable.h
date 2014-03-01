@@ -1,13 +1,13 @@
-#ifndef QUERYRANKING_H_
-#define QUERYRANKING_H_
+#ifndef RANKINGTABLE_H_
+#define RANKINGTABLE_H_
 #include "jp/ggaf/core/util/GgafTable.h"
 
 namespace VioletVreath {
 
-#define QUERYRANKING_NAME_LEN 10
-#define QUERYRANKINGG_SCORELEN 10
-#define QUERYRANKING_RECORD_NUM 10
-#define QUERYRANKING_DATA_FILE "SCORE_RANKING.qry"
+#define RANKINGTABLE_NAME_LEN 10
+#define RANKINGTABLE_SCORELEN 10
+#define RANKINGTABLE_RECORD_NUM 10
+#define RANKINGTABLE_DATA_FILE "SCORE_RANKING.tbl"
 
 /**
  * ハイスコアランキング用クエリ .
@@ -15,10 +15,10 @@ namespace VioletVreath {
  * @since 2012/10/15
  * @author Masatoshi Tsuge
  */
-class QueryRanking : public GgafCore::GgafTable {
+class RankingTable : public GgafCore::GgafTable {
 
 public:
-    QueryRanking();
+    RankingTable();
     /**
      * 初期化 .
      * データファイルがある場合は読み込み。
@@ -50,8 +50,8 @@ public:
      */
     void save();
 
-    virtual ~QueryRanking();
+    virtual ~RankingTable();
 };
 
 }
-#endif /*QUERYRANKING_H_*/
+#endif /*RANKINGTABLE_H_*/

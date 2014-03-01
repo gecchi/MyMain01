@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "QueryRanking.h"
+#include "RankingTable.h"
 #include <Shlwapi.h>
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
@@ -9,37 +9,37 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 
-QueryRanking::QueryRanking() : GgafTable() {
+RankingTable::RankingTable() : GgafTable() {
 }
 
-void QueryRanking::init() {
-    if (PathFileExists(QUERYRANKING_DATA_FILE) ) {
-        importFromFile(QUERYRANKING_DATA_FILE);
+void RankingTable::init() {
+    if (PathFileExists(RANKINGTABLE_DATA_FILE) ) {
+        importFromFile(RANKINGTABLE_DATA_FILE);
     } else {
-        std::string default_name = std::string(QUERYRANKING_NAME_LEN, '.');
-        for (int i = 0; i < QUERYRANKING_RECORD_NUM; i++) {
+        std::string default_name = std::string(RANKINGTABLE_NAME_LEN, '.');
+        for (int i = 0; i < RANKINGTABLE_RECORD_NUM; i++) {
             addRow(default_name, (i+1)*1000);
         }
     }
     sort();
 }
 
-void QueryRanking::addRow(std::string& prm_name, int prm_score) {
+void RankingTable::addRow(std::string& prm_name, int prm_score) {
     GgafRecord* r = NEW GgafRecord();
     (*r)["NAME"]    = prm_name;
-    (*r)["SCORE"]   = UTIL::padZeroStr(prm_score, QUERYRANKINGG_SCORELEN);
+    (*r)["SCORE"]   = UTIL::padZeroStr(prm_score, RANKINGTABLE_SCORELEN);
     (*r)["REGDATE"] = UTIL::getSystemDateTimeStr();
     GgafTable::addRow(r);
 }
 
-void QueryRanking::sort() {
+void RankingTable::sort() {
     sortDescBy("SCORE","REGDATE",false);
-    if (getCount() > QUERYRANKING_RECORD_NUM) {
-        removeRows(QUERYRANKING_RECORD_NUM);
+    if (getCount() > RANKINGTABLE_RECORD_NUM) {
+        removeRows(RANKINGTABLE_RECORD_NUM);
     }
 }
 
-bool QueryRanking::isRankIn(int prm_score) {
+bool RankingTable::isRankIn(int prm_score) {
     std::string str_last_score = getVal("SCORE", getCount()-1);  //現在のハイスコアの最低スコア
     int last_score = STOI(str_last_score);
     if (prm_score > last_score) {
@@ -49,9 +49,9 @@ bool QueryRanking::isRankIn(int prm_score) {
     }
 }
 
-void QueryRanking::save() {
-    exportToFile(QUERYRANKING_DATA_FILE);
+void RankingTable::save() {
+    exportToFile(RANKINGTABLE_DATA_FILE);
 }
 
-QueryRanking::~QueryRanking() {
+RankingTable::~RankingTable() {
 }

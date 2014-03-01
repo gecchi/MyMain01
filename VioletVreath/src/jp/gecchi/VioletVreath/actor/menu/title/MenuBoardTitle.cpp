@@ -35,9 +35,10 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
     for (int i = ITEM_GAME_START; i <= ITEM_QUIT; i++) {
         LabelMenuItemFont01* pLabel = NEW LabelMenuItemFont01("item");
         pLabel->update(apItemStr[i], ALIGN_CENTER, VALIGN_MIDDLE);
-        pLabel->setAlpha(0.7);
         addItem(pLabel, PX_C(100), PX_C(40+(i*18)));
         papItemAFader_[i] = NEW GgafDxAlphaFader(pLabel);
+        papItemAFader_[i]->forceRange(0, 0.6);
+        pLabel->setAlpha(0.6);
     }
     //キャンセル押下時移動先アイテム
     relateAllItemToCancel(ITEM_QUIT);
@@ -71,8 +72,7 @@ bool MenuBoardTitle::condSelectExPrev() {
 void MenuBoardTitle::onSelect(int prm_from, int prm_to) {
     if (prm_from > -1) {
         //非選択項目は点滅させない
-        papItemAFader_[prm_from]->reset();
-        papItemAFader_[prm_from]->behave();
+        getItem(prm_from)->setAlpha(papItemAFader_[prm_from]->getTop());
     }
     //選択項目を点滅
     if (prm_to > -1) {
@@ -122,7 +122,7 @@ void MenuBoardTitle::processBehavior() {
     }
 
     if (getRisingSubMenu()) {
-        getSelectedItem()->setAlpha(1.0); //点滅を停止
+        getSelectedItem()->setAlpha(1.0); //点滅を停止して明るく！
     } else {
         papItemAFader_[getSelectedIndex()]->behave();
     }

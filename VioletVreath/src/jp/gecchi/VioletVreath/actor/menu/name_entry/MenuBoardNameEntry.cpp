@@ -223,7 +223,7 @@ void MenuBoardNameEntry::processBehavior() {
     int item_index = getSelectedIndex();
     int len = pLabelInputedName_->_len;
     if (0 <= item_index && item_index <= (input_item_num_-1)) {
-        if (len >= QUERYRANKING_NAME_LEN) {
+        if (len >= RANKINGTABLE_NAME_LEN) {
             //10文字以上の場合カーソル文字表示無し
             pLabelSelectedChar_->update("");
         } else {
@@ -251,7 +251,7 @@ void MenuBoardNameEntry::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, 
         //[BS]で決定（振る舞い）の処理
         if (len > 0) {
             //１文字除去する。
-            char cstr[QUERYRANKING_NAME_LEN+1];
+            char cstr[RANKINGTABLE_NAME_LEN+1];
             pLabelInputedName_->getDrawString(cstr);
             cstr[len-1] = '\0';
             pLabelInputedName_->update(cstr);
@@ -264,12 +264,12 @@ void MenuBoardNameEntry::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, 
         riseSubMenu(0, getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y);
     } else {
         //その他アイテム（入力文字）で決定（振る舞い）の処理
-        if (len >= QUERYRANKING_NAME_LEN) {
+        if (len >= RANKINGTABLE_NAME_LEN) {
             //10文字以上の場合
             //何もしない
         } else {
             //文字入力する
-            char cstr[QUERYRANKING_NAME_LEN+1];
+            char cstr[RANKINGTABLE_NAME_LEN+1];
             pLabelInputedName_->getDrawString(cstr);
             std::string s = std::string(cstr) + std::string(apInputItemStr_[item_index]);
             pLabelInputedName_->update(s.c_str());

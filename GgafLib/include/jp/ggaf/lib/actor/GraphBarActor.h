@@ -46,6 +46,12 @@ public:
     void linkQty(PxQuantity* prm_pPxQty);
 
     /**
+     * 内部のバーの値を保持する PxQuantity の参照変数を変更 .
+     * @param prm_pVariable
+     */
+    void linkVariable(int* prm_pVariable);
+
+    /**
      * バーの値に対するピクセル値を設定 .
      * @param prm_max_val バーの値の最大値
      * @param prm_max_val_px    バーの値の最大値に対する画面のピクセル値

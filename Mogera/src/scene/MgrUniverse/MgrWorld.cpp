@@ -40,17 +40,16 @@ MgrWorld::MgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     pMgrActor1_->position(C_x, C_y);
     getSceneDirector()->addSubGroup(pMgrActor1_);
     mp_ = 100;
-    qtyMp_.link(&mp_);
     pTestBar_ = NEW TestBar("TEST1");
     pTestBar_->setValign(VALIGN_MIDDLE);
-    pTestBar_->linkQty(&qtyMp_);
+    pTestBar_->linkVariable(&mp_);
     pTestBar_->graduate(-200, 200, 400);
     pTestBar_->position(C_x, C_y);
     getSceneDirector()->addSubGroup(pTestBar_);
 
     pBar_ = NEW TestCappedBar("TEST1");
     pBar_->setValign(VALIGN_MIDDLE);
-    pBar_->linkQty(&qtyMp_);
+    pBar_->linkVariable(&mp_);
     pBar_->graduate(-200, 200, 400);
     pBar_->position(C_x, C_y+PX_C(100));
     getSceneDirector()->addSubGroup(pBar_);
@@ -77,9 +76,9 @@ MgrWorld::MgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
 void MgrWorld::initialize() {
     pMgrActor1_->inactivate();
     pTeki_->inactivate();
-    //pMikata_->inactivate();
-    pBar_->inactivate();
-    pTestBar_->inactivate();
+    pMikata_->inactivate();
+    //pBar_->inactivate();
+    //pTestBar_->inactivate();
     pTeki002_->inactivate();
     pTeki_->position(0, PX_C(240)/2);
     pMikata_->position(0, PX_C(-240));

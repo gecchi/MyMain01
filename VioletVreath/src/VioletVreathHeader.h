@@ -572,7 +572,7 @@ class VreathItem;
 class VreathItem001;
 
 class Properties;
-class QueryRanking;
+class RankingTable;
 class MyStgUtil;
 
 template<class T>

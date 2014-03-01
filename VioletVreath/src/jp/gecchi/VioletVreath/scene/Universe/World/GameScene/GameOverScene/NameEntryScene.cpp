@@ -8,7 +8,7 @@
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/gecchi/VioletVreath/util/QueryRanking.h"
+#include "jp/gecchi/VioletVreath/util/RankingTable.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

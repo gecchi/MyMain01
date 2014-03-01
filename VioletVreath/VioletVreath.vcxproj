@@ -579,7 +579,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\TamagoScene.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\PreDrawScene.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\util\MyStgUtil.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\util\QueryRanking.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\util\RankingTable.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\util\VamSysCamPosition.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\util\XpmHeader.cpp" />
     <ClCompile Include="src\VioletVreath.cpp" />
@@ -925,7 +925,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\TamagoScene.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Universe\World\PreDrawScene.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\util\MyStgUtil.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\util\QueryRanking.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\util\rankingtable.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\util\VamSysCamPosition.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\util\xpmheader.h" />
     <ClInclude Include="src\VioletVreathHeader.h" />

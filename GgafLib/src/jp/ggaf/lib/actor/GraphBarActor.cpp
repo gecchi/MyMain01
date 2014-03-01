@@ -44,6 +44,10 @@ void GraphBarActor::linkQty(PxQuantity* prm_pPxQty) {
     _is_new_PxQuantity = false;
 }
 
+void GraphBarActor::linkVariable(int* prm_pVariable) {
+    _pPxQty->link(prm_pVariable);
+}
+
 void GraphBarActor::processDraw() {
     float bar_width = (float)(_pPxQty->getPx());
     if (bar_width == 0.0f) { //I know float ==

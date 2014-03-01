@@ -101,12 +101,12 @@ height_(PX_C(height_px_)) {
     pixcoord vreath_px = mp_px;
     //MPバー設置
     pMpBar_ = NEW MpBar("MpBar");
-    pMpBar_->_pPxQty->link(prm_pMP_MyShip);
+    pMpBar_->linkVariable(prm_pMP_MyShip);
     pMpBar_->graduate(0, MY_SHIP_MAX_MP, mp_px); //現在値で画面表示は600pxとする。
     addSubGroup(pMpBar_);
     //Vreathバー設置
     pVreathBar_ = NEW VreathBar("VreathBar");
-    pVreathBar_->_pPxQty->link(prm_pVreath_MyShip);
+    pVreathBar_->linkVariable(prm_pVreath_MyShip);
     pVreathBar_->graduate(0, vreath_val, vreath_px); //現在値で画面表示は600pxとする。
     addSubGroup(pVreathBar_);
 

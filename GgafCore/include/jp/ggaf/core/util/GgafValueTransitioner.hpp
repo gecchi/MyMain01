@@ -1,13 +1,15 @@
 #ifndef GGAFCORE_GGAFVALUETRANSITIONER_H_
 #define GGAFCORE_GGAFVALUETRANSITIONER_H_
 #include "jp/ggaf/core/GgafObject.h"
-#include "jp/ggaf/core/util/GgafUtil.h"
+
 #include "GgafCommonHeader.h"
+#include "jp/ggaf/core/util/GgafUtil.h"
 
 namespace GgafCore {
 
 /**
  * 値の遷移ヘルパー .
+ * 終に念願の共通化。
  * @version 1.00
  * @since 2014/02/19
  * @author Masatoshi Tsuge
@@ -68,7 +70,6 @@ protected:
 public:
     /**
      * コンストラクタ<BR>
-     * @param   prm_pActor  適用対象のActor
      */
     GgafValueTransitioner() : GgafObject() {
         for (int i = 0; i < N; i++) {
@@ -89,7 +90,7 @@ public:
     }
 
     /**
-     * スケーラーによる遷移の上限下限を設定（全対象インデックス指定） .
+     * 値遷移の上限下限を設定（全対象インデックス指定） .
      * 引数の大小は気にせず渡して(内部で自動判別)
      * @param prm1 遷移値1
      * @param prm2 遷移値2
@@ -101,7 +102,7 @@ public:
     }
 
     /**
-     * スケーラーによる遷移の上限下限を設定（対象インデックス単位で指定）
+     * 値遷移の上限下限値を設定（対象インデックス単位で指定）
      * @param prm_idx 対象インデックス
      * @param prm1 遷移値1
      * @param prm2 遷移値2
@@ -116,19 +117,56 @@ public:
         }
     }
 
-    virtual VAL_TYPE getTop(int prm_idx)  {
+    /**
+     * 値遷移の上限値を取得 .
+     * @param prm_idx 対象インデックス
+     * @return 上限値
+     */
+    virtual VAL_TYPE getTop(int prm_idx) {
         return _top[prm_idx];
     }
-    virtual VAL_TYPE getBottom(int prm_idx)  {
+
+    /**
+     * 値遷移の下限値を取得 .
+     * @param prm_idx 対象インデックス
+     * @return
+     */
+    virtual VAL_TYPE getBottom(int prm_idx) {
         return _bottom[prm_idx];
     }
 
+    /**
+     * 値遷移の上限値を取得 .
+     * 対象インデックスが２以上の場合、全上限値の中で最小を返す。
+     * @return 上限値
+     */
     virtual VAL_TYPE getTop() {
-        return MIN3(_top[0], _top[1], _top[2]);
+        //_topの最小値を返す
+        VAL_TYPE minv = _top[0];
+        for (int i = 1; i < N; i++) {
+            if (minv > _top[i]) {
+                minv = _top[i];
+            }
+        }
+        return minv;
     }
+
+    /**
+     * 値遷移の下限値を取得 .
+     * 対象インデックスが２以上の場合、全下限値の中で最大を返す。
+     * @return 上限値
+     */
     virtual VAL_TYPE getBottom() {
-        return MAX3(_bottom[0],_bottom[1],_bottom[2]);
+        //_bottomの最大値を返す
+        VAL_TYPE maxv = _bottom[0];
+        for (int i = 1; i < N; i++) {
+            if (maxv > _bottom[i]) {
+                maxv = _bottom[i];
+            }
+        }
+        return maxv;
     }
+
     /**
      * 値遷移を停止させる。 （全対象インデックス指定） .
      */
@@ -186,7 +224,7 @@ public:
      * @param prm_spend_frame 費やすフレーム数
      */
     virtual void transitionLinerToTop(frame prm_spend_frame) {
-        transitionLinerUntil(MIN3(_top[0],_top[1],_top[2]), prm_spend_frame);
+        transitionLinerUntil(getTop(), prm_spend_frame);
     }
 
     /**
@@ -194,7 +232,7 @@ public:
      * @param prm_spend_frame 費やすフレーム数
      */
     virtual void transitionLinerToBottom(frame prm_spend_frame) {
-        transitionLinerUntil(MAX3(_bottom[0],_bottom[1],_bottom[2]), prm_spend_frame);
+        transitionLinerUntil(getBottom(), prm_spend_frame);
     }
 
     /**
