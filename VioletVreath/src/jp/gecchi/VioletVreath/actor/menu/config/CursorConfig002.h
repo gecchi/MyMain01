@@ -1,8 +1,6 @@
-#ifndef CURSORKEYCONFIGMENU_H_
-#define CURSORKEYCONFIGMENU_H_
+#ifndef CURSORCONFIG002_H_
+#define CURSORCONFIG002_H_
 #include "jp/ggaf/lib/actor/DefaultBoardActor.h"
-
-
 
 namespace VioletVreath {
 
@@ -12,10 +10,10 @@ namespace VioletVreath {
  * @since 2013/02/18
  * @author Masatoshi Tsuge
  */
-class CursorKeyConfigMenu : public GgafLib::DefaultBoardActor {
+class CursorConfig002 : public GgafLib::DefaultBoardActor {
 
 public:
-    CursorKeyConfigMenu(const char* prm_name);
+    CursorConfig002(const char* prm_name);
 
     void initialize() override;
 
@@ -25,9 +23,9 @@ public:
 
     void processJudgement() override;
 
-    virtual ~CursorKeyConfigMenu();
+    virtual ~CursorConfig002();
 };
 
 }
-#endif /*CURSORKEYCONFIGMENU_H_*/
+#endif /*CURSORCONFIG002_H_*/
 

@@ -3,7 +3,7 @@
 
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
-#include "CursorKeyConfigMenu.h"
+#include "CursorConfig002.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelFix16Font01.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelMenuTitleFont01.h"
@@ -81,7 +81,7 @@ MenuBoardKeyConfig::MenuBoardKeyConfig(const char* prm_name) :
     addDisp(pLabel_Title, PX_C(300), PX_C(40));
 
     //メニューカーソルを設定
-    CursorKeyConfigMenu* pCursor = NEW CursorKeyConfigMenu("CursorKeyConfigMenu");
+    CursorConfig002* pCursor = NEW CursorConfig002("CursorConfig002");
     pCursor->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
     setMainCursor(pCursor);
 

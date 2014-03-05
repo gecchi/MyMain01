@@ -438,7 +438,7 @@ public:
      * メニューに設定されているメインカーソルを取得 .
      * @return メインカーソルオブジェクト
      */
-    virtual GgafDxCore::GgafDxDrawableActor* getCursor();
+    virtual GgafDxCore::GgafDxDrawableActor* getMainCursor();
 
     /**
      * メニューに設定されている補助カーソルを取得 .
@@ -1198,7 +1198,7 @@ void MenuActor<T>::addSupCursor(GgafDxCore::GgafDxDrawableActor* prm_pCursorActo
 }
 
 template<class T>
-GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getCursor() {
+GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getMainCursor() {
     return _pCursorActor;
 }
 
@@ -1270,11 +1270,21 @@ GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getOnCancelledItem() {
 
 template<class T>
 GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getItem(int prm_index) {
+#ifdef MY_DEBUG
+    if (_lstItems.length() <= prm_index) {
+        throwGgafCriticalException("MenuActor<T>::getItem() メニューアイテム要素数オーバー name="<<T::getName()<<" _lstItems.length()="<<_lstItems.length()<<" prm_index="<<prm_index);
+    }
+#endif
     return _lstItems.getFromFirst(prm_index);
 }
 
 template<class T>
 GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getDisp(int prm_index) {
+#ifdef MY_DEBUG
+    if (_lstDispActors.length() <= prm_index) {
+        throwGgafCriticalException("MenuActor<T>::getDisp() 表示ラベルアイテム要素数オーバー name="<<T::getName()<<" _lstDispActors.length()="<<_lstDispActors.length()<<" prm_index="<<prm_index);
+    }
+#endif
     return _lstDispActors.getFromFirst(prm_index);
 }
 
@@ -1462,11 +1472,14 @@ void MenuActor<T>::riseMe() {
     }
 
     if (_pCursorActor) {
+        _pCursorActor->setAlpha(T::getAlpha());
         _pCursorActor->activate();
     }
     int n_sc = _lstSupCursor.length();
     for (int i = 0; i < n_sc; i++) {
-        _lstSupCursor.getFromFirst(i)->_pActor->activate();
+        GgafDxCore::GgafDxDrawableActor* pSupCursorActor = _lstSupCursor.getFromFirst(i)->_pActor;
+        pSupCursorActor->setAlpha(T::getAlpha());
+        pSupCursorActor->activate();
     }
 }
 
@@ -1540,6 +1553,7 @@ void MenuActor<T>::processBehavior() {
         }
         pElem = pElem->_pNext;
     }
+
     //表示アイテムをメニューに追従
     pElem = _lstDispActors.getElemFirst();
     int n_da = _lstDispActors.length();
@@ -1571,6 +1585,7 @@ void MenuActor<T>::processBehavior() {
         }
         _pCursorActor->setAlpha(T::getAlpha());
     }
+
     //補助カーソルをメニューアイテムに追従
     for (int i = 0; i < n_sc; i++) {
         SupCursor* pSupCursor = _lstSupCursor.getFromFirst(i);
@@ -1589,7 +1604,6 @@ void MenuActor<T>::processBehavior() {
                                       pTargetItem->_z + pSupCursor->_z_adjust );
         }
         pSupCursorActor->setAlpha(T::getAlpha());
-
     }
 
     //サブメニューのriseMe() sinkMe() 時

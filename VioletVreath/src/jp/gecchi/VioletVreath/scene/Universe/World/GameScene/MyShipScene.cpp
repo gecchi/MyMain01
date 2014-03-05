@@ -15,6 +15,7 @@
 #include "jp/gecchi/VioletVreath/scene/Universe.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
+#include "jp/gecchi/VioletVreath/GameGlobal.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -72,12 +73,9 @@ papOptionCtrler_(nullptr) {
     //z_ = 0.99;//ÇΩÇ‘ÇÒç≈îwñ  Åi0 <= z_ < 1.0ÅjZ=(0Å`+1)
     //z_ = 0.9999999f;
 
-    zanki_ = 0;
     pLabelZanki_ = NEW LabelGecchi16Font("zankdisp");
     getSceneDirector()->addSubGroup(pLabelZanki_);
-
     useProgress(PROG_BANPEI);
-
 }
 
 void MyShipScene::initialize() {
@@ -88,8 +86,8 @@ void MyShipScene::initialize() {
 
 void MyShipScene::onReset() {
     _TRACE_("MyShipScene onReset()");
-    zanki_ = 30;
-    std::string z(zanki_, '*');
+    G_ZANKI = 5;
+    std::string z(G_ZANKI, '*');
     pLabelZanki_->update(z.c_str());
 
     pMyShip_->resetTree();
@@ -173,8 +171,8 @@ void MyShipScene::processBehavior() {
                 for (int i = 0; i < MyOptionController::max_option_num_; i ++) {
                     papOptionCtrler_[i]->is_free_from_myship_mode_ = true;
                 }
-                zanki_ -= 1;
-                std::string z(zanki_, '*');
+                G_ZANKI -= 1;
+                std::string z(G_ZANKI, '*');
                 pLabelZanki_->update(z.c_str());
             }
             if (_pProg->getFrameInProgress() == 120) {
@@ -182,7 +180,7 @@ void MyShipScene::processBehavior() {
                 pMyShip_->inactivateDelay(120);
             }
             if (_pProg->getFrameInProgress() == 240) {
-                if (zanki_ == 0) {
+                if (G_ZANKI == 0) {
                    throwEventUpperTree(EVENT_ALL_MY_SHIP_WAS_DESTROYED);
                    P_UNIVERSE->undoCameraWork(); //VamSysCamWorkerâèú
                    _pProg->changeNothing();

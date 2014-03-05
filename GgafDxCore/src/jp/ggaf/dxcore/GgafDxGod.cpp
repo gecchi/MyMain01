@@ -138,6 +138,12 @@ void GgafDxGod::chengeViewPos(HWND prm_pHWnd, int pos) {
         }
     }
 }
+void GgafDxGod::chengeViewPos1(int pos) {
+    GgafDxGod::chengeViewPos(GgafDxGod::_pHWndPrimary, pos);
+}
+void GgafDxGod::chengeViewPos2(int pos) {
+    GgafDxGod::chengeViewPos(GgafDxGod::_pHWndSecondary, pos);
+}
 void GgafDxGod::chengeViewAspect(bool prm_b) {
     PROPERTY::FIXED_GAME_VIEW_ASPECT = prm_b;
     if (GgafDxCore::GgafDxGod::_can_be) {

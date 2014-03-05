@@ -403,6 +403,8 @@ class GgafLinearOctreeElem;
 
 class GgafCurtain;
 class GgafTable;
+
+class GgafEnumIndex;
 }
 
 #endif /*GGAFCOMMONHEADER_H_*/

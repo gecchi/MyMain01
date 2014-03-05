@@ -23,6 +23,7 @@ EnemyEbe::EnemyEbe(const char* prm_name) :
     pDepo_ShotEffect_ = nullptr;
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
+    _pKuroko->relateFaceWithMvAng(true);
     useProgress(PROG_BANPEI);
 }
 
@@ -31,7 +32,6 @@ void EnemyEbe::onCreateModel() {
 }
 
 void EnemyEbe::initialize() {
-    _pKuroko->relateFaceWithMvAng(true);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
 }
@@ -53,7 +53,6 @@ void EnemyEbe::onActive() {
     }
     _pStatus->reset();
     setHitAble(true);
-    setRzFaceAng(0);
     _pKuroko->setMvAcce(0);
     _pProg->reset(PROG_MOVE01_1);
 }
@@ -84,7 +83,7 @@ void EnemyEbe::processBehavior() {
         case PROG_MOVE02_1: {
             if (_pProg->isJustChanged()) {
                 _pKuroko->turnMvAngTwd(_x - PX_C(300), _y, _z,
-                                        D_ANG(1), 0, TURN_CLOSE_TO, false);
+                                       D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
 
             break;

@@ -46,8 +46,6 @@ public:
     VamSysCamWorker* pVamSysCamWorker_;
     /** Žc‹@•\Ž¦ */
     LabelGecchi16Font* pLabelZanki_;
-    int zanki_;
-
 
 public:
     MyShipScene(const char* prm_name);

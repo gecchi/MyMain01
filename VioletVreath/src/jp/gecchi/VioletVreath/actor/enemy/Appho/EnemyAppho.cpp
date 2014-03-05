@@ -20,7 +20,6 @@ EnemyAppho::EnemyAppho(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Appho", STATUS(EnemyAppho)) {
     _class_name = "EnemyAppho";
     pAFader_ = NEW GgafDxAlphaFader(this);
-    _sx=_sy=_sz=100;
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
 }
@@ -30,6 +29,7 @@ void EnemyAppho::onCreateModel() {
 }
 
 void EnemyAppho::initialize() {
+    setScale(100);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
 }
@@ -79,7 +79,7 @@ void EnemyAppho::processBehavior() {
              if (_pProg->getFrameInProgress() % 32U == 0) {
                  //ちょくちょく自機を見つめる
                  _pKuroko->turnFaceAngTwd(P_MYSHIP, D_ANG(0.5), 0,
-                                           TURN_CLOSE_TO, true);
+                                          TURN_CLOSE_TO, true);
              }
              if (_pKuroko->hlprA()->isJustFinishSlidingMv()) {
                  _pProg->changeNext();
@@ -94,9 +94,9 @@ void EnemyAppho::processBehavior() {
                  _pKuroko->relateFaceWithMvAng(false);
                  //滞留ポイント到着、ふらふら気ままな方向へ移動させる
                  _pKuroko->turnMvAngTwd(_x + RND(-PX_C(100),PX_C(100)),
-                                         _y + RND(-PX_C(100),PX_C(100)),
-                                         _z + RND(-PX_C(100),PX_C(100)),
-                                         100, 0, TURN_CLOSE_TO, false);
+                                        _y + RND(-PX_C(100),PX_C(100)),
+                                        _z + RND(-PX_C(100),PX_C(100)),
+                                        100, 0, TURN_CLOSE_TO, false);
                  //ゆっくり自機の方へ向かせる
                  _pKuroko->turnFaceAngTwd(P_MYSHIP,
                                            D_ANG(1), 0, TURN_CLOSE_TO, true);
@@ -164,7 +164,7 @@ void EnemyAppho::processBehavior() {
              break;
      }
     _pKuroko->behave();
-    //_pSeTx->behave();
+    pAFader_->behave();
 }
 
 void EnemyAppho::processJudgement() {

@@ -1,5 +1,5 @@
-#ifndef CURSORSOUNDCONFIGMENU_H_
-#define CURSORSOUNDCONFIGMENU_H_
+#ifndef CURSORCONFIG004_H_
+#define CURSORCONFIG004_H_
 #include "jp/ggaf/lib/actor/DefaultBoardActor.h"
 
 namespace VioletVreath {
@@ -10,10 +10,10 @@ namespace VioletVreath {
  * @since 2013/02/25
  * @author Masatoshi Tsuge
  */
-class CursorSoundConfigMenu : public GgafLib::DefaultBoardActor {
+class CursorConfig004 : public GgafLib::DefaultBoardActor {
 
 public:
-    CursorSoundConfigMenu(const char* prm_name);
+    CursorConfig004(const char* prm_name);
 
     void initialize() override;
 
@@ -23,9 +23,9 @@ public:
 
     void processJudgement() override;
 
-    virtual ~CursorSoundConfigMenu();
+    virtual ~CursorConfig004();
 };
 
 }
-#endif /*CURSORSOUNDCONFIGMENU_H_*/
+#endif /*CURSORCONFIG004_H_*/
 

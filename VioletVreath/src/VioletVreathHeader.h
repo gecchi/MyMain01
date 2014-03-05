@@ -615,18 +615,18 @@ class MenuBoardPause;
 class CursorTitleMenu;
 class MenuBoardTitle;
 
-class CursorConfigMenu;
+class CursorConfig001;
 class MenuBoardConfig;
-class CursorKeyConfigMenu;
+class CursorConfig002;
 class MenuBoardKeyConfig;
-class CursorSoundConfigMenu;
+class CursorConfig004;
 class MenuBoardSoundConfig;
-class CursorScreenConfigMenu;
+class CursorConfig003;
 class MenuBoardScreenConfig;
 
 class MenuBoardNameEntry;
 class CursorNameEntryMenu;
-class SupCursorScreenConfigMenu;
+class CursorConfig005;
 
 class XpmHeader;
 

@@ -734,6 +734,14 @@ void MyShip::processJudgement() {
         }
     }
 
+    //Ž©”š
+    if (GgafDxInput::isPushedDownKey(DIK_1)) {
+        //Ž©‹@”š”­ŠJÃ
+        setHitAble(false);
+        _pSeTx->play3D(SE_EXPLOSION);
+        throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
+    }
+
 //    if (pVbPlay->isBeingPressed(VB_SHOT2)) {
 //        MyOptionController** papOptCtrler = P_MYSHIP_SCENE->papOptionCtrler_;
 //        for (int i = 0; i < MyOptionController::now_option_num_; i++) {

@@ -54,13 +54,13 @@ public:
 
 public:
     /**
-     * 外部プロパティファイルから未ロードならロードしてプロパティ保持 .
+     * 外部プロパティファイルから未ロードならロードして保持プロパティMAPへ設定、メンバ変数に反映 .
      * @param prm_properties_filename プロパティファイル
      */
     static void load(std::string prm_properties_filename);
 
     /**
-     * 保持しているプロパティを、外部プロパティファイルへ保存 .
+     * 保持プロパティMAPを、外部プロパティファイルへ保存 .
      * @param prm_properties_filename プロパティファイル
      */
     static void save(std::string prm_properties_filename);
@@ -71,7 +71,7 @@ public:
     static void clean();
 
     /**
-     * 保持プロパティにキーが存在するか調べる .
+     * 保持プロパティMAPにキーが存在するか調べる .
      * @param prm_key キー文字列
      * @return true:キーが存在 / false:存在しない
      */
@@ -131,19 +131,60 @@ public:
      */
     static GgafRgb getRGB(std::string prm_key);
 
-
+    /**
+     * 保持プロパティMAPに値を設定。
+     * 設定してもメンバにはまだ反映されません。
+     * @param prm_key
+     * @param prm_value
+     */
     static void setValue(std::string prm_key, int prm_value);
 
+    /**
+     * 保持プロパティMAPに値を設定。
+     * 設定してもメンバにはまだ反映されません。
+     * @param prm_key
+     * @param prm_value
+     */
     static void setValue(std::string prm_key, uint32_t prm_value);
 
+    /**
+     * 保持プロパティMAPに値を設定。
+     * 設定してもメンバにはまだ反映されません。
+     * @param prm_key
+     * @param prm_value
+     */
     static void setValue(std::string prm_key, std::string prm_value);
 
+    /**
+     * 保持プロパティMAPに値を設定。
+     * 設定してもメンバにはまだ反映されません。
+     * @param prm_key
+     * @param prm_value
+     */
     static void setValue(std::string prm_key, float prm_value);
 
+    /**
+     * 保持プロパティMAPに値を設定。
+     * 設定してもメンバにはまだ反映されません。
+     * @param prm_key
+     * @param prm_value
+     */
     static void setValue(std::string prm_key, double prm_value);
 
+    /**
+     * 保持プロパティMAPに値を設定。
+     * 設定してもメンバにはまだ反映されません。
+     * @param prm_key
+     * @param prm_value
+     */
     static void setValue(std::string prm_key, bool prm_value);
 
+    /**
+     * 保持プロパティMAPに値を設定。
+     * 設定してもメンバにはまだ反映されません。
+     * @param prm_key
+     * @param prm_value
+     */
     static void setValue(std::string prm_key, GgafRgb prm_value);
 
 };

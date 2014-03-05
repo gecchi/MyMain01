@@ -5,7 +5,7 @@
 #include "MenuBoardKeyConfig.h"
 #include "MenuBoardSoundConfig.h"
 #include "MenuBoardScreenConfig.h"
-#include "CursorConfigMenu.h"
+#include "CursorConfig001.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelMenuTitleFont01.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelMenuItemFont01.h"
@@ -51,7 +51,7 @@ MenuBoardConfig::MenuBoardConfig(const char* prm_name) :
     relateAllItemToCancel(ITEM_BACK);
 
     //メニューカーソルを設定
-    CursorConfigMenu* pCursor = NEW CursorConfigMenu("CursorConfigMenu");
+    CursorConfig001* pCursor = NEW CursorConfig001("CursorConfig001");
     pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     setMainCursor(pCursor);
 

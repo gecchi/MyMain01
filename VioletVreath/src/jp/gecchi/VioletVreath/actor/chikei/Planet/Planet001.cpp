@@ -16,16 +16,15 @@ using namespace VioletVreath;
 Planet001::Planet001(const char* prm_name) :
         DefaultMeshActor(prm_name, "Planet001", nullptr) {
     _class_name = "Planet001";
-    pScaler_ = NEW GgafDxScaler(this);
     setHitAble(false);
     setZEnable(true);        //Zバッファは考慮
     setZWriteEnable(false);  //Zバッファは書き込み無し
     setSpecialDrawDepth(DRAW_DEPTH_LEVEL_WORLDBOUND-3);
     drawAnyFar(true);//遠くても表示
 
-//    //大気圏エフェクトスプライト
-//    pAtmosphere_ = NEW Planet001Atmosphere("P001ATMOS");
-//    addSubLast(pAtmosphere_);
+    //大気圏エフェクトスプライト
+    pAtmosphere_ = NEW Planet001Atmosphere("P001ATMOS");
+    addSubLast(pAtmosphere_);
 }
 
 void Planet001::onCreateModel() {
@@ -39,8 +38,8 @@ void Planet001::initialize() {
     setRyFaceAng(D45ANG);
     _pKuroko->setFaceAngVelo(AXIS_X, 500); //自転の速さ
 
-//    pAtmosphere_->setScale(pScaler_->_scale[0]);
-//    pAtmosphere_->positionAs(this);
+    pAtmosphere_->setScale(_sx);
+    pAtmosphere_->positionAs(this);
 }
 void Planet001::processBehavior() {
     //巨大オブジェクト移動テスト
@@ -87,14 +86,12 @@ void Planet001::processBehavior() {
         _TRACE_("Planet001  "<<_x<<","<<_y<<","<<_z<<" scale="<<_rx);
     }
     //_x = _x - PX_C(1);
-    pScaler_->behave();
     _pKuroko->behave();
 
-//    pAtmosphere_->setScale(pScaler_->_scale[0]);
-//    pAtmosphere_->positionAs(this);
+    pAtmosphere_->setScale(_sx);
+    pAtmosphere_->positionAs(this);
 }
 
 Planet001::~Planet001() {
-    GGAF_DELETE(pScaler_);
 }
 

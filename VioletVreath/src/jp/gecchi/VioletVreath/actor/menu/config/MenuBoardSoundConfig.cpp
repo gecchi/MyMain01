@@ -2,7 +2,7 @@
 #include "MenuBoardSoundConfig.h"
 
 #include "jp/ggaf/dxcore/sound/GgafDxSound.h"
-#include "CursorSoundConfigMenu.h"
+#include "CursorConfig004.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelFix16Font01.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelMenuTitleFont01.h"
@@ -77,7 +77,7 @@ MenuBoardSoundConfig::MenuBoardSoundConfig(const char* prm_name) :
 
 
     //メニューカーソルを設定
-    CursorSoundConfigMenu* pCursor = NEW CursorSoundConfigMenu("CursorSoundConfigMenu");
+    CursorConfig004* pCursor = NEW CursorConfig004("CursorConfig004");
     pCursor->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
     setMainCursor(pCursor);
     //キャンセルアイテム設定

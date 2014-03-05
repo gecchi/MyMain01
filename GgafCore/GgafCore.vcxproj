@@ -242,6 +242,7 @@
     <ClInclude Include="include\jp\ggaf\core\GgafGarbageBox.h" />
     <ClInclude Include="include\jp\ggaf\core\GgafGod.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\GgafGroupHead.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\GgafEnumIndex.h" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafLinearOctree.h" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafLinearOctreeElem.h" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafLinearOctreeSpace.h" />
