@@ -120,21 +120,23 @@ void GgafDxGod::resetWindowsize(HWND hWnd, pixcoord client_width, pixcoord clien
 }
 
 void GgafDxGod::chengeViewPos(HWND prm_pHWnd, int pos) {
-    if (PROPERTY::DUAL_VIEW) {
-        if (prm_pHWnd ==  GgafDxGod::_pHWndPrimary) {
-            PROPERTY::DUAL_VIEW_DRAW_POSITION1 = pos;
-        } else if (prm_pHWnd ==  GgafDxGod::_pHWndSecondary) {
-            PROPERTY::DUAL_VIEW_DRAW_POSITION2 = pos;
+    if (!PROPERTY::FULL_SCREEN) {
+        if (PROPERTY::DUAL_VIEW) {
+            if (prm_pHWnd ==  GgafDxGod::_pHWndPrimary) {
+                PROPERTY::DUAL_VIEW_DRAW_POSITION1 = pos;
+            } else if (prm_pHWnd ==  GgafDxGod::_pHWndSecondary) {
+                PROPERTY::DUAL_VIEW_DRAW_POSITION2 = pos;
+            }
+        } else {
+            if (prm_pHWnd ==  GgafDxGod::_pHWndPrimary) {
+                PROPERTY::SINGLE_VIEW_DRAW_POSITION = pos;
+            }
         }
-    } else {
-        if (prm_pHWnd ==  GgafDxGod::_pHWndPrimary) {
-            PROPERTY::SINGLE_VIEW_DRAW_POSITION = pos;
-        }
-    }
-    if (GgafDxCore::GgafDxGod::_can_be) {
-        if (!PROPERTY::FULL_SCREEN && prm_pHWnd) {
-            GgafDxCore::GgafDxGod::_adjustGameScreen = true;
-            GgafDxCore::GgafDxGod::_pHWnd_adjustScreen = prm_pHWnd;
+        if (GgafDxCore::GgafDxGod::_can_be) {
+            if (!PROPERTY::FULL_SCREEN && prm_pHWnd) {
+                GgafDxCore::GgafDxGod::_adjustGameScreen = true;
+                GgafDxCore::GgafDxGod::_pHWnd_adjustScreen = prm_pHWnd;
+            }
         }
     }
 }
@@ -145,9 +147,9 @@ void GgafDxGod::chengeViewPos2(int pos) {
     GgafDxGod::chengeViewPos(GgafDxGod::_pHWndSecondary, pos);
 }
 void GgafDxGod::chengeViewAspect(bool prm_b) {
-    PROPERTY::FIXED_GAME_VIEW_ASPECT = prm_b;
-    if (GgafDxCore::GgafDxGod::_can_be) {
-        if (!PROPERTY::FULL_SCREEN) {
+    if (!PROPERTY::FULL_SCREEN) {
+        PROPERTY::FIXED_GAME_VIEW_ASPECT = prm_b;
+        if (GgafDxCore::GgafDxGod::_can_be) {
             GgafDxCore::GgafDxGod::_adjustGameScreen = true;
             GgafDxCore::GgafDxGod::_pHWnd_adjustScreen = GgafDxGod::_pHWndPrimary;
         }
@@ -2388,8 +2390,9 @@ GgafDxGod::~GgafDxGod() {
 //                                  SINGLE_VIEW_FULL_SCREEN_HEIGHT
 //
 //                                                 Å™
-//                                                 Åb Present
+//                                                 Åb Present (flip)
 //                                                 Åb(D3DSWAPEFFECT_DISCARD)
+//                                                 Å´
 //                                        ÅQÅQÅQÅQÅQÅQÅQÅQÅQÅQÅQÅQÅQÅQÅQÅQ
 //                                      Å^                              Å^
 //                                    Å^                              Å^
@@ -2424,9 +2427,9 @@ GgafDxGod::~GgafDxGod() {
 //                       DUAL_VIEW_FULL_SCREEN1_HEIGHT   |     DUAL_VIEW_FULL_SCREEN2_HEIGHT
 //
 //                               Å™                                 Å™
-//                               Åb Present                         Åb Present
+//                               Åb Present (flip)                  Åb Present (flip)
 //                               Åb(D3DSWAPEFFECT_DISCARD)          Åb (D3DSWAPEFFECT_DISCARD)
-//
+//                               Å´                                 Å´
 //                            ÅQÅQÅQÅQÅQÅQÅQÅQÅQÅQÅQ             ÅQÅQÅQÅQÅQÅQÅQÅQÅQÅQÅQ
 //                          Å^                    Å^           Å^                    Å^
 //    ÉoÉbÉNÉoÉbÉtÉ@      Å^  _apBackBuffer[0]  Å^           Å^  _apBackBuffer[1]  Å^

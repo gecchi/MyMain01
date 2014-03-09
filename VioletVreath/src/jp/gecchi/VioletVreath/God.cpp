@@ -129,6 +129,11 @@ void God::clean() {
     }
 }
 
+void God::reboot() {
+    God::g_should_reboot_ = true; //再起動フラグセット
+    ::PostQuitMessage(0); //終了！
+}
+
 void God::oops() {
     VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_Oops.rep");
     VB_UI->_pRpy->outputFile("VB_UI_LAST_Oops.rep");

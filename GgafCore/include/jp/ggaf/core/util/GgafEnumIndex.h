@@ -38,9 +38,7 @@ public:
      */
     inline int n(int prm_key) {
 #ifdef MY_DEBUG
-        if (_n.find(prm_key) != _n.end()) {
-            //OK
-        } else {
+        if (_n.find(prm_key) == _n.end()) {
             throwGgafCriticalException("GgafEnumIndex#n() —ñ‹“’l prm_key="<<prm_key<<" ‚Íremove‚³‚ê‚½‚©‘¶Ý‚µ‚Ü‚¹‚ñ");
         }
 #endif

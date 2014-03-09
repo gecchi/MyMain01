@@ -110,8 +110,7 @@ void MenuBoardPause::processBehavior() {
     if (selected == ITEM_REBOOT) { //自身のメニューが"ITEM_REBOOT"を指している場合
         MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
         if (pSubConfirm->isJustDecidedOk()) {
-            VioletVreath::God::g_should_reboot_ = true; //再起動フラグセット
-            PostQuitMessage(0);
+            God::reboot(); //再起動！
         } else if (pSubConfirm->isJustDecidedCancel()) {
             sinkCurrentSubMenu();
         }

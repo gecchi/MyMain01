@@ -10,6 +10,7 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/Properties.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelMenuItemFont01.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -20,25 +21,45 @@ MenuBoardScreenConfig::MenuBoardScreenConfig(const char* prm_name) :
         MenuBoard(prm_name, "board_bg01"),  itm(ITEM_SCREEN_MODE, ITEM_BANPEI), cur(SUPCUR_SCREEN_MODE, SUPCUR_BANPEI) {
     _class_name = "MenuBoardScreenConfig";
 
-    const char* apItemStr[] = {
-          "SCREEN MODE (*)",
-          "SCREEN NUM (*)",
-          "SWAP SCREEN (*)",
-          "GAME VIEW ASPECT TYPE",
-          "GAME VIEW POSITION",
-          "GAME VIEW POSITION1", "GAME VIEW POSITION2",
-          "OK & SAVE",
-          "CANCEL",
+    const char* apItemStr[2][ITEM_BANPEI] = {
+        {
+            "SCREEN MODE(*)",
+            "SCREEN NUM(*)",
+            "SWAP SCREEN(*)",
+            "GAME VIEW ASPECT TYPE(*)",
+            "GAME VIEW POSITION(*)",
+            "GAME VIEW POSITION1(*)", "GAME VIEW POSITION2(*)",
 
-          "FULL SCREEN", "WINDOW MODE",
-          "SINGLE VIEW", "DUAL VIEW",
-          "NO"         , "YES",
-          "FIX"        , "STRETCH",
-          "1", "2", "3", "4", "5", "6", "7", "8", "9",
-          "1", "2", "3", "4", "5", "6", "7", "8", "9",
-          "1", "2", "3", "4", "5", "6", "7", "8", "9",
+            "OK", "OK & REBOOT", "CANCEL",
 
+            "FULL SCREEN", "WINDOW MODE",
+            "SINGLE VIEW", "DUAL VIEW",
+            "NO"         , "YES",
+            "FIX"        , "STRETCH",
+            "1", "2", "3", "4", "5", "6", "7", "8", "9",
+            "1", "2", "3", "4", "5", "6", "7", "8", "9",
+            "1", "2", "3", "4", "5", "6", "7", "8", "9",
+        },
+        {
+            "SCREEN MODE(*)",
+            "SCREEN NUM(*)",
+            "SWAP SCREEN(*)",
+            "GAME VIEW ASPECT TYPE",
+            "GAME VIEW POSITION",
+            "GAME VIEW POSITION1", "GAME VIEW POSITION2",
+
+            "OK", "OK & REBOOT", "CANCEL",
+
+            "FULL SCREEN", "WINDOW MODE",
+            "SINGLE VIEW", "DUAL VIEW",
+            "NO"         , "YES",
+            "FIX"        , "STRETCH",
+            "1", "2", "3", "4", "5", "6", "7", "8", "9",
+            "1", "2", "3", "4", "5", "6", "7", "8", "9",
+            "1", "2", "3", "4", "5", "6", "7", "8", "9",
+        }
     };
+
 
     if (PROPERTY::DUAL_VIEW) {
         itm.remove(ITEM_VIEW_POSITION);
@@ -55,68 +76,73 @@ MenuBoardScreenConfig::MenuBoardScreenConfig(const char* prm_name) :
         cur.remove(SUPCUR_VIEW_POSITION2);
     }
 
-
     //メニューウィンドウ設定
-    update( "%&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'\n"
-            ")*******************************+\n"
-            ")*******************************+\n"
-            ")*******************************+\n"
-            ")*******************************+\n"
-            ")*******************************+\n"
-            ")*******************************+\n"
-            ")*******************************+\n"
-            ")*******************************+\n"
-            ")*******************************+\n"
-            ")*******************************+\n"
-            "-.............................../");
+    update( "%&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'\n"
+            ")***************************************+\n"
+            ")***************************************+\n"
+            ")***************************************+\n"
+            ")***************************************+\n"
+            ")***************************************+\n"
+            ")***************************************+\n"
+            ")***************************************+\n"
+            ")***************************************+\n"
+            ")***************************************+\n"
+            ")***************************************+\n"
+            "-......................................./");
+
     LabelMenuTitleFont01* pLabel_Title = NEW LabelMenuTitleFont01("LABEL_TITLE");
     pLabel_Title->update("[SCREEN CONFIG]", ALIGN_CENTER, VALIGN_MIDDLE);
     addDisp(pLabel_Title, PX_C(300), PX_C(40));
 
     //設定項目アイテム(ITEM_SCREEN_MODE ～ ITEM_CANCEL)
+    int fullsc = PROPERTY::FULL_SCREEN ? 0 : 1;
     for (int i = itm.n(ITEM_SCREEN_MODE); i <= itm.n(ITEM_CANCEL); i++) {
         std::string name = "item"+XTOS(i);
         LabelMenuItemFont01* pLabel = NEW LabelMenuItemFont01(name.c_str());
-        pLabel->update(apItemStr[itm.e(i)], ALIGN_LEFT, VALIGN_MIDDLE);
+        pLabel->update(apItemStr[fullsc][itm.e(i)], ALIGN_LEFT, VALIGN_MIDDLE);
         addItem(pLabel);
     }
     relateAllItemToCancel(itm.n(ITEM_CANCEL)); //キャンセルアイテム設定
-    coord y = PX_C(100);
+    coord x1 = PX_C(100);  //設定項目アイテムX座標
+    coord y1 = PX_C(100);  //設定項目アイテムY座標
+    coord x2 = PX_C(700);  //選択値アイテムX座標
+    coord y2 = y1;         //選択値アイテムY座標
     coord lh = PX_C(32);
-    positionItem(itm.n(ITEM_SCREEN_MODE)     , PX_C(100), y);  y += lh;
-    positionItem(itm.n(ITEM_VIEW_NUM)        , PX_C(100), y);  y += lh;
+    positionItem(itm.n(ITEM_SCREEN_MODE)     , x1, y1);  y1 += lh;
+    positionItem(itm.n(ITEM_VIEW_NUM)        , x1, y1);  y1 += lh;
     if (PROPERTY::DUAL_VIEW) {
-        positionItem(itm.n(ITEM_SWAP_GAME_VIEW)  , PX_C(100), y);  y += lh;
+        positionItem(itm.n(ITEM_SWAP_GAME_VIEW)  , x1, y1);  y1 += lh;
     }
-    positionItem(itm.n(ITEM_VIEW_ASPECT_TYPE), PX_C(100), y);  y += lh;
+    positionItem(itm.n(ITEM_VIEW_ASPECT_TYPE), x1, y1);  y1 += lh;
     if (PROPERTY::DUAL_VIEW) {
-        positionItem(itm.n(ITEM_VIEW_POSITION1)  , PX_C(100), y);  y += lh;
-        positionItem(itm.n(ITEM_VIEW_POSITION2)  , PX_C(100), y);  y += lh;
+        positionItem(itm.n(ITEM_VIEW_POSITION1)  , x1, y1);  y1 += lh;
+        positionItem(itm.n(ITEM_VIEW_POSITION2)  , x1, y1);  y1 += lh;
     } else {
-        positionItem(itm.n(ITEM_VIEW_POSITION)  , PX_C(100), y);  y += lh;
+        positionItem(itm.n(ITEM_VIEW_POSITION)  , x1, y1);  y1 += lh;
     }
-    positionItem(itm.n(ITEM_OK)              , PX_C(50) , y);
-    positionItem(itm.n(ITEM_CANCEL)          , PX_C(300), y);  y += lh;
+    positionItem(itm.n(ITEM_OK)        , PX_C(50) , y1);
+    positionItem(itm.n(ITEM_OK_REBOOT) , PX_C(250), y1);
+    positionItem(itm.n(ITEM_CANCEL)    , PX_C(450), y1);  y1 += lh;
 
     //設定項目の選択肢アイテム
     for (int i = itm.n(ITEM_SCREEN_MODE_FULL_SCREEN); i < itm.n(ITEM_BANPEI); i++) {
         std::string name = "item"+XTOS(i);
         LabelMenuItemFont01* pLabel = NEW LabelMenuItemFont01(name.c_str());
-        pLabel->update(apItemStr[itm.e(i)], ALIGN_CENTER, VALIGN_MIDDLE);
+        pLabel->update(apItemStr[fullsc][itm.e(i)], ALIGN_CENTER, VALIGN_MIDDLE);
         addItem(pLabel);
     }
-    y = PX_C(100);
-    positionItem(itm.n(ITEM_SCREEN_MODE_FULL_SCREEN) , PX_C(400), y); positionItem(itm.n(ITEM_SCREEN_MODE_WINDOW_MODE) , PX_C(600), y); y += lh;
-    positionItem(itm.n(ITEM_VIEW_NUM_SINGLE)         , PX_C(400), y); positionItem(itm.n(ITEM_VIEW_NUM_DUAL)           , PX_C(600), y); y += lh;
+
+    positionItem(itm.n(ITEM_SCREEN_MODE_FULL_SCREEN) , x2, y2); positionItem(itm.n(ITEM_SCREEN_MODE_WINDOW_MODE) , x2+PX_C(200), y2); y2 += lh;
+    positionItem(itm.n(ITEM_VIEW_NUM_SINGLE)         , x2, y2); positionItem(itm.n(ITEM_VIEW_NUM_DUAL)           , x2+PX_C(200), y2); y2 += lh;
     if (PROPERTY::DUAL_VIEW) {
-        positionItem(itm.n(ITEM_SWAP_GAME_VIEW_NO), PX_C(400), y); positionItem(itm.n(ITEM_SWAP_GAME_VIEW_YES), PX_C(600), y); y += lh;
+        positionItem(itm.n(ITEM_SWAP_GAME_VIEW_NO), x2, y2); positionItem(itm.n(ITEM_SWAP_GAME_VIEW_YES), x2+PX_C(200), y2); y2 += lh;
     }
-    positionItem(itm.n(ITEM_VIEW_ASPECT_TYPE_FIX)    , PX_C(400), y); positionItem(itm.n(ITEM_VIEW_ASPECT_TYPE_STRETCH), PX_C(600), y); y += lh;
+    positionItem(itm.n(ITEM_VIEW_ASPECT_TYPE_FIX)    , x2, y2); positionItem(itm.n(ITEM_VIEW_ASPECT_TYPE_STRETCH), x2+PX_C(200), y2); y2 += lh;
     if (PROPERTY::DUAL_VIEW) {
-        for (int i = 0; i < 9; i++) { positionItem(itm.n(ITEM_POS1_1) + i , PX_C(400 + i*20), y); } y += lh;
-        for (int i = 0; i < 9; i++) { positionItem(itm.n(ITEM_POS2_1) + i , PX_C(400 + i*20), y); } y += lh;
+        for (int i = 0; i < 9; i++) { positionItem(itm.n(ITEM_POS1_1) + i , x2+PX_C(i*20), y2); } y2 += lh;
+        for (int i = 0; i < 9; i++) { positionItem(itm.n(ITEM_POS2_1) + i , x2+PX_C(i*20), y2); } y2 += lh;
     } else {
-        for (int i = 0; i < 9; i++) { positionItem(itm.n(ITEM_POS_1) + i , PX_C(400 + i*20), y); } y += lh;
+        for (int i = 0; i < 9; i++) { positionItem(itm.n(ITEM_POS_1) + i , x2+PX_C(i*20), y2); } y2 += lh;
     }
 
     //説明メッセージ
@@ -165,35 +191,35 @@ bool MenuBoardScreenConfig::condSelectExPrev() {
 
 void MenuBoardScreenConfig::onRise() {
     selectItem(itm.n(ITEM_SCREEN_MODE)); //補助カーソルの初期選択アイテムを設定
-    if (PROPERTY::FULL_SCREEN) {
+    if (PROPERTY::getBool("FULL_SCREEN")) {
         selectItemBySupCursor(cur.n(SUPCUR_SCREEN_MODE), itm.n(ITEM_SCREEN_MODE_FULL_SCREEN));
     } else {
         selectItemBySupCursor(cur.n(SUPCUR_SCREEN_MODE), itm.n(ITEM_SCREEN_MODE_WINDOW_MODE));
     }
-    if (PROPERTY::DUAL_VIEW) {
+    if (PROPERTY::getBool("DUAL_VIEW")) {
         selectItemBySupCursor(cur.n(SUPCUR_VIEW_NUM), itm.n(ITEM_VIEW_NUM_DUAL));
     } else {
         selectItemBySupCursor(cur.n(SUPCUR_VIEW_NUM), itm.n(ITEM_VIEW_NUM_SINGLE));
     }
     if (PROPERTY::DUAL_VIEW) {
-        if (PROPERTY::SWAP_GAME_VIEW) {
+        if (PROPERTY::getBool("SWAP_GAME_VIEW")) {
             selectItemBySupCursor(cur.n(SUPCUR_SWAP_GAME_VIEW), itm.n(ITEM_SWAP_GAME_VIEW_YES));
         } else {
             selectItemBySupCursor(cur.n(SUPCUR_SWAP_GAME_VIEW), itm.n(ITEM_SWAP_GAME_VIEW_NO));
         }
     }
-    if (PROPERTY::FIXED_GAME_VIEW_ASPECT) {
+    if (PROPERTY::getBool("FIXED_GAME_VIEW_ASPECT")) {
         selectItemBySupCursor(cur.n(SUPCUR_VIEW_ASPECT), itm.n(ITEM_VIEW_ASPECT_TYPE_FIX));
     } else {
         selectItemBySupCursor(cur.n(SUPCUR_VIEW_ASPECT), itm.n(ITEM_VIEW_ASPECT_TYPE_STRETCH));
     }
     if (PROPERTY::DUAL_VIEW) {
-        int pos1 = PROPERTY::DUAL_VIEW_DRAW_POSITION1;
+        int pos1 = PROPERTY::getInt("DUAL_VIEW_DRAW_POSITION1");
         selectItemBySupCursor(cur.n(SUPCUR_VIEW_POSITION1), itm.n(ITEM_POS1_1) + (pos1-1));
-        int pos2 = PROPERTY::DUAL_VIEW_DRAW_POSITION2;
+        int pos2 = PROPERTY::getInt("DUAL_VIEW_DRAW_POSITION2");
         selectItemBySupCursor(cur.n(SUPCUR_VIEW_POSITION2), itm.n(ITEM_POS2_1) + (pos2-1));
     } else {
-        int pos = PROPERTY::SINGLE_VIEW_DRAW_POSITION;
+        int pos = PROPERTY::getInt("SINGLE_VIEW_DRAW_POSITION");
         selectItemBySupCursor(cur.n(SUPCUR_VIEW_POSITION), itm.n(ITEM_POS_1) + (pos-1));
     }
 
@@ -203,12 +229,14 @@ void MenuBoardScreenConfig::onRise() {
 void MenuBoardScreenConfig::processBehavior() {
     MenuBoard::processBehavior();
 
+    _TRACE_("GgafDxProperties::DUAL_VIEW="<<(GgafDxProperties::DUAL_VIEW ? "true" : "false"));
+
     //キー入力、ボタン入力、反映
     VirtualButton* pVB = VB;
     int selected_index = getSelectedIndex();
 
     //OK時の確認メニュー判定
-    if (selected_index == itm.n(ITEM_OK)) {
+    if (selected_index == itm.n(ITEM_OK) || selected_index == itm.n(ITEM_OK_REBOOT)) {
         MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
         if (pSubConfirm->isJustDecidedOk()) { //SAVE確認OK!
             //現プロパティへ書き込み
@@ -217,11 +245,19 @@ void MenuBoardScreenConfig::processBehavior() {
             } else {
                 PROPERTY::setValue("FULL_SCREEN", false);
             }
+            if (PROPERTY::FULL_SCREEN != PROPERTY::getBool("FULL_SCREEN")) {
+                P_WORLD->need_reboot_ = 1;
+            }
+
             if (getSelectedIndexOnSupCursor(cur.n(SUPCUR_VIEW_NUM)) == itm.n(ITEM_VIEW_NUM_DUAL)) {
                 PROPERTY::setValue("DUAL_VIEW", true);
             } else {
                 PROPERTY::setValue("DUAL_VIEW", false);
             }
+            if (PROPERTY::DUAL_VIEW != PROPERTY::getBool("DUAL_VIEW")) {
+                P_WORLD->need_reboot_ = 1;
+            }
+
             if (PROPERTY::DUAL_VIEW) {
                 if (getSelectedIndexOnSupCursor(cur.n(SUPCUR_SWAP_GAME_VIEW)) == itm.n(ITEM_SWAP_GAME_VIEW_NO)) {
                     PROPERTY::setValue("SWAP_GAME_VIEW", false);
@@ -229,19 +265,39 @@ void MenuBoardScreenConfig::processBehavior() {
                     PROPERTY::setValue("SWAP_GAME_VIEW", true);
                 }
             }
+            if (PROPERTY::SWAP_GAME_VIEW != PROPERTY::getBool("SWAP_GAME_VIEW")) {
+                P_WORLD->need_reboot_ = 1;
+            }
+
             if (getSelectedIndexOnSupCursor(cur.n(SUPCUR_VIEW_ASPECT)) == itm.n(ITEM_VIEW_ASPECT_TYPE_FIX)) {
                 PROPERTY::setValue("FIXED_GAME_VIEW_ASPECT", true);
             } else {
                 PROPERTY::setValue("FIXED_GAME_VIEW_ASPECT", false);
             }
+            //_TRACE_("PROPERTY::FULL_SCREEN="<<PROPERTY::FULL_SCREEN<<" PROPERTY::FIXED_GAME_VIEW_ASPECT="<<PROPERTY::FIXED_GAME_VIEW_ASPECT<<" PROPERTY::getBool(\"FIXED_GAME_VIEW_ASPECT\")="<<PROPERTY::getBool("FIXED_GAME_VIEW_ASPECT"));
+            if (PROPERTY::FIXED_GAME_VIEW_ASPECT != PROPERTY::getBool("FIXED_GAME_VIEW_ASPECT")) {
+                P_WORLD->need_reboot_ = 1;
+            }
+
+
             if (PROPERTY::DUAL_VIEW) {
                 int pos1 = getSelectedIndexOnSupCursor(cur.n(SUPCUR_VIEW_POSITION1))+1 - itm.n(ITEM_POS1_1);
                 PROPERTY::setValue("DUAL_VIEW_DRAW_POSITION1", pos1);
                 int pos2 = getSelectedIndexOnSupCursor(cur.n(SUPCUR_VIEW_POSITION2))+1 - itm.n(ITEM_POS2_1);
                 PROPERTY::setValue("DUAL_VIEW_DRAW_POSITION2", pos2);
+                if (PROPERTY::DUAL_VIEW_DRAW_POSITION1 != PROPERTY::getInt("DUAL_VIEW_DRAW_POSITION1")) {
+                    P_WORLD->need_reboot_ = 1;
+                }
+                if (PROPERTY::DUAL_VIEW_DRAW_POSITION2 != PROPERTY::getInt("DUAL_VIEW_DRAW_POSITION2")) {
+                    P_WORLD->need_reboot_ = 1;
+                }
+
             } else {
                 int pos = getSelectedIndexOnSupCursor(cur.n(SUPCUR_VIEW_POSITION))+1 - itm.n(ITEM_POS_1);
                 PROPERTY::setValue("SINGLE_VIEW_DRAW_POSITION", pos);
+                if (PROPERTY::SINGLE_VIEW_DRAW_POSITION != PROPERTY::getInt("SINGLE_VIEW_DRAW_POSITION")) {
+                    P_WORLD->need_reboot_ = 1;
+                }
             }
 
             //FULL_SCREEN、DUAL_VIEWは、アプリ実行中に変更できない。 現在値を保持
@@ -264,8 +320,12 @@ void MenuBoardScreenConfig::processBehavior() {
                 GgafDxCore::GgafDxGod::chengeViewPos1(PROPERTY::SINGLE_VIEW_DRAW_POSITION);
             }
 
-            sinkCurrentSubMenu();
-            sinkMe();
+            if (selected_index == itm.n(ITEM_OK_REBOOT)) { //さらにリブート
+                God::reboot(); //再起動！
+            } else {
+                sinkCurrentSubMenu();
+                sinkMe();
+            }
         } else if (pSubConfirm->isJustDecidedCancel()) { //確認でキャンセル
             sinkCurrentSubMenu();
         } else {
@@ -376,6 +436,7 @@ void MenuBoardScreenConfig::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pIte
     if (prm_item_index == itm.n(ITEM_CANCEL)) {
         //元に戻す
         PROPERTY::load(VV_CONFIG_FILE); //既存プロパティ読み込み
+        //↑がだめ、
         GgafDxCore::GgafDxGod::chengeViewAspect(PROPERTY::FIXED_GAME_VIEW_ASPECT);
         if (PROPERTY::DUAL_VIEW) {
             GgafDxCore::GgafDxGod::chengeViewPos1(PROPERTY::DUAL_VIEW_DRAW_POSITION1);
@@ -385,6 +446,8 @@ void MenuBoardScreenConfig::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pIte
         }
         sinkMe();
     } else if (prm_item_index == itm.n(ITEM_OK)) { //保存のOK
+        riseSubMenu(0, getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y - PX_C(50)); //SAVE確認メニュー起動
+    } else if (prm_item_index == itm.n(ITEM_OK_REBOOT)) { //OKで再起動
         riseSubMenu(0, getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y - PX_C(50)); //SAVE確認メニュー起動
     } else {
 

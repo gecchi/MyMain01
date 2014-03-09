@@ -100,6 +100,10 @@ public:
      * Worldシーンを作成。を実装
      */
     GgafCore::GgafUniverse* createUniverse() override;
+    /**
+     * アプリケーション再起動 .
+     */
+    static void reboot();
 
     virtual void clean() override;
 

@@ -117,18 +117,18 @@ void GgafDxCamera::processBehavior() {
         dxcoord y2 = dxcoord(_viewport.Y + _viewport.Height);
 
         // 視錐台の８点が格納されるインスタンス
-        _vecNear[0] = D3DXVECTOR3( x1, y1, _viewport.MinZ ); // 左下 (変換後)
-        _vecNear[1] = D3DXVECTOR3( x2, y1, _viewport.MinZ ); // 右下 (変換後)
-        _vecNear[2] = D3DXVECTOR3( x1, y2, _viewport.MinZ ); // 左上 (変換後)
-        _vecNear[3] = D3DXVECTOR3( x2, y2, _viewport.MinZ ); // 右上 (変換後)
+        _vecNear[0].x = x1;  _vecNear[0].y = y1;  _vecNear[0].z = _viewport.MinZ;   // 左下 (変換後)
+        _vecNear[1].x = x2;  _vecNear[1].y = y1;  _vecNear[1].z = _viewport.MinZ;   // 右下 (変換後)
+        _vecNear[2].x = x1;  _vecNear[2].y = y2;  _vecNear[2].z = _viewport.MinZ;   // 左上 (変換後)
+        _vecNear[3].x = x2;  _vecNear[3].y = y2;  _vecNear[3].z = _viewport.MinZ;   // 右上 (変換後)
 
-        _vecFar[0]  = D3DXVECTOR3( x1, y1, _viewport.MaxZ ); // 左下 (変換後)
-        _vecFar[1]  = D3DXVECTOR3( x2, y1, _viewport.MaxZ ); // 右下 (変換後)
-        _vecFar[2]  = D3DXVECTOR3( x1, y2, _viewport.MaxZ ); // 左上 (変換後)
-        _vecFar[3]  = D3DXVECTOR3( x2, y2, _viewport.MaxZ ); // 右上 (変換後)
+        _vecFar[0].x  = x1;  _vecFar[0].y  = y1;  _vecFar[0].z  = _viewport.MaxZ;   // 左下 (変換後)
+        _vecFar[1].x  = x2;  _vecFar[1].y  = y1;  _vecFar[1].z  = _viewport.MaxZ;   // 右下 (変換後)
+        _vecFar[2].x  = x1;  _vecFar[2].y  = y2;  _vecFar[2].z  = _viewport.MaxZ;   // 左上 (変換後)
+        _vecFar[3].x  = x2;  _vecFar[3].y  = y2;  _vecFar[3].z  = _viewport.MaxZ;   // 右上 (変換後)
 
         // 視錐台の８点の計算
-        static D3DXMATRIX mat_world;
+        D3DXMATRIX mat_world;
         D3DXMatrixIdentity( &mat_world );
         // ワールド → ビュー → 射影 → スクリーン変換 の逆を行う
         for( int i = 0; i < 4; ++i ) {
@@ -200,21 +200,18 @@ void GgafDxCamera::processBehavior() {
         );
 
         // 中心垂直面 （ボリュームパンで使用）
-        _vecVerticalCenter[0] = D3DXVECTOR3(
-                                  (_vecFar[1].x + _vecFar[0].x)*0.5f,
-                                  (_vecFar[1].y + _vecFar[0].y)*0.5f,
-                                  (_vecFar[1].z + _vecFar[0].z)*0.5f
-                                );
-        _vecVerticalCenter[1] = D3DXVECTOR3(
-                                  (_vecNear[3].x + _vecNear[2].x)*0.5f,
-                                  (_vecNear[3].y + _vecNear[2].y)*0.5f,
-                                  (_vecNear[3].z + _vecNear[2].z)*0.5f
-                                );
-        _vecVerticalCenter[2] = D3DXVECTOR3(
-                                  (_vecNear[1].x + _vecNear[0].x)*0.5f,
-                                  (_vecNear[1].y + _vecNear[0].y)*0.5f,
-                                  (_vecNear[1].z + _vecNear[0].z)*0.5f
-                                );
+        _vecVerticalCenter[0].x = (_vecFar[1].x + _vecFar[0].x)*0.5f;
+        _vecVerticalCenter[0].y = (_vecFar[1].y + _vecFar[0].y)*0.5f;
+        _vecVerticalCenter[0].z = (_vecFar[1].z + _vecFar[0].z)*0.5f;
+
+        _vecVerticalCenter[1].x = (_vecNear[3].x + _vecNear[2].x)*0.5f;
+        _vecVerticalCenter[1].y = (_vecNear[3].y + _vecNear[2].y)*0.5f;
+        _vecVerticalCenter[1].z = (_vecNear[3].z + _vecNear[2].z)*0.5f;
+
+        _vecVerticalCenter[2].x = (_vecNear[1].x + _vecNear[0].x)*0.5f;
+        _vecVerticalCenter[2].y = (_vecNear[1].y + _vecNear[0].y)*0.5f;
+        _vecVerticalCenter[2].z = (_vecNear[1].z + _vecNear[0].z)*0.5f;
+
         D3DXPlaneNormalize(
             &_plnVerticalCenter,
             D3DXPlaneFromPoints(&_plnVerticalCenter, &(_vecVerticalCenter[0]),

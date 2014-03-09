@@ -40,6 +40,10 @@ public:
     LabelGecchi16Font* pLabel_resolution2_;
     LabelGecchi8Font*  pLabel_warn1_;
     LabelGecchi8Font*  pLabel_warn2_;
+
+    int need_reboot_;
+    int need_reboot_prev_;
+    LabelGecchi16Font* pLabel_need_reboot_;
     PreDrawScene* pPreDrawScene_;
     GameScene* pGameScene_;
 

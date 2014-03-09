@@ -39,6 +39,9 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
     pLabel_resolution2_ = nullptr;
     pPreDrawScene_ = nullptr;
     pGameScene_ = nullptr;
+
+    need_reboot_ = 0;
+    need_reboot_prev_ = need_reboot_;
     //y‚ß‚àz
     //‚±‚±‚ÅActor‚âScene‚ÌNEW‚ð‚Í‚µ‚Ä‚Í‚È‚ç‚È‚¢B
     //‚Ü‚¸‚Í‚±‚Ì¢‚ðì‚é‚±‚Æ‚ð—Dæ‚µ‚È‚¢‚ÆA‚¢‚ë‚¢‚ë‚Æ•s“s‡‚ª‚ ‚éB
@@ -79,6 +82,9 @@ void World::initialize() {
     pLabel_warn2_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     getSceneDirector()->addSubGroup(pLabel_warn2_);
 
+    pLabel_need_reboot_ = createInFactory(VioletVreath::LabelGecchi16Font, "reboot");
+    getSceneDirector()->addSubGroup(pLabel_need_reboot_);
+    pLabel_need_reboot_->update(PX_C(cx), PX_C(cy/2), "", ALIGN_CENTER, VALIGN_MIDDLE);
 
     std::string fix_str = PROPERTY::FIXED_GAME_VIEW_ASPECT ? "ASPECT FIX" : "VIEW STRETCH";
     int w1,h1,w2,h2;
@@ -285,6 +291,14 @@ void World::processBehavior() {
 }
 
 void World::processJudgement() {
+    if (need_reboot_prev_ != need_reboot_) {
+        if (need_reboot_ > 0) {
+            pLabel_need_reboot_->update("YOU NEED REBOOT !!!!");
+        } else {
+            pLabel_need_reboot_->update("");
+        }
+    }
+    need_reboot_prev_ = need_reboot_;
 }
 
 World::~World() {
