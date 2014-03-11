@@ -50,6 +50,16 @@ public:
     GgafCore::GgafEnumIndex cur;
 
     LabelGecchi16Font* pLabel_Msg_;
+
+
+    bool in_FULL_SCREEN_;
+    bool in_DUAL_VIEW_;
+    bool in_SWAP_GAME_VIEW_;
+    bool in_FIXED_GAME_VIEW_ASPECT_;
+    int in_DUAL_VIEW_DRAW_POSITION1_;
+    int in_DUAL_VIEW_DRAW_POSITION2_;
+    int in_SINGLE_VIEW_DRAW_POSITION_;
+
 public:
     MenuBoardScreenConfig(const char* prm_name);
 

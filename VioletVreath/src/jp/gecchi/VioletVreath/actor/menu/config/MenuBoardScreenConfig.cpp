@@ -165,6 +165,14 @@ MenuBoardScreenConfig::MenuBoardScreenConfig(const char* prm_name) :
 
     setTransition(30, PX_C(0), -PX_C(100)); //トランジション（表示非表示時の挙動）
     addSubMenu(NEW MenuBoardConfirm("confirm")); //0番 Yes No 問い合わせメニューをサブメニューに追加
+
+    in_FULL_SCREEN_                = PROPERTY::FULL_SCREEN;
+    in_DUAL_VIEW_                  = PROPERTY::DUAL_VIEW;
+    in_SWAP_GAME_VIEW_             = PROPERTY::SWAP_GAME_VIEW;
+    in_FIXED_GAME_VIEW_ASPECT_     = PROPERTY::FIXED_GAME_VIEW_ASPECT;
+    in_DUAL_VIEW_DRAW_POSITION1_   = PROPERTY::DUAL_VIEW_DRAW_POSITION1;
+    in_DUAL_VIEW_DRAW_POSITION2_   = PROPERTY::DUAL_VIEW_DRAW_POSITION2;
+    in_SINGLE_VIEW_DRAW_POSITION_  = PROPERTY::SINGLE_VIEW_DRAW_POSITION;
 }
 
 bool MenuBoardScreenConfig::condSelectNext() {
@@ -190,6 +198,15 @@ bool MenuBoardScreenConfig::condSelectExPrev() {
 }
 
 void MenuBoardScreenConfig::onRise() {
+    in_FULL_SCREEN_                = PROPERTY::FULL_SCREEN;
+    in_DUAL_VIEW_                  = PROPERTY::DUAL_VIEW;
+    in_SWAP_GAME_VIEW_             = PROPERTY::SWAP_GAME_VIEW;
+    in_FIXED_GAME_VIEW_ASPECT_     = PROPERTY::FIXED_GAME_VIEW_ASPECT;
+    in_DUAL_VIEW_DRAW_POSITION1_   = PROPERTY::DUAL_VIEW_DRAW_POSITION1;
+    in_DUAL_VIEW_DRAW_POSITION2_   = PROPERTY::DUAL_VIEW_DRAW_POSITION2;
+    in_SINGLE_VIEW_DRAW_POSITION_  = PROPERTY::SINGLE_VIEW_DRAW_POSITION;
+
+
     selectItem(itm.n(ITEM_SCREEN_MODE)); //補助カーソルの初期選択アイテムを設定
     if (PROPERTY::getBool("FULL_SCREEN")) {
         selectItemBySupCursor(cur.n(SUPCUR_SCREEN_MODE), itm.n(ITEM_SCREEN_MODE_FULL_SCREEN));
@@ -228,8 +245,6 @@ void MenuBoardScreenConfig::onRise() {
 
 void MenuBoardScreenConfig::processBehavior() {
     MenuBoard::processBehavior();
-
-    _TRACE_("GgafDxProperties::DUAL_VIEW="<<(GgafDxProperties::DUAL_VIEW ? "true" : "false"));
 
     //キー入力、ボタン入力、反映
     VirtualButton* pVB = VB;
@@ -434,9 +449,13 @@ void MenuBoardScreenConfig::processBehavior() {
 
 void MenuBoardScreenConfig::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
     if (prm_item_index == itm.n(ITEM_CANCEL)) {
-        //元に戻す
-        PROPERTY::load(VV_CONFIG_FILE); //既存プロパティ読み込み
-        //↑がだめ、
+        PROPERTY::FULL_SCREEN               = in_FULL_SCREEN_              ;
+        PROPERTY::DUAL_VIEW                 = in_DUAL_VIEW_                ;
+        PROPERTY::SWAP_GAME_VIEW            = in_SWAP_GAME_VIEW_           ;
+        PROPERTY::FIXED_GAME_VIEW_ASPECT    = in_FIXED_GAME_VIEW_ASPECT_   ;
+        PROPERTY::DUAL_VIEW_DRAW_POSITION1  = in_DUAL_VIEW_DRAW_POSITION1_ ;
+        PROPERTY::DUAL_VIEW_DRAW_POSITION2  = in_DUAL_VIEW_DRAW_POSITION2_ ;
+        PROPERTY::SINGLE_VIEW_DRAW_POSITION = in_SINGLE_VIEW_DRAW_POSITION_;
         GgafDxCore::GgafDxGod::chengeViewAspect(PROPERTY::FIXED_GAME_VIEW_ASPECT);
         if (PROPERTY::DUAL_VIEW) {
             GgafDxCore::GgafDxGod::chengeViewPos1(PROPERTY::DUAL_VIEW_DRAW_POSITION1);
