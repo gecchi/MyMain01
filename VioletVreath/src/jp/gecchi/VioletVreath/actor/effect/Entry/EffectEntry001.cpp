@@ -26,37 +26,38 @@ void EffectEntry001::onActive() {
     pScaler_->forceRange(1, 20000);
     setScale(pScaler_->getBottom());
     setFaceAng(D0ANG, D0ANG, D0ANG);
-    _pKuroko->setFaceAngVelo(3000, 5000, 7000);
-    _pProg->reset(PROG_INIT);
+    getKuroko()->setFaceAngVelo(3000, 5000, 7000);
+    getProgress()->reset(PROG_INIT);
 }
 
 void EffectEntry001::processBehavior() {
     EffectEntry::processBehavior();
-    switch (_pProg->get()) {
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case PROG_INIT: {
             pScaler_->transitionLinerToTop(scale_in_frames_);
-            _pProg->changeNext();
+            pProg->changeNext();
             break;
         }
 
         case PROG_IN: {
             if (pScaler_->isTransitioning() == false) {
-                _pProg->changeNext();
+                pProg->changeNext();
             }
             break;
         }
 
         case PROG_STAY: {
-            if (_pProg->getFrameInProgress() >= duration_frames_) {
+            if (pProg->getFrameInProgress() >= duration_frames_) {
                 pScaler_->transitionLinerToBottom(scale_in_frames_);
-                _pProg->changeNext();
+                pProg->changeNext();
             }
             break;
         }
 
         case PROG_OUT: {
             if (pScaler_->isTransitioning() == false) {
-                _pProg->changeNothing();
+                pProg->changeNothing();
                 sayonara();
             }
             break;
@@ -66,7 +67,7 @@ void EffectEntry001::processBehavior() {
             break;
     }
     pScaler_->behave();
-    _pKuroko->behave();
+    getKuroko()->behave();
 }
 
 void EffectEntry001::config(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames) {

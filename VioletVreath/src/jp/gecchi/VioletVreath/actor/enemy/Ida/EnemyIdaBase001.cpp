@@ -16,28 +16,30 @@ EnemyIdaBase001::EnemyIdaBase001(const char* prm_name) :
         EnemyIdaBase(prm_name) {
 
     pSplManufConnection_ = connect_SplineManufactureManager("EnemyIdaBase001");
-    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(_pKuroko);
+    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(getKuroko());
     useProgress(PROG_BANPEI);
 }
 
 void EnemyIdaBase001::initialize() {
     EnemyIdaBase::initialize();
-    _pKuroko->relateFaceWithMvAng(true);
-    _pKuroko->setFaceAngVelo(D_ANG(2), D_ANG(0.4), D0ANG );
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->relateFaceWithMvAng(true);
+    pKuroko->setFaceAngVelo(D_ANG(2), D_ANG(0.4), D0ANG );
 }
 
 void EnemyIdaBase001::onActive() {
     EnemyIdaBase::onActive();
-    _pProg->reset(PROG_INIT);
+    getProgress()->reset(PROG_INIT);
 }
 
 void EnemyIdaBase001::processBehavior() {
     EnemyIdaBase::processBehavior();
-
-    switch (_pProg->get()) {
+    GgafDxKuroko* pKuroko = getKuroko();
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case PROG_INIT: {
             pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_COORD, 3);
-            _pProg->changeNext();
+            pProg->changeNext();
             break;
         }
         case PROG_MOVE: {
@@ -46,7 +48,7 @@ void EnemyIdaBase001::processBehavior() {
     }
 
     pKurokoLeader_->behave();
-    _pKuroko->behave();
+    pKuroko->behave();
 }
 
 EnemyIdaBase001::~EnemyIdaBase001() {

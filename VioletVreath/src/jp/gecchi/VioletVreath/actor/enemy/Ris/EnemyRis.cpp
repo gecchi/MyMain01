@@ -24,7 +24,8 @@ EnemyRis::EnemyRis(const char* prm_name)
     pKurokoLeader_ = nullptr;
     pDepo_Shot_ = nullptr;
     pDepo_ShotEffect_ = nullptr;
-    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
 }
 
 void EnemyRis::onCreateModel() {
@@ -35,8 +36,9 @@ void EnemyRis::onCreateModel() {
 
 void EnemyRis::initialize() {
     setHitAble(true);
-    _pKuroko->relateFaceWithMvAng(true);
-    _pKuroko->setFaceAngVelo(AXIS_X, 5000);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->relateFaceWithMvAng(true);
+    pKuroko->setFaceAngVelo(AXIS_X, 5000);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
 }
@@ -49,7 +51,7 @@ void EnemyRis::onActive() {
 void EnemyRis::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-
+    GgafDxKuroko* pKuroko = getKuroko();
     switch (iMovePatternNo_) {
         case 0:  //【パターン０：スプライン移動開始】
             if (pKurokoLeader_) {
@@ -81,7 +83,7 @@ void EnemyRis::processBehavior() {
                     pActor_Shot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
                     if (pActor_Shot) {
                         pActor_Shot->positionAs(this);
-                        pActor_Shot->_pKuroko->setRzRyMvAng(paAng_way[i], D90ANG);
+                        pActor_Shot->getKuroko()->setRzRyMvAng(paAng_way[i], D90ANG);
                     }
                 }
                 GGAF_DELETEARR(paAng_way);
@@ -94,7 +96,7 @@ void EnemyRis::processBehavior() {
                 }
             }
             //自機へ方向転換
-            _pKuroko->turnMvAngTwd(P_MYSHIP,
+            pKuroko->turnMvAngTwd(P_MYSHIP,
                                     3000, 0,
                                     TURN_CLOSE_TO, true);
             iMovePatternNo_++; //次の行動パターンへ
@@ -103,10 +105,10 @@ void EnemyRis::processBehavior() {
         case 3:  //【行動パターン３：自機へグルッと逆回転で方向転換開始】
             if (_z-10000 < P_MYSHIP->_z && P_MYSHIP->_z < _z+10000) {
                 //自機とZ軸が接近したらグルッと逆回転で方向転換
-                _pKuroko->turnMvAngTwd(MyShip::lim_x_behaind_ - 500000 , _y, _z,
+                pKuroko->turnMvAngTwd(MyShip::lim_x_behaind_ - 500000 , _y, _z,
                                         10000, 0,
                                         TURN_CLOSE_TO, true);
-                _pKuroko->setMvAcce(100);
+                pKuroko->setMvAcce(100);
                 iMovePatternNo_++;
             } else {
                 //自機とZ軸が接近するまで待つ
@@ -120,8 +122,8 @@ void EnemyRis::processBehavior() {
     if (pKurokoLeader_) {
         pKurokoLeader_->behave(); //スプライン移動を振る舞い
     }
-    _pKuroko->behave();
-    //_pSeTx->behave();
+    pKuroko->behave();
+    //getSeTx()->behave();
 }
 
 void EnemyRis::processJudgement() {
@@ -134,7 +136,7 @@ void EnemyRis::onHit(GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊時
-        _pSeTx->play3D(SE_EXPLOSION);
+        getSeTx()->play3D(SE_EXPLOSION);
     } else {
         //非破壊時
     }

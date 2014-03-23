@@ -39,35 +39,36 @@ void Stage02::initialize() {
 
 void Stage02::processBehavior() {
     Stage::processBehavior();
-    if (_pProg->get() == Stage::PROG_INIT) {
-       _pProg->change(Stage::PROG_BEGIN);
+    SceneProgress* pProg = getProgress();
+    if (pProg->get() == Stage::PROG_INIT) {
+       pProg->change(Stage::PROG_BEGIN);
     }
 
-    if (_pProg->get() == Stage::PROG_BEGIN) {
-        if (_pProg->getFrameInProgress() == 180) { //ステージ2開始！
+    if (pProg->get() == Stage::PROG_BEGIN) {
+        if (pProg->getFrameInProgress() == 180) { //ステージ2開始！
             pMessage_->activateImmed();
             pMessage_->update(300*1000, 300*1000, "SCENE 02 START!");
             pMessage_->inactivateDelay(240);
             pWorldBoundSpace_->activateTree();
             pScene_StagePartCtrler_->activate();
             fadeinScene(240);
-            _pProg->change(Stage::PROG_PLAYING);
+            pProg->change(Stage::PROG_PLAYING);
         }
     }
 
-    if (_pProg->get() == Stage::PROG_END) {
-        if (_pProg->isJustChanged()) {
+    if (pProg->get() == Stage::PROG_END) {
+        if (pProg->isJustChanged()) {
             _TRACE_("Stage01::processBehavior()  Stage::PROG_ENDになりますた！");
             throwEventUpperTree(EVENT_PREPARE_TRANSIT_STAGE); //通過ステージ準備へ
         }
 
-        if (_pProg->getFrameInProgress() == 60) {
+        if (pProg->getFrameInProgress() == 60) {
             pMessage_->activateImmed();
             pMessage_->update(300*1000, 300*1000, "SCENE 02 CLEAR!!");
             pMessage_->inactivateDelay(120);
             fadeoutSceneWithBgm(300);
         }
-        if (_pProg->getFrameInProgress() == 300) {
+        if (pProg->getFrameInProgress() == 300) {
             throwEventUpperTree(EVENT_STG02_WAS_END);
         }
     }
@@ -77,10 +78,11 @@ void Stage02::processJudgement() {
 }
 
 void Stage02::onCatchEvent(hashval prm_no, void* prm_pSource) {
+    SceneProgress* pProg = getProgress();
     if (prm_no == EVENT_STG02_CTRLER_WAS_END ) {
         _TRACE_("Stage02::onCatchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをStage::PROG_ENDへ");
         pScene_StagePartCtrler_->sayonara(60*60);
-        _pProg->change(Stage::PROG_END);
+        pProg->change(Stage::PROG_END);
     } else {
 
     }

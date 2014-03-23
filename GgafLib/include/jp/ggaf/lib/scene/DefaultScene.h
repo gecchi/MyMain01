@@ -22,8 +22,6 @@ public:
     int _event_num;
     /** シーンの現在イベント(※「シーンCreater.xls」マクロの生成PGに組み込まれる） */
     int _cnt_event;
-    /** [r]シーン進捗管理(hide a [GgafCore::GgafElement<GgafScene>::GgafProgress* _pProg]) */
-    SceneProgress* _pProg;
 
     /** スクロール速度 */
     velo _scroll_speed;
@@ -34,6 +32,8 @@ public:
     DefaultScene(const char* prm_name);
 
     void useProgress(int prm_num = 10) override;
+
+    SceneProgress* getProgress() override;
 
     virtual void initialize() override {
     }

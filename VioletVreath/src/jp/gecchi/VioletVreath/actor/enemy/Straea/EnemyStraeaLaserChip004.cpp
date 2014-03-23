@@ -19,7 +19,7 @@ EnemyStraeaLaserChip004::EnemyStraeaLaserChip004(const char* prm_name) :
         HomingLaserChip(prm_name, "StraeaLaserChip001", STATUS(EnemyStraeaLaserChip004)) {
     _class_name = "EnemyStraeaLaserChip004";
     pSplManufConnection_ = connect_SplineManufactureManager("GURUGURU");
-    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(_pKuroko);
+    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(getKuroko());
 //    if (pTexCon1_ == nullptr) {
 //        pTexCon1_ = connect_ModelTextureManager("StraeaLaserChip001.png");
 //        pTexCon2_ = connect_ModelTextureManager("EsperiaLaserChip001.png");
@@ -44,10 +44,10 @@ void EnemyStraeaLaserChip004::onActive() {
     HomingLaserChip::onActive();
     //ステータスリセット
     _pStatus->reset();
-
-    _pKuroko->setMvVelo(10000);
-    _pKuroko->setMvAcce(400);
-    _pKuroko->relateFaceWithMvAng(true);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setMvVelo(10000);
+    pKuroko->setMvAcce(400);
+    pKuroko->relateFaceWithMvAng(true);
     pKurokoLeader_->stop();
     _force_alpha = 1.50; //最初はちょっと明るめ
 }
@@ -69,7 +69,7 @@ void EnemyStraeaLaserChip004::processBehaviorHeadChip() {
         pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION); //向いた方向にワールド変換
     }
     pKurokoLeader_->behave(); //←途中でちょんぎれたらだめじゃん
-    _pKuroko->behave();
+    getKuroko()->behave();
 }
 
 void EnemyStraeaLaserChip004::onHit(GgafActor* prm_pOtherActor) {

@@ -11,7 +11,6 @@ DefaultScene::DefaultScene(const char* prm_name) : GgafDxScene(prm_name) {
     _paFrame_NextEvent = nullptr;
     _cnt_event = 0;
     _event_num = 0;
-    DefaultScene::_pProg = nullptr;
     _scroll_speed = 0;
     _pFuncScrolling = nullptr;
 }
@@ -19,10 +18,13 @@ DefaultScene::DefaultScene(const char* prm_name) : GgafDxScene(prm_name) {
 void DefaultScene::useProgress(int prm_num) {
     if (GgafScene::_pProg == nullptr) {
         GgafScene::_pProg = NEW SceneProgress(this, prm_num);
-        DefaultScene::_pProg = (SceneProgress*)(GgafScene::_pProg);
     } else {
         _TRACE_("ÅÉåxçêÅÑ["<<getName()<<"] ÇÕä˘Ç… useProgress ÇµÇƒÇ¢Ç‹Ç∑ÅBprm_num="<<prm_num);
     }
+}
+
+SceneProgress* DefaultScene::getProgress() {
+    return (SceneProgress*)(GgafScene::getProgress());
 }
 
 void DefaultScene::processSettlementBehavior() {

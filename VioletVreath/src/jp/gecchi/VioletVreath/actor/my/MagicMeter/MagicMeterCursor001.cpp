@@ -32,10 +32,11 @@ void MagicMeterCursor001::onActive() {
 }
 
 void MagicMeterCursor001::processBehavior() {
+    GgafDxKuroko* pKuroko = getKuroko();
     setAlpha(pMagicMeter_->getAlpha());
-    _pKuroko->behave();
+    pKuroko->behave();
 
-    if (_pKuroko->hlprA()->isJustFinishSlidingMv()) {
+    if (pKuroko->hlprA()->isJustFinishSlidingMv()) {
         //—‘zˆÊ’u‚É•â³
         _x = tx_;
         _y = ty_;
@@ -51,8 +52,9 @@ void MagicMeterCursor001::processJudgement() {
 void MagicMeterCursor001::moveTo(int prm_magic_mater_index) {
     tx_ = pMagicMeter_->_x + pMagicMeter_->width_*prm_magic_mater_index + (pMagicMeter_->width_/2);
     ty_ = pMagicMeter_->_y + (pMagicMeter_->height_/2);
-    _pKuroko->setMvAngTwd(tx_, ty_);
-    _pKuroko->hlprA()->slideMvByDt(UTIL::getDistance(_x, _y, tx_, ty_), 12,
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setMvAngTwd(tx_, ty_);
+    pKuroko->hlprA()->slideMvByDt(UTIL::getDistance(_x, _y, tx_, ty_), 12,
                                0.2, 0.4, 0, true);
 }
 

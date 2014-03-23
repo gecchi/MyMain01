@@ -32,7 +32,7 @@ void EffectSpeedMagic::onActive() {
 
 void EffectSpeedMagic::processBehavior() {
     _pUvFlipper->behave();
-    _pKuroko->behave();
+    getKuroko()->behave();
     pScaler_->behave();
 }
 

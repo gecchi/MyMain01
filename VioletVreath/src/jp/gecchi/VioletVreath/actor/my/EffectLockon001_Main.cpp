@@ -36,22 +36,23 @@ void EffectLockon001_Main::onActive() {
     pScaler_->forceRange(60000, 2000); //スケーリング・範囲
     setScale(60000); //(6000%)
     pScaler_->transitionLinerUntil(2000, 25);//スケーリング・25F費やして2000(200%)に縮小
-    _pKuroko->setFaceAngVelo(AXIS_Z, 1000);        //回転
-    _pSeTx->play3D(0); //ロックオンSE
+    getKuroko()->setFaceAngVelo(AXIS_Z, 1000);        //回転
+    getSeTx()->play3D(0); //ロックオンSE
 
     if (pTarget_) {
         positionAs(pTarget_);
-        _pProg->reset(LOCKON001_PROG_FIRST_LOCK);
+        getProgress()->reset(LOCKON001_PROG_FIRST_LOCK);
     } else {
         setAlpha(0.00);
-        _pProg->reset(LOCKON001_PROG_RELEASE);
+        getProgress()->reset(LOCKON001_PROG_RELEASE);
     }
 }
 
 void EffectLockon001_Main::processBehavior() {
     EffectLockon001::processBehavior();
-
-    if (_pProg->get() == LOCKON001_PROG_LOCK || _pProg->get() == LOCKON001_PROG_FIRST_LOCK) {
+    GgafDxKuroko* pKuroko = getKuroko();
+    GgafProgress* pProg = getProgress();
+    if (pProg->get() == LOCKON001_PROG_LOCK || pProg->get() == LOCKON001_PROG_FIRST_LOCK) {
         if (getAlpha() < 1.0) {
             addAlpha(0.01);
         }
@@ -59,7 +60,7 @@ void EffectLockon001_Main::processBehavior() {
             //縮小完了後、Beat
             pScaler_->forceRange(2000, 4000);
             pScaler_->beat(50, 4, 0, 46, -1); //無限ループ
-            _pProg->change(LOCKON001_PROG_LOCK);
+            pProg->change(LOCKON001_PROG_LOCK);
         }
         if (pTarget_) {
             if (pTarget_->isActiveInTheTree() || pTarget_->_will_activate_after_flg) {
@@ -67,22 +68,22 @@ void EffectLockon001_Main::processBehavior() {
                     ABS(pTarget_->_y-_y) <= PX_C(200) &&
                     ABS(pTarget_->_z-_z) <= PX_C(200)) {
                     positionAs(pTarget_);
-                    _pKuroko->setMvVelo(0);
-                    _pKuroko->_angveloFace[AXIS_Z] = 1000;
+                    pKuroko->setMvVelo(0);
+                    pKuroko->_angveloFace[AXIS_Z] = 1000;
                 } else {
-                    _pKuroko->_angveloFace[AXIS_Z] = 3000; //速周り
-                    _pKuroko->setMvAngTwd(pTarget_);
-                    _pKuroko->setMvVelo(PX_C(200));
+                    pKuroko->_angveloFace[AXIS_Z] = 3000; //速周り
+                    pKuroko->setMvAngTwd(pTarget_);
+                    pKuroko->setMvVelo(PX_C(200));
                 }
             } else {
-                _pProg->change(LOCKON001_PROG_RELEASE);
+                pProg->change(LOCKON001_PROG_RELEASE);
             }
         } else {
-            _pProg->change(LOCKON001_PROG_RELEASE);
+            pProg->change(LOCKON001_PROG_RELEASE);
         }
     }
 
-    if (_pProg->get() == LOCKON001_PROG_RELEASE) {
+    if (pProg->get() == LOCKON001_PROG_RELEASE) {
         pTarget_ = nullptr;
         addAlpha(-0.05);
         if (!pScaler_->isTransitioning() || getAlpha() < 0.0f) {
@@ -92,7 +93,7 @@ void EffectLockon001_Main::processBehavior() {
     }
 
     _pUvFlipper->behave();
-    _pKuroko->behave();
+    pKuroko->behave();
     pScaler_->behave();
 
 }
@@ -110,32 +111,35 @@ void EffectLockon001_Main::lockon(GgafDxGeometricActor* prm_pTarget) {
         return;
     }
     pTarget_ = prm_pTarget;
+    GgafDxKuroko* pKuroko = getKuroko();
+    GgafProgress* pProg = getProgress();
+    if (pProg->get() == LOCKON001_PROG_FIRST_LOCK) {
 
-    if (_pProg->get() == LOCKON001_PROG_FIRST_LOCK) {
-
-    } else if (_pProg->get() == LOCKON001_PROG_LOCK) {
-    } else if (_pProg->get() == LOCKON001_PROG_RELEASE) {
+    } else if (pProg->get() == LOCKON001_PROG_LOCK) {
+    } else if (pProg->get() == LOCKON001_PROG_RELEASE) {
         pScaler_->forceRange(60000, 2000); //スケーリング・範囲
         pScaler_->transitionLinerUntil(2000, 25);//スケーリング・20F費やして2000(200%)に縮小
-        _pKuroko->setFaceAngVelo(AXIS_Z, 1000);   //回転
-        _pSeTx->play3D(0); //ロックオンSE
-        _pProg->change(LOCKON001_PROG_FIRST_LOCK);
+        pKuroko->setFaceAngVelo(AXIS_Z, 1000);   //回転
+        getSeTx()->play3D(0); //ロックオンSE
+        pProg->change(LOCKON001_PROG_FIRST_LOCK);
     }
 
 }
 void EffectLockon001_Main::releaseLockon() {
     if (isActiveInTheTree()) {
-        if (_pProg->get() == LOCKON001_PROG_FIRST_LOCK) {
+        GgafDxKuroko* pKuroko = getKuroko();
+        GgafProgress* pProg = getProgress();
+        if (pProg->get() == LOCKON001_PROG_FIRST_LOCK) {
             pScaler_->forceRange(60000, 2000); //スケーリング・範囲
             pScaler_->transitionLinerUntil(60000, 60);//スケーリング
-            _pKuroko->setFaceAngVelo(AXIS_Z, _pKuroko->_angveloFace[AXIS_Z]*-3); //速く逆回転
-            _pProg->change(LOCKON001_PROG_RELEASE);
-        } else if (_pProg->get() == LOCKON001_PROG_LOCK) {
+            pKuroko->setFaceAngVelo(AXIS_Z, pKuroko->_angveloFace[AXIS_Z]*-3); //速く逆回転
+            pProg->change(LOCKON001_PROG_RELEASE);
+        } else if (pProg->get() == LOCKON001_PROG_LOCK) {
             pScaler_->forceRange(60000, 2000); //スケーリング・範囲
             pScaler_->transitionLinerUntil(60000, 60);//スケーリング
-            _pKuroko->setFaceAngVelo(AXIS_Z, _pKuroko->_angveloFace[AXIS_Z]*-3); //速く逆回転
-            _pProg->change(LOCKON001_PROG_RELEASE);
-        } else if (_pProg->get() == LOCKON001_PROG_RELEASE) {
+            pKuroko->setFaceAngVelo(AXIS_Z, pKuroko->_angveloFace[AXIS_Z]*-3); //速く逆回転
+            pProg->change(LOCKON001_PROG_RELEASE);
+        } else if (pProg->get() == LOCKON001_PROG_RELEASE) {
             //何も無し
         }
     }

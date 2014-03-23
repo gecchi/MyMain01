@@ -41,10 +41,10 @@ void FormationEbe::processBehavior() {
     if (canCallUp() && (getActiveFrame() % RV_IntervalFrames_ == 0)) {
         EnemyEbe* pEbe = (EnemyEbe*)callUpMember(RV_NumFormation_);
         if (pEbe) {
-            SplineKurokoLeader* pKurokoLeader = getSplManuf()->createKurokoLeader(pEbe->_pKuroko);
+            SplineKurokoLeader* pKurokoLeader = getSplManuf()->createKurokoLeader(pEbe->getKuroko());
             GgafActorDepository* pDepo_Shot = pConn_ShotDepo_ ? pConn_ShotDepo_->peek() : nullptr;
             pEbe->config(pKurokoLeader, pDepo_Shot, nullptr);
-            pEbe->_pKuroko->setMvVelo(RV_MvVelo_);
+            pEbe->getKuroko()->setMvVelo(RV_MvVelo_);
             onCallUpEbe(pEbe); //下位フォーメーションクラス個別実装の処理
         }
     }

@@ -38,7 +38,7 @@ void EffectExplosion004::onActive() {
 void EffectExplosion004::processBehavior() {
     _alpha -= 0.01;
     _pUvFlipper->behave();
-    _pKuroko->behave();
+    getKuroko()->behave();
     pScaler_->behave();
 }
 

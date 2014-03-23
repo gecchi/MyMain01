@@ -69,7 +69,7 @@ void MagicLvCursor003::markOnLevelUpCast(int prm_lv) {
     setScale(10000);
     pScaler_->transitionLinerUntil(1000, 20);
     setRzFaceAng(D180ANG);
-    _pKuroko->turnRzFaceAngTo(0, D180ANG/20, 0, TURN_COUNTERCLOCKWISE);
+    getKuroko()->turnRzFaceAngTo(0, D180ANG/20, 0, TURN_COUNTERCLOCKWISE);
 }
 
 void MagicLvCursor003::markOnLevelDownCast(int prm_lv) {

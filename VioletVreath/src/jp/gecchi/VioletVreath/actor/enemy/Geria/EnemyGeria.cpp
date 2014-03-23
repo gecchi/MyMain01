@@ -27,8 +27,9 @@ EnemyGeria::EnemyGeria(const char* prm_name) :
     do_Shot_ = false;
     velo_mv_begin_ = 0;
     frame_when_shot_ = 0;
-    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
-    _pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_SHOT_001");     //発射
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
+    pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_SHOT_001");     //発射
 }
 
 void EnemyGeria::onCreateModel() {
@@ -38,8 +39,9 @@ void EnemyGeria::initialize() {
     setHitAble(false);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 45000);
-    _pKuroko->setFaceAngVelo(AXIS_Z, -7000);
-    _pKuroko->forceMvVeloRange(1, _pKuroko->_veloMv);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setFaceAngVelo(AXIS_Z, -7000);
+    pKuroko->forceMvVeloRange(1, pKuroko->_veloMv);
 }
 
 void EnemyGeria::onActive() {
@@ -49,8 +51,9 @@ void EnemyGeria::onActive() {
     can_Shot_ = true;
     shot_num_ = 0;
     frame_when_shot_ = 0;
-    velo_mv_begin_ = _pKuroko->_veloTopMv; //初期移動速度を保存
-    _pKuroko->setMvVelo(velo_mv_begin_); //再加速
+    GgafDxKuroko* pKuroko = getKuroko();
+    velo_mv_begin_ = pKuroko->_veloTopMv; //初期移動速度を保存
+    pKuroko->setMvVelo(velo_mv_begin_); //再加速
     setRzFaceAng(0);
     //_pKuroko->turnMvAngTwd(P_MYSHIP, 50, 0, TURN_CLOSE_TO, false);
 }
@@ -58,11 +61,11 @@ void EnemyGeria::onActive() {
 void EnemyGeria::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-
+    GgafDxKuroko* pKuroko = getKuroko();
     if (do_Shot_) {
         if (getActiveFrame() == frame_when_shot_) {
-            _pKuroko->setMvVelo(PX_C(3)); //減速
-            _pKuroko->spinRxFaceAngTo(D180ANG, D_ANG(3), 0, TURN_CLOCKWISE);
+            pKuroko->setMvVelo(PX_C(3)); //減速
+            pKuroko->spinRxFaceAngTo(D180ANG, D_ANG(3), 0, TURN_CLOCKWISE);
         } else if (getActiveFrame() == frame_when_shot_ + 60) {
             MyShip* pM = P_MYSHIP;
             GgafDxGeometricActor* pLast =
@@ -77,21 +80,21 @@ void EnemyGeria::processBehavior() {
                 shot_num_++;
                 do_Shot_ = false;
                 effectFlush(2); //フラッシュ
-                _pSeTx->play3D(SE_FIRE);
+                getSeTx()->play3D(SE_FIRE);
             }
 //                GgafDxDrawableActor* pShot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
 //                if (pShot) {
 //                    shot_num_++;
 //                    pShot->positionAs(this);
-//                    pShot->_pKuroko->relateFaceWithMvAng(true);
-//                    pShot->_pKuroko->setMvAngTwd(P_MYSHIP);
+//                    pShot->getKuroko()->relateFaceWithMvAng(true);
+//                    pShot->getKuroko()->setMvAngTwd(P_MYSHIP);
 //                    pShot->reset();
 //                    do_Shot_ = false;
 //                    effectFlush(2); //フラッシュ
-//                    _pSeTx->play3D(1);
+//                    getSeTx()->play3D(1);
 //                }
 
-            _pKuroko->setMvVelo(velo_mv_begin_); //再加速
+            pKuroko->setMvVelo(velo_mv_begin_); //再加速
         }
     } else {
         if (can_Shot_) {
@@ -105,7 +108,7 @@ void EnemyGeria::processBehavior() {
             }
         }
     }
-    _pKuroko->behave();
+    pKuroko->behave();
 }
 
 void EnemyGeria::processJudgement() {
@@ -122,7 +125,7 @@ void EnemyGeria::onHit(GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊時
-        _pSeTx->play3D(SE_EXPLOSION);
+        getSeTx()->play3D(SE_EXPLOSION);
     } else {
         //非破壊時
     }

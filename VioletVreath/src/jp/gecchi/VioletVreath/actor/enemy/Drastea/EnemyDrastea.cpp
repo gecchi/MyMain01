@@ -25,8 +25,9 @@ EnemyDrastea::EnemyDrastea(const char* prm_name) :
     box_num_x_ = 1;
     box_num_y_ = 1;
     box_num_z_ = 1;
-    _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
 }
 
 void EnemyDrastea::config(
@@ -80,11 +81,12 @@ void EnemyDrastea::initialize() {
 
 void EnemyDrastea::onActive() {
     _pStatus->reset();
-    _pKuroko->setMvVelo(0);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setMvVelo(0);
+    pKuroko->setFaceAngVelo(AXIS_Z, 1000);
+    pKuroko->setFaceAngVelo(AXIS_Y, 300);
+    pKuroko->setFaceAngVelo(AXIS_X, 700);
     pAxsMver_->setVxMvVelo(-3000);
-    _pKuroko->setFaceAngVelo(AXIS_Z, 1000);
-    _pKuroko->setFaceAngVelo(AXIS_Y, 300);
-    _pKuroko->setFaceAngVelo(AXIS_X, 700);
     static coord appearances_renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 3;
     static coord appearances_renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 3;
     _x = GgafDxUniverse::_x_gone_right - 1000;
@@ -97,9 +99,9 @@ void EnemyDrastea::processBehavior() {
     //‰ÁŽZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ðŒ¸­
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     //À•W‚É”½‰f
-    _pKuroko->behave();
+    getKuroko()->behave();
     pAxsMver_->behave();
-    _pSeTx->behave();
+    getSeTx()->behave();
 }
 
 void EnemyDrastea::processJudgement() {
@@ -112,10 +114,10 @@ void EnemyDrastea::onHit(GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //”j‰óŽž
-        _pSeTx->play3D(SE_EXPLOSION);
+        getSeTx()->play3D(SE_EXPLOSION);
     } else {
         //”ñ”j‰óŽž
-        _pSeTx->play3D(SE_DAMAGED);
+        getSeTx()->play3D(SE_DAMAGED);
     }
 }
 

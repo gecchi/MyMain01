@@ -26,7 +26,7 @@ GameBeginningScene::GameBeginningScene(const char* prm_name) : DefaultScene(prm_
 
 void GameBeginningScene::onReset() {
     _TRACE_("GameBeginningScene::onReset()");
-    _pProg->change(GameBeginningScene::PROG_INIT);
+    getProgress()->change(GameBeginningScene::PROG_INIT);
 //    fadeinScene(0);
     pLabel01_->update("");
     pLabel02_->update("");
@@ -43,45 +43,45 @@ void GameBeginningScene::initialize() {
 }
 
 void GameBeginningScene::processBehavior() {
-
-    switch (_pProg->get()) {
+    SceneProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case GameBeginningScene::PROG_INIT: {
-            _pProg->change(GameBeginningScene::PROG_SELECT_MODE);
+            pProg->change(GameBeginningScene::PROG_SELECT_MODE);
             break;
         }
 
         case GameBeginningScene::PROG_SELECT_MODE: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 pLabel01_->update(PX_C(200), PX_C(200), "GAME_BEGINNING_SCENE BEGIN");
                 pLabel02_->update(PX_C(200), PX_C(250), "SELECT MODE!");
             }
-            if (_pProg->get() == GameBeginningScene::PROG_SELECT_MODE) {
-                if (VB->isPushedDown(VB_UI_EXECUTE) || _pProg->getFrameInProgress() == 300) {
-                    _pProg->change(GameBeginningScene::PROG_DECIDE);
+            if (pProg->get() == GameBeginningScene::PROG_SELECT_MODE) {
+                if (VB->isPushedDown(VB_UI_EXECUTE) || pProg->getFrameInProgress() == 300) {
+                    pProg->change(GameBeginningScene::PROG_DECIDE);
                 }
             }
             break;
         }
 
         case GameBeginningScene::PROG_DECIDE: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 pLabel02_->update(PX_C(300), PX_C(300), "OK OK OK");
                 pLabel02_->pAFader_->beat(20, 3, 7, 3, -1);
 //                fadeoutScene(FADE_FRAMES);
             }
-            if (_pProg->getFrameInProgress() == 20) {
+            if (pProg->getFrameInProgress() == 20) {
                 throwEventUpperTree(EVENT_GAMEMODE_DECIDE);
             }
 
 //
-//            if (_pProg->getFrameInProgress() == FADE_FRAMES) {
-//                _pProg->change(GameBeginningScene::PROG_FINISH);
+//            if (pProg->getFrameInProgress() == FADE_FRAMES) {
+//                pProg->change(GameBeginningScene::PROG_FINISH);
 //            }
             break;
         }
 
         case GameBeginningScene::PROG_FINISH: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 //inactivate();
             }
             break;

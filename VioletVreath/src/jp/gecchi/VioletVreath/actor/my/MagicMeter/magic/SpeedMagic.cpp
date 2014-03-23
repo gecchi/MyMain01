@@ -47,7 +47,7 @@ void SpeedMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
         pEffect_->positionAs(P_MYSHIP->pMyMagicEnergyCore_);
         pEffect_->setAlpha(0.9);
-        pEffect_->_pKuroko->setFaceAngVelo(AXIS_Z, 100);
+        pEffect_->getKuroko()->setFaceAngVelo(AXIS_Z, 100);
         pEffect_->setScale(1000);
         pEffect_->activate();
     }
@@ -70,7 +70,7 @@ void SpeedMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm
 void SpeedMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
         pEffect_->setScale(1000);
-        pEffect_->_pKuroko->setFaceAngVelo(AXIS_Z, 3000);
+        pEffect_->getKuroko()->setFaceAngVelo(AXIS_Z, 3000);
     }
 }
 

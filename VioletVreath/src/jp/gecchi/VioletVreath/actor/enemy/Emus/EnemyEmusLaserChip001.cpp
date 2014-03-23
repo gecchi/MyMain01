@@ -21,8 +21,9 @@ void EnemyEmusLaserChip001::initialize() {
     setHitAble(true, false);
     setScaleR(5.0);
     setAlpha(0.9);
-    _pKuroko->setMvVelo(300000);
-    _pKuroko->relateFaceWithMvAng(true);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setMvVelo(300000);
+    pKuroko->relateFaceWithMvAng(true);
 }
 
 void EnemyEmusLaserChip001::onActive() {
@@ -32,7 +33,7 @@ void EnemyEmusLaserChip001::onActive() {
 }
 
 void EnemyEmusLaserChip001::processBehavior() {
-    _pKuroko->behave();
+    getKuroko()->behave();
     WateringLaserChip::processBehavior();
 }
 

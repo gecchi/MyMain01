@@ -54,21 +54,21 @@ void FormationAntiope001::processBehavior() {
             EnemyAntiopeP* pP = (EnemyAntiopeP*)pDepoConnection_AntiopeP_->peek()->dispatch();
             if (pP) {
                 pP->positionAs(&entry_pos);
-                pP->_pKuroko->setMvAngTwd(&twd_pos_p);
-                pP->setRzFaceAng(pP->_pKuroko->_angRzMv);
-                pP->setRyFaceAng(pP->_pKuroko->_angRyMv);
-                pP->_pKuroko->stopMv();
+                pP->getKuroko()->setMvAngTwd(&twd_pos_p);
+                pP->setRzFaceAng(pP->getKuroko()->_angRzMv);
+                pP->setRyFaceAng(pP->getKuroko()->_angRyMv);
+                pP->getKuroko()->stopMv();
                 pP->mv_velo_twd_.set(vX*veloMv, vY*veloMv, vZ*veloMv);
             }
 
             EnemyAntiopeN* pN = (EnemyAntiopeN*)pDepoConnection_AntiopeN_->peek()->dispatch();
             if (pN) {
                 pN->positionAs(&entry_pos);
-                pN->_pKuroko->setMvAngTwd(&twd_pos_p);
-                pN->_pKuroko->reverseMvAng(); //”½“]
-                pN->setRzFaceAng(pN->_pKuroko->_angRzMv);
-                pN->setRyFaceAng(pN->_pKuroko->_angRyMv);
-                pN->_pKuroko->stopMv();
+                pN->getKuroko()->setMvAngTwd(&twd_pos_p);
+                pN->getKuroko()->reverseMvAng(); //”½“]
+                pN->setRzFaceAng(pN->getKuroko()->_angRzMv);
+                pN->setRyFaceAng(pN->getKuroko()->_angRyMv);
+                pN->getKuroko()->stopMv();
                 pN->mv_velo_twd_.set(vX*veloMv, vY*veloMv, vZ*veloMv);
             }
             cnt_Antiope_++;

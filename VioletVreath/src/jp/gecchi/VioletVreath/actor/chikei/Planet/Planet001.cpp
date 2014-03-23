@@ -36,12 +36,14 @@ void Planet001::initialize() {
     setScale(1000*1000);
     setRzFaceAng(D90ANG - D_ANG(30));
     setRyFaceAng(D45ANG);
-    _pKuroko->setFaceAngVelo(AXIS_X, 500); //自転の速さ
+    getKuroko()->setFaceAngVelo(AXIS_X, 500); //自転の速さ
 
     pAtmosphere_->setScale(_sx);
     pAtmosphere_->positionAs(this);
 }
 void Planet001::processBehavior() {
+    GgafDxKuroko* pKuroko = getKuroko();
+
     //巨大オブジェクト移動テスト
     if (GgafDxInput::isBeingPressedKey(DIK_I)) {
         _x += PX_C(100);
@@ -86,7 +88,7 @@ void Planet001::processBehavior() {
         _TRACE_("Planet001  "<<_x<<","<<_y<<","<<_z<<" scale="<<_rx);
     }
     //_x = _x - PX_C(1);
-    _pKuroko->behave();
+    pKuroko->behave();
 
     pAtmosphere_->setScale(_sx);
     pAtmosphere_->positionAs(this);

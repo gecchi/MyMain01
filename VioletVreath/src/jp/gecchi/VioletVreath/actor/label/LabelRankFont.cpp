@@ -137,7 +137,8 @@ LabelRankFont::LabelRankFont(const char* prm_name) :
     _class_name = "LabelRankFont";
     tmp_rank_ = 0;
     setAlign(ALIGN_RIGHT, VALIGN_BOTTOM);
-    _pSeTx->set(SE_RANK_UP  , "WAVE_RANK_UP");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_RANK_UP  , "WAVE_RANK_UP");
     useProgress(PROG_BANPEI);
 }
 
@@ -148,36 +149,38 @@ void LabelRankFont::onCreateModel() {
 
 void LabelRankFont::initialize() {
     tmp_rank_ = G_RANK_DISP;
-    _pProg->reset(PROG_NOMALDISP);
+    getProgress()->reset(PROG_NOMALDISP);
 }
 
 void LabelRankFont::processBehavior() {
 //    //<---- debug
+    GgafProgress* pProg = getProgress();
+
     int rank_level = G_RANK_DISP;
     if (rank_level != tmp_rank_) {
         char c[65];
         cnvRankStr(rank_level, c);
         update(c);
-        _pProg->change(PROG_RANKUP);
+        pProg->change(PROG_RANKUP);
         tmp_rank_ = rank_level;
     }
 
 
-    switch (_pProg->get()) {
+    switch (pProg->get()) {
         case PROG_NOMALDISP: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 _pModel->_pTexBlinker->transitionLinerUntil(1.0, 5);
             }
             break;
         }
 
         case PROG_RANKUP: {
-            if (_pProg->isJustChanged()) {
-                _pSeTx->play(SE_RANK_UP);
+            if (pProg->isJustChanged()) {
+                getSeTx()->play(SE_RANK_UP);
                 _pModel->_pTexBlinker->beat(30, 15, 0, 15, 3);
             }
             if (!_pModel->_pTexBlinker->isTransitioning()) {
-                _pProg->change(PROG_NOMALDISP);
+                pProg->change(PROG_NOMALDISP);
             }
             break;
         }

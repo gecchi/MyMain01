@@ -56,7 +56,7 @@ void FixedFrameSplineKurokoLeader::getPointCoord(int prm_point_index, coord &out
     //次の補間点（or制御点)に移動方角を向ける
     if (_option == RELATIVE_DIRECTION) {
         if (_is_leading == false) {
-            GgafDxKuroko* const pKuroko_target = _pActor_target->_pKuroko;
+            GgafDxKuroko* const pKuroko_target = _pActor_target->getKuroko();
             _sinRzMv_begin = ANG_SIN(pKuroko_target->_angRzMv);
             _cosRzMv_begin = ANG_COS(pKuroko_target->_angRzMv);
             _sinRyMv_begin = ANG_SIN(pKuroko_target->_angRyMv);
@@ -122,10 +122,10 @@ void FixedFrameSplineKurokoLeader::restart() {
         _z_start = _pActor_target->_z;
     }
     if (_option == RELATIVE_DIRECTION) {
-        _sinRzMv_begin = ANG_SIN(_pActor_target->_pKuroko->_angRzMv);
-        _cosRzMv_begin = ANG_COS(_pActor_target->_pKuroko->_angRzMv);
-        _sinRyMv_begin = ANG_SIN(_pActor_target->_pKuroko->_angRyMv);
-        _cosRyMv_begin = ANG_COS(_pActor_target->_pKuroko->_angRyMv);
+        _sinRzMv_begin = ANG_SIN(_pActor_target->getKuroko()->_angRzMv);
+        _cosRzMv_begin = ANG_COS(_pActor_target->getKuroko()->_angRzMv);
+        _sinRyMv_begin = ANG_SIN(_pActor_target->getKuroko()->_angRyMv);
+        _cosRyMv_begin = ANG_COS(_pActor_target->getKuroko()->_angRyMv);
         _distance_to_begin = UTIL::getDistance(
                                        0.0  , 0.0  , 0.0  ,
                                        P0X, P0Y, P0Z
@@ -172,7 +172,7 @@ void FixedFrameSplineKurokoLeader::restart() {
 
 void FixedFrameSplineKurokoLeader::behave() {
     if (_is_leading) {
-        GgafDxKuroko* const pKuroko_target = _pActor_target->_pKuroko;
+        GgafDxKuroko* const pKuroko_target = _pActor_target->getKuroko();
         //現在の点INDEX
         _point_index = (_leading_frames+_hosei_frames) / _pFixedFrameSplManuf->_fFrame_of_segment;
         if ( _point_index == _pFixedFrameSplManuf->_sp->_rnum) {

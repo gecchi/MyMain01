@@ -25,7 +25,7 @@ void ViewPoint::initialize() {
 void ViewPoint::processBehavior() {
     GgafDxCameraViewPoint::processBehavior();
     pAxsMver_->behave();
-    _pKuroko->behave();
+    getKuroko()->behave();
 }
 
 void ViewPoint::slideMvTo(coord tx, coord ty, coord tz, frame t) {

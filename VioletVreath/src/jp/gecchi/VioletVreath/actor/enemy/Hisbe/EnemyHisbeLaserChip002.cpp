@@ -22,7 +22,7 @@ EnemyHisbeLaserChip002::EnemyHisbeLaserChip002(const char* prm_name) :
         RefractionLaserChip(prm_name, "HisbeLaserChip002", STATUS(EnemyHisbeLaserChip002)) {
     _class_name = "EnemyHisbeLaserChip002";
     pSplManufConnection_ = connect_SplineManufactureManager("EnemyHisbeLaserChip002"); //ヒルベルト曲線
-    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(_pKuroko);
+    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(getKuroko());
     pKurokoLeader_->adjustCoordOffset(PX_C(100), 0, 0);
     pNearestScrollingScene_ = nullptr;
 }
@@ -39,7 +39,7 @@ void EnemyHisbeLaserChip002::onActive() {
     RefractionLaserChip::onActive();
     //ステータスリセット
     _pStatus->reset();
-    _pKuroko->relateFaceWithMvAng(true);
+    getKuroko()->relateFaceWithMvAng(true);
 }
 
 void EnemyHisbeLaserChip002::onRefractionBegin(int prm_num_refraction)  {
@@ -52,7 +52,7 @@ void EnemyHisbeLaserChip002::onRefractionFinish(int prm_num_refraction)  {
     }
 
     pKurokoLeader_->behave();
-    _pKuroko->behave();
+    getKuroko()->behave();
 
     if (pKurokoLeader_->isFinished()) {
         EnemyHisbeLaserChip002::end_active_frame_ = getActiveFrame(); //終了フレームセット

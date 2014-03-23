@@ -179,7 +179,7 @@ void World::initialize() {
     orderSceneToFactory(1, PreDrawScene, "PreDraw");
     orderSceneToFactory(2, GameScene, "Game");
     useProgress(World::PROG_BANPEI-1);
-    _pProg->reset(World::PROG_INIT);
+    getProgress()->reset(World::PROG_INIT);
 }
 
 void World::processBehavior() {
@@ -191,65 +191,65 @@ void World::processBehavior() {
         _TRACE_("-------------------- World dump() end   --------------------------------");
     }
 #endif
-
-    switch (_pProg->get()) {
+    SceneProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case World::PROG_INIT: {
             if (GgafFactory::chkProgress(1) == 2) {
                 pPreDrawScene_ = (PreDrawScene*)obtainSceneFromFactory(1);
                 addSubLast(pPreDrawScene_);
-                _pProg->changeNext();
+                pProg->changeNext();
             }
             pLabel_aster_->pAFader_->behave(); //右上＊チカチカ
             break;
         }
 
         case World::PROG_CALM1: {
-            if (pPreDrawScene_->_pProg->get() == PreDrawScene::PROG_WAIT) {
+            if (pPreDrawScene_->getProgress()->get() == PreDrawScene::PROG_WAIT) {
                 pLabel_title_->sayonara();
                 pPreDrawScene_->sayonara(120);
-                _pProg->changeNext();
+                pProg->changeNext();
             }
             pLabel_aster_->pAFader_->behave(); //右上＊チカチカ
             break;
         }
 
         case World::PROG_CALM2: {
-            if ((_pProg->getFrameInProgress() >= 60 && P_GOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) || _pProg->getFrameInProgress() >= 60*60*5) {
+            if ((pProg->getFrameInProgress() >= 60 && P_GOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) || pProg->getFrameInProgress() >= 60*60*5) {
                 pGameScene_ = (GameScene*)obtainSceneFromFactory(2);
-                _pProg->changeNext();
+                pProg->changeNext();
             }
             pLabel_aster_->pAFader_->behave(); //右上＊チカチカ
             break;
         }
 
         case World::PROG_CALM3: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
             }
-            if ((_pProg->getFrameInProgress() >= 60 && P_GOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) || _pProg->getFrameInProgress() >= 60*60*5) {
-                _pProg->changeNext();
+            if ((pProg->getFrameInProgress() >= 60 && P_GOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) || pProg->getFrameInProgress() >= 60*60*5) {
+                pProg->changeNext();
             }
             pLabel_aster_->pAFader_->behave(); //右上＊チカチカ
             break;
         }
 
         case World::PROG_CALM4: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
             }
-            if (_pProg->getFrameInProgress() >= 60) {
+            if (pProg->getFrameInProgress() >= 60) {
                 pLabel_aster_->update("*");
                 pLabel_aster_->sayonara(60);
                 pLabel_resolution1_->sayonara();
                 pLabel_resolution2_->sayonara();
                 pLabel_warn1_->sayonara();
                 pLabel_warn2_->sayonara();
-                _pProg->changeNext(); //メインへループ
+                pProg->changeNext(); //メインへループ
             }
             pLabel_aster_->pAFader_->behave(); //右上＊チカチカ
             break;
         }
 
         case World::PROG_MAINLOOP: { //世界のメインループ
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 addSubLast(pGameScene_);
             }
 

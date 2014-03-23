@@ -31,50 +31,52 @@ void SpriteLabelBonus001::initialize() {
 
 void SpriteLabelBonus001::onDispatched(GgafDxGeometricActor* prm_pOrgActor) {
     positionAs(prm_pOrgActor);
-    _pKuroko->takeoverMvFrom(prm_pOrgActor->_pKuroko);
-    _pKuroko->setMvAcce(300);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->takeoverMvFrom(prm_pOrgActor->getKuroko());
+    pKuroko->setMvAcce(300);
     setAlpha(0.7);
-    _pProg->reset(PROG_INIT);
+    getProgress()->reset(PROG_INIT);
 }
 
 void SpriteLabelBonus001::processBehavior() {
-
-    switch (_pProg->get()) {
+    GgafDxKuroko* pKuroko = getKuroko();
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case PROG_INIT: {
-            _pProg->changeNext();
+            pProg->changeNext();
             break;
         }
         case PROG_MOVE01: {
             //‚µ‚Î‚ç‚­’¼i
-            if (_pProg->getFrameInProgress() == 60) {
+            if (pProg->getFrameInProgress() == 60) {
                 //ƒJƒƒ‰‚ÉŒü‚©‚Á‚Ä•ûŒü“]Š·1
-                _pKuroko->turnMvAngTwd(P_CAM,
+                pKuroko->turnMvAngTwd(P_CAM,
                                         D_ANG(3), 0, TURN_CLOSE_TO, true);
             }
-            if (_pProg->getFrameInProgress() == 60+30) {
+            if (pProg->getFrameInProgress() == 60+30) {
                 //ƒJƒƒ‰‚ÉŒü‚©‚Á‚Ä•ûŒü“]Š·2
-                _pKuroko->turnMvAngTwd(P_CAM,
+                pKuroko->turnMvAngTwd(P_CAM,
                                         D_ANG(1), 0, TURN_CLOSE_TO, true);
             }
 
-            if (ABS(P_CAM->_x - _x) < PX_C(200) ||  _pProg->getFrameInProgress() >= 60+30+120) {
-                _pProg->changeNext();
+            if (ABS(P_CAM->_x - _x) < PX_C(200) ||  pProg->getFrameInProgress() >= 60+30+120) {
+                pProg->changeNext();
             }
             break;
         }
         case PROG_MOVE02: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
             }
             addAlpha(-0.01);
             if (getAlpha() <= 0.0) {
-                _pProg->changeNext();
+                pProg->changeNext();
             }
             break;
         }
         case PROG_LEAVE: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 sayonara();
-                _pProg->changeNothing();
+                pProg->changeNothing();
             }
             break;
         }
@@ -82,7 +84,7 @@ void SpriteLabelBonus001::processBehavior() {
             break;
     }
 
-    _pKuroko->behave();
+    pKuroko->behave();
 }
 
 SpriteLabelBonus001::~SpriteLabelBonus001() {

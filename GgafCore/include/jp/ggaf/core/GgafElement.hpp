@@ -35,6 +35,8 @@ class GgafElement : public GgafNode<T> {
 
 private:
 
+
+
     /**
      * ツリー構造において、再帰呼び出しを行う。
      * @param pFunc 再帰呼び出しするメソッド
@@ -121,7 +123,6 @@ public:
     bool _is_already_reset;
     /** [r]状態進捗管理オブジェクト */
     GgafProgress* _pProg;
-
 public:
     /**
      * コンストラクタ
@@ -891,6 +892,10 @@ public:
                 throwGgafCriticalException("useProgress() ["<<GgafNode<T>::getName()<<"] は既に useProgress している。ダメじゃないのか？！。\n以前の進捗の場合の数="<<_pProg->_num_progress<<"。今回引数 prm_num="<<prm_num);
             }
         }
+    }
+
+    virtual GgafProgress* getProgress() {
+        return _pProg;
     }
 
     virtual GgafProgress* createProgress(int prm_num = 10) {

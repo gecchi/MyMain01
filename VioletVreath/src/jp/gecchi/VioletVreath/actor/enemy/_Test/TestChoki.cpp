@@ -13,8 +13,9 @@ using namespace VioletVreath;
 
 TestChoki::TestChoki(const char* prm_name) : TestEnemy(prm_name, "TestChoki", STATUS(TestChoki)) {
     _class_name = "TestChoki";
-    _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
 }
 
 void TestChoki::onActive() {
@@ -24,8 +25,8 @@ void TestChoki::onActive() {
 void TestChoki::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-    _pKuroko->behave();
-    //_pSeTx->behave();
+    getKuroko()->behave();
+    //getSeTx()->behave();
     dispStamina();
 }
 
@@ -41,12 +42,12 @@ void TestChoki::onHit(GgafActor* prm_pOtherActor) {
         //破壊時
         setHitAble(false);
         UTIL::activateExplosionEffectOf(this); //爆発効果
-        _pSeTx->play3D(SE_EXPLOSION);
+        getSeTx()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //非破壊時
         effectFlush(2); //フラッシュ
-        _pSeTx->play3D(SE_DAMAGED);
+        getSeTx()->play3D(SE_DAMAGED);
     }
 }
 

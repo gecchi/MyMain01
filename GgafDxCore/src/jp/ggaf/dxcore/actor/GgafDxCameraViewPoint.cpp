@@ -16,7 +16,7 @@ GgafDxCameraViewPoint::GgafDxCameraViewPoint(const char* prm_name) :
 }
 
 void GgafDxCameraViewPoint::initialize() {
-    _pKuroko->setMvVelo(0);
+    getKuroko()->setMvVelo(0);
 }
 
 void GgafDxCameraViewPoint::processBehavior() {

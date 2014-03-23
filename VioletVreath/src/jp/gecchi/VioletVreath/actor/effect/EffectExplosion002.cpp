@@ -35,7 +35,7 @@ void EffectExplosion002::processBehavior() {
     _sx+= 100;
     _sy+= 100;
     _pUvFlipper->behave();
-    _pKuroko->behave();
+    getKuroko()->behave();
     pScaler_->behave();
 }
 

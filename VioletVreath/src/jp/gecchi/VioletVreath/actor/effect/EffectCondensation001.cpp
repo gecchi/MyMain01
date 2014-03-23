@@ -33,7 +33,7 @@ void EffectCondensation001::onActive() {
     pScaler_->forceRange(30000, 1000); //スケーリング・範囲
     setScale(30000);
     pScaler_->transitionLinerUntil(1000, 30);//スケーリング・60F費やして1000に縮小
-    _pKuroko->setFaceAngVelo(AXIS_Z, 1000);        //回転
+    getKuroko()->setFaceAngVelo(AXIS_Z, 1000);        //回転
 }
 
 void EffectCondensation001::processBehavior() {
@@ -47,7 +47,7 @@ void EffectCondensation001::processBehavior() {
         pScaler_->beat(30, 2, 0, 26, -1); //無限ループ
     }
     _pUvFlipper->behave();
-    _pKuroko->behave();
+    getKuroko()->behave();
     pScaler_->behave();
 }
 

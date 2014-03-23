@@ -16,7 +16,7 @@ EnemyStraeaLaserChip003::EnemyStraeaLaserChip003(const char* prm_name) :
         WateringLaserChip(prm_name, "StraeaLaserChip001", STATUS(EnemyStraeaLaserChip003)) {
     _class_name = "EnemyStraeaLaserChip003";
     pSplManufConnection_ = connect_SplineManufactureManager("GURUGURU");
-    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(_pKuroko);
+    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(getKuroko());
 }
 
 void EnemyStraeaLaserChip003::initialize() {
@@ -24,8 +24,9 @@ void EnemyStraeaLaserChip003::initialize() {
     setHitAble(true, false);
     setScaleR(5.0);
     setAlpha(0.9);
-    _pKuroko->setMvVelo(30000);
-    _pKuroko->relateFaceWithMvAng(true);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setMvVelo(30000);
+    pKuroko->relateFaceWithMvAng(true);
 }
 
 void EnemyStraeaLaserChip003::onActive() {
@@ -37,7 +38,7 @@ void EnemyStraeaLaserChip003::onActive() {
 
 void EnemyStraeaLaserChip003::processBehavior() {
     pKurokoLeader_->behave();
-    _pKuroko->behave();
+    getKuroko()->behave();
     WateringLaserChip::processBehavior();
 }
 

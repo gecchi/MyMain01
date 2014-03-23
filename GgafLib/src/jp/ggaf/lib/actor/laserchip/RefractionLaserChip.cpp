@@ -117,15 +117,14 @@ void RefractionLaserChip::onInactive() {
     //ちょっと無駄っぽいけど、さもなくば先頭の次のチップが領域外に向かって移動するとは限らないので、やはり必要。
     if (_pChip_behind) {
         RefractionLaserChip* const pChip_behind = (RefractionLaserChip*)_pChip_behind;
-        GgafDxKuroko* const pChip_behind_pKuroko = pChip_behind->_pKuroko;
-        GgafDxKuroko* const pKuroko = _pKuroko;
-
+        GgafDxKuroko* const pChip_behind_pKuroko = pChip_behind->getKuroko();
+        GgafDxKuroko* pKuroko = getKuroko();
         pChip_behind_pKuroko->_vX = pKuroko->_vX;
         pChip_behind_pKuroko->_vY = pKuroko->_vY;
         pChip_behind_pKuroko->_vZ = pKuroko->_vZ;
         pChip_behind_pKuroko->_angRzMv = pKuroko->_angRzMv;
         pChip_behind_pKuroko->_angRyMv = pKuroko->_angRyMv;
-        pChip_behind_pKuroko->_veloMv = pKuroko->_veloMv;
+        pChip_behind_pKuroko->_veloMv  = pKuroko->_veloMv;
         pChip_behind->_rx = _rx;
         pChip_behind->_ry = _ry;
         pChip_behind->_rz = _rz;
@@ -162,6 +161,7 @@ void RefractionLaserChip::processBehavior() {
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     //その際 は、本クラスの processBehavior() メソッドも呼び出してください。
     //座標に反映
+    GgafDxKuroko* pKuroko = getKuroko();
     RefractionLaserChip* pChip_front =  (RefractionLaserChip*)_pChip_front;
     if (getActiveFrame() > 1) {
         //GgafActorDepository::dispatch() は
@@ -207,7 +207,7 @@ void RefractionLaserChip::processBehavior() {
                     _frame_refraction_enter = getBehaveingFrame() + _frame_between_refraction;
                     //座標を変えず方向だけ転換
                     int X = _x; int Y = _y; int Z = _z;
-                    _pKuroko->behave(); //
+                    pKuroko->behave(); //
                     _x = X; _y = Y; _z = Z;
                     _is_refracting = false;
 
@@ -216,9 +216,9 @@ void RefractionLaserChip::processBehavior() {
             }
 
             if (!_is_refracting) {
-                //_is_refracting中は停止しなくてはいけないため_pKuroko->behave()を実行しない。
-                //_pKuroko->behave();以外で座標を操作している場合は、完全な停止にならないので注意
-                _pKuroko->behave();
+                //_is_refracting中は停止しなくてはいけないためgetKuroko()->behave()を実行しない。
+                //pKuroko->behave();以外で座標を操作している場合は、完全な停止にならないので注意
+                pKuroko->behave();
             }
 
         } else {

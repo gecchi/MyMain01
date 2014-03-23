@@ -21,7 +21,8 @@ EnemyOrtuna::EnemyOrtuna(const char* prm_name) :
     _class_name = "EnemyOrtuna";
     pAFader_ = NEW GgafDxAlphaFader(this);
     _sx=_sy=_sz=100;
-    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
 }
 
@@ -36,77 +37,78 @@ void EnemyOrtuna::initialize() {
 
 void EnemyOrtuna::onActive() {
     _pStatus->reset();
-    _pProg->reset(PROG_INIT);
+    getProgress()->reset(PROG_INIT);
 }
 
 void EnemyOrtuna::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-
-    switch (_pProg->get()) {
+    GgafDxKuroko* pKuroko = getKuroko();
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
          case PROG_INIT: {
              setHitAble(false);
              positionAs(&entry_pos_);
              setAlpha(0);
-             _pKuroko->setMvVelo(0);
-             _pKuroko->relateFaceWithMvAng(true);
-             _pKuroko->setMvAngTwd(&hanging_pos_);
+             pKuroko->setMvVelo(0);
+             pKuroko->relateFaceWithMvAng(true);
+             pKuroko->setMvAngTwd(&hanging_pos_);
              velo mv_velo = RF_EnemyOrtuna_MvVelo(G_RANK);
-             _pKuroko->setFaceAngVelo(AXIS_X, mv_velo); //ぐるぐる～
+             pKuroko->setFaceAngVelo(AXIS_X, mv_velo); //ぐるぐる～
              setMorphWeight(0.0);
              UTIL::activateEntryEffectOf(this);
-             _pProg->changeNext();
+             pProg->changeNext();
              break;
          }
          case PROG_ENTRY: {
-             if (_pProg->getFrameInProgress() == 60) {
+             if (pProg->getFrameInProgress() == 60) {
                  pAFader_->transitionLinerUntil(1.0, 60);
              }
              if (getAlpha() > 0.5) {
                  setHitAble(true);
-                 _pProg->changeNext();
+                 pProg->changeNext();
              }
              break;
          }
 
          case PROG_MOVE01: {
-             if (_pProg->isJustChanged()) {
+             if (pProg->isJustChanged()) {
                  //折り返しポイントへGO!
                  //velo mv_velo = RF_EnemyOrtuna_MvVelo(G_RANK);
                  velo mv_velo = PX_C(20);
                  coord d = UTIL::getDistance(this, &hanging_pos_);
-                 _pKuroko->setMvVelo(mv_velo);//勢いよくポーンと
-                 hanging_pos_frames_ = _pKuroko->setMvAcceByD(d, PX_C(1));
+                 pKuroko->setMvVelo(mv_velo);//勢いよくポーンと
+                 hanging_pos_frames_ = pKuroko->setMvAcceByD(d, PX_C(1));
              }
 
-             _pKuroko->setFaceAngVelo(AXIS_X, _pKuroko->_veloMv); //勢いに比例してぐるぐる～
+             pKuroko->setFaceAngVelo(AXIS_X, pKuroko->_veloMv); //勢いに比例してぐるぐる～
 
-             if (_pProg->getFrameInProgress() > hanging_pos_frames_) {
-                 _pKuroko->setMvVelo(PX_C(1));
-                 _pKuroko->setMvAcce(0);
-                 _pProg->changeNext();
+             if (pProg->getFrameInProgress() > hanging_pos_frames_) {
+                 pKuroko->setMvVelo(PX_C(1));
+                 pKuroko->setMvAcce(0);
+                 pProg->changeNext();
              }
              break;
          }
 
          case PROG_MOVE02: {
-             if (_pProg->isJustChanged()) {
+             if (pProg->isJustChanged()) {
                  //方向転換
                  //ゆっくり自機の方へ向かせる
-                 _pKuroko->turnMvAngTwd(P_MYSHIP,
+                 pKuroko->turnMvAngTwd(P_MYSHIP,
                                         D_ANG(3), 0, TURN_CLOSE_TO, true);
-                 _pMorpher->transitionLinerUntil(MPH_OPEN, 1.0, 60);
+                 getMorpher()->transitionLinerUntil(MPH_OPEN, 1.0, 60);
              }
              //滞留中
-             if (_pProg->getFrameInProgress() % 16U == 0) {
-                 if (_pKuroko->isTurningMvAng()) {
+             if (pProg->getFrameInProgress() % 16U == 0) {
+                 if (pKuroko->isTurningMvAng()) {
                      //ちょくちょく自機を見つめる
-                     _pKuroko->turnFaceAngTwd(P_MYSHIP,
+                     pKuroko->turnFaceAngTwd(P_MYSHIP,
                                               D_ANG(1), 0, TURN_CLOSE_TO, true);
                  }
              }
 
-             if (_pProg->getFrameInProgress() == 60) {
+             if (pProg->getFrameInProgress() == 60) {
                  //自機の方に向いたら敵弾発射！
                  int shot_num = RF_EnemyOrtuna_ShotWay(G_RANK); //弾数、ランク変動
                  velo shot_velo = RF_EnemyOrtuna_ShotMvVelo(G_RANK); //弾速、ランク変動
@@ -114,24 +116,24 @@ void EnemyOrtuna::processBehavior() {
                      GgafDxDrawableActor* pShot = UTIL::activateAttackShotOf(this);
                      if (pShot) {
                          pShot->activateDelay(1+(i*10)); //ばらつかせ。activate タイミング上書き！
-                         pShot->_pKuroko->setRzRyMvAng(_rz,
-                                                       _ry);
-                         pShot->_pKuroko->setMvVelo(shot_velo);
-                         pShot->_pKuroko->setMvAcce(100);
+                         GgafDxKuroko* pShot_pKuroko = pShot->getKuroko();
+                         pShot_pKuroko->setRzRyMvAng(_rz, _ry);
+                         pShot_pKuroko->setMvVelo(shot_velo);
+                         pShot_pKuroko->setMvAcce(100);
                      }
                  }
              }
-             if (_pProg->getFrameInProgress() == 60) {
-                 _pProg->changeNext();
+             if (pProg->getFrameInProgress() == 60) {
+                 pProg->changeNext();
              }
              break;
          }
 
          case PROG_MOVE03: {
              //さよなら～
-             if (_pProg->isJustChanged()) {
-                 _pKuroko->setMvVelo(PX_C(4));
-                 _pKuroko->setMvAcce(100);
+             if (pProg->isJustChanged()) {
+                 pKuroko->setMvVelo(PX_C(4));
+                 pKuroko->setMvAcce(100);
              }
              break;
          }
@@ -140,9 +142,9 @@ void EnemyOrtuna::processBehavior() {
              break;
      }
 
-    _pKuroko->behave();
-    _pMorpher->behave();
-    //_pSeTx->behave();
+    pKuroko->behave();
+    getMorpher()->behave();
+    //getSeTx()->behave();
 }
 
 void EnemyOrtuna::processJudgement() {
@@ -155,7 +157,7 @@ void EnemyOrtuna::onHit(GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊時
-        _pSeTx->play3D(SE_EXPLOSION);
+        getSeTx()->play3D(SE_EXPLOSION);
     } else {
         //非破壊時
     }

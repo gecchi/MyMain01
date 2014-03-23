@@ -22,8 +22,9 @@ EnemyIda::EnemyIda(const char* prm_name) :
     _class_name = "EnemyIda";
     pScaler_ = NEW GgafDxScaler(this);
     pAFader_ = NEW GgafDxAlphaFader(this);
-    _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
     useProgress(PROG_BANPEI);
 }
 
@@ -32,42 +33,43 @@ void EnemyIda::onCreateModel() {
 }
 
 void EnemyIda::initialize() {
-    _pKuroko->relateFaceWithMvAng(true);
+    getKuroko()->relateFaceWithMvAng(true);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
 }
 
 void EnemyIda::onActive() {
     _pStatus->reset();
-    _pProg->reset(PROG_INIT);
+    getProgress()->reset(PROG_INIT);
 }
 
 void EnemyIda::processBehavior() {
     changeGeoLocal(); //ƒ[ƒJƒ‹À•WŒn‚Ö
 
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-
-    switch (_pProg->get()) {
+    GgafDxKuroko* pKuroko = getKuroko();
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
-            _pKuroko->setFaceAngVelo(AXIS_X, D_ANG(4));
+            pKuroko->setFaceAngVelo(AXIS_X, D_ANG(4));
             setAlpha(0);
              UTIL::activateEntryEffectOf(this);
-            _pProg->changeNext();
+            pProg->changeNext();
             break;
         }
         case PROG_ENTRY: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 pAFader_->transitionLinerUntil(1.0, 30);
             }
-            if (_pProg->getFrameInProgress() == 25) {
+            if (pProg->getFrameInProgress() == 25) {
                 setHitAble(true);
-                _pProg->changeNext();
+                pProg->changeNext();
             }
             break;
         }
         case PROG_MOVE01: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
             }
             //Ž©‹@‚ÖŒü‚¯‚é
             GgafDxGeometricActor* pTargetActor = P_MYSHIP;
@@ -83,13 +85,13 @@ void EnemyIda::processBehavior() {
 
             angle angRz_Target, angRy_Target;
             UTIL::convVectorToRzRy(tvx, tvy, tvz, angRz_Target, angRy_Target); //RzRy‚É’u‚«Š·‚¦‚é
-            _pKuroko->setRzRyMvAng(angRz_Target, angRy_Target);
+            pKuroko->setRzRyMvAng(angRz_Target, angRy_Target);
             break;
         }
     }
 
     pAFader_->behave();
-    _pKuroko->behave();
+    pKuroko->behave();
 
     changeGeoFinal(); //â‘ÎÀ•WŒn‚Ö
 }
@@ -104,10 +106,10 @@ void EnemyIda::onHit(GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //”j‰óŽž
-        _pSeTx->play3D(SE_EXPLOSION);
+        getSeTx()->play3D(SE_EXPLOSION);
     } else {
         //”ñ”j‰óŽž
-        _pSeTx->play3D(SE_DAMAGED);
+        getSeTx()->play3D(SE_DAMAGED);
     }
 }
 

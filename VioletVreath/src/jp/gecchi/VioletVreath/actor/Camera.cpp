@@ -49,7 +49,7 @@ void Camera::processBehavior() {
             v_up_x, v_up_y, v_up_z );
     setVecCamUp(v_up_x, v_up_y, v_up_z );
     pAxsMver_->behave();
-    _pKuroko->behave();
+    getKuroko()->behave();
 
     DefaultCamera::processBehavior();
 

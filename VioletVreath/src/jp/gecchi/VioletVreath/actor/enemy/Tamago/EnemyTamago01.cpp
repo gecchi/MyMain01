@@ -33,8 +33,9 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) :
 
     pDepoConnection_ = connect_DepositoryManager("Shot001");
     //pDepo_Shot_ = pDepoConnection_->peek();
-pDepo_Shot_ = nullptr;
-    _pSeTx->set(0, "WAVE_EXPLOSION_001");
+    pDepo_Shot_ = nullptr;
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(0, "WAVE_EXPLOSION_001");
 }
 
 void EnemyTamago01::onCreateModel() {
@@ -44,12 +45,12 @@ void EnemyTamago01::onCreateModel() {
 }
 
 void EnemyTamago01::initialize() {
-
     setHitAble(true);
-    _pKuroko->relateFaceWithMvAng(true);
-    _pKuroko->setFaceAngVelo(AXIS_X, 1000);
-    _pKuroko->setMvAngTwd(900000, 300000, 300000);
-    _pKuroko->setMvVelo(3000);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->relateFaceWithMvAng(true);
+    pKuroko->setFaceAngVelo(AXIS_X, 1000);
+    pKuroko->setMvAngTwd(900000, 300000, 300000);
+    pKuroko->setMvVelo(3000);
     _pColliChecker->makeCollision(1);
 //    _pColliChecker->setColliAAPrism_Cube(0, 200000,POS_PRISM_ZX_pp);
 //        _pColliChecker->setColliAAPrism_WHD(0,0,0,300000,100000,200000,100000,POS_PRISM_YZ_pn);
@@ -118,7 +119,7 @@ void EnemyTamago01::processBehavior() {
 //    if (GgafDxInput::isBeingPressedKey(DIK_0)) {
 //        _pModel->_pTexBlinker->->setScaleToBottom();
 //    }
-
+    GgafDxKuroko* pKuroko = getKuroko();
 
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
@@ -132,7 +133,7 @@ void EnemyTamago01::processBehavior() {
 
     if (iMovePatternNo_ == 1) {
         //スプライン移動終了時
-        _pKuroko->turnMvAngTwd(P_MYSHIP->_x+800000, P_MYSHIP->_y, P_MYSHIP->_z,
+        pKuroko->turnMvAngTwd(P_MYSHIP->_x+800000, P_MYSHIP->_y, P_MYSHIP->_z,
                                             2000, 0,
                                             TURN_CLOSE_TO, false);
         iMovePatternNo_++; //次の行動パターンへ
@@ -146,7 +147,7 @@ void EnemyTamago01::processBehavior() {
 
     }
     if (getBehaveingFrame() % 30U == 0) {
-        _pKuroko->turnMvAngTwd(P_MYSHIP,
+        pKuroko->turnMvAngTwd(P_MYSHIP,
                                 2000,0,TURN_CLOSE_TO, false);
 
         if (pDepo_Shot_) {
@@ -163,8 +164,8 @@ void EnemyTamago01::processBehavior() {
             for (int i = 0; i < way; i++) {
                 pActor = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
                 if (pActor) {
-                    pActor->_pKuroko->relateFaceWithMvAng(true);
-                    pActor->_pKuroko->setRzRyMvAng_by_RyRz(paAng_way[i], target_RyRz_Rz);
+                    pActor->getKuroko()->relateFaceWithMvAng(true);
+                    pActor->getKuroko()->setRzRyMvAng_by_RyRz(paAng_way[i], target_RyRz_Rz);
                     pActor->positionAs(this);
                 }
             }
@@ -182,10 +183,10 @@ void EnemyTamago01::processBehavior() {
     if (pProgram_Tamago01Move_) {
         pProgram_Tamago01Move_->behave();
     }
-    _pKuroko->behave();
+    pKuroko->behave();
     pScaler_->behave();
     _pUvFlipper->behave();
-    //_pSeTx->behave();
+    //getSeTx()->behave();
 }
 
 void EnemyTamago01::processJudgement() {
@@ -197,7 +198,7 @@ void EnemyTamago01::processJudgement() {
 void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     EffectExplosion001* pExplo001 = dispatchFromCommon(EffectExplosion001);
-    _pSeTx->play3D(0);
+    getSeTx()->play3D(0);
     _TRACE_("HIT!!!");
     if (pExplo001) {
         pExplo001->positionAs(this);

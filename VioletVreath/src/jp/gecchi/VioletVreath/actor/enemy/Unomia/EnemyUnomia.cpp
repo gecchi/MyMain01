@@ -22,7 +22,8 @@ EnemyUnomia::EnemyUnomia(const char* prm_name) :
     pKurokoLeader_ = nullptr;
     pDepo_Shot_ = nullptr;
     pDepo_ShotEffect_ = nullptr;
-    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
     useProgress(PROG_BANPEI);
 }
 
@@ -31,8 +32,9 @@ void EnemyUnomia::onCreateModel() {
 }
 
 void EnemyUnomia::initialize() {
-    _pKuroko->relateFaceWithMvAng(true);
-    _pKuroko->setFaceAngVelo(AXIS_X, -4000);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->relateFaceWithMvAng(true);
+    pKuroko->setFaceAngVelo(AXIS_X, -4000);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
 }
@@ -60,28 +62,30 @@ void EnemyUnomia::onActive() {
     setHitAble(true);
     setRzFaceAng(0);
     iMovePatternNo_ = 0; //行動パターンリセット
-    _pProg->reset(PROG_ENTRY);
+    getProgress()->reset(PROG_ENTRY);
 }
 
 void EnemyUnomia::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-    switch (_pProg->get()) {
+    GgafDxKuroko* pKuroko = getKuroko();
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case PROG_ENTRY: {
             pKurokoLeader_->start(SplineKurokoLeader::ABSOLUTE_COORD);
-            _pProg->changeNext();
+            pProg->changeNext();
             break;
         }
         case PROG_SPLINE_MOVE: {
             if (pKurokoLeader_->isFinished()) {
-                _pProg->changeNext(); //次へ
+                pProg->changeNext(); //次へ
             }
             break;
         }
         case PROG_MOVE01_1: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 //自機へ方向転換
-                _pKuroko->turnMvAngTwd(
+                pKuroko->turnMvAngTwd(
                                P_MYSHIP->_x, _y, P_MYSHIP->_z,
                                2000, 0,
                                TURN_CLOSE_TO, true
@@ -98,7 +102,7 @@ void EnemyUnomia::processBehavior() {
 //                    pActor_Shot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
 //                    if (pActor_Shot) {
 //                        pActor_Shot->positionAs(this);
-//                        pActor_Shot->_pKuroko->setRzRyMvAng(paAng_way[i], D90ANG);
+//                        pActor_Shot->getKuroko()->setRzRyMvAng(paAng_way[i], D90ANG);
 //                    }
 //                }
 //                GGAF_DELETEARR(paAng_way);
@@ -121,15 +125,15 @@ void EnemyUnomia::processBehavior() {
 //
 //
 //    //【パターン1：スプライン移動】
-//    if (_pProg->isJustChangedTo(1)) {
+//    if (pProg->isJustChangedTo(1)) {
 //        pKurokoLeader_->start(SplineKurokoLeader::ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
 //    }
-//    if (_pProg->get() == 1) {
+//    if (pProg->get() == 1) {
 //        //スプライン移動終了待ち
 //        if (pKurokoLeader_->isLeading()) {
 //            //待ちぼうけ
 //        } else {
-//            _pProg->changeNext(); //次のパターンへ
+//            pProg->changeNext(); //次のパターンへ
 //        }
 //    }
 //
@@ -164,7 +168,7 @@ void EnemyUnomia::processBehavior() {
 //                    pActor_Shot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
 //                    if (pActor_Shot) {
 //                        pActor_Shot->positionAs(this);
-//                        pActor_Shot->_pKuroko->setRzRyMvAng(paAng_way[i], D90ANG);
+//                        pActor_Shot->getKuroko()->setRzRyMvAng(paAng_way[i], D90ANG);
 //                    }
 //                }
 //                GGAF_DELETEARR(paAng_way);
@@ -177,7 +181,7 @@ void EnemyUnomia::processBehavior() {
 //                }
 //            }
 ////            //自機へ方向転換
-//            _pKuroko->turnMvAngTwd(P_MYSHIP->_x, _y, P_MYSHIP->_z,
+//            pKuroko->turnMvAngTwd(P_MYSHIP->_x, _y, P_MYSHIP->_z,
 //                                                2000, 0,
 //                                                TURN_CLOSE_TO);
 //            iMovePatternNo_++; //次の行動パターンへ
@@ -191,7 +195,7 @@ void EnemyUnomia::processBehavior() {
 //    }
 
     pKurokoLeader_->behave(); //スプライン移動を振る舞い
-    _pKuroko->behave();
+    pKuroko->behave();
 }
 
 void EnemyUnomia::processJudgement() {
@@ -208,7 +212,7 @@ void EnemyUnomia::onHit(GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊時
-        _pSeTx->play3D(SE_EXPLOSION);
+        getSeTx()->play3D(SE_EXPLOSION);
     } else {
         //非破壊時
     }

@@ -20,12 +20,12 @@ MyWave001::MyWave001(const char* prm_name) :
 
 void MyWave001::initialize() {
     //exec(FLIP_OSCILLATE_LOOP, 2);
-
-    _pKuroko->setRzMvAngVelo(0);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setRzMvAngVelo(0);
     //_pKuroko->setFaceAngVelo(AXIS_Z, 2*1000);
     //_pKuroko->setRzMvAng(0);
     //setRzFaceAng(0);
-    _pKuroko->setMvVelo(20000);
+    pKuroko->setMvVelo(20000);
 
     _pColliChecker->makeCollision(7);
     _pColliChecker->setColliAAB(0,  -10000,  -10000,  -10000,   10000,   10000,   10000, true, true, true);
@@ -52,6 +52,7 @@ void MyWave001::initialize() {
 }
 
 void MyWave001::processBehavior() {
+    GgafDxKuroko* pKuroko = getKuroko();
     if (onChangeToActive()) {
         //oŒ»‹¤’Êˆ—
         setScale(1000);
@@ -61,7 +62,7 @@ void MyWave001::processBehavior() {
         positionAs(P_MYSHIP);
         setRzFaceAng(P_MYSHIP->_rz);
         setRyFaceAng(P_MYSHIP->_ry);
-        _pKuroko->setRzRyMvAng(P_MYSHIP->_rz,
+        pKuroko->setRzRyMvAng(P_MYSHIP->_rz,
                                 P_MYSHIP->_ry);
         //		_x = P_MYSHIP->_x;
         //		_y = P_MYSHIP->_y;
@@ -71,7 +72,7 @@ void MyWave001::processBehavior() {
         //behaveUvFlip();
         //À•W‚É”½‰f
         pScaler_->behave();
-        _pKuroko->behave();
+        pKuroko->behave();
     }
 }
 

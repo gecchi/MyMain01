@@ -321,9 +321,9 @@ public:
      * メインカーソルオブジェクトを設定する .
      * 【注意】<BR>
      * カーソル移動を制御するため、MenuActor<T>::processBehavior() 内で、<BR>
-     * _pCursorActor->_pKuroko->behave(); <BR>
+     * _pCursorActor->getKuroko()->behave(); <BR>
      * を実行しています。したがって、引数のカーソルクラスで、<BR>
-     * _pKuroko->behave(); <BR>
+     * getKuroko()->behave(); <BR>
      * を実行する必要はありません。<BR>
      * @param prm_pCursorActor メインカーソル
      * @param prm_x_cursor_adjust アイテムとの重なりを補正するための加算される差分X座標
@@ -345,9 +345,9 @@ public:
      * 補助カーソルオブジェクトを設定する .
      * 【注意】<BR>
      * カーソル移動を制御するため、MenuActor<T>::processBehavior() 内で、<BR>
-     * _lstSupCursor.getFromFirst(i)->_pActor->_pKuroko->behave(); <BR>
+     * _lstSupCursor.getFromFirst(i)->_pActor->getKuroko()->behave(); <BR>
      * を実行しています。したがって、引数のカーソルクラスで、<BR>
-     * _pKuroko->behave(); <BR>
+     * getKuroko()->behave(); <BR>
      * を実行する必要はありません。<BR>
      * @param prm_pCursorActor 補助カーソル
      * @param prm_x_cursor_adjust アイテムとの重なりを補正するための加算される差分X座標
@@ -1361,29 +1361,30 @@ template<class T>
 void MenuActor<T>::moveCursor(bool prm_smooth) {
     if (_pCursorActor) {
         GgafDxCore::GgafDxDrawableActor* pTargetItem = _lstItems.getCurrent();
+        GgafDxCore::GgafDxKuroko* pCursorActor_pKuroko = _pCursorActor->getKuroko();
         if (prm_smooth) {
-            _pCursorActor->_pKuroko->setMvAngTwd(
-                                        pTargetItem->_x + _x_cursor_adjust,
-                                        pTargetItem->_y + _y_cursor_adjust,
-                                        pTargetItem->_z + _z_cursor_adjust
-                                      );
-            _pCursorActor->_pKuroko->stopMv();
-            _pCursorActor->_pKuroko->hlprA()->slideMvByDt(
-                                        UTIL::getDistance(_pCursorActor->_x,
-                                                          _pCursorActor->_y,
-                                                          _pCursorActor->_z,
-                                                          pTargetItem->_x + _x_cursor_adjust,
-                                                          pTargetItem->_y + _y_cursor_adjust,
-                                                          pTargetItem->_z + _z_cursor_adjust ),
-                                        _cursor_move_frames,
-                                        _cursor_move_p1, _cursor_move_p2, 0 , true
-                                      );
+            pCursorActor_pKuroko->setMvAngTwd(
+                                    pTargetItem->_x + _x_cursor_adjust,
+                                    pTargetItem->_y + _y_cursor_adjust,
+                                    pTargetItem->_z + _z_cursor_adjust
+                                  );
+            pCursorActor_pKuroko->stopMv();
+            pCursorActor_pKuroko->hlprA()->slideMvByDt(
+                                    UTIL::getDistance(_pCursorActor->_x,
+                                                      _pCursorActor->_y,
+                                                      _pCursorActor->_z,
+                                                      pTargetItem->_x + _x_cursor_adjust,
+                                                      pTargetItem->_y + _y_cursor_adjust,
+                                                      pTargetItem->_z + _z_cursor_adjust ),
+                                    _cursor_move_frames,
+                                    _cursor_move_p1, _cursor_move_p2, 0 , true
+                                  );
             _x_cursor_target_prev = pTargetItem->_x;
             _y_cursor_target_prev = pTargetItem->_y;
             _z_cursor_target_prev = pTargetItem->_z;
         } else {
-            _pCursorActor->_pKuroko->hlprA()->stopSlidingMv();
-            _pCursorActor->_pKuroko->stopMv();
+            pCursorActor_pKuroko->hlprA()->stopSlidingMv();
+            pCursorActor_pKuroko->stopMv();
             _pCursorActor->_x = pTargetItem->_x + _x_cursor_adjust;
             _pCursorActor->_y = pTargetItem->_y + _y_cursor_adjust;
             _pCursorActor->_z = pTargetItem->_z + _z_cursor_adjust;
@@ -1400,29 +1401,30 @@ void MenuActor<T>::moveSupCursor(int prm_supcur_no, bool prm_smooth) {
         GgafDxCore::GgafDxDrawableActor* pTargetItem = getSelectedItemOnSupCursor(prm_supcur_no);
         SupCursor* pSupCursor = _lstSupCursor.getFromFirst(prm_supcur_no);
         GgafDxCore::GgafDxDrawableActor* pSupCursorActor = pSupCursor->_pActor;
+        GgafDxCore::GgafDxKuroko* pSupCursorActor_pKuroko = pSupCursorActor->getKuroko();
         if (prm_smooth) {
-            pSupCursorActor->_pKuroko->setMvAngTwd(
-                                    pTargetItem->_x + pSupCursor->_x_adjust,
-                                    pTargetItem->_y + pSupCursor->_y_adjust,
-                                    pTargetItem->_z + pSupCursor->_z_adjust
-                                );
-            pSupCursorActor->_pKuroko->stopMv();
-            pSupCursorActor->_pKuroko->hlprA()->slideMvByDt(
-                                          UTIL::getDistance(pSupCursorActor->_x,
-                                                            pSupCursorActor->_y,
-                                                            pSupCursorActor->_z,
-                                                            pTargetItem->_x + pSupCursor->_x_adjust,
-                                                            pTargetItem->_y + pSupCursor->_y_adjust,
-                                                            pTargetItem->_z + pSupCursor->_z_adjust ),
-                                          pSupCursor->_move_frames,
-                                          pSupCursor->_move_p1, pSupCursor->_move_p2, 0 , true
-                                        );
+            pSupCursorActor_pKuroko->setMvAngTwd(
+                                         pTargetItem->_x + pSupCursor->_x_adjust,
+                                         pTargetItem->_y + pSupCursor->_y_adjust,
+                                         pTargetItem->_z + pSupCursor->_z_adjust
+                                     );
+            pSupCursorActor_pKuroko->stopMv();
+            pSupCursorActor_pKuroko->hlprA()->slideMvByDt(
+                                      UTIL::getDistance(pSupCursorActor->_x,
+                                                        pSupCursorActor->_y,
+                                                        pSupCursorActor->_z,
+                                                        pTargetItem->_x + pSupCursor->_x_adjust,
+                                                        pTargetItem->_y + pSupCursor->_y_adjust,
+                                                        pTargetItem->_z + pSupCursor->_z_adjust ),
+                                      pSupCursor->_move_frames,
+                                      pSupCursor->_move_p1, pSupCursor->_move_p2, 0 , true
+                                    );
             pSupCursor->_x_target_prev = pTargetItem->_x;
             pSupCursor->_y_target_prev = pTargetItem->_y;
             pSupCursor->_z_target_prev = pTargetItem->_z;
         } else {
-            pSupCursorActor->_pKuroko->hlprA()->stopSlidingMv();
-            pSupCursorActor->_pKuroko->stopMv();
+            pSupCursorActor_pKuroko->hlprA()->stopSlidingMv();
+            pSupCursorActor_pKuroko->stopMv();
             pSupCursorActor->_x = pTargetItem->_x + pSupCursor->_x_adjust;
             pSupCursorActor->_y = pTargetItem->_y + pSupCursor->_y_adjust;
             pSupCursorActor->_z = pTargetItem->_z + pSupCursor->_z_adjust;
@@ -1529,13 +1531,13 @@ void MenuActor<T>::processBehavior() {
     }
 
     if (_pCursorActor) {
-        _pCursorActor->_pKuroko->behave();
+        _pCursorActor->getKuroko()->behave();
         //メインカーソル側で、_pKuroko->behave() しないように注意
     }
     int n_sc = _lstSupCursor.length();
     for (int i = 0; i < n_sc; i++) {
         SupCursor* pSupCursor = _lstSupCursor.getFromFirst(i);
-        pSupCursor->_pActor->_pKuroko->behave();
+        pSupCursor->_pActor->getKuroko()->behave();
         //補助カーソル側で、_pKuroko->behave() しないように注意
     }
 
@@ -1571,7 +1573,7 @@ void MenuActor<T>::processBehavior() {
     //メインカーソルをメニューアイテムに追従
     if (_pCursorActor) {
         GgafDxCore::GgafDxDrawableActor* pTargetItem = _lstItems.getCurrent();
-        if (_pCursorActor->_pKuroko->hlprA()->isSlidingMv()) {
+        if (_pCursorActor->getKuroko()->hlprA()->isSlidingMv()) {
             _pCursorActor->_x += (pTargetItem->_x - _x_cursor_target_prev);
             _pCursorActor->_y += (pTargetItem->_y - _y_cursor_target_prev);
             _pCursorActor->_z += (pTargetItem->_z - _z_cursor_target_prev);
@@ -1591,7 +1593,7 @@ void MenuActor<T>::processBehavior() {
         SupCursor* pSupCursor = _lstSupCursor.getFromFirst(i);
         GgafDxCore::GgafDxDrawableActor* pTargetItem = _lstItems.getFromFirst(pSupCursor->_select_index);
         GgafDxCore::GgafDxDrawableActor* pSupCursorActor = pSupCursor->_pActor;
-        if (pSupCursorActor->_pKuroko->hlprA()->isSlidingMv()) {
+        if (pSupCursorActor->getKuroko()->hlprA()->isSlidingMv()) {
             pSupCursorActor->_x += (pTargetItem->_x - pSupCursor->_x_target_prev);
             pSupCursorActor->_y += (pTargetItem->_y - pSupCursor->_y_target_prev);
             pSupCursorActor->_z += (pTargetItem->_z - pSupCursor->_z_target_prev);

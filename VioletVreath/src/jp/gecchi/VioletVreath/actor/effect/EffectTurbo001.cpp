@@ -30,12 +30,12 @@ void EffectTurbo001::initialize() {
 
 void EffectTurbo001::onActive() {
     _pUvFlipper->setActivePtnToTop();
-    _pKuroko->setFaceAngVelo(AXIS_Z, 3000);        //‰ñ“]
+    getKuroko()->setFaceAngVelo(AXIS_Z, 3000);        //‰ñ“]
 }
 
 void EffectTurbo001::processBehavior() {
     _pUvFlipper->behave();
-    _pKuroko->behave();
+    getKuroko()->behave();
     pScaler_->behave();
 }
 

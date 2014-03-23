@@ -18,7 +18,7 @@ MgrActor::MgrActor(const char* prm_name) :
 }
 
 void MgrActor::initialize() {
-//    _pKuroko->setFaceAngVelo(AXIS_Z, D_ANG(1));
+//    getKuroko()->setFaceAngVelo(AXIS_Z, D_ANG(1));
 //    pScaler_->forceRange(500, 3000);
 //    pScaler_->beat(120, 60, 5, -1);
 }
@@ -31,7 +31,7 @@ void MgrActor::processBehavior() {
 //        _sx+=10; _sy+=10;
 //    }
 
-//    _pKuroko->behave();
+//    getKuroko()->behave();
 }
 
 MgrActor::~MgrActor() {

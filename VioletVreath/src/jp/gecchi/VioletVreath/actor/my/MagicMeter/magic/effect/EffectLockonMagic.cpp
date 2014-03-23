@@ -32,7 +32,7 @@ void EffectLockonMagic::onActive() {
 
 void EffectLockonMagic::processBehavior() {
     _pUvFlipper->behave();
-    _pKuroko->behave();
+    getKuroko()->behave();
     pScaler_->behave();
 }
 

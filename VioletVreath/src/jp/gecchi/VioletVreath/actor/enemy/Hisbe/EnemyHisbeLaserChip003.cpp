@@ -18,7 +18,7 @@ EnemyHisbeLaserChip003::EnemyHisbeLaserChip003(const char* prm_name) :
         WateringLaserChip(prm_name, "HisbeLaserChip003", STATUS(EnemyHisbeLaserChip003)) {
     _class_name = "EnemyHisbeLaserChip003";
     pSplManufConnection_ = connect_SplineManufactureManager("EnemyHisbeLaserChip003"); //ゴスパー曲線
-    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(_pKuroko);
+    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(getKuroko());
     pKurokoLeader_->adjustCoordOffset(PX_C(100), 0, 0);
     sp_index_ = 0;
     pNearestScrollingScene_ = nullptr;
@@ -30,7 +30,7 @@ void EnemyHisbeLaserChip003::initialize() {
     setScaleR(5.0);
     setAlpha(0.9);
 
-    _pKuroko->relateFaceWithMvAng(true);
+    getKuroko()->relateFaceWithMvAng(true);
     sp_index_ = 0;
     pNearestScrollingScene_ = ((DefaultScene*)getPlatformScene())->getNearestScrollingScene();
 }
@@ -44,19 +44,20 @@ void EnemyHisbeLaserChip003::onActive() {
 }
 
 void EnemyHisbeLaserChip003::processBehavior() {
+    GgafDxKuroko* pKuroko = getKuroko();
     if (pNearestScrollingScene_ && pNearestScrollingScene_->_pFuncScrolling == WalledScene::scrollX) {
         pKurokoLeader_->_x_start -= pNearestScrollingScene_->getScrollSpeed();
     }
     if (sp_index_ > (pKurokoLeader_->_pManufacture->_sp->_rnum -1)) {
 
     } else {
-        _pKuroko->setMvVelo(pKurokoLeader_->getSegmentDistance(sp_index_));
+        pKuroko->setMvVelo(pKurokoLeader_->getSegmentDistance(sp_index_));
         sp_index_++;
     }
     //pKurokoLeader_->behave(); 内部で pKuroko->_veloMv を参照し次フレーム数決定してるので、
     //１フレームで次の点に到達するべく、pKurokoLeader_->behave(); の前に pKuroko->setMvVelo() で設定しなければいけない。
     pKurokoLeader_->behave();
-    _pKuroko->behave();
+    pKuroko->behave();
     WateringLaserChip::processBehavior();
 }
 void EnemyHisbeLaserChip003::processSettlementBehavior() {

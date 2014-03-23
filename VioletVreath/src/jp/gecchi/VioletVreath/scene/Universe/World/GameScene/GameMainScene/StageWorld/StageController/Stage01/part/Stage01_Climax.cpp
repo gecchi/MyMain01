@@ -35,7 +35,7 @@ void Stage01_Climax::processBehavior() {
     if (waiting_) {
         return;
     }
-    if (getBehaveingFrame() == 1 && P_GAME_SCENE->_pProg->get() == GameScene::PROG_MAIN) {
+    if (getBehaveingFrame() == 1 && P_GAME_SCENE->getProgress()->get() == GameScene::PROG_MAIN) {
         //兄弟シーンのBGMを全てフェードアウトし、自分のシーンBGMをフェードイン
         StagePartController* pStagePartController = (StagePartController*)(getParent());
         pStagePartController->fadeout_stop_AllPartSceneBgm();

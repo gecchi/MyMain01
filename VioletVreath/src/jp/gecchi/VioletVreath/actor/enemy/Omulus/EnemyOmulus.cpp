@@ -30,9 +30,9 @@ EnemyOmulus::EnemyOmulus(const char* prm_name) :
 
     pDepo_Fired_ = nullptr;
     pDepoConnection_ = connect_DepositoryManager("Talante");
-
-    _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
 }
 
@@ -45,8 +45,8 @@ void EnemyOmulus::onCreateModel() {
 
 void EnemyOmulus::initialize() {
     setHitAble(true);
-    _pKuroko->relateFaceWithMvAng(true);
-    _pMorpher->forceRange(MORPHTARGET_HATCH_OPEN, 0.0f, 1.0f);
+    getKuroko()->relateFaceWithMvAng(true);
+    getMorpher()->forceRange(MORPHTARGET_HATCH_OPEN, 0.0f, 1.0f);
     setMorphWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 200000);
@@ -61,7 +61,7 @@ void EnemyOmulus::onActive() {
     setMorphWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     is_open_hatch_ = false;
 //    frame_of_moment_nextopen_ = frame_of_close_interval_;
-    _pProg->reset(PROG_HATCH_CLOSE);
+    getProgress()->reset(PROG_HATCH_CLOSE);
 }
 
 void EnemyOmulus::processBehavior() {
@@ -105,43 +105,44 @@ void EnemyOmulus::processBehavior() {
     //                       他のオブジェクトから、ボーンにあたるアクターを参照するとき、_rx, _ry, _rzは全く信用できません。
 
     //＜注意＞
-    //・GgafDxKuroko(_pKuroko)の behave() 以外メソッドは、常にローカル座標の操作とする。
+    //・GgafDxKuroko(getKuroko())の behave() 以外メソッドは、常にローカル座標の操作とする。
     //  behave()以外メソッドは実際に座標計算しているわけではないので、
     //  changeGeoFinal()時、changeGeoLocal()時に関係なく、呼び出し可能。
-    //・GgafDxKuroko(_pKuroko)の behave() メソッドは座標を１フレーム後の状態にする計算を行う。
+    //・GgafDxKuroko(getKuroko())の behave() メソッドは座標を１フレーム後の状態にする計算を行う。
     //  したがって、次のように ローカル座標時(changeGeoLocal()時)で呼び出す事とする。
     //    changeGeoLocal();
-    //    _pKuroko->behave();
+    //    pKuroko->behave();
     //    changeGeoFinal();
     //TODO:混在感をもっとなくす。
-
-    switch (_pProg->get()) {
+    GgafDxKuroko* pKuroko = getKuroko();
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case PROG_INIT: {
-            _pProg->change(PROG_HATCH_CLOSE);
+            pProg->change(PROG_HATCH_CLOSE);
             break;
         }
         case PROG_HATCH_CLOSE: {
-            if (_pProg->isJustChanged()) {
-                _pMorpher->transitionLinerUntil(MORPHTARGET_HATCH_OPEN,
+            if (pProg->isJustChanged()) {
+                getMorpher()->transitionLinerUntil(MORPHTARGET_HATCH_OPEN,
                                                 0.0f, frame_of_morph_interval_);
-                _pKuroko->setFaceAngVelo(AXIS_X, -3000);
+                pKuroko->setFaceAngVelo(AXIS_X, -3000);
             }
 
             //次へ
-            if (_pProg->getFrameInProgress() >= frame_of_close_interval_ + frame_of_morph_interval_) {
-                _pProg->change(PROG_HATCH_OPEN);
+            if (pProg->getFrameInProgress() >= frame_of_close_interval_ + frame_of_morph_interval_) {
+                pProg->change(PROG_HATCH_OPEN);
             }
             break;
         }
         case PROG_HATCH_OPEN: {
-            if (_pProg->isJustChanged()) {
-                _pMorpher->transitionLinerUntil(MORPHTARGET_HATCH_OPEN,
+            if (pProg->isJustChanged()) {
+                getMorpher()->transitionLinerUntil(MORPHTARGET_HATCH_OPEN,
                                            1.0f, frame_of_morph_interval_);
-                _pKuroko->setFaceAngVelo(AXIS_X, 0);
+                pKuroko->setFaceAngVelo(AXIS_X, 0);
             }
             //processJudgement()でショット発射
-            if (_pProg->getFrameInProgress() >= frame_of_open_interval_+ frame_of_morph_interval_) {
-                _pProg->change(PROG_HATCH_CLOSE);
+            if (pProg->getFrameInProgress() >= frame_of_open_interval_+ frame_of_morph_interval_) {
+                pProg->change(PROG_HATCH_CLOSE);
             }
             break;
         }
@@ -185,29 +186,30 @@ void EnemyOmulus::processBehavior() {
 //        //自動方向向きシークエンス開始
 //        angle angRz_Target, angRy_Target;
 //        UTIL::convVectorToRzRy(tvx, tvy, tvz, angRz_Target, angRy_Target);
-//        _pKuroko->turnRzRyMvAngTo(angRz_Target, angRy_Target,
+//        pKuroko->turnRzRyMvAngTo(angRz_Target, angRy_Target,
 //                                   1000, 0,
 //                                   TURN_CLOSE_TO, false);
 //    }
 
     pScaler_->behave();
-    _pMorpher->behave();
+    getMorpher()->behave();
 
-    _pKuroko->behave();
+    pKuroko->behave();
     changeGeoFinal();
 }
 
 void EnemyOmulus::processJudgement() {
     //絶対座標が更新されてから～
-    switch (_pProg->get()) {
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case PROG_HATCH_OPEN: {
             //オープン時敵出現処理
             if (getMorphWeight(MORPHTARGET_HATCH_OPEN) > 0.5) { //モーションが半分以上まで到達したなら
-                if (_pProg->getFrameInProgress() % (frame)(RF_EnemyOmulus_ShotInterval(G_RANK)) == 0) { //出現間隔
+                if (pProg->getFrameInProgress() % (frame)(RF_EnemyOmulus_ShotInterval(G_RANK)) == 0) { //出現間隔
                     if (pDepo_Fired_) {
                         GgafDxDrawableActor* pActor = (GgafDxDrawableActor*)pDepo_Fired_->dispatch();
                         if (pActor) {
-                            pActor->_pKuroko->setRzRyMvAng(_rz, _ry); //絶対座標系での向き
+                            pActor->getKuroko()->setRzRyMvAng(_rz, _ry); //絶対座標系での向き
                             pActor->position(_x, _y, _z);
                             pActor->reset();
                         }
@@ -238,10 +240,10 @@ void EnemyOmulus::onHit(GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊時
-        _pSeTx->play3D(SE_EXPLOSION);
+        getSeTx()->play3D(SE_EXPLOSION);
     } else {
         //非破壊時
-        _pSeTx->play3D(SE_DAMAGED);
+        getSeTx()->play3D(SE_DAMAGED);
     }
 }
 

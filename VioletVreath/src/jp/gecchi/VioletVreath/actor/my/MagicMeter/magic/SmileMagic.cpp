@@ -53,7 +53,7 @@ void SmileMagic::processCastBegin(int prm_now_level, int prm_new_level) {
         }
         pMoji_->update(s.c_str());
         pMoji_->setFaceAng(0,0,0);
-        pMoji_->_pKuroko->setFaceAngVelo(0,0,0);
+        pMoji_->getKuroko()->setFaceAngVelo(0,0,0);
         pMoji_->activate();
     }
 }
@@ -61,7 +61,7 @@ void SmileMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
         pMoji_->_x += 1000;
         pMoji_->_y += 1000;
-        pMoji_->_pKuroko->behave();
+        pMoji_->getKuroko()->behave();
     }
 }
 
@@ -77,13 +77,13 @@ void SmileMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm
 void SmileMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
     _TRACE_("SmileMagic::processInvokeBegin(prm_now_level="<<prm_now_level<<",prm_new_level="<<prm_new_level<<")");
     if (prm_new_level > prm_now_level) {
-        pMoji_->_pKuroko->setFaceAngVelo(AXIS_Z, 5000);
+        pMoji_->getKuroko()->setFaceAngVelo(AXIS_Z, 5000);
     }
 }
 
 void SmileMagic::processInvokingBehavior(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
-        pMoji_->_pKuroko->behave();
+        pMoji_->getKuroko()->behave();
     }
 }
 

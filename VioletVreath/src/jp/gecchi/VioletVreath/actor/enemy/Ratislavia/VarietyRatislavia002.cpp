@@ -30,11 +30,12 @@ void VarietyRatislavia002::initialize() {
     _x = GgafDxCore::GgafDxUniverse::_x_gone_right+r1_+r2_;
     _y = 0;
     _z = MyShip::lim_z_left_;
-    _pKuroko->setRzRyMvAng(D180ANG, 0);
-    _pKuroko->setMvVelo(1000);
-    _pKuroko->setFaceAngVelo(AXIS_X, 10);
-    _pKuroko->setFaceAngVelo(AXIS_Z, -50);
-    _pKuroko->setFaceAngVelo(AXIS_Y, 30);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setRzRyMvAng(D180ANG, 0);
+    pKuroko->setMvVelo(1000);
+    pKuroko->setFaceAngVelo(AXIS_X, 10);
+    pKuroko->setFaceAngVelo(AXIS_Z, -50);
+    pKuroko->setFaceAngVelo(AXIS_Y, 30);
 }
 
 void VarietyRatislavia002::processBehavior() {

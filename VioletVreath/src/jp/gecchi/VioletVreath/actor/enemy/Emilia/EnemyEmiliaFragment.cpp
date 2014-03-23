@@ -23,7 +23,7 @@ void EnemyEmiliaFragment::initialize() {
     setScaleR(0.3);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliSphere(0, PX_C(50));
-    _pKuroko->setFaceAngVelo(D_ANG(0), D_ANG(10), D_ANG(0));
+    getKuroko()->setFaceAngVelo(D_ANG(0), D_ANG(10), D_ANG(0));
 }
 
 void EnemyEmiliaFragment::onActive() {

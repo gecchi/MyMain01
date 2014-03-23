@@ -62,7 +62,7 @@ void RankUpStageController::startRunkUpStage(int prm_rank_up_level) {
 }
 
 void RankUpStageController::onReset() {
-    _pProg->reset(RankUpStageController::PROG_INIT);
+    getProgress()->reset(RankUpStageController::PROG_INIT);
 }
 
 void RankUpStageController::ready(int prm_rank_up_level) {
@@ -377,21 +377,21 @@ void RankUpStageController::initialize() {
 }
 
 void RankUpStageController::processBehavior() {
-//    switch (_pProg->get()) {
+//    switch (pProg->get()) {
 //        case RankUpStageController::PROG_INIT: {
-//            _pProg->change(RankUpStageController::PROG_PLAY);
+//            pProg->change(RankUpStageController::PROG_PLAY);
 //            break;
 //        }
 //
 //
 //        case RankUpStageController::PROG_PLAY: {
-//            if (_pProg->isJustChanged()) {
+//            if (pProg->isJustChanged()) {
 //            }
 //            break;
 //        }
 //
 //        case RankUpStageController::PROG_FINISH: {
-//            if (_pProg->isJustChanged()) {
+//            if (pProg->isJustChanged()) {
 //            }
 //            break;
 //        }

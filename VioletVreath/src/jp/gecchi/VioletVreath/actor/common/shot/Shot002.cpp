@@ -18,7 +18,9 @@ Shot002::Shot002(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Flora", STATUS(Shot002)) {
     _class_name = "Shot002";
     pScaler_ = NEW GgafDxScaler(this);
-    _pSeTx->set(0, "WAVE_EXPLOSION_002");
+
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(0, "WAVE_EXPLOSION_002");
 }
 
 void Shot002::initialize() {
@@ -30,30 +32,31 @@ void Shot002::onActive() {
     _pStatus->reset();
     setHitAble(true);
     setScale(2000);
-    _pKuroko->relateFaceWithMvAng(true);
-    _pKuroko->setMvVelo(RF_Shot002_MvVelo(G_RANK));
-    _pKuroko->setFaceAngVelo(AXIS_X, RF_Shot002_AngVelo(G_RANK));
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->relateFaceWithMvAng(true);
+    pKuroko->setMvVelo(RF_Shot002_MvVelo(G_RANK));
+    pKuroko->setFaceAngVelo(AXIS_X, RF_Shot002_AngVelo(G_RANK));
 }
 
 void Shot002::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-
+    GgafDxKuroko* pKuroko = getKuroko();
     if (getActiveFrame() == 70) {
-        _pKuroko->turnMvAngTwd(P_MYSHIP,
+        pKuroko->turnMvAngTwd(P_MYSHIP,
                                 3000, 0,
                                 TURN_CLOSE_TO, true);
     }
 
-    if (getActiveFrame() > 70 && !_pKuroko->isTurningMvAng()) {
-        _pKuroko->turnMvAngTwd(P_MYSHIP,
+    if (getActiveFrame() > 70 && !pKuroko->isTurningMvAng()) {
+        pKuroko->turnMvAngTwd(P_MYSHIP,
                                 100, 0,
                                 TURN_CLOSE_TO, true);
     }
     //座標に反映
-    _pKuroko->behave();
+    pKuroko->behave();
     pScaler_->behave();
-    _pSeTx->behave();
+    getSeTx()->behave();
 }
 
 void Shot002::processJudgement() {
@@ -67,7 +70,7 @@ void Shot002::onHit(GgafActor* prm_pOtherActor) {
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         setHitAble(false); //以降同一フレーム内でヒットさせない。
         UTIL::activateExplosionEffectOf(this); //爆発エフェクト出現
-        _pSeTx->play3D(0);
+        getSeTx()->play3D(0);
         if (pOther->getKind() & KIND_MY) { //自機側に撃たれて消滅の場合は
             UTIL::activateItemOf(this); //アイテム出現
         }

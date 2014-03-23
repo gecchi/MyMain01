@@ -28,33 +28,34 @@ void EnemyStraeaLaserChip001::onActive() {
     HomingLaserChip::onActive();
     //ステータスリセット
     _pStatus->reset();
-
-    _pKuroko->setMvVelo(10000);
-    _pKuroko->setMvAcce(400);
-    _pKuroko->relateFaceWithMvAng(true);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setMvVelo(10000);
+    pKuroko->setMvAcce(400);
+    pKuroko->relateFaceWithMvAng(true);
 }
 
 void EnemyStraeaLaserChip001::processBehaviorHeadChip() {
+    GgafDxKuroko* pKuroko = getKuroko();
     if (getActiveFrame() == 40) {
-        _pKuroko->turnMvAngTwd(P_MYSHIP,
+        pKuroko->turnMvAngTwd(P_MYSHIP,
                                 7000, 0,
                                 TURN_ANTICLOSE_TO, false);
     }
 
 
-    if (!_pKuroko->isTurningMvAng()) {
-        _pKuroko->turnMvAngTwd(P_MYSHIP,
+    if (!pKuroko->isTurningMvAng()) {
+        pKuroko->turnMvAngTwd(P_MYSHIP,
                                 100, 0,
                                 TURN_CLOSE_TO, false);
     }
 //
 //    if (frame_of_behaving_from_onActive_ == 35) {
-//        _pKuroko->turnMvAngTwd(
+//        pKuroko->turnMvAngTwd(
 //                    P_MYSHIP,
 //                    20000, TURN_ANTICLOSE_TO);
 //    }
 
-    _pKuroko->behave();
+    pKuroko->behave();
 }
 
 void EnemyStraeaLaserChip001::onHit(GgafActor* prm_pOtherActor) {

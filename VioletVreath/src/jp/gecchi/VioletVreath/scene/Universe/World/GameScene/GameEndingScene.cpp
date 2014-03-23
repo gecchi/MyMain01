@@ -14,7 +14,7 @@ GameEndingScene::GameEndingScene(const char* prm_name) : DefaultScene(prm_name) 
 }
 
 void GameEndingScene::onReset() {
-    //_pProg->change(GameEndingScene::PROG_INIT);
+    //pProg->change(GameEndingScene::PROG_INIT);
 }
 void GameEndingScene::ready() {
     _TRACE_("GameEndingScene::ready()");

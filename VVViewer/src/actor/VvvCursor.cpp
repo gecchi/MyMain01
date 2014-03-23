@@ -32,7 +32,7 @@ VvvCursor::VvvCursor(const char* prm_name) :
 void VvvCursor::initialize() {
     //座標設定
     _x = _y = _z = 0; //(0,0,0) は画面の中心
-    _pKuroko->_angveloFace[AXIS_Z] = 1000;
+    getKuroko()->_angveloFace[AXIS_Z] = 1000;
     pScaler_->forceRange(2000, 4000);
     pScaler_->beat(30, 2, 0, 28, -1); //無限ループ
     setAlpha(0);
@@ -61,8 +61,8 @@ void VvvCursor::processBehavior() {
     }
 
     _pUvFlipper->behave();
-    _pKuroko->behave();
-    if (_pKuroko->hlprA()->isJustFinishSlidingMv()) {
+    getKuroko()->behave();
+    if (getKuroko()->hlprA()->isJustFinishSlidingMv()) {
         //理想位置に補正
         _x = tx_;
         _y = ty_;
@@ -77,14 +77,14 @@ void VvvCursor::sinkMe() {
 }
 
 void VvvCursor::moveTo(coord X, coord Y, coord Z) {
-    _pKuroko->hlprA()->stopSlidingMv();
-    _pKuroko->setMvVelo(0);
-    _pKuroko->setMvAcce(0);
+    getKuroko()->hlprA()->stopSlidingMv();
+    getKuroko()->setMvVelo(0);
+    getKuroko()->setMvAcce(0);
     tx_ = X;
     ty_ = Y;
     tz_ = Z;
-    _pKuroko->setMvAngTwd(tx_, ty_, tz_);
-    _pKuroko->hlprA()->slideMvByDt( UTIL::getDistance(_x, _y, _z, tx_, ty_, tz_), 20, 0.3f, 0.7f, 0, true);
+    getKuroko()->setMvAngTwd(tx_, ty_, tz_);
+    getKuroko()->hlprA()->slideMvByDt( UTIL::getDistance(_x, _y, _z, tx_, ty_, tz_), 20, 0.3f, 0.7f, 0, true);
     _pProg->change(CUR_ON_MOVE);
 }
 

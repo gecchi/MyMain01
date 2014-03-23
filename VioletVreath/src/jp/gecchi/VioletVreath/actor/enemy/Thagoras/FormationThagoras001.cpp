@@ -147,7 +147,7 @@ void FormationThagoras001::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor,
         throwGgafCriticalException("FormationThagoras001::onCallUp pThagoras->pKurokoLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpThagoras="<<pThagoras<<"("<<pThagoras->getName()<<")");
     } else {
         pThagoras->pKurokoLeader_ = papSplManufConn_[prm_col]->peek()->
-                                      createKurokoLeader(pThagoras->_pKuroko);
+                                      createKurokoLeader(pThagoras->getKuroko());
     }
     pThagoras->pKurokoLeader_->fixStartPosition(entry_pos_.x                      ,
                                                 entry_pos_.y + (prm_col*PX_C(30)) ,

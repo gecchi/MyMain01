@@ -18,7 +18,7 @@ EnemyRatislaviaEyeStraightLaserChip001::EnemyRatislaviaEyeStraightLaserChip001(c
 }
 
 void EnemyRatislaviaEyeStraightLaserChip001::initialize() {
-    _pKuroko->setRzRyMvAng(0,0);
+    getKuroko()->setRzRyMvAng(0,0);
     registerHitAreaCube_AutoGenMidColli(300000);
     setHitAble(true, false); //‰æ–ÊŠO“–‚½‚è”»’è‚Í–³‚µ
     //setScaleR(5.0);
@@ -28,8 +28,8 @@ void EnemyRatislaviaEyeStraightLaserChip001::initialize() {
 
 void EnemyRatislaviaEyeStraightLaserChip001::onActive() {
     StraightLaserChip::onActive();
-    _pKuroko->setMvVelo(100000);
-    _pKuroko->setMvAcce(300);
+    getKuroko()->setMvVelo(100000);
+    getKuroko()->setMvAcce(300);
     _pStatus->reset();
 }
 

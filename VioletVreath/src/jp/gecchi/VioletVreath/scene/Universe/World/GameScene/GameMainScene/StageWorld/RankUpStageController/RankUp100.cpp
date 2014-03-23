@@ -270,16 +270,16 @@ void RankUp100::processBehavior() {
     }
     // gen02 end
 
-
-    switch (_pProg->get()) {
+    SceneProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case RankUpStage::PROG_PLAYING: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 _TRACE_("RankUp100::processBehavior() RankUpStage::PROG_PLAYING ‚É‚È‚è‚Ü‚·‚½I");
             }
 
-            if (_pProg->getFrameInProgress() == _paFrame_NextEvent[_event_num-1]+600) {
+            if (pProg->getFrameInProgress() == _paFrame_NextEvent[_event_num-1]+600) {
                 _TRACE_("RankUp100::processBehavior() RankUpStage::PROG_PLAYING ‚¨‚í‚Á‚½");
-                _pProg->change(RankUpStage::PROG_RESULT); //RankUpStage‚Ì‹¤’Êˆ—‚Ö
+                pProg->change(RankUpStage::PROG_RESULT); //RankUpStage‚Ì‹¤’Êˆ—‚Ö
             }
             break;
         }

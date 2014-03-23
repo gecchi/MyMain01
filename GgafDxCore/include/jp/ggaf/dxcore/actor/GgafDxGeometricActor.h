@@ -24,6 +24,11 @@ private:
     void processFinal() override {
     }
 
+    /** [r]黒衣 */
+    GgafDxKuroko* const _pKuroko;
+    /** [r]効果音発生管理オブジェクト */
+    GgafDxSeTransmitterForActor* const _pSeTx;
+
 public:
     /** [r] 変換済み座標であるか(true:本アクターは変換済み座標/false:本アクターはワールド座標) */
     bool _is_2D;
@@ -48,12 +53,9 @@ public:
     scale _sy;
     /** [r/w]ワールドZ軸方向スケール(_sz : 倍率 = 1000 : 1.0倍) */
     scale _sz;
-    /** [r]黒衣 */
-    GgafDxKuroko* const _pKuroko;
     /** [r]チェッカー */
     GgafDxChecker* _pChecker;
-    /** [r]効果音発生管理オブジェクト */
-    GgafDxSeTransmitterForActor* const _pSeTx;
+
 
     /** [r]境界球の半径(DirectXの単位)。画面外判定に使用される */
     dxcoord _bounding_sphere_radius;
@@ -457,7 +459,7 @@ public:
      * _x,_y,_z,_rx,_ry,_rz をローカル（thisからの相対）に切り替える・・・changeGeoLocal()<BR>
      * _x,_y,_z,_rx,_ry,_rz 絶対座標に切り替える                    ・・・changeGeoFinal()<BR>
      * 【注意】<BR>
-     * 黒衣(_pKuroko) は、ローカル座標系でのみ使用可能となります。<BR>
+     * 黒衣(getKuroko()) は、ローカル座標系でのみ使用可能となります。<BR>
      * 従属アクターprocessBehavior() の処理を抜ける前には、changeGeoFinal() で絶対座標に戻しておく必要があります。<BR>
      * @param prm_kind     種別
      * @param prm_pGeoActor 従属させるアクター
@@ -484,7 +486,7 @@ public:
      * _x,_y,_z,_rx,_ry,_rz をローカル（thisからの相対）に切り替える・・・changeGeoLocal()<BR>
      * _x,_y,_z,_rx,_ry,_rz 絶対座標に切り替える                    ・・・changeGeoFinal()<BR>
      * 【注意】<BR>
-     * 黒衣(_pKuroko) は、ローカル座標系でのみ使用可能となります。<BR>
+     * 黒衣(getKuroko()) は、ローカル座標系でのみ使用可能となります。<BR>
      * 従属アクターprocessBehavior() の処理を抜ける前には、changeGeoFinal() で絶対座標に戻しておく必要があります。<BR>
      * @param prm_pGeoActor 従属させるアクター
      * @param prm_x_init_local  従属アクターのローカル(this)位置からのX座標位置
@@ -588,6 +590,13 @@ public:
      */
     inline void setBoundingSphereRadiusRate(FLOAT prm_rate) {
         _rate_of_bounding_sphere_radius = prm_rate;
+    }
+
+    inline GgafDxKuroko* getKuroko() {
+        return _pKuroko;
+    }
+    inline GgafDxSeTransmitterForActor* getSeTx() {
+        return _pSeTx;
     }
 
     virtual void onEnd() override;

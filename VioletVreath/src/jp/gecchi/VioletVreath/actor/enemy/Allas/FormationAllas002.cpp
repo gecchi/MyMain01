@@ -29,7 +29,7 @@ FormationAllas002::FormationAllas002(const char* prm_name) :
     for (int i = 0; i < num_Allas_; i++) {
         papAllas_[i] = NEW EnemyAllas("Allas01");
         //スプライン移動プログラム設定
-        SplineKurokoLeader* pProgram = pSplManufConnection_->peek()->createKurokoLeader(papAllas_[i]->_pKuroko); //移動速度固定
+        SplineKurokoLeader* pProgram = pSplManufConnection_->peek()->createKurokoLeader(papAllas_[i]->getKuroko()); //移動速度固定
         papAllas_[i]->config(pProgram, nullptr, nullptr);
         //papAllas_[i]->setDepository_Shot(pDepoConnection_->peek()); //弾設定
         papAllas_[i]->inactivate();
@@ -40,7 +40,7 @@ FormationAllas002::FormationAllas002(const char* prm_name) :
 void FormationAllas002::onActive() {
     for (int i = 0; i < num_Allas_; i++) {
         papAllas_[i]->position(MyShip::lim_x_behaind_ *2 , P_MYSHIP->_y+300000,  P_MYSHIP->_z);
-        papAllas_[i]->_pKuroko->setMvVelo(velo_mv_);
+        papAllas_[i]->getKuroko()->setMvVelo(velo_mv_);
         papAllas_[i]->activateDelay(i*interval_frames_ + 1);//interval_frames_間隔でActiveにする。
     }
 }

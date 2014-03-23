@@ -83,13 +83,15 @@ void EnemyRatislavia::initialize() {
 
 void EnemyRatislavia::onActive() {
     _pStatus->reset();
-    _pProg->reset(PROG_INIT);
+    getProgress()->reset(PROG_INIT);
 }
 
 void EnemyRatislavia::processBehavior() {
-    switch (_pProg->get()) {
+    GgafDxKuroko* pKuroko = getKuroko();
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case PROG_INIT: {
-            _pProg->change(PROG_FLOAT_MOVE);
+            pProg->change(PROG_FLOAT_MOVE);
             break;
         }
 
@@ -99,10 +101,10 @@ void EnemyRatislavia::processBehavior() {
         }
 
         case PROG_EXPLOSION: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 _TRACE_("EnemyRatislavia::processBehavior() _pProg=PROG_EXPLOSION きたわ～");
             }
-            if (_pProg->getFrameInProgress() % 16U == 0) {
+            if (pProg->getFrameInProgress() % 16U == 0) {
                 //沸々爆発
                 //当たり判定球付近に爆発エフェクトを散乱させる
                 GgafDxCollisionPart* pPart;
@@ -119,7 +121,7 @@ void EnemyRatislavia::processBehavior() {
             }
 
 
-            if (_pProg->getFrameInProgress() == 480) {
+            if (pProg->getFrameInProgress() == 480) {
                 //ここで大きい爆発
                 //当たり判定球付近に爆発エフェクトを散乱させる
                 GgafDxCollisionPart* pPart;
@@ -134,7 +136,7 @@ void EnemyRatislavia::processBehavior() {
                     }
                 }
                 sayonara();
-                _pProg->change(PROG_NOTHING);
+                pProg->change(PROG_NOTHING);
             }
             break;
         }
@@ -144,7 +146,7 @@ void EnemyRatislavia::processBehavior() {
         }
     }
 
-    _pKuroko->behave();
+    pKuroko->behave();
 }
 
 void EnemyRatislavia::processJudgement() {
@@ -161,9 +163,8 @@ void EnemyRatislavia::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == RATISLAVIA_EXPLOSION) {
         _TRACE_("EnemyRatislavia::onCatchEvent RATISLAVIA_EXPLOSION キャッチ");
         setHitAble(false);
-        _pProg->change(PROG_EXPLOSION);
+        getProgress()->change(PROG_EXPLOSION);
     }
-
 }
 
 int EnemyRatislavia::isOutOfView() {

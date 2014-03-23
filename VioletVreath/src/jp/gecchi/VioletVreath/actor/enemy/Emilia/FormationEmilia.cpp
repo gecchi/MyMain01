@@ -46,7 +46,7 @@ void FormationEmilia::processBehavior() {
         if (canCallUp() && (getActiveFrame() % R_interval_frames_ == 0)) {
             EnemyEmilia* pEmilia = (EnemyEmilia*)callUpMember();
             if (pEmilia) {
-                pEmilia->_pKuroko->setMvVelo(R_mv_velo_);
+                pEmilia->getKuroko()->setMvVelo(R_mv_velo_);
             }
         }
     }

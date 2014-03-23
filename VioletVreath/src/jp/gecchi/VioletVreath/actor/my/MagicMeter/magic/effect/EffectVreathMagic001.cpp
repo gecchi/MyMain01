@@ -32,7 +32,7 @@ void EffectVreathMagic001::onActive() {
 
 void EffectVreathMagic001::processBehavior() {
     _pUvFlipper->behave();
-    _pKuroko->behave();
+    getKuroko()->behave();
     pScaler_->behave();
 }
 

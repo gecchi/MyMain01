@@ -32,7 +32,8 @@ void EnemyErmioneArmHead::initialize() {
 }
 
 void EnemyErmioneArmHead::processBehavior() {
-    if (_pProg->get() == PROG_NOTHING || _pProg->get() == PROG_AIMING) { //oŒ»ŠÔŠu
+    GgafProgress* pProg = getProgress();
+    if (pProg->get() == PROG_NOTHING || pProg->get() == PROG_AIMING) { //oŒ»ŠÔŠu
         if (!pDepoLaser_) {
             pDepoLaser_ = (LaserChipDepository*)UTIL::getDepositoryOf(this);
         }
@@ -50,7 +51,7 @@ void  EnemyErmioneArmHead::processJudgement() {
         if (pChip) {
             //DEPO_LASER001‚Ìê‡
             pChip->setFaceAng(_rx, _ry, _rz);
-            pChip->_pKuroko->setRzRyMvAng(_rz, _ry); //â‘ÎÀ•WŒn
+            pChip->getKuroko()->setRzRyMvAng(_rz, _ry); //â‘ÎÀ•WŒn
             pChip->positionAs(this);
 
             //DEPO_LASER002‚Ìê‡
@@ -68,7 +69,7 @@ void EnemyErmioneArmHead::onHit(GgafActor* prm_pOtherActor) {
 //        setHitAble(false);
 //        //”š”­Œø‰Ê
 //        UTIL::activateExplosionEffectOf(this);
-//        _pSeTx->play3D(SE_EXPLOSION);
+//        getSeTx()->play3D(SE_EXPLOSION);
 //
 //        //Ž©‹@‘¤‚ÉŒ‚‚½‚ê‚ÄÁ–Å‚Ìê‡A
 //        if (pOther->getKind() & KIND_MY) {
@@ -79,7 +80,7 @@ void EnemyErmioneArmHead::onHit(GgafActor* prm_pOtherActor) {
 //    } else {
 //        //”ñ”j‰óŽž
 //        effectFlush(2); //ƒtƒ‰ƒbƒVƒ…
-//        _pSeTx->play3D(SE_DAMAGED);
+//        getSeTx()->play3D(SE_DAMAGED);
 //    }
 }
 

@@ -18,8 +18,9 @@ EnemyTalante::EnemyTalante(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Talante", STATUS(EnemyTalante)) {
     _class_name = "EnemyTalante";
     pDepo_Shot_ = nullptr;
-    _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
     Z_ok_ = Y_ok_ = false;
     useProgress(PROG_BANPEI);
 }
@@ -29,8 +30,9 @@ void EnemyTalante::onCreateModel() {
 }
 
 void EnemyTalante::initialize() {
-    _pKuroko->relateFaceWithMvAng(true);
-    _pKuroko->setFaceAngVelo(AXIS_X, 5000);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->relateFaceWithMvAng(true);
+    pKuroko->setFaceAngVelo(AXIS_X, 5000);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
 }
@@ -45,47 +47,49 @@ void EnemyTalante::onActive() {
     _pStatus->reset();
     setHitAble(true);
     Z_ok_ = Y_ok_ = false;
-    _pKuroko->setMvAcce(0);
-    _pKuroko->setMvVelo(4000);
-    _pKuroko->forceMvVeloRange(50000);
-    _pProg->reset(PROG_INIT);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setMvAcce(0);
+    pKuroko->setMvVelo(4000);
+    pKuroko->forceMvVeloRange(50000);
+    getProgress()->reset(PROG_INIT);
 }
 
 void EnemyTalante::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     MyShip* pMyShip = P_MYSHIP;
-
-    switch (_pProg->get()) {
+    GgafDxKuroko* pKuroko = getKuroko();
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case PROG_INIT: {
-            _pProg->changeNext();
+            pProg->changeNext();
             break;
         }
 
         case PROG_MOVE01_1: {
             //ちょっとそのまま真っ直ぐ進む
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
             }
-            if (_pProg->getFrameInProgress() > 60) {
-                _pProg->changeNext(); //次の動きへ
+            if (pProg->getFrameInProgress() > 60) {
+                pProg->changeNext(); //次の動きへ
             }
             break;
         }
 
         case PROG_MOVE01_2: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
             }
             if (Z_ok_ == false && pMyShip->_z - PX_C(5) <= _z && _z <= pMyShip->_z + PX_C(5)) {
                 //Z座標揃った
                 Z_ok_ = true;
-                _pKuroko->addMvVelo(2000);
+                pKuroko->addMvVelo(2000);
                 if (pMyShip->_y <= _y) {
                     //真下へ折れる
-                    _pKuroko->turnRzRyMvAngTo(D270ANG, D0ANG,
+                    pKuroko->turnRzRyMvAngTo(D270ANG, D0ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 } else {
                     //真上へ折れる
-                    _pKuroko->turnRzRyMvAngTo(D90ANG, D0ANG,
+                    pKuroko->turnRzRyMvAngTo(D90ANG, D0ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 }
             }
@@ -93,60 +97,60 @@ void EnemyTalante::processBehavior() {
             if (Y_ok_ == false && pMyShip->_y - PX_C(5) <= _y && _y <= pMyShip->_y + PX_C(5)) {
                 //Y座標揃った
                 Y_ok_ = true;
-                _pKuroko->addMvVelo(2000);
+                pKuroko->addMvVelo(2000);
                 if (pMyShip->_z <= _z) {
                     //奥の自機の方向折れる
-                    _pKuroko->turnRzRyMvAngTo(D0ANG, D90ANG,
+                    pKuroko->turnRzRyMvAngTo(D0ANG, D90ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 } else {
                     //手前の自機の方向折れる
-                    _pKuroko->turnRzRyMvAngTo(D0ANG, D270ANG,
+                    pKuroko->turnRzRyMvAngTo(D0ANG, D270ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 }
             }
 
-            if (_pKuroko->isTurningMvAng() == false) {
+            if (pKuroko->isTurningMvAng() == false) {
                 if (Y_ok_ && Z_ok_) {
                     //Z座標Y座標揃ったら次の動きへ
-                    _pProg->changeNext();
-                } else if (_pProg->getFrameInProgress() >= 480) {
+                    pProg->changeNext();
+                } else if (pProg->getFrameInProgress() >= 480) {
                     //Z座標Y座標揃わずとも一定時間で次の動きへ
-                    _pProg->changeNext();
+                    pProg->changeNext();
                 }
             }
             break;
         }
 
         case PROG_MOVE01_3: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 //X軸方向に動く
                 if (pMyShip->_x <= _x) {
                     //左へ折れる
-                    _pKuroko->turnRzRyMvAngTo(D180ANG, D0ANG,
+                    pKuroko->turnRzRyMvAngTo(D180ANG, D0ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 } else {
                     //右へ折れる
-                    _pKuroko->turnRzRyMvAngTo(D0ANG, D0ANG,
+                    pKuroko->turnRzRyMvAngTo(D0ANG, D0ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 }
             }
-            if (_pKuroko->isTurningMvAng() == false) {
-                _pProg->changeNext(); //次の動きへ
+            if (pKuroko->isTurningMvAng() == false) {
+                pProg->changeNext(); //次の動きへ
             }
             break;
         }
 
         case PROG_MOVE01_4: {
-            if (_pProg->isJustChanged()) {
-                _pKuroko->setMvAcce(300);//加速開始
+            if (pProg->isJustChanged()) {
+                pKuroko->setMvAcce(300);//加速開始
             }
             break;
         }
 
     }
-    _pKuroko->behave();
+    pKuroko->behave();
 
-    //_pSeTx->behave();
+    //getSeTx()->behave();
 }
 
 void EnemyTalante::processJudgement() {
@@ -165,10 +169,10 @@ void EnemyTalante::onHit(GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::proceedEnemyHit(this, pOther);
     if (was_destroyed) {
         //破壊時
-        _pSeTx->play3D(SE_EXPLOSION);
+        getSeTx()->play3D(SE_EXPLOSION);
     } else {
         //非破壊時
-        _pSeTx->play3D(SE_DAMAGED);
+        getSeTx()->play3D(SE_DAMAGED);
     }
 }
 

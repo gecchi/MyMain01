@@ -39,8 +39,9 @@ FormationGeria::FormationGeria(
     _x = prm_x;
     _y = prm_y;
     _z = prm_z;
-    _pKuroko->setMvVelo(prm_veloMv_App);
-    _pKuroko->setRzRyMvAng(prm_angRzMv_AppBox, prm_angRyMv_AppBox);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setMvVelo(prm_veloMv_App);
+    pKuroko->setRzRyMvAng(prm_angRzMv_AppBox, prm_angRyMv_AppBox);
     float vX_AppBox, vY_AppBox, vZ_AppBox;
     UTIL::convRzRyToVector(prm_angRzMv_AppBox, prm_angRyMv_AppBox,
                            vX_AppBox, vY_AppBox, vZ_AppBox);
@@ -51,9 +52,9 @@ FormationGeria::FormationGeria(
     for (int i = 0; i < prm_nGeriaStock; i++) {
         std::string name = "Geria"+XTOS(i);
         EnemyGeria* pEnemyGeria = NEW EnemyGeria(name.c_str());
-        pEnemyGeria->_pKuroko->relateFaceWithMvAng(true);
-        pEnemyGeria->_pKuroko->setMvVelo(prm_veloMv_Geria);
-        pEnemyGeria->_pKuroko->setRzRyMvAng(prm_angRzMv_GeriaMv, prm_angRyMv_GeriaMv);
+        pEnemyGeria->getKuroko()->relateFaceWithMvAng(true);
+        pEnemyGeria->getKuroko()->setMvVelo(prm_veloMv_Geria);
+        pEnemyGeria->getKuroko()->setRzRyMvAng(prm_angRzMv_GeriaMv, prm_angRyMv_GeriaMv);
         pEnemyGeria->pAxsMver_->setVxyzMvVelo(vX_AppBox*prm_veloMv_App,
                                               vY_AppBox*prm_veloMv_App,
                                               vZ_AppBox*prm_veloMv_App );
@@ -74,7 +75,7 @@ void FormationGeria::processBehavior() {
             pEnemyGeria->_z = RND(Z1_app_, Z2_app_) + _z;
         }
     }
-    _pKuroko->behave();
+    getKuroko()->behave();
     pAxsMver_->behave();
 }
 

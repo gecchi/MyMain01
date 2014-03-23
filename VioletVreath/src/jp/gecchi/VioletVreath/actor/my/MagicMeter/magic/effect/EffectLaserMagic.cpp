@@ -32,7 +32,7 @@ void EffectLaserMagic::onActive() {
 
 void EffectLaserMagic::processBehavior() {
     _pUvFlipper->behave();
-    _pKuroko->behave();
+    getKuroko()->behave();
     pScaler_->behave();
 }
 

@@ -29,10 +29,11 @@ void Shot004Blue::initialize() {
 void Shot004Blue::onReset() {
     setScaleR(3.0);
     setAlpha(0.99); //半透明にすることで両面レンダリング
-    _pKuroko->setFaceAngVelo(AXIS_X, D_ANG(3));
-    _pKuroko->setMvVelo(40000);             //移動速度
-    _pKuroko->setMvAcce(1000);             //移動速度
-    _pKuroko->relateFaceWithMvAng(true);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setFaceAngVelo(AXIS_X, D_ANG(3));
+    pKuroko->setMvVelo(40000);             //移動速度
+    pKuroko->setMvAcce(1000);             //移動速度
+    pKuroko->relateFaceWithMvAng(true);
 }
 
 void Shot004Blue::onActive() {
@@ -46,7 +47,7 @@ void Shot004Blue::processBehavior() {
     //弾なので不要
 
     //座標に反映
-    _pKuroko->behave();
+    getKuroko()->behave();
 }
 
 void Shot004Blue::processJudgement() {

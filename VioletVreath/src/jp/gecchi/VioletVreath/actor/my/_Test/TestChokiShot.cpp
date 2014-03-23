@@ -27,11 +27,11 @@ void TestChokiShot::initialize() {
 void TestChokiShot::onActive() {
     _pStatus->reset();
     setHitAble(true);
-    _pKuroko->setMvVelo(PX_C(30));
+    getKuroko()->setMvVelo(PX_C(30));
 }
 
 void TestChokiShot::processBehavior() {
-    _pKuroko->behave();
+    getKuroko()->behave();
 }
 
 void TestChokiShot::processJudgement() {

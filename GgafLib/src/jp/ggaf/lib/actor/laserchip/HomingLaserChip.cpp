@@ -91,7 +91,7 @@ void HomingLaserChip::onInactive() {
         //中間チップ消失時の場合
         //自身のチップが消失することにより、レーザーの数珠つなぎ構造が２分されてしまう。
         //消失前の先頭以外のチップは、一つ前に追従してるだけなので、中間チップ Mover 内部パラメータは不定。
-        //後方チップが新たな先頭チップとなるレーザー構造のグループを _pKuroko->behave() で動作を継続させるために、
+        //後方チップが新たな先頭チップとなるレーザー構造のグループを getKuroko()->behave() で動作を継続させるために、
         //新たな先頭チップへ現在の移動方向と移動速度の情報を伝達する必要がある。
         if (pChip_behind) {
             int D = (int)(sqrt(
@@ -104,8 +104,8 @@ void HomingLaserChip::onInactive() {
                               )
                             )
                          );
-            pChip_behind->_pKuroko->setMvVelo(D); //距離が速度になる
-            pChip_behind->_pKuroko->setMvAngTwd(this);
+            pChip_behind->getKuroko()->setMvVelo(D); //距離が速度になる
+            pChip_behind->getKuroko()->setMvAngTwd(this);
         } else {
             //throwGgafCriticalException("HomingLaserChip::onInactive() _chip_kind == 2 であるにも関わらず、_pChip_behindが存在しません");
         }
@@ -116,8 +116,8 @@ void HomingLaserChip::onInactive() {
         //先端チップ Mover 内部パラメータの移動方向と移動速度の情報をコピーすることでOK
         //計算速度を稼ぐ
         if (_pChip_behind && _pChip_front) {
-            GgafDxKuroko* const pChip_behind_pKuroko = _pChip_behind->_pKuroko;
-            GgafDxKuroko* const pChip_front_pKuroko = _pChip_front->_pKuroko;
+            GgafDxKuroko* const pChip_behind_pKuroko = _pChip_behind->getKuroko();
+            GgafDxKuroko* const pChip_front_pKuroko = _pChip_front->getKuroko();
             pChip_behind_pKuroko->_vX = pChip_front_pKuroko->_vX;
             pChip_behind_pKuroko->_vY = pChip_front_pKuroko->_vY;
             pChip_behind_pKuroko->_vZ = pChip_front_pKuroko->_vZ;
@@ -129,13 +129,14 @@ void HomingLaserChip::onInactive() {
         }
     } else if (_chip_kind == 4) {
         if (_pChip_behind) {
-            GgafDxKuroko* const pChip_behind_pKuroko = _pChip_behind->_pKuroko;
-            pChip_behind_pKuroko->_vX = _pKuroko->_vX;
-            pChip_behind_pKuroko->_vY = _pKuroko->_vY;
-            pChip_behind_pKuroko->_vZ = _pKuroko->_vZ;
-            pChip_behind_pKuroko->_angRzMv = _pKuroko->_angRzMv;
-            pChip_behind_pKuroko->_angRyMv = _pKuroko->_angRyMv;
-            pChip_behind_pKuroko->_veloMv = _pKuroko->_veloMv;
+            GgafDxKuroko* const pChip_behind_pKuroko = _pChip_behind->getKuroko();
+            GgafDxKuroko* pKuroko = getKuroko();
+            pChip_behind_pKuroko->_vX = pKuroko->_vX;
+            pChip_behind_pKuroko->_vY = pKuroko->_vY;
+            pChip_behind_pKuroko->_vZ = pKuroko->_vZ;
+            pChip_behind_pKuroko->_angRzMv = pKuroko->_angRzMv;
+            pChip_behind_pKuroko->_angRyMv = pKuroko->_angRyMv;
+            pChip_behind_pKuroko->_veloMv  = pKuroko->_veloMv;
         } else {
             //throwGgafCriticalException("HomingLaserChip::onInactive() _chip_kind == 4 であるにも関わらず、_pChip_behind が存在しません");
         }

@@ -23,7 +23,7 @@ void EnemyEmilia::onCreateModel() {
 void EnemyEmilia::initialize() {
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliSphere(0, PX_C(100));
-    _pKuroko->setFaceAngVelo(D_ANG(1), D_ANG(2), D_ANG(3));
+    getKuroko()->setFaceAngVelo(D_ANG(1), D_ANG(2), D_ANG(3));
     setScaleR(0.5);
 }
 
@@ -36,9 +36,10 @@ void EnemyEmilia::onActive() {
     _x = GgafDxUniverse::_x_gone_right - 1000;
     _y = RND(-(appearances_renge_y/2) , +(appearances_renge_y/2));
     _z = RND(-(appearances_renge_z/2) , +(appearances_renge_z/2));
-    _pKuroko->setMvAngTwd(0, D180ANG);
-    _pKuroko->addRyMvAng(RND(D_ANG(-5), D_ANG(+5)));
-    _pKuroko->addRzMvAng(RND(D_ANG(-5), D_ANG(+5)));
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setMvAngTwd(0, D180ANG);
+    pKuroko->addRyMvAng(RND(D_ANG(-5), D_ANG(+5)));
+    pKuroko->addRzMvAng(RND(D_ANG(-5), D_ANG(+5)));
 }
 
 

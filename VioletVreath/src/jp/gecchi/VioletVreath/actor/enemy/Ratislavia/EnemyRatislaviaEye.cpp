@@ -43,10 +43,10 @@ EnemyRatislaviaEye::EnemyRatislaviaEye(const char* prm_name, EnemyRatislavia* pr
     pEffect_ = NEW EffectRatislaviaEye001("EffectRatislaviaEye001");
     pEffect_->inactivate();
     addSubGroup(pEffect_);
-
-    _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
-    _pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
+    pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
     useProgress(PROG_BANPEI);
 
     is_wake_ = false;
@@ -61,7 +61,7 @@ void EnemyRatislaviaEye::onCreateModel() {
 
 void EnemyRatislaviaEye::initialize() {
     setHitAble(true);
-    _pKuroko->relateFaceWithMvAng(true);
+    getKuroko()->relateFaceWithMvAng(true);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliSphere(0, 200000);
 }
@@ -69,81 +69,82 @@ void EnemyRatislaviaEye::initialize() {
 void EnemyRatislaviaEye::onActive() {
     _pStatus->reset();
     setMorphWeight(1, 0.0);
-    _pProg->reset(PROG_MOVE);
+    getProgress()->reset(PROG_MOVE);
     positionAs(pRatislavia_);
     setFaceAngAs(pRatislavia_);
-    _pKuroko->setRzRyMvAngVelo(pRatislavia_->_pKuroko->_angveloFace[AXIS_Z],
-                                pRatislavia_->_pKuroko->_angveloFace[AXIS_Y]);
+    getKuroko()->setRzRyMvAngVelo(pRatislavia_->getKuroko()->_angveloFace[AXIS_Z],
+                                  pRatislavia_->getKuroko()->_angveloFace[AXIS_Y]);
 }
 
 void EnemyRatislaviaEye::processBehavior() {
     //‰ÁŽZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ðŒ¸­
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-
     positionAs(pRatislavia_);
-    switch (_pProg->get()) {
+    GgafDxKuroko* pKuroko = getKuroko();
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case PROG_MOVE: {
             break;
         }
         case PROG_OPEN: {
-            if (_pProg->isJustChanged()) {
-                _pMorpher->transitionLinerUntil(1, 1.0, 180); //ŠJ‚­
+            if (pProg->isJustChanged()) {
+                getMorpher()->transitionLinerUntil(1, 1.0, 180); //ŠJ‚­
             }
-            if (_pProg->getFrameInProgress() > 240) {
-                _pProg->changeNext();
+            if (pProg->getFrameInProgress() > 240) {
+                pProg->changeNext();
             }
-            _pKuroko->takeoverMvFrom(pRatislavia_->_pKuroko);
-            _pKuroko->setRzRyMvAngVelo(pRatislavia_->_pKuroko->_angveloFace[AXIS_Z],
-                                        pRatislavia_->_pKuroko->_angveloFace[AXIS_Y]);
+            pKuroko->takeoverMvFrom(pRatislavia_->getKuroko());
+            pKuroko->setRzRyMvAngVelo(pRatislavia_->getKuroko()->_angveloFace[AXIS_Z],
+                                      pRatislavia_->getKuroko()->_angveloFace[AXIS_Y]);
             break;
         }
 
         case PROG_TURN: {
-            if (_pProg->isJustChanged()) {
-                _pKuroko->turnMvAngTwd(P_MYSHIP,
+            if (pProg->isJustChanged()) {
+                pKuroko->turnMvAngTwd(P_MYSHIP,
                                         D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
-            if (_pProg->getFrameInProgress() > 240) {
-                _pProg->changeNext();
+            if (pProg->getFrameInProgress() > 240) {
+                pProg->changeNext();
             }
             break;
         }
 
         case PROG_FIRE_BEGIN: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 //_pKuroko->turnMvAngTwd(P_MYSHIP, D_ANG(1), 0, TURN_ANTICLOSE_TO, false);
                 pEffect_->activate();
             }
             pEffect_->positionAs(this);
             if (pEffect_->onChangeToInactive()) {
-                _pProg->changeNext();
+                pProg->changeNext();
             }
             break;
         }
         case PROG_IN_FIRE: {
-            if (_pProg->isJustChanged()) {
-                _pKuroko->turnMvAngTwd(P_MYSHIP,
+            if (pProg->isJustChanged()) {
+                pKuroko->turnMvAngTwd(P_MYSHIP,
                                         10, 0, TURN_CLOSE_TO, false);
             }
             LaserChip* pChip = pLaserChipDepo_->dispatch();
             if (pChip) {
                 if (pChip->_pChip_front == nullptr) {
-                    _pSeTx->play3D(SE_FIRE);
+                    getSeTx()->play3D(SE_FIRE);
                 }
             } else {
-                _pProg->changeNext();
+                pProg->changeNext();
             }
             break;
         }
         case PROG_FIRE_END: {
-            if (_pProg->isJustChanged()) {
-                _pMorpher->transitionLinerUntil(1, 0.0, 180); //•Â‚¶‚é
-                _pKuroko->setRzRyMvAngVelo(pRatislavia_->_pKuroko->_angveloFace[AXIS_Z],
-                                            pRatislavia_->_pKuroko->_angveloFace[AXIS_Y]);
+            if (pProg->isJustChanged()) {
+                getMorpher()->transitionLinerUntil(1, 0.0, 180); //•Â‚¶‚é
+                pKuroko->setRzRyMvAngVelo(pRatislavia_->getKuroko()->_angveloFace[AXIS_Z],
+                                          pRatislavia_->getKuroko()->_angveloFace[AXIS_Y]);
             }
             //d’¼
-            if (_pProg->getFrameInProgress() >= 300) {
-                _pProg->change(PROG_OPEN);
+            if (pProg->getFrameInProgress() >= 300) {
+                pProg->change(PROG_OPEN);
             }
             break;
         }
@@ -152,9 +153,9 @@ void EnemyRatislaviaEye::processBehavior() {
             break;
     }
 
-    _pKuroko->behave();
-    _pMorpher->behave();
-    _pSeTx->behave();
+    pKuroko->behave();
+    getMorpher()->behave();
+    getSeTx()->behave();
 }
 
 void EnemyRatislaviaEye::processJudgement() {
@@ -167,12 +168,12 @@ void EnemyRatislaviaEye::onHit(GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //”j‰óŽž
-        _pSeTx->play3D(SE_EXPLOSION);
+        getSeTx()->play3D(SE_EXPLOSION);
         _TRACE_("EnemyRatislaviaEye::onHit() ãˆÊ‚É‚È‚°‚é‚Á‚· throwEventUpperTree(RATISLAVIA_EXPLOSION)");
         throwEventUpperTree(RATISLAVIA_EXPLOSION); //e‚ÌEnemyRatislavia‚ð”j‰ó‚·‚éƒCƒxƒ“ƒg‚ð“Š‚°‚é
     } else {
         //”ñ”j‰óŽž
-        _pSeTx->play3D(SE_DAMAGED);
+        getSeTx()->play3D(SE_DAMAGED);
         pRatislavia_->effectFlush(2);
     }
 }
@@ -183,7 +184,7 @@ void EnemyRatislaviaEye::onInactive() {
 
 void EnemyRatislaviaEye::wake() {
     is_wake_ = true;
-    _pProg->change(PROG_OPEN);
+    getProgress()->change(PROG_OPEN);
 }
 
 EnemyRatislaviaEye::~EnemyRatislaviaEye() {

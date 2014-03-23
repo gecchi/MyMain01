@@ -19,7 +19,7 @@ EnemyHisbeLaserChip001::EnemyHisbeLaserChip001(const char* prm_name) :
         HomingLaserChip(prm_name, "HisbeLaserChip001", STATUS(EnemyHisbeLaserChip001)) {
     _class_name = "EnemyHisbeLaserChip001";
     pSplManufConnection_ = connect_SplineManufactureManager("EnemyHisbeLaserChip002"); //ヒルベルト曲線
-    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(_pKuroko);
+    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(getKuroko());
     pNearestScrollingScene_ = nullptr;
 }
 
@@ -34,9 +34,10 @@ void EnemyHisbeLaserChip001::onActive() {
     HomingLaserChip::onActive();
     //ステータスリセット
     _pStatus->reset();
-    _pKuroko->setMvVelo(30000);
-    _pKuroko->forceRzRyMvAngVeloRange(-D_ANG(45), D_ANG(45));
-    _pKuroko->relateFaceWithMvAng(true);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setMvVelo(30000);
+    pKuroko->forceRzRyMvAngVeloRange(-D_ANG(45), D_ANG(45));
+    pKuroko->relateFaceWithMvAng(true);
     //位置と向きはEnemyHisbeが設定
     pKurokoLeader_->stop();
 }
@@ -50,7 +51,7 @@ void EnemyHisbeLaserChip001::processBehaviorHeadChip() {
         pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION); //向いた方向にワールド変換
     }
     pKurokoLeader_->behave();
-    _pKuroko->behave();
+    getKuroko()->behave();
 }
 
 void EnemyHisbeLaserChip001::processJudgement() {

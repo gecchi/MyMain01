@@ -32,13 +32,13 @@ void EffectTurbo002::onActive() {
     setScale(1000);
     pScaler_->transitionLinerUntil(100000, 60);//スケーリング・60F費やして1000に縮小
     setRyFaceAng(D90ANG);
-    _pKuroko->setFaceAngVelo(AXIS_Z, 2000);
+    getKuroko()->setFaceAngVelo(AXIS_Z, 2000);
 }
 
 void EffectTurbo002::processBehavior() {
     addAlpha(-(1.0/60.0));
     _pUvFlipper->behave();
-    _pKuroko->behave();
+    getKuroko()->behave();
     pScaler_->behave();
 }
 

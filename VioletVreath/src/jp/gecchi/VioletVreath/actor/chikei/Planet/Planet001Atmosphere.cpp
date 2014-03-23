@@ -26,11 +26,12 @@ void Planet001Atmosphere::onCreateModel() {
 
 void Planet001Atmosphere::initialize() {
     setAlpha(0.9);
-    _pKuroko->setFaceAngVelo(AXIS_Z, 1000);
+    getKuroko()->setFaceAngVelo(AXIS_Z, 1000);
 }
 
 void Planet001Atmosphere::processBehavior() {
-    _pKuroko->behave();
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->behave();
 }
 
 Planet001Atmosphere::~Planet001Atmosphere() {

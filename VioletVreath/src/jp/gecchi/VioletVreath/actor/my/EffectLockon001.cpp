@@ -22,7 +22,8 @@ EffectLockon001::EffectLockon001(const char* prm_name, const char* prm_model_id)
     setAlpha(0.9);          //α部分があるため、カリングをOFFするため透明オブジェクト扱いにする。
 
     setHitAble(false); //当たり判定無し
-    _pSeTx->set(0, "WAVE_LOCKON_001"); //効果音定義
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(0, "WAVE_LOCKON_001"); //効果音定義
     useProgress(PROG_BANPEI);
 }
 
@@ -31,7 +32,7 @@ void EffectLockon001::initialize() {
 
 
 void EffectLockon001::onReset() {
-    _pProg->reset(LOCKON001_PROG_RELEASE);
+    getProgress()->reset(LOCKON001_PROG_RELEASE);
 }
 
 void EffectLockon001::onActive() {
@@ -42,6 +43,7 @@ void EffectLockon001::onActive() {
 }
 
 void EffectLockon001::processBehavior() {
+
 }
 
 void EffectLockon001::processJudgement() {

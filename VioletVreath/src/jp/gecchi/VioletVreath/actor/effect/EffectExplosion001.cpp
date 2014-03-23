@@ -37,7 +37,7 @@ void EffectExplosion001::processBehavior() {
     _sx+= 100;
     _sy+= 100;
     _pUvFlipper->behave();
-    _pKuroko->behave();
+    getKuroko()->behave();
     pScaler_->behave();
 }
 
@@ -48,7 +48,7 @@ void EffectExplosion001::processJudgement() {
 }
 
 void EffectExplosion001::onInactive() {
-    _pKuroko->stopMv();
+    getKuroko()->stopMv();
 }
 
 

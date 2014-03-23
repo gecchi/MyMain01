@@ -18,9 +18,10 @@ MenuBoard::MenuBoard(const char* prm_name, const char* prm_model) :
     slide_from_offset_y_ = 0;
     target_x_ = _x;
     target_y_ = _y;
-    _pSeTx->set(SE_ON_RISEN      , "WAVE_MENU_ON_RISEN"      );
-    _pSeTx->set(SE_MOVE_CURSOR   , "WAVE_MENU_MOVE_CURSOR"   );
-    _pSeTx->set(SE_DECIDED_CANCEL, "WAVE_MENU_DECIDED_CANCEL");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_ON_RISEN      , "WAVE_MENU_ON_RISEN"      );
+    pSeTx->set(SE_MOVE_CURSOR   , "WAVE_MENU_MOVE_CURSOR"   );
+    pSeTx->set(SE_DECIDED_CANCEL, "WAVE_MENU_DECIDED_CANCEL");
 }
 
 void MenuBoard::setTransition(frame prm_menu_fade_frames,
@@ -42,7 +43,7 @@ bool MenuBoard::condDecision() {
         //「メニューアイテム：キャンセル」を「決定」したことにする。
         //現カーソルが「メニューアイテム：キャンセル」にあるかどうかの判断は、
         //relateAllItemToCancel() で定義されたアイテムのインデックスかどうかで判断。
-        _pSeTx->play(SE_DECIDED_CANCEL);
+        getSeTx()->play(SE_DECIDED_CANCEL);
         return true;
     } else {
         return false;
@@ -53,7 +54,7 @@ bool MenuBoard::condCancel() {
     if (VB->isPushedDown(VB_UI_CANCEL)) {
         //「メニューアイテム：任意」で、VB_UI_CANCEL ボタンの場合は
         //そのアイテムを「キャンセル」した事とする。(当たり前だが)
-        _pSeTx->play(SE_DECIDED_CANCEL);
+        getSeTx()->play(SE_DECIDED_CANCEL);
         return true;
     } else {
         return false;
@@ -100,7 +101,7 @@ void MenuBoard::riseSubMenu(int prm_index, coord prm_target_x, coord prm_target_
 void MenuBoard::moveCursor(bool prm_smooth) {
     StringBoardMenu::moveCursor(prm_smooth);
     if (prm_smooth) { //スムーズ移動trueすなわち、活動状態。
-        _pSeTx->play(SE_MOVE_CURSOR);
+        getSeTx()->play(SE_MOVE_CURSOR);
     }
 }
 
@@ -120,18 +121,20 @@ void MenuBoard::onRise() {
     //スライドイントランジション
     position(target_x_ + slide_from_offset_x_,
              target_y_ + slide_from_offset_y_);
-    _pKuroko->setMvAngTwd(target_x_, target_y_);
-    _pKuroko->hlprA()->slideMvByDt(UTIL::getDistance(_x, _y, target_x_, target_y_), _fade_frames,
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setMvAngTwd(target_x_, target_y_);
+    pKuroko->hlprA()->slideMvByDt(UTIL::getDistance(_x, _y, target_x_, target_y_), _fade_frames,
                            0.2, 0.3, 0, true);
-    _pSeTx->play(SE_ON_RISEN);
+    getSeTx()->play(SE_ON_RISEN);
 }
 
 void MenuBoard::processBehavior() {
-    if (_pKuroko->hlprA()->isJustFinishSlidingMv()) {
+    GgafDxKuroko* pKuroko = getKuroko();
+    if (pKuroko->hlprA()->isJustFinishSlidingMv()) {
         //スライド終了時、目的の座標へ補正
         position(target_x_, target_y_);
     }
-    _pKuroko->behave();
+    pKuroko->behave();
     StringBoardMenu::processBehavior();
     //メニュー選択アイテム、表示アイテム、カーソルは、
     //ボード座標を基にしているため、自身の座標確定後に
@@ -143,11 +146,12 @@ void MenuBoard::processJudgement() {
 
 void MenuBoard::onSink() {
     //スライドアウトトランジション
-    _pKuroko->setMvAngTwd(target_x_ + slide_from_offset_x_,
-                           target_y_ + slide_from_offset_y_);
-    _pKuroko->hlprA()->slideMvByDt(UTIL::getDistance(
-                                _x, _y,
-                                target_x_+slide_from_offset_x_, target_y_+slide_from_offset_y_
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setMvAngTwd(target_x_ + slide_from_offset_x_,
+                         target_y_ + slide_from_offset_y_);
+    pKuroko->hlprA()->slideMvByDt(UTIL::getDistance(
+                                  _x, _y,
+                                  target_x_+slide_from_offset_x_, target_y_+slide_from_offset_y_
                            ), _fade_frames,
                            0.2, 0.3, 0, true);
 }

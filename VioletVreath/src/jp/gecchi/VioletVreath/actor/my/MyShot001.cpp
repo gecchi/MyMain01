@@ -25,18 +25,18 @@ void MyShot001::initialize() {
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB(0, -PX_C(50), -PX_C(50), -PX_C(50),
                                     PX_C(50),  PX_C(50),  PX_C(50));
-    _pKuroko->setFaceAngVelo(AXIS_X, D_ANG(12));
+    getKuroko()->setFaceAngVelo(AXIS_X, D_ANG(12));
 }
 
 void MyShot001::onActive() {
     _pStatus->reset();
     setHitAble(true);
-    _pKuroko->setMvVelo(PX_C(70));
-    _pKuroko->setMvAcce(100);
+    getKuroko()->setMvVelo(PX_C(70));
+    getKuroko()->setMvAcce(100);
 }
 
 void MyShot001::processBehavior() {
-    _pKuroko->behave();
+    getKuroko()->behave();
 }
 
 void MyShot001::processJudgement() {

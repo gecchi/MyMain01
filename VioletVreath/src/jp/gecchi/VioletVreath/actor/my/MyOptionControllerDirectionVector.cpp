@@ -17,14 +17,15 @@ MyOptionControllerDirectionVector::MyOptionControllerDirectionVector(const char*
 void MyOptionControllerDirectionVector::initialize() {
     setAlpha(0.3);
     setHitAble(false);
-    _pKuroko->relateFaceWithMvAng(true);
+    getKuroko()->relateFaceWithMvAng(true);
 }
 
 void MyOptionControllerDirectionVector::onActive() {
 }
 
 void MyOptionControllerDirectionVector::processBehavior() {
-    _pKuroko->behave();
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->behave();
 }
 
 void MyOptionControllerDirectionVector::processJudgement() {

@@ -22,9 +22,9 @@ EnemyErmioneArm::EnemyErmioneArm(const char* prm_name, const char* prm_model, Gg
 
     aiming_ang_velo_ = 0;
     aiming_movable_limit_ang_ = 0;
-
-    _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001"); //腕破壊
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001"); //腕破壊
     useProgress(PROG_BANPEI);
     behave_frames_ = 0;
 }
@@ -35,20 +35,21 @@ void EnemyErmioneArm::initialize() {
 
 void EnemyErmioneArm::onActive() {
     _pStatus->reset();
-    _pProg->reset(PROG_INIT);
+    getProgress()->reset(PROG_INIT);
 }
 
 void EnemyErmioneArm::processBehavior() {
 
     changeGeoLocal(); //ローカル座標の操作とする。
-
-    switch (_pProg->get()) {
+    GgafDxKuroko* pKuroko = getKuroko();
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case PROG_INIT: {
-            _pProg->change(PROG_WAITING);
+            pProg->change(PROG_WAITING);
             break;
         }
         case PROG_WAITING: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 //本体からFKとして追加された直後は、一度processSettlementBehavior()が実行されないと
                 //座標反映されない、したがって。１フレーム後のPROG_WAITINGでエントリエフェ実行行う事
                 UTIL::activateEntryEffectOf(this);
@@ -57,17 +58,17 @@ void EnemyErmioneArm::processBehavior() {
         }
 
         case PROG_NOTHING: {
-            if (_pProg->isJustChanged() ) {
+            if (pProg->isJustChanged() ) {
                 behave_frames_ = RND(30, 60);
             }
-            if (_pProg->getFrameInProgress() == behave_frames_) {
-                _pProg->change(PROG_AIMING);
+            if (pProg->getFrameInProgress() == behave_frames_) {
+                pProg->change(PROG_AIMING);
             }
             break;
         }
 
         case PROG_AIMING: {
-            if (_pProg->isJustChanged() ) {
+            if (pProg->isJustChanged() ) {
                 if (aiming_movable_limit_ang_ > 0) {
                     //自機へ方向を向ける
                     //考え方：ローカル座標系で予めどの方向に向いておけば、最終的に自機に向くことになるかを求める
@@ -125,16 +126,16 @@ void EnemyErmioneArm::processBehavior() {
                         angRy_Target = D360ANG - aiming_movable_limit_ang_;
                     }
 
-                    _pKuroko->turnRzRyFaceAngTo(
+                    pKuroko->turnRzRyFaceAngTo(
                                     angRz_Target, angRy_Target,
                                     aiming_ang_velo_, aiming_ang_velo_*0.04,
                                     TURN_CLOSE_TO, false);
                 }
             }
-            if (_pKuroko->isTurningFaceAng()) {
+            if (pKuroko->isTurningFaceAng()) {
                 // 待機
             } else {
-                _pProg->change(PROG_NOTHING);
+                pProg->change(PROG_NOTHING);
             }
 
             break;
@@ -144,7 +145,7 @@ void EnemyErmioneArm::processBehavior() {
             break;
     }
 
-    _pKuroko->behave();
+    pKuroko->behave();
     changeGeoFinal();
     //pScaler_->behave();
     if (_pActor_Base) {
@@ -174,7 +175,7 @@ void EnemyErmioneArm::onCatchEvent(hashval prm_no, void* prm_pSource) {
     }
     if ( prm_no == EVENT_ERMIONE_ENTRY_DONE) {
         setHitAble(true);
-        _pProg->change(PROG_NOTHING);
+        getProgress()->change(PROG_NOTHING);
     }
 }
 

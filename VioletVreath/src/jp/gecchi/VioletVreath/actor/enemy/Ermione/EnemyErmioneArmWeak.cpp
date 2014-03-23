@@ -30,7 +30,7 @@ void EnemyErmioneArmWeak::onHit(GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //”j‰óŽž
-        _pSeTx->play3D(SE_EXPLOSION);
+        getSeTx()->play3D(SE_EXPLOSION);
 
         //˜r‚Ì‚Ý”š”­
         if (getParent()) {
@@ -43,7 +43,7 @@ void EnemyErmioneArmWeak::onHit(GgafActor* prm_pOtherActor) {
         //‚±‚Ìˆ—‚ÅA˜r‚Ì‚Ý”š”­‚Æ‚È‚éB
     } else {
         //”ñ”j‰óŽž
-        _pSeTx->play3D(SE_DAMAGED);
+        getSeTx()->play3D(SE_DAMAGED);
     }
 }
 

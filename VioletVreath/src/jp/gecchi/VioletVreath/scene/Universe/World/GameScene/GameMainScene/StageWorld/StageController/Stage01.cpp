@@ -44,7 +44,7 @@ Stage01::Stage01(const char* prm_name) : Stage(prm_name) {
 //    EnemyHisbe* pTest = NEW EnemyHisbe("tst");
 //    pTest->position(PX_C(0),PX_C(0), PX_C(100));
 //    pTest->setFaceAngTwd(PX_C(100), PX_C(100), PX_C(100));
-//    pTest->_pKuroko->behave();
+//    pTest->getKuroko()->behave();
 //    getSceneDirector()->addSubGroup(pTest);
     //<-----debug
 
@@ -57,14 +57,14 @@ void Stage01::initialize() {
 
 void Stage01::processBehavior() {
     Stage::processBehavior();
-
-    switch (_pProg->get()) {
+    SceneProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case Stage::PROG_INIT: {
-            _pProg->change(Stage::PROG_BEGIN);
+            pProg->change(Stage::PROG_BEGIN);
             break;
         }
         case Stage::PROG_BEGIN: {
-            if (_pProg->getFrameInProgress() == 180) { //ステージ１開始！
+            if (pProg->getFrameInProgress() == 180) { //ステージ１開始！
                 pMessage_->activateImmed();
                 pWorldBoundSpace_->activateTree();    //背景ON
                 pHoshiBoshi_->activateTree();    //背景ON
@@ -73,12 +73,12 @@ void Stage01::processBehavior() {
                 pPlanet_->activate();
 
                 fadeinSceneTree(360);
-                _pProg->change(Stage::PROG_PLAYING);
+                pProg->change(Stage::PROG_PLAYING);
             }
             break;
         }
         case Stage::PROG_PLAYING: {
-            if (_pProg->getFrameInProgress() == 60) { //ステージ１開始！
+            if (pProg->getFrameInProgress() == 60) { //ステージ１開始！
                 pMessage_->update(PX_C(300), PX_C(300), "SCENE 01 START!");
                 pMessage_->inactivateDelay(240);
             }
@@ -86,18 +86,18 @@ void Stage01::processBehavior() {
             break;
         }
         case Stage::PROG_END: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 _TRACE_("Stage01::processBehavior()  Stage::PROG_ENDになりますた！");
                 throwEventUpperTree(EVENT_PREPARE_TRANSIT_STAGE); //通過ステージ準備へ
             }
 
-            if (_pProg->getFrameInProgress() == 60) {
+            if (pProg->getFrameInProgress() == 60) {
                 pMessage_->activateImmed();
                 pMessage_->update(PX_C(300), PX_C(300), "SCENE 01 CLEAR!!");
                 pMessage_->inactivateDelay(120);
                 fadeoutSceneWithBgm(300);
             }
-            if (_pProg->getFrameInProgress() == 300) {
+            if (pProg->getFrameInProgress() == 300) {
                 throwEventUpperTree(EVENT_STG01_WAS_END);
             }
             break;
@@ -113,10 +113,11 @@ void Stage01::processJudgement() {
 }
 
 void Stage01::onCatchEvent(hashval prm_no, void* prm_pSource) {
+    SceneProgress* pProg = getProgress();
     if (prm_no == EVENT_STG01_CTRLER_WAS_END ) {
         _TRACE_("Stage01::onCatchEvent() EVENT_STG01_CTRLER_WAS_END をキャッチ。ステータスをStage::PROG_ENDへ");
         pScene_StagePartCtrler_->sayonara(60*60);
-        _pProg->change(Stage::PROG_END);
+        pProg->change(Stage::PROG_END);
     } else {
 
     }

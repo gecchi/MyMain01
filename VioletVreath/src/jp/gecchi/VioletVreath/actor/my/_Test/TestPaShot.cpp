@@ -27,11 +27,11 @@ void TestPaShot::initialize() {
 void TestPaShot::onActive() {
     _pStatus->reset();
     setHitAble(true);
-    _pKuroko->setMvVelo(PX_C(30));
+    getKuroko()->setMvVelo(PX_C(30));
 }
 
 void TestPaShot::processBehavior() {
-    _pKuroko->behave();
+    getKuroko()->behave();
 }
 
 void TestPaShot::processJudgement() {

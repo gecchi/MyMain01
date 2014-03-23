@@ -29,11 +29,11 @@ void EnemyStraeaLaserChip002::onActive() {
     RefractionLaserChip::onActive();
     //ステータスリセット
     _pStatus->reset();
-
-    _pKuroko->setMvVelo(80000);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setMvVelo(80000);
     //_pKuroko->setMvAcce(300);
     //_pKuroko->forceRyMvAngVeloRange(-90000, 90000);
-    _pKuroko->relateFaceWithMvAng(true);
+    pKuroko->relateFaceWithMvAng(true);
 }
 
 void EnemyStraeaLaserChip002::onRefractionBegin(int prm_num_refraction)  {
@@ -44,6 +44,7 @@ void EnemyStraeaLaserChip002::onRefractionFinish(int prm_num_refraction)  {
     if (prm_num_refraction == 0) {
 
     } else {
+        GgafDxKuroko* pKuroko = getKuroko();
         angle out_angRz_Target;
         angle out_angRy_Target;
         angle out_d_angRz;
@@ -53,16 +54,16 @@ void EnemyStraeaLaserChip002::onRefractionFinish(int prm_num_refraction)  {
                                P_MYSHIP->_z - _z,
                                out_angRz_Target,
                                out_angRy_Target);
-        out_d_angRz = _pKuroko->getRzMvAngDistance(out_angRz_Target, TURN_CLOSE_TO);
-        out_d_angRy = _pKuroko->getRyMvAngDistance(out_angRy_Target, TURN_CLOSE_TO);
-        _pKuroko->addRzMvAng(SGN(out_d_angRz)*20000);
-        _pKuroko->addRyMvAng(SGN(out_d_angRy)*30000);
-//        _pKuroko->turnMvAngTwd(
+        out_d_angRz = pKuroko->getRzMvAngDistance(out_angRz_Target, TURN_CLOSE_TO);
+        out_d_angRy = pKuroko->getRyMvAngDistance(out_angRy_Target, TURN_CLOSE_TO);
+        pKuroko->addRzMvAng(SGN(out_d_angRz)*20000);
+        pKuroko->addRyMvAng(SGN(out_d_angRy)*30000);
+//        pKuroko->turnMvAngTwd(
 //                        P_MYSHIP,
 //                        90000, 0,
 //                        TURN_CLOSE_TO, false);
 
-//        _pKuroko->setMvAngTwd(P_MYSHIP);
+//        pKuroko->setMvAngTwd(P_MYSHIP);
     }
 }
 

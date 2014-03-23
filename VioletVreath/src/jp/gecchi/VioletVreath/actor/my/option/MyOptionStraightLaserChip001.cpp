@@ -28,7 +28,7 @@ MyOptionStraightLaserChip001::MyOptionStraightLaserChip001(const char* prm_name)
 }
 
 void MyOptionStraightLaserChip001::initialize() {
-    _pKuroko->setRzRyMvAng(0,0);
+    getKuroko()->setRzRyMvAng(0,0);
     registerHitAreaCube_AutoGenMidColli(60000);
     setHitAble(true);
     _sx = _sy = _sz = R_SC(5);
@@ -41,8 +41,9 @@ void MyOptionStraightLaserChip001::onActive() {
     StraightLaserChip::onActive();
 
     GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
-    _pKuroko->setMvVelo(80000);
-    _pKuroko->setMvAcce(300);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setMvVelo(80000);
+    pKuroko->setMvAcce(300);
     is_lockon_ = false;
     if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheTree()) {
         if (_pChip_front == nullptr) {
@@ -97,7 +98,7 @@ void MyOptionStraightLaserChip001::processBehavior() {
 //        }
     }
     if (_pChip_front == nullptr) {
-        _pSeTx->behave();
+        getSeTx()->behave();
     }
     StraightLaserChip::processBehavior();//座標を移動させてから呼び出すこと
     //根元からレーザー表示のため強敵に座標補正

@@ -32,14 +32,14 @@ void EffectMyShipExplosion::onActive() {
     positionAs(P_MYSHIP);
     _alpha = 0.99;
     setScale(8000);
-    _pKuroko->setFaceAngVelo(AXIS_Z, 2000);
+    getKuroko()->setFaceAngVelo(AXIS_Z, 2000);
 }
 
 void EffectMyShipExplosion::processBehavior() {
     _alpha -= 0.01;
     positionAs(P_MYSHIP);
     _pUvFlipper->behave();
-    _pKuroko->behave();
+    getKuroko()->behave();
     pScaler_->behave();
 }
 

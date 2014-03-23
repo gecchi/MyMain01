@@ -18,7 +18,8 @@ EnemyAntiope::EnemyAntiope(const char* prm_name, const char* prm_model, GgafStat
     _class_name = "EnemyAntiope";
     pAFader_ = NEW GgafDxAlphaFader(this);
     pAxsMver_ = NEW GgafDxAxesMover(this);
-    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
 }
 
@@ -33,57 +34,58 @@ void EnemyAntiope::initialize() {
 
 void EnemyAntiope::onActive() {
     _pStatus->reset();
-    _pProg->reset(PROG_INIT);
+    getProgress()->reset(PROG_INIT);
 }
 
 void EnemyAntiope::processBehavior() {
     //‰ÁŽZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ðŒ¸­
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-
-    switch (_pProg->get()) {
+    GgafDxKuroko* pKuroko = getKuroko();
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
          case PROG_INIT: {
              setHitAble(false);
              setAlpha(0);
-             _pKuroko->stopMv();
-             _pKuroko->setFaceAngVelo(AXIS_X, D_ANG(10));
+             pKuroko->stopMv();
+             pKuroko->setFaceAngVelo(AXIS_X, D_ANG(10));
              pAxsMver_->setZeroVxyzMvVelo();
              UTIL::activateEntryEffectOf(this);
-             _pProg->changeNext();
+             pProg->changeNext();
              break;
          }
          case PROG_ENTRY: {
-             if (_pProg->isJustChanged()) {
+             if (pProg->isJustChanged()) {
                  pAFader_->transitionLinerUntil(1.0, 30);
              }
-             if (_pProg->getFrameInProgress() == 30) {
+             if (pProg->getFrameInProgress() == 30) {
                  setHitAble(true);
-                 _pProg->changeNext();
+                 pProg->changeNext();
              }
              break;
          }
 
          case PROG_MOVE01: {
-             if (_pProg->isJustChanged()) {
-                 _pKuroko->setMvVelo(30000);
-                 _pKuroko->setMvAcce(-1000);
+             if (pProg->isJustChanged()) {
+                 pKuroko->setMvVelo(30000);
+                 pKuroko->setMvAcce(-1000);
                  pAxsMver_->setVxyzMvVelo(mv_velo_twd_.x, mv_velo_twd_.y, mv_velo_twd_.z);
              }
 
-             if (_pKuroko->_veloMv <= (-30000 + 1000)) {
-                 _pKuroko->stopMv();
+             if (pKuroko->_veloMv <= (-30000 + 1000)) {
+                 pKuroko->stopMv();
                  pAxsMver_->setZeroVxyzMvVelo();
-                 _pProg->changeNext();
+                 pProg->changeNext();
              }
              break;
          }
 
 
          case PROG_LEAVE: {
-             if (_pProg->isJustChanged()) {
+             if (pProg->isJustChanged()) {
                  UTIL::activateLeaveEffectOf(this);
                  pAFader_->transitionLinerUntil(0.0, 15);
              }
-             if (_pProg->getFrameInProgress() == 15) {
+             if (pProg->getFrameInProgress() == 15) {
                  setHitAble(false);
                  sayonara();
              }
@@ -94,7 +96,7 @@ void EnemyAntiope::processBehavior() {
      }
 
 //    _TRACE_(this<<":"<<getActiveFrame()<<" "<<_x<<","<<_y<<","<<_z<<"  ("<<_pKuroko->_veloMv<<") "<<_pKuroko->_vX<<","<<_pKuroko->_vY<<","<<_pKuroko->_vZ<<"");
-    _pKuroko->behave();
+    pKuroko->behave();
     pAxsMver_->behave();
     pAFader_->behave();
 }
@@ -109,7 +111,7 @@ void EnemyAntiope::onHit(GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //”j‰óŽž
-        _pSeTx->play3D(SE_EXPLOSION);
+        getSeTx()->play3D(SE_EXPLOSION);
     }
 }
 

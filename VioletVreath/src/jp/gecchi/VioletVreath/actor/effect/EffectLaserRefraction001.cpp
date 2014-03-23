@@ -28,14 +28,14 @@ void EffectLaserRefraction001::onActive() {
     //_pUvFlipper->exec(FLIP_ORDER_LOOP, 1); //パラパラアニメ無し
     setAlpha(0.5);
     setScale(R_SC(6));
-    _pKuroko->setFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
+    getKuroko()->setFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
 }
 
 void EffectLaserRefraction001::processBehavior() {
     addScale(100);
 
     //_pUvFlipper->behave();
-    _pKuroko->behave();
+    getKuroko()->behave();
     pScaler_->behave();
 }
 

@@ -67,9 +67,9 @@ EnemyStraea::EnemyStraea(const char* prm_name) :
         }
     }
     GGAF_DELETEARR(paAng_way);
-
-    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
-    _pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
+    pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
     useProgress(PROG_BANPEI);
     pConn_ShotDepo2_ = connect_DepositoryManager("Shot004Yellow");
@@ -85,69 +85,71 @@ void EnemyStraea::onCreateModel() {
 void EnemyStraea::initialize() {
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliSphere(0, PX_C(200));
-    _pKuroko->setRzRyMvAng(0, D180ANG);
-    _pKuroko->setMvVelo(PX_C(5));
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setRzRyMvAng(0, D180ANG);
+    pKuroko->setMvVelo(PX_C(5));
 }
 
 void EnemyStraea::onActive() {
     _pStatus->reset();
     setHitAble(false);
     _x = GgafDxCore::GgafDxUniverse::_x_gone_right - 1000;
-    _pProg->reset(PROG_ENTRY);
+    getProgress()->reset(PROG_ENTRY);
 }
 
 void EnemyStraea::processBehavior() {
-
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-    switch (_pProg->get()) {
+    GgafDxKuroko* pKuroko = getKuroko();
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case PROG_ENTRY: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 UTIL::activateEntryEffectOf(this);
                 setAlpha(0);
                 pAFader_->transitionLinerUntil(0.98, 20);
-                _pKuroko->setFaceAngVelo(AXIS_X, 4000);
+                pKuroko->setFaceAngVelo(AXIS_X, 4000);
             }
             if (!pAFader_->isTransitioning()) {
                 setHitAble(true);
-                _pProg->changeNext();
+                pProg->changeNext();
             }
             pAFader_->behave();
             break;
         }
         case PROG_MOVE: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 angle v = angveloTurn_ / 50;
-                _pKuroko->setFaceAngVelo(RND(-v, v), RND(-v, v), RND(-v, v));
-                _pKuroko->setMvVelo(2000);
+                pKuroko->setFaceAngVelo(RND(-v, v), RND(-v, v), RND(-v, v));
+                pKuroko->setMvVelo(2000);
                 //_pKuroko->setMvVelo(0);
             }
             if (getActiveFrame() % laser_interval_ == 0) {
-                _pProg->changeNext();
+                pProg->changeNext();
             }
             break;
         }
 
         case PROG_TURN: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 //ターン開始
-                _pKuroko->turnFaceAngTwd(P_MYSHIP,
+                pKuroko->turnFaceAngTwd(P_MYSHIP,
                                           angveloTurn_, 0, TURN_ANTICLOSE_TO, false);
                 cnt_laserchip_ = 0;
             }
-            if (_pKuroko->isTurningFaceAng()) {
+            if (pKuroko->isTurningFaceAng()) {
                 //ターン中
             } else {
                 //自機にがいた方向に振り向きが完了時
-                _pKuroko->setFaceAngVelo(angveloTurn_*2, 0, 0);
-                _pKuroko->setMvVelo(0);
-                _pProg->changeNext();
+                pKuroko->setFaceAngVelo(angveloTurn_*2, 0, 0);
+                pKuroko->setMvVelo(0);
+                pProg->changeNext();
             }
             break;
         }
 
         case PROG_FIRE: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 //レーザーセット、借入
                 GgafActorDepositoryStore* pLaserChipDepoStore =
                         (GgafActorDepositoryStore*)(pConn_LaserChipDepoStore_->peek());
@@ -162,7 +164,7 @@ void EnemyStraea::processBehavior() {
                     }
                 }
                 if (can_fire) {
-                    _pSeTx->play3D(SE_FIRE); //発射音
+                    getSeTx()->play3D(SE_FIRE); //発射音
                     effectFlush(2); //フラッシュ
                 }
             }
@@ -197,7 +199,7 @@ void EnemyStraea::processBehavior() {
                                 vZ = p->x*matWorldRot._13 + p->y*matWorldRot._23 + p->z*matWorldRot._33;
                                 UTIL::convVectorToRzRy(vX, vY, vZ, Rz, Ry); //現在の最終的な向きを、RzRyで取得
                                 pLaserChip->position(_x+vX, _y+vY, _z+vZ);
-                                pLaserChip->_pKuroko->setRzRyMvAng(Rz, Ry);
+                                pLaserChip->getKuroko()->setRzRyMvAng(Rz, Ry);
                                 pLaserChip->_rz = Rz;
                                 pLaserChip->_ry = Ry;
                             }
@@ -205,13 +207,13 @@ void EnemyStraea::processBehavior() {
                     }
                 }
             } else {
-                _pProg->change(PROG_MOVE);
+                pProg->change(PROG_MOVE);
             }
             break;
         }
     }
-    _pSeTx->behave();
-    _pKuroko->behave();
+    getSeTx()->behave();
+    pKuroko->behave();
 }
 
 void EnemyStraea::processJudgement() {
@@ -293,7 +295,7 @@ void EnemyStraea::onHit(GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊時
-        _pSeTx->play3D(SE_EXPLOSION);
+        getSeTx()->play3D(SE_EXPLOSION);
         //打ち返し
         UTIL::shotWay003(this,
                          getCommonDepository(Shot004) , red_dot,

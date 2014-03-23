@@ -21,7 +21,7 @@ void EnemyOzartiaPillar01::initialize() {
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
     setHitAble(true);
-    _pProg->reset(PROG_INIT);
+    getProgress()->reset(PROG_INIT);
 }
 
 void EnemyOzartiaPillar01::onActive() {
@@ -31,47 +31,49 @@ void EnemyOzartiaPillar01::onActive() {
 void EnemyOzartiaPillar01::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     //–{‘ÌˆÚ“®Œn‚Ìˆ— ‚±‚±‚©‚ç --->
-    switch (_pProg->get()) {
+    GgafDxKuroko* pKuroko = getKuroko();
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
             setAlpha(0);
             UTIL::activateEntryEffectOf(this);
-            _pProg->changeNext();
+            pProg->changeNext();
             break;
         }
         case PROG_ENTRY: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 pAFader_->transitionLinerUntil(1.0, 15);
             }
-            if (_pProg->getFrameInProgress() == 8) {
+            if (pProg->getFrameInProgress() == 8) {
                 setHitAble(true);
-                _pProg->change(PROG_MOVE01);
+                pProg->change(PROG_MOVE01);
             }
             break;
         }
         case PROG_MOVE01: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
             }
-            if (_pProg->getFrameInProgress() == 60*10) {
-                _pProg->change(PROG_LEAVE);
+            if (pProg->getFrameInProgress() == 60*10) {
+                pProg->change(PROG_LEAVE);
             }
             break;
         }
         case PROG_LEAVE: {
-             if (_pProg->isJustChanged()) {
+             if (pProg->isJustChanged()) {
                  UTIL::activateLeaveEffectOf(this);
                  pAFader_->transitionLinerUntil(0.0, 15);
              }
-             if (_pProg->getFrameInProgress() == 60) {
+             if (pProg->getFrameInProgress() == 60) {
                  sayonara();
-                 _pProg->changeNothing(); //‚¨‚µ‚Ü‚¢I
+                 pProg->changeNothing(); //‚¨‚µ‚Ü‚¢I
              }
              break;
          }
         default :
             break;
     }
-    _pKuroko->behave();
+    pKuroko->behave();
 }
 
 void EnemyOzartiaPillar01::processJudgement() {
@@ -87,7 +89,7 @@ void EnemyOzartiaPillar01::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false);
         //”š”­Œø‰Ê
         UTIL::activateExplosionEffectOf(this);
-//        _pSeTx->play3D(ERESSHOT001_SE_EXPLOSION);
+//        getSeTx()->play3D(ERESSHOT001_SE_EXPLOSION);
 
         sayonara();
     }

@@ -29,9 +29,10 @@ void EffectMyOption::onCreateModel() {
 }
 
 void EffectMyOption::initialize() {
-    _pKuroko->setFaceAngVelo(AXIS_X, D_ANG(5));
-    _pKuroko->setFaceAngVelo(AXIS_Y, D_ANG(3));
-    _pKuroko->setFaceAngVelo(AXIS_Z, D_ANG(1));
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setFaceAngVelo(AXIS_X, D_ANG(5));
+    pKuroko->setFaceAngVelo(AXIS_Y, D_ANG(3));
+    pKuroko->setFaceAngVelo(AXIS_Z, D_ANG(1));
     setScale(R_SC(1));
     pScaler_->forceRange(R_SC(1), R_SC(4.0));
 //    pScaler_->beat(AXIS_X, 30, 10, 1, -1);
@@ -41,7 +42,7 @@ void EffectMyOption::initialize() {
 }
 
 void EffectMyOption::onReset() {
-//    _pProg->reset(1);
+//    pProg->reset(1);
 }
 
 void EffectMyOption::onActive() {
@@ -49,12 +50,12 @@ void EffectMyOption::onActive() {
 }
 
 void EffectMyOption::processBehavior() {
-//    if (_pProg->get() == 1) {
+//    if (pProg->get() == 1) {
 //        pScaler_->beat(30,8,2,-1);
-//        _pProg->change(2);
+//        pProg->change(2);
 //    }
     positionAs(pOption_);
-    _pKuroko->behave();
+    getKuroko()->behave();
     pScaler_->behave();
 }
 

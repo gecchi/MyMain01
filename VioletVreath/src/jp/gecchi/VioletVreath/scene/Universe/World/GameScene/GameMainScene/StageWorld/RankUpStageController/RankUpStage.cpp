@@ -52,18 +52,19 @@ RankUpStage::RankUpStage(const char* prm_name) : DefaultScene(prm_name) {
 }
 
 void RankUpStage::initialize() {
-    _pProg->reset(RankUpStage::PROG_INIT);
+    getProgress()->reset(RankUpStage::PROG_INIT);
 }
 void RankUpStage::processBehavior() {
     sprintf(buff,"HIT/ALL %d/%d",hit_enemy_num_,all_hit_num_);
+    SceneProgress* pProg = getProgress();
     pMessage3_->update(buff);
-    switch (_pProg->get()) {
+    switch (pProg->get()) {
         case RankUpStage::PROG_INIT: {
-            _pProg->change(RankUpStage::PROG_BEGIN);
+            pProg->change(RankUpStage::PROG_BEGIN);
             break;
         }
         case RankUpStage::PROG_BEGIN: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_BEGIN !");
                 pMessage1_->update("RANKUPSTAGE::PROG_BEGIN");
                 std::string m = "RUNKUP LEVEL:" + XTOS(G_RANKUP_LEVEL) ;
@@ -72,27 +73,27 @@ void RankUpStage::processBehavior() {
                 _pBgmPerformer->play_fadein(0);
             }
 
-            if (_pProg->getFrameInProgress() == 60) { //ステージ開始！
-                _pProg->change(RankUpStage::PROG_PLAYING);
+            if (pProg->getFrameInProgress() == 60) { //ステージ開始！
+                pProg->change(RankUpStage::PROG_PLAYING);
             }
             break;
         }
         case RankUpStage::PROG_PLAYING: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 pMessage1_->update("RANKUPSTAGE::PROG_PLAYING");
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_BEGIN !");
             }
 
-            if (_pProg->getFrameInProgress() > _paFrame_NextEvent[_event_num-1]) { //最後の敵機が出現以降
+            if (pProg->getFrameInProgress() > _paFrame_NextEvent[_event_num-1]) { //最後の敵機が出現以降
                 if (all_hit_num_ == hit_enemy_num_) {
                     //全滅させた！即効結果画面へ
                     _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] 全滅させた！");
-                    _pProg->change(RankUpStage::PROG_RESULT);
+                    pProg->change(RankUpStage::PROG_RESULT);
                     pSeConnection_all_hit_->peek()->play(); //全滅時SE!
-                } else if (_pProg->getFrameInProgress() == _paFrame_NextEvent[_event_num-1]+1200) {
+                } else if (pProg->getFrameInProgress() == _paFrame_NextEvent[_event_num-1]+1200) {
                     //最後の敵機が出現以降最高２分で強制結果画面へ
                     _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] 強制結果画面へ！");
-                    _pProg->change(RankUpStage::PROG_RESULT);
+                    pProg->change(RankUpStage::PROG_RESULT);
                 }
             }
 
@@ -101,7 +102,7 @@ void RankUpStage::processBehavior() {
             break;
         }
         case RankUpStage::PROG_RESULT: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 pMessage1_->update("RANKUPSTAGE::PROG_RESULT");
                 pMessage2_->update("KEKKA HAPYOU!!!");
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_RESULT !");
@@ -109,7 +110,7 @@ void RankUpStage::processBehavior() {
             }
 
             //結果表示？
-            if (_pProg->getFrameInProgress() == 320) {
+            if (pProg->getFrameInProgress() == 320) {
                 _pBgmPerformer->fadeout_stop(0);
                 if (all_hit_num_ <= hit_enemy_num_) { //全滅させた！
                     pMessage2_->update("PERFECT!!!!");
@@ -122,13 +123,13 @@ void RankUpStage::processBehavior() {
                 }
             }
 
-            if (_pProg->getFrameInProgress() == 320+300) {
-                _pProg->change(RankUpStage::PROG_END);
+            if (pProg->getFrameInProgress() == 320+300) {
+                pProg->change(RankUpStage::PROG_END);
             }
             break;
         }
         case RankUpStage::PROG_END: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_ENDになりますた！");
                 pMessage1_->update("RANKUPSTAGE::PROG_END");
                 throwEventUpperTree(EVENT_RANKUP_WAS_END);

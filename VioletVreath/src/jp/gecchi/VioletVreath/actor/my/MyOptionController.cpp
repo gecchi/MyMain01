@@ -53,9 +53,9 @@ MyOptionController::MyOptionController(const char* prm_name, int prm_no) :
     for (int i = 0; i < max_option_num_*o2o_; i++) {
         pRing_OptCtrlGeoHistory_->addLast(NEW GgafDxGeoElem(this));
     }
-
-    _pSeTx->set(SE_RESTORE, "WAVE_MY_OPTION_RESTORE_001");
-    _pSeTx->set(SE_FREE,    "WAVE_MY_OPTION_FREE_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_RESTORE, "WAVE_MY_OPTION_RESTORE_001");
+    pSeTx->set(SE_FREE,    "WAVE_MY_OPTION_FREE_001");
     was_ignited_option_ = false;
     ignited_option_cnt_mode_ = false;
     ignite_option_cnt_ = 0;
@@ -66,11 +66,12 @@ void MyOptionController::initialize() {
 }
 
 void MyOptionController::onReset() {
-    _pKuroko->setMvVelo(0);
-    _pKuroko->forceRzRyMvAngVeloRange(-1*angVelo_Turn_, angVelo_Turn_);
-    _pKuroko->setRzRyMvAng(0,0);
-    _pKuroko->relateFaceWithMvAng(true);
-    _pKuroko->behave();
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setMvVelo(0);
+    pKuroko->forceRzRyMvAngVeloRange(-1*angVelo_Turn_, angVelo_Turn_);
+    pKuroko->setRzRyMvAng(0,0);
+    pKuroko->relateFaceWithMvAng(true);
+    pKuroko->behave();
 }
 
 void MyOptionController::onActive() {
@@ -81,9 +82,10 @@ void MyOptionController::processBehavior() {
     MyShip* const pMyShip = P_MYSHIP;
     VirtualButton* const pVbPlay = VB_PLAY;
     vbsta is_double_push_VB_OPTION = pVbPlay->isDoublePushedDown(VB_OPTION,8,8);
+    GgafDxKuroko* pKuroko = getKuroko();
     if (is_double_push_VB_OPTION) {
         //もとに戻す
-        _pKuroko->turnRzRyMvAngTo(D0ANG, D0ANG,
+        pKuroko->turnRzRyMvAngTo(D0ANG, D0ANG,
                                    D_ANG(20), 0,
                                    TURN_CLOSE_TO,
                                    false );
@@ -102,16 +104,16 @@ void MyOptionController::processBehavior() {
     } else if (pVbPlay->isBeingPressed(VB_OPTION) && !pVbPlay->isBeingPressed(VB_TURBO)) {
         //オプション向き操作
         if (pVbPlay->isBeingPressed(VB_UP)) {
-            _pKuroko->addRzMvAng(angVelo_Turn_);
+            pKuroko->addRzMvAng(angVelo_Turn_);
         }
         if (pVbPlay->isBeingPressed(VB_DOWN)) {
-            _pKuroko->addRzMvAng(-angVelo_Turn_);
+            pKuroko->addRzMvAng(-angVelo_Turn_);
         }
         if (pVbPlay->isBeingPressed(VB_RIGHT)) {
-            _pKuroko->addRyMvAng(angVelo_Turn_);
+            pKuroko->addRyMvAng(angVelo_Turn_);
         }
         if (pVbPlay->isBeingPressed(VB_LEFT)) {
-            _pKuroko->addRyMvAng(-angVelo_Turn_);
+            pKuroko->addRyMvAng(-angVelo_Turn_);
         }
     }
 
@@ -160,14 +162,14 @@ void MyOptionController::processBehavior() {
             if (is_handle_move_mode_) {
                 //オプションの広がり角より、オプション移動速度と、旋回半径増加速度にベクトル分解。
                 //そのうちのオプション移動速度のみを設定。
-                _pKuroko->setMvVelo(ANG_COS(pOption_->angExpanse_) * veloOptionsMv_);
+                pKuroko->setMvVelo(ANG_COS(pOption_->angExpanse_) * veloOptionsMv_);
                 //旋回半径増加速度の処理はMyOptionクラスで行う。
             } else {
                 //オプションフリーモードが解除されてる
             }
         } else  {
             is_handle_move_mode_ = false; //VB_OPTION離すと解除
-            _pKuroko->setMvVelo(0);
+            pKuroko->setMvVelo(0);
             //VB_OPTION 押下と無関係で フリーズオプションのよーな感じになる
             GgafDxGeoElem* pGeoMyShipPrev = pMyShip->pRing_MyShipGeoHistory2_->getPrev();
             _x += (pMyShip->_x - pGeoMyShipPrev->x);
@@ -211,9 +213,9 @@ void MyOptionController::processBehavior() {
 
 //    //ギズモ
 //    pDirectionVector_->positionAs(this);
-//    pDirectionVector_->_pKuroko->setRzRyMvAng(_pKuroko->_angRzMv, _pKuroko->_angRyMv);
+//    pDirectionVector_->getKuroko()->setRzRyMvAng(pKuroko->_angRzMv, pKuroko->_angRyMv);
 
-    _pKuroko->behave();
+    pKuroko->behave();
     pAxsMver_->behave();
 
     pRing_OptCtrlGeoHistory_->next()->set(this);

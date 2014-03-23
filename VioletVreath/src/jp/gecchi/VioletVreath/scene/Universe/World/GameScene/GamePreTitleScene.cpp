@@ -14,7 +14,7 @@ using namespace VioletVreath;
 GamePreTitleScene::GamePreTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GamePreTitleScene";
     useProgress(PROG_BANPEI);
-    _pProg->change(GamePreTitleScene::PROG_INIT);
+    getProgress()->change(GamePreTitleScene::PROG_INIT);
     pLabel01_ = NEW LabelGecchi16Font("STR01");
     getSceneDirector()->addSubGroup(pLabel01_);
     pLabel02_ = NEW LabelGecchi16Font("STR02");
@@ -33,7 +33,7 @@ void GamePreTitleScene::onReset() {
     pTitleBoard_->position(PX_C(100), PX_C(600));
     pLabel01_->update("");
     pLabel02_->update("");
-    _pProg->change(GamePreTitleScene::PROG_INIT);
+    getProgress()->change(GamePreTitleScene::PROG_INIT);
 //    //TEST
 //    for (int i = 0; i < 9; i++) {
 //        papSpriteLabel_[i]->update("ABC");
@@ -71,38 +71,38 @@ void GamePreTitleScene::processBehavior() {
 //        }
 //    }
 //    //TEST
-
-    switch (_pProg->get()) {
+    SceneProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case GamePreTitleScene::PROG_INIT: {
-            _pProg->change(GamePreTitleScene::PROG_EXEC);
+            pProg->change(GamePreTitleScene::PROG_EXEC);
             break;
         }
 
         case GamePreTitleScene::PROG_EXEC: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
 //                fadeinScene(FADE_FRAMES);
             }
-            if (_pProg->getFrameInProgress() == 1) {
+            if (pProg->getFrameInProgress() == 1) {
                 pLabel01_->update(PX_C(100), PX_C(50), "[STORY]");
-            } else if (_pProg->getFrameInProgress() == 120) {
+            } else if (pProg->getFrameInProgress() == 120) {
                 pLabel01_->update(PX_C(100), PX_C(50), "MUKASHI MUKASHI ARU TOKORONI.");
-            } else if (_pProg->getFrameInProgress() == 240) {
+            } else if (pProg->getFrameInProgress() == 240) {
                 pLabel01_->update(PX_C(100), PX_C(50), "MA SORE HA OITOITE...");
-            } else if (_pProg->getFrameInProgress() == 360) {
+            } else if (pProg->getFrameInProgress() == 360) {
                 pLabel01_->update(PX_C(100), PX_C(50), "TORIAEZU TEKI WO TAOSINI IKOUZE ! BY GECCHI");
-            } else if (_pProg->getFrameInProgress() > 361) {
+            } else if (pProg->getFrameInProgress() > 361) {
                 //タイトルが下からニューっと
                 pTitleBoard_->_y -= PX_C(1);
                 if (pTitleBoard_->_y <= PX_C(90)) {
                     pTitleBoard_->_y = PX_C(90);
-                    _pProg->change(GamePreTitleScene::PROG_FINISH);
+                    pProg->change(GamePreTitleScene::PROG_FINISH);
                 }
             }
             break;
         }
 
         case GamePreTitleScene::PROG_FINISH: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 throwEventUpperTree(EVENT_PREGAMETITLESCENE_FINISH);
             }
             //おしまい待ちぼうけループ

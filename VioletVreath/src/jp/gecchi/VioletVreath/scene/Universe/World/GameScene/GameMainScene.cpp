@@ -59,7 +59,7 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
 
 void GameMainScene::onReset() {
     _TRACE_("GameMainScene::onReset()");
-    _pProg->reset(GameMainScene::PROG_INIT);
+    getProgress()->reset(GameMainScene::PROG_INIT);
 }
 
 void GameMainScene::initialize() {
@@ -83,33 +83,34 @@ void GameMainScene::processBehavior() {
     sprintf(buf_, "Z:%8d", pMyShip->_z);
     pLabel_JIKI_z_->update(buf_);
 
-    switch (_pProg->get()) {
+    SceneProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case GameMainScene::PROG_INIT: {
             _TRACE_("GameMainScene::processBehavior() Prog is GameMainScene::PROG_INIT");
             addSubLast(P_STAGE_WORLD->extract());
             P_STAGE_WORLD->resetTree();
             P_STAGE_WORLD->activateImmed();
-            _pProg->change(GameMainScene::PROG_BEGIN);
+            pProg->change(GameMainScene::PROG_BEGIN);
             break;
         }
 
         case GameMainScene::PROG_BEGIN: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 _TRACE_("GameMainScene::processBehavior() Prog has Just Changed (to GameMainScene::PROG_BEGIN)");
-                _pProg->change(GameMainScene::PROG_PLAY);
+                pProg->change(GameMainScene::PROG_PLAY);
             }
             break;
         }
 
         case GameMainScene::PROG_PLAY: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 _TRACE_("GameMainScene::processBehavior() Prog has Just Changed (to GameMainScene::PROG_PLAY)");
             }
             break;
         }
 
         case GameMainScene::PROG_FINISH: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 _TRACE_("GameMainScene::processBehavior() Prog has Just Changed (to GameMainScene::PROG_FINISH)");
             }
             break;

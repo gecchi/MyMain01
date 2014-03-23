@@ -50,7 +50,7 @@ void StageController::onReset() {
     P_COMMON_SCENE->resetTree();
     P_COMMON_SCENE->activateImmed();
     addSubLast(P_COMMON_SCENE->extract());
-    _pProg->reset(StageController::PROG_INIT);
+    getProgress()->reset(StageController::PROG_INIT);
 }
 //void StageController::readyNextStage() {
 //    main_stage_++;
@@ -86,27 +86,28 @@ void StageController::initialize() {
 
 void StageController::processBehavior() {
     //SCORE表示
-    switch (_pProg->get()) {
+    SceneProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case StageController::PROG_INIT: {
             _TRACE_("StageController::processBehavior() Prog is StageController::PROG_INIT");
             readyStage(main_stage_);
-            _pProg->change(StageController::PROG_BEGIN);
+            pProg->change(StageController::PROG_BEGIN);
             break;
         }
 
         case StageController::PROG_BEGIN: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 _TRACE_("StageController::processBehavior() Prog has Just Changed (to StageController::PROG_BEGIN)");
                 _TRACE_("StageController::processBehavior() 直後 main_stage_="<<main_stage_);
             }
-            if (_pProg->getFrameInProgress() == 120) { //２秒遊ぶ
-                _pProg->change(StageController::PROG_PLAY_STAGE);
+            if (pProg->getFrameInProgress() == 120) { //２秒遊ぶ
+                pProg->change(StageController::PROG_PLAY_STAGE);
             }
             break;
         }
 
         case StageController::PROG_PLAY_STAGE: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 _TRACE_("StageController::processBehavior() Prog has Just Changed (to StageController::PROG_PLAY_STAGE)");
                 _TRACE_("StageController::processBehavior() 直後 main_stage_="<<main_stage_);
                 readyStage(main_stage_); //念のために呼ぶ。通常はもう準備できているハズ。
@@ -124,7 +125,7 @@ void StageController::processBehavior() {
         }
 
         case StageController::PROG_PLAY_TRANSIT: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 _TRACE_("StageController::processBehavior() Prog has Just Changed (to StageController::PROG_PLAY_TRANSIT)");
                 _TRACE_("StageController::processBehavior() 直後 main_stage_="<<main_stage_);
                 pTransitStage_->fadeoutSceneWithBgmTree(0);
@@ -139,13 +140,13 @@ void StageController::processBehavior() {
         }
 
         case StageController::PROG_FINISH: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 _TRACE_("StageController::processBehavior() Prog has Just Changed (to StageController::PROG_FINISH)");
                 _TRACE_("StageController::processBehavior() 直後 main_stage_="<<main_stage_);
                 main_stage_ = pTransitStage_->next_main_stage_; //次のステージ
                 _TRACE_("StageController::processBehavior() main_stage_ = pTransitStage_->next_main_stage_;");
                 _TRACE_("StageController::processBehavior() 更新された main_stage_="<<main_stage_);
-                _pProg->change(StageController::PROG_BEGIN); //ループ
+                pProg->change(StageController::PROG_BEGIN); //ループ
             }
             break;
         }
@@ -184,28 +185,28 @@ void StageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
         int next_stage = *((int*)(prm_pSource));
         readyStage(next_stage);//次のステージ準備
 //            _TRACE_("最終面クリア");
-//            _pProg->change(StageController::PROG_END);
+//            pProg->change(StageController::PROG_END);
             //TODO:エデニング？
 //        }
     }
-
+    SceneProgress* pProg = getProgress();
     if (prm_no == EVENT_STG01_WAS_END) {
         _TRACE_("StageController::onCatchEvent(EVENT_STG01_WAS_END)");
         pStageMainCannel_->sayonara(180);
         pStageMainCannel_->fadeoutSceneWithBgmTree(180);
-        _pProg->change(StageController::PROG_PLAY_TRANSIT);
+        pProg->change(StageController::PROG_PLAY_TRANSIT);
     }
     if (prm_no == EVENT_STG02_WAS_END) {
         _TRACE_("StageController::onCatchEvent(EVENT_STG02_WAS_END)");
         pStageMainCannel_->sayonara(180);
         pStageMainCannel_->fadeoutSceneWithBgmTree(180);
-        _pProg->change(StageController::PROG_PLAY_TRANSIT);
+        pProg->change(StageController::PROG_PLAY_TRANSIT);
     }
     if (prm_no == EVENT_TRANSIT_WAS_END) {
         _TRACE_("StageController::onCatchEvent(EVENT_TRANSIT_WAS_END)");
         pTransitStage_->inactivateDelay(180);
         pTransitStage_->fadeoutSceneWithBgmTree(180);
-        _pProg->change(StageController::PROG_FINISH);
+        pProg->change(StageController::PROG_FINISH);
     }
 
 }

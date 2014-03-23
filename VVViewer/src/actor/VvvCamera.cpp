@@ -54,7 +54,7 @@ void VvvCamera::processBehavior() {
     setVecCamUp(v_up_x, v_up_y, v_up_z );
 
     pAxsMver_->behave();
-    _pKuroko->behave();
+    getKuroko()->behave();
 
     int bk_up_face_ = up_face_;
 

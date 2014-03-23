@@ -39,11 +39,11 @@ EnemyHalia::EnemyHalia(const char* prm_name) :
         pLaserChipDepo_->put(pChip);
     }
     addSubGroup(pLaserChipDepo_);
-
-    _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    _pSeTx->set(SE_UNDAMAGED, "WAVE_ENEMY_UNDAMAGED_001");
-    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    _pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    pSeTx->set(SE_UNDAMAGED, "WAVE_ENEMY_UNDAMAGED_001");
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
     useProgress(PROG_BANPEI);
     //初期カメラZ位置
@@ -59,7 +59,7 @@ void EnemyHalia::onCreateModel() {
 
 void EnemyHalia::initialize() {
     setHitAble(true);
-    _pKuroko->relateFaceWithMvAng(true);
+    getKuroko()->relateFaceWithMvAng(true);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliSphere(0, 90000);
     setScaleR(0.3);
@@ -69,74 +69,77 @@ void EnemyHalia::onActive() {
     _pStatus->reset();
     setMorphWeight(0, 1.0);
     setMorphWeight(1, 0.0);
-    _pKuroko->setFaceAngVelo(AXIS_X, 1000);
-    _pKuroko->hlprA()->slideMvByVd(veloTopMv_, MyShip::lim_x_front_-_x,
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setFaceAngVelo(AXIS_X, 1000);
+    pKuroko->hlprA()->slideMvByVd(veloTopMv_, MyShip::lim_x_front_-_x,
                            0.4, 0.6, 1000, true);
-    _pProg->reset(PROG_MOVE);
+    getProgress()->reset(PROG_MOVE);
     iMovePatternNo_ = 0; //行動パターンリセット
 }
 
 void EnemyHalia::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-    switch (_pProg->get()) {
+    GgafDxKuroko* pKuroko = getKuroko();
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case PROG_MOVE: {
-            if (!_pKuroko->hlprA()->isSlidingMv()) {
-                _pMorpher->transitionAcceStep(1, 1.0, 0.0, 0.0004); //開く 0.0004 開く速さ
-                _pKuroko->turnMvAngTwd(P_MYSHIP,
+            if (!pKuroko->hlprA()->isSlidingMv()) {
+                getMorpher()->transitionAcceStep(1, 1.0, 0.0, 0.0004); //開く 0.0004 開く速さ
+                pKuroko->turnMvAngTwd(P_MYSHIP,
                                         0, 100,
                                         TURN_CLOSE_TO, false);
-                _pProg->changeNext();
+                pProg->changeNext();
             }
             break;
         }
         case PROG_TURN_OPEN: {
-            if (_pProg->getFrameInProgress() > 120) {
-                _pProg->changeNext();
+            if (pProg->getFrameInProgress() > 120) {
+                pProg->changeNext();
             }
             break;
         }
         case PROG_FIRE_BEGIN: {
             if ( _x - P_MYSHIP->_x > -dZ_camera_init_) {
-                _pProg->change(PROG_IN_FIRE);
+                pProg->change(PROG_IN_FIRE);
             } else {
                 //背後からは撃たない。
-                _pProg->change(PROG_CLOSE);
+                pProg->change(PROG_CLOSE);
             }
             break;
         }
         case PROG_IN_FIRE: {
             if (getActiveFrame() % 16U == 0) {
-                _pKuroko->turnMvAngTwd(P_MYSHIP,
+                pKuroko->turnMvAngTwd(P_MYSHIP,
                                         10, 0,
                                         TURN_CLOSE_TO, false);
             }
             EnemyStraightLaserChip001* pLaser = (EnemyStraightLaserChip001*)pLaserChipDepo_->dispatch();
             if (pLaser) {
                 if (pLaser->_pChip_front == nullptr) {
-                    _pSeTx->play3D(SE_FIRE);
-                    _pKuroko->setFaceAngVelo(AXIS_X, 5000);//発射中は速い回転
+                    getSeTx()->play3D(SE_FIRE);
+                    pKuroko->setFaceAngVelo(AXIS_X, 5000);//発射中は速い回転
                 }
             } else {
-                _pProg->change(PROG_CLOSE);
+                pProg->change(PROG_CLOSE);
             }
             break;
         }
         case PROG_CLOSE: {
             //１サイクルレーザー打ち切った
-            _pMorpher->transitionLinerUntil(1, 0.0, 60); //閉じる
-            _pKuroko->hlprA()->slideMvByVd(veloTopMv_, 1500000, 0.4, 0.6, 1000, true);
-            _pKuroko->setFaceAngVelo(AXIS_X, 1000);
-            _pProg->change(PROG_MOVE);
+            getMorpher()->transitionLinerUntil(1, 0.0, 60); //閉じる
+            pKuroko->hlprA()->slideMvByVd(veloTopMv_, 1500000, 0.4, 0.6, 1000, true);
+            pKuroko->setFaceAngVelo(AXIS_X, 1000);
+            pProg->change(PROG_MOVE);
             break;
         }
 
         default:
             break;
     }
-    _pKuroko->behave();
-    _pMorpher->behave();
-    _pSeTx->behave();
+    pKuroko->behave();
+    getMorpher()->behave();
+    getSeTx()->behave();
 }
 
 void EnemyHalia::processJudgement() {
@@ -150,13 +153,13 @@ void EnemyHalia::onHit(GgafActor* prm_pOtherActor) {
         bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
         if (was_destroyed) {
             //破壊時
-            _pSeTx->play3D(SE_EXPLOSION);
+            getSeTx()->play3D(SE_EXPLOSION);
         } else {
             //非破壊時
-            _pSeTx->play3D(SE_DAMAGED);
+            getSeTx()->play3D(SE_DAMAGED);
         }
     } else {
-        _pSeTx->play3D(SE_UNDAMAGED);
+        getSeTx()->play3D(SE_UNDAMAGED);
     }
 }
 

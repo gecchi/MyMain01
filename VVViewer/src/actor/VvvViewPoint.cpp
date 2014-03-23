@@ -18,7 +18,7 @@ VvvViewPoint::VvvViewPoint(const char* prm_name) :
 void VvvViewPoint::processBehavior() {
     GgafDxCameraViewPoint::processBehavior();
     pAxsMver_->behave();
-    _pKuroko->behave();
+    getKuroko()->behave();
 }
 
 void VvvViewPoint::slideMvTo(coord tx, coord ty, coord tz, frame t) {

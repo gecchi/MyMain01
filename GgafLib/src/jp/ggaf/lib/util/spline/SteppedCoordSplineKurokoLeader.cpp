@@ -65,7 +65,7 @@ void SteppedCoordSplineKurokoLeader::restart() {
             _y_start = (_flip_y * pSpl->_y_compute[0] * _pSteppedSplManuf->_rate_y) + _offset_y - _pActor_target->_y;
             _z_start = (_flip_z * pSpl->_z_compute[0] * _pSteppedSplManuf->_rate_z) + _offset_z - _pActor_target->_z;
         }
-        GgafDxKuroko* const pKuroko_target = _pActor_target->_pKuroko;
+        GgafDxKuroko* const pKuroko_target = _pActor_target->getKuroko();
         _sinRzMv_begin = ANG_SIN(pKuroko_target->_angRzMv);
         _cosRzMv_begin = ANG_COS(pKuroko_target->_angRzMv);
         _sinRyMv_begin = ANG_SIN(pKuroko_target->_angRyMv);

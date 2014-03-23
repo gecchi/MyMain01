@@ -44,7 +44,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
         pGod->createWindow(WndProc,
                            "SimpleSample[1]", "SimpleSample[2]",
                            hWnd1, hWnd2); //HWNDが代入されます(戻り値)
-        timeBeginPeriod(1);
         //ループ本体
         while (true) {
             if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
@@ -56,7 +55,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                         GGAF_DELETE(pGod);
                         GgafLib::GgafLibProperties::clean(); //プロパティ解放
                     }
-                    timeEndPeriod(1);
                     return EXIT_SUCCESS; //アプリ終了
                 }
                 TranslateMessage(&msg);
@@ -73,7 +71,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
         std::string what(e2.what());
         MessageBox(nullptr, what.c_str(), "SimpleSample Error", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND);
         _TRACE_("[エラー]:"<<what); //_TRACE_() はデバッグモード時のみ標準出力に出力されます。
-        timeEndPeriod(1);
         return EXIT_FAILURE; //異常終了
     }
     return (int)msg.wParam;

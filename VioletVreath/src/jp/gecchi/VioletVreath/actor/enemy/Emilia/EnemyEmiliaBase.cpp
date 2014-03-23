@@ -13,8 +13,9 @@ using namespace VioletVreath;
 
 EnemyEmiliaBase::EnemyEmiliaBase(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat) :
         DefaultMeshSetActor(prm_name, prm_model, prm_pStat) {
-    _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
 }
 
 void EnemyEmiliaBase::onCreateModel() {
@@ -23,7 +24,7 @@ void EnemyEmiliaBase::onCreateModel() {
 void EnemyEmiliaBase::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-    _pKuroko->behave();
+    getKuroko()->behave();
 }
 
 void EnemyEmiliaBase::processJudgement() {
@@ -37,12 +38,12 @@ void EnemyEmiliaBase::onHit(GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::proceedEnemyHit(this, pOther);
     if (was_destroyed) {
         //破壊時
-        _pSeTx->play3D(SE_EXPLOSION);
+        getSeTx()->play3D(SE_EXPLOSION);
         //下位クラスの個々の処理
         processStaminaEnd(pOther);
     } else {
         //非破壊時
-        _pSeTx->play3D(SE_DAMAGED);
+        getSeTx()->play3D(SE_DAMAGED);
     }
 }
 
@@ -53,10 +54,11 @@ void EnemyEmiliaBase::appearFragment(const char* prm_dp_name) {
         EnemyEmiliaBase* pFragment = (EnemyEmiliaBase*)(pDepoConn->peek()->dispatch());
         if (pFragment) {
             pFragment->positionAs(this);
-            pFragment->_pKuroko->takeoverMvFrom(this->_pKuroko);
-            pFragment->_pKuroko->setMvVelo(pFragment->_pKuroko->_veloMv/2); //半分のスピードへ
-            pFragment->_pKuroko->addRyMvAng(RND(D_ANG(-45), D_ANG(+45)));
-            pFragment->_pKuroko->addRzMvAng(RND(D_ANG(-45), D_ANG(+45)));
+            GgafDxKuroko* pFragment_pKuroko = pFragment->getKuroko();
+            pFragment_pKuroko->takeoverMvFrom(this->getKuroko());
+            pFragment_pKuroko->setMvVelo(pFragment_pKuroko->_veloMv/2); //半分のスピードへ
+            pFragment_pKuroko->addRyMvAng(RND(D_ANG(-45), D_ANG(+45)));
+            pFragment_pKuroko->addRzMvAng(RND(D_ANG(-45), D_ANG(+45)));
         }
     }
     pDepoConn->close();

@@ -41,7 +41,8 @@ MyTorpedo::MyTorpedo(const char* prm_name, MyTorpedoController* prm_pOptionTorpe
     pTarget_ = nullptr;
     useProgress(10);
     trz_ = try_ = 0;
-    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_TORPEDO");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_TORPEDO");
 }
 
 void MyTorpedo::initialize() {
@@ -54,12 +55,12 @@ void MyTorpedo::onReset() {
 }
 
 void MyTorpedo::onActive() {
-    GgafDxKuroko* const pKuroko = _pKuroko;
     _pStatus->reset();
     setAlpha(0.3);
     _sx = _sy = _sz = 100;
     setScale(100);
     pScaler_->transitionLinerStep(7000, 500);
+    GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
     if (pTarget_) {
         pKuroko->forceMvVeloRange(4000, 100000);
@@ -79,7 +80,7 @@ void MyTorpedo::onActive() {
     begin_y_ = _y;
     begin_z_ = _z;
     setHitAble(true);
-    _pProg->reset(MyTorpedo_IN_FIRE);
+    getProgress()->reset(MyTorpedo_IN_FIRE);
     move_section_ = 0;
     //非ターゲット時の方向、オプションの向いてる方向に飛ばす
     trz_ = pOptionTorpedoCtrler_->pOrg_->_rz;
@@ -87,8 +88,9 @@ void MyTorpedo::onActive() {
 }
 
 void MyTorpedo::processBehavior() {
-    GgafDxKuroko* const pKuroko = _pKuroko;
-    if (_pProg->get() == MyTorpedo_RELEASE) {
+    GgafDxKuroko* pKuroko = getKuroko();
+    GgafProgress* pProg = getProgress();
+    if (pProg->get() == MyTorpedo_RELEASE) {
         if (pTailEffectDepository_->_num_chip_active == 0) {
             //軌跡エフェクトが全て非活動になった場合
             inactivate(); //自身を最後にinactivate()
@@ -97,7 +99,7 @@ void MyTorpedo::processBehavior() {
         }
     }
 
-    if (_pProg->get() == MyTorpedo_IN_FIRE) {
+    if (pProg->get() == MyTorpedo_IN_FIRE) {
         //尾っぽエフェクト追加処理
         if (pTailEffectDepository_->_num_chip_active < length_TailEffect_) {
             MyTorpedoTail* pTailEffect = (MyTorpedoTail*)pTailEffectDepository_->dispatch();
@@ -204,15 +206,16 @@ void MyTorpedo::processBehavior() {
 }
 
 void MyTorpedo::processJudgement() {
-    if (isOutOfUniverse() && _pProg->get() == MyTorpedo_IN_FIRE) {
+    GgafProgress* pProg = getProgress();
+    if (isOutOfUniverse() && pProg->get() == MyTorpedo_IN_FIRE) {
         setHitAble(false);
-        _pProg->change(MyTorpedo_RELEASE);
+        pProg->change(MyTorpedo_RELEASE);
         GgafMainActor* pTailEffect = (GgafMainActor*)pTailEffectDepository_->getSubFirst();
         for (int i = 0; i < length_TailEffect_; i++) {
             pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約
             pTailEffect = pTailEffect->getNext();
         }
-        _pKuroko->setMvVelo(0);
+        getKuroko()->setMvVelo(0);
         //自身のinactive()はprocessBehavior()で行われ
         //魚雷の移動エフェクトが全てinactive()になった際に自身もinactive()する
     }
@@ -227,19 +230,21 @@ void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
     //ヒット時通貫はしません
     int sta = UTIL::calcMyStamina(this, pOther);
     setHitAble(false);
-    _pProg->change(MyTorpedo_RELEASE);
+
+    GgafProgress* pProg = getProgress();
+    pProg->change(MyTorpedo_RELEASE);
     GgafMainActor* pTailEffect = (GgafMainActor*)pTailEffectDepository_->getSubFirst();
     for (int i = 0; i < length_TailEffect_; i++) {
         pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約
         pTailEffect = pTailEffect->getNext();
     }
-    _pKuroko->setMvVelo(0);
+    getKuroko()->setMvVelo(0);
     //自身のinactive()はprocessBehavior()で行われ
     //魚雷の移動エフェクトが全てinactive()になった際に自身もinactive()する
 
     //爆風発生
     MyTorpedoBlast* pBlast = (MyTorpedoBlast*)(pOptionTorpedoCtrler_->pDepo_TorpedoBlast_->dispatchForce());
-    _pSeTx->play3D(SE_EXPLOSION);
+    getSeTx()->play3D(SE_EXPLOSION);
     pBlast->reset();
     pBlast->positionAs(this);
 }

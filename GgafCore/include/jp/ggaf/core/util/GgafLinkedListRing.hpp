@@ -835,7 +835,7 @@ public:
      *         //個々のメンバー加速
      *         EnemyXXX* pEnemyXXX = (EnemyDelheid*)prm_pActor; //実装の型にキャスト
      *         int velo_mv = *((velo*)p1);                       //キャプチャ引数を元の型に戻す
-     *         pEnemyXXX->_pKuroko->setMvVelo(velo_mv);         //加速設定
+     *         pEnemyXXX->getKuroko()->setMvVelo(velo_mv);         //加速設定
      *     }
      *
      *     void processBehavior() {

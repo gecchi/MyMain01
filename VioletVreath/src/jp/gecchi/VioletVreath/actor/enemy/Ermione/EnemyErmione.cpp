@@ -89,9 +89,9 @@ EnemyErmione::EnemyErmione(const char* prm_name) :
             }
         }
     }
-
-    _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
 }
 
@@ -107,46 +107,48 @@ void EnemyErmione::onActive() {
     _pStatus->reset();
     setMorphWeight(1, 0.0);
 
-    _pProg->reset(PROG_INIT);
+    getProgress()->reset(PROG_INIT);
     setHitAble(false);
 }
 
 void EnemyErmione::processBehavior() {
     //‰ÁŽZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ðŒ¸­
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-    switch (_pProg->get()) {
+    GgafDxKuroko* pKuroko = getKuroko();
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
             setAlpha(0);
-            _pKuroko->setMvVelo(0);
+            pKuroko->setMvVelo(0);
             UTIL::activateEntryEffectOf(this);
-            _pProg->changeNext();
+            pProg->changeNext();
             break;
         }
 
         case PROG_ENTRY: {
-            if (_pProg->getFrameInProgress() == 120) {
+            if (pProg->getFrameInProgress() == 120) {
                 pAFader_->transitionAcceStep(1.0, 0.000, 0.0001);
             }
             if (getAlpha() > 0.8) {
                 setHitAble(true);
                 throwEventLowerTree(EVENT_ERMIONE_ENTRY_DONE);
-                _pKuroko->setMvAngTwd(P_MYSHIP);
-                _pKuroko->setMvVelo(10);
-                _pKuroko->hlprB()->turnFaceAngByDtTwd(
+                pKuroko->setMvAngTwd(P_MYSHIP);
+                pKuroko->setMvVelo(10);
+                pKuroko->hlprB()->turnFaceAngByDtTwd(
                         P_MYSHIP, TURN_CLOSE_TO, true, 60*30,
                         0.4, 0.6, 0, true);
 
-                _pProg->changeNext();
+                pProg->changeNext();
             }
             break;
         }
 
         case PROG_MOVE: {
-            if (_pProg->isJustChanged()) {
-                _pKuroko->setFaceAngVelo(AXIS_X, 15);
-                _pKuroko->setFaceAngVelo(AXIS_Y, 13);
-                _pKuroko->setFaceAngVelo(AXIS_Z, 11);
+            if (pProg->isJustChanged()) {
+                pKuroko->setFaceAngVelo(AXIS_X, 15);
+                pKuroko->setFaceAngVelo(AXIS_Y, 13);
+                pKuroko->setFaceAngVelo(AXIS_Z, 11);
             }
             break;
         }
@@ -155,9 +157,9 @@ void EnemyErmione::processBehavior() {
             break;
     }
     pAFader_->behave();
-    _pKuroko->behave();
-    _pMorpher->behave();
-    _pSeTx->behave();
+    pKuroko->behave();
+    getMorpher()->behave();
+    getSeTx()->behave();
 }
 
 void EnemyErmione::processJudgement() {
@@ -170,11 +172,11 @@ void EnemyErmione::onHit(GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //”j‰óŽž
-        _pSeTx->play3D(SE_EXPLOSION);
+        getSeTx()->play3D(SE_EXPLOSION);
         throwEventLowerTree(EVENT_ERMIONE_SAYONARA);
     } else {
         //”ñ”j‰óŽž
-        _pSeTx->play3D(SE_DAMAGED);
+        getSeTx()->play3D(SE_DAMAGED);
     }
 }
 

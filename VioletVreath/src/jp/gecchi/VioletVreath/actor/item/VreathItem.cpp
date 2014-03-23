@@ -23,15 +23,16 @@ VreathItem::VreathItem(const char* prm_name, const char* prm_model, GgafCore::Gg
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(false);  //Zバッファは書き込み無し
     setAlpha(0.9);
-
-    _pKuroko->setFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
-    _pKuroko->relateFaceWithMvAng(true);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
+    pKuroko->relateFaceWithMvAng(true);
     kDX_ = kDY_ = kDZ_ = 0;
     useProgress(PROG_BANPEI);
     setHitAble(true, false); //画面外当たり判定は無効
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 400000);
-    _pSeTx->set(0, "WAVE_GET_ITEM_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(0, "WAVE_GET_ITEM_001");
 }
 
 void VreathItem::initialize() {
@@ -53,8 +54,8 @@ void VreathItem::onActive() {
 //    //発生地点から、自機への方向への散らばり範囲正方形領域が位置する距離（scattered_distance > (scattered_renge/2) であること)
 ////    int scattered_distance = scattered_renge/2 + 400000;
 //    //従って、scattered_distance 離れていても、自機は動かなくてもぎりぎり全て回収できる。
-
-    _pKuroko->forceMvVeloRange(0, 20000);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->forceMvVeloRange(0, 20000);
     float vX, vY, vZ;
     UTIL::getNormalizeVector(
             pMyShip->_x - _x,
@@ -63,38 +64,40 @@ void VreathItem::onActive() {
             vX, vY, vZ);
     int d = PX_C(200);
     int r = PX_C(75);
-    _pKuroko->setMvAngTwd( (coord)(_x + (vX * d) + RND(-r, +r)),
+    pKuroko->setMvAngTwd( (coord)(_x + (vX * d) + RND(-r, +r)),
                             (coord)(_y + (vY * d) + RND(-r, +r)),
                             (coord)(_z + (vZ * d) + RND(-r, +r)) );
-    _pKuroko->setMvVelo(2000);
-    _pKuroko->setMvAcce(100);
+    pKuroko->setMvVelo(2000);
+    pKuroko->setMvAcce(100);
 
-    _pProg->reset(PROG_DRIFT);
+    getProgress()->reset(PROG_DRIFT);
     _sx = _sy = _sz = 1000;
 }
 
 void VreathItem::processBehavior() {
     //通常移動
-    if (_pProg->get() == PROG_DRIFT) {
+    GgafDxKuroko* pKuroko = getKuroko();
+    GgafProgress* pProg = getProgress();
+    if (pProg->get() == PROG_DRIFT) {
         //TractorMagic発動中はPROG_ATTACHへ移行
         if (getTractorMagic()->is_tracting_) {
             effectFlush(6); //フラッシュ
             setHitAble(false);
-            _pProg->change(PROG_ATTACH);
+            pProg->change(PROG_ATTACH);
         }
         //あるいは onHit() で PROG_ATTACH 状態変化するのを待つ
     }
 
     //自機と当たり判定がヒットし、自機に向かう動き
-    if (_pProg->get() == PROG_ATTACH) {
+    if (pProg->get() == PROG_ATTACH) {
         MyShip* pMyShip = P_MYSHIP;
-        if (_pProg->isJustChanged()) {
+        if (pProg->isJustChanged()) {
             //自機に引力で引き寄せられるような動き設定
-            pAxsMver_->setVxyzMvVelo(_pKuroko->_vX*_pKuroko->_veloMv,
-                                     _pKuroko->_vY*_pKuroko->_veloMv,
-                                     _pKuroko->_vZ*_pKuroko->_veloMv );
+            pAxsMver_->setVxyzMvVelo(pKuroko->_vX * pKuroko->_veloMv,
+                                     pKuroko->_vY * pKuroko->_veloMv,
+                                     pKuroko->_vZ * pKuroko->_veloMv );
             pAxsMver_->execGravitationMvSequenceTwd(pMyShip, PX_C(20), 200, PX_C(100));
-            _pKuroko->stopMv();
+            pKuroko->stopMv();
         }
 
         //かつ自機近辺に到達？
@@ -105,15 +108,15 @@ void VreathItem::processBehavior() {
             kDX_ = pMyShip->_x - _x;
             kDY_ = pMyShip->_y - _y;
             kDZ_ = pMyShip->_z - _z;
-            _pProg->change(PROG_ABSORB); //吸着吸収へ
+            pProg->change(PROG_ABSORB); //吸着吸収へ
         }
 
     }
 
     //自機近辺に到達し、吸着、吸収中の動き
-    if (_pProg->get() == PROG_ABSORB) {
+    if (pProg->get() == PROG_ABSORB) {
         MyShip* pMyShip = P_MYSHIP;
-        if (_pProg->isJustChanged()) {
+        if (pProg->isJustChanged()) {
             pAxsMver_->setZeroVxyzMvVelo();
             pAxsMver_->setZeroVxyzMvAcce();
             pAxsMver_->stopGravitationMvSequence();
@@ -125,13 +128,13 @@ void VreathItem::processBehavior() {
         _sy -= 100;
         _sz -= 100;
         if (_sx < 5) {
-            _pSeTx->play(0);
-            _pProg->changeNothing();
+            getSeTx()->play(0);
+            pProg->changeNothing();
             sayonara(); //終了
         }
         pMyShip->_pStatus->plus(STAT_Stamina, 1);
     }
-    _pKuroko->behave();
+    pKuroko->behave();
     pAxsMver_->behave();
 }
 
@@ -140,17 +143,17 @@ void VreathItem::processJudgement() {
         sayonara();
     }
 //    //通常移動
-//    if (_pProg->get() == PROG_DRIFT) {
+//    if (pProg->get() == PROG_DRIFT) {
 //        //onHit() で状態変化するのを待つ
 //    }
 //
 //    //自機と当たり判定がヒット時
-//    if (_pProg->get() == PROG_ATTACH) {
+//    if (pProg->get() == PROG_ATTACH) {
 //
 //    }
 //
 //    //自機に吸着し、吸収中の動き
-//    if (_pProg->get() == PROG_ABSORB) {
+//    if (pProg->get() == PROG_ABSORB) {
 //    }
 }
 
@@ -161,10 +164,10 @@ void VreathItem::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
 
-
-    if (_pProg->get() == PROG_DRIFT && (pOther->getKind() & KIND_MY_BODY))  {
+    GgafProgress* pProg = getProgress();
+    if (pProg->get() == PROG_DRIFT && (pOther->getKind() & KIND_MY_BODY))  {
         setHitAble(false);
-        _pProg->change(PROG_ATTACH);
+        pProg->change(PROG_ATTACH);
     }
 }
 

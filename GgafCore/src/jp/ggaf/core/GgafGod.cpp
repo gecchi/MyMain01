@@ -30,7 +30,7 @@ volatile bool GgafGod::_can_be = false;
 GgafGod::GgafGod() : GgafObject(),
   _pUniverse(nullptr),
   _fps(0) {
-
+    timeBeginPeriod(1);
     _frame_of_God = 0;
     _handleFactory01 = (HANDLE)::_beginthreadex(nullptr, 0, GgafFactory::work, nullptr, CREATE_SUSPENDED, &_thID01);
 
@@ -297,6 +297,7 @@ void GgafGod::clean() {
 
 
 GgafGod::~GgafGod() {
+    timeEndPeriod(1);
     clean();
     _was_cleaned = true;
 }

@@ -28,7 +28,7 @@ void EffectEntry002::onActive() {
     EffectEntry::onActive();
     //_pUvFlipper->setActivePtnToTop();
     setScale(1);
-    _pKuroko->setFaceAngVelo(AXIS_Z, 4000);
+    getKuroko()->setFaceAngVelo(AXIS_Z, 4000);
 }
 
 void EffectEntry002::processBehavior() {
@@ -43,7 +43,7 @@ void EffectEntry002::processBehavior() {
         sayonara();
     }
     //_pUvFlipper->behave();
-    _pKuroko->behave();
+    getKuroko()->behave();
     pScaler_->behave();
 }
 

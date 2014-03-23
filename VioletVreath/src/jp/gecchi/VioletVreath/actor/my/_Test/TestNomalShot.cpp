@@ -27,11 +27,11 @@ void TestNomalShot::initialize() {
 void TestNomalShot::onActive() {
     _pStatus->reset();
     setHitAble(true);
-    _pKuroko->setMvVelo(PX_C(30));
+    getKuroko()->setMvVelo(PX_C(30));
 }
 
 void TestNomalShot::processBehavior() {
-    _pKuroko->behave();
+    getKuroko()->behave();
 }
 
 void TestNomalShot::processJudgement() {

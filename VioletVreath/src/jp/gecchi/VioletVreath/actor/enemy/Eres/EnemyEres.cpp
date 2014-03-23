@@ -45,10 +45,11 @@ EnemyEres::EnemyEres(const char* prm_name, GgafActorDepository* prm_pDepo_EnemyE
     }
 
     pSplLineConnection_ = connect_SplineLineManager("Spl_001");
-    pProgram_EresMove_ = NEW FixedVelocitySplineKurokoLeader(_pKuroko, pSplLineConnection_->peek(), 5000); //移動速度固定
+    pProgram_EresMove_ = NEW FixedVelocitySplineKurokoLeader(getKuroko(), pSplLineConnection_->peek(), 5000); //移動速度固定
 
-//    pProgram_EresMove_ = NEW FixedFrameSplineKurokoLeader(_pKuroko, pSplLineConnection_->peek(), 600, 5000); //移動フレーム数固定
-    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+//    pProgram_EresMove_ = NEW FixedFrameSplineKurokoLeader(getKuroko(), pSplLineConnection_->peek(), 600, 5000); //移動フレーム数固定
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
 }
 
 void EnemyEres::initialize() {
@@ -61,9 +62,10 @@ void EnemyEres::onActive() {
     _pStatus->reset();
     iMovePatternNo_ = 0;
     frame_Active_ = 0;
-    _pKuroko->relateFaceWithMvAng(true);
-    _pKuroko->setFaceAngVelo(AXIS_X, 6000);
-    _pKuroko->setMvVelo(8000);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->relateFaceWithMvAng(true);
+    pKuroko->setFaceAngVelo(AXIS_X, 6000);
+    pKuroko->setMvVelo(8000);
     pProgram_EresMove_->start(SplineKurokoLeader::ABSOLUTE_COORD); //スプライン移動を開始
     frame_Active_ = 0;
 }
@@ -83,22 +85,22 @@ void EnemyEres::processBehavior() {
             pTama = (GgafDxDrawableActor*)pDepo_EnemyEresShots001_->dispatch();
             if (pTama) {
                 pTama->position(_x, _y, _z);
-                pTama->_pKuroko->setRzRyMvAng(-D90ANG + way[i], D90ANG);
+                pTama->getKuroko()->setRzRyMvAng(-D90ANG + way[i], D90ANG);
             }
         }
         for (int i = 16; i < 32; i++) {
             pTama = (GgafDxDrawableActor*)pDepo_EnemyEresShots001_->dispatch();
             if (pTama) {
                 pTama->position(_x, _y, _z);
-                pTama->_pKuroko->setRzRyMvAng(-D90ANG - way[i], -D90ANG);
+                pTama->getKuroko()->setRzRyMvAng(-D90ANG - way[i], -D90ANG);
             }
         }
 
         iMovePatternNo_++;
     }
     pProgram_EresMove_->behave(); //スプライン移動を進める
-    _pKuroko->behave(); //次の座標へ移動
-    //_pSeTx->behave();
+    getKuroko()->behave(); //次の座標へ移動
+    //getSeTx()->behave();
     frame_Active_++;
 }
 
@@ -113,7 +115,7 @@ void EnemyEres::onHit(GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊時
-        _pSeTx->play3D(SE_EXPLOSION);
+        getSeTx()->play3D(SE_EXPLOSION);
     } else {
         //非破壊時
     }

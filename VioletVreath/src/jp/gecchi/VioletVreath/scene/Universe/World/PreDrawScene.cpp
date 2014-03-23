@@ -61,7 +61,7 @@ PreDrawScene::PreDrawScene(const char* prm_name) : DefaultScene(prm_name) {
     orderActorToFactory(id, WallAAPrismTestActor       , "WallAAPrismTestActor");           id++;
     order_id_end_ = id - 1;
     useProgress();
-    _pProg->reset(PreDrawScene::PROG_INIT);
+    getProgress()->reset(PreDrawScene::PROG_INIT);
 }
 
 void PreDrawScene::onReset() {
@@ -97,29 +97,30 @@ void PreDrawScene::initialize() {
 }
 
 void PreDrawScene::processBehavior() {
-    switch (_pProg->get()) {
+    SceneProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case PreDrawScene::PROG_INIT: {
-            if (_pProg->getFrameInProgress() % 20U == 0 && P_GOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) {
+            if (pProg->getFrameInProgress() % 20U == 0 && P_GOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) {
                 if (_id_ > order_id_end_-order_id_begin_) {
-                    _pProg->changeNext();
+                    pProg->changeNext();
                 } else {
                     GgafDxGeometricActor* pActor = (GgafDxGeometricActor*)obtainActorFromFactory(_id_+order_id_begin_);
                     pActor->position(PX_C(_id_*70 - 500), PX_C(-100), 0);
                     getSceneDirector()->addSubGroup(pActor);  _id_++;
                 }
             }
-            if (_pProg->getFrameInProgress() > 60*120) {
+            if (pProg->getFrameInProgress() > 60*120) {
                 //タイムアウト
                 _TRACE_("PreDrawScene Time Out!!");
-                _pProg->changeNext();
+                pProg->changeNext();
             }
             break;
         }
         case PreDrawScene::PROG_CALM: {
-            if ((_pProg->getFrameInProgress() > 60 && P_GOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) ||
-                 _pProg->getFrameInProgress() > 60*60) {
+            if ((pProg->getFrameInProgress() > 60 && P_GOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) ||
+                 pProg->getFrameInProgress() > 60*60) {
                 fadeoutSceneWithBgmTree(120);
-                _pProg->changeNext();
+                pProg->changeNext();
             }
             break;
         }

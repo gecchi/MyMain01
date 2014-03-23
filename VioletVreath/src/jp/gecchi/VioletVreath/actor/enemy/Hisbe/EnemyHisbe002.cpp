@@ -35,9 +35,10 @@ EnemyHisbe002::EnemyHisbe002(const char* prm_name) :
     pLaserChipDepo_->config(240, 1, nullptr); //Hisbeは弾切れフレームを1にしないとパクパクしちゃいます。
     addSubGroup(pLaserChipDepo_);
 
-    _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    _pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
     useProgress(PROG_BANPEI);
 }
@@ -46,36 +47,38 @@ void EnemyHisbe002::onCreateModel() {
 }
 
 void EnemyHisbe002::initialize() {
-    _pKuroko->setFaceAngVelo(AXIS_Y, 500);
-    _pKuroko->relateFaceWithMvAng(true);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setFaceAngVelo(AXIS_Y, 500);
+    pKuroko->relateFaceWithMvAng(true);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliSphere(0, 40000);
 }
 
 void EnemyHisbe002::onActive() {
     _pStatus->reset();
-    _pMorpher->reset();
-    _pProg->reset(PROG_WAIT);
+    getMorpher()->reset();
+    getProgress()->reset(PROG_WAIT);
 }
 
 void EnemyHisbe002::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-
-    switch (_pProg->get()) {
+    GgafDxKuroko* pKuroko = getKuroko();
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case PROG_WAIT: {
             if (pLaserChipDepo_->_num_chip_active == 0) {
-                _pProg->changeNext();
+                pProg->changeNext();
             }
             break;
         }
         case PROG_OPEN: {
-            if (_pProg->isJustChanged()) {
-                _pMorpher->transitionLinerUntil(1, 1.0, 120);
+            if (pProg->isJustChanged()) {
+                getMorpher()->transitionLinerUntil(1, 1.0, 120);
             }
-            if (!_pMorpher->isTransitioning()) {
+            if (!getMorpher()->isTransitioning()) {
                 //完全に開いたら
-                _pProg->changeNext();
+                pProg->changeNext();
             }
             break;
         }
@@ -84,22 +87,22 @@ void EnemyHisbe002::processBehavior() {
             LaserChip* pLaser = pLaserChipDepo_->dispatch();
             if (pLaser) {
                 pLaser->positionAs(this);
-                pLaser->_pKuroko->setRzRyMvAng(_rz, _ry);
+                pLaser->getKuroko()->setRzRyMvAng(_rz, _ry);
                                    //レーザーのスプラインがRELATIVE_DIRECTIONのためMvAngの設定が必要。
                 if (pLaser->_pChip_front == nullptr) {
-                    _pSeTx->play3D(SE_FIRE);
+                    getSeTx()->play3D(SE_FIRE);
                 }
             } else {
-                _pProg->change(PROG_CLOSE);
+                pProg->change(PROG_CLOSE);
             }
             break;
         }
         case PROG_CLOSE: {
             //１サイクルレーザー打ち切った
-            _pMorpher->transitionLinerUntil(1, 0.0, 120); //閉じる
-            if (!_pMorpher->isTransitioning()) {
+            getMorpher()->transitionLinerUntil(1, 0.0, 120); //閉じる
+            if (!getMorpher()->isTransitioning()) {
                 //完全に閉じたら
-                _pProg->change(PROG_WAIT);
+                pProg->change(PROG_WAIT);
             }
             break;
         }
@@ -108,9 +111,9 @@ void EnemyHisbe002::processBehavior() {
             break;
     }
 
-    _pKuroko->behave();
-    _pMorpher->behave();
-    _pSeTx->behave();
+    pKuroko->behave();
+    getMorpher()->behave();
+    getSeTx()->behave();
 }
 
 void EnemyHisbe002::processJudgement() {
@@ -123,10 +126,10 @@ void EnemyHisbe002::onHit(GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊時
-        _pSeTx->play3D(SE_EXPLOSION);
+        getSeTx()->play3D(SE_EXPLOSION);
     } else {
         //非破壊時
-        _pSeTx->play3D(SE_DAMAGED);
+        getSeTx()->play3D(SE_DAMAGED);
     }
 }
 

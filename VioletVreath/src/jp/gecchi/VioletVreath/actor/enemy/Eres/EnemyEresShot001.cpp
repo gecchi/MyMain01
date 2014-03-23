@@ -34,12 +34,15 @@ EnemyEresShot001::EnemyEresShot001(const char* prm_name) :
     angVelo_Turn_ = 7000;
     /** 方向転換を開始（frame_TurnBegin_）から再設定される加速度 */
     iMoveAcce_2nd_ = 100;
-    _pSeTx->set(ERESSHOT001_SE_EXPLOSION, "WAVE_EXPLOSION_002");
+
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(ERESSHOT001_SE_EXPLOSION, "WAVE_EXPLOSION_002");
 }
 
 void EnemyEresShot001::initialize() {
-    _pKuroko->forceMvVeloRange(veloTop_, veloBottom_);
-    _pKuroko->relateFaceWithMvAng(true);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->forceMvVeloRange(veloTop_, veloBottom_);
+    pKuroko->relateFaceWithMvAng(true);
 
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
@@ -50,8 +53,9 @@ void EnemyEresShot001::onActive() {
     _pStatus->reset();
 
     //出現時
-    _pKuroko->setMvVelo(velo1st_);
-    _pKuroko->setMvAcce(iMoveAcce_1st_);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setMvVelo(velo1st_);
+    pKuroko->setMvAcce(iMoveAcce_1st_);
 
     setHitAble(true);
 }
@@ -59,27 +63,26 @@ void EnemyEresShot001::onActive() {
 void EnemyEresShot001::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-
+    GgafDxKuroko* pKuroko = getKuroko();
     //方向転換開始
     if (getActiveFrame() == frame_TurnBegin_) {
-
-        _pKuroko->turnMvAngTwd(P_MYSHIP,
-                               angVelo_Turn_, 0,
-                               TURN_CLOSE_TO, true);
-        _pKuroko->setMvAcce(iMoveAcce_2nd_);
+        pKuroko->turnMvAngTwd(P_MYSHIP,
+                              angVelo_Turn_, 0,
+                              TURN_CLOSE_TO, true);
+        pKuroko->setMvAcce(iMoveAcce_2nd_);
     }
 
     //方向転換終了
     if (getActiveFrame() == frame_TurnBegin_ + frame_TurnInterval_) {
-        _pKuroko->setRzRyMvAngVelo(0,0);
-        _pKuroko->_mv_ang_ry_target_flg = false;
-        _pKuroko->_mv_ang_rz_target_flg = false;
+        pKuroko->setRzRyMvAngVelo(0,0);
+        pKuroko->_mv_ang_ry_target_flg = false;
+        pKuroko->_mv_ang_rz_target_flg = false;
     }
 
     //behaveUvFlip();
     //座標に反映
-    _pKuroko->behave();
-    //_pSeTx->behave();
+    pKuroko->behave();
+    //getSeTx()->behave();
 }
 
 void EnemyEresShot001::processJudgement() {
@@ -95,7 +98,7 @@ void EnemyEresShot001::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false);
         //爆発効果
         UTIL::activateExplosionEffectOf(this);
-        _pSeTx->play3D(ERESSHOT001_SE_EXPLOSION);
+        getSeTx()->play3D(ERESSHOT001_SE_EXPLOSION);
 
         sayonara();
     }

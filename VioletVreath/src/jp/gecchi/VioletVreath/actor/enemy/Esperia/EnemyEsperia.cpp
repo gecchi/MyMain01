@@ -45,11 +45,12 @@ EnemyEsperia::EnemyEsperia(const char* prm_name) :
         paLocalPos_Laser_[i].set(PX_C(-40) + (i*dX),  PX_C(10), 0); //レーザー発射元のローカル座標
     }
 
-    _pSeTx->set(SE_EXPLOSION  , "WAVE_EXPLOSION_MIDDLE_001");
-    _pSeTx->set(SE_DAMAGED    , "WAVE_ENEMY_DAMAGED_001");
-    _pSeTx->set(SE_HATCH_OPEN , "WAVE_HATCH_OPEN_001");
-    _pSeTx->set(SE_FIRE       , "WAVE_ENEMY_FIRE_LASER_001");
-    _pSeTx->set(SE_HATCH_CLOSE, "WAVE_HATCH_CLOSE_001");
+    GgafDxSeTransmitterForActor* pSetx = getSeTx();
+    pSetx->set(SE_EXPLOSION  , "WAVE_EXPLOSION_MIDDLE_001");
+    pSetx->set(SE_DAMAGED    , "WAVE_ENEMY_DAMAGED_001");
+    pSetx->set(SE_HATCH_OPEN , "WAVE_HATCH_OPEN_001");
+    pSetx->set(SE_FIRE       , "WAVE_ENEMY_FIRE_LASER_001");
+    pSetx->set(SE_HATCH_CLOSE, "WAVE_HATCH_CLOSE_001");
     dX_= dZ_ = 0;
     useProgress(PROG_BANPEI);
 }
@@ -68,8 +69,9 @@ void EnemyEsperia::initialize() {
 void EnemyEsperia::onActive() {
     _pStatus->reset();
     setHitAble(false);
-    _pKuroko->setRzRyMvAng(0, D180ANG);
-    _pKuroko->setMvVelo(1000);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setRzRyMvAng(0, D180ANG);
+    pKuroko->setMvVelo(1000);
 
     dX_= dZ_ = 0;
     //出現位置
@@ -83,50 +85,52 @@ void EnemyEsperia::onActive() {
    // positionAboutAs(P_MYSHIP, PX_C(400));
 
 
-    _pProg->reset(PROG_ENTRY);
+    getProgress()->reset(PROG_ENTRY);
 }
 
 void EnemyEsperia::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     MyShip* pMyShip = P_MYSHIP;
-    switch (_pProg->get()) {
+    GgafDxKuroko* pKuroko = getKuroko();
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case PROG_ENTRY: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 UTIL::activateEntryEffectOf(this);
                 setAlpha(0);
                 pAFader_->transitionLinerUntil(0.98, 20);
             }
             if (!pAFader_->isTransitioning()) {
                 setHitAble(true);
-                _pProg->changeNext();
+                pProg->changeNext();
             }
             pAFader_->behave();
             break;
         }
         case PROG_MOVE: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
 
             }
-            if (_pProg->getFrameInProgress() == 100) {
-                _pProg->changeNext();
+            if (pProg->getFrameInProgress() == 100) {
+                pProg->changeNext();
             }
             break;
         }
 
         case PROG_HATCH_OPEN: {
-            if (_pProg->isJustChanged()) {
-                _pSeTx->play3D(SE_HATCH_OPEN);
-                _pMorpher->transitionLinerUntil(1, 1.0, 120);
+            if (pProg->isJustChanged()) {
+                getSeTx()->play3D(SE_HATCH_OPEN);
+                getMorpher()->transitionLinerUntil(1, 1.0, 120);
             }
-            if (_pProg->getFrameInProgress() == 120) {
-                _pProg->changeNext();
+            if (pProg->getFrameInProgress() == 120) {
+                pProg->changeNext();
             }
             break;
         }
 
         case PROG_FIRE: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 //レーザーセット（レーザーチップのデポジトリで、１本分のレーザー）のデポジトリから、
                 //レーザーセットの借入を試みる
                 now_laser_way_ = RF_EnemyEsperia_ShotWay(G_RANK); //今回発射レーザー本数
@@ -242,7 +246,7 @@ void EnemyEsperia::processBehavior() {
                         }
                     }
 
-                    _pSeTx->play3D(SE_FIRE); //発射音
+                    getSeTx()->play3D(SE_FIRE); //発射音
                     effectFlush(2); //フラッシュ
                     cnt_laserchip_ = 0;
                 }
@@ -290,38 +294,38 @@ void EnemyEsperia::processBehavior() {
                             pLaserChip->tY2_ = pMyShip->_y + paPos_Target_[i].y;
                             pLaserChip->tZ2_ = pMyShip->_z + paPos_Target_[i].z;
                             //速さと加速度
-                            pLaserChip->_pKuroko->setMvVelo(10000); //初期速度
-                            pLaserChip->_pKuroko->setMvAcce(150+(max_laser_way_-i)*20); //少しバラけるように
+                            pLaserChip->getKuroko()->setMvVelo(10000); //初期速度
+                            pLaserChip->getKuroko()->setMvAcce(150+(max_laser_way_-i)*20); //少しバラけるように
                         }
                     }
                 }
             } else {
                 //レーザーを打ち切った
-                _pProg->changeNext();
+                pProg->changeNext();
             }
             break;
         }
 
         case PROG_HATCH_CLOSE: {
-            if (_pProg->isJustChanged()) {
-                _pSeTx->play3D(SE_HATCH_CLOSE);
-                _pMorpher->transitionLinerUntil(1, 0.0, 120);
+            if (pProg->isJustChanged()) {
+                getSeTx()->play3D(SE_HATCH_CLOSE);
+                getMorpher()->transitionLinerUntil(1, 0.0, 120);
             }
-            if (_pProg->getFrameInProgress() == 120) {
-                _pProg->changeNext();
+            if (pProg->getFrameInProgress() == 120) {
+                pProg->changeNext();
             }
             break;
         }
 
         case PROG_NOTHING: {
-            if (_pProg->getFrameInProgress() == 600) {
-                _pProg->change(PROG_MOVE);
+            if (pProg->getFrameInProgress() == 600) {
+                pProg->change(PROG_MOVE);
             }
             break;
         }
     }
-    _pKuroko->behave();
-    _pMorpher->behave();
+    pKuroko->behave();
+    getMorpher()->behave();
 }
 
 void EnemyEsperia::processJudgement() {
@@ -334,10 +338,10 @@ void EnemyEsperia::onHit(GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊時
-        _pSeTx->play3D(SE_EXPLOSION);
+        getSeTx()->play3D(SE_EXPLOSION);
     } else {
         //非破壊時
-        _pSeTx->play3D(SE_DAMAGED);
+        getSeTx()->play3D(SE_DAMAGED);
     }
 }
 

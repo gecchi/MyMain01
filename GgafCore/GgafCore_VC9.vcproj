@@ -395,6 +395,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\jp\ggaf\core\util\GgafEnumIndex.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\jp\ggaf\core\exception\GgafException.h"
 				>
 			</File>
@@ -508,6 +512,14 @@
 			</File>
 			<File
 				RelativePath=".\include\jp\ggaf\core\util\GgafUtil.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\jp\ggaf\core\util\GgafValueAccelerator.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\include\jp\ggaf\core\util\GgafValueTransitioner.hpp"
 				>
 			</File>
 			<File

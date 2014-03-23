@@ -21,9 +21,12 @@ Shot001::Shot001(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Flora", STATUS(Shot001)) {
     _class_name = "Shot001";
     pScaler_ = NEW GgafDxScaler(this);
-    _pSeTx->set(0, "WAVE_EXPLOSION_002");
+
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(0, "WAVE_EXPLOSION_002");
+
     pSplLineConnection_ = (SplineLineConnection*)(P_GOD->pSpl3DManager_->connect("Spl_HAN", this)); //スプライン定義
-    pKurokoLeader_ = NEW FixedVelocitySplineKurokoLeader(_pKuroko, pSplLineConnection_->peek(), 10000); //移動速度固定
+    pKurokoLeader_ = NEW FixedVelocitySplineKurokoLeader(getKuroko(), pSplLineConnection_->peek(), 10000); //移動速度固定
 }
 
 void Shot001::initialize() {
@@ -36,9 +39,10 @@ void Shot001::initialize() {
 void Shot001::onActive() {
     _pStatus->reset();
     setHitAble(true);
-    _pKuroko->relateFaceWithMvAng(true);
-    _pKuroko->setMvVelo(RF_Shot001_MvVelo(G_RANK));    //移動速度
-    _pKuroko->setFaceAngVelo(AXIS_X, RF_Shot001_AngVelo(G_RANK)); //きりもみ具合
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->relateFaceWithMvAng(true);
+    pKuroko->setMvVelo(RF_Shot001_MvVelo(G_RANK));    //移動速度
+    pKuroko->setFaceAngVelo(AXIS_X, RF_Shot001_AngVelo(G_RANK)); //きりもみ具合
     pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION);
     pScaler_->beat(30,5,0,2,-1);
 }
@@ -46,9 +50,10 @@ void Shot001::onActive() {
 void Shot001::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    GgafDxKuroko* pKuroko = getKuroko();
     //座標に反映
     pKurokoLeader_->behave(); //スプライン移動を振る舞い
-    _pKuroko->behave();
+    pKuroko->behave();
     pScaler_->behave();
 }
 
@@ -63,14 +68,14 @@ void Shot001::onHit(GgafActor* prm_pOtherActor) {
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         setHitAble(false); //以降同一フレーム内でヒットさせない。
         UTIL::activateExplosionEffectOf(this); //爆発エフェクト出現
-        _pSeTx->play3D(0);
+        getSeTx()->play3D(0);
         if (pOther->getKind() & KIND_MY) { //自機側に撃たれて消滅の場合は
             UTIL::activateItemOf(this); //アイテム出現
         }
         sayonara();
     }
 
-    //_pSeTx->behave();
+    //getSeTx()->behave();
 }
 
 

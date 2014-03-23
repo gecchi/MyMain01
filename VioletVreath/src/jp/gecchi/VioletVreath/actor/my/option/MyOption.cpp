@@ -103,9 +103,10 @@ MyOption::MyOption(const char* prm_name, uint32_t prm_no, MyOptionController* pr
     //フォトンコントローラー
     pTorpedoCtrler_ = NEW MyTorpedoController("TorpedoController", this, pLockonCtrler_);
     addSubGroup(pTorpedoCtrler_);
-    _pSeTx->set(SE_FIRE_LASER,   "WAVE_MY_FIRE_LASER_002");
-    _pSeTx->set(SE_FIRE_SHOT,    "WAVE_MY_FIRE_SHOT_002");
-    _pSeTx->set(SE_FIRE_TORPEDO, "WAVE_MY_FIRE_TORPEDO_002");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_FIRE_LASER,   "WAVE_MY_FIRE_LASER_002");
+    pSeTx->set(SE_FIRE_SHOT,    "WAVE_MY_FIRE_SHOT_002");
+    pSeTx->set(SE_FIRE_TORPEDO, "WAVE_MY_FIRE_TORPEDO_002");
     //prepareSe(0,"bse5", GgafRepeatSeq::nextVal("CH_bse5"));
     need_adjust_pos_flg_ = false;
 }
@@ -120,21 +121,22 @@ void MyOption::initialize() {
 
 void MyOption::onReset() {
     angveloMove_ = ((1.0f*veloMv_ / radiusPosition_)*(double)D180ANG)/PI;
-    _pKuroko->setMvVelo(veloMv_);
-    _pKuroko->setRzMvAng(angPosition_+D90ANG);
-    _pKuroko->setRyMvAng(-D90ANG);
-    _pKuroko->setRzMvAngVelo(angveloMove_);//∵半径Ｒ＝速度Ｖ／角速度ω
-    _pKuroko->setRyMvAngVelo(0);//∵半径Ｒ＝速度Ｖ／角速度ω
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setMvVelo(veloMv_);
+    pKuroko->setRzMvAng(angPosition_+D90ANG);
+    pKuroko->setRyMvAng(-D90ANG);
+    pKuroko->setRzMvAngVelo(angveloMove_);//∵半径Ｒ＝速度Ｖ／角速度ω
+    pKuroko->setRyMvAngVelo(0);//∵半径Ｒ＝速度Ｖ／角速度ω
     _z = ANG_COS(angPosition_)*radiusPosition_; //X軸中心回転なのでXYではなくてZY
     _y = ANG_SIN(angPosition_)*radiusPosition_; //X軸の正の方向を向いて時計回りに配置
                                                 //ワールド変換の（左手法）のX軸回転とはと逆の回転なので注意
     _x = 0;
-    _pKuroko->setFaceAngVelo(AXIS_X, 4000);
+    pKuroko->setFaceAngVelo(AXIS_X, 4000);
     //ローカル座標系を、(x_org_,y_org_,z_org_) へ退避
     x_org_ = _x;
     y_org_ = _y;
     z_org_ = _z;
-    angPosition_ = _pKuroko->_angRzMv;
+    angPosition_ = pKuroko->_angRzMv;
 
     adjust_angPos_seq_progress_ = 0;
     adjust_angPos_seq_new_angPosition_base_ = angPosition_;
@@ -198,12 +200,13 @@ void MyOption::setRadiusPosition(int prm_radius) {
 //    z_org_ = _z;
 //より前
 //でしか呼び出してはいけません。
+    GgafDxKuroko* pKuroko = getKuroko();
     radiusPosition_ = prm_radius;
     if (radiusPosition_ == -1  || radiusPosition_ == 0 || radiusPosition_ == 1) {
         _z = _y = 0;
-        _pKuroko->setRzMvAng(D90ANG);
+        pKuroko->setRzMvAng(D90ANG);
         angveloMove_ = 0;
-        _pKuroko->setRzMvAngVelo(angveloMove_);
+        pKuroko->setRzMvAngVelo(angveloMove_);
         return;
 
     }
@@ -221,9 +224,9 @@ void MyOption::setRadiusPosition(int prm_radius) {
     //もしprm_lenが0の場合、理論的には元の位置に戻るはずなのだが、
     //誤差丸め込みのため、微妙に位置が変わる。
     //よって、移動方角、移動角速度を現在の位置(_z,_y)で再設定しなければズレる。
-    _pKuroko->setRzMvAng(angZY_ROTANG_x + D90ANG);
+    pKuroko->setRzMvAng(angZY_ROTANG_x + D90ANG);
     angveloMove_ = ((1.0*veloMv_ / radiusPosition_)*(double)D180ANG)/PI;
-    _pKuroko->setRzMvAngVelo(angveloMove_);
+    pKuroko->setRzMvAngVelo(angveloMove_);
 }
 
 
@@ -238,7 +241,7 @@ void MyOption::adjustAngPosition(angle prm_new_angPosition_base, frame prm_spent
 void MyOption::processBehavior() {
     MyShip* pMyShip = P_MYSHIP;
     VirtualButton* pVbPlay = VB_PLAY;
-    GgafDxKuroko* const pKuroko = _pKuroko;
+    GgafDxKuroko* const pKuroko = getKuroko();
     //処理メイン
 
     //退避していたローカル座標系を、(x_org_,y_org_,z_org_) を
@@ -516,7 +519,7 @@ void MyOption::processBehavior() {
     //しかしまだ色々と回転したいため。あとは普通に計算（力技）で、座標回転、向き回転を行なう。
     //ダミーのアクターを連結しようとしたがいろいろ難しい、Quaternion を使わざるを得ない（のではないか；）。
     //TODO:最適化すべし、Quaternionは便利だが避けたい。いつか汎用化
-    GgafDxKuroko* const pOptionCtrler_pKuroko = pOptionCtrler_->_pKuroko;
+    GgafDxKuroko* const pOptionCtrler_pKuroko = pOptionCtrler_->getKuroko();
     float sin_rz = ANG_SIN(pOptionCtrler_->_rz);
     float cos_rz = ANG_COS(pOptionCtrler_->_rz);
     float sin_ry = ANG_SIN(pOptionCtrler_->_ry);
@@ -589,7 +592,7 @@ void MyOption::processBehavior() {
             pLaserChip->pOrg_ = this;
 
             if (pLaserChip->_pChip_front == nullptr) {
-                _pSeTx->play3D(SE_FIRE_LASER);
+                getSeTx()->play3D(SE_FIRE_LASER);
             }
         }
     } else {
@@ -600,8 +603,8 @@ void MyOption::processBehavior() {
     if (pMyShip->just_shot_) {
         MyShot001* pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
         if (pShot) {
-            GgafDxKuroko* const pShot_pKuroko = pShot->_pKuroko;
-            _pSeTx->play3D(SE_FIRE_SHOT);
+            GgafDxKuroko* const pShot_pKuroko = pShot->getKuroko();
+            getSeTx()->play3D(SE_FIRE_SHOT);
             pShot->positionAs(this);
             pShot->setFaceAng(_rx, _ry, _rz);
             pShot_pKuroko->setRzRyMvAng(_rz, _ry);
@@ -610,13 +613,13 @@ void MyOption::processBehavior() {
     //光子魚雷発射
     if (pVbPlay->isPushedDown(VB_SHOT2)) {
         if (pTorpedoCtrler_->fire()) {
-            _pSeTx->play3D(SE_FIRE_TORPEDO);
+            getSeTx()->play3D(SE_FIRE_TORPEDO);
         }
     }
-//    _pSeTx->behave();
+//    getSeTx()->behave();
 
 //    if (no_ == 3 ) {
-//        if (_pKuroko->_angveloRzMv == 0 || _pKuroko->_angveloRzMv == 360000) {
+//        if (pKuroko->_angveloRzMv == 0 || pKuroko->_angveloRzMv == 360000) {
 //            if (veloMv_ == 1000) {
 //                if (radiusPosition_ == 1) {
 //                    _TRACE_(getBehaveingFrame()<<":before 遠ざかる成立！！！");
@@ -624,7 +627,7 @@ void MyOption::processBehavior() {
 //            }
 //
 //        }
-//        _TRACE_(getBehaveingFrame()<<":after  radiusPosition_="<<radiusPosition_<<" radiusPosition_stopping_="<<radiusPosition_stopping_<<" _angveloRzMv="<<(_pKuroko->_angveloRzMv)<<" veloMv_="<<veloMv_);
+//        _TRACE_(getBehaveingFrame()<<":after  radiusPosition_="<<radiusPosition_<<" radiusPosition_stopping_="<<radiusPosition_stopping_<<" _angveloRzMv="<<(pKuroko->_angveloRzMv)<<" veloMv_="<<veloMv_);
 //    }
 
 }

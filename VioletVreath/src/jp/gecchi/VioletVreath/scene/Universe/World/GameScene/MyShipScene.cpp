@@ -95,7 +95,7 @@ void MyShipScene::onReset() {
         papOptionCtrler_[i]->resetTree();
     }
     fadeoutSceneWithBgm(0);
-    _pProg->reset(MyShipScene::PROG_INIT);
+    getProgress()->reset(MyShipScene::PROG_INIT);
     P_UNIVERSE->resetCamWorker();
 }
 
@@ -104,8 +104,8 @@ void MyShipScene::onActive() {
 }
 
 void MyShipScene::processBehavior() {
-
-    switch (_pProg->getFromProgOnChange()) {
+     SceneProgress* pProg = getProgress();
+    switch (pProg->getFromProgOnChange()) {
         case MyShipScene::PROG_BEGIN: {
             P_UNIVERSE->undoCameraWork(); //MyShipDivingCamWorker解除
             break;
@@ -114,9 +114,9 @@ void MyShipScene::processBehavior() {
             break;
     }
 
-    switch (_pProg->get()) {
+    switch (pProg->get()) {
         case MyShipScene::PROG_INIT: {
-            _pProg->change(MyShipScene::PROG_BEGIN);
+            pProg->change(MyShipScene::PROG_BEGIN);
             if (P_UNIVERSE->getActiveCamWorker() != pVamSysCamWorker_) {
                 pVamSysCamWorker_ = (VamSysCamWorker*)(P_UNIVERSE->switchCameraWork("VamSysCamWorker"));
                 pVamSysCamWorker_->pMyShip_ = pMyShip_;
@@ -125,7 +125,7 @@ void MyShipScene::processBehavior() {
         }
 
         case MyShipScene::PROG_BEGIN: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 fadeinScene(120);
                 pMyShip_->resetTree();
 
@@ -152,20 +152,20 @@ void MyShipScene::processBehavior() {
             if (pMyShip_->_x > 0) {
                 pMyShip_->_x = 0;
                 pMyShip_->is_diving_ = false;
-                _pProg->change(MyShipScene::PROG_PLAY);
+                pProg->change(MyShipScene::PROG_PLAY);
             }
             break;
         }
 
         case MyShipScene::PROG_PLAY: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
             }
             //イベント EVENT_MY_SHIP_WAS_DESTROYED_BEGIN 待ち
             break;
         }
 
         case MyShipScene::PROG_DESTROY: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 pEffectMyShipExplosion_->activate(); //爆発
                 pMyShip_->can_control_ = false;
                 for (int i = 0; i < MyOptionController::max_option_num_; i ++) {
@@ -175,19 +175,19 @@ void MyShipScene::processBehavior() {
                 std::string z(G_ZANKI, '*');
                 pLabelZanki_->update(z.c_str());
             }
-            if (_pProg->getFrameInProgress() == 120) {
+            if (pProg->getFrameInProgress() == 120) {
                 fadeoutScene(120);
                 pMyShip_->inactivateDelay(120);
             }
-            if (_pProg->getFrameInProgress() == 240) {
+            if (pProg->getFrameInProgress() == 240) {
                 if (G_ZANKI == 0) {
                    throwEventUpperTree(EVENT_ALL_MY_SHIP_WAS_DESTROYED);
                    P_UNIVERSE->undoCameraWork(); //VamSysCamWorker解除
-                   _pProg->changeNothing();
+                   pProg->changeNothing();
                    inactivate();
                 } else {
                    throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_FINISH);//←現在未使用
-                   _pProg->change(MyShipScene::PROG_BEGIN);
+                   pProg->change(MyShipScene::PROG_BEGIN);
                 }
             }
             break;
@@ -199,9 +199,10 @@ void MyShipScene::processBehavior() {
 }
 
 void MyShipScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
+    SceneProgress* pProg = getProgress();
     if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_BEGIN) {
         _TRACE_("MyShipScene EVENT_MY_SHIP_WAS_DESTROYED_BEGIN was Catch!!");
-       _pProg->change(MyShipScene::PROG_DESTROY);
+       pProg->change(MyShipScene::PROG_DESTROY);
     }
 }
 

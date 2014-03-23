@@ -44,89 +44,92 @@ void EnemyGlajaLance001::onReset() {
 }
 
 void EnemyGlajaLance001::onActive() {
-    _pKuroko->setMvAcce(0);
-    _pKuroko->setMvVelo(PX_C(3));
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setMvAcce(0);
+    pKuroko->setMvVelo(PX_C(3));
     setFaceAng(0,
-                          RND(D_ANG(0), D_ANG(360)),
-                          RND(D_ANG(0), D_ANG(360)) );
-    _pKuroko->setFaceAngVelo(D_ANG(33), D_ANG(15), D_ANG(20));
-    _pKuroko->relateFaceWithMvAng(true);
+               RND(D_ANG(0), D_ANG(360)),
+               RND(D_ANG(0), D_ANG(360)) );
+    pKuroko->setFaceAngVelo(D_ANG(33), D_ANG(15), D_ANG(20));
+    pKuroko->relateFaceWithMvAng(true);
     _pColliChecker->disable(1);
     _pColliChecker->disable(2);
     pScaler_->reset();
     pScaler_->behave();
     _pStatus->reset();
     setAlpha(0.99);
-    _pProg->reset(PROG_INIT);
+    getProgress()->reset(PROG_INIT);
 }
 
 void EnemyGlajaLance001::processBehavior() {
     MyShip* pMyShip = P_MYSHIP;
-    switch (_pProg->get()) {
+    GgafDxKuroko* pKuroko = getKuroko();
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case PROG_INIT: {
             setHitAble(true, false);
             //_pKuroko->setMvAngTwd(&turning_pos_);
-            _pProg->changeNext();
+            pProg->changeNext();
             break;
         }
         case PROG_MOVE01: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
 
             }
-            if (_pProg->getFrameInProgress() == 120) {
-                _pProg->changeNext();
+            if (pProg->getFrameInProgress() == 120) {
+                pProg->changeNext();
             }
             break;
         }
         case PROG_AIM_ANIME01: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 //シャキーンと槍になる！（伸びる！）
-                _pKuroko->stopMv();
-                _pKuroko->setFaceAngVelo(0, 0, 0);
+                pKuroko->stopMv();
+                pKuroko->setFaceAngVelo(0, 0, 0);
                 pScaler_->transitionAcceStep(AXIS_X, R_SC(30), R_SC(1), R_SC(0.1));
             }
             if (!pScaler_->isTransitioning()) {
                 //槍の両端当たり判定出現
                 _pColliChecker->enable(1);
                 _pColliChecker->enable(2);
-                _pProg->changeNext();
+                pProg->changeNext();
              }
 
              break;
         }
         case PROG_AIM_ANIME02: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 //自機にグルンと向く
-                _pKuroko->hlprB()->turnFaceAngByDtTwd(pMyShip, TURN_ANTICLOSE_TO, false,
+                pKuroko->hlprB()->turnFaceAngByDtTwd(pMyShip, TURN_ANTICLOSE_TO, false,
                                                         30, 0.2, 0.4, 0, true );
             }
-            if (!_pKuroko->isTurningFaceAng()) {
-                _pProg->changeNext();
+            if (!pKuroko->isTurningFaceAng()) {
+                pProg->changeNext();
             }
             break;
         }
         case PROG_MOVE02: {
-            if (_pProg->isJustChanged()) {
-                _pKuroko->setMvAngByFaceAng(); //今向いてる方向にこれから移動する
-                _pKuroko->setMvVelo(-PX_C(2)); //ちょっとバックして貯めを表現
+            if (pProg->isJustChanged()) {
+                pKuroko->setMvAngByFaceAng(); //今向いてる方向にこれから移動する
+                pKuroko->setMvVelo(-PX_C(2)); //ちょっとバックして貯めを表現
                 setRzFaceAng(D_ANG(27)); //スピンスピン
             }
-            if (_pProg->getFrameInProgress() >= 10) {
-                _pProg->changeNext();
+            if (pProg->getFrameInProgress() >= 10) {
+                pProg->changeNext();
             }
             break;
         }
         case PROG_MOVE03: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 //ズキューーンと移動
-                _pKuroko->setMvVelo(PX_C(60));
+                pKuroko->setMvVelo(PX_C(60));
             }
             //画面外 or HIT まで待機
             break;
         }
 
         case PROG_LEAVE: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 //HIT後消えるまで
             }
             addAlpha(-1.0/90.0); //sayonara(90);だから
@@ -135,7 +138,7 @@ void EnemyGlajaLance001::processBehavior() {
     }
     //座標に反映
     pScaler_->behave();
-    _pKuroko->behave();
+    pKuroko->behave();
 }
 
 void EnemyGlajaLance001::processJudgement() {
@@ -154,9 +157,9 @@ void EnemyGlajaLance001::onHit(GgafActor* prm_pOtherActor) {
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         setHitAble(false);
         UTIL::activateExplosionEffectOf(this); //爆発エフェクト
-        _pKuroko->stopMv();
+        getKuroko()->stopMv();
         sayonara(90);
-        _pProg->change(PROG_LEAVE);
+        getProgress()->change(PROG_LEAVE);
     }
 }
 

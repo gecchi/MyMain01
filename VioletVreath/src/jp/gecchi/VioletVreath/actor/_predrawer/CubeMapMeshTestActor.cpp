@@ -29,7 +29,6 @@ void CubeMapMeshTestActor::initialize() {
 
     position(0,0,0);
     setScaleR(0.2);
-    _pKuroko->setRzRyMvAng(0,0);
 }
 
 void CubeMapMeshTestActor::onActive() {

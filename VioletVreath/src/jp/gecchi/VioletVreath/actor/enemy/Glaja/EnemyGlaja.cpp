@@ -23,7 +23,8 @@ EnemyGlaja::EnemyGlaja(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Glaja", STATUS(EnemyGlaja)) {
     _class_name = "EnemyGlaja";
     pAFader_ = NEW GgafDxAlphaFader(this);
-    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     pConn_Shot_ = connect_DepositoryManager("GlajaLance001");
     effectBlendOne(); //‰ÁŽZ‡¬
     setScaleR(0.3);
@@ -42,78 +43,80 @@ void EnemyGlaja::initialize() {
 
 void EnemyGlaja::onActive() {
     _pStatus->reset();
-    _pProg->reset(PROG_INIT);
+    getProgress()->reset(PROG_INIT);
 }
 
 void EnemyGlaja::processBehavior() {
     //‰ÁŽZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ðŒ¸­
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     MyShip* pMyShip = P_MYSHIP;
-    switch (_pProg->get()) {
+    GgafDxKuroko* pKuroko = getKuroko();
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
          case PROG_INIT: {
              setHitAble(false);
              setAlpha(0);
              _TRACE_("keepOnTurningFaceAngTwd keepOnTurningFaceAngTwd");
-             _pKuroko->keepOnTurningFaceAngTwd(pMyShip,
+             pKuroko->keepOnTurningFaceAngTwd(pMyShip,
                                                D_ANG(2), 0, TURN_CLOSE_TO, false);
              setMorphWeight(0.0);
              UTIL::activateEntryEffectOf(this);
-             _pProg->changeNext();
+             pProg->changeNext();
              break;
          }
          case PROG_ENTRY: {
-             if (_pProg->getFrameInProgress() == 60) {
+             if (pProg->getFrameInProgress() == 60) {
                  pAFader_->transitionLinerUntil(1.0, 60);
              }
              if (getAlpha() > 0.5) {
                  setHitAble(true);
-                 _pProg->changeNext();
+                 pProg->changeNext();
              }
              break;
          }
 
          case PROG_MOVE01: {
-             if (_pProg->isJustChanged()) {
+             if (pProg->isJustChanged()) {
                  next_pos_.set(
                              pMyShip->_x + PX_C(300) + RND(PX_C(-100), PX_C(100)),
                              pMyShip->_y + RND(PX_C(-400), PX_C(400)),
                              pMyShip->_z + RND(PX_C(-400), PX_C(400))
                            ); //ŽŸ‚ÌˆÚ“®–Ú•WÀ•W
                  //ƒXƒB[‚Á‚Ænext_pos_‚ÖˆÚ“®
-                 _pKuroko->setMvAngTwd(&next_pos_);
+                 pKuroko->setMvAngTwd(&next_pos_);
                  velo Vt = RF_EnemyGlaja_MvVelo(G_RANK);
                  velo Ve = 100;
                  coord D = UTIL::getDistance(this, &next_pos_);
-                 _pKuroko->hlprA()->slideMvByVd(Vt, D, 0.1, 0.5, Ve, true);
+                 pKuroko->hlprA()->slideMvByVd(Vt, D, 0.1, 0.5, Ve, true);
              }
 
-             if (_pKuroko->hlprA()->isJustFinishSlidingMv()) {
-                 _pProg->changeNext();
+             if (pKuroko->hlprA()->isJustFinishSlidingMv()) {
+                 pProg->changeNext();
              }
              break;
          }
 
          case PROG_MOVE02: {
-             if (_pProg->isJustChanged()) {
+             if (pProg->isJustChanged()) {
              }
-             if (_pProg->getFrameInProgress() == 60) {
-                 _pProg->changeNext();
+             if (pProg->getFrameInProgress() == 60) {
+                 pProg->changeNext();
              }
              break;
          }
 
          case PROG_OPEN: {
-             if (_pProg->isJustChanged()) {
-                 _pMorpher->transitionLinerUntil(MPH_OPEN, 1.0, 30);
+             if (pProg->isJustChanged()) {
+                 getMorpher()->transitionLinerUntil(MPH_OPEN, 1.0, 30);
              }
-             if (_pProg->getFrameInProgress() == 30) {
-                 _pProg->changeNext();
+             if (pProg->getFrameInProgress() == 30) {
+                 pProg->changeNext();
              }
              break;
          }
 
          case PROG_FIRE: {
-             if (_pProg->isJustChanged()) {
+             if (pProg->isJustChanged()) {
                  num_fire_ = RF_EnemyGlaja_ShotWay(G_RANK);
                  UTIL::shotWay004(
                      this,
@@ -126,18 +129,18 @@ void EnemyGlaja::processBehavior() {
                  );
 
              }
-             if (_pProg->getFrameInProgress() >= num_fire_*5) {
-                 _pProg->changeNext();
+             if (pProg->getFrameInProgress() >= num_fire_*5) {
+                 pProg->changeNext();
              }
              break;
          }
 
          case PROG_CLOSE: {
-             if (_pProg->isJustChanged()) {
-                 _pMorpher->transitionLinerUntil(MPH_OPEN, 0.0, 30);
+             if (pProg->isJustChanged()) {
+                 getMorpher()->transitionLinerUntil(MPH_OPEN, 0.0, 30);
              }
-             if (_pProg->getFrameInProgress() == 30) {
-                 _pProg->change(PROG_MOVE01); //ŒJ‚è•Ô‚µ
+             if (pProg->getFrameInProgress() == 30) {
+                 pProg->change(PROG_MOVE01); //ŒJ‚è•Ô‚µ
              }
              break;
          }
@@ -145,10 +148,10 @@ void EnemyGlaja::processBehavior() {
          default:
              break;
      }
-    _pKuroko->behave();
-    _pMorpher->behave();
+    pKuroko->behave();
+    getMorpher()->behave();
     pAFader_->behave();
-//_TRACE_("EnemyGlaja f:"<<getBehaveingFrame()<<"  pProg="<<_pProg->get()<<"   X,Y,Z="<<_x<<","<<_y<<","<<_z<<" ");
+//_TRACE_("EnemyGlaja f:"<<getBehaveingFrame()<<"  pProg="<<pProg->get()<<"   X,Y,Z="<<_x<<","<<_y<<","<<_z<<" ");
 }
 
 void EnemyGlaja::processJudgement() {
@@ -161,7 +164,7 @@ void EnemyGlaja::onHit(GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //”j‰óŽž
-        _pSeTx->play3D(SE_EXPLOSION);
+        getSeTx()->play3D(SE_EXPLOSION);
     } else {
         //”ñ”j‰óŽž
     }

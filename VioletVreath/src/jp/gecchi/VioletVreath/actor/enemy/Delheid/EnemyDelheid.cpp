@@ -21,9 +21,10 @@ using namespace VioletVreath;
 EnemyDelheid::EnemyDelheid(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Delheid", STATUS(EnemyDelheid)) {
     _class_name = "EnemyDelheid";
-    _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    _pSeTx->set(SE_UNDAMAGED, "WAVE_ENEMY_UNDAMAGED_001");
-    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    pSeTx->set(SE_UNDAMAGED, "WAVE_ENEMY_UNDAMAGED_001");
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
     pProg2_ = createProgress(PROG2_BANPEI-1);
     shot_begin_frame_ = 0;
@@ -61,12 +62,13 @@ void EnemyDelheid::onActive() {
     }
     _pStatus->reset();
     setHitAble(true);
-    _pMorpher->reset();
+    getMorpher()->reset();
     setRzFaceAng(0);
-    _pKuroko->setMvAcce(0);
-    _pKuroko->keepOnTurningFaceAngTwd(P_MYSHIP,
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setMvAcce(0);
+    pKuroko->keepOnTurningFaceAngTwd(P_MYSHIP,
                                        D_ANG(1), 0, TURN_CLOSE_TO, false);
-    _pProg->reset(PROG_INIT);
+    getProgress()->reset(PROG_INIT);
     pProg2_->reset(PROG2_WAIT);
 }
 
@@ -76,14 +78,15 @@ void EnemyDelheid::processBehavior() {
     MyShip* pMyShip = P_MYSHIP;
 
     //移動の状態遷移------------------------------
-    switch (_pProg->get()) {
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case PROG_INIT: {
             pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION);
-            _pProg->changeNext();
+            pProg->changeNext();
             break;
         }
         case PROG_SPLINE_MOVING: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
             }
             //processJudgement() で pKurokoLeader_->isFinished() 成立待ち
             break;
@@ -91,7 +94,7 @@ void EnemyDelheid::processBehavior() {
 
         //ゴールのアリサナがいない場合、その後の移動
         case PROG_AFTER_LEAD: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 //もう2回だけ同じスプライン移動する
                 pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION, 2);
             }
@@ -113,9 +116,9 @@ void EnemyDelheid::processBehavior() {
         }
         case PROG2_OPEN: {
             if (pProg2_->isJustChanged()) {
-                _pMorpher->transitionAcceStep(MPH_OPEN, 1.1, 0, 0.001);
+                getMorpher()->transitionAcceStep(MPH_OPEN, 1.1, 0, 0.001);
             }
-            if (!_pMorpher->isTransitioning()) {
+            if (!getMorpher()->isTransitioning()) {
                 setMorphWeight(MPH_OPEN, 1.0);
                 pProg2_->changeNext();
             }
@@ -148,9 +151,9 @@ void EnemyDelheid::processBehavior() {
         }
         case PROG2_CLOSE: {
             if (pProg2_->isJustChanged()) {
-                _pMorpher->transitionAcceStep(MPH_OPEN, 0.0, 0, -0.01);
+                getMorpher()->transitionAcceStep(MPH_OPEN, 0.0, 0, -0.01);
             }
-            if (!_pMorpher->isTransitioning()) {
+            if (!getMorpher()->isTransitioning()) {
                 pProg2_->changeNothing();
             }
 
@@ -158,24 +161,24 @@ void EnemyDelheid::processBehavior() {
         }
     }
     //-----------------------------------------------
-
-    _pKuroko->_angveloFace[AXIS_X] = _pKuroko->_veloMv/2;
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->_angveloFace[AXIS_X] = pKuroko->_veloMv/2;
     pKurokoLeader_->behave(); //スプライン移動を振る舞い
-    _pKuroko->behave();
-    _pMorpher->behave();
+    pKuroko->behave();
+    getMorpher()->behave();
 }
 
 void EnemyDelheid::processJudgement() {
-
-    switch (_pProg->get()) {
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case PROG_SPLINE_MOVING: {
             if (pKurokoLeader_->isFinished()) {
                 if (((FormationDelheid*)getFormation())->pAlisana_goal) {
                     //ゴールが存在する場合、そこでさよなら。
-                    _pProg->changeNothing();
+                    pProg->changeNothing();
                     sayonara();
                 } else {
-                    _pProg->change(PROG_AFTER_LEAD);
+                    pProg->change(PROG_AFTER_LEAD);
                 }
             }
             break;
@@ -185,7 +188,7 @@ void EnemyDelheid::processJudgement() {
         case PROG_AFTER_LEAD: {
             if (pKurokoLeader_->isFinished()) {
                 //もう2回のスプライン移動も終わった場合
-                _pProg->change(PROG_AFTER_LEAD_MOVING);
+                pProg->change(PROG_AFTER_LEAD_MOVING);
             }
             break;
         }
@@ -201,14 +204,14 @@ void EnemyDelheid::onHit(GgafActor* prm_pOtherActor) {
         bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
         if (was_destroyed) {
             //破壊時
-            _pSeTx->play3D(SE_EXPLOSION);
+            getSeTx()->play3D(SE_EXPLOSION);
         } else {
             //非破壊時
-            _pSeTx->play3D(SE_DAMAGED);
+            getSeTx()->play3D(SE_DAMAGED);
         }
     } else {
         //開いてないので当たらない
-        _pSeTx->play3D(SE_UNDAMAGED);
+        getSeTx()->play3D(SE_UNDAMAGED);
     }
 }
 

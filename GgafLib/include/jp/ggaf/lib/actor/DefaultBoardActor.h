@@ -12,9 +12,9 @@ namespace GgafLib {
  * <TABLE border=1>
  * <TR bgcolor="#AABBCC"><TH>参照変数</TH><TH>概要</TH><TH>CLASS名</TH></TR>
  * <TR><TD>_pProg</TD><TD>進捗管理</TD><TD>GgafCore::GgafProgress</TD></TR>
- * <TR><TD>_pKroko</TD><TD>黒衣。移動支援(※正面方角回転機能はZ軸回転のみ有効)</TD><TD>GgafDxCore::GgafDxKuroko</TD></TR>
+ * <TR><TD>getKuroko()</TD><TD>黒衣。移動支援(※正面方角回転機能はZ軸回転のみ有効)</TD><TD>GgafDxCore::GgafDxKuroko</TD></TR>
  * <TR><TD>_pUvFlipper</TD><TD>パラパラアニメーション支援</TD><TD>GgafDxCore::GgafDxUvFlipper</TD></TR>
- * <TR><TD>_pSeTx</TD><TD>効果音発生管理</TD><TD>GgafDxCore::GgafDxSeTransmitter</TD></TR>
+ * <TR><TD>getSeTx()</TD><TD>効果音発生管理</TD><TD>GgafDxCore::GgafDxSeTransmitter</TD></TR>
  * </TABLE>
  * @version 1.00
  * @since 2009/03/11

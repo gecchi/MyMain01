@@ -24,11 +24,11 @@ void EffectOptionMagic001::initialize() {
 }
 
 void EffectOptionMagic001::onActive() {
-    _pKuroko->setFaceAngVelo(PX_C(3), PX_C(5), PX_C(7));
+    getKuroko()->setFaceAngVelo(PX_C(3), PX_C(5), PX_C(7));
 }
 
 void EffectOptionMagic001::processBehavior() {
-    _pKuroko->behave();
+    getKuroko()->behave();
     pAxsMver_->behave();
 }
 

@@ -32,7 +32,7 @@ void EffectTorpedoMagic::onActive() {
 
 void EffectTorpedoMagic::processBehavior() {
     _pUvFlipper->behave();
-    _pKuroko->behave();
+    getKuroko()->behave();
     pScaler_->behave();
 }
 

@@ -24,7 +24,8 @@ EnemyAllas::EnemyAllas(const char* prm_name) :
     pKurokoLeader_ = nullptr;
     pDepo_Shot_ = nullptr;
     pDepo_ShotEffect_ = nullptr;
-    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
     useProgress(10);
 }
 
@@ -34,8 +35,9 @@ void EnemyAllas::onCreateModel() {
 
 void EnemyAllas::initialize() {
     setHitAble(true);
-    _pKuroko->setFaceAngVelo(AXIS_Z, -7000);
-    _pKuroko->relateFaceWithMvAng(true);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setFaceAngVelo(AXIS_Z, -7000);
+    pKuroko->relateFaceWithMvAng(true);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
 }
@@ -47,21 +49,22 @@ void EnemyAllas::onActive() {
 
     _pStatus->reset();
    iMovePatternNo_ = 0; //行動パターンリセット
-    _pProg->change(1);
+   getProgress()->change(1);
 }
 
 void EnemyAllas::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-
+    GgafDxKuroko* pKuroko = getKuroko();
+    GgafProgress* pProg = getProgress();
     //【パターン1：スプライン移動】
-    if (_pProg->isJustChangedTo(1)) {
+    if (pProg->isJustChangedTo(1)) {
         pKurokoLeader_->start(SplineKurokoLeader::ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
     }
-    if (_pProg->get() == 1) {
+    if (pProg->get() == 1) {
         //スプライン移動終了待ち
         if (pKurokoLeader_->isFinished()) {
-            _pProg->changeNext(); //次のパターンへ
+            pProg->changeNext(); //次のパターンへ
         }
     }
 
@@ -96,7 +99,7 @@ void EnemyAllas::processBehavior() {
                     pActor_Shot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
                     if (pActor_Shot) {
                         pActor_Shot->positionAs(this);
-                        pActor_Shot->_pKuroko->setRzRyMvAng(paAng_way[i], D90ANG);
+                        pActor_Shot->getKuroko()->setRzRyMvAng(paAng_way[i], D90ANG);
                         pActor_Shot->activate();
                     }
                 }
@@ -110,7 +113,7 @@ void EnemyAllas::processBehavior() {
                 }
             }
 //            //自機へ方向転換
-            _pKuroko->turnMvAngTwd(P_MYSHIP->_x, _y, P_MYSHIP->_z,
+            pKuroko->turnMvAngTwd(P_MYSHIP->_x, _y, P_MYSHIP->_z,
                                     2000, 0,
                                     TURN_CLOSE_TO, true);
             iMovePatternNo_++; //次の行動パターンへ
@@ -126,8 +129,8 @@ void EnemyAllas::processBehavior() {
     if (pKurokoLeader_) {
         pKurokoLeader_->behave(); //スプライン移動を振る舞い
     }
-    _pKuroko->behave();
-    //_pSeTx->behave();
+    pKuroko->behave();
+    //getSeTx()->behave();
 }
 
 void EnemyAllas::processJudgement() {
@@ -140,7 +143,7 @@ void EnemyAllas::onHit(GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊時
-        _pSeTx->play3D(SE_EXPLOSION);
+        getSeTx()->play3D(SE_EXPLOSION);
     } else {
         //非破壊時
     }

@@ -18,7 +18,7 @@ EnemyWateringLaserChip001::EnemyWateringLaserChip001(const char* prm_name) :
 }
 
 void EnemyWateringLaserChip001::initialize() {
-    _pKuroko->relateFaceWithMvAng(true);
+    getKuroko()->relateFaceWithMvAng(true);
     registerHitAreaCube_AutoGenMidColli(50000);
     setHitAble(true);
     setScaleR(6.0);
@@ -31,13 +31,14 @@ void EnemyWateringLaserChip001::onCreateModel() {
 
 void EnemyWateringLaserChip001::onActive() {
     WateringLaserChip::onActive();
-    _pKuroko->setMvVelo(PX_C(80));
-    _pKuroko->setMvAcce(300);
+    getKuroko()->setMvVelo(PX_C(80));
+    getKuroko()->setMvAcce(300);
     _pStatus->reset();
 }
 
 void EnemyWateringLaserChip001::processBehavior() {
-    _pKuroko->behave();
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->behave();
     WateringLaserChip::processBehavior();//À•W‚ğˆÚ“®‚³‚¹‚Ä‚©‚çŒÄ‚Ño‚·‚±‚Æ
 }
 

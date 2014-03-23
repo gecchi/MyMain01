@@ -14,11 +14,11 @@ void TestActor::initialize() {
     setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL);
     position(C_x, C_y);
     setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-//    _pKuroko->setFaceAngVelo(AXIS_Z, D_ANG(1));
+//    getKuroko()->setFaceAngVelo(AXIS_Z, D_ANG(1));
 }
 
 void TestActor::processBehavior() {
-//    _pKuroko->behave(); //黒衣を活動させる（Z軸回転する）
+//    getKuroko()->behave(); //黒衣を活動させる（Z軸回転する）
 }
 
 TestActor::~TestActor() {

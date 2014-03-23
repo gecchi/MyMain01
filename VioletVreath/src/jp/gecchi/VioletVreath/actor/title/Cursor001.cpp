@@ -24,7 +24,7 @@ void Cursor001::onActive() {
 }
 
 void Cursor001::processBehavior() {
-    _pKuroko->behave();
+    getKuroko()->behave();
     _pUvFlipper->behave();
 }
 
@@ -32,8 +32,9 @@ void Cursor001::processJudgement() {
 }
 
 void Cursor001::moveTo(int X, int Y) {
-    _pKuroko->setMvAngTwd(X, Y);
-    _pKuroko->hlprA()->slideMvByDt(UTIL::getDistance(_x, _y, (coord)X, (coord)Y), 8, 0.2, 0.3, 0, true);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setMvAngTwd(X, Y);
+    pKuroko->hlprA()->slideMvByDt(UTIL::getDistance(_x, _y, (coord)X, (coord)Y), 8, 0.2, 0.3, 0, true);
 }
 
 Cursor001::~Cursor001() {

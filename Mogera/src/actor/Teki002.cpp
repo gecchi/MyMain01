@@ -27,9 +27,9 @@ Teki002::Teki002(const char* prm_name) :
 void Teki002::initialize() {
     setScale(4000);
     pScaler_->forceRange(2000, 6000);
-//    _pKuroko->setMvAngTwd(PX_C(320),0,0);
-//    _pKuroko->setMvVelo(PX_C(0));
-//    _pKuroko->relateFaceWithMvAng(true);
+//    getKuroko()->setMvAngTwd(PX_C(320),0,0);
+//    getKuroko()->setMvVelo(PX_C(0));
+//    getKuroko()->relateFaceWithMvAng(true);
     setHitAble(true);
 
 }
@@ -137,7 +137,7 @@ void Teki002::processBehavior() {
 //        }
 //
 //        _TRACE_("前("<<wkrz<<","<<wkry<<") 後("<<angRz_Target_<<","<<angRy_Target_<<")");
-//        _pKuroko->turnRzRyFaceAngTo(
+//        getKuroko()->turnRzRyFaceAngTo(
 //                        angRz_Target_, angRy_Target_,
 //                        aiming_ang_velo_, aiming_ang_velo_*0.04,
 //                        TURN_CLOSE_TO, false);
@@ -226,11 +226,11 @@ void Teki002::processBehavior() {
 //    }
 
 //    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_SPACE)) {
-//        _pKuroko->setMvVelo(PX_C(2));
+//        getKuroko()->setMvVelo(PX_C(2));
 //    }
 //    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Z)) {
 //        angle trz = UTIL::simplifyAng(_rz + D_ANG(170));
-//        _pKuroko->hlprC()->turnRzRyMvAngByDtTo(
+//        getKuroko()->hlprC()->turnRzRyMvAngByDtTo(
 //                trz, 0, TURN_COUNTERCLOCKWISE, false,
 //                60,
 //                0.5, 0.5, 0,
@@ -238,15 +238,15 @@ void Teki002::processBehavior() {
 //    }
 //    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_X)) {
 //        angle trz = UTIL::simplifyAng(_rz + D_ANG(170));
-//        _pKuroko->hlprC()->turnRzRyMvAngByDtTo(
+//        getKuroko()->hlprC()->turnRzRyMvAngByDtTo(
 //                trz, 0, TURN_CLOCKWISE, false,
 //                60,
 //                0.5, 0.5, 0,
 //                true);
 //    }
-//    _pKuroko->behave(); //黒衣を活動させる（Z軸回転する）
+//    getKuroko()->behave(); //黒衣を活動させる（Z軸回転する）
     pScaler_->behave();
-    _pKuroko->behave();
+    getKuroko()->behave();
     pAxMvr_->behave();
 }
 

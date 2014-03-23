@@ -21,7 +21,8 @@ EnemyIrce::EnemyIrce(const char* prm_name) :
     _class_name = "EnemyIrce";
     pScaler_ = NEW GgafDxScaler(this);
     iMovePatternNo_ = 0;
-    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
 }
 
 void EnemyIrce::onCreateModel() {
@@ -33,8 +34,9 @@ void EnemyIrce::onCreateModel() {
 void EnemyIrce::initialize() {
     setHitAble(true);
     setScale(1000);
-    _pKuroko->relateFaceWithMvAng(true);
-    _pKuroko->setMvVelo(3000);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->relateFaceWithMvAng(true);
+    pKuroko->setMvVelo(3000);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB(0, -10000, -10000, -10000, 10000, 10000, 10000);
     _x = PX_C(200);
@@ -48,11 +50,12 @@ void EnemyIrce::onActive() {
 void EnemyIrce::processBehavior() {
     //‰ÁŽZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ðŒ¸­
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-    _pKuroko->turnMvAngTwd(P_MYSHIP,
-                            50, 0, TURN_CLOSE_TO, true);
-    _pKuroko->behave();
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->turnMvAngTwd(P_MYSHIP,
+                          50, 0, TURN_CLOSE_TO, true);
+    pKuroko->behave();
     pScaler_->behave();
-    //_pSeTx->behave();
+    //getSeTx()->behave();
 }
 
 
@@ -66,7 +69,7 @@ void EnemyIrce::onHit(GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //”j‰óŽž
-        _pSeTx->play3D(SE_EXPLOSION);
+        getSeTx()->play3D(SE_EXPLOSION);
     } else {
         //”ñ”j‰óŽž
     }

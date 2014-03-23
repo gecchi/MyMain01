@@ -17,7 +17,7 @@ EnemyOzartiaLaserChip01::EnemyOzartiaLaserChip01(const char* prm_name) :
 }
 
 void EnemyOzartiaLaserChip01::initialize() {
-    _pKuroko->setRzRyMvAng(0,0);
+    getKuroko()->setRzRyMvAng(0,0);
     registerHitAreaCube_AutoGenMidColli(20000);
     setHitAble(true, false); //‰æ–ÊŠO“–‚½‚è”»’è‚Í–³‚µ
     setScaleR(5.0);
@@ -26,8 +26,9 @@ void EnemyOzartiaLaserChip01::initialize() {
 
 void EnemyOzartiaLaserChip01::onActive() {
     StraightLaserChip::onActive();
-    _pKuroko->setMvVelo(100000);
-    _pKuroko->setMvAcce(300);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setMvVelo(100000);
+    pKuroko->setMvAcce(300);
     _pStatus->reset();
 }
 

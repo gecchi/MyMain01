@@ -35,7 +35,7 @@ void TransitStage::initialize() {
 void TransitStage::onReset() {
     _TRACE_("TransitStage::onReset()");
     pMessage_->update("");
-    _pProg->reset(Stage::PROG_INIT);
+    getProgress()->reset(Stage::PROG_INIT);
 }
 
 void TransitStage::onActive() {
@@ -44,33 +44,33 @@ void TransitStage::onActive() {
 }
 void TransitStage::processBehavior() {
     Stage::processBehavior();
-
-    switch (_pProg->get()) {
+    SceneProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case Stage::PROG_INIT: {
             _TRACE_("TransitStage::processBehavior() Prog is Stage::PROG_INIT");
             _TRACE_("TransitStage::processBehavior() 直後 STAGE="<<teansit_stage_<<"→?");
-            _pProg->change(Stage::PROG_BEGIN);
+            pProg->change(Stage::PROG_BEGIN);
             break;
         }
         case Stage::PROG_BEGIN: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 _TRACE_("TransitStage::processBehavior() Prog has Just Changed (to Stage::PROG_BEGIN)");
                 _TRACE_("TransitStage::processBehavior() 直後 STAGE="<<teansit_stage_<<"→?");
             }
 
             //始まって少し猶予
 
-            if (_pProg->getFrameInProgress() == 180) { //通過ステージ開始
-                _pProg->change(Stage::PROG_PLAYING);
+            if (pProg->getFrameInProgress() == 180) { //通過ステージ開始
+                pProg->change(Stage::PROG_PLAYING);
             }
             break;
         }
         case Stage::PROG_PLAYING: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 _TRACE_("TransitStage::processBehavior() Prog has Just Changed (to Stage::PROG_PLAYING)");
                 _TRACE_("TransitStage::processBehavior() 直後 STAGE="<<teansit_stage_<<"→?");
             }
-            if (_pProg->getFrameInProgress() == 120) { //次ステージ開始！
+            if (pProg->getFrameInProgress() == 120) { //次ステージ開始！
                 pMessage_->update("SELECT NEXT STAGE!");
 //                pMessage_->inactivateDelay(240);
             }
@@ -81,17 +81,17 @@ void TransitStage::processBehavior() {
         }
 
         case Stage::PROG_END: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 _TRACE_("TransitStage::processBehavior() Prog has Just Changed (to Stage::PROG_END)");
                 _TRACE_("TransitStage::processBehavior() 直後 STAGE="<<teansit_stage_<<"→"<<next_main_stage_);
                 throwEventUpperTree(EVENT_PREPARE_NEXT_STAGE, (void*)(&next_main_stage_)); //次ステージ準備へ
             }
 
-            if (_pProg->getFrameInProgress() == 120) {
+            if (pProg->getFrameInProgress() == 120) {
                 pMessage_->update("GOOD LUCK!");
             }
 
-            if (_pProg->getFrameInProgress() == 300) {
+            if (pProg->getFrameInProgress() == 300) {
                 _TRACE_("TransitStage::processBehavior() Prog(=Stage::PROG_END) and throwEventUpperTree(EVENT_TRANSIT_WAS_END).");
                 _TRACE_("TransitStage::processBehavior() 直後 STAGE="<<teansit_stage_<<"→"<<next_main_stage_);
                 throwEventUpperTree(EVENT_TRANSIT_WAS_END);
@@ -115,7 +115,7 @@ void TransitStage::onInactive() {
 void TransitStage::onCatchEvent(hashval prm_no, void* prm_pSource) {
     //if (prm_no == EVENT_STG01_CTRLER_WAS_END ) {
     //    _TRACE_("TransitStage::onCatchEvent(EVENT_STG01_CTRLER_WAS_END)");
-    //    _pProg->change(Stage::PROG_END);
+    //    pProg->change(Stage::PROG_END);
     //} else {
     //
     //}
@@ -140,25 +140,26 @@ void TransitStage::ready(int prm_stage) {
     }
 }
 void TransitStage::processBehaviorProgPlaying() {
+    SceneProgress* pProg = getProgress();
     switch (teansit_stage_) {
         case 1:
-             if (_pProg->getFrameInProgress() == 5*60) {
+             if (pProg->getFrameInProgress() == 5*60) {
 
                 //５秒経ったら渡島氏
                 pMessage_->update("OKOKOK!! NEXT STAGE 2");
                 next_main_stage_ = 2;
                 _TRACE_("TransitStage::processBehaviorProgPlaying() 1 GOTO NEXT STAGE="<<teansit_stage_<<"→"<<next_main_stage_);
-                 _pProg->change(Stage::PROG_END);
+                 pProg->change(Stage::PROG_END);
             }
             break;
         case 2:
-            if (_pProg->getFrameInProgress() == 5*60) {
+            if (pProg->getFrameInProgress() == 5*60) {
 
                //５秒経ったら渡島氏
                 pMessage_->update("OKOKOK!! NEXT STAGE 3?");
                next_main_stage_ = 3;
                _TRACE_("TransitStage::processBehaviorProgPlaying() 2 GOTO NEXT STAGE="<<teansit_stage_<<"→"<<next_main_stage_);
-                _pProg->change(Stage::PROG_END);
+                pProg->change(Stage::PROG_END);
            }
             break;
         case 3:

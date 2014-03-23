@@ -27,7 +27,7 @@ void GameOverScene::onReset() {
     fadeoutSceneWithBgm(0);
     pLabel01_->update("");
     pNameEntryScene_ = nullptr;
-    _pProg->reset(GameOverScene::PROG_INIT);
+    getProgress()->reset(GameOverScene::PROG_INIT);
 }
 void GameOverScene::initialize() {
     _TRACE_("GameOverScene::initialize()");
@@ -35,7 +35,7 @@ void GameOverScene::initialize() {
 
 void GameOverScene::processBehavior() {
 
-//    switch (_pProg->getFromProgOnChange()) {
+//    switch (pProg->getFromProgOnChange()) {
 //        case GameOverScene::PROG_DISP: {
 //            fadeoutSceneWithBgm(FADE_FRAMES);
 //            inactivateDelay(FADE_FRAMES);
@@ -46,15 +46,15 @@ void GameOverScene::processBehavior() {
 //            break;
 //    }
 
-
-    switch (_pProg->get()) {
+    SceneProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case GameOverScene::PROG_INIT: {
-            _pProg->change(GameOverScene::PROG_DISP);
+            pProg->change(GameOverScene::PROG_DISP);
             break;
         }
 
         case GameOverScene::PROG_DISP: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 pLabel01_->update(500*1000, 300*1000, "GAME OVER (-_-;)");
                 fadeinScene(FADE_FRAMES);
 
@@ -68,20 +68,20 @@ void GameOverScene::processBehavior() {
                     need_name_entry_ = false;
                 }
             }
-            if (_pProg->getFrameInProgress() == 420) {
+            if (pProg->getFrameInProgress() == 420) {
                 P_UNIVERSE->resetCamWorker();
                 if (need_name_entry_) {
-                    _TRACE_("_pProg->change(GameOverScene::PROG_NAMEENTRY);");
-                    _pProg->change(GameOverScene::PROG_NAMEENTRY);
+                    _TRACE_("pProg->change(GameOverScene::PROG_NAMEENTRY);");
+                    pProg->change(GameOverScene::PROG_NAMEENTRY);
                 } else {
-                    _pProg->change(GameOverScene::PROG_FINISH);
+                    pProg->change(GameOverScene::PROG_FINISH);
                 }
             }
             break;
         }
 
         case GameOverScene::PROG_NAMEENTRY: {
-             if (_pProg->isJustChanged()) {
+             if (pProg->isJustChanged()) {
                  pNameEntryScene_ = (NameEntryScene*)obtainSceneFromFactory(ORDER_ID_NAMEENTRYSCENE);
                  addSubLast(pNameEntryScene_);
              }
@@ -90,7 +90,7 @@ void GameOverScene::processBehavior() {
          }
 
         case GameOverScene::PROG_FINISH: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 if (pNameEntryScene_) {
                     pNameEntryScene_->sayonara();
                 }
@@ -107,7 +107,7 @@ void GameOverScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_NAMEENTRYSCENE_FINISH) {
         //ネームエントリーシーン終了時
         _TRACE_("GameOverScene::onCatchEvent(EVENT_NAMEENTRYSCENE_FINISH)");
-        _pProg->change(PROG_FINISH);
+        getProgress()->change(PROG_FINISH);
     }
 }
 GameOverScene::~GameOverScene() {

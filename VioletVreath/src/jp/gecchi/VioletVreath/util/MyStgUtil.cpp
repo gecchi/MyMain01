@@ -142,7 +142,7 @@ GgafDxDrawableActor* MyStgUtil::activateExplosionEffectOf(GgafDxGeometricActor* 
             pE = dispatchForceFromCommon(EffectExplosion001);
             if (pE) {
                 pE->positionAs(prm_pActor);
-                pE->_pKuroko->takeoverMvFrom(prm_pActor->_pKuroko);
+                pE->getKuroko()->takeoverMvFrom(prm_pActor->getKuroko());
             }
             break;
         }
@@ -150,7 +150,7 @@ GgafDxDrawableActor* MyStgUtil::activateExplosionEffectOf(GgafDxGeometricActor* 
             pE = dispatchForceFromCommon(EffectExplosion002);
             if (pE) {
                 pE->positionAs(prm_pActor);
-                pE->_pKuroko->takeoverMvFrom(prm_pActor->_pKuroko);
+                pE->getKuroko()->takeoverMvFrom(prm_pActor->getKuroko());
             }
             break;
         }
@@ -158,7 +158,7 @@ GgafDxDrawableActor* MyStgUtil::activateExplosionEffectOf(GgafDxGeometricActor* 
             pE = dispatchForceFromCommon(EffectExplosion003);
             if (pE) {
                 pE->positionAs(prm_pActor);
-                pE->_pKuroko->takeoverMvFrom(prm_pActor->_pKuroko);
+                pE->getKuroko()->takeoverMvFrom(prm_pActor->getKuroko());
             }
             break;
         }
@@ -166,8 +166,8 @@ GgafDxDrawableActor* MyStgUtil::activateExplosionEffectOf(GgafDxGeometricActor* 
             pE = dispatchForceFromCommon(EffectExplosion001);
             if (pE) {
                 pE->positionAs(prm_pActor);
-                pE->_pKuroko->setMvVelo(0);
-                pE->_pKuroko->setMvAcce(0);
+                pE->getKuroko()->setMvVelo(0);
+                pE->getKuroko()->setMvAcce(0);
             }
             break;
         }
@@ -206,7 +206,7 @@ GgafDxDrawableActor* MyStgUtil::activateDamagedEffectOf(GgafDxGeometricActor* pr
     if (pE) {
         //出現座標を設定
         pE->positionAs(prm_pActor);
-        pE->_pKuroko->takeoverMvFrom(prm_pActor->_pKuroko);
+        pE->getKuroko()->takeoverMvFrom(prm_pActor->getKuroko());
     }
     return pE;
 }
@@ -392,7 +392,7 @@ GgafDxDrawableActor* MyStgUtil::activateDestroyedEffectOf(GgafDxGeometricActor* 
     if (pE) {
         //出現座標を設定
         pE->positionAs(prm_pActor);
-        pE->_pKuroko->takeoverMvFrom(prm_pActor->_pKuroko);
+        pE->getKuroko()->takeoverMvFrom(prm_pActor->getKuroko());
     }
     return pE;
 }
@@ -544,7 +544,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDxGeometr
             //1は通常のフォーメーションボーナススコア表示エフェクト
             SpriteLabelBonus001* pLabel = dispatchForceFromCommon(SpriteLabelBonus001);
             pLabel->positionAs(prm_pActor);
-            pLabel->_pKuroko->takeoverMvFrom(prm_pActor->_pKuroko);
+            pLabel->getKuroko()->takeoverMvFrom(prm_pActor->getKuroko());
             int addscore = prm_pActor->_pStatus->get(STAT_FormationDestroyedAddScorePoint); //フォーメーション全滅得点
             std::string s = XTOS(addscore);
             pLabel->update(s.c_str());
@@ -552,7 +552,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDxGeometr
 
             EffectTurbo002* pTurbo002 = dispatchForceFromCommon(EffectTurbo002);
             pTurbo002->positionAs(prm_pActor);
-            pTurbo002->_pKuroko->takeoverMvFrom(prm_pActor->_pKuroko);
+            pTurbo002->getKuroko()->takeoverMvFrom(prm_pActor->getKuroko());
             break;
         }
 //            case 2: {
@@ -573,7 +573,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDxGeometr
 //        if (pE) {
 //            //出現座標を設定
 //            pE->positionAs(prm_pActor);
-//            pE->_pKuroko->takeoverMvFrom(prm_pActor->_pKuroko);
+//            pE->getKuroko()->takeoverMvFrom(prm_pActor->getKuroko());
 //        }
     return pE;
 }

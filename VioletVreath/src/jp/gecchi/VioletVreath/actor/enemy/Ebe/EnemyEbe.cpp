@@ -21,9 +21,10 @@ EnemyEbe::EnemyEbe(const char* prm_name) :
     pKurokoLeader_ = nullptr;
     pDepo_Shot_ = nullptr;
     pDepo_ShotEffect_ = nullptr;
-    _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
-    _pKuroko->relateFaceWithMvAng(true);
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
+    getKuroko()->relateFaceWithMvAng(true);
     useProgress(PROG_BANPEI);
 }
 
@@ -53,36 +54,37 @@ void EnemyEbe::onActive() {
     }
     _pStatus->reset();
     setHitAble(true);
-    _pKuroko->setMvAcce(0);
-    _pProg->reset(PROG_MOVE01_1);
+    getKuroko()->setMvAcce(0);
+    getProgress()->reset(PROG_MOVE01_1);
 }
 
 void EnemyEbe::processBehavior() {
     //‰ÁŽZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ðŒ¸­
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     MyShip* pMyShip = P_MYSHIP;
-
-    switch (_pProg->get()) {
+    GgafDxKuroko* pKuroko = getKuroko();
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case PROG_MOVE01_1: {
-            if ((int)(_pProg->getFrameInProgress()) > (int)(PX_C(300) / ABS(_pKuroko->_veloMv))) {
-                _pProg->changeNext();
+            if ((int)(pProg->getFrameInProgress()) > (int)(PX_C(300) / ABS(pKuroko->_veloMv))) {
+                pProg->changeNext();
             }
             break;
         }
 
         case PROG_SPLINE_MOVE: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
                 pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_COORD);
             }
             if (pKurokoLeader_->isFinished()) {
-                _pProg->changeNext();
+                pProg->changeNext();
             }
             break;
         }
 
         case PROG_MOVE02_1: {
-            if (_pProg->isJustChanged()) {
-                _pKuroko->turnMvAngTwd(_x - PX_C(300), _y, _z,
+            if (pProg->isJustChanged()) {
+                pKuroko->turnMvAngTwd(_x - PX_C(300), _y, _z,
                                        D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
 
@@ -91,7 +93,7 @@ void EnemyEbe::processBehavior() {
     }
 
     pKurokoLeader_->behave(); //ƒXƒvƒ‰ƒCƒ“ˆÚ“®‚ðU‚é•‘‚¢
-    _pKuroko->behave();
+    pKuroko->behave();
 }
 
 void EnemyEbe::processJudgement() {
@@ -104,10 +106,10 @@ void EnemyEbe::onHit(GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //”j‰óŽž
-        _pSeTx->play3D(SE_EXPLOSION);
+        getSeTx()->play3D(SE_EXPLOSION);
     } else {
         //”ñ”j‰óŽž
-        _pSeTx->play3D(SE_DAMAGED);
+        getSeTx()->play3D(SE_DAMAGED);
     }
 }
 

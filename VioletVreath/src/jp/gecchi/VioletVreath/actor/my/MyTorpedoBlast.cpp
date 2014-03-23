@@ -24,7 +24,7 @@ MyTorpedoBlast::MyTorpedoBlast(const char* prm_name) :
 
 void MyTorpedoBlast::initialize() {
     _pColliChecker->makeCollision(1);
-    _pKuroko->setFaceAngVelo(D_ANG(0), D_ANG(6), D_ANG(0));
+    getKuroko()->setFaceAngVelo(D_ANG(0), D_ANG(6), D_ANG(0));
     setHitAble(true);
 }
 
@@ -34,7 +34,7 @@ void MyTorpedoBlast::onReset() {
     //onInactive() onActive()‚Å‚ÌÀ‘•‚ğ”ğ‚¯‚é
     _pStatus->reset();
     _pColliChecker->setColliSphere(0, PX_C(10));
-    _pKuroko->setMvVelo(0);
+    getKuroko()->setMvVelo(0);
     setScale(R_SC(1));
     pScaler_->forceRange(R_SC(1), R_SC(400));
     pScaler_->beat(120, 120/2, 0, 120/2, 1); //1‰ñ–c‚ç‚ñ‚Å‚µ‚Ú‚Ş
@@ -45,7 +45,7 @@ void MyTorpedoBlast::processBehavior() {
         sayonara();//–c‚ç‚ñ‚Å‚µ‚Ú‚Ş‚ªI—¹
     } else {
         _pColliChecker->setColliSphere(0, _sx); //“–‚½‚è”»’è‚à•Ï‰»
-        _pKuroko->behave();
+        getKuroko()->behave();
         pScaler_->behave();
     }
 }

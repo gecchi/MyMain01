@@ -134,12 +134,13 @@ void VamSysCamWorker::processBehavior() {
 
     if (is_cam_pos_option_back_) { //TODO:オプション操作中のオプション[0]背面に回る
         coord d = dZ_camera_init_*0.6;
-        mv_t_x_CAM = pOptCtrler->_x + pOptCtrler->_pKuroko->_vX*-d;
-        mv_t_y_CAM = pOptCtrler->_y + pOptCtrler->_pKuroko->_vY*-d;
-        mv_t_z_CAM = pOptCtrler->_z + pOptCtrler->_pKuroko->_vZ*-d;
-        mv_t_x_VP = pOptCtrler->_x + pOptCtrler->_pKuroko->_vX*d;
-        mv_t_y_VP = pOptCtrler->_y + pOptCtrler->_pKuroko->_vY*d;
-        mv_t_z_VP = pOptCtrler->_z + pOptCtrler->_pKuroko->_vZ*d;
+        GgafDxKuroko* pOptCtrler_pKuroko = pOptCtrler->getKuroko();
+        mv_t_x_CAM = pOptCtrler->_x + pOptCtrler_pKuroko->_vX*-d;
+        mv_t_y_CAM = pOptCtrler->_y + pOptCtrler_pKuroko->_vY*-d;
+        mv_t_z_CAM = pOptCtrler->_z + pOptCtrler_pKuroko->_vZ*-d;
+        mv_t_x_VP = pOptCtrler->_x + pOptCtrler_pKuroko->_vX*d;
+        mv_t_y_VP = pOptCtrler->_y + pOptCtrler_pKuroko->_vY*d;
+        mv_t_z_VP = pOptCtrler->_z + pOptCtrler_pKuroko->_vZ*d;
 
     } else {//通常時VAM
         if (pos_camera_ < VAM_POS_TO_BEHIND) {

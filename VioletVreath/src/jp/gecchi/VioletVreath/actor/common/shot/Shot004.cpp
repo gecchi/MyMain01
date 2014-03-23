@@ -29,10 +29,11 @@ void Shot004::initialize() {
 void Shot004::onReset() {
     setScaleR(3.0);
     setAlpha(0.99); //半透明にすることで両面レンダリング
-    _pKuroko->setFaceAngVelo(AXIS_X, D_ANG(3));
-    _pKuroko->setMvVelo(30000);
-    _pKuroko->setMvAcce(1000);
-    _pKuroko->relateFaceWithMvAng(true);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setFaceAngVelo(AXIS_X, D_ANG(3));
+    pKuroko->setMvVelo(30000);
+    pKuroko->setMvAcce(1000);
+    pKuroko->relateFaceWithMvAng(true);
 }
 
 void Shot004::onActive() {
@@ -46,7 +47,7 @@ void Shot004::processBehavior() {
     //弾なので不要
 
     //座標に反映
-    _pKuroko->behave();
+    getKuroko()->behave();
 }
 
 void Shot004::processJudgement() {

@@ -27,14 +27,15 @@ void Shot003::initialize() {
 
 void Shot003::onActive() {
     setHitAble(true);
-    _pKuroko->setMvVelo(20000);
+    getKuroko()->setMvVelo(20000);
 
 }
 
 void Shot003::processBehavior() {
     //加算ランクポイントを減少
     //座標に反映
-    _pKuroko->behave();
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->behave();
 }
 
 void Shot003::processJudgement() {

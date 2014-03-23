@@ -27,11 +27,11 @@ void TestGuShot::initialize() {
 void TestGuShot::onActive() {
     _pStatus->reset();
     setHitAble(true);
-    _pKuroko->setMvVelo(PX_C(30));
+    getKuroko()->setMvVelo(PX_C(30));
 }
 
 void TestGuShot::processBehavior() {
-    _pKuroko->behave();
+    getKuroko()->behave();
 }
 
 void TestGuShot::processJudgement() {

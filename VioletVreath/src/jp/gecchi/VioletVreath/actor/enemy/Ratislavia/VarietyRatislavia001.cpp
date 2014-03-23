@@ -33,10 +33,11 @@ void VarietyRatislavia001::initialize() {
     _x = GgafDxCore::GgafDxUniverse::_x_gone_right+r1_+r2_;
     _y = 0;
     _z = 0;
-    _pKuroko->setRzRyMvAng(D180ANG, 0);
-    _pKuroko->setMvVelo(2000);
-    _pKuroko->setFaceAngVelo(AXIS_Z, 60);
-    _pKuroko->setFaceAngVelo(AXIS_Y, 70);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->setRzRyMvAng(D180ANG, 0);
+    pKuroko->setMvVelo(2000);
+    pKuroko->setFaceAngVelo(AXIS_Z, 60);
+    pKuroko->setFaceAngVelo(AXIS_Y, 70);
 }
 
 void VarietyRatislavia001::processBehavior() {

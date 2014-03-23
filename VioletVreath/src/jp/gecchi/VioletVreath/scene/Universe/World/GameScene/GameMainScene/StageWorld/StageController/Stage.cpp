@@ -19,7 +19,7 @@ Stage::Stage(const char* prm_name) : DefaultScene(prm_name) {
 }
 
 void Stage::initialize() {
-    _pProg->reset(Stage::PROG_INIT);
+    getProgress()->reset(Stage::PROG_INIT);
     CmRandomNumberGenerator::getInstance()->changeSeed(P_MYSHIP->_x + P_MYSHIP->_y + P_MYSHIP->_z);
 }
 

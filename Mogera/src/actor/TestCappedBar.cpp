@@ -18,11 +18,11 @@ TestCappedBar::TestCappedBar(const char* prm_name)
 
 void TestCappedBar::initialize() {
     setScaleR(2.0);
-//    _pKuroko->setFaceAngVelo(AXIS_Z, D_ANG(1));
+//    getKuroko()->setFaceAngVelo(AXIS_Z, D_ANG(1));
 //    _pUvFlipper->exec(FLIP_ORDER_LOOP, 10); //ƒAƒjƒ‡˜
 }
 void TestCappedBar::processBehavior() {
-//    _pKuroko->behave();
+//    getKuroko()->behave();
 //    _pUvFlipper->behave();
 }
 TestCappedBar::~TestCappedBar() {

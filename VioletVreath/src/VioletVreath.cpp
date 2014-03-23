@@ -132,7 +132,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
         //神の誕生
         pGod->createWindow(wcex1, wcex2, szTitle, "secondary", dwStyle, dwStyle, hWnd1, hWnd2);
         // ループ・ザ・ループ
-        ::timeBeginPeriod(1);
         while (true) {
             if (::PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
                 if (msg.message == WM_QUIT) {
@@ -146,7 +145,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                         pGod = nullptr;
                         VioletVreath::Properties::clean();
                     }
-                    ::timeEndPeriod(1);
 
 #ifdef MY_DEBUG
     #ifdef _MSC_VER
@@ -200,8 +198,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                     }
                     return EXIT_SUCCESS;
                 }
-                ::TranslateMessage(&msg);
-                ::DispatchMessage(&msg);
+                TranslateMessage(&msg);
+                DispatchMessage(&msg);
             } else {
                 if (VioletVreath::God::_can_be && pGod->_is_being == false) {
                     pGod->be(); //be() で、この世が動く
@@ -218,7 +216,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
         VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_GgafException.rep");
         VB_UI->_pRpy->outputFile("VB_UI_LAST_GgafException.rep");
         _TRACE_("[GgafCriticalException]:"<<e.getMsg());
-        ::timeEndPeriod(1);
         return EXIT_FAILURE;
     } catch (std::exception& e2) {
         std::string what(e2.what());
@@ -229,7 +226,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
         _TRACE_("[exception]:"<<what);
         VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_exception.rep");
         VB_UI->_pRpy->outputFile("VB_UI_LAST_exception.rep");
-        ::timeEndPeriod(1);
         return EXIT_FAILURE;
     }
 
@@ -242,7 +238,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
         MessageBox(nullptr, message_dialog.c_str(),"下記の致命的な謎例外が発生してしまいました", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
         VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_UNKNOWN_ERROR.rep");
         VB_UI->_pRpy->outputFile("VB_UI_LAST_UNKNOWN_ERROR.rep");
-        ::timeEndPeriod(1);
         return EXIT_FAILURE;
     }
 #endif

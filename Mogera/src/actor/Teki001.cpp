@@ -89,18 +89,18 @@ void Teki001::processBehavior() {
     int dz = PX_C(100)*sz;
 
     if (pressD && press1) {
-        _pKuroko->hlprB()->turnFaceAngByVdTwd(
+        getKuroko()->hlprB()->turnFaceAngByVdTwd(
                 D_ANG(2),
                 _x + dx, _y + dy, _z + dz, TURN_CLOSE_TO, true,
                 0.3, 0.7, 0, true);
     }
     if (pressT && press1) {
-        _pKuroko->hlprB()->turnFaceAngByDtTwd(
+        getKuroko()->hlprB()->turnFaceAngByDtTwd(
                 _x + dx, _y + dy, _z + dz, TURN_CLOSE_TO, true,
                 60,
                 0.3, 0.7, 0, true);
     }
-    _pKuroko->behave(); //黒衣を活動させる（Z軸回転する）
+    getKuroko()->behave(); //黒衣を活動させる（Z軸回転する）
 }
 
 Teki001::~Teki001() {

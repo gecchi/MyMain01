@@ -64,9 +64,9 @@ void FormationUnomia::processBehavior() {
             EnemyUnomia* pUnomia = (EnemyUnomia*)callUpMember(RF_num_formation_col_*RF_num_formation_row_);
             if (pUnomia) {
                 SplineKurokoLeader* pKurokoLeader = papSplManufConnection_[i]->peek()->
-                                              createKurokoLeader(pUnomia->_pKuroko);
+                                              createKurokoLeader(pUnomia->getKuroko());
                 pUnomia->config(pKurokoLeader, nullptr, nullptr);
-                pUnomia->_pKuroko->setMvVelo(RF_mv_velo_);
+                pUnomia->getKuroko()->setMvVelo(RF_mv_velo_);
                 onCallUpUnomia(pUnomia, i); //フォーメーション個別実装の処理
             }
         }
@@ -83,9 +83,10 @@ void FormationUnomia::processBehavior() {
             pShot = (GgafDxGeometricActor*)pDepo_Shot_->dispatch();
             if (pShot) {
                 pShot->positionAs(pUnomia);
-                pShot->_pKuroko->setMvAngTwd(pMy);
-                pShot->_pKuroko->setMvVelo(PX_C(10));
-                pShot->_pKuroko->setMvAcce(0);
+                GgafDxKuroko* pShot_pKuroko = pShot->getKuroko();
+                pShot_pKuroko->setMvAngTwd(pMy);
+                pShot_pKuroko->setMvVelo(PX_C(10));
+                pShot_pKuroko->setMvAcce(0);
             }
             pFollower = _listFollower.next();
         }

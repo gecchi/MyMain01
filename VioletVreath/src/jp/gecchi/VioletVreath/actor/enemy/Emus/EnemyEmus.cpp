@@ -36,8 +36,9 @@ EnemyEmus::EnemyEmus(const char* prm_name) :
 //         );
 //    pLaserChipDepoStore_ = (GgafActorDepositoryStore*)(pConn_LaserChipDepoStore_->peek());
     pLaserChipDepo_ = nullptr;
-    _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
+    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     is_firing_ = false;
     useProgress(PROG_BANPEI);
 }
@@ -51,8 +52,8 @@ void EnemyEmus::onCreateModel() {
 
 void EnemyEmus::initialize() {
     setHitAble(true);
-    _pKuroko->relateFaceWithMvAng(true);
-    _pMorpher->forceRange(MORPHTARGET_HATCH_OPEN, 0.0f, 1.0f);
+    getKuroko()->relateFaceWithMvAng(true);
+    getMorpher()->forceRange(MORPHTARGET_HATCH_OPEN, 0.0f, 1.0f);
     setMorphWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 200000);
@@ -65,43 +66,45 @@ void EnemyEmus::onActive() {
     _pStatus->reset();
     setMorphWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     is_open_hatch_ = false;
-    _pProg->reset(PROG_HATCH_CLOSE);
+    getProgress()->reset(PROG_HATCH_CLOSE);
 }
 
 void EnemyEmus::processBehavior() {
     changeGeoLocal(); //ŒvŽZ‚Íƒ[ƒJƒ‹À•WŒn
-    switch (_pProg->get()) {
+    GgafDxKuroko* pKuroko = getKuroko();
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
         case PROG_INIT: {
-            _pProg->change(PROG_HATCH_CLOSE);
+            pProg->change(PROG_HATCH_CLOSE);
             break;
         }
         case PROG_HATCH_CLOSE: {
-            if (_pProg->isJustChanged()) {
-                _pMorpher->transitionLinerUntil(MORPHTARGET_HATCH_OPEN,
+            if (pProg->isJustChanged()) {
+                getMorpher()->transitionLinerUntil(MORPHTARGET_HATCH_OPEN,
                                            0.0f, frame_of_morph_interval_);
-                _pKuroko->setFaceAngVelo(AXIS_X, 0);
+                pKuroko->setFaceAngVelo(AXIS_X, 0);
             }
 
             //ŽŸ‚Ö
-            if (_pProg->getFrameInProgress() >= frame_of_close_interval_ + frame_of_morph_interval_) {
-                _pProg->change(PROG_HATCH_OPEN);
+            if (pProg->getFrameInProgress() >= frame_of_close_interval_ + frame_of_morph_interval_) {
+                pProg->change(PROG_HATCH_OPEN);
             }
             break;
         }
         case PROG_HATCH_OPEN: {
-            if (_pProg->isJustChanged()) {
-                _pMorpher->transitionLinerUntil(MORPHTARGET_HATCH_OPEN,
+            if (pProg->isJustChanged()) {
+                getMorpher()->transitionLinerUntil(MORPHTARGET_HATCH_OPEN,
                                            1.0f, frame_of_morph_interval_);
-                _pKuroko->setFaceAngVelo(AXIS_X, 3000);
+                pKuroko->setFaceAngVelo(AXIS_X, 3000);
             }
-            if (_pProg->getFrameInProgress() == (frame_of_morph_interval_/2)) {
+            if (pProg->getFrameInProgress() == (frame_of_morph_interval_/2)) {
                 //ŠJ‚­ƒ‚[ƒVƒ‡ƒ“‚ª”¼•ªˆÈã‚Ü‚Å“ž’B‚µ‚½‚È‚ç
-                _pProg->change(PROG_FIRE);
+                pProg->change(PROG_FIRE);
             }
             break;
         }
         case PROG_FIRE: {
-            if (_pProg->isJustChanged()) {
+            if (pProg->isJustChanged()) {
 
                 if (!pLaserChipDepo_) {
                     pLaserChipDepo_ = (LaserChipDepository*)UTIL::getDepositoryOf(this);
@@ -114,10 +117,10 @@ void EnemyEmus::processBehavior() {
             }
 
 
-            if (_pProg->getFrameInProgress() >= (frame_of_morph_interval_/2) + frame_of_open_interval_) {
+            if (pProg->getFrameInProgress() >= (frame_of_morph_interval_/2) + frame_of_open_interval_) {
                 is_firing_ = false;
                 pLaserChipDepo_ = nullptr;
-                _pProg->change(PROG_HATCH_CLOSE);
+                pProg->change(PROG_HATCH_CLOSE);
             }
             break;
         }
@@ -127,8 +130,8 @@ void EnemyEmus::processBehavior() {
     //‰ÁŽZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ðŒ¸­
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
-    _pMorpher->behave();
-    _pKuroko->behave();
+    getMorpher()->behave();
+    pKuroko->behave();
     changeGeoFinal();
 }
 
@@ -138,7 +141,7 @@ void EnemyEmus::processJudgement() {
         LaserChip* pChip = pLaserChipDepo_->dispatch();
         if (pChip) {
             pChip->position(_x, _y, _z);
-            pChip->_pKuroko->setRzRyMvAng(_rz, _ry); //â‘ÎÀ•WŒn‚Å‚ÌŒü‚«
+            pChip->getKuroko()->setRzRyMvAng(_rz, _ry); //â‘ÎÀ•WŒn‚Å‚ÌŒü‚«
         } else {
             is_firing_ = false;
         }
@@ -161,10 +164,10 @@ void EnemyEmus::onHit(GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //”j‰óŽž
-        _pSeTx->play3D(SE_EXPLOSION);
+        getSeTx()->play3D(SE_EXPLOSION);
     } else {
         //”ñ”j‰óŽž
-        _pSeTx->play3D(SE_DAMAGED);
+        getSeTx()->play3D(SE_DAMAGED);
     }
 }
 

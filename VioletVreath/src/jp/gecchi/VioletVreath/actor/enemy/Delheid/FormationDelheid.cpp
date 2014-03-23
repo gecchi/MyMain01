@@ -55,7 +55,7 @@ void FormationDelheid::initialize() {
 
 void FormationDelheid::onActive() {
     updateRankParameter();
-    _pProg->reset(PROG_INIT);
+    getProgress()->reset(PROG_INIT);
 }
 
 void FormationDelheid::processBehavior() {
@@ -71,13 +71,13 @@ void FormationDelheid::processBehavior() {
             pAlisana_goal = nullptr;
         }
     }
-
-    switch (_pProg->get()) {
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
          case PROG_INIT: {
              updateRankParameter();
              //ダミー(pDummy_)を使ってメンバーのスプライン移動の開始位置と方向、終了位置と方向を予め求める
-             pDummy_->config(getSplManuf()->createKurokoLeader(pDummy_->_pKuroko), nullptr);
-             pDummy_->_pKuroko->setMvVelo(RV_MvVelo_);
+             pDummy_->config(getSplManuf()->createKurokoLeader(pDummy_->getKuroko()), nullptr);
+             pDummy_->getKuroko()->setMvVelo(RV_MvVelo_);
              onCallUpDelheid(pDummy_); //メンバー(Delheid)のフォーメーション開始座標と方向を得る
              pDummy_->pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION); //座標計算のためスタート＆オプション指定が必要
              coord next_x, next_y, next_z;             //開始+1 の補完点座標
@@ -97,7 +97,7 @@ void FormationDelheid::processBehavior() {
              pAlisana_goal->acitve_open((frame)(pDummy_->pKurokoLeader_->getTotalDistance() / RV_MvVelo_)); //ハッチオープン予約
 
              pDummy_->sayonara(); //ありがとうダミー
-             _pProg->changeNext();
+             pProg->changeNext();
              break;
          }
          //ハッチ出現＆オープン
@@ -106,12 +106,12 @@ void FormationDelheid::processBehavior() {
              if (pAlisana_start) {
                  if (pAlisana_start->isOpenDone()) {
                      //ハッチオープン完了まで待つ
-                     _pProg->changeNext(); //完了
+                     pProg->changeNext(); //完了
                  }
              } else {
                  //開始ハッチがオープン前にやられた
                  callUpMember(0); //強制招集打ち切り
-                 _pProg->changeNothing(); //本フォーメーション自体終了！
+                 pProg->changeNothing(); //本フォーメーション自体終了！
              }
              //ハッチオープン完了待ち
              break;
@@ -122,16 +122,16 @@ void FormationDelheid::processBehavior() {
                  //開始ハッチがオープンが存在中の場合
                  if (canCallUp()) {
                      //招集未完了時
-                     if (_pProg->getFrameInProgress() % RV_IntervalFrames_ == 0) {
+                     if (pProg->getFrameInProgress() % RV_IntervalFrames_ == 0) {
                          //機数 RV_NumFormation_ 機まで招集
                          EnemyDelheid* pDelheid = (EnemyDelheid*)callUpMember(RV_NumFormation_);
                          if (pDelheid) {
-                             pDelheid->config(getSplManuf()->createKurokoLeader(pDelheid->_pKuroko),
+                             pDelheid->config(getSplManuf()->createKurokoLeader(pDelheid->getKuroko()),
                                                pConn_ShotDepo_->peek() );
-                             pDelheid->_pKuroko->forceMvVeloRange(RV_MvVelo_*2);
-                             pDelheid->_pKuroko->setMvVelo(RV_MvVelo_);
+                             pDelheid->getKuroko()->forceMvVeloRange(RV_MvVelo_*2);
+                             pDelheid->getKuroko()->setMvVelo(RV_MvVelo_);
 
-                             pDelheid->_pKuroko->setMvAcce(0);
+                             pDelheid->getKuroko()->setMvAcce(0);
                              onCallUpDelheid(pDelheid); //下位フォーメーションクラス個別実装の処理
                          } else {
                              //招集おしまい
@@ -140,23 +140,23 @@ void FormationDelheid::processBehavior() {
                  } else {
                      //招集限界時
                      pAlisana_start->close_sayonara();
-                     _pProg->changeNext(); //出現終了！
+                     pProg->changeNext(); //出現終了！
                  }
              } else {
                  //開始ハッチが無い(無くなった)場合
                  callUpMember(0); //強制招集打ち切り（本フォーメションオブジェクトを解放させる条件として必要）
-                 _pProg->changeNext(); //出現終了！
+                 pProg->changeNext(); //出現終了！
              }
              break;
          }
 
          //全メンバー減速
          case PROG_FROMATION_MOVE2: {
-             if (_pProg->isJustChanged()) {
+             if (pProg->isJustChanged()) {
                  _listFollower.executeFunc(FormationDelheid::order1, this, nullptr);
              }
-             if (_pProg->getFrameInProgress() == 120) {
-                 _pProg->changeNext();
+             if (pProg->getFrameInProgress() == 120) {
+                 pProg->changeNext();
              }
 
              break;
@@ -164,29 +164,29 @@ void FormationDelheid::processBehavior() {
 
          //メンバー停滞&発射
          case PROG_FROMATION_MOVE3: {
-             if (_pProg->isJustChanged()) {
+             if (pProg->isJustChanged()) {
                  _listFollower.executeFunc(FormationDelheid::order2, this, nullptr);
              }
-             if (_pProg->getFrameInProgress() == 360) {
-                 _pProg->changeNext(); //停滞終了！
+             if (pProg->getFrameInProgress() == 360) {
+                 pProg->changeNext(); //停滞終了！
              }
              break;
          }
 
          //メンバー再始動
          case PROG_FROMATION_MOVE4: {
-             if (_pProg->isJustChanged()) {
+             if (pProg->isJustChanged()) {
                  _listFollower.executeFunc(FormationDelheid::order3, this, nullptr);
              }
-             if (_pProg->getFrameInProgress() == 120) {
-                 _pProg->changeNext(); //再始動完了
+             if (pProg->getFrameInProgress() == 120) {
+                 pProg->changeNext(); //再始動完了
              }
              break;
          }
 
          //待機
          case PROG_FROMATION_MOVE5: {
-             if (_pProg->isJustChanged()) {
+             if (pProg->isJustChanged()) {
              }
              //onSayonaraAll() コールバック待ち
              break;
@@ -195,7 +195,7 @@ void FormationDelheid::processBehavior() {
 //----------------------------------------------
          //編隊メンバー全機非活動時(onSayonaraAll()時)
          case PROG_LEAVE: {
-             if (_pProg->isJustChanged()) {
+             if (pProg->isJustChanged()) {
                   if (pAlisana_goal) {
                       pAlisana_goal->close_sayonara();
                   }
@@ -212,14 +212,14 @@ void FormationDelheid::order1(GgafCore::GgafActor* prm_pDelheid, void* prm1, voi
     //各メンバー減速
     EnemyDelheid* pMember = (EnemyDelheid*)prm_pDelheid;
     FormationDelheid* pFormation = (FormationDelheid*)prm1;
-    pMember->_pKuroko->setMvAcceByT(120, -(pFormation->RV_MvVelo_/8));
+    pMember->getKuroko()->setMvAcceByT(120, -(pFormation->RV_MvVelo_/8));
 }
 
 void FormationDelheid::order2(GgafCore::GgafActor* prm_pDelheid, void* prm1, void* prm2) {
     //各メンバー停滞&発射
     EnemyDelheid* pMember = (EnemyDelheid*)prm_pDelheid;
     FormationDelheid* pFormation = (FormationDelheid*)prm1;
-    pMember->_pKuroko->setMvAcce(0);
+    pMember->getKuroko()->setMvAcce(0);
     pMember->open_shot(); //ショット発射！
 }
 
@@ -227,13 +227,13 @@ void FormationDelheid::order3(GgafCore::GgafActor* prm_pDelheid, void* prm1, voi
     //各メンバー再始動
     EnemyDelheid* pMember = (EnemyDelheid*)prm_pDelheid;
     FormationDelheid* pFormation = (FormationDelheid*)prm1;
-    pMember->_pKuroko->setMvAcceByT(120, pFormation->RV_MvVelo_);
+    pMember->getKuroko()->setMvAcceByT(120, pFormation->RV_MvVelo_);
 }
 
 void FormationDelheid::onSayonaraAll() {
     //このコールバックが呼び出された時点で、余命は FORMATION_END_DELAY フレームのはず
     _TRACE_("FormationDelheid::onSayonaraAll() です");
-    _pProg->change(PROG_LEAVE);
+    getProgress()->change(PROG_LEAVE);
     //解放を待つ
 }
 
