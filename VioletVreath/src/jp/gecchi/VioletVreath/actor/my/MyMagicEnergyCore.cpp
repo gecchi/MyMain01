@@ -29,13 +29,15 @@ MyMagicEnergyCore::MyMagicEnergyCore(const char* prm_name) :
 }
 
 void MyMagicEnergyCore::onCreateModel() {
-    _pModel->setSpecular(5.0, 1.0);
+    GgafDxModel* pModel = getModel();
+    pModel->setSpecular(5.0, 1.0);
 }
 
 void MyMagicEnergyCore::initialize() {
     setHitAble(true);
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliSphere(0, 1);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliSphere(0, 1);
 }
 
 void MyMagicEnergyCore::onActive() {
@@ -51,10 +53,10 @@ void MyMagicEnergyCore::processBehavior() {
                 100
              );
     if (s > 0.0) {
-        _pColliChecker->enable(0);
-        _pColliChecker->setColliSphere(0, s*PX_C(30));
+        getCollisionChecker()->enable(0);
+        getCollisionChecker()->setColliSphere(0, s*PX_C(30));
     } else {
-        _pColliChecker->disable(0);
+        getCollisionChecker()->disable(0);
     }
 
     pScaler_->behave();

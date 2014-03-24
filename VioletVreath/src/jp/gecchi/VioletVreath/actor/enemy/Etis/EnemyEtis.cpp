@@ -29,7 +29,8 @@ EnemyEtis::EnemyEtis(const char* prm_name) :
 }
 
 void EnemyEtis::onCreateModel() {
-    _pModel->setSpecular(5.0, 1.0);
+    GgafDxModel* pModel = getModel();
+    pModel->setSpecular(5.0, 1.0);
 }
 
 void EnemyEtis::initialize() {
@@ -37,9 +38,10 @@ void EnemyEtis::initialize() {
     for (int i = 0; i < (width_x_ - depth_y_) ; i+= depth_y_) {
         nArea++;
     }
-    _pColliChecker->makeCollision(nArea);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(nArea);
     for (int i = 0, n = 0; i < width_x_-depth_y_; i += depth_y_, n++) {
-        _pColliChecker->setColliAAB(n,
+        pColliChecker->setColliAAB(n,
                                     i - ((depth_y_/2.0)/1.5)-(width_x_/2.0 - depth_y_/2.0), -((depth_y_/2.0)/1.5), -(height_z_/2.0),
                                     i + ((depth_y_/2.0)/1.5)-(width_x_/2.0 - depth_y_/2.0),  ((depth_y_/2.0)/1.5),  (height_z_/2.0),
                                     false, false, true );
@@ -47,7 +49,7 @@ void EnemyEtis::initialize() {
 }
 
 void EnemyEtis::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
     setAlpha(1.0);
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setMvVelo(0);
@@ -63,7 +65,7 @@ void EnemyEtis::onActive() {
 
 void EnemyEtis::processBehavior() {
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
     //座標に反映
     getKuroko()->behave();
     pAxsMver_->behave();

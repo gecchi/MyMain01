@@ -12,7 +12,7 @@ GgafActor::GgafActor(const char* prm_name, GgafStatus* prm_pStat) :
         _pStatus = prm_pStat;
     } else {
         _pStatus = NEW GgafStatus(12);
-        _pStatus->set(0, 0);
+        getStatus()->set(0, 0);
     }
     _pScene_platform = nullptr;
     _pGod = nullptr;

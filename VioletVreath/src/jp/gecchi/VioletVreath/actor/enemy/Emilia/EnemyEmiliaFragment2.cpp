@@ -21,14 +21,15 @@ void EnemyEmiliaFragment2::onCreateModel() {
 void EnemyEmiliaFragment2::initialize() {
     setHitAble(true);
     setScaleR(0.1);
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliSphere(0, PX_C(30));
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliSphere(0, PX_C(30));
     getKuroko()->setFaceAngVelo(D_ANG(0), D_ANG(10), D_ANG(0));
 }
 
 void EnemyEmiliaFragment2::onActive() {
     //ステータスリセット
-    UTIL::resetEnemyEmiliaFragment2Status(_pStatus);
+    UTIL::resetEnemyEmiliaFragment2Status(getStatus());
     setHitAble(true);
 }
 

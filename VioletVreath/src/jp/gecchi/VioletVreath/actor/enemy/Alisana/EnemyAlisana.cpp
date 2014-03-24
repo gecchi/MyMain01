@@ -28,20 +28,21 @@ EnemyAlisana::EnemyAlisana(const char* prm_name) :
 }
 
 void EnemyAlisana::onCreateModel() {
-    _pModel->setSpecular(5.0, 1.0);
+    GgafDxModel* pModel = getModel();
+    pModel->setSpecular(5.0, 1.0);
 }
 
 void EnemyAlisana::initialize() {
-
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB_Cube(0, 200000);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliAAB_Cube(0, 200000);
 
     setHitAble(true);
     setScaleR(1.0);
 }
 
 void EnemyAlisana::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
     getProgress()->reset(PROG_INIT);
     getKuroko()->setFaceAngVelo(AXIS_X, 200);
 }
@@ -111,7 +112,7 @@ void EnemyAlisana::processBehavior() {
             break;
     }
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
     pAFader_->behave();
     getMorpher()->behave();
     getKuroko()->behave();

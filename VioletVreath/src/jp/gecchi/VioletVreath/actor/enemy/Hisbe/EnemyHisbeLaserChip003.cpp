@@ -38,7 +38,7 @@ void EnemyHisbeLaserChip003::initialize() {
 void EnemyHisbeLaserChip003::onActive() {
     WateringLaserChip::onActive();
     //ステータスリセット
-    _pStatus->reset();
+    getStatus()->reset();
     pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION); //向てる方向にスプライン座標をワールド変換
     sp_index_ = 0;
 }

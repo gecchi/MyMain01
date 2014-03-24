@@ -28,7 +28,7 @@ void EnemyStraeaLaserChip002::initialize() {
 void EnemyStraeaLaserChip002::onActive() {
     RefractionLaserChip::onActive();
     //ステータスリセット
-    _pStatus->reset();
+    getStatus()->reset();
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setMvVelo(80000);
     //_pKuroko->setMvAcce(300);

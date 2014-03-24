@@ -181,7 +181,7 @@ void VreathMagic::processEffectingBehavior(int prm_last_level, int prm_now_level
         }
 #endif
         int add_vreath = apaInt_vreath_per_frame_[prm_now_level][f] * r_add_vreath_[prm_now_level];
-        P_MYSHIP->_pStatus->plus(STAT_Stamina, add_vreath);
+        P_MYSHIP->getStatus()->plus(STAT_Stamina, add_vreath);
     } else {
 
     }

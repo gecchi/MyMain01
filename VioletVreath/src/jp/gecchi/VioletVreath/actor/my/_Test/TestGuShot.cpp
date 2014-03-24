@@ -19,13 +19,14 @@ TestGuShot::TestGuShot(const char* prm_name) :
 void TestGuShot::initialize() {
     setHitAble(false);
     setAlpha(0.99);
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB(0, -PX_C(30), -PX_C(30), -PX_C(30),
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliAAB(0, -PX_C(30), -PX_C(30), -PX_C(30),
                                     PX_C(30),  PX_C(30),  PX_C(30));
 }
 
 void TestGuShot::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
     setHitAble(true);
     getKuroko()->setMvVelo(PX_C(30));
 }

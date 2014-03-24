@@ -33,6 +33,10 @@ public:
 
     virtual void drawHitArea() override;
 
+    inline CollisionChecker3D* getCollisionChecker() {
+        return _pColliChecker;
+    }
+
     virtual ~SingleLaser();
 };
 

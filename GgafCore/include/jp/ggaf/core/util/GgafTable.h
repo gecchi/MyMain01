@@ -14,8 +14,8 @@ typedef std::map<std::string, std::string> GgafRecord;
 namespace GgafCore {
 
 /**
- * SELECTクエリを模したオブジェクトを扱うクラス.
- * 内部データを、全て std::string で保持しているTABLEオブジェクトです。
+ * DBのクエリ結果のようなオブジェクトを扱うクラス.
+ * 内部データを全て std::string で保持している。
  * @version 1.00
  * @since 2012/10/02
  * @author Masatoshi Tsuge

@@ -53,27 +53,27 @@ public:
     void onCreateModel() override;
 
     /**
-     * アッポーの初期処理（インスタンス生成後保証）
+     * オルトゥナの初期処理（インスタンス生成後保証）
      */
     void initialize() override;
 
     /**
-     * アッポーのがアクティブになった瞬間の処理 .
+     * オルトゥナのがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 
     /**
-     * アッポーの振る舞い .
+     * オルトゥナの振る舞い .
      */
     void processBehavior() override;
 
     /**
-     * アッポーの振る舞い後の判定処理 .
+     * オルトゥナの振る舞い後の判定処理 .
      */
     void processJudgement() override;
 
     /**
-     * アッポーの衝突時処理 .
+     * オルトゥナの衝突時処理 .
      * @param prm_pOtherActor 衝突対象
      */
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;

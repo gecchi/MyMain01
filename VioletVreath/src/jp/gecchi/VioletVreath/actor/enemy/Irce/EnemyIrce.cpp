@@ -26,9 +26,10 @@ EnemyIrce::EnemyIrce(const char* prm_name) :
 }
 
 void EnemyIrce::onCreateModel() {
-    _pModel->setBlinkPower(0.1, 0.9);
-    _pModel->_pTexBlinker->forceRange(0.1, 1.0);
-    _pModel->_pTexBlinker->beat(120, 60, 0, 60, -1);
+    GgafDxModel* pModel = getModel();
+    pModel->setBlinkPower(0.1, 0.9);
+    pModel->_pTexBlinker->forceRange(0.1, 1.0);
+    pModel->_pTexBlinker->beat(120, 60, 0, 60, -1);
 }
 
 void EnemyIrce::initialize() {
@@ -37,19 +38,20 @@ void EnemyIrce::initialize() {
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->relateFaceWithMvAng(true);
     pKuroko->setMvVelo(3000);
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB(0, -10000, -10000, -10000, 10000, 10000, 10000);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliAAB(0, -10000, -10000, -10000, 10000, 10000, 10000);
     _x = PX_C(200);
 }
 
 void EnemyIrce::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
     iMovePatternNo_ = 0;
 }
 
 void EnemyIrce::processBehavior() {
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->turnMvAngTwd(P_MYSHIP,
                           50, 0, TURN_CLOSE_TO, true);

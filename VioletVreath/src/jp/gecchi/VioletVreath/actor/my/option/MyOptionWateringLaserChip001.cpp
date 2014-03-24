@@ -29,7 +29,7 @@ MyOptionWateringLaserChip001::MyOptionWateringLaserChip001(const char* prm_name)
         WateringLaserChip(prm_name, "MyOptionWateringLaserChip001", STATUS(MyOptionWateringLaserChip001)) {
     _class_name = "MyOptionWateringLaserChip001";
     pAxsMver_ = NEW GgafDxAxesMover(this);
-    default_stamina_ = _pStatus->get(STAT_Stamina);
+    default_stamina_ = getStatus()->get(STAT_Stamina);
     pOrg_ = nullptr;
     lockon_st_ = 0;
     is_lockon_ = false;
@@ -37,14 +37,15 @@ MyOptionWateringLaserChip001::MyOptionWateringLaserChip001(const char* prm_name)
     max_velo_renge_ = 160000; //この値を大きくすると、最高速度が早くなる。
     r_max_acce_ = 20; //この値を大きくすると、カーブが緩くなる
     rr_max_acce_ = 1.0 / r_max_acce_; //計算簡素化用
+    GgafDxModel* pModel = getModel();
     if (!MyOptionWateringLaserChip001::pModel_) {
-        if (_pModel->_num_materials != 3) {
+        if (pModel->_num_materials != 3) {
             throwGgafCriticalException("MyOptionWateringLaserChip001::onCreateModel() MyOptionWateringLaserChip001モデルは、マテリアが３つ必要です。");
         }
-        for (DWORD i = 0; i < _pModel->_num_materials; i ++) {
-            strcpy(MyOptionWateringLaserChip001::aaTextureName[i], _pModel->_papTextureConnection[i]->peek()->getName());
+        for (DWORD i = 0; i < pModel->_num_materials; i ++) {
+            strcpy(MyOptionWateringLaserChip001::aaTextureName[i], pModel->_papTextureConnection[i]->peek()->getName());
         }
-        MyOptionWateringLaserChip001::pModel_ = _pModel;
+        MyOptionWateringLaserChip001::pModel_ = pModel;
     }
 }
 
@@ -61,8 +62,8 @@ void MyOptionWateringLaserChip001::onCreateModel() {
 }
 
 void MyOptionWateringLaserChip001::onActive() {
-    _pStatus->reset();
-    default_stamina_ = _pStatus->get(STAT_Stamina);
+    getStatus()->reset();
+    default_stamina_ = getStatus()->get(STAT_Stamina);
     WateringLaserChip::onActive();
     GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
     if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheTree()) {
@@ -250,15 +251,15 @@ void MyOptionWateringLaserChip001::onHit(GgafActor* prm_pOtherActor) {
         if (stamina <= 0) {
             //一撃でチップ消滅の攻撃力
             //ロックオン可能アクターならロックオン
-            if (pOther->_pStatus->get(STAT_LockonAble) == 1) {
+            if (pOther->getStatus()->get(STAT_LockonAble) == 1) {
                 pOrg_->pLockonCtrler_->lockon(pOther);
             }
             sayonara();
         } else {
             //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
-            _pStatus->set(STAT_Stamina, default_stamina_);
+            getStatus()->set(STAT_Stamina, default_stamina_);
             //ロックオン可能アクターならロックオン
-            if (pOther->_pStatus->get(STAT_LockonAble) == 1) {
+            if (pOther->getStatus()->get(STAT_LockonAble) == 1) {
                 pOrg_->pLockonCtrler_->lockon(pOther);
             }
         }

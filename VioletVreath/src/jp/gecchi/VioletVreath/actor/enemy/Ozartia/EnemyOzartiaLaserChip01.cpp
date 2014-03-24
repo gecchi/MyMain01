@@ -29,7 +29,7 @@ void EnemyOzartiaLaserChip01::onActive() {
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setMvVelo(100000);
     pKuroko->setMvAcce(300);
-    _pStatus->reset();
+    getStatus()->reset();
 }
 
 void EnemyOzartiaLaserChip01::onHit(GgafActor* prm_pOtherActor) {

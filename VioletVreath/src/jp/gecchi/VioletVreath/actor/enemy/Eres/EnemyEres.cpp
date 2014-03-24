@@ -53,13 +53,14 @@ EnemyEres::EnemyEres(const char* prm_name, GgafActorDepository* prm_pDepo_EnemyE
 }
 
 void EnemyEres::initialize() {
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
 }
 
 void EnemyEres::onActive() {
     setHitAble(true);
-    _pStatus->reset();
+    getStatus()->reset();
     iMovePatternNo_ = 0;
     frame_Active_ = 0;
     GgafDxKuroko* pKuroko = getKuroko();
@@ -72,7 +73,7 @@ void EnemyEres::onActive() {
 
 void EnemyEres::processBehavior() {
     //‰ÁŽZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ðŒ¸­
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
 
     //•ûŒü“]Š·
     if (iMovePatternNo_ == 0 && _x > 400000) {

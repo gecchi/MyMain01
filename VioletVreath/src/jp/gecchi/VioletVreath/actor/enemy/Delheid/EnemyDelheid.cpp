@@ -33,7 +33,8 @@ EnemyDelheid::EnemyDelheid(const char* prm_name) :
 }
 
 void EnemyDelheid::onCreateModel() {
-    _pModel->setSpecular(5.0, 1.0);
+    GgafDxModel* pModel = getModel();
+    pModel->setSpecular(5.0, 1.0);
 }
 
 void EnemyDelheid::nextFrame() {
@@ -51,8 +52,9 @@ void EnemyDelheid::config(GgafLib::SplineKurokoLeader* prm_pKurokoLeader,
 }
 
 void EnemyDelheid::initialize() {
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB_Cube(0, 40000);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliAAB_Cube(0, 40000);
     setScaleR(0.3);
 }
 
@@ -60,7 +62,7 @@ void EnemyDelheid::onActive() {
     if (pKurokoLeader_ == nullptr) {
         throwGgafCriticalException("EnemyDelheidはスプライン必須ですconfigして下さい。 this="<<this<<" name="<<getName());
     }
-    _pStatus->reset();
+    getStatus()->reset();
     setHitAble(true);
     getMorpher()->reset();
     setRzFaceAng(0);
@@ -74,7 +76,7 @@ void EnemyDelheid::onActive() {
 
 void EnemyDelheid::processBehavior() {
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
     MyShip* pMyShip = P_MYSHIP;
 
     //移動の状態遷移------------------------------

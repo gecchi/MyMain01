@@ -37,10 +37,11 @@ EnemyOmulus::EnemyOmulus(const char* prm_name) :
 }
 
 void EnemyOmulus::onCreateModel() {
-    _pModel->setBlinkPower(0.1, 0.9);
-    _pModel->_pTexBlinker->forceRange(0.1, 1.0);
-    _pModel->_pTexBlinker->beat(120, 60, 0, 60, -1);
-    _pModel->setSpecular(5.0, 1.0);
+    GgafDxModel* pModel = getModel();
+    pModel->setBlinkPower(0.1, 0.9);
+    pModel->_pTexBlinker->forceRange(0.1, 1.0);
+    pModel->_pTexBlinker->beat(120, 60, 0, 60, -1);
+    pModel->setSpecular(5.0, 1.0);
 }
 
 void EnemyOmulus::initialize() {
@@ -48,8 +49,9 @@ void EnemyOmulus::initialize() {
     getKuroko()->relateFaceWithMvAng(true);
     getMorpher()->forceRange(MORPHTARGET_HATCH_OPEN, 0.0f, 1.0f);
     setMorphWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB_Cube(0, 200000);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliAAB_Cube(0, 200000);
     setScale(1000);
     pScaler_->forceRange(1000, 1200);
     pScaler_->beat(30, 5, 0, 20, -1);
@@ -57,7 +59,7 @@ void EnemyOmulus::initialize() {
 }
 
 void EnemyOmulus::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
     setMorphWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     is_open_hatch_ = false;
 //    frame_of_moment_nextopen_ = frame_of_close_interval_;
@@ -150,7 +152,7 @@ void EnemyOmulus::processBehavior() {
             break;
     }
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
 
 //    if (getActiveFrame() % 10U == 0                   && 1 == 2) {
 //        //自機へ方向を向ける

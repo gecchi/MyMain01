@@ -33,22 +33,24 @@ EnemyGlaja::EnemyGlaja(const char* prm_name) :
 }
 
 void EnemyGlaja::onCreateModel() {
-    _pModel->setSpecular(5.0, 1.0);
+    GgafDxModel* pModel = getModel();
+    pModel->setSpecular(5.0, 1.0);
 }
 
 void EnemyGlaja::initialize() {
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB_Cube(0, 40000);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliAAB_Cube(0, 40000);
 }
 
 void EnemyGlaja::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
     getProgress()->reset(PROG_INIT);
 }
 
 void EnemyGlaja::processBehavior() {
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
     MyShip* pMyShip = P_MYSHIP;
     GgafDxKuroko* pKuroko = getKuroko();
     GgafProgress* pProg = getProgress();

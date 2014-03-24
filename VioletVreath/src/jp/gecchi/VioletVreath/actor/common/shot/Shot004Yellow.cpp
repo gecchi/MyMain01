@@ -22,10 +22,10 @@ Shot004Yellow::Shot004Yellow(const char* prm_name) :
 }
 
 void Shot004Yellow::initialize() {
-
     setHitAble(false);
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB_Cube(0, PX_C(16));
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliAAB_Cube(0, PX_C(16));
 }
 void Shot004Yellow::onReset() {
     setScaleR(3.0);
@@ -44,7 +44,7 @@ void Shot004Yellow::onActive() {
 
 void Shot004Yellow::processBehavior() {
     //加算ランクポイントを減少
-    //_pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    //UTIL::updateEnemyRankPoint(this);
     //弾なので不要
 
     //座標に反映

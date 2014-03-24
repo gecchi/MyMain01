@@ -20,12 +20,12 @@ TestPa::TestPa(const char* prm_name)
 }
 
 void TestPa::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
 }
 
 void TestPa::processBehavior() {
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
     getKuroko()->behave();
     //getSeTx()->behave();
     dispStamina();

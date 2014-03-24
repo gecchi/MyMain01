@@ -25,7 +25,8 @@ EffectMyOption::EffectMyOption(const char* prm_name, MyOption* prm_pOption) :
 }
 
 void EffectMyOption::onCreateModel() {
-    _pModel->setSpecular(5.0, 1.0);
+    GgafDxModel* pModel = getModel();
+    pModel->setSpecular(5.0, 1.0);
 }
 
 void EffectMyOption::initialize() {

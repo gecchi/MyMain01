@@ -26,23 +26,24 @@ EnemyAppho::EnemyAppho(const char* prm_name) :
 }
 
 void EnemyAppho::onCreateModel() {
-//    _pModel->setSpecular(5.0, 1.0);
+//    pModel->setSpecular(5.0, 1.0);
 }
 
 void EnemyAppho::initialize() {
     setScale(100);
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB_Cube(0, 40000);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliAAB_Cube(0, 40000);
 }
 
 void EnemyAppho::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
     getProgress()->reset(PROG_INIT);
 }
 
 void EnemyAppho::processBehavior() {
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
     GgafDxKuroko* pKuroko = getKuroko();
     GgafProgress* pProg = getProgress();
     switch (pProg->get()) {
@@ -96,23 +97,23 @@ void EnemyAppho::processBehavior() {
                  pKuroko->relateFaceWithMvAng(false);
                  //滞留ポイント到着、ふらふら気ままな方向へ移動させる
                  pKuroko->turnMvAngTwd(_x + RND(-PX_C(100),PX_C(100)),
-                                        _y + RND(-PX_C(100),PX_C(100)),
-                                        _z + RND(-PX_C(100),PX_C(100)),
-                                        100, 0, TURN_CLOSE_TO, false);
+                                       _y + RND(-PX_C(100),PX_C(100)),
+                                       _z + RND(-PX_C(100),PX_C(100)),
+                                       100, 0, TURN_CLOSE_TO, false);
                  //ゆっくり自機の方へ向かせる
                  pKuroko->turnFaceAngTwd(P_MYSHIP,
-                                           D_ANG(1), 0, TURN_CLOSE_TO, true);
+                                         D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
              //滞留中
              if (pProg->getFrameInProgress() % 16U == 0) {
                  //ちょくちょく自機を見つめる
                  pKuroko->turnFaceAngTwd(P_MYSHIP,
-                                           D_ANG(1), 0, TURN_CLOSE_TO, true);
+                                         D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
 
              if (pProg->getFrameInProgress() == 180) {
                  //自機の方に向いたら敵弾発射！
-                 int shot_num = RF_EnemyAppho_ShotWay(G_RANK); //弾数、ランク変動
+                 int shot_num   = RF_EnemyAppho_ShotWay(G_RANK);    //弾数、ランク変動
                  velo shot_velo = RF_EnemyAppho_ShotMvVelo(G_RANK); //弾速、ランク変動
                  for (int i = 0; i < shot_num; i++) {
                      GgafDxDrawableActor* pShot = UTIL::activateAttackShotOf(this);
@@ -136,12 +137,12 @@ void EnemyAppho::processBehavior() {
              if (pProg->isJustChanged()) {
                  //ゆっくりさよならポイントへ向ける
                  pKuroko->turnMvAngTwd(&leave_pos_,
-                                         D_ANG(1), D_ANG(1), TURN_CLOSE_TO, false);
+                                       D_ANG(1), D_ANG(1), TURN_CLOSE_TO, false);
                  pKuroko->setMvAcce(10);
              }
              if (pProg->getFrameInProgress() % 16U == 0) {
                  pKuroko->turnFaceAngTwd(P_MYSHIP,
-                                           D_ANG(1), 0, TURN_CLOSE_TO, true);
+                                         D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
              if (!pKuroko->isTurningMvAng()) {
                  pProg->changeNext();
@@ -153,13 +154,13 @@ void EnemyAppho::processBehavior() {
              //さよなら～
              if (pProg->isJustChanged()) {
                  pKuroko->turnMvAngTwd(&leave_pos_,
-                                         D_ANG(1), 0, TURN_CLOSE_TO, false);
+                                       D_ANG(1), 0, TURN_CLOSE_TO, false);
                  pKuroko->setMvAcce(100+(G_RANK*200));
              }
              if (pProg->getFrameInProgress() % 16U == 0) {
                  //ちょくちょく自機を見つめる
                  pKuroko->turnFaceAngTwd(P_MYSHIP,
-                                           D_ANG(1), 0, TURN_CLOSE_TO, true);
+                                         D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
              break;
          }

@@ -29,12 +29,14 @@ EnemyEbe::EnemyEbe(const char* prm_name) :
 }
 
 void EnemyEbe::onCreateModel() {
-    _pModel->setSpecular(5.0, 1.0);
+    GgafDxModel* pModel = getModel();
+    pModel->setSpecular(5.0, 1.0);
 }
 
 void EnemyEbe::initialize() {
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB_Cube(0, 40000);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliAAB_Cube(0, 40000);
 }
 
 void EnemyEbe::config(
@@ -52,7 +54,7 @@ void EnemyEbe::onActive() {
     if (pKurokoLeader_ == nullptr) {
         throwGgafCriticalException("EnemyEbeはスプライン必須ですconfigして下さい");
     }
-    _pStatus->reset();
+    getStatus()->reset();
     setHitAble(true);
     getKuroko()->setMvAcce(0);
     getProgress()->reset(PROG_MOVE01_1);
@@ -60,7 +62,7 @@ void EnemyEbe::onActive() {
 
 void EnemyEbe::processBehavior() {
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
     MyShip* pMyShip = P_MYSHIP;
     GgafDxKuroko* pKuroko = getKuroko();
     GgafProgress* pProg = getProgress();
@@ -85,7 +87,7 @@ void EnemyEbe::processBehavior() {
         case PROG_MOVE02_1: {
             if (pProg->isJustChanged()) {
                 pKuroko->turnMvAngTwd(_x - PX_C(300), _y, _z,
-                                       D_ANG(1), 0, TURN_CLOSE_TO, false);
+                                      D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
 
             break;

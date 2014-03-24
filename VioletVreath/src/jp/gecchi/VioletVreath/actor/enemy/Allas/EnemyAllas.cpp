@@ -30,7 +30,8 @@ EnemyAllas::EnemyAllas(const char* prm_name) :
 }
 
 void EnemyAllas::onCreateModel() {
-    _pModel->setSpecular(5.0, 1.0);
+    GgafDxModel* pModel = getModel();
+    pModel->setSpecular(5.0, 1.0);
 }
 
 void EnemyAllas::initialize() {
@@ -38,8 +39,9 @@ void EnemyAllas::initialize() {
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(AXIS_Z, -7000);
     pKuroko->relateFaceWithMvAng(true);
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB_Cube(0, 40000);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliAAB_Cube(0, 40000);
 }
 
 void EnemyAllas::onActive() {
@@ -47,14 +49,14 @@ void EnemyAllas::onActive() {
         throwGgafCriticalException("EnemyAllasはスプライン必須ですconfigして下さい");
     }
 
-    _pStatus->reset();
+    getStatus()->reset();
    iMovePatternNo_ = 0; //行動パターンリセット
    getProgress()->change(1);
 }
 
 void EnemyAllas::processBehavior() {
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
     GgafDxKuroko* pKuroko = getKuroko();
     GgafProgress* pProg = getProgress();
     //【パターン1：スプライン移動】

@@ -46,8 +46,9 @@ MyTorpedo::MyTorpedo(const char* prm_name, MyTorpedoController* prm_pOptionTorpe
 }
 
 void MyTorpedo::initialize() {
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB_Cube(0, 70000);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliAAB_Cube(0, 70000);
 }
 
 void MyTorpedo::onReset() {
@@ -55,7 +56,7 @@ void MyTorpedo::onReset() {
 }
 
 void MyTorpedo::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
     setAlpha(0.3);
     _sx = _sy = _sz = 100;
     setScale(100);

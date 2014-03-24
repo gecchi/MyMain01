@@ -47,7 +47,8 @@ void EnemyDrastea::config(
 }
 
 void EnemyDrastea::onCreateModel() {
-    _pModel->setSpecular(5.0, 1.0);
+    GgafDxModel* pModel = getModel();
+    pModel->setSpecular(5.0, 1.0);
 }
 
 void EnemyDrastea::initialize() {
@@ -57,7 +58,8 @@ void EnemyDrastea::initialize() {
     config(PX_C(30),PX_C(30),PX_C(30),
            6, 1, 6);
     int colli_areas = box_num_x_ * box_num_y_ * box_num_z_;
-    _pColliChecker->makeCollision(colli_areas);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(colli_areas);
     int n = 0;
     coord actor_width_dX = colli_box_dX_*box_num_x_;
     coord actor_width_dY = colli_box_dY_*box_num_y_;
@@ -65,7 +67,7 @@ void EnemyDrastea::initialize() {
     for (int nx = 0; nx < box_num_x_; nx++) {
         for (int ny = 0; ny < box_num_y_; ny++) {
             for (int nz = 0; nz < box_num_z_; nz++) {
-                _pColliChecker->setColliAAB(n,
+                pColliChecker->setColliAAB(n,
                                    -(actor_width_dX/2) + (colli_box_dX_*nx),
                                    -(actor_width_dY/2) + (colli_box_dY_*ny),
                                    -(actor_width_dZ/2) + (colli_box_dZ_*nz),
@@ -80,7 +82,7 @@ void EnemyDrastea::initialize() {
 }
 
 void EnemyDrastea::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setMvVelo(0);
     pKuroko->setFaceAngVelo(AXIS_Z, 1000);
@@ -97,7 +99,7 @@ void EnemyDrastea::onActive() {
 
 void EnemyDrastea::processBehavior() {
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
     //座標に反映
     getKuroko()->behave();
     pAxsMver_->behave();

@@ -17,10 +17,11 @@ CubeMapMorphMeshTestActor::CubeMapMorphMeshTestActor(const char* prm_name) :
     setHitAble(false);
 }
 void CubeMapMorphMeshTestActor::onCreateModel() {
-    _pModel->setSpecular(5.0, 1.0);
-    _pModel->setBlinkPower(0.1, 0.6);
-    _pModel->_pTexBlinker->forceRange(0.1, 1.0);
-    _pModel->_pTexBlinker->beat(120, 60, 0, 60, -1);
+    GgafDxModel* pModel = getModel();
+    pModel->setSpecular(5.0, 1.0);
+    pModel->setBlinkPower(0.1, 0.6);
+    pModel->_pTexBlinker->forceRange(0.1, 1.0);
+    pModel->_pTexBlinker->beat(120, 60, 0, 60, -1);
 }
 
 void CubeMapMorphMeshTestActor::initialize() {

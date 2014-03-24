@@ -33,7 +33,7 @@ void EnemyHisbeLaserChip001::initialize() {
 void EnemyHisbeLaserChip001::onActive() {
     HomingLaserChip::onActive();
     //ステータスリセット
-    _pStatus->reset();
+    getStatus()->reset();
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setMvVelo(30000);
     pKuroko->forceRzRyMvAngVeloRange(-D_ANG(45), D_ANG(45));

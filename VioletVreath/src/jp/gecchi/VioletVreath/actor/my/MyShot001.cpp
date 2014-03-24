@@ -22,14 +22,15 @@ void MyShot001::initialize() {
     _sy = _sz = R_SC(35);
     setBoundingSphereRadiusRate(45.0f);
     setAlpha(0.99);
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB(0, -PX_C(50), -PX_C(50), -PX_C(50),
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliAAB(0, -PX_C(50), -PX_C(50), -PX_C(50),
                                     PX_C(50),  PX_C(50),  PX_C(50));
     getKuroko()->setFaceAngVelo(AXIS_X, D_ANG(12));
 }
 
 void MyShot001::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
     setHitAble(true);
     getKuroko()->setMvVelo(PX_C(70));
     getKuroko()->setMvAcce(100);

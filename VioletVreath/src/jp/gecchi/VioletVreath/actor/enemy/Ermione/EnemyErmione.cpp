@@ -99,12 +99,13 @@ void EnemyErmione::onCreateModel() {
 }
 
 void EnemyErmione::initialize() {
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliSphere(0, 90000);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliSphere(0, 90000);
 }
 
 void EnemyErmione::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
     setMorphWeight(1, 0.0);
 
     getProgress()->reset(PROG_INIT);
@@ -113,7 +114,7 @@ void EnemyErmione::onActive() {
 
 void EnemyErmione::processBehavior() {
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
     GgafDxKuroko* pKuroko = getKuroko();
     GgafProgress* pProg = getProgress();
     switch (pProg->get()) {

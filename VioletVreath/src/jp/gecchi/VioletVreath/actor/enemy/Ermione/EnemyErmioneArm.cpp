@@ -34,7 +34,7 @@ void EnemyErmioneArm::initialize() {
 }
 
 void EnemyErmioneArm::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
     getProgress()->reset(PROG_INIT);
 }
 

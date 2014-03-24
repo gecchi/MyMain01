@@ -20,12 +20,12 @@ TestGu::TestGu(const char* prm_name)
 }
 
 void TestGu::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
 }
 
 void TestGu::processBehavior() {
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
     getKuroko()->behave();
     //getSeTx()->behave();
     dispStamina();

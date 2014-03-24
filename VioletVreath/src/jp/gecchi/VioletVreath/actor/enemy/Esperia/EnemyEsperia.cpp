@@ -56,18 +56,20 @@ EnemyEsperia::EnemyEsperia(const char* prm_name) :
 }
 
 void EnemyEsperia::onCreateModel() {
-    _pModel->setBlinkPower(1.0, 0.97);
-    _pModel->_pTexBlinker->forceRange(0.5, 12.0);
-    _pModel->_pTexBlinker->beat(60*6, 60*2, 0, 60*2, -1);
+    GgafDxModel* pModel = getModel();
+    pModel->setBlinkPower(1.0, 0.97);
+    pModel->_pTexBlinker->forceRange(0.5, 12.0);
+    pModel->_pTexBlinker->beat(60*6, 60*2, 0, 60*2, -1);
 }
 
 void EnemyEsperia::initialize() {
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliSphere(0, PX_C(200));
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliSphere(0, PX_C(200));
 }
 
 void EnemyEsperia::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
     setHitAble(false);
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setRzRyMvAng(0, D180ANG);
@@ -90,7 +92,7 @@ void EnemyEsperia::onActive() {
 
 void EnemyEsperia::processBehavior() {
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
     MyShip* pMyShip = P_MYSHIP;
     GgafDxKuroko* pKuroko = getKuroko();
     GgafProgress* pProg = getProgress();

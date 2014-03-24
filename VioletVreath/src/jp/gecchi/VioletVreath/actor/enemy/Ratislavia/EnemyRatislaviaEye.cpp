@@ -53,21 +53,23 @@ EnemyRatislaviaEye::EnemyRatislaviaEye(const char* prm_name, EnemyRatislavia* pr
 }
 
 void EnemyRatislaviaEye::onCreateModel() {
-    _pModel->setSpecular(5.0, 1.0);
-    _pModel->setBlinkPower(0.1, 0.9);
-    _pModel->_pTexBlinker->forceRange(0.1, 1.0);
-    _pModel->_pTexBlinker->beat(120, 60, 0, 60, -1);
+    GgafDxModel* pModel = getModel();
+    pModel->setSpecular(5.0, 1.0);
+    pModel->setBlinkPower(0.1, 0.9);
+    pModel->_pTexBlinker->forceRange(0.1, 1.0);
+    pModel->_pTexBlinker->beat(120, 60, 0, 60, -1);
 }
 
 void EnemyRatislaviaEye::initialize() {
     setHitAble(true);
     getKuroko()->relateFaceWithMvAng(true);
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliSphere(0, 200000);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliSphere(0, 200000);
 }
 
 void EnemyRatislaviaEye::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
     setMorphWeight(1, 0.0);
     getProgress()->reset(PROG_MOVE);
     positionAs(pRatislavia_);
@@ -78,7 +80,7 @@ void EnemyRatislaviaEye::onActive() {
 
 void EnemyRatislaviaEye::processBehavior() {
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
     positionAs(pRatislavia_);
     GgafDxKuroko* pKuroko = getKuroko();
     GgafProgress* pProg = getProgress();

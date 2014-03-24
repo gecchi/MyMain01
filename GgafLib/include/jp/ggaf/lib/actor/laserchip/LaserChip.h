@@ -89,7 +89,7 @@ public:
      * 当たり判定要素数は２つになる。
      * 【注意】<BR>
      * 予めレーザーチップ間の距離が開かず、すり抜けが起こらないとわかっている場合は、<BR>
-     * 本メソッドで設定せず、通常 _pColliChecker->makeCollision(1);<BR>
+     * 本メソッドで設定せず、通常 getCollisionChecker()->makeCollision(1);<BR>
      * を行ったほうがパフォーマンスが良い。<BR>
      * @param prm_edge_length
      */
@@ -108,6 +108,9 @@ public:
      */
     virtual void addAlpha(float prm_alpha) override;
 
+    inline CollisionChecker3D* getCollisionChecker() {
+        return _pColliChecker;
+    }
 
     virtual ~LaserChip();
 

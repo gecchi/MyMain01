@@ -249,12 +249,12 @@ MyShip::MyShip(const char* prm_name) :
     mp_ = MY_SHIP_START_MP;
     //mp_を変えると、内部参照する MpBar の表示が連動して変わる
 
-    //Vreathは実値を _pStatus のSTAT_Stamina値を参照するように設定。
-//    vreath_.link( &(_pStatus->_paValue[STAT_Stamina]._int_val) );
+    //Vreathは実値を getStatus() のSTAT_Stamina値を参照するように設定。
+//    vreath_.link( &(getStatus()->_paValue[STAT_Stamina]._int_val) );
     //STAT_Staminaが減れば、vreath_ が変化し、それを内部参照する VreathBar の表示が連動して変わる
 
     //魔法メーター設置
-    pMagicMeter_ = NEW MagicMeter("MagicMeter", &mp_, &(_pStatus->_paValue[STAT_Stamina]._int_val) );
+    pMagicMeter_ = NEW MagicMeter("MagicMeter", &mp_, &(getStatus()->_paValue[STAT_Stamina]._int_val) );
     pMagicMeter_->position(PX_C(100), PX_C(PROPERTY::GAME_BUFFER_HEIGHT) - (pMagicMeter_->height_) - PX_C(16+16+16));
     addSubGroup(pMagicMeter_);
 
@@ -269,7 +269,8 @@ MyShip::MyShip(const char* prm_name) :
     soft_rapidshot_num_ = 3;
 }
 void MyShip::onCreateModel() {
-    _pModel->setSpecular(5.0, 1.0);
+    GgafDxModel* pModel = getModel();
+    pModel->setSpecular(5.0, 1.0);
 }
 
 void MyShip::initialize() {
@@ -281,14 +282,15 @@ void MyShip::initialize() {
     //getSceneDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, pLaserChipDepo_->extract());
 
     setHitAble(true);
-    _pColliChecker->makeCollision(1);
-//    _pColliChecker->setColliSphere(0, -100000, -50000, 20000, 100000);
-// _pColliChecker->setColliAAB(0, -100000, -50000, 20000, 10000, 40000, 80000);
-      _pColliChecker->setColliAAB_Cube(0, 40000);
-//    _pColliChecker->setColliSphere(1, 0,-100000,0, 30000, true, true, true);
-//    _pColliChecker->setColliSphere(2, 0,100000,0, 30000, true, true, true);
-//    _pColliChecker->setColliSphere(3, 0,0,-100000, 30000, true, true, true);
-//    _pColliChecker->setColliSphere(4, 0,0,100000, 30000, true, true, true);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+//    pColliChecker->setColliSphere(0, -100000, -50000, 20000, 100000);
+// pColliChecker->setColliAAB(0, -100000, -50000, 20000, 10000, 40000, 80000);
+      pColliChecker->setColliAAB_Cube(0, 40000);
+//    pColliChecker->setColliSphere(1, 0,-100000,0, 30000, true, true, true);
+//    pColliChecker->setColliSphere(2, 0,100000,0, 30000, true, true, true);
+//    pColliChecker->setColliSphere(3, 0,0,-100000, 30000, true, true, true);
+//    pColliChecker->setColliSphere(4, 0,0,100000, 30000, true, true, true);
 
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setMvVelo(0);
@@ -320,7 +322,7 @@ void MyShip::onReset() {
     way_switch_.reset();
 
     mp_ = MY_SHIP_START_MP;
-    _pStatus->reset();
+    getStatus()->reset();
 
     setInvincibleFrames(60 * 10); //登場時の無敵時間
 }
@@ -447,7 +449,7 @@ void MyShip::processBehavior() {
         is_just_change_way_ = false;
     }
 
-    if (_pStatus->get(STAT_Stamina) < 0) {
+    if (getStatus()->get(STAT_Stamina) < 0) {
         //息切れ
     } else {
         if (pVbPlay->isBeingPressed(VB_OPTION)) {
@@ -605,7 +607,7 @@ void MyShip::processBehavior() {
     }
 
     //毎フレームの呼吸の消費
-    _pStatus->minus(STAT_Stamina, MY_SHIP_VREATH_COST);
+    getStatus()->minus(STAT_Stamina, MY_SHIP_VREATH_COST);
 }
 
 void MyShip::processJudgement() {
@@ -773,14 +775,14 @@ void MyShip::processJudgement() {
 void MyShip::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
-    int vreath = _pStatus->get(STAT_Stamina);
+    int vreath = getStatus()->get(STAT_Stamina);
     if (UTIL::calcMyStamina(this, pOther) <= 0) {
         //自機爆発開催
         setHitAble(false);
         getSeTx()->play3D(SE_EXPLOSION);
         throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
     }
-    int damage = vreath - _pStatus->get(STAT_Stamina);
+    int damage = vreath - getStatus()->get(STAT_Stamina);
     if (damage > 0) {
         pMagicMeter_->pDamageDispBar_->addDamage(damage > vreath ? vreath : damage);
     }

@@ -91,6 +91,10 @@ public:
     virtual void config(WalledSectionScene* prm_pWalledSectionScene,
                         int prm_pos_prism, int prm_wall_draw_face, int* prm_aColliBoxStretch);
 
+    inline CollisionChecker3D* getCollisionChecker() {
+        return _pColliChecker;
+    }
+
     virtual ~WallPartsActor();
 };
 

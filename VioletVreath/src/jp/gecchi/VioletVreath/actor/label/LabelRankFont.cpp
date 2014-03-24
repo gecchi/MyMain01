@@ -143,8 +143,9 @@ LabelRankFont::LabelRankFont(const char* prm_name) :
 }
 
 void LabelRankFont::onCreateModel() {
-    _pModel->_pTexBlinker->forceRange(0.5, 5.0);
-    _pModel->setBlinkPower(1.0, 0.01);
+    GgafDxModel* pModel = getModel();
+    pModel->_pTexBlinker->forceRange(0.5, 5.0);
+    pModel->setBlinkPower(1.0, 0.01);
 }
 
 void LabelRankFont::initialize() {
@@ -169,7 +170,7 @@ void LabelRankFont::processBehavior() {
     switch (pProg->get()) {
         case PROG_NOMALDISP: {
             if (pProg->isJustChanged()) {
-                _pModel->_pTexBlinker->transitionLinerUntil(1.0, 5);
+                getModel()->_pTexBlinker->transitionLinerUntil(1.0, 5);
             }
             break;
         }
@@ -177,9 +178,9 @@ void LabelRankFont::processBehavior() {
         case PROG_RANKUP: {
             if (pProg->isJustChanged()) {
                 getSeTx()->play(SE_RANK_UP);
-                _pModel->_pTexBlinker->beat(30, 15, 0, 15, 3);
+                getModel()->_pTexBlinker->beat(30, 15, 0, 15, 3);
             }
-            if (!_pModel->_pTexBlinker->isTransitioning()) {
+            if (!getModel()->_pTexBlinker->isTransitioning()) {
                 pProg->change(PROG_NOMALDISP);
             }
             break;

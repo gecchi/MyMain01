@@ -45,7 +45,7 @@ GgafGroupHead* GgafSceneDirector::addSubGroup(actorkind prm_kind, GgafMainActor*
 }
 
 GgafGroupHead* GgafSceneDirector::addSubGroup(GgafMainActor* prm_pMainActor) {
-    return addSubGroup(prm_pMainActor->_pStatus->getUint(STAT_DEFAULT_ACTOR_KIND), prm_pMainActor);
+    return addSubGroup(prm_pMainActor->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND), prm_pMainActor);
 }
 
 GgafGroupHead* GgafSceneDirector::searchSubGroupHead(actorkind prm_kind) {

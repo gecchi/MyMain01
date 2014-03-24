@@ -73,7 +73,7 @@ void GameMainScene::processBehavior() {
     pLabelG_SCORE->update(buf_);
     sprintf(buf_, "RANK %.7f", G_RANK);
     pLabelG_RANK->update(buf_);
-    sprintf(buf_, "STAMINA %7d", pMyShip->_pStatus->get(STAT_Stamina));
+    sprintf(buf_, "STAMINA %7d", pMyShip->getStatus()->get(STAT_Stamina));
     pLabel_STAMINA_->update(buf_);
 
     sprintf(buf_, "X:%8d", pMyShip->_x);

@@ -51,22 +51,24 @@ EnemyHalia::EnemyHalia(const char* prm_name) :
 }
 
 void EnemyHalia::onCreateModel() {
-    _pModel->setBlinkPower(0.1, 0.9);
-    _pModel->_pTexBlinker->forceRange(0.1, 1.0);
-    _pModel->_pTexBlinker->beat(120, 60, 0, 60, -1);
-    _pModel->setSpecular(5.0, 1.0);
+    GgafDxModel* pModel = getModel();
+    pModel->setBlinkPower(0.1, 0.9);
+    pModel->_pTexBlinker->forceRange(0.1, 1.0);
+    pModel->_pTexBlinker->beat(120, 60, 0, 60, -1);
+    pModel->setSpecular(5.0, 1.0);
 }
 
 void EnemyHalia::initialize() {
     setHitAble(true);
     getKuroko()->relateFaceWithMvAng(true);
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliSphere(0, 90000);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliSphere(0, 90000);
     setScaleR(0.3);
 }
 
 void EnemyHalia::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
     setMorphWeight(0, 1.0);
     setMorphWeight(1, 0.0);
     GgafDxKuroko* pKuroko = getKuroko();
@@ -79,7 +81,7 @@ void EnemyHalia::onActive() {
 
 void EnemyHalia::processBehavior() {
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
     GgafDxKuroko* pKuroko = getKuroko();
     GgafProgress* pProg = getProgress();
     switch (pProg->get()) {

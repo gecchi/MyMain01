@@ -29,8 +29,9 @@ VreathItem::VreathItem(const char* prm_name, const char* prm_model, GgafCore::Gg
     kDX_ = kDY_ = kDZ_ = 0;
     useProgress(PROG_BANPEI);
     setHitAble(true, false); //画面外当たり判定は無効
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB_Cube(0, 400000);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliAAB_Cube(0, 400000);
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(0, "WAVE_GET_ITEM_001");
 }
@@ -50,7 +51,7 @@ void VreathItem::onActive() {
     //初期方向設定
     MyShip* pMyShip = P_MYSHIP;
 //    //散らばり範囲正方形１辺の長さ
-//    int scattered_renge    = _pColliChecker->_pCollisionArea->_papColliPart[0]->_dx; //当たり判定と同等
+//    int scattered_renge    = pColliChecker->_pCollisionArea->_papColliPart[0]->_dx; //当たり判定と同等
 //    //発生地点から、自機への方向への散らばり範囲正方形領域が位置する距離（scattered_distance > (scattered_renge/2) であること)
 ////    int scattered_distance = scattered_renge/2 + 400000;
 //    //従って、scattered_distance 離れていても、自機は動かなくてもぎりぎり全て回収できる。
@@ -65,8 +66,8 @@ void VreathItem::onActive() {
     int d = PX_C(200);
     int r = PX_C(75);
     pKuroko->setMvAngTwd( (coord)(_x + (vX * d) + RND(-r, +r)),
-                            (coord)(_y + (vY * d) + RND(-r, +r)),
-                            (coord)(_z + (vZ * d) + RND(-r, +r)) );
+                          (coord)(_y + (vY * d) + RND(-r, +r)),
+                          (coord)(_z + (vZ * d) + RND(-r, +r)) );
     pKuroko->setMvVelo(2000);
     pKuroko->setMvAcce(100);
 
@@ -132,7 +133,7 @@ void VreathItem::processBehavior() {
             pProg->changeNothing();
             sayonara(); //終了
         }
-        pMyShip->_pStatus->plus(STAT_Stamina, 1);
+        pMyShip->getStatus()->plus(STAT_Stamina, 1);
     }
     pKuroko->behave();
     pAxsMver_->behave();

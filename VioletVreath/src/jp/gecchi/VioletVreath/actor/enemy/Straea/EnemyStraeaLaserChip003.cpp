@@ -32,7 +32,7 @@ void EnemyStraeaLaserChip003::initialize() {
 void EnemyStraeaLaserChip003::onActive() {
     WateringLaserChip::onActive();
     //ステータスリセット
-    _pStatus->reset();
+    getStatus()->reset();
     pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION); //向いた方向にワールド変換
 }
 

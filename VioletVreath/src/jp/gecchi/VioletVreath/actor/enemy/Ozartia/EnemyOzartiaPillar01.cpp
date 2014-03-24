@@ -18,18 +18,19 @@ EnemyOzartiaPillar01::EnemyOzartiaPillar01(const char* prm_name) :
 }
 
 void EnemyOzartiaPillar01::initialize() {
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
     setHitAble(true);
     getProgress()->reset(PROG_INIT);
 }
 
 void EnemyOzartiaPillar01::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
 }
 
 void EnemyOzartiaPillar01::processBehavior() {
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
     //–{‘ÌˆÚ“®Œn‚Ìˆ— ‚±‚±‚©‚ç --->
     GgafDxKuroko* pKuroko = getKuroko();
     GgafProgress* pProg = getProgress();

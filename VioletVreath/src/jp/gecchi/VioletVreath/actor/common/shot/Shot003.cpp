@@ -21,8 +21,9 @@ void Shot003::initialize() {
     _sx = _sy = _sz = R_SC(50);
     setAlpha(0.99); //”¼“§–¾‚É‚·‚é‚±‚Æ‚Å—¼–ÊƒŒƒ“ƒ_ƒŠƒ“ƒO
     effectBlendOne(); //‰ÁŽZ‡¬
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB_Cube(0, PX_C(16));
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliAAB_Cube(0, PX_C(16));
 }
 
 void Shot003::onActive() {

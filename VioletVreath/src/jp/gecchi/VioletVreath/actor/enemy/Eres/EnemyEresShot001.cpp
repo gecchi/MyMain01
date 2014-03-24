@@ -43,14 +43,14 @@ void EnemyEresShot001::initialize() {
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->forceMvVeloRange(veloTop_, veloBottom_);
     pKuroko->relateFaceWithMvAng(true);
-
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
     setHitAble(true);
 }
 
 void EnemyEresShot001::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
 
     //出現時
     GgafDxKuroko* pKuroko = getKuroko();
@@ -62,7 +62,7 @@ void EnemyEresShot001::onActive() {
 
 void EnemyEresShot001::processBehavior() {
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
     GgafDxKuroko* pKuroko = getKuroko();
     //方向転換開始
     if (getActiveFrame() == frame_TurnBegin_) {

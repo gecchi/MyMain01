@@ -236,6 +236,10 @@ public:
         }
     }
 
+    inline GgafStatus* getStatus() {
+        return _pStatus;
+    }
+
     /**
      * デバッグ用：ツリー構造を表示<BR>
      */

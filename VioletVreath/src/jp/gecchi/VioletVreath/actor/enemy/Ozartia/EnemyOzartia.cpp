@@ -57,12 +57,14 @@ EnemyOzartia::EnemyOzartia(const char* prm_name) :
 }
 
 void EnemyOzartia::onCreateModel() {
-    _pModel->setSpecular(5.0, 1.0);
+    GgafDxModel* pModel = getModel();
+    pModel->setSpecular(5.0, 1.0);
 }
 
 void EnemyOzartia::initialize() {
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB_Cube(0, 40000);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliAAB_Cube(0, 40000);
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->relateFaceWithMvAng(false); //独立
     pKuroko->forceMvVeloRange(PX_C(1), PX_C(8));
@@ -70,7 +72,7 @@ void EnemyOzartia::initialize() {
 }
 
 void EnemyOzartia::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
     getProgress()->reset(PROG1_INIT);
     pProg2_->reset(PROG2_WAIT);
     faceang_to_ship_ = false;
@@ -78,7 +80,7 @@ void EnemyOzartia::onActive() {
 
 void EnemyOzartia::processBehavior() {
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
 
     MyShip* pMyShip = P_MYSHIP;
     //本体移動系の処理 ここから --->
@@ -111,11 +113,11 @@ void EnemyOzartia::processBehavior() {
             if (is_hit_ || pProg->getFrameInProgress() == 5*60) {
                 //ヒットするか、しばらくボーっとしてると移動開始
                 pProg->changeProbab(18, PROG1_MV_POS0,
-                                     16, PROG1_MV_POS1,
-                                     16, PROG1_MV_POS2,
-                                     16, PROG1_MV_POS3,
-                                     16, PROG1_MV_POS4,
-                                     18, PROG1_MV_POS5 );
+                                    16, PROG1_MV_POS1,
+                                    16, PROG1_MV_POS2,
+                                    16, PROG1_MV_POS3,
+                                    16, PROG1_MV_POS4,
+                                    18, PROG1_MV_POS5 );
             }
             break;
         }

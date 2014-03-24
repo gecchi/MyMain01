@@ -27,26 +27,28 @@ int MyStraightLaserChip001::tex_no_ = 0;
 MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) :
         StraightLaserChip(prm_name, "MyStraightLaserChip001", STATUS(MyStraightLaserChip001)) {
     _class_name = "MyStraightLaserChip001";
-    default_stamina_ = _pStatus->get(STAT_Stamina);
+    default_stamina_ = getStatus()->get(STAT_Stamina);
     _veloMv = 100000;
     pOrg_ = nullptr;
     lockon_st_ = 0;
+    GgafDxModel* pModel = getModel();
     if (!MyStraightLaserChip001::pModel_) {
-        if (_pModel->_num_materials != 3) {
+        if (pModel->_num_materials != 3) {
             throwGgafCriticalException("MyStraightLaserChip001::onCreateModel() MyStraightLaserChip001モデルは、マテリアが３つ必要です。");
         }
-        for (DWORD i = 0; i < _pModel->_num_materials; i ++) {
-            strcpy(MyStraightLaserChip001::aaTextureName[i], _pModel->_papTextureConnection[i]->peek()->getName());
+        for (DWORD i = 0; i < pModel->_num_materials; i ++) {
+            strcpy(MyStraightLaserChip001::aaTextureName[i], pModel->_papTextureConnection[i]->peek()->getName());
         }
-        MyStraightLaserChip001::pModel_ = _pModel;
+        MyStraightLaserChip001::pModel_ = pModel;
     }
 }
 
 void MyStraightLaserChip001::initialize() {
     pOrg_ = P_MYSHIP;
     getKuroko()->setRzRyMvAng(0,0);
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB_WHD(0,120000,60000,60000);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliAAB_WHD(0,120000,60000,60000);
 
     setHitAble(true);
     _sx = _sy = _sz = R_SC(5);
@@ -59,8 +61,8 @@ void MyStraightLaserChip001::onCreateModel() {
 
 
 void MyStraightLaserChip001::onActive() {
-    _pStatus->reset();
-    default_stamina_ = _pStatus->get(STAT_Stamina);
+    getStatus()->reset();
+    default_stamina_ = getStatus()->get(STAT_Stamina);
     StraightLaserChip::onActive();
 
     GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
@@ -129,7 +131,7 @@ void MyStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             //オプション非ロックオン中に命中した場合
         }
         //ロックオン可能アクターならロックオンを試みる
-        if (pOther->_pStatus->get(STAT_LockonAble) == 1) {
+        if (pOther->getStatus()->get(STAT_LockonAble) == 1) {
             pOrg_->pLockonCtrler_->lockon(pOther);
         }
 
@@ -141,7 +143,7 @@ void MyStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             sayonara();
         } else {
             //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
-            _pStatus->set(STAT_Stamina, default_stamina_);
+            getStatus()->set(STAT_Stamina, default_stamina_);
         }
     } else if (pOther->getKind() & KIND_CHIKEI) {
         //地形相手は無条件さようなら

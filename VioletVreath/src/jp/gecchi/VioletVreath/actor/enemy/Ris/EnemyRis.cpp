@@ -29,9 +29,10 @@ EnemyRis::EnemyRis(const char* prm_name)
 }
 
 void EnemyRis::onCreateModel() {
-    _pModel->setBlinkPower(0.5, 0.9);
-    _pModel->_pTexBlinker->forceRange(0.5, 2.0);
-    _pModel->_pTexBlinker->beat(60, 3, 0, 57, -1);
+    GgafDxModel* pModel = getModel();
+    pModel->setBlinkPower(0.5, 0.9);
+    pModel->_pTexBlinker->forceRange(0.5, 2.0);
+    pModel->_pTexBlinker->beat(60, 3, 0, 57, -1);
 }
 
 void EnemyRis::initialize() {
@@ -39,18 +40,19 @@ void EnemyRis::initialize() {
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->relateFaceWithMvAng(true);
     pKuroko->setFaceAngVelo(AXIS_X, 5000);
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
 }
 
 void EnemyRis::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
     iMovePatternNo_ = 0; //行動パターンリセット
 }
 
 void EnemyRis::processBehavior() {
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
     GgafDxKuroko* pKuroko = getKuroko();
     switch (iMovePatternNo_) {
         case 0:  //【パターン０：スプライン移動開始】

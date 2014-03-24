@@ -29,9 +29,9 @@ WallAAPrismActor::WallAAPrismActor(const char* prm_name,
     _class_name = "WallAAPrismActor";
     _pMeshSetModel->_set_num = 11; //WallPartsActor最大セット数は20。
 
-
-    _pColliChecker->makeCollision(1); //0:BOX用当たり判定、1:プリズム用当たり判定
-    _pColliChecker->setColliAAPrism(0, 0,0,0, 0,0,0, 0);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1); //0:BOX用当たり判定、1:プリズム用当たり判定
+    pColliChecker->setColliAAPrism(0, 0,0,0, 0,0,0, 0);
     setZEnable(true);       //Zバッファは考慮有り
     setZWriteEnable(true);  //Zバッファは書き込み有り
     ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
@@ -78,11 +78,11 @@ WallAAPrismActor::WallAAPrismActor(const char* prm_name,
 void WallAAPrismActor::config(WalledSectionScene* prm_pWalledSectionScene, int prm_pos_prism, int prm_wall_draw_face, int* prm_aColliBoxStretch) {
     prm_wall_draw_face &= _delface[prm_pos_prism]; //プリズム無条件描画不要面
     WallPartsActor::config(prm_pWalledSectionScene, prm_pos_prism,  prm_wall_draw_face,  prm_aColliBoxStretch);
-
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
     if (prm_aColliBoxStretch[0] == 0) {
-        _pColliChecker->disable(0);
+        pColliChecker->disable(0);
     } else {
-        _pColliChecker->setColliAAPrism(0, -(_wall_dep/2)    - (_wall_dep    * (prm_aColliBoxStretch[FACE_B_IDX]-1)),
+        pColliChecker->setColliAAPrism(0, -(_wall_dep/2)    - (_wall_dep    * (prm_aColliBoxStretch[FACE_B_IDX]-1)),
                                            -(_wall_height/2) - (_wall_height * (prm_aColliBoxStretch[FACE_D_IDX]-1)),
                                            -(_wall_width/2)  - (_wall_width  * (prm_aColliBoxStretch[FACE_E_IDX]-1)),
                                             (_wall_dep/2)    + (_wall_dep    * (prm_aColliBoxStretch[FACE_F_IDX]-1)),
@@ -91,7 +91,7 @@ void WallAAPrismActor::config(WalledSectionScene* prm_pWalledSectionScene, int p
                                             _pos_prism
                                             );
 
-         _pColliChecker->enable(0);
+         pColliChecker->enable(0);
     }
     HRESULT hr;
     ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;

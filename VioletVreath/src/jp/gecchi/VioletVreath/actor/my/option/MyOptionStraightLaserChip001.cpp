@@ -19,7 +19,7 @@ using namespace VioletVreath;
 MyOptionStraightLaserChip001::MyOptionStraightLaserChip001(const char* prm_name) :
         StraightLaserChip(prm_name, "MyOptionStraightLaserChip001", STATUS(MyOptionStraightLaserChip001)) {
     _class_name = "MyOptionStraightLaserChip001";
-    default_stamina_ = _pStatus->get(STAT_Stamina);
+    default_stamina_ = getStatus()->get(STAT_Stamina);
     _veloMv = 100000;
 
     pOrg_ = nullptr;
@@ -36,8 +36,8 @@ void MyOptionStraightLaserChip001::initialize() {
     _bounding_sphere_radius = 20.0;
 }
 void MyOptionStraightLaserChip001::onActive() {
-    _pStatus->reset();
-    default_stamina_ = _pStatus->get(STAT_Stamina);
+    getStatus()->reset();
+    default_stamina_ = getStatus()->get(STAT_Stamina);
     StraightLaserChip::onActive();
 
     GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
@@ -144,15 +144,15 @@ void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
                 pExplo001->positionAs(this);
             }
             //ロックオン可能アクターならロックオン
-            if (pOther->_pStatus->get(STAT_LockonAble) == 1) {
+            if (pOther->getStatus()->get(STAT_LockonAble) == 1) {
                 pOrg_->pLockonCtrler_->lockon(pOther);
             }
             sayonara();
         } else {
             //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
-            _pStatus->set(STAT_Stamina, default_stamina_);
+            getStatus()->set(STAT_Stamina, default_stamina_);
             //ロックオン可能アクターならロックオン
-            if (pOther->_pStatus->get(STAT_LockonAble) == 1) {
+            if (pOther->getStatus()->get(STAT_LockonAble) == 1) {
                 pOrg_->pLockonCtrler_->lockon(pOther);
             }
         }
@@ -183,7 +183,7 @@ void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
 //            sayonara();
 //        } else {
 //            //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
-//            _pStatus->set(STAT_Stamina, default_stamina_);
+//            getStatus()->set(STAT_Stamina, default_stamina_);
 //        }
 //    } else if (pOther->getKind() & KIND_CHIKEI) {
 //        //地形相手は無条件さようなら

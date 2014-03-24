@@ -23,8 +23,9 @@ Shot004Blue::Shot004Blue(const char* prm_name) :
 
 void Shot004Blue::initialize() {
     setHitAble(false);
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB_Cube(0, PX_C(16));
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliAAB_Cube(0, PX_C(16));
 }
 void Shot004Blue::onReset() {
     setScaleR(3.0);
@@ -43,7 +44,7 @@ void Shot004Blue::onActive() {
 
 void Shot004Blue::processBehavior() {
     //加算ランクポイントを減少
-    //_pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    //UTIL::updateEnemyRankPoint(this);
     //弾なので不要
 
     //座標に反映

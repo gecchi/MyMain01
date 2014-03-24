@@ -33,7 +33,7 @@ void EnemyWateringLaserChip001::onActive() {
     WateringLaserChip::onActive();
     getKuroko()->setMvVelo(PX_C(80));
     getKuroko()->setMvAcce(300);
-    _pStatus->reset();
+    getStatus()->reset();
 }
 
 void EnemyWateringLaserChip001::processBehavior() {

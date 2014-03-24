@@ -25,15 +25,16 @@ TestEnemy::TestEnemy(const char* prm_name,
 
 void TestEnemy::initialize() {
     setHitAble(true);
-    _pColliChecker->makeCollision(1);
-//    _pColliChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
-    _pColliChecker->setColliSphere(0, 30000);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+//    pColliChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
+    pColliChecker->setColliSphere(0, 30000);
 }
 
 
 void TestEnemy::dispStamina() {
     static char aBuf[20];
-    sprintf(aBuf, "%d", _pStatus->get(STAT_Stamina));
+    sprintf(aBuf, "%d", getStatus()->get(STAT_Stamina));
     pMoji_->update(aBuf);
     pMoji_->position(_x,_y+PX_C(30),_z);
 }

@@ -238,7 +238,7 @@ public:
      */
     virtual void resetMaterialColor();
 
-    virtual GgafDxModel* getModel() {
+    inline GgafDxModel* getModel() {
         return _pModel;
     }
 

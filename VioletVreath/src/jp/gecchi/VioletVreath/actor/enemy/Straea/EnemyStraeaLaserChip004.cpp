@@ -23,7 +23,7 @@ EnemyStraeaLaserChip004::EnemyStraeaLaserChip004(const char* prm_name) :
 //    if (pTexCon1_ == nullptr) {
 //        pTexCon1_ = connect_ModelTextureManager("StraeaLaserChip001.png");
 //        pTexCon2_ = connect_ModelTextureManager("EsperiaLaserChip001.png");
-//        _pModel->setMaterialTexture(0, pTexCon1_);
+//        pModel->setMaterialTexture(0, pTexCon1_);
 //
 //    }
 
@@ -43,7 +43,7 @@ void EnemyStraeaLaserChip004::onCreateModel() {
 void EnemyStraeaLaserChip004::onActive() {
     HomingLaserChip::onActive();
     //ステータスリセット
-    _pStatus->reset();
+    getStatus()->reset();
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setMvVelo(10000);
     pKuroko->setMvAcce(400);
@@ -55,13 +55,13 @@ void EnemyStraeaLaserChip004::onActive() {
 void EnemyStraeaLaserChip004::processBehaviorHeadChip() {
 //    //--->debug
 //    if (GgafDxInput::isBeingPressedKey(DIK_N)) {
-//        GgafDxTextureConnection* a = _pModel->_papTextureConnection[0];
-//        GgafDxTextureConnection* b = _pModel->_papTextureConnection[1];
-//        _pModel->_papTextureConnection[0] = b;
-//        _pModel->_papTextureConnection[1] = a;
+//        GgafDxTextureConnection* a = pModel->_papTextureConnection[0];
+//        GgafDxTextureConnection* b = pModel->_papTextureConnection[1];
+//        pModel->_papTextureConnection[0] = b;
+//        pModel->_papTextureConnection[1] = a;
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_M)) {
-//        _pModel->setMaterialTexture(0, pTexCon2_);
+//        pModel->setMaterialTexture(0, pTexCon2_);
 //    }
 //    //<--debug
 

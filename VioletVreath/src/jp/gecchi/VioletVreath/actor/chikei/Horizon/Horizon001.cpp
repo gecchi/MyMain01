@@ -32,8 +32,9 @@ void Horizon001::onCreateModel() {
 void Horizon001::initialize() {
     setAlpha(0.99);
     position(0, PX_C(-100), 0);
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB(0, Universe::_x_gone_left  + (chip_width_*2),
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliAAB(0, Universe::_x_gone_left  + (chip_width_*2),
                                    0,
                                    Universe::_z_gone_near  + (chip_width_*2),
                                    Universe::_x_gone_right - (chip_width_*2),

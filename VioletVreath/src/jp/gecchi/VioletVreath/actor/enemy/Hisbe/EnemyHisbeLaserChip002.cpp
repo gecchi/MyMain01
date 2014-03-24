@@ -38,7 +38,7 @@ void EnemyHisbeLaserChip002::initialize() {
 void EnemyHisbeLaserChip002::onActive() {
     RefractionLaserChip::onActive();
     //ステータスリセット
-    _pStatus->reset();
+    getStatus()->reset();
     getKuroko()->relateFaceWithMvAng(true);
 }
 

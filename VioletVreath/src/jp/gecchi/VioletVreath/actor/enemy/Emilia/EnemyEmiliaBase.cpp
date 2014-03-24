@@ -23,7 +23,7 @@ void EnemyEmiliaBase::onCreateModel() {
 
 void EnemyEmiliaBase::processBehavior() {
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
     getKuroko()->behave();
 }
 

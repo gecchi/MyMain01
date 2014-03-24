@@ -17,7 +17,7 @@ EnemyStraightLaserChip001::EnemyStraightLaserChip001(const char* prm_name) :
 }
 
 void EnemyStraightLaserChip001::initialize() {
-     getKuroko()->setRzRyMvAng(0,0);
+    getKuroko()->setRzRyMvAng(0,0);
     registerHitAreaCube_AutoGenMidColli(20000);
     setHitAble(true);
     setScaleR(6.0);
@@ -26,7 +26,7 @@ void EnemyStraightLaserChip001::initialize() {
 
 void EnemyStraightLaserChip001::onActive() {
     StraightLaserChip::onActive();
-    _pStatus->reset();
+    getStatus()->reset();
 }
 void EnemyStraightLaserChip001::processBehavior() {
     StraightLaserChip::processBehavior();

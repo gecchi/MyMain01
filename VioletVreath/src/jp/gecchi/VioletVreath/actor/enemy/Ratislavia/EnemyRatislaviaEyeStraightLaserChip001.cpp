@@ -30,7 +30,7 @@ void EnemyRatislaviaEyeStraightLaserChip001::onActive() {
     StraightLaserChip::onActive();
     getKuroko()->setMvVelo(100000);
     getKuroko()->setMvAcce(300);
-    _pStatus->reset();
+    getStatus()->reset();
 }
 
 void EnemyRatislaviaEyeStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {

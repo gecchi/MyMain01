@@ -20,12 +20,12 @@ TestNomal::TestNomal(const char* prm_name)
 }
 
 void TestNomal::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
 }
 
 void TestNomal::processBehavior() {
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
     getKuroko()->behave();
     //getSeTx()->behave();
     dispStamina();

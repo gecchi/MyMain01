@@ -19,12 +19,12 @@ TestChoki::TestChoki(const char* prm_name) : TestEnemy(prm_name, "TestChoki", ST
 }
 
 void TestChoki::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
 }
 
 void TestChoki::processBehavior() {
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
     getKuroko()->behave();
     //getSeTx()->behave();
     dispStamina();

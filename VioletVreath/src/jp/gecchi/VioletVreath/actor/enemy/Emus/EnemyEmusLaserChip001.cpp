@@ -29,7 +29,7 @@ void EnemyEmusLaserChip001::initialize() {
 void EnemyEmusLaserChip001::onActive() {
     WateringLaserChip::onActive();
     //ステータスリセット
-    _pStatus->reset();
+    getStatus()->reset();
 }
 
 void EnemyEmusLaserChip001::processBehavior() {

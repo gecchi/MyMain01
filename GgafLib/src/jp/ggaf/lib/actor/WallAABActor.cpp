@@ -47,9 +47,9 @@ WallAABActor::WallAABActor(const char* prm_name,
 //    _ah_wall_draw_face[17]  = pID3DXEffect->GetParameterByName( nullptr, "g_wall_draw_face018" );
 //    _ah_wall_draw_face[18]  = pID3DXEffect->GetParameterByName( nullptr, "g_wall_draw_face019" );
 
-
-    _pColliChecker->makeCollision(1); //0:BOX用当たり判定、1:プリズム用当たり判定
-    _pColliChecker->setColliAAB(0, 0,0,0, 0,0,0);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1); //0:BOX用当たり判定、1:プリズム用当たり判定
+    pColliChecker->setColliAAB(0, 0,0,0, 0,0,0);
     setZEnable(true);       //Zバッファは考慮有り
     setZWriteEnable(true);  //Zバッファは書き込み有り
 }
@@ -57,18 +57,18 @@ WallAABActor::WallAABActor(const char* prm_name,
 
 void WallAABActor::config(WalledSectionScene* prm_pWalledSectionScene, int prm_pos_prism, int prm_wall_draw_face, int* prm_aColliBoxStretch) {
     WallPartsActor::config(prm_pWalledSectionScene, prm_pos_prism,  prm_wall_draw_face,  prm_aColliBoxStretch);
-
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
     if (prm_aColliBoxStretch[0] == 0) {
-        _pColliChecker->disable(0);
+        pColliChecker->disable(0);
     } else {
-        _pColliChecker->setColliAAB(0, -(_wall_dep/2)    - (_wall_dep    * (prm_aColliBoxStretch[FACE_B_IDX]-1)),
+        pColliChecker->setColliAAB(0, -(_wall_dep/2)    - (_wall_dep    * (prm_aColliBoxStretch[FACE_B_IDX]-1)),
                                        -(_wall_height/2) - (_wall_height * (prm_aColliBoxStretch[FACE_D_IDX]-1)),
                                        -(_wall_width/2)  - (_wall_width  * (prm_aColliBoxStretch[FACE_E_IDX]-1)),
                                         (_wall_dep/2)    + (_wall_dep    * (prm_aColliBoxStretch[FACE_F_IDX]-1)),
                                         (_wall_height/2) + (_wall_height * (prm_aColliBoxStretch[FACE_A_IDX]-1)),
                                         (_wall_width/2)  + (_wall_width  * (prm_aColliBoxStretch[FACE_C_IDX]-1))
                                        );
-         _pColliChecker->enable(0);
+         pColliChecker->enable(0);
     }
 }
 

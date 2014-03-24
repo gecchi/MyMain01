@@ -44,10 +44,11 @@ EnemyEmus::EnemyEmus(const char* prm_name) :
 }
 
 void EnemyEmus::onCreateModel() {
-    _pModel->setSpecular(5.0, 1.0);
-    _pModel->setBlinkPower(0.1, 0.9);
-    _pModel->_pTexBlinker->forceRange(0.1, 1.0);
-    _pModel->_pTexBlinker->beat(120, 60, 0, 60, -1);
+    GgafDxModel* pModel = getModel();
+    pModel->setSpecular(5.0, 1.0);
+    pModel->setBlinkPower(0.1, 0.9);
+    pModel->_pTexBlinker->forceRange(0.1, 1.0);
+    pModel->_pTexBlinker->beat(120, 60, 0, 60, -1);
 }
 
 void EnemyEmus::initialize() {
@@ -55,15 +56,16 @@ void EnemyEmus::initialize() {
     getKuroko()->relateFaceWithMvAng(true);
     getMorpher()->forceRange(MORPHTARGET_HATCH_OPEN, 0.0f, 1.0f);
     setMorphWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB_Cube(0, 200000);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliAAB_Cube(0, 200000);
     setScale(1000);
     pScaler_->forceRange(1000, 1200);
     pScaler_->beat(30, 5, 0, 20, -1);
 }
 
 void EnemyEmus::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
     setMorphWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     is_open_hatch_ = false;
     getProgress()->reset(PROG_HATCH_CLOSE);
@@ -128,7 +130,7 @@ void EnemyEmus::processBehavior() {
             break;
     }
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
 
     getMorpher()->behave();
     pKuroko->behave();

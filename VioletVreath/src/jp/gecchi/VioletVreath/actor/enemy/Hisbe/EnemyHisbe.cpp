@@ -93,8 +93,9 @@ void EnemyHisbe::onCreateModel() {
 
 void EnemyHisbe::initialize() {
     getKuroko()->relateFaceWithMvAng(true);
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliSphere(0, 40000);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliSphere(0, 40000);
 
 //    if (pConn_LaserChipDepoStore_->chkFirstConnectionIs(this)) {
 //        _TRACE_("pConn_LaserChipDepoStore_は、ワシ("<<this<<")が育てたエヘン！")
@@ -105,14 +106,14 @@ void EnemyHisbe::initialize() {
 }
 
 void EnemyHisbe::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
     getMorpher()->reset();
     getProgress()->reset(PROG_WAIT);
 }
 
 void EnemyHisbe::processBehavior() {
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
     GgafProgress* pProg = getProgress();
     switch (pProg->get()) {
         case PROG_WAIT: {

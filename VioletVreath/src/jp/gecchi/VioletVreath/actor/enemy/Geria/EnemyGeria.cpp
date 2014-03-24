@@ -37,15 +37,16 @@ void EnemyGeria::onCreateModel() {
 
 void EnemyGeria::initialize() {
     setHitAble(false);
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB_Cube(0, 45000);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliAAB_Cube(0, 45000);
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(AXIS_Z, -7000);
     pKuroko->forceMvVeloRange(1, pKuroko->_veloMv);
 }
 
 void EnemyGeria::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
     setHitAble(true);
     do_Shot_ = false;
     can_Shot_ = true;
@@ -60,7 +61,7 @@ void EnemyGeria::onActive() {
 
 void EnemyGeria::processBehavior() {
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
     GgafDxKuroko* pKuroko = getKuroko();
     if (do_Shot_) {
         if (getActiveFrame() == frame_when_shot_) {

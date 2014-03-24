@@ -51,15 +51,15 @@ void SpriteLabelBonus001::processBehavior() {
             if (pProg->getFrameInProgress() == 60) {
                 //ƒJƒƒ‰‚ÉŒü‚©‚Á‚Ä•ûŒü“]Š·1
                 pKuroko->turnMvAngTwd(P_CAM,
-                                        D_ANG(3), 0, TURN_CLOSE_TO, true);
+                                      D_ANG(3), 0, TURN_CLOSE_TO, true);
             }
             if (pProg->getFrameInProgress() == 60+30) {
                 //ƒJƒƒ‰‚ÉŒü‚©‚Á‚Ä•ûŒü“]Š·2
                 pKuroko->turnMvAngTwd(P_CAM,
-                                        D_ANG(1), 0, TURN_CLOSE_TO, true);
+                                      D_ANG(1), 0, TURN_CLOSE_TO, true);
             }
 
-            if (ABS(P_CAM->_x - _x) < PX_C(200) ||  pProg->getFrameInProgress() >= 60+30+120) {
+            if (ABS(P_CAM->_x - _x) < PX_C(200) || pProg->getFrameInProgress() >= 60+30+120) {
                 pProg->changeNext();
             }
             break;

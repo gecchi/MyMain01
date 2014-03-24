@@ -30,14 +30,15 @@ Shot001::Shot001(const char* prm_name) :
 }
 
 void Shot001::initialize() {
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB_Cube(0, PX_C(16));
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliAAB_Cube(0, PX_C(16));
     setScale(2000);
     pScaler_->forceRange(2000, 3000);
 }
 
 void Shot001::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
     setHitAble(true);
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->relateFaceWithMvAng(true);
@@ -49,7 +50,7 @@ void Shot001::onActive() {
 
 void Shot001::processBehavior() {
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
     GgafDxKuroko* pKuroko = getKuroko();
     //座標に反映
     pKurokoLeader_->behave(); //スプライン移動を振る舞い

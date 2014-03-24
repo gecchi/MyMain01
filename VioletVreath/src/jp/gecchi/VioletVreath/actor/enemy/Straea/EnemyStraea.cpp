@@ -77,21 +77,23 @@ EnemyStraea::EnemyStraea(const char* prm_name) :
 }
 
 void EnemyStraea::onCreateModel() {
-    _pModel->setBlinkPower(1.0, 0.97);
-    _pModel->_pTexBlinker->forceRange(0.5, 12.0);
-    _pModel->_pTexBlinker->beat(60*6, 60*2, 0, 60*2, -1);
+    GgafDxModel* pModel = getModel();
+    pModel->setBlinkPower(1.0, 0.97);
+    pModel->_pTexBlinker->forceRange(0.5, 12.0);
+    pModel->_pTexBlinker->beat(60*6, 60*2, 0, 60*2, -1);
 }
 
 void EnemyStraea::initialize() {
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliSphere(0, PX_C(200));
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliSphere(0, PX_C(200));
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setRzRyMvAng(0, D180ANG);
     pKuroko->setMvVelo(PX_C(5));
 }
 
 void EnemyStraea::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
     setHitAble(false);
     _x = GgafDxCore::GgafDxUniverse::_x_gone_right - 1000;
     getProgress()->reset(PROG_ENTRY);
@@ -99,7 +101,7 @@ void EnemyStraea::onActive() {
 
 void EnemyStraea::processBehavior() {
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
     GgafDxKuroko* pKuroko = getKuroko();
     GgafProgress* pProg = getProgress();
     switch (pProg->get()) {

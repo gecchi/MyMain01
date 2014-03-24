@@ -95,12 +95,13 @@ void LaserChip::onActive() {
     }
     _force_alpha = 1.00; //最初は奥でもハッキリ映る。
     if (_middle_colli_able) {
-        _pColliChecker->disable(1);
+        getCollisionChecker()->disable(1);
     }
 }
 
 void LaserChip::processSettlementBehavior() {
     LaserChip* pChip_front = _pChip_front;
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
 
     //レーザーチップ種別 設定。
     //シェーダーのパラメータとなります。
@@ -176,7 +177,7 @@ void LaserChip::processSettlementBehavior() {
                     int cX = dX / 2;
                     int cY = dY / 2;
                     int cZ = dZ / 2;
-                    _pColliChecker->setColliAAB(
+                    pColliChecker->setColliAAB(
                                   1,
                                   cX - _harf_hitarea_edge_length,
                                   cY - _harf_hitarea_edge_length,
@@ -185,13 +186,13 @@ void LaserChip::processSettlementBehavior() {
                                   cY + _harf_hitarea_edge_length,
                                   cZ + _harf_hitarea_edge_length
                                   );
-                    _pColliChecker->enable(1);
+                    pColliChecker->enable(1);
                 } else {
-                    _pColliChecker->disable(1);
+                    pColliChecker->disable(1);
                 }
             }
         } else {
-            _pColliChecker->disable(1);
+            pColliChecker->disable(1);
         }
     }
 
@@ -296,10 +297,11 @@ void LaserChip::registerHitAreaCube_AutoGenMidColli(int prm_edge_length) {
     _hitarea_edge_length = prm_edge_length;
     _hitarea_edge_length_3 = _hitarea_edge_length*3;
     _harf_hitarea_edge_length = _hitarea_edge_length / 2;
-    _pColliChecker->makeCollision(2);
-    _pColliChecker->setColliAAB_Cube(0, prm_edge_length);
-    _pColliChecker->setColliAAB_Cube(1, prm_edge_length);
-    _pColliChecker->disable(1);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(2);
+    pColliChecker->setColliAAB_Cube(0, prm_edge_length);
+    pColliChecker->setColliAAB_Cube(1, prm_edge_length);
+    pColliChecker->disable(1);
     setHitAble(true);
 }
 

@@ -23,7 +23,8 @@ MyTorpedoBlast::MyTorpedoBlast(const char* prm_name) :
 }
 
 void MyTorpedoBlast::initialize() {
-    _pColliChecker->makeCollision(1);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
     getKuroko()->setFaceAngVelo(D_ANG(0), D_ANG(6), D_ANG(0));
     setHitAble(true);
 }
@@ -32,8 +33,8 @@ void MyTorpedoBlast::onReset() {
     //MyTorpedoでreset()が実行される。
     //MyTorpedoBlastは、dispatchForceされるので、
     //onInactive() onActive()での実装を避ける
-    _pStatus->reset();
-    _pColliChecker->setColliSphere(0, PX_C(10));
+    getStatus()->reset();
+    getCollisionChecker()->setColliSphere(0, PX_C(10));
     getKuroko()->setMvVelo(0);
     setScale(R_SC(1));
     pScaler_->forceRange(R_SC(1), R_SC(400));
@@ -44,7 +45,7 @@ void MyTorpedoBlast::processBehavior() {
     if (!pScaler_->isTransitioning()) {
         sayonara();//膨らんでしぼむが終了時
     } else {
-        _pColliChecker->setColliSphere(0, _sx); //当たり判定も変化
+        getCollisionChecker()->setColliSphere(0, _sx); //当たり判定も変化
         getKuroko()->behave();
         pScaler_->behave();
     }

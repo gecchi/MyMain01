@@ -18,10 +18,11 @@ CubeMapMeshSetTestActor::CubeMapMeshSetTestActor(const char* prm_name) :
 }
 
 void CubeMapMeshSetTestActor::onCreateModel() {
-    _pModel->setBlinkPower(0.1, 0.6);
-    _pModel->_pTexBlinker->forceRange(0.1, 1.0);
-    _pModel->_pTexBlinker->beat(120, 60, 0, 60, -1);
-    _pModel->setSpecular(5.0, 1.0);
+    GgafDxModel* pModel = getModel();
+    pModel->setBlinkPower(0.1, 0.6);
+    pModel->_pTexBlinker->forceRange(0.1, 1.0);
+    pModel->_pTexBlinker->beat(120, 60, 0, 60, -1);
+    pModel->setSpecular(5.0, 1.0);
 }
 
 void CubeMapMeshSetTestActor::initialize() {

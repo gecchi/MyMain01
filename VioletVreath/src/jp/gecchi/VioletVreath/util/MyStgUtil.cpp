@@ -79,10 +79,12 @@ int MyStgUtil::judgeEnemyAdvantage(actorkind kattribute_enemy, actorkind attribu
     }
     return ret;
 }
-
+void MyStgUtil::updateEnemyRankPoint(GgafCore::GgafMainActor* prm_pEnemy) {
+    prm_pEnemy->getStatus()->mul(STAT_AddRankPoint, prm_pEnemy->getStatus()->getDouble(STAT_AddRankPoint_Reduction));
+}
 int MyStgUtil::calcMyStamina(GgafMainActor* prm_pMy, GgafMainActor* prm_pOpp) {
-    GgafStatus* pStatMy = prm_pMy->_pStatus;
-    GgafStatus* pStatOpp = prm_pOpp->_pStatus;
+    GgafStatus* pStatMy = prm_pMy->getStatus();
+    GgafStatus* pStatOpp = prm_pOpp->getStatus();
 
     //優性劣性判定
     int my_domi = MyStgUtil::judgeMyAdvantage(pStatMy->getUint(STAT_Attribute),
@@ -106,8 +108,8 @@ int MyStgUtil::calcMyStamina(GgafMainActor* prm_pMy, GgafMainActor* prm_pOpp) {
 }
 
 int MyStgUtil::calcEnemyStamina(GgafMainActor* prm_pEnemy, GgafMainActor* prm_pOpp) {
-    GgafStatus* pStatEnemy = prm_pEnemy->_pStatus;
-    GgafStatus* pStatOpp = prm_pOpp->_pStatus;
+    GgafStatus* pStatEnemy = prm_pEnemy->getStatus();
+    GgafStatus* pStatOpp = prm_pOpp->getStatus();
     //優性劣性判定
     int enemy_domi = MyStgUtil::judgeEnemyAdvantage(pStatEnemy->getUint(STAT_Attribute),
                                                     pStatOpp->getUint(STAT_Attribute));
@@ -133,7 +135,7 @@ int MyStgUtil::calcEnemyStamina(GgafMainActor* prm_pEnemy, GgafMainActor* prm_pO
 
 GgafDxDrawableActor* MyStgUtil::activateExplosionEffectOf(GgafDxGeometricActor* prm_pActor) {
     GgafDxDrawableActor* pE = nullptr;
-    switch (prm_pActor->_pStatus->get(STAT_ExplosionEffectKind)) {
+    switch (prm_pActor->getStatus()->get(STAT_ExplosionEffectKind)) {
         case 0: {
             pE = nullptr; //爆発エフェクト無し
             break;
@@ -187,7 +189,7 @@ GgafDxDrawableActor* MyStgUtil::activateExplosionEffectOf(GgafDxGeometricActor* 
 
 GgafDxDrawableActor* MyStgUtil::activateDamagedEffectOf(GgafDxGeometricActor* prm_pActor) {
     GgafDxDrawableActor* pE = nullptr;
-    switch (prm_pActor->_pStatus->get(STAT_DamagedEffectKind)) {
+    switch (prm_pActor->getStatus()->get(STAT_DamagedEffectKind)) {
         case 0: {
             pE = nullptr; //爆発エフェクト無し
             break;
@@ -212,7 +214,7 @@ GgafDxDrawableActor* MyStgUtil::activateDamagedEffectOf(GgafDxGeometricActor* pr
 }
 GgafDxDrawableActor* MyStgUtil::activateAttackShotOf(GgafDxGeometricActor* prm_pActor) {
     GgafDxDrawableActor* pI = nullptr;
-    switch (prm_pActor->_pStatus->get(STAT_AttackShotKind)) {
+    switch (prm_pActor->getStatus()->get(STAT_AttackShotKind)) {
         case 0: {
             pI = nullptr; //ショット無し
             break;
@@ -236,7 +238,7 @@ GgafDxDrawableActor* MyStgUtil::activateAttackShotOf(GgafDxGeometricActor* prm_p
 
 GgafActorDepository* MyStgUtil::getDepositoryOf(GgafDxGeometricActor* prm_pActor) {
     GgafActorDepository* pDepo = nullptr;
-    switch (prm_pActor->_pStatus->get(STAT_DepositoryKind)) {
+    switch (prm_pActor->getStatus()->get(STAT_DepositoryKind)) {
         case 0: {
             pDepo = nullptr; //無し
             break;
@@ -261,7 +263,7 @@ GgafActorDepository* MyStgUtil::getDepositoryOf(GgafDxGeometricActor* prm_pActor
 
 GgafDxDrawableActor* MyStgUtil::activateRevengeShotOf(GgafDxGeometricActor* prm_pActor) {
     GgafDxDrawableActor* pI = nullptr;
-    switch (prm_pActor->_pStatus->get(STAT_RevengeShotKind)) {
+    switch (prm_pActor->getStatus()->get(STAT_RevengeShotKind)) {
         case 0: {
             pI = nullptr; //ショット無し
             break;
@@ -336,7 +338,7 @@ GgafDxDrawableActor* MyStgUtil::activateRevengeShotOf(GgafDxGeometricActor* prm_
 
 GgafDxDrawableActor* MyStgUtil::activateItemOf(GgafDxGeometricActor* prm_pActor) {
     GgafDxDrawableActor* pI = nullptr;
-    switch (prm_pActor->_pStatus->get(STAT_ItemKind)) {
+    switch (prm_pActor->getStatus()->get(STAT_ItemKind)) {
         case 0: {
             pI = nullptr; //アイテム無し
             break;
@@ -368,7 +370,7 @@ GgafDxDrawableActor* MyStgUtil::activateItemOf(GgafDxGeometricActor* prm_pActor)
 
 GgafDxDrawableActor* MyStgUtil::activateDestroyedEffectOf(GgafDxGeometricActor* prm_pActor) {
     GgafDxDrawableActor* pE = nullptr;
-    switch (prm_pActor->_pStatus->get(STAT_DestroyedEffectKind)) {
+    switch (prm_pActor->getStatus()->get(STAT_DestroyedEffectKind)) {
         case 0: {
             pE = nullptr; //爆発エフェクト無し
             break;
@@ -377,7 +379,7 @@ GgafDxDrawableActor* MyStgUtil::activateDestroyedEffectOf(GgafDxGeometricActor* 
             //スコアが表示される消滅エフェクト
             SpriteLabelBonus001* pLabel = dispatchForceFromCommon(SpriteLabelBonus001);
             pLabel->onDispatched(prm_pActor); //初期設定が行われる
-            std::string s = XTOS(prm_pActor->_pStatus->get(STAT_AddDestroyScorePoint));
+            std::string s = XTOS(prm_pActor->getStatus()->get(STAT_AddDestroyScorePoint));
             pLabel->update(s.c_str()); //破壊時得点が表示される
             pE = pLabel;
             break;
@@ -399,7 +401,7 @@ GgafDxDrawableActor* MyStgUtil::activateDestroyedEffectOf(GgafDxGeometricActor* 
 
 GgafDxDrawableActor* MyStgUtil::activateEntryEffectOf(GgafDxGeometricActor* prm_pActor) {
     GgafDxDrawableActor* pRet = nullptr;
-    switch (prm_pActor->_pStatus->get(STAT_EntryEffectKind)) {
+    switch (prm_pActor->getStatus()->get(STAT_EntryEffectKind)) {
         case 0: {
             pRet = nullptr; //入場エフェクト無し
             break;
@@ -482,7 +484,7 @@ GgafDxDrawableActor* MyStgUtil::activateEntryEffectOf(GgafDxGeometricActor* prm_
 
 GgafDxDrawableActor* MyStgUtil::activateLeaveEffectOf(GgafDxGeometricActor* prm_pActor) {
     GgafDxDrawableActor* pRet = nullptr;
-    switch (prm_pActor->_pStatus->get(STAT_LeaveEffectKind)) {
+    switch (prm_pActor->getStatus()->get(STAT_LeaveEffectKind)) {
         case 0: {
             pRet = nullptr; //退場エフェクト無し
             break;
@@ -535,7 +537,7 @@ GgafDxDrawableActor* MyStgUtil::activateLeaveEffectOf(GgafDxGeometricActor* prm_
 GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDxGeometricActor* prm_pActor) {
 
     GgafDxDrawableActor* pE = nullptr;
-    switch (prm_pActor->_pStatus->get(STAT_FormationDestroyedEffectKind)) {
+    switch (prm_pActor->getStatus()->get(STAT_FormationDestroyedEffectKind)) {
         case 0: {
             pE = nullptr; //エフェクト無し
             break;
@@ -545,7 +547,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDxGeometr
             SpriteLabelBonus001* pLabel = dispatchForceFromCommon(SpriteLabelBonus001);
             pLabel->positionAs(prm_pActor);
             pLabel->getKuroko()->takeoverMvFrom(prm_pActor->getKuroko());
-            int addscore = prm_pActor->_pStatus->get(STAT_FormationDestroyedAddScorePoint); //フォーメーション全滅得点
+            int addscore = prm_pActor->getStatus()->get(STAT_FormationDestroyedAddScorePoint); //フォーメーション全滅得点
             std::string s = XTOS(addscore);
             pLabel->update(s.c_str());
             pE = pLabel;
@@ -580,7 +582,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDxGeometr
 
 GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometricActor* prm_pActor) {
     GgafDxDrawableActor* pI = nullptr;
-    switch (prm_pActor->_pStatus->get(STAT_FormationDestroyedItemKind)) {
+    switch (prm_pActor->getStatus()->get(STAT_FormationDestroyedItemKind)) {
         case 0: {
             pI = nullptr; //アイテム無し
             break;
@@ -612,7 +614,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
 
 GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeometricActor* prm_pActor) {
     GgafDxDrawableActor* pE = nullptr;
-    switch (prm_pActor->_pStatus->get(STAT_ProperEffect01Kind)) {
+    switch (prm_pActor->getStatus()->get(STAT_ProperEffect01Kind)) {
         case 0: {
             pE = nullptr; //エフェクト無し
             break;
@@ -642,8 +644,8 @@ bool MyStgUtil::proceedEnemyHit(GgafDxDrawableActor* prm_this, GgafDxGeometricAc
         prm_this->setHitAble(false); //当たり判定消失
         if (prm_pOther->getKind() & KIND_MY) {
             //相手(自機)の種別が MY*** （自機関連） ならば
-            G_SCORE += prm_this->_pStatus->get(STAT_AddDestroyScorePoint);   //破壊時得点
-            G_RANK  += prm_this->_pStatus->getDouble(STAT_AddRankPoint);     //ランク加算
+            G_SCORE += prm_this->getStatus()->get(STAT_AddDestroyScorePoint);   //破壊時得点
+            G_RANK  += prm_this->getStatus()->getDouble(STAT_AddRankPoint);     //ランク加算
 
             prm_this->notifyDestroyedToFormation();     //編隊全滅判定に有効な破壊のされ方でしたよ、と通知
             UTIL::activateItemOf(prm_this);             //アイテム出現
@@ -661,9 +663,9 @@ bool MyStgUtil::proceedEnemyHit(GgafDxDrawableActor* prm_this, GgafDxGeometricAc
     } else {
         //＜非破壊時、ダメージを受けた場合＞
         if (prm_pOther->getKind() & KIND_MY) { //相手(自機)の種別が MY*** （自機関連） ならば
-            G_SCORE += prm_this->_pStatus->get(STAT_AddDamagedScorePoint);   //ダメージ時得点
+            G_SCORE += prm_this->getStatus()->get(STAT_AddDamagedScorePoint);   //ダメージ時得点
         }
-        if (prm_this->_pStatus->get(STAT_FlushAble)) { //ダメージフラッシュするかどうか
+        if (prm_this->getStatus()->get(STAT_FlushAble)) { //ダメージフラッシュするかどうか
             prm_this->effectFlush(2); //フラッシュ！
         }
         UTIL::activateDamagedEffectOf(prm_this); //ダメージエフェクト
@@ -673,7 +675,7 @@ bool MyStgUtil::proceedEnemyHit(GgafDxDrawableActor* prm_this, GgafDxGeometricAc
 
 GgafDxDrawableActor* MyStgUtil::proceedFormationDestroyAll(GgafDxDrawableActor* prm_pActor_last_destroyed) {
     //編隊全滅時ボーナス加算
-    G_SCORE += prm_pActor_last_destroyed->_pStatus->get(STAT_FormationDestroyedAddScorePoint);
+    G_SCORE += prm_pActor_last_destroyed->getStatus()->get(STAT_FormationDestroyedAddScorePoint);
     //編隊全滅時エフェクト出現
     GgafDxDrawableActor* pEffect = UTIL::activateFormationDestroyedEffectOf(prm_pActor_last_destroyed);
     //編隊全滅アイテム出現
@@ -686,2410 +688,2410 @@ GgafDxDrawableActor* MyStgUtil::proceedFormationDestroyAll(GgafDxDrawableActor* 
 // コード変更は「ステータスCreater.xls」から行うこと。
 // gen02 start
 GgafStatus* MyStgUtil::resetMyShipStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_BODY_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 300000 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_EXPLOSION001);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_TURBO);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 300000 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_EXPLOSION001);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_TURBO);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetMyMagicEnergyCoreStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_BODY_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_NOTHING);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_NOTHING);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetMyStraightLaserChip001Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, (int)(105+((MyStraightLaserChip001::tex_no_*0.5)*100)));  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_EXPLOSION001);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, (int)(105+((MyStraightLaserChip001::tex_no_*0.5)*100)));  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_EXPLOSION001);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetMyOptionWateringLaserChip001Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, (int)(105+((MyOptionWateringLaserChip001::tex_no_*0.5)*100)));  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_EXPLOSION001);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, (int)(105+((MyOptionWateringLaserChip001::tex_no_*0.5)*100)));  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_EXPLOSION001);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetMyOptionStraightLaserChip001Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 105 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_EXPLOSION001);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 105 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_EXPLOSION001);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetMyTorpedoStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 1000 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_EXPLOSION001);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 1000 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_EXPLOSION001);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetMyTorpedoBlastStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_EXPLOSION001);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_EXPLOSION001);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetShot001Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 2 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 2 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetShot002Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 3 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 3 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetShot003Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetShot004Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyStraightLaserChip001Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 105 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 105 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyWateringLaserChip001Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 105 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 105 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyEresStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 99 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 99 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyEresShot001Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 10 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 10 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyStraeaStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 300 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 3000 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 300 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 3000 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyStraeaLaserChip001Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyStraeaLaserChip002Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyStraeaLaserChip003Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyStraeaLaserChip004Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyOmulusStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 2000 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 2000 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyEmusStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 2000 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_LASER001);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 2000 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_LASER001);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyEmusLaserChip001Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyEtisStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 30000 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 20000 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_MIDDLE);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_RV_GOLDEN_ANG_WAY);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 30000 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 20000 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_MIDDLE);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_RV_GOLDEN_ANG_WAY);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyRisStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 20 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 99 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 200 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 20 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 99 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 200 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyGeriaStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 20 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 1000 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 20 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 1000 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyHaliaStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 300 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 1000 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_RV_NOMAL002);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 300 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 1000 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_RV_NOMAL002);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyTamago01Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyIrceStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 99 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 99 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyRatislaviaStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_CHIKEI_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 9999999 );  //体力
-	p->set(STAT_Attack, 9999999 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 1.00000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 1.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_CHIKEI_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 9999999 );  //体力
+    p->set(STAT_Attack, 9999999 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 1.00000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 1.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetWall001Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_CHIKEI_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 9999999 );  //体力
-	p->set(STAT_Attack, 9999999 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 1.00000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 1.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_CHIKEI_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 9999999 );  //体力
+    p->set(STAT_Attack, 9999999 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 1.00000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 1.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetWall001PrismStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_CHIKEI_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 9999999 );  //体力
-	p->set(STAT_Attack, 9999999 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 1.00000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 1.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_CHIKEI_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 9999999 );  //体力
+    p->set(STAT_Attack, 9999999 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 1.00000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 1.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyAllasStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 99 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 99 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyUnomiaStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 99 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 99 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetMyShot001Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 205 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 205 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyEmiliaStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 1000 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 4000 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 1000 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 4000 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyEmiliaFragmentStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 300 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 2000 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 300 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 2000 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyEmiliaFragment2Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 1000 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 1000 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyEmiliaFragment3Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetMyOptionStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_EFFECT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 0 );  //体力
-	p->set(STAT_Attack, 0 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 0.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_EFFECT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 0 );  //体力
+    p->set(STAT_Attack, 0 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 0.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetMagicPointItem001Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ITEM_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 0 );  //体力
-	p->set(STAT_Attack, 0 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 0.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ITEM_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 0 );  //体力
+    p->set(STAT_Attack, 0 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 0.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetMagicPointItem002Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ITEM_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 0 );  //体力
-	p->set(STAT_Attack, 0 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 0.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ITEM_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 0 );  //体力
+    p->set(STAT_Attack, 0 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 0.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetMagicPointItem003Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ITEM_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 0 );  //体力
-	p->set(STAT_Attack, 0 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 0.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ITEM_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 0 );  //体力
+    p->set(STAT_Attack, 0 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 0.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetScoreItem001Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ITEM_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 500 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 0 );  //体力
-	p->set(STAT_Attack, 0 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 0.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ITEM_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 500 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 0 );  //体力
+    p->set(STAT_Attack, 0 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 0.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetVreathItem001Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ITEM_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 500 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 0 );  //体力
-	p->set(STAT_Attack, 0 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 0.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ITEM_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 500 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 0 );  //体力
+    p->set(STAT_Attack, 0 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 0.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyEbeStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 10000 );  //体力
-	p->set(STAT_Attack, 99 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 10000 );  //体力
+    p->set(STAT_Attack, 99 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyHisbeStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 99 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 99 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyHisbe002Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 99 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 99 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyHisbeLaserChip001Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyHisbeLaserChip002Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyHisbeLaserChip003Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyDrasteaStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 30000 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 20000 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 30000 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 20000 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyTalanteStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyEsperiaStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 1000 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 3000 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION002);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 1000 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 3000 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION002);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyEsperiaLaserChip001Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetTestGuStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_GU);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 30000 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 1000 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_GU);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 30000 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 1000 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetTestChokiStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_CHOKI);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 30000 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 1000 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_CHOKI);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 30000 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 1000 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetTestPaStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_PA);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 30000 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 1000 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_PA);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 30000 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 1000 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetTestNomalStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 30000 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 1000 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 30000 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 1000 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetTestGuShotStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_GU);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_GU);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetTestChokiShotStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_CHOKI);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_CHOKI);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetTestPaShotStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_PA);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_PA);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetTestNomalShotStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyRatislaviaEyeStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 2000 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 3000 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_BONUS001);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_LARGE);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 2000 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 3000 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_BONUS001);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_LARGE);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyRatislaviaEyeStraightLaserChip001Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 105 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 105 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyErmioneStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 5000 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 4000 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_ENTRY_MIDDLE001);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_BONUS001);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_TURBO);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_SMALL001);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_RV_NOMAL001);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 5000 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 4000 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_ENTRY_MIDDLE001);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_BONUS001);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_TURBO);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_SMALL001);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_RV_NOMAL001);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyErmioneArmHeadStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 9999999 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_LONG);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_DAMAGED001);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_TURBO);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_SMALL001);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_LASER001);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_RV_NOMAL001);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 9999999 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_LONG);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_DAMAGED001);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_TURBO);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_SMALL001);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_LASER001);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_RV_NOMAL001);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyErmioneArmBodyStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 9999999 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_LONG);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_DAMAGED001);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_TURBO);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 9999999 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_LONG);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_DAMAGED001);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_TURBO);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyErmioneArmWeakStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 1000 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 400 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_LONG);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_DAMAGED001);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_TURBO);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 1000 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 400 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_LONG);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_DAMAGED001);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_TURBO);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyApphoStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 99 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_LONG);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_SMALL001);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_RV_NOMAL001);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 99 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_LONG);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_SMALL001);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_RV_NOMAL001);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyAntiopeStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 99 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_STAY_F60);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001_F30);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_SMALL001);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_RV_NOMAL001);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 99 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_STAY_F60);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001_F30);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_SMALL001);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_RV_NOMAL001);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyDelheidStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 1000 );  //体力
-	p->set(STAT_Attack, 99 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_ENTRY_MIDDLE001);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 8000 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 1000 );  //体力
+    p->set(STAT_Attack, 99 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_ENTRY_MIDDLE001);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 8000 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyAlisanaStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 1000 );  //体力
-	p->set(STAT_Attack, 99 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_ENTRY_LARGE001);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_LEAVE_LARGE001);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 1000 );  //体力
+    p->set(STAT_Attack, 99 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_ENTRY_LARGE001);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_LEAVE_LARGE001);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyIdaStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 10000 );  //体力
-	p->set(STAT_Attack, 99 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_F60);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 3000 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 10000 );  //体力
+    p->set(STAT_Attack, 99 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_F60);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 3000 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyThagorasStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 300 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 99 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_STAY_F60);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001_F30);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_BONUS001);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 10000 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_MP_LARGE);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 300 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 99 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_STAY_F60);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001_F30);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_BONUS001);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 10000 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_MP_LARGE);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyOrtunaStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 99 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_STAY_F60);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001_F30);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_SMALL001);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_RV_NOMAL001);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 99 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_STAY_F60);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001_F30);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_SMALL001);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_RV_NOMAL001);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyGlajaStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 1000 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 1000 );  //体力
-	p->set(STAT_Attack, 99 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_F60);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001_F30);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_SMALL001);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_RV_NOMAL001);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 1000 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 10 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 1000 );  //体力
+    p->set(STAT_Attack, 99 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_F60);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001_F30);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_SMALL001);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_RV_NOMAL001);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyGlajaLance001Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 100 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 100 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyDunaStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 300 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 400 );  //体力
-	p->set(STAT_Attack, 99 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_STAY_F60);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001_F30);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_BONUS001);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_SMALL001);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_RV_NOMAL001);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 300 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 400 );  //体力
+    p->set(STAT_Attack, 99 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_STAY_F60);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001_F30);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_BONUS001);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_SMALL001);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_RV_NOMAL001);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyOzartiaStatus(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 5000 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 100 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 50000 );  //体力
-	p->set(STAT_Attack, 300 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_ENTRY_MIDDLE001);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_LEAVE_LARGE001);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_DAMAGED001);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_BONUS001);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_LARGE);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 5000 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 100 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 50000 );  //体力
+    p->set(STAT_Attack, 300 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_ENTRY_MIDDLE001);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_LEAVE_LARGE001);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_DAMAGED001);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_BONUS001);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_LARGE);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyOzartiaShot01Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 1 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 5000 );  //体力
-	p->set(STAT_Attack, 99 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_F60);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001_F30);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 1 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 100 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00001 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 5000 );  //体力
+    p->set(STAT_Attack, 99 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_F60);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001_F30);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyOzartiaLaserChip01Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 100 );  //体力
-	p->set(STAT_Attack, 105 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 100 );  //体力
+    p->set(STAT_Attack, 105 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 GgafStatus* MyStgUtil::resetEnemyOzartiaPillar01Status(GgafStatus* p) {
-	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
-	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
-	p->set(STAT_LockonAble, 0 );  //ロックオン可否
-	p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
-	p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
-	p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
-	p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-	p->set(STAT_Stamina, 1000 );  //体力
-	p->set(STAT_Attack, 1000 );  //攻撃力
-	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_F60);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001_F30);  //退出エフェクト種別
-	p->set(STAT_ExplosionEffectKind, EF_NOTHING);  //爆発エフェクト種別
-	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
-	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
-	p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
-	p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
-	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
-	p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
-	p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
-	p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
-	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
-	return p;
+    p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+    p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+    p->set(STAT_LockonAble, 0 );  //ロックオン可否
+    p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点
+    p->set(STAT_AddDamagedScorePoint, 0 );  //ダメージ時加算得点
+    p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
+    p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
+    p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
+    p->set(STAT_Stamina, 1000 );  //体力
+    p->set(STAT_Attack, 1000 );  //攻撃力
+    p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+    p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+    p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+    p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_F60);  //出現エフェクト種別
+    p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001_F30);  //退出エフェクト種別
+    p->set(STAT_ExplosionEffectKind, EF_NOTHING);  //爆発エフェクト種別
+    p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+    p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
+    p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別
+    p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+    p->set(STAT_FormationDestroyedEffectKind, EF_NOTHING);  //編隊全滅時エフェクト
+    p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
+    p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
+    p->set(STAT_AttackShotKind, SHOT_NOTHING);  //通常ショット種別
+    p->set(STAT_DepositoryKind, DEPO_NOTHING);  //デポジトリ種別
+    p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
+    return p;
 }
 // gen02 end

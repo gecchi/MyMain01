@@ -24,12 +24,13 @@ Shot002::Shot002(const char* prm_name) :
 }
 
 void Shot002::initialize() {
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB(0, -50000, -50000, -50000, 50000, 50000, 50000);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliAAB(0, -50000, -50000, -50000, 50000, 50000, 50000);
 }
 
 void Shot002::onActive() {
-    _pStatus->reset();
+    getStatus()->reset();
     setHitAble(true);
     setScale(2000);
     GgafDxKuroko* pKuroko = getKuroko();
@@ -40,7 +41,7 @@ void Shot002::onActive() {
 
 void Shot002::processBehavior() {
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    UTIL::updateEnemyRankPoint(this);
     GgafDxKuroko* pKuroko = getKuroko();
     if (getActiveFrame() == 70) {
         pKuroko->turnMvAngTwd(P_MYSHIP,

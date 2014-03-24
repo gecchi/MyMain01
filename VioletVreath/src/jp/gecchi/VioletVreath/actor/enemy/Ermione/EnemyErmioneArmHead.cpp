@@ -27,8 +27,9 @@ void EnemyErmioneArmHead::onCreateModel() {
 
 void EnemyErmioneArmHead::initialize() {
     EnemyErmioneArm::initialize();
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB_Cube(0, 40000);
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    pColliChecker->makeCollision(1);
+    pColliChecker->setColliAAB_Cube(0, 40000);
 }
 
 void EnemyErmioneArmHead::processBehavior() {

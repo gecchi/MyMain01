@@ -112,7 +112,8 @@ MyOption::MyOption(const char* prm_name, uint32_t prm_no, MyOptionController* pr
 }
 
 void MyOption::onCreateModel() {
-    _pModel->setSpecular(5.0, 1.0);
+    GgafDxModel* pModel = getModel();
+    pModel->setSpecular(5.0, 1.0);
 }
 
 void MyOption::initialize() {

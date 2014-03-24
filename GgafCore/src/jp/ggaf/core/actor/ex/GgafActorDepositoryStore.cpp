@@ -18,7 +18,7 @@ void GgafActorDepositoryStore::put(GgafActor* prm_pSub) {
         throwGgafCriticalException("GgafActorDepositoryStore::addSubLast this="<<getName()<<" 引数 prm_pSub("<<prm_pSub->getName()<<") は デポジトリでなければいけません");
     }
     if (_pSubFirst == nullptr) {
-        if (prm_pSub->_pStatus->getUint(STAT_DEFAULT_ACTOR_KIND) == 0U) {
+        if (prm_pSub->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND) == 0U) {
             _TRACE_("＜警告＞ GgafActorDepositoryStore::addSubLast 引数 this="<<getName()<<" prm_pSub("<<prm_pSub->getName()<<") は の種別が0ですが意図していますか？");
         }
     }
