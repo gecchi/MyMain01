@@ -69,8 +69,7 @@ void EnemyHalia::initialize() {
 
 void EnemyHalia::onActive() {
     getStatus()->reset();
-    setMorphWeight(0, 1.0);
-    setMorphWeight(1, 0.0);
+    setMorphWeight(0.0);
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(AXIS_X, 1000);
     pKuroko->hlprA()->slideMvByVd(veloTopMv_, MyShip::lim_x_front_-_x,
