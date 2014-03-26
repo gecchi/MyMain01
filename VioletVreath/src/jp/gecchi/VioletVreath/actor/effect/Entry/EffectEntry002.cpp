@@ -19,14 +19,14 @@ EffectEntry002::EffectEntry002(const char* prm_name) :
 
 void EffectEntry002::initialize() {
     EffectEntry::initialize();
-    //_pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
+    //getUvFlipper()->exec(FLIP_ORDER_LOOP, 1);
     pScaler_->forceRange(R_SC(0.0), R_SC(1.0));
     setAlpha(0.99);
 }
 
 void EffectEntry002::onActive() {
     EffectEntry::onActive();
-    //_pUvFlipper->setActivePtnToTop();
+    //getUvFlipper()->setActivePtnToTop();
     setScale(1);
     getKuroko()->setFaceAngVelo(AXIS_Z, 4000);
 }
@@ -42,7 +42,7 @@ void EffectEntry002::processBehavior() {
     if (getActiveFrame() == 180) {
         sayonara();
     }
-    //_pUvFlipper->behave();
+    //getUvFlipper()->behave();
     getKuroko()->behave();
     pScaler_->behave();
 }

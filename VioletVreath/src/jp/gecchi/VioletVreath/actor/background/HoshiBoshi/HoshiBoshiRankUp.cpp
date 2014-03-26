@@ -18,7 +18,7 @@ HoshiBoshiRankUp::HoshiBoshiRankUp(const char* prm_name) :
 }
 
 void HoshiBoshiRankUp::onActive() {
-    _pUvFlipper->exec(FLIP_ORDER_LOOP, 36);
+    getUvFlipper()->exec(FLIP_ORDER_LOOP, 36);
 }
 
 void HoshiBoshiRankUp::processBehavior() {
@@ -27,7 +27,7 @@ void HoshiBoshiRankUp::processBehavior() {
     } else {
         _x += 90000*far_rate_;
     }
-    _pUvFlipper->behave();
+    getUvFlipper()->behave();
 }
 
 void HoshiBoshiRankUp::processJudgement() {

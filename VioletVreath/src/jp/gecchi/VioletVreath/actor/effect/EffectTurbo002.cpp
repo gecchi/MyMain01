@@ -20,13 +20,14 @@ EffectTurbo002::EffectTurbo002(const char* prm_name) :
 }
 
 void EffectTurbo002::initialize() {
-    _pUvFlipper->setFlipPtnRange(0, 0);   //ƒAƒjƒ”ÍˆÍ‚ğ‚O`‚P‚T
-    _pUvFlipper->exec(FLIP_ORDER_LOOP, 2); //ƒAƒjƒ‡˜
+    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    pUvFlipper->setFlipPtnRange(0, 0);   //ƒAƒjƒ”ÍˆÍ‚ğ‚O`‚P‚T
+    pUvFlipper->exec(FLIP_ORDER_LOOP, 2); //ƒAƒjƒ‡˜
 
 }
 
 void EffectTurbo002::onActive() {
-    _pUvFlipper->setActivePtnToTop();
+    getUvFlipper()->setActivePtnToTop();
     setAlpha(0.4);
     pScaler_->forceRange(100000, 1000); //ƒXƒP[ƒŠƒ“ƒOE”ÍˆÍ
     setScale(1000);
@@ -37,7 +38,7 @@ void EffectTurbo002::onActive() {
 
 void EffectTurbo002::processBehavior() {
     addAlpha(-(1.0/60.0));
-    _pUvFlipper->behave();
+    getUvFlipper()->behave();
     getKuroko()->behave();
     pScaler_->behave();
 }

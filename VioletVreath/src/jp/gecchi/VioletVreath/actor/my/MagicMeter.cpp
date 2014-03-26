@@ -196,7 +196,7 @@ void MagicMeter::initialize() {
     pVreathBar_->position(_x, _y + height_ + PX_C(16) + PX_C(16) );
     pMagicMeterStatus_->positionAs(this);
 
-    _pUvFlipper->exec(FLIP_ORDER_LOOP, 10); //アニメ順序
+    getUvFlipper()->exec(FLIP_ORDER_LOOP, 10); //アニメ順序
     Magic* pMagic;
     for (int i = 0; i < lstMagic_.length(); i++) {
         pMagic = lstMagic_.getFromFirst(i);
@@ -620,6 +620,8 @@ void MagicMeter::onInactive() {
 void MagicMeter::processDraw() {
     GgafDxBoardSetEffect* const pBoardSetEffect = _pBoardSetEffect;
     ID3DXEffect* pID3DXEffect = pBoardSetEffect->_pID3DXEffect;
+    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+
     HRESULT hr;
     //パワーメーター
     //[====]が１つの大きさ [====][====][====]
@@ -648,9 +650,9 @@ void MagicMeter::processDraw() {
         hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_alpha[n], alpha);
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_alpha) に失敗しました。");
         if (pMagic_level > 0 && pMagic->lvinfo_[pMagic_level].remainingtime_of_effect_ <= fraeme_of_notice_remaind_) {
-            _pUvFlipper->getUV(1, u, v); //パターン1は赤背景、残り時間がやばい事を示す
+            pUvFlipper->getUV(1, u, v); //パターン1は赤背景、残り時間がやばい事を示す
         } else {
-            _pUvFlipper->getUV(0, u, v); //パターン0は通常背景
+            pUvFlipper->getUV(0, u, v); //パターン0は通常背景
         }
         hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_offset_u[n], u);
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw() SetFloat(hOffsetU_) に失敗しました。");
@@ -667,7 +669,7 @@ void MagicMeter::processDraw() {
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_depth_z) に失敗しました。");
         hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_alpha[n], alpha);
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_alpha) に失敗しました。");
-        _pUvFlipper->getUV(pMagic->lvinfo_[pMagic_level].pno_, u, v);
+        pUvFlipper->getUV(pMagic->lvinfo_[pMagic_level].pno_, u, v);
         hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_offset_u[n], u);
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw() SetFloat(hOffsetU_) に失敗しました。");
         hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_offset_v[n], v);
@@ -692,10 +694,10 @@ void MagicMeter::processDraw() {
                 if (pMagic->chkCastAble(j) <= MAGIC_CAST_NG_MP_IS_SHORT) {
                     //MAGIC_CAST_NG_MP_IS_SHORT か MAGIC_CAST_NG_INVOKING_NOW
                     //詠唱不可表示
-                    _pUvFlipper->getUV(pMagic->lvinfo_[j].pno_ + 1, u, v); //右隣のテクスチャパターンが DISABLE なパターン前提
+                    pUvFlipper->getUV(pMagic->lvinfo_[j].pno_ + 1, u, v); //右隣のテクスチャパターンが DISABLE なパターン前提
                 } else {
                     //詠唱可能表示
-                    _pUvFlipper->getUV(pMagic->lvinfo_[j].pno_, u, v);
+                    pUvFlipper->getUV(pMagic->lvinfo_[j].pno_, u, v);
                 }
                 hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_offset_u[n], u);
                 checkDxException(hr, D3D_OK, "MagicMeter::processDraw() SetFloat(hOffsetU_) に失敗しました。");

@@ -28,6 +28,10 @@ public:
 
     virtual void processDraw() override;
 
+    inline GgafDxUvFlipper* getUvFlipper() {
+        return _pUvFlipper;
+    }
+
     virtual ~GgafDxSpriteMeshSetActor();
 
 };

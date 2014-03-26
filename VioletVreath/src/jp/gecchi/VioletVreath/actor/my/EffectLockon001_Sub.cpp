@@ -21,15 +21,16 @@ EffectLockon001_Sub::EffectLockon001_Sub(const char* prm_name) :
 
 void EffectLockon001_Sub::initialize() {
     EffectLockon001::initialize();
-    _pUvFlipper->setFlipPtnRange(0, 3);   //アニメ範囲を０～１５
-    _pUvFlipper->exec(FLIP_ORDER_LOOP, 5); //アニメ順序
+    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    pUvFlipper->setFlipPtnRange(0, 3);   //アニメ範囲を０～１５
+    pUvFlipper->exec(FLIP_ORDER_LOOP, 5); //アニメ順序
 }
 
 void EffectLockon001_Sub::onActive() {
     EffectLockon001::onActive();
     _TRACE_(getActiveFrame()<<",EffectLockon001_Sub::onActive()、this="<<getName()<<"("<<this<<") pTarget_="<<pTarget_);
     pEffectLockon001_Main_ = (EffectLockon001_Main*)getParent()->getSubFirst();
-    _pUvFlipper->setActivePtnToTop();
+    getUvFlipper()->setActivePtnToTop();
     setAlpha(0.01);
     _sx = _sy = _sz = pEffectLockon001_Main_->_sx;
     getKuroko()->setFaceAngVelo(AXIS_Z, 1000);        //右回転
@@ -89,7 +90,7 @@ void EffectLockon001_Sub::processBehavior() {
         }
     }
 
-    _pUvFlipper->behave();
+    getUvFlipper()->behave();
     pKuroko->behave();
 }
 

@@ -22,14 +22,15 @@ EffectExplosion004::EffectExplosion004(const char* prm_name) :
 }
 
 void EffectExplosion004::initialize() {
-    _pUvFlipper->setFlipPtnRange(0, 63);
+    getUvFlipper()->setFlipPtnRange(0, 63);
     pScaler_->forceRange(500, 2000);
     setHitAble(false);
 }
 
 void EffectExplosion004::onActive() {
-    _pUvFlipper->setActivePtnToTop();
-    _pUvFlipper->exec(FLIP_ORDER_NOLOOP, 1);
+    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    pUvFlipper->setActivePtnToTop();
+    pUvFlipper->exec(FLIP_ORDER_NOLOOP, 1);
     setScale(500);
     pScaler_->transitionLinerUntil(2000, 64);
     setAlpha(0.99);
@@ -37,7 +38,7 @@ void EffectExplosion004::onActive() {
 
 void EffectExplosion004::processBehavior() {
     _alpha -= 0.01;
-    _pUvFlipper->behave();
+    getUvFlipper()->behave();
     getKuroko()->behave();
     pScaler_->behave();
 }

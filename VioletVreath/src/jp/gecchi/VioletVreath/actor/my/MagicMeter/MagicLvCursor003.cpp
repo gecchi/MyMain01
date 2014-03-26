@@ -28,10 +28,10 @@ MagicLvCursor003::MagicLvCursor003(const char* prm_name, MagicMeter* prm_pMagicM
 
 void MagicLvCursor003::initialize() {
     MagicLvCursor::initialize();
-    _pUvFlipper->setFlipPtnRange(0,3);
-    _pUvFlipper->setActivePtn(3);
-    _pUvFlipper->exec(NOT_ANIMATED);
-
+    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    pUvFlipper->setFlipPtnRange(0,3);
+    pUvFlipper->setActivePtn(3);
+    pUvFlipper->exec(NOT_ANIMATED);
     pScaler_->forceRange(1000, 10000);
 }
 
@@ -54,7 +54,7 @@ void MagicLvCursor003::processAfterDraw() {
 }
 
 void MagicLvCursor003::markOff() {
-    _pUvFlipper->stopFlip();
+    getUvFlipper()->stopFlip();
     pAFader_->reset();
     setAlpha(0);
 }
@@ -63,9 +63,10 @@ void MagicLvCursor003::markOnLevelUpCast(int prm_lv) {
     setAlpha(0);
     pAFader_->transitionLinerUntil(1.0, 20);
     moveTo(prm_lv);
-    _pUvFlipper->setFlipPtnRange(0,3);
-    _pUvFlipper->setActivePtn(0);
-    _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
+    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    pUvFlipper->setFlipPtnRange(0,3);
+    pUvFlipper->setActivePtn(0);
+    pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
     setScale(10000);
     pScaler_->transitionLinerUntil(1000, 20);
     setRzFaceAng(D180ANG);
@@ -76,27 +77,30 @@ void MagicLvCursor003::markOnLevelDownCast(int prm_lv) {
     setAlpha(1.0);
     pAFader_->transitionLinerUntil(0, 20);
     moveTo(prm_lv);
-    _pUvFlipper->setFlipPtnRange(8, 11);
-    _pUvFlipper->setActivePtn(8);
-    _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
+    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    pUvFlipper->setFlipPtnRange(8, 11);
+    pUvFlipper->setActivePtn(8);
+    pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
     setScale(1000);
     pScaler_->transitionLinerUntil(10000, 20);
 }
 
 void MagicLvCursor003::markOnInvoke(int prm_lv) {
     moveTo(prm_lv);
-    _pUvFlipper->setFlipPtnRange(4, 7);
-    _pUvFlipper->setActivePtn(4);
-    _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
+    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    pUvFlipper->setFlipPtnRange(4, 7);
+    pUvFlipper->setActivePtn(4);
+    pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
 }
 
 void MagicLvCursor003::markOnEffect(int prm_lv) {
     setAlpha(1.0);
     pAFader_->transitionLinerUntil(0, 20);
     moveTo(prm_lv);
-    _pUvFlipper->setFlipPtnRange(8, 11);
-    _pUvFlipper->setActivePtn(8);
-    _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
+    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    pUvFlipper->setFlipPtnRange(8, 11);
+    pUvFlipper->setActivePtn(8);
+    pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
     setScale(1000);
     pScaler_->transitionLinerUntil(10000, 20);
 }

@@ -12,14 +12,14 @@ CursorConfig005::CursorConfig005(const char* prm_name) : DefaultBoardActor(prm_n
     _class_name = "CursorConfig005";
 }
 void CursorConfig005::initialize() {
-    _pUvFlipper->exec(FLIP_OSCILLATE_LOOP, 10);
+    getUvFlipper()->exec(FLIP_OSCILLATE_LOOP, 10);
 }
 
 void CursorConfig005::onActive() {
 }
 
 void CursorConfig005::processBehavior() {
-    _pUvFlipper->behave();
+    getUvFlipper()->behave();
 }
 
 void CursorConfig005::processJudgement() {

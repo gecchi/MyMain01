@@ -16,10 +16,10 @@ WorldBoundSpace002::WorldBoundSpace002(const char* prm_name) :
     base_v_ = 0;
 }
 void WorldBoundSpace002::initialize() {
-    //    _pUvFlipper->setRotation(16, 1/16.0, 1/16.0);
-    //    _pUvFlipper->exec(FLIP_ORDER_LOOP, 5);
-    //    _pUvFlipper->setFlipPtnRange(0, 16*16-1);
-    //    _pUvFlipper->setActivePtn(0);
+    //    getUvFlipper()->setRotation(16, 1/16.0, 1/16.0);
+    //    getUvFlipper()->exec(FLIP_ORDER_LOOP, 5);
+    //    getUvFlipper()->setFlipPtnRange(0, 16*16-1);
+    //    getUvFlipper()->setActivePtn(0);
     setHitAble(false);
     _x = _y = _z = 0;
     _rx = _ry = _rz = 0;
@@ -29,14 +29,14 @@ void WorldBoundSpace002::initialize() {
 }
 
 void WorldBoundSpace002::onActive() {
-    //_pUvFlipper->exec(FLIP_ORDER_LOOP, 5);
+    //getUvFlipper()->exec(FLIP_ORDER_LOOP, 5);
 }
 
 void WorldBoundSpace002::processBehavior() {
-//    _pUvFlipper->setBaseUv(base_u_,base_v_);
+//    getUvFlipper()->setBaseUv(base_u_,base_v_);
 //    base_u_ += 0.005;
 //    base_v_ += 0.005;
-//    _pUvFlipper->behave();
+//    getUvFlipper()->behave();
 }
 void WorldBoundSpace002::processJudgement() {
 }

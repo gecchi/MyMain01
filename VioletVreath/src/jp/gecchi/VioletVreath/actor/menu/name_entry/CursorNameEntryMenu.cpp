@@ -14,14 +14,14 @@ CursorNameEntryMenu::CursorNameEntryMenu(const char* prm_name) : DefaultBoardAct
 }
 
 void CursorNameEntryMenu::initialize() {
-    _pUvFlipper->exec(FLIP_OSCILLATE_LOOP, 10);
+    getUvFlipper()->exec(FLIP_OSCILLATE_LOOP, 10);
 }
 
 void CursorNameEntryMenu::onActive() {
 }
 
 void CursorNameEntryMenu::processBehavior() {
-    _pUvFlipper->behave();
+    getUvFlipper()->behave();
 }
 
 void CursorNameEntryMenu::processJudgement() {

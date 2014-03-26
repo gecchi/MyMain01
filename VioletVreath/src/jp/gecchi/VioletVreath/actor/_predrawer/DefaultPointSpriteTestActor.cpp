@@ -33,7 +33,7 @@ void DefaultPointSpriteTestActor::initialize() {
 }
 
 void DefaultPointSpriteTestActor::onActive() {
-    _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
+    getUvFlipper()->exec(FLIP_ORDER_LOOP, 1);
 }
 
 void DefaultPointSpriteTestActor::processBehavior() {
@@ -43,7 +43,7 @@ void DefaultPointSpriteTestActor::processBehavior() {
         _x -= 10000;
     }
 
-    _pUvFlipper->behave();
+    getUvFlipper()->behave();
 }
 
 void DefaultPointSpriteTestActor::processSettlementBehavior() {

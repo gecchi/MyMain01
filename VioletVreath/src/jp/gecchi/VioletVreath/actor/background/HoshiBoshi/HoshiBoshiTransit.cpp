@@ -18,7 +18,7 @@ HoshiBoshiTransit::HoshiBoshiTransit(const char* prm_name) :
 }
 
 void HoshiBoshiTransit::onActive() {
-    _pUvFlipper->exec(FLIP_ORDER_LOOP, 6);
+    getUvFlipper()->exec(FLIP_ORDER_LOOP, 6);
 }
 
 void HoshiBoshiTransit::processBehavior() {
@@ -27,7 +27,7 @@ void HoshiBoshiTransit::processBehavior() {
     } else {
         _x -= 90000*far_rate_;
     }
-    _pUvFlipper->behave();
+    getUvFlipper()->behave();
 }
 
 void HoshiBoshiTransit::processJudgement() {

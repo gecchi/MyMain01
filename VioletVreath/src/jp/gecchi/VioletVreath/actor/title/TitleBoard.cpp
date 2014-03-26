@@ -28,11 +28,12 @@ void TitleBoard::processJudgement() {
 
 void TitleBoard::processDraw() {
     //‰¡‚É‚Q˜AŒ‹
-    _pUvFlipper->setActivePtn(0);
+    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    pUvFlipper->setActivePtn(0);
     DefaultBoardActor::processDraw();
     coord tmpX = _x;
     _x += PX_C(600);
-    _pUvFlipper->setActivePtn(1);
+    pUvFlipper->setActivePtn(1);
     DefaultBoardActor::processDraw();
     _x = tmpX;
 }

@@ -33,7 +33,7 @@ void HoshiBoshi002::initialize() {
 }
 
 void HoshiBoshi002::onActive() {
-    _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
+    getUvFlipper()->exec(FLIP_ORDER_LOOP, 1);
 }
 
 void HoshiBoshi002::processBehavior() {
@@ -43,7 +43,7 @@ void HoshiBoshi002::processBehavior() {
         _x -= 10000;
     }
 
-    _pUvFlipper->behave();
+    getUvFlipper()->behave();
 }
 
 void HoshiBoshi002::processSettlementBehavior() {

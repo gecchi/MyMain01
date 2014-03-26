@@ -20,7 +20,7 @@ HoshiBoshiTitle::HoshiBoshiTitle(const char* prm_name) :
 }
 
 void HoshiBoshiTitle::onActive() {
-    _pUvFlipper->exec(FLIP_ORDER_LOOP, 6);
+    getUvFlipper()->exec(FLIP_ORDER_LOOP, 6);
 }
 
 void HoshiBoshiTitle::processBehavior() {
@@ -29,7 +29,7 @@ void HoshiBoshiTitle::processBehavior() {
     } else {
         _x -= 10000*far_rate_;
     }
-    _pUvFlipper->behave();
+    getUvFlipper()->behave();
     pAFader_->behave();
 }
 

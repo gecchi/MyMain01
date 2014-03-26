@@ -13,14 +13,14 @@ CursorTitleMenu::CursorTitleMenu(const char* prm_name) : DefaultBoardActor(prm_n
     _class_name = "CursorTitleMenu";
 }
 void CursorTitleMenu::initialize() {
-    _pUvFlipper->exec(FLIP_OSCILLATE_LOOP, 10);
+    getUvFlipper()->exec(FLIP_OSCILLATE_LOOP, 10);
 }
 
 void CursorTitleMenu::onActive() {
 }
 
 void CursorTitleMenu::processBehavior() {
-    _pUvFlipper->behave();
+    getUvFlipper()->behave();
 }
 
 void CursorTitleMenu::processJudgement() {

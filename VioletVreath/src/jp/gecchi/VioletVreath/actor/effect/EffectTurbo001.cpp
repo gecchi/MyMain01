@@ -23,18 +23,19 @@ EffectTurbo001::EffectTurbo001(const char* prm_name) :
 }
 
 void EffectTurbo001::initialize() {
-    _pUvFlipper->setFlipPtnRange(0, 15);   //ƒAƒjƒ”ÍˆÍ‚ğ‚O`‚P‚T
-    _pUvFlipper->exec(FLIP_ORDER_LOOP, 1); //ƒAƒjƒ‡˜
+    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    pUvFlipper->setFlipPtnRange(0, 15);   //ƒAƒjƒ”ÍˆÍ‚ğ‚O`‚P‚T
+    pUvFlipper->exec(FLIP_ORDER_LOOP, 1); //ƒAƒjƒ‡˜
     setAlpha(0.99);
 }
 
 void EffectTurbo001::onActive() {
-    _pUvFlipper->setActivePtnToTop();
+    getUvFlipper()->setActivePtnToTop();
     getKuroko()->setFaceAngVelo(AXIS_Z, 3000);        //‰ñ“]
 }
 
 void EffectTurbo001::processBehavior() {
-    _pUvFlipper->behave();
+    getUvFlipper()->behave();
     getKuroko()->behave();
     pScaler_->behave();
 }

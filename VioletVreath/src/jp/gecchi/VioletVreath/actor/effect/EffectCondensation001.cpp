@@ -22,13 +22,13 @@ EffectCondensation001::EffectCondensation001(const char* prm_name) :
 }
 
 void EffectCondensation001::initialize() {
-    _pUvFlipper->setFlipPtnRange(0, 3);   //ƒAƒjƒ”ÍˆÍ‚ğ‚O`‚P‚T
-    _pUvFlipper->exec(FLIP_ORDER_LOOP, 5); //ƒAƒjƒ‡˜
-
+    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    pUvFlipper->setFlipPtnRange(0, 3);   //ƒAƒjƒ”ÍˆÍ‚ğ‚O`‚P‚T
+    pUvFlipper->exec(FLIP_ORDER_LOOP, 5); //ƒAƒjƒ‡˜
 }
 
 void EffectCondensation001::onActive() {
-    _pUvFlipper->setActivePtnToTop();
+    getUvFlipper()->setActivePtnToTop();
     setAlpha(0.01);
     pScaler_->forceRange(30000, 1000); //ƒXƒP[ƒŠƒ“ƒOE”ÍˆÍ
     setScale(30000);
@@ -46,7 +46,7 @@ void EffectCondensation001::processBehavior() {
         pScaler_->forceRange(1000, 2000);
         pScaler_->beat(30, 2, 0, 26, -1); //–³ŒÀƒ‹[ƒv
     }
-    _pUvFlipper->behave();
+    getUvFlipper()->behave();
     getKuroko()->behave();
     pScaler_->behave();
 }

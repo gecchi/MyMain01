@@ -24,14 +24,14 @@ EffectVreathMagic001::EffectVreathMagic001(const char* prm_name) :
 
 void EffectVreathMagic001::initialize() {
     setAlpha(0.9);
-    _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
+    getUvFlipper()->exec(FLIP_ORDER_LOOP, 1);
 }
 
 void EffectVreathMagic001::onActive() {
 }
 
 void EffectVreathMagic001::processBehavior() {
-    _pUvFlipper->behave();
+    getUvFlipper()->behave();
     getKuroko()->behave();
     pScaler_->behave();
 }

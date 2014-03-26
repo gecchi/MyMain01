@@ -19,7 +19,7 @@ EffectOptionMagic001::EffectOptionMagic001(const char* prm_name)
 
 void EffectOptionMagic001::initialize() {
     setAlpha(0.9);
-//    _pUvFlipper->setFlipPtnRange(0, 63);
+//    getUvFlipper()->setFlipPtnRange(0, 63);
     setHitAble(false);
 }
 

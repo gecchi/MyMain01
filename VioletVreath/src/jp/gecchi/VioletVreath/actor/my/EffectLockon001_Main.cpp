@@ -20,8 +20,9 @@ EffectLockon001_Main::EffectLockon001_Main(const char* prm_name) :
 
 void EffectLockon001_Main::initialize() {
     EffectLockon001::initialize();
-    _pUvFlipper->setFlipPtnRange(0, 3);   //ƒAƒjƒ”ÍˆÍ‚ğ‚O`‚P‚T
-    _pUvFlipper->exec(FLIP_ORDER_LOOP, 5); //ƒAƒjƒ‡˜
+    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    pUvFlipper->setFlipPtnRange(0, 3);   //ƒAƒjƒ”ÍˆÍ‚ğ‚O`‚P‚T
+    pUvFlipper->exec(FLIP_ORDER_LOOP, 5); //ƒAƒjƒ‡˜
     pScaler_->forceRange(60000, 2000); //ƒXƒP[ƒŠƒ“ƒOE”ÍˆÍ
 }
 
@@ -31,7 +32,7 @@ void EffectLockon001_Main::onActive() {
         inactivateImmed();
         return;
     }
-    _pUvFlipper->setActivePtnToTop();
+    getUvFlipper()->setActivePtnToTop();
     setAlpha(0.01);
     pScaler_->forceRange(60000, 2000); //ƒXƒP[ƒŠƒ“ƒOE”ÍˆÍ
     setScale(60000); //(6000%)
@@ -92,7 +93,7 @@ void EffectLockon001_Main::processBehavior() {
         }
     }
 
-    _pUvFlipper->behave();
+    getUvFlipper()->behave();
     pKuroko->behave();
     pScaler_->behave();
 

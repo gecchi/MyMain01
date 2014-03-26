@@ -22,13 +22,14 @@ EffectMyShipExplosion::EffectMyShipExplosion(const char* prm_name) :
 }
 
 void EffectMyShipExplosion::initialize() {
-    _pUvFlipper->setFlipPtnRange(0, 15);
+    getUvFlipper()->setFlipPtnRange(0, 15);
     setHitAble(false);
 }
 
 void EffectMyShipExplosion::onActive() {
-    _pUvFlipper->setActivePtnToTop();
-    _pUvFlipper->exec(FLIP_ORDER_NOLOOP, 20);
+    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    pUvFlipper->setActivePtnToTop();
+    pUvFlipper->exec(FLIP_ORDER_NOLOOP, 20);
     positionAs(P_MYSHIP);
     _alpha = 0.99;
     setScale(8000);
@@ -38,13 +39,13 @@ void EffectMyShipExplosion::onActive() {
 void EffectMyShipExplosion::processBehavior() {
     _alpha -= 0.01;
     positionAs(P_MYSHIP);
-    _pUvFlipper->behave();
+    getUvFlipper()->behave();
     getKuroko()->behave();
     pScaler_->behave();
 }
 
 void EffectMyShipExplosion::processJudgement() {
-    if (_pUvFlipper->_uvflip_method == NOT_ANIMATED) {
+    if (getUvFlipper()->_uvflip_method == NOT_ANIMATED) {
         inactivate();
     }
 }

@@ -13,14 +13,14 @@ CursorConfirmMenu::CursorConfirmMenu(const char* prm_name) : DefaultBoardActor(p
     _class_name = "CursorConfirmMenu";
 }
 void CursorConfirmMenu::initialize() {
-    _pUvFlipper->exec(FLIP_OSCILLATE_LOOP, 10);
+    getUvFlipper()->exec(FLIP_OSCILLATE_LOOP, 10);
 }
 
 void CursorConfirmMenu::onActive() {
 }
 
 void CursorConfirmMenu::processBehavior() {
-    _pUvFlipper->behave();
+    getUvFlipper()->behave();
 }
 
 void CursorConfirmMenu::processJudgement() {

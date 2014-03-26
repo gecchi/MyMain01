@@ -78,6 +78,10 @@ public:
     virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign);
     virtual void setAlign(GgafDxAlign prm_align);
     virtual void setValign(GgafDxValign prm_valign);
+
+    inline GgafDxUvFlipper* getUvFlipper() {
+        return _pUvFlipper;
+    }
 };
 
 }

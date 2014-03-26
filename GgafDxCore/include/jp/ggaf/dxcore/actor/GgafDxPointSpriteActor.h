@@ -162,6 +162,9 @@ public:
      */
     virtual void addAlpha(float prm_alpha) override;
 
+    inline GgafDxUvFlipper* getUvFlipper() {
+        return _pUvFlipper;
+    }
 
     virtual ~GgafDxPointSpriteActor(); //デストラクタ
 };

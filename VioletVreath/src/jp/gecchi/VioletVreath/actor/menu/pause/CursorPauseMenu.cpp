@@ -14,7 +14,7 @@ CursorPauseMenu::CursorPauseMenu(const char* prm_name) : DefaultBoardActor(prm_n
     _class_name = "CursorPauseMenu";
 }
 void CursorPauseMenu::initialize() {
-    _pUvFlipper->exec(FLIP_OSCILLATE_LOOP, 10);
+    getUvFlipper()->exec(FLIP_OSCILLATE_LOOP, 10);
 }
 
 void CursorPauseMenu::onActive() {
@@ -24,7 +24,7 @@ void CursorPauseMenu::processBehavior() {
     if (GgafDxCore::GgafDxInput::isBeingPressedKey(DIK_P)) {
         _TRACE_("Cursor:"<<getBehaveingFrame()<<":_x,_y,_z="<<_x<<","<<_y<<","<<_z<<"");
     }
-    _pUvFlipper->behave();
+    getUvFlipper()->behave();
 }
 
 void CursorPauseMenu::processJudgement() {

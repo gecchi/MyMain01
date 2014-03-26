@@ -20,7 +20,7 @@ DamageDispBar::DamageDispBar(const char* prm_name, GgafLib::GraphBarActor* prm_p
 }
 
 void DamageDispBar::initialize() {
-    _pUvFlipper->exec(NOT_ANIMATED); //アニメ順序
+    getUvFlipper()->exec(NOT_ANIMATED); //アニメ順序
     setAlpha(0.7);
 }
 
@@ -28,21 +28,21 @@ void DamageDispBar::onReset() {
     positionAs(pSourceBar_);
     _sx = pSourceBar_->_sx;
     setQty(0);
-    _pUvFlipper->setActivePtn(0);//赤
+    getUvFlipper()->setActivePtn(0);//赤
 }
 
 void DamageDispBar::onActive() {
     positionAs(pSourceBar_);
     _sx = pSourceBar_->_sx;
     setQty(0);
-    _pUvFlipper->setActivePtn(0);//赤
+    getUvFlipper()->setActivePtn(0);//赤
 }
 
 void DamageDispBar::processBehavior() {
     if (damege_disp_timer_ > 0) {
 
         _x = pSourceBar_->_x + PX_C(pSourceBar_->getBarPx()); //pSourceBar_先端の座標
-        _pUvFlipper->behave();
+        getUvFlipper()->behave();
         damege_disp_timer_--;
     } else {
         //0へ向かう

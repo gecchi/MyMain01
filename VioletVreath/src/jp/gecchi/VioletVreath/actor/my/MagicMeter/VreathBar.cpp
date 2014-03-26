@@ -14,7 +14,7 @@ VreathBar::VreathBar(const char* prm_name)
 }
 
 void VreathBar::initialize() {
-//    _pUvFlipper->exec(FLIP_ORDER_LOOP, 10); //アニメ順序
+//    getUvFlipper()->exec(FLIP_ORDER_LOOP, 10); //アニメ順序
 }
 
 VreathBar::~VreathBar() {

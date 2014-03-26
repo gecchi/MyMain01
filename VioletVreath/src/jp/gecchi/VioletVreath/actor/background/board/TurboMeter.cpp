@@ -24,7 +24,7 @@ TurboMeter::TurboMeter(const char* prm_name) : DefaultBoardActor(prm_name, "Turb
 
 void TurboMeter::initialize() {
     graduateScale(400, 100000);
-    _pUvFlipper->exec(FLIP_ORDER_LOOP, 10); //アニメ順序
+    getUvFlipper()->exec(FLIP_ORDER_LOOP, 10); //アニメ順序
 }
 
 void TurboMeter::onActive() {
@@ -35,7 +35,7 @@ void TurboMeter::processBehavior() {
     val_ = P_MYSHIP->veloBeginMT_;
     float length_px = unit_px_ * val_;
     _sx = R_SC(length_px / _pBoardModel->_fSize_BoardModelWidthPx);
-    _pUvFlipper->behave();
+    getUvFlipper()->behave();
 }
 
 void TurboMeter::processJudgement() {

@@ -108,6 +108,9 @@ public:
     virtual void setScaleR(float prm_x_rate, float prm_y_rate) override;
     virtual void setScaleR(float prm_x_rate, float prm_y_rate, float prm_z_rate) override;
 
+    inline GgafDxUvFlipper* getUvFlipper() {
+        return _pUvFlipper;
+    }
 };
 
 }

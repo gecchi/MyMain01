@@ -16,7 +16,7 @@ Cursor001::Cursor001(const char* prm_name) : DefaultBoardActor(prm_name, "Cursor
 
 }
 void Cursor001::initialize() {
-    _pUvFlipper->exec(FLIP_OSCILLATE_LOOP, 10);
+    getUvFlipper()->exec(FLIP_OSCILLATE_LOOP, 10);
 }
 
 void Cursor001::onActive() {
@@ -25,7 +25,7 @@ void Cursor001::onActive() {
 
 void Cursor001::processBehavior() {
     getKuroko()->behave();
-    _pUvFlipper->behave();
+    getUvFlipper()->behave();
 }
 
 void Cursor001::processJudgement() {

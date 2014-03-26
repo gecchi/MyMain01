@@ -82,10 +82,10 @@ void EnemyTamago01::onActive() {
         pProgram_Tamago01Move_->start(SplineKurokoLeader::ABSOLUTE_COORD); //スプライン移動をプログラムしておく
     }
 
-//    _pUvFlipper->setRotation(16, 1/16.0, 1/16.0);
-//    _pUvFlipper->exec(FLIP_ORDER_LOOP, 5);
-//    _pUvFlipper->setFlipPtnRange(0, 16*16-1);
-//    _pUvFlipper->setActivePtn(0);
+//    getUvFlipper()->setRotation(16, 1/16.0, 1/16.0);
+//    getUvFlipper()->exec(FLIP_ORDER_LOOP, 5);
+//    getUvFlipper()->setFlipPtnRange(0, 16*16-1);
+//    getUvFlipper()->setActivePtn(0);
     iMovePatternNo_ = 0;
 }
 
@@ -187,7 +187,7 @@ void EnemyTamago01::processBehavior() {
     }
     pKuroko->behave();
     pScaler_->behave();
-    _pUvFlipper->behave();
+    getUvFlipper()->behave();
     //getSeTx()->behave();
 }
 

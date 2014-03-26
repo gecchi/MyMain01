@@ -54,7 +54,7 @@ void HoshiBoshiTestActor::initialize() {
 }
 
 void HoshiBoshiTestActor::onActive() {
-    _pUvFlipper->exec(FLIP_ORDER_LOOP, 6);
+    getUvFlipper()->exec(FLIP_ORDER_LOOP, 6);
 }
 
 void HoshiBoshiTestActor::processBehavior() {
@@ -63,7 +63,7 @@ void HoshiBoshiTestActor::processBehavior() {
     } else {
         _x -= 1000;
     }
-    _pUvFlipper->behave();
+    getUvFlipper()->behave();
 }
 
 void HoshiBoshiTestActor::processSettlementBehavior() {

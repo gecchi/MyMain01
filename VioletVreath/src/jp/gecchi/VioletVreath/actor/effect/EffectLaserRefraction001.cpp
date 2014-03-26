@@ -19,13 +19,13 @@ EffectLaserRefraction001::EffectLaserRefraction001(const char* prm_name)
 }
 
 void EffectLaserRefraction001::initialize() {
-//    _pUvFlipper->setFlipPtnRange(0, 63);
+//    getUvFlipper()->setFlipPtnRange(0, 63);
     setHitAble(false);
 }
 
 void EffectLaserRefraction001::onActive() {
-    //_pUvFlipper->setActivePtnToTop();
-    //_pUvFlipper->exec(FLIP_ORDER_LOOP, 1); //パラパラアニメ無し
+    //getUvFlipper()->setActivePtnToTop();
+    //getUvFlipper()->exec(FLIP_ORDER_LOOP, 1); //パラパラアニメ無し
     setAlpha(0.5);
     setScale(R_SC(6));
     getKuroko()->setFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
@@ -34,7 +34,7 @@ void EffectLaserRefraction001::onActive() {
 void EffectLaserRefraction001::processBehavior() {
     addScale(100);
 
-    //_pUvFlipper->behave();
+    //getUvFlipper()->behave();
     getKuroko()->behave();
     pScaler_->behave();
 }

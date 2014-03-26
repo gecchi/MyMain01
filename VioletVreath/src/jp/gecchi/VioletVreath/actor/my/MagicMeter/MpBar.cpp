@@ -15,7 +15,7 @@ MpBar::MpBar(const char* prm_name)
 }
 
 void MpBar::initialize() {
-//    _pUvFlipper->exec(FLIP_ORDER_LOOP, 10); //アニメ順序
+//    getUvFlipper()->exec(FLIP_ORDER_LOOP, 10); //アニメ順序
 }
 
 

@@ -24,14 +24,14 @@ EffectSpeedMagic::EffectSpeedMagic(const char* prm_name) :
 
 void EffectSpeedMagic::initialize() {
     setAlpha(0.9);
-    _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
+    getUvFlipper()->exec(FLIP_ORDER_LOOP, 1);
 }
 
 void EffectSpeedMagic::onActive() {
 }
 
 void EffectSpeedMagic::processBehavior() {
-    _pUvFlipper->behave();
+    getUvFlipper()->behave();
     getKuroko()->behave();
     pScaler_->behave();
 }
