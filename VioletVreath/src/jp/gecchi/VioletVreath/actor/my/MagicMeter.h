@@ -106,6 +106,12 @@ public:
     frame fraeme_of_notice_remaind_;
 
 public:
+    /**
+     * コンストラクタ .
+     * @param prm_name 識別名
+     * @param prm_pMP_MyShip MP値変数のアドレス
+     * @param prm_pVreath_MyShip Vreath値変数のアドレス
+     */
     MagicMeter(const char* prm_name, int* prm_pMP_MyShip, int* prm_pVreath_MyShip);
 
     void saveStatus(int prm_saveno);

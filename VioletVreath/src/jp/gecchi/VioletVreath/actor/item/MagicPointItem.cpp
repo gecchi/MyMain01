@@ -26,7 +26,7 @@ MagicPointItem::MagicPointItem(const char* prm_name, const char* prm_model, Ggaf
     setAlpha(0.9);
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
-    pKuroko->relateFaceWithMvAng(true);
+    pKuroko->relateFaceByMvAng(true);
     kDX_ = kDY_ = kDZ_ = 0;
     useProgress(PROG_BANPEI);
     setHitAble(true, false); //画面外当たり判定は無効
@@ -67,8 +67,8 @@ void MagicPointItem::onActive() {
     int d = PX_C(200);
     int r = PX_C(75);
     pKuroko->setMvAngTwd( (coord)(_x + (vX * d) + RND(-r, +r)),
-                            (coord)(_y + (vY * d) + RND(-r, +r)),
-                            (coord)(_z + (vZ * d) + RND(-r, +r)) );
+                          (coord)(_y + (vY * d) + RND(-r, +r)),
+                          (coord)(_z + (vZ * d) + RND(-r, +r)) );
     pKuroko->setMvVelo(2000);
     pKuroko->setMvAcce(100);
 
@@ -114,7 +114,6 @@ void MagicPointItem::processBehavior() {
             kDZ_ = pE->_z - _z;
             pProg->change(PROG_ABSORB); //吸着吸収へ
         }
-
     }
 
     //自機近辺に到達し、吸着、吸収中の動き

@@ -123,7 +123,6 @@ height_(PX_C(height_px_)) {
     pDamageDispBar_->graduate(-vreath_val, +vreath_val, vreath_px*2);
     addSubGroup(pDamageDispBar_);
 
-
     //c–‚–@Œø‰Ê‘±ŠÔ•\¦
     pMagicMeterStatus_ = NEW MagicMeterStatus("MagicMeterStatus", this);
     addSubGroup(pMagicMeterStatus_);

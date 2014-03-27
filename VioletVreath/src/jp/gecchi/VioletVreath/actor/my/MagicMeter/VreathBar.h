@@ -13,11 +13,7 @@ namespace VioletVreath {
 class VreathBar : public GgafLib::GraphCappedBarActor {
 
 public:
-    /**
-     *
-     * @param prm_name
-     * @param prm_pPxQty config済みの PxQuantityオブジェクトの参照
-     */
+
     VreathBar(const char* prm_name);
 
     void initialize() override;

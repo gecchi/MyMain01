@@ -4,14 +4,16 @@
 
 namespace VioletVreath {
 
+/**
+ * MpBar .
+ * @version 1.00
+ * @since 2013/09/12
+ * @author Masatoshi Tsuge
+ */
 class MpBar : public GgafLib::GraphCappedBarActor {
 
 public:
-    /**
-     *
-     * @param prm_name
-     * @param prm_pPxQty config済みの PxQuantityオブジェクトの参照
-     */
+
     MpBar(const char* prm_name);
 
     void initialize() override;

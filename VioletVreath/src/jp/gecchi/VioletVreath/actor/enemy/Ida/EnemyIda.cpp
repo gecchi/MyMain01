@@ -34,7 +34,7 @@ void EnemyIda::onCreateModel() {
 }
 
 void EnemyIda::initialize() {
-    getKuroko()->relateFaceWithMvAng(true);
+    getKuroko()->relateFaceByMvAng(true);
     CollisionChecker3D* pColliChecker = getCollisionChecker();
     pColliChecker->makeCollision(1);
     pColliChecker->setColliAAB_Cube(0, 40000);

@@ -30,7 +30,7 @@ void EnemyHisbeLaserChip003::initialize() {
     setScaleR(5.0);
     setAlpha(0.9);
 
-    getKuroko()->relateFaceWithMvAng(true);
+    getKuroko()->relateFaceByMvAng(true);
     sp_index_ = 0;
     pNearestScrollingScene_ = ((DefaultScene*)getPlatformScene())->getNearestScrollingScene();
 }

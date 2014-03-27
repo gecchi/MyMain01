@@ -52,11 +52,12 @@ void MyMagicEnergyCore::processBehavior() {
                 s * MAX_SCALSE_MagicEnergyCore,
                 100
              );
+    CollisionChecker3D* pColliChecker = getCollisionChecker();
     if (s > 0.0) {
-        getCollisionChecker()->enable(0);
-        getCollisionChecker()->setColliSphere(0, s*PX_C(30));
+        pColliChecker->enable(0);
+        pColliChecker->setColliSphere(0, s*PX_C(30));
     } else {
-        getCollisionChecker()->disable(0);
+        pColliChecker->disable(0);
     }
 
     pScaler_->behave();

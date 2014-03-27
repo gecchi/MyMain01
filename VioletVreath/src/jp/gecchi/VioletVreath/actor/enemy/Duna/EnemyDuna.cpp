@@ -69,7 +69,7 @@ void EnemyDuna::processBehavior() {
         case PROG_INIT: {
             setHitAble(false);
             setAlpha(0);
-            pKuroko->relateFaceWithMvAng(false);
+            pKuroko->relateFaceByMvAng(false);
             pKuroko->keepOnTurningFaceAngTwd(pMyShip,
                                              D_ANG(2), 0, TURN_CLOSE_TO,false);
             //pKuroko->setMvVelo(RF_EnemyDuna_MvVelo(G_RANK));
@@ -107,7 +107,7 @@ void EnemyDuna::processBehavior() {
                  pKuroko->turnRzRyFaceAngTo(0, D180ANG, D_ANG(5), 0, TURN_CLOSE_TO, false);
              }
              if (!pKuroko->isTurningMvAng() && !pKuroko->isTurningFaceAng()) {
-                 pKuroko->relateFaceWithMvAng(true);
+                 pKuroko->relateFaceByMvAng(true);
                  pProg->changeProbab(
                               0, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,
                              25, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW,

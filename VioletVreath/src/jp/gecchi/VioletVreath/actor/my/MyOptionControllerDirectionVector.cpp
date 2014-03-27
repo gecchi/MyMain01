@@ -17,7 +17,7 @@ MyOptionControllerDirectionVector::MyOptionControllerDirectionVector(const char*
 void MyOptionControllerDirectionVector::initialize() {
     setAlpha(0.3);
     setHitAble(false);
-    getKuroko()->relateFaceWithMvAng(true);
+    getKuroko()->relateFaceByMvAng(true);
 }
 
 void MyOptionControllerDirectionVector::onActive() {

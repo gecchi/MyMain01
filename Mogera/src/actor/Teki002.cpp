@@ -29,7 +29,7 @@ void Teki002::initialize() {
     pScaler_->forceRange(2000, 6000);
 //    getKuroko()->setMvAngTwd(PX_C(320),0,0);
 //    getKuroko()->setMvVelo(PX_C(0));
-//    getKuroko()->relateFaceWithMvAng(true);
+//    getKuroko()->relateFaceByMvAng(true);
     setHitAble(true);
 
 }

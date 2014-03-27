@@ -18,11 +18,14 @@ public:
 
 public:
     MagicMeterStatus(const char* prm_name, MagicMeter* prm_pMagicMeter);
-    virtual void initialize() override;
-    virtual void processBehavior() override;
-    virtual void processDraw() override;
-    virtual ~MagicMeterStatus();
 
+    virtual void initialize() override;
+
+    virtual void processBehavior() override;
+
+    virtual void processDraw() override;
+
+    virtual ~MagicMeterStatus();
 };
 
 }

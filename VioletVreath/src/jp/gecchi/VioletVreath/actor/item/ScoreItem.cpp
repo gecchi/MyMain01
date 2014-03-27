@@ -26,7 +26,7 @@ ScoreItem::ScoreItem(const char* prm_name, const char* prm_model, GgafCore::Ggaf
     pKuroko->setFaceAngVelo(AXIS_X, D_ANG(3));
     pKuroko->setFaceAngVelo(AXIS_Y, D_ANG(5));
     pKuroko->setFaceAngVelo(AXIS_Z, D_ANG(7));
-    pKuroko->relateFaceWithMvAng(true);
+    pKuroko->relateFaceByMvAng(true);
     kDX_ = kDY_ = kDZ_ = 0;
     useProgress(PROG_BANPEI);
     setHitAble(true, false); //‰æ–ÊŠO“–‚½‚è”»’è‚Í–³Œø
@@ -67,8 +67,8 @@ void ScoreItem::onActive() {
     int d = PX_C(200);
     int r = PX_C(75);
     pKuroko->setMvAngTwd((coord)(_x + (vX * d) + RND(-r, +r)),
-                           (coord)(_y + (vY * d) + RND(-r, +r)),
-                           (coord)(_z + (vZ * d) + RND(-r, +r)) );
+                         (coord)(_y + (vY * d) + RND(-r, +r)),
+                         (coord)(_z + (vZ * d) + RND(-r, +r)) );
     pKuroko->setMvVelo(2000);
     pKuroko->setMvAcce(100);
 

@@ -70,7 +70,7 @@ void MyOptionController::onReset() {
     pKuroko->setMvVelo(0);
     pKuroko->forceRzRyMvAngVeloRange(-1*angVelo_Turn_, angVelo_Turn_);
     pKuroko->setRzRyMvAng(0,0);
-    pKuroko->relateFaceWithMvAng(true);
+    pKuroko->relateFaceByMvAng(true);
     pKuroko->behave();
 }
 
@@ -86,9 +86,9 @@ void MyOptionController::processBehavior() {
     if (is_double_push_VB_OPTION) {
         //もとに戻す
         pKuroko->turnRzRyMvAngTo(D0ANG, D0ANG,
-                                   D_ANG(20), 0,
-                                   TURN_CLOSE_TO,
-                                   false );
+                                 D_ANG(20), 0,
+                                 TURN_CLOSE_TO,
+                                 false );
         is_free_from_myship_mode_ = false;
         is_handle_move_mode_ = false;
         return_to_default_position_seq_ = true;
@@ -181,7 +181,7 @@ void MyOptionController::processBehavior() {
         coord tx = pMyShip->_x_local + pGeoMyShipTrace->x;
         coord ty = pMyShip->_y_local + pGeoMyShipTrace->y;
         coord tz = pMyShip->_z_local + pGeoMyShipTrace->z;
-        //(TX,TY,TZ)は自機の絶対座標履歴に同じ。
+        //(tx, ty, tz)は自機の絶対座標履歴に同じ。
         //VB_OPTION 押下時は、pRing_MyShipGeoHistory4OptCtrler_ に履歴は追加されず、
         //(_x_local, _y_local, _z_local) のみ更新され、フリーズオプションの動きとなる。
         //なんでか忘れたら MyShip::processBehavior() をのコメントを見よ

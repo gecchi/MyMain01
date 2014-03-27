@@ -26,7 +26,7 @@ void EnemyStraeaLaserChip003::initialize() {
     setAlpha(0.9);
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setMvVelo(30000);
-    pKuroko->relateFaceWithMvAng(true);
+    pKuroko->relateFaceByMvAng(true);
 }
 
 void EnemyStraeaLaserChip003::onActive() {

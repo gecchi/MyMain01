@@ -39,7 +39,7 @@ void EnemyThagoras::initialize() {
     pColliChecker->makeCollision(1);
     pColliChecker->setColliAAB_Cube(0, 40000);
     GgafDxKuroko* pKuroko = getKuroko();
-    pKuroko->relateFaceWithMvAng(true);
+    pKuroko->relateFaceByMvAng(true);
     pKuroko->setFaceAngVelo(AXIS_X, 2000);
     pKuroko->forceMvVeloRange(PX_C(15));
 }

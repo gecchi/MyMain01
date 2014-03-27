@@ -38,7 +38,7 @@ void EnemyRis::onCreateModel() {
 void EnemyRis::initialize() {
     setHitAble(true);
     GgafDxKuroko* pKuroko = getKuroko();
-    pKuroko->relateFaceWithMvAng(true);
+    pKuroko->relateFaceByMvAng(true);
     pKuroko->setFaceAngVelo(AXIS_X, 5000);
     CollisionChecker3D* pColliChecker = getCollisionChecker();
     pColliChecker->makeCollision(1);

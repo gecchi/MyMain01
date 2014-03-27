@@ -9,8 +9,6 @@ class CostDispBar : public GgafLib::GraphBarActor {
 public:
     /** “à—e—Ê */
     GgafLib::GraphBarActor* pSourceBar_;
-//    GgafLib::PxQuantity* pCostValue_;
-
 public:
 
     /**

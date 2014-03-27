@@ -52,7 +52,7 @@ void EnemyGlajaLance001::onActive() {
                RND(D_ANG(0), D_ANG(360)),
                RND(D_ANG(0), D_ANG(360)) );
     pKuroko->setFaceAngVelo(D_ANG(33), D_ANG(15), D_ANG(20));
-    pKuroko->relateFaceWithMvAng(true);
+    pKuroko->relateFaceByMvAng(true);
     CollisionChecker3D* pColliChecker = getCollisionChecker();
     pColliChecker->disable(1);
     pColliChecker->disable(2);

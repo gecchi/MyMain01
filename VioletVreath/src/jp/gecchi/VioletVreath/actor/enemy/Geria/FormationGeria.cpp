@@ -52,7 +52,7 @@ FormationGeria::FormationGeria(
     for (int i = 0; i < prm_nGeriaStock; i++) {
         std::string name = "Geria"+XTOS(i);
         EnemyGeria* pEnemyGeria = NEW EnemyGeria(name.c_str());
-        pEnemyGeria->getKuroko()->relateFaceWithMvAng(true);
+        pEnemyGeria->getKuroko()->relateFaceByMvAng(true);
         pEnemyGeria->getKuroko()->setMvVelo(prm_veloMv_Geria);
         pEnemyGeria->getKuroko()->setRzRyMvAng(prm_angRzMv_GeriaMv, prm_angRyMv_GeriaMv);
         pEnemyGeria->pAxsMver_->setVxyzMvVelo(vX_AppBox*prm_veloMv_App,

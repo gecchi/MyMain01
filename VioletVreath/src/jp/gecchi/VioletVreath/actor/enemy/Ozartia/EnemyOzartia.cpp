@@ -66,7 +66,7 @@ void EnemyOzartia::initialize() {
     pColliChecker->makeCollision(1);
     pColliChecker->setColliAAB_Cube(0, 40000);
     GgafDxKuroko* pKuroko = getKuroko();
-    pKuroko->relateFaceWithMvAng(false); //“Æ—§
+    pKuroko->relateFaceByMvAng(false); //“Æ—§
     pKuroko->forceMvVeloRange(PX_C(1), PX_C(8));
     setHitAble(false);
 }

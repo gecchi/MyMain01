@@ -34,7 +34,7 @@ void Shot002::onActive() {
     setHitAble(true);
     setScale(2000);
     GgafDxKuroko* pKuroko = getKuroko();
-    pKuroko->relateFaceWithMvAng(true);
+    pKuroko->relateFaceByMvAng(true);
     pKuroko->setMvVelo(RF_Shot002_MvVelo(G_RANK));
     pKuroko->setFaceAngVelo(AXIS_X, RF_Shot002_AngVelo(G_RANK));
 }
