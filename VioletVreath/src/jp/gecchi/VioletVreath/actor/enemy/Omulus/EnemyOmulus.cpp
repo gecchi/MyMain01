@@ -180,7 +180,7 @@ void EnemyOmulus::processBehavior() {
 //        int mvy = P_MYSHIP->_y - _y;
 //        int mvz = P_MYSHIP->_z - _z;
 //        //逆行列取得
-//        D3DXMATRIX* pBaseInvMatRM = _pActor_Base->getInvMatWorldRotMv();
+//        D3DXMATRIX* pBaseInvMatRM = getBaseActor()->getInvMatWorldRotMv();
 //        //ローカル座標でのターゲットとなる方向ベクトル計算
 //        int tvx = mvx*pBaseInvMatRM->_11 + mvy*pBaseInvMatRM->_21 + mvz * pBaseInvMatRM->_31;
 //        int tvy = mvx*pBaseInvMatRM->_12 + mvy*pBaseInvMatRM->_22 + mvz * pBaseInvMatRM->_32;
@@ -225,7 +225,7 @@ void EnemyOmulus::processJudgement() {
     }
 
 
-    if (_pActor_Base != nullptr && _pActor_Base->isActiveInTheTree()) {
+    if (getBaseActor() && getBaseActor()->isActiveInTheTree()) {
 //        (*(_pActor_Base->_pFunc_calcRotMvWorldMatrix))(_pActor_Base, _matWorld);
     } else {
         //土台がなければ自分も死ぬ

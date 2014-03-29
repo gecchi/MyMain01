@@ -18,12 +18,12 @@ void StagePartController::fadeout_stop_AllPartSceneBgm() {
     while (pScene) {
         if (pScene->isLast()) {
             if (pScene->_pBgmPerformer) {
-                pScene->_pBgmPerformer->fadeout_stop();
+                pScene->getBGMer()->fadeout_stop();
             }
             break;
         } else {
             if (pScene->_pBgmPerformer) {
-                pScene->_pBgmPerformer->fadeout_stop();
+                pScene->getBGMer()->fadeout_stop();
             }
             pScene = (GgafDxScene*)(pScene->getNext());
         }

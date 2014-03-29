@@ -101,6 +101,10 @@ public:
      */
     void fadeoutSceneWithBgmTree(int prm_frame_fade);
 
+
+    inline GgafDxBgmPerformerForScene* getBGMer() {
+        return _pBgmPerformer;
+    }
     virtual ~GgafDxScene();
 };
 

@@ -25,7 +25,6 @@ EnemyEmus::EnemyEmus(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Emus", STATUS(EnemyEmus)) {
     _class_name = "EnemyEmus";
     pScaler_ = NEW GgafDxScaler(this);
-    _pActor_Base = nullptr;
     is_open_hatch_ = false;
     frame_of_open_interval_  = 3*60;
     frame_of_close_interval_ = 5*60;
@@ -149,7 +148,7 @@ void EnemyEmus::processJudgement() {
         }
     }
 
-    if (_pActor_Base != nullptr && _pActor_Base->isActiveInTheTree()) {
+    if (getBaseActor() && getBaseActor()->isActiveInTheTree()) {
 //        (*(_pActor_Base->_pFunc_calcRotMvWorldMatrix))(_pActor_Base, _matWorld);
     } else {
         //“y‘ä‚ª‚È‚¯‚ê‚ÎŽ©•ª‚àŽ€‚Ê

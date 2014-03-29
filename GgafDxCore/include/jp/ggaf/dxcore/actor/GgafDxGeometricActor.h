@@ -90,7 +90,7 @@ public:
     /** [r]カレントフレームで自身の現在のWorld変換行列の逆行列(_matInvWorldRotMv)を計算して求めたかどうかのフラグ。 */
     bool _was_calculated_matInvWorldRotMv;
 
-    /** [r]土台となるアクター、土台が無い場合はnullptr（IK用） */
+    /** [r]土台となるアクター、土台が無い場合はnullptr（FK用） */
     GgafDxCore::GgafDxGeometricActor* _pActor_Base;
     /** [r]土台アクター上でのワールドX座標 */
     coord _x_local;
@@ -600,6 +600,17 @@ public:
     }
 
     virtual void onEnd() override;
+
+    /**
+     * 土台となるアクターを取得。
+     * 土台とは、addSubGroupAsFk() によって追加された側のオブジェクトが、
+     * addSubGroupAsFk()を実行したアクターを指す。
+     * @return 土台となるアクター
+     */
+    inline GgafDxGeometricActor* getBaseActor() {
+        return _pActor_Base;
+    }
+
 
     /**
      * デストラクタ

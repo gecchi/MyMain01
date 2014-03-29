@@ -50,8 +50,8 @@ Stage01_03::Stage01_03(const char* prm_name) : DefaultScene(prm_name) {
     orderActorToFactory(50000104, FormationRis002, "FormationRis002-20");
     // gen01 end
 
-    _pBgmPerformer->useBgm(1);
-    _pBgmPerformer->set(0, "OGG_BGM_01_03");
+    getBGMer()->useBgm(1);
+    getBGMer()->set(0, "OGG_BGM_01_03");
 }
 
 void Stage01_03::initialize() {
@@ -669,11 +669,11 @@ void Stage01_03::processBehavior() {
         //兄弟シーンのBGMを全てフェードアウトし、自分のシーンBGMをフェードイン
         StagePartController* pStagePartController = (StagePartController*)(getParent());
         pStagePartController->fadeout_stop_AllPartSceneBgm();
-        _pBgmPerformer->play_fadein(0);
+        getBGMer()->play_fadein(0);
     }
     if (getBehaveingFrame() == _paFrame_NextEvent[_event_num-1] + 60*60) {
-        _pBgmPerformer->fadeout_stop(0);
-        _pBgmPerformer->fadeout_stop(0);
+        getBGMer()->fadeout_stop(0);
+        getBGMer()->fadeout_stop(0);
         throwEventUpperTree(EVENT_STG01_03_WAS_BROKEN);
     }
 }

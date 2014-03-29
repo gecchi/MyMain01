@@ -42,8 +42,8 @@ RankUpStage::RankUpStage(const char* prm_name) : DefaultScene(prm_name) {
 
     useProgress(RankUpStage::PROG_BANPEI-1);
 
-    _pBgmPerformer->useBgm(1);
-    _pBgmPerformer->set(0, "OGG_RANKUP_THEMA");
+    getBGMer()->useBgm(1);
+    getBGMer()->set(0, "OGG_RANKUP_THEMA");
 
     pSeConnection_all_hit_ = connect_SeManager("WAVE_EXPLOSION_002"); //全滅の最後の一機破壊時SE
 
@@ -70,7 +70,7 @@ void RankUpStage::processBehavior() {
                 std::string m = "RUNKUP LEVEL:" + XTOS(G_RANKUP_LEVEL) ;
                 pMessage2_->update(m.c_str());
                 pMessage2_->pAFader_->beat(120, 30, 30, 30, -1);
-                _pBgmPerformer->play_fadein(0);
+                getBGMer()->play_fadein(0);
             }
 
             if (pProg->getFrameInProgress() == 60) { //ステージ開始！
@@ -111,7 +111,7 @@ void RankUpStage::processBehavior() {
 
             //結果表示？
             if (pProg->getFrameInProgress() == 320) {
-                _pBgmPerformer->fadeout_stop(0);
+                getBGMer()->fadeout_stop(0);
                 if (all_hit_num_ <= hit_enemy_num_) { //全滅させた！
                     pMessage2_->update("PERFECT!!!!");
                 } else if (all_hit_num_/2 <= hit_enemy_num_) {

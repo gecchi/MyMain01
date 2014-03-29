@@ -32,8 +32,8 @@ Stage01_02::Stage01_02(const char* prm_name) : DefaultScene(prm_name) {
     orderActorToFactory(40000004, EnemyEtis, "EnemyEtis-5");
     // gen01 end
 
-    _pBgmPerformer->useBgm(1);
-    _pBgmPerformer->set(0, "OGG_BGM_01_02");
+    getBGMer()->useBgm(1);
+    getBGMer()->set(0, "OGG_BGM_01_02");
 }
 
 void Stage01_02::initialize() {
@@ -407,10 +407,10 @@ void Stage01_02::processBehavior() {
         //兄弟シーンのBGMを全てフェードアウトし、自分のシーンBGMをフェードイン
         StagePartController* pStagePartController = (StagePartController*)(getParent());
         pStagePartController->fadeout_stop_AllPartSceneBgm();
-        _pBgmPerformer->play_fadein(0);
+        getBGMer()->play_fadein(0);
     }
     if (getBehaveingFrame() == _paFrame_NextEvent[_event_num-1] + 60*60) {
-        _pBgmPerformer->fadeout_stop(0);
+        getBGMer()->fadeout_stop(0);
         throwEventUpperTree(EVENT_STG01_02_WAS_BROKEN);
     }
 }

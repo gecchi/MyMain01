@@ -104,7 +104,7 @@ void EnemyErmioneArm::processBehavior() {
                         mvz = _z_final - pTargetActor->_z;
                     }
                     //逆行列取得
-                    D3DXMATRIX* pBaseInvMatRM = _pActor_Base->getInvMatWorldRotMv();
+                    D3DXMATRIX* pBaseInvMatRM = getBaseActor()->getInvMatWorldRotMv();
                     //ローカル座標でのターゲットとなる方向ベクトル計算
                     int tvx = mvx*pBaseInvMatRM->_11 + mvy*pBaseInvMatRM->_21 + mvz * pBaseInvMatRM->_31;
                     int tvy = mvx*pBaseInvMatRM->_12 + mvy*pBaseInvMatRM->_22 + mvz * pBaseInvMatRM->_32;
@@ -154,7 +154,7 @@ void EnemyErmioneArm::processBehavior() {
 }
 
 void EnemyErmioneArm::processJudgement() {
-    if (_pActor_Base != nullptr && _pActor_Base->isActiveInTheTree()) {
+    if (getBaseActor() && getBaseActor()->isActiveInTheTree()) {
     } else {
         //土台がなければ自分も死ぬ
         sayonara();

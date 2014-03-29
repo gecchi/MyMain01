@@ -16,10 +16,10 @@ using namespace VioletVreath;
 
 Stage02PartController::Stage02PartController(const char* prm_name) : StagePartController(prm_name) {
     _class_name = "Stage02PartController";
-    _pBgmPerformer->useBgm(3);
-    _pBgmPerformer->set(0, "OGG_BGM_01_01");
-    _pBgmPerformer->set(1, "OGG_BGM_01_02");
-    _pBgmPerformer->set(2, "OGG_BGM_01_03");
+    getBGMer()->useBgm(3);
+    getBGMer()->set(0, "OGG_BGM_01_01");
+    getBGMer()->set(1, "OGG_BGM_01_02");
+    getBGMer()->set(2, "OGG_BGM_01_03");
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
@@ -33,7 +33,7 @@ Stage02PartController::Stage02PartController(const char* prm_name) : StagePartCo
 }
 
 void Stage02PartController::initialize() {
-    _pBgmPerformer->play_fadein(0);
+    getBGMer()->play_fadein(0);
     getProgress()->change(Stage02PartController::PROG_INIT);
 }
 
@@ -49,7 +49,7 @@ void Stage02PartController::processBehavior() {
             case 3: {
                 Stage02_01* pScene = (Stage02_01*)obtainSceneFromFactory(60000000);
                 addSubLast(pScene);
-                _pBgmPerformer->play_fadein(0);
+                getBGMer()->play_fadein(0);
                 break;
             }
             case 1200: {
@@ -59,8 +59,8 @@ void Stage02PartController::processBehavior() {
             case 3000: {
                 Stage02_Climax* pScene = (Stage02_Climax*)obtainSceneFromFactory(60000001);
                 addSubLast(pScene);
-                _pBgmPerformer->fadeout_stop(0);
-                _pBgmPerformer->play_fadein(1);
+                getBGMer()->fadeout_stop(0);
+                getBGMer()->play_fadein(1);
                 break;
             }
             default :

@@ -23,8 +23,8 @@ Stage01_Climax::Stage01_Climax(const char* prm_name) : DefaultScene(prm_name) {
     // gen01 end
     waiting_ = false;
 
-    _pBgmPerformer->useBgm(1);
-    _pBgmPerformer->set(0, "OGG_BGM_01_CLIMAX");
+    getBGMer()->useBgm(1);
+    getBGMer()->set(0, "OGG_BGM_01_CLIMAX");
 }
 
 void Stage01_Climax::initialize() {
@@ -39,7 +39,7 @@ void Stage01_Climax::processBehavior() {
         //兄弟シーンのBGMを全てフェードアウトし、自分のシーンBGMをフェードイン
         StagePartController* pStagePartController = (StagePartController*)(getParent());
         pStagePartController->fadeout_stop_AllPartSceneBgm();
-        _pBgmPerformer->play_fadein(0);
+        getBGMer()->play_fadein(0);
     }
 
     if (getBehaveingFrame() == 60) {
@@ -51,7 +51,7 @@ void Stage01_Climax::processBehavior() {
 
     if (getBehaveingFrame() > 60) {
         if (pBoss_->onChangeToInactive()) {
-            _pBgmPerformer->fadeout_stop(0);
+            getBGMer()->fadeout_stop(0);
             _TRACE_("Stage01_Climax::processBehavior() EVENT_STG01_CLIMAX_WAS_BROKEN!!!!");
             throwEventUpperTree(EVENT_STG01_CLIMAX_WAS_BROKEN);
             waiting_ = true;

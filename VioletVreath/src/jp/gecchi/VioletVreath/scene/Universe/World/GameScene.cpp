@@ -61,8 +61,8 @@ pStageWorld_(nullptr) {
 
     was_paused_flg_GameMainScene_prev_frame_ = false;
 
-    _pBgmPerformer->useBgm(1);
-    _pBgmPerformer->set(0, "OGG_BGM_DEMO");
+    getBGMer()->useBgm(1);
+    getBGMer()->set(0, "OGG_BGM_DEMO");
 }
 
 void GameScene::initialize() {
@@ -127,7 +127,7 @@ void GameScene::processBehavior() {
                 pProg->changeWithSceneCrossfading(GameScene::PROG_PRE_TITLE);
                 P_WORLD->pPreDrawScene_->inactivateTreeImmed();
                 P_WORLD->pPreDrawScene_->pauseTreeImmed();
-                _pBgmPerformer->stop();
+                getBGMer()->stop();
             }
             break;
         }
@@ -136,7 +136,7 @@ void GameScene::processBehavior() {
             //##########  タイトル前演出  ##########
             if (pProg->isJustChanged()) {
                 _TRACE_("GameScene::processBehavior() Prog has Just Changed (to GameScene::PROG_PRE_TITLE)");
-                _pBgmPerformer->play_fadein(0);
+                getBGMer()->play_fadein(0);
             }
             //VB_UI_EXECUTE で、スキップしてTITLEへ
             if (VB->isPushedDown(VB_UI_EXECUTE)) { //skip
@@ -172,7 +172,7 @@ void GameScene::processBehavior() {
         case GameScene::PROG_BEGINNING: {
             //##########  ゲーム開始（モード選択等）  ##########
             if (pProg->isJustChanged()) {
-                _pBgmPerformer->fadeout_stop();
+                getBGMer()->fadeout_stop();
                 _TRACE_("GameScene::processBehavior() Prog has Just Changed (to GameScene::PROG_BEGINNING)");
             }
             //イベント待ち EVENT_GAMEMODE_DECIDE
@@ -314,7 +314,7 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
         //デモシーン終了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMEDEMOSCENE_FINISH)");
         pProg->changeWithSceneFadeoutFadein(GameScene::PROG_INIT,120,120); //最初へ
-        _pBgmPerformer->fadeout_stop();
+        getBGMer()->fadeout_stop();
 
     } else if (prm_no == EVENT_GAMESTART) {
         //スタート
