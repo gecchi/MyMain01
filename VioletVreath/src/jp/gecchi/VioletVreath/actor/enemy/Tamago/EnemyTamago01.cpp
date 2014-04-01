@@ -41,8 +41,8 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) :
 void EnemyTamago01::onCreateModel() {
     GgafDxModel* pModel = getModel();
     pModel->setBlinkPower(0.1, 0.9);
-    pModel->_pTexBlinker->forceRange(0.1, 1.0);
-    pModel->_pTexBlinker->beat(120, 60, 0, 60, -1);
+    pModel->getTexBlinker()->forceRange(0.1, 1.0);
+    pModel->getTexBlinker()->beat(120, 60, 0, 60, -1);
 }
 
 void EnemyTamago01::initialize() {
@@ -98,28 +98,28 @@ void EnemyTamago01::processBehavior() {
 //        addScale(-500);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_1)) {
-//        pModel->_pTexBlinker->->addScale(2000);
+//        pModel->getTexBlinker()->->addScale(2000);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_2)) {
-//        pModel->_pTexBlinker->->addScale(-2000);
+//        pModel->getTexBlinker()->->addScale(-2000);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_3)) {
-//        pModel->_pTexBlinker->->transitionAcceStep(3000, 0, 3);
+//        pModel->getTexBlinker()->->transitionAcceStep(3000, 0, 3);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_4)) {
-//        pModel->_pTexBlinker->->transitionLinerLoop(20, -1);
+//        pModel->getTexBlinker()->->transitionLinerLoop(20, -1);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_5)) {
-//        pModel->_pTexBlinker->->transitionLinerLoop(10, 5);
+//        pModel->getTexBlinker()->->transitionLinerLoop(10, 5);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_6)) {
-//        pModel->_pTexBlinker->->beat(20, 2 ,5, -1);
+//        pModel->getTexBlinker()->->beat(20, 2 ,5, -1);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_7)) {
-//        pModel->_pTexBlinker->->stopImmed();
+//        pModel->getTexBlinker()->->stopImmed();
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_0)) {
-//        pModel->_pTexBlinker->->setScaleToBottom();
+//        pModel->getTexBlinker()->->setScaleToBottom();
 //    }
     GgafDxKuroko* pKuroko = getKuroko();
 

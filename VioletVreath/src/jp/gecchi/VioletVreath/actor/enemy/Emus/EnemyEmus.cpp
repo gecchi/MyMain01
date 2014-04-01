@@ -46,8 +46,8 @@ void EnemyEmus::onCreateModel() {
     GgafDxModel* pModel = getModel();
     pModel->setSpecular(5.0, 1.0);
     pModel->setBlinkPower(0.1, 0.9);
-    pModel->_pTexBlinker->forceRange(0.1, 1.0);
-    pModel->_pTexBlinker->beat(120, 60, 0, 60, -1);
+    pModel->getTexBlinker()->forceRange(0.1, 1.0);
+    pModel->getTexBlinker()->beat(120, 60, 0, 60, -1);
 }
 
 void EnemyEmus::initialize() {

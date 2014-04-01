@@ -101,9 +101,9 @@ public:
 
     virtual void positionAs(GgafDxGeometricActor* prm_pActor) override;
     virtual void positionAs(GgafDxGeoElem* prm_pGeoElem) override;
-    virtual void setScale(scale S) override;
-    virtual void setScale(scale SX, scale SY) override;
-    virtual void setScale(scale SX, scale SY, scale SZ) override;
+    virtual void setScale(scale s) override;
+    virtual void setScale(scale sx, scale sy) override;
+    virtual void setScale(scale sx, scale sy, scale sz) override;
     virtual void setScaleR(float prm_rate) override;
     virtual void setScaleR(float prm_x_rate, float prm_y_rate) override;
     virtual void setScaleR(float prm_x_rate, float prm_y_rate, float prm_z_rate) override;

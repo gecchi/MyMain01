@@ -103,20 +103,20 @@ void GgafDxBoardActor::positionAs(GgafDxGeoElem* prm_pGeoElem) {
     _y = prm_pGeoElem->y;
 }
 
-void GgafDxBoardActor::setScale(scale S) {
-    _sx = S;
-    _sy = S;
+void GgafDxBoardActor::setScale(scale s) {
+    _sx = s;
+    _sy = s;
 }
 
-void GgafDxBoardActor::setScale(scale SX, scale SY) {
-    _sx = SX;
-    _sy = SY;
+void GgafDxBoardActor::setScale(scale sx, scale sy) {
+    _sx = sx;
+    _sy = sy;
 }
 
-void GgafDxBoardActor::setScale(scale SX, scale SY, scale SZ) {
-    _sx = SX;
-    _sy = SY;
-    _sz = SZ; //_szは2Dでは使用されないが、GgafDxScaler::behave() 内の判定で役に立つ。
+void GgafDxBoardActor::setScale(scale sx, scale sy, scale sz) {
+    _sx = sx;
+    _sy = sy;
+    _sz = sz; //_szは2Dでは使用されないが、GgafDxScaler::behave() 内の判定で役に立つ。
 }
 
 void GgafDxBoardActor::setScaleR(float prm_rate) {

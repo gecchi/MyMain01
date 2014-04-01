@@ -134,6 +134,11 @@ public:
         _specular_power = prm_specular_power;
     }
 
+
+    inline GgafDxTextureBlinker* getTexBlinker() {
+        return _pTexBlinker;
+    }
+
     /**
      * モデルを描画 .
      * 下位クラスでモデル描画ロジックを実装して下さい。

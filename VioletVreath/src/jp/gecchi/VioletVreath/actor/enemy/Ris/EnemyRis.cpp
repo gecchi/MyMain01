@@ -31,8 +31,8 @@ EnemyRis::EnemyRis(const char* prm_name)
 void EnemyRis::onCreateModel() {
     GgafDxModel* pModel = getModel();
     pModel->setBlinkPower(0.5, 0.9);
-    pModel->_pTexBlinker->forceRange(0.5, 2.0);
-    pModel->_pTexBlinker->beat(60, 3, 0, 57, -1);
+    pModel->getTexBlinker()->forceRange(0.5, 2.0);
+    pModel->getTexBlinker()->beat(60, 3, 0, 57, -1);
 }
 
 void EnemyRis::initialize() {

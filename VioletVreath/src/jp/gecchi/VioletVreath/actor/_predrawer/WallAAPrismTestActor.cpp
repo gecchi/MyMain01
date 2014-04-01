@@ -18,8 +18,8 @@ WallAAPrismTestActor::WallAAPrismTestActor(const char* prm_name) :
 void WallAAPrismTestActor::onCreateModel() {
     GgafDxModel* pModel = getModel();
     pModel->setBlinkPower(0.5, 0.5);
-    pModel->_pTexBlinker->forceRange(0.2, 3.0);
-    pModel->_pTexBlinker->beat(10*20, 10*9, 0, 10*9, -1);
+    pModel->getTexBlinker()->forceRange(0.2, 3.0);
+    pModel->getTexBlinker()->beat(10*20, 10*9, 0, 10*9, -1);
 }
 
 bool WallAAPrismTestActor::isOutOfUniverse() {

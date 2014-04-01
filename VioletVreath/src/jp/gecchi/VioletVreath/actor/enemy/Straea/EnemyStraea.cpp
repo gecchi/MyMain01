@@ -79,8 +79,8 @@ EnemyStraea::EnemyStraea(const char* prm_name) :
 void EnemyStraea::onCreateModel() {
     GgafDxModel* pModel = getModel();
     pModel->setBlinkPower(1.0, 0.97);
-    pModel->_pTexBlinker->forceRange(0.5, 12.0);
-    pModel->_pTexBlinker->beat(60*6, 60*2, 0, 60*2, -1);
+    pModel->getTexBlinker()->forceRange(0.5, 12.0);
+    pModel->getTexBlinker()->beat(60*6, 60*2, 0, 60*2, -1);
 }
 
 void EnemyStraea::initialize() {
