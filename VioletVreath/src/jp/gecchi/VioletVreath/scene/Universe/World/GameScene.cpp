@@ -61,8 +61,7 @@ pStageWorld_(nullptr) {
 
     was_paused_flg_GameMainScene_prev_frame_ = false;
 
-    getBGMer()->useBgm(1);
-    getBGMer()->set(0, "OGG_BGM_DEMO");
+    getBGMer()->ready(0, "OGG_BGM_DEMO");
 }
 
 void GameScene::initialize() {

@@ -15,20 +15,55 @@ GgafDxBgmPerformerForScene::GgafDxBgmPerformerForScene(GgafDxScene* prm_pDxScene
     _paBool_is_fadeout_stop = nullptr;
     _default_fade = 360;
 }
-void GgafDxBgmPerformerForScene::useBgm(int prm_bgm_num, frame prm_default_fade) {
-    GgafDxBgmPerformer::useBgm(prm_bgm_num); //上位呼び出し
-    _default_fade = prm_default_fade;
-    _paBool_is_fade = NEW bool[_bgm_num];
-    _paBool_is_fadeout_stop = NEW bool[_bgm_num];
-    _paDouble_target_volume = NEW double[_bgm_num];
-    _paDouble_inc_volume = NEW double[_bgm_num];
-    for (int i = 0; i < _bgm_num; i++) {
-        _paBool_is_fade[i] = false;
-        _paBool_is_fadeout_stop[i] = true;
-        _paDouble_target_volume[i] = GGAF_MAX_VOLUME;
-        _paDouble_inc_volume[i] = 0;
+
+void GgafDxBgmPerformerForScene::ready(int prm_id, const char* prm_bgm_name) {
+    if (prm_id >= _bgm_num) {
+        if (_bgm_num == 0) {
+            //初回
+            int new_bgm_num = prm_id + 1;
+            _paBool_is_fade = NEW bool[new_bgm_num];
+            _paBool_is_fadeout_stop = NEW bool[new_bgm_num];
+            _paDouble_target_volume = NEW double[new_bgm_num];
+            _paDouble_inc_volume = NEW double[new_bgm_num];
+            for (int i = 0; i < new_bgm_num; i++) {
+                _paBool_is_fade[i] = false;
+                _paBool_is_fadeout_stop[i] = true;
+                _paDouble_target_volume[i] = GGAF_MAX_VOLUME;
+                _paDouble_inc_volume[i] = 0;
+            }
+        } else {
+            //拡張する。
+            int old_bgm_num = _bgm_num;
+            int new_bgm_num = prm_id + 1;
+            bool* new_paBool_is_fade = NEW bool[new_bgm_num];
+            bool* new_paBool_is_fadeout_stop = NEW bool[new_bgm_num];
+            double* new_paDouble_target_volume = NEW double[new_bgm_num];
+            double* new_paDouble_inc_volume = NEW double[new_bgm_num];
+            for (int i = 0; i < old_bgm_num; i++) { //旧をコピー
+                new_paBool_is_fade[i] = _paBool_is_fade[i];
+                new_paBool_is_fadeout_stop[i] = _paBool_is_fadeout_stop[i];
+                new_paDouble_target_volume[i] = _paDouble_target_volume[i];
+                new_paDouble_inc_volume[i]    = _paDouble_inc_volume[i];
+            }
+            for (int i = old_bgm_num; i < new_bgm_num; i++) {
+                new_paBool_is_fade[i] = false;
+                new_paBool_is_fadeout_stop[i] = true;
+                new_paDouble_target_volume[i] = GGAF_MAX_VOLUME;
+                new_paDouble_inc_volume[i] = 0;
+            }
+            GGAF_DELETEARR_NULLABLE(_paBool_is_fade);
+            GGAF_DELETEARR_NULLABLE(_paBool_is_fadeout_stop);
+            GGAF_DELETEARR_NULLABLE(_paDouble_target_volume);
+            GGAF_DELETEARR_NULLABLE(_paDouble_inc_volume);
+            _paBool_is_fade = new_paBool_is_fade;
+            _paBool_is_fadeout_stop = new_paBool_is_fadeout_stop;
+            _paDouble_target_volume = new_paDouble_target_volume;
+            _paDouble_inc_volume = new_paDouble_inc_volume;
+        }
     }
+    GgafDxBgmPerformer::ready(prm_id, prm_bgm_name); //上位呼び出し
 }
+
 void GgafDxBgmPerformerForScene::fade(int prm_id, frame prm_frame, int prm_target_volume) {
     _paBool_is_fade[prm_id] = true;
     _paDouble_target_volume[prm_id] = (double)prm_target_volume;

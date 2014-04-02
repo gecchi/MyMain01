@@ -23,8 +23,7 @@ Stage01_Climax::Stage01_Climax(const char* prm_name) : DefaultScene(prm_name) {
     // gen01 end
     waiting_ = false;
 
-    getBGMer()->useBgm(1);
-    getBGMer()->set(0, "OGG_BGM_01_CLIMAX");
+    getBGMer()->ready(0, "OGG_BGM_01_CLIMAX");
 }
 
 void Stage01_Climax::initialize() {

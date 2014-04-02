@@ -25,7 +25,7 @@ void MyShot001::initialize() {
     CollisionChecker3D* pColliChecker = getCollisionChecker();
     pColliChecker->makeCollision(1);
     pColliChecker->setColliAAB(0, -PX_C(50), -PX_C(50), -PX_C(50),
-                                    PX_C(50),  PX_C(50),  PX_C(50));
+                                   PX_C(50),  PX_C(50),  PX_C(50));
     getKuroko()->setFaceAngVelo(AXIS_X, D_ANG(12));
 }
 

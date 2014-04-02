@@ -21,7 +21,6 @@ Planet001::Planet001(const char* prm_name) :
     setZWriteEnable(false);  //Zバッファは書き込み無し
     setSpecialDrawDepth(DRAW_DEPTH_LEVEL_WORLDBOUND-3);
     drawAnyFar(true);//遠くても表示
-
     //大気圏エフェクトスプライト
     pAtmosphere_ = NEW Planet001Atmosphere("P001ATMOS");
     addSubLast(pAtmosphere_);

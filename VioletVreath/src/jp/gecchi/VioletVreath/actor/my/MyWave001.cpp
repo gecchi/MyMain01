@@ -62,8 +62,7 @@ void MyWave001::processBehavior() {
         positionAs(P_MYSHIP);
         setRzFaceAng(P_MYSHIP->_rz);
         setRyFaceAng(P_MYSHIP->_ry);
-        pKuroko->setRzRyMvAng(P_MYSHIP->_rz,
-                                P_MYSHIP->_ry);
+        pKuroko->setRzRyMvAng(P_MYSHIP->_rz, P_MYSHIP->_ry);
         //		_x = P_MYSHIP->_x;
         //		_y = P_MYSHIP->_y;
         //		_z = P_MYSHIP->_z;

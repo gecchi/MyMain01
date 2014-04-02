@@ -25,17 +25,11 @@ public:
     GgafDxBgmPerformer();
 
     /**
-     * BGM数を宣言 .
-     * @param prm_bgm_num 演奏するBGM数
-     */
-    virtual void useBgm(int prm_bgm_num);
-
-    /**
      * BGMを設定する。
-     * @param prm_id BGMチャンネル番号(0 ～ useBgm(n) の引数 n - 1)
+     * @param prm_id BGMチャンネル番号(0 ～ )
      * @param prm_bgm_name プロパティファイルの_OGG, _BPM, _TITLE のプレフィックスとなっているkey文字列
      */
-    virtual void set(int prm_id, const char* prm_bgm_name);
+    virtual void ready(int prm_id, const char* prm_bgm_name);
 
     /**
      * ボリュームを設定する。

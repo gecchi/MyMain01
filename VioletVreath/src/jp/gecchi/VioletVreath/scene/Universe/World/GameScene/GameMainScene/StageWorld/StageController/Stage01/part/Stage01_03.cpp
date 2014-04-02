@@ -50,8 +50,7 @@ Stage01_03::Stage01_03(const char* prm_name) : DefaultScene(prm_name) {
     orderActorToFactory(50000104, FormationRis002, "FormationRis002-20");
     // gen01 end
 
-    getBGMer()->useBgm(1);
-    getBGMer()->set(0, "OGG_BGM_01_03");
+    getBGMer()->ready(0, "OGG_BGM_01_03");
 }
 
 void Stage01_03::initialize() {

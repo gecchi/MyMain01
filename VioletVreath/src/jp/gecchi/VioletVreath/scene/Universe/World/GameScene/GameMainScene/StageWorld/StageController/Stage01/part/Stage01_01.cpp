@@ -42,8 +42,7 @@ Stage01_01::Stage01_01(const char* prm_name) : DefaultScene(prm_name) {
     orderActorToFactory(30000012, FormationAllas001c, "FormationAllas001c-12");
     // gen01 end
 
-    getBGMer()->useBgm(1);
-    getBGMer()->set(0, "OGG_BGM_01_01");
+    getBGMer()->ready(0, "OGG_BGM_01_01");
 
 }
 

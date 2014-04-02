@@ -32,8 +32,7 @@ Stage01_02::Stage01_02(const char* prm_name) : DefaultScene(prm_name) {
     orderActorToFactory(40000004, EnemyEtis, "EnemyEtis-5");
     // gen01 end
 
-    getBGMer()->useBgm(1);
-    getBGMer()->set(0, "OGG_BGM_01_02");
+    getBGMer()->ready(0, "OGG_BGM_01_02");
 }
 
 void Stage01_02::initialize() {

@@ -42,8 +42,7 @@ RankUpStage::RankUpStage(const char* prm_name) : DefaultScene(prm_name) {
 
     useProgress(RankUpStage::PROG_BANPEI-1);
 
-    getBGMer()->useBgm(1);
-    getBGMer()->set(0, "OGG_RANKUP_THEMA");
+    getBGMer()->ready(0, "OGG_RANKUP_THEMA");
 
     pSeConnection_all_hit_ = connect_SeManager("WAVE_EXPLOSION_002"); //‘S–Å‚ÌÅŒã‚Ìˆê‹@”j‰óSE
 

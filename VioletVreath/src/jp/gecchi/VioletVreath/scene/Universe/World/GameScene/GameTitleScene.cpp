@@ -44,8 +44,7 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
 
     pSeConnection_exec_ = connect_SeManager("WAVE_EXECUTE");
 
-    //getBGMer()->useBgm(1);
-   // getBGMer()->set(0, "OGG_BGM_DEMO");
+   // getBGMer()->ready(0, "OGG_BGM_DEMO");
     frame_of_noinput_ = 0;
     active_item_ = 0;
 
