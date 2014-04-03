@@ -100,6 +100,7 @@ void MyLockonController::processBehavior() {
 
 void MyLockonController::processJudgement() {
 }
+
 void MyLockonController::onInactive() {
     onReset();
 }
