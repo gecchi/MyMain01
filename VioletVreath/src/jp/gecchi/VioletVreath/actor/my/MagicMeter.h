@@ -43,6 +43,7 @@ public:
     SpeedMagic*   pSpeedMagic_;
     LockonMagic*  pLockonMagic_;
     TorpedoMagic* pTorpedoMagic_;
+    ShotMagic*    pShotMagic_;
     LaserMagic*   pLaserMagic_;
     OptionMagic*  pOptionMagic_;
     VreathMagic*  pVreathMagic_;

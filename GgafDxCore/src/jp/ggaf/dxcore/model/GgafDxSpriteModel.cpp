@@ -58,6 +58,9 @@ HRESULT GgafDxSpriteModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_
         hr = pID3DXEffect->SetFloat(pSpriteEffect->_h_tex_blink_threshold, _blink_threshold);
         checkDxException(hr, D3D_OK, "GgafDxSpriteActor::draw() SetFloat(_h_tex_blink_threshold) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     }
+    hr = pID3DXEffect->SetValue(pSpriteEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
+    checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() SetValue(g_colMaterialDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+
     hr = pID3DXEffect->SetFloat(pSpriteEffect->_h_offset_u, u);
     checkDxException(hr, D3D_OK, "GgafDxSpriteModel::draw() SetFloat(_h_offset_u) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(pSpriteEffect->_h_offset_v, v);

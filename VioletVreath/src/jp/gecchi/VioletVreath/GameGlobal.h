@@ -17,7 +17,7 @@
 /** スコア */
 #define G_ZANKI (VioletVreath::GameGlobal::zanki_)
 /** ランキングスコア */
-#define G_RANKING (VioletVreath::GameGlobal::tblRanking_)
+#define G_RANKING_TABLE (VioletVreath::GameGlobal::tblRanking_)
 
 
 #define G_MAX_RANKUP_LEVEL (1230)

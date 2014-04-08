@@ -9,12 +9,12 @@ using namespace GgafLib;
 StraightLaserChip::StraightLaserChip(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
             LaserChip(prm_name, prm_model, prm_pStat) {
     _pSourceActor = nullptr;
-    source_x = _x;
-    source_y = _y;
-    source_z = _y;
-    source_rx = _rx;
-    source_ry = _ry;
-    source_rz = _rz;
+    _tmp_source_x = _x;
+    _tmp_source_y = _y;
+    _tmp_source_z = _y;
+    _tmp_source_rx = _rx;
+    _tmp_source_ry = _ry;
+    _tmp_source_rz = _rz;
     _pSource_x = &_x;
     _pSource_y = &_y;
     _pSource_z = &_z;
@@ -31,12 +31,12 @@ void StraightLaserChip::processSettlementBehavior() {
         if (_pSourceActor->wasDeclaredEnd()) {
             _pSourceActor = nullptr;
             //バックアップ
-            source_x = (*_pSource_x);
-            source_y = (*_pSource_y);
-            source_z = (*_pSource_z);
-            source_rx = (*_pSource_rx);
-            source_ry = (*_pSource_ry);
-            source_rz = (*_pSource_rz);
+            _tmp_source_x = (*_pSource_x);
+            _tmp_source_y = (*_pSource_y);
+            _tmp_source_z = (*_pSource_z);
+            _tmp_source_rx = (*_pSource_rx);
+            _tmp_source_ry = (*_pSource_ry);
+            _tmp_source_rz = (*_pSource_rz);
             //不正ポインタを回避するため元のメンバー参照に戻しておく
             _pSource_x = &_x;
             _pSource_y = &_y;
@@ -61,16 +61,16 @@ void StraightLaserChip::processSettlementBehavior() {
         _z = (*_pSource_z) + (vz * v );
     } else {
         //発射元アクターが非活動中の場合
-        _rx = source_x;
-        _ry = source_y;
-        _rz = source_z;
+        _rx = _tmp_source_x;
+        _ry = _tmp_source_y;
+        _rz = _tmp_source_z;
         float vx, vy, vz;
-        UTIL::convRzRyToVector(source_rz, source_ry,
+        UTIL::convRzRyToVector(_tmp_source_rz, _tmp_source_ry,
                                 vx, vy, vz);
         velo v = _veloMv * ((velo)getActiveFrame()-1);
-        _x = source_x + (vx * v );
-        _y = source_y + (vy * v );
-        _z = source_z + (vz * v );
+        _x = _tmp_source_x + (vx * v );
+        _y = _tmp_source_y + (vy * v );
+        _z = _tmp_source_z + (vz * v );
     }
 
     if (_was_paused_flg) {

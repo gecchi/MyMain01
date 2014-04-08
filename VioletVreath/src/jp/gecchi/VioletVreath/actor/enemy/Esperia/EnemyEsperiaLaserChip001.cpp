@@ -16,10 +16,10 @@ using namespace VioletVreath;
 EnemyEsperiaLaserChip001::EnemyEsperiaLaserChip001(const char* prm_name) :
         HomingLaserChip(prm_name, "EsperiaLaserChip001", STATUS(EnemyEsperiaLaserChip001)) {
     _class_name = "EnemyEsperiaLaserChip001";
-    tX1_ = tY1_ = tZ1_ = 0;
-    tX2_ = tY2_ = tZ2_ = 0;
+    tx1_ = ty1_ = tz1_ = 0;
+    tx2_ = ty2_ = tz2_ = 0;
     begin_y_ = 0;
-    turn_dY_ = 0;
+    turn_dy_ = 0;
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(SE_FIRE , "WAVE_ENEMY_FIRE_LASER_001");
 }
@@ -44,16 +44,16 @@ void EnemyEsperiaLaserChip001::onActive() {
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->stopTurnMvAng();
     if (_pChip_front == nullptr) {
-        pKuroko->setMvAngTwd(tX1_, tY1_, tZ1_);
+        pKuroko->setMvAngTwd(tx1_, ty1_, tz1_);
         getProgress()->reset(PROG_MOVE_UP);
     } else {
         getProgress()->reset(PROG_NOTHING);
     }
     setAlpha(0.99);
     //次のメンバーは EnemyEsperia 本体側から設定済みが前提
-    //turn_dY_;
-    //tX1_, tY1_, tZ1_;
-    //tX2_, tY2_, tZ2_;
+    //turn_dy_;
+    //tx1_, ty1_, tz1_;
+    //tx2_, ty2_, tz2_;
 }
 
 void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
@@ -66,12 +66,12 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
             if (!pKuroko->isTurningMvAng()) {
 
                 //補正
-                pKuroko->turnMvAngTwd(tX1_, tY1_, tZ1_,
-                                       D_ANG(5), 0,
-                                       TURN_CLOSE_TO, false);
+                pKuroko->turnMvAngTwd(tx1_, ty1_, tz1_,
+                                      D_ANG(5), 0,
+                                      TURN_CLOSE_TO, false);
             }
 
-            if (_y > begin_y_+turn_dY_ || pProg->getFrameInProgress() > 300) {
+            if (_y > begin_y_+turn_dy_ || pProg->getFrameInProgress() > 300) {
                 pProg->changeNext();
             }
             break;
@@ -81,7 +81,7 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
             //自機より少し上の座標で屈折
             if (pProg->isJustChanged()) {
                 pKuroko->setMvVelo(pKuroko->_veloMv/3); //屈折時少しスローダウン
-                pKuroko->turnMvAngTwd(tX2_, tY2_, tZ2_,
+                pKuroko->turnMvAngTwd(tx2_, ty2_, tz2_,
                                       D_ANG(10), 0,
                                       TURN_CLOSE_TO, false);
             }
@@ -94,7 +94,7 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
         case PROG_TURN2: {
             //屈折補正
             if (pProg->getFrameInProgress() % 8U == 0) {
-                pKuroko->turnMvAngTwd(tX2_, tY2_, tZ2_,
+                pKuroko->turnMvAngTwd(tx2_, ty2_, tz2_,
                                       D_ANG(5), 0,
                                       TURN_CLOSE_TO, false);
                 pKuroko->setMvVelo(pKuroko->_veloMv*2);
@@ -110,7 +110,7 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
                 getSeTx()->play3D(SE_FIRE);
             }
             if (pProg->getFrameInProgress() % 16U == 0) {
-                pKuroko->turnMvAngTwd(tX2_, tY2_, tZ2_,
+                pKuroko->turnMvAngTwd(tx2_, ty2_, tz2_,
                                       100, 0,
                                       TURN_CLOSE_TO, false);
             }

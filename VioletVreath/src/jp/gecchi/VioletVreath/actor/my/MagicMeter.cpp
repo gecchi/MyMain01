@@ -12,6 +12,7 @@
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/DamageDispBar.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MpBar.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/LaserMagic.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/ShotMagic.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/LockonMagic.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/Magic.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/OptionMagic.h"
@@ -47,6 +48,7 @@ height_(PX_C(height_px_)) {
     pSpeedMagic_   = NEW SpeedMagic("SPEED", prm_pMP_MyShip);
     pLockonMagic_  = NEW LockonMagic("LOCKON", prm_pMP_MyShip);
     pTorpedoMagic_ = NEW TorpedoMagic("TORPEDO", prm_pMP_MyShip);
+    pShotMagic_    = NEW ShotMagic("SHOT", prm_pMP_MyShip);
     pLaserMagic_   = NEW LaserMagic("LASER", prm_pMP_MyShip);
     pOptionMagic_  = NEW OptionMagic("OPTION", prm_pMP_MyShip);
     pVreathMagic_  = NEW VreathMagic("VREATH", prm_pMP_MyShip);
@@ -55,6 +57,7 @@ height_(PX_C(height_px_)) {
     lstMagic_.addLast(pSpeedMagic_  );
     lstMagic_.addLast(pLockonMagic_ );
     lstMagic_.addLast(pTorpedoMagic_);
+    lstMagic_.addLast(pShotMagic_  );
     lstMagic_.addLast(pLaserMagic_  );
     lstMagic_.addLast(pOptionMagic_ );
     lstMagic_.addLast(pVreathMagic_ );

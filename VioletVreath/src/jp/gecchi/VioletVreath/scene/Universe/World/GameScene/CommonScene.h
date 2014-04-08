@@ -18,7 +18,6 @@
 #define dispatchFromCommon(X)              ( (X*)(getCommonDepository(X)->dispatch()) )
 #define dispatchDelayFromCommon(X, F)      ( (X*)(getCommonDepository(X)->dispatch((F))) )
 #define dispatchForceFromCommon(X)         ( (X*)(getCommonDepository(X)->dispatchForce()) )
-#define dispatchForceDelayFromCommon(X, F) ( (X*)(getCommonDepository(X)->dispatchForce((F))) )
 
 #define P_COMMON_STORE(X)                   pStore_##X##_
 

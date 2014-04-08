@@ -96,7 +96,7 @@ void EnemyDuna::processBehavior() {
              if (pProg->isJustChanged()) {
              }
              _x -= PX_C(10);
-             if (_x  < pMyShip->_x + PX_C(1000)) {
+             if (_x < pMyShip->_x + PX_C(1000)) {
                  pProg->changeNext();
              }
              break;
@@ -227,7 +227,7 @@ void EnemyDuna::processBehavior() {
              if (pProg->isJustChanged()) {
                  //‚Ü‚¸ŠJŽnó‘Ô‚Ì^— •ûŒü‚ÉŒü‚­
                  pKuroko->turnRzMvAngTo(pKuroko->_angRzMv + D180ANG,
-                                          REV_TURN_ANGVELO, 0, TURN_CLOSE_TO);
+                                        REV_TURN_ANGVELO, 0, TURN_CLOSE_TO);
                  nprog_ = 0;
              }
              if (nprog_ == 0 && !pKuroko->isTurningMvAng()) {
@@ -251,6 +251,7 @@ void EnemyDuna::processBehavior() {
              }
              break;
          }
+
 
 
 

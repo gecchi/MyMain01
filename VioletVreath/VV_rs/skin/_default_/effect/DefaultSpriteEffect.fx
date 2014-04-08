@@ -9,7 +9,7 @@
 float4x4 g_matWorld;  //World変換行列
 float4x4 g_matView;   //View変換行列
 float4x4 g_matProj;   //射影変換行列
-float g_alpha; //α
+float4 g_colMaterialDiffuse;
 float g_offset_u; //テクスチャU座標増分
 float g_offset_v; //テクスチャV座標増分
 float g_tex_blink_power;   
@@ -64,19 +64,20 @@ float4 GgafDxPS_DefaultSprite(
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
 	//求める色
-	float4 colOut = tex2D( MyTextureSampler, prm_uv); 
+	float4 colOut = tex2D( MyTextureSampler, prm_uv) ; 
 	if (colOut.r >= g_tex_blink_threshold || colOut.g >= g_tex_blink_threshold || colOut.b >= g_tex_blink_threshold) {
 		colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
-	}         
-	colOut.a = colOut.a * g_alpha * g_alpha_master;
+	}   
+    colOut *= g_colMaterialDiffuse;
+	colOut.a = colOut.a * g_colMaterialDiffuse.a * g_alpha_master;
 	return colOut;
 }
 
 float4 PS_Flush(
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
-	float4 colOut = tex2D( MyTextureSampler, prm_uv)  * FLUSH_COLOR;
-	colOut.a = colOut.a * g_alpha * g_alpha_master;
+	float4 colOut = tex2D( MyTextureSampler, prm_uv)  * g_colMaterialDiffuse * FLUSH_COLOR;
+	colOut.a = colOut.a * g_colMaterialDiffuse.a * g_alpha_master;
 	return colOut;
 }
 

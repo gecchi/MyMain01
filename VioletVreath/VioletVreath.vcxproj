@@ -465,6 +465,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectLockonMagic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectMagic001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectOptionMagic001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectShotMagic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectSmileMagic001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectSpeedMagic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectTorpedoMagic.cpp" />
@@ -473,6 +474,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\LockonMagic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\Magic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\OptionMagic.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\ShotMagic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\SmileMagic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\SpeedMagic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\TorpedoMagic.cpp" />
@@ -809,6 +811,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectLockonMagic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectMagic001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectOptionMagic001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectShotMagic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectSmileMagic001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectSpeedMagic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectTorpedoMagic.h" />
@@ -817,6 +820,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\LockonMagic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\Magic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\OptionMagic.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\magicmeter\magic\shotmagic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\SmileMagic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\SpeedMagic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\TorpedoMagic.h" />

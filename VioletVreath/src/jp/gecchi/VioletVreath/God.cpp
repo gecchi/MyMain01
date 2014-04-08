@@ -57,7 +57,7 @@ God::God() :
     }
 
     //ƒ‰ƒ“ƒLƒ“ƒOî•ñ“Ç‚Ýž‚Ý
-    G_RANKING.init();
+    G_RANKING_TABLE.init();
     initVB();
 }
 

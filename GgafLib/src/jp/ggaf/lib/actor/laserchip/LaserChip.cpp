@@ -158,20 +158,20 @@ void LaserChip::processSettlementBehavior() {
             coord dX = pChip_front->_x - _x;
             coord dY = pChip_front->_y - _y;
             coord dZ = pChip_front->_z - _z;
-            coord abs_dX = ABS(dX);
-            coord abs_dY = ABS(dY);
-            coord abs_dZ = ABS(dZ);
+            coord abs_dx = ABS(dX);
+            coord abs_dy = ABS(dY);
+            coord abs_dz = ABS(dZ);
 
-            if (abs_dX < _hitarea_edge_length &&
-                abs_dY < _hitarea_edge_length &&
-                abs_dZ < _hitarea_edge_length) {
+            if (abs_dx < _hitarea_edge_length &&
+                abs_dy < _hitarea_edge_length &&
+                abs_dz < _hitarea_edge_length) {
                 //前方チップとくっつきすぎた場合に、判定領域を一時的に無効化
                 setHitAble(false);
             } else {
                 setHitAble(true);
-                if (abs_dX >= _hitarea_edge_length_3 ||
-                    abs_dY >= _hitarea_edge_length_3 ||
-                    abs_dZ >= _hitarea_edge_length_3) {
+                if (abs_dx >= _hitarea_edge_length_3 ||
+                    abs_dy >= _hitarea_edge_length_3 ||
+                    abs_dz >= _hitarea_edge_length_3) {
                     //前方チップと離れすぎた場合に、中間に当たり判定領域を一時的に有効化
                     //自身と前方チップの中間に当たり判定を作り出す
                     int cX = dX / 2;

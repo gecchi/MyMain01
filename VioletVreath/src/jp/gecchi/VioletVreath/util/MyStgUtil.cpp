@@ -545,6 +545,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDxGeometr
         case EF_EXPLO_AND_BONUS001: {
             //1は通常のフォーメーションボーナススコア表示エフェクト
             SpriteLabelBonus001* pLabel = dispatchForceFromCommon(SpriteLabelBonus001);
+            pLabel->onDispatched(prm_pActor); //初期設定が行われる
             pLabel->positionAs(prm_pActor);
             pLabel->getKuroko()->takeoverMvFrom(prm_pActor->getKuroko());
             int addscore = prm_pActor->getStatus()->get(STAT_FormationDestroyedAddScorePoint); //フォーメーション全滅得点

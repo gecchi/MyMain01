@@ -217,6 +217,8 @@ public:
     /** 移動Z座標下限 */
     static coord lim_z_right_;
 
+    static uint32_t shot_matrix_[2][5];
+
     /** 平行移動支援 */
     GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
@@ -346,6 +348,8 @@ public:
 
     /** ソフト連射数 */
     int soft_rapidshot_num_;
+
+    int shot_level_;
 public:
     MyShip(const char* prm_name);
 

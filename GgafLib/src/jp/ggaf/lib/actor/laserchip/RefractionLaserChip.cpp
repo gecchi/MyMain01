@@ -193,7 +193,7 @@ void RefractionLaserChip::processBehavior() {
                             if (_pRefractionEffect) {
                                 _pRefractionEffect->positionAs(this);
                                 //最長時間の解除予約。
-                                //何かの拍子でレーザーチップが消滅した場合、正しくsayonara()出来ない場合がある。その場合の保険。
+                                //何かの拍子？（TODO:要調査）でレーザーチップが消滅した場合、正しくsayonara()出来ない場合がある。その場合の保険。
                                 _pRefractionEffect->inactivateDelay(_pDepo->_num_chip_max +_frame_standstill_refraction);
                             }
                         }
@@ -206,9 +206,9 @@ void RefractionLaserChip::processBehavior() {
                     onRefractionFinish(_cnt_refraction); //コールバック
                     _frame_refraction_enter = getBehaveingFrame() + _frame_between_refraction;
                     //座標を変えず方向だけ転換
-                    int X = _x; int Y = _y; int Z = _z;
+                    coord x = _x; coord y = _y; coord z = _z;
                     pKuroko->behave(); //
-                    _x = X; _y = Y; _z = Z;
+                    _x = x; _y = y; _z = z;
                     _is_refracting = false;
 
                     return;

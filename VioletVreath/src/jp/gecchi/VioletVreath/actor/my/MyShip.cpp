@@ -40,6 +40,24 @@ coord MyShip::lim_x_behaind_ =  0;
 coord MyShip::lim_z_left_   =  0;
 coord MyShip::lim_z_right_  =  0;
 
+
+uint32_t MyShip::shot_matrix_[2][5] = {
+    {
+            4,           //  00100
+            0,           //  00000
+            17,          //  10001
+            0,           //  00000
+            4            //  00100
+    },
+    {
+            0,           //  00000
+            10,          //  01010
+            0,           //  00000
+            10,          //  01010
+            0            //  00000
+    }
+};
+
 MyShip::MyShip(const char* prm_name) :
         DefaultD3DXMeshActor(prm_name, "VicViper", STATUS(MyShip)) {
 //DefaultMeshActor(prm_name, "jiki", STATUS(MyShip)) {
@@ -267,6 +285,7 @@ MyShip::MyShip(const char* prm_name) :
 
     soft_rapidshot_interval_ = 4;
     soft_rapidshot_num_ = 3;
+    shot_level_ = 1;
 }
 void MyShip::onCreateModel() {
     GgafDxModel* pModel = getModel();
@@ -715,11 +734,43 @@ void MyShip::processJudgement() {
     if (is_being_soft_rapidshot_) {
         if (frame_soft_rapidshot_ % soft_rapidshot_interval_ == 0) {
             just_shot_ = true;//たった今ショットしましたフラグ
-            MyShot001* pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
-            if (pShot) {
-                getSeTx()->play3D(SE_FIRE_SHOT);
-                pShot->positionAs(this);
+
+            if (shot_level_ >= 1) {
+                MyShot001* pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
+                if (pShot) {
+                    getSeTx()->play3D(SE_FIRE_SHOT);
+                    pShot->positionAs(this);
+                    pShot->setFaceAng(_rx, _ry, _rz);
+                    pShot->getKuroko()->setRzRyMvAng(_rz, _ry);
+                }
             }
+
+            if (shot_level_ >= 2) {
+
+                UTIL::shotWay003(this,
+                                 pDepo_MyShots001_ , MyShip::shot_matrix_[0],
+                                 nullptr, nullptr,
+                                 nullptr, nullptr,
+                                 PX_C(1),
+                                 5, 5,
+                                 D_ANG(5), D_ANG(5),
+                                 0, 0,   //速度はonActiveで設定
+                                 1, 0, 1.0);
+            }
+
+            if (shot_level_ >= 3) {
+                UTIL::shotWay003(this,
+                                 pDepo_MyShots001_ , MyShip::shot_matrix_[1],
+                                 nullptr, nullptr,
+                                 nullptr, nullptr,
+                                 PX_C(1),
+                                 5, 5,
+                                 D_ANG(5), D_ANG(5),
+                                 0, 0,   //速度はonActiveで設定
+                                 1, 0, 1.0);
+            }
+
+
             if (frame_soft_rapidshot_ >= soft_rapidshot_interval_*(soft_rapidshot_num_-1)) {
                 //soft_rapidshot_num_ 発打ち終えたらソフト連射終了
                 is_being_soft_rapidshot_ = false;

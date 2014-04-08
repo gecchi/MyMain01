@@ -17,7 +17,7 @@ public:
     enum {
         PROG_INIT    ,
         PROG_DEMOPLAY,
-        PROG_RANKING ,
+        PROG_RANKING_TABLE ,
         PROG_FINISH  ,
         PROG_BANPEI,
     };

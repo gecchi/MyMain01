@@ -28,7 +28,6 @@ private:
     D3DXHANDLE _ah_matWorld_front[11];
     //D3DXHANDLE _h_cnt_vertec;
 
-
     /** onAcive() でリセットされる振る舞い時フレーム数 */
     frame _frame_of_behaving_from_onActive;
 

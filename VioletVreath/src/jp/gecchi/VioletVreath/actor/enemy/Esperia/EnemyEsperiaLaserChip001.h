@@ -21,11 +21,11 @@ public:
     /** 発射時のY座標 */
     coord begin_y_;
     /** 屈折までのY軸方向距離 */
-    coord turn_dY_;
+    coord turn_dy_;
     /** 目標座標1(屈折ポイント) */
-    coord tX1_, tY1_, tZ1_;
+    coord tx1_, ty1_, tz1_;
     /** 目標座標2(自機周りの到達ポイント) */
-    coord tX2_, tY2_, tZ2_;
+    coord tx2_, ty2_, tz2_;
 
 public:
     EnemyEsperiaLaserChip001(const char* prm_name);

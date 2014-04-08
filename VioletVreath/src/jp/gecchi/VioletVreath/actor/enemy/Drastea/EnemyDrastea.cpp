@@ -19,9 +19,9 @@ EnemyDrastea::EnemyDrastea(const char* prm_name) :
         CubeMapMeshSetActor(prm_name, "Drastea", STATUS(EnemyDrastea)) {
     _class_name = "EnemyDrastea";
     pAxsMver_ = NEW GgafDxAxesMover(this);
-    colli_box_dX_ = 1;
-    colli_box_dY_ = 1;
-    colli_box_dZ_ = 1;
+    colli_box_dx_ = 1;
+    colli_box_dy_ = 1;
+    colli_box_dz_ = 1;
     box_num_x_ = 1;
     box_num_y_ = 1;
     box_num_z_ = 1;
@@ -32,15 +32,15 @@ EnemyDrastea::EnemyDrastea(const char* prm_name) :
 
 void EnemyDrastea::config(
     coord prm_colli_box_dx,
-    coord prm_colli_box_dY,
-    coord prm_colli_box_dZ,
+    coord prm_colli_box_dy,
+    coord prm_colli_box_dz,
     int prm_box_num_x,
     int prm_box_num_y,
     int prm_box_num_z
 ) {
-    colli_box_dX_  = prm_colli_box_dx;
-    colli_box_dY_  = prm_colli_box_dY;
-    colli_box_dZ_  = prm_colli_box_dZ;
+    colli_box_dx_  = prm_colli_box_dx;
+    colli_box_dy_  = prm_colli_box_dy;
+    colli_box_dz_  = prm_colli_box_dz;
     box_num_x_     = prm_box_num_x;
     box_num_y_     = prm_box_num_y;
     box_num_z_     = prm_box_num_z;
@@ -61,19 +61,19 @@ void EnemyDrastea::initialize() {
     CollisionChecker3D* pColliChecker = getCollisionChecker();
     pColliChecker->makeCollision(colli_areas);
     int n = 0;
-    coord actor_width_dX = colli_box_dX_*box_num_x_;
-    coord actor_width_dY = colli_box_dY_*box_num_y_;
-    coord actor_width_dZ = colli_box_dZ_*box_num_z_;
+    coord actor_width_dx = colli_box_dx_*box_num_x_;
+    coord actor_width_dy = colli_box_dy_*box_num_y_;
+    coord actor_width_dz = colli_box_dz_*box_num_z_;
     for (int nx = 0; nx < box_num_x_; nx++) {
         for (int ny = 0; ny < box_num_y_; ny++) {
             for (int nz = 0; nz < box_num_z_; nz++) {
                 pColliChecker->setColliAAB(n,
-                                   -(actor_width_dX/2) + (colli_box_dX_*nx),
-                                   -(actor_width_dY/2) + (colli_box_dY_*ny),
-                                   -(actor_width_dZ/2) + (colli_box_dZ_*nz),
-                                   -(actor_width_dX/2) + (colli_box_dX_*nx) + colli_box_dX_,
-                                   -(actor_width_dY/2) + (colli_box_dY_*ny) + colli_box_dY_,
-                                   -(actor_width_dZ/2) + (colli_box_dZ_*nz) + colli_box_dZ_,
+                                   -(actor_width_dx/2) + (colli_box_dx_*nx),
+                                   -(actor_width_dy/2) + (colli_box_dy_*ny),
+                                   -(actor_width_dz/2) + (colli_box_dz_*nz),
+                                   -(actor_width_dx/2) + (colli_box_dx_*nx) + colli_box_dx_,
+                                   -(actor_width_dy/2) + (colli_box_dy_*ny) + colli_box_dy_,
+                                   -(actor_width_dz/2) + (colli_box_dz_*nz) + colli_box_dz_,
                                    true, true, true );
                 n++;
             }

@@ -21,6 +21,14 @@ namespace GgafLib {
 class StraightLaserChip : public LaserChip {
     friend class LaserChipDepository;
 
+private:
+    int _tmp_source_x;
+    int _tmp_source_y;
+    int _tmp_source_z;
+    angle _tmp_source_rx;
+    angle _tmp_source_ry;
+    angle _tmp_source_rz;
+
 public:
     /** レーザーの位置を同期するための、X座標変数場所 */
     int* _pSource_x;
@@ -35,12 +43,6 @@ public:
     /** レーザーの向き方向のを同期するための、Z軸回転アングル値変数場所 */
     angle* _pSource_rz;
 
-    int source_x;
-    int source_y;
-    int source_z;
-    angle source_rx;
-    angle source_ry;
-    angle source_rz;
     /** [r/w]移動速度 */
     velo _veloMv;
 

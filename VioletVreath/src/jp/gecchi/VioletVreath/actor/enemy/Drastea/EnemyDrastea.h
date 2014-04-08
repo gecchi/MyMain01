@@ -29,9 +29,9 @@ public:
     /** ïΩçsà⁄ìÆéxâá */
     GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
-    coord colli_box_dX_;
-    coord colli_box_dY_;
-    coord colli_box_dZ_;
+    coord colli_box_dx_;
+    coord colli_box_dy_;
+    coord colli_box_dz_;
     int box_num_x_;
     int box_num_y_;
     int box_num_z_;
@@ -40,8 +40,8 @@ public:
     EnemyDrastea(const char* prm_name);
 
     void config(coord prm_colli_box_dx,
-                coord prm_colli_box_dY,
-                coord prm_colli_box_dZ,
+                coord prm_colli_box_dy,
+                coord prm_colli_box_dz,
                 int prm_box_num_x,
                 int prm_box_num_y,
                 int prm_box_num_z );

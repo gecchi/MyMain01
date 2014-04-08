@@ -259,8 +259,8 @@ void EnemyEsperia::processBehavior() {
                 cnt_laserchip_++;
                 EnemyEsperiaLaserChip001* pLaserChip;
                 GgafDxGeoElem* p;
-                coord turn_dY = getTurnDY(this, pMyShip, (dX_ > dZ_ ? dX_ : dZ_) );
-                //↑turn_dY の 引数は EnemyEsperiaLaserChip001::turn_dY_と同期を取る事
+                coord turn_dy = getTurnDY(this, pMyShip, (dX_ > dZ_ ? dX_ : dZ_) );
+                //↑turn_dy の 引数は EnemyEsperiaLaserChip001::turn_dy_と同期を取る事
                 for (int i = 0; i < max_laser_way_; i++) {
                     if (papLaserChipDepo_[i]) {
                         pLaserChip = (EnemyEsperiaLaserChip001*)papLaserChipDepo_[i]->dispatch();
@@ -274,27 +274,27 @@ void EnemyEsperia::processBehavior() {
                                 //X方向距離よりZ方向距離が遠い
                                 if (pMyShip->_z < _z) {
                                     //自機が手前、エスペリアが奥
-                                    pLaserChip->tX1_ = _x + paPos_Target_[i].x;
-                                    pLaserChip->tY1_ = _y + paPos_Target_[i].y + turn_dY;
-                                    pLaserChip->tZ1_ = _z + paPos_Target_[i].z + PX_C(100);
+                                    pLaserChip->tx1_ = _x + paPos_Target_[i].x;
+                                    pLaserChip->ty1_ = _y + paPos_Target_[i].y + turn_dy;
+                                    pLaserChip->tz1_ = _z + paPos_Target_[i].z + PX_C(100);
                                 } else {
                                     //自機が奥、エスペリアが手前
-                                    pLaserChip->tX1_ = _x + paPos_Target_[i].x;
-                                    pLaserChip->tY1_ = _y + paPos_Target_[i].y + turn_dY;
-                                    pLaserChip->tZ1_ = _z + paPos_Target_[i].z - PX_C(100);
+                                    pLaserChip->tx1_ = _x + paPos_Target_[i].x;
+                                    pLaserChip->ty1_ = _y + paPos_Target_[i].y + turn_dy;
+                                    pLaserChip->tz1_ = _z + paPos_Target_[i].z - PX_C(100);
                                 }
                             } else {
                                 //シンバルロック付近を避けるためX-100
-                                pLaserChip->tX1_ = _x + paPos_Target_[i].x - PX_C(100);
-                                pLaserChip->tY1_ = _y + paPos_Target_[i].y + turn_dY;
-                                pLaserChip->tZ1_ = _z + paPos_Target_[i].z;
+                                pLaserChip->tx1_ = _x + paPos_Target_[i].x - PX_C(100);
+                                pLaserChip->ty1_ = _y + paPos_Target_[i].y + turn_dy;
+                                pLaserChip->tz1_ = _z + paPos_Target_[i].z;
                             }
 
-                            pLaserChip->turn_dY_ = turn_dY;
+                            pLaserChip->turn_dy_ = turn_dy;
                             //最終目標地点を設定
-                            pLaserChip->tX2_ = pMyShip->_x + paPos_Target_[i].x;
-                            pLaserChip->tY2_ = pMyShip->_y + paPos_Target_[i].y;
-                            pLaserChip->tZ2_ = pMyShip->_z + paPos_Target_[i].z;
+                            pLaserChip->tx2_ = pMyShip->_x + paPos_Target_[i].x;
+                            pLaserChip->ty2_ = pMyShip->_y + paPos_Target_[i].y;
+                            pLaserChip->tz2_ = pMyShip->_z + paPos_Target_[i].z;
                             //速さと加速度
                             pLaserChip->getKuroko()->setMvVelo(10000); //初期速度
                             pLaserChip->getKuroko()->setMvAcce(150+(max_laser_way_-i)*20); //少しバラけるように

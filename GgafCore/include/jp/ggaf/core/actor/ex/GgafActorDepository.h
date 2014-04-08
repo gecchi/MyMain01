@@ -100,10 +100,10 @@ public:
         GgafMainActor* pActor = (GgafMainActor*)_pSubFirst;
         while (true) {
             if (pActor->_is_active_flg == false && pActor->_will_activate_after_flg == false) {
+                //取得！
                 pActor->moveLast(); //次フレームお尻に回す
                 pActor->activateDelay(offset_frames); //activate自動実行。
-
-                break;//取得！
+                break;
             } else {   //今活動中、或いは、次フレーム活動予定の場合は見送る
                 if (pActor->_is_last_flg) {
                     pActor = nullptr;
@@ -140,11 +140,11 @@ public:
      * @param prm_offset_frames 活動状態にする遅延フレーム
      * @return
      */
-    virtual GgafMainActor* dispatchForce(frame prm_offset_frames = 1) {
-        GgafMainActor* pActor = dispatch(prm_offset_frames);
+    virtual GgafMainActor* dispatchForce() {
+        GgafMainActor* pActor = dispatch(1);
         if (pActor == nullptr) {
-            getSubFirst()->moveLastImmed(); //お尻に回す
             pActor = (GgafMainActor*)getSubFirst();
+            pActor->moveLastImmed(); //お尻に回す
         }
         return pActor;
     }
