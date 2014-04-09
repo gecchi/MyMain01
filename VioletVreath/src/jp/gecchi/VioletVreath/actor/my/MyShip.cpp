@@ -41,20 +41,64 @@ coord MyShip::lim_z_left_   =  0;
 coord MyShip::lim_z_right_  =  0;
 
 
-uint32_t MyShip::shot_matrix_[2][5] = {
+uint32_t MyShip::shot2_matrix_[4][MYSHIP_SHOT_MATRIX] = {
     {
-            4,           //  00100
-            0,           //  00000
-            17,          //  10001
-            0,           //  00000
-            4            //  00100
+            8,           //  0001000
+            0,           //  0000000
+            0,           //  0000000
+            0,           //  0000000
+            0,           //  0000000
+            0,           //  0000000
+            8            //  0001000
     },
     {
-            0,           //  00000
-            10,          //  01010
-            0,           //  00000
-            10,          //  01010
-            0            //  00000
+            0,           //  0000000
+            2,           //  0000010
+            0,           //  0000000
+            0,           //  0000000
+            0,           //  0000000
+           32,           //  0100000
+            0            //  0000000
+    },
+    {
+            0,           //  0000000
+            0,           //  0000000
+            0,           //  0000000
+           65,           //  1000001
+            0,           //  0000000
+            0,           //  0000000
+            0            //  0000000
+    },
+    {
+            0,           //  0000000
+           32,           //  0100000
+            0,           //  0000000
+            0,           //  0000000
+            0,           //  0000000
+            2,           //  0000010
+            0            //  0000000
+
+    }
+};
+
+uint32_t MyShip::shot3_matrix_[2][MYSHIP_SHOT_MATRIX] = {
+    {
+            8,           //  0001000
+            0,           //  0000000
+            0,           //  0000000
+           65,           //  1000001
+            0,           //  0000000
+            0,           //  0000000
+            8            //  0001000
+    },
+    {
+            0,           //  0000000
+           34,           //  0100010
+            0,           //  0000000
+            0,           //  0000000
+            0,           //  0000000
+           34,           //  0100010
+            0            //  0000000
     }
 };
 
@@ -123,7 +167,7 @@ MyShip::MyShip(const char* prm_name) :
 
     pDepo_MyShots001_ = NEW GgafActorDepository("RotShot001");
     MyShot001* pShot;
-    for (int i = 0; i < 25; i++) { //自弾ストック
+    for (int i = 0; i < 50; i++) { //自弾ストック
         pShot = NEW MyShot001("MY_MyShot001");
         pShot->inactivate();
         pDepo_MyShots001_->put(pShot);
@@ -132,7 +176,7 @@ MyShip::MyShip(const char* prm_name) :
 
     pLaserChipDepo_ = NEW LaserChipDepository("MyRotLaser");
     MyStraightLaserChip001* pChip;
-    for (int i = 0; i < 60; i++) { //レーザーストック
+    for (int i = 0; i < 70; i++) { //レーザーストック
         std::string name = "MyStraightLaserChip001("+XTOS(i)+")";
         pChip = NEW MyStraightLaserChip001(name.c_str());
         pChip->setPositionSource(this); //位置だけ同期
@@ -285,6 +329,8 @@ MyShip::MyShip(const char* prm_name) :
 
     soft_rapidshot_interval_ = 4;
     soft_rapidshot_num_ = 3;
+    shot_count_ = 0;
+
     shot_level_ = 1;
 }
 void MyShip::onCreateModel() {
@@ -734,43 +780,6 @@ void MyShip::processJudgement() {
     if (is_being_soft_rapidshot_) {
         if (frame_soft_rapidshot_ % soft_rapidshot_interval_ == 0) {
             just_shot_ = true;//たった今ショットしましたフラグ
-
-            if (shot_level_ >= 1) {
-                MyShot001* pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
-                if (pShot) {
-                    getSeTx()->play3D(SE_FIRE_SHOT);
-                    pShot->positionAs(this);
-                    pShot->setFaceAng(_rx, _ry, _rz);
-                    pShot->getKuroko()->setRzRyMvAng(_rz, _ry);
-                }
-            }
-
-            if (shot_level_ >= 2) {
-
-                UTIL::shotWay003(this,
-                                 pDepo_MyShots001_ , MyShip::shot_matrix_[0],
-                                 nullptr, nullptr,
-                                 nullptr, nullptr,
-                                 PX_C(1),
-                                 5, 5,
-                                 D_ANG(5), D_ANG(5),
-                                 0, 0,   //速度はonActiveで設定
-                                 1, 0, 1.0);
-            }
-
-            if (shot_level_ >= 3) {
-                UTIL::shotWay003(this,
-                                 pDepo_MyShots001_ , MyShip::shot_matrix_[1],
-                                 nullptr, nullptr,
-                                 nullptr, nullptr,
-                                 PX_C(1),
-                                 5, 5,
-                                 D_ANG(5), D_ANG(5),
-                                 0, 0,   //速度はonActiveで設定
-                                 1, 0, 1.0);
-            }
-
-
             if (frame_soft_rapidshot_ >= soft_rapidshot_interval_*(soft_rapidshot_num_-1)) {
                 //soft_rapidshot_num_ 発打ち終えたらソフト連射終了
                 is_being_soft_rapidshot_ = false;
@@ -779,6 +788,43 @@ void MyShip::processJudgement() {
     }
     if (is_being_soft_rapidshot_) {
         frame_soft_rapidshot_++;
+    }
+
+    if (just_shot_) {
+
+        if (shot_level_ >= 1) {
+            MyShot001* pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
+            if (pShot) {
+                getSeTx()->play3D(SE_FIRE_SHOT);
+                pShot->positionAs(this);
+                pShot->getKuroko()->setRzRyMvAng(_rz, _ry);
+            }
+        }
+
+        if (shot_level_ == 2) {
+            uint32_t i = shot_count_ % 4;
+            UTIL::shotWay003(this,
+                             pDepo_MyShots001_ , MyShip::shot2_matrix_[i],
+                             nullptr, nullptr,
+                             nullptr, nullptr,
+                             PX_C(1),
+                             MYSHIP_SHOT_MATRIX, MYSHIP_SHOT_MATRIX,
+                             D_ANG(5), D_ANG(5),
+                             0, 0,   //速度はonActiveで設定
+                             1, 0, 1.0);
+        } else if (shot_level_ >= 3) {
+            uint32_t i = shot_count_ % 2;
+            UTIL::shotWay003(this,
+                             pDepo_MyShots001_ , MyShip::shot3_matrix_[i],
+                             nullptr, nullptr,
+                             nullptr, nullptr,
+                             PX_C(1),
+                             MYSHIP_SHOT_MATRIX, MYSHIP_SHOT_MATRIX,
+                             D_ANG(5), D_ANG(5),
+                             0, 0,   //速度はonActiveで設定
+                             1, 0, 1.0);
+        }
+        shot_count_++;
     }
 
     //光子魚雷発射
@@ -1569,4 +1615,5 @@ MyShip::~MyShip() {
     GGAF_DELETE(pRing_MyShipGeoHistory4OptCtrler_);
     GGAF_DELETE(pRing_MyShipGeoHistory2_);
 }
+
 

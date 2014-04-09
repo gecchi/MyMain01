@@ -69,15 +69,16 @@ float4 GgafDxPS_DefaultSprite(
 		colOut *= g_tex_blink_power; //‚ ‚¦‚Äƒ¿‚à”{—¦‚ğŠ|‚¯‚éB“_–Å‚ğ–Ú—§‚½‚¹‚éB
 	}   
     colOut *= g_colMaterialDiffuse;
-	colOut.a = colOut.a * g_colMaterialDiffuse.a * g_alpha_master;
+    colOut.a *= g_alpha_master; 
 	return colOut;
 }
 
 float4 PS_Flush(
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
-	float4 colOut = tex2D( MyTextureSampler, prm_uv)  * g_colMaterialDiffuse * FLUSH_COLOR;
-	colOut.a = colOut.a * g_colMaterialDiffuse.a * g_alpha_master;
+	float4 colOut = tex2D( MyTextureSampler, prm_uv)  * FLUSH_COLOR;
+    colOut *= g_colMaterialDiffuse;
+    colOut.a *= g_alpha_master; 
 	return colOut;
 }
 

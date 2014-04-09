@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MyShot001.h"
+#include "MyOptionShot001.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
@@ -11,12 +11,12 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-MyShot001::MyShot001(const char* prm_name) :
-        SingleLaser(prm_name, "MyShot001", STATUS(MyShot001)) { //SingleLaserは最大27セットである
-    _class_name = "MyShot001";
+MyOptionShot001::MyOptionShot001(const char* prm_name) :
+        SingleLaser(prm_name, "MyOptionShot001", STATUS(MyOptionShot001)) { //SingleLaserは最大27セットである
+    _class_name = "MyOptionShot001";
 }
 
-void MyShot001::initialize() {
+void MyOptionShot001::initialize() {
     setHitAble(false);
     _sx = R_SC(45);
     _sy = _sz = R_SC(35);
@@ -26,28 +26,28 @@ void MyShot001::initialize() {
     pColliChecker->makeCollision(1);
     pColliChecker->setColliAAB(0, -PX_C(50), -PX_C(50), -PX_C(50),
                                    PX_C(50),  PX_C(50),  PX_C(50));
-    getKuroko()->setFaceAngVelo(AXIS_X, D_ANG(12));
+    getKuroko()->setFaceAngVelo(AXIS_X, D_ANG(-12));
     getKuroko()->relateFaceByMvAng(true);
 }
 
-void MyShot001::onActive() {
+void MyOptionShot001::onActive() {
     getStatus()->reset();
     setHitAble(true);
     getKuroko()->setMvVelo(PX_C(70));
     getKuroko()->setMvAcce(100);
 }
 
-void MyShot001::processBehavior() {
+void MyOptionShot001::processBehavior() {
     getKuroko()->behave();
 }
 
-void MyShot001::processJudgement() {
+void MyOptionShot001::processJudgement() {
     if (isOutOfUniverse()) {
         sayonara();
     }
 }
 
-void MyShot001::onHit(GgafActor* prm_pOtherActor) {
+void MyOptionShot001::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     setHitAble(false);
     UTIL::activateExplosionEffectOf(this);
@@ -55,8 +55,8 @@ void MyShot001::onHit(GgafActor* prm_pOtherActor) {
 }
 
 
-//void MyShot001::drawHitArea() {
+//void MyOptionShot001::drawHitArea() {
 //    ColliAABActor::get()->drawHitarea(_pColliChecker); ColliAAPrismActor::get()->drawHitarea(_pColliChecker); ColliSphereActor::get()->drawHitarea(_pColliChecker);
 //}
-MyShot001::~MyShot001() {
+MyOptionShot001::~MyOptionShot001() {
 }

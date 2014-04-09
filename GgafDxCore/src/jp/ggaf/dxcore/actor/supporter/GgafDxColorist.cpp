@@ -12,12 +12,12 @@ _pActor(prm_pActor) {
     _apDiffuse[0] = &(prm_pActor->_paMaterial[0].Diffuse.r);
     _apDiffuse[1] = &(prm_pActor->_paMaterial[0].Diffuse.g);
     _apDiffuse[2] = &(prm_pActor->_paMaterial[0].Diffuse.b);
-    forceRange(0, 4.0);
+    forceRange(0, 1.0);
 }
 
 void GgafDxColorist::reset() {
     GgafValueTransitioner<float, 3 >::reset();
-    forceRange(0, 4.0);
+    forceRange(0, 1.0);
 }
 
 float GgafDxColorist::getValue(int idx) {

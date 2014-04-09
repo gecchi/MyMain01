@@ -24,10 +24,10 @@ public:
     D3DXHANDLE _h_local_left_top_x;
     D3DXHANDLE _h_local_left_top_y;
 
+    D3DXHANDLE _h_colMaterialDiffuse;
     D3DXHANDLE _hSx;
     D3DXHANDLE _hSy;
     D3DXHANDLE _h_Rz;
-    D3DXHANDLE _h_alpha;
     D3DXHANDLE _hDepthZ;
 
 public:

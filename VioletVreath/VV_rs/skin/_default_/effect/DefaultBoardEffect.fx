@@ -8,8 +8,7 @@
 // author : Masatoshi Tsuge
 // date:2009/03/06 
 ////////////////////////////////////////////////////////////////////////////////
-
-float g_alpha; //α
+float4 g_colMaterialDiffuse;
 float g_offset_u; //テクスチャU座標増分
 float g_offset_v; //テクスチャV座標増分
 float g_transformed_x; //アラインメント未考慮、変換済みX座標(px) 
@@ -72,9 +71,9 @@ float4 GgafDxPS_DefaultBoard(
     float4 colOut = tex2D( MyTextureSampler, prm_uv); 
     if (colOut.r >= g_tex_blink_threshold || colOut.g >= g_tex_blink_threshold || colOut.b >= g_tex_blink_threshold) {
         colOut *= g_tex_blink_power; //+ (colTex * g_tex_blink_power);
-    }    
-    //α考慮
-    colOut.a = colOut.a * g_alpha * g_alpha_master; 
+    }   
+    colOut *= g_colMaterialDiffuse;
+    colOut.a *= g_alpha_master; 
     return colOut;
 }
 
@@ -85,8 +84,8 @@ float4 PS_Flush(
 ) : COLOR  {
     //テクスチャをサンプリングして色取得（原色を取得）
     float4 colOut = tex2D( MyTextureSampler, prm_uv) * FLUSH_COLOR;                
-    //α考慮
-    colOut.a = colOut.a * g_alpha * g_alpha_master; 
+    colOut *= g_colMaterialDiffuse;
+    colOut.a *= g_alpha_master; 
     return colOut;
 }
 

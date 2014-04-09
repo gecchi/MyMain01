@@ -236,11 +236,6 @@ public:
     void setActivePtn(int prm_pattno_uvflip);
 
     /**
-     * アニメーションパターンを上限のアニメーションパターン番号(一番若い番号)に設定する .
-     */
-    void setActivePtnToTop();
-
-    /**
      * フリップアニメーションパターンの上限の下限のパターン番号を設定 .
      * あくまで、フリップのの上限の下限であり、現在のパターン番号を制限するものではありません。<BR>
      * setActivePtn(int) で範囲外でパターン番号も問題なく設定出来ます。
@@ -248,6 +243,42 @@ public:
      * @param prm_bottom 下限のアニメーションパターン番号(古い方の番号。若い番号の反対語って古い番号なのだろうか；)
      */
     void setFlipPtnRange(int prm_top, int prm_bottom);
+
+    /**
+     * 上限パターン番号を取得 .
+     */
+    int getTopPtnno() {
+        return _pattno_uvflip_top;
+    }
+
+    /**
+     * 下限パターン番号を取得 .
+     */
+    int getBottomPtnno() {
+        return _pattno_uvflip_bottom;
+    }
+
+    /**
+     * アニメーションパターンを上限パターン番号(一番若い番号)に設定する .
+     */
+    void setActivePtnToTop() {
+        setActivePtn(_pattno_uvflip_top);
+    }
+
+    /**
+     * アニメーションパターンを下限パターン番号(一番若い番号)に設定する .
+     */
+    void setActivePtnToBottom() {
+        setActivePtn(_pattno_uvflip_bottom);
+    }
+
+    /**
+     * 現在のアニメーションパターン番号を上限パターン番号からの(相対)番号数で設定する .
+     * @param prm_pattno_uvflip_from_top 上限パターン番号からのパターン番号数
+     */
+    void setActivePtnFromTop(int prm_pattno_uvflip_from_top) {
+        setActivePtn(_pattno_uvflip_top + prm_pattno_uvflip_from_top);
+    }
 
     /**
      * FLIP_CUSTOMIZED_LOOP、FLIP_CUSTOMIZED_NOLOOP時のパターン順を定義。TODO:未テスト。 .

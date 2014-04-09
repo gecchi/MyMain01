@@ -20,6 +20,7 @@ TestBar::TestBar(const char* prm_name)
 
 void TestBar::initialize() {
     setScaleR(2.0);
+    setMaterialColor(0.3, 1.0, 0.3);
     //_pKuroko->setFaceAngVelo(AXIS_Z, D_ANG(1));
     _pUvFlipper->setActivePtn(1);
 //    _pUvFlipper->exec(FLIP_ORDER_LOOP, 10); //ƒAƒjƒ‡˜

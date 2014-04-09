@@ -47,9 +47,9 @@ void GgafDxBoardActor::processDraw() {
 
     HRESULT hr;
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedX, float(C_PX(_x)));
-    checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_hTransformedX) に失敗しました。3");
+    checkDxException(hr, D3D_OK, "GgafDxBoardActor::draw SetFloat(_hTransformedX) に失敗しました。3");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedY, float(C_PX(_y)));
-    checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_hTransformedY) に失敗しました。3");
+    checkDxException(hr, D3D_OK, "GgafDxBoardActor::draw SetFloat(_hTransformedY) に失敗しました。3");
 
     if (_align == ALIGN_RIGHT) {
         hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_x, (float)(-_pBoardModel->_fSize_BoardModelWidthPx));
@@ -58,7 +58,7 @@ void GgafDxBoardActor::processDraw() {
     } else { //ALIGN_LEFT
         hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_x, 0.0f);
     }
-    checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_h_local_left_top_x) に失敗しました。");
+    checkDxException(hr, D3D_OK, "GgafDxBoardActor::draw SetFloat(_h_local_left_top_x) に失敗しました。");
     if (_valign == VALIGN_BOTTOM) {
         hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_y, (float)(-_pBoardModel->_fSize_BoardModelHeightPx));
     } else if (_valign == VALIGN_MIDDLE) {
@@ -66,18 +66,20 @@ void GgafDxBoardActor::processDraw() {
     } else { //VALIGN_TOP
         hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_y, 0.0f);
     }
-    checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_h_local_left_top_y) に失敗しました。");
-
+    checkDxException(hr, D3D_OK, "GgafDxBoardActor::draw SetFloat(_h_local_left_top_y) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_hDepthZ, float(C_PX(_z)));
-    checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_hDepthZ) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_alpha, _alpha);
-    checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_h_alpha) に失敗しました。");
+    checkDxException(hr, D3D_OK, "GgafDxBoardActor::draw SetFloat(_hDepthZ) に失敗しました。");
+//    hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_alpha, _alpha);
+//    checkDxException(hr, D3D_OK, "GgafDxBoardActor::draw SetFloat(_h_alpha) に失敗しました。");
+    hr = pID3DXEffect->SetValue(_pBoardEffect->_h_colMaterialDiffuse, &(_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
+    checkDxException(hr, D3D_OK, "GgafDxBoardActor::draw() SetValue(_h_colMaterialDiffuse) に失敗しました。");
+
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSx, SC_R(_sx));
-    checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_sx) に失敗しました。");
+    checkDxException(hr, D3D_OK, "GgafDxBoardActor::draw SetFloat(_sx) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSy, SC_R(_sy));
-    checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_sy) に失敗しました。");
+    checkDxException(hr, D3D_OK, "GgafDxBoardActor::draw SetFloat(_sy) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_Rz, ANG_RAD(_rz));
-    checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_h_Rz) に失敗しました。");
+    checkDxException(hr, D3D_OK, "GgafDxBoardActor::draw SetFloat(_h_Rz) に失敗しました。");
 
     _pBoardModel->GgafDxBoardModel::draw(this);
 }
@@ -133,6 +135,19 @@ void GgafDxBoardActor::setScaleR(float prm_x_rate, float prm_y_rate, float prm_z
     _sx = R_SC(prm_x_rate);
     _sy = R_SC(prm_y_rate);
     _sz = R_SC(prm_z_rate); //_szは2Dでは使用されないが、GgafDxScaler::behave() 内の判定で役に立つ。
+}
+void GgafDxBoardActor::setAlpha(float prm_alpha) {
+    _alpha = prm_alpha;
+    //α設定、現在マテリアルはDiffuse以外関係ない
+    _paMaterial[0].Ambient.a = _alpha;
+    _paMaterial[0].Diffuse.a = _alpha;
+}
+
+void GgafDxBoardActor::addAlpha(float prm_alpha) {
+    _alpha += prm_alpha;
+    //α設定、現在マテリアルはDiffuse以外関係ない
+    _paMaterial[0].Ambient.a = _alpha;
+    _paMaterial[0].Diffuse.a = _alpha;
 }
 
 GgafDxBoardActor::~GgafDxBoardActor() {

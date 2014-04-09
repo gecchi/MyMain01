@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "TitleBoard.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxColorist.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -13,6 +14,7 @@ TitleBoard::TitleBoard(const char* prm_name) : DefaultBoardActor(prm_name, "Titl
     setZEnable(false);
     setZWriteEnable(false);
 }
+
 void TitleBoard::initialize() {
     _z = 10; //メニューを表に出すために、タイトルは奥へ・・・
 }

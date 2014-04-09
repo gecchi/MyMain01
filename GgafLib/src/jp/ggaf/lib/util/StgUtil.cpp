@@ -185,6 +185,7 @@ GgafDxDrawableActor* StgUtil::shotWay003(coord prm_x, coord prm_y, coord prm_z,
         dot3 = prm_paUint32_dotmat3 ? prm_paUint32_dotmat3[i] : 0;
         paUint32_dotmat[i] = dot1 | dot2 | dot3;
         if (paUint32_dotmat[i] == 0) {
+            papaGeo[i] = nullptr;
             continue;
         }
         Rz = GgafDxUtil::simplifyAng(paAng_way_N[i]);
@@ -254,7 +255,9 @@ GgafDxDrawableActor* StgUtil::shotWay003(coord prm_x, coord prm_y, coord prm_z,
     GGAF_DELETEARR(paAng_way_M);
     GGAF_DELETEARR(paUint32_dotmat);
     for (int i = 0; i < prm_way_N; i++) {
-        GGAF_DELETEARR(papaGeo[i]);
+        if (papaGeo[i]) {
+            GGAF_DELETEARR(papaGeo[i]);
+        }
     }
     GGAF_DELETEARR(papaGeo);
 

@@ -84,10 +84,6 @@ void GgafDxUvFlipper::setActivePtn(int prm_pattno_uvflip) {
 //    }
 }
 
-void GgafDxUvFlipper::setActivePtnToTop() {
-    _pattno_uvflip_now = _pattno_uvflip_top;
-}
-
 void GgafDxUvFlipper::setFlipPtnRange(int prm_top, int prm_bottom) {
 #ifdef MY_DEBUG
     if (prm_top < 0) {

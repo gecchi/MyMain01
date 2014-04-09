@@ -52,7 +52,7 @@ void MyStraightLaserChip001::initialize() {
 
     setHitAble(true);
     _sx = _sy = _sz = R_SC(5);
-    _alpha = 0.99;
+    setAlpha(0.99);
     _bounding_sphere_radius = 20.0;
 }
 

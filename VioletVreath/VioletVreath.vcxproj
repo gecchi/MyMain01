@@ -499,6 +499,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyWave001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\EffectMyOption.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOption.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOptionShot001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOptionStraightLaserChip001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOptionWateringLaserChip001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestChokiShot.cpp" />
@@ -845,6 +846,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyWave001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\option\EffectMyOption.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOption.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOptionShot001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOptionStraightLaserChip001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOptionWateringLaserChip001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestChokiShot.h" />

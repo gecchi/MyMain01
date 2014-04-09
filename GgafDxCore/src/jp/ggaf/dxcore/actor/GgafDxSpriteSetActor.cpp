@@ -97,20 +97,6 @@ void GgafDxSpriteSetActor::processDraw() {
     _pSpriteSetModel->GgafDxSpriteSetModel::draw(this, draw_set_num);
 }
 
-void GgafDxSpriteSetActor::setAlpha(float prm_alpha) {
-    _alpha = prm_alpha;
-    //α設定、現在マテリアルはDiffuse以外関係ない
-    _paMaterial[0].Ambient.a = _alpha; //＜ーこっちは今のところ無意味
-    _paMaterial[0].Diffuse.a = _alpha;
-}
-
-void GgafDxSpriteSetActor::addAlpha(float prm_alpha) {
-    _alpha += prm_alpha;
-    //α設定、現在マテリアルはDiffuse以外関係ない
-    _paMaterial[0].Ambient.a = _alpha; //＜ーこっちは今のところ無意味
-    _paMaterial[0].Diffuse.a = _alpha;
-}
-
 void GgafDxSpriteSetActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) {
     _align = prm_align;
     _valign = prm_valign;

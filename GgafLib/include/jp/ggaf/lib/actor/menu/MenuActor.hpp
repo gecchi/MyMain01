@@ -965,7 +965,7 @@ void MenuActor<T>::addItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
     prm_pItem->_x_local = prm_x_local;
     prm_pItem->_y_local = prm_y_local;
     prm_pItem->_z_local = prm_z_local;
-    prm_pItem->_alpha = T::_alpha; //半透明αを共有させる。
+    prm_pItem->setAlpha(T::_alpha); //半透明αを共有させる。
     prm_pItem->inactivate();
     _lstItems.addLast(prm_pItem, false);
     T::addSubLast(prm_pItem);
@@ -986,7 +986,7 @@ void MenuActor<T>::addDisp(GgafDxCore::GgafDxDrawableActor* prm_pDisp,
     prm_pDisp->_x_local = prm_x_local;
     prm_pDisp->_y_local = prm_y_local;
     prm_pDisp->_z_local = prm_z_local;
-    prm_pDisp->_alpha = T::_alpha; //半透明αを共有させる。
+    prm_pDisp->setAlpha(T::_alpha); //半透明αを共有させる。
     prm_pDisp->inactivate();
     _lstDispActors.addLast(prm_pDisp, false);
     T::addSubLast(prm_pDisp);
@@ -1161,7 +1161,7 @@ void MenuActor<T>::setMainCursor(GgafDxCore::GgafDxDrawableActor* prm_pCursorAct
                                  float prm_cursor_move_p1,
                                  float prm_cursor_move_p2) {
     _pCursorActor = prm_pCursorActor;
-    _pCursorActor->_alpha = T::_alpha;
+    _pCursorActor->setAlpha(T::_alpha);
     _pCursorActor->inactivate();
     T::addSubLast(_pCursorActor);
     _x_cursor_adjust = prm_x_cursor_adjust;
@@ -1183,7 +1183,7 @@ void MenuActor<T>::addSupCursor(GgafDxCore::GgafDxDrawableActor* prm_pCursorActo
                                  float prm_cursor_move_p2) {
     MenuActor<T>::SupCursor* pSupCursor = NEW MenuActor<T>::SupCursor();
     pSupCursor->_pActor = prm_pCursorActor;
-    pSupCursor->_pActor->_alpha = T::_alpha;
+    pSupCursor->_pActor->setAlpha(T::_alpha);
     pSupCursor->_pActor->inactivate();
     pSupCursor->_select_index = 0;
     pSupCursor->_x_adjust = prm_x_cursor_adjust;

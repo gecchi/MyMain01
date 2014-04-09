@@ -92,7 +92,15 @@ private:
     void addScale(scale dS) override {
         throwGgafCriticalException("GgafDxBoardSetActor::addScale() は使用不可です。");
     }
-
+    void setMaterialColor(float r, float g, float b) override {
+        throwGgafCriticalException("GgafDxSpriteSetActor::setMaterialColor は使用不可です。(1)");
+    }
+    void setMaterialColor(GgafCore::GgafRgb* prm_rgb) override {
+        throwGgafCriticalException("GgafDxSpriteSetActor::setMaterialColor は使用不可です。(2)");
+    }
+    void resetMaterialColor() override {
+        throwGgafCriticalException("GgafDxSpriteSetActor::resetMaterialColor は使用不可です。");
+    }
 public:
     /** [r]モデルオブジェクトへのポインタ */
     GgafDxBoardSetModel* const _pBoardSetModel;

@@ -4,10 +4,6 @@
 
 namespace GgafDxCore {
 
-#define COLOR_R 0
-#define COLOR_G 1
-#define COLOR_B 2
-
 /**
  * カラーリストさん.
  * @version 1.00
@@ -21,6 +17,11 @@ public:
     GgafDxDrawableActor* const _pActor;
     float* _apDiffuse[3];
 
+    enum {
+        RED = 0,
+        GREEN = 1,
+        BLUE = 2,
+    };
 public:
     /**
      * コンストラクタ<BR>

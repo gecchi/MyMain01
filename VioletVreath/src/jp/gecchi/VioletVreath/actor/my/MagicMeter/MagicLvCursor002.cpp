@@ -16,8 +16,8 @@ MagicLvCursor002::MagicLvCursor002(const char* prm_name, MagicMeter* prm_pMagicM
 void MagicLvCursor002::initialize() {
     MagicLvCursor::initialize();
     GgafDxUvFlipper* pUvFlipper = getUvFlipper();
-    pUvFlipper->setActivePtn(0);
-    pUvFlipper->setFlipPtnRange(0,2);
+    pUvFlipper->setFlipPtnRange(0, 2);
+    pUvFlipper->setActivePtnToTop();
 }
 
 void MagicLvCursor002::moveSmoothTo(int prm_lv, frame prm_spent) {
@@ -26,14 +26,15 @@ void MagicLvCursor002::moveSmoothTo(int prm_lv, frame prm_spent) {
 
 void MagicLvCursor002::dispDisable() {
     GgafDxUvFlipper* pUvFlipper = getUvFlipper();
-    pUvFlipper->setFlipPtnRange(3,3); //ロック表示
-    pUvFlipper->setActivePtn(3);
+    int lock_ptn_no = pUvFlipper->getBottomPtnno() + 1; //最後のパターンの次はロック表示
+    pUvFlipper->setFlipPtnRange(lock_ptn_no,lock_ptn_no); //ロック表示
+    pUvFlipper->setActivePtn(lock_ptn_no);
 }
 
 void MagicLvCursor002::dispEnable() {
     GgafDxUvFlipper* pUvFlipper = getUvFlipper();
-    pUvFlipper->setFlipPtnRange(0,2);
-    pUvFlipper->setActivePtn(0);
+    pUvFlipper->setFlipPtnRange(0, 2);
+    pUvFlipper->setActivePtnToTop();
 }
 
 MagicLvCursor002::~MagicLvCursor002() {

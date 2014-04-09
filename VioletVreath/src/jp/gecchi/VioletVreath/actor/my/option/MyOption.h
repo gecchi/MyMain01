@@ -50,7 +50,7 @@ public:
     /** [r]発射するレーザーチップのデポジトリ */
     GgafLib::LaserChipDepository* pLaserChipDepo_;
     /** [r]発射するショットのデポジトリ */
-    GgafCore::GgafActorDepository* pDepo_MyShots001_;
+    GgafCore::GgafActorDepository* pDepo_MyOptionShot_;
     /** [r]レーザー発射中のエフェクト */
     GgafDxCore::GgafDxDrawableActor* pEffect_LaserIrradiate_;
 

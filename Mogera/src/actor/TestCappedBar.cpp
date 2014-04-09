@@ -18,6 +18,7 @@ TestCappedBar::TestCappedBar(const char* prm_name)
 
 void TestCappedBar::initialize() {
     setScaleR(2.0);
+    setMaterialColor(0.3, 0.3, 1.3);
 //    getKuroko()->setFaceAngVelo(AXIS_Z, D_ANG(1));
 //    _pUvFlipper->exec(FLIP_ORDER_LOOP, 10); //ƒAƒjƒ‡˜
 }

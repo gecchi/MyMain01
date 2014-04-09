@@ -81,8 +81,10 @@ void GraphBarActor::processDraw() {
 
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_hDepthZ, (float)(C_PX(_z)));
     checkDxException(hr, D3D_OK, "GraphBarActor::processDraw() SetFloat(_hDepthZ) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_alpha, _alpha);
-    checkDxException(hr, D3D_OK, "GraphBarActor::processDraw() SetFloat(_h_alpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetValue(_pBoardEffect->_h_colMaterialDiffuse, &(_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
+    checkDxException(hr, D3D_OK, "GraphBarActor::draw() SetValue(_h_colMaterialDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+//    hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_alpha, _alpha);
+//    checkDxException(hr, D3D_OK, "GraphBarActor::processDraw() SetFloat(_h_alpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSx, bar_width * _rate_org_chip_width * SC_R(_sx));
     checkDxException(hr, D3D_OK, "GraphBarActor::processDraw() SetFloat(_sx) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSy, SC_R(_sy));

@@ -33,6 +33,8 @@ namespace VioletVreath {
 #define MY_SHIP_START_MP (1000000)
 /** 自機の移動が停止しても、トレースな状態を維持できるフレーム数 */
 #define TRACE_DELAY_WAIT_FRAME (90)
+
+#define MYSHIP_SHOT_MATRIX (7)
 /**
  * 自機クラス
  * @version 1.00
@@ -217,8 +219,8 @@ public:
     /** 移動Z座標下限 */
     static coord lim_z_right_;
 
-    static uint32_t shot_matrix_[2][5];
-
+    static uint32_t shot2_matrix_[4][MYSHIP_SHOT_MATRIX];
+    static uint32_t shot3_matrix_[2][MYSHIP_SHOT_MATRIX];
     /** 平行移動支援 */
     GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
@@ -305,6 +307,7 @@ public:
     bool is_being_soft_rapidshot_;
     /** ショットしたフレームのみ true になる */
     bool just_shot_;
+    uint32_t shot_count_;
     /** レーザー発射中かどうか */
     bool is_shooting_laser_;
 

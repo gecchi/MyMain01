@@ -32,7 +32,7 @@ void MyOptionStraightLaserChip001::initialize() {
     registerHitAreaCube_AutoGenMidColli(60000);
     setHitAble(true);
     _sx = _sy = _sz = R_SC(5);
-    _alpha = 0.99;
+    setAlpha(0.99);
     _bounding_sphere_radius = 20.0;
 }
 void MyOptionStraightLaserChip001::onActive() {

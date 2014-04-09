@@ -27,7 +27,7 @@ void EffectExplosion002::onActive() {
     GgafDxUvFlipper* pUvFlipper = getUvFlipper();
     pUvFlipper->setActivePtnToTop();
     pUvFlipper->exec(FLIP_ORDER_NOLOOP, 1); //パラパラアニメ無し
-    _alpha = 0.99;
+    setAlpha(0.99);
     _sx = _sy = _sz = 1000;
 }
 

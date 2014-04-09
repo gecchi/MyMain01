@@ -107,7 +107,17 @@ public:
     virtual void setScaleR(float prm_rate) override;
     virtual void setScaleR(float prm_x_rate, float prm_y_rate) override;
     virtual void setScaleR(float prm_x_rate, float prm_y_rate, float prm_z_rate) override;
+    /**
+     * ƒ¿İ’è.
+     * @param prm_alpha
+     */
+    virtual void setAlpha(float prm_alpha) override;
 
+    /**
+     * ƒ¿‰ÁZ .
+     * @param prm_alpha
+     */
+    virtual void addAlpha(float prm_alpha) override;
     inline GgafDxUvFlipper* getUvFlipper() {
         return _pUvFlipper;
     }

@@ -47,6 +47,13 @@ void GraphCappedBarActor::processDraw() {
 
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_Rz, ANG_RAD(_rz));
     checkDxException(hr, D3D_OK, "GraphCappedBarActor::processDraw() SetFloat(_h_Rz) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hDepthZ, (float)(C_PX(_z)));
+    checkDxException(hr, D3D_OK, "GraphCappedBarActor::processDraw() SetFloat(_hDepthZ) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+//    hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_alpha, _alpha);
+//    checkDxException(hr, D3D_OK, "GraphCappedBarActor::processDraw() SetFloat(_h_alpha) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    hr = pID3DXEffect->SetValue(_pBoardEffect->_h_colMaterialDiffuse, &(_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
+    checkDxException(hr, D3D_OK, "GraphCappedBarActor::draw() SetValue(_h_colMaterialDiffuse) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+
     if (bar_width > 0.0f) {
         //_pUvFlipper->_pattno_uvflip_now ÇÕ <=> ÇÃ "<" ÇÃî‘çÜÇ…çáÇÌÇπÇÈÇ±Ç∆ÅI
         if (bar_width > _chip_width*2) {
@@ -60,10 +67,6 @@ void GraphCappedBarActor::processDraw() {
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_x, 0.0f);
             checkDxException(hr, D3D_OK, "GraphCappedBarActor::processDraw() SetFloat(_h_local_left_top_x) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
-            hr = pID3DXEffect->SetFloat(_pBoardEffect->_hDepthZ, (float)(C_PX(_z)));
-            checkDxException(hr, D3D_OK, "GraphCappedBarActor::processDraw() SetFloat(_hDepthZ) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-            hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_alpha, _alpha);
-            checkDxException(hr, D3D_OK, "GraphCappedBarActor::processDraw() SetFloat(_h_alpha) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             float sx = (bar_width * _rate_org_chip_width) -  2.0f;
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSx, sx * SC_R(_sx));
             checkDxException(hr, D3D_OK, "GraphCappedBarActor::processDraw() SetFloat(_sx) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
@@ -97,11 +100,6 @@ void GraphCappedBarActor::processDraw() {
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_x, 0.0f);
             checkDxException(hr, D3D_OK, "GraphCappedBarActor::processDraw() SetFloat(_h_local_left_top_x) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
-            hr = pID3DXEffect->SetFloat(_pBoardEffect->_hDepthZ, (float)(C_PX(_z)));
-            checkDxException(hr, D3D_OK, "GraphCappedBarActor::processDraw() SetFloat(_hDepthZ) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-            hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_alpha, _alpha);
-            checkDxException(hr, D3D_OK, "GraphCappedBarActor::processDraw() SetFloat(_h_alpha) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-
             float sx = (bar_width * _rate_org_chip_width) * 0.5f;
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSx, sx * SC_R(_sx));
             checkDxException(hr, D3D_OK, "GraphCappedBarActor::processDraw() SetFloat(_sx) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
@@ -130,10 +128,6 @@ void GraphCappedBarActor::processDraw() {
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_x, 0.0f);
             checkDxException(hr, D3D_OK, "GraphCappedBarActor::processDraw() SetFloat(_h_local_left_top_x) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
-            hr = pID3DXEffect->SetFloat(_pBoardEffect->_hDepthZ, (float)(C_PX(_z)));
-            checkDxException(hr, D3D_OK, "GraphCappedBarActor::processDraw() SetFloat(_hDepthZ) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-            hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_alpha, _alpha);
-            checkDxException(hr, D3D_OK, "GraphCappedBarActor::processDraw() SetFloat(_h_alpha) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             float sx = (-bar_width * _rate_org_chip_width) - 2.0f;
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSx, -sx * SC_R(_sx));
             checkDxException(hr, D3D_OK, "GraphCappedBarActor::processDraw() SetFloat(_sx) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
@@ -168,11 +162,6 @@ void GraphCappedBarActor::processDraw() {
 
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_x, 0.0f);
             checkDxException(hr, D3D_OK, "GraphCappedBarActor::processDraw() SetFloat(_h_local_left_top_x) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-
-            hr = pID3DXEffect->SetFloat(_pBoardEffect->_hDepthZ, (float)(C_PX(_z)));
-            checkDxException(hr, D3D_OK, "GraphCappedBarActor::processDraw() SetFloat(_hDepthZ) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-            hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_alpha, _alpha);
-            checkDxException(hr, D3D_OK, "GraphCappedBarActor::processDraw() SetFloat(_h_alpha) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSx, -sx * SC_R(_sx));
             checkDxException(hr, D3D_OK, "GraphCappedBarActor::processDraw() SetFloat(_sx) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

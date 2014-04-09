@@ -7,13 +7,12 @@
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/dxcore/util/GgafDxQuaternion.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
-#include "MyOptionWateringLaserChip001.h"
-#include "EffectMyOption.h"
+#include "jp/gecchi/VioletVreath/actor/my/option/MyOptionWateringLaserChip001.h"
+#include "jp/gecchi/VioletVreath/actor/my/option/EffectMyOption.h"
+#include "jp/gecchi/VioletVreath/actor/my/option/MyOptionShot001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyOptionController.h"
-#include "jp/gecchi/VioletVreath/actor/my/MyShot001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyTorpedoController.h"
-#include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -73,7 +72,7 @@ MyOption::MyOption(const char* prm_name, uint32_t prm_no, MyOptionController* pr
     pLaserChipDepo_ = NEW LaserChipDepository("ROTLaser");
     MyOptionWateringLaserChip001* pChip;
 //    MyOptionStraightLaserChip001* pChip;
-    for (int i = 0; i < 80; i++) { //レーザーストック
+    for (int i = 0; i < 60; i++) { //レーザーストック
         std::string name = std::string(getName()) + "'s LaserChip(" + XTOS(i) + ")";
         pChip = NEW MyOptionWateringLaserChip001(name.c_str());
         //pChip = NEW MyOptionStraightLaserChip001(name2.c_str());
@@ -89,12 +88,12 @@ MyOption::MyOption(const char* prm_name, uint32_t prm_no, MyOptionController* pr
     pLaserChipDepo_->config(80, 25, pEffect_LaserIrradiate_);
     addSubGroup(pLaserChipDepo_);
 
-    pDepo_MyShots001_ = NEW GgafActorDepository("RotShot001");
-    for (int i = 0; i < 25; i++) { //自弾ストック
+    pDepo_MyOptionShot_ = NEW GgafActorDepository("RotShot001");
+    for (int i = 0; i < 40; i++) { //自弾ストック
         std::string name = std::string(getName()) + "'s Shot001(" + XTOS(i) + ")";
-        pDepo_MyShots001_->put(NEW MyShot001(name.c_str()));
+        pDepo_MyOptionShot_->put(NEW MyOptionShot001(name.c_str()));
     }
-    addSubGroup(pDepo_MyShots001_);
+    addSubGroup(pDepo_MyOptionShot_);
 
     //ロックオンコントローラー
     pLockonCtrler_ = NEW MyLockonController("LockonController");
@@ -602,13 +601,36 @@ void MyOption::processBehavior() {
 
     //ショット発射
     if (pMyShip->just_shot_) {
-        MyShot001* pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
-        if (pShot) {
-            GgafDxKuroko* const pShot_pKuroko = pShot->getKuroko();
-            getSeTx()->play3D(SE_FIRE_SHOT);
-            pShot->positionAs(this);
-            pShot->setFaceAng(_rx, _ry, _rz);
-            pShot_pKuroko->setRzRyMvAng(_rz, _ry);
+        if (pMyShip->shot_level_ >= 1) {
+            MyOptionShot001* pShot = (MyOptionShot001*)pDepo_MyOptionShot_->dispatch();
+            if (pShot) {
+                getSeTx()->play3D(SE_FIRE_SHOT);
+                pShot->positionAs(this);
+                pShot->getKuroko()->setRzRyMvAng(_rz, _ry);
+            }
+        }
+        if (pMyShip->shot_level_ == 2) {
+            uint32_t i = pMyShip->shot_count_ % 4;
+            UTIL::shotWay003(this,
+                             pDepo_MyOptionShot_ , MyShip::shot2_matrix_[i],
+                             nullptr, nullptr,
+                             nullptr, nullptr,
+                             PX_C(1),
+                             MYSHIP_SHOT_MATRIX, MYSHIP_SHOT_MATRIX,
+                             D_ANG(5), D_ANG(5),
+                             0, 0,   //速度はonActiveで設定
+                             1, 0, 1.0);
+        } else if (pMyShip->shot_level_ >= 3) {
+            uint32_t i = pMyShip->shot_count_ % 2;
+            UTIL::shotWay003(this,
+                             pDepo_MyOptionShot_ , MyShip::shot3_matrix_[i],
+                             nullptr, nullptr,
+                             nullptr, nullptr,
+                             PX_C(1),
+                             MYSHIP_SHOT_MATRIX, MYSHIP_SHOT_MATRIX,
+                             D_ANG(5), D_ANG(5),
+                             0, 0,   //速度はonActiveで設定
+                             1, 0, 1.0);
         }
     }
     //光子魚雷発射

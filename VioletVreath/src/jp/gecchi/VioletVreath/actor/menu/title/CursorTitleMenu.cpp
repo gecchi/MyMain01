@@ -14,6 +14,7 @@ CursorTitleMenu::CursorTitleMenu(const char* prm_name) : DefaultBoardActor(prm_n
 }
 void CursorTitleMenu::initialize() {
     getUvFlipper()->exec(FLIP_OSCILLATE_LOOP, 10);
+    setMaterialColor(0.2, 1.0, 0.2);
 }
 
 void CursorTitleMenu::onActive() {

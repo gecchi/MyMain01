@@ -16,8 +16,8 @@ MagicLvCursor001::MagicLvCursor001(const char* prm_name, MagicMeter* prm_pMagicM
 void MagicLvCursor001::initialize() {
     MagicLvCursor::initialize();
     GgafDxUvFlipper* pUvFlipper = getUvFlipper();
-    pUvFlipper->setActivePtn(0);
     pUvFlipper->setFlipPtnRange(0,2);
+    pUvFlipper->setActivePtnToTop();
 }
 
 void MagicLvCursor001::moveSmoothTo(int prm_lv) {
@@ -26,14 +26,15 @@ void MagicLvCursor001::moveSmoothTo(int prm_lv) {
 
 void MagicLvCursor001::dispDisable() {
     GgafDxUvFlipper* pUvFlipper = getUvFlipper();
-    pUvFlipper->setFlipPtnRange(3,3); //ロック表示
-    pUvFlipper->setActivePtn(3);
+    int lock_ptn_no = pUvFlipper->getBottomPtnno() + 1; //最後のパターンの次はロック表示
+    pUvFlipper->setFlipPtnRange(lock_ptn_no, lock_ptn_no);
+    pUvFlipper->setActivePtn(lock_ptn_no);
 }
 
 void MagicLvCursor001::dispEnable() {
     GgafDxUvFlipper* pUvFlipper = getUvFlipper();
     pUvFlipper->setFlipPtnRange(0,2);
-    pUvFlipper->setActivePtn(0);
+    pUvFlipper->setActivePtnToTop();
 }
 
 MagicLvCursor001::~MagicLvCursor001() {

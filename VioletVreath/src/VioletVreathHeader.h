@@ -322,6 +322,7 @@ class MyOptionController;
 class MyOptionControllerGizmo;
 class MyOptionControllerDirectionVector;
 class MyOption;
+class MyOptionShot001;
 class EffectMyOption;
 class MyTorpedoController;
 class MyTorpedoTail;
