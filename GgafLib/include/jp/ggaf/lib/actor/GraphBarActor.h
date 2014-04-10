@@ -52,12 +52,6 @@ public:
     void linkVariable(int* prm_pVariable);
 
     /**
-     * バーの値に対するピクセル値を設定 .
-     * @param prm_max_val バーの値の最大値
-     * @param prm_max_val_px    バーの値の最大値に対する画面のピクセル値
-     */
-
-    /**
      * バーの値に対するピクセルの目盛りを付ける。
      * @param prm_min_val バー最小値を設定（これ以下の値はセットできなくなる）
      * @param prm_max_val バー最大値を設定（これ以上の値はセットできなくなる）
@@ -71,6 +65,7 @@ public:
 
     /**
      * バーの値を設定 .
+     * linkしている場合、リンク元の値も変更されるので注意 .
      * @param prm_val メーター値
      */
     inline void setQty(int prm_val) {
@@ -101,6 +96,7 @@ public:
 
     /**
      * バーの値を加算 .
+     * linkしている場合、リンク元の値も変更されるので注意。
      * @param prm_val バーの加算値
      */
     inline void incQty(int prm_val) {
@@ -109,6 +105,7 @@ public:
 
     /**
      * バーの値を減算 .
+     * linkしている場合、リンク元の値も変更されるので注意。
      * @param prm_val バーの減算値
      */
     inline void decQty(int prm_val) {

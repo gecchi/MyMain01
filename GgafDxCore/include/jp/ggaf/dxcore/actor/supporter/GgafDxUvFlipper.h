@@ -245,28 +245,28 @@ public:
     void setFlipPtnRange(int prm_top, int prm_bottom);
 
     /**
-     * 上限パターン番号を取得 .
+     * 上限パターン番号（最も若い番号）を取得 .
      */
     int getTopPtnno() {
         return _pattno_uvflip_top;
     }
 
     /**
-     * 下限パターン番号を取得 .
+     * 下限パターン番号（最も古い番号）を取得 .
      */
     int getBottomPtnno() {
         return _pattno_uvflip_bottom;
     }
 
     /**
-     * アニメーションパターンを上限パターン番号(一番若い番号)に設定する .
+     * アニメーションパターンを上限パターン番号（最も若い番号）に設定する .
      */
     void setActivePtnToTop() {
         setActivePtn(_pattno_uvflip_top);
     }
 
     /**
-     * アニメーションパターンを下限パターン番号(一番若い番号)に設定する .
+     * アニメーションパターンを下限パターン番号（最も古い番号）に設定する .
      */
     void setActivePtnToBottom() {
         setActivePtn(_pattno_uvflip_bottom);

@@ -184,7 +184,6 @@ void GgafDxUvFlipper::behave() {
         }
         _frame_counter_uvflip = 0;
     }
-
 }
 
 void GgafDxUvFlipper::customizePtnOrder(int prm_aPtnOffset[], int prm_num) {
@@ -194,7 +193,6 @@ void GgafDxUvFlipper::customizePtnOrder(int prm_aPtnOffset[], int prm_num) {
         _paInt_PtnOffset_Customized[i] = prm_aPtnOffset[i];
     }
 }
-
 
 void GgafDxUvFlipper::getUV(float& out_u, float& out_v) {
     out_u = _base_u + _paUV[_pattno_uvflip_now]._u;
@@ -210,7 +208,6 @@ void GgafDxUvFlipper::getUV(int prm_pattno_uvflip, float& out_u, float& out_v) {
     out_u = _base_u + _paUV[prm_pattno_uvflip]._u;
     out_v = _base_u + _paUV[prm_pattno_uvflip]._v;
 }
-
 
 GgafDxUvFlipper::~GgafDxUvFlipper() {
     GGAF_DELETEARR_NULLABLE(_paUV);

@@ -78,7 +78,7 @@ height_(PX_C(height_px_)) {
     for (int i = 0; i < magic_num; i++) {
         pMagic = pMagicElem->getValue();
         papLvNowCur_[i] = NEW MagicLvCursor002("LvHilightCursor", this, pMagic); //現レベル強調カーソル
-        papLvCastingCur_[i] = NEW MagicLvCursor003("LvCastMarkCursor_", this, pMagic); //詠唱レベル強調カーソル
+        papLvCastingCur_[i] = NEW MagicLvCursor003("LvCastMarkCursor", this, pMagic); //詠唱レベル強調カーソル
         papLvCastingCur_[i]->markOff();
         papLvTgtMvCur_[i] = NEW MagicLvCursor001("LvTargetCursor", this, pMagic); //メータ補助カーソル
         pMagicElem = pMagicElem->_pNext;
@@ -225,8 +225,8 @@ void MagicMeter::onReset() {
     pMpCostDispBar_->setQty(0);
     pVreathCostDispBar_->setQty(0);
     pDamageDispBar_->setQty(0);
-
 }
+
 void MagicMeter::onActive() {
 }
 
