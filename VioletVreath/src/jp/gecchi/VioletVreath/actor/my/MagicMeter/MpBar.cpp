@@ -18,6 +18,5 @@ void MpBar::initialize() {
 //    getUvFlipper()->exec(FLIP_ORDER_LOOP, 10); //ƒAƒjƒ‡˜
 }
 
-
 MpBar::~MpBar() {
 }

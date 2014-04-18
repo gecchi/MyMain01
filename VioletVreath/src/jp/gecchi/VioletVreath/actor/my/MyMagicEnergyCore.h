@@ -19,7 +19,7 @@ public:
     GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
 public:
-   MyMagicEnergyCore(const char* prm_name);
+    MyMagicEnergyCore(const char* prm_name);
 
     void onCreateModel() override;
 

@@ -20,6 +20,7 @@ MagicMeterCursor001::MagicMeterCursor001(const char* prm_name, MagicMeter* prm_p
     tx_ = 0;
     ty_ = 0;
 }
+
 void MagicMeterCursor001::initialize() {
     setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     _x = tx_ = pMagicMeter_->_x + pMagicMeter_->width_*pMagicMeter_->lstMagic_.getCurrentIndex() + (pMagicMeter_->width_/2);
@@ -28,25 +29,21 @@ void MagicMeterCursor001::initialize() {
 }
 
 void MagicMeterCursor001::onActive() {
-
 }
 
 void MagicMeterCursor001::processBehavior() {
     GgafDxKuroko* pKuroko = getKuroko();
     setAlpha(pMagicMeter_->getAlpha());
     pKuroko->behave();
-
     if (pKuroko->hlprA()->isJustFinishSlidingMv()) {
         //—‘zˆÊ’u‚É•â³
         _x = tx_;
         _y = ty_;
     }
-
     getUvFlipper()->behave();
 }
 
 void MagicMeterCursor001::processJudgement() {
-
 }
 
 void MagicMeterCursor001::moveTo(int prm_magic_mater_index) {
@@ -55,7 +52,7 @@ void MagicMeterCursor001::moveTo(int prm_magic_mater_index) {
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setMvAngTwd(tx_, ty_);
     pKuroko->hlprA()->slideMvByDt(UTIL::getDistance(_x, _y, tx_, ty_), 12,
-                               0.2, 0.4, 0, true);
+                                  0.2, 0.4, 0, true);
 }
 
 MagicMeterCursor001::~MagicMeterCursor001() {

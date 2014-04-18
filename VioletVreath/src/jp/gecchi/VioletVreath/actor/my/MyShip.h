@@ -32,7 +32,7 @@ namespace VioletVreath {
 /** 初期MP */
 #define MY_SHIP_START_MP (1000000)
 /** 自機の移動が停止しても、トレースな状態を維持できるフレーム数 */
-#define TRACE_DELAY_WAIT_FRAME (90)
+#define TRACE_DELAY_WAIT_FRAME (0x7fffffff)
 
 #define MYSHIP_SHOT_MATRIX (7)
 /**
@@ -86,6 +86,7 @@ public:
         SE_DAMAGED     ,
         SE_EXPLOSION   ,
         SE_TURBO       ,
+        SE_CANT_TURBO  ,
         SE_FIRE_LASER  ,
         SE_FIRE_SHOT   ,
         SE_FIRE_TORPEDO,
@@ -240,7 +241,7 @@ public:
     MoveWay prev_way_;
     bool is_just_change_way_;
     /** 移動スピードレベルに相応する移動スピード */
-    int iMoveSpeed_;
+    velo mv_speed_;
 
     velo veloTurboTop_;
     velo veloTurboBottom_;
@@ -250,12 +251,12 @@ public:
     //Z軸が絡む場合、うまくこの値から計算しよう（Z軸の移動速度は正負で管理してるため）
 
     /** Turbo移動中の移動速度の加速度 */
-    acce acce_MT_; //Move Acce while I Move with Turbo
+//    acce acce_MT_; //Move Acce while I Move with Turbo
     //但し 値 < 0 であること。 ∵だんだん遅くなるようにしたいから
     //これもZ軸が絡む場合、うまくこの値から計算しよう
 
     /** Turbo移動中の移動速度の最低速度 */
-    velo iMvBtmVelo_MT_; //Move Bottom Velo while I Move with Turbo
+    //velo iMvBtmVelo_MT_; //Move Bottom Velo while I Move with Turbo
     //但し 値 < 0 であること。
     //これもZ軸が絡む場合、うまくこの値から計算しよう
 
@@ -347,12 +348,15 @@ public:
 
 
     /** ソフト連射間隔 */
-    int soft_rapidshot_interval_;
+    frame soft_rapidshot_interval_;
 
     /** ソフト連射数 */
     int soft_rapidshot_num_;
 
     int shot_level_;
+
+    /** SHOT1+SHOT2同時押しの武器のカウンター */
+    int center_wepon_launch_count_;
 public:
     MyShip(const char* prm_name);
 
@@ -370,7 +374,7 @@ public:
 
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
-    void setMoveSpeedLv(int lv);
+    void setMoveSpeed(velo prm_speed_velo);
 
     //画面手前へ移動初めX軸回転処理
 

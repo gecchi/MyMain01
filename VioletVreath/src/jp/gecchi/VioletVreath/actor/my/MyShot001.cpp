@@ -33,8 +33,6 @@ void MyShot001::initialize() {
 void MyShot001::onActive() {
     getStatus()->reset();
     setHitAble(true);
-    getKuroko()->setMvVelo(PX_C(70));
-    getKuroko()->setMvAcce(100);
 }
 
 void MyShot001::processBehavior() {

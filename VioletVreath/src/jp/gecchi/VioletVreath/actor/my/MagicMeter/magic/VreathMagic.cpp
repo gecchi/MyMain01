@@ -41,6 +41,28 @@ VreathMagic::VreathMagic(const char* prm_name, int* prm_pMP)
     //    |112 Option‡T|113 Option‡T|114 Torpedo‡T|115 Torpedo‡T|116 Laser‡T |117 Laser‡T |118 Speed‡T  |119 Speed‡T  |
     //    |120 Empty   |121 Empty   |122 Empty    |123 Empty    |124 Empty   |125 Empty   |126 Empty    |127 Empty    |
 
+
+
+//    | 0              | 1              | 2   Tractor ‡U | 3   Tractor ‡U | 4   Tractor ‡T | 5   Tractor ‡T | 6   Vreath  ‡Y | 7   Vreath  ‡Y |
+//    | 8              | 9              | 10             | 11             | 12  Empty      | 13  Empty      | 14  Vreath  ‡X | 15  Vreath  ‡X |
+//    | 16  Laser   ‡W | 17  Laser   ‡W | 18  Smile   ‡W | 19  Smile   ‡W | 20  Shot    ‡W | 21  Shot    ‡W | 22  Vreath  ‡W | 23  Vreath  ‡W |
+//    | 24  Laser   ‡V | 25  Laser   ‡V | 26  Smile   ‡V | 27  Smile   ‡V | 28  Shot    ‡V | 29  Shot    ‡V | 30  Vreath  ‡V | 31  Vreath  ‡V |
+//    | 32  Laser   ‡U | 33  Laser   ‡U | 34  Smile   ‡U | 35  Smile   ‡U | 36  Shot    ‡U | 37  Shot    ‡U | 38  Vreath  ‡U | 39  Vreath  ‡U |
+//    | 40  Laser   ‡T | 41  Laser   ‡T | 42  Smile   ‡T | 43  Smile   ‡T | 44  Shot    ‡T | 45  Shot    ‡T | 46  Vreath  ‡T | 47  Vreath  ‡T |
+//    | 48  Empty      | 49  Empty      | 50  Empty      | 51  Empty      | 52  Empty      | 53  Empty      | 54  Empty      | 55  Empty      |
+//    | 56  Option  ‡] | 57  Option  ‡] | 58  Torpedo ‡] | 59  Torpedo ‡] | 60  Lockon  ‡] | 61  Lockon  ‡] | 62  Speed   ‡] | 63  Speed   ‡] |
+//    | 64  Option  ‡\ | 65  Option  ‡\ | 66  Torpedo ‡\ | 67  Torpedo ‡\ | 68  Lockon  ‡\ | 69  Lockon  ‡\ | 70  Speed   ‡\ | 71  Speed   ‡\ |
+//    | 72  Option  ‡[ | 73  Option  ‡[ | 74  Torpedo ‡[ | 75  Torpedo ‡[ | 76  Lockon  ‡[ | 77  Lockon  ‡[ | 78  Speed   ‡[ | 79  Speed   ‡[ |
+//    | 80  Option  ‡Z | 81  Option  ‡Z | 82  Torpedo ‡Z | 83  Torpedo ‡Z | 84  Lockon  ‡Z | 85  Lockon  ‡Z | 86  Speed   ‡Z | 87  Speed   ‡Z |
+//    | 88  Option  ‡Y | 89  Option  ‡Y | 90  Torpedo ‡Y | 91  Torpedo ‡Y | 92  Lockon  ‡Y | 93  Lockon  ‡Y | 94  Speed   ‡Y | 95  Speed   ‡Y |
+//    | 96  Option  ‡X | 97  Option  ‡X | 98  Torpedo ‡X | 99  Torpedo ‡X | 100 Lockon  ‡X | 101 Lockon  ‡X | 102 Speed   ‡X | 103 Speed   ‡X |
+//    | 104 Option  ‡W | 105 Option  ‡W | 106 Torpedo ‡W | 107 Torpedo ‡W | 108 Lockon  ‡W | 109 Lockon  ‡W | 110 Speed   ‡W | 111 Speed   ‡W |
+//    | 112 Option  ‡V | 113 Option  ‡V | 114 Torpedo ‡V | 115 Torpedo ‡V | 116 Lockon  ‡V | 117 Lockon  ‡V | 118 Speed   ‡V | 119 Speed   ‡V |
+//    | 120 Option  ‡U | 121 Option  ‡U | 122 Torpedo ‡U | 123 Torpedo ‡U | 124 Lockon  ‡U | 125 Lockon  ‡U | 126 Speed   ‡U | 127 Speed   ‡U |
+//    | 128 Option  ‡T | 129 Option  ‡T | 130 Torpedo ‡T | 131 Torpedo ‡T | 132 Lockon  ‡T | 133 Lockon  ‡T | 134 Speed   ‡T | 135 Speed   ‡T |
+//    | 136 Empty      | 137 Empty      | 138 Empty      | 139 Empty      | 140 Empty      | 141 Empty      | 142 Empty      | 143 Empty      |
+
+
 //    lvinfo_[7].pno_ =  4;
 //    lvinfo_[6].pno_ = 12;
     lvinfo_[5].pno_ = 20;

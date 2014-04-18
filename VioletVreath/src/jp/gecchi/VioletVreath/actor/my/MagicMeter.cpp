@@ -520,8 +520,6 @@ void MagicMeter::processBehavior() {
             pLvTgtMvCur->dispEnable(); //操作不可表示を解除
             pLvNowCur->dispEnable();
         }
-
-
         //効果開始時
         if (pMagicProg->isJustChangedTo(Magic::STATE_EFFECT_START)) {
             switch (pMagic->last_effect_) {

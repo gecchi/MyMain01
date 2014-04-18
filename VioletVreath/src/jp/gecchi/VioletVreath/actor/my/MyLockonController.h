@@ -53,7 +53,6 @@ public:
      */
     void dumpTarget(GgafDxCore::GgafDxGeometricActor* pMain);
 
-
 };
 
 }

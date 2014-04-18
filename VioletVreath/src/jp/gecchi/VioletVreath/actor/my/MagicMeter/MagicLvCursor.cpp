@@ -80,7 +80,6 @@ void MagicLvCursor::processAfterDraw() {
     DefaultBoardActor::processAfterDraw();
     _y = tmp_y_; //復帰
     setAlpha(tmp_alpha_); //復帰
-
     //Y座標ロール追従処理を変えたら、MagicLvCursor003::processAfterDraw() も同様の変更を！
 }
 

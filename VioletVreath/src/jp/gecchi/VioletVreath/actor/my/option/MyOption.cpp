@@ -607,6 +607,8 @@ void MyOption::processBehavior() {
                 getSeTx()->play3D(SE_FIRE_SHOT);
                 pShot->positionAs(this);
                 pShot->getKuroko()->setRzRyMvAng(_rz, _ry);
+                pShot->getKuroko()->setMvVelo(PX_C(70));
+                pShot->getKuroko()->setMvAcce(100);
             }
         }
         if (pMyShip->shot_level_ == 2) {
@@ -618,7 +620,7 @@ void MyOption::processBehavior() {
                              PX_C(1),
                              MYSHIP_SHOT_MATRIX, MYSHIP_SHOT_MATRIX,
                              D_ANG(5), D_ANG(5),
-                             0, 0,   //ë¨ìxÇÕonActiveÇ≈ê›íË
+                             PX_C(70), 100,
                              1, 0, 1.0);
         } else if (pMyShip->shot_level_ >= 3) {
             uint32_t i = pMyShip->shot_count_ % 2;
@@ -629,7 +631,7 @@ void MyOption::processBehavior() {
                              PX_C(1),
                              MYSHIP_SHOT_MATRIX, MYSHIP_SHOT_MATRIX,
                              D_ANG(5), D_ANG(5),
-                             0, 0,   //ë¨ìxÇÕonActiveÇ≈ê›íË
+                             PX_C(70), 100,
                              1, 0, 1.0);
         }
     }

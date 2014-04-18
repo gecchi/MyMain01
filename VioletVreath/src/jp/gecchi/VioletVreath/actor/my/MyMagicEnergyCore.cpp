@@ -16,7 +16,6 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-
 #define MAX_SCALSE_MagicEnergyCore (R_SC(2))
 MyMagicEnergyCore::MyMagicEnergyCore(const char* prm_name) :
         DefaultMeshActor(prm_name, "MagicEnergyCore", STATUS(MyMagicEnergyCore)) {
@@ -59,7 +58,6 @@ void MyMagicEnergyCore::processBehavior() {
     } else {
         pColliChecker->disable(0);
     }
-
     pScaler_->behave();
     pAxsMver_->behave();
     pKuroko->behave();

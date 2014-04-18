@@ -157,9 +157,9 @@ void OptionMagic::processEffectBegin(int prm_last_level, int prm_now_level)  {
             MyOptionController* p = P_MYSHIP_SCENE->papOptionCtrler_[lv-1];
             //ダブルプッシュした時と同じ
             p->getKuroko()->turnRzRyMvAngTo(D0ANG, D0ANG,
-                                          D_ANG(20), 0,
-                                          TURN_CLOSE_TO,
-                                          false );
+                                            D_ANG(20), 0,
+                                            TURN_CLOSE_TO,
+                                            false );
             p->is_free_from_myship_mode_ = false;
             p->is_handle_move_mode_ = false;
             p->return_to_default_position_seq_ = true;

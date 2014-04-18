@@ -35,6 +35,7 @@ void MyOptionStraightLaserChip001::initialize() {
     setAlpha(0.99);
     _bounding_sphere_radius = 20.0;
 }
+
 void MyOptionStraightLaserChip001::onActive() {
     getStatus()->reset();
     default_stamina_ = getStatus()->get(STAT_Stamina);
@@ -65,15 +66,10 @@ void MyOptionStraightLaserChip001::onActive() {
             is_lockon_ = ((MyOptionStraightLaserChip001*) _pChip_front)->is_lockon_;//一つ前のロックオン情報を引き継ぐ
         }
     }
-
 }
-
-
 
 void MyOptionStraightLaserChip001::processBehavior() {
     GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
-
-
     if (lockon_st_ == 1) {
         if (getActiveFrame() < 120) {
             if (pMainLockOnTarget) {

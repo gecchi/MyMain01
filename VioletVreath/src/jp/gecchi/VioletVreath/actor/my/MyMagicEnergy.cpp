@@ -52,6 +52,7 @@ void MyMagicEnergy::processPreDraw() {
     setSpecialDrawDepth(pCore_->_now_drawdepth-1);//ƒRƒAŒã‚É•`‰æ‚·‚é‚½‚ß
     DefaultMeshActor::processPreDraw();
 }
+
 int MyMagicEnergy::isOutOfView() {
     //‰æ–ÊŠO”»’è–³‚µ
     return 0;

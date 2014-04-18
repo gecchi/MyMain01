@@ -144,13 +144,13 @@ void MyTorpedo::processBehavior() {
                         if (pTarget_->isActiveInTheTree())  {
                             //ターゲット有り
                             pKuroko->turnMvAngTwd(pTarget_,
-                                                   1000, 200,
-                                                   TURN_CLOSE_TO, false);
+                                                  1000, 200,
+                                                  TURN_CLOSE_TO, false);
 
                         } else {
                             //ターゲット消失時、そのまままっすぐ
-                            pKuroko->setRzRyMvAngVelo(0,0);
-                            pKuroko->setRzRyMvAngAcce(0,0);
+                            pKuroko->setRzRyMvAngVelo(0, 0);
+                            pKuroko->setRzRyMvAngAcce(0, 0);
                         }
                     } else {
                         //ターゲット無し（オプションの向いている方向へ）
