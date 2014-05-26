@@ -248,15 +248,27 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfigMenu.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig001.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig002.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig003.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig004.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig005.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorConfirmMenu.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\CursorKeyConfigMenu.cpp"
 				>
 			</File>
 			<File
@@ -265,14 +277,6 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\pause\CursorPauseMenu.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\CursorScreenConfigMenu.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\CursorSoundConfigMenu.cpp"
 				>
 			</File>
 			<File
@@ -413,6 +417,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EffectRatislaviaEye001.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectShotMagic.cpp"
 				>
 			</File>
 			<File
@@ -1100,6 +1108,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\option\MyOptionShot001.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\option\MyOptionStraightLaserChip001.cpp"
 				>
 			</File>
@@ -1184,7 +1196,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\util\QueryRanking.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\util\RankingTable.cpp"
 				>
 			</File>
 			<File
@@ -1241,6 +1253,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\shot\Shot004Yellow.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\ShotMagic.cpp"
 				>
 			</File>
 			<File
@@ -1381,10 +1397,6 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\StringBoardTestActor.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\SupCursorScreenConfigMenu.cpp"
 				>
 			</File>
 			<File
@@ -1628,15 +1640,27 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfigMenu.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig001.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig002.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig003.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig004.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig005.h"
 				>
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorConfirmMenu.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\CursorKeyConfigMenu.h"
 				>
 			</File>
 			<File
@@ -1645,14 +1669,6 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\pause\CursorPauseMenu.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\CursorScreenConfigMenu.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\CursorSoundConfigMenu.h"
 				>
 			</File>
 			<File
@@ -1793,6 +1809,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EffectRatislaviaEye001.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectShotMagic.h"
 				>
 			</File>
 			<File
@@ -2484,6 +2504,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\option\MyOptionShot001.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\option\MyOptionStraightLaserChip001.h"
 				>
 			</File>
@@ -2568,7 +2592,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\util\QueryRanking.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\util\RankingTable.h"
 				>
 			</File>
 			<File
@@ -2629,6 +2653,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\shot\Shot004Yellow.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\ShotMagic.h"
 				>
 			</File>
 			<File
@@ -2753,10 +2781,6 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\StringBoardTestActor.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\SupCursorScreenConfigMenu.h"
 				>
 			</File>
 			<File

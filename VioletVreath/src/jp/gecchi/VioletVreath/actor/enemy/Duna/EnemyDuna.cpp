@@ -331,13 +331,13 @@ void EnemyDuna::processBehavior() {
              if (pProg->isJustChanged()) {
                  //‚Ü‚¸ŠJŽnó‘Ô‚Ì^— •ûŒü‚ÉŒü‚­
                  pKuroko->turnRzMvAngTo(pKuroko->_angRzMv + D180ANG,
-                                          REV_TURN_ANGVELO, 0, TURN_CLOSE_TO);
+                                        REV_TURN_ANGVELO, 0, TURN_CLOSE_TO);
                  nprog_ = 0;
              }
              if (nprog_ == 0 && !pKuroko->isTurningMvAng()) {
                  //‰~ŒÊˆÚ“®
                  pKuroko->turnRzMvAngTo(pKuroko->_angRzMv + SEMIARC_ANG,
-                                          SMALL_SEMIARC_ANGVELO, 0, TURN_COUNTERCLOCKWISE);
+                                        SMALL_SEMIARC_ANGVELO, 0, TURN_COUNTERCLOCKWISE);
                  nprog_ = 1;
              }
              if (nprog_ == 1 && !pKuroko->isTurningMvAng()) {

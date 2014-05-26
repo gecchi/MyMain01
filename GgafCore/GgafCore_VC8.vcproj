@@ -287,10 +287,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\ggaf\core\util\GgafQuery.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\jp\ggaf\core\util\GgafRepeatSeq.cpp"
 				>
 			</File>
@@ -308,6 +304,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\ggaf\core\util\GgafStasus.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\ggaf\core\util\GgafTable.cpp"
 				>
 			</File>
 			<File
@@ -401,6 +401,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\jp\ggaf\core\util\GgafEnumIndex.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\jp\ggaf\core\exception\GgafException.h"
 				>
 			</File>
@@ -473,10 +477,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\core\util\GgafQuery.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\jp\ggaf\core\util\GgafRepeatSeq.h"
 				>
 			</File>
@@ -505,6 +505,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\jp\ggaf\core\util\GgafTable.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\jp\ggaf\core\actor\ex\GgafTreeFormation.h"
 				>
 			</File>
@@ -514,6 +518,14 @@
 			</File>
 			<File
 				RelativePath=".\include\jp\ggaf\core\util\GgafUtil.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\jp\ggaf\core\util\GgafValueAccelerator.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\include\jp\ggaf\core\util\GgafValueTransitioner.hpp"
 				>
 			</File>
 			<File
