@@ -171,8 +171,9 @@ void EnemyHisbe::processBehavior() {
             break;
         }
 
-        default:
+        default: {
             break;
+        }
     }
     getKuroko()->behave();
     getMorpher()->behave();

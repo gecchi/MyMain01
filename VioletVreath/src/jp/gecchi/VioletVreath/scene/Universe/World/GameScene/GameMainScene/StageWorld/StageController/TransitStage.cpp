@@ -96,11 +96,12 @@ void TransitStage::processBehavior() {
                 _TRACE_("TransitStage::processBehavior() ’¼Œã STAGE="<<teansit_stage_<<"¨"<<next_main_stage_);
                 throwEventUpperTree(EVENT_TRANSIT_WAS_END);
             }
-
             break;
         }
-        default:
+
+        default: {
             break;
+        }
 
     }
 
@@ -125,7 +126,6 @@ void TransitStage::ready(int prm_stage) {
 
     switch (prm_stage) {
         case 1:
-
             break;
         case 2:
             break;

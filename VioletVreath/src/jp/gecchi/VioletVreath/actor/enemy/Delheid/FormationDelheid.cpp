@@ -203,8 +203,9 @@ void FormationDelheid::processBehavior() {
              break;
          }
 
-         default:
+         default: {
              break;
+         }
      }
 }
 

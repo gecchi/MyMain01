@@ -102,9 +102,9 @@ void Stage01::processBehavior() {
             }
             break;
         }
-        default:
+        default: {
             break;
-
+        }
     }
 
 }

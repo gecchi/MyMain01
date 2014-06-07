@@ -154,7 +154,7 @@ void LaserChip::processSettlementBehavior() {
 
     //この処理はprocessBehavior()で行えない。なぜならば、_pChip_front が座標移動済みの保証がないため。
     if (_middle_colli_able) { //おそらく水撒きレーザーチップの場合
-        if (_chip_kind == 2) {
+        if (_chip_kind != 4) {
             coord dX = pChip_front->_x - _x;
             coord dY = pChip_front->_y - _y;
             coord dZ = pChip_front->_z - _z;

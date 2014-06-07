@@ -58,7 +58,6 @@ void EnemyGlaja::processBehavior() {
          case PROG_INIT: {
              setHitAble(false);
              setAlpha(0);
-             _TRACE_("keepOnTurningFaceAngTwd keepOnTurningFaceAngTwd");
              pKuroko->keepOnTurningFaceAngTwd(pMyShip,
                                                D_ANG(2), 0, TURN_CLOSE_TO, false);
              setMorphWeight(0.0);
@@ -147,8 +146,9 @@ void EnemyGlaja::processBehavior() {
              break;
          }
 
-         default:
+         default: {
              break;
+         }
      }
     pKuroko->behave();
     getMorpher()->behave();

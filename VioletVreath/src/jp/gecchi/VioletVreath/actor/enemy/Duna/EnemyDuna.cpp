@@ -355,8 +355,10 @@ void EnemyDuna::processBehavior() {
              }
              break;
          }
-         default:
+
+         default: {
              break;
+         }
      }
 
     pKuroko->behave();

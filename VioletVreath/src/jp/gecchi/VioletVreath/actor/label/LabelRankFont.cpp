@@ -185,8 +185,10 @@ void LabelRankFont::processBehavior() {
             }
             break;
         }
-        default:
+
+        default: {
             break;
+        }
     }
 }
 

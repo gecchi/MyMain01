@@ -8,7 +8,7 @@
 
 using namespace GgafCore;
 
-GgafSceneDirector::GgafSceneDirector(GgafScene* prm_pScene_platform) : GgafActor(prm_pScene_platform->getName(), nullptr) {
+GgafSceneDirector::GgafSceneDirector(GgafScene* prm_pScene_platform) : GgafActor(std::string(std::string(prm_pScene_platform->getName()) + "'s SceneDirector").c_str(), nullptr) {
     _obj_class |= Obj_GgafSceneDirector;
     _class_name = "GgafSceneDirector";
     _pScene_platform = prm_pScene_platform;

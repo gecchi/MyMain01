@@ -56,6 +56,7 @@ void EnemyGlajaLance001::onActive() {
     CollisionChecker3D* pColliChecker = getCollisionChecker();
     pColliChecker->disable(1);
     pColliChecker->disable(2);
+    setScale(R_SC(1));
     pScaler_->reset();
     pScaler_->behave();
     getStatus()->reset();

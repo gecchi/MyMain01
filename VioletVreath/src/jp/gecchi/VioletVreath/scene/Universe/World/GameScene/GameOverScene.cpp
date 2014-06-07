@@ -99,8 +99,9 @@ void GameOverScene::processBehavior() {
             break;
         }
 
-        default:
+        default: {
             break;
+        }
      }
 }
 void GameOverScene::onCatchEvent(hashval prm_no, void* prm_pSource) {

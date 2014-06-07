@@ -121,7 +121,7 @@ void EnemyAllas::processBehavior() {
             iMovePatternNo_++; //次の行動パターンへ
             break;
 
-        case 3:  //【行動パターン３】
+        case 3:   //【行動パターン３】
 
             break;
         default:

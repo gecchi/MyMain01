@@ -18,7 +18,7 @@ EnemyStraightLaserChip001::EnemyStraightLaserChip001(const char* prm_name) :
 
 void EnemyStraightLaserChip001::initialize() {
     getKuroko()->setRzRyMvAng(0,0);
-    registerHitAreaCube_AutoGenMidColli(20000);
+    registerHitAreaCube_AutoGenMidColli(15000);
     setHitAble(true);
     setScaleR(6.0);
     setAlpha(0.99);

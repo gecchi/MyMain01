@@ -86,6 +86,7 @@ class GgafScene : public GgafElement<GgafScene> {
     friend class GgafActor;
     friend class GgafGroupHead;
     friend class GgafSceneDirector;
+    friend class GgafGarbageBox;
 
 protected:
     /** ‚±‚ÌƒV[ƒ“‚ÌŠÄ“Â */

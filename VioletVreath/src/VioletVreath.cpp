@@ -264,11 +264,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 
     switch (message) {
 
-        case WM_CREATE:
+        case WM_CREATE: {
             // システムメニューカスタム関数を呼ぶ
             CustmizeSysMenu(hWnd);
             break;
-        case WM_SYSCOMMAND:
+        }
+        case WM_SYSCOMMAND: {
             if ( (wParam & 0xFFF0) == SC_SCREENSAVE ) {
                 return 1;
             }
@@ -386,8 +387,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                 GgafDxCore::GgafDxGod::chengeViewAspect(false);
             }
             break;
-        default:
+        }
+        default: {
             break;
+        }
     }
     return DefWindowProc(hWnd, message, wParam, lParam);
 }

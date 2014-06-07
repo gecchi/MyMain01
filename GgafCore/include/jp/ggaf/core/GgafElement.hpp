@@ -1474,12 +1474,10 @@ void GgafElement<T>::clean(int prm_num_cleaning) {
                     break;
                 }
             }
-            if (pElementTemp->_can_live_flg == false) {
-                GGAF_DELETE(pElementTemp);
-                GgafGarbageBox::_cnt_cleaned++;
-                if (GgafGarbageBox::_cnt_cleaned >= prm_num_cleaning) {
-                    break;
-                }
+            GGAF_DELETE(pElementTemp);
+            GgafGarbageBox::_cnt_cleaned++;
+            if (GgafGarbageBox::_cnt_cleaned >= prm_num_cleaning) {
+                break;
             }
             break;
         } else {
@@ -1492,12 +1490,10 @@ void GgafElement<T>::clean(int prm_num_cleaning) {
                 }
             }
             pElementTemp = pElementTemp->_pPrev;
-            if (pWk->_can_live_flg == false) {
-                GGAF_DELETE(pWk);
-                GgafGarbageBox::_cnt_cleaned++;
-                if (GgafGarbageBox::_cnt_cleaned >= prm_num_cleaning) {
-                    break;
-                }
+            GGAF_DELETE(pWk);
+            GgafGarbageBox::_cnt_cleaned++;
+            if (GgafGarbageBox::_cnt_cleaned >= prm_num_cleaning) {
+                break;
             }
         }
     }

@@ -135,8 +135,9 @@ void NameEntryScene::processBehavior() {
             break;
         }
 
-        default:
+        default: {
             break;
+        }
      }
 }
 

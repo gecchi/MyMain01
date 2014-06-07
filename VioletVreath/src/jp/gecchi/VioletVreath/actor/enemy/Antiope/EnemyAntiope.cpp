@@ -81,7 +81,6 @@ void EnemyAntiope::processBehavior() {
              break;
          }
 
-
          case PROG_LEAVE: {
              if (pProg->isJustChanged()) {
                  UTIL::activateLeaveEffectOf(this);
@@ -93,8 +92,10 @@ void EnemyAntiope::processBehavior() {
              }
              break;
          }
-         default:
+
+         default: {
              break;
+         }
      }
 
 //    _TRACE_(this<<":"<<getActiveFrame()<<" "<<_x<<","<<_y<<","<<_z<<"  ("<<_pKuroko->_veloMv<<") "<<_pKuroko->_vX<<","<<_pKuroko->_vY<<","<<_pKuroko->_vZ<<"");

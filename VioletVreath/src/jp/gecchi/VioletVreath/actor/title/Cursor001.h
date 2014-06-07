@@ -26,7 +26,7 @@ public:
 
     void processJudgement() override;
 
-    void moveTo(int X, int Y);
+    void moveTo(coord tx, coord ty);
 
     void moveTo(GgafDxCore::GgafDxGeometricActor* prm_pActor) {
         moveTo(prm_pActor->_x, prm_pActor->_y);

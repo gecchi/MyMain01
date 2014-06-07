@@ -151,8 +151,9 @@ void EnemyRatislaviaEye::processBehavior() {
             break;
         }
 
-        default:
+        default: {
             break;
+        }
     }
 
     pKuroko->behave();

@@ -139,8 +139,9 @@ void GameDemoScene::processBehavior() {
             break;
         }
 
-        default:
+        default: {
             break;
+        }
     }
     pLabel02_->pAFader_->behave();
 }

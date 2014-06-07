@@ -118,8 +118,9 @@ void EnemyUnomia::processBehavior() {
 //            }
             break;
         }
-        default:
+        default: {
             break;
+        }
     }
 
 //

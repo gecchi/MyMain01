@@ -135,8 +135,9 @@ void EnemyHalia::processBehavior() {
             break;
         }
 
-        default:
+        default: {
             break;
+        }
     }
     pKuroko->behave();
     getMorpher()->behave();

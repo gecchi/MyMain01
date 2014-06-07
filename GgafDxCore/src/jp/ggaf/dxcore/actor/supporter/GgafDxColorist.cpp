@@ -46,8 +46,9 @@ void GgafDxColorist::setValue(int idx, float value) {
                 paMaterial[i].Diffuse.b = value;
             }
             break;
-        default:
+        default: {
             break;
+        }
     }
 }
 

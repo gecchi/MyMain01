@@ -20,9 +20,26 @@ Stage::Stage(const char* prm_name) : DefaultScene(prm_name) {
 
 void Stage::initialize() {
     getProgress()->reset(Stage::PROG_INIT);
-    CmRandomNumberGenerator::getInstance()->changeSeed(P_MYSHIP->_x + P_MYSHIP->_y + P_MYSHIP->_z);
 }
+void Stage::processBehavior() {
+    DefaultScene::processBehavior();
+    SceneProgress* pProg = getProgress();
+    switch (pProg->get()) {
+        case Stage::PROG_BEGIN: {
+            if (pProg->isJustChanged()) {
+                //乱数シード更新
+                uint32_t seed = (uint32_t)(P_MYSHIP->_x) + (uint32_t)(P_MYSHIP->_y) + (uint32_t)(P_MYSHIP->_z);
+                _TRACE_("Stage::processBehavior() 乱数シード更新 changeSeed("+XTOS(seed)+")");
+                CmRandomNumberGenerator::getInstance()->changeSeed(seed);
+            }
+            break;
+        }
+        default: {
+            break;
+        }
 
+    }
+}
 void Stage::onCatchEvent(hashval prm_no, void* prm_pSource) {
 }
 

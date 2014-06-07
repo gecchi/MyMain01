@@ -151,8 +151,9 @@ void StageController::processBehavior() {
             break;
         }
 
-        default:
+        default: {
             break;
+        }
     }
 
 

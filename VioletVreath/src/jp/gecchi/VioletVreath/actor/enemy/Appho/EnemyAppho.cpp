@@ -164,8 +164,10 @@ void EnemyAppho::processBehavior() {
              }
              break;
          }
-         default:
+
+         default: {
              break;
+         }
      }
     pKuroko->behave();
     pAFader_->behave();

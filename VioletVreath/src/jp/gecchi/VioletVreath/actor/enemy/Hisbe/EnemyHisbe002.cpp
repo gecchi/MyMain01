@@ -108,8 +108,9 @@ void EnemyHisbe002::processBehavior() {
             break;
         }
 
-        default:
+        default: {
             break;
+        }
     }
 
     pKuroko->behave();

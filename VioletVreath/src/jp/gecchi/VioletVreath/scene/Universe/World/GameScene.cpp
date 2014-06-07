@@ -112,8 +112,9 @@ void GameScene::processBehavior() {
             break;
         }
 
-        default:
+        default: {
             break;
+        }
     }
 
 
@@ -268,8 +269,9 @@ void GameScene::processBehavior() {
             break;
         }
 
-        default:
+        default: {
             break;
+        }
     }
 
     DefaultScene* pGazed = pProg->getGazedScene();

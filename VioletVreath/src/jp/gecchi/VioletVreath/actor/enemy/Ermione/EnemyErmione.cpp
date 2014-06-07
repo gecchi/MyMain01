@@ -46,7 +46,7 @@ EnemyErmione::EnemyErmione(const char* prm_name) :
     // «                   «                  «
     //ArmPart              ArmPart             ArmPart
     // «                   «                  «
-    //ArmPart(“ª)          ArmPart(“ª)          ArmPart(“ª)
+    //ArmPart(“ª)          ArmPart(“ª)         ArmPart(“ª)
 
     paArm_ = NEW EnemyErmione::Arm[num_arm_];
     float vx, vy, vz;
@@ -154,8 +154,9 @@ void EnemyErmione::processBehavior() {
             break;
         }
 
-        default:
+        default: {
             break;
+        }
     }
     pAFader_->behave();
     pKuroko->behave();

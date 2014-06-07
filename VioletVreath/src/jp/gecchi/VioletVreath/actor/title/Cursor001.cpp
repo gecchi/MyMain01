@@ -31,10 +31,11 @@ void Cursor001::processBehavior() {
 void Cursor001::processJudgement() {
 }
 
-void Cursor001::moveTo(int X, int Y) {
+void Cursor001::moveTo(coord tx, coord ty) {
     GgafDxKuroko* pKuroko = getKuroko();
-    pKuroko->setMvAngTwd(X, Y);
-    pKuroko->hlprA()->slideMvByDt(UTIL::getDistance(_x, _y, (coord)X, (coord)Y), 8, 0.2, 0.3, 0, true);
+    pKuroko->setMvAngTwd(tx, ty);
+    pKuroko->hlprA()->slideMvByDt(UTIL::getDistance(_x, _y, tx, ty),
+                                  8, 0.2, 0.3, 0, true);
 }
 
 Cursor001::~Cursor001() {

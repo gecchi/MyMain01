@@ -23,12 +23,11 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,100,300,400,1000,4600,5500};
-	_paFrame_NextEvent = new frame[7];
+	frame f[] = {1,100};
+	_paFrame_NextEvent = new frame[2];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 7;
-	orderActorToFactory(10000000, FormationEbe001, "FormationEbe001-1");
-	orderActorToFactory(10000001, FormationAntiope001, "FormationAntiope001-2");
+	_event_num = 2;
+	orderActorToFactory(10000000, EnemyGlaja, "EnemyGlaja-1");
     // gen01 end
     useProgress(Stage01PartController::PROG_BANPEI-1);
 }
@@ -47,38 +46,15 @@ void Stage01PartController::processBehavior() {
 				break;
 			}
 			case 100: {
-				orderActorToFactory(10000002, FormationAntiope001, "FormationAntiope001-3");
-				break;
-			}
-			case 300: {
-				FormationEbe001* pF4 = (FormationEbe001*)obtainActorFromFactory(10000000);
-				getSceneDirector()->addSubGroup(pF4);
-				break;
-			}
-			case 400: {
-				FormationAntiope001* pFAnti = (FormationAntiope001*)obtainActorFromFactory(10000001);
-				getSceneDirector()->addSubGroup(pFAnti);
-				break;
-			}
-			case 1000: {
-				FormationAntiope001* pFAnti = (FormationAntiope001*)obtainActorFromFactory(10000002);
-				getSceneDirector()->addSubGroup(pFAnti);
-				break;
-			}
-			case 4600: {
-				orderActorToFactory(10000003, FormationDelheid001, "FormationDelheid001-5");
-				break;
-			}
-			case 5500: {
-				FormationDelheid001* pF = (FormationDelheid001*)obtainActorFromFactory(10000003);
-				getSceneDirector()->addSubGroup(pF);
-				pF->position(PX_C(-200), PX_C( 100), PX_C(500), D_ANG(10), D_ANG(0));
+				EnemyGlaja* p = (EnemyGlaja*)obtainActorFromFactory(10000000);
+				getSceneDirector()->addSubGroup(p);
+				p->position(100000,0,0);
 				break;
 			}
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 7-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 2-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
 

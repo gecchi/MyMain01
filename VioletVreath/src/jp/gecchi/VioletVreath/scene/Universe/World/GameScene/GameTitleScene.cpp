@@ -156,8 +156,9 @@ void GameTitleScene::processBehavior() {
             break;
         }
 
-        default:
+        default: {
             break;
+        }
     }
 }
 

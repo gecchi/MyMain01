@@ -116,8 +116,9 @@ void GameMainScene::processBehavior() {
             break;
         }
 
-        default:
+        default: {
             break;
+        }
     }
 
 }

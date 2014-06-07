@@ -63,8 +63,9 @@ void EffectEntry003::processBehavior() {
             break;
         }
 
-        default:
+        default: {
             break;
+        }
     }
     pScaler_->behave();
     getKuroko()->behave();

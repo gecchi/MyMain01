@@ -43,6 +43,7 @@ class GgafActor : public GgafElement<GgafActor> {
     friend class GgafDummyActor;
     friend class GgafScene;
     friend class GgafUniverse;
+    friend class GgafGarbageBox;
 
 private:
     /** Œ»İ‚ÌŠ‘®ƒV[ƒ“ */

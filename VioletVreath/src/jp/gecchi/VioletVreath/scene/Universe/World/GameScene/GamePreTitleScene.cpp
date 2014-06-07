@@ -109,8 +109,9 @@ void GamePreTitleScene::processBehavior() {
             break;
         }
 
-        default:
+        default: {
             break;
+        }
      }
 }
 

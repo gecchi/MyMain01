@@ -110,8 +110,9 @@ void MyShipScene::processBehavior() {
             P_UNIVERSE->undoCameraWork(); //MyShipDivingCamWorker‰ðœ
             break;
         }
-        default:
+        default: {
             break;
+        }
     }
 
     switch (pProg->get()) {
@@ -192,8 +193,9 @@ void MyShipScene::processBehavior() {
             }
             break;
         }
-        default:
+        default: {
             break;
+        }
     }
 
 }

@@ -138,8 +138,9 @@ void EnemyOrtuna::processBehavior() {
              break;
          }
 
-         default:
+         default: {
              break;
+         }
      }
 
     pKuroko->behave();
