@@ -31,10 +31,9 @@ EnemyEres::EnemyEres(const char* prm_name, GgafActorDepository* prm_pDepo_EnemyE
     if (prm_pDepo_EnemyEresShots001 == nullptr) {
         //共有の弾が引数に未指定の場合
         //弾ストック作成
-        pDepo_EnemyEresShots001_ = NEW GgafActorDepository("RotEnemyMeshS001");
-        EnemyEresShot001* pEresShot001;
+        pDepo_EnemyEresShots001_ = NEW GgafActorDepository("Depo_EnemyEresShots");
         for (int i = 0; i < 32; i++) {
-            pDepo_EnemyEresShots001_->put(NEW EnemyEresShot001("EnemyMeshShot"));
+            pDepo_EnemyEresShots001_->put(NEW EnemyEresShot001("EnemyEresShot"));
         }
         addSubGroup(pDepo_EnemyEresShots001_);
         createGgafActorDepository_ = true;

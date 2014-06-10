@@ -121,7 +121,7 @@ void EnemyErmione::processBehavior() {
         case PROG_INIT: {
             setHitAble(false);
             setAlpha(0);
-            pKuroko->setMvVelo(0);
+            pKuroko->setMvVelo(10);
             UTIL::activateEntryEffectOf(this);
             pProg->changeNext();
             break;

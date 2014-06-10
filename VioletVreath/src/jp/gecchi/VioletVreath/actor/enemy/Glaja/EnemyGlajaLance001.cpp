@@ -51,7 +51,7 @@ void EnemyGlajaLance001::onActive() {
     setFaceAng(0,
                RND(D_ANG(0), D_ANG(360)),
                RND(D_ANG(0), D_ANG(360)) );
-    pKuroko->setFaceAngVelo(D_ANG(33), D_ANG(15), D_ANG(20));
+    pKuroko->setFaceAngVelo(D_ANG(0), D_ANG(15), D_ANG(20));
     pKuroko->relateFaceByMvAng(true);
     CollisionChecker3D* pColliChecker = getCollisionChecker();
     pColliChecker->disable(1);
@@ -90,6 +90,8 @@ void EnemyGlajaLance001::processBehavior() {
                 pKuroko->stopMv();
                 pKuroko->setFaceAngVelo(0, 0, 0);
                 pScaler_->transitionAcceStep(AXIS_X, R_SC(30), R_SC(1), R_SC(0.1));
+                pScaler_->transitionAcceStep(AXIS_Y, R_SC(2), R_SC(1), R_SC(0.1));
+                pScaler_->transitionAcceStep(AXIS_Z, R_SC(2), R_SC(1), R_SC(0.1));
             }
             if (!pScaler_->isTransitioning()) {
                 //槍の両端当たり判定出現
@@ -105,7 +107,7 @@ void EnemyGlajaLance001::processBehavior() {
             if (pProg->isJustChanged()) {
                 //自機にグルンと向く
                 pKuroko->hlprB()->turnFaceAngByDtTwd(pMyShip, TURN_ANTICLOSE_TO, false,
-                                                        30, 0.2, 0.4, 0, true );
+                                                        60, 0.2, 0.4, 0, true );
             }
             if (!pKuroko->isTurningFaceAng()) {
                 pProg->changeNext();
@@ -115,10 +117,11 @@ void EnemyGlajaLance001::processBehavior() {
         case PROG_MOVE02: {
             if (pProg->isJustChanged()) {
                 pKuroko->setMvAngByFaceAng(); //今向いてる方向にこれから移動する
-                pKuroko->setMvVelo(-PX_C(2)); //ちょっとバックして貯めを表現
-                setRzFaceAng(D_ANG(27)); //スピンスピン
+                pKuroko->setMvVelo(-PX_C(3)); //ちょっとバックして貯めを表現
+                pKuroko->setFaceAngVelo(AXIS_X, D_ANG(1)); //スピンスピン
+                pKuroko->setFaceAngAcce(AXIS_X, 100); //スピンスピン
             }
-            if (pProg->getFrameInProgress() >= 10) {
+            if (pProg->getFrameInProgress() >= 60) {
                 pProg->changeNext();
             }
             break;
@@ -126,7 +129,7 @@ void EnemyGlajaLance001::processBehavior() {
         case PROG_MOVE03: {
             if (pProg->isJustChanged()) {
                 //ズキューーンと移動
-                pKuroko->setMvVelo(PX_C(60));
+                pKuroko->setMvVelo(PX_C(50));
             }
             //画面外 or HIT まで待機
             break;
@@ -147,7 +150,7 @@ void EnemyGlajaLance001::processBehavior() {
 
 void EnemyGlajaLance001::processJudgement() {
     if (isOutOfView()) {
-        if (getActiveFrame() > 60) {
+        if (getActiveFrame() > 180) {
             sayonara();
         }
     }
