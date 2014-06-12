@@ -37,9 +37,8 @@ void FormationHalia::initialize() {
 
 void FormationHalia::onActive() {
     for (int i = 0; i < num_Halia_; i++) {
-        papHalia_[i]->position(MyShip::lim_x_behaind_, -2000000 + (i * 400000), 0);
-        papHalia_[i]->getKuroko()->setRzRyMvAng(0,0);
-        papHalia_[i]->getKuroko()->setMvVelo(80000);
+        //papHalia_[i]->position(MyShip::lim_x_behaind_, -2000000 + (i * 400000), 0);
+        papHalia_[i]->position(1000000, -1000000 + (i * 200000), 0);
         papHalia_[i]->activateDelay(i*interval_frames_ + 1);//interval_frames_ä‘äuÇ≈ActiveÇ…Ç∑ÇÈÅB
     }
 }

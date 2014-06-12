@@ -56,7 +56,7 @@ public:
         EF_ENTRY_MIDDLE001,
         EF_ENTRY_LARGE001,
         EF_ENTRY_SMALL001_STAY_F60,
-        EF_ENTRY_SMALL001_STAY_F30,
+        EF_ENTRY_SMALL001_STAY_F30,  //入場エフェクト、SMALL001で30フレームその場にとどまる。アクター追従無し。
         EF_ENTRY003,
         EF_LEAVE_SMALL001_F60,
         EF_LEAVE_SMALL001_F30,
@@ -303,7 +303,7 @@ public:
 	static GgafCore::GgafStatus* resetEnemyRisStatus(GgafCore::GgafStatus* p);
 	//ゲリア
 	static GgafCore::GgafStatus* resetEnemyGeriaStatus(GgafCore::GgafStatus* p);
-	//ハリラ
+	//ハリア
 	static GgafCore::GgafStatus* resetEnemyHaliaStatus(GgafCore::GgafStatus* p);
 	//たまご１
 	static GgafCore::GgafStatus* resetEnemyTamago01Status(GgafCore::GgafStatus* p);

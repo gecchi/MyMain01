@@ -19,31 +19,9 @@ EnemyDrastea::EnemyDrastea(const char* prm_name) :
         CubeMapMeshSetActor(prm_name, "Drastea", STATUS(EnemyDrastea)) {
     _class_name = "EnemyDrastea";
     pAxsMver_ = NEW GgafDxAxesMover(this);
-    colli_box_dx_ = 1;
-    colli_box_dy_ = 1;
-    colli_box_dz_ = 1;
-    box_num_x_ = 1;
-    box_num_y_ = 1;
-    box_num_z_ = 1;
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
-}
-
-void EnemyDrastea::config(
-    coord prm_colli_box_dx,
-    coord prm_colli_box_dy,
-    coord prm_colli_box_dz,
-    int prm_box_num_x,
-    int prm_box_num_y,
-    int prm_box_num_z
-) {
-    colli_box_dx_  = prm_colli_box_dx;
-    colli_box_dy_  = prm_colli_box_dy;
-    colli_box_dz_  = prm_colli_box_dz;
-    box_num_x_     = prm_box_num_x;
-    box_num_y_     = prm_box_num_y;
-    box_num_z_     = prm_box_num_z;
 }
 
 void EnemyDrastea::onCreateModel() {
@@ -55,25 +33,42 @@ void EnemyDrastea::initialize() {
     setAlpha(0.7);
 //    effectBlendOne();
     setCubeMap("BkSky_cubemap.dds",0.3);
-    config(PX_C(30),PX_C(30),PX_C(30),
-           6, 1, 6);
-    int colli_areas = box_num_x_ * box_num_y_ * box_num_z_;
+
+    //“–‚½‚è”»’èBOX‚P‚Â‚ÌŠe•Ó‚Ì’·‚³
+    coord colli_box_x_len  = PX_C(35);
+    coord colli_box_y_len  = PX_C(35);
+    coord colli_box_z_len  = PX_C(35);
+    //x,y,zŽ²•ûŒü‚Ì“–‚½‚è”»’èBOX‚Ì”
+    int box_num_x     = 6;
+    int box_num_y     = 1;
+    int box_num_z     = 6;
+    //Še“–‚½‚è”»’èBOX“¯Žm‚ÌŠÔŠuix,y,zŽ²•ûŒüj
+    coord colli_box_spc_dx = PX_C(29);
+    coord colli_box_spc_dy = PX_C(29);
+    coord colli_box_spc_dz = PX_C(29);
+
+    //“–‚½‚è”»’èBOX¶¬
+    int colli_areas = box_num_x * box_num_y * box_num_z;
     CollisionChecker3D* pColliChecker = getCollisionChecker();
     pColliChecker->makeCollision(colli_areas);
     int n = 0;
-    coord actor_width_dx = colli_box_dx_*box_num_x_;
-    coord actor_width_dy = colli_box_dy_*box_num_y_;
-    coord actor_width_dz = colli_box_dz_*box_num_z_;
-    for (int nx = 0; nx < box_num_x_; nx++) {
-        for (int ny = 0; ny < box_num_y_; ny++) {
-            for (int nz = 0; nz < box_num_z_; nz++) {
+    coord bx = -((colli_box_x_len*box_num_x + colli_box_spc_dx*(box_num_x-1)) / 2);
+    coord by = -((colli_box_y_len*box_num_y + colli_box_spc_dy*(box_num_y-1)) / 2);
+    coord bz = -((colli_box_z_len*box_num_z + colli_box_spc_dz*(box_num_z-1)) / 2);
+    for (int nx = 0; nx < box_num_x; nx++) {
+        coord colli_bx = (colli_box_x_len*nx) + (colli_box_spc_dx*nx);
+        for (int ny = 0; ny < box_num_y; ny++) {
+            coord colli_by = (colli_box_y_len*ny) + (colli_box_spc_dy*ny);
+            for (int nz = 0; nz < box_num_z; nz++) {
+                coord colli_bz = (colli_box_z_len*nz) + (colli_box_spc_dz*nz);
+
                 pColliChecker->setColliAAB(n,
-                                   -(actor_width_dx/2) + (colli_box_dx_*nx),
-                                   -(actor_width_dy/2) + (colli_box_dy_*ny),
-                                   -(actor_width_dz/2) + (colli_box_dz_*nz),
-                                   -(actor_width_dx/2) + (colli_box_dx_*nx) + colli_box_dx_,
-                                   -(actor_width_dy/2) + (colli_box_dy_*ny) + colli_box_dy_,
-                                   -(actor_width_dz/2) + (colli_box_dz_*nz) + colli_box_dz_,
+                                   bx + colli_bx,
+                                   by + colli_by,
+                                   bz + colli_bz,
+                                   bx + colli_bx + colli_box_x_len,
+                                   by + colli_by + colli_box_y_len,
+                                   bz + colli_bz + colli_box_z_len,
                                    true, true, true );
                 n++;
             }

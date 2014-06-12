@@ -12,7 +12,6 @@ using namespace VioletVreath;
 EffectEntry002::EffectEntry002(const char* prm_name) :
         EffectEntry(prm_name, "EffectEntry002") {
     _class_name = "EffectEntry002";
-    pScaler_ = NEW GgafDxScaler(this);
     effectBlendOne();
 //    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ビルボードRz回転
 }
@@ -20,33 +19,19 @@ EffectEntry002::EffectEntry002(const char* prm_name) :
 void EffectEntry002::initialize() {
     EffectEntry::initialize();
     //getUvFlipper()->exec(FLIP_ORDER_LOOP, 1);
-    pScaler_->forceRange(R_SC(0.0), R_SC(1.0));
     setAlpha(0.99);
 }
 
 void EffectEntry002::onActive() {
     EffectEntry::onActive();
     //getUvFlipper()->setActivePtnToTop();
-    setScale(1);
     getKuroko()->setFaceAngVelo(AXIS_Z, 4000);
 }
 
 void EffectEntry002::processBehavior() {
     EffectEntry::processBehavior();
-    if (getActiveFrame() == 1) {
-        pScaler_->transitionLinerUntil(R_SC(1.0), 60);
-    }
-    if (getActiveFrame() == 120) {
-        pScaler_->transitionLinerUntil(R_SC(0.0), 60);
-    }
-    if (getActiveFrame() == 180) {
-        sayonara();
-    }
-    //getUvFlipper()->behave();
     getKuroko()->behave();
-    pScaler_->behave();
 }
 
 EffectEntry002::~EffectEntry002() {
-    GGAF_DELETE(pScaler_);
 }

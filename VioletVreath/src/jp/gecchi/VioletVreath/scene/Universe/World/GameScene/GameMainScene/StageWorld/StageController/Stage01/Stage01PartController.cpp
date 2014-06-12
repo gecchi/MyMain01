@@ -23,11 +23,11 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,100};
-	_paFrame_NextEvent = new frame[2];
+	frame f[] = {1,200,3300,4200,7300,8200};
+	_paFrame_NextEvent = new frame[6];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 2;
-	orderActorToFactory(10000000, EnemyGlaja, "EnemyGlaja-1");
+	_event_num = 6;
+	orderActorToFactory(10000000, FormationHalia, "FormationHalia-1");
     // gen01 end
     useProgress(Stage01PartController::PROG_BANPEI-1);
 }
@@ -45,16 +45,33 @@ void Stage01PartController::processBehavior() {
 			case 1: {
 				break;
 			}
-			case 100: {
-				EnemyGlaja* p = (EnemyGlaja*)obtainActorFromFactory(10000000);
-				getSceneDirector()->addSubGroup(p);
-				p->position(100000,0,0);
+			case 200: {
+				FormationHalia* pF = (FormationHalia*)obtainActorFromFactory(10000000);
+				getSceneDirector()->addSubGroup(pF);
+				break;
+			}
+			case 3300: {
+				orderActorToFactory(10000001, FormationHalia, "FormationHalia-2");
+				break;
+			}
+			case 4200: {
+				FormationHalia* pF = (FormationHalia*)obtainActorFromFactory(10000001);
+				getSceneDirector()->addSubGroup(pF);
+				break;
+			}
+			case 7300: {
+				orderActorToFactory(10000002, FormationHalia, "FormationHalia-3");
+				break;
+			}
+			case 8200: {
+				FormationHalia* pF = (FormationHalia*)obtainActorFromFactory(10000002);
+				getSceneDirector()->addSubGroup(pF);
 				break;
 			}
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 2-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 6-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
 

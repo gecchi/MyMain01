@@ -13,14 +13,12 @@ namespace VioletVreath {
  */
 class EnemyHalia : public GgafLib::DefaultMorphMeshActor {
 //class EnemyHalia : public GgafLib::CubeMapMorphMeshActor {
-
-    /** 移動スプラインプログラム */
-    GgafLib::SplineKurokoLeader* pKurokoLeader_;
-
-    /** 原点から初期カメラZ位置の距離 */
-    int dZ_camera_init_;
 public:
+
     enum {
+        PROG_INIT   ,
+        PROG_ENTRY  ,
+        PROG_FIRST_MOVE,
         PROG_MOVE      ,
         PROG_TURN_OPEN ,
         PROG_FIRE_BEGIN,
@@ -39,9 +37,14 @@ public:
     int iMovePatternNo_;
 
     velo veloTopMv_;
+    /** 移動スプラインプログラム */
+    GgafLib::SplineKurokoLeader* pKurokoLeader_;
+    /** 原点から初期カメラZ位置の距離 */
+    int dZ_camera_init_;
 
     GgafLib::LaserChipDepository* pLaserChipDepo_;
-
+    /** フィードイン・フェードアウト支援 */
+    GgafDxCore::GgafDxAlphaFader* pAFader_;
 public:
     /**
      * コンストラクタ

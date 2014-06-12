@@ -16,6 +16,7 @@ GgafDxDrawableActor* StgUtil::shotWay001(coord prm_x, coord prm_y, coord prm_z,
                                          velo prm_velo_first, acce prm_acce,
                                          int prm_set_num, frame prm_interval_frames, float prm_attenuated,
                                          void (*pFunc_CallBackDispatched)(GgafDxDrawableActor*, int, int)) {
+    if (prm_set_num <= 0) {  return nullptr;  }
     float vx, vy, vz;
     GgafDxUtil::convRzRyToVector(prm_rz, prm_ry, vx, vy, vz);
     coord X = vx * prm_r;
@@ -89,6 +90,7 @@ GgafDxDrawableActor* StgUtil::shotWay002(coord prm_x, coord prm_y, coord prm_z,
                                          velo prm_velo_first, acce prm_acce,
                                          int prm_set_num, frame prm_interval_frames, float prm_attenuated,
                                          void (*pFunc_CallBackDispatched)(GgafDxDrawableActor*, int, int, int)) {
+    if (prm_way_N <= 0 || prm_set_num <= 0) {  return nullptr;  }
     angle* paAng_way_N = NEW angle[prm_way_N];
     GgafDxUtil::getWayAngle2D(0, prm_way_N, prm_angClearance_N, paAng_way_N);
     GgafDxGeoElem* paGeo = NEW GgafDxGeoElem[prm_way_N];
@@ -167,6 +169,7 @@ GgafDxDrawableActor* StgUtil::shotWay003(coord prm_x, coord prm_y, coord prm_z,
                                          velo prm_velo_first, acce prm_acce,
                                          int prm_set_num, frame prm_interval_frames, float prm_attenuated,
                                          void (*pFunc_CallBackDispatched)(GgafDxDrawableActor*, int, int, int, int, int)) {
+    if (prm_way_N <= 0 || prm_way_M <= 0 || prm_set_num <= 0) {  return nullptr;  }
     angle* paAng_way_N = NEW angle[prm_way_N];
     angle* paAng_way_M = NEW angle[prm_way_M];
     uint32_t* paUint32_dotmat = NEW uint32_t[prm_way_N];
@@ -293,13 +296,14 @@ GgafDxDrawableActor* StgUtil::shotWay004(coord prm_x, coord prm_y, coord prm_z,
                                          angle prm_rz, angle prm_ry,
                                          GgafActorDepository* prm_pDepo_Shot,
                                          coord prm_r,
-                                         int prm_way, angle prm_expanse_angle,
+                                         int prm_radial_way_num, angle prm_expanse_angle,
                                          velo prm_velo_first, acce prm_acce,
                                          int prm_set_num, frame prm_interval_frames, float prm_attenuated,
                                          void (*pFunc_CallBackDispatched)(GgafDxDrawableActor*, int, int, int)) {
-    angle* paAng_way = NEW angle[prm_way];
-    GgafDxUtil::getRadialAngle2D(0, prm_way, paAng_way);
-    GgafDxGeoElem* paGeo = NEW GgafDxGeoElem[prm_way];
+    if (prm_radial_way_num <= 0 || prm_set_num <= 0) {  return nullptr;  }
+    angle* paAng_way = NEW angle[prm_radial_way_num];
+    GgafDxUtil::getRadialAngle2D(0, prm_radial_way_num, paAng_way);
+    GgafDxGeoElem* paGeo = NEW GgafDxGeoElem[prm_radial_way_num];
     angle expanse_rz = (D180ANG - prm_expanse_angle)/2;
 
     D3DXMATRIX matWorldRot;
@@ -307,7 +311,7 @@ GgafDxDrawableActor* StgUtil::shotWay004(coord prm_x, coord prm_y, coord prm_z,
 
     float vx, vy, vz;
     coord x,y,z;
-    for (int i = 0; i < prm_way; i++) {
+    for (int i = 0; i < prm_radial_way_num; i++) {
         GgafDxUtil::convRzRyToVector(expanse_rz, paAng_way[i], vx, vy, vz);
         x = vx * prm_r;
         y = vy * prm_r;
@@ -323,7 +327,7 @@ GgafDxDrawableActor* StgUtil::shotWay004(coord prm_x, coord prm_y, coord prm_z,
     acce now_acce = prm_acce;
     int dispatch_num = 0;
     for (int n = 0; n < prm_set_num; n++) {
-        for (int i = 0; i < prm_way; i++) {
+        for (int i = 0; i < prm_radial_way_num; i++) {
             pActor_Shot = (GgafDxDrawableActor*)prm_pDepo_Shot->dispatch(n*prm_interval_frames+1);
             if (pActor_Shot) {
                 dispatch_num++;
@@ -373,6 +377,7 @@ GgafDxDrawableActor* StgUtil::shotWayGoldenAng(coord prm_x, coord prm_y, coord p
                                                velo prm_velo_first, acce prm_acce,
                                                int prm_set_num, frame prm_interval_frames, float prm_attenuated,
                                                void (*pFunc_CallBackDispatched)(GgafDxDrawableActor*, int, int, int)) {
+    if (prm_way_num <= 0 || prm_set_num <= 0) {  return nullptr;  }
     GgafDxGeoElem* paGeo = NEW GgafDxGeoElem[prm_way_num];
     angle expanse_rz = (D180ANG - prm_first_expanse_angle)/2;
 

@@ -406,7 +406,7 @@ GgafDxDrawableActor* MyStgUtil::activateEntryEffectOf(GgafDxGeometricActor* prm_
             pRet = nullptr; //入場エフェクト無し
             break;
         }
-        case EF_ENTRY_SMALL001_LONG: {
+        case EF_ENTRY_SMALL001_LONG: { //EffectEntry001で210F。アクターに追従する。
             EffectEntry001* pE = dispatchFromCommon(EffectEntry001);
             if (pE) {
                 pE->positionFollow(prm_pActor);
@@ -415,7 +415,7 @@ GgafDxDrawableActor* MyStgUtil::activateEntryEffectOf(GgafDxGeometricActor* prm_
             pRet = pE;
             break;
         }
-        case EF_ENTRY_SMALL001_F30: {
+        case EF_ENTRY_SMALL001_F30: { //EffectEntry001で30F。アクターに追従する。
             EffectEntry001* pE = dispatchFromCommon(EffectEntry001);
             if (pE) {
                 pE->positionFollow(prm_pActor);
@@ -424,7 +424,7 @@ GgafDxDrawableActor* MyStgUtil::activateEntryEffectOf(GgafDxGeometricActor* prm_
             pRet = pE;
             break;
         }
-        case EF_ENTRY_SMALL001_F60: {
+        case EF_ENTRY_SMALL001_F60: { //EffectEntry001で60F。アクターに追従する。
             EffectEntry001* pE = dispatchFromCommon(EffectEntry001);
             if (pE) {
                 pE->positionFollow(prm_pActor);
@@ -433,31 +433,31 @@ GgafDxDrawableActor* MyStgUtil::activateEntryEffectOf(GgafDxGeometricActor* prm_
             pRet = pE;
             break;
         }
-        case EF_ENTRY_SMALL001_STAY_F30: {
+        case EF_ENTRY_SMALL001_STAY_F30: { //EffectEntry001で60F。その場にとどまる、アクター追従無し。
             EffectEntry001* pE = dispatchFromCommon(EffectEntry001);
             if (pE) {
-                pE->positionFollow(nullptr);//追従せずそこにとどまる
+                pE->positionFollow(nullptr);
                 pE->positionAs(prm_pActor);
                 pE->config(15,1,15);
             }
             pRet = pE;
             break;
         }
-        case EF_ENTRY_SMALL001_STAY_F60: {
+        case EF_ENTRY_SMALL001_STAY_F60: {  //EffectEntry001で60F。その場にとどまる、アクター追従無し。
             EffectEntry001* pE = dispatchFromCommon(EffectEntry001);
             if (pE) {
-                pE->positionFollow(nullptr);//追従せずそこにとどまる
+                pE->positionFollow(nullptr);
                 pE->positionAs(prm_pActor);
                 pE->config(30,1,30);
             }
             pRet = pE;
             break;
         }
-        case EF_ENTRY_MIDDLE001: {
+        case EF_ENTRY_MIDDLE001: {  //EffectEntry002で180F。アクターに追従する。
             EffectEntry002* pE = dispatchFromCommon(EffectEntry002);
             if (pE) {
                 pE->positionAs(prm_pActor);
-//                pE->config(30,1,30);
+                pE->config(60,60,60);
             }
             pRet = pE;
             break;
@@ -1543,7 +1543,7 @@ GgafStatus* MyStgUtil::resetEnemyHaliaStatus(GgafStatus* p) {
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+	p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_F60);  //出現エフェクト種別
 	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
 	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別

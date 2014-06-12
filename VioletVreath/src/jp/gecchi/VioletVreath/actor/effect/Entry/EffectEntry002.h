@@ -13,10 +13,6 @@ namespace VioletVreath {
 class EffectEntry002 : public EffectEntry {
 
 public:
-    /** 拡大縮小支援オブジェクト */
-    GgafDxCore::GgafDxScaler* pScaler_;
-
-public:
     EffectEntry002(const char* prm_name);
 
     void initialize() override;

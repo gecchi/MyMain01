@@ -12,18 +12,6 @@ namespace VioletVreath {
  */
 class EffectEntry003 : public EffectEntry {
 
-    enum {
-        PROG_INIT ,
-        PROG_IN   ,
-        PROG_STAY ,
-        PROG_OUT  ,
-        PROG_BANPEI,
-    };
-
-public:
-    /** 拡大縮小支援オブジェクト */
-    GgafDxCore::GgafDxScaler* pScaler_;
-
 public:
     EffectEntry003(const char* prm_name);
 

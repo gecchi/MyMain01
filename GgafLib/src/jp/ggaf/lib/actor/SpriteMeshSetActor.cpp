@@ -13,9 +13,9 @@ using namespace GgafLib;
 
 SpriteMeshSetActor::SpriteMeshSetActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
     GgafDxSpriteMeshSetActor(prm_name,
-                              prm_model,
-                              prm_pStat,
-                              NEW CollisionChecker3D(this) ) {
+                             prm_model,
+                             prm_pStat,
+                             NEW CollisionChecker3D(this) ) {
 
     _class_name = "SpriteMeshSetActor";
     _pColliChecker = (CollisionChecker3D*)_pChecker;

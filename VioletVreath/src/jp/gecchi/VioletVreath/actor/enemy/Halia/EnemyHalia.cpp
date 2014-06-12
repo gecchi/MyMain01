@@ -15,6 +15,7 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -45,6 +46,8 @@ EnemyHalia::EnemyHalia(const char* prm_name) :
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
+    pAFader_ = NEW GgafDxAlphaFader(this);
+
     useProgress(PROG_BANPEI);
     //初期カメラZ位置
     dZ_camera_init_ = -1 * P_CAM->_cameraZ_org * LEN_UNIT * PX_UNIT;
@@ -70,11 +73,11 @@ void EnemyHalia::initialize() {
 void EnemyHalia::onActive() {
     getStatus()->reset();
     setMorphWeight(0.0);
+    getProgress()->reset(PROG_INIT);
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(AXIS_X, 1000);
-    pKuroko->hlprA()->slideMvByVd(veloTopMv_, MyShip::lim_x_front_-_x,
-                           0.4, 0.6, 1000, true);
-    getProgress()->reset(PROG_MOVE);
+    pKuroko->setMvVelo(0);
+    pKuroko->setMvAcce(0);
     iMovePatternNo_ = 0; //行動パターンリセット
 }
 
@@ -84,37 +87,75 @@ void EnemyHalia::processBehavior() {
     GgafDxKuroko* pKuroko = getKuroko();
     GgafProgress* pProg = getProgress();
     switch (pProg->get()) {
-        case PROG_MOVE: {
-            if (!pKuroko->hlprA()->isSlidingMv()) {
-                getMorpher()->transitionAcceStep(1, 1.0, 0.0, 0.0004); //開く 0.0004 開く速さ
-                pKuroko->turnMvAngTwd(P_MYSHIP,
-                                        0, 100,
-                                        TURN_CLOSE_TO, false);
+        case PROG_INIT: {
+            setHitAble(false);
+            setAlpha(0);
+            UTIL::activateEntryEffectOf(this);
+            pProg->changeNext();
+            break;
+        }
+        case PROG_ENTRY: {
+            if (pProg->isJustChanged()) {
+                pAFader_->transitionLinerUntil(1.0, 60);
+            }
+            if (pProg->getFrameInProgress() == 40) {
+                setHitAble(true);
                 pProg->changeNext();
             }
             break;
         }
+        case PROG_FIRST_MOVE: {
+            if (pProg->isJustChanged()) {
+                pKuroko->setRzRyMvAng(0, 0);
+                pKuroko->hlprA()->slideMvByVd(veloTopMv_, 1500000,
+                                              0.4, 0.6, 1000, true);
+                pKuroko->setFaceAngVelo(AXIS_X, 1000);
+            }
+            if (!pKuroko->hlprA()->isSlidingMv()) {
+                pProg->change(PROG_TURN_OPEN);
+            }
+            break;
+        }
+        case PROG_MOVE: {
+            if (pProg->isJustChanged()) {
+                pKuroko->hlprA()->slideMvByVd(veloTopMv_, 1500000,
+                                              0.4, 0.6, 1000, true);
+                pKuroko->setFaceAngVelo(AXIS_X, 1000);
+            }
+            if (!pKuroko->hlprA()->isSlidingMv()) {
+                pProg->change(PROG_TURN_OPEN);
+            }
+            break;
+        }
         case PROG_TURN_OPEN: {
+            if (pProg->isJustChanged()) {
+                pKuroko->turnMvAngTwd(P_MYSHIP,
+                                      0, 100,
+                                      TURN_CLOSE_TO, false);
+            }
             if (pProg->getFrameInProgress() > 120) {
+                getMorpher()->transitionAcceStep(1, 1.0, 0.0, 0.0004); //開く 0.0004 開く速さ
                 pProg->changeNext();
             }
             break;
         }
         case PROG_FIRE_BEGIN: {
-            if ( _x - P_MYSHIP->_x > -dZ_camera_init_) {
-                pProg->change(PROG_IN_FIRE);
-            } else {
-                //背後からは撃たない。
-                pProg->change(PROG_CLOSE);
+            if (getMorpher()->isTransitioning() == false) {
+                if ( _x - P_MYSHIP->_x > -dZ_camera_init_) {
+                    pProg->change(PROG_IN_FIRE);
+                } else {
+                    //背後からは撃たない。
+                    pProg->change(PROG_CLOSE);
+                }
             }
             break;
         }
         case PROG_IN_FIRE: {
-            if (getActiveFrame() % 16U == 0) {
-                pKuroko->turnMvAngTwd(P_MYSHIP,
-                                        10, 0,
-                                        TURN_CLOSE_TO, false);
-            }
+//            if (getActiveFrame() % 16U == 0) {
+//                pKuroko->turnMvAngTwd(P_MYSHIP,
+//                                      10, 0,
+//                                      TURN_CLOSE_TO, false);
+//            }
             EnemyStraightLaserChip001* pLaser = (EnemyStraightLaserChip001*)pLaserChipDepo_->dispatch();
             if (pLaser) {
                 if (pLaser->_pChip_front == nullptr) {
@@ -129,8 +170,6 @@ void EnemyHalia::processBehavior() {
         case PROG_CLOSE: {
             //１サイクルレーザー打ち切った
             getMorpher()->transitionLinerUntil(1, 0.0, 60); //閉じる
-            pKuroko->hlprA()->slideMvByVd(veloTopMv_, 1500000, 0.4, 0.6, 1000, true);
-            pKuroko->setFaceAngVelo(AXIS_X, 1000);
             pProg->change(PROG_MOVE);
             break;
         }
@@ -142,6 +181,7 @@ void EnemyHalia::processBehavior() {
     pKuroko->behave();
     getMorpher()->behave();
     getSeTx()->behave();
+    pAFader_->behave();
 }
 
 void EnemyHalia::processJudgement() {
@@ -170,5 +210,6 @@ void EnemyHalia::onInactive() {
 }
 
 EnemyHalia::~EnemyHalia() {
+    GGAF_DELETE(pAFader_);
     GGAF_DELETE_NULLABLE(pKurokoLeader_);
 }
