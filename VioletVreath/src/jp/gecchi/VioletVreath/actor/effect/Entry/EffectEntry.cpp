@@ -12,8 +12,6 @@ using namespace VioletVreath;
 EffectEntry::EffectEntry(const char* prm_name, const char* prm_model) :
         DefaultMeshSetActor(prm_name, prm_model, nullptr) {
     _class_name = "EffectEntry";
-    setZEnable(false);
-    setZWriteEnable(false);
     setHitAble(false);
     pScaler_ = NEW GgafDxScaler(this);
     pTarget_ = nullptr;
@@ -42,7 +40,6 @@ void EffectEntry::processBehavior() {
         sayonara();
     }
 
-
     GgafProgress* pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -53,7 +50,11 @@ void EffectEntry::processBehavior() {
 
         case PROG_IN: {
             if (pScaler_->isTransitioning() == false) {
-                pProg->changeNext();
+                if (duration_frames_ > 0) {
+                    pProg->changeNext();
+                } else {
+                    pProg->change(PROG_OUT);
+                }
             }
             break;
         }

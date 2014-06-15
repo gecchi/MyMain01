@@ -89,8 +89,6 @@ void GgafDxBoardSetActor::processDraw() {
             checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ah_depth_z) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_alpha[draw_set_num], pBoardSetActor->_alpha);
             checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ah_alpha) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-
-//                pRectUV_Active = _pBoardSetModel->_paRectUV + (((GgafDxBoardSetActor*)(pDrawActor))->_pUvFlipper->_pattno_uvflip_now);
             pBoardSetActor->_pUvFlipper->getUV(u,v);
             hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_offset_u[draw_set_num], u);
             checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw() SetFloat(_h_offset_u) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

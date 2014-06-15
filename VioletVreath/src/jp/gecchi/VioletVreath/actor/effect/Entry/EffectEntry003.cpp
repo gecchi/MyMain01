@@ -13,6 +13,8 @@ EffectEntry003::EffectEntry003(const char* prm_name) :
         EffectEntry(prm_name, "EffectEntry003") {
     _class_name = "EffectEntry003";
     effectBlendOne();
+    setZEnable(false);
+    setZWriteEnable(false);
 }
 
 void EffectEntry003::initialize() {

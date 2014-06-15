@@ -103,6 +103,7 @@ public:
     void slideMvByVd(velo prm_top_velo, coord prm_target_distance,
                      float prm_p1, float prm_p2, velo prm_end_velo,
                      bool prm_endacc_flg);
+
     bool isSlidingMv() {
         return _smthMv._prm._flg;
     }

@@ -50,17 +50,8 @@ void VvvWorld::processBehavior() {
         pCamWorker_->slideMvCamTo(0,0,DX_C(pCam->_cameraZ_org),60);
         pCamWorker_->slideMvVpTo(0,0,0,60);
         pCam->slideUpCamTo(2);
+
     } else if (GgafDxInput::isPushedDownKey(DIK_F2)) {
-        //ターゲット変更のみ
-        if (listActorInfo_.length() > 0) {
-            if (pCursor_->_pProg->get() == VvvCursor::CUR_SINK) {
-                pCursor_->moveTo(listActorInfo_.getCurrent()->pActor_);
-            } else {
-                pCursor_->moveTo(listActorInfo_.next()->pActor_);
-            }
-            listActorInfo_.getCurrent()->pActor_->effectFlush(30);
-        }
-    } else if (GgafDxInput::isPushedDownKey(DIK_RETURN)) {
         //ターゲット変更＋カメラ向く
         if (listActorInfo_.length() > 0) {
             if (pCursor_->_pProg->get() == VvvCursor::CUR_SINK) {
@@ -72,8 +63,27 @@ void VvvWorld::processBehavior() {
             GgafDxDrawableActor* pT = listActorInfo_.getCurrent()->pActor_;
             pCamWorker_->slideMvVpTo(pT->_x, pT->_y, pT->_z, 60);
         }
-
-    } else if (GgafDxInput::isPushedDownKey(DIK_DELETE)) {
+    } else if (GgafDxInput::isPushedDownKey(DIK_F3)) {
+       //ターゲット変更のみ
+       if (listActorInfo_.length() > 0) {
+           if (pCursor_->_pProg->get() == VvvCursor::CUR_SINK) {
+               pCursor_->moveTo(listActorInfo_.getCurrent()->pActor_);
+           } else {
+               pCursor_->moveTo(listActorInfo_.next()->pActor_);
+           }
+           listActorInfo_.getCurrent()->pActor_->effectFlush(30);
+       }
+    } else if (GgafDxInput::isPushedDownKey(DIK_F4)) {
+        //現ターゲットへカメラ向く
+        if (listActorInfo_.length() > 0) {
+            if (pCursor_->_pProg->get() == VvvCursor::CUR_SINK) {
+                pCursor_->moveTo(listActorInfo_.getCurrent()->pActor_);
+            }
+            listActorInfo_.getCurrent()->pActor_->effectFlush(30);
+            GgafDxDrawableActor* pT = listActorInfo_.getCurrent()->pActor_;
+            pCamWorker_->slideMvVpTo(pT->_x, pT->_y, pT->_z, 60);
+        }
+     } else if (GgafDxInput::isPushedDownKey(DIK_DELETE)) {
         //選択を削除
         if (listActorInfo_.length() > 0) {
             listActorInfo_.getCurrent()->pActor_->end();
@@ -310,6 +320,9 @@ void VvvWorld::processBehavior() {
                         pMorphMeshActor->addMorphWeight(i, 0.01);
                     } else {
                         pMorphMeshActor->addMorphWeight(i, -0.01);
+                        if (pMorphMeshActor->getMorphWeight(i) < 0) {
+                            pMorphMeshActor->setMorphWeight(i, 0);
+                        }
                     }
                 }
             }

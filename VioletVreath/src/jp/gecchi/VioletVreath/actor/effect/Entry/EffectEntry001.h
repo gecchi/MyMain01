@@ -13,9 +13,6 @@ namespace VioletVreath {
 class EffectEntry001 : public EffectEntry {
 
 public:
-
-
-public:
     EffectEntry001(const char* prm_name);
 
     void initialize() override;

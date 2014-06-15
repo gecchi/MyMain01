@@ -96,7 +96,7 @@ void EnemyHalia::processBehavior() {
         }
         case PROG_ENTRY: {
             if (pProg->isJustChanged()) {
-                pAFader_->transitionLinerUntil(1.0, 60);
+                pAFader_->transitionAcceStep(1.0, 0, 100);
             }
             if (pProg->getFrameInProgress() == 40) {
                 setHitAble(true);

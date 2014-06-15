@@ -11,11 +11,8 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class EffectEntry : public GgafLib::DefaultMeshSetActor {
-public:
-    frame scale_in_frames_;
-    frame duration_frames_;
-    frame scale_out_frames_;
 
+public:
     enum {
         PROG_INIT ,
         PROG_IN   ,
@@ -23,12 +20,24 @@ public:
         PROG_OUT  ,
         PROG_BANPEI,
     };
-    /** エフェクト対象のアクター */
+
+    /** [r]エフェクト発生～最大の大きさまで拡大、までのフレーム数 */
+    frame scale_in_frames_;
+    /** [r]エフェクト持続フレーム数 */
+    frame duration_frames_;
+    /** [r]エフェクト持続完了～消滅までのフレーム数 */
+    frame scale_out_frames_;
+    /** [r]エフェクト対象のアクター */
     GgafDxCore::GgafDxGeometricActor* pTarget_;
-    /** 拡大縮小支援オブジェクト */
+    /** [r]拡大縮小支援オブジェクト */
     GgafDxCore::GgafDxScaler* pScaler_;
 
 public:
+    /**
+     * コンストラクタ .
+     * @param prm_name 識別名
+     * @param prm_model モデルID
+     */
     EffectEntry(const char* prm_name, const char* prm_model);
 
     virtual void onInactive() override;
@@ -40,8 +49,8 @@ public:
     virtual void processJudgement() override;
 
     /**
-     * 引数のアクターと同じ座標を継続 .
-     * @param prm_pTarget
+     * エフェクトの座標を引数のアクターと同じ座標に継続させる .
+     * @param prm_pTarget エフェクトの座標になるアクター
      */
     void positionFollow(GgafDxCore::GgafDxGeometricActor* prm_pTarget);
 
@@ -60,9 +69,9 @@ public:
      *
      * </PRE>
      * Top スケール,Bottom スケールは pScaler_->forceRange(TOP,BOTTOM) で上書き設定可能。
-     * @param prm_scale_in_frames 上記①のフレーム数
-     * @param prm_duration_frames 上記②のフレーム数
-     * @param prm_scale_out_frames 上記③のフレーム数
+     * @param prm_scale_in_frames 上記①のフレーム数 (1～)
+     * @param prm_duration_frames 上記②のフレーム数 (0～)
+     * @param prm_scale_out_frames 上記③のフレーム数 (1～)
      */
     void config(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames);
 

@@ -13,6 +13,8 @@ EffectEntry002::EffectEntry002(const char* prm_name) :
         EffectEntry(prm_name, "EffectEntry002") {
     _class_name = "EffectEntry002";
     effectBlendOne();
+    setZEnable(false);
+    setZWriteEnable(false);
 //    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ビルボードRz回転
 }
 

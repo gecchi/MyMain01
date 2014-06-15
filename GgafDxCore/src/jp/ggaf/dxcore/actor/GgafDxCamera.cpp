@@ -265,11 +265,13 @@ void GgafDxCamera::setDefaultPosition() {
     _pVecCamUp->y = 1.0f;
     _pVecCamUp->z = 0.0f;
 }
+
 void GgafDxCamera::setVecCamUp(float prm_up_x, float prm_up_y, float prm_up_z) {
     _pVecCamUp->x = prm_up_x;
     _pVecCamUp->y = prm_up_y;
     _pVecCamUp->z = prm_up_z;
 }
+
 bool GgafDxCamera::isMoving() {
     if (_x_prev == _x && _y_prev == _y && _z_prev == _z) {
         return false;

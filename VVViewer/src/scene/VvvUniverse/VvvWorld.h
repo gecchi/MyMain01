@@ -34,7 +34,6 @@ public:
         }
     };
 
-
     GgafCore::GgafLinkedListRing<ActorInfo> listActorInfo_;
     /** “ü—ÍŽó•t */
     GgafLib::VirtualButton* vb_;

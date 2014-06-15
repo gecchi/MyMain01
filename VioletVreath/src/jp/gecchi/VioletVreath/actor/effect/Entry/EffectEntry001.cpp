@@ -13,6 +13,8 @@ EffectEntry001::EffectEntry001(const char* prm_name) :
         EffectEntry(prm_name, "EffectEntry001") {
     _class_name = "EffectEntry001";
     effectBlendOne();
+    setZEnable(false);
+    setZWriteEnable(false);
 }
 
 void EffectEntry001::initialize() {
@@ -21,10 +23,10 @@ void EffectEntry001::initialize() {
 
 void EffectEntry001::onActive() {
     EffectEntry::onActive();
-    pScaler_->forceRange(1, 20000);
+    pScaler_->forceRange(1, R_SC(40.0));
     setScale(pScaler_->getBottom());
     setFaceAng(D0ANG, D0ANG, D0ANG);
-    getKuroko()->setFaceAngVelo(3000, 5000, 7000);
+    getKuroko()->setFaceAngVelo(3000, 7000, 11000);
 }
 
 void EffectEntry001::processBehavior() {

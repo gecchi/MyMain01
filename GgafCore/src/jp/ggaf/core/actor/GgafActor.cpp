@@ -47,6 +47,7 @@ void GgafActor::setHitAble(bool prm_can_hit_flg, bool prm_can_hit_out_of_view_fl
     _can_hit_flg = prm_can_hit_flg;
     _can_hit_out_of_view = prm_can_hit_out_of_view_flg;
 }
+
 void GgafActor::setHitAble(bool prm_can_hit_flg) {
     _can_hit_flg = prm_can_hit_flg;
 }
@@ -77,7 +78,6 @@ void GgafActor::setHitAbleTree(bool prm_can_hit_flg) {
         }
     }
 }
-
 
 GgafScene* GgafActor::getPlatformScene() {
     if (_pScene_platform == nullptr) {
