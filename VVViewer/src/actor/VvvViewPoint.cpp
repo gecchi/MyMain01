@@ -23,7 +23,7 @@ void VvvViewPoint::processBehavior() {
 
 void VvvViewPoint::slideMvTo(coord tx, coord ty, coord tz, frame t) {
     //ƒJƒƒ‰‚Ê‚é‚Á‚ÆˆÚ“®
-    pAxsMver_->hlprA()->slideVxyzMvByDtTo(
+    pAxsMver_->hlpr()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               0.3, 0.4, 0, true);
 }

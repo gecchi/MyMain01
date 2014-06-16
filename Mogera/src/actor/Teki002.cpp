@@ -36,7 +36,7 @@ void Teki002::initialize() {
 
 void Teki002::processBehavior() {
     if (GgafDxCore::GgafDxInput::isBeingPressedKey(DIK_1)) {
-        pAxMvr_->hlprA()->slideVxyzMvByDtTo(PX_C(250),PX_C(250), 0,
+        pAxMvr_->hlpr()->slideVxyzMvByDtTo(PX_C(250),PX_C(250), 0,
                                           120,
                                           0.1, 0.1, 0,
                                           0.9, 0.9, 0,
@@ -45,7 +45,7 @@ void Teki002::processBehavior() {
     }
 
     if (GgafDxCore::GgafDxInput::isBeingPressedKey(DIK_2)) {
-        pAxMvr_->hlprA()->slideVxyzMvByDtTo(PX_C(250),PX_C(250), 0,
+        pAxMvr_->hlpr()->slideVxyzMvByDtTo(PX_C(250),PX_C(250), 0,
                                           120,
                                           0.9, 0.9, 0,
                                           0.1, 0.1, 0,
@@ -55,7 +55,7 @@ void Teki002::processBehavior() {
 
 
     if (GgafDxCore::GgafDxInput::isBeingPressedKey(DIK_3)) {
-        pAxMvr_->hlprA()->slideVxyzMvByDtTo(PX_C(-250),PX_C(-250), 0,
+        pAxMvr_->hlpr()->slideVxyzMvByDtTo(PX_C(-250),PX_C(-250), 0,
                                           120,
                                           0.3, 0.7, 0,
                                           0.3, 0.7, 0,
@@ -68,7 +68,7 @@ void Teki002::processBehavior() {
         float vx,vy,vz;
         UTIL::getNormalizeVector(pAxMvr_->_veloVxMv,pAxMvr_->_veloVyMv,pAxMvr_->_veloVzMv,
                                  vx,vy,vz);
-        pAxMvr_->hlprA()->slideVxyzMvByDt(PX_C(10)*vx, PX_C(10)*vy, PX_C(10)*vz,
+        pAxMvr_->hlpr()->slideVxyzMvByDt(PX_C(10)*vx, PX_C(10)*vy, PX_C(10)*vz,
                                               10,
                                               0.0,0.0, 0, true);
     }

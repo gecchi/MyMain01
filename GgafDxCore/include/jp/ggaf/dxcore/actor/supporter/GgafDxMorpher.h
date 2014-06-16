@@ -16,20 +16,26 @@ namespace GgafDxCore {
  */
 class GgafDxMorpher : public GgafCore::GgafValueTransitioner<float, (MAX_MORPH_TARGET+1) > {
 
+private:
+    /** [r]モーファーの助手A */
+    GgafDxMorpherHelperA* _pHlprA;
+
 public:
     /** [r]対象アクター */
     GgafDxMorphMeshActor* const _pActor;
-    /** [r]モーファーの助手 */
-    GgafDxMorpherHelperA* _pHlprA;
 
 public:
     /**
      * コンストラクタ<BR>
-     * @param	prm_pActor	適用Actor
+     * @param prm_pActor 適用Actor
      */
     GgafDxMorpher(GgafDxMorphMeshActor* prm_pActor);
 
-    GgafDxMorpherHelperA* hlprA();
+    /**
+     * モーファーの助手A(なめらかモーフ)を取得 .
+     * @return モーファーの助手A
+     */
+    GgafDxMorpherHelperA* hlpr();
 
     void reset() override;
 

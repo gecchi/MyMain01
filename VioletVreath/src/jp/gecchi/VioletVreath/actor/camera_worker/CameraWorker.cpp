@@ -105,7 +105,7 @@ void CameraWorker::behaveAutoCamUp() {
     int bk_up_face_ = pCam_->up_face_;
 #endif
     if (pCam_->vcv_face_ != pCam_->vcv_face_prev_) {
-        GgafDxAxesMoverHelperA* hlprA = pCam_->pAxsMver_->hlprA();
+        GgafDxAxesMoverHelperA* hlprA = pCam_->pAxsMver_->hlpr();
         int fx = hlprA->_smthVxMv._prm._flg ? hlprA->_smthVxMv._prm._target_frames : 10;
         int fy = hlprA->_smthVyMv._prm._flg ? hlprA->_smthVyMv._prm._target_frames : 10;
         int fz = hlprA->_smthVzMv._prm._flg ? hlprA->_smthVzMv._prm._target_frames : 10;

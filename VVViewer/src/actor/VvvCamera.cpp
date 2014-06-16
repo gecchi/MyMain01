@@ -85,7 +85,7 @@ void VvvCamera::processBehavior() {
 
 void VvvCamera::slideMvTo(coord tx, coord ty, coord tz, frame t) {
     _TRACE_(" VvvCamera::slideMvTo("<<tx<<","<<ty<<","<<tz<<",t="<<t<<")");
-    pAxsMver_->hlprA()->slideVxyzMvByDtTo(
+    pAxsMver_->hlpr()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               0.3, 0.4, 0, true);
 }
@@ -191,7 +191,7 @@ void VvvCamera::slideUpCamTo(int prm_face_no) {
     up_face_ = prm_face_no;
     dxcoord up_x, up_y, up_z;
     VvvCamera::cnvFaceNo2Vec(prm_face_no, up_x, up_y, up_z);
-    pAxsMver_Up_->hlprA()->
+    pAxsMver_Up_->hlpr()->
              slideVxyzMvByDtTo(DX_C(up_x), DX_C(up_y), DX_C(up_z), 60, 0.3, 0.4, 0, true);
 }
 VvvCamera::~VvvCamera() {

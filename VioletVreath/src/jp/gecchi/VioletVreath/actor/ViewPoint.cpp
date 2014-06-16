@@ -31,7 +31,7 @@ void ViewPoint::processBehavior() {
 void ViewPoint::slideMvTo(coord tx, coord ty, coord tz, frame t) {
     //_TRACE_(" ViewPoint::slideMvTo("<<tx<<","<<ty<<","<<tz<<",t="<<t<<")  now("<<_x<<","<<_y<<","<<_z<<")");
     //ƒJƒƒ‰‚Ê‚é‚Á‚ÆˆÚ“®
-    pAxsMver_->hlprA()->slideVxyzMvByDtTo(
+    pAxsMver_->hlpr()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               0.3, 0.4, 0, true);
 }

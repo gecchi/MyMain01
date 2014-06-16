@@ -59,20 +59,20 @@ void Mikata001::processBehavior() {
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_1)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_1)!!!!!");
-        getMorpher()->hlprA()->morphByDt(1, 1.0 - _weight[1], 60, 0.3, 0.5, 0.00, true);
+        getMorpher()->hlpr()->morphByDt(1, 1.0 - _weight[1], 60, 0.3, 0.5, 0.00, true);
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_2)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_2)!!!!!");
-        getMorpher()->hlprA()->morphByDt(1,0.0 - _weight[1], 60, 0.3, 0.5, 0.00, true);
+        getMorpher()->hlpr()->morphByDt(1,0.0 - _weight[1], 60, 0.3, 0.5, 0.00, true);
     }
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_3)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_3)!!!!!");
-        getMorpher()->hlprA()->morphByVd(1,0.04, 1.0 - _weight[1],  0.4, 0.5, 0.00, true);
+        getMorpher()->hlpr()->morphByVd(1,0.04, 1.0 - _weight[1],  0.4, 0.5, 0.00, true);
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_4)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_4)!!!!!");
-        getMorpher()->hlprA()->morphByVd(1,0.04, 0.0 - _weight[1], 0.4, 0.5, 0.00, true);
+        getMorpher()->hlpr()->morphByVd(1,0.04, 0.0 - _weight[1], 0.4, 0.5, 0.00, true);
     }
 
 

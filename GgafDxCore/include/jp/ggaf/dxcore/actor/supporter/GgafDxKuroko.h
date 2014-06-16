@@ -28,13 +28,17 @@ namespace GgafDxCore {
  */
 class GgafDxKuroko : public GgafCore::GgafObject {
 
+private:
+    /** [r]黒衣の助手A(移動速度の補佐) */
+    GgafDxKurokoHelperA* _pHlprA;
+    /** [r]黒衣の助手B(軸回転方角角速度の補佐) */
+    GgafDxKurokoHelperB* _pHlprB;
+    /** [r]黒衣の助手C(移動方角角速度の補佐) */
+    GgafDxKurokoHelperC* _pHlprC;
+
 public:
     /** [r]対象アクター */
     GgafDxGeometricActor* const _pActor;
-
-    GgafDxKurokoHelperA* _pHlprA;
-    GgafDxKurokoHelperB* _pHlprB;
-    GgafDxKurokoHelperC* _pHlprC;
 
 public:
     /**
@@ -43,8 +47,22 @@ public:
      */
     GgafDxKuroko(GgafDxGeometricActor* prm_pActor);
 
+    /**
+     * 黒衣の助手A(移動速度の補佐)を取得 .
+     * @return 黒衣の助手A
+     */
     GgafDxKurokoHelperA* hlprA();
+
+    /**
+     * 黒衣の助手B(軸回転方角角速度の補佐)を取得 .
+     * @return 黒衣の助手B
+     */
     GgafDxKurokoHelperB* hlprB();
+
+    /**
+     * 黒衣の助手C(移動方角角速度の補佐)を取得 .
+     * @return 黒衣の助手C
+     */
     GgafDxKurokoHelperC* hlprC();
 
 

@@ -59,7 +59,7 @@ _pActor(prm_pActor) {
 
 }
 
-GgafDxAxesMoverHelperA* GgafDxAxesMover::hlprA() {
+GgafDxAxesMoverHelperA* GgafDxAxesMover::hlpr() {
     return _pHlprA ? _pHlprA : _pHlprA = NEW GgafDxAxesMoverHelperA(this);
 }
 

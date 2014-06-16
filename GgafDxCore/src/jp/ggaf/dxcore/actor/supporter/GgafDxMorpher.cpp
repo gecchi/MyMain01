@@ -14,7 +14,7 @@ _pActor(prm_pActor) {
     _pHlprA = nullptr;
     forceRange(0.0f, 1.0f);
 }
-GgafDxMorpherHelperA* GgafDxMorpher::hlprA() {
+GgafDxMorpherHelperA* GgafDxMorpher::hlpr() {
     return _pHlprA ? _pHlprA : _pHlprA = NEW GgafDxMorpherHelperA(this);
 }
 

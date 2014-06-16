@@ -18,6 +18,7 @@ public:
     GgafDxMorpher* _pMaster;
     GgafCore::GgafValueAccelerator<float>* _pa_smthMph;
     int _target_num;
+
 public:
     /**
      * コンストラクタ<BR>

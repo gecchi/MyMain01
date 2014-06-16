@@ -233,6 +233,7 @@ void GgafDxKuroko::behave() {
                 addRzMvAng(angDistance);
                 if (_mv_ang_rz_target_stop_flg) { //停止指定ありならば
                     _mv_ang_rz_target_flg = false; //フラグを戻して終了
+                    _mv_ang_rz_target_stop_flg = false;
                 }
             } else {
                 addRzMvAng(_angveloRzMv);
@@ -245,12 +246,20 @@ void GgafDxKuroko::behave() {
                 addRzMvAng(angDistance);
                 if (_mv_ang_rz_target_stop_flg) { //停止指定ありならば
                     _mv_ang_rz_target_flg = false; //フラグを戻して終了
+                    _mv_ang_rz_target_stop_flg = false;
                 }
             } else {
                 addRzMvAng(_angveloRzMv);
             }
         } else {
-            addRzMvAng(0);
+            angle angDistance = getRzMvAngDistance(_angTargetRzMv, TURN_CLOSE_TO);
+            if (angDistance == 0) {
+                addRzMvAng(angDistance);
+                if (_mv_ang_rz_target_stop_flg) { //停止指定ありならば
+                    _mv_ang_rz_target_flg = false; //フラグを戻して終了
+                    _mv_ang_rz_target_stop_flg = false;
+                }
+            }
         }
         if (_mv_ang_rz_target_flg == false) {
             //_angveloRzTopMv = D360ANG; //移動方角（Z軸回転）の角速度上限 ＝ 360,000 angle/fream
@@ -306,9 +315,15 @@ void GgafDxKuroko::behave() {
             } else {
                 addRyMvAng(_angveloRyMv);
             }
-        } else {
-            //_angveloRyMv==0
-            addRyMvAng(0);
+        } else { //_angveloRyMv==0
+            angle angDistance = getRyMvAngDistance(_angTargetRyMv, TURN_CLOSE_TO);
+            if (angDistance == 0) {
+                addRyMvAng(angDistance);
+                if (_mv_ang_ry_target_stop_flg) { //停止指定ありならば
+                    _mv_ang_ry_target_flg = false; //フラグを戻して終了
+                    _mv_ang_ry_target_stop_flg = false;
+                }
+            }
         }
         if (_mv_ang_ry_target_flg == false) {
             //_angveloRyTopMv = D360ANG; //移動方角（Y軸回転）の角速度上限 ＝ 360,000 angle/fream
@@ -1263,7 +1278,7 @@ void GgafDxKuroko::stopTurnMvAng() {
     _mv_ang_rz_target_flg = false;
     _mv_ang_rz_target_stop_flg = false;
     _mv_ang_ry_target_flg = false;
-    _mv_ang_rz_target_stop_flg = false;
+    _mv_ang_ry_target_stop_flg = false;
     if (_pHlprC) {
         _pHlprC->stopTurnMvAng();
     }

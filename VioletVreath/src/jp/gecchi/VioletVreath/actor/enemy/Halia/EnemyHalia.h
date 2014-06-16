@@ -40,7 +40,7 @@ public:
     /** 移動スプラインプログラム */
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
     /** 原点から初期カメラZ位置の距離 */
-    int dZ_camera_init_;
+    coord dZ_camera_init_;
 
     GgafLib::LaserChipDepository* pLaserChipDepo_;
     /** フィードイン・フェードアウト支援 */

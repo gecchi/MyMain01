@@ -50,7 +50,7 @@ EnemyHalia::EnemyHalia(const char* prm_name) :
 
     useProgress(PROG_BANPEI);
     //‰ŠúƒJƒƒ‰ZˆÊ’u
-    dZ_camera_init_ = -1 * P_CAM->_cameraZ_org * LEN_UNIT * PX_UNIT;
+    dZ_camera_init_ = -1 * DX_C(P_CAM->_cameraZ_org);
 }
 
 void EnemyHalia::onCreateModel() {
@@ -94,21 +94,21 @@ void EnemyHalia::processBehavior() {
             pProg->changeNext();
             break;
         }
-        case PROG_ENTRY: {
+        case PROG_ENTRY: {  //“oê
             if (pProg->isJustChanged()) {
-                pAFader_->transitionAcceStep(1.0, 0, 100);
+                pAFader_->transitionAcceStep(1.0, 0, 10);
             }
-            if (pProg->getFrameInProgress() == 40) {
+            if (getAlpha() > 0.8) {
                 setHitAble(true);
-                pProg->changeNext();
+                pProg->change(PROG_FIRST_MOVE);
             }
             break;
         }
-        case PROG_FIRST_MOVE: {
+        case PROG_FIRST_MOVE: { //‰‰ñˆÚ“®
             if (pProg->isJustChanged()) {
                 pKuroko->setRzRyMvAng(0, 0);
                 pKuroko->hlprA()->slideMvByVd(veloTopMv_, 1500000,
-                                              0.4, 0.6, 1000, true);
+                                              0.4, 0.6, -1000, true);
                 pKuroko->setFaceAngVelo(AXIS_X, 1000);
             }
             if (!pKuroko->hlprA()->isSlidingMv()) {
@@ -116,10 +116,10 @@ void EnemyHalia::processBehavior() {
             }
             break;
         }
-        case PROG_MOVE: {
+        case PROG_MOVE: {  //‚Q‰ñˆÈ~‚ÌˆÚ“®
             if (pProg->isJustChanged()) {
                 pKuroko->hlprA()->slideMvByVd(veloTopMv_, 1500000,
-                                              0.4, 0.6, 1000, true);
+                                              0.4, 0.6, -1000, true);
                 pKuroko->setFaceAngVelo(AXIS_X, 1000);
             }
             if (!pKuroko->hlprA()->isSlidingMv()) {
@@ -130,17 +130,20 @@ void EnemyHalia::processBehavior() {
         case PROG_TURN_OPEN: {
             if (pProg->isJustChanged()) {
                 pKuroko->turnMvAngTwd(P_MYSHIP,
-                                      0, 100,
+                                      0, 10,
                                       TURN_CLOSE_TO, false);
             }
-            if (pProg->getFrameInProgress() > 120) {
+            if (!pKuroko->isTurningMvAng()) {
+                pKuroko->turnMvAngTwd(P_MYSHIP,
+                                      0, 100,
+                                      TURN_CLOSE_TO, false);
                 getMorpher()->transitionAcceStep(1, 1.0, 0.0, 0.0004); //ŠJ‚­ 0.0004 ŠJ‚­‘¬‚³
                 pProg->changeNext();
             }
             break;
         }
         case PROG_FIRE_BEGIN: {
-            if (getMorpher()->isTransitioning() == false) {
+            if (!getMorpher()->isTransitioning()) {
                 if ( _x - P_MYSHIP->_x > -dZ_camera_init_) {
                     pProg->change(PROG_IN_FIRE);
                 } else {
@@ -151,11 +154,6 @@ void EnemyHalia::processBehavior() {
             break;
         }
         case PROG_IN_FIRE: {
-//            if (getActiveFrame() % 16U == 0) {
-//                pKuroko->turnMvAngTwd(P_MYSHIP,
-//                                      10, 0,
-//                                      TURN_CLOSE_TO, false);
-//            }
             EnemyStraightLaserChip001* pLaser = (EnemyStraightLaserChip001*)pLaserChipDepo_->dispatch();
             if (pLaser) {
                 if (pLaser->_pChip_front == nullptr) {
@@ -191,7 +189,7 @@ void EnemyHalia::processJudgement() {
 }
 
 void EnemyHalia::onHit(GgafActor* prm_pOtherActor) {
-    if (getMorphWeight(1) > 0.1) { //Œû‚ª‹ó‚¢‚Ä‚½‚ç
+    if (getMorphWeight(1) > 0.3) { //Œû‚ª‹ó‚¢‚Ä‚½‚ç
         bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
         if (was_destroyed) {
             //”j‰óŽž

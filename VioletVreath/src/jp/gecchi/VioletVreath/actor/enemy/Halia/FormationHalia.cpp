@@ -17,7 +17,7 @@ using namespace VioletVreath;
 FormationHalia::FormationHalia(const char* prm_name) :
         TreeFormation(prm_name) {
     _class_name = "FormationHalia";
-    num_Halia_      = RF_FormationHalia_Num(G_RANK);         //編隊のハリアの数
+    num_Halia_  = RF_FormationHalia_Num(G_RANK);         //編隊のハリアの数
     interval_frames_ = RF_FormationHalia_LaunchInterval(G_RANK);    //各ハリアの出現間隔(frame)
     velo_mv_         = RF_FormationHalia_MvVelo(G_RANK); //各ハリアの移動速度
 
