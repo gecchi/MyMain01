@@ -2,7 +2,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 
 #include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverHelperA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 using namespace GgafCore;
@@ -59,8 +59,8 @@ _pActor(prm_pActor) {
 
 }
 
-GgafDxAxesMoverHelperA* GgafDxAxesMover::hlpr() {
-    return _pHlprA ? _pHlprA : _pHlprA = NEW GgafDxAxesMoverHelperA(this);
+GgafDxAxesMoverAssistantA* GgafDxAxesMover::asst() {
+    return _pHlprA ? _pHlprA : _pHlprA = NEW GgafDxAxesMoverAssistantA(this);
 }
 
 void GgafDxAxesMover::behave() {

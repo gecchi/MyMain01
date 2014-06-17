@@ -14,7 +14,7 @@
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 
 using namespace GgafCore;
@@ -96,7 +96,7 @@ void EnemyHalia::processBehavior() {
         }
         case PROG_ENTRY: {  //“oê
             if (pProg->isJustChanged()) {
-                pAFader_->transitionAcceStep(1.0, 0, 10);
+                pAFader_->transitionAcceStep(1.0, 0, 0.001);
             }
             if (getAlpha() > 0.8) {
                 setHitAble(true);
@@ -107,22 +107,22 @@ void EnemyHalia::processBehavior() {
         case PROG_FIRST_MOVE: { //‰‰ñˆÚ“®
             if (pProg->isJustChanged()) {
                 pKuroko->setRzRyMvAng(0, 0);
-                pKuroko->hlprA()->slideMvByVd(veloTopMv_, 1500000,
-                                              0.4, 0.6, -1000, true);
-                pKuroko->setFaceAngVelo(AXIS_X, 1000);
+                pKuroko->asstA()->slideMvByVd(veloTopMv_, PX_C(1000),
+                                              0.4, 0.6, 0, true);
+                pKuroko->setFaceAngVelo(AXIS_X,  D_ANG(1));
             }
-            if (!pKuroko->hlprA()->isSlidingMv()) {
+            if (!pKuroko->asstA()->isSlidingMv()) {
                 pProg->change(PROG_TURN_OPEN);
             }
             break;
         }
         case PROG_MOVE: {  //‚Q‰ñˆÈ~‚ÌˆÚ“®
             if (pProg->isJustChanged()) {
-                pKuroko->hlprA()->slideMvByVd(veloTopMv_, 1500000,
-                                              0.4, 0.6, -1000, true);
-                pKuroko->setFaceAngVelo(AXIS_X, 1000);
+                pKuroko->asstA()->slideMvByVd(veloTopMv_, PX_C(1000),
+                                              0.4, 0.6, 0, true);
+                pKuroko->setFaceAngVelo(AXIS_X, D_ANG(1));
             }
-            if (!pKuroko->hlprA()->isSlidingMv()) {
+            if (!pKuroko->asstA()->isSlidingMv()) {
                 pProg->change(PROG_TURN_OPEN);
             }
             break;
@@ -130,12 +130,12 @@ void EnemyHalia::processBehavior() {
         case PROG_TURN_OPEN: {
             if (pProg->isJustChanged()) {
                 pKuroko->turnMvAngTwd(P_MYSHIP,
-                                      0, 10,
+                                      0, 100,
                                       TURN_CLOSE_TO, false);
             }
             if (!pKuroko->isTurningMvAng()) {
                 pKuroko->turnMvAngTwd(P_MYSHIP,
-                                      0, 100,
+                                      D_ANG(1), 0,
                                       TURN_CLOSE_TO, false);
                 getMorpher()->transitionAcceStep(1, 1.0, 0.0, 0.0004); //ŠJ‚­ 0.0004 ŠJ‚­‘¬‚³
                 pProg->changeNext();
@@ -145,6 +145,8 @@ void EnemyHalia::processBehavior() {
         case PROG_FIRE_BEGIN: {
             if (!getMorpher()->isTransitioning()) {
                 if ( _x - P_MYSHIP->_x > -dZ_camera_init_) {
+                    pKuroko->setMvVelo(PX_C(1)); //‚¿‚å‚Á‚ÆƒoƒbƒN
+                    pKuroko->setFaceAngVelo(AXIS_X, D_ANG(5));//”­ŽË’†‚Í‘¬‚¢‰ñ“]
                     pProg->change(PROG_IN_FIRE);
                 } else {
                     //”wŒã‚©‚ç‚ÍŒ‚‚½‚È‚¢B
@@ -158,7 +160,6 @@ void EnemyHalia::processBehavior() {
             if (pLaser) {
                 if (pLaser->_pChip_front == nullptr) {
                     getSeTx()->play3D(SE_FIRE);
-                    pKuroko->setFaceAngVelo(AXIS_X, 5000);//”­ŽË’†‚Í‘¬‚¢‰ñ“]
                 }
             } else {
                 pProg->change(PROG_CLOSE);

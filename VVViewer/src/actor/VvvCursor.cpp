@@ -6,7 +6,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -62,7 +62,7 @@ void VvvCursor::processBehavior() {
 
     _pUvFlipper->behave();
     getKuroko()->behave();
-    if (getKuroko()->hlprA()->isJustFinishSlidingMv()) {
+    if (getKuroko()->asstA()->isJustFinishSlidingMv()) {
         //—‘zˆÊ’u‚É•â³
         _x = tx_;
         _y = ty_;
@@ -77,14 +77,14 @@ void VvvCursor::sinkMe() {
 }
 
 void VvvCursor::moveTo(coord X, coord Y, coord Z) {
-    getKuroko()->hlprA()->stopSlidingMv();
+    getKuroko()->asstA()->stopSlidingMv();
     getKuroko()->setMvVelo(0);
     getKuroko()->setMvAcce(0);
     tx_ = X;
     ty_ = Y;
     tz_ = Z;
     getKuroko()->setMvAngTwd(tx_, ty_, tz_);
-    getKuroko()->hlprA()->slideMvByDt( UTIL::getDistance(_x, _y, _z, tx_, ty_, tz_), 20, 0.3f, 0.7f, 0, true);
+    getKuroko()->asstA()->slideMvByDt( UTIL::getDistance(_x, _y, _z, tx_, ty_, tz_), 20, 0.3f, 0.7f, 0, true);
     _pProg->change(CUR_ON_MOVE);
 }
 

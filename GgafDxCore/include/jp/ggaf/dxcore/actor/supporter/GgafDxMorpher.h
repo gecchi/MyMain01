@@ -18,7 +18,7 @@ class GgafDxMorpher : public GgafCore::GgafValueTransitioner<float, (MAX_MORPH_T
 
 private:
     /** [r]モーファーの助手A */
-    GgafDxMorpherHelperA* _pHlprA;
+    GgafDxMorpherAssistantA* _pHlprA;
 
 public:
     /** [r]対象アクター */
@@ -35,7 +35,7 @@ public:
      * モーファーの助手A(なめらかモーフ)を取得 .
      * @return モーファーの助手A
      */
-    GgafDxMorpherHelperA* hlpr();
+    GgafDxMorpherAssistantA* asst();
 
     void reset() override;
 

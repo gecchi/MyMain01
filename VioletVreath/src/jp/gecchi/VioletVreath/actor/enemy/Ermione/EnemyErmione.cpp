@@ -12,7 +12,7 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Ermione/EnemyErmioneArmWeak.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ermione/EnemyErmioneArmHead.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ermione/EnemyErmioneArmBody.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantB.h"
 
 
 using namespace GgafCore;
@@ -136,7 +136,7 @@ void EnemyErmione::processBehavior() {
                 throwEventLowerTree(EVENT_ERMIONE_ENTRY_DONE);
                 pKuroko->setMvAngTwd(P_MYSHIP);
                 pKuroko->setMvVelo(10);
-                pKuroko->hlprB()->turnFaceAngByDtTwd(
+                pKuroko->asstB()->turnFaceAngByDtTwd(
                         P_MYSHIP, TURN_CLOSE_TO, true, 60*30,
                         0.4, 0.6, 0, true);
 

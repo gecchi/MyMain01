@@ -12,7 +12,7 @@ namespace GgafDxCore {
  * @since 2013/12/05
  * @author Masatoshi Tsuge
  */
-class GgafDxKurokoHelperB : public GgafCore::GgafObject {
+class GgafDxKurokoAssistantB : public GgafCore::GgafObject {
 
 public:
     /** [r]師匠 */
@@ -23,7 +23,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pMaster  師匠
      */
-    GgafDxKurokoHelperB(GgafDxKuroko* prm_pMaster);
+    GgafDxKurokoAssistantB(GgafDxKuroko* prm_pMaster);
 
 
     /**
@@ -269,7 +269,7 @@ public:
      */
     virtual void behave();
 
-    virtual ~GgafDxKurokoHelperB();
+    virtual ~GgafDxKurokoAssistantB();
 };
 
 }

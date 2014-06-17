@@ -12,7 +12,7 @@
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Glaja/EnemyGlajaLance001.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -88,10 +88,10 @@ void EnemyGlaja::processBehavior() {
                  velo Vt = RF_EnemyGlaja_MvVelo(G_RANK);
                  velo Ve = 100;
                  coord D = UTIL::getDistance(this, &next_pos_);
-                 pKuroko->hlprA()->slideMvByVd(Vt, D, 0.1, 0.5, Ve, true);
+                 pKuroko->asstA()->slideMvByVd(Vt, D, 0.1, 0.5, Ve, true);
              }
 
-             if (pKuroko->hlprA()->isJustFinishSlidingMv()) {
+             if (pKuroko->asstA()->isJustFinishSlidingMv()) {
                  pProg->changeNext();
              }
              break;

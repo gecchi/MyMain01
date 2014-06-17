@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverHelperA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
 
 #include "jp/ggaf/core/util/GgafValueAccelerator.hpp"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
@@ -9,7 +9,7 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxAxesMoverHelperA::GgafDxAxesMoverHelperA(GgafDxAxesMover* prm_pMaster) : GgafObject(),
+GgafDxAxesMoverAssistantA::GgafDxAxesMoverAssistantA(GgafDxAxesMover* prm_pMaster) : GgafObject(),
         _pMaster(prm_pMaster) {
     _smthVxMv._velo = _pMaster->_veloVxMv;
     _smthVxMv._acce = _pMaster->_acceVxMv;
@@ -18,7 +18,7 @@ GgafDxAxesMoverHelperA::GgafDxAxesMoverHelperA(GgafDxAxesMover* prm_pMaster) : G
     _smthVzMv._velo = _pMaster->_veloVzMv;
     _smthVzMv._acce = _pMaster->_acceVzMv;
 }
-void GgafDxAxesMoverHelperA::behave() {
+void GgafDxAxesMoverAssistantA::behave() {
     bool flgx = _smthVxMv._prm._flg;
     _smthVxMv.behave();
     bool flgy = _smthVyMv._prm._flg;
@@ -42,7 +42,7 @@ void GgafDxAxesMoverHelperA::behave() {
 
 }
 
-void GgafDxAxesMoverHelperA::slideVxMvByDt(coord prm_target_distance, int prm_target_frames,
+void GgafDxAxesMoverAssistantA::slideVxMvByDt(coord prm_target_distance, int prm_target_frames,
                                            float prm_p1, float prm_p2, velo prm_end_velo,
                                            bool prm_endacc_flg) {
     _smthVxMv._value = 0;
@@ -53,7 +53,7 @@ void GgafDxAxesMoverHelperA::slideVxMvByDt(coord prm_target_distance, int prm_ta
                              prm_endacc_flg);
 }
 
-void GgafDxAxesMoverHelperA::slideVyMvByDt(coord prm_target_distance, int prm_target_frames,
+void GgafDxAxesMoverAssistantA::slideVyMvByDt(coord prm_target_distance, int prm_target_frames,
                                            float prm_p1, float prm_p2, velo prm_end_velo,
                                            bool prm_endacc_flg) {
     _smthVyMv._value = 0;
@@ -64,7 +64,7 @@ void GgafDxAxesMoverHelperA::slideVyMvByDt(coord prm_target_distance, int prm_ta
                              prm_endacc_flg);
 }
 
-void GgafDxAxesMoverHelperA::slideVzMvByDt(coord prm_target_distance, int prm_target_frames,
+void GgafDxAxesMoverAssistantA::slideVzMvByDt(coord prm_target_distance, int prm_target_frames,
                                            float prm_p1, float prm_p2, velo prm_end_velo,
                                            bool prm_endacc_flg) {
     _smthVzMv._value = 0;
@@ -75,7 +75,7 @@ void GgafDxAxesMoverHelperA::slideVzMvByDt(coord prm_target_distance, int prm_ta
                              prm_endacc_flg);
 }
 
-void GgafDxAxesMoverHelperA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
+void GgafDxAxesMoverAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
                                                int prm_target_frames,
                                                float prm_p1, float prm_p2, velo prm_end_velo,
                                                bool prm_endacc_flg) {
@@ -87,7 +87,7 @@ void GgafDxAxesMoverHelperA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_t
                      prm_endacc_flg);
 }
 
-void GgafDxAxesMoverHelperA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
+void GgafDxAxesMoverAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
                        int prm_target_frames,
                        float prm_x_p1, float prm_x_p2, velo prm_x_end_velo,
                        float prm_y_p1, float prm_y_p2, velo prm_y_end_velo,
@@ -109,7 +109,7 @@ void GgafDxAxesMoverHelperA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_t
 
 
 
-void GgafDxAxesMoverHelperA::slideVxMvByVd(velo prm_top_velo, coord prm_target_distance,
+void GgafDxAxesMoverAssistantA::slideVxMvByVd(velo prm_top_velo, coord prm_target_distance,
                                            float prm_p1, float prm_p2, velo prm_end_velo,
                                            bool prm_endacc_flg) {
     _smthVxMv._value = 0;
@@ -120,7 +120,7 @@ void GgafDxAxesMoverHelperA::slideVxMvByVd(velo prm_top_velo, coord prm_target_d
                              prm_endacc_flg);
 }
 
-void GgafDxAxesMoverHelperA::slideVyMvByVd(velo prm_top_velo, coord prm_target_distance,
+void GgafDxAxesMoverAssistantA::slideVyMvByVd(velo prm_top_velo, coord prm_target_distance,
                                            float prm_p1, float prm_p2, velo prm_end_velo,
                                            bool prm_endacc_flg) {
     _smthVyMv._value = 0;
@@ -131,7 +131,7 @@ void GgafDxAxesMoverHelperA::slideVyMvByVd(velo prm_top_velo, coord prm_target_d
                              prm_endacc_flg);
 }
 
-void GgafDxAxesMoverHelperA::slideVzMvByVd(velo prm_top_velo, coord prm_target_distance,
+void GgafDxAxesMoverAssistantA::slideVzMvByVd(velo prm_top_velo, coord prm_target_distance,
                                            float prm_p1, float prm_p2, velo prm_end_velo,
                                            bool prm_endacc_flg) {
     _smthVzMv._value = 0;
@@ -141,7 +141,7 @@ void GgafDxAxesMoverHelperA::slideVzMvByVd(velo prm_top_velo, coord prm_target_d
                              prm_p1,prm_p2,prm_end_velo,
                              prm_endacc_flg);
 }
-void GgafDxAxesMoverHelperA::slideVxyzMvByVd(velo prm_top_velo,
+void GgafDxAxesMoverAssistantA::slideVxyzMvByVd(velo prm_top_velo,
                                              coord prm_x_target_distance, coord prm_y_target_distance, coord prm_z_target_distance,
                                              float prm_p1, float prm_p2, velo prm_end_velo,
                                              bool prm_endacc_flg) {
@@ -158,7 +158,7 @@ void GgafDxAxesMoverHelperA::slideVxyzMvByVd(velo prm_top_velo,
                        prm_endacc_flg);
     }
 }
-void GgafDxAxesMoverHelperA::slideVxyzMvByVdTo(velo prm_top_velo,
+void GgafDxAxesMoverAssistantA::slideVxyzMvByVdTo(velo prm_top_velo,
                                                coord prm_x_target, coord prm_y_target, coord prm_z_target,
                                                float prm_p1, float prm_p2, velo prm_end_velo,
                                                bool prm_endacc_flg) {
@@ -170,7 +170,7 @@ void GgafDxAxesMoverHelperA::slideVxyzMvByVdTo(velo prm_top_velo,
                     prm_endacc_flg);
 }
 
-GgafDxAxesMoverHelperA::~GgafDxAxesMoverHelperA() {
+GgafDxAxesMoverAssistantA::~GgafDxAxesMoverAssistantA() {
 }
 
 

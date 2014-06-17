@@ -5,9 +5,9 @@
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperC.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantC.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverHelperA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 
 using namespace GgafCore;
@@ -36,7 +36,7 @@ void Teki002::initialize() {
 
 void Teki002::processBehavior() {
     if (GgafDxCore::GgafDxInput::isBeingPressedKey(DIK_1)) {
-        pAxMvr_->hlpr()->slideVxyzMvByDtTo(PX_C(250),PX_C(250), 0,
+        pAxMvr_->asst()->slideVxyzMvByDtTo(PX_C(250),PX_C(250), 0,
                                           120,
                                           0.1, 0.1, 0,
                                           0.9, 0.9, 0,
@@ -45,7 +45,7 @@ void Teki002::processBehavior() {
     }
 
     if (GgafDxCore::GgafDxInput::isBeingPressedKey(DIK_2)) {
-        pAxMvr_->hlpr()->slideVxyzMvByDtTo(PX_C(250),PX_C(250), 0,
+        pAxMvr_->asst()->slideVxyzMvByDtTo(PX_C(250),PX_C(250), 0,
                                           120,
                                           0.9, 0.9, 0,
                                           0.1, 0.1, 0,
@@ -55,7 +55,7 @@ void Teki002::processBehavior() {
 
 
     if (GgafDxCore::GgafDxInput::isBeingPressedKey(DIK_3)) {
-        pAxMvr_->hlpr()->slideVxyzMvByDtTo(PX_C(-250),PX_C(-250), 0,
+        pAxMvr_->asst()->slideVxyzMvByDtTo(PX_C(-250),PX_C(-250), 0,
                                           120,
                                           0.3, 0.7, 0,
                                           0.3, 0.7, 0,
@@ -68,7 +68,7 @@ void Teki002::processBehavior() {
         float vx,vy,vz;
         UTIL::getNormalizeVector(pAxMvr_->_veloVxMv,pAxMvr_->_veloVyMv,pAxMvr_->_veloVzMv,
                                  vx,vy,vz);
-        pAxMvr_->hlpr()->slideVxyzMvByDt(PX_C(10)*vx, PX_C(10)*vy, PX_C(10)*vz,
+        pAxMvr_->asst()->slideVxyzMvByDt(PX_C(10)*vx, PX_C(10)*vy, PX_C(10)*vz,
                                               10,
                                               0.0,0.0, 0, true);
     }
@@ -148,7 +148,7 @@ void Teki002::processBehavior() {
 //    }
 //    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_SPACE)) {
 //        position(0,0,0);
-//        pAxMvr_->hlprA()->slideVxMvByVd(
+//        pAxMvr_->asstA()->slideVxMvByVd(
 //                1168,1721,
 //                0.3, 0.4, 0, true);
 //    }
@@ -214,12 +214,12 @@ void Teki002::processBehavior() {
 //
 //
 //    if (pressD && press1) {
-//        pAxMvr_->hlprA()->slideVxyzMvByVdTo(PX_C(20),
+//        pAxMvr_->asstA()->slideVxyzMvByVdTo(PX_C(20),
 //                tx,ty,tz,
 //                0.3, 0.7, 0, true);
 //    }
 //    if (pressT && press1) {
-//        pAxMvr_->hlprA()->slideVxyzMvByDtTo(tx,ty,tz,
+//        pAxMvr_->asstA()->slideVxyzMvByDtTo(tx,ty,tz,
 //                                            60,
 //                                            0.3, 0.7, 0, true);
 //
@@ -230,7 +230,7 @@ void Teki002::processBehavior() {
 //    }
 //    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Z)) {
 //        angle trz = UTIL::simplifyAng(_rz + D_ANG(170));
-//        getKuroko()->hlprC()->turnRzRyMvAngByDtTo(
+//        getKuroko()->asstC()->turnRzRyMvAngByDtTo(
 //                trz, 0, TURN_COUNTERCLOCKWISE, false,
 //                60,
 //                0.5, 0.5, 0,
@@ -238,7 +238,7 @@ void Teki002::processBehavior() {
 //    }
 //    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_X)) {
 //        angle trz = UTIL::simplifyAng(_rz + D_ANG(170));
-//        getKuroko()->hlprC()->turnRzRyMvAngByDtTo(
+//        getKuroko()->asstC()->turnRzRyMvAngByDtTo(
 //                trz, 0, TURN_CLOCKWISE, false,
 //                60,
 //                0.5, 0.5, 0,

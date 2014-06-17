@@ -2,10 +2,10 @@
 #include "ViewPoint.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/actor/DefaultMeshActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverHelperA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyOptionControllerGizmo.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -31,7 +31,7 @@ void ViewPoint::processBehavior() {
 void ViewPoint::slideMvTo(coord tx, coord ty, coord tz, frame t) {
     //_TRACE_(" ViewPoint::slideMvTo("<<tx<<","<<ty<<","<<tz<<",t="<<t<<")  now("<<_x<<","<<_y<<","<<_z<<")");
     //ƒJƒƒ‰‚Ê‚é‚Á‚ÆˆÚ“®
-    pAxsMver_->hlpr()->slideVxyzMvByDtTo(
+    pAxsMver_->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               0.3, 0.4, 0, true);
 }

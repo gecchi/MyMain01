@@ -10,7 +10,7 @@
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/actor/Camera.h"
 #include "jp/gecchi/VioletVreath/actor/ViewPoint.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverHelperA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

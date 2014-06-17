@@ -64,7 +64,7 @@ public:
     coord _grv_mv_stop_renge;
     bool _grv_mv_flg;
     /** [r]•ˆßB‚Ì•èA */
-    GgafDxAxesMoverHelperA* _pHlprA;
+    GgafDxAxesMoverAssistantA* _pHlprA;
 
 public:
     /**
@@ -77,7 +77,7 @@ public:
      * •ˆßB‚Ì•è(ŠŠ‚ç‚©ˆÚ“®’S“–)‚ğæ“¾ .
      * @return •ˆßB‚Ì•è
      */
-    GgafDxAxesMoverHelperA* hlpr();
+    GgafDxAxesMoverAssistantA* asst();
 
     int dot(int prm_vX, int prm_vY, int prm_vZ);
     /**

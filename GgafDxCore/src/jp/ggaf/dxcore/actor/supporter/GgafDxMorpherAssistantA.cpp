@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpherHelperA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpherAssistantA.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
 #include "jp/ggaf/core/util/GgafValueAccelerator.hpp"
@@ -10,7 +10,7 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxMorpherHelperA::GgafDxMorpherHelperA(GgafDxMorpher* prm_pMaster) : GgafObject(),
+GgafDxMorpherAssistantA::GgafDxMorpherAssistantA(GgafDxMorpher* prm_pMaster) : GgafObject(),
         _pMaster(prm_pMaster) {
     _target_num = prm_pMaster->_pActor->_pMorphMeshModel->_morph_target_num;
 
@@ -21,7 +21,7 @@ GgafDxMorpherHelperA::GgafDxMorpherHelperA(GgafDxMorpher* prm_pMaster) : GgafObj
     }
 }
 
-void GgafDxMorpherHelperA::behave() {
+void GgafDxMorpherAssistantA::behave() {
     for (int i = 1; i <= _target_num; i++) {
         bool flg = _pa_smthMph[i]._prm._flg;
         _pa_smthMph[i].behave();
@@ -32,7 +32,7 @@ void GgafDxMorpherHelperA::behave() {
     }
 }
 
-void GgafDxMorpherHelperA::morphByDt(int prm_target_mesh_no,
+void GgafDxMorpherAssistantA::morphByDt(int prm_target_mesh_no,
                                       float prm_target_distance, int prm_target_frames,
                                       float prm_p1, float prm_p2, float prm_end_velo,
                                       bool prm_endacc_flg) {
@@ -44,7 +44,7 @@ void GgafDxMorpherHelperA::morphByDt(int prm_target_mesh_no,
                                                    prm_endacc_flg);
 }
 
-void GgafDxMorpherHelperA::morphByVd(int prm_target_mesh_no,
+void GgafDxMorpherAssistantA::morphByVd(int prm_target_mesh_no,
                                       float prm_top_velo, float prm_target_distance,
                                       float prm_p1, float prm_p2, float prm_end_velo,
                                       bool prm_endacc_flg) {
@@ -56,7 +56,7 @@ void GgafDxMorpherHelperA::morphByVd(int prm_target_mesh_no,
                                                    prm_endacc_flg);
 }
 
-GgafDxMorpherHelperA::~GgafDxMorpherHelperA() {
+GgafDxMorpherAssistantA::~GgafDxMorpherAssistantA() {
     GGAF_DELETEARR(_pa_smthMph);
 }
 

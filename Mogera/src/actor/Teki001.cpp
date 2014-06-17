@@ -6,7 +6,7 @@
 #include <dinput.h>
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "GgafDxCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantB.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -90,13 +90,13 @@ void Teki001::processBehavior() {
     int dz = PX_C(100)*sz;
 
     if (pressD && press1) {
-        getKuroko()->hlprB()->turnFaceAngByVdTwd(
+        getKuroko()->asstB()->turnFaceAngByVdTwd(
                 D_ANG(2),
                 _x + dx, _y + dy, _z + dz, TURN_CLOSE_TO, true,
                 0.3, 0.7, 0, true);
     }
     if (pressT && press1) {
-        getKuroko()->hlprB()->turnFaceAngByDtTwd(
+        getKuroko()->asstB()->turnFaceAngByDtTwd(
                 _x + dx, _y + dy, _z + dz, TURN_CLOSE_TO, true,
                 60,
                 0.3, 0.7, 0, true);

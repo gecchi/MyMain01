@@ -3,7 +3,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverHelperA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -23,7 +23,7 @@ void VvvViewPoint::processBehavior() {
 
 void VvvViewPoint::slideMvTo(coord tx, coord ty, coord tz, frame t) {
     //ƒJƒƒ‰‚Ê‚é‚Á‚ÆˆÚ“®
-    pAxsMver_->hlpr()->slideVxyzMvByDtTo(
+    pAxsMver_->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               0.3, 0.4, 0, true);
 }

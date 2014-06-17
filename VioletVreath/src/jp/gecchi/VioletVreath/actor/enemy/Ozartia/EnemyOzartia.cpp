@@ -13,7 +13,7 @@
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -188,10 +188,10 @@ void EnemyOzartia::processBehavior() {
         case PROG1_MOVING: {
             if (pProg->isJustChanged()) {
                 //自機の正面付近へスイーっと行きます
-                pKuroko->hlprA()->slideMvByVd(pKuroko->getMvVeloTop(), UTIL::getDistance(this, &posMvTarget_),
+                pKuroko->asstA()->slideMvByVd(pKuroko->getMvVeloTop(), UTIL::getDistance(this, &posMvTarget_),
                                        0.3f, 0.7f, pKuroko->getMvVeloBottom(), true);
             }
-            if (!pKuroko->hlprA()->isSlidingMv()) {
+            if (!pKuroko->asstA()->isSlidingMv()) {
                 //到着したら終了
                 pProg->change(PROG1_STAY);
             }

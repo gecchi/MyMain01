@@ -5,7 +5,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 #include "jp/ggaf/lib/util/PxQuantity.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantB.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -29,19 +29,19 @@ void TestBar::processBehavior() {
     GgafDxKuroko* pKuroko = getKuroko();
    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_D)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_D)!!!!!");
-        pKuroko->hlprB()->_smthFaceAng[AXIS_Z]._prm._flg = false;
+        pKuroko->asstB()->_smthFaceAng[AXIS_Z]._prm._flg = false;
         pKuroko->setFaceAngVelo(AXIS_Z, pKuroko->_angveloFace[AXIS_Z] + D_ANG(2));
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_F)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_F)!!!!!");
-        pKuroko->hlprB()->_smthFaceAng[AXIS_Z]._prm._flg = false;
+        pKuroko->asstB()->_smthFaceAng[AXIS_Z]._prm._flg = false;
         pKuroko->setFaceAngVelo(AXIS_Z, pKuroko->_angveloFace[AXIS_Z] - D_ANG(2));
     }
 
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_A)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_A)!!!!!");
-        pKuroko->hlprB()->turnRzFaceAngByVdTo(
+        pKuroko->asstB()->turnRzFaceAngByVdTo(
                         D_ANG(3), D_ANG(180), TURN_CLOSE_TO,
                         0.3, 0.6, D_ANG(0),
                         true
@@ -49,7 +49,7 @@ void TestBar::processBehavior() {
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_S)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_S)!!!!!");
-        pKuroko->hlprB()->turnRzFaceAngByVdTo(
+        pKuroko->asstB()->turnRzFaceAngByVdTo(
                         D_ANG(3), D_ANG(0), TURN_CLOSE_TO,
                         0.3, 0.6, D_ANG(0),
                         true
@@ -57,7 +57,7 @@ void TestBar::processBehavior() {
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Z)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Z)!!!!!");
-        pKuroko->hlprB()->turnRzFaceAngByDtTo(
+        pKuroko->asstB()->turnRzFaceAngByDtTo(
                         D_ANG(180), TURN_ANTICLOSE_TO, 30,
                         0.3, 0.6, D_ANG(0),
                         true
@@ -65,7 +65,7 @@ void TestBar::processBehavior() {
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_X)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_X)!!!!!");
-        pKuroko->hlprB()->turnRzFaceAngByDtTo(
+        pKuroko->asstB()->turnRzFaceAngByDtTo(
                         D_ANG(0), TURN_ANTICLOSE_TO, 30,
                         0.3, 0.6, D_ANG(0),
                         true
@@ -74,7 +74,7 @@ void TestBar::processBehavior() {
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_C)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_C)!!!!!");
-        pKuroko->hlprB()->turnFaceAngByDt(AXIS_Z,
+        pKuroko->asstB()->turnFaceAngByDt(AXIS_Z,
                         D_ANG(360+360), 60,
                         0.3, 0.6, D_ANG(0),
                         true
@@ -82,7 +82,7 @@ void TestBar::processBehavior() {
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_V)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_V)!!!!!");
-        pKuroko->hlprB()->turnFaceAngByDt(AXIS_Z,
+        pKuroko->asstB()->turnFaceAngByDt(AXIS_Z,
                         D_ANG(-360-360), 60,
                         0.3, 0.6, D_ANG(0),
                         true
@@ -90,7 +90,7 @@ void TestBar::processBehavior() {
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_B)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_B)!!!!!");
-        pKuroko->hlprB()->turnFaceAngByVd(AXIS_Z,
+        pKuroko->asstB()->turnFaceAngByVd(AXIS_Z,
                         D_ANG(10),  D_ANG(360+360),
                         0.3, 0.6, D_ANG(0),
                         true
@@ -98,7 +98,7 @@ void TestBar::processBehavior() {
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_N)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_N)!!!!!");
-        pKuroko->hlprB()->turnFaceAngByVd(AXIS_Z,
+        pKuroko->asstB()->turnFaceAngByVd(AXIS_Z,
                         D_ANG(10), D_ANG(-360-360),
                         0.3, 0.6, D_ANG(0),
                         true

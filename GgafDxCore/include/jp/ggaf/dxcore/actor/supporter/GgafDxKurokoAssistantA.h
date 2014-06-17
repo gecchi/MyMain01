@@ -12,7 +12,7 @@ namespace GgafDxCore {
  * @since 2013/12/05
  * @author Masatoshi Tsuge
  */
-class GgafDxKurokoHelperA : public GgafCore::GgafObject {
+class GgafDxKurokoAssistantA : public GgafCore::GgafObject {
 
 public:
     /** [r]師匠 */
@@ -23,7 +23,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pMaster  師匠
      */
-    GgafDxKurokoHelperA(GgafDxKuroko* prm_pMaster);
+    GgafDxKurokoAssistantA(GgafDxKuroko* prm_pMaster);
 
 
     /**
@@ -93,11 +93,11 @@ public:
      * トップスピード(Vt)、最終スピード(Ve)、目標移動距離(D)、及び p1, p2 を指定する。<BR>
      * 費やされる時間(Te)は内部で自動計し決定される。<BR>
      * <BR>
-     * @param prm_top_velo トップスピード(Vt)
+     * @param prm_top_velo トップスピード(Vt) (>=0)
      * @param prm_target_distance 目標直線移動距離(D)
      * @param prm_p1 トップスピードに達する距離となるような、距離(D)に対する割合。(d1 = D*prm_p1)
      * @param prm_p2 減速を開始距離となるような、距離(D)に対する割合 (d1+d2 = D*p2)
-     * @param prm_end_velo 最終スピード(Ve)
+     * @param prm_end_velo 最終スピード(Ve) (>=0)
      * @param prm_endacc_flg true:目標時間に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
     void slideMvByVd(velo prm_top_velo, coord prm_target_distance,
@@ -125,7 +125,7 @@ public:
      */
     virtual void behave();
 
-    virtual ~GgafDxKurokoHelperA();
+    virtual ~GgafDxKurokoAssistantA();
 };
 
 }

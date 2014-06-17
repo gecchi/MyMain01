@@ -10,7 +10,7 @@
 #include "actor/VvvCamera.h"
 #include "scene/VvvUniverse.h"
 #include "actor/VvvViewPoint.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

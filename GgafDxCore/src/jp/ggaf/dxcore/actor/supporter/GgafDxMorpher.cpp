@@ -4,7 +4,7 @@
 #include "jp/ggaf/dxcore/actor/GgafDxMorphMeshActor.h"
 #include "jp/ggaf/dxcore/model/GgafDxMorphMeshModel.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpherHelperA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpherAssistantA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -14,8 +14,8 @@ _pActor(prm_pActor) {
     _pHlprA = nullptr;
     forceRange(0.0f, 1.0f);
 }
-GgafDxMorpherHelperA* GgafDxMorpher::hlpr() {
-    return _pHlprA ? _pHlprA : _pHlprA = NEW GgafDxMorpherHelperA(this);
+GgafDxMorpherAssistantA* GgafDxMorpher::asst() {
+    return _pHlprA ? _pHlprA : _pHlprA = NEW GgafDxMorpherAssistantA(this);
 }
 
 void GgafDxMorpher::reset() {

@@ -6,9 +6,9 @@
 #include "jp/gecchi/VioletVreath/scene/Universe.h"
 #include "jp/gecchi/VioletVreath/actor/ViewPoint.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperA.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverHelperA.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantB.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 
 using namespace GgafCore;
@@ -105,10 +105,10 @@ void CameraWorker::behaveAutoCamUp() {
     int bk_up_face_ = pCam_->up_face_;
 #endif
     if (pCam_->vcv_face_ != pCam_->vcv_face_prev_) {
-        GgafDxAxesMoverHelperA* hlprA = pCam_->pAxsMver_->hlpr();
-        int fx = hlprA->_smthVxMv._prm._flg ? hlprA->_smthVxMv._prm._target_frames : 10;
-        int fy = hlprA->_smthVyMv._prm._flg ? hlprA->_smthVyMv._prm._target_frames : 10;
-        int fz = hlprA->_smthVzMv._prm._flg ? hlprA->_smthVzMv._prm._target_frames : 10;
+        GgafDxAxesMoverAssistantA* asstA = pCam_->pAxsMver_->asst();
+        int fx = asstA->_smthVxMv._prm._flg ? asstA->_smthVxMv._prm._target_frames : 10;
+        int fy = asstA->_smthVyMv._prm._flg ? asstA->_smthVyMv._prm._target_frames : 10;
+        int fz = asstA->_smthVzMv._prm._flg ? asstA->_smthVzMv._prm._target_frames : 10;
         frame up_frames = (frame)(MAX3(fx,fy,fz) / 2) ; //半分のフレーム時間でUP変更を完了させる
         if (pCam_->vcv_face_ == pCam_->up_face_) {
             //今のUP(up_face_)の面にカメラ→視点ベクトル(vcv_face_)が突き刺さる場合
@@ -135,7 +135,7 @@ void CameraWorker::behaveAutoCamUp() {
 //            pAxMvr->_veloVyMv,
 //            pAxMvr->_veloVzMv,
 //            vx,vy,vz);
-//    pAxMvr->hlprA()->slideVxyzMvByDt(distance*vx, distance*vy, distance*vz,
+//    pAxMvr->asstA()->slideVxyzMvByDt(distance*vx, distance*vy, distance*vz,
 //                                     t,
 //                                     0.0, 0.0, 0, true);
 //}
@@ -147,7 +147,7 @@ void CameraWorker::behaveAutoCamUp() {
 //            pAxMvr->_veloVyMv,
 //            pAxMvr->_veloVzMv,
 //            vx,vy,vz);
-//    pAxMvr->hlprA()->slideVxyzMvByDt(distance*vx, distance*vy, distance*vz,
+//    pAxMvr->asstA()->slideVxyzMvByDt(distance*vx, distance*vy, distance*vz,
 //                                     t,
 //                                     0.0, 0.0, 0, true);
 //}

@@ -11,7 +11,7 @@ namespace GgafDxCore {
  * @since 2013/12/06
  * @author Masatoshi Tsuge
  */
-class GgafDxMorpherHelperA : public GgafCore::GgafObject {
+class GgafDxMorpherAssistantA : public GgafCore::GgafObject {
 
 public:
     /** [r]師匠 */
@@ -24,7 +24,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pMaster  師匠
      */
-    GgafDxMorpherHelperA(GgafDxMorpher* prm_pMaster);
+    GgafDxMorpherAssistantA(GgafDxMorpher* prm_pMaster);
 
 
     /**
@@ -113,7 +113,7 @@ public:
      */
     virtual void behave();
 
-    virtual ~GgafDxMorpherHelperA();
+    virtual ~GgafDxMorpherAssistantA();
 };
 
 }

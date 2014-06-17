@@ -7,8 +7,8 @@
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperA.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpherHelperA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpherAssistantA.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxColorist.h"
 
 using namespace GgafCore;
@@ -59,20 +59,20 @@ void Mikata001::processBehavior() {
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_1)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_1)!!!!!");
-        getMorpher()->hlpr()->morphByDt(1, 1.0 - _weight[1], 60, 0.3, 0.5, 0.00, true);
+        getMorpher()->asst()->morphByDt(1, 1.0 - _weight[1], 60, 0.3, 0.5, 0.00, true);
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_2)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_2)!!!!!");
-        getMorpher()->hlpr()->morphByDt(1,0.0 - _weight[1], 60, 0.3, 0.5, 0.00, true);
+        getMorpher()->asst()->morphByDt(1,0.0 - _weight[1], 60, 0.3, 0.5, 0.00, true);
     }
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_3)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_3)!!!!!");
-        getMorpher()->hlpr()->morphByVd(1,0.04, 1.0 - _weight[1],  0.4, 0.5, 0.00, true);
+        getMorpher()->asst()->morphByVd(1,0.04, 1.0 - _weight[1],  0.4, 0.5, 0.00, true);
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_4)) {
         _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_4)!!!!!");
-        getMorpher()->hlpr()->morphByVd(1,0.04, 0.0 - _weight[1], 0.4, 0.5, 0.00, true);
+        getMorpher()->asst()->morphByVd(1,0.04, 0.0 - _weight[1], 0.4, 0.5, 0.00, true);
     }
 
 
@@ -92,19 +92,19 @@ void Mikata001::processBehavior() {
 //
 //    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_A)) {
 //        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_A)!!!!!");
-//        getKuroko()->hlprA()->slideMvByVd(PX_C(10), PX_C(-320)-_x, 0.3, 0.7, PX_C(0), true);
+//        getKuroko()->asstA()->slideMvByVd(PX_C(10), PX_C(-320)-_x, 0.3, 0.7, PX_C(0), true);
 //    }
 //    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_S)) {
 //        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_S)!!!!!");
-//        getKuroko()->hlprA()->slideMvByVd(PX_C(10), PX_C(320) - _x, 0.4, 0.6, PX_C(0), true);
+//        getKuroko()->asstA()->slideMvByVd(PX_C(10), PX_C(320) - _x, 0.4, 0.6, PX_C(0), true);
 //    }
 //    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Z)) {
 //        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Q)!!!!!");
-//        getKuroko()->hlprA()->slideMvByDt(PX_C(-320) - _x, 120, 0.3, 0.6, PX_C(0), true);
+//        getKuroko()->asstA()->slideMvByDt(PX_C(-320) - _x, 120, 0.3, 0.6, PX_C(0), true);
 //    }
 //    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_X)) {
 //        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_W)!!!!!");
-//        getKuroko()->hlprA()->slideMvByDt(PX_C(320) - _x, 120, 0.3, 0.6, PX_C(0), true);
+//        getKuroko()->asstA()->slideMvByDt(PX_C(320) - _x, 120, 0.3, 0.6, PX_C(0), true);
 //    }
 
 

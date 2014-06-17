@@ -4,7 +4,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -123,14 +123,14 @@ void MenuBoard::onRise() {
              target_y_ + slide_from_offset_y_);
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setMvAngTwd(target_x_, target_y_);
-    pKuroko->hlprA()->slideMvByDt(UTIL::getDistance(_x, _y, target_x_, target_y_), _fade_frames,
+    pKuroko->asstA()->slideMvByDt(UTIL::getDistance(_x, _y, target_x_, target_y_), _fade_frames,
                            0.2, 0.3, 0, true);
     getSeTx()->play(SE_ON_RISEN);
 }
 
 void MenuBoard::processBehavior() {
     GgafDxKuroko* pKuroko = getKuroko();
-    if (pKuroko->hlprA()->isJustFinishSlidingMv()) {
+    if (pKuroko->asstA()->isJustFinishSlidingMv()) {
         //スライド終了時、目的の座標へ補正
         position(target_x_, target_y_);
     }
@@ -149,7 +149,7 @@ void MenuBoard::onSink() {
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setMvAngTwd(target_x_ + slide_from_offset_x_,
                          target_y_ + slide_from_offset_y_);
-    pKuroko->hlprA()->slideMvByDt(UTIL::getDistance(
+    pKuroko->asstA()->slideMvByDt(UTIL::getDistance(
                                   _x, _y,
                                   target_x_+slide_from_offset_x_, target_y_+slide_from_offset_y_
                            ), _fade_frames,

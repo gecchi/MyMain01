@@ -13,7 +13,7 @@ namespace GgafDxCore {
  * @since 2013/12/16
  * @author Masatoshi Tsuge
  */
-class GgafDxAxesMoverHelperA : public GgafCore::GgafObject {
+class GgafDxAxesMoverAssistantA : public GgafCore::GgafObject {
 
 public:
     /** [r]師匠 */
@@ -29,7 +29,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pMaster  師匠
      */
-    GgafDxAxesMoverHelperA(GgafDxAxesMover* prm_pMaster);
+    GgafDxAxesMoverAssistantA(GgafDxAxesMover* prm_pMaster);
 
     /**
      * X軸方向でなめらかな移動速度を変化させるシークエンスを実行(時間・距離指定、速度変動) .
@@ -302,7 +302,7 @@ public:
     }
     virtual void behave();
 
-    virtual ~GgafDxAxesMoverHelperA();
+    virtual ~GgafDxAxesMoverAssistantA();
 };
 
 }

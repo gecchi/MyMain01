@@ -10,7 +10,7 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantB.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -106,7 +106,7 @@ void EnemyGlajaLance001::processBehavior() {
         case PROG_AIM_ANIME02: {
             if (pProg->isJustChanged()) {
                 //Ž©‹@‚ÉƒOƒ‹ƒ“‚ÆŒü‚­
-                pKuroko->hlprB()->turnFaceAngByDtTwd(pMyShip, TURN_ANTICLOSE_TO, false,
+                pKuroko->asstB()->turnFaceAngByDtTwd(pMyShip, TURN_ANTICLOSE_TO, false,
                                                         60, 0.2, 0.4, 0, true );
             }
             if (!pKuroko->isTurningFaceAng()) {

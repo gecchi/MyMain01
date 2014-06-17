@@ -4,9 +4,9 @@
 #include <math.h>
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperA.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperB.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoHelperC.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantC.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -121,14 +121,14 @@ _pActor(prm_pActor) {
     _taget_face_ang_alltime_optimize_ang = true;
 
 }
-GgafDxKurokoHelperA* GgafDxKuroko::hlprA() {
-    return _pHlprA ? _pHlprA : _pHlprA = NEW GgafDxKurokoHelperA(this);
+GgafDxKurokoAssistantA* GgafDxKuroko::asstA() {
+    return _pHlprA ? _pHlprA : _pHlprA = NEW GgafDxKurokoAssistantA(this);
 }
-GgafDxKurokoHelperB* GgafDxKuroko::hlprB() {
-    return _pHlprB ? _pHlprB : _pHlprB = NEW GgafDxKurokoHelperB(this);
+GgafDxKurokoAssistantB* GgafDxKuroko::asstB() {
+    return _pHlprB ? _pHlprB : _pHlprB = NEW GgafDxKurokoAssistantB(this);
 }
-GgafDxKurokoHelperC* GgafDxKuroko::hlprC() {
-    return _pHlprC ? _pHlprC : _pHlprC = NEW GgafDxKurokoHelperC(this);
+GgafDxKurokoAssistantC* GgafDxKuroko::asstC() {
+    return _pHlprC ? _pHlprC : _pHlprC = NEW GgafDxKurokoAssistantC(this);
 }
 void GgafDxKuroko::behave() {
     if (_pHlprA) {

@@ -5,7 +5,7 @@
 #include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
 #include "actor/VvvViewPoint.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverHelperA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 
 using namespace GgafCore;
@@ -85,7 +85,7 @@ void VvvCamera::processBehavior() {
 
 void VvvCamera::slideMvTo(coord tx, coord ty, coord tz, frame t) {
     _TRACE_(" VvvCamera::slideMvTo("<<tx<<","<<ty<<","<<tz<<",t="<<t<<")");
-    pAxsMver_->hlpr()->slideVxyzMvByDtTo(
+    pAxsMver_->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               0.3, 0.4, 0, true);
 }
@@ -191,7 +191,7 @@ void VvvCamera::slideUpCamTo(int prm_face_no) {
     up_face_ = prm_face_no;
     dxcoord up_x, up_y, up_z;
     VvvCamera::cnvFaceNo2Vec(prm_face_no, up_x, up_y, up_z);
-    pAxsMver_Up_->hlpr()->
+    pAxsMver_Up_->asst()->
              slideVxyzMvByDtTo(DX_C(up_x), DX_C(up_y), DX_C(up_z), 60, 0.3, 0.4, 0, true);
 }
 VvvCamera::~VvvCamera() {
