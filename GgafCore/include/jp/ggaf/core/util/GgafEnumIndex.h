@@ -10,7 +10,42 @@ namespace GgafCore {
 /**
  * 列挙値と順序リスト .
  * enum の列挙値(0,1,2,3・・・)を利用するプログラムで、
- * enum宣言後に動的に要素を減らしたい、といった場合に使用する設計。
+ * enum宣言後に動的に要素を減らしたい、といった場合に使用する設計。<BR>
+ * ＜使用例＞
+ * <pre><code>
+ *
+ *     enum {
+ *         ITEM_KEY_CONFIG = 0 ,
+ *         ITEM_SOUND_CONFIG,
+ *         ITEM_SCREEN_CONFIG,
+ *         ITEM_BACK,
+ *     };
+ *
+ *     GgafCore::GgafEnumIndex itm(ITEM_KEY_CONFIG, ITEM_BACK);
+ *     int n, e;
+ *     n = itm.n(ITEM_KEY_CONFIG);      //n = 0
+ *     n = itm.n(ITEM_SOUND_CONFIG);    //n = 1
+ *     n = itm.n(ITEM_SCREEN_CONFIG);   //n = 2
+ *     n = itm.n(ITEM_BACK);            //n = 3
+ *
+ *     e = itm.e(0);                    //e = ITEM_KEY_CONFIG    = 0
+ *     e = itm.e(1);                    //e = ITEM_SOUND_CONFIG  = 1
+ *     e = itm.e(2);                    //e = ITEM_SCREEN_CONFIG = 2
+ *     e = itm.e(3);                    //e = ITEM_BACK          = 3
+ *
+ *     itm.remove(ITEM_SOUND_CONFIG);   //ITEM_SOUND_CONFIGを削除
+ *
+ *     n = itm.n(ITEM_KEY_CONFIG);      //n = 0
+ *     n = itm.n(ITEM_SOUND_CONFIG);    //エラー（デバッグビルド時)
+ *     n = itm.n(ITEM_SCREEN_CONFIG);   //n = 1
+ *     n = itm.n(ITEM_BACK);            //n = 2
+ *
+ *     e = itm.e(0);                    //e = ITEM_KEY_CONFIG    = 0
+ *     e = itm.e(1);                    //e = ITEM_SCREEN_CONFIG = 2
+ *     e = itm.e(2);                    //e = ITEM_BACK          = 3
+ *     e = itm.e(3);                    //e = -1; (範囲外は-1)
+ *
+ * </code></pre>
  * @version 1.00
  * @since 2014/03/04
  * @author Masatoshi Tsuge

@@ -5,21 +5,20 @@
 using namespace GgafCore;
 
 GgafActor::GgafActor(const char* prm_name, GgafStatus* prm_pStat) :
-    GgafElement<GgafActor> (prm_name) {
+    GgafElement<GgafActor>(prm_name),
+    _pScene_platform(nullptr),
+    _pDependenceDepository(nullptr),
+    _pFormation(nullptr),
+    _can_hit_flg(false),
+    _can_hit_out_of_view(true),
+    _pStatus(prm_pStat)
+{
     _class_name = "GgafActor";
     _obj_class = Obj_GgafActor;
-    if (prm_pStat) {
-        _pStatus = prm_pStat;
-    } else {
+    if (_pStatus == nullptr) {
         _pStatus = NEW GgafStatus(12);
         getStatus()->set(0, 0);
     }
-    _pScene_platform = nullptr;
-    _pGod = nullptr;
-    _can_hit_flg = false;
-    _can_hit_out_of_view = true;
-    _pDependenceDepository = nullptr;
-    _pFormation = nullptr;
     _TRACE_("new "<<_class_name<<"("<<this<<")["<<prm_name<<"] _id="<<getId());
 }
 

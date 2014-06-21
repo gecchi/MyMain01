@@ -143,7 +143,6 @@ _pEffect((GgafDxEffect*)_pEffectCon->peek())
 }
 
 void GgafDxDrawableActor::processPreDraw() {
-
 #ifdef MY_DEBUG
     if (getPlatformScene()->instanceOf(Obj_GgafDxScene)) {
         //OK

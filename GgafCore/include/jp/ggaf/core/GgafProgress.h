@@ -56,6 +56,10 @@ public:
         return _progress;
     }
 
+    inline int getProgressNum() {
+        return _num_progress;
+    }
+
     /**
      * 現在の進捗を即座に設定する .
      * 即座に反映される。-1 は設定不可。<BR>

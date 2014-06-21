@@ -8,11 +8,12 @@
 using namespace GgafCore;
 
 GgafMainActor::GgafMainActor(const char* prm_name, GgafStatus* prm_pStat) :
-        GgafActor(prm_name, prm_pStat) {
+    GgafActor(prm_name, prm_pStat),
+    _pGroupHead(nullptr),
+    _pSceneDirector(nullptr)
+{
     _obj_class |= Obj_GgafMainActor;
     _class_name = "GgafMainActor";
-    _pGroupHead = nullptr;
-    _pSceneDirector = nullptr;
     setHitAble(false);
 }
 

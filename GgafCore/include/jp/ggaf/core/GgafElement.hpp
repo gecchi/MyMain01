@@ -887,9 +887,9 @@ public:
         if (_pProg == nullptr) {
             _pProg = NEW GgafProgress(&_frame_of_behaving, prm_num);
         } else {
-            _TRACE_("＜警告＞useProgress() ["<<GgafNode<T>::getName()<<"] は既に useProgress している。以前の進捗の場合の数="<<_pProg->_num_progress<<"。今回引数 prm_num="<<prm_num);
-            if (_pProg->_num_progress != prm_num) {
-                throwGgafCriticalException("useProgress() ["<<GgafNode<T>::getName()<<"] は既に useProgress している。ダメじゃないのか？！。\n以前の進捗の場合の数="<<_pProg->_num_progress<<"。今回引数 prm_num="<<prm_num);
+            _TRACE_("＜警告＞useProgress() ["<<GgafNode<T>::getName()<<"] は既に useProgress している。以前の進捗の場合の数="<<_pProg->getProgressNum()<<"。今回引数 prm_num="<<prm_num);
+            if (_pProg->getProgressNum() != prm_num) {
+                throwGgafCriticalException("useProgress() ["<<GgafNode<T>::getName()<<"] は既に useProgress している。ダメじゃないのか？！。\n以前の進捗の場合の数="<<_pProg->getProgressNum()<<"。今回引数 prm_num="<<prm_num);
             }
         }
     }
@@ -912,29 +912,30 @@ public:
 ///////////////////////////////////////////////////////////////// ここからは実装部
 
 template<class T>
-GgafElement<T>::GgafElement(const char* prm_name) : GgafCore::GgafNode<T>(prm_name),
-_pGod(nullptr),
-_was_initialize_flg(false),
-_frame_of_life(0),
-_frame_of_behaving(0),
-_frame_of_behaving_since_onActive(0),
-_is_active_flg(false),
-_is_active_in_the_tree_flg(false),
-_was_paused_flg(false),
-_can_live_flg(true),
-_was_paused_flg_in_next_frame(false),
-_will_end_after_flg(false),
-_frame_of_life_when_end(MAX_FRAME),
-_will_activate_after_flg(true),    //初回フレームにアクティブになるため
-_frame_of_life_when_activation(1), //初回フレームにアクティブになるために1
-_will_inactivate_after_flg(false),
-_frame_of_life_when_inactivation(0),
-_on_change_to_active_flg(false),
-_on_change_to_inactive_flg(false),
-_will_mv_first_in_next_frame_flg(false),
-_will_mv_last_in_next_frame_flg(false),
-_is_already_reset(false),
-_pProg(nullptr)
+GgafElement<T>::GgafElement(const char* prm_name) :
+    GgafCore::GgafNode<T>(prm_name),
+    _pGod(nullptr),
+    _was_initialize_flg(false),
+    _frame_of_life(0),
+    _frame_of_behaving(0),
+    _frame_of_behaving_since_onActive(0),
+    _is_active_flg(false),
+    _is_active_in_the_tree_flg(false),
+    _was_paused_flg(false),
+    _can_live_flg(true),
+    _was_paused_flg_in_next_frame(false),
+    _will_end_after_flg(false),
+    _frame_of_life_when_end(MAX_FRAME),
+    _will_activate_after_flg(true),    //初回フレームにアクティブになるため
+    _frame_of_life_when_activation(1), //初回フレームにアクティブになるために1
+    _will_inactivate_after_flg(false),
+    _frame_of_life_when_inactivation(0),
+    _on_change_to_active_flg(false),
+    _on_change_to_inactive_flg(false),
+    _will_mv_first_in_next_frame_flg(false),
+    _will_mv_last_in_next_frame_flg(false),
+    _is_already_reset(false),
+    _pProg(nullptr)
 {
 
 }

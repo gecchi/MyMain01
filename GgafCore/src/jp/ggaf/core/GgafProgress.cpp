@@ -7,13 +7,14 @@
 
 using namespace GgafCore;
 
-GgafProgress::GgafProgress(frame* prm_pFrame_counter, int prm_num_progress) : GgafObject() ,
-_progress(PROGRESS_NOTHING),       //ここと
-_progress_prev(PROGRESS_NULL),
-_progress_next(PROGRESS_NOTHING),  //ここは、合わせること。合わせないと、初回update時に配列インデックス範囲外になるため。
-_pFrame_counter(prm_pFrame_counter)
+GgafProgress::GgafProgress(frame* prm_pFrame_counter, int prm_num_progress) :
+    GgafObject() ,
+    _progress(PROGRESS_NOTHING),       //ここと
+    _progress_prev(PROGRESS_NULL),
+    _progress_next(PROGRESS_NOTHING),  //ここは、合わせること。合わせないと、初回update時に配列インデックス範囲外になるため。
+    _pFrame_counter(prm_pFrame_counter),
+    _num_progress(prm_num_progress)
 {
-    _num_progress = prm_num_progress;
     _paFrame_progress_changed = NEW frame[_num_progress+1+1];
     for (int i = 0; i < _num_progress+1+1; i++) {
         _paFrame_progress_changed[i] = (*_pFrame_counter);

@@ -374,17 +374,18 @@ public:
  * ‚±‚±‚©‚ç‚ÍŽÀ‘••”
  */
 template<class T>
-GgafNode<T>::GgafNode(const char* prm_name) : GgafObject(),
-_pNodeTemp(nullptr),
-_name(nullptr),
-_class_name("GgafNode<T>"),
-_pParent(nullptr),
-_pNext((T*)this),
-_pPrev((T*)this),
-_pSubFirst(nullptr),
-_is_first_flg(false),
-_is_last_flg(false),
-_sub_num(0)
+GgafNode<T>::GgafNode(const char* prm_name) :
+    GgafObject(),
+    _pNodeTemp(nullptr),
+    _name(nullptr),
+    _class_name("GgafNode<T>"),
+    _pParent(nullptr),
+    _pNext((T*)this),
+    _pPrev((T*)this),
+    _pSubFirst(nullptr),
+    _is_first_flg(false),
+    _is_last_flg(false),
+    _sub_num(0)
 {
 #ifdef MY_DEBUG
     if (strlen(prm_name) > 49) {

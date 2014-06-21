@@ -12,7 +12,6 @@
 //#include "jp/gecchi/VioletVreath/actor/common/template/Formation001.hpp"
 #include "jp/gecchi/VioletVreath/actor/common/TestDepository.h"
 
-
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion001.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion002.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion003.h"
