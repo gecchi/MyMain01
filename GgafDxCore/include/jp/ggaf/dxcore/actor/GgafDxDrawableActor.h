@@ -14,14 +14,6 @@ namespace GgafDxCore {
  */
 class GgafDxDrawableActor : public GgafDxGeometricActor {
 private:
-    /** [r]一時テクニック名 */
-    char* _temp_technique;
-    /** [r]一時テクニック名ハッシュ値 */
-    hashval _hash_temp_technique;
-    /** [r]一時テクニック終了フレーム */
-    frame _frame_of_behaving_temp_technique_end;
-
-
     /**
      * draw()の使用禁止 .
      * 世界(GgafDxUniverse)が全ての描画を行う仕組みになりました。
@@ -29,6 +21,22 @@ private:
      * ノードツリー用 draw メソッドを下位で使えないようにするためprivateで実装。
      */
     void draw() override {}
+
+protected:
+    /** [r]モデル資源接続 */
+    GgafDxModelConnection* const _pModelCon;
+    /** [r]モデル資源 */
+    GgafDxModel* const _pModel;
+    /** [r]エフェクト資源接続 */
+    GgafDxEffectConnection* const _pEffectCon;
+    /** [r]エフェクト資源 */
+    GgafDxEffect* const _pEffect;
+    /** [r]一時テクニック名 */
+    char* _temp_technique;
+    /** [r]一時テクニック名ハッシュ値 */
+    hashval _hash_temp_technique;
+    /** [r]一時テクニック終了フレーム */
+    frame _frame_of_behaving_temp_technique_end;
 
 public:
     /** [r/w]描画時、Zバッファを考慮して描画を行うか否か。true:考慮する／false:Zバッファを無視して描画  */
@@ -56,14 +64,7 @@ public:
     int _specal_drawdepth;
     /** [r]一時テクニック適用中の場合 true */
     bool _is_temp_technique;
-    /** [r]モデル資源接続 */
-    GgafDxModelConnection* const _pModelCon;
-    /** [r]モデル資源 */
-    GgafDxModel* const _pModel;
-    /** [r]エフェクト資源接続 */
-    GgafDxEffectConnection* const _pEffectCon;
-    /** [r]エフェクト資源 */
-    GgafDxEffect* const _pEffect;
+
 
 public:
     /**

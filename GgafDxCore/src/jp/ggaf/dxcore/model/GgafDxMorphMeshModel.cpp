@@ -70,7 +70,7 @@ HRESULT GgafDxMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int p
     //対象アクター
     GgafDxMorphMeshActor* pTargetActor = (GgafDxMorphMeshActor*)prm_pActor_Target;
     //対象アクターのエフェクトラッパ
-    GgafDxMorphMeshEffect* pMorphMeshEffect = (GgafDxMorphMeshEffect*)prm_pActor_Target->_pEffect;
+    GgafDxMorphMeshEffect* pMorphMeshEffect = (GgafDxMorphMeshEffect*)prm_pActor_Target->getEffect();
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pMorphMeshEffect->_pID3DXEffect;
 

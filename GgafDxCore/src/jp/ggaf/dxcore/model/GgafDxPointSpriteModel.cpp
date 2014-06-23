@@ -41,7 +41,7 @@ HRESULT GgafDxPointSpriteModel::draw(GgafDxDrawableActor* prm_pActor_Target, int
     //対象Actor
     GgafDxPointSpriteActor* pTargetActor = (GgafDxPointSpriteActor*)prm_pActor_Target;
     //対象PointSpriteActorのエフェクトラッパ
-    GgafDxPointSpriteEffect* pPointSpriteEffect = (GgafDxPointSpriteEffect*)prm_pActor_Target->_pEffect;
+    GgafDxPointSpriteEffect* pPointSpriteEffect = (GgafDxPointSpriteEffect*)prm_pActor_Target->getEffect();
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pPointSpriteEffect->_pID3DXEffect;
 

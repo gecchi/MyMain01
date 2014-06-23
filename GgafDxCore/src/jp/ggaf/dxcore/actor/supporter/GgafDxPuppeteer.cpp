@@ -10,7 +10,7 @@ using namespace GgafDxCore;
 
 GgafDxPuppeteer::GgafDxPuppeteer(GgafDxD3DXAniMeshActor* prm_pPuppet) : GgafObject() {
     _pPuppet = prm_pPuppet;
-    _pModel = (GgafDxD3DXAniMeshModel*)_pPuppet->_pModel;
+    _pModel = (GgafDxD3DXAniMeshModel*)_pPuppet->getModel();
     _num_perform = 0;
     _paPerformances = nullptr;
     _pAc = nullptr;

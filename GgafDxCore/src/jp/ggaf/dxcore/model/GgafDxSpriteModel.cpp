@@ -40,7 +40,7 @@ HRESULT GgafDxSpriteModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_
     //対象Actor
     GgafDxSpriteActor* pTargetActor = (GgafDxSpriteActor*)prm_pActor_Target;
     //対象SpriteActorのエフェクトラッパ
-    GgafDxSpriteEffect* pSpriteEffect = (GgafDxSpriteEffect*)prm_pActor_Target->_pEffect;
+    GgafDxSpriteEffect* pSpriteEffect = (GgafDxSpriteEffect*)prm_pActor_Target->getEffect();
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pSpriteEffect->_pID3DXEffect;
 

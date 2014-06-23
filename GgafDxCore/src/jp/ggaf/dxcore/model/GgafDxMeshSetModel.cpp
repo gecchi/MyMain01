@@ -70,7 +70,7 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
     //対象アクター
     GgafDxMeshSetActor* pTargetActor = (GgafDxMeshSetActor*)prm_pActor_Target;
     //対象MeshSetActorのエフェクトラッパ
-    GgafDxMeshSetEffect* pMeshSetEffect = (GgafDxMeshSetEffect*)prm_pActor_Target->_pEffect;
+    GgafDxMeshSetEffect* pMeshSetEffect = (GgafDxMeshSetEffect*)prm_pActor_Target->getEffect();
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pMeshSetEffect->_pID3DXEffect;
 

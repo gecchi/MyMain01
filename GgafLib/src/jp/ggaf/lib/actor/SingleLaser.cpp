@@ -79,7 +79,7 @@ void SingleLaser::processDraw() {
     int model_Set_num = _pMeshSetModel->_set_num;
 
     while (pDrawActor) {
-        if (pDrawActor->_pModel == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
+        if (pDrawActor->getModel() == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
             pSingleLaserChip = (SingleLaser*)pDrawActor;
             hr = pID3DXEffect->SetMatrix(this->_ah_matWorld[draw_set_num], &(pSingleLaserChip->_matWorld));
             checkDxException(hr, D3D_OK, "GgafDxMeshSetActor::processDraw() SetMatrix(g_matWorld) _pMeshSetEffect="<<_pMeshSetEffect->getName() << " pDrawActor->_matWorld="<<pDrawActor->_matWorld<<" pDrawActor="<<pDrawActor->getName()<<" draw_set_num="<<draw_set_num<<" ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");

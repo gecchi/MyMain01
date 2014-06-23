@@ -26,7 +26,7 @@ HRESULT GgafDxCubeMapMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target
     //対象アクター
     GgafDxCubeMapMorphMeshActor* pTargetActor = (GgafDxCubeMapMorphMeshActor*)prm_pActor_Target;
     //対象アクターのエフェクトラッパ
-    GgafDxCubeMapMorphMeshEffect* pCubeMapMorphMeshEffect = (GgafDxCubeMapMorphMeshEffect*)prm_pActor_Target->_pEffect;
+    GgafDxCubeMapMorphMeshEffect* pCubeMapMorphMeshEffect = (GgafDxCubeMapMorphMeshEffect*)(prm_pActor_Target->getEffect());
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pCubeMapMorphMeshEffect->_pID3DXEffect;
 

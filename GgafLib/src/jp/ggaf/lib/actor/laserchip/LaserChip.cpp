@@ -228,7 +228,7 @@ void LaserChip::processDraw() {
     int model_set_num = _pMeshSetModel->_set_num;
 
     while (pDrawActor) {
-        if (pDrawActor->_pModel == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
+        if (pDrawActor->getModel() == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
             pLaserChip = (LaserChip*)pDrawActor;
             //もしここらへんで意味不明なエラーになったら、
             //GgafDxSpriteLaserChipActorの[MEMO]を読み直せ！

@@ -86,7 +86,7 @@ void GgafDxMeshSetActor::processDraw() {
     GgafDxMeshSetActor* pMeshSetActor = nullptr;
     int model_set_num = _pMeshSetModel->_set_num;
     while (pDrawActor) {
-        if (pDrawActor->_pModel == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
+        if (pDrawActor->getModel() == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
             pMeshSetActor = (GgafDxMeshSetActor*)pDrawActor;
             hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[draw_set_num], &(pMeshSetActor->_matWorld));
             checkDxException(hr, D3D_OK, "GgafDxMeshSetActor::processDraw() SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

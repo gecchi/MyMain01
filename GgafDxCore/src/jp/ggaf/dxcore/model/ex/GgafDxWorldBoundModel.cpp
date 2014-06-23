@@ -26,7 +26,7 @@ HRESULT GgafDxWorldBoundModel::draw(GgafDxDrawableActor* prm_pActor_Target, int 
     //対象アクター
     GgafDxWorldBoundActor* pTargetActor = (GgafDxWorldBoundActor*)prm_pActor_Target;
     //対象アクターのエフェクトラッパ
-    GgafDxWorldBoundEffect* pWorldBoundEffect = (GgafDxWorldBoundEffect*)prm_pActor_Target->_pEffect;
+    GgafDxWorldBoundEffect* pWorldBoundEffect = (GgafDxWorldBoundEffect*)prm_pActor_Target->getEffect();
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pWorldBoundEffect->_pID3DXEffect;
 

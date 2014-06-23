@@ -88,7 +88,7 @@ void WallAABActor::processDraw() {
     WallPartsActor* pWallPartsActor = nullptr;
     int model_set_num = _pMeshSetModel->_set_num;
     while (pDrawActor) {
-        if (pDrawActor->_pModel == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
+        if (pDrawActor->getModel() == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
             pWallPartsActor = (WallPartsActor*)pDrawActor;
 //                _TRACE_("WallAABActor::processDraw() pWallPartsActor->_wall_draw_face="<<(pWallPartsActor->_wall_draw_face)<<" befor._matWorld._14="<<(pWallPartsActor->_matWorld._14));
 

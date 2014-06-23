@@ -45,7 +45,7 @@ void GgafDxCubeMapMeshSetActor::processDraw() {
     GgafDxCubeMapMeshSetActor* pCubeMapMeshSetActor = nullptr;
     int model_set_num = _pCubeMapMeshSetModel->_set_num;
     while (pDrawActor) {
-        if (pDrawActor->_pModel == _pCubeMapMeshSetModel && pDrawActor->_hash_technique == _hash_technique ) {
+        if (pDrawActor->getModel() == _pCubeMapMeshSetModel && pDrawActor->_hash_technique == _hash_technique ) {
             pCubeMapMeshSetActor = (GgafDxCubeMapMeshSetActor*)pDrawActor;
             if (getCubeMapTexture() == pCubeMapMeshSetActor->getCubeMapTexture() &&
                   (_reflectance-0.00001f < pCubeMapMeshSetActor->_reflectance && pCubeMapMeshSetActor->_reflectance < _reflectance+0.00001f)) {

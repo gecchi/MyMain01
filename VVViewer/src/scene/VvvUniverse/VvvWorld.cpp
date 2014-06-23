@@ -163,38 +163,38 @@ void VvvWorld::processBehavior() {
         } else if (GgafDxInput::isBeingPressedKey(DIK_P)) {
             //スペキュラー
             if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
-                pActor->_pModel->_specular += 0.05*d;
+                pActor->getModel()->_specular += 0.05*d;
             }
             if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
-                pActor->_pModel->_specular -= 0.05*d;
+                pActor->getModel()->_specular -= 0.05*d;
             }
             if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
-                pActor->_pModel->_specular_power += 0.01*d;
+                pActor->getModel()->_specular_power += 0.01*d;
             }
             if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
-                pActor->_pModel->_specular_power -= 0.01*d;
+                pActor->getModel()->_specular_power -= 0.01*d;
             }
             if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
-                pActor->_pModel->_specular = 0.00f;
-                pActor->_pModel->_specular_power = 0.00f;
+                pActor->getModel()->_specular = 0.00f;
+                pActor->getModel()->_specular_power = 0.00f;
             }
         } else if (GgafDxInput::isBeingPressedKey(DIK_P)) {
             //スペキュラー
             if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
-                pActor->_pModel->_specular += 0.05*d;
+                pActor->getModel()->_specular += 0.05*d;
             }
             if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
-                pActor->_pModel->_specular -= 0.05*d;
+                pActor->getModel()->_specular -= 0.05*d;
             }
             if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
-                pActor->_pModel->_specular_power += 0.01*d;
+                pActor->getModel()->_specular_power += 0.01*d;
             }
             if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
-                pActor->_pModel->_specular_power -= 0.01*d;
+                pActor->getModel()->_specular_power -= 0.01*d;
             }
             if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
-                pActor->_pModel->_specular = 0.00f;
-                pActor->_pModel->_specular_power = 0.00f;
+                pActor->getModel()->_specular = 0.00f;
+                pActor->getModel()->_specular_power = 0.00f;
             }
         } else if (GgafDxInput::isBeingPressedKey(DIK_S)) {
             //拡大縮小
@@ -428,7 +428,7 @@ void VvvWorld::processBehavior() {
                     PROPERTY::DIR_TEXTURE[0]      = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
                     PROPERTY::DIR_TEXTURE[1]      = was_dropfile_dir + "/../" + PROPERTY::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
                     PROPERTY::DIR_TEXTURE[2]      = was_dropfile_dir;
-                    pNewActor = createInFactory2(GgafLib::CubeMapMorphMeshActor, "actor", pCurrentActor->_pModel->getName());
+                    pNewActor = createInFactory2(GgafLib::CubeMapMorphMeshActor, "actor", pCurrentActor->getModel()->getName());
                     PROPERTY::DIR_TEXTURE[0]      = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
                     PROPERTY::DIR_TEXTURE[1]      = dropfile_dir + "/../" + PROPERTY::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
                     PROPERTY::DIR_TEXTURE[2]      = dropfile_dir;

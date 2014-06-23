@@ -56,7 +56,7 @@ void GgafDxSpriteSetActor::processDraw() {
     int model_set_num = _pSpriteSetModel->_set_num;
     float u,v;
     while (pDrawActor) {
-        if (pDrawActor->_pModel == _pSpriteSetModel && pDrawActor->_hash_technique == _hash_technique) {
+        if (pDrawActor->getModel() == _pSpriteSetModel && pDrawActor->_hash_technique == _hash_technique) {
             pSpriteSetActor = (GgafDxSpriteSetActor*)pDrawActor;
             if (_align == ALIGN_CENTER) {
                 //do nothing

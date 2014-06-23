@@ -60,7 +60,7 @@ HRESULT GgafDxBoardSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
     //対象Actor
     GgafDxBoardSetActor* pTargetActor = (GgafDxBoardSetActor*)prm_pActor_Target;
     //対象BoardSetActorのエフェクトラッパ
-    GgafDxBoardSetEffect* pBoardSetEffect = (GgafDxBoardSetEffect*)prm_pActor_Target->_pEffect;
+    GgafDxBoardSetEffect* pBoardSetEffect = (GgafDxBoardSetEffect*)prm_pActor_Target->getEffect();
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pBoardSetEffect->_pID3DXEffect;
 

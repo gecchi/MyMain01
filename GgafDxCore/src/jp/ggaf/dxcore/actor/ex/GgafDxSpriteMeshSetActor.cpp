@@ -48,7 +48,7 @@ void GgafDxSpriteMeshSetActor::processDraw() {
     float u = 0;
     float v = 0;
     while (pDrawActor) {
-        if (pDrawActor->_pModel == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
+        if (pDrawActor->getModel() == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
             pSpriteMeshSetActor = (GgafDxSpriteMeshSetActor*)pDrawActor;
 
             hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[draw_set_num], &(pSpriteMeshSetActor->_matWorld));

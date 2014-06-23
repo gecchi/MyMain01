@@ -39,7 +39,7 @@ HRESULT GgafDxBoardModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_d
     //対象Actor
     GgafDxBoardActor* pTargetActor = (GgafDxBoardActor*)prm_pActor_Target;
     //対象BoardActorのエフェクトラッパ
-    GgafDxBoardEffect* pBoardEffect = (GgafDxBoardEffect*)prm_pActor_Target->_pEffect;
+    GgafDxBoardEffect* pBoardEffect = (GgafDxBoardEffect*)prm_pActor_Target->getEffect();
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pBoardEffect->_pID3DXEffect;
     //今回描画のUV

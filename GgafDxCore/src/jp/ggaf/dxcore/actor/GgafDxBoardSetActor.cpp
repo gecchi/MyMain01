@@ -64,7 +64,7 @@ void GgafDxBoardSetActor::processDraw() {
     int model_set_num = _pBoardSetModel->_set_num;
     float u,v;
     while (pDrawActor) {
-        if (pDrawActor->_pModel == _pBoardSetModel && pDrawActor->_hash_technique == _hash_technique) {
+        if (pDrawActor->getModel() == _pBoardSetModel && pDrawActor->_hash_technique == _hash_technique) {
             pBoardSetActor = (GgafDxBoardSetActor*)pDrawActor;
 
             if (_align == ALIGN_RIGHT) {

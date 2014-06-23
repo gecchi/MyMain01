@@ -15,49 +15,39 @@ using namespace GgafDxCore;
 GgafDxGeometricActor::GgafDxGeometricActor(const char* prm_name,
                                            GgafStatus* prm_pStat,
                                            GgafDxChecker* prm_pChecker) : GgafDxBaseActor(prm_name, prm_pStat),
-_pKuroko(new GgafDxKuroko(this)),
-_pSeTx(new GgafDxSeTransmitterForActor(this)) {
-
+    _pKuroko(new GgafDxKuroko(this)),
+    _pSeTx(new GgafDxSeTransmitterForActor(this)),
+    _is_2D(false),
+    _offscreen_kind(-1),
+    _x(0), _y(0), _z(0),
+    _rx(0), _ry(0), _rz(0),
+    _sx(R_SC(1.0)), _sy(R_SC(1.0)), _sz(R_SC(1.0)),
+    _pChecker(prm_pChecker),
+    _bounding_sphere_radius(0),
+    _rate_of_bounding_sphere_radius(1.0f),
+    _fX(C_DX(_x)), _fY(C_DX(_y)), _fZ(C_DX(_z)),
+    _dest_from_vppln_top(0.0f),
+    _dest_from_vppln_bottom(0.0f),
+    _dest_from_vppln_left(0.0f),
+    _dest_from_vppln_right(0.0f),
+    _dest_from_vppln_front(0.0f),
+    _dest_from_vppln_back(0.0f),
+    _pFunc_calcRotMvWorldMatrix(nullptr),
+    _matWorld(),
+    _matWorldRotMv(),
+    _matInvWorldRotMv(),
+    _was_calculated_matInvWorldRotMv(false),
+    _pActor_Base(nullptr),
+    _x_local(_x), _y_local(_y), _z_local(_z),
+    _rx_local(_rx), _ry_local(_ry), _rz_local(_rz),
+    _x_final(_x), _y_final(_y), _z_final(_z),
+    _rx_final(_rx), _ry_final(_ry), _rz_final(_rz),
+    _is_local(false)
+{
     _obj_class |= Obj_GgafDxGeometricActor;
     _class_name = "GgafDxGeometricActor";
-    _is_2D = false;
-    _x = _y = _z = 0;
-    _rx = _ry = _rz = 0;
-    _sx = _sy = _sz = R_SC(1.0);
-    _fX = C_DX(_x);
-    _fY = C_DX(_y);
-    _fZ = C_DX(_z);
-    _bounding_sphere_radius = 0;
-    _rate_of_bounding_sphere_radius = 1.0f;
-    _pChecker = prm_pChecker;
-
-    _offscreen_kind = -1;
-    _pFunc_calcRotMvWorldMatrix = nullptr;
-    _pActor_Base = nullptr;
-    _dest_from_vppln_top = 0;
-    _dest_from_vppln_bottom = 0;
-    _dest_from_vppln_left = 0;
-    _dest_from_vppln_right = 0;
-    _dest_from_vppln_front = 0;
-    _dest_from_vppln_back = 0;
-    _x_local  = _x;
-    _y_local  = _y;
-    _z_local  = _z;
-    _rx_local = _rx;
-    _ry_local = _ry;
-    _rz_local = _rz;
-    _x_final  = _x;
-    _y_final  = _y;
-    _z_final  = _z;
-    _rx_final = _rx;
-    _ry_final = _ry;
-    _rz_final = _rz;
     _pFormation = nullptr;
-
-    _is_local = false;
-    _was_calculated_matInvWorldRotMv = false;
 }
-
 
 void GgafDxGeometricActor::processSettlementBehavior() {
     if (_is_2D) {

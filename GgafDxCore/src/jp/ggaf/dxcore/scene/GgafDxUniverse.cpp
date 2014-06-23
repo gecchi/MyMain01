@@ -179,8 +179,8 @@ void GgafDxUniverse::draw() {
 #endif
             //各所属シーンのαカーテンを設定する。
             pScene = (GgafDxScene*)pDrawActor->getPlatformScene();
-            pDrawActor->_pEffect->_pID3DXEffect->SetFloat(
-                    pDrawActor->_pEffect->_h_alpha_master, pScene->_master_alpha);
+            pDrawActor->getEffect()->_pID3DXEffect->SetFloat(
+                    pDrawActor->getEffect()->_h_alpha_master, pScene->_master_alpha);
 
             //半透明要素ありの場合カリングを一時OFF
             if (pDrawActor->_alpha < 1.0f) {

@@ -25,7 +25,7 @@ float GgafDxColorist::getValue(int idx) {
 }
 
 void GgafDxColorist::setValue(int idx, float value) {
-    int num_materials = _pActor->_pModel->_num_materials;
+    int num_materials = _pActor->getModel()->_num_materials;
     D3DMATERIAL9* paMaterial = _pActor->_paMaterial;
     switch (idx) {
         case 0: //RED

@@ -36,7 +36,7 @@ HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int
     //対象アクター
     GgafDxD3DXAniMeshActor* pTargetActor = (GgafDxD3DXAniMeshActor*)prm_pActor_Target;
     //対象MeshActorのエフェクトラッパ
-    GgafDxD3DXAniMeshEffect* pD3DXAniMeshEffect = (GgafDxD3DXAniMeshEffect*)prm_pActor_Target->_pEffect;
+    GgafDxD3DXAniMeshEffect* pD3DXAniMeshEffect = (GgafDxD3DXAniMeshEffect*)(prm_pActor_Target->getEffect());
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pD3DXAniMeshEffect->_pID3DXEffect;
     if (GgafDxModelManager::_pModelLastDraw != this) {
