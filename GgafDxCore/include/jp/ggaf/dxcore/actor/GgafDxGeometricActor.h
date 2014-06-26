@@ -420,8 +420,8 @@ public:
      * @param prm_axis_z_angFace Zé≤ï˚äpÇÃÉAÉìÉOÉãíl(-360,000Å`360,000)
      */
     virtual void setFaceAng(angle prm_axis_x_angFace,
-                    angle prm_axis_y_angFace,
-                    angle prm_axis_z_angFace) {
+                            angle prm_axis_y_angFace,
+                            angle prm_axis_z_angFace) {
         setRxFaceAng(prm_axis_x_angFace);
         setRyFaceAng(prm_axis_y_angFace);
         setRzFaceAng(prm_axis_z_angFace);

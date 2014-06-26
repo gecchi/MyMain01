@@ -393,7 +393,6 @@ void GgafDxGeometricActor::setFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_t
                  );
 }
 
-
 void GgafDxGeometricActor::scaleAs(GgafDxGeometricActor* prm_pActor) {
     _sx = prm_pActor->_sx;
     _sy = prm_pActor->_sy;

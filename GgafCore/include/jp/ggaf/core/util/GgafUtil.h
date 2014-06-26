@@ -2,6 +2,7 @@
 #define GGAFCORE_GGAFUTIL_H_
 
 #include "jp/ggaf/core/util/CmRandomNumberGenerator.h"
+
 #include <map>
 #include <string>
 #include <vector>

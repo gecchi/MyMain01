@@ -3,7 +3,11 @@
 
 #include <list>
 #include <d3dx9.h>
-
+#ifdef __GNUG__
+    #undef __null
+    #undef __in
+    #undef __out
+#endif
 namespace GgafDxCore {
 
 /**

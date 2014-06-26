@@ -4,7 +4,11 @@
 
 #include <d3dx9.h>
 #include <string>
-
+#ifdef __GNUG__
+    #undef __null
+    #undef __in
+    #undef __out
+#endif
 namespace GgafDxCore {
 
 /**

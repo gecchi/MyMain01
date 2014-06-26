@@ -1,7 +1,11 @@
 #ifndef GGAFDXCORE_GGAFDXGOD_H_
 #define GGAFDXCORE_GGAFDXGOD_H_
 #include "jp/ggaf/core/GgafGod.h"
-
+#ifdef __GNUG__
+    #undef __null
+    #undef __in
+    #undef __out
+#endif
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 #undef P_GOD
