@@ -110,7 +110,7 @@ public:
      * コンストラクタ
      * @param prm_name ノード名称（ユニークにして下さい）
      */
-    GgafNode(const char* prm_name);
+    explicit GgafNode(const char* prm_name);
 
     /**
      * デストラクタ。自ツリーノードを解放します。 .

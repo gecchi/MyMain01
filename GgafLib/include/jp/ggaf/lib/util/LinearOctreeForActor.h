@@ -95,7 +95,7 @@ public:
      * コンストラクタ
      * @param prm_level 作成する八分木空間レベル
      */
-    LinearOctreeForActor(int prm_level);
+    explicit LinearOctreeForActor(int prm_level);
 
     /**
      * 八分木所属の「アクター種別Aグループ 対 アクター種別Bグループ」を行う  .

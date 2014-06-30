@@ -37,7 +37,7 @@ public:
      *                    _OGG, _BPM, _TITLE のプレフィックスを指定
      * @return
      */
-    GgafDxBgm(char* prm_bgm_key);
+    explicit GgafDxBgm(char* prm_bgm_key);
 
     /**
      * BGM再生 .

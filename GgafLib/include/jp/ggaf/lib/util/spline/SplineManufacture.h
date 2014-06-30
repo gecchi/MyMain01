@@ -61,7 +61,7 @@ public:
      * コンストラクタ .
      * @param prm_source_file スプライン座標情報ファイル(splファイル)
      */
-    SplineManufacture(const char* prm_source_file);
+    explicit SplineManufacture(const char* prm_source_file);
 
     /**
      * コンストラクタ .

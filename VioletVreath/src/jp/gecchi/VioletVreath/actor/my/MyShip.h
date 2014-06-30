@@ -332,7 +332,7 @@ public:
     int blown_veloZ_;
 
     /** ‚Á”ò‚ÑŒ¸Š—¦ */
-    double r_blown_velo_attenuate_;
+    double r_blown_velo_decay_;
 
     /** MP */
     int mp_;

@@ -36,7 +36,7 @@ public:
     /**
      * コンストラクタ .
      */
-    GgafDxSeTransmitterForActor(GgafDxGeometricActor* prm_pActor);
+    explicit GgafDxSeTransmitterForActor(GgafDxGeometricActor* prm_pActor);
 
     /**
      * SEの設定を行う .

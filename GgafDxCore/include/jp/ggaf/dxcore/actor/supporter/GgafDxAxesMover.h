@@ -71,7 +71,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pActor  適用Actor
      */
-    GgafDxAxesMover(GgafDxGeometricActor* prm_pActor);
+    explicit GgafDxAxesMover(GgafDxGeometricActor* prm_pActor);
 
     /**
      * 黒衣Bの助手(滑らか移動担当)を取得 .

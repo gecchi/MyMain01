@@ -10,6 +10,10 @@
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/gecchi/VioletVreath/actor/effect/EffectLaserRefraction001.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Hisbe/EnemyHisbeLaserChip002.h"
+
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -31,7 +35,7 @@ EnemyHisbe::EnemyHisbe(const char* prm_name) :
 //    for (int i = 0; i < 100; i++) {
 //        std::string name = "EffectLaserRefraction001["+XTOS(i)+"]";
 //        pEffect = NEW EffectLaserRefraction001(name.c_str());
-//        pDepoEffect->addSubLast(pEffect);
+//        pDepoEffect->put(pEffect);
 //    }
 //    addSubGroup(pDepoEffect);
 //
@@ -42,7 +46,7 @@ EnemyHisbe::EnemyHisbe(const char* prm_name) :
 //        EnemyHisbeLaserChip002* pChip = NEW EnemyHisbeLaserChip002(name.c_str());
 //        int num_refraction = pChip->pKurokoLeader_->getPointNum();
 //        pChip->config(num_refraction, 1, 1, false, pDepoEffect);
-//        pLaserChipDepo_->addSubLast(pChip);
+//        pLaserChipDepo_->put(pChip);
 //    }
 //    addSubGroup(pLaserChipDepo_);
 //    //<---------------------
@@ -97,12 +101,12 @@ void EnemyHisbe::initialize() {
     pColliChecker->makeCollision(1);
     pColliChecker->setColliSphere(0, 40000);
 
-//    if (pConn_LaserChipDepoStore_->chkFirstConnectionIs(this)) {
-//        _TRACE_("pConn_LaserChipDepoStore_は、ワシ("<<this<<")が育てたエヘン！")
-//        getPlatformScene()->getSceneDirector()->addSubGroup(
-//                pConn_LaserChipDepoStore_->peek()->extract()
-//                );
-//    }
+    if (pConn_LaserChipDepoStore_->chkFirstConnectionIs(this)) {
+        _TRACE_("pConn_LaserChipDepoStore_は、ワシ("<<this<<")が育てたエヘン！")
+        getPlatformScene()->getSceneDirector()->addSubGroup(
+                pConn_LaserChipDepoStore_->peek()->extract()
+                );
+    }
 }
 
 void EnemyHisbe::onActive() {
@@ -207,6 +211,6 @@ void EnemyHisbe::onInactive() {
 
 EnemyHisbe::~EnemyHisbe() {
     GGAF_DELETE_NULLABLE(pKurokoLeader_);
-        pConn_LaserChipDepoStore_->close();
+    pConn_LaserChipDepoStore_->close();
     //pConn_RefractionEffectDepository_->close();
 }

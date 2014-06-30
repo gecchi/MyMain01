@@ -34,7 +34,7 @@ public:
      * @param prm_colli_part_num 当たり判定領域要素数
      * @return
      */
-    GgafDxCollisionArea(int prm_colli_part_num);
+    explicit GgafDxCollisionArea(int prm_colli_part_num);
 
     /**
      * 全当たり判定要素含む最外域の軸平行境界直方体を再計算 .

@@ -39,9 +39,9 @@ private:
 public:
     /** [r] be() できるかどうか */
     static volatile bool _can_be;
-    /** [r] クリティカルセクションその１（セマフォ） */
+    /** [r] クリティカルセクションその１ */
     static CRITICAL_SECTION CS1;
-    /** [r] クリティカルセクションその２（セマフォ） */
+    /** [r] クリティカルセクションその２ */
     static CRITICAL_SECTION CS2;
     /** [r] 自身 */
     static GgafGod* _pGod;
@@ -102,27 +102,27 @@ public:
     void be();
 
     /**
-     * この世に、とある瞬間を創造 .
+     * この世の、とある最小時間単位の瞬間を創造 .
      */
     virtual void presentUniversalMoment();
 
     /**
-     * この世の創造された瞬間について審判（チェック）する .
+     * この世の、創造された最小時間単位の瞬間について審判（チェック）する .
      */
     virtual void executeUniversalJudge();
 
     /**
-     * この世の創造された瞬間を描き具現化する .
+     * この世の、創造された最小時間単位の瞬間を具現化する .
      */
     virtual void makeUniversalMaterialize();
 
     /**
-     * この世に描いた物を、人間にも認識できるように表面化する .
+     * この世に描いた物を、異界の人間共にも認識（目視）できるように表面化する .
      */
     virtual void presentUniversalVisualize();
 
     /**
-     * この世の次の瞬間を創造するための準備、後始末 .
+     * この世の次の最小時間単位の瞬間を創造するための準備、後始末 .
      */
     virtual void finalizeUniverse();
 

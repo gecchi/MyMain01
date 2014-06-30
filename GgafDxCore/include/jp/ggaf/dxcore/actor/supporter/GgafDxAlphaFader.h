@@ -24,7 +24,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pActor  適用対象のActor
      */
-    GgafDxAlphaFader(GgafDxDrawableActor* prm_pActor);
+    explicit GgafDxAlphaFader(GgafDxDrawableActor* prm_pActor);
 
     void reset() override;
 

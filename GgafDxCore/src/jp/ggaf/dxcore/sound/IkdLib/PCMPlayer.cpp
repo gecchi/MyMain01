@@ -83,31 +83,35 @@ void PCMPlayer::terminateThread() {
                 _TRACE_("＜警告＞ PCMPlayer::terminateThread() 未完。正しくスレッドが終了することを願ってBREAK (T_T)");
                 break;
             }
-            DWORD flag = WaitForSingleObject((HANDLE)(int64_t )_hnd_thread, 4);
+            DWORD flag = WaitForSingleObject(_hnd_thread, 4);
             switch (flag) {
                 case WAIT_OBJECT_0:
                     // スレッドが終わった
                     end = true;
-                    _TRACE_("PCMPlayer::terminateThread() WAIT_OBJECT_0 Done! WaitForSingleObject wait="<<wait);
+                    _TRACE_("PCMPlayer::terminateThread() WaitForSingleObject=WAIT_OBJECT_0 OK!Done! flag="<<flag<<" wait="<<wait<<"");
                     break;
                 case WAIT_TIMEOUT:
                     wait++;
                     _is_terminate = true;
                     // まだ終了していないので待機
-                    _TRACE_("PCMPlayer::terminateThread() WAIT_TIMEOUT... WaitForSingleObject wait="<<wait);
+                    _TRACE_("PCMPlayer::terminateThread() WaitForSingleObject=WAIT_TIMEOUT... flag="<<flag<<" wait="<<wait<<"");
                     break;
                 case WAIT_FAILED:
                     // 失敗しているようです
                     end = true;
-                    _TRACE_("PCMPlayer::terminateThread() WAIT_FAILED Done! WaitForSingleObject");
+                    _TRACE_("PCMPlayer::terminateThread() WaitForSingleObject=WAIT_FAILED... flag="<<flag<<" wait="<<wait<<"");
+                    break;
+                default:
+                    wait++;
+                    _TRACE_("PCMPlayer::terminateThread() WaitForSingleObject=?  flag="<<flag<<" wait="<<wait<<"");
                     break;
             }
             if (!end) {
-                _TRACE_("PCMPlayer::terminateThread() WaitForSingleObject flag="<<flag<<" wait="<<wait<<"");
                 Sleep(2);
             }
         }
         _is_terminate = false;
+        CloseHandle(_hnd_thread);
         _hnd_thread = 0;
     } else {
         _TRACE_("PCMPlayer::terminateThread() 以前に既に実行済み。多分。this=" << this << "/_is_terminate=" << _is_terminate);
@@ -164,7 +168,8 @@ bool PCMPlayer::setDecoder(PCMDecoder* prm_pPcmDecoder) {
 
     // バッファコピースレッド生成
     if (_hnd_thread == 0) {
-        _hnd_thread = (unsigned int)_beginthread(PCMPlayer::streamThread, 0, (void*)this);
+        //_hnd_thread = (uintptr_t)_beginthread(PCMPlayer::streamThread, 0, (void*)this);
+        _hnd_thread = (HANDLE)_beginthreadex(nullptr, 0, IkdLib::PCMPlayer::streamThread, (void*)this, 0, nullptr);
     }
 
     _is_ready = true;
@@ -225,7 +230,7 @@ bool PCMPlayer::initializeBuffer() {
 }
 
 //! ストリーム再生スレッド生成
-void PCMPlayer::streamThread(void* playerPtr) {
+unsigned __stdcall PCMPlayer::streamThread(void* playerPtr) {
     PCMPlayer* player = (PCMPlayer*)playerPtr;
     unsigned int size = player->_buffer_desc.dwBufferBytes / 2;
     unsigned int flag = 0;
@@ -315,6 +320,8 @@ void PCMPlayer::streamThread(void* playerPtr) {
 
         Sleep(100);
     }
+
+    return 0;
 }
 
 //! 再生

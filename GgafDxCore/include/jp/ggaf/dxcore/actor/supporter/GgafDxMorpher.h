@@ -29,7 +29,7 @@ public:
      * コンストラクタ<BR>
      * @param prm_pActor 適用Actor
      */
-    GgafDxMorpher(GgafDxMorphMeshActor* prm_pActor);
+    explicit GgafDxMorpher(GgafDxMorphMeshActor* prm_pActor);
 
     /**
      * モーファーの助手A(なめらかモーフ)を取得 .

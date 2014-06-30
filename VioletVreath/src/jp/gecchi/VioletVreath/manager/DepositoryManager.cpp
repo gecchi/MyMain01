@@ -249,7 +249,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         }
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pDepoEffect);
 
-        pResource = NEW GgafActorDepositoryStore("EnemyEmusLaserChip002DepoStore");
+        pResource = NEW GgafActorDepositoryStore("EnemyHisbeLaserChip002DepoStore");
         LaserChipDepository* pLaserChipDepo;
         for (int nLaser = 0; nLaser < 40; nLaser++) { //4–{
             std::string name1 = "LaserChipDepo["+XTOS(nLaser)+"]";

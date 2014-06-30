@@ -29,7 +29,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pMaster  師匠
      */
-    GgafDxAxesMoverAssistantA(GgafDxAxesMover* prm_pMaster);
+    explicit GgafDxAxesMoverAssistantA(GgafDxAxesMover* prm_pMaster);
 
     /**
      * X軸方向でなめらかな移動速度を変化させるシークエンスを実行(時間・距離指定、速度変動) .

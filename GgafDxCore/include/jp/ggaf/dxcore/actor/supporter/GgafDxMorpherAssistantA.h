@@ -24,7 +24,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pMaster  師匠
      */
-    GgafDxMorpherAssistantA(GgafDxMorpher* prm_pMaster);
+    explicit  GgafDxMorpherAssistantA(GgafDxMorpher* prm_pMaster);
 
 
     /**

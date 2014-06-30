@@ -24,7 +24,7 @@ public:
      * コンストラクタ<BR>
      * @param	prm_pActor	適用Actor
      */
-    GgafDxChecker(GgafDxGeometricActor* prm_pActor);
+    explicit GgafDxChecker(GgafDxGeometricActor* prm_pActor);
 
     virtual void updateHitArea() = 0;
 

@@ -320,7 +320,7 @@ MyShip::MyShip(const char* prm_name) :
     pMagicMeter_->position(PX_C(100), PX_C(PROPERTY::GAME_BUFFER_HEIGHT) - (pMagicMeter_->height_) - PX_C(16+16+16));
     addSubGroup(pMagicMeter_);
 
-    r_blown_velo_attenuate_ = 0.8;
+    r_blown_velo_decay_ = 0.8;
 
     invincible_frames_ = 0;
 
@@ -618,19 +618,19 @@ void MyShip::processBehavior() {
         blown_veloX_ = 0;
     } else {
         _x += blown_veloX_;
-        blown_veloX_ *= r_blown_velo_attenuate_;
+        blown_veloX_ *= r_blown_velo_decay_;
     }
     if (ABS(blown_veloY_) < PX_C(1)) {
         blown_veloY_ = 0;
     } else {
         _y += blown_veloY_;
-        blown_veloY_ *= r_blown_velo_attenuate_;
+        blown_veloY_ *= r_blown_velo_decay_;
     }
     if (ABS(blown_veloZ_) < PX_C(1)) {
         blown_veloZ_ = 0;
     } else {
         _z += blown_veloZ_;
-        blown_veloZ_ *= r_blown_velo_attenuate_;
+        blown_veloZ_ *= r_blown_velo_decay_;
     }
 
 
@@ -1157,7 +1157,7 @@ void MyShip::setBlownVelo(velo prm_blown_veloX, velo prm_blown_veloY, velo prm_b
     blown_veloX_ += prm_blown_veloX;
     blown_veloY_ += prm_blown_veloY;
     blown_veloZ_ += prm_blown_veloZ;
-    r_blown_velo_attenuate_ = prm_r_blown_velo_attenuate;
+    r_blown_velo_decay_ = prm_r_blown_velo_attenuate;
 }
 
 void MyShip::setInvincibleFrames(int prm_frames) {

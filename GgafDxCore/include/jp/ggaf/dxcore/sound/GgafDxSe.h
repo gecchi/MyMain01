@@ -37,13 +37,14 @@ public:
     GgafDxGeometricActor* _pActor_LastPlayed;
 
     bool _can_looping;
+
 public:
     /**
      * コンストラクタ
      * @param prm_wave_name 識別ID (プロパティファイルのキー)
      * @return
      */
-    GgafDxSe(char* prm_wave_key);
+    explicit GgafDxSe(char* prm_wave_key);
 
     /**
      * バッファへWaveデータを転送 .

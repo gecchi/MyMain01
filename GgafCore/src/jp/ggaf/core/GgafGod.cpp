@@ -32,7 +32,7 @@ GgafGod::GgafGod() : GgafObject(),
   _fps(0) {
     timeBeginPeriod(1);
     _frame_of_God = 0;
-    _handleFactory01 = (HANDLE)::_beginthreadex(nullptr, 0, GgafFactory::work, nullptr, CREATE_SUSPENDED, &_thID01);
+    _handleFactory01 = (HANDLE)_beginthreadex(nullptr, 0, GgafCore::GgafFactory::work, nullptr, CREATE_SUSPENDED, &_thID01);
 
     if (_handleFactory01 == 0) {
         throwGgafCriticalException("GgafGod::GgafGod() Error! スレッド作成失敗！");

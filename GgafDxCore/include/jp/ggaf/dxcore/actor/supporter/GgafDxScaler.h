@@ -36,7 +36,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pActor  適用対象のActor
      */
-    GgafDxScaler(GgafDxGeometricActor* prm_pActor);
+    explicit GgafDxScaler(GgafDxGeometricActor* prm_pActor);
 
     void reset() override;
 

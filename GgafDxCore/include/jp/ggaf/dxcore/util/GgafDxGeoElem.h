@@ -29,7 +29,7 @@ public:
 
     GgafDxGeoElem(coord prm_x, coord prm_y, coord prm_z, angle prm_rx, angle prm_ry, angle prm_rz);
 
-    GgafDxGeoElem(GgafDxGeometricActor* prm_pActor);
+    explicit GgafDxGeoElem(GgafDxGeometricActor* prm_pActor);
 
     void set(coord prm_x, coord prm_y, coord prm_z, angle prm_rx, angle prm_ry, angle prm_rz);
 

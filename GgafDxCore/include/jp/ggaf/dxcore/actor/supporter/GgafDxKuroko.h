@@ -45,7 +45,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pActor  適用Actor
      */
-    GgafDxKuroko(GgafDxGeometricActor* prm_pActor);
+    explicit GgafDxKuroko(GgafDxGeometricActor* prm_pActor);
 
     /**
      * 黒衣の助手A(移動速度の補佐)を取得 .

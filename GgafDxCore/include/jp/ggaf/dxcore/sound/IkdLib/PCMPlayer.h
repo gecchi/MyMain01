@@ -76,8 +76,8 @@ public:
     bool initializeBuffer();
 
     //! バッファコピースレッド生成
-    static void __cdecl streamThread(void* player);
-
+//    static void __cdecl streamThread(void* player);
+    static unsigned __stdcall streamThread(void* player);
     //! 準備できた？
     bool isReady();
 
@@ -91,7 +91,7 @@ public:
     WAVEFORMATEX _wave_format; //!< WAVEFORMATEX構造体
     DSBUFFERDESC _buffer_desc; //!< DSBUFFERDESC構造体
     bool _is_ready; //!< 準備できた？
-    unsigned int _hnd_thread; //!< ストリーム再生スレッドハンドル
+    HANDLE _hnd_thread; //!< ストリーム再生スレッドハンドル
     bool _is_terminate; //!< スレッド停止
     bool _is_looping; //!< ループする？
     STATE _state; //!< 再生状態

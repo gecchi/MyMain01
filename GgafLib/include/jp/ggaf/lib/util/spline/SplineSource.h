@@ -22,9 +22,9 @@ public:
     bool _is_create_SplineLine;
 
 public:
-    SplineSource(char* prm_idstr);
+    explicit SplineSource(char* prm_idstr);
 
-    SplineSource(SplineLine* prm_pSp);
+    explicit SplineSource(SplineLine* prm_pSp);
 
     virtual ~SplineSource();
 };

@@ -18,12 +18,13 @@ public:
     /** [r]師匠 */
     GgafDxKuroko* _pMaster;
     GgafCore::GgafValueAccelerator<int> _smthMv;
+
 public:
     /**
      * コンストラクタ<BR>
      * @param   prm_pMaster  師匠
      */
-    GgafDxKurokoAssistantA(GgafDxKuroko* prm_pMaster);
+    explicit GgafDxKurokoAssistantA(GgafDxKuroko* prm_pMaster);
 
 
     /**

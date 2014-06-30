@@ -42,7 +42,7 @@ public:
     frame _beat_frame_of_attack_finish[N];
     frame _beat_frame_of_sustain_finish[N];
     /** [r]ビート時、各対象インデックスのアタックから下限までのフレーム数 */
-    frame _beat_frame_of_attenuate_finish[N];
+    frame _beat_frame_of_decay_finish[N];
     /** [r]ビート時、各対象インデックスの三角波の波形で値遷移のレストフレーム数 */
     frame _beat_roop_frames[N];
     /** [r]ビート時、各対象インデックスの値遷移に費やすフレーム数 */
@@ -80,7 +80,7 @@ public:
             _bottom[i] = 0;
             _beat_frame_of_attack_finish[i] = 0;
             _beat_frame_of_sustain_finish[i] = 0;
-            _beat_frame_of_attenuate_finish[i] = 0;
+            _beat_frame_of_decay_finish[i] = 0;
             _beat_roop_frames[i] = 0;
             _beat_target_frames[i] = 0;
             _beat_frame_count_in_roop[i] = 0;
@@ -393,16 +393,16 @@ public:
      * @param prm_roop_frames 上図で①のフレーム数
      * @param prm_attack_frames 上図で②のフレーム数
      * @param prm_sustain_frames 上図で③のフレーム数
-     * @param prm_attenuate_frames 上図で④のフレーム数
+     * @param prm_decay_frames 上図で④のフレーム数
      * @param prm_beat_num ループ数(-1で無限)
      */
     virtual void beat(frame prm_roop_frames,
                       frame prm_attack_frames,
                       frame prm_sustain_frames,
-                      frame prm_attenuate_frames,
+                      frame prm_decay_frames,
                       double prm_beat_num) {
         for (int i = 0; i < N; i++) {
-            beat(i, prm_roop_frames, prm_attack_frames, prm_sustain_frames, prm_attenuate_frames, prm_beat_num);
+            beat(i, prm_roop_frames, prm_attack_frames, prm_sustain_frames, prm_decay_frames, prm_beat_num);
         }
     }
 
@@ -431,21 +431,21 @@ public:
      * @param prm_roop_frames 上図で①のフレーム数
      * @param prm_attack_frames 上図で②のフレーム数
      * @param prm_sustain_frames 上図で③のフレーム数
-     * @param prm_attenuate_frames 上図で④のフレーム数
+     * @param prm_decay_frames 上図で④のフレーム数
      * @param prm_beat_num ループ数(-1で無限)
      */
     virtual void beat(int prm_idx,
                       frame prm_roop_frames,
                       frame prm_attack_frames,
                       frame prm_sustain_frames,
-                      frame prm_attenuate_frames,
+                      frame prm_decay_frames,
                       double prm_beat_num) {
         _method[prm_idx] = BEAT_TRIANGLEWAVE;
         _beat_frame_count[prm_idx] = 0;
         _beat_frame_count_in_roop[prm_idx] = 0;
         _beat_frame_of_attack_finish[prm_idx] = prm_attack_frames;
         _beat_frame_of_sustain_finish[prm_idx] = _beat_frame_of_attack_finish[prm_idx] + prm_sustain_frames;
-        _beat_frame_of_attenuate_finish[prm_idx] = _beat_frame_of_sustain_finish[prm_idx] + prm_attenuate_frames;
+        _beat_frame_of_decay_finish[prm_idx] = _beat_frame_of_sustain_finish[prm_idx] + prm_decay_frames;
         _beat_roop_frames[prm_idx] = prm_roop_frames; //同じ
         if (prm_beat_num < 0) {
             _beat_target_frames[prm_idx] = MAX_FRAME;
@@ -496,7 +496,7 @@ public:
             _bottom[i] = 1;
             _beat_frame_of_attack_finish[i] = 0;
             _beat_frame_of_sustain_finish[i] = 0;
-            _beat_frame_of_attenuate_finish[i] = 0;
+            _beat_frame_of_decay_finish[i] = 0;
             _beat_roop_frames[i] = 0;
             _beat_target_frames[i] = 0;
             _beat_frame_count_in_roop[i] = 0;
@@ -576,7 +576,7 @@ public:
                     //維持終時
                     if (cnt == _beat_frame_of_sustain_finish[i]) {
                         val = top;
-                        frame attenuate_frames = _beat_frame_of_attenuate_finish[i] - _beat_frame_of_sustain_finish[i]; //減衰時間
+                        frame attenuate_frames = _beat_frame_of_decay_finish[i] - _beat_frame_of_sustain_finish[i]; //減衰時間
                         //下限までの減衰速度設定
                         if (attenuate_frames > 0)  {
                             _velo[i] = (VAL_TYPE)( (double)(bottom-top) / ((double)attenuate_frames) );
@@ -585,7 +585,7 @@ public:
                         }
                     }
                     //減衰終了
-                    if (cnt == _beat_frame_of_attenuate_finish[i]) {
+                    if (cnt == _beat_frame_of_decay_finish[i]) {
                         val = bottom;
                         _velo[i] = 0;
                     }

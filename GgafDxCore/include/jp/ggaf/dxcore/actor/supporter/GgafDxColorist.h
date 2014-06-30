@@ -27,7 +27,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pActor  適用対象のActor
      */
-    GgafDxColorist(GgafDxDrawableActor* prm_pActor);
+    explicit GgafDxColorist(GgafDxDrawableActor* prm_pActor);
 
     void reset() override;
 

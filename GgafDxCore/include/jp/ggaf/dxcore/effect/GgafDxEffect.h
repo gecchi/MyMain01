@@ -4,11 +4,7 @@
 
 #include <d3dx9.h>
 #include <string>
-#ifdef __GNUG__
-    #undef __null
-    #undef __in
-    #undef __out
-#endif
+
 namespace GgafDxCore {
 
 /**
@@ -41,7 +37,7 @@ public:
      * コンストラクタ<BR>
      * @param prm_effect_name エフェクト定義の識別名。".fx"を追加するとエフェクトファイル名になる。
      */
-    GgafDxEffect(char* prm_effect_name);
+    explicit GgafDxEffect(char* prm_effect_name);
 
     char* getName() {
         return _effect_name;

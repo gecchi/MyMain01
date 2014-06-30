@@ -64,7 +64,7 @@ public:
     UV* _paUV;
 
 public:
-    GgafDxUvFlipper(GgafDxTexture* prm_pTexture);
+    explicit GgafDxUvFlipper(GgafDxTexture* prm_pTexture);
 
     virtual ~GgafDxUvFlipper();
 

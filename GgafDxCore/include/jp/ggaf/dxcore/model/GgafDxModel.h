@@ -69,7 +69,7 @@ public:
      * コンストラクタ<BR>
      * @param prm_model_name モデル定義の識別名。".x"を追加すると定義Xファイル名になる。
      */
-    GgafDxModel(char* prm_model_name);
+    explicit GgafDxModel(char* prm_model_name);
 
     char* getName(){
         return _model_name;

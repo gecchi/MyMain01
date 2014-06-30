@@ -4,11 +4,6 @@
 
 #include <string>
 #include <d3dx9.h>
-#ifdef __GNUG__
-    #undef __null
-    #undef __in
-    #undef __out
-#endif
 
 namespace GgafDxCore {
 
@@ -39,7 +34,7 @@ public:
      * コンストラクタ<BR>
      * @param prm_texture_name モデル定義の識別名。".x"を追加すると定義Xファイル名になる。
      */
-    GgafDxTexture(char* prm_texture_name);
+    explicit GgafDxTexture(char* prm_texture_name);
 
     void restore();
 

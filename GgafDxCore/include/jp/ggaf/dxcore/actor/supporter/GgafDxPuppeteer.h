@@ -3,11 +3,6 @@
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <d3dx9.h>
-#ifdef __GNUG__
-    #undef __null
-    #undef __in
-    #undef __out
-#endif
 namespace GgafDxCore {
 
 /**
@@ -112,7 +107,7 @@ public:
      * @param prm_pPuppet 操られる者
      * @return
      */
-    GgafDxPuppeteer(GgafDxD3DXAniMeshActor* prm_pPuppet);
+    explicit GgafDxPuppeteer(GgafDxD3DXAniMeshActor* prm_pPuppet);
 
     /**
      * プレイしてもらう（＝パペットが操られる） .
