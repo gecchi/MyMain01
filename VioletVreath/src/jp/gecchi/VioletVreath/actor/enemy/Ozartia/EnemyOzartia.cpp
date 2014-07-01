@@ -62,9 +62,9 @@ void EnemyOzartia::onCreateModel() {
 }
 
 void EnemyOzartia::initialize() {
-    CollisionChecker3D* pColliChecker = getCollisionChecker();
-    pColliChecker->makeCollision(1);
-    pColliChecker->setColliAAB_Cube(0, 40000);
+    CollisionChecker3D* pChecker = getCollisionChecker();
+    pChecker->makeCollision(1);
+    pChecker->setColliAAB_Cube(0, 40000);
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->relateFaceByMvAng(false); //“Æ—§
     pKuroko->forceMvVeloRange(PX_C(1), PX_C(8));

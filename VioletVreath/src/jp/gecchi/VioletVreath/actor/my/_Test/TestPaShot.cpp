@@ -19,9 +19,9 @@ TestPaShot::TestPaShot(const char* prm_name) :
 void TestPaShot::initialize() {
     setHitAble(false);
     setAlpha(0.99);
-    CollisionChecker3D* pColliChecker = getCollisionChecker();
-    pColliChecker->makeCollision(1);
-    pColliChecker->setColliAAB(0, -PX_C(30), -PX_C(30), -PX_C(30),
+    CollisionChecker3D* pChecker = getCollisionChecker();
+    pChecker->makeCollision(1);
+    pChecker->setColliAAB(0, -PX_C(30), -PX_C(30), -PX_C(30),
                                     PX_C(30),  PX_C(30),  PX_C(30));
 }
 

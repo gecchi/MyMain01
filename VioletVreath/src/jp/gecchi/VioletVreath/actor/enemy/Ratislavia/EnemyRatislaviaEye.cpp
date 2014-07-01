@@ -63,9 +63,9 @@ void EnemyRatislaviaEye::onCreateModel() {
 void EnemyRatislaviaEye::initialize() {
     setHitAble(true);
     getKuroko()->relateFaceByMvAng(true);
-    CollisionChecker3D* pColliChecker = getCollisionChecker();
-    pColliChecker->makeCollision(1);
-    pColliChecker->setColliSphere(0, 200000);
+    CollisionChecker3D* pChecker = getCollisionChecker();
+    pChecker->makeCollision(1);
+    pChecker->setColliSphere(0, 200000);
 }
 
 void EnemyRatislaviaEye::onActive() {
@@ -130,7 +130,7 @@ void EnemyRatislaviaEye::processBehavior() {
             }
             LaserChip* pChip = pLaserChipDepo_->dispatch();
             if (pChip) {
-                if (pChip->_pChip_front == nullptr) {
+                if (pChip->getFrontChip() == nullptr) {
                     getSeTx()->play3D(SE_FIRE);
                 }
             } else {

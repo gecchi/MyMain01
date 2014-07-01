@@ -41,6 +41,10 @@ public:
      */
     void updateAABB();
 
+
+    inline GgafDxCollisionPart* getPart(int prm_index) {
+        return _papColliPart[prm_index];
+    }
     virtual ~GgafDxCollisionArea();
 };
 

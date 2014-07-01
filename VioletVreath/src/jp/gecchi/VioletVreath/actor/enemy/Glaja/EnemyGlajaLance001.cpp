@@ -29,13 +29,13 @@ EnemyGlajaLance001::EnemyGlajaLance001(const char* prm_name) :
 
 void EnemyGlajaLance001::initialize() {
     setHitAble(false);
-    CollisionChecker3D* pColliChecker = getCollisionChecker();
-    pColliChecker->makeCollision(3);
-    pColliChecker->setColliAAB_Cube(0, PX_C(20));
-    pColliChecker->setColliAAB_Cube(1, -PX_C(80), 0, 0,
+    CollisionChecker3D* pChecker = getCollisionChecker();
+    pChecker->makeCollision(3);
+    pChecker->setColliAAB_Cube(0, PX_C(20));
+    pChecker->setColliAAB_Cube(1, -PX_C(80), 0, 0,
                                         PX_C(10),
                                         true, true, true);
-    pColliChecker->setColliAAB_Cube(2, PX_C(80), 0, 0,
+    pChecker->setColliAAB_Cube(2, PX_C(80), 0, 0,
                                         PX_C(10),
                                         true, true, true);
 
@@ -53,9 +53,9 @@ void EnemyGlajaLance001::onActive() {
                RND(D_ANG(0), D_ANG(360)) );
     pKuroko->setFaceAngVelo(D_ANG(0), D_ANG(15), D_ANG(20));
     pKuroko->relateFaceByMvAng(true);
-    CollisionChecker3D* pColliChecker = getCollisionChecker();
-    pColliChecker->disable(1);
-    pColliChecker->disable(2);
+    CollisionChecker3D* pChecker = getCollisionChecker();
+    pChecker->disable(1);
+    pChecker->disable(2);
     setScale(R_SC(1));
     pScaler_->reset();
     pScaler_->behave();
@@ -95,9 +95,9 @@ void EnemyGlajaLance001::processBehavior() {
             }
             if (!pScaler_->isTransitioning()) {
                 //‘„‚Ì—¼’[“–‚½‚è”»’èoŒ»
-                CollisionChecker3D* pColliChecker = getCollisionChecker();
-                pColliChecker->enable(1);
-                pColliChecker->enable(2);
+                CollisionChecker3D* pChecker = getCollisionChecker();
+                pChecker->enable(1);
+                pChecker->enable(2);
                 pProg->changeNext();
              }
 

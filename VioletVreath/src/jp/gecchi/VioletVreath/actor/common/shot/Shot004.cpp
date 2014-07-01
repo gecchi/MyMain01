@@ -23,9 +23,9 @@ Shot004::Shot004(const char* prm_name) :
 
 void Shot004::initialize() {
     setHitAble(false);
-    CollisionChecker3D* pColliChecker = getCollisionChecker();
-    pColliChecker->makeCollision(1);
-    pColliChecker->setColliAAB_Cube(0, PX_C(16));
+    CollisionChecker3D* pChecker = getCollisionChecker();
+    pChecker->makeCollision(1);
+    pChecker->setColliAAB_Cube(0, PX_C(16));
 }
 void Shot004::onReset() {
     setScaleR(3.0);

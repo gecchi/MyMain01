@@ -21,9 +21,9 @@ void EnemyEmilia::onCreateModel() {
 }
 
 void EnemyEmilia::initialize() {
-    CollisionChecker3D* pColliChecker = getCollisionChecker();
-    pColliChecker->makeCollision(1);
-    pColliChecker->setColliSphere(0, PX_C(100));
+    CollisionChecker3D* pChecker = getCollisionChecker();
+    pChecker->makeCollision(1);
+    pChecker->setColliSphere(0, PX_C(100));
     getKuroko()->setFaceAngVelo(D_ANG(1), D_ANG(2), D_ANG(3));
     setScaleR(0.5);
 }

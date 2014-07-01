@@ -50,9 +50,9 @@ void EnemyHisbe002::initialize() {
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(AXIS_Y, 500);
     pKuroko->relateFaceByMvAng(true);
-    CollisionChecker3D* pColliChecker = getCollisionChecker();
-    pColliChecker->makeCollision(1);
-    pColliChecker->setColliSphere(0, 40000);
+    CollisionChecker3D* pChecker = getCollisionChecker();
+    pChecker->makeCollision(1);
+    pChecker->setColliSphere(0, 40000);
 }
 
 void EnemyHisbe002::onActive() {
@@ -90,7 +90,7 @@ void EnemyHisbe002::processBehavior() {
                 pLaser->positionAs(this);
                 pLaser->getKuroko()->setRzRyMvAng(_rz, _ry);
                                    //レーザーのスプラインがRELATIVE_DIRECTIONのためMvAngの設定が必要。
-                if (pLaser->_pChip_front == nullptr) {
+                if (pLaser->getFrontChip() == nullptr) {
                     getSeTx()->play3D(SE_FIRE);
                 }
             } else {
@@ -98,9 +98,10 @@ void EnemyHisbe002::processBehavior() {
             }
             break;
         }
-        case PROG_CLOSE: {
-            //１サイクルレーザー打ち切った
-            getMorpher()->transitionLinerUntil(1, 0.0, 120); //閉じる
+        case PROG_CLOSE: { //１サイクルレーザー打ち切った
+            if (pProg->isJustChanged()) {
+                getMorpher()->transitionLinerUntil(1, 0.0, 120); //閉じる
+            }
             if (!getMorpher()->isTransitioning()) {
                 //完全に閉じたら
                 pProg->change(PROG_WAIT);

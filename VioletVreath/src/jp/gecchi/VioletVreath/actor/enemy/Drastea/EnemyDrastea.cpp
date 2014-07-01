@@ -49,8 +49,8 @@ void EnemyDrastea::initialize() {
 
     //“–‚½‚è”»’èBOX¶¬
     int colli_areas = box_num_x * box_num_y * box_num_z;
-    CollisionChecker3D* pColliChecker = getCollisionChecker();
-    pColliChecker->makeCollision(colli_areas);
+    CollisionChecker3D* pChecker = getCollisionChecker();
+    pChecker->makeCollision(colli_areas);
     int n = 0;
     coord bx = -((colli_box_x_len*box_num_x + colli_box_spc_dx*(box_num_x-1)) / 2);
     coord by = -((colli_box_y_len*box_num_y + colli_box_spc_dy*(box_num_y-1)) / 2);
@@ -62,7 +62,7 @@ void EnemyDrastea::initialize() {
             for (int nz = 0; nz < box_num_z; nz++) {
                 coord colli_bz = (colli_box_z_len*nz) + (colli_box_spc_dz*nz);
 
-                pColliChecker->setColliAAB(n,
+                pChecker->setColliAAB(n,
                                    bx + colli_bx,
                                    by + colli_by,
                                    bz + colli_bz,

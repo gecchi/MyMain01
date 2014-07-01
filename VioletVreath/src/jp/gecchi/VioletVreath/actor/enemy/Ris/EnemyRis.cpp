@@ -40,9 +40,9 @@ void EnemyRis::initialize() {
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->relateFaceByMvAng(true);
     pKuroko->setFaceAngVelo(AXIS_X, 5000);
-    CollisionChecker3D* pColliChecker = getCollisionChecker();
-    pColliChecker->makeCollision(1);
-    pColliChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
+    CollisionChecker3D* pChecker = getCollisionChecker();
+    pChecker->makeCollision(1);
+    pChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
 }
 
 void EnemyRis::onActive() {

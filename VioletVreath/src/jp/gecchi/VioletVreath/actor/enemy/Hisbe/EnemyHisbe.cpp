@@ -97,16 +97,16 @@ void EnemyHisbe::onCreateModel() {
 
 void EnemyHisbe::initialize() {
     getKuroko()->relateFaceByMvAng(true);
-    CollisionChecker3D* pColliChecker = getCollisionChecker();
-    pColliChecker->makeCollision(1);
-    pColliChecker->setColliSphere(0, 40000);
+    CollisionChecker3D* pChecker = getCollisionChecker();
+    pChecker->makeCollision(1);
+    pChecker->setColliSphere(0, 40000);
 
-    if (pConn_LaserChipDepoStore_->chkFirstConnectionIs(this)) {
-        _TRACE_("pConn_LaserChipDepoStore_は、ワシ("<<this<<")が育てたエヘン！")
-        getPlatformScene()->getSceneDirector()->addSubGroup(
-                pConn_LaserChipDepoStore_->peek()->extract()
-                );
-    }
+//    if (pConn_LaserChipDepoStore_->chkFirstConnectionIs(this)) {
+//        _TRACE_("pConn_LaserChipDepoStore_は、ワシ("<<this<<")が育てたエヘン！")
+//        getPlatformScene()->getSceneDirector()->addSubGroup(
+//                pConn_LaserChipDepoStore_->peek()->extract()
+//                );
+//    }
 }
 
 void EnemyHisbe::onActive() {
@@ -152,7 +152,7 @@ void EnemyHisbe::processBehavior() {
                     pLaser->positionAs(this);
                     pLaser->getKuroko()->setRzRyMvAng(_rz, _ry);
                                        //レーザーのスプラインがRELATIVE_DIRECTIONのためMvAngの設定が必要。
-                    if (pLaser->_pChip_front == nullptr) {
+                    if (pLaser->getFrontChip() == nullptr) {
                         getSeTx()->play3D(SE_FIRE);
                     }
                 } else {
@@ -165,9 +165,10 @@ void EnemyHisbe::processBehavior() {
             break;
         }
 
-        case PROG_CLOSE: {
-            //１サイクルレーザー打ち切った
-            getMorpher()->transitionLinerUntil(1, 0.0, 120); //閉じる
+        case PROG_CLOSE: { //１サイクルレーザー打ち切った
+            if (pProg->isJustChanged()) {
+                getMorpher()->transitionLinerUntil(1, 0.0, 120); //閉じる
+            }
             if (!getMorpher()->isTransitioning()) {
                 //完全に閉じたら
                 pProg->change(PROG_WAIT);

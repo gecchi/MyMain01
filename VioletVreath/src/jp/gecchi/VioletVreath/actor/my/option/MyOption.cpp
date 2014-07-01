@@ -591,7 +591,7 @@ void MyOption::processBehavior() {
             pLaserChip->_ry = _ry;
             pLaserChip->pOrg_ = this;
 
-            if (pLaserChip->_pChip_front == nullptr) {
+            if (pLaserChip->getFrontChip() == nullptr) {
                 getSeTx()->play3D(SE_FIRE_LASER);
             }
         }

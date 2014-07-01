@@ -30,9 +30,9 @@ ScoreItem::ScoreItem(const char* prm_name, const char* prm_model, GgafCore::Ggaf
     kDX_ = kDY_ = kDZ_ = 0;
     useProgress(PROG_BANPEI);
     setHitAble(true, false); //画面外当たり判定は無効
-    CollisionChecker3D* pColliChecker = getCollisionChecker();
-    pColliChecker->makeCollision(1);
-    pColliChecker->setColliAAB_Cube(0, 400000);
+    CollisionChecker3D* pChecker = getCollisionChecker();
+    pChecker->makeCollision(1);
+    pChecker->setColliAAB_Cube(0, 400000);
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(0, "WAVE_GET_ITEM_001");
 }
@@ -52,7 +52,7 @@ void ScoreItem::onActive() {
     //初期方向設定
     MyShip* pMyShip = P_MYSHIP;
 //    //散らばり範囲正方形１辺の長さ
-//    int scattered_renge    = pColliChecker->_pCollisionArea->_papColliPart[0]->_dx; //当たり判定と同等
+//    int scattered_renge    = pChecker->_pCollisionArea->_papColliPart[0]->_dx; //当たり判定と同等
 //    //発生地点から、自機への方向への散らばり範囲正方形領域が位置する距離（scattered_distance > (scattered_renge/2) であること)
 ////    int scattered_distance = scattered_renge/2 + 400000;
 //    //従って、scattered_distance 離れていても、自機は動かなくてもぎりぎり全て回収できる。

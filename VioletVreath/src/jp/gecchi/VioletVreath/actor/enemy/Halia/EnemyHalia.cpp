@@ -64,9 +64,9 @@ void EnemyHalia::onCreateModel() {
 void EnemyHalia::initialize() {
     setHitAble(true);
     getKuroko()->relateFaceByMvAng(true);
-    CollisionChecker3D* pColliChecker = getCollisionChecker();
-    pColliChecker->makeCollision(1);
-    pColliChecker->setColliSphere(0, 90000);
+    CollisionChecker3D* pChecker = getCollisionChecker();
+    pChecker->makeCollision(1);
+    pChecker->setColliSphere(0, 90000);
     setScaleR(0.3);
 }
 
@@ -158,7 +158,7 @@ void EnemyHalia::processBehavior() {
         case PROG_IN_FIRE: {
             EnemyStraightLaserChip001* pLaser = (EnemyStraightLaserChip001*)pLaserChipDepo_->dispatch();
             if (pLaser) {
-                if (pLaser->_pChip_front == nullptr) {
+                if (pLaser->getFrontChip() == nullptr) {
                     getSeTx()->play3D(SE_FIRE);
                 }
             } else {

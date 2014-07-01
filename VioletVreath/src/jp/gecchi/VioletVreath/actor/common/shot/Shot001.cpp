@@ -30,9 +30,9 @@ Shot001::Shot001(const char* prm_name) :
 }
 
 void Shot001::initialize() {
-    CollisionChecker3D* pColliChecker = getCollisionChecker();
-    pColliChecker->makeCollision(1);
-    pColliChecker->setColliAAB_Cube(0, PX_C(16));
+    CollisionChecker3D* pChecker = getCollisionChecker();
+    pChecker->makeCollision(1);
+    pChecker->setColliAAB_Cube(0, PX_C(16));
     setScale(2000);
     pScaler_->forceRange(2000, 3000);
 }

@@ -347,15 +347,15 @@ void MyShip::initialize() {
     //getSceneDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, pLaserChipDepo_->extract());
 
     setHitAble(true);
-    CollisionChecker3D* pColliChecker = getCollisionChecker();
-    pColliChecker->makeCollision(1);
-//    pColliChecker->setColliSphere(0, -100000, -50000, 20000, 100000);
-// pColliChecker->setColliAAB(0, -100000, -50000, 20000, 10000, 40000, 80000);
-      pColliChecker->setColliAAB_Cube(0, 40000);
-//    pColliChecker->setColliSphere(1, 0,-100000,0, 30000, true, true, true);
-//    pColliChecker->setColliSphere(2, 0,100000,0, 30000, true, true, true);
-//    pColliChecker->setColliSphere(3, 0,0,-100000, 30000, true, true, true);
-//    pColliChecker->setColliSphere(4, 0,0,100000, 30000, true, true, true);
+    CollisionChecker3D* pChecker = getCollisionChecker();
+    pChecker->makeCollision(1);
+//    pChecker->setColliSphere(0, -100000, -50000, 20000, 100000);
+// pChecker->setColliAAB(0, -100000, -50000, 20000, 10000, 40000, 80000);
+      pChecker->setColliAAB_Cube(0, 40000);
+//    pChecker->setColliSphere(1, 0,-100000,0, 30000, true, true, true);
+//    pChecker->setColliSphere(2, 0,100000,0, 30000, true, true, true);
+//    pChecker->setColliSphere(3, 0,0,-100000, 30000, true, true, true);
+//    pChecker->setColliSphere(4, 0,0,100000, 30000, true, true, true);
 
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setMvVelo(0);
@@ -775,7 +775,7 @@ void MyShip::processJudgement() {
         if (pVbPlay->isBeingPressed(VB_SHOT1)) {
             LaserChip* pLaserChip = pLaserChipDepo_->dispatch();
             if (pLaserChip) {
-                if (pLaserChip->_pChip_front == nullptr) {
+                if (pLaserChip->getFrontChip() == nullptr) {
                     getSeTx()->play3D(SE_FIRE_LASER);
                 }
             }

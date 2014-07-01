@@ -26,23 +26,23 @@ void MyWave001::initialize() {
     //_pKuroko->setRzMvAng(0);
     //setRzFaceAng(0);
     pKuroko->setMvVelo(20000);
-    CollisionChecker3D* pColliChecker = getCollisionChecker();
-    pColliChecker->makeCollision(7);
-    pColliChecker->setColliAAB(0,  -10000,  -10000,  -10000,   10000,   10000,   10000, true, true, true);
-    pColliChecker->setColliAAB(1,  -10000, -140000,  -10000,   10000, -120000,   10000, true, true, true);
-    pColliChecker->setColliAAB(2,  -10000,  120000,  -10000,   10000,  140000,   10000, true, true, true);
-    pColliChecker->setColliAAB(3, -140000,  -10000,  -10000, -120000,   10000,   10000, true, true, true);
-    pColliChecker->setColliAAB(4,  120000,  -10000,  -10000,  140000,   10000,   10000, true, true, true);
-    pColliChecker->setColliAAB(5,  -10000,  -10000, -140000,   10000,   10000, -120000, true, true, true);
-    pColliChecker->setColliAAB(6,  -10000,  -10000,  120000,   10000,   10000,  140000, true, true, true);
+    CollisionChecker3D* pChecker = getCollisionChecker();
+    pChecker->makeCollision(7);
+    pChecker->setColliAAB(0,  -10000,  -10000,  -10000,   10000,   10000,   10000, true, true, true);
+    pChecker->setColliAAB(1,  -10000, -140000,  -10000,   10000, -120000,   10000, true, true, true);
+    pChecker->setColliAAB(2,  -10000,  120000,  -10000,   10000,  140000,   10000, true, true, true);
+    pChecker->setColliAAB(3, -140000,  -10000,  -10000, -120000,   10000,   10000, true, true, true);
+    pChecker->setColliAAB(4,  120000,  -10000,  -10000,  140000,   10000,   10000, true, true, true);
+    pChecker->setColliAAB(5,  -10000,  -10000, -140000,   10000,   10000, -120000, true, true, true);
+    pChecker->setColliAAB(6,  -10000,  -10000,  120000,   10000,   10000,  140000, true, true, true);
 
 
-    //	pColliChecker->pHitAreaBoxs_->setLine(0, -20000, 20000, 20000, 20000, true);
-    //	pColliChecker->pHitAreaBoxs_->setLine(1, 20000, 20000, 20000, -20000, true);
-    //	pColliChecker->pHitAreaBoxs_->setLine(2, 20000, -20000, -20000, -20000, true);
-    //	pColliChecker->pHitAreaBoxs_->setLine(3, -20000, -20000, -20000, 20000, true);
-    //	pColliChecker->pHitAreaBoxs_->setLine(4, 30000, 30000, -30000, -30000, true);
-    //	pColliChecker->pHitAreaBoxs_->setLine(5, -30000, 30000, 30000, -30000, true);
+    //	pChecker->pHitAreaBoxs_->setLine(0, -20000, 20000, 20000, 20000, true);
+    //	pChecker->pHitAreaBoxs_->setLine(1, 20000, 20000, 20000, -20000, true);
+    //	pChecker->pHitAreaBoxs_->setLine(2, 20000, -20000, -20000, -20000, true);
+    //	pChecker->pHitAreaBoxs_->setLine(3, -20000, -20000, -20000, 20000, true);
+    //	pChecker->pHitAreaBoxs_->setLine(4, 30000, 30000, -30000, -30000, true);
+    //	pChecker->pHitAreaBoxs_->setLine(5, -30000, 30000, 30000, -30000, true);
     //
     pScaler_->forceRange(1000,20000);
     //setAlpha(0.2);

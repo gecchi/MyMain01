@@ -39,12 +39,14 @@ private:
     /** registerHitAreaCube_AutoGenMidColli() メソッドにより登録時の当たり判定立方体の１辺の長さの半分 */
     int _harf_hitarea_edge_length;
 
-public:
-    CollisionChecker3D* _pColliChecker;
     /** 一つ前方のレーザーチップ */
     LaserChip* _pChip_front;
     /** 一つ後方のレーザーチップ */
     LaserChip* _pChip_behind;
+
+public:
+    CollisionChecker3D* _pColliChecker;
+
     /** レーザーテクスチャ種別  1:末尾 2:中間 3:先頭から２番目で先頭のテクスチャ （末尾かつ先頭は末尾が優先） 4:本当の先頭(但し描画できない) */
     int _chip_kind;
     /** [r]地形ヒットありチップ(10回に1回) */
@@ -109,6 +111,26 @@ public:
 
     inline CollisionChecker3D* getCollisionChecker() {
         return _pColliChecker;
+    }
+
+    /**
+     * 自身の一つ前方のレーザーチップを取得 .
+     * 取得できる場合は、自身と連結していることとなる。
+     * 取得できない場合(戻り値=nullptr)、自身は先頭チップである。
+     * @return 一つ前方のレーザーチップ、又は nullptr
+     */
+    inline LaserChip* getFrontChip() {
+        return _pChip_front;
+    }
+
+    /**
+     * 自身の一つ後方のレーザーチップを取得 .
+     * 取得できる場合は、自身と連結していることとなる。
+     * 取得できない場合(戻り値=nullptr)、自身は末尾チップである。
+     * @return 一つ後方のレーザーチップ、又は nullptr
+     */
+    inline LaserChip* getBehindChip() {
+        return _pChip_behind;
     }
 
     virtual ~LaserChip();

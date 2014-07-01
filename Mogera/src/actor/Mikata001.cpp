@@ -22,9 +22,9 @@ Mikata001::Mikata001(const char* prm_name) :
 }
 
 void Mikata001::initialize() {
-    CollisionChecker3D* pColliChecker = getCollisionChecker();
-    pColliChecker->makeCollision(1);
-    pColliChecker->setColliAAB_Cube(0, PX_C(40));
+    CollisionChecker3D* pChecker = getCollisionChecker();
+    pChecker->makeCollision(1);
+    pChecker->setColliAAB_Cube(0, PX_C(40));
     pColorist->forceRange(0, 4.0);
     setHitAble(true);
     setScaleR(0.5);

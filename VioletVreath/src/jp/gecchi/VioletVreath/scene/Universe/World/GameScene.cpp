@@ -293,7 +293,7 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_GOD_WILL_DIE) {
         _TRACE_("GameScene::onCatchEvent(EVENT_GOD_WILL_DIE) CommonSceneを拾い上げて後に解放されるようにします。");
         //神が死んでしまう前に
-        //CommonSceneを拾い上げ、解放順序が後になるように操作する。
+        //CommonSceneを拾い上げ、解放順序が後になるように操作する。(共有デポジトリとかあるし)
         addSubLast(P_MYSHIP_SCENE->extract());
         addSubLast(P_COMMON_SCENE->extract());
         P_MYSHIP_SCENE->moveFirstImmed();

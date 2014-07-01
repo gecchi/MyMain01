@@ -50,6 +50,10 @@ public:
         return _pActor;
     }
 
+    inline GgafDxCollisionArea* getArea() {
+        return _pCollisionArea;
+    }
+
     /**
      * 当たり判定領域の要素を有効にする。
      * デフォルトは有効状態になっています。

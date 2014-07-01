@@ -20,15 +20,15 @@ FormationAntiope001::FormationAntiope001(const char* prm_name) :
     interval_frames_ = 0;
     pDepoConnection_AntiopeP_ = connect_DepositoryManager("AntiopeP");
     pDepoConnection_AntiopeN_ = connect_DepositoryManager("AntiopeN");
-
 }
+
 void FormationAntiope001::initialize() {
 }
 
 void FormationAntiope001::onActive() {
     num_Antiope_ = RF_FormationAntiope001_Num(G_RANK);    //•Ò‘à”
     cnt_Antiope_ = 0;
-    interval_frames_ = RF_FormationAntiope001_LaunchInterval(G_RANK);  //ƒAƒ‰ƒX‚ÌŠÔŠu(frame)
+    interval_frames_ = RF_FormationAntiope001_LaunchInterval(G_RANK);  //oŒ»ŠÔŠu(frame)
 }
 
 void FormationAntiope001::processBehavior() {
@@ -37,17 +37,17 @@ void FormationAntiope001::processBehavior() {
             MyShip* pMyShip = P_MYSHIP;
             coord renge = PX_C(1200);
             GgafDxCore::GgafDxGeoElem entry_pos(RND(pMyShip->_x - (renge*0.5), pMyShip->_x + (renge*1.5)),
-                                                RND(pMyShip->_y - renge, pMyShip->_y + renge),
-                                                RND(pMyShip->_z - renge, pMyShip->_z + renge) );
+                                                RND_AROUND(pMyShip->_y, renge),
+                                                RND_AROUND(pMyShip->_z, renge) );
 
-            GgafDxCore::GgafDxGeoElem twd_pos_p(RND(entry_pos.x - renge, entry_pos.x + renge),
-                                                RND(entry_pos.y - renge, entry_pos.y + renge),
-                                                RND(entry_pos.z - renge, entry_pos.z + renge) );
+            GgafDxCore::GgafDxGeoElem twd_pos_p(RND_AROUND(entry_pos.x, renge),
+                                                RND_AROUND(entry_pos.y, renge),
+                                                RND_AROUND(entry_pos.z, renge) );
 
             float vX, vY, vZ;
-            UTIL::getNormalizeVector(RND(entry_pos.x - renge, entry_pos.x + renge),
-                                     RND(entry_pos.y - renge, entry_pos.y + renge),
-                                     RND(entry_pos.z - renge, entry_pos.z + renge),
+            UTIL::getNormalizeVector(RND_AROUND(entry_pos.x, renge),
+                                     RND_AROUND(entry_pos.y, renge),
+                                     RND_AROUND(entry_pos.z, renge),
                                      vX, vY, vZ);
             coord veloMv = 4000;
 
@@ -79,7 +79,6 @@ void FormationAntiope001::processBehavior() {
         }
     }
 }
-
 
 FormationAntiope001::~FormationAntiope001() {
     pDepoConnection_AntiopeP_->close();

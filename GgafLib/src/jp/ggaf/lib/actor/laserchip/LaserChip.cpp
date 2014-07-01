@@ -101,7 +101,7 @@ void LaserChip::onActive() {
 
 void LaserChip::processSettlementBehavior() {
     LaserChip* pChip_front = _pChip_front;
-    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    CollisionChecker3D* pChecker = getCollisionChecker();
 
     //レーザーチップ種別 設定。
     //シェーダーのパラメータとなります。
@@ -176,7 +176,7 @@ void LaserChip::processSettlementBehavior() {
                     int cX = dX / 2;
                     int cY = dY / 2;
                     int cZ = dZ / 2;
-                    pColliChecker->setColliAAB(
+                    pChecker->setColliAAB(
                                   1,
                                   cX - _harf_hitarea_edge_length,
                                   cY - _harf_hitarea_edge_length,
@@ -185,13 +185,13 @@ void LaserChip::processSettlementBehavior() {
                                   cY + _harf_hitarea_edge_length,
                                   cZ + _harf_hitarea_edge_length
                                   );
-                    pColliChecker->enable(1);
+                    pChecker->enable(1);
                 } else {
-                    pColliChecker->disable(1);
+                    pChecker->disable(1);
                 }
             }
         } else {
-            pColliChecker->disable(1);
+            pChecker->disable(1);
         }
     }
 
@@ -296,11 +296,11 @@ void LaserChip::registerHitAreaCube_AutoGenMidColli(int prm_edge_length) {
     _hitarea_edge_length = prm_edge_length;
     _hitarea_edge_length_3 = _hitarea_edge_length*3;
     _harf_hitarea_edge_length = _hitarea_edge_length / 2;
-    CollisionChecker3D* pColliChecker = getCollisionChecker();
-    pColliChecker->makeCollision(2);
-    pColliChecker->setColliAAB_Cube(0, prm_edge_length);
-    pColliChecker->setColliAAB_Cube(1, prm_edge_length);
-    pColliChecker->disable(1);
+    CollisionChecker3D* pChecker = getCollisionChecker();
+    pChecker->makeCollision(2);
+    pChecker->setColliAAB_Cube(0, prm_edge_length);
+    pChecker->setColliAAB_Cube(1, prm_edge_length);
+    pChecker->disable(1);
     setHitAble(true);
 }
 

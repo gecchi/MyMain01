@@ -34,9 +34,9 @@ void MyMagicEnergyCore::onCreateModel() {
 
 void MyMagicEnergyCore::initialize() {
     setHitAble(true);
-    CollisionChecker3D* pColliChecker = getCollisionChecker();
-    pColliChecker->makeCollision(1);
-    pColliChecker->setColliSphere(0, 1);
+    CollisionChecker3D* pChecker = getCollisionChecker();
+    pChecker->makeCollision(1);
+    pChecker->setColliSphere(0, 1);
 }
 
 void MyMagicEnergyCore::onActive() {
@@ -51,12 +51,12 @@ void MyMagicEnergyCore::processBehavior() {
                 s * MAX_SCALSE_MagicEnergyCore,
                 100
              );
-    CollisionChecker3D* pColliChecker = getCollisionChecker();
+    CollisionChecker3D* pChecker = getCollisionChecker();
     if (s > 0.0) {
-        pColliChecker->enable(0);
-        pColliChecker->setColliSphere(0, s*PX_C(30));
+        pChecker->enable(0);
+        pChecker->setColliSphere(0, s*PX_C(30));
     } else {
-        pColliChecker->disable(0);
+        pChecker->disable(0);
     }
     pScaler_->behave();
     pAxsMver_->behave();

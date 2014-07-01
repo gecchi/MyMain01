@@ -19,9 +19,9 @@ Teki001::Teki001(const char* prm_name) :
 }
 
 void Teki001::initialize() {
-    CollisionChecker3D* pColliChecker = getCollisionChecker();
-    pColliChecker->makeCollision(1);
-    pColliChecker->setColliAAB_Cube(0, PX_C(40));
+    CollisionChecker3D* pChecker = getCollisionChecker();
+    pChecker->makeCollision(1);
+    pChecker->setColliAAB_Cube(0, PX_C(40));
     setScaleR(3.0);
     setHitAble(true);
     //黒衣にキャラのZ軸回転の角速度を設定(毎フレーム2度)

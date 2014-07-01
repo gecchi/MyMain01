@@ -354,9 +354,9 @@ void GgafDxGeometricActor::positionAs(GgafDxGeoElem* prm_pGeoElem) {
     _z = prm_pGeoElem->z;
 }
 void GgafDxGeometricActor::positionAboutAs(GgafDxGeoElem* prm_pGeoElem, coord margin) {
-    _x = RND_ABOUT(prm_pGeoElem->x, margin);
-    _y = RND_ABOUT(prm_pGeoElem->y, margin);
-    _z = RND_ABOUT(prm_pGeoElem->z, margin);
+    _x = RND_AROUND(prm_pGeoElem->x, margin);
+    _y = RND_AROUND(prm_pGeoElem->y, margin);
+    _z = RND_AROUND(prm_pGeoElem->z, margin);
 }
 void GgafDxGeometricActor::setFaceAngAs(GgafDxGeometricActor* prm_pActor) {
     _rx = prm_pActor->_rx;

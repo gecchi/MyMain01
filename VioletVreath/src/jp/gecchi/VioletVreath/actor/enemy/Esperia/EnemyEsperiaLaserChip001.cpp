@@ -25,9 +25,9 @@ EnemyEsperiaLaserChip001::EnemyEsperiaLaserChip001(const char* prm_name) :
 }
 
 void EnemyEsperiaLaserChip001::initialize() {
-    CollisionChecker3D* pColliChecker = getCollisionChecker();
-    pColliChecker->makeCollision(1);
-    pColliChecker->setColliAAB_Cube(0, 20000);
+    CollisionChecker3D* pChecker = getCollisionChecker();
+    pChecker->makeCollision(1);
+    pChecker->setColliAAB_Cube(0, 20000);
     setHitAble(true, false);
     setScaleR(5.0);
     GgafDxKuroko* pKuroko = getKuroko();
@@ -43,7 +43,7 @@ void EnemyEsperiaLaserChip001::onActive() {
     begin_y_ = _y;
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->stopTurnMvAng();
-    if (_pChip_front == nullptr) {
+    if (getFrontChip() == nullptr) {
         pKuroko->setMvAngTwd(tx1_, ty1_, tz1_);
         getProgress()->reset(PROG_MOVE_UP);
     } else {

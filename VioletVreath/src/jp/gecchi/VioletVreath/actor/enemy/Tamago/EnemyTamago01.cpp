@@ -52,24 +52,24 @@ void EnemyTamago01::initialize() {
     pKuroko->setFaceAngVelo(AXIS_X, 1000);
     pKuroko->setMvAngTwd(900000, 300000, 300000);
     pKuroko->setMvVelo(3000);
-    CollisionChecker3D* pColliChecker = getCollisionChecker();
-    pColliChecker->makeCollision(1);
-//    pColliChecker->setColliAAPrism_Cube(0, 200000,POS_PRISM_ZX_pp);
-//        pColliChecker->setColliAAPrism_WHD(0,0,0,300000,100000,200000,100000,POS_PRISM_YZ_pn);
+    CollisionChecker3D* pChecker = getCollisionChecker();
+    pChecker->makeCollision(1);
+//    pChecker->setColliAAPrism_Cube(0, 200000,POS_PRISM_ZX_pp);
+//        pChecker->setColliAAPrism_WHD(0,0,0,300000,100000,200000,100000,POS_PRISM_YZ_pn);
 
     //ヒットしない理由を探せ！！
-//      pColliChecker->setColliAAPrism_WHD(0,20000,-30000,50000,
+//      pChecker->setColliAAPrism_WHD(0,20000,-30000,50000,
 //                                                90000,140000,60000,POS_PRISM_XY_nn);
 //
-//      pColliChecker->setColliAAPrism_WHD(1,-20000,-30000,-50000,
+//      pChecker->setColliAAPrism_WHD(1,-20000,-30000,-50000,
 //                                                 60000,90000,140000,POS_PRISM_ZX_pp);
 
-//    pColliChecker->setColliAAB_WHD(0,20000,-30000,50000,
+//    pChecker->setColliAAB_WHD(0,20000,-30000,50000,
 //                                              90000,140000,60000);
-    pColliChecker->setColliAAB_Cube(0, 50000);
+    pChecker->setColliAAB_Cube(0, 50000);
 
 
-    //pColliChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
+    //pChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
     _x = -50000;
     _y = 200000;
     _z = 100000;

@@ -67,21 +67,21 @@ void MyOptionWateringLaserChip001::onActive() {
     WateringLaserChip::onActive();
     GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
     if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheTree()) {
-        if (_pChip_front == nullptr) {
+        if (getFrontChip() == nullptr) {
             //先端チップ
             lockon_st_ = 1;
         } else {
             //先端以外
-            MyOptionWateringLaserChip001* pF = (MyOptionWateringLaserChip001*) _pChip_front;
+            MyOptionWateringLaserChip001* pF = (MyOptionWateringLaserChip001*) getFrontChip();
             lockon_st_ = pF->lockon_st_;//一つ前のロックオン情報を引き継ぐ
         }
     } else {
-        if (_pChip_front == nullptr) {
+        if (getFrontChip() == nullptr) {
             //先端チップ
             lockon_st_ = 0;
         } else {
             //先端以外
-            MyOptionWateringLaserChip001* pF = (MyOptionWateringLaserChip001*) _pChip_front;
+            MyOptionWateringLaserChip001* pF = (MyOptionWateringLaserChip001*) getFrontChip();
             lockon_st_ = pF->lockon_st_;//一つ前のロックオン情報を引き継ぐ
         }
     }
@@ -178,7 +178,7 @@ void MyOptionWateringLaserChip001::moveChip(int tX, int tY, int tZ) {
     double accY = ((vTy * r) - vVMy) * rr_max_acce_;
     double accZ = ((vTz * r) - vVMz) * rr_max_acce_;
 
-    if (_pChip_front == nullptr) {
+    if (getFrontChip() == nullptr) {
         //先頭はやや速めに。SGN(accX)*5 を加算するのは、加速度を0にしないため
         pAxsMver_->setVxyzMvAcce(accX + SGN(accX)*5.0,
                                  accY + SGN(accY)*5.0,
@@ -236,9 +236,9 @@ void MyOptionWateringLaserChip001::onHit(GgafActor* prm_pOtherActor) {
                 //オプションのロックオンに見事命中した場合
 
                 lockon_st_ = 2; //ロックオンをやめる。非ロックオン（ロックオン→非ロックオン）
-                if (_pChip_front && _pChip_front->_pChip_front == nullptr) {
+                if (getFrontChip() && getFrontChip()->getFrontChip() == nullptr) {
                     //中間先頭チップがヒットした場合、先端にも伝える(先端は当たり判定ないため中間先頭と同値にする)
-                    ((MyOptionWateringLaserChip001*)_pChip_front)->lockon_st_ = 2;
+                    ((MyOptionWateringLaserChip001*)getFrontChip())->lockon_st_ = 2;
                 }
             } else {
                 //オプションのロックオン以外のアクターに命中した場合

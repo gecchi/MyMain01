@@ -25,10 +25,10 @@ TestEnemy::TestEnemy(const char* prm_name,
 
 void TestEnemy::initialize() {
     setHitAble(true);
-    CollisionChecker3D* pColliChecker = getCollisionChecker();
-    pColliChecker->makeCollision(1);
-//    pColliChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
-    pColliChecker->setColliSphere(0, 30000);
+    CollisionChecker3D* pChecker = getCollisionChecker();
+    pChecker->makeCollision(1);
+//    pChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
+    pChecker->setColliSphere(0, 30000);
 }
 
 

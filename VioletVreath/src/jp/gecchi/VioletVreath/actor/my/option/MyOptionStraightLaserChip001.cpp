@@ -47,23 +47,23 @@ void MyOptionStraightLaserChip001::onActive() {
     pKuroko->setMvAcce(300);
     is_lockon_ = false;
     if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheTree()) {
-        if (_pChip_front == nullptr) {
+        if (getFrontChip() == nullptr) {
             //先端チップ
             lockon_st_ = 1;
             is_lockon_ = true;
         } else {
             //先端以外
-            lockon_st_ = ((MyOptionStraightLaserChip001*) _pChip_front)->lockon_st_;//一つ前のロックオン情報を引き継ぐ
-            is_lockon_ = ((MyOptionStraightLaserChip001*) _pChip_front)->is_lockon_;//一つ前のロックオン情報を引き継ぐ
+            lockon_st_ = ((MyOptionStraightLaserChip001*) getFrontChip())->lockon_st_;//一つ前のロックオン情報を引き継ぐ
+            is_lockon_ = ((MyOptionStraightLaserChip001*) getFrontChip())->is_lockon_;//一つ前のロックオン情報を引き継ぐ
         }
     } else {
-        if (_pChip_front == nullptr) {
+        if (getFrontChip() == nullptr) {
             //先端チップ
             lockon_st_ = 0;
         } else {
             //先端以外
-            lockon_st_ = ((MyOptionStraightLaserChip001*) _pChip_front)->lockon_st_;//一つ前のロックオン情報を引き継ぐ
-            is_lockon_ = ((MyOptionStraightLaserChip001*) _pChip_front)->is_lockon_;//一つ前のロックオン情報を引き継ぐ
+            lockon_st_ = ((MyOptionStraightLaserChip001*) getFrontChip())->lockon_st_;//一つ前のロックオン情報を引き継ぐ
+            is_lockon_ = ((MyOptionStraightLaserChip001*) getFrontChip())->is_lockon_;//一つ前のロックオン情報を引き継ぐ
         }
     }
 }
@@ -83,17 +83,17 @@ void MyOptionStraightLaserChip001::processBehavior() {
     if (lockon_st_ == 2) {
         if (is_lockon_) {
             is_lockon_ = false;
-//            if (_pChip_front == nullptr) {
+//            if (getFrontChip() == nullptr) {
 //            }
         }
-//        if (_pChip_front == nullptr) {
-//        } else if (_pChip_front->_pChip_front == nullptr) {
-//        } else if (_pChip_front->_pChip_front->_pChip_front == nullptr) {
-//        } else if (_pChip_front->_pChip_front->_pChip_front->_pChip_front == nullptr) {
+//        if (getFrontChip() == nullptr) {
+//        } else if (getFrontChip()->getFrontChip() == nullptr) {
+//        } else if (getFrontChip()->getFrontChip()->getFrontChip() == nullptr) {
+//        } else if (getFrontChip()->getFrontChip()->getFrontChip()->getFrontChip() == nullptr) {
 //        } else {
 //        }
     }
-    if (_pChip_front == nullptr) {
+    if (getFrontChip() == nullptr) {
         getSeTx()->behave();
     }
     StraightLaserChip::processBehavior();//座標を移動させてから呼び出すこと
@@ -119,9 +119,9 @@ void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
                 //オプションのロックオンに見事命中した場合
 
                 lockon_st_ = 2; //ロックオンをやめる。非ロックオン（ロックオン→非ロックオン）
-                if (_pChip_front && _pChip_front->_pChip_front == nullptr) {
+                if (getFrontChip() && getFrontChip()->getFrontChip() == nullptr) {
                     //中間先頭チップがヒットした場合、先端にも伝える
-                    ((MyOptionStraightLaserChip001*)_pChip_front)->lockon_st_ = 2;
+                    ((MyOptionStraightLaserChip001*)getFrontChip())->lockon_st_ = 2;
                 }
             } else {
                 //オプションのロックオン以外のアクターに命中した場合

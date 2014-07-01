@@ -84,9 +84,9 @@ void EnemyStraea::onCreateModel() {
 }
 
 void EnemyStraea::initialize() {
-    CollisionChecker3D* pColliChecker = getCollisionChecker();
-    pColliChecker->makeCollision(1);
-    pColliChecker->setColliSphere(0, PX_C(200));
+    CollisionChecker3D* pChecker = getCollisionChecker();
+    pChecker->makeCollision(1);
+    pChecker->setColliSphere(0, PX_C(200));
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setRzRyMvAng(0, D180ANG);
     pKuroko->setMvVelo(PX_C(5));

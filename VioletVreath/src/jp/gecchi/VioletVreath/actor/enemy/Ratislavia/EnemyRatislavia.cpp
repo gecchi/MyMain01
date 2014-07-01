@@ -59,10 +59,10 @@ void EnemyRatislavia::addSubGroupAsFkOnSurface(GgafDxGeometricActor* prm_pGeoAct
 void EnemyRatislavia::makeCollisionArea(int prm_nSphere){
     angle* paAngRadial = NEW angle[prm_nSphere];
     UTIL::getRadialAngle2D(0, prm_nSphere, paAngRadial);
-    CollisionChecker3D* pColliChecker = getCollisionChecker();
-    pColliChecker->makeCollision(prm_nSphere);
+    CollisionChecker3D* pChecker = getCollisionChecker();
+    pChecker->makeCollision(prm_nSphere);
     for (int i = 0; i < prm_nSphere; i++) {
-        pColliChecker->setColliSphere(
+        pChecker->setColliSphere(
                 i,
                 0 , ANG_SIN(paAngRadial[i]) * r1_, ANG_COS(paAngRadial[i]) * r1_,
                 r2_,
@@ -110,9 +110,9 @@ void EnemyRatislavia::processBehavior() {
                 //当たり判定球付近に爆発エフェクトを散乱させる
                 GgafDxCollisionPart* pPart;
                 GgafDxDrawableActor* pE;
-                CollisionChecker3D* pColliChecker = getCollisionChecker();
+                CollisionChecker3D* pChecker = getCollisionChecker();
                 for (int j = 0; j < colli_part_num_; j++) {
-                    pPart = pColliChecker->_pCollisionArea->_papColliPart[j];
+                    pPart = pChecker->getArea()->getPart(j);
                     pE = dispatchDelayFromCommon(EffectExplosion004, RND(1,10));
                     if (pE) {
                         pE->position(_x + pPart->_cx + RND(-r2_, +r2_),
@@ -128,9 +128,9 @@ void EnemyRatislavia::processBehavior() {
                 //当たり判定球付近に爆発エフェクトを散乱させる
                 GgafDxCollisionPart* pPart;
                 GgafDxDrawableActor* pE;
-                CollisionChecker3D* pColliChecker = getCollisionChecker();
+                CollisionChecker3D* pChecker = getCollisionChecker();
                 for (int j = 0; j < colli_part_num_; j++) {
-                    pPart = pColliChecker->_pCollisionArea->_papColliPart[j];
+                    pPart = pChecker->getArea()->getPart(j);
                     pE = dispatchFromCommon(EffectExplosion004);
                     if (pE) {
                         pE->position(_x + pPart->_cx,

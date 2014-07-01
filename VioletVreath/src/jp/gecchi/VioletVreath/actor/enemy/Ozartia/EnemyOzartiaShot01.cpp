@@ -18,9 +18,9 @@ EnemyOzartiaShot01::EnemyOzartiaShot01(const char* prm_name) :
 }
 
 void EnemyOzartiaShot01::initialize() {
-    CollisionChecker3D* pColliChecker = getCollisionChecker();
-    pColliChecker->makeCollision(1);
-    pColliChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
+    CollisionChecker3D* pChecker = getCollisionChecker();
+    pChecker->makeCollision(1);
+    pChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
     setHitAble(true);
     getProgress()->reset(PROG_INIT);
 }
