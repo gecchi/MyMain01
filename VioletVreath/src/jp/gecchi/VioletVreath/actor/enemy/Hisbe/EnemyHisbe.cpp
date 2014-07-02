@@ -189,6 +189,7 @@ void EnemyHisbe::processJudgement() {
     if (isOutOfUniverse()) {
         if (_x >= GgafDxUniverse::_x_gone_right) {
             //WALL内実験
+            //空間外でも消えません（壁出現時は空間外もおおい)
         } else {
             sayonara();
         }

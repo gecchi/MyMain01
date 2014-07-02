@@ -91,7 +91,7 @@ public:
      * 最も直近のスクロールしているシーンを探して取得。 .
      * 検索範囲は 自シーン＋親シーン。
      * 関数ポインタ _pFuncScrolling が nullptr でなければ、スクロールしていると判断。
-     * @return 直近のスクロールしているシーン
+     * @return 直近のスクロールしているシーン、無ければ nullptr
      */
     DefaultScene* getNearestScrollingScene();
 

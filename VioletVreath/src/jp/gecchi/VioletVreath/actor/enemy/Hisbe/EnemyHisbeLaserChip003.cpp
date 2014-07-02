@@ -32,7 +32,6 @@ void EnemyHisbeLaserChip003::initialize() {
 
     getKuroko()->relateFaceByMvAng(true);
     sp_index_ = 0;
-    pNearestScrollingScene_ = ((DefaultScene*)getPlatformScene())->getNearestScrollingScene();
 }
 
 void EnemyHisbeLaserChip003::onActive() {
@@ -41,6 +40,7 @@ void EnemyHisbeLaserChip003::onActive() {
     getStatus()->reset();
     pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION); //向てる方向にスプライン座標をワールド変換
     sp_index_ = 0;
+    pNearestScrollingScene_ = ((DefaultScene*)getPlatformScene())->getNearestScrollingScene();
 }
 
 void EnemyHisbeLaserChip003::processBehavior() {

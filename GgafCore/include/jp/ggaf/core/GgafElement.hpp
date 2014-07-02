@@ -400,7 +400,7 @@ public:
      * @param prm_no イベントメッセージ番号
      * @param prm_pSource  イベント用汎用ポインタ
      */
-    virtual void onCatchEvent(hashval prm_no, void* prm_pSource) = 0;
+    virtual void onCatchEvent(hashval prm_no, void* prm_pSource) {}
 
 
     virtual bool isDisappear();

@@ -27,7 +27,6 @@ void EnemyHisbeLaserChip001::initialize() {
 //    registerHitAreaCube_AutoGenMidColli(20000);
     setScaleR(5.0);
     setAlpha(0.9);
-    pNearestScrollingScene_ = ((DefaultScene*)getPlatformScene())->getNearestScrollingScene();
 }
 
 void EnemyHisbeLaserChip001::onActive() {
@@ -40,6 +39,7 @@ void EnemyHisbeLaserChip001::onActive() {
     pKuroko->relateFaceByMvAng(true);
     //ˆÊ’u‚ÆŒü‚«‚ÍEnemyHisbe‚ªÝ’è
     pKurokoLeader_->stop();
+    pNearestScrollingScene_ = ((DefaultScene*)getPlatformScene())->getNearestScrollingScene();
 }
 
 void EnemyHisbeLaserChip001::processBehaviorHeadChip() {

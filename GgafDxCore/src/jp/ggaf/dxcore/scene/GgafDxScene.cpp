@@ -69,7 +69,6 @@ void GgafDxScene::fadeinScene(int prm_frame_fade) {
     }
 }
 
-
 void GgafDxScene::fadeoutSceneTree(int prm_frame_fade) {
     fadeoutScene(prm_frame_fade);
 

@@ -26,6 +26,8 @@ public:
 
     void processJudgement() override;
 
+    bool isOutOfUniverse() override;
+
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     virtual ~EnemyHisbeLaserChip002();

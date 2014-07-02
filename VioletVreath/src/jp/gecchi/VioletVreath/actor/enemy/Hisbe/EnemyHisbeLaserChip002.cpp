@@ -32,7 +32,6 @@ void EnemyHisbeLaserChip002::initialize() {
     setHitAble(true, false);
     setScaleR(5.0);
     setAlpha(0.9);
-    pNearestScrollingScene_ = ((DefaultScene*)getPlatformScene())->getNearestScrollingScene();
 }
 
 void EnemyHisbeLaserChip002::onActive() {
@@ -40,6 +39,7 @@ void EnemyHisbeLaserChip002::onActive() {
     //ステータスリセット
     getStatus()->reset();
     getKuroko()->relateFaceByMvAng(true);
+    pNearestScrollingScene_ = ((DefaultScene*)getPlatformScene())->getNearestScrollingScene();
 }
 
 void EnemyHisbeLaserChip002::onRefractionBegin(int prm_num_refraction)  {
@@ -74,14 +74,28 @@ void EnemyHisbeLaserChip002::processBehavior() {
 
 void EnemyHisbeLaserChip002::processJudgement() {
     if (isOutOfUniverse()) {
-        if (_x >= GgafDxUniverse::_x_gone_right) {
-            //WALL内実験
-        } else {
-            sayonara();
-        }
+        sayonara();
     }
 }
 
+bool EnemyHisbeLaserChip002::isOutOfUniverse() {
+    //EnemyHisbe出現時（壁ブロック配置時）はX軸方向の大抵空間外のため
+    if (GgafDxUniverse::_x_gone_left < _x) {
+        //if (_x < GgafDxUniverse::_x_gone_right) {
+            if (GgafDxUniverse::_y_gone_bottom < _y) {
+                if (_y < GgafDxUniverse::_y_gone_top) {
+                    if (GgafDxUniverse::_z_gone_near < _z) {
+                        if (_z < GgafDxUniverse::_z_gone_far) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        //}
+    }
+    return true;
+
+}
 void EnemyHisbeLaserChip002::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
