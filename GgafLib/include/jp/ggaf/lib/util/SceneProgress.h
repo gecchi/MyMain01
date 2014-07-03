@@ -46,7 +46,7 @@ public:
      * @param prm_EndProgress 末尾の進捗状態
      * @param prm_FirstSubSceneName 先頭の進捗状態(prm_FirstProgress)に対応するサブシーンの名称
      */
-    void relatSubScene(progress prm_FirstProgress, progress prm_EndProgress, const char* prm_FirstSubSceneName);
+    void relateSubScene(progress prm_FirstProgress, progress prm_EndProgress, const char* prm_FirstSubSceneName);
 
 
     /**
@@ -61,12 +61,12 @@ public:
      * @param prm_EndProgress   末尾の進捗状態
      * @param prm_pFirstSubScene 先頭の進捗状態(prm_FirstProgress)に対応するサブシーン
      */
-    void relatSubScene(progress prm_FirstProgress, progress prm_EndProgress, DefaultScene* prm_pFirstSubScene);
+    void relateSubScene(progress prm_FirstProgress, progress prm_EndProgress, DefaultScene* prm_pFirstSubScene);
 
     /**
      * 新しい進捗状態を切り替えると同時に、関連付いたサブシーンを活動状態にする .
      * 現在の進捗状態に紐付くサブシーンはそのまま（非活動にしません） .
-     * ※本メソッドの効果を得るには relatSubScene() を予め実行し、シーンを関連付ける必要があります。
+     * ※本メソッドの効果を得るには relateSubScene() を予め実行し、シーンを関連付ける必要があります。
      * @param prm_progress 新しい進捗状態
      */
     void changeWithScene(progress prm_progress);
@@ -74,7 +74,7 @@ public:
     /**
      * 新しい進捗状態を切り替えると同時に、関連付いたサブシーンに切り替え .
      * 現在の進捗状態に紐付くサブシーンは非活動状態にし、引数の進捗状態に紐付くサブシーンを活動状態にします。
-     * ※本メソッドの効果を得るには relatSubScene() を予め実行し、シーンを関連付ける必要があります。
+     * ※本メソッドの効果を得るには relateSubScene() を予め実行し、シーンを関連付ける必要があります。
      * @param prm_progress 新しい進捗状態
      */
     void changeWithSceneFlipping(progress prm_progress);
@@ -82,7 +82,7 @@ public:
     /**
      * 新しい進捗状態を切り替えると同時に、関連付いたサブシーンを活動状態に切り替え、
      * 活動状態サブシーンは非活動状態にする。その際、フェードアウト・フェードイン効果を行う .
-     * ※本メソッドの効果を得るには relatSubScene() を予め実行し、シーンを関連付ける必要があります。
+     * ※本メソッドの効果を得るには relateSubScene() を予め実行し、シーンを関連付ける必要があります。
      * @param prm_progress 新しい進捗状態
      * @param prm_cross_fade_frames フェードイン & フェードアウトを行う時間
      */
@@ -91,7 +91,7 @@ public:
     /**
      * 現進捗状態に紐付くサブシーンはフェードアウト→非活動状態にし、
      * その後直ぐに次の新しい進捗状態に紐付くサブシーンを、フェードイン→活動状態にする。 .
-     * ※本メソッドの効果を得るには relatSubScene() を予め実行し、シーンを関連付ける必要があります。
+     * ※本メソッドの効果を得るには relateSubScene() を予め実行し、シーンを関連付ける必要があります。
      * @param prm_progress 新しい進捗状態
      * @param prm_fade_out フェードアウト時間
      * @param prm_fade_in フェードイン時間
@@ -101,7 +101,7 @@ public:
     /**
      * 新しい進捗状態を切り替えると同時に、関連付いたサブシーンを活動状態に切り替え、
      * 活動状態サブシーンは非活動状態にする。その際、指定フレーム間、同時進行（オーバーラッピング）させる .
-     * ※本メソッドの効果を得るには relatSubScene() を予め実行し、シーンを関連付ける必要があります。
+     * ※本メソッドの効果を得るには relateSubScene() を予め実行し、シーンを関連付ける必要があります。
      * @param prm_progress 新しい進捗状態
      * @param prm_overlapping_frames 同時進行させるフレーム数
      */
@@ -110,7 +110,7 @@ public:
     /**
      * 現在の進捗状態に関連づいているシーンを取得 .
      * 取得できない場合は nullptr
-     * ※本メソッドの効果を得るには relatSubScene() を予め実行し、シーンを関連付ける必要があります。
+     * ※本メソッドの効果を得るには relateSubScene() を予め実行し、シーンを関連付ける必要があります。
      * @return
      */
     DefaultScene* getGazedScene();
@@ -118,7 +118,7 @@ public:
     /**
      * 進捗状態に関連づいているシーンを取得 .
      * 取得できない場合は nullptr
-     * ※本メソッドの効果を得るには relatSubScene() を予め実行し、シーンを関連付ける必要があります。
+     * ※本メソッドの効果を得るには relateSubScene() を予め実行し、シーンを関連付ける必要があります。
      * @param prm_progress 進捗状態
      * @return
      */

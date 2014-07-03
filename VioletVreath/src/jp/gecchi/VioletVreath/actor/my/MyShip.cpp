@@ -586,7 +586,7 @@ void MyShip::processBehavior() {
             getKuroko()->setFaceAngAcce(AXIS_X, -1*angRxAcce_MZ_);
         }
         pKuroko->setMvAcce(0);
-        getKuroko()->setStopTargetFaceAng(AXIS_X, 0, TURN_BOTH, angRxTopVelo_MZ_);
+        pKuroko->setStopTargetFaceAng(AXIS_X, 0, TURN_BOTH, angRxTopVelo_MZ_);
     }
 
 
@@ -794,7 +794,7 @@ void MyShip::processJudgement() {
             frame_soft_rapidshot_ = frame_soft_rapidshot_ % soft_rapidshot_interval_;
         } else {
             //soft_rapidshot_interval_ フレームより速い連射の場合
-            //これを受け入れて強制的に発射できる(手動連射のほうが速く連射できるようにしたい。)
+            //これを受け入れて強制的に発射できる(速い手動連射のほうがより連射できるようにしたい。)
             frame_soft_rapidshot_ = 0;
         }
     }

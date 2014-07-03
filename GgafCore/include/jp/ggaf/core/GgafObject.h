@@ -1,5 +1,7 @@
 #ifndef GGAFCORE_GGAFOBJECT_H_
 #define GGAFCORE_GGAFOBJECT_H_
+#include "GgafCommonHeader.h"
+
 namespace GgafCore {
 
 /** ƒNƒ‰ƒXŽí•Ê */

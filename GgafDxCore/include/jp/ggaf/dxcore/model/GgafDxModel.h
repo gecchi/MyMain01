@@ -3,6 +3,7 @@
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <d3d9.h>
+#include <d3dx9.h>
 
 namespace GgafDxCore {
 

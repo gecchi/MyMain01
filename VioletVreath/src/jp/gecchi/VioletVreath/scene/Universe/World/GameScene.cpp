@@ -54,7 +54,7 @@ pStageWorld_(nullptr) {
     addSubLast(NEW GameEndingScene("GameEnding"));
     addSubLast(NEW GameOverScene("GameOver"));
 
-    getProgress()->relatSubScene(GameScene::PROG_PRE_TITLE, GameScene::PROG_GAME_OVER,  "PreGameTitle");
+    getProgress()->relateSubScene(GameScene::PROG_PRE_TITLE, GameScene::PROG_GAME_OVER,  "PreGameTitle");
     //‚½‚Ü‚²
     //addSubLast(NEW TamagoScene("TamagoScene"));
     is_frame_advance_ = false;

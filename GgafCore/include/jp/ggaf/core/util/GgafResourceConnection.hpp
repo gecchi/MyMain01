@@ -7,6 +7,7 @@
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
 #include "jp/ggaf/core/util/GgafResourceManager.hpp"
 
+#include "windows.h"
 
 namespace GgafCore {
 

@@ -1133,7 +1133,7 @@ void GgafDxKuroko::turnRzRyMvAngTo(angle prm_angRz_Target, angle prm_angRy_Targe
     angle out_d_angRy;
     if (prm_optimize_ang) {
         getRzRyMvAngDistanceTwd(prm_angRz_Target, prm_angRy_Target,prm_way,
-                               out_d_angRz, out_d_angRy);
+                                out_d_angRz, out_d_angRy);
     } else {
         out_d_angRz = getRzMvAngDistance(prm_angRz_Target, prm_way);
         out_d_angRy = getRyMvAngDistance(prm_angRy_Target, prm_way);

@@ -6,6 +6,7 @@
 #include <map>
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 
+#include "GgafLibCommonHeader.h"
 typedef unsigned long int vbsta;
 
 namespace GgafLib {

@@ -2,9 +2,10 @@
 #define GGAFCORE_GGAFRESOURCEMANAGER_H_
 #include "jp/ggaf/core/GgafObject.h"
 
-#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+#include "jp/ggaf/core/util/GgafUtil.h"
 #include "jp/ggaf/core/util/GgafResourceConnection.hpp"
 
+#include "windows.h"
 namespace GgafCore {
 
 /**

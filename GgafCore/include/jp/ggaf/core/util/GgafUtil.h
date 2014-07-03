@@ -1,6 +1,6 @@
 #ifndef GGAFCORE_GGAFUTIL_H_
 #define GGAFCORE_GGAFUTIL_H_
-
+#include "GgafCommonHeader.h"
 #include "jp/ggaf/core/util/CmRandomNumberGenerator.h"
 
 #include <map>

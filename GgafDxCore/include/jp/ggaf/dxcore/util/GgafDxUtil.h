@@ -4,6 +4,7 @@
 
 #include <math.h>
 
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/util/GgafDxSphereRadiusVectors.h"
 #include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"

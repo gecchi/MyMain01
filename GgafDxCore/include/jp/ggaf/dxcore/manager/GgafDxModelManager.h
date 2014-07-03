@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXMODELMANAGER_H_
 #define GGAFDXCORE_GGAFDXMODELMANAGER_H_
+
 #include "jp/ggaf/core/util/GgafResourceManager.hpp"
 
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
