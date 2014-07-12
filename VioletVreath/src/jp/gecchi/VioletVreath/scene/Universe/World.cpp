@@ -37,6 +37,7 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
     pLabel_title_ = nullptr;
     pLabel_resolution1_ = nullptr;
     pLabel_resolution2_ = nullptr;
+    pLabel_warn_dual_view_ = nullptr;
     pPreDrawScene_ = nullptr;
     pGameScene_ = nullptr;
 
@@ -82,6 +83,10 @@ void World::initialize() {
     pLabel_warn2_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     getSceneDirector()->addSubGroup(pLabel_warn2_);
 
+    pLabel_warn_dual_view_ = createInFactory(VioletVreath::LabelGecchi8Font, "WARN_DUAL_VIEW");
+    pLabel_warn_dual_view_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
+    getSceneDirector()->addSubGroup(pLabel_warn_dual_view_);
+
     pLabel_need_reboot_ = createInFactory(VioletVreath::LabelGecchi16Font, "reboot");
     getSceneDirector()->addSubGroup(pLabel_need_reboot_);
     pLabel_need_reboot_->update(PX_C(cx), PX_C(cy/2), "", ALIGN_CENTER, VALIGN_MIDDLE);
@@ -91,6 +96,11 @@ void World::initialize() {
     int w1_bk,h1_bk,w2_bk,h2_bk;
     w1 = h1 = w2 = h2 = 0;
     w1_bk = h1_bk = w2_bk = h2_bk = 0;
+    bool is_warn_dual_view = false;
+    if (PROPERTY::FULL_SCREEN && !PROPERTY::DUAL_VIEW && PROPERTY::getBool("DUAL_VIEW")) {
+        //２画面フルスクリーン指定なのに、無理やり１画面フルスクリーンに設定された。
+        is_warn_dual_view = true;
+    }
     bool is_warn1 = false;
     bool is_warn2 = false;
     if (PROPERTY::DUAL_VIEW) {
@@ -174,6 +184,14 @@ void World::initialize() {
                 ("WARNING, "+XTOS(w1_bk)+"*"+XTOS(h1_bk)+" WAS NOT ABLE !").c_str()
             );
         }
+        //強制１画面警告表示
+        if (is_warn_dual_view) {
+            pLabel_warn_dual_view_->update(
+                PX_C(cx), PX_C(cy-32),
+                "WARNING, CAN NOT DUAL VIEW !"
+            );
+        }
+
     }
 
     orderSceneToFactory(1, PreDrawScene, "PreDraw");
@@ -242,6 +260,7 @@ void World::processBehavior() {
                 pLabel_resolution2_->sayonara();
                 pLabel_warn1_->sayonara();
                 pLabel_warn2_->sayonara();
+                pLabel_warn_dual_view_->sayonara();
                 pProg->changeNext(); //メインへループ
             }
             pLabel_aster_->pAFader_->behave(); //右上＊チカチカ

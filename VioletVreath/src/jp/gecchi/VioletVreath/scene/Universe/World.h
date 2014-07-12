@@ -40,6 +40,7 @@ public:
     LabelGecchi16Font* pLabel_resolution2_;
     LabelGecchi8Font*  pLabel_warn1_;
     LabelGecchi8Font*  pLabel_warn2_;
+    LabelGecchi8Font*  pLabel_warn_dual_view_;
 
     int need_reboot_;
     int need_reboot_prev_;

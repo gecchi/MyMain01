@@ -68,6 +68,7 @@ GgafDxGod::GgafDxGod() : GgafGod() {
     _pRenderTextureSurface = nullptr;
     _pRenderTextureZ = nullptr;
     _num_adapter = 1;
+    _paAdapter = nullptr;
     _apSwapChain[0] = nullptr;
     _apBackBuffer[0] = nullptr;
     _apSwapChain[1] = nullptr;
@@ -189,9 +190,9 @@ int GgafDxGod::checkAppropriateDisplaySize(D3DDISPLAYMODE* prm_paMode, int prm_m
 
 
 void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
-                         const char* prm_title1   , const char* prm_title2,
-                         DWORD       prm_dwStyle1 , DWORD       prm_dwStyle2,
-                         HWND&       out_hWnd1    , HWND&       out_hWnd2) {
+                             const char* prm_title1   , const char* prm_title2,
+                             DWORD       prm_dwStyle1 , DWORD       prm_dwStyle2,
+                             HWND&       out_hWnd1    , HWND&       out_hWnd2) {
 
     //2011/09/18 WDDM が使用できるなら使用するように変更。
     // マルチモニタフルスクリーン時のデバイスロスト時の復旧が、
@@ -250,10 +251,20 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
     //デバイスパラメータ作成
     D3DCAPS9 caps;
     GgafDxGod::_pID3D9->GetDeviceCaps(D3DADAPTER_DEFAULT, // [in] ディスプレイ アダプタを示す序数。
-                                       D3DDEVTYPE_HAL,     // [in] デバイスの種類。 D3DDEVTYPE列挙型のメンバ
-                                       &caps);             // [out] デバイスの能力が格納される
+                                      D3DDEVTYPE_HAL,     // [in] デバイスの種類。 D3DDEVTYPE列挙型のメンバ
+                                      &caps);             // [out] デバイスの能力が格納される
 
     _num_adapter = caps.NumberOfAdaptersInGroup;   //使えるアダプタの数取得
+    _TRACE_("_num_adapter = "<< _num_adapter);
+    if (PROPERTY::FULL_SCREEN && PROPERTY::DUAL_VIEW && _num_adapter < 2) {
+        _TRACE_("＜警告＞２画面フルスクリーン設定ですが、マルチモニタを検出できません。強制的に１画面で起動します");
+        PROPERTY::DUAL_VIEW = false;
+        PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH_BK  = PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH;
+        PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT_BK = PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
+        PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH     = PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH;
+        PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT    = PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
+    }
+
     _paPresetPrm = NEW D3DPRESENT_PARAMETERS[_num_adapter > 2 ? _num_adapter : 2];
     ZeroMemory(&_paPresetPrm[0], sizeof(D3DPRESENT_PARAMETERS));
 
@@ -425,12 +436,13 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
     //フルスクリーン要求時、指定解像度に出来るか調べ、
     //出来ない場合は、近い解像度を探し、
     //_paPresetPrm[] と、_paDisplayMode[] を上書きする。
-    _TRACE_("_num_adapter = "<< _num_adapter);
     if (PROPERTY::FULL_SCREEN) {
+        _paAdapter = NEW Adapter[_num_adapter];
         for (int disp_no = 0; disp_no < _num_adapter; disp_no++) {
             _TRACE_("--- " << disp_no+1 << "画面目 の解像度設定 --->");
             int mode_num = GgafDxGod::_pID3D9->GetAdapterModeCount(disp_no, _paPresetPrm[0].BackBufferFormat);
-            D3DDISPLAYMODE* paMode = NEW D3DDISPLAYMODE[mode_num];
+            _paAdapter[disp_no].set(mode_num);
+            D3DDISPLAYMODE* paMode = _paAdapter[disp_no].paModes;
             for (int n = 0; n < mode_num; n++) {
                 GgafDxGod::_pID3D9->EnumAdapterModes(disp_no, _paPresetPrm[0].BackBufferFormat, n, &(paMode[n]));
             }
@@ -500,9 +512,6 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
             //上書き更新
             _paDisplayMode[disp_no].Width  = _paPresetPrm[disp_no].BackBufferWidth;
             _paDisplayMode[disp_no].Height = _paPresetPrm[disp_no].BackBufferHeight;
-
-
-            GGAF_DELETEARR(paMode);
             _TRACE_("<---" << disp_no+1 << "画面目の解像度は、"<<_paDisplayMode[disp_no].Width<<"x"<<_paDisplayMode[disp_no].Height<<"に確定しました。");
         }
     }
@@ -2319,6 +2328,7 @@ GgafDxGod::~GgafDxGod() {
 
     _TRACE_("_pID3DDevice9 解放きたー");
     Sleep(60);
+    GGAF_DELETEARR(_paAdapter);
     GGAF_DELETEARR(_paPresetPrm);
     GGAF_DELETEARR(_paDisplayMode);
     GGAF_RELEASE(_pID3DDevice9);

@@ -626,6 +626,8 @@ class CursorConfig004;
 class MenuBoardSoundConfig;
 class CursorConfig003;
 class MenuBoardScreenConfig;
+class CursorResolutionSelect;
+class MenuBoardResolutionSelect;
 
 class MenuBoardNameEntry;
 class CursorNameEntryMenu;

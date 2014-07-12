@@ -438,6 +438,8 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardKeyConfig.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardScreenConfig.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardSoundConfig.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\screen\CursorResolutionSelect.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\screen\MenuBoardResolutionSelect.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorConfirmMenu.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardConfirm.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\MenuBoard.cpp" />
@@ -785,6 +787,8 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardKeyConfig.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardScreenConfig.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardSoundConfig.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\screen\CursorResolutionSelect.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\config\screen\menuboardresolutionselect.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorConfirmMenu.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardConfirm.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\MenuBoard.h" />

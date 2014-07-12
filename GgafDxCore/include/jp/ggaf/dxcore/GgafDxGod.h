@@ -19,6 +19,7 @@ class GgafDxGod : public GgafCore::GgafGod {
 private:
     /** 使用可能なデバイスのアダプタ数 */
     int _num_adapter;
+
     /** Windows Display Driver Model（WDDM）が使用可能か否か */
     bool _can_wddm;
     /** ゲーム表示領域以外のクリップ領域背景色 */
@@ -93,6 +94,24 @@ private:
                                                              LPRECT   lprcMonitor,
                                                              LPARAM   dwData    );
 public:
+    class Adapter {
+    public:
+        int mode_num;
+        D3DDISPLAYMODE* paModes;
+        Adapter() {
+            mode_num = 0;
+            paModes = nullptr;
+        }
+        void set(int prm_mode_num) {
+            mode_num = prm_mode_num;
+            paModes = NEW D3DDISPLAYMODE[mode_num];
+        }
+        ~Adapter() {
+            GGAF_DELETEARR(paModes);
+        }
+    };
+    Adapter* _paAdapter;
+
     /** モデル(GgafDxModel)資源管理者 */
     static GgafDxModelManager* _pModelManager;
     /** エフェクト(GgafDxEffect)資源管理者 */
