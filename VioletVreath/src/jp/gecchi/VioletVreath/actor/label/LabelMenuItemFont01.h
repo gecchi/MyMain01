@@ -12,14 +12,19 @@ namespace VioletVreath {
  */
 class LabelMenuItemFont01 : public GgafLib::StringBoardActor {
 
+    GgafDxCore::GgafDxAlphaFader* _pAFader;
 public:
     LabelMenuItemFont01(const char* prm_name);
 
-    virtual void onCreateModel() override;
+    void onCreateModel() override;
 
-    virtual void initialize() override;
+    void initialize() override;
 
-    virtual void processBehavior() override;
+    void onActive() override;
+
+    void onUpdate() override;
+
+    void processBehavior() override;
 
     virtual ~LabelMenuItemFont01();
 

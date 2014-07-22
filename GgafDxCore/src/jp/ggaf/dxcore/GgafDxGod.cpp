@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "jp/ggaf/dxcore/GgafDxGod.h"
 
+#include <algorithm>
 #include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/dxcore/actor/GgafDxCamera.h"
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
@@ -68,7 +69,8 @@ GgafDxGod::GgafDxGod() : GgafGod() {
     _pRenderTextureSurface = nullptr;
     _pRenderTextureZ = nullptr;
     _num_adapter = 1;
-    _paAdapter = nullptr;
+    _paAvailableAdapter = nullptr;
+    _paAdapterRezos = nullptr;
     _apSwapChain[0] = nullptr;
     _apBackBuffer[0] = nullptr;
     _apSwapChain[1] = nullptr;
@@ -156,12 +158,12 @@ void GgafDxGod::chengeViewAspect(bool prm_b) {
         }
     }
 }
-int GgafDxGod::checkAppropriateDisplaySize(D3DDISPLAYMODE* prm_paMode, int prm_mode_num,
+int GgafDxGod::checkAppropriateDisplaySize(GgafDxGod::RezoInfo* prm_paRezos, int prm_rezo_num,
                                            UINT prm_width, UINT prm_height) {
     _TRACE_("checkAppropriateDisplaySize() 所望、"<<prm_width<<"x"<<prm_height);
 
-    for (int n = 0; n < prm_mode_num; n++) {
-        if (prm_width == prm_paMode[n].Width && prm_height == prm_paMode[n].Height) {
+    for (int n = 0; n < prm_rezo_num; n++) {
+        if (prm_width == prm_paRezos[n].width && prm_height == prm_paRezos[n].height) {
             _TRACE_("["<<n<<"] でBINGO!");
             return n; //ぴったし
         }
@@ -173,9 +175,9 @@ int GgafDxGod::checkAppropriateDisplaySize(D3DDISPLAYMODE* prm_paMode, int prm_m
 
     int eval_top = INT_MAX; //評価(小さいほど良い)
     int resut_index = 0;
-    for (int n = 0; n < prm_mode_num; n++) {
-        int disp_width  = (int)(prm_paMode[n].Width);
-        int disp_height = (int)(prm_paMode[n].Height);
+    for (int n = 0; n < prm_rezo_num; n++) {
+        int disp_width  = (int)(prm_paRezos[n].width);
+        int disp_height = (int)(prm_paRezos[n].height);
         int eval_level = ABS(disp_width-cfg_width) + (int)(ABS(disp_height-cfg_height) * cfg_aspect * 1.5); //アスペクト比をやや重視のため1.5倍
         _TRACE_("["<<n<<"] "<<disp_width<<"x"<<disp_height<<" ・・・ 評価："<<eval_level);
         if (eval_level < eval_top) {
@@ -184,7 +186,7 @@ int GgafDxGod::checkAppropriateDisplaySize(D3DDISPLAYMODE* prm_paMode, int prm_m
         }
     }
     _TRACE_("checkAppropriateDisplaySize() 結論、["<<resut_index<<"] の "<<
-            prm_paMode[resut_index].Width<<"x"<<prm_paMode[resut_index].Height<<" が良さげじゃなかしら！");
+            prm_paRezos[resut_index].width<<"x"<<prm_paRezos[resut_index].height<<" が良さげじゃなかしら！");
     return resut_index;
 }
 
@@ -433,41 +435,87 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
         _paDisplayMode[i] = _paDisplayMode[1];
     }
 
+    _paAvailableAdapter = NEW Adapter[_num_adapter];
+    for (int disp_no = 0; disp_no < _num_adapter; disp_no++) {
+        int mode_num = GgafDxGod::_pID3D9->GetAdapterModeCount(disp_no, D3DFMT_X8R8G8B8);
+        _paAvailableAdapter[disp_no].set(mode_num);
+        D3DDISPLAYMODE* paMode = _paAvailableAdapter[disp_no].paModes;
+        for (int n = 0; n < mode_num; n++) {
+            GgafDxGod::_pID3D9->EnumAdapterModes(disp_no, D3DFMT_X8R8G8B8, n, &(paMode[n]));
+        }
+    }
+
+    _paAdapterRezos = NEW AdapterRezos[_num_adapter];
+    for (int disp_no = 0; disp_no < _num_adapter; disp_no++) {
+        std::vector<UINT> vecWidth;
+        std::vector<UINT> vecHeight;
+        std::vector<std::string> vecRezo;
+        int mode_num = _paAvailableAdapter[disp_no].mode_num;
+        D3DDISPLAYMODE* paMode = P_GOD->_paAvailableAdapter[disp_no].paModes;
+        _TRACE_("画面["<<disp_no<<"] mode_num="<<mode_num);
+        for (int n = 0; n < mode_num; n++) {
+            UINT width = paMode[n].Width;
+            UINT height = paMode[n].Height;
+            D3DFORMAT format = paMode[n].Format;
+            std::ostringstream oss;
+            oss << width << "X" << height;
+            std::string rezo = oss.str();
+            if (find(vecRezo.begin(), vecRezo.end(), rezo) == vecRezo.end()) {
+                vecRezo.push_back(rezo);
+                vecWidth.push_back(width);
+                vecHeight.push_back(height);
+            }
+        }
+        _paAdapterRezos[disp_no].init(vecRezo.size());
+        for (int n = 0; n < vecRezo.size(); n++) {
+            //存在していない
+            _paAdapterRezos[disp_no].paRezoInfo[n].width = vecWidth[n];
+            _paAdapterRezos[disp_no].paRezoInfo[n].height = vecHeight[n];
+            _paAdapterRezos[disp_no].paRezoInfo[n].item_str = vecRezo[n];
+        }
+    }
+
+    _TRACE_("GgafDxGod::createWindow() 利用可能画面解像度一覧");
+
+    for (int disp_no = 0; disp_no < _num_adapter; disp_no++) {
+        for (int n = 0; n < _paAdapterRezos[disp_no].rezo_num; n++) {
+            RezoInfo* pMode = _paAdapterRezos[disp_no].paRezoInfo;
+            _TRACE_("["<<disp_no<<"]["<<n<<"]="<<(pMode[n].width)<<","<<(pMode[n].height)<<" = "<<(pMode[n].item_str));
+        }
+    }
+    _TRACE_("------------------------------------------------");
+
     //フルスクリーン要求時、指定解像度に出来るか調べ、
     //出来ない場合は、近い解像度を探し、
     //_paPresetPrm[] と、_paDisplayMode[] を上書きする。
     if (PROPERTY::FULL_SCREEN) {
-        _paAdapter = NEW Adapter[_num_adapter];
         for (int disp_no = 0; disp_no < _num_adapter; disp_no++) {
             _TRACE_("--- " << disp_no+1 << "画面目 の解像度設定 --->");
-            int mode_num = GgafDxGod::_pID3D9->GetAdapterModeCount(disp_no, _paPresetPrm[0].BackBufferFormat);
-            _paAdapter[disp_no].set(mode_num);
-            D3DDISPLAYMODE* paMode = _paAdapter[disp_no].paModes;
-            for (int n = 0; n < mode_num; n++) {
-                GgafDxGod::_pID3D9->EnumAdapterModes(disp_no, _paPresetPrm[0].BackBufferFormat, n, &(paMode[n]));
-            }
+            int rezo_num = _paAdapterRezos[disp_no].rezo_num;
+            RezoInfo* paRezos = _paAdapterRezos[disp_no].paRezoInfo;
+
             if (PROPERTY::DUAL_VIEW) {
                 //２画面フルスクリーン時
                 if (disp_no == 0) {
                     //１画面目
                     int n = checkAppropriateDisplaySize(
-                                    paMode, mode_num,
-                                    (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH,
-                                    (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT
-                                );
-                    PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH  = (pixcoord)(paMode[n].Width);
-                    PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT = (pixcoord)(paMode[n].Height);
+                                paRezos, rezo_num,
+                                (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH,
+                                (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT
+                            );
+                    PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH  = (pixcoord)(paRezos[n].width);
+                    PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT = (pixcoord)(paRezos[n].height);
                     _paPresetPrm[disp_no].BackBufferWidth  = PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH;
                     _paPresetPrm[disp_no].BackBufferHeight = PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
                 } else if (disp_no == 1) {
                     //２画面目
                     int n = checkAppropriateDisplaySize(
-                                    paMode, mode_num,
-                                    (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH,
-                                    (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT
-                                );
-                    PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH  = (pixcoord)(paMode[n].Width);
-                    PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT = (pixcoord)(paMode[n].Height);
+                                paRezos, rezo_num,
+                                (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH,
+                                (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT
+                            );
+                    PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH  = (pixcoord)(paRezos[n].width);
+                    PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT = (pixcoord)(paRezos[n].height);
                     _paPresetPrm[disp_no].BackBufferWidth  = PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH;
                     _paPresetPrm[disp_no].BackBufferHeight = PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT;
                 } else if (disp_no >= 2) {
@@ -477,30 +525,29 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                     //プライマリでなく、かつ３画面目以降でない→２画面目だ。
                     //という判定するために解像度で判定している箇所があるため。
                     //TODO:スクリーン番号を正確に取得する方法が、色々調べて悩んだけどわからなかった。ので苦肉の策・・・。
-                    for (int n = 0; n < mode_num; n++) {
-                        if ((paMode[n].Width == (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH && paMode[n].Height == (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT) ||
-                            (paMode[n].Width == (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH && paMode[n].Height == (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT)    ) {
+                    for (int n = 0; n < rezo_num; n++) {
+                        if ((paRezos[n].width == (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH && paRezos[n].height == (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT) ||
+                            (paRezos[n].width == (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH && paRezos[n].height == (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT)    ) {
                             //１画面目か２画面目と同じなので避ける
                         } else {
-                            _TRACE_(disp_no+1 << "画面目は、適当に "<<paMode[n].Width<<"x"<<paMode[n].Height<<" に設定");
-                            _paPresetPrm[disp_no].BackBufferWidth  = paMode[n].Width;
-                            _paPresetPrm[disp_no].BackBufferHeight = paMode[n].Height;
+                            _TRACE_(disp_no+1 << "画面目は、適当に "<<paRezos[n].width<<"x"<<paRezos[n].height<<" に設定");
+                            _paPresetPrm[disp_no].BackBufferWidth  = paRezos[n].width;
+                            _paPresetPrm[disp_no].BackBufferHeight = paRezos[n].height;
                             break;
                         }
                     }
                 }
 
-
             } else {
                 //１画面フルスクリーン時
                 if (disp_no == 0) {
                     int n = checkAppropriateDisplaySize(
-                                    paMode, mode_num,
-                                    (UINT)PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH,
-                                    (UINT)PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT
-                                );
-                    PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH = (pixcoord)(paMode[n].Width);
-                    PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT = (pixcoord)(paMode[n].Height);
+                                paRezos, rezo_num,
+                                (UINT)PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH,
+                                (UINT)PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT
+                            );
+                    PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH = (pixcoord)(paRezos[n].width);
+                    PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT = (pixcoord)(paRezos[n].height);
                     _paPresetPrm[disp_no].BackBufferWidth  = PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH;
                     _paPresetPrm[disp_no].BackBufferHeight = PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT;
                 } else if (disp_no >= 1) {
@@ -2328,7 +2375,8 @@ GgafDxGod::~GgafDxGod() {
 
     _TRACE_("_pID3DDevice9 解放きたー");
     Sleep(60);
-    GGAF_DELETEARR(_paAdapter);
+    GGAF_DELETEARR(_paAvailableAdapter);
+    GGAF_DELETEARR(_paAdapterRezos);
     GGAF_DELETEARR(_paPresetPrm);
     GGAF_DELETEARR(_paDisplayMode);
     GGAF_RELEASE(_pID3DDevice9);

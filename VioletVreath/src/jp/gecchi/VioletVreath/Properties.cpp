@@ -37,7 +37,7 @@ std::string Properties::MY_JOY_BUTTON8 = "";
 std::string Properties::MY_JOY_PAUSE = "";
 std::string Properties::MY_JOY_UI_EXECUTE = "";
 std::string Properties::MY_JOY_UI_CANCEL = "";
-
+bool Properties::FULL_SCREEN_CLOSE_BUTTON = true;
 
 void Properties::load(std::string prm_ini_filename) {
     GgafLibProperties::load(prm_ini_filename);
@@ -72,6 +72,9 @@ void Properties::load(std::string prm_ini_filename) {
     Properties::MY_JOY_PAUSE      = getStr("MY_JOY_PAUSE");
     Properties::MY_JOY_UI_EXECUTE = getStr("MY_JOY_UI_EXECUTE");
     Properties::MY_JOY_UI_CANCEL  = getStr("MY_JOY_UI_CANCEL");
+    if (Properties::isExistKey("FULL_SCREEN_CLOSE_BUTTON")) {
+        Properties::FULL_SCREEN_CLOSE_BUTTON = getBool("FULL_SCREEN_CLOSE_BUTTON");
+    }
 
     _TRACE_("Properties::MY_KEY_SHOT1="<<Properties::MY_KEY_SHOT1);
     _TRACE_("Properties::MY_KEY_SHOT2="<<Properties::MY_KEY_SHOT2);
@@ -104,6 +107,7 @@ void Properties::load(std::string prm_ini_filename) {
     _TRACE_("Properties::MY_JOY_PAUSE="<<Properties::MY_JOY_PAUSE);
     _TRACE_("Properties::MY_JOY_UI_EXECUTE="<<Properties::MY_JOY_UI_EXECUTE);
     _TRACE_("Properties::MY_JOY_UI_CANCEL="<<Properties::MY_JOY_UI_CANCEL);
+    _TRACE_("Properties::FULL_SCREEN_CLOSE_BUTTON="<<Properties::FULL_SCREEN_CLOSE_BUTTON);
 }
 
 void Properties::clean() {

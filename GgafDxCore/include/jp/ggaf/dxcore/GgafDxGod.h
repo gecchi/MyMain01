@@ -17,9 +17,6 @@ namespace GgafDxCore {
 class GgafDxGod : public GgafCore::GgafGod {
 
 private:
-    /** 使用可能なデバイスのアダプタ数 */
-    int _num_adapter;
-
     /** Windows Display Driver Model（WDDM）が使用可能か否か */
     bool _can_wddm;
     /** ゲーム表示領域以外のクリップ領域背景色 */
@@ -40,7 +37,7 @@ private:
 
     /** デバイス作成時パラメーター */
     D3DPRESENT_PARAMETERS* _paPresetPrm;
-    /** デバイス作成時パラメーター（WDDM使用時のみ必要） */
+    /** 今回採用されているデバイス（WDDM使用時のみ必要） */
     D3DDISPLAYMODEEX* _paDisplayMode;
 
 private:
@@ -94,6 +91,8 @@ private:
                                                              LPRECT   lprcMonitor,
                                                              LPARAM   dwData    );
 public:
+
+    ///////////////////////////////////////////////////////////
     class Adapter {
     public:
         int mode_num;
@@ -107,10 +106,39 @@ public:
             paModes = NEW D3DDISPLAYMODE[mode_num];
         }
         ~Adapter() {
-            GGAF_DELETEARR(paModes);
+            GGAF_DELETEARR_NULLABLE(paModes);
         }
     };
-    Adapter* _paAdapter;
+
+    /** 使用可能なデバイスのアダプタ数 */
+    int _num_adapter;
+    /** 使用可能なデバイスのアダプタの情報セット */
+    Adapter* _paAvailableAdapter;
+    ///////////////////////////////////////////////////////////
+    struct RezoInfo {
+        UINT width;
+        UINT height;
+        std::string item_str;
+    };
+    class AdapterRezos {
+    public:
+        int rezo_num;
+        RezoInfo* paRezoInfo;
+        AdapterRezos() {
+            rezo_num = 0;
+            paRezoInfo = nullptr;
+        }
+        void init(int prm_rezo_num) {
+            rezo_num = prm_rezo_num;
+            paRezoInfo = NEW RezoInfo[rezo_num];
+        }
+        ~AdapterRezos() {
+            GGAF_DELETEARR_NULLABLE(paRezoInfo);
+        }
+    };
+    /** 使用可能なデバイスのアダプタの解像度情報セット */
+    AdapterRezos* _paAdapterRezos;
+    ////////////////////////////////////////////////////////////
 
     /** モデル(GgafDxModel)資源管理者 */
     static GgafDxModelManager* _pModelManager;
@@ -178,14 +206,14 @@ public:
 
     /**
      * フルスクリーン時、最も妥当な解像度を探す。
-     * @param prm_paMode 解像度配列
-     * @param prm_mode_num 解像度配列の要素数
+     * @param prm_paRezos 解像度情報配列
+     * @param prm_rezo_num 解像度配列の要素数
      * @param prm_width 所望の解像度の幅
      * @param prm_height 所望の解像度の高さ
      * @return 最も妥当な要素インデックス
      */
-    static int checkAppropriateDisplaySize(D3DDISPLAYMODE* prm_paMode, int prm_mode_num,
-                                               UINT prm_width, UINT prm_height);
+    static int checkAppropriateDisplaySize(GgafDxGod::RezoInfo* prm_paRezos, int prm_rezo_num,
+                                           UINT prm_width, UINT prm_height);
     /**
      * ウィンドウ生成処理
      * @param prm_wndclass1 １画面目のWNDCLASSEXパラメータ

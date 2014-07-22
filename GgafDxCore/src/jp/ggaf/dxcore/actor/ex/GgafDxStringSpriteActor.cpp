@@ -64,6 +64,7 @@ void GgafDxStringSpriteActor::update(const char* prm_str) {
                                    " 上限文字数="<<GgafDxStringSpriteActor_MAX_LEN<<" prm_str="<<prm_str);
     }
 #endif
+    onUpdate(); //コールバック
     _draw_string = _buf;
     _aWidth_line_px[0] = 0;
     int nn = 0;
@@ -107,6 +108,7 @@ void GgafDxStringSpriteActor::update(char* prm_str) {
                                    " 上限文字数="<<GgafDxStringSpriteActor_MAX_LEN<<" prm_str="<<prm_str);
     }
 #endif
+    onUpdate(); //コールバック
     _draw_string = _buf;
     _aWidth_line_px[0] = 0;
     int nn = 0;

@@ -19,9 +19,11 @@ MenuBoard::MenuBoard(const char* prm_name, const char* prm_model) :
     target_x_ = _x;
     target_y_ = _y;
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
-    pSeTx->set(SE_ON_RISEN      , "WAVE_MENU_ON_RISEN"      );
-    pSeTx->set(SE_MOVE_CURSOR   , "WAVE_MENU_MOVE_CURSOR"   );
+    pSeTx->set(SE_ON_RISEN      , "WAVE_MENU_ON_RISEN");
+    pSeTx->set(SE_MOVE_CURSOR   , "WAVE_MENU_MOVE_CURSOR");
+    pSeTx->set(SE_DECIDED_OK    , "WAVE_MENU_DECIDED_OK");
     pSeTx->set(SE_DECIDED_CANCEL, "WAVE_MENU_DECIDED_CANCEL");
+    pSeTx->set(SE_WRONG         , "WAVE_MENU_SE_WRONG");
 }
 
 void MenuBoard::setTransition(frame prm_menu_fade_frames,

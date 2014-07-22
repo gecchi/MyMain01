@@ -16,48 +16,48 @@ class MenuBoardScreenConfig : public MenuBoard {
 
 public:
     enum {
-        ITEM_SCREEN_MODE = 0,
-        ITEM_VIEW_NUM    ,
-        ITEM_SCREEN_RESOLUTION,
-        ITEM_SCREEN1_RESOLUTION, ITEM_SCREEN2_RESOLUTION,
+        ITEM_FULL_SCREEN,
+        ITEM_DUAL_VIEW,
+        ITEM_SINGLE_VIEW_FULL_SCREEN_RESOLUTION,
+        ITEM_DUAL_VIEW_FULL_SCREEN1_RESOLUTION,
+        ITEM_DUAL_VIEW_FULL_SCREEN2_RESOLUTION,
         ITEM_SWAP_GAME_VIEW,
-        ITEM_VIEW_ASPECT_TYPE   ,
-        ITEM_VIEW_POSITION,
-        ITEM_VIEW_POSITION1 , ITEM_VIEW_POSITION2 ,
+        ITEM_FIXED_GAME_VIEW_ASPECT,
+        ITEM_SINGLE_VIEW_DRAW_POSITION,
+        ITEM_DUAL_VIEW_DRAW_POSITION1,
+        ITEM_DUAL_VIEW_DRAW_POSITION2,
 
         ITEM_OK, ITEM_OK_REBOOT, ITEM_CANCEL,
 
-        ITEM_SCREEN_MODE_FULL_SCREEN,  ITEM_SCREEN_MODE_WINDOW_MODE,
-        ITEM_VIEW_NUM_SINGLE        ,  ITEM_VIEW_NUM_DUAL,
-        ITEM_SCREEN_RESOLUTION_VALUE,
-        ITEM_SCREEN1_RESOLUTION_VALUE, ITEM_SCREEN2_RESOLUTION_VALUE,
-        ITEM_SWAP_GAME_VIEW_NO      ,  ITEM_SWAP_GAME_VIEW_YES,
-        ITEM_VIEW_ASPECT_TYPE_FIX   ,  ITEM_VIEW_ASPECT_TYPE_STRETCH,
-        ITEM_POS_1, ITEM_POS_2, ITEM_POS_3, ITEM_POS_4, ITEM_POS_5, ITEM_POS_6, ITEM_POS_7, ITEM_POS_8, ITEM_POS_9,
-        ITEM_POS1_1, ITEM_POS1_2, ITEM_POS1_3, ITEM_POS1_4, ITEM_POS1_5, ITEM_POS1_6, ITEM_POS1_7, ITEM_POS1_8, ITEM_POS1_9,
-        ITEM_POS2_1, ITEM_POS2_2, ITEM_POS2_3, ITEM_POS2_4, ITEM_POS2_5, ITEM_POS2_6, ITEM_POS2_7, ITEM_POS2_8, ITEM_POS2_9,
+        VALUE_FULL_SCREEN_TRUE, VALUE_FULL_SCREEN_FALSE,
+        VALUE_DUAL_VIEW_TRUE,  VALUE_DUAL_VIEW_FALSE,
+        VALUE_SINGLE_VIEW_FULL_SCREEN_RESOLUTION,
+        VALUE_DUAL_VIEW_FULL_SCREEN1_RESOLUTION,
+        VALUE_DUAL_VIEW_FULL_SCREEN2_RESOLUTION,
+        VALUE_SWAP_GAME_VIEW_FALSE, VALUE_SWAP_GAME_VIEW_TRUE,
+        VALUE_FIXED_GAME_VIEW_TRUE, VALUE_FIXED_GAME_VIEW_FALSE,
+        VALUE_POS_1, VALUE_POS_2, VALUE_POS_3, VALUE_POS_4, VALUE_POS_5, VALUE_POS_6, VALUE_POS_7, VALUE_POS_8, VALUE_POS_9,
+        VALUE_POS1_1, VALUE_POS1_2, VALUE_POS1_3, VALUE_POS1_4, VALUE_POS1_5, VALUE_POS1_6, VALUE_POS1_7, VALUE_POS1_8, VALUE_POS1_9,
+        VALUE_POS2_1, VALUE_POS2_2, VALUE_POS2_3, VALUE_POS2_4, VALUE_POS2_5, VALUE_POS2_6, VALUE_POS2_7, VALUE_POS2_8, VALUE_POS2_9,
 
         ITEM_BANPEI,
-    };
-    GgafCore::GgafEnumIndex itm;
 
+    };
     enum {
-        SUPCUR_SCREEN_MODE = 0,
-        SUPCUR_VIEW_NUM,
-        SUPCUR_SCREEN_RESOLUTION,
-        SUPCUR_SCREEN1_RESOLUTION,
-        SUPCUR_SCREEN2_RESOLUTION,
+        SUPCUR_FULL_SCREEN  = 0,
+        SUPCUR_DUAL_VIEW,
+        SUPCUR_SINGLE_VIEW_FULL_SCREEN_RESOLUTION,
+        SUPCUR_DUAL_VIEW_FULL_SCREEN1_RESOLUTION,
+        SUPCUR_DUAL_VIEW_FULL_SCREEN2_RESOLUTION,
         SUPCUR_SWAP_GAME_VIEW,
-        SUPCUR_VIEW_ASPECT,
-        SUPCUR_VIEW_POSITION,
-        SUPCUR_VIEW_POSITION1,
-        SUPCUR_VIEW_POSITION2,
+        SUPCUR_FIXED_GAME_VIEW_ASPECT,
+        SUPCUR_SINGLE_VIEW_DRAW_POSITION,
+        SUPCUR_DUAL_VIEW_DRAW_POSITION1,
+        SUPCUR_DUAL_VIEW_DRAW_POSITION2,
         SUPCUR_BANPEI,
     };
-    GgafCore::GgafEnumIndex cur;
 
     LabelGecchi16Font* pLabel_Msg_;
-
 
     bool in_FULL_SCREEN_;
     bool in_DUAL_VIEW_;
@@ -67,17 +67,34 @@ public:
     int in_DUAL_VIEW_DRAW_POSITION2_;
     int in_SINGLE_VIEW_DRAW_POSITION_;
 
+
+    int rezo_index_;
+    int rezo1_index_;
+    int rezo2_index_;
+    int rezo_num_;
+    int rezo1_num_;
+    int rezo2_num_;
+
 public:
     MenuBoardScreenConfig(const char* prm_name);
 
     bool condSelectNext() override;
+
     bool condSelectPrev() override;
+
     bool condSelectExNext() override;
+
     bool condSelectExPrev() override;
+
     void onRise() override;
+
     void onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) override;
+
     void onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) override;
+
     void processBehavior() override;
+
+    void relocateItem();
 
     virtual ~MenuBoardScreenConfig();
 };

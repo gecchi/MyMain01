@@ -190,6 +190,13 @@ public:
                         GgafDxAlign prm_align,
                         GgafDxValign prm_valign);
 
+    /**
+     * 描画文字が更新された時に呼び出されるコールバック .
+     * 下位で実装してください。
+     */
+    virtual void onUpdate() {
+    }
+
     inline void getDrawString(char* out_paCh) {
         int len = _len;
         for (int i = 0; i < len; i++) {

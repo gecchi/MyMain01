@@ -121,9 +121,9 @@ public:
 
 public:
     GgafDxBoardSetActor(const char* prm_name,
-                         const char* prm_model_id,
-                         const char* prm_effect_id,
-                         const char* prm_technique );
+                        const char* prm_model_id,
+                        const char* prm_effect_id,
+                        const char* prm_technique );
 
     virtual void processDraw() override;
 

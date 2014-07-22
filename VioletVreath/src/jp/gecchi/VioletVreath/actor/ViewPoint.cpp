@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "ViewPoint.h"
+
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
@@ -7,6 +8,7 @@
 #include "jp/ggaf/lib/actor/DefaultMeshActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyOptionControllerGizmo.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

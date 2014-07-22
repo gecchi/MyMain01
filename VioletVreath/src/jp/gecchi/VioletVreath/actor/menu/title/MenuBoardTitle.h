@@ -15,9 +15,19 @@ class MenuBoardTitle : public MenuBoard {
 public:
     enum {
         ITEM_GAME_START = 0 ,
-        ITEM_CONFIG,
+        ITEM_KEY_CONFIG,
+        ITEM_SOUND_CONFIG,
+        ITEM_SCREEN_CONFIG,
         ITEM_REBOOT,
         ITEM_QUIT,
+        ITEM_BANPEI,
+    };
+    enum {
+        MENU_CONFIRM = 0 ,
+        MENU_KEY_CONFIG,
+        MENU_SOUND_CONFIG,
+        MENU_SCREEN_CONFIG,
+        MENU_BANPEI,
     };
     /** フィードイン・フェードアウト支援 */
     GgafDxCore::GgafDxAlphaFader** papItemAFader_;

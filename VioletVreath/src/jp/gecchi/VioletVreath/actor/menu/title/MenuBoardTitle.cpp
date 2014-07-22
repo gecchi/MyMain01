@@ -8,6 +8,9 @@
 #include "jp/gecchi/VioletVreath/actor/menu/confirm/MenuBoardConfirm.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelMenuItemFont01.h"
+#include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardKeyConfig.h"
+#include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardScreenConfig.h"
+#include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardSoundConfig.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -18,24 +21,28 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
         MenuBoard(prm_name, "board_bg01") {
     _class_name = "MenuBoardPause";
     //メニューウィンドウ設定
-    update("%&&&&&&&'\n"
-           ")*******+\n"
-           ")*******+\n"
-           ")*******+\n"
-           ")*******+\n"
-           "-......./");
+    update("%&&&&&&&&&&&&'\n"
+           ")************+\n"
+           ")************+\n"
+           ")************+\n"
+           ")************+\n"
+           ")************+\n"
+           ")************+\n"
+           "-............/");
     //メニューアイテム設定
     const char* apItemStr[] = {
           "GAME START",   //0
-          "CONFIG",       //1
-          "REBOOT",       //2
-          "QUIT",         //3
+          "KEY CONFIG",
+          "SOUND CONFIG",
+          "SCREEN CONFIG",
+          "REBOOT",
+          "QUIT",
     };
-    papItemAFader_ = NEW GgafDxAlphaFader*[ITEM_QUIT+1];
-    for (int i = ITEM_GAME_START; i <= ITEM_QUIT; i++) {
+    papItemAFader_ = NEW GgafDxAlphaFader*[ITEM_BANPEI];
+    for (int i = ITEM_GAME_START; i < ITEM_BANPEI; i++) {
         LabelMenuItemFont01* pLabel = NEW LabelMenuItemFont01("item");
         pLabel->update(apItemStr[i], ALIGN_CENTER, VALIGN_MIDDLE);
-        addItem(pLabel, PX_C(100), PX_C(40+(i*18)));
+        addItem(pLabel, PX_C(200), PX_C(40+(i*18)));
         papItemAFader_[i] = NEW GgafDxAlphaFader(pLabel);
         papItemAFader_[i]->forceRange(0, 0.6);
         pLabel->setAlpha(0.6);
@@ -52,9 +59,11 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
     //初期選択
     selectItem(ITEM_GAME_START);
     //確認サブメニュー
-    addSubMenu(NEW MenuBoardConfirm("confirm")); //0
-    //コンフィグサブメニュー
-    addSubMenu(NEW MenuBoardConfig("config"));
+    addSubMenu(NEW MenuBoardConfirm("confirm"));            //MENU_CONFIRM = 0 ,
+    addSubMenu(NEW MenuBoardKeyConfig("key_config"));       //MENU_KEY_CONFIG,
+    addSubMenu(NEW MenuBoardSoundConfig("sound_config"));   //MENU_SOUND_CONFIG,
+    addSubMenu(NEW MenuBoardScreenConfig("screen_config")); //MENU_SCREEN_CONFIG,
+
 }
 bool MenuBoardTitle::condSelectNext() {
     return VB->isAutoRepeat(VB_UI_DOWN);
@@ -83,15 +92,21 @@ void MenuBoardTitle::onSelect(int prm_from, int prm_to) {
 void MenuBoardTitle::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
     if (prm_item_index == ITEM_GAME_START) {
         //GameTitleSceneクラス側でイベント実行
-    } else if (prm_item_index == ITEM_CONFIG) {
-        //CONFIGメニュー起動
-        riseSubMenu(1, PX_C(50), PX_C(50));
+    } else if (prm_item_index == ITEM_KEY_CONFIG) {
+        //キー入力設定メニュー起動
+        riseSubMenu(MENU_KEY_CONFIG, PX_C(50), PX_C(10));
+    } else if (prm_item_index == ITEM_SOUND_CONFIG) {
+        //音量設定メニュー起動
+        riseSubMenu(MENU_SOUND_CONFIG, PX_C(50), PX_C(10));
+    } else if (prm_item_index == ITEM_SCREEN_CONFIG) {
+        //画面設定メニュー起動
+        riseSubMenu(MENU_SCREEN_CONFIG, PX_C(50), PX_C(10));
     } else if (prm_item_index == ITEM_REBOOT) {
         //確認メニュー起動
-        riseSubMenu(0, getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y);
+        riseSubMenu(MENU_CONFIRM, getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y);
     } else if (prm_item_index == ITEM_QUIT) {
         //確認メニュー起動
-        riseSubMenu(0, getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y);
+        riseSubMenu(MENU_CONFIRM, getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y);
     }
 }
 

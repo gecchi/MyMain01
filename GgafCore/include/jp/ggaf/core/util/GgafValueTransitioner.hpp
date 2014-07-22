@@ -38,12 +38,12 @@ public:
     VAL_TYPE _acce[N];
     /** [r]各対象インデックスの値遷移方法 */
     TransitionMethod _method[N];
-    /** [r]ビート時、各対象インデックスの三角波の波形で値遷移のアタックフレーム数 */
+    /** [r]ビート時、各対象インデックスの台形波の波形で値遷移のアタックフレーム数 */
     frame _beat_frame_of_attack_finish[N];
     frame _beat_frame_of_sustain_finish[N];
     /** [r]ビート時、各対象インデックスのアタックから下限までのフレーム数 */
     frame _beat_frame_of_decay_finish[N];
-    /** [r]ビート時、各対象インデックスの三角波の波形で値遷移のレストフレーム数 */
+    /** [r]ビート時、各対象インデックスの台形波の波形で値遷移のレストフレーム数 */
     frame _beat_roop_frames[N];
     /** [r]ビート時、各対象インデックスの値遷移に費やすフレーム数 */
     frame _beat_target_frames[N];

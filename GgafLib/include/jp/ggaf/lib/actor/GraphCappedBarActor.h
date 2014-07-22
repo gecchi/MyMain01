@@ -6,6 +6,7 @@ namespace GgafLib {
 
 /**
  * 数量バー(両端テクスチャ有り) .
+ * テクスチャの番号は、 <=> の "<" の番号に合わせること。
  * @version 1.00
  * @since 2013/09/17
  * @author Masatoshi Tsuge

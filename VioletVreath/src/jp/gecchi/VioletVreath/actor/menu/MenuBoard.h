@@ -18,7 +18,9 @@ public:
     enum {
         SE_ON_RISEN      ,
         SE_MOVE_CURSOR   ,
+        SE_DECIDED_OK    ,
         SE_DECIDED_CANCEL,
+        SE_WRONG         ,
     };
 
     coord slide_from_offset_x_;

@@ -63,6 +63,7 @@ void GgafDxStringBoardActor::update(const char* prm_str) {
                                    " 上限文字数="<<GgafDxStringBoardActor_MAX_LEN<<" prm_str="<<prm_str);
     }
 #endif
+    onUpdate(); //コールバック
     _draw_string = _buf;
     _aWidth_line_px[0] = 0;
     int nn = 0;
@@ -97,6 +98,7 @@ void GgafDxStringBoardActor::update(char* prm_str) {
                                    " 上限文字数="<<GgafDxStringBoardActor_MAX_LEN<<" prm_str="<<prm_str);
     }
 #endif
+    onUpdate(); //コールバック
     _draw_string = _buf;
     _aWidth_line_px[0] = 0;
     int nn = 0;

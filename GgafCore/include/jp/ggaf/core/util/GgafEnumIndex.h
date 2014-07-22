@@ -54,15 +54,28 @@ class GgafEnumIndex : public GgafObject {
 public:
     /** 列挙の値：順序(0～) */
     std::map<int, int> _n;
+    int _enum_start;
+    int _enum_end;
 
     /**
-     *
+     * コンストラクタ .
      * @param prm_num 最大の列挙の値
      * @param prm_enum_start_index １番目の列挙の値
      */
     GgafEnumIndex(int prm_enum_start, int prm_enum_end) {
+        _enum_start = prm_enum_start;
+        _enum_end = prm_enum_end;
         for(int i = 0; i <= prm_enum_end-prm_enum_start; i++) {
             _n[(prm_enum_start+i)] = i;
+        }
+    }
+
+    /**
+     * 列挙値と順序リストの対応をリセットする。
+     */
+    inline void reset() {
+        for(int i = 0; i <= _enum_end-_enum_start; i++) {
+            _n[(_enum_start+i)] = i;
         }
     }
 

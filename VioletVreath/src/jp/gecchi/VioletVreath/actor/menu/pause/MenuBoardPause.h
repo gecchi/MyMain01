@@ -16,25 +16,31 @@ class MenuBoardPause : public MenuBoard {
 public:
     enum {
         ITEM_BACK_TO_GAME = 0 ,
-        ITEM_CONFIG,
-        ITEM_BACK_TO_TITLE,
-        ITEM_REBOOT,
-
+        ITEM_GO_TO_TITLE,
         ITEM_HIDE_MENU,
-        ITEM_DUMMY2,
-        ITEM_DUMMY3,
-        ITEM_DUMMY4,
+        ITEM_DUMMY1,
 
-        ITEM_DUMMY5,
-        ITEM_DUMMY6,
-        ITEM_DUMMY7,
-        ITEM_QUIT_GAME
+        ITEM_KEY_CONFIG,
+        ITEM_SOUND_CONFIG,
+        ITEM_REBOOT,
+        ITEM_QUIT_GAME,
+
+        ITEM_BANPEI,
+    };
+
+    enum {
+        MENU_CONFIRM = 0 ,
+        MENU_KEY_CONFIG,
+        MENU_SOUND_CONFIG,
+        MENU_BANPEI,
     };
 
     bool toggle_HIDE_MENU_;
 
 public:
     MenuBoardPause(const char* prm_name);
+
+    void onRise() override;
 
     bool condSelectNext() override;
 
