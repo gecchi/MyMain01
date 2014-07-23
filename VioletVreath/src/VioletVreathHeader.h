@@ -634,7 +634,7 @@ class CursorNameEntryMenu;
 class CursorConfig005;
 
 class XpmHeader;
-
+class InnerTitleBar;
 }
 
 

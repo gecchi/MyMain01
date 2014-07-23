@@ -48,6 +48,12 @@ public:
     PreDrawScene* pPreDrawScene_;
     GameScene* pGameScene_;
 
+
+    InnerTitleBar* pInnerTitleBar01_;
+    InnerTitleBar* pInnerTitleBar02_;
+    coord close01_x1_, close01_y1_, close01_x2_, close01_y2_;
+    coord close02_x1_, close02_y1_, close02_x2_, close02_y2_;
+    frame hide_cursor_cnt_;
 public:
     World(const char* prm_name);
 

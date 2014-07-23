@@ -65,7 +65,7 @@ class WallPartsActor;
 class WallAABctor;
 class WallAAPrismActor;
 class GraphBarActor;
-class GraphCappedBarActor;
+class CappedGraphBarActor;
 
 class SpriteMeshWorldBoundActor;
 class WorldBoundActor;

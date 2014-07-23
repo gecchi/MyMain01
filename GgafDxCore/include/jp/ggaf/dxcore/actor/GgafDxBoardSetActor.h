@@ -144,6 +144,8 @@ public:
     inline GgafDxUvFlipper* getUvFlipper() {
         return _pUvFlipper;
     }
+    float getModelWidth();
+    float getModelHeight();
 };
 
 }

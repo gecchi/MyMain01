@@ -230,15 +230,14 @@ BOOL CALLBACK GgafDxInput::enumPadAxisCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi,
 }
 
 void GgafDxInput::updateMouseState() {
+#ifdef MY_DEBUG
     if (_pIDirectInputDevice8_Mouse == nullptr) {
-        _TRACE_("GgafDxInput::updateKeyboardState() nullptrっす");
+        _TRACE_("GgafDxInput::updateKeyboardState() _pIDirectInputDevice8_Mouse == nullptr !!!!");
         return;
     }
-
+#endif
     _active_MouseState = !_active_MouseState; //ステートセットフリップ
-
     HRESULT hr;
-
 again:
     hr = _pIDirectInputDevice8_Mouse->Poll(); //マウスは通常Poll不用と思うが呼び出しても無害と書いてあるので呼ぶ。
     hr = _pIDirectInputDevice8_Mouse->GetDeviceState(sizeof(DIMOUSESTATE2), (void*)&_dimousestate[_active_MouseState]);
@@ -252,7 +251,6 @@ again:
     }
     return;
 }
-
 
 
 bool GgafDxInput::isBeingPressedMouseButton(int prm_button_no) {
@@ -303,6 +301,7 @@ void GgafDxInput::getMousePointer(long* x, long* y, long* z) {
     //ホイールの状態
     *z = _dimousestate[_active_MouseState].lZ;
 }
+
 void GgafDxInput::getMousePointer_REL(long* dx, long* dy, long* dz) {
     //マウスの移動
     *dx = _dimousestate[_active_MouseState].lX - _dimousestate[!_active_MouseState].lX;
@@ -312,13 +311,13 @@ void GgafDxInput::getMousePointer_REL(long* dx, long* dy, long* dz) {
 }
 
 void GgafDxInput::updateKeyboardState() {
-    if (_pIDirectInputDevice8_Mouse == nullptr) {
-        _TRACE_("GgafDxInput::updateKeyboardState() nullptrっす");
+#ifdef MY_DEBUG
+    if (_pIDirectInputDevice8_Keyboard == nullptr) {
+        _TRACE_("GgafDxInput::updateKeyboardState() _pIDirectInputDevice8_Keyboard == nullptr !!!!");
         return;
     }
-
+#endif
     _active_KeyboardState = !_active_KeyboardState; //ステートセットフリップ
-
     HRESULT hr;
 again:
     hr = _pIDirectInputDevice8_Keyboard->Poll(); //キーボードは通常Poll不用と思うが、必要なキーボードもあるかもしれない。
@@ -385,15 +384,11 @@ void GgafDxInput::updateJoystickState() {
     if (_pIDirectInputDevice8_Joystick == nullptr) {
         return;
     }
-
-
     _active_JoyState = !_active_JoyState; //ステートセットフリップ
-
     // ジョイスティックの状態を取得
     HRESULT hr;
 
 again1:
-
     hr = _pIDirectInputDevice8_Joystick->Poll();
     if (hr != DI_OK) {
         hr = _pIDirectInputDevice8_Joystick->Acquire();
@@ -404,7 +399,6 @@ again1:
     }
 
 again2:
-
     hr = _pIDirectInputDevice8_Joystick->GetDeviceState(sizeof(DIJOYSTATE), &_dijoystate[_active_JoyState]);
     if (hr != DI_OK) {
         hr = _pIDirectInputDevice8_Joystick->Acquire();

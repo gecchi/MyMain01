@@ -1,10 +1,10 @@
-#ifndef TESTCAPPEDBAR_H_
-#define TESTCAPPEDBAR_H_
+#ifndef INNERTITLEBAR_H_
+#define INNERTITLEBAR_H_
 #include "jp/ggaf/lib/actor/CappedGraphBarActor.h"
 
-namespace Mogera {
+namespace VioletVreath {
 
-class TestCappedBar : public GgafLib::CappedGraphBarActor {
+class InnerTitleBar : public GgafLib::CappedGraphBarActor {
 
 public:
     /**
@@ -12,15 +12,15 @@ public:
      * @param prm_name
      * @param prm_pPxQty config済みの PxQuantityオブジェクトの参照
      */
-    TestCappedBar(const char* prm_name);
+    InnerTitleBar(const char* prm_name);
 
     void initialize() override;
     void processBehavior() override;
     void addVal(double prm_val);
 
-    virtual ~TestCappedBar();
+    virtual ~InnerTitleBar();
 };
 
 }
-#endif /*TESTCAPPEDBAR_H_*/
+#endif /*INNERTITLEBAR_H_*/
 

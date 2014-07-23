@@ -131,6 +131,14 @@ void GgafDxBoardSetActor::setValign(GgafDxValign prm_valign) {
     _valign = prm_valign;
 }
 
+float GgafDxBoardSetActor::getModelWidth() {
+    return _pBoardSetModel->_fSize_BoardSetModelWidthPx;
+}
+
+float GgafDxBoardSetActor::getModelHeight() {
+    return _pBoardSetModel->_fSize_BoardSetModelHeightPx;
+}
+
 GgafDxBoardSetActor::~GgafDxBoardSetActor() {
     delete _pUvFlipper;
 }

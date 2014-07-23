@@ -1,6 +1,6 @@
 #ifndef MPBAR_H_
 #define MPBAR_H_
-#include "jp/ggaf/lib/actor/GraphCappedBarActor.h"
+#include "jp/ggaf/lib/actor/CappedGraphBarActor.h"
 
 namespace VioletVreath {
 
@@ -10,7 +10,7 @@ namespace VioletVreath {
  * @since 2013/09/12
  * @author Masatoshi Tsuge
  */
-class MpBar : public GgafLib::GraphCappedBarActor {
+class MpBar : public GgafLib::CappedGraphBarActor {
 
 public:
 

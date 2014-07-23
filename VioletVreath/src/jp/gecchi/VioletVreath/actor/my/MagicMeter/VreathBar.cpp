@@ -9,7 +9,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 VreathBar::VreathBar(const char* prm_name)
-      : GraphCappedBarActor(prm_name, "TurboMeter") {
+      : CappedGraphBarActor(prm_name, "TurboMeter") {
     _class_name = "VreathBar";
 }
 

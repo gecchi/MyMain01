@@ -16,6 +16,7 @@
 #include "jp/gecchi/VioletVreath/Properties.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/PreDrawScene.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene.h"
+#include "jp/gecchi/VioletVreath/actor/InnerTitleBar.h"
 #include "Version.h"
 
 using namespace GgafCore;
@@ -43,6 +44,18 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
 
     need_reboot_ = 0;
     need_reboot_prev_ = need_reboot_;
+
+    pInnerTitleBar01_ = nullptr;
+    pInnerTitleBar02_ = nullptr;
+    close01_x1_ = 0;
+    close01_y1_ = 0;
+    close01_x2_ = 0;
+    close01_y2_ = 0;
+    close02_x1_ = 0;
+    close02_y1_ = 0;
+    close02_x2_ = 0;
+    close02_y2_ = 0;
+    hide_cursor_cnt_ = 0;
     //【めも】
     //ここでActorやSceneのNEWをはしてはならない。
     //まずはこの世を作ることを優先しないと、いろいろと不都合がある。
@@ -119,6 +132,28 @@ void World::initialize() {
             if (w2 != w2_bk || h2 != h2_bk) {
                 is_warn2 = true;
             }
+
+            pInnerTitleBar01_ = createInFactory(VioletVreath::InnerTitleBar, "InnerTitleBar01");
+            pInnerTitleBar01_->graduate(0, PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH, PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH);
+            pInnerTitleBar01_->position(C_PX(0), C_PX(0));
+            getSceneDirector()->addSubGroup(pInnerTitleBar01_);
+            //閉じるボタン領域１
+            coord h1 = (coord) pInnerTitleBar01_->getModelHeight();
+            close01_x1_ = PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH - h1;
+            close01_y1_ = 0;
+            close01_x2_ = close01_x1_ + h1 - 1;
+            close01_y2_ = close01_y1_ + h1 - 1;
+
+            pInnerTitleBar02_ = createInFactory(VioletVreath::InnerTitleBar, "InnerTitleBar02");
+            pInnerTitleBar02_->graduate(0, PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH, PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH);
+            pInnerTitleBar02_->position(C_PX(0), C_PX(PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH));
+            getSceneDirector()->addSubGroup(pInnerTitleBar02_);
+            //閉じるボタン領域２
+            coord h2 = (coord) pInnerTitleBar02_->getModelHeight();
+            close02_x1_ = PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH + PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH - h2;
+            close02_y1_ = 0;
+            close02_x2_ = close02_x1_ + h2 - 1;
+            close02_y2_ = close01_y1_ + h2 - 1;
         } else {
             w1 = PROPERTY::DUAL_VIEW_WINDOW1_WIDTH;
             h1 = PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT;
@@ -138,6 +173,18 @@ void World::initialize() {
             if (w1 != w1_bk || h1 != h1_bk) {
                 is_warn1 = true;
             }
+            pInnerTitleBar01_ = createInFactory(VioletVreath::InnerTitleBar, "InnerTitleBar01");
+            pInnerTitleBar01_->graduate(0, PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH, PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH);
+            pInnerTitleBar01_->position(C_PX(0), C_PX(0));
+            getSceneDirector()->addSubGroup(pInnerTitleBar01_);
+
+            //閉じるボタン領域１
+            coord h1 = (coord) pInnerTitleBar01_->getModelHeight();
+            close01_x1_ = PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH - h1;
+            close01_y1_ = 0;
+            close01_x2_ = close01_x1_ + h1 - 1;
+            close01_y2_ = close01_y1_ + h1 - 1;
+
         } else {
             w1 = PROPERTY::SINGLE_VIEW_WINDOW_WIDTH;
             h1 = PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT;
@@ -284,6 +331,61 @@ void World::processBehavior() {
             }
 
             break;
+        }
+    }
+    GgafDxInput::updateMouseState();
+    if (PROPERTY::FULL_SCREEN) {
+        long mx,my,mz,mdx,mdy,mdz;
+        GgafDxInput::getMousePointer(&mx, &my, &mz);
+        GgafDxInput::getMousePointer_REL(&mdx, &mdy, &mdz);
+
+        //しばらくカーソルを動かさなければ消す。
+        if (mdx == 0 && mdy == 0) {
+            hide_cursor_cnt_++;
+            if (hide_cursor_cnt_ == 3*60) {
+                ShowCursor(FALSE);
+            }
+        } else {
+            ShowCursor(TRUE);
+            hide_cursor_cnt_ = 0;
+        }
+        //フルスクリーン用タイトルバー処理
+        if (pInnerTitleBar01_) {
+            pInnerTitleBar01_->setAlpha(0.0);
+            if (pInnerTitleBar02_) {
+                pInnerTitleBar02_->setAlpha(0.0);
+            }
+            if (my <= close01_y2_) {
+                //バー１出現
+                if (0 <= mx || mx <= close01_x2_) {
+                    if (hide_cursor_cnt_ < 3*60) {
+                        pInnerTitleBar01_->setAlpha(1.0);
+                    }
+                }
+                if (pInnerTitleBar02_) {
+                    if (close01_x2_+1 <= mx || mx <= close02_x2_) {
+                        //バー２出現
+                        if (hide_cursor_cnt_ < 3*60) {
+                            pInnerTitleBar02_->setAlpha(1.0);
+                        }
+                    }
+                }
+            }
+            if (GgafDxInput::isPushedDownMouseButton(0)) {
+                ShowCursor(TRUE);
+                hide_cursor_cnt_ = 0;
+                //バツボタンの範囲でクリックならば即終了
+                if (close01_x1_ <= mx && mx <= close01_x2_ &&
+                    close01_y1_ <= my && my <= close01_y2_ ) {
+                    PostQuitMessage(0);
+                }
+                if (pInnerTitleBar02_) {
+                    if (close02_x1_ <= mx && mx <= close02_x2_ &&
+                        close02_y1_ <= my && my <= close02_y2_ ) {
+                        PostQuitMessage(0);
+                    }
+                }
+            }
         }
     }
 

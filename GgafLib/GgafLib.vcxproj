@@ -182,9 +182,9 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\jp\ggaf\lib\actor\CappedGraphBarActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\FkFormation.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\GraphBarActor.cpp" />
-    <ClCompile Include="src\jp\ggaf\lib\actor\GraphCappedBarActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\StringSpriteActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\GgafLibProperties.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\ColliAAB.cpp" />
@@ -263,9 +263,9 @@
   <ItemGroup>
     <ClInclude Include="include\ggaflibcommonheader.h" />
     <ClInclude Include="include\ggaflibentry.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\cappedgraphbaractor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\fkformation.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\graphbaractor.h" />
-    <ClInclude Include="include\jp\ggaf\lib\actor\graphcappedbaractor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\StringSpriteActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\GgafLibProperties.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\ColliAAB.h" />

@@ -43,8 +43,6 @@ void PauseCamWorker::onActive() {
 }
 
 void PauseCamWorker::processBehavior() {
-    GgafDxInput::updateMouseState();
-
     //TODO:精度を上げるアイディア
     //マウスポイントの履歴を取り、mdx,mdy,mdzは、３フレームほど過去との差にすると回転軸が安定するだろう
 

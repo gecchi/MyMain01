@@ -1,5 +1,5 @@
-#ifndef GRAPHCAPPEDBARACTOR_H_
-#define GRAPHCAPPEDBARACTOR_H_
+#ifndef CAPPEDGRAPHBARACTOR_H_
+#define CAPPEDGRAPHBARACTOR_H_
 #include "jp/ggaf/lib/actor/GraphBarActor.h"
 
 namespace GgafLib {
@@ -11,7 +11,7 @@ namespace GgafLib {
  * @since 2013/09/17
  * @author Masatoshi Tsuge
  */
-class GraphCappedBarActor : public GraphBarActor {
+class CappedGraphBarActor : public GraphBarActor {
 
 public:
     /**
@@ -20,7 +20,7 @@ public:
      * @param prm_model
      * @param prm_pPxQty
      */
-    GraphCappedBarActor(const char* prm_name, const char* prm_model, PxQuantity* prm_pPxQty);
+    CappedGraphBarActor(const char* prm_name, const char* prm_model, PxQuantity* prm_pPxQty);
 
     /**
      * コンストラクタ
@@ -28,13 +28,13 @@ public:
      * @param prm_model
      * @param prm_pPxQty
      */
-    GraphCappedBarActor(const char* prm_name, const char* prm_model);
+    CappedGraphBarActor(const char* prm_name, const char* prm_model);
 
     void processDraw() override;
 
-    virtual ~GraphCappedBarActor();
+    virtual ~CappedGraphBarActor();
 };
 
 }
-#endif /*GRAPHCAPPEDBARACTOR_H_*/
+#endif /*CAPPEDGRAPHBARACTOR_H_*/
 

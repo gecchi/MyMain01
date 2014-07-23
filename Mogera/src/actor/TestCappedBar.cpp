@@ -11,7 +11,7 @@ using namespace GgafLib;
 using namespace Mogera;
 
 TestCappedBar::TestCappedBar(const char* prm_name)
-      : GraphCappedBarActor(prm_name, "TestBar") {
+      : CappedGraphBarActor(prm_name, "TestBar") {
     _class_name = "TestCappedBar";
     setAlpha(0.8);
 }

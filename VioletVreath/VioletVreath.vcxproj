@@ -407,6 +407,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestGu.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestNomal.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestPa.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\InnerTitleBar.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\item\Item.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\item\MagicPointItem.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\item\MagicPointItem001.cpp" />
@@ -756,6 +757,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestGu.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestNomal.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestPa.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\InnerTitleBar.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\Item.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\MagicPointItem.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\MagicPointItem001.h" />

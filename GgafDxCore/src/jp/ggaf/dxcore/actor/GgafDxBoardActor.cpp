@@ -151,6 +151,14 @@ void GgafDxBoardActor::addAlpha(float prm_alpha) {
     _paMaterial[0].Diffuse.a = _alpha;
 }
 
+float GgafDxBoardActor::getModelWidth() {
+    return _pBoardModel->_fSize_BoardModelWidthPx;
+}
+
+float GgafDxBoardActor::getModelHeight() {
+    return _pBoardModel->_fSize_BoardModelHeightPx;
+}
+
 GgafDxBoardActor::~GgafDxBoardActor() {
     delete _pUvFlipper;
 }
