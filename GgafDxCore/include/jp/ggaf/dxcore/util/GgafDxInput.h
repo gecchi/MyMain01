@@ -20,28 +20,28 @@ public:
     /** IDirectInput8インターフェイス */
     static LPDIRECTINPUT8 _pIDirectInput8;
     /** キーボードインプットデバイス */
-    static LPDIRECTINPUTDEVICE8 _pIDirectInputDevice8_Keyboard;
+    static LPDIRECTINPUTDEVICE8 _pKeyboardInputDevice;
     /** ジョイスティックインプットデバイス */
-    static LPDIRECTINPUTDEVICE8 _pIDirectInputDevice8_Joystick;
+    static LPDIRECTINPUTDEVICE8 _pJoystickInputDevice;
     /** マウスインプットデバイス */
-    static LPDIRECTINPUTDEVICE8 _pIDirectInputDevice8_Mouse;
+    static LPDIRECTINPUTDEVICE8 _pMouseInputDevice;
     /** ジョイスティックの性能 */
-    static DIDEVCAPS _didevcap;
+    static DIDEVCAPS _devcap;
 
     //static const int BUFFER_SIZE;
 
     /** マウス状態（表、裏）*/
-    static DIMOUSESTATE2 _dimousestate[2];
+    static DIMOUSESTATE2 _mouse_state[2];
     /** 現在アクティブなマウス状態の表裏(0:表／1:裏) */
-    static int _active_MouseState;
+    static int _flip_ms;
     /** キーボードの状態（表、裏） */
-    static char _caKeyboardState[2][256];
+    static char _keyboard_state[2][256];
     /** 現在アクティブなキーボード状態の表裏(0:表／1:裏) */
-    static int _active_KeyboardState;
+    static int _flip_ks;
     /** ジョイスティックの状態(0:表／1:裏)  */
-    static DIJOYSTATE _dijoystate[2];
+    static DIJOYSTATE _joy_state[2];
     /** 現在アクティブなジョイスティック状態の表裏(0:表／1:裏) */
-    static int _active_JoyState;
+    static int _flip_js;
 
 public:
     /**
@@ -69,7 +69,7 @@ public:
 
     /**
      * マウスの状態を更新 .
-     * 結果は _dimousestate の表か裏に格納される。
+     * 結果は _mouse_state の表か裏に格納される。
      */
     static void updateMouseState();
 
@@ -112,7 +112,7 @@ public:
 
     /**
      * キーボードの状態を更新 .
-     * 結果は _caKeyboardState の表か裏に格納される。
+     * 結果は _keyboard_state の表か裏に格納される。
      */
     static void updateKeyboardState();
 
@@ -122,7 +122,7 @@ public:
      * @return true：そのキーは押されている状態である／false：そうでは無い
      */
     static inline bool isBeingPressedKey(int prm_DIK) {
-        return (_caKeyboardState[_active_KeyboardState][prm_DIK] & 0x80) ? true : false;
+        return (_keyboard_state[_flip_ks][prm_DIK] & 0x80) ? true : false;
     }
 
     /**
@@ -131,7 +131,7 @@ public:
      */
     static inline int getBeingPressedKey() {
         for (int i = 0x00; i <= 0xED; i ++) {
-            if (_caKeyboardState[_active_KeyboardState][i] & 0x80) {
+            if (_keyboard_state[_flip_ks][i] & 0x80) {
                 return i;
             }
         }
@@ -160,7 +160,7 @@ public:
 
     /**
      * ジョイスティックの状態を更新 .
-     * 結果は _dijoystate に格納される。
+     * 結果は _joy_state に格納される。
      */
     static void updateJoystickState();
 
@@ -170,7 +170,7 @@ public:
      * @return  true：そのボタンは押されている状態である／false：そうでは無い
      */
     static inline bool isBeingPressedJoyRgbButton(int prm_rgb_button_no) {
-        return (_dijoystate[_active_JoyState].rgbButtons[prm_rgb_button_no] & 0x80) ? true : false;
+        return (_joy_state[_flip_js].rgbButtons[prm_rgb_button_no] & 0x80) ? true : false;
     }
 
     /**
@@ -179,7 +179,7 @@ public:
      */
     static inline int getBeingPressedJoyRgbButton() {
         for (int i = 0; i < 13; i ++) {
-            if (_dijoystate[_active_JoyState].rgbButtons[i] & 0x80) {
+            if (_joy_state[_flip_js].rgbButtons[i] & 0x80) {
                 return i;
             }
         }
@@ -195,7 +195,7 @@ public:
      * @return true：ジョイスティックの上方向はONである／false：そうでは無い
      */
     static inline bool isBeingPressedJoyUp() {
-        return (_dijoystate[_active_JoyState].lY < -127) ? true : false;
+        return (_joy_state[_flip_js].lY < -127) ? true : false;
     }
 
     /**
@@ -203,7 +203,7 @@ public:
      * @return true：ジョイスティックの下方向はONである／false：そうでは無い
      */
     static inline bool isBeingPressedJoyDown() {
-        return (_dijoystate[_active_JoyState].lY > 127) ? true : false;
+        return (_joy_state[_flip_js].lY > 127) ? true : false;
     }
 
     /**
@@ -211,7 +211,7 @@ public:
      * @return true：ジョイスティックの左方向はONである／false：そうでは無い
      */
     static inline bool isBeingPressedJoyLeft() {
-        return (_dijoystate[_active_JoyState].lX < -127) ? true : false;
+        return (_joy_state[_flip_js].lX < -127) ? true : false;
     }
 
     /**
@@ -219,7 +219,7 @@ public:
      * @return true：ジョイスティックの右方向はONである／false：そうでは無い
      */
     static inline bool isBeingPressedJoyRight() {
-        return (_dijoystate[_active_JoyState].lX > 127) ? true : false;
+        return (_joy_state[_flip_js].lX > 127) ? true : false;
     }
 
     /**

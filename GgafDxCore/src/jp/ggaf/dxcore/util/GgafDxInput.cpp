@@ -8,17 +8,17 @@ using namespace GgafDxCore;
 
 //const int GgafDxInput::BUFFER_SIZE = 256;
 LPDIRECTINPUT8 GgafDxInput::_pIDirectInput8 = nullptr;
-LPDIRECTINPUTDEVICE8 GgafDxInput::_pIDirectInputDevice8_Keyboard = nullptr;
-LPDIRECTINPUTDEVICE8 GgafDxInput::_pIDirectInputDevice8_Joystick = nullptr;
-LPDIRECTINPUTDEVICE8 GgafDxInput::_pIDirectInputDevice8_Mouse  = nullptr;
-DIMOUSESTATE2 GgafDxInput::_dimousestate[2];
-int  GgafDxInput::_active_MouseState = 0;
+LPDIRECTINPUTDEVICE8 GgafDxInput::_pKeyboardInputDevice = nullptr;
+LPDIRECTINPUTDEVICE8 GgafDxInput::_pJoystickInputDevice = nullptr;
+LPDIRECTINPUTDEVICE8 GgafDxInput::_pMouseInputDevice  = nullptr;
+DIMOUSESTATE2 GgafDxInput::_mouse_state[2];
+int  GgafDxInput::_flip_ms = 0;
 
-char GgafDxInput::_caKeyboardState[2][256];
-int GgafDxInput::_active_KeyboardState = 0;
-DIDEVCAPS GgafDxInput::_didevcap;
-DIJOYSTATE GgafDxInput::_dijoystate[2];
-int GgafDxInput::_active_JoyState = 0;
+char GgafDxInput::_keyboard_state[2][256];
+int GgafDxInput::_flip_ks = 0;
+DIDEVCAPS GgafDxInput::_devcap;
+DIJOYSTATE GgafDxInput::_joy_state[2];
+int GgafDxInput::_flip_js = 0;
 
 
 HRESULT GgafDxInput::init() {
@@ -27,39 +27,39 @@ HRESULT GgafDxInput::init() {
     hr = DirectInput8Create(GgafDxGod::_hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8,
                             (LPVOID*)&_pIDirectInput8, nullptr);
     if (hr != D3D_OK) {
-        MessageBox(GgafDxGod::_pHWndPrimary, TEXT("GgafDxInput::initDx9Input() いきなりDirectInput8の作成に失敗しました。"),
-                   TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
+        MessageBox(GgafDxGod::_pHWndPrimary, "GgafDxInput::initDx9Input() いきなりDirectInput8の作成に失敗しました。",
+                   "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         return hr;
     }
 
     // マウスデバイスの作成
-    hr = _pIDirectInput8->CreateDevice(GUID_SysMouse, &_pIDirectInputDevice8_Mouse, nullptr);
+    hr = _pIDirectInput8->CreateDevice(GUID_SysMouse, &_pMouseInputDevice, nullptr);
     if (hr != D3D_OK) {
-        MessageBox(GgafDxGod::_pHWndPrimary, TEXT("GgafDxInput::initDx9Input() マウスデバイス作成に失敗しました"), TEXT("ERROR"), MB_OK
-                | MB_ICONSTOP | MB_SETFOREGROUND);
+        MessageBox(GgafDxGod::_pHWndPrimary, "GgafDxInput::initDx9Input() マウスデバイス作成に失敗しました",
+                "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         return hr;
     }
     // マウス取得データフォーマットの設定
-    hr = _pIDirectInputDevice8_Mouse->SetDataFormat(&c_dfDIMouse2);
+    hr = _pMouseInputDevice->SetDataFormat(&c_dfDIMouse2);
     if (hr != D3D_OK) {
-        MessageBox(GgafDxGod::_pHWndPrimary, TEXT("GgafDxInput::initDx9Input() マウスのSetDataFormat に失敗しました"), TEXT("ERROR"),
-                   MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
+        MessageBox(GgafDxGod::_pHWndPrimary, "GgafDxInput::initDx9Input() マウスのSetDataFormat に失敗しました",
+                   "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         return hr;
     }
     // マウス強調レベル設定
-    hr = _pIDirectInputDevice8_Mouse->SetCooperativeLevel(GgafDxGod::_pHWndPrimary, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
+    hr = _pMouseInputDevice->SetCooperativeLevel(GgafDxGod::_pHWndPrimary, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
     if (hr != D3D_OK) {
-        MessageBox(GgafDxGod::_pHWndPrimary, TEXT("GgafDxInput::initDx9Input() マウスのSetCooperativeLevelに失敗しました"),
-                   TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
+        MessageBox(GgafDxGod::_pHWndPrimary, "GgafDxInput::initDx9Input() マウスのSetCooperativeLevelに失敗しました",
+                 "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         return hr;
     }
 
 //    if (GgafDxGod::_pHWndSecondary) {
 //        // マウス強調レベル設定
-//        hr = _pIDirectInputDevice8_Mouse->SetCooperativeLevel(GgafDxGod::_pHWndSecondary, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
+//        hr = _pMouseInputDevice->SetCooperativeLevel(GgafDxGod::_pHWndSecondary, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
 //        if (hr != D3D_OK) {
-//            MessageBox(GgafDxGod::_pHWndPrimary, TEXT("GgafDxInput::initDx9Input() _pHWndSecondaryマウスのSetCooperativeLevelに失敗しました"),
-//                       TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
+//            MessageBox(GgafDxGod::_pHWndPrimary, "GgafDxInput::initDx9Input() _pHWndSecondaryマウスのSetCooperativeLevelに失敗しました"),
+//                       "ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
 //            return hr;
 //        }
 //    }
@@ -71,38 +71,38 @@ HRESULT GgafDxInput::init() {
     dipropword_m.diph.dwHow = DIPH_DEVICE;
     dipropword_m.dwData = DIPROPAXISMODE_ABS; // 絶対値モード
     //  dipropword.dwData       = DIPROPAXISMODE_REL;   // 相対値モード
-    hr = _pIDirectInputDevice8_Mouse->SetProperty(DIPROP_AXISMODE, &dipropword_m.diph);
+    hr = _pMouseInputDevice->SetProperty(DIPROP_AXISMODE, &dipropword_m.diph);
     if (hr != D3D_OK) {
         _TRACE_( "軸モードの設定に失敗");
         return FALSE;
     }
 
     // マウスアクセス権取得
-    if (_pIDirectInputDevice8_Mouse) {
-        _pIDirectInputDevice8_Mouse->Acquire();
+    if (_pMouseInputDevice) {
+        _pMouseInputDevice->Acquire();
     }
 
     // キーボードデバイスの作成
-    hr = _pIDirectInput8->CreateDevice(GUID_SysKeyboard, &_pIDirectInputDevice8_Keyboard, nullptr);
+    hr = _pIDirectInput8->CreateDevice(GUID_SysKeyboard, &_pKeyboardInputDevice, nullptr);
     if (hr != D3D_OK) {
-        MessageBox(GgafDxGod::_pHWndPrimary, TEXT("GgafDxInput::initDx9Input() キーボードデバイス作成に失敗しました"), TEXT("ERROR"), MB_OK
-                | MB_ICONSTOP | MB_SETFOREGROUND);
+        MessageBox(GgafDxGod::_pHWndPrimary, "GgafDxInput::initDx9Input() キーボードデバイス作成に失敗しました",
+                   "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         return hr;
     }
 
     // キーボード取得データフォーマットの設定
-    hr = _pIDirectInputDevice8_Keyboard->SetDataFormat(&c_dfDIKeyboard);
+    hr = _pKeyboardInputDevice->SetDataFormat(&c_dfDIKeyboard);
     if (hr != D3D_OK) {
-        MessageBox(GgafDxGod::_pHWndPrimary, TEXT("GgafDxInput::initDx9Input() キーボードのSetDataFormat に失敗しました"), TEXT("ERROR"),
-                   MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
+        MessageBox(GgafDxGod::_pHWndPrimary, "GgafDxInput::initDx9Input() キーボードのSetDataFormat に失敗しました",
+                   "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         return hr;
     }
 
     // キーボード強調レベル設定
-    hr = _pIDirectInputDevice8_Keyboard->SetCooperativeLevel(GgafDxGod::_pHWndPrimary, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
+    hr = _pKeyboardInputDevice->SetCooperativeLevel(GgafDxGod::_pHWndPrimary, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
     if (hr != D3D_OK) {
-        MessageBox(GgafDxGod::_pHWndPrimary, TEXT("GgafDxInput::initDx9Input() キーボードのSetCooperativeLevelに失敗しました"),
-                   TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
+        MessageBox(GgafDxGod::_pHWndPrimary, "GgafDxInput::initDx9Input() キーボードのSetCooperativeLevelに失敗しました",
+                   "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         return hr;
     }
 
@@ -115,35 +115,35 @@ HRESULT GgafDxInput::init() {
      dipropdword.diph.dwHow			= DIPH_DEVICE;
      dipropdword.dwData				= GgafDxInput::BUFFER_SIZE;
 
-     hr = _pIDirectInputDevice8_Keyboard->SetProperty(DIPROP_BUFFERSIZE, &dipropdword.diph);
+     hr = _pKeyboardInputDevice->SetProperty(DIPROP_BUFFERSIZE, &dipropdword.diph);
      if(hr != D3D_OK) {
-     MessageBox(GgafDxGod::_pHWndPrimary,TEXT("GgafDxInput::initDx9Input() キーボードのSetPropertyに失敗しました"), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
+     MessageBox(GgafDxGod::_pHWndPrimary,"GgafDxInput::initDx9Input() キーボードのSetPropertyに失敗しました", "ERROR", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND |MB_TOPMOST);
      return hr;
      }
      */
     // キーボードアクセス権取得
-    if (_pIDirectInputDevice8_Keyboard) {
-        _pIDirectInputDevice8_Keyboard->Acquire();
+    if (_pKeyboardInputDevice) {
+        _pKeyboardInputDevice->Acquire();
     }
 
 
     // ゲームスティックを列挙してデバイスを得る
     hr = _pIDirectInput8->EnumDevices(DI8DEVCLASS_GAMECTRL, GgafDxInput::enumGameCtrlCallback, nullptr, DIEDFL_ATTACHEDONLY);
-    if (hr != D3D_OK || _pIDirectInputDevice8_Joystick == nullptr) {
+    if (hr != D3D_OK || _pJoystickInputDevice == nullptr) {
         _TRACE_("GgafDxInput::initDx9Input() EnumDevices列挙しましたが、ジョイスティックが見つかりませんでした");
-        _pIDirectInputDevice8_Joystick = nullptr;
+        _pJoystickInputDevice = nullptr;
     } else {
         _TRACE_("GgafDxInput::initDx9Input() ジョイスティックデバイス取得");
 
         // ゲームスティックのデータ形式を設定する
-        hr = _pIDirectInputDevice8_Joystick->SetDataFormat(&c_dfDIJoystick);
+        hr = _pJoystickInputDevice->SetDataFormat(&c_dfDIJoystick);
         if (hr != D3D_OK) {
             _TRACE_("GgafDxInput::initDx9Input() ジョイスティックSetDataFormatに失敗しました");
             return FALSE;
         }
 
         // ゲームスティック協調レベルを設定する
-        hr = _pIDirectInputDevice8_Joystick->SetCooperativeLevel(GgafDxGod::_pHWndPrimary, DISCL_FOREGROUND
+        hr = _pJoystickInputDevice->SetCooperativeLevel(GgafDxGod::_pHWndPrimary, DISCL_FOREGROUND
                 | DISCL_NONEXCLUSIVE );
         if (hr != D3D_OK) {
             _TRACE_("GgafDxInput::initDx9Input() ジョイスティックSetCooperativeLevelに失敗しました");
@@ -151,7 +151,7 @@ HRESULT GgafDxInput::init() {
         }
 
         // ゲームスティックの軸データの範囲を設定する
-        hr = _pIDirectInputDevice8_Joystick->EnumObjects(GgafDxInput::enumPadAxisCallback, nullptr, DIDFT_AXIS);
+        hr = _pJoystickInputDevice->EnumObjects(GgafDxInput::enumPadAxisCallback, nullptr, DIDFT_AXIS);
         if (hr != D3D_OK) {
             _TRACE_("GgafDxInput::initDx9Input() ジョイスティックEnumObjectsに失敗しました");
             return FALSE;
@@ -165,18 +165,18 @@ HRESULT GgafDxInput::init() {
         dipropword_j.diph.dwHow = DIPH_DEVICE;
         dipropword_j.dwData = DIPROPAXISMODE_ABS; // 絶対値モード
         //  dipropword.dwData       = DIPROPAXISMODE_REL;   // 相対値モード
-        hr = _pIDirectInputDevice8_Joystick->SetProperty(DIPROP_AXISMODE, &dipropword_j.diph);
+        hr = _pJoystickInputDevice->SetProperty(DIPROP_AXISMODE, &dipropword_j.diph);
         if (hr != D3D_OK) {
             _TRACE_( "軸モードの設定に失敗");
             return FALSE;
         }
 
         // ゲームスティックのアクセス権を取得する
-        hr = _pIDirectInputDevice8_Joystick->Poll();
+        hr = _pJoystickInputDevice->Poll();
         if (hr != D3D_OK) {
             _TRACE_("GgafDxInput::initDx9Input() ジョイスティックPollに失敗しました");
             do {
-                hr = _pIDirectInputDevice8_Joystick->Acquire();
+                hr = _pJoystickInputDevice->Acquire();
             } while (hr == DIERR_INPUTLOST);
         }
     }
@@ -189,7 +189,7 @@ BOOL CALLBACK GgafDxInput::enumGameCtrlCallback(const DIDEVICEINSTANCE *pDIDevic
     HRESULT hr;
 
     // ゲームスティックデバイスを探すする
-    hr = GgafDxInput::_pIDirectInput8->CreateDevice(pDIDeviceInstance->guidInstance, &GgafDxInput::_pIDirectInputDevice8_Joystick, nullptr);
+    hr = GgafDxInput::_pIDirectInput8->CreateDevice(pDIDeviceInstance->guidInstance, &GgafDxInput::_pJoystickInputDevice, nullptr);
     if(hr != D3D_OK) {
         _TRACE_("enumGameCtrlCallback ジョイスティックCreateDeviceに失敗しました");
         // デバイスの作成に失敗したら列挙を続ける（さらに探す）
@@ -197,12 +197,12 @@ BOOL CALLBACK GgafDxInput::enumGameCtrlCallback(const DIDEVICEINSTANCE *pDIDevic
     }
 
     // ジョイスティックの能力を取得
-    GgafDxInput::_didevcap.dwSize = sizeof(DIDEVCAPS);
-    hr = GgafDxInput::_pIDirectInputDevice8_Joystick->GetCapabilities( &GgafDxInput::_didevcap );
+    GgafDxInput::_devcap.dwSize = sizeof(DIDEVCAPS);
+    hr = GgafDxInput::_pJoystickInputDevice->GetCapabilities( &GgafDxInput::_devcap );
     if( hr != D3D_OK ) {
         _TRACE_("enumGameCtrlCallback ジョイスティックGetCapabilitiesに失敗しました");
         // ジョイスティックの能力を取得出来ないようなら、勘弁願う
-        GgafDxInput::_pIDirectInputDevice8_Joystick->Release();
+        GgafDxInput::_pJoystickInputDevice->Release();
         return DIENUM_CONTINUE;
     }
 
@@ -221,7 +221,7 @@ BOOL CALLBACK GgafDxInput::enumPadAxisCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi,
     diproprange.lMin = -255;
     diproprange.lMax = +255;
 
-    HRESULT hr = GgafDxInput::_pIDirectInputDevice8_Joystick->SetProperty(DIPROP_RANGE, &diproprange.diph);
+    HRESULT hr = GgafDxInput::_pJoystickInputDevice->SetProperty(DIPROP_RANGE, &diproprange.diph);
     if(hr != D3D_OK) {
         _TRACE_("enumPadAxisCallback ジョイスティックSetPropertyに失敗しました");
         return DIENUM_STOP;
@@ -231,18 +231,18 @@ BOOL CALLBACK GgafDxInput::enumPadAxisCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi,
 
 void GgafDxInput::updateMouseState() {
 #ifdef MY_DEBUG
-    if (_pIDirectInputDevice8_Mouse == nullptr) {
-        _TRACE_("GgafDxInput::updateKeyboardState() _pIDirectInputDevice8_Mouse == nullptr !!!!");
+    if (_pMouseInputDevice == nullptr) {
+        _TRACE_("GgafDxInput::updateKeyboardState() _pMouseInputDevice == nullptr !!!!");
         return;
     }
 #endif
-    _active_MouseState = !_active_MouseState; //ステートセットフリップ
+    _flip_ms = !_flip_ms; //ステートセットフリップ
     HRESULT hr;
 again:
-    hr = _pIDirectInputDevice8_Mouse->Poll(); //マウスは通常Poll不用と思うが呼び出しても無害と書いてあるので呼ぶ。
-    hr = _pIDirectInputDevice8_Mouse->GetDeviceState(sizeof(DIMOUSESTATE2), (void*)&_dimousestate[_active_MouseState]);
+    hr = _pMouseInputDevice->Poll(); //マウスは通常Poll不用と思うが呼び出しても無害と書いてあるので呼ぶ。
+    hr = _pMouseInputDevice->GetDeviceState(sizeof(DIMOUSESTATE2), (void*)&_mouse_state[_flip_ms]);
     if (FAILED(hr)) {
-        hr = _pIDirectInputDevice8_Mouse->Acquire();
+        hr = _pMouseInputDevice->Acquire();
         if (hr == DI_OK) {
             goto again;
         } else {
@@ -258,7 +258,7 @@ bool GgafDxInput::isBeingPressedMouseButton(int prm_button_no) {
         _TRACE_("isBeingPressedMouseButton:範囲外");
         return false;
     } else {
-        if (_dimousestate[_active_MouseState].rgbButtons[prm_button_no] & 0x80) {
+        if (_mouse_state[_flip_ms].rgbButtons[prm_button_no] & 0x80) {
             return true;
         } else {
             return false;
@@ -268,11 +268,11 @@ bool GgafDxInput::isBeingPressedMouseButton(int prm_button_no) {
 
 bool GgafDxInput::isPushedDownMouseButton(int prm_button_no) {
     if (GgafDxInput::isBeingPressedMouseButton(prm_button_no)) { //今は押している
-        if (_dimousestate[!_active_MouseState].rgbButtons[prm_button_no] & 0x80) {
-            //前回セット[!_active_MouseState]も押されている。押しっぱなし
+        if (_mouse_state[!_flip_ms].rgbButtons[prm_button_no] & 0x80) {
+            //前回セット[!_flip_ms]も押されている。押しっぱなし
             return false;
         } else {
-            //前回セット[!_active_MouseState]は押されていないのでOK
+            //前回セット[!_flip_ms]は押されていないのでOK
             return true;
         }
     } else {
@@ -282,11 +282,11 @@ bool GgafDxInput::isPushedDownMouseButton(int prm_button_no) {
 
 bool GgafDxInput::isReleasedUpMouseButton(int prm_button_no) {
     if (!GgafDxInput::isBeingPressedMouseButton(prm_button_no)) { //今は離している
-        if (_dimousestate[!_active_MouseState].rgbButtons[prm_button_no] & 0x80) {
-            //前回セット[!_active_MouseState]も押されていた。成立。
+        if (_mouse_state[!_flip_ms].rgbButtons[prm_button_no] & 0x80) {
+            //前回セット[!_flip_ms]も押されていた。成立。
             return true;
         } else {
-            //前回セット[!_active_MouseState]は押されていない。離しっぱなし。
+            //前回セット[!_flip_ms]は押されていない。離しっぱなし。
             return false;
         }
     } else {
@@ -296,36 +296,36 @@ bool GgafDxInput::isReleasedUpMouseButton(int prm_button_no) {
 
 void GgafDxInput::getMousePointer(long* x, long* y, long* z) {
     //マウスの移動
-    *x = _dimousestate[_active_MouseState].lX;
-    *y = _dimousestate[_active_MouseState].lY;
+    *x = _mouse_state[_flip_ms].lX;
+    *y = _mouse_state[_flip_ms].lY;
     //ホイールの状態
-    *z = _dimousestate[_active_MouseState].lZ;
+    *z = _mouse_state[_flip_ms].lZ;
 }
 
 void GgafDxInput::getMousePointer_REL(long* dx, long* dy, long* dz) {
     //マウスの移動
-    *dx = _dimousestate[_active_MouseState].lX - _dimousestate[!_active_MouseState].lX;
-    *dy = _dimousestate[_active_MouseState].lY - _dimousestate[!_active_MouseState].lY;
+    *dx = _mouse_state[_flip_ms].lX - _mouse_state[!_flip_ms].lX;
+    *dy = _mouse_state[_flip_ms].lY - _mouse_state[!_flip_ms].lY;
     //ホイールの状態
-    *dz = _dimousestate[_active_MouseState].lZ - _dimousestate[!_active_MouseState].lZ;
+    *dz = _mouse_state[_flip_ms].lZ - _mouse_state[!_flip_ms].lZ;
 }
 
 void GgafDxInput::updateKeyboardState() {
 #ifdef MY_DEBUG
-    if (_pIDirectInputDevice8_Keyboard == nullptr) {
-        _TRACE_("GgafDxInput::updateKeyboardState() _pIDirectInputDevice8_Keyboard == nullptr !!!!");
+    if (_pKeyboardInputDevice == nullptr) {
+        _TRACE_("GgafDxInput::updateKeyboardState() _pKeyboardInputDevice == nullptr !!!!");
         return;
     }
 #endif
-    _active_KeyboardState = !_active_KeyboardState; //ステートセットフリップ
+    _flip_ks = !_flip_ks; //ステートセットフリップ
     HRESULT hr;
 again:
-    hr = _pIDirectInputDevice8_Keyboard->Poll(); //キーボードは通常Poll不用と思うが、必要なキーボードもあるかもしれない。
-    hr = _pIDirectInputDevice8_Keyboard->GetDeviceState(256, (void*)&_caKeyboardState[_active_KeyboardState]);
+    hr = _pKeyboardInputDevice->Poll(); //キーボードは通常Poll不用と思うが、必要なキーボードもあるかもしれない。
+    hr = _pKeyboardInputDevice->GetDeviceState(256, (void*)&_keyboard_state[_flip_ks]);
     if (FAILED(hr)) {
         //_TRACE_("GetDeviceState is FAILED");
         //Acquire()を試みる。
-        hr = _pIDirectInputDevice8_Keyboard->Acquire();
+        hr = _pKeyboardInputDevice->Acquire();
         if (hr == DI_OK) {
             //_TRACE_("Acquire is DI_OK");
             goto again;
@@ -339,11 +339,11 @@ again:
 
 bool GgafDxInput::isPushedDownKey(int prm_DIK) {
     if (GgafDxInput::isBeingPressedKey(prm_DIK)) { //今は押している
-        if (_caKeyboardState[!_active_KeyboardState][prm_DIK] & 0x80) {
-            //前回セット[!_active_KeyboardState]も押されている。押しっぱなし
+        if (_keyboard_state[!_flip_ks][prm_DIK] & 0x80) {
+            //前回セット[!_flip_ks]も押されている。押しっぱなし
             return false;
         } else {
-            //前回セット[!_active_KeyboardState]は押されていないのでOK
+            //前回セット[!_flip_ks]は押されていないのでOK
             return true;
         }
     } else {
@@ -353,11 +353,11 @@ bool GgafDxInput::isPushedDownKey(int prm_DIK) {
 int GgafDxInput::getPushedDownKey() {
     int DIK_pressed = GgafDxInput::getBeingPressedKey();
     if (DIK_pressed >= 0 ) { //今は押している
-        if (_caKeyboardState[!_active_KeyboardState][DIK_pressed] & 0x80) {
-            //前回セット[!_active_KeyboardState]も押されている。押しっぱなし
+        if (_keyboard_state[!_flip_ks][DIK_pressed] & 0x80) {
+            //前回セット[!_flip_ks]も押されている。押しっぱなし
             return -1;
         } else {
-            //前回セット[!_active_KeyboardState]は押されていないのでOK
+            //前回セット[!_flip_ks]は押されていないのでOK
             return DIK_pressed;
         }
     } else {
@@ -368,11 +368,11 @@ int GgafDxInput::getPushedDownKey() {
 
 bool GgafDxInput::isReleasedUpDownKey(int prm_DIK) {
     if (!GgafDxInput::isBeingPressedKey(prm_DIK)) { //今は離している
-        if (_caKeyboardState[!_active_KeyboardState][prm_DIK] & 0x80) {
-            //前回セット[!_active_KeyboardState]は押されていた。成立
+        if (_keyboard_state[!_flip_ks][prm_DIK] & 0x80) {
+            //前回セット[!_flip_ks]は押されていた。成立
             return true;
         } else {
-            //前回セット[!_active_KeyboardState]も押されていない。離しっぱなし。
+            //前回セット[!_flip_ks]も押されていない。離しっぱなし。
             return false;
         }
     } else {
@@ -381,17 +381,17 @@ bool GgafDxInput::isReleasedUpDownKey(int prm_DIK) {
 }
 
 void GgafDxInput::updateJoystickState() {
-    if (_pIDirectInputDevice8_Joystick == nullptr) {
+    if (_pJoystickInputDevice == nullptr) {
         return;
     }
-    _active_JoyState = !_active_JoyState; //ステートセットフリップ
+    _flip_js = !_flip_js; //ステートセットフリップ
     // ジョイスティックの状態を取得
     HRESULT hr;
 
 again1:
-    hr = _pIDirectInputDevice8_Joystick->Poll();
+    hr = _pJoystickInputDevice->Poll();
     if (hr != DI_OK) {
-        hr = _pIDirectInputDevice8_Joystick->Acquire();
+        hr = _pJoystickInputDevice->Acquire();
         if (hr == DI_OK) {
             goto again1;
         } else {
@@ -399,9 +399,9 @@ again1:
     }
 
 again2:
-    hr = _pIDirectInputDevice8_Joystick->GetDeviceState(sizeof(DIJOYSTATE), &_dijoystate[_active_JoyState]);
+    hr = _pJoystickInputDevice->GetDeviceState(sizeof(DIJOYSTATE), &_joy_state[_flip_js]);
     if (hr != DI_OK) {
-        hr = _pIDirectInputDevice8_Joystick->Acquire();
+        hr = _pJoystickInputDevice->Acquire();
         if (hr == DI_OK) {
             goto again2;
         } else {
@@ -411,11 +411,11 @@ again2:
 
 bool GgafDxInput::isPushedDownJoyRgbButton(int prm_rgb_button_no) {
     if (GgafDxInput::isBeingPressedJoyRgbButton(prm_rgb_button_no)) { //今は押している
-        if (_dijoystate[!_active_JoyState].rgbButtons[prm_rgb_button_no] & 0x80) {
-            //前回セット[!_active_JoyState]も押されている。押しっぱなし
+        if (_joy_state[!_flip_js].rgbButtons[prm_rgb_button_no] & 0x80) {
+            //前回セット[!_flip_js]も押されている。押しっぱなし
             return false;
         } else {
-            //前回セット[!_active_JoyState]は押されていないのでOK
+            //前回セット[!_flip_js]は押されていないのでOK
             return true;
         }
     } else {
@@ -426,11 +426,11 @@ bool GgafDxInput::isPushedDownJoyRgbButton(int prm_rgb_button_no) {
 int GgafDxInput::getPushedDownJoyRgbButton() {
     int JOY_pressed = GgafDxInput::getBeingPressedJoyRgbButton();
     if (JOY_pressed >= 0 ) { //今は押している
-        if (_dijoystate[!_active_JoyState].rgbButtons[JOY_pressed] & 0x80) {
-            //前回セット[!_active_JoyState]も押されている。押しっぱなし
+        if (_joy_state[!_flip_js].rgbButtons[JOY_pressed] & 0x80) {
+            //前回セット[!_flip_js]も押されている。押しっぱなし
             return -1;
         } else {
-            //前回セット[!_active_JoyState]は押されていないのでOK
+            //前回セット[!_flip_js]は押されていないのでOK
             return JOY_pressed;
         }
     } else {
@@ -443,29 +443,29 @@ bool GgafDxInput::isBeingPressedJoyDirection(int prm_direction_no) {
     if (prm_direction_no < 1 || 9 < prm_direction_no) {
         return false;
     } else {
-        if (_dijoystate[_active_JoyState].lY < -127) {
-            if (_dijoystate[_active_JoyState].lX > 127 && prm_direction_no == 9) {
+        if (_joy_state[_flip_js].lY < -127) {
+            if (_joy_state[_flip_js].lX > 127 && prm_direction_no == 9) {
                 return true;
-            } else if (_dijoystate[_active_JoyState].lX < -127 && prm_direction_no == 7) {
+            } else if (_joy_state[_flip_js].lX < -127 && prm_direction_no == 7) {
                 return true;
             } else if (prm_direction_no == 8) {
                 return true;
             } else {
                 return false;
             }
-        } else if (_dijoystate[_active_JoyState].lY > 127) {
-            if (_dijoystate[_active_JoyState].lX > 127 && prm_direction_no == 3) {
+        } else if (_joy_state[_flip_js].lY > 127) {
+            if (_joy_state[_flip_js].lX > 127 && prm_direction_no == 3) {
                 return true;
-            } else if (_dijoystate[_active_JoyState].lX < -127 && prm_direction_no == 1) {
+            } else if (_joy_state[_flip_js].lX < -127 && prm_direction_no == 1) {
                 return true;
             } else if (prm_direction_no == 2) {
                 return true;
             } else {
                 return false;
             }
-        } else if (_dijoystate[_active_JoyState].lX > 127 && prm_direction_no == 6) {
+        } else if (_joy_state[_flip_js].lX > 127 && prm_direction_no == 6) {
             return true;
-        } else if (_dijoystate[_active_JoyState].lX < -127 && prm_direction_no == 4) {
+        } else if (_joy_state[_flip_js].lX < -127 && prm_direction_no == 4) {
             return true;
         } else if (prm_direction_no == 5) {
             return true;
@@ -478,13 +478,13 @@ bool GgafDxInput::isBeingPressedJoyDirection(int prm_direction_no) {
 void GgafDxInput::release() {
     //デバイス解放
     if (_pIDirectInput8) {
-        if (_pIDirectInputDevice8_Keyboard) {
-            _pIDirectInputDevice8_Keyboard->Unacquire();
-            GGAF_RELEASE(_pIDirectInputDevice8_Keyboard);
+        if (_pKeyboardInputDevice) {
+            _pKeyboardInputDevice->Unacquire();
+            GGAF_RELEASE(_pKeyboardInputDevice);
         }
-        if (_pIDirectInputDevice8_Joystick) {
-            _pIDirectInputDevice8_Joystick->Unacquire();
-            GGAF_RELEASE(_pIDirectInputDevice8_Joystick);
+        if (_pJoystickInputDevice) {
+            _pJoystickInputDevice->Unacquire();
+            GGAF_RELEASE(_pJoystickInputDevice);
         }
         GGAF_RELEASE(_pIDirectInput8);
     }

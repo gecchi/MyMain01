@@ -21,7 +21,7 @@ using namespace GgafDxCore;
     if (HR != OKVAL) { \
         std::stringstream ss; \
         ss << X; \
-        MessageBox(GgafDxGod::_pHWndPrimary, TEXT(ss.str().c_str()), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND); \
+        MessageBox(GgafDxGod::_pHWndPrimary, TEXT(ss.str().c_str()), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST); \
         return E_FAIL; \
     } \
 }
@@ -36,7 +36,7 @@ HINSTANCE GgafDxGod::_hInstance = nullptr;
 IDirect3D9* GgafDxGod::_pID3D9 = nullptr;
 IDirect3DDevice9* GgafDxGod::_pID3DDevice9 = nullptr;
 D3DLIGHT9 GgafDxGod::_d3dlight9_default;
-DWORD GgafDxGod::_dwAmbientBrightness_default = 0xff404040;
+DWORD GgafDxGod::_ambient_brightness_default = 0xff404040;
 
 
 D3DFILLMODE GgafDxGod::_d3dfillmode = D3DFILL_SOLID;//D3DFILL_WIREFRAME;//D3DFILL_SOLID;
@@ -229,7 +229,7 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
         }
 //        hr = pID3D9Ex->QueryInterface(IID_IDirect3D9, reinterpret_cast<void **>(&pID3D9)); //COMとして使用
 //        if (FAILED(hr)) {
-//            MessageBox(GgafDxGod::_pHWndPrimary, TEXT("IDirect3D9Ex コンポーネント取得に失敗しました。(2)"), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
+//            MessageBox(GgafDxGod::_pHWndPrimary, TEXT("IDirect3D9Ex コンポーネント取得に失敗しました。(2)"), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST);
 //            FreeLibrary(hD3D);
 //            return E_FAIL; //失敗
 //        }
@@ -1328,7 +1328,7 @@ HRESULT GgafDxGod::initDevice() {
                 if (hr != D3D_OK) {
                     //どのデバイスの作成も失敗した場合
                     _TRACE_("GgafDxGod::init DirectXの初期化に失敗しました。マルチヘッドD3DCREATE_SOFTWARE_VERTEXPROCESSING : "<<GgafDxCriticalException::getHresultMsg(hr));
-                    MessageBox(GgafDxGod::_pHWndPrimary, TEXT("DirectXの初期化に失敗しました。\nマルチヘッドディスプレイ環境が存在していません。"), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
+                    MessageBox(GgafDxGod::_pHWndPrimary, "DirectXの初期化に失敗しました。\nマルチヘッドディスプレイ環境が存在していません。", "ERROR", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST);
                     return E_FAIL;
                 } else {
                     _TRACE_("GgafDxGod::init デバイスは MULTI FULLSCRREEN REF で初期化できました。");
@@ -1364,7 +1364,7 @@ HRESULT GgafDxGod::initDevice() {
                 if (hr != D3D_OK) {
                     //どのデバイスの作成も失敗した場合
                     _TRACE_("GgafDxGod::init DirectXの初期化に失敗しました。 "<<GgafDxCriticalException::getHresultMsg(hr));
-                    MessageBox(GgafDxGod::_pHWndPrimary, TEXT("DirectXの初期化に失敗しました。"), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
+                    MessageBox(GgafDxGod::_pHWndPrimary, "DirectXの初期化に失敗しました。", "ERROR", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST);
                     return E_FAIL;
                 } else {
                     _TRACE_("GgafDxGod::init デバイスは REF で初期化できました。");
@@ -1520,7 +1520,7 @@ HRESULT GgafDxGod::initDx9Device() {
     //レンダ時にライトの影響（陰影）を無効 (ピクセルシェーダーで行なうため）
     GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_LIGHTING, FALSE);
     //レンダ時、世界に共通のアンビエントライトを有効にしたように描く
-    //   GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_AMBIENT, _dwAmbientBrightness_default);
+    //   GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_AMBIENT, _ambient_brightness_default);
 
     // Zバッファを有効に
     GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
@@ -1672,7 +1672,7 @@ HRESULT GgafDxGod::restoreFullScreenRenderTarget() {
 //                     D3DX_DEFAULT,              // [in] DWORD MipFilter,
 //                     0,                         // [in] D3DCOLOR ColorKey,
 //                     _pD3DXIMAGE_INFO,          // [out] D3DXIMAGE_INFO *pSrcInfo,
-//                     nullptr,                      // [in] PALETTEENTRY *pPalette,
+//                     nullptr,                   // [in] PALETTEENTRY *pPalette,
 //                     &pIDirect3DTexture9        // [out] LPDIRECT3DTEXTURE9* ppTexture
 //                );
 
@@ -1707,7 +1707,7 @@ HRESULT GgafDxGod::restoreFullScreenRenderTarget() {
             _paPresetPrm[0].MultiSampleQuality,     //DWORD               MultisampleQuality,
             TRUE,                                   //BOOL                Discard, SetDepthStencileSurface関数で深度バッファを変更した時にバッファを破棄するかどうか
             &_pRenderTextureZ,                      //IDirect3DSurface9** ppSurface,
-            nullptr                                    //HANDLE*             pHandle 現在未使用
+            nullptr                                 //HANDLE*             pHandle 現在未使用
     );
     //深度バッファ作成自動生成の、深度バッファ用サーフェイスを上記に変更
     returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャのZバッファ作成に失敗しました。");
@@ -2290,10 +2290,7 @@ void GgafDxGod::adjustGameScreen(HWND prm_pHWnd) {
         }
     } else {
         //フルスクリーン時
-
     }
-
-
 
 #ifdef MY_DEBUG
     _TRACE_("GgafDxGod::adjustGameScreen(" << (prm_pHWnd == _pHWndPrimary ? "Primary" : "Secondary") <<") コール");
@@ -2325,9 +2322,6 @@ void GgafDxGod::adjustGameScreen(HWND prm_pHWnd) {
         _TRACE_(" _aRect_Present[0].bottom = "<<_aRect_Present[0].bottom);
     }
 #endif
-
-
-
     GgafDxGod::_pID3DDevice9->GetViewport(&(P_CAM->_viewport));
     _adjustGameScreen = false;
     _pHWnd_adjustScreen = nullptr;
@@ -2361,7 +2355,7 @@ void GgafDxGod::positionPresentRect(int prm_pos, RECT& inout_rectPresent, pixcoo
 }
 
 GgafDxGod::~GgafDxGod() {
-
+    _TRACE_("GgafDxGod::~GgafDxGod() 解放開始");
     clean();
     _was_cleaned = true;
     //DirectSound解放
@@ -2373,7 +2367,7 @@ GgafDxGod::~GgafDxGod() {
         releaseFullScreenRenderTarget();
     }
 
-    _TRACE_("_pID3DDevice9 解放きたー");
+    _TRACE_("_pID3DDevice9 解放来たわ");
     Sleep(60);
     GGAF_DELETEARR(_paAvailableAdapter);
     GGAF_DELETEARR(_paAdapterRezos);
@@ -2381,7 +2375,7 @@ GgafDxGod::~GgafDxGod() {
     GGAF_DELETEARR(_paDisplayMode);
     GGAF_RELEASE(_pID3DDevice9);
     GGAF_RELEASE(_pID3D9);
-
+    _TRACE_("GgafDxGod::~GgafDxGod() 解放終了");
 }
 
 

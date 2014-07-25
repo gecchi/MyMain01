@@ -163,7 +163,7 @@ public:
     /** [r] デフォルトのライト */
     static D3DLIGHT9 _d3dlight9_default;
     /** [r] アンビエントライトのデフォルトの明るさ */
-    static DWORD _dwAmbientBrightness_default;
+    static DWORD _ambient_brightness_default;
     /** [r] デバイスロストフラグ (true=ロスト中) */
     static bool _is_device_lost_flg;
     /** [r] 画面アスペクト比調整フラグ (true=ウィンドウがリサイズされ、表示領域を再計算) */

@@ -47,19 +47,19 @@ void EnemyHisbeLaserChip002::onRefractionBegin(int prm_num_refraction)  {
 }
 
 void EnemyHisbeLaserChip002::onRefractionFinish(int prm_num_refraction)  {
-    //_TRACE_("onRefractionFinish(前):"<<getActiveFrame()<<" : "<<prm_num_refraction<<" : (x,y,z)=("<<_x<<","<<_y<<","<<_z<<") : (rz,ry)=("<<_rz<<","<<_ry<<")");
+    _TRACE_("onRefractionFinish(前):"<<getActiveFrame()<<" : "<<prm_num_refraction<<" : (x,y,z)=("<<_x<<","<<_y<<","<<_z<<") : (rz,ry)=("<<_rz<<","<<_ry<<") : (_angveloRzMv, _angveloRyMv)=("<<getKuroko()->_angveloRzMv<<","<<getKuroko()->_angveloRyMv<<")");
     if (prm_num_refraction == 0) {
         pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION); //向てる方向にスプライン座標をワールド変換
     }
 
     pKurokoLeader_->behave();
     getKuroko()->behave();
-    //_TRACE_("onRefractionFinish(後):"<<getActiveFrame()<<" : "<<prm_num_refraction<<" : (x,y,z)=("<<_x<<","<<_y<<","<<_z<<") : (rz,ry)=("<<_rz<<","<<_ry<<")");
+    _TRACE_("onRefractionFinish(後):"<<getActiveFrame()<<" : "<<prm_num_refraction<<" : (x,y,z)=("<<_x<<","<<_y<<","<<_z<<") : (rz,ry)=("<<_rz<<","<<_ry<<") : (_angveloRzMv, _angveloRyMv)=("<<getKuroko()->_angveloRzMv<<","<<getKuroko()->_angveloRyMv<<")");
 
     if (pKurokoLeader_->isFinished()) {
         EnemyHisbeLaserChip002::end_active_frame_ = getActiveFrame(); //終了フレームセット
         sayonara();
-        //_TRACE_("さようなら");
+        _TRACE_("さようなら");
     }
 }
 

@@ -77,7 +77,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 
     } else {
         MessageBox(nullptr, "既定設定ファイル(.default_config.properties)が見つかりません。",
-                                 "Error", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
+                                 "Error", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         VioletVreath::Properties::clean();
         return EXIT_FAILURE;
     }
@@ -193,7 +193,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                                     &pi  //LPPROCESS_INFORMATION lpProcessInformation // プロセス情報
                         );
                         if (r == 0) {
-                            MessageBox(nullptr, "Cannot Reboot! \n すみません、手動で再起動してください。","orz", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND);
+                            MessageBox(nullptr, "Cannot Reboot! \n すみません、手動で再起動してください。","orz", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
                         }
                     }
                     return EXIT_SUCCESS;
@@ -212,7 +212,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
         _TRACE_("＜例外＞"<<e.getMsg());
         std::string message = "\n・"+e.getMsg()+"  \n\nエラーにお心あたりが無い場合、本アプリのバグの可能性が高いです。\n誠に申し訳ございません。\n";
         std::string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
-        MessageBox(nullptr, message_dialog.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
+        MessageBox(nullptr, message_dialog.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_GgafException.rep");
         VB_UI->_pRpy->outputFile("VB_UI_LAST_GgafException.rep");
         _TRACE_("[GgafCriticalException]:"<<e.getMsg());
@@ -222,7 +222,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
         _TRACE_("＜致命的な例外＞"<<what);
         std::string message = "\n・"+what+"  \n\n恐れ入りますが、作者には予測できなかった致命的エラーです。\n誠に申し訳ございません。\n";
         std::string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
-        MessageBox(nullptr, message_dialog.c_str(),"下記の致命的な例外が発生してしまいました", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
+        MessageBox(nullptr, message_dialog.c_str(),"下記の致命的な例外が発生してしまいました", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         _TRACE_("[exception]:"<<what);
         VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_exception.rep");
         VB_UI->_pRpy->outputFile("VB_UI_LAST_exception.rep");
@@ -235,7 +235,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
         _TRACE_("＜致命的な謎例外＞");
         std::string message = "恐れ入りますが、不明な内部エラーが発生しました。\n誠に申し訳ございません。\n";
         std::string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
-        MessageBox(nullptr, message_dialog.c_str(),"下記の致命的な謎例外が発生してしまいました", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
+        MessageBox(nullptr, message_dialog.c_str(),"下記の致命的な謎例外が発生してしまいました", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_UNKNOWN_ERROR.rep");
         VB_UI->_pRpy->outputFile("VB_UI_LAST_UNKNOWN_ERROR.rep");
         return EXIT_FAILURE;
@@ -245,14 +245,14 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 }
 
 void myUnexpectedHandler() {
-    MessageBox(nullptr, "UnexpectedHandler called.","ERROR", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
+    MessageBox(nullptr, "UnexpectedHandler called.","ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
     VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_Unexpected.rep");
     VB_UI->_pRpy->outputFile("VB_UI_LAST_Unexpected.rep");
     std::unexpected();
 }
 
 void myTerminateHandler() {
-    MessageBox(nullptr, "TerminateHandler called.","ERROR", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
+    MessageBox(nullptr, "TerminateHandler called.","ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
     VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_Terminate.rep");
     VB_UI->_pRpy->outputFile("VB_UI_LAST_Terminate.rep");
     std::terminate();

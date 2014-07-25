@@ -100,23 +100,23 @@ void GgafLibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
             break;
         case WM_SETFOCUS:
             HRESULT hr;
-            if (GgafDxCore::GgafDxInput::_pIDirectInputDevice8_Mouse) {
-                hr = GgafDxCore::GgafDxInput::_pIDirectInputDevice8_Mouse->SetCooperativeLevel(hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
+            if (GgafDxCore::GgafDxInput::_pMouseInputDevice) {
+                hr = GgafDxCore::GgafDxInput::_pMouseInputDevice->SetCooperativeLevel(hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
                 if (hr != D3D_OK) {
                     _TRACE_("GgafDxInput::initDx9Input() _pHWndSecondaryマウスのSetCooperativeLevelに失敗しました");
                 }
             }
                 // キーボード強調レベル設定
-            if (GgafDxCore::GgafDxInput::_pIDirectInputDevice8_Keyboard) {
-                hr = GgafDxCore::GgafDxInput::_pIDirectInputDevice8_Keyboard->SetCooperativeLevel(hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
+            if (GgafDxCore::GgafDxInput::_pKeyboardInputDevice) {
+                hr = GgafDxCore::GgafDxInput::_pKeyboardInputDevice->SetCooperativeLevel(hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
                 if (hr != D3D_OK) {
-                    MessageBox(hWnd, TEXT("GgafDxInput::initDx9Input() キーボードのSetCooperativeLevelに失敗しました"),
-                               TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
+                    MessageBox(hWnd, "GgafDxInput::initDx9Input() キーボードのSetCooperativeLevelに失敗しました",
+                               "ERROR", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST);
                 }
             }
-            if (GgafDxCore::GgafDxInput::_pIDirectInputDevice8_Joystick) {
+            if (GgafDxCore::GgafDxInput::_pJoystickInputDevice) {
                 // ゲームスティック協調レベルを設定する
-                hr = GgafDxCore::GgafDxInput::_pIDirectInputDevice8_Joystick->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE );
+                hr = GgafDxCore::GgafDxInput::_pJoystickInputDevice->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE );
                 if (hr != D3D_OK) {
                     _TRACE_("GgafDxInput::initDx9Input() ジョイスティックSetCooperativeLevelに失敗しました");
                 }
@@ -176,30 +176,6 @@ void GgafLibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 //    printf("%s", ss.str().c_str());
 //    return 0;
 //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

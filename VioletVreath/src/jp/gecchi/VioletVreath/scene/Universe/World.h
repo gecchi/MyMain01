@@ -48,12 +48,8 @@ public:
     PreDrawScene* pPreDrawScene_;
     GameScene* pGameScene_;
 
-
-    InnerTitleBar* pInnerTitleBar01_;
-    InnerTitleBar* pInnerTitleBar02_;
-    coord close01_x1_, close01_y1_, close01_x2_, close01_y2_;
-    coord close02_x1_, close02_y1_, close02_x2_, close02_y2_;
     frame hide_cursor_cnt_;
+    bool is_show_cursor_;
 public:
     World(const char* prm_name);
 
@@ -66,6 +62,24 @@ public:
 
     void processJudgement() override;
 
+
+    void showCursor(bool prm_bool) {
+        if (prm_bool) {
+            if (is_show_cursor_) {
+                return;
+            } else {
+                is_show_cursor_ = prm_bool;
+                while (ShowCursor(TRUE) < 0) {}
+            }
+        } else {
+            if (!is_show_cursor_) {
+                return;
+            } else {
+                is_show_cursor_ = prm_bool;
+                while (ShowCursor(FALSE) >= 0) {}
+            }
+        }
+    }
     virtual ~World();
 };
 

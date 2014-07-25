@@ -4,20 +4,17 @@
 
 namespace VioletVreath {
 
+
+/**
+ * 現在未使用 .
+ */
 class InnerTitleBar : public GgafLib::CappedGraphBarActor {
 
 public:
-    /**
-     *
-     * @param prm_name
-     * @param prm_pPxQty config済みの PxQuantityオブジェクトの参照
-     */
     InnerTitleBar(const char* prm_name);
-
     void initialize() override;
     void processBehavior() override;
     void addVal(double prm_val);
-
     virtual ~InnerTitleBar();
 };
 

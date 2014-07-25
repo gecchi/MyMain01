@@ -39,7 +39,7 @@ char* GgafUtil::getFileText(std::string prm_filename) {
 int32_t GgafUtil::_rnd_int32_(int32_t prm_from, int32_t prm_to) {
 #ifdef MY_DEBUG
     if (prm_from > prm_to) {
-        MessageBox(nullptr, "GgafUtil::_rnd_int32_() from toの大小がおかしい", "不本意な事態", MB_OK|MB_ICONQUESTION|MB_SETFOREGROUND);
+        MessageBox(nullptr, "GgafUtil::_rnd_int32_() from toの大小がおかしい", "不本意な事態", MB_OK|MB_ICONQUESTION|MB_SETFOREGROUND|MB_TOPMOST);
     }
 #endif
     return ((int32_t)(GgafCore::CmRandomNumberGenerator::getInstance()->genrand_real2() * (prm_to - prm_from + 1) ) + prm_from );
