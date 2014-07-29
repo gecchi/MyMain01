@@ -115,8 +115,8 @@ void MyTorpedo::processBehavior() {
                 if (pTarget_) {
                     //ターゲッティング時は、TURN_ANTICLOSE_TO で動きを見せてターゲット
                     pKuroko->turnMvAngTwd(pTarget_,
-                                           2000, 200,
-                                           TURN_ANTICLOSE_TO, false);
+                                          2000, 200,
+                                          TURN_ANTICLOSE_TO, false);
                 } else {
                     pKuroko->turnRzRyMvAngTo(
                                 trz_, try_,

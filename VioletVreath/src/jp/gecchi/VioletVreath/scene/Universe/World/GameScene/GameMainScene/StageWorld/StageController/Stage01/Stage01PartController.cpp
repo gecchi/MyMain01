@@ -23,12 +23,12 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,200,202};
-	_paFrame_NextEvent = new frame[3];
+	frame f[] = {1,100,200,9100,10000,19100,20000,29100,30000};
+	_paFrame_NextEvent = new frame[9];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 3;
-	orderSceneToFactory(10000000, Stage01WalledScene, "Stage01WalledScene-1");
-	orderActorToFactory(10000001, EnemyHisbe, "EnemyHisbe-2");
+	_event_num = 9;
+	orderSceneToFactory(10000000, Stage01_01, "Stage01_01-1");
+	orderSceneToFactory(10000002, Stage01WalledScene, "Stage01WalledScene-2");
     // gen01 end
     useProgress(Stage01PartController::PROG_BANPEI-1);
 }
@@ -46,24 +46,47 @@ void Stage01PartController::processBehavior() {
 			case 1: {
 				break;
 			}
+			case 100: {
+				Stage01_01* pScene = (Stage01_01*)obtainSceneFromFactory(10000000);
+				addSubLast(pScene);
+				break;
+			}
 			case 200: {
-				Stage01WalledScene* pWScene = (Stage01WalledScene*)obtainSceneFromFactory(10000000);
+				Stage01WalledScene* pWScene = (Stage01WalledScene*)obtainSceneFromFactory(10000002);
 				addSubLast(pWScene);
 				break;
 			}
-			case 202: {
-				EnemyHisbe* p = (EnemyHisbe*)obtainActorFromFactory(10000001);
-				getSceneDirector()->addSubGroup(p);
-				p->_x = PX_C(3500);
-				p->_y = 0;
-				p->_z = 1000000;
-				p->setRyFaceAng(D90ANG);
+			case 9100: {
+				orderSceneToFactory(10000001, Stage01_02, "Stage01_02-3");
+				break;
+			}
+			case 10000: {
+				Stage01_02* pScene = (Stage01_02*)obtainSceneFromFactory(10000001);
+				addSubLast(pScene);
+				break;
+			}
+			case 19100: {
+				orderSceneToFactory(10000003, Stage01_03, "Stage01_03-4");
+				break;
+			}
+			case 20000: {
+				Stage01_03* pScene = (Stage01_03*)obtainSceneFromFactory(10000003);
+				addSubLast(pScene);
+				break;
+			}
+			case 29100: {
+				orderSceneToFactory(10000004, Stage01_Climax, "Stage01_Climax-5");
+				break;
+			}
+			case 30000: {
+				Stage01_Climax* pScene = (Stage01_Climax*)obtainSceneFromFactory(10000004);
+				addSubLast(pScene);
 				break;
 			}
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 3-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 9-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
 

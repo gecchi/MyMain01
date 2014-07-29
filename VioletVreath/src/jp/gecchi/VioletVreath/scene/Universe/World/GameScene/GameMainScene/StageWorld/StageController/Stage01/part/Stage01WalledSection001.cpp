@@ -48,19 +48,19 @@ void Stage01WalledSection001::processBehavior() {
 }
 
 void Stage01WalledSection001::onBlockLaunch(int prm_loop_count, int prm_wall_count, coord prm_wall_x) {
-//    if (prm_wall_count == 1) {
-//        EnemyHisbe* p = createInFactory(EnemyHisbe,"TTT");
-//        p->position(prm_wall_x, -PX_C(600), -PX_C(600));
-//        p->setRyFaceAng(-D90ANG);
-//        getSceneDirector()->addSubGroup(p);
-//    }
-//    if (prm_wall_count == 2) {
-//        EnemyHisbe* p = createInFactory(EnemyHisbe,"TTT");
-//        p->position(prm_wall_x, PX_C(600), PX_C(600));
-//        p->setRzFaceAng(D180ANG);
-//        p->setRyFaceAng(-D90ANG);
-//        getSceneDirector()->addSubGroup(p);
-//    }
+    if (prm_wall_count == 1) {
+        EnemyHisbe* p = createInFactory(EnemyHisbe,"TTT");
+        p->position(prm_wall_x, -PX_C(600), -PX_C(600));
+        p->setRyFaceAng(-D90ANG);
+        getSceneDirector()->addSubGroup(p);
+    }
+    if (prm_wall_count == 2) {
+        EnemyHisbe* p = createInFactory(EnemyHisbe,"TTT");
+        p->position(prm_wall_x, PX_C(600), PX_C(600));
+        p->setRzFaceAng(D180ANG);
+        p->setRyFaceAng(-D90ANG);
+        getSceneDirector()->addSubGroup(p);
+    }
 
 }
 

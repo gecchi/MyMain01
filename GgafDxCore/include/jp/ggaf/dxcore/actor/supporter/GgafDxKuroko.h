@@ -109,7 +109,7 @@ public:
     void setStopTargetFaceAng(axis prm_axis,
                               angle prm_angTargetRot,
                               int prm_way_allow = TURN_BOTH,
-                              angvelo prm_angveloAllow = D180ANG);
+                              angvelo prm_angveloAllow = D360ANG);
 
     /**
      * Actorの目標回転方向自動停止機能を有効(現在XY座標からの対象XY座標で設定)<BR>
@@ -123,7 +123,7 @@ public:
                                  coord prm_tx,
                                  coord prm_ty,
                                  int prm_way_allow = TURN_BOTH,
-                                 angvelo prm_angveloAllowRyMv = D180ANG);
+                                 angvelo prm_angveloAllowRyMv = D360ANG);
     /**
      * 軸回転方角の角速度（軸回転方角に毎フレーム加算する値）を設定 .
      * @param prm_axis 回転軸（AXIS_X / AXIS_Y / AXIS_Z)
@@ -459,11 +459,11 @@ public:
      *
      * @param   prm_angRzMv 到達目標の移動方角（Z軸回転）(-360,000～360,000)
      * @param   prm_way_allow  自動停止機能が有効になる進入回転方向
-     * @param   prm_angveloAllowRyMv 停止機能が有効になる移動方角角速度
+     * @param   prm_angveloAllowRyMv 停止機能が有効になる移動方角角速度(これ以上の角速度の場合は停止しません)
      */
     void setStopTargetRzMvAng(angle prm_angRzMv,
                               int prm_way_allow = TURN_BOTH,
-                              angvelo prm_angveloAllowRyMv = D180ANG);
+                              angvelo prm_angveloAllowRyMv = D360ANG);
 
     void setRzMvAngVelo(angvelo prm_angveloRzMv);
 
@@ -534,11 +534,11 @@ public:
      *
      * @param   prm_angRyMv 到達目標の移動方角（Y軸回転）(-360,000～360,000)
      * @param   prm_mv_ang_ry_target_allow_way  自動停止機能が有効になる進入回転方向
-     * @param   prm_angveloAllowRyMv 停止機能が有効になる移動方角角速度
+     * @param   prm_angveloAllowRyMv 停止機能が有効になる移動方角角速度(これ以上の角速度の場合は停止しません)
      */
     void setStopTargetRyMvAng(angle prm_angRyMv,
                               int prm_mv_ang_ry_target_allow_way = TURN_BOTH,
-                              angvelo prm_angveloAllowRyMv = D180ANG);
+                              angvelo prm_angveloAllowRyMv = D360ANG);
 
     void setRyMvAngVelo(angvelo prm_angveloRyMv);
 

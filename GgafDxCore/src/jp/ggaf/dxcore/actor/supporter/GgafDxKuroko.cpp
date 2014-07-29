@@ -42,7 +42,7 @@ _pActor(prm_pActor) {
         //目標の正面方角自動停止機能が有効になる回転方向
         _face_ang_target_allow_way[ax] = TURN_BOTH;
         //目標の正面方角自動停止機能が有効になる角速度（回転正負共通）
-        _face_ang_target_allow_velo[ax] = D180ANG;
+        _face_ang_target_allow_velo[ax] = D360ANG;
     }
 
     //////////////////////////////////////////////////////
@@ -83,7 +83,7 @@ _pActor(prm_pActor) {
     //目標の移動方角（Z軸回転）自動停止機能が有効になる回転方向
     _mv_ang_rz_target_allow_way = TURN_BOTH;
     //目標の移動方角（Z軸回転）自動停止機能が有効になる移動方角角速度(角速度正負共通)
-    _mv_ang_rz_target_allow_velo = D180ANG;
+    _mv_ang_rz_target_allow_velo = D360ANG;
     //移動方角（Z軸回転）に伴いZ正面方角の同期を取る機能フラグ ＝ 無効
     _relate_RzFaceAng_with_RzMvAng_flg = false; //有効の場合は、移動方角を設定するとZ正面方角が同じになる。
 
@@ -106,7 +106,7 @@ _pActor(prm_pActor) {
     //目標の移動方角（Y軸回転）自動停止機能が有効になる回転方向
     _mv_ang_ry_target_allow_way = TURN_BOTH;
     //目標の移動方角（Y軸回転）自動停止機能が有効になる移動方角角速度(角速度正負共通)
-    _mv_ang_ry_target_allow_velo = D180ANG;
+    _mv_ang_ry_target_allow_velo = D360ANG;
     //移動方角（Y軸回転）に伴いZ正面方角の同期を取る機能フラグ ＝ 無効
     _relate_RyFaceAng_with_RyMvAng_flg = false; //有効の場合は、移動方角を設定するとZ正面方角が同じになる。
 
