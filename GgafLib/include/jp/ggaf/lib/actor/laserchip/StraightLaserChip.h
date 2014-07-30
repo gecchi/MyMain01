@@ -12,7 +12,7 @@ namespace GgafLib {
  * ・移動方法は基本等速で直進<BR>
  * ・但し全チップ発射元オブジェクト座標と向きの差分を加算。同期をとる。<BR>
  * と言うべきか、グラディウス方式ワインダー可能なレーザーと言うべきか、そんな感じ。<BR>
- * メンバーの _veloMv で移動します。dispatch() したら、座標と方向及び _veloMv を設定して下さい。<BR>
+ * メンバーの _velo_mv で移動します。dispatch() したら、座標と方向及び _velo_mv を設定して下さい。<BR>
  * 発射元と連動して動かす場合は setSource() を設定して下さい。この場合、座標と方向は自動設定されます。
  * @version 1.00
  * @since 2009/08/25
@@ -44,7 +44,7 @@ public:
     angle* _pSource_rz;
 
     /** [r/w]移動速度 */
-    velo _veloMv;
+    velo _velo_mv;
 
     GgafDxGeometricActor* _pSourceActor;
 

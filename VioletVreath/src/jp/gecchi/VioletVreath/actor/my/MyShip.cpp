@@ -569,11 +569,11 @@ void MyShip::processBehavior() {
 
     //スピンが勢いよく回っているならば速度を弱める
     angvelo MZ = angRxTopVelo_MZ_-3000; //3000は通常旋回時に速度を弱めてangRxTopVelo_MZ_を超えないようにするため、やや手前で減速すると言う意味（TODO:要調整）。
-    if (pKuroko->_angveloFace[AXIS_X] >= MZ) {
-        pKuroko->_angveloFace[AXIS_X] *= 0.93;
+    if (pKuroko->_angvelo_face[AXIS_X] >= MZ) {
+        pKuroko->_angvelo_face[AXIS_X] *= 0.93;
         //_getKuroko()->setFaceAngAcce(AXIS_X, -1*angRxAcce_MZ_*2);
-    } else if (pKuroko->_angveloFace[AXIS_X] <= -MZ) {
-        pKuroko->_angveloFace[AXIS_X] *= 0.93;
+    } else if (pKuroko->_angvelo_face[AXIS_X] <= -MZ) {
+        pKuroko->_angvelo_face[AXIS_X] *= 0.93;
         //_getKuroko()->setFaceAngAcce(AXIS_X, angRxAcce_MZ_*2);
     }
 

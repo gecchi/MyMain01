@@ -21,7 +21,7 @@ StraightLaserChip::StraightLaserChip(const char* prm_name, const char* prm_model
     _pSource_rx = &_rx;
     _pSource_ry = &_ry;
     _pSource_rz = &_rz;
-    _veloMv = 100000;
+    _velo_mv = 100000;
 }
 
 void StraightLaserChip::processSettlementBehavior() {
@@ -55,7 +55,7 @@ void StraightLaserChip::processSettlementBehavior() {
         float vx, vy, vz;
         UTIL::convRzRyToVector(_rz, _ry,
                                 vx, vy, vz);
-        velo v = _veloMv * ((velo)getActiveFrame()-1);
+        velo v = _velo_mv * ((velo)getActiveFrame()-1);
         _x = (*_pSource_x) + (vx * v );
         _y = (*_pSource_y) + (vy * v );
         _z = (*_pSource_z) + (vz * v );
@@ -67,7 +67,7 @@ void StraightLaserChip::processSettlementBehavior() {
         float vx, vy, vz;
         UTIL::convRzRyToVector(_tmp_source_rz, _tmp_source_ry,
                                 vx, vy, vz);
-        velo v = _veloMv * ((velo)getActiveFrame()-1);
+        velo v = _velo_mv * ((velo)getActiveFrame()-1);
         _x = _tmp_source_x + (vx * v );
         _y = _tmp_source_y + (vy * v );
         _z = _tmp_source_z + (vz * v );
@@ -81,7 +81,7 @@ void StraightLaserChip::processSettlementBehavior() {
 }
 
 void StraightLaserChip::setMvVelo(coord prm_velo) {
-    _veloMv = prm_velo;
+    _velo_mv = prm_velo;
 }
 
 StraightLaserChip::~StraightLaserChip() {

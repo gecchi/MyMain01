@@ -81,8 +81,8 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, double prm_rad_fovX, double prm
     pKuroko->setMvVelo(0);
     pKuroko->setRzMvAngVelo(0);
     pKuroko->setRyMvAngVelo(0);
-    pKuroko->_mv_ang_rz_target_flg = true;
-    pKuroko->_mv_ang_ry_target_flg = true;
+    pKuroko->_is_targeting_ang_rz_mv = true;
+    pKuroko->_is_targeting_ang_ry_mv = true;
     setHitAble(false);
 
     _x_buffer_left   = PX_C(PROPERTY::GAME_BUFFER_WIDTH) / -2;

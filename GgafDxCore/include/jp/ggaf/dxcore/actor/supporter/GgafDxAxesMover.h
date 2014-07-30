@@ -64,7 +64,7 @@ public:
     coord _grv_mv_stop_renge;
     bool _grv_mv_flg;
     /** [r]黒衣Bの助手A */
-    GgafDxAxesMoverAssistantA* _pHlprA;
+    GgafDxAxesMoverAssistantA* _pAsstA;
 
 public:
     /**
@@ -231,9 +231,9 @@ public:
      * <pre><code>
      *
      *    速度(v)
-     *     ^        a:加速度（_accMv に設定される)
+     *     ^        a:加速度（_acc_mv に設定される)
      *     |        D:移動距離 （戻り値）
-     *     |       V0:現時点の速度（= 現在の _veloMv が使用される）
+     *     |       V0:現時点の速度（= 現在の _velo_mv が使用される）
      *     |       Vt:目標到達速度（引数）
      *     |       Te:目標到達速度に達した時の時間（引数）
      *   Vt|........

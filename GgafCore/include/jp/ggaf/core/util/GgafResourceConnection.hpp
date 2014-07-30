@@ -42,7 +42,7 @@ private:
     /** g‚¢‚Ü‚í‚·‘å–‚È‘Œ¹ */
     T* _pResource;
     /** ‰‚ß‚Ä‚ÌÚ‘±Œ³ */
-    void* _first_connector;
+    void* _p_first_connector;
 
     /** close’†‚Ítrue‚Ì”r‘¼ƒtƒ‰ƒO */
     static volatile bool _is_closing_resource;
@@ -144,7 +144,7 @@ GgafResourceConnection<T>::GgafResourceConnection(char* prm_idstr, T* prm_pResou
     _pNext = nullptr;
     _pManager = nullptr;
     _num_connection = 0;
-    _first_connector = nullptr;
+    _p_first_connector = nullptr;
     _idstr = NEW char[51];
     strcpy(_idstr, prm_idstr);
 }
@@ -156,7 +156,7 @@ int GgafResourceConnection<T>::getNumConnection() {
 
 template<class T>
 bool GgafResourceConnection<T>::chkFirstConnectionIs(void* prm_this) {
-    if (_first_connector == prm_this) {
+    if (_p_first_connector == prm_this) {
         return true;
     } else {
         return false;

@@ -34,12 +34,12 @@ public:
      * @param prm_x              Geria出現範囲AABの中心X座標（絶対座標）
      * @param prm_y              Geria出現範囲AABの中心Y座標（絶対座標）
      * @param prm_z              Geria出現範囲AABの中心Z座標（絶対座標）
-     * @param prm_veloMv_App     Geria出現範囲AAB全体の移動速度
-     * @param prm_angRzMv_AppBox Geria出現範囲AAB全体の移動方角のZ軸回転角
-     * @param prm_angRyMv_AppBox Geria出現範囲AAB全体の移動方角のY軸回転角
-     * @param prm_veloMv_Geria    各Geriaの移動速度初期値
-     * @param prm_angRzMv_GeriaMv 各Geriaの移動方角のZ軸回転角初期値
-     * @param prm_angRyMv_GeriaMv 各Geriaの移動方角のY軸回転角初期値
+     * @param prm_velo_mv_App     Geria出現範囲AAB全体の移動速度
+     * @param prm_ang_rz_mv_AppBox Geria出現範囲AAB全体の移動方角のZ軸回転角
+     * @param prm_ang_ry_mv_AppBox Geria出現範囲AAB全体の移動方角のY軸回転角
+     * @param prm_velo_mv_Geria    各Geriaの移動速度初期値
+     * @param prm_ang_rz_mv_GeriaMv 各Geriaの移動方角のZ軸回転角初期値
+     * @param prm_ang_ry_mv_GeriaMv 各Geriaの移動方角のY軸回転角初期値
      * @param prm_nGeriaStock     Geriaのストック数(バッファ数)
      * @param prm_frame_app_interval Geriaの出現間隔
      * @return
@@ -48,10 +48,10 @@ public:
             int prm_X1_app, int prm_Y1_app, int prm_Z1_app,
             int prm_X2_app, int prm_Y2_app, int prm_Z2_app,
             int prm_x, int prm_y, int prm_z,
-            velo prm_veloMv_App,
-            angle prm_angRzMv_AppBox, angle prm_angRyMv_AppBox,
-            velo prm_veloMv_Geria,
-            angle prm_angRzMv_GeriaMv, angle prm_angRyMv_GeriaMv,
+            velo prm_velo_mv_App,
+            angle prm_ang_rz_mv_AppBox, angle prm_ang_ry_mv_AppBox,
+            velo prm_velo_mv_Geria,
+            angle prm_ang_rz_mv_GeriaMv, angle prm_ang_ry_mv_GeriaMv,
             int prm_nGeriaStock,
             int prm_frame_app_interval);
 

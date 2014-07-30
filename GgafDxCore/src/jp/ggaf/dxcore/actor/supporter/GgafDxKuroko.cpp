@@ -14,35 +14,35 @@ using namespace GgafDxCore;
 GgafDxKuroko::GgafDxKuroko(GgafDxGeometricActor* prm_pActor) : GgafObject(),
 _pActor(prm_pActor) {
 
-    _pHlprA = nullptr;
-    _pHlprB = nullptr;
-    _pHlprC = nullptr;
+    _pAsstA = nullptr;
+    _pAsstB = nullptr;
+    _pAsstC = nullptr;
 
-    _apActorFaceAng[0] = &(prm_pActor->_rx);
-    _apActorFaceAng[1] = &(prm_pActor->_ry);
-    _apActorFaceAng[2] = &(prm_pActor->_rz);
+    _actor_ang_face[0] = &(prm_pActor->_rx);
+    _actor_ang_face[1] = &(prm_pActor->_ry);
+    _actor_ang_face[2] = &(prm_pActor->_rz);
 
     for (int ax = 0; ax < 3; ax++) { // i=0:X軸、1:Y軸、2:Z軸 を表す
         //正面方角の角速度（正面方角の増分）= 0 angle/fream
-        _angveloFace[ax] = 0; //1フレームに加算される正面方角の角増分。デフォルトは正面方角の角増分無し、つまり振り向き無し。
+        _angvelo_face[ax] = 0; //1フレームに加算される正面方角の角増分。デフォルトは正面方角の角増分無し、つまり振り向き無し。
         //正面方角の角速度上限 ＝ 360,000 angle/fream
-        _angveloTopFace[ax] = D360ANG; //_angveloFace[n] の増分の上限。デフォルトは1フレームで好きな正面方角に振り向く事が出来る事を意味する
+        _top_angvelo_face[ax] = D360ANG; //_angvelo_face[n] の増分の上限。デフォルトは1フレームで好きな正面方角に振り向く事が出来る事を意味する
         //正面方角の角速度下限 ＝ -360,000 angle/fream
-        _angveloBottomFace[ax] = D360ANG * -1; //_angveloFace[n] の増分の下限。デフォルトは1フレームで好きな正面方角に振り向く事が出来る事を意味する
+        _bottom_angvelo_face[ax] = D360ANG * -1; //_angvelo_face[n] の増分の下限。デフォルトは1フレームで好きな正面方角に振り向く事が出来る事を意味する
         //正面方角の角加速度（角速度の増分） ＝ 0 angle/fream^2
-        _angacceFace[ax] = 0; //_angveloFace[n] の増分。デフォルトは正面方角の角加速度無し
+        _angacce_face[ax] = 0; //_angvelo_face[n] の増分。デフォルトは正面方角の角加速度無し
 
-        _angjerkFace[ax] = 0;
+        _angjerk_face[ax] = 0;
         //目標正面方角への自動向きフラグ = 無効
-        _face_ang_targeting_flg[ax] = false;
+        _is_targeting_ang_face[ax] = false;
         //目標正面方角への自動停止フラグ = 無効
-        _face_ang_targeting_stop_flg[ax] = false;
+        _ang_face_targeting_stop_flg[ax] = false;
         //目標の正面方角
-        _angTargetFace[ax] = 0; //目標正面方角への自動制御フラグ = 無効、の場合は無意味
+        _target_ang_face[ax] = 0; //目標正面方角への自動制御フラグ = 無効、の場合は無意味
         //目標の正面方角自動停止機能が有効になる回転方向
-        _face_ang_target_allow_way[ax] = TURN_BOTH;
+        _ang_face_stop_allow_way[ax] = TURN_BOTH;
         //目標の正面方角自動停止機能が有効になる角速度（回転正負共通）
-        _face_ang_target_allow_velo[ax] = D360ANG;
+        _ang_face_stop_allow_angvelo[ax] = D360ANG;
     }
 
     //////////////////////////////////////////////////////
@@ -50,63 +50,63 @@ _pActor(prm_pActor) {
     _vX = 1.0f;
     _vY = _vZ = 0.0f;
     //移動方角のZ軸回転
-    _angRzMv = 0;
+    _ang_rz_mv = 0;
     //移動方角のY軸回転
-    _angRyMv = 0;
+    _ang_ry_mv = 0;
     //移動速度
-    _veloMv = 0;
+    _velo_mv = 0;
     //移動速度上限 = 256 px/fream
-    _veloTopMv = INT_MAX; //_veloMv が 256000(=256px) を上回る移動量であっても、強制的に座標増分は 256px に抑えられる。
+    _top_velo_mv = INT_MAX; //_velo_mv が 256000(=256px) を上回る移動量であっても、強制的に座標増分は 256px に抑えられる。
     //移動速度下限 = 0   px/fream
-    _veloBottomMv = INT_MIN; //_veloMv が -256000(-256px) を下回る移動量があっても、強制的に座標増分は -256000px に抑えられる。
+    _bottom_velo_mv = INT_MIN; //_velo_mv が -256000(-256px) を下回る移動量があっても、強制的に座標増分は -256000px に抑えられる。
     //移動加速度（移動速度の増分） = 0 px/fream^2
-    _accMv = 0; //_veloMv の増分。デフォルトは加速無し
+    _acc_mv = 0; //_velo_mv の増分。デフォルトは加速無し
 
     //_jerkMv = 0;
     //移動方角（Z軸回転）の角速度 = 0 angle/fream
-    _angveloRzMv = 0; //1フレームに加算される移動方角の角増分。デフォルトは移動方角の角増分無し、つまり直線移動。
+    _angvelo_rz_mv = 0; //1フレームに加算される移動方角の角増分。デフォルトは移動方角の角増分無し、つまり直線移動。
     //移動方角（Z軸回転）の角速度上限 = +360,000 angle/fream
-    _angveloRzTopMv = D360ANG; //_angveloRzMv の増分の上限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
+    _top_angvelo_rz_mv = D360ANG; //_angvelo_rz_mv の増分の上限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
     //移動方角（Z軸回転）の角速度下限 = -360,000 angle/fream
-    _angveloRzBottomMv = D360ANG * -1; //_angveloRzMv の増分の下限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
+    _bottom_angvelo_rz_mv = D360ANG * -1; //_angvelo_rz_mv の増分の下限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
     //移動方角（Z軸回転）の角加速度 = 0 angle/fream^2
-    _angacceRzMv = 0; //_angveloRzMv の増分。デフォルトは移動方角の角加速度無し
+    _angacce_rz_mv = 0; //_angvelo_rz_mv の増分。デフォルトは移動方角の角加速度無し
 
-    _angjerkRzMv = 0;
+    _angjerk_rz_mv = 0;
     //目標移動方角（Z軸回転）への自動向きフラグ = 無効
-    _mv_ang_rz_target_flg = false;
+    _is_targeting_ang_rz_mv = false;
     //目標移動方角（Z軸回転）への自動停止フラグ = 無効
-    _mv_ang_rz_target_stop_flg = false;
+    _ang_rz_mv_targeting_stop_flg = false;
 
     //目標の移動方角（Z軸回転）
-    _angTargetRzMv = 0;
+    _target_ang_rz_mv = 0;
     //目標の移動方角（Z軸回転）自動停止機能が有効になる回転方向
-    _mv_ang_rz_target_allow_way = TURN_BOTH;
+    _ang_rz_mv_stop_allow_way = TURN_BOTH;
     //目標の移動方角（Z軸回転）自動停止機能が有効になる移動方角角速度(角速度正負共通)
-    _mv_ang_rz_target_allow_velo = D360ANG;
+    _ang_rz_mv_stop_allow_angvelo = D360ANG;
     //移動方角（Z軸回転）に伴いZ正面方角の同期を取る機能フラグ ＝ 無効
     _relate_RzFaceAng_with_RzMvAng_flg = false; //有効の場合は、移動方角を設定するとZ正面方角が同じになる。
 
     //移動方角（Y軸回転）の角速度 = 0 angle/fream
-    _angveloRyMv = 0; //1フレームに加算される移動方角の角増分。デフォルトは移動方角の角増分無し、つまり直線移動。
+    _angvelo_ry_mv = 0; //1フレームに加算される移動方角の角増分。デフォルトは移動方角の角増分無し、つまり直線移動。
     //移動方角（Y軸回転）の角速度上限 = +360,000 angle/fream
-    _angveloRyTopMv = D360ANG; //_angveloRyMv の増分の上限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
+    _top_angvelo_ry_mv = D360ANG; //_angvelo_ry_mv の増分の上限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
     //移動方角（Y軸回転）の角速度下限 = -360,000 angle/fream
-    _angveloRyBottomMv = D360ANG * -1; //_angveloRyMv の増分の下限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
+    _bottom_angvelo_ry_mv = D360ANG * -1; //_angvelo_ry_mv の増分の下限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
     //移動方角（Y軸回転）の角加速度 = 0 angle/fream^2
-    _angacceRyMv = 0; //_angveloRyMv の増分。デフォルトは移動方角の角加速度無し
+    _angacce_ry_mv = 0; //_angvelo_ry_mv の増分。デフォルトは移動方角の角加速度無し
 
-    _angjerkRyMv = 0;
+    _angjerk_ry_mv = 0;
     //目標移動方角（Y軸回転）への自動向きフラグ = 無効
-    _mv_ang_ry_target_flg = false;
+    _is_targeting_ang_ry_mv = false;
     //目標移動方角（Y軸回転）への自動停止フラグ = 無効
-    _mv_ang_ry_target_stop_flg = false;
+    _ang_ry_mv_targeting_stop_flg = false;
     //目標の移動方角（Y軸回転）
-    _angTargetRyMv = 0;
+    _target_ang_ry_mv = 0;
     //目標の移動方角（Y軸回転）自動停止機能が有効になる回転方向
-    _mv_ang_ry_target_allow_way = TURN_BOTH;
+    _ang_ry_mv_stop_allow_way = TURN_BOTH;
     //目標の移動方角（Y軸回転）自動停止機能が有効になる移動方角角速度(角速度正負共通)
-    _mv_ang_ry_target_allow_velo = D360ANG;
+    _ang_ry_mv_stop_allow_angvelo = D360ANG;
     //移動方角（Y軸回転）に伴いZ正面方角の同期を取る機能フラグ ＝ 無効
     _relate_RyFaceAng_with_RyMvAng_flg = false; //有効の場合は、移動方角を設定するとZ正面方角が同じになる。
 
@@ -122,87 +122,87 @@ _pActor(prm_pActor) {
 
 }
 GgafDxKurokoAssistantA* GgafDxKuroko::asstA() {
-    return _pHlprA ? _pHlprA : _pHlprA = NEW GgafDxKurokoAssistantA(this);
+    return _pAsstA ? _pAsstA : _pAsstA = NEW GgafDxKurokoAssistantA(this);
 }
 GgafDxKurokoAssistantB* GgafDxKuroko::asstB() {
-    return _pHlprB ? _pHlprB : _pHlprB = NEW GgafDxKurokoAssistantB(this);
+    return _pAsstB ? _pAsstB : _pAsstB = NEW GgafDxKurokoAssistantB(this);
 }
 GgafDxKurokoAssistantC* GgafDxKuroko::asstC() {
-    return _pHlprC ? _pHlprC : _pHlprC = NEW GgafDxKurokoAssistantC(this);
+    return _pAsstC ? _pAsstC : _pAsstC = NEW GgafDxKurokoAssistantC(this);
 }
 void GgafDxKuroko::behave() {
-    if (_pHlprA) {
-        _pHlprA->behave();
+    if (_pAsstA) {
+        _pAsstA->behave();
     }
-    if (_pHlprB) {
-        _pHlprB->behave();
+    if (_pAsstB) {
+        _pAsstB->behave();
     }
-    if (_pHlprC) {
-        _pHlprC->behave();
+    if (_pAsstC) {
+        _pAsstC->behave();
     }
 
     //正面方角処理
     for (axis ax = 0; ax < 3; ax++) {
 
-        _angveloFace[ax] += _angacceFace[ax];
-        if (_angveloFace[ax] > _angveloTopFace[ax]) {
-            _angveloFace[ax] = _angveloTopFace[ax];
-        } else if (_angveloFace[ax] < _angveloBottomFace[ax]) {
-            _angveloFace[ax] = _angveloBottomFace[ax];
+        _angvelo_face[ax] += _angacce_face[ax];
+        if (_angvelo_face[ax] > _top_angvelo_face[ax]) {
+            _angvelo_face[ax] = _top_angvelo_face[ax];
+        } else if (_angvelo_face[ax] < _bottom_angvelo_face[ax]) {
+            _angvelo_face[ax] = _bottom_angvelo_face[ax];
         }
 
-        if (_face_ang_targeting_flg[ax]) { //ターゲット方向がある場合
+        if (_is_targeting_ang_face[ax]) { //ターゲット方向がある場合
 
-            if (_angveloFace[ax] > 0) { //反時計回りの場合
-                angle angDistance = getFaceAngDistance(ax, _angTargetFace[ax], TURN_COUNTERCLOCKWISE);
-                if (_angveloFace[ax] > angDistance && _face_ang_target_allow_way[ax] != TURN_CLOCKWISE &&
-                        _face_ang_target_allow_velo[ax] >= _angveloFace[ax]) {
-                    _angveloFace[ax] = angDistance;
-                    if (_face_ang_targeting_stop_flg[ax]) {
-                        _face_ang_targeting_flg[ax] = false; //フラグを戻して終了
-                        _face_ang_targeting_stop_flg[ax] = false;
+            if (_angvelo_face[ax] > 0) { //反時計回りの場合
+                angle angDistance = getFaceAngDistance(ax, _target_ang_face[ax], TURN_COUNTERCLOCKWISE);
+                if (_angvelo_face[ax] > angDistance && _ang_face_stop_allow_way[ax] != TURN_CLOCKWISE &&
+                        _ang_face_stop_allow_angvelo[ax] >= _angvelo_face[ax]) {
+                    _angvelo_face[ax] = angDistance;
+                    if (_ang_face_targeting_stop_flg[ax]) {
+                        _is_targeting_ang_face[ax] = false; //フラグを戻して終了
+                        _ang_face_targeting_stop_flg[ax] = false;
                     }
                 } else {
                     // なにもしなくてよい
                 }
-            } else if (_angveloFace[ax] < 0) { //時計回りの場合
-                angle angDistance = getFaceAngDistance(ax, _angTargetFace[ax], TURN_CLOCKWISE);
-                if (_angveloFace[ax] < angDistance && _face_ang_target_allow_way[ax] != TURN_COUNTERCLOCKWISE
-                        && -1 * _face_ang_target_allow_velo[ax] <= _angveloFace[ax]) { //目標を行き過ぎてしまいそう・・・な日
-                    _angveloFace[ax] = angDistance;
-                    if (_face_ang_targeting_stop_flg[ax]) {
-                        _face_ang_targeting_flg[ax] = false; //フラグを戻して終了
-                        _face_ang_targeting_stop_flg[ax] = false;
+            } else if (_angvelo_face[ax] < 0) { //時計回りの場合
+                angle angDistance = getFaceAngDistance(ax, _target_ang_face[ax], TURN_CLOCKWISE);
+                if (_angvelo_face[ax] < angDistance && _ang_face_stop_allow_way[ax] != TURN_COUNTERCLOCKWISE
+                        && -1 * _ang_face_stop_allow_angvelo[ax] <= _angvelo_face[ax]) { //目標を行き過ぎてしまいそう・・・な日
+                    _angvelo_face[ax] = angDistance;
+                    if (_ang_face_targeting_stop_flg[ax]) {
+                        _is_targeting_ang_face[ax] = false; //フラグを戻して終了
+                        _ang_face_targeting_stop_flg[ax] = false;
                     }
                 } else {
                     // なにもしなくてよい
                 }
             } else {
-                //_angveloFace[ax] == 0
-                angle angDistance = getFaceAngDistance(ax, _angTargetFace[ax], TURN_CLOSE_TO);
+                //_angvelo_face[ax] == 0
+                angle angDistance = getFaceAngDistance(ax, _target_ang_face[ax], TURN_CLOSE_TO);
                 if (angDistance == 0) {
-                    if (_face_ang_targeting_stop_flg[ax]) {
-                        _face_ang_targeting_flg[ax] = false; //フラグを戻して終了
-                        _face_ang_targeting_stop_flg[ax] = false;
+                    if (_ang_face_targeting_stop_flg[ax]) {
+                        _is_targeting_ang_face[ax] = false; //フラグを戻して終了
+                        _ang_face_targeting_stop_flg[ax] = false;
                     }
                 }
             }
 
             //Actorに反映
-            (*(_apActorFaceAng[ax])) = UTIL::simplifyAng((*(_apActorFaceAng[ax])) + _angveloFace[ax]);
-            if (_face_ang_targeting_flg[ax] == false) {
+            (*(_actor_ang_face[ax])) = UTIL::simplifyAng((*(_actor_ang_face[ax])) + _angvelo_face[ax]);
+            if (_is_targeting_ang_face[ax] == false) {
                 //目標方向に到達した時の処理
-                //_angveloTopFace[ax] = D360ANG; //正面方角の角速度上限 ＝ 360,000 angle/fream
-                //_angveloBottomFace[ax] = D360ANG * -1; //正面方角の角速度下限 ＝ -360,000 angle/fream
+                //_top_angvelo_face[ax] = D360ANG; //正面方角の角速度上限 ＝ 360,000 angle/fream
+                //_bottom_angvelo_face[ax] = D360ANG * -1; //正面方角の角速度下限 ＝ -360,000 angle/fream
                 //目標方向に到達した時、停止処理を行なう
-                _angacceFace[ax] = 0; //軸回転方向角、角速度を０へ
+                _angacce_face[ax] = 0; //軸回転方向角、角速度を０へ
                 setFaceAngVelo(ax, 0); //軸回転方向角、角加速度を０へ
             }
 
         } else {
             //ターゲット方向が無い場合
             //Actorに反映
-            (*(_apActorFaceAng[ax])) = UTIL::simplifyAng((*(_apActorFaceAng[ax])) +  _angveloFace[ax]);
+            (*(_actor_ang_face[ax])) = UTIL::simplifyAng((*(_actor_ang_face[ax])) +  _angvelo_face[ax]);
         }
 
     }
@@ -210,143 +210,143 @@ void GgafDxKuroko::behave() {
 
     ///////////////////////////////////////////////////Mover
 
-    //_accMv += _jerkMv;
+    //_acc_mv += _jerkMv;
     //移動加速度の処理
-    _veloMv += _accMv;
-    if (_veloMv > _veloTopMv) {
-        _veloMv = _veloTopMv;
-    } else if (_veloMv < _veloBottomMv) {
-        _veloMv = _veloBottomMv;
+    _velo_mv += _acc_mv;
+    if (_velo_mv > _top_velo_mv) {
+        _velo_mv = _top_velo_mv;
+    } else if (_velo_mv < _bottom_velo_mv) {
+        _velo_mv = _bottom_velo_mv;
     }
 
     ///////////
     //目標移動方角（Z軸回転）アングル自動停止機能使用時の場合
-    if (_mv_ang_rz_target_flg) {
+    if (_is_targeting_ang_rz_mv) {
 
-        _angveloRzMv += _angacceRzMv;
-        setRzMvAngVelo(_angveloRzMv);
+        _angvelo_rz_mv += _angacce_rz_mv;
+        setRzMvAngVelo(_angvelo_rz_mv);
 
-        if (_angveloRzMv > 0) { //反時計回りの場合
-            angle angDistance = getRzMvAngDistance(_angTargetRzMv, TURN_COUNTERCLOCKWISE);
-            if (_angveloRzMv > angDistance && _mv_ang_rz_target_allow_way != TURN_CLOCKWISE
-                    && _mv_ang_rz_target_allow_velo >= _angveloRzMv) { //目標を行き過ぎてしまいそう・・・な日
+        if (_angvelo_rz_mv > 0) { //反時計回りの場合
+            angle angDistance = getRzMvAngDistance(_target_ang_rz_mv, TURN_COUNTERCLOCKWISE);
+            if (_angvelo_rz_mv > angDistance && _ang_rz_mv_stop_allow_way != TURN_CLOCKWISE
+                    && _ang_rz_mv_stop_allow_angvelo >= _angvelo_rz_mv) { //目標を行き過ぎてしまいそう・・・な日
                 addRzMvAng(angDistance);
-                if (_mv_ang_rz_target_stop_flg) { //停止指定ありならば
-                    _mv_ang_rz_target_flg = false; //フラグを戻して終了
-                    _mv_ang_rz_target_stop_flg = false;
+                if (_ang_rz_mv_targeting_stop_flg) { //停止指定ありならば
+                    _is_targeting_ang_rz_mv = false; //フラグを戻して終了
+                    _ang_rz_mv_targeting_stop_flg = false;
                 }
             } else {
-                addRzMvAng(_angveloRzMv);
+                addRzMvAng(_angvelo_rz_mv);
             }
-        } else if (_angveloRzMv < 0) { //時計回りの場合
+        } else if (_angvelo_rz_mv < 0) { //時計回りの場合
 
-            angle angDistance = getRzMvAngDistance(_angTargetRzMv, TURN_CLOCKWISE);
-            if (_angveloRzMv < angDistance && _mv_ang_rz_target_allow_way != TURN_COUNTERCLOCKWISE
-                    && -1*_mv_ang_rz_target_allow_velo <= _angveloRzMv) {
+            angle angDistance = getRzMvAngDistance(_target_ang_rz_mv, TURN_CLOCKWISE);
+            if (_angvelo_rz_mv < angDistance && _ang_rz_mv_stop_allow_way != TURN_COUNTERCLOCKWISE
+                    && -1*_ang_rz_mv_stop_allow_angvelo <= _angvelo_rz_mv) {
                 addRzMvAng(angDistance);
-                if (_mv_ang_rz_target_stop_flg) { //停止指定ありならば
-                    _mv_ang_rz_target_flg = false; //フラグを戻して終了
-                    _mv_ang_rz_target_stop_flg = false;
+                if (_ang_rz_mv_targeting_stop_flg) { //停止指定ありならば
+                    _is_targeting_ang_rz_mv = false; //フラグを戻して終了
+                    _ang_rz_mv_targeting_stop_flg = false;
                 }
             } else {
-                addRzMvAng(_angveloRzMv);
+                addRzMvAng(_angvelo_rz_mv);
             }
         } else {
-            angle angDistance = getRzMvAngDistance(_angTargetRzMv, TURN_CLOSE_TO);
+            angle angDistance = getRzMvAngDistance(_target_ang_rz_mv, TURN_CLOSE_TO);
             if (angDistance == 0) {
                 addRzMvAng(angDistance);
-                if (_mv_ang_rz_target_stop_flg) { //停止指定ありならば
-                    _mv_ang_rz_target_flg = false; //フラグを戻して終了
-                    _mv_ang_rz_target_stop_flg = false;
+                if (_ang_rz_mv_targeting_stop_flg) { //停止指定ありならば
+                    _is_targeting_ang_rz_mv = false; //フラグを戻して終了
+                    _ang_rz_mv_targeting_stop_flg = false;
                 }
             }
         }
-        if (_mv_ang_rz_target_flg == false) {
-            //_angveloRzTopMv = D360ANG; //移動方角（Z軸回転）の角速度上限 ＝ 360,000 angle/fream
-            //_angveloRzBottomMv = D360ANG * -1; //移動方角（Z軸回転）の角速度下限 ＝ -360,000 angle/fream
+        if (_is_targeting_ang_rz_mv == false) {
+            //_top_angvelo_rz_mv = D360ANG; //移動方角（Z軸回転）の角速度上限 ＝ 360,000 angle/fream
+            //_bottom_angvelo_rz_mv = D360ANG * -1; //移動方角（Z軸回転）の角速度下限 ＝ -360,000 angle/fream
 
             //目標方向に到達した時、停止処理を行なう
-            _angacceRzMv = 0; //Z軸移動方向角、角加速度を０へ
+            _angacce_rz_mv = 0; //Z軸移動方向角、角加速度を０へ
             setRzMvAngVelo(0); //Z軸移動方向角、角速度を０へ
         }
 
     } else {
-        //if (_angacceRzMv != 0) {
+        //if (_angacce_rz_mv != 0) {
 
-        _angacceRzMv += _angjerkRzMv;
+        _angacce_rz_mv += _angjerk_rz_mv;
         //フレーム毎の移動方角（Z軸回転）旋廻の処理
-        _angveloRzMv += _angacceRzMv;
-        if (_angveloRzMv != 0) {
-            addRzMvAng(_angveloRzMv);
+        _angvelo_rz_mv += _angacce_rz_mv;
+        if (_angvelo_rz_mv != 0) {
+            addRzMvAng(_angvelo_rz_mv);
         }
         //}
     }
     ////////////////
     //目標移動方角（Y軸回転）アングル自動停止機能使用時の場合
-    if (_mv_ang_ry_target_flg) {
+    if (_is_targeting_ang_ry_mv) {
 
-        _angveloRyMv += _angacceRyMv;
-        setRyMvAngVelo(_angveloRyMv);
+        _angvelo_ry_mv += _angacce_ry_mv;
+        setRyMvAngVelo(_angvelo_ry_mv);
 
-        if (_angveloRyMv > 0) { //現在は反時計回りの場合
-            angle angDistance = getRyMvAngDistance(_angTargetRyMv, TURN_COUNTERCLOCKWISE);
-            if (_angveloRyMv > angDistance &&
-                _mv_ang_ry_target_allow_way != TURN_CLOCKWISE &&
-                _mv_ang_ry_target_allow_velo >= _angveloRyMv)
+        if (_angvelo_ry_mv > 0) { //現在は反時計回りの場合
+            angle angDistance = getRyMvAngDistance(_target_ang_ry_mv, TURN_COUNTERCLOCKWISE);
+            if (_angvelo_ry_mv > angDistance &&
+                _ang_ry_mv_stop_allow_way != TURN_CLOCKWISE &&
+                _ang_ry_mv_stop_allow_angvelo >= _angvelo_ry_mv)
             { //目標を行き過ぎてしまいそう・・・な日
                 addRyMvAng(angDistance);
-                if (_mv_ang_ry_target_stop_flg) { //停止指定ありならば
-                    _mv_ang_ry_target_flg = false; //フラグを戻して終了
+                if (_ang_ry_mv_targeting_stop_flg) { //停止指定ありならば
+                    _is_targeting_ang_ry_mv = false; //フラグを戻して終了
                 }
             } else {
-                addRyMvAng(_angveloRyMv);
+                addRyMvAng(_angvelo_ry_mv);
             }
-        } else if (_angveloRyMv < 0) { //現在は時計回りの場合
+        } else if (_angvelo_ry_mv < 0) { //現在は時計回りの場合
 
-            angle angDistance = getRyMvAngDistance(_angTargetRyMv, TURN_CLOCKWISE);
-            if (_angveloRyMv < angDistance &&
-                _mv_ang_ry_target_allow_way != TURN_COUNTERCLOCKWISE &&
-                -1*_mv_ang_ry_target_allow_velo <= _angveloRyMv)
+            angle angDistance = getRyMvAngDistance(_target_ang_ry_mv, TURN_CLOCKWISE);
+            if (_angvelo_ry_mv < angDistance &&
+                _ang_ry_mv_stop_allow_way != TURN_COUNTERCLOCKWISE &&
+                -1*_ang_ry_mv_stop_allow_angvelo <= _angvelo_ry_mv)
             {
                 addRyMvAng(angDistance);
-                if (_mv_ang_ry_target_stop_flg) { //停止指定ありならば
-                    _mv_ang_ry_target_flg = false; //フラグを戻して終了
+                if (_ang_ry_mv_targeting_stop_flg) { //停止指定ありならば
+                    _is_targeting_ang_ry_mv = false; //フラグを戻して終了
                 }
             } else {
-                addRyMvAng(_angveloRyMv);
+                addRyMvAng(_angvelo_ry_mv);
             }
-        } else { //_angveloRyMv==0
-            angle angDistance = getRyMvAngDistance(_angTargetRyMv, TURN_CLOSE_TO);
+        } else { //_angvelo_ry_mv==0
+            angle angDistance = getRyMvAngDistance(_target_ang_ry_mv, TURN_CLOSE_TO);
             if (angDistance == 0) {
                 addRyMvAng(angDistance);
-                if (_mv_ang_ry_target_stop_flg) { //停止指定ありならば
-                    _mv_ang_ry_target_flg = false; //フラグを戻して終了
-                    _mv_ang_ry_target_stop_flg = false;
+                if (_ang_ry_mv_targeting_stop_flg) { //停止指定ありならば
+                    _is_targeting_ang_ry_mv = false; //フラグを戻して終了
+                    _ang_ry_mv_targeting_stop_flg = false;
                 }
             }
         }
-        if (_mv_ang_ry_target_flg == false) {
-            //_angveloRyTopMv = D360ANG; //移動方角（Y軸回転）の角速度上限 ＝ 360,000 angle/fream
-            //_angveloRyBottomMv = D360ANG*-1; //移動方角（Y軸回転）の角速度下限 ＝ -360,000 angle/fream
+        if (_is_targeting_ang_ry_mv == false) {
+            //_top_angvelo_ry_mv = D360ANG; //移動方角（Y軸回転）の角速度上限 ＝ 360,000 angle/fream
+            //_bottom_angvelo_ry_mv = D360ANG*-1; //移動方角（Y軸回転）の角速度下限 ＝ -360,000 angle/fream
 
             //目標方向に到達した時、停止処理を行なう
-            _angacceRyMv = 0; //Y軸移動方向角、角加速度を０へ
+            _angacce_ry_mv = 0; //Y軸移動方向角、角加速度を０へ
             setRyMvAngVelo(0); //Y軸移動方向角、角速度を０へ
         }
 
     } else {
-        //if (_angacceRyMv != 0) {
-        _angacceRyMv += _angjerkRyMv;
+        //if (_angacce_ry_mv != 0) {
+        _angacce_ry_mv += _angjerk_ry_mv;
         //フレーム毎の移動方角（Y軸回転）旋廻の処理
-        _angveloRyMv += _angacceRyMv;
-        if(_angveloRyMv != 0) {
-            addRyMvAng(_angveloRyMv);
+        _angvelo_ry_mv += _angacce_ry_mv;
+        if(_angvelo_ry_mv != 0) {
+            addRyMvAng(_angvelo_ry_mv);
         }
         //}
     }
 
     ///////////////
-    if (_taget_face_ang_alltime_flg && _face_ang_targeting_flg[AXIS_Z] == false && _face_ang_targeting_flg[AXIS_Y] == false) {
+    if (_taget_face_ang_alltime_flg && _is_targeting_ang_face[AXIS_Z] == false && _is_targeting_ang_face[AXIS_Y] == false) {
         if (_taget_face_ang_alltime_pActor) {
             keepOnTurningFaceAngTwd(
                     _taget_face_ang_alltime_pActor,
@@ -367,68 +367,68 @@ void GgafDxKuroko::behave() {
 
     }
     //Actorに反映
-    _pActor->_x += (coord)(_vX * _veloMv);
-    _pActor->_y += (coord)(_vY * _veloMv);
-    _pActor->_z += (coord)(_vZ * _veloMv);
+    _pActor->_x += (coord)(_vX * _velo_mv);
+    _pActor->_y += (coord)(_vY * _velo_mv);
+    _pActor->_z += (coord)(_vZ * _velo_mv);
 }
 
-void GgafDxKuroko::setFaceAngVelo(axis prm_axis, angvelo prm_angveloRot) {
-    if (prm_angveloRot > _angveloTopFace[prm_axis]) {
-        _angveloFace[prm_axis] = _angveloTopFace[prm_axis];
-    } else if (prm_angveloRot < _angveloBottomFace[prm_axis]) {
-        _angveloFace[prm_axis] = _angveloBottomFace[prm_axis];
+void GgafDxKuroko::setFaceAngVelo(axis prm_axis, angvelo prm_angvelo) {
+    if (prm_angvelo > _top_angvelo_face[prm_axis]) {
+        _angvelo_face[prm_axis] = _top_angvelo_face[prm_axis];
+    } else if (prm_angvelo < _bottom_angvelo_face[prm_axis]) {
+        _angvelo_face[prm_axis] = _bottom_angvelo_face[prm_axis];
     } else {
-        _angveloFace[prm_axis] = prm_angveloRot;
+        _angvelo_face[prm_axis] = prm_angvelo;
     }
 }
 
-void GgafDxKuroko::setFaceAngVelo(angvelo prm_axis_x_angveloRot,
-                                   angvelo prm_axis_y_angveloRot,
-                                   angvelo prm_axis_z_angveloRot) {
-    setFaceAngVelo(AXIS_X, prm_axis_x_angveloRot);
-    setFaceAngVelo(AXIS_Y, prm_axis_y_angveloRot);
-    setFaceAngVelo(AXIS_Z, prm_axis_z_angveloRot);
+void GgafDxKuroko::setFaceAngVelo(angvelo prm_axis_x_angvelo,
+                                  angvelo prm_axis_y_angvelo,
+                                  angvelo prm_axis_z_angvelo) {
+    setFaceAngVelo(AXIS_X, prm_axis_x_angvelo);
+    setFaceAngVelo(AXIS_Y, prm_axis_y_angvelo);
+    setFaceAngVelo(AXIS_Z, prm_axis_z_angvelo);
 }
 
 void GgafDxKuroko::forceFaceAngVeloRange(axis prm_axis,
-                                          angvelo prm_angveloRot01,
-                                          angvelo prm_angveloRot02) {
-    if (prm_angveloRot01 < prm_angveloRot02) {
-        _angveloTopFace[prm_axis] = prm_angveloRot02;
-        _angveloBottomFace[prm_axis] = prm_angveloRot01;
+                                         angvelo prm_angvelo01,
+                                         angvelo prm_angvelo02) {
+    if (prm_angvelo01 < prm_angvelo02) {
+        _top_angvelo_face[prm_axis] = prm_angvelo02;
+        _bottom_angvelo_face[prm_axis] = prm_angvelo01;
     } else {
-        _angveloTopFace[prm_axis] = prm_angveloRot01;
-        _angveloBottomFace[prm_axis] = prm_angveloRot02;
+        _top_angvelo_face[prm_axis] = prm_angvelo01;
+        _bottom_angvelo_face[prm_axis] = prm_angvelo02;
     }
-    setFaceAngVelo(prm_axis, _angveloFace[prm_axis]); //再設定して範囲内に補正
+    setFaceAngVelo(prm_axis, _angvelo_face[prm_axis]); //再設定して範囲内に補正
 }
 
-void GgafDxKuroko::setFaceAngAcce(axis prm_axis, angacce prm_angacceRot) {
-    _angacceFace[prm_axis] = prm_angacceRot;
+void GgafDxKuroko::setFaceAngAcce(axis prm_axis, angacce prm_angacce) {
+    _angacce_face[prm_axis] = prm_angacce;
 }
 
 void GgafDxKuroko::setStopTargetFaceAngTwd(axis prm_axis,
-                                            coord prm_tx,
-                                            coord prm_ty,
-                                            int prm_way_allow,
-                                            angvelo prm_angveloAllowRyMv) {
+                                           coord prm_tx,
+                                           coord prm_ty,
+                                           int prm_way_allow,
+                                           angvelo prm_angvelo_allow) {
     setStopTargetFaceAng(
       prm_axis,
       UTIL::getAngle2D(prm_tx - (_pActor->_x), prm_ty - (_pActor->_y)),
       prm_way_allow,
-      prm_angveloAllowRyMv
+      prm_angvelo_allow
     );
 }
 
 void GgafDxKuroko::setStopTargetFaceAng(axis prm_axis,
-                                        angle prm_angTargetRot,
+                                        angle prm_ang_target,
                                         int prm_way_allow,
-                                        angvelo prm_angveloAllow) {
-    _face_ang_targeting_flg[prm_axis] = true;
-    _face_ang_targeting_stop_flg[prm_axis] = true;
-    _angTargetFace[prm_axis] = UTIL::simplifyAng(prm_angTargetRot);
-    _face_ang_target_allow_way[prm_axis] = prm_way_allow;
-    _face_ang_target_allow_velo[prm_axis] = prm_angveloAllow;
+                                        angvelo prm_angvelo_allow) {
+    _is_targeting_ang_face[prm_axis] = true;
+    _ang_face_targeting_stop_flg[prm_axis] = true;
+    _target_ang_face[prm_axis] = UTIL::simplifyAng(prm_ang_target);
+    _ang_face_stop_allow_way[prm_axis] = prm_way_allow;
+    _ang_face_stop_allow_angvelo[prm_axis] = prm_angvelo_allow;
 }
 
 angle GgafDxKuroko::getFaceAngDistance(axis prm_axis, coord prm_tx, coord prm_ty, int prm_way) {
@@ -438,84 +438,84 @@ angle GgafDxKuroko::getFaceAngDistance(axis prm_axis, coord prm_tx, coord prm_ty
                prm_way);
 }
 
-angle GgafDxKuroko::getFaceAngDistance(axis prm_axis, angle prm_angTargetRot, int prm_way) {
-    return UTIL::getAngDiff( (*(_apActorFaceAng[prm_axis])),  prm_angTargetRot, prm_way);
+angle GgafDxKuroko::getFaceAngDistance(axis prm_axis, angle prm_ang_target, int prm_way) {
+    return UTIL::getAngDiff( (*(_actor_ang_face[prm_axis])),  prm_ang_target, prm_way);
 }
 
 void GgafDxKuroko::forceMvVeloRange(velo prm_velo) {
     forceMvVeloRange(-prm_velo, prm_velo);
 }
 
-void GgafDxKuroko::forceMvVeloRange(velo prm_veloMv01, velo prm_veloMv02) {
-    if (prm_veloMv01 < prm_veloMv02) {
-        _veloTopMv = prm_veloMv02;
-        _veloBottomMv = prm_veloMv01;
+void GgafDxKuroko::forceMvVeloRange(velo prm_velo_mv01, velo prm_velo_mv02) {
+    if (prm_velo_mv01 < prm_velo_mv02) {
+        _top_velo_mv = prm_velo_mv02;
+        _bottom_velo_mv = prm_velo_mv01;
     } else {
-        _veloTopMv = prm_veloMv01;
-        _veloBottomMv = prm_veloMv02;
+        _top_velo_mv = prm_velo_mv01;
+        _bottom_velo_mv = prm_velo_mv02;
     }
-    setMvVelo(_veloMv); //再設定して範囲内に補正
+    setMvVelo(_velo_mv); //再設定して範囲内に補正
 }
 
-void GgafDxKuroko::setMvVelo(velo prm_veloMv) {
-    if (prm_veloMv > _veloTopMv) {
-        _veloMv = _veloTopMv;
-    } else if (prm_veloMv < _veloBottomMv) {
-        _veloMv = _veloBottomMv;
+void GgafDxKuroko::setMvVelo(velo prm_velo_mv) {
+    if (prm_velo_mv > _top_velo_mv) {
+        _velo_mv = _top_velo_mv;
+    } else if (prm_velo_mv < _bottom_velo_mv) {
+        _velo_mv = _bottom_velo_mv;
     } else {
-        _veloMv = prm_veloMv;
+        _velo_mv = prm_velo_mv;
     }
 }
 
-void GgafDxKuroko::addMvVelo(velo prm_veloMv_Offset) {
-    setMvVelo(_veloMv + prm_veloMv_Offset);
+void GgafDxKuroko::addMvVelo(velo prm_velo_mv_Offset) {
+    setMvVelo(_velo_mv + prm_velo_mv_Offset);
 }
 
 void GgafDxKuroko::setMvAcce(int prm_acceMove) {
-    _accMv = prm_acceMove;
+    _acc_mv = prm_acceMove;
 }
 
 frame GgafDxKuroko::setMvAcceToStop(coord prm_target_distance) {
-    double acc = UTIL::getAcceToStop(prm_target_distance, _veloMv);
+    double acc = UTIL::getAcceToStop(prm_target_distance, _velo_mv);
     if (acc > 0.0) {
         acc += 0.5;
     } else if (acc < 0.0) {
         acc -= 0.5;
     }
-    _accMv = acc;
-    return (frame)((2.0*prm_target_distance) / _veloMv); //使用フレーム数
+    _acc_mv = acc;
+    return (frame)((2.0*prm_target_distance) / _velo_mv); //使用フレーム数
 }
 
 frame GgafDxKuroko::setFaceAngAcceToStop(axis prm_axis, angle prm_target_angle_distance) {
-    double acc = UTIL::getAcceToStop(prm_target_angle_distance, _angveloFace[prm_axis]);
+    double acc = UTIL::getAcceToStop(prm_target_angle_distance, _angvelo_face[prm_axis]);
     if (acc > 0.0) {
         acc += 0.5;
     } else if (acc < 0.0) {
         acc -= 0.5;
     }
-    _angacceFace[prm_axis] = acc;
-    return (frame)((2.0*prm_target_angle_distance) / _angveloFace[prm_axis]); //使用フレーム数
+    _angacce_face[prm_axis] = acc;
+    return (frame)((2.0*prm_target_angle_distance) / _angvelo_face[prm_axis]); //使用フレーム数
 }
 
 frame GgafDxKuroko::setMvAcceByD(coord prm_target_distance, velo prm_target_velo) {
-    double acc = UTIL::getAcceByVd(_veloMv, prm_target_velo, prm_target_distance);
+    double acc = UTIL::getAcceByVd(_velo_mv, prm_target_velo, prm_target_distance);
     if (acc > 0.0) {
         acc += 0.5;
     } else if (acc < 0.0) {
         acc -= 0.5;
     }
-    _accMv = acc;
-    return (frame)((1.0*prm_target_velo - _veloMv) / acc); //使用フレーム数
+    _acc_mv = acc;
+    return (frame)((1.0*prm_target_velo - _velo_mv) / acc); //使用フレーム数
 }
 frame GgafDxKuroko::setFaceAngAcceByD(axis prm_axis, angle prm_target_angle_distance, angvelo prm_target_angvelo) {
-    double acc = UTIL::getAcceByVd(prm_target_angvelo, prm_target_angle_distance, _angveloFace[prm_axis]);
+    double acc = UTIL::getAcceByVd(prm_target_angvelo, prm_target_angle_distance, _angvelo_face[prm_axis]);
     if (acc > 0.0) {
         acc += 0.5;
     } else if (acc < 0.0) {
         acc -= 0.5;
     }
-    _angacceFace[prm_axis] = acc;
-    return (frame)((1.0*prm_target_angvelo - _angveloFace[prm_axis]) / acc); //使用フレーム数
+    _angacce_face[prm_axis] = acc;
+    return (frame)((1.0*prm_target_angvelo - _angvelo_face[prm_axis]) / acc); //使用フレーム数
 }
     // 【補足】
     // V0 <= 0  かつ  Vt <= 0 場合、あるいは  V0 >= 0  かつ  Vt >= 0  場合は、D(目標距離)が上記式で問題ない。
@@ -570,90 +570,90 @@ frame GgafDxKuroko::setFaceAngAcceByD(axis prm_axis, angle prm_target_angle_dist
     //    V0 <= 0  かつ  Vt <= 0 場合、あるいは  V0 >= 0  かつ  Vt >= 0  場合と同じである
 
 coord GgafDxKuroko::setMvAcceByT(frame prm_target_frames, velo prm_target_velo) {
-    double acc = UTIL::getAcceByTv(prm_target_frames, _veloMv, prm_target_velo);
+    double acc = UTIL::getAcceByTv(prm_target_frames, _velo_mv, prm_target_velo);
     if (acc > 0.0) {
         acc += 0.5;
     } else if (acc < 0.0) {
         acc -= 0.5;
     }
-    _accMv = acc;
+    _acc_mv = acc;
     //  D = (1/2) (Vo + Vt) Te
-    return ((_veloMv + prm_target_velo) * prm_target_frames) / 2 ;
+    return ((_velo_mv + prm_target_velo) * prm_target_frames) / 2 ;
 }
 angle GgafDxKuroko::setFaceAngAcceByT(axis prm_axis, frame prm_target_frames, angvelo prm_target_angvelo) {
-    double acc = UTIL::getAcceByTv(prm_target_frames, _angveloFace[prm_axis], prm_target_angvelo);
+    double acc = UTIL::getAcceByTv(prm_target_frames, _angvelo_face[prm_axis], prm_target_angvelo);
     if (acc > 0.0) {
         acc += 0.5;
     } else if (acc < 0.0) {
         acc -= 0.5;
     }
-    _angacceFace[prm_axis] = acc;
+    _angacce_face[prm_axis] = acc;
     //  D = (1/2) (Vo + Vt) Te
-    return ((_angveloFace[prm_axis] + prm_target_angvelo) * prm_target_frames) / 2 ;
+    return ((_angvelo_face[prm_axis] + prm_target_angvelo) * prm_target_frames) / 2 ;
 }
 
 void GgafDxKuroko::setRzMvAng(angle prm_ang) {
-    if (prm_ang !=  _angRzMv) {
-        _angRzMv = UTIL::simplifyAng(prm_ang);
-        UTIL::convRzRyToVector(_angRzMv, _angRyMv, _vX, _vY, _vZ);
+    if (prm_ang !=  _ang_rz_mv) {
+        _ang_rz_mv = UTIL::simplifyAng(prm_ang);
+        UTIL::convRzRyToVector(_ang_rz_mv, _ang_ry_mv, _vX, _vY, _vZ);
     }
     if (_relate_RzFaceAng_with_RzMvAng_flg) {
-        _pActor->_rz = _angRzMv;
+        _pActor->_rz = _ang_rz_mv;
     }
 }
 
 void GgafDxKuroko::addRzMvAng(angle prm_angDistance) {
     angle angOffset = prm_angDistance;
-    if (_angveloRzBottomMv > prm_angDistance) {
-        angOffset = _angveloRzBottomMv;
-    } else if (prm_angDistance > _angveloRzTopMv) {
-        angOffset = _angveloRzTopMv;
+    if (_bottom_angvelo_rz_mv > prm_angDistance) {
+        angOffset = _bottom_angvelo_rz_mv;
+    } else if (prm_angDistance > _top_angvelo_rz_mv) {
+        angOffset = _top_angvelo_rz_mv;
     }
-    setRzMvAng(_angRzMv + angOffset);
+    setRzMvAng(_ang_rz_mv + angOffset);
 }
 
-void GgafDxKuroko::setRzMvAngVelo(angvelo prm_angveloRzMv) {
-    if (prm_angveloRzMv > _angveloRzTopMv) {
-        _angveloRzMv = _angveloRzTopMv;
-    } else if (prm_angveloRzMv < _angveloRzBottomMv) {
-        _angveloRzMv = _angveloRzBottomMv;
+void GgafDxKuroko::setRzMvAngVelo(angvelo prm_angvelo_rz_mv) {
+    if (prm_angvelo_rz_mv > _top_angvelo_rz_mv) {
+        _angvelo_rz_mv = _top_angvelo_rz_mv;
+    } else if (prm_angvelo_rz_mv < _bottom_angvelo_rz_mv) {
+        _angvelo_rz_mv = _bottom_angvelo_rz_mv;
     } else {
-        _angveloRzMv = prm_angveloRzMv;
+        _angvelo_rz_mv = prm_angvelo_rz_mv;
     }
 }
 
-void GgafDxKuroko::setRzMvAngAcce(angacce prm_angacceRzMv) {
-    _angacceRzMv = prm_angacceRzMv;
+void GgafDxKuroko::setRzMvAngAcce(angacce prm_angacce_rz_mv) {
+    _angacce_rz_mv = prm_angacce_rz_mv;
 }
 
-void GgafDxKuroko::forceRzMvAngVeloRange(angvelo prm_angveloRzMv01,
-                                         angvelo prm_angveloRzMv02) {
-    if (prm_angveloRzMv01 < prm_angveloRzMv02) {
-        _angveloRzTopMv = prm_angveloRzMv02;
-        _angveloRzBottomMv = prm_angveloRzMv01;
+void GgafDxKuroko::forceRzMvAngVeloRange(angvelo prm_angvelo_rz_mv01,
+                                         angvelo prm_angvelo_rz_mv02) {
+    if (prm_angvelo_rz_mv01 < prm_angvelo_rz_mv02) {
+        _top_angvelo_rz_mv = prm_angvelo_rz_mv02;
+        _bottom_angvelo_rz_mv = prm_angvelo_rz_mv01;
     } else {
-        _angveloRzTopMv = prm_angveloRzMv01;
-        _angveloRzBottomMv = prm_angveloRzMv02;
+        _top_angvelo_rz_mv = prm_angvelo_rz_mv01;
+        _bottom_angvelo_rz_mv = prm_angvelo_rz_mv02;
     }
-    setRzMvAngVelo(_angveloRzMv); //再設定して範囲内に補正
+    setRzMvAngVelo(_angvelo_rz_mv); //再設定して範囲内に補正
 }
 
-void GgafDxKuroko::setStopTargetRzMvAng(angle prm_angTargetRzMv,
+void GgafDxKuroko::setStopTargetRzMvAng(angle prm_target_ang_rz_mv,
                                          int prm_way_allow,
-                                         angvelo prm_angveloAllowRyMv) {
-    _mv_ang_rz_target_flg = true;
-    _mv_ang_rz_target_stop_flg = true;
-    _angTargetRzMv = UTIL::simplifyAng(prm_angTargetRzMv);
-    _mv_ang_rz_target_allow_way = prm_way_allow;
-    _mv_ang_rz_target_allow_velo = prm_angveloAllowRyMv;
+                                         angvelo prm_angvelo_allow) {
+    _is_targeting_ang_rz_mv = true;
+    _ang_rz_mv_targeting_stop_flg = true;
+    _target_ang_rz_mv = UTIL::simplifyAng(prm_target_ang_rz_mv);
+    _ang_rz_mv_stop_allow_way = prm_way_allow;
+    _ang_rz_mv_stop_allow_angvelo = prm_angvelo_allow;
 }
 
 angle GgafDxKuroko::getRzMvAngDistanceTwd(coord prm_tx, coord prm_ty, int prm_way) {
     return getRzMvAngDistance(UTIL::getAngle2D(prm_tx - (_pActor->_x), prm_ty - (_pActor->_y)), prm_way);
 }
 
-angle GgafDxKuroko::getRzMvAngDistance(angle prm_angTargetRzMv, int prm_way) {
-    return UTIL::getAngDiff(_angRzMv, prm_angTargetRzMv, prm_way);
+angle GgafDxKuroko::getRzMvAngDistance(angle prm_target_ang_rz_mv, int prm_way) {
+    return UTIL::getAngDiff(_ang_rz_mv, prm_target_ang_rz_mv, prm_way);
 }
 
 
@@ -662,97 +662,97 @@ angle GgafDxKuroko::getRzMvAngDistance(angle prm_angTargetRzMv, int prm_way) {
 //}
 
 void GgafDxKuroko::setRyMvAng(angle prm_ang) {
-    if (prm_ang != _angRyMv) {
-        _angRyMv = UTIL::simplifyAng(prm_ang);
-        UTIL::convRzRyToVector(_angRzMv, _angRyMv, _vX, _vY, _vZ);
+    if (prm_ang != _ang_ry_mv) {
+        _ang_ry_mv = UTIL::simplifyAng(prm_ang);
+        UTIL::convRzRyToVector(_ang_rz_mv, _ang_ry_mv, _vX, _vY, _vZ);
     }
     if (_relate_RyFaceAng_with_RyMvAng_flg) {
-        _pActor->_ry = _angRyMv;
+        _pActor->_ry = _ang_ry_mv;
     }
 }
 
 void GgafDxKuroko::addRyMvAng(angle prm_angDistance) {
     angle angOffset = prm_angDistance;
-    if (_angveloRyBottomMv > prm_angDistance) {
-        angOffset = _angveloRyBottomMv;
-    } else if (prm_angDistance > _angveloRyTopMv) {
-        angOffset = _angveloRyTopMv;
+    if (_bottom_angvelo_ry_mv > prm_angDistance) {
+        angOffset = _bottom_angvelo_ry_mv;
+    } else if (prm_angDistance > _top_angvelo_ry_mv) {
+        angOffset = _top_angvelo_ry_mv;
     }
-    setRyMvAng(_angRyMv + angOffset);
+    setRyMvAng(_ang_ry_mv + angOffset);
 }
 
-void GgafDxKuroko::setRyMvAngVelo(angvelo prm_angveloRyMv) {
-    if (prm_angveloRyMv > _angveloRyTopMv) {
-        _angveloRyMv = _angveloRyTopMv;
-    } else if (prm_angveloRyMv < _angveloRyBottomMv) {
-        _angveloRyMv = _angveloRyBottomMv;
+void GgafDxKuroko::setRyMvAngVelo(angvelo prm_angvelo_ry_mv) {
+    if (prm_angvelo_ry_mv > _top_angvelo_ry_mv) {
+        _angvelo_ry_mv = _top_angvelo_ry_mv;
+    } else if (prm_angvelo_ry_mv < _bottom_angvelo_ry_mv) {
+        _angvelo_ry_mv = _bottom_angvelo_ry_mv;
     } else {
-        _angveloRyMv = prm_angveloRyMv;
+        _angvelo_ry_mv = prm_angvelo_ry_mv;
     }
 }
 
-void GgafDxKuroko::setRyMvAngAcce(angacce prm_angacceRyMv) {
-    _angacceRyMv = prm_angacceRyMv;
+void GgafDxKuroko::setRyMvAngAcce(angacce prm_angacce_ry_mv) {
+    _angacce_ry_mv = prm_angacce_ry_mv;
 }
 
-void GgafDxKuroko::forceRyMvAngVeloRange(angvelo prm_angveloRyMv01,
-                                         angvelo prm_angveloRyMv02) {
-    if (prm_angveloRyMv01 < prm_angveloRyMv02) {
-        _angveloRyTopMv = prm_angveloRyMv02;
-        _angveloRyBottomMv = prm_angveloRyMv01;
+void GgafDxKuroko::forceRyMvAngVeloRange(angvelo prm_angvelo_ry_mv01,
+                                         angvelo prm_angvelo_ry_mv02) {
+    if (prm_angvelo_ry_mv01 < prm_angvelo_ry_mv02) {
+        _top_angvelo_ry_mv = prm_angvelo_ry_mv02;
+        _bottom_angvelo_ry_mv = prm_angvelo_ry_mv01;
     } else {
-        _angveloRyTopMv = prm_angveloRyMv01;
-        _angveloRyBottomMv = prm_angveloRyMv02;
+        _top_angvelo_ry_mv = prm_angvelo_ry_mv01;
+        _bottom_angvelo_ry_mv = prm_angvelo_ry_mv02;
     }
-    setRyMvAngVelo(_angveloRyMv); //再設定して範囲内に補正
+    setRyMvAngVelo(_angvelo_ry_mv); //再設定して範囲内に補正
 }
 
-void GgafDxKuroko::forceRzRyMvAngVeloRange(angvelo prm_angveloRzRyMv01, angvelo prm_angveloRzRyMv02) {
-    if (prm_angveloRzRyMv01 < prm_angveloRzRyMv02) {
-        _angveloRzTopMv = prm_angveloRzRyMv02;
-        _angveloRzBottomMv = prm_angveloRzRyMv01;
-        _angveloRyTopMv = prm_angveloRzRyMv02;
-        _angveloRyBottomMv = prm_angveloRzRyMv01;
+void GgafDxKuroko::forceRzRyMvAngVeloRange(angvelo prm_angvelo_rzry_mv01, angvelo prm_angvelo_rzry_mv02) {
+    if (prm_angvelo_rzry_mv01 < prm_angvelo_rzry_mv02) {
+        _top_angvelo_rz_mv = prm_angvelo_rzry_mv02;
+        _bottom_angvelo_rz_mv = prm_angvelo_rzry_mv01;
+        _top_angvelo_ry_mv = prm_angvelo_rzry_mv02;
+        _bottom_angvelo_ry_mv = prm_angvelo_rzry_mv01;
     } else {
-        _angveloRzTopMv = prm_angveloRzRyMv01;
-        _angveloRzBottomMv = prm_angveloRzRyMv02;
-        _angveloRyTopMv = prm_angveloRzRyMv01;
-        _angveloRyBottomMv = prm_angveloRzRyMv02;
+        _top_angvelo_rz_mv = prm_angvelo_rzry_mv01;
+        _bottom_angvelo_rz_mv = prm_angvelo_rzry_mv02;
+        _top_angvelo_ry_mv = prm_angvelo_rzry_mv01;
+        _bottom_angvelo_ry_mv = prm_angvelo_rzry_mv02;
     }
-    setRzMvAngVelo(_angveloRzMv); //再設定して範囲内に補正
-    setRyMvAngVelo(_angveloRyMv); //再設定して範囲内に補正
+    setRzMvAngVelo(_angvelo_rz_mv); //再設定して範囲内に補正
+    setRyMvAngVelo(_angvelo_ry_mv); //再設定して範囲内に補正
 }
 
-void GgafDxKuroko::setRzRyMvAngAcce(angacce prm_angacceRzMv, angacce prm_angacceRyMv) {
-    _angacceRzMv = prm_angacceRzMv;
-    _angacceRyMv = prm_angacceRyMv;
+void GgafDxKuroko::setRzRyMvAngAcce(angacce prm_angacce_rz_mv, angacce prm_angacce_ry_mv) {
+    _angacce_rz_mv = prm_angacce_rz_mv;
+    _angacce_ry_mv = prm_angacce_ry_mv;
 }
 
-void GgafDxKuroko::setRzRyMvAngVelo(angvelo prm_angveloRzMv, angvelo prm_angveloRyMv) {
-    if (prm_angveloRzMv > _angveloRzTopMv) {
-        _angveloRzMv = _angveloRzTopMv;
-    } else if (prm_angveloRzMv < _angveloRzBottomMv) {
-        _angveloRzMv = _angveloRzBottomMv;
+void GgafDxKuroko::setRzRyMvAngVelo(angvelo prm_angvelo_rz_mv, angvelo prm_angvelo_ry_mv) {
+    if (prm_angvelo_rz_mv > _top_angvelo_rz_mv) {
+        _angvelo_rz_mv = _top_angvelo_rz_mv;
+    } else if (prm_angvelo_rz_mv < _bottom_angvelo_rz_mv) {
+        _angvelo_rz_mv = _bottom_angvelo_rz_mv;
     } else {
-        _angveloRzMv = prm_angveloRzMv;
+        _angvelo_rz_mv = prm_angvelo_rz_mv;
     }
-    if (prm_angveloRyMv > _angveloRyTopMv) {
-        _angveloRyMv = _angveloRyTopMv;
-    } else if (prm_angveloRyMv < _angveloRyBottomMv) {
-        _angveloRyMv = _angveloRyBottomMv;
+    if (prm_angvelo_ry_mv > _top_angvelo_ry_mv) {
+        _angvelo_ry_mv = _top_angvelo_ry_mv;
+    } else if (prm_angvelo_ry_mv < _bottom_angvelo_ry_mv) {
+        _angvelo_ry_mv = _bottom_angvelo_ry_mv;
     } else {
-        _angveloRyMv = prm_angveloRyMv;
+        _angvelo_ry_mv = prm_angvelo_ry_mv;
     }
 }
 
-void GgafDxKuroko::setStopTargetRyMvAng(angle prm_angTargetRyMv,
+void GgafDxKuroko::setStopTargetRyMvAng(angle prm_target_ang_ry_mv,
                                         int prm_way_allow,
-                                        angvelo prm_angveloAllowRyMv) {
-    _mv_ang_ry_target_flg = true;
-    _mv_ang_ry_target_stop_flg = true;
-    _angTargetRyMv = UTIL::simplifyAng(prm_angTargetRyMv);
-    _mv_ang_ry_target_allow_way = prm_way_allow;
-    _mv_ang_ry_target_allow_velo = prm_angveloAllowRyMv;
+                                        angvelo prm_angvelo_allow) {
+    _is_targeting_ang_ry_mv = true;
+    _ang_ry_mv_targeting_stop_flg = true;
+    _target_ang_ry_mv = UTIL::simplifyAng(prm_target_ang_ry_mv);
+    _ang_ry_mv_stop_allow_way = prm_way_allow;
+    _ang_ry_mv_stop_allow_angvelo = prm_angvelo_allow;
 }
 
 angle GgafDxKuroko::getRyMvAngDistanceTwd(coord prm_tx, coord prm_ty, int prm_way) {
@@ -760,73 +760,73 @@ angle GgafDxKuroko::getRyMvAngDistanceTwd(coord prm_tx, coord prm_ty, int prm_wa
                                         prm_way);
 }
 
-angle GgafDxKuroko::getRyMvAngDistance(angle prm_angTargetRyMv, int prm_way) {
-    return UTIL::getAngDiff(_angRyMv, prm_angTargetRyMv, prm_way);
+angle GgafDxKuroko::getRyMvAngDistance(angle prm_target_ang_ry_mv, int prm_way) {
+    return UTIL::getAngDiff(_ang_ry_mv, prm_target_ang_ry_mv, prm_way);
 }
 
-void GgafDxKuroko::getRzRyMvAngDistanceTwd(angle prm_target_angRz, angle prm_target_angRy, int prm_way,
-                                           angle& out_d_angRz, angle& out_d_angRy) {
+void GgafDxKuroko::getRzRyMvAngDistanceTwd(angle prm_target_ang_rz, angle prm_target_ang_ry, int prm_way,
+                                           angle& out_d_ang_rz, angle& out_d_ang_ry) {
     if (prm_way == TURN_CLOSE_TO) { //近いほう回転
         //目標に到達するためには、回り方が常に２パターンある。
         //それぞれ球面上の２点の距離を簡易近似値（速度優先のため）で比較し、近いと思われるほうを採用する。
-        angle d1_angRz = getRzMvAngDistance(prm_target_angRz, TURN_CLOSE_TO); //Rzの差
-        angle d1_angRy = getRyMvAngDistance(prm_target_angRy, TURN_CLOSE_TO);
+        angle d1_angRz = getRzMvAngDistance(prm_target_ang_rz, TURN_CLOSE_TO); //Rzの差
+        angle d1_angRy = getRyMvAngDistance(prm_target_ang_ry, TURN_CLOSE_TO);
         angle d1 = ABS(d1_angRz) + ABS(d1_angRy);
-        UTIL::anotherRzRy(prm_target_angRz, prm_target_angRy);
-        angle d2_angRz = getRzMvAngDistance(prm_target_angRz, TURN_CLOSE_TO);
-        angle d2_angRy = getRyMvAngDistance(prm_target_angRy, TURN_CLOSE_TO);
+        UTIL::anotherRzRy(prm_target_ang_rz, prm_target_ang_ry);
+        angle d2_angRz = getRzMvAngDistance(prm_target_ang_rz, TURN_CLOSE_TO);
+        angle d2_angRy = getRyMvAngDistance(prm_target_ang_ry, TURN_CLOSE_TO);
         angle d2 = ABS(d2_angRz) + ABS(d2_angRy);
         if (d1 <= d2) { //より近い方を採用
-            out_d_angRz = d1_angRz;
-            out_d_angRy = d1_angRy;
+            out_d_ang_rz = d1_angRz;
+            out_d_ang_ry = d1_angRy;
         } else {
-            out_d_angRz = d2_angRz;
-            out_d_angRy = d2_angRy;
+            out_d_ang_rz = d2_angRz;
+            out_d_ang_ry = d2_angRy;
         }
     } else if (prm_way == TURN_ANTICLOSE_TO) {
-        angle d1_angRz = getRzMvAngDistance(prm_target_angRz, TURN_ANTICLOSE_TO);
-        angle d1_angRy = getRyMvAngDistance(prm_target_angRy, TURN_ANTICLOSE_TO);
+        angle d1_angRz = getRzMvAngDistance(prm_target_ang_rz, TURN_ANTICLOSE_TO);
+        angle d1_angRy = getRyMvAngDistance(prm_target_ang_ry, TURN_ANTICLOSE_TO);
         angle d1 = ABS(d1_angRz) + ABS(d1_angRy);
-        UTIL::anotherRzRy(prm_target_angRz, prm_target_angRy);
-        angle d2_angRz = getRzMvAngDistance(prm_target_angRz, TURN_ANTICLOSE_TO);
-        angle d2_angRy = getRyMvAngDistance(prm_target_angRy, TURN_ANTICLOSE_TO);
+        UTIL::anotherRzRy(prm_target_ang_rz, prm_target_ang_ry);
+        angle d2_angRz = getRzMvAngDistance(prm_target_ang_rz, TURN_ANTICLOSE_TO);
+        angle d2_angRy = getRyMvAngDistance(prm_target_ang_ry, TURN_ANTICLOSE_TO);
         angle d2 = ABS(d2_angRz) + ABS(d2_angRy);
         if (d1 >= d2) { //より遠い方を採用
-            out_d_angRz = d1_angRz;
-            out_d_angRy = d1_angRy;
+            out_d_ang_rz = d1_angRz;
+            out_d_ang_ry = d1_angRy;
         } else {
-            out_d_angRz = d2_angRz;
-            out_d_angRy = d2_angRy;
+            out_d_ang_rz = d2_angRz;
+            out_d_ang_ry = d2_angRy;
         }
     } else if (prm_way == TURN_COUNTERCLOCKWISE) { //反時計回りの場合
-        angle d1_angRz = getRzMvAngDistance(prm_target_angRz, TURN_COUNTERCLOCKWISE);
-        angle d1_angRy = getRyMvAngDistance(prm_target_angRy, TURN_COUNTERCLOCKWISE);
+        angle d1_angRz = getRzMvAngDistance(prm_target_ang_rz, TURN_COUNTERCLOCKWISE);
+        angle d1_angRy = getRyMvAngDistance(prm_target_ang_ry, TURN_COUNTERCLOCKWISE);
         angle d1 = ABS(d1_angRz) + ABS(d1_angRy);
-        UTIL::anotherRzRy(prm_target_angRz, prm_target_angRy);
-        angle d2_angRz = getRzMvAngDistance(prm_target_angRz, TURN_COUNTERCLOCKWISE);
-        angle d2_angRy = getRyMvAngDistance(prm_target_angRy, TURN_COUNTERCLOCKWISE);
+        UTIL::anotherRzRy(prm_target_ang_rz, prm_target_ang_ry);
+        angle d2_angRz = getRzMvAngDistance(prm_target_ang_rz, TURN_COUNTERCLOCKWISE);
+        angle d2_angRy = getRyMvAngDistance(prm_target_ang_ry, TURN_COUNTERCLOCKWISE);
         angle d2 = ABS(d2_angRz) + ABS(d2_angRy);
         if (d1 <= d2) {
-            out_d_angRz = d1_angRz;
-            out_d_angRy = d1_angRy;
+            out_d_ang_rz = d1_angRz;
+            out_d_ang_ry = d1_angRy;
         } else {
-            out_d_angRz = d2_angRz;
-            out_d_angRy = d2_angRy;
+            out_d_ang_rz = d2_angRz;
+            out_d_ang_ry = d2_angRy;
         }
     } else if (prm_way == TURN_CLOCKWISE) { //時計回りの場合
-        angle d1_angRz = getRzMvAngDistance(prm_target_angRz, TURN_CLOCKWISE);
-        angle d1_angRy = getRyMvAngDistance(prm_target_angRy, TURN_CLOCKWISE);
+        angle d1_angRz = getRzMvAngDistance(prm_target_ang_rz, TURN_CLOCKWISE);
+        angle d1_angRy = getRyMvAngDistance(prm_target_ang_ry, TURN_CLOCKWISE);
         angle d1 = ABS(d1_angRz) + ABS(d1_angRy);
-        UTIL::anotherRzRy(prm_target_angRz, prm_target_angRy);
-        angle d2_angRz = getRzMvAngDistance(prm_target_angRz, TURN_CLOCKWISE);
-        angle d2_angRy = getRyMvAngDistance(prm_target_angRy, TURN_CLOCKWISE);
+        UTIL::anotherRzRy(prm_target_ang_rz, prm_target_ang_ry);
+        angle d2_angRz = getRzMvAngDistance(prm_target_ang_rz, TURN_CLOCKWISE);
+        angle d2_angRy = getRyMvAngDistance(prm_target_ang_ry, TURN_CLOCKWISE);
         angle d2 = ABS(d2_angRz) + ABS(d2_angRy);
         if (d1 <= d2) {
-            out_d_angRz = d1_angRz;
-            out_d_angRy = d1_angRy;
+            out_d_ang_rz = d1_angRz;
+            out_d_ang_ry = d1_angRy;
         } else {
-            out_d_angRz = d2_angRz;
-            out_d_angRy = d2_angRy;
+            out_d_ang_rz = d2_angRz;
+            out_d_ang_ry = d2_angRy;
         }
     } else {
         //おかしい
@@ -834,68 +834,68 @@ void GgafDxKuroko::getRzRyMvAngDistanceTwd(angle prm_target_angRz, angle prm_tar
     }
 }
 
-void GgafDxKuroko::getRzRyFaceAngDistanceTwd(angle prm_target_angRz, angle prm_target_angRy,int prm_way,
-                                               angle& out_d_angRz, angle& out_d_angRy) {
+void GgafDxKuroko::getRzRyFaceAngDistanceTwd(angle prm_target_ang_rz, angle prm_target_ang_ry,int prm_way,
+                                               angle& out_d_ang_rz, angle& out_d_ang_ry) {
     if (prm_way == TURN_CLOSE_TO) { //近いほう回転
-        angle d1_angRz = getFaceAngDistance(AXIS_Z, prm_target_angRz, TURN_CLOSE_TO);
-        angle d1_angRy = getFaceAngDistance(AXIS_Y, prm_target_angRy, TURN_CLOSE_TO);
+        angle d1_angRz = getFaceAngDistance(AXIS_Z, prm_target_ang_rz, TURN_CLOSE_TO);
+        angle d1_angRy = getFaceAngDistance(AXIS_Y, prm_target_ang_ry, TURN_CLOSE_TO);
         angle d1 = ABS(d1_angRz) + ABS(d1_angRy);
-        UTIL::anotherRzRy(prm_target_angRz, prm_target_angRy);
-        angle d2_angRz = getFaceAngDistance(AXIS_Z, prm_target_angRz, TURN_CLOSE_TO);
-        angle d2_angRy = getFaceAngDistance(AXIS_Y, prm_target_angRy, TURN_CLOSE_TO);
+        UTIL::anotherRzRy(prm_target_ang_rz, prm_target_ang_ry);
+        angle d2_angRz = getFaceAngDistance(AXIS_Z, prm_target_ang_rz, TURN_CLOSE_TO);
+        angle d2_angRy = getFaceAngDistance(AXIS_Y, prm_target_ang_ry, TURN_CLOSE_TO);
         angle d2 = ABS(d2_angRz) + ABS(d2_angRy);
         if (d1 <= d2) {
-            out_d_angRz = d1_angRz;
-            out_d_angRy = d1_angRy;
+            out_d_ang_rz = d1_angRz;
+            out_d_ang_ry = d1_angRy;
         } else {
-            out_d_angRz = d2_angRz;
-            out_d_angRy = d2_angRy;
+            out_d_ang_rz = d2_angRz;
+            out_d_ang_ry = d2_angRy;
         }
 
     } else if (prm_way == TURN_ANTICLOSE_TO) { //遠い方の回転
-        angle d1_angRz = getFaceAngDistance(AXIS_Z, prm_target_angRz, TURN_ANTICLOSE_TO);
-        angle d1_angRy = getFaceAngDistance(AXIS_Y, prm_target_angRy, TURN_ANTICLOSE_TO);
+        angle d1_angRz = getFaceAngDistance(AXIS_Z, prm_target_ang_rz, TURN_ANTICLOSE_TO);
+        angle d1_angRy = getFaceAngDistance(AXIS_Y, prm_target_ang_ry, TURN_ANTICLOSE_TO);
         angle d1 = ABS(d1_angRz) + ABS(d1_angRy);
-        UTIL::anotherRzRy(prm_target_angRz, prm_target_angRy);
-        angle d2_angRz = getFaceAngDistance(AXIS_Z, prm_target_angRz, TURN_ANTICLOSE_TO);
-        angle d2_angRy = getFaceAngDistance(AXIS_Y, prm_target_angRy, TURN_ANTICLOSE_TO);
+        UTIL::anotherRzRy(prm_target_ang_rz, prm_target_ang_ry);
+        angle d2_angRz = getFaceAngDistance(AXIS_Z, prm_target_ang_rz, TURN_ANTICLOSE_TO);
+        angle d2_angRy = getFaceAngDistance(AXIS_Y, prm_target_ang_ry, TURN_ANTICLOSE_TO);
         angle d2 = ABS(d2_angRz) + ABS(d2_angRy);
         if (d1 >= d2) {
-            out_d_angRz = d1_angRz;
-            out_d_angRy = d1_angRy;
+            out_d_ang_rz = d1_angRz;
+            out_d_ang_ry = d1_angRy;
         } else {
-            out_d_angRz = d2_angRz;
-            out_d_angRy = d2_angRy;
+            out_d_ang_rz = d2_angRz;
+            out_d_ang_ry = d2_angRy;
         }
     } else if (prm_way == TURN_COUNTERCLOCKWISE) { //反時計回りの場合
-        angle d1_angRz = getFaceAngDistance(AXIS_Z, prm_target_angRz, TURN_COUNTERCLOCKWISE);
-        angle d1_angRy = getFaceAngDistance(AXIS_Y, prm_target_angRy, TURN_COUNTERCLOCKWISE);
+        angle d1_angRz = getFaceAngDistance(AXIS_Z, prm_target_ang_rz, TURN_COUNTERCLOCKWISE);
+        angle d1_angRy = getFaceAngDistance(AXIS_Y, prm_target_ang_ry, TURN_COUNTERCLOCKWISE);
         angle d1 = ABS(d1_angRz) + ABS(d1_angRy);
-        UTIL::anotherRzRy(prm_target_angRz, prm_target_angRy);
-        angle d2_angRz = getFaceAngDistance(AXIS_Z, prm_target_angRz, TURN_COUNTERCLOCKWISE);
-        angle d2_angRy = getFaceAngDistance(AXIS_Y, prm_target_angRy, TURN_COUNTERCLOCKWISE);
+        UTIL::anotherRzRy(prm_target_ang_rz, prm_target_ang_ry);
+        angle d2_angRz = getFaceAngDistance(AXIS_Z, prm_target_ang_rz, TURN_COUNTERCLOCKWISE);
+        angle d2_angRy = getFaceAngDistance(AXIS_Y, prm_target_ang_ry, TURN_COUNTERCLOCKWISE);
         angle d2 = ABS(d2_angRz) + ABS(d2_angRy);
         if (d1 <= d2) {
-            out_d_angRz = d1_angRz;
-            out_d_angRy = d1_angRy;
+            out_d_ang_rz = d1_angRz;
+            out_d_ang_ry = d1_angRy;
         } else {
-            out_d_angRz = d2_angRz;
-            out_d_angRy = d2_angRy;
+            out_d_ang_rz = d2_angRz;
+            out_d_ang_ry = d2_angRy;
         }
     } else if (prm_way == TURN_CLOCKWISE) { //時計回りの場合
-        angle d1_angRz = getFaceAngDistance(AXIS_Z, prm_target_angRz, TURN_CLOCKWISE);
-        angle d1_angRy = getFaceAngDistance(AXIS_Y, prm_target_angRy, TURN_CLOCKWISE);
+        angle d1_angRz = getFaceAngDistance(AXIS_Z, prm_target_ang_rz, TURN_CLOCKWISE);
+        angle d1_angRy = getFaceAngDistance(AXIS_Y, prm_target_ang_ry, TURN_CLOCKWISE);
         angle d1 = ABS(d1_angRz) + ABS(d1_angRy);
-        UTIL::anotherRzRy(prm_target_angRz, prm_target_angRy);
-        angle d2_angRz = getFaceAngDistance(AXIS_Z, prm_target_angRz, TURN_CLOCKWISE);
-        angle d2_angRy = getFaceAngDistance(AXIS_Y, prm_target_angRy, TURN_CLOCKWISE);
+        UTIL::anotherRzRy(prm_target_ang_rz, prm_target_ang_ry);
+        angle d2_angRz = getFaceAngDistance(AXIS_Z, prm_target_ang_rz, TURN_CLOCKWISE);
+        angle d2_angRy = getFaceAngDistance(AXIS_Y, prm_target_ang_ry, TURN_CLOCKWISE);
         angle d2 = ABS(d2_angRz) + ABS(d2_angRy);
         if (d1 <= d2) {
-            out_d_angRz = d1_angRz;
-            out_d_angRy = d1_angRy;
+            out_d_ang_rz = d1_angRz;
+            out_d_ang_ry = d1_angRy;
         } else {
-            out_d_angRz = d2_angRz;
-            out_d_angRy = d2_angRy;
+            out_d_ang_rz = d2_angRz;
+            out_d_ang_ry = d2_angRy;
         }
     } else {
         //おかしい
@@ -903,33 +903,33 @@ void GgafDxKuroko::getRzRyFaceAngDistanceTwd(angle prm_target_angRz, angle prm_t
     }
 }
 
-void GgafDxKuroko::setRzRyMvAng(angle prm_angRz, angle prm_angRy) {
-    if (prm_angRz != _angRzMv || prm_angRy !=_angRyMv ) {
-        _angRzMv = UTIL::simplifyAng(prm_angRz);
-        _angRyMv = UTIL::simplifyAng(prm_angRy);
-        UTIL::convRzRyToVector(_angRzMv, _angRyMv, _vX, _vY, _vZ);
+void GgafDxKuroko::setRzRyMvAng(angle prm_ang_rz, angle prm_ang_ry) {
+    if (prm_ang_rz != _ang_rz_mv || prm_ang_ry !=_ang_ry_mv ) {
+        _ang_rz_mv = UTIL::simplifyAng(prm_ang_rz);
+        _ang_ry_mv = UTIL::simplifyAng(prm_ang_ry);
+        UTIL::convRzRyToVector(_ang_rz_mv, _ang_ry_mv, _vX, _vY, _vZ);
     }
     if (_relate_RzFaceAng_with_RzMvAng_flg) {
-        _pActor->_rz = _angRzMv;
+        _pActor->_rz = _ang_rz_mv;
     }
     if (_relate_RyFaceAng_with_RyMvAng_flg) {
-        _pActor->_ry = _angRyMv;
+        _pActor->_ry = _ang_ry_mv;
     }
 }
 
-void GgafDxKuroko::setRzRyMvAng_by_RyRz(angle prm_angRyRz_Ry, angle prm_angRyRz_Rz) {
-    angle RyRz_Ry = UTIL::simplifyAng(prm_angRyRz_Ry);
-    angle RyRz_Rz = UTIL::simplifyAng(prm_angRyRz_Rz);
+void GgafDxKuroko::setRzRyMvAng_by_RyRz(angle prm_ang_ryRz_Ry, angle prm_ang_ryRz_Rz) {
+    angle RyRz_Ry = UTIL::simplifyAng(prm_ang_ryRz_Ry);
+    angle RyRz_Rz = UTIL::simplifyAng(prm_ang_ryRz_Rz);
     float out_vY, out_vZ;
     UTIL::convRzRyToVector(RyRz_Ry, D360ANG-RyRz_Rz, _vX, out_vY, out_vZ);
     _vY = -1.0f*out_vZ;
     _vZ = out_vY;
-    UTIL::convVectorToRzRy(_vX, _vZ, _vY, _angRzMv, _angRyMv);
+    UTIL::convVectorToRzRy(_vX, _vZ, _vY, _ang_rz_mv, _ang_ry_mv);
     if (_relate_RzFaceAng_with_RzMvAng_flg) {
-        _pActor->_rz = _angRzMv;
+        _pActor->_rz = _ang_rz_mv;
     }
     if (_relate_RyFaceAng_with_RyMvAng_flg) {
-        _pActor->_ry = _angRyMv;
+        _pActor->_ry = _ang_ry_mv;
     }
 }
 
@@ -939,12 +939,12 @@ void GgafDxKuroko::setMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz) {
                            prm_ty - _pActor->_y,
                            prm_tz - _pActor->_z,
                            _vX, _vY, _vZ,
-                           _angRzMv, _angRyMv );
+                           _ang_rz_mv, _ang_ry_mv );
     if (_relate_RzFaceAng_with_RzMvAng_flg) {
-        _pActor->_rz = _angRzMv;
+        _pActor->_rz = _ang_rz_mv;
     }
     if (_relate_RyFaceAng_with_RyMvAng_flg) {
-        _pActor->_ry = _angRyMv;
+        _pActor->_ry = _ang_ry_mv;
     }
 }
 
@@ -952,9 +952,9 @@ void GgafDxKuroko::reverseMvAng() {
     _vX = -_vX;
     _vY = -_vY;
     _vZ = -_vZ;
-    _angRzMv = UTIL::simplifyAng(_angRzMv-D180ANG);
+    _ang_rz_mv = UTIL::simplifyAng(_ang_rz_mv-D180ANG);
     if (_relate_RzFaceAng_with_RzMvAng_flg) {
-        _pActor->_rz = _angRzMv;
+        _pActor->_rz = _ang_rz_mv;
     }
 }
 
@@ -985,77 +985,77 @@ void GgafDxKuroko::setStopTargetMvAngTwd(coord prm_tx, coord prm_ty, coord prm_t
     setStopTargetRyMvAng(angRy_Target);
 }
 
-void GgafDxKuroko::turnRzRyFaceAngTo(angle prm_angRz_Target, angle prm_angRy_Target,
-                                      angvelo prm_angVelo, angacce prm_angAcce,
-                                      int prm_way, bool prm_optimize_ang) {
-    angle out_d_angRz;
-    angle out_d_angRy;
+void GgafDxKuroko::turnRzRyFaceAngTo(angle prm_ang_rz_target, angle prm_ang_ry_target,
+                                     angvelo prm_angvelo, angacce prm_angacce,
+                                     int prm_way, bool prm_optimize_ang) {
+    angle out_d_ang_rz;
+    angle out_d_ang_ry;
     if (prm_optimize_ang) {
-        getRzRyFaceAngDistanceTwd(prm_angRz_Target, prm_angRy_Target,prm_way,
-                                   out_d_angRz, out_d_angRy);
+        getRzRyFaceAngDistanceTwd(prm_ang_rz_target, prm_ang_ry_target,prm_way,
+                                   out_d_ang_rz, out_d_ang_ry);
     } else {
-        out_d_angRz = getFaceAngDistance(AXIS_Z, prm_angRz_Target, prm_way);
-        out_d_angRy = getFaceAngDistance(AXIS_Y, prm_angRy_Target, prm_way);
+        out_d_ang_rz = getFaceAngDistance(AXIS_Z, prm_ang_rz_target, prm_way);
+        out_d_ang_ry = getFaceAngDistance(AXIS_Y, prm_ang_ry_target, prm_way);
     }
-    double drz = ABS(out_d_angRz);
-    double dry = ABS(out_d_angRy);
+    double drz = ABS(out_d_ang_rz);
+    double dry = ABS(out_d_ang_ry);
     if (drz > dry) {
         double drr = dry / drz ;
-        if (out_d_angRz > 0) {
-            setFaceAngVelo(AXIS_Z, prm_angVelo);
-            setFaceAngAcce(AXIS_Z, prm_angAcce);
+        if (out_d_ang_rz > 0) {
+            setFaceAngVelo(AXIS_Z, prm_angvelo);
+            setFaceAngAcce(AXIS_Z, prm_angacce);
         } else {
-            setFaceAngVelo(AXIS_Z, -prm_angVelo);
-            setFaceAngAcce(AXIS_Z, -prm_angAcce);
+            setFaceAngVelo(AXIS_Z, -prm_angvelo);
+            setFaceAngAcce(AXIS_Z, -prm_angacce);
         }
-        if (out_d_angRy > 0) {
-            setFaceAngVelo(AXIS_Y, prm_angVelo*drr);
-            setFaceAngAcce(AXIS_Y, prm_angAcce*drr);
+        if (out_d_ang_ry > 0) {
+            setFaceAngVelo(AXIS_Y, prm_angvelo*drr);
+            setFaceAngAcce(AXIS_Y, prm_angacce*drr);
         } else {
-            setFaceAngVelo(AXIS_Y, -prm_angVelo*drr);
-            setFaceAngAcce(AXIS_Y, -prm_angAcce*drr);
+            setFaceAngVelo(AXIS_Y, -prm_angvelo*drr);
+            setFaceAngAcce(AXIS_Y, -prm_angacce*drr);
         }
     } else if (drz < dry) {
         double drr = drz / dry ;
-        if (out_d_angRz > 0) {
-            setFaceAngVelo(AXIS_Z, prm_angVelo*drr);
-            setFaceAngAcce(AXIS_Z, prm_angAcce*drr);
+        if (out_d_ang_rz > 0) {
+            setFaceAngVelo(AXIS_Z, prm_angvelo*drr);
+            setFaceAngAcce(AXIS_Z, prm_angacce*drr);
         } else {
-            setFaceAngVelo(AXIS_Z, -prm_angVelo*drr);
-            setFaceAngAcce(AXIS_Z, -prm_angAcce*drr);
+            setFaceAngVelo(AXIS_Z, -prm_angvelo*drr);
+            setFaceAngAcce(AXIS_Z, -prm_angacce*drr);
         }
-        if (out_d_angRy > 0) {
-            setFaceAngVelo(AXIS_Y, prm_angVelo);
-            setFaceAngAcce(AXIS_Y, prm_angAcce);
+        if (out_d_ang_ry > 0) {
+            setFaceAngVelo(AXIS_Y, prm_angvelo);
+            setFaceAngAcce(AXIS_Y, prm_angacce);
         } else {
-            setFaceAngVelo(AXIS_Y, -prm_angVelo);
-            setFaceAngAcce(AXIS_Y, -prm_angAcce);
+            setFaceAngVelo(AXIS_Y, -prm_angvelo);
+            setFaceAngAcce(AXIS_Y, -prm_angacce);
         }
     } else {
-        if (out_d_angRz > 0) {
-            setFaceAngVelo(AXIS_Z, prm_angVelo);
-            setFaceAngAcce(AXIS_Z, prm_angAcce);
+        if (out_d_ang_rz > 0) {
+            setFaceAngVelo(AXIS_Z, prm_angvelo);
+            setFaceAngAcce(AXIS_Z, prm_angacce);
         } else {
-            setFaceAngVelo(AXIS_Z, -prm_angVelo);
-            setFaceAngAcce(AXIS_Z, -prm_angAcce);
+            setFaceAngVelo(AXIS_Z, -prm_angvelo);
+            setFaceAngAcce(AXIS_Z, -prm_angacce);
         }
-        if (out_d_angRy > 0) {
-            setFaceAngVelo(AXIS_Y, prm_angVelo);
-            setFaceAngAcce(AXIS_Y, prm_angAcce);
+        if (out_d_ang_ry > 0) {
+            setFaceAngVelo(AXIS_Y, prm_angvelo);
+            setFaceAngAcce(AXIS_Y, prm_angacce);
         } else {
-            setFaceAngVelo(AXIS_Y, -prm_angVelo);
-            setFaceAngAcce(AXIS_Y, -prm_angAcce);
+            setFaceAngVelo(AXIS_Y, -prm_angvelo);
+            setFaceAngAcce(AXIS_Y, -prm_angacce);
         }
     }
 
-    setStopTargetFaceAng(AXIS_Z, prm_angRz_Target);
-    setStopTargetFaceAng(AXIS_Y, prm_angRy_Target);
+    setStopTargetFaceAng(AXIS_Z, prm_ang_rz_target);
+    setStopTargetFaceAng(AXIS_Y, prm_ang_ry_target);
     _taget_face_ang_alltime_pActor = nullptr;
     _taget_face_ang_alltime_flg = false;
 }
 
 void GgafDxKuroko::turnFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
-                                   angvelo prm_angVelo, angacce prm_angAcce,
+                                   angvelo prm_angvelo, angacce prm_angacce,
                                    int prm_way, bool prm_optimize_ang) {
     angle out_angRz_Target;
     angle out_angRy_Target;
@@ -1066,139 +1066,139 @@ void GgafDxKuroko::turnFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
                            out_angRy_Target);
 
     turnRzRyFaceAngTo(out_angRz_Target, out_angRy_Target,
-                      prm_angVelo, prm_angAcce,
+                      prm_angvelo, prm_angacce,
                       prm_way, prm_optimize_ang);
 }
 
 
 void GgafDxKuroko::turnFaceAng(axis prm_axis,
                                angle prm_angular_distance,
-                               angvelo prm_angVelo, angacce prm_angAcce) {
+                               angvelo prm_angvelo, angacce prm_angacce) {
     int s = SGN(prm_angular_distance);
-    setFaceAngVelo(prm_axis, ABS(prm_angVelo)*s);
-    setFaceAngAcce(prm_axis, ABS(prm_angAcce)*s);
-    setStopTargetFaceAng(prm_axis, (*(_apActorFaceAng[prm_axis])) + prm_angular_distance);
+    setFaceAngVelo(prm_axis, ABS(prm_angvelo)*s);
+    setFaceAngAcce(prm_axis, ABS(prm_angacce)*s);
+    setStopTargetFaceAng(prm_axis, (*(_actor_ang_face[prm_axis])) + prm_angular_distance);
     _taget_face_ang_alltime_pActor = nullptr;
     _taget_face_ang_alltime_flg = false;
 }
 
 
-void GgafDxKuroko::turnRzFaceAngTo(angle prm_angRz_Target,
-                                    angvelo prm_angVelo, angacce prm_angAcce,
+void GgafDxKuroko::turnRzFaceAngTo(angle prm_ang_rz_target,
+                                    angvelo prm_angvelo, angacce prm_angacce,
                                     int prm_way) {
-    if (getFaceAngDistance(AXIS_Z, prm_angRz_Target, prm_way) > 0) {
-        setFaceAngVelo(AXIS_Z, prm_angVelo);
-        setFaceAngAcce(AXIS_Z, prm_angAcce);
+    if (getFaceAngDistance(AXIS_Z, prm_ang_rz_target, prm_way) > 0) {
+        setFaceAngVelo(AXIS_Z, prm_angvelo);
+        setFaceAngAcce(AXIS_Z, prm_angacce);
     } else {
-        setFaceAngVelo(AXIS_Z, -prm_angVelo);
-        setFaceAngAcce(AXIS_Z, -prm_angAcce);
+        setFaceAngVelo(AXIS_Z, -prm_angvelo);
+        setFaceAngAcce(AXIS_Z, -prm_angacce);
     }
-    setStopTargetFaceAng(AXIS_Z, prm_angRz_Target);
+    setStopTargetFaceAng(AXIS_Z, prm_ang_rz_target);
     _taget_face_ang_alltime_pActor = nullptr;
     _taget_face_ang_alltime_flg = false;
 }
 
-void GgafDxKuroko::turnRyFaceAngTo(angle prm_angRy_Target,
-                                    angvelo prm_angVelo, angacce prm_angAcce,
-                                    int prm_way) {
-    if (getFaceAngDistance(AXIS_Y, prm_angRy_Target, prm_way) > 0) {
-        setFaceAngVelo(AXIS_Y, prm_angVelo);
-        setFaceAngAcce(AXIS_Y, prm_angAcce);
+void GgafDxKuroko::turnRyFaceAngTo(angle prm_ang_ry_target,
+                                   angvelo prm_angvelo, angacce prm_angacce,
+                                   int prm_way) {
+    if (getFaceAngDistance(AXIS_Y, prm_ang_ry_target, prm_way) > 0) {
+        setFaceAngVelo(AXIS_Y, prm_angvelo);
+        setFaceAngAcce(AXIS_Y, prm_angacce);
     } else {
-        setFaceAngVelo(AXIS_Y, -prm_angVelo);
-        setFaceAngAcce(AXIS_Y, -prm_angAcce);
+        setFaceAngVelo(AXIS_Y, -prm_angvelo);
+        setFaceAngAcce(AXIS_Y, -prm_angacce);
     }
-    setStopTargetFaceAng(AXIS_Y, prm_angRy_Target);
+    setStopTargetFaceAng(AXIS_Y, prm_ang_ry_target);
     _taget_face_ang_alltime_pActor = nullptr;
     _taget_face_ang_alltime_flg = false;
 }
 
-void GgafDxKuroko::spinRxFaceAngTo(angle prm_angRx_Target,
-                                    angvelo prm_angVelo, angacce prm_angAcce,
-                                    int prm_way) {
-    if (getFaceAngDistance(AXIS_X, prm_angRx_Target, prm_way) > 0) {
-        setFaceAngVelo(AXIS_X, prm_angVelo);
-        setFaceAngAcce(AXIS_X, prm_angAcce);
+void GgafDxKuroko::spinRxFaceAngTo(angle prm_ang_rx_Target,
+                                   angvelo prm_angvelo, angacce prm_angacce,
+                                   int prm_way) {
+    if (getFaceAngDistance(AXIS_X, prm_ang_rx_Target, prm_way) > 0) {
+        setFaceAngVelo(AXIS_X, prm_angvelo);
+        setFaceAngAcce(AXIS_X, prm_angacce);
     } else {
-        setFaceAngVelo(AXIS_X, -prm_angVelo);
-        setFaceAngAcce(AXIS_X, -prm_angAcce);
+        setFaceAngVelo(AXIS_X, -prm_angvelo);
+        setFaceAngAcce(AXIS_X, -prm_angacce);
     }
-    setStopTargetFaceAng(AXIS_X, prm_angRx_Target);
+    setStopTargetFaceAng(AXIS_X, prm_ang_rx_Target);
 }
 
-void GgafDxKuroko::turnRzRyMvAngTo(angle prm_angRz_Target, angle prm_angRy_Target,
-                                    angvelo prm_angVelo, angacce prm_angAcce,
-                                    int prm_way, bool prm_optimize_ang) {
-    angle out_d_angRz;
-    angle out_d_angRy;
+void GgafDxKuroko::turnRzRyMvAngTo(angle prm_ang_rz_target, angle prm_ang_ry_target,
+                                   angvelo prm_angvelo, angacce prm_angacce,
+                                   int prm_way, bool prm_optimize_ang) {
+    angle out_d_ang_rz;
+    angle out_d_ang_ry;
     if (prm_optimize_ang) {
-        getRzRyMvAngDistanceTwd(prm_angRz_Target, prm_angRy_Target,prm_way,
-                                out_d_angRz, out_d_angRy);
+        getRzRyMvAngDistanceTwd(prm_ang_rz_target, prm_ang_ry_target,prm_way,
+                                out_d_ang_rz, out_d_ang_ry);
     } else {
-        out_d_angRz = getRzMvAngDistance(prm_angRz_Target, prm_way);
-        out_d_angRy = getRyMvAngDistance(prm_angRy_Target, prm_way);
+        out_d_ang_rz = getRzMvAngDistance(prm_ang_rz_target, prm_way);
+        out_d_ang_ry = getRyMvAngDistance(prm_ang_ry_target, prm_way);
     }
 
     //Rz, Ry が、目標アングルへ同時に到達するように角速度を調整
-    double drz = ABS(out_d_angRz);
-    double dry = ABS(out_d_angRy);
+    double drz = ABS(out_d_ang_rz);
+    double dry = ABS(out_d_ang_ry);
     if (drz > dry) {
         double drr = dry / drz ;
-        if (out_d_angRz > 0) {
-            setRzMvAngVelo(prm_angVelo);
-            setRzMvAngAcce(prm_angAcce);
+        if (out_d_ang_rz > 0) {
+            setRzMvAngVelo(prm_angvelo);
+            setRzMvAngAcce(prm_angacce);
         } else {
-            setRzMvAngVelo(-prm_angVelo);
-            setRzMvAngAcce(-prm_angAcce);
+            setRzMvAngVelo(-prm_angvelo);
+            setRzMvAngAcce(-prm_angacce);
         }
-        if (out_d_angRy > 0) {
-            setRyMvAngVelo(prm_angVelo*drr);
-            setRyMvAngAcce(prm_angAcce*drr);
+        if (out_d_ang_ry > 0) {
+            setRyMvAngVelo(prm_angvelo*drr);
+            setRyMvAngAcce(prm_angacce*drr);
         } else {
-            setRyMvAngVelo(-prm_angVelo*drr);
-            setRyMvAngAcce(-prm_angAcce*drr);
+            setRyMvAngVelo(-prm_angvelo*drr);
+            setRyMvAngAcce(-prm_angacce*drr);
         }
     } else if (drz < dry) {
         double drr = drz / dry;
-        if (out_d_angRz > 0) {
-            setRzMvAngVelo(prm_angVelo*drr);
-            setRzMvAngAcce(prm_angAcce*drr);
+        if (out_d_ang_rz > 0) {
+            setRzMvAngVelo(prm_angvelo*drr);
+            setRzMvAngAcce(prm_angacce*drr);
         } else {
-            setRzMvAngVelo(-prm_angVelo*drr);
-            setRzMvAngAcce(-prm_angAcce*drr);
+            setRzMvAngVelo(-prm_angvelo*drr);
+            setRzMvAngAcce(-prm_angacce*drr);
         }
-        if (out_d_angRy > 0) {
-            setRyMvAngVelo(prm_angVelo);
-            setRyMvAngAcce(prm_angAcce);
+        if (out_d_ang_ry > 0) {
+            setRyMvAngVelo(prm_angvelo);
+            setRyMvAngAcce(prm_angacce);
         } else {
-            setRyMvAngVelo(-prm_angVelo);
-            setRyMvAngAcce(-prm_angAcce);
+            setRyMvAngVelo(-prm_angvelo);
+            setRyMvAngAcce(-prm_angacce);
         }
     } else {
-        if (out_d_angRz > 0) {
-            setRzMvAngVelo(prm_angVelo);
-            setRzMvAngAcce(prm_angAcce);
+        if (out_d_ang_rz > 0) {
+            setRzMvAngVelo(prm_angvelo);
+            setRzMvAngAcce(prm_angacce);
         } else {
-            setRzMvAngVelo(-prm_angVelo);
-            setRzMvAngAcce(-prm_angAcce);
+            setRzMvAngVelo(-prm_angvelo);
+            setRzMvAngAcce(-prm_angacce);
         }
-        if (out_d_angRy > 0) {
-            setRyMvAngVelo(prm_angVelo);
-            setRyMvAngAcce(prm_angAcce);
+        if (out_d_ang_ry > 0) {
+            setRyMvAngVelo(prm_angvelo);
+            setRyMvAngAcce(prm_angacce);
         } else {
-            setRyMvAngVelo(-prm_angVelo);
-            setRyMvAngAcce(-prm_angAcce);
+            setRyMvAngVelo(-prm_angvelo);
+            setRyMvAngAcce(-prm_angacce);
         }
     }
 
-    setStopTargetRzMvAng(prm_angRz_Target);
-    setStopTargetRyMvAng(prm_angRy_Target);
+    setStopTargetRzMvAng(prm_ang_rz_target);
+    setStopTargetRyMvAng(prm_ang_ry_target);
 
 }
 
 
 void GgafDxKuroko::turnMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
-                                angvelo prm_angVelo, angacce prm_angAcce,
+                                angvelo prm_angvelo, angacce prm_angacce,
                                 int prm_way, bool prm_optimize_ang) {
     angle out_angRz_Target;
     angle out_angRy_Target;
@@ -1208,49 +1208,49 @@ void GgafDxKuroko::turnMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
                            out_angRz_Target,
                            out_angRy_Target);
     turnRzRyMvAngTo(out_angRz_Target, out_angRy_Target,
-                    prm_angVelo, prm_angAcce,
+                    prm_angvelo, prm_angacce,
                     prm_way, prm_optimize_ang);
 }
 void GgafDxKuroko::turnRzMvAng(angle prm_angular_distance,
-                               angvelo prm_angVelo, angacce prm_angAcce) {
+                               angvelo prm_angvelo, angacce prm_angacce) {
     int s = SGN(prm_angular_distance);
-    setRzMvAngVelo(ABS(prm_angVelo) * s);
-    setRzMvAngAcce(ABS(prm_angAcce) * s);
-    setStopTargetRzMvAng(_angRzMv+prm_angular_distance);
+    setRzMvAngVelo(ABS(prm_angvelo) * s);
+    setRzMvAngAcce(ABS(prm_angacce) * s);
+    setStopTargetRzMvAng(_ang_rz_mv+prm_angular_distance);
 }
 
 void GgafDxKuroko::turnRyMvAng(angle prm_angular_distance,
-                               angvelo prm_angVelo, angacce prm_angAcce) {
+                               angvelo prm_angvelo, angacce prm_angacce) {
     int s = SGN(prm_angular_distance);
-    setRyMvAngVelo(ABS(prm_angVelo) * s);
-    setRyMvAngAcce(ABS(prm_angAcce) * s);
-    setStopTargetRyMvAng(_angRyMv+prm_angular_distance);
+    setRyMvAngVelo(ABS(prm_angvelo) * s);
+    setRyMvAngAcce(ABS(prm_angacce) * s);
+    setStopTargetRyMvAng(_ang_ry_mv+prm_angular_distance);
 }
 
-void GgafDxKuroko::turnRzMvAngTo(angle prm_angRz_Target,
-                                 angvelo prm_angVelo, angacce prm_angAcce,
+void GgafDxKuroko::turnRzMvAngTo(angle prm_ang_rz_target,
+                                 angvelo prm_angvelo, angacce prm_angacce,
                                  int prm_way) {
-    if (getRzMvAngDistance(prm_angRz_Target, prm_way) > 0) {
-        setRzMvAngVelo(prm_angVelo);
-        setRzMvAngAcce(prm_angAcce);
+    if (getRzMvAngDistance(prm_ang_rz_target, prm_way) > 0) {
+        setRzMvAngVelo(prm_angvelo);
+        setRzMvAngAcce(prm_angacce);
     } else {
-        setRzMvAngVelo(-prm_angVelo);
-        setRzMvAngAcce(-prm_angAcce);
+        setRzMvAngVelo(-prm_angvelo);
+        setRzMvAngAcce(-prm_angacce);
     }
-    setStopTargetRzMvAng(prm_angRz_Target);
+    setStopTargetRzMvAng(prm_ang_rz_target);
 }
 
-void GgafDxKuroko::turnRyMvAngTo(angle prm_angRy_Target,
-                                 angvelo prm_angVelo, angacce prm_angAcce,
+void GgafDxKuroko::turnRyMvAngTo(angle prm_ang_ry_target,
+                                 angvelo prm_angvelo, angacce prm_angacce,
                                  int prm_way) {
-    if (getRyMvAngDistance(prm_angRy_Target, prm_way) > 0) {
-        setRyMvAngVelo(prm_angVelo);
-        setRyMvAngAcce(prm_angAcce);
+    if (getRyMvAngDistance(prm_ang_ry_target, prm_way) > 0) {
+        setRyMvAngVelo(prm_angvelo);
+        setRyMvAngAcce(prm_angacce);
     } else {
-        setRyMvAngVelo(-prm_angVelo);
-        setRyMvAngAcce(-prm_angAcce);
+        setRyMvAngVelo(-prm_angvelo);
+        setRyMvAngAcce(-prm_angacce);
     }
-    setStopTargetRyMvAng(prm_angRy_Target);
+    setStopTargetRyMvAng(prm_ang_ry_target);
 }
 
 void GgafDxKuroko::takeoverMvFrom(GgafDxKuroko* const prm_pKuroko) {
@@ -1259,50 +1259,50 @@ void GgafDxKuroko::takeoverMvFrom(GgafDxKuroko* const prm_pKuroko) {
     _vY = prm_pKuroko->_vY;
     _vZ = prm_pKuroko->_vZ;
     // 移動方角のZ軸回転角
-    _angRzMv = prm_pKuroko->_angRzMv;
+    _ang_rz_mv = prm_pKuroko->_ang_rz_mv;
     // 移動方角のY軸回転角
-    _angRyMv = prm_pKuroko->_angRyMv;
+    _ang_ry_mv = prm_pKuroko->_ang_ry_mv;
     // 移動速度
-    _veloMv = prm_pKuroko->_veloMv;
+    _velo_mv = prm_pKuroko->_velo_mv;
     // 移動速度上限
-    _veloTopMv = prm_pKuroko->_veloTopMv;
+    _top_velo_mv = prm_pKuroko->_top_velo_mv;
     // 移動速度下限
-    _veloBottomMv = prm_pKuroko->_veloBottomMv;
+    _bottom_velo_mv = prm_pKuroko->_bottom_velo_mv;
     // 移動加速度
-    _accMv = prm_pKuroko->_accMv;
+    _acc_mv = prm_pKuroko->_acc_mv;
     // 移動躍度
     //_jerkMv = prm_pKuroko->_jerkMv;
 }
 
 void GgafDxKuroko::stopTurnMvAng() {
-    _mv_ang_rz_target_flg = false;
-    _mv_ang_rz_target_stop_flg = false;
-    _mv_ang_ry_target_flg = false;
-    _mv_ang_ry_target_stop_flg = false;
-    if (_pHlprC) {
-        _pHlprC->stopTurnMvAng();
+    _is_targeting_ang_rz_mv = false;
+    _ang_rz_mv_targeting_stop_flg = false;
+    _is_targeting_ang_ry_mv = false;
+    _ang_ry_mv_targeting_stop_flg = false;
+    if (_pAsstC) {
+        _pAsstC->stopTurnMvAng();
     }
 }
 
 void GgafDxKuroko::stopTurnFaceAng() {
-    _face_ang_targeting_flg[AXIS_X] = false;
-    _face_ang_targeting_flg[AXIS_Y] = false;
-    _face_ang_targeting_flg[AXIS_Z] = false;
+    _is_targeting_ang_face[AXIS_X] = false;
+    _is_targeting_ang_face[AXIS_Y] = false;
+    _is_targeting_ang_face[AXIS_Z] = false;
     _taget_face_ang_alltime_pActor = nullptr;
     _taget_face_ang_alltime_flg = false;
-    if (_pHlprB) {
-        _pHlprB->stopTurnFaceAng();
+    if (_pAsstB) {
+        _pAsstB->stopTurnFaceAng();
     }
 }
 
 bool GgafDxKuroko::isTurningFaceAng() {
-    if (_face_ang_targeting_flg[AXIS_X] ||
-        _face_ang_targeting_flg[AXIS_Y] ||
-        _face_ang_targeting_flg[AXIS_Z] ) {
+    if (_is_targeting_ang_face[AXIS_X] ||
+        _is_targeting_ang_face[AXIS_Y] ||
+        _is_targeting_ang_face[AXIS_Z] ) {
         return true;
     } else {
-        if (_pHlprB) {
-            return _pHlprB->isTurningFaceAng();
+        if (_pAsstB) {
+            return _pAsstB->isTurningFaceAng();
         } else {
             return false;
         }
@@ -1311,11 +1311,11 @@ bool GgafDxKuroko::isTurningFaceAng() {
 }
 
 bool GgafDxKuroko::isTurningMvAng() {
-    if (_mv_ang_rz_target_flg || _mv_ang_ry_target_flg) {
+    if (_is_targeting_ang_rz_mv || _is_targeting_ang_ry_mv) {
         return true;
     } else {
-        if (_pHlprC) {
-            return _pHlprC->isTurningMvAng();
+        if (_pAsstC) {
+            return _pAsstC->isTurningMvAng();
         } else {
             return false;
         }
@@ -1325,15 +1325,15 @@ bool GgafDxKuroko::isTurningMvAng() {
 void GgafDxKuroko::stopMv() {
    setMvAcce(0);
    setMvVelo(0);
-   if (_pHlprA) {
-       _pHlprA->stopSlidingMv();
+   if (_pAsstA) {
+       _pAsstA->stopSlidingMv();
    }
 }
 
 GgafDxKuroko::~GgafDxKuroko() {
-    GGAF_DELETE_NULLABLE(_pHlprA);
-    GGAF_DELETE_NULLABLE(_pHlprB);
-    GGAF_DELETE_NULLABLE(_pHlprC);
+    GGAF_DELETE_NULLABLE(_pAsstA);
+    GGAF_DELETE_NULLABLE(_pAsstB);
+    GGAF_DELETE_NULLABLE(_pAsstC);
 }
 
 
@@ -1348,8 +1348,8 @@ GgafDxKuroko::~GgafDxKuroko() {
 //
 // ＜移動方角の２種類の表現方法＞
 // キャラが進む方向、つまり「移動方角」の方向は、原点から単位球の表面に向かって伸びるベクトル (_vX, _vY, _vZ) で表す方法と、
-// ２軸回転アングル値 (_angRzMv, _angRyMv) で表す方法の２種類用意した。クォータニオンは今のところ無し。
-// _angRzMv は Z軸回転角、 _angRyMv は Y軸回転角 を意味している。
+// ２軸回転アングル値 (_ang_rz_mv, _ang_ry_mv) で表す方法の２種類用意した。クォータニオンは今のところ無し。
+// _ang_rz_mv は Z軸回転角、 _ang_ry_mv は Y軸回転角 を意味している。
 // これは方向ベクトルを、緯度と経度、（仰角とアジマス）の関係に見立て、対応させようとした。
 // 注意することは、Y軸回転角＝経度 は常に成り立つが、Z軸回転角＝緯度 は、Z軸回転角 → Y軸回転角の順番である場合に限り成り立つ。
 // 本クラスでは、「Z軸回転 → Y軸回転の順番でのZ軸回転角・Y軸回転角」を簡略して、単に「Z軸回転角・Y軸回転角」と表現する事とする。
@@ -1365,20 +1365,20 @@ GgafDxKuroko::~GgafDxKuroko() {
 // Y軸回転角の正の増加は、Y軸の正の方向を向いて反時計回り。とする。
 //
 // ところで数学的に「方角」は、方向ベクトル（XYZの値）で表現することが多いと思う。
-// しかしこの本クラスでは、よく使うのは２軸表現の方で、メソッドも _angRzMv と _angRyMv を操作するものが中心となっている。
-// 実は結局内部で単位方向ベクトルを求めているのだが、座標回転計算を、整数型の _angRzMv と _angRyMv でさんざん行ってから、
+// しかしこの本クラスでは、よく使うのは２軸表現の方で、メソッドも _ang_rz_mv と _ang_ry_mv を操作するものが中心となっている。
+// 実は結局内部で単位方向ベクトルを求めているのだが、座標回転計算を、整数型の _ang_rz_mv と _ang_ry_mv でさんざん行ってから、
 // 最後に１回単位ベクトルを求める。という方が速いのではと考えたため、このような設計になった。
 // TODO:最適化の余地だいぶ残っているハズ。またいつか。
-// (_angRzMv, _angRyMv)をメソッドにより操作して、各フレームの最後の内部処理で方向ベクトル(_vX, _vY, _vZ) を同期させている。
-// (_vX, _vY, _vZ)メンバーをメソッドを使わず直接操作すると、(_angRzMv, _angRyMv)との同期が崩れるので注意。
+// (_ang_rz_mv, _ang_ry_mv)をメソッドにより操作して、各フレームの最後の内部処理で方向ベクトル(_vX, _vY, _vZ) を同期させている。
+// (_vX, _vY, _vZ)メンバーをメソッドを使わず直接操作すると、(_ang_rz_mv, _ang_ry_mv)との同期が崩れるので注意。
 // 本クラスのメソッドを使用する限りでは、そんなことは起こらない。
 //
 // ＜移動速度:Velo or MvVelo＞
-// キャラは「移動速度」(_veloMv)を保持している。移動する方法は簡単で、基本的に毎フレーム「移動方角」に「移動速度」分動くだけ。
-// 座標増分は「移動方角」(_vX, _vY, _vZ)に「移動速度」(_veloMv)を掛け算している。
-// １フレーム後の座標は現在の座標から (_vX*_veloMv, _vY*_veloMv, _vZ*_veloMv) 移動した場所である。
+// キャラは「移動速度」(_velo_mv)を保持している。移動する方法は簡単で、基本的に毎フレーム「移動方角」に「移動速度」分動くだけ。
+// 座標増分は「移動方角」(_vX, _vY, _vZ)に「移動速度」(_velo_mv)を掛け算している。
+// １フレーム後の座標は現在の座標から (_vX*_velo_mv, _vY*_velo_mv, _vZ*_velo_mv) 移動した場所である。
 // このベクトルに本ライブラリの単位距離(ゲーム中の長さ１と考える整数倍値）を乗じる。
-// よって、(_vX*_veloMv*LEN_UNIT, _vY*_veloMv*LEN_UNIT, _vZ*_veloMv*LEN_UNIT)が１フレーム後の座標増分。
+// よって、(_vX*_velo_mv*LEN_UNIT, _vY*_velo_mv*LEN_UNIT, _vZ*_velo_mv*LEN_UNIT)が１フレーム後の座標増分。
 
 // ＜正面方角:AngFace＞
 // キャラのローカル座標で向いている方角（方向）を「正面方角」と呼ぶことにする。

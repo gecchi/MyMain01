@@ -70,9 +70,9 @@ void EffectLockon001_Main::processBehavior() {
                     ABS(pTarget_->_z-_z) <= PX_C(200)) {
                     positionAs(pTarget_);
                     pKuroko->setMvVelo(0);
-                    pKuroko->_angveloFace[AXIS_Z] = 1000;
+                    pKuroko->_angvelo_face[AXIS_Z] = 1000;
                 } else {
-                    pKuroko->_angveloFace[AXIS_Z] = 3000; //速周り
+                    pKuroko->_angvelo_face[AXIS_Z] = 3000; //速周り
                     pKuroko->setMvAngTwd(pTarget_);
                     pKuroko->setMvVelo(PX_C(200));
                 }
@@ -133,12 +133,12 @@ void EffectLockon001_Main::releaseLockon() {
         if (pProg->get() == LOCKON001_PROG_FIRST_LOCK) {
             pScaler_->forceRange(60000, 2000); //スケーリング・範囲
             pScaler_->transitionLinerUntil(60000, 60);//スケーリング
-            pKuroko->setFaceAngVelo(AXIS_Z, pKuroko->_angveloFace[AXIS_Z]*-3); //速く逆回転
+            pKuroko->setFaceAngVelo(AXIS_Z, pKuroko->_angvelo_face[AXIS_Z]*-3); //速く逆回転
             pProg->change(LOCKON001_PROG_RELEASE);
         } else if (pProg->get() == LOCKON001_PROG_LOCK) {
             pScaler_->forceRange(60000, 2000); //スケーリング・範囲
             pScaler_->transitionLinerUntil(60000, 60);//スケーリング
-            pKuroko->setFaceAngVelo(AXIS_Z, pKuroko->_angveloFace[AXIS_Z]*-3); //速く逆回転
+            pKuroko->setFaceAngVelo(AXIS_Z, pKuroko->_angvelo_face[AXIS_Z]*-3); //速く逆回転
             pProg->change(LOCKON001_PROG_RELEASE);
         } else if (pProg->get() == LOCKON001_PROG_RELEASE) {
             //何も無し

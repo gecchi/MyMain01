@@ -96,9 +96,9 @@ void MagicPointItem::processBehavior() {
         MyMagicEnergyCore* pE = pMyShip->pMyMagicEnergyCore_;
         if (pProg->isJustChanged()) {
             //Ž©‹@‚Éˆø—Í‚Åˆø‚«Šñ‚¹‚ç‚ê‚é‚æ‚¤‚È“®‚«Ý’è
-            pAxsMver_->setVxyzMvVelo(pKuroko->_vX * pKuroko->_veloMv,
-                                     pKuroko->_vY * pKuroko->_veloMv,
-                                     pKuroko->_vZ * pKuroko->_veloMv);
+            pAxsMver_->setVxyzMvVelo(pKuroko->_vX * pKuroko->_velo_mv,
+                                     pKuroko->_vY * pKuroko->_velo_mv,
+                                     pKuroko->_vZ * pKuroko->_velo_mv);
             pAxsMver_->execGravitationMvSequenceTwd(pE,
                                                     PX_C(50), 300, PX_C(300));
             pKuroko->stopMv();

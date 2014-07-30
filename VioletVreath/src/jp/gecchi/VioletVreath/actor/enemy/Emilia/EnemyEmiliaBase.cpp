@@ -56,7 +56,7 @@ void EnemyEmiliaBase::appearFragment(const char* prm_dp_name) {
             pFragment->positionAs(this);
             GgafDxKuroko* pFragment_pKuroko = pFragment->getKuroko();
             pFragment_pKuroko->takeoverMvFrom(this->getKuroko());
-            pFragment_pKuroko->setMvVelo(pFragment_pKuroko->_veloMv/2); //半分のスピードへ
+            pFragment_pKuroko->setMvVelo(pFragment_pKuroko->_velo_mv/2); //半分のスピードへ
             pFragment_pKuroko->addRyMvAng(RND(D_ANG(-45), D_ANG(+45)));
             pFragment_pKuroko->addRzMvAng(RND(D_ANG(-45), D_ANG(+45)));
         }

@@ -287,7 +287,7 @@ public:
         //_TRACE_("s_d="<<s_d<<" sgn_W0="<<sgn_W0);
         if (sgn_W0 == 0 || s_d == sgn_W0) {  //正負が一致
             //
-            //        角速度(V)                        V0:現時点の速度     (_veloMv)
+            //        角速度(V)                        V0:現時点の速度     (_velo_mv)
             //         ^                               Vt:トップスピード   (prm_top_angvelo)
             //         |                               Ve:最終速度         (prm_end_angvelo)
             //         |                                D:目標回転距離角D  (D1+D2+D3)                     ・・・ 計算して求める
@@ -324,7 +324,7 @@ public:
             _prm._endacc_flg = prm_endacc_flg;
             _prm._progress = 2; //回復フェーズを飛ばす
         } else {
-            //                                                       V0:現時点の速度      (_veloMv)
+            //                                                       V0:現時点の速度      (_velo_mv)
             //        速度(v)                                        Vt:トップスピード    (prm_top_angvelo)
             //        ^                                              Ve:最終速度          (prm_end_angvelo)
             //        |                                               D:スタート時点の角度からの目標回転距離角                     ・・・ 計算して求める

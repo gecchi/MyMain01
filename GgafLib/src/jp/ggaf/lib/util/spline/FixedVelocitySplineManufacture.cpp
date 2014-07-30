@@ -17,7 +17,7 @@ FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(const char* prm_s
     _turn_way = prm_turn_way;
     _turn_optimize = prm_turn_optimaize;
     _point_index = 0;
-    _veloMvUnit = PX_C(1); //速度 PX_C(1) とした場合の各区間のフレーム数を基本とする
+    _velo_mvUnit = PX_C(1); //速度 PX_C(1) とした場合の各区間のフレーム数を基本とする
     _paFrame_need_at = NEW float[_sp->_rnum];
 }
 
@@ -30,7 +30,7 @@ FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(SplineSource* prm
     _turn_way = prm_turn_way;
     _turn_optimize = prm_turn_optimaize;
     _point_index = 0;
-    _veloMvUnit = PX_C(1); //速度 PX_C(1) とした場合の各区間のフレーム数を基本とする
+    _velo_mvUnit = PX_C(1); //速度 PX_C(1) とした場合の各区間のフレーム数を基本とする
     _paFrame_need_at = NEW float[_sp->_rnum];
 }
 
@@ -56,7 +56,7 @@ void FixedVelocitySplineManufacture::calculate() {
     // prm_accuracy が綺麗な分数にならない場合、制御点上に補完点が繰るかとか、全然わからないので、sp._rnumを必ず使用せよ
     // 下図は綺麗に重なった場合の図である。
     //
-    //                           ＜速さは  _veloMvUnit = 1000＞
+    //                           ＜速さは  _velo_mvUnit = 1000＞
     //
     //               _paFrame_need_at[1] 必要なフレーム数
     //                     ||              _paFrame_need_at[5]
@@ -86,9 +86,9 @@ void FixedVelocitySplineManufacture::calculate() {
     _paFrame_need_at[0] = 0; //始点に行くまでに必要なフレーム数は不明
     int rnum = _sp->_rnum;
     for (int t = 1; t < rnum; t ++) {
-        //距離 paDistanceTo[t] を、速度 _veloMvUnit(=1000) で移動するのに必要なフレーム数を求める。
+        //距離 paDistanceTo[t] を、速度 _velo_mvUnit(=1000) で移動するのに必要なフレーム数を求める。
         //時間＝距離÷速さ
-        _paFrame_need_at[t] = _paFrame_need_at[t-1] + (float)(1.0*_paDistance_to[t] / _veloMvUnit);
+        _paFrame_need_at[t] = _paFrame_need_at[t-1] + (float)(1.0*_paDistance_to[t] / _velo_mvUnit);
     }
 }
 

@@ -80,7 +80,7 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
         case PROG_TURN1: {
             //自機より少し上の座標で屈折
             if (pProg->isJustChanged()) {
-                pKuroko->setMvVelo(pKuroko->_veloMv/3); //屈折時少しスローダウン
+                pKuroko->setMvVelo(pKuroko->_velo_mv/3); //屈折時少しスローダウン
                 pKuroko->turnMvAngTwd(tx2_, ty2_, tz2_,
                                       D_ANG(10), 0,
                                       TURN_CLOSE_TO, false);
@@ -97,7 +97,7 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
                 pKuroko->turnMvAngTwd(tx2_, ty2_, tz2_,
                                       D_ANG(5), 0,
                                       TURN_CLOSE_TO, false);
-                pKuroko->setMvVelo(pKuroko->_veloMv*2);
+                pKuroko->setMvVelo(pKuroko->_velo_mv*2);
             }
             if (pProg->getFrameInProgress() > 60) {
                 pProg->changeNext();

@@ -71,7 +71,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     );
 
     //初期スクロールスピード
-    setScrollSpeed(PX_C(5));
+    setScrollSpeed(PX_C(15));
 
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。

@@ -247,7 +247,7 @@ void EnemyOzartia::processBehavior() {
     } else {
         //進行方向向きモード
         if (!pKuroko->isTurningFaceAng()) {
-            pKuroko->turnRzRyFaceAngTo(pKuroko->_angRzMv,pKuroko->_angRyMv,
+            pKuroko->turnRzRyFaceAngTo(pKuroko->_ang_rz_mv,pKuroko->_ang_ry_mv,
                                           D_ANG(2), 0, TURN_CLOSE_TO, false);
         }
     }

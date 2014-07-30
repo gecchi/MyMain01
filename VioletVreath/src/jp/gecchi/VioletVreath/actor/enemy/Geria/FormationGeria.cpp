@@ -20,10 +20,10 @@ FormationGeria::FormationGeria(
             int prm_X1_app, int prm_Y1_app, int prm_Z1_app,
             int prm_X2_app, int prm_Y2_app, int prm_Z2_app,
             int prm_x, int prm_y, int prm_z,
-            velo prm_veloMv_App,
-            angle prm_angRzMv_AppBox, angle prm_angRyMv_AppBox,
-            velo prm_veloMv_Geria,
-            angle prm_angRzMv_GeriaMv, angle prm_angRyMv_GeriaMv,
+            velo prm_velo_mv_App,
+            angle prm_ang_rz_mv_AppBox, angle prm_ang_ry_mv_AppBox,
+            velo prm_velo_mv_Geria,
+            angle prm_ang_rz_mv_GeriaMv, angle prm_ang_ry_mv_GeriaMv,
             int prm_nGeriaStock,
             int prm_frame_app_interval) : DefaultGeometricActor(prm_name, nullptr) {
     _class_name = "FormationGeria";
@@ -40,10 +40,10 @@ FormationGeria::FormationGeria(
     _y = prm_y;
     _z = prm_z;
     GgafDxKuroko* pKuroko = getKuroko();
-    pKuroko->setMvVelo(prm_veloMv_App);
-    pKuroko->setRzRyMvAng(prm_angRzMv_AppBox, prm_angRyMv_AppBox);
+    pKuroko->setMvVelo(prm_velo_mv_App);
+    pKuroko->setRzRyMvAng(prm_ang_rz_mv_AppBox, prm_ang_ry_mv_AppBox);
     float vX_AppBox, vY_AppBox, vZ_AppBox;
-    UTIL::convRzRyToVector(prm_angRzMv_AppBox, prm_angRyMv_AppBox,
+    UTIL::convRzRyToVector(prm_ang_rz_mv_AppBox, prm_ang_ry_mv_AppBox,
                            vX_AppBox, vY_AppBox, vZ_AppBox);
 
     frame_app_interval_ = prm_frame_app_interval;
@@ -53,11 +53,11 @@ FormationGeria::FormationGeria(
         std::string name = "Geria"+XTOS(i);
         EnemyGeria* pEnemyGeria = NEW EnemyGeria(name.c_str());
         pEnemyGeria->getKuroko()->relateFaceByMvAng(true);
-        pEnemyGeria->getKuroko()->setMvVelo(prm_veloMv_Geria);
-        pEnemyGeria->getKuroko()->setRzRyMvAng(prm_angRzMv_GeriaMv, prm_angRyMv_GeriaMv);
-        pEnemyGeria->pAxsMver_->setVxyzMvVelo(vX_AppBox*prm_veloMv_App,
-                                              vY_AppBox*prm_veloMv_App,
-                                              vZ_AppBox*prm_veloMv_App );
+        pEnemyGeria->getKuroko()->setMvVelo(prm_velo_mv_Geria);
+        pEnemyGeria->getKuroko()->setRzRyMvAng(prm_ang_rz_mv_GeriaMv, prm_ang_ry_mv_GeriaMv);
+        pEnemyGeria->pAxsMver_->setVxyzMvVelo(vX_AppBox*prm_velo_mv_App,
+                                              vY_AppBox*prm_velo_mv_App,
+                                              vZ_AppBox*prm_velo_mv_App );
         pDepo_EnemyGeria_->put(pEnemyGeria);
     }
     addSubGroup(pDepo_EnemyGeria_);

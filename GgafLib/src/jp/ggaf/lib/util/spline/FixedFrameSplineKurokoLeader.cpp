@@ -57,10 +57,10 @@ void FixedFrameSplineKurokoLeader::getPointCoord(int prm_point_index, coord &out
     if (_option == RELATIVE_DIRECTION) {
         if (_is_leading == false) {
             GgafDxKuroko* const pKuroko_target = _pActor_target->getKuroko();
-            _sinRzMv_begin = ANG_SIN(pKuroko_target->_angRzMv);
-            _cosRzMv_begin = ANG_COS(pKuroko_target->_angRzMv);
-            _sinRyMv_begin = ANG_SIN(pKuroko_target->_angRyMv);
-            _cosRyMv_begin = ANG_COS(pKuroko_target->_angRyMv);
+            _sinRzMv_begin = ANG_SIN(pKuroko_target->_ang_rz_mv);
+            _cosRzMv_begin = ANG_COS(pKuroko_target->_ang_rz_mv);
+            _sinRyMv_begin = ANG_SIN(pKuroko_target->_ang_ry_mv);
+            _cosRyMv_begin = ANG_COS(pKuroko_target->_ang_ry_mv);
             if (!_is_fix_start_pos) {
                 _x_start = _pActor_target->_x;
                 _y_start = _pActor_target->_y;
@@ -122,10 +122,10 @@ void FixedFrameSplineKurokoLeader::restart() {
         _z_start = _pActor_target->_z;
     }
     if (_option == RELATIVE_DIRECTION) {
-        _sinRzMv_begin = ANG_SIN(_pActor_target->getKuroko()->_angRzMv);
-        _cosRzMv_begin = ANG_COS(_pActor_target->getKuroko()->_angRzMv);
-        _sinRyMv_begin = ANG_SIN(_pActor_target->getKuroko()->_angRyMv);
-        _cosRyMv_begin = ANG_COS(_pActor_target->getKuroko()->_angRyMv);
+        _sinRzMv_begin = ANG_SIN(_pActor_target->getKuroko()->_ang_rz_mv);
+        _cosRzMv_begin = ANG_COS(_pActor_target->getKuroko()->_ang_rz_mv);
+        _sinRyMv_begin = ANG_SIN(_pActor_target->getKuroko()->_ang_ry_mv);
+        _cosRyMv_begin = ANG_COS(_pActor_target->getKuroko()->_ang_ry_mv);
         _distance_to_begin = UTIL::getDistance(
                                        0.0  , 0.0  , 0.0  ,
                                        P0X, P0Y, P0Z

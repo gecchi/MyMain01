@@ -11,10 +11,10 @@ using namespace GgafDxCore;
 
 GgafDxKurokoAssistantC::GgafDxKurokoAssistantC(GgafDxKuroko* prm_pMaster) : GgafObject(),
         _pMaster(prm_pMaster) {
-    _smthMvRzAng._velo = _pMaster->_angveloRzMv;
-    _smthMvRzAng._acce = _pMaster->_angacceRzMv;
-    _smthMvRyAng._velo = _pMaster->_angveloRyMv;
-    _smthMvRyAng._acce = _pMaster->_angacceRyMv;
+    _smthMvRzAng._velo = _pMaster->_angvelo_rz_mv;
+    _smthMvRzAng._acce = _pMaster->_angacce_rz_mv;
+    _smthMvRyAng._velo = _pMaster->_angvelo_ry_mv;
+    _smthMvRyAng._acce = _pMaster->_angacce_ry_mv;
 }
 
 void GgafDxKurokoAssistantC::behave() {
@@ -38,8 +38,8 @@ void GgafDxKurokoAssistantC::turnRzMvAngByDt(
                         bool prm_endacc_flg ) {
 
     _smthMvRzAng._value = 0;
-    _smthMvRzAng._velo = _pMaster->_angveloRzMv;
-    _smthMvRzAng._acce = _pMaster->_angacceRzMv;
+    _smthMvRzAng._velo = _pMaster->_angvelo_rz_mv;
+    _smthMvRzAng._acce = _pMaster->_angacce_rz_mv;
     _smthMvRzAng.accelerateByDt(prm_angular_distance, prm_target_frames,
                            prm_p1,prm_p2,prm_end_angvelo,
                            prm_endacc_flg);
@@ -50,8 +50,8 @@ void GgafDxKurokoAssistantC::turnRyMvAngByDt(
                         bool prm_endacc_flg ) {
 
     _smthMvRyAng._value = 0;
-    _smthMvRyAng._velo = _pMaster->_angveloRyMv;
-    _smthMvRyAng._acce = _pMaster->_angacceRyMv;
+    _smthMvRyAng._velo = _pMaster->_angvelo_ry_mv;
+    _smthMvRyAng._acce = _pMaster->_angacce_ry_mv;
     _smthMvRyAng.accelerateByDt(prm_angular_distance, prm_target_frames,
                            prm_p1,prm_p2,prm_end_angvelo,
                            prm_endacc_flg);
@@ -62,8 +62,8 @@ void GgafDxKurokoAssistantC::turnRzMvAngByVd(
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
         bool prm_endacc_flg) {
     _smthMvRzAng._value = 0;
-    _smthMvRzAng._velo = _pMaster->_angveloRzMv;
-    _smthMvRzAng._acce = _pMaster->_angacceRzMv;
+    _smthMvRzAng._velo = _pMaster->_angvelo_rz_mv;
+    _smthMvRzAng._acce = _pMaster->_angacce_rz_mv;
     _smthMvRzAng.accelerateByVd(prm_top_angvelo, prm_angular_distance,
                                 prm_p1,prm_p2, prm_end_angvelo,
                                 prm_endacc_flg);
@@ -73,8 +73,8 @@ void GgafDxKurokoAssistantC::turnRyMvAngByVd(
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
         bool prm_endacc_flg) {
     _smthMvRyAng._value = 0;
-    _smthMvRyAng._velo = _pMaster->_angveloRyMv;
-    _smthMvRyAng._acce = _pMaster->_angacceRyMv;
+    _smthMvRyAng._velo = _pMaster->_angvelo_ry_mv;
+    _smthMvRyAng._acce = _pMaster->_angacce_ry_mv;
     _smthMvRyAng.accelerateByVd(prm_top_angvelo, prm_angular_distance,
                                 prm_p1,prm_p2, prm_end_angvelo,
                                 prm_endacc_flg);
@@ -82,16 +82,16 @@ void GgafDxKurokoAssistantC::turnRyMvAngByVd(
 
 
 void GgafDxKurokoAssistantC::turnRzMvAngByDtTo(angle prm_ang_rz_target, int prm_way, int prm_target_frames,
-                                              float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                                              bool prm_endacc_flg) {
+                                               float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                               bool prm_endacc_flg) {
     angle angular_distance = _pMaster->getRzMvAngDistance(prm_ang_rz_target, prm_way);
     turnRzMvAngByDt(angular_distance, prm_target_frames,
                         prm_p1, prm_p2, prm_end_angvelo,
                         prm_endacc_flg);
 }
 void GgafDxKurokoAssistantC::turnRyMvAngByDtTo(angle prm_ang_ry_target, int prm_way, int prm_target_frames,
-                                              float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                                              bool prm_endacc_flg) {
+                                               float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                               bool prm_endacc_flg) {
     angle angular_distance = _pMaster->getRyMvAngDistance(prm_ang_ry_target, prm_way);
     turnRyMvAngByDt(angular_distance, prm_target_frames,
                         prm_p1, prm_p2, prm_end_angvelo,
@@ -159,21 +159,20 @@ void GgafDxKurokoAssistantC::turnRzMvAngByVdTo(
         angvelo prm_top_angvelo, angle prm_ang_rz_target, int prm_way,
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
         bool prm_endacc_flg) {
-        angle angular_distance = _pMaster->getRzMvAngDistance(prm_ang_rz_target, prm_way);
-        turnRzMvAngByVd(prm_top_angvelo, angular_distance,
-                            prm_p1, prm_p2, prm_end_angvelo,
-                            prm_endacc_flg);
+    angle angular_distance = _pMaster->getRzMvAngDistance(prm_ang_rz_target, prm_way);
+    turnRzMvAngByVd(prm_top_angvelo, angular_distance,
+                    prm_p1, prm_p2, prm_end_angvelo,
+                    prm_endacc_flg);
 }
 
 void GgafDxKurokoAssistantC::turnRyMvAngByVdTo(
         angvelo prm_top_angvelo, angle prm_ang_ry_target, int prm_way,
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
         bool prm_endacc_flg) {
-        angle angular_distance = _pMaster->getRyMvAngDistance(prm_ang_ry_target, prm_way);
-        turnRyMvAngByVd(
-                prm_top_angvelo, angular_distance,
-                prm_p1, prm_p2, prm_end_angvelo,
-                prm_endacc_flg);
+    angle angular_distance = _pMaster->getRyMvAngDistance(prm_ang_ry_target, prm_way);
+    turnRyMvAngByVd(prm_top_angvelo, angular_distance,
+                    prm_p1, prm_p2, prm_end_angvelo,
+                    prm_endacc_flg);
 }
 
 void GgafDxKurokoAssistantC::turnRzRyMvAngByVdTo(

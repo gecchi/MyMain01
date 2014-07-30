@@ -164,7 +164,7 @@ void EnemyDelheid::processBehavior() {
     }
     //-----------------------------------------------
     GgafDxKuroko* pKuroko = getKuroko();
-    pKuroko->_angveloFace[AXIS_X] = pKuroko->_veloMv/2;
+    pKuroko->_angvelo_face[AXIS_X] = pKuroko->_velo_mv/2;
     pKurokoLeader_->behave(); //ƒXƒvƒ‰ƒCƒ“ˆÚ“®‚ğU‚é•‘‚¢
     pKuroko->behave();
     getMorpher()->behave();

@@ -42,7 +42,7 @@ void EnemyGeria::initialize() {
     pChecker->setColliAAB_Cube(0, 45000);
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(AXIS_Z, -7000);
-    pKuroko->forceMvVeloRange(1, pKuroko->_veloMv);
+    pKuroko->forceMvVeloRange(1, pKuroko->_velo_mv);
 }
 
 void EnemyGeria::onActive() {
@@ -53,7 +53,7 @@ void EnemyGeria::onActive() {
     shot_num_ = 0;
     frame_when_shot_ = 0;
     GgafDxKuroko* pKuroko = getKuroko();
-    velo_mv_begin_ = pKuroko->_veloTopMv; //‰ŠúˆÚ“®‘¬“x‚ð•Û‘¶
+    velo_mv_begin_ = pKuroko->_top_velo_mv; //‰ŠúˆÚ“®‘¬“x‚ð•Û‘¶
     pKuroko->setMvVelo(velo_mv_begin_); //Ä‰Á‘¬
     setRzFaceAng(0);
     //_pKuroko->turnMvAngTwd(P_MYSHIP, 50, 0, TURN_CLOSE_TO, false);

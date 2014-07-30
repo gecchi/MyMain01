@@ -248,8 +248,8 @@ GgafGroupHead* GgafDxGeometricActor::addSubGroupAsFk(actorkind prm_kind,
     prm_pGeoActor->_rx = prm_rx_init_local;
     prm_pGeoActor->_ry = prm_ry_init_local;
     prm_pGeoActor->_rz = prm_rz_init_local;
-//    prm_pGeoActor->getKuroko()->_angRzMv = prm_rz_init_local;
-//    prm_pGeoActor->getKuroko()->_angRyMv = prm_ry_init_local;
+//    prm_pGeoActor->getKuroko()->_ang_rz_mv = prm_rz_init_local;
+//    prm_pGeoActor->getKuroko()->_ang_ry_mv = prm_ry_init_local;
 
     prm_pGeoActor->changeGeoFinal();
     return pGroupHead;

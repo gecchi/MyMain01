@@ -110,7 +110,7 @@ void MyTorpedo::processBehavior() {
         }
         //魚雷のムーブ
         if (move_section_ == 0) { //発射開始～減速完了まで
-            if (pKuroko->_veloMv == pKuroko->_veloBottomMv) { //減速終了時
+            if (pKuroko->_velo_mv == pKuroko->_bottom_velo_mv) { //減速終了時
                 pKuroko->setMvAcce(500);
                 if (pTarget_) {
                     //ターゲッティング時は、TURN_ANTICLOSE_TO で動きを見せてターゲット

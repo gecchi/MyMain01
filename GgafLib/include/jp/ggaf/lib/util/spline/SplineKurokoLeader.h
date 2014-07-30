@@ -17,7 +17,7 @@ public:
     enum SplinTraceOption {
         ABSOLUTE_COORD,     //絶対座標移動
         RELATIVE_COORD,     //スプライン座標の(0,0,0)を、アクターの現座標とし相対座標で計算
-        RELATIVE_DIRECTION, //スプライン座標の(0,0,0)を、アクターの現座標とし相対座標とし、アクターの現在向き（_pKuroko の _angRzMv, _angRyMv)でスプライン座標群をワールド変換。
+        RELATIVE_DIRECTION, //スプライン座標の(0,0,0)を、アクターの現座標とし相対座標とし、アクターの現在向き（_pKuroko の _ang_rz_mv, _ang_ry_mv)でスプライン座標群をワールド変換。
     };
 
     /** スプライン情報セット */
@@ -36,7 +36,7 @@ public:
      * [r]オプション
      * ABSOLUTE_COORD     : 絶対座標移動。
      * RELATIVE_COORD     : 始点を現座標とし、スプライン座標群は相対移動で計算。
-     * RELATIVE_DIRECTION : 始点を現座標とし、さらに現在の向き（_pKuroko の _angRzMv, _angRyMv)でスプライン座標群をワールド変換。
+     * RELATIVE_DIRECTION : 始点を現座標とし、さらに現在の向き（_pKuroko の _ang_rz_mv, _ang_ry_mv)でスプライン座標群をワールド変換。
      */
     SplinTraceOption _option;
     /** [r] ループカウンタ */

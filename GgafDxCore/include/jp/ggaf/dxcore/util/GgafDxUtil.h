@@ -455,14 +455,14 @@ public:
      * 本クラスの中核とも言うべきメソッドその2<BR>
      * Z軸Y軸回転方角 -> 方向ベクトル の変換<BR>
      * 計算せずにテーブル参照で高速に行う。<BR>
-     * @param prm_angRz [in]Z軸回転アングル値
-     * @param prm_angRy [in]Y軸回転アングル値
+     * @param prm_ang_rz [in]Z軸回転アングル値
+     * @param prm_ang_ry [in]Y軸回転アングル値
      * @param out_nvx [out]単位ベクトルX要素
      * @param out_nvy [out]単位ベクトルY要素
      * @param out_nvz [out]単位ベクトルZ要素
      */
-    static void convRzRyToVector(angle prm_angRz,
-                                 angle prm_angRy,
+    static void convRzRyToVector(angle prm_ang_rz,
+                                 angle prm_ang_ry,
                                  float& out_nvx,
                                  float& out_nvy,
                                  float& out_nvz);

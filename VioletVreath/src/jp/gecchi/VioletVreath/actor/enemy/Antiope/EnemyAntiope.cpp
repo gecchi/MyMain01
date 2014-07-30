@@ -73,7 +73,7 @@ void EnemyAntiope::processBehavior() {
                  pAxsMver_->setVxyzMvVelo(mv_velo_twd_.x, mv_velo_twd_.y, mv_velo_twd_.z);
              }
 
-             if (pKuroko->_veloMv <= (-30000 + 1000)) {
+             if (pKuroko->_velo_mv <= (-30000 + 1000)) {
                  pKuroko->stopMv();
                  pAxsMver_->setZeroVxyzMvVelo();
                  pProg->changeNext();
@@ -98,7 +98,7 @@ void EnemyAntiope::processBehavior() {
          }
      }
 
-//    _TRACE_(this<<":"<<getActiveFrame()<<" "<<_x<<","<<_y<<","<<_z<<"  ("<<_pKuroko->_veloMv<<") "<<_pKuroko->_vX<<","<<_pKuroko->_vY<<","<<_pKuroko->_vZ<<"");
+//    _TRACE_(this<<":"<<getActiveFrame()<<" "<<_x<<","<<_y<<","<<_z<<"  ("<<_pKuroko->_velo_mv<<") "<<_pKuroko->_vX<<","<<_pKuroko->_vY<<","<<_pKuroko->_vZ<<"");
     pKuroko->behave();
     pAxsMver_->behave();
     pAFader_->behave();

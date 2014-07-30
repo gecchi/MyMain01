@@ -155,7 +155,7 @@ void EnemyDuna::processBehavior() {
 
          case PROG_MOVE_ORDER_LARGE_SEMIARC_CW: {  //‡@
              if (pProg->isJustChanged()) {
-                 pKuroko->turnRzMvAngTo(pKuroko->_angRzMv - SEMIARC_ANG,
+                 pKuroko->turnRzMvAngTo(pKuroko->_ang_rz_mv - SEMIARC_ANG,
                                         LARGE_SEMIARC_ANGVELO, 0, TURN_CLOCKWISE);
              }
              if (!pKuroko->isTurningMvAng()) {
@@ -177,7 +177,7 @@ void EnemyDuna::processBehavior() {
          case PROG_MOVE_ORDER_LARGE_SEMIARC_CCW: { //‡A
              if (pProg->isJustChanged()) {
                  //‰~ŒÊˆÚ“®
-                 pKuroko->turnRzMvAngTo(pKuroko->_angRzMv + SEMIARC_ANG,
+                 pKuroko->turnRzMvAngTo(pKuroko->_ang_rz_mv + SEMIARC_ANG,
                                         LARGE_SEMIARC_ANGVELO, 0, TURN_COUNTERCLOCKWISE);
              }
              if (!pKuroko->isTurningMvAng()) {
@@ -198,13 +198,13 @@ void EnemyDuna::processBehavior() {
          case PROG_MOVE_REV_LARGE_SEMIARC_CW: {  //‡B
              if (pProg->isJustChanged()) {
                  //‚Ü‚¸ŠJŽnó‘Ô‚Ì^— •ûŒü‚ÉŒü‚­
-                 pKuroko->turnRzMvAngTo(pKuroko->_angRzMv - D180ANG,
+                 pKuroko->turnRzMvAngTo(pKuroko->_ang_rz_mv - D180ANG,
                                         REV_TURN_ANGVELO, 0, TURN_CLOSE_TO);
                  nprog_ = 0;
              }
              if (nprog_ == 0 && !pKuroko->isTurningMvAng()) {
                  //‰~ŒÊˆÚ“®
-                 pKuroko->turnRzMvAngTo(pKuroko->_angRzMv - SEMIARC_ANG,
+                 pKuroko->turnRzMvAngTo(pKuroko->_ang_rz_mv - SEMIARC_ANG,
                                         LARGE_SEMIARC_ANGVELO, 0, TURN_CLOCKWISE);
                  nprog_ = 1;
              }
@@ -226,13 +226,13 @@ void EnemyDuna::processBehavior() {
          case PROG_MOVE_REV_LARGE_SEMIARC_CCW: {  //‡C
              if (pProg->isJustChanged()) {
                  //‚Ü‚¸ŠJŽnó‘Ô‚Ì^— •ûŒü‚ÉŒü‚­
-                 pKuroko->turnRzMvAngTo(pKuroko->_angRzMv + D180ANG,
+                 pKuroko->turnRzMvAngTo(pKuroko->_ang_rz_mv + D180ANG,
                                         REV_TURN_ANGVELO, 0, TURN_CLOSE_TO);
                  nprog_ = 0;
              }
              if (nprog_ == 0 && !pKuroko->isTurningMvAng()) {
                  //‰~ŒÊˆÚ“®
-                 pKuroko->turnRzMvAngTo(pKuroko->_angRzMv + SEMIARC_ANG,
+                 pKuroko->turnRzMvAngTo(pKuroko->_ang_rz_mv + SEMIARC_ANG,
                                         LARGE_SEMIARC_ANGVELO, 0, TURN_COUNTERCLOCKWISE);
                  nprog_ = 1;
              }
@@ -259,7 +259,7 @@ void EnemyDuna::processBehavior() {
 
          case PROG_MOVE_ORDER_SMALL_SEMIARC_CW: {  //‡D
              if (pProg->isJustChanged()) {
-                 pKuroko->turnRzMvAngTo(pKuroko->_angRzMv - SEMIARC_ANG,
+                 pKuroko->turnRzMvAngTo(pKuroko->_ang_rz_mv - SEMIARC_ANG,
                                         SMALL_SEMIARC_ANGVELO, 0, TURN_CLOCKWISE);
              }
              if (!pKuroko->isTurningMvAng()) {
@@ -281,7 +281,7 @@ void EnemyDuna::processBehavior() {
          case PROG_MOVE_ORDER_SMALL_SEMIARC_CCW: { //‡E
              if (pProg->isJustChanged()) {
                  //‰~ŒÊˆÚ“®
-                 pKuroko->turnRzMvAngTo(pKuroko->_angRzMv + SEMIARC_ANG,
+                 pKuroko->turnRzMvAngTo(pKuroko->_ang_rz_mv + SEMIARC_ANG,
                                         SMALL_SEMIARC_ANGVELO, 0, TURN_COUNTERCLOCKWISE);
              }
              if (!pKuroko->isTurningMvAng()) {
@@ -302,13 +302,13 @@ void EnemyDuna::processBehavior() {
          case PROG_MOVE_REV_SMALL_SEMIARC_CW: {  //‡F
              if (pProg->isJustChanged()) {
                  //‚Ü‚¸ŠJŽnó‘Ô‚Ì^— •ûŒü‚ÉŒü‚­
-                 pKuroko->turnRzMvAngTo(pKuroko->_angRzMv - D180ANG,
+                 pKuroko->turnRzMvAngTo(pKuroko->_ang_rz_mv - D180ANG,
                                         REV_TURN_ANGVELO, 0, TURN_CLOSE_TO);
                  nprog_ = 0;
              }
              if (nprog_ == 0 && !pKuroko->isTurningMvAng()) {
                  //‰~ŒÊˆÚ“®
-                 pKuroko->turnRzMvAngTo(pKuroko->_angRzMv - SEMIARC_ANG,
+                 pKuroko->turnRzMvAngTo(pKuroko->_ang_rz_mv - SEMIARC_ANG,
                                         SMALL_SEMIARC_ANGVELO, 0, TURN_CLOCKWISE);
                  nprog_ = 1;
              }
@@ -330,13 +330,13 @@ void EnemyDuna::processBehavior() {
          case PROG_MOVE_REV_SMALL_SEMIARC_CCW: {  //‡G
              if (pProg->isJustChanged()) {
                  //‚Ü‚¸ŠJŽnó‘Ô‚Ì^— •ûŒü‚ÉŒü‚­
-                 pKuroko->turnRzMvAngTo(pKuroko->_angRzMv + D180ANG,
+                 pKuroko->turnRzMvAngTo(pKuroko->_ang_rz_mv + D180ANG,
                                         REV_TURN_ANGVELO, 0, TURN_CLOSE_TO);
                  nprog_ = 0;
              }
              if (nprog_ == 0 && !pKuroko->isTurningMvAng()) {
                  //‰~ŒÊˆÚ“®
-                 pKuroko->turnRzMvAngTo(pKuroko->_angRzMv + SEMIARC_ANG,
+                 pKuroko->turnRzMvAngTo(pKuroko->_ang_rz_mv + SEMIARC_ANG,
                                         SMALL_SEMIARC_ANGVELO, 0, TURN_COUNTERCLOCKWISE);
                  nprog_ = 1;
              }

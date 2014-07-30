@@ -9,9 +9,9 @@ using namespace GgafDxCore;
 
 GgafDxColorist::GgafDxColorist(GgafDxDrawableActor* prm_pActor) : GgafValueTransitioner<float, 3 > (),
 _pActor(prm_pActor) {
-    _apDiffuse[0] = &(prm_pActor->_paMaterial[0].Diffuse.r);
-    _apDiffuse[1] = &(prm_pActor->_paMaterial[0].Diffuse.g);
-    _apDiffuse[2] = &(prm_pActor->_paMaterial[0].Diffuse.b);
+    _pa_diffuse[0] = &(prm_pActor->_paMaterial[0].Diffuse.r);
+    _pa_diffuse[1] = &(prm_pActor->_paMaterial[0].Diffuse.g);
+    _pa_diffuse[2] = &(prm_pActor->_paMaterial[0].Diffuse.b);
     forceRange(0, 1.0);
 }
 
@@ -21,7 +21,7 @@ void GgafDxColorist::reset() {
 }
 
 float GgafDxColorist::getValue(int idx) {
-    return (*(_apDiffuse[idx]));
+    return (*(_pa_diffuse[idx]));
 }
 
 void GgafDxColorist::setValue(int idx, float value) {

@@ -12,8 +12,8 @@ using namespace GgafDxCore;
 GgafDxKurokoAssistantB::GgafDxKurokoAssistantB(GgafDxKuroko* prm_pMaster) : GgafObject(),
         _pMaster(prm_pMaster) {
     for (int ax = 0; ax < 3; ax++) {
-        _smthFaceAng[ax]._velo = _pMaster->_angveloFace[ax];
-        _smthFaceAng[ax]._acce = _pMaster->_angacceFace[ax];
+        _smthFaceAng[ax]._velo = _pMaster->_angvelo_face[ax];
+        _smthFaceAng[ax]._acce = _pMaster->_angacce_face[ax];
     }
 }
 
@@ -35,8 +35,8 @@ void GgafDxKurokoAssistantB::turnFaceAngByDt(
                         bool prm_endacc_flg ) {
 
     _smthFaceAng[prm_axis]._value = 0;
-    _smthFaceAng[prm_axis]._velo = _pMaster->_angveloFace[prm_axis];
-    _smthFaceAng[prm_axis]._acce = _pMaster->_angacceFace[prm_axis];
+    _smthFaceAng[prm_axis]._velo = _pMaster->_angvelo_face[prm_axis];
+    _smthFaceAng[prm_axis]._acce = _pMaster->_angacce_face[prm_axis];
     _smthFaceAng[prm_axis].accelerateByDt(prm_angular_distance, prm_target_frames,
                            prm_p1,prm_p2,prm_end_angvelo,
                            prm_endacc_flg);
@@ -48,8 +48,8 @@ void GgafDxKurokoAssistantB::turnFaceAngByVd(
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
         bool prm_endacc_flg) {
     _smthFaceAng[prm_axis]._value = 0;
-    _smthFaceAng[prm_axis]._velo = _pMaster->_angveloFace[prm_axis];
-    _smthFaceAng[prm_axis]._acce = _pMaster->_angacceFace[prm_axis];
+    _smthFaceAng[prm_axis]._velo = _pMaster->_angvelo_face[prm_axis];
+    _smthFaceAng[prm_axis]._acce = _pMaster->_angacce_face[prm_axis];
     _smthFaceAng[prm_axis].accelerateByVd(prm_top_angvelo, prm_angular_distance,
                            prm_p1,prm_p2, prm_end_angvelo,
                            prm_endacc_flg);

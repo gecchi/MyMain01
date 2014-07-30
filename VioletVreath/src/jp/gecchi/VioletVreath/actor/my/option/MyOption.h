@@ -120,24 +120,24 @@ public:
      * @param prm_radiusPosition 自機からの半径を指定
      * @param prm_angPosition 上記半径の円周上においての位置を円周角で指定
      * @param prm_angExpanse 上記の位置でのオプションの「前方」向きを指定。0で正面
-     * @param prm_veloMv 旋回移動速度を指定
+     * @param prm_velo_mv 旋回移動速度を指定
      */
     void config(
             angle prm_radiusPosition,
             angle prm_angPosition,
             angle prm_angExpanse,
-            velo prm_veloMv)
+            velo prm_velo_mv)
     {
         angPosition_ = prm_angPosition;
         angExpanse_ = prm_angExpanse;
-        veloMv_ = prm_veloMv;
+        veloMv_ = prm_velo_mv;
         angPosition_base_ = prm_angPosition;
         radiusPosition_base_ = prm_radiusPosition;
         radiusPosition_ = radiusPosition_base_;
         radiusPosition_stopping_ = radiusPosition_base_;
         radiusPosition_velo_ = 3000 * (radiusPosition_base_/60000);
         angExpanse_default_ = prm_angExpanse;
-        veloMv_base_ = prm_veloMv;
+        veloMv_base_ = prm_velo_mv;
         reset();
     }
     void onCreateModel() override;

@@ -218,12 +218,12 @@ void SceneProgress::changeNext() {
 
 void SceneProgress::changeDelay(progress prm_progress, frame prm_delay) {
     _progress_next_promise = prm_progress;
-    _count_next_promise = (*_pFrame_counter) + prm_delay;
+    _count_next_promise = (*_p_frame_counter) + prm_delay;
 }
 
 void SceneProgress::update() {
     if (_count_next_promise > 0) {
-        if ((*_pFrame_counter) == _count_next_promise) {
+        if ((*_p_frame_counter) == _count_next_promise) {
             change(_progress_next_promise);
             _progress_next_promise = 0;
             _count_next_promise = 0;

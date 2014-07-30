@@ -15,7 +15,7 @@ class GgafDxColorist : public GgafCore::GgafValueTransitioner<float, 3 > {
 public:
     /** 対象アクター */
     GgafDxDrawableActor* const _pActor;
-    float* _apDiffuse[3];
+    float* _pa_diffuse[3];
 
     enum {
         RED = 0,

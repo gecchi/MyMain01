@@ -20,13 +20,13 @@ public:
     /** [r]BGMと関連付くシーン */
     GgafDxScene* _pDxScene;
     /** [r]フェードターゲットボリュームの配列(添字はチャンネル) */
-    double* _paDouble_target_volume;
+    double* _pa_target_volume;
     /** [r]ボリューム加算値の配列(添字はチャンネル) */
-    double* _paDouble_inc_volume;
+    double* _pa_inc_volume;
     /** [r]現在フェード中か否かの配列(添字はチャンネル) */
-    bool* _paBool_is_fade;
+    bool* _pa_is_fade;
     /** [r]フェード後停止させるのかどうかの配列(添字はチャンネル) */
-    bool* _paBool_is_fadeout_stop;
+    bool* _pa_is_fadeout_stop;
     /** [r/w]デフォルトのフェードイン・フェードアウトの費やすフレーム時間 */
     frame _default_fade;
 

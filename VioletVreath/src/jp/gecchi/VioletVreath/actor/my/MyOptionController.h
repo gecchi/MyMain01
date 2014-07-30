@@ -83,7 +83,7 @@ public:
 
     virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override {}
 
-    //void setTerget(angle prm_angRz_Target, angle prm_angRy_Target);
+    //void setTerget(angle prm_ang_rz_target, angle prm_ang_ry_target);
 
     static void setNumOption(int prm_num);
 

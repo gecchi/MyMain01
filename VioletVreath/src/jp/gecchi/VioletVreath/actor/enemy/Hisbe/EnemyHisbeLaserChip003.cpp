@@ -54,7 +54,7 @@ void EnemyHisbeLaserChip003::processBehavior() {
         pKuroko->setMvVelo(pKurokoLeader_->getSegmentDistance(sp_index_));
         sp_index_++;
     }
-    //pKurokoLeader_->behave(); 内部で pKuroko->_veloMv を参照し次フレーム数決定してるので、
+    //pKurokoLeader_->behave(); 内部で pKuroko->_velo_mv を参照し次フレーム数決定してるので、
     //１フレームで次の点に到達するべく、pKurokoLeader_->behave(); の前に pKuroko->setMvVelo() で設定しなければいけない。
     pKurokoLeader_->behave();
     pKuroko->behave();

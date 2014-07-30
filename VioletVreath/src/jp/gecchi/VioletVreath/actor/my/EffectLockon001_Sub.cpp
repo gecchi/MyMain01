@@ -60,7 +60,7 @@ void EffectLockon001_Sub::processBehavior() {
         }
         //k¬Š®—¹ŒãAMain‚Ìƒr[ƒg‚É‡‚í‚¹‚é
         _sx = _sy = _sz = pEffectLockon001_Main_->_sx;
-        pKuroko->_angveloFace[AXIS_Z] = pEffectLockon001_Main_->getKuroko()->_angveloFace[AXIS_Z];
+        pKuroko->_angvelo_face[AXIS_Z] = pEffectLockon001_Main_->getKuroko()->_angvelo_face[AXIS_Z];
         if (pTarget_) {
             if (pTarget_->isActiveInTheTree() || pTarget_->_will_activate_after_flg) {
                 if (ABS(pTarget_->_x-_x) <= PX_C(200) &&
@@ -84,7 +84,7 @@ void EffectLockon001_Sub::processBehavior() {
         pTarget_ = nullptr;
         addAlpha(-0.05);
         _sx = _sy = _sz = pEffectLockon001_Main_->_sx;
-        pKuroko->_angveloFace[AXIS_Z] = pEffectLockon001_Main_->getKuroko()->_angveloFace[AXIS_Z];
+        pKuroko->_angvelo_face[AXIS_Z] = pEffectLockon001_Main_->getKuroko()->_angvelo_face[AXIS_Z];
         if ( getAlpha() < 0.0f) {
             inactivate();
         }
@@ -123,7 +123,7 @@ void EffectLockon001_Sub::releaseLockon() {
         GgafDxKuroko* pKuroko = getKuroko();
         GgafProgress* pProg = getProgress();
         if (pProg->get() == LOCKON001_PROG_LOCK) {
-            pKuroko->setFaceAngVelo(AXIS_Z, pKuroko->_angveloFace[AXIS_Z]*-3); //‘¬‚­‹t‰ñ“]
+            pKuroko->setFaceAngVelo(AXIS_Z, pKuroko->_angvelo_face[AXIS_Z]*-3); //‘¬‚­‹t‰ñ“]
             pProg->change(LOCKON001_PROG_RELEASE);
         } else if (pProg->get() == LOCKON001_PROG_RELEASE) {
             //‰½‚à–³‚µ

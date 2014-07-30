@@ -30,11 +30,11 @@ class GgafDxKuroko : public GgafCore::GgafObject {
 
 private:
     /** [r]黒衣の助手A(移動速度の補佐) */
-    GgafDxKurokoAssistantA* _pHlprA;
+    GgafDxKurokoAssistantA* _pAsstA;
     /** [r]黒衣の助手B(軸回転方角角速度の補佐) */
-    GgafDxKurokoAssistantB* _pHlprB;
+    GgafDxKurokoAssistantB* _pAsstB;
     /** [r]黒衣の助手C(移動方角角速度の補佐) */
-    GgafDxKurokoAssistantC* _pHlprC;
+    GgafDxKurokoAssistantC* _pAsstC;
 
 public:
     /** [r]対象アクター */
@@ -68,27 +68,27 @@ public:
 
 public: //_rx , _ry, _rz 操作関連 //////////////////////////////////////////////
     /** [r]対象キャラの向き(_rx, _ry, _rz)への参照 */
-    angle* _apActorFaceAng[3];
+    angle* _actor_ang_face[3];
     /** [r/w]軸回転方角の角速度（軸回転方角に毎フレーム加算する方角） */
-    angvelo _angveloFace[3];
+    angvelo _angvelo_face[3];
     /** [r/w]軸回転方角の角速度上限(最高値は360,000) */
-    angvelo _angveloTopFace[3];
+    angvelo _top_angvelo_face[3];
     /** [r/w]軸回転方角の角速度下限(最高値は-360,000) */
-    angvelo _angveloBottomFace[3];
+    angvelo _bottom_angvelo_face[3];
     /** [r/w]軸回転方角の角加速度（角速度に毎フレーム加算する値） */
-    angacce _angacceFace[3];
+    angacce _angacce_face[3];
     /** [r/w]軸回転方角の角躍度（角加速度に毎フレーム加算する値） */
-    angjerk _angjerkFace[3];
+    angjerk _angjerk_face[3];
     /** [r/w]目標の軸回転方角自動向き有効フラグ */
-    bool _face_ang_targeting_flg[3];
+    bool _is_targeting_ang_face[3];
     /** [r/w]目標の軸回転方角自動停止機能有効フラグ */
-    bool _face_ang_targeting_stop_flg[3];
+    bool _ang_face_targeting_stop_flg[3];
     /** [r/w]目標とするキャラの軸回転方角の方角(0～360,000) */
-    angle _angTargetFace[3];
+    angle _target_ang_face[3];
     /** [r/w]目標の軸回転方角自動停止機能が有効になる回転方向 */
-    int _face_ang_target_allow_way[3]; //TURN_CLOCKWISE or TURN_COUNTERCLOCKWISE or TURN_BOTH
+    int _ang_face_stop_allow_way[3]; //TURN_CLOCKWISE or TURN_COUNTERCLOCKWISE or TURN_BOTH
     /** [r/w]目標の軸回転方角自動停止機能が有効になる角速度（回転正負共通） */
-    angvelo _face_ang_target_allow_velo[3]; //この角速度より小さい値の場合機能有効とするz
+    angvelo _ang_face_stop_allow_angvelo[3]; //この角速度より小さい値の場合機能有効とするz
 
 public:
     void setMvAngByFaceAng() {
@@ -102,14 +102,14 @@ public:
      * 内部的には、addFaceAng(prm_axis, int) が毎フレーム行われる仕組みです。<BR>
      * 目標の回転方角に到達したならば、この目標の軸回転方角自動停止機能は解除(内部のフラグをアンセット)されます。<BR>
      * @param   prm_axis    回転軸（AXIS_X / AXIS_Y / AXIS_Z)
-     * @param   prm_angTargetRot    到達目標の回転方角(0～360,000)
+     * @param   prm_ang_target    到達目標の回転方角(0～360,000)
      * @param   prm_way_allow  自動停止を許可する進入方向(TURN_CLOCKWISE/TURN_COUNTERCLOCKWISE/TURN_BOTH)
-     * @param   prm_angveloAllow 自動停止機能が有効になる回転角速度
+     * @param   prm_angvelo_allow 自動停止機能が有効になる回転角速度
      */
     void setStopTargetFaceAng(axis prm_axis,
-                              angle prm_angTargetRot,
+                              angle prm_ang_target,
                               int prm_way_allow = TURN_BOTH,
-                              angvelo prm_angveloAllow = D360ANG);
+                              angvelo prm_angvelo_allow = D360ANG);
 
     /**
      * Actorの目標回転方向自動停止機能を有効(現在XY座標からの対象XY座標で設定)<BR>
@@ -117,38 +117,38 @@ public:
      * @param   prm_tx  対象X座標
      * @param   prm_ty  対象Y座標
      * @param   prm_way_allow  自動停止機能が有効になる回転方向
-     * @param   prm_angveloAllowRyMv 自動停止機能が有効になる回転角速度
+     * @param   prm_angvelo_allow 自動停止機能が有効になる回転角速度
      */
     void setStopTargetFaceAngTwd(axis prm_axis,
                                  coord prm_tx,
                                  coord prm_ty,
                                  int prm_way_allow = TURN_BOTH,
-                                 angvelo prm_angveloAllowRyMv = D360ANG);
+                                 angvelo prm_angvelo_allow = D360ANG);
     /**
      * 軸回転方角の角速度（軸回転方角に毎フレーム加算する値）を設定 .
      * @param prm_axis 回転軸（AXIS_X / AXIS_Y / AXIS_Z)
-     * @param prm_angveloRot 角速度
+     * @param prm_angvelo 角速度
      */
-    void setFaceAngVelo(axis prm_axis, angvelo prm_angveloRot);
+    void setFaceAngVelo(axis prm_axis, angvelo prm_angvelo);
 
     /**
      * 軸回転方角の角速度（軸回転方角に毎フレーム加算する値）を設定 .
-     * @param prm_axis_x_angveloRot X軸回転の角速度
-     * @param prm_axis_y_angveloRot Y軸回転の角速度
-     * @param prm_axis_z_angveloRot Z軸回転の角速度
+     * @param prm_axis_x_angvelo X軸回転の角速度
+     * @param prm_axis_y_angvelo Y軸回転の角速度
+     * @param prm_axis_z_angvelo Z軸回転の角速度
      */
-    void setFaceAngVelo(angvelo prm_axis_x_angveloRot,
-                        angvelo prm_axis_y_angveloRot,
-                        angvelo prm_axis_z_angveloRot);
+    void setFaceAngVelo(angvelo prm_axis_x_angvelo,
+                        angvelo prm_axis_y_angvelo,
+                        angvelo prm_axis_z_angvelo);
 
     void forceFaceAngVeloRange(axis prm_axis,
-                               angvelo prm_angveloRot01,
-                               angvelo prm_angveloRot02);
+                               angvelo prm_angvelo01,
+                               angvelo prm_angvelo02);
 
-    void setFaceAngAcce(axis prm_axis, angacce prm_angacceRot);
+    void setFaceAngAcce(axis prm_axis, angacce prm_angacce);
     angle getFaceAngDistance(axis prm_axis, coord prm_tx, coord prm_ty, int prm_way);
 
-    angle getFaceAngDistance(axis prm_axis, angle prm_angTargetRot, int prm_way);
+    angle getFaceAngDistance(axis prm_axis, angle prm_ang_target, int prm_way);
 
     ////////////////////////////////////////////////////MOVER
 
@@ -156,63 +156,63 @@ public: //_x, _y, _z 操作関連 //////////////////////////////////////////////
     /** [r]キャラの移動方角単位ベクトル */
     float _vX, _vY, _vZ;
     /** [r/w]移動方角のZ軸回転角 */
-    angle _angRzMv;
+    angle _ang_rz_mv;
     /** [r/w]移動方角のY軸回転角 */
-    angle _angRyMv;
+    angle _ang_ry_mv;
     /** [r/w]移動速度 */
-    velo _veloMv;
+    velo _velo_mv;
     /** [r/w]移動速度上限 */
-    velo _veloTopMv;
+    velo _top_velo_mv;
     /** [r/w]移動速度下限 */
-    velo _veloBottomMv;
+    velo _bottom_velo_mv;
     /** [r/w]移動加速度 */
-    acce _accMv;
+    acce _acc_mv;
 
     /** [r/w]移動方角（Z軸回転）の角速度（移動方角（Z軸回転）に毎フレーム加算する方角） */
-    angvelo _angveloRzMv;
+    angvelo _angvelo_rz_mv;
     /** [r/w]移動方角（Z軸回転）の角速度上限(最高値は360,000) */
-    angvelo _angveloRzTopMv;
+    angvelo _top_angvelo_rz_mv;
     /** [r/w]移動方角（Z軸回転）の角速度下限(最高値は-360,000) */
-    angvelo _angveloRzBottomMv;
+    angvelo _bottom_angvelo_rz_mv;
     /** [r/w]移動方角（Z軸回転）の角加速度（角速度に毎フレーム加算する値） */
-    angacce _angacceRzMv;
+    angacce _angacce_rz_mv;
     /** [r/w]移動方角（Z軸回転）の角躍度（角加速度に毎フレーム加算する値） */
-    angjerk _angjerkRzMv;
+    angjerk _angjerk_rz_mv;
     /** [r/w]目標の移動方角（Z軸回転）向き有効フラグ */
-    bool _mv_ang_rz_target_flg;
+    bool _is_targeting_ang_rz_mv;
     /** [r/w]目標の移動方角（Z軸回転）自動停止機能有効フラグ */
-    bool _mv_ang_rz_target_stop_flg;
+    bool _ang_rz_mv_targeting_stop_flg;
     /** 目標とするキャラの移動方角（Z軸回転）の方角(0～360,000) */
-    angle _angTargetRzMv;
+    angle _target_ang_rz_mv;
     /** [r/w]目標の移動方角（Z軸回転）自動停止機能が有効になる進入回転方向 */
-    int _mv_ang_rz_target_allow_way; //TURN_CLOCKWISE or TURN_COUNTERCLOCKWISE or TURN_BOTH
+    int _ang_rz_mv_stop_allow_way; //TURN_CLOCKWISE or TURN_COUNTERCLOCKWISE or TURN_BOTH
     /** [r/w]目標の移動方角（Z軸回転）自動停止機能が有効になる移動方角角速度 */
-    angvelo _mv_ang_rz_target_allow_velo;
+    angvelo _ang_rz_mv_stop_allow_angvelo;
     /** [r/w]自動前方向き機能有効フラグ */
     bool _relate_RzFaceAng_with_RzMvAng_flg;
     //true  : 移動方角（Z軸回転）を変更すると、それに伴い同じ方角が軸回転方角(Z軸)にも設定される
     //false : 移動方角（Z軸回転）とZ軸軸回転方角は独立
 
     /** [r/w]移動方角（Y軸回転）の角速度（移動方角（Y軸回転）に毎フレーム加算する方角） */
-    angvelo _angveloRyMv;
+    angvelo _angvelo_ry_mv;
     /** [r/w]移動方角（Y軸回転）の角速度上限(最高値は360,000) */
-    angvelo _angveloRyTopMv;
+    angvelo _top_angvelo_ry_mv;
     /** [r/w]移動方角（Y軸回転）の角速度下限(最高値は-360,000) */
-    angvelo _angveloRyBottomMv;
+    angvelo _bottom_angvelo_ry_mv;
     /** [r/w]移動方角（Y軸回転）の角加速度（角速度に毎フレーム加算する値） */
-    angacce _angacceRyMv;
+    angacce _angacce_ry_mv;
     /** [r/w]移動方角（Y軸回転）の角躍度（角加速度に毎フレーム加算する値） */
-    angjerk _angjerkRyMv;
+    angjerk _angjerk_ry_mv;
     /** [r/w]目標の移動方角（Y軸回転）自動向き有効フラグ */
-    bool _mv_ang_ry_target_flg;
+    bool _is_targeting_ang_ry_mv;
     /** [r/w]目標の移動方角（Y軸回転）自動停止機能有効フラグ */
-    bool _mv_ang_ry_target_stop_flg;
+    bool _ang_ry_mv_targeting_stop_flg;
     /** [r/w]目標とするキャラの移動方角（Y軸回転）の方角(0～360,000) */
-    angle _angTargetRyMv;
+    angle _target_ang_ry_mv;
     /** [r/w]目標の移動方角（Y軸回転）自動停止機能が有効になる進入回転方向 */
-    int _mv_ang_ry_target_allow_way; //TURN_CLOCKWISE or TURN_COUNTERCLOCKWISE or TURN_BOTH
+    int _ang_ry_mv_stop_allow_way; //TURN_CLOCKWISE or TURN_COUNTERCLOCKWISE or TURN_BOTH
     /** [r/w]目標の移動方角（Y軸回転）自動停止機能が有効になる移動方角角速度 */
-    angvelo _mv_ang_ry_target_allow_velo;
+    angvelo _ang_ry_mv_stop_allow_angvelo;
     /** [r/w]自動前方向き機能有効フラグ */
     bool _relate_RyFaceAng_with_RyMvAng_flg;
     //true  : 移動方角（Y軸回転）を変更すると、それに伴い同じ方角が軸回転方角(Y軸)にも設定される
@@ -231,37 +231,37 @@ public: //_x, _y, _z 操作関連 //////////////////////////////////////////////
 public:
     /**
      * 移動速度を設定 .
-     * @param   prm_veloMv  移動速度
+     * @param   prm_velo_mv  移動速度
      */
-    void setMvVelo(velo prm_veloMv);
+    void setMvVelo(velo prm_velo_mv);
 
     /**
      * 移動速度を加算 .
-     * @param prm_veloMv_Offset 加算移動速度
+     * @param prm_velo_mv_Offset 加算移動速度
      */
-    void addMvVelo(velo prm_veloMv_Offset);
+    void addMvVelo(velo prm_velo_mv_Offset);
 
     /**
      * 移動速度の上限下限を設定し、移動速度の範囲を制限する .
      * 引数の移動速度１、移動速度２の大小はどちらでもかまわない。（内部で判定する）
-     * @param prm_veloMv01  移動速度１
-     * @param prm_veloMv02  移動速度２
+     * @param prm_velo_mv01  移動速度１
+     * @param prm_velo_mv02  移動速度２
      */
-    void forceMvVeloRange(velo prm_veloMv01, velo prm_veloMv02);
+    void forceMvVeloRange(velo prm_velo_mv01, velo prm_velo_mv02);
 
     /**
      * 移動速度の上限下限を設定し、移動速度の範囲を制限する .
-     * 上限下限値は、-prm_veloMv ～ prm_veloMv の範囲になる。
-     * @param prm_veloMv 移動速度
+     * 上限下限値は、-prm_velo_mv ～ prm_velo_mv の範囲になる。
+     * @param prm_velo_mv 移動速度
      */
-    void forceMvVeloRange(velo prm_veloMv);
+    void forceMvVeloRange(velo prm_velo_mv);
 
     /**
      * 現在の移動速度を取得 .
      * @return 現在の移動速度
      */
     inline velo getMvVelo() {
-        return _veloMv;
+        return _velo_mv;
     }
 
     /**
@@ -269,7 +269,7 @@ public:
      * @return 上限移動速度
      */
     inline velo getMvVeloTop() {
-        return _veloTopMv;
+        return _top_velo_mv;
     }
 
     /**
@@ -277,21 +277,21 @@ public:
      * @return 下限移動速度
      */
     inline velo getMvVeloBottom() {
-        return _veloBottomMv;
+        return _bottom_velo_mv;
     }
 
     /**
      * 現在の移動速度を上限移動速度に更新 .
      */
     inline void setMvVeloTop() {
-        _veloMv = _veloTopMv;
+        _velo_mv = _top_velo_mv;
     }
 
     /**
      * 現在の移動速度を下限移動速度に更新 .
      */
     inline void setMvVeloBottom() {
-        _veloMv = _veloBottomMv;
+        _velo_mv = _bottom_velo_mv;
     }
 
     /**
@@ -305,9 +305,9 @@ public:
      * <pre><code>
      *
      *    速度(v)
-     *     ^       a:減加速度（_accMv に設定される）
+     *     ^       a:減加速度（_acc_mv に設定される）
      *     |       D:停止までの移動距離（引数）
-     *     |      V0:現時点の速度（= 現在の _veloMv が使用される）
+     *     |      V0:現時点の速度（= 現在の _velo_mv が使用される）
      *   V0|      Te:停止するフレーム （戻り値）
      *     |＼
      *     |  ＼
@@ -318,7 +318,7 @@ public:
      *   0 |          Te
      *
      * </code></pre>
-     * 上図のような状態を想定し、引数の距離(D)から、加速度(a)を計算し _accMv 設定している。<BR>
+     * 上図のような状態を想定し、引数の距離(D)から、加速度(a)を計算し _acc_mv 設定している。<BR>
      * 停止までのフレーム(Te) は 距離(D) により変化するため指定不可。<BR>
      * @param prm_target_distance 停止時移動距離(D)
      * @return 必要な時間フレーム(Te)。参考値にどうぞ。
@@ -340,9 +340,9 @@ public:
      * <pre><code>
      *
      *    速度(v)
-     *     ^        a:加速度（_accMv に設定される）
+     *     ^        a:加速度（_acc_mv に設定される）
      *     |        D:移動距離（引数）
-     *     |       V0:現時点の速度（= 現在の _veloMv が使用される）
+     *     |       V0:現時点の速度（= 現在の _velo_mv が使用される）
      *     |       Vt:目標到達速度（引数）
      *     |       Te:目標到達速度に達した時の時間（戻り値）
      *   Vt|........
@@ -356,7 +356,7 @@ public:
      *   0 |        Te
      *
      * </code></pre>
-     * 上図のような状態を想定し、目標到達速度(Vt)と、移動距離(D)から、加速度(a)を計算し _accMv に設定している。<BR>
+     * 上図のような状態を想定し、目標到達速度(Vt)と、移動距離(D)から、加速度(a)を計算し _acc_mv に設定している。<BR>
      * 目標到達まで必要なフレーム(Te) はパラメータにより変化するため指定不可。<BR>
      * 捕捉：setMvAcceByD(0, D) は setMvAcceToStop(D) と同じである
      * @param prm_target_distance  目標到達速度に達するまでに費やす距離(D)
@@ -379,9 +379,9 @@ public:
      * <pre><code>
      *
      *    速度(v)
-     *     ^        a:加速度（_accMv に設定される)
+     *     ^        a:加速度（_acc_mv に設定される)
      *     |        D:移動距離 （戻り値）
-     *     |       V0:現時点の速度（= 現在の _veloMv が使用される）
+     *     |       V0:現時点の速度（= 現在の _velo_mv が使用される）
      *     |       Vt:目標到達速度（引数）
      *     |       Te:目標到達速度に達した時の時間（引数）
      *   Vt|........
@@ -426,13 +426,13 @@ public:
     /**
      * 現在の Actor の移動方角（Z軸回転）へ加算（負で減算）。<BR>
      *
-     * 引数に渡すのは、移動方角（Z軸回転）の増分です。Actorの移動方角（Z軸回転）（_angRzMv）を相対指定でるメソッドです。<BR>
+     * 引数に渡すのは、移動方角（Z軸回転）の増分です。Actorの移動方角（Z軸回転）（_ang_rz_mv）を相対指定でるメソッドです。<BR>
      * 加算後の移動方角（Z軸回転）が範囲外（0～360,000 以外）の値になっても、最終的には setRzMvAng(int) を呼び出しますので<BR>
      * 正しい 0～360,000 の範囲内の値に再設定されます。<BR>
      * 引数である加算（減算）する移動方角（Z軸回転）は、Z軸移動加速度の上限と下限の間の範囲に限ります。<BR>
      * つまり、引数の有効な範囲は以下の通りとなります。<BR>
      *
-     *   _angveloRzBottomMv ≦ 引数の動方角増分 ≦ _angveloRzTopMv  です。<BR>
+     *   _bottom_angvelo_rz_mv ≦ 引数の動方角増分 ≦ _top_angvelo_rz_mv  です。<BR>
      *
      * もし範囲外の引数の移動方角（Z軸回転）増分を指定した場合は、直近の範囲内の値に強制的に抑えられ、その値が加算されます。<BR>
      * また、自動前方向き機能が有効(_relate_RzFaceAng_with_RzMvAng_flg)の場合、<BR>
@@ -442,48 +442,48 @@ public:
      * 本メソッド毎フレーム実行することでXY平面の円運動が可能になります。<BR>
      * 引数の移動方角（Z軸回転）が、数直線上の 0 に、より近い値を加算し続けた場合は、緩やかなカーブ描きながら向転換することを意味します。<BR>
      * 逆に、引数の移動方角（Z軸回転）が、0 から、より離れた値を加算し続けた場合は、より鋭角的なカーブ描きながら向転換することを意味します。<BR>
-     * デフォルトのZ軸移動加速度の上限と下限（_angveloRzBottomMv、_angveloRzTopMv) は  -360000 , 360000<BR>
+     * デフォルトのZ軸移動加速度の上限と下限（_bottom_angvelo_rz_mv、_top_angvelo_rz_mv) は  -360000 , 360000<BR>
      * となっています。これは瞬時に（1フレームで）どんな移動方角（Z軸回転）にも向きを変えれることを意味します。<BR>
      *
-     * @param   prm_angDistance 移動方角（Z軸回転）増分(範囲：_angveloRzBottomMv ～ _angveloRzTopMv)
+     * @param   prm_angDistance 移動方角（Z軸回転）増分(範囲：_bottom_angvelo_rz_mv ～ _top_angvelo_rz_mv)
      */
     void addRzMvAng(angle prm_angDistance);
 
     /**
      * Actorの目標の移動方角（Z軸回転）自動停止機能を有効(目標の移動方角（Z軸回転）設定)<BR>
      * 引数に設定された移動方角（Z軸回転）になるまで、移動方角（Z軸回転）を加算(減算)を毎フレーム行い続けます。<BR>
-     * 加算か減算かは、移動方角（Z軸回転）の角速度（_angveloRzMv）の正負で決定されます。<BR>
+     * 加算か減算かは、移動方角（Z軸回転）の角速度（_angvelo_rz_mv）の正負で決定されます。<BR>
      * <B>移動方角（Z軸回転）の角速度が 0 ならば、何も起こりません。</B>動作させるには、角速度が必要です。<BR>
      * 内部的には、addRzMvAng(int) が毎フレーム行われる仕組みです。(this->behave()で実行)<BR>
      * 目標の移動方角（Z軸回転）に到達したならば、この目標の移動方角（Z軸回転）自動停止機能は解除されます。<BR>
      *
-     * @param   prm_angRzMv 到達目標の移動方角（Z軸回転）(-360,000～360,000)
+     * @param   prm_target_ang_rz_mv 到達目標の移動方角（Z軸回転）(-360,000～360,000)
      * @param   prm_way_allow  自動停止機能が有効になる進入回転方向
-     * @param   prm_angveloAllowRyMv 停止機能が有効になる移動方角角速度(これ以上の角速度の場合は停止しません)
+     * @param   prm_angvelo_allow 停止機能が有効になる移動方角角速度(これ以上の角速度の場合は停止しません)
      */
-    void setStopTargetRzMvAng(angle prm_angRzMv,
+    void setStopTargetRzMvAng(angle prm_target_ang_rz_mv,
                               int prm_way_allow = TURN_BOTH,
-                              angvelo prm_angveloAllowRyMv = D360ANG);
+                              angvelo prm_angvelo_allow = D360ANG);
 
-    void setRzMvAngVelo(angvelo prm_angveloRzMv);
+    void setRzMvAngVelo(angvelo prm_angvelo_rz_mv);
 
-    void forceRzMvAngVeloRange(angvelo prm_angveloRzMv01, angvelo prm_angveloRzMv02);
+    void forceRzMvAngVeloRange(angvelo prm_angvelo_rz_mv01, angvelo prm_angvelo_rz_mv02);
 
-    void setRzMvAngAcce(angacce prm_angacceRzMv);
+    void setRzMvAngAcce(angacce prm_angacce_rz_mv);
 
     angle getRzMvAngDistanceTwd(coord prm_tx, coord prm_ty, int prm_way);
 
     /**
-     * 自身の移動方角のZ軸回転角( _angRzMv )と、ターゲットの回転角との差分を取得.
+     * 自身の移動方角のZ軸回転角( _ang_rz_mv )と、ターゲットの回転角との差分を取得.
      * TURN_COUNTERCLOCKWISE ・・・回転方向が左回りで差異角取得、正の値で返る。
      * TURN_CLOCKWISE        ・・・回転方向が右回りで差異角取得、負の値に返る。
      * TURN_CLOSE_TO         ・・・ターゲットの回転角と距離が近い方の回転方向で取得、正又は負の値になる。
      * TURN_ANTICLOSE_TO     ・・・ターゲットの回転角と距離が遠い方の回転方向で取得、正又は負の値になる。
-     * @param prm_angTargetRzMv ターゲット角の値
+     * @param prm_target_ang_rz_mv ターゲット角の値
      * @param prm_way TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      * @return
      */
-    angle getRzMvAngDistance(angle prm_angTargetRzMv, int prm_way);
+    angle getRzMvAngDistance(angle prm_target_ang_rz_mv, int prm_way);
 
     /**
      * Actorの移動方角（Y軸回転）を設定。<BR>
@@ -497,13 +497,13 @@ public:
     /**
      * 現在の Actor の移動方角（Y軸回転）へ加算（負で減算）。<BR>
      *
-     * 引数に渡すのは、移動方角（Y軸回転）の増分です。Actorの移動方角（Y軸回転）（_angRyMv）を相対指定でるメソッドです。<BR>
+     * 引数に渡すのは、移動方角（Y軸回転）の増分です。Actorの移動方角（Y軸回転）（_ang_ry_mv）を相対指定でるメソッドです。<BR>
      * 加算後の移動方角（Y軸回転）が範囲外（0～360,000 以外）の値になっても、最終的には setRyMvAng(int) を呼び出しますので<BR>
      * 正しい 0～360,000 の範囲内の値に再設定されます。<BR>
      * 引数である加算（減算）する移動方角（Y軸回転）は、Y軸移動加速度の上限と下限の間の範囲に限ります。<BR>
      * つまり、引数の有効な範囲は以下の通りとなります。<BR>
      *
-     *   _angveloRyBottomMv ≦ 引数の動方角増分 ≦ _angveloRyTopMv  です。<BR>
+     *   _bottom_angvelo_ry_mv ≦ 引数の動方角増分 ≦ _top_angvelo_ry_mv  です。<BR>
      *
      * もし範囲外の引数の移動方角（Y軸回転）増分を指定した場合は、直近の範囲内の値に強制的に抑えられ、その値が加算されます。<BR>
      * また、自動前方向き機能が有効(_relate_RyFaceAng_with_RyMvAng_flg)の場合、<BR>
@@ -513,13 +513,13 @@ public:
      * 本メソッド毎フレーム実行することでXZ平面の円運動が可能になります。<BR>
      * 引数の移動方角（Y軸回転）が、数直線上の 0 に、より近い値を加算し続けた場合は、緩やかなカーブ描きながら向転換することを意味します。<BR>
      * 逆に、引数の移動方角（Y軸回転）が、0 から、より離れた値を加算し続けた場合は、より鋭角的なカーブ描きながら向転換することを意味します。<BR>
-     * デフォルトのY軸移動加速度の上限と下限（_angveloRyBottomMv、_angveloRyTopMv) は<BR>
+     * デフォルトのY軸移動加速度の上限と下限（_bottom_angvelo_ry_mv、_top_angvelo_ry_mv) は<BR>
      *
      *  -360,000 ≦ 引数の動方角増分 ≦ 360,000<BR>
      *
      * となっています。これは瞬時に（1フレームで）どんな移動方角（Y軸回転）にも向きを変えれることを意味します。<BR>
      *
-     * @param   prm_angDistance 移動方角（Y軸回転）増分(範囲：_angveloRyBottomMv ～ _angveloRyTopMv)
+     * @param   prm_angDistance 移動方角（Y軸回転）増分(範囲：_bottom_angvelo_ry_mv ～ _top_angvelo_ry_mv)
      */
     void addRyMvAng(angle prm_angDistance);
 
@@ -527,54 +527,54 @@ public:
      * Actorの目標のY軸回転移動方角の自動停止機能を有効 .
      * 目標の移動方角（Y軸回転）設定する。<BR>
      * 引数に設定された移動方角（Y軸回転）になるまで、移動方角（Y軸回転）を加算(減算)を毎フレーム行い続けます。<BR>
-     * 加算か減算かは、移動方角（Y軸回転）の角速度（_angveloRyMv）の正負で決定されます。<BR>
+     * 加算か減算かは、移動方角（Y軸回転）の角速度（_angvelo_ry_mv）の正負で決定されます。<BR>
      * <B>移動方角（Y軸回転）の角速度が 0 ならば、何も起こりません。</B>動作させるには、角速度が必要です。<BR>
      * 内部的には、addRyMvAng(int) が毎フレーム行われる仕組みです。(this->behave()で実行)<BR>
      * 目標の移動方角（Y軸回転）に到達したならば、この目標の移動方角（Y軸回転）自動停止機能は解除されます。<BR>
      *
-     * @param   prm_angRyMv 到達目標の移動方角（Y軸回転）(-360,000～360,000)
-     * @param   prm_mv_ang_ry_target_allow_way  自動停止機能が有効になる進入回転方向
-     * @param   prm_angveloAllowRyMv 停止機能が有効になる移動方角角速度(これ以上の角速度の場合は停止しません)
+     * @param   prm_target_ang_ry_mv 到達目標の移動方角（Y軸回転）(-360,000～360,000)
+     * @param   prm_allow_way  自動停止機能が有効になる進入回転方向
+     * @param   prm_angvelo_allow 停止機能が有効になる移動方角角速度(これ以上の角速度の場合は停止しません)
      */
-    void setStopTargetRyMvAng(angle prm_angRyMv,
-                              int prm_mv_ang_ry_target_allow_way = TURN_BOTH,
-                              angvelo prm_angveloAllowRyMv = D360ANG);
+    void setStopTargetRyMvAng(angle prm_target_ang_ry_mv,
+                              int prm_allow_way = TURN_BOTH,
+                              angvelo prm_angvelo_allow = D360ANG);
 
-    void setRyMvAngVelo(angvelo prm_angveloRyMv);
+    void setRyMvAngVelo(angvelo prm_angvelo_ry_mv);
 
-    void forceRyMvAngVeloRange(angvelo prm_angveloRyMv01, angvelo prm_angveloRyMv02);
+    void forceRyMvAngVeloRange(angvelo prm_angvelo_ry_mv01, angvelo prm_angvelo_ry_mv02);
 
-    void setRyMvAngAcce(angacce prm_angacceRyMv);
+    void setRyMvAngAcce(angacce prm_angacce_ry_mv);
 
     angle getRyMvAngDistanceTwd(coord prm_tx, coord prm_ty, int prm_way);
 
-    angle getRyMvAngDistance(angle prm_angTargetRyMv, int prm_way);
+    angle getRyMvAngDistance(angle prm_target_ang_ry_mv, int prm_way);
 
 
-    void forceRzRyMvAngVeloRange(angvelo prm_angveloRzRyMv01, angvelo prm_angveloRzRyMv02);
+    void forceRzRyMvAngVeloRange(angvelo prm_angvelo_rzry_mv01, angvelo prm_angvelo_rzry_mv02);
 
-    void setRzRyMvAngVelo(angvelo prm_angveloRzMv, angvelo prm_angveloRyMv);
+    void setRzRyMvAngVelo(angvelo prm_angvelo_rz_mv, angvelo prm_angvelo_ry_mv);
 
-    void setRzRyMvAngAcce(angacce prm_angacceRzMv, angacce prm_angacceRyMv);
+    void setRzRyMvAngAcce(angacce prm_angacce_rz_mv, angacce prm_angacce_ry_mv);
 
 
     /**
-     * 自身の移動方角のZ軸Y軸回転角(_angRzMv, _angRyMv)と、ターゲットの回転角との最適な差分を取得 .
+     * 自身の移動方角のZ軸Y軸回転角(_ang_rz_mv, _ang_ry_mv)と、ターゲットの回転角との最適な差分を取得 .
      * 同じ方向を意味するもう一組の RzRy までの距離を割り出し、<BR>
      * 到達アングル数の少ない方の RzRy の組み合わせを自動採用する。<BR>
      * (注意：極地Y軸回転があるため、最小アングル差は必ずしも最短距離にあらず)<BR>
      * 所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は<BR>
      * 引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
      * 一致しないことが困る場合は、Z軸Y軸個別に距離を求めて下さい。<BR>
-     * @param prm_target_angRz
-     * @param prm_target_angRy
+     * @param prm_target_ang_rz
+     * @param prm_target_ang_ry
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
-     * @param out_d_angRz
-     * @param out_d_angRy
+     * @param out_d_ang_rz
+     * @param out_d_ang_ry
      */
-    void getRzRyMvAngDistanceTwd(angle prm_target_angRz, angle prm_target_angRy,int prm_way,
-                                 angle& out_d_angRz, angle& out_d_angRy);
+    void getRzRyMvAngDistanceTwd(angle prm_target_ang_rz, angle prm_target_ang_ry,int prm_way,
+                                 angle& out_d_ang_rz, angle& out_d_ang_ry);
 
     /**
      * 自身の軸回転方角のZ軸Y軸回転角(_angFace[AXIS_Z], _angFace[AXIS_Y])と、ターゲットの回転角との最適な差分を取得 .
@@ -584,28 +584,28 @@ public:
      * 所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は<BR>
      * 引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
      * 一致しないことが困る場合は、Z軸Y軸個別に距離を求めて下さい。<BR>
-     * @param prm_target_angRz
-     * @param prm_target_angRy
+     * @param prm_target_ang_rz
+     * @param prm_target_ang_ry
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
-     * @param out_d_angRz
-     * @param out_d_angRy
+     * @param out_d_ang_rz
+     * @param out_d_ang_ry
      */
-    void getRzRyFaceAngDistanceTwd(angle prm_target_angRz, angle prm_target_angRy,int prm_way,
-                                   angle& out_d_angRz, angle& out_d_angRy);
+    void getRzRyFaceAngDistanceTwd(angle prm_target_ang_rz, angle prm_target_ang_ry,int prm_way,
+                                   angle& out_d_ang_rz, angle& out_d_ang_ry);
     /**
      * 移動方向(RzRy)を設定。.
-     * @param prm_angRz
-     * @param prm_angRy
+     * @param prm_ang_rz
+     * @param prm_ang_ry
      */
-    void setRzRyMvAng(angle prm_angRz, angle prm_angRy);
+    void setRzRyMvAng(angle prm_ang_rz, angle prm_ang_ry);
 
     /**
      *  移動方向(RzRy)を、RyRzで設定。
-     * @param prm_angRy
-     * @param prm_angRz
+     * @param prm_ang_ry
+     * @param prm_ang_rz
      */
-    void setRzRyMvAng_by_RyRz(angle prm_angRy, angle prm_angRz);
+    void setRzRyMvAng_by_RyRz(angle prm_ang_ry, angle prm_ang_rz);
 
     /**
      * 目標座標点を座標指定で移動方角(RzRy)を設定。.
@@ -656,23 +656,23 @@ public:
 
     /**
      * 軸回転方角(Z軸とY軸)を目標にターゲットするシークエンスを実行 .
-     * @param prm_angRz_Target 目標軸回転方角(Z軸)
-     * @param prm_angRy_Target 目標軸回転方角(Y軸)
-     * @param prm_angVelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
-     * @param prm_angAcce 角加速度（正負自動判定）
+     * @param prm_ang_rz_target 目標軸回転方角(Z軸)
+     * @param prm_ang_ry_target 目標軸回転方角(Y軸)
+     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
+     * @param prm_angacce 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。
-     *                         true: 引数の prm_angRz_Target, prm_angRy_Target までの距離と、<BR>
+     *                         true: 引数の prm_ang_rz_target, prm_ang_ry_target までの距離と、<BR>
      *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、<BR>
      *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。<BR>
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は<BR>
      *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
-     *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
+     *                         false:引数の prm_ang_rz_target, prm_ang_ry_target をそのままターゲートとする。<BR>
      */
-    void turnRzRyFaceAngTo(angle prm_angRz_Target, angle prm_angRy_Target,
-                           angvelo prm_angVelo, angacce prm_angAcce,
+    void turnRzRyFaceAngTo(angle prm_ang_rz_target, angle prm_ang_ry_target,
+                           angvelo prm_angvelo, angacce prm_angacce,
                            int prm_way, bool prm_optimize_ang);
 
     /**
@@ -680,62 +680,62 @@ public:
      * @param prm_tx 目標X座標
      * @param prm_ty 目標Y座標
      * @param prm_tz 目標Z座標
-     * @param prm_angVelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
-     * @param prm_angAcce 角加速度（正負自動判定）
+     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
+     * @param prm_angacce 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO<BR>
      * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。<BR>
-     *                         true: 引数の prm_angRz_Target, prm_angRy_Target までの距離と、<BR>
+     *                         true: 引数の prm_ang_rz_target, prm_ang_ry_target までの距離と、<BR>
      *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、<BR>
      *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。<BR>
      *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は<BR>
      *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
-     *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
+     *                         false:引数の prm_ang_rz_target, prm_ang_ry_target をそのままターゲートとする。<BR>
      */
     void turnFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
-                        angvelo prm_angVelo, angacce prm_angAcce,
+                        angvelo prm_angvelo, angacce prm_angacce,
                         int prm_way, bool prm_optimize_ang);
 
 
     /**
      * 軸回転方角(Z軸とY軸)を目標にターゲットの方向を向くようなシークエンスを実行
      * @param prm_pActor_Target 目標オブジェクト
-     * @param prm_angVelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
-     * @param prm_angAcce 角加速度（正負自動判定）
+     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
+     * @param prm_angacce 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。<BR>
-     *                         true: 引数の prm_angRz_Target, prm_angRy_Target までの距離と、<BR>
+     *                         true: 引数の prm_ang_rz_target, prm_ang_ry_target までの距離と、<BR>
      *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、<BR>
      *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。<BR>
      *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は<BR>
      *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
-     *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
+     *                         false:引数の prm_ang_rz_target, prm_ang_ry_target をそのままターゲートとする。<BR>
      */
     inline void turnFaceAngTwd(GgafDxGeometricActor* prm_pActor_Target,
-                               angvelo prm_angVelo, angacce prm_angAcce,
+                               angvelo prm_angvelo, angacce prm_angacce,
                                int prm_way, bool prm_optimize_ang) {
         turnFaceAngTwd(
                 prm_pActor_Target->_x,
                 prm_pActor_Target->_y,
                 prm_pActor_Target->_z,
-                prm_angVelo,
-                prm_angAcce,
+                prm_angvelo,
+                prm_angacce,
                 prm_way,
                 prm_optimize_ang
         );
     }
     inline void turnFaceAngTwd(GgafDxGeoElem* prm_pGeoElem,
-                               angvelo prm_angVelo, angacce prm_angAcce,
+                               angvelo prm_angvelo, angacce prm_angacce,
                                int prm_way, bool prm_optimize_ang) {
         turnFaceAngTwd(
                 prm_pGeoElem->x,
                 prm_pGeoElem->y,
                 prm_pGeoElem->z,
-                prm_angVelo,
-                prm_angAcce,
+                prm_angvelo,
+                prm_angacce,
                 prm_way,
                 prm_optimize_ang
         );
@@ -745,68 +745,68 @@ public:
      * 軸回転方角を目標の角距離回転させるシークエンスを実行 .
      * @param prm_axis  軸 (AXIS_X or AXIS_Y or AXIS_Z)
      * @param prm_angular_distance 角距離（正：TURN_COUNTERCLOCKWISE、負：TURN_CLOCKWISE）
-     * @param prm_angVelo 角速度（prm_angular_distanceの正負に依存）
-     * @param prm_angAcce 角加速度（prm_angular_distanceの正負に依存）
+     * @param prm_angvelo 角速度（prm_angular_distanceの正負に依存）
+     * @param prm_angacce 角加速度（prm_angular_distanceの正負に依存）
      */
     void turnFaceAng(axis prm_axis,
                      angle prm_angular_distance,
-                     angvelo prm_angVelo, angacce prm_angAcce);
+                     angvelo prm_angvelo, angacce prm_angacce);
 
     /**
      * 軸回転方角(Z軸)を目標にターゲットするシークエンスを実行 .
-     * @param prm_angRz_Target 目標軸回転方角(Z軸)
-     * @param prm_angVelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
-     * @param prm_angAcce 角加速度（正負自動判定）
+     * @param prm_ang_rz_target 目標軸回転方角(Z軸)
+     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
+     * @param prm_angacce 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
-    void turnRzFaceAngTo(angle prm_angRz_Target,
-                         angvelo prm_angVelo, angacce prm_angAcce,
+    void turnRzFaceAngTo(angle prm_ang_rz_target,
+                         angvelo prm_angvelo, angacce prm_angacce,
                          int prm_way);
 
     /**
      * 軸回転方角(Y軸)を目標にターゲットするシークエンスを実行 .
-     * @param prm_angRy_Target 目標軸回転方角(Y軸)
-     * @param prm_angVelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
-     * @param prm_angAcce 角加速度（正負自動判定）
+     * @param prm_ang_ry_target 目標軸回転方角(Y軸)
+     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
+     * @param prm_angacce 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
-    void turnRyFaceAngTo(angle prm_angRy_Target,
-                         angvelo prm_angVelo, angacce prm_angAcce,
+    void turnRyFaceAngTo(angle prm_ang_ry_target,
+                         angvelo prm_angvelo, angacce prm_angacce,
                          int prm_way);
 
     /**
      * 軸回転方角(X軸)を目標にターゲットするシークエンスを実行 .
-     * @param prm_angRx_Target 目標軸回転方角(X軸)
-     * @param prm_angVelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
-     * @param prm_angAcce 角加速度（正負自動判定）
+     * @param prm_ang_rx_Target 目標軸回転方角(X軸)
+     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
+     * @param prm_angacce 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
-    void spinRxFaceAngTo(angle prm_angRx_Target,
-                         angvelo prm_angVelo, angacce prm_angAcce,
+    void spinRxFaceAngTo(angle prm_ang_rx_Target,
+                         angvelo prm_angvelo, angacce prm_angacce,
                          int prm_way);
 
     /**
      * 移動方角を目標にターゲットするシークエンスを実行 .
-     * @param prm_angRz_Target 目標移動方角(Z軸)
-     * @param prm_angRy_Target 目標移動方角(Y軸)
-     * @param prm_angVelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
-     * @param prm_angAcce 角加速度（正負自動判定）
+     * @param prm_ang_rz_target 目標移動方角(Z軸)
+     * @param prm_ang_ry_target 目標移動方角(Y軸)
+     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
+     * @param prm_angacce 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO<BR>
      * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。<BR>
-     *                         true: 引数の prm_angRz_Target, prm_angRy_Target までの距離と、<BR>
+     *                         true: 引数の prm_ang_rz_target, prm_ang_ry_target までの距離と、<BR>
      *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、<BR>
      *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。<BR>
      *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は<BR>
      *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
-     *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
+     *                         false:引数の prm_ang_rz_target, prm_ang_ry_target をそのままターゲートとする。<BR>
      */
-    void turnRzRyMvAngTo(angle prm_angRz_Target, angle prm_angRy_Target,
-                         angvelo prm_angVelo, angacce prm_angAcce,
+    void turnRzRyMvAngTo(angle prm_ang_rz_target, angle prm_ang_ry_target,
+                         angvelo prm_angvelo, angacce prm_angacce,
                          int prm_way, bool prm_optimize_ang);
 
 
@@ -815,50 +815,50 @@ public:
      * @param prm_tx 目標X座標
      * @param prm_ty 目標Y座標
      * @param prm_tz 目標Z座標
-     * @param prm_angVelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
-     * @param prm_angAcce 角加速度（正負自動判定）
+     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
+     * @param prm_angacce 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO<BR>
      * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。<BR>
-     *                         true: 引数の prm_angRz_Target, prm_angRy_Target までの距離と、<BR>
+     *                         true: 引数の prm_ang_rz_target, prm_ang_ry_target までの距離と、<BR>
      *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、<BR>
      *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。<BR>
      *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は<BR>
      *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
-     *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
+     *                         false:引数の prm_ang_rz_target, prm_ang_ry_target をそのままターゲートとする。<BR>
      */
     void turnMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
-                      angvelo prm_angVelo, angacce prm_angAcce,
+                      angvelo prm_angvelo, angacce prm_angacce,
                       int prm_way, bool prm_optimize_ang);
 
 
     void keepOnTurningFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
-                                 angvelo prm_angVelo, angacce prm_angAcce,
+                                 angvelo prm_angvelo, angacce prm_angacce,
                                  int prm_way, bool prm_optimize_ang) {
         turnFaceAngTwd(prm_tx, prm_ty, prm_tz,
-                       prm_angVelo,  prm_angAcce,
+                       prm_angvelo,  prm_angacce,
                        prm_way, prm_optimize_ang );
         _taget_face_ang_alltime_flg = true;
         _taget_face_ang_alltime_pActor = nullptr;
         _taget_face_ang_alltime_tx = prm_tx;
         _taget_face_ang_alltime_ty = prm_ty;
         _taget_face_ang_alltime_tz = prm_tz;
-        _taget_face_ang_alltime_angVelo = prm_angVelo;
-        _taget_face_ang_alltime_angAcce = prm_angAcce;
+        _taget_face_ang_alltime_angVelo = prm_angvelo;
+        _taget_face_ang_alltime_angAcce = prm_angacce;
         _taget_face_ang_alltime_way = prm_way;
         _taget_face_ang_alltime_optimize_ang = prm_optimize_ang;
     }
 
 
     void keepOnTurningFaceAngTwd(GgafDxGeometricActor* prm_pActor_Target,
-                                 angvelo prm_angVelo, angacce prm_angAcce,
+                                 angvelo prm_angvelo, angacce prm_angacce,
                                  int prm_way, bool prm_optimize_ang) {
         keepOnTurningFaceAngTwd(
                 prm_pActor_Target->_x,
                 prm_pActor_Target->_y,
                 prm_pActor_Target->_z,
-                prm_angVelo, prm_angAcce,
+                prm_angvelo, prm_angacce,
                 prm_way, prm_optimize_ang);
         _taget_face_ang_alltime_pActor = prm_pActor_Target;
     }
@@ -866,42 +866,42 @@ public:
     /**
      * 移動方角を目標にターゲットの座標にするシークエンスを実行
      * @param prm_pActor_Target 目標オブジェクト
-     * @param prm_angVelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
-     * @param prm_angAcce 角加速度（正負自動判定）
+     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
+     * @param prm_angacce 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO<BR>
      * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。<BR>
-     *                         true: 引数の prm_angRz_Target, prm_angRy_Target までの距離と、<BR>
+     *                         true: 引数の prm_ang_rz_target, prm_ang_ry_target までの距離と、<BR>
      *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、<BR>
      *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。<BR>
      *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は<BR>
      *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
-     *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
+     *                         false:引数の prm_ang_rz_target, prm_ang_ry_target をそのままターゲートとする。<BR>
      */
     inline void turnMvAngTwd(GgafDxGeometricActor* prm_pActor_Target,
-                             angvelo prm_angVelo, angacce prm_angAcce,
+                             angvelo prm_angvelo, angacce prm_angacce,
                              int prm_way, bool prm_optimize_ang) {
         turnMvAngTwd(
                 prm_pActor_Target->_x,
                 prm_pActor_Target->_y,
                 prm_pActor_Target->_z,
-                prm_angVelo,
-                prm_angAcce,
+                prm_angvelo,
+                prm_angacce,
                 prm_way,
                 prm_optimize_ang
         );
     }
 
     inline void turnMvAngTwd(GgafDxGeoElem* prm_pGeoElem,
-                             angvelo prm_angVelo, angacce prm_angAcce,
+                             angvelo prm_angvelo, angacce prm_angacce,
                              int prm_way, bool prm_optimize_ang) {
         turnMvAngTwd(
                 prm_pGeoElem->x,
                 prm_pGeoElem->y,
                 prm_pGeoElem->z,
-                prm_angVelo,
-                prm_angAcce,
+                prm_angvelo,
+                prm_angacce,
                 prm_way,
                 prm_optimize_ang
         );
@@ -910,43 +910,43 @@ public:
     /**
      * 移動方角(Z軸)を目標の角距離回転させるシークエンスを実行 .
      * @param prm_angular_distance  移動方角の回転角距離(Z軸)
-     * @param prm_angVelo ターゲットへ移動方角を回転移動中に適用する角速度（正負はprm_angular_distanceの正負に依存）
-     * @param prm_angAcce 角加速度（正負はprm_angular_distanceの正負に依存）
+     * @param prm_angvelo ターゲットへ移動方角を回転移動中に適用する角速度（正負はprm_angular_distanceの正負に依存）
+     * @param prm_angacce 角加速度（正負はprm_angular_distanceの正負に依存）
      */
     void turnRzMvAng(angle prm_angular_distance,
-                     angvelo prm_angVelo, angacce prm_angAcce);
+                     angvelo prm_angvelo, angacce prm_angacce);
 
     /**
      * 移動方角(Y軸)を目標の角距離回転させるシークエンスを実行 .
      * @param prm_angular_distance  移動方角の回転角距離(Y軸)
-     * @param prm_angVelo ターゲットへ移動方角を回転移動中に適用する角速度（正負はprm_angular_distanceの正負に依存）
-     * @param prm_angAcce 角加速度（正負はprm_angular_distanceの正負に依存）
+     * @param prm_angvelo ターゲットへ移動方角を回転移動中に適用する角速度（正負はprm_angular_distanceの正負に依存）
+     * @param prm_angacce 角加速度（正負はprm_angular_distanceの正負に依存）
      */
     void turnRyMvAng(angle prm_angular_distance,
-                     angvelo prm_angVelo, angacce prm_angAcce);
+                     angvelo prm_angvelo, angacce prm_angacce);
 
     /**
      * 移動方角(Z軸)を目標にターゲットするシークエンスを実行 .
-     * @param prm_angRz_Target 目標移動方角(Z軸)
-     * @param prm_angVelo ターゲットへ移動方角を回転移動中に適用する角速度（正負自動判定）
-     * @param prm_angAcce 角加速度（正負自動判定）
+     * @param prm_ang_rz_target 目標移動方角(Z軸)
+     * @param prm_angvelo ターゲットへ移動方角を回転移動中に適用する角速度（正負自動判定）
+     * @param prm_angacce 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
-    void turnRzMvAngTo(angle prm_angRz_Target,
-                       angvelo prm_angVelo, angacce prm_angAcce,
+    void turnRzMvAngTo(angle prm_ang_rz_target,
+                       angvelo prm_angvelo, angacce prm_angacce,
                        int prm_way);
 
     /**
      * 移動方角(Y軸)を目標にターゲットするシークエンスを実行 .
-     * @param prm_angRy_Target 目標移動方角(Y軸)
-     * @param prm_angVelo ターゲットへ移動方角を回転移動中に適用する目標移動方角回転移動角速度（正負自動判定）
-     * @param prm_angAcce 角加速度（正負自動判定）
+     * @param prm_ang_ry_target 目標移動方角(Y軸)
+     * @param prm_angvelo ターゲットへ移動方角を回転移動中に適用する目標移動方角回転移動角速度（正負自動判定）
+     * @param prm_angacce 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
-    void turnRyMvAngTo(angle prm_angRy_Target,
-                       angvelo prm_angVelo, angacce prm_angAcce,
+    void turnRyMvAngTo(angle prm_ang_ry_target,
+                       angvelo prm_angvelo, angacce prm_angacce,
                        int prm_way);
 
     void stopTurnMvAng();

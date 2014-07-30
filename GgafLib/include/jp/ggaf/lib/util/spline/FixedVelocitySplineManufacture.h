@@ -17,7 +17,7 @@ public:
     /** [r]始点からn番目の補完点(基準点も含む)到達に必要なフレーム数のテーブル */
     float* _paFrame_need_at;
     /** [r]基準速度 */
-    velo _veloMvUnit;
+    velo _velo_mvUnit;
     /** [rw]1フレームあたり旋回可能な回転角角速度 */
     angvelo _angveloRzRyMv;
         /** [rw]旋回方法 */

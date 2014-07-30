@@ -59,7 +59,7 @@ public:
      * @param prm_option オプション ABSOLUTE_COORD:絶対座標移動
      *                              RELATIVE_COORD:始点をActorの現座標とみなし、そこからの相対座標移動
      *                              RELATIVE_DIRECTION:始点をActorの現座標とみなし、
-     *                                                 アクターの現在向き（_pKuroko の _angRzMv, _angRyMv)でスプライン座標群をワールド変換。
+     *                                                 アクターの現在向き（_pKuroko の _ang_rz_mv, _ang_ry_mv)でスプライン座標群をワールド変換。
      * @param prm_max_loop 繰り返し回数。0以下で無限ループ
      */
     void start(SplinTraceOption prm_option, int prm_max_loop = 1) override;

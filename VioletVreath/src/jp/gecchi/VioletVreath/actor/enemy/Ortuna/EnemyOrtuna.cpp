@@ -81,7 +81,7 @@ void EnemyOrtuna::processBehavior() {
                  hanging_pos_frames_ = pKuroko->setMvAcceByD(d, PX_C(1));
              }
 
-             pKuroko->setFaceAngVelo(AXIS_X, pKuroko->_veloMv); //¨‚¢‚É”ä—á‚µ‚Ä‚®‚é‚®‚é`
+             pKuroko->setFaceAngVelo(AXIS_X, pKuroko->_velo_mv); //¨‚¢‚É”ä—á‚µ‚Ä‚®‚é‚®‚é`
 
              if (pProg->getFrameInProgress() > hanging_pos_frames_) {
                  pKuroko->setMvVelo(PX_C(1));

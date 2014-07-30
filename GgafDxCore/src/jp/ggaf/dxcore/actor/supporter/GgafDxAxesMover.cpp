@@ -14,7 +14,7 @@ using namespace GgafDxCore;
 
 GgafDxAxesMover::GgafDxAxesMover(GgafDxGeometricActor* prm_pActor) : GgafObject(),
 _pActor(prm_pActor) {
-    _pHlprA = nullptr;
+    _pAsstA = nullptr;
     //X軸方向移動速度（X移動座標増分）＝ 0 px/fream
     _veloVxMv = 0;
     //X軸方向移動速度上限
@@ -60,12 +60,12 @@ _pActor(prm_pActor) {
 }
 
 GgafDxAxesMoverAssistantA* GgafDxAxesMover::asst() {
-    return _pHlprA ? _pHlprA : _pHlprA = NEW GgafDxAxesMoverAssistantA(this);
+    return _pAsstA ? _pAsstA : _pAsstA = NEW GgafDxAxesMoverAssistantA(this);
 }
 
 void GgafDxAxesMover::behave() {
-    if (_pHlprA) {
-        _pHlprA->behave();
+    if (_pAsstA) {
+        _pAsstA->behave();
     }
 
     if(_grv_mv_flg) {
@@ -524,8 +524,8 @@ void GgafDxAxesMover::stopMv() {
     setZeroVxyzMvVelo();
     setZeroVxyzMvAcce();
     stopGravitationMvSequence();
-    if (_pHlprA) {
-        _pHlprA->stopSlidingMv();
+    if (_pAsstA) {
+        _pAsstA->stopSlidingMv();
     }
 }
 void GgafDxAxesMover::resetMv() {
@@ -566,5 +566,5 @@ void GgafDxAxesMover::resetMv() {
 }
 
 GgafDxAxesMover::~GgafDxAxesMover() {
-    GGAF_DELETE_NULLABLE(_pHlprA);
+    GGAF_DELETE_NULLABLE(_pAsstA);
 }

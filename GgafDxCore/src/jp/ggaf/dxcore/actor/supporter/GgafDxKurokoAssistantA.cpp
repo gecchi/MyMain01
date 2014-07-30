@@ -9,8 +9,8 @@ using namespace GgafDxCore;
 
 GgafDxKurokoAssistantA::GgafDxKurokoAssistantA(GgafDxKuroko* prm_pMaster) : GgafObject(),
         _pMaster(prm_pMaster) {
-    _smthMv._velo = _pMaster->_veloMv;
-    _smthMv._acce = _pMaster->_accMv;
+    _smthMv._velo = _pMaster->_velo_mv;
+    _smthMv._acce = _pMaster->_acc_mv;
 }
 
 void GgafDxKurokoAssistantA::behave() {
@@ -26,8 +26,8 @@ void GgafDxKurokoAssistantA::slideMvByDt(coord prm_target_distance, int prm_targ
                                       float prm_p1, float prm_p2, velo prm_end_velo,
                                       bool prm_endacc_flg) {
     _smthMv._value = 0;
-    _smthMv._velo = _pMaster->_veloMv;
-    _smthMv._acce = _pMaster->_accMv;
+    _smthMv._velo = _pMaster->_velo_mv;
+    _smthMv._acce = _pMaster->_acc_mv;
     _smthMv.accelerateByDt(prm_target_distance, prm_target_frames,
                            prm_p1,prm_p2,prm_end_velo,
                            prm_endacc_flg);
@@ -37,8 +37,8 @@ void GgafDxKurokoAssistantA::slideMvByVd(velo prm_top_velo, coord prm_target_dis
                                       float prm_p1, float prm_p2, velo prm_end_velo,
                                       bool prm_endacc_flg) {
     _smthMv._value = 0;
-    _smthMv._velo = _pMaster->_veloMv;
-    _smthMv._acce = _pMaster->_accMv;
+    _smthMv._velo = _pMaster->_velo_mv;
+    _smthMv._acce = _pMaster->_acc_mv;
     _smthMv.accelerateByVd(prm_top_velo, prm_target_distance,
                            prm_p1,prm_p2,prm_end_velo,
                            prm_endacc_flg);

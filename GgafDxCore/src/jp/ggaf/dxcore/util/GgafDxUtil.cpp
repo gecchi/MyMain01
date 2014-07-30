@@ -687,8 +687,8 @@ void GgafDxUtil::getNormalizeVector(dxcoord x,
 }
 
 
-void GgafDxUtil::convRzRyToVector(angle prm_angRz,
-                                  angle prm_angRy,
+void GgafDxUtil::convRzRyToVector(angle prm_ang_rz,
+                                  angle prm_ang_ry,
                                   float& out_nvx,
                                   float& out_nvy,
                                   float& out_nvz) {
@@ -697,110 +697,110 @@ void GgafDxUtil::convRzRyToVector(angle prm_angRz,
     int xsign, ysign, zsign;
     s_ang rz, ry_rev;
 
-    if (0 <= prm_angRz && prm_angRz < D90ANG) {
-        rz = (prm_angRz - D0ANG) * (1.0 / SANG_RATE);
-        if (0 <= prm_angRy && prm_angRy < D90ANG) { //‘æŒÜÛŒÀ
-            ry_rev = prm_angRy * (1.0 / SANG_RATE);
+    if (0 <= prm_ang_rz && prm_ang_rz < D90ANG) {
+        rz = (prm_ang_rz - D0ANG) * (1.0 / SANG_RATE);
+        if (0 <= prm_ang_ry && prm_ang_ry < D90ANG) { //‘æŒÜÛŒÀ
+            ry_rev = prm_ang_ry * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = 1;
             zsign = -1;
-        } else if (D90ANG <= prm_angRy && prm_angRy < D180ANG) { //‘æ˜ZÛŒÀ
-            ry_rev = (D180ANG - prm_angRy) * (1.0 / SANG_RATE);
+        } else if (D90ANG <= prm_ang_ry && prm_ang_ry < D180ANG) { //‘æ˜ZÛŒÀ
+            ry_rev = (D180ANG - prm_ang_ry) * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = 1;
             zsign = -1;
-        } else if (D180ANG <= prm_angRy && prm_angRy < D270ANG) { //‘æ“ñÛŒÀ
-            ry_rev = (prm_angRy - D180ANG) * (1.0 / SANG_RATE);
+        } else if (D180ANG <= prm_ang_ry && prm_ang_ry < D270ANG) { //‘æ“ñÛŒÀ
+            ry_rev = (prm_ang_ry - D180ANG) * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = 1;
             zsign = 1;
-        } else if (D270ANG <= prm_angRy && prm_angRy <= D360ANG) { //‘æˆêÛŒÀ
-            ry_rev = (D360ANG - prm_angRy) * (1.0 / SANG_RATE);
+        } else if (D270ANG <= prm_ang_ry && prm_ang_ry <= D360ANG) { //‘æˆêÛŒÀ
+            ry_rev = (D360ANG - prm_ang_ry) * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = 1;
             zsign = 1;
         } else {
-            throwGgafCriticalException("getNormalizeVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(1) prm_angRz="<<prm_angRz<<" prm_angRy="<<prm_angRy);
+            throwGgafCriticalException("getNormalizeVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(1) prm_ang_rz="<<prm_ang_rz<<" prm_ang_ry="<<prm_ang_ry);
         }
-    } else if (D90ANG <= prm_angRz && prm_angRz < D180ANG) {
-        rz = (D180ANG - prm_angRz) * (1.0 / SANG_RATE);
+    } else if (D90ANG <= prm_ang_rz && prm_ang_rz < D180ANG) {
+        rz = (D180ANG - prm_ang_rz) * (1.0 / SANG_RATE);
 
-        if (0 <= prm_angRy && prm_angRy < D90ANG) { //‘æ“ñÛŒÀ
-            ry_rev = prm_angRy * (1.0 / SANG_RATE);
+        if (0 <= prm_ang_ry && prm_ang_ry < D90ANG) { //‘æ“ñÛŒÀ
+            ry_rev = prm_ang_ry * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = 1;
             zsign = 1;
-        } else if (D90ANG <= prm_angRy && prm_angRy < D180ANG) { //‘æˆêÛŒÀ
-            ry_rev = (D180ANG - prm_angRy) * (1.0 / SANG_RATE);
+        } else if (D90ANG <= prm_ang_ry && prm_ang_ry < D180ANG) { //‘æˆêÛŒÀ
+            ry_rev = (D180ANG - prm_ang_ry) * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = 1;
             zsign = 1;
-        } else if (D180ANG <= prm_angRy && prm_angRy < D270ANG) { //‘æŒÜÛŒÀ
-            ry_rev = (prm_angRy - D180ANG) * (1.0 / SANG_RATE);
+        } else if (D180ANG <= prm_ang_ry && prm_ang_ry < D270ANG) { //‘æŒÜÛŒÀ
+            ry_rev = (prm_ang_ry - D180ANG) * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = 1;
             zsign = -1;
-        } else if (D270ANG <= prm_angRy && prm_angRy <= D360ANG) { //‘æ˜ZÛŒÀ
-            ry_rev = (D360ANG - prm_angRy) * (1.0 / SANG_RATE);
+        } else if (D270ANG <= prm_ang_ry && prm_ang_ry <= D360ANG) { //‘æ˜ZÛŒÀ
+            ry_rev = (D360ANG - prm_ang_ry) * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = 1;
             zsign = -1;
         } else {
-            throwGgafCriticalException("getNormalizeVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(2) prm_angRz="<<prm_angRz<<" prm_angRy="<<prm_angRy);
+            throwGgafCriticalException("getNormalizeVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(2) prm_ang_rz="<<prm_ang_rz<<" prm_ang_ry="<<prm_ang_ry);
         }
 
-    } else if (D180ANG <= prm_angRz && prm_angRz < D270ANG) {
-        rz = (prm_angRz - D180ANG) * (1.0 / SANG_RATE);
-        if (0 <= prm_angRy && prm_angRy < D90ANG) { //‘æŽOÛŒÀ
-            ry_rev = prm_angRy * (1.0 / SANG_RATE);
+    } else if (D180ANG <= prm_ang_rz && prm_ang_rz < D270ANG) {
+        rz = (prm_ang_rz - D180ANG) * (1.0 / SANG_RATE);
+        if (0 <= prm_ang_ry && prm_ang_ry < D90ANG) { //‘æŽOÛŒÀ
+            ry_rev = prm_ang_ry * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = -1;
             zsign = 1;
-        } else if (D90ANG <= prm_angRy && prm_angRy < D180ANG) { //‘æŽlÛŒÀ
-            ry_rev = (D180ANG - prm_angRy) * (1.0 / SANG_RATE);
+        } else if (D90ANG <= prm_ang_ry && prm_ang_ry < D180ANG) { //‘æŽlÛŒÀ
+            ry_rev = (D180ANG - prm_ang_ry) * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = -1;
             zsign = 1;
-        } else if (D180ANG <= prm_angRy && prm_angRy < D270ANG) { //‘æ”ªÛŒÀ
-            ry_rev = (prm_angRy - D180ANG) * (1.0 / SANG_RATE);
+        } else if (D180ANG <= prm_ang_ry && prm_ang_ry < D270ANG) { //‘æ”ªÛŒÀ
+            ry_rev = (prm_ang_ry - D180ANG) * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = -1;
             zsign = -1;
-        } else if (D270ANG <= prm_angRy && prm_angRy <= D360ANG) { //‘æŽµÛŒÀ
-            ry_rev = (D360ANG - prm_angRy) * (1.0 / SANG_RATE);
+        } else if (D270ANG <= prm_ang_ry && prm_ang_ry <= D360ANG) { //‘æŽµÛŒÀ
+            ry_rev = (D360ANG - prm_ang_ry) * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = -1;
             zsign = -1;
         } else {
-            throwGgafCriticalException("getNormalizeVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(3) prm_angRz="<<prm_angRz<<" prm_angRy="<<prm_angRy);
+            throwGgafCriticalException("getNormalizeVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(3) prm_ang_rz="<<prm_ang_rz<<" prm_ang_ry="<<prm_ang_ry);
         }
-    } else if (D270ANG <= prm_angRz && prm_angRz <= D360ANG) {
-        rz = (D360ANG - prm_angRz) * (1.0 / SANG_RATE);
-        if (0 <= prm_angRy && prm_angRy < D90ANG) { //‘æ”ªÛŒÀ
-            ry_rev = prm_angRy * (1.0 / SANG_RATE);
+    } else if (D270ANG <= prm_ang_rz && prm_ang_rz <= D360ANG) {
+        rz = (D360ANG - prm_ang_rz) * (1.0 / SANG_RATE);
+        if (0 <= prm_ang_ry && prm_ang_ry < D90ANG) { //‘æ”ªÛŒÀ
+            ry_rev = prm_ang_ry * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = -1;
             zsign = -1;
-        } else if (D90ANG <= prm_angRy && prm_angRy < D180ANG) { //‘æŽµÛŒÀ
-            ry_rev = (D180ANG - prm_angRy) * (1.0 / SANG_RATE);
+        } else if (D90ANG <= prm_ang_ry && prm_ang_ry < D180ANG) { //‘æŽµÛŒÀ
+            ry_rev = (D180ANG - prm_ang_ry) * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = -1;
             zsign = -1;
-        } else if (D180ANG <= prm_angRy && prm_angRy < D270ANG) { //‘æŽOÛŒÀ
-            ry_rev = (prm_angRy - D180ANG) * (1.0 / SANG_RATE);
+        } else if (D180ANG <= prm_ang_ry && prm_ang_ry < D270ANG) { //‘æŽOÛŒÀ
+            ry_rev = (prm_ang_ry - D180ANG) * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = -1;
             zsign = 1;
-        } else if (D270ANG <= prm_angRy && prm_angRy <= D360ANG) { //‘æŽlÛŒÀ
-            ry_rev = (D360ANG - prm_angRy) * (1.0 / SANG_RATE);
+        } else if (D270ANG <= prm_ang_ry && prm_ang_ry <= D360ANG) { //‘æŽlÛŒÀ
+            ry_rev = (D360ANG - prm_ang_ry) * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = -1;
             zsign = 1;
         } else {
-            throwGgafCriticalException("getNormalizeVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(4) prm_angRz="<<prm_angRz<<" prm_angRy="<<prm_angRy);
+            throwGgafCriticalException("getNormalizeVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(4) prm_ang_rz="<<prm_ang_rz<<" prm_ang_ry="<<prm_ang_ry);
         }
     } else {
-        throwGgafCriticalException("getNormalizeVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(5) prm_angRz="<<prm_angRz<<" prm_angRy="<<prm_angRy);
+        throwGgafCriticalException("getNormalizeVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(5) prm_ang_rz="<<prm_ang_rz<<" prm_ang_ry="<<prm_ang_ry);
     }
     uint32_t vx, vy, vz;
     GgafDxUtil::_srv.getVectorClosely(ry_rev, rz, vx, vy, vz);

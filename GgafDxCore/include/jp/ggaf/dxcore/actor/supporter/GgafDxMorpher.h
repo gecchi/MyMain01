@@ -18,7 +18,7 @@ class GgafDxMorpher : public GgafCore::GgafValueTransitioner<float, (MAX_MORPH_T
 
 private:
     /** [r]モーファーの助手A */
-    GgafDxMorpherAssistantA* _pHlprA;
+    GgafDxMorpherAssistantA* _pAsstA;
 
 public:
     /** [r]対象アクター */

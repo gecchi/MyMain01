@@ -74,8 +74,8 @@ void EnemyRatislaviaEye::onActive() {
     getProgress()->reset(PROG_MOVE);
     positionAs(pRatislavia_);
     setFaceAngAs(pRatislavia_);
-    getKuroko()->setRzRyMvAngVelo(pRatislavia_->getKuroko()->_angveloFace[AXIS_Z],
-                                  pRatislavia_->getKuroko()->_angveloFace[AXIS_Y]);
+    getKuroko()->setRzRyMvAngVelo(pRatislavia_->getKuroko()->_angvelo_face[AXIS_Z],
+                                  pRatislavia_->getKuroko()->_angvelo_face[AXIS_Y]);
 }
 
 void EnemyRatislaviaEye::processBehavior() {
@@ -96,8 +96,8 @@ void EnemyRatislaviaEye::processBehavior() {
                 pProg->changeNext();
             }
             pKuroko->takeoverMvFrom(pRatislavia_->getKuroko());
-            pKuroko->setRzRyMvAngVelo(pRatislavia_->getKuroko()->_angveloFace[AXIS_Z],
-                                      pRatislavia_->getKuroko()->_angveloFace[AXIS_Y]);
+            pKuroko->setRzRyMvAngVelo(pRatislavia_->getKuroko()->_angvelo_face[AXIS_Z],
+                                      pRatislavia_->getKuroko()->_angvelo_face[AXIS_Y]);
             break;
         }
 
@@ -141,8 +141,8 @@ void EnemyRatislaviaEye::processBehavior() {
         case PROG_FIRE_END: {
             if (pProg->isJustChanged()) {
                 getMorpher()->transitionLinerUntil(1, 0.0, 180); //•Â‚¶‚é
-                pKuroko->setRzRyMvAngVelo(pRatislavia_->getKuroko()->_angveloFace[AXIS_Z],
-                                          pRatislavia_->getKuroko()->_angveloFace[AXIS_Y]);
+                pKuroko->setRzRyMvAngVelo(pRatislavia_->getKuroko()->_angvelo_face[AXIS_Z],
+                                          pRatislavia_->getKuroko()->_angvelo_face[AXIS_Y]);
             }
             //d’¼
             if (pProg->getFrameInProgress() >= 300) {

@@ -214,7 +214,7 @@ void MyOptionController::processBehavior() {
 
 //    //ƒMƒYƒ‚
 //    pDirectionVector_->positionAs(this);
-//    pDirectionVector_->getKuroko()->setRzRyMvAng(pKuroko->_angRzMv, pKuroko->_angRyMv);
+//    pDirectionVector_->getKuroko()->setRzRyMvAng(pKuroko->_ang_rz_mv, pKuroko->_ang_ry_mv);
 
     pKuroko->behave();
     pAxsMver_->behave();

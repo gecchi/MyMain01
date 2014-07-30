@@ -136,7 +136,7 @@ void MyOption::onReset() {
     x_org_ = _x;
     y_org_ = _y;
     z_org_ = _z;
-    angPosition_ = pKuroko->_angRzMv;
+    angPosition_ = pKuroko->_ang_rz_mv;
 
     adjust_angPos_seq_progress_ = 0;
     adjust_angPos_seq_new_angPosition_base_ = angPosition_;
@@ -644,7 +644,7 @@ void MyOption::processBehavior() {
 //    getSeTx()->behave();
 
 //    if (no_ == 3 ) {
-//        if (pKuroko->_angveloRzMv == 0 || pKuroko->_angveloRzMv == 360000) {
+//        if (pKuroko->_angvelo_rz_mv == 0 || pKuroko->_angvelo_rz_mv == 360000) {
 //            if (veloMv_ == 1000) {
 //                if (radiusPosition_ == 1) {
 //                    _TRACE_(getBehaveingFrame()<<":before ‰“‚´‚©‚é¬—§III");
@@ -652,7 +652,7 @@ void MyOption::processBehavior() {
 //            }
 //
 //        }
-//        _TRACE_(getBehaveingFrame()<<":after  radiusPosition_="<<radiusPosition_<<" radiusPosition_stopping_="<<radiusPosition_stopping_<<" _angveloRzMv="<<(pKuroko->_angveloRzMv)<<" veloMv_="<<veloMv_);
+//        _TRACE_(getBehaveingFrame()<<":after  radiusPosition_="<<radiusPosition_<<" radiusPosition_stopping_="<<radiusPosition_stopping_<<" _angvelo_rz_mv="<<(pKuroko->_angvelo_rz_mv)<<" veloMv_="<<veloMv_);
 //    }
 
 }

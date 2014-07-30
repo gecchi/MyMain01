@@ -39,7 +39,7 @@ public:
      *    角速度(ω)
      *     ^
      *     |                         θ:目標移動角（距離）    ・・・引数 prm_angular_distance
-     *     |                        ω0:現時点の角速度        ・・・_angveloFace[prm_axis]
+     *     |                        ω0:現時点の角速度        ・・・_angvelo_face[prm_axis]
      *     |                        ωt:トップ角速度          ・・・変動、計算される
      *     |                        ωe:最終速度              ・・・引数 prm_end_angvelo
      *  ωt|....___________          Te:目標時間（フレーム数）・・・引数 prm_target_frames

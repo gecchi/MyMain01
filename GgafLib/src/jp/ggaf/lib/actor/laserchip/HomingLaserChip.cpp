@@ -121,9 +121,9 @@ void HomingLaserChip::onInactive() {
             pChip_behind_pKuroko->_vX = pChip_front_pKuroko->_vX;
             pChip_behind_pKuroko->_vY = pChip_front_pKuroko->_vY;
             pChip_behind_pKuroko->_vZ = pChip_front_pKuroko->_vZ;
-            pChip_behind_pKuroko->_angRzMv = pChip_front_pKuroko->_angRzMv;
-            pChip_behind_pKuroko->_angRyMv = pChip_front_pKuroko->_angRyMv;
-            pChip_behind_pKuroko->_veloMv =  pChip_front_pKuroko->_veloMv;
+            pChip_behind_pKuroko->_ang_rz_mv = pChip_front_pKuroko->_ang_rz_mv;
+            pChip_behind_pKuroko->_ang_ry_mv = pChip_front_pKuroko->_ang_ry_mv;
+            pChip_behind_pKuroko->_velo_mv =  pChip_front_pKuroko->_velo_mv;
         } else {
             //throwGgafCriticalException("HomingLaserChip::onInactive() _chip_kind == 2 Ç≈Ç†ÇÈÇ…Ç‡ä÷ÇÌÇÁÇ∏ÅA_pChip_front Ç∆ _pChip_behind Ç™óºï˚ë∂ç›ÇµÇ‹ÇπÇÒ");
         }
@@ -134,9 +134,9 @@ void HomingLaserChip::onInactive() {
             pChip_behind_pKuroko->_vX = pKuroko->_vX;
             pChip_behind_pKuroko->_vY = pKuroko->_vY;
             pChip_behind_pKuroko->_vZ = pKuroko->_vZ;
-            pChip_behind_pKuroko->_angRzMv = pKuroko->_angRzMv;
-            pChip_behind_pKuroko->_angRyMv = pKuroko->_angRyMv;
-            pChip_behind_pKuroko->_veloMv  = pKuroko->_veloMv;
+            pChip_behind_pKuroko->_ang_rz_mv = pKuroko->_ang_rz_mv;
+            pChip_behind_pKuroko->_ang_ry_mv = pKuroko->_ang_ry_mv;
+            pChip_behind_pKuroko->_velo_mv  = pKuroko->_velo_mv;
         } else {
             //throwGgafCriticalException("HomingLaserChip::onInactive() _chip_kind == 4 Ç≈Ç†ÇÈÇ…Ç‡ä÷ÇÌÇÁÇ∏ÅA_pChip_behind Ç™ë∂ç›ÇµÇ‹ÇπÇÒ");
         }

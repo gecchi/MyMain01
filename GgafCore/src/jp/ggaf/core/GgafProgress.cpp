@@ -7,24 +7,24 @@
 
 using namespace GgafCore;
 
-GgafProgress::GgafProgress(frame* prm_pFrame_counter, int prm_num_progress) :
+GgafProgress::GgafProgress(frame* prm_p_frame_counter, int prm_num_progress) :
     GgafObject() ,
     _progress(PROGRESS_NOTHING),       //ここと
     _progress_prev(PROGRESS_NULL),
     _progress_next(PROGRESS_NOTHING),  //ここは、合わせること。合わせないと、初回update時に配列インデックス範囲外になるため。
-    _pFrame_counter(prm_pFrame_counter),
+    _p_frame_counter(prm_p_frame_counter),
     _num_progress(prm_num_progress)
 {
-    _paFrame_progress_changed = NEW frame[_num_progress+1+1];
+    _pa_frame_of_progress_changed = NEW frame[_num_progress+1+1];
     for (int i = 0; i < _num_progress+1+1; i++) {
-        _paFrame_progress_changed[i] = (*_pFrame_counter);
+        _pa_frame_of_progress_changed[i] = (*_p_frame_counter);
     }
 }
 void GgafProgress::reset() {
     _progress_prev = PROGRESS_NULL;
     _progress = PROGRESS_NOTHING;
     _progress_next = PROGRESS_NOTHING;
-    _paFrame_progress_changed[PROGRESS_NOTHING+1] = (*_pFrame_counter);
+    _pa_frame_of_progress_changed[PROGRESS_NOTHING+1] = (*_p_frame_counter);
 }
 
 void GgafProgress::reset(progress prm_progress) {
@@ -36,14 +36,14 @@ void GgafProgress::reset(progress prm_progress) {
     _progress_prev = PROGRESS_NULL;
     _progress = prm_progress;
     _progress_next = prm_progress;
-    _paFrame_progress_changed[prm_progress+1] = (*_pFrame_counter);
+    _pa_frame_of_progress_changed[prm_progress+1] = (*_p_frame_counter);
 }
 
 void GgafProgress::setNothing() {
     _progress_prev = _progress;
     _progress = PROGRESS_NOTHING;
     _progress_next = PROGRESS_NOTHING;
-    _paFrame_progress_changed[PROGRESS_NOTHING+1] = (*_pFrame_counter);
+    _pa_frame_of_progress_changed[PROGRESS_NOTHING+1] = (*_p_frame_counter);
 }
 
 frame GgafProgress::getFrameWhenChanged(progress prm_progress) {
@@ -52,7 +52,7 @@ frame GgafProgress::getFrameWhenChanged(progress prm_progress) {
         throwGgafCriticalException("GgafProgress::getFrameWhenChanged 進捗番号が範囲外です。進捗番号範囲は(0～"<<_num_progress<<")です。引数：prm_progress="<<prm_progress<<"");
     }
 #endif
-    return (_paFrame_progress_changed[prm_progress+1]);
+    return (_pa_frame_of_progress_changed[prm_progress+1]);
 }
 
 void GgafProgress::change(progress prm_progress) {
@@ -204,13 +204,13 @@ progress GgafProgress::getToProgWhenProgWillChange() {
 void GgafProgress::update() {
     //進捗を反映する
     if (_progress != _progress_next) {
-        _paFrame_progress_changed[_progress_next+1] = (*_pFrame_counter) - 1;
+        _pa_frame_of_progress_changed[_progress_next+1] = (*_p_frame_counter) - 1;
     }
     _progress_prev = _progress;
     _progress = _progress_next;
 }
 
 GgafProgress::~GgafProgress() {
-    GGAF_DELETEARR(_paFrame_progress_changed);
+    GGAF_DELETEARR(_pa_frame_of_progress_changed);
 }
 

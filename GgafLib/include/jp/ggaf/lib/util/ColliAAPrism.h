@@ -5,8 +5,8 @@
 namespace GgafLib {
 
 /**
- * AAPrism(軸平行プリズム：Axis-Aligned Prism)当たり判定要素クラス
- * 軸平行プリズムとは、AABのある面の対角線でスライスを１回行った立体の事。
+ * AAPrism(軸平行の直方三角柱：Axis-Aligned Prism)当たり判定要素クラス
+ * 軸平行の直方三角柱とは、AAB(軸平行直方体)のある面を、対角線でスライスを１回行った立体の事。
  * @version 1.00
  * @since 2010/12/28
  * @author Masatoshi Tsuge

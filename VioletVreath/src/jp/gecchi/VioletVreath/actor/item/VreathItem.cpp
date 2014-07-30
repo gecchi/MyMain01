@@ -94,9 +94,9 @@ void VreathItem::processBehavior() {
         MyShip* pMyShip = P_MYSHIP;
         if (pProg->isJustChanged()) {
             //Ž©‹@‚Éˆø—Í‚Åˆø‚«Šñ‚¹‚ç‚ê‚é‚æ‚¤‚È“®‚«Ý’è
-            pAxsMver_->setVxyzMvVelo(pKuroko->_vX * pKuroko->_veloMv,
-                                     pKuroko->_vY * pKuroko->_veloMv,
-                                     pKuroko->_vZ * pKuroko->_veloMv );
+            pAxsMver_->setVxyzMvVelo(pKuroko->_vX * pKuroko->_velo_mv,
+                                     pKuroko->_vY * pKuroko->_velo_mv,
+                                     pKuroko->_vZ * pKuroko->_velo_mv );
             pAxsMver_->execGravitationMvSequenceTwd(pMyShip, PX_C(20), 200, PX_C(100));
             pKuroko->stopMv();
         }

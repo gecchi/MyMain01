@@ -56,10 +56,10 @@ void FixedVelocitySplineKurokoLeader::getPointCoord(int prm_point_index, coord& 
     if (_option == RELATIVE_DIRECTION) {
         if (_is_leading == false) {
             GgafDxKuroko* const pKuroko_target = _pActor_target->getKuroko();
-            _sinRzMv_begin = ANG_SIN(pKuroko_target->_angRzMv);
-            _cosRzMv_begin = ANG_COS(pKuroko_target->_angRzMv);
-            _sinRyMv_begin = ANG_SIN(pKuroko_target->_angRyMv);
-            _cosRyMv_begin = ANG_COS(pKuroko_target->_angRyMv);
+            _sinRzMv_begin = ANG_SIN(pKuroko_target->_ang_rz_mv);
+            _cosRzMv_begin = ANG_COS(pKuroko_target->_ang_rz_mv);
+            _sinRyMv_begin = ANG_SIN(pKuroko_target->_ang_ry_mv);
+            _cosRyMv_begin = ANG_COS(pKuroko_target->_ang_ry_mv);
             if (!_is_fix_start_pos) {
                 _x_start = _pActor_target->_x;
                 _y_start = _pActor_target->_y;
@@ -123,10 +123,10 @@ void FixedVelocitySplineKurokoLeader::restart() {
     }
     if (_option == RELATIVE_DIRECTION) {
         GgafDxKuroko* const pKuroko_target = _pActor_target->getKuroko();
-        _sinRzMv_begin = ANG_SIN(pKuroko_target->_angRzMv);
-        _cosRzMv_begin = ANG_COS(pKuroko_target->_angRzMv);
-        _sinRyMv_begin = ANG_SIN(pKuroko_target->_angRyMv);
-        _cosRyMv_begin = ANG_COS(pKuroko_target->_angRyMv);
+        _sinRzMv_begin = ANG_SIN(pKuroko_target->_ang_rz_mv);
+        _cosRzMv_begin = ANG_COS(pKuroko_target->_ang_rz_mv);
+        _sinRyMv_begin = ANG_SIN(pKuroko_target->_ang_ry_mv);
+        _cosRyMv_begin = ANG_COS(pKuroko_target->_ang_ry_mv);
         _distance_to_begin = UTIL::getDistance(
                                        0.0, 0.0, 0.0,
                                        P0X, P0Y, P0Z
@@ -173,11 +173,11 @@ void FixedVelocitySplineKurokoLeader::behave() {
             if (_point_index == 0) {
                 //最初の必然ブレイク、始点へ行く
                 //始点までに必要なフレーム数取得
-                _fFrame_of_next = (1.0*_distance_to_begin / _pFixedVeloSplManuf->_veloMvUnit);
+                _fFrame_of_next = (1.0*_distance_to_begin / _pFixedVeloSplManuf->_velo_mvUnit);
             } else {
 
                 //始点以外の場合次の補完点までに必要なフレーム数を更新
-                _fFrame_of_next = (1.0*_distance_to_begin / _pFixedVeloSplManuf->_veloMvUnit) +
+                _fFrame_of_next = (1.0*_distance_to_begin / _pFixedVeloSplManuf->_velo_mvUnit) +
                                      _pFixedVeloSplManuf->_paFrame_need_at[_point_index];
              }
         }
@@ -185,8 +185,8 @@ void FixedVelocitySplineKurokoLeader::behave() {
         //キャラの速度が1000ならば、_leadning_fFrames ++;
         //キャラの速度が2000ならば  _leadning_fFrames += 2.0;
         //キャラの速度が500ならば、 _leadning_fFrames += 0.5
-//        _leadning_fFrames += (1.0*pKuroko_target->_veloMv / LEN_UNIT);
-        _leadning_fFrames += (pKuroko_target->_veloMv * (1.0 / LEN_UNIT));
+//        _leadning_fFrames += (1.0*pKuroko_target->_velo_mv / LEN_UNIT);
+        _leadning_fFrames += (pKuroko_target->_velo_mv * (1.0 / LEN_UNIT));
     }
 }
 
