@@ -79,7 +79,7 @@ void EnemyIda::processBehavior() {
             coord mvy = pTargetActor->_y - _y_final;
             coord mvz = pTargetActor->_z - _z_final;
             //ベースまでの(回転×平行移動)行列の逆行列取得
-            D3DXMATRIX* pBaseInvMat = _pActor_Base->getInvMatWorldRotMv();
+            D3DXMATRIX* pBaseInvMat = _pActor_base->getInvMatWorldRotMv();
             //ローカル座標で向いておくべき方向ベクトル計算
             coord tvx = mvx*pBaseInvMat->_11 + mvy*pBaseInvMat->_21 + mvz*pBaseInvMat->_31;
             coord tvy = mvx*pBaseInvMat->_12 + mvy*pBaseInvMat->_22 + mvz*pBaseInvMat->_32;

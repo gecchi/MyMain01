@@ -14,9 +14,9 @@ class FormationEbe : public GgafLib::DepositoryFormation {
 
 public:
     /** エーベ借り入れ元Depository資源への接続 */
-    DepositoryConnection* pConn_EbeDepo_;
+    DepositoryConnection* pConn_pEbeDepo_;
     /** エーベの発射弾の借り入れ元Depository資源への接続 */
-    DepositoryConnection* pConn_ShotDepo_;
+    DepositoryConnection* pConn_pShotDepo_;
 
     /** 編隊数(RANK変動) */
     int RV_NumFormation_;

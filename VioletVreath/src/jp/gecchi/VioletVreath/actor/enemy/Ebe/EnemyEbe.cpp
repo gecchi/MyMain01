@@ -19,8 +19,8 @@ EnemyEbe::EnemyEbe(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Ebe", STATUS(EnemyEbe)) {
     _class_name = "EnemyEbe";
     pKurokoLeader_ = nullptr;
-    pDepo_Shot_ = nullptr;
-    pDepo_ShotEffect_ = nullptr;
+    pDepo_shot_ = nullptr;
+    pDepo_shotEffect_ = nullptr;
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
@@ -41,13 +41,13 @@ void EnemyEbe::initialize() {
 
 void EnemyEbe::config(
         SplineKurokoLeader* prm_pKurokoLeader,
-        GgafActorDepository* prm_pDepo_Shot,
-        GgafActorDepository* prm_pDepo_ShotEffect
+        GgafActorDepository* prm_pDepo_shot,
+        GgafActorDepository* prm_pDepo_shotEffect
         ) {
     GGAF_DELETE_NULLABLE(pKurokoLeader_);
     pKurokoLeader_ = prm_pKurokoLeader;
-    pDepo_Shot_ = prm_pDepo_Shot;
-    pDepo_ShotEffect_ = prm_pDepo_ShotEffect;
+    pDepo_shot_ = prm_pDepo_shot;
+    pDepo_shotEffect_ = prm_pDepo_shotEffect;
 }
 
 void EnemyEbe::onActive() {

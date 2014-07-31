@@ -35,8 +35,8 @@ EnemyEsperia::EnemyEsperia(const char* prm_name) :
         papLaserChipDepo_[i] = nullptr;
     }
 
-    pConn_LaserChipDepoStore_ = connect_DepositoryManager("EnemyEsperiaLaserChip001DepoStore");
-    pLaserChipDepoStore_ = (GgafActorDepositoryStore*)(pConn_LaserChipDepoStore_->peek());
+    pConn_pLaserChipDepoStore_ = connect_DepositoryManager("EnemyEsperiaLaserChip001DepoStore");
+    pLaserChipDepoStore_ = (GgafActorDepositoryStore*)(pConn_pLaserChipDepoStore_->peek());
 
     paLocalPos_Laser_ = NEW GgafDxGeoElem[max_laser_way_];
     paPos_Target_ = NEW GgafDxGeoElem[max_laser_way_];
@@ -389,7 +389,7 @@ coord EnemyEsperia::getTurnDY(GgafDxCore::GgafDxGeometricActor* pThis,
 
 EnemyEsperia::~EnemyEsperia() {
     GGAF_DELETE(pAFader_);
-    pConn_LaserChipDepoStore_->close();
+    pConn_pLaserChipDepoStore_->close();
     GGAF_DELETEARR(paLocalPos_Laser_);
     GGAF_DELETEARR(paPos_Target_);
     GGAF_DELETEARR(papLaserChipDepo_);

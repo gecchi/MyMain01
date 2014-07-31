@@ -72,7 +72,7 @@ void HoshiBoshiTestActor::processSettlementBehavior() {
     _fX = C_DX(_x);
     _fY = C_DX(_y);
     _fZ = C_DX(_z);
-    (*_pFunc_calcRotMvWorldMatrix)(this, _matWorld); //ワールド変換
+    (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorld); //ワールド変換
 }
 
 void HoshiBoshiTestActor::processJudgement() {

@@ -77,8 +77,8 @@ void WallAABActor::processDraw() {
                        //連続しているカウント数。同一描画深度は一度に描画する。
     ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     HRESULT hr;
-    if (_pWalledSectionScene->_pTarget_FrontAlpha) {
-        hr = pID3DXEffect->SetFloat(_h_distance_AlphaTarget, -(_pWalledSectionScene->_pTarget_FrontAlpha->_dest_from_vppln_front));
+    if (_pWalledSectionScene->_pActor_front_alpha_target) {
+        hr = pID3DXEffect->SetFloat(_h_distance_AlphaTarget, -(_pWalledSectionScene->_pActor_front_alpha_target->_dest_from_vppln_front));
         checkDxException(hr, D3D_OK, "GgafDxMeshSetActor::processDraw() SetMatrix(_h_distance_AlphaTarget) に失敗しました。");
     } else {
         hr = pID3DXEffect->SetFloat(_h_distance_AlphaTarget, -100.0f);
@@ -117,12 +117,12 @@ void WallAABActor::processDraw() {
             if (draw_set_num >= model_set_num) {
                 break;
             }
-            pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
+            pDrawActor = pDrawActor->_pNextActor_in_draw_depth_level;
         } else {
             break;
         }
     }
-    GgafDxUniverse::_pActor_DrawActive = pWallPartsActor; //描画セットの最後アクターをセット
+    GgafDxUniverse::_pActor_draw_active = pWallPartsActor; //描画セットの最後アクターをセット
     _pMeshSetModel->GgafDxMeshSetModel::draw(this, draw_set_num);
 }
 

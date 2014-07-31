@@ -36,7 +36,7 @@ void GgafDxCubeMapMorphMeshActor::processDraw() {
     HRESULT hr;
 //    hr = pID3DXEffect->SetMatrix(_pCubeMapMorphMeshEffect->_h_matView, &P_CAM->_matView );
 //    checkDxException(hr, D3D_OK, "GgafDxCubeMapMorphMeshActor::processDraw() SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    //(*_pFunc_calcRotMvWorldMatrix)(this, _matWorld);
+    //(*_pFunc_calc_rot_mv_world_matrix)(this, _matWorld);
     hr = pID3DXEffect->SetInt(_pCubeMapMorphMeshEffect->_h_morph_target_num, _pCubeMapMorphMeshModel->_morph_target_num);
     checkDxException(hr, D3D_OK, "GgafDxCubeMapMorphMeshActor::processDraw() SetInt(_h_morph_target_num) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     for (int pattern = 1; pattern <= _pCubeMapMorphMeshModel->_morph_target_num; pattern++) {

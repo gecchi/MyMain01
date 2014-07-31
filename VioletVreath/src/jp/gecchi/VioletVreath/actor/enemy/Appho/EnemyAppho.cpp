@@ -96,9 +96,9 @@ void EnemyAppho::processBehavior() {
                  //移動方向と向きの連携解除
                  pKuroko->relateFaceByMvAng(false);
                  //滞留ポイント到着、ふらふら気ままな方向へ移動させる
-                 pKuroko->turnMvAngTwd(_x + RND(-PX_C(100),PX_C(100)),
-                                       _y + RND(-PX_C(100),PX_C(100)),
-                                       _z + RND(-PX_C(100),PX_C(100)),
+                 pKuroko->turnMvAngTwd(RND_AROUND(_x , PX_C(100)),
+                                       RND_AROUND(_y , PX_C(100)),
+                                       RND_AROUND(_z , PX_C(100)),
                                        100, 0, TURN_CLOSE_TO, false);
                  //ゆっくり自機の方へ向かせる
                  pKuroko->turnFaceAngTwd(P_MYSHIP,

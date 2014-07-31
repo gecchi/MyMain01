@@ -36,8 +36,8 @@ _pUvFlipper(NEW GgafDxUvFlipper(_pBoardSetModel->_papTextureConnection[0]->peek(
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->exec(NOT_ANIMATED, 1);
 
-    _width_px = (int)(_pBoardSetModel->_fSize_BoardSetModelWidthPx); //幅(px)
-    _height_px = (int)(_pBoardSetModel->_fSize_BoardSetModelHeightPx); //高さ(px)
+    _width_px = (int)(_pBoardSetModel->_model_width_px); //幅(px)
+    _height_px = (int)(_pBoardSetModel->_model_height_px); //高さ(px)
     _harf_width_px = _width_px/2;
     _harf_height_px = _height_px/2;
     _align = ALIGN_LEFT;
@@ -45,7 +45,7 @@ _pUvFlipper(NEW GgafDxUvFlipper(_pBoardSetModel->_papTextureConnection[0]->peek(
     _alpha = 1.0f;
 
     _is_2D = true;
-    _pFunc_calcRotMvWorldMatrix = nullptr;
+    _pFunc_calc_rot_mv_world_matrix = nullptr;
 
     setZEnable(false);
     setZWriteEnable(false);
@@ -99,12 +99,12 @@ void GgafDxBoardSetActor::processDraw() {
             if (draw_set_num >= model_set_num) {
                 break;
             }
-            pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
+            pDrawActor = pDrawActor->_pNextActor_in_draw_depth_level;
         } else {
             break;
         }
     }
-    GgafDxUniverse::_pActor_DrawActive = pBoardSetActor; //描画セットの最後アクターをセット
+    GgafDxUniverse::_pActor_draw_active = pBoardSetActor; //描画セットの最後アクターをセット
     _pBoardSetModel->GgafDxBoardSetModel::draw(this, draw_set_num);
 }
 
@@ -132,11 +132,11 @@ void GgafDxBoardSetActor::setValign(GgafDxValign prm_valign) {
 }
 
 float GgafDxBoardSetActor::getModelWidth() {
-    return _pBoardSetModel->_fSize_BoardSetModelWidthPx;
+    return _pBoardSetModel->_model_width_px;
 }
 
 float GgafDxBoardSetActor::getModelHeight() {
-    return _pBoardSetModel->_fSize_BoardSetModelHeightPx;
+    return _pBoardSetModel->_model_height_px;
 }
 
 GgafDxBoardSetActor::~GgafDxBoardSetActor() {

@@ -25,7 +25,7 @@ EnemyGlaja::EnemyGlaja(const char* prm_name) :
     pAFader_ = NEW GgafDxAlphaFader(this);
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    pConn_Shot_ = connect_DepositoryManager("GlajaLance001");
+    pConn_pShot_ = connect_DepositoryManager("GlajaLance001");
     effectBlendOne(); //加算合成
     setScaleR(0.3);
     useProgress(PROG_BANPEI);
@@ -121,7 +121,7 @@ void EnemyGlaja::processBehavior() {
                  num_fire_ = RF_EnemyGlaja_ShotWay(G_RANK);
                  UTIL::shotWay004(
                      this,
-                     pConn_Shot_->peek(),
+                     pConn_pShot_->peek(),
                      PX_C(5),
                      num_fire_, D180ANG,
                      0, 0, // 初期速度はショット側の onActive() で設定される。
@@ -180,7 +180,7 @@ void EnemyGlaja::onDispatchedShot(GgafDxCore::GgafDxDrawableActor* prm_pActor, i
 }
 
 EnemyGlaja::~EnemyGlaja() {
-    pConn_Shot_->close();
+    pConn_pShot_->close();
     GGAF_DELETE(pAFader_);
 }
 

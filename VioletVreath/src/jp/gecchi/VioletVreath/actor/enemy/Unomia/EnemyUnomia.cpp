@@ -20,8 +20,8 @@ EnemyUnomia::EnemyUnomia(const char* prm_name) :
     _class_name = "EnemyUnomia";
     iMovePatternNo_ = 0;
     pKurokoLeader_ = nullptr;
-    pDepo_Shot_ = nullptr;
-    pDepo_ShotEffect_ = nullptr;
+    pDepo_shot_ = nullptr;
+    pDepo_shotEffect_ = nullptr;
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
     useProgress(PROG_BANPEI);
@@ -46,13 +46,13 @@ void EnemyUnomia::onReset() {
 
 void EnemyUnomia::config(
         GgafLib::SplineKurokoLeader* prm_pKurokoLeader,
-        GgafCore::GgafActorDepository* prm_pDepo_Shot,
-        GgafCore::GgafActorDepository* prm_pDepo_ShotEffect
+        GgafCore::GgafActorDepository* prm_pDepo_shot,
+        GgafCore::GgafActorDepository* prm_pDepo_shotEffect
         ) {
     GGAF_DELETE_NULLABLE(pKurokoLeader_);
     pKurokoLeader_ = prm_pKurokoLeader;
-    pDepo_Shot_ = prm_pDepo_Shot;
-    pDepo_ShotEffect_ = prm_pDepo_ShotEffect;
+    pDepo_shot_ = prm_pDepo_shot;
+    pDepo_shotEffect_ = prm_pDepo_shotEffect;
 }
 
 
@@ -94,23 +94,23 @@ void EnemyUnomia::processBehavior() {
                            );
             }
 
-//            if (pDepo_Shot_) {
+//            if (pDepo_shot_) {
 //                //放射状ショット
 //                int way = RF_EnemyUnomia_ShotWay(G_RANK); //ショットWAY数
 //                angle* paAng_way = NEW angle[way];
 //                UTIL::getRadialAngle2D(0, way, paAng_way);
-//                GgafDxDrawableActor* pActor_Shot;
+//                GgafDxDrawableActor* pActor_shot;
 //                for (int i = 0; i < way; i++) {
-//                    pActor_Shot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
-//                    if (pActor_Shot) {
-//                        pActor_Shot->positionAs(this);
-//                        pActor_Shot->getKuroko()->setRzRyMvAng(paAng_way[i], D90ANG);
+//                    pActor_shot = (GgafDxDrawableActor*)pDepo_shot_->dispatch();
+//                    if (pActor_shot) {
+//                        pActor_shot->positionAs(this);
+//                        pActor_shot->getKuroko()->setRzRyMvAng(paAng_way[i], D90ANG);
 //                    }
 //                }
 //                GGAF_DELETEARR(paAng_way);
 //                //ショット発射エフェクト
-//                if (pDepo_ShotEffect_) {
-//                    GgafDxDrawableActor* pTestActor_Shot = (GgafDxDrawableActor*)pDepo_ShotEffect_->dispatch();
+//                if (pDepo_shotEffect_) {
+//                    GgafDxDrawableActor* pTestActor_Shot = (GgafDxDrawableActor*)pDepo_shotEffect_->dispatch();
 //                    if (pTestActor_Shot) {
 //                        pTestActor_Shot->positionAs(this);
 //                    }
@@ -161,23 +161,23 @@ void EnemyUnomia::processBehavior() {
 //            break;
 //
 //        case 2:  //【パターン２：放射状ショット発射と自機へ方向転換】
-//            if (pDepo_Shot_) {
+//            if (pDepo_shot_) {
 //                //放射状ショット
 //                int way = RF_EnemyUnomia_ShotWay(G_RANK); //ショットWAY数
 //                angle* paAng_way = NEW angle[way];
 //                UTIL::getRadialAngle2D(0, way, paAng_way);
-//                GgafDxDrawableActor* pActor_Shot;
+//                GgafDxDrawableActor* pActor_shot;
 //                for (int i = 0; i < way; i++) {
-//                    pActor_Shot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
-//                    if (pActor_Shot) {
-//                        pActor_Shot->positionAs(this);
-//                        pActor_Shot->getKuroko()->setRzRyMvAng(paAng_way[i], D90ANG);
+//                    pActor_shot = (GgafDxDrawableActor*)pDepo_shot_->dispatch();
+//                    if (pActor_shot) {
+//                        pActor_shot->positionAs(this);
+//                        pActor_shot->getKuroko()->setRzRyMvAng(paAng_way[i], D90ANG);
 //                    }
 //                }
 //                GGAF_DELETEARR(paAng_way);
 //                //ショット発射エフェクト
-//                if (pDepo_ShotEffect_) {
-//                    GgafDxDrawableActor* pTestActor_Shot = (GgafDxDrawableActor*)pDepo_ShotEffect_->dispatch();
+//                if (pDepo_shotEffect_) {
+//                    GgafDxDrawableActor* pTestActor_Shot = (GgafDxDrawableActor*)pDepo_shotEffect_->dispatch();
 //                    if (pTestActor_Shot) {
 //                        pTestActor_Shot->positionAs(this);
 //                    }

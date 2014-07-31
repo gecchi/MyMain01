@@ -16,37 +16,37 @@ GgafDxAxesMover::GgafDxAxesMover(GgafDxGeometricActor* prm_pActor) : GgafObject(
 _pActor(prm_pActor) {
     _pAsstA = nullptr;
     //X軸方向移動速度（X移動座標増分）＝ 0 px/fream
-    _veloVxMv = 0;
+    _velo_vx_mv = 0;
     //X軸方向移動速度上限
-    _veloTopVxMv = INT_MAX;
+    _top_velo_vx_mv = INT_MAX;
     //X軸方向移動速度下限
-    _veloBottomVxMv = INT_MIN;
+    _bottom_velo_vx_mv = INT_MIN;
     //X軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
-    _acceVxMv = 0;
-    _acceTopVxMv = INT_MAX;
-    _acceBottomVxMv = INT_MIN;
+    _acce_vx_mv = 0;
+    _top_acce_vx_mv = INT_MAX;
+    _bottom_acce_vx_mv = INT_MIN;
     //Y軸方向移動速度（Y移動座標増分）＝ 0 px/fream
-    _veloVyMv = 0;
+    _velo_vy_mv = 0;
     //Y軸方向移動速度上限
-    _veloTopVyMv = INT_MAX;
+    _top_velo_vy_mv = INT_MAX;
     //Y軸方向移動速度下限
-    _veloBottomVyMv = INT_MIN;
+    _bottom_velo_vy_mv = INT_MIN;
     //Y軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
-    _acceVyMv = 0;
+    _acce_vy_mv = 0;
 
-    _acceTopVyMv = INT_MAX;
-    _acceBottomVyMv = INT_MIN;
+    _top_acce_vy_mv = INT_MAX;
+    _bottom_acce_vy_mv = INT_MIN;
 
     //Z軸方向移動速度（Z移動座標増分）＝ 0 px/fream
-    _veloVzMv = 0;
+    _velo_vz_mv = 0;
     //Z軸方向移動速度上限
-    _veloTopVzMv = INT_MAX;
+    _top_velo_vz_mv = INT_MAX;
     //Z軸方向移動速度下限
-    _veloBottomVzMv = INT_MIN;
+    _bottom_velo_vz_mv = INT_MIN;
     //Z軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
-    _acceVzMv = 0;
-    _acceTopVzMv = INT_MAX;
-    _acceBottomVzMv = INT_MIN;
+    _acce_vz_mv = 0;
+    _top_acce_vz_mv = INT_MAX;
+    _bottom_acce_vz_mv = INT_MIN;
 
     _grv_mv_target_x = 0;
     _grv_mv_target_y = 0;
@@ -69,349 +69,351 @@ void GgafDxAxesMover::behave() {
     }
 
     if(_grv_mv_flg) {
-        coord dX, dY, dZ;
+        coord dx, dy, dz;
         if (_grv_mv_pActor_target) {
-            dX = _grv_mv_pActor_target->_x - _pActor->_x;
-            dY = _grv_mv_pActor_target->_y - _pActor->_y;
-            dZ = _grv_mv_pActor_target->_z - _pActor->_z;
+            dx = _grv_mv_pActor_target->_x - _pActor->_x;
+            dy = _grv_mv_pActor_target->_y - _pActor->_y;
+            dz = _grv_mv_pActor_target->_z - _pActor->_z;
         } else {
-            dX = _grv_mv_target_x - _pActor->_x;
-            dY = _grv_mv_target_y - _pActor->_y;
-            dZ = _grv_mv_target_z - _pActor->_z;
+            dx = _grv_mv_target_x - _pActor->_x;
+            dy = _grv_mv_target_y - _pActor->_y;
+            dz = _grv_mv_target_z - _pActor->_z;
         }
-        coord dX_abs = ABS(dX);
-        coord dY_abs = ABS(dY);
-        coord dZ_abs = ABS(dZ);
-        coord dmax = MAX3(dX_abs, dY_abs, dZ_abs);//距離簡易計算
+        coord dx_abs = ABS(dx);
+        coord dy_abs = ABS(dy);
+        coord dz_abs = ABS(dz);
+        coord dmax = MAX3(dx_abs, dy_abs, dz_abs);//距離簡易計算
         if (dmax > _grv_mv_max_velo) {
             double rr = 1.0*_grv_mv_max_velo / dmax;
-            dX *= rr;
-            dY *= rr;
-            dZ *= rr;
+            dx *= rr;
+            dy *= rr;
+            dz *= rr;
         }
         double r_acce = 1.7*_grv_mv_acce / dmax;
-        acce X_acce = r_acce * dX_abs;
-        acce Y_acce = r_acce * dY_abs;
-        acce Z_acce = r_acce * dZ_abs;
-        if (X_acce > _grv_mv_acce) {
-            X_acce = _grv_mv_acce;
+        acce x_acce = r_acce * dx_abs;
+        acce y_acce = r_acce * dy_abs;
+        acce z_acce = r_acce * dz_abs;
+        if (x_acce > _grv_mv_acce) {
+            x_acce = _grv_mv_acce;
         }
-        if (Y_acce > _grv_mv_acce) {
-            Y_acce = _grv_mv_acce;
+        if (y_acce > _grv_mv_acce) {
+            y_acce = _grv_mv_acce;
         }
-        if (Z_acce > _grv_mv_acce) {
-            Z_acce = _grv_mv_acce;
+        if (z_acce > _grv_mv_acce) {
+            z_acce = _grv_mv_acce;
         }
-        velo last_veloVxMv = _veloVxMv;
-        velo new_veloVxMv = _grv_mv_max_velo * (dX * 1.0 / _grv_mv_stop_renge);
-        if (last_veloVxMv - X_acce <= new_veloVxMv &&
-                                      new_veloVxMv <= last_veloVxMv + X_acce) {
-            _veloVxMv = new_veloVxMv;
+        velo last_velo_vx_mv = _velo_vx_mv;
+        velo new_velo_vx_mv = _grv_mv_max_velo * (dx * 1.0 / _grv_mv_stop_renge);
+        if (last_velo_vx_mv - x_acce <= new_velo_vx_mv &&
+                                        new_velo_vx_mv <= last_velo_vx_mv + x_acce) {
+            _velo_vx_mv = new_velo_vx_mv;
         } else {
-            if (last_veloVxMv - X_acce > new_veloVxMv) {
-                _veloVxMv = last_veloVxMv - X_acce;
-            } else if (new_veloVxMv > last_veloVxMv + X_acce) {
-                _veloVxMv = last_veloVxMv + X_acce;
+            if (last_velo_vx_mv - x_acce > new_velo_vx_mv) {
+                _velo_vx_mv = last_velo_vx_mv - x_acce;
+            } else if (new_velo_vx_mv > last_velo_vx_mv + x_acce) {
+                _velo_vx_mv = last_velo_vx_mv + x_acce;
             }
         }
 
-        velo last_veloVyMv = _veloVyMv;
-        velo new_veloVyMv = _grv_mv_max_velo * (dY * 1.0 / _grv_mv_stop_renge);
-        if (last_veloVyMv - Y_acce <= new_veloVyMv &&
-                                      new_veloVyMv <= last_veloVyMv + Y_acce) {
-            _veloVyMv = new_veloVyMv;
+        velo last_velo_vy_mv = _velo_vy_mv;
+        velo new_velo_vy_mv = _grv_mv_max_velo * (dy * 1.0 / _grv_mv_stop_renge);
+        if (last_velo_vy_mv - y_acce <= new_velo_vy_mv &&
+                                        new_velo_vy_mv <= last_velo_vy_mv + y_acce) {
+            _velo_vy_mv = new_velo_vy_mv;
         } else {
-            if (last_veloVyMv - Y_acce > new_veloVyMv) {
-                _veloVyMv = last_veloVyMv - Y_acce;
-            } else if (new_veloVyMv > last_veloVyMv + Y_acce) {
-                _veloVyMv = last_veloVyMv + Y_acce;
+            if (last_velo_vy_mv - y_acce > new_velo_vy_mv) {
+                _velo_vy_mv = last_velo_vy_mv - y_acce;
+            } else if (new_velo_vy_mv > last_velo_vy_mv + y_acce) {
+                _velo_vy_mv = last_velo_vy_mv + y_acce;
             }
         }
 
-        velo last_veloVzMv = _veloVzMv;
-        velo new_veloVzMv = _grv_mv_max_velo * (dZ * 1.0 / _grv_mv_stop_renge);
-        if (last_veloVzMv - Z_acce <= new_veloVzMv &&
-                                      new_veloVzMv <= last_veloVzMv + Z_acce) {
-            _veloVzMv = new_veloVzMv;
+        velo last_velo_vz_mv = _velo_vz_mv;
+        velo new_velo_vz_mv = _grv_mv_max_velo * (dz * 1.0 / _grv_mv_stop_renge);
+        if (last_velo_vz_mv - z_acce <= new_velo_vz_mv &&
+                                        new_velo_vz_mv <= last_velo_vz_mv + z_acce) {
+            _velo_vz_mv = new_velo_vz_mv;
         } else {
-            if (last_veloVzMv - Z_acce > new_veloVzMv) {
-                _veloVzMv = last_veloVzMv - Z_acce;
-            } else if (new_veloVzMv > last_veloVzMv + Z_acce) {
-                _veloVzMv = last_veloVzMv + Z_acce;
+            if (last_velo_vz_mv - z_acce > new_velo_vz_mv) {
+                _velo_vz_mv = last_velo_vz_mv - z_acce;
+            } else if (new_velo_vz_mv > last_velo_vz_mv + z_acce) {
+                _velo_vz_mv = last_velo_vz_mv + z_acce;
             }
         }
     }
 
-    _veloVxMv += _acceVxMv;
-    if (_veloVxMv > _veloTopVxMv) {
-        _veloVxMv = _veloTopVxMv;
-    } else if (_veloVxMv < _veloBottomVxMv) {
-        _veloVxMv = _veloBottomVxMv;
+    _velo_vx_mv += _acce_vx_mv;
+    if (_velo_vx_mv > _top_velo_vx_mv) {
+        _velo_vx_mv = _top_velo_vx_mv;
+    } else if (_velo_vx_mv < _bottom_velo_vx_mv) {
+        _velo_vx_mv = _bottom_velo_vx_mv;
     }
-    _veloVyMv += _acceVyMv;
-    if (_veloVyMv > _veloTopVyMv) {
-        _veloVyMv = _veloTopVyMv;
-    } else if (_veloVyMv < _veloBottomVyMv) {
-        _veloVyMv = _veloBottomVyMv;
+    _velo_vy_mv += _acce_vy_mv;
+    if (_velo_vy_mv > _top_velo_vy_mv) {
+        _velo_vy_mv = _top_velo_vy_mv;
+    } else if (_velo_vy_mv < _bottom_velo_vy_mv) {
+        _velo_vy_mv = _bottom_velo_vy_mv;
     }
-    _veloVzMv += _acceVzMv;
-    if (_veloVzMv > _veloTopVzMv) {
-        _veloVzMv = _veloTopVzMv;
-    } else if (_veloVzMv < _veloBottomVzMv) {
-        _veloVzMv = _veloBottomVzMv;
+    _velo_vz_mv += _acce_vz_mv;
+    if (_velo_vz_mv > _top_velo_vz_mv) {
+        _velo_vz_mv = _top_velo_vz_mv;
+    } else if (_velo_vz_mv < _bottom_velo_vz_mv) {
+        _velo_vz_mv = _bottom_velo_vz_mv;
     }
 
     //Actorに反映
-    _pActor->_x += _veloVxMv;
-    _pActor->_y += _veloVyMv;
-    _pActor->_z += _veloVzMv;
+    _pActor->_x += _velo_vx_mv;
+    _pActor->_y += _velo_vy_mv;
+    _pActor->_z += _velo_vz_mv;
 }
 
 int GgafDxAxesMover::dot(int prm_vX, int prm_vY, int prm_vZ) {
-    return (prm_vX * _veloVxMv) + (prm_vY *_veloVyMv) + (prm_vZ*_veloVzMv);
+    return (prm_vX * _velo_vx_mv) + (prm_vY *_velo_vy_mv) + (prm_vZ*_velo_vz_mv);
 }
 
-void GgafDxAxesMover::forceVxMvVeloRange(velo prm_veloVxMv01, velo prm_veloVxMv02) {
-    if (prm_veloVxMv01 < prm_veloVxMv02) {
-        _veloTopVxMv = prm_veloVxMv02;
-        _veloBottomVxMv = prm_veloVxMv01;
+void GgafDxAxesMover::forceVxMvVeloRange(velo prm_velo_vx_mv01, velo prm_velo_vx_mv02) {
+    if (prm_velo_vx_mv01 < prm_velo_vx_mv02) {
+        _top_velo_vx_mv = prm_velo_vx_mv02;
+        _bottom_velo_vx_mv = prm_velo_vx_mv01;
     } else {
-        _veloTopVxMv = prm_veloVxMv01;
-        _veloBottomVxMv = prm_veloVxMv02;
+        _top_velo_vx_mv = prm_velo_vx_mv01;
+        _bottom_velo_vx_mv = prm_velo_vx_mv02;
     }
-    setVxMvVelo(_veloVxMv); //再設定して範囲内に補正
+    setVxMvVelo(_velo_vx_mv); //再設定して範囲内に補正
 }
 
-void GgafDxAxesMover::setVxMvVelo(velo prm_veloVxMv) {
-    if (prm_veloVxMv > _veloTopVxMv) {
-        _veloVxMv = _veloTopVxMv;
-    } else if (prm_veloVxMv < _veloBottomVxMv) {
-        _veloVxMv = _veloBottomVxMv;
+void GgafDxAxesMover::setVxMvVelo(velo prm_velo_vx_mv) {
+    if (prm_velo_vx_mv > _top_velo_vx_mv) {
+        _velo_vx_mv = _top_velo_vx_mv;
+    } else if (prm_velo_vx_mv < _bottom_velo_vx_mv) {
+        _velo_vx_mv = _bottom_velo_vx_mv;
     } else {
-        _veloVxMv = prm_veloVxMv;
+        _velo_vx_mv = prm_velo_vx_mv;
     }
 }
 
-void GgafDxAxesMover::addVxMvVelo(velo prm_veloVxMv) {
-    _veloVxMv += prm_veloVxMv;
-    if (_veloVxMv > _veloTopVxMv) {
-        _veloVxMv = _veloTopVxMv;
-    } else if (_veloVxMv < _veloBottomVxMv) {
-        _veloVxMv = _veloBottomVxMv;
+void GgafDxAxesMover::addVxMvVelo(velo prm_velo_vx_mv) {
+    _velo_vx_mv += prm_velo_vx_mv;
+    if (_velo_vx_mv > _top_velo_vx_mv) {
+        _velo_vx_mv = _top_velo_vx_mv;
+    } else if (_velo_vx_mv < _bottom_velo_vx_mv) {
+        _velo_vx_mv = _bottom_velo_vx_mv;
     }
 }
 
-void GgafDxAxesMover::setVxMvAcce(acce prm_acceVxMv) {
-    if (prm_acceVxMv > _acceTopVxMv) {
-        _acceVxMv = _acceTopVxMv;
-    } else if (prm_acceVxMv < _acceBottomVxMv) {
-        _acceVxMv = _acceBottomVxMv;
+void GgafDxAxesMover::setVxMvAcce(acce prm_acce_vx_mv) {
+    if (prm_acce_vx_mv > _top_acce_vx_mv) {
+        _acce_vx_mv = _top_acce_vx_mv;
+    } else if (prm_acce_vx_mv < _bottom_acce_vx_mv) {
+        _acce_vx_mv = _bottom_acce_vx_mv;
     } else {
-        _acceVxMv = prm_acceVxMv;
+        _acce_vx_mv = prm_acce_vx_mv;
     }
 }
 
-void GgafDxAxesMover::addVxMvAcce(acce prm_acceVxMv) {
-    setVxMvAcce(_acceVxMv + prm_acceVxMv);
+void GgafDxAxesMover::addVxMvAcce(acce prm_acce_vx_mv) {
+    setVxMvAcce(_acce_vx_mv + prm_acce_vx_mv);
 }
 
-void GgafDxAxesMover::forceVxMvAcceRange(acce prm_acceVxMv01, acce prm_acceVxMv02) {
-    if (prm_acceVxMv01 < prm_acceVxMv02) {
-        _acceTopVxMv = prm_acceVxMv02;
-        _acceBottomVxMv = prm_acceVxMv01;
+void GgafDxAxesMover::forceVxMvAcceRange(acce prm_acce_vx_mv01, acce prm_acce_vx_mv02) {
+    if (prm_acce_vx_mv01 < prm_acce_vx_mv02) {
+        _top_acce_vx_mv = prm_acce_vx_mv02;
+        _bottom_acce_vx_mv = prm_acce_vx_mv01;
     } else {
-        _acceTopVxMv = prm_acceVxMv01;
-        _acceBottomVxMv = prm_acceVxMv02;
+        _top_acce_vx_mv = prm_acce_vx_mv01;
+        _bottom_acce_vx_mv = prm_acce_vx_mv02;
     }
-    setVxMvAcce(_acceVxMv); //再設定して範囲内に補正
+    setVxMvAcce(_acce_vx_mv); //再設定して範囲内に補正
 }
 
-void GgafDxAxesMover::forceVyMvVeloRange(velo prm_veloVyMv01, velo prm_veloVyMv02) {
-    if (prm_veloVyMv01 < prm_veloVyMv02) {
-        _veloTopVyMv = prm_veloVyMv02;
-        _veloBottomVyMv = prm_veloVyMv01;
+void GgafDxAxesMover::forceVyMvVeloRange(velo prm_velo_vy_mv01, velo prm_velo_vy_mv02) {
+    if (prm_velo_vy_mv01 < prm_velo_vy_mv02) {
+        _top_velo_vy_mv = prm_velo_vy_mv02;
+        _bottom_velo_vy_mv = prm_velo_vy_mv01;
     } else {
-        _veloTopVyMv = prm_veloVyMv01;
-        _veloBottomVyMv = prm_veloVyMv02;
+        _top_velo_vy_mv = prm_velo_vy_mv01;
+        _bottom_velo_vy_mv = prm_velo_vy_mv02;
     }
-    setVyMvVelo(_veloVyMv); //再設定して範囲内に補正
+    setVyMvVelo(_velo_vy_mv); //再設定して範囲内に補正
 }
 
-void GgafDxAxesMover::setVyMvVelo(velo prm_veloVyMv) {
-    if (prm_veloVyMv > _veloTopVyMv) {
-        _veloVyMv = _veloTopVyMv;
-    } else if (prm_veloVyMv < _veloBottomVyMv) {
-        _veloVyMv = _veloBottomVyMv;
+void GgafDxAxesMover::setVyMvVelo(velo prm_velo_vy_mv) {
+    if (prm_velo_vy_mv > _top_velo_vy_mv) {
+        _velo_vy_mv = _top_velo_vy_mv;
+    } else if (prm_velo_vy_mv < _bottom_velo_vy_mv) {
+        _velo_vy_mv = _bottom_velo_vy_mv;
     } else {
-        _veloVyMv = prm_veloVyMv;
+        _velo_vy_mv = prm_velo_vy_mv;
     }
 }
 
-void GgafDxAxesMover::addVyMvVelo(velo prm_veloVyMv) {
-    _veloVyMv += prm_veloVyMv;
-    if (_veloVyMv > _veloTopVyMv) {
-        _veloVyMv = _veloTopVyMv;
-    } else if (_veloVyMv < _veloBottomVyMv) {
-        _veloVyMv = _veloBottomVyMv;
+void GgafDxAxesMover::addVyMvVelo(velo prm_velo_vy_mv) {
+    _velo_vy_mv += prm_velo_vy_mv;
+    if (_velo_vy_mv > _top_velo_vy_mv) {
+        _velo_vy_mv = _top_velo_vy_mv;
+    } else if (_velo_vy_mv < _bottom_velo_vy_mv) {
+        _velo_vy_mv = _bottom_velo_vy_mv;
     }
 }
 
-void GgafDxAxesMover::setVyMvAcce(acce prm_acceVyMv) {
-    if (prm_acceVyMv > _acceTopVyMv) {
-        _acceVyMv = _acceTopVyMv;
-    } else if (prm_acceVyMv < _acceBottomVyMv) {
-        _acceVyMv = _acceBottomVyMv;
+void GgafDxAxesMover::setVyMvAcce(acce prm_acce_vy_mv) {
+    if (prm_acce_vy_mv > _top_acce_vy_mv) {
+        _acce_vy_mv = _top_acce_vy_mv;
+    } else if (prm_acce_vy_mv < _bottom_acce_vy_mv) {
+        _acce_vy_mv = _bottom_acce_vy_mv;
     } else {
-        _acceVyMv = prm_acceVyMv;
+        _acce_vy_mv = prm_acce_vy_mv;
     }
 }
 
-void GgafDxAxesMover::addVyMvAcce(acce prm_acceVyMv) {
-    setVyMvAcce(_acceVyMv + prm_acceVyMv);
+void GgafDxAxesMover::addVyMvAcce(acce prm_acce_vy_mv) {
+    setVyMvAcce(_acce_vy_mv + prm_acce_vy_mv);
 }
 
-void GgafDxAxesMover::forceVyMvAcceRange(acce prm_acceVyMv01, acce prm_acceVyMv02) {
-    if (prm_acceVyMv01 < prm_acceVyMv02) {
-        _acceTopVyMv = prm_acceVyMv02;
-        _acceBottomVyMv = prm_acceVyMv01;
+void GgafDxAxesMover::forceVyMvAcceRange(acce prm_acce_vy_mv01, acce prm_acce_vy_mv02) {
+    if (prm_acce_vy_mv01 < prm_acce_vy_mv02) {
+        _top_acce_vy_mv = prm_acce_vy_mv02;
+        _bottom_acce_vy_mv = prm_acce_vy_mv01;
     } else {
-        _acceTopVyMv = prm_acceVyMv01;
-        _acceBottomVyMv = prm_acceVyMv02;
+        _top_acce_vy_mv = prm_acce_vy_mv01;
+        _bottom_acce_vy_mv = prm_acce_vy_mv02;
     }
-    setVyMvAcce(_acceVyMv); //再設定して範囲内に補正
+    setVyMvAcce(_acce_vy_mv); //再設定して範囲内に補正
 }
 
-void GgafDxAxesMover::forceVzMvVeloRange(velo prm_veloVzMv01, velo prm_veloVzMv02) {
-    if (prm_veloVzMv01 < prm_veloVzMv02) {
-        _veloTopVzMv = prm_veloVzMv02;
-        _veloBottomVzMv = prm_veloVzMv01;
+void GgafDxAxesMover::forceVzMvVeloRange(velo prm_velo_vz_mv01, velo prm_velo_vz_mv02) {
+    if (prm_velo_vz_mv01 < prm_velo_vz_mv02) {
+        _top_velo_vz_mv = prm_velo_vz_mv02;
+        _bottom_velo_vz_mv = prm_velo_vz_mv01;
     } else {
-        _veloTopVzMv = prm_veloVzMv01;
-        _veloBottomVzMv = prm_veloVzMv02;
+        _top_velo_vz_mv = prm_velo_vz_mv01;
+        _bottom_velo_vz_mv = prm_velo_vz_mv02;
     }
-    setVzMvVelo(_veloVzMv); //再設定して範囲内に補正
+    setVzMvVelo(_velo_vz_mv); //再設定して範囲内に補正
 }
 
-void GgafDxAxesMover::setVzMvVelo(velo prm_veloVzMv) {
-    if (prm_veloVzMv > _veloTopVzMv) {
-        _veloVzMv = _veloTopVzMv;
-    } else if (prm_veloVzMv < _veloBottomVzMv) {
-        _veloVzMv = _veloBottomVzMv;
+void GgafDxAxesMover::setVzMvVelo(velo prm_velo_vz_mv) {
+    if (prm_velo_vz_mv > _top_velo_vz_mv) {
+        _velo_vz_mv = _top_velo_vz_mv;
+    } else if (prm_velo_vz_mv < _bottom_velo_vz_mv) {
+        _velo_vz_mv = _bottom_velo_vz_mv;
     } else {
-        _veloVzMv = prm_veloVzMv;
+        _velo_vz_mv = prm_velo_vz_mv;
     }
 }
 
-void GgafDxAxesMover::addVzMvVelo(velo prm_veloVzMv) {
-    _veloVzMv += prm_veloVzMv;
-    if (_veloVzMv > _veloTopVzMv) {
-        _veloVzMv = _veloTopVzMv;
-    } else if (_veloVzMv < _veloBottomVzMv) {
-        _veloVzMv = _veloBottomVzMv;
+void GgafDxAxesMover::addVzMvVelo(velo prm_velo_vz_mv) {
+    _velo_vz_mv += prm_velo_vz_mv;
+    if (_velo_vz_mv > _top_velo_vz_mv) {
+        _velo_vz_mv = _top_velo_vz_mv;
+    } else if (_velo_vz_mv < _bottom_velo_vz_mv) {
+        _velo_vz_mv = _bottom_velo_vz_mv;
     }
 }
 
-void GgafDxAxesMover::setVzMvAcce(acce prm_acceVzMv) {
-    if (prm_acceVzMv > _acceTopVzMv) {
-        _acceVzMv = _acceTopVzMv;
-    } else if (prm_acceVzMv < _acceBottomVzMv) {
-        _acceVzMv = _acceBottomVzMv;
+void GgafDxAxesMover::setVzMvAcce(acce prm_acce_vz_mv) {
+    if (prm_acce_vz_mv > _top_acce_vz_mv) {
+        _acce_vz_mv = _top_acce_vz_mv;
+    } else if (prm_acce_vz_mv < _bottom_acce_vz_mv) {
+        _acce_vz_mv = _bottom_acce_vz_mv;
     } else {
-        _acceVzMv = prm_acceVzMv;
+        _acce_vz_mv = prm_acce_vz_mv;
     }
 }
 
-void GgafDxAxesMover::addVzMvAcce(acce prm_acceVzMv) {
-    setVzMvAcce(_acceVzMv + prm_acceVzMv);
+void GgafDxAxesMover::addVzMvAcce(acce prm_acce_vz_mv) {
+    setVzMvAcce(_acce_vz_mv + prm_acce_vz_mv);
 }
 
-void GgafDxAxesMover::forceVzMvAcceRange(acce prm_acceVzMv01, acce prm_acceVzMv02) {
-    if (prm_acceVzMv01 < prm_acceVzMv02) {
-        _acceTopVzMv = prm_acceVzMv02;
-        _acceBottomVzMv = prm_acceVzMv01;
+void GgafDxAxesMover::forceVzMvAcceRange(acce prm_acce_vz_mv01, acce prm_acce_vz_mv02) {
+    if (prm_acce_vz_mv01 < prm_acce_vz_mv02) {
+        _top_acce_vz_mv = prm_acce_vz_mv02;
+        _bottom_acce_vz_mv = prm_acce_vz_mv01;
     } else {
-        _acceTopVzMv = prm_acceVzMv01;
-        _acceBottomVzMv = prm_acceVzMv02;
+        _top_acce_vz_mv = prm_acce_vz_mv01;
+        _bottom_acce_vz_mv = prm_acce_vz_mv02;
     }
-    setVzMvAcce(_acceVzMv); //再設定して範囲内に補正
+    setVzMvAcce(_acce_vz_mv); //再設定して範囲内に補正
 }
 
-void GgafDxAxesMover::forceVxyzMvVeloRange(velo prm_veloVxyzMv01, velo prm_veloVxyzMv02) {
-    if (prm_veloVxyzMv01 < prm_veloVxyzMv02) {
-        _veloTopVxMv = prm_veloVxyzMv02;
-        _veloBottomVxMv = prm_veloVxyzMv01;
-        _veloTopVyMv = prm_veloVxyzMv02;
-        _veloBottomVyMv = prm_veloVxyzMv01;
-        _veloTopVzMv = prm_veloVxyzMv02;
-        _veloBottomVzMv = prm_veloVxyzMv01;
+void GgafDxAxesMover::forceVxyzMvVeloRange(velo prm_velo_vxyz_mv01, velo prm_velo_vxyz_mv02) {
+    if (prm_velo_vxyz_mv01 < prm_velo_vxyz_mv02) {
+        _top_velo_vx_mv = prm_velo_vxyz_mv02;
+        _bottom_velo_vx_mv = prm_velo_vxyz_mv01;
+        _top_velo_vy_mv = prm_velo_vxyz_mv02;
+        _bottom_velo_vy_mv = prm_velo_vxyz_mv01;
+        _top_velo_vz_mv = prm_velo_vxyz_mv02;
+        _bottom_velo_vz_mv = prm_velo_vxyz_mv01;
     } else {
-        _veloTopVxMv = prm_veloVxyzMv01;
-        _veloBottomVxMv = prm_veloVxyzMv02;
-        _veloTopVyMv = prm_veloVxyzMv01;
-        _veloBottomVyMv = prm_veloVxyzMv02;
-        _veloTopVzMv = prm_veloVxyzMv01;
-        _veloBottomVzMv = prm_veloVxyzMv02;
+        _top_velo_vx_mv = prm_velo_vxyz_mv01;
+        _bottom_velo_vx_mv = prm_velo_vxyz_mv02;
+        _top_velo_vy_mv = prm_velo_vxyz_mv01;
+        _bottom_velo_vy_mv = prm_velo_vxyz_mv02;
+        _top_velo_vz_mv = prm_velo_vxyz_mv01;
+        _bottom_velo_vz_mv = prm_velo_vxyz_mv02;
     }
     //再設定して範囲内に補正
-    setVxMvVelo(_veloVxMv);
-    setVyMvVelo(_veloVyMv);
-    setVzMvVelo(_veloVzMv);
-}
-void GgafDxAxesMover::forceVxyzMvAcceRange(acce prm_acceVxyzMv01, acce prm_acceVxyzMv02) {
-    forceVxMvAcceRange(prm_acceVxyzMv01, prm_acceVxyzMv02);
-    forceVyMvAcceRange(prm_acceVxyzMv01, prm_acceVxyzMv02);
-    forceVzMvAcceRange(prm_acceVxyzMv01, prm_acceVxyzMv02);
+    setVxMvVelo(_velo_vx_mv);
+    setVyMvVelo(_velo_vy_mv);
+    setVzMvVelo(_velo_vz_mv);
 }
 
-void GgafDxAxesMover::setVxyzMvVelo(velo prm_veloVxMv, velo prm_veloVyMv, velo prm_veloVzMv) {
-    if (prm_veloVxMv > _veloTopVxMv) {
-        _veloVxMv = _veloTopVxMv;
-    } else if (prm_veloVxMv < _veloBottomVxMv) {
-        _veloVxMv = _veloBottomVxMv;
+void GgafDxAxesMover::forceVxyzMvAcceRange(acce prm_acce_vxyz_mv01, acce prm_acce_vxyz_mv02) {
+    forceVxMvAcceRange(prm_acce_vxyz_mv01, prm_acce_vxyz_mv02);
+    forceVyMvAcceRange(prm_acce_vxyz_mv01, prm_acce_vxyz_mv02);
+    forceVzMvAcceRange(prm_acce_vxyz_mv01, prm_acce_vxyz_mv02);
+}
+
+void GgafDxAxesMover::setVxyzMvVelo(velo prm_velo_vx_mv, velo prm_velo_vy_mv, velo prm_velo_vz_mv) {
+    if (prm_velo_vx_mv > _top_velo_vx_mv) {
+        _velo_vx_mv = _top_velo_vx_mv;
+    } else if (prm_velo_vx_mv < _bottom_velo_vx_mv) {
+        _velo_vx_mv = _bottom_velo_vx_mv;
     } else {
-        _veloVxMv = prm_veloVxMv;
+        _velo_vx_mv = prm_velo_vx_mv;
     }
-    if (prm_veloVyMv > _veloTopVyMv) {
-        _veloVyMv = _veloTopVyMv;
-    } else if (prm_veloVyMv < _veloBottomVyMv) {
-        _veloVyMv = _veloBottomVyMv;
+    if (prm_velo_vy_mv > _top_velo_vy_mv) {
+        _velo_vy_mv = _top_velo_vy_mv;
+    } else if (prm_velo_vy_mv < _bottom_velo_vy_mv) {
+        _velo_vy_mv = _bottom_velo_vy_mv;
     } else {
-        _veloVyMv = prm_veloVyMv;
+        _velo_vy_mv = prm_velo_vy_mv;
     }
-    if (prm_veloVzMv > _veloTopVzMv) {
-        _veloVzMv = _veloTopVzMv;
-    } else if (prm_veloVzMv < _veloBottomVzMv) {
-        _veloVzMv = _veloBottomVzMv;
+    if (prm_velo_vz_mv > _top_velo_vz_mv) {
+        _velo_vz_mv = _top_velo_vz_mv;
+    } else if (prm_velo_vz_mv < _bottom_velo_vz_mv) {
+        _velo_vz_mv = _bottom_velo_vz_mv;
     } else {
-        _veloVzMv = prm_veloVzMv;
+        _velo_vz_mv = prm_velo_vz_mv;
     }
 }
 
-void GgafDxAxesMover::setVxyzMvAcce(acce prm_acceVxMv, acce prm_acceVyMv, acce prm_acceVzMv) {
-    if (prm_acceVxMv > _acceTopVxMv) {
-        _acceVxMv = _acceTopVxMv;
-    } else if (prm_acceVxMv < _acceBottomVxMv) {
-        _acceVxMv = _acceBottomVxMv;
+void GgafDxAxesMover::setVxyzMvAcce(acce prm_acce_vx_mv, acce prm_acce_vy_mv, acce prm_acce_vz_mv) {
+    if (prm_acce_vx_mv > _top_acce_vx_mv) {
+        _acce_vx_mv = _top_acce_vx_mv;
+    } else if (prm_acce_vx_mv < _bottom_acce_vx_mv) {
+        _acce_vx_mv = _bottom_acce_vx_mv;
     } else {
-        _acceVxMv = prm_acceVxMv;
+        _acce_vx_mv = prm_acce_vx_mv;
     }
-    if (prm_acceVyMv > _acceTopVyMv) {
-        _acceVyMv = _acceTopVyMv;
-    } else if (prm_acceVyMv < _acceBottomVyMv) {
-        _acceVyMv = _acceBottomVyMv;
+    if (prm_acce_vy_mv > _top_acce_vy_mv) {
+        _acce_vy_mv = _top_acce_vy_mv;
+    } else if (prm_acce_vy_mv < _bottom_acce_vy_mv) {
+        _acce_vy_mv = _bottom_acce_vy_mv;
     } else {
-        _acceVyMv = prm_acceVyMv;
+        _acce_vy_mv = prm_acce_vy_mv;
     }
-    if (prm_acceVzMv > _acceTopVzMv) {
-        _acceVzMv = _acceTopVzMv;
-    } else if (prm_acceVzMv < _acceBottomVzMv) {
-        _acceVzMv = _acceBottomVzMv;
+    if (prm_acce_vz_mv > _top_acce_vz_mv) {
+        _acce_vz_mv = _top_acce_vz_mv;
+    } else if (prm_acce_vz_mv < _bottom_acce_vz_mv) {
+        _acce_vz_mv = _bottom_acce_vz_mv;
     } else {
-        _acceVzMv = prm_acceVzMv;
+        _acce_vz_mv = prm_acce_vz_mv;
     }
 }
+
 coord GgafDxAxesMover::setVxAcceByT(frame prm_target_frames, velo prm_target_velo) {
-    double acc = UTIL::getAcceByTv(prm_target_frames, _veloVxMv, prm_target_velo);
+    double acc = UTIL::getAcceByTv(prm_target_frames, _velo_vx_mv, prm_target_velo);
     if (acc > 0.0) {
         acc += 0.5;
     } else if (acc < 0.0) {
@@ -419,10 +421,11 @@ coord GgafDxAxesMover::setVxAcceByT(frame prm_target_frames, velo prm_target_vel
     }
     setVxMvAcce(acc);
     //  D = (1/2) (Vo + Vt) Te
-    return ((_veloVxMv + prm_target_velo) * prm_target_frames) / 2 ;
+    return ((_velo_vx_mv + prm_target_velo) * prm_target_frames) / 2 ;
 }
+
 coord GgafDxAxesMover::setVyAcceByT(frame prm_target_frames, velo prm_target_velo) {
-    double acc = UTIL::getAcceByTv(prm_target_frames, _veloVyMv, prm_target_velo);
+    double acc = UTIL::getAcceByTv(prm_target_frames, _velo_vy_mv, prm_target_velo);
     if (acc > 0.0) {
         acc += 0.5;
     } else if (acc < 0.0) {
@@ -430,10 +433,11 @@ coord GgafDxAxesMover::setVyAcceByT(frame prm_target_frames, velo prm_target_vel
     }
     setVyMvAcce(acc);
     //  D = (1/2) (Vo + Vt) Te
-    return ((_veloVyMv + prm_target_velo) * prm_target_frames) / 2 ;
+    return ((_velo_vy_mv + prm_target_velo) * prm_target_frames) / 2 ;
 }
+
 coord GgafDxAxesMover::setVzAcceByT(frame prm_target_frames, velo prm_target_velo) {
-    double acc = UTIL::getAcceByTv(prm_target_frames, _veloVzMv, prm_target_velo);
+    double acc = UTIL::getAcceByTv(prm_target_frames, _velo_vz_mv, prm_target_velo);
     if (acc > 0.0) {
         acc += 0.5;
     } else if (acc < 0.0) {
@@ -441,13 +445,13 @@ coord GgafDxAxesMover::setVzAcceByT(frame prm_target_frames, velo prm_target_vel
     }
     setVzMvAcce(acc);
     //  D = (1/2) (Vo + Vt) Te
-    return ((_veloVzMv + prm_target_velo) * prm_target_frames) / 2 ;
+    return ((_velo_vz_mv + prm_target_velo) * prm_target_frames) / 2 ;
 }
 
 void GgafDxAxesMover::execGravitationMvSequenceTwd(coord prm_tx, coord prm_ty, coord prm_tz,
-                                                 velo prm_max_velo,
-                                                 acce prm_acce,
-                                                 int prm_stop_renge ) {
+                                                   velo prm_max_velo,
+                                                   acce prm_acce,
+                                                   int prm_stop_renge ) {
     _grv_mv_target_x = prm_tx;
     _grv_mv_target_y = prm_ty;
     _grv_mv_target_z = prm_tz;
@@ -463,9 +467,9 @@ void GgafDxAxesMover::execGravitationMvSequenceTwd(coord prm_tx, coord prm_ty, c
 }
 
 void GgafDxAxesMover::execGravitationMvSequenceTwd(GgafDxGeometricActor* prm_pActor_target,
-                                                 velo prm_max_velo,
-                                                 acce prm_acce,
-                                                 int prm_stop_renge ) {
+                                                   velo prm_max_velo,
+                                                   acce prm_acce,
+                                                   int prm_stop_renge ) {
     _grv_mv_target_x = 0;
     _grv_mv_target_y = 0;
     _grv_mv_target_z = 0;
@@ -480,46 +484,45 @@ void GgafDxAxesMover::execGravitationMvSequenceTwd(GgafDxGeometricActor* prm_pAc
     forceVzMvVeloRange(-prm_max_velo, prm_max_velo);
 }
 
-void GgafDxAxesMover::takeoverMvFrom(GgafDxAxesMover* const prmpAxsMver_) {
-
+void GgafDxAxesMover::takeoverMvFrom(GgafDxAxesMover* const prm_pAxsMver) {
     // X軸方向移動速度
-    _veloVxMv = prmpAxsMver_->_veloVxMv;
+    _velo_vx_mv = prm_pAxsMver->_velo_vx_mv;
     // X軸方向移動速度上限
-    _veloTopVxMv = prmpAxsMver_->_veloTopVxMv;
+    _top_velo_vx_mv = prm_pAxsMver->_top_velo_vx_mv;
     // X軸方向移動速度下限
-    _veloBottomVxMv = prmpAxsMver_->_veloBottomVxMv;
+    _bottom_velo_vx_mv = prm_pAxsMver->_bottom_velo_vx_mv;
     // X軸方向移動加速度
-    _acceVxMv = prmpAxsMver_->_acceVxMv;
+    _acce_vx_mv = prm_pAxsMver->_acce_vx_mv;
     // X軸方向移動加速度上限
-    _acceTopVxMv = prmpAxsMver_->_acceTopVxMv;
+    _top_acce_vx_mv = prm_pAxsMver->_top_acce_vx_mv;
     // X軸方向移動加速度下限
-    _acceBottomVxMv = prmpAxsMver_->_acceBottomVxMv;
+    _bottom_acce_vx_mv = prm_pAxsMver->_bottom_acce_vx_mv;
     // Y軸方向移動速度
-    _veloVyMv = prmpAxsMver_->_veloVyMv;
+    _velo_vy_mv = prm_pAxsMver->_velo_vy_mv;
     // Y軸方向移動速度上限
-    _veloTopVyMv = prmpAxsMver_->_veloTopVyMv;
+    _top_velo_vy_mv = prm_pAxsMver->_top_velo_vy_mv;
     // Y軸方向移動速度下限
-    _veloBottomVyMv = prmpAxsMver_->_veloBottomVyMv;
+    _bottom_velo_vy_mv = prm_pAxsMver->_bottom_velo_vy_mv;
     // Y軸方向移動加速度
-    _acceVyMv = prmpAxsMver_->_acceVyMv;
+    _acce_vy_mv = prm_pAxsMver->_acce_vy_mv;
     // Y軸方向移動加速度上限
-    _acceTopVyMv = prmpAxsMver_->_acceTopVyMv;
+    _top_acce_vy_mv = prm_pAxsMver->_top_acce_vy_mv;
     // Y軸方向移動加速度下限
-    _acceBottomVyMv = prmpAxsMver_->_acceBottomVyMv;
+    _bottom_acce_vy_mv = prm_pAxsMver->_bottom_acce_vy_mv;
     // Z軸方向移動速度
-    _veloVzMv = prmpAxsMver_->_veloVzMv;
+    _velo_vz_mv = prm_pAxsMver->_velo_vz_mv;
     // Z軸方向移動速度上限
-    _veloTopVzMv = prmpAxsMver_->_veloTopVzMv;
+    _top_velo_vz_mv = prm_pAxsMver->_top_velo_vz_mv;
     // Z軸方向移動速度下限
-    _veloBottomVzMv = prmpAxsMver_->_veloBottomVzMv;
+    _bottom_velo_vz_mv = prm_pAxsMver->_bottom_velo_vz_mv;
     // Z軸方向移動加速度
-    _acceVzMv = prmpAxsMver_->_acceVzMv;
+    _acce_vz_mv = prm_pAxsMver->_acce_vz_mv;
     // Z軸方向移動加速度上限
-    _acceTopVzMv = prmpAxsMver_->_acceTopVzMv;
+    _top_acce_vz_mv = prm_pAxsMver->_top_acce_vz_mv;
     // Z軸方向移動加速度下限
-    _acceBottomVzMv = prmpAxsMver_->_acceBottomVzMv;
-
+    _bottom_acce_vz_mv = prm_pAxsMver->_bottom_acce_vz_mv;
 }
+
 void GgafDxAxesMover::stopMv() {
     setZeroVxyzMvVelo();
     setZeroVxyzMvAcce();
@@ -528,39 +531,40 @@ void GgafDxAxesMover::stopMv() {
         _pAsstA->stopSlidingMv();
     }
 }
+
 void GgafDxAxesMover::resetMv() {
     //X軸方向移動速度（X移動座標増分）＝ 0 px/fream
-    _veloVxMv = 0;
-    //X軸方向移動速度上限 ＝ 256 px/fream
-    _veloTopVxMv = INT_MAX;
-    //X軸方向移動速度下限 ＝ 256 px/fream
-    _veloBottomVxMv = INT_MIN;
-    //X軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
-    _acceVxMv = 0;
-    _acceTopVxMv = INT_MAX;
-    _acceBottomVxMv = INT_MIN;
+    _velo_vx_mv = 0;
+    //X軸方向移動速度上限
+    _top_velo_vx_mv = INT_MAX;
+    //X軸方向移動速度下限
+    _bottom_velo_vx_mv = INT_MIN;
+    //X軸方向移動速度の加速度
+    _acce_vx_mv = 0;
+    _top_acce_vx_mv = INT_MAX;
+    _bottom_acce_vx_mv = INT_MIN;
     //Y軸方向移動速度（Y移動座標増分）＝ 0 px/fream
-    _veloVyMv = 0;
-    //Y軸方向移動速度上限 ＝ 256 px/fream
-    _veloTopVyMv = INT_MAX;
-    //Y軸方向移動速度下限 ＝ 256 px/fream
-    _veloBottomVyMv = INT_MIN;
-    //Y軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
-    _acceVyMv = 0;
+    _velo_vy_mv = 0;
+    //Y軸方向移動速度上限
+    _top_velo_vy_mv = INT_MAX;
+    //Y軸方向移動速度下限
+    _bottom_velo_vy_mv = INT_MIN;
+    //Y軸方向移動速度の加速度
+    _acce_vy_mv = 0;
 
-    _acceTopVyMv = INT_MAX;
-    _acceBottomVyMv = INT_MIN;
+    _top_acce_vy_mv = INT_MAX;
+    _bottom_acce_vy_mv = INT_MIN;
 
     //Z軸方向移動速度（Z移動座標増分）＝ 0 px/fream
-    _veloVzMv = 0;
-    //Z軸方向移動速度上限 ＝ 256 px/fream
-    _veloTopVzMv = INT_MAX;
-    //Z軸方向移動速度下限 ＝ 256 px/fream
-    _veloBottomVzMv = INT_MIN;
-    //Z軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
-    _acceVzMv = 0;
-    _acceTopVzMv = INT_MAX;
-    _acceBottomVzMv = INT_MIN;
+    _velo_vz_mv = 0;
+    //Z軸方向移動速度上限
+    _top_velo_vz_mv = INT_MAX;
+    //Z軸方向移動速度下限
+    _bottom_velo_vz_mv = INT_MIN;
+    //Z軸方向移動速度の加速度
+    _acce_vz_mv = 0;
+    _top_acce_vz_mv = INT_MAX;
+    _bottom_acce_vz_mv = INT_MIN;
 
     _grv_mv_flg = false;
 }

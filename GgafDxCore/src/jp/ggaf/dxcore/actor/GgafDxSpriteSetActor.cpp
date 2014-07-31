@@ -38,8 +38,8 @@ _pUvFlipper(NEW GgafDxUvFlipper(_pSpriteSetModel->_papTextureConnection[0]->peek
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->exec(NOT_ANIMATED, 1);
 
-    _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv;
-    (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
+    _pFunc_calc_rot_mv_world_matrix = UTIL::setWorldMatrix_RxRzRyMv;
+    (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
     _align = ALIGN_CENTER;
     _valign = VALIGN_MIDDLE;
 }
@@ -61,18 +61,18 @@ void GgafDxSpriteSetActor::processDraw() {
             if (_align == ALIGN_CENTER) {
                 //do nothing
             } else if (_align == ALIGN_LEFT) {
-                pSpriteSetActor->_matWorld._41 += PX_C(_pSpriteSetModel->_fSize_SpriteSetModelWidthPx/2);
+                pSpriteSetActor->_matWorld._41 += PX_C(_pSpriteSetModel->_model_width_px/2);
             } else {
                 //ALIGN_RIGHT
-                pSpriteSetActor->_matWorld._41 -= PX_C(_pSpriteSetModel->_fSize_SpriteSetModelWidthPx/2);
+                pSpriteSetActor->_matWorld._41 -= PX_C(_pSpriteSetModel->_model_width_px/2);
             }
             if (_valign == VALIGN_MIDDLE) {
                 //do nothing
             } else if (_valign == VALIGN_TOP) {
-                pSpriteSetActor->_matWorld._42 -= PX_C(_pSpriteSetModel->_fSize_SpriteSetModelHeightPx/2);
+                pSpriteSetActor->_matWorld._42 -= PX_C(_pSpriteSetModel->_model_height_px/2);
             } else {
                 //VALIGN_BOTTOM
-                pSpriteSetActor->_matWorld._42 += PX_C(_pSpriteSetModel->_fSize_SpriteSetModelHeightPx/2);
+                pSpriteSetActor->_matWorld._42 += PX_C(_pSpriteSetModel->_model_height_px/2);
             }
             hr = pID3DXEffect->SetMatrix(pSpriteSetEffect->_ah_matWorld[draw_set_num], &(pSpriteSetActor->_matWorld) );
             checkDxException(hr, D3D_OK, "GgafDxSpriteSetActor::processDraw SetMatrix(_h_matWorld) に失敗しました。");
@@ -88,12 +88,12 @@ void GgafDxSpriteSetActor::processDraw() {
             if (draw_set_num >= model_set_num) {
                 break;
             }
-            pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
+            pDrawActor = pDrawActor->_pNextActor_in_draw_depth_level;
         } else {
             break;
         }
     }
-    GgafDxUniverse::_pActor_DrawActive = pSpriteSetActor; //描画セットの最後アクターをセット
+    GgafDxUniverse::_pActor_draw_active = pSpriteSetActor; //描画セットの最後アクターをセット
     _pSpriteSetModel->GgafDxSpriteSetModel::draw(this, draw_set_num);
 }
 

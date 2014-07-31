@@ -19,41 +19,41 @@ public:
     /** [r]対象アクター */
     GgafDxGeometricActor* const _pActor;
     /** [r/w]X軸方向移動速度 */
-    velo _veloVxMv;
+    velo _velo_vx_mv;
     /** [r/w]X軸方向移動速度上限 */
-    velo _veloTopVxMv;
+    velo _top_velo_vx_mv;
     /** [r/w]X軸方向移動速度下限 */
-    velo _veloBottomVxMv;
+    velo _bottom_velo_vx_mv;
     /** [r/w]X軸方向移動加速度 */
-    acce _acceVxMv;
+    acce _acce_vx_mv;
     /** [r/w]X軸方向移動加速度上限*/
-    acce _acceTopVxMv;
+    acce _top_acce_vx_mv;
     /** [r/w]X軸方向移動加速度下限*/
-    acce _acceBottomVxMv;
+    acce _bottom_acce_vx_mv;
     /** [r/w]Y軸方向移動速度 */
-    velo _veloVyMv;
+    velo _velo_vy_mv;
     /** [r/w]Y軸方向移動速度上限 */
-    velo _veloTopVyMv;
+    velo _top_velo_vy_mv;
     /** [r/w]Y軸方向移動速度下限 */
-    velo _veloBottomVyMv;
+    velo _bottom_velo_vy_mv;
     /** [r/w]Y軸方向移動加速度 */
-    acce _acceVyMv;
+    acce _acce_vy_mv;
     /** [r/w]Y軸方向移動加速度上限*/
-    acce _acceTopVyMv;
+    acce _top_acce_vy_mv;
     /** [r/w]Y軸方向移動加速度下限*/
-    acce _acceBottomVyMv;
+    acce _bottom_acce_vy_mv;
     /** [r/w]Z軸方向移動速度 */
-    velo _veloVzMv;
+    velo _velo_vz_mv;
     /** [r/w]Z軸方向移動速度上限 */
-    velo _veloTopVzMv;
+    velo _top_velo_vz_mv;
     /** [r/w]Z軸方向移動速度下限 */
-    velo _veloBottomVzMv;
+    velo _bottom_velo_vz_mv;
     /** [r/w]Z軸方向移動加速度 */
-    acce _acceVzMv;
+    acce _acce_vz_mv;
     /** [r/w]Z軸方向移動加速度上限*/
-    acce _acceTopVzMv;
+    acce _top_acce_vz_mv;
     /** [r/w]Z軸方向移動加速度下限*/
-    acce _acceBottomVzMv;
+    acce _bottom_acce_vz_mv;
 
     coord _grv_mv_target_x;
     coord _grv_mv_target_y;
@@ -82,147 +82,147 @@ public:
     int dot(int prm_vX, int prm_vY, int prm_vZ);
     /**
      * X軸方向移動速度設定 .
-     * @param prm_veloVxMv X軸方向移動速度
+     * @param prm_velo_vx_mv X軸方向移動速度
      */
-    void setVxMvVelo(velo prm_veloVxMv);
+    void setVxMvVelo(velo prm_velo_vx_mv);
 
     /**
      * X軸方向移動速度加算 .
-     * @param prm_veloVxMv X軸方向移動速度差分
+     * @param prm_velo_vx_mv X軸方向移動速度差分
      */
-    void addVxMvVelo(velo prm_veloVxMv);
+    void addVxMvVelo(velo prm_velo_vx_mv);
 
     /**
      * X軸方向移動速度の上限下限を強制 .
-     * @param prm_veloVxMv01 速度１
-     * @param prm_veloVxMv02 速度２
+     * @param prm_velo_vx_mv01 速度１
+     * @param prm_velo_vx_mv02 速度２
      */
-    void forceVxMvVeloRange(velo prm_veloVxMv01, velo prm_veloVxMv02);
+    void forceVxMvVeloRange(velo prm_velo_vx_mv01, velo prm_velo_vx_mv02);
 
     /**
      * X軸方向移動加速度設定 .
-     * @param prm_acceVxMv X軸方向移動加速度
+     * @param prm_acce_vx_mv X軸方向移動加速度
      */
-    void setVxMvAcce(acce prm_acceVxMv);
+    void setVxMvAcce(acce prm_acce_vx_mv);
 
     /**
      * X軸方向移動加速度加算 .
-     * @param prm_acceVxMv X軸方向移動加速度差分
+     * @param prm_acce_vx_mv X軸方向移動加速度差分
      */
-    void addVxMvAcce(acce prm_acceVxMv);
+    void addVxMvAcce(acce prm_acce_vx_mv);
 
     /**
      * X軸方向移動加速度の上限下限を強制 .
-     * @param prm_acceVxMv01 加速度１
-     * @param prm_acceVxMv02 加速度２
+     * @param prm_acce_vx_mv01 加速度１
+     * @param prm_acce_vx_mv02 加速度２
      */
-    void forceVxMvAcceRange(acce prm_acceVxMv01, acce prm_acceVxMv02);
+    void forceVxMvAcceRange(acce prm_acce_vx_mv01, acce prm_acce_vx_mv02);
 
     /**
      * Y軸方向移動速度設定 .
-     * @param prm_veloVyMv Y軸方向移動速度
+     * @param prm_velo_vy_mv Y軸方向移動速度
      */
-    void setVyMvVelo(velo prm_veloVyMv);
+    void setVyMvVelo(velo prm_velo_vy_mv);
 
     /**
      * Y軸方向移動速度加算 .
-     * @param prm_veloVyMv Y軸方向移動速度差分
+     * @param prm_velo_vy_mv Y軸方向移動速度差分
      */
-    void addVyMvVelo(velo prm_veloVyMv);
+    void addVyMvVelo(velo prm_velo_vy_mv);
 
     /**
      * Y軸方向移動速度の上限下限を強制 .
-     * @param prm_veloVyMv01 速度１
-     * @param prm_veloVyMv02 速度２
+     * @param prm_velo_vy_mv01 速度１
+     * @param prm_velo_vy_mv02 速度２
      */
-    void forceVyMvVeloRange(velo prm_veloVyMv01, velo prm_veloVyMv02);
+    void forceVyMvVeloRange(velo prm_velo_vy_mv01, velo prm_velo_vy_mv02);
 
     /**
      * Y軸方向移動加速度設定 .
-     * @param prm_acceVyMv Y軸方向移動加速度
+     * @param prm_acce_vy_mv Y軸方向移動加速度
      */
-    void setVyMvAcce(acce prm_acceVyMv);
+    void setVyMvAcce(acce prm_acce_vy_mv);
 
     /**
      * Y軸方向移動加速度加算 .
-     * @param prm_acceVyMv Y軸方向移動加速度差分
+     * @param prm_acce_vy_mv Y軸方向移動加速度差分
      */
-    void addVyMvAcce(acce prm_acceVyMv);
+    void addVyMvAcce(acce prm_acce_vy_mv);
 
     /**
      * Y軸方向移動加速度の上限下限を強制 .
-     * @param prm_acceVyMv01 加速度１
-     * @param prm_acceVyMv02 加速度２
+     * @param prm_acce_vy_mv01 加速度１
+     * @param prm_acce_vy_mv02 加速度２
      */
-    void forceVyMvAcceRange(acce prm_acceVyMv01, acce prm_acceVyMv02);
+    void forceVyMvAcceRange(acce prm_acce_vy_mv01, acce prm_acce_vy_mv02);
 
     /**
      * Z軸方向移動速度設定 .
-     * @param prm_veloVzMv Z軸方向移動速度
+     * @param prm_velo_vz_mv Z軸方向移動速度
      */
-    void setVzMvVelo(velo prm_veloVzMv);
+    void setVzMvVelo(velo prm_velo_vz_mv);
 
     /**
      * Z軸方向移動速度加算 .
-     * @param prm_veloVzMv Z軸方向移動速度差分
+     * @param prm_velo_vz_mv Z軸方向移動速度差分
      */
-    void addVzMvVelo(velo prm_veloVzMv);
+    void addVzMvVelo(velo prm_velo_vz_mv);
 
     /**
      * Z軸方向移動速度の上限下限を強制 .
-     * @param prm_veloVzMv01 速度１
-     * @param prm_veloVzMv02 速度２
+     * @param prm_velo_vz_mv01 速度１
+     * @param prm_velo_vz_mv02 速度２
      */
-    void forceVzMvVeloRange(velo prm_veloVzMv01, velo prm_veloVzMv02);
+    void forceVzMvVeloRange(velo prm_velo_vz_mv01, velo prm_velo_vz_mv02);
 
     /**
      * Z軸方向移動加速度設定 .
-     * @param prm_acceVzMv Z軸方向移動加速度
+     * @param prm_acce_vz_mv Z軸方向移動加速度
      */
-    void setVzMvAcce(acce prm_acceVzMv);
+    void setVzMvAcce(acce prm_acce_vz_mv);
 
     /**
      * Z軸方向移動加速度加算 .
-     * @param prm_acceVzMv Z軸方向移動加速度差分
+     * @param prm_acce_vz_mv Z軸方向移動加速度差分
      */
-    void addVzMvAcce(acce prm_acceVzMv);
+    void addVzMvAcce(acce prm_acce_vz_mv);
 
     /**
      * Z軸方向移動加速度の上限下限を強制 .
-     * @param prm_acceVzMv01 加速度１
-     * @param prm_acceVzMv02 加速度２
+     * @param prm_acce_vz_mv01 加速度１
+     * @param prm_acce_vz_mv02 加速度２
      */
-    void forceVzMvAcceRange(acce prm_acceVzMv01, acce prm_acceVzMv02);
+    void forceVzMvAcceRange(acce prm_acce_vz_mv01, acce prm_acce_vz_mv02);
 
     /**
      * X軸Y軸Z軸方向の移動速度の上限下限を強制 .
-     * @param prm_veloVxyzMv01 速度1
-     * @param prm_veloVxyzMv02 速度2
+     * @param prm_velo_vxyz_mv01 速度1
+     * @param prm_velo_vxyz_mv02 速度2
      */
-    void forceVxyzMvVeloRange(velo prm_veloVxyzMv01, velo prm_veloVxyzMv02);
+    void forceVxyzMvVeloRange(velo prm_velo_vxyz_mv01, velo prm_velo_vxyz_mv02);
 
     /**
      * X軸Y軸Z軸方向の移動加速度の上限下限を強制 .
-     * @param prm_acceVxyzMv01 加速度１
-     * @param prm_acceVxyzMv02 加速度２
+     * @param prm_acce_vxyz_mv01 加速度１
+     * @param prm_acce_vxyz_mv02 加速度２
      */
-    void forceVxyzMvAcceRange(acce prm_acceVxyzMv01, acce prm_acceVxyzMv02);
+    void forceVxyzMvAcceRange(acce prm_acce_vxyz_mv01, acce prm_acce_vxyz_mv02);
 
     /**
      * X軸Y軸Z軸方向の移動速度を設定する。
-     * @param prm_veloVxMv X軸方向移動速度
-     * @param prm_veloVyMv Y軸方向移動速度
-     * @param prm_veloVzMv Z軸方向移動速度
+     * @param prm_velo_vx_mv X軸方向移動速度
+     * @param prm_velo_vy_mv Y軸方向移動速度
+     * @param prm_velo_vz_mv Z軸方向移動速度
      */
-    void setVxyzMvVelo(velo prm_veloVxMv, velo prm_veloVyMv, velo prm_veloVzMv);
+    void setVxyzMvVelo(velo prm_velo_vx_mv, velo prm_velo_vy_mv, velo prm_velo_vz_mv);
 
     /**
      * X軸Y軸Z軸方向の移動加速度を設定する。
-     * @param prm_acceVxMv X軸方向移動加速度
-     * @param prm_acceVyMv Y軸方向移動加速度
-     * @param prm_acceVzMv Z軸方向移動加速度
+     * @param prm_acce_vx_mv X軸方向移動加速度
+     * @param prm_acce_vy_mv Y軸方向移動加速度
+     * @param prm_acce_vz_mv Z軸方向移動加速度
      */
-    void setVxyzMvAcce(acce prm_acceVxMv, acce prm_acceVyMv, acce prm_acceVzMv);
+    void setVxyzMvAcce(acce prm_acce_vx_mv, acce prm_acce_vy_mv, acce prm_acce_vz_mv);
 
 
 
@@ -268,14 +268,14 @@ public:
      * X軸Y軸Z軸方向の移動速度を 0 に設定する。
      */
     void setZeroVxyzMvVelo() {
-        _veloVxMv = _veloVyMv = _veloVzMv = 0;
+        _velo_vx_mv = _velo_vy_mv = _velo_vz_mv = 0;
     }
 
     /**
      * X軸Y軸Z軸方向の移動加速度を 0 に設定する。
      */
     void setZeroVxyzMvAcce() {
-        _acceVxMv = _acceVyMv = _acceVzMv = 0;
+        _acce_vx_mv = _acce_vy_mv = _acce_vz_mv = 0;
     }
 
     /**
@@ -359,9 +359,9 @@ public:
     /**
      * 平行移動支援の仕事を引継ぐ .
      * 他の GgafDxAxesMover オブジェクトを状態を自身に引継ぐ .
-     * @param prmpAxsMver_ 引継元
+     * @param prm_pAxsMver 引継元
      */
-    void takeoverMvFrom(GgafDxAxesMover* const prmpAxsMver_);
+    void takeoverMvFrom(GgafDxAxesMover* const prm_pAxsMver);
 
     /**
      * GgafDxAxesMoverによるアクター移動を停止する。

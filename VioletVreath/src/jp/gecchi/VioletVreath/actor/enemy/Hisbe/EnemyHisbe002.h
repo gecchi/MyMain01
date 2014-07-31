@@ -18,9 +18,9 @@ class EnemyHisbe002 :  public GgafLib::DefaultMorphMeshActor {
     /** 移動スプラインプログラム */
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
     /** 弾ストック */
-    GgafCore::GgafActorDepository* pDepo_Shot_;
+    GgafCore::GgafActorDepository* pDepo_shot_;
     /** 弾発射効果エフェクト */
-    GgafCore::GgafActorDepository* pDepo_ShotEffect_;
+    GgafCore::GgafActorDepository* pDepo_shotEffect_;
 
 public:
     enum {
@@ -83,7 +83,7 @@ public:
      * @param prm_pDepo
      */
     void setDepository_Shot(GgafCore::GgafActorDepository* prm_pDepo) {
-        pDepo_Shot_ = prm_pDepo;
+        pDepo_shot_ = prm_pDepo;
     }
 
     /**
@@ -100,7 +100,7 @@ public:
      * @param prm_pDepo
      */
     void setDepository_ShotEffect(GgafCore::GgafActorDepository* prm_pDepo) {
-        pDepo_ShotEffect_ = prm_pDepo;
+        pDepo_shotEffect_ = prm_pDepo;
     }
 
     virtual ~EnemyHisbe002();

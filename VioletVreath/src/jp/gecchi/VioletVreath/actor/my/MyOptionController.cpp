@@ -190,15 +190,15 @@ void MyOptionController::processBehavior() {
         if (return_to_default_position_seq_) {
             pMyShip->trace_delay_count_ = TRACE_DELAY_WAIT_FRAME; //トレース維持を強制解除
             //元の位置へ
-            pAxsMver_->setVxyzMvAcce( tx - (_x + pAxsMver_->_veloVxMv*6),
-                                      ty - (_y + pAxsMver_->_veloVyMv*6),
-                                      tz - (_z + pAxsMver_->_veloVzMv*6) );
+            pAxsMver_->setVxyzMvAcce( tx - (_x + pAxsMver_->_velo_vx_mv*6),
+                                      ty - (_y + pAxsMver_->_velo_vy_mv*6),
+                                      tz - (_z + pAxsMver_->_velo_vz_mv*6) );
             if (ABS(_x - tx) < 10000 &&
                 ABS(_y - ty) < 10000 &&
                 ABS(_z - tz) < 10000 &&
-                ABS(pAxsMver_->_veloVxMv) < 20000 &&
-                ABS(pAxsMver_->_veloVyMv) < 20000 &&
-                ABS(pAxsMver_->_veloVzMv) < 20000)
+                ABS(pAxsMver_->_velo_vx_mv) < 20000 &&
+                ABS(pAxsMver_->_velo_vy_mv) < 20000 &&
+                ABS(pAxsMver_->_velo_vz_mv) < 20000)
             {
                 //もどった！
                 pAxsMver_->setZeroVxyzMvVelo();

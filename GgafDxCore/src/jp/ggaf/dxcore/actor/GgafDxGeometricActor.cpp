@@ -32,12 +32,12 @@ GgafDxGeometricActor::GgafDxGeometricActor(const char* prm_name,
     _dest_from_vppln_right(0.0f),
     _dest_from_vppln_front(0.0f),
     _dest_from_vppln_back(0.0f),
-    _pFunc_calcRotMvWorldMatrix(nullptr),
+    _pFunc_calc_rot_mv_world_matrix(nullptr),
     _matWorld(),
     _matWorldRotMv(),
     _matInvWorldRotMv(),
     _was_calculated_matInvWorldRotMv(false),
-    _pActor_Base(nullptr),
+    _pActor_base(nullptr),
     _x_local(_x), _y_local(_y), _z_local(_z),
     _rx_local(_rx), _ry_local(_ry), _rz_local(_rz),
     _x_final(_x), _y_final(_y), _z_final(_z),
@@ -56,7 +56,7 @@ void GgafDxGeometricActor::processSettlementBehavior() {
 
     _was_calculated_matInvWorldRotMv = false; //逆行列未計算にリセット
 
-    if (_pActor_Base) {
+    if (_pActor_base) {
         //土台あり時ローカル座標に一旦戻す
         changeGeoLocal();
     }
@@ -66,9 +66,9 @@ void GgafDxGeometricActor::processSettlementBehavior() {
     _fY = C_DX(_y);
     _fZ = C_DX(_z);
     //World変換行列（_matWorld）を更新
-    if (_pFunc_calcRotMvWorldMatrix) {
+    if (_pFunc_calc_rot_mv_world_matrix) {
         //回転×移動のみ計算し _matWorldRotMv に保持
-        (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
+        (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
         //回転×移動 の前に スケールを考慮して、
         //最終的な _matWorld  行列(拡大×回転×移動)を保持
         if (_sx != LEN_UNIT) {
@@ -121,10 +121,10 @@ void GgafDxGeometricActor::processSettlementBehavior() {
     //processSettlementBehavior() をオーバーライドし、
     //変換行列作成をもっと単純化することで、少し最適化が可能。
 
-    if (_pActor_Base) {
+    if (_pActor_base) {
         //絶対座標に変換
-        D3DXMatrixMultiply(&_matWorld     , &_matWorld     , &(_pActor_Base->_matWorldRotMv)); //合成
-        D3DXMatrixMultiply(&_matWorldRotMv, &_matWorldRotMv, &(_pActor_Base->_matWorldRotMv)); //合成
+        D3DXMatrixMultiply(&_matWorld     , &_matWorld     , &(_pActor_base->_matWorldRotMv)); //合成
+        D3DXMatrixMultiply(&_matWorldRotMv, &_matWorldRotMv, &(_pActor_base->_matWorldRotMv)); //合成
         changeGeoFinal();
         //ワールド変換行列×土台ワールド変換行列の「回転×移動」のみの積）から平行移動部分を取り出し最終的な座標とする
         _fX = _matWorld._41;
@@ -232,15 +232,15 @@ GgafGroupHead* GgafDxGeometricActor::addSubGroupAsFk(actorkind prm_kind,
                                                      coord prm_ry_init_local,
                                                      coord prm_rz_init_local) {
 #ifdef MY_DEBUG
-    if (_pFunc_calcRotMvWorldMatrix) {
+    if (_pFunc_calc_rot_mv_world_matrix) {
         //OK
     } else {
         throwGgafCriticalException("GgafDxGeometricActor::addSubGroupAsFk() : "<<
-                                   "this=("<<this<<")["<<getName()<<"] は、_pFunc_calcRotMvWorldMatrix が nullptrの為、FKベースとなる資格がありません");
+                                   "this=("<<this<<")["<<getName()<<"] は、_pFunc_calc_rot_mv_world_matrix が nullptrの為、FKベースとなる資格がありません");
     }
 #endif
     GgafGroupHead* pGroupHead = addSubGroup(prm_kind, prm_pGeoActor);
-    prm_pGeoActor->_pActor_Base = this;
+    prm_pGeoActor->_pActor_base = this;
     prm_pGeoActor->changeGeoLocal();
     prm_pGeoActor->_x = prm_x_init_local;
     prm_pGeoActor->_y = prm_y_init_local;
@@ -344,8 +344,8 @@ bool GgafDxGeometricActor::isOutOfUniverse() {
 }
 
 void GgafDxGeometricActor::defineRotMvWorldMatrix(void (*prm_pFunc)(GgafDxGeometricActor*, D3DXMATRIX&)) {
-    _pFunc_calcRotMvWorldMatrix = prm_pFunc;
-    (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
+    _pFunc_calc_rot_mv_world_matrix = prm_pFunc;
+    (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
 }
 
 void GgafDxGeometricActor::positionAs(GgafDxGeoElem* prm_pGeoElem) {

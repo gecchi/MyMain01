@@ -13,8 +13,8 @@ using namespace GgafLib;
 WalledScene::WalledScene(const char* prm_name) : DefaultScene(prm_name) {
     _obj_class |= Obj_WalledScene;
     _class_name = "WalledScene";
-    _pDepo_WallAAB = nullptr;
-    _pDepo_WallAAPrism = nullptr;
+    _pDepo_wall = nullptr;
+    _pDepo_prism = nullptr;
     _pLastSectionScene = nullptr;
     _is_all_active_section_scenes = false;
     _is_finished = false;
@@ -24,28 +24,28 @@ void WalledScene::buildWalledScene(
         coord prm_wall_dep, coord prm_wall_width, coord prm_wall_height,
         coord prm_wall_start_x,
         WalledSectionScene** prm_papSection, int prm_section_num,
-        GgafActorDepository* prm_pDepo_WallAAB,
-        GgafActorDepository* prm_pDepo_WallAAPrism) {
+        GgafActorDepository* prm_pDepo_wall,
+        GgafActorDepository* prm_pDepo_prism) {
     _TRACE_("WalledScene::buildWalledScene ["<<getName()<<"] build...");
     setScrollingFunction(WalledScene::scrollX);
 
-    _pDepo_WallAAB = prm_pDepo_WallAAB;
-    _pDepo_WallAAPrism = prm_pDepo_WallAAPrism;
-    if (_pDepo_WallAAB->getPlatformScene()) {
+    _pDepo_wall = prm_pDepo_wall;
+    _pDepo_prism = prm_pDepo_prism;
+    if (_pDepo_wall->getPlatformScene()) {
         //既に所属しているならばOK
     } else {
-        getSceneDirector()->addSubGroup(_pDepo_WallAAB); //仮所属 initialize() で本所属
+        getSceneDirector()->addSubGroup(_pDepo_wall); //仮所属 initialize() で本所属
     }
-    if (_pDepo_WallAAPrism) {
-        if (_pDepo_WallAAPrism->getPlatformScene()) {
+    if (_pDepo_prism) {
+        if (_pDepo_prism->getPlatformScene()) {
             //既に所属しているならばOK
         } else {
-            getSceneDirector()->addSubGroup(_pDepo_WallAAPrism); //仮所属 initialize() で本所属
+            getSceneDirector()->addSubGroup(_pDepo_prism); //仮所属 initialize() で本所属
         }
     }
     for (int i = 0; i < prm_section_num; i++) {
         addSubLast(prm_papSection[i]); //配下シーンに所属
-        prm_papSection[i]->config(_pDepo_WallAAB, _pDepo_WallAAPrism,
+        prm_papSection[i]->config(_pDepo_wall, _pDepo_prism,
                                   prm_wall_start_x,
                                   prm_wall_dep, prm_wall_width, prm_wall_height);
         prm_papSection[i]->inactivate();
@@ -92,16 +92,16 @@ void WalledScene::buildWalledScene(
 }
 
 void WalledScene::initialize() {
-    if (_pDepo_WallAAB == nullptr) {
+    if (_pDepo_wall == nullptr) {
         throwGgafCriticalException("WalledScene["<<getName()<<"] オブジェクトが未完成です。buildWalledScene()を実行し構築してください。");
     }
     //buildWalledScene が継承クラスのコンストラクタで実行された場合、getSceneDirector() は世界シーンを返すため
     //壁デポジトリの所属シーンは世界シーン所属になっている可能性がある。、
     //スクロール制御を行うためにも、壁デポジトリ は this の配下に置く必要があるため、以下の様に
     //配下シーンに再設定する。
-    getSceneDirector()->addSubGroup(_pDepo_WallAAB->extract());
-    if (_pDepo_WallAAPrism) {
-        getSceneDirector()->addSubGroup(_pDepo_WallAAPrism->extract());
+    getSceneDirector()->addSubGroup(_pDepo_wall->extract());
+    if (_pDepo_prism) {
+        getSceneDirector()->addSubGroup(_pDepo_prism->extract());
     }
 }
 

@@ -143,7 +143,7 @@ public:
     /** [r]初期状態:false／リプレイモード終了:true */
     bool _was_replay_done;
     /** 現在フレームの入力状態 */
-    VirtualButton::VBRecord* _pVBRecord_Active;
+    VirtualButton::VBRecord* _pVBRecord_active;
 
 public:
     /**
@@ -161,7 +161,7 @@ public:
      * @return true / false
      */
     inline vbsta isBeingPressed(vbsta prm_VB) {
-        return (_pVBRecord_Active->_state & prm_VB);
+        return (_pVBRecord_active->_state & prm_VB);
     }
 
     /**
@@ -200,7 +200,7 @@ public:
      * @return true / false
      */
     inline vbsta isPushedDown(vbsta prm_VB) {
-        return (!(_pVBRecord_Active->_prev->_state & prm_VB) && (_pVBRecord_Active->_state & prm_VB)) ? true : false;
+        return (!(_pVBRecord_active->_prev->_state & prm_VB) && (_pVBRecord_active->_state & prm_VB)) ? true : false;
     }
 
     /**

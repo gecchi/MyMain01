@@ -13,6 +13,7 @@ namespace VioletVreath {
 class EnemyAntiopeN : public EnemyAntiope {
 
 public:
+
     EnemyAntiopeN(const char* prm_name);
 
     virtual ~EnemyAntiopeN();

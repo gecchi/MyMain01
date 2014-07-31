@@ -31,28 +31,28 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
 
     //壁ブロック(直方体)デポジトリ生成
     WallAABActor* pWallAABActor;
-    GgafActorDepository* pDepo_WallAAB = NEW GgafActorDepository("Dp_WallAAB");
+    GgafActorDepository* pDepo_wall = NEW GgafActorDepository("Dp_WallAAB");
     for (int i = 0; i < 1000; i++) {
         std::string name = "Wall001_"+XTOS(i);
         pWallAABActor = NEW Wall001(name.c_str());
         pWallAABActor->setScaleR(scale_r);
-        pDepo_WallAAB->put(pWallAABActor);
+        pDepo_wall->put(pWallAABActor);
         Sleep(1);
     }
-    P_COMMON_SCENE->getSceneDirector()->addSubGroup(pDepo_WallAAB);
-    //getSceneDirector()->addSubGroup(pDepo_WallAAB); は P_UNIVERSE 配下になってしまう
+    P_COMMON_SCENE->getSceneDirector()->addSubGroup(pDepo_wall);
+    //getSceneDirector()->addSubGroup(pDepo_wall); は P_UNIVERSE 配下になってしまう
 
     //壁ブロック(プリズム)デポジトリ生成
     WallAAPrismActor* pWallAAPrismActor;
-    GgafActorDepository* pDepo_WallAAPrism = NEW GgafActorDepository("Dp_WallAAPrism");
+    GgafActorDepository* pDepo_prism = NEW GgafActorDepository("Dp_WallAAPrism");
     for (int i = 0; i < 100; i++) {
         std::string name = "Wall001Prism_"+XTOS(i);
         pWallAAPrismActor = NEW Wall001Prism(name.c_str());
         pWallAAPrismActor->setScaleR(scale_r);
-        pDepo_WallAAPrism->put(pWallAAPrismActor);
+        pDepo_prism->put(pWallAAPrismActor);
         Sleep(1);
     }
-    P_COMMON_SCENE->getSceneDirector()->addSubGroup(pDepo_WallAAPrism);
+    P_COMMON_SCENE->getSceneDirector()->addSubGroup(pDepo_prism);
 
     //シーンセクション生成
     WalledSectionScene* apSection[] = {
@@ -67,19 +67,19 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
         wall_dep*scale_r, wall_width*scale_r, wall_height*scale_r,
         GgafDxUniverse::_x_gone_right,
         (WalledSectionScene**)&apSection, 4,
-        pDepo_WallAAB ,pDepo_WallAAPrism
+        pDepo_wall ,pDepo_prism
     );
 
     //初期スクロールスピード
-    setScrollSpeed(PX_C(15));
+    setScrollSpeed(PX_C(5));
 
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {100};
-	_paFrame_NextEvent = new frame[1];
-	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 1;
+    frame f[] = {100};
+    _paFrame_NextEvent = new frame[1];
+    memcpy(_paFrame_NextEvent, f, sizeof(f));
+    _event_num = 1;
     // gen01 end
 }
 
@@ -101,17 +101,17 @@ void Stage01WalledScene::processBehavior() {
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
-	if (getBehaveingFrame() == _paFrame_NextEvent[_cnt_event]) {
-		switch (getBehaveingFrame()) {
-			case 100: {
-				// WalledScene は終わったよイベント通知不要
-				break;
-			}
-			default :
-				break;
-		}
-		_cnt_event = (_cnt_event < 1-1 ? _cnt_event+1 : _cnt_event);
-	}
+    if (getBehaveingFrame() == _paFrame_NextEvent[_cnt_event]) {
+        switch (getBehaveingFrame()) {
+            case 100: {
+                // WalledScene は終わったよイベント通知不要
+                break;
+            }
+            default :
+                break;
+        }
+        _cnt_event = (_cnt_event < 1-1 ? _cnt_event+1 : _cnt_event);
+    }
     // gen02 end
 
 

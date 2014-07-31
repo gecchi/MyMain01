@@ -16,7 +16,9 @@ class GgafDxMorpherAssistantA : public GgafCore::GgafObject {
 public:
     /** [r]師匠 */
     GgafDxMorpher* _pMaster;
+    /** [r]重み加速器 */
     GgafCore::GgafValueAccelerator<float>* _pa_smthMph;
+    /** [r]モーフターゲット数(利用頻度が高いので、モデルからコピーして保持) */
     int _target_num;
 
 public:
@@ -24,7 +26,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pMaster  師匠
      */
-    explicit  GgafDxMorpherAssistantA(GgafDxMorpher* prm_pMaster);
+    explicit GgafDxMorpherAssistantA(GgafDxMorpher* prm_pMaster);
 
 
     /**
@@ -62,9 +64,9 @@ public:
      * @param prm_endacc_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
     void morphByDt(int prm_target_mesh_no,
-            float prm_target_distance, int prm_target_frames,
-            float prm_p1, float prm_p2, float prm_end_velo,
-            bool prm_endacc_flg = true);
+                   float prm_target_distance, int prm_target_frames,
+                   float prm_p1, float prm_p2, float prm_end_velo,
+                   bool prm_endacc_flg = true);
    /**
      * 目標の軸回転方角(Z軸)へ滑らかに回転するシークエンスを実行(速度・距離指定、時間変動) .
      * 移動距離を3つのセクション(θ1,θ2,θ3)に分け、次のような角速度制御を自動的に行う。<BR>

@@ -34,7 +34,7 @@ public:
     /** [r]元の周波数 */
     DWORD _default_frequency;
     /** [r]SEを最後に発生したアクター */
-    GgafDxGeometricActor* _pActor_LastPlayed;
+    GgafDxGeometricActor* _pActor_last_played;
 
     bool _can_looping;
 

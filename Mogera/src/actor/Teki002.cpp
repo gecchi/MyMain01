@@ -66,7 +66,7 @@ void Teki002::processBehavior() {
 
     if (GgafDxCore::GgafDxInput::isBeingPressedKey(DIK_SPACE)) {
         float vx,vy,vz;
-        UTIL::getNormalizeVector(pAxMvr_->_veloVxMv,pAxMvr_->_veloVyMv,pAxMvr_->_veloVzMv,
+        UTIL::getNormalizeVector(pAxMvr_->_velo_vx_mv,pAxMvr_->_velo_vy_mv,pAxMvr_->_velo_vz_mv,
                                  vx,vy,vz);
         pAxMvr_->asst()->slideVxyzMvByDt(PX_C(10)*vx, PX_C(10)*vy, PX_C(10)*vz,
                                               10,

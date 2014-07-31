@@ -571,8 +571,8 @@ void MyOption::processBehavior() {
     if (pMyShip->is_shooting_laser_ && pVbPlay->isBeingPressed(VB_SHOT1)) {
         MyOptionWateringLaserChip001* pLaserChip = (MyOptionWateringLaserChip001*)pLaserChipDepo_->dispatch();
         if (pLaserChip) {
-//            if (pLaserChipDepo_->_pEffectActor_Irradiate) {
-//                pLaserChipDepo_->_pEffectActor_Irradiate->positionAs(this);
+//            if (pLaserChipDepo_->_pEffectActor_irradiate) {
+//                pLaserChipDepo_->_pEffectActor_irradiate->positionAs(this);
 //            }
             //カーブ用
             int max_velo_renge = pLaserChip->max_velo_renge_;

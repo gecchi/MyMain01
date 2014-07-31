@@ -21,9 +21,9 @@ public:
     /** 移動スプラインプログラム */
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
     /** 弾ストック */
-    GgafCore::GgafActorDepository* pDepo_Shot_;
+    GgafCore::GgafActorDepository* pDepo_shot_;
     /** 弾発射効果エフェクト */
-    GgafCore::GgafActorDepository* pDepo_ShotEffect_;
+    GgafCore::GgafActorDepository* pDepo_shotEffect_;
     /** 行動パターン番号 */
     int iMovePatternNo_;
 
@@ -69,17 +69,17 @@ public:
     /**
      *
      * @param prm_pKurokoLeader
-     * @param prm_pDepo_Shot
-     * @param prm_pDepo_ShotEffect
+     * @param prm_pDepo_shot
+     * @param prm_pDepo_shotEffect
      */
     virtual void config(
             GgafLib::SplineKurokoLeader* prm_pKurokoLeader,
-            GgafCore::GgafActorDepository* prm_pDepo_Shot,
-            GgafCore::GgafActorDepository* prm_pDepo_ShotEffect
+            GgafCore::GgafActorDepository* prm_pDepo_shot,
+            GgafCore::GgafActorDepository* prm_pDepo_shotEffect
             ) {
         pKurokoLeader_ = prm_pKurokoLeader;
-        pDepo_Shot_ = prm_pDepo_Shot;
-        pDepo_ShotEffect_ = prm_pDepo_ShotEffect;
+        pDepo_shot_ = prm_pDepo_shot;
+        pDepo_shotEffect_ = prm_pDepo_shotEffect;
     }
 
 

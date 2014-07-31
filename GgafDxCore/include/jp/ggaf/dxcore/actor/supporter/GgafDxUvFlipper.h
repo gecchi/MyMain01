@@ -57,9 +57,9 @@ public:
     bool _is_reverse_order_in_oscillate_animation_flg;
 
     /** */
-    int* _paInt_PtnOffset_Customized;
-    int _nPtn_Customized;
-    int _cnt_Customized;
+    int* _pa_ptn_offset_customized;
+    int _ptn_customized;
+    int _cnt_customized;
     /** [r]“à•”UV”z—ñ */
     UV* _paUV;
 
@@ -68,18 +68,18 @@ public:
 
     virtual ~GgafDxUvFlipper();
 
-    void copyStatesFrom(GgafDxUvFlipper* prm_pUvFlipper_Other) {
-        _one_ptn_tex_width      = prm_pUvFlipper_Other->_one_ptn_tex_width;
-        _one_ptn_tex_height     = prm_pUvFlipper_Other->_one_ptn_tex_height;
-        _ptn_col_num            = prm_pUvFlipper_Other->_ptn_col_num;
-        _pattno_uvflip_now      = prm_pUvFlipper_Other->_pattno_uvflip_now;
-        _pattno_uvflip_top      = prm_pUvFlipper_Other->_pattno_uvflip_top;
-        _pattno_uvflip_bottom   = prm_pUvFlipper_Other->_pattno_uvflip_bottom;
-        _pattno_uvflip_max      = prm_pUvFlipper_Other->_pattno_uvflip_max;
-        _uvflip_interval_frames = prm_pUvFlipper_Other->_uvflip_interval_frames;
-        _uvflip_method          = prm_pUvFlipper_Other->_uvflip_method;
+    void copyStatesFrom(GgafDxUvFlipper* prm_pUvFlipper_other) {
+        _one_ptn_tex_width      = prm_pUvFlipper_other->_one_ptn_tex_width;
+        _one_ptn_tex_height     = prm_pUvFlipper_other->_one_ptn_tex_height;
+        _ptn_col_num            = prm_pUvFlipper_other->_ptn_col_num;
+        _pattno_uvflip_now      = prm_pUvFlipper_other->_pattno_uvflip_now;
+        _pattno_uvflip_top      = prm_pUvFlipper_other->_pattno_uvflip_top;
+        _pattno_uvflip_bottom   = prm_pUvFlipper_other->_pattno_uvflip_bottom;
+        _pattno_uvflip_max      = prm_pUvFlipper_other->_pattno_uvflip_max;
+        _uvflip_interval_frames = prm_pUvFlipper_other->_uvflip_interval_frames;
+        _uvflip_method          = prm_pUvFlipper_other->_uvflip_method;
         _is_reverse_order_in_oscillate_animation_flg =
-                prm_pUvFlipper_Other->_is_reverse_order_in_oscillate_animation_flg;
+                prm_pUvFlipper_other->_is_reverse_order_in_oscillate_animation_flg;
     }
 
     /**

@@ -60,7 +60,7 @@ public:
     /** [r]サウンドエフェクト・マスターボリューム割合 0.0～1.0 */
     static float _se_master_volume_rate;
     /** [r]要素番号にボリューム値を入れると、対応デシベルが取得できる配列 */
-    static int aDbVolume[GGAF_MAX_VOLUME+1];
+    static int _a_db_volume[GGAF_MAX_VOLUME+1];
 
 public:
     /**

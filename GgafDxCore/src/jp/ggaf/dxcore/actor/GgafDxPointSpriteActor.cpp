@@ -33,8 +33,8 @@ _pUvFlipper(NEW GgafDxUvFlipper(_pPointSpriteModel->_papTextureConnection[0]->pe
 
     _obj_class |= Obj_GgafDxPointSpriteActor;
     _class_name = "GgafDxPointSpriteActor";
-    _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv;
-    (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
+    _pFunc_calc_rot_mv_world_matrix = UTIL::setWorldMatrix_RxRzRyMv;
+    (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
     _pUvFlipper->setRotation(_pPointSpriteModel->_texture_split_rowcol,
                              _pPointSpriteModel->_texture_split_rowcol );
     _pUvFlipper->setActivePtn(0);

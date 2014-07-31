@@ -403,113 +403,113 @@ angle GgafDxUtil::addAng(angle prm_angNow, angle prm_angOffset) {
     return angAdd;
 }
 
-angle GgafDxUtil::getAngDiff(angle prm_angFrom, angle prm_angTo, int prm_way) {
-    angle angFrom = UTIL::simplifyAng(prm_angFrom);
-    angle angTo = UTIL::simplifyAng(prm_angTo);
+angle GgafDxUtil::getAngDiff(angle prm_ang_from, angle prm_ang_to, int prm_way) {
+    angle ang_from = UTIL::simplifyAng(prm_ang_from);
+    angle ang_to = UTIL::simplifyAng(prm_ang_to);
     if (prm_way == TURN_CLOSE_TO) {
-        if (0 <= angFrom && angFrom < D180ANG) {
-            if (0 <= angTo && angTo < angFrom) {
-                return -1 * (angFrom - angTo);
-            } else if (angTo == angFrom) {
+        if (0 <= ang_from && ang_from < D180ANG) {
+            if (0 <= ang_to && ang_to < ang_from) {
+                return -1 * (ang_from - ang_to);
+            } else if (ang_to == ang_from) {
                 //重なってる場合
                 return 0;
-            } else if (angFrom < angTo && angTo < angFrom + D180ANG) {
-                return angTo - angFrom;
-            } else if (angTo == angFrom + D180ANG) {
+            } else if (ang_from < ang_to && ang_to < ang_from + D180ANG) {
+                return ang_to - ang_from;
+            } else if (ang_to == ang_from + D180ANG) {
                 //正反対を向いている（＝距離は等しい）
                 //仕方ないので正の値とする。(正確には -D180ANG or D180ANG)
                 return D180ANG;
-            } else if (angFrom + D180ANG < angTo && angTo <= D360ANG) {
-                return -1 * (angFrom + (D360ANG - angTo));
+            } else if (ang_from + D180ANG < ang_to && ang_to <= D360ANG) {
+                return -1 * (ang_from + (D360ANG - ang_to));
             } else {
                 //おかしい
-                _TRACE_("GgafDxUtil::getAngDiff bad angFrom=" << angFrom << "/angTo=" << angTo<<"/prm_way="<<prm_way);
+                _TRACE_("GgafDxUtil::getAngDiff bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
                 throwGgafCriticalException("GgafDxUtil::getDiffAngle アングル値が範囲外です(1)。\n"<<
-                                           "angFrom=" << angFrom << "/angTo=" << angTo<<"/prm_way="<<prm_way);
+                                           "ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
             }
-        } else if (D180ANG <= angFrom && angFrom <= D360ANG) {
-            if (0 <= angTo && angTo < angFrom - D180ANG) {
-                return D360ANG - angFrom + angTo;
-            } else if (angTo == angFrom - D180ANG) {
+        } else if (D180ANG <= ang_from && ang_from <= D360ANG) {
+            if (0 <= ang_to && ang_to < ang_from - D180ANG) {
+                return D360ANG - ang_from + ang_to;
+            } else if (ang_to == ang_from - D180ANG) {
                 //正反対を向いている（＝距離は等しい）
                 //仕方ないので負の値とする。(正確には -D180ANG or D180ANG)
                 return D180ANG;
-            } else if (angFrom - D180ANG < angTo && angTo < angFrom) {
-                return -1 * (angFrom - angTo);
-            } else if (angFrom == angTo) {
+            } else if (ang_from - D180ANG < ang_to && ang_to < ang_from) {
+                return -1 * (ang_from - ang_to);
+            } else if (ang_from == ang_to) {
                 //重なってる場合
                 return 0;
-            } else if (angFrom < angTo && angTo <= D360ANG) {
-                return angTo - angFrom;
+            } else if (ang_from < ang_to && ang_to <= D360ANG) {
+                return ang_to - ang_from;
             } else {
                 //おかしい
-                _TRACE_("GgafDxUtil::getAngDiff bad angFrom=" << angFrom << "/angTo=" << angTo<<"/prm_way="<<prm_way);
+                _TRACE_("GgafDxUtil::getAngDiff bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
                 throwGgafCriticalException("GgafDxUtil::getDiffAngle アングル値が範囲外です(2)。\n"<<
-                                           "angFrom=" << angFrom << "/angTo=" << angTo<<"/prm_way="<<prm_way);
+                                           "ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
             }
         }
     } else if (prm_way == TURN_ANTICLOSE_TO) {
-        if (0 <= angFrom && angFrom < D180ANG) {
-            if (0 <= angTo && angTo < angFrom) {
-                return (D360ANG - angFrom) + angTo;
-            } else if (angTo == angFrom) {
+        if (0 <= ang_from && ang_from < D180ANG) {
+            if (0 <= ang_to && ang_to < ang_from) {
+                return (D360ANG - ang_from) + ang_to;
+            } else if (ang_to == ang_from) {
                 //重なってる場合
                 return -1 * D360ANG;
-            } else if (angFrom < angTo && angTo < angFrom + D180ANG) {
-                return -1 * (angFrom + (D360ANG - angTo));
-            } else if (angTo == angFrom + D180ANG) {
+            } else if (ang_from < ang_to && ang_to < ang_from + D180ANG) {
+                return -1 * (ang_from + (D360ANG - ang_to));
+            } else if (ang_to == ang_from + D180ANG) {
                 //正反対を向いている（＝距離は等しい）
                 //仕方ないので負の値とする。(正確には -D180ANG or D180ANG)
                 return -1 * D180ANG;
-            } else if (angFrom + D180ANG < angTo && angTo <= D360ANG) {
-                return angTo - angFrom;
+            } else if (ang_from + D180ANG < ang_to && ang_to <= D360ANG) {
+                return ang_to - ang_from;
             } else {
                 //おかしい
-                _TRACE_("GgafDxUtil::getAngDiff bad angFrom=" << angFrom << "/angTo=" << angTo<<"/prm_way="<<prm_way);
+                _TRACE_("GgafDxUtil::getAngDiff bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
                 throwGgafCriticalException("GgafDxUtil::getDiffAngle アングル値が範囲外です(3)。\n"<<
-                                           "angFrom=" << angFrom << "/angTo=" << angTo<<"/prm_way="<<prm_way);
+                                           "ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
             }
-        } else if (D180ANG <= angFrom && angFrom <= D360ANG) {
-            if (0 <= angTo && angTo < angFrom - D180ANG) {
-                return -1 * (angFrom - angTo);
-            } else if (angTo == angFrom - D180ANG) {
+        } else if (D180ANG <= ang_from && ang_from <= D360ANG) {
+            if (0 <= ang_to && ang_to < ang_from - D180ANG) {
+                return -1 * (ang_from - ang_to);
+            } else if (ang_to == ang_from - D180ANG) {
                 //正反対を向いている（＝距離は等しい）
                 //仕方ないので負の値とする。(正確には -D180ANG or D180ANG)
                 return -1 * D180ANG;
-            } else if (angFrom - D180ANG < angTo && angTo < angFrom) {
-                return (D360ANG - angFrom) + angTo;
-            } else if (angFrom == angTo) {
+            } else if (ang_from - D180ANG < ang_to && ang_to < ang_from) {
+                return (D360ANG - ang_from) + ang_to;
+            } else if (ang_from == ang_to) {
                 //重なってる場合
                 return -1 * D360ANG;
-            } else if (angFrom < angTo && angTo <= D360ANG) {
-                return -1 * (angFrom + (D360ANG - angTo));
+            } else if (ang_from < ang_to && ang_to <= D360ANG) {
+                return -1 * (ang_from + (D360ANG - ang_to));
             } else {
                 //おかしい
-                _TRACE_("GgafDxUtil::getAngDiff bad angFrom=" << angFrom << "/angTo=" << angTo<<"/prm_way="<<prm_way);
+                _TRACE_("GgafDxUtil::getAngDiff bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
                 throwGgafCriticalException("GgafDxUtil::getDiffAngle アングル値が範囲外です(4)。\n"<<
-                                           "angFrom=" << angFrom << "/angTo=" << angTo<<"/prm_way="<<prm_way);
+                                           "ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
             }
         }
     } else if (prm_way == TURN_COUNTERCLOCKWISE) {
-        if (angFrom <= angTo) {
-            return angTo - angFrom;
+        if (ang_from <= ang_to) {
+            return ang_to - ang_from;
         } else {
-            return (D360ANG - angFrom) + angTo;
+            return (D360ANG - ang_from) + ang_to;
         }
     } else if (prm_way == TURN_CLOCKWISE) {
-        if (angFrom >= angTo) {
-            return -(angFrom - angTo);
+        if (ang_from >= ang_to) {
+            return -(ang_from - ang_to);
         } else {
-            return -(angFrom + (D360ANG - angTo));
+            return -(ang_from + (D360ANG - ang_to));
         }
     } else {
-        _TRACE_("GgafDxUtil::getAngDiff bad angFrom=" << angFrom << "/angTo=" << angTo<<"/prm_way="<<prm_way);
+        _TRACE_("GgafDxUtil::getAngDiff bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
         throwGgafCriticalException("GgafDxUtil::getDiffAngle  prm_way = TURN_CLOSE_TO/TURN_ANTICLOSE_TO/TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE 以外が指定されています。");
     }
 
-    _TRACE_("bad angFrom=" << angFrom << "/angTo=" << angTo<<"/prm_way="<<prm_way);
+    _TRACE_("bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
     throwGgafCriticalException("GgafDxUtil::getDiffAngle  何故かしら角の距離が求めれません。(1) \n"<<
-                               "angFrom=" << angFrom << "/angTo=" << angTo<<"/prm_way="<<prm_way);
+                               "ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
 }
 
 void GgafDxUtil::rotxy(int prm_x, int prm_y, angle prm_ang, int& out_x, int& out_y) {

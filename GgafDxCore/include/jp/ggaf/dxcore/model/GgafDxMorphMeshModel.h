@@ -75,12 +75,12 @@ public:
     /** シェーダー入力頂点フォーマット */
     LPDIRECT3DVERTEXDECLARATION9 _pIDirect3DVertexDeclaration9;
     /** 頂点バッファ（プライマリ） */
-    LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9_primary;
+    LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer_primary;
     /** 頂点バッファの配列（要素数＝モーフターゲット数） */
     LPDIRECT3DVERTEXBUFFER9* _paIDirect3DVertexBuffer9_morph;
 
     /** インデックスバッファ（プライマリのみ） */
-    LPDIRECT3DINDEXBUFFER9 _pIDirect3DIndexBuffer9;
+    LPDIRECT3DINDEXBUFFER9 _pIndexBuffer;
 
 
     /** 頂点のサイズ（プライマリ） */
@@ -95,7 +95,7 @@ public:
     /** DrawIndexedPrimitive描画パラメーター（プライマリのみ） */
     INDEXPARAM* _paIndexParam;
     /** マテリアル種類数（プライマリのみ） */
-    UINT _nMaterialListGrp;
+    UINT _material_list_grp_num;
 
     /** 頂点バッファの写しコピーの頂点配列（プライマリ） */
     VERTEX_PRIMARY* _paVtxBuffer_org_primary;
@@ -116,7 +116,7 @@ public:
      */
     GgafDxMorphMeshModel(char* prm_model_name);
 
-    virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num = 1) override;
+    virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_target, int prm_draw_set_num = 1) override;
 
     virtual void restore() override;
 

@@ -6,7 +6,7 @@ namespace VioletVreath {
 
 /**
  * 敵機アリサナ .
- * Delheidのハッチ。
+ * Delheidのハッチ。FormationDelheidが管理する。
  * @version 1.00
  * @since 2014/04/16
  * @author Masatoshi Tsuge

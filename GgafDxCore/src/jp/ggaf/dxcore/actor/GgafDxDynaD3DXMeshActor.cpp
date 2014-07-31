@@ -31,13 +31,13 @@ GgafDxDynaD3DXMeshActor::GgafDxDynaD3DXMeshActor(const char* prm_name,
 
     _pD3DXMeshModel = (GgafDxD3DXMeshModel*)_pModel;
     _pMeshEffect = (GgafDxMeshEffect*)_pEffect;
-    _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv;
-    (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
+    _pFunc_calc_rot_mv_world_matrix = UTIL::setWorldMatrix_RxRzRyMv;
+    (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
 }
 
 void GgafDxDynaD3DXMeshActor::processDraw() {
     ID3DXEffect* pID3DXEffect = _pMeshEffect->_pID3DXEffect;
-    //(*_pFunc_calcRotMvWorldMatrix)(this, _matWorld);
+    //(*_pFunc_calc_rot_mv_world_matrix)(this, _matWorld);
     HRESULT hr;
 //    hr = pID3DXEffect->SetMatrix( _pMeshEffect->_h_matView, &P_CAM->_matView );
 //    checkDxException(hr, D3D_OK, "GgafDxDynaD3DXMeshActor::GgafDxMeshEffect SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

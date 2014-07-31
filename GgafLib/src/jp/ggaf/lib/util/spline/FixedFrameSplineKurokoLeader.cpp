@@ -24,12 +24,12 @@ FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(SplineManufacture* pr
     _hosei_frames = 0;
 }
 FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(GgafDxKuroko* const prm_pKuroko_target,
-                                                           SplineLine* prmpSpl,
+                                                           SplineLine* prm_pSpl,
                                                            frame prm_spent_frame,
                                                            angvelo prm_angveloRzRyMv):
         SplineKurokoLeader(nullptr, prm_pKuroko_target) {  //nullptrで渡す事により、_is_created_pManufacture が falseになる
 
-    _pFixedFrameSplManuf = NEW FixedFrameSplineManufacture(NEW SplineSource(prmpSpl), prm_spent_frame, prm_angveloRzRyMv);
+    _pFixedFrameSplManuf = NEW FixedFrameSplineManufacture(NEW SplineSource(prm_pSpl), prm_spent_frame, prm_angveloRzRyMv);
     _pFixedFrameSplManuf->calculate();//これも忘れないように。いずれこのタイプは消す
     _pManufacture = _pFixedFrameSplManuf;
 
@@ -113,9 +113,9 @@ void FixedFrameSplineKurokoLeader::restart() {
     _point_index = 0;
     _prev_point_index = -1;
     SplineLine* pSpl = _pFixedFrameSplManuf->_sp;
-    double P0X = (_flip_x * pSpl->_x_compute[0] * _pFixedFrameSplManuf->_rate_x) + _offset_x;
-    double P0Y = (_flip_y * pSpl->_y_compute[0] * _pFixedFrameSplManuf->_rate_y) + _offset_y;
-    double P0Z = (_flip_z * pSpl->_z_compute[0] * _pFixedFrameSplManuf->_rate_z) + _offset_z;
+    double p0x = (_flip_x * pSpl->_x_compute[0] * _pFixedFrameSplManuf->_rate_x) + _offset_x;
+    double p0y = (_flip_y * pSpl->_y_compute[0] * _pFixedFrameSplManuf->_rate_y) + _offset_y;
+    double p0z = (_flip_z * pSpl->_z_compute[0] * _pFixedFrameSplManuf->_rate_z) + _offset_z;
     if (!_is_fix_start_pos) {
         _x_start = _pActor_target->_x;
         _y_start = _pActor_target->_y;
@@ -128,20 +128,20 @@ void FixedFrameSplineKurokoLeader::restart() {
         _cosRyMv_begin = ANG_COS(_pActor_target->getKuroko()->_ang_ry_mv);
         _distance_to_begin = UTIL::getDistance(
                                        0.0  , 0.0  , 0.0  ,
-                                       P0X, P0Y, P0Z
+                                       p0x, p0y, p0z
                                   );
 
     } else if (_option == RELATIVE_COORD) {
         _distance_to_begin = UTIL::getDistance(
                                        0.0  , 0.0  , 0.0  ,
-                                       P0X, P0Y, P0Z
+                                       p0x, p0y, p0z
                                   );
     } else { //ABSOLUTE_COORD
         _distance_to_begin = UTIL::getDistance(
                                 (double)(_pActor_target->_x),
                                 (double)(_pActor_target->_y),
                                 (double)(_pActor_target->_z),
-                                P0X, P0Y, P0Z
+                                p0x, p0y, p0z
                              );
     }
     //始点へ行く特別処理。

@@ -18,9 +18,9 @@ class EnemyRis : public GgafLib::DefaultMeshSetActor {
     /** 移動スプラインプログラム */
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
     /** 弾ストック */
-    GgafCore::GgafActorDepository* pDepo_Shot_;
+    GgafCore::GgafActorDepository* pDepo_shot_;
     /** 弾発射効果エフェクト */
-    GgafCore::GgafActorDepository* pDepo_ShotEffect_;
+    GgafCore::GgafActorDepository* pDepo_shotEffect_;
 
 public:
     enum {
@@ -72,12 +72,12 @@ public:
 
     virtual void config(
             GgafLib::SplineKurokoLeader* prm_pKurokoLeader,
-            GgafCore::GgafActorDepository* prm_pDepo_Shot,
-            GgafCore::GgafActorDepository* prm_pDepo_ShotEffect
+            GgafCore::GgafActorDepository* prm_pDepo_shot,
+            GgafCore::GgafActorDepository* prm_pDepo_shotEffect
             ) {
         pKurokoLeader_ = prm_pKurokoLeader;
-        pDepo_Shot_ = prm_pDepo_Shot;
-        pDepo_ShotEffect_ = prm_pDepo_ShotEffect;
+        pDepo_shot_ = prm_pDepo_shot;
+        pDepo_shotEffect_ = prm_pDepo_shotEffect;
     }
 
     virtual ~EnemyRis();

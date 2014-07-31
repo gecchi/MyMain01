@@ -27,9 +27,9 @@ public:
 
 
     /** デルヘイド借り入れ元Depository資源への接続 */
-    DepositoryConnection* pConn_DelheidDepo_;
+    DepositoryConnection* pConn_pDelheidDepo_;
     /** デルヘイドの発射弾の借り入れ元Depository資源への接続 */
-    DepositoryConnection* pConn_ShotDepo_;
+    DepositoryConnection* pConn_pShotDepo_;
     /** 始点・終点の座標計算のためのダミー */
     EnemyDelheid* pDummy_;
 

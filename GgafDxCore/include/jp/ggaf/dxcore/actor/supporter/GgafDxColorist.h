@@ -22,6 +22,7 @@ public:
         GREEN = 1,
         BLUE = 2,
     };
+
 public:
     /**
      * コンストラクタ<BR>

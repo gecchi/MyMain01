@@ -62,7 +62,7 @@ public:
     /** [r]弾切れの時、何発溜まったら発射(dispatch()) 出来るようにするか */
     int _num_chip_dispatch_able;
     /** [r/w]レーザー発射時エフェクト。不要の場合はnullptrを設定する */
-    GgafDxCore::GgafDxDrawableActor* _pEffectActor_Irradiate;
+    GgafDxCore::GgafDxDrawableActor* _pEffectActor_irradiate;
 
 public:
     LaserChipDepository(const char* prm_name, GgafCore::GgafStatus* prm_pStat = nullptr);
@@ -71,11 +71,11 @@ public:
      * LaserChipDepositoryを設定する。
      * @param prm_num_continual_dispatch_max 強制的に弾切れに移行するチップの連続取得数。
      * @param prm_num_chip_interval 弾切れフレーム数
-     * @param prm_pEffectActor_Irradiate シーン所属済み発射中エフェクト(不要時はnullptr)。解放は呼び元で。
+     * @param prm_pEffectActor_irradiate シーン所属済み発射中エフェクト(不要時はnullptr)。解放は呼び元で。
      */
     virtual void config(int prm_num_continual_dispatch_max,
                         uint32_t prm_num_chip_interval,
-                        GgafDxCore::GgafDxDrawableActor* prm_pEffectActor_Irradiate = nullptr);
+                        GgafDxCore::GgafDxDrawableActor* prm_pEffectActor_irradiate = nullptr);
 
     virtual void processBehavior() override {
     }

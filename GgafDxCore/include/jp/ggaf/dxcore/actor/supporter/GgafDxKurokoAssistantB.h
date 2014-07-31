@@ -158,7 +158,7 @@ public:
 
     /**
      * 目標のアクターの座標に向くように、滑らかに回転するシークエンスを実行(時間指定、角速度変動) .
-     * @param prm_pActor_Target 目標アクター
+     * @param prm_pActor_target 目標アクター
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。<BR>
@@ -169,7 +169,7 @@ public:
      * @param prm_endacc_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
     void turnFaceAngByDtTwd(
-            GgafDxGeometricActor* prm_pActor_Target, int prm_way, bool prm_optimize_ang,
+            GgafDxGeometricActor* prm_pActor_target, int prm_way, bool prm_optimize_ang,
             int prm_target_frames,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_endacc_flg);
@@ -246,7 +246,7 @@ public:
 
     void turnFaceAngByVdTwd(
             angvelo prm_top_angvelo,
-            GgafDxGeometricActor* prm_pActor_Target, int prm_way, bool prm_optimize_ang,
+            GgafDxGeometricActor* prm_pActor_target, int prm_way, bool prm_optimize_ang,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_endacc_flg);
 

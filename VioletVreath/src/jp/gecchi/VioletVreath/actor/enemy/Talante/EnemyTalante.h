@@ -30,7 +30,7 @@ public:
     };
 
     /** 弾ストック */
-    GgafCore::GgafActorDepository* pDepo_Shot_;
+    GgafCore::GgafActorDepository* pDepo_shot_;
 
     /** Y軸揃ったよフラグ */
     bool Y_ok_;
@@ -79,10 +79,10 @@ public:
 
     /**
      *
-     * @param prm_pDepo_Shot
+     * @param prm_pDepo_shot
      */
     virtual void config(
-            GgafCore::GgafActorDepository* prm_pDepo_Shot
+            GgafCore::GgafActorDepository* prm_pDepo_shot
             );
 
 

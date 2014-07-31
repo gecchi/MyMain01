@@ -20,13 +20,13 @@ GgafDxWorldBoundModel::GgafDxWorldBoundModel(char* prm_model_name) : GgafDxMorph
 }
 
 
-HRESULT GgafDxWorldBoundModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num) {
-    TRACE4("GgafDxWorldBoundModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
+HRESULT GgafDxWorldBoundModel::draw(GgafDxDrawableActor* prm_pActor_target, int prm_draw_set_num) {
+    TRACE4("GgafDxWorldBoundModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
     IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
     //対象アクター
-    GgafDxWorldBoundActor* pTargetActor = (GgafDxWorldBoundActor*)prm_pActor_Target;
+    GgafDxWorldBoundActor* pTargetActor = (GgafDxWorldBoundActor*)prm_pActor_target;
     //対象アクターのエフェクトラッパ
-    GgafDxWorldBoundEffect* pWorldBoundEffect = (GgafDxWorldBoundEffect*)prm_pActor_Target->getEffect();
+    GgafDxWorldBoundEffect* pWorldBoundEffect = (GgafDxWorldBoundEffect*)prm_pActor_target->getEffect();
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pWorldBoundEffect->_pID3DXEffect;
 
@@ -35,12 +35,12 @@ HRESULT GgafDxWorldBoundModel::draw(GgafDxDrawableActor* prm_pActor_Target, int 
     //頂点バッファ設定
     if (GgafDxModelManager::_pModelLastDraw != this) {
         pDevice->SetVertexDeclaration( _pIDirect3DVertexDeclaration9); //頂点フォーマット
-        pDevice->SetStreamSource(0, _pIDirect3DVertexBuffer9_primary, 0, _size_vertex_unit_primary);
+        pDevice->SetStreamSource(0, _pVertexBuffer_primary, 0, _size_vertex_unit_primary);
         for (int i = 1; i <= _morph_target_num; i++) {
             pDevice->SetStreamSource(i, _paIDirect3DVertexBuffer9_morph[i-1], 0, _size_vertex_unit_morph);
         }
         //インデックスバッファ設定
-        pDevice->SetIndices(_pIDirect3DIndexBuffer9);
+        pDevice->SetIndices(_pIndexBuffer);
 
         hr = pID3DXEffect->SetFloat(pWorldBoundEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "GgafDxWorldBoundModel::draw() SetFloat(_h_tex_blink_power) に失敗しました。");
@@ -49,25 +49,25 @@ HRESULT GgafDxWorldBoundModel::draw(GgafDxDrawableActor* prm_pActor_Target, int 
     }
 
     //描画
-    for (UINT i = 0; i < _nMaterialListGrp; i++) {
+    for (UINT i = 0; i < _material_list_grp_num; i++) {
         material_no = _paIndexParam[i].MaterialNo;
         hr = pID3DXEffect->SetValue(pWorldBoundEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
         checkDxException(hr, D3D_OK, "GgafDxWorldBoundModel::draw()SetValue(g_colMaterialDiffuse) に失敗しました。");
 
-        if ((GgafDxEffectManager::_pEffect_Active != pWorldBoundEffect || GgafDxDrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique) &&
+        if ((GgafDxEffectManager::_pEffect_active != pWorldBoundEffect || GgafDxDrawableActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) &&
                 i == 0) {
-            if (GgafDxEffectManager::_pEffect_Active) {
-               TRACE4("EndPass("<<GgafDxEffectManager::_pEffect_Active->_pID3DXEffect<<"): /_pEffect_Active="<<GgafDxEffectManager::_pEffect_Active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_Active<<")");
-                hr = GgafDxEffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
-                checkDxException(hr, D3D_OK, "GgafDxWorldBoundModel::draw() EndPass() に失敗しました。"<<GgafDxEffectManager::_pEffect_Active->_pID3DXEffect<<"): /_pEffect_Active="<<GgafDxEffectManager::_pEffect_Active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_Active<<")");
-                hr = GgafDxEffectManager::_pEffect_Active->_pID3DXEffect->End();
+            if (GgafDxEffectManager::_pEffect_active) {
+               TRACE4("EndPass("<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
+                hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->EndPass();
+                checkDxException(hr, D3D_OK, "GgafDxWorldBoundModel::draw() EndPass() に失敗しました。"<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
+                hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->End();
                 checkDxException(hr, D3D_OK, "GgafDxWorldBoundModel::draw() End() に失敗しました。");
 
 #ifdef MY_DEBUG
-                if (GgafDxEffectManager::_pEffect_Active->_begin == false) {
-                    throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+                if (GgafDxEffectManager::_pEffect_active->_begin == false) {
+                    throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_active->_effect_name)<<"");
                 } else {
-                    GgafDxEffectManager::_pEffect_Active->_begin = false;
+                    GgafDxEffectManager::_pEffect_active->_begin = false;
                 }
 #endif
 
@@ -91,7 +91,7 @@ HRESULT GgafDxWorldBoundModel::draw(GgafDxDrawableActor* prm_pActor_Target, int 
 
 #ifdef MY_DEBUG
             if (pWorldBoundEffect->_begin) {
-                throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+                throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_active->_effect_name)<<"");
             } else {
                 pWorldBoundEffect->_begin = true;
             }
@@ -112,8 +112,8 @@ HRESULT GgafDxWorldBoundModel::draw(GgafDxDrawableActor* prm_pActor_Target, int 
         GgafGod::_num_actor_drawing++;
     }
     GgafDxModelManager::_pModelLastDraw = this;
-    GgafDxEffectManager::_pEffect_Active = pWorldBoundEffect;
-    GgafDxDrawableActor::_hash_technique_last_draw = prm_pActor_Target->_hash_technique;
+    GgafDxEffectManager::_pEffect_active = pWorldBoundEffect;
+    GgafDxDrawableActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
 
     return D3D_OK;
 }

@@ -46,7 +46,7 @@ _pEffect((GgafDxEffect*)_pEffectCon->peek()) {
 
     _frame_of_behaving_temp_technique_end = 0;
     _is_temp_technique = false;
-    _pNext_TheSameDrawDepthLevel = nullptr;
+    _pNextActor_in_draw_depth_level = nullptr;
 //    //モデル取得connectModelManager
 //    _pModelCon = (GgafDxModelConnection*)GgafDxGod::_pModelManager->connect(prm_model, this);
 //    _pModel = (GgafDxModel*)_pModelCon->peek();
@@ -121,7 +121,7 @@ _pEffect((GgafDxEffect*)_pEffectCon->peek())
 //    // effelct_name     = "X/DefaultMeshEffect"
 //    // という文字列を作成。
 
-    _pNext_TheSameDrawDepthLevel = nullptr;
+    _pNextActor_in_draw_depth_level = nullptr;
 
     //マテリアルをコピー
     _paMaterial = NEW D3DMATERIAL9[_pModel->_num_materials];
@@ -156,7 +156,7 @@ void GgafDxDrawableActor::processPreDraw() {
         onCreateModel(); //モデル作成時の初期処理
         _pModel->_is_init_model = true;
     }
-    _pNext_TheSameDrawDepthLevel = nullptr;
+    _pNextActor_in_draw_depth_level = nullptr;
     //TODO:要検証
     if (_alpha > 0.0f && isActiveInTheTree()) { //isActiveInTheTree() で判定すると、
         if (_is_2D) {
@@ -171,16 +171,16 @@ void GgafDxDrawableActor::processPreDraw() {
                     _now_drawdepth = GgafDxUniverse::setDrawDepthLevel(_z, this); //2Dは_zはプライオリティに使用。
                 } else {
                     //特別な描画深度指定有り
-                    if (GgafDxUniverse::_apAlphaActorFirstList_DrawDepthLevel[_specal_drawdepth] == nullptr) {
+                    if (GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth] == nullptr) {
                         //そのprm_draw_depth_levelで最初のアクターの場合
-                        this->_pNext_TheSameDrawDepthLevel = nullptr;
-                        GgafDxUniverse::_apAlphaActorFirstList_DrawDepthLevel[_specal_drawdepth] = this;
-                        GgafDxUniverse::_apAlphaActorLastList_DrawDepthLevel[_specal_drawdepth] = this;
+                        this->_pNextActor_in_draw_depth_level = nullptr;
+                        GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth] = this;
+                        GgafDxUniverse::_apLastActor_draw_depth_level[_specal_drawdepth] = this;
                     } else {
                         //前に追加
-                        GgafDxDrawableActor* pActorTmp = GgafDxUniverse::_apAlphaActorFirstList_DrawDepthLevel[_specal_drawdepth];
-                        this->_pNext_TheSameDrawDepthLevel = pActorTmp;
-                        GgafDxUniverse::_apAlphaActorFirstList_DrawDepthLevel[_specal_drawdepth] = this;
+                        GgafDxDrawableActor* pActorTmp = GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth];
+                        this->_pNextActor_in_draw_depth_level = pActorTmp;
+                        GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth] = this;
                     }
                     _now_drawdepth = _specal_drawdepth;
                 }
@@ -256,16 +256,16 @@ void GgafDxDrawableActor::processPreDraw() {
                     }
                 } else {
                     //特別な描画深度指定有り
-                    if (GgafDxUniverse::_apAlphaActorFirstList_DrawDepthLevel[_specal_drawdepth] == nullptr) {
+                    if (GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth] == nullptr) {
                         //そのprm_draw_depth_levelで最初のアクターの場合
-                        this->_pNext_TheSameDrawDepthLevel = nullptr;
-                        GgafDxUniverse::_apAlphaActorFirstList_DrawDepthLevel[_specal_drawdepth] = this;
-                        GgafDxUniverse::_apAlphaActorLastList_DrawDepthLevel[_specal_drawdepth] = this;
+                        this->_pNextActor_in_draw_depth_level = nullptr;
+                        GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth] = this;
+                        GgafDxUniverse::_apLastActor_draw_depth_level[_specal_drawdepth] = this;
                     } else {
                         //前に追加
-                        GgafDxDrawableActor* pActorTmp = GgafDxUniverse::_apAlphaActorFirstList_DrawDepthLevel[_specal_drawdepth];
-                        this->_pNext_TheSameDrawDepthLevel = pActorTmp;
-                        GgafDxUniverse::_apAlphaActorFirstList_DrawDepthLevel[_specal_drawdepth] = this;
+                        GgafDxDrawableActor* pActorTmp = GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth];
+                        this->_pNextActor_in_draw_depth_level = pActorTmp;
+                        GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth] = this;
                     }
                     _now_drawdepth = _specal_drawdepth;
                 }

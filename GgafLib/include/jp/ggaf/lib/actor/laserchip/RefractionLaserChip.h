@@ -49,7 +49,7 @@ private:
     GgafDxCore::GgafDxDrawableActor* _prev_pRefractionEffect;
 
     /** 屈折エフェクトアクターのデポジトリ（シーン所属済みであること） */
-    GgafCore::GgafActorDepository* _pDispatche_RefractionEffect;
+    GgafCore::GgafActorDepository* _pDepo_refraction_effect;
     GgafDxCore::GgafDxDrawableActor* _pRefractionEffect;
 
 public:
@@ -71,13 +71,13 @@ public:
      * @param prm_frame_between_refraction 直進開始(屈折終了)～直進～直進終了(屈折開始)、のフレーム数(>= 1)
      * @param prm_frame_standstill_refraction 屈折時(直進終了(屈折開始)～停止～直進開始(屈折終了))の停滞貯めフレーム数(>= 1)
      * @param prm_is_fix_beginning_pos true:レーザー発射元は、先頭レーザーチップの座標に固定される。／false:それぞれのレーザーチップの座標に依存
-     * @param prm_pDispatche_RefractionEffect 屈折時のエフェクトアクターのデポジトリ(無しの場合はnullptr)
+     * @param prm_pDepo_refraction_effect 屈折時のエフェクトアクターのデポジトリ(無しの場合はnullptr)
      */
     virtual void config(int prm_num_refraction,
                         frame prm_frame_between_refraction,
                         frame prm_frame_standstill_refraction,
                         bool prm_is_fix_begin_pos,
-                        GgafCore::GgafActorDepository* prm_pDispatche_RefractionEffect);
+                        GgafCore::GgafActorDepository* prm_pDepo_refraction_effect);
 
     virtual void onCreateModel() override {}
 

@@ -58,12 +58,12 @@ public:
     GgafDxCamera* _pCamera;
 
     /** レンダリング順序配列に登録されている各アクターリストの先頭のアクターの配列 */
-    static GgafDxDrawableActor* _apAlphaActorFirstList_DrawDepthLevel[];
+    static GgafDxDrawableActor* _apFirstActor_draw_depth_level[];
     /** レンダリング順序配列に登録されている各アクターリストの末尾のアクターの配列 */
-    static GgafDxDrawableActor* _apAlphaActorLastList_DrawDepthLevel[];
+    static GgafDxDrawableActor* _apLastActor_draw_depth_level[];
 
     /** 描画アクターのカーソル */
-    static GgafDxDrawableActor* _pActor_DrawActive;
+    static GgafDxDrawableActor* _pActor_draw_active;
 
     /** [r]アプリケーション領域、X座標の最小値 */
     static coord _x_gone_left;

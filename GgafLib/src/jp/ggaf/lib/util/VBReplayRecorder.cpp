@@ -8,7 +8,7 @@ using namespace GgafLib;
 VBReplayRecorder::VBReplayRecorder() : GgafObject() {
     _pFirstVBNote = nullptr;
     _pRecNote = nullptr;
-    _pRecNote_RreadPrev = nullptr;
+    _pRecNote_read_prev = nullptr;
     _write_realtime = false;
     _frame_of_the_same_vbsta_reading = 0;
 }
@@ -36,7 +36,7 @@ vbsta VBReplayRecorder::read() {
         _frame_of_the_same_vbsta_reading++;
         if (_pRecNote->_frame_of_keeping == _frame_of_the_same_vbsta_reading) {
             _frame_of_the_same_vbsta_reading = 0;
-            _pRecNote_RreadPrev = _pRecNote; //•Û‘¶
+            _pRecNote_read_prev = _pRecNote; //•Û‘¶
             _pRecNote = _pRecNote->_pNext;
         }
         return r;
@@ -54,13 +54,13 @@ void VBReplayRecorder::write(vbsta prm_state) {
         //V‹K
         _pFirstVBNote = NEW VBRecordNote(prm_state, 1);
         _pRecNote = _pFirstVBNote;
-        _pRecNote_RreadPrev = nullptr;
+        _pRecNote_read_prev = nullptr;
         return;
     } else {
-        if (_pRecNote_RreadPrev) {
+        if (_pRecNote_read_prev) {
             //read ¨ 0 ¨ write ‘±‚«‚©‚ç’Ç‹L(—vŒŸØ)
-            _pRecNote = _pRecNote_RreadPrev;
-            _pRecNote_RreadPrev = nullptr;
+            _pRecNote = _pRecNote_read_prev;
+            _pRecNote_read_prev = nullptr;
         }
 
         if (_pRecNote->_state != prm_state) {

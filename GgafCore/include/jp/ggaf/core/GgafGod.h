@@ -46,7 +46,7 @@ public:
     /** [r] 自身 */
     static GgafGod* _pGod;
     /** [r] 生成工場(別スレッド)のエラー状態。nullptr＝正常稼働中／not nullptr＝異常発生 */
-    static GgafCriticalException* _pException_Factory;
+    static GgafCriticalException* _pException_factory;
     /** [r] 次にこの世を活動させる時間のオフセット */
     static DWORD _aaTime_offset_of_next_view[3][60];
 

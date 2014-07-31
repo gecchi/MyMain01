@@ -21,9 +21,9 @@ _pTexture(prm_pTexture) {
     _one_ptn_tex_height = 1.0f;
     _ptn_col_num = 1;
     _ptn_row_num = 1;
-    _paInt_PtnOffset_Customized = nullptr;
-    _nPtn_Customized = 0;
-    _cnt_Customized = 0;
+    _pa_ptn_offset_customized = nullptr;
+    _ptn_customized = 0;
+    _cnt_customized = 0;
     _base_u = 0.0f;
     _base_v = 0.0f;
     _paUV = nullptr;
@@ -161,21 +161,21 @@ void GgafDxUvFlipper::behave() {
             }
         } else if (_uvflip_method == FLIP_CUSTOMIZED_LOOP) {
             //TODO: 未検証（使う機会があればする）
-            if (_paInt_PtnOffset_Customized) {
-                _pattno_uvflip_now = _paInt_PtnOffset_Customized[_cnt_Customized];
-                _cnt_Customized ++;
-                if (_cnt_Customized == _nPtn_Customized) {
-                    _cnt_Customized = 0;
+            if (_pa_ptn_offset_customized) {
+                _pattno_uvflip_now = _pa_ptn_offset_customized[_cnt_customized];
+                _cnt_customized ++;
+                if (_cnt_customized == _ptn_customized) {
+                    _cnt_customized = 0;
                 }
             }
         } else if (_uvflip_method == FLIP_CUSTOMIZED_NOLOOP) {
             //TODO: 未検証（使う機会があればする）
-            if (_paInt_PtnOffset_Customized) {
-                _pattno_uvflip_now = _paInt_PtnOffset_Customized[_cnt_Customized];
-                _cnt_Customized ++;
-                if (_cnt_Customized == _nPtn_Customized) {
+            if (_pa_ptn_offset_customized) {
+                _pattno_uvflip_now = _pa_ptn_offset_customized[_cnt_customized];
+                _cnt_customized ++;
+                if (_cnt_customized == _ptn_customized) {
 //                    _pTexture->onCatchEvent(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED, this); //もうアニメーションは進まないことを通知
-                    _cnt_Customized = 0;
+                    _cnt_customized = 0;
                     _uvflip_method = NOT_ANIMATED;
                 }
             }
@@ -187,10 +187,10 @@ void GgafDxUvFlipper::behave() {
 }
 
 void GgafDxUvFlipper::customizePtnOrder(int prm_aPtnOffset[], int prm_num) {
-    _paInt_PtnOffset_Customized = NEW int[prm_num];
-    _nPtn_Customized = prm_num;
+    _pa_ptn_offset_customized = NEW int[prm_num];
+    _ptn_customized = prm_num;
     for (int i = 0; i < prm_num; i++) {
-        _paInt_PtnOffset_Customized[i] = prm_aPtnOffset[i];
+        _pa_ptn_offset_customized[i] = prm_aPtnOffset[i];
     }
 }
 

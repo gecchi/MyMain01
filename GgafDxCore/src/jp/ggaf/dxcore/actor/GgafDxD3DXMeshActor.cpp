@@ -29,8 +29,8 @@ GgafDxD3DXMeshActor::GgafDxD3DXMeshActor(const char* prm_name,
     _class_name = "GgafDxD3DXMeshActor";
     _pD3DXMeshModel = (GgafDxD3DXMeshModel*)_pModel;
     _pMeshEffect = (GgafDxMeshEffect*)_pEffect;
-    _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv;
-    (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
+    _pFunc_calc_rot_mv_world_matrix = UTIL::setWorldMatrix_RxRzRyMv;
+    (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
 }
 
 void GgafDxD3DXMeshActor::setAlpha(float prm_alpha) {

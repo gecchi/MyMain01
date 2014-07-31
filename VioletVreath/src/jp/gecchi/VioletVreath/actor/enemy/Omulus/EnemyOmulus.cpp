@@ -159,7 +159,7 @@ void EnemyOmulus::processBehavior() {
 //        //考え方：ローカル座標系で予めどの方向に向いておけば、最終的に自機に向くことになるかを求める
 //        //
 //        //自機への向くための変換前状態でのターゲット位置を(tvx, tvy, tvz) とおき、
-//        //「土台まで」の行列の積（_pActor_Base->_matWorldRotMv) を b_mat_xx とする。
+//        //「土台まで」の行列の積（_pActor_base->_matWorldRotMv) を b_mat_xx とする。
 //        //現在の最終座標から自機への向きのベクトルを、(mvx, mvy, mvz) とすると、
 //        //
 //        //                | b_mat_11 b_mat_12 b_mat_13 |
@@ -226,7 +226,7 @@ void EnemyOmulus::processJudgement() {
 
 
     if (getBaseActor() && getBaseActor()->isActiveInTheTree()) {
-//        (*(_pActor_Base->_pFunc_calcRotMvWorldMatrix))(_pActor_Base, _matWorld);
+//        (*(_pActor_base->_pFunc_calc_rot_mv_world_matrix))(_pActor_base, _matWorld);
     } else {
         //土台がなければ自分も死ぬ
         sayonara();

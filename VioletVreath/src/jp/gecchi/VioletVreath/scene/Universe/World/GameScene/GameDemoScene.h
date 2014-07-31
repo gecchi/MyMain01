@@ -28,7 +28,7 @@ public:
         std::string date;
     };
 
-    LabelRankingFont** papLabel_Ranking_;
+    LabelRankingFont** papLabel_ranking_;
 
     LabelGecchi16Font* pLabel01_;
     LabelGecchi16Font* pLabel02_;

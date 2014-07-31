@@ -18,12 +18,12 @@ DWORD GgafDxBoardSetModel::FVF = (D3DFVF_XYZ | D3DFVF_PSIZE | D3DFVF_TEX1);
 GgafDxBoardSetModel::GgafDxBoardSetModel(char* prm_model_name) : GgafDxModel(prm_model_name) {
     TRACE3("GgafDxBoardSetModel::GgafDxBoardSetModel(" << _model_name << ")");
 
-    _fSize_BoardSetModelWidthPx = 32.0f;
-    _fSize_BoardSetModelHeightPx = 32.0f;
+    _model_width_px = 32.0f;
+    _model_height_px = 32.0f;
     _row_texture_split = 1;
     _col_texture_split = 1;
-    _pIDirect3DVertexBuffer9 = nullptr;
-    _pIDirect3DIndexBuffer9 = nullptr;
+    _pVertexBuffer = nullptr;
+    _pIndexBuffer = nullptr;
     _size_vertices = 0;
     _size_vertex_unit = 0;
     _paIndexParam = nullptr;
@@ -49,8 +49,8 @@ GgafDxBoardSetModel::GgafDxBoardSetModel(char* prm_model_name) : GgafDxModel(prm
 }
 
 //描画
-HRESULT GgafDxBoardSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num) {
-    TRACE4("GgafDxBoardSetModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
+HRESULT GgafDxBoardSetModel::draw(GgafDxDrawableActor* prm_pActor_target, int prm_draw_set_num) {
+    TRACE4("GgafDxBoardSetModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
 #ifdef MY_DEBUG
     if (prm_draw_set_num > _set_num) {
         _TRACE_("GgafDxBoardSetModel::draw() "<<_model_name<<" の描画セット数オーバー。_set_num="<<_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
@@ -58,19 +58,19 @@ HRESULT GgafDxBoardSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
 #endif
     IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
     //対象Actor
-    GgafDxBoardSetActor* pTargetActor = (GgafDxBoardSetActor*)prm_pActor_Target;
+    GgafDxBoardSetActor* pTargetActor = (GgafDxBoardSetActor*)prm_pActor_target;
     //対象BoardSetActorのエフェクトラッパ
-    GgafDxBoardSetEffect* pBoardSetEffect = (GgafDxBoardSetEffect*)prm_pActor_Target->getEffect();
+    GgafDxBoardSetEffect* pBoardSetEffect = (GgafDxBoardSetEffect*)prm_pActor_target->getEffect();
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pBoardSetEffect->_pID3DXEffect;
 
     HRESULT hr;
     //モデルが同じならば頂点バッファ等、の設定はスキップできる
     if (GgafDxModelManager::_pModelLastDraw != this) {
-        pDevice->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertex_unit);
+        pDevice->SetStreamSource(0, _pVertexBuffer, 0, _size_vertex_unit);
         pDevice->SetFVF(GgafDxBoardSetModel::FVF);
         pDevice->SetTexture(0, _papTextureConnection[0]->peek()->_pIDirect3DBaseTexture9);
-        pDevice->SetIndices(_pIDirect3DIndexBuffer9);
+        pDevice->SetIndices(_pIndexBuffer);
 
         hr = pID3DXEffect->SetFloat(pBoardSetEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "GgafDxBoardSetActor::draw() SetFloat(_h_tex_blink_power) に失敗しました。");
@@ -78,19 +78,19 @@ HRESULT GgafDxBoardSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
         checkDxException(hr, D3D_OK, "GgafDxBoardSetActor::draw() SetFloat(_h_tex_blink_threshold) に失敗しました。");
     }
 
-    if (GgafDxEffectManager::_pEffect_Active != pBoardSetEffect || GgafDxDrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique)  {
-        if (GgafDxEffectManager::_pEffect_Active) {
-           TRACE4("EndPass("<<GgafDxEffectManager::_pEffect_Active->_pID3DXEffect<<"): /_pEffect_Active="<<GgafDxEffectManager::_pEffect_Active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_Active<<")");
-            hr = GgafDxEffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
+    if (GgafDxEffectManager::_pEffect_active != pBoardSetEffect || GgafDxDrawableActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique)  {
+        if (GgafDxEffectManager::_pEffect_active) {
+           TRACE4("EndPass("<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
+            hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->EndPass();
             checkDxException(hr, D3D_OK, "GgafDxBoardSetActor::draw() EndPass() に失敗しました。");
-            hr = GgafDxEffectManager::_pEffect_Active->_pID3DXEffect->End();
+            hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->End();
             checkDxException(hr, D3D_OK, "GgafDxBoardSetActor::draw() End() に失敗しました。");
 
 #ifdef MY_DEBUG
-            if (GgafDxEffectManager::_pEffect_Active->_begin == false) {
-                throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+            if (GgafDxEffectManager::_pEffect_active->_begin == false) {
+                throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_active->_effect_name)<<"");
             } else {
-                GgafDxEffectManager::_pEffect_Active->_begin = false;
+                GgafDxEffectManager::_pEffect_active->_begin = false;
             }
 #endif
 
@@ -108,7 +108,7 @@ HRESULT GgafDxBoardSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
 
 #ifdef MY_DEBUG
         if (pBoardSetEffect->_begin) {
-            throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+            throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_active->_effect_name)<<"");
         } else {
             pBoardSetEffect->_begin = true;
         }
@@ -129,8 +129,8 @@ HRESULT GgafDxBoardSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
 
     //前回描画モデル保持
     GgafDxModelManager::_pModelLastDraw = this;
-    GgafDxEffectManager::_pEffect_Active = pBoardSetEffect;
-    GgafDxDrawableActor::_hash_technique_last_draw = prm_pActor_Target->_hash_technique;
+    GgafDxEffectManager::_pEffect_active = pBoardSetEffect;
+    GgafDxDrawableActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
     GgafGod::_num_actor_drawing++;
     return D3D_OK;
 }
@@ -149,8 +149,8 @@ void GgafDxBoardSetModel::onDeviceLost() {
 
 void GgafDxBoardSetModel::release() {
     TRACE3("GgafDxBoardSetModel::release() " << _model_name << " start");
-    GGAF_RELEASE(_pIDirect3DVertexBuffer9);
-    GGAF_RELEASE(_pIDirect3DIndexBuffer9);
+    GGAF_RELEASE(_pVertexBuffer);
+    GGAF_RELEASE(_pIndexBuffer);
     if (_papTextureConnection) {
         if (_papTextureConnection[0]) {
             _papTextureConnection[0]->close();

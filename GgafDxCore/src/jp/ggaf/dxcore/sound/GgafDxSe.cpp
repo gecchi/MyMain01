@@ -50,7 +50,7 @@ GgafDxSe::GgafDxSe(char* prm_wave_key) : GgafObject() {
     hr = _pIDirectSoundBuffer->GetFrequency(&_default_frequency);
     checkDxException(hr, D3D_OK, "GgafDxSe::GgafDxSe("<<prm_wave_key<<") GetFrequency に失敗しました。サウンドカードは有効ですか？");
 
-    _pActor_LastPlayed = nullptr;
+    _pActor_last_played = nullptr;
     _can_looping = false;
     _TRACE_("GgafDxSe::GgafDxSe("<<prm_wave_key<<") _wave_file_name="<<_wave_file_name<<" this="<<this<<" _id="<<getId());
 }
@@ -157,7 +157,7 @@ void GgafDxSe::stop() {
 }
 
 void GgafDxSe::setVolume(int prm_volume) {
-    int db = GgafDxSound::aDbVolume[(int)(prm_volume * GgafDxSound::_app_master_volume_rate * GgafDxSound::_se_master_volume_rate)];
+    int db = GgafDxSound::_a_db_volume[(int)(prm_volume * GgafDxSound::_app_master_volume_rate * GgafDxSound::_se_master_volume_rate)];
     HRESULT hr = _pIDirectSoundBuffer->SetVolume(db);
     checkDxException(hr, DS_OK, "GgafDxSe::setVolume() SetVolume("<<prm_volume<<") が失敗しました。");
 }

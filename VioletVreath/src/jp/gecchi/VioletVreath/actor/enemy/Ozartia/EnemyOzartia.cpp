@@ -34,24 +34,24 @@ EnemyOzartia::EnemyOzartia(const char* prm_name) :
     _sx=_sy=_sz=100;
 
 //    //バリアブロック
-//    pDepo_Shot01_ = NEW GgafActorDepository("Depo_OzartiaBlock");
+//    pDepo_shot01_ = NEW GgafActorDepository("Depo_OzartiaBlock");
 //    for (int i = 0; i < 9; i++) {
 //        std::string name = "EnemyOzartiaShot01["+XTOS(i)+"]";
-//        pDepo_Shot01_->put(NEW EnemyOzartiaShot01(name.c_str()));
+//        pDepo_shot01_->put(NEW EnemyOzartiaShot01(name.c_str()));
 //        Sleep(1);
 //    }
-//    addSubGroup(pDepo_Shot01_);
+//    addSubGroup(pDepo_shot01_);
 //
-//    pDepo_Shot02_ = NEW LaserChipDepository("MyRotLaser");
-//    pDepo_Shot02_->config(60, 1, nullptr); //Haliaは弾切れフレームを1にしないとパクパクしちゃいます。
+//    pDepo_shot02_ = NEW LaserChipDepository("MyRotLaser");
+//    pDepo_shot02_->config(60, 1, nullptr); //Haliaは弾切れフレームを1にしないとパクパクしちゃいます。
 //    EnemyOzartiaLaserChip01* pChip;
 //    for (int i = 0; i < 65; i++) { //レーザーストック
 //        std::string name = "EnemyOzartiaLaserChip01["+XTOS(i)+"]";
 //        pChip = NEW EnemyOzartiaLaserChip01(name.c_str());
 //        pChip->setSource(this); //位置向き同期
-//        pDepo_Shot02_->put(pChip);
+//        pDepo_shot02_->put(pChip);
 //    }
-//    addSubGroup(pDepo_Shot02_);
+//    addSubGroup(pDepo_shot02_);
     faceang_to_ship_ = false;
     effectBlendOne(); //加算合成
 }

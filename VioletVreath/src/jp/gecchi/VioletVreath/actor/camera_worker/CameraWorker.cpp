@@ -131,9 +131,9 @@ void CameraWorker::behaveAutoCamUp() {
 //    float vx,vy,vz;
 //    GgafDxAxesMover* pAxMvr = pCam_->pAxsMver_;
 //    UTIL::getNormalizeVector(
-//            pAxMvr->_veloVxMv,
-//            pAxMvr->_veloVyMv,
-//            pAxMvr->_veloVzMv,
+//            pAxMvr->_velo_vx_mv,
+//            pAxMvr->_velo_vy_mv,
+//            pAxMvr->_velo_vz_mv,
 //            vx,vy,vz);
 //    pAxMvr->asstA()->slideVxyzMvByDt(distance*vx, distance*vy, distance*vz,
 //                                     t,
@@ -143,9 +143,9 @@ void CameraWorker::behaveAutoCamUp() {
 //    float vx,vy,vz;
 //    GgafDxAxesMover* pAxMvr = pVp_->pAxsMver_;
 //    UTIL::getNormalizeVector(
-//            pAxMvr->_veloVxMv,
-//            pAxMvr->_veloVyMv,
-//            pAxMvr->_veloVzMv,
+//            pAxMvr->_velo_vx_mv,
+//            pAxMvr->_velo_vy_mv,
+//            pAxMvr->_velo_vz_mv,
 //            vx,vy,vz);
 //    pAxMvr->asstA()->slideVxyzMvByDt(distance*vx, distance*vy, distance*vz,
 //                                     t,

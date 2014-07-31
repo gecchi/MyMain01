@@ -39,7 +39,7 @@ public:
 
     /** フィードイン・フェードアウト支援 */
     GgafDxCore::GgafDxAlphaFader* pAFader_;
-    DepositoryConnection* pConn_Shot_;
+    DepositoryConnection* pConn_pShot_;
     GgafDxCore::GgafDxGeoElem next_pos_;
     int num_fire_;
 public:

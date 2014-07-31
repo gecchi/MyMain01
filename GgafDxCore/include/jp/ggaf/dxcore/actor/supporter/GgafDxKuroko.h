@@ -630,13 +630,13 @@ public:
     /**
      * 目標座標点指を対象アクターの座標指定で移動方角(RzRy)を設定。.
      * 方向ベクトル正規化も内部で行なう。
-     * @param prm_pActor_Target 目標対象アクター
+     * @param prm_pActor_target 目標対象アクター
      */
-    inline void setMvAngTwd(GgafDxGeometricActor* prm_pActor_Target) {
+    inline void setMvAngTwd(GgafDxGeometricActor* prm_pActor_target) {
         setMvAngTwd(
-            prm_pActor_Target->_x,
-            prm_pActor_Target->_y,
-            prm_pActor_Target->_z
+            prm_pActor_target->_x,
+            prm_pActor_target->_y,
+            prm_pActor_target->_z
         );
     }
 
@@ -652,7 +652,7 @@ public:
 
     void setStopTargetMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz);
 
-    void setStopTargetMvAngTwd(GgafDxGeometricActor* prm_pActor_Target);
+    void setStopTargetMvAngTwd(GgafDxGeometricActor* prm_pActor_target);
 
     /**
      * 軸回転方角(Z軸とY軸)を目標にターゲットするシークエンスを実行 .
@@ -700,7 +700,7 @@ public:
 
     /**
      * 軸回転方角(Z軸とY軸)を目標にターゲットの方向を向くようなシークエンスを実行
-     * @param prm_pActor_Target 目標オブジェクト
+     * @param prm_pActor_target 目標オブジェクト
      * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
      * @param prm_angacce 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
@@ -714,13 +714,13 @@ public:
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_ang_rz_target, prm_ang_ry_target をそのままターゲートとする。<BR>
      */
-    inline void turnFaceAngTwd(GgafDxGeometricActor* prm_pActor_Target,
+    inline void turnFaceAngTwd(GgafDxGeometricActor* prm_pActor_target,
                                angvelo prm_angvelo, angacce prm_angacce,
                                int prm_way, bool prm_optimize_ang) {
         turnFaceAngTwd(
-                prm_pActor_Target->_x,
-                prm_pActor_Target->_y,
-                prm_pActor_Target->_z,
+                prm_pActor_target->_x,
+                prm_pActor_target->_y,
+                prm_pActor_target->_z,
                 prm_angvelo,
                 prm_angacce,
                 prm_way,
@@ -851,21 +851,21 @@ public:
     }
 
 
-    void keepOnTurningFaceAngTwd(GgafDxGeometricActor* prm_pActor_Target,
+    void keepOnTurningFaceAngTwd(GgafDxGeometricActor* prm_pActor_target,
                                  angvelo prm_angvelo, angacce prm_angacce,
                                  int prm_way, bool prm_optimize_ang) {
         keepOnTurningFaceAngTwd(
-                prm_pActor_Target->_x,
-                prm_pActor_Target->_y,
-                prm_pActor_Target->_z,
+                prm_pActor_target->_x,
+                prm_pActor_target->_y,
+                prm_pActor_target->_z,
                 prm_angvelo, prm_angacce,
                 prm_way, prm_optimize_ang);
-        _taget_face_ang_alltime_pActor = prm_pActor_Target;
+        _taget_face_ang_alltime_pActor = prm_pActor_target;
     }
 
     /**
      * 移動方角を目標にターゲットの座標にするシークエンスを実行
-     * @param prm_pActor_Target 目標オブジェクト
+     * @param prm_pActor_target 目標オブジェクト
      * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
      * @param prm_angacce 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
@@ -879,13 +879,13 @@ public:
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_ang_rz_target, prm_ang_ry_target をそのままターゲートとする。<BR>
      */
-    inline void turnMvAngTwd(GgafDxGeometricActor* prm_pActor_Target,
+    inline void turnMvAngTwd(GgafDxGeometricActor* prm_pActor_target,
                              angvelo prm_angvelo, angacce prm_angacce,
                              int prm_way, bool prm_optimize_ang) {
         turnMvAngTwd(
-                prm_pActor_Target->_x,
-                prm_pActor_Target->_y,
-                prm_pActor_Target->_z,
+                prm_pActor_target->_x,
+                prm_pActor_target->_y,
+                prm_pActor_target->_z,
                 prm_angvelo,
                 prm_angacce,
                 prm_way,

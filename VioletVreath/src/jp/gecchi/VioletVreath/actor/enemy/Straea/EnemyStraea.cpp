@@ -31,8 +31,8 @@ EnemyStraea::EnemyStraea(const char* prm_name) :
     _z = 0;
     laser_length_ = 30;
     laser_interval_ = 300;
-    angveloTurn_ = 5000;
-    angClearance_ = 30000;//開き具合
+    angvelo_turn_ = 5000;
+    ang_clearance_ = 30000;//開き具合
     papapLaserChipDepo_ = NEW LaserChipDepository**[laser_way_];
     for (int i = 0; i < laser_way_; i++) {
         papapLaserChipDepo_[i] = NEW LaserChipDepository*[laser_way_];
@@ -41,18 +41,18 @@ EnemyStraea::EnemyStraea(const char* prm_name) :
         }
     }
 
-    pConn_RefractionEffectDepository_ = connect_DepositoryManager("EffRefraction001");
-    pConn_LaserChipDepoStore_ = connect_DepositoryManager(
+    pConn_pRefractionEffectDepository_ = connect_DepositoryManager("EffRefraction001");
+    pConn_pLaserChipDepoStore_ = connect_DepositoryManager(
             "EnemyStraeaLaserChip004DepoStore"//,
          //"EnemyStraeaLaserChip003DepoStore",
          //"EnemyStraeaLaserChip001DepoStore",
          //"EnemyStraeaLaserChip002DepoStore",
-         //pConn_RefractionEffectDepository_->peek()
+         //pConn_pRefractionEffectDepository_->peek()
         );
 
     papaPosLaser_ = NEW PosLaser*[laser_way_];
     angle* paAng_way = NEW angle[laser_way_];
-    UTIL::getWayAngle2D(0, laser_way_, angClearance_, paAng_way);
+    UTIL::getWayAngle2D(0, laser_way_, ang_clearance_, paAng_way);
     angle Rz,Ry;
     float vx, vy, vz;
     for (int i = 0; i < laser_way_; i++) {
@@ -72,8 +72,8 @@ EnemyStraea::EnemyStraea(const char* prm_name) :
     pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
     useProgress(PROG_BANPEI);
-    pConn_ShotDepo2_ = connect_DepositoryManager("Shot004Yellow");
-    pConn_ShotDepo3_ = connect_DepositoryManager("Shot004Blue");
+    pConn_pShotDepo2_ = connect_DepositoryManager("Shot004Yellow");
+    pConn_pShotDepo3_ = connect_DepositoryManager("Shot004Blue");
 }
 
 void EnemyStraea::onCreateModel() {
@@ -121,7 +121,7 @@ void EnemyStraea::processBehavior() {
         }
         case PROG_MOVE: {
             if (pProg->isJustChanged()) {
-                angle v = angveloTurn_ / 50;
+                angle v = angvelo_turn_ / 50;
                 pKuroko->setFaceAngVelo(RND(-v, v), RND(-v, v), RND(-v, v));
                 pKuroko->setMvVelo(2000);
                 //_pKuroko->setMvVelo(0);
@@ -136,14 +136,14 @@ void EnemyStraea::processBehavior() {
             if (pProg->isJustChanged()) {
                 //ターン開始
                 pKuroko->turnFaceAngTwd(P_MYSHIP,
-                                          angveloTurn_, 0, TURN_ANTICLOSE_TO, false);
+                                        angvelo_turn_, 0, TURN_ANTICLOSE_TO, false);
                 cnt_laserchip_ = 0;
             }
             if (pKuroko->isTurningFaceAng()) {
                 //ターン中
             } else {
                 //自機にがいた方向に振り向きが完了時
-                pKuroko->setFaceAngVelo(angveloTurn_*2, 0, 0);
+                pKuroko->setFaceAngVelo(angvelo_turn_*2, 0, 0);
                 pKuroko->setMvVelo(0);
                 pProg->changeNext();
             }
@@ -154,7 +154,7 @@ void EnemyStraea::processBehavior() {
             if (pProg->isJustChanged()) {
                 //レーザーセット、借入
                 GgafActorDepositoryStore* pLaserChipDepoStore =
-                        (GgafActorDepositoryStore*)(pConn_LaserChipDepoStore_->peek());
+                        (GgafActorDepositoryStore*)(pConn_pLaserChipDepoStore_->peek());
                 bool can_fire = false;
                 for (int i = 0; i < laser_way_; i++) {
                     for (int j = 0; j < laser_way_; j++) {
@@ -301,8 +301,8 @@ void EnemyStraea::onHit(GgafActor* prm_pOtherActor) {
         //打ち返し
         UTIL::shotWay003(this,
                          getCommonDepository(Shot004) , red_dot,
-                         pConn_ShotDepo2_->peek(), yellow_dot,
-                         pConn_ShotDepo3_->peek(), blue_dot,
+                         pConn_pShotDepo2_->peek(), yellow_dot,
+                         pConn_pShotDepo3_->peek(), blue_dot,
                          PX_C(20),
                          11, 11,
                          D_ANG(1), D_ANG(1),
@@ -329,10 +329,10 @@ void EnemyStraea::onInactive() {
 
 EnemyStraea::~EnemyStraea() {
     GGAF_DELETE(pAFader_);
-    pConn_RefractionEffectDepository_->close();
-    pConn_LaserChipDepoStore_->close();
-    pConn_ShotDepo2_->close();
-    pConn_ShotDepo3_->close();
+    pConn_pRefractionEffectDepository_->close();
+    pConn_pLaserChipDepoStore_->close();
+    pConn_pShotDepo2_->close();
+    pConn_pShotDepo3_->close();
     for (int i = 0; i < laser_way_; i++) {
         GGAF_DELETEARR(papaPosLaser_[i]);
         GGAF_DELETEARR(papapLaserChipDepo_[i]);

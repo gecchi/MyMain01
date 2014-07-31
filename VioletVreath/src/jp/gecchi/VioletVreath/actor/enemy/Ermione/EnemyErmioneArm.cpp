@@ -75,7 +75,7 @@ void EnemyErmioneArm::processBehavior() {
                     //
                     //自機への向くための変換前状態で、
                     //ローカル座標で「向いておけばいいのではないか」の方向のベクトルを(tvx, tvy, tvz) とおき、
-                    //「土台まで」の行列の積（_pActor_Base->_matWorldRotMv) を b_mat_xx とする。
+                    //「土台まで」の行列の積（_pActor_base->_matWorldRotMv) を b_mat_xx とする。
                     //現在の最終座標から自機への向きのベクトルを、(mvx, mvy, mvz) とすると、
                     //
                     //                | b_mat_11 b_mat_12 b_mat_13 |
@@ -148,8 +148,8 @@ void EnemyErmioneArm::processBehavior() {
     pKuroko->behave();
     changeGeoFinal();
     //pScaler_->behave();
-    if (_pActor_Base) {
-        setAlpha(((GgafDxDrawableActor*)_pActor_Base)->getAlpha());
+    if (_pActor_base) {
+        setAlpha(((GgafDxDrawableActor*)_pActor_base)->getAlpha());
     }
 }
 

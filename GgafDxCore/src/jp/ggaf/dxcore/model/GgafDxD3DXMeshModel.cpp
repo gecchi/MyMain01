@@ -25,13 +25,13 @@ GgafDxD3DXMeshModel::GgafDxD3DXMeshModel(char* prm_model_name, DWORD prm_dwOptio
     //で行うようにした。要参照。
 }
 
-HRESULT GgafDxD3DXMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num) {
-    TRACE4("GgafDxD3DXMeshModel::draw("<<prm_pActor_Target->getName()<<")");
+HRESULT GgafDxD3DXMeshModel::draw(GgafDxDrawableActor* prm_pActor_target, int prm_draw_set_num) {
+    TRACE4("GgafDxD3DXMeshModel::draw("<<prm_pActor_target->getName()<<")");
     IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
     //対象アクター
-    GgafDxD3DXMeshActor* pTargetActor = (GgafDxD3DXMeshActor*)prm_pActor_Target;
+    GgafDxD3DXMeshActor* pTargetActor = (GgafDxD3DXMeshActor*)prm_pActor_target;
     //対象MeshActorのエフェクトラッパ
-    GgafDxMeshEffect* pMeshEffect = (GgafDxMeshEffect*)prm_pActor_Target->getEffect();
+    GgafDxMeshEffect* pMeshEffect = (GgafDxMeshEffect*)prm_pActor_target->getEffect();
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pMeshEffect->_pID3DXEffect;
 
@@ -44,7 +44,7 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
                 //テクスチャのセット
                 pDevice->SetTexture(0, _papTextureConnection[i]->peek()->_pIDirect3DBaseTexture9);
             } else {
-                _TRACE_("GgafDxD3DXMeshModel::draw("<<prm_pActor_Target->getName()<<") テクスチャがありません。"<<(PROPERTY::WHITE_TEXTURE)<<"が設定されるべきです。おかしいです");
+                _TRACE_("GgafDxD3DXMeshModel::draw("<<prm_pActor_target->getName()<<") テクスチャがありません。"<<(PROPERTY::WHITE_TEXTURE)<<"が設定されるべきです。おかしいです");
                 //無ければテクスチャ無し
                 pDevice->SetTexture(0, nullptr);
             }
@@ -64,18 +64,18 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
         }
 
         //描画
-        if ((GgafDxEffectManager::_pEffect_Active != pMeshEffect || GgafDxDrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique) && i == 0) {
-            if (GgafDxEffectManager::_pEffect_Active) {
-                TRACE4("EndPass("<<GgafDxEffectManager::_pEffect_Active->_pID3DXEffect<<"): /_pEffect_Active="<<GgafDxEffectManager::_pEffect_Active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_Active<<")");
-                hr = GgafDxEffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
+        if ((GgafDxEffectManager::_pEffect_active != pMeshEffect || GgafDxDrawableActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) && i == 0) {
+            if (GgafDxEffectManager::_pEffect_active) {
+                TRACE4("EndPass("<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
+                hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->EndPass();
                 checkDxException(hr, D3D_OK, "GgafDxD3DXMeshModel::draw() EndPass() に失敗しました。");
-                hr = GgafDxEffectManager::_pEffect_Active->_pID3DXEffect->End();
+                hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->End();
                 checkDxException(hr, D3D_OK, "GgafDxD3DXMeshModel::draw() End() に失敗しました。");
 #ifdef MY_DEBUG
-                if (GgafDxEffectManager::_pEffect_Active->_begin == false) {
-                    throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+                if (GgafDxEffectManager::_pEffect_active->_begin == false) {
+                    throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_active->_effect_name)<<"");
                 } else {
-                    GgafDxEffectManager::_pEffect_Active->_begin = false;
+                    GgafDxEffectManager::_pEffect_active->_begin = false;
                 }
 #endif
             }
@@ -92,7 +92,7 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
 
 #ifdef MY_DEBUG
             if (pMeshEffect->_begin) {
-                throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+                throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_active->_effect_name)<<"");
             } else {
                 pMeshEffect->_begin = true;
             }
@@ -108,8 +108,8 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
     }
     //前回描画モデル名反映
     GgafDxModelManager::_pModelLastDraw = this;
-    GgafDxEffectManager::_pEffect_Active = pMeshEffect;
-    GgafDxDrawableActor::_hash_technique_last_draw = prm_pActor_Target->_hash_technique;
+    GgafDxEffectManager::_pEffect_active = pMeshEffect;
+    GgafDxDrawableActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
 
     return D3D_OK;
 }

@@ -21,9 +21,9 @@ public:
     /** 移動スプラインプログラム */
     GgafLib::SplineKurokoLeader* pProgram_Tamago01Move_;
     /** 弾ストック */
-    GgafCore::GgafActorDepository* pDepo_Shot_;
+    GgafCore::GgafActorDepository* pDepo_shot_;
     /** 弾発射効果エフェクト */
-    GgafCore::GgafActorDepository* pDepo_ShotEffect_;
+    GgafCore::GgafActorDepository* pDepo_shotEffect_;
 
     DepositoryConnection* pDepoConnection_;
 
@@ -73,7 +73,7 @@ public:
      * @param prm_pDepo (GgafDxDrawableActor*)にキャスト可能なアクターをサブに持つデポジトリのポインタ
      */
     void setDepository_Shot(GgafCore::GgafActorDepository* prm_pDepo) {
-        pDepo_Shot_ = prm_pDepo;
+        pDepo_shot_ = prm_pDepo;
     }
 
     /**
@@ -81,7 +81,7 @@ public:
      * @param prm_pDepo (GgafDxDrawableActor*)にキャスト可能なアクターをサブに持つデポジトリのポインタ
      */
     void setDepository_ShotEffect(GgafCore::GgafActorDepository* prm_pDepo) {
-        pDepo_ShotEffect_ = prm_pDepo;
+        pDepo_shotEffect_ = prm_pDepo;
     }
 
     virtual ~EnemyTamago01();

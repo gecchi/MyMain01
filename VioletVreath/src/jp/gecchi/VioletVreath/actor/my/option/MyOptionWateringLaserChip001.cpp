@@ -111,9 +111,9 @@ void MyOptionWateringLaserChip001::processBehavior() {
         if (lockon_st_ == 2) {
             if (_pLeader) {
                 if (_pLeader == this) {
-                    moveChip(_x + pAxsMver_->_veloVxMv*4+1,
-                             _y + pAxsMver_->_veloVyMv*2+1,
-                             _z + pAxsMver_->_veloVzMv*2+1 );
+                    moveChip(_x + pAxsMver_->_velo_vx_mv*4+1,
+                             _y + pAxsMver_->_velo_vy_mv*2+1,
+                             _z + pAxsMver_->_velo_vz_mv*2+1 );
                 } else {
                     moveChip(_pLeader->_x, _pLeader->_y, _pLeader->_z);
                 }
@@ -160,9 +160,9 @@ void MyOptionWateringLaserChip001::moveChip(int tX, int tY, int tZ) {
     int vTz = tZ - _z;
 
     //自→仮自。上図の |仮自| = 5*vM
-    int vVMx = pAxsMver_->_veloVxMv*5;
-    int vVMy = pAxsMver_->_veloVyMv*5;
-    int vVMz = pAxsMver_->_veloVzMv*5;
+    int vVMx = pAxsMver_->_velo_vx_mv*5;
+    int vVMy = pAxsMver_->_velo_vy_mv*5;
+    int vVMz = pAxsMver_->_velo_vz_mv*5;
 
     //|仮自|
     int lVM = MAX3(ABS(vVMx), ABS(vVMy), ABS(vVMz)); //仮自ベクトル大きさ簡易版

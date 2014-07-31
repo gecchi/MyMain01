@@ -83,7 +83,7 @@ void EnemyGeria::processBehavior() {
                 effectFlush(2); //ƒtƒ‰ƒbƒVƒ…
                 getSeTx()->play3D(SE_FIRE);
             }
-//                GgafDxDrawableActor* pShot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
+//                GgafDxDrawableActor* pShot = (GgafDxDrawableActor*)pDepo_shot_->dispatch();
 //                if (pShot) {
 //                    shot_num_++;
 //                    pShot->positionAs(this);

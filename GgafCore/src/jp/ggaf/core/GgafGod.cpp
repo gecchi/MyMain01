@@ -13,7 +13,7 @@
 
 using namespace GgafCore;
 
-GgafCriticalException* GgafGod::_pException_Factory = nullptr;
+GgafCriticalException* GgafGod::_pException_factory = nullptr;
 
 CRITICAL_SECTION GgafGod::CS1;
 CRITICAL_SECTION GgafGod::CS2;
@@ -122,8 +122,8 @@ void GgafGod::be() {
         }
 #ifdef MY_DEBUG
         //工場（別スレッド）例外をチェック
-        if (_pException_Factory) {
-            throw *_pException_Factory;
+        if (_pException_factory) {
+            throw *_pException_factory;
         }
 #endif
 
@@ -288,9 +288,9 @@ void GgafGod::clean() {
             DeleteCriticalSection(&(GgafGod::CS2));
         }
 
-        //工場例外 _pException_Factory が起こっているかもしれない。
-        _TRACE_("GGAF_DELETE_NULLABLE(_pException_Factory);");
-        GGAF_DELETE_NULLABLE(_pException_Factory);
+        //工場例外 _pException_factory が起こっているかもしれない。
+        _TRACE_("GGAF_DELETE_NULLABLE(_pException_factory);");
+        GGAF_DELETE_NULLABLE(_pException_factory);
         _TRACE_("GgafGod::clean() end");
     }
 }

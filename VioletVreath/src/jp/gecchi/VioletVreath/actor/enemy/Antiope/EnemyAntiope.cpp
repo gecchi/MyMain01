@@ -7,6 +7,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -21,6 +22,7 @@ EnemyAntiope::EnemyAntiope(const char* prm_name, const char* prm_model, GgafStat
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
+    pP_ = nullptr;
 }
 
 void EnemyAntiope::onCreateModel() {
@@ -66,7 +68,7 @@ void EnemyAntiope::processBehavior() {
              break;
          }
 
-         case PROG_MOVE01: {
+         case PROG_MOVE01: { //•ú•¨ü‚Ì‚æ‚¤‚È“®‚«
              if (pProg->isJustChanged()) {
                  pKuroko->setMvVelo(30000);
                  pKuroko->setMvAcce(-1000);
@@ -74,9 +76,19 @@ void EnemyAntiope::processBehavior() {
              }
 
              if (pKuroko->_velo_mv <= (-30000 + 1000)) {
-                 pKuroko->stopMv();
-                 pAxsMver_->setZeroVxyzMvVelo();
-                 pProg->changeNext();
+                 if (pP_) {
+                     pKuroko->stopMv();
+                     pAxsMver_->setZeroVxyzMvVelo();
+                     pProg->change(PROG_LEAVE);
+                 } else {
+                     pAxsMver_->setVxyzMvVelo(
+                                  mv_velo_twd_.x + (pKuroko->_vX * pKuroko->_velo_mv),
+                                  mv_velo_twd_.y + (pKuroko->_vY * pKuroko->_velo_mv),
+                                  mv_velo_twd_.z + (pKuroko->_vZ * pKuroko->_velo_mv)
+                                );
+                     pKuroko->stopMv();
+                     pProg->change(PROG_RUSH);
+                 }
              }
              break;
          }
@@ -89,6 +101,13 @@ void EnemyAntiope::processBehavior() {
              if (pProg->getFrameInProgress() == 15) {
                  setHitAble(false);
                  sayonara();
+             }
+             break;
+         }
+
+         case PROG_RUSH: {
+             if (pProg->isJustChanged()) {
+                 pAxsMver_->execGravitationMvSequenceTwd(P_MYSHIP, 30000, 1000, PX_C(100));
              }
              break;
          }
@@ -106,6 +125,7 @@ void EnemyAntiope::processBehavior() {
 
 void EnemyAntiope::processJudgement() {
     if (isOutOfUniverse()) {
+        pP_ = nullptr;
         sayonara();
     }
 }
@@ -115,10 +135,17 @@ void EnemyAntiope::onHit(GgafActor* prm_pOtherActor) {
     if (was_destroyed) {
         //”j‰óŽž
         getSeTx()->play3D(SE_EXPLOSION);
+        if (pP_) {
+            if (pP_->pP_) {
+                pP_->pP_ = nullptr;
+            }
+        }
+        pP_ = nullptr;
     }
 }
 
 void EnemyAntiope::onInactive() {
+    pP_ = nullptr;
     sayonara();
 }
 

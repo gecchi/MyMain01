@@ -527,7 +527,7 @@ void MyShip::processBehavior() {
         }
 
         if (pVbPlay->isPushedDown(VB_TURBO)) {
-            if (pAxsMver_->_veloVxMv == 0 && pAxsMver_->_veloVyMv == 0 && pAxsMver_->_veloVzMv == 0) {
+            if (pAxsMver_->_velo_vx_mv == 0 && pAxsMver_->_velo_vy_mv == 0 && pAxsMver_->_velo_vz_mv == 0) {
                 //ターボ移動完全に終了しないと次のターボは実行不可
                 UTIL::activateProperEffect01Of(this); //ターボ開始のエフェクト
                 (this->*paFuncTurbo[way_])(); //方向値に応じたターボ開始処理メソッドを呼び出す
@@ -541,23 +541,23 @@ void MyShip::processBehavior() {
             if (pVbPlay->isBeingPressed(VB_TURBO)) {
                 //ターボボタンを押し続けることで、速度減衰がゆるやかになり、
                 //移動距離を伸ばす
-                pAxsMver_->_veloVxMv *= 0.96;
-                pAxsMver_->_veloVyMv *= 0.96;
-                pAxsMver_->_veloVzMv *= 0.96;
+                pAxsMver_->_velo_vx_mv *= 0.96;
+                pAxsMver_->_velo_vy_mv *= 0.96;
+                pAxsMver_->_velo_vz_mv *= 0.96;
             } else {
                 //ターボを離した場合、速度減衰。
-                pAxsMver_->_veloVxMv *= 0.9;
-                pAxsMver_->_veloVyMv *= 0.9;
-                pAxsMver_->_veloVzMv *= 0.9;
+                pAxsMver_->_velo_vx_mv *= 0.9;
+                pAxsMver_->_velo_vy_mv *= 0.9;
+                pAxsMver_->_velo_vz_mv *= 0.9;
             }
-            if (ABS(pAxsMver_->_veloVxMv) <= 2) {
-                pAxsMver_->_veloVxMv = 0;
+            if (ABS(pAxsMver_->_velo_vx_mv) <= 2) {
+                pAxsMver_->_velo_vx_mv = 0;
             }
-            if (ABS(pAxsMver_->_veloVyMv) <= 2) {
-                pAxsMver_->_veloVyMv = 0;
+            if (ABS(pAxsMver_->_velo_vy_mv) <= 2) {
+                pAxsMver_->_velo_vy_mv = 0;
             }
-            if (ABS(pAxsMver_->_veloVzMv) <= 2) {
-                pAxsMver_->_veloVzMv = 0;
+            if (ABS(pAxsMver_->_velo_vz_mv) <= 2) {
+                pAxsMver_->_velo_vz_mv = 0;
             }
         }
 

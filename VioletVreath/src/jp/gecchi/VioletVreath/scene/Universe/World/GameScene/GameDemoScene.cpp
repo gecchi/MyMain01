@@ -30,11 +30,11 @@ GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
     getSceneDirector()->addSubGroup(pLabel02_);
     demo_stage_ = 1;
 
-    papLabel_Ranking_ = NEW LabelRankingFont*[G_RANKING_TABLE.getCount()];
+    papLabel_ranking_ = NEW LabelRankingFont*[G_RANKING_TABLE.getCount()];
     int cnt = (int)(G_RANKING_TABLE.getCount());
     for (int i = 0; i < cnt; i++) {
-        papLabel_Ranking_[i] = NEW LabelRankingFont("RANK_INFO");
-        getSceneDirector()->addSubGroup(papLabel_Ranking_[i]);
+        papLabel_ranking_[i] = NEW LabelRankingFont("RANK_INFO");
+        getSceneDirector()->addSubGroup(papLabel_ranking_[i]);
     }
 
 }
@@ -44,8 +44,8 @@ void GameDemoScene::onReset() {
     pLabel02_->update("");
     int cnt = (int)(G_RANKING_TABLE.getCount());
     for (int i = 0; i < cnt; i++) {
-        papLabel_Ranking_[i]->update("");
-        papLabel_Ranking_[i]->inactivate();
+        papLabel_ranking_[i]->update("");
+        papLabel_ranking_[i]->inactivate();
     }
 //    fadeinScene(0);
 }
@@ -102,25 +102,25 @@ void GameDemoScene::processBehavior() {
                             G_RANKING_TABLE.getVal("NAME"   , i).c_str(),
                             G_RANKING_TABLE.getVal("SCORE"  , i).c_str(),
                             G_RANKING_TABLE.getVal("REGDATE", i).c_str());
-                    papLabel_Ranking_[i]->update(buf);
-                    papLabel_Ranking_[i]->position(PX_C(400), PX_C(50+(i*22)));
-                    papLabel_Ranking_[i]->setAlpha(papLabel_Ranking_[i]->pAFader_->getBottom());
-                    papLabel_Ranking_[i]->pAFader_->beat(25*60, 2*60, 20*60, 2*60, 1); //フェードイン・しばらくしてフェードアウト
-                    papLabel_Ranking_[i]->activateDelay((i+1)*12); //上から順番にぼやーっと表示していく
+                    papLabel_ranking_[i]->update(buf);
+                    papLabel_ranking_[i]->position(PX_C(400), PX_C(50+(i*22)));
+                    papLabel_ranking_[i]->setAlpha(papLabel_ranking_[i]->pAFader_->getBottom());
+                    papLabel_ranking_[i]->pAFader_->beat(25*60, 2*60, 20*60, 2*60, 1); //フェードイン・しばらくしてフェードアウト
+                    papLabel_ranking_[i]->activateDelay((i+1)*12); //上から順番にぼやーっと表示していく
                 }
             }
 
-            if (papLabel_Ranking_[ranking_num-1]->pAFader_->isTransitioning()) {
+            if (papLabel_ranking_[ranking_num-1]->pAFader_->isTransitioning()) {
                 //一番最後のFaderがまだ動いてるならば
                 for (int i = 0; i < ranking_num; i++) {
-                    if (papLabel_Ranking_[i]->isActive()) {
-                        papLabel_Ranking_[i]->pAFader_->behave();
+                    if (papLabel_ranking_[i]->isActive()) {
+                        papLabel_ranking_[i]->pAFader_->behave();
                     }
                 }
             } else {
                 //一番最後のFaderが動いてない＝表示終了
                 for (int i = 0; i < ranking_num; i++) {
-                    papLabel_Ranking_[i]->inactivate();
+                    papLabel_ranking_[i]->inactivate();
                 }
                 pProg->change(GameDemoScene::PROG_FINISH);
             }
@@ -165,6 +165,6 @@ void GameDemoScene::onInactive() {
 }
 
 GameDemoScene::~GameDemoScene() {
-    GGAF_DELETEARR(papLabel_Ranking_);
+    GGAF_DELETEARR(papLabel_ranking_);
 }
 

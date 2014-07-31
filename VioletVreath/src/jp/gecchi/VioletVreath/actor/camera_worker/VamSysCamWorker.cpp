@@ -356,15 +356,15 @@ void VamSysCamWorker::processBehavior() {
             GgafDxAxesMover* pCamAxMvr = pCam_->pAxsMver_;
             pCamAxMvr->setZeroVxyzMvAcce();
             pCamAxMvr->setVxyzMvVelo(
-                    pCamAxMvr->_veloVxMv*0.1,
-                    pCamAxMvr->_veloVyMv*0.1,
-                    pCamAxMvr->_veloVzMv*0.1);
+                    pCamAxMvr->_velo_vx_mv*0.1,
+                    pCamAxMvr->_velo_vy_mv*0.1,
+                    pCamAxMvr->_velo_vz_mv*0.1);
             GgafDxAxesMover* pVpAxMvr = pVp_->pAxsMver_;
             pVpAxMvr->setZeroVxyzMvAcce();
             pVpAxMvr->setVxyzMvVelo(
-                    pVpAxMvr->_veloVxMv*0.1,
-                    pVpAxMvr->_veloVyMv*0.1,
-                    pVpAxMvr->_veloVzMv*0.1);
+                    pVpAxMvr->_velo_vx_mv*0.1,
+                    pVpAxMvr->_velo_vy_mv*0.1,
+                    pVpAxMvr->_velo_vz_mv*0.1);
             cam_mv_frame_ = cam_mv_frame_base_ * 20;
         } else {
             cam_mv_frame_ = cam_mv_frame_base_;

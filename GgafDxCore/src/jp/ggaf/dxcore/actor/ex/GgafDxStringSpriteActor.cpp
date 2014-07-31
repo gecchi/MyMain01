@@ -24,11 +24,11 @@ GgafDxStringSpriteActor::GgafDxStringSpriteActor(const char* prm_name, const cha
     _draw_string = _buf;
     //ƒfƒtƒHƒ‹ƒg‚Ì‚P•¶š‚Ì•(px)İ’è
     for (int i = 0; i < 256; i++) {
-        _aWidthPx[i] = (int)(_pSpriteSetModel->_fSize_SpriteSetModelWidthPx);
+        _aWidthPx[i] = (int)(_pSpriteSetModel->_model_width_px);
         _aWidth_line_px[i] = 0;
     }
-    _chr_width_px = (int)(_pSpriteSetModel->_fSize_SpriteSetModelWidthPx); //‚P•¶š‚Ì•(px)
-    _chr_height_px = (int)(_pSpriteSetModel->_fSize_SpriteSetModelHeightPx); //‚P•¶š‚Ì‚‚³(px)
+    _chr_width_px = (int)(_pSpriteSetModel->_model_width_px); //‚P•¶š‚Ì•(px)
+    _chr_height_px = (int)(_pSpriteSetModel->_model_height_px); //‚P•¶š‚Ì‚‚³(px)
     _nn = 0;
 }
 

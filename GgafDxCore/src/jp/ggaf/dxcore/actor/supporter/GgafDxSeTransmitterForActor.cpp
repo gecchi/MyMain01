@@ -147,7 +147,7 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
         if (_paBool_is_playing_3d[i]) {
             if (_papSeConnection[i]) {
                 GgafDxSe* pSe = _papSeConnection[i]->peek();
-                if (pSe->isPlaying() && pSe->_pActor_LastPlayed == _pActor) {
+                if (pSe->isPlaying() && pSe->_pActor_last_played == _pActor) {
                     if (calc_flg) {
                         calc_flg = false;
 

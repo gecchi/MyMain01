@@ -18,8 +18,8 @@ FormationAntiope001::FormationAntiope001(const char* prm_name) :
     num_Antiope_ = 0;
     cnt_Antiope_ = 0;
     interval_frames_ = 0;
-    pDepoConnection_AntiopeP_ = connect_DepositoryManager("AntiopeP");
-    pDepoConnection_AntiopeN_ = connect_DepositoryManager("AntiopeN");
+    pDepoConnection_pAntiopeP_ = connect_DepositoryManager("AntiopeP");
+    pDepoConnection_pAntiopeN_ = connect_DepositoryManager("AntiopeN");
 }
 
 void FormationAntiope001::initialize() {
@@ -51,18 +51,20 @@ void FormationAntiope001::processBehavior() {
                                      vX, vY, vZ);
             coord veloMv = 4000;
 
-            EnemyAntiopeP* pP = (EnemyAntiopeP*)pDepoConnection_AntiopeP_->peek()->dispatch();
+            EnemyAntiopeP* pP = (EnemyAntiopeP*)pDepoConnection_pAntiopeP_->peek()->dispatch();
+            EnemyAntiopeN* pN = nullptr;
             if (pP) {
+                pN = (EnemyAntiopeN*)pDepoConnection_pAntiopeN_->peek()->dispatch();
+            }
+
+            if (pP && pN) {
                 pP->positionAs(&entry_pos);
                 pP->getKuroko()->setMvAngTwd(&twd_pos_p);
                 pP->setRzFaceAng(pP->getKuroko()->_ang_rz_mv);
                 pP->setRyFaceAng(pP->getKuroko()->_ang_ry_mv);
                 pP->getKuroko()->stopMv();
                 pP->mv_velo_twd_.set(vX*veloMv, vY*veloMv, vZ*veloMv);
-            }
 
-            EnemyAntiopeN* pN = (EnemyAntiopeN*)pDepoConnection_AntiopeN_->peek()->dispatch();
-            if (pN) {
                 pN->positionAs(&entry_pos);
                 pN->getKuroko()->setMvAngTwd(&twd_pos_p);
                 pN->getKuroko()->reverseMvAng(); //”½“]
@@ -70,8 +72,23 @@ void FormationAntiope001::processBehavior() {
                 pN->setRyFaceAng(pN->getKuroko()->_ang_ry_mv);
                 pN->getKuroko()->stopMv();
                 pN->mv_velo_twd_.set(vX*veloMv, vY*veloMv, vZ*veloMv);
+
+                //ƒyƒAƒŠƒ“ƒO
+                pP->pP_ = pN;
+                pN->pP_ = pP;
+                cnt_Antiope_++;
+            } else {
+                if (pP) {
+                    pP->pP_ = nullptr;
+                    pP->sayonara();
+                }
+                if (pN) {
+                    pN->pP_ = nullptr;
+                    pN->sayonara();
+                }
             }
-            cnt_Antiope_++;
+
+
         }
     } else {
         if (!wasDeclaredEnd()) {
@@ -81,6 +98,6 @@ void FormationAntiope001::processBehavior() {
 }
 
 FormationAntiope001::~FormationAntiope001() {
-    pDepoConnection_AntiopeP_->close();
-    pDepoConnection_AntiopeN_->close();
+    pDepoConnection_pAntiopeP_->close();
+    pDepoConnection_pAntiopeN_->close();
 }

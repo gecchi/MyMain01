@@ -70,8 +70,8 @@ public:
 
     bool is_hit_;
 
-    GgafCore::GgafActorDepository* pDepo_Shot01_;
-    GgafLib::LaserChipDepository*  pDepo_Shot02_;
+    GgafCore::GgafActorDepository* pDepo_shot01_;
+    GgafLib::LaserChipDepository*  pDepo_shot02_;
 
     GgafDxCore::GgafDxGeoElem posMvTarget_;
 

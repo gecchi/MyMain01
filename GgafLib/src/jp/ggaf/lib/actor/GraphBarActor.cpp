@@ -14,7 +14,7 @@ using namespace GgafLib;
 
 GraphBarActor::GraphBarActor(const char* prm_name, const char* prm_model, PxQuantity* prm_pPxQty)
       : DefaultBoardActor(prm_name, prm_model) ,
-_chip_width(_pBoardModel->_fSize_BoardModelWidthPx),
+_chip_width(_pBoardModel->_model_width_px),
 _rate_org_chip_width(1.0 / _chip_width) {
     _class_name = "GraphBarActor";
     _pPxQty = prm_pPxQty;
@@ -25,7 +25,7 @@ _rate_org_chip_width(1.0 / _chip_width) {
 
 GraphBarActor::GraphBarActor(const char* prm_name, const char* prm_model)
       : DefaultBoardActor(prm_name, prm_model) ,
-_chip_width(_pBoardModel->_fSize_BoardModelWidthPx),
+_chip_width(_pBoardModel->_model_width_px),
 _rate_org_chip_width(1.0 / _chip_width) {
     _class_name = "GraphBarActor";
     _pPxQty = NEW PxQuantity();
@@ -61,9 +61,9 @@ void GraphBarActor::processDraw() {
     }
 #endif
     if (_valign == VALIGN_BOTTOM) {
-        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_y, (float)(-_pBoardModel->_fSize_BoardModelHeightPx));
+        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_y, (float)(-_pBoardModel->_model_height_px));
     } else if (_valign == VALIGN_MIDDLE) {
-        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_y, (float)(-_pBoardModel->_fSize_BoardModelHeightPx*0.5));
+        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_y, (float)(-_pBoardModel->_model_height_px*0.5));
     } else { //VALIGN_TOP
         hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_y, 0.0f);
     }

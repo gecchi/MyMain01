@@ -30,13 +30,13 @@ GgafDxD3DXAniMeshModel::GgafDxD3DXAniMeshModel(char* prm_model_name) : GgafDxMod
     //で行うようにした。要参照。
 }
 
-HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num) {
-    TRACE4("GgafDxD3DXAniMeshModel::draw("<<prm_pActor_Target->getName()<<")");
+HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxDrawableActor* prm_pActor_target, int prm_draw_set_num) {
+    TRACE4("GgafDxD3DXAniMeshModel::draw("<<prm_pActor_target->getName()<<")");
     HRESULT hr;
     //対象アクター
-    GgafDxD3DXAniMeshActor* pTargetActor = (GgafDxD3DXAniMeshActor*)prm_pActor_Target;
+    GgafDxD3DXAniMeshActor* pTargetActor = (GgafDxD3DXAniMeshActor*)prm_pActor_target;
     //対象MeshActorのエフェクトラッパ
-    GgafDxD3DXAniMeshEffect* pD3DXAniMeshEffect = (GgafDxD3DXAniMeshEffect*)(prm_pActor_Target->getEffect());
+    GgafDxD3DXAniMeshEffect* pD3DXAniMeshEffect = (GgafDxD3DXAniMeshEffect*)(prm_pActor_target->getEffect());
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pD3DXAniMeshEffect->_pID3DXEffect;
     if (GgafDxModelManager::_pModelLastDraw != this) {
@@ -66,19 +66,19 @@ HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int
 
     for (int i = 0; it != pDrawList->end(); i++, it++) {
         //描画
-        if ((GgafDxEffectManager::_pEffect_Active != pD3DXAniMeshEffect || GgafDxDrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique) && i == 0) {
-            if (GgafDxEffectManager::_pEffect_Active) {
-                TRACE4("["<<i<<"],EndPass: /_pEffect_Active="<<GgafDxEffectManager::_pEffect_Active->_effect_name);
-                hr = GgafDxEffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
+        if ((GgafDxEffectManager::_pEffect_active != pD3DXAniMeshEffect || GgafDxDrawableActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) && i == 0) {
+            if (GgafDxEffectManager::_pEffect_active) {
+                TRACE4("["<<i<<"],EndPass: /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name);
+                hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->EndPass();
                 checkDxException(hr, D3D_OK, "["<<i<<"],GgafDxD3DXAniMeshModel::draw() EndPass() に失敗しました。");
-                hr = GgafDxEffectManager::_pEffect_Active->_pID3DXEffect->End();
+                hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->End();
                 checkDxException(hr, D3D_OK, "["<<i<<"],GgafDxD3DXAniMeshModel::draw() End() に失敗しました。");
 
 #ifdef MY_DEBUG
-                if (GgafDxEffectManager::_pEffect_Active->_begin == false) {
-                    throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+                if (GgafDxEffectManager::_pEffect_active->_begin == false) {
+                    throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_active->_effect_name)<<"");
                 } else {
-                    GgafDxEffectManager::_pEffect_Active->_begin = false;
+                    GgafDxEffectManager::_pEffect_active->_begin = false;
                 }
 #endif
 
@@ -95,7 +95,7 @@ HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int
 
 #ifdef MY_DEBUG
             if (pD3DXAniMeshEffect->_begin) {
-                throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+                throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_active->_effect_name)<<"");
             } else {
                 pD3DXAniMeshEffect->_begin = true;
             }
@@ -130,8 +130,8 @@ HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int
     }
     //前回描画モデル名反映
     GgafDxModelManager::_pModelLastDraw = this;
-    GgafDxEffectManager::_pEffect_Active = pD3DXAniMeshEffect;
-    GgafDxDrawableActor::_hash_technique_last_draw = prm_pActor_Target->_hash_technique;
+    GgafDxEffectManager::_pEffect_active = pD3DXAniMeshEffect;
+    GgafDxDrawableActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
     GgafGod::_num_actor_drawing++;
     return D3D_OK;
 }

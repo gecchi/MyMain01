@@ -254,12 +254,12 @@ void LaserChip::processDraw() {
             } else {
                 //先端チップは描画不要
             }
-            pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
+            pDrawActor = pDrawActor->_pNextActor_in_draw_depth_level;
         } else {
             break;
         }
     }
-    GgafDxUniverse::_pActor_DrawActive = pLaserChip; //描画セットの最後アクターをセット
+    GgafDxUniverse::_pActor_draw_active = pLaserChip; //描画セットの最後アクターをセット
     if (draw_set_num > 0) { //描画されない可能性があるためこの判定が必要
         _pMeshSetModel->GgafDxMeshSetModel::draw(this, draw_set_num);
     }

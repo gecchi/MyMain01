@@ -34,19 +34,19 @@ FormationDelheid::FormationDelheid(const char* prm_name)
     addSubGroup(pDummy_);
 
     //編隊隊員デポジトリセット
-    pConn_DelheidDepo_ = connect_DepositoryManager("EnemyDelheid4Formation");
-    setFormationMember(pConn_DelheidDepo_->peek());
+    pConn_pDelheidDepo_ = connect_DepositoryManager("EnemyDelheid4Formation");
+    setFormationMember(pConn_pDelheidDepo_->peek());
     //編隊隊員のショットデポジトリ
-    pConn_ShotDepo_ = connect_DepositoryManager("EnemyDelheidShot");
+    pConn_pShotDepo_ = connect_DepositoryManager("EnemyDelheidShot");
 
     updateRankParameter();
     useProgress(PROG_BANPEI);
 }
 
 void FormationDelheid::updateRankParameter() {
-    RV_NumFormation_     = RF_FormationDelheid_Num(G_RANK);    //編隊数
-    RV_MvVelo_           = RF_FormationDelheid_MvVelo(G_RANK); //速度
-    RV_IntervalFrames_   = 64 / C_PX(RV_MvVelo_);
+    RV_NumFormation_    = RF_FormationDelheid_Num(G_RANK);    //編隊数
+    RV_MvVelo_          = RF_FormationDelheid_MvVelo(G_RANK); //速度
+    RV_IntervalFrames_  = 64 / C_PX(RV_MvVelo_);
 }
 
 void FormationDelheid::initialize() {
@@ -127,7 +127,7 @@ void FormationDelheid::processBehavior() {
                          EnemyDelheid* pDelheid = (EnemyDelheid*)callUpMember(RV_NumFormation_);
                          if (pDelheid) {
                              pDelheid->config(getSplManuf()->createKurokoLeader(pDelheid->getKuroko()),
-                                               pConn_ShotDepo_->peek() );
+                                              pConn_pShotDepo_->peek() );
                              pDelheid->getKuroko()->forceMvVeloRange(RV_MvVelo_*2);
                              pDelheid->getKuroko()->setMvVelo(RV_MvVelo_);
 
@@ -243,7 +243,7 @@ void FormationDelheid::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
 }
 
 FormationDelheid::~FormationDelheid() {
-    pConn_ShotDepo_->close();
-    pConn_DelheidDepo_->close();
+    pConn_pShotDepo_->close();
+    pConn_pDelheidDepo_->close();
 }
 

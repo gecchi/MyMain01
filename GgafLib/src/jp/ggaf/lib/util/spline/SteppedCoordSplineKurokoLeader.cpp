@@ -25,10 +25,10 @@ SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(SplineManufacture
 }
 
 SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(GgafDxKuroko* const prm_pKuroko_target,
-                                                                 SplineLine* prmpSpl,
+                                                                 SplineLine* prm_pSpl,
                                                                  angvelo prm_angveloRzRyMv):
         SplineKurokoLeader(nullptr, prm_pKuroko_target) { //nullptrで渡す事により、_is_created_pManufacture が falseになる
-    _pSteppedSplManuf = NEW SteppedCoordSplineManufacture(NEW SplineSource(prmpSpl), prm_angveloRzRyMv);
+    _pSteppedSplManuf = NEW SteppedCoordSplineManufacture(NEW SplineSource(prm_pSpl), prm_angveloRzRyMv);
     _pSteppedSplManuf->calculate(); //忘れないように。いずれこのタイプは消す
     _pManufacture = _pSteppedSplManuf; //基底メンバーセット。忘れないように。いずれこのタイプは消す
 

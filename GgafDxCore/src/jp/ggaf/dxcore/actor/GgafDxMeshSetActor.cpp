@@ -29,8 +29,8 @@ _pMeshSetModel((GgafDxMeshSetModel*)_pModel),
 _pMeshSetEffect((GgafDxMeshSetEffect*)_pEffect) {
     _obj_class |= Obj_GgafDxMeshSetActor;
     _class_name = "GgafDxMeshSetActor";
-    _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv;
-    (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
+    _pFunc_calc_rot_mv_world_matrix = UTIL::setWorldMatrix_RxRzRyMv;
+    (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
 }
 
 GgafDxMeshSetActor::GgafDxMeshSetActor(const char* prm_name,
@@ -55,8 +55,8 @@ _pMeshSetEffect((GgafDxMeshSetEffect*)_pEffect) {
 
     _obj_class |= Obj_GgafDxMeshSetActor;
     _class_name = "GgafDxMeshSetActor";
-    _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv;
-    (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
+    _pFunc_calc_rot_mv_world_matrix = UTIL::setWorldMatrix_RxRzRyMv;
+    (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
 }
 
 void GgafDxMeshSetActor::setAlpha(float prm_alpha) {
@@ -103,12 +103,12 @@ void GgafDxMeshSetActor::processDraw() {
             if (draw_set_num >= model_set_num) {
                 break;
             }
-            pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
+            pDrawActor = pDrawActor->_pNextActor_in_draw_depth_level;
         } else {
             break;
         }
     }
-    GgafDxUniverse::_pActor_DrawActive = pMeshSetActor; //描画セットの最後アクターをセット
+    GgafDxUniverse::_pActor_draw_active = pMeshSetActor; //描画セットの最後アクターをセット
     ((GgafDxMeshSetModel*)_pMeshSetModel)->GgafDxMeshSetModel::draw(this, draw_set_num);
 }
 

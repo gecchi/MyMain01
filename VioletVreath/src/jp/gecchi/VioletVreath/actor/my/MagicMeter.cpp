@@ -38,8 +38,8 @@ using namespace VioletVreath;
 
 MagicMeter::MagicMeter(const char* prm_name, int* prm_pMP_MyShip, int* prm_pVreath_MyShip)
       : DefaultBoardSetActor(prm_name, "MagicMeter"),
-width_px_(_pBoardSetModel->_fSize_BoardSetModelWidthPx),
-height_px_(_pBoardSetModel->_fSize_BoardSetModelHeightPx),
+width_px_(_pBoardSetModel->_model_width_px),
+height_px_(_pBoardSetModel->_model_height_px),
 width_(PX_C(width_px_)),
 height_(PX_C(height_px_)) {
 

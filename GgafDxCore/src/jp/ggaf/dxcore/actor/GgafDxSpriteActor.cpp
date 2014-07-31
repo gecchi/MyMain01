@@ -38,8 +38,8 @@ _pUvFlipper(NEW GgafDxUvFlipper(_pSpriteModel->_papTextureConnection[0]->peek())
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->exec(NOT_ANIMATED, 1);
 
-    _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv;
-    (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
+    _pFunc_calc_rot_mv_world_matrix = UTIL::setWorldMatrix_RxRzRyMv;
+    (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
     _far_rate = -1.0f;
 
     _align = ALIGN_CENTER;
@@ -52,22 +52,22 @@ void GgafDxSpriteActor::processDraw() {
     if (_align == ALIGN_CENTER) {
         //do nothing
     } else if (_align == ALIGN_LEFT) {
-        _matWorld._41 += PX_C(_pSpriteModel->_fSize_SpriteModelWidthPx*0.5f);
+        _matWorld._41 += PX_C(_pSpriteModel->_model_width_px*0.5f);
     } else {
         //ALIGN_RIGHT
-        _matWorld._41 -= PX_C(_pSpriteModel->_fSize_SpriteModelWidthPx*0.5f);
+        _matWorld._41 -= PX_C(_pSpriteModel->_model_width_px*0.5f);
     }
     if (_valign == VALIGN_MIDDLE) {
         //do nothing
     } else if (_valign == VALIGN_TOP) {
-        _matWorld._42 -= PX_C(_pSpriteModel->_fSize_SpriteModelHeightPx*0.5f);
+        _matWorld._42 -= PX_C(_pSpriteModel->_model_height_px*0.5f);
     } else {
         //VALIGN_BOTTOM
-        _matWorld._42 += PX_C(_pSpriteModel->_fSize_SpriteModelHeightPx*0.5f);
+        _matWorld._42 += PX_C(_pSpriteModel->_model_height_px*0.5f);
     }
 //    hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_h_matView, &P_CAM->_matView );
 //    checkDxException(hr, D3D_OK, "GgafDxMeshActor::GgafDxMeshEffect SetMatrix(g_matView) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    //(*_pFunc_calcRotMvWorldMatrix)(this, _matWorld);
+    //(*_pFunc_calc_rot_mv_world_matrix)(this, _matWorld);
     hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_h_matWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "GgafDxSpriteActor::processDraw SetMatrix(_h_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 //    hr = pID3DXEffect->SetFloat(_pSpriteEffect->_h_alpha, _alpha);

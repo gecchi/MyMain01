@@ -22,8 +22,8 @@ public:
     /** 完了したセクションシーンの保持リスト */
     GgafCore::GgafLinkedListRing<GgafLib::WalledSectionScene> _ringLoopEndSection;
     /** 壁ブロックを供給するデポジトリ(buildWalledScene()で設定される) */
-    GgafCore::GgafActorDepository* _pDepo_WallAAB;
-    GgafCore::GgafActorDepository* _pDepo_WallAAPrism;
+    GgafCore::GgafActorDepository* _pDepo_wall;
+    GgafCore::GgafActorDepository* _pDepo_prism;
     WalledSectionScene* _pLastSectionScene;
     bool _is_all_active_section_scenes;
     bool _is_finished;
@@ -40,7 +40,7 @@ public:
      * WalledSceneを構築する。
      * 本クラス new 後 initialize() までに、必ず１回実行する必要があります。
      * 【注意】
-     * prm_pDepo_WallAABox 及び prm_pDepo_WallAAPrism は処理内で本シーンのinitialize() で
+     * prm_pDepo_wallox 及び prm_pDepo_prism は処理内で本シーンのinitialize() で
      * 配下に強制移動されます。したがって、マネージャ管理の共通デポジトリの場合は、
      * マネージャ側の不正ポインタの原因になります。
      * @param prm_wall_dep      壁ブロック１個のX軸方向の幅
@@ -49,15 +49,15 @@ public:
      * @param prm_wall_start_x  外壁出現のX座標位置
      * @param prm_papSection    セクションシーン配列へのポインタ
      * @param prm_section_num   セクションシーン数
-     * @param prm_pDepo_WallAABox 壁ブロック(WallAABActor)を供給するデポジトリ（※initialize()時、配下に強制移動）
-     * @param prm_pDepo_WallAAPrism 壁プリズム(WallAAPrismActor)を供給するデポジトリ（※initialize()時、配下に強制移。プリズムが無い時は省略可）
+     * @param prm_pDepo_wallox 壁ブロック(WallAABActor)を供給するデポジトリ（※initialize()時、配下に強制移動）
+     * @param prm_pDepo_prism 壁プリズム(WallAAPrismActor)を供給するデポジトリ（※initialize()時、配下に強制移。プリズムが無い時は省略可）
      */
     void buildWalledScene(
             coord prm_wall_dep, coord prm_wall_width, coord prm_wall_height,
             coord prm_wall_start_x,
             WalledSectionScene** prm_papSection, int prm_section_num,
-            GgafCore::GgafActorDepository* prm_pDepo_WallAABox,
-            GgafCore::GgafActorDepository* prm_pDepo_WallAAPrism = nullptr
+            GgafCore::GgafActorDepository* prm_pDepo_wallox,
+            GgafCore::GgafActorDepository* prm_pDepo_prism = nullptr
          );
 
     /**

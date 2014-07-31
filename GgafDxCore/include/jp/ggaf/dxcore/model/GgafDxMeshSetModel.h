@@ -50,9 +50,9 @@ public:
     /** 頂点のFVF */
     static DWORD FVF;
     /** 頂点バッファ（ｎキャラ分） */
-    LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
+    LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer;
     /** インデックスバッファ（ｎキャラ分） */
-    LPDIRECT3DINDEXBUFFER9 _pIDirect3DIndexBuffer9;
+    LPDIRECT3DINDEXBUFFER9 _pIndexBuffer;
 
 
     /** １頂点のサイズ */
@@ -84,7 +84,7 @@ public:
      */
     GgafDxMeshSetModel(char* prm_model_name);
 
-    virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num = 1) override;
+    virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_target, int prm_draw_set_num = 1) override;
 
     virtual void restore() override;
 

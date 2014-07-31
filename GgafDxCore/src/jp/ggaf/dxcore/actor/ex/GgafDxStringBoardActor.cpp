@@ -23,11 +23,11 @@ GgafDxStringBoardActor::GgafDxStringBoardActor(const char* prm_name, const char*
     _draw_string = _buf;
     //ƒfƒtƒHƒ‹ƒg‚Ì‚P•¶š‚Ì•(px)İ’è
     for (int i = 0; i < 256; i++) {
-        _aWidthPx[i] = (int)(_pBoardSetModel->_fSize_BoardSetModelWidthPx);
+        _aWidthPx[i] = (int)(_pBoardSetModel->_model_width_px);
         _aWidth_line_px[i] = 0;
     }
-    _chr_width_px = (int)(_pBoardSetModel->_fSize_BoardSetModelWidthPx); //‚P•¶š‚Ì•(px)
-    _chr_height_px = (int)(_pBoardSetModel->_fSize_BoardSetModelHeightPx); //‚P•¶š‚Ì‚‚³(px)
+    _chr_width_px = (int)(_pBoardSetModel->_model_width_px); //‚P•¶š‚Ì•(px)
+    _chr_height_px = (int)(_pBoardSetModel->_model_height_px); //‚P•¶š‚Ì‚‚³(px)
     _nn = 0;
 }
 

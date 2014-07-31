@@ -29,7 +29,7 @@ FormationUnomia::FormationUnomia(const char* prm_name, const char* prm_spl_id)
         spl_id << prm_spl_id << "_" << i;  //ƒ—á„"FormationUnomia001_0"
         papSplManufConnection_[i] = connect_SplineManufactureManager(spl_id.str().c_str());
     }
-    pDepo_Shot_ = getCommonDepository(Shot004);
+    pDepo_shot_ = getCommonDepository(Shot004);
     updateRankParameter();
 
 }
@@ -80,7 +80,7 @@ void FormationUnomia::processBehavior() {
         GgafDxGeometricActor* pShot;
         for (int i = 0; i < num_follwer; i++) {
             pUnomia = (EnemyUnomia*)pFollower;
-            pShot = (GgafDxGeometricActor*)pDepo_Shot_->dispatch();
+            pShot = (GgafDxGeometricActor*)pDepo_shot_->dispatch();
             if (pShot) {
                 pShot->positionAs(pUnomia);
                 GgafDxKuroko* pShot_pKuroko = pShot->getKuroko();

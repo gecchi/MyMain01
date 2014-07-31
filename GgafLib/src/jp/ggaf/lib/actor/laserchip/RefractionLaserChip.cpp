@@ -21,7 +21,7 @@ RefractionLaserChip::RefractionLaserChip(const char* prm_name, const char* prm_m
     _frame_refraction_out = 0;
     _is_refracting = false;
 
-    _pDispatche_RefractionEffect = nullptr;
+    _pDepo_refraction_effect = nullptr;
     _pRefractionEffect = nullptr;
     _prev_pRefractionEffect = nullptr;
 
@@ -45,7 +45,7 @@ void RefractionLaserChip::config(int prm_num_refraction,
                                  frame prm_frame_between_refraction,
                                  frame prm_frame_standstill_refraction,
                                  bool prm_is_fix_begin_pos,
-                                 GgafActorDepository* prm_pDispatche_RefractionEffect) {
+                                 GgafActorDepository* prm_pDepo_refraction_effect) {
 #ifdef MY_DEBUG
     if (prm_frame_between_refraction == 0) {
         throwGgafCriticalException("RefractionLaserChip::config 直進間隔フレーム数が0は設定不可です。name="<<getName());
@@ -58,7 +58,7 @@ void RefractionLaserChip::config(int prm_num_refraction,
     _frame_between_refraction = prm_frame_between_refraction;
     _frame_standstill_refraction = prm_frame_standstill_refraction;
     _is_fix_begin_pos = prm_is_fix_begin_pos;
-    _pDispatche_RefractionEffect = prm_pDispatche_RefractionEffect;
+    _pDepo_refraction_effect = prm_pDepo_refraction_effect;
 }
 
 void RefractionLaserChip::onActive() {
@@ -188,8 +188,8 @@ void RefractionLaserChip::processBehavior() {
                         _frame_refraction_out = getBehaveingFrame()  + _frame_standstill_refraction;
                         _is_refracting = true;
 
-                        if (_pDispatche_RefractionEffect) {
-                            _pRefractionEffect = (GgafDxDrawableActor*)_pDispatche_RefractionEffect->dispatch();
+                        if (_pDepo_refraction_effect) {
+                            _pRefractionEffect = (GgafDxDrawableActor*)_pDepo_refraction_effect->dispatch();
                             if (_pRefractionEffect) {
                                 _pRefractionEffect->positionAs(this);
                                 //最長時間の解除予約。

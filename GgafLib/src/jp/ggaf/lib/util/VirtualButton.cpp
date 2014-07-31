@@ -56,19 +56,19 @@ VirtualButton::JOYSTICKMAP VirtualButton::_joystickmap = {
 
 VirtualButton::VirtualButton(const char* prm_replay_file) : GgafObject() {
     //環状双方向連結リスト構築
-    _pVBRecord_Active = NEW VBRecord();
-    VirtualButton::VBRecord* pVBRecord_Temp = _pVBRecord_Active;
+    _pVBRecord_active = NEW VBRecord();
+    VirtualButton::VBRecord* pVBRecord_temp = _pVBRecord_active;
     for (int i = 1; i < VB_MAP_BUFFER - 1; i++) {
         VirtualButton::VBRecord* pVBRecordWork = NEW VirtualButton::VBRecord();
-        pVBRecordWork->_next = pVBRecord_Temp;
-        pVBRecord_Temp->_prev = pVBRecordWork;
-        pVBRecord_Temp = pVBRecordWork;
+        pVBRecordWork->_next = pVBRecord_temp;
+        pVBRecord_temp->_prev = pVBRecordWork;
+        pVBRecord_temp = pVBRecordWork;
     }
-    VirtualButton::VBRecord* pVBRecordOldest = NEW VirtualButton::VBRecord();
-    pVBRecord_Temp->_prev = pVBRecordOldest;
-    pVBRecordOldest->_next = pVBRecord_Temp;
-    pVBRecordOldest->_prev = _pVBRecord_Active;
-    _pVBRecord_Active->_next = pVBRecordOldest;
+    VirtualButton::VBRecord* pVBRecord_oldest = NEW VirtualButton::VBRecord();
+    pVBRecord_temp->_prev = pVBRecord_oldest;
+    pVBRecord_oldest->_next = pVBRecord_temp;
+    pVBRecord_oldest->_prev = _pVBRecord_active;
+    _pVBRecord_active->_next = pVBRecord_oldest;
     _is_auto_repeat = false;
 
     _pRpy = NEW VBReplayRecorder();
@@ -440,18 +440,18 @@ void VirtualButton::init() {
 }
 
 VirtualButton::VBRecord* VirtualButton::getPastVBRecord(frame prm_frame_ago) {
-    VirtualButton::VBRecord* pVBRecord_Temp = _pVBRecord_Active;
+    VirtualButton::VBRecord* pVBRecord_temp = _pVBRecord_active;
     for (frame i = 0; i < prm_frame_ago; i++) {
-        pVBRecord_Temp = pVBRecord_Temp->_prev;
+        pVBRecord_temp = pVBRecord_temp->_prev;
     }
-    return pVBRecord_Temp;
+    return pVBRecord_temp;
 }
 
 vbsta VirtualButton::isAutoRepeat(vbsta prm_VB, frame prm_begin_repeat, frame prm_while_repeat) {
-    vbsta sta = (_pVBRecord_Active->_state & prm_VB);
+    vbsta sta = (_pVBRecord_active->_state & prm_VB);
     if (sta) {
         _is_auto_repeat = true;
-        if (sta == (_pVBRecord_Active->_prev->_state & prm_VB)) {
+        if (sta == (_pVBRecord_active->_prev->_state & prm_VB)) {
             _auto_repeat_counter[prm_VB] ++;
         } else {
             _auto_repeat_counter[prm_VB] = 0;
@@ -476,8 +476,8 @@ vbsta VirtualButton::isAutoRepeat(vbsta prm_VB, frame prm_begin_repeat, frame pr
 
 
 vbsta VirtualButton::wasBeingPressed(vbsta prm_VB, frame prm_frame_ago) {
-    VirtualButton::VBRecord* pVBRecord_Temp = getPastVBRecord(prm_frame_ago);
-    return (pVBRecord_Temp->_state & prm_VB);
+    VirtualButton::VBRecord* pVBRecord_temp = getPastVBRecord(prm_frame_ago);
+    return (pVBRecord_temp->_state & prm_VB);
 }
 
 vbsta VirtualButton::isNotBeingPressed(vbsta prm_VB) {
@@ -503,7 +503,7 @@ vbsta VirtualButton::isDoublePushedDown(vbsta prm_VB, frame prm_frame_push, fram
     //         `-- prm_frame_push
     //過去に遡りながら検証
     VirtualButton::VBRecord* pVBRecord;
-    pVBRecord = _pVBRecord_Active;
+    pVBRecord = _pVBRecord_active;
     if (pVBRecord->_state & prm_VB) {
         //OK
     } else {
@@ -550,9 +550,9 @@ vbsta VirtualButton::isDoublePushedDown(vbsta prm_VB, frame prm_frame_push, fram
 
 ////何所も押されていない→押した
 //bool VirtualButton::isNonAfterPushedDown(int prm_VB) {
-//	if (_pVBRecord_Active->_state[prm_VB]) {
+//	if (_pVBRecord_active->_state[prm_VB]) {
 //		for (int i = 0; i < VB_NUM; i++) {
-//			if (_pVBRecord_Active->_prev->_state[i]) {
+//			if (_pVBRecord_active->_prev->_state[i]) {
 //				return false;
 //			}
 //		}
@@ -613,7 +613,7 @@ vbsta VirtualButton::wasPushedDown(vbsta prm_VB, frame prm_frame_ago) {
 }
 
 vbsta VirtualButton::isReleasedUp(vbsta prm_VB) {
-    if ((_pVBRecord_Active->_prev->_state & prm_VB) && !(_pVBRecord_Active->_state & prm_VB)) {
+    if ((_pVBRecord_active->_prev->_state & prm_VB) && !(_pVBRecord_active->_state & prm_VB)) {
         return true;
     } else {
         return false;
@@ -630,7 +630,7 @@ vbsta VirtualButton::isPushedUp(vbsta prm_VB, frame prm_frame_push) {
 
     //過去に遡りながら検証
     VirtualButton::VBRecord* pVBRecord;
-    pVBRecord = _pVBRecord_Active;
+    pVBRecord = _pVBRecord_active;
     //現在は押されていては駄目
     if (pVBRecord->_state & prm_VB) {
         return false;
@@ -675,7 +675,7 @@ vbsta VirtualButton::wasReleasedUp(vbsta prm_VB, frame prm_frame_ago) {
 
 vbsta VirtualButton::getBeingPressedStick() {
 
-    return (_pVBRecord_Active->_state & VB_STC_MASK);
+    return (_pVBRecord_active->_state & VB_STC_MASK);
 
 //    for (int i = VB_UP_RIGHT_STC; i <= VB_LEFT_STC; i++) {
 //        if (isBeingPressed(i)) {
@@ -686,8 +686,8 @@ vbsta VirtualButton::getBeingPressedStick() {
 }
 
 vbsta VirtualButton::getPushedDownStick() {
-    if ((_pVBRecord_Active->_prev->_state & VB_STC_MASK) == VB_NEUTRAL_STC) {
-        return (_pVBRecord_Active->_state & VB_STC_MASK);
+    if ((_pVBRecord_active->_prev->_state & VB_STC_MASK) == VB_NEUTRAL_STC) {
+        return (_pVBRecord_active->_state & VB_STC_MASK);
     } else {
         return 0;
     }
@@ -705,7 +705,7 @@ vbsta VirtualButton::isDoublePushedDownStick(frame prm_frame_push, frame prm_fra
     //         `-- prm_frame_push
     //過去に遡りながら検証
     VirtualButton::VBRecord* pVBRecord;
-    pVBRecord = _pVBRecord_Active;
+    pVBRecord = _pVBRecord_active;
     pVBRecord = pVBRecord->_prev; //上のgetPushedDownStickで調査済みなので飛ばす。
     bool ok = false;
     for (frame i = 0; i < prm_frame_delay; i++) {
@@ -743,7 +743,7 @@ vbsta VirtualButton::isDoublePushedDownStick(frame prm_frame_push, frame prm_fra
 bool VirtualButton::isScrewPushDown(vbsta prm_VB, frame prm_frame_delay) {
     if (isPushedDown(prm_VB)) {
         VirtualButton::VBRecord* pVBRecord;
-        pVBRecord = _pVBRecord_Active;
+        pVBRecord = _pVBRecord_active;
         bool up    = false;
         bool down  = false;
         bool left  = false;
@@ -833,12 +833,12 @@ bool VirtualButton::isScrewPushDown(vbsta prm_VB, frame prm_frame_delay) {
 //}
 
 vbsta VirtualButton::getState() {
-    return _pVBRecord_Active->_state;
+    return _pVBRecord_active->_state;
 }
 
 void VirtualButton::update() {
 #ifdef MY_DEBUG
-    if (_pVBRecord_Active == nullptr) {
+    if (_pVBRecord_active == nullptr) {
         throwGgafCriticalException("VirtualButton::update() 利用前に一度 init() を呼び出して下さい。");
     }
 #endif
@@ -847,9 +847,9 @@ void VirtualButton::update() {
 
     if (_is_replaying && _was_replay_done == false) {
         //リプレイモード時
-        _pVBRecord_Active = _pVBRecord_Active->_next;
-        _pVBRecord_Active->_state = _pRpy->read();
-        if (_pVBRecord_Active->_state == 0) {
+        _pVBRecord_active = _pVBRecord_active->_next;
+        _pVBRecord_active->_state = _pRpy->read();
+        if (_pVBRecord_active->_state == 0) {
             _was_replay_done = true;
         }
         return;
@@ -857,7 +857,7 @@ void VirtualButton::update() {
     } else {
 
         //通常操作時
-        _pVBRecord_Active = _pVBRecord_Active->_next;
+        _pVBRecord_active = _pVBRecord_active->_next;
 
         vbsta state = 0;
         KEYBOARDMAP& kmap = _keyboardmap;
@@ -944,15 +944,15 @@ void VirtualButton::update() {
         } else {
             state |= VB_NEUTRAL_STC; //何も入力しなかった場合、結果は VB_NEUTRAL_STC になる
         }
-        _pVBRecord_Active->_state = state;
+        _pVBRecord_active->_state = state;
     }
-    _pRpy->write(_pVBRecord_Active->_state); //リプレイ情報記録
+    _pRpy->write(_pVBRecord_active->_state); //リプレイ情報記録
 
 }
 
 
 void VirtualButton::clear() {
-    VirtualButton::VBRecord* pVBRecord = _pVBRecord_Active;
+    VirtualButton::VBRecord* pVBRecord = _pVBRecord_active;
     for (int i = 0; i < VB_MAP_BUFFER; i++) {
         pVBRecord->_state = 0;
         pVBRecord = pVBRecord->_next;
@@ -961,9 +961,9 @@ void VirtualButton::clear() {
 
 VirtualButton::~VirtualButton() {
     GGAF_DELETE(_pRpy);
-    VirtualButton::VBRecord* pLast = _pVBRecord_Active->_next;
+    VirtualButton::VBRecord* pLast = _pVBRecord_active->_next;
     VirtualButton::VBRecord* pWk;
-    for (VirtualButton::VBRecord* p = _pVBRecord_Active->_prev; p != _pVBRecord_Active; p = p->_prev) {
+    for (VirtualButton::VBRecord* p = _pVBRecord_active->_prev; p != _pVBRecord_active; p = p->_prev) {
         pWk = p->_next;
         GGAF_DELETE(pWk);
     }

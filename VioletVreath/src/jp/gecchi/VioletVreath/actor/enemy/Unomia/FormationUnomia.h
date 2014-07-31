@@ -15,7 +15,7 @@ class FormationUnomia : public GgafLib::DepositoryFormation {
 public:
     /** ウーノミア借り入れ元Depository資源への接続 */
     DepositoryConnection* pDepoConnection_Unomia_;
-    GgafCore::GgafActorDepository* pDepo_Shot_;
+    GgafCore::GgafActorDepository* pDepo_shot_;
 
     /** スプライン定義資源への接続 */
     GgafLib::SplineManufactureConnection** papSplManufConnection_;

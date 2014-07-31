@@ -47,20 +47,20 @@ public:
     /** レーザーWay数(n×n)の一辺の本数 */
     int laser_way_;
     /** レーザーとレーザーの間隔開き角度 */
-    angle angClearance_;
+    angle ang_clearance_;
     /** 方向転換角速度 */
-    angvelo angveloTurn_;
+    angvelo angvelo_turn_;
     /** レーザー発射ローカル座標 */
     PosLaser** papaPosLaser_;
 
-    DepositoryConnection* pConn_RefractionEffectDepository_;
+    DepositoryConnection* pConn_pRefractionEffectDepository_;
 
-    DepositoryConnection* pConn_LaserChipDepoStore_;
+    DepositoryConnection* pConn_pLaserChipDepoStore_;
 
     GgafLib::LaserChipDepository*** papapLaserChipDepo_;
 
-    DepositoryConnection* pConn_ShotDepo2_;
-    DepositoryConnection* pConn_ShotDepo3_;
+    DepositoryConnection* pConn_pShotDepo2_;
+    DepositoryConnection* pConn_pShotDepo3_;
 
 public:
     EnemyStraea(const char* prm_name);

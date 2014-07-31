@@ -17,7 +17,7 @@ public:
 
     int iMovePatternNo_;
     /** 弾発射効果エフェクト */
-    GgafCore::GgafActorDepository* pDepo_ShotEffect_;
+    GgafCore::GgafActorDepository* pDepo_shotEffect_;
     bool do_Shot_;
     bool can_Shot_;
     frame frame_when_shot_;

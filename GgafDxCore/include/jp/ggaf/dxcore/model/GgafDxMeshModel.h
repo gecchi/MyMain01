@@ -62,16 +62,16 @@ public:
     /** 頂点のFVF */
     static DWORD FVF;
     /** 頂点バッファ */
-    LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
+    LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer;
     /** インデックスバッファ */
-    LPDIRECT3DINDEXBUFFER9 _pIDirect3DIndexBuffer9;
+    LPDIRECT3DINDEXBUFFER9 _pIndexBuffer;
 
     UINT _size_vertices;
     /** 1頂点のサイズ */
     UINT _size_vertex_unit;
     INDEXPARAM* _paIndexParam;
 
-    UINT _nMaterialListGrp;
+    UINT _material_list_grp_num;
 
     VERTEX* _paVtxBuffer_org;
     WORD* _paIdxBuffer_org;
@@ -88,7 +88,7 @@ public:
      */
     GgafDxMeshModel(char* prm_model_name);
 
-    virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num = 1) override;
+    virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_target, int prm_draw_set_num = 1) override;
 
     virtual void restore() override;
 

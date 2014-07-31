@@ -42,7 +42,7 @@ public:
                                  GgafDxCore::GgafDxKuroko* const prm_pKuroko);
 
     FixedFrameSplineKurokoLeader(GgafDxCore::GgafDxKuroko* const prm_pKuroko,
-                                 SplineLine* prmpSpl,
+                                 SplineLine* prm_pSpl,
                                  frame prm_spent_frame,
                                  angvelo prm_angveloRzRyMv);
     /**

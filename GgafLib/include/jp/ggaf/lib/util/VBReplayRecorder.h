@@ -52,7 +52,7 @@ public:
     VBRecordNote* _pFirstVBNote;
     /** [r]リプレイデータ要素カーソルポインタ */
     VBRecordNote* _pRecNote;
-    VBRecordNote* _pRecNote_RreadPrev;
+    VBRecordNote* _pRecNote_read_prev;
     /** [r]同一ステータス継続フレームカウンタ */
     frame _frame_of_the_same_vbsta_reading;
 

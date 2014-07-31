@@ -63,10 +63,10 @@ public:
     /** [r]全壁ブロック(WallPartsActor)の配置情報の、外壁の壁ブロック数。要素＝何ブロック目か */
     int* _paWallInfoLen;
     /** [r]壁ブロック(WallPartsActor)デポジトリ */
-    GgafCore::GgafActorDepository* _pDepo_WallAAB;
-    GgafCore::GgafActorDepository* _pDepo_WallAAPrism;
+    GgafCore::GgafActorDepository* _pDepo_wall;
+    GgafCore::GgafActorDepository* _pDepo_prism;
     /** [r]手前ブロックの透過機能有効時の基準となるアクター */
-    GgafDxCore::GgafDxGeometricActor* _pTarget_FrontAlpha;
+    GgafDxCore::GgafDxGeometricActor* _pActor_front_alpha_target;
     /** セクションシーン繰り返しフラグ */
     bool _is_loop_end;
     WallPartsActor* _pWallPartsLast;
@@ -86,22 +86,22 @@ public:
     /**
      * 外壁シーンを設定.
      * new した後、initialize() が実行されるまでに config して下さい。
-     * @param prm_pDepo_WallAAB 壁ブロック（WallAABActorオブジェクト）が登録されているデポジトリ
-     * @param prm_pDepo_WallAAPrism 壁プリズムブロック（WallAAPrismActorオブジェクト）が登録されているデポジトリ
+     * @param prm_pDepo_wall 壁ブロック（WallAABActorオブジェクト）が登録されているデポジトリ
+     * @param prm_pDepo_prism 壁プリズムブロック（WallAAPrismActorオブジェクト）が登録されているデポジトリ
      * @param prm_wall_start_x 外壁出現X座標位置
      * @param prm_wall_dep 壁ブロックの長さ（１つのWallPartsActorオブジェクトのX座標軸長さ）
      * @param prm_wall_width 壁ブロックの高さ（１つのWallPartsActorオブジェクトのY座標軸長さ）
      * @param prm_wall_height 壁ブロックの高さ（１つのWallPartsActorオブジェクトのZ座標軸長さ）
      */
     virtual void config(
-            GgafCore::GgafActorDepository* prm_pDepo_WallAAB,
-            GgafCore::GgafActorDepository* prm_pDepo_WallAAPrism,
+            GgafCore::GgafActorDepository* prm_pDepo_wall,
+            GgafCore::GgafActorDepository* prm_pDepo_prism,
             coord prm_wall_start_x,
             coord prm_wall_dep, coord prm_wall_width, coord prm_wall_height);
 
     /**
      * 初期処理 .
-     * デポジトリ(_pDepo_Wall)のチェックを行っているのみ .
+     * デポジトリ(_pDepo_wall)のチェックを行っているのみ .
      */
     virtual void initialize() override;
 
@@ -122,10 +122,10 @@ public:
     /**
      * 手前ブロックの透過機能を有効にする。
      * 無効にしたい場合は nullptr を設定する
-     * @param prm_pTarget_FrontAlpha 手前の基準になるアクター
+     * @param prm_pActor_front_alpha_target 手前の基準になるアクター
      */
-    void enableFrontAlpha(GgafDxCore::GgafDxGeometricActor* prm_pTarget_FrontAlpha) {
-        _pTarget_FrontAlpha = prm_pTarget_FrontAlpha;
+    void enableFrontAlpha(GgafDxCore::GgafDxGeometricActor* prm_pActor_front_alpha_target) {
+        _pActor_front_alpha_target = prm_pActor_front_alpha_target;
     }
 
     /**

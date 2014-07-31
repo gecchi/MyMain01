@@ -16,7 +16,7 @@ namespace GgafDxCore {
 class GgafDxEffectManager : public GgafCore::GgafResourceManager<GgafDxEffect> {
 
 public:
-    static GgafDxEffect* _pEffect_Active;
+    static GgafDxEffect* _pEffect_active;
 
 public:
     /**

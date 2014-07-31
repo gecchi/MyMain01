@@ -33,9 +33,9 @@ void GgafDxMorpherAssistantA::behave() {
 }
 
 void GgafDxMorpherAssistantA::morphByDt(int prm_target_mesh_no,
-                                      float prm_target_distance, int prm_target_frames,
-                                      float prm_p1, float prm_p2, float prm_end_velo,
-                                      bool prm_endacc_flg) {
+                                        float prm_target_distance, int prm_target_frames,
+                                        float prm_p1, float prm_p2, float prm_end_velo,
+                                        bool prm_endacc_flg) {
     _pa_smthMph[prm_target_mesh_no]._value = 0;
     _pa_smthMph[prm_target_mesh_no]._velo = _pMaster->_velo[prm_target_mesh_no];
     _pa_smthMph[prm_target_mesh_no]._acce = _pMaster->_acce[prm_target_mesh_no];
@@ -45,9 +45,9 @@ void GgafDxMorpherAssistantA::morphByDt(int prm_target_mesh_no,
 }
 
 void GgafDxMorpherAssistantA::morphByVd(int prm_target_mesh_no,
-                                      float prm_top_velo, float prm_target_distance,
-                                      float prm_p1, float prm_p2, float prm_end_velo,
-                                      bool prm_endacc_flg) {
+                                        float prm_top_velo, float prm_target_distance,
+                                        float prm_p1, float prm_p2, float prm_end_velo,
+                                        bool prm_endacc_flg) {
     _pa_smthMph[prm_target_mesh_no]._value = 0;
     _pa_smthMph[prm_target_mesh_no]._velo = _pMaster->_velo[prm_target_mesh_no];
     _pa_smthMph[prm_target_mesh_no]._acce = _pMaster->_acce[prm_target_mesh_no];
@@ -59,5 +59,4 @@ void GgafDxMorpherAssistantA::morphByVd(int prm_target_mesh_no,
 GgafDxMorpherAssistantA::~GgafDxMorpherAssistantA() {
     GGAF_DELETEARR(_pa_smthMph);
 }
-
 

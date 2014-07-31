@@ -26,8 +26,8 @@ EnemyHisbe::EnemyHisbe(const char* prm_name) :
 
     _class_name = "EnemyHisbe";
     pKurokoLeader_ = nullptr;
-    pDepo_Shot_ = nullptr;
-    pDepo_ShotEffect_ = nullptr;
+    pDepo_shot_ = nullptr;
+    pDepo_shotEffect_ = nullptr;
 
 //    //リフレクション------>
 //    GgafActorDepository* pDepoEffect = NEW GgafActorDepository("HisbeLaser");
@@ -76,12 +76,12 @@ EnemyHisbe::EnemyHisbe(const char* prm_name) :
 
 
     //ホーミング(リポジトリ)------>
-//    pConn_LaserChipDepoStore_ = connect_DepositoryManager("EnemyHisbeLaserChip001DepoStore");
+//    pConn_pLaserChipDepoStore_ = connect_DepositoryManager("EnemyHisbeLaserChip001DepoStore");
 //    pLaserChipDepo_ = nullptr;
     //<---------------------
 
     //リフレクション(リポジトリ)------>
-    pConn_LaserChipDepoStore_ = connect_DepositoryManager("EnemyHisbeLaserChip002DepoStore");
+    pConn_pLaserChipDepoStore_ = connect_DepositoryManager("EnemyHisbeLaserChip002DepoStore");
     pLaserChipDepo_ = nullptr;
 
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
@@ -101,10 +101,10 @@ void EnemyHisbe::initialize() {
     pChecker->makeCollision(1);
     pChecker->setColliSphere(0, 40000);
 
-//    if (pConn_LaserChipDepoStore_->chkFirstConnectionIs(this)) {
-//        _TRACE_("pConn_LaserChipDepoStore_は、ワシ("<<this<<")が育てたエヘン！")
+//    if (pConn_pLaserChipDepoStore_->chkFirstConnectionIs(this)) {
+//        _TRACE_("pConn_pLaserChipDepoStore_は、ワシ("<<this<<")が育てたエヘン！")
 //        getPlatformScene()->getSceneDirector()->addSubGroup(
-//                pConn_LaserChipDepoStore_->peek()->extract()
+//                pConn_pLaserChipDepoStore_->peek()->extract()
 //                );
 //    }
 }
@@ -144,7 +144,7 @@ void EnemyHisbe::processBehavior() {
 
         case PROG_FIRE: {
             if (pProg->isJustChanged()) {
-                pLaserChipDepo_ = (LaserChipDepository*)(pConn_LaserChipDepoStore_->peek()->dispatch()); //レーザーセット一本借ります。
+                pLaserChipDepo_ = (LaserChipDepository*)(pConn_pLaserChipDepoStore_->peek()->dispatch()); //レーザーセット一本借ります。
             }
             if (pLaserChipDepo_) {
                 LaserChip* pLaser = pLaserChipDepo_->dispatch();
@@ -213,6 +213,6 @@ void EnemyHisbe::onInactive() {
 
 EnemyHisbe::~EnemyHisbe() {
     GGAF_DELETE_NULLABLE(pKurokoLeader_);
-    pConn_LaserChipDepoStore_->close();
-    //pConn_RefractionEffectDepository_->close();
+    pConn_pLaserChipDepoStore_->close();
+    //pConn_pRefractionEffectDepository_->close();
 }

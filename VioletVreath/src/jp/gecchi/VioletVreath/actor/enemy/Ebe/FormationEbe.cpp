@@ -17,10 +17,10 @@ FormationEbe::FormationEbe(const char* prm_name, const char* prm_spl_id)
    : DepositoryFormation(prm_name, 20*60) {
     _class_name = "FormationEbe";
 
-    pConn_EbeDepo_ = connect_DepositoryManager("EnemyEbe4Formation");
-    setFormationMember(pConn_EbeDepo_->peek());
+    pConn_pEbeDepo_ = connect_DepositoryManager("EnemyEbe4Formation");
+    setFormationMember(pConn_pEbeDepo_->peek());
 
-    pConn_ShotDepo_ = nullptr;
+    pConn_pShotDepo_ = nullptr;
     updateRankParameter();
 }
 
@@ -42,8 +42,8 @@ void FormationEbe::processBehavior() {
         EnemyEbe* pEbe = (EnemyEbe*)callUpMember(RV_NumFormation_);
         if (pEbe) {
             SplineKurokoLeader* pKurokoLeader = getSplManuf()->createKurokoLeader(pEbe->getKuroko());
-            GgafActorDepository* pDepo_Shot = pConn_ShotDepo_ ? pConn_ShotDepo_->peek() : nullptr;
-            pEbe->config(pKurokoLeader, pDepo_Shot, nullptr);
+            GgafActorDepository* pDepo_shot = pConn_pShotDepo_ ? pConn_pShotDepo_->peek() : nullptr;
+            pEbe->config(pKurokoLeader, pDepo_shot, nullptr);
             pEbe->getKuroko()->setMvVelo(RV_MvVelo_);
             onCallUpEbe(pEbe); //下位フォーメーションクラス個別実装の処理
         }
@@ -55,9 +55,9 @@ void FormationEbe::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
 }
 
 FormationEbe::~FormationEbe() {
-    pConn_EbeDepo_->close();
-    if (pConn_ShotDepo_) {
-        pConn_ShotDepo_->close();
+    pConn_pEbeDepo_->close();
+    if (pConn_pShotDepo_) {
+        pConn_pShotDepo_->close();
     }
 }
 

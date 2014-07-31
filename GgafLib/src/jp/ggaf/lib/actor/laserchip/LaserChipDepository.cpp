@@ -19,17 +19,17 @@ LaserChipDepository::LaserChipDepository(const char* prm_name, GgafStatus* prm_p
 
     _num_interval_frame_count = _num_chip_interval; //生成直後はインターバルなど無し
     _num_continual_dispatch_max = _num_chip_max;
-    _pEffectActor_Irradiate = nullptr;
+    _pEffectActor_irradiate = nullptr;
 }
 
 void LaserChipDepository::config(int prm_num_continual_dispatch_max,
                                  uint32_t prm_num_chip_interval,
-                                 GgafDxCore::GgafDxDrawableActor* prm_pEffectActor_Irradiate) {
+                                 GgafDxCore::GgafDxDrawableActor* prm_pEffectActor_irradiate) {
     _num_continual_dispatch_max = prm_num_continual_dispatch_max;
     _num_chip_interval = prm_num_chip_interval;
-    _pEffectActor_Irradiate = prm_pEffectActor_Irradiate;
-    if (_pEffectActor_Irradiate) {
-        _pEffectActor_Irradiate->inactivate();
+    _pEffectActor_irradiate = prm_pEffectActor_irradiate;
+    if (_pEffectActor_irradiate) {
+        _pEffectActor_irradiate->inactivate();
     }
 }
 
@@ -101,14 +101,14 @@ LaserChip* LaserChipDepository::dispatch(int prm_offset_frames) {
 
 void LaserChipDepository::processFinal() {
     //発射中エフェクト表示切り替え
-    if (_pEffectActor_Irradiate) {
+    if (_pEffectActor_irradiate) {
         if (_pChip_prev_dispatch && _frame_of_behaving_prev_dispatch == _pChip_prev_dispatch->getBehaveingFrame()) {
-            if (_pEffectActor_Irradiate->_is_active_flg == false) {
-                _pEffectActor_Irradiate->activate();
+            if (_pEffectActor_irradiate->_is_active_flg == false) {
+                _pEffectActor_irradiate->activate();
             }
         } else {
-            if (_pEffectActor_Irradiate->_is_active_flg) {
-                _pEffectActor_Irradiate->inactivate();
+            if (_pEffectActor_irradiate->_is_active_flg) {
+                _pEffectActor_irradiate->inactivate();
             }
         }
     }

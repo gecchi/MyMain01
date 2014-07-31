@@ -18,8 +18,8 @@ public:
     int cnt_Antiope_;
     /** ï“ë‡ä‘äuÉtÉåÅ[ÉÄ(RANKïœìÆ) */
     frame interval_frames_;
-    DepositoryConnection* pDepoConnection_AntiopeP_;
-    DepositoryConnection* pDepoConnection_AntiopeN_;
+    DepositoryConnection* pDepoConnection_pAntiopeP_;
+    DepositoryConnection* pDepoConnection_pAntiopeN_;
 
 public:
     FormationAntiope001(const char* prm_name);

@@ -19,7 +19,7 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxEffect* GgafDxEffectManager::_pEffect_Active = nullptr;
+GgafDxEffect* GgafDxEffectManager::_pEffect_active = nullptr;
 
 GgafDxEffectManager::GgafDxEffectManager(const char* prm_manager_name) :
     GgafResourceManager<GgafDxEffect> (prm_manager_name) {

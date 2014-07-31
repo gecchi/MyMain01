@@ -45,7 +45,7 @@ void EnemyDelheid::nextFrame() {
 }
 
 void EnemyDelheid::config(GgafLib::SplineKurokoLeader* prm_pKurokoLeader,
-                           GgafCore::GgafActorDepository* prm_pDepoShot  ) {
+                          GgafCore::GgafActorDepository* prm_pDepoShot  ) {
     GGAF_DELETE_NULLABLE(pKurokoLeader_);
     pKurokoLeader_ = prm_pKurokoLeader;
     pDepoShot_ = prm_pDepoShot;
@@ -69,7 +69,7 @@ void EnemyDelheid::onActive() {
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setMvAcce(0);
     pKuroko->keepOnTurningFaceAngTwd(P_MYSHIP,
-                                       D_ANG(1), 0, TURN_CLOSE_TO, false);
+                                     D_ANG(1), 0, TURN_CLOSE_TO, false);
     getProgress()->reset(PROG_INIT);
     pProg2_->reset(PROG2_WAIT);
 }

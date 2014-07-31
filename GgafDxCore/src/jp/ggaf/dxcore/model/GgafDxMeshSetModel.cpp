@@ -15,7 +15,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 DWORD GgafDxMeshSetModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DFVF_TEX1  );
-//LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9 = nullptr;
+//LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer = nullptr;
 
 GgafDxMeshSetModel::GgafDxMeshSetModel(char* prm_model_name) : GgafDxModel(prm_model_name) {
     TRACE3("GgafDxMeshSetModel::GgafDxMeshSetModel(" << _model_name << ")");
@@ -39,8 +39,8 @@ GgafDxMeshSetModel::GgafDxMeshSetModel(char* prm_model_name) : GgafDxModel(prm_m
             _TRACE_("GgafDxMeshSetModel("<<prm_model_name<<") の同時描画セット数オーバー。最大は15セットがですがそれ以上が設定されています。意図していますか？ _set_num="<<_set_num<<"。");
         }
     }
-    _pIDirect3DVertexBuffer9 = nullptr;
-    _pIDirect3DIndexBuffer9 = nullptr;
+    _pVertexBuffer = nullptr;
+    _pIndexBuffer = nullptr;
     _paUint_material_list_grp_num = nullptr;
     _paVtxBuffer_org = nullptr;
     _paIdxBuffer_org = nullptr;
@@ -59,8 +59,8 @@ GgafDxMeshSetModel::GgafDxMeshSetModel(char* prm_model_name) : GgafDxModel(prm_m
 }
 
 //描画
-HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num) {
-    TRACE4("GgafDxMeshSetModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
+HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_target, int prm_draw_set_num) {
+    TRACE4("GgafDxMeshSetModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
 #ifdef MY_DEBUG
     if (prm_draw_set_num > _set_num) {
         _TRACE_("GgafDxMeshSetModel::draw() "<<_model_name<<" の描画セット数オーバー。_set_num="<<_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
@@ -68,9 +68,9 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
 #endif
     IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
     //対象アクター
-    GgafDxMeshSetActor* pTargetActor = (GgafDxMeshSetActor*)prm_pActor_Target;
+    GgafDxMeshSetActor* pTargetActor = (GgafDxMeshSetActor*)prm_pActor_target;
     //対象MeshSetActorのエフェクトラッパ
-    GgafDxMeshSetEffect* pMeshSetEffect = (GgafDxMeshSetEffect*)prm_pActor_Target->getEffect();
+    GgafDxMeshSetEffect* pMeshSetEffect = (GgafDxMeshSetEffect*)prm_pActor_target->getEffect();
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pMeshSetEffect->_pID3DXEffect;
 
@@ -80,9 +80,9 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
     //モデルが同じでかつ、セット数も同じならば頂点バッファ、インデックスバッファの設定はスキップできる
     if (GgafDxModelManager::_pModelLastDraw  != this) {
         //頂点バッファとインデックスバッファを設定
-        pDevice->SetStreamSource(0, _pIDirect3DVertexBuffer9,  0, _size_vertex_unit);
+        pDevice->SetStreamSource(0, _pVertexBuffer,  0, _size_vertex_unit);
         pDevice->SetFVF(GgafDxMeshSetModel::FVF);
-        pDevice->SetIndices(_pIDirect3DIndexBuffer9);
+        pDevice->SetIndices(_pIndexBuffer);
 
         hr = pID3DXEffect->SetFloat(pMeshSetEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() SetFloat(_h_tex_blink_power) に失敗しました。");
@@ -108,7 +108,7 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
                 //テクスチャをs0レジスタにセット
                 pDevice->SetTexture(0, _papTextureConnection[material_no]->peek()->_pIDirect3DBaseTexture9);
             } else {
-                _TRACE_("GgafDxMeshSetModel::draw("<<prm_pActor_Target->getName()<<") テクスチャがありません。"<<(PROPERTY::WHITE_TEXTURE)<<"が設定されるべきです。おかしいです");
+                _TRACE_("GgafDxMeshSetModel::draw("<<prm_pActor_target->getName()<<") テクスチャがありません。"<<(PROPERTY::WHITE_TEXTURE)<<"が設定されるべきです。おかしいです");
                 //無ければテクスチャ無し
                 pDevice->SetTexture(0, nullptr);
             }
@@ -116,18 +116,18 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
             //理由はGgafDxMeshSetActorのメモ【GgafDxMeshSetActorのマテリアルカラーについて】を参照
         }
 
-        if (material_grp_index == 0 && (GgafDxEffectManager::_pEffect_Active != pMeshSetEffect || GgafDxDrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique)) {
-            if (GgafDxEffectManager::_pEffect_Active) {
-                TRACE4("EndPass("<<GgafDxEffectManager::_pEffect_Active->_pID3DXEffect<<"): /_pEffect_Active="<<GgafDxEffectManager::_pEffect_Active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_Active<<")");
-                hr = GgafDxEffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
+        if (material_grp_index == 0 && (GgafDxEffectManager::_pEffect_active != pMeshSetEffect || GgafDxDrawableActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique)) {
+            if (GgafDxEffectManager::_pEffect_active) {
+                TRACE4("EndPass("<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
+                hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->EndPass();
                 checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() EndPass() に失敗しました。");
-                hr = GgafDxEffectManager::_pEffect_Active->_pID3DXEffect->End();
+                hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->End();
                 checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() End() に失敗しました。");
 #ifdef MY_DEBUG
-                if (GgafDxEffectManager::_pEffect_Active->_begin == false) {
-                    throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+                if (GgafDxEffectManager::_pEffect_active->_begin == false) {
+                    throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_active->_effect_name)<<"");
                 } else {
-                    GgafDxEffectManager::_pEffect_Active->_begin = false;
+                    GgafDxEffectManager::_pEffect_active->_begin = false;
                 }
 #endif
             }
@@ -137,14 +137,14 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
 
             TRACE4("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshSetEffect->_effect_name<<"("<<pMeshSetEffect<<")");
             //UINT numPass;
-            hr = pID3DXEffect->Begin(&_numPass, D3DXFX_DONOTSAVESTATE );
+            hr = pID3DXEffect->Begin(&_num_pass, D3DXFX_DONOTSAVESTATE );
             checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() Begin() に失敗しました。");
             hr = pID3DXEffect->BeginPass(0);
             checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() BeginPass(0) に失敗しました。");
 
 #ifdef MY_DEBUG
             if (pMeshSetEffect->_begin) {
-                throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+                throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_active->_effect_name)<<"");
             } else {
                 pMeshSetEffect->_begin = true;
             }
@@ -161,10 +161,10 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
                                       idxparam.NumVertices,
                                       idxparam.StartIndex,
                                       idxparam.PrimitiveCount);
-        if (_numPass >= 2) { //２パス目以降が存在
+        if (_num_pass >= 2) { //２パス目以降が存在
             hr = pID3DXEffect->EndPass();
             checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() １パス目 EndPass() に失敗しました。");
-            for (UINT i = 1; i < _numPass; i++) {
+            for (UINT i = 1; i < _num_pass; i++) {
                 hr = pID3DXEffect->BeginPass(i);
                 checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() "<<i+1<<"パス目 BeginPass("<<i<<") に失敗しました。");
                 pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
@@ -182,8 +182,8 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
         GgafGod::_num_actor_drawing++;
     }
     GgafDxModelManager::_pModelLastDraw = this;
-    GgafDxEffectManager::_pEffect_Active = pMeshSetEffect;
-    GgafDxDrawableActor::_hash_technique_last_draw = prm_pActor_Target->_hash_technique;
+    GgafDxEffectManager::_pEffect_active = pMeshSetEffect;
+    GgafDxDrawableActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
     return D3D_OK;
 }
 
@@ -212,8 +212,8 @@ void GgafDxMeshSetModel::release() {
         }
     }
     GGAF_DELETEARR(_papTextureConnection); //テクスチャの配列
-    GGAF_RELEASE(_pIDirect3DVertexBuffer9);
-    GGAF_RELEASE(_pIDirect3DIndexBuffer9);
+    GGAF_RELEASE(_pVertexBuffer);
+    GGAF_RELEASE(_pIndexBuffer);
 
     GGAF_DELETEARR(_paVtxBuffer_org);
     GGAF_DELETEARR(_paIdxBuffer_org);

@@ -16,7 +16,7 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
 
     _TRACE_("WalledSectionScene::WalledSectionScene "<<prm_data_filename<<" begin");
     _class_name = "WalledSectionScene";
-    _pTarget_FrontAlpha = nullptr;
+    _pActor_front_alpha_target = nullptr;
     _pWalledScene = prm_pWalledScene;
     _area_len = 0;
     _area_height = 0;
@@ -75,18 +75,18 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
     ifs.close();
     _pWallPartsLast = nullptr;;
     _wall_start_x = 0;
-    _pDepo_WallAAB = nullptr;
-    _pDepo_WallAAPrism = nullptr;
+    _pDepo_wall = nullptr;
+    _pDepo_prism = nullptr;
     _TRACE_("WalledSectionScene::WalledSectionScene "<<prm_data_filename<<" done");
 }
 
 void WalledSectionScene::config(
-        GgafActorDepository* prm_pDepo_WallAAB,
-        GgafActorDepository* prm_pDepo_WallAAPrism,
+        GgafActorDepository* prm_pDepo_wall,
+        GgafActorDepository* prm_pDepo_prism,
         coord prm_wall_start_x,
         coord prm_wall_dep, coord prm_wall_width, coord prm_wall_height) {
-    _pDepo_WallAAB = prm_pDepo_WallAAB;
-    _pDepo_WallAAPrism = prm_pDepo_WallAAPrism;
+    _pDepo_wall = prm_pDepo_wall;
+    _pDepo_prism = prm_pDepo_prism;
     _wall_dep = prm_wall_dep;
     _wall_width = prm_wall_width;
     _wall_height = prm_wall_height;
@@ -94,8 +94,8 @@ void WalledSectionScene::config(
 }
 
 void WalledSectionScene::initialize() {
-    if (_pDepo_WallAAB == nullptr) {
-        throwGgafCriticalException("WalledSectionScene::initialize()   GgafActorDepository* _pDepo_WallAAB をセットして下さい。");
+    if (_pDepo_wall == nullptr) {
+        throwGgafCriticalException("WalledSectionScene::initialize()   GgafActorDepository* _pDepo_wall をセットして下さい。");
     }
 }
 
@@ -130,10 +130,10 @@ void WalledSectionScene::processBehavior() {
             for (int n = 0; n < len; n++) {
                 pWallInfo = &(_papaWallInfo[_cnt_area_len][n]);
                 if (pWallInfo->_pos_prism == 0) {
-                    pWallParts = (WallPartsActor*)_pDepo_WallAAB->dispatchForce();
+                    pWallParts = (WallPartsActor*)_pDepo_wall->dispatchForce();
                 } else {
-                    if (_pDepo_WallAAPrism) {
-                        pWallParts = (WallPartsActor*)_pDepo_WallAAPrism->dispatchForce();
+                    if (_pDepo_prism) {
+                        pWallParts = (WallPartsActor*)_pDepo_prism->dispatchForce();
                     } else {
                         continue;
                     }

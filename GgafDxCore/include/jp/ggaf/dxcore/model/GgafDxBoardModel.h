@@ -23,14 +23,14 @@ public:
     /** 頂点のFVF */
     static DWORD FVF;
     /** 頂点バッファ */
-    LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
+    LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer;
     /** 矩形の頂点合計のサイズ */
     UINT _size_vertices;
     /** 1頂点のサイズ */
     UINT _size_vertex_unit;
 
-    float _fSize_BoardModelWidthPx;
-    float _fSize_BoardModelHeightPx;
+    float _model_width_px;
+    float _model_height_px;
     int _row_texture_split;
     int _col_texture_split;
 
@@ -41,7 +41,7 @@ public:
      */
     GgafDxBoardModel(char* prm_model_name);
 
-    virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num = 1) override;
+    virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_target, int prm_draw_set_num = 1) override;
 
     virtual void restore() override;
 

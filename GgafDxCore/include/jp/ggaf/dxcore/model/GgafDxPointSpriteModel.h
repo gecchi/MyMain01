@@ -22,7 +22,7 @@ public:
     };
 
     /** 頂点バッファ */
-    LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
+    LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer;
     /** 頂点情報配列 */
     VERTEX* _paVtxBuffer_org;
     /** 頂点数(=スプライト数) */
@@ -34,9 +34,9 @@ public:
     /** 1頂点のサイズ */
     UINT _size_vertex_unit;
     /** オブジェクトの１辺のサイズ(px) */
-    float _fSquareSize;
+    float _square_size_px;
     /** テクスチャの１辺の長さ(px) */
-    float _fTexSize;
+    float _texture_size_px;
     /** テクスチャ分割数(１で分割無し。２で４パターン、３で９パターン) */
     int _texture_split_rowcol;
 
@@ -47,7 +47,7 @@ public:
      */
     GgafDxPointSpriteModel(char* prm_model_name);
 
-    virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num = 1) override;
+    virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_target, int prm_draw_set_num = 1) override;
 
     virtual void restore() override;
 

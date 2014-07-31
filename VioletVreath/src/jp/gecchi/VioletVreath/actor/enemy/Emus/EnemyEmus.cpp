@@ -30,10 +30,10 @@ EnemyEmus::EnemyEmus(const char* prm_name) :
     frame_of_close_interval_ = 5*60;
     frame_of_morph_interval_ = 120;
 
-//    pConn_LaserChipDepoStore_ = connect_DepositoryManager(
+//    pConn_pLaserChipDepoStore_ = connect_DepositoryManager(
 //             "EnemyEmusLaserChip001DepoStore"
 //         );
-//    pLaserChipDepoStore_ = (GgafActorDepositoryStore*)(pConn_LaserChipDepoStore_->peek());
+//    pLaserChipDepoStore_ = (GgafActorDepositoryStore*)(pConn_pLaserChipDepoStore_->peek());
     pLaserChipDepo_ = nullptr;
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
@@ -149,7 +149,7 @@ void EnemyEmus::processJudgement() {
     }
 
     if (getBaseActor() && getBaseActor()->isActiveInTheTree()) {
-//        (*(_pActor_Base->_pFunc_calcRotMvWorldMatrix))(_pActor_Base, _matWorld);
+//        (*(_pActor_base->_pFunc_calc_rot_mv_world_matrix))(_pActor_base, _matWorld);
     } else {
         //“y‘ä‚ª‚È‚¯‚ê‚ÎŽ©•ª‚àŽ€‚Ê
         sayonara();
@@ -178,5 +178,5 @@ void EnemyEmus::onInactive() {
 
 EnemyEmus::~EnemyEmus() {
     GGAF_DELETE(pScaler_);
-//    pConn_LaserChipDepoStore_->close();
+//    pConn_pLaserChipDepoStore_->close();
 }

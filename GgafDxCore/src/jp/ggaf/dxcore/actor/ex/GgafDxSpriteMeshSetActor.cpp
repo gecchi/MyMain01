@@ -90,12 +90,12 @@ void GgafDxSpriteMeshSetActor::processDraw() {
             if (draw_set_num >= model_set_num) {
                 break;
             }
-            pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
+            pDrawActor = pDrawActor->_pNextActor_in_draw_depth_level;
         } else {
             break;
         }
     }
-    GgafDxUniverse::_pActor_DrawActive = pSpriteMeshSetActor; //描画セットの最後アクターをセット
+    GgafDxUniverse::_pActor_draw_active = pSpriteMeshSetActor; //描画セットの最後アクターをセット
     _pMeshSetModel->GgafDxMeshSetModel::draw(this, draw_set_num);
 }
 

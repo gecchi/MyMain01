@@ -26,6 +26,7 @@ public:
         PROG_ENTRY ,
         PROG_MOVE01,
         PROG_LEAVE ,
+        PROG_RUSH,
         PROG_BANPEI,
     };
 
@@ -35,6 +36,9 @@ public:
     GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
     GgafDxCore::GgafDxGeoElem mv_velo_twd_;
+
+    /** 相方 */
+    EnemyAntiope* pP_;
 public:
     /**
      * コンストラクタ
@@ -71,9 +75,7 @@ public:
      */
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
-
     void onInactive() override;
-
 
     virtual ~EnemyAntiope();
 };

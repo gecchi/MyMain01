@@ -31,9 +31,9 @@ public:
     };
 
     /** 頂点バッファの各セット */
-    LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
+    LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer;
     /** インデックスバッファ */
-    LPDIRECT3DINDEXBUFFER9 _pIDirect3DIndexBuffer9;
+    LPDIRECT3DINDEXBUFFER9 _pIndexBuffer;
     /** 頂点のFVF */
     static DWORD FVF;
     /** 矩形の頂点合計のサイズ */
@@ -42,8 +42,8 @@ public:
     UINT _size_vertex_unit;
     INDEXPARAM* _paIndexParam;
 
-    float _fSize_SpriteSetModelWidthPx;
-    float _fSize_SpriteSetModelHeightPx;
+    float _model_width_px;
+    float _model_height_px;
     int _row_texture_split;
     int _col_texture_split;
 
@@ -55,7 +55,7 @@ public:
     GgafDxSpriteSetModel(char* prm_model_name);
 
 
-    virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num = 1) override;
+    virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_target, int prm_draw_set_num = 1) override;
 
     virtual void restore() override;
 

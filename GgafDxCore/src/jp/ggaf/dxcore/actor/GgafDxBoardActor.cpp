@@ -37,7 +37,7 @@ _pUvFlipper(NEW GgafDxUvFlipper(_pBoardModel->_papTextureConnection[0]->peek()))
     _valign = VALIGN_TOP;
     _alpha = 1.0f;
     _is_2D = true;
-    _pFunc_calcRotMvWorldMatrix = nullptr;
+    _pFunc_calc_rot_mv_world_matrix = nullptr;
     _z = 0;
     setZEnable(false);
     setZWriteEnable(false);
@@ -53,17 +53,17 @@ void GgafDxBoardActor::processDraw() {
     checkDxException(hr, D3D_OK, "GgafDxBoardActor::draw SetFloat(_hTransformedY) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B3");
 
     if (_align == ALIGN_RIGHT) {
-        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_x, (float)(-_pBoardModel->_fSize_BoardModelWidthPx));
+        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_x, (float)(-_pBoardModel->_model_width_px));
     } else if (_align == ALIGN_CENTER) {
-        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_x, (float)(-_pBoardModel->_fSize_BoardModelWidthPx*0.5));
+        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_x, (float)(-_pBoardModel->_model_width_px*0.5));
     } else { //ALIGN_LEFT
         hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_x, 0.0f);
     }
     checkDxException(hr, D3D_OK, "GgafDxBoardActor::draw SetFloat(_h_local_left_top_x) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     if (_valign == VALIGN_BOTTOM) {
-        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_y, (float)(-_pBoardModel->_fSize_BoardModelHeightPx));
+        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_y, (float)(-_pBoardModel->_model_height_px));
     } else if (_valign == VALIGN_MIDDLE) {
-        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_y, (float)(-_pBoardModel->_fSize_BoardModelHeightPx*0.5));
+        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_y, (float)(-_pBoardModel->_model_height_px*0.5));
     } else { //VALIGN_TOP
         hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_y, 0.0f);
     }
@@ -152,11 +152,11 @@ void GgafDxBoardActor::addAlpha(float prm_alpha) {
 }
 
 float GgafDxBoardActor::getModelWidth() {
-    return _pBoardModel->_fSize_BoardModelWidthPx;
+    return _pBoardModel->_model_width_px;
 }
 
 float GgafDxBoardActor::getModelHeight() {
-    return _pBoardModel->_fSize_BoardModelHeightPx;
+    return _pBoardModel->_model_height_px;
 }
 
 GgafDxBoardActor::~GgafDxBoardActor() {

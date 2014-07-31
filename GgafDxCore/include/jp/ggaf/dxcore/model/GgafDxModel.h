@@ -63,7 +63,7 @@ public:
     /** [r]モデル単位の初期処理が実行済みかどうか(draw時チェック＆変更) */
     bool _is_init_model;
 
-    UINT _numPass;
+    UINT _num_pass;
 
 public:
     /**
@@ -143,11 +143,11 @@ public:
     /**
      * モデルを描画 .
      * 下位クラスでモデル描画ロジックを実装して下さい。
-     * @param prm_pActor_Target 描画するモデルのアクター
+     * @param prm_pActor_target 描画するモデルのアクター
      * @param prm_draw_set_num 描画するモデルのセット数
      * @return
      */
-    virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num = 1) = 0;
+    virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_target, int prm_draw_set_num = 1) = 0;
 
     /**
      * マテリアルのテクスチャを入れ替えて切り替える。 .

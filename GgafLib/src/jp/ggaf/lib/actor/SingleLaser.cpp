@@ -87,12 +87,12 @@ void SingleLaser::processDraw() {
             if (draw_set_num >= model_Set_num) {
                 break;
             }
-            pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
+            pDrawActor = pDrawActor->_pNextActor_in_draw_depth_level;
         } else {
             break;
         }
     }
-    GgafDxUniverse::_pActor_DrawActive = pSingleLaserChip; //描画セットの最後アクターをセット
+    GgafDxUniverse::_pActor_draw_active = pSingleLaserChip; //描画セットの最後アクターをセット
     _pMeshSetModel->GgafDxMeshSetModel::draw(this, draw_set_num);
 }
 

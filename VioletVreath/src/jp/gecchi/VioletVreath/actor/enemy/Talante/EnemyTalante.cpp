@@ -17,7 +17,7 @@ using namespace VioletVreath;
 EnemyTalante::EnemyTalante(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Talante", STATUS(EnemyTalante)) {
     _class_name = "EnemyTalante";
-    pDepo_Shot_ = nullptr;
+    pDepo_shot_ = nullptr;
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
@@ -40,9 +40,9 @@ void EnemyTalante::initialize() {
 }
 
 void EnemyTalante::config(
-        GgafCore::GgafActorDepository* prm_pDepo_Shot
+        GgafCore::GgafActorDepository* prm_pDepo_shot
         ) {
-    pDepo_Shot_ = prm_pDepo_Shot;
+    pDepo_shot_ = prm_pDepo_shot;
 }
 
 void EnemyTalante::onActive() {

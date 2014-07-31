@@ -43,14 +43,14 @@ GgafDxMorphMeshModel::GgafDxMorphMeshModel(char* prm_model_name) : GgafDxModel(p
     _papMeshesFront = nullptr;
 
     _pIDirect3DVertexDeclaration9 = nullptr;
-    _pIDirect3DVertexBuffer9_primary = nullptr;
+    _pVertexBuffer_primary = nullptr;
     _paIDirect3DVertexBuffer9_morph = nullptr;
-    _pIDirect3DIndexBuffer9 = nullptr;
+    _pIndexBuffer = nullptr;
     _paVtxBuffer_org_primary = nullptr;
     _papaVtxBuffer_org_morph = nullptr;
     _paIdxBuffer_org = nullptr;
     _paIndexParam = nullptr;
-    _nMaterialListGrp = 0;
+    _material_list_grp_num = 0;
     _size_vertices_primary = 0;
     _size_vertex_unit_primary = 0;
     _size_vertices_morph = 0;
@@ -63,14 +63,14 @@ GgafDxMorphMeshModel::GgafDxMorphMeshModel(char* prm_model_name) : GgafDxModel(p
     _TRACE_("GgafDxMorphMeshModel::GgafDxMorphMeshModel(" << _model_name << ") End");
 }
 
-HRESULT GgafDxMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num) {
+HRESULT GgafDxMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_target, int prm_draw_set_num) {
     IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
-    TRACE4("GgafDxMorphMeshModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
+    TRACE4("GgafDxMorphMeshModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
 
     //対象アクター
-    GgafDxMorphMeshActor* pTargetActor = (GgafDxMorphMeshActor*)prm_pActor_Target;
+    GgafDxMorphMeshActor* pTargetActor = (GgafDxMorphMeshActor*)prm_pActor_target;
     //対象アクターのエフェクトラッパ
-    GgafDxMorphMeshEffect* pMorphMeshEffect = (GgafDxMorphMeshEffect*)prm_pActor_Target->getEffect();
+    GgafDxMorphMeshEffect* pMorphMeshEffect = (GgafDxMorphMeshEffect*)prm_pActor_target->getEffect();
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pMorphMeshEffect->_pID3DXEffect;
 
@@ -79,12 +79,12 @@ HRESULT GgafDxMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int p
     //頂点バッファ設定
     if (GgafDxModelManager::_pModelLastDraw != this) {
         pDevice->SetVertexDeclaration( _pIDirect3DVertexDeclaration9); //頂点フォーマット
-        pDevice->SetStreamSource(0, _pIDirect3DVertexBuffer9_primary, 0, _size_vertex_unit_primary);
+        pDevice->SetStreamSource(0, _pVertexBuffer_primary, 0, _size_vertex_unit_primary);
         for (int i = 1; i <= _morph_target_num; i++) {
             pDevice->SetStreamSource(i, _paIDirect3DVertexBuffer9_morph[i-1], 0, _size_vertex_unit_morph);
         }
         //インデックスバッファ設定
-        pDevice->SetIndices(_pIDirect3DIndexBuffer9);
+        pDevice->SetIndices(_pIndexBuffer);
 
         hr = pID3DXEffect->SetFloat(pMorphMeshEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "GgafDxMorphMeshModel::draw() SetFloat(_h_tex_blink_power) に失敗しました。");
@@ -97,14 +97,14 @@ HRESULT GgafDxMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int p
     }
 
     //描画
-    for (UINT i = 0; i < _nMaterialListGrp; i++) {
+    for (UINT i = 0; i < _material_list_grp_num; i++) {
         material_no = _paIndexParam[i].MaterialNo;
-        if (GgafDxModelManager::_pModelLastDraw != this || _nMaterialListGrp != 1) {
+        if (GgafDxModelManager::_pModelLastDraw != this || _material_list_grp_num != 1) {
             if (_papTextureConnection[material_no]) {
                 //テクスチャをs0レジスタにセット
                 pDevice->SetTexture(0, _papTextureConnection[material_no]->peek()->_pIDirect3DBaseTexture9);
             } else {
-                _TRACE_("GgafDxMorphMeshModel::draw("<<prm_pActor_Target->getName()<<") テクスチャがありません。"<<(PROPERTY::WHITE_TEXTURE)<<"が設定されるべきです。おかしいです");
+                _TRACE_("GgafDxMorphMeshModel::draw("<<prm_pActor_target->getName()<<") テクスチャがありません。"<<(PROPERTY::WHITE_TEXTURE)<<"が設定されるべきです。おかしいです");
                 //無ければテクスチャ無し
                 pDevice->SetTexture(0, nullptr);
             }
@@ -112,19 +112,19 @@ HRESULT GgafDxMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int p
         hr = pID3DXEffect->SetValue(pMorphMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
         checkDxException(hr, D3D_OK, "GgafDxMorphMeshModel::draw()SetValue(g_colMaterialDiffuse) に失敗しました。");
 
-        if ((GgafDxEffectManager::_pEffect_Active != pMorphMeshEffect || GgafDxDrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique) && i == 0) {
-            if (GgafDxEffectManager::_pEffect_Active) {
-               TRACE4("EndPass("<<GgafDxEffectManager::_pEffect_Active->_pID3DXEffect<<"): /_pEffect_Active="<<GgafDxEffectManager::_pEffect_Active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_Active<<")");
-                hr = GgafDxEffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
+        if ((GgafDxEffectManager::_pEffect_active != pMorphMeshEffect || GgafDxDrawableActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) && i == 0) {
+            if (GgafDxEffectManager::_pEffect_active) {
+               TRACE4("EndPass("<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
+                hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->EndPass();
                 checkDxException(hr, D3D_OK, "GgafDxMorphMeshModel::draw() EndPass() に失敗しました。");
-                hr = GgafDxEffectManager::_pEffect_Active->_pID3DXEffect->End();
+                hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->End();
                 checkDxException(hr, D3D_OK, "GgafDxMorphMeshModel::draw() End() に失敗しました。");
 
 #ifdef MY_DEBUG
-                if (GgafDxEffectManager::_pEffect_Active->_begin == false) {
-                    throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+                if (GgafDxEffectManager::_pEffect_active->_begin == false) {
+                    throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_active->_effect_name)<<"");
                 } else {
-                    GgafDxEffectManager::_pEffect_Active->_begin = false;
+                    GgafDxEffectManager::_pEffect_active->_begin = false;
                 }
 #endif
 
@@ -148,7 +148,7 @@ HRESULT GgafDxMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int p
 
 #ifdef MY_DEBUG
             if (pMorphMeshEffect->_begin) {
-                throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+                throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_active->_effect_name)<<"");
             } else {
                 pMorphMeshEffect->_begin = true;
             }
@@ -169,8 +169,8 @@ HRESULT GgafDxMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int p
         GgafGod::_num_actor_drawing++;
     }
     GgafDxModelManager::_pModelLastDraw = this;
-    GgafDxEffectManager::_pEffect_Active = pMorphMeshEffect;
-    GgafDxDrawableActor::_hash_technique_last_draw = prm_pActor_Target->_hash_technique;
+    GgafDxEffectManager::_pEffect_active = pMorphMeshEffect;
+    GgafDxDrawableActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
 
     return D3D_OK;
 }
@@ -202,7 +202,7 @@ void GgafDxMorphMeshModel::release() {
 
     for (int pattern = 0; pattern <= _morph_target_num; pattern++) {
         if (pattern == 0) {
-            GGAF_RELEASE(_pIDirect3DVertexBuffer9_primary);
+            GGAF_RELEASE(_pVertexBuffer_primary);
             GGAF_DELETEARR(_paVtxBuffer_org_primary);
         } else {
             GGAF_RELEASE(_paIDirect3DVertexBuffer9_morph[pattern-1]);
@@ -214,7 +214,7 @@ void GgafDxMorphMeshModel::release() {
 
     GGAF_DELETEARR(_paIDirect3DVertexBuffer9_morph);
     GGAF_DELETEARR(_papaVtxBuffer_org_morph);
-    GGAF_RELEASE(_pIDirect3DIndexBuffer9);
+    GGAF_RELEASE(_pIndexBuffer);
     GGAF_RELEASE(_pIDirect3DVertexDeclaration9);
 
     GGAF_DELETEARR(_papModel3D);

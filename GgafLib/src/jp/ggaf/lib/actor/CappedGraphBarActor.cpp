@@ -37,9 +37,9 @@ void CappedGraphBarActor::processDraw() {
     }
 #endif
     if (_valign == VALIGN_BOTTOM) {
-        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_y, (float)(-_pBoardModel->_fSize_BoardModelHeightPx));
+        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_y, (float)(-_pBoardModel->_model_height_px));
     } else if (_valign == VALIGN_MIDDLE) {
-        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_y, (float)(-_pBoardModel->_fSize_BoardModelHeightPx*0.5));
+        hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_y, (float)(-_pBoardModel->_model_height_px*0.5));
     } else { //VALIGN_TOP
         hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_y, 0.0f);
     }

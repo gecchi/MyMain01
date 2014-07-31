@@ -80,7 +80,7 @@ public:
     /** [r]視錐台奥面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
     dxcoord _dest_from_vppln_back;
     /** [r/w]WORLD変換(回転×移動)行列計算関数 */
-    void (*_pFunc_calcRotMvWorldMatrix)(GgafDxGeometricActor*, D3DXMATRIX&);
+    void (*_pFunc_calc_rot_mv_world_matrix)(GgafDxGeometricActor*, D3DXMATRIX&);
     /** [r]自身の現在のWorld変換行列(通常は「拡大縮小×回転×移動」)。土台がある場合は、その土台と行列の積になっている。 */
     D3DXMATRIX _matWorld;
     /** [r]自身の現在のWorld変換行列の「回転×移動」のみ。土台がある場合は、その土台と行列の積になっている。 */
@@ -91,7 +91,7 @@ public:
     bool _was_calculated_matInvWorldRotMv;
 
     /** [r]土台となるアクター、土台が無い場合はnullptr（FK用） */
-    GgafDxCore::GgafDxGeometricActor* _pActor_Base;
+    GgafDxCore::GgafDxGeometricActor* _pActor_base;
     /** [r]土台アクター上でのワールドX座標 */
     coord _x_local;
     /** [r]土台アクター上でのワールドY座標 */
@@ -512,7 +512,7 @@ public:
      */
     inline void changeGeoLocal() {
 #ifdef MY_DEBUG
-        if (!_pActor_Base) {
+        if (!_pActor_base) {
             throwGgafCriticalException("changeGeoLocal() : 土台アクターがありません。確認して下さい。this="<<getName()<<"("<<this<<")");
         }
         if (_is_local) {
@@ -542,7 +542,7 @@ public:
      */
     inline void changeGeoFinal() {
 #ifdef MY_DEBUG
-        if (!_pActor_Base) {
+        if (!_pActor_base) {
             throwGgafCriticalException("changeGeoFinal() : 土台アクターがありません。確認して下さい。this="<<getName()<<"("<<this<<")");
         }
         if (!_is_local) {
@@ -619,7 +619,7 @@ public:
      * @return 土台となるアクター
      */
     inline GgafDxGeometricActor* getBaseActor() {
-        return _pActor_Base;
+        return _pActor_base;
     }
 
 

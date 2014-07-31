@@ -28,12 +28,12 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) :
     iMovePatternNo_ = 0;
     pProgram_Tamago01Move_ = nullptr;
     pDepoConnection_ = nullptr;
-    pDepo_Shot_ = nullptr;
-    pDepo_ShotEffect_ = nullptr;
+    pDepo_shot_ = nullptr;
+    pDepo_shotEffect_ = nullptr;
 
     pDepoConnection_ = connect_DepositoryManager("Shot001");
-    //pDepo_Shot_ = pDepoConnection_->peek();
-    pDepo_Shot_ = nullptr;
+    //pDepo_shot_ = pDepoConnection_->peek();
+    pDepo_shot_ = nullptr;
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(0, "WAVE_EXPLOSION_001");
 }
@@ -152,7 +152,7 @@ void EnemyTamago01::processBehavior() {
         pKuroko->turnMvAngTwd(P_MYSHIP,
                                 2000,0,TURN_CLOSE_TO, false);
 
-        if (pDepo_Shot_) {
+        if (pDepo_shot_) {
             //放射状ショット発射
             int way = 8;
             angle* paAng_way = NEW angle[way];
@@ -164,7 +164,7 @@ void EnemyTamago01::processBehavior() {
             UTIL::getWayAngle2D(target_RyRz_Ry, way, 10000, paAng_way);
             GgafDxDrawableActor* pActor;
             for (int i = 0; i < way; i++) {
-                pActor = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
+                pActor = (GgafDxDrawableActor*)pDepo_shot_->dispatch();
                 if (pActor) {
                     pActor->getKuroko()->relateFaceByMvAng(true);
                     pActor->getKuroko()->setRzRyMvAng_by_RyRz(paAng_way[i], target_RyRz_Rz);
@@ -173,8 +173,8 @@ void EnemyTamago01::processBehavior() {
             }
             GGAF_DELETEARR(paAng_way);
             //ショット発射エフェクト
-            if (pDepo_ShotEffect_) {
-                pActor = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
+            if (pDepo_shotEffect_) {
+                pActor = (GgafDxDrawableActor*)pDepo_shot_->dispatch();
                 if (pActor) {
                     pActor->positionAs(this);
                 }

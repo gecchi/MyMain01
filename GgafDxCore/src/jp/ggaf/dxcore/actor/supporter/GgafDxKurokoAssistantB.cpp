@@ -134,12 +134,12 @@ void GgafDxKurokoAssistantB::turnFaceAngByDtTwd(
 }
 
 void GgafDxKurokoAssistantB::turnFaceAngByDtTwd(
-                    GgafDxGeometricActor* prm_pActor_Target, int prm_way, bool prm_optimize_ang,
+                    GgafDxGeometricActor* prm_pActor_target, int prm_way, bool prm_optimize_ang,
                     int prm_target_frames,
                     float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                     bool prm_endacc_flg) {
     turnFaceAngByDtTwd(
-            prm_pActor_Target->_x, prm_pActor_Target->_y, prm_pActor_Target->_z, prm_way, prm_optimize_ang,
+            prm_pActor_target->_x, prm_pActor_target->_y, prm_pActor_target->_z, prm_way, prm_optimize_ang,
             prm_target_frames,
             prm_p1, prm_p2, prm_end_angvelo,
             prm_endacc_flg);
@@ -251,13 +251,13 @@ void GgafDxKurokoAssistantB::turnFaceAngByVdTwd(
 
 void GgafDxKurokoAssistantB::turnFaceAngByVdTwd(
         angvelo prm_top_angvelo,
-        GgafDxGeometricActor* prm_pActor_Target, int prm_way, bool prm_optimize_ang,
+        GgafDxGeometricActor* prm_pActor_target, int prm_way, bool prm_optimize_ang,
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
         bool prm_endacc_flg) {
 
     turnFaceAngByVdTwd(
             prm_top_angvelo,
-            prm_pActor_Target->_x, prm_pActor_Target->_y, prm_pActor_Target->_z, prm_way, prm_optimize_ang,
+            prm_pActor_target->_x, prm_pActor_target->_y, prm_pActor_target->_z, prm_way, prm_optimize_ang,
             prm_p1, prm_p2, prm_end_angvelo,
             prm_endacc_flg);
 }

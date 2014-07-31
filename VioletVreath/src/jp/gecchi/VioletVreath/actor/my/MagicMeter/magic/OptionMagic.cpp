@@ -62,9 +62,9 @@ void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
         MyMagicEnergyCore* pCore = pMyShip->pMyMagicEnergyCore_;
         angle* paAng_way = NEW angle[prm_new_level-prm_now_level];
         UTIL::getRadialAngle2D(0, prm_new_level-prm_now_level, paAng_way);
-        velo veloVxMv = pCore->pAxsMver_->_veloVxMv;
-        velo veloVyMv = pCore->pAxsMver_->_veloVyMv;
-        velo veloVzMv = pCore->pAxsMver_->_veloVzMv;
+        velo veloVxMv = pCore->pAxsMver_->_velo_vx_mv;
+        velo veloVyMv = pCore->pAxsMver_->_velo_vy_mv;
+        velo veloVzMv = pCore->pAxsMver_->_velo_vz_mv;
         EffectOptionMagic001* pEffect;
         for (int lv = prm_now_level+1, n = 0; lv <= prm_new_level; lv++, n++) {
             pEffect = papEffect_[lv-1];
