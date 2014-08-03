@@ -22,7 +22,7 @@ EnemyHisbe002::EnemyHisbe002(const char* prm_name) :
     _class_name = "EnemyHisbe002";
     pKurokoLeader_ = nullptr;
     pDepo_shot_ = nullptr;
-    pDepo_shotEffect_ = nullptr;
+    pDepo_effect_ = nullptr;
 
     pLaserChipDepo_ = NEW LaserChipDepository("HisbeLaser");
     EnemyHisbeLaserChip003* pChip;

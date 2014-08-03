@@ -23,9 +23,9 @@ public:
     /** 弾ストック */
     GgafCore::GgafActorDepository* pDepo_shot_;
     /** 弾発射効果エフェクト */
-    GgafCore::GgafActorDepository* pDepo_shotEffect_;
+    GgafCore::GgafActorDepository* pDepo_effect_;
 
-    DepositoryConnection* pDepoConnection_;
+    DepositoryConnection* pDepoConn_;
 
 public:
     /**
@@ -81,7 +81,7 @@ public:
      * @param prm_pDepo (GgafDxDrawableActor*)にキャスト可能なアクターをサブに持つデポジトリのポインタ
      */
     void setDepository_ShotEffect(GgafCore::GgafActorDepository* prm_pDepo) {
-        pDepo_shotEffect_ = prm_pDepo;
+        pDepo_effect_ = prm_pDepo;
     }
 
     virtual ~EnemyTamago01();

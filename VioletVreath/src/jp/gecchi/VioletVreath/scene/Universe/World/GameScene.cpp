@@ -28,7 +28,7 @@ using namespace VioletVreath;
 
 GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) ,
 pCommonScene_(nullptr),
-pMyShip_Scene_(nullptr),
+pMyShipScene_(nullptr),
 pStageWorld_(nullptr) {
 
     _class_name = "GameScene";
@@ -36,9 +36,9 @@ pStageWorld_(nullptr) {
     pCommonScene_ = NEW CommonScene("Common");
     pCommonScene_->inactivate();
     addSubLast(pCommonScene_);
-    pMyShip_Scene_ = NEW MyShipScene("MyShipScene");
-    pMyShip_Scene_->inactivate();
-    addSubLast(pMyShip_Scene_);
+    pMyShipScene_ = NEW MyShipScene("MyShipScene");
+    pMyShipScene_->inactivate();
+    addSubLast(pMyShipScene_);
     pStageWorld_ = new StageWorld("StageWorld");
     pStageWorld_->inactivate();
     addSubLast(pStageWorld_);

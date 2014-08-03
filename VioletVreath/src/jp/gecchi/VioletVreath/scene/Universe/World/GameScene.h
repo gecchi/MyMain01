@@ -41,7 +41,7 @@ public:
 
 
     CommonScene* pCommonScene_;
-    MyShipScene* pMyShip_Scene_;
+    MyShipScene* pMyShipScene_;
 
     MenuBoardPause* pMenuBoardPause_;
     /** GameMainAˆ½‚¢‚ÍADemo‚Ì”z‰º‚ÖˆÚ“®‚³‚ê‚é */

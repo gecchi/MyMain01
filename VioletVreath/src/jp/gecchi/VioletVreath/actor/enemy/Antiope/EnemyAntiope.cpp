@@ -70,12 +70,12 @@ void EnemyAntiope::processBehavior() {
 
          case PROG_MOVE01: { //•ú•¨ü‚Ì‚æ‚¤‚È“®‚«
              if (pProg->isJustChanged()) {
-                 pKuroko->setMvVelo(30000);
+                 pKuroko->setMvVelo(PX_C(30));
                  pKuroko->setMvAcce(-1000);
                  pAxsMver_->setVxyzMvVelo(mv_velo_twd_.x, mv_velo_twd_.y, mv_velo_twd_.z);
              }
 
-             if (pKuroko->_velo_mv <= (-30000 + 1000)) {
+             if (pKuroko->_velo_mv <= (-PX_C(30) + 1000)) {
                  if (pP_) {
                      pKuroko->stopMv();
                      pAxsMver_->setZeroVxyzMvVelo();
@@ -107,7 +107,8 @@ void EnemyAntiope::processBehavior() {
 
          case PROG_RUSH: {
              if (pProg->isJustChanged()) {
-                 pAxsMver_->execGravitationMvSequenceTwd(P_MYSHIP, 30000, 1000, PX_C(100));
+                 pAxsMver_->execGravitationMvSequenceTwd(P_MYSHIP, PX_C(30), 200, PX_C(50));
+                 pKuroko->keepOnTurningFaceAngTwd(P_MYSHIP, D_ANG(2), 0, TURN_CLOSE_TO, false);
              }
              break;
          }

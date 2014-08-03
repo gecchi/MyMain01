@@ -12,7 +12,7 @@ namespace VioletVreath {
  */
 class FormationAllas002 : public GgafLib::TreeFormation {
     /** リスの発射弾の借り入れ元Depository資源への接続 */
-    DepositoryConnection* pDepoConnection_;
+    DepositoryConnection* pDepoConn_;
     /** スプライン定義資源への接続 */
     GgafLib::SplineManufactureConnection* pSplManufConnection_;
 

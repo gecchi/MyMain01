@@ -20,7 +20,7 @@ class EnemyHisbe :  public GgafLib::DefaultMorphMeshActor {
     /** 弾ストック */
     GgafCore::GgafActorDepository* pDepo_shot_;
     /** 弾発射効果エフェクト */
-    GgafCore::GgafActorDepository* pDepo_shotEffect_;
+    GgafCore::GgafActorDepository* pDepo_effect_;
 
 
     DepositoryConnection* pConn_pLaserChipDepoStore_;
@@ -104,7 +104,7 @@ public:
      * @param prm_pDepo
      */
     void setDepository_ShotEffect(GgafCore::GgafActorDepository* prm_pDepo) {
-        pDepo_shotEffect_ = prm_pDepo;
+        pDepo_effect_ = prm_pDepo;
     }
 
     virtual ~EnemyHisbe();

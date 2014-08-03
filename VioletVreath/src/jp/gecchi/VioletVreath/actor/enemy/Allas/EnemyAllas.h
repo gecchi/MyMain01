@@ -23,7 +23,7 @@ public:
     /** 弾ストック */
     GgafCore::GgafActorDepository* pDepo_shot_;
     /** 弾発射効果エフェクト */
-    GgafCore::GgafActorDepository* pDepo_shotEffect_;
+    GgafCore::GgafActorDepository* pDepo_effect_;
     /** 行動パターン番号 */
     int iMovePatternNo_;
 
@@ -79,7 +79,7 @@ public:
             ) {
         pKurokoLeader_ = prm_pKurokoLeader;
         pDepo_shot_ = prm_pDepo_shot;
-        pDepo_shotEffect_ = prm_pDepo_shotEffect;
+        pDepo_effect_ = prm_pDepo_shotEffect;
     }
 
 

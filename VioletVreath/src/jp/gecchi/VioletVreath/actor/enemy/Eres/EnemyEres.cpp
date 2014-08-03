@@ -31,22 +31,22 @@ EnemyEres::EnemyEres(const char* prm_name, GgafActorDepository* prm_pDepo_EnemyE
     if (prm_pDepo_EnemyEresShots001 == nullptr) {
         //共有の弾が引数に未指定の場合
         //弾ストック作成
-        pDepo_EnemyEresShots001_ = NEW GgafActorDepository("Depo_EnemyEresShots");
+        pDepo_shot001_ = NEW GgafActorDepository("Depo_EnemyEresShots");
         for (int i = 0; i < 32; i++) {
-            pDepo_EnemyEresShots001_->put(NEW EnemyEresShot001("EnemyEresShot"));
+            pDepo_shot001_->put(NEW EnemyEresShot001("EnemyEresShot"));
         }
-        addSubGroup(pDepo_EnemyEresShots001_);
+        addSubGroup(pDepo_shot001_);
         createGgafActorDepository_ = true;
     } else {
         //共有の弾が指定されてるの場合
-        pDepo_EnemyEresShots001_ = prm_pDepo_EnemyEresShots001;
+        pDepo_shot001_ = prm_pDepo_EnemyEresShots001;
         createGgafActorDepository_ = false;
     }
 
     pSplLineConnection_ = connect_SplineLineManager("Spl_001");
-    pProgram_EresMove_ = NEW FixedVelocitySplineKurokoLeader(getKuroko(), pSplLineConnection_->peek(), 5000); //移動速度固定
+    pKurokoLeader_ = NEW FixedVelocitySplineKurokoLeader(getKuroko(), pSplLineConnection_->peek(), 5000); //移動速度固定
 
-//    pProgram_EresMove_ = NEW FixedFrameSplineKurokoLeader(getKuroko(), pSplLineConnection_->peek(), 600, 5000); //移動フレーム数固定
+//    pKurokoLeader_ = NEW FixedFrameSplineKurokoLeader(getKuroko(), pSplLineConnection_->peek(), 600, 5000); //移動フレーム数固定
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
 }
@@ -66,7 +66,7 @@ void EnemyEres::onActive() {
     pKuroko->relateFaceByMvAng(true);
     pKuroko->setFaceAngVelo(AXIS_X, 6000);
     pKuroko->setMvVelo(8000);
-    pProgram_EresMove_->start(SplineKurokoLeader::ABSOLUTE_COORD); //スプライン移動を開始
+    pKurokoLeader_->start(SplineKurokoLeader::ABSOLUTE_COORD); //スプライン移動を開始
     frame_Active_ = 0;
 }
 
@@ -82,14 +82,14 @@ void EnemyEres::processBehavior() {
         UTIL::getRadialAngle2D(0, 32, way); //TODO:毎回求めるのは無駄
         GgafDxDrawableActor* pTama;
         for (int i = 0; i < 16; i++) {
-            pTama = (GgafDxDrawableActor*)pDepo_EnemyEresShots001_->dispatch();
+            pTama = (GgafDxDrawableActor*)pDepo_shot001_->dispatch();
             if (pTama) {
                 pTama->position(_x, _y, _z);
                 pTama->getKuroko()->setRzRyMvAng(-D90ANG + way[i], D90ANG);
             }
         }
         for (int i = 16; i < 32; i++) {
-            pTama = (GgafDxDrawableActor*)pDepo_EnemyEresShots001_->dispatch();
+            pTama = (GgafDxDrawableActor*)pDepo_shot001_->dispatch();
             if (pTama) {
                 pTama->position(_x, _y, _z);
                 pTama->getKuroko()->setRzRyMvAng(-D90ANG - way[i], -D90ANG);
@@ -98,7 +98,7 @@ void EnemyEres::processBehavior() {
 
         iMovePatternNo_++;
     }
-    pProgram_EresMove_->behave(); //スプライン移動を進める
+    pKurokoLeader_->behave(); //スプライン移動を進める
     getKuroko()->behave(); //次の座標へ移動
     //getSeTx()->behave();
     frame_Active_++;
@@ -124,8 +124,8 @@ void EnemyEres::onHit(GgafActor* prm_pOtherActor) {
 void EnemyEres::onInactive() {
     if (createGgafActorDepository_) {
         //弾は遅れて開放させるように、動きを継続させるため移動
-        getSceneDirector()->addSubLast(pDepo_EnemyEresShots001_->getMyGroupHead()->extract());
-        pDepo_EnemyEresShots001_->sayonara(60 * 5);//解放予約
+        getSceneDirector()->addSubLast(pDepo_shot001_->getMyGroupHead()->extract());
+        pDepo_shot001_->sayonara(60 * 5);//解放予約
     }
     sayonara();
 }
@@ -141,5 +141,5 @@ bool EnemyEres::isOutOfUniverse() {
 EnemyEres::~EnemyEres() {
     //staticなので最初の１回だけ解放したい
     pSplLineConnection_->close();
-    GGAF_DELETE_NULLABLE(pProgram_EresMove_);
+    GGAF_DELETE_NULLABLE(pKurokoLeader_);
 }

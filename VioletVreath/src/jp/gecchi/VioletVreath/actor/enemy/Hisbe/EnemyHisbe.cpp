@@ -27,7 +27,7 @@ EnemyHisbe::EnemyHisbe(const char* prm_name) :
     _class_name = "EnemyHisbe";
     pKurokoLeader_ = nullptr;
     pDepo_shot_ = nullptr;
-    pDepo_shotEffect_ = nullptr;
+    pDepo_effect_ = nullptr;
 
 //    //ƒŠƒtƒŒƒNƒVƒ‡ƒ“------>
 //    GgafActorDepository* pDepoEffect = NEW GgafActorDepository("HisbeLaser");

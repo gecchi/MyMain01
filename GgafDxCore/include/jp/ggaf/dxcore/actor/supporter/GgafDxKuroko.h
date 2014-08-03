@@ -832,7 +832,24 @@ public:
                       angvelo prm_angvelo, angacce prm_angacce,
                       int prm_way, bool prm_optimize_ang);
 
-
+    /**
+     * 移動方角を常に目標にターゲットするシークエンスを実行 .
+     * @param prm_tx 目標X座標
+     * @param prm_ty 目標Y座標
+     * @param prm_tz 目標Z座標
+     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
+     * @param prm_angacce 角加速度（正負自動判定）
+     * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
+     *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO<BR>
+     * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。<BR>
+     *                         true: 引数の prm_ang_rz_target, prm_ang_ry_target までの距離と、<BR>
+     *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、<BR>
+     *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。<BR>
+     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は<BR>
+     *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
+     *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
+     *                         false:引数の prm_ang_rz_target, prm_ang_ry_target をそのままターゲートとする。<BR>
+     */
     void keepOnTurningFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
                                  angvelo prm_angvelo, angacce prm_angacce,
                                  int prm_way, bool prm_optimize_ang) {
@@ -850,7 +867,22 @@ public:
         _taget_face_ang_alltime_optimize_ang = prm_optimize_ang;
     }
 
-
+    /**
+     * 移動方角を常に目標にターゲットするシークエンスを実行 .
+     * @param prm_pActor_target 目標オブジェクト
+     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
+     * @param prm_angacce 角加速度（正負自動判定）
+     * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
+     *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO<BR>
+     * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。<BR>
+     *                         true: 引数の prm_ang_rz_target, prm_ang_ry_target までの距離と、<BR>
+     *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、<BR>
+     *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。<BR>
+     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は<BR>
+     *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
+     *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
+     *                         false:引数の prm_ang_rz_target, prm_ang_ry_target をそのままターゲートとする。<BR>
+     */
     void keepOnTurningFaceAngTwd(GgafDxGeometricActor* prm_pActor_target,
                                  angvelo prm_angvelo, angacce prm_angacce,
                                  int prm_way, bool prm_optimize_ang) {

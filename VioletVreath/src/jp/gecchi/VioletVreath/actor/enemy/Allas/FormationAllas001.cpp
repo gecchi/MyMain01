@@ -21,7 +21,7 @@ FormationAllas001::FormationAllas001(const char* prm_name) :
     velo_mv_         = RF_FormationAllas001_MvVelo(G_RANK); //ë¨ìx
     //ÉAÉâÉXï“ë‡çÏê¨
     pSplManufConnection_ = connect_SplineManufactureManager("Allas01");
-    pDepoConnection_ = nullptr;
+    pDepoConn_ = nullptr;
     for (int i = 0; i < num_Allas_; i++) {
         EnemyAllas* pAllas= NEW EnemyAllas("Allas01");
         SplineKurokoLeader* pKurokoLeader = pSplManufConnection_->peek()->createKurokoLeader(pAllas->getKuroko());
@@ -56,7 +56,7 @@ void FormationAllas001::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
 
 FormationAllas001::~FormationAllas001() {
     pSplManufConnection_->close();
-    if (pDepoConnection_) {
-        pDepoConnection_->close();
+    if (pDepoConn_) {
+        pDepoConn_->close();
     }
 }

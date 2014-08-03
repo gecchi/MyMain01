@@ -29,7 +29,7 @@ EnemyOmulus::EnemyOmulus(const char* prm_name) :
     frame_of_morph_interval_ = 120;
 
     pDepo_Fired_ = nullptr;
-    pDepoConnection_ = connect_DepositoryManager("Talante");
+    pDepoConn_ = connect_DepositoryManager("Talante");
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
@@ -55,7 +55,7 @@ void EnemyOmulus::initialize() {
     setScale(1000);
     pScaler_->forceRange(1000, 1200);
     pScaler_->beat(30, 5, 0, 20, -1);
-    pDepo_Fired_ = pDepoConnection_->peek();
+    pDepo_Fired_ = pDepoConn_->peek();
 }
 
 void EnemyOmulus::onActive() {
@@ -254,6 +254,6 @@ void EnemyOmulus::onInactive() {
 }
 
 EnemyOmulus::~EnemyOmulus() {
-    pDepoConnection_->close();
+    pDepoConn_->close();
     GGAF_DELETE(pScaler_);
 }

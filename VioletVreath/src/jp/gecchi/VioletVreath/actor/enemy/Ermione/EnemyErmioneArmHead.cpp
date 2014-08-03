@@ -87,5 +87,5 @@ void EnemyErmioneArmHead::onHit(GgafActor* prm_pOtherActor) {
 
 
 EnemyErmioneArmHead::~EnemyErmioneArmHead() {
-//    pDepoConnection_->close();
+//    pDepoConn_->close();
 }

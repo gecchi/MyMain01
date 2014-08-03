@@ -32,7 +32,7 @@ public:
     /** 弾ストック */
     GgafCore::GgafActorDepository* pDepo_shot_;
     /** 弾発射効果エフェクト */
-    GgafCore::GgafActorDepository* pDepo_shotEffect_;
+    GgafCore::GgafActorDepository* pDepo_effect_;
 
     /** 行動パターン番号 */
     int iMovePatternNo_;

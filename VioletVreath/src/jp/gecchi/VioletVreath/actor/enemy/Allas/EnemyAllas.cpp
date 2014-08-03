@@ -23,7 +23,7 @@ EnemyAllas::EnemyAllas(const char* prm_name) :
     iMovePatternNo_ = 0;
     pKurokoLeader_ = nullptr;
     pDepo_shot_ = nullptr;
-    pDepo_shotEffect_ = nullptr;
+    pDepo_effect_ = nullptr;
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
     useProgress(10);
@@ -107,8 +107,8 @@ void EnemyAllas::processBehavior() {
                 }
                 GGAF_DELETEARR(paAng_way);
                 //ショット発射エフェクト
-                if (pDepo_shotEffect_) {
-                    GgafDxDrawableActor* pTestActor_Shot = (GgafDxDrawableActor*)pDepo_shotEffect_->dispatch();
+                if (pDepo_effect_) {
+                    GgafDxDrawableActor* pTestActor_Shot = (GgafDxDrawableActor*)pDepo_effect_->dispatch();
                     if (pTestActor_Shot) {
                         pTestActor_Shot->positionAs(this);
                     }

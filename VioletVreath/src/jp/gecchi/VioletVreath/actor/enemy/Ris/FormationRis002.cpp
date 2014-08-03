@@ -21,14 +21,14 @@ FormationRis002::FormationRis002(const char* prm_name) :
     velo_mv_         = RF_FormationRis002_MvVelo(G_RANK); //速度
     //スプライン移動の定義
     pSplLineConnection_ = connect_SplineLineManager("Spl_00202_");
-    pDepoConnection_ = connect_DepositoryManager("Shot002");
+    pDepoConn_ = connect_DepositoryManager("Shot002");
     //リス編隊作成
     for (int i = 0; i < num_Ris_; i++) {
         EnemyRis* pRis = NEW EnemyRis("Ris01");
         //スプライン移動プログラム設定
         SplineKurokoLeader* pProgram = NEW FixedVelocitySplineKurokoLeader(
                                          pRis->getKuroko(), pSplLineConnection_->peek(), 10000); //移動速度固定
-        pRis->config(pProgram, pDepoConnection_->peek(), nullptr);
+        pRis->config(pProgram, pDepoConn_->peek(), nullptr);
         addFormationMember(pRis);
     }
 }
@@ -55,5 +55,5 @@ void FormationRis002::onDestroyAll(GgafCore::GgafActor* prm_pActor_last_destroye
 
 FormationRis002::~FormationRis002() {
     pSplLineConnection_->close();
-    pDepoConnection_->close();
+    pDepoConn_->close();
 }

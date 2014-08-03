@@ -19,8 +19,8 @@ FormationUnomia::FormationUnomia(const char* prm_name, const char* prm_spl_id)
     _class_name = "FormationUnomia";
 
     //ウーノミア編隊用デポジトリ
-    pDepoConnection_Unomia_ = connect_DepositoryManager("EnemyUnomia4Formation");
-    setFormationMember(pDepoConnection_Unomia_->peek());
+    pDepoConn_Unomia_ = connect_DepositoryManager("EnemyUnomia4Formation");
+    setFormationMember(pDepoConn_Unomia_->peek());
 
     //スプライン定義ファイルを読み込む
     papSplManufConnection_ = NEW SplineManufactureConnection*[7];
@@ -42,10 +42,10 @@ void FormationUnomia::updateRankParameter() {
 }
 
 void FormationUnomia::initialize() {
-//    if (pDepoConnection_Unomia_->chkFirstConnectionIs(this)) {
-//        _TRACE_("pDepoConnection_Unomia_ は、ワシ("<<this<<")が育てたエヘン！")
+//    if (pDepoConn_Unomia_->chkFirstConnectionIs(this)) {
+//        _TRACE_("pDepoConn_Unomia_ は、ワシ("<<this<<")が育てたエヘン！")
 //        getPlatformScene()->getSceneDirector()->addSubGroup(
-//                pDepoConnection_Unomia_->peek()->extract()
+//                pDepoConn_Unomia_->peek()->extract()
 //                );
 //    }
 }
@@ -94,7 +94,7 @@ void FormationUnomia::processBehavior() {
 }
 
 FormationUnomia::~FormationUnomia() {
-    pDepoConnection_Unomia_->close();
+    pDepoConn_Unomia_->close();
     for (int i = 0; i < 7; i++) {
         papSplManufConnection_[i]->close();
     }

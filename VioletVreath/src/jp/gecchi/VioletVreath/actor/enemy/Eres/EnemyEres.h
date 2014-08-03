@@ -20,9 +20,9 @@ public:
     };
 
     /** 弾ストック */
-    GgafCore::GgafActorDepository* pDepo_EnemyEresShots001_;
+    GgafCore::GgafActorDepository* pDepo_shot001_;
     /** スプラインプログラム */
-    GgafLib::SplineKurokoLeader* pProgram_EresMove_;
+    GgafLib::SplineKurokoLeader* pKurokoLeader_;
 
     /** GgafActorDepositoryをコンストラクタで生成したか否か */
     bool createGgafActorDepository_;

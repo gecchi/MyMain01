@@ -20,7 +20,7 @@ EnemyEbe::EnemyEbe(const char* prm_name) :
     _class_name = "EnemyEbe";
     pKurokoLeader_ = nullptr;
     pDepo_shot_ = nullptr;
-    pDepo_shotEffect_ = nullptr;
+    pDepo_effect_ = nullptr;
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
@@ -47,7 +47,7 @@ void EnemyEbe::config(
     GGAF_DELETE_NULLABLE(pKurokoLeader_);
     pKurokoLeader_ = prm_pKurokoLeader;
     pDepo_shot_ = prm_pDepo_shot;
-    pDepo_shotEffect_ = prm_pDepo_shotEffect;
+    pDepo_effect_ = prm_pDepo_shotEffect;
 }
 
 void EnemyEbe::onActive() {

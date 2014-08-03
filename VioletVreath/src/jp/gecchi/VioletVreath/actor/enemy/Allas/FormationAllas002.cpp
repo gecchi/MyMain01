@@ -23,15 +23,15 @@ FormationAllas002::FormationAllas002(const char* prm_name) :
     //アラス編隊作成
     pSplManufConnection_ = connect_SplineManufactureManager("Allas02");
 //    pSplLineConnection_     = connect_SplineLineManager("Spl_Allas01"); //スプライン定義
-    //pDepoConnection_ = connect_DepositoryManager("Shot002");
-    pDepoConnection_ = nullptr;
+    //pDepoConn_ = connect_DepositoryManager("Shot002");
+    pDepoConn_ = nullptr;
     papAllas_ = NEW EnemyAllas*[num_Allas_];
     for (int i = 0; i < num_Allas_; i++) {
         papAllas_[i] = NEW EnemyAllas("Allas01");
         //スプライン移動プログラム設定
         SplineKurokoLeader* pProgram = pSplManufConnection_->peek()->createKurokoLeader(papAllas_[i]->getKuroko()); //移動速度固定
         papAllas_[i]->config(pProgram, nullptr, nullptr);
-        //papAllas_[i]->setDepository_Shot(pDepoConnection_->peek()); //弾設定
+        //papAllas_[i]->setDepository_Shot(pDepoConn_->peek()); //弾設定
         papAllas_[i]->inactivate();
         addFormationMember(papAllas_[i]);
     }
@@ -51,8 +51,8 @@ void FormationAllas002::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
 
 FormationAllas002::~FormationAllas002() {
     pSplManufConnection_->close();
-    if (pDepoConnection_) {
-        pDepoConnection_->close();
+    if (pDepoConn_) {
+        pDepoConn_->close();
     }
     GGAF_DELETEARR(papAllas_);
 }
