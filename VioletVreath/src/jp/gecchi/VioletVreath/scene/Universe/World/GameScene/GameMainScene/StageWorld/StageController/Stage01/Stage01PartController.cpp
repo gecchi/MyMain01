@@ -27,7 +27,7 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
 	_paFrame_NextEvent = new frame[2];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 2;
-	orderActorToFactory(10000000, FormationAntiope001, "FormationAntiope001-1");
+	orderActorToFactory(10000000, FormationRis001, "FormationRis001-1");
     // gen01 end
     useProgress(Stage01PartController::PROG_BANPEI-1);
 }
@@ -46,8 +46,8 @@ void Stage01PartController::processBehavior() {
 				break;
 			}
 			case 400: {
-				FormationAntiope001* pFAnti = (FormationAntiope001*)obtainActorFromFactory(10000000);
-				getSceneDirector()->addSubGroup(pFAnti);
+				FormationRis001* pF = (FormationRis001*)obtainActorFromFactory(10000000);
+				getSceneDirector()->addSubGroup(pF);
 				break;
 			}
 			default :

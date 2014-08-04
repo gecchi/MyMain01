@@ -353,7 +353,7 @@ void GgafDxUtil::getWayAngle2D(angle prm_angCenter, int prm_nWay, angle prm_angC
 
 void GgafDxUtil::getRadialAngle2D(angle prm_angStart, int prm_nWay, angle* out_paAngle) {
     for (int i = 0; i < prm_nWay; i++) {
-        out_paAngle[i] = GgafDxUtil::addAng(prm_angStart, (angle)(1.0f * D360ANG / prm_nWay * i));
+        out_paAngle[i] = GgafDxUtil::addAng(prm_angStart, (angle)(1.0 * D360ANG / prm_nWay * i));
     }
 }
 
