@@ -16,15 +16,13 @@ using namespace VioletVreath;
 
 FormationRis001::FormationRis001(const char* prm_name) : TreeFormation(prm_name) {
     _class_name = "FormationRis001";
-    num_Ris_        = RF_FormationRis001_Num(G_RANK);    //編隊数
+    num_Ris_         = RF_FormationRis001_Num(G_RANK);    //編隊数
     interval_frames_ = RF_FormationRis001_LaunchInterval(G_RANK);   //リスの間隔(frame)
     velo_mv_         = RF_FormationRis001_MvVelo(G_RANK); //速度
     //リス編隊作成
     pSplLineConnection_ = connect_SplineLineManager("Spl_00201_"); //スプライン定義
     pDepoConn_ = connect_DepositoryManager("Shot001");
-    //for (int i = 0; i < num_Ris_; i++) {
-
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < num_Ris_; i++) {
         EnemyRis* pRis = NEW EnemyRis("Ris01");
         //スプライン移動プログラム設定
         SplineKurokoLeader* pProgram = NEW FixedVelocitySplineKurokoLeader(

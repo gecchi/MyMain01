@@ -53,20 +53,14 @@ void SplineManufacture::calculate() {
         x_to = _sp->_x_compute[t]*_rate_x;
         y_to = _sp->_y_compute[t]*_rate_y;
         z_to = _sp->_z_compute[t]*_rate_z;
-        _paDistance_to[t] = UTIL::getDistance(
-                                    x_from,
-                                    y_from,
-                                    z_from,
-                                    x_to,
-                                    y_to,
-                                    z_to
-                                 );
+        _paDistance_to[t] = UTIL::getDistance(x_from, y_from, z_from,
+                                              x_to  , y_to  , z_to   );
         _total_distance += _paDistance_to[t];
     }
     _paDistance_to[0] = 0; //_paDistance_to[0] は最初の補完点までの距離となるべきだが、
-                          //SplineKurokoLeader::start() を行うまで距離が確定しない。ので使用不可。
-                          //最初の補完点までの距離は、SplineKurokoLeader メンバーの _distance_to_begin で
-                          //取得可能。
+                           //SplineKurokoLeader::start() を行うまで距離が確定しない。ので使用不可。
+                           //最初の補完点までの距離は、SplineKurokoLeader メンバーの _distance_to_begin で
+                           //取得可能。
 }
 
 SplineManufacture::~SplineManufacture () {

@@ -34,13 +34,13 @@ public:
      * @param prm_spent_frame 始点(アクターの現座標ではない)～最終地点到着までのフレーム数
      * @param prm_angveloRzRyMv アクターの旋回角度
      * @param prm_turn_way アクターの旋回方法(デフォルト TURN_CLOSE_TO)
-     * @param prm_turn_optimaize アクターの旋回の最適化オプション(デフォルト true)
+     * @param prm_turn_optimaize アクターの旋回の最適化オプション(デフォルト false)
      */
     FixedFrameSplineManufacture(const char* prm_source_file,
                                 frame prm_spent_frame,
                                 angvelo prm_angveloRzRyMv = (D90ANG/9),
                                 int prm_turn_way = TURN_CLOSE_TO,
-                                bool prm_turn_optimaize = true );
+                                bool prm_turn_optimaize = false );
 
     /**
      * コンストラクタ .
@@ -48,13 +48,13 @@ public:
      * @param prm_spent_frame 始点(アクターの現座標ではない)～最終地点到着までのフレーム数
      * @param prm_angveloRzRyMv アクターの旋回角度
      * @param prm_turn_way アクターの旋回方法 (デフォルト TURN_CLOSE_TO)
-     * @param prm_turn_optimaize アクターの旋回の最適化オプション(デフォルト true)
+     * @param prm_turn_optimaize アクターの旋回の最適化オプション(デフォルト false)
      */
     FixedFrameSplineManufacture(SplineSource* prm_pSplSrc,
                                 frame prm_spent_frame,
                                 angvelo prm_angveloRzRyMv = (D90ANG/9),
                                 int prm_turn_way = TURN_CLOSE_TO,
-                                bool prm_turn_optimaize = true );
+                                bool prm_turn_optimaize = false );
     /**
      * 初期化（計算）処理 .
      * プロパティを変更した場合、内部テーブル情報を更新するために

@@ -9,8 +9,8 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 
 SteppedCoordSplineManufacture::SteppedCoordSplineManufacture(const char* prm_source_file,
-                                                               int prm_turn_way,
-                                                               bool prm_turn_optimaize) :
+                                                             int prm_turn_way,
+                                                             bool prm_turn_optimaize) :
         SplineManufacture(prm_source_file) {
     _turn_way = prm_turn_way;
     _turn_optimize = prm_turn_optimaize;
@@ -20,8 +20,8 @@ SteppedCoordSplineManufacture::SteppedCoordSplineManufacture(const char* prm_sou
 }
 
 SteppedCoordSplineManufacture::SteppedCoordSplineManufacture(SplineSource* prm_pSplSrc,
-                                                               int prm_turn_way,
-                                                               bool prm_turn_optimaize) :
+                                                             int prm_turn_way,
+                                                             bool prm_turn_optimaize) :
         SplineManufacture(prm_pSplSrc) {
     _turn_way = prm_turn_way;
     _turn_optimize = prm_turn_optimaize;

@@ -16,7 +16,7 @@ using namespace VioletVreath;
 FormationRis002::FormationRis002(const char* prm_name) :
         TreeFormation(prm_name) {
     _class_name = "FormationRis002";
-    num_Ris_        = RF_FormationRis002_Num(G_RANK);    //編隊数
+    num_Ris_         = RF_FormationRis002_Num(G_RANK);    //編隊数
     interval_frames_ = RF_FormationRis002_LaunchInterval(G_RANK);   //リスの間隔(frame)
     velo_mv_         = RF_FormationRis002_MvVelo(G_RANK); //速度
     //スプライン移動の定義

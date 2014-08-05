@@ -47,7 +47,6 @@ public:
      * @param prm_pKuroko 対象のアクターの黒衣
      * @param prm_sp 計算済みスプラインオブジェクト
      * @param prm_angveloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
-     * @return
      */
     FixedVelocitySplineKurokoLeader(GgafDxCore::GgafDxKuroko* const prm_pKuroko,
                                     SplineLine* prm_sp,

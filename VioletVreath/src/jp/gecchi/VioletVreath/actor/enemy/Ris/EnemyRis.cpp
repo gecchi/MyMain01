@@ -77,8 +77,7 @@ void EnemyRis::processBehavior() {
         case 2:  //【パターン２：放射状ショット発射と自機へ方向転換】
             if (pDepo_shot_) {
                 //放射状ショット
-                int way = 4;//RF_EnemyRis_ShotWay(G_RANK); //ショットWAY数
-                _TRACE_("EnemyRis::processBehavior() way="<<way<<"");
+                int way = RF_EnemyRis_ShotWay(G_RANK); //ショットWAY数
                 angle* paAng_way = NEW angle[way];
                 UTIL::getRadialAngle2D(0, way, paAng_way);
                 GgafDxDrawableActor* pActor_shot;
@@ -86,7 +85,6 @@ void EnemyRis::processBehavior() {
                     pActor_shot = (GgafDxDrawableActor*)pDepo_shot_->dispatch();
                     if (pActor_shot) {
                         pActor_shot->positionAs(this);
-                        _TRACE_("["<<i<<"]EnemyRis::processBehavior() setRzRyMvAng("<<paAng_way[i]<<",D90ANG)");
                         pActor_shot->getKuroko()->setRzRyMvAng(paAng_way[i], D90ANG);
                     }
                 }
@@ -101,8 +99,8 @@ void EnemyRis::processBehavior() {
             }
             //自機へ方向転換
             pKuroko->turnMvAngTwd(P_MYSHIP,
-                                    3000, 0,
-                                    TURN_CLOSE_TO, true);
+                                  3000, 0,
+                                  TURN_CLOSE_TO, true);
             iMovePatternNo_++; //次の行動パターンへ
             break;
 
@@ -110,8 +108,8 @@ void EnemyRis::processBehavior() {
             if (_z-10000 < P_MYSHIP->_z && P_MYSHIP->_z < _z+10000) {
                 //自機とZ軸が接近したらグルッと逆回転で方向転換
                 pKuroko->turnMvAngTwd(MyShip::lim_x_behaind_ - 500000 , _y, _z,
-                                        10000, 0,
-                                        TURN_CLOSE_TO, true);
+                                      10000, 0,
+                                      TURN_CLOSE_TO, true);
                 pKuroko->setMvAcce(100);
                 iMovePatternNo_++;
             } else {
