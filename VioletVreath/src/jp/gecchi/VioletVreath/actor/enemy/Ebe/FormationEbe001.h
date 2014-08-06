@@ -12,7 +12,7 @@ namespace VioletVreath {
  */
 class FormationEbe001 : public FormationEbe {
     /** スプライン定義資源への接続 */
-    GgafLib::SplineManufactureConnection* pSplManufConnection_;
+    GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
 public:
 
     FormationEbe001(const char* prm_name);

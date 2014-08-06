@@ -43,7 +43,7 @@ public:
 
     /** [r/w]ハッチから発射されるアクターをメンバーに持つデポジトリ */
     GgafCore::GgafActorDepository* pDepo_Fired_;
-    DepositoryConnection* pDepoConn_;
+    DepositoryConnection* pConn_depo_;
 
 public:
     /**

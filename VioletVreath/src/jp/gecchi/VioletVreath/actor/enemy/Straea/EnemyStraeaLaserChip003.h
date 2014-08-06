@@ -7,7 +7,7 @@ namespace VioletVreath {
 class EnemyStraeaLaserChip003 : public GgafLib::WateringLaserChip {
 
 public:
-    GgafLib::SplineManufactureConnection* pSplManufConnection_;
+    GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
 
 public:

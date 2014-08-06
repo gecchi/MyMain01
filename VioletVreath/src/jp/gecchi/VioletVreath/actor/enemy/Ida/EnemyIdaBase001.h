@@ -18,7 +18,7 @@ public:
         PROG_MOVE ,
         PROG_BANPEI,
     };
-    GgafLib::SplineManufactureConnection* pSplManufConnection_;
+    GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
 
 public:

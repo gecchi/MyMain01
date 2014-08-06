@@ -14,11 +14,11 @@ using namespace VioletVreath;
 FormationEmilia::FormationEmilia(const char* prm_name)
    : DepositoryFormation(prm_name, 20*60) {
     _class_name = "FormationEmilia";
-    pDepoConn_Emilia_ = connect_DepositoryManager("Emilia");
-    pDepoConn_Fragment_ = connect_DepositoryManager("EmiliaFragment");
-    pDepoConn_Fragment_2_ = connect_DepositoryManager("EmiliaFragment2");
-    pDepoConn_Fragment_3_ = connect_DepositoryManager("EmiliaFragment3");
-    setFormationMember(pDepoConn_Emilia_->peek());
+    pConn_depo_Emilia_ = getConnection_DepositoryManager("Emilia");
+    pConn_depo_Fragment_ = getConnection_DepositoryManager("EmiliaFragment");
+    pConn_depo_Fragment_2_ = getConnection_DepositoryManager("EmiliaFragment2");
+    pConn_depo_Fragment_3_ = getConnection_DepositoryManager("EmiliaFragment3");
+    setFormationMember(pConn_depo_Emilia_->peek());
 }
 
 void FormationEmilia::updateRankParameter() {
@@ -53,8 +53,8 @@ void FormationEmilia::processBehavior() {
 }
 
 FormationEmilia::~FormationEmilia() {
-    pDepoConn_Emilia_->close();
-    pDepoConn_Fragment_->close();
-    pDepoConn_Fragment_2_->close();
-    pDepoConn_Fragment_3_->close();
+    pConn_depo_Emilia_->close();
+    pConn_depo_Fragment_->close();
+    pConn_depo_Fragment_2_->close();
+    pConn_depo_Fragment_3_->close();
 }

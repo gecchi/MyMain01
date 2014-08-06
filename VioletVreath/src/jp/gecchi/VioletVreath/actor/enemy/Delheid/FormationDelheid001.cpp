@@ -14,7 +14,7 @@ using namespace VioletVreath;
 FormationDelheid001::FormationDelheid001(const char* prm_name) :
         FormationDelheid(prm_name) {
     _class_name = "FormationDelheid001";
-    pSplManufConnection_ = connect_SplineManufactureManager("FormationDelheid001");
+    pConn_pSplManuf_ = getConnection_SplineManufactureManager("FormationDelheid001");
 }
 
 void FormationDelheid001::onCallUpDelheid(EnemyDelheid* pEnemyDelheid) {
@@ -23,12 +23,12 @@ void FormationDelheid001::onCallUpDelheid(EnemyDelheid* pEnemyDelheid) {
 }
 
 GgafLib::SplineManufacture* FormationDelheid001::getSplManuf() {
-    return pSplManufConnection_->peek(); //e
+    return pConn_pSplManuf_->peek(); //e
 }
 void FormationDelheid001::processBehavior() {
     FormationDelheid::processBehavior();
 }
 
 FormationDelheid001::~FormationDelheid001() {
-    pSplManufConnection_->close();
+    pConn_pSplManuf_->close();
 }

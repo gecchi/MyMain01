@@ -76,9 +76,9 @@ MenuBoardKeyConfig::MenuBoardKeyConfig(const char* prm_name) :
         addDisp(paVBProperties[i].pJoy, PX_C(800), PX_C(100+(i*20)));
     }
 
-    LabelMenuTitleFont01* pLabel_Title = NEW LabelMenuTitleFont01("LABEL_TITLE");
-    pLabel_Title->update("SELECT AND PUSH KEY, JOY BUTTON!!", ALIGN_CENTER, VALIGN_MIDDLE);
-    addDisp(pLabel_Title, PX_C(300), PX_C(40));
+    LabelMenuTitleFont01* pLabel_title = NEW LabelMenuTitleFont01("LABEL_TITLE");
+    pLabel_title->update("SELECT AND PUSH KEY, JOY BUTTON!!", ALIGN_CENTER, VALIGN_MIDDLE);
+    addDisp(pLabel_title, PX_C(300), PX_C(40));
 
     //メニューカーソルを設定
     CursorConfig002* pCursor = NEW CursorConfig002("CursorConfig002");

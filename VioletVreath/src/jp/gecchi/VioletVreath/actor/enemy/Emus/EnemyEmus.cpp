@@ -30,10 +30,10 @@ EnemyEmus::EnemyEmus(const char* prm_name) :
     frame_of_close_interval_ = 5*60;
     frame_of_morph_interval_ = 120;
 
-//    pConn_pLaserChipDepoStore_ = connect_DepositoryManager(
+//    pConn_pDepoStore_laser_set = getConnection_DepositoryManager(
 //             "EnemyEmusLaserChip001DepoStore"
 //         );
-//    pLaserChipDepoStore_ = (GgafActorDepositoryStore*)(pConn_pLaserChipDepoStore_->peek());
+//    pDepoStore_laser_set = (GgafActorDepositoryStore*)(pConn_pDepoStore_laser_set->peek());
     pLaserChipDepo_ = nullptr;
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
@@ -178,5 +178,5 @@ void EnemyEmus::onInactive() {
 
 EnemyEmus::~EnemyEmus() {
     GGAF_DELETE(pScaler_);
-//    pConn_pLaserChipDepoStore_->close();
+//    pConn_pDepoStore_laser_set->close();
 }

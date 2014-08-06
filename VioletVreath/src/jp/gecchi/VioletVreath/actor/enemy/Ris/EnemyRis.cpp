@@ -77,7 +77,7 @@ void EnemyRis::processBehavior() {
         case 2:  //【パターン２：放射状ショット発射と自機へ方向転換】
             if (pDepo_shot_) {
                 //放射状ショット
-                int way = RF_EnemyRis_ShotWay(G_RANK); //ショットWAY数
+                int way = 2;//RF_EnemyRis_ShotWay(G_RANK); //ショットWAY数
                 angle* paAng_way = NEW angle[way];
                 UTIL::getRadialAngle2D(0, way, paAng_way);
                 GgafDxDrawableActor* pActor_shot;

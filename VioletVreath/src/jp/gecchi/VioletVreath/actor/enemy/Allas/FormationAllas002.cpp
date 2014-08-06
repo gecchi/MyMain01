@@ -21,17 +21,17 @@ FormationAllas002::FormationAllas002(const char* prm_name) :
     interval_frames_ = RF_FormationAllas002_LaunchInterval(G_RANK);  //アラスの間隔(frame)
     velo_mv_         = RF_FormationAllas002_MvVelo(G_RANK); //速度
     //アラス編隊作成
-    pSplManufConnection_ = connect_SplineManufactureManager("Allas02");
-//    pSplLineConnection_     = connect_SplineLineManager("Spl_Allas01"); //スプライン定義
-    //pDepoConn_ = connect_DepositoryManager("Shot002");
-    pDepoConn_ = nullptr;
+    pConn_pSplManuf_ = getConnection_SplineManufactureManager("Allas02");
+//    pSplLineConnection_     = getConnection_SplineLineManager("Spl_Allas01"); //スプライン定義
+    //pConn_depo_ = getConnection_DepositoryManager("Shot002");
+    pConn_depo_ = nullptr;
     papAllas_ = NEW EnemyAllas*[num_Allas_];
     for (int i = 0; i < num_Allas_; i++) {
         papAllas_[i] = NEW EnemyAllas("Allas01");
         //スプライン移動プログラム設定
-        SplineKurokoLeader* pProgram = pSplManufConnection_->peek()->createKurokoLeader(papAllas_[i]->getKuroko()); //移動速度固定
+        SplineKurokoLeader* pProgram = pConn_pSplManuf_->peek()->createKurokoLeader(papAllas_[i]->getKuroko()); //移動速度固定
         papAllas_[i]->config(pProgram, nullptr, nullptr);
-        //papAllas_[i]->setDepository_Shot(pDepoConn_->peek()); //弾設定
+        //papAllas_[i]->setDepository_Shot(pConn_depo_->peek()); //弾設定
         papAllas_[i]->inactivate();
         addFormationMember(papAllas_[i]);
     }
@@ -50,9 +50,9 @@ void FormationAllas002::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
 }
 
 FormationAllas002::~FormationAllas002() {
-    pSplManufConnection_->close();
-    if (pDepoConn_) {
-        pDepoConn_->close();
+    pConn_pSplManuf_->close();
+    if (pConn_depo_) {
+        pConn_depo_->close();
     }
     GGAF_DELETEARR(papAllas_);
 }

@@ -12,7 +12,7 @@ namespace VioletVreath {
  */
 class FormationRis002 : public GgafLib::TreeFormation {
 
-    DepositoryConnection* pDepoConn_;
+    DepositoryConnection* pConn_depo_;
     SplineLineConnection* pSplLineConnection_;
 
 public:

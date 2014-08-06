@@ -49,9 +49,9 @@ void EnemyEmiliaBase::onHit(GgafActor* prm_pOtherActor) {
 
 void EnemyEmiliaBase::appearFragment(const char* prm_dp_name) {
     //ífï–èoåª
-    DepositoryConnection* pDepoConn = connect_DepositoryManager(prm_dp_name);
+    DepositoryConnection* pConn_depo = getConnection_DepositoryManager(prm_dp_name);
     for (int i = 0; i < RF_EnemyEmilia_ShotWay(G_RANK); i++) {
-        EnemyEmiliaBase* pFragment = (EnemyEmiliaBase*)(pDepoConn->peek()->dispatch());
+        EnemyEmiliaBase* pFragment = (EnemyEmiliaBase*)(pConn_depo->peek()->dispatch());
         if (pFragment) {
             pFragment->positionAs(this);
             GgafDxKuroko* pFragment_pKuroko = pFragment->getKuroko();
@@ -61,7 +61,7 @@ void EnemyEmiliaBase::appearFragment(const char* prm_dp_name) {
             pFragment_pKuroko->addRzMvAng(RND(D_ANG(-45), D_ANG(+45)));
         }
     }
-    pDepoConn->close();
+    pConn_depo->close();
 }
 void EnemyEmiliaBase::onInactive() {
     sayonara();

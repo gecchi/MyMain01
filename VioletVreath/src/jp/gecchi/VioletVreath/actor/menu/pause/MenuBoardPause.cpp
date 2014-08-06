@@ -43,7 +43,7 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
           "KEY CONFIG",
           "SOUND CONFIG",
           "REBOOT",
-          "QUIT_GAME"
+          "QUIT GAME"
     };
     for (int i = ITEM_BACK_TO_GAME; i < ITEM_BANPEI; i++) {
         LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("item");
@@ -51,9 +51,9 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
         addItem(pLabel, PX_C(100+((i/4)*300)), PX_C(100+((i%4)*30)));
     }
     //メニューアイテム（表示ラベル）設定
-    LabelMenuTitleFont01* pLabel_Title = NEW LabelMenuTitleFont01("LABEL_TITLE");
-    pLabel_Title->update("[PAUSE MENU]", ALIGN_CENTER, VALIGN_MIDDLE);
-    addDisp(pLabel_Title, PX_C(100), PX_C(20));
+    LabelMenuTitleFont01* pLabel_title = NEW LabelMenuTitleFont01("LABEL_TITLE");
+    pLabel_title->update("[PAUSE MENU]", ALIGN_CENTER, VALIGN_MIDDLE);
+    addDisp(pLabel_title, PX_C(100), PX_C(20));
 
     //特別なメニューカーソルオーダーを構築
     relateItemToExNext(ITEM_BACK_TO_GAME , ITEM_KEY_CONFIG ,  ITEM_GO_TO_TITLE );
@@ -78,6 +78,7 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
 }
 void MenuBoardPause::onRise() {
     getItem(ITEM_DUMMY1)->inactivate(); //無効テスト
+    MenuBoard::onRise();
 }
 bool MenuBoardPause::condSelectNext() {
     return VB->isAutoRepeat(VB_UI_DOWN) ? true : false;

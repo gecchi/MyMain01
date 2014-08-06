@@ -41,9 +41,9 @@ public:
     frame frame_of_morph_interval_;
 
 //    /** [r]レーザーセットのストアー(レーザーチップのデポジトリのデポジトリ) */
-//    GgafCore::GgafActorDepositoryStore* pLaserChipDepoStore_;
+//    GgafCore::GgafActorDepositoryStore* pDepoStore_laser_set;
 //    /** [r]デポジトリマネージャーへの接続 */
-//    DepositoryConnection* pConn_pLaserChipDepoStore_;
+//    DepositoryConnection* pConn_pDepoStore_laser_set;
     /** [r]レーザーセット(レーザーチップのデポジトリ) */
     GgafLib::LaserChipDepository* pLaserChipDepo_;
 

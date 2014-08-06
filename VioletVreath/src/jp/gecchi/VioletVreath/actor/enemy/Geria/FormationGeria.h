@@ -10,7 +10,7 @@ namespace VioletVreath {
  */
 class FormationGeria : public GgafLib::DefaultGeometricActor {
     /** ゲリアストック */
-    GgafCore::GgafActorDepository* pDepo_EnemyGeria_;
+    GgafCore::GgafActorDepository* pDepo_;
 
 public:
     /** 平行移動支援 */

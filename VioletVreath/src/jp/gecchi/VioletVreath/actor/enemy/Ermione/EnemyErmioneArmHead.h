@@ -14,7 +14,7 @@ namespace VioletVreath {
 class EnemyErmioneArmHead : public EnemyErmioneArm {
 
 public:
-    GgafLib::LaserChipDepository* pDepoLaser_;
+    GgafLib::LaserChipDepository* pDepo_laser_chip_;
 public:
     EnemyErmioneArmHead(const char* prm_name);
 

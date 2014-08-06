@@ -18,11 +18,11 @@ using namespace VioletVreath;
 EnemyStraeaLaserChip004::EnemyStraeaLaserChip004(const char* prm_name) :
         HomingLaserChip(prm_name, "StraeaLaserChip001", STATUS(EnemyStraeaLaserChip004)) {
     _class_name = "EnemyStraeaLaserChip004";
-    pSplManufConnection_ = connect_SplineManufactureManager("GURUGURU");
-    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(getKuroko());
+    pConn_pSplManuf_ = getConnection_SplineManufactureManager("GURUGURU");
+    pKurokoLeader_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
 //    if (pTexCon1_ == nullptr) {
-//        pTexCon1_ = connect_ModelTextureManager("StraeaLaserChip001.png");
-//        pTexCon2_ = connect_ModelTextureManager("EsperiaLaserChip001.png");
+//        pTexCon1_ = getConnection_ModelTextureManager("StraeaLaserChip001.png");
+//        pTexCon2_ = getConnection_ModelTextureManager("EsperiaLaserChip001.png");
 //        pModel->setMaterialTexture(0, pTexCon1_);
 //
 //    }
@@ -87,7 +87,7 @@ void EnemyStraeaLaserChip004::onHit(GgafActor* prm_pOtherActor) {
 
 EnemyStraeaLaserChip004::~EnemyStraeaLaserChip004() {
     GGAF_DELETE(pKurokoLeader_);
-    pSplManufConnection_->close();
+    pConn_pSplManuf_->close();
     //if (pTexCon1_) {
     //    pTexCon1_->close();
     //    pTexCon1_ = nullptr;

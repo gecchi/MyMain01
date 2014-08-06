@@ -44,9 +44,9 @@ MenuBoardConfig::MenuBoardConfig(const char* prm_name) :
         addItem(pLabel, PX_C(200), PX_C(100+((i%4)*30)));
     }
     //表示ラベル設定
-    LabelMenuTitleFont01* pLabel_Title = NEW LabelMenuTitleFont01("LABEL_TITLE");
-    pLabel_Title->update("[CONFIG MENU]", ALIGN_CENTER, VALIGN_MIDDLE);
-    addDisp(pLabel_Title, PX_C(100), PX_C(40));
+    LabelMenuTitleFont01* pLabel_title = NEW LabelMenuTitleFont01("LABEL_TITLE");
+    pLabel_title->update("[CONFIG MENU]", ALIGN_CENTER, VALIGN_MIDDLE);
+    addDisp(pLabel_title, PX_C(100), PX_C(40));
     //キャンセルアイテム設定
     relateAllItemToCancel(ITEM_BACK);
 

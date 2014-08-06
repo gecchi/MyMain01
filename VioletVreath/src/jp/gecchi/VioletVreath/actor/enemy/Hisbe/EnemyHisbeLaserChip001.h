@@ -13,7 +13,7 @@ namespace VioletVreath {
 class EnemyHisbeLaserChip001 : public GgafLib::HomingLaserChip {
 
 public:
-    GgafLib::SplineManufactureConnection* pSplManufConnection_;
+    GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
     GgafLib::DefaultScene* pNearestScrollingScene_;
 

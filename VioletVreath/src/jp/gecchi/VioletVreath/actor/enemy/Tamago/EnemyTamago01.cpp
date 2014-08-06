@@ -27,12 +27,12 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) :
     pScaler_ = NEW GgafDxScaler(this);
     iMovePatternNo_ = 0;
     pProgram_Tamago01Move_ = nullptr;
-    pDepoConn_ = nullptr;
+    pConn_depo_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
 
-    pDepoConn_ = connect_DepositoryManager("Shot001");
-    //pDepo_shot_ = pDepoConn_->peek();
+    pConn_depo_ = getConnection_DepositoryManager("Shot001");
+    //pDepo_shot_ = pConn_depo_->peek();
     pDepo_shot_ = nullptr;
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(0, "WAVE_EXPLOSION_001");
@@ -216,6 +216,6 @@ void EnemyTamago01::onInactive() {
 
 EnemyTamago01::~EnemyTamago01() {
     GGAF_DELETE(pScaler_);
-    pDepoConn_->close();
+    pConn_depo_->close();
     GGAF_DELETE_NULLABLE(pProgram_Tamago01Move_);
 }

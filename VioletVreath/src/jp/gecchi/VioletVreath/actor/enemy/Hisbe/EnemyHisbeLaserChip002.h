@@ -8,7 +8,7 @@ class EnemyHisbeLaserChip002 : public GgafLib::RefractionLaserChip {
 
 public:
     static frame end_active_frame_;
-    GgafLib::SplineManufactureConnection* pSplManufConnection_;
+    GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
     GgafLib::DefaultScene* pNearestScrollingScene_;
 public:

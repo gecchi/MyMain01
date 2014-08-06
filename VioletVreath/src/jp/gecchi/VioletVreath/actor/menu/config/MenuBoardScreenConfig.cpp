@@ -73,9 +73,9 @@ MenuBoardScreenConfig::MenuBoardScreenConfig(const char* prm_name) :
     addDisp(pLabel_Msg_, PX_C(10), PX_C(500));
 
 
-    LabelMenuTitleFont01* pLabel_Title = NEW LabelMenuTitleFont01("LABEL_TITLE");
-    pLabel_Title->update("[SCREEN CONFIG]", ALIGN_CENTER, VALIGN_MIDDLE);
-    addDisp(pLabel_Title, PX_C(300), PX_C(40));
+    LabelMenuTitleFont01* pLabel_title = NEW LabelMenuTitleFont01("LABEL_TITLE");
+    pLabel_title->update("[SCREEN CONFIG]", ALIGN_CENTER, VALIGN_MIDDLE);
+    addDisp(pLabel_title, PX_C(300), PX_C(40));
 
     //İ’è€–ÚƒAƒCƒeƒ€
     for (int i = ITEM_FULL_SCREEN; i <= ITEM_CANCEL; i++) {

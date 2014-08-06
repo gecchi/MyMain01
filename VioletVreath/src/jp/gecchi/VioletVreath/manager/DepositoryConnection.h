@@ -7,7 +7,7 @@
 namespace VioletVreath {
 
 /**
- * Depositoryコネクション.
+ * Depositoryへのコネクション.
  * @version 1.00
  * @since 2009/01/30
  * @author Masatoshi Tsuge

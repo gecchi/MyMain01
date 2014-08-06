@@ -18,7 +18,7 @@ public:
     /** [r]設置座標と向き */
     GgafDxCore::GgafDxGeoElem geoLocate_;
     /** [r]スプライン情報オブジェクト資源への接続 */
-    GgafLib::SplineManufactureConnection* pSplManufConnection_;
+    GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
 
     FormationDelheid001(const char* prm_name);
 

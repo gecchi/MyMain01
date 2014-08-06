@@ -20,11 +20,11 @@ FormationAllas001::FormationAllas001(const char* prm_name) :
     interval_frames_ = RF_FormationAllas001_LaunchInterval(G_RANK);  //アラスの間隔(frame)
     velo_mv_         = RF_FormationAllas001_MvVelo(G_RANK); //速度
     //アラス編隊作成
-    pSplManufConnection_ = connect_SplineManufactureManager("Allas01");
-    pDepoConn_ = nullptr;
+    pConn_pSplManuf_ = getConnection_SplineManufactureManager("Allas01");
+    pConn_depo_ = nullptr;
     for (int i = 0; i < num_Allas_; i++) {
         EnemyAllas* pAllas= NEW EnemyAllas("Allas01");
-        SplineKurokoLeader* pKurokoLeader = pSplManufConnection_->peek()->createKurokoLeader(pAllas->getKuroko());
+        SplineKurokoLeader* pKurokoLeader = pConn_pSplManuf_->peek()->createKurokoLeader(pAllas->getKuroko());
         pAllas->config(pKurokoLeader, nullptr, nullptr);
         addFormationMember(pAllas);
     }
@@ -55,8 +55,8 @@ void FormationAllas001::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
 }
 
 FormationAllas001::~FormationAllas001() {
-    pSplManufConnection_->close();
-    if (pDepoConn_) {
-        pDepoConn_->close();
+    pConn_pSplManuf_->close();
+    if (pConn_depo_) {
+        pConn_depo_->close();
     }
 }

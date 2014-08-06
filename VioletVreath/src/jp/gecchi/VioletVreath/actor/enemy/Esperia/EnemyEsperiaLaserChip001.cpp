@@ -85,7 +85,7 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
                                       D_ANG(10), 0,
                                       TURN_CLOSE_TO, false);
             }
-            if (!pKuroko->isTurningMvAng()) {
+            if (!pKuroko->isTurningMvAng() || pProg->getFrameInProgress() > 300) {
                 pProg->changeNext();
             }
             break;

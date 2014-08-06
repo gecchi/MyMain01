@@ -25,7 +25,7 @@ EnemyGlaja::EnemyGlaja(const char* prm_name) :
     pAFader_ = NEW GgafDxAlphaFader(this);
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    pConn_pShot_ = connect_DepositoryManager("GlajaLance001");
+    pConn_pShot_ = getConnection_DepositoryManager("GlajaLance001");
     effectBlendOne(); //â¡éZçáê¨
     setScaleR(0.3);
     useProgress(PROG_BANPEI);

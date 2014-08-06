@@ -42,9 +42,9 @@ void EnemyEtis::initialize() {
     pChecker->makeCollision(nArea);
     for (int i = 0, n = 0; i < width_x_-depth_y_; i += depth_y_, n++) {
         pChecker->setColliAAB(n,
-                                    i - ((depth_y_/2.0)/1.5)-(width_x_/2.0 - depth_y_/2.0), -((depth_y_/2.0)/1.5), -(height_z_/2.0),
-                                    i + ((depth_y_/2.0)/1.5)-(width_x_/2.0 - depth_y_/2.0),  ((depth_y_/2.0)/1.5),  (height_z_/2.0),
-                                    false, false, true );
+                             i - ((depth_y_/2.0)/1.5)-(width_x_/2.0 - depth_y_/2.0), -((depth_y_/2.0)/1.5), -(height_z_/2.0),
+                             i + ((depth_y_/2.0)/1.5)-(width_x_/2.0 - depth_y_/2.0),  ((depth_y_/2.0)/1.5),  (height_z_/2.0),
+                             false, false, true );
     }
 }
 

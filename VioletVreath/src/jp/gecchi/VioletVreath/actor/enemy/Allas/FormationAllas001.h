@@ -14,9 +14,9 @@ class FormationAllas001 : public GgafLib::TreeFormation {
 
 public:
     /** アラスの発射弾の借り入れ元Depository資源への接続 */
-    DepositoryConnection* pDepoConn_;
+    DepositoryConnection* pConn_depo_;
     /** スプライン定義資源への接続 */
-    GgafLib::SplineManufactureConnection* pSplManufConnection_;
+    GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
     /** 編隊数(RANK変動) */
     int num_Allas_;
     /** 編隊間隔フレーム(RANK変動) */

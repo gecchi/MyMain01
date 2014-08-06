@@ -35,14 +35,14 @@ EnemyEsperia::EnemyEsperia(const char* prm_name) :
         papLaserChipDepo_[i] = nullptr;
     }
 
-    pConn_pLaserChipDepoStore_ = connect_DepositoryManager("EnemyEsperiaLaserChip001DepoStore");
-    pLaserChipDepoStore_ = (GgafActorDepositoryStore*)(pConn_pLaserChipDepoStore_->peek());
+    pConn_pDepoStore_laser_set = getConnection_DepositoryManager("EnemyEsperiaLaserChip001DepoStore");
+    pDepoStore_laser_set = (GgafActorDepositoryStore*)(pConn_pDepoStore_laser_set->peek());
 
-    paLocalPos_Laser_ = NEW GgafDxGeoElem[max_laser_way_];
-    paPos_Target_ = NEW GgafDxGeoElem[max_laser_way_];
+    paLocalPos_laser_ = NEW GgafDxGeoElem[max_laser_way_];
+    paPos_target_ = NEW GgafDxGeoElem[max_laser_way_];
     coord dX = PX_C(10); //レーザー発射口の間隔
     for (int i = 0; i < max_laser_way_; i++) {
-        paLocalPos_Laser_[i].set(PX_C(-40) + (i*dX),  PX_C(10), 0); //レーザー発射元のローカル座標
+        paLocalPos_laser_[i].set(PX_C(-40) + (i*dX),  PX_C(10), 0); //レーザー発射元のローカル座標
     }
 
     GgafDxSeTransmitterForActor* pSetx = getSeTx();
@@ -141,7 +141,7 @@ void EnemyEsperia::processBehavior() {
 
                 for (int i = 0; i < max_laser_way_; i++) {
                     if (now_laser_way_ > i) {
-                        LaserChipDepository* pLaserChipDepo = (LaserChipDepository*)(pLaserChipDepoStore_->dispatch());
+                        LaserChipDepository* pLaserChipDepo = (LaserChipDepository*)(pDepoStore_laser_set->dispatch());
                         if (pLaserChipDepo) {
                             //レーザーセット（レーザーチップのデポジトリ）が借り入れ出来た。
                             papLaserChipDepo_[i] = pLaserChipDepo;
@@ -217,7 +217,7 @@ void EnemyEsperia::processBehavior() {
                     if (dX_ < dZ_)  {
                         //(a)(d) の場合、X方向距離よりZ方向距離が遠い
                         for (int i = 0, tX = -total_laser_effect/2; i < now_laser_way_; i++, tX+=laser_density) {
-                            paPos_Target_[i].set(tX, 0, 0);
+                            paPos_target_[i].set(tX, 0, 0);
                         }
                     } else {
                         if (pMyShip->_x < _x) { //自機より前
@@ -225,24 +225,24 @@ void EnemyEsperia::processBehavior() {
                             if (pMyShip->_z < _z) {
                                 //(b)自機が手前、エスペリアが奥
                                 for (int i = 0, tZ = total_laser_effect/2; i < now_laser_way_; i++, tZ-=laser_density) {
-                                    paPos_Target_[i].set(0, 0, tZ);
+                                    paPos_target_[i].set(0, 0, tZ);
                                 }
                             } else {
                                 //(c)自機が奥、エスペリアが手前
                                 for (int i = 0, tZ = -total_laser_effect/2; i < now_laser_way_; i++, tZ+=laser_density) {
-                                    paPos_Target_[i].set(0, 0, tZ);
+                                    paPos_target_[i].set(0, 0, tZ);
                                 }
                             }
                         } else { //自機より後ろ (e)(f)
                             if (pMyShip->_z < _z) {
                                 //(e)自機が手前、エスペリアが奥
                                 for (int i = 0, tZ = -total_laser_effect/2; i < now_laser_way_; i++, tZ+=laser_density) {
-                                    paPos_Target_[i].set(0, 0, tZ);
+                                    paPos_target_[i].set(0, 0, tZ);
                                 }
                             } else {
                                 //(f)自機が奥、エスペリアが手前
                                 for (int i = 0, tZ = total_laser_effect/2; i < now_laser_way_; i++, tZ-=laser_density) {
-                                    paPos_Target_[i].set(0, 0, tZ);
+                                    paPos_target_[i].set(0, 0, tZ);
                                 }
                             }
                         }
@@ -265,7 +265,7 @@ void EnemyEsperia::processBehavior() {
                     if (papLaserChipDepo_[i]) {
                         pLaserChip = (EnemyEsperiaLaserChip001*)papLaserChipDepo_[i]->dispatch();
                         if (pLaserChip) {
-                            p = &(paLocalPos_Laser_[i]);
+                            p = &(paLocalPos_laser_[i]);
                             //発射元座標に設定
                             pLaserChip->position(_x+p->x, _y+p->y, _z+p->z);
                             //最初の目標地点(折り返す地点)を設定
@@ -274,27 +274,27 @@ void EnemyEsperia::processBehavior() {
                                 //X方向距離よりZ方向距離が遠い
                                 if (pMyShip->_z < _z) {
                                     //自機が手前、エスペリアが奥
-                                    pLaserChip->tx1_ = _x + paPos_Target_[i].x;
-                                    pLaserChip->ty1_ = _y + paPos_Target_[i].y + turn_dy;
-                                    pLaserChip->tz1_ = _z + paPos_Target_[i].z + PX_C(100);
+                                    pLaserChip->tx1_ = _x + paPos_target_[i].x;
+                                    pLaserChip->ty1_ = _y + paPos_target_[i].y + turn_dy;
+                                    pLaserChip->tz1_ = _z + paPos_target_[i].z + PX_C(100);
                                 } else {
                                     //自機が奥、エスペリアが手前
-                                    pLaserChip->tx1_ = _x + paPos_Target_[i].x;
-                                    pLaserChip->ty1_ = _y + paPos_Target_[i].y + turn_dy;
-                                    pLaserChip->tz1_ = _z + paPos_Target_[i].z - PX_C(100);
+                                    pLaserChip->tx1_ = _x + paPos_target_[i].x;
+                                    pLaserChip->ty1_ = _y + paPos_target_[i].y + turn_dy;
+                                    pLaserChip->tz1_ = _z + paPos_target_[i].z - PX_C(100);
                                 }
                             } else {
                                 //シンバルロック付近を避けるためX-100
-                                pLaserChip->tx1_ = _x + paPos_Target_[i].x - PX_C(100);
-                                pLaserChip->ty1_ = _y + paPos_Target_[i].y + turn_dy;
-                                pLaserChip->tz1_ = _z + paPos_Target_[i].z;
+                                pLaserChip->tx1_ = _x + paPos_target_[i].x - PX_C(100);
+                                pLaserChip->ty1_ = _y + paPos_target_[i].y + turn_dy;
+                                pLaserChip->tz1_ = _z + paPos_target_[i].z;
                             }
 
                             pLaserChip->turn_dy_ = turn_dy;
                             //最終目標地点を設定
-                            pLaserChip->tx2_ = pMyShip->_x + paPos_Target_[i].x;
-                            pLaserChip->ty2_ = pMyShip->_y + paPos_Target_[i].y;
-                            pLaserChip->tz2_ = pMyShip->_z + paPos_Target_[i].z;
+                            pLaserChip->tx2_ = pMyShip->_x + paPos_target_[i].x;
+                            pLaserChip->ty2_ = pMyShip->_y + paPos_target_[i].y;
+                            pLaserChip->tz2_ = pMyShip->_z + paPos_target_[i].z;
                             //速さと加速度
                             pLaserChip->getKuroko()->setMvVelo(10000); //初期速度
                             pLaserChip->getKuroko()->setMvAcce(150+(max_laser_way_-i)*20); //少しバラけるように
@@ -389,8 +389,8 @@ coord EnemyEsperia::getTurnDY(GgafDxCore::GgafDxGeometricActor* pThis,
 
 EnemyEsperia::~EnemyEsperia() {
     GGAF_DELETE(pAFader_);
-    pConn_pLaserChipDepoStore_->close();
-    GGAF_DELETEARR(paLocalPos_Laser_);
-    GGAF_DELETEARR(paPos_Target_);
+    pConn_pDepoStore_laser_set->close();
+    GGAF_DELETEARR(paLocalPos_laser_);
+    GGAF_DELETEARR(paPos_target_);
     GGAF_DELETEARR(papLaserChipDepo_);
 }

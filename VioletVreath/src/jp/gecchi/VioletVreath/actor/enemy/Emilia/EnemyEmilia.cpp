@@ -43,7 +43,6 @@ void EnemyEmilia::onActive() {
     pKuroko->addRzMvAng(RND(D_ANG(-5), D_ANG(+5)));
 }
 
-
 void EnemyEmilia::onInactive() {
     sayonara();
 }

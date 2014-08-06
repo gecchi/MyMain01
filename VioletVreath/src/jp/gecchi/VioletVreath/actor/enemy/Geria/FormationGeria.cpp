@@ -48,7 +48,7 @@ FormationGeria::FormationGeria(
 
     frame_app_interval_ = prm_frame_app_interval;
 
-    pDepo_EnemyGeria_ = NEW GgafActorDepository("RotEnemyGeria");
+    pDepo_ = NEW GgafActorDepository("RotEnemyGeria");
     for (int i = 0; i < prm_nGeriaStock; i++) {
         std::string name = "Geria"+XTOS(i);
         EnemyGeria* pEnemyGeria = NEW EnemyGeria(name.c_str());
@@ -58,9 +58,9 @@ FormationGeria::FormationGeria(
         pEnemyGeria->pAxsMver_->setVxyzMvVelo(vX_AppBox*prm_velo_mv_App,
                                               vY_AppBox*prm_velo_mv_App,
                                               vZ_AppBox*prm_velo_mv_App );
-        pDepo_EnemyGeria_->put(pEnemyGeria);
+        pDepo_->put(pEnemyGeria);
     }
-    addSubGroup(pDepo_EnemyGeria_);
+    addSubGroup(pDepo_);
 }
 
 void FormationGeria::initialize() {
@@ -68,7 +68,7 @@ void FormationGeria::initialize() {
 
 void FormationGeria::processBehavior() {
     if (getActiveFrame() % frame_app_interval_ == 0) {
-        EnemyGeria* pEnemyGeria = (EnemyGeria*)pDepo_EnemyGeria_->dispatch();
+        EnemyGeria* pEnemyGeria = (EnemyGeria*)pDepo_->dispatch();
         if (pEnemyGeria) {
             pEnemyGeria->_x = RND(X1_app_, X2_app_) + _x;
             pEnemyGeria->_y = RND(Y1_app_, Y2_app_) + _y;

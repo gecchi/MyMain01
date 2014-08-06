@@ -22,7 +22,7 @@
  * X：識別文字列（CameraWorkerManager::processCreateResource(char* prm_idstr, void* prm_pConnector) の prm_idstr に渡る)
  * また、CameraWorkerManager::processCreateResource(char* prm_idstr, void* prm_pConnector) の prm_p には nullptr がセットされている。
  */
-#define connect_CameraWorkerManager(X) ((VioletVreath::CameraWorkerConnection*)P_UNIVERSE->pCamWorkerManager_->connect((X), this))
+#define getConnection_CameraWorkerManager(X) ((VioletVreath::CameraWorkerConnection*)P_UNIVERSE->pCamWorkerManager_->connect((X), this))
 
 
 namespace VioletVreath {

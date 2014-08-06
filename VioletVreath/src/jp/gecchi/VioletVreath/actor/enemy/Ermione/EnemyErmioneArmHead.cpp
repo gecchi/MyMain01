@@ -19,7 +19,7 @@ using namespace VioletVreath;
 EnemyErmioneArmHead::EnemyErmioneArmHead(const char* prm_name) :
         EnemyErmioneArm(prm_name, "ErmioneArmHead", STATUS(EnemyErmioneArmHead)) {
     _class_name = "EnemyErmioneArmHead";
-    pDepoLaser_  = nullptr;
+    pDepo_laser_chip_  = nullptr;
 }
 
 void EnemyErmioneArmHead::onCreateModel() {
@@ -35,11 +35,11 @@ void EnemyErmioneArmHead::initialize() {
 void EnemyErmioneArmHead::processBehavior() {
     GgafProgress* pProg = getProgress();
     if (pProg->get() == PROG_NOTHING || pProg->get() == PROG_AIMING) { //oŒ»ŠÔŠu
-        if (!pDepoLaser_) {
-            pDepoLaser_ = (LaserChipDepository*)UTIL::getDepositoryOf(this);
+        if (!pDepo_laser_chip_) {
+            pDepo_laser_chip_ = (LaserChipDepository*)UTIL::getDepositoryOf(this);
         }
     } else {
-        pDepoLaser_ = nullptr;
+        pDepo_laser_chip_ = nullptr;
     }
 
     EnemyErmioneArm::processBehavior();
@@ -47,8 +47,8 @@ void EnemyErmioneArmHead::processBehavior() {
 
 void  EnemyErmioneArmHead::processJudgement() {
     LaserChip* pChip = nullptr;
-    if (pDepoLaser_) {
-        pChip = pDepoLaser_->dispatch();
+    if (pDepo_laser_chip_) {
+        pChip = pDepo_laser_chip_->dispatch();
         if (pChip) {
             //DEPO_LASER001‚Ìê‡
             pChip->setFaceAng(_rx, _ry, _rz);
@@ -87,5 +87,5 @@ void EnemyErmioneArmHead::onHit(GgafActor* prm_pOtherActor) {
 
 
 EnemyErmioneArmHead::~EnemyErmioneArmHead() {
-//    pDepoConn_->close();
+//    pConn_depo_->close();
 }

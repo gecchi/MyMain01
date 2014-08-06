@@ -33,10 +33,10 @@ void EnemyEmiliaFragment3::onActive() {
     setHitAble(true);
 }
 
-
 void EnemyEmiliaFragment3::onInactive() {
     sayonara();
 }
+
 void EnemyEmiliaFragment3::processStaminaEnd(GgafDxGeometricActor* prm_pOther) {
     //Ž©‹@‘¤‚ÉŒ‚‚½‚ê‚ÄÁ–Å‚Ìê‡A
     if (prm_pOther->getKind() & KIND_MY) {

@@ -23,7 +23,7 @@ class EnemyHisbe :  public GgafLib::DefaultMorphMeshActor {
     GgafCore::GgafActorDepository* pDepo_effect_;
 
 
-    DepositoryConnection* pConn_pLaserChipDepoStore_;
+    DepositoryConnection* pConn_pDepoStore_laser_set;
 
     GgafLib::LaserChipDepository* pLaserChipDepo_;
 

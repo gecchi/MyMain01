@@ -23,7 +23,7 @@
 #define Obj_GgafDxWorldBoundModel        (0x2000U)         //0b 00000000 00000000 00100000 00000000
 #define Obj_GgafDxPointSpriteModel       (0x4000U)         //0b 00000000 00000000 01000000 00000000
 
-#define connect_ModelTextureManager(X) ((GgafDxCore::GgafDxTextureConnection*)P_GOD->_pModelManager->_pModelTextureManager->connect((X), this))
+#define getConnection_ModelTextureManager(X) ((GgafDxCore::GgafDxTextureConnection*)P_GOD->_pModelManager->_pModelTextureManager->connect((X), this))
 
 namespace GgafDxCore {
 

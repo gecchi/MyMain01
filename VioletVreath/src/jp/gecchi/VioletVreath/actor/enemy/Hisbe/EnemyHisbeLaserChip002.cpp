@@ -21,8 +21,8 @@ frame EnemyHisbeLaserChip002::end_active_frame_ = INT_MAX;
 EnemyHisbeLaserChip002::EnemyHisbeLaserChip002(const char* prm_name) :
         RefractionLaserChip(prm_name, "HisbeLaserChip002", STATUS(EnemyHisbeLaserChip002)) {
     _class_name = "EnemyHisbeLaserChip002";
-    pSplManufConnection_ = connect_SplineManufactureManager("EnemyHisbeLaserChip002"); //ƒqƒ‹ƒxƒ‹ƒg‹Èü
-    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(getKuroko());
+    pConn_pSplManuf_ = getConnection_SplineManufactureManager("EnemyHisbeLaserChip002"); //ƒqƒ‹ƒxƒ‹ƒg‹Èü
+    pKurokoLeader_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
     pKurokoLeader_->adjustCoordOffset(PX_C(100), 0, 0);
     pNearestScrollingScene_ = nullptr;
 }
@@ -104,7 +104,7 @@ void EnemyHisbeLaserChip002::onHit(GgafActor* prm_pOtherActor) {
 
 EnemyHisbeLaserChip002::~EnemyHisbeLaserChip002() {
     GGAF_DELETE(pKurokoLeader_);
-    pSplManufConnection_->close();
+    pConn_pSplManuf_->close();
 }
 
 

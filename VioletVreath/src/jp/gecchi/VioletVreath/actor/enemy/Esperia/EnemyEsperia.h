@@ -50,13 +50,13 @@ public:
     /** [r]レーザー発射時のZ軸方向の自機との距離 */
     coord dZ_;
     /** [r]レーザー発射位置の座標（エスペリアのローカル座標） */
-    GgafDxCore::GgafDxGeoElem* paLocalPos_Laser_;
+    GgafDxCore::GgafDxGeoElem* paLocalPos_laser_;
     /** [r]レーザー発射時、目標すだれ位置の差分座標（自機からの相対座標） */
-    GgafDxCore::GgafDxGeoElem* paPos_Target_;
+    GgafDxCore::GgafDxGeoElem* paPos_target_;
     /** [r]レーザーセットのストアー(レーザーチップのデポジトリのデポジトリ) */
-    GgafCore::GgafActorDepositoryStore* pLaserChipDepoStore_;
+    GgafCore::GgafActorDepositoryStore* pDepoStore_laser_set;
     /** [r]デポジトリマネージャーへの接続 */
-    DepositoryConnection* pConn_pLaserChipDepoStore_;
+    DepositoryConnection* pConn_pDepoStore_laser_set;
     /** [r]レーザーセット(レーザーチップのデポジトリ) */
     GgafLib::LaserChipDepository** papLaserChipDepo_;
 

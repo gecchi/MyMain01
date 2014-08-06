@@ -19,15 +19,15 @@ FormationUnomia::FormationUnomia(const char* prm_name, const char* prm_spl_id)
     _class_name = "FormationUnomia";
 
     //ウーノミア編隊用デポジトリ
-    pDepoConn_Unomia_ = connect_DepositoryManager("EnemyUnomia4Formation");
-    setFormationMember(pDepoConn_Unomia_->peek());
+    pConn_depo_Unomia_ = getConnection_DepositoryManager("EnemyUnomia4Formation");
+    setFormationMember(pConn_depo_Unomia_->peek());
 
     //スプライン定義ファイルを読み込む
-    papSplManufConnection_ = NEW SplineManufactureConnection*[7];
+    papConn_pSplManuf_ = NEW SplineManufactureConnection*[7];
     for (int i = 0; i < 7; i++) {
         std::stringstream spl_id;
         spl_id << prm_spl_id << "_" << i;  //＜例＞"FormationUnomia001_0"
-        papSplManufConnection_[i] = connect_SplineManufactureManager(spl_id.str().c_str());
+        papConn_pSplManuf_[i] = getConnection_SplineManufactureManager(spl_id.str().c_str());
     }
     pDepo_shot_ = getCommonDepository(Shot004);
     updateRankParameter();
@@ -42,10 +42,10 @@ void FormationUnomia::updateRankParameter() {
 }
 
 void FormationUnomia::initialize() {
-//    if (pDepoConn_Unomia_->chkFirstConnectionIs(this)) {
-//        _TRACE_("pDepoConn_Unomia_ は、ワシ("<<this<<")が育てたエヘン！")
+//    if (pConn_depo_Unomia_->chkFirstConnectionIs(this)) {
+//        _TRACE_("pConn_depo_Unomia_ は、ワシ("<<this<<")が育てたエヘン！")
 //        getPlatformScene()->getSceneDirector()->addSubGroup(
-//                pDepoConn_Unomia_->peek()->extract()
+//                pConn_depo_Unomia_->peek()->extract()
 //                );
 //    }
 }
@@ -63,7 +63,7 @@ void FormationUnomia::processBehavior() {
         for (int i = 0; i < RF_num_formation_col_; i++) {
             EnemyUnomia* pUnomia = (EnemyUnomia*)callUpMember(RF_num_formation_col_*RF_num_formation_row_);
             if (pUnomia) {
-                SplineKurokoLeader* pKurokoLeader = papSplManufConnection_[i]->peek()->
+                SplineKurokoLeader* pKurokoLeader = papConn_pSplManuf_[i]->peek()->
                                               createKurokoLeader(pUnomia->getKuroko());
                 pUnomia->config(pKurokoLeader, nullptr, nullptr);
                 pUnomia->getKuroko()->setMvVelo(RF_mv_velo_);
@@ -94,9 +94,9 @@ void FormationUnomia::processBehavior() {
 }
 
 FormationUnomia::~FormationUnomia() {
-    pDepoConn_Unomia_->close();
+    pConn_depo_Unomia_->close();
     for (int i = 0; i < 7; i++) {
-        papSplManufConnection_[i]->close();
+        papConn_pSplManuf_[i]->close();
     }
-    GGAF_DELETEARR(papSplManufConnection_);
+    GGAF_DELETEARR(papConn_pSplManuf_);
 }

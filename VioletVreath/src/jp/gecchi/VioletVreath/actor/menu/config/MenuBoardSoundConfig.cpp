@@ -67,9 +67,9 @@ MenuBoardSoundConfig::MenuBoardSoundConfig(const char* prm_name) :
     pLabel_MasterVol_->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
     addDisp(pLabel_MasterVol_, PX_C(600), PX_C(100+(2*20)));
 
-    LabelMenuTitleFont01* pLabel_Title = NEW LabelMenuTitleFont01("LABEL_TITLE");
-    pLabel_Title->update("[SOUND CONFIG]", ALIGN_CENTER, VALIGN_MIDDLE);
-    addDisp(pLabel_Title, PX_C(300), PX_C(40));
+    LabelMenuTitleFont01* pLabel_title = NEW LabelMenuTitleFont01("LABEL_TITLE");
+    pLabel_title->update("[SOUND CONFIG]", ALIGN_CENTER, VALIGN_MIDDLE);
+    addDisp(pLabel_title, PX_C(300), PX_C(40));
 
     pLabel_Msg_ = NEW LabelGecchi16Font("LABEL_MSG");
     pLabel_Msg_->update("PRESS <- OR -> TO ADJUST THE VOLUME.", ALIGN_LEFT, VALIGN_MIDDLE);

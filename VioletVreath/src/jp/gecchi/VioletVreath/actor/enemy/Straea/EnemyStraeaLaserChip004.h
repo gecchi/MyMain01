@@ -7,7 +7,7 @@ namespace VioletVreath {
 class EnemyStraeaLaserChip004 : public GgafLib::HomingLaserChip {
 
 public:
-    GgafLib::SplineManufactureConnection* pSplManufConnection_;
+    GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
 //    static GgafDxCore::GgafDxTextureConnection* pTexCon1_;
 //    static GgafDxCore::GgafDxTextureConnection* pTexCon2_;

@@ -43,7 +43,7 @@ EnemyEres::EnemyEres(const char* prm_name, GgafActorDepository* prm_pDepo_EnemyE
         createGgafActorDepository_ = false;
     }
 
-    pSplLineConnection_ = connect_SplineLineManager("Spl_001");
+    pSplLineConnection_ = getConnection_SplineLineManager("Spl_001");
     pKurokoLeader_ = NEW FixedVelocitySplineKurokoLeader(getKuroko(), pSplLineConnection_->peek(), 5000); //ˆÚ“®‘¬“xŒÅ’è
 
 //    pKurokoLeader_ = NEW FixedFrameSplineKurokoLeader(getKuroko(), pSplLineConnection_->peek(), 600, 5000); //ˆÚ“®ƒtƒŒ[ƒ€”ŒÅ’è

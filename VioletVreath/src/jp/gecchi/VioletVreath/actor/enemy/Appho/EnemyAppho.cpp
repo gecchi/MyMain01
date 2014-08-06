@@ -46,7 +46,9 @@ void EnemyAppho::processBehavior() {
     UTIL::updateEnemyRankPoint(this);
     GgafDxKuroko* pKuroko = getKuroko();
     GgafProgress* pProg = getProgress();
+
     switch (pProg->get()) {
+
          case PROG_INIT: {
              setHitAble(false);
              positionAs(&entry_pos_);
@@ -76,13 +78,13 @@ void EnemyAppho::processBehavior() {
                  velo mv_velo = RF_EnemyAppho_MvVelo(G_RANK);
                  coord d = UTIL::getDistance(this, &hanging_pos_);
                  pKuroko->asstA()->slideMvByVd(mv_velo, d,
-                                        0.2, 0.8, RND(-PX_C(0.5),PX_C(0.5)), true);
+                                               0.2, 0.8, 200, true);
              }
              //滞留ポイントまで移動中
              if (pProg->getFrameInProgress() % 32U == 0) {
                  //ちょくちょく自機を見つめる
                  pKuroko->turnFaceAngTwd(P_MYSHIP, D_ANG(0.5), 0,
-                                          TURN_CLOSE_TO, true);
+                                         TURN_CLOSE_TO, true);
              }
              if (pKuroko->asstA()->isJustFinishSlidingMv()) {
                  pProg->changeNext();
@@ -95,10 +97,8 @@ void EnemyAppho::processBehavior() {
              if (pProg->isJustChanged()) {
                  //移動方向と向きの連携解除
                  pKuroko->relateFaceByMvAng(false);
-                 //滞留ポイント到着、ふらふら気ままな方向へ移動させる
-                 pKuroko->turnMvAngTwd(RND_AROUND(_x , PX_C(100)),
-                                       RND_AROUND(_y , PX_C(100)),
-                                       RND_AROUND(_z , PX_C(100)),
+                 //滞留ポイント到着、自機方向へジワリ移動させる
+                 pKuroko->turnMvAngTwd(P_MYSHIP,
                                        100, 0, TURN_CLOSE_TO, false);
                  //ゆっくり自機の方へ向かせる
                  pKuroko->turnFaceAngTwd(P_MYSHIP,

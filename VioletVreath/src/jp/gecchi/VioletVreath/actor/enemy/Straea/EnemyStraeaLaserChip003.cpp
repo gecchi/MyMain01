@@ -15,8 +15,8 @@ using namespace VioletVreath;
 EnemyStraeaLaserChip003::EnemyStraeaLaserChip003(const char* prm_name) :
         WateringLaserChip(prm_name, "StraeaLaserChip001", STATUS(EnemyStraeaLaserChip003)) {
     _class_name = "EnemyStraeaLaserChip003";
-    pSplManufConnection_ = connect_SplineManufactureManager("GURUGURU");
-    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(getKuroko());
+    pConn_pSplManuf_ = getConnection_SplineManufactureManager("GURUGURU");
+    pKurokoLeader_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
 }
 
 void EnemyStraeaLaserChip003::initialize() {
@@ -60,6 +60,6 @@ void EnemyStraeaLaserChip003::onInactive() {
 
 EnemyStraeaLaserChip003::~EnemyStraeaLaserChip003() {
     GGAF_DELETE(pKurokoLeader_);
-    pSplManufConnection_->close();
+    pConn_pSplManuf_->close();
 }
 

@@ -41,8 +41,8 @@ EnemyStraea::EnemyStraea(const char* prm_name) :
         }
     }
 
-    pConn_pRefractionEffectDepository_ = connect_DepositoryManager("EffRefraction001");
-    pConn_pLaserChipDepoStore_ = connect_DepositoryManager(
+    pConn_pRefractionEffectDepository_ = getConnection_DepositoryManager("EffRefraction001");
+    pConn_pDepoStore_laser_set = getConnection_DepositoryManager(
             "EnemyStraeaLaserChip004DepoStore"//,
          //"EnemyStraeaLaserChip003DepoStore",
          //"EnemyStraeaLaserChip001DepoStore",
@@ -72,8 +72,8 @@ EnemyStraea::EnemyStraea(const char* prm_name) :
     pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
     useProgress(PROG_BANPEI);
-    pConn_pShotDepo2_ = connect_DepositoryManager("Shot004Yellow");
-    pConn_pShotDepo3_ = connect_DepositoryManager("Shot004Blue");
+    pConn_pShotDepo2_ = getConnection_DepositoryManager("Shot004Yellow");
+    pConn_pShotDepo3_ = getConnection_DepositoryManager("Shot004Blue");
 }
 
 void EnemyStraea::onCreateModel() {
@@ -154,7 +154,7 @@ void EnemyStraea::processBehavior() {
             if (pProg->isJustChanged()) {
                 //レーザーセット、借入
                 GgafActorDepositoryStore* pLaserChipDepoStore =
-                        (GgafActorDepositoryStore*)(pConn_pLaserChipDepoStore_->peek());
+                        (GgafActorDepositoryStore*)(pConn_pDepoStore_laser_set->peek());
                 bool can_fire = false;
                 for (int i = 0; i < laser_way_; i++) {
                     for (int j = 0; j < laser_way_; j++) {
@@ -330,7 +330,7 @@ void EnemyStraea::onInactive() {
 EnemyStraea::~EnemyStraea() {
     GGAF_DELETE(pAFader_);
     pConn_pRefractionEffectDepository_->close();
-    pConn_pLaserChipDepoStore_->close();
+    pConn_pDepoStore_laser_set->close();
     pConn_pShotDepo2_->close();
     pConn_pShotDepo3_->close();
     for (int i = 0; i < laser_way_; i++) {

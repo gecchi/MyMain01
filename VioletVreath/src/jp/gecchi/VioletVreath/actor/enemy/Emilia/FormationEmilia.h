@@ -14,13 +14,13 @@ class FormationEmilia : public GgafLib::DepositoryFormation {
 
 public:
     /** エミリア借り入れ元Depository資源への接続 */
-    DepositoryConnection* pDepoConn_Emilia_;
+    DepositoryConnection* pConn_depo_Emilia_;
     /** エミリア断片借り入れ元Depository資源への接続 */
-    DepositoryConnection* pDepoConn_Fragment_;
+    DepositoryConnection* pConn_depo_Fragment_;
     /** エミリア断片の断片借り入れ元Depository資源への接続 */
-    DepositoryConnection* pDepoConn_Fragment_2_;
+    DepositoryConnection* pConn_depo_Fragment_2_;
     /** エミリア断片の断片借り入れ元Depository資源への接続 */
-    DepositoryConnection* pDepoConn_Fragment_3_;
+    DepositoryConnection* pConn_depo_Fragment_3_;
 
     /** 編隊メンバーの出現間隔フレーム(RANK変動) */
     frame R_interval_frames_;

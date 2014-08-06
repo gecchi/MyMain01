@@ -55,7 +55,7 @@ public:
 
     DepositoryConnection* pConn_pRefractionEffectDepository_;
 
-    DepositoryConnection* pConn_pLaserChipDepoStore_;
+    DepositoryConnection* pConn_pDepoStore_laser_set;
 
     GgafLib::LaserChipDepository*** papapLaserChipDepo_;
 

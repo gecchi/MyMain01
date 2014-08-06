@@ -18,8 +18,8 @@ using namespace VioletVreath;
 EnemyHisbeLaserChip001::EnemyHisbeLaserChip001(const char* prm_name) :
         HomingLaserChip(prm_name, "HisbeLaserChip001", STATUS(EnemyHisbeLaserChip001)) {
     _class_name = "EnemyHisbeLaserChip001";
-    pSplManufConnection_ = connect_SplineManufactureManager("EnemyHisbeLaserChip002"); //ƒqƒ‹ƒxƒ‹ƒg‹Èü
-    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(getKuroko());
+    pConn_pSplManuf_ = getConnection_SplineManufactureManager("EnemyHisbeLaserChip002"); //ƒqƒ‹ƒxƒ‹ƒg‹Èü
+    pKurokoLeader_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
     pNearestScrollingScene_ = nullptr;
 }
 
@@ -73,6 +73,6 @@ void EnemyHisbeLaserChip001::onHit(GgafActor* prm_pOtherActor) {
 
 EnemyHisbeLaserChip001::~EnemyHisbeLaserChip001() {
     GGAF_DELETE(pKurokoLeader_);
-    pSplManufConnection_->close();
+    pConn_pSplManuf_->close();
 }
 

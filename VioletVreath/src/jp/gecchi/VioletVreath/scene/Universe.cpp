@@ -119,7 +119,7 @@ CameraWorker* Universe::switchCameraWork(const char* prm_pID) {
     //    | ConA |                             | ConA |
     //    +------+                             +------+
 
-    CameraWorkerConnection* pCon = connect_CameraWorkerManager(prm_pID);
+    CameraWorkerConnection* pCon = getConnection_CameraWorkerManager(prm_pID);
     CameraWorker* pCamWorker = pCon->peek();
     if (pCamWorker != pActiveCamWorker_) {
         _TRACE_("Œ»pActiveCamWorker_="<<pActiveCamWorker_->getName()<<" ‚ÍˆêŽž”ñŠˆ“®‚Å‘Ò‹@");

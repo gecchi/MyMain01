@@ -44,7 +44,7 @@ RankUpStage::RankUpStage(const char* prm_name) : DefaultScene(prm_name) {
 
     getBGMer()->ready(0, "OGG_RANKUP_THEMA");
 
-    pSeConnection_all_hit_ = connect_SeManager("WAVE_EXPLOSION_002"); //全滅の最後の一機破壊時SE
+    pSeConnection_all_hit_ = getConnection_SeManager("WAVE_EXPLOSION_002"); //全滅の最後の一機破壊時SE
 
     all_hit_num_ = 0;
     hit_enemy_num_ = 0; //MyStgUtil::calcEnemyStamina() で加算されます
