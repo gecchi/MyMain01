@@ -688,7 +688,7 @@ public:
      * @param prm_acce            初弾のショット初期加速度
      * @param prm_set_num         撃つ弾の合計数
      * @param prm_interval_frames 弾と弾の出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全弾一斉発射。）
-     * @param prm_attenuated      初弾以降のショット初期速度・加速度の減衰率(< 1.0)、或いは増幅率(>1.0)
+     * @param prm_attenuated      初弾セット以降のセット毎のショット初期速度へ乗率。速度減衰(< 1.0)或いは速度増加(>1.0)。1.0は全セット速度が同じ。
      * @param pFunc_call_back_dispatched 弾がデポジトリから dispach() された時に呼び出すコールバック。
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
@@ -717,7 +717,7 @@ public:
      * @param prm_acce            ショット初期加速度
      * @param prm_set_num         撃つ弾の合計数
      * @param prm_interval_frames 弾と弾の出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全弾一斉発射。）
-     * @param prm_attenuated      初弾以降のショット初期速度の減衰率(< 1.0)、或いは増幅率(>1.0)
+     * @param prm_attenuated      初弾セット以降のセット毎のショット初期速度へ乗率。速度減衰(< 1.0)或いは速度増加(>1.0)。1.0は全セット速度が同じ。
      * @param pFunc_call_back_dispatched
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
@@ -741,7 +741,7 @@ public:
      * @param prm_acce            ショット初期加速度
      * @param prm_set_num         撃つ弾の合計数
      * @param prm_interval_frames 弾と弾の出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全弾一斉発射。）
-     * @param prm_attenuated      初弾以降のショット初期速度の減衰率(< 1.0)、或いは増幅率(>1.0)
+     * @param prm_attenuated      初弾セット以降のセット毎のショット初期速度へ乗率。速度減衰(< 1.0)或いは速度増加(>1.0)。1.0は全セット速度が同じ。
      * @param pFunc_call_back_dispatched
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
@@ -770,7 +770,7 @@ public:
      * @param prm_acce             N-Way弾各セットのショット初期加速度
      * @param prm_set_num          発射する N-Way弾セットの合計セット数
      * @param prm_interval_frames  弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
-     * @param prm_attenuated       初弾セット以降の各セット毎のショット初期速度の減衰率(< 1.0)、或いは増幅率(>1.0)
+     * @param prm_attenuated       初弾セット以降のセット毎のショット初期速度へ乗率。速度減衰(< 1.0)或いは速度増加(>1.0)。1.0は全セット速度が同じ。
      * @param pFunc_call_back_dispatched
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
@@ -798,7 +798,7 @@ public:
      * @param prm_acce                   N-Way弾各セットのショット初期加速度
      * @param prm_set_num                発射する N-Way弾セットの合計セット数
      * @param prm_interval_frames        弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
-     * @param prm_attenuated             初弾セット以降の各セット毎のショット初期速度の減衰率(< 1.0)、或いは増幅率(>1.0)
+     * @param prm_attenuated             初弾セット以降のセット毎のショット初期速度へ乗率。速度減衰(< 1.0)或いは速度増加(>1.0)。1.0は全セット速度が同じ。
      * @param pFunc_call_back_dispatched
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
@@ -837,7 +837,7 @@ public:
      * @param prm_acce             N*M-Way弾各セットのショット初期加速度
      * @param prm_set_num          発射する N*M-Way弾セットの合計セット数
      * @param prm_interval_frames  弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
-     * @param prm_attenuated       初弾セット以降の各セット毎のショット初期速度の減衰率(< 1.0)、或いは増幅率(>1.0)
+     * @param prm_attenuated       初弾セット以降のセット毎のショット初期速度へ乗率。速度減衰(< 1.0)或いは速度増加(>1.0)。1.0は全セット速度が同じ。
      * @param pFunc_call_back_dispatched
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
@@ -869,13 +869,13 @@ public:
      * @param prm_r                発射元と発射するショットの初期表示位置距離(発射元からの半径)。0より大きい値の必要有り。
      * @param prm_way_N            N-Way数（Rz変化）
      * @param prm_way_M            M-Way数（Ry変化）
-     * @param prm_ang_clearance_N   N-Wayの間隔角度
-     * @param prm_ang_clearance_M   M-Wayの間隔角度
+     * @param prm_ang_clearance_N  N-Wayの間隔角度
+     * @param prm_ang_clearance_M  M-Wayの間隔角度
      * @param prm_velo_first       N*M-Way弾初弾セットのショット初期速度。初弾セット以降の初期速度は prm_attenuated を乗じていく。
      * @param prm_acce             N*M-Way弾各セットのショット初期加速度
      * @param prm_set_num          発射する N*M-Way弾セットの合計セット数
      * @param prm_interval_frames  弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
-     * @param prm_attenuated       初弾セット以降の各セット毎のショット初期速度の減衰率(< 1.0)、或いは増幅率(>1.0)
+     * @param prm_attenuated       初弾セット以降のセット毎のショット初期速度へ乗率。速度減衰(< 1.0)或いは速度増加(>1.0)。1.0は全セット速度が同じ。
      * @param pFunc_call_back_dispatched
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
@@ -893,7 +893,7 @@ public:
 
 
     /**
-     * 拡散放射弾を複数セット同時に撃つ .
+     * 拡散放射状弾を複数セット同時に撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
      * ・ショットの _x, _y, _z 座標 <BR>
      * ・ショットの GgafDxKuroko の移動方向、移動速度、加速度<BR>
@@ -904,20 +904,20 @@ public:
      * @param prm_ry              発射方向Ry
      * @param prm_pDepo_shot      発射するショットのデポジトリ
      * @param prm_r               発射元と発射するショットの初期表示位置距離(発射元からの半径)。0より大きい値の必要有り。
-     * @param prm_radial_way_num  １セット放射Way数
-     * @param prm_expanse_angle   放射弾の照射角(0 ～ D180ANG。懐中電灯の光の広がり角のようなイメージ。小さいと弾の間隔が狭い)
+     * @param prm_radial_way_num  １セット放射状Way数
+     * @param prm_expanse_angle   発射方向への放射状弾の照射角(0 ～ D180ANG。懐中電灯の光の広がり角のようなイメージ。小さいと弾の間隔が狭い)
      * @param prm_velo_first      初弾セットのショット初期速度。初弾セット以降の初期速度は prm_attenuated を乗じていく。
      * @param prm_acce            各セットのショット初期加速度
-     * @param prm_set_num         撃つ放射WAY弾の合計セット数
+     * @param prm_set_num         撃つ放射状WAY弾の合計セット数
      * @param prm_interval_frames 弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
-     * @param prm_attenuated      初弾セット以降のセット毎のショット初期速度減衰率(< 1.0)、或いは増幅率(>1.0)
+     * @param prm_attenuated      初弾セット以降のセット毎のショット初期速度へ乗率。速度減衰(< 1.0)或いは速度増加(>1.0)。1.0は全セット速度が同じ。
      * @param pFunc_call_back_dispatched デポジトリ(prm_pDepo_shot)から dispatch() されて、
      *                                 移動方向、初期速度、加速度が設定された後にコールバックされる関数を設定。
      *                                 引数には次の値が引き渡される。
      *                                 void f(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_dispatch_num, int prm_set_index, int prm_way_index)
      *                                 prm_pActor         dispatch()された弾のアクター
      *                                 prm_dispatch_num   何回目の dispatch() の弾か  (1～)
-     *                                 prm_set_index      放射WAY弾何セット目であるか (0～)
+     *                                 prm_set_index      放射状WAY弾何セット目であるか (0～)
      *                                 prm_way_index      何WAY目の弾であるか         (0～)
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
@@ -931,27 +931,27 @@ public:
                                                        void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxDrawableActor*, int, int, int) = nullptr);
 
     /**
-     * 発射元が向いている方向（_rz > _ry）に向かって拡散放射弾を複数セット同時に撃つ .
+     * 発射元が向いている方向（_rz > _ry）に向かって拡散放射状弾を複数セット同時に撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
      * ・ショットの _x, _y, _z 座標 <BR>
      * ・ショットの GgafDxKuroko の移動方向、移動速度、加速度<BR>
      * @param prm_pFrom           発射元
      * @param prm_pDepo_shot      発射するショットのデポジトリ
      * @param prm_r               発射元と発射するショットの初期表示位置距離(発射元からの半径)。0より大きい値の必要有り。
-     * @param prm_radial_way_num  １セット放射Way数
-     * @param prm_expanse_angle   放射弾の照射中心角(0 ～ D180ANG。懐中電灯の光の広がりの成す角のようなイメージ。小さいと弾の間隔が狭い)
+     * @param prm_radial_way_num  １セット放射状Way数
+     * @param prm_expanse_angle   発射方向への放射状弾の照射中心角(0 ～ D180ANG。懐中電灯の光の広がりの成す角のようなイメージ。小さいと弾の間隔が狭い)
      * @param prm_velo_first      初弾セットのショット初期速度
      * @param prm_acce            初弾セットのショット初期加速度
-     * @param prm_set_num         撃つ放射WAY弾の合計セット数
+     * @param prm_set_num         撃つ放射状WAY弾の合計セット数
      * @param prm_interval_frames 弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
-     * @param prm_attenuated      初弾セット以降のセット毎のショット初期速度・加速度の減衰率(> 1.0)、或いは増幅率(>1.0)
+     * @param prm_attenuated      初弾セット以降のセット毎のショット初期速度へ乗率。速度減衰(< 1.0)或いは速度増加(>1.0)。1.0は全セット速度が同じ。
      * @param pFunc_call_back_dispatched デポジトリ(prm_pDepo_shot)から dispatch() されて、
      *                                 移動方向、初期速度、加速度が設定された後にコールバックされる関数を設定。
      *                                 引数には次の値が引き渡される。
      *                                 void f(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_dispatch_num, int prm_set_index, int prm_way_index)
      *                                 prm_pActor         dispatch()された弾のアクター
      *                                 prm_dispatch_num   何回目の dispatch() の弾か  (1～)
-     *                                 prm_set_index      放射WAY弾何セット目であるか (0～)
+     *                                 prm_set_index      放射状WAY弾何セット目であるか (0～)
      *                                 prm_way_index      何WAY目の弾であるか         (0～)
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
@@ -964,7 +964,7 @@ public:
                                                        void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxDrawableActor*, int, int, int) = nullptr);
 
     /**
-     * 黄金角拡散放射弾を複数セット同時に撃つ .
+     * 黄金角拡散放射状弾を複数セット同時に撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
      * ・ショットの _x, _y, _z 座標 <BR>
      * ・ショットの GgafDxKuroko の移動方向、移動速度、加速度<BR>
@@ -980,9 +980,9 @@ public:
      * @param prm_inc_expanse_angle     1弾毎に加算する照射角差分(0 ～ D180ANG)
      * @param prm_velo_first      初弾セットのショット初期速度。初弾セット以降の初期速度は prm_attenuated を乗じていく。
      * @param prm_acce            各セットのショット初期加速度
-     * @param prm_set_num         撃つ放射WAY弾の合計セット数
+     * @param prm_set_num         撃つ放射状WAY弾の合計セット数
      * @param prm_interval_frames 弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
-     * @param prm_attenuated      初弾セット以降のセット毎のショット初期速度減衰率(< 1.0)、或いは増幅率(>1.0)
+     * @param prm_attenuated      初弾セット以降のセット毎のショット初期速度へ乗率。速度減衰(< 1.0)或いは速度増加(>1.0)。1.0は全セット速度が同じ。
      * @param pFunc_call_back_dispatched
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
@@ -997,7 +997,7 @@ public:
                                                              void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxDrawableActor*, int, int, int) = nullptr);
 
     /**
-     * 発射元が向いている方向（_rz > _ry）に向かって黄金角拡散放射弾を複数セット同時に撃つ .
+     * 発射元が向いている方向（_rz > _ry）に向かって黄金角拡散放射状弾を複数セット同時に撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
      * ・ショットの _x, _y, _z 座標 <BR>
      * ・ショットの GgafDxKuroko の移動方向、移動速度、加速度<BR>
@@ -1009,9 +1009,9 @@ public:
      * @param prm_inc_expanse_angle     1弾毎に加算する照射角差分(0 ～ D180ANG)
      * @param prm_velo_first      初弾セットのショット初期速度。初弾セット以降の初期速度は prm_attenuated を乗じていく。
      * @param prm_acce            各セットのショット初期加速度
-     * @param prm_set_num         撃つ放射WAY弾の合計セット数
+     * @param prm_set_num         撃つ放射状WAY弾の合計セット数
      * @param prm_interval_frames 弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
-     * @param prm_attenuated      初弾セット以降のセット毎のショット初期速度減衰率(< 1.0)、或いは増幅率(>1.0)
+     * @param prm_attenuated      初弾セット以降のセット毎のショット初期速度へ乗率。速度減衰(< 1.0)或いは速度増加(>1.0)。1.0は全セット速度が同じ。
      * @param pFunc_call_back_dispatched
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */

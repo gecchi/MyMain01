@@ -45,14 +45,14 @@ void Shot002::processBehavior() {
     GgafDxKuroko* pKuroko = getKuroko();
     if (getActiveFrame() == 70) {
         pKuroko->turnMvAngTwd(P_MYSHIP,
-                                3000, 0,
-                                TURN_CLOSE_TO, true);
+                              3000, 0,
+                              TURN_CLOSE_TO, true);
     }
 
     if (getActiveFrame() > 70 && !pKuroko->isTurningMvAng()) {
         pKuroko->turnMvAngTwd(P_MYSHIP,
-                                100, 0,
-                                TURN_CLOSE_TO, true);
+                              100, 0,
+                              TURN_CLOSE_TO, true);
     }
     //À•W‚É”½‰f
     pKuroko->behave();

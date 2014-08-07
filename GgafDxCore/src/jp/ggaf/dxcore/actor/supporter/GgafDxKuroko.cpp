@@ -639,8 +639,8 @@ void GgafDxKuroko::forceRzMvAngVeloRange(angvelo prm_angvelo_rz_mv01,
 }
 
 void GgafDxKuroko::setStopTargetRzMvAng(angle prm_target_ang_rz_mv,
-                                         int prm_way_allow,
-                                         angvelo prm_angvelo_allow) {
+                                        int prm_way_allow,
+                                        angvelo prm_angvelo_allow) {
     _is_targeting_ang_rz_mv = true;
     _ang_rz_mv_targeting_stop_flg = true;
     _target_ang_rz_mv = UTIL::simplifyAng(prm_target_ang_rz_mv);

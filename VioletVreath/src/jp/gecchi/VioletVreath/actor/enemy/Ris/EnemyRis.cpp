@@ -77,18 +77,14 @@ void EnemyRis::processBehavior() {
         case 2:  //【パターン２：放射状ショット発射と自機へ方向転換】
             if (pDepo_shot_) {
                 //放射状ショット
-                int way = 2;//RF_EnemyRis_ShotWay(G_RANK); //ショットWAY数
-                angle* paAng_way = NEW angle[way];
-                UTIL::getRadialAngle2D(0, way, paAng_way);
-                GgafDxDrawableActor* pActor_shot;
-                for (int i = 0; i < way; i++) {
-                    pActor_shot = (GgafDxDrawableActor*)pDepo_shot_->dispatch();
-                    if (pActor_shot) {
-                        pActor_shot->positionAs(this);
-                        pActor_shot->getKuroko()->setRzRyMvAng(paAng_way[i], D90ANG);
-                    }
-                }
-                GGAF_DELETEARR(paAng_way);
+                int way = RF_EnemyRis_ShotWay(G_RANK); //ショットWAY数
+                UTIL::shotWay004(_x, _y, _z,
+                                 D0ANG, D180ANG,
+                                 pDepo_shot_,
+                                 PX_C(20), way, D_ANG(120),
+                                 0, 0,  //ショット側で速度を設定
+                                 1, 0, 1.0,
+                                 nullptr );
                 //ショット発射エフェクト
                 if (pDepo_effect_) {
                     GgafDxDrawableActor* pTestActor_Shot = (GgafDxDrawableActor*)pDepo_effect_->dispatch();

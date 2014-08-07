@@ -47,8 +47,6 @@ void FixedVelocitySplineKurokoLeader::getPointCoord(int prm_point_index, coord& 
                                    "補完点数="<<(_pFixedVeloSplManuf->_sp->_rnum)<<" prm_point_index="<<prm_point_index);
     }
 #endif
-
-
     SplineLine* pSpl = _pFixedVeloSplManuf->_sp;
     double dx = _flip_x*pSpl->_x_compute[prm_point_index]*_pFixedVeloSplManuf->_rate_x + _offset_x;
     double dy = _flip_y*pSpl->_y_compute[prm_point_index]*_pFixedVeloSplManuf->_rate_y + _offset_y;
@@ -163,7 +161,6 @@ void FixedVelocitySplineKurokoLeader::behave() {
                     _point_index++;
                 }
             }
-
             coord x, y, z;
             getPointCoord(_point_index, x, y, z);
             pKuroko_target->turnMvAngTwd(x, y, z,
@@ -175,13 +172,11 @@ void FixedVelocitySplineKurokoLeader::behave() {
                 //始点までに必要なフレーム数取得
                 _fFrame_of_next = (1.0*_distance_to_begin / _pFixedVeloSplManuf->_velo_mvUnit);
             } else {
-
                 //始点以外の場合次の補完点までに必要なフレーム数を更新
                 _fFrame_of_next = (1.0*_distance_to_begin / _pFixedVeloSplManuf->_velo_mvUnit) +
                                      _pFixedVeloSplManuf->_paFrame_need_at[_point_index];
              }
         }
-
         //キャラの速度が1000ならば、_leadning_fFrames ++;
         //キャラの速度が2000ならば  _leadning_fFrames += 2.0;
         //キャラの速度が500ならば、 _leadning_fFrames += 0.5
