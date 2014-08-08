@@ -79,7 +79,7 @@ void EnemyRis::processBehavior() {
                 //放射状ショット
                 int way = RF_EnemyRis_ShotWay(G_RANK); //ショットWAY数
                 UTIL::shotWay004(_x, _y, _z,
-                                 D0ANG, D180ANG,
+                                 D180ANG, D0ANG,
                                  pDepo_shot_,
                                  PX_C(20), way, D_ANG(120),
                                  0, 0,  //ショット側で速度を設定

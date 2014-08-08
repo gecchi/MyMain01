@@ -434,17 +434,17 @@ public:
      * @param out_angRy [out]YŽ²‰ñ“]ƒAƒ“ƒOƒ‹’l
      */
     static void convVectorToRzRy(double nvx, double nvy, double nvz, angle& out_angRz, angle& out_angRy) {
-        convVectorToRzRy((int)(nvx*LEN_UNIT*PX_UNIT),
-                         (int)(nvy*LEN_UNIT*PX_UNIT),
-                         (int)(nvz*LEN_UNIT*PX_UNIT),
+        convVectorToRzRy((int)(nvx*100000),
+                         (int)(nvy*100000),
+                         (int)(nvz*100000),
                          out_angRz,
                          out_angRy );
     }
 
     static void convVectorToRzRy(float nvx, float nvy, float nvz, angle& out_angRz, angle& out_angRy) {
-        convVectorToRzRy((int)(nvx*LEN_UNIT*PX_UNIT),
-                         (int)(nvy*LEN_UNIT*PX_UNIT),
-                         (int)(nvz*LEN_UNIT*PX_UNIT),
+        convVectorToRzRy((int)(nvx*100000),
+                         (int)(nvy*100000),
+                         (int)(nvz*100000),
                          out_angRz,
                          out_angRy );
     }

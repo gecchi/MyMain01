@@ -890,8 +890,6 @@ public:
                                                        int prm_set_num, frame prm_interval_frames, float prm_attenuated,
                                                        void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxDrawableActor*, int, int, int, int, int) = nullptr);
 
-
-
     /**
      * 拡散放射状弾を複数セット同時に撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>

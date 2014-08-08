@@ -82,9 +82,12 @@ SplineLine* SplineLineManager::processCreateResource(char* prm_idstr, void* prm_
                           { 1000000 ,     0.0 ,  200000 },
                           { 1050000 , -200000 ,     0.0 },
                           { 1200000 ,     0.0 , -200000 },
+                          { 1050000 ,     0.0 ,     0.0 },
+                          { 1000000 ,     0.0 ,     0.0 },
+                          { 950000  ,     0.0 ,     0.0 },
                           {     0.0 ,     0.0 ,     0.0 }
         };
-        pResource = NEW SplineLine(p, 18, 0.2); //—±“x 0.2
+        pResource = NEW SplineLine(p, 21, 0.2); //—±“x 0.2
     }
 
     if (UTIL::strcmp_ascii("Spl_Allas01", prm_idstr) == 0) {

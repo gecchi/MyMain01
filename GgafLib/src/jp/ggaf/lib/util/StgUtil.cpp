@@ -19,9 +19,9 @@ GgafDxDrawableActor* StgUtil::shotWay001(coord prm_x, coord prm_y, coord prm_z,
     if (prm_set_num <= 0) {  return nullptr;  }
     float vx, vy, vz;
     GgafDxUtil::convRzRyToVector(prm_rz, prm_ry, vx, vy, vz);
-    coord X = vx * prm_r;
-    coord Y = vy * prm_r;
-    coord Z = vz * prm_r;
+    coord x = vx * prm_r;
+    coord y = vy * prm_r;
+    coord z = vz * prm_r;
     GgafDxDrawableActor* pActor_shot = nullptr;
     velo now_velo = prm_velo_first;
     acce now_acce = prm_acce;
@@ -30,9 +30,9 @@ GgafDxDrawableActor* StgUtil::shotWay001(coord prm_x, coord prm_y, coord prm_z,
         pActor_shot = (GgafDxDrawableActor*)prm_pDepo_shot->dispatch(n*prm_interval_frames+1);
         if (pActor_shot) {
             dispatch_num++;
-            pActor_shot->position(prm_x + X,
-                                  prm_y + Y,
-                                  prm_z + Z);
+            pActor_shot->position(prm_x + x,
+                                  prm_y + y,
+                                  prm_z + z);
             pActor_shot->getKuroko()->setRzRyMvAng(prm_rz, prm_ry);
             pActor_shot->getKuroko()->setMvVelo(now_velo);
             pActor_shot->getKuroko()->setMvAcce(now_acce);
@@ -95,21 +95,21 @@ GgafDxDrawableActor* StgUtil::shotWay002(coord prm_x, coord prm_y, coord prm_z,
     GgafDxUtil::getWayAngle2D(0, prm_way_N, prm_ang_clearance_N, paAng_way_N);
     GgafDxGeoElem* paGeo = NEW GgafDxGeoElem[prm_way_N];
     float vx, vy, vz;
-    angle Rz,Ry;
+    float tx, ty, tz; //最終方向の絶対座標の単位ベクトル
+    angle rz,ry;
     D3DXMATRIX matWorldRot;
     GgafDxUtil::setWorldMatrix_RxRzRy(prm_rx, prm_rz, prm_ry, matWorldRot);
-    coord x,y,z;
     for (int i = 0; i < prm_way_N; i++) {
-        Rz = GgafDxUtil::simplifyAng(paAng_way_N[i]);
-        Ry = D0ANG;
-        GgafDxUtil::convRzRyToVector(Rz, Ry, vx, vy, vz);
-        x = vx * prm_r;
-        y = vy * prm_r;
-        z = vz * prm_r;
-        paGeo[i].x = x*matWorldRot._11 + y*matWorldRot._21 + z*matWorldRot._31;
-        paGeo[i].y = x*matWorldRot._12 + y*matWorldRot._22 + z*matWorldRot._32;
-        paGeo[i].z = x*matWorldRot._13 + y*matWorldRot._23 + z*matWorldRot._33;
-        GgafDxUtil::convVectorToRzRy(paGeo[i].x , paGeo[i].y, paGeo[i].z,
+        rz = GgafDxUtil::simplifyAng(paAng_way_N[i]);
+        ry = D0ANG;
+        GgafDxUtil::convRzRyToVector(rz, ry, vx, vy, vz);
+        tx = vx*matWorldRot._11 + vy*matWorldRot._21 + vz*matWorldRot._31;
+        ty = vx*matWorldRot._12 + vy*matWorldRot._22 + vz*matWorldRot._32;
+        tz = vx*matWorldRot._13 + vy*matWorldRot._23 + vz*matWorldRot._33;
+        paGeo[i].x = (coord)(tx * prm_r);
+        paGeo[i].y = (coord)(ty * prm_r);
+        paGeo[i].z = (coord)(tz * prm_r);
+        GgafDxUtil::convVectorToRzRy(tx, ty, tz,
                                      paGeo[i].rz, paGeo[i].ry);
     }
     GgafDxDrawableActor* pActor_shot = nullptr;
@@ -177,10 +177,10 @@ GgafDxDrawableActor* StgUtil::shotWay003(coord prm_x, coord prm_y, coord prm_z,
     GgafDxUtil::getWayAngle2D(0, prm_way_M, prm_ang_clearance_M, paAng_way_M);
     GgafDxGeoElem** papaGeo = NEW GgafDxGeoElem*[prm_way_N];
     float vx, vy, vz;
-    angle Rz,Ry;
+    float tx, ty, tz; //最終方向の絶対座標の単位ベクトル
+    angle rz,ry;
     D3DXMATRIX matWorldRot;
     GgafDxUtil::setWorldMatrix_RxRzRy(prm_rx, prm_rz, prm_ry, matWorldRot);
-    coord x,y,z;
     uint32_t dot1,dot2,dot3;
     for (int i = 0; i < prm_way_N; i++) {
         dot1 = prm_paUint32_dotmat1 ? prm_paUint32_dotmat1[i] : 0;
@@ -191,19 +191,19 @@ GgafDxDrawableActor* StgUtil::shotWay003(coord prm_x, coord prm_y, coord prm_z,
             papaGeo[i] = nullptr;
             continue;
         }
-        Rz = GgafDxUtil::simplifyAng(paAng_way_N[i]);
+        rz = GgafDxUtil::simplifyAng(paAng_way_N[i]);
         papaGeo[i] = NEW GgafDxGeoElem[prm_way_M];
         for (int j = 0; j < prm_way_M; j++) {
             if (paUint32_dotmat[i] & GgafDxUtil::BITNUM[prm_way_M-j]) {
-                Ry = GgafDxUtil::simplifyAng(paAng_way_M[j]);
-                GgafDxUtil::convRzRyToVector(Rz, Ry, vx, vy, vz);
-                x = vx * prm_r;
-                y = vy * prm_r;
-                z = vz * prm_r;
-                papaGeo[i][j].x = x*matWorldRot._11 + y*matWorldRot._21 + z*matWorldRot._31;
-                papaGeo[i][j].y = x*matWorldRot._12 + y*matWorldRot._22 + z*matWorldRot._32;
-                papaGeo[i][j].z = x*matWorldRot._13 + y*matWorldRot._23 + z*matWorldRot._33;
-                GgafDxUtil::convVectorToRzRy(papaGeo[i][j].x , papaGeo[i][j].y, papaGeo[i][j].z,
+                ry = GgafDxUtil::simplifyAng(paAng_way_M[j]);
+                GgafDxUtil::convRzRyToVector(rz, ry, vx, vy, vz);
+                tx = vx*matWorldRot._11 + vy*matWorldRot._21 + vz*matWorldRot._31;
+                ty = vx*matWorldRot._12 + vy*matWorldRot._22 + vz*matWorldRot._32;
+                tz = vx*matWorldRot._13 + vy*matWorldRot._23 + vz*matWorldRot._33;
+                papaGeo[i][j].x = (coord)(tx * prm_r);
+                papaGeo[i][j].y = (coord)(ty * prm_r);
+                papaGeo[i][j].z = (coord)(tz * prm_r);
+                GgafDxUtil::convVectorToRzRy(tx, ty, tz,
                                              papaGeo[i][j].rz, papaGeo[i][j].ry);
             }
         }
@@ -310,16 +310,16 @@ GgafDxDrawableActor* StgUtil::shotWay004(coord prm_x, coord prm_y, coord prm_z,
     GgafDxUtil::setWorldMatrix_RzRy(GgafDxUtil::simplifyAng(prm_rz-D90ANG),prm_ry, matWorldRot);
 
     float vx, vy, vz;
-    coord x,y,z;
+    float tx, ty, tz; //最終方向の絶対座標の単位ベクトル
     for (int i = 0; i < prm_radial_way_num; i++) {
         GgafDxUtil::convRzRyToVector(expanse_rz, paAng_way[i], vx, vy, vz);
-        x = vx * prm_r;
-        y = vy * prm_r;
-        z = vz * prm_r;
-        paGeo[i].x = x*matWorldRot._11 + y*matWorldRot._21 + z*matWorldRot._31;
-        paGeo[i].y = x*matWorldRot._12 + y*matWorldRot._22 + z*matWorldRot._32;
-        paGeo[i].z = x*matWorldRot._13 + y*matWorldRot._23 + z*matWorldRot._33;
-        GgafDxUtil::convVectorToRzRy(paGeo[i].x , paGeo[i].y, paGeo[i].z,
+        tx = vx*matWorldRot._11 + vy*matWorldRot._21 + vz*matWorldRot._31;
+        ty = vx*matWorldRot._12 + vy*matWorldRot._22 + vz*matWorldRot._32;
+        tz = vx*matWorldRot._13 + vy*matWorldRot._23 + vz*matWorldRot._33;
+        paGeo[i].x = (coord)(tx * prm_r);
+        paGeo[i].y = (coord)(ty * prm_r);
+        paGeo[i].z = (coord)(tz * prm_r);
+        GgafDxUtil::convVectorToRzRy(tx, ty, tz,
                                      paGeo[i].rz, paGeo[i].ry);
     }
     GgafDxDrawableActor* pActor_shot = nullptr;
@@ -385,16 +385,16 @@ GgafDxDrawableActor* StgUtil::shotWayGoldenAng(coord prm_x, coord prm_y, coord p
     GgafDxUtil::setWorldMatrix_RzRy(GgafDxUtil::simplifyAng(prm_rz-D90ANG),prm_ry, matWorldRot);
 
     float vx, vy, vz;
-    coord x,y,z;
+    float tx, ty, tz; //最終方向の絶対座標の単位ベクトル
     for (int i = 0; i < prm_way_num; i++) {
         GgafDxUtil::convRzRyToVector(expanse_rz, GOLDEN_ANG[i], vx, vy, vz);
-        x = vx * prm_r;
-        y = vy * prm_r;
-        z = vz * prm_r;
-        paGeo[i].x = x*matWorldRot._11 + y*matWorldRot._21 + z*matWorldRot._31;
-        paGeo[i].y = x*matWorldRot._12 + y*matWorldRot._22 + z*matWorldRot._32;
-        paGeo[i].z = x*matWorldRot._13 + y*matWorldRot._23 + z*matWorldRot._33;
-        GgafDxUtil::convVectorToRzRy(paGeo[i].x , paGeo[i].y, paGeo[i].z,
+        tx = vx*matWorldRot._11 + vy*matWorldRot._21 + vz*matWorldRot._31;
+        ty = vx*matWorldRot._12 + vy*matWorldRot._22 + vz*matWorldRot._32;
+        tz = vx*matWorldRot._13 + vy*matWorldRot._23 + vz*matWorldRot._33;
+        paGeo[i].x = (coord)(tx * prm_r);
+        paGeo[i].y = (coord)(ty * prm_r);
+        paGeo[i].z = (coord)(tz * prm_r);
+        GgafDxUtil::convVectorToRzRy(tx, ty, tz,
                                      paGeo[i].rz, paGeo[i].ry);
         expanse_rz -= (prm_inc_expanse_angle/2);
     }
