@@ -28,7 +28,6 @@ EnemyHalia::EnemyHalia(const char* prm_name) :
 
     _class_name = "EnemyHalia";
     veloTopMv_ = 20000;
-    iMovePatternNo_ = 0;
     pKurokoLeader_ = nullptr;
     pLaserChipDepo_ = NEW LaserChipDepository("MyRotLaser");
     pLaserChipDepo_->config(60, 1, nullptr); //Haliaは弾切れフレームを1にしないとパクパクしちゃいます。
@@ -78,7 +77,6 @@ void EnemyHalia::onActive() {
     pKuroko->setFaceAngVelo(AXIS_X, 1000);
     pKuroko->setMvVelo(0);
     pKuroko->setMvAcce(0);
-    iMovePatternNo_ = 0; //行動パターンリセット
 }
 
 void EnemyHalia::processBehavior() {
@@ -156,7 +154,7 @@ void EnemyHalia::processBehavior() {
             break;
         }
         case PROG_IN_FIRE: {
-            EnemyStraightLaserChip001* pLaser = (EnemyStraightLaserChip001*)pLaserChipDepo_->dispatch();
+            LaserChip* pLaser = pLaserChipDepo_->dispatch();
             if (pLaser) {
                 if (pLaser->getFrontChip() == nullptr) {
                     getSeTx()->play3D(SE_FIRE);

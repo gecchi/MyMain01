@@ -33,8 +33,6 @@ public:
         SE_EXPLOSION,
         SE_FIRE,
     };
-    /** 行動パターン番号 */
-    int iMovePatternNo_;
 
     velo veloTopMv_;
     /** 移動スプラインプログラム */
@@ -45,6 +43,7 @@ public:
     GgafLib::LaserChipDepository* pLaserChipDepo_;
     /** フィードイン・フェードアウト支援 */
     GgafDxCore::GgafDxAlphaFader* pAFader_;
+
 public:
     /**
      * コンストラクタ
