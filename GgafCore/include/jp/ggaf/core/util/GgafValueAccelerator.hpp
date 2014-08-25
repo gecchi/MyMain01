@@ -1,8 +1,9 @@
 #ifndef GGAFCORE_GGAFVALUEACCELERATOR_H_
 #define GGAFCORE_GGAFVALUEACCELERATOR_H_
+#include "GgafCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
-#include "jp/ggaf/core/util/GgafUtil.h"
 
+#include "jp/ggaf/core/util/GgafUtil.h"
 
 namespace GgafCore {
 

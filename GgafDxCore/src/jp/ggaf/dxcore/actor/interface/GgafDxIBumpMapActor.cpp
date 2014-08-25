@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/actor/interface/GgafDxIBumpMapActor.h"
 
 #include "jp/ggaf/dxcore/manager/GgafDxTextureManager.h"

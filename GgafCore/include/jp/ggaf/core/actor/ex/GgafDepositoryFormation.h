@@ -1,5 +1,6 @@
 #ifndef GGAFCORE_GGAFDEPOSITORYFORMATION_H_
 #define GGAFCORE_GGAFDEPOSITORYFORMATION_H_
+#include "GgafCommonHeader.h"
 #include "jp/ggaf/core/actor/ex/GgafFormation.h"
 
 #include "jp/ggaf/core/util/GgafLinkedListRing.hpp"

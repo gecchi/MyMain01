@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/core/GgafProgress.h"
 
 #include "jp/ggaf/core/exception/GgafCriticalException.h"

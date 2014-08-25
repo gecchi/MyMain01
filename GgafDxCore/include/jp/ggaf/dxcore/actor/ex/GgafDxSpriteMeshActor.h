@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXSPRITEMESHACTOR_H_
 #define GGAFDXCORE_GGAFDXSPRITEMESHACTOR_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/GgafDxMeshActor.h"
 
 namespace GgafDxCore {

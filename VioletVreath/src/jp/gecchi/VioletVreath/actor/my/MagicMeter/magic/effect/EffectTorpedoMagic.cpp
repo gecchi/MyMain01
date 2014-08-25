@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "EffectTorpedoMagic.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"

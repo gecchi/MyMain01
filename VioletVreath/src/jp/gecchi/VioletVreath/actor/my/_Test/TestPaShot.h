@@ -1,5 +1,6 @@
 #ifndef TESTPASHOT_H_
 #define TESTPASHOT_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/SingleLaser.h"
 
 namespace VioletVreath {

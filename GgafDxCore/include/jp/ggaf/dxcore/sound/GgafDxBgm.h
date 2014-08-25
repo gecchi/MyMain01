@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXBGM_H_
 #define GGAFDXCORE_GGAFDXBGM_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <string>

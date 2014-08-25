@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/actor/ex/GgafDxFkFormation.h"
 #include "jp/ggaf/core/util/GgafStatus.h"
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"

@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXWORLDEFFECT_H_
 #define GGAFDXCORE_GGAFDXWORLDEFFECT_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/effect/GgafDxMorphMeshEffect.h"
 
 namespace GgafDxCore {

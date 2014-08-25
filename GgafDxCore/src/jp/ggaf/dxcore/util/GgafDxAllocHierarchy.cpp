@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/util/GgafDxAllocHierarchy.h"
 
 using namespace GgafCore;

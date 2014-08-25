@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/core/GgafObject.h"
 
 using namespace GgafCore;

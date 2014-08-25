@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "EffectEntry.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"

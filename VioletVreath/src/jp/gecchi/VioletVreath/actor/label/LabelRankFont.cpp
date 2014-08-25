@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "LabelRankFont.h"
 
 #include "jp/gecchi/VioletVreath/GameGlobal.h"

@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "LabelSceneSymbol.h"
 
 #include "jp/gecchi/VioletVreath/Properties.h"

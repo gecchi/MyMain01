@@ -1,5 +1,6 @@
 #ifndef UNIVERSE_H_
 #define UNIVERSE_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/scene/DefaultUniverse.h"
 
 #include "jp/gecchi/VioletVreath/God.h"

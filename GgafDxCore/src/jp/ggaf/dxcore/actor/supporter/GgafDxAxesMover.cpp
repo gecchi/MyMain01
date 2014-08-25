@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 
 #include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"

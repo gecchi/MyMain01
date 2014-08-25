@@ -1,5 +1,6 @@
 #ifndef SPRITELABELTEST_H_
 #define SPRITELABELTEST_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/StringSpriteActor.h"
 
 namespace VioletVreath {

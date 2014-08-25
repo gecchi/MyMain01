@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "World.h"
 
 #include <stdio.h>

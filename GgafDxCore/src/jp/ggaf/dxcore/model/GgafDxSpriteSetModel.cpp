@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/model/GgafDxSpriteSetModel.h"
 
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"

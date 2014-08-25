@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "FormationAllas001a.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"

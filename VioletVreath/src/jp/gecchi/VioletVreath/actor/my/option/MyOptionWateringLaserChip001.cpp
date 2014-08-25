@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "MyOptionWateringLaserChip001.h"
 
 #include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"

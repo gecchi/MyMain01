@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "FormationOrtuna001a.h"
 
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"

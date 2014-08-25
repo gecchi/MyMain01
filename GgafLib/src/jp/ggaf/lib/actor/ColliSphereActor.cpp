@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/actor/ColliSphereActor.h"
 
 #include "jp/ggaf/core/GgafGod.h"

@@ -1,5 +1,6 @@
 #ifndef GAMEMAINSCENE_H_
 #define GAMEMAINSCENE_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 namespace VioletVreath {

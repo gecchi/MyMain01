@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "EnemyOzartia.h"
 
 #include "EnemyOzartiaShot01.h"

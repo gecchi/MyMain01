@@ -1,7 +1,5 @@
-#include "stdafx.h"
 #include "jp/ggaf/core/actor/ex/GgafActorDepositoryStore.h"
 #include "jp/ggaf/core/util/GgafStatus.h"
-
 
 using namespace GgafCore;
 

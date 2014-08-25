@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/actor/ex/GgafDxAAPrismActor.h"
 
 #include "jp/ggaf/dxcore/GgafDxProperties.h"

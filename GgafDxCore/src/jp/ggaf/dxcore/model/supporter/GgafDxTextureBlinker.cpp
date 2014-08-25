@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
 
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"

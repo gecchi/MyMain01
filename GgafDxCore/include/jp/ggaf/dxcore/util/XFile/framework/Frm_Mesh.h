@@ -6,6 +6,7 @@
 
 #ifndef FRM_MESH_H
 #define FRM_MESH_H
+#include "GgafDxCommonHeader.h"
 
 #include "jp/ggaf/dxcore/util/XFile/framework/frm_types.h"
 #include "jp/ggaf/dxcore/util/XFile/framework/frm_3Dmath.h"

@@ -1,5 +1,6 @@
 #ifndef ENEMYTAMAGO01_H_
 #define ENEMYTAMAGO01_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/SpriteMeshSetActor.h"
 
 namespace VioletVreath {

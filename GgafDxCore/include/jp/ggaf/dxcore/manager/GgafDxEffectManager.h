@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXEFFECTMANAGER_H_
 #define GGAFDXCORE_GGAFDXEFFECTMANAGER_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/util/GgafResourceManager.hpp"
 
 #include "jp/ggaf/dxcore/effect/GgafDxEffect.h"

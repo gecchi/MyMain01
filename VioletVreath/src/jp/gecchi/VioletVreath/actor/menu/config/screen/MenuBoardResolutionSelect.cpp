@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "MenuBoardResolutionSelect.h"
 
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"

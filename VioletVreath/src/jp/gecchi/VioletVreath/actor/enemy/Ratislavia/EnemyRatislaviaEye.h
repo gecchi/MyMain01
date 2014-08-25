@@ -1,5 +1,6 @@
 #ifndef ENEMYRATISLAVIAEYE_H_
 #define ENEMYRATISLAVIAEYE_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 
 namespace VioletVreath {

@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_SPLINESOURCE_H_
 #define GGAFLIB_SPLINESOURCE_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <string>

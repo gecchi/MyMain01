@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "StagePartController.h"
 #include "jp/ggaf/dxcore/scene/GgafDxScene.h"
 #include "jp/ggaf/dxcore/scene/supporter/GgafDxBgmPerformerForScene.h"

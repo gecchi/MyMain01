@@ -1,8 +1,8 @@
 #ifndef GGAFCORE_GGAFVALUETRANSITIONER_H_
 #define GGAFCORE_GGAFVALUETRANSITIONER_H_
+#include "GgafCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 
-#include "GgafCommonHeader.h"
 #include "jp/ggaf/core/util/GgafUtil.h"
 
 namespace GgafCore {

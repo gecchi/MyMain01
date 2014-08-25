@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXAGAINSTWAY_H_
 #define GGAFDXCORE_GGAFDXAGAINSTWAY_H_
+#include "GgafDxCommonHeader.h"
 namespace GgafDxCore {
 //çÏÇÎÇ§Ç©ñ¿Ç¢íÜ2011/12/12
 //

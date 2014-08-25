@@ -1,5 +1,6 @@
 #ifndef FORMATIONASSALIA_H_
 #define FORMATIONASSALIA_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DepositoryFormation.h"
 
 namespace VioletVreath {

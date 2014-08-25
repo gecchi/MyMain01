@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/effect/ex/GgafDxWorldBoundEffect.h"
 
 using namespace GgafCore;

@@ -1,5 +1,6 @@
 #ifndef ENEMYOZARTIA_H_
 #define ENEMYOZARTIA_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 
 #include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"

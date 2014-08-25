@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "MgrGod.h"
 
 #include "actor/MgrCamera.h"

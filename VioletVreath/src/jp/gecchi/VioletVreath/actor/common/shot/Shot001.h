@@ -1,5 +1,6 @@
 #ifndef SHOT001_H_
 #define SHOT001_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
 namespace VioletVreath {

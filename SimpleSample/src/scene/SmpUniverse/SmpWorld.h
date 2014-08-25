@@ -1,5 +1,6 @@
 #ifndef SMPWORLD_H_
 #define SMPWORLD_H_
+#include "SimpleSample.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 #include "jp/ggaf/lib/util/VirtualButton.h"

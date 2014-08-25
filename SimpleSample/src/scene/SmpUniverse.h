@@ -1,5 +1,6 @@
 #ifndef SMPUNIVERSE_H_
 #define SMPUNIVERSE_H_
+#include "SimpleSample.h"
 #include "jp/ggaf/lib/scene/DefaultUniverse.h"
 
 namespace SimpleSample {

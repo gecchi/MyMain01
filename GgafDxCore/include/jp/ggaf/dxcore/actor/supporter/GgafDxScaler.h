@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXSCALER_H_
 #define GGAFDXCORE_GGAFDXSCALER_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/util/GgafValueTransitioner.hpp"
 
 namespace GgafDxCore {

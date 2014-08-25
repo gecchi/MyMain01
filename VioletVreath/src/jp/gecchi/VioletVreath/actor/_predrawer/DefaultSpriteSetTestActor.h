@@ -1,5 +1,6 @@
 #ifndef DEFAULTSPRITESETEFFECTACTOR_H_
 #define DEFAULTSPRITESETEFFECTACTOR_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultSpriteSetActor.h"
 
 namespace VioletVreath {

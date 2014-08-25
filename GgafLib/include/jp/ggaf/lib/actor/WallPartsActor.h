@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_WALLPARTSACTOR_H_
 #define GGAFLIB_WALLPARTSACTOR_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/GgafDxMeshSetActor.h"
 
 #define FACE_A_IDX 5

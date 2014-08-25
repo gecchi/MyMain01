@@ -1,6 +1,5 @@
 #ifndef VVVIEWER_H_
 #define VVVIEWER_H_
-#include "VVViewer.h"
 
 /**
  * モデルビューワー

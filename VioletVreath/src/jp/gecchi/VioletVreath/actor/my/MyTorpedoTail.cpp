@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "MyTorpedoTail.h"
 
 #include "MyTorpedo.h"

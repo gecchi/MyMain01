@@ -1,5 +1,7 @@
 #ifndef GGAFCORE_GGAFLOGGER_H_
 #define GGAFCORE_GGAFLOGGER_H_
+#include "GgafCommonHeader.h"
+
 #include <sstream>
 
 namespace GgafCore {

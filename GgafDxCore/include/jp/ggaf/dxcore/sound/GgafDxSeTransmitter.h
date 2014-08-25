@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXSEREFLECTOR_H_
 #define GGAFDXCORE_GGAFDXSEREFLECTOR_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafDxCore {

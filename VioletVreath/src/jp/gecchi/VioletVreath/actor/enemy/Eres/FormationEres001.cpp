@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "FormationEres001.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Eres/EnemyEres.h"

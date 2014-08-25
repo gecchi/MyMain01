@@ -1,5 +1,6 @@
 #ifndef MAGICMETER_H_
 #define MAGICMETER_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultBoardSetActor.h"
 
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"

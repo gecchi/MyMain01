@@ -1,5 +1,6 @@
 #ifndef CAMERA_H_
 #define CAMERA_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultCamera.h"
 
 namespace VioletVreath {

@@ -1,5 +1,6 @@
 #ifndef FORMATIONDELHEID_H_
 #define FORMATIONDELHEID_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DepositoryFormation.h"
 
 namespace VioletVreath {

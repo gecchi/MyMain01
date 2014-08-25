@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/actor/WallAAPrismActor.h"
 
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"

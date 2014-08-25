@@ -1,5 +1,6 @@
 #ifndef VAMSYSCAMPOSITION_H_
 #define VAMSYSCAMPOSITION_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/core/GgafObject.h"
 
 namespace VioletVreath {

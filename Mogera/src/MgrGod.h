@@ -1,5 +1,6 @@
 #ifndef MGRGOD_H_
 #define MGRGOD_H_
+#include "Mogera.h"
 #include "jp/ggaf/lib/DefaultGod.h"
 
 namespace Mogera {

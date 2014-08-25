@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "EnemyOrtuna.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"

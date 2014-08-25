@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXAXESMOVERHELPERA_H_
 #define GGAFDXCORE_GGAFDXAXESMOVERHELPERA_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 #include "jp/ggaf/core/util/GgafValueAccelerator.hpp"
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"

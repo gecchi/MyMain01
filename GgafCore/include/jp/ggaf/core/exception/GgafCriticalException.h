@@ -1,6 +1,8 @@
 #ifndef GGAFCORE_GGAFCRITICALEXCEPTION_H_
 #define GGAFCORE_GGAFCRITICALEXCEPTION_H_
+#include "GgafCommonHeader.h"
 #include "jp/ggaf/core/exception/GgafException.h"
+
 #include <sstream>
 
 #define throwGgafCriticalException(X)  do { \

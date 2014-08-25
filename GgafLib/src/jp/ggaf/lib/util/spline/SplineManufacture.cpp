@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/util/spline/SplineManufacture.h"
 
 #include "jp/ggaf/lib/DefaultGod.h"

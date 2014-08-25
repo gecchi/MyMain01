@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "FormationOrtuna001.h"
 
 #include "jp/gecchi/VioletVreath/GameGlobal.h"

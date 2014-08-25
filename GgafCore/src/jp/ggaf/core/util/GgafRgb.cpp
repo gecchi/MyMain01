@@ -1,5 +1,5 @@
-#include "stdafx.h"
 #include "jp/ggaf/core/util/GgafRgb.h"
+
 #include <map>
 
 using namespace GgafCore;

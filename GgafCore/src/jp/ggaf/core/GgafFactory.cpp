@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/core/GgafFactory.h"
 
 #include "jp/ggaf/core/GgafGod.h"

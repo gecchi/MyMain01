@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "EnemyErmioneArmWeak.h"
 
 #include "EnemyErmione.h"

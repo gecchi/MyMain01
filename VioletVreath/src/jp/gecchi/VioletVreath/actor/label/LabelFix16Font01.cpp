@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "LabelFix16Font01.h"
 
 using namespace GgafCore;

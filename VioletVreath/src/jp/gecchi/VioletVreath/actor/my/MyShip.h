@@ -1,5 +1,6 @@
 #ifndef MYSHIP_H_
 #define MYSHIP_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultD3DXMeshActor.h"
 
 #include "jp/ggaf/lib/util/PxQuantity.h"

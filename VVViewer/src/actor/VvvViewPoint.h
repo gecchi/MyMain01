@@ -1,5 +1,6 @@
 #ifndef VVVVIEWPOINT_H_
 #define VVVVIEWPOINT_H_
+#include "VVViewer.h"
 #include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
 
 namespace VVViewer {

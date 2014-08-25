@@ -1,5 +1,6 @@
 #ifndef SMPACTOR_H_
 #define SMPACTOR_H_
+#include "SimpleSample.h"
 #include "jp/ggaf/lib/actor/DefaultMeshActor.h"
 
 namespace SimpleSample {

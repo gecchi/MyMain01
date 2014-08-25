@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "LabelMenuItemFont01.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"

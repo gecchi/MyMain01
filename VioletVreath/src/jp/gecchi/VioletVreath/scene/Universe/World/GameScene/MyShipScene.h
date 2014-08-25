@@ -1,5 +1,6 @@
 #ifndef MYSHIPSCENE_H_
 #define MYSHIPSCENE_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene.h"

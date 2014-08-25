@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Properties.h"
 
 using namespace GgafCore;

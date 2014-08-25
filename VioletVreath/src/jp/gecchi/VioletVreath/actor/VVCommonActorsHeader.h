@@ -1,5 +1,7 @@
 #ifndef VVCOMMONACTORSHEADER_H_
 #define VVCOMMONACTORSHEADER_H_
+#include "VioletVreath.h"
+
 #include "jp/gecchi/VioletVreath/actor/common/mesh/GroundMeshActor.h"
 #include "jp/gecchi/VioletVreath/actor/common/shot/Shot001.h"
 #include "jp/gecchi/VioletVreath/actor/common/shot/Shot002.h"

@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "EffectMagic001.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"

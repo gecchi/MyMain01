@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXKUROKOA_H_
 #define GGAFDXCORE_GGAFDXKUROKOA_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 
 #include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"

@@ -1,8 +1,9 @@
 #ifndef GGAFCORE_GGAFENUMINDEX_H_
 #define GGAFCORE_GGAFENUMINDEX_H_
+#include "GgafCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
-#include <map>
 
+#include <map>
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
 
 namespace GgafCore {

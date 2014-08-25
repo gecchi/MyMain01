@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Stage01_Climax.h"
 
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"

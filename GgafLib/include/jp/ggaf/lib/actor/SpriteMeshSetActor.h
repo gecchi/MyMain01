@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_SPRITEMESHSETACTOR_H_
 #define GGAFLIB_SPRITEMESHSETACTOR_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/ex/GgafDxSpriteMeshSetActor.h"
 
 namespace GgafLib {

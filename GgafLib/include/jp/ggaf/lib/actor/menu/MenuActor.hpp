@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_MENUACTOR_H_
 #define GGAFLIB_MENUACTOR_H_
+#include "GgafLibCommonHeader.h"
 
 #include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
 #include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"

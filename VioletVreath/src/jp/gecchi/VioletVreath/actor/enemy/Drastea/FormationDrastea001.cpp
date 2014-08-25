@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "FormationDrastea001.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Drastea/EnemyDrastea.h"

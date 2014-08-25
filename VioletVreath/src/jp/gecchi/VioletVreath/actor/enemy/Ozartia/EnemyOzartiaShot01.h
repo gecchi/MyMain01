@@ -1,5 +1,6 @@
 #ifndef ENEMYOZARTIASHOT01_H_
 #define ENEMYOZARTIASHOT01_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
 namespace VioletVreath {

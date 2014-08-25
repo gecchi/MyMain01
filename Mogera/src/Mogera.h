@@ -1,5 +1,6 @@
 #ifndef SIMPLEMOGERA_H_
 #define SIMPLEMOGERA_H_
+#include "Mogera.h"
 
 //「Gecchi Game App Freamework ライブラリ」を利用する場合
 //次のように"GgafLibCommonHeader.h" をインクルードします。

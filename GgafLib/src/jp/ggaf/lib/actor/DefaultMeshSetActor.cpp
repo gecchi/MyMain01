@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"

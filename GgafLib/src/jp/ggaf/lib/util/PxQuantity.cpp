@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/util/PxQuantity.h"
 
 using namespace GgafCore;

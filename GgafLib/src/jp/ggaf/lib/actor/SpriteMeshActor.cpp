@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/actor/SpriteMeshActor.h"
 
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"

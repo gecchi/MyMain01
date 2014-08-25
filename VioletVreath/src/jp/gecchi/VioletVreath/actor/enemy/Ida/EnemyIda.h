@@ -1,5 +1,6 @@
 #ifndef ENEMYIDA_H_
 #define ENEMYIDA_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
 namespace VioletVreath {

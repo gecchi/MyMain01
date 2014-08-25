@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "DefaultD3DXMeshTestActor.h"
 
 using namespace GgafCore;

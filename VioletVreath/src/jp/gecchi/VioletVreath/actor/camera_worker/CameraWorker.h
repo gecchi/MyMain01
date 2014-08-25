@@ -1,5 +1,6 @@
 #ifndef CAMERAWORKER_H_
 #define CAMERAWORKER_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/core/actor/GgafMainActor.h"
 
 namespace VioletVreath {

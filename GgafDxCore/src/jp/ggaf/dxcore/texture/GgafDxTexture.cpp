@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
 
 #include "Shlwapi.h"

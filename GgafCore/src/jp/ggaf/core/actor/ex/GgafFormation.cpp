@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/core/actor/ex/GgafFormation.h"
 
 using namespace GgafCore;

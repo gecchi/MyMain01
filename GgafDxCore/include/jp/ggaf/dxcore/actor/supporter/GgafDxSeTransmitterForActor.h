@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXSETRANSMITTERFORACTOR_H_
 #define GGAFDXCORE_GGAFDXSETRANSMITTERFORACTOR_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/sound/GgafDxSeTransmitter.h"
 
 namespace GgafDxCore {

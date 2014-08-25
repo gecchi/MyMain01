@@ -1,5 +1,6 @@
 #ifndef GGAFCORE_GGAFACTOR_H_
 #define GGAFCORE_GGAFACTOR_H_
+#include "GgafCommonHeader.h"
 #include "jp/ggaf/core/GgafElement.hpp"
 
 #include "jp/ggaf/core/util/GgafStatus.h"

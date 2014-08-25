@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/core/GgafProperties.h"
 
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
@@ -24,7 +23,6 @@ std::string GgafProperties::DIR_SKIN_KIND[] = {
                 "",
                 "./"
             };
-
 
 
 void GgafProperties::load(std::string prm_properties_filename) {

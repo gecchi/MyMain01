@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "TitleBoard.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxColorist.h"

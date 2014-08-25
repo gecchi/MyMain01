@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "TestEnemy.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"

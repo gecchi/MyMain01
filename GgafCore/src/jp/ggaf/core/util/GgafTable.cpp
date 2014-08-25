@@ -1,10 +1,8 @@
-#include "stdafx.h"
 #include "jp/ggaf/core/util/GgafTable.h"
 
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
 #include <fstream>
 #include <cstring>
-
 
 using namespace GgafCore;
 

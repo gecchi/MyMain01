@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "TestNomal.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"

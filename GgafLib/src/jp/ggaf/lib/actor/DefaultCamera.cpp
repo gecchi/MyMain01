@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/actor/DefaultCamera.h"
 
 #include "jp/ggaf/lib/GgafLibProperties.h"

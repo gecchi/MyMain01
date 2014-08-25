@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXGEOMETRICACTOR_H_
 #define GGAFDXCORE_GGAFDXGEOMETRICACTOR_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/GgafDxBaseActor.h"
 
 #include <D3dx9math.h>

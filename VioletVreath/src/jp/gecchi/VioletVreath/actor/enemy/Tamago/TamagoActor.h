@@ -1,5 +1,6 @@
 #ifndef TAMAGOACTOR_H_
 #define TAMAGOACTOR_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultD3DXAniMeshActor.h"
 
 namespace VioletVreath {

@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXBGMMANAGER_H_
 #define GGAFDXCORE_GGAFDXBGMMANAGER_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/util/GgafResourceManager.hpp"
 
 #include "jp/ggaf/dxcore/sound/GgafDxBgm.h"

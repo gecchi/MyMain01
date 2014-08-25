@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "EffectLockonMagic.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"

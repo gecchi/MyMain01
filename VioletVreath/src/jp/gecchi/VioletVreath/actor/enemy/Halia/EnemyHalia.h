@@ -1,5 +1,6 @@
 #ifndef ENEMYHALIA_H_
 #define ENEMYHALIA_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 
 namespace VioletVreath {

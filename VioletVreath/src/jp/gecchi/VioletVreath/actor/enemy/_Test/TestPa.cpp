@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "TestPa.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"

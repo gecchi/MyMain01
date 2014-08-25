@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "God.h"
 
 #include "jp/ggaf/lib/util/VirtualButton.h"

@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "EnemyEresShot001.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"

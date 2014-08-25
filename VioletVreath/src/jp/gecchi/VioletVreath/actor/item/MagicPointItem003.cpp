@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "MagicPointItem003.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"

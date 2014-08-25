@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXALLOCHIERARCHYWORLDFRAME_H_
 #define GGAFDXCORE_GGAFDXALLOCHIERARCHYWORLDFRAME_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/util/GgafDxAllocHierarchy.h"
 
 namespace GgafDxCore {

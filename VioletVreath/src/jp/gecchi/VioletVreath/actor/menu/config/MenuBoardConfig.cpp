@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "MenuBoardConfig.h"
 
 #include "jp/ggaf/lib/util/VirtualButton.h"

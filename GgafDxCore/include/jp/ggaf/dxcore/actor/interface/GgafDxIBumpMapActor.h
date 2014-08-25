@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXIBUMPMAPACTOR_H_
 #define GGAFDXCORE_GGAFDXIBUMPMAPACTOR_H_
+#include "GgafDxCommonHeader.h"
 
 #include <d3d9.h>
 

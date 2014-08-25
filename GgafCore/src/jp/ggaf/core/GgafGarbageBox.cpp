@@ -1,11 +1,9 @@
-#include "stdafx.h"
 #include "jp/ggaf/core/GgafGarbageBox.h"
 
 #include "jp/ggaf/core/actor/GgafDisusedActor.h"
 #include "jp/ggaf/core/scene/GgafDisusedScene.h"
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
 #include <windows.h>
-
 
 using namespace GgafCore;
 

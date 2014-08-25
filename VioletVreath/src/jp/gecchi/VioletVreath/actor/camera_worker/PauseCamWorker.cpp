@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "PauseCamWorker.h"
 
 #include "jp/ggaf/core/GgafFactory.h"

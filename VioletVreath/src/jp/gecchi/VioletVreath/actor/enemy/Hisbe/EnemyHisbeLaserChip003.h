@@ -1,5 +1,6 @@
 #ifndef ENEMYHISBELASERCHIP003_H_
 #define ENEMYHISBELASERCHIP003_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/laserchip/WateringLaserChip.h"
 
 namespace VioletVreath {

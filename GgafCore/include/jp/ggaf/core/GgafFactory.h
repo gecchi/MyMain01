@@ -1,5 +1,7 @@
 #ifndef GGAFCORE_GGAFGACTORY_H_
 #define GGAFCORE_GGAFGACTORY_H_
+#include "GgafCommonHeader.h"
+
 #include <limits.h>
 
 namespace GgafCore {

@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXUTIL_H_
 #define GGAFDXCORE_GGAFDXUTIL_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/util/GgafUtil.h"
 
 #include <math.h>

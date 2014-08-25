@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/model/ex/GgafDxWorldBoundModel.h"
 
 using namespace GgafCore;

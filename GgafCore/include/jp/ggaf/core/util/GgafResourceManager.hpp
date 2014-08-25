@@ -1,5 +1,6 @@
 #ifndef GGAFCORE_GGAFRESOURCEMANAGER_H_
 #define GGAFCORE_GGAFRESOURCEMANAGER_H_
+#include "GgafCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 
 #include "jp/ggaf/core/util/GgafUtil.h"

@@ -1,7 +1,8 @@
 #ifndef GGAFCORE_GGAFPROPERTIES_H_
 #define GGAFCORE_GGAFPROPERTIES_H_
-#include "jp/ggaf/core/util/GgafUtil.h"
+#include "GgafCommonHeader.h"
 
+#include "jp/ggaf/core/util/GgafUtil.h"
 #include "jp/ggaf/core/util/GgafRgb.h"
 
 #ifdef PROPERTY

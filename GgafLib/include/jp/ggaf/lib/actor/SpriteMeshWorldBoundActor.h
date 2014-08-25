@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_SPRITEMESHWORLDBOUNDACTOR_H_
 #define GGAFLIB_SPRITEMESHWORLDBOUNDACTOR_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/ex/GgafDxSpriteMeshActor.h"
 
 namespace GgafLib {

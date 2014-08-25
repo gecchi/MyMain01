@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/util/GgafDxAgainstWay.h"
 ////using namespace GgafCore;
 //using namespace GgafDxCore;

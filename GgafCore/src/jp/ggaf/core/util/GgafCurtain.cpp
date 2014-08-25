@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/core/util/GgafCurtain.h"
 
 using namespace GgafCore;

@@ -1,5 +1,6 @@
 #ifndef ENEMYALISANA_H_
 #define ENEMYALISANA_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 
 namespace VioletVreath {

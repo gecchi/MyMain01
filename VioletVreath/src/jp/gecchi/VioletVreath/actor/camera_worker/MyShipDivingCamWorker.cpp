@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "MyShipDivingCamWorker.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 

@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
 
 #include "jp/ggaf/core/util/GgafStatus.h"

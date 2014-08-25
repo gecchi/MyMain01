@@ -1,5 +1,6 @@
 #ifndef MIKATA001_H_
 #define MIKATA001_H_
+#include "Mogera.h"
 #include "jp/ggaf/lib/actor/DefaultMeshActor.h"
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 #include "jp/ggaf/core/util/GgafValueAccelerator.hpp"

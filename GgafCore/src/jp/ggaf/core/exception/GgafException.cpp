@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/core/exception/GgafException.h"
 
 #include "jp/ggaf/core/GgafGod.h"

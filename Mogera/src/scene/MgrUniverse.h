@@ -1,5 +1,6 @@
 #ifndef MGRUNIVERSE_H_
 #define MGRUNIVERSE_H_
+#include "Mogera.h"
 #include "jp/ggaf/lib/scene/DefaultUniverse.h"
 
 #include "actor/MgrCamera.h"

@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXALLOCHIERARCHY_H_
 #define GGAFDXCORE_GGAFDXALLOCHIERARCHY_H_
+#include "GgafDxCommonHeader.h"
 
 #include <list>
 #include <d3dx9.h>

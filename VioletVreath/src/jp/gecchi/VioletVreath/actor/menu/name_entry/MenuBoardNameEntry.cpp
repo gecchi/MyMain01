@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "MenuBoardNameEntry.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"

@@ -1,5 +1,6 @@
 #ifndef MENUSELECTSUB_H_
 #define MENUSELECTSUB_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/menu/MenuActor.hpp"
 
 namespace VioletVreath {

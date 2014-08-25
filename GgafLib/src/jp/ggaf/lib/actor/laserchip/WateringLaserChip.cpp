@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/actor/laserchip/WateringLaserChip.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"

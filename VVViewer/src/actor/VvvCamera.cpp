@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "VvvCamera.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"

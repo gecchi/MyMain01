@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "CursorNameEntryMenu.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"

@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "FormationEtis001.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Etis/EnemyEtis.h"

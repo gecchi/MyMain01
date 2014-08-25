@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "VvvViewPoint.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"

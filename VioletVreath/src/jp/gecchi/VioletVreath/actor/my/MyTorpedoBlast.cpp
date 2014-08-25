@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "MyTorpedoBlast.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"

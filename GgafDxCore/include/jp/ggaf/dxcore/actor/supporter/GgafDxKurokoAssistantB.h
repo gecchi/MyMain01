@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXKUROKOHELPERB_H_
 #define GGAFDXCORE_GGAFDXKUROKOHELPERB_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 #include "jp/ggaf/core/util/GgafValueAccelerator.hpp"
 

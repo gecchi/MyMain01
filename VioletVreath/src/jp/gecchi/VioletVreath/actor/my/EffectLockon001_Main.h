@@ -1,5 +1,6 @@
 #ifndef EFFECTLOCKON001MAIN_H_
 #define EFFECTLOCKON001MAIN_H_
+#include "VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/my/EffectLockon001.h"
 
 namespace VioletVreath {

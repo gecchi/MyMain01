@@ -1,5 +1,7 @@
 #ifndef DETECT_MEMORY_LEAKS_H
 #define DETECT_MEMORY_LEAKS_H
+#include "GgafCommonHeader.h"
+
 #include <map>
 #include <string>
 

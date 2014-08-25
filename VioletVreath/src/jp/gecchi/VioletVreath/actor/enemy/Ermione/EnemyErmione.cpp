@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "EnemyErmione.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"

@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Item.h"
 
 #include "jp/gecchi/VioletVreath/God.h"

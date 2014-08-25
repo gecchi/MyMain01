@@ -1,5 +1,6 @@
 #ifndef SPRITELABELGECCHI32FONT_H_
 #define SPRITELABELGECCHI32FONT_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/StringSpriteActor.h"
 
 namespace VioletVreath {

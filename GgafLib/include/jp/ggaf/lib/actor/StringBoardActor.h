@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_STRINGBOARDACTOR_H_
 #define GGAFLIB_STRINGBOARDACTOR_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/ex/GgafDxStringBoardActor.h"
 
 namespace GgafLib {

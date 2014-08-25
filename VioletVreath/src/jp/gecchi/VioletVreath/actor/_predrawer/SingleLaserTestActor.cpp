@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "SingleLaserTestActor.h"
 
 using namespace GgafCore;

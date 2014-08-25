@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "FormationDelheid001.h"
 
 #include "jp/gecchi/VioletVreath/God.h"

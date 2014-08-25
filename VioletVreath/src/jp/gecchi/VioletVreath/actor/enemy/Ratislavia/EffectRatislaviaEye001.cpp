@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "EffectRatislaviaEye001.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 

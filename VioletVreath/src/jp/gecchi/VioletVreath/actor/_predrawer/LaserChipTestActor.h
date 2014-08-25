@@ -1,5 +1,6 @@
 #ifndef LASERCHIPEFFECTACTOR_H_
 #define LASERCHIPEFFECTACTOR_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/laserchip/StraightLaserChip.h"
 
 namespace VioletVreath {

@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_SPLINEPROGRAMMANAGER_H_
 #define GGAFLIB_SPLINEPROGRAMMANAGER_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/core/util/GgafResourceManager.hpp"
 
 namespace GgafLib {

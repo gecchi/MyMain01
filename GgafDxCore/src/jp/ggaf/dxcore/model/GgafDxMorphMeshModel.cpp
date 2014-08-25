@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/model/GgafDxMorphMeshModel.h"
 
 #include "jp/ggaf/dxcore/GgafDxGod.h"

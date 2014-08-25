@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_FORMATIONTABLESCENE_H_
 #define GGAFLIB_FORMATIONTABLESCENE_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 #include "jp/ggaf/core/util/GgafLinkedListRing.hpp"

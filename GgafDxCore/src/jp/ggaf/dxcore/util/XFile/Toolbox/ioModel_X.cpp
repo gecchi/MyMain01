@@ -1,4 +1,3 @@
-#include "stdafx.h"
 
 #include "jp/ggaf/dxcore/util/XFile/ToolBox/IOModel_X.h"
 

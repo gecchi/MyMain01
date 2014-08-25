@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "EnemyHisbe.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"

@@ -1,5 +1,6 @@
 #ifndef ENEMYORTUNA_H_
 #define ENEMYORTUNA_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 
 #include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"

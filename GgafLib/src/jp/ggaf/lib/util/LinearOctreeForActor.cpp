@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/util/LinearOctreeForActor.h"
 
 #include "jp/ggaf/core/actor/GgafActor.h"

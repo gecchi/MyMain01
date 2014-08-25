@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/sound/IkdLib/OggDecoder.h"
 
 #include "jp/ggaf/dxcore/sound/IkdLib/OggVorbisResource.h"

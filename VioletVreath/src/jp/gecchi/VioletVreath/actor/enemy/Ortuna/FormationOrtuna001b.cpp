@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "FormationOrtuna001b.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Ortuna/EnemyOrtuna.h"

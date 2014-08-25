@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "VamSysCamPosition.h"
 
 using namespace GgafCore;

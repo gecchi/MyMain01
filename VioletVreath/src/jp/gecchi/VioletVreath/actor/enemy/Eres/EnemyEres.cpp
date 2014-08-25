@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "EnemyEres.h"
 
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"

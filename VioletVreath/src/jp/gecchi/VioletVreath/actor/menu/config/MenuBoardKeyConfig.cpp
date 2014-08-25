@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "MenuBoardKeyConfig.h"
 
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"

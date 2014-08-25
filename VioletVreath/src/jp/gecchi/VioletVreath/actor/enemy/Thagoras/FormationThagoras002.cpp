@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "FormationThagoras002.h"
 
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"

@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/actor/DefaultBoardSetActor.h"
 
 using namespace GgafCore;

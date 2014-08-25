@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/util/VBReplayRecorder.h"
 
 using namespace GgafCore;

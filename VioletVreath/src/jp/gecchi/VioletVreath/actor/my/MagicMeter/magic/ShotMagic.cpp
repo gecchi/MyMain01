@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "ShotMagic.h"
 
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectShotMagic.h"

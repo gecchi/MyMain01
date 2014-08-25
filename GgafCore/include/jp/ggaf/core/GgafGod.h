@@ -1,5 +1,6 @@
 #ifndef GGAFCORE_GGAFGOD_H_
 #define GGAFCORE_GGAFGOD_H_
+#include "GgafCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <windows.h>

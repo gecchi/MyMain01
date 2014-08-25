@@ -1,5 +1,6 @@
 #ifndef ENEMYOZARTIALASERCHIP01_H_
 #define ENEMYOZARTIALASERCHIP01_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/laserchip/StraightLaserChip.h"
 
 namespace VioletVreath {

@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXTEXTUREBLINKER_H_
 #define GGAFDXCORE_GGAFDXTEXTUREBLINKER_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/util/GgafValueTransitioner.hpp"
 
 namespace GgafDxCore {

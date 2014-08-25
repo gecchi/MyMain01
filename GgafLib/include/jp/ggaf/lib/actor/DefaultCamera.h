@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_DEFAULTCAMERA_H_
 #define GGAFLIB_DEFAULTCAMERA_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/GgafDxCamera.h"
 
 namespace GgafLib {

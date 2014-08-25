@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXSTRINGSPRITEACTOR_H_
 #define GGAFDXCORE_GGAFDXSTRINGSPRITEACTOR_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/GgafDxSpriteSetActor.h"
 
 namespace GgafDxCore {

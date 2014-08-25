@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "EnemyGlaja.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"

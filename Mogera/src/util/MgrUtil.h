@@ -1,5 +1,6 @@
 #ifndef MGRUTIL_H_
 #define MGRUTIL_H_
+#include "Mogera.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 
 #ifdef UTIL

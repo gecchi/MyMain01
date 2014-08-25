@@ -1,5 +1,6 @@
 #ifndef VVVUNIVERSE_H_
 #define VVVUNIVERSE_H_
+#include "VVViewer.h"
 #include "jp/ggaf/lib/scene/DefaultUniverse.h"
 
 #include "VvvGod.h"

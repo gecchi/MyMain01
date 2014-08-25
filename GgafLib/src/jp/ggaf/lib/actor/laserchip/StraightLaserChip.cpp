@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/actor/laserchip/StraightLaserChip.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 

@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 
 using namespace GgafCore;

@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "MenuBoardScreenConfig.h"
 
 #include "jp/ggaf/dxcore/sound/GgafDxSound.h"

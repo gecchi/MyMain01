@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_WALLEDSECTIONSCENE_H_
 #define GGAFLIB_WALLEDSECTIONSCENE_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 #define FULL_VAL (-2)

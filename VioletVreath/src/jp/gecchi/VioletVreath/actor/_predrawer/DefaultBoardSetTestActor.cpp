@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "DefaultBoardSetTestActor.h"
 
 using namespace GgafCore;

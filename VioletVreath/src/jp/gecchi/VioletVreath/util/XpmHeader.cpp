@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "XpmHeader.h"
 
 #include "jp/ggaf/core/util/GgafRgb.h"

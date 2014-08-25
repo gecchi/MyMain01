@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/actor/StringBoardActor.h"
 
 using namespace GgafCore;

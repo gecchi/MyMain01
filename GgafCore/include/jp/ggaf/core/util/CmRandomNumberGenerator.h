@@ -9,6 +9,8 @@
 
 #ifndef _CM_RANDOM_NUMBER_GENERATOR_H_INCLUDED_
 #define _CM_RANDOM_NUMBER_GENERATOR_H_INCLUDED_
+#include "GgafCommonHeader.h"
+
 namespace GgafCore {
 
 //!< Period Parameter for Mersenne Twister

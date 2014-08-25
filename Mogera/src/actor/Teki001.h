@@ -1,5 +1,6 @@
 #ifndef TEKI001_H_
 #define TEKI001_H_
+#include "Mogera.h"
 #include "jp/ggaf/lib/actor/DefaultMeshActor.h"
 
 namespace Mogera {

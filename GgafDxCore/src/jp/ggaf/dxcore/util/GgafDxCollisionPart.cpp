@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
 
 using namespace GgafCore;

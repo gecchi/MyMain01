@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "MagicLvCursor001.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"

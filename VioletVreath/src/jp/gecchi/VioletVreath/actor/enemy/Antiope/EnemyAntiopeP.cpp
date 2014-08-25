@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "EnemyAntiopeP.h"
 
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"

@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "EnemyStraeaLaserChip003.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"

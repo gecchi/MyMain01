@@ -1,5 +1,6 @@
 #ifndef CUBEMAPMORPHMESHEFFECTACTOR_H_
 #define CUBEMAPMORPHMESHEFFECTACTOR_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/CubeMapMorphMeshActor.h"
 
 namespace VioletVreath {

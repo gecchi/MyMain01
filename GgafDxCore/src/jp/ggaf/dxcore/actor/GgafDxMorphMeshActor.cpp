@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/actor/GgafDxMorphMeshActor.h"
 
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"

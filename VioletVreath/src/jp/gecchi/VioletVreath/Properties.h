@@ -1,5 +1,6 @@
 #ifndef PROPERTIES_H_
 #define PROPERTIES_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/GgafLibProperties.h"
 
 #ifdef PROPERTY

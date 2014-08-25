@@ -1,5 +1,6 @@
 #ifndef RANKINGTABLE_H_
 #define RANKINGTABLE_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/core/util/GgafTable.h"
 
 namespace VioletVreath {

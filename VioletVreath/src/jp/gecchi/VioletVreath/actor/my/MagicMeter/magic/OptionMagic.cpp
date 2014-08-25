@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "OptionMagic.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"

@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "MyMagicEnergyCore.h"
 
 #include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"

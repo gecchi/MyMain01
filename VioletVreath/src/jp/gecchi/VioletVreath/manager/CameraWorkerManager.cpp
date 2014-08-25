@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "CameraWorkerManager.h"
 
 #include "jp/gecchi/VioletVreath/manager/CameraWorkerConnection.h"

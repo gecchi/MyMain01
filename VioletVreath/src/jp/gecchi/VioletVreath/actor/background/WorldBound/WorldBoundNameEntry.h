@@ -1,5 +1,6 @@
 #ifndef WORLDBOUNDNAMEENTRY_H_
 #define WORLDBOUNDNAMEENTRY_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/WorldBoundActor.h"
 
 namespace VioletVreath {

@@ -1,5 +1,6 @@
 #ifndef FORMATIONDELHEID001_H_
 #define FORMATIONDELHEID001_H_
+#include "VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Delheid/FormationDelheid.h"
 
 #include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"

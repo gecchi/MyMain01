@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
 
 #include "jp/ggaf/core/GgafGod.h"

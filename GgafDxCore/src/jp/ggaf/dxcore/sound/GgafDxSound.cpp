@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/sound/GgafDxSound.h"
 
 #include "jp/ggaf/core/exception/GgafCriticalException.h"

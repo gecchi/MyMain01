@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_REFRACTIONLASERCHIP_H_
 #define GGAFLIB_REFRACTIONLASERCHIP_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
 
 namespace GgafLib {

@@ -1,5 +1,6 @@
 #ifndef VVVCURSOR_H_
 #define VVVCURSOR_H_
+#include "VVViewer.h"
 #include "jp/ggaf/lib/actor/DefaultSpriteActor.h"
 
 namespace VVViewer {

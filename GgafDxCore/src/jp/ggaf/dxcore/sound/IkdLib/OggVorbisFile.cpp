@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/sound/IkdLib/OggVorbisFile.h"
 
 #include "jp/ggaf/core/exception/GgafCriticalException.h"

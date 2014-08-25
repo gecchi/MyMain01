@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "MyStgUtil.h"
 
 #include "jp/gecchi/VioletVreath/GameGlobal.h"

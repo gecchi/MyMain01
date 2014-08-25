@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_SPLINELINE_H_
 #define GGAFLIB_SPLINELINE_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <math.h>

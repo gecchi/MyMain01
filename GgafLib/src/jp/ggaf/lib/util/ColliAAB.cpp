@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/util/ColliAAB.h"
 
 #include "jp/ggaf/lib/util/StgUtil.h"

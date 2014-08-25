@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXSOUND_H_
 #define GGAFDXCORE_GGAFDXSOUND_H_
+#include "GgafDxCommonHeader.h"
 #include <sstream>
 
 #ifdef __GNUG__

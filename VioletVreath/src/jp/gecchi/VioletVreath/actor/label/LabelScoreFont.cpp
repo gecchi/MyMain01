@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "LabelScoreFont.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/model/GgafDxBoardSetModel.h"

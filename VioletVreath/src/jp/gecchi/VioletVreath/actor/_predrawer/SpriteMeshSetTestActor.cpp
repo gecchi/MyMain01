@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "SpriteMeshSetTestActor.h"
 
 using namespace GgafCore;

@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "CameraWorker.h"
 
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"

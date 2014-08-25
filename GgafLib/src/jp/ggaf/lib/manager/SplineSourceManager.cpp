@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/manager/SplineSourceManager.h"
 
 #include "jp/ggaf/lib/util/spline/SplineSource.h"

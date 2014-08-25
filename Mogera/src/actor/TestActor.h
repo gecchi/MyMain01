@@ -1,5 +1,6 @@
 #ifndef TESTACTOR_H_
 #define TESTACTOR_H_
+#include "Mogera.h"
 #include "jp/ggaf/lib/actor/DefaultSpriteActor.h"
 #include "jp/ggaf/lib/actor/DefaultBoardActor.h"
 

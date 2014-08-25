@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/manager/GgafDxModelConnection.h"
 
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"

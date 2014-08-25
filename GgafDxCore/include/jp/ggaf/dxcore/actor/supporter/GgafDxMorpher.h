@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXMORPHER_H_
 #define GGAFDXCORE_GGAFDXMORPHER_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/util/GgafValueTransitioner.hpp"
 
 namespace GgafDxCore {

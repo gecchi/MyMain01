@@ -1,5 +1,6 @@
 #ifndef STAGE01WALLEDSCENE_H_
 #define STAGE01WALLEDSCENE_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/scene/WalledScene.h"
 
 namespace VioletVreath {

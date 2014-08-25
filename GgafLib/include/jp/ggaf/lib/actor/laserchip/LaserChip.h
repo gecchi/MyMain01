@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_LASERCHIP_H_
 #define GGAFLIB_LASERCHIP_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/GgafDxMeshSetActor.h"
 
 namespace GgafLib {

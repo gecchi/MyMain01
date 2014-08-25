@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "GameEndingScene.h"
 
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"

@@ -1,5 +1,6 @@
 #ifndef LABELRANKINGFONT_H_
 #define LABELRANKINGFONT_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/StringBoardActor.h"
 
 namespace VioletVreath {

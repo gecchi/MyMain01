@@ -5,7 +5,6 @@
 // 一部変更して使用しています。<BR>
 //                                            2009/01/13 Masatoshi Tsuge<BR>
 
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/sound/IkdLib/PCMPlayer.h"
 
 #include <process.h>

@@ -1,5 +1,6 @@
 #ifndef MYOPTIONCONTROLLERDIRECTIONVECTOR_H_
 #define MYOPTIONCONTROLLERDIRECTIONVECTOR_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultMeshActor.h"
 
 namespace VioletVreath {

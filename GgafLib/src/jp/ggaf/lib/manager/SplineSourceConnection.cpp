@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/manager/SplineSourceConnection.h"
 
 using namespace GgafCore;

@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "EnemyIdaBase.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 

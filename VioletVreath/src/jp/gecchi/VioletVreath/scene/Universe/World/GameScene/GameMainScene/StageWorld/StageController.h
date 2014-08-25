@@ -1,5 +1,6 @@
 #ifndef STAGECONTROLLER_H_
 #define STAGECONTROLLER_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld.h"

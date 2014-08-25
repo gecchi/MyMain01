@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXPOINTSPRITEEFFECT_H_
 #define GGAFDXCORE_GGAFDXPOINTSPRITEEFFECT_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
 
 namespace GgafDxCore {

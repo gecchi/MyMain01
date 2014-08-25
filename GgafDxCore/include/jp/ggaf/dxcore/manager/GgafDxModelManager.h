@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXMODELMANAGER_H_
 #define GGAFDXCORE_GGAFDXMODELMANAGER_H_
+#include "GgafDxCommonHeader.h"
 
 #include "jp/ggaf/core/util/GgafResourceManager.hpp"
 

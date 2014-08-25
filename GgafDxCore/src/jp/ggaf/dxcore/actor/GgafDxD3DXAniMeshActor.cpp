@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/actor/GgafDxD3DXAniMeshActor.h"
 
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"

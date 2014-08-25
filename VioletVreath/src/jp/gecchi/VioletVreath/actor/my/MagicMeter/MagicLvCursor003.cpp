@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "MagicLvCursor003.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"

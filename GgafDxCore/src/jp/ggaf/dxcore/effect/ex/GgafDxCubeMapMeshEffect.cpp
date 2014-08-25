@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/effect/ex/GgafDxCubeMapMeshEffect.h"
 
 using namespace GgafCore;

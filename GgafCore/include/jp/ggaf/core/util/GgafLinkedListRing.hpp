@@ -1,8 +1,8 @@
 #ifndef GGAFCORE_GGAFLINKEDLISTRING_H_
 #define GGAFCORE_GGAFLINKEDLISTRING_H_
+#include "GgafCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 
-#include "GgafCommonHeader.h"
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
 
 namespace GgafCore {

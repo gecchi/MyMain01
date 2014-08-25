@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXCUBEMAPMORPHMESHACTOR_H_
 #define GGAFDXCORE_GGAFDXCUBEMAPMORPHMESHACTOR_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/GgafDxMorphMeshActor.h"
 #include "jp/ggaf/dxcore/actor/interface/GgafDxICubeMapActor.h"
 

@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "TestDepository.h"
 
 using namespace GgafCore;

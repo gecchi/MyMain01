@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Stage01WalledSection001.h"
 
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"

@@ -1,5 +1,6 @@
 #ifndef GAMETITLESCENE_H_
 #define GAMETITLESCENE_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 

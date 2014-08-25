@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "VreathItem001.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"

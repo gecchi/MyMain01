@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "LabelGecchi16Font.h"
 
 using namespace GgafCore;

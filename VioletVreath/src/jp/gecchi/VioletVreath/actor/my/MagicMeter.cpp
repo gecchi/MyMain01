@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "MagicMeter.h"
 
 #include "jp/ggaf/core/util/GgafLinkedListRing.hpp"

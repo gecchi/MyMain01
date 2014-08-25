@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "TransitStage.h"
 
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"

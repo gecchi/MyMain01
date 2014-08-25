@@ -1,5 +1,6 @@
 #ifndef MAGIC_H_
 #define MAGIC_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/core/actor/GgafMainActor.h"
 
 namespace VioletVreath {

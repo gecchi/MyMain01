@@ -1,5 +1,6 @@
 #ifndef TESTBAR_H_
 #define TESTBAR_H_
+#include "Mogera.h"
 #include "jp/ggaf/lib/actor/GraphBarActor.h"
 
 namespace Mogera {

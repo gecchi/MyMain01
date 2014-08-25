@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "DefaultSpriteSetTestActor.h"
 
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"

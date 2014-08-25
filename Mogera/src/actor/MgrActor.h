@@ -1,5 +1,6 @@
 #ifndef MGRACTOR_H_
 #define MGRACTOR_H_
+#include "Mogera.h"
 #include "jp/ggaf/lib/actor/DefaultBoardActor.h"
 
 namespace Mogera {

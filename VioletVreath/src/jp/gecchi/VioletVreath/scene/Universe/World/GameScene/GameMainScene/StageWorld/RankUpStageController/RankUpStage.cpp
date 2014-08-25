@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "RankUpStage.h"
 
 #include <stdio.h>

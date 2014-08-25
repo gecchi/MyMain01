@@ -1,5 +1,6 @@
 #ifndef GGAFCORE_GGAFLINEAROCTREESPACE_H_
 #define GGAFCORE_GGAFLINEAROCTREESPACE_H_
+#include "GgafCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafCore {

@@ -1,5 +1,6 @@
 #ifndef EFFECTTURBO001_H_
 #define EFFECTTURBO001_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultSpriteActor.h"
 
 namespace VioletVreath {

@@ -1,5 +1,6 @@
 #ifndef ENEMYUNOMIA_H_
 #define ENEMYUNOMIA_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
 namespace VioletVreath {

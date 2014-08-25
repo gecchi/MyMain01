@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_DEFAULTD3DXANIMESHACTOR_H_
 #define GGAFLIB_DEFAULTD3DXANIMESHACTOR_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/GgafDxD3DXAniMeshActor.h"
 
 namespace GgafLib {

@@ -1,5 +1,6 @@
 #ifndef GGAFCORE_GGAFFORMATION_H_
 #define GGAFCORE_GGAFFORMATION_H_
+#include "GgafCommonHeader.h"
 #include "jp/ggaf/core/actor/GgafMainActor.h"
 
 #define FORMATION_END_DELAY (30*60)

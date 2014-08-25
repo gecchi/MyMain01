@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "EnemyAllas.h"
 
 #include "jp/ggaf/core/actor/ex/GgafActorDepository.h"

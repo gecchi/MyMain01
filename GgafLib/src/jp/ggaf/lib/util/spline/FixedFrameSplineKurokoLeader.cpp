@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineKurokoLeader.h"
 
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"

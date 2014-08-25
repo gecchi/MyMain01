@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "LabelMenuTitleFont01.h"
 
 using namespace GgafCore;

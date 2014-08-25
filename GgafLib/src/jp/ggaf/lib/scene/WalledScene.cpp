@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/scene/WalledScene.h"
 
 #include "jp/ggaf/core/actor/ex/GgafActorDepository.h"

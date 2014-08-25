@@ -1,4 +1,5 @@
-#include "stdafx.h"
+#include "VioletVreath.h"
+
 #include "GgafLibEntry.h"
 #include "resource.h"
 #include "jp/gecchi/VioletVreath/God.h"

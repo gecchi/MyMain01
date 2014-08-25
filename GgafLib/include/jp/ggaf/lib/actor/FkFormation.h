@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_FKFORMATION_H_
 #define GGAFLIB_FKFORMATION_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/ex/GgafDxFkFormation.h"
 
 namespace GgafLib {

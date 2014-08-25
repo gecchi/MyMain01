@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/sound/CWaveDecorder.h"
 
 using namespace GgafDxCore;

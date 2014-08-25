@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "FormationAppho001b.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Appho/EnemyAppho.h"

@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "PreDrawScene.h"
 
 #include "jp/ggaf/core/GgafFactory.h"

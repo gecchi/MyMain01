@@ -1,5 +1,6 @@
 #ifndef GGAFCORE_GGAFELEMENT_H_
 #define GGAFCORE_GGAFELEMENT_H_
+#include "GgafCommonHeader.h"
 #include "jp/ggaf/core/GgafNode.hpp"
 
 #include "jp/ggaf/core/GgafProgress.h"

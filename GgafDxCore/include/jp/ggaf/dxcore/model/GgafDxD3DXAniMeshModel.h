@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXD3DXANIMESHMODEL_H_
 #define GGAFDXCORE_GGAFDXD3DXANIMESHMODEL_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 
 #include "jp/ggaf/dxcore/util/GgafDxWorldMatStack.h"

@@ -1,5 +1,6 @@
 #ifndef MGRWORLD_H_
 #define MGRWORLD_H_
+#include "Mogera.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 #include "scene/MgrUniverse.h"

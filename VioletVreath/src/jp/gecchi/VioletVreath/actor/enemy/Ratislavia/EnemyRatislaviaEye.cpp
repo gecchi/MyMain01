@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "EnemyRatislaviaEye.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Ratislavia/EffectRatislaviaEye001.h"

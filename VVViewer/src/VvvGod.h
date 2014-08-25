@@ -1,5 +1,6 @@
 #ifndef VVVGOD_H_
 #define VVVGOD_H_
+#include "VVViewer.h"
 #include "jp/ggaf/lib/DefaultGod.h"
 
 

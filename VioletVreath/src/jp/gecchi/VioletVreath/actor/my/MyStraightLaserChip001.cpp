@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "MyStraightLaserChip001.h"
 
 #include "jp/ggaf/core/util/GgafLinkedListRing.hpp"

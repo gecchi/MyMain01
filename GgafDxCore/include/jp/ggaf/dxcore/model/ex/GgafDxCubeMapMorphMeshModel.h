@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXCUBEMAPMORPHMESHMODEL_H_
 #define GGAFDXCORE_GGAFDXCUBEMAPMORPHMESHMODEL_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/model/GgafDxMorphMeshModel.h"
 
 namespace GgafDxCore {

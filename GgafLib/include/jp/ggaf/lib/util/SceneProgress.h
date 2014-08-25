@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_SCENEPROGRESS_H_
 #define GGAFLIB_SCENEPROGRESS_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/core/GgafProgress.h"
 
 #include <map>

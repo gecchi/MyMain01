@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXINPUT_H_
 #define GGAFDXCORE_GGAFDXINPUT_H_
+#include "GgafDxCommonHeader.h"
 
 #include <dinput.h>
 

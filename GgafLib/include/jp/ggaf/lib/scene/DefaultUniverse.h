@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_DEFAULTUNIVERSE_H_
 #define GGAFLIB_DEFAULTUNIVERSE_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
 
 #include "jp/ggaf/lib/DefaultGod.h"

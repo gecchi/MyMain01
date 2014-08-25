@@ -1,5 +1,6 @@
 #ifndef SMPGOD_H_
 #define SMPGOD_H_
+#include "SimpleSample.h"
 #include "jp/ggaf/lib/DefaultGod.h"
 
 namespace SimpleSample {

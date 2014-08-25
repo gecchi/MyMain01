@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "FormationUnomia002.h"
 
 using namespace GgafCore;

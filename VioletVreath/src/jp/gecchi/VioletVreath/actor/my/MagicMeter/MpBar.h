@@ -1,5 +1,6 @@
 #ifndef MPBAR_H_
 #define MPBAR_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/CappedGraphBarActor.h"
 
 namespace VioletVreath {

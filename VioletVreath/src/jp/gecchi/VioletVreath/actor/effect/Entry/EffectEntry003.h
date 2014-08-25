@@ -1,5 +1,6 @@
 #ifndef EFFECTENTRANCE003_H_
 #define EFFECTENTRANCE003_H_
+#include "VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Entry/EffectEntry.h"
 
 namespace VioletVreath {

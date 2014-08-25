@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Magic.h"
 
 #include "jp/ggaf/lib/util/PxQuantity.h"

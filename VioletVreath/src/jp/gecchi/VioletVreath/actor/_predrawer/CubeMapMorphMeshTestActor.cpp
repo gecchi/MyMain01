@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "CubeMapMorphMeshTestActor.h"
 
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"

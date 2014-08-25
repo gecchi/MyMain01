@@ -1,5 +1,5 @@
-#include "stdafx.h"
 #include "jp/ggaf/core/util/GgafUtil.h"
+
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
 #include <fstream>
 #include <time.h>

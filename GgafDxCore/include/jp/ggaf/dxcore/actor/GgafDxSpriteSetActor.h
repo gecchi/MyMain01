@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXSPRITESETACTOR_H_
 #define GGAFDXCORE_GGAFDXSPRITESETACTOR_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
 
 namespace GgafDxCore {

@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "EnemyTalante.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"

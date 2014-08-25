@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/core/actor/GgafMainActor.h"
 
 #include "jp/ggaf/core/actor/GgafGroupHead.h"

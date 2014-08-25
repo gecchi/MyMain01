@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Shot004Blue.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"

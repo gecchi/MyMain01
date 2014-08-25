@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_COLLIAAPRISMACTOR_H_
 #define GGAFLIB_COLLIAAPRISMACTOR_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/ex/GgafDxAAPrismActor.h"
 
 namespace GgafLib {

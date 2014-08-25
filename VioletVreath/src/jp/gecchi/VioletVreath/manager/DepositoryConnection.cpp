@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "DepositoryConnection.h"
 
 using namespace GgafCore;

@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "SplineLineConnection.h"
 
 using namespace GgafCore;

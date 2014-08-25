@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "CameraWorkerConnection.h"
 
 using namespace GgafCore;

@@ -1,5 +1,6 @@
 #ifndef MYMAGICENERGYCORE_H_
 #define MYMAGICENERGYCORE_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultMeshActor.h"
 
 namespace VioletVreath {

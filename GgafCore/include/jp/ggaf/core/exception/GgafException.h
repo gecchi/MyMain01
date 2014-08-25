@@ -1,5 +1,6 @@
 #ifndef GGAFCORE_GGAFEXCEPTION_H_
 #define GGAFCORE_GGAFEXCEPTION_H_
+#include "GgafCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <string>

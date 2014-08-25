@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "SmpGod.h"
 
 #include "actor/SmpCamera.h"

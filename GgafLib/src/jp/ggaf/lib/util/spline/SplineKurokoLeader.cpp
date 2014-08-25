@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"

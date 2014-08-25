@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_DEFAULTMORPHMESHACTOR_H_
 #define GGAFLIB_DEFAULTMORPHMESHACTOR_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/GgafDxMorphMeshActor.h"
 
 namespace GgafLib {

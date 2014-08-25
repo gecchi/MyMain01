@@ -1,5 +1,6 @@
 #ifndef FORMATIONTHAGORAS_H_
 #define FORMATIONTHAGORAS_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/TreeFormation.h"
 
 #include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"

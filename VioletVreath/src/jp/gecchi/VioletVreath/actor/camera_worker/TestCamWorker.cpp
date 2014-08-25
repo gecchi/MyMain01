@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "TestCamWorker.h"
 
 #include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"

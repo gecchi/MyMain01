@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXWORLDMATSTACK_H_
 #define GGAFDXCORE_GGAFDXWORLDMATSTACK_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <list>

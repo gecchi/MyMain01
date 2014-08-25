@@ -1,6 +1,7 @@
 #ifndef GGAFLIB_STGUTIL_H_
 #define GGAFLIB_STGUTIL_H_
 #include "GgafLibCommonHeader.h"
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 #include "jp/ggaf/lib/util/ColliAAB.h"

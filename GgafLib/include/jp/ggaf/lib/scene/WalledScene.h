@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_WALLEDSCENE_H_
 #define GGAFLIB_WALLEDSCENE_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 #include "jp/ggaf/core/util/GgafLinkedListRing.hpp"

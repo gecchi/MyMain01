@@ -1,5 +1,6 @@
 #ifndef GAMEGLOBAL_H_
 #define GAMEGLOBAL_H_
+#include "VioletVreath.h"
 
 #include "jp/gecchi/VioletVreath/util/RankingTable.h"
 

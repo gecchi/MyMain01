@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXPOINTSPRITEACTOR_H_
 #define GGAFDXCORE_GGAFDXPOINTSPRITEACTOR_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
 
 namespace GgafDxCore {

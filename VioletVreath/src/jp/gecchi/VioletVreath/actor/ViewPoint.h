@@ -1,5 +1,6 @@
 #ifndef VIEWPOINT_H_
 #define VIEWPOINT_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
 
 namespace VioletVreath {

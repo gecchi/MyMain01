@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
 
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"

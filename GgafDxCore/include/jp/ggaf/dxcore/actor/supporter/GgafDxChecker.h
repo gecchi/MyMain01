@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXCHECKER_H_
 #define GGAFDXCORE_GGAFDXCHECKER_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafDxCore {

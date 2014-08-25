@@ -1,5 +1,6 @@
 #ifndef XPMHEADER_H_
 #define XPMHEADER_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <map>

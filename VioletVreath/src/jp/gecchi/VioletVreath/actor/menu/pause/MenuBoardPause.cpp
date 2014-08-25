@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "MenuBoardPause.h"
 
 #include "CursorPauseMenu.h"

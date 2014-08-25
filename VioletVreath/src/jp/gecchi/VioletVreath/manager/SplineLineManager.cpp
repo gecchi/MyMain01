@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "SplineLineManager.h"
 
 #include "jp/gecchi/VioletVreath/manager/SplineLineConnection.h"

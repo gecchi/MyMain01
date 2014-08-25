@@ -1,5 +1,7 @@
 #ifndef GGAFCORE_GGAFREPEATSEQ_H_
 #define GGAFCORE_GGAFREPEATSEQ_H_
+#include "GgafCommonHeader.h"
+
 #include <map>
 #include <string>
 

@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_LINEAROCTREEFORACTOR_H_
 #define GGAFLIB_LINEAROCTREEFORACTOR_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/core/util/GgafLinearOctree.h"
 
 namespace GgafLib {

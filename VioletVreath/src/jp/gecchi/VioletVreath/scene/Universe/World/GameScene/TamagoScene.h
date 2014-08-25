@@ -1,5 +1,6 @@
 #ifndef TAMAGOSCENE_H_
 #define TAMAGOSCENE_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 

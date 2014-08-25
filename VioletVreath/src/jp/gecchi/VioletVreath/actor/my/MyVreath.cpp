@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "MyVreath.h"
 
 using namespace GgafCore;

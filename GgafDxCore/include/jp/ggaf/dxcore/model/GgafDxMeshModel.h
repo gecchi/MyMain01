@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXMESHMODEL_H_
 #define GGAFDXCORE_GGAFDXMESHMODEL_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 
 namespace GgafDxCore {

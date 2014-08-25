@@ -1,5 +1,6 @@
 #ifndef STAGEPARTCONTROLLER_H_
 #define STAGEPARTCONTROLLER_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 #include "jp/ggaf/core/GgafFactory.h"

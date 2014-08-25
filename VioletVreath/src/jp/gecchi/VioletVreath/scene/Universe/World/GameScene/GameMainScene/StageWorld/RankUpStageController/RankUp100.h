@@ -1,5 +1,6 @@
 #ifndef RANKUP100_H_
 #define RANKUP100_H_
+#include "VioletVreath.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUpStage.h"
 
 

@@ -1,7 +1,7 @@
 #ifndef VVENEMYSHEADER_H_
 #define VVENEMYSHEADER_H_
+#include "VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
-
 
 #include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestEnemy.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestGu.h"
@@ -118,7 +118,7 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Ozartia/EnemyOzartiaLaserChip01.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ozartia/EnemyOzartiaShot01.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ozartia/EnemyOzartiaPillar01.h"
-//"VioletVreathHeader.h"‚Ö‚Ì’Ç‹L‚à–Y‚ê‚¸‚É
+//"VioletVreath.h"‚Ö‚Ì’Ç‹L‚à–Y‚ê‚¸‚É
 
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 

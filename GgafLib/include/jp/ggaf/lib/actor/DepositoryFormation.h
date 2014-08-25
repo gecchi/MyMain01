@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_DEPOSITORYFORMATION_H_
 #define GGAFLIB_DEPOSITORYFORMATION_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/core/actor/ex/GgafDepositoryFormation.h"
 
 namespace GgafLib {

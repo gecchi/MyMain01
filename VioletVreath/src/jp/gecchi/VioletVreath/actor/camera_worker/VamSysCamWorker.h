@@ -1,5 +1,6 @@
 #ifndef VAMSYSCAMWORKER_H_
 #define VAMSYSCAMWORKER_H_
+#include "VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/camera_worker/CameraWorker.h"
 
 #define VAM_POS_RIGHT 1

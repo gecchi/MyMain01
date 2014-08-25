@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "EffectLockon001_Main.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"

@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXMODELCONNECTION_H_
 #define GGAFDXCORE_GGAFDXMODELCONNECTION_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/util/GgafResourceConnection.hpp"
 
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"

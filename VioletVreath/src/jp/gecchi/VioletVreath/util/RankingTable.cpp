@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "RankingTable.h"
 #include <Shlwapi.h>
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"

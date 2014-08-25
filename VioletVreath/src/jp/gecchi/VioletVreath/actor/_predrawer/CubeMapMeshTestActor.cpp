@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "CubeMapMeshTestActor.h"
 
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"

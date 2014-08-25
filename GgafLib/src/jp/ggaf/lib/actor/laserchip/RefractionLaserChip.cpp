@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/actor/laserchip/RefractionLaserChip.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"

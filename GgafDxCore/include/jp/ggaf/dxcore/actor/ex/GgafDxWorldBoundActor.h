@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXWORLDBOUNDACTOR_H_
 #define GGAFDXCORE_GGAFDXWORLDBOUNDACTOR_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/GgafDxMorphMeshActor.h"
 #include "jp/ggaf/dxcore/actor/interface/GgafDxICubeMapActor.h"
 

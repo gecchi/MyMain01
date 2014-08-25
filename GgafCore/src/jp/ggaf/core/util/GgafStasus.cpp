@@ -1,8 +1,6 @@
-#include "stdafx.h"
 #include "jp/ggaf/core/util/GgafStatus.h"
 
 using namespace GgafCore;
-
 
 GgafStatus::GgafStatus(int prm_max_status_kind, GgafStatus* (*prm_pFunc_reset)(GgafStatus*)) : GgafObject() {
    _len = prm_max_status_kind;

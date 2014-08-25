@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/actor/SingleLaser.h"
 
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"

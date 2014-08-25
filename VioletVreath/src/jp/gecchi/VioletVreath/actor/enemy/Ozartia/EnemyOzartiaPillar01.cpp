@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "EnemyOzartiaPillar01.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"

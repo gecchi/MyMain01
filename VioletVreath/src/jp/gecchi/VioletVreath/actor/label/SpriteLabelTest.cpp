@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "SpriteLabelTest.h"
 
 using namespace GgafCore;

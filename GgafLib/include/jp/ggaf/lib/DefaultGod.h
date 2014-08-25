@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_DEFAULTGOD_H_
 #define GGAFLIB_DEFAULTGOD_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dxcore/GgafDxGod.h"
 
 #include "jp/ggaf/lib/manager/SplineSourceManager.h"

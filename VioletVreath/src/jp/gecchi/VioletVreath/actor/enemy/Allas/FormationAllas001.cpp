@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "FormationAllas001.h"
 
 #include "jp/ggaf/lib/DefaultGod.h"

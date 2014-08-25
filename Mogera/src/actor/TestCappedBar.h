@@ -1,5 +1,6 @@
 #ifndef TESTCAPPEDBAR_H_
 #define TESTCAPPEDBAR_H_
+#include "Mogera.h"
 #include "jp/ggaf/lib/actor/CappedGraphBarActor.h"
 
 namespace Mogera {

@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "DefaultD3DXAniMeshTestActor.h"
 
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"

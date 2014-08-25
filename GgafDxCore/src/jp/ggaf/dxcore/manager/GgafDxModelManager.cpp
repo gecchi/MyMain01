@@ -11,7 +11,6 @@
 //
 //                                         2009/03/06 Masatoshi Tsuge
 
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
 
 #include <Shlwapi.h>

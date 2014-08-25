@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "MyLockonController.h"
 
 #include "EffectLockon001_Main.h"

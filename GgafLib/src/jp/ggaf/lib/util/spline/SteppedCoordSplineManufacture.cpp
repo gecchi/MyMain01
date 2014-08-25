@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/util/spline/SteppedCoordSplineManufacture.h"
 
 #include "jp/ggaf/lib/util/spline/SplineLine.h"

@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXSTRINGBOARDACTOR_H_
 #define GGAFDXCORE_GGAFDXSTRINGBOARDACTOR_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/GgafDxBoardSetActor.h"
 
 namespace GgafDxCore {

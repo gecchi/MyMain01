@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_COLLIAABACTOR_H_
 #define GGAFLIB_COLLIAABACTOR_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/ex/GgafDxAABActor.h"
 
 namespace GgafLib {

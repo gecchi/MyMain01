@@ -6,7 +6,7 @@
 
 #ifndef FRM_MATH_H
 #define FRM_MATH_H
-
+#include "GgafDxCommonHeader.h"
 //#include <mem.h>
 #include <math.h>
 #include <string.h>

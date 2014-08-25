@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "RankUpStageController.h"
 
 #include "jp/ggaf/core/GgafFactory.h"

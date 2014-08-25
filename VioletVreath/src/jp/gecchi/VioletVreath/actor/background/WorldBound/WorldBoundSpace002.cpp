@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "WorldBoundSpace002.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"

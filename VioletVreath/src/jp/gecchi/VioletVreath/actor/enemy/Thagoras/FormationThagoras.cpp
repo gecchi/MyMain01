@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "FormationThagoras.h"
 
 #include "jp/ggaf/core/util/GgafRgb.h"

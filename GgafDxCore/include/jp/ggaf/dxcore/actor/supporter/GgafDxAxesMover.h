@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXAXESMOVER_H_
 #define GGAFDXCORE_GGAFDXAXESMOVER_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafDxCore {

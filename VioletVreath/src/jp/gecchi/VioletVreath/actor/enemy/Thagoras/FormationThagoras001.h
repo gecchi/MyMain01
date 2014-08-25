@@ -1,5 +1,6 @@
 #ifndef FORMATIONTHAGORAS001_H_
 #define FORMATIONTHAGORAS001_H_
+#include "VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Thagoras/FormationThagoras.h"
 #include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
 

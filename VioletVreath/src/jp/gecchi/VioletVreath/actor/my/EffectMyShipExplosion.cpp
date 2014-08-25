@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "EffectMyShipExplosion.h"
 
 #include "jp/gecchi/VioletVreath/God.h"

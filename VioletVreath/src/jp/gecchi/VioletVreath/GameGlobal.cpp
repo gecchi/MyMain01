@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "GameGlobal.h"
 
 using namespace GgafCore;

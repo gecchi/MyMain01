@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/sound/GgafDxSe.h"
 
 #include <Shlwapi.h>

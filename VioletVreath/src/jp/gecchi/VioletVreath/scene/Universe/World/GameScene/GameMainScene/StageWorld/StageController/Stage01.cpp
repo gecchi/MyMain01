@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Stage01.h"
 
 #include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshi001.h"

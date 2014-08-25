@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
 
 #include "jp/ggaf/dxcore/actor/GgafDxMorphMeshActor.h"

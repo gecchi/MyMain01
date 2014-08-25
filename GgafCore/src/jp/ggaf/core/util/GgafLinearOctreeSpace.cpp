@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/core/util/GgafLinearOctreeSpace.h"
 
 #include "jp/ggaf/core/util/GgafLinearOctreeElem.h"

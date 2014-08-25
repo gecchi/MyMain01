@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/actor/FkFormation.h"
 
 using namespace GgafCore;

@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/actor/StringSpriteActor.h"
 
 using namespace GgafCore;

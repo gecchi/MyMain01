@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/scene/DefaultUniverse.h"
 
 #include "jp/ggaf/lib/GgafLibProperties.h"

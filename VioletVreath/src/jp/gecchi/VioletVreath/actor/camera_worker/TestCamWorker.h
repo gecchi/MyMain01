@@ -1,5 +1,6 @@
 #ifndef TESTCAMWORKER_H_
 #define TESTCAMWORKER_H_
+#include "VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/camera_worker/CameraWorker.h"
 
 namespace VioletVreath {

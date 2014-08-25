@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "FormationUnomia001b.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Unomia/EnemyUnomia.h"

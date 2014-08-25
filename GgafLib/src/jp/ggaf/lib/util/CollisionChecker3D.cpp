@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 
 #include "jp/ggaf/core/actor/GgafGroupHead.h"

@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Cursor001.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"

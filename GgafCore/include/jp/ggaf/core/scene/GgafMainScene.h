@@ -1,5 +1,6 @@
 #ifndef GGAFCORE_GGAFMAINSCENE_H_
 #define GGAFCORE_GGAFMAINSCENE_H_
+#include "GgafCommonHeader.h"
 #include "jp/ggaf/core/scene/GgafScene.h"
 
 namespace GgafCore {

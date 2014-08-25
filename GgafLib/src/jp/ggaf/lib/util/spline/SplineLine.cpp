@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/util/spline/SplineLine.h"
 
 using namespace GgafCore;

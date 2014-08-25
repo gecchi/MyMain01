@@ -1,5 +1,6 @@
 #ifndef GGAFCORE_GGAFACTORDEPOSITORYSTORE_H_
 #define GGAFCORE_GGAFACTORDEPOSITORYSTORE_H_
+#include "GgafCommonHeader.h"
 #include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
 
 namespace GgafCore {

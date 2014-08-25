@@ -1,5 +1,6 @@
 #ifndef ENEMYERMIONE_H_
 #define ENEMYERMIONE_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Ermione/EnemyErmioneArm.h"

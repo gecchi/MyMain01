@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "DefaultPointSpriteTestActor.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"

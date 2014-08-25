@@ -1,5 +1,6 @@
 #ifndef VIOLETVREATHHEADER_H_
 #define VIOLETVREATHHEADER_H_
+#include "VioletVreath.h"
 
 //「DirectX9ライブラリ」を利用する（利用者は俺！）場合
 //次の"GgafLibCommonHeader.h"ヘッダをインクルードします。

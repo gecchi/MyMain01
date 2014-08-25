@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXALPHAFADER_H_
 #define GGAFDXCORE_GGAFDXALPHAFADER_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/util/GgafValueTransitioner.hpp"
 
 namespace GgafDxCore {

@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "FormationEres002.h"
 
 #include "jp/gecchi/VioletVreath/Properties.h"

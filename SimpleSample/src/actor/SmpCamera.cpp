@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "SmpCamera.h"
 
 using namespace SimpleSample;

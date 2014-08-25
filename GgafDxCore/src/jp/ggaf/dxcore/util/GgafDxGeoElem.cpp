@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
 
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"

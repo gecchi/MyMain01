@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_DEFAULTSCENE_H_
 #define GGAFLIB_DEFAULTSCENE_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dxcore/scene/GgafDxScene.h"
 
 #include "jp/ggaf/lib/util/SceneProgress.h"

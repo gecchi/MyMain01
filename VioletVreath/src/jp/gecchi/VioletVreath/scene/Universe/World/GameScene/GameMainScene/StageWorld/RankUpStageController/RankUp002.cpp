@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "RankUp002.h"
 
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"

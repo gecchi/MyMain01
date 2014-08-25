@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "VvvGod.h"
 
 #include "actor/VvvCamera.h"

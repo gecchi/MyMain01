@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXALPHACURTAIN_H_
 #define GGAFDXCORE_GGAFDXALPHACURTAIN_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/util/GgafCurtain.h"
 
 namespace GgafDxCore {

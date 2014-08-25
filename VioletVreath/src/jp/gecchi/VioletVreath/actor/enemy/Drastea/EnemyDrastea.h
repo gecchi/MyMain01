@@ -1,5 +1,6 @@
 #ifndef ENEMYDRASTEA_H_
 #define ENEMYDRASTEA_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/CubeMapMeshSetActor.h"
 
 namespace VioletVreath {

@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_COLLISIONCHECKER_H_
 #define GGAFLIB_COLLISIONCHECKER_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxChecker.h"
 
 namespace GgafLib {

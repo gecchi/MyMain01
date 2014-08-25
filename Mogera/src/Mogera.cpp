@@ -1,10 +1,11 @@
 /**
  * 「Gecchi Game App Framework ライブラリ」使用サンプル
  */
-#include "stdafx.h"
 #include "GgafLibEntry.h" //"GgafLibEntry.h" をインクルードし、
                           //main関数 WinMain関数 ウィンドウプロシージャは
                           //１つのファイルに記述します。
+#include "Mogera.h"
+
 #include "MgrGod.h"
 #include <scrnsave.h>
 using namespace Mogera;

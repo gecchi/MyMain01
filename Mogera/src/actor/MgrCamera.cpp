@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "MgrCamera.h"
 
 using namespace Mogera;

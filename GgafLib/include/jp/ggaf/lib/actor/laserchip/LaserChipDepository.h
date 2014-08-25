@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_LASERCHIPDEPOSITORY_H_
 #define GGAFLIB_LASERCHIPDEPOSITORY_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
 
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"

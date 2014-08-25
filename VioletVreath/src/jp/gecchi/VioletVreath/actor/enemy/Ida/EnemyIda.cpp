@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "EnemyIda.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"

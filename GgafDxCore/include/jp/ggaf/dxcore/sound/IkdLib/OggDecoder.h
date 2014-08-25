@@ -1,5 +1,6 @@
 #ifndef IKD_DIX_OGGDECODER_H
 #define IKD_DIX_OGGDECODER_H
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/sound/IkdLib/PCMDecoder.h"
 
 #define OV_EXCLUDE_STATIC_CALLBACKS

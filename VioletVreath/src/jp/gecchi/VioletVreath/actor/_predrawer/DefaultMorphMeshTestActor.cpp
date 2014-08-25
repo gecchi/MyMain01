@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "DefaultMorphMeshTestActor.h"
 
 using namespace GgafCore;

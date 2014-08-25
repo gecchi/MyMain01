@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "StageWorld.h"
 
 #include "jp/gecchi/VioletVreath/God.h"

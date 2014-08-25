@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/core/GgafOrder.h"
 
 using namespace GgafCore;

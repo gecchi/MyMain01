@@ -1,6 +1,6 @@
 #ifndef GGAFLIBENTRY_H_
 #define GGAFLIBENTRY_H_
-#include "GgafDxCommonHeader.h"
+#include "GgafLibCommonHeader.h"
 
 #include <windows.h>
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"

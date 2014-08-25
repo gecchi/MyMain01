@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_PXQUANTITY_H_
 #define GGAFLIB_PXQUANTITY_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafLib {

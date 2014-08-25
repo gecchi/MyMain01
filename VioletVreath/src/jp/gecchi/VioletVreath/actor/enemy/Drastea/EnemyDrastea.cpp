@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "EnemyDrastea.h"
 
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"

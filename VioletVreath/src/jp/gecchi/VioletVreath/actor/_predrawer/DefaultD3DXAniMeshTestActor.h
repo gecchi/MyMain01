@@ -1,5 +1,6 @@
 #ifndef DEFAULTD3DXANIMESHEFFECTACTOR_H_
 #define DEFAULTD3DXANIMESHEFFECTACTOR_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultD3DXAniMeshActor.h"
 
 namespace VioletVreath {

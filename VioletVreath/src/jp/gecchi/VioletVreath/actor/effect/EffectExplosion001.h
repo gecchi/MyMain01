@@ -1,5 +1,6 @@
 #ifndef EFFECTEXPLOSION001_H_
 #define EFFECTEXPLOSION001_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultSpriteSetActor.h"
 
 namespace VioletVreath {

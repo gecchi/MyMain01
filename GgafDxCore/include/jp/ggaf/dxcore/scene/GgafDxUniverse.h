@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXUNIVERSE_H_
 #define GGAFDXCORE_GGAFDXUNIVERSE_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/scene/GgafUniverse.h"
 
 #include "jp/ggaf/dxcore/GgafDxGod.h"

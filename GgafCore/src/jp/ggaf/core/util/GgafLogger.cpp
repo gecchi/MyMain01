@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/core/util/GgafLogger.h"
 
 #include <iostream>

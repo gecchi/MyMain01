@@ -1,5 +1,6 @@
 #ifndef GGAFCORE_GGAFDUMMYACTOR_H_
 #define GGAFCORE_GGAFDUMMYACTOR_H_
+#include "GgafCommonHeader.h"
 #include "jp/ggaf/core/actor/GgafMainActor.h"
 
 namespace GgafCore {

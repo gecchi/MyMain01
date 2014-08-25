@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "VvvGrid.h"
 
 using namespace GgafCore;

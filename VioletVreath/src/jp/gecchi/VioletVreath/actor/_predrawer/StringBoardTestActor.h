@@ -1,5 +1,6 @@
 #ifndef STRINGBOARDEFFECTACTOR_H_
 #define STRINGBOARDEFFECTACTOR_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/StringBoardActor.h"
 
 namespace VioletVreath {

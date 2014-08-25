@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "VvvWorld.h"
 
 #include <algorithm>

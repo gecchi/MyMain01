@@ -1,5 +1,6 @@
 #ifndef ENEMYERES_H_
 #define ENEMYERES_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
 namespace VioletVreath {

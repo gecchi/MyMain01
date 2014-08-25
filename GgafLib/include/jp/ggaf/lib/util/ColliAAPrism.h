@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_COLLIAAPOS_PRISM_H_
 #define GGAFLIB_COLLIAAPOS_PRISM_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/lib/util/ColliAAB.h"
 
 namespace GgafLib {

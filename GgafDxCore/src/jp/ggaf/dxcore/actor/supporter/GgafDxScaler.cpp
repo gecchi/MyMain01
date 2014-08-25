@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 
 #include "jp/ggaf/core/util/GgafValueTransitioner.hpp"

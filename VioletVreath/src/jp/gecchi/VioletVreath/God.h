@@ -1,5 +1,6 @@
 #ifndef GOD_H_
 #define GOD_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/DefaultGod.h"
 
 #include "jp/ggaf/lib/util/VirtualButton.h"

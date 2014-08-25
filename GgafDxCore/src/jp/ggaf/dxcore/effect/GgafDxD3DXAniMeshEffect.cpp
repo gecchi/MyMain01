@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/effect/GgafDxD3DXAniMeshEffect.h"
 
 #include "jp/ggaf/dxcore/GgafDxProperties.h"

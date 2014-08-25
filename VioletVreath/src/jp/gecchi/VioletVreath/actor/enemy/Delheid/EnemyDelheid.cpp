@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "EnemyDelheid.h"
 
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"

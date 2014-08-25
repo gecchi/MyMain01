@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/lib/actor/WorldBoundActor.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"

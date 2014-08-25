@@ -1,9 +1,7 @@
-#include "stdafx.h"
 #include "jp/ggaf/core/scene/GgafScene.h"
 
 #include "jp/ggaf/core/GgafGod.h"
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
-
 
 using namespace GgafCore;
 

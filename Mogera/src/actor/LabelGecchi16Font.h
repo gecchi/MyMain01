@@ -1,5 +1,6 @@
 #ifndef LABELGECCHI16FONT_H_
 #define LABELGECCHI16FONT_H_
+#include "Mogera.h"
 #include "jp/ggaf/lib/actor/StringBoardActor.h"
 
 namespace Mogera {

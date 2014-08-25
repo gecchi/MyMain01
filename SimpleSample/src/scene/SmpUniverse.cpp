@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "SmpUniverse.h"
 
 #include "jp/ggaf/core/GgafFactory.h"

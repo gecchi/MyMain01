@@ -1,5 +1,6 @@
 #ifndef GGAFDXCORE_GGAFDXBOARDEFFECT_H_
 #define GGAFDXCORE_GGAFDXBOARDEFFECT_H_
+#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
 
 namespace GgafDxCore {

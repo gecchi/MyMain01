@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/manager/GgafDxEffectConnection.h"
 
 using namespace GgafCore;

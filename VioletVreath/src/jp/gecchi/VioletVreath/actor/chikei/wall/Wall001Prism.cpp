@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Wall001Prism.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"

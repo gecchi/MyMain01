@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
 
 #include "jp/ggaf/core/util/GgafValueAccelerator.hpp"

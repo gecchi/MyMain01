@@ -1,5 +1,6 @@
 #ifndef WALLAAPRISMEFFECTACTOR_H_
 #define WALLAAPRISMEFFECTACTOR_H_
+#include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/WallAAPrismActor.h"
 
 

@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_COLLISPHERE_H_
 #define GGAFLIB_COLLISPHERE_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
 
 namespace GgafLib {

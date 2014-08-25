@@ -1,5 +1,6 @@
 #ifndef GGAFLIB_COLLISPHEREACTOR_H_
 #define GGAFLIB_COLLISPHEREACTOR_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/ex/GgafDxSphereActor.h"
 
 namespace GgafLib {
