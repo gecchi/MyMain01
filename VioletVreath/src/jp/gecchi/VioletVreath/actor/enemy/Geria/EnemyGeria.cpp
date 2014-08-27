@@ -29,6 +29,7 @@ EnemyGeria::EnemyGeria(const char* prm_name) :
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
     pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_SHOT_001");     //発射
+    pAFader_ = NEW GgafDxAlphaFader(this);
 }
 
 void EnemyGeria::onCreateModel() {
@@ -53,15 +54,87 @@ void EnemyGeria::onActive() {
     frame_when_shot_ = 0;
     GgafDxKuroko* pKuroko = getKuroko();
     velo_mv_begin_ = pKuroko->_top_velo_mv; //初期移動速度を保存
-    pKuroko->setMvVelo(velo_mv_begin_); //再加速
+
     setRzFaceAng(0);
-    //_pKuroko->turnMvAngTwd(P_MYSHIP, 50, 0, TURN_CLOSE_TO, false);
+    setRxFaceAng(0);
+    getProgress()->reset(PROG_INIT);
 }
 
 void EnemyGeria::processBehavior() {
     //加算ランクポイントを減少
     UTIL::updateEnemyRankPoint(this);
     GgafDxKuroko* pKuroko = getKuroko();
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
+        case PROG_INIT: {
+            max_shots_ = 1; //移動中に撃つ事ができるショットの最大回数
+            shot_num_ = 0;  //撃ったショット回数
+            setHitAble(false);
+            setAlpha(0);
+            UTIL::activateEntryEffectOf(this);
+            pProg->changeNext();
+            break;
+        }
+        case PROG_ENTRY: {  //登場
+            if (pProg->isJustChanged()) {
+                pAFader_->transitionAcceStep(1.0, 0, 0.001);
+            }
+            if (getAlpha() > 0.8) {
+                setHitAble(true);
+                pProg->changeNext();
+            }
+            break;
+        }
+        case PROG_MOVE: {  //移動
+            if (pProg->isJustChanged()) {
+                pKuroko->setMvVelo(velo_mv_begin_);
+                do_Shot_ = false;
+            }
+
+            if (max_shots_ > shot_num_) {
+                MyShip* pM = P_MYSHIP;
+                if (pM->_z - 500000 < _z && _z < pM->_z + 500000 &&
+                    pM->_y - 500000 < _y && _y < pM->_y + 500000 )
+                {
+                    frame_when_shot_ = RND(1, 60); //ショット撃ち初めまでのラグを設けて散らばらせる
+                    do_Shot_ = true;
+                }
+            }
+            if (do_Shot_) {
+                if (pProg->getFrameInProgress() == frame_when_shot_) {
+                    pProg->change(PROG_FIRE);
+                }
+            }
+            break;
+        }
+        case PROG_FIRE: {  //発射
+            if (pProg->isJustChanged()) {
+                pKuroko->setMvVelo(PX_C(3)); //減速
+                pKuroko->spinRxFaceAngTo(D180ANG, D_ANG(3), 0, TURN_CLOCKWISE); //予備動作のぐるっと回転
+            }
+
+            if (!pKuroko->isTurningFaceAng()) {
+                MyShip* pM = P_MYSHIP;
+                GgafDxGeometricActor* pLast =
+                      UTIL::shotWay001(_x, _y, _z,
+                                       pM->_x, pM->_y, pM->_z,
+                                       getCommonDepository(Shot004),
+                                       PX_C(10),
+                                       10000, 100,
+                                       3, 5, 0.9,
+                                       EnemyGeria::callbackDispatched);
+                if (pLast) {
+                    shot_num_++;
+                    do_Shot_ = false;
+                    effectFlush(2); //フラッシュ
+                    getSeTx()->play3D(SE_FIRE);
+                }
+                pProg->change(PROG_MOVE);
+            }
+
+
+
+    }
     if (do_Shot_) {
         if (getActiveFrame() == frame_when_shot_) {
             pKuroko->setMvVelo(PX_C(3)); //減速

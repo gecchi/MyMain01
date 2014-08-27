@@ -26,7 +26,16 @@
 #define ZEROd_EQ(X) (GgafCore::GgafUtil::_zerod_eq_(X))
 #define ONEd_EQ(X) (GgafCore::GgafUtil::_zerod_eq_((X)-1.0))
 
+/**
+ * ®”‚Ì—” .
+ */
 #define RND(__FROM__,__TO__) (GgafCore::GgafUtil::_rnd_int32_(__FROM__,__TO__))
+
+/**
+ * ®”‚Ì—” .
+ * RND_AROUND(15, 4)   ˆÓ–¡F15 ‚Ì}4‚Ì”ÍˆÍ‚Ì—”
+ * ¨ 11 ` 19 ‚Ì—”‚É‚È‚é
+ */
 #define RND_AROUND(__BASE_VALUE__, __MARGIN__) (RND((__BASE_VALUE__ - __MARGIN__), (__BASE_VALUE__ + __MARGIN__)))
 
 typedef std::map<std::string, std::string> GgafStrMap;

@@ -75,13 +75,8 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, double prm_rad_fovX, double prm
     }
 
     position(0, 0, DX_C(_cameraZ));
-    GgafDxKuroko* pKuroko = getKuroko();
-    pKuroko->setMvAngTwd(0,0,0);
-    pKuroko->setMvVelo(0);
-    pKuroko->setRzMvAngVelo(0);
-    pKuroko->setRyMvAngVelo(0);
-    pKuroko->_is_targeting_ang_rz_mv = true;
-    pKuroko->_is_targeting_ang_ry_mv = true;
+    setFaceAngTwd(0,0,0);
+    getKuroko()->setMvAngTwd(0,0,0);
     setHitAble(false);
 
     _x_buffer_left   = PX_C(PROPERTY::GAME_BUFFER_WIDTH) / -2;

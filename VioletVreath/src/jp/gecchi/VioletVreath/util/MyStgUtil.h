@@ -233,19 +233,19 @@ public:
 
     /**
      * 敵キャラヒット時の標準的な処理 .
-     * ＜破壊された場合＞
-     * ・破壊時得点加算
-     * ・ランク加算
-     * ・アイテム出現             activateItemOf()
-     * ・消滅時特殊エフェクト開始 activateDestroyedEffectOf()
-     * ・打ち返し弾出現           activateRevengeShotOf()
-     * ・爆発エフェクト出現       activateExplosionEffectOf()
-     * ・編隊全滅判定
-     * ・編隊全滅時アイテム出現(STAT_ItemKind)
-     * ＜破壊されなかった場合＞
-     * ・ダメージを与えた得点加算
-     * ・ダメージフラッシュ表示       STAT_FlushAble
-     * ・ダメージ時特殊エフェクト出現 activateDamagedEffectOf()
+     * ＜破壊された場合＞<br>
+     * ・破壊時得点加算<br>
+     * ・ランク加算<br>
+     * ・アイテム出現             activateItemOf()<br>
+     * ・消滅時特殊エフェクト開始 activateDestroyedEffectOf()<br>
+     * ・打ち返し弾出現           activateRevengeShotOf()<br>
+     * ・爆発エフェクト出現       activateExplosionEffectOf()<br>
+     * ・編隊全滅判定<br>
+     * ・編隊全滅時アイテム出現(STAT_ItemKind)<br>
+     * ＜破壊されなかった場合＞<br>
+     * ・ダメージを与えた得点加算<br>
+     * ・ダメージフラッシュ表示       STAT_FlushAble<br>
+     * ・ダメージ時特殊エフェクト出現 activateDamagedEffectOf()<br>
      * @param prm_this ヒットした自身（敵キャラ）のアクターを渡す
      * @param prm_pOther ヒットした相手のアクターを渡す
      * @return true:破壊された/false:破壊されてない

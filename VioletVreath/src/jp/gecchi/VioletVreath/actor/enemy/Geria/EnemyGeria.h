@@ -10,9 +10,21 @@ class EnemyGeria : public GgafLib::DefaultMeshSetActor {
 
 public:
     enum {
+        PROG_INIT  ,
+        PROG_ENTRY ,
+        PROG_MOVE  ,
+        PROG_FIRE  ,
+        PROG_LEAVE ,
+        PROG_BANPEI,
+    };
+    enum {
         SE_EXPLOSION,
         SE_FIRE     ,
     };
+
+    /** フィードイン・フェードアウト支援 */
+    GgafDxCore::GgafDxAlphaFader* pAFader_;
+
     /** 平行移動支援 */
     GgafDxCore::GgafDxAxesMover* pAxsMver_;
 

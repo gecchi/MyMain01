@@ -659,8 +659,8 @@ public:
      * 軸回転方角(Z軸とY軸)を目標にターゲットするシークエンスを実行 .
      * @param prm_ang_rz_target 目標軸回転方角(Z軸)
      * @param prm_ang_ry_target 目標軸回転方角(Y軸)
-     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
-     * @param prm_angacce 角加速度（正負自動判定）
+     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正の角速度で指定。内部で正負自動判定）
+     * @param prm_angacce 角加速度（正の角加速度で指定。内部で正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。
@@ -681,8 +681,8 @@ public:
      * @param prm_tx 目標X座標
      * @param prm_ty 目標Y座標
      * @param prm_tz 目標Z座標
-     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
-     * @param prm_angacce 角加速度（正負自動判定）
+     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正の角速度で指定。内部で正負自動判定）
+     * @param prm_angacce 角加速度（正の角加速度で指定。内部で正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO<BR>
      * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。<BR>
@@ -702,8 +702,8 @@ public:
     /**
      * 軸回転方角(Z軸とY軸)を目標にターゲットの方向を向くようなシークエンスを実行
      * @param prm_pActor_target 目標オブジェクト
-     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
-     * @param prm_angacce 角加速度（正負自動判定）
+     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正の角速度で指定。内部で正負自動判定）
+     * @param prm_angacce 角加速度（正の角加速度で指定。内部で正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。<BR>
@@ -756,8 +756,8 @@ public:
     /**
      * 軸回転方角(Z軸)を目標にターゲットするシークエンスを実行 .
      * @param prm_ang_rz_target 目標軸回転方角(Z軸)
-     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
-     * @param prm_angacce 角加速度（正負自動判定）
+     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正の角速度で指定。内部で正負自動判定）
+     * @param prm_angacce 角加速度（正の角加速度で指定。内部で正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
@@ -768,8 +768,8 @@ public:
     /**
      * 軸回転方角(Y軸)を目標にターゲットするシークエンスを実行 .
      * @param prm_ang_ry_target 目標軸回転方角(Y軸)
-     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
-     * @param prm_angacce 角加速度（正負自動判定）
+     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正の角速度で指定。内部で正負自動判定）
+     * @param prm_angacce 角加速度（正の角加速度で指定。内部で正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
@@ -780,8 +780,8 @@ public:
     /**
      * 軸回転方角(X軸)を目標にターゲットするシークエンスを実行 .
      * @param prm_ang_rx_Target 目標軸回転方角(X軸)
-     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
-     * @param prm_angacce 角加速度（正負自動判定）
+     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正の角速度で指定。内部で正負自動判定）
+     * @param prm_angacce 角加速度（正の角加速度で指定。内部で正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
@@ -793,8 +793,8 @@ public:
      * 移動方角を目標にターゲットするシークエンスを実行 .
      * @param prm_ang_rz_target 目標移動方角(Z軸)
      * @param prm_ang_ry_target 目標移動方角(Y軸)
-     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
-     * @param prm_angacce 角加速度（正負自動判定）
+     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正の角速度で指定。内部で正負自動判定）
+     * @param prm_angacce 角加速度（正の角加速度で指定。内部で正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO<BR>
      * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。<BR>
@@ -816,8 +816,8 @@ public:
      * @param prm_tx 目標X座標
      * @param prm_ty 目標Y座標
      * @param prm_tz 目標Z座標
-     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
-     * @param prm_angacce 角加速度（正負自動判定）
+     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正の角速度で指定。内部で正負自動判定）
+     * @param prm_angacce 角加速度（正の角加速度で指定。内部で正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO<BR>
      * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。<BR>
@@ -838,8 +838,8 @@ public:
      * @param prm_tx 目標X座標
      * @param prm_ty 目標Y座標
      * @param prm_tz 目標Z座標
-     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
-     * @param prm_angacce 角加速度（正負自動判定）
+     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正の角速度で指定。内部で正負自動判定）
+     * @param prm_angacce 角加速度（正の角加速度で指定。内部で正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO<BR>
      * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。<BR>
@@ -871,8 +871,8 @@ public:
     /**
      * 移動方角を常に目標にターゲットするシークエンスを実行 .
      * @param prm_pActor_target 目標オブジェクト
-     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
-     * @param prm_angacce 角加速度（正負自動判定）
+     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正の角速度で指定。内部で正負自動判定）
+     * @param prm_angacce 角加速度（正の角加速度で指定。内部で正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO<BR>
      * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。<BR>
@@ -899,8 +899,8 @@ public:
     /**
      * 移動方角を目標にターゲットの座標にするシークエンスを実行
      * @param prm_pActor_target 目標オブジェクト
-     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
-     * @param prm_angacce 角加速度（正負自動判定）
+     * @param prm_angvelo ターゲッティング遂行中に加算される角度、つまり角速度（正の角速度で指定。内部で正負自動判定）
+     * @param prm_angacce 角加速度（正の角加速度で指定。内部で正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO<BR>
      * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。<BR>
@@ -961,8 +961,8 @@ public:
     /**
      * 移動方角(Z軸)を目標にターゲットするシークエンスを実行 .
      * @param prm_ang_rz_target 目標移動方角(Z軸)
-     * @param prm_angvelo ターゲットへ移動方角を回転移動中に適用する角速度（正負自動判定）
-     * @param prm_angacce 角加速度（正負自動判定）
+     * @param prm_angvelo ターゲットへ移動方角を回転移動中に適用する角速度（正の角速度で指定。内部で正負自動判定）
+     * @param prm_angacce 角加速度（正の角加速度で指定。内部で正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
@@ -973,8 +973,8 @@ public:
     /**
      * 移動方角(Y軸)を目標にターゲットするシークエンスを実行 .
      * @param prm_ang_ry_target 目標移動方角(Y軸)
-     * @param prm_angvelo ターゲットへ移動方角を回転移動中に適用する目標移動方角回転移動角速度（正負自動判定）
-     * @param prm_angacce 角加速度（正負自動判定）
+     * @param prm_angvelo ターゲットへ移動方角を回転移動中に適用する目標移動方角回転移動角速度（正の角速度で指定。内部で正負自動判定）
+     * @param prm_angacce 角加速度（正の角加速度で指定。内部で正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
