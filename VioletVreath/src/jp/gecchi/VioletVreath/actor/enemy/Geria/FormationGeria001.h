@@ -14,6 +14,7 @@ class FormationGeria001 : public FormationGeria {
 public:
     FormationGeria001(const char* prm_name);
 
+    void processBehavior() override;
     void processJudgement() override;
 
     virtual ~FormationGeria001();

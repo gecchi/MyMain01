@@ -1544,8 +1544,8 @@ GgafStatus* MyStgUtil::resetEnemyGeriaStatus(GgafStatus* p) {
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+	p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_STAY_F60);  //出現エフェクト種別
+	p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001_F60);  //退出エフェクト種別
 	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
 	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別

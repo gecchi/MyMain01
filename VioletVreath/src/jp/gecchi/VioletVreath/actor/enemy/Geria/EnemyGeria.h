@@ -37,6 +37,8 @@ public:
     int max_shots_;
     int shot_num_;
     velo velo_mv_begin_;
+    coord migration_length_;
+    coord mvd_;
 
 public:
     EnemyGeria(const char* prm_name);
@@ -57,6 +59,9 @@ public:
 
     virtual ~EnemyGeria();
 
+    void setMigrationLength(coord prm_migration_length) {
+        migration_length_ = prm_migration_length;
+    }
     static void callbackDispatched(GgafDxCore::GgafDxDrawableActor* prm_pDispatched,
                                    int prm_dispatched_seq,
                                    int prm_set_seq);
