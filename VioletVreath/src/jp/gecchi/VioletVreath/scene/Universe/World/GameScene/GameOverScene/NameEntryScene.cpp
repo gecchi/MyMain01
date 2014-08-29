@@ -76,11 +76,7 @@ void NameEntryScene::processBehavior() {
                 _TRACE_("NameEntryScene::processBehavior() Prog has Just Changed (to NameEntryScene::PROG_INPUT)");
                 pLabel01_->update(PX_C(62), PX_C(32), "PLEASE ENTRY YOUR NAME!!!!");
                 pNameEntryBoard_->rise(PX_C(50), PX_C(10)); //ネームエントリー板出現
-
-                pLabelInputedName_->getKuroko()->setFaceAngVelo(AXIS_X, 1700);
-                pLabelInputedName_->getKuroko()->setFaceAngVelo(AXIS_Y, 1500);
-                pLabelInputedName_->getKuroko()->setFaceAngVelo(AXIS_Z, 1000);
-
+                pLabelInputedName_->getKuroko()->setFaceAngVelo(1700, 1500, 1000);
             }
             pLabelInputedName_->getKuroko()->behave();
             pLabelSelectedChar_->setFaceAngAs(pLabelInputedName_);

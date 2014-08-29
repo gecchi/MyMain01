@@ -67,7 +67,7 @@ void EnemyIrce::processJudgement() {
 }
 
 void EnemyIrce::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //”j‰óŽž
         getSeTx()->play3D(SE_EXPLOSION);

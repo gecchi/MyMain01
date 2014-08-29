@@ -30,24 +30,9 @@ GamePreTitleScene::GamePreTitleScene(const char* prm_name) : DefaultScene(prm_na
 void GamePreTitleScene::onReset() {
     _TRACE_("GamePreTitleScene::onReset()");
     pTitleBoard_->position(PX_C(100), PX_C(600));
-    pLabel01_->update("");
+    pLabel01_->update(PX_C(100), PX_C(50), "");
     pLabel02_->update("");
-    getProgress()->change(GamePreTitleScene::PROG_INIT);
-//    //TEST
-//    for (int i = 0; i < 9; i++) {
-//        papSpriteLabel_[i]->update("ABC");
-//        papSpriteLabel_[i]->position(PX_C(((i % 3) * 100) - 100), PX_C(((i / 3) * 20) - 20));
-//    }
-//    papSpriteLabel_[0]->setAlign(ALIGN_LEFT, VALIGN_BOTTOM);
-//    papSpriteLabel_[1]->setAlign(ALIGN_CENTER, VALIGN_BOTTOM);
-//    papSpriteLabel_[2]->setAlign(ALIGN_RIGHT, VALIGN_BOTTOM);
-//    papSpriteLabel_[3]->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
-//    papSpriteLabel_[4]->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-//    papSpriteLabel_[5]->setAlign(ALIGN_RIGHT, VALIGN_MIDDLE);
-//    papSpriteLabel_[6]->setAlign(ALIGN_LEFT, VALIGN_TOP);
-//    papSpriteLabel_[7]->setAlign(ALIGN_CENTER, VALIGN_TOP);
-//    papSpriteLabel_[8]->setAlign(ALIGN_RIGHT, VALIGN_TOP);
-//    //TEST
+    getProgress()->reset(PROG_INIT);
 }
 
 void GamePreTitleScene::onActive() {
@@ -58,49 +43,37 @@ void GamePreTitleScene::initialize() {
 }
 
 void GamePreTitleScene::processBehavior() {
-//    //TEST
-//    if (GgafDxInput::isBeingPressedKey(DIK_Y)) {
-//        for (int i = 0; i < 9; i++) {
-//            papSpriteLabel_[i]->_z -= PX_C(2);
-//        }
-//    }
-//    if (GgafDxInput::isBeingPressedKey(DIK_U)) {
-//        for (int i = 0; i < 9; i++) {
-//            papSpriteLabel_[i]->_z += PX_C(2);
-//        }
-//    }
-//    //TEST
     SceneProgress* pProg = getProgress();
     switch (pProg->get()) {
-        case GamePreTitleScene::PROG_INIT: {
-            pProg->change(GamePreTitleScene::PROG_EXEC);
+        case PROG_INIT: {
+            pProg->change(PROG_EXEC);
             break;
         }
 
-        case GamePreTitleScene::PROG_EXEC: {
+        case PROG_EXEC: {
             if (pProg->isJustChanged()) {
 //                fadeinScene(FADE_FRAMES);
             }
             if (pProg->getFrameInProgress() == 1) {
-                pLabel01_->update(PX_C(100), PX_C(50), "[STORY]");
+                pLabel01_->update("[STORY]");
             } else if (pProg->getFrameInProgress() == 120) {
-                pLabel01_->update(PX_C(100), PX_C(50), "MUKASHI MUKASHI ARU TOKORONI.");
+                pLabel01_->update("MUKASHI MUKASHI ARU TOKORONI...");
             } else if (pProg->getFrameInProgress() == 240) {
-                pLabel01_->update(PX_C(100), PX_C(50), "MA SORE HA OITOITE...");
+                pLabel01_->update("OITOITE...");
             } else if (pProg->getFrameInProgress() == 360) {
-                pLabel01_->update(PX_C(100), PX_C(50), "TORIAEZU TEKI WO TAOSINI IKOUZE ! BY GECCHI");
+                pLabel01_->update("PRESENTED BY GECCHI.");
             } else if (pProg->getFrameInProgress() > 361) {
                 //タイトルが下からニューっと
                 pTitleBoard_->_y -= PX_C(1);
                 if (pTitleBoard_->_y <= PX_C(90)) {
                     pTitleBoard_->_y = PX_C(90);
-                    pProg->change(GamePreTitleScene::PROG_FINISH);
+                    pProg->change(PROG_FINISH);
                 }
             }
             break;
         }
 
-        case GamePreTitleScene::PROG_FINISH: {
+        case PROG_FINISH: {
             if (pProg->isJustChanged()) {
                 throwEventUpperTree(EVENT_PREGAMETITLESCENE_FINISH);
             }

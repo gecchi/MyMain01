@@ -106,8 +106,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalIncludeDirectories>include</AdditionalIncludeDirectories>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <PrecompiledHeaderFile>
-      </PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>GgafCommonHeader.h</PrecompiledHeaderFile>
     </ClCompile>
     <Lib>
       <AdditionalLibraryDirectories>..\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

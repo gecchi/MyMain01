@@ -46,10 +46,10 @@ void GgafDxBoardActor::processDraw() {
     ID3DXEffect* pID3DXEffect = _pBoardEffect->_pID3DXEffect;
 
     HRESULT hr;
-    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedX, float(C_PX(_x)));
-    checkDxException(hr, D3D_OK, "GgafDxBoardActor::draw SetFloat(_hTransformedX) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B3");
-    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedY, float(C_PX(_y)));
-    checkDxException(hr, D3D_OK, "GgafDxBoardActor::draw SetFloat(_hTransformedY) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B3");
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_transformed_x, float(C_PX(_x)));
+    checkDxException(hr, D3D_OK, "GgafDxBoardActor::draw SetFloat(_h_transformed_x) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B3");
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_transformed_y, float(C_PX(_y)));
+    checkDxException(hr, D3D_OK, "GgafDxBoardActor::draw SetFloat(_h_transformed_y) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B3");
 
     if (_align == ALIGN_RIGHT) {
         hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_x, (float)(-_pBoardModel->_model_width_px));
@@ -67,19 +67,19 @@ void GgafDxBoardActor::processDraw() {
         hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_y, 0.0f);
     }
     checkDxException(hr, D3D_OK, "GgafDxBoardActor::draw SetFloat(_h_local_left_top_y) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hDepthZ, float(C_PX(_z)));
-    checkDxException(hr, D3D_OK, "GgafDxBoardActor::draw SetFloat(_hDepthZ) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_depth_z, float(C_PX(_z)));
+    checkDxException(hr, D3D_OK, "GgafDxBoardActor::draw SetFloat(_h_depth_z) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 //    hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_alpha, _alpha);
 //    checkDxException(hr, D3D_OK, "GgafDxBoardActor::draw SetFloat(_h_alpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetValue(_pBoardEffect->_h_colMaterialDiffuse, &(_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
     checkDxException(hr, D3D_OK, "GgafDxBoardActor::draw() SetValue(_h_colMaterialDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
-    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSx, SC_R(_sx));
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_sx, SC_R(_sx));
     checkDxException(hr, D3D_OK, "GgafDxBoardActor::draw SetFloat(_sx) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSy, SC_R(_sy));
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_sy, SC_R(_sy));
     checkDxException(hr, D3D_OK, "GgafDxBoardActor::draw SetFloat(_sy) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_Rz, ANG_RAD(_rz));
-    checkDxException(hr, D3D_OK, "GgafDxBoardActor::draw SetFloat(_h_Rz) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_rz, ANG_RAD(_rz));
+    checkDxException(hr, D3D_OK, "GgafDxBoardActor::draw SetFloat(_h_rz) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
     _pBoardModel->GgafDxBoardModel::draw(this);
 }

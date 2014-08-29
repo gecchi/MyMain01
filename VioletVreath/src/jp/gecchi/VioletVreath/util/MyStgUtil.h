@@ -250,7 +250,7 @@ public:
      * @param prm_pOther ヒットした相手のアクターを渡す
      * @return true:破壊された/false:破壊されてない
      */
-    static bool proceedEnemyHit(GgafDxCore::GgafDxDrawableActor* prm_this, GgafDxCore::GgafDxGeometricActor* prm_pOther);
+    static bool transactEnemyHit(GgafDxCore::GgafDxDrawableActor* prm_this, GgafDxCore::GgafDxGeometricActor* prm_pOther);
 
     /**
      * 編隊全破壊時の標準的な処理 .

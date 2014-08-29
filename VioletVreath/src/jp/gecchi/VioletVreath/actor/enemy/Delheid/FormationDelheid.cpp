@@ -43,9 +43,9 @@ FormationDelheid::FormationDelheid(const char* prm_name)
 }
 
 void FormationDelheid::updateRankParameter() {
-    RV_NumFormation_    = RF_FormationDelheid_Num(G_RANK);    //編隊数
+    RV_Num_    = RF_FormationDelheid_Num(G_RANK);    //編隊数
     RV_MvVelo_          = RF_FormationDelheid_MvVelo(G_RANK); //速度
-    RV_IntervalFrames_  = 64 / C_PX(RV_MvVelo_);
+    RV_LaunchInterval  = 64 / C_PX(RV_MvVelo_);
 }
 
 void FormationDelheid::initialize() {
@@ -121,9 +121,9 @@ void FormationDelheid::processBehavior() {
                  //開始ハッチがオープンが存在中の場合
                  if (canCallUp()) {
                      //招集未完了時
-                     if (pProg->getFrameInProgress() % RV_IntervalFrames_ == 0) {
-                         //機数 RV_NumFormation_ 機まで招集
-                         EnemyDelheid* pDelheid = (EnemyDelheid*)callUpMember(RV_NumFormation_);
+                     if (pProg->getFrameInProgress() % RV_LaunchInterval == 0) {
+                         //機数 RV_Num_ 機まで招集
+                         EnemyDelheid* pDelheid = (EnemyDelheid*)callUpMember(RV_Num_);
                          if (pDelheid) {
                              pDelheid->config(getSplManuf()->createKurokoLeader(pDelheid->getKuroko()),
                                               pConn_pShotDepo_->peek() );

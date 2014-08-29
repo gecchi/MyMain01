@@ -454,6 +454,7 @@ class FormationUnomia002b;
 class EnemyGeria;
 class FormationGeria;
 class FormationGeria001;
+class FormationGeria002;
 
 class EnemyEtis;
 class FormationEtis001;

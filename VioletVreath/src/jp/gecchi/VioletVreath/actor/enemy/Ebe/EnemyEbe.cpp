@@ -62,7 +62,6 @@ void EnemyEbe::onActive() {
 void EnemyEbe::processBehavior() {
     //‰ÁŽZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ðŒ¸­
     UTIL::updateEnemyRankPoint(this);
-    MyShip* pMyShip = P_MYSHIP;
     GgafDxKuroko* pKuroko = getKuroko();
     GgafProgress* pProg = getProgress();
     switch (pProg->get()) {
@@ -104,7 +103,7 @@ void EnemyEbe::processJudgement() {
 }
 
 void EnemyEbe::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //”j‰óŽž
         getSeTx()->play3D(SE_EXPLOSION);

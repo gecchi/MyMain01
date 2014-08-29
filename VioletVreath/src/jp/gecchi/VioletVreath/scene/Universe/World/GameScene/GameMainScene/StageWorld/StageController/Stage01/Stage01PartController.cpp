@@ -26,7 +26,7 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
 	_paFrame_NextEvent = new frame[2];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 2;
-	orderActorToFactory(10000000, FormationGeria001, "FormationGeria001-1");
+	orderActorToFactory(10000000, FormationGeria002, "FormationGeria002-1");
     // gen01 end
     useProgress(Stage01PartController::PROG_BANPEI-1);
 }
@@ -45,7 +45,7 @@ void Stage01PartController::processBehavior() {
 				break;
 			}
 			case 200: {
-				FormationGeria001* pF = (FormationGeria001*)obtainActorFromFactory(10000000);
+				FormationGeria002* pF = (FormationGeria002*)obtainActorFromFactory(10000000);
 				getSceneDirector()->addSubGroup(pF);
 				break;
 			}

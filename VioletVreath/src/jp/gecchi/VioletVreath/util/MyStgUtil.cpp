@@ -669,7 +669,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 
 }
 
-bool MyStgUtil::proceedEnemyHit(GgafDxDrawableActor* prm_this, GgafDxGeometricActor* prm_pOther) {
+bool MyStgUtil::transactEnemyHit(GgafDxDrawableActor* prm_this, GgafDxGeometricActor* prm_pOther) {
     if (UTIL::calcEnemyStamina(prm_this, prm_pOther) <= 0) { //ëÃóÕÇ™ñ≥Ç≠Ç»Ç¡ÇΩÇÁ
         //ÅÉîjâÛÇ≥ÇÍÇΩèÍçáÅÑ
         prm_this->setHitAble(false); //ìñÇΩÇËîªíËè¡é∏

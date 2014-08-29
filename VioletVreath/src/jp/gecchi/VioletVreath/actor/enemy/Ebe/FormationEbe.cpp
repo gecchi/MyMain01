@@ -24,8 +24,8 @@ FormationEbe::FormationEbe(const char* prm_name, const char* prm_spl_id)
 }
 
 void FormationEbe::updateRankParameter() {
-    RV_NumFormation_     = RF_FormationEbe_Num(G_RANK);            //編隊数
-    RV_IntervalFrames_   = RF_FormationEbe_LaunchInterval(G_RANK); //エーベの間隔(frame)
+    RV_Num_              = RF_FormationEbe_Num(G_RANK);            //編隊数
+    RV_LaunchInterval    = RF_FormationEbe_LaunchInterval(G_RANK); //エーベの間隔(frame)
     RV_MvVelo_           = RF_FormationEbe_MvVelo(G_RANK);         //速度
 }
 
@@ -37,8 +37,8 @@ void FormationEbe::onActive() {
 }
 
 void FormationEbe::processBehavior() {
-    if (canCallUp() && (getActiveFrame() % RV_IntervalFrames_ == 0)) {
-        EnemyEbe* pEbe = (EnemyEbe*)callUpMember(RV_NumFormation_);
+    if (canCallUp() && (getActiveFrame() % RV_LaunchInterval == 0)) {
+        EnemyEbe* pEbe = (EnemyEbe*)callUpMember(RV_Num_);
         if (pEbe) {
             SplineKurokoLeader* pKurokoLeader = getSplManuf()->createKurokoLeader(pEbe->getKuroko());
             GgafActorDepository* pDepo_shot = pConn_pShotDepo_ ? pConn_pShotDepo_->peek() : nullptr;

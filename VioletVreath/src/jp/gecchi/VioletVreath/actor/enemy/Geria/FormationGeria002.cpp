@@ -1,4 +1,4 @@
-#include "FormationGeria001.h"
+#include "FormationGeria002.h"
 
 #include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
@@ -11,34 +11,34 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-FormationGeria001::FormationGeria001(const char* prm_name) :
+FormationGeria002::FormationGeria002(const char* prm_name) :
         FormationGeria(prm_name, 500) {
-    _class_name = "FormationGeria001";
+    _class_name = "FormationGeria002";
 
-    position(PX_C(5000), 0, PX_C(5000));
-    setFaceAngTwd(PX_C(5000), 0, -PX_C(5000));
-    pAxsMver_->setVxyzMvVelo(-2000, 0, 0);
+    position(PX_C(8000), 0, PX_C(8000));
+    setFaceAngTwd(PX_C(-8000), 0, PX_C(8000));
+    pAxsMver_->setVxyzMvVelo(0, 0, -2000);
 }
 
-void FormationGeria001::processBehavior() {
+void FormationGeria002::processBehavior() {
     if (getActiveFrame() % 6 == 0) {
         EnemyGeria* pGeria = summonGeria();
         if (pGeria) {
             pGeria->positionAboutAs(this, PX_C(800));
             pGeria->getKuroko()->setRzRyMvAng(_rx, _ry); //Œü‚¢‚Ä‚é•ûŒü‚É”ò‚Î‚·
             pGeria->getKuroko()->setMvVelo(PX_C(20));
-            pGeria->setMigrationLength(PX_C(10000));
+            pGeria->setMigrationLength(PX_C(15000));
         }
     }
     pAxsMver_->behave();
 }
 
-void FormationGeria001::processJudgement() {
+void FormationGeria002::processJudgement() {
     if (_x < GgafDxUniverse::_x_gone_left) {
-        _TRACE_("FormationGeria001::processJudgement() I—¹");
+        _TRACE_("FormationGeria002::processJudgement() I—¹");
         sayonara();
     }
 }
 
-FormationGeria001::~FormationGeria001() {
+FormationGeria002::~FormationGeria002() {
 }

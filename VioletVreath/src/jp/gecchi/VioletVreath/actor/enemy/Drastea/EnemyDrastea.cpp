@@ -61,14 +61,13 @@ void EnemyDrastea::initialize() {
             for (int nz = 0; nz < box_num_z; nz++) {
                 coord colli_bz = (colli_box_z_len*nz) + (colli_box_spc_dz*nz);
 
-                pChecker->setColliAAB(n,
-                                   bx + colli_bx,
-                                   by + colli_by,
-                                   bz + colli_bz,
-                                   bx + colli_bx + colli_box_x_len,
-                                   by + colli_by + colli_box_y_len,
-                                   bz + colli_bz + colli_box_z_len,
-                                   true, true, true );
+                pChecker->setColliAAB(n, bx + colli_bx,
+                                         by + colli_by,
+                                         bz + colli_bz,
+                                         bx + colli_bx + colli_box_x_len,
+                                         by + colli_by + colli_box_y_len,
+                                         bz + colli_bz + colli_box_z_len,
+                                         true, true, true );
                 n++;
             }
         }
@@ -79,9 +78,7 @@ void EnemyDrastea::onActive() {
     getStatus()->reset();
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setMvVelo(0);
-    pKuroko->setFaceAngVelo(AXIS_Z, 1000);
-    pKuroko->setFaceAngVelo(AXIS_Y, 300);
-    pKuroko->setFaceAngVelo(AXIS_X, 700);
+    pKuroko->setFaceAngVelo(700, 300, 1100);
     pAxsMver_->setVxMvVelo(-3000);
     static coord appearances_renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 3;
     static coord appearances_renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 3;
@@ -107,7 +104,7 @@ void EnemyDrastea::processJudgement() {
 }
 
 void EnemyDrastea::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //”j‰óŽž
         getSeTx()->play3D(SE_EXPLOSION);

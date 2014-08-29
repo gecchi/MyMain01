@@ -20,9 +20,9 @@ public:
     DepositoryConnection* pConn_pShotDepo_;
 
     /** 編隊数(RANK変動) */
-    int RV_NumFormation_;
+    int RV_Num_;
     /** 編隊メンバーの出現間隔フレーム(RANK変動) */
-    frame RV_IntervalFrames_;
+    frame RV_LaunchInterval;
     /** 編隊メンバーの移動速度(RANK変動) */
     velo RV_MvVelo_;
 

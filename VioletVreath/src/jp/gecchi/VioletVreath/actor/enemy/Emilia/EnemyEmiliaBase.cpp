@@ -34,7 +34,7 @@ void EnemyEmiliaBase::processJudgement() {
 
 void EnemyEmiliaBase::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    bool was_destroyed = UTIL::proceedEnemyHit(this, pOther);
+    bool was_destroyed = UTIL::transactEnemyHit(this, pOther);
     if (was_destroyed) {
         //”j‰óŽž
         getSeTx()->play3D(SE_EXPLOSION);

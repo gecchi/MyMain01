@@ -19,17 +19,17 @@ public:
     D3DXHANDLE _h_tex_blink_threshold;
     D3DXHANDLE _h_offset_u;
     D3DXHANDLE _h_offset_v;
-    D3DXHANDLE _hTransformedX;
-    D3DXHANDLE _hTransformedY;
+    D3DXHANDLE _h_transformed_x;
+    D3DXHANDLE _h_transformed_y;
 
     D3DXHANDLE _h_local_left_top_x;
     D3DXHANDLE _h_local_left_top_y;
 
     D3DXHANDLE _h_colMaterialDiffuse;
-    D3DXHANDLE _hSx;
-    D3DXHANDLE _hSy;
-    D3DXHANDLE _h_Rz;
-    D3DXHANDLE _hDepthZ;
+    D3DXHANDLE _h_sx;
+    D3DXHANDLE _h_sy;
+    D3DXHANDLE _h_rz;
+    D3DXHANDLE _h_depth_z;
 
 public:
     /**

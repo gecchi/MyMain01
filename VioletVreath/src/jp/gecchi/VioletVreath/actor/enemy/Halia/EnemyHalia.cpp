@@ -188,7 +188,7 @@ void EnemyHalia::processJudgement() {
 
 void EnemyHalia::onHit(GgafActor* prm_pOtherActor) {
     if (getMorphWeight(1) > 0.3) { //Œû‚ª‹ó‚¢‚Ä‚½‚ç
-        bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+        bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
         if (was_destroyed) {
             //”j‰óŽž
             getSeTx()->play3D(SE_EXPLOSION);

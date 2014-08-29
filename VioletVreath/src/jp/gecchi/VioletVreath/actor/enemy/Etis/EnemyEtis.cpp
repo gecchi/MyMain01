@@ -18,7 +18,6 @@ using namespace VioletVreath;
 EnemyEtis::EnemyEtis(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Etis", STATUS(EnemyEtis)) {
     _class_name = "EnemyEtis";
-    pAxsMver_ = NEW GgafDxAxesMover(this);
     width_x_ = 220*2*LEN_UNIT;
     height_z_ = 220*2*LEN_UNIT;
     depth_y_ = 36*2*LEN_UNIT;
@@ -51,9 +50,9 @@ void EnemyEtis::onActive() {
     getStatus()->reset();
     setAlpha(1.0);
     GgafDxKuroko* pKuroko = getKuroko();
-    pKuroko->setMvVelo(0);
-    pKuroko->setFaceAngVelo(AXIS_Z, 1000);
-    pAxsMver_->setVxMvVelo(-3000);
+    pKuroko->setFaceAngVelo(AXIS_Z, D_ANG(1));
+    pKuroko->setRzRyMvAng(D0ANG, D180ANG);
+    pKuroko->setMvVelo(PX_C(3));
     static coord renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 3;
     static coord renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 3;
     _x = GgafDxUniverse::_x_gone_right - 1000;
@@ -67,8 +66,6 @@ void EnemyEtis::processBehavior() {
     UTIL::updateEnemyRankPoint(this);
     //À•W‚É”½‰f
     getKuroko()->behave();
-    pAxsMver_->behave();
-    getSeTx()->behave();
 }
 
 void EnemyEtis::processJudgement() {
@@ -78,7 +75,7 @@ void EnemyEtis::processJudgement() {
 }
 
 void EnemyEtis::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //”j‰óŽž
         getSeTx()->play3D(SE_EXPLOSION);
@@ -93,6 +90,5 @@ void EnemyEtis::onInactive() {
 }
 
 EnemyEtis::~EnemyEtis() {
-    GGAF_DELETE(pAxsMver_);
 }
 
