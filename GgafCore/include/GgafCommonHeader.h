@@ -7,12 +7,14 @@
  * @author Masatoshi Tsuge
  */
 
+
+
+
 //MY_DEBUGは自分用のデバッグビルド
 #ifdef _DEBUG
     //#undef _DEBUG
     #define MY_DEBUG _DEBUG
 #endif
-
 
 //Windows XP 以上。
 #define WINVER 0x0501
