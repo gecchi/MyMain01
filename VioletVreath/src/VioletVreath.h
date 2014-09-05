@@ -401,7 +401,6 @@ class WorldBoundSpaceRankUp;
 class WorldBoundTitle;
 class WorldBoundNameEntry;
 
-class TurboMeter;
 class LabelFix16Font01;
 class LabelGecchi8Font;
 class LabelGecchi16Font;

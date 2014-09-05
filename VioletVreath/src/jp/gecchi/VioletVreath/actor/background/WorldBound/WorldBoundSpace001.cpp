@@ -3,6 +3,8 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "jp/gecchi/VioletVreath/scene/Universe.h"
 
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -20,18 +22,19 @@ void WorldBoundSpace001::onCreateModel() {
 
 void WorldBoundSpace001::initialize() {
     setHitAble(false);
-    _x = _y = _z = 0;
-    _rx = _ry = _rz = 0;
-
-    dxcoord dxworld_r = P_CAM->_zf-P_CAM->_zn; //¢ŠE‹«ŠE‹…”¼Œa
-    dxcoord dxmodel_r = 1.0f; //WorldBoundSpace001‚Ìƒ‚ƒfƒ‹‚Í”¼ŒaDIRECTX‹——£1‚Ì‹…‚Å‚ ‚é
-    _sx = _sy = _sz = R_SC(dxworld_r/dxmodel_r)*0.989;
+    positionAs(P_CAM);
+    setFaceAng(0, 0, 0);
+    dxcoord world_r = P_CAM->_zf; //¢ŠE‹«ŠE‹…”¼Œa
+    dxcoord world_bound_model_r = 1.0f; //WorldBoundSpace001‚Ìƒ‚ƒfƒ‹‚Í”¼ŒaDIRECTX‹——£1‚Ì‹…‚Å‚ ‚é
+    setScaleR((world_r*0.989)/world_bound_model_r);
+    //getKuroko()->setFaceAngVelo(D_ANG(11),D_ANG(5),D_ANG(7)); //‰ñ‚µ‚Ä‚à‚ ‚ñ‚Ü‚èH
 }
 
 void WorldBoundSpace001::onActive() {
 }
 
 void WorldBoundSpace001::processBehavior() {
+    //getKuroko()->behave();
 }
 
 void WorldBoundSpace001::processJudgement() {

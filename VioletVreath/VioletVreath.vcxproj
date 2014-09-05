@@ -257,7 +257,6 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\board\TurboMeter.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi002.cpp" />
@@ -601,7 +600,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\board\TurboMeter.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi002.h" />
