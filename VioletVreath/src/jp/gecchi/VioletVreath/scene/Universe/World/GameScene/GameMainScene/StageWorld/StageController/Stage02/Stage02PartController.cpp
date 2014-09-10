@@ -4,7 +4,7 @@
 #include "jp/ggaf/dxcore/scene/supporter/GgafDxBgmPerformerForScene.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "../Stage.h"
+#include "../Stage02.h"
 #include "part/Stage02_01.h"
 #include "part/Stage02_Climax.h"
 

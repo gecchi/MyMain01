@@ -4,7 +4,7 @@
 #include "jp/ggaf/dxcore/scene/supporter/GgafDxBgmPerformerForScene.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "../Stage.h"
+#include "../Stage01.h"
 #include "part/Stage01_01.h"
 #include "part/Stage01_02.h"
 #include "part/Stage01_03.h"
@@ -22,11 +22,11 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,200};
+	frame f[] = {1,300};
 	_paFrame_NextEvent = new frame[2];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 2;
-	orderActorToFactory(10000000, FormationGeria002, "FormationGeria002-1");
+	orderActorToFactory(10000000, EnemyOzartia, "EnemyOzartia-1");
     // gen01 end
     useProgress(Stage01PartController::PROG_BANPEI-1);
 }
@@ -44,9 +44,10 @@ void Stage01PartController::processBehavior() {
 			case 1: {
 				break;
 			}
-			case 200: {
-				FormationGeria002* pF = (FormationGeria002*)obtainActorFromFactory(10000000);
-				getSceneDirector()->addSubGroup(pF);
+			case 300: {
+				EnemyOzartia* p = (EnemyOzartia*)obtainActorFromFactory(10000000);
+				getSceneDirector()->addSubGroup(p);
+				p->position(1000000,0,0);
 				break;
 			}
 			default :

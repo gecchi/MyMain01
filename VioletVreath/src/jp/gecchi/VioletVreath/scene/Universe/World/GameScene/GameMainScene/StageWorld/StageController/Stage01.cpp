@@ -5,11 +5,14 @@
 #include "jp/gecchi/VioletVreath/actor/chikei/Planet/Planet001.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage01/Stage01PartController.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
 #include "jp/ggaf/core/util/CmRandomNumberGenerator.h"
 #include "jp/gecchi/VioletVreath/actor/chikei/Horizon/Horizon001.h"
+
+#include "jp/ggaf/core/util/GgafUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

@@ -14,6 +14,7 @@
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
 
+#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -31,7 +32,8 @@ EnemyOzartia::EnemyOzartia(const char* prm_name) :
     pProg2_ = createProgress(PROG2_BANPEI-1);
     is_hit_ = false;
     _sx=_sy=_sz=100;
-
+    pConn_pSplManuf_ = getConnection_SplineManufactureManager("EnemyOzartia01");
+    pKurokoLeader01_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
 //    //バリアブロック
 //    pDepo_shot01_ = NEW GgafActorDepository("Depo_OzartiaBlock");
 //    for (int i = 0; i < 9; i++) {
@@ -111,16 +113,17 @@ void EnemyOzartia::processBehavior() {
             }
             if (is_hit_ || pProg->getFrameInProgress() == 5*60) {
                 //ヒットするか、しばらくボーっとしてると移動開始
-                pProg->changeProbab(18, PROG1_MV_POS0,
-                                    16, PROG1_MV_POS1,
-                                    16, PROG1_MV_POS2,
-                                    16, PROG1_MV_POS3,
-                                    16, PROG1_MV_POS4,
-                                    18, PROG1_MV_POS5 );
+                pProg->changeProbab(0, PROG1_MV_POS0,
+                                    0, PROG1_MV_POS1,
+                                    0, PROG1_MV_POS2,
+                                    0, PROG1_MV_POS3,
+                                    0, PROG1_MV_POS4,
+                                    0, PROG1_MV_POS5,
+                                    100,  PROG1_SP_MV01);
             }
             break;
         }
-        //////////// 移動先決定 ////////////
+        //////////// 通常移動先決定 ////////////
         case PROG1_MV_POS0: {
             //自機の正面付近へ
             posMvTarget_.set(pMyShip->_x + D_MOVE + ASOBI,
@@ -169,7 +172,7 @@ void EnemyOzartia::processBehavior() {
             pProg->change(PROG1_MOVE_START);
             break;
         }
-        //////////// 移動開始 ////////////
+        //////////// 通常移動開始 ////////////
         case PROG1_MOVE_START: {
             if (pProg->isJustChanged()) {
                 //ターン
@@ -196,7 +199,18 @@ void EnemyOzartia::processBehavior() {
             }
             break;
         }
-
+        //////////// 特殊移動開始 ////////////
+        case PROG1_SP_MV01: {
+            if (pProg->isJustChanged()) {
+                pKuroko->setMvAngTwd(pMyShip);
+                pKurokoLeader01_->start(SplineKurokoLeader::RELATIVE_DIRECTION, 10); //10回
+            }
+            if (pKurokoLeader01_->isFinished()) {
+                pProg->change(PROG1_STAY);
+            }
+            break;
+        }
+        //////////// 時間切れ退出 ////////////
         case PROG1_LEAVE: {
             if (pProg->isJustChanged()) {
                 UTIL::activateLeaveEffectOf(this);
@@ -250,6 +264,7 @@ void EnemyOzartia::processBehavior() {
                                           D_ANG(2), 0, TURN_CLOSE_TO, false);
         }
     }
+    pKurokoLeader01_->behave();
     pAFader_->behave();
     pKuroko->behave();
     is_hit_ = false;
@@ -277,6 +292,8 @@ void EnemyOzartia::onInactive() {
 }
 
 EnemyOzartia::~EnemyOzartia() {
+    GGAF_DELETE(pKurokoLeader01_);
+    pConn_pSplManuf_->close();
     GGAF_DELETE(pAFader_);
     GGAF_DELETE(pProg2_);
 }

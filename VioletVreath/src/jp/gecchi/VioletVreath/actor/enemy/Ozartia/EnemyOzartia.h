@@ -31,6 +31,7 @@ public:
         PROG1_MV_POS5 ,
         PROG1_MOVE_START ,
         PROG1_MOVING ,
+        PROG1_SP_MV01 ,
         PROG1_LEAVE ,
         PROG_BANPEI1_,
     };
@@ -77,6 +78,9 @@ public:
     GgafDxCore::GgafDxGeoElem posMvTarget_;
 
     bool faceang_to_ship_;
+
+    GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
+    GgafLib::SplineKurokoLeader* pKurokoLeader01_;
 public:
     /**
      * コンストラクタ
@@ -88,27 +92,27 @@ public:
     void onCreateModel() override;
 
     /**
-     * タゴラスの初期処理（インスタンス生成後保証）
+     * オーツァルティアの初期処理（インスタンス生成後保証）
      */
     void initialize() override;
 
     /**
-     * タゴラスのがアクティブになった瞬間の処理 .
+     * オーツァルティアのがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 
     /**
-     * タゴラスの振る舞い .
+     * オーツァルティアの振る舞い .
      */
     void processBehavior() override;
 
     /**
-     * タゴラスの振る舞い後の判定処理 .
+     * オーツァルティアの振る舞い後の判定処理 .
      */
     void processJudgement() override;
 
     /**
-     * タゴラスの衝突時処理 .
+     * オーツァルティアの衝突時処理 .
      * @param prm_pOtherActor 衝突対象
      */
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;

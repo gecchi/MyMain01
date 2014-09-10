@@ -24,15 +24,15 @@ using namespace VioletVreath;
 GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameMainScene";
 
-    pLabelG_SCORE = NEW LabelScoreFont("SCORE");
-    pLabelG_SCORE->setAlign(ALIGN_RIGHT, VALIGN_TOP);
-    pLabelG_SCORE->position(PX_C(PROPERTY::GAME_BUFFER_WIDTH), PX_C(1));
-    getSceneDirector()->addSubGroup(pLabelG_SCORE);
+    pLabel_SCORE_ = NEW LabelScoreFont("SCORE");
+    pLabel_SCORE_->setAlign(ALIGN_RIGHT, VALIGN_TOP);
+    pLabel_SCORE_->position(PX_C(PROPERTY::GAME_BUFFER_WIDTH), PX_C(1));
+    getSceneDirector()->addSubGroup(pLabel_SCORE_);
 
-    pLabelG_RANK = NEW LabelGecchi16Font("RANK");
-    pLabelG_RANK->setAlign(ALIGN_RIGHT, VALIGN_TOP);
-    pLabelG_RANK->position(PX_C(PROPERTY::GAME_BUFFER_WIDTH), PX_C(30));
-    getSceneDirector()->addSubGroup(pLabelG_RANK);
+    pLabel_RANK_ = NEW LabelGecchi16Font("RANK");
+    pLabel_RANK_->setAlign(ALIGN_RIGHT, VALIGN_TOP);
+    pLabel_RANK_->position(PX_C(PROPERTY::GAME_BUFFER_WIDTH), PX_C(30));
+    getSceneDirector()->addSubGroup(pLabel_RANK_);
 
     pLabel_STAMINA_ = NEW LabelGecchi16Font("STAMINA");
     pLabel_STAMINA_->setAlign(ALIGN_RIGHT, VALIGN_TOP);
@@ -69,9 +69,9 @@ void GameMainScene::processBehavior() {
     //SCORE•\Ž¦
     //sprintf(buf_, "SCORE %07u", G_SCORE);
     sprintf(buf_, "%07u", G_SCORE);
-    pLabelG_SCORE->update(buf_);
+    pLabel_SCORE_->update(buf_);
     sprintf(buf_, "RANK %.7f", G_RANK);
-    pLabelG_RANK->update(buf_);
+    pLabel_RANK_->update(buf_);
     sprintf(buf_, "STAMINA %7d", pMyShip->getStatus()->get(STAT_Stamina));
     pLabel_STAMINA_->update(buf_);
 

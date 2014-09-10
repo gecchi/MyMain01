@@ -6,6 +6,7 @@
 #include "jp/ggaf/dxcore/manager/GgafDxSeConnection.h"
 #include "jp/ggaf/dxcore/scene/supporter/GgafDxBgmPerformerForScene.h"
 #include "jp/ggaf/dxcore/sound/GgafDxSound.h"
+#include "../RankUpStageController.h"
 #include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshiRankUp.h"
 #include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundSpaceRankUp.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"

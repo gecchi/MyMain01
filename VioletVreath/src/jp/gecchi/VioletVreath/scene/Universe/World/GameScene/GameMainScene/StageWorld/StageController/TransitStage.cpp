@@ -1,6 +1,7 @@
 #include "TransitStage.h"
 
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "../StageController.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 #include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundSpaceTransit.h"
 #include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshiTransit.h"

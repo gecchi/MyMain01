@@ -5,6 +5,8 @@
 
 namespace VioletVreath {
 
+HASHVAL(EVENT_STG02_CTRLER_WAS_END);
+
 /**
  * ステージ02 .
  * @version 1.00
