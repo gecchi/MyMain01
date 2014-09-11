@@ -136,6 +136,7 @@ public:
      * 移動を行うために、毎フレームこのメソッドを呼び出す必要があります。<BR>
      * start() を行った同一フレームに実行を避けるといったことは不要。<BR>
      * start() を行った最初のbehave()は、『現在の座標→ポイント[0]』への処理となります。<BR>
+     * 黒衣(GgafDxCore::GgafDxKuroko)のbehave();より先に実行して下さい。
      */
     virtual void behave();
 

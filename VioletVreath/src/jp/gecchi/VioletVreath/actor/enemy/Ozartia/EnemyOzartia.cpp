@@ -68,7 +68,6 @@ void EnemyOzartia::initialize() {
     pChecker->setColliAAB_Cube(0, 40000);
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->relateFaceByMvAng(false); //独立
-    pKuroko->forceMvVeloRange(PX_C(1), PX_C(8));
     setHitAble(false);
 }
 
@@ -97,6 +96,7 @@ void EnemyOzartia::processBehavior() {
         }
         case PROG1_ENTRY: {
             if (pProg->isJustChanged()) {
+pKuroko->setMvAngTwd(pMyShip);
                 pAFader_->transitionLinerUntil(1.0, 30);
             }
             if (pProg->getFrameInProgress() == 15) {
@@ -109,18 +109,19 @@ void EnemyOzartia::processBehavior() {
             if (pProg->isJustChanged()) {
                 faceang_to_ship_ = true;
                 pKuroko->setMvAcce(0);
-                pKuroko->turnMvAngTwd(pMyShip, D_ANG(1), 0, TURN_ANTICLOSE_TO, false);
+                //pKuroko->turnMvAngTwd(pMyShip, D_ANG(1), 0, TURN_ANTICLOSE_TO, false);
             }
-            if (is_hit_ || pProg->getFrameInProgress() == 5*60) {
-                //ヒットするか、しばらくボーっとしてると移動開始
-                pProg->changeProbab(0, PROG1_MV_POS0,
-                                    0, PROG1_MV_POS1,
-                                    0, PROG1_MV_POS2,
-                                    0, PROG1_MV_POS3,
-                                    0, PROG1_MV_POS4,
-                                    0, PROG1_MV_POS5,
-                                    100,  PROG1_SP_MV01);
-            }
+            pProg->change(PROG1_SP_MV01);
+//            if (is_hit_ || pProg->getFrameInProgress() == 5*60) {
+//                //ヒットするか、しばらくボーっとしてると移動開始
+//                pProg->changeProbab(0, PROG1_MV_POS0,
+//                                    0, PROG1_MV_POS1,
+//                                    0, PROG1_MV_POS2,
+//                                    0, PROG1_MV_POS3,
+//                                    0, PROG1_MV_POS4,
+//                                    0, PROG1_MV_POS5,
+//                                    100,  PROG1_SP_MV01);
+//            }
             break;
         }
         //////////// 通常移動先決定 ////////////
@@ -264,8 +265,9 @@ void EnemyOzartia::processBehavior() {
                                           D_ANG(2), 0, TURN_CLOSE_TO, false);
         }
     }
-    pKurokoLeader01_->behave();
+
     pAFader_->behave();
+    pKurokoLeader01_->behave();
     pKuroko->behave();
     is_hit_ = false;
 }
