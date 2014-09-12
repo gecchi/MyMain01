@@ -91,9 +91,9 @@ void FixedFrameSplineManufacture::calculate() {
     //            = (1000,2000,3000)    = (2000,1000,0)                      = (3900, 0, 1000)
     //
     //                 <--------------------------------------------------------->
-    //                                 120Frame”ï‚â‚µ‚ÄˆÚ“®(=prm_spent_frame)
+    //                                 120Frame”ï‚â‚µ‚ÄˆÚ“®(=_spent_frame)
     //                  <-->
-    //                  _spent_frame = ‚P‹æŠÔ‚Í 120/8 Frame = prm_spent_frame / (sp._rnum-1);
+    //                  _spent_frame = ‚P‹æŠÔ‚Í 120/8 Frame = _spent_frame / (sp._rnum-1);
     SplineManufacture::calculate();
     int rnum = _sp->_rnum;
     for (int t = 1; t < rnum; t ++) {

@@ -32,7 +32,7 @@ EnemyOzartia::EnemyOzartia(const char* prm_name) :
     pProg2_ = createProgress(PROG2_BANPEI-1);
     is_hit_ = false;
     _sx=_sy=_sz=100;
-    pConn_pSplManuf_ = getConnection_SplineManufactureManager("EnemyOzartia01");
+    pConn_pSplManuf_ = getConnection_SplineManufactureManager("EnemyOzartia01_TTT");
     pKurokoLeader01_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
 //    //バリアブロック
 //    pDepo_shot01_ = NEW GgafActorDepository("Depo_OzartiaBlock");

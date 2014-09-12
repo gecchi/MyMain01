@@ -204,7 +204,6 @@ void FixedFrameSplineKurokoLeader::behave() {
 
         //•Ï‚í‚è–Ú
         if (_prev_point_index != _point_index) {
-            _TRACE_("BREAK!");
             _prev_point_index = _point_index;
             coord x, y, z;
             getPointCoord(_point_index, x, y, z);
