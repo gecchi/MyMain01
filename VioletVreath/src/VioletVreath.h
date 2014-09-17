@@ -550,6 +550,9 @@ class EnemyOzartiaLaserChip01;
 class EnemyOzartiaShot01;
 class EnemyOzartiaPillar01;
 
+class EnemyOebius;
+class FormationOebius;
+class FormationOebius001;
 //"VVEnemysHeader.h" Ç‡ÇÌÇ∑ÇÍÇÈÇ»Å`
 
 class DepositoryConnection;

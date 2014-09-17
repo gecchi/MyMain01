@@ -120,7 +120,14 @@ void FixedFrameSplineKurokoLeader::restart() {
     double p0x = (_flip_x * pSpl->_x_compute[0] * _pFixedFrameSplManuf->_rate_x) + _offset_x;
     double p0y = (_flip_y * pSpl->_y_compute[0] * _pFixedFrameSplManuf->_rate_y) + _offset_y;
     double p0z = (_flip_z * pSpl->_z_compute[0] * _pFixedFrameSplManuf->_rate_z) + _offset_z;
-    if (!_is_fix_start_pos) {
+    if (_cnt_loop >= 2) {
+        //‚QŽü–ÚˆÈ~‚Í fixStartPosition() ‚ªÝ’è‚³‚ê‚Ä‚¢‚Ä‚àAŒø—Í‚Í‚È‚­‚È‚éB
+        _is_fix_start_pos = false;
+    }
+    if (_is_fix_start_pos) {
+        //ŠJŽnÀ•W(_x_start, _y_start, _z_start)‚ÍA
+        //•Ê“r fixStartPosition() ‚É‚æ‚èÝ’èÏ‚Ý
+    } else {
         if (_cnt_loop == 1) {
             //‚PT–Ú‚Í³‚É¡‚ÌÀ•W‚ªŠJŽnÀ•W
             _x_start = _pActor_target->_x;

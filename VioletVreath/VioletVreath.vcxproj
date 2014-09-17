@@ -370,6 +370,9 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ida\FormationIda.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ida\FormationIda001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Irce\EnemyIrce.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebius.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\FormationOebius.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\FormationOebius001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Omulus\EnemyOmulus.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\EnemyOrtuna.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001.cpp" />
@@ -714,6 +717,9 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ida\FormationIda.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ida\FormationIda001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Irce\EnemyIrce.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\oebius\enemyoebius.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\oebius\formationoebius.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\oebius\formationoebius001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Omulus\EnemyOmulus.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\EnemyOrtuna.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001.h" />
