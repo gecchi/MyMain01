@@ -49,7 +49,7 @@ void FormationOebius::processBehavior() {
 }
 
 void FormationOebius::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
-    UTIL::proceedFormationDestroyAll((GgafDxDrawableActor*)prm_pActor_last_destroyed);
+    UTIL::transactFormationDestroyAll((GgafDxDrawableActor*)prm_pActor_last_destroyed);
 }
 
 FormationOebius::~FormationOebius() {

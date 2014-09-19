@@ -12,13 +12,13 @@ using namespace GgafLib;
 SplineSource::SplineSource(SplineLine* prm_pSp) : GgafObject() {
     _idstr = "Nothing";
     _pSp = prm_pSp;
-    _accuracy = _pSp->_accuracy;
     _is_create_SplineLine = false;
 }
 
 SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
     _idstr = std::string(prm_idstr);
-    _accuracy = 1.0;
+    double accuracy = 1.0;
+    SplineLine::RotMat rotmat;
     std::string data_filename = PROPERTY::DIR_SPLINE + _idstr;// + ".spls";
     std::ifstream ifs(data_filename.c_str());
     if (ifs.fail()) {
@@ -27,6 +27,7 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
     double p[MaxSplineSize][3];
     std::string line;
     int n = 0;
+    int d = 0;
     while( getline(ifs,line) ) {
         if (UTIL::trim(line).size() == 0 ) continue;
         if (line.c_str()[0] == '#') continue;
@@ -45,7 +46,7 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
                 iss >> p[n][1];
                 iss >> p[n][2];
                 if (iss.fail()) {
-                    throwGgafCriticalException("SplineSource::SplineSource [BASEPOINT]不正な数値データです line=["<<line<<"]");
+                    throwGgafCriticalException("SplineSource::SplineSource "<<_idstr<<" [BASEPOINT]不正な数値データです line=["<<line<<"]");
                 }
                 n++;
                 if (n >= MaxSplineSize) {
@@ -59,18 +60,44 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
                 if (line.c_str()[0] == '#') continue;
                 if (line.c_str()[0] == '[') goto LOOP_SPLFILE;
                 std::istringstream iss(line);
-                iss >> _accuracy;
+                iss >> accuracy;
                 if (iss.fail()) {
-                    throwGgafCriticalException("SplineSource::SplineSource [ACCURACY]不正な数値データです line=["<<line<<"]");
+                    throwGgafCriticalException("SplineSource::SplineSource "<<_idstr<<" [ACCURACY]不正な数値データです line=["<<line<<"]");
                 }
             }
         }
+        if (line.find("[ADJUST_MAT]") != std::string::npos) {
+            while( getline(ifs,line) ) {
+                if (UTIL::trim(line).size() == 0 ) break;
+                if (line.c_str()[0] == '#') continue;
+                if (line.c_str()[0] == '[') goto LOOP_SPLFILE;
+                std::istringstream iss(line);
+                if (d == 0) {
+                    iss >> rotmat._11; iss >> rotmat._12; iss >> rotmat._13; iss >> rotmat._14;
+                } else if (d == 1) {
+                    iss >> rotmat._21; iss >> rotmat._22; iss >> rotmat._23; iss >> rotmat._24;
+                } else if (d == 2) {
+                    iss >> rotmat._31; iss >> rotmat._32; iss >> rotmat._33; iss >> rotmat._34;
+                } else if (d == 3) {
+                    iss >> rotmat._41; iss >> rotmat._42; iss >> rotmat._43; iss >> rotmat._44;
+                } else {
+                    throwGgafCriticalException("SplineSource::SplineSource "<<_idstr<<" [ADJUST_MAT] のデータ数が多いです。４列４行の行列を設定してください。");
+                }
+                if (iss.fail()) {
+                    throwGgafCriticalException("SplineSource::SplineSource "<<_idstr<<" [ADJUST_MAT] 不正な数値データです line=["<<line<<"]");
+                }
+                d++;
+            }
+        }
     }
-    if (int(_accuracy*100000000) == 0) {
+    if (int(accuracy*100000000) == 0) {
         throwGgafCriticalException("SplineSource::SplineSource "<<_idstr<<" [ACCURACY] が指定されてません。");
     }
     if (n == 0) {
         throwGgafCriticalException("SplineSource::SplineSource "<<_idstr<<" [BASEPOINT] に座標がありません。");
+    }
+    if (d != 0 && d != 4) {
+        throwGgafCriticalException("SplineSource::SplineSource "<<_idstr<<" [ADJUST_MAT] のデータ数が中途半端です。４列４行の行列を設定してください。");
     }
     for (int i = 0; i < n; i++) {
         if (p[i][0] > GgafDxUniverse::_x_gone_right*0.9999) {
@@ -92,7 +119,11 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
             p[i][2] = GgafDxUniverse::_z_gone_near*0.9999;
         }
     }
-    _pSp = NEW SplineLine(p, n, _accuracy);
+    if (d == 4) {
+        _pSp = NEW SplineLine(p, n, accuracy, rotmat);
+    } else {
+        _pSp = NEW SplineLine(p, n, accuracy);
+    }
     _is_create_SplineLine = true;
 }
 
@@ -140,6 +171,22 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
 //0.01 を指定すると各制御点～制御点について、100分割される点に補完点が計算されて挿入される。(つまり補完点は99個挿入される)
 //といった具合。
 //
+//[ADJUST_MAT]
+//変換行列(4x4)を設定し、BASEPOINT座標情報の補正が可能です。
+//例では 元のBASEPOINTの座標に、X軸に5.0移動→90度Y軸回 を行う補正の変換行列です。
+//
+//0		0		-1		0
+//0		1		0		0
+//1		0		0		0
+//0		0		-5.0	1
+//
+//もし ADJUST_MAT 省略した場合は、次の単位行列が設定されたものとします。
+//
+//1		0		0		0
+//0		1		0		0
+//0		0		1		0
+//0		0		0		1
+
 
 SplineSource::~SplineSource() {
     if (_is_create_SplineLine) {

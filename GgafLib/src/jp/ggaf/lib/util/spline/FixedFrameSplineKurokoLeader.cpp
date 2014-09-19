@@ -18,8 +18,6 @@ FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(SplineManufacture* pr
     _cosRzMv_begin = 0;
     _sinRyMv_begin = 0;
     _cosRyMv_begin = 0;
-    _ang_rz_mv_begin = prm_pKuroko_target->_ang_rz_mv;
-    _ang_ry_mv_begin = prm_pKuroko_target->_ang_ry_mv;
     _point_index = 0;
     _prev_point_index = -1;
     _hosei_frames = 0;
@@ -38,8 +36,6 @@ FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(GgafDxKuroko* const p
     _cosRzMv_begin = 0.0f;
     _sinRyMv_begin = 0.0f;
     _cosRyMv_begin = 0.0f;
-    _ang_rz_mv_begin = prm_pKuroko_target->_ang_rz_mv;
-    _ang_ry_mv_begin = prm_pKuroko_target->_ang_ry_mv;
     _point_index = 0;
     _prev_point_index = -1;
     _hosei_frames = 0;
@@ -59,10 +55,10 @@ void FixedFrameSplineKurokoLeader::getPointCoord(int prm_point_index, coord &out
     //次の補間点（or制御点)に移動方角を向ける
     if (_option == RELATIVE_DIRECTION) {
         if (_is_leading == false) {
-            _sinRzMv_begin = ANG_SIN(_ang_rz_mv_begin);
-            _cosRzMv_begin = ANG_COS(_ang_rz_mv_begin);
-            _sinRyMv_begin = ANG_SIN(_ang_ry_mv_begin);
-            _cosRyMv_begin = ANG_COS(_ang_ry_mv_begin);
+            _sinRzMv_begin = ANG_SIN(_ang_rz_mv_start);
+            _cosRzMv_begin = ANG_COS(_ang_rz_mv_start);
+            _sinRyMv_begin = ANG_SIN(_ang_ry_mv_start);
+            _cosRyMv_begin = ANG_COS(_ang_ry_mv_start);
             if (!_is_fix_start_pos) {
                 _x_start = _pActor_target->_x;
                 _y_start = _pActor_target->_y;
@@ -104,8 +100,6 @@ void FixedFrameSplineKurokoLeader::start(SplinTraceOption prm_option, int prm_ma
         _option = prm_option;
         _max_loop = prm_max_loop;
         _cnt_loop = 1;
-        _ang_rz_mv_begin = _pActor_target->getKuroko()->_ang_rz_mv;
-        _ang_ry_mv_begin = _pActor_target->getKuroko()->_ang_ry_mv;
         restart();
     } else {
         throwGgafCriticalException("FixedFrameSplineKurokoLeader::start Manufactureがありません。_pActor_target="<<_pActor_target->getName());
@@ -123,6 +117,7 @@ void FixedFrameSplineKurokoLeader::restart() {
     if (_cnt_loop >= 2) {
         //２周目以降は fixStartPosition() が設定されていても、効力はなくなる。
         _is_fix_start_pos = false;
+        _is_fix_start_mv_ang = false;
     }
     if (_is_fix_start_pos) {
         //開始座標(_x_start, _y_start, _z_start)は、
@@ -142,11 +137,25 @@ void FixedFrameSplineKurokoLeader::restart() {
             _z_start = end_z;
         }
     }
+
+    if (_is_fix_start_mv_ang) {
+        //_rz_mv_start, _ry_mv_start、
+        //別途 fixStartMvAngle() により設定済み
+    } else {
+        if (_cnt_loop == 1) {
+            //１週目は正に今の座標が開始座標
+            _ang_rz_mv_start = _pActor_target->getKuroko()->_ang_rz_mv;
+            _ang_ry_mv_start = _pActor_target->getKuroko()->_ang_ry_mv;
+        } else {
+            //２週目以降は、そのまま;
+        }
+    }
+
     if (_option == RELATIVE_DIRECTION) {
-        _sinRzMv_begin = ANG_SIN(_ang_rz_mv_begin);
-        _cosRzMv_begin = ANG_COS(_ang_rz_mv_begin);
-        _sinRyMv_begin = ANG_SIN(_ang_ry_mv_begin);
-        _cosRyMv_begin = ANG_COS(_ang_ry_mv_begin);
+        _sinRzMv_begin = ANG_SIN(_ang_rz_mv_start);
+        _cosRzMv_begin = ANG_COS(_ang_rz_mv_start);
+        _sinRyMv_begin = ANG_SIN(_ang_ry_mv_start);
+        _cosRyMv_begin = ANG_COS(_ang_ry_mv_start);
         _distance_to_begin = UTIL::getDistance(
                                        0.0  , 0.0  , 0.0  ,
                                        p0x, p0y, p0z

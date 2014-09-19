@@ -33,8 +33,6 @@ public:
     float _cosRzMv_begin;
     float _sinRyMv_begin;
     float _cosRyMv_begin;
-    angle _ang_rz_mv_begin;
-    angle _ang_ry_mv_begin;
 
 public:
     /**

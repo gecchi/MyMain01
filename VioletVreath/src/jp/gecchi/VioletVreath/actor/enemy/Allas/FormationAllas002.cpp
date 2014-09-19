@@ -45,7 +45,7 @@ void FormationAllas002::onActive() {
 }
 
 void FormationAllas002::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
-    UTIL::proceedFormationDestroyAll((GgafDxDrawableActor*)prm_pActor_last_destroyed);
+    UTIL::transactFormationDestroyAll((GgafDxDrawableActor*)prm_pActor_last_destroyed);
 }
 
 FormationAllas002::~FormationAllas002() {

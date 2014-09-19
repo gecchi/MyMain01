@@ -37,6 +37,10 @@ SplineKurokoLeader::SplineKurokoLeader(SplineManufacture* prm_pManufacture, Ggaf
     _cnt_loop = 0;
     _max_loop = 1;
     _is_fix_start_pos = false;
+
+    _is_fix_start_mv_ang = false;
+    _ang_rz_mv_start = prm_pKuroko->_ang_rz_mv;
+    _ang_ry_mv_start = prm_pKuroko->_ang_ry_mv;
 }
 
 

@@ -46,7 +46,7 @@ void FormationHalia::onActive() {
 }
 
 void FormationHalia::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
-    UTIL::proceedFormationDestroyAll((GgafDxDrawableActor*)prm_pActor_last_destroyed);
+    UTIL::transactFormationDestroyAll((GgafDxDrawableActor*)prm_pActor_last_destroyed);
 }
 
 

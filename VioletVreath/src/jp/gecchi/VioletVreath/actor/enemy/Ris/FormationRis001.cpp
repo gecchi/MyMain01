@@ -48,7 +48,7 @@ void FormationRis001::processBehavior() {
 }
 
 void FormationRis001::onDestroyAll(GgafCore::GgafActor* prm_pActor_last_destroyed) {
-    UTIL::proceedFormationDestroyAll((GgafDxDrawableActor*)prm_pActor_last_destroyed);
+    UTIL::transactFormationDestroyAll((GgafDxDrawableActor*)prm_pActor_last_destroyed);
 }
 
 FormationRis001::~FormationRis001() {

@@ -83,7 +83,27 @@ public:
         }
     };
 
-
+    struct RotMat {
+        double _11, _12, _13, _14;
+        double _21, _22, _23, _24;
+        double _31, _32, _33, _34;
+        double _41, _42, _43, _44;
+        RotMat() {
+            _11 = 1.0; _12 = 0.0; _13 = 0.0; _14 = 0.0;
+            _21 = 0.0; _22 = 1.0; _23 = 0.0; _24 = 0.0;
+            _31 = 0.0; _32 = 0.0; _33 = 1.0; _34 = 0.0;
+            _41 = 0.0; _42 = 0.0; _43 = 0.0; _44 = 1.0;
+        }
+        void set(double d11, double d12, double d13, double d14,
+                 double d21, double d22, double d23, double d24,
+                 double d31, double d32, double d33, double d34,
+                 double d41, double d42, double d43, double d44 ) {
+            _11 = d11; _12 = d12; _13 = d13; _14 = d14;
+            _21 = d21; _22 = d22; _23 = d23; _24 = d24;
+            _31 = d31; _32 = d32; _33 = d33; _34 = d34;
+            _41 = d41; _42 = d42; _43 = d43; _44 = d44;
+        }
+    };
 public:
     /**
      * コンストラクタ .
@@ -107,6 +127,8 @@ public:
      */
     SplineLine(double prm_paaBase[][3], int num, double prm_accuracy);
 
+    SplineLine(double prm_paaBase[][3], int num, double prm_accuracy, RotMat& prm_rotmat);
+
     /**
      * 初期化し補完点し、使用できる状態にします .
      * @param prm_paaBase 制御点座標の配列
@@ -120,7 +142,7 @@ public:
      *                     0.1だと1制御点間に9個の補完点、といった具合
      */
     void init(double prm_paaBase[][3], int num, double prm_accuracy);
-
+    void init(double prm_paaBase[][3], int num, double prm_accuracy, RotMat& prm_rotmat);
     /**
      * 補完点計算
      * @param prm_accuracy 補完点挿入粒度。

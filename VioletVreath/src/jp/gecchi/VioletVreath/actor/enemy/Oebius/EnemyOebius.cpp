@@ -48,6 +48,7 @@ void EnemyOebius::onActive() {
 }
 
 void EnemyOebius::processBehavior() {
+    GgafDxKuroko* pKuroko = getKuroko();
     GgafProgress* pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -60,6 +61,7 @@ void EnemyOebius::processBehavior() {
         case PROG_ENTRY: {
             if (pProg->isJustChanged()) {
                 pAFader_->transitionLinerUntil(1.0, 30);
+                pKuroko->setMvVelo(PX_C(3));
             }
             if (pProg->getFrameInProgress() == 10) {
                 setHitAble(true);
