@@ -85,6 +85,10 @@ void EnemyOebius::processBehavior() {
                 pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION, 4);
             }
             if (pKurokoLeader_->isFinished()) {
+                coord end_x, end_y, end_z;
+                pKurokoLeader_->getPointCoord(pKurokoLeader_->getPointNum()-1, end_x, end_y, end_z);
+                position(end_x, end_y, end_z);
+                pKuroko->setRzRyMvAng(pKurokoLeader_->_ang_rz_mv_start, pKurokoLeader_->_ang_ry_mv_start);
                 pProg->changeNext();
             }
             break;
