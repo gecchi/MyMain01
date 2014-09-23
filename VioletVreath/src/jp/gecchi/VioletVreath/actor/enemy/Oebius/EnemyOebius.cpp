@@ -74,7 +74,7 @@ void EnemyOebius::processBehavior() {
             if (pProg->isJustChanged()) {
 
             }
-            if (pProg->getFrameInProgress() == 120) {
+            if (pProg->getFrameInProgress() == 60) {
                 pProg->changeNext();
             }
             break;
@@ -82,21 +82,26 @@ void EnemyOebius::processBehavior() {
 
         case PROG_SPLINE: {
             if (pProg->isJustChanged()) {
-                pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION, 4);
+                pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION, 2);
             }
+            pKurokoLeader_->behave(); //スプライン移動を振る舞い
+
             if (pKurokoLeader_->isFinished()) {
-                coord end_x, end_y, end_z;
-                pKurokoLeader_->getPointCoord(pKurokoLeader_->getPointNum()-1, end_x, end_y, end_z);
-                position(end_x, end_y, end_z);
-                pKuroko->setRzRyMvAng(pKurokoLeader_->_ang_rz_mv_start, pKurokoLeader_->_ang_ry_mv_start);
                 pProg->changeNext();
             }
             break;
         }
+
         case PROG_MOVE_AFTER: {
             if (pProg->isJustChanged()) {
+//                _TRACE_(getName() << ":isFinished x,y,z="<<_x<<","<<_y<<","<<_z<<"");
+                position(pKurokoLeader_->_x_start, pKurokoLeader_->_y_start, pKurokoLeader_->_z_start);
+//                _TRACE_(getName() << ":補正       x,y,z="<<_x<<","<<_y<<","<<_z<<"");
+                pKuroko->setRzRyMvAng(pKurokoLeader_->_ang_rz_mv_start, pKurokoLeader_->_ang_ry_mv_start);
+                pKuroko->setMvVelo(PX_C(3));
+                pKuroko->turnRyMvAngTo(pKuroko->_ang_ry_mv + D_ANG(30),D_ANG(2),0,TURN_CLOSE_TO);
             }
-            if (pProg->getFrameInProgress() == 120) {
+            if (!pKuroko->isTurningMvAng()) {
                 pProg->change(PROG_MOVE_BEGIN);
             }
             break;
@@ -118,7 +123,7 @@ void EnemyOebius::processBehavior() {
     }
     //加算ランクポイントを減少
     UTIL::updateEnemyRankPoint(this);
-    pKurokoLeader_->behave(); //スプライン移動を振る舞い
+
     pAFader_->behave();
     getKuroko()->behave();
 }

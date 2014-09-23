@@ -553,6 +553,7 @@ class EnemyOzartiaPillar01;
 class EnemyOebius;
 class FormationOebius;
 class FormationOebius001;
+class FormationOebius002;
 //"VVEnemysHeader.h" Ç‡ÇÌÇ∑ÇÍÇÈÇ»Å`
 
 class DepositoryConnection;

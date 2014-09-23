@@ -37,7 +37,7 @@
 0	-1.4	0
 
 [ACCURACY]
-1.0
+0.1
 
 [ADJUST_MAT]
 1		0		0		0

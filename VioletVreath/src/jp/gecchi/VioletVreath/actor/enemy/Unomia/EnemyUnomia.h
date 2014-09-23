@@ -35,8 +35,6 @@ public:
     /** 弾発射効果エフェクト */
     GgafCore::GgafActorDepository* pDepo_effect_;
 
-    /** 行動パターン番号 */
-    int iMovePatternNo_;
 public:
     /**
      * コンストラクタ

@@ -17,7 +17,6 @@ using namespace VioletVreath;
 EnemyUnomia::EnemyUnomia(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Unomia", STATUS(EnemyUnomia)) {
     _class_name = "EnemyUnomia";
-    iMovePatternNo_ = 0;
     pKurokoLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
@@ -62,7 +61,6 @@ void EnemyUnomia::onActive() {
     getStatus()->reset();
     setHitAble(true);
     setRzFaceAng(0);
-    iMovePatternNo_ = 0; //行動パターンリセット
     getProgress()->reset(PROG_ENTRY);
 }
 
@@ -78,6 +76,7 @@ void EnemyUnomia::processBehavior() {
             break;
         }
         case PROG_SPLINE_MOVE: {
+            pKurokoLeader_->behave(); //スプライン移動を振る舞い
             if (pKurokoLeader_->isFinished()) {
                 pProg->changeNext(); //次へ
             }
@@ -122,81 +121,6 @@ void EnemyUnomia::processBehavior() {
         }
     }
 
-//
-//
-//
-//
-//    //【パターン1：スプライン移動】
-//    if (pProg->isJustChangedTo(1)) {
-//        pKurokoLeader_->start(SplineKurokoLeader::ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
-//    }
-//    if (pProg->get() == 1) {
-//        //スプライン移動終了待ち
-//        if (pKurokoLeader_->isLeading()) {
-//            //待ちぼうけ
-//        } else {
-//            pProg->changeNext(); //次のパターンへ
-//        }
-//    }
-//
-//    switch (iMovePatternNo_) {
-//        case 0:  //【パターン０：スプライン移動開始】
-//            if (pKurokoLeader_) {
-//                pKurokoLeader_->start(SplineKurokoLeader::ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
-//            }
-//            iMovePatternNo_++; //次の行動パターンへ
-//            break;
-//
-//        case 1:  //【パターン１：スプライン移動終了待ち】
-//            if (pKurokoLeader_) {
-//                //スプライン移動有り
-//                if (!(pKurokoLeader_->isLeading())) {
-//                    iMovePatternNo_++; //スプライン移動が終了したら次の行動パターンへ
-//                }
-//            } else {
-//                //スプライン移動無し
-//                iMovePatternNo_++; //すぐに次の行動パターンへ
-//            }
-//            break;
-//
-//        case 2:  //【パターン２：放射状ショット発射と自機へ方向転換】
-//            if (pDepo_shot_) {
-//                //放射状ショット
-//                int way = RF_EnemyUnomia_ShotWay(G_RANK); //ショットWAY数
-//                angle* paAng_way = NEW angle[way];
-//                UTIL::getRadialAngle2D(0, way, paAng_way);
-//                GgafDxDrawableActor* pActor_shot;
-//                for (int i = 0; i < way; i++) {
-//                    pActor_shot = (GgafDxDrawableActor*)pDepo_shot_->dispatch();
-//                    if (pActor_shot) {
-//                        pActor_shot->positionAs(this);
-//                        pActor_shot->getKuroko()->setRzRyMvAng(paAng_way[i], D90ANG);
-//                    }
-//                }
-//                GGAF_DELETEARR(paAng_way);
-//                //ショット発射エフェクト
-//                if (pDepo_effect_) {
-//                    GgafDxDrawableActor* pTestActor_Shot = (GgafDxDrawableActor*)pDepo_effect_->dispatch();
-//                    if (pTestActor_Shot) {
-//                        pTestActor_Shot->positionAs(this);
-//                    }
-//                }
-//            }
-////            //自機へ方向転換
-//            pKuroko->turnMvAngTwd(P_MYSHIP->_x, _y, P_MYSHIP->_z,
-//                                                2000, 0,
-//                                                TURN_CLOSE_TO);
-//            iMovePatternNo_++; //次の行動パターンへ
-//            break;
-//
-//        case 3:  //【行動パターン３】
-//
-//            break;
-//        default:
-//            break;
-//    }
-
-    pKurokoLeader_->behave(); //スプライン移動を振る舞い
     pKuroko->behave();
 }
 

@@ -73,6 +73,7 @@ void EnemyThagoras::processBehavior() {
             if (pProg->isJustChanged()) {
                 pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_COORD,2);
             }
+            pKurokoLeader_->behave();
             if (pKurokoLeader_->isFinished()) {
                 pProg->changeNext();
             }
@@ -94,7 +95,6 @@ void EnemyThagoras::processBehavior() {
     }
     //加算ランクポイントを減少
     UTIL::updateEnemyRankPoint(this);
-    pKurokoLeader_->behave(); //スプライン移動を振る舞い
     pAFader_->behave();
     getKuroko()->behave();
     //鼓動を同期

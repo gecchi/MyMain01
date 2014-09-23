@@ -42,11 +42,11 @@ void EnemyIdaBase001::processBehavior() {
             break;
         }
         case PROG_MOVE: {
+            pKurokoLeader_->behave();
             break;
         }
     }
 
-    pKurokoLeader_->behave();
     pKuroko->behave();
 }
 

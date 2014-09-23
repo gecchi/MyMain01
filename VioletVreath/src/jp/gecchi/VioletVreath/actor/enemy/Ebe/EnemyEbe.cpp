@@ -76,6 +76,8 @@ void EnemyEbe::processBehavior() {
             if (pProg->isJustChanged()) {
                 pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_COORD);
             }
+            pKurokoLeader_->behave();
+
             if (pKurokoLeader_->isFinished()) {
                 pProg->changeNext();
             }
@@ -92,7 +94,6 @@ void EnemyEbe::processBehavior() {
         }
     }
 
-    pKurokoLeader_->behave(); //ƒXƒvƒ‰ƒCƒ“ˆÚ“®‚ğU‚é•‘‚¢
     pKuroko->behave();
 }
 

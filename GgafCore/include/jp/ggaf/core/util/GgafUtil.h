@@ -27,6 +27,14 @@
 #define ONEd_EQ(X) (GgafCore::GgafUtil::_zerod_eq_((X)-1.0))
 
 /**
+ * ”ÍˆÍ‚Ì•ÏŠ· .
+ * X ‚Ì”ÍˆÍ __MIN1__ ` __MAX1__ ‚ğA__MIN2__ ` __MAX2__ ‚É•ÏŠ·‚µ‚½ê‡‚Ì’l‚ğ“¾‚é<br>
+ * y=((min2-max2)*x-max1*min2+max2*min1)/(min1-max1)
+ */
+#define RANGE_TRANS(X, __MIN1__,__MAX1__,__MIN2__,__MAX2__) ( ( ((__MIN2__)-(__MAX2__))*((double)(X)) - ((__MAX1__)*((double)(__MIN2__))) + ((__MAX2__)*((double)(__MIN1__))) ) / ((__MIN1__)-(__MAX1__)) )
+
+
+/**
  * ®”‚Ì—” .
  */
 #define RND(__FROM__,__TO__) (GgafCore::GgafUtil::_rnd_int32_(__FROM__,__TO__))

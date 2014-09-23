@@ -15,35 +15,38 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-FormationOebius::FormationOebius(const char* prm_name, int prm_formation_row_num) :
+FormationOebius::FormationOebius(const char* prm_name, int prm_formation_col_num, int prm_formation_row_num) :
         TreeFormation(prm_name) {
     _class_name = "FormationOebius";
+    formation_col_num_ = prm_formation_col_num;
     formation_row_num_ = prm_formation_row_num;
-    num_Oebius_ = formation_row_num_ * 40;
+    num_Oebius_ = prm_formation_col_num  * prm_formation_row_num;
     for (int i = 0; i < num_Oebius_; i++) {
         std::string name = "Oebius("+XTOS(i)+")";
         addFormationMember(NEW EnemyOebius(name.c_str()));
     }
 
     call_up_interval_ = 15; //oŒ»ŠÔŠu
-
+    call_up_row_cnt_ = 0;
 }
 
 void FormationOebius::initialize() {
 }
 
 void FormationOebius::onActive() {
+    call_up_row_cnt_ = 0;
 }
 
 void FormationOebius::processBehavior() {
     if (canCallUp()) {
         if (getActiveFrame() % call_up_interval_ == 0) {
-            for (int row = 0; row < formation_row_num_; row++) {
+            for (int col = 0; col < formation_col_num_; col++) {
                 EnemyOebius* pOebius = (EnemyOebius*)callUpMember();
                 if (pOebius) {
-                    onCallUp(pOebius, row);
+                    onCallUp(pOebius, col, call_up_row_cnt_);
                 }
             }
+            call_up_row_cnt_ ++;
         }
     }
 }

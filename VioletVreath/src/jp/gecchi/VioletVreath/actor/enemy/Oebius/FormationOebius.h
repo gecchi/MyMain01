@@ -18,15 +18,17 @@ class FormationOebius : public GgafLib::TreeFormation {
 public:
     int num_Oebius_;
 
+    int formation_col_num_;
     int formation_row_num_;
     frame call_up_interval_;
+    int call_up_row_cnt_;
 
     /** [r]出現座標(シーンが設定) */
     GgafDxCore::GgafDxGeoElem entry_pos_;
 
 
 public:
-    FormationOebius(const char* prm_name, int prm_formation_row_num);
+    FormationOebius(const char* prm_name, int prm_formation_col_num, int prm_formation_row_num);
 
     /**
      * 編隊を作成 .
@@ -39,8 +41,11 @@ public:
 
     virtual void onDestroyAll(GgafCore::GgafActor* prm_pActor_last_destroyed) override;
 
-    virtual void onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_row) = 0;
+    virtual void onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_col, int prm_row) = 0;
 
+    int getFormationColNum() {
+        return formation_col_num_;
+    }
     int getFormationRowNum() {
         return formation_row_num_;
     }
