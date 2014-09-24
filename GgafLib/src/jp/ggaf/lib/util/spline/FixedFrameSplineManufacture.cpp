@@ -19,12 +19,12 @@ FixedFrameSplineManufacture::FixedFrameSplineManufacture(const char* prm_source_
     _turn_optimize = prm_turn_optimaize;
 
     //１区間の使用可能フレーム
-    _fFrame_of_segment = 1.0*_spent_frame / (_sp->_rnum-1);
-    if (_fFrame_of_segment < 1.0f) {
-        _TRACE_("＜警告＞FixedFrameSplineManufacture ["<<prm_source_file<<"] _fFrame_of_segment="<<_fFrame_of_segment<<" < 1.0f です。"<<
-                "補完点数("<<(_sp->_rnum)<<")よりも、始点～終了点フレーム数("<<_spent_frame<<")が小さいので、補完点の飛びをなくすため、強制的に_fFrame_of_segmentは1.0に上書き。"<<
+    _frame_of_segment = 1.0*_spent_frame / (_sp->_rnum-1);
+    if (_frame_of_segment < 1.0) {
+        _TRACE_("＜警告＞FixedFrameSplineManufacture ["<<prm_source_file<<"] _frame_of_segment="<<_frame_of_segment<<" < 1.0f です。"<<
+                "補完点数("<<(_sp->_rnum)<<")よりも、始点～終了点フレーム数("<<_spent_frame<<")が小さいので、補完点の飛びをなくすため、強制的に_frame_of_segmentは1.0に上書き。"<<
                 "従って移動には"<<(_sp->_rnum)<<"フレームかかります。ご了承下さい。");
-        _fFrame_of_segment = 1.0f;
+        _frame_of_segment = 1.0;
     }
     _paSPMvVeloTo = NEW velo[_sp->_rnum];
 }
@@ -41,12 +41,12 @@ FixedFrameSplineManufacture::FixedFrameSplineManufacture(SplineSource* prm_pSplS
     _turn_optimize = prm_turn_optimaize;
 
     //１区間の使用可能フレーム
-    _fFrame_of_segment = 1.0*_spent_frame / (_sp->_rnum-1);
-    if (_fFrame_of_segment < 1.0f) {
-        _TRACE_("＜警告＞FixedFrameSplineManufacture  _fFrame_of_segment="<<_fFrame_of_segment<<" < 1.0f です。"<<
-                "補完点数("<<(_sp->_rnum)<<")よりも、始点～終了点フレーム数("<<_spent_frame<<")が小さいので、補完点の飛びをなくすため、強制的に_fFrame_of_segmentは1.0に上書き。"<<
+    _frame_of_segment = 1.0*_spent_frame / (_sp->_rnum-1);
+    if (_frame_of_segment < 1.0) {
+        _TRACE_("＜警告＞FixedFrameSplineManufacture  _frame_of_segment="<<_frame_of_segment<<" < 1.0f です。"<<
+                "補完点数("<<(_sp->_rnum)<<")よりも、始点～終了点フレーム数("<<_spent_frame<<")が小さいので、補完点の飛びをなくすため、強制的に_frame_of_segmentは1.0に上書き。"<<
                 "従って移動には"<<(_sp->_rnum)<<"フレームかかります。ご了承下さい。");
-        _fFrame_of_segment = 1.0f;
+        _frame_of_segment = 1.0;
     }
     _paSPMvVeloTo = NEW velo[_sp->_rnum];
 }
@@ -96,10 +96,10 @@ void FixedFrameSplineManufacture::calculate() {
     //                  _spent_frame = １区間は 120/8 Frame = _spent_frame / (sp._rnum-1);
     SplineManufacture::calculate();
     int rnum = _sp->_rnum;
-    for (int t = 1; t < rnum; t ++) {
+    for (int t = 1; t < rnum; t++) {
         //距離 paDistanceTo[t] を、時間frm_segment で移動するために必要な速度を求める。
         //速さ＝距離÷時間
-        _paSPMvVeloTo[t] = (velo)(_paDistance_to[t] / _fFrame_of_segment);
+        _paSPMvVeloTo[t] = ((velo)(_paDistance_to[t] / _frame_of_segment)) + 1; //+1は切り上げ
     }
     _paSPMvVeloTo[0] = 0; //始点までの速度など分からない。
     _paDistance_to[0] = 0;   //始点までの距離など分からない。

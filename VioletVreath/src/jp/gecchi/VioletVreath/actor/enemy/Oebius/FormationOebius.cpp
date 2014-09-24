@@ -15,7 +15,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-FormationOebius::FormationOebius(const char* prm_name, int prm_formation_col_num, int prm_formation_row_num) :
+FormationOebius::FormationOebius(const char* prm_name, int prm_formation_col_num, int prm_formation_row_num, frame prm_call_up_interval) :
         TreeFormation(prm_name) {
     _class_name = "FormationOebius";
     formation_col_num_ = prm_formation_col_num;
@@ -26,8 +26,10 @@ FormationOebius::FormationOebius(const char* prm_name, int prm_formation_col_num
         addFormationMember(NEW EnemyOebius(name.c_str()));
     }
 
-    call_up_interval_ = 15; //èoåªä‘äu
+    call_up_interval_ = prm_call_up_interval; //èoåªä‘äu
     call_up_row_cnt_ = 0;
+
+    last_average_mv_velo_ = 1000;
 }
 
 void FormationOebius::initialize() {

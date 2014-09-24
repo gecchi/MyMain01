@@ -141,6 +141,13 @@ public:
     void setFaceAngVelo(angvelo prm_axis_x_angvelo,
                         angvelo prm_axis_y_angvelo,
                         angvelo prm_axis_z_angvelo);
+    /**
+     * X²‰ñ“]•ûŠp‚ÌŠp‘¬“xi²‰ñ“]•ûŠp‚É–ˆƒtƒŒ[ƒ€‰ÁZ‚·‚é’lj‚ğİ’è .
+     * @param prm_angvelo X²‰ñ“]‚ÌŠp‘¬“x
+     */
+    void setSpinAngVelo(angvelo prm_angvelo) {
+        setFaceAngVelo(AXIS_X, prm_angvelo);
+    }
 
     void forceFaceAngVeloRange(axis prm_axis,
                                angvelo prm_angvelo01,

@@ -38,7 +38,6 @@ void EnemyOebius::initialize() {
     pChecker->setColliAAB_Cube(0, 40000);
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->relateFaceByMvAng(true);
-    pKuroko->setFaceAngVelo(AXIS_X, 2000);
     pKuroko->forceMvVeloRange(PX_C(15));
 }
 
@@ -61,6 +60,7 @@ void EnemyOebius::processBehavior() {
         case PROG_ENTRY: {
             if (pProg->isJustChanged()) {
                 pAFader_->transitionLinerUntil(1.0, 30);
+                pKuroko->setSpinAngVelo(D_ANG(3));
                 pKuroko->setMvVelo(PX_C(3));
             }
             if (pProg->getFrameInProgress() == 10) {
@@ -74,7 +74,7 @@ void EnemyOebius::processBehavior() {
             if (pProg->isJustChanged()) {
 
             }
-            if (pProg->getFrameInProgress() == 60) {
+            if (pProg->getFrameInProgress() == 30) {
                 pProg->changeNext();
             }
             break;
@@ -82,7 +82,7 @@ void EnemyOebius::processBehavior() {
 
         case PROG_SPLINE: {
             if (pProg->isJustChanged()) {
-                pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION, 2);
+                pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION, 4);
             }
             pKurokoLeader_->behave(); //ƒXƒvƒ‰ƒCƒ“ˆÚ“®‚ðU‚é•‘‚¢
 
@@ -94,12 +94,12 @@ void EnemyOebius::processBehavior() {
 
         case PROG_MOVE_AFTER: {
             if (pProg->isJustChanged()) {
-//                _TRACE_(getName() << ":isFinished x,y,z="<<_x<<","<<_y<<","<<_z<<"");
                 position(pKurokoLeader_->_x_start, pKurokoLeader_->_y_start, pKurokoLeader_->_z_start);
-//                _TRACE_(getName() << ":•â³       x,y,z="<<_x<<","<<_y<<","<<_z<<"");
+
                 pKuroko->setRzRyMvAng(pKurokoLeader_->_ang_rz_mv_start, pKurokoLeader_->_ang_ry_mv_start);
-                pKuroko->setMvVelo(PX_C(3));
-                pKuroko->turnRyMvAngTo(pKuroko->_ang_ry_mv + D_ANG(30),D_ANG(2),0,TURN_CLOSE_TO);
+                pKuroko->setMvVelo(PX_C(8));
+                pKuroko->setRzRyMvAngVelo(0,0);
+                pKuroko->turnRyMvAngTo(pKuroko->_ang_ry_mv + D_ANG(35), D_ANG(2), 0, TURN_CLOSE_TO);
             }
             if (!pKuroko->isTurningMvAng()) {
                 pProg->change(PROG_MOVE_BEGIN);

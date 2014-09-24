@@ -14,7 +14,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationOebius001::FormationOebius001(const char* prm_name) :
-        FormationOebius(prm_name, 3, 40) {
+        FormationOebius(prm_name, 3, 40, 15) {
     _class_name = "FormationOebius001";
 
     papSplManufConn_ = NEW SplineManufactureConnection*[getFormationColNum()];

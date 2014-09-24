@@ -183,6 +183,7 @@ void FixedVelocitySplineKurokoLeader::behave() {
                 if (_cnt_loop == _max_loop) {
                     //I—¹
                     _is_leading = false;
+                    pKuroko_target->stopTurnMvAng();
                     return;
                 } else {
                     //ƒ‹[ƒv

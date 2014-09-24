@@ -8,13 +8,15 @@
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 
+#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationOebius002::FormationOebius002(const char* prm_name) :
-        FormationOebius(prm_name, 6, 20) {
+        FormationOebius(prm_name, 6, 23, 7) {
     _class_name = "FormationOebius002";
 
     papSplManufConn_ = NEW SplineManufactureConnection*[getFormationColNum()];
@@ -38,16 +40,27 @@ void FormationOebius002::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, i
     }
     double rate_y = pOebius->pKurokoLeader_->_pManufacture->_rate_y;
 
-    pOebius->position(entry_pos_.x,
-                      entry_pos_.y + ((prm_col*0.4) * rate_y) ,
-                      entry_pos_.z);
-    pOebius->getKuroko()->setRzRyMvAng(0, 0);
+//    pOebius->position(entry_pos_.x,
+//                      entry_pos_.y + ((prm_col*0.4) * rate_y) ,
+//                      entry_pos_.z);
 
-    double r = 1.0;
-    double g = RANGE_TRANS(prm_col, 0, getFormationColNum(), 0.1, 1.0);
-    double b = RANGE_TRANS(prm_row, 0, getFormationRowNum(), 0.1, 1.0);
+    pOebius->pKurokoLeader_->fixStartPosition(entry_pos_.x,
+                                              entry_pos_.y + ((prm_col*0.4) * rate_y) ,
+                                              entry_pos_.z);
+    pOebius->pKurokoLeader_->fixStartMvAngle(0, 0);
+
+    pOebius->position( RND_AROUND(entry_pos_.x, PX_C(400)),
+                       RND_AROUND(entry_pos_.y, PX_C(400)),
+                       RND_AROUND(entry_pos_.z, PX_C(400)) );
+    pOebius->setFaceAngTwd(RND_AROUND(pOebius->_x, PX_C(400)),
+                           RND_AROUND(pOebius->_y, PX_C(400)),
+                           RND_AROUND(pOebius->_z, PX_C(400)) );
+    pOebius->getKuroko()->setMvAngByFaceAng();
+
+    double r = RANGE_TRANS(prm_col*prm_row, 0, getFormationColNum()*getFormationRowNum(), 0.6, 1.0);
+    double g = RANGE_TRANS(prm_col, 0, getFormationColNum(), 0.4, 1.0);
+    double b = RANGE_TRANS(prm_row, 0, getFormationRowNum(), 0.4, 1.0);
     pOebius->setMaterialColor(r, g, b);
-
 }
 
 FormationOebius002::~FormationOebius002() {

@@ -23,12 +23,13 @@ public:
     frame call_up_interval_;
     int call_up_row_cnt_;
 
+    velo last_average_mv_velo_;
     /** [r]出現座標(シーンが設定) */
     GgafDxCore::GgafDxGeoElem entry_pos_;
 
 
 public:
-    FormationOebius(const char* prm_name, int prm_formation_col_num, int prm_formation_row_num);
+    FormationOebius(const char* prm_name, int prm_formation_col_num, int prm_formation_row_num, frame prm_call_up_interval);
 
     /**
      * 編隊を作成 .
@@ -49,6 +50,11 @@ public:
     int getFormationRowNum() {
         return formation_row_num_;
     }
+
+    int getLastAverageMvVelo() {
+        return last_average_mv_velo_;
+    }
+
     /**
      * 出現座標を設定。
      * @param X
