@@ -238,7 +238,7 @@ void FixedFrameSplineKurokoLeader::behave() {
                             _pActor_target->_y,
                             _pActor_target->_z,
                             x, y, z);
-                if (_pFixedFrameSplManuf->_paDistance_to[_point_index] < d) {
+                if (_pFixedFrameSplManuf->_paDistance_to[_point_index]*1.1 < d) {
                     //補正：距離が予想より開いているので少し急ぐ(1.1倍のスピードにする)
                     pKuroko_target->setMvVelo(_pFixedFrameSplManuf->_paSPMvVeloTo[_point_index] * 1.1) ;
                     //pKuroko_target->setMvVelo(((velo)(d / _pFixedFrameSplManuf->_frame_of_segment)) + 1);

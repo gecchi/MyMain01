@@ -1455,10 +1455,10 @@ BOOL CALLBACK GgafDxGod::getSecondaryMoniterPixcoordCallback(HMONITOR hMonitor,
     }
 }
 
-HRESULT GgafDxGod::createDx9Device(UINT Adapter,
-                                   D3DDEVTYPE DeviceType,
+HRESULT GgafDxGod::createDx9Device(UINT adapter,
+                                   D3DDEVTYPE device_type,
                                    HWND hFocusWindow,
-                                   DWORD BehaviorFlags,
+                                   DWORD behavior_flags,
                                    D3DPRESENT_PARAMETERS* pPresentationParameters,
                                    D3DDISPLAYMODEEX* pFullscreenDisplayMode
                                   ) {
@@ -1469,20 +1469,20 @@ HRESULT GgafDxGod::createDx9Device(UINT Adapter,
         }
         IDirect3D9Ex* pID3D9Ex = (IDirect3D9Ex*)GgafDxGod::_pID3D9;
         IDirect3DDevice9Ex* pID3DDevice9Ex;
-        hr = pID3D9Ex->CreateDeviceEx(Adapter,
-                                      DeviceType,
+        hr = pID3D9Ex->CreateDeviceEx(adapter,
+                                      device_type,
                                       hFocusWindow,
-                                      BehaviorFlags,
+                                      behavior_flags,
                                       pPresentationParameters,
                                       pFullscreenDisplayMode,
                                       &pID3DDevice9Ex
                                       );
         GgafDxGod::_pID3DDevice9 = (IDirect3DDevice9Ex*)pID3DDevice9Ex;
     } else {
-        hr = GgafDxGod::_pID3D9->CreateDevice(Adapter,
-                                              DeviceType,
+        hr = GgafDxGod::_pID3D9->CreateDevice(adapter,
+                                              device_type,
                                               hFocusWindow,
-                                              BehaviorFlags,
+                                              behavior_flags,
                                               pPresentationParameters,
                                               &GgafDxGod::_pID3DDevice9
                                               );

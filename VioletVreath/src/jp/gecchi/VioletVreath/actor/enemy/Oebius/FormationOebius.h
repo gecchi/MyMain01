@@ -57,14 +57,25 @@ public:
 
     /**
      * 出現座標を設定。
-     * @param X
-     * @param Y
-     * @param Z
+     * @param x
+     * @param y
+     * @param z
      */
     void position(coord x, coord y, coord z) {
         entry_pos_.x = x;
         entry_pos_.y = y;
         entry_pos_.z = z;
+    }
+
+    /**
+     * 出現方向を設定。
+     * @param rz
+     * @param ry
+     */
+    void setRzRyAng(angle rz,
+                    angle ry) {
+        entry_pos_.rz = rz;
+        entry_pos_.ry = ry;
     }
 
     virtual ~FormationOebius();

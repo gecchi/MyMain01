@@ -48,6 +48,7 @@ void Stage01PartController::processBehavior() {
 				FormationOebius002* pF = (FormationOebius002*)obtainActorFromFactory(10000000);
 				getSceneDirector()->addSubGroup(pF);
 				pF->position(600000, -200000, 400000);
+				pF->setRzRyAng(D_ANG(45), D_ANG(45));
 				break;
 			}
 			default :

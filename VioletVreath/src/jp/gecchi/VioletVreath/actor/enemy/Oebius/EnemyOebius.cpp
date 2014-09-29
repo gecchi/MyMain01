@@ -99,7 +99,7 @@ void EnemyOebius::processBehavior() {
                 pKuroko->setRzRyMvAng(pKurokoLeader_->_ang_rz_mv_start, pKurokoLeader_->_ang_ry_mv_start);
                 pKuroko->setMvVelo(PX_C(8));
                 pKuroko->setRzRyMvAngVelo(0,0);
-                pKuroko->turnRyMvAngTo(pKuroko->_ang_ry_mv + D_ANG(35), D_ANG(2), 0, TURN_CLOSE_TO);
+                pKuroko->turnRzMvAngTo(pKuroko->_ang_rz_mv + D_ANG(35), D_ANG(2), 0, TURN_CLOSE_TO);
             }
             if (!pKuroko->isTurningMvAng()) {
                 pProg->change(PROG_MOVE_BEGIN);

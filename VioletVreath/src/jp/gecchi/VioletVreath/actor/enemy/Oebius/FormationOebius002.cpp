@@ -38,16 +38,23 @@ void FormationOebius002::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, i
                                                 createKurokoLeader(pOebius->getKuroko());
         pOebius->pKurokoLeader_ = pKurokoLeader;
     }
-    double rate_y = pOebius->pKurokoLeader_->_pManufacture->_rate_y;
+    double rate_z = pOebius->pKurokoLeader_->_pManufacture->_rate_z;
 
-//    pOebius->position(entry_pos_.x,
-//                      entry_pos_.y + ((prm_col*0.4) * rate_y) ,
-//                      entry_pos_.z);
+    //Z = (prm_col*0.4)*rate_z
+    //(0, 0, Z) ‚ð Rz > Ry ‰ñ“]ˆÚ“®‚³‚¹‚é‚Æ
+    //(Z*sinRy, 0, Z*cosRy)
+    float sinRy = ANG_SIN(entry_pos_.ry);
+    float cosRy = ANG_COS(entry_pos_.ry);
+    float Z = (prm_col*0.4)*rate_z;
 
-    pOebius->pKurokoLeader_->fixStartPosition(entry_pos_.x,
-                                              entry_pos_.y + ((prm_col*0.4) * rate_y) ,
-                                              entry_pos_.z);
-    pOebius->pKurokoLeader_->fixStartMvAngle(0, 0);
+    coord dx = Z*sinRy;
+    coord dy = 0;
+    coord dz = Z*cosRy;
+    pOebius->pKurokoLeader_->fixStartPosition(entry_pos_.x + dx,
+                                              entry_pos_.y + dy,
+                                              entry_pos_.z + dz);
+    pOebius->pKurokoLeader_->fixStartMvAngle(entry_pos_.rz, entry_pos_.ry);
+
 
     pOebius->position( RND_AROUND(entry_pos_.x, PX_C(400)),
                        RND_AROUND(entry_pos_.y, PX_C(400)),

@@ -45,18 +45,18 @@ private:
     /**
      * WDDMかどうか判定し、デバイスを作成 .
      * 結果は GgafDxGod::_pID3D9 と GgafDxGod::_pID3DDevice9に保持される。
-     * @param Adapter
-     * @param DeviceType
+     * @param adapter
+     * @param deviceType
      * @param hFocusWindow
-     * @param BehaviorFlags
+     * @param behavior_flags
      * @param pPresentationParameters
      * @param pFullscreenDisplayMode
      * @return
      */
-    HRESULT createDx9Device(UINT Adapter,
-                            D3DDEVTYPE DeviceType,
+    HRESULT createDx9Device(UINT adapter,
+                            D3DDEVTYPE device_type,
                             HWND hFocusWindow,
-                            DWORD BehaviorFlags,
+                            DWORD behavior_flags,
                             D3DPRESENT_PARAMETERS* pPresentationParameters,
                             D3DDISPLAYMODEEX* pFullscreenDisplayMode
                           );
