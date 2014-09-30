@@ -61,7 +61,6 @@ void EnemyOebius::processBehavior() {
             if (pProg->isJustChanged()) {
                 pAFader_->transitionLinerUntil(1.0, 30);
                 pKuroko->setSpinAngVelo(D_ANG(3));
-                pKuroko->setMvVelo(PX_C(3));
             }
             if (pProg->getFrameInProgress() == 10) {
                 setHitAble(true);
@@ -74,7 +73,7 @@ void EnemyOebius::processBehavior() {
             if (pProg->isJustChanged()) {
 
             }
-            if (pProg->getFrameInProgress() == 30) {
+            if (pProg->getFrameInProgress() == 120) {
                 pProg->changeNext();
             }
             break;
@@ -82,11 +81,14 @@ void EnemyOebius::processBehavior() {
 
         case PROG_SPLINE: {
             if (pProg->isJustChanged()) {
-                pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION, 4);
+                pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION, 10);
             }
             pKurokoLeader_->behave(); //ƒXƒvƒ‰ƒCƒ“ˆÚ“®‚ðU‚é•‘‚¢
 
             if (pKurokoLeader_->isFinished()) {
+                position(pKurokoLeader_->_x_start, pKurokoLeader_->_y_start, pKurokoLeader_->_z_start);
+                pKuroko->setRzRyMvAng(pKurokoLeader_->_ang_rz_mv_start, pKurokoLeader_->_ang_ry_mv_start);
+                ((FormationOebius*)getFormation() )->onFinshLeading(this);
                 pProg->changeNext();
             }
             break;
@@ -94,15 +96,9 @@ void EnemyOebius::processBehavior() {
 
         case PROG_MOVE_AFTER: {
             if (pProg->isJustChanged()) {
-                position(pKurokoLeader_->_x_start, pKurokoLeader_->_y_start, pKurokoLeader_->_z_start);
-
-                pKuroko->setRzRyMvAng(pKurokoLeader_->_ang_rz_mv_start, pKurokoLeader_->_ang_ry_mv_start);
-                pKuroko->setMvVelo(PX_C(8));
-                pKuroko->setRzRyMvAngVelo(0,0);
-                pKuroko->turnRzMvAngTo(pKuroko->_ang_rz_mv + D_ANG(35), D_ANG(2), 0, TURN_CLOSE_TO);
             }
-            if (!pKuroko->isTurningMvAng()) {
-                pProg->change(PROG_MOVE_BEGIN);
+            if (pProg->getFrameInProgress() == 120) {
+                pProg->changeNext();
             }
             break;
         }

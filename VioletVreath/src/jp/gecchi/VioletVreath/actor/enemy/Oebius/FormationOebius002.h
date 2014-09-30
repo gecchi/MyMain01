@@ -23,6 +23,7 @@ public:
 
 
     virtual void onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_col, int prm_row) override;
+    virtual void onFinshLeading(GgafDxCore::GgafDxDrawableActor* prm_pActor) override;
 
     virtual ~FormationOebius002();
 };

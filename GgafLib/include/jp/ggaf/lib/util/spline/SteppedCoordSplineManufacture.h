@@ -7,6 +7,7 @@ namespace GgafLib {
 
 /**
  * 等速移動による、スプライン曲線移動のための情報セット .
+ * TODO:作成中！使えません！
  * @version 1.00
  * @since 2009/10/28
  * @author Masatoshi Tsuge

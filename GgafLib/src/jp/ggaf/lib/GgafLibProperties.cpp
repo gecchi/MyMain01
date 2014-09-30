@@ -24,7 +24,7 @@ void GgafLibProperties::load(std::string prm_properties_filename) {
         GgafLibProperties::OCTREE_LEVEL  = getInt("OCTREE_LEVEL");
     }
 
-    GgafLibProperties::DIR_WALL  = GgafProperties::DIR_RESOURCE + "/" + GgafLibProperties::DIRNAME_RESOURCE_WALL+ "/";
+    GgafLibProperties::DIR_WALL   = GgafProperties::DIR_RESOURCE + "/" + GgafLibProperties::DIRNAME_RESOURCE_WALL   + "/";
     GgafLibProperties::DIR_SPLINE = GgafProperties::DIR_RESOURCE + "/" + GgafLibProperties::DIRNAME_RESOURCE_SPLINE + "/";
 
     UTIL::strReplace(GgafLibProperties::DIR_WALL, "//", "/");

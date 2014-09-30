@@ -52,6 +52,10 @@ void FormationOebius001::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, i
 
 }
 
+void FormationOebius001::onFinshLeading(GgafDxCore::GgafDxDrawableActor* prm_pActor) {
+
+}
+
 FormationOebius001::~FormationOebius001() {
     for (int col = 0; col < getFormationColNum(); col++) {
         papSplManufConn_[col]->close();

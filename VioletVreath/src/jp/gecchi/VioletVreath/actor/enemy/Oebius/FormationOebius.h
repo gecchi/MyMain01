@@ -44,6 +44,9 @@ public:
 
     virtual void onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_col, int prm_row) = 0;
 
+    virtual void onFinshLeading(GgafDxCore::GgafDxDrawableActor* prm_pActor) = 0;
+
+
     int getFormationColNum() {
         return formation_col_num_;
     }
