@@ -13,6 +13,9 @@ using namespace VioletVreath;
 
 XpmHeader::XpmHeader(const char** prm_xpm) : GgafObject() {
     xpm_hd_ = prm_xpm;
+    columns_ = 0;
+    rows_ = 0;
+    colors_ = 0;
     std::istringstream line0(xpm_hd_[0]); //"16 491 5 1 "
     line0 >> columns_ >> rows_ >> colors_;
     if (line0.fail()) {
@@ -23,14 +26,14 @@ XpmHeader::XpmHeader(const char** prm_xpm) : GgafObject() {
         c_px.push_back(c);
         if (xpm_hd_[i + 1][4] == '#') {                             //                   0123456789
             std::string strcolor = std::string(&(xpm_hd_[i+1][4])); //"#"à»ç~Çï∂éöóÒÇ÷ "X c #E08000",
-            c_rgb_[c] = NEW GgafCore::GgafRgb(strcolor);
+            c_rgb_[c] = NEW GgafRgb(strcolor);
         } else {
             std::string strcolor = std::string(&(xpm_hd_[i+1][4]));
             if (strcolor == "None" || strcolor == "none") {
                 c_px_non_ = c;
-                c_rgb_[c] = NEW GgafCore::GgafRgb("#000000");
+                c_rgb_[c] = NEW GgafRgb("#000000");
             } else {
-                c_rgb_[c] = NEW GgafCore::GgafRgb(strcolor);
+                c_rgb_[c] = NEW GgafRgb(strcolor);
             }
         }
     }
@@ -50,7 +53,7 @@ XpmHeader::XpmHeader(const char** prm_xpm) : GgafObject() {
 
 XpmHeader::~XpmHeader(){
     for (int i = 0; i < colors_; i++) {
-        GgafCore::GgafRgb* pRgb = c_rgb_[c_px[i]];
+        GgafRgb* pRgb = c_rgb_[c_px[i]];
         GGAF_DELETE(pRgb);
     }
 }

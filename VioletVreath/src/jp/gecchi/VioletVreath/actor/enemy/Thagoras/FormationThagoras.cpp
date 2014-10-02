@@ -45,15 +45,13 @@ void FormationThagoras::onActive() {
 
 void FormationThagoras::processBehavior() {
     if (canCallUp() && getActiveFrame() % call_up_interval_ == 0) {
-        int xpm_cols = pXpmHd_->columns_;
-        for (int col = 0; col < xpm_cols; col++) {
-            char c = pXpmHd_->pixels_[cnt_call_up_row_][col];
-            if (c != pXpmHd_->c_px_non_) {
+        for (int col = 0; col < pXpmHd_->getColumns(); col++) {
+            if (!pXpmHd_->isNonColor(cnt_call_up_row_, col)) {
                 EnemyThagoras* pThagoras = (EnemyThagoras*)callUpMember();
                 if (pThagoras) {
                     onCallUp(pThagoras, cnt_call_up_row_, col);
                 }
-                pThagoras->setMaterialColor(pXpmHd_->c_rgb_[c]);
+                pThagoras->setMaterialColor(pXpmHd_->getColor(cnt_call_up_row_, col));
             }
         }
         cnt_call_up_row_++;
