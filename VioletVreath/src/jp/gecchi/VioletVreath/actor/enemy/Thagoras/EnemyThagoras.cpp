@@ -71,7 +71,7 @@ void EnemyThagoras::processBehavior() {
         }
         case PROG_MOVE01: {
             if (pProg->isJustChanged()) {
-                pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_COORD,2);
+                pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_COORD,5);
             }
             pKurokoLeader_->behave();
             if (pKurokoLeader_->isFinished()) {

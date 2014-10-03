@@ -16,12 +16,12 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationOebius002::FormationOebius002(const char* prm_name) :
-        FormationOebius(prm_name, 6, 23, 7) {
+        FormationOebius(prm_name, 6, 20, 8) {
     _class_name = "FormationOebius002";
 
     papSplManufConn_ = NEW SplineManufactureConnection*[getFormationColNum()];
     for (int col = 0; col < getFormationColNum(); col++) {
-        papSplManufConn_[col] = getConnection_SplineManufactureManager(("FormationOebius002_"+XTOS(col)).c_str());
+        papSplManufConn_[col] = getConnection_SplineManufactureManager(("FormationOebius002_1_"+XTOS(col)).c_str());
     }
 }
 
@@ -63,7 +63,7 @@ void FormationOebius002::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, i
                            entry_pos_.y + dy,
                            entry_pos_.z + dz);
     pOebius->getKuroko()->setMvAngByFaceAng();
-    pOebius->getKuroko()->setMvVelo(PX_C(3));
+    pOebius->getKuroko()->setMvVelo(PX_C(2));
     pOebius->getKuroko()->setMvAcce(0);
 
     double r = RANGE_TRANS(prm_col*prm_row, 0, getFormationColNum()*getFormationRowNum(), 0.6, 1.0);

@@ -81,7 +81,7 @@ void EnemyOebius::processBehavior() {
 
         case PROG_SPLINE: {
             if (pProg->isJustChanged()) {
-                pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION, 10);
+                pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION, 15);
             }
             pKurokoLeader_->behave(); //ƒXƒvƒ‰ƒCƒ“ˆÚ“®‚ğU‚é•‘‚¢
 
