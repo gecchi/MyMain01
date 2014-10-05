@@ -61,23 +61,19 @@ void Camera::processBehavior() {
         _TRACE_("Camera::processBehavior()  vcv="<<vcv_face_prev_<<"¨"<<vcv_face_<<"");
     }
 #endif
-//    _TRACE_("Camera::processBehavior()  ("<<_x<<","<<_y<<","<<_z<<") "<<
-//            "pAxsMver_=("<<pAxsMver_->asstA()->_smthVxMv._prm._flg<<","<<pAxsMver_->asstA()->_smthVyMv._prm._flg<<","<<pAxsMver_->asstA()->_smthVzMv._prm._flg<<")");
 }
 
 void Camera::slideMvTo(coord tx, coord ty, coord tz, frame t) {
-//    _TRACE_(" Camera::slideMvTo("<<tx<<","<<ty<<","<<tz<<",t="<<t<<") now("<<_x<<","<<_y<<","<<_z<<")");
     pAxsMver_->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               0.3, 0.7, 0, true);
 }
-void Camera::slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t) {
+void Camera::slideMvTo(GgafDxGeometricActor* pTarget, frame t) {
     slideMvTo(pTarget->_x, pTarget->_y, pTarget->_z, t);
 }
 
 void Camera::slideMvTo(coord tx, coord ty, coord tz, frame t,
                        float prm_x_p1, float prm_y_p1, float prm_z_p1) {
-//    _TRACE_(" Camera::slideMvTo("<<tx<<","<<ty<<","<<tz<<",t="<<t<<")  now("<<_x<<","<<_y<<","<<_z<<")(2)");
     pAxsMver_->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               prm_x_p1, prm_x_p1, 0,
@@ -85,10 +81,10 @@ void Camera::slideMvTo(coord tx, coord ty, coord tz, frame t,
                               prm_z_p1, prm_z_p1, 0,
                               true);
 }
-void Camera::slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t,
-        float prm_x_p1, float prm_y_p1, float prm_z_p1) {
+void Camera::slideMvTo(GgafDxGeometricActor* pTarget, frame t,
+                       float prm_x_p1, float prm_y_p1, float prm_z_p1) {
     slideMvTo(pTarget->_x, pTarget->_y, pTarget->_z, t,
-            prm_x_p1,prm_y_p1,prm_z_p1);
+              prm_x_p1, prm_y_p1, prm_z_p1);
 }
 int Camera::getCamToVpFaceNo() {
     float vcv_x, vcv_y, vcv_z;
@@ -185,6 +181,7 @@ void Camera::cnvFaceNo2Vec(int face_no, float& out_vx, float& out_vy, float& out
         throwGgafCriticalException("CameraWorker::slideUpCamTo() face_no="<<face_no);
     }
 }
+
 void Camera::slideUpCamTo(int prm_face_no, frame prm_t) {
     dxcoord up_x, up_y, up_z;
     Camera::cnvFaceNo2Vec(prm_face_no, up_x, up_y, up_z);
@@ -203,6 +200,7 @@ void Camera::slideUpCamTo(coord tx, coord ty, coord tz, frame t) {
     }
 #endif
 }
+
 Camera::~Camera() {
     GGAF_DELETE(pAxsMver_Up_);
     GGAF_DELETE(pAxsMver_);
