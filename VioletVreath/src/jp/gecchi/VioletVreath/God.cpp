@@ -4,6 +4,7 @@
 #include "jp/ggaf/lib/util/VBReplayRecorder.h"
 #include "jp/gecchi/VioletVreath/manager/DepositoryManager.h"
 #include "jp/gecchi/VioletVreath/manager/SplineLineManager.h"
+#include "jp/gecchi/VioletVreath/manager/XpmManager.h"
 #include "jp/gecchi/VioletVreath/Properties.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -23,6 +24,7 @@ God::God() :
       DefaultGod() {
     pDepoManager_ = NEW DepositoryManager("DepositoryManager");
     pSpl3DManager_ = NEW SplineLineManager("SplineLineManager");
+    pXpmManager_ = NEW XpmManager("XpmManager");
     God::pVbtn_PLAY_ = NEW VirtualButton(FILE_INPUT_PLAY_REPLAY);
     God::pVbtn_UI_   = NEW VirtualButton(FILE_INPUT_UI_REPLAY);
 #ifdef MY_DEBUG
@@ -124,6 +126,7 @@ void God::clean() {
         GGAF_DELETE(pVbtn_UI_);
         GGAF_DELETE(pDepoManager_);
         GGAF_DELETE(pSpl3DManager_);
+        GGAF_DELETE(pXpmManager_);
         _TRACE_("God::clean() end");
     }
 }

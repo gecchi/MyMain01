@@ -554,6 +554,8 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\DepositoryManager.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\SplineLineConnection.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\SplineLineManager.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\manager\XpmConnection.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\manager\XpmManager.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\Properties.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World.cpp" />
@@ -599,7 +601,6 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\util\MyStgUtil.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\util\RankingTable.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\util\VamSysCamPosition.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\util\XpmHeader.cpp" />
     <ClCompile Include="src\VioletVreath.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -904,6 +905,8 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\DepositoryManager.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\SplineLineConnection.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\SplineLineManager.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\XpmConnection.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\XpmManager.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\Properties.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Universe.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Universe\World.h" />
@@ -949,7 +952,6 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\util\MyStgUtil.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\util\rankingtable.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\util\VamSysCamPosition.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\util\xpmheader.h" />
     <ClInclude Include="src\VioletVreath.h" />
     <ClInclude Include="VioletVreath.h" />
   </ItemGroup>

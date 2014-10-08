@@ -407,6 +407,9 @@ class GgafCurtain;
 class GgafTable;
 
 class GgafEnumIndex;
+
+class GgafXpm;
+
 }
 
 #endif /*GGAFCOMMONHEADER_H_*/

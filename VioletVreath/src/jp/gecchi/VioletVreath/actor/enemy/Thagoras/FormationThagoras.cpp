@@ -1,28 +1,28 @@
 #include "FormationThagoras.h"
 
-#include "jp/ggaf/core/util/GgafRgb.h"
-#include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Thagoras/EnemyThagoras.h"
-#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/gecchi/VioletVreath/util/XpmHeader.h"
+#include "jp/gecchi/VioletVreath/manager/XpmManager.h"
+#include "jp/gecchi/VioletVreath/manager/XpmConnection.h"
+#include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/ggaf/core/util/GgafResourceConnection.hpp"
+#include "jp/ggaf/core/util/GgafRgb.h"
+#include "jp/ggaf/core/util/GgafXpm.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
-
-
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationThagoras::FormationThagoras(const char* prm_name,
-                                     const char** prm_xpm) :
+                                     const char* prm_xpm_id) :
         TreeFormation(prm_name) {
     _class_name = "FormationThagoras";
-    xpm_ = prm_xpm;
-    pXpmHd_ = NEW XpmHeader(xpm_);
-    num_Thagoras_ = pXpmHd_->num_color_pixels_;  //ï“ë‡êî
 
+    pXpmConnection_ = getConnection_XpmManager(prm_xpm_id);
+    num_Thagoras_ = getXpm()->getPixelNum();  //ï“ë‡êî
     for (int i = 0; i < num_Thagoras_; i++) {
         std::string name = "Thagoras("+XTOS(i)+")";
         addFormationMember(NEW EnemyThagoras(name.c_str()));
@@ -45,13 +45,14 @@ void FormationThagoras::onActive() {
 
 void FormationThagoras::processBehavior() {
     if (canCallUp() && getActiveFrame() % call_up_interval_ == 0) {
-        for (int col = 0; col < pXpmHd_->getColumns(); col++) {
-            if (!pXpmHd_->isNonColor(cnt_call_up_row_, col)) {
+        GgafXpm* pXpm = getXpm();
+        for (int col = 0; col < pXpm->getWidth(); col++) {
+            if (!pXpm->isNonColor(cnt_call_up_row_, col)) {
                 EnemyThagoras* pThagoras = (EnemyThagoras*)callUpMember();
                 if (pThagoras) {
                     onCallUp(pThagoras, cnt_call_up_row_, col);
                 }
-                pThagoras->setMaterialColor(pXpmHd_->getColor(cnt_call_up_row_, col));
+                pThagoras->setMaterialColor(pXpm->getColor(cnt_call_up_row_, col));
             }
         }
         cnt_call_up_row_++;
@@ -63,8 +64,12 @@ void FormationThagoras::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
     UTIL::transactFormationDestroyAll((GgafDxDrawableActor*)prm_pActor_last_destroyed);
 }
 
+GgafXpm* FormationThagoras::getXpm() {
+    return pXpmConnection_->peek();
+}
+
 FormationThagoras::~FormationThagoras() {
+    pXpmConnection_->close();
     GGAF_DELETE(pScaler_);
     GGAF_DELETE(pActor4Sc_);
-    GGAF_DELETE(pXpmHd_);
 }

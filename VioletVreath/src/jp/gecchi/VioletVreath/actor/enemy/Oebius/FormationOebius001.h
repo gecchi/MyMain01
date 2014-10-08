@@ -20,10 +20,7 @@ public:
     FormationOebius001(const char* prm_name);
 
     virtual void processBehavior() override;
-
-
-    virtual void onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_col, int prm_row) override;
-
+    virtual void onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_row, int prm_col) override;
     virtual void onFinshLeading(GgafDxCore::GgafDxDrawableActor* prm_pActor) override;
 
     virtual ~FormationOebius001();

@@ -47,6 +47,10 @@ namespace VioletVreath {
  */
 #define getConnection_SplineLineManager(X)   ((VioletVreath::SplineLineConnection*)(P_GOD->pSpl3DManager_->connect((X), this)))
 
+
+#define getConnection_XpmManager(X) ((VioletVreath::XpmConnection*)(P_GOD->pXpmManager_->connect((X), this)))
+
+
 /**
  * ê_
  * @version 1.00
@@ -58,6 +62,7 @@ class God : public GgafLib::DefaultGod {
 public:
     DepositoryManager* pDepoManager_;
     SplineLineManager* pSpl3DManager_;
+    XpmManager* pXpmManager_;
 
     static GgafLib::VirtualButton* pVbtn_PLAY_;
     static GgafLib::VirtualButton* pVbtn_UI_;

@@ -215,6 +215,7 @@
     <ClCompile Include="src\jp\ggaf\core\scene\GgafUniverse.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafTable.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafUtil.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\GgafXpm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\jp\ggaf\core\actor\ex\ggafdummyactor.h" />
@@ -262,6 +263,7 @@
     <ClInclude Include="include\jp\ggaf\core\util\GgafUtil.h" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafValueAccelerator.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafValueTransitioner.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\util\GgafXpm.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

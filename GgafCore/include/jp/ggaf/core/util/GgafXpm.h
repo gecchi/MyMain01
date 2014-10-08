@@ -1,12 +1,11 @@
-#ifndef XPMHEADER_H_
-#define XPMHEADER_H_
-#include "VioletVreath.h"
+#ifndef GGAFCORE_GGAFXPM_H_
+#define GGAFCORE_GGAFXPM_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <map>
 #include <vector>
 
-namespace VioletVreath {
+namespace GgafCore {
 
 /**
  * 簡易XPM(Pixmap)支援クラス .
@@ -14,45 +13,45 @@ namespace VioletVreath {
  * @since 2013/07/16
  * @author Masatoshi Tsuge
  */
-class XpmHeader : public GgafCore::GgafObject {
+class GgafXpm : public GgafCore::GgafObject {
 public:
-    /** [r]列数 */
-    int columns_;
-    /** [r]行数 */
-    int rows_;
+    /** [r]幅ピクセル数 */
+    int _width;
+    /** [r]高さピクセル数 */
+    int _height;
     /** [r]色数 */
-    int colors_;
+    int _colors;
     /** [r]透明色では無いピクセルの数 */
-    int num_color_pixels_;
+    int _num_color_pixels;
     /** [r]透明ピクセルの文字 */
-    char c_px_non_;
+    char _c_px_non;
     /** [r]ピクセル色の文字の配列 */
-    std::vector<char> c_px;
+    std::vector<char> _vecColorChar;
     /** [r]ピクセル色の文字に対応する、実際のRGB値 */
-    std::map<char, GgafCore::GgafRgb*> c_rgb_;
-    const char** xpm_hd_;
-    const char** pixels_;
+    std::map<char, GgafCore::GgafRgb*> _mapCharRgb;
+    const char** _xpm_hd;
+    const char** _pixels;
 public:
     /**
      * コンストラクタ .
      * @param prm_xpm Pixmapへのポインタ。実値を保持しないのでスコープに注意。(static などを想定)
      */
-    XpmHeader(const char** prm_xpm);
+    GgafXpm(const char** prm_xpm);
 
     /**
      * Pixmapの列数を取得 .
      * @return 列数
      */
-    inline int getColumns() {
-        return columns_;
+    inline int getWidth() {
+        return _width;
     }
 
     /**
      * Pixmapの行数を取得 .
      * @return 行数
      */
-    inline int getRows() {
-        return rows_;
+    inline int getHeight() {
+        return _height;
     }
 
     /**
@@ -60,7 +59,7 @@ public:
      * @return 色の数
      */
     inline int getColorNum() {
-        return colors_;
+        return _colors;
     }
 
     /**
@@ -68,7 +67,7 @@ public:
      * @return
      */
     inline int getPixelNum() {
-        return num_color_pixels_;
+        return _num_color_pixels;
     }
 
     /**
@@ -78,7 +77,7 @@ public:
      * @return 色
      */
     inline GgafCore::GgafRgb* getColor(int prm_row, int prm_col) {
-        return c_rgb_[pixels_[prm_row][prm_col]];
+        return _mapCharRgb[_pixels[prm_row][prm_col]];
     }
 
     /**
@@ -88,14 +87,14 @@ public:
      * @return true:透明色 / false:透明色以外
      */
     inline bool isNonColor(int prm_row, int prm_col) {
-        if (pixels_[prm_row][prm_col] == c_px_non_) {
+        if (_pixels[prm_row][prm_col] == _c_px_non) {
             return true;
         } else {
             return false;
         }
     }
 
-    virtual ~XpmHeader();
+    virtual ~GgafXpm();
 };
 }
-#endif /*XPMHEADER_H_*/
+#endif /*GGAFCORE_GGAFXPM_H_*/

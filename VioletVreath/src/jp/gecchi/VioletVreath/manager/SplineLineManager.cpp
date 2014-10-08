@@ -120,7 +120,9 @@ SplineLine* SplineLineManager::processCreateResource(char* prm_idstr, void* prm_
         }
         pResource = NEW SplineLine(p, 17, 0.2); //粒度 0.2
     }
-
+    if (pResource == nullptr) {
+        throwGgafCriticalException("SplineLineManager::processCreateResource("<<prm_idstr<<") 想定外のIDです。SplineLineが作成できません。");
+    }
     return pResource;
 }
 

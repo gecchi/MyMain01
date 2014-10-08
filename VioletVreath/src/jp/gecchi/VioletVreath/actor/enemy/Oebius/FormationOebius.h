@@ -27,9 +27,11 @@ public:
     /** [r]出現座標(シーンが設定) */
     GgafDxCore::GgafDxGeoElem entry_pos_;
 
+    XpmConnection* pXpmConnection_;
 
 public:
     FormationOebius(const char* prm_name, int prm_formation_col_num, int prm_formation_row_num, frame prm_call_up_interval);
+    FormationOebius(const char* prm_name, const char* prm_xpm_id, frame prm_call_up_interval);
 
     /**
      * 編隊を作成 .
@@ -42,7 +44,7 @@ public:
 
     virtual void onDestroyAll(GgafCore::GgafActor* prm_pActor_last_destroyed) override;
 
-    virtual void onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_col, int prm_row) = 0;
+    virtual void onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_row, int prm_col) = 0;
 
     virtual void onFinshLeading(GgafDxCore::GgafDxDrawableActor* prm_pActor) = 0;
 

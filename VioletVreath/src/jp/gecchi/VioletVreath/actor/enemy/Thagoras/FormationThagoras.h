@@ -16,8 +16,6 @@ namespace VioletVreath {
 class FormationThagoras : public GgafLib::TreeFormation {
 
 public:
-    const char** xpm_;
-    XpmHeader* pXpmHd_;
     int num_Thagoras_;
 
     int cnt_call_up_row_;
@@ -29,8 +27,10 @@ public:
     GgafDxCore::GgafDxScaler* pScaler_;
     GgafLib::DefaultGeometricActor* pActor4Sc_;
 
+    XpmConnection* pXpmConnection_;
+
 public:
-    FormationThagoras(const char* prm_name, const char** prm_xpm);
+    FormationThagoras(const char* prm_name, const char* prm_xpm_id);
 
     /**
      * ï“ë‡ÇçÏê¨ .
@@ -56,6 +56,8 @@ public:
         entry_pos_.y = y;
         entry_pos_.z = z;
     }
+
+    GgafCore::GgafXpm* getXpm();
 
     virtual ~FormationThagoras();
 };

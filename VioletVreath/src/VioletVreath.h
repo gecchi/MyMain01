@@ -558,11 +558,10 @@ class FormationOebius002;
 
 class DepositoryConnection;
 class DepositoryManager;
-
-
 class SplineLineConnection;
 class SplineLineManager;
-
+class XpmConnection;
+class XpmManager;
 
 class CameraWorkerManager;
 class CameraWorkerConnection;

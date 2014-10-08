@@ -1,14 +1,13 @@
 #include "FormationOebius002.h"
 
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
-#include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/EnemyOebius.h"
-#include "jp/gecchi/VioletVreath/util/XpmHeader.h"
-#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
-
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/manager/XpmConnection.h"
+#include "jp/ggaf/core/util/GgafResourceConnection.hpp"
+#include "jp/ggaf/core/util/GgafXpm.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-
-#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
+#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+#include "jp/ggaf/lib/util/spline/SplineManufacture.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -16,7 +15,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationOebius002::FormationOebius002(const char* prm_name) :
-        FormationOebius(prm_name, 6, 20, 8) {
+        FormationOebius(prm_name, "FormationOebius002_Xpm", 8) {
     _class_name = "FormationOebius002";
 
     papSplManufConn_ = NEW SplineManufactureConnection*[getFormationColNum()];
@@ -29,7 +28,7 @@ void FormationOebius002::processBehavior() {
     FormationOebius::processBehavior();
 }
 
-void FormationOebius002::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_col, int prm_row) {
+void FormationOebius002::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_row, int prm_col) {
     EnemyOebius* pOebius = (EnemyOebius*)prm_pActor;
     if (pOebius->pKurokoLeader_) {
         throwGgafCriticalException("FormationOebius002::onCallUp pOebius->pKurokoLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpOebius="<<pOebius<<"("<<pOebius->getName()<<")");
@@ -65,11 +64,13 @@ void FormationOebius002::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, i
     pOebius->getKuroko()->setMvAngByFaceAng();
     pOebius->getKuroko()->setMvVelo(PX_C(2));
     pOebius->getKuroko()->setMvAcce(0);
-
-    double r = RANGE_TRANS(prm_col*prm_row, 0, getFormationColNum()*getFormationRowNum(), 0.6, 1.0);
-    double g = RANGE_TRANS(prm_col, 0, getFormationColNum(), 0.4, 1.0);
-    double b = RANGE_TRANS(prm_row, 0, getFormationRowNum(), 0.4, 1.0);
-    pOebius->setMaterialColor(r, g, b);
+//
+//    double r = RANGE_TRANS(prm_col*prm_row, 0, getFormationColNum()*getFormationRowNum(), 0.6, 1.0);
+//    double g = RANGE_TRANS(prm_col, 0, getFormationColNum(), 0.4, 1.0);
+//    double b = RANGE_TRANS(prm_row, 0, getFormationRowNum(), 0.4, 1.0);
+//    pOebius->setMaterialColor(r, g, b);
+    GgafXpm* pXpM = pXpmConnection_->peek();
+    pOebius->setMaterialColor(pXpM->getColor(prm_row, prm_col));
 }
 
 void FormationOebius002::onFinshLeading(GgafDxCore::GgafDxDrawableActor* prm_pActor) {
