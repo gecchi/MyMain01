@@ -26,11 +26,8 @@ FormationOebius::FormationOebius(const char* prm_name, int prm_formation_col_num
         std::string name = "Oebius("+XTOS(i)+")";
         addFormationMember(NEW EnemyOebius(name.c_str()));
     }
-
     call_up_interval_ = prm_call_up_interval; //èoåªä‘äu
     call_up_row_cnt_ = 0;
-
-    last_average_mv_velo_ = 1000;
 }
 
 FormationOebius::FormationOebius(const char* prm_name, const char* prm_xpm_id, frame prm_call_up_interval)  :

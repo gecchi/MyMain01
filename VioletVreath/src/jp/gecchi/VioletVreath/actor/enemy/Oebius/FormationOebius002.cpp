@@ -64,17 +64,15 @@ void FormationOebius002::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, i
     pOebius->getKuroko()->setMvAngByFaceAng();
     pOebius->getKuroko()->setMvVelo(PX_C(2));
     pOebius->getKuroko()->setMvAcce(0);
-//
-//    double r = RANGE_TRANS(prm_col*prm_row, 0, getFormationColNum()*getFormationRowNum(), 0.6, 1.0);
-//    double g = RANGE_TRANS(prm_col, 0, getFormationColNum(), 0.4, 1.0);
-//    double b = RANGE_TRANS(prm_row, 0, getFormationRowNum(), 0.4, 1.0);
-//    pOebius->setMaterialColor(r, g, b);
+
+    //F‚ðÝ’è
     GgafXpm* pXpM = pXpmConnection_->peek();
     pOebius->setMaterialColor(pXpM->getColor(prm_row, prm_col));
 }
 
 void FormationOebius002::onFinshLeading(GgafDxCore::GgafDxDrawableActor* prm_pActor) {
-    GgafDxKuroko* pKuroko =  prm_pActor->getKuroko();
+    //ÅŒã‚ÍŽU‚èŽU‚è‚É“®‚­
+    GgafDxKuroko* pKuroko = prm_pActor->getKuroko();
     pKuroko->turnRzRyMvAngTo(RND_AROUND(pKuroko->_ang_rz_mv, D_ANG(120)), RND_AROUND(pKuroko->_ang_rz_mv, D_ANG(120)),
                              D_ANG(2), 0, TURN_CLOSE_TO,false);
     pKuroko->setMvAcce(300);

@@ -19,6 +19,7 @@ class VvvViewPoint;
 class VvvCursor;
 class VvvGrid;
 class VvvCamWorker;
+class Font01;
 }
 
 #endif /*VVVIEWER_H_*/

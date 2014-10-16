@@ -23,7 +23,6 @@ public:
     frame call_up_interval_;
     int call_up_row_cnt_;
 
-    velo last_average_mv_velo_;
     /** [r]出現座標(シーンが設定) */
     GgafDxCore::GgafDxGeoElem entry_pos_;
 
@@ -56,10 +55,6 @@ public:
         return formation_row_num_;
     }
 
-    int getLastAverageMvVelo() {
-        return last_average_mv_velo_;
-    }
-
     /**
      * 出現座標を設定。
      * @param x
@@ -77,8 +72,7 @@ public:
      * @param rz
      * @param ry
      */
-    void setRzRyAng(angle rz,
-                    angle ry) {
+    void setRzRyAng(angle rz, angle ry) {
         entry_pos_.rz = rz;
         entry_pos_.ry = ry;
     }

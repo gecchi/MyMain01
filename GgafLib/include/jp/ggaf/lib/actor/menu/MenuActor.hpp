@@ -882,7 +882,7 @@ public:
 
 template<class T>
 MenuActor<T>::MenuActor(const char* prm_name, const char* prm_model) :
-  T(prm_name, prm_model, nullptr),_lstItems(3) { //全アイテム枝を３つ追加：「その他次」「その他前」「キャンセル」の３つ
+  T(prm_name, prm_model),_lstItems(3) { //全アイテム枝を３つ追加：「その他次」「その他前」「キャンセル」の３つ
     T::_class_name = "MenuActor";
 
     _fade_frames = 0;

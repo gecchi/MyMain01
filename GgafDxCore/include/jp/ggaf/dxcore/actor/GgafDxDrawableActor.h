@@ -229,6 +229,10 @@ public:
      */
     virtual void setMaterialColor(float r, float g, float b);
 
+    virtual void setMaterialRed(float r);
+    virtual void setMaterialGreen(float g);
+    virtual void setMaterialBlue(float b);
+
     /**
      * 本アクターの描画時のマテリアルカラーを設定。 .
      * @param prm_rgb

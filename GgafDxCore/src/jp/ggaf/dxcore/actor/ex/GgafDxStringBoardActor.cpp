@@ -10,14 +10,14 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-#define GgafDxStringBoardActor_MAX_LEN (1024)
-GgafDxStringBoardActor::GgafDxStringBoardActor(const char* prm_name, const char* prm_model) :
+GgafDxStringBoardActor::GgafDxStringBoardActor(const char* prm_name, const char* prm_model, int prm_max_len) :
         GgafDxBoardSetActor(prm_name, prm_model, "StringBoardEffect", "StringBoardTechnique") {
 
     _class_name = "GgafDxStringBoardActor";
+    _max_len = prm_max_len;
     _chr_ptn_zero = (int)(' '); //GgafDxUvFlipper の パターン0番の文字。
     _len = 0;
-    _buf = NEW int[GgafDxStringBoardActor_MAX_LEN];
+    _buf = NEW int[_max_len];
     _buf[0] = (int)('\0');
     _draw_string = _buf;
     //デフォルトの１文字の幅(px)設定
@@ -57,9 +57,9 @@ void GgafDxStringBoardActor::update(coord X, coord Y, coord Z, char* prm_str) {
 void GgafDxStringBoardActor::update(const char* prm_str) {
     _len = strlen(prm_str);
 #ifdef MY_DEBUG
-    if (_len+1 > GgafDxStringBoardActor_MAX_LEN - 1) {
+    if (_len+1 > _max_len - 1) {
         throwGgafCriticalException("GgafDxStringBoardActor::update 引数文字列数が範囲外です。name="<<getName()<<
-                                   " 上限文字数="<<GgafDxStringBoardActor_MAX_LEN<<" prm_str="<<prm_str);
+                                   " 上限文字数="<<_max_len<<" prm_str="<<prm_str);
     }
 #endif
     onUpdate(); //コールバック
@@ -80,8 +80,11 @@ void GgafDxStringBoardActor::update(const char* prm_str) {
             break;
         }
 #ifdef MY_DEBUG
-        if (nn > 256) {
-            throwGgafCriticalException("GgafDxStringBoardActor::update 文字列の改行数が256個を超えました。name="<<getName()<<" prm_str="<<prm_str);
+        if (nn > _max_len) {
+            throwGgafCriticalException("GgafDxStringBoardActor::update 文字列の改行数が"<<_max_len<<"個を超えました。name="<<getName()<<" prm_str="<<prm_str);
+        }
+        if (0 > _draw_string[i] || _draw_string[i] > 256) {
+            throwGgafCriticalException("GgafDxStringBoardActor::update 範囲外の扱えない文字種がありました _draw_string["<<i<<"]="<<_draw_string[i]<<"。 0～255の範囲にして下さい。name="<<getName()<<" prm_str="<<prm_str);
         }
 #endif
         _aWidth_line_px[nn] += _aWidthPx[_draw_string[i]];
@@ -92,9 +95,9 @@ void GgafDxStringBoardActor::update(const char* prm_str) {
 void GgafDxStringBoardActor::update(char* prm_str) {
     _len = strlen(prm_str);
 #ifdef MY_DEBUG
-    if (_len+1 > GgafDxStringBoardActor_MAX_LEN - 1) {
+    if (_len+1 > _max_len - 1) {
         throwGgafCriticalException("GgafDxStringBoardActor::update 引数文字列数が範囲外です。name="<<getName()<<
-                                   " 上限文字数="<<GgafDxStringBoardActor_MAX_LEN<<" prm_str="<<prm_str);
+                                   " 上限文字数="<<_max_len<<" prm_str="<<prm_str);
     }
 #endif
     onUpdate(); //コールバック
@@ -113,8 +116,11 @@ void GgafDxStringBoardActor::update(char* prm_str) {
             break;
         }
 #ifdef MY_DEBUG
-        if (_nn > 256) {
-            throwGgafCriticalException("GgafDxStringBoardActor::update 文字列の改行数が256個を超えました。name="<<getName()<<" prm_str="<<prm_str);
+        if (_nn > _max_len) {
+            throwGgafCriticalException("GgafDxStringBoardActor::update 文字列の改行数が"<<_max_len<<"個を超えました。name="<<getName()<<" prm_str="<<prm_str);
+        }
+        if (0 > _draw_string[i] || _draw_string[i] > 256) {
+            throwGgafCriticalException("GgafDxStringBoardActor::update 範囲外の扱えない文字種がありました _draw_string["<<i<<"]="<<_draw_string[i]<<"。 0～255の範囲にして下さい。name="<<getName()<<" prm_str="<<prm_str);
         }
 #endif
         _aWidth_line_px[nn] += _aWidthPx[_draw_string[i]];

@@ -310,6 +310,25 @@ void GgafDxDrawableActor::setMaterialColor(float r, float g, float b) {
     }
 }
 
+void GgafDxDrawableActor::setMaterialRed(float r) {
+    for (DWORD i = 0; i < _pModel->_num_materials; i++) {
+        _paMaterial[i].Ambient.r = r;
+        _paMaterial[i].Diffuse.r = r;
+    }
+}
+void GgafDxDrawableActor::setMaterialGreen(float g) {
+    for (DWORD i = 0; i < _pModel->_num_materials; i++) {
+        _paMaterial[i].Ambient.g = g;
+        _paMaterial[i].Diffuse.g = g;
+    }
+}
+void GgafDxDrawableActor::setMaterialBlue(float b) {
+    for (DWORD i = 0; i < _pModel->_num_materials; i++) {
+        _paMaterial[i].Ambient.b = b;
+        _paMaterial[i].Diffuse.b = b;
+    }
+}
+
 void GgafDxDrawableActor::setMaterialColor(GgafCore::GgafRgb* prm_rgb) {
     setMaterialColor(prm_rgb->_r, prm_rgb->_g, prm_rgb->_b);
 }

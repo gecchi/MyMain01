@@ -16,6 +16,7 @@ class StringSpriteActor : public GgafDxCore::GgafDxStringSpriteActor {
 public:
     StringSpriteActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
 
+    StringSpriteActor(const char* prm_name, const char* prm_model, int prm_max_len, GgafCore::GgafStatus* prm_pStat=nullptr);
     virtual void onCreateModel() override {
         GgafDxCore::GgafDxStringSpriteActor::onCreateModel();
     }

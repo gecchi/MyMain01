@@ -2,11 +2,14 @@
 
 #include "VvvGod.h"
 
+#include "jp/ggaf/dxcore/GgafDxGod.h"
 using namespace VVViewer;
 
+#define MY_IDM_RESET_WINDOW_SIZE  10
+HWND hWnd1, hWnd2;
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
-
+BOOL CustmizeSysMenu(HWND hWnd);
 /**
  * GCC のエントリポイント
  */
@@ -35,7 +38,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     WNDCLASSEX wcex2 = wcex1;
     wcex2.lpszClassName = "secondary";
     DWORD dwStyle = WS_OVERLAPPEDWINDOW;
-    HWND hWnd1, hWnd2;
+
 
 
     //神の誕生
@@ -85,6 +88,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
     GgafLibWndProc(hWnd, message, wParam, lParam); //直後に、この様に呼び出して下さい。
     //必要があれば、メッセージ処理をココに追加記述
     switch (message) {
+
+        case WM_CREATE: {
+            // システムメニューカスタム関数を呼ぶ
+            CustmizeSysMenu(hWnd);
+            break;
+        }
         case WM_DROPFILES: {/* ファイルがドロップされた時の処理 */
             HDROP  hDrop = (HDROP)wParam;
             UINT  uFileNo = DragQueryFile((HDROP)wParam, 0xFFFFFFFF, nullptr, 0);
@@ -96,11 +105,40 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             VvvGod::is_wm_dropfiles_ = true;
             break;
         }
+        case WM_SYSCOMMAND: {
+            if(wParam == MY_IDM_RESET_WINDOW_SIZE) {
+                //初期ウィンドウサイズにリセット
+                if (!PROPERTY::FULL_SCREEN) {
+                    if (PROPERTY::DUAL_VIEW) {
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, PROPERTY::DUAL_VIEW_WINDOW1_WIDTH, PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT);
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd2, PROPERTY::DUAL_VIEW_WINDOW2_WIDTH, PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT);
+                    } else {
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, PROPERTY::SINGLE_VIEW_WINDOW_WIDTH, PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT);
+                    }
+                }
+            }
+            break;
+        }
         default: {
             break;
         }
     }
 
     return DefWindowProc(hWnd, message, wParam, lParam);
+}
+
+// システムメニューをカスタマイズします。
+BOOL CustmizeSysMenu(HWND hWnd)
+{
+
+    HMENU hMenu = GetSystemMenu(hWnd, FALSE);
+    int i;
+    i=5; InsertMenu(hMenu, i, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR)0, "");
+    i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING , MY_IDM_RESET_WINDOW_SIZE, "Reset window size.");
+
+    //システムメニューを作成
+    DrawMenuBar(hWnd);
+
+    return TRUE;
 }
 

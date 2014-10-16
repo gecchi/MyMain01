@@ -9,7 +9,7 @@ namespace GgafDxCore {
  * 文字表示クラス .
  * GgafDxSpriteSetActor を継承し、文字セットテクスチャーから
  * 文字表示機能を追加したアクターです。<BR>
- * 次のようなテクスチャであることが前提。（※実際の画像は罫線無しです）<BR>
+ * 次のようなテクスチャであることが想定。（※実際の画像は罫線無しです）<BR>
  * <code><pre>
  * ┌─┬─┬─┬─┬─┬─┬─┬─┐
  * │　│！│”│＃│＄│％│＆│’│
@@ -29,6 +29,7 @@ namespace GgafDxCore {
  * │Ｘ│Ｙ│Ｚ│［│＼│］│＾│＿│
  * └─┴─┴─┴─┴─┴─┴─┴─┘
  * </pre></code>
+ * 文字パターンは半角スペースを0番として255番まで管理可能。
  * 文字表示と言ってもUVを切り替えて連続表示るだけ。
  * TODO:GgafDxStringBoardActorと共通化したい・・・
  * @version 1.00
@@ -42,7 +43,9 @@ public:
     int _chr_ptn_zero;
     /** [r]描画文字列 */
     int* _draw_string;
-    /** [r]文字バッファ(256固定) */
+    /** [r]受け入れ可能な文字数*/
+    int _max_len;
+    /** [r]文字バッファ */
     int* _buf;
     /** [r]文字列長 */
     int _len;
@@ -64,7 +67,7 @@ public:
      * @param prm_model 文字セットテクスチャのモデル定義ID
      * @return
      */
-    GgafDxStringSpriteActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
+    GgafDxStringSpriteActor(const char* prm_name, const char* prm_model, int prm_max_len, GgafCore::GgafStatus* prm_pStat);
 
     virtual void onCreateModel() override;
 

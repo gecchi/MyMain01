@@ -44,6 +44,12 @@ public:
     VvvGrid* pGrid_;
     /** カメラマン */
     VvvCamWorker* pCamWorker_;
+    /****/
+    Font01* pFont01_help_;
+    Font01* pFont01_info_;
+    bool view_info_;
+    bool view_help_;
+
 
     /**
      * コンストラクタ .
