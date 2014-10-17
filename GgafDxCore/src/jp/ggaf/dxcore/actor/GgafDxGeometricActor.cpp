@@ -22,7 +22,6 @@ GgafDxGeometricActor::GgafDxGeometricActor(const char* prm_name,
     _rx(0), _ry(0), _rz(0),
     _sx(R_SC(1.0)), _sy(R_SC(1.0)), _sz(R_SC(1.0)),
     _pChecker(prm_pChecker),
-    _bounding_sphere_radius(0),
     _rate_of_bounding_sphere_radius(1.0f),
     _fX(C_DX(_x)), _fY(C_DX(_y)), _fZ(C_DX(_z)),
     _dest_from_vppln_top(0.0f),
@@ -286,9 +285,8 @@ bool GgafDxGeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {
 }
 
 int GgafDxGeometricActor::isOutOfView() {
-    //_TRACE_("name="<<getName()<<" _bounding_sphere_radius="<<_bounding_sphere_radius);
     if (_offscreen_kind == -1) {
-        dxcoord bound = _bounding_sphere_radius * _rate_of_bounding_sphere_radius*2;//Š|‚¯‚é2‚Í‹«ŠE‹…‚ð‘å‚«‚­‚µ‚ÄA‰æ–Ê‹«ŠE‚Ìƒ`ƒ‰ƒcƒL‚ð—}‚¦‚é
+        dxcoord bound = 1; //‹«ŠE”¼Œa
         if (_dest_from_vppln_top < bound) {
             if (_dest_from_vppln_bottom < bound) {
                 if (_dest_from_vppln_left < bound) {

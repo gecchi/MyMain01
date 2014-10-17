@@ -93,6 +93,15 @@ private:
     void addScale(scale dS) override {
         throwGgafCriticalException("GgafDxBoardSetActor::addScale() は使用不可です。");
     }
+    void addScaleX(scale dsx) override {
+        throwGgafCriticalException("GgafDxBoardSetActor::addScaleX() は使用不可です。");
+    }
+    void addScaleY(scale dsy) override {
+        throwGgafCriticalException("GgafDxBoardSetActor::addScaleY() は使用不可です。");
+    }
+    void addScaleZ(scale dsz) override {
+        throwGgafCriticalException("GgafDxBoardSetActor::addScaleZ() は使用不可です。");
+    }
     void setMaterialColor(float r, float g, float b) override {
         throwGgafCriticalException("GgafDxSpriteSetActor::setMaterialColor は使用不可です。(1)");
     }

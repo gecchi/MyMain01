@@ -16,8 +16,6 @@ class StringBoardActor : public GgafDxCore::GgafDxStringBoardActor {
 public:
     StringBoardActor(const char* prm_name, const char* prm_model);
 
-    StringBoardActor(const char* prm_name, const char* prm_model, int prm_max_len);
-
     virtual void onCreateModel() override {
         GgafDxCore::GgafDxStringBoardActor::onCreateModel();
     }

@@ -108,6 +108,16 @@ public:
     virtual void setScaleR(float prm_rate) override;
     virtual void setScaleR(float prm_x_rate, float prm_y_rate) override;
     virtual void setScaleR(float prm_x_rate, float prm_y_rate, float prm_z_rate) override;
+    virtual void addScaleX(scale dsx) override {
+        _sx += dsx;
+    }
+    virtual void addScaleY(scale dsy) override {
+        _sy += dsy;
+    }
+    virtual void addScaleZ(scale dsz) override {
+        _sz += dsz;
+    }
+
     /**
      * Éøê›íË.
      * @param prm_alpha

@@ -57,9 +57,6 @@ public:
     /** [r]チェッカー */
     GgafDxChecker* _pChecker;
 
-
-    /** [r]境界球の半径(DirectXの単位)。画面外判定に使用される */
-    dxcoord _bounding_sphere_radius;
     /** [r]モデルの境界球半径倍率 */
     dxcoord _rate_of_bounding_sphere_radius;
     /** [r]内部で _x から計算されるDirectXのワールドX座標(_x : _fX = 1000 : 0.1) */
@@ -359,6 +356,18 @@ public:
         setBoundingSphereRadiusRate(SC_R(MAX3(_sx,_sy,_sz)));
     }
 
+    virtual void addScaleX(scale dsx) {
+        _sx += dsx;
+        setBoundingSphereRadiusRate(SC_R(MAX3(_sx,_sy,_sz)));
+    }
+    virtual void addScaleY(scale dsy) {
+        _sy += dsy;
+        setBoundingSphereRadiusRate(SC_R(MAX3(_sx,_sy,_sz)));
+    }
+    virtual void addScaleZ(scale dsz) {
+        _sz += dsz;
+        setBoundingSphereRadiusRate(SC_R(MAX3(_sx,_sy,_sz)));
+    }
     /**
      * 座標(_x, _y, _z)をコピーして設定 .
      * @param prm_pActor コピー元アクター
@@ -414,6 +423,17 @@ public:
      */
     virtual void setRxFaceAng(angle prm_angFace);
 
+    virtual void addRzFaceAng(angle prm_ang_rz) {
+        setRzFaceAng(_rz + prm_ang_rz);
+    }
+
+    virtual void addRyFaceAng(angle prm_ang_ry) {
+        setRyFaceAng(_ry + prm_ang_ry);
+    }
+
+    virtual void addRxFaceAng(angle prm_ang_rx) {
+        setRxFaceAng(_rx + prm_ang_rx);
+    }
     /**
      * Actorの正面方角を設定 .
      * @param prm_axis_x_angFace X軸方角のアングル値(-360,000～360,000)

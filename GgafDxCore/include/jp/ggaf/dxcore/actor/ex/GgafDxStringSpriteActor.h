@@ -55,10 +55,16 @@ public:
     pixcoord _chr_height_px;
     /** [r/w]各文字間隔(px) */
     pixcoord _aWidthPx[256];
-    /** [r]文字バッファの行単位の幅(px) */
+    /** [r]文字バッファの文字列の行単位の幅(px) */
     pixcoord _aWidth_line_px[256];
-    /** [r]文字バッファ改行数 */
+    /** [r]文字バッファの文字列の改行数 */
     int _nn;
+
+    /**
+     * 内部バッファ数を引数の直近8の倍数の切り上げに変更 .
+     * @param prm_max_len 新しいバッファ数
+     */
+    void chengeBufferLen(int prm_max_len);
 
 public:
     /**
@@ -67,7 +73,7 @@ public:
      * @param prm_model 文字セットテクスチャのモデル定義ID
      * @return
      */
-    GgafDxStringSpriteActor(const char* prm_name, const char* prm_model, int prm_max_len, GgafCore::GgafStatus* prm_pStat);
+    GgafDxStringSpriteActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
 
     virtual void onCreateModel() override;
 

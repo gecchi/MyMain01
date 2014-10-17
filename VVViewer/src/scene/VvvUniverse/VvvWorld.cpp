@@ -46,6 +46,7 @@ VvvWorld::VvvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
 }
 
 void VvvWorld::initialize() {
+     pFont01_help_->setAlign(ALIGN_LEFT, VALIGN_TOP);
      pFont01_help_->update(0, 0,
              "[F1]:Move to the initial position the camera.\n"
              "[F2]:Target to next model, and directed camera.\n"
@@ -53,31 +54,30 @@ void VvvWorld::initialize() {
              "[F4]:Directed camera toward active model.\n"
              "[DELETE]:Remove active model.\n"
              "[CursorKey]:Move model up/right/down/left.\n"
-             "[PageUp/PageDown]: Move model near/far. (Z axis)\n"
-             "[ESC]:Reset to position (0, 0, 0)\n"
-             "[R]+[CursorKey]:Y or Z Axial rotation model.\n"
-             "[R]+[PageUp/PageDown]:X Axial rotation model.\n"
-             "[S]+[CursorKey]:Scale inc or dec.\n"
-             "[S]+[ESC]:Reset scale.\n"
+             "[PgUp/PgDown]: Move model near/far. (Z axis)\n"
+             "[ESC]:Move to position (0, 0, 0).\n"
+             "[R]+[CursorKey]:Z or Y Axial rotation model.\n"
+             "[R]+[PgUp/PgDown]:X Axial rotation model.\n"
+             "[S]+[CursorKey]:X or Y Axial Scale inc or dec.\n"
+             "[S]+[PgUp/PgDown]:Z Axial Scale inc or dec.\n"
              "[W]:Toggle effect Wireframe.\n"
              "[G]:Toggle display grid.\n"
              "[O]:Toggle effect \"DestBlend = One/InvSrcAlpha\".\n"
              "[Z]:Toggle effect \"Zwriteenable = True/False\".\n"
              "[A]+[CursorKey]:Effect AlphaBlend inc or dec.\n"
-             "[A]+[ESC]:Reset AlphaBlend.\n"
              "[P]+[RIGHT/LEFT]:Effect SpecularRange inc or dec.\n"
              "[P]+[UP/DOWN]:Effect SpecularPower inc or dec.\n"
-             "[P]+[ESC]:Reset Specular.\n"
              "[J/K/L]+[CursorKey]:Material red/green/blue Color inc or dec.\n"
-             "[J/K/L]+[ESC]:Reset material Color.\n"
              "[C]+[CursorKey]:Cube mapping reflectance inc or dec.\n"
-             "[C]+[ESC]:Reset cube mapping reflectance.\n"
              "[1]-[6]+[CursorKey]:Morph to taget No model, weight inc or dec.\n"
              "...+[SPACE or Ctrl]:Accretion inc or dec.\n"
+             "...+[ESC]:Reset init.\n"
              "[I]:Toggle display active model properties infomation.\n"
              "[H]:Toggle display this help.\n"
              );
-     pFont01_info_->update(0, 0, "");
+
+     pFont01_info_->setAlign(ALIGN_LEFT, VALIGN_BOTTOM);
+     pFont01_info_->update(0, PX_C(PROPERTY::GAME_BUFFER_HEIGHT), "");
 }
 
 void VvvWorld::processBehavior() {
@@ -238,16 +238,22 @@ void VvvWorld::processBehavior() {
         } else if (GgafDxInput::isBeingPressedKey(DIK_S)) {
             //Šg‘åk¬
             if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
-                pActor->addScale(d*10);
+                pActor->addScaleX(d*10);
             }
             if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
-                pActor->addScale(-d*10);
+                pActor->addScaleX(-d*10);
             }
             if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
-                pActor->addScale(d*10);
+                pActor->addScaleY(d*10);
             }
             if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
-                pActor->addScale(-d*10);
+                pActor->addScaleY(-d*10);
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_PGUP)) {
+                pActor->addScaleZ(d*10);
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_PGDN)) {
+                pActor->addScaleZ(-d*10);
             }
             if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
                 pActor->setScaleR(1.0);
@@ -255,27 +261,25 @@ void VvvWorld::processBehavior() {
         } else if (GgafDxInput::isBeingPressedKey(DIK_R)) {
             //Ž²‰ñ“]
             if (GgafDxInput::isBeingPressedKey(DIK_PGUP)) {
-                pActor->_rx = UTIL::simplifyAng(pActor->_rx + D_ANG(d));
+                pActor->addRxFaceAng(D_ANG(d));
             }
             if (GgafDxInput::isBeingPressedKey(DIK_PGDN)) {
-                pActor->_rx = UTIL::simplifyAng(pActor->_rx - D_ANG(d));
+                pActor->addRxFaceAng(-D_ANG(d));
             }
             if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
-                pActor->_rz = UTIL::simplifyAng(pActor->_rz + D_ANG(d));
+                pActor->addRyFaceAng(D_ANG(d));
             }
             if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
-                pActor->_rz = UTIL::simplifyAng(pActor->_rz - D_ANG(d));
+                pActor->addRyFaceAng(-D_ANG(d));
             }
             if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
-                pActor->_ry = UTIL::simplifyAng(pActor->_ry + D_ANG(d));
+                pActor->addRzFaceAng(D_ANG(d));
             }
             if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
-                pActor->_ry = UTIL::simplifyAng(pActor->_ry - D_ANG(d));
+                pActor->addRzFaceAng(-D_ANG(d));
             }
             if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
-                pActor->_rx = 0;
-                pActor->_ry = 0;
-                pActor->_rz = 0;
+                pActor->setFaceAng(0,0,0);
             }
         } else if (GgafDxInput::isBeingPressedKey(DIK_C)) {
             //ŠÂ‹«ƒ}ƒbƒvƒeƒNƒXƒ`ƒƒ‰f‚è‚±‚Ý—¦
@@ -597,17 +601,21 @@ void VvvWorld::processBehavior() {
             float g = p->_paMaterial[0].Ambient.g;
             float b = p->_paMaterial[0].Ambient.b;
             std::ostringstream oss;
-            oss << "_class_name = "<<_class_name<<"("<<this<<")["<<getName()<<"]"<<"\n"<<
-                   "_x , _y,  _z  = ("<<(p->_x)<<", "<<(p->_y)<<", "<<(p->_z)<<")\n"<<
+            oss << "["<<listActorInfo_.getCurrentIndex()<<"] = \""<<listActorInfo_.getCurrent()->modelfile_<<"\"\n"<<
+                   "Class : "<<p->_class_name<<"\n"<<
+                   "(_x, _y, _z) = ("<<(p->_x)<<", "<<(p->_y)<<", "<<(p->_z)<<")\n"<<
                    "_rx, _ry, _rz = "<<(p->_rx)<<", "<<(p->_ry)<<", "<<(p->_rz)<<"\n"<<
                    "_sx, _sy, _sz = "<<(p->_sx)<<", "<<(p->_sy)<<", "<<(p->_sz)<<"\n"<<
-                   "red, green, blue = "<<r<<", "<<g<<", "<<b<<"\n"<<
+                   "_bounding_sphere_radius = "<<(p->getModel()->_bounding_sphere_radius)<<" * "<<(p->_rate_of_bounding_sphere_radius)<<" = "<<
+                            (p->getModel()->_bounding_sphere_radius * p->_rate_of_bounding_sphere_radius)<<" (="<<DX_C(p->getModel()->_bounding_sphere_radius * p->_rate_of_bounding_sphere_radius)<<" coord)"<<"\n"<<
+                   "red/green/blue = "<<r<<"/"<<g<<"/"<<b<<"\n"<<
                    "_alpha = "<< (p->getAlpha())<<"\n";
             if (p->instanceOf(Obj_GgafDxCubeMapMorphMeshActor)) {
                 CubeMapMorphMeshActor* p2 = (CubeMapMorphMeshActor*)p;
-                oss << "_reflectance"<< (p2->_reflectance)<<"\n";
+                oss << "_reflectance = "<< (p2->_reflectance)<<"\n";
+                oss << "_cubemap_tex = \""<<(p2->_cubemap_tex)<<"\"\n";
             }
-            oss << "Model::_specular renge,power = "<<(p->getModel()->_specular)<<", "<<(p->getModel()->_specular_power)<<"\n";
+            oss << "Model::_specular renge,power = "<<(p->getModel()->_specular)<<", "<<(p->getModel()->_specular_power)<<"";
 
             pFont01_info_->update(oss.str().c_str());
         } else {

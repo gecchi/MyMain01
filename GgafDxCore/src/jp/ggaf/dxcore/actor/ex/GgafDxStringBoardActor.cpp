@@ -10,11 +10,11 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxStringBoardActor::GgafDxStringBoardActor(const char* prm_name, const char* prm_model, int prm_max_len) :
+GgafDxStringBoardActor::GgafDxStringBoardActor(const char* prm_name, const char* prm_model) :
         GgafDxBoardSetActor(prm_name, prm_model, "StringBoardEffect", "StringBoardTechnique") {
 
     _class_name = "GgafDxStringBoardActor";
-    _max_len = prm_max_len;
+    _max_len = 8;  //最初はバッファは8文字
     _chr_ptn_zero = (int)(' '); //GgafDxUvFlipper の パターン0番の文字。
     _len = 0;
     _buf = NEW int[_max_len];
@@ -28,6 +28,13 @@ GgafDxStringBoardActor::GgafDxStringBoardActor(const char* prm_name, const char*
     _chr_width_px = (int)(_pBoardSetModel->_model_width_px); //１文字の幅(px)
     _chr_height_px = (int)(_pBoardSetModel->_model_height_px); //１文字の高さ(px)
     _nn = 0;
+}
+
+void GgafDxStringBoardActor::chengeBufferLen(int prm_max_len) {
+    _max_len = 8*((prm_max_len+8)/8); //直近８の倍数に切り上げ
+    GGAF_DELETEARR(_buf);
+    _buf = NEW int[_max_len];
+    _buf[0] = (int)('\0');
 }
 
 void GgafDxStringBoardActor::onCreateModel() {
@@ -56,12 +63,9 @@ void GgafDxStringBoardActor::update(coord X, coord Y, coord Z, char* prm_str) {
 
 void GgafDxStringBoardActor::update(const char* prm_str) {
     _len = strlen(prm_str);
-#ifdef MY_DEBUG
-    if (_len+1 > _max_len - 1) {
-        throwGgafCriticalException("GgafDxStringBoardActor::update 引数文字列数が範囲外です。name="<<getName()<<
-                                   " 上限文字数="<<_max_len<<" prm_str="<<prm_str);
+    if (_len+1 > _max_len) {
+        chengeBufferLen(_len+1); //バッファ拡張
     }
-#endif
     onUpdate(); //コールバック
     _draw_string = _buf;
     _aWidth_line_px[0] = 0;
@@ -94,12 +98,9 @@ void GgafDxStringBoardActor::update(const char* prm_str) {
 
 void GgafDxStringBoardActor::update(char* prm_str) {
     _len = strlen(prm_str);
-#ifdef MY_DEBUG
-    if (_len+1 > _max_len - 1) {
-        throwGgafCriticalException("GgafDxStringBoardActor::update 引数文字列数が範囲外です。name="<<getName()<<
-                                   " 上限文字数="<<_max_len<<" prm_str="<<prm_str);
+    if (_len+1 > _max_len) {
+        chengeBufferLen(_len+1); //バッファ拡張
     }
-#endif
     onUpdate(); //コールバック
     _draw_string = _buf;
     _aWidth_line_px[0] = 0;
@@ -297,13 +298,12 @@ void GgafDxStringBoardActor::processDraw() {
                 pBoardSetModel->GgafDxBoardSetModel::draw(this, draw_set_cnt);
                 draw_set_cnt = 0;
             }
-
             pos--;
         }
     }
 }
 
 GgafDxStringBoardActor::~GgafDxStringBoardActor() {
-    GGAF_DELETE(_buf);
+    GGAF_DELETEARR(_buf);
 }
 

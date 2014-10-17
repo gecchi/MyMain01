@@ -8,7 +8,7 @@
 #include "jp/ggaf/lib/actor/ColliSphereActor.h"
 #include "jp/ggaf/lib/scene/WalledSectionScene.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
-
+#include "jp/ggaf/dxcore/model/GgafDxModel.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -87,9 +87,8 @@ bool WallPartsActor::isOutOfUniverse() {
 }
 
 int WallPartsActor::isOutOfView() {
-    //_TRACE_("name="<<getName()<<" _bounding_sphere_radius="<<_bounding_sphere_radius);
     if (_offscreen_kind == -1) {
-        dxcoord bound = _bounding_sphere_radius * _rate_of_bounding_sphere_radius*2;//Š|‚¯‚é2‚Í‹«ŠE‹…‚ğ‘å‚«‚­‚µ‚ÄA‰æ–Ê‹«ŠE‚Ìƒ`ƒ‰ƒcƒL‚ğ—}‚¦‚é
+        dxcoord bound = getModel()->_bounding_sphere_radius * _rate_of_bounding_sphere_radius*2;//Š|‚¯‚é2‚Í‹«ŠE‹…‚ğ‘å‚«‚­‚µ‚ÄA‰æ–Ê‹«ŠE‚Ìƒ`ƒ‰ƒcƒL‚ğ—}‚¦‚é
         if (_dest_from_vppln_top < bound) {
             if (_dest_from_vppln_bottom < bound) {
                 if (_dest_from_vppln_left < bound) {

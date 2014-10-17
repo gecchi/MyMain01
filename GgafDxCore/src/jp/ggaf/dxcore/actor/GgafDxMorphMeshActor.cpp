@@ -73,7 +73,7 @@ _pMorpher(new GgafDxMorpher(this)) {
 }
 void GgafDxMorphMeshActor::setMorphWeight(int prm_target_mesh_no, float prm_weight) {
 #ifdef MY_DEBUG
-    if (prm_target_mesh_no < 1 || _morph_target_num > prm_target_mesh_no) {
+    if (prm_target_mesh_no < 1 || _morph_target_num < prm_target_mesh_no) {
         throwGgafCriticalException("GgafDxMorphMeshActor::setMorphWeight() prm_target_mesh_no(="<<prm_target_mesh_no<<") が、範囲外です。(有効範囲は 1～"<<_morph_target_num<<") ");
     }
 #endif
@@ -87,7 +87,7 @@ void GgafDxMorphMeshActor::setMorphWeight(float prm_weight) {
 
 float GgafDxMorphMeshActor::getMorphWeight(int prm_target_mesh_no) {
 #ifdef MY_DEBUG
-    if (prm_target_mesh_no < 1 || _morph_target_num > prm_target_mesh_no) {
+    if (prm_target_mesh_no < 1 || _morph_target_num < prm_target_mesh_no) {
         throwGgafCriticalException("GgafDxMorphMeshActor::setMorphWeight() prm_target_mesh_no(="<<prm_target_mesh_no<<") が、範囲外です。(有効範囲は 1～"<<_morph_target_num<<") ");
     }
 #endif
@@ -96,7 +96,7 @@ float GgafDxMorphMeshActor::getMorphWeight(int prm_target_mesh_no) {
 
 void GgafDxMorphMeshActor::addMorphWeight(int prm_target_mesh_no, float prm_add_weight) {
 #ifdef MY_DEBUG
-    if (prm_target_mesh_no < 1 || _morph_target_num > prm_target_mesh_no) {
+    if (prm_target_mesh_no < 1 || _morph_target_num < prm_target_mesh_no) {
         throwGgafCriticalException("GgafDxMorphMeshActor::setMorphWeight() prm_target_mesh_no(="<<prm_target_mesh_no<<") が、範囲外です。(有効範囲は 1～"<<_morph_target_num<<") ");
     }
 #endif

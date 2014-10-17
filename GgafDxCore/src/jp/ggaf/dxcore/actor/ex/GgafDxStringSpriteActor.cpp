@@ -11,11 +11,11 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 
-GgafDxStringSpriteActor::GgafDxStringSpriteActor(const char* prm_name, const char* prm_model, int prm_max_len, GgafStatus* prm_pStat) :
+GgafDxStringSpriteActor::GgafDxStringSpriteActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
         GgafDxSpriteSetActor(prm_name, prm_model, "StringSpriteEffect", "StringSpriteTechnique", prm_pStat, nullptr) {
 
     _class_name = "GgafDxStringSpriteActor";
-    _max_len = prm_max_len;
+    _max_len = 8; //最初はバッファは8文字
     _chr_ptn_zero = (int)(' ');
     _len = 0;
     _buf = NEW int[_max_len];
@@ -29,6 +29,13 @@ GgafDxStringSpriteActor::GgafDxStringSpriteActor(const char* prm_name, const cha
     _chr_width_px = (int)(_pSpriteSetModel->_model_width_px); //１文字の幅(px)
     _chr_height_px = (int)(_pSpriteSetModel->_model_height_px); //１文字の高さ(px)
     _nn = 0;
+}
+
+void GgafDxStringSpriteActor::chengeBufferLen(int prm_max_len) {
+    _max_len = 8*((prm_max_len+8)/8); //直近８の倍数に切り上げ
+    GGAF_DELETEARR(_buf);
+    _buf = NEW int[_max_len];
+    _buf[0] = (int)('\0');
 }
 
 void GgafDxStringSpriteActor::onCreateModel() {
@@ -57,12 +64,9 @@ void GgafDxStringSpriteActor::update(coord X, coord Y, coord Z, char* prm_str) {
 
 void GgafDxStringSpriteActor::update(const char* prm_str) {
     _len = strlen(prm_str);
-#ifdef MY_DEBUG
-    if (_len+1 > _max_len - 1) {
-        throwGgafCriticalException("GgafDxStringSpriteActor::update 引数文字列数が範囲外です。name="<<getName()<<
-                                   " 上限文字数="<<_max_len<<" prm_str="<<prm_str);
+    if (_len+1 > _max_len) {
+        chengeBufferLen(_len+1); //バッファ拡張
     }
-#endif
     onUpdate(); //コールバック
     _draw_string = _buf;
     _aWidth_line_px[0] = 0;
@@ -104,12 +108,9 @@ void GgafDxStringSpriteActor::update(const char* prm_str) {
 
 void GgafDxStringSpriteActor::update(char* prm_str) {
     _len = strlen(prm_str);
-#ifdef MY_DEBUG
-    if (_len+1 > _max_len - 1) {
-        throwGgafCriticalException("GgafDxStringSpriteActor::update 引数文字列数が範囲外です。name="<<getName()<<
-                                   " 上限文字数="<<_max_len<<" prm_str="<<prm_str);
+    if (_len+1 > _max_len) {
+        chengeBufferLen(_len+1); //バッファ拡張
     }
-#endif
     onUpdate(); //コールバック
     _draw_string = _buf;
     _aWidth_line_px[0] = 0;
@@ -306,13 +307,11 @@ void GgafDxStringSpriteActor::processDraw() {
                 pSpriteSetModel->draw(this, draw_set_cnt);
                 draw_set_cnt = 0;
             }
-
             pos--;
         }
     }
-
 }
 
 GgafDxStringSpriteActor::~GgafDxStringSpriteActor() {
-    GGAF_DELETE(_buf);
+    GGAF_DELETEARR(_buf);
 }

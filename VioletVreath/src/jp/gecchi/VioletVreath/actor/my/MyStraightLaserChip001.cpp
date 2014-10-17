@@ -50,9 +50,8 @@ void MyStraightLaserChip001::initialize() {
     pChecker->setColliAAB_WHD(0,120000,60000,60000);
 
     setHitAble(true);
-    _sx = _sy = _sz = R_SC(5);
+    setScaleR(5.0);
     setAlpha(0.99);
-    _bounding_sphere_radius = 20.0;
 }
 
 void MyStraightLaserChip001::onCreateModel() {
