@@ -26,6 +26,7 @@ public:
 
 public:
     DefaultGod();
+    virtual HRESULT initDevice() override;
     virtual void clean() override;
     virtual ~DefaultGod();
 };

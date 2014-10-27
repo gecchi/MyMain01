@@ -81,6 +81,9 @@ public:
 
     void initVB();
 
+
+    HRESULT initDevice() override;
+
     /**
      * VB‚ğXV‚ğ—\–ñ‚·‚éB .
      * @param prm_pVB

@@ -62,6 +62,11 @@ God::God() :
     initVB();
 }
 
+HRESULT God::initDevice() {
+    MyStgUtil::init();  //ユーティリティ準備
+    return DefaultGod::initDevice();
+}
+
 void God::initVB() {
     //仮想ボタンを本ゲーム用に上書きして再定義
     VirtualButton::_keyboardmap.BUTTON1    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_SHOT1      ];

@@ -17,6 +17,130 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+
+
+bool MyStgUtil::_was_MyStgUtil_inited_flg = false;
+double MyStgUtil::SMOOTH_DV[3600+1];
+angle MyStgUtil::GOLDEN_ANG[1000];
+
+void MyStgUtil::init() {
+    StgUtil::init();
+    if (MyStgUtil::_was_MyStgUtil_inited_flg) {
+        return;
+    }
+
+    //黄金角配列
+    for (int n = 0; n < 1000; n++) {
+        // θは黄金角
+        // 1 : (1+√5) / 2 = 2π-θ : θ
+        // 2π-θ = { (1+√5) / 2 } θ
+        // (2π-θ) / θ = (1+√5) / 2
+        // (2π/θ) - 1 = (1+√5) / 2
+        // 2π/θ = 1 + {(1+√5) / 2}
+        // 2π =  ( 1 + {(1+√5) / 2} ) θ
+        // θ = 2π/ ( 1 + {(1+√5) / 2} )
+        double n_theta = n * ( PI2 / ( 1.0 + ((1.0+sqrt(5.0))/2.0) ) );
+        //標準化
+        while (n_theta >= PI2) {
+            n_theta -= PI2;
+        }
+        while (n_theta < 0) {
+            n_theta += PI2;
+        }
+        GOLDEN_ANG[n] = (angle)(D360ANG*n_theta / PI2);
+        //_TRACE_("GOLDEN_ANG["<<n<<"]="<<GOLDEN_ANG[n]);
+    }
+
+    // v = 1 - cos(2πt)の解テーブル
+    for (int i = 0; i <= 3600; i++) {
+        double t = double(i / 3600.0);
+        //D = 1 - cos(2πt)
+        SMOOTH_DV[i] = 1.0 - cos(2.0*PI*t);
+    }
+
+
+    MyStgUtil::_was_MyStgUtil_inited_flg = true;
+}
+
+GgafDxDrawableActor* MyStgUtil::shotWayGoldenAng(coord prm_x, coord prm_y, coord prm_z,
+                                               angle prm_rz, angle prm_ry,
+                                               GgafActorDepository* prm_pDepo_shot,
+                                               coord prm_r,
+                                               int prm_way_num,
+                                               angle prm_first_expanse_angle, angle prm_inc_expanse_angle,
+                                               velo prm_velo_first, acce prm_acce,
+                                               int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                               void (*pFunc_call_back_dispatched)(GgafDxDrawableActor*, int, int, int)) {
+    if (prm_way_num <= 0 || prm_set_num <= 0) {  return nullptr;  }
+    GgafDxGeoElem* paGeo = NEW GgafDxGeoElem[prm_way_num];
+    angle expanse_rz = (D180ANG - prm_first_expanse_angle)/2;
+
+    D3DXMATRIX matWorldRot;
+    GgafDxUtil::setWorldMatrix_RzRy(GgafDxUtil::simplifyAng(prm_rz-D90ANG),prm_ry, matWorldRot);
+
+    float vx, vy, vz;
+    float tx, ty, tz; //最終方向の絶対座標の単位ベクトル
+    for (int i = 0; i < prm_way_num; i++) {
+        GgafDxUtil::convRzRyToVector(expanse_rz, GOLDEN_ANG[i], vx, vy, vz);
+        tx = vx*matWorldRot._11 + vy*matWorldRot._21 + vz*matWorldRot._31;
+        ty = vx*matWorldRot._12 + vy*matWorldRot._22 + vz*matWorldRot._32;
+        tz = vx*matWorldRot._13 + vy*matWorldRot._23 + vz*matWorldRot._33;
+        paGeo[i].x = (coord)(tx * prm_r);
+        paGeo[i].y = (coord)(ty * prm_r);
+        paGeo[i].z = (coord)(tz * prm_r);
+        GgafDxUtil::convVectorToRzRy(tx, ty, tz,
+                                     paGeo[i].rz, paGeo[i].ry);
+        expanse_rz -= (prm_inc_expanse_angle/2);
+    }
+    GgafDxDrawableActor* pActor_shot = nullptr;
+    velo now_velo = prm_velo_first;
+    acce now_acce = prm_acce;
+    int dispatch_num = 0;
+    for (int n = 0; n < prm_set_num; n++) {
+        for (int i = 0; i < prm_way_num; i++) {
+            pActor_shot = (GgafDxDrawableActor*)prm_pDepo_shot->dispatch(n*prm_interval_frames+1);
+            if (pActor_shot) {
+                dispatch_num++;
+                pActor_shot->position(prm_x + paGeo[i].x,
+                                      prm_y + paGeo[i].y,
+                                      prm_z + paGeo[i].z);
+                pActor_shot->getKuroko()->setRzRyMvAng(paGeo[i].rz, paGeo[i].ry);
+                pActor_shot->getKuroko()->setMvVelo(now_velo);
+                pActor_shot->getKuroko()->setMvAcce(now_acce);
+//                pActor_shot->_rz = Rz;
+//                pActor_shot->_ry = Ry;
+                if (pFunc_call_back_dispatched) {
+                    pFunc_call_back_dispatched(pActor_shot, dispatch_num, n, i);
+                }
+            }
+        }
+        now_velo *= prm_attenuated;
+    }
+    GGAF_DELETEARR(paGeo);
+    return pActor_shot;
+}
+
+GgafDxDrawableActor* MyStgUtil::shotWayGoldenAng(GgafDxGeometricActor* prm_pFrom,
+                                               GgafActorDepository* prm_pDepo_shot,
+                                               coord prm_r,
+                                               int prm_way_num,
+                                               angle prm_first_expanse_angle, angle prm_inc_expanse_angle,
+                                               velo prm_velo_first, acce prm_acce,
+                                               int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                               void (*pFunc_call_back_dispatched)(GgafDxDrawableActor*, int, int, int)) {
+    return shotWayGoldenAng(prm_pFrom->_x, prm_pFrom->_y, prm_pFrom->_z,
+                            prm_pFrom->_rz, prm_pFrom->_ry,
+                            prm_pDepo_shot,
+                            prm_r,
+                            prm_way_num,
+                            prm_first_expanse_angle, prm_inc_expanse_angle,
+                            prm_velo_first, prm_acce,
+                            prm_set_num, prm_interval_frames, prm_attenuated,
+                            pFunc_call_back_dispatched);
+}
+
+
+
 int MyStgUtil::judgeMyAdvantage(actorkind attribute_my, actorkind attribute_enemy) {
     int ret = 0;
     if (attribute_my & ATTRIBUTE_GU) {

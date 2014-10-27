@@ -59,15 +59,12 @@ using namespace GgafDxCore;
 
 
 
-bool GgafDxUtil::_was_inited_flg = false;
+bool GgafDxUtil::_was_GgafDxUtil_inited_flg = false;
 
 //float GgafDxUtil::PARABORA[D360SANG+1];
 float GgafDxUtil::COS[D360SANG+1];
 float GgafDxUtil::SIN[D360SANG+1];
 float GgafDxUtil::RAD[D360SANG+1];
-
-float GgafDxUtil::ROOT_1_MINUS_XX[1000];
-
 
 angle GgafDxUtil::SLANT2ANG[100000 + 1];
 
@@ -79,14 +76,12 @@ angle GgafDxUtil::PROJANG_XY_XZ_TO_ROTANG_z[D90SANG+1][D90SANG+1];
 angle GgafDxUtil::PROJANG_XY_XZ_TO_ROTANG_y_REV[D90SANG+1][D90SANG+1];
 angle GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_x_REV[D90SANG+1][D90SANG+1];
 angle GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_y[D90SANG+1][D90SANG+1];
-double GgafDxUtil::SMOOTH_DV[3600+1];
-angle GgafDxUtil::GOLDEN_ANG[1000];
-uint32_t GgafDxUtil::BITNUM[33];
+
 GgafDxSphereRadiusVectors GgafDxUtil::_srv = GgafDxSphereRadiusVectors();
 GgafDxCamera* GgafDxUtil::_pCam = nullptr; //GgafDxUniverse::GgafDxUniverse() で設定される
 
 void GgafDxUtil::init() {
-    if (_was_inited_flg) {
+    if (GgafDxUtil::_was_GgafDxUtil_inited_flg) {
         return;
     }
 
@@ -110,7 +105,7 @@ void GgafDxUtil::init() {
     SIN[D180SANG] =  0;
     SIN[D270SANG] = -1;
     SIN[D360SANG] =  0;
-
+    Sleep(1);
     //<SLANT2ANG>
     double rad;
     double vx,vy,vz;
@@ -175,7 +170,7 @@ void GgafDxUtil::init() {
         }
         SLANT2ANG[i] = (angle)( (45000-1) + (1.0*d)/(1.0*d_index_slant) );
     }
-
+    Sleep(1);
     //<PROJ_ANG2ROT_ANG> （2009/10/20 経緯・・・速くするためなら何でもやってみよう）
     //ある方向ベクトルから、XY平面、ZY平面に投影した時にできる軸との角（それぞれXY射影角、ZY射影角と呼ぶこととする）と、
     //その方向ベクトルの単位ベクトルが指す単位球の緯度と経度（Z軸回転角、Y軸回転角）を紐つけることを目的とする。
@@ -222,9 +217,8 @@ void GgafDxUtil::init() {
             //_TRACE_("["<<prj_ang_xy<<"]["<<prj_ang_xz<<"]=("<<PROJANG_XY_XZ_TO_ROTANG_z[prj_ang_xy][prj_ang_xz]<<","<<PROJANG_XY_XZ_TO_ROTANG_y_REV[prj_ang_xy][prj_ang_xz]<<")");
 
         }
-        Sleep(1);
     }
-
+    Sleep(1);
     vz = 1.0;
     for (s_ang prj_ang_zy = 0; prj_ang_zy <= D90SANG; prj_ang_zy++) {
         prj_rad_zy = (PI * 2.0 * prj_ang_zy) / (1.0*D360SANG);
@@ -260,76 +254,8 @@ void GgafDxUtil::init() {
             //_TRACE_("PROJANG_ZY_ZX_TO_ROTANG_y["<<prj_ang_zy<<"]["<<prj_ang_zx<<"] = D90ANG - "<<ry_rev<<"*SANG_RATE = "<<PROJANG_ZY_ZX_TO_ROTANG_y[prj_ang_zy][prj_ang_zx]);
             //_TRACE_("["<<prj_ang_xy<<"]["<<prj_ang_xz<<"]=("<<PROJANG_XY_XZ_TO_ROTANG_z[prj_ang_xy][prj_ang_xz]<<","<<PROJANG_XY_XZ_TO_ROTANG_y_REV[prj_ang_xy][prj_ang_xz]<<")");
         }
-        Sleep(1);
     }
-
-    //ROOT_1_MINUS_XXの設定
-    for (int i = 0; i < 1000; i++) {
-        ROOT_1_MINUS_XX[i] = sqrt(1.0 - ((double)i/1000.0) * ((double)i/1000.0));
-    }
-
-    for (int i = 0; i <= 3600; i++) {
-        double t = double(i / 3600.0);
-        //D = 1 - cos(2πt)
-        SMOOTH_DV[i] = 1.0 - cos(2.0*PI*t);
-    }
-
-    //黄金角配列
-    for (int n = 0; n < 1000; n++) {
-        // θは黄金角
-        // 1 : (1+√5) / 2 = 2π-θ : θ
-        // 2π-θ = { (1+√5) / 2 } θ
-        // (2π-θ) / θ = (1+√5) / 2
-        // (2π/θ) - 1 = (1+√5) / 2
-        // 2π/θ = 1 + {(1+√5) / 2}
-        // 2π =  ( 1 + {(1+√5) / 2} ) θ
-        // θ = 2π/ ( 1 + {(1+√5) / 2} )
-        double n_theta = n * ( PI2 / ( 1.0 + ((1.0+sqrt(5.0))/2.0) ) );
-        //標準化
-        while (n_theta >= PI2) {
-            n_theta -= PI2;
-        }
-        while (n_theta < 0) {
-            n_theta += PI2;
-        }
-        GOLDEN_ANG[n] = (angle)(D360ANG*n_theta / PI2);
-        //_TRACE_("GOLDEN_ANG["<<n<<"]="<<GOLDEN_ANG[n]);
-    }
-
-
-    BITNUM[ 0] = 0;
-    BITNUM[ 1] = (0x1);            //0b 00000000 00000000 00000000 00000001
-    BITNUM[ 2] = (0x2);            //0b 00000000 00000000 00000000 00000010
-    BITNUM[ 3] = (0x4);            //0b 00000000 00000000 00000000 00000100
-    BITNUM[ 4] = (0x8);            //0b 00000000 00000000 00000000 00001000
-    BITNUM[ 5] = (0x10);           //0b 00000000 00000000 00000000 00010000
-    BITNUM[ 6] = (0x20);           //0b 00000000 00000000 00000000 00100000
-    BITNUM[ 7] = (0x40);           //0b 00000000 00000000 00000000 01000000
-    BITNUM[ 8] = (0x80);           //0b 00000000 00000000 00000000 10000000
-    BITNUM[ 9] = (0x100);          //0b 00000000 00000000 00000001 00000000
-    BITNUM[10] = (0x200);          //0b 00000000 00000000 00000010 00000000
-    BITNUM[11] = (0x400);          //0b 00000000 00000000 00000100 00000000
-    BITNUM[12] = (0x800);          //0b 00000000 00000000 00001000 00000000
-    BITNUM[13] = (0x1000);         //0b 00000000 00000000 00010000 00000000
-    BITNUM[14] = (0x2000);         //0b 00000000 00000000 00100000 00000000
-    BITNUM[15] = (0x4000);         //0b 00000000 00000000 01000000 00000000
-    BITNUM[16] = (0x8000);         //0b 00000000 00000000 10000000 00000000
-    BITNUM[17] = (0x10000);        //0b 00000000 00000001 00000000 00000000
-    BITNUM[18] = (0x20000);        //0b 00000000 00000010 00000000 00000000
-    BITNUM[19] = (0x40000);        //0b 00000000 00000100 00000000 00000000
-    BITNUM[20] = (0x80000);        //0b 00000000 00001000 00000000 00000000
-    BITNUM[21] = (0x100000);       //0b 00000000 00010000 00000000 00000000
-    BITNUM[22] = (0x200000);       //0b 00000000 00100000 00000000 00000000
-    BITNUM[23] = (0x400000);       //0b 00000000 01000000 00000000 00000000
-    BITNUM[24] = (0x800000);       //0b 00000000 10000000 00000000 00000000
-    BITNUM[25] = (0x1000000);      //0b 00000001 00000000 00000000 00000000
-    BITNUM[26] = (0x2000000);      //0b 00000010 00000000 00000000 00000000
-    BITNUM[27] = (0x4000000);      //0b 00000100 00000000 00000000 00000000
-    BITNUM[28] = (0x8000000);      //0b 00001000 00000000 00000000 00000000
-    BITNUM[29] = (0x10000000);     //0b 00010000 00000000 00000000 00000000
-    BITNUM[30] = (0x20000000);     //0b 00100000 00000000 00000000 00000000
-    BITNUM[31] = (0x40000000);     //0b 01000000 00000000 00000000 00000000
-    BITNUM[32] = (0x80000000);     //0b 10000000 00000000 00000000 00000000
+    GgafDxUtil::_was_GgafDxUtil_inited_flg = true;
 }
 
 

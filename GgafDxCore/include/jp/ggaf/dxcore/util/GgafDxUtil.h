@@ -84,38 +84,9 @@ public:
      */
     static angle PROJANG_ZY_ZX_TO_ROTANG_y[D90SANG+1][D90SANG+1];
 
-    /**
-     * v = 1 - cos(2πt)
-     * の解テーブル
-     * 【説明】
-     * t:時間(フレーム)
-     * v:速度
-     * 面積＝移動距離
-     * t = 0.0→0.5→1.0 対してなめらかに v = 0.0～2.0～0.0 と変化し、距離1.0を移動
-     */
-    static double SMOOTH_DV[3600+1];
-
-    /**
-     * 半径 1000 の 1/4 円の解テーブル .
-     * <pre><code>
-     *      ______________
-     * y = √(1000^2-x^2)
-     * </code></pre>
-     * の 要素[x] に対する y
-     */
-    static float ROOT_1_MINUS_XX[1000];
-
-    /**
-     * 黄金角 .
-     * 要素[x](0～999) は x 番目の黄金角。
-     */
-    static angle GOLDEN_ANG[1000];
-
-    static uint32_t BITNUM[];
-
     static GgafDxSphereRadiusVectors _srv;
 
-    static bool _was_inited_flg;
+    static bool _was_GgafDxUtil_inited_flg;
 
     static GgafDxCamera* _pCam;
 public:
