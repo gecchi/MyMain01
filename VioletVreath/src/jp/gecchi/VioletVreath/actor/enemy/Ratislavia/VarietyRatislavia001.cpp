@@ -55,7 +55,7 @@ void VarietyRatislavia001::processBehavior() {
 
 void VarietyRatislavia001::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == RATISLAVIA_EXPLOSION) {
-        _TRACE_("VarietyRatislavia001::onCatchEvent RATISLAVIA_EXPLOSION キャッチわりこみ！");
+        _DTRACE_("VarietyRatislavia001::onCatchEvent RATISLAVIA_EXPLOSION キャッチわりこみ！");
         pEnemyRatislaviaEye_ = nullptr;
     }
     EnemyRatislavia::onCatchEvent(prm_no, prm_pSource);

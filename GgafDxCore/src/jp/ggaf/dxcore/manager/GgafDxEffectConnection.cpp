@@ -9,7 +9,7 @@ GgafDxEffectConnection::GgafDxEffectConnection(char* prm_idstr, GgafDxEffect* pr
 }
 
 void GgafDxEffectConnection::processReleaseResource(GgafDxEffect* prm_pResource) {
-    _TRACE_("GgafDxEffect="<<prm_pResource->getName()<<" を開放します。");
+    _DTRACE_("GgafDxEffect="<<prm_pResource->getName()<<" を開放します。");
     GGAF_DELETE(prm_pResource);
 }
 

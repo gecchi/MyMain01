@@ -22,7 +22,7 @@ GgafDxPointSpriteEffect::GgafDxPointSpriteEffect(char* prm_effect_name) : GgafDx
     hr = _pID3DXEffect->SetFloat("g_zf", P_CAM->_zf);
     checkDxException(hr, D3D_OK, "GgafDxPointSpriteEffect::GgafDxSpriteEffect SetFloat(g_zf) に失敗しました。");
 
-    //_TRACE_("GgafDxPointSpriteEffect::GgafDxPointSpriteEffect g_dist_CamZ_default="<<P_CAM->_zn<<" g_dist_CamZ_default="<<( -(P_CAM->_cameraZ_org))<<"");
+    //_DTRACE_("GgafDxPointSpriteEffect::GgafDxPointSpriteEffect g_dist_CamZ_default="<<P_CAM->_zn<<" g_dist_CamZ_default="<<( -(P_CAM->_cameraZ_org))<<"");
     //checkDxException(hr, D3D_OK, "GgafDxPointSpriteEffect::GgafDxPointSpriteEffect SetFloat(g_zn) に失敗しました。");
     //シェーダーハンドル
     _h_matView  = _pID3DXEffect->GetParameterByName( nullptr, "g_matView" );

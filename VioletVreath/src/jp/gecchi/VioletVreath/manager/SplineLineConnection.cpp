@@ -10,6 +10,6 @@ SplineLineConnection::SplineLineConnection(char* prm_idstr, GgafLib::SplineLine*
 }
 
 void SplineLineConnection::processReleaseResource(GgafLib::SplineLine* prm_pResource) {
-    _TRACE_("SplineLineConnection::processReleaseResource‚Å num_basepoint_="<<prm_pResource->_num_basepoint<<"‚Ì‚ðŠJ•ú(‚±‚±‚Å‚Ô‚Á‰ó‚ê‚½‚çclose()˜R‚ê‚Ì‰Â”\«‚ ‚è)");
+    _DTRACE_("SplineLineConnection::processReleaseResource‚Å num_basepoint_="<<prm_pResource->_num_basepoint<<"‚Ì‚ðŠJ•ú(‚±‚±‚Å‚Ô‚Á‰ó‚ê‚½‚çclose()˜R‚ê‚Ì‰Â”\«‚ ‚è)");
     GGAF_DELETE(prm_pResource);
 }

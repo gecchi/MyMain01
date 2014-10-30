@@ -15,7 +15,7 @@ void GgafRepeatSeq::create(std::string& ID, int min, int max) {
         throwGgafCriticalException("GgafRepeatSeq::create() ID="<<ID<<"は既に存在します(1)");
     }
 #endif
-    _TRACE_("シークエンスを作成します。 GgafRepeatSeq::create("<<ID<<","<<min<<","<<max<<")");
+    _DTRACE_("シークエンスを作成します。 GgafRepeatSeq::create("<<ID<<","<<min<<","<<max<<")");
     mapNowval[ID] = min;
     mapMaxval[ID] = max;
     mapMinval[ID] = min;
@@ -27,7 +27,7 @@ void GgafRepeatSeq::create(const char* ID, int min, int max) {
         throwGgafCriticalException("GgafRepeatSeq::create() ID="<<ID<<"は既に存在します(2)");
     }
 #endif
-    _TRACE_("シークエンスを作成します。 GgafRepeatSeq::create("<<ID<<","<<min<<","<<max<<")");
+    _DTRACE_("シークエンスを作成します。 GgafRepeatSeq::create("<<ID<<","<<min<<","<<max<<")");
     mapNowval[ID] = min;
     mapMaxval[ID] = max;
     mapMinval[ID] = min;

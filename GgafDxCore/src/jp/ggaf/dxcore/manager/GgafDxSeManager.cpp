@@ -45,8 +45,8 @@ void GgafDxSeManager::updateVolume() {
 }
 
 GgafResourceConnection<GgafDxSe>* GgafDxSeManager::processCreateConnection(char* prm_idstr, GgafDxSe* prm_pResource) {
-    TRACE3(" GgafDxSeManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
+    _DTRACE3_(" GgafDxSeManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
     GgafDxSeConnection* pConne = NEW GgafDxSeConnection(prm_idstr, prm_pResource);
-    TRACE3(" GgafDxSeManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
+    _DTRACE3_(" GgafDxSeManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
     return pConne;
 }

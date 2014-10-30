@@ -76,7 +76,7 @@ bool OggDecoder::getSegment(char* prm_buffer, unsigned int prm_size, unsigned in
         comSize += readSize;
 
 //          if (comSize <= prm_size) {
-//              _TRACE_("バッファオーバー");
+//              _DTRACE_("バッファオーバー");
 //          }
         //_ASSERT( comSize <= prm_size );   // バッファオーバー
 

@@ -29,7 +29,7 @@ void GgafActorDepository::put(GgafActor* prm_pSub) {
 }
 
 void GgafActorDepository::onReset() {
-    _TRACE_("GgafActorDepository::onReset() ["<<getName()<<"]");
+    _DTRACE_("GgafActorDepository::onReset() ["<<getName()<<"]");
     if (_pSubFirst == nullptr) {
         return;
     }

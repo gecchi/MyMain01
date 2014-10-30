@@ -16,7 +16,7 @@ bool VBReplayRecorder::setRealtimeOutputFile(const char* prm_filename) {
     _write_realtime = true;
     _ofs_realtime.open(prm_filename);
     if (_ofs_realtime.fail()) {
-        _TRACE_("VBReplayRecorder::setRealtimeOutputFile "<<prm_filename<<" が開けません");
+        _DTRACE_("VBReplayRecorder::setRealtimeOutputFile "<<prm_filename<<" が開けません");
         return false;
     } else {
         _ofs_realtime << std::unitbuf; //逐次バッファフラッシュ
@@ -88,7 +88,7 @@ void VBReplayRecorder::outputFile(const char* prm_filename) {
 bool VBReplayRecorder::importFile(const char* prm_filename) {
     std::ifstream ifs(prm_filename);
     if (ifs.fail()) {
-        _TRACE_("VBReplayRecorder::importFile "<<prm_filename<<" が開けません");
+        _DTRACE_("VBReplayRecorder::importFile "<<prm_filename<<" が開けません");
         return false;
     }
     VBRecordNote* p = NEW VBRecordNote();

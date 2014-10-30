@@ -15,7 +15,7 @@ DefaultPointSpriteTestActor::DefaultPointSpriteTestActor(const char* prm_name) :
     setHitAble(false);
     CAM_ZF_ = ABS(P_CAM->_zf * PX_UNIT * LEN_UNIT);
     setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL-1);
-    _TRACE_("DefaultPointSpriteTestActor::DefaultPointSpriteTestActor CAM_ZF_="<<CAM_ZF_);
+    _DTRACE_("DefaultPointSpriteTestActor::DefaultPointSpriteTestActor CAM_ZF_="<<CAM_ZF_);
 }
 
 int DefaultPointSpriteTestActor::isOutOfView() {

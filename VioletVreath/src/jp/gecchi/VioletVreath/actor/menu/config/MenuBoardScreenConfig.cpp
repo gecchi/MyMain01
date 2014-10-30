@@ -411,7 +411,7 @@ void MenuBoardScreenConfig::processBehavior() {
             } else {
                 PROPERTY::setValue("FIXED_GAME_VIEW_ASPECT", false);
             }
-            //_TRACE_("PROPERTY::FULL_SCREEN="<<PROPERTY::FULL_SCREEN<<" PROPERTY::FIXED_GAME_VIEW_ASPECT="<<PROPERTY::FIXED_GAME_VIEW_ASPECT<<" PROPERTY::getBool(\"FIXED_GAME_VIEW_ASPECT\")="<<PROPERTY::getBool("FIXED_GAME_VIEW_ASPECT"));
+            //_DTRACE_("PROPERTY::FULL_SCREEN="<<PROPERTY::FULL_SCREEN<<" PROPERTY::FIXED_GAME_VIEW_ASPECT="<<PROPERTY::FIXED_GAME_VIEW_ASPECT<<" PROPERTY::getBool(\"FIXED_GAME_VIEW_ASPECT\")="<<PROPERTY::getBool("FIXED_GAME_VIEW_ASPECT"));
             if (PROPERTY::FIXED_GAME_VIEW_ASPECT != PROPERTY::getBool("FIXED_GAME_VIEW_ASPECT")) {
                 P_WORLD->need_reboot_ = 1;
             }

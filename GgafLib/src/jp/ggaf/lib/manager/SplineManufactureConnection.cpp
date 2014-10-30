@@ -9,7 +9,7 @@ SplineManufactureConnection::SplineManufactureConnection(char* prm_idstr, Spline
 }
 
 void SplineManufactureConnection::processReleaseResource(SplineManufacture* prm_pResource) {
-    _TRACE_("SplineManufactureConnection::processReleaseResource‚Å"<<prm_pResource->_source_file<<"‚ÌŠJ•ú(‚±‚±‚Å‚Ô‚Á‰ó‚ê‚½‚çclose()˜R‚ê‚Ì‰Â”\«‚ ‚è)");
+    _DTRACE_("SplineManufactureConnection::processReleaseResource‚Å"<<prm_pResource->_source_file<<"‚ÌŠJ•ú(‚±‚±‚Å‚Ô‚Á‰ó‚ê‚½‚çclose()˜R‚ê‚Ì‰Â”\«‚ ‚è)");
     GGAF_DELETE(prm_pResource);
 }
 

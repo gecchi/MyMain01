@@ -200,7 +200,7 @@ void MenuBoardNameEntry::processBehavior() {
             if (pMenuConfirm->getSelectedIndex() == MenuBoardConfirm::ITEM_OK) {
                 //ネームエントリー完了OK
                 throwEventUpperTree(EVENT_MENU_NAMEENTRY_DONE);
-                _TRACE_("MenuBoardNameEntry::processBehavior() おしまい。イベントを投げた throwEventUpperTree(EVENT_MENU_NAMEENTRY_DONE);");
+                _DTRACE_("MenuBoardNameEntry::processBehavior() おしまい。イベントを投げた throwEventUpperTree(EVENT_MENU_NAMEENTRY_DONE);");
                 sinkCurrentSubMenu();
             } else if (pMenuConfirm->getSelectedIndex() == MenuBoardConfirm::ITEM_CANCEL) {
                 sinkCurrentSubMenu();

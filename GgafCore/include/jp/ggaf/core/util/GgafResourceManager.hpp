@@ -174,7 +174,7 @@ volatile bool GgafResourceManager<T>::_is_waiting_to_connect = false;
 template<class T>
 GgafResourceManager<T>::GgafResourceManager(const char* prm_manager_name) : GgafObject(),
       _manager_name(prm_manager_name) {
-    TRACE3("GgafResourceManager<T>::GgafResourceManager(" << prm_manager_name << ")");
+    _DTRACE3_("GgafResourceManager<T>::GgafResourceManager(" << prm_manager_name << ")");
     _pConn_first = nullptr;
     _is_connecting_resource = false;
     _is_waiting_to_connect = false;
@@ -185,7 +185,7 @@ GgafResourceConnection<T>* GgafResourceManager<T>::find(char* prm_idstr) {
     GgafResourceConnection<T>* pCurrent = _pConn_first;
 
     while (pCurrent) {
-        //_TRACE_("pCurrent->_idstr -> "<<(pCurrent->_idstr)<<" prm_idstr="<<prm_idstr);
+        //_DTRACE_("pCurrent->_idstr -> "<<(pCurrent->_idstr)<<" prm_idstr="<<prm_idstr);
         if (UTIL::strcmp_ascii(pCurrent->_idstr, prm_idstr) == 0) {
             return pCurrent;
         }
@@ -212,16 +212,16 @@ void GgafResourceManager<T>::add(GgafResourceConnection<T>* prm_pResource_new) {
 template<class T>
 GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr, void* prm_connector) {
     if (prm_idstr == nullptr) {
-        TRACE3("警告 GgafResourceManager<T>::connect(nullptr) [" << _manager_name << "]");
+        _DTRACE3_("警告 GgafResourceManager<T>::connect(nullptr) [" << _manager_name << "]");
     }
     if (_is_waiting_to_connect || _is_connecting_resource) {
-        _TRACE_("GgafResourceManager<T>::connect() "<<_manager_name<<"は、コネクト処理中です。待機が発生しました・・ 待機中("<<prm_idstr<<")");
+        _DTRACE_("GgafResourceManager<T>::connect() "<<_manager_name<<"は、コネクト処理中です。待機が発生しました・・ 待機中("<<prm_idstr<<")");
     }
     for(int i = 0; _is_waiting_to_connect || _is_connecting_resource; i++) {
         Sleep(10);
         if (i > 10*100*60) {
             //10分以上無応答時
-            _TRACE_("GgafResourceManager<T>::connect() "<<_manager_name<<"へ、prm_idstr="<<prm_idstr<<" が connect()しようとして、既存のコネクト処理を10分待機・・・");
+            _DTRACE_("GgafResourceManager<T>::connect() "<<_manager_name<<"へ、prm_idstr="<<prm_idstr<<" が connect()しようとして、既存のコネクト処理を10分待機・・・");
             throwGgafCriticalException("GgafResourceManager<T>::connect()  "<<_manager_name<<"へ、prm_idstr="<<prm_idstr<<" が connect()しようとして、既存のコネクト処理を10分待機。connect() 中に、connect()しているか、処理が遅すぎます。(1)");
         }
     }
@@ -235,7 +235,7 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr, void
         Sleep(10);
         if (i > 10*100*60) {
             //１分以上無応答時
-            _TRACE_("GgafResourceManager<T>::connect()  "<<_manager_name<<"へ、prm_idstr="<<prm_idstr<<" が connect()しようとして、既存のクローズ処理を10分待機・・・");
+            _DTRACE_("GgafResourceManager<T>::connect()  "<<_manager_name<<"へ、prm_idstr="<<prm_idstr<<" が connect()しようとして、既存のクローズ処理を10分待機・・・");
             throwGgafCriticalException("GgafResourceManager<T>::connect()  "<<_manager_name<<"へ、prm_idstr="<<prm_idstr<<" が  connect()しようとして、既存のクローズ処理を10分待機。connect() 中に、connect()しているか、処理が遅すぎます。(2)");
         }
     }
@@ -247,7 +247,7 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr, void
     //たぶん全ての connect() 呼び出し元で connect() 失敗時の処理を定義するべきだった。
     //templateにしたのは失敗だったのか；（void*にすべきだったか）。
     //次回組む時は気をつけよう、ココは時間のあるときにちゃんやろう。そのうち；；；
-    //_TRACE_(" connect to " << _manager_name<<" for "<<prm_idstr<<"...");
+    //_DTRACE_(" connect to " << _manager_name<<" for "<<prm_idstr<<"...");
     pObj = find(prm_idstr);
     if (pObj == nullptr) {
         //未生成ならば生成。接続カウンタを１
@@ -256,13 +256,13 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr, void
         pObj->_num_connection = 1;
         pObj->_p_first_connector = prm_connector;
         add(pObj);
-        TRACE3("GgafResourceManager<T>::connect [" << _manager_name << "]" << prm_idstr << "は無いので、新規作成して保持に決定");
+        _DTRACE3_("GgafResourceManager<T>::connect [" << _manager_name << "]" << prm_idstr << "は無いので、新規作成して保持に決定");
         _is_connecting_resource = false;
         return pObj;
     } else {
         //生成済みならそれを返す。接続カウンタを＋１
         pObj->_num_connection++;
-        TRACE3("GgafResourceManager<T>::connect [" << _manager_name << "]" << prm_idstr << "はあるので接続カウント＋１." << pObj->_num_connection);
+        _DTRACE3_("GgafResourceManager<T>::connect [" << _manager_name << "]" << prm_idstr << "はあるので接続カウント＋１." << pObj->_num_connection);
         _is_connecting_resource = false;
         return pObj;
     }
@@ -270,14 +270,14 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr, void
 
 template<class T>
 T* GgafResourceManager<T>::createResource(char* prm_idstr, void* prm_p) {
-    TRACE3("GgafResourceManager<T>::createResource [" << _manager_name << "]" << prm_idstr << "を生成しましょう");
+    _DTRACE3_("GgafResourceManager<T>::createResource [" << _manager_name << "]" << prm_idstr << "を生成しましょう");
     T* p = processCreateResource(prm_idstr, prm_p);
     return p;
 }
 
 template<class T>
 GgafResourceConnection<T>* GgafResourceManager<T>::createResourceConnection(char* prm_idstr, T* prm_pResource) {
-    TRACE3("GgafResourceManager<T>::createResourceConnection [" << _manager_name << "]" << prm_idstr << "を生成しましょう");
+    _DTRACE3_("GgafResourceManager<T>::createResourceConnection [" << _manager_name << "]" << prm_idstr << "を生成しましょう");
     GgafResourceConnection<T>* p = processCreateConnection(prm_idstr, prm_pResource);
     p->_pManager = this; //マネージャ登録
     return p;
@@ -287,11 +287,11 @@ template<class T>
 void GgafResourceManager<T>::dump() {
     GgafResourceConnection<T>* pCurrent = _pConn_first;
     if (_pConn_first == nullptr) {
-        _TRACE_("GgafResourceManager::dump[" << _manager_name << "] 保持リストにはなにもありません。");
+        _DTRACE_("GgafResourceManager::dump[" << _manager_name << "] 保持リストにはなにもありません。");
     } else {
         GgafResourceConnection<T>* pCurrent_next;
         while (pCurrent) {
-            _TRACE_("GgafResourceManager::dump[" << _manager_name << "] [" << pCurrent->_idstr << "←" << pCurrent->_num_connection << "Connection]");
+            _DTRACE_("GgafResourceManager::dump[" << _manager_name << "] [" << pCurrent->_idstr << "←" << pCurrent->_num_connection << "Connection]");
             pCurrent_next = pCurrent->_pNext;
             if (pCurrent_next == nullptr) {
                 pCurrent = nullptr;
@@ -317,20 +317,20 @@ void GgafResourceManager<T>::dump() {
 
 template<class T>
 GgafResourceManager<T>::~GgafResourceManager() {
-    TRACE3("GgafResourceManager<T>::~GgafResourceManager[" << _manager_name << "] " << _manager_name << " ");
+    _DTRACE3_("GgafResourceManager<T>::~GgafResourceManager[" << _manager_name << "] " << _manager_name << " ");
 #ifdef MY_DEBUG
-    _TRACE_("GgafResourceManager<T>::~GgafResourceManager()["<<_manager_name<<"] begin --->");
-    _TRACE_("＜解放前Dumping＞");
+    _DTRACE_("GgafResourceManager<T>::~GgafResourceManager()["<<_manager_name<<"] begin --->");
+    _DTRACE_("＜解放前Dumping＞");
     dump();
 #endif
     GgafResourceConnection<T>* pCurrent = _pConn_first;
     if (_pConn_first == nullptr) {
-        TRACE3("GgafResourceManager::~GgafResourceManager[" << _manager_name << "] 保持リストにはなにもありません。");
+        _DTRACE3_("GgafResourceManager::~GgafResourceManager[" << _manager_name << "] 保持リストにはなにもありません。");
     } else {
         GgafResourceConnection<T>* pCurrent_next;
         while (pCurrent) {
             int rnum = pCurrent->_num_connection;
-            _TRACE_("GgafResourceManager::~GgafResourceManager[" << _manager_name << "] 保持リストに[" << pCurrent->_idstr << "←" << rnum
+            _DTRACE_("GgafResourceManager::~GgafResourceManager[" << _manager_name << "] 保持リストに[" << pCurrent->_idstr << "←" << rnum
                     << "Connection]が残ってます。強制削除しますが、本来あってはいけません。特別に" << rnum << "回 close()を発行します");
 //            T* r = pCurrent->peek();
             pCurrent_next = pCurrent->_pNext;
@@ -349,7 +349,7 @@ GgafResourceManager<T>::~GgafResourceManager() {
         }
     }
 #ifdef MY_DEBUG
-    _TRACE_("<--- GgafResourceManager<T>::~GgafResourceManager() ["<<_manager_name<<"] end");
+    _DTRACE_("<--- GgafResourceManager<T>::~GgafResourceManager() ["<<_manager_name<<"] end");
 #endif
 }
 

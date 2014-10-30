@@ -29,7 +29,7 @@ HoshiBoshiTestActor::HoshiBoshiTestActor(const char* prm_name) :
     effectBlendOne(); //‰ÁŽZ‡¬
     setHitAble(false);
     CAM_ZF_ = ABS(P_CAM->_zf * PX_UNIT * LEN_UNIT);
-    _TRACE_("HoshiBoshiTestActor::HoshiBoshiTestActor CAM_ZF_="<<CAM_ZF_);
+    _DTRACE_("HoshiBoshiTestActor::HoshiBoshiTestActor CAM_ZF_="<<CAM_ZF_);
     //“ÆŽ©ƒ[ƒ‹ƒh•ÏŠ·
     defineRotMvWorldMatrix(HoshiBoshiTestActor::setWorldMatrix_HoshiBoshiTestActor);
     setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL);//Å[•”‚ÌŽŸ‚­‚ç‚¢‚ÉEE

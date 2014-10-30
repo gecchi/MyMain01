@@ -114,8 +114,17 @@ public:
         int BUTTON7;
         int BUTTON8;
         int PAUSE;
+        int UP;
+        int DOWN;
+        int LEFT;
+        int RIGHT;
+        int UI_UP;
+        int UI_DOWN;
+        int UI_LEFT;
+        int UI_RIGHT;
         int UI_EXECUTE;
         int UI_CANCEL;
+        int UI_DEBUG;
     };
 
 public:
@@ -137,6 +146,7 @@ public:
     /** オートリピート中ならば true */
     bool _is_auto_repeat;
 
+    bool _with_pov;
     VBReplayRecorder* _pRpy;
 
     /** [r]リプレイモード時:true／ユーザー入力（リプレイモード記入）モード:false */
@@ -350,7 +360,7 @@ public:
 
     /**
      * 現在押しっぱなしのスティックの番号を返す。
-     * @return 次の何れか
+     * @return 次の論理和
      * VB_UP_STC
      * VB_UP_RIGHT_STC
      * VB_RIGHT_STC
@@ -365,7 +375,7 @@ public:
 
     /**
      * 今PushedDownスティックの番号を返す。
-     * @return 次の何れか
+     * @return 次の論理和
      * VB_UP_STC
      * VB_UP_RIGHT_STC
      * VB_RIGHT_STC

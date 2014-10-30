@@ -17,7 +17,7 @@ GgafLinearOctreeElem::GgafLinearOctreeElem(GgafObject* prm_pObject, uint32_t prm
 
 void GgafLinearOctreeElem::clear() {
     if(_pSpace_current == nullptr) {
-        //_TRACE_("GgafLinearOctreeElem::extract() できません。意図してますか？");
+        //_DTRACE_("GgafLinearOctreeElem::extract() できません。意図してますか？");
         return;
     }
     //情報リセット
@@ -53,7 +53,7 @@ void GgafLinearOctreeElem::clear() {
 
 void GgafLinearOctreeElem::belongTo(GgafLinearOctreeSpace* prm_pSpace_target) {
     if (_pSpace_current == prm_pSpace_target) {
-        //_TRACE_("belongToせんでいい");
+        //_DTRACE_("belongToせんでいい");
         return;
     } else {
         if (prm_pSpace_target->_pElem_first == nullptr) {
@@ -96,7 +96,7 @@ void GgafLinearOctreeElem::belongTo(GgafLinearOctreeSpace* prm_pSpace_target) {
 }
 
 void GgafLinearOctreeElem::dump() {
-    _TEXT_("o");
+    _DTEXT_("o");
 }
 
 GgafLinearOctreeElem::~GgafLinearOctreeElem() {

@@ -41,7 +41,7 @@ class GgafDxAgainstWay {
 //
 //    int getIndex() {
 //        //3i”¨10i”•ÏŠ·
-//        //_TRACE_("_way.X, _way.Y, _way.Z="<<_way.X<<","<<_way.Y<<","<< _way.Z);
+//        //_DTRACE_("_way.X, _way.Y, _way.Z="<<_way.X<<","<<_way.Y<<","<< _way.Z);
 //        return (3 * 3 * (SGN(_x) + 1)) + (3 * (SGN(_way.Y) + 1)) + (SGN(_way.Z) + 1);
 //    }
 

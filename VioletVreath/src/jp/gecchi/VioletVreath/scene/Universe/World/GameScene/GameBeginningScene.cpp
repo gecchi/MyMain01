@@ -24,7 +24,7 @@ GameBeginningScene::GameBeginningScene(const char* prm_name) : DefaultScene(prm_
 }
 
 void GameBeginningScene::onReset() {
-    _TRACE_("GameBeginningScene::onReset()");
+    _DTRACE_("GameBeginningScene::onReset()");
     getProgress()->change(GameBeginningScene::PROG_INIT);
 //    fadeinScene(0);
     pLabel01_->update("");
@@ -33,7 +33,7 @@ void GameBeginningScene::onReset() {
     pLabel02_->setAlpha(pLabel02_->pAFader_->getTop());
 }
 //void GameBeginningScene::ready() {
-//    _TRACE_("GameBeginningScene::ready()");
+//    _DTRACE_("GameBeginningScene::ready()");
 //}
 void GameBeginningScene::onActive() {
 }

@@ -6,7 +6,7 @@ using namespace GgafCore;
 
 void GgafLinearOctreeSpace::dump() {
     if (_pElem_first == nullptr) {
-        _TEXT_("x");
+        _DTEXT_("x");
     } else {
         GgafLinearOctreeElem* pElem = _pElem_first;
         while (true) {

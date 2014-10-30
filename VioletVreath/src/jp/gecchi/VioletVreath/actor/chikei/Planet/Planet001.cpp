@@ -83,7 +83,7 @@ void Planet001::processBehavior() {
     }
 
     if (GgafDxInput::isPushedDownKey(DIK_O)) {
-        _TRACE_("Planet001  "<<_x<<","<<_y<<","<<_z<<" scale="<<_rx);
+        _DTRACE_("Planet001  "<<_x<<","<<_y<<","<<_z<<" scale="<<_rx);
     }
     //_x = _x - PX_C(1);
     pKuroko->behave();

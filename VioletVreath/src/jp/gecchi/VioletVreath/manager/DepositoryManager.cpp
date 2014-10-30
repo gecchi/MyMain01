@@ -325,8 +325,8 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
 }
 
 GgafResourceConnection<GgafActorDepository>* DepositoryManager::processCreateConnection(char* prm_idstr, GgafActorDepository* prm_pResource) {
-    TRACE3(" DepositoryManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
+    _DTRACE3_(" DepositoryManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
     DepositoryConnection* pConne = NEW DepositoryConnection(prm_idstr, prm_pResource);
-    TRACE3(" DepositoryManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
+    _DTRACE3_(" DepositoryManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
     return pConne;
 }

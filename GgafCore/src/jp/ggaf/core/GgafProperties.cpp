@@ -91,15 +91,15 @@ void GgafProperties::load(std::string prm_properties_filename) {
         }
     }
 
-    _TRACE_("GgafProperties::MAX_SKIP_FRAME="<<GgafProperties::MAX_SKIP_FRAME);
-    _TRACE_("GgafProperties::DRAWNUM_TO_SLOWDOWN1="<<GgafProperties::DRAWNUM_TO_SLOWDOWN1);
-    _TRACE_("GgafProperties::DRAWNUM_TO_SLOWDOWN2="<<GgafProperties::DRAWNUM_TO_SLOWDOWN2);
-    _TRACE_("GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX="<<GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX);
-    _TRACE_("GgafProperties::DIR_RESOURCE="<<GgafProperties::DIR_RESOURCE);
-    _TRACE_("GgafProperties::DIRNAME_RESOURCE_SKIN="<<GgafProperties::DIRNAME_RESOURCE_SKIN);
-    _TRACE_("GgafProperties::DIR_SKIN="<<GgafProperties::DIR_SKIN);
-    _TRACE_("GgafProperties::DIR_SKIN_KIND[0]="<<GgafProperties::DIR_SKIN_KIND[0]);
-    _TRACE_("GgafProperties::DIR_SKIN_KIND[1]="<<GgafProperties::DIR_SKIN_KIND[1]);
+    _DTRACE_("GgafProperties::MAX_SKIP_FRAME="<<GgafProperties::MAX_SKIP_FRAME);
+    _DTRACE_("GgafProperties::DRAWNUM_TO_SLOWDOWN1="<<GgafProperties::DRAWNUM_TO_SLOWDOWN1);
+    _DTRACE_("GgafProperties::DRAWNUM_TO_SLOWDOWN2="<<GgafProperties::DRAWNUM_TO_SLOWDOWN2);
+    _DTRACE_("GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX="<<GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX);
+    _DTRACE_("GgafProperties::DIR_RESOURCE="<<GgafProperties::DIR_RESOURCE);
+    _DTRACE_("GgafProperties::DIRNAME_RESOURCE_SKIN="<<GgafProperties::DIRNAME_RESOURCE_SKIN);
+    _DTRACE_("GgafProperties::DIR_SKIN="<<GgafProperties::DIR_SKIN);
+    _DTRACE_("GgafProperties::DIR_SKIN_KIND[0]="<<GgafProperties::DIR_SKIN_KIND[0]);
+    _DTRACE_("GgafProperties::DIR_SKIN_KIND[1]="<<GgafProperties::DIR_SKIN_KIND[1]);
 }
 
 void GgafProperties::save(std::string prm_properties_filename) {
@@ -107,7 +107,7 @@ void GgafProperties::save(std::string prm_properties_filename) {
 }
 
 void GgafProperties::clean() {
-    _TRACE_("Properties::clean()");
+    _DTRACE_("Properties::clean()");
     GGAF_DELETE_NULLABLE(_pMapProperties);
 }
 

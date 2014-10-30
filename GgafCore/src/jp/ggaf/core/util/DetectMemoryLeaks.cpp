@@ -63,7 +63,7 @@ void operator delete[](void * address) throw() {
     return;
 
     if (detectMemoryLeaksFlag) {
-        //_TRACE_("delete[]: " << " address=" << address);
+        //_DTRACE_("delete[]: " << " address=" << address);
         std::map<std::size_t, std::string>::iterator it = detectMemoryLeaksMemoryMap.begin();
         std::map<std::size_t, std::string>::iterator itEnd = detectMemoryLeaksMemoryMap.end();
         std::size_t checkAddress = (std::size_t)address;
@@ -78,21 +78,21 @@ void operator delete[](void * address) throw() {
 }
 
 void detectMemoryLeaksStart(std::ostream& ros) {
-    _TRACE_("[detect memory leaks] start");
+    _DTRACE_("[detect memory leaks] start");
     detectMemoryLeaksFlag = true;
 }
 
 void detectMemoryLeaksEnd(std::ostream& ros) {
-    _TRACE_("[detect memory leaks] end");
+    _DTRACE_("[detect memory leaks] end");
     if (detectMemoryLeaksMemoryMap.size() > 0) {
-        _TRACE_("memory leaks ...");
+        _DTRACE_("memory leaks ...");
         std::map<std::size_t, std::string>::iterator it = detectMemoryLeaksMemoryMap.begin();
         std::map<std::size_t, std::string>::iterator itEnd = detectMemoryLeaksMemoryMap.end();
         for (; it != itEnd; it++) {
-            _TRACE_("  " << it->second);
+            _DTRACE_("  " << it->second);
         }
     } else {
-        _TRACE_("memory leak is nothing.");
+        _DTRACE_("memory leak is nothing.");
     }
     detectMemoryLeaksFlag = false;
     detectMemoryLeaksMemoryMap.clear();

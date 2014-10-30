@@ -888,7 +888,7 @@ public:
         if (_pProg == nullptr) {
             _pProg = NEW GgafProgress(&_frame_of_behaving, prm_num);
         } else {
-            _TRACE_("＜警告＞useProgress() ["<<GgafNode<T>::getName()<<"] は既に useProgress している。以前の進捗の場合の数="<<_pProg->getProgressNum()<<"。今回引数 prm_num="<<prm_num);
+            _DTRACE_("＜警告＞useProgress() ["<<GgafNode<T>::getName()<<"] は既に useProgress している。以前の進捗の場合の数="<<_pProg->getProgressNum()<<"。今回引数 prm_num="<<prm_num);
             if (_pProg->getProgressNum() != prm_num) {
                 throwGgafCriticalException("useProgress() ["<<GgafNode<T>::getName()<<"] は既に useProgress している。ダメじゃないのか？！。\n以前の進捗の場合の数="<<_pProg->getProgressNum()<<"。今回引数 prm_num="<<prm_num);
             }
@@ -1179,7 +1179,7 @@ void GgafElement<T>::activateDelay(frame prm_offset_frames) {
     if (_can_live_flg) {
 #ifdef MY_DEBUG
         if (_is_active_flg) {
-            _TRACE_("＜警告＞activateDelay("<<prm_offset_frames<<") しましたけど、既に活動状態ですよ。意図してますか？ name="<<GgafNode<T>::_name<<" this="<<this);
+            _DTRACE_("＜警告＞activateDelay("<<prm_offset_frames<<") しましたけど、既に活動状態ですよ。意図してますか？ name="<<GgafNode<T>::_name<<" this="<<this);
         }
 #endif
         //既にinactivateDelay()実行済みの場合は
@@ -1304,7 +1304,7 @@ template<class T>
 void GgafElement<T>::inactivateImmed() {
 #ifdef MY_DEBUG
     if (_frame_of_life == 0) {
-        throwGgafCriticalException("inactivateImmed() アクター生成後すぐにinactivateImmed()することは無意味でおかしい。 name="<<GgafNode<T>::_name<<" this="<<this);
+        throwGgafCriticalException("inactivateImmed() アクター生成後すぐにinactivateImmed()することは無意味でおかしい。inactivate()で良くないですか？ name="<<GgafNode<T>::_name<<" this="<<this);
     }
 #endif
     if (_can_live_flg) {
@@ -1446,7 +1446,7 @@ bool GgafElement<T>::wasDeclaredEnd() {
 //    if (_can_live_flg) {
 //        return extract();
 //    } else {
-//        //_TRACE_("[GgafElement<"<<_class_name<<">::extract()] ＜警告＞ "<<getName()<<"は、死んでいます。");
+//        //_DTRACE_("[GgafElement<"<<_class_name<<">::extract()] ＜警告＞ "<<getName()<<"は、死んでいます。");
 //        return extract();
 //    }
 //}

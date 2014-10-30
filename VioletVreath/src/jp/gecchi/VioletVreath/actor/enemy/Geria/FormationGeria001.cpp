@@ -35,7 +35,7 @@ void FormationGeria001::processBehavior() {
 
 void FormationGeria001::processJudgement() {
     if (_x < GgafDxUniverse::_x_gone_left) {
-        _TRACE_("FormationGeria001::processJudgement() I—¹");
+        _DTRACE_("FormationGeria001::processJudgement() I—¹");
         sayonara();
     }
 }

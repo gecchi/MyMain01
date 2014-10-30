@@ -10,7 +10,7 @@ CameraWorkerConnection::CameraWorkerConnection(char* prm_idstr, CameraWorker* pr
 }
 
 void CameraWorkerConnection::processReleaseResource(CameraWorker* prm_pResource) {
-    _TRACE_("CameraWorkerConnection::processReleaseResourceで"<<prm_pResource->getName()<<"開放というかend() (ここでぶっ壊れたらclose()漏れの可能性あり)");
+    _DTRACE_("CameraWorkerConnection::processReleaseResourceで"<<prm_pResource->getName()<<"開放というかend() (ここでぶっ壊れたらclose()漏れの可能性あり)");
     //GGAF_DELETE(prm_pResource);
     prm_pResource->end();
     //本メソッドはActorやSceneのデストラクタでコネクションクローズによりリソース解放が行われたならば、

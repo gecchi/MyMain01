@@ -16,7 +16,7 @@ D3DXMACRO GgafDxEffect::_aD3DXMacro_Defines[3] =
 };
 
 GgafDxEffect::GgafDxEffect(char* prm_effect_name) : GgafObject() {
-    TRACE4("GgafDxEffect::GgafDxEffect(" << prm_effect_name << ")");
+    _DTRACE4_("GgafDxEffect::GgafDxEffect(" << prm_effect_name << ")");
     _effect_name = NEW char[51];
     strcpy(_effect_name, prm_effect_name);
 
@@ -70,7 +70,7 @@ GgafDxEffect::GgafDxEffect(char* prm_effect_name) : GgafObject() {
         throwGgafCriticalException("GgafDxEffect::GgafDxEffect "<<effect_file_name<<" が存在しないのではないだろうか・・・");
     }
     checkDxException(hr, D3D_OK, "GgafDxEffect::GgafDxEffect ["<<effect_file_name<<"]\n"<<(const char*)(pError->GetBufferPointer()));
-    _TRACE_(" GgafDxEffect::GgafDxEffect "<<prm_effect_name<<" のエフェクトを生成しました。ADD:"<<this);
+    _DTRACE_(" GgafDxEffect::GgafDxEffect "<<prm_effect_name<<" のエフェクトを生成しました。ADD:"<<this);
     _h_alpha_master = _pID3DXEffect->GetParameterByName( nullptr, "g_alpha_master" ); //マスターα
 }
 
@@ -97,7 +97,7 @@ std::string GgafDxEffect::getEffectFileName(std::string prm_file) {
 }
 
 GgafDxEffect::~GgafDxEffect() {
-    TRACE4("GgafDxEffect::~GgafDxEffect("<<_effect_name<<") Adr:"<<this);
+    _DTRACE4_("GgafDxEffect::~GgafDxEffect("<<_effect_name<<") Adr:"<<this);
     _pID3DXEffect->EndPass();
     _pID3DXEffect->End();
     GGAF_DELETEARR(_effect_name);

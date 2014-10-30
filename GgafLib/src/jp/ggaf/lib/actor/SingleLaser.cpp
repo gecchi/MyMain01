@@ -64,7 +64,7 @@ SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id, GgafSta
 
 //void SingleLaser::onCreateModel() {
 //    _pMeshSetModel->_set_num = 27; //現在のSingleレーザーの最大セット数は27。
-//    _TRACE_("SingleLaser::onCreateModel() "<<_pMeshSetModel->getName()<<" のセット数は "<< _pMeshSetModel->_set_num<<" 個に強制されました。");
+//    _DTRACE_("SingleLaser::onCreateModel() "<<_pMeshSetModel->getName()<<" のセット数は "<< _pMeshSetModel->_set_num<<" 個に強制されました。");
 //}
 
 void SingleLaser::processDraw() {

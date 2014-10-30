@@ -387,7 +387,7 @@ void GgafDxDrawableActor::effectDefault() {
     }
 }
 int GgafDxDrawableActor::isOutOfView() {
-    //_TRACE_("name="<<getName()<<" _bounding_sphere_radius="<<_bounding_sphere_radius);
+    //_DTRACE_("name="<<getName()<<" _bounding_sphere_radius="<<_bounding_sphere_radius);
     if (_offscreen_kind == -1) {
         dxcoord bound = getModel()->_bounding_sphere_radius * _rate_of_bounding_sphere_radius*2;//Š|‚¯‚é2‚Í‹«ŠE‹…‚ğ‘å‚«‚­‚µ‚ÄA‰æ–Ê‹«ŠE‚Ìƒ`ƒ‰ƒcƒL‚ğ—}‚¦‚é
         if (_dest_from_vppln_top < bound) {

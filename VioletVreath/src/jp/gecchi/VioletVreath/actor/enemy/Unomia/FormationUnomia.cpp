@@ -42,7 +42,7 @@ void FormationUnomia::updateRankParameter() {
 
 void FormationUnomia::initialize() {
 //    if (pConn_depo_Unomia_->chkFirstConnectionIs(this)) {
-//        _TRACE_("pConn_depo_Unomia_ は、ワシ("<<this<<")が育てたエヘン！")
+//        _DTRACE_("pConn_depo_Unomia_ は、ワシ("<<this<<")が育てたエヘン！")
 //        getPlatformScene()->getSceneDirector()->addSubGroup(
 //                pConn_depo_Unomia_->peek()->extract()
 //                );

@@ -139,7 +139,7 @@ GgafResourceConnection<T>* GgafResourceConnection<T>::getNext() {
 
 template<class T>
 GgafResourceConnection<T>::GgafResourceConnection(char* prm_idstr, T* prm_pResource) : GgafObject() {
-    TRACE3("GgafResourceConnection::GgafResourceConnection(prm_idstr = " <<  prm_idstr << ")");
+    _DTRACE3_("GgafResourceConnection::GgafResourceConnection(prm_idstr = " <<  prm_idstr << ")");
     _is_closing_resource = false;
     _pResource = prm_pResource;
     _pNext = nullptr;
@@ -169,7 +169,7 @@ template<class T>
 int GgafResourceConnection<T>::close() {
     //close() は複数スレッドから受付を許容する。
     if ( _is_closing_resource || GgafResourceManager<T>::_is_connecting_resource) {
-        _TRACE_("GgafResourceConnection<T>::close() 別のスレッドがconnect() 或いは close() 。待機が発生しました・・・・意図的ならば良いです。[" << _pManager->_manager_name << "(" << _idstr << ")" << "]。");
+        _DTRACE_("GgafResourceConnection<T>::close() 別のスレッドがconnect() 或いは close() 。待機が発生しました・・・・意図的ならば良いです。[" << _pManager->_manager_name << "(" << _idstr << ")" << "]。");
     }
 
     for(int i = 0; _is_closing_resource || GgafResourceManager<T>::_is_connecting_resource; i++) {
@@ -182,8 +182,8 @@ int GgafResourceConnection<T>::close() {
     _is_closing_resource = true;
 
     if (_num_connection <= 0) {
-        TRACE3("GgafResourceManager::close() [" << _pManager->_manager_name << "(" << _idstr << ")" << "]<-" << _num_connection << "  ＜警告＞既にコネクションは無いにもかかわらず、close() しようとしてます。");
-        TRACE3("何も行なわずreturnしますが、意図的でない場合は何かがおかしいでしょう。リークの可能性が大。調査すべし！");
+        _DTRACE3_("GgafResourceManager::close() [" << _pManager->_manager_name << "(" << _idstr << ")" << "]<-" << _num_connection << "  ＜警告＞既にコネクションは無いにもかかわらず、close() しようとしてます。");
+        _DTRACE3_("何も行なわずreturnしますが、意図的でない場合は何かがおかしいでしょう。リークの可能性が大。調査すべし！");
         return _num_connection;
     }
 
@@ -193,7 +193,7 @@ int GgafResourceConnection<T>::close() {
         if (pCurrent == this) {
             //発見した場合
             int rnum = _num_connection;
-            TRACE3("GgafResourceConnection::close[" << _pManager->_manager_name << "(" << _idstr << ")" << "]<-" << _num_connection << "  発見したので開始");
+            _DTRACE3_("GgafResourceConnection::close[" << _pManager->_manager_name << "(" << _idstr << ")" << "]<-" << _num_connection << "  発見したので開始");
             if (rnum == 1) {//最後の接続だった場合
                 //死に行く宿めであるので、保持リストから離脱を行なう
                 if (pCurrent->_pNext == nullptr) {
@@ -215,14 +215,14 @@ int GgafResourceConnection<T>::close() {
                         pPrev->_pNext = pCurrent->_pNext; //両隣を繋げる
                     }
                 }
-                TRACE3("GgafResourceConnection::close()[" << _pManager->_manager_name << "(" << _idstr << ")" << "]<-" << _num_connection << "  最後の参照のため解放します。");
+                _DTRACE3_("GgafResourceConnection::close()[" << _pManager->_manager_name << "(" << _idstr << ")" << "]<-" << _num_connection << "  最後の参照のため解放します。");
                 _num_connection = 0;
             } else if (rnum > 0) {
-                TRACE3("GgafResourceConnection::close()[" << _pManager->_manager_name << "(" << _idstr << ")" << "]<-" << _num_connection << "  まだ残ってます");
+                _DTRACE3_("GgafResourceConnection::close()[" << _pManager->_manager_name << "(" << _idstr << ")" << "]<-" << _num_connection << "  まだ残ってます");
                 _num_connection--;
             } else if (rnum < 0) {
                 //ココは通らない・・・
-                _TRACE_("GgafResourceConnection::close()[" << _pManager->_manager_name << "(" << _idstr << ")" << "]<-" << _num_connection << "  "<<
+                _DTRACE_("GgafResourceConnection::close()[" << _pManager->_manager_name << "(" << _idstr << ")" << "]<-" << _num_connection << "  "<<
                         "解放しすぎ！、どないやねん。アホー(>_<)。とりあえずスルー。");
                 _num_connection = 0; //とりあえず解放
             }
@@ -237,9 +237,9 @@ int GgafResourceConnection<T>::close() {
     if (_num_connection == 0) {
         T* r = pCurrent->peek();
         if (r) {
-            _TRACE_("GgafResourceConnection::close()[" << _pManager->_manager_name << "(" << _idstr << ")" << "]<-" << _num_connection <<" processReleaseResource() Begin.");
+            _DTRACE_("GgafResourceConnection::close()[" << _pManager->_manager_name << "(" << _idstr << ")" << "]<-" << _num_connection <<" processReleaseResource() Begin.");
             pCurrent->processReleaseResource(r); //本当の解放
-            _TRACE_("GgafResourceConnection::close()[" << _pManager->_manager_name << "(" << _idstr << ")" << "]<-" << _num_connection <<" processReleaseResource() Done.");
+            _DTRACE_("GgafResourceConnection::close()[" << _pManager->_manager_name << "(" << _idstr << ")" << "]<-" << _num_connection <<" processReleaseResource() Done.");
         }
 
         if (GgafResourceManager<T>::_is_waiting_to_connect) {
@@ -251,14 +251,14 @@ int GgafResourceConnection<T>::close() {
         } else {
             //別スレッドでconnet()待ち状態が無いので、安心して開放するとしよう。
             _is_closing_resource = false; //thisポインタを使用していないので代入可能
-            _TRACE_("GgafResourceConnection::close()[" << _pManager->_manager_name << "(" << _idstr << ")" << "] Now, delete this !!!");
+            _DTRACE_("GgafResourceConnection::close()[" << _pManager->_manager_name << "(" << _idstr << ")" << "] Now, delete this !!!");
             delete[] _idstr;
             delete this;     //こんなことが出来るんですね！。
 //            if (GgafResourceManager<T>::_is_waiting_to_connect) {
 //                //ここに来て、connet()待ちに変わっていたら、もう諦める。
 //                //現在の排他が完全ではないと考えるのは、このあたりの処理も含む
 //                //TODO:完全対応には、connect()を却下する機構を作らねばならぬ。
-//                _TRACE_("＜警告＞GgafResourceConnection<T>::close() delete this 中に connect() しようとしました。大丈夫でしょうか。・・・もはやどうしようも無いのですが！");
+//                _DTRACE_("＜警告＞GgafResourceConnection<T>::close() delete this 中に connect() しようとしました。大丈夫でしょうか。・・・もはやどうしようも無いのですが！");
 //            }
 //            _is_closing_resource = false; //thisポインタを使用していないので代入可能
             return 0;

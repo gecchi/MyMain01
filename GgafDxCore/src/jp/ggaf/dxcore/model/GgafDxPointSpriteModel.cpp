@@ -16,7 +16,7 @@ using namespace GgafDxCore;
 DWORD GgafDxPointSpriteModel::FVF = (D3DFVF_XYZ | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DFVF_TEX1);
 
 GgafDxPointSpriteModel::GgafDxPointSpriteModel(char* prm_model_name) : GgafDxModel(prm_model_name) {
-    TRACE3("GgafDxPointSpriteModel::GgafDxPointSpriteModel(" << _model_name << ")");
+    _DTRACE3_("GgafDxPointSpriteModel::GgafDxPointSpriteModel(" << _model_name << ")");
     _pVertexBuffer = nullptr;
     _paVtxBuffer_org = nullptr;
     _vertices_num = 0;
@@ -35,7 +35,7 @@ GgafDxPointSpriteModel::GgafDxPointSpriteModel(char* prm_model_name) : GgafDxMod
 //ï`âÊ
 HRESULT GgafDxPointSpriteModel::draw(GgafDxDrawableActor* prm_pActor_target, int prm_draw_set_num) {
     IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
-    TRACE4("GgafDxPointSpriteModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
+    _DTRACE4_("GgafDxPointSpriteModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
 
     //ëŒè€Actor
     GgafDxPointSpriteActor* pTargetActor = (GgafDxPointSpriteActor*)prm_pActor_target;
@@ -64,7 +64,7 @@ HRESULT GgafDxPointSpriteModel::draw(GgafDxDrawableActor* prm_pActor_target, int
     }
     if (GgafDxEffectManager::_pEffect_active != pPointSpriteEffect || GgafDxDrawableActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique)  {
         if (GgafDxEffectManager::_pEffect_active) {
-            TRACE4("EndPass("<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
+            _DTRACE4_("EndPass("<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
             hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->EndPass();
             checkDxException(hr, D3D_OK, "GgafDxPointSpriteActor::draw() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->End();
@@ -77,11 +77,11 @@ HRESULT GgafDxPointSpriteModel::draw(GgafDxDrawableActor* prm_pActor_target, int
             }
 #endif
         }
-        TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pPointSpriteEffect->_effect_name);
+        _DTRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pPointSpriteEffect->_effect_name);
         hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
         checkDxException(hr, S_OK, "GgafDxPointSpriteActor::draw() SetTechnique("<<pTargetActor->_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
-        TRACE4("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pPointSpriteEffect->_effect_name<<"("<<pPointSpriteEffect<<")");
+        _DTRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pPointSpriteEffect->_effect_name<<"("<<pPointSpriteEffect<<")");
         UINT numPass;
         hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
         checkDxException(hr, D3D_OK, "GgafDxPointSpriteActor::draw() Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
@@ -100,7 +100,7 @@ HRESULT GgafDxPointSpriteModel::draw(GgafDxDrawableActor* prm_pActor_target, int
         hr = pID3DXEffect->CommitChanges();
         checkDxException(hr, D3D_OK, "GgafDxPointSpriteModel::draw() CommitChanges() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
-    TRACE4("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pPointSpriteEffect->_effect_name);
+    _DTRACE4_("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pPointSpriteEffect->_effect_name);
     pDevice->DrawPrimitive(D3DPT_POINTLIST, 0, _vertices_num);
 
     //ëOâÒï`âÊÉÇÉfÉãï€éù
@@ -112,19 +112,19 @@ HRESULT GgafDxPointSpriteModel::draw(GgafDxDrawableActor* prm_pActor_target, int
 }
 
 void GgafDxPointSpriteModel::restore() {
-    TRACE3("GgafDxPointSpriteModel::restore() " << _model_name << " start");
+    _DTRACE3_("GgafDxPointSpriteModel::restore() " << _model_name << " start");
     GgafDxGod::_pModelManager->restorePointSpriteModel(this);
-    TRACE3("GgafDxPointSpriteModel::restore() " << _model_name << " end");
+    _DTRACE3_("GgafDxPointSpriteModel::restore() " << _model_name << " end");
 }
 
 void GgafDxPointSpriteModel::onDeviceLost() {
-    TRACE3("GgafDxPointSpriteModel::onDeviceLost() " << _model_name << " start");
+    _DTRACE3_("GgafDxPointSpriteModel::onDeviceLost() " << _model_name << " start");
     release();
-    TRACE3("GgafDxPointSpriteModel::onDeviceLost() " << _model_name << " end");
+    _DTRACE3_("GgafDxPointSpriteModel::onDeviceLost() " << _model_name << " end");
 }
 
 void GgafDxPointSpriteModel::release() {
-    TRACE3("GgafDxPointSpriteModel::release() " << _model_name << " start");
+    _DTRACE3_("GgafDxPointSpriteModel::release() " << _model_name << " start");
     GGAF_RELEASE(_pVertexBuffer);
     GGAF_DELETEARR(_paVtxBuffer_org);
     if (_papTextureConnection) {
@@ -135,7 +135,7 @@ void GgafDxPointSpriteModel::release() {
     GGAF_DELETEARR(_papTextureConnection);
     //TODO:êeÉNÉâÉXÉÅÉìÉoÇDELETEÇ∑ÇÈÇÃÇÕÇ‚Ç‚Ç´ÇΩÇ»Ç¢Ç©
     GGAF_DELETEARR(_paMaterial_default);
-    TRACE3("GgafDxPointSpriteModel::release() " << _model_name << " end");
+    _DTRACE3_("GgafDxPointSpriteModel::release() " << _model_name << " end");
 }
 
 GgafDxPointSpriteModel::~GgafDxPointSpriteModel() {

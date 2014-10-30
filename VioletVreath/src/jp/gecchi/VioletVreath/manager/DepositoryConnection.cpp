@@ -10,7 +10,7 @@ DepositoryConnection::DepositoryConnection(char* prm_idstr, GgafActorDepository*
 }
 
 void DepositoryConnection::processReleaseResource(GgafActorDepository* prm_pResource) {
-    _TRACE_("DepositoryConnection::processReleaseResourceで、"<<prm_pResource->getName()<<"開放というかend()(ここでぶっ壊れたらclose()漏れの可能性あり)");
+    _DTRACE_("DepositoryConnection::processReleaseResourceで、"<<prm_pResource->getName()<<"開放というかend()(ここでぶっ壊れたらclose()漏れの可能性あり)");
     prm_pResource->end();
     //本メソッドはActorやSceneのデストラクタでコネクションクローズによりリソース解放が行われたならば、
     //工場スレッドからの神がdeleteし、 DepositoryConnection を解放することになる。

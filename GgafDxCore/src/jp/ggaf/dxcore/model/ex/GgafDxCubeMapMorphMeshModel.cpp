@@ -14,13 +14,13 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxCubeMapMorphMeshModel::GgafDxCubeMapMorphMeshModel(char* prm_model_name) : GgafDxMorphMeshModel(prm_model_name) {
-    TRACE3("GgafDxCubeMapMorphMeshModel::GgafDxCubeMapMorphMeshModel(" << _model_name << ")");
+    _DTRACE3_("GgafDxCubeMapMorphMeshModel::GgafDxCubeMapMorphMeshModel(" << _model_name << ")");
     _obj_model |= Obj_GgafDxCubeMapMorphMeshModel;
 }
 
 
 HRESULT GgafDxCubeMapMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_target, int prm_draw_set_num) {
-    TRACE4("GgafDxCubeMapMorphMeshModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
+    _DTRACE4_("GgafDxCubeMapMorphMeshModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
     IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
     //対象アクター
     GgafDxCubeMapMorphMeshActor* pTargetActor = (GgafDxCubeMapMorphMeshActor*)prm_pActor_target;
@@ -59,7 +59,7 @@ HRESULT GgafDxCubeMapMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_target
                 //テクスチャをs0レジスタにセット
                 pDevice->SetTexture(0, _papTextureConnection[material_no]->peek()->_pIDirect3DBaseTexture9);
             } else {
-                _TRACE_("GgafDxCubeMapMorphMeshModel::draw("<<prm_pActor_target->getName()<<") テクスチャがありません。"<<(PROPERTY::WHITE_TEXTURE)<<"が設定されるべきです。おかしいです");
+                _DTRACE_("GgafDxCubeMapMorphMeshModel::draw("<<prm_pActor_target->getName()<<") テクスチャがありません。"<<(PROPERTY::WHITE_TEXTURE)<<"が設定されるべきです。おかしいです");
                 //無ければテクスチャ無し
                 pDevice->SetTexture(0, nullptr);
             }
@@ -70,7 +70,7 @@ HRESULT GgafDxCubeMapMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_target
         if ((GgafDxEffectManager::_pEffect_active != pCubeMapMorphMeshEffect || GgafDxDrawableActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) &&
                 i == 0) {
             if (GgafDxEffectManager::_pEffect_active) {
-               TRACE4("EndPass("<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
+               _DTRACE4_("EndPass("<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
                 hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->EndPass();
                 checkDxException(hr, D3D_OK, "GgafDxCubeMapMorphMeshModel::draw() EndPass() に失敗しました。"<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
                 hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->End();
@@ -85,12 +85,12 @@ HRESULT GgafDxCubeMapMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_target
 #endif
 
             }
-            TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pCubeMapMorphMeshEffect->_effect_name);
+            _DTRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pCubeMapMorphMeshEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
             checkDxException(hr, S_OK, "GgafDxCubeMapMorphMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
 
-            TRACE4("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pCubeMapMorphMeshEffect->_effect_name<<"("<<pCubeMapMorphMeshEffect<<")");
+            _DTRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pCubeMapMorphMeshEffect->_effect_name<<"("<<pCubeMapMorphMeshEffect<<")");
             UINT numPass;
             hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
             checkDxException(hr, D3D_OK, "GgafDxCubeMapMorphMeshModel::draw() Begin() に失敗しました。");
@@ -113,7 +113,7 @@ HRESULT GgafDxCubeMapMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_target
             checkDxException(hr, D3D_OK, "GgafDxCubeMapMorphMeshModel::draw()CommitChanges() に失敗しました。");
         }
 
-        TRACE4("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pCubeMapMorphMeshEffect->_effect_name);
+        _DTRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pCubeMapMorphMeshEffect->_effect_name);
         pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                       _paIndexParam[i].BaseVertexIndex,
                                       _paIndexParam[i].MinIndex,

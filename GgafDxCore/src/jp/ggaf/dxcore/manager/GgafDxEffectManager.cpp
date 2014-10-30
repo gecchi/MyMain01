@@ -76,34 +76,34 @@ GgafDxEffect* GgafDxEffectManager::processCreateResource(char* prm_idstr, void* 
             pResourceEffect = nullptr;
             break;
     }
-    TRACE3("GgafDxEffectManager::processCreateResource("<<prm_idstr<<")");
+    _DTRACE3_("GgafDxEffectManager::processCreateResource("<<prm_idstr<<")");
     return  pResourceEffect;
 }
 
 void GgafDxEffectManager::onDeviceLostAll() {
-    TRACE3("GgafDxEffectManager::onDeviceLostAll() start-->");
+    _DTRACE3_("GgafDxEffectManager::onDeviceLostAll() start-->");
     GgafResourceConnection<GgafDxEffect>* pCurrent = _pConn_first;
     HRESULT hr;
     while (pCurrent) {
         hr = pCurrent->peek()->_pID3DXEffect->OnLostDevice();
         checkDxException(hr, D3D_OK, "GgafDxEffectManager::onDeviceLostAll エフェクト["<<pCurrent->getIdStr()<<"]の OnLostDevice() に失敗しました。");
-        TRACE3("onDeviceLostAll pCurrent="<<pCurrent->getIdStr() << " OnLostDevice() execute");
+        _DTRACE3_("onDeviceLostAll pCurrent="<<pCurrent->getIdStr() << " OnLostDevice() execute");
         pCurrent = pCurrent->getNext();
     }
-    TRACE3("GgafDxEffectManager::onDeviceLostAll() end<--");
+    _DTRACE3_("GgafDxEffectManager::onDeviceLostAll() end<--");
 }
 
 void GgafDxEffectManager::restoreAll() {
-    TRACE3("GgafDxEffectManager::restoreAll() start-->");
+    _DTRACE3_("GgafDxEffectManager::restoreAll() start-->");
     GgafResourceConnection<GgafDxEffect>* pCurrent = _pConn_first;
     HRESULT hr;
     while (pCurrent) {
         hr = pCurrent->peek()->_pID3DXEffect->OnResetDevice();
         checkDxException(hr, D3D_OK, "GgafDxEffectManager::restoreAll() エフェクト["<<pCurrent->getIdStr()<<"]の OnResetDevice() に失敗しました。");
-        TRACE3("restoreAll pCurrent="<<pCurrent->getIdStr() << " restoreAll() execute");
+        _DTRACE3_("restoreAll pCurrent="<<pCurrent->getIdStr() << " restoreAll() execute");
         pCurrent = pCurrent->getNext();
     }
-    TRACE3("GgafDxEffectManager::restoreAll() end<--");
+    _DTRACE3_("GgafDxEffectManager::restoreAll() end<--");
 }
 void GgafDxEffectManager::setParamPerFrameAll() {
     //通常描画時１フレームに１回、GgafDxUniverse::draw()で描画前に呼ばれる。
@@ -115,9 +115,9 @@ void GgafDxEffectManager::setParamPerFrameAll() {
 }
 GgafResourceConnection<GgafDxEffect>* GgafDxEffectManager::processCreateConnection(char* prm_idstr,
                                                                                      GgafDxEffect* prm_pResource) {
-    TRACE3(" GgafDxEffectManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
+    _DTRACE3_(" GgafDxEffectManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
     GgafDxEffectConnection* pConne = NEW GgafDxEffectConnection(prm_idstr, prm_pResource);
-    TRACE3(" GgafDxEffectManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
+    _DTRACE3_(" GgafDxEffectManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
     return pConne;
 }
 

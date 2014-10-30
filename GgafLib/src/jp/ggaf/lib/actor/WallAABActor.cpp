@@ -89,7 +89,7 @@ void WallAABActor::processDraw() {
     while (pDrawActor) {
         if (pDrawActor->getModel() == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
             pWallPartsActor = (WallPartsActor*)pDrawActor;
-//                _TRACE_("WallAABActor::processDraw() pWallPartsActor->_wall_draw_face="<<(pWallPartsActor->_wall_draw_face)<<" befor._matWorld._14="<<(pWallPartsActor->_matWorld._14));
+//                _DTRACE_("WallAABActor::processDraw() pWallPartsActor->_wall_draw_face="<<(pWallPartsActor->_wall_draw_face)<<" befor._matWorld._14="<<(pWallPartsActor->_matWorld._14));
 
             //pWallPartsActor->_matWorld._14 = pWallPartsActor->_wall_draw_face;  //•`‰æ–Ê”Ô†‚ðƒ[ƒ‹ƒh•ÏŠ·s—ñ‚ÌmatWorld._14 ‚É–„‚ßž‚Þ
 
@@ -106,11 +106,11 @@ void WallAABActor::processDraw() {
 
 
 //                D3DXMATRIX& mat = pWallPartsActor->_matWorld;
-//                _TRACE_(mat._11<<","<<mat._12<<","<<mat._13<<","<<mat._14);
-//                _TRACE_(mat._21<<","<<mat._22<<","<<mat._23<<","<<mat._24);
-//                _TRACE_(mat._31<<","<<mat._32<<","<<mat._33<<","<<mat._34);
-//                _TRACE_(mat._41<<","<<mat._42<<","<<mat._43<<","<<mat._44);
-//                _TRACE_("------------");
+//                _DTRACE_(mat._11<<","<<mat._12<<","<<mat._13<<","<<mat._14);
+//                _DTRACE_(mat._21<<","<<mat._22<<","<<mat._23<<","<<mat._24);
+//                _DTRACE_(mat._31<<","<<mat._32<<","<<mat._33<<","<<mat._34);
+//                _DTRACE_(mat._41<<","<<mat._42<<","<<mat._43<<","<<mat._44);
+//                _DTRACE_("------------");
 
             draw_set_num++;
             if (draw_set_num >= model_set_num) {

@@ -42,10 +42,10 @@ void ColliAAPrismActor::drawHitarea(CollisionChecker3D* prm_pColliChecker) {
             for (int i = 0; i < iAreaNum; i++) {
                 if (pCollisionArea->_papColliPart[i]->_is_valid_flg && pCollisionArea->_papColliPart[i]->_shape_kind == COLLI_AAPRISM) {
                     ColliAAPrism* prism = (ColliAAPrism*)pCollisionArea->_papColliPart[i];
-                    //_TRACE_("drawHitarea name="<<prm_pColliChecker->getTargetActor()->getName()<<" index="<<i);
+                    //_DTRACE_("drawHitarea name="<<prm_pColliChecker->getTargetActor()->getName()<<" index="<<i);
 
                     if (prism->_pos_prism == 0) {
-                        _TRACE_("ÅyåxçêÅzColliAAPrismActor::drawHitarea BADPOS i="<<i<<" Target="<<pActor->getName()<<" óví≤ç∏");
+                        _DTRACE_("ÅyåxçêÅzColliAAPrismActor::drawHitarea BADPOS i="<<i<<" Target="<<pActor->getName()<<" óví≤ç∏");
                     } else {
                         drawPrism(pActor->_x + prism->_x1,
                                   pActor->_y + prism->_y1,

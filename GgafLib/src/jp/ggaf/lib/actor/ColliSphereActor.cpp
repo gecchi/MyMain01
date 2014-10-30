@@ -42,7 +42,7 @@ void ColliSphereActor::drawHitarea(CollisionChecker3D* prm_pColliChecker) {
             for (int i = 0; i < iAreaNum; i++) {
                 if (pCollisionArea->_papColliPart[i]->_is_valid_flg && pCollisionArea->_papColliPart[i]->_shape_kind == COLLI_SPHERE) {
                     ColliSphere* sphere = (ColliSphere*)pCollisionArea->_papColliPart[i];
-                    //_TRACE_("drawHitarea name="<<prm_pColliChecker->getTargetActor()->getName()<<" index="<<i);
+                    //_DTRACE_("drawHitarea name="<<prm_pColliChecker->getTargetActor()->getName()<<" index="<<i);
 
                     drawSphere(pActor->_x + sphere->_x,
                                pActor->_y + sphere->_y,

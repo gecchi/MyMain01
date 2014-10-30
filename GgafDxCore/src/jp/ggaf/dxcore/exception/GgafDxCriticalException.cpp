@@ -14,7 +14,7 @@ GgafDxCriticalException::GgafDxCriticalException(std::string prm_message, HRESUL
     sprintf(buff, "\nHRESULT=0x%08X(%d) is %s.", (UINT)_hr, (int)_hr, ((FAILED(_hr)) ? "FAILED" : "SUCCEEDED"));
 
     std::string hrstr = buff;
-    _TRACE_("GgafDxCriticalException" +(_message + hrstr));
+    _DTRACE_("GgafDxCriticalException" +(_message + hrstr));
 }
 std::string GgafDxCriticalException::getMsg() {
     char buff[1000];

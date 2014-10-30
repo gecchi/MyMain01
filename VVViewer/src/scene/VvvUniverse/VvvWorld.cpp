@@ -441,9 +441,9 @@ void VvvWorld::processBehavior() {
         string file_name = UTIL::getFileBaseName(VvvGod::dropfiles_);
         string model_id = UTIL::getFileBaseNameWithoutExt(VvvGod::dropfiles_);
         string model_type = UTIL::getFileExt(VvvGod::dropfiles_);
-        _TRACE_("dropfile_dir="<<dropfile_dir);
-        _TRACE_("model_id="<<model_id);
-        _TRACE_("model_type="<<model_type);
+        _DTRACE_("dropfile_dir="<<dropfile_dir);
+        _DTRACE_("model_id="<<model_id);
+        _DTRACE_("model_type="<<model_type);
 
         //プロパティ一時退避
         string dir_mesh_model_default = PROPERTY::DIR_MESH_MODEL[0];

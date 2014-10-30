@@ -34,7 +34,7 @@ void HomingLaserChip::onActive() {
 
     //レーザーチップ出現時処理
     if (pChip_front == nullptr) {
-        //_TRACE_("HomingLaserChip::onActive() "<<getName()<<" pChip_front == nullptr");
+        //_DTRACE_("HomingLaserChip::onActive() "<<getName()<<" pChip_front == nullptr");
         _is_leader = true;
         //自身が先頭の場合
         _begining_x = _x;
@@ -45,7 +45,7 @@ void HomingLaserChip::onActive() {
         _begining_rz = _rz;
     } else {
         _is_leader = false;
-        //_TRACE_("HomingLaserChip::onActive() "<<getName()<<" pChip_front =="<<(pChip_front->getName()));
+        //_DTRACE_("HomingLaserChip::onActive() "<<getName()<<" pChip_front =="<<(pChip_front->getName()));
         _begining_x = pChip_front->_begining_x;
         _begining_y = pChip_front->_begining_y;
         _begining_z = pChip_front->_begining_z;
@@ -82,7 +82,7 @@ void HomingLaserChip::onInactive() {
     //     `----- 1:末尾チップ
     //
 
-    //_TRACE_("A HomingLaserChip::onInactive() _chip_kind ="<<_chip_kind <<")");
+    //_DTRACE_("A HomingLaserChip::onInactive() _chip_kind ="<<_chip_kind <<")");
     if (_chip_kind == 1) {
 
     } else if (_chip_kind == 2) {

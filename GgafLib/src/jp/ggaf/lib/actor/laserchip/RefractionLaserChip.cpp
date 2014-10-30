@@ -240,7 +240,7 @@ void RefractionLaserChip::processBehavior() {
             _pRefractionEffect = pChip_front->_prev_pRefractionEffect;
             if (_pChip_behind == nullptr) {
                 if (_pRefractionEffect) {
-                    //_TRACE_("_pRefractionEffect->sayonara();");
+                    //_DTRACE_("_pRefractionEffect->sayonara();");
                     _pRefractionEffect->sayonara(_frame_standstill_refraction);
                 }
             }

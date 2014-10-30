@@ -1374,7 +1374,7 @@ void GgafLinkedListRing<T>::indexedValue() {
 
 template<class T>
 GgafLinkedListRing<T>::~GgafLinkedListRing() {
-    _TRACE_("GgafLinkedListRing<T>::~GgafLinkedListRing() _num_elem="<<_num_elem);
+    _DTRACE_("GgafLinkedListRing<T>::~GgafLinkedListRing() _num_elem="<<_num_elem);
     //Ž©•ª‚ÉŽq‚ª‚ ‚éê‡
     if (_pElem_first) {
         //‚Ü‚¸Žq‚ðdelete

@@ -14,15 +14,15 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxMorphMeshModel::GgafDxMorphMeshModel(char* prm_model_name) : GgafDxModel(prm_model_name) {
-    TRACE3("GgafDxMorphMeshModel::GgafDxMorphMeshModel(" << _model_name << ")");
-    _TRACE_("GgafDxMorphMeshModel::GgafDxMorphMeshModel(" << _model_name << ") Begin");
+    _DTRACE3_("GgafDxMorphMeshModel::GgafDxMorphMeshModel(" << _model_name << ")");
+    _DTRACE_("GgafDxMorphMeshModel::GgafDxMorphMeshModel(" << _model_name << ") Begin");
     // 下位実装クラスが指定するモデル名は"M/4/xxxxx"という形式で、GgafDxModelManagerは
     // "M"からGgafDxMorphMeshModelと判断し、"M"を取り除いた"4/XXXX"をモデル名として扱う。
     // prm_model_name には "4/XXXX" が、渡ってくる。
     // プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
     // モーフターゲット数が違うモデルは、別モデルという扱いにするため、モデル名に数値を残そう
     // モデル名からフターゲット数を取得
-    _TRACE_("GgafDxMorphMeshModel prm_model_name="<<prm_model_name);
+    _DTRACE_("GgafDxMorphMeshModel prm_model_name="<<prm_model_name);
     char nm[51];
     strcpy(nm, prm_model_name);
     const char* pT = strtok(nm, "/" );
@@ -32,11 +32,11 @@ GgafDxMorphMeshModel::GgafDxMorphMeshModel(char* prm_model_name) : GgafDxModel(p
         throwGgafCriticalException("GgafDxMorphMeshModel::GgafDxMorphMeshModel モデルIDにモーフターゲット数が指定されてません。prm_model_name="<<prm_model_name);
     } else {
         _morph_target_num = num;
-        _TRACE_("GgafDxMorphMeshModel モーフターゲット数は指定あり、_morph_target_num="<<_morph_target_num);
+        _DTRACE_("GgafDxMorphMeshModel モーフターゲット数は指定あり、_morph_target_num="<<_morph_target_num);
     }
     //_morph_target_num = (int)(*prm_model_name - '0'); //頭一文字の半角数字文字を数値に
     if (_morph_target_num > 6) {
-        _TRACE_("GgafDxMorphMeshModel::GgafDxMorphMeshModel モーフターゲット数が最大6個以上指定されてます。意図していますか？ _morph_target_num="<<_morph_target_num<<"/_model_name="<<_model_name);
+        _DTRACE_("GgafDxMorphMeshModel::GgafDxMorphMeshModel モーフターゲット数が最大6個以上指定されてます。意図していますか？ _morph_target_num="<<_morph_target_num<<"/_model_name="<<_model_name);
     }
     _papModel3D = nullptr;
     _papMeshesFront = nullptr;
@@ -59,12 +59,12 @@ GgafDxMorphMeshModel::GgafDxMorphMeshModel(char* prm_model_name) : GgafDxModel(p
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel*)
     //で行うようにした。要参照。
-    _TRACE_("GgafDxMorphMeshModel::GgafDxMorphMeshModel(" << _model_name << ") End");
+    _DTRACE_("GgafDxMorphMeshModel::GgafDxMorphMeshModel(" << _model_name << ") End");
 }
 
 HRESULT GgafDxMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_target, int prm_draw_set_num) {
     IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
-    TRACE4("GgafDxMorphMeshModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
+    _DTRACE4_("GgafDxMorphMeshModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
 
     //対象アクター
     GgafDxMorphMeshActor* pTargetActor = (GgafDxMorphMeshActor*)prm_pActor_target;
@@ -103,7 +103,7 @@ HRESULT GgafDxMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_target, int p
                 //テクスチャをs0レジスタにセット
                 pDevice->SetTexture(0, _papTextureConnection[material_no]->peek()->_pIDirect3DBaseTexture9);
             } else {
-                _TRACE_("GgafDxMorphMeshModel::draw("<<prm_pActor_target->getName()<<") テクスチャがありません。"<<(PROPERTY::WHITE_TEXTURE)<<"が設定されるべきです。おかしいです");
+                _DTRACE_("GgafDxMorphMeshModel::draw("<<prm_pActor_target->getName()<<") テクスチャがありません。"<<(PROPERTY::WHITE_TEXTURE)<<"が設定されるべきです。おかしいです");
                 //無ければテクスチャ無し
                 pDevice->SetTexture(0, nullptr);
             }
@@ -113,7 +113,7 @@ HRESULT GgafDxMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_target, int p
 
         if ((GgafDxEffectManager::_pEffect_active != pMorphMeshEffect || GgafDxDrawableActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) && i == 0) {
             if (GgafDxEffectManager::_pEffect_active) {
-               TRACE4("EndPass("<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
+               _DTRACE4_("EndPass("<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
                 hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->EndPass();
                 checkDxException(hr, D3D_OK, "GgafDxMorphMeshModel::draw() EndPass() に失敗しました。");
                 hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->End();
@@ -128,12 +128,12 @@ HRESULT GgafDxMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_target, int p
 #endif
 
              }
-            TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMorphMeshEffect->_effect_name);
+            _DTRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMorphMeshEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
             checkDxException(hr, S_OK, "GgafDxMorphMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
 
-            TRACE4("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMorphMeshEffect->_effect_name<<"("<<pMorphMeshEffect<<")");
+            _DTRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMorphMeshEffect->_effect_name<<"("<<pMorphMeshEffect<<")");
             UINT numPass;
             hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
             checkDxException(hr, D3D_OK, "GgafDxMorphMeshModel::draw() Begin() に失敗しました。");
@@ -158,7 +158,7 @@ HRESULT GgafDxMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_target, int p
             checkDxException(hr, D3D_OK, "GgafDxMorphMeshModel::draw()CommitChanges() に失敗しました。");
         }
 
-        TRACE4("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMorphMeshEffect->_effect_name);
+        _DTRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMorphMeshEffect->_effect_name);
         pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                       _paIndexParam[i].BaseVertexIndex,
                                       _paIndexParam[i].MinIndex,
@@ -175,19 +175,19 @@ HRESULT GgafDxMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_target, int p
 }
 
 void GgafDxMorphMeshModel::restore() {
-    TRACE3("GgafDxMorphMeshModel::restore() " << _model_name << " start");
+    _DTRACE3_("GgafDxMorphMeshModel::restore() " << _model_name << " start");
     GgafDxGod::_pModelManager->restoreMorphMeshModel(this);
-    TRACE3("GgafDxMorphMeshModel::restore() " << _model_name << " end");
+    _DTRACE3_("GgafDxMorphMeshModel::restore() " << _model_name << " end");
 }
 
 void GgafDxMorphMeshModel::onDeviceLost() {
-    TRACE3("GgafDxMorphMeshModel::onDeviceLost() " << _model_name << " start");
+    _DTRACE3_("GgafDxMorphMeshModel::onDeviceLost() " << _model_name << " start");
     release();
-    TRACE3("GgafDxMorphMeshModel::onDeviceLost() " << _model_name << " end");
+    _DTRACE3_("GgafDxMorphMeshModel::onDeviceLost() " << _model_name << " end");
 }
 
 void GgafDxMorphMeshModel::release() {
-    TRACE3("GgafDxMorphMeshModel::release() " << _model_name << " start");
+    _DTRACE3_("GgafDxMorphMeshModel::release() " << _model_name << " start");
 
     //テクスチャを解放
     if (_papTextureConnection) {
@@ -225,7 +225,7 @@ void GgafDxMorphMeshModel::release() {
 
     //TODO:親クラスメンバをDELETEするのはややきたないか
     GGAF_DELETEARR(_paMaterial_default);
-    TRACE3("GgafDxMorphMeshModel::release() " << _model_name << " end");
+    _DTRACE3_("GgafDxMorphMeshModel::release() " << _model_name << " end");
 
 }
 GgafDxMorphMeshModel::~GgafDxMorphMeshModel() {

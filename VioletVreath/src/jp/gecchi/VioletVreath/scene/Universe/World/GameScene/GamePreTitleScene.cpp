@@ -28,7 +28,7 @@ GamePreTitleScene::GamePreTitleScene(const char* prm_name) : DefaultScene(prm_na
 //    }
 }
 void GamePreTitleScene::onReset() {
-    _TRACE_("GamePreTitleScene::onReset()");
+    _DTRACE_("GamePreTitleScene::onReset()");
     pTitleBoard_->position(PX_C(100), PX_C(600));
     pLabel01_->update(PX_C(100), PX_C(50), "");
     pLabel02_->update("");
@@ -39,7 +39,7 @@ void GamePreTitleScene::onActive() {
 }
 
 void GamePreTitleScene::initialize() {
-    _TRACE_("GamePreTitleScene::initialize()");
+    _DTRACE_("GamePreTitleScene::initialize()");
 }
 
 void GamePreTitleScene::processBehavior() {

@@ -29,7 +29,7 @@ void GameOverScene::onReset() {
     getProgress()->reset(GameOverScene::PROG_INIT);
 }
 void GameOverScene::initialize() {
-    _TRACE_("GameOverScene::initialize()");
+    _DTRACE_("GameOverScene::initialize()");
 }
 
 void GameOverScene::processBehavior() {
@@ -58,19 +58,19 @@ void GameOverScene::processBehavior() {
                 fadeinScene(FADE_FRAMES);
 
                 if (G_RANKING_TABLE.isRankIn(G_SCORE)) {
-                    _TRACE_("ランクイン!!!!");
+                    _DTRACE_("ランクイン!!!!");
                     //ランクインのため、ネームエントリーシーン準備
                     orderSceneToFactory(ORDER_ID_NAMEENTRYSCENE, NameEntryScene, "NameEntryScene");
                     need_name_entry_ = true;
                 } else {
-                    _TRACE_("ランクインではない!!!!");
+                    _DTRACE_("ランクインではない!!!!");
                     need_name_entry_ = false;
                 }
             }
             if (pProg->getFrameInProgress() == 420) {
                 P_UNIVERSE->resetCamWorker();
                 if (need_name_entry_) {
-                    _TRACE_("pProg->change(GameOverScene::PROG_NAMEENTRY);");
+                    _DTRACE_("pProg->change(GameOverScene::PROG_NAMEENTRY);");
                     pProg->change(GameOverScene::PROG_NAMEENTRY);
                 } else {
                     pProg->change(GameOverScene::PROG_FINISH);
@@ -106,7 +106,7 @@ void GameOverScene::processBehavior() {
 void GameOverScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_NAMEENTRYSCENE_FINISH) {
         //ネームエントリーシーン終了時
-        _TRACE_("GameOverScene::onCatchEvent(EVENT_NAMEENTRYSCENE_FINISH)");
+        _DTRACE_("GameOverScene::onCatchEvent(EVENT_NAMEENTRYSCENE_FINISH)");
         getProgress()->change(PROG_FINISH);
     }
 }

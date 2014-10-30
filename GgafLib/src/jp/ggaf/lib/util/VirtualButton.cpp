@@ -48,9 +48,17 @@ VirtualButton::JOYSTICKMAP VirtualButton::_joystickmap = {
                               5, // BUTTON6
                               6, // BUTTON7
                               7, // BUTTON8
-                              9, // PAUSE
-                              0, // UI_EXECUTE
-                              1  // UI_CANCEL
+                              -1, // UP
+                              -1, // DOWN
+                              -1, // LEFT
+                              -1, // RIGHT
+                              -1, // UI_UP
+                              -1, // UI_DOWN
+                              -1, // UI_LEFT
+                              -1, // UI_RIGHT
+                              0,  // UI_EXECUTE
+                              -1, // UI_CANCEL
+                              1   // UI_DEBUG
                            };
 
 VirtualButton::VirtualButton(const char* prm_replay_file) : GgafObject() {
@@ -73,17 +81,18 @@ VirtualButton::VirtualButton(const char* prm_replay_file) : GgafObject() {
     _pRpy = NEW VBReplayRecorder();
     if (_pRpy->importFile(prm_replay_file) ) {
         //読み込めた場合リプレイモード
-        _TRACE_("VirtualButton("<<prm_replay_file<<") リプレイモードです。");
+        _DTRACE_("VirtualButton("<<prm_replay_file<<") リプレイモードです。");
         _is_replaying = true;
     } else {
         //読み込めない場合は通常記録モード
         _is_replaying = false;
-        _TRACE_("VirtualButton("<<prm_replay_file<<") 通常記録モード。");
+        _DTRACE_("VirtualButton("<<prm_replay_file<<") 通常記録モード。");
     }
     if (!_is_init) {
         init();
     }
     _was_replay_done = false;
+    _with_pov = true;
 }
 
 void VirtualButton::init() {
@@ -861,64 +870,75 @@ void VirtualButton::update() {
         vbsta state = 0;
         KEYBOARDMAP& kmap = _keyboardmap;
         JOYSTICKMAP& jmap = _joystickmap;
+
         state |= (VB_BUTTON1 * (GgafDxInput::isBeingPressedKey(kmap.BUTTON1) ||
-                                GgafDxInput::isBeingPressedJoyRgbButton(jmap.BUTTON1)));
+                                GgafDxInput::isBeingPressedJoyButton(jmap.BUTTON1)));
 
         state |= (VB_BUTTON2 * (GgafDxInput::isBeingPressedKey(kmap.BUTTON2) ||
-                                GgafDxInput::isBeingPressedJoyRgbButton(jmap.BUTTON2)));
+                                GgafDxInput::isBeingPressedJoyButton(jmap.BUTTON2)));
 
         state |= (VB_BUTTON3 * (GgafDxInput::isBeingPressedKey(kmap.BUTTON3) ||
-                                GgafDxInput::isBeingPressedJoyRgbButton(jmap.BUTTON3)));
+                                GgafDxInput::isBeingPressedJoyButton(jmap.BUTTON3)));
 
         state |= (VB_BUTTON4 * (GgafDxInput::isBeingPressedKey(kmap.BUTTON4) ||
-                                GgafDxInput::isBeingPressedJoyRgbButton(jmap.BUTTON4)));
+                                GgafDxInput::isBeingPressedJoyButton(jmap.BUTTON4)));
 
         state |= (VB_BUTTON5 * (GgafDxInput::isBeingPressedKey(kmap.BUTTON5) ||
-                                GgafDxInput::isBeingPressedJoyRgbButton(jmap.BUTTON5)));
+                                GgafDxInput::isBeingPressedJoyButton(jmap.BUTTON5)));
 
         state |= (VB_BUTTON6 * (GgafDxInput::isBeingPressedKey(kmap.BUTTON6) ||
-                                GgafDxInput::isBeingPressedJoyRgbButton(jmap.BUTTON6)));
+                                GgafDxInput::isBeingPressedJoyButton(jmap.BUTTON6)));
 
         state |= (VB_BUTTON7 * (GgafDxInput::isBeingPressedKey(kmap.BUTTON7) ||
-                                GgafDxInput::isBeingPressedJoyRgbButton(jmap.BUTTON7)));
+                                GgafDxInput::isBeingPressedJoyButton(jmap.BUTTON7)));
 
         state |= (VB_BUTTON8 * (GgafDxInput::isBeingPressedKey(kmap.BUTTON8) ||
-                                GgafDxInput::isBeingPressedJoyRgbButton(jmap.BUTTON8)));
+                                GgafDxInput::isBeingPressedJoyButton(jmap.BUTTON8)));
 
         state |= (VB_PAUSE * (GgafDxInput::isBeingPressedKey(kmap.PAUSE) ||
-                              GgafDxInput::isBeingPressedJoyRgbButton(jmap.PAUSE)));
+                              GgafDxInput::isBeingPressedJoyButton(jmap.PAUSE)));
 
-        state |= (VB_UP * (GgafDxInput::isBeingPressedKey(kmap.UP) ||
-                           GgafDxInput::isBeingPressedJoyUp()));
+        bool up    = (GgafDxInput::isBeingPressedKey(kmap.UP)    || GgafDxInput::isBeingPressedJoyUp());
+        bool down  = (GgafDxInput::isBeingPressedKey(kmap.DOWN)  || GgafDxInput::isBeingPressedJoyDown());
+        bool left  = (GgafDxInput::isBeingPressedKey(kmap.LEFT)  || GgafDxInput::isBeingPressedJoyLeft());
+        bool right = (GgafDxInput::isBeingPressedKey(kmap.RIGHT) || GgafDxInput::isBeingPressedJoyRight());
+        if (_with_pov) {
+            up    = up    || GgafDxInput::isBeingPressedPovUp();
+            down  = down  || GgafDxInput::isBeingPressedPovDown();
+            left  = left  || GgafDxInput::isBeingPressedPovLeft();
+            right = right || GgafDxInput::isBeingPressedPovRight();
+        }
 
-        state |= (VB_DOWN * (GgafDxInput::isBeingPressedKey(kmap.DOWN) ||
-                             GgafDxInput::isBeingPressedJoyDown()));
+        state |= (VB_UP    * up);
+        state |= (VB_DOWN  * down);
+        state |= (VB_LEFT  * left);
+        state |= (VB_RIGHT * right);
 
-        state |= (VB_LEFT * (GgafDxInput::isBeingPressedKey(kmap.LEFT) ||
-                             GgafDxInput::isBeingPressedJoyLeft()));
+        bool ui_up    = (GgafDxInput::isBeingPressedKey(kmap.UI_UP)    || GgafDxInput::isBeingPressedJoyUp());
+        bool ui_down  = (GgafDxInput::isBeingPressedKey(kmap.UI_DOWN)  || GgafDxInput::isBeingPressedJoyDown());
+        bool ui_left  = (GgafDxInput::isBeingPressedKey(kmap.UI_LEFT)  || GgafDxInput::isBeingPressedJoyLeft());
+        bool ui_right = (GgafDxInput::isBeingPressedKey(kmap.UI_RIGHT) || GgafDxInput::isBeingPressedJoyRight());
+        if (_with_pov) {
+            ui_up    = ui_up    || GgafDxInput::isBeingPressedPovUp();
+            ui_down  = ui_down  || GgafDxInput::isBeingPressedPovDown();
+            ui_left  = ui_left  || GgafDxInput::isBeingPressedPovLeft();
+            ui_right = ui_right || GgafDxInput::isBeingPressedPovRight();
+        }
 
-        state |= (VB_RIGHT * (GgafDxInput::isBeingPressedKey(kmap.RIGHT) ||
-                              GgafDxInput::isBeingPressedJoyRight()));
-
-        state |= (VB_UI_UP * (GgafDxInput::isBeingPressedKey(kmap.UI_UP) ||
-                              GgafDxInput::isBeingPressedJoyUp()));
-
-        state |= (VB_UI_DOWN * (GgafDxInput::isBeingPressedKey(kmap.UI_DOWN) ||
-                                GgafDxInput::isBeingPressedJoyDown()));
-
-        state |= (VB_UI_LEFT * (GgafDxInput::isBeingPressedKey(kmap.UI_LEFT) ||
-                                GgafDxInput::isBeingPressedJoyLeft()));
-
-        state |= (VB_UI_RIGHT * (GgafDxInput::isBeingPressedKey(kmap.UI_RIGHT) ||
-                                 GgafDxInput::isBeingPressedJoyRight()));
+        state |= (VB_UI_UP    * ui_up);
+        state |= (VB_UI_DOWN  * ui_down);
+        state |= (VB_UI_LEFT  * ui_left);
+        state |= (VB_UI_RIGHT * ui_right);
 
         state |= (VB_UI_EXECUTE * (GgafDxInput::isBeingPressedKey(kmap.UI_EXECUTE) ||
-                                   GgafDxInput::isBeingPressedJoyRgbButton(jmap.UI_EXECUTE)));
+                                   GgafDxInput::isBeingPressedJoyButton(jmap.UI_EXECUTE)));
 
         state |= (VB_UI_CANCEL * (GgafDxInput::isBeingPressedKey(kmap.UI_CANCEL) ||
-                                  GgafDxInput::isBeingPressedJoyRgbButton(jmap.UI_CANCEL)));
+                                  GgafDxInput::isBeingPressedJoyButton(jmap.UI_CANCEL)));
 
         state |= (VB_UI_DEBUG * (GgafDxInput::isBeingPressedKey(kmap.UI_DEBUG)));
+
+
 
         if (state & VB_UP) {
             if (state & VB_RIGHT) {

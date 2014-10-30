@@ -34,12 +34,12 @@ void Mikata001::initialize() {
 }
 
 void Mikata001::onActive() {
-    _TRACE_("Mikata001::onActive()!!! _frame_of_life="<<_frame_of_life<<" _frame_of_behaving_since_onActive="<<_frame_of_behaving_since_onActive);
+    _DTRACE_("Mikata001::onActive()!!! _frame_of_life="<<_frame_of_life<<" _frame_of_behaving_since_onActive="<<_frame_of_behaving_since_onActive);
 }
 
 void Mikata001::processBehavior() {
-//    _TRACE_("Mikata001:before  _weight[1]="<<_weight[1]<<"");
-//    _TRACE_("Mikata001:before _x="<<_x);
+//    _DTRACE_("Mikata001:before  _weight[1]="<<_weight[1]<<"");
+//    _DTRACE_("Mikata001:before _x="<<_x);
     VirtualButton* vb = P_WORLD->vb_;
 
     if (vb->isBeingPressed(VB_RIGHT)) {
@@ -57,20 +57,20 @@ void Mikata001::processBehavior() {
 
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_1)) {
-        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_1)!!!!!");
+        _DTRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_1)!!!!!");
         getMorpher()->asst()->morphByDt(1, 1.0 - _weight[1], 60, 0.3, 0.5, 0.00, true);
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_2)) {
-        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_2)!!!!!");
+        _DTRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_2)!!!!!");
         getMorpher()->asst()->morphByDt(1,0.0 - _weight[1], 60, 0.3, 0.5, 0.00, true);
     }
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_3)) {
-        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_3)!!!!!");
+        _DTRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_3)!!!!!");
         getMorpher()->asst()->morphByVd(1,0.04, 1.0 - _weight[1],  0.4, 0.5, 0.00, true);
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_4)) {
-        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_4)!!!!!");
+        _DTRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_4)!!!!!");
         getMorpher()->asst()->morphByVd(1,0.04, 0.0 - _weight[1], 0.4, 0.5, 0.00, true);
     }
 
@@ -81,28 +81,28 @@ void Mikata001::processBehavior() {
 //
 //
 //    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_D)) {
-//        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_D)!!!!!");
+//        _DTRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_D)!!!!!");
 //        getKuroko()->addMvVelo(PX_C(2));
 //    }
 //    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_F)) {
-//        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_F)!!!!!");
+//        _DTRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_F)!!!!!");
 //        getKuroko()->addMvVelo(-PX_C(2));
 //    }
 //
 //    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_A)) {
-//        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_A)!!!!!");
+//        _DTRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_A)!!!!!");
 //        getKuroko()->asstA()->slideMvByVd(PX_C(10), PX_C(-320)-_x, 0.3, 0.7, PX_C(0), true);
 //    }
 //    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_S)) {
-//        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_S)!!!!!");
+//        _DTRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_S)!!!!!");
 //        getKuroko()->asstA()->slideMvByVd(PX_C(10), PX_C(320) - _x, 0.4, 0.6, PX_C(0), true);
 //    }
 //    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Z)) {
-//        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Q)!!!!!");
+//        _DTRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Q)!!!!!");
 //        getKuroko()->asstA()->slideMvByDt(PX_C(-320) - _x, 120, 0.3, 0.6, PX_C(0), true);
 //    }
 //    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_X)) {
-//        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_W)!!!!!");
+//        _DTRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_W)!!!!!");
 //        getKuroko()->asstA()->slideMvByDt(PX_C(320) - _x, 120, 0.3, 0.6, PX_C(0), true);
 //    }
 
@@ -196,17 +196,17 @@ void Mikata001::processBehavior() {
     pColorist->behave();
     getKuroko()->behave(); //黒衣を活動させる（Z軸回転する）
     getMorpher()->behave();
-//    _TRACE_("Mikata001:after _x="<<_x);
-//_TRACE_("Mikata001:after  _weight[1]="<<_weight[1]<<"");
-//_TRACE_("-----------------------------------------");
+//    _DTRACE_("Mikata001:after _x="<<_x);
+//_DTRACE_("Mikata001:after  _weight[1]="<<_weight[1]<<"");
+//_DTRACE_("-----------------------------------------");
 }
 
 void Mikata001::onInactive() {
-    _TRACE_("Mikata001::onInactive()!!! _frame_of_life="<<_frame_of_life<<" _frame_of_behaving_since_onActive="<<_frame_of_behaving_since_onActive);
+    _DTRACE_("Mikata001::onInactive()!!! _frame_of_life="<<_frame_of_life<<" _frame_of_behaving_since_onActive="<<_frame_of_behaving_since_onActive);
 }
 
 void Mikata001::onHit(GgafCore::GgafActor* prm_pOtherActor) {
-    _TRACE_("ヒット！");
+    _DTRACE_("ヒット！");
 }
 
 Mikata001::~Mikata001() {

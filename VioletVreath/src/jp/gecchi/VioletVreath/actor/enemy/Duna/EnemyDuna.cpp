@@ -54,7 +54,7 @@ void EnemyDuna::processBehavior() {
     UTIL::updateEnemyRankPoint(this);
 
 //    if (pProg->isJustChanged()) {
-//        _TRACE_("EnemyDuna::"<<pProg->getFromProgOnChange()<<"¨"<<pProg->get()<<"");
+//        _DTRACE_("EnemyDuna::"<<pProg->getFromProgOnChange()<<"¨"<<pProg->get()<<"");
 //    }
 
     MyShip* pMyShip = P_MYSHIP;
@@ -364,7 +364,7 @@ void EnemyDuna::processBehavior() {
     pAxsMver_->behave();
     getMorpher()->behave();
     pAFader_->behave();
-//_TRACE_("EnemyDuna f:"<<getBehaveingFrame()<<"  pProg="<<pProg->get()<<"   X,Y,Z="<<_x<<","<<_y<<","<<_z<<" ");
+//_DTRACE_("EnemyDuna f:"<<getBehaveingFrame()<<"  pProg="<<pProg->get()<<"   X,Y,Z="<<_x<<","<<_y<<","<<_z<<" ");
 }
 
 void EnemyDuna::processJudgement() {

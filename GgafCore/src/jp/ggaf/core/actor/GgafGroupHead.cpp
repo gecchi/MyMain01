@@ -24,7 +24,7 @@ GgafGroupHead::GgafGroupHead(actorkind prm_kind, GgafStatus* prm_pStat) : GgafAc
 GgafSceneDirector* GgafGroupHead::getSceneDirector() {
     if (_pSceneDirector == nullptr) {
         if (_pParent == nullptr) {
-            _TRACE_("【警告】GgafGroupHead::getSceneDirector 所属していないため、Directorがとれません！("<<getName()<<")。そこで勝手にこの世(GgafUniverse)所属のDirectorを返しました");
+            _DTRACE_("【警告】GgafGroupHead::getSceneDirector 所属していないため、Directorがとれません！("<<getName()<<")。そこで勝手にこの世(GgafUniverse)所属のDirectorを返しました");
             _pSceneDirector = GgafGod::_pGod->_pUniverse->getSceneDirector();
         } else {
             if (_pParent->instanceOf(Obj_GgafMainActor)) {
@@ -34,7 +34,7 @@ GgafSceneDirector* GgafGroupHead::getSceneDirector() {
             } else if (_pParent->instanceOf(Obj_GgafSceneDirector)) {
                 return (GgafSceneDirector*)_pParent; //Actorツリー頂点
             }
-            _TRACE_("【警告】GgafGroupHead::getSceneDirector このツリーにはDirectorがいません！("<<getName()<<")。そこで勝手にこの世(GgafUniverse)所属のDirectorを返しました");
+            _DTRACE_("【警告】GgafGroupHead::getSceneDirector このツリーにはDirectorがいません！("<<getName()<<")。そこで勝手にこの世(GgafUniverse)所属のDirectorを返しました");
             _pSceneDirector = GgafGod::_pGod->_pUniverse->getSceneDirector();
         }
     }

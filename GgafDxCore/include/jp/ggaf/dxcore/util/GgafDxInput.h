@@ -4,8 +4,8 @@
 
 #include <dinput.h>
 
-//Pキーを押したときだけ_TRACE_(デバッグ用)
-#define _PTRACE_(M) {if (GgafDxCore::GgafDxInput::isBeingPressedKey(DIK_P)) { _TRACE_(M); }}
+//Pキーを押したときだけ_DTRACE_(デバッグ用)
+#define _PTRACE_(M) {if (GgafDxCore::GgafDxInput::isBeingPressedKey(DIK_P)) { _DTRACE_(M); }}
 
 namespace GgafDxCore {
 
@@ -167,11 +167,11 @@ public:
 
     /**
      * ジョイスティックのボタンの状態を調べる .
-     * @param prm_rgb_button_no ジョイスティックボタン番号
+     * @param prm_joy_button_no ジョイスティックボタン番号
      * @return  true：そのボタンは押されている状態である／false：そうでは無い
      */
-    static inline bool isBeingPressedJoyRgbButton(int prm_rgb_button_no) {
-        return (_joy_state[_flip_js].rgbButtons[prm_rgb_button_no] & 0x80) ? true : false;
+    static inline bool isBeingPressedJoyButton(int prm_joy_button_no) {
+        return (_joy_state[_flip_js].rgbButtons[prm_joy_button_no] & 0x80) ? true : false;
     }
 
     /**
@@ -187,7 +187,7 @@ public:
         return -1;
     }
 
-    static bool isPushedDownJoyRgbButton(int prm_rgb_button_no);
+    static bool isPushedDownJoyRgbButton(int prm_joy_button_no);
 
     static int getPushedDownJoyRgbButton();
 
@@ -224,11 +224,53 @@ public:
     }
 
     /**
-     * ジョイスティックのアナログスティックの方向の状態を調べる .
-     * @param prm_direction_no 調べたい方向番号(８方向、テンキーの番号に対応)
-     * @return true：その方向番号はONである／false：そうでは無い
+     * ジョイスティックのアナログスティックの押している方向のを調べる .
+     * @return 方向番号1～9(８方向、テンキーの番号に対応、5番はニュートラル)
      */
-    static bool isBeingPressedJoyDirection(int prm_direction_no);
+    static int getBeingPressedJoyDirection();
+
+
+
+    /**
+     * ハットスイッチの上方向の状態を調べる .
+     * @return true：ハットスイッチの上方向はONである／false：そうでは無い
+     */
+    static inline bool isBeingPressedPovUp() {
+        DWORD n = _joy_state[_flip_js].rgdwPOV[0];
+        return (LOWORD(n) != 0xFFFF && (29750 <= n || n < 7250)) ? true : false;
+    }
+
+    /**
+     * ハットスイッチの下方向の状態を調べる .
+     * @return true：ハットスイッチの下方向はONである／false：そうでは無い
+     */
+    static inline bool isBeingPressedPovDown() {
+        DWORD n = _joy_state[_flip_js].rgdwPOV[0];
+        return (11750 <= n && n < 24250) ? true : false;
+    }
+
+    /**
+     * ハットスイッチの左方向の状態を調べる .
+     * @return true：ハットスイッチの左方向はONである／false：そうでは無い
+     */
+    static inline bool isBeingPressedPovLeft() {
+        DWORD n = _joy_state[_flip_js].rgdwPOV[0];
+        return (20750 <= n && n < 33250) ? true : false;
+    }
+
+    /**
+     * ハットスイッチの右方向の状態を調べる .
+     * @return true：ハットスイッチの右方向はONである／false：そうでは無い
+     */
+    static inline bool isBeingPressedPovRight() {
+        DWORD n = _joy_state[_flip_js].rgdwPOV[0];
+        return (2750 <= n && n < 15250) ? true : false;
+    }
+    /**
+     * ハットスイッチの押している方向のを調べる .
+     * @return 方向番号1～9(８方向、テンキーの番号に対応、5番はニュートラル)
+     */
+    static int getBeingPressedPovDirection();
 
     static void release();
 

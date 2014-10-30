@@ -25,7 +25,7 @@ GgafDxSphereActor::GgafDxSphereActor(const char* prm_name,
 //}
 
 void GgafDxSphereActor::drawSphere(coord prm_x, coord prm_y, coord prm_z, coord prm_r) {
-    //_TRACE_("drawBox ("<<prm_x1<<","<<prm_y1<<","<<prm_z1<<","<<prm_x2<<","<<prm_y2<<","<<prm_z2<<")");
+    //_DTRACE_("drawBox ("<<prm_x1<<","<<prm_y1<<","<<prm_z1<<","<<prm_x2<<","<<prm_y2<<","<<prm_z2<<")");
     //’¼Œa‚ª1‚Ì‹…ƒ‚ƒfƒ‹‚Å‚ ‚é‚½‚ßƒXƒP[ƒ‹‚Í‚Q”{‚µ‚Ä‚¨‚­
     _sx = prm_r*2;
     _sy = prm_r*2;

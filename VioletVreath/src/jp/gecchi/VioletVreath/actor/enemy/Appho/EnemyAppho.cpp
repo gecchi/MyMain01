@@ -88,7 +88,7 @@ void EnemyAppho::processBehavior() {
              if (pKuroko->asstA()->isJustFinishSlidingMv()) {
                  pProg->changeNext();
              }
-             //_TRACE_("PROG_MOVE01:"<<_x<<","<<_y<<","<<_z<<","<<_pKuroko->_velo_mv<<","<<_pKuroko->_acc_mv);
+             //_DTRACE_("PROG_MOVE01:"<<_x<<","<<_y<<","<<_z<<","<<_pKuroko->_velo_mv<<","<<_pKuroko->_acc_mv);
              break;
          }
 

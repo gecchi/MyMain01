@@ -110,7 +110,7 @@ void PreDrawScene::processBehavior() {
             }
             if (pProg->getFrameInProgress() > 60*120) {
                 //タイムアウト
-                _TRACE_("PreDrawScene Time Out!!");
+                _DTRACE_("PreDrawScene Time Out!!");
                 pProg->changeNext();
             }
             break;

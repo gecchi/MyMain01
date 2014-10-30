@@ -48,7 +48,7 @@ void MyStgUtil::init() {
             n_theta += PI2;
         }
         GOLDEN_ANG[n] = (angle)(D360ANG*n_theta / PI2);
-        //_TRACE_("GOLDEN_ANG["<<n<<"]="<<GOLDEN_ANG[n]);
+        //_DTRACE_("GOLDEN_ANG["<<n<<"]="<<GOLDEN_ANG[n]);
     }
 
     // v = 1 - cos(2ƒÎt)‚Ì‰ðƒe[ƒuƒ‹
@@ -63,14 +63,14 @@ void MyStgUtil::init() {
 }
 
 GgafDxDrawableActor* MyStgUtil::shotWayGoldenAng(coord prm_x, coord prm_y, coord prm_z,
-                                               angle prm_rz, angle prm_ry,
-                                               GgafActorDepository* prm_pDepo_shot,
-                                               coord prm_r,
-                                               int prm_way_num,
-                                               angle prm_first_expanse_angle, angle prm_inc_expanse_angle,
-                                               velo prm_velo_first, acce prm_acce,
-                                               int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                               void (*pFunc_call_back_dispatched)(GgafDxDrawableActor*, int, int, int)) {
+                                                 angle prm_rz, angle prm_ry,
+                                                 GgafActorDepository* prm_pDepo_shot,
+                                                 coord prm_r,
+                                                 int prm_way_num,
+                                                 angle prm_first_expanse_angle, angle prm_inc_expanse_angle,
+                                                 velo prm_velo_first, acce prm_acce,
+                                                 int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                                 void (*pFunc_call_back_dispatched)(GgafDxDrawableActor*, int, int, int)) {
     if (prm_way_num <= 0 || prm_set_num <= 0) {  return nullptr;  }
     GgafDxGeoElem* paGeo = NEW GgafDxGeoElem[prm_way_num];
     angle expanse_rz = (D180ANG - prm_first_expanse_angle)/2;

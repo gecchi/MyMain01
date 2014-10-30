@@ -76,7 +76,7 @@ void GgafDxScene::fadeoutSceneTree(int prm_frame_fade) {
         if (getSubFirst()->instanceOf(Obj_GgafDxScene)) {
             //OK
         } else {
-            _TRACE_("GgafDxScene::fadeoutSceneTree() サブシーンが、GgafDxScene に変換不可です。this="<<getName()<<" getSubFirst()="<<(getSubFirst()->getName())<<" class="<<(getSubFirst()->_obj_class));
+            _DTRACE_("GgafDxScene::fadeoutSceneTree() サブシーンが、GgafDxScene に変換不可です。this="<<getName()<<" getSubFirst()="<<(getSubFirst()->getName())<<" class="<<(getSubFirst()->_obj_class));
             throwGgafCriticalException("GgafDxScene::fadeoutSceneTree() サブシーンが、GgafDxScene に変換不可です。this="<<getName()<<" getSubFirst()="<<(getSubFirst()->getName()) );
         }
 #endif
@@ -126,7 +126,7 @@ void GgafDxScene::fadeoutSceneWithBgmTree(int prm_frame_fade) {
         if (getSubFirst()->instanceOf(Obj_GgafDxScene)) {
             //OK
         } else {
-            _TRACE_("GgafDxScene::fadeoutSceneTree() サブシーンが、GgafDxScene に変換不可です。this="<<getName()<<" getSubFirst()="<<(getSubFirst()->getName())<<" class="<<(getSubFirst()->_obj_class));
+            _DTRACE_("GgafDxScene::fadeoutSceneTree() サブシーンが、GgafDxScene に変換不可です。this="<<getName()<<" getSubFirst()="<<(getSubFirst()->getName())<<" class="<<(getSubFirst()->_obj_class));
             throwGgafCriticalException("GgafDxScene::fadeoutSceneTree() サブシーンが、GgafDxScene に変換不可です。this="<<getName()<<" getSubFirst()="<<(getSubFirst()->getName()) );
         }
 #endif

@@ -112,7 +112,7 @@ GgafSceneDirector* GgafMainActor::getSceneDirector() {
             }
         } else {
             _pSceneDirector = GgafGod::_pGod->_pUniverse->getSceneDirector(); //この世の監督アクターに仮所属
-            _TRACE_("【警告】GgafMainActor::getSceneDirector 所属していないため、Directorがとれません！("<<getName()<<")。"<<
+            _DTRACE_("【警告】GgafMainActor::getSceneDirector 所属していないため、Directorがとれません！("<<getName()<<")。"<<
                 "そこで仮所属でこの世(Universe)のDirectorを返しました。最終的に、親アクターがシーンに所属すれば、その時に更新されてご破算です。確認して下さい。");
             return _pSceneDirector;
         }
@@ -122,7 +122,7 @@ GgafSceneDirector* GgafMainActor::getSceneDirector() {
 
 GgafGroupHead* GgafMainActor::addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor) {
     if (prm_pMainActor->_pSceneDirector) {
-        //_TRACE_("【警告】GgafSceneDirector::addSubGroup("<<getName()<<") すでに"<<prm_pMainActor->_pSceneDirector->_pScene_platform->getName()<<"シーンの監督に所属しています。が、"<<_pScene_platform->getName()<<"シーンの監督に乗り換えます");
+        //_DTRACE_("【警告】GgafSceneDirector::addSubGroup("<<getName()<<") すでに"<<prm_pMainActor->_pSceneDirector->_pScene_platform->getName()<<"シーンの監督に所属しています。が、"<<_pScene_platform->getName()<<"シーンの監督に乗り換えます");
         prm_pMainActor->extract();
     }
     GgafGroupHead* pMyGroupHead = getMyGroupHead();

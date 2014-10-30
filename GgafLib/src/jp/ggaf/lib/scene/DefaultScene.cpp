@@ -18,7 +18,7 @@ void DefaultScene::useProgress(int prm_num) {
     if (GgafScene::_pProg == nullptr) {
         GgafScene::_pProg = NEW SceneProgress(this, prm_num);
     } else {
-        _TRACE_("ÅÉåxçêÅÑ["<<getName()<<"] ÇÕä˘Ç… useProgress ÇµÇƒÇ¢Ç‹Ç∑ÅBprm_num="<<prm_num);
+        _DTRACE_("ÅÉåxçêÅÑ["<<getName()<<"] ÇÕä˘Ç… useProgress ÇµÇƒÇ¢Ç‹Ç∑ÅBprm_num="<<prm_num);
     }
 }
 

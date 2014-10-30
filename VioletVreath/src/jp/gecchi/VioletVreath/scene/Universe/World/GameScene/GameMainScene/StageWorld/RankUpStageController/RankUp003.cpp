@@ -273,11 +273,11 @@ void RankUp003::processBehavior() {
     switch (pProg->get()) {
         case RankUpStage::PROG_PLAYING: {
             if (pProg->isJustChanged()) {
-                _TRACE_("RankUp003::processBehavior() RankUpStage::PROG_PLAYING ‚É‚È‚è‚Ü‚·‚½I");
+                _DTRACE_("RankUp003::processBehavior() RankUpStage::PROG_PLAYING ‚É‚È‚è‚Ü‚·‚½I");
             }
 
             if (pProg->getFrameInProgress() == _paFrame_NextEvent[_event_num-1]+600) {
-                _TRACE_("RankUp003::processBehavior() RankUpStage::PROG_PLAYING ‚¨‚í‚Á‚½");
+                _DTRACE_("RankUp003::processBehavior() RankUpStage::PROG_PLAYING ‚¨‚í‚Á‚½");
                 pProg->change(RankUpStage::PROG_RESULT); //RankUpStage‚Ì‹¤’Êˆ—‚Ö
             }
             break;

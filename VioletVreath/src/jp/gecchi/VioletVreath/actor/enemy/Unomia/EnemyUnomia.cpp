@@ -132,7 +132,7 @@ void EnemyUnomia::processJudgement() {
 
 void EnemyUnomia::onHit(GgafActor* prm_pOtherActor) {
     if (strcmp(_name, "Unomia[0]") == 0) {
-        _TRACE_("EnemyUnomia::onHit()");
+        _DTRACE_("EnemyUnomia::onHit()");
     }
 
     bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);

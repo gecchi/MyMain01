@@ -285,9 +285,9 @@ GgafXpm* XpmManager::processCreateResource(char* prm_idstr, void* prm_pConnector
 }
 
 GgafResourceConnection<GgafCore::GgafXpm>* XpmManager::processCreateConnection(char* prm_idstr, GgafXpm* prm_pResource) {
-    TRACE3(" XpmManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
+    _DTRACE3_(" XpmManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
     XpmConnection* pConne = NEW XpmConnection(prm_idstr, prm_pResource);
-    TRACE3(" XpmManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
+    _DTRACE3_(" XpmManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
     return pConne;
 }
 

@@ -30,20 +30,20 @@ God::God() :
 #ifdef MY_DEBUG
     pVbtn_PLAY_->_pRpy->setRealtimeOutputFile(FILE_REALTIME_OUTPUT_PLAY_REPLAY);
     pVbtn_UI_->_pRpy->setRealtimeOutputFile(FILE_REALTIME_OUTPUT_UI_REPLAY);
-    _TRACE_("デバッグリアルタイムリプレイ記録モード○");
+    _DTRACE_("デバッグリアルタイムリプレイ記録モード○");
 #endif
     God::pVbtn_active_ = God::pVbtn_UI_;
     God::pVbtn_active_next_frame_ = God::pVbtn_UI_;
 
     if (pVbtn_PLAY_->_is_replaying && pVbtn_UI_->_is_replaying) {
-        _TRACE_("プレイリプレイ情報○、UIリプレイ情報○");
-        _TRACE_("→リプレイ再生モードです。");
+        _DTRACE_("プレイリプレイ情報○、UIリプレイ情報○");
+        _DTRACE_("→リプレイ再生モードです。");
     } else if (!pVbtn_PLAY_->_is_replaying && pVbtn_UI_->_is_replaying) {
-        _TRACE_("プレイリプレイ情報×、UIリプレイ情報○");
-        _TRACE_("→UIのみ再生モードです。っていうか意味あるのん？");
+        _DTRACE_("プレイリプレイ情報×、UIリプレイ情報○");
+        _DTRACE_("→UIのみ再生モードです。っていうか意味あるのん？");
     } else if (pVbtn_PLAY_->_is_replaying && !pVbtn_UI_->_is_replaying) {
-        _TRACE_("プレイリプレイ情報○、UIリプレイ情報×");
-        _TRACE_("→リプレイ再生モードです。但し、プレイリプレイから PAUSE情報を切り取ります。");
+        _DTRACE_("プレイリプレイ情報○、UIリプレイ情報×");
+        _DTRACE_("→リプレイ再生モードです。但し、プレイリプレイから PAUSE情報を切り取ります。");
         //プレイリプレイあり、かつUIリプレイ無しの場合のみ、プレイリプレイのPAUSE情報を除去する
         VBReplayRecorder* pRepPlay = pVbtn_PLAY_->_pRpy;
         VBReplayRecorder::VBRecordNote* pRecNote = pRepPlay->_pFirstVBNote;
@@ -53,8 +53,8 @@ God::God() :
             pRecNote = pRecNote->_pNext;
         }
     } else {
-        _TRACE_("プレイリプレイ情報×、UIリプレイ情報×");
-        _TRACE_("リプレイ登録モードです。");
+        _DTRACE_("プレイリプレイ情報×、UIリプレイ情報×");
+        _DTRACE_("リプレイ登録モードです。");
     }
 
     //ランキング情報読み込み
@@ -125,14 +125,14 @@ void God::clean() {
         } else {
             VB_UI->_pRpy->outputFile(FILE_OUTPUT_UI_REPLAY);
         }
-        _TRACE_("God::clean() begin");
+        _DTRACE_("God::clean() begin");
         DefaultGod::clean();
         GGAF_DELETE(pVbtn_PLAY_);
         GGAF_DELETE(pVbtn_UI_);
         GGAF_DELETE(pDepoManager_);
         GGAF_DELETE(pSpl3DManager_);
         GGAF_DELETE(pXpmManager_);
-        _TRACE_("God::clean() end");
+        _DTRACE_("God::clean() end");
     }
 }
 

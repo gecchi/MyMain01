@@ -122,7 +122,7 @@ MyShip::MyShip(const char* prm_name) :
     lim_x_behaind_ = -harf_width  - PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //後ろは、幅の2画面分
     lim_z_left_   =  harf_width  + PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //手前は、幅の2画面分
     lim_z_right_  = -harf_width  - PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //奥は、幅の2画面分
-    _TRACE_("MyShip::MyShip 範囲 X("<<lim_x_behaind_<<" ~ "<<lim_x_front_<<") Y("<<lim_y_bottom_<<" ~ "<<lim_y_top_<<") Z("<<lim_z_right_<<" ~ "<<lim_z_left_<<")");
+    _DTRACE_("MyShip::MyShip 範囲 X("<<lim_x_behaind_<<" ~ "<<lim_x_front_<<") Y("<<lim_y_bottom_<<" ~ "<<lim_y_top_<<") Z("<<lim_z_right_<<" ~ "<<lim_z_left_<<")");
 
 
     //CommonSceneがnewの場合設定
@@ -303,7 +303,6 @@ MyShip::MyShip(const char* prm_name) :
     blown_veloZ_ = 0;
     way_ = WAY_NONE;
     prev_way_ = WAY_NONE;
-    stc_ = VB_NEUTRAL_STC;
     is_just_change_way_ = true;
 
     //MP初期値
@@ -338,7 +337,7 @@ void MyShip::onCreateModel() {
 }
 
 void MyShip::initialize() {
-    _TRACE_("MyShip::initialize()");
+    _DTRACE_("MyShip::initialize()");
 
     //種別に振り分け
 //    getSceneDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, pDepo_MyShots001_->extract());
@@ -373,7 +372,7 @@ void MyShip::initialize() {
 
 
 void MyShip::onReset() {
-    _TRACE_("MyShip::onReset()");
+    _DTRACE_("MyShip::onReset()");
     frame_soft_rapidshot_ = 0;
     is_being_soft_rapidshot_ = false;
     just_shot_ = false;
@@ -392,14 +391,14 @@ void MyShip::onReset() {
 }
 
 void MyShip::onActive() {
-    _TRACE_("MyShip::onActive()");
+    _DTRACE_("MyShip::onActive()");
     //レーザーやロックンターゲットや魚雷がサブにいるため
     //個別に呼び出す
     pLockonCtrler_->onActive();
     pTorpedoCtrler_->onActive();
 }
 void MyShip::onInactive() {
-    _TRACE_("MyShip::onInactive()");
+    _DTRACE_("MyShip::onInactive()");
     //レーザーやロックンターゲットや魚雷がサブにいるため
     //個別に呼び出す
     pLockonCtrler_->onInactive();
@@ -412,7 +411,6 @@ void MyShip::processBehavior() {
     GgafDxKuroko* pKuroko = getKuroko();
     //VAMSystemの実装
     // (Viewpoint Adaptive Moving System 視点適応型移動システム)
-    stc_ = pVbPlay->getBeingPressedStick();
     if (pos_camera == VAM_POS_RIGHT) {
         //右サイドビュー(右から左へスクロール)
         if (pVbPlay->isPushedDown(VB_UP)) {     // ↑
@@ -749,7 +747,7 @@ void MyShip::processJudgement() {
 
     //自機消滅テスト
 //    if (pVbPlay->isBeingPressed(VB_BUTTON8)) {
-//        _TRACE_("自機消滅テスト");
+//        _DTRACE_("自機消滅テスト");
 //        throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
 //    }
 

@@ -152,7 +152,7 @@ void EnemyGlaja::processBehavior() {
     pKuroko->behave();
     getMorpher()->behave();
     pAFader_->behave();
-//_TRACE_("EnemyGlaja f:"<<getBehaveingFrame()<<"  pProg="<<pProg->get()<<"   X,Y,Z="<<_x<<","<<_y<<","<<_z<<" ");
+//_DTRACE_("EnemyGlaja f:"<<getBehaveingFrame()<<"  pProg="<<pProg->get()<<"   X,Y,Z="<<_x<<","<<_y<<","<<_z<<" ");
 }
 
 void EnemyGlaja::processJudgement() {

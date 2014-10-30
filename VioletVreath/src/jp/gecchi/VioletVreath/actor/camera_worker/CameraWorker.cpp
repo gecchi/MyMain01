@@ -121,10 +121,10 @@ void CameraWorker::behaveAutoCamUp() {
             //•Ï‰»‚µ‚È‚¢
             pCam_->slideUpCamTo(pCam_->up_face_, up_frames);
         }
-        _TRACE_("CameraWorker::behaveAutoCamUp() up_frames="<<up_frames<<" vcv="<<pCam_->vcv_face_prev_<<"¨"<<pCam_->vcv_face_<<" up_face_="<<bk_up_face_<<"¨"<<pCam_->up_face_<<"");
+        _DTRACE_("CameraWorker::behaveAutoCamUp() up_frames="<<up_frames<<" vcv="<<pCam_->vcv_face_prev_<<"¨"<<pCam_->vcv_face_<<" up_face_="<<bk_up_face_<<"¨"<<pCam_->up_face_<<"");
     }
-//    _TRACE_("cam=("<<_x<<","<<_y<<","<<_z<<") vp=("<< pVP->_x <<","<< pVP->_y <<","<< pVP->_z <<")  UP=("<< pUp_->_x <<","<< pUp_->_y <<","<< pUp_->_z <<") CAM_UP=("<< _pVecCamUp->x <<","<< _pVecCamUp->y <<","<< _pVecCamUp->z <<")");
-//    _TRACE_("vcv="<<vcv_face_prev_<<"¨"<<vcv_face_<<" up_face_="<<bk_up_face_<<"¨"<<up_face_<<"");
+//    _DTRACE_("cam=("<<_x<<","<<_y<<","<<_z<<") vp=("<< pVP->_x <<","<< pVP->_y <<","<< pVP->_z <<")  UP=("<< pUp_->_x <<","<< pUp_->_y <<","<< pUp_->_z <<") CAM_UP=("<< _pVecCamUp->x <<","<< _pVecCamUp->y <<","<< _pVecCamUp->z <<")");
+//    _DTRACE_("vcv="<<vcv_face_prev_<<"¨"<<vcv_face_<<" up_face_="<<bk_up_face_<<"¨"<<up_face_<<"");
 }
 //void CameraWorker::stopNaturallyCam(coord distance, frame t) {
 //    float vx,vy,vz;

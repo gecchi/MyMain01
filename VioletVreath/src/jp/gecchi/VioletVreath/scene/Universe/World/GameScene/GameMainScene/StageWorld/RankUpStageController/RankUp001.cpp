@@ -281,11 +281,11 @@ void RankUp001::processBehavior() {
     switch (pProg->get()) {
         case RankUpStage::PROG_PLAYING: {
             if (pProg->isJustChanged()) {
-                _TRACE_("RankUp001::processBehavior() RankUpStage::PROG_PLAYING になりますた！ getBehaveingFrame()="<<getBehaveingFrame());
+                _DTRACE_("RankUp001::processBehavior() RankUpStage::PROG_PLAYING になりますた！ getBehaveingFrame()="<<getBehaveingFrame());
             }
 
             if (pProg->getFrameInProgress() == _paFrame_NextEvent[_event_num-1]+600) {
-                _TRACE_("RankUp001::processBehavior() RankUpStage::PROG_PLAYING おわった。 pProg->getFrameInProgress()="<<pProg->getFrameInProgress());
+                _DTRACE_("RankUp001::processBehavior() RankUpStage::PROG_PLAYING おわった。 pProg->getFrameInProgress()="<<pProg->getFrameInProgress());
                 pProg->change(RankUpStage::PROG_RESULT); //RankUpStageの共通処理へ
             }
             break;
@@ -302,5 +302,5 @@ void RankUp001::onCatchEvent(hashval prm_no, void* prm_pSource) {
 
 
 RankUp001::~RankUp001() {
-        _TRACE_("RankUp001::~RankUp001() getBehaveingFrame()="<<getBehaveingFrame()<<" _cnt_event="<<_cnt_event);
+        _DTRACE_("RankUp001::~RankUp001() getBehaveingFrame()="<<getBehaveingFrame()<<" _cnt_event="<<_cnt_event);
 }

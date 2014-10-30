@@ -73,7 +73,7 @@ void Stage02PartController::processBehavior() {
         case PROG_FAINAL: {
             if (pProg->isJustChanged()) {
                 //STG01Climax_終焉の処理
-                _TRACE_("Stage02PartController::PROG_FAINALきた");
+                _DTRACE_("Stage02PartController::PROG_FAINALきた");
             }
             if (pProg->getFrameInProgress() == 60) {
                 fadeoutSceneWithBgm(300);
@@ -91,10 +91,10 @@ void Stage02PartController::processBehavior() {
 void Stage02PartController::onCatchEvent(hashval prm_no, void* prm_pSource) {
     SceneProgress* pProg = getProgress();
     if (prm_no == EVENT_STG02_01_WAS_BROKEN) {
-        _TRACE_("Stage02PartController::onCatchEvent() EVENT_STG02_01_WAS_BROKEN");
+        _DTRACE_("Stage02PartController::onCatchEvent() EVENT_STG02_01_WAS_BROKEN");
         ((Stage*)prm_pSource)->sayonara(60*60);
     } else if (prm_no == EVENT_STG02_CLIMAX_WAS_BROKEN) {
-        _TRACE_("Stage02PartController::onCatchEvent() EVENT_STG02_CLIMAX_WAS_BROKENキャッチした。STAGE02PARTCONTROLLER_ENDINGを投げる");
+        _DTRACE_("Stage02PartController::onCatchEvent() EVENT_STG02_CLIMAX_WAS_BROKENキャッチした。STAGE02PARTCONTROLLER_ENDINGを投げる");
         ((Stage*)prm_pSource)->sayonara(60*60);
         pProg->change(PROG_FAINAL); //進捗をStage02PartController::PROG_FAINALに切り替える
     } else {

@@ -11,7 +11,7 @@ public:
     TestDepository(const char* prm_name, GgafCore::GgafStatus* prm_pStat);
 
     virtual ~TestDepository() {
-        _TRACE_("TestDepository::~TestDepository()");
+        _DTRACE_("TestDepository::~TestDepository()");
     }
 };
 

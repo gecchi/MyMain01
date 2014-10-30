@@ -59,17 +59,18 @@ void GameDemoScene::processBehavior() {
     SceneProgress* pProg = getProgress();
     switch (pProg->get()) {
         case GameDemoScene::PROG_INIT: {
-            _TRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to GameDemoScene::PROG_INIT)");
+            _DTRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to GameDemoScene::PROG_INIT)");
             addSubLast(P_STAGE_WORLD->extract());
             P_STAGE_WORLD->resetTree();
-            P_STAGE_WORLD->activateImmed();
+            P_STAGE_WORLD->inactivateImmed();
+            P_STAGE_WORLD->activate();
             pProg->change(GameDemoScene::PROG_DEMOPLAY);
             break;
         }
 
         case GameDemoScene::PROG_DEMOPLAY: {
             if (pProg->isJustChanged()) {
-                _TRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to GameDemoScene::PROG_DEMOPLAY)");
+                _DTRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to GameDemoScene::PROG_DEMOPLAY)");
                 pLabel01_->update(100*1000, 100*1000, "DEMOPLAY NOW");
                 pLabel02_->update(100*1000, 150*1000, "GAME OVER");
                 pLabel02_->setAlpha(pLabel02_->pAFader_->getTop());
@@ -92,7 +93,7 @@ void GameDemoScene::processBehavior() {
         case GameDemoScene::PROG_RANKING_TABLE: {
             int ranking_num = G_RANKING_TABLE.getCount();
             if (pProg->isJustChanged()) {
-                _TRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to GameDemoScene::PROG_RANKING_TABLE)");
+                _DTRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to GameDemoScene::PROG_RANKING_TABLE)");
                 pLabel01_->update(PX_C(100), PX_C(100), "RANKING NOW");
                 char buf[60];
                 for (int i = 0; i < ranking_num; i++) {
@@ -128,10 +129,10 @@ void GameDemoScene::processBehavior() {
 
         case GameDemoScene::PROG_FINISH: {
             if (pProg->isJustChanged()) {
-                _TRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to GameDemoScene::PROG_FINISH)");
+                _DTRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to GameDemoScene::PROG_FINISH)");
             }
             if (pProg->getFrameInProgress() == 600) {
-                _TRACE_("GameDemoScene::processBehavior() throwEventUpperTree(EVENT_GAMEDEMOSCENE_FINISH)");
+                _DTRACE_("GameDemoScene::processBehavior() throwEventUpperTree(EVENT_GAMEDEMOSCENE_FINISH)");
                 throwEventUpperTree(EVENT_GAMEDEMOSCENE_FINISH); //終わったイベント発動
             }
 
@@ -146,9 +147,9 @@ void GameDemoScene::processBehavior() {
 }
 
 void GameDemoScene::onInactive() {
-    _TRACE_("GameDemoScene::onInactive() ");
+    _DTRACE_("GameDemoScene::onInactive() ");
     if (P_STAGE_CTRLER->pStageMainCannel_) {
-        _TRACE_("GameDemoScene::onInactive() P_STAGE_CTRLER->pStageMainCanne_("<<
+        _DTRACE_("GameDemoScene::onInactive() P_STAGE_CTRLER->pStageMainCanne_("<<
                 P_STAGE_CTRLER->pStageMainCannel_->getName()<<") sayonara()");
         P_STAGE_CTRLER->pStageMainCannel_->sayonara();
         P_STAGE_CTRLER->pStageMainCannel_ = nullptr;
@@ -157,7 +158,7 @@ void GameDemoScene::onInactive() {
     }
 
     if (P_RANKUP_CONTROLLER->pNowRankUpStage_) {
-        _TRACE_("GameDemoScene::onInactive() P_RANKUP_CONTROLLER->sayonaraRankUpStages()");
+        _DTRACE_("GameDemoScene::onInactive() P_RANKUP_CONTROLLER->sayonaraRankUpStages()");
         P_RANKUP_CONTROLLER->sayonaraRankUpStages();
         P_RANKUP_CONTROLLER->pNowRankUpStage_ = nullptr;
     }

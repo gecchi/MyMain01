@@ -80,11 +80,11 @@ papOptionCtrler_(nullptr) {
 void MyShipScene::initialize() {
     pLabelZanki_->position(0, PX_C(20));
     pLabelZanki_->update("");
-    _TRACE_("MyShipScene initialize()");
+    _DTRACE_("MyShipScene initialize()");
 }
 
 void MyShipScene::onReset() {
-    _TRACE_("MyShipScene onReset()");
+    _DTRACE_("MyShipScene onReset()");
     G_ZANKI = 15;
     std::string z(G_ZANKI, '*');
     pLabelZanki_->update(z.c_str());
@@ -99,7 +99,7 @@ void MyShipScene::onReset() {
 }
 
 void MyShipScene::onActive() {
-    _TRACE_("MyShipScene onActive()");
+    _DTRACE_("MyShipScene onActive()");
 }
 
 void MyShipScene::processBehavior() {
@@ -202,7 +202,7 @@ void MyShipScene::processBehavior() {
 void MyShipScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
     SceneProgress* pProg = getProgress();
     if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_BEGIN) {
-        _TRACE_("MyShipScene EVENT_MY_SHIP_WAS_DESTROYED_BEGIN was Catch!!");
+        _DTRACE_("MyShipScene EVENT_MY_SHIP_WAS_DESTROYED_BEGIN was Catch!!");
        pProg->change(MyShipScene::PROG_DESTROY);
     }
 }

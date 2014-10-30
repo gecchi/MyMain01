@@ -17,7 +17,7 @@ void GgafActorDepositoryStore::put(GgafActor* prm_pSub) {
     }
     if (_pSubFirst == nullptr) {
         if (prm_pSub->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND) == 0U) {
-            _TRACE_("ƒŒx„ GgafActorDepositoryStore::addSubLast ˆø” this="<<getName()<<" prm_pSub("<<prm_pSub->getName()<<") ‚Í ‚Ìí•Ê‚ª0‚Å‚·‚ªˆÓ}‚µ‚Ä‚¢‚Ü‚·‚©H");
+            _DTRACE_("ƒŒx„ GgafActorDepositoryStore::addSubLast ˆø” this="<<getName()<<" prm_pSub("<<prm_pSub->getName()<<") ‚Í ‚Ìí•Ê‚ª0‚Å‚·‚ªˆÓ}‚µ‚Ä‚¢‚Ü‚·‚©H");
         }
     }
 #endif

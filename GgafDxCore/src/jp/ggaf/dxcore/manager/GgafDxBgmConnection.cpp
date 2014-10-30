@@ -8,7 +8,7 @@ GgafDxBgmConnection::GgafDxBgmConnection(char* prm_idstr, GgafDxBgm* prm_pGgafDx
 }
 
 void GgafDxBgmConnection::processReleaseResource(GgafDxBgm* prm_pResource) {
-    _TRACE_("GgafDxBgm="<<prm_pResource->_ogg_file_name<<" を開放します。");
+    _DTRACE_("GgafDxBgm="<<prm_pResource->_ogg_file_name<<" を開放します。");
     GGAF_DELETE(prm_pResource);
 }
 

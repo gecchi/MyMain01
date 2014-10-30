@@ -17,9 +17,9 @@ SplineSource* SplineSourceManager::processCreateResource(char* prm_idstr, void* 
 }
 
 GgafResourceConnection<SplineSource>* SplineSourceManager::processCreateConnection(char* prm_idstr, SplineSource* prm_pResource) {
-    TRACE3(" SplineSourceManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
+    _DTRACE3_(" SplineSourceManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
     SplineSourceConnection* pConne = NEW SplineSourceConnection(prm_idstr, prm_pResource);
-    TRACE3(" SplineSourceManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
+    _DTRACE3_(" SplineSourceManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
     return pConne;
 }
 

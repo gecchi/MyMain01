@@ -55,7 +55,7 @@ public:
             (prm_z * 1000000LL ) +
             (prm_x );
 
-            //_TRACE_(prm_x<<","<<prm_y<<","<<prm_z<<"  num_yzx="<<(num_yzx));
+            //_DTRACE_(prm_x<<","<<prm_y<<","<<prm_z<<"  num_yzx="<<(num_yzx));
             //1048575LL = &b11111111111111111111 (20bit)
         }
     };
