@@ -41,6 +41,14 @@ public:
     static std::string MY_JOY_BUTTON7;
     static std::string MY_JOY_BUTTON8;
     static std::string MY_JOY_PAUSE;
+    static std::string MY_JOY_UP;
+    static std::string MY_JOY_DOWN;
+    static std::string MY_JOY_LEFT;
+    static std::string MY_JOY_RIGHT;
+    static std::string MY_JOY_UI_UP;
+    static std::string MY_JOY_UI_DOWN;
+    static std::string MY_JOY_UI_LEFT;
+    static std::string MY_JOY_UI_RIGHT;
     static std::string MY_JOY_UI_EXECUTE;
     static std::string MY_JOY_UI_CANCEL;
 public:

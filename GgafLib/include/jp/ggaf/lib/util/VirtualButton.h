@@ -12,43 +12,37 @@ typedef unsigned long int vbsta;
 
 namespace GgafLib {
 
-#define VB_BUTTON1 (0x1)               //&B 00000000 00000000 00000000 00000001
-#define VB_BUTTON2 (0x2)               //&B 00000000 00000000 00000000 00000010
-#define VB_BUTTON3 (0x4)               //&B 00000000 00000000 00000000 00000100
-#define VB_BUTTON4 (0x8)               //&B 00000000 00000000 00000000 00001000
-#define VB_BUTTON5 (0x10)              //&B 00000000 00000000 00000000 00010000
-#define VB_BUTTON6 (0x20)              //&B 00000000 00000000 00000000 00100000
-#define VB_BUTTON7 (0x40)              //&B 00000000 00000000 00000000 01000000
-#define VB_BUTTON8 (0x80)              //&B 00000000 00000000 00000000 10000000
-                                       //&B 00000000 00000000 00000001 00000000
-                                       //&B 00000000 00000000 00000010 00000000
-#define VB_PAUSE          (0x400)      //&B 00000000 00000000 00000100 00000000
-#define VB_UP             (0x800)      //&B 00000000 00000000 00001000 00000000
-#define VB_DOWN           (0x1000)     //&B 00000000 00000000 00010000 00000000
-#define VB_LEFT           (0x2000)     //&B 00000000 00000000 00100000 00000000
-#define VB_RIGHT          (0x4000)     //&B 00000000 00000000 01000000 00000000
-#define VB_UI_UP          (0x8000)     //&B 00000000 00000000 10000000 00000000
-#define VB_UI_DOWN        (0x10000)    //&B 00000000 00000001 00000000 00000000
-#define VB_UI_LEFT        (0x20000)    //&B 00000000 00000010 00000000 00000000
-#define VB_UI_RIGHT       (0x40000)    //&B 00000000 00000100 00000000 00000000
-#define VB_UI_EXECUTE     (0x80000)    //&B 00000000 00001000 00000000 00000000
-#define VB_UI_CANCEL      (0x100000)   //&B 00000000 00010000 00000000 00000000
-#define VB_UI_DEBUG       (0x200000)   //&B 00000000 00100000 00000000 00000000
-#define VB_NEUTRAL_STC    (0x400000)   //&B 00000000 01000000 00000000 00000000
-#define VB_UP_RIGHT_STC   (0x800000)   //&B 00000000 10000000 00000000 00000000
-#define VB_DOWN_RIGHT_STC (0x1000000)  //&B 00000001 00000000 00000000 00000000
-#define VB_DOWN_LEFT_STC  (0x2000000)  //&B 00000010 00000000 00000000 00000000
-#define VB_UP_LEFT_STC    (0x4000000)  //&B 00000100 00000000 00000000 00000000
-#define VB_UP_STC         (0x8000000)  //&B 00001000 00000000 00000000 00000000
-#define VB_RIGHT_STC      (0x10000000) //&B 00010000 00000000 00000000 00000000
-#define VB_DOWN_STC       (0x20000000) //&B 00100000 00000000 00000000 00000000
-#define VB_LEFT_STC       (0x40000000) //&B 01000000 00000000 00000000 00000000
-
-#define VB_UDLR           (VB_UP|VB_DOWN|VB_LEFT|VB_RIGHT)
-#define VB_UI_UDLR        (VB_UI_UP|VB_UI_DOWN|VB_UI_LEFT|VB_UI_RIGHT)
-
-#define VB_STC_CLIP_MASK  (0x803FFFFF) //&B 10000000 00111111 11111111 11111111
-#define VB_STC_MASK       (0x7FC00000) //&B 01111111 11000000 00000000 00000000
+#define VB_BUTTON1        (0x1)        //&B 00000000 00000000 00000000 00000001
+#define VB_BUTTON2        (0x2)        //&B 00000000 00000000 00000000 00000010
+#define VB_BUTTON3        (0x4)        //&B 00000000 00000000 00000000 00000100
+#define VB_BUTTON4        (0x8)        //&B 00000000 00000000 00000000 00001000
+#define VB_BUTTON5        (0x10)       //&B 00000000 00000000 00000000 00010000
+#define VB_BUTTON6        (0x20)       //&B 00000000 00000000 00000000 00100000
+#define VB_BUTTON7        (0x40)       //&B 00000000 00000000 00000000 01000000
+#define VB_BUTTON8        (0x80)       //&B 00000000 00000000 00000000 10000000
+#define VB_BUTTON9        (0x100)      //&B 00000000 00000000 00000001 00000000
+#define VB_BUTTON10       (0x200)      //&B 00000000 00000000 00000010 00000000
+#define VB_BUTTON11       (0x400)      //&B 00000000 00000000 00000100 00000000
+#define VB_BUTTON12       (0x800)      //&B 00000000 00000000 00001000 00000000
+#define VB_BUTTON13       (0x1000)     //&B 00000000 00000000 00010000 00000000
+#define VB_BUTTON14       (0x2000)     //&B 00000000 00000000 00100000 00000000
+#define VB_BUTTON15       (0x4000)     //&B 00000000 00000000 01000000 00000000
+#define VB_BUTTON16       (0x8000)     //&B 00000000 00000000 10000000 00000000
+#define VB_PAUSE          (0x10000)    //&B 00000000 00000001 00000000 00000000
+#define VB_UP             (0x20000)    //&B 00000000 00000010 00000000 00000000
+#define VB_DOWN           (0x40000)    //&B 00000000 00000100 00000000 00000000
+#define VB_LEFT           (0x80000)    //&B 00000000 00001000 00000000 00000000
+#define VB_RIGHT          (0x100000)   //&B 00000000 00010000 00000000 00000000
+                        //(0x200000)   //&B 00000000 00100000 00000000 00000000
+                        //(0x400000)   //&B 00000000 01000000 00000000 00000000
+#define VB_UI_UP          (0x800000)   //&B 00000000 10000000 00000000 00000000
+#define VB_UI_DOWN        (0x1000000)  //&B 00000001 00000000 00000000 00000000
+#define VB_UI_LEFT        (0x2000000)  //&B 00000010 00000000 00000000 00000000
+#define VB_UI_RIGHT       (0x4000000)  //&B 00000100 00000000 00000000 00000000
+#define VB_UI_EXECUTE     (0x8000000)  //&B 00001000 00000000 00000000 00000000
+#define VB_UI_CANCEL      (0x10000000) //&B 00010000 00000000 00000000 00000000
+#define VB_UI_DEBUG       (0x20000000) //&B 00100000 00000000 00000000 00000000
+                       // (0x40000000) //&B 01000000 00000000 00000000 00000000
 
 #define VB_MAP_BUFFER 120
 #define VB_NUM 29
@@ -90,6 +84,14 @@ public:
         int BUTTON6;
         int BUTTON7;
         int BUTTON8;
+        int BUTTON9;
+        int BUTTON10;
+        int BUTTON11;
+        int BUTTON12;
+        int BUTTON13;
+        int BUTTON14;
+        int BUTTON15;
+        int BUTTON16;
         int PAUSE;
         int UP;
         int DOWN;
@@ -113,6 +115,14 @@ public:
         int BUTTON6;
         int BUTTON7;
         int BUTTON8;
+        int BUTTON9;
+        int BUTTON10;
+        int BUTTON11;
+        int BUTTON12;
+        int BUTTON13;
+        int BUTTON14;
+        int BUTTON15;
+        int BUTTON16;
         int PAUSE;
         int UP;
         int DOWN;
@@ -137,6 +147,9 @@ public:
     static std::map<std::string, int> _mapStr2JoyBtn;
     static std::map<int, std::string> _mapDik2Str;
     static std::map<int, std::string> _mapJoyBtn2Str;
+
+    typedef bool (*funcVJBtn)(void);
+    static std::map<int, funcVJBtn> _mapVJoyBtn2Func;
 
     static bool _is_init;
 
@@ -358,37 +371,9 @@ public:
      */
     bool isScrewPushDown(vbsta prm_VB, frame prm_frame_delay=30);
 
-    /**
-     * 現在押しっぱなしのスティックの番号を返す。
-     * @return 次の論理和
-     * VB_UP_STC
-     * VB_UP_RIGHT_STC
-     * VB_RIGHT_STC
-     * VB_DOWN_RIGHT_STC
-     * VB_DOWN_STC
-     * VB_DOWN_LEFT_STC
-     * VB_LEFT_STC
-     * VB_UP_LEFT_STC
-     * VB_NEUTRAL_STC
-     */
-    vbsta getBeingPressedStick();
 
-    /**
-     * 今PushedDownスティックの番号を返す。
-     * @return 次の論理和
-     * VB_UP_STC
-     * VB_UP_RIGHT_STC
-     * VB_RIGHT_STC
-     * VB_DOWN_RIGHT_STC
-     * VB_DOWN_STC
-     * VB_DOWN_LEFT_STC
-     * VB_LEFT_STC
-     * VB_UP_LEFT_STC
-     * VB_NEUTRAL_STC
-     */
     vbsta getPushedDownStick();
 
-    vbsta isDoublePushedDownStick(frame prm_frame_push = 5, frame prm_frame_delay = 5);
 
     vbsta getState();
 
@@ -402,6 +387,10 @@ public:
     void init();
 
     void clear();
+
+    static bool isBeingPressedVirtualJoyButton(int prm_virtual_joy_button_no);
+
+    static int getPushedDownVirtualJoyButton();
 
     virtual ~VirtualButton();
 };

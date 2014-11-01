@@ -32,6 +32,10 @@ public:
         LabelFix16Font01* pJoy;
     };
     VBProperty* paVBProperties;
+
+    /** 0:メニュー移動、1:KEY割り当て入力待ち状態、2:JOY割り当て入力待ち状態 */
+    int input_mode_;
+    int input_target_item_;
 public:
     MenuBoardKeyConfig(const char* prm_name);
 

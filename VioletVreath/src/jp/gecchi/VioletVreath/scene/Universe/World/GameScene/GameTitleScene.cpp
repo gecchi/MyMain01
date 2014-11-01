@@ -116,7 +116,7 @@ void GameTitleScene::processBehavior() {
                 }
             }
 
-            if (VB->getState() != VB_NEUTRAL_STC ) { //
+            if (GgafDxInput::getBeingPressedJoyRgbButton() != -1) { //
                 frame_of_noinput_ = pProg->getFrameInProgress();
             }
 

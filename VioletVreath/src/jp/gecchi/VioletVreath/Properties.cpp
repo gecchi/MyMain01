@@ -34,6 +34,14 @@ std::string Properties::MY_JOY_POWERUP = "";
 std::string Properties::MY_JOY_BUTTON7 = "";
 std::string Properties::MY_JOY_BUTTON8 = "";
 std::string Properties::MY_JOY_PAUSE = "";
+std::string Properties::MY_JOY_UP = "";
+std::string Properties::MY_JOY_DOWN = "";
+std::string Properties::MY_JOY_LEFT = "";
+std::string Properties::MY_JOY_RIGHT = "";
+std::string Properties::MY_JOY_UI_UP = "";
+std::string Properties::MY_JOY_UI_DOWN = "";
+std::string Properties::MY_JOY_UI_LEFT = "";
+std::string Properties::MY_JOY_UI_RIGHT = "";
 std::string Properties::MY_JOY_UI_EXECUTE = "";
 std::string Properties::MY_JOY_UI_CANCEL = "";
 
@@ -68,6 +76,14 @@ void Properties::load(std::string prm_ini_filename) {
     Properties::MY_JOY_BUTTON7    = getStr("MY_JOY_BUTTON7");
     Properties::MY_JOY_BUTTON8    = getStr("MY_JOY_BUTTON8");
     Properties::MY_JOY_PAUSE      = getStr("MY_JOY_PAUSE");
+    Properties::MY_JOY_UP         = getStr("MY_JOY_UP");
+    Properties::MY_JOY_DOWN       = getStr("MY_JOY_DOWN");
+    Properties::MY_JOY_LEFT       = getStr("MY_JOY_LEFT");
+    Properties::MY_JOY_RIGHT      = getStr("MY_JOY_RIGHT");
+    Properties::MY_JOY_UI_UP      = getStr("MY_JOY_UI_UP");
+    Properties::MY_JOY_UI_DOWN    = getStr("MY_JOY_UI_DOWN");
+    Properties::MY_JOY_UI_LEFT    = getStr("MY_JOY_UI_LEFT");
+    Properties::MY_JOY_UI_RIGHT   = getStr("MY_JOY_UI_RIGHT");
     Properties::MY_JOY_UI_EXECUTE = getStr("MY_JOY_UI_EXECUTE");
     Properties::MY_JOY_UI_CANCEL  = getStr("MY_JOY_UI_CANCEL");
 
@@ -100,6 +116,14 @@ void Properties::load(std::string prm_ini_filename) {
     _DTRACE_("Properties::MY_JOY_BUTTON7="<<Properties::MY_JOY_BUTTON7);
     _DTRACE_("Properties::MY_JOY_BUTTON8="<<Properties::MY_JOY_BUTTON8);
     _DTRACE_("Properties::MY_JOY_PAUSE="<<Properties::MY_JOY_PAUSE);
+    _DTRACE_("Properties::MY_JOY_UP="<<Properties::MY_JOY_UP);
+    _DTRACE_("Properties::MY_JOY_DOWN="<<Properties::MY_JOY_DOWN);
+    _DTRACE_("Properties::MY_JOY_LEFT="<<Properties::MY_JOY_LEFT);
+    _DTRACE_("Properties::MY_JOY_RIGHT="<<Properties::MY_JOY_RIGHT);
+    _DTRACE_("Properties::MY_JOY_UI_UP="<<Properties::MY_JOY_UI_UP);
+    _DTRACE_("Properties::MY_JOY_UI_DOWN="<<Properties::MY_JOY_UI_DOWN);
+    _DTRACE_("Properties::MY_JOY_UI_LEFT="<<Properties::MY_JOY_UI_LEFT);
+    _DTRACE_("Properties::MY_JOY_UI_RIGHT="<<Properties::MY_JOY_UI_RIGHT);
     _DTRACE_("Properties::MY_JOY_UI_EXECUTE="<<Properties::MY_JOY_UI_EXECUTE);
     _DTRACE_("Properties::MY_JOY_UI_CANCEL="<<Properties::MY_JOY_UI_CANCEL);
 }

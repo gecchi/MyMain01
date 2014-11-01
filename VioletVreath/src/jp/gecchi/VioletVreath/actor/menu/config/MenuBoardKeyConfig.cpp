@@ -10,6 +10,8 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/Properties.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelMenuItemFont01.h"
+#include "jp/ggaf/core/util/GgafValueTransitioner.hpp"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -87,12 +89,22 @@ MenuBoardKeyConfig::MenuBoardKeyConfig(const char* prm_name) :
     setTransition(30, PX_C(0), -PX_C(100)); //トランジション（表示非表示時の挙動）
                                             //上から下へ少しスライドさせる
     addSubMenu(NEW MenuBoardConfirm("confirm")); //Yes No 問い合わせメニューをサブメニューに追加
+    input_mode_ = 0;
+    input_target_item_ = 0;
 }
 bool MenuBoardKeyConfig::condSelectNext() {
-    return VB->isAutoRepeat(VB_UI_DOWN);
+    if (input_mode_ == 0) {
+        return VB->isAutoRepeat(VB_UI_DOWN);
+    } else {
+        return false;
+    }
 }
 bool MenuBoardKeyConfig::condSelectPrev() {
-    return VB->isAutoRepeat(VB_UI_UP);
+    if (input_mode_ == 0) {
+        return VB->isAutoRepeat(VB_UI_UP);
+    } else {
+        return false;
+    }
 }
 void MenuBoardKeyConfig::onRise() {
 
@@ -115,6 +127,9 @@ void MenuBoardKeyConfig::onRise() {
     paVBProperties[ITEM_PAUSE    ].pJoy->update(PROPERTY::MY_JOY_PAUSE  .c_str());
 
     MenuBoard::onRise();
+
+    input_mode_ = 0;
+    input_target_item_ = 0;
 }
 void MenuBoardKeyConfig::processBehavior() {
     MenuBoard::processBehavior();
@@ -151,42 +166,49 @@ void MenuBoardKeyConfig::processBehavior() {
 
     }
 
-    //キー入力、ボタン入力、反映
-    int index = getSelectedIndex();
-    if ( ITEM_MAIN_SHOT <= index && index <= ITEM_PAUSE ) {
-        int DIK_pushed = GgafDxInput::getPushedDownKey();
-        if (0x00 <= DIK_pushed && DIK_pushed <= 0xD1) {
-            if (VirtualButton::_keyboardmap.UI_UP    == DIK_pushed ||
-                VirtualButton::_keyboardmap.UI_DOWN  == DIK_pushed ||
-                VirtualButton::_keyboardmap.UI_LEFT  == DIK_pushed ||
-                VirtualButton::_keyboardmap.UI_RIGHT == DIK_pushed  )
-            {
-                //UIのメニュー移動は無視
-            } else {
+    if (input_mode_ == 1) {
+        int index = getSelectedIndex();
+        if (VB_UI->isPushedDown(VB_UI_CANCEL)) {
+            input_mode_ = 0;
+            paVBProperties[index].pKey->_pAFader->transitionLinerToTop(5);
+            paVBProperties[index].pJoy->_pAFader->transitionLinerToTop(5);
+        } else {
+            int DIK_pushed = GgafDxInput::getPushedDownKey();
+            if (DIK_pushed != -1 && 0x00 <= DIK_pushed && DIK_pushed <= 0xD1) {
                 paVBProperties[index].pKey->update(VirtualButton::_mapDik2Str[DIK_pushed].c_str());
-                paVBProperties[index].pKey->effectFlush(10);
+                paVBProperties[index].pKey->_pAFader->beat(10, 5, 0, 5, 6);
+                paVBProperties[index].pJoy->_pAFader->transitionLinerToTop(5);
+                input_mode_ = 0;
+            }
+
+            int JOY_pushed = VirtualButton::getPushedDownVirtualJoyButton();
+            if (JOY_pushed != -1) {
+                 paVBProperties[index].pJoy->update(VirtualButton::_mapJoyBtn2Str[JOY_pushed].c_str());
+                 paVBProperties[index].pJoy->_pAFader->beat(10, 5, 0, 5, 6);
+                 paVBProperties[index].pKey->_pAFader->transitionLinerToTop(5);
+                 input_mode_ = 0;
             }
         }
 
-        int JOY_pushed = GgafDxInput::getPushedDownJoyRgbButton();
-        if (0 <= JOY_pushed && JOY_pushed <= 12) {
-            paVBProperties[index].pJoy->update(VirtualButton::_mapJoyBtn2Str[JOY_pushed].c_str());
-            paVBProperties[index].pJoy->effectFlush(10);
-        }
     }
 
 }
 
 void MenuBoardKeyConfig::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
     if (prm_item_index == ITEM_INDEX_CANCEL_) {
+        input_mode_ = 0;
         sinkMe();
     } else if (prm_item_index == ITEM_INDEX_OK_) {
+        input_mode_ = 0;
         riseSubMenu(0, getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y - PX_C(50)); //確認メニュー起動
-    } else {
-
+    } else if (input_mode_ == 0) {
+        input_mode_ = 1;
+        input_target_item_ = prm_item_index;
+        paVBProperties[prm_item_index].pKey->_pAFader->beat(30, 15, 0, 15, -1);
     }
 }
 void MenuBoardKeyConfig::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
+
 }
 
 MenuBoardKeyConfig::~MenuBoardKeyConfig() {

@@ -176,10 +176,10 @@ public:
 
     /**
      * 押されているジョイスティックのボタンを調べる .
-     * @return 押されたジョイスティックボタン番号(0～12) / -1:何も押されていない
+     * @return 押されたジョイスティックボタン番号(0～15) / -1:何も押されていない
      */
     static inline int getBeingPressedJoyRgbButton() {
-        for (int i = 0; i < 13; i ++) {
+        for (int i = 0; i < 16; i ++) {
             if (_joy_state[_flip_js].rgbButtons[i] & 0x80) {
                 return i;
             }

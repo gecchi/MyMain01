@@ -2,7 +2,7 @@
 #define GGAFCORE_GGAFGACTORY_H_
 #include "GgafCommonHeader.h"
 
-#include <limits.h>
+#define ORDER_ID_MAX     (0xffffffffffffffffULL)
 
 namespace GgafCore {
 
@@ -139,8 +139,8 @@ public:
                          void* prm_pArg2,
                          void* prm_pArg3,
                          GgafObject* prm_org) {
-        order(_UI64_MAX, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pArg1, prm_pArg2, prm_pArg3);
-        return (X*)(obtain(_UI64_MAX, prm_org));
+        order(ORDER_ID_MAX, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pArg1, prm_pArg2, prm_pArg3);
+        return (X*)(obtain(ORDER_ID_MAX, prm_org));
     }
 
 
