@@ -73,8 +73,8 @@ VirtualButton::JOYSTICKMAP VirtualButton::_joystickmap = {
                               0x82, // UI_LEFT
                               0x83, // UI_RIGHT
                               0,  // UI_EXECUTE
-                              -1, // UI_CANCEL
-                              1   // UI_DEBUG
+                              1,  // UI_CANCEL
+                              -1   // UI_DEBUG
                            };
 
 VirtualButton::VirtualButton(const char* prm_replay_file) : GgafObject() {
@@ -930,16 +930,13 @@ void VirtualButton::clear() {
     if (0 <= prm_virtual_joy_button_no && prm_virtual_joy_button_no <= 0x0F) {
         return GgafDxCore::GgafDxInput::isBeingPressedJoyButton(prm_virtual_joy_button_no);
     } else {
-#ifdef MY_DEBUG
         if ( ( 0x80 <= prm_virtual_joy_button_no && prm_virtual_joy_button_no <= 0x83 ) ||
              ( 0x90 <= prm_virtual_joy_button_no && prm_virtual_joy_button_no <= 0x93 )   )
         {
-            //OK
+            return (_mapVJoyBtn2Func[prm_virtual_joy_button_no])();
         } else {
-            throwGgafCriticalException("VirtualButton::isBeingPressedVirtualJoyButton ”ÍˆÍŠO‚Ì”Ô†‚Å‚· prm_virtual_joy_button_no="+prm_virtual_joy_button_no);
+            return -1;
         }
-#endif
-        return (_mapVJoyBtn2Func[prm_virtual_joy_button_no])();
     }
 }
 int VirtualButton::getPushedDownVirtualJoyButton() {
