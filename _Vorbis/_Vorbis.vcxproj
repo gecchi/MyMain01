@@ -195,7 +195,6 @@
     <ClCompile Include="lib\sharedbook.c" />
     <ClCompile Include="lib\smallft.c" />
     <ClCompile Include="lib\synthesis.c" />
-    <ClCompile Include="lib\tone.c" />
     <ClCompile Include="lib\vorbisenc.c" />
     <ClCompile Include="lib\vorbisfile.c" />
     <ClCompile Include="lib\window.c" />

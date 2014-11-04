@@ -64,6 +64,7 @@ VirtualButton::JOYSTICKMAP VirtualButton::_joystickmap = {
                               0x0D, // BUTTON14
                               0x0E, // BUTTON15
                               0x0F, // BUTTON16
+                              0x07, // PAUSE
                               0x80, // UP
                               0x81, // DOWN
                               0x82, // LEFT
@@ -289,13 +290,13 @@ void VirtualButton::init() {
     _mapStr2JoyBtn["JOY_BUTTON_14"] = 0x0E;
     _mapStr2JoyBtn["JOY_BUTTON_15"] = 0x0F;
     _mapStr2JoyBtn["JOY_UP"]        = 0x80;
-    _mapStr2JoyBtn["JOY_RIGHT"]     = 0x81;
-    _mapStr2JoyBtn["JOY_DOWN"]      = 0x82;
-    _mapStr2JoyBtn["JOY_LEFT"]      = 0x83;
+    _mapStr2JoyBtn["JOY_DOWN"]      = 0x81;
+    _mapStr2JoyBtn["JOY_LEFT"]      = 0x82;
+    _mapStr2JoyBtn["JOY_RIGHT"]     = 0x83;
     _mapStr2JoyBtn["JOY_POV_UP"]    = 0x90;
-    _mapStr2JoyBtn["JOY_POV_RIGHT"] = 0x91;
-    _mapStr2JoyBtn["JOY_POV_DOWN"]  = 0x92;
-    _mapStr2JoyBtn["JOY_POV_LEFT"]  = 0x93;
+    _mapStr2JoyBtn["JOY_POV_DOWN"]  = 0x91;
+    _mapStr2JoyBtn["JOY_POV_LEFT"]  = 0x92;
+    _mapStr2JoyBtn["JOY_POV_RIGHT"] = 0x93;
 
     _mapDik2Str[0x01] = "DIK_ESCAPE";
     _mapDik2Str[0x02] = "DIK_1";
@@ -474,23 +475,23 @@ void VirtualButton::init() {
     _mapJoyBtn2Str[0x0E] = "JOY_BUTTON_14";
     _mapJoyBtn2Str[0x0F] = "JOY_BUTTON_15";
     _mapJoyBtn2Str[0x80] = "JOY_UP";
-    _mapJoyBtn2Str[0x81] = "JOY_RIGHT";
-    _mapJoyBtn2Str[0x82] = "JOY_DOWN";
-    _mapJoyBtn2Str[0x83] = "JOY_LEFT";
+    _mapJoyBtn2Str[0x81] = "JOY_DOWN";
+    _mapJoyBtn2Str[0x82] = "JOY_LEFT";
+    _mapJoyBtn2Str[0x83] = "JOY_RIGHT";
     _mapJoyBtn2Str[0x90] = "JOY_POV_UP";
-    _mapJoyBtn2Str[0x91] = "JOY_POV_RIGHT";
-    _mapJoyBtn2Str[0x92] = "JOY_POV_DOWN";
-    _mapJoyBtn2Str[0x93] = "JOY_POV_LEFT";
+    _mapJoyBtn2Str[0x91] = "JOY_POV_DOWN";
+    _mapJoyBtn2Str[0x92] = "JOY_POV_LEFT";
+    _mapJoyBtn2Str[0x93] = "JOY_POV_RIGHT";
 
 
     _mapVJoyBtn2Func[0x80] = GgafDxCore::GgafDxInput::isBeingPressedJoyUp;
-    _mapVJoyBtn2Func[0x81] = GgafDxCore::GgafDxInput::isBeingPressedJoyRight;
-    _mapVJoyBtn2Func[0x82] = GgafDxCore::GgafDxInput::isBeingPressedJoyDown;
-    _mapVJoyBtn2Func[0x83] = GgafDxCore::GgafDxInput::isBeingPressedJoyLeft;
+    _mapVJoyBtn2Func[0x81] = GgafDxCore::GgafDxInput::isBeingPressedJoyDown;
+    _mapVJoyBtn2Func[0x82] = GgafDxCore::GgafDxInput::isBeingPressedJoyLeft;
+    _mapVJoyBtn2Func[0x83] = GgafDxCore::GgafDxInput::isBeingPressedJoyRight;
     _mapVJoyBtn2Func[0x90] = GgafDxCore::GgafDxInput::isBeingPressedPovUp;
-    _mapVJoyBtn2Func[0x91] = GgafDxCore::GgafDxInput::isBeingPressedPovRight;
-    _mapVJoyBtn2Func[0x92] = GgafDxCore::GgafDxInput::isBeingPressedPovDown;
-    _mapVJoyBtn2Func[0x93] = GgafDxCore::GgafDxInput::isBeingPressedPovLeft;
+    _mapVJoyBtn2Func[0x91] = GgafDxCore::GgafDxInput::isBeingPressedPovDown;
+    _mapVJoyBtn2Func[0x92] = GgafDxCore::GgafDxInput::isBeingPressedPovLeft;
+    _mapVJoyBtn2Func[0x93] = GgafDxCore::GgafDxInput::isBeingPressedPovRight;
 }
 
 VirtualButton::VBRecord* VirtualButton::getPastVBRecord(frame prm_frame_ago) {
@@ -941,22 +942,22 @@ void VirtualButton::clear() {
 }
 int VirtualButton::getPushedDownVirtualJoyButton() {
     int JOY_pushed = GgafDxInput::getPushedDownJoyRgbButton();
-    if (JOY_pushed < 0) {
+    if (JOY_pushed == -1) {
         if (GgafDxInput::isBeingPressedJoyUp()) {
             return 0x80;
-        } else if (GgafDxInput::isBeingPressedJoyRight()) {
-            return 0x81;
         } else if (GgafDxInput::isBeingPressedJoyDown()) {
-            return 0x82;
+            return 0x81;
         } else if (GgafDxInput::isBeingPressedJoyLeft()) {
+            return 0x82;
+        } else if (GgafDxInput::isBeingPressedJoyRight()) {
             return 0x83;
         } else if (GgafDxInput::isBeingPressedPovUp()) {
             return 0x90;
-        } else if (GgafDxInput::isBeingPressedPovRight()) {
-            return 0x91;
         } else if (GgafDxInput::isBeingPressedPovDown()) {
-            return 0x92;
+            return 0x91;
         } else if (GgafDxInput::isBeingPressedPovLeft()) {
+            return 0x92;
+        } else if (GgafDxInput::isBeingPressedPovRight()) {
             return 0x93;
         } else {
             return -1;

@@ -166,6 +166,11 @@ void MenuBoardKeyConfig::processBehavior() {
 
     }
 
+    //input_mode_=2を無駄に経由させることで、現決定ボタンの割り当て時とonDecisionを同時に成立させるの防ぐ
+    if (input_mode_ == 2) {
+        input_mode_ = 0;
+    }
+
     if (input_mode_ == 1) {
         int index = getSelectedIndex();
         if (VB_UI->isPushedDown(VB_UI_CANCEL)) {
@@ -176,17 +181,17 @@ void MenuBoardKeyConfig::processBehavior() {
             int DIK_pushed = GgafDxInput::getPushedDownKey();
             if (DIK_pushed != -1 && 0x00 <= DIK_pushed && DIK_pushed <= 0xD1) {
                 paVBProperties[index].pKey->update(VirtualButton::_mapDik2Str[DIK_pushed].c_str());
-                paVBProperties[index].pKey->_pAFader->beat(10, 5, 0, 5, 6);
+                paVBProperties[index].pKey->_pAFader->beat(10, 5, 0, 5, 6.5);
                 paVBProperties[index].pJoy->_pAFader->transitionLinerToTop(5);
-                input_mode_ = 0;
+                input_mode_ = 2;
             }
 
             int JOY_pushed = VirtualButton::getPushedDownVirtualJoyButton();
             if (JOY_pushed != -1) {
                  paVBProperties[index].pJoy->update(VirtualButton::_mapJoyBtn2Str[JOY_pushed].c_str());
-                 paVBProperties[index].pJoy->_pAFader->beat(10, 5, 0, 5, 6);
+                 paVBProperties[index].pJoy->_pAFader->beat(10, 5, 0, 5, 6.5);
                  paVBProperties[index].pKey->_pAFader->transitionLinerToTop(5);
-                 input_mode_ = 0;
+                 input_mode_ = 2;
             }
         }
 
@@ -205,6 +210,7 @@ void MenuBoardKeyConfig::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, 
         input_mode_ = 1;
         input_target_item_ = prm_item_index;
         paVBProperties[prm_item_index].pKey->_pAFader->beat(30, 15, 0, 15, -1);
+        paVBProperties[prm_item_index].pJoy->_pAFader->beat(30, 15, 0, 15, -1);
     }
 }
 void MenuBoardKeyConfig::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {

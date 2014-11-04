@@ -317,28 +317,28 @@ void GgafResourceManager<T>::dump() {
 
 template<class T>
 GgafResourceManager<T>::~GgafResourceManager() {
-    _DTRACE3_("GgafResourceManager<T>::~GgafResourceManager[" << _manager_name << "] " << _manager_name << " ");
 #ifdef MY_DEBUG
     _DTRACE_("GgafResourceManager<T>::~GgafResourceManager()["<<_manager_name<<"] begin --->");
-    _DTRACE_("＜解放前Dumping＞");
     dump();
 #endif
     GgafResourceConnection<T>* pCurrent = _pConn_first;
     if (_pConn_first == nullptr) {
-        _DTRACE3_("GgafResourceManager::~GgafResourceManager[" << _manager_name << "] 保持リストにはなにもありません。");
+        _DTRACE3_("コネクションリストは空です。["<<_manager_name<<"]は正常に開放されるでしょう。");
     } else {
         GgafResourceConnection<T>* pCurrent_next;
         while (pCurrent) {
             int rnum = pCurrent->_num_connection;
-            _DTRACE_("GgafResourceManager::~GgafResourceManager[" << _manager_name << "] 保持リストに[" << pCurrent->_idstr << "←" << rnum
-                    << "Connection]が残ってます。強制削除しますが、本来あってはいけません。特別に" << rnum << "回 close()を発行します");
+            _DTRACE_("＜警告＞["<<_manager_name<<"]に、コネクション[" << pCurrent->_idstr << "←" << rnum
+                    << "Connection]が残っているので削除出来ません。close()漏れ要調査です。特別に" << rnum << "回 close() を試みます。");
 //            T* r = pCurrent->peek();
             pCurrent_next = pCurrent->_pNext;
 //            if (r) {
 //                pCurrent->processReleaseResource(r); //リソースの解放
 //            }
             for (int i = 0; i < rnum; i++) {
+                _DTRACE_("＜警告＞["<<i<<"回目] close() 今からします。pCurrent="<<(pCurrent->_idstr)<<"("<<pCurrent<<")");
                 pCurrent->close(); //自殺するまで解放
+                _DTRACE_("＜警告＞["<<i<<"回目] close() 完了しました。");
             }
             if (pCurrent_next == nullptr) {
                 //最後の一つ
@@ -349,7 +349,7 @@ GgafResourceManager<T>::~GgafResourceManager() {
         }
     }
 #ifdef MY_DEBUG
-    _DTRACE_("<--- GgafResourceManager<T>::~GgafResourceManager() ["<<_manager_name<<"] end");
+    _DTRACE_("GgafResourceManager<T>::~GgafResourceManager() ["<<_manager_name<<"] end   <---");
 #endif
 }
 
