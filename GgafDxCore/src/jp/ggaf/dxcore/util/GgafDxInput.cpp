@@ -13,7 +13,7 @@ LPDIRECTINPUTDEVICE8 GgafDxInput::_pMouseInputDevice  = nullptr;
 DIMOUSESTATE2 GgafDxInput::_mouse_state[2];
 int  GgafDxInput::_flip_ms = 0;
 
-char GgafDxInput::_keyboard_state[2][256];
+BYTE GgafDxInput::_keyboard_state[2][256];
 int GgafDxInput::_flip_ks = 0;
 DIDEVCAPS GgafDxInput::_devcap;
 DIJOYSTATE GgafDxInput::_joy_state[2];

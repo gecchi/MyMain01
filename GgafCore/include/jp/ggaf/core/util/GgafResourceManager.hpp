@@ -349,7 +349,7 @@ GgafResourceManager<T>::~GgafResourceManager() {
         }
     }
 #ifdef MY_DEBUG
-    _DTRACE_("GgafResourceManager<T>::~GgafResourceManager() ["<<_manager_name<<"] end   <---");
+    _DTRACE_("GgafResourceManager<T>::~GgafResourceManager() ["<<_manager_name<<"] end  <---");
 #endif
 }
 

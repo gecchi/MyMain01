@@ -36,7 +36,7 @@ public:
     /** 現在アクティブなマウス状態の表裏(0:表／1:裏) */
     static int _flip_ms;
     /** キーボードの状態（表、裏） */
-    static char _keyboard_state[2][256];
+    static BYTE _keyboard_state[2][256];
     /** 現在アクティブなキーボード状態の表裏(0:表／1:裏) */
     static int _flip_ks;
     /** ジョイスティックの状態(0:表／1:裏)  */

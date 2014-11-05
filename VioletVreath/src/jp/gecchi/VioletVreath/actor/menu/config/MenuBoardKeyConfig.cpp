@@ -41,20 +41,24 @@ MenuBoardKeyConfig::MenuBoardKeyConfig(const char* prm_name) :
 
     //メニューアイテム（選択可）設定
     const char* apItemStr[] = {
-          "MAIN SHOT KEY & BUTTON",
-          "SUB SHOT  KEY & BUTTON",
-          "TURBO     KEY & BUTTON",
-          "CONTROLL  KEY & BUTTON",
-          "MAGIC     KEY & BUTTON",
-          "VAM       KEY & BUTTON",
-          "PAUSE     KEY & BUTTON",
+          "MOVE UP",
+          "MOVE DOWN",
+          "MOVE LEFT",
+          "MOVE RIGHT",
+          "MAIN SHOT BUTTON",
+          "SUB SHOT BUTTON",
+          "TURBO BUTTON",
+          "CONTROLL BUTTON",
+          "MAGIC BUTTON",
+          "VAM BUTTON",
+          "PAUSE BUTTON"
     };
 
     int item_index;
-    for (item_index = ITEM_MAIN_SHOT; item_index <= ITEM_PAUSE; item_index++) {
+    for (item_index = ITEM_UP; item_index <= ITEM_PAUSE; item_index++) {
         LabelMenuItemFont01* pLabel = NEW LabelMenuItemFont01("item");
         pLabel->update(apItemStr[item_index], ALIGN_LEFT, VALIGN_MIDDLE);
-        addItem(pLabel, PX_C(200), PX_C(100+(item_index*20)));
+        addItem(pLabel, PX_C(100), PX_C(100+(item_index*20)));
     }
 
     LabelMenuItemFont01* pLabel_OK = NEW LabelMenuItemFont01("item_Ok");
@@ -68,7 +72,7 @@ MenuBoardKeyConfig::MenuBoardKeyConfig(const char* prm_name) :
     ITEM_INDEX_CANCEL_ = item_index + 1;
 
     paVBProperties = NEW VBProperty[item_index+1];
-    for (int i = ITEM_MAIN_SHOT; i <= ITEM_PAUSE; i++) {
+    for (int i = ITEM_UP; i <= ITEM_PAUSE; i++) {
         paVBProperties[i].pKey = NEW LabelFix16Font01("DISP_KEY");
         paVBProperties[i].pKey->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
         addDisp(paVBProperties[i].pKey, PX_C(600), PX_C(100+(i*20)));
@@ -78,8 +82,8 @@ MenuBoardKeyConfig::MenuBoardKeyConfig(const char* prm_name) :
     }
 
     LabelMenuTitleFont01* pLabel_title = NEW LabelMenuTitleFont01("LABEL_TITLE");
-    pLabel_title->update("SELECT AND PUSH KEY, JOY BUTTON!!", ALIGN_CENTER, VALIGN_MIDDLE);
-    addDisp(pLabel_title, PX_C(300), PX_C(40));
+    pLabel_title->update("SELECT AND PUSH UI_EXCUTE, THEN, PUSH KEY/JOY ASSIGNMENT!!", ALIGN_CENTER, VALIGN_MIDDLE);
+    addDisp(pLabel_title, PX_C(100), PX_C(40));
 
     //メニューカーソルを設定
     CursorConfig002* pCursor = NEW CursorConfig002("CursorConfig002");
@@ -108,8 +112,12 @@ bool MenuBoardKeyConfig::condSelectPrev() {
 }
 void MenuBoardKeyConfig::onRise() {
 
-    selectItem(ITEM_MAIN_SHOT); //カーソルの初期選択アイテムを設定
+    selectItem(ITEM_UP); //カーソルの初期選択アイテムを設定
     //リセット
+    paVBProperties[ITEM_UP       ].pKey->update(PROPERTY::MY_KEY_UP     .c_str());
+    paVBProperties[ITEM_DOWN     ].pKey->update(PROPERTY::MY_KEY_DOWN   .c_str());
+    paVBProperties[ITEM_LEFT     ].pKey->update(PROPERTY::MY_KEY_LEFT   .c_str());
+    paVBProperties[ITEM_RIGHT    ].pKey->update(PROPERTY::MY_KEY_RIGHT  .c_str());
     paVBProperties[ITEM_MAIN_SHOT].pKey->update(PROPERTY::MY_KEY_SHOT1  .c_str());
     paVBProperties[ITEM_SUB_SHOT ].pKey->update(PROPERTY::MY_KEY_SHOT2  .c_str());
     paVBProperties[ITEM_TURBO    ].pKey->update(PROPERTY::MY_KEY_TURBO  .c_str());
@@ -118,6 +126,10 @@ void MenuBoardKeyConfig::onRise() {
     paVBProperties[ITEM_VAM      ].pKey->update(PROPERTY::MY_KEY_VIEW   .c_str());
     paVBProperties[ITEM_PAUSE    ].pKey->update(PROPERTY::MY_KEY_PAUSE  .c_str());
 
+    paVBProperties[ITEM_UP       ].pJoy->update(PROPERTY::MY_JOY_UP     .c_str());
+    paVBProperties[ITEM_DOWN     ].pJoy->update(PROPERTY::MY_JOY_DOWN   .c_str());
+    paVBProperties[ITEM_LEFT     ].pJoy->update(PROPERTY::MY_JOY_LEFT   .c_str());
+    paVBProperties[ITEM_RIGHT    ].pJoy->update(PROPERTY::MY_JOY_RIGHT  .c_str());
     paVBProperties[ITEM_MAIN_SHOT].pJoy->update(PROPERTY::MY_JOY_SHOT1  .c_str());
     paVBProperties[ITEM_SUB_SHOT ].pJoy->update(PROPERTY::MY_JOY_SHOT2  .c_str());
     paVBProperties[ITEM_TURBO    ].pJoy->update(PROPERTY::MY_JOY_TURBO  .c_str());
@@ -138,6 +150,10 @@ void MenuBoardKeyConfig::processBehavior() {
     MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
     if (pSubConfirm->isJustDecidedOk()) {
         //現プロパティをファイルに保存
+        PROPERTY::setValue("MY_KEY_UP"      , paVBProperties[ITEM_UP       ].pKey->_draw_string);
+        PROPERTY::setValue("MY_KEY_DOWN"    , paVBProperties[ITEM_DOWN     ].pKey->_draw_string);
+        PROPERTY::setValue("MY_KEY_LEFT"    , paVBProperties[ITEM_LEFT     ].pKey->_draw_string);
+        PROPERTY::setValue("MY_KEY_RIGHT"   , paVBProperties[ITEM_RIGHT    ].pKey->_draw_string);
         PROPERTY::setValue("MY_KEY_SHOT1"   , paVBProperties[ITEM_MAIN_SHOT].pKey->_draw_string);
         PROPERTY::setValue("MY_KEY_SHOT2"   , paVBProperties[ITEM_SUB_SHOT ].pKey->_draw_string);
         PROPERTY::setValue("MY_KEY_TURBO"   , paVBProperties[ITEM_TURBO    ].pKey->_draw_string);
@@ -146,6 +162,10 @@ void MenuBoardKeyConfig::processBehavior() {
         PROPERTY::setValue("MY_KEY_VIEW"    , paVBProperties[ITEM_VAM      ].pKey->_draw_string);
         PROPERTY::setValue("MY_KEY_PAUSE"   , paVBProperties[ITEM_PAUSE    ].pKey->_draw_string);
 
+        PROPERTY::setValue("MY_JOY_UP"      , paVBProperties[ITEM_UP       ].pJoy->_draw_string);
+        PROPERTY::setValue("MY_JOY_DOWN"    , paVBProperties[ITEM_DOWN     ].pJoy->_draw_string);
+        PROPERTY::setValue("MY_JOY_LEFT"    , paVBProperties[ITEM_LEFT     ].pJoy->_draw_string);
+        PROPERTY::setValue("MY_JOY_RIGHT"   , paVBProperties[ITEM_RIGHT    ].pJoy->_draw_string);
         PROPERTY::setValue("MY_JOY_SHOT1"   , paVBProperties[ITEM_MAIN_SHOT].pJoy->_draw_string);
         PROPERTY::setValue("MY_JOY_SHOT2"   , paVBProperties[ITEM_SUB_SHOT ].pJoy->_draw_string);
         PROPERTY::setValue("MY_JOY_TURBO"   , paVBProperties[ITEM_TURBO    ].pJoy->_draw_string);

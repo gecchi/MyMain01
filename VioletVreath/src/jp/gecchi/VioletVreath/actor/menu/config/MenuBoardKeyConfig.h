@@ -15,7 +15,11 @@ class MenuBoardKeyConfig : public MenuBoard {
 
 public:
     enum {
-        ITEM_MAIN_SHOT = 0,
+        ITEM_UP = 0,
+        ITEM_DOWN,
+        ITEM_LEFT,
+        ITEM_RIGHT,
+        ITEM_MAIN_SHOT,
         ITEM_SUB_SHOT  ,
         ITEM_TURBO     ,
         ITEM_CONTROLL  ,

@@ -27,12 +27,12 @@ VirtualButton::KEYBOARDMAP VirtualButton::_keyboardmap = {
                               DIK_B,      // BUTTON8
                               DIK_N,      // BUTTON9
                               DIK_M,      // BUTTON10
-                              DIK_M,      // BUTTON11
-                              DIK_M,      // BUTTON12
-                              DIK_M,      // BUTTON13
-                              DIK_M,      // BUTTON14
-                              DIK_M,      // BUTTON15
-                              DIK_M,      // BUTTON16
+                              0xFF,      // BUTTON11
+                              0xFF,      // BUTTON12
+                              0xFF,      // BUTTON13
+                              0xFF,      // BUTTON14
+                              0xFF,      // BUTTON15
+                              0xFF,      // BUTTON16
                               DIK_ESCAPE, // PAUSE
                               DIK_UP,     // UP
                               DIK_DOWN,   // DOWN
