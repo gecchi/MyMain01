@@ -26,7 +26,7 @@ GgafDxAABActor::GgafDxAABActor(const char* prm_name,
 //}
 
 void GgafDxAABActor::drawBox(coord prm_x1, coord prm_y1, coord prm_z1, coord prm_x2, coord prm_y2, coord prm_z2) {
-    //_DTRACE_("drawBox ("<<prm_x1<<","<<prm_y1<<","<<prm_z1<<","<<prm_x2<<","<<prm_y2<<","<<prm_z2<<")");
+    //_TRACE_("drawBox ("<<prm_x1<<","<<prm_y1<<","<<prm_z1<<","<<prm_x2<<","<<prm_y2<<","<<prm_z2<<")");
     _sx = (prm_x2 - prm_x1);
     _sy = (prm_y2 - prm_y1);
     _sz = (prm_z2 - prm_z1);

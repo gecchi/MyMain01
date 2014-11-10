@@ -102,7 +102,7 @@ void EnemyRatislavia::processBehavior() {
 
         case PROG_EXPLOSION: {
             if (pProg->isJustChanged()) {
-                _DTRACE_("EnemyRatislavia::processBehavior() _pProg=PROG_EXPLOSION きたわ～");
+                _TRACE_("EnemyRatislavia::processBehavior() _pProg=PROG_EXPLOSION きたわ～");
             }
             if (pProg->getFrameInProgress() % 16U == 0) {
                 //沸々爆発
@@ -163,7 +163,7 @@ void EnemyRatislavia::onHit(GgafActor* prm_pOtherActor) {
 
 void EnemyRatislavia::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == RATISLAVIA_EXPLOSION) {
-        _DTRACE_("EnemyRatislavia::onCatchEvent RATISLAVIA_EXPLOSION キャッチ");
+        _TRACE_("EnemyRatislavia::onCatchEvent RATISLAVIA_EXPLOSION キャッチ");
         setHitAble(false);
         getProgress()->change(PROG_EXPLOSION);
     }

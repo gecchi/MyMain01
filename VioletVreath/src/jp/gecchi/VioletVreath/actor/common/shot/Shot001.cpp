@@ -45,11 +45,11 @@ void Shot001::onActive() {
     pKuroko->setFaceAngVelo(AXIS_X, RF_Shot001_AngVelo(G_RANK)); //きりもみ具合
     pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION);
     pScaler_->beat(30,5,0,2,-1);
-//    _DTRACE_("Shot001::onActive() id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<getKuroko()->_ang_rz_mv<<"\t"<<getKuroko()->_ang_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
+//    _TRACE_("Shot001::onActive() id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<getKuroko()->_ang_rz_mv<<"\t"<<getKuroko()->_ang_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
 }
 
 void Shot001::processBehavior() {
-//    _DTRACE_("Shot001::processBehavior() before id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<getKuroko()->_ang_rz_mv<<"\t"<<getKuroko()->_ang_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
+//    _TRACE_("Shot001::processBehavior() before id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<getKuroko()->_ang_rz_mv<<"\t"<<getKuroko()->_ang_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
     //加算ランクポイントを減少
     UTIL::updateEnemyRankPoint(this);
     GgafDxKuroko* pKuroko = getKuroko();
@@ -57,7 +57,7 @@ void Shot001::processBehavior() {
     pKurokoLeader_->behave(); //スプライン移動を振る舞い
     pKuroko->behave();
     pScaler_->behave();
-//    _DTRACE_("Shot001::processBehavior() after id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<getKuroko()->_ang_rz_mv<<"\t"<<getKuroko()->_ang_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
+//    _TRACE_("Shot001::processBehavior() after id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<getKuroko()->_ang_rz_mv<<"\t"<<getKuroko()->_ang_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
 }
 
 void Shot001::processJudgement() {

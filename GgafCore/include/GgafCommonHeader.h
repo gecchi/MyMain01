@@ -230,40 +230,40 @@
 
 #ifdef MY_DEBUG
     /** デバッグ用通常ログ */
-    #define _DTRACE_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
-    //#define _DTRACE_(X)
-    #define _DTEXT_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss); }
-    //#define _DTEXT_(X)
+    #define _TRACE_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
+    //#define _TRACE_(X)
+    #define _TRACE_N_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss); }
+    //#define _TRACE_N_(X)
 
     /** 工場関連関連ログ */
-    //#define _DTRACE2_(X) {std::stringstream ss; ss << "[製造工場]" << X; GgafCore::GgafLogger::writeln(ss); }
-    #define _DTRACE2_(X)
+    //#define _TRACE2_(X) {std::stringstream ss; ss << "[製造工場]" << X; GgafCore::GgafLogger::writeln(ss); }
+    #define _TRACE2_(X)
 
     /** 資源マネージャ、コネクション関連ログ */
-    //#define _DTRACE3_(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
-    #define _DTRACE3_(X)
+    //#define _TRACE3_(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
+    #define _TRACE3_(X)
 
     /** エフェクト、パス、Draw関連ログ */
-    //#define _DTRACE4_(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
-    #define _DTRACE4_(X)
+    //#define _TRACE4_(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
+    #define _TRACE4_(X)
 
     /** ８分木、あたり判定関連ログ */
-    //#define _DTRACE5_(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
-    #define _DTRACE5_(X)
-    //#define _DTEXT5_(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss); }
-    #define _DTEXT5_(X)
+    //#define _TRACE5_(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
+    #define _TRACE5_(X)
+    //#define _TRACE5_N_(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss); }
+    #define _TRACE5_N_(X)
 
 # else
-    //#define _DTRACE_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
-    #define _DTRACE_(X)
-    //#define _DTEXT_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss); }
-    #define _DTEXT_(X)
+    //#define _TRACE_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
+    #define _TRACE_(X)
+    //#define _TRACE_N_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss); }
+    #define _TRACE_N_(X)
 
-    #define _DTRACE2_(X)
-    #define _DTRACE3_(X)
-    #define _DTRACE4_(X)
-    #define _DTRACE5_(X)
-    #define _DTEXT5_(X)
+    #define _TRACE2_(X)
+    #define _TRACE3_(X)
+    #define _TRACE4_(X)
+    #define _TRACE5_(X)
+    #define _TRACE5_N_(X)
 #endif
 
 #define DUMP_FLGS   "@"<< \

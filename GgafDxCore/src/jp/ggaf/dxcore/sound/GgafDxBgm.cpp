@@ -12,7 +12,7 @@ using namespace GgafDxCore;
 using namespace IkdLib;
 
 //GgafDxBgm::GgafDxBgm(char* prm_ogg_name) : GgafObject() {
-//    _DTRACE_("GgafDxBgm::GgafDxBgm "<<prm_ogg_name);
+//    _TRACE_("GgafDxBgm::GgafDxBgm "<<prm_ogg_name);
 //    if (GgafDxSound::_pIDirectSound8 == nullptr) {
 //        throwGgafCriticalException("GgafDxBgm::GgafDxBgm("<<prm_ogg_name<<") DirectSound ‚ªA‚Ü‚¾‰Šú‰»‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB");
 //    }
@@ -34,7 +34,7 @@ GgafDxBgm::GgafDxBgm(char* prm_bgm_key) : GgafObject() {
     }
 //    _bpm = atoi((*GgafProperties::_pMapProperties)[bgm_key+"_BPM"].c_str());
 //    _title = (*GgafProperties::_pMapProperties)[bgm_key+"_TITLE"];
-//    _DTRACE_("GgafDxBgm::GgafDxBgm KEY="<<prm_bgm_key<<" _file_name="<<_ogg_file_name<<" _bpm="<<_bpm<<" _title="<<_title);
+//    _TRACE_("GgafDxBgm::GgafDxBgm KEY="<<prm_bgm_key<<" _file_name="<<_ogg_file_name<<" _bpm="<<_bpm<<" _title="<<_title);
     std::string full_ogg_file_name = getOggFileName(_ogg_file_name);
     _pOggResource = NEW OggVorbisFile( full_ogg_file_name.c_str() );
     _pOggDecoder =  NEW OggDecoder( _pOggResource );
@@ -106,17 +106,17 @@ bool GgafDxBgm::isPlaying() {
 }
 
 GgafDxBgm::~GgafDxBgm() {
-    _DTRACE_("GgafDxBgm::~GgafDxBgm() begin");
-    _DTRACE_("_pPcmPlayer->setVolume(DSBVOLUME_MIN);");
+    _TRACE_("GgafDxBgm::~GgafDxBgm() begin");
+    _TRACE_("_pPcmPlayer->setVolume(DSBVOLUME_MIN);");
     _pPcmPlayer->setVolume(DSBVOLUME_MIN);
-    _DTRACE_("_pPcmPlayer->terminateThread();");
+    _TRACE_("_pPcmPlayer->terminateThread();");
     _pPcmPlayer->terminateThread();
-    _DTRACE_("GGAF_DELETE(_pPcmPlayer);");
+    _TRACE_("GGAF_DELETE(_pPcmPlayer);");
     GGAF_DELETE(_pPcmPlayer);
-    _DTRACE_("GGAF_DELETE(_pOggDecoder);");
+    _TRACE_("GGAF_DELETE(_pOggDecoder);");
     GGAF_DELETE(_pOggDecoder);
-    _DTRACE_("GGAF_DELETE(_pOggResource);");
+    _TRACE_("GGAF_DELETE(_pOggResource);");
     GGAF_DELETE(_pOggResource);
-    _DTRACE_("GgafDxBgm::~GgafDxBgm() end");
+    _TRACE_("GgafDxBgm::~GgafDxBgm() end");
 }
 

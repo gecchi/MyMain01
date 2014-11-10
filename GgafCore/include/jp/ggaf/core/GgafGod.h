@@ -157,7 +157,7 @@ public:
      * 例外発生時にコールバックされます。
      */
     virtual void oops() {
-        _DTRACE_("(-_-;) {Oops!");
+        _TRACE_("(-_-;) {Oops!");
     }
 
     virtual ~GgafGod();

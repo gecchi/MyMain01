@@ -407,36 +407,36 @@ GgafDxGeometricActor::~GgafDxGeometricActor() {
 }
 
 void GgafDxGeometricActor::dump() {
-    _DTRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"]("<<_x<<","<<_y<<","<<_z<<")"<<DUMP_FLGS);
+    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"]("<<_x<<","<<_y<<","<<_z<<")"<<DUMP_FLGS);
     GgafActor* pActor_tmp = _pSubFirst;
     while (pActor_tmp) {
         pActor_tmp->dump("\t\t\t\t\t\t\t\tÅb");
         if (pActor_tmp->getNext()) {
             pActor_tmp = pActor_tmp->getNext();
         } else {
-            _DTRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ‹Ç∑");
+            _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ‹Ç∑");
             break;
         }
         if (pActor_tmp->isFirst()) {
-            _DTRACE_("\t\t\t\t\t\t\t\tÑ§Ñü");
+            _TRACE_("\t\t\t\t\t\t\t\tÑ§Ñü");
             break;
         }
     }
 }
 
 void GgafDxGeometricActor::dump(std::string prm_parent) {
-    _DTRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"]("<<_x<<","<<_y<<","<<_z<<")"<<DUMP_FLGS);
+    _TRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"]("<<_x<<","<<_y<<","<<_z<<")"<<DUMP_FLGS);
     GgafActor* pActor_tmp = _pSubFirst;
     while (pActor_tmp) {
         pActor_tmp->dump(prm_parent + "Åb");
         if (pActor_tmp->getNext()) {
             pActor_tmp = pActor_tmp->getNext();
         } else {
-            _DTRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ‹Ç∑");
+            _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ‹Ç∑");
             break;
         }
         if (pActor_tmp->isFirst()) {
-            _DTRACE_(prm_parent+"Ñ§Ñü");
+            _TRACE_(prm_parent+"Ñ§Ñü");
             break;
         }
     }

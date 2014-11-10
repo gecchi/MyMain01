@@ -186,12 +186,12 @@ void FixedFrameSplineKurokoLeader::restart() {
     //そうでなければ仕方ないので、費やされるフレーム合計の誤差を認める仕様とする。
     if (ABS(_distance_to_begin) <= PX_C(1)) {
         //始点への距離が無い、間引く。
-        //_DTRACE_("＜警告＞FixedFrameSplineKurokoLeader::start("<<prm_option<<") _pActor_target="<<_pActor_target->getName()<<
+        //_TRACE_("＜警告＞FixedFrameSplineKurokoLeader::start("<<prm_option<<") _pActor_target="<<_pActor_target->getName()<<
         //    " 現座標～始点[0]への距離は 0 であるため、現座標～始点への移動プロセスはカットされます。");
         _hosei_frames = _pFixedFrameSplManuf->_frame_of_segment;
         //これにより、_point_index は、初回いきなり1から始まる。
     } else {
-        _DTRACE_("＜警告＞FixedFrameSplineKurokoLeader::restart("<<_option<<") _pActor_target="<<_pActor_target->getName()<<
+        _TRACE_("＜警告＞FixedFrameSplineKurokoLeader::restart("<<_option<<") _pActor_target="<<_pActor_target->getName()<<
             " 現座標～始点[0]への距離("<<_distance_to_begin<<" coord)が離れているため、現座標～始点への移動プロセスとしてセグメントが＋１されます。"<<
             "そのため、合計移動フレーム時間に誤差(+"<<_pFixedFrameSplManuf->_frame_of_segment<<"フレーム)が生じます。ご了承くださいませ。");
         _hosei_frames = 0;
@@ -249,7 +249,7 @@ void FixedFrameSplineKurokoLeader::behave() {
         }
         _leading_frames++;
     }
-    //_DTRACE_(_pActor_target->getBehaveingFrame()<<": "<<_leading_frames<<": _cnt_loop="<<_cnt_loop<<"  _point_index="<<_point_index<<" velo="<<_pActor_target->getKuroko()->getMvVelo()<<" xyz="<<_pActor_target->_x<<","<<_pActor_target->_y<<","<<_pActor_target->_z);
+    //_TRACE_(_pActor_target->getBehaveingFrame()<<": "<<_leading_frames<<": _cnt_loop="<<_cnt_loop<<"  _point_index="<<_point_index<<" velo="<<_pActor_target->getKuroko()->getMvVelo()<<" xyz="<<_pActor_target->_x<<","<<_pActor_target->_y<<","<<_pActor_target->_z);
 }
 FixedFrameSplineKurokoLeader::~FixedFrameSplineKurokoLeader() {
 

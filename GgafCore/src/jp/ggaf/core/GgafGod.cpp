@@ -233,64 +233,64 @@ void GgafGod::finalizeUniverse() {
 
 void GgafGod::clean() {
     if (!_was_cleaned) {
-        _DTRACE_("GgafGod::clean() start");
+        _TRACE_("GgafGod::clean() start");
         if (_pUniverse) {
-            _DTRACE_("_pUniverse != nullptr");
+            _TRACE_("_pUniverse != nullptr");
             //工場を止める
             Sleep(10);
             GgafFactory::_is_working_flg = false;
-            _DTRACE_("GgafGod::~GgafGod() 工場が落ち着くまで待つ・・・");
+            _TRACE_("GgafGod::~GgafGod() 工場が落ち着くまで待つ・・・");
             for (int i = 0; GgafFactory::_was_finished_flg == false; i++) {
                 Sleep(10); //工場が落ち着くまで待つ
                 if (i > 10*100*60) {
-                    _DTRACE_("GgafGod::~GgafGod() 10分待機しましたが、工場から反応がありません。強制breakします。要調査");
+                    _TRACE_("GgafGod::~GgafGod() 10分待機しましたが、工場から反応がありません。強制breakします。要調査");
                     break;
                 }
             }
-            _DTRACE_("GgafGod::~GgafGod() 工場が落ち着きました");
+            _TRACE_("GgafGod::~GgafGod() 工場が落ち着きました");
             //排他の解除、スレッドが終了するまで待つ
-            _DTRACE_("GgafGod::~GgafGod()  WaitForSingleObject(_handleFactory01, 120*1000) .....");
+            _TRACE_("GgafGod::~GgafGod()  WaitForSingleObject(_handleFactory01, 120*1000) .....");
             DWORD r = WaitForSingleObject(_handleFactory01, 120*1000);  //DeleteCriticalSectionを行うために必要
             if (r == WAIT_TIMEOUT) {
                 throwGgafCriticalException("GgafGod::~GgafGod() 工場が落ち着いたにもかかわらず、２分たってもスレッドが残っています。");
             }
-            _DTRACE_("GgafGod::~GgafGod()  CloseHandle(_handleFactory01) .....");
+            _TRACE_("GgafGod::~GgafGod()  CloseHandle(_handleFactory01) .....");
             CloseHandle(_handleFactory01);
-            _DTRACE_("GgafGod::~GgafGod()  DeleteCriticalSection(&(GgafGod::CS1)); .....");
+            _TRACE_("GgafGod::~GgafGod()  DeleteCriticalSection(&(GgafGod::CS1)); .....");
             DeleteCriticalSection(&(GgafGod::CS1));
             _handleFactory01 = nullptr;
-            _DTRACE_("GgafGod::~GgafGod() 無事に工場スレッドを終了。クリティカルセクション解除");
+            _TRACE_("GgafGod::~GgafGod() 無事に工場スレッドを終了。クリティカルセクション解除");
 
 #ifdef MY_DEBUG
             //ツリー構造表示
-            _DTRACE_("Dumping _pUniverse ...");
+            _TRACE_("Dumping _pUniverse ...");
             _pUniverse->dump();
 #endif
 
             //工場掃除
-            _DTRACE_("GgafFactory::clean()");
+            _TRACE_("GgafFactory::clean()");
             GgafFactory::clean();
             //ゴミ箱
 #ifdef MY_DEBUG
-            _DTRACE_("Dumping GgafGarbageBox::_pGarbageBox->_pDisusedScene ...");
+            _TRACE_("Dumping GgafGarbageBox::_pGarbageBox->_pDisusedScene ...");
             GgafGarbageBox::_pGarbageBox->_pDisusedScene->dump();
-            _DTRACE_("GgafGarbageBox::_pGarbageBox->_pDisusedActor ...");
+            _TRACE_("GgafGarbageBox::_pGarbageBox->_pDisusedActor ...");
             GgafGarbageBox::_pGarbageBox->_pDisusedActor->dump();
 #endif
-            _DTRACE_("GGAF_DELETE(GgafGarbageBox::_pGarbageBox);");
+            _TRACE_("GGAF_DELETE(GgafGarbageBox::_pGarbageBox);");
             GGAF_DELETE(GgafGarbageBox::_pGarbageBox);
             //この世で生きている物も掃除
             Sleep(20);
-            _DTRACE_("GGAF_DELETE(_pUniverse);");
+            _TRACE_("GGAF_DELETE(_pUniverse);");
             GGAF_DELETE(_pUniverse);
-            _DTRACE_("GgafGod::~GgafGod()  DeleteCriticalSection(&(GgafGod::CS2)); .....");
+            _TRACE_("GgafGod::~GgafGod()  DeleteCriticalSection(&(GgafGod::CS2)); .....");
             DeleteCriticalSection(&(GgafGod::CS2));
         }
 
         //工場例外 _pException_factory が起こっているかもしれない。
-        _DTRACE_("GGAF_DELETE_NULLABLE(_pException_factory);");
+        _TRACE_("GGAF_DELETE_NULLABLE(_pException_factory);");
         GGAF_DELETE_NULLABLE(_pException_factory);
-        _DTRACE_("GgafGod::clean() end");
+        _TRACE_("GgafGod::clean() end");
     }
 }
 

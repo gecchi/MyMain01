@@ -48,7 +48,7 @@ void MyStgUtil::init() {
             n_theta += PI2;
         }
         GOLDEN_ANG[n] = (angle)(D360ANG*n_theta / PI2);
-        //_DTRACE_("GOLDEN_ANG["<<n<<"]="<<GOLDEN_ANG[n]);
+        //_TRACE_("GOLDEN_ANG["<<n<<"]="<<GOLDEN_ANG[n]);
     }
 
     // v = 1 - cos(2ƒÎt)‚Ì‰ðƒe[ƒuƒ‹

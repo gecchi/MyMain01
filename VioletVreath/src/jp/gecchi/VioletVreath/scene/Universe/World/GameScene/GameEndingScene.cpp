@@ -16,11 +16,11 @@ void GameEndingScene::onReset() {
     //pProg->change(GameEndingScene::PROG_INIT);
 }
 void GameEndingScene::ready() {
-    _DTRACE_("GameEndingScene::ready()");
+    _TRACE_("GameEndingScene::ready()");
 }
 
 void GameEndingScene::initialize() {
-    _DTRACE_("GameEndingScene::initialize()");
+    _TRACE_("GameEndingScene::initialize()");
 }
 
 void GameEndingScene::processBehavior() {

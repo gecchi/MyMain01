@@ -33,7 +33,7 @@ void PauseCamWorker::initialize() {
 }
 
 void PauseCamWorker::onActive() {
-    _DTRACE_("PauseCamWorker::onActive()");
+    _TRACE_("PauseCamWorker::onActive()");
     CameraWorker::onActive();
     //CameraWorker::onActive(); を上書きして、
     //その場座標をターゲット座標に上書き

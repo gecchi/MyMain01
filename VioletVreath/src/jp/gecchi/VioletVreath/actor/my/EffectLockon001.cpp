@@ -61,7 +61,7 @@ EffectLockon001::~EffectLockon001() {
 //
 //
 //void EffectLockon001::dump() {
-//    _DTRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"] Target="<<(pTarget_==nullptr?"nullptr":pTarget_->getName())<<" "<<
+//    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"] Target="<<(pTarget_==nullptr?"nullptr":pTarget_->getName())<<" "<<
 //                                                                               "@"<<frame_of_behaving_since_onActive_<<
 //                                                                               "/"<<
 //                                                                               frame_of_behaving_<<
@@ -97,11 +97,11 @@ EffectLockon001::~EffectLockon001() {
 //            if (pActor_tmp->_pNext) {
 //                pActor_tmp = pActor_tmp->_pNext;
 //            } else {
-//                _DTRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
+//                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
 //                break;
 //            }
 //            if (pActor_tmp->is_first_flg_) {
-//                _DTRACE_("\t\t\t\t\t\t\t\tÑ§Ñü");
+//                _TRACE_("\t\t\t\t\t\t\t\tÑ§Ñü");
 //                break;
 //            }
 //        }
@@ -110,7 +110,7 @@ EffectLockon001::~EffectLockon001() {
 
 
 //void EffectLockon001::dump(std::string prm_parent) {
-//    _DTRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"] Target="<<(pTarget_==nullptr?"nullptr":pTarget_->getName())<<" "<<
+//    _TRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"] Target="<<(pTarget_==nullptr?"nullptr":pTarget_->getName())<<" "<<
 //                                                                         "@"<<frame_of_behaving_since_onActive_<<
 //                                                                         "/"<<
 //                                                                         frame_of_behaving_<<
@@ -146,11 +146,11 @@ EffectLockon001::~EffectLockon001() {
 //            if (pActor_tmp->_pNext) {
 //                pActor_tmp = pActor_tmp->_pNext;
 //            } else {
-//                _DTRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
+//                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
 //                break;
 //            }
 //            if (pActor_tmp->is_first_flg_) {
-//                _DTRACE_(prm_parent+"Ñ§Ñü");
+//                _TRACE_(prm_parent+"Ñ§Ñü");
 //                break;
 //            }
 //        }

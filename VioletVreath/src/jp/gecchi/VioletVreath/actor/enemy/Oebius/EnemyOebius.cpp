@@ -81,6 +81,7 @@ void EnemyOebius::processBehavior() {
 
         case PROG_SPLINE: {
             if (pProg->isJustChanged()) {
+                getKuroko()->setMvAcce(0); //加速度がある場合は切っておく
                 pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION, 15);
             }
             pKurokoLeader_->behave(); //スプライン移動を振る舞い

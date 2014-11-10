@@ -58,7 +58,7 @@ void GgafDxUniverse::SeArray::add(GgafDxSe* prm_pSe, int prm_volume, float prm_p
     }
 #ifdef MY_DEBUG
     else {
-        _DTRACE_("GgafDxUniverse::SeArray::add() SEがあぶれて無視されました。"<<
+        _TRACE_("GgafDxUniverse::SeArray::add() SEがあぶれて無視されました。"<<
                 "発声元="<<prm_pActor->getName()<<"("<<prm_pActor<<") SE="<<prm_pSe->_wave_key<<"("<<prm_pSe->_wave_file_name<<")");
     }
 #endif
@@ -99,7 +99,7 @@ GgafDxUniverse::GgafDxUniverse(const char* prm_name, GgafDxCamera* prm_pCamera) 
     _y_gone_bottom = -F;
     _z_gone_far    = +F;
     _z_gone_near   = -F;
-    _DTRACE_("Gone=X ("<<_x_gone_left<<" ~ "<<_x_gone_right<<") Y("<<_y_gone_bottom<<" ~ "<<_y_gone_top<<") Z("<<_z_gone_near<<" ~ "<<_z_gone_far<<")");
+    _TRACE_("Gone=X ("<<_x_gone_left<<" ~ "<<_x_gone_right<<") Y("<<_y_gone_bottom<<" ~ "<<_y_gone_top<<") Z("<<_z_gone_near<<" ~ "<<_z_gone_far<<")");
 
     _pRing_pSeArray = NEW GgafLinkedListRing<SeArray>();
     for (int i = 0; i < PROPERTY::MAX_SE_DELAY; i++) { //GGAF_END_DELAYは最大解放遅れフレームだが、遠方SEの遅延の最高フレーム数としても使う
@@ -219,7 +219,7 @@ void GgafDxUniverse::draw() {
     HRESULT hr;
     if (GgafDxEffectManager::_pEffect_active) {
 
-        _DTRACE4_("EndPass("<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
+        _TRACE4_("EndPass("<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
         hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->EndPass();
         checkDxException(hr, D3D_OK, "GgafDxUniverse::processDraw() EndPass() に失敗しました。");
         hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->End();

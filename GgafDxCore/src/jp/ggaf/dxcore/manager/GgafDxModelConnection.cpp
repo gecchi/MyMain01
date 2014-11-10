@@ -10,7 +10,7 @@ GgafDxModelConnection::GgafDxModelConnection(char* prm_idstr, GgafDxModel* prm_p
 }
 
 void GgafDxModelConnection::processReleaseResource(GgafDxModel* prm_pResource) {
-    _DTRACE_("GgafDxModel="<<prm_pResource->getName()<<" を開放します。");
+    _TRACE_("GgafDxModel="<<prm_pResource->getName()<<" を開放します。");
     prm_pResource->release(); //各モデルクラス側のrelease()実行。重要
     GGAF_DELETE(prm_pResource);
 }

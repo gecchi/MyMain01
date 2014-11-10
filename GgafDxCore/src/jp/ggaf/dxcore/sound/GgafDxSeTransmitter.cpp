@@ -50,7 +50,7 @@ void GgafDxSeTransmitter::set(int prm_id, const char* prm_se_key, int prm_cannel
     sprintf(idstr, "%d/%s", prm_cannel, prm_se_key); //資源コネクションの識別ID名を 「チャンネル番号 + "/" + wave識別名」
                                                       //とすることにより、チャンネル番号が同じならば new されない。
     if (_papSeConnection[prm_id]) {
-        _DTRACE_("GgafDxSeTransmitter::set() ＜警告＞ 既にID="<<prm_id<<" にはSE("<<(_papSeConnection[prm_id]->getIdStr())<<")が設定済みでした。資源接続を close 後、新しいSE("<<idstr<<")を上書きします。意図してますか？");
+        _TRACE_("GgafDxSeTransmitter::set() ＜警告＞ 既にID="<<prm_id<<" にはSE("<<(_papSeConnection[prm_id]->getIdStr())<<")が設定済みでした。資源接続を close 後、新しいSE("<<idstr<<")を上書きします。意図してますか？");
         _papSeConnection[prm_id]->close();
     }
     _papSeConnection[prm_id] = getConnection_SeManager(idstr);

@@ -15,7 +15,7 @@ using namespace GgafDxCore;
 
 DWORD GgafDxBoardSetModel::FVF = (D3DFVF_XYZ | D3DFVF_PSIZE | D3DFVF_TEX1);
 GgafDxBoardSetModel::GgafDxBoardSetModel(char* prm_model_name) : GgafDxModel(prm_model_name) {
-    _DTRACE3_("GgafDxBoardSetModel::GgafDxBoardSetModel(" << _model_name << ")");
+    _TRACE3_("GgafDxBoardSetModel::GgafDxBoardSetModel(" << _model_name << ")");
 
     _model_width_px = 32.0f;
     _model_height_px = 32.0f;
@@ -34,12 +34,12 @@ GgafDxBoardSetModel::GgafDxBoardSetModel(char* prm_model_name) : GgafDxModel(prm
     int num = (int)strtol(pT, nullptr, 10);
     pT = strtok(nullptr, "/");
     if (pT == nullptr) {
-        _DTRACE_("GgafDxBoardSetModel("<<prm_model_name<<") の同時描画セット数省略のため、最大の28がセットされます。");
+        _TRACE_("GgafDxBoardSetModel("<<prm_model_name<<") の同時描画セット数省略のため、最大の28がセットされます。");
         _set_num = 28;
     } else {
         _set_num = num;
         if (_set_num > 28) {
-            _DTRACE_("GgafDxBoardSetModel("<<prm_model_name<<") の同時描画セット数オーバー。最大の28がセットですが、それ以上のセット数です。意図していますか？_set_num="<<_set_num);
+            _TRACE_("GgafDxBoardSetModel("<<prm_model_name<<") の同時描画セット数オーバー。最大の28がセットですが、それ以上のセット数です。意図していますか？_set_num="<<_set_num);
         }
     }
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
@@ -49,10 +49,10 @@ GgafDxBoardSetModel::GgafDxBoardSetModel(char* prm_model_name) : GgafDxModel(prm
 
 //描画
 HRESULT GgafDxBoardSetModel::draw(GgafDxDrawableActor* prm_pActor_target, int prm_draw_set_num) {
-    _DTRACE4_("GgafDxBoardSetModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
+    _TRACE4_("GgafDxBoardSetModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
 #ifdef MY_DEBUG
     if (prm_draw_set_num > _set_num) {
-        _DTRACE_("GgafDxBoardSetModel::draw() "<<_model_name<<" の描画セット数オーバー。_set_num="<<_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
+        _TRACE_("GgafDxBoardSetModel::draw() "<<_model_name<<" の描画セット数オーバー。_set_num="<<_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
     }
 #endif
     IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
@@ -79,7 +79,7 @@ HRESULT GgafDxBoardSetModel::draw(GgafDxDrawableActor* prm_pActor_target, int pr
 
     if (GgafDxEffectManager::_pEffect_active != pBoardSetEffect || GgafDxDrawableActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique)  {
         if (GgafDxEffectManager::_pEffect_active) {
-           _DTRACE4_("EndPass("<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
+           _TRACE4_("EndPass("<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
             hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->EndPass();
             checkDxException(hr, D3D_OK, "GgafDxBoardSetActor::draw() EndPass() に失敗しました。");
             hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->End();
@@ -94,11 +94,11 @@ HRESULT GgafDxBoardSetModel::draw(GgafDxDrawableActor* prm_pActor_target, int pr
 #endif
 
         }
-        _DTRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardSetEffect->_effect_name);
+        _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardSetEffect->_effect_name);
         hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
         checkDxException(hr, S_OK, "GgafDxBoardSetActor::draw() SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
-        _DTRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardSetEffect->_effect_name<<"("<<pBoardSetEffect<<")");
+        _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardSetEffect->_effect_name<<"("<<pBoardSetEffect<<")");
         UINT numPass;
         hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
         checkDxException(hr, D3D_OK, "GgafDxBoardSetActor::draw() Begin() に失敗しました。");
@@ -117,7 +117,7 @@ HRESULT GgafDxBoardSetModel::draw(GgafDxDrawableActor* prm_pActor_target, int pr
         hr = pID3DXEffect->CommitChanges();
         checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw() CommitChanges() に失敗しました。");
     }
-    _DTRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardSetEffect->_effect_name);
+    _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardSetEffect->_effect_name);
     INDEXPARAM& idxparam = _paIndexParam[prm_draw_set_num-1];
     pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                   idxparam.BaseVertexIndex,
@@ -135,19 +135,19 @@ HRESULT GgafDxBoardSetModel::draw(GgafDxDrawableActor* prm_pActor_target, int pr
 }
 
 void GgafDxBoardSetModel::restore() {
-    _DTRACE3_("GgafDxBoardSetModel::restore() " << _model_name << " start");
+    _TRACE3_("GgafDxBoardSetModel::restore() " << _model_name << " start");
     GgafDxGod::_pModelManager->restoreBoardSetModel(this);
-    _DTRACE3_("GgafDxBoardSetModel::restore() " << _model_name << " end");
+    _TRACE3_("GgafDxBoardSetModel::restore() " << _model_name << " end");
 }
 
 void GgafDxBoardSetModel::onDeviceLost() {
-    _DTRACE3_("GgafDxBoardSetModel::onDeviceLost() " << _model_name << " start");
+    _TRACE3_("GgafDxBoardSetModel::onDeviceLost() " << _model_name << " start");
     release();
-    _DTRACE3_("GgafDxBoardSetModel::onDeviceLost() " << _model_name << " end");
+    _TRACE3_("GgafDxBoardSetModel::onDeviceLost() " << _model_name << " end");
 }
 
 void GgafDxBoardSetModel::release() {
-    _DTRACE3_("GgafDxBoardSetModel::release() " << _model_name << " start");
+    _TRACE3_("GgafDxBoardSetModel::release() " << _model_name << " start");
     GGAF_RELEASE(_pVertexBuffer);
     GGAF_RELEASE(_pIndexBuffer);
     if (_papTextureConnection) {
@@ -159,7 +159,7 @@ void GgafDxBoardSetModel::release() {
     GGAF_DELETEARR(_paIndexParam);
     //TODO:親クラスメンバをDELETEするのはややきたないか
     GGAF_DELETEARR(_paMaterial_default);
-    _DTRACE3_("GgafDxBoardSetModel::release() " << _model_name << " end");
+    _TRACE3_("GgafDxBoardSetModel::release() " << _model_name << " end");
 }
 
 GgafDxBoardSetModel::~GgafDxBoardSetModel() {

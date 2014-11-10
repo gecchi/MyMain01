@@ -41,7 +41,7 @@ public:
          */
         inline void push(GgafCore::GgafActor* prm_pActor) {
             if (_p > 3000-1) {
-                _DTRACE_("LinearOctreeForActor::push("<<prm_pActor<<") スタックを使い切りました。無視します。一箇所に当たり判定が塊過ぎです。");
+                _TRACE_("LinearOctreeForActor::push("<<prm_pActor<<") スタックを使い切りました。無視します。一箇所に当たり判定が塊過ぎです。");
                 return;
             }
             _apActor[_p] = prm_pActor;
@@ -69,11 +69,11 @@ public:
             clear();
         }
         void dump() {
-            _DTEXT5_("CollisionStack.dump=");
+            _TRACE5_N_("CollisionStack.dump=");
             for (uint32_t i = 0; i < _p; i++) {
-                _DTEXT5_((_apActor[i]->getName())<<"->");
+                _TRACE5_N_((_apActor[i]->getName())<<"->");
             }
-            _DTEXT5_("END");
+            _TRACE5_N_("END");
         }
     };
 

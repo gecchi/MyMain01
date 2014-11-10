@@ -60,7 +60,7 @@ void VamSysCamWorker::initialize() {
     mv_t_x_CAM_prev_ = 0;
     mv_t_y_CAM_prev_ = 0;
     mv_t_z_CAM_prev_ = 0;
-    _DTRACE_("VamSysCamWorker::initialize() this="<<this);
+    _TRACE_("VamSysCamWorker::initialize() this="<<this);
     dump();
 }
 void VamSysCamWorker::onActive() {
@@ -85,7 +85,7 @@ void VamSysCamWorker::processBehavior() {
             is_cam_pos_option_back_ = true; //TODO:オプション操作中のオプション[0]の背面に回る
         }
     } else if (pVbPlay->isPushedDown(VB_VIEW)) { //ビューボタンプッシュ                              //オプション非操作時（通常時）
-        _DTRACE_("VB_VIEW!! now pos_camera_="<<pos_camera_);
+        _TRACE_("VB_VIEW!! now pos_camera_="<<pos_camera_);
         if (pos_camera_ < VAM_POS_TO_BEHIND) { //背面ビューポイントではない場合、
             pos_camera_ += VAM_POS_TO_BEHIND;  //それぞれの対応背面ビューポイントへ
         } else if (pos_camera_ > VAM_POS_TO_BEHIND) {//背面ビューポイントの場合
@@ -103,7 +103,7 @@ void VamSysCamWorker::processBehavior() {
                 pos_camera_ -= VAM_POS_TO_BEHIND;
             }
         }
-        _DTRACE_("VB_VIEW!!  -> pos_camera_="<<pos_camera_);
+        _TRACE_("VB_VIEW!!  -> pos_camera_="<<pos_camera_);
     }
 
     //VB_VIEW離した時の処理
@@ -380,7 +380,7 @@ void VamSysCamWorker::processBehavior() {
             }
         }
 
-//        _DTRACE_("VamSysCamWorker::processBehavior() ターゲットへ移動 cam_mv_frame_="<<cam_mv_frame_<<" pos_camera_="<<pos_camera_);
+//        _TRACE_("VamSysCamWorker::processBehavior() ターゲットへ移動 cam_mv_frame_="<<cam_mv_frame_<<" pos_camera_="<<pos_camera_);
         //ターゲットへカメラ移動
         if (pos_camera_ < VAM_POS_TO_BEHIND) {
             if (pos_camera_ == VAM_POS_RIGHT) {

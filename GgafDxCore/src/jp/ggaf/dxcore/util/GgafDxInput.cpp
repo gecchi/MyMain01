@@ -72,7 +72,7 @@ HRESULT GgafDxInput::init() {
     //  dipropword.dwData       = DIPROPAXISMODE_REL;   // 相対値モード
     hr = _pMouseInputDevice->SetProperty(DIPROP_AXISMODE, &dipropword_m.diph);
     if (hr != D3D_OK) {
-        _DTRACE_( "軸モードの設定に失敗");
+        _TRACE_( "軸モードの設定に失敗");
         return FALSE;
     }
 
@@ -129,15 +129,15 @@ HRESULT GgafDxInput::init() {
     // ゲームスティックを列挙してデバイスを得る
     hr = _pIDirectInput8->EnumDevices(DI8DEVCLASS_GAMECTRL, GgafDxInput::enumGameCtrlCallback, nullptr, DIEDFL_ATTACHEDONLY);
     if (hr != D3D_OK || _pJoystickInputDevice == nullptr) {
-        _DTRACE_("GgafDxInput::initDx9Input() EnumDevices列挙しましたが、ジョイスティックが見つかりませんでした");
+        _TRACE_("GgafDxInput::initDx9Input() EnumDevices列挙しましたが、ジョイスティックが見つかりませんでした");
         _pJoystickInputDevice = nullptr;
     } else {
-        _DTRACE_("GgafDxInput::initDx9Input() ジョイスティックデバイス取得");
+        _TRACE_("GgafDxInput::initDx9Input() ジョイスティックデバイス取得");
 
         // ゲームスティックのデータ形式を設定する
         hr = _pJoystickInputDevice->SetDataFormat(&c_dfDIJoystick);
         if (hr != D3D_OK) {
-            _DTRACE_("GgafDxInput::initDx9Input() ジョイスティックSetDataFormatに失敗しました");
+            _TRACE_("GgafDxInput::initDx9Input() ジョイスティックSetDataFormatに失敗しました");
             return FALSE;
         }
 
@@ -145,14 +145,14 @@ HRESULT GgafDxInput::init() {
         hr = _pJoystickInputDevice->SetCooperativeLevel(GgafDxGod::_pHWndPrimary, DISCL_FOREGROUND
                 | DISCL_NONEXCLUSIVE );
         if (hr != D3D_OK) {
-            _DTRACE_("GgafDxInput::initDx9Input() ジョイスティックSetCooperativeLevelに失敗しました");
+            _TRACE_("GgafDxInput::initDx9Input() ジョイスティックSetCooperativeLevelに失敗しました");
             return FALSE;
         }
 
         // ゲームスティックの軸データの範囲を設定する
         hr = _pJoystickInputDevice->EnumObjects(GgafDxInput::enumPadAxisCallback, nullptr, DIDFT_AXIS);
         if (hr != D3D_OK) {
-            _DTRACE_("GgafDxInput::initDx9Input() ジョイスティックEnumObjectsに失敗しました");
+            _TRACE_("GgafDxInput::initDx9Input() ジョイスティックEnumObjectsに失敗しました");
             return FALSE;
         }
 
@@ -166,14 +166,14 @@ HRESULT GgafDxInput::init() {
         //  dipropword.dwData       = DIPROPAXISMODE_REL;   // 相対値モード
         hr = _pJoystickInputDevice->SetProperty(DIPROP_AXISMODE, &dipropword_j.diph);
         if (hr != D3D_OK) {
-            _DTRACE_( "軸モードの設定に失敗");
+            _TRACE_( "軸モードの設定に失敗");
             return FALSE;
         }
 
         // ゲームスティックのアクセス権を取得する
         hr = _pJoystickInputDevice->Poll();
         if (hr != D3D_OK) {
-            _DTRACE_("GgafDxInput::initDx9Input() ジョイスティックPollに失敗しました");
+            _TRACE_("GgafDxInput::initDx9Input() ジョイスティックPollに失敗しました");
             do {
                 hr = _pJoystickInputDevice->Acquire();
             } while (hr == DIERR_INPUTLOST);
@@ -183,14 +183,14 @@ HRESULT GgafDxInput::init() {
 }
 
 BOOL CALLBACK GgafDxInput::enumGameCtrlCallback(const DIDEVICEINSTANCE *pDIDeviceInstance, VOID *pContext) {
-    _DTRACE_("enumGameCtrlCallback こーるばっく！");
+    _TRACE_("enumGameCtrlCallback こーるばっく！");
 
     HRESULT hr;
 
     // ゲームスティックデバイスを探すする
     hr = GgafDxInput::_pIDirectInput8->CreateDevice(pDIDeviceInstance->guidInstance, &GgafDxInput::_pJoystickInputDevice, nullptr);
     if(hr != D3D_OK) {
-        _DTRACE_("enumGameCtrlCallback ジョイスティックCreateDeviceに失敗しました");
+        _TRACE_("enumGameCtrlCallback ジョイスティックCreateDeviceに失敗しました");
         // デバイスの作成に失敗したら列挙を続ける（さらに探す）
         return DIENUM_CONTINUE;
     }
@@ -199,7 +199,7 @@ BOOL CALLBACK GgafDxInput::enumGameCtrlCallback(const DIDEVICEINSTANCE *pDIDevic
     GgafDxInput::_devcap.dwSize = sizeof(DIDEVCAPS);
     hr = GgafDxInput::_pJoystickInputDevice->GetCapabilities( &GgafDxInput::_devcap );
     if( hr != D3D_OK ) {
-        _DTRACE_("enumGameCtrlCallback ジョイスティックGetCapabilitiesに失敗しました");
+        _TRACE_("enumGameCtrlCallback ジョイスティックGetCapabilitiesに失敗しました");
         // ジョイスティックの能力を取得出来ないようなら、勘弁願う
         GgafDxInput::_pJoystickInputDevice->Release();
         return DIENUM_CONTINUE;
@@ -210,7 +210,7 @@ BOOL CALLBACK GgafDxInput::enumGameCtrlCallback(const DIDEVICEINSTANCE *pDIDevic
 }
 
 BOOL CALLBACK GgafDxInput::enumPadAxisCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef) {
-    _DTRACE_("enumPadAxisCallback こーるばっく！");
+    _TRACE_("enumPadAxisCallback こーるばっく！");
     DIPROPRANGE diproprange;
     ZeroMemory( &diproprange, sizeof(diproprange) );
     diproprange.diph.dwSize = sizeof(diproprange);
@@ -222,7 +222,7 @@ BOOL CALLBACK GgafDxInput::enumPadAxisCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi,
 
     HRESULT hr = GgafDxInput::_pJoystickInputDevice->SetProperty(DIPROP_RANGE, &diproprange.diph);
     if(hr != D3D_OK) {
-        _DTRACE_("enumPadAxisCallback ジョイスティックSetPropertyに失敗しました");
+        _TRACE_("enumPadAxisCallback ジョイスティックSetPropertyに失敗しました");
         return DIENUM_STOP;
     }
     return DIENUM_CONTINUE;
@@ -231,7 +231,7 @@ BOOL CALLBACK GgafDxInput::enumPadAxisCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi,
 void GgafDxInput::updateMouseState() {
 #ifdef MY_DEBUG
     if (_pMouseInputDevice == nullptr) {
-        _DTRACE_("GgafDxInput::updateKeyboardState() _pMouseInputDevice == nullptr !!!!");
+        _TRACE_("GgafDxInput::updateKeyboardState() _pMouseInputDevice == nullptr !!!!");
         return;
     }
 #endif
@@ -254,7 +254,7 @@ again:
 
 bool GgafDxInput::isBeingPressedMouseButton(int prm_button_no) {
     if (prm_button_no < 0 || 8 < prm_button_no) {
-        _DTRACE_("isBeingPressedMouseButton:範囲外");
+        _TRACE_("isBeingPressedMouseButton:範囲外");
         return false;
     } else {
         if (_mouse_state[_flip_ms].rgbButtons[prm_button_no] & 0x80) {
@@ -312,7 +312,7 @@ void GgafDxInput::getMousePointer_REL(long* dx, long* dy, long* dz) {
 void GgafDxInput::updateKeyboardState() {
 #ifdef MY_DEBUG
     if (_pKeyboardInputDevice == nullptr) {
-        _DTRACE_("GgafDxInput::updateKeyboardState() _pKeyboardInputDevice == nullptr !!!!");
+        _TRACE_("GgafDxInput::updateKeyboardState() _pKeyboardInputDevice == nullptr !!!!");
         return;
     }
 #endif
@@ -322,14 +322,14 @@ again:
     hr = _pKeyboardInputDevice->Poll(); //キーボードは通常Poll不用と思うが、必要なキーボードもあるかもしれない。
     hr = _pKeyboardInputDevice->GetDeviceState(256, (void*)&_keyboard_state[_flip_ks]);
     if (FAILED(hr)) {
-        //_DTRACE_("GetDeviceState is FAILED");
+        //_TRACE_("GetDeviceState is FAILED");
         //Acquire()を試みる。
         hr = _pKeyboardInputDevice->Acquire();
         if (hr == DI_OK) {
-            //_DTRACE_("Acquire is DI_OK");
+            //_TRACE_("Acquire is DI_OK");
             goto again;
         } else {
-            //_DTRACE_("Acquire is not DI_OK");
+            //_TRACE_("Acquire is not DI_OK");
             //ダメならまた次回へ
         }
     }

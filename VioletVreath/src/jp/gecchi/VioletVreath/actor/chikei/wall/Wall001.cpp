@@ -24,7 +24,7 @@ void Wall001::processBehavior() {
 //    } else {
 //        setHitAble(true, false);//©‹@‚ª‹–ì“à‚Ìê‡A‹–ìŠO•Ç‚Í“–‚½‚è”»’è–³‚µ
 //    }
-//    _DTRACE_(getName()<<":"<<_x<<","<<_y<<","<<_z);
+//    _TRACE_(getName()<<":"<<_x<<","<<_y<<","<<_z);
 }
 //bool Wall001::isOutOfUniverse() {
 //    if (GgafDxUniverse::_x_gone_left/2 < _x) {

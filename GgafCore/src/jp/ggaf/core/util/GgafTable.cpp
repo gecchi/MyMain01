@@ -46,7 +46,7 @@ void GgafTable::importFromFile(std::string prm_file_name) {
 void GgafTable::exportToFile(std::string prm_file_name) {
 #ifdef MY_DEBUG
     if (getCount() == 0) {
-        _DTRACE_("GgafTable#exportToFile: 書きだすデータがありません");
+        _TRACE_("GgafTable#exportToFile: 書きだすデータがありません");
     }
 #endif
     std::ofstream ofs(prm_file_name.c_str());
@@ -379,13 +379,13 @@ void GgafTable::sortDescBy(const char* prm_col1, const char* prm_col2, const cha
 void GgafTable::dump() {
     for (int i = 0; i < (int)_lstTtable.size(); i++) {
         GgafRecord* r = _lstTtable[i];
-        _DTEXT_("["<<i<<"]=");
+        _TRACE_N_("["<<i<<"]=");
         GgafRecord::iterator it = r->begin();
         while (it != r->end()) {
-            _DTEXT_("\""<<(*it).first << "\"=>\"" << (*it).second<<"\"\t");
+            _TRACE_N_("\""<<(*it).first << "\"=>\"" << (*it).second<<"\"\t");
             ++it;
         }
-        _DTEXT_("\n");
+        _TRACE_N_("\n");
     }
 }
 

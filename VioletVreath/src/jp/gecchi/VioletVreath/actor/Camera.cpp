@@ -58,7 +58,7 @@ void Camera::processBehavior() {
     }
 #ifdef MY_DEBUG
     if (vcv_face_prev_!=vcv_face_) {
-        _DTRACE_("Camera::processBehavior()  vcv="<<vcv_face_prev_<<"¨"<<vcv_face_<<"");
+        _TRACE_("Camera::processBehavior()  vcv="<<vcv_face_prev_<<"¨"<<vcv_face_<<"");
     }
 #endif
 }
@@ -196,7 +196,7 @@ void Camera::slideUpCamTo(coord tx, coord ty, coord tz, frame t) {
 
 #ifdef MY_DEBUG
     if (up_face_wk != up_face_) {
-        _DTRACE_("Camera::slideUpCamTo  up_face_="<<up_face_wk<<"¨"<<up_face_<<"");
+        _TRACE_("Camera::slideUpCamTo  up_face_="<<up_face_wk<<"¨"<<up_face_<<"");
     }
 #endif
 }

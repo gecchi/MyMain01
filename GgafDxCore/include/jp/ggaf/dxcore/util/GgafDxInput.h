@@ -4,8 +4,8 @@
 
 #include <dinput.h>
 
-//Pキーを押したときだけ_DTRACE_(デバッグ用)
-#define _PTRACE_(M) {if (GgafDxCore::GgafDxInput::isBeingPressedKey(DIK_P)) { _DTRACE_(M); }}
+//Pキーを押したときだけ_TRACE_(デバッグ用)
+#define _PTRACE_(M) {if (GgafDxCore::GgafDxInput::isBeingPressedKey(DIK_P)) { _TRACE_(M); }}
 
 namespace GgafDxCore {
 

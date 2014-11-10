@@ -189,18 +189,18 @@ MyLockonController::~MyLockonController() {
 
 void MyLockonController::dumpTarget(GgafDxGeometricActor* pMain) {
     if (pRingTarget_->getFromFirst(0) == nullptr) {
-        _DTEXT_("nullptr\n");
+        _TRACE_N_("nullptr\n");
         return;
     } else {
-        _DTEXT_("ÅÃ");
+        _TRACE_N_("ÅÃ");
     }
     for (int i = 0; i < pRingTarget_->length(); i++) {
         if (pRingTarget_->getFromFirst(i) == pMain) {
-            _DTEXT_("ÅI");
+            _TRACE_N_("ÅI");
         }
-        _DTEXT_(pRingTarget_->getFromFirst(i)->getName()<<"["<<i<<"]ÅÃ");
+        _TRACE_N_(pRingTarget_->getFromFirst(i)->getName()<<"["<<i<<"]ÅÃ");
     }
-    _DTEXT_(" ... avtive="<<pRingTarget_->getCurrent()->getName()<<"\n");
+    _TRACE_N_(" ... avtive="<<pRingTarget_->getCurrent()->getName()<<"\n");
 }
 
 //ÅyîıñYò^Åz

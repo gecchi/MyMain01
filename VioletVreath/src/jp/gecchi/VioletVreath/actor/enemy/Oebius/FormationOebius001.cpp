@@ -12,12 +12,12 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationOebius001::FormationOebius001(const char* prm_name) :
-        FormationOebius(prm_name, 6, 20, 8) {
+        FormationOebius(prm_name, 3, 38, 8) {
     _class_name = "FormationOebius001";
 
     papSplManufConn_ = NEW SplineManufactureConnection*[getFormationColNum()];
     for (int col = 0; col < getFormationColNum(); col++) {
-        papSplManufConn_[col] = getConnection_SplineManufactureManager(("FormationOebius001_1_"+XTOS(col)).c_str());
+        papSplManufConn_[col] = getConnection_SplineManufactureManager(("FormationOebius001_"+XTOS(col)).c_str());
     }
 }
 
@@ -41,7 +41,7 @@ void FormationOebius001::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, i
     //(Z*sinRy, 0, Z*cosRy)
     float sinRy = ANG_SIN(entry_pos_.ry);
     float cosRy = ANG_COS(entry_pos_.ry);
-    float Z = (prm_col*0.4)*rate_z;
+    float Z = (prm_col*(0.4+0.4))*rate_z;   //基本間隔は0.4。本編隊はmobius1.dat、mobius3.dat、mobius5.dat と一つ飛びなので0.4+0.4
 
     coord dx = Z*sinRy;
     coord dy = 0;
@@ -59,12 +59,12 @@ void FormationOebius001::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, i
                            entry_pos_.y + dy,
                            entry_pos_.z + dz);
     pOebius->getKuroko()->setMvAngByFaceAng();
-    pOebius->getKuroko()->setMvVelo(PX_C(2));
-    pOebius->getKuroko()->setMvAcce(0);
+    pOebius->getKuroko()->setMvVelo(0);
+    pOebius->getKuroko()->setMvAcce(80);
 
-    double r = RANGE_TRANS(prm_col*prm_row, 0, getFormationColNum()*getFormationRowNum(), 0.6, 1.0);
-    double g = RANGE_TRANS(prm_col, 0, getFormationColNum(), 0.4, 1.0);
-    double b = RANGE_TRANS(prm_row, 0, getFormationRowNum(), 0.4, 1.0);
+    double r = RANGE_TRANS(prm_col, 0, getFormationColNum(), 0.3, 1.0);
+    double g = RANGE_TRANS(prm_col*prm_row, 0, getFormationColNum()*getFormationRowNum(), 0.3, 1.0);
+    double b = RANGE_TRANS(prm_row, 0, getFormationRowNum(), 0.3, 1.0);
     pOebius->setMaterialColor(r, g, b);
 }
 

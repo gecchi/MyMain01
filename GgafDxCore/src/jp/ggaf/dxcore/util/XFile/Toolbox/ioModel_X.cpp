@@ -46,7 +46,7 @@ bool ToolBox::IO_Model_X::Load(std::string pFilename, Frm::Model3D* &pT) {
     XFileHeader XHeader;
     _LoadSkeletton = 0;
 
-    _DTRACE_("===> Processing file:" << pFilename << " ===>");
+    _TRACE_("===> Processing file:" << pFilename << " ===>");
 
     fin.open(pFilename.c_str(), ios::in);
 
@@ -58,27 +58,27 @@ bool ToolBox::IO_Model_X::Load(std::string pFilename, Frm::Model3D* &pT) {
     //add tsuge 日本語エラーメッセージ追加
 
     if (XHeader.Magic != XOFFILE_FORMAT_MAGIC) {
-        _DTRACE_("Not a .X model file or Cant find "<<pFilename<<". Aborted...");
+        _TRACE_("Not a .X model file or Cant find "<<pFilename<<". Aborted...");
         throwGgafCriticalException("Xファイル'"<<active_load_filename<<"'が見つかりません"); //add tsuge
         return false;
     }
 
     if (XHeader.Major_Version != XOFFILE_FORMAT_VERSION03) {
-        _DTRACE_("Major version greater than 03. Aborted...");
+        _TRACE_("Major version greater than 03. Aborted...");
         throwGgafCriticalException("本アプリは、Xファイルのメジャーバージョンが3を想定しています。\nしかし、'"<<active_load_filename<<"'のバージョンは"<<XHeader.Major_Version<<"でした。"); //add tsuge
         return false;
     }
 
     if ((XHeader.Minor_Version != XOFFILE_FORMAT_VERSION03)
             && (XHeader.Minor_Version != XOFFILE_FORMAT_VERSION02)) {
-        _DTRACE_("Minor version greater than 03. Aborted...");
+        _TRACE_("Minor version greater than 03. Aborted...");
         throwGgafCriticalException("本アプリは、Xファイルのマイナーージョンが 2 or 3 を想定しています。\nしかし、'"<<active_load_filename<<"'のバージョンは"<<XHeader.Minor_Version<<"でした。"); //add tsuge
         return false;
     }
 
     if (XHeader.Format != XOFFILE_FORMAT_TEXT) {
         throwGgafCriticalException("Xファイルのヘッダ文字列が見つかりません。\n対象ファイル='"<<active_load_filename<<"'"); //add tsuge
-        _DTRACE_("Not a text format. Aborted...");
+        _TRACE_("Not a text format. Aborted...");
         return false;
     }
 
@@ -86,11 +86,11 @@ bool ToolBox::IO_Model_X::Load(std::string pFilename, Frm::Model3D* &pT) {
 
     while (!fin.eof()) {
         int16_t blockid = ProcessBlock();
-        //_DTRACE_("blockid="<<blockid);
+        //_TRACE_("blockid="<<blockid);
         switch (blockid) {
         case X_ERROR:
             throwGgafCriticalException("Xファイルを正しく読み込めませんでした。\n対象ファイル='"<<active_load_filename<<"'"); //add tsuge
-            _DTRACE_("Stopped processing the file ...");
+            _TRACE_("Stopped processing the file ...");
             return false;
         case X_COMMENT:
             break; //nothing to do
@@ -115,7 +115,7 @@ bool ToolBox::IO_Model_X::Load(std::string pFilename, Frm::Model3D* &pT) {
     if (_LoadSkeletton != 0)
         MapMeshToBones(_LoadSkeletton);
 
-    _DTRACE_("<=== Processed file:" << pFilename << " OK <===");
+    _TRACE_("<=== Processed file:" << pFilename << " OK <===");
 
     fin.close();
     return true;
@@ -140,7 +140,7 @@ int16_t ToolBox::IO_Model_X::ProcessBlock(void) {
         Token = token_next;
         token_next = 0;
     }
-    //_DTRACE_("Token='"<<Token<<"'");
+    //_TRACE_("Token='"<<Token<<"'");
     switch (Token) {
     case '\n':
     case ' ':
@@ -165,7 +165,7 @@ int16_t ToolBox::IO_Model_X::ProcessBlock(void) {
         fin >> Text;
         size_t len = Text.size();
         // add tsuge
-        //_DTRACE_("1Text="<<Text<<" len="<<len);
+        //_TRACE_("1Text="<<Text<<" len="<<len);
         if (len > 0) {
             char c = Text[len-1];
             if (c == '{') { //最終文字
@@ -175,7 +175,7 @@ int16_t ToolBox::IO_Model_X::ProcessBlock(void) {
                 token_next = c;
             }
         }
-        //_DTRACE_("2Text="<<Text);
+        //_TRACE_("2Text="<<Text);
         return BlockID(Text);
     };
 }
@@ -187,7 +187,7 @@ int16_t ToolBox::IO_Model_X::BlockID(std::string &pText) {
         return X_COMMENT;
 
     if (pText.empty()) {
-        _DTRACE_("Error, no block read !");
+        _TRACE_("Error, no block read !");
         throwGgafCriticalException("Xファイルの読み込みブロックがありません。\n対象ファイル='"<<active_load_filename<<"'"); //add tsuge
         //return X_ERROR;
     }
@@ -199,15 +199,15 @@ int16_t ToolBox::IO_Model_X::BlockID(std::string &pText) {
             return Templates[i].TemplateID;
         }
     }
-    _DTRACE_("Unknown Block:" << pText);
-    _DTRACE_("Xファイルに想定しない不明なブロックがあります。無視されます。対象ファイル='"<<active_load_filename<<"'\n該当データ='"<<pText<<"'"); //add tsuge
+    _TRACE_("Unknown Block:" << pText);
+    _TRACE_("Xファイルに想定しない不明なブロックがあります。無視されます。対象ファイル='"<<active_load_filename<<"'\n該当データ='"<<pText<<"'"); //add tsuge
     return X_UNKNOWN;
 }
 
 void ToolBox::IO_Model_X::AvoidTemplate(void) {
     char Token;
     //Token = fin.peek();
-    //_DTRACE_("AvoidTemplate Token="<<Token);
+    //_TRACE_("AvoidTemplate Token="<<Token);
     //fin.ignore(TEXT_BUFFER, '{');
 
     if (token_next == 0) {
@@ -334,7 +334,7 @@ void ToolBox::IO_Model_X::ProcessBone(Frm::Bone* pBone) {
         cBone->_Name = SetUID('B');
 
     if (pBone == 0) {
-        _DTRACE_("Skeletton 1st bone:" << cBone->_Name);
+        _TRACE_("Skeletton 1st bone:" << cBone->_Name);
         _LoadSkeletton = cBone;
         _Object->_Skeletton = _LoadSkeletton;
 
@@ -346,7 +346,7 @@ void ToolBox::IO_Model_X::ProcessBone(Frm::Bone* pBone) {
         //add tsuge end
 
     } else {
-        _DTRACE_("\t" << pBone->_Name << "->" << cBone->_Name);
+        _TRACE_("\t" << pBone->_Name << "->" << cBone->_Name);
         pBone->_Bones.push_back(cBone);
     }
     Find('{');
@@ -422,11 +422,11 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
         }
         if (_LoadMesh->_FirstNormal < _LoadMesh->_FirstVertex)
             _LoadMesh->_FirstNormal = _LoadMesh->_FirstVertex;
-        _DTRACE_("Starting Vertex index:" << _LoadMesh->_FirstVertex);
-        _DTRACE_("Starting Face index:" << _LoadMesh->_FirstFace);
-        _DTRACE_("Starting TextureCoord index:" << _LoadMesh->_FirstTextureCoord);
-        _DTRACE_("Starting Normal index:" << _LoadMesh->_FirstNormal);
-        _DTRACE_("Starting Material index:" << _LoadMesh->_FirstMaterial);
+        _TRACE_("Starting Vertex index:" << _LoadMesh->_FirstVertex);
+        _TRACE_("Starting Face index:" << _LoadMesh->_FirstFace);
+        _TRACE_("Starting TextureCoord index:" << _LoadMesh->_FirstTextureCoord);
+        _TRACE_("Starting Normal index:" << _LoadMesh->_FirstNormal);
+        _TRACE_("Starting Material index:" << _LoadMesh->_FirstMaterial);
     }
 
     Token = fin.peek();
@@ -437,11 +437,11 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
         _LoadMesh->_Name = SetUID('M');
 
     Find('{');
-    _DTRACE_("Mesh:「" << _LoadMesh->_Name<<"」");
+    _TRACE_("Mesh:「" << _LoadMesh->_Name<<"」");
 
     fin.getline(Data, TEXT_BUFFER, ';');
     _LoadMesh->_nVertices = (uint16_t) TextToNum(Data);
-    _DTRACE_("Number of vertices:" << _LoadMesh->_nVertices);
+    _TRACE_("Number of vertices:" << _LoadMesh->_nVertices);
     _LoadMesh->_Vertices = NEW Frm::Vertex[_LoadMesh->_nVertices];
     //   _LoadMesh->_SkinnedVertices = NEW Frm::Vertex[_LoadMesh->_nVertices];
     for (int i = 0; i < _LoadMesh->_nVertices; i++) {
@@ -458,7 +458,7 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
 //
 //    fin.getline(Data, TEXT_BUFFER, ';');
 //    _LoadMesh->_nFaces = (uint16_t) TextToNum(Data);
-//    _DTRACE_("Number of Faces:" << _LoadMesh->_nFaces);
+//    _TRACE_("Number of Faces:" << _LoadMesh->_nFaces);
 //    _LoadMesh->_Faces = NEW Frm::Face[_LoadMesh->_nFaces];
 //    for (int i = 0; i < _LoadMesh->_nFaces; i++) {
 //        Find(';');
@@ -469,7 +469,7 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
 //        fin.getline(Data, TEXT_BUFFER, ';');
 //        _LoadMesh->_Faces[i].data[2] = (uint16_t) TextToNum(Data);
 //        fin.get(); //eats either the comma or the semicolon at the end of each face description
-//        //_DTRACE_("Face:" << i, ":" << _LoadMesh->_Faces[i].data[0],_LoadMesh->_Faces[i].data[1],_LoadMesh->_Faces[i].data[2]);
+//        //_TRACE_("Face:" << i, ":" << _LoadMesh->_Faces[i].data[0],_LoadMesh->_Faces[i].data[1],_LoadMesh->_Faces[i].data[2]);
 //    }
 
 //add tsuge
@@ -478,7 +478,7 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
 //の場合は、0,1,2 と 0,2,3 に分割
     fin.getline(Data, TEXT_BUFFER, ';');
     _LoadMesh->_nFaces = (uint16_t) TextToNum(Data);
-    _DTRACE_("Before Number of Faces:" << _LoadMesh->_nFaces);
+    _TRACE_("Before Number of Faces:" << _LoadMesh->_nFaces);
     _LoadMesh->_Faces = NEW Frm::Face[(_LoadMesh->_nFaces)*2];
     int face_vtx_num;
     int nFaces = _LoadMesh->_nFaces;
@@ -513,12 +513,12 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
             n++;
             _LoadMesh->_nFaces = _LoadMesh->_nFaces + 1;
         } else {
-            _DTRACE_("おかしい face_vtx_num = "<<face_vtx_num);
+            _TRACE_("おかしい face_vtx_num = "<<face_vtx_num);
         }                               //add tsuge end
         n++;
     }
 
-    _DTRACE_("After Number of Faces:" << _LoadMesh->_nFaces);
+    _TRACE_("After Number of Faces:" << _LoadMesh->_nFaces);
 
     Token = X_COMMENT;
     while (Token != X_EBRACE) {
@@ -565,7 +565,7 @@ void ToolBox::IO_Model_X::ProcessMeshTextureCoords(void) {
 
     fin.getline(Data, TEXT_BUFFER, ';');
     _LoadMesh->_nTextureCoords = (uint16_t) TextToNum(Data);
-    _DTRACE_("Number of Texture Coords:" << _LoadMesh->_nTextureCoords);
+    _TRACE_("Number of Texture Coords:" << _LoadMesh->_nTextureCoords);
     _LoadMesh->_TextureCoords = NEW Frm::TCoord[_LoadMesh->_nTextureCoords];
     for (int i = 0; i < _LoadMesh->_nTextureCoords; i++) {
         fin.getline(Data, TEXT_BUFFER, ';');
@@ -591,7 +591,7 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void) {
 //delete tsuge
 //    fin.getline(Data, TEXT_BUFFER, ';');
 //    _LoadMesh->_nNormals = (uint16_t) TextToNum(Data);
-//    _DTRACE_("Number of normals :" << _LoadMesh->_nNormals);
+//    _TRACE_("Number of normals :" << _LoadMesh->_nNormals);
 //    _LoadMesh->_Normals = NEW Frm::vector<float>[_LoadMesh->_nNormals];
 //    for (int i = 0; i < _LoadMesh->_nNormals; i++) {
 //        fin.getline(Data, TEXT_BUFFER, ';');
@@ -615,14 +615,14 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void) {
 //        fin.getline(Data, TEXT_BUFFER, ';');
 //        _LoadMesh->_FaceNormals[i].data[2] = (uint16_t) TextToNum(Data);
 //        fin.get(); //eats either the comma or the semicolon at the end of each face description
-//        //      _DTRACE_("Face Normal indexes:" << i, ":" << _LoadMesh->_FaceNormals[i].data[0],_LoadMesh->_FaceNormals[i].data[1],_LoadMesh->_FaceNormals[i].data[2]);
+//        //      _TRACE_("Face Normal indexes:" << i, ":" << _LoadMesh->_FaceNormals[i].data[0],_LoadMesh->_FaceNormals[i].data[1],_LoadMesh->_FaceNormals[i].data[2]);
 //    }
 
     //add tsuge
     //4頂点による法線インデックスに対応
     fin.getline(Data, TEXT_BUFFER, ';');
     _LoadMesh->_nNormals = (uint16_t) TextToNum(Data);
-    _DTRACE_("Number of normals :" << _LoadMesh->_nNormals);
+    _TRACE_("Number of normals :" << _LoadMesh->_nNormals);
     _LoadMesh->_Normals = NEW Frm::vector<float>[_LoadMesh->_nNormals];
     for (int i = 0; i < _LoadMesh->_nNormals; i++) {
         fin.getline(Data, TEXT_BUFFER, ';');
@@ -636,7 +636,7 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void) {
 
     fin.getline(Data, TEXT_BUFFER, ';');
     _LoadMesh->_nFaceNormals = TextToNum(Data);
-    _DTRACE_("Before Number of normals index :" << _LoadMesh->_nFaceNormals);
+    _TRACE_("Before Number of normals index :" << _LoadMesh->_nFaceNormals);
     _LoadMesh->_FaceNormals = NEW Frm::Face[_LoadMesh->_nFaces]; //NEW Frm::Face[_LoadMesh->_nFaceNormals] と間違えてはいない。
     int face_vtx_num;
     int n = 0;
@@ -665,12 +665,12 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void) {
             fin.get(); //eats either the comma or the semicolon at the end of each face description
             n++;
         } else {
-            _DTRACE_("おかしい face_vtx_num = "<<face_vtx_num);
+            _TRACE_("おかしい face_vtx_num = "<<face_vtx_num);
         }
         n++;
     }
     _LoadMesh->_nFaceNormals = n;
-    _DTRACE_("After Number of normals index :" << n);
+    _TRACE_("After Number of normals index :" << n);
 
 
 
@@ -694,7 +694,7 @@ void ToolBox::IO_Model_X::ProcessMeshMaterials(void) {
 // delete tsuge
 //    fin.getline(Data, TEXT_BUFFER, ';');
 //    _LoadMesh->_nMaterials = (uint16_t) TextToNum(Data);
-//    _DTRACE_("Number of Materials:" << (uint16_t)TextToNum(Data));
+//    _TRACE_("Number of Materials:" << (uint16_t)TextToNum(Data));
 //
 //    fin.getline(Data, TEXT_BUFFER, ';');
 //    _LoadMesh->_FaceMaterials = NEW uint16_t[(uint16_t) TextToNum(Data)];
@@ -715,7 +715,7 @@ void ToolBox::IO_Model_X::ProcessMeshMaterials(void) {
 
     fin.getline(Data, TEXT_BUFFER, ';');
     _LoadMesh->_FaceMaterials = NEW uint16_t[((uint16_t)TextToNum(Data))*2];
-    _DTRACE_("Before Number of Materials:" << (uint16_t)TextToNum(Data));
+    _TRACE_("Before Number of Materials:" << (uint16_t)TextToNum(Data));
 
     int file_nFaceMaterials = (uint16_t) TextToNum(Data);
     int n = 0;
@@ -742,7 +742,7 @@ void ToolBox::IO_Model_X::ProcessMeshMaterials(void) {
     n++;
     fin.get(); //eats the last semicolon
 
-    _DTRACE_("After Number of Materials:" << n);
+    _TRACE_("After Number of Materials:" << n);
 
 
     Token = X_COMMENT;
@@ -815,7 +815,7 @@ void ToolBox::IO_Model_X::ProcessMaterial(void) {
             Find('"');
             fin.getline(Data, TEXT_BUFFER, '"');
             NewMaterial->_TextureName = Data;
-            _DTRACE_("_TextureName="<<NewMaterial->_TextureName);
+            _TRACE_("_TextureName="<<NewMaterial->_TextureName);
             exist_tex = true; //add tsuge
             Find('}');
             break;
@@ -848,7 +848,7 @@ void ToolBox::IO_Model_X::ProcessSkinWeights(void) {
     temp = Data;
     cBone = _LoadSkeletton->IsName(temp);
     //   cBone->_Mesh = _LoadMesh;
-    _DTRACE_("Skinning bone:" << cBone->_Name);
+    _TRACE_("Skinning bone:" << cBone->_Name);
     Find(';');
 
     fin.getline(Data, TEXT_BUFFER, ';');
@@ -857,21 +857,21 @@ void ToolBox::IO_Model_X::ProcessSkinWeights(void) {
     for (uint32_t i = 0; i < cBone->_nVertices - 1; i++) {
         fin.getline(Data, TEXT_BUFFER, ',');
         cBone->_Vertices[i] = (uint16_t) TextToNum(Data);
-        _DTRACE_("Vertex:" << atoi(Data));
+        _TRACE_("Vertex:" << atoi(Data));
     }
     fin.getline(Data, TEXT_BUFFER, ';');
     cBone->_Vertices[cBone->_nVertices - 1] = (uint16_t) TextToNum(Data);
-    _DTRACE_("Vertex:" << atoi(Data));
+    _TRACE_("Vertex:" << atoi(Data));
 
     cBone->_Weights = NEW float[cBone->_nVertices];
     for (uint32_t i = 0; i < cBone->_nVertices - 1; i++) {
         fin.getline(Data, TEXT_BUFFER, ',');
         cBone->_Weights[i] = TextToNum(Data);
-        _DTRACE_("Weight:" << atof(Data));
+        _TRACE_("Weight:" << atof(Data));
     }
     fin.getline(Data, TEXT_BUFFER, ';');
     cBone->_Weights[cBone->_nVertices - 1] = TextToNum(Data);
-    _DTRACE_("Weight:" << atof(Data));
+    _TRACE_("Weight:" << atof(Data));
 
     for (int i = 0; i < 15; i++) {
         fin.getline(Data, TEXT_BUFFER, ',');
@@ -906,7 +906,7 @@ void ToolBox::IO_Model_X::ProcessAnimationSets(void) {
         _LoadAnimationSet->_Name = SetUID('A');
 
     Find('{');
-    _DTRACE_("Animation Set:" << _LoadAnimationSet->_Name);
+    _TRACE_("Animation Set:" << _LoadAnimationSet->_Name);
 
     Token = X_COMMENT;
     while (Token != X_EBRACE) {
@@ -916,7 +916,7 @@ void ToolBox::IO_Model_X::ProcessAnimationSets(void) {
             break; //used for spaces and other kind of comments
         case X_EBRACE:
             _LoadAnimationSet->_MaxKey = _MaxKey;
-            _DTRACE_("MaxKey:" << _MaxKey)
+            _TRACE_("MaxKey:" << _MaxKey)
             ;
             _Object->_AnimationSets.push_back(_LoadAnimationSet);
             return; //this is the end, my only friend ...
@@ -929,7 +929,7 @@ void ToolBox::IO_Model_X::ProcessAnimationSets(void) {
         }
     }
     _LoadAnimationSet->_MaxKey = _MaxKey;
-    _DTRACE_("MaxKey:" << _MaxKey);
+    _TRACE_("MaxKey:" << _MaxKey);
     _Object->_AnimationSets.push_back(_LoadAnimationSet);
 }
 
@@ -959,7 +959,7 @@ void ToolBox::IO_Model_X::ProcessAnimations(Frm::AnimationSet* &pAS) {
             fin.getline(Data, TEXT_BUFFER, '}');
             Remove(' ', Data);
             TempAnimation->_BoneName = Data;
-            _DTRACE_("Animated Bone:" << TempAnimation->_BoneName)
+            _TRACE_("Animated Bone:" << TempAnimation->_BoneName)
             ;
             break;
         case X_ANIMATIONKEY:
@@ -994,7 +994,7 @@ void ToolBox::IO_Model_X::ProcessAnimationKeys(Frm::Animation* &pA) {
 
     switch (Type) {
     case 0:
-        _DTRACE_(Size<<" Rotation Keys");
+        _TRACE_(Size<<" Rotation Keys");
         pA->_Rotations.reserve(Size);
         while (Size--) {
             TempRot = NEW Frm::RotateKey;
@@ -1017,7 +1017,7 @@ void ToolBox::IO_Model_X::ProcessAnimationKeys(Frm::Animation* &pA) {
         }
         break;
     case 1:
-        _DTRACE_(Size<<" Scaling Keys");
+        _TRACE_(Size<<" Scaling Keys");
         pA->_Scalings.reserve(Size);
         while (Size--) {
             TempScale = NEW Frm::ScaleKey;
@@ -1038,7 +1038,7 @@ void ToolBox::IO_Model_X::ProcessAnimationKeys(Frm::Animation* &pA) {
         }
         break;
     case 2:
-        _DTRACE_(Size<<" Position Keys");
+        _TRACE_(Size<<" Position Keys");
         pA->_Translations.reserve(Size);
         while (Size--) {
             TempPos = NEW Frm::PositionKey;
@@ -1059,7 +1059,7 @@ void ToolBox::IO_Model_X::ProcessAnimationKeys(Frm::Animation* &pA) {
         }
         break;
     case 4:
-        _DTRACE_(Size<<" Matrix Keys");
+        _TRACE_(Size<<" Matrix Keys");
         pA->_Matrices.reserve(Size);
         while (Size--) {
             TempMatrix = NEW Frm::MatrixKey;
@@ -1080,7 +1080,7 @@ void ToolBox::IO_Model_X::ProcessAnimationKeys(Frm::Animation* &pA) {
         }
         break;
     default:
-        _DTRACE_("Unknown Type" << Type << " ...");
+        _TRACE_("Unknown Type" << Type << " ...");
         throwGgafCriticalException("Xファイルに想定しない不明な ANIMATION KEY のタイプがあります。\n対象ファイル='"<<active_load_filename<<"'\n該当データ='"<<Type<<"'"); //add tsuge
         break;
     }
@@ -1099,7 +1099,7 @@ void ToolBox::IO_Model_X::MapMeshToBones(Frm::Bone* &pBone) {
     if (pBone->_MeshName.empty())
         pBone->_MeshName = _LoadMesh->_Name;
 
-    _DTRACE_("Bone" << pBone->_Name << "is linked to mesh「" << pBone->_MeshName <<"」");
+    _TRACE_("Bone" << pBone->_Name << "is linked to mesh「" << pBone->_MeshName <<"」");
 
     if (!pBone->_Bones.empty())
         for (std::list<Frm::Bone*>::iterator i = pBone->_Bones.begin(); i

@@ -50,7 +50,7 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
 }
 
 void GameTitleScene::onReset() {
-    _DTRACE_("GameTitleScene::onReset()");
+    _TRACE_("GameTitleScene::onReset()");
     pLabel01_->update("");
     pLabel02_->update("");
     pTitleBoard_->position(PX_C(100), PX_C(90));
@@ -68,7 +68,7 @@ void GameTitleScene::onActive() {
 }
 
 void GameTitleScene::initialize() {
-    _DTRACE_("GameTitleScene::initialize()");
+    _TRACE_("GameTitleScene::initialize()");
 }
 
 void GameTitleScene::processBehavior() {
@@ -95,7 +95,7 @@ void GameTitleScene::processBehavior() {
                 pProg->change(GameTitleScene::PROG_SELECT);
             } else if (pProg->getFrameInProgress() == GAMETITLE_TIMEOUT) {
                 //ボーっと見てた場合
-                _DTRACE_("GameTitleScene throwEventUpperTree(EVENT_GAMETITLESCENE_FINISH)");
+                _TRACE_("GameTitleScene throwEventUpperTree(EVENT_GAMETITLESCENE_FINISH)");
                 throwEventUpperTree(EVENT_GAMETITLESCENE_FINISH); //普通に終了イベント
                 pProg->change(GameTitleScene::PROG_FINISH); //タイトルシーン終了へ
             }
@@ -122,7 +122,7 @@ void GameTitleScene::processBehavior() {
 
             if (pProg->getFrameInProgress() >= frame_of_noinput_ + GAMETITLE_TIMEOUT) {
                 //ボーっと見てた場合
-                _DTRACE_("GameTitleScene throwEventUpperTree(EVENT_GAMETITLESCENE_FINISH)");
+                _TRACE_("GameTitleScene throwEventUpperTree(EVENT_GAMETITLESCENE_FINISH)");
                 throwEventUpperTree(EVENT_GAMETITLESCENE_FINISH); //普通に終了イベント
                 pProg->change(GameTitleScene::PROG_FINISH); //タイトルシーン終了へ
             }

@@ -28,7 +28,7 @@ HoshiBoshi::HoshiBoshi(const char* prm_name, const char* prm_model_id) :
     effectBlendOne(); //‰ÁŽZ‡¬
     setHitAble(false);
     CAM_ZF_ = ABS(DX_C(P_CAM->_zf));
-    _DTRACE_("HoshiBoshi::HoshiBoshi CAM_ZF_="<<CAM_ZF_);
+    _TRACE_("HoshiBoshi::HoshiBoshi CAM_ZF_="<<CAM_ZF_);
     //“ÆŽ©ƒ[ƒ‹ƒh•ÏŠ·
     defineRotMvWorldMatrix(HoshiBoshi::setWorldMatrix_HoshiBoshi);
     setSpecialDrawDepth(DRAW_DEPTH_LEVEL_HOSHIBOSHI);

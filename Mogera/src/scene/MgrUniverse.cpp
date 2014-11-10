@@ -30,7 +30,7 @@ MgrUniverse::MgrUniverse(const char* prm_name, MgrCamera* prm_pCam) :
     UTIL::center_y_ = PX_C(PROPERTY::RENDER_TARGET_BUFFER_HEIGHT / 2);
 
 
-    _DTRACE_("çƒê›íË Gone=X ("<<_x_gone_left<<" ~ "<<_x_gone_right<<") Y("<<_y_gone_bottom<<" ~ "<<_y_gone_top<<") Z("<<_z_gone_near<<" ~ "<<_z_gone_far<<")");
+    _TRACE_("çƒê›íË Gone=X ("<<_x_gone_left<<" ~ "<<_x_gone_right<<") Y("<<_y_gone_bottom<<" ~ "<<_y_gone_top<<") Z("<<_z_gone_near<<" ~ "<<_z_gone_far<<")");
 }
 
 void MgrUniverse::initialize() {

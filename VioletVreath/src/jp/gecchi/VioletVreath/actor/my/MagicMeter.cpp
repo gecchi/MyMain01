@@ -537,7 +537,7 @@ void MagicMeter::processBehavior() {
                 case MAGIC_EFFECT_OK_LEVELDOWN: {
                     if (pMagic->time_of_effect_base_ == 0) {
                         //速攻魔法の終了のレベルダウン場合
-                        _DTRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] 速攻魔法のレベルダウンのレベルダウン");
+                        _TRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] 速攻魔法のレベルダウンのレベルダウン");
                         pLvNowCur->moveSmoothTo(pMagic_level);
                     } else {
                         //普通のレベルダウン
@@ -566,12 +566,12 @@ void MagicMeter::processBehavior() {
         if (pMagicProg->isJustChangedTo(Magic::STATE_NOTHING)) {
             if (pMagicProg->isJustChangedFrom(Magic::STATE_CASTING)) { //詠唱→STATE_NOTHING
                 //空詠唱（詠唱をキャンセルした or 詠唱したが詠唱完了時にMPが足りなかった）
-                _DTRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] 詠唱→STATE_NOTHING 空詠唱乙。");
+                _TRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] 詠唱→STATE_NOTHING 空詠唱乙。");
                 pLvCastingCur->markOff(); //マークオフ！
                 pLvNowCur->moveSmoothTo(pMagic_level);
                 pLvTgtMvCur->moveSmoothTo(pMagic_level); //レベルカーソルをアクティブレベルに戻す
                 if (pMagic->last_invoke_ == MAGIC_INVOKE_NG_MP_IS_SHORT) {
-                    _DTRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] 空詠唱乙の原因は MAGIC_INVOKE_NG_MP_IS_SHORT だったため ");
+                    _TRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] 空詠唱乙の原因は MAGIC_INVOKE_NG_MP_IS_SHORT だったため ");
                     getSeTx()->play(SE_NG_MP_IS_SHORT);
                 } else {
                     getSeTx()->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
@@ -579,12 +579,12 @@ void MagicMeter::processBehavior() {
             }
             if (pMagicProg->isJustChangedFrom(Magic::STATE_INVOKING)) {  //発動→STATE_NOTHING
                 //空発動（発動したが、発動完了時、MPが足りなかったので、効果開始出来なかった）
-                _DTRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] 発動→STATE_NOTHING 空発動乙 ");
+                _TRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] 発動→STATE_NOTHING 空発動乙 ");
                 pLvCastingCur->markOff(); //マークオフ！
                 pLvNowCur->moveSmoothTo(pMagic_level);
                 pLvTgtMvCur->moveSmoothTo(pMagic_level); //レベルカーソルをアクティブレベルに戻す
                 if (pMagic->last_effect_ == MAGIC_EFFECT_NG_MP_IS_SHORT) {
-                    _DTRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] 空発動乙の原因は MAGIC_EFFECT_NG_MP_IS_SHORT だったため ");
+                    _TRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] 空発動乙の原因は MAGIC_EFFECT_NG_MP_IS_SHORT だったため ");
                     getSeTx()->play(SE_NG_MP_IS_SHORT);
                 } else {
                     getSeTx()->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
@@ -600,11 +600,11 @@ void MagicMeter::processBehavior() {
 
 //    //debug -------------->
 //    if (GgafDxInput::isPushedDownKey(DIK_K)) {
-//        _DTRACE_("MagicMeter saveStatus(0)!!!!");
+//        _TRACE_("MagicMeter saveStatus(0)!!!!");
 //        saveStatus(0);
 //    }
 //    if (GgafDxInput::isPushedDownKey(DIK_L)) {
-//        _DTRACE_("MagicMeter loadStatus(0)!!!!");
+//        _TRACE_("MagicMeter loadStatus(0)!!!!");
 //        loadStatus(0);
 //    }
 //    //<-----------------debug

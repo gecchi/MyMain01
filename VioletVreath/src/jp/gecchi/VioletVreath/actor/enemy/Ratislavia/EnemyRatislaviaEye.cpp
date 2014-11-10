@@ -171,7 +171,7 @@ void EnemyRatislaviaEye::onHit(GgafActor* prm_pOtherActor) {
     if (was_destroyed) {
         //破壊時
         getSeTx()->play3D(SE_EXPLOSION);
-        _DTRACE_("EnemyRatislaviaEye::onHit() 上位になげるっす throwEventUpperTree(RATISLAVIA_EXPLOSION)");
+        _TRACE_("EnemyRatislaviaEye::onHit() 上位になげるっす throwEventUpperTree(RATISLAVIA_EXPLOSION)");
         throwEventUpperTree(RATISLAVIA_EXPLOSION); //親のEnemyRatislaviaを破壊するイベントを投げる
     } else {
         //非破壊時

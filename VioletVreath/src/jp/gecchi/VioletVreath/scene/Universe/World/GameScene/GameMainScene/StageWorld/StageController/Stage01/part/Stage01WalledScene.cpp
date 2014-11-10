@@ -89,7 +89,7 @@ void Stage01WalledScene::initialize() {
 void Stage01WalledScene::onActive() {
     P_COMMON_SCENE->setScrollingFunction(_pFuncScrolling);
     P_COMMON_SCENE->setScrollSpeed(getScrollSpeed());
-    _DTRACE_("Stage01WalledScene::onActive()  CommonScene にもスクロールを設定します。");
+    _TRACE_("Stage01WalledScene::onActive()  CommonScene にもスクロールを設定します。");
     //P_COMMON_SCENE->dump();
     WalledScene::onActive();
 }
@@ -117,7 +117,7 @@ void Stage01WalledScene::processBehavior() {
 }
 
 void Stage01WalledScene::onFinishedAllSection() {
-    _DTRACE_(" Stage01WalledScene::onFinishedAllSection()  CommonScene のスクロールを解除します。");
+    _TRACE_(" Stage01WalledScene::onFinishedAllSection()  CommonScene のスクロールを解除します。");
     P_COMMON_SCENE->setScrollingFunction(nullptr);
     P_COMMON_SCENE->setScrollSpeed(0);
     throwEventUpperTree(EVENT_STG01_WALLED_WAS_BROKEN);

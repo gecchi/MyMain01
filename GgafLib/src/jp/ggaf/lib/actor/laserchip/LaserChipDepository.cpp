@@ -130,5 +130,5 @@ void LaserChipDepository::onReset() {
 }
 
 LaserChipDepository::~LaserChipDepository() {
-    _DTRACE_("LaserChipDepository::~LaserChipDepository()");
+    _TRACE_("LaserChipDepository::~LaserChipDepository()");
 }

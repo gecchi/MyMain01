@@ -44,14 +44,14 @@ GgafDxSe::GgafDxSe(char* prm_wave_key) : GgafObject() {
     checkDxException(hr, D3D_OK, "GgafDxSe::GgafDxSe("<<prm_wave_key<<") CreateSoundBufferに失敗しました。サウンドカードは有効ですか？");
 
     if (!writeBuffer(WaveFile)) {
-        _DTRACE_("GgafDxSe::GgafDxSe("<<prm_wave_key<<") ＜警告＞GgafDxSe::writeBuffer()が失敗しています。");
+        _TRACE_("GgafDxSe::GgafDxSe("<<prm_wave_key<<") ＜警告＞GgafDxSe::writeBuffer()が失敗しています。");
     }
     hr = _pIDirectSoundBuffer->GetFrequency(&_default_frequency);
     checkDxException(hr, D3D_OK, "GgafDxSe::GgafDxSe("<<prm_wave_key<<") GetFrequency に失敗しました。サウンドカードは有効ですか？");
 
     _pActor_last_played = nullptr;
     _can_looping = false;
-    _DTRACE_("GgafDxSe::GgafDxSe("<<prm_wave_key<<") _wave_file_name="<<_wave_file_name<<" this="<<this<<" _id="<<getId());
+    _TRACE_("GgafDxSe::GgafDxSe("<<prm_wave_key<<") _wave_file_name="<<_wave_file_name<<" this="<<this<<" _id="<<getId());
 }
 
 
@@ -89,7 +89,7 @@ int GgafDxSe::writeBuffer(CWaveDecorder& WaveFile) {
 
     // DSERR_BUFFERLOSTが返された場合，Restoreメソッドを使ってバッファを復元する
     if (DSERR_BUFFERLOST == hr) {
-        _DTRACE_("GgafDxSe::writeBuffer() DSERR_BUFFERLOST が返されました。バッファ復元を試みます");
+        _TRACE_("GgafDxSe::writeBuffer() DSERR_BUFFERLOST が返されました。バッファ復元を試みます");
         _pIDirectSoundBuffer->Restore();
         hr = _pIDirectSoundBuffer->Lock(0, WaveFile.GetWaveSize(), &lpvPtr1, &dwBytes1, &lpvPtr2, &dwBytes2, 0);
     }
@@ -114,18 +114,18 @@ int GgafDxSe::writeBuffer(CWaveDecorder& WaveFile) {
 
 void GgafDxSe::play(int prm_volume, float prm_pan, float prm_frequency) {
     if (_pIDirectSoundBuffer == nullptr) {
-        _DTRACE_("_pIDirectSoundBuffer==nullptr;!");
+        _TRACE_("_pIDirectSoundBuffer==nullptr;!");
     }
     DWORD dwStatus;
     if (FAILED(_pIDirectSoundBuffer->GetStatus(&dwStatus))) {
-        _DTRACE_("GgafDxSe::play() GetStatus() 失敗");
+        _TRACE_("GgafDxSe::play() GetStatus() 失敗");
     }
     if (dwStatus == (DWORD)DSERR_BUFFERLOST) {
         if (FAILED(_pIDirectSoundBuffer->Restore())) {
-            _DTRACE_("GgafDxSe::play() Restore() 失敗");
+            _TRACE_("GgafDxSe::play() Restore() 失敗");
         }
         if (!restore()) {
-            _DTRACE_("GgafDxSe::play() restore() 失敗");
+            _TRACE_("GgafDxSe::play() restore() 失敗");
         }
     }
     setVolume(prm_volume);
@@ -196,7 +196,7 @@ bool GgafDxSe::isPlaying() {
 }
 
 GgafDxSe::~GgafDxSe() {
-    _DTRACE_("GgafDxSe::~GgafDxSe() _wave_key="<<_wave_key<<" _wave_file_name="<<_wave_file_name<<" this="<<this);
+    _TRACE_("GgafDxSe::~GgafDxSe() _wave_key="<<_wave_key<<" _wave_file_name="<<_wave_file_name<<" this="<<this);
     GGAF_DELETEARR_NULLABLE(_wave_key);
     GGAF_RELEASE(_pIDirectSoundBuffer);
 }

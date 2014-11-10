@@ -23,9 +23,9 @@ StageWorld::StageWorld(const char* prm_name) : DefaultScene(prm_name) {
 }
 
 void StageWorld::onReset() {
-    _DTRACE_("StageWorld::onReset() ");
-    _DTRACE_("Stage::onReset() GOD="<<P_GOD->_frame_of_God << ":");
-    _DTRACE_("MyShipScene を、スローの影響を与えないために一つ上に引き上げます addSubLast(P_MYSHIP_SCENE->extract()); ");
+    _TRACE_("StageWorld::onReset() ");
+    _TRACE_("Stage::onReset() GOD="<<P_GOD->_frame_of_God << ":");
+    _TRACE_("MyShipScene を、スローの影響を与えないために一つ上に引き上げます addSubLast(P_MYSHIP_SCENE->extract()); ");
     P_MYSHIP_SCENE->resetTree();
     P_MYSHIP_SCENE->activateImmed();
     addSubLast(P_MYSHIP_SCENE->extract()); //スローの影響を与えないために一つ上
@@ -41,17 +41,17 @@ void StageWorld::processBehavior() {
 //#ifdef MY_DEBUG
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_P)) {
         G_RANK += (1.0/G_RANK_R);
-        _DTRACE_("StageWorld::processBehavior() G_RANK="<<G_RANK<<"/G_RANK_DISP="<<G_RANK_DISP<<"");
+        _TRACE_("StageWorld::processBehavior() G_RANK="<<G_RANK<<"/G_RANK_DISP="<<G_RANK_DISP<<"");
     }
 //#endif
     //<---- debug
     //ランクアップシーン差し込み
     if (GameGlobal::updateRankUpLebel()) {
-        _DTRACE_("G_RANKUP_LEVEL アップしました！！→"<<G_RANKUP_LEVEL<<" (G_RANK="<<G_RANK<<"/G_RANK_DISP="<<G_RANK_DISP<<")");
+        _TRACE_("G_RANKUP_LEVEL アップしました！！→"<<G_RANKUP_LEVEL<<" (G_RANK="<<G_RANK<<"/G_RANK_DISP="<<G_RANK_DISP<<")");
         if (can_rank_up_) {
-            _DTRACE_("ランクアップシーン差し込みします！");
+            _TRACE_("ランクアップシーン差し込みします！");
             pRankUpStageCtrler_->startRunkUpStage(G_RANKUP_LEVEL);
-            _DTRACE_("P_STAGE_CTRLER をスロー");
+            _TRACE_("P_STAGE_CTRLER をスロー");
             pStageCtrler_->addRunFrameOnce(3); //スロー開始
         } else {
             //スルー
@@ -62,13 +62,13 @@ void StageWorld::processBehavior() {
 }
 void StageWorld::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_RANKUP_WAS_END) {
-        _DTRACE_("StageWorld::onCatchEvent EVENT_RANKUP_WAS_END");
+        _TRACE_("StageWorld::onCatchEvent EVENT_RANKUP_WAS_END");
         //スロー回復
-        _DTRACE_("P_STAGE_CTRLER をスロー回復");
+        _TRACE_("P_STAGE_CTRLER をスロー回復");
         pStageCtrler_->addRunFrameOnce(-3); //スロー開始
     }
 }
 
 StageWorld::~StageWorld() {
-    _DTRACE_("StageWorld::~StageWorld() ");
+    _TRACE_("StageWorld::~StageWorld() ");
 }

@@ -53,7 +53,7 @@ void OptionMagic::onReset() {
 }
 
 void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
-    _DTRACE_(getBehaveingFrame()<<":OptionMagic::processCastBegin("<<prm_now_level<<","<<prm_new_level<<")");
+    _TRACE_(getBehaveingFrame()<<":OptionMagic::processCastBegin("<<prm_now_level<<","<<prm_new_level<<")");
     if (prm_new_level > prm_now_level) {
         //レベルアップ時
         //放射状にエフェクト放出
@@ -75,7 +75,7 @@ void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
             pEffect->pAxsMver_->execGravitationMvSequenceTwd(P_MYSHIP, 10000, 200, 2000);
             pEffect->setAlpha(0.9);
             pEffect->setScaleR(1.0f);
-            _DTRACE_(getBehaveingFrame()<<":OptionMagic::processCastBegin("<<prm_now_level<<","<<prm_new_level<<") papEffect_["<<(lv-1)<<"]->activate();");
+            _TRACE_(getBehaveingFrame()<<":OptionMagic::processCastBegin("<<prm_now_level<<","<<prm_new_level<<") papEffect_["<<(lv-1)<<"]->activate();");
             pEffect->activate();
         }
         pMyShip->pMyMagicEnergyCore_->execOptionMagic();
@@ -100,16 +100,16 @@ void OptionMagic::processCastingBehavior(int prm_now_level, int prm_new_level){
 }
 
 void OptionMagic::processCastingCancel(int prm_now_level) {
-    _DTRACE_(getBehaveingFrame()<<":OptionMagic::processCastingCancel("<<prm_now_level<<")");
+    _TRACE_(getBehaveingFrame()<<":OptionMagic::processCastingCancel("<<prm_now_level<<")");
     turnoffOptionEffect();
 }
 
 void OptionMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm_result_invoke) {
-    _DTRACE_(getBehaveingFrame()<<":OptionMagic::processCastFinish("<<prm_now_level<<","<<prm_new_level<<","<<prm_result_invoke<<")");
+    _TRACE_(getBehaveingFrame()<<":OptionMagic::processCastFinish("<<prm_now_level<<","<<prm_new_level<<","<<prm_result_invoke<<")");
 }
 
 void OptionMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
-    _DTRACE_(getBehaveingFrame()<<":OptionMagic::processInvokeBegin("<<prm_now_level<<","<<prm_new_level<<")");
+    _TRACE_(getBehaveingFrame()<<":OptionMagic::processInvokeBegin("<<prm_now_level<<","<<prm_new_level<<")");
     if (prm_new_level > prm_now_level) {
         //レベルアップ時
         for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
@@ -125,7 +125,7 @@ void OptionMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
 }
 
 void OptionMagic::processInvokingCancel(int prm_now_level) {
-    _DTRACE_(getBehaveingFrame()<<":OptionMagic::processInvokingCancel("<<prm_now_level<<")");
+    _TRACE_(getBehaveingFrame()<<":OptionMagic::processInvokingCancel("<<prm_now_level<<")");
     turnoffOptionEffect();
 }
 
@@ -142,11 +142,11 @@ void OptionMagic::processInvokingBehavior(int prm_now_level, int prm_new_level) 
 }
 
 void OptionMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) {
-    _DTRACE_(getBehaveingFrame()<<":OptionMagic::processInvokeFinish("<<prm_now_level<<","<<prm_new_level<<","<<prm_result_effect<<")");
+    _TRACE_(getBehaveingFrame()<<":OptionMagic::processInvokeFinish("<<prm_now_level<<","<<prm_new_level<<","<<prm_result_effect<<")");
 }
 
 void OptionMagic::processEffectBegin(int prm_last_level, int prm_now_level)  {
-    _DTRACE_(getBehaveingFrame()<<":OptionMagic::processEffectBegin("<<prm_last_level<<","<<prm_now_level<<")");
+    _TRACE_(getBehaveingFrame()<<":OptionMagic::processEffectBegin("<<prm_last_level<<","<<prm_now_level<<")");
 
     MyOptionController::setNumOption(prm_now_level);
 
@@ -166,7 +166,7 @@ void OptionMagic::processEffectBegin(int prm_last_level, int prm_now_level)  {
             p->pOption_->return_to_base_angExpanse_seq_= true;
 
             papEffect_[lv-1]->inactivateDelay(120); //非活動の保険
-            _DTRACE_(getBehaveingFrame()<<":OptionMagic::processEffectBegin("<<prm_last_level<<","<<prm_now_level<<") papEffect_["<<(lv-1)<<"]->inactivateDelay(120);");
+            _TRACE_(getBehaveingFrame()<<":OptionMagic::processEffectBegin("<<prm_last_level<<","<<prm_now_level<<") papEffect_["<<(lv-1)<<"]->inactivateDelay(120);");
             papEffect_[lv-1]->pAxsMver_->stopGravitationMvSequence();
             papEffect_[lv-1]->positionAs(p->pOption_);
 
@@ -192,7 +192,7 @@ void OptionMagic::processEffectingBehavior(int prm_last_level, int prm_now_level
             for (int lv = prm_last_level+1; lv <= prm_now_level; lv++) {
                 MyOptionController* p = P_MYSHIP_SCENE->papOptionCtrler_[lv-1];
                 papEffect_[lv-1]->inactivate();
-                _DTRACE_(getBehaveingFrame()<<":OptionMagic::processEffectingBehavior("<<prm_last_level<<","<<prm_now_level<<") papEffect_["<<(lv-1)<<"]->inactivate();");
+                _TRACE_(getBehaveingFrame()<<":OptionMagic::processEffectingBehavior("<<prm_last_level<<","<<prm_now_level<<") papEffect_["<<(lv-1)<<"]->inactivate();");
                 p->pOption_->setAlpha(1.0);
             }
         }
@@ -202,7 +202,7 @@ void OptionMagic::processEffectingBehavior(int prm_last_level, int prm_now_level
 }
 
 void OptionMagic::turnoffOptionEffect() {
-    _DTRACE_(getBehaveingFrame()<<":OptionMagic::turnoffOptionEffect()");
+    _TRACE_(getBehaveingFrame()<<":OptionMagic::turnoffOptionEffect()");
     for (int i = 0; i < max_level_; i++) {
         papEffect_[i]->inactivate();
     }

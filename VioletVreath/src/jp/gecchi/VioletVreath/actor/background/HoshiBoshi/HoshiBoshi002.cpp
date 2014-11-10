@@ -15,7 +15,7 @@ HoshiBoshi002::HoshiBoshi002(const char* prm_name) :
     setHitAble(false);
     CAM_ZF_ = ABS(DX_C(P_CAM->_zf));
     setSpecialDrawDepth(DRAW_DEPTH_LEVEL_HOSHIBOSHI);
-    _DTRACE_("HoshiBoshi002::HoshiBoshi002 CAM_ZF_="<<CAM_ZF_);
+    _TRACE_("HoshiBoshi002::HoshiBoshi002 CAM_ZF_="<<CAM_ZF_);
 }
 
 int HoshiBoshi002::isOutOfView() {

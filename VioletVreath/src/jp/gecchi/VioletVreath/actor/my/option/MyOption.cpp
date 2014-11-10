@@ -26,7 +26,7 @@ using namespace VioletVreath;
 MyOption::MyOption(const char* prm_name, uint32_t prm_no, MyOptionController* prm_pOptCtrler) :
         DefaultMeshSetActor(prm_name, "8/CORE4", STATUS(MyOption)) {
 
-    _DTRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
+    _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _class_name = "MyOption";
     pOptionCtrler_ = prm_pOptCtrler;
     no_ = prm_no;
@@ -646,12 +646,12 @@ void MyOption::processBehavior() {
 //        if (pKuroko->_angvelo_rz_mv == 0 || pKuroko->_angvelo_rz_mv == 360000) {
 //            if (veloMv_ == 1000) {
 //                if (radiusPosition_ == 1) {
-//                    _DTRACE_(getBehaveingFrame()<<":before 遠ざかる成立！！！");
+//                    _TRACE_(getBehaveingFrame()<<":before 遠ざかる成立！！！");
 //                }
 //            }
 //
 //        }
-//        _DTRACE_(getBehaveingFrame()<<":after  radiusPosition_="<<radiusPosition_<<" radiusPosition_stopping_="<<radiusPosition_stopping_<<" _angvelo_rz_mv="<<(pKuroko->_angvelo_rz_mv)<<" veloMv_="<<veloMv_);
+//        _TRACE_(getBehaveingFrame()<<":after  radiusPosition_="<<radiusPosition_<<" radiusPosition_stopping_="<<radiusPosition_stopping_<<" _angvelo_rz_mv="<<(pKuroko->_angvelo_rz_mv)<<" veloMv_="<<veloMv_);
 //    }
 
 }

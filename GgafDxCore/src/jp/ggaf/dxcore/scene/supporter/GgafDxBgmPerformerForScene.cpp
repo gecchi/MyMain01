@@ -80,7 +80,7 @@ void GgafDxBgmPerformerForScene::fadeout_f(int prm_id, frame prm_frame) {
         fade(prm_id, prm_frame, GGAF_MIN_VOLUME);
         _pa_is_fadeout_stop[prm_id] = false;
     } else {
-        _DTRACE_("＜警告＞GgafDxBgmPerformerForScene::fadeout_f("<<prm_id<<", "<<prm_frame<<") は、"<<
+        _TRACE_("＜警告＞GgafDxBgmPerformerForScene::fadeout_f("<<prm_id<<", "<<prm_frame<<") は、"<<
                 "再生されていないので、フェードアウトを無視しました。file_name="<<_papBgmConnection[prm_id]->peek()->_ogg_file_name);
     }
 }
@@ -89,7 +89,7 @@ void GgafDxBgmPerformerForScene::fadeout_stop_f(int prm_id, frame prm_frame) {
         fade(prm_id, prm_frame, GGAF_MIN_VOLUME);
         _pa_is_fadeout_stop[prm_id] = true;
     } else {
-        _DTRACE_("＜警告＞GgafDxBgmPerformerForScene::fadeout_stop_f("<<prm_id<<", "<<prm_frame<<") は、"<<
+        _TRACE_("＜警告＞GgafDxBgmPerformerForScene::fadeout_stop_f("<<prm_id<<", "<<prm_frame<<") は、"<<
                 "再生されていないので、フェードアウトを無視しました。file_name="<<_papBgmConnection[prm_id]->peek()->_ogg_file_name);
     }
 }

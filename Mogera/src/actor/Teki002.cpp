@@ -135,7 +135,7 @@ void Teki002::processBehavior() {
 //            angRy_Target_ = D360ANG - aiming_movable_limit_ang_;
 //        }
 //
-//        _DTRACE_("‘O("<<wkrz<<","<<wkry<<") Œã("<<angRz_Target_<<","<<angRy_Target_<<")");
+//        _TRACE_("‘O("<<wkrz<<","<<wkry<<") Œã("<<angRz_Target_<<","<<angRy_Target_<<")");
 //        getKuroko()->turnRzRyFaceAngTo(
 //                        angRz_Target_, angRy_Target_,
 //                        aiming_ang_velo_, aiming_ang_velo_*0.04,

@@ -22,11 +22,11 @@ HRESULT DefaultGod::initDevice() {
 
 void DefaultGod::clean() {
     if (!_was_cleaned) {
-        _DTRACE_("DefaultGod::clean() begin");
+        _TRACE_("DefaultGod::clean() begin");
         GgafDxGod::clean();
         GGAF_DELETE(_pSplSrcManager);
         GGAF_DELETE(_pSplManufManager);
-        _DTRACE_("DefaultGod::clean() end");
+        _TRACE_("DefaultGod::clean() end");
     }
 }
 

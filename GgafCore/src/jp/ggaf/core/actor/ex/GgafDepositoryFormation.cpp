@@ -44,11 +44,11 @@ void GgafDepositoryFormation::setFormationMember(GgafActorDepository* prm_pDepo)
 }
 
 void GgafDepositoryFormation::processFinal() {
-//    _DTRACE_("processFinal() "<<getActiveFrame()<<":before----->");
+//    _TRACE_("processFinal() "<<getActiveFrame()<<":before----->");
 //    for (int i = 0; i < _listFollower.length(); i++) {
-//        _DTRACE_("processFinal() _listFollower["<<i<<"]="<<_listFollower.getFromFirst(i)->getName()<<"("<<_listFollower.getFromFirst(i)<<")");
+//        _TRACE_("processFinal() _listFollower["<<i<<"]="<<_listFollower.getFromFirst(i)->getName()<<"("<<_listFollower.getFromFirst(i)<<")");
 //    }
-//    _DTRACE_("processFinal() "<<getActiveFrame()<<"<-----");
+//    _TRACE_("processFinal() "<<getActiveFrame()<<"<-----");
     if (_listFollower.length() > 0) {
         //編隊メンバー状況チェック
         GgafActor* pFollower;
@@ -62,13 +62,13 @@ void GgafDepositoryFormation::processFinal() {
                     _listFollower.next();
                 } else {
                     //編隊メンバーから外す
-//                    _DTRACE_("i="<<i<<" 今メンバー数"<<_listFollower.length()<<" そしてこれから"<<_listFollower.getCurrent()->getName()<<"をメンバーから外します！(X)");
+//                    _TRACE_("i="<<i<<" 今メンバー数"<<_listFollower.length()<<" そしてこれから"<<_listFollower.getCurrent()->getName()<<"をメンバーから外します！(X)");
                     _listFollower.getCurrent()->_pFormation = nullptr;
                     _listFollower.remove(); //remove() 時、新たなカレント要素は next の要素になる。
                 }
             } else {
                 //編隊メンバーから外す
-//                 _DTRACE_("i="<<i<<" 今メンバー数"<<_listFollower.length()<<" そして"<<_listFollower.getCurrent()->getName()<<"をメンバーから外します！(A)");
+//                 _TRACE_("i="<<i<<" 今メンバー数"<<_listFollower.length()<<" そして"<<_listFollower.getCurrent()->getName()<<"をメンバーから外します！(A)");
                 _listFollower.getCurrent()->_pFormation = nullptr;
                 _listFollower.remove();//remove() 時、新たなカレント要素は next の要素になる。
             }

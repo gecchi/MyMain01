@@ -14,13 +14,13 @@ using namespace GgafDxCore;
 #include "jp/ggaf/dxcore/GgafDxProperties.h"
 
 GgafDxWorldBoundModel::GgafDxWorldBoundModel(char* prm_model_name) : GgafDxMorphMeshModel(prm_model_name) {
-    _DTRACE3_("GgafDxWorldBoundModel::GgafDxWorldBoundModel(" << _model_name << ")");
+    _TRACE3_("GgafDxWorldBoundModel::GgafDxWorldBoundModel(" << _model_name << ")");
     _obj_model |= Obj_GgafDxWorldBoundModel;
 }
 
 
 HRESULT GgafDxWorldBoundModel::draw(GgafDxDrawableActor* prm_pActor_target, int prm_draw_set_num) {
-    _DTRACE4_("GgafDxWorldBoundModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
+    _TRACE4_("GgafDxWorldBoundModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
     IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
     //ëŒè€ÉAÉNÉ^Å[
     GgafDxWorldBoundActor* pTargetActor = (GgafDxWorldBoundActor*)prm_pActor_target;
@@ -56,7 +56,7 @@ HRESULT GgafDxWorldBoundModel::draw(GgafDxDrawableActor* prm_pActor_target, int 
         if ((GgafDxEffectManager::_pEffect_active != pWorldBoundEffect || GgafDxDrawableActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) &&
                 i == 0) {
             if (GgafDxEffectManager::_pEffect_active) {
-               _DTRACE4_("EndPass("<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
+               _TRACE4_("EndPass("<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
                 hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->EndPass();
                 checkDxException(hr, D3D_OK, "GgafDxWorldBoundModel::draw() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB"<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
                 hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->End();
@@ -71,12 +71,12 @@ HRESULT GgafDxWorldBoundModel::draw(GgafDxDrawableActor* prm_pActor_target, int 
 #endif
 
             }
-            _DTRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pWorldBoundEffect->_effect_name);
+            _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pWorldBoundEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
             checkDxException(hr, S_OK, "GgafDxWorldBoundModel::draw() SetTechnique("<<pTargetActor->_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 
-            _DTRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pWorldBoundEffect->_effect_name<<"("<<pWorldBoundEffect<<")");
+            _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pWorldBoundEffect->_effect_name<<"("<<pWorldBoundEffect<<")");
             UINT numPass;
             hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
             checkDxException(hr, D3D_OK, "GgafDxWorldBoundModel::draw() Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
@@ -101,7 +101,7 @@ HRESULT GgafDxWorldBoundModel::draw(GgafDxDrawableActor* prm_pActor_target, int 
             checkDxException(hr, D3D_OK, "GgafDxWorldBoundModel::draw()CommitChanges() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         }
 
-        _DTRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pWorldBoundEffect->_effect_name);
+        _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pWorldBoundEffect->_effect_name);
         pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                       _paIndexParam[i].BaseVertexIndex,
                                       _paIndexParam[i].MinIndex,

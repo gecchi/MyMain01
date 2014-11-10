@@ -41,7 +41,7 @@ void SmileMagic::onReset() {
 }
 
 void SmileMagic::processCastBegin(int prm_now_level, int prm_new_level) {
-    _DTRACE_("SmileMagic::processCastBegin(prm_now_level="<<prm_now_level<<",prm_new_level="<<prm_new_level<<")");
+    _TRACE_("SmileMagic::processCastBegin(prm_now_level="<<prm_now_level<<",prm_new_level="<<prm_new_level<<")");
     if (prm_new_level > prm_now_level) {
         pMoji_->positionAs(P_MYSHIP);
         pMoji_->setAlpha(0.9);
@@ -65,16 +65,16 @@ void SmileMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
 }
 
 void SmileMagic::processCastingCancel(int prm_now_level) {
-    _DTRACE_("SmileMagic::processCastFinish(prm_now_level="<<prm_now_level<<")");
+    _TRACE_("SmileMagic::processCastFinish(prm_now_level="<<prm_now_level<<")");
     pMoji_->inactivate();
 }
 
 void SmileMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm_result_invoke) {
-    _DTRACE_("SmileMagic::processCastFinish(prm_now_level="<<prm_now_level<<",prm_new_level="<<prm_new_level<<",r="<<prm_result_invoke<<")");
+    _TRACE_("SmileMagic::processCastFinish(prm_now_level="<<prm_now_level<<",prm_new_level="<<prm_new_level<<",r="<<prm_result_invoke<<")");
 }
 
 void SmileMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
-    _DTRACE_("SmileMagic::processInvokeBegin(prm_now_level="<<prm_now_level<<",prm_new_level="<<prm_new_level<<")");
+    _TRACE_("SmileMagic::processInvokeBegin(prm_now_level="<<prm_now_level<<",prm_new_level="<<prm_new_level<<")");
     if (prm_new_level > prm_now_level) {
         pMoji_->getKuroko()->setFaceAngVelo(AXIS_Z, 5000);
     }
@@ -87,27 +87,27 @@ void SmileMagic::processInvokingBehavior(int prm_now_level, int prm_new_level) {
 }
 
 void SmileMagic::processInvokingCancel(int prm_now_level) {
-    _DTRACE_("SmileMagic::processInvokingCancel(prm_now_level="<<prm_now_level<<")");
+    _TRACE_("SmileMagic::processInvokingCancel(prm_now_level="<<prm_now_level<<")");
     pMoji_->inactivate();
 }
 
 void SmileMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) {
-    _DTRACE_("SmileMagic::processInvokeFinish(prm_now_level="<<prm_now_level<<",prm_new_level="<<prm_new_level<<", r="<<prm_result_effect<<")");
+    _TRACE_("SmileMagic::processInvokeFinish(prm_now_level="<<prm_now_level<<",prm_new_level="<<prm_new_level<<", r="<<prm_result_effect<<")");
 }
 
 void SmileMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
     if (prm_now_level > 0) {
-        _DTRACE_("SmileMagic::processEffectBegin(prm_last_level="<<prm_last_level<<",prm_now_level="<<prm_now_level<<") (^_^)SMILE(^_^)SMILE(^_^)SMILE(^_^)SMILE(^_^)SMILE");
+        _TRACE_("SmileMagic::processEffectBegin(prm_last_level="<<prm_last_level<<",prm_now_level="<<prm_now_level<<") (^_^)SMILE(^_^)SMILE(^_^)SMILE(^_^)SMILE(^_^)SMILE");
     }
     if (prm_now_level == 0) {
-        _DTRACE_("SmileMagic::processEffectBegin(prm_last_level="<<prm_last_level<<",prm_now_level="<<prm_now_level<<") I—¹`");
+        _TRACE_("SmileMagic::processEffectBegin(prm_last_level="<<prm_last_level<<",prm_now_level="<<prm_now_level<<") I—¹`");
         pMoji_->inactivate();
     }
 }
 
 void SmileMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {
     if (prm_now_level > 0) {
-        _DTRACE_("SmileMagic::processEffectingBehavior ‚P‰ñ‚¾‚¯‚Ì‚Í‚¸");
+        _TRACE_("SmileMagic::processEffectingBehavior ‚P‰ñ‚¾‚¯‚Ì‚Í‚¸");
     }
 }
 

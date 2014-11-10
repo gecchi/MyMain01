@@ -98,12 +98,12 @@ VirtualButton::VirtualButton(const char* prm_replay_file) : GgafObject() {
     _pRpy = NEW VBReplayRecorder();
     if (_pRpy->importFile(prm_replay_file) ) {
         //読み込めた場合リプレイモード
-        _DTRACE_("VirtualButton("<<prm_replay_file<<") リプレイモードです。");
+        _TRACE_("VirtualButton("<<prm_replay_file<<") リプレイモードです。");
         _is_replaying = true;
     } else {
         //読み込めない場合は通常記録モード
         _is_replaying = false;
-        _DTRACE_("VirtualButton("<<prm_replay_file<<") 通常記録モード。");
+        _TRACE_("VirtualButton("<<prm_replay_file<<") 通常記録モード。");
     }
     if (!_is_init) {
         init();

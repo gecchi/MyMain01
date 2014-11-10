@@ -42,11 +42,11 @@ void GgafLibProperties::load(std::string prm_properties_filename) {
         }
     }
 
-    _DTRACE_("GgafLibProperties::DIRNAME_RESOURCE_WALL=" << GgafLibProperties::DIRNAME_RESOURCE_WALL);
-    _DTRACE_("GgafLibProperties::DIRNAME_RESOURCE_SPLINE=" << GgafLibProperties::DIRNAME_RESOURCE_SPLINE);
-    _DTRACE_("GgafLibProperties::DIR_WALL=" << GgafLibProperties::DIR_WALL);
-    _DTRACE_("GgafLibProperties::DIR_SPLINE=" << GgafLibProperties::DIR_SPLINE);
-    _DTRACE_("GgafLibProperties::OCTREE_LEVEL=" << GgafLibProperties::OCTREE_LEVEL);
+    _TRACE_("GgafLibProperties::DIRNAME_RESOURCE_WALL=" << GgafLibProperties::DIRNAME_RESOURCE_WALL);
+    _TRACE_("GgafLibProperties::DIRNAME_RESOURCE_SPLINE=" << GgafLibProperties::DIRNAME_RESOURCE_SPLINE);
+    _TRACE_("GgafLibProperties::DIR_WALL=" << GgafLibProperties::DIR_WALL);
+    _TRACE_("GgafLibProperties::DIR_SPLINE=" << GgafLibProperties::DIR_SPLINE);
+    _TRACE_("GgafLibProperties::OCTREE_LEVEL=" << GgafLibProperties::OCTREE_LEVEL);
 }
 
 void GgafLibProperties::clean() {

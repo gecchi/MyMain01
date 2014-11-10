@@ -25,7 +25,7 @@ GgafDxD3DXMeshModel::GgafDxD3DXMeshModel(char* prm_model_name, DWORD prm_dwOptio
 }
 
 HRESULT GgafDxD3DXMeshModel::draw(GgafDxDrawableActor* prm_pActor_target, int prm_draw_set_num) {
-    _DTRACE4_("GgafDxD3DXMeshModel::draw("<<prm_pActor_target->getName()<<")");
+    _TRACE4_("GgafDxD3DXMeshModel::draw("<<prm_pActor_target->getName()<<")");
     IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
     //対象アクター
     GgafDxD3DXMeshActor* pTargetActor = (GgafDxD3DXMeshActor*)prm_pActor_target;
@@ -43,7 +43,7 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxDrawableActor* prm_pActor_target, int pr
                 //テクスチャのセット
                 pDevice->SetTexture(0, _papTextureConnection[i]->peek()->_pIDirect3DBaseTexture9);
             } else {
-                _DTRACE_("GgafDxD3DXMeshModel::draw("<<prm_pActor_target->getName()<<") テクスチャがありません。"<<(PROPERTY::WHITE_TEXTURE)<<"が設定されるべきです。おかしいです");
+                _TRACE_("GgafDxD3DXMeshModel::draw("<<prm_pActor_target->getName()<<") テクスチャがありません。"<<(PROPERTY::WHITE_TEXTURE)<<"が設定されるべきです。おかしいです");
                 //無ければテクスチャ無し
                 pDevice->SetTexture(0, nullptr);
             }
@@ -65,7 +65,7 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxDrawableActor* prm_pActor_target, int pr
         //描画
         if ((GgafDxEffectManager::_pEffect_active != pMeshEffect || GgafDxDrawableActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) && i == 0) {
             if (GgafDxEffectManager::_pEffect_active) {
-                _DTRACE4_("EndPass("<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
+                _TRACE4_("EndPass("<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
                 hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->EndPass();
                 checkDxException(hr, D3D_OK, "GgafDxD3DXMeshModel::draw() EndPass() に失敗しました。");
                 hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->End();
@@ -78,11 +78,11 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxDrawableActor* prm_pActor_target, int pr
                 }
 #endif
             }
-            _DTRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
+            _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
             checkDxException(hr, S_OK, "GgafDxD3DXMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
-            _DTRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name<<"("<<pMeshEffect<<")");
+            _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name<<"("<<pMeshEffect<<")");
             UINT numPass;
             hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
             checkDxException(hr, D3D_OK, "GgafDxD3DXMeshModel::draw() Begin() に失敗しました。");
@@ -101,7 +101,7 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxDrawableActor* prm_pActor_target, int pr
             hr = pID3DXEffect->CommitChanges();
             checkDxException(hr, D3D_OK, "GgafDxD3DXMeshModel::draw() CommitChanges() に失敗しました。");
         }
-        _DTRACE4_("DrawSubset: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
+        _TRACE4_("DrawSubset: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
         hr = _pID3DXMesh->DrawSubset(i);  //なんて便利なメソッド。
         GgafGod::_num_actor_drawing++;
     }
@@ -128,28 +128,28 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxDrawableActor* prm_pActor_target, int pr
 
 
 void GgafDxD3DXMeshModel::restore() {
-    _DTRACE3_("GgafDxD3DXMeshModel::restore() " << _model_name << " start");
+    _TRACE3_("GgafDxD3DXMeshModel::restore() " << _model_name << " start");
     GgafDxGod::_pModelManager->restoreD3DXMeshModel(this);
-    _DTRACE3_("GgafDxD3DXMeshModel::restore() " << _model_name << " end");
+    _TRACE3_("GgafDxD3DXMeshModel::restore() " << _model_name << " end");
 }
 
 void GgafDxD3DXMeshModel::onDeviceLost() {
-    _DTRACE3_("GgafDxD3DXMeshModel::onDeviceLost() " << _model_name << " start");
+    _TRACE3_("GgafDxD3DXMeshModel::onDeviceLost() " << _model_name << " start");
     //デバイスロスト時は解放します。
     release();
-    _DTRACE3_("GgafDxD3DXMeshModel::onDeviceLost() " << _model_name << " end");
+    _TRACE3_("GgafDxD3DXMeshModel::onDeviceLost() " << _model_name << " end");
 }
 
 void GgafDxD3DXMeshModel::release() {
-    _DTRACE3_("GgafDxD3DXMeshModel::release() " << _model_name << " start");
+    _TRACE3_("GgafDxD3DXMeshModel::release() " << _model_name << " start");
     if (_pID3DXMesh == nullptr) {
-        _DTRACE_("＜警告＞ [GgafDxD3DXMeshModel::release()]  "<<_model_name<<" の _pID3DXMeshが オブジェクトになっていないため release できません！");
+        _TRACE_("＜警告＞ [GgafDxD3DXMeshModel::release()]  "<<_model_name<<" の _pID3DXMeshが オブジェクトになっていないため release できません！");
     }
     //テクスチャを解放
     if (_papTextureConnection) {
         for (int i = 0; i < (int)_num_materials; i++) {
             if (_papTextureConnection[i]) {
-                _DTRACE3_("close() _papTextureConnection["<<i<<"]->"<<(_papTextureConnection[i]->getIdStr()));
+                _TRACE3_("close() _papTextureConnection["<<i<<"]->"<<(_papTextureConnection[i]->getIdStr()));
                 _papTextureConnection[i]->close();
             }
         }
@@ -160,7 +160,7 @@ void GgafDxD3DXMeshModel::release() {
     //TODO:親クラスメンバをDELETEするのはややきたないか
     GGAF_DELETEARR(_paMaterial_default);
 
-    _DTRACE3_("GgafDxD3DXMeshModel::release() " << _model_name << " end");
+    _TRACE3_("GgafDxD3DXMeshModel::release() " << _model_name << " end");
 }
 
 GgafDxD3DXMeshModel::~GgafDxD3DXMeshModel() {

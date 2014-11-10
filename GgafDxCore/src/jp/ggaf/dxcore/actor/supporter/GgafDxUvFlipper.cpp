@@ -86,7 +86,7 @@ void GgafDxUvFlipper::setActivePtn(int prm_pattno_uvflip) {
 void GgafDxUvFlipper::setFlipPtnRange(int prm_top, int prm_bottom) {
 #ifdef MY_DEBUG
     if (prm_top < 0) {
-        _DTRACE_("GgafDxUvFlipper::setFlipPtnRange prm_top="<<prm_top<<" TOPが負です。意図してますか？");
+        _TRACE_("GgafDxUvFlipper::setFlipPtnRange prm_top="<<prm_top<<" TOPが負です。意図してますか？");
     }
     if (prm_top > prm_bottom) {
         throwGgafCriticalException("GgafDxUvFlipper::setFlipPtnRange prm_top="<<prm_top<<",prm_bottom="<<prm_bottom<<" 大小がおかしいです。Texture="<<_pTexture->_texture_name);
@@ -103,7 +103,7 @@ void GgafDxUvFlipper::exec(GgafDxUvFlippingMethod prm_method, int prm_interval) 
 }
 
 void GgafDxUvFlipper::behave() {
-//    _DTRACE_(getName()<<":_pattno_uvflip_now="<<_pattno_uvflip_now<<"/_pattno_uvflip_bottom="<<_pattno_uvflip_bottom<<"/_pattno_uvflip_top="<<_pattno_uvflip_top<<"/_is_reverse_order_in_oscillate_animation_flg="<<_is_reverse_order_in_oscillate_animation_flg<<"");
+//    _TRACE_(getName()<<":_pattno_uvflip_now="<<_pattno_uvflip_now<<"/_pattno_uvflip_bottom="<<_pattno_uvflip_bottom<<"/_pattno_uvflip_top="<<_pattno_uvflip_top<<"/_is_reverse_order_in_oscillate_animation_flg="<<_is_reverse_order_in_oscillate_animation_flg<<"");
 #ifdef MY_DEBUG
     if (_paUV == nullptr) {
         throwGgafCriticalException("GgafDxUvFlipper::behave 事前にsetRotation()でパターンしてください。_pTexture="<<_pTexture->getName());

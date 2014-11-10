@@ -200,7 +200,7 @@ void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     EffectExplosion001* pExplo001 = dispatchFromCommon(EffectExplosion001);
     getSeTx()->play3D(0);
-    _DTRACE_("HIT!!!");
+    _TRACE_("HIT!!!");
     if (pExplo001) {
         pExplo001->positionAs(this);
     }

@@ -19,13 +19,13 @@ GgafActor::GgafActor(const char* prm_name, GgafStatus* prm_pStat) :
         _pStatus = NEW GgafStatus(12);
         getStatus()->set(0, 0);
     }
-    _DTRACE_("new "<<_class_name<<"("<<this<<")["<<prm_name<<"] _id="<<getId());
+    _TRACE_("new "<<_class_name<<"("<<this<<")["<<prm_name<<"] _id="<<getId());
 }
 
 GgafActor::~GgafActor() {
     _pFormation = nullptr;
     GGAF_DELETE(_pStatus);
-    _DTRACE_("delete "<<_class_name<<"("<<this<<")["<<getName()<<"] _id="<<getId());
+    _TRACE_("delete "<<_class_name<<"("<<this<<")["<<getName()<<"] _id="<<getId());
     //OutputDebugStringA("*");
 }
 
@@ -123,7 +123,7 @@ GgafFormation* GgafActor::getFormation() {
 }
 
 void GgafActor::dump() {
-    _DTRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"]"<<DUMP_FLGS);
+    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"]"<<DUMP_FLGS);
 
     GgafActor* pActor_tmp = _pSubFirst;
     while (pActor_tmp) {
@@ -131,29 +131,29 @@ void GgafActor::dump() {
         if (pActor_tmp->_pNext) {
             pActor_tmp = pActor_tmp->_pNext;
         } else {
-            _DTRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
+            _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
             break;
         }
         if (pActor_tmp->_is_first_flg) {
-            _DTRACE_("\t\t\t\t\t\t\t\tÑ§Ñü");
+            _TRACE_("\t\t\t\t\t\t\t\tÑ§Ñü");
             break;
         }
     }
 }
 
 void GgafActor::dump(std::string prm_parent) {
-    _DTRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"]"<<DUMP_FLGS);
+    _TRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"]"<<DUMP_FLGS);
     GgafActor* pActor_tmp = _pSubFirst;
     while (pActor_tmp) {
         pActor_tmp->dump(prm_parent + "Åb");
         if (pActor_tmp->_pNext) {
             pActor_tmp = pActor_tmp->_pNext;
         } else {
-            _DTRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
+            _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
             break;
         }
         if (pActor_tmp->_is_first_flg) {
-            _DTRACE_(prm_parent+"Ñ§Ñü");
+            _TRACE_(prm_parent+"Ñ§Ñü");
             break;
         }
     }

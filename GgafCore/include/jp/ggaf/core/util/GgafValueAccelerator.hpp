@@ -99,13 +99,13 @@ public:
             _prm._endacc_flg = false;
             return;
         }
-        //_DTRACE_("GgafValueAccelerator::accelerateByDt COME!");
-        //_DTRACE_("prm_target_value_distance="<<prm_target_value_distance);
-        //_DTRACE_("prm_target_frames="<<prm_target_frames);
-        //_DTRACE_("prm_p1="<<prm_p1);
-        //_DTRACE_("prm_p2="<<prm_p2);
-        //_DTRACE_("prm_end_velo="<<prm_end_velo);
-        //_DTRACE_("prm_endacc_flg="<<prm_endacc_flg);
+        //_TRACE_("GgafValueAccelerator::accelerateByDt COME!");
+        //_TRACE_("prm_target_value_distance="<<prm_target_value_distance);
+        //_TRACE_("prm_target_frames="<<prm_target_frames);
+        //_TRACE_("prm_p1="<<prm_p1);
+        //_TRACE_("prm_p2="<<prm_p2);
+        //_TRACE_("prm_end_velo="<<prm_end_velo);
+        //_TRACE_("prm_endacc_flg="<<prm_endacc_flg);
 
         if (sgn_W0 == 0 || s_d == sgn_W0) {  //正負が一致
             //＜トップスピード(Vt) を計算＞
@@ -139,13 +139,13 @@ public:
             double Vt = -(T1*V0-Ve*T2-2.0*D+Te*Ve)/(T2-T1+Te);
 
 
-            //_DTRACE_("V0="<<V0);
-            //_DTRACE_("Ve="<<Ve);
-            //_DTRACE_("T1="<<T1);
-            //_DTRACE_("T2="<<T2);
-            //_DTRACE_("Te="<<Te);
-            //_DTRACE_("D="<<D);
-            //_DTRACE_("Vt="<<Vt);
+            //_TRACE_("V0="<<V0);
+            //_TRACE_("Ve="<<Ve);
+            //_TRACE_("T1="<<T1);
+            //_TRACE_("T2="<<T2);
+            //_TRACE_("Te="<<Te);
+            //_TRACE_("D="<<D);
+            //_TRACE_("Vt="<<Vt);
 
             _prm._flg = true;
             _prm._target_distance = ABS(D);
@@ -224,15 +224,15 @@ public:
             double Ts = (T1*V0)/(V0-Vt);
             double s = (1.0/2.0)*Ts*-V0;
 
-            //_DTRACE_("V0="<<V0);
-            //_DTRACE_("Ve="<<Ve);
-            //_DTRACE_("T1="<<T1);
-            //_DTRACE_("T2="<<T2);
-            //_DTRACE_("Te="<<Te);
-            //_DTRACE_("D="<<D);
-            //_DTRACE_("Vt="<<Vt);
-            //_DTRACE_("Ts="<<Ts);
-            //_DTRACE_("s="<<s);
+            //_TRACE_("V0="<<V0);
+            //_TRACE_("Ve="<<Ve);
+            //_TRACE_("T1="<<T1);
+            //_TRACE_("T2="<<T2);
+            //_TRACE_("Te="<<Te);
+            //_TRACE_("D="<<D);
+            //_TRACE_("Vt="<<Vt);
+            //_TRACE_("Ts="<<Ts);
+            //_TRACE_("s="<<s);
             _prm._flg = true;
             _prm._p0 = Ts;
             _prm._p1 = T1;
@@ -251,20 +251,20 @@ public:
         }
 
 
-        //_DTRACE_("_prm._flg ="<<_prm._flg);
-        //_DTRACE_("_prm._p0 ="<<_prm._p0);
-        //_DTRACE_("_prm._p1 ="<<_prm._p1);
-        //_DTRACE_("_prm._p2 ="<<_prm._p2);
-        //_DTRACE_("_prm._target_distance ="<<_prm._target_distance);
-        //_DTRACE_("_prm._target_distance2 ="<<_prm._target_distance2);
-        //_DTRACE_("_prm._target_sgn ="<<_prm._target_sgn);
-        //_DTRACE_("_prm._moved ="<<_prm._moved);
-        //_DTRACE_("_prm._moved2 ="<<_prm._moved2);
-        //_DTRACE_("_prm._top_velo ="<<_prm._top_velo);
-        //_DTRACE_("_prm._end_velo ="<<_prm._end_velo);
-        //_DTRACE_("_prm._target_frames ="<<_prm._target_frames);
-        //_DTRACE_("_prm._frame_of_spent ="<<_prm._frame_of_spent);
-        //_DTRACE_("_prm._progress ="<<_prm._progress);
+        //_TRACE_("_prm._flg ="<<_prm._flg);
+        //_TRACE_("_prm._p0 ="<<_prm._p0);
+        //_TRACE_("_prm._p1 ="<<_prm._p1);
+        //_TRACE_("_prm._p2 ="<<_prm._p2);
+        //_TRACE_("_prm._target_distance ="<<_prm._target_distance);
+        //_TRACE_("_prm._target_distance2 ="<<_prm._target_distance2);
+        //_TRACE_("_prm._target_sgn ="<<_prm._target_sgn);
+        //_TRACE_("_prm._moved ="<<_prm._moved);
+        //_TRACE_("_prm._moved2 ="<<_prm._moved2);
+        //_TRACE_("_prm._top_velo ="<<_prm._top_velo);
+        //_TRACE_("_prm._end_velo ="<<_prm._end_velo);
+        //_TRACE_("_prm._target_frames ="<<_prm._target_frames);
+        //_TRACE_("_prm._frame_of_spent ="<<_prm._frame_of_spent);
+        //_TRACE_("_prm._progress ="<<_prm._progress);
 
     }
 
@@ -272,7 +272,7 @@ public:
                         VAL_TYPE prm_target_value_distance,
                         double prm_p1, double prm_p2, VAL_TYPE prm_end_velo,
                         bool prm_endacc_flg) {
-        //_DTRACE_("prm_target_value_distance="<<prm_target_value_distance<<" _velo="<<_velo);
+        //_TRACE_("prm_target_value_distance="<<prm_target_value_distance<<" _velo="<<_velo);
         int s_d = SGN(prm_target_value_distance);
         int sgn_W0 = SGN(_velo);
         if (ZEROd_EQ(prm_target_value_distance)) {
@@ -285,7 +285,7 @@ public:
             _prm._endacc_flg = false;
             return;
         }
-        //_DTRACE_("s_d="<<s_d<<" sgn_W0="<<sgn_W0);
+        //_TRACE_("s_d="<<s_d<<" sgn_W0="<<sgn_W0);
         if (sgn_W0 == 0 || s_d == sgn_W0) {  //正負が一致
             //
             //        角速度(V)                        V0:現時点の速度     (_velo_mv)
@@ -306,9 +306,9 @@ public:
             double V0 = _velo;
             double Vt = ABS(prm_top_velo) * s_d;
             double Ve = ABS(prm_end_velo) * s_d;
-            //_DTRACE_("V0 = "<<V0);
-            //_DTRACE_("Vt = "<<Vt);
-            //_DTRACE_("Ve = "<<Ve);
+            //_TRACE_("V0 = "<<V0);
+            //_TRACE_("Vt = "<<Vt);
+            //_TRACE_("Ve = "<<Ve);
             _prm._flg = true;
             _prm._top_velo = Vt;
             _prm._end_velo = Ve;
@@ -376,12 +376,12 @@ public:
             double a0 = ABS(prm_top_velo)*0.05 * -sgn_W0;
             double s  = (V0*V0)/(2.0*a0);
             double Dp = s + prm_target_value_distance;
-            //_DTRACE_("V0 = "<<V0);
-            //_DTRACE_("Vt = "<<Vt);
-            //_DTRACE_("Ve = "<<Ve);
-            //_DTRACE_("a0 = "<<a0);
-            //_DTRACE_("s  = "<<s );
-            //_DTRACE_("Dp = "<<Dp);
+            //_TRACE_("V0 = "<<V0);
+            //_TRACE_("Vt = "<<Vt);
+            //_TRACE_("Ve = "<<Ve);
+            //_TRACE_("a0 = "<<a0);
+            //_TRACE_("s  = "<<s );
+            //_TRACE_("Dp = "<<Dp);
 
             _prm._flg = true;
             _prm._top_velo = Vt;
@@ -403,20 +403,20 @@ public:
         }
 
 
-        //_DTRACE_("_prm._flg ="<<_prm._flg);
-        //_DTRACE_("_prm._p0 ="<<_prm._p0);
-        //_DTRACE_("_prm._p1 ="<<_prm._p1);
-        //_DTRACE_("_prm._p2 ="<<_prm._p2);
-        //_DTRACE_("_prm._target_distance ="<<_prm._target_distance);
-        //_DTRACE_("_prm._target_distance2 ="<<_prm._target_distance2);
-        //_DTRACE_("_prm._target_sgn ="<<_prm._target_sgn);
-        //_DTRACE_("_prm._moved ="<<_prm._moved);
-        //_DTRACE_("_prm._moved2 ="<<_prm._moved2);
-        //_DTRACE_("_prm._top_velo ="<<_prm._top_velo);
-        //_DTRACE_("_prm._end_velo ="<<_prm._end_velo);
-        //_DTRACE_("_prm._target_frames ="<<_prm._target_frames);
-        //_DTRACE_("_prm._frame_of_spent ="<<_prm._frame_of_spent);
-        //_DTRACE_("_prm._progress ="<<_prm._progress);
+        //_TRACE_("_prm._flg ="<<_prm._flg);
+        //_TRACE_("_prm._p0 ="<<_prm._p0);
+        //_TRACE_("_prm._p1 ="<<_prm._p1);
+        //_TRACE_("_prm._p2 ="<<_prm._p2);
+        //_TRACE_("_prm._target_distance ="<<_prm._target_distance);
+        //_TRACE_("_prm._target_distance2 ="<<_prm._target_distance2);
+        //_TRACE_("_prm._target_sgn ="<<_prm._target_sgn);
+        //_TRACE_("_prm._moved ="<<_prm._moved);
+        //_TRACE_("_prm._moved2 ="<<_prm._moved2);
+        //_TRACE_("_prm._top_velo ="<<_prm._top_velo);
+        //_TRACE_("_prm._end_velo ="<<_prm._end_velo);
+        //_TRACE_("_prm._target_frames ="<<_prm._target_frames);
+        //_TRACE_("_prm._frame_of_spent ="<<_prm._frame_of_spent);
+        //_TRACE_("_prm._progress ="<<_prm._progress);
     }
 
     bool isAcce() {
@@ -426,8 +426,8 @@ public:
     void behave() {
         //なめらか移動シークエンス起動時
         if (_prm._flg) {
-            //_DTRACE_(_prm._target_frames<<":_prm._progress="<<_prm._progress);
-            //_DTRACE_(_prm._target_frames<<":before _value="<<_value<<" _velo="<<_velo<<" _acce="<<_acce<<" _prm._moved="<<_prm._moved<<" _prm._moved2="<<_prm._moved2<<"");
+            //_TRACE_(_prm._target_frames<<":_prm._progress="<<_prm._progress);
+            //_TRACE_(_prm._target_frames<<":before _value="<<_value<<" _velo="<<_velo<<" _acce="<<_acce<<" _prm._moved="<<_prm._moved<<" _prm._moved2="<<_prm._moved2<<"");
             if (_prm._progress == -9) {
                 _prm._flg = false; //おしまい
             } else {
@@ -483,54 +483,54 @@ public:
                         }
                     }
                     if (_prm._progress == 4) {
-                        //_DTRACE_("等速中");
+                        //_TRACE_("等速中");
                         //等速中
                         if (_prm._moved >= _prm._p2) {
                             //p2 に到達すれば 次回フレームから減速へ
-                            //_DTRACE_("p2 に到達すれば 次回フレームから減速へ");
+                            //_TRACE_("p2 に到達すれば 次回フレームから減速へ");
                             VAL_TYPE diff_to_end = _prm._target_distance2 - _prm._moved2;
                             if (!ZEROd_EQ(diff_to_end)) {
-                                //_DTRACE_("diff_to_end="<<diff_to_end<<" 減速加速度を求めれる");
+                                //_TRACE_("diff_to_end="<<diff_to_end<<" 減速加速度を求めれる");
                                 VAL_TYPE acc = UTIL::getAcceByVd(_velo, _prm._end_velo, diff_to_end);
                                 _acce = acc;
-                                //_DTRACE_("減速加速度 _acce="<<acc<<" ????");
+                                //_TRACE_("減速加速度 _acce="<<acc<<" ????");
                                 if (ABS(_velo)+ABS(acc) > ABS(diff_to_end)) {
                                     _acce = diff_to_end-_velo;
                                 }
-                                //_DTRACE_("減速加速度 補正 _acce="<<acc<<" ????");
+                                //_TRACE_("減速加速度 補正 _acce="<<acc<<" ????");
                             }
                             _prm._progress++;
                         }
                     }
                     if (_prm._progress == 5) {
-                         //_DTRACE_("減速中");
+                         //_TRACE_("減速中");
                         //減速中
                         VAL_TYPE diff_to_end = _prm._target_distance2 - _prm._moved2;
                         //Te=(2*D)/(V0+Vt)
 
                         //double t = (2.0*diff_to_end)/(_velo+_prm._end_velo); //残フレーム数    //＃＃ここもコメント
-                        //_DTRACE_("double t = (2.0*diff_to_end)/(_velo+_prm._end_velo); //残フレーム数");
-                        //_DTRACE_("double t = (2.0*"<<diff_to_end<<")/("<<_velo<<"+"<<_prm._end_velo<<"); //残フレーム数");
-                        //_DTRACE_("double t = ("<<2.0*diff_to_end<<")/("<<_velo+_prm._end_velo<<"); //残フレーム数");
-                        //_DTRACE_("残フレーム t="<<t<<" ？");
-                        //_DTRACE_("ABS(_velo) < 2.0*ABS(_acce) = "<<ABS(_velo)<<" < "<<2.0*ABS(_acce));
+                        //_TRACE_("double t = (2.0*diff_to_end)/(_velo+_prm._end_velo); //残フレーム数");
+                        //_TRACE_("double t = (2.0*"<<diff_to_end<<")/("<<_velo<<"+"<<_prm._end_velo<<"); //残フレーム数");
+                        //_TRACE_("double t = ("<<2.0*diff_to_end<<")/("<<_velo+_prm._end_velo<<"); //残フレーム数");
+                        //_TRACE_("残フレーム t="<<t<<" ？");
+                        //_TRACE_("ABS(_velo) < 2.0*ABS(_acce) = "<<ABS(_velo)<<" < "<<2.0*ABS(_acce));
                         if (ABS(_velo) < 2.0*ABS(_acce)) {
-                            //_DTRACE_("補正しない （_veloがあまりにも小さいため、t が爆発する。無限小の加速度が設定されてしまうため）");
+                            //_TRACE_("補正しない （_veloがあまりにも小さいため、t が爆発する。無限小の加速度が設定されてしまうため）");
                             //t = 1;
                             //補正しない(_veloがあまりにも小さいため、t が爆発する)
                         } else {
                             if (_prm._frame_of_spent & 1) { //2回に1回
         //                      if (t > 3 && ABS(diff_to_end) > ABS(_prm._top_velo)*0.0001 && _prm._frame_of_spent % 4U == 0) {
-                                //_DTRACE_("t="<<t<<" が爆発してないので、補正・補正・補正");
+                                //_TRACE_("t="<<t<<" が爆発してないので、補正・補正・補正");
                                 //補正・補正・補正
                                 if (!ZEROd_EQ(diff_to_end)) {
                                     VAL_TYPE acc = UTIL::getAcceByVd(_velo, _prm._end_velo, diff_to_end);
                                     _acce = acc;
-                                    //_DTRACE_("減速加速度再設定 _acce="<<acc<<" ????");
+                                    //_TRACE_("減速加速度再設定 _acce="<<acc<<" ????");
                                     if (ABS(_velo)+ABS(acc) > ABS(diff_to_end)) {
                                         _acce = diff_to_end-_velo;
                                     }
-                                    //_DTRACE_("減速加速度再設定 補正 _acce="<<acc<<" ????");
+                                    //_TRACE_("減速加速度再設定 補正 _acce="<<acc<<" ????");
                                 }
                             }
                         }
@@ -542,14 +542,14 @@ public:
                              (ZEROd_EQ(_velo+end_velo)  || (_velo+end_velo > 0 && _velo+end_velo+_acce < 0 ) || (_velo+end_velo <  0 && _velo+end_velo+_acce > 0) ) //届かず反転したか
                         ) {
                             //目標距離へ到達
-                            //_DTRACE_("目標距離へ到達");
-                            //_DTRACE_("ABS(_prm._target_distance2 - _prm._moved2) <=  ABS(_prm._top_velo)*0.00001");
-                            //_DTRACE_(""<<ABS(_prm._target_distance2 - _prm._moved2)<<" <= "<<ABS(_prm._top_velo)*0.00001<<" ??");
-                            //_DTRACE_("(ZEROd_EQ(_prm._top_velo)  || (_prm._top_velo > 0  && diff_to_end <= 0) || (_prm._top_velo < 0  && diff_to_end >= 0) ) || //通り越したか");
-                            //_DTRACE_("_prm._top_velo="<<_prm._top_velo<<" diff_to_end="<<diff_to_end<<"");
-                            //_DTRACE_("(ZEROd_EQ(_velo+end_velo)  || (_velo+end_velo  >  0 && _velo +end_velo + _acce < 0 ) || (_velo+end_velo  <  0 && _velo +end_velo+_acce > 0) ) //届かず反転したか");
-                            //_DTRACE_("_velo="<<_velo<<" end_velo="<<end_velo<<" _velo+end_velo="<<_velo+end_velo<<" _acce="<<_acce<<" _velo +end_velo+_acce="<<_velo +end_velo + _acce <<"");
-                            //_DTRACE_("おしまいな雰囲気");
+                            //_TRACE_("目標距離へ到達");
+                            //_TRACE_("ABS(_prm._target_distance2 - _prm._moved2) <=  ABS(_prm._top_velo)*0.00001");
+                            //_TRACE_(""<<ABS(_prm._target_distance2 - _prm._moved2)<<" <= "<<ABS(_prm._top_velo)*0.00001<<" ??");
+                            //_TRACE_("(ZEROd_EQ(_prm._top_velo)  || (_prm._top_velo > 0  && diff_to_end <= 0) || (_prm._top_velo < 0  && diff_to_end >= 0) ) || //通り越したか");
+                            //_TRACE_("_prm._top_velo="<<_prm._top_velo<<" diff_to_end="<<diff_to_end<<"");
+                            //_TRACE_("(ZEROd_EQ(_velo+end_velo)  || (_velo+end_velo  >  0 && _velo +end_velo + _acce < 0 ) || (_velo+end_velo  <  0 && _velo +end_velo+_acce > 0) ) //届かず反転したか");
+                            //_TRACE_("_velo="<<_velo<<" end_velo="<<end_velo<<" _velo+end_velo="<<_velo+end_velo<<" _acce="<<_acce<<" _velo +end_velo+_acce="<<_velo +end_velo + _acce <<"");
+                            //_TRACE_("おしまいな雰囲気");
                             _velo = _prm._end_velo;
                             if (_prm._endacc_flg) {
                                 _acce = (VAL_TYPE)0.0;
@@ -558,24 +558,24 @@ public:
                                 //最終速度が0の場合、バッチリ合わせを試みる。
                                 if (ZEROd_EQ(diff_to_end)) {
                                     //既にバッチリあっていました
-                                    //_DTRACE_("既にバッチリあっていました");
-                                    //_DTRACE_("おしまい11早！!!");
+                                    //_TRACE_("既にバッチリあっていました");
+                                    //_TRACE_("おしまい11早！!!");
                                     _velo = (VAL_TYPE)0.0;
                                     _prm._flg = false; //おしまい
                                 } else {
                                     //ずれてるのでもう１フレーム頑張ってバッチリ合わせる
                                     _velo = diff_to_end;   //バッチリ合わせる
-                                    //_DTRACE_("バッチリ合わせたったよ_velo="<<_prm._target_distance2<<"-"<<_prm._moved2<<"="<<_velo);
+                                    //_TRACE_("バッチリ合わせたったよ_velo="<<_prm._target_distance2<<"-"<<_prm._moved2<<"="<<_velo);
                                     _prm._progress++; //もう１フレーム
                                 }
                             } else {
                                 //最終速度が0ではない。そのまま終了
-                                //_DTRACE_("おしまい22");
+                                //_TRACE_("おしまい22");
                                 _prm._flg = false; //おしまい
                             }
                         }
                     } else if (_prm._progress == 6) {
-                        //_DTRACE_("よしバッチリ合わせておしまい");
+                        //_TRACE_("よしバッチリ合わせておしまい");
                         _velo = (VAL_TYPE)0.0;
                         _prm._flg = false; //おしまい
                     }
@@ -602,44 +602,44 @@ public:
                         }
                     }
                     if (_prm._progress == 2) {
-                        //_DTRACE_("等速中 _prm._frame_of_spent="<<_prm._frame_of_spent<<" _prm._p2="<<_prm._p2);
+                        //_TRACE_("等速中 _prm._frame_of_spent="<<_prm._frame_of_spent<<" _prm._p2="<<_prm._p2);
                         //等速中
                         if (_prm._frame_of_spent >= (int)(_prm._p2)) {
-                            //_DTRACE_("p2 に到達すれば 次回フレームから減速へ _prm._frame_of_spent="<<_prm._frame_of_spent<<" _prm._p2="<<_prm._p2);
+                            //_TRACE_("p2 に到達すれば 次回フレームから減速へ _prm._frame_of_spent="<<_prm._frame_of_spent<<" _prm._p2="<<_prm._p2);
                             //p2 に到達すれば 次回フレームから減速へ
                             VAL_TYPE acc = UTIL::getAcceByTv(_prm._target_frames - _prm._frame_of_spent, _velo, _prm._end_velo);
                             _acce = acc;
-                            //_DTRACE_("減速加速度 _acce="<<_acce);
+                            //_TRACE_("減速加速度 _acce="<<_acce);
                             _prm._progress++;
                         }
                     }
                     if (_prm._progress == 3) {
                         //減速中
-                        //_DTRACE_("減速中");
+                        //_TRACE_("減速中");
                         if (_prm._frame_of_spent & 1 == 0) { //2回に1回
-                            //_DTRACE_("補正・補正・補正");
+                            //_TRACE_("補正・補正・補正");
                             //補正・補正・補正
                             //最後の台形補正
                             //D = (1/2)*(V+Ve)*Te
                             double Ve = _prm._end_velo;
                             double Te = _prm._target_frames - _prm._frame_of_spent;
-                            //_DTRACE_("Ve = "<<Ve);
-                            //_DTRACE_("Te = "<<Te);
+                            //_TRACE_("Ve = "<<Ve);
+                            //_TRACE_("Te = "<<Te);
                             if (Te > 0) {
                                 double D = _prm._target_distance2 - _prm._moved2;
                                 double V =(2.0*D-Te*Ve)/Te;
-                                //_DTRACE_("D = "<<D);
-                                //_DTRACE_("V = "<<V);
+                                //_TRACE_("D = "<<D);
+                                //_TRACE_("V = "<<V);
                                 _velo = V;
-                                //_DTRACE_("速度 _velo = "<<_velo<<" に補正");
+                                //_TRACE_("速度 _velo = "<<_velo<<" に補正");
                                 VAL_TYPE acc = UTIL::getAcceByTv(_prm._target_frames - _prm._frame_of_spent, _velo, _prm._end_velo);
                                 _acce = acc;
-                                //_DTRACE_("加速度 _acce = "<<_acce<<" に補正");
+                                //_TRACE_("加速度 _acce = "<<_acce<<" に補正");
                             }
                         }
-                        //_DTRACE_("_prm._frame_of_spent="<<_prm._frame_of_spent<< " _prm._target_frames="<<_prm._target_frames);
+                        //_TRACE_("_prm._frame_of_spent="<<_prm._frame_of_spent<< " _prm._target_frames="<<_prm._target_frames);
                         if (_prm._frame_of_spent >= _prm._target_frames) {
-                            //_DTRACE_("_prm._frame_of_spent >= _prm._target_frames 成立、おしまいな雰囲気");
+                            //_TRACE_("_prm._frame_of_spent >= _prm._target_frames 成立、おしまいな雰囲気");
                             _velo = _prm._end_velo;
                             if (_prm._endacc_flg) {
                                 _acce = (VAL_TYPE)0.0;
@@ -648,24 +648,24 @@ public:
                                 //最終速度が0の場合、バッチリ合わせを試みる。
                                 if (ZEROd_EQ(_prm._target_distance2 - _prm._moved2)) {
                                     //既にバッチリあっていました
-                                    //_DTRACE_("既にバッチリあっていました");
-                                    //_DTRACE_("おしまい1早！");
+                                    //_TRACE_("既にバッチリあっていました");
+                                    //_TRACE_("おしまい1早！");
                                     _velo = (VAL_TYPE)0.0;
                                     _prm._flg = false; //おしまい
                                 } else {
                                     //ずれてる。
                                     _velo = (_prm._target_distance2 - _prm._moved2); //バッチリ合わせるて、もう１フレーム
-                                    //_DTRACE_("バッチリ合わせたったよ_velo="<<_prm._target_distance2<<"-"<<_prm._moved2<<"="<<_velo);
+                                    //_TRACE_("バッチリ合わせたったよ_velo="<<_prm._target_distance2<<"-"<<_prm._moved2<<"="<<_velo);
                                     _prm._progress++;
                                 }
                             } else {
                                 //最終速度が0ではない。そのまま終了
-                                //_DTRACE_("おしまい2");
+                                //_TRACE_("おしまい2");
                                 _prm._flg = false; //おしまい
                             }
                         }
                     } else if (_prm._progress == 4) {
-                        //_DTRACE_("バッチリ合わせておしまい");
+                        //_TRACE_("バッチリ合わせておしまい");
                         _velo = (VAL_TYPE)0.0;
                         _prm._flg = false; //おしまい
                     }
@@ -678,7 +678,7 @@ public:
             _prm._moved += ABS(_velo);
             _prm._moved2 += _velo;
 
-            //_DTRACE_(_prm._target_frames<<":after _value="<<_value<<" _velo="<<_velo<<" _acce="<<_acce<<" _prm._moved="<<_prm._moved<<" _prm._moved2="<<_prm._moved2<<"");
+            //_TRACE_(_prm._target_frames<<":after _value="<<_value<<" _velo="<<_velo<<" _acce="<<_acce<<" _prm._moved="<<_prm._moved<<" _prm._moved2="<<_prm._moved2<<"");
             _prm._frame_of_spent++;
         } else {
             _prm._progress = -1;

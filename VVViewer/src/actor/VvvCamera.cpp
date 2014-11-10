@@ -59,7 +59,7 @@ void VvvCamera::processBehavior() {
 
     if (isMoving() || pVP->isMoving()) {
         vcv_face_ = getCamToVpFaceNo();
-//        _DTRACE_("CAM or VP move  vcv_face_ = "<<vcv_face_);
+//        _TRACE_("CAM or VP move  vcv_face_ = "<<vcv_face_);
         if (vcv_face_ != vcv_face_prev_) {
             if (vcv_face_ == up_face_) {
                 //今のUP(up_face_)の面にカメラ→視点ベクトル(vcv_face_)が突き刺さる場合
@@ -75,15 +75,15 @@ void VvvCamera::processBehavior() {
             }
         }
     }
-    //_DTRACE_("cam=("<<_x<<","<<_y<<","<<_z<<")");
-//    _DTRACE_("cam=("<<_x<<","<<_y<<","<<_z<<") vp=("<< pVP->_x <<","<< pVP->_y <<","<< pVP->_z <<")  UP=("<< pUp_->_x <<","<< pUp_->_y <<","<< pUp_->_z <<") CAM_UP=("<< _pVecCamUp->x <<","<< _pVecCamUp->y <<","<< _pVecCamUp->z <<")");
-//    _DTRACE_("vcv="<<vcv_face_prev_<<"→"<<vcv_face_<<" up_face_="<<bk_up_face_<<"→"<<up_face_<<"");
+    //_TRACE_("cam=("<<_x<<","<<_y<<","<<_z<<")");
+//    _TRACE_("cam=("<<_x<<","<<_y<<","<<_z<<") vp=("<< pVP->_x <<","<< pVP->_y <<","<< pVP->_z <<")  UP=("<< pUp_->_x <<","<< pUp_->_y <<","<< pUp_->_z <<") CAM_UP=("<< _pVecCamUp->x <<","<< _pVecCamUp->y <<","<< _pVecCamUp->z <<")");
+//    _TRACE_("vcv="<<vcv_face_prev_<<"→"<<vcv_face_<<" up_face_="<<bk_up_face_<<"→"<<up_face_<<"");
     DefaultCamera::processBehavior();
 
 }
 
 void VvvCamera::slideMvTo(coord tx, coord ty, coord tz, frame t) {
-    _DTRACE_(" VvvCamera::slideMvTo("<<tx<<","<<ty<<","<<tz<<",t="<<t<<")");
+    _TRACE_(" VvvCamera::slideMvTo("<<tx<<","<<ty<<","<<tz<<",t="<<t<<")");
     pAxsMver_->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               0.3, 0.4, 0, true);

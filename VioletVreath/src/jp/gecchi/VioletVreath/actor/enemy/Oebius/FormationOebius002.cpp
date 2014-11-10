@@ -20,7 +20,7 @@ FormationOebius002::FormationOebius002(const char* prm_name) :
 
     papSplManufConn_ = NEW SplineManufactureConnection*[getFormationColNum()];
     for (int col = 0; col < getFormationColNum(); col++) {
-        papSplManufConn_[col] = getConnection_SplineManufactureManager(("FormationOebius002_1_"+XTOS(col)).c_str());
+        papSplManufConn_[col] = getConnection_SplineManufactureManager(("FormationOebius002_"+XTOS(col)).c_str());
     }
 }
 
@@ -62,8 +62,8 @@ void FormationOebius002::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, i
                            entry_pos_.y + dy,
                            entry_pos_.z + dz);
     pOebius->getKuroko()->setMvAngByFaceAng();
-    pOebius->getKuroko()->setMvVelo(PX_C(2));
-    pOebius->getKuroko()->setMvAcce(0);
+    pOebius->getKuroko()->setMvVelo(0);
+    pOebius->getKuroko()->setMvAcce(80);
 
     //F‚ðÝ’è
     GgafXpm* pXpM = pXpmConnection_->peek();

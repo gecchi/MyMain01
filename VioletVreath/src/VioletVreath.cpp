@@ -69,11 +69,11 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     if (PathFileExists(VV_DEFAULT_CONFIG_FILE)) {
         if (PathFileExists(VV_CONFIG_FILE)) {
             VioletVreath::Properties::load(VV_CONFIG_FILE);
-            _DTRACE_("config.properties を load しました");
+            _TRACE_("config.properties を load しました");
         } else {
             VioletVreath::Properties::load(VV_DEFAULT_CONFIG_FILE);
             VioletVreath::Properties::save(VV_CONFIG_FILE);
-            _DTRACE_("＜警告＞config.properties が存在しないので、既定の '" <<VV_DEFAULT_CONFIG_FILE << "' を load しました。");
+            _TRACE_("＜警告＞config.properties が存在しないので、既定の '" <<VV_DEFAULT_CONFIG_FILE << "' を load しました。");
         }
 
     } else {
@@ -140,7 +140,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                         VioletVreath::God::_can_be = false;
                         while (pGod->_is_being) {
                             Sleep(2);
-                            _DTRACE_("Wait! 神 is being yet..");
+                            _TRACE_("Wait! 神 is being yet..");
                         }
                         GGAF_DELETE(pGod); //神の最期
                         pGod = nullptr;
@@ -210,21 +210,21 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
         }
     } catch (GgafCore::GgafException& e) {
         //異常終了時
-        _DTRACE_("＜例外＞"<<e.getMsg());
+        _TRACE_("＜例外＞"<<e.getMsg());
         std::string message = "\n・"+e.getMsg()+"  \n\nエラーにお心あたりが無い場合、本アプリのバグの可能性が高いです。\n誠に申し訳ございません。\n";
         std::string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
         MessageBox(nullptr, message_dialog.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_GgafException.rep");
         VB_UI->_pRpy->outputFile("VB_UI_LAST_GgafException.rep");
-        _DTRACE_("[GgafCriticalException]:"<<e.getMsg());
+        _TRACE_("[GgafCriticalException]:"<<e.getMsg());
         return EXIT_FAILURE;
     } catch (std::exception& e2) {
         std::string what(e2.what());
-        _DTRACE_("＜致命的な例外＞"<<what);
+        _TRACE_("＜致命的な例外＞"<<what);
         std::string message = "\n・"+what+"  \n\n恐れ入りますが、作者には予測できなかった致命的エラーです。\n誠に申し訳ございません。\n";
         std::string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
         MessageBox(nullptr, message_dialog.c_str(),"下記の致命的な例外が発生してしまいました", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
-        _DTRACE_("[exception]:"<<what);
+        _TRACE_("[exception]:"<<what);
         VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_exception.rep");
         VB_UI->_pRpy->outputFile("VB_UI_LAST_exception.rep");
         return EXIT_FAILURE;
@@ -233,7 +233,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 #ifndef MY_DEBUG
     //以下のキャッチはDEBUG時であっても、メモリ違反をつぶす可能性があるため、DEBUG時は無効とする。
     catch( ... ) {
-        _DTRACE_("＜致命的な謎例外＞");
+        _TRACE_("＜致命的な謎例外＞");
         std::string message = "恐れ入りますが、不明な内部エラーが発生しました。\n誠に申し訳ございません。\n";
         std::string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
         MessageBox(nullptr, message_dialog.c_str(),"下記の致命的な謎例外が発生してしまいました", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);

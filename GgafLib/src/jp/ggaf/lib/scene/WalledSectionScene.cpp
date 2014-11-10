@@ -13,7 +13,7 @@ using namespace GgafLib;
 WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_data_filename,  WalledScene* prm_pWalledScene) : DefaultScene(prm_name) {
 //ruby tool/script/make_stage_data.rb > scene/stage_data.txt
 
-    _DTRACE_("WalledSectionScene::WalledSectionScene "<<prm_data_filename<<" begin");
+    _TRACE_("WalledSectionScene::WalledSectionScene "<<prm_data_filename<<" begin");
     _class_name = "WalledSectionScene";
     _pActor_front_alpha_target = nullptr;
     _pWalledScene = prm_pWalledScene;
@@ -53,7 +53,7 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
 
     _papaWallInfo = NEW WallInfo*[_area_len];
     for (int i = 0; i < _area_len; i++) {
-        _DTRACE_("WalledSectionScene read..."<<i);
+        _TRACE_("WalledSectionScene read..."<<i);
         _papaWallInfo[i] = NEW WallInfo[_paWallInfoLen[i]];
         for (int j = 0; j < _paWallInfoLen[i]; j++) {
             ifs >> _papaWallInfo[i][j]._pos_prism >>
@@ -76,7 +76,7 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
     _wall_start_x = 0;
     _pDepo_wall = nullptr;
     _pDepo_prism = nullptr;
-    _DTRACE_("WalledSectionScene::WalledSectionScene "<<prm_data_filename<<" done");
+    _TRACE_("WalledSectionScene::WalledSectionScene "<<prm_data_filename<<" done");
 }
 
 void WalledSectionScene::config(

@@ -25,7 +25,7 @@ using namespace VioletVreath;
 
 World::World(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "World";
-    _DTRACE_("World::World");
+    _TRACE_("World::World");
 
     pLabel_aster_ = NEW LabelGecchi16Font("ASTER");
     getSceneDirector()->addSubGroup(pLabel_aster_);
@@ -52,7 +52,7 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
 }
 
 void World::initialize() {
-    _DTRACE_("World::initialize()");
+    _TRACE_("World::initialize()");
     pixcoord cx = PROPERTY::GAME_BUFFER_WIDTH/2;
     pixcoord cy = PROPERTY::GAME_BUFFER_HEIGHT/2;
     std::ostringstream os;
@@ -205,9 +205,9 @@ void World::processBehavior() {
 
 #ifdef MY_DEBUG
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_T)) {
-        _DTRACE_("-------------------- World dump() start --------------------------------");
+        _TRACE_("-------------------- World dump() start --------------------------------");
         dump();
-        _DTRACE_("-------------------- World dump() end   --------------------------------");
+        _TRACE_("-------------------- World dump() end   --------------------------------");
     }
 #endif
     SceneProgress* pProg = getProgress();
@@ -315,10 +315,10 @@ void World::processBehavior() {
                             );
     pLabel_debug_->update(aBufDebug_);
     if (getActiveFrame() % 60U == 0) {
-        _DTRACE_("aBufDebug_="<<aBufDebug_);
+        _TRACE_("aBufDebug_="<<aBufDebug_);
     }
     if (P_GOD->_sync_frame_time) {
-        _DTEXT_("z");
+        _TRACE_N_("z");
     }
 #else
     sprintf(aBufDebug_, "%03.1fFPS", askGod()->_fps);

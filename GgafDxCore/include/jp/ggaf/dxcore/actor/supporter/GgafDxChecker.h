@@ -46,7 +46,7 @@ public:
 
     virtual GgafDxGeometricActor* getTargetActor() {
         if (_pActor == nullptr) {
-            _DTRACE_("GgafDxChecker::getTargetActor nullptrÇ≈Ç†ÇÈÇ™ÇÊÇ¢ÇÃÇ©ÅI");
+            _TRACE_("GgafDxChecker::getTargetActor nullptrÇ≈Ç†ÇÈÇ™ÇÊÇ¢ÇÃÇ©ÅI");
         }
         return _pActor;
     }

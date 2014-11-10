@@ -34,7 +34,7 @@ void FormationTableScene::onActive() {
         _table.getCurrent()->_pFormationActor->activate();
         //OK
         //_frame_of_current_part_began = getActiveFrame(); todo:絶対に０になるし。相対フレームでいいっか・・・
-        _DTRACE_("FormationTableScene::onActive() ["<<getName()<<"] 来ました。");
+        _TRACE_("FormationTableScene::onActive() ["<<getName()<<"] 来ました。");
     } else {
         throwGgafCriticalException("FormationTableScene::onActive() ["<<getName()<<"] テーブルにアクターが未だありません");
     }
@@ -67,14 +67,14 @@ void FormationTableScene::processBehavior() {
             //全滅の場合
             if (_table.isLast()) {
                 //最終パートだったらTABLE終了
-                _DTRACE_("FormationTableScene::processBehavior() ["<<getName()<<"] end() 全パート終了！！");
+                _TRACE_("FormationTableScene::processBehavior() ["<<getName()<<"] end() 全パート終了！！");
                 sayonara(FORMATION_END_DELAY);
             } else {
-                _DTRACE_("FormationTableScene::processBehavior() ["<<getName()<<"] pActiveActor="<<pF->getName()<<" 消滅により早回しきたー！！");
+                _TRACE_("FormationTableScene::processBehavior() ["<<getName()<<"] pActiveActor="<<pF->getName()<<" 消滅により早回しきたー！！");
                 //最終パートではない場合、テーブル全体の許容フレームか判断
                 if (_max_perform_frame <  getActiveFrame()) {
                     //収まらないと言うわけで、以降は全て無視されてシーン終了
-                    _DTRACE_("FormationTableScene::processBehavior() ["<<getName()<<"] end() 収まらない強制終了１！！");
+                    _TRACE_("FormationTableScene::processBehavior() ["<<getName()<<"] end() 収まらない強制終了１！！");
                     sayonara(FORMATION_END_DELAY); //0.5分後破棄(前パートが残存しているかも知れないため余裕をもたせる)
                     //このsayonara() により、本処理先頭の wasDeclaredEnd() が真となる
                 } else {
@@ -88,7 +88,7 @@ void FormationTableScene::processBehavior() {
             //全滅では無い場合
             if (_table.isLast()) {
                 //最終パートは次がないのでなにもしない
-                _DTRACE_("FormationTableScene::processBehavior() ["<<getName()<<"] end() 全滅では無いし、最終パートで次が無いのでなにもしない");
+                _TRACE_("FormationTableScene::processBehavior() ["<<getName()<<"] end() 全滅では無いし、最終パートで次が無いのでなにもしない");
                 sayonara(FORMATION_END_DELAY); //0.5分後破棄(前パートが残存しているかも知れないため余裕をもたせる)
                 //このsayonara() により、本処理先頭の wasDeclaredEnd() が真となる
             } else {
@@ -96,7 +96,7 @@ void FormationTableScene::processBehavior() {
                 if (getActiveFrame() >= e->_max_delay_offset+_frame_of_current_part_began) {
                     if (_max_perform_frame <  getActiveFrame()) {
                         //収まらないと言うわけで、以降は全て無視され共生終了
-                        _DTRACE_("FormationTableScene::processBehavior() ["<<getName()<<"] end() 収まらない強制終了２！！");
+                        _TRACE_("FormationTableScene::processBehavior() ["<<getName()<<"] end() 収まらない強制終了２！！");
                         sayonara(FORMATION_END_DELAY); //0.5分後破棄(前パートが残存しているかも知れないため余裕をもたせる)
                         //このsayonara() により、本処理先頭の wasDeclaredEnd() が真となる
                     } else {

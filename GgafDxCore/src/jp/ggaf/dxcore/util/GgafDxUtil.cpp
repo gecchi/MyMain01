@@ -156,7 +156,7 @@ void GgafDxUtil::init() {
         d_index_slant = index_slant - index_slant_prev;
         for (int i = index_slant_prev+1, d = 1; i <= index_slant; i++, d++) {
             if (i > 100000) {
-                _DTRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT2ANG["<<i<<"]<="<<(ang*10));
+                _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT2ANG["<<i<<"]<="<<(ang*10));
             }
             //等分する（ここがアバウトのもと）
             SLANT2ANG[i] = (angle)( ((ang-1) + (1.0*d)/(1.0*d_index_slant))*1.0);
@@ -166,7 +166,7 @@ void GgafDxUtil::init() {
     d_index_slant = 100000 - index_slant_prev;
     for (int i = index_slant_prev+1, d = 1; i <= 100000; i++, d++) {
         if (i > 100000) {
-            _DTRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT2ANG["<<i<<"]<="<<(450000));
+            _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT2ANG["<<i<<"]<="<<(450000));
         }
         SLANT2ANG[i] = (angle)( (45000-1) + (1.0*d)/(1.0*d_index_slant) );
     }
@@ -214,7 +214,7 @@ void GgafDxUtil::init() {
             );
             PROJANG_XY_XZ_TO_ROTANG_z[prj_ang_xy][prj_ang_xz] = rz*SANG_RATE;
             PROJANG_XY_XZ_TO_ROTANG_y_REV[prj_ang_xy][prj_ang_xz] = ry_rev*SANG_RATE;
-            //_DTRACE_("["<<prj_ang_xy<<"]["<<prj_ang_xz<<"]=("<<PROJANG_XY_XZ_TO_ROTANG_z[prj_ang_xy][prj_ang_xz]<<","<<PROJANG_XY_XZ_TO_ROTANG_y_REV[prj_ang_xy][prj_ang_xz]<<")");
+            //_TRACE_("["<<prj_ang_xy<<"]["<<prj_ang_xz<<"]=("<<PROJANG_XY_XZ_TO_ROTANG_z[prj_ang_xy][prj_ang_xz]<<","<<PROJANG_XY_XZ_TO_ROTANG_y_REV[prj_ang_xy][prj_ang_xz]<<")");
 
         }
     }
@@ -251,8 +251,8 @@ void GgafDxUtil::init() {
             //これは上で求めたry_revをD90ANGから引いた値である。
             PROJANG_ZY_ZX_TO_ROTANG_x_REV[prj_ang_zy][prj_ang_zx] = rx_rev*SANG_RATE;
             PROJANG_ZY_ZX_TO_ROTANG_y[prj_ang_zy][prj_ang_zx] = D90ANG - ry_rev*SANG_RATE;
-            //_DTRACE_("PROJANG_ZY_ZX_TO_ROTANG_y["<<prj_ang_zy<<"]["<<prj_ang_zx<<"] = D90ANG - "<<ry_rev<<"*SANG_RATE = "<<PROJANG_ZY_ZX_TO_ROTANG_y[prj_ang_zy][prj_ang_zx]);
-            //_DTRACE_("["<<prj_ang_xy<<"]["<<prj_ang_xz<<"]=("<<PROJANG_XY_XZ_TO_ROTANG_z[prj_ang_xy][prj_ang_xz]<<","<<PROJANG_XY_XZ_TO_ROTANG_y_REV[prj_ang_xy][prj_ang_xz]<<")");
+            //_TRACE_("PROJANG_ZY_ZX_TO_ROTANG_y["<<prj_ang_zy<<"]["<<prj_ang_zx<<"] = D90ANG - "<<ry_rev<<"*SANG_RATE = "<<PROJANG_ZY_ZX_TO_ROTANG_y[prj_ang_zy][prj_ang_zx]);
+            //_TRACE_("["<<prj_ang_xy<<"]["<<prj_ang_xz<<"]=("<<PROJANG_XY_XZ_TO_ROTANG_z[prj_ang_xy][prj_ang_xz]<<","<<PROJANG_XY_XZ_TO_ROTANG_y_REV[prj_ang_xy][prj_ang_xz]<<")");
         }
     }
     GgafDxUtil::_was_GgafDxUtil_inited_flg = true;
@@ -348,7 +348,7 @@ angle GgafDxUtil::getAngDiff(angle prm_ang_from, angle prm_ang_to, int prm_way) 
                 return -1 * (ang_from + (D360ANG - ang_to));
             } else {
                 //おかしい
-                _DTRACE_("GgafDxUtil::getAngDiff bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
+                _TRACE_("GgafDxUtil::getAngDiff bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
                 throwGgafCriticalException("GgafDxUtil::getDiffAngle アングル値が範囲外です(1)。\n"<<
                                            "ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
             }
@@ -368,7 +368,7 @@ angle GgafDxUtil::getAngDiff(angle prm_ang_from, angle prm_ang_to, int prm_way) 
                 return ang_to - ang_from;
             } else {
                 //おかしい
-                _DTRACE_("GgafDxUtil::getAngDiff bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
+                _TRACE_("GgafDxUtil::getAngDiff bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
                 throwGgafCriticalException("GgafDxUtil::getDiffAngle アングル値が範囲外です(2)。\n"<<
                                            "ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
             }
@@ -390,7 +390,7 @@ angle GgafDxUtil::getAngDiff(angle prm_ang_from, angle prm_ang_to, int prm_way) 
                 return ang_to - ang_from;
             } else {
                 //おかしい
-                _DTRACE_("GgafDxUtil::getAngDiff bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
+                _TRACE_("GgafDxUtil::getAngDiff bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
                 throwGgafCriticalException("GgafDxUtil::getDiffAngle アングル値が範囲外です(3)。\n"<<
                                            "ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
             }
@@ -410,7 +410,7 @@ angle GgafDxUtil::getAngDiff(angle prm_ang_from, angle prm_ang_to, int prm_way) 
                 return -1 * (ang_from + (D360ANG - ang_to));
             } else {
                 //おかしい
-                _DTRACE_("GgafDxUtil::getAngDiff bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
+                _TRACE_("GgafDxUtil::getAngDiff bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
                 throwGgafCriticalException("GgafDxUtil::getDiffAngle アングル値が範囲外です(4)。\n"<<
                                            "ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
             }
@@ -428,11 +428,11 @@ angle GgafDxUtil::getAngDiff(angle prm_ang_from, angle prm_ang_to, int prm_way) 
             return -(ang_from + (D360ANG - ang_to));
         }
     } else {
-        _DTRACE_("GgafDxUtil::getAngDiff bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
+        _TRACE_("GgafDxUtil::getAngDiff bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
         throwGgafCriticalException("GgafDxUtil::getDiffAngle  prm_way = TURN_CLOSE_TO/TURN_ANTICLOSE_TO/TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE 以外が指定されています。");
     }
 
-    _DTRACE_("bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
+    _TRACE_("bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
     throwGgafCriticalException("GgafDxUtil::getDiffAngle  何故かしら角の距離が求めれません。(1) \n"<<
                                "ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
 }

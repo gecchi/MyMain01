@@ -10,7 +10,7 @@ using namespace GgafDxCore;
 
 GgafDxModel::GgafDxModel(char* prm_model_name) : GgafObject(),
 _pTexBlinker(new GgafDxTextureBlinker(this)) {
-    _DTRACE3_("GgafDxModel::GgafDxModel(" << prm_model_name << ")");
+    _TRACE3_("GgafDxModel::GgafDxModel(" << prm_model_name << ")");
     _id = GgafDxModelManager::getNextId();
     _model_name = NEW char[51];
     strcpy(_model_name, prm_model_name);
@@ -27,7 +27,7 @@ _pTexBlinker(new GgafDxTextureBlinker(this)) {
     _specular_power = 0.0f;
     _num_pass = 1;
     _obj_model = 0;
-    _DTRACE3_("GgafDxModel::GgafDxModel(" << prm_model_name << ") _id="<<_id);
+    _TRACE3_("GgafDxModel::GgafDxModel(" << prm_model_name << ") _id="<<_id);
 }
 
 //void GgafDxModel::setMaterialTexture(int prm_material_no, const char* prm_texture) {
@@ -71,7 +71,7 @@ void GgafDxModel::swapTopTextureOrder(const char* prm_texture0) {
 }
 
 GgafDxModel::~GgafDxModel() {
-    _DTRACE_("GgafDxModel::~GgafDxModel() " << _model_name << " ");
+    _TRACE_("GgafDxModel::~GgafDxModel() " << _model_name << " ");
     GGAF_DELETEARR_NULLABLE(_model_name);
     GGAF_DELETEARR_NULLABLE(_paMaterial_default);
     delete _pTexBlinker;

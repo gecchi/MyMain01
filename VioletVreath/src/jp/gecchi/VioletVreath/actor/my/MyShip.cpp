@@ -122,7 +122,7 @@ MyShip::MyShip(const char* prm_name) :
     lim_x_behaind_ = -harf_width  - PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //後ろは、幅の2画面分
     lim_z_left_   =  harf_width  + PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //手前は、幅の2画面分
     lim_z_right_  = -harf_width  - PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //奥は、幅の2画面分
-    _DTRACE_("MyShip::MyShip 範囲 X("<<lim_x_behaind_<<" ~ "<<lim_x_front_<<") Y("<<lim_y_bottom_<<" ~ "<<lim_y_top_<<") Z("<<lim_z_right_<<" ~ "<<lim_z_left_<<")");
+    _TRACE_("MyShip::MyShip 範囲 X("<<lim_x_behaind_<<" ~ "<<lim_x_front_<<") Y("<<lim_y_bottom_<<" ~ "<<lim_y_top_<<") Z("<<lim_z_right_<<" ~ "<<lim_z_left_<<")");
 
 
     //CommonSceneがnewの場合設定
@@ -337,7 +337,7 @@ void MyShip::onCreateModel() {
 }
 
 void MyShip::initialize() {
-    _DTRACE_("MyShip::initialize()");
+    _TRACE_("MyShip::initialize()");
 
     //種別に振り分け
 //    getSceneDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, pDepo_MyShots001_->extract());
@@ -372,7 +372,7 @@ void MyShip::initialize() {
 
 
 void MyShip::onReset() {
-    _DTRACE_("MyShip::onReset()");
+    _TRACE_("MyShip::onReset()");
     frame_soft_rapidshot_ = 0;
     is_being_soft_rapidshot_ = false;
     just_shot_ = false;
@@ -391,14 +391,14 @@ void MyShip::onReset() {
 }
 
 void MyShip::onActive() {
-    _DTRACE_("MyShip::onActive()");
+    _TRACE_("MyShip::onActive()");
     //レーザーやロックンターゲットや魚雷がサブにいるため
     //個別に呼び出す
     pLockonCtrler_->onActive();
     pTorpedoCtrler_->onActive();
 }
 void MyShip::onInactive() {
-    _DTRACE_("MyShip::onInactive()");
+    _TRACE_("MyShip::onInactive()");
     //レーザーやロックンターゲットや魚雷がサブにいるため
     //個別に呼び出す
     pLockonCtrler_->onInactive();
@@ -747,7 +747,7 @@ void MyShip::processJudgement() {
 
     //自機消滅テスト
 //    if (pVbPlay->isBeingPressed(VB_BUTTON8)) {
-//        _DTRACE_("自機消滅テスト");
+//        _TRACE_("自機消滅テスト");
 //        throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
 //    }
 

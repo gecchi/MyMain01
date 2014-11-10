@@ -40,8 +40,8 @@ GgafDxPuppeteer::GgafDxPuppeteer(GgafDxD3DXAniMeshActor* prm_pPuppet) : GgafObje
         return;
     }
 #endif
-    _DTRACE_("_pAc->GetMaxNumTracks()="<<_pAc->GetMaxNumTracks());
-    _DTRACE_("_pAc->GetMaxNumAnimationSets()="<<_pAc->GetMaxNumAnimationSets());
+    _TRACE_("_pAc->GetMaxNumTracks()="<<_pAc->GetMaxNumTracks());
+    _TRACE_("_pAc->GetMaxNumAnimationSets()="<<_pAc->GetMaxNumAnimationSets());
     //int x = 'o'  ^0^  -~-  -0-  ~-~  +0+  0-0  *0*  0*0;
 
     //ƒ‚[ƒVƒ‡ƒ“î•ñ‰Šú‰»

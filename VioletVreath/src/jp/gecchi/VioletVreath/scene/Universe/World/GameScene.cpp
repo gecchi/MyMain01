@@ -64,7 +64,7 @@ pStageWorld_(nullptr) {
 }
 
 void GameScene::initialize() {
-    _DTRACE_("GameScene::initialize() いきますよDemoSceneさん");
+    _TRACE_("GameScene::initialize() いきますよDemoSceneさん");
 }
 
 void GameScene::onReset() {
@@ -105,7 +105,7 @@ void GameScene::processBehavior() {
     SceneProgress* pProg = getProgress();
     switch (pProg->getFromProgOnChange()) {
         case GameScene::PROG_MAIN: {
-            _DTRACE_("GameScene::processBehavior() Prog has Just Changed 'From' GameScene::PROG_MAIN");
+            _TRACE_("GameScene::processBehavior() Prog has Just Changed 'From' GameScene::PROG_MAIN");
             VB_UI->clear();
             P_GOD->setVB(VB_UI);  //元に戻す
             break;
@@ -119,10 +119,10 @@ void GameScene::processBehavior() {
 
     switch (pProg->get()) {
         case GameScene::PROG_INIT: {
-//            _DTRACE_("GameScene::processBehavior() Prog(=GameScene::PROG_INIT) has Just Changed");
+//            _TRACE_("GameScene::processBehavior() Prog(=GameScene::PROG_INIT) has Just Changed");
             //P_GOD->syncTimeFrame(); //描画を中止して、フレームと時間の同期を行う
             if ((pProg->getFrameInProgress() == 120)) {
-                _DTRACE_("P_GOD->_fps = "<<P_GOD->_fps);
+                _TRACE_("P_GOD->_fps = "<<P_GOD->_fps);
                 pProg->changeWithSceneCrossfading(GameScene::PROG_PRE_TITLE);
                 P_WORLD->pPreDrawScene_->inactivateTreeImmed();
                 P_WORLD->pPreDrawScene_->pauseTreeImmed();
@@ -134,7 +134,7 @@ void GameScene::processBehavior() {
         case GameScene::PROG_PRE_TITLE: {
             //##########  タイトル前演出  ##########
             if (pProg->isJustChanged()) {
-                _DTRACE_("GameScene::processBehavior() Prog has Just Changed (to GameScene::PROG_PRE_TITLE)");
+                _TRACE_("GameScene::processBehavior() Prog has Just Changed (to GameScene::PROG_PRE_TITLE)");
                 getBGMer()->play_fadein(0);
             }
             //VB_UI_EXECUTE で、スキップしてTITLEへ
@@ -148,7 +148,7 @@ void GameScene::processBehavior() {
         case GameScene::PROG_TITLE: {
             //##########  タイトル  ##########
             if (pProg->isJustChanged()) {
-                _DTRACE_("GameScene::processBehavior() Prog has Just Changed (to GameScene::PROG_TITLE)");
+                _TRACE_("GameScene::processBehavior() Prog has Just Changed (to GameScene::PROG_TITLE)");
             }
             //イベント待ち EVENT_GAMETITLESCENE_FINISH or EVENT_GAMESTART
             break;
@@ -157,7 +157,7 @@ void GameScene::processBehavior() {
         case GameScene::PROG_DEMO: {
             //##########  デモ  ##########
             if (pProg->isJustChanged()) {
-                _DTRACE_("GameScene::processBehavior() Prog has Just Changed (to GameScene::PROG_DEMO)");
+                _TRACE_("GameScene::processBehavior() Prog has Just Changed (to GameScene::PROG_DEMO)");
             }
             //VB_UI_EXECUTE で、スキップしてTITLEへ
             if (VB->isPushedDown(VB_UI_EXECUTE)) {
@@ -172,7 +172,7 @@ void GameScene::processBehavior() {
             //##########  ゲーム開始（モード選択等）  ##########
             if (pProg->isJustChanged()) {
                 getBGMer()->fadeout_stop();
-                _DTRACE_("GameScene::processBehavior() Prog has Just Changed (to GameScene::PROG_BEGINNING)");
+                _TRACE_("GameScene::processBehavior() Prog has Just Changed (to GameScene::PROG_BEGINNING)");
             }
             //イベント待ち EVENT_GAMEMODE_DECIDE
             break;
@@ -181,7 +181,7 @@ void GameScene::processBehavior() {
         case GameScene::PROG_MAIN: {
             //##########  ゲームメイン  ##########
             if (pProg->isJustChanged()) {
-                _DTRACE_("GameScene::processBehavior() Prog has Just Changed (to GameScene::PROG_MAIN)");
+                _TRACE_("GameScene::processBehavior() Prog has Just Changed (to GameScene::PROG_MAIN)");
                 VB_PLAY->clear();
                 P_GOD->setVB(VB_PLAY); //プレイ用に変更
             }
@@ -201,7 +201,7 @@ void GameScene::processBehavior() {
                     //ポーズではないときに、ポーズキーを押して離した場合の処理
                     //ポーズ発生時直後の初期処理はココへ
                     is_frame_advance_ = false;
-                    _DTRACE_("PAUSE!");
+                    _TRACE_("PAUSE!");
                     P_GOD->setVB(VB_UI);  //入力はＵＩに切り替え
                     pProg->getGazedScene()->pauseTree(); //ポーズ！！
                     pMenuBoardPause_->rise(PX_C(100), PX_C(20));
@@ -224,7 +224,7 @@ void GameScene::processBehavior() {
                 if (pMenuBoardPause_->isJustSunk() || is_frame_advance_) {
                     //ポーズ時に、ポーズキーを押して離した場合の処理
                     //ポーズ解除時直後の初期処理はココへ
-                    _DTRACE_("UNPAUSE!");
+                    _TRACE_("UNPAUSE!");
                     P_GOD->setVB(VB_PLAY);
                     pProg->getGazedScene()->unpauseTree();//ポーズ解除！！
                 }
@@ -235,7 +235,7 @@ void GameScene::processBehavior() {
 
         case GameScene::PROG_ENDING: {
             if (pProg->isJustChanged()) {
-                _DTRACE_("GameScene::processBehavior() Prog has Just Changed (to GameScene::PROG_ENDING)");
+                _TRACE_("GameScene::processBehavior() Prog has Just Changed (to GameScene::PROG_ENDING)");
             }
             break;
         }
@@ -243,7 +243,7 @@ void GameScene::processBehavior() {
         case GameScene::PROG_GAME_OVER: {
             //##########  ゲームオーバー  ##########
             if (pProg->isJustChanged()) {
-                _DTRACE_("GameScene::processBehavior() Prog has Just Changed (to GameScene::PROG_GAME_OVER)");
+                _TRACE_("GameScene::processBehavior() Prog has Just Changed (to GameScene::PROG_GAME_OVER)");
             }
             //イベント待ち EVENT_GAME_OVER_FINISH
             break;
@@ -252,7 +252,7 @@ void GameScene::processBehavior() {
         case GameScene::PROG_FINISH: {
             //##########  ゲームシーン終了  ##########
             if (pProg->isJustChanged()) {
-                _DTRACE_("GameScene::processBehavior() Prog has Just Changed (to GameScene::PROG_FINISH)");
+                _TRACE_("GameScene::processBehavior() Prog has Just Changed (to GameScene::PROG_FINISH)");
                 DefaultScene* pSubScene;
                 for (ProgSceneMap::const_iterator it = pProg->_mapProg2Scene.begin(); it != pProg->_mapProg2Scene.end(); it++) {
                     pSubScene = it->second;
@@ -290,7 +290,7 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
 //    }
     SceneProgress* pProg = getProgress();
     if (prm_no == EVENT_GOD_WILL_DIE) {
-        _DTRACE_("GameScene::onCatchEvent(EVENT_GOD_WILL_DIE) CommonSceneを拾い上げて後に解放されるようにします。");
+        _TRACE_("GameScene::onCatchEvent(EVENT_GOD_WILL_DIE) CommonSceneを拾い上げて後に解放されるようにします。");
         //神が死んでしまう前に
         //CommonSceneを拾い上げ、解放順序が後になるように操作する。(共有デポジトリとかあるし)
         addSubLast(P_MYSHIP_SCENE->extract());
@@ -302,45 +302,45 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
         //GgafCore::template<class T> GgafNode<T>::~GgafNode() のコメントを参照
     } else if (prm_no == EVENT_PREGAMETITLESCENE_FINISH) {
         //プレタイトルシーン終了
-        _DTRACE_("GameScene::onCatchEvent(EVENT_PREGAMETITLESCENE_FINISH)");
+        _TRACE_("GameScene::onCatchEvent(EVENT_PREGAMETITLESCENE_FINISH)");
         pProg->changeWithSceneFlipping(GameScene::PROG_TITLE); //タイトルへ
 
     } else if (prm_no == EVENT_GAMETITLESCENE_FINISH) {
         //タイトルシーンをボーっと見てたので時間切れ終了
-        _DTRACE_("GameScene::onCatchEvent(EVENT_GAMETITLESCENE_FINISH)");
+        _TRACE_("GameScene::onCatchEvent(EVENT_GAMETITLESCENE_FINISH)");
         pProg->changeWithSceneCrossfading(GameScene::PROG_DEMO); //デモへ
 
     } else if (prm_no == EVENT_GAMEDEMOSCENE_FINISH) {
         //デモシーン終了
-        _DTRACE_("GameScene::onCatchEvent(EVENT_GAMEDEMOSCENE_FINISH)");
+        _TRACE_("GameScene::onCatchEvent(EVENT_GAMEDEMOSCENE_FINISH)");
         pProg->changeWithSceneFadeoutFadein(GameScene::PROG_INIT,120,120); //最初へ
         getBGMer()->fadeout_stop();
 
     } else if (prm_no == EVENT_GAMESTART) {
         //スタート
-        _DTRACE_("GameScene::onCatchEvent(EVENT_GAMESTART)");
+        _TRACE_("GameScene::onCatchEvent(EVENT_GAMESTART)");
         pProg->changeWithSceneCrossfading(GameScene::PROG_BEGINNING); //オープニング（ゲームモードセレクト）へ
 
     } else if (prm_no == EVENT_GAMEMODE_DECIDE) {
         //ゲームモードセレクト完了
-        _DTRACE_("GameScene::onCatchEvent(EVENT_GAMEMODE_DECIDE)");
+        _TRACE_("GameScene::onCatchEvent(EVENT_GAMEMODE_DECIDE)");
         pProg->changeWithSceneCrossfading(GameScene::PROG_MAIN,600);//メインへ
     } else if (prm_no == EVENT_GOTO_GAMETITLE) {
         //とにかくタイトルへイベント発生
-        _DTRACE_("GameScene::onCatchEvent(EVENT_GOTO_GAMETITLE)");
+        _TRACE_("GameScene::onCatchEvent(EVENT_GOTO_GAMETITLE)");
         pProg->changeWithSceneFlipping(GameScene::PROG_TITLE); //タイトルへ
     }
 
 
     if (prm_no == EVENT_ALL_MY_SHIP_WAS_DESTROYED) {
-        _DTRACE_("GameScene::onCatchEvent(EVENT_ALL_MY_SHIP_WAS_DESTROYED)");
+        _TRACE_("GameScene::onCatchEvent(EVENT_ALL_MY_SHIP_WAS_DESTROYED)");
         pProg->changeWithSceneCrossfading(GameScene::PROG_GAME_OVER); //ゲームオーバーへ
     } else if (prm_no == EVENT_GAMEOVERSCENE_FINISH) {
-        _DTRACE_("GameScene::onCatchEvent(EVENT_GAMEOVERSCENE_FINISH)");
+        _TRACE_("GameScene::onCatchEvent(EVENT_GAMEOVERSCENE_FINISH)");
         pProg->change(GameScene::PROG_FINISH);
     } else if (prm_no == EVENT_GO_TO_TITLE) {
-        _DTRACE_("GameScene::onCatchEvent(EVENT_GO_TO_TITLE)");
-        _DTRACE_("UNPAUSE!(because EVENT_GO_TO_TITLE)");
+        _TRACE_("GameScene::onCatchEvent(EVENT_GO_TO_TITLE)");
+        _TRACE_("UNPAUSE!(because EVENT_GO_TO_TITLE)");
         P_GOD->setVB(VB_PLAY);
         pProg->getGazedScene()->unpauseTree();//ポーズ解除！！
         pProg->change(GameScene::PROG_FINISH);

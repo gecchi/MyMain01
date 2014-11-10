@@ -24,8 +24,8 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, double prm_rad_fovX, double prm
     double xzRatio = tan(_rad_fovX/2.0);
     double yRatio = xzRatio / _screen_aspect;
     _rad_fovY = atan( yRatio )*2.0;
-    _DTRACE_("GgafDxCamera::GgafDxCamera 画面アスペクト："<<_screen_aspect);
-    _DTRACE_("GgafDxCamera::GgafDxCamera FovX="<<prm_rad_fovX<<" FovY="<<_rad_fovY);
+    _TRACE_("GgafDxCamera::GgafDxCamera 画面アスペクト："<<_screen_aspect);
+    _TRACE_("GgafDxCamera::GgafDxCamera FovX="<<prm_rad_fovX<<" FovY="<<_rad_fovY);
 
     //半分を保持
     _rad_half_fovY = _rad_fovY / 2.0;
@@ -36,7 +36,7 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, double prm_rad_fovX, double prm
     //Zは、キャラがZ=0のXY平面で丁度キャラが値ピクセル幅と一致するような所にカメラを引く
     _cameraZ = -1.0 * ((1.0 * (PROPERTY::GAME_BUFFER_HEIGHT*rev) / PX_UNIT) / 2.0) / _tan_half_fovY;
     _cameraZ_org = _cameraZ;
-    _DTRACE_("GgafDxCamera::GgafDxCamera カメラの位置(0,0,"<<_cameraZ<<")");
+    _TRACE_("GgafDxCamera::GgafDxCamera カメラの位置(0,0,"<<_cameraZ<<")");
     _pVecCamFromPoint   = NEW D3DXVECTOR3( 0.0f, 0.0f, (FLOAT)_cameraZ); //位置
     _pVecCamLookatPoint = NEW D3DXVECTOR3( 0.0f, 0.0f, 0.0f ); //注視する方向
     _pVecCamUp          = NEW D3DXVECTOR3( 0.0f, 1.0f, 0.0f ); //上方向
@@ -53,7 +53,7 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, double prm_rad_fovX, double prm
     _dep = prm_dep;
     _zn = 0.1f;
     _zf = -_cameraZ_org*(_dep+1.0);
-    _DTRACE_("GgafDxCamera::GgafDxCamera 範囲 ["<<_zn<<" ~ "<<_zf<<"]");
+    _TRACE_("GgafDxCamera::GgafDxCamera 範囲 ["<<_zn<<" ~ "<<_zf<<"]");
     if (PROPERTY::PRJ_2D_MODE) {
         //2Dモード正射影
         D3DXMatrixOrthoLH(

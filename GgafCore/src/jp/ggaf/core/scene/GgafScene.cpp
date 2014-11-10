@@ -12,7 +12,7 @@ GgafScene::GgafScene(const char* prm_name) : GgafElement<GgafScene> (prm_name) {
     _pSceneDirector = NEW GgafSceneDirector(this);
     _once_in_n_time = 1;
 #ifdef MY_DEBUG
-    _DTRACE_("new "<<_class_name<<"("<<this<<")["<<prm_name<<"] _id="<<getId());
+    _TRACE_("new "<<_class_name<<"("<<this<<")["<<prm_name<<"] _id="<<getId());
 #else
 
 #endif
@@ -21,7 +21,7 @@ GgafScene::GgafScene(const char* prm_name) : GgafElement<GgafScene> (prm_name) {
 GgafScene::~GgafScene() {
 
 #ifdef MY_DEBUG
-    _DTRACE_("delete "<<_class_name<<"("<<this<<")["<<getName()<<"] _id="<<getId());
+    _TRACE_("delete "<<_class_name<<"("<<this<<")["<<getName()<<"] _id="<<getId());
 #else
     //OutputDebugStringA("*");
 #endif
@@ -290,7 +290,7 @@ GgafGod* GgafScene::askGod() {
 }
 
 void GgafScene::dump() {
-    _DTRACE_("Åú"<<_class_name<<"("<<this<<")["<<getName()<<"]"<<DUMP_FLGS);
+    _TRACE_("Åú"<<_class_name<<"("<<this<<")["<<getName()<<"]"<<DUMP_FLGS);
     if (_pSceneDirector) {
         _pSceneDirector->dump();
         GgafScene* pScene_tmp = _pSubFirst;
@@ -299,7 +299,7 @@ void GgafScene::dump() {
             if (pScene_tmp->_pNext) {
                 pScene_tmp = pScene_tmp->_pNext;
             } else {
-                _DTRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
+                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
                 break;
             }
             if (pScene_tmp->_is_first_flg) {
@@ -310,7 +310,7 @@ void GgafScene::dump() {
 }
 
 void GgafScene::dump(std::string prm_parent) {
-    _DTRACE_(prm_parent+"Åú"<<_class_name<<"("<<this<<")["<<getName()<<"]"<<DUMP_FLGS);
+    _TRACE_(prm_parent+"Åú"<<_class_name<<"("<<this<<")["<<getName()<<"]"<<DUMP_FLGS);
     if (_pSceneDirector) {
         _pSceneDirector->dump(prm_parent + "\t\t\t\t\t\t\t\t");
         GgafScene* pScene_tmp = _pSubFirst;
@@ -319,7 +319,7 @@ void GgafScene::dump(std::string prm_parent) {
             if (pScene_tmp->_pNext) {
                 pScene_tmp = pScene_tmp->_pNext;
             } else {
-                _DTRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
+                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
                 break;
             }
             if (pScene_tmp->_is_first_flg) {

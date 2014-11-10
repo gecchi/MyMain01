@@ -47,14 +47,14 @@ PCMPlayer::PCMPlayer(IDirectSound8* prm_pDS8, PCMDecoder* prm_pDecoder) :
 PCMPlayer::~PCMPlayer() {
     //正しく解放されない場合の原因究明のため、
     //スマートポインタを外してdeleteとReleaseで解放
-    _DTRACE_("PCMPlayer::~PCMPlayer() begin");
-    _DTRACE_("terminateThread();");
+    _TRACE_("PCMPlayer::~PCMPlayer() begin");
+    _TRACE_("terminateThread();");
     terminateThread();
-    _DTRACE_("GGAF_RELEASE(_pDSBuffer);");
+    _TRACE_("GGAF_RELEASE(_pDSBuffer);");
     GGAF_RELEASE(_pDSBuffer);
-    _DTRACE_("GGAF_DELETE(_pPCMDecoder);");
+    _TRACE_("GGAF_DELETE(_pPCMDecoder);");
     GGAF_DELETE(_pPCMDecoder);
-    _DTRACE_("PCMPlayer::~PCMPlayer() end");
+    _TRACE_("PCMPlayer::~PCMPlayer() end");
 }
 
 //! クリア
@@ -79,7 +79,7 @@ void PCMPlayer::terminateThread() {
         while (!end) {
             //if (wait > 1) {
             if (wait > 10000) {
-                _DTRACE_("＜警告＞ PCMPlayer::terminateThread() 未完。正しくスレッドが終了することを願ってBREAK (T_T)");
+                _TRACE_("＜警告＞ PCMPlayer::terminateThread() 未完。正しくスレッドが終了することを願ってBREAK (T_T)");
                 break;
             }
             DWORD flag = WaitForSingleObject(_hnd_thread, 4);
@@ -87,22 +87,22 @@ void PCMPlayer::terminateThread() {
                 case WAIT_OBJECT_0:
                     // スレッドが終わった
                     end = true;
-                    _DTRACE_("PCMPlayer::terminateThread() WaitForSingleObject=WAIT_OBJECT_0 OK!Done! flag="<<flag<<" wait="<<wait<<"");
+                    _TRACE_("PCMPlayer::terminateThread() WaitForSingleObject=WAIT_OBJECT_0 OK!Done! flag="<<flag<<" wait="<<wait<<"");
                     break;
                 case WAIT_TIMEOUT:
                     wait++;
                     _is_terminate = true;
                     // まだ終了していないので待機
-                    _DTRACE_("PCMPlayer::terminateThread() WaitForSingleObject=WAIT_TIMEOUT... flag="<<flag<<" wait="<<wait<<"");
+                    _TRACE_("PCMPlayer::terminateThread() WaitForSingleObject=WAIT_TIMEOUT... flag="<<flag<<" wait="<<wait<<"");
                     break;
                 case WAIT_FAILED:
                     // 失敗しているようです
                     end = true;
-                    _DTRACE_("PCMPlayer::terminateThread() WaitForSingleObject=WAIT_FAILED... flag="<<flag<<" wait="<<wait<<"");
+                    _TRACE_("PCMPlayer::terminateThread() WaitForSingleObject=WAIT_FAILED... flag="<<flag<<" wait="<<wait<<"");
                     break;
                 default:
                     wait++;
-                    _DTRACE_("PCMPlayer::terminateThread() WaitForSingleObject=?  flag="<<flag<<" wait="<<wait<<"");
+                    _TRACE_("PCMPlayer::terminateThread() WaitForSingleObject=?  flag="<<flag<<" wait="<<wait<<"");
                     break;
             }
             if (!end) {
@@ -113,7 +113,7 @@ void PCMPlayer::terminateThread() {
         CloseHandle(_hnd_thread);
         _hnd_thread = 0;
     } else {
-        _DTRACE_("PCMPlayer::terminateThread() 以前に既に実行済み。多分。this=" << this << "/_is_terminate=" << _is_terminate);
+        _TRACE_("PCMPlayer::terminateThread() 以前に既に実行済み。多分。this=" << this << "/_is_terminate=" << _is_terminate);
     }
 }
 
@@ -209,15 +209,15 @@ bool PCMPlayer::initializeBuffer() {
         } else {
             //ロック失敗時
             if (i < 10) {
-                _DTRACE_("PCMPlayer::initializeBuffer() Lockに失敗 i=" << i << " ");
-//                _DTRACE_("hr=" << hr << " " << DXGetErrorString(hr) << " " << DXGetErrorDescription(hr));
-                _DTRACE_("HRESULT="<<hr);
+                _TRACE_("PCMPlayer::initializeBuffer() Lockに失敗 i=" << i << " ");
+//                _TRACE_("hr=" << hr << " " << DXGetErrorString(hr) << " " << DXGetErrorDescription(hr));
+                _TRACE_("HRESULT="<<hr);
                 hr = _pDSBuffer->Unlock(AP1, AB1, AP2, AB2);
                 Sleep(5);
                 continue; //もう一回頑張る
             } else {
                 //あきらめる
-                _DTRACE_("PCMPlayer::initializeBuffer() もうLockをあきらめて解放します。いいんかそれで");
+                _TRACE_("PCMPlayer::initializeBuffer() もうLockをあきらめて解放します。いいんかそれで");
                 clear();
                 END_SYNCHRONIZED2;
                 return false;
@@ -369,7 +369,7 @@ void PCMPlayer::stop() {
 
     // バッファの頭出し
     bool r = initializeBuffer();
-    _DTRACE_("PCMPlayer::stop() initializeBuffer() = " << r);
+    _TRACE_("PCMPlayer::stop() initializeBuffer() = " << r);
 }
 
 //! 音量を変える

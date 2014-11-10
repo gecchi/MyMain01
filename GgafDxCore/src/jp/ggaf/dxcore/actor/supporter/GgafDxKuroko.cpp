@@ -185,7 +185,7 @@ void GgafDxKuroko::behave() {
                         _ang_face_targeting_stop_flg[ax] = false;
                     }
                 } else {
-                    _DTRACE_("＜警告＞GgafDxKuroko::behave() : _angvelo_face["<<ax<<"]="<<_angvelo_face[ax]<<" で、ターゲットまでの距離angDistance="<<angDistance<<" なので、"<<
+                    _TRACE_("＜警告＞GgafDxKuroko::behave() : _angvelo_face["<<ax<<"]="<<_angvelo_face[ax]<<" で、ターゲットまでの距離angDistance="<<angDistance<<" なので、"<<
                             "いつまでもターゲットに到達しないのではないだろうか？_pActor="<<_pActor->getName()<<"("<<_pActor<<")（要確認）");
                 }
             }
@@ -262,7 +262,7 @@ void GgafDxKuroko::behave() {
                     _ang_rz_mv_targeting_stop_flg = false;
                 }
             } else {
-                _DTRACE_("＜警告＞GgafDxKuroko::behave() : _angvelo_rz_mv="<<_angvelo_rz_mv<<" で、ターゲットまでの距離angDistance="<<angDistance<<" なので、"<<
+                _TRACE_("＜警告＞GgafDxKuroko::behave() : _angvelo_rz_mv="<<_angvelo_rz_mv<<" で、ターゲットまでの距離angDistance="<<angDistance<<" なので、"<<
                         "いつまでもターゲットに到達しないのではないだろうか？_pActor="<<_pActor->getName()<<"("<<_pActor<<")（要確認）");
             }
         }
@@ -329,7 +329,7 @@ void GgafDxKuroko::behave() {
                     _ang_ry_mv_targeting_stop_flg = false;
                 }
             } else {
-                _DTRACE_("＜警告＞GgafDxKuroko::behave() : _angvelo_ry_mv="<<_angvelo_ry_mv<<" で、ターゲットまでの距離angDistance="<<angDistance<<" なので、"<<
+                _TRACE_("＜警告＞GgafDxKuroko::behave() : _angvelo_ry_mv="<<_angvelo_ry_mv<<" で、ターゲットまでの距離angDistance="<<angDistance<<" なので、"<<
                         "いつまでもターゲットに到達しないのではないだろうか？_pActor="<<_pActor->getName()<<"("<<_pActor<<")（要確認）");
             }
         }

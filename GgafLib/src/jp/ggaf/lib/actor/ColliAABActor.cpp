@@ -43,7 +43,7 @@ void ColliAABActor::drawHitarea(CollisionChecker3D* prm_pColliChecker) {
             for (int i = 0; i < iAreaNum; i++) {
                 if (papColliPart[i]->_is_valid_flg && papColliPart[i]->_shape_kind == COLLI_AAB) {
                     ColliAAB* box = (ColliAAB*)papColliPart[i];
-                    //_DTRACE_("drawHitarea name="<<prm_pColliChecker->getTargetActor()->getName()<<" index="<<i);
+                    //_TRACE_("drawHitarea name="<<prm_pColliChecker->getTargetActor()->getName()<<" index="<<i);
 
                     drawBox(pActor->_x + box->_x1,
                             pActor->_y + box->_y1,

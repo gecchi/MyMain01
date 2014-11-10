@@ -27,19 +27,19 @@ void TestBar::initialize() {
 void TestBar::processBehavior() {
     GgafDxKuroko* pKuroko = getKuroko();
    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_D)) {
-        _DTRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_D)!!!!!");
+        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_D)!!!!!");
         pKuroko->asstB()->_smthFaceAng[AXIS_Z]._prm._flg = false;
         pKuroko->setFaceAngVelo(AXIS_Z, pKuroko->_angvelo_face[AXIS_Z] + D_ANG(2));
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_F)) {
-        _DTRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_F)!!!!!");
+        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_F)!!!!!");
         pKuroko->asstB()->_smthFaceAng[AXIS_Z]._prm._flg = false;
         pKuroko->setFaceAngVelo(AXIS_Z, pKuroko->_angvelo_face[AXIS_Z] - D_ANG(2));
     }
 
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_A)) {
-        _DTRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_A)!!!!!");
+        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_A)!!!!!");
         pKuroko->asstB()->turnRzFaceAngByVdTo(
                         D_ANG(3), D_ANG(180), TURN_CLOSE_TO,
                         0.3, 0.6, D_ANG(0),
@@ -47,7 +47,7 @@ void TestBar::processBehavior() {
                     );
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_S)) {
-        _DTRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_S)!!!!!");
+        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_S)!!!!!");
         pKuroko->asstB()->turnRzFaceAngByVdTo(
                         D_ANG(3), D_ANG(0), TURN_CLOSE_TO,
                         0.3, 0.6, D_ANG(0),
@@ -55,7 +55,7 @@ void TestBar::processBehavior() {
                     );
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Z)) {
-        _DTRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Z)!!!!!");
+        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_Z)!!!!!");
         pKuroko->asstB()->turnRzFaceAngByDtTo(
                         D_ANG(180), TURN_ANTICLOSE_TO, 30,
                         0.3, 0.6, D_ANG(0),
@@ -63,7 +63,7 @@ void TestBar::processBehavior() {
                     );
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_X)) {
-        _DTRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_X)!!!!!");
+        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_X)!!!!!");
         pKuroko->asstB()->turnRzFaceAngByDtTo(
                         D_ANG(0), TURN_ANTICLOSE_TO, 30,
                         0.3, 0.6, D_ANG(0),
@@ -72,7 +72,7 @@ void TestBar::processBehavior() {
     }
 
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_C)) {
-        _DTRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_C)!!!!!");
+        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_C)!!!!!");
         pKuroko->asstB()->turnFaceAngByDt(AXIS_Z,
                         D_ANG(360+360), 60,
                         0.3, 0.6, D_ANG(0),
@@ -80,7 +80,7 @@ void TestBar::processBehavior() {
                     );
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_V)) {
-        _DTRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_V)!!!!!");
+        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_V)!!!!!");
         pKuroko->asstB()->turnFaceAngByDt(AXIS_Z,
                         D_ANG(-360-360), 60,
                         0.3, 0.6, D_ANG(0),
@@ -88,7 +88,7 @@ void TestBar::processBehavior() {
                     );
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_B)) {
-        _DTRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_B)!!!!!");
+        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_B)!!!!!");
         pKuroko->asstB()->turnFaceAngByVd(AXIS_Z,
                         D_ANG(10),  D_ANG(360+360),
                         0.3, 0.6, D_ANG(0),
@@ -96,7 +96,7 @@ void TestBar::processBehavior() {
                     );
     }
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_N)) {
-        _DTRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_N)!!!!!");
+        _TRACE_("GgafDxCore::GgafDxInput::isPushedDownKey(DIK_N)!!!!!");
         pKuroko->asstB()->turnFaceAngByVd(AXIS_Z,
                         D_ANG(10), D_ANG(-360-360),
                         0.3, 0.6, D_ANG(0),
@@ -104,11 +104,11 @@ void TestBar::processBehavior() {
                     );
     }
 
-    _DTRACE_(getBehaveingFrame() << "testbar before _actor_ang_face[AXIS_Z]="<<(*(pKuroko->_actor_ang_face[AXIS_Z])) << " angveloFace[AXIS_Z]="<<pKuroko->_angvelo_face[AXIS_Z]<<" _angacce_face[AXIS_Z]="<<pKuroko->_angacce_face[AXIS_Z]<<"");
+    _TRACE_(getBehaveingFrame() << "testbar before _actor_ang_face[AXIS_Z]="<<(*(pKuroko->_actor_ang_face[AXIS_Z])) << " angveloFace[AXIS_Z]="<<pKuroko->_angvelo_face[AXIS_Z]<<" _angacce_face[AXIS_Z]="<<pKuroko->_angacce_face[AXIS_Z]<<"");
 
     pKuroko->behave();
 
-    _DTRACE_(getBehaveingFrame() << "testbar after _actor_ang_face[AXIS_Z]="<<(*(pKuroko->_actor_ang_face[AXIS_Z])) << " angveloFace[AXIS_Z]="<<pKuroko->_angvelo_face[AXIS_Z]<<" _angacce_face[AXIS_Z]="<<pKuroko->_angacce_face[AXIS_Z]<<"");
+    _TRACE_(getBehaveingFrame() << "testbar after _actor_ang_face[AXIS_Z]="<<(*(pKuroko->_actor_ang_face[AXIS_Z])) << " angveloFace[AXIS_Z]="<<pKuroko->_angvelo_face[AXIS_Z]<<" _angacce_face[AXIS_Z]="<<pKuroko->_angacce_face[AXIS_Z]<<"");
 //    _pUvFlipper->behave();
 }
 TestBar::~TestBar() {

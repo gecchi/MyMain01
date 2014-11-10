@@ -23,7 +23,7 @@ using namespace VioletVreath;
 
 RankUpStageController::RankUpStageController(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "RankUpStageController";
-    _DTRACE_("RankUpStageController::RankUpStageController("<<prm_name<<")");
+    _TRACE_("RankUpStageController::RankUpStageController("<<prm_name<<")");
 
     for (int i = 0; i < MAX_RANKUP_SCENE; i ++) {
         apRankUpStage_[i] = nullptr;
@@ -39,7 +39,7 @@ void RankUpStageController::startRunkUpStage(int prm_rank_up_level) {
     ready(prm_rank_up_level);     //これはパスされるはずであるが、念のため。
     ready(prm_rank_up_level + 1); //次のシーンを先行予約
     pNowRankUpStage_ = (RankUpStage*)obtainSceneFromFactory(ORDER_ID_RANKUP+prm_rank_up_level);
-    _DTRACE_("RankUpStageController::execute() pNowRankUpStage_="<<pNowRankUpStage_);
+    _TRACE_("RankUpStageController::execute() pNowRankUpStage_="<<pNowRankUpStage_);
     GgafScene* pRankUpStage = getSubFirst();
     if (pRankUpStage) {
         //他のランクアップ中
@@ -402,14 +402,14 @@ void RankUpStageController::processBehavior() {
 }
 void RankUpStageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_RANKUP_WAS_END) {
-        _DTRACE_("RankUpStageController::onCatchEvent() EVENT_RANKUP_WAS_END prm_pSource="<<prm_pSource);
+        _TRACE_("RankUpStageController::onCatchEvent() EVENT_RANKUP_WAS_END prm_pSource="<<prm_pSource);
         RankUpStage* pScene = (RankUpStage*)prm_pSource; //終了宣言したRankUpStage
         pScene->fadeoutSceneWithBgm(240);
         pScene->sayonara(240);
     }
 
     if (prm_no == EVENT_RANKUP_ON_GARBAGED) {
-        _DTRACE_("RankUpStageController::onCatchEvent() EVENT_RANKUP_ON_GARBAGED prm_pSource="<<prm_pSource);
+        _TRACE_("RankUpStageController::onCatchEvent() EVENT_RANKUP_ON_GARBAGED prm_pSource="<<prm_pSource);
         //スロー回復
         GgafScene* pRankUpStage = getSubFirst();
         if (pRankUpStage) {
@@ -420,7 +420,7 @@ void RankUpStageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
                     break;
                 } else {
                     pRankUpStage->addRunFrameOnce(-1); //スロー回復
-                    _DTRACE_("pRankUpStage="<<pRankUpStage->getName()<<"をスロー回復");
+                    _TRACE_("pRankUpStage="<<pRankUpStage->getName()<<"をスロー回復");
                     pRankUpStage = pRankUpStage->getNext();
                 }
             }

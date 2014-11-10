@@ -26,7 +26,7 @@ void GgafGarbageBox::add(GgafActor* prm_pActor) {
         if (GgafGarbageBox::_wait) {
             Sleep(1);
             if (i == GgafGarbage_MAX_WAIT-1) {
-                _DTRACE_("ƒŒx„ GgafGarbageBox::add("<<prm_pActor<<"["<<prm_pActor->getName()<<"]) ‹­§add");
+                _TRACE_("ƒŒx„ GgafGarbageBox::add("<<prm_pActor<<"["<<prm_pActor->getName()<<"]) ‹­§add");
             }
         } else {
             break;
@@ -36,7 +36,7 @@ void GgafGarbageBox::add(GgafActor* prm_pActor) {
     prm_pActor->_can_live_flg = false;
     prm_pActor->inactivateTreeImmed();
     _pDisusedActor->addSubFirst(prm_pActor->extract()); //addSubFirst‚Å‚·IaddSubLast‚É”ñ‚¸
-    _DTRACE_("ƒSƒ~” (Actor) GgafGarbageBox::add("<<prm_pActor<<"["<<prm_pActor->getName()<<"])");
+    _TRACE_("ƒSƒ~” (Actor) GgafGarbageBox::add("<<prm_pActor<<"["<<prm_pActor->getName()<<"])");
     GgafGarbageBox::_wait = false;
 }
 
@@ -46,7 +46,7 @@ void GgafGarbageBox::add(GgafScene* prm_pScene) {
         if (GgafGarbageBox::_wait) {
             Sleep(1);
             if (i == GgafGarbage_MAX_WAIT-1) {
-                _DTRACE_("ƒŒx„ GgafGarbageBox::add("<<prm_pScene<<"["<<prm_pScene->getName()<<"]) ‹­§add");
+                _TRACE_("ƒŒx„ GgafGarbageBox::add("<<prm_pScene<<"["<<prm_pScene->getName()<<"]) ‹­§add");
             }
         } else {
             break;
@@ -62,10 +62,10 @@ void GgafGarbageBox::add(GgafScene* prm_pScene) {
         pSceneDirector->_can_live_flg = false;
         pSceneDirector->inactivateTreeImmed();
         _pDisusedActor->addSubFirst(pSceneDirector); //addSubFirst‚Å‚·IaddSubLast‚É”ñ‚¸
-        _DTRACE_("ƒSƒ~” (Actor) GgafGarbageBox::add("<<prm_pScene<<"["<<prm_pScene->getName()<<"] ‚ÌŠÄ“Â"<<pSceneDirector<<"["<<pSceneDirector->getName()<<"])");
+        _TRACE_("ƒSƒ~” (Actor) GgafGarbageBox::add("<<prm_pScene<<"["<<prm_pScene->getName()<<"] ‚ÌŠÄ“Â"<<pSceneDirector<<"["<<pSceneDirector->getName()<<"])");
     }
     _pDisusedScene->addSubFirst(prm_pScene->extract()); //addSubFirst‚Å‚·IaddSubLast‚É”ñ‚¸
-    _DTRACE_("ƒSƒ~” (Scene) GgafGarbageBox::add("<<prm_pScene<<"["<<prm_pScene->getName()<<"])");
+    _TRACE_("ƒSƒ~” (Scene) GgafGarbageBox::add("<<prm_pScene<<"["<<prm_pScene->getName()<<"])");
     GgafGarbageBox::_wait = false;
 }
 
@@ -74,7 +74,7 @@ void GgafGarbageBox::clean(int prm_num_cleaning) {
         if (GgafGarbageBox::_wait) {
             Sleep(1);
             if (i == GgafGarbage_MAX_WAIT-1) {
-                _DTRACE_("ƒŒx„ GgafGarbageBox::clean() ‹­§return");
+                _TRACE_("ƒŒx„ GgafGarbageBox::clean() ‹­§return");
                 return;
             }
         } else {
@@ -88,7 +88,7 @@ void GgafGarbageBox::clean(int prm_num_cleaning) {
 }
 
 GgafGarbageBox::~GgafGarbageBox() {
-    _DTRACE_("GgafGarbageBox::~GgafGarbageBox() begin");
+    _TRACE_("GgafGarbageBox::~GgafGarbageBox() begin");
     for (int i = 0; i < GgafGarbage_MAX_WAIT; i++) {
         if (GgafGarbageBox::_wait) {
             Sleep(1);
@@ -99,6 +99,6 @@ GgafGarbageBox::~GgafGarbageBox() {
     GgafGarbageBox::_wait = true;
     GGAF_DELETE(_pDisusedScene);
     GGAF_DELETE(_pDisusedActor);
-    _DTRACE_("GgafGarbageBox::~GgafGarbageBox() done");
+    _TRACE_("GgafGarbageBox::~GgafGarbageBox() done");
 }
 

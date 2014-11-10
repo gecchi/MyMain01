@@ -92,7 +92,7 @@ void SplineLine::compute(double prm_accuracy) {
 }
 
 SplineLine::~SplineLine() {
-    _DTRACE_("SplineLine::~SplineLine() ");
+    _TRACE_("SplineLine::~SplineLine() ");
     GGAF_DELETEARR(_x_basepoint);
     GGAF_DELETEARR(_y_basepoint);
     GGAF_DELETEARR(_z_basepoint);

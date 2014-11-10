@@ -232,7 +232,7 @@ void FormationDelheid::order3(GgafCore::GgafActor* prm_pDelheid, void* prm1, voi
 
 void FormationDelheid::onSayonaraAll() {
     //このコールバックが呼び出された時点で、余命は FORMATION_END_DELAY フレームのはず
-    _DTRACE_("FormationDelheid::onSayonaraAll() です");
+    _TRACE_("FormationDelheid::onSayonaraAll() です");
     getProgress()->change(PROG_LEAVE);
     //解放を待つ
 }
