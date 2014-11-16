@@ -920,7 +920,7 @@ GgafElement<T>::GgafElement(const char* prm_name) :
     _frame_of_life(0),
     _frame_of_behaving(0),
     _frame_of_behaving_since_onActive(0),
-    _is_active_flg(false),
+    _is_active_flg(false),             //生成直後はfalseであるが、何もしないと初回nextFrame()でアクティブになる予定
     _is_active_in_the_tree_flg(false),
     _was_paused_flg(false),
     _can_live_flg(true),

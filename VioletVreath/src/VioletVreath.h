@@ -551,6 +551,7 @@ class EnemyOzartiaShot01;
 class EnemyOzartiaPillar01;
 
 class EnemyOebius;
+class EnemyOebiusCore;
 class FormationOebius;
 class FormationOebius001;
 class FormationOebius002;

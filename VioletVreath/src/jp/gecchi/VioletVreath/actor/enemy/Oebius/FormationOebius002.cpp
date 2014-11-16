@@ -22,6 +22,15 @@ FormationOebius002::FormationOebius002(const char* prm_name) :
     for (int col = 0; col < getFormationColNum(); col++) {
         papSplManufConn_[col] = getConnection_SplineManufactureManager(("FormationOebius002_"+XTOS(col)).c_str());
     }
+
+    //—×‚ÌƒGƒrƒEƒX•Ò‘à‚Ì—ñ‚Æ‚ÌŠÔŠu‚ð‹‚ß‚é
+    if (getFormationColNum() > 1) {
+        d_next_col_ = -1.0 * (
+                papSplManufConn_[1]->peek()->_sp->_rotmat._43 -
+                papSplManufConn_[0]->peek()->_sp->_rotmat._43 );  //•â³•ÏŠ·s—ñ‚ÌZ•½sˆÚ“®’l‚Ì·i•â³‘O‚ÌÀ•W‚Ì‹——£‚ª—~‚µ‚¢‚Å-1‚ðŠ|‚¯‚éj
+    } else {
+        d_next_col_ = 0;
+    }
 }
 
 void FormationOebius002::processBehavior() {
@@ -39,12 +48,12 @@ void FormationOebius002::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, i
     }
     double rate_z = pOebius->pKurokoLeader_->_pManufacture->_rate_z;
 
-    //Z = (prm_col*0.4)*rate_z
+    //Z = (prm_col*0.4)*rate_z //0.4‚Í—×‚Ì—ñ‚Æ‚ÌŠÔŠu
     //(0, 0, Z) ‚ð Rz > Ry ‰ñ“]ˆÚ“®‚³‚¹‚é‚Æ
     //(Z*sinRy, 0, Z*cosRy)
     float sinRy = ANG_SIN(entry_pos_.ry);
     float cosRy = ANG_COS(entry_pos_.ry);
-    float Z = (prm_col*0.4)*rate_z;
+    float Z = (prm_col*d_next_col_)*rate_z; //rate_z‚ðŠ|‚¯‚é‚±‚Æ‚É‚æ‚èA‚±‚±‚Å Z ‚Ícoord‚Ì’PˆÊ‚Æ‚È‚éB
 
     coord dx = Z*sinRy;
     coord dy = 0;
@@ -55,9 +64,9 @@ void FormationOebius002::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, i
     pOebius->pKurokoLeader_->fixStartMvAngle(entry_pos_.rz, entry_pos_.ry);
 
 
-    pOebius->position( RND_AROUND(entry_pos_.x + dx, PX_C(700)),
-                       RND_AROUND(entry_pos_.y + dy, PX_C(700)),
-                       RND_AROUND(entry_pos_.z + dz, PX_C(700)) );
+    pOebius->position( RND_ABOUT(entry_pos_.x + dx, PX_C(700)),
+                       RND_ABOUT(entry_pos_.y + dy, PX_C(700)),
+                       RND_ABOUT(entry_pos_.z + dz, PX_C(700)) );
     pOebius->setFaceAngTwd(entry_pos_.x + dx,
                            entry_pos_.y + dy,
                            entry_pos_.z + dz);
@@ -73,7 +82,7 @@ void FormationOebius002::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, i
 void FormationOebius002::onFinshLeading(GgafDxCore::GgafDxDrawableActor* prm_pActor) {
     //ÅŒã‚ÍŽU‚èŽU‚è‚É“®‚­
     GgafDxKuroko* pKuroko = prm_pActor->getKuroko();
-    pKuroko->turnRzRyMvAngTo(RND_AROUND(pKuroko->_ang_rz_mv, D_ANG(120)), RND_AROUND(pKuroko->_ang_rz_mv, D_ANG(120)),
+    pKuroko->turnRzRyMvAngTo(RND_ABOUT(pKuroko->_ang_rz_mv, D_ANG(120)), RND_ABOUT(pKuroko->_ang_rz_mv, D_ANG(120)),
                              D_ANG(2), 0, TURN_CLOSE_TO,false);
     pKuroko->setMvAcce(300);
 }

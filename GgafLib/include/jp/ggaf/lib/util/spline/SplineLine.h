@@ -104,6 +104,34 @@ public:
             _41 = d41; _42 = d42; _43 = d43; _44 = d44;
         }
     };
+
+public:
+
+    BSpline _xs;
+    BSpline _ys;
+    BSpline _zs;
+
+    /** 制御点X座標の配列 */
+    double* _x_basepoint;
+    /** 制御点Y座標の配列 */
+    double* _y_basepoint;
+    /** 制御点Z座標の配列 */
+    double* _z_basepoint;
+    /** 制御点座標数 */
+    int _num_basepoint;
+    /** 補完点（制御点含む）X座標の配列 */
+    double* _x_compute;
+    /** 補完点（制御点含む）Y座標の配列 */
+    double* _y_compute;
+    /** 補完点（制御点含む）Z座標の配列 */
+    double* _z_compute;
+    /** 補完点座標数 */
+    int _rnum;
+    /** 補完粒度(1.0 で制御点＝補完点、0.5 で、制御点間に補完点を１つ挿入、0.1で補完点９個 */
+    double _accuracy;
+    /** 座標補正変換行列 */
+    RotMat _rotmat;
+
 public:
     /**
      * コンストラクタ .
@@ -123,14 +151,28 @@ public:
      *                     1.0で補完点なし。
      *                     0.5で制御点間中点を一つ追加。
      *                     0.1だと1制御点間に10点補完、といった具合
-     * @return
      */
     SplineLine(double prm_paaBase[][3], int num, double prm_accuracy);
 
+    /**
+     * コンストラクタ .
+     * 後で init() を呼び出さなくて良い。
+     * @param prm_paaBase 制御点座標の配列
+     *                    [][0] X座標
+     *                    [][1] Y座標
+     *                    [][2] Z座標
+     * @param num         制御点座標の配列数
+     * @param prm_accuracy 補完点挿入粒度。
+     *                     1.0で補完点なし。
+     *                     0.5で制御点間中点を一つ追加。
+     *                     0.1だと1制御点間に10点補完、といった具合
+     * @param prm_rotmat 制御点（補間点）の座標を補正する変換行列
+     */
     SplineLine(double prm_paaBase[][3], int num, double prm_accuracy, RotMat& prm_rotmat);
 
     /**
-     * 初期化し補完点し、使用できる状態にします .
+     * 初期化し補完点し補正変換行列を適用して、使用できる状態にします .
+     * SplineLine() の引数なしコンストラクタでで生成した場合に、本メソッドを別途呼び出す必要があります。
      * @param prm_paaBase 制御点座標の配列
      *                    [][0] X座標
      *                    [][1] Y座標
@@ -142,7 +184,7 @@ public:
      *                     0.1だと1制御点間に9個の補完点、といった具合
      */
     void init(double prm_paaBase[][3], int num, double prm_accuracy);
-    void init(double prm_paaBase[][3], int num, double prm_accuracy, RotMat& prm_rotmat);
+
     /**
      * 補完点計算
      * @param prm_accuracy 補完点挿入粒度。
@@ -151,30 +193,6 @@ public:
      *                     0.1だと制御点間に9個の補完点、といった具合
      */
     void compute(double prm_accuracy);
-
-    /** 制御点X座標の配列 */
-    double* _x_basepoint;
-    /** 制御点Y座標の配列 */
-    double* _y_basepoint;
-    /** 制御点Z座標の配列 */
-    double* _z_basepoint;
-    /** 制御点座標数 */
-    int _num_basepoint;
-
-    BSpline _xs;
-    BSpline _ys;
-    BSpline _zs;
-
-    /** 補完点（制御点含む）X座標の配列 */
-    double* _x_compute;
-    /** 補完点（制御点含む）Y座標の配列 */
-    double* _y_compute;
-    /** 補完点（制御点含む）Z座標の配列 */
-    double* _z_compute;
-    /** 補完点座標数 */
-    int _rnum;
-    /** 補完粒度(1.0 で制御点＝補完点、0.5 で、制御点間に補完点を１つ挿入、0.1で補完点９個 */
-    double _accuracy;
 
     virtual ~SplineLine();
 

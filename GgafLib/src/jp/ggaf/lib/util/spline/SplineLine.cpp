@@ -22,30 +22,11 @@ SplineLine::SplineLine(double prm_paaEstablish[][3], int prm_num, double prm_acc
 }
 
 SplineLine::SplineLine(double prm_paaEstablish[][3], int prm_num, double prm_accuracy, RotMat& prm_rotmat) : GgafObject() {
-    init(prm_paaEstablish, prm_num, prm_accuracy, prm_rotmat);
+    _rotmat = prm_rotmat;
+    init(prm_paaEstablish, prm_num, prm_accuracy);
 }
 
 void SplineLine::init(double prm_paaEstablish[][3], int prm_num, double prm_accuracy) {
-    _num_basepoint = prm_num;
-    _accuracy = prm_accuracy;
-    _x_basepoint = NEW double[prm_num];
-    _y_basepoint = NEW double[prm_num];
-    _z_basepoint = NEW double[prm_num];
-    for (int i = 0; i < prm_num; i++) {
-        _x_basepoint[i] = prm_paaEstablish[i][0];
-        _y_basepoint[i] = prm_paaEstablish[i][1];
-        _z_basepoint[i] = prm_paaEstablish[i][2];
-    }
-    _xs.init(_x_basepoint, prm_num);
-    _ys.init(_y_basepoint, prm_num);
-    _zs.init(_z_basepoint, prm_num);
-    _x_compute = nullptr;
-    _y_compute = nullptr;
-    _z_compute = nullptr;
-    compute(prm_accuracy);
-}
-
-void SplineLine::init(double prm_paaEstablish[][3], int prm_num, double prm_accuracy, RotMat& prm_rotmat) {
     _num_basepoint = prm_num;
     _accuracy = prm_accuracy;
     _x_basepoint = NEW double[prm_num];
@@ -57,9 +38,9 @@ void SplineLine::init(double prm_paaEstablish[][3], int prm_num, double prm_accu
         x = prm_paaEstablish[i][0];
         y = prm_paaEstablish[i][1];
         z = prm_paaEstablish[i][2];
-        _x_basepoint[i] = x*prm_rotmat._11 + y*prm_rotmat._21 + z*prm_rotmat._31 + prm_rotmat._41;
-        _y_basepoint[i] = x*prm_rotmat._12 + y*prm_rotmat._22 + z*prm_rotmat._32 + prm_rotmat._42;
-        _z_basepoint[i] = x*prm_rotmat._13 + y*prm_rotmat._23 + z*prm_rotmat._33 + prm_rotmat._43;
+        _x_basepoint[i] = x*_rotmat._11 + y*_rotmat._21 + z*_rotmat._31 + _rotmat._41;
+        _y_basepoint[i] = x*_rotmat._12 + y*_rotmat._22 + z*_rotmat._32 + _rotmat._42;
+        _z_basepoint[i] = x*_rotmat._13 + y*_rotmat._23 + z*_rotmat._33 + _rotmat._43;
     }
     _xs.init(_x_basepoint, prm_num);
     _ys.init(_y_basepoint, prm_num);

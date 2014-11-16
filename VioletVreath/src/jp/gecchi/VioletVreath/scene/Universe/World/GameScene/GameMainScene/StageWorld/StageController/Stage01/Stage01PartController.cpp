@@ -26,15 +26,15 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
 	_paFrame_NextEvent = new frame[12];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 12;
-	orderActorToFactory(10000000, FormationOebius001, "FormationOebius001-1");
-	orderActorToFactory(10000001, FormationOebius001, "FormationOebius001-2");
-	orderActorToFactory(10000002, FormationOebius001, "FormationOebius001-3");
-	orderActorToFactory(10000003, FormationOebius001, "FormationOebius001-4");
-	orderActorToFactory(10000004, FormationOebius001, "FormationOebius001-5");
-	orderActorToFactory(10000005, FormationOebius002, "FormationOebius002-6");
-	orderActorToFactory(10000006, FormationOebius002, "FormationOebius002-7");
-	orderActorToFactory(10000007, FormationOebius002, "FormationOebius002-8");
-	orderActorToFactory(10000008, FormationOebius002, "FormationOebius002-9");
+	orderActorToFactory(10000000, EnemyOebiusCore, "EnemyOebiusCore-1");
+	orderActorToFactory(10000001, EnemyOebiusCore, "EnemyOebiusCore-2");
+	orderActorToFactory(10000002, EnemyOebiusCore, "EnemyOebiusCore-3");
+	orderActorToFactory(10000003, EnemyOebiusCore, "EnemyOebiusCore-4");
+	orderActorToFactory(10000004, EnemyOebiusCore, "EnemyOebiusCore-5");
+	orderActorToFactory(10000005, EnemyOebiusCore, "EnemyOebiusCore-6");
+	orderActorToFactory(10000006, EnemyOebiusCore, "EnemyOebiusCore-7");
+	orderActorToFactory(10000007, EnemyOebiusCore, "EnemyOebiusCore-8");
+	orderActorToFactory(10000008, EnemyOebiusCore, "EnemyOebiusCore-9");
     // gen01 end
     useProgress(Stage01PartController::PROG_BANPEI-1);
 }
@@ -53,82 +53,71 @@ void Stage01PartController::processBehavior() {
 				break;
 			}
 			case 100: {
-				FormationOebius001* pF1 = (FormationOebius001*)obtainActorFromFactory(10000000);
-				getSceneDirector()->addSubGroup(pF1);
-				pF1->position(RND_AROUND(PX_C(2300), PX_C(2000)), RND_AROUND(0, PX_C(2000)), RND_AROUND(0, PX_C(2000)) );
-				pF1->setRzRyAng(RND(0, D_ANG(360)), RND(0, D_ANG(360)));
-				orderActorToFactory(10000009, FormationOebius002, "FormationOebius002-10");
+				EnemyOebiusCore* p1 = (EnemyOebiusCore*)obtainActorFromFactory(10000000);
+				getSceneDirector()->addSubGroup(p1);
+				p1->position(RND_ABOUT(PX_C(2300), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND_ABOUT(0, PX_C(2000)) );
+				orderActorToFactory(10000009, EnemyOebiusCore, "EnemyOebiusCore-10");
 				break;
 			}
 			case 200: {
-				FormationOebius001* pF1 = (FormationOebius001*)obtainActorFromFactory(10000001);
-				getSceneDirector()->addSubGroup(pF1);
-				pF1->position(RND_AROUND(PX_C(2300), PX_C(2000)), RND_AROUND(0, PX_C(2000)), RND_AROUND(0, PX_C(2000)) );
-				pF1->setRzRyAng(RND(0, D_ANG(360)), RND(0, D_ANG(360)));
-				orderActorToFactory(10000010, FormationOebius002, "FormationOebius002-11");
+				EnemyOebiusCore* p1 = (EnemyOebiusCore*)obtainActorFromFactory(10000001);
+				getSceneDirector()->addSubGroup(p1);
+				p1->position(RND_ABOUT(PX_C(2300), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND_ABOUT(0, PX_C(2000)) );
+				orderActorToFactory(10000010, EnemyOebiusCore, "EnemyOebiusCore-11");
 				break;
 			}
 			case 300: {
-				FormationOebius001* pF1 = (FormationOebius001*)obtainActorFromFactory(10000002);
-				getSceneDirector()->addSubGroup(pF1);
-				pF1->position(RND_AROUND(PX_C(2300), PX_C(2000)), RND_AROUND(0, PX_C(2000)), RND_AROUND(0, PX_C(2000)) );
-				pF1->setRzRyAng(RND(0, D_ANG(360)), RND(0, D_ANG(360)));
+				EnemyOebiusCore* p1 = (EnemyOebiusCore*)obtainActorFromFactory(10000002);
+				getSceneDirector()->addSubGroup(p1);
+				p1->position(RND_ABOUT(PX_C(2300), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND_ABOUT(0, PX_C(2000)) );
 				break;
 			}
 			case 400: {
-				FormationOebius001* pF1 = (FormationOebius001*)obtainActorFromFactory(10000003);
-				getSceneDirector()->addSubGroup(pF1);
-				pF1->position(RND_AROUND(PX_C(2300), PX_C(2000)), RND_AROUND(0, PX_C(2000)), RND_AROUND(0, PX_C(2000)) );
-				pF1->setRzRyAng(RND(0, D_ANG(360)), RND(0, D_ANG(360)));
+				EnemyOebiusCore* p1 = (EnemyOebiusCore*)obtainActorFromFactory(10000003);
+				getSceneDirector()->addSubGroup(p1);
+				p1->position(RND_ABOUT(PX_C(2300), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND_ABOUT(0, PX_C(2000)) );
 				break;
 			}
 			case 500: {
-				FormationOebius001* pF1 = (FormationOebius001*)obtainActorFromFactory(10000004);
-				getSceneDirector()->addSubGroup(pF1);
-				pF1->position(RND_AROUND(PX_C(2300), PX_C(2000)), RND_AROUND(0, PX_C(2000)), RND_AROUND(0, PX_C(2000)) );
-				pF1->setRzRyAng(RND(0, D_ANG(360)), RND(0, D_ANG(360)));
+				EnemyOebiusCore* p1 = (EnemyOebiusCore*)obtainActorFromFactory(10000004);
+				getSceneDirector()->addSubGroup(p1);
+				p1->position(RND_ABOUT(PX_C(2300), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND_ABOUT(0, PX_C(2000)) );
 				break;
 			}
 			case 600: {
-				FormationOebius002* pF2 = (FormationOebius002*)obtainActorFromFactory(10000005);
-				getSceneDirector()->addSubGroup(pF2);
-				pF2->position(RND_AROUND(PX_C(2300), PX_C(2000)), RND_AROUND(0, PX_C(2000)), RND_AROUND(0, PX_C(2000)) );
-				pF2->setRzRyAng(RND(0, D_ANG(360)), RND(0, D_ANG(360)));
+				EnemyOebiusCore* p2 = (EnemyOebiusCore*)obtainActorFromFactory(10000005);
+				getSceneDirector()->addSubGroup(p2);
+				p2->position(RND_ABOUT(PX_C(2300), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND_ABOUT(0, PX_C(2000)) );
 				break;
 			}
 			case 700: {
-				FormationOebius002* pF2 = (FormationOebius002*)obtainActorFromFactory(10000006);
-				getSceneDirector()->addSubGroup(pF2);
-				pF2->position(RND_AROUND(PX_C(2300), PX_C(2000)), RND_AROUND(0, PX_C(2000)), RND_AROUND(0, PX_C(2000)) );
-				pF2->setRzRyAng(RND(0, D_ANG(360)), RND(0, D_ANG(360)));
+				EnemyOebiusCore* p2 = (EnemyOebiusCore*)obtainActorFromFactory(10000006);
+				getSceneDirector()->addSubGroup(p2);
+				p2->position(RND_ABOUT(PX_C(2300), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND_ABOUT(0, PX_C(2000)) );
 				break;
 			}
 			case 800: {
-				FormationOebius002* pF2 = (FormationOebius002*)obtainActorFromFactory(10000007);
-				getSceneDirector()->addSubGroup(pF2);
-				pF2->position(RND_AROUND(PX_C(2300), PX_C(2000)), RND_AROUND(0, PX_C(2000)), RND_AROUND(0, PX_C(2000)) );
-				pF2->setRzRyAng(RND(0, D_ANG(360)), RND(0, D_ANG(360)));
+				EnemyOebiusCore* p2 = (EnemyOebiusCore*)obtainActorFromFactory(10000007);
+				getSceneDirector()->addSubGroup(p2);
+				p2->position(RND_ABOUT(PX_C(2300), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND_ABOUT(0, PX_C(2000)) );
 				break;
 			}
 			case 900: {
-				FormationOebius002* pF2 = (FormationOebius002*)obtainActorFromFactory(10000008);
-				getSceneDirector()->addSubGroup(pF2);
-				pF2->position(RND_AROUND(PX_C(2300), PX_C(2000)), RND_AROUND(0, PX_C(2000)), RND_AROUND(0, PX_C(2000)) );
-				pF2->setRzRyAng(RND(0, D_ANG(360)), RND(0, D_ANG(360)));
+				EnemyOebiusCore* p2 = (EnemyOebiusCore*)obtainActorFromFactory(10000008);
+				getSceneDirector()->addSubGroup(p2);
+				p2->position(RND_ABOUT(PX_C(2300), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND_ABOUT(0, PX_C(2000)) );
 				break;
 			}
 			case 1000: {
-				FormationOebius002* pF2 = (FormationOebius002*)obtainActorFromFactory(10000009);
-				getSceneDirector()->addSubGroup(pF2);
-				pF2->position(RND_AROUND(PX_C(2300), PX_C(2000)), RND_AROUND(0, PX_C(2000)), RND_AROUND(0, PX_C(2000)) );
-				pF2->setRzRyAng(RND(0, D_ANG(360)), RND(0, D_ANG(360)));
+				EnemyOebiusCore* p2 = (EnemyOebiusCore*)obtainActorFromFactory(10000009);
+				getSceneDirector()->addSubGroup(p2);
+				p2->position(RND_ABOUT(PX_C(2300), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND_ABOUT(0, PX_C(2000)) );
 				break;
 			}
 			case 1100: {
-				FormationOebius002* pF2 = (FormationOebius002*)obtainActorFromFactory(10000010);
-				getSceneDirector()->addSubGroup(pF2);
-				pF2->position(RND_AROUND(PX_C(2300), PX_C(2000)), RND_AROUND(0, PX_C(2000)), RND_AROUND(0, PX_C(2000)) );
-				pF2->setRzRyAng(RND(0, D_ANG(360)), RND(0, D_ANG(360)));
+				EnemyOebiusCore* p2 = (EnemyOebiusCore*)obtainActorFromFactory(10000010);
+				getSceneDirector()->addSubGroup(p2);
+				p2->position(RND_ABOUT(PX_C(2300), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND_ABOUT(0, PX_C(2000)) );
 				break;
 			}
 			default :

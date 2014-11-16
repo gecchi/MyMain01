@@ -1,4 +1,4 @@
-#include "EnemyOebius.h"
+#include "EnemyOebiusCore.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
@@ -10,7 +10,7 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Oebius/FormationOebius.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Oebius/FormationOebius001.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -18,21 +18,29 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 
-EnemyOebius::EnemyOebius(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "Oebius", STATUS(EnemyOebius)) {
-    _class_name = "EnemyOebius";
+EnemyOebiusCore::EnemyOebiusCore(const char* prm_name) :
+        DefaultMorphMeshActor(prm_name, "1/OebiusCore", STATUS(EnemyOebiusCore)) {
+    _class_name = "EnemyOebiusCore";
     pAFader_ = NEW GgafDxAlphaFader(this);
+
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    pSeTx->set(SE_UNDAMAGED, "WAVE_ENEMY_UNDAMAGED_001");
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_002");
+    pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
+
     useProgress(PROG_BANPEI);
-    pKurokoLeader_ = nullptr; //フォーメーションオブジェクトが設定する
+
+    pFormationOebius_ = NEW FormationOebius001("FormationOebius");
+    pFormationOebius_->inactivate();
+    addSubGroup(pFormationOebius_);
 }
 
-void EnemyOebius::onCreateModel() {
+void EnemyOebiusCore::onCreateModel() {
 //    pModel->setSpecular(5.0, 1.0);
 }
 
-void EnemyOebius::initialize() {
+void EnemyOebiusCore::initialize() {
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->makeCollision(1);
     pChecker->setColliAAB_Cube(0, 40000);
@@ -41,12 +49,12 @@ void EnemyOebius::initialize() {
     pKuroko->forceMvVeloRange(PX_C(15));
 }
 
-void EnemyOebius::onActive() {
+void EnemyOebiusCore::onActive() {
     getStatus()->reset();
     getProgress()->reset(PROG_INIT);
 }
 
-void EnemyOebius::processBehavior() {
+void EnemyOebiusCore::processBehavior() {
     GgafDxKuroko* pKuroko = getKuroko();
     GgafProgress* pProg = getProgress();
     switch (pProg->get()) {
@@ -69,9 +77,9 @@ void EnemyOebius::processBehavior() {
             break;
         }
 
-        case PROG_MOVE_BEGIN: {
+        case PROG_WAIT01: {
             if (pProg->isJustChanged()) {
-
+                pKuroko->keepOnTurningFaceAngTwd(P_MYSHIP, D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
             if (pProg->getFrameInProgress() == 120) {
                 pProg->changeNext();
@@ -79,26 +87,40 @@ void EnemyOebius::processBehavior() {
             break;
         }
 
-        case PROG_SPLINE: {
+        case PROG_COIL_OEBIUS: {
             if (pProg->isJustChanged()) {
-                getKuroko()->setMvAcce(0); //加速度がある場合は切っておく
-                pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION, 15);
+                pFormationOebius_->position(_x, _y, _z);
+                pFormationOebius_->setRzRyAng(_rz, _ry);
+                pFormationOebius_->activate();
             }
-            pKurokoLeader_->behave(); //スプライン移動を振る舞い
-
-            if (pKurokoLeader_->isFinished()) {
-                position(pKurokoLeader_->_x_start, pKurokoLeader_->_y_start, pKurokoLeader_->_z_start);
-                pKuroko->setRzRyMvAng(pKurokoLeader_->_ang_rz_mv_start, pKurokoLeader_->_ang_ry_mv_start);
-                ((FormationOebius*)getFormation() )->onFinshLeading(this);
+            if (pProg->getFrameInProgress() == 300) {
                 pProg->changeNext();
             }
             break;
         }
 
-        case PROG_MOVE_AFTER: {
+        case PROG_WAIT02: {
             if (pProg->isJustChanged()) {
             }
-            if (pProg->getFrameInProgress() == 120) {
+            if (pProg->getFrameInProgress() == 300) {
+                pProg->changeNext();
+            }
+            break;
+        }
+
+        case PROG_SHOOT: {
+            if (pProg->isJustChanged()) {
+            }
+            if (pProg->getFrameInProgress() == 300) {
+                pProg->changeNext();
+            }
+            break;
+        }
+
+        case PROG_WAIT03: {
+            if (pProg->isJustChanged()) {
+            }
+            if (pProg->getFrameInProgress() == 300) {
                 pProg->changeNext();
             }
             break;
@@ -124,13 +146,13 @@ void EnemyOebius::processBehavior() {
     getKuroko()->behave();
 }
 
-void EnemyOebius::processJudgement() {
+void EnemyOebiusCore::processJudgement() {
     if (isOutOfUniverse()) {
         sayonara();
     }
 }
 
-void EnemyOebius::onHit(GgafActor* prm_pOtherActor) {
+void EnemyOebiusCore::onHit(GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊時
@@ -140,14 +162,10 @@ void EnemyOebius::onHit(GgafActor* prm_pOtherActor) {
     }
 }
 
-void EnemyOebius::onInactive() {
-    if (getBehaveingFrame() > 10) {
-        //EnemyOebiusCoreに管理されている。初めはInactive()であるため。
-        sayonara();
-    }
+void EnemyOebiusCore::onInactive() {
+    sayonara();
 }
 
-EnemyOebius::~EnemyOebius() {
+EnemyOebiusCore::~EnemyOebiusCore() {
     GGAF_DELETE(pAFader_);
-    GGAF_DELETE_NULLABLE(pKurokoLeader_);
 }

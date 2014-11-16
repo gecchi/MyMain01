@@ -21,7 +21,7 @@ void GgafTreeFormation::addFormationMember(GgafActor* prm_pSub) {
 #endif
     _num_formation_member++;
     if (_pSubFirst == nullptr) {
-        //団長に種別を正しく伝えるために種別を引き継ぐ
+        //団長に種別を正しく伝えるために、初回追加の種別を、自身の種別に上書きする
         getStatus()->set(STAT_DEFAULT_ACTOR_KIND, prm_pSub->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND));
     } else {
 #ifdef MY_DEBUG
@@ -34,7 +34,7 @@ void GgafTreeFormation::addFormationMember(GgafActor* prm_pSub) {
     }
     prm_pSub->_pFormation = this; //メンバーへフォーメーションを設定
     GgafFormation::addSubLast(prm_pSub);
-    prm_pSub->inactivate(); //フォーメーションなので
+    prm_pSub->inactivate(); //フォーメーションなのでcallUpまで非活動。
 }
 
 void GgafTreeFormation::processFinal() {

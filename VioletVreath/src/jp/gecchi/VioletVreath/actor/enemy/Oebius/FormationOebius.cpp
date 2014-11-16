@@ -9,6 +9,7 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/manager/XpmManager.h"
 #include "jp/gecchi/VioletVreath/manager/XpmConnection.h"
+#include "EnemyOebiusCore.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -28,6 +29,7 @@ FormationOebius::FormationOebius(const char* prm_name, int prm_formation_col_num
     }
     call_up_interval_ = prm_call_up_interval; //oŒ»ŠÔŠu
     call_up_row_cnt_ = 0;
+    useProgress(PROG_BANPEI);
 }
 
 FormationOebius::FormationOebius(const char* prm_name, const char* prm_xpm_id, frame prm_call_up_interval)  :
@@ -44,6 +46,7 @@ FormationOebius::FormationOebius(const char* prm_name, const char* prm_xpm_id, f
     }
     call_up_interval_ = prm_call_up_interval; //oŒ»ŠÔŠu
     call_up_row_cnt_ = 0;
+    useProgress(PROG_BANPEI);
 }
 
 void FormationOebius::initialize() {
@@ -51,28 +54,58 @@ void FormationOebius::initialize() {
 
 void FormationOebius::onActive() {
     call_up_row_cnt_ = 0;
+    getProgress()->reset(PROG_INIT);
 }
 
 void FormationOebius::processBehavior() {
-    if (canCallUp()) {
-        if (getActiveFrame() % call_up_interval_ == 0) {
-            for (int col = 0; col < formation_col_num_; col++) {
-                if (pXpmConnection_) {
-                    if (!pXpmConnection_->peek()->isNonColor(call_up_row_cnt_, col)) {
-                        EnemyOebius* pOebius = (EnemyOebius*)callUpMember();
-                        if (pOebius) {
-                            onCallUp(pOebius, call_up_row_cnt_, col);
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
+        case PROG_INIT: {
+            pProg->changeNext();
+            break;
+        }
+        case PROG_ENTRY_OEBIUS_CORE: {
+            if (pProg->isJustChanged()) {
+            }
+            if (pProg->getFrameInProgress() == 300) {
+                pProg->changeNext();
+            }
+            break;
+        }
+        case PROG_ENTRY_OEBIUS: {
+            if (pProg->isJustChanged()) {
+            }
+            if (canCallUp()) {
+                if (getActiveFrame() % call_up_interval_ == 0) {
+                    for (int col = 0; col < formation_col_num_; col++) {
+                        if (pXpmConnection_) {
+                            if (!pXpmConnection_->peek()->isNonColor(call_up_row_cnt_, col)) {
+                                EnemyOebius* pOebius = (EnemyOebius*)callUpMember();
+                                if (pOebius) {
+                                    onCallUp(pOebius, call_up_row_cnt_, col);
+                                }
+                            }
+                        } else {
+                            EnemyOebius* pOebius = (EnemyOebius*)callUpMember();
+                            if (pOebius) {
+                                onCallUp(pOebius, call_up_row_cnt_, col);
+                            }
                         }
                     }
-                } else {
-                    EnemyOebius* pOebius = (EnemyOebius*)callUpMember();
-                    if (pOebius) {
-                        onCallUp(pOebius, call_up_row_cnt_, col);
-                    }
+                    call_up_row_cnt_ ++;
                 }
+            } else {
+                pProg->changeNext();
             }
-            call_up_row_cnt_ ++;
+            break;
         }
+        case PROG_CALM: {
+            if (pProg->isJustChanged()) {
+            }
+            break;
+        }
+        default :
+            break;
     }
 }
 

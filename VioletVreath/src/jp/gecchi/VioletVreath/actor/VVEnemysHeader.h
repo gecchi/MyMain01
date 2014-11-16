@@ -115,6 +115,7 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Unomia/FormationUnomia002a.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Unomia/FormationUnomia002b.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/EnemyOebius.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Oebius/EnemyOebiusCore.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/FormationOebius.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/FormationOebius001.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/FormationOebius002.h"

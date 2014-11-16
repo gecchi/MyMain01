@@ -36,17 +36,17 @@ void FormationAntiope001::processBehavior() {
             MyShip* pMyShip = P_MYSHIP;
             coord renge = PX_C(1200);
             GgafDxCore::GgafDxGeoElem entry_pos(RND(pMyShip->_x - (renge*0.5), pMyShip->_x + (renge*1.5)),
-                                                RND_AROUND(pMyShip->_y, renge),
-                                                RND_AROUND(pMyShip->_z, renge) );
+                                                RND_ABOUT(pMyShip->_y, renge),
+                                                RND_ABOUT(pMyShip->_z, renge) );
 
-            GgafDxCore::GgafDxGeoElem twd_pos_p(RND_AROUND(entry_pos.x, renge),
-                                                RND_AROUND(entry_pos.y, renge),
-                                                RND_AROUND(entry_pos.z, renge) );
+            GgafDxCore::GgafDxGeoElem twd_pos_p(RND_ABOUT(entry_pos.x, renge),
+                                                RND_ABOUT(entry_pos.y, renge),
+                                                RND_ABOUT(entry_pos.z, renge) );
 
             float vX, vY, vZ;
-            UTIL::getNormalizeVector(RND_AROUND(entry_pos.x, renge),
-                                     RND_AROUND(entry_pos.y, renge),
-                                     RND_AROUND(entry_pos.z, renge),
+            UTIL::getNormalizeVector(RND_ABOUT(entry_pos.x, renge),
+                                     RND_ABOUT(entry_pos.y, renge),
+                                     RND_ABOUT(entry_pos.z, renge),
                                      vX, vY, vZ);
             coord veloMv = 4000;
 

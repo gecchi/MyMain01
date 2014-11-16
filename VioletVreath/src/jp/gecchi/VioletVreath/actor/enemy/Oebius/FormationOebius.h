@@ -10,10 +10,19 @@ namespace VioletVreath {
 /**
  * 敵機エビウス用フォーメーションその１ .
  * @version 1.00
- * @since 2013/09/17
+ * @since 2014/09/17
  * @author Masatoshi Tsuge
  */
 class FormationOebius : public GgafLib::TreeFormation {
+
+    enum {
+        PROG_INIT  ,
+        PROG_ENTRY_OEBIUS_CORE ,
+        PROG_ENTRY_OEBIUS ,
+        PROG_CALM ,
+        PROG_SHOT_BY_OEBIUS_CORE ,
+        PROG_BANPEI,
+    };
 
 public:
     int num_Oebius_;

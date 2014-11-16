@@ -9,10 +9,13 @@ namespace VioletVreath {
 /**
  * 敵機エビウス用フォーメーションその001 .
  * @version 1.00
- * @since 2013/09/17
+ * @since 2014/09/17
  * @author Masatoshi Tsuge
  */
 class FormationOebius001 : public FormationOebius {
+
+    /** 隣の列との間隔 */
+    double d_next_col_;
 
 public:
     GgafLib::SplineManufactureConnection** papSplManufConn_;

@@ -9,19 +9,23 @@ namespace VioletVreath {
 /**
  * 敵機エビウス用フォーメーションその002 .
  * @version 1.00
- * @since 2013/09/17
+ * @since 2014/09/17
  * @author Masatoshi Tsuge
  */
 class FormationOebius002 : public FormationOebius {
 
+    /** 隣の列との間隔 */
+    double d_next_col_;
+
 public:
     GgafLib::SplineManufactureConnection** papSplManufConn_;
+
     FormationOebius002(const char* prm_name);
 
     virtual void processBehavior() override;
 
-
     virtual void onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_row, int prm_col) override;
+
     virtual void onFinshLeading(GgafDxCore::GgafDxDrawableActor* prm_pActor) override;
 
     virtual ~FormationOebius002();

@@ -10,6 +10,8 @@ namespace GgafCore {
  * 編隊メンバーは使い捨てのフォーメーション。
  * 使用する場合は、本クラスを継承し、addFormationMember(GgafActor*) により
  * 編隊メンバーを追加していってください。
+ * また、登録のアクターが破壊された場合は、編隊全滅判定のために
+ * GgafActor::notifyDestroyedToFormation(); をコールしてください。
  * processFinal()を実装済みですので、オーバーライドする場合は注意して下さい。
  * @version 1.00
  * @since 2008/08/08
@@ -65,7 +67,7 @@ public:
 
     /**
      * 登録した編隊のメンバーを順番に取得します.
-     * addSubLast(GgafCore::GgafActor*) により、登録した編隊メンバーを順番に取り出します。
+     * addFormationMember(GgafCore::GgafActor*) により、登録した編隊メンバーを順番に取り出します。
      * 全て編隊メンバーを取得してしまった場合、nullptr を返します。
      * @return 未活動の編隊登録メンバー。又は nullptr、未活動の編隊登録メンバーはもう無い。
      */

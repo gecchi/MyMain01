@@ -1,47 +1,52 @@
-#ifndef ENEMYOEBIUS_H_
-#define ENEMYOEBIUS_H_
+#ifndef ENEMYOEBIUSCORE_H_
+#define ENEMYOEBIUSCORE_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
+#include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 
 #include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
 
 namespace VioletVreath {
 
 /**
- * 敵機エビウス .
- * メビウスの帯の編隊要因
+ * エビウスのコア .
  * @version 1.00
- * @since 2014/09/17
+ * @since 2014/11/11
  * @author Masatoshi Tsuge
  */
-class EnemyOebius : public GgafLib::DefaultMeshSetActor {
+class EnemyOebiusCore : public GgafLib::DefaultMorphMeshActor {
 
 public:
-    enum {
-        SE_EXPLOSION ,
-    };
 
     enum {
-        PROG_INIT   ,
-        PROG_ENTRY  ,
-        PROG_MOVE_BEGIN ,
-        PROG_SPLINE ,
-        PROG_MOVE_AFTER ,
+        PROG_INIT  ,
+        PROG_ENTRY ,
+        PROG_WAIT01 ,
+        PROG_COIL_OEBIUS ,
+        PROG_WAIT02 ,
+        PROG_SHOOT ,
+        PROG_WAIT03 ,
         PROG_LEAVE ,
         PROG_BANPEI,
     };
 
+    enum {
+        SE_DAMAGED  ,
+        SE_UNDAMAGED  ,
+        SE_EXPLOSION,
+        SE_FIRE,
+    };
+
     /** フィードイン・フェードアウト支援 */
     GgafDxCore::GgafDxAlphaFader* pAFader_;
-    /** 移動スプラインプログラム */
-    GgafLib::SplineKurokoLeader* pKurokoLeader_;
+
+    FormationOebius* pFormationOebius_;
 public:
     /**
      * コンストラクタ
      * @param prm_name
      * @return
      */
-    EnemyOebius(const char* prm_name);
+    EnemyOebiusCore(const char* prm_name);
 
     void onCreateModel() override;
 
@@ -75,9 +80,9 @@ public:
     void onInactive() override;
 
 
-    virtual ~EnemyOebius();
+    virtual ~EnemyOebiusCore();
 };
 
 }
-#endif /*ENEMYOEBIUS_H_*/
+#endif /*ENEMYOEBIUSCORE_H_*/
 

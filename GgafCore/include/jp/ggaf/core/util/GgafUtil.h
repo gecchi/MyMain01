@@ -27,24 +27,26 @@
 #define ONEd_EQ(X) (GgafCore::GgafUtil::_zerod_eq_((X)-1.0))
 
 /**
- * 範囲の変換 .
- * X の範囲 __MIN1__ ～ __MAX1__ を、__MIN2__ ～ __MAX2__ に変換した場合の値を得る<br>
- * y=((min2-max2)*x-max1*min2+max2*min1)/(min1-max1)
+ * 範囲中のある値について、範囲を変換した場合の相対値を取得 .
+ * 範囲 __MIN1__ ～ __MAX1__ の X の値を、範囲 __MIN2__ ～ __MAX2__ に変換した場合の値を得る<br>
+ * y=((min2-max2)*x-max1*min2+max2*min1)/(min1-max1)<br>
  */
-#define RANGE_TRANS(X, __MIN1__,__MAX1__,__MIN2__,__MAX2__) ( ( ((__MIN2__)-(__MAX2__))*((double)(X)) - ((__MAX1__)*((double)(__MIN2__))) + ((__MAX2__)*((double)(__MIN1__))) ) / ((__MIN1__)-(__MAX1__)) )
+#define RANGE_CONV(__MIN1__,__MAX1__,X,__MIN2__,__MAX2__) ( ( ((__MIN2__)-(__MAX2__))*((double)(X)) - ((__MAX1__)*((double)(__MIN2__))) + ((__MAX2__)*((double)(__MIN1__))) ) / ((__MIN1__)-(__MAX1__)) )
 
 
 /**
- * 整数の乱数 .
+ * 整数の乱数を得る .
+ * RND(3, 20)
+ * → 3～20の乱数を得る 戻りは int32_t 型
  */
 #define RND(__FROM__,__TO__) (GgafCore::GgafUtil::_rnd_int32_(__FROM__,__TO__))
 
 /**
- * 整数の乱数 .
- * RND_AROUND(15, 4)   意味：15 の±4の範囲の乱数
+ * ある整数の周辺の乱数を得る .
+ * RND_ABOUT(15, 4)   意味：15 の±4の範囲の乱数
  * → 11 ～ 19 の乱数になる
  */
-#define RND_AROUND(__BASE_VALUE__, __MARGIN__) (RND((__BASE_VALUE__ - __MARGIN__), (__BASE_VALUE__ + __MARGIN__)))
+#define RND_ABOUT(__BASE_VALUE__, __MARGIN__) (RND((__BASE_VALUE__ - __MARGIN__), (__BASE_VALUE__ + __MARGIN__)))
 
 typedef std::map<std::string, std::string> GgafStrMap;
 /** ハッシュ数値 */
@@ -301,8 +303,11 @@ public:
      * @return s1 > s2 で正の値、s1 < s2 で負の値、s1 = s2で 0 を返す。
      */
     static inline int strcmp_ascii(const char* s1, const char* s2) {
-        while (*s1 == *s2++)
-            if (*s1++ == 0) return (0);
+        while (*s1 == *s2++) {
+            if (*s1++ == 0) {
+                return (0);
+            }
+        }
         return (*s1 - *(s2 - 1));
     }
 
@@ -313,8 +318,11 @@ public:
      * @return s1 > s2 で正の値、s1 < s2 で負の値、s1 = s2で 0 を返す。
      */
     static inline int strcmp_ascii(char* s1, const char* s2) {
-        while (*s1 == *s2++)
-            if (*s1++ == 0) return (0);
+        while (*s1 == *s2++) {
+            if (*s1++ == 0) {
+                return (0);
+            }
+        }
         return (*s1 - *(s2 - 1));
     }
 
@@ -328,8 +336,11 @@ public:
         /* 10進数-->2進数変換 */
         int i, k;
         for (i = 0, k = bitnum - 1; k >= 0; i++, k--) {
-            if ((prm_decimal >> i) & 1) out_binstr[k] = '1';
-            else out_binstr[k] = '0';
+            if ((prm_decimal >> i) & 1) {
+                out_binstr[k] = '1';
+            } else {
+                out_binstr[k] = '0';
+            }
         }
         out_binstr[i] = '\0';
 
@@ -388,8 +399,8 @@ public:
      * @return
      */
     template<typename T>
-    static inline T _sgn_(T x) {
-        return x<0 ? -1 : x>0;
+    static inline int _sgn_(T x) {
+        return x < 0 ? -1 : x > 0;
     }
 
     /**

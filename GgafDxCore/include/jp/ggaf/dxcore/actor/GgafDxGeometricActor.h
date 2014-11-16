@@ -253,9 +253,9 @@ public:
 
 
     virtual void positionAbout(coord x, coord y, coord z, coord margin) {
-        _x = RND_AROUND(x, margin);
-        _y = RND_AROUND(y, margin);
-        _z = RND_AROUND(z, margin);
+        _x = RND_ABOUT(x, margin);
+        _y = RND_ABOUT(y, margin);
+        _z = RND_ABOUT(z, margin);
     }
 
     /**
@@ -386,9 +386,9 @@ public:
 
 
     virtual void positionAboutAs(GgafDxGeometricActor* prm_pActor, coord margin) {
-        _x = RND_AROUND(prm_pActor->_x, margin);
-        _y = RND_AROUND(prm_pActor->_y, margin);
-        _z = RND_AROUND(prm_pActor->_z, margin);
+        _x = RND_ABOUT(prm_pActor->_x, margin);
+        _y = RND_ABOUT(prm_pActor->_y, margin);
+        _z = RND_ABOUT(prm_pActor->_z, margin);
     }
 
     virtual void positionAboutAs(GgafDxGeoElem* prm_pGeoElem, coord margin);
