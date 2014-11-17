@@ -51,6 +51,10 @@ public:
      */
     static HRESULT init();
 
+    static HRESULT initKeybord();
+    static HRESULT initMouse();
+    static HRESULT initJoyStick();
+
     /**
      * 軸ボタン列挙コールバック関数 .
      * 各軸の最低値を -255、最高値を 255 に設定

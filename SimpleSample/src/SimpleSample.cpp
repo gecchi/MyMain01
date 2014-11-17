@@ -1,22 +1,13 @@
 /**
  * 「Gecchi Game App Framework ライブラリ」使用サンプル
  */
-#include "GgafLibEntry.h" //"GgafLibEntry.h" をインクルードし、
-                          //main関数 WinMain関数 ウィンドウプロシージャは
-                          //１つのファイルに記述します。
+#include "GgafLibEntry.h" //"GgafLibEntry.h" をインクルードしてください。
 #include "SimpleSample.h"
 #include "SmpGod.h"
 
 using namespace SimpleSample;
 
-/**
- * ウィンドウプロシージャ実装例 .
- */
-LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
-    GgafLibWndProc(hWnd, message, wParam, lParam); //直後に、この様に呼び出して下さい。
-    //必要があれば、メッセージ処理をココに追加記述
-    return DefWindowProc(hWnd, message, wParam, lParam);
-}
+LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 /**
  * GCC のエントリポイント
@@ -73,5 +64,15 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
         return EXIT_FAILURE; //異常終了
     }
     return (int)msg.wParam;
+}
+
+
+/**
+ * ウィンドウプロシージャ実装例 .
+ */
+LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
+   GgafLibWndProc(hWnd, message, wParam, lParam); //直後に、この様に呼び出して下さい。
+   //必要があれば、メッセージ処理をココに追加記述
+   return DefWindowProc(hWnd, message, wParam, lParam);
 }
 

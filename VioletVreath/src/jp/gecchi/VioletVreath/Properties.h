@@ -51,6 +51,8 @@ public:
     static std::string MY_JOY_UI_RIGHT;
     static std::string MY_JOY_UI_EXECUTE;
     static std::string MY_JOY_UI_CANCEL;
+    //static std::string MY_JOY_UI_DEBUG;
+
 public:
     static void load(std::string prm_ini_filename); //shadows
     static void clean();                            //shadows

@@ -44,6 +44,7 @@ std::string Properties::MY_JOY_UI_LEFT = "";
 std::string Properties::MY_JOY_UI_RIGHT = "";
 std::string Properties::MY_JOY_UI_EXECUTE = "";
 std::string Properties::MY_JOY_UI_CANCEL = "";
+//std::string Properties::MY_JOY_UI_DEBUG = "";
 
 void Properties::load(std::string prm_ini_filename) {
     GgafLibProperties::load(prm_ini_filename);
@@ -86,6 +87,7 @@ void Properties::load(std::string prm_ini_filename) {
     Properties::MY_JOY_UI_RIGHT   = getStr("MY_JOY_UI_RIGHT");
     Properties::MY_JOY_UI_EXECUTE = getStr("MY_JOY_UI_EXECUTE");
     Properties::MY_JOY_UI_CANCEL  = getStr("MY_JOY_UI_CANCEL");
+    //Properties::MY_JOY_UI_DEBUG   = getStr("MY_JOY_UI_DEBUG");
 
     _TRACE_("Properties::MY_KEY_SHOT1="<<Properties::MY_KEY_SHOT1);
     _TRACE_("Properties::MY_KEY_SHOT2="<<Properties::MY_KEY_SHOT2);
@@ -126,6 +128,7 @@ void Properties::load(std::string prm_ini_filename) {
     _TRACE_("Properties::MY_JOY_UI_RIGHT="<<Properties::MY_JOY_UI_RIGHT);
     _TRACE_("Properties::MY_JOY_UI_EXECUTE="<<Properties::MY_JOY_UI_EXECUTE);
     _TRACE_("Properties::MY_JOY_UI_CANCEL="<<Properties::MY_JOY_UI_CANCEL);
+    //_TRACE_("Properties::MY_JOY_UI_DEBUG="<<Properties::MY_JOY_UI_DEBUG);
 }
 
 void Properties::clean() {

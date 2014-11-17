@@ -134,7 +134,7 @@ public:
         int UI_RIGHT;
         int UI_EXECUTE;
         int UI_CANCEL;
-        int UI_DEBUG;
+        //int UI_DEBUG;
     };
 
 public:

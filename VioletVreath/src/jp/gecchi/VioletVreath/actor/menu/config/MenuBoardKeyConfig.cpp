@@ -144,6 +144,11 @@ void MenuBoardKeyConfig::onRise() {
     input_target_item_ = 0;
 }
 void MenuBoardKeyConfig::processBehavior() {
+    if (getBehaveingFrame() % 60 == 0) {
+        if (GgafDxInput::_pJoystickInputDevice == nullptr) {
+            GgafDxInput::initJoyStick();
+        }
+    }
     MenuBoard::processBehavior();
 
     //サブメニュー判定

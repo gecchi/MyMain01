@@ -318,7 +318,7 @@ void GgafResourceManager<T>::dump() {
 template<class T>
 GgafResourceManager<T>::~GgafResourceManager() {
 #ifdef MY_DEBUG
-    _TRACE_("GgafResourceManager<T>::~GgafResourceManager()["<<_manager_name<<"] begin --->");
+    _TRACE_("GgafResourceManager<T>::~GgafResourceManager() ["<<_manager_name<<"] begin --->");
     dump();
 #endif
     GgafResourceConnection<T>* pCurrent = _pConn_first;
@@ -349,7 +349,7 @@ GgafResourceManager<T>::~GgafResourceManager() {
         }
     }
 #ifdef MY_DEBUG
-    _TRACE_("GgafResourceManager<T>::~GgafResourceManager() ["<<_manager_name<<"] end  <---");
+    _TRACE_("GgafResourceManager<T>::~GgafResourceManager() ["<<_manager_name<<"] end   <---");
 #endif
 }
 
