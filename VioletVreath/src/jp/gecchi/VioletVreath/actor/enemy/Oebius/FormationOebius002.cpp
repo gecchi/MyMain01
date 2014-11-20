@@ -22,15 +22,6 @@ FormationOebius002::FormationOebius002(const char* prm_name) :
     for (int col = 0; col < getFormationColNum(); col++) {
         papSplManufConn_[col] = getConnection_SplineManufactureManager(("FormationOebius002_"+XTOS(col)).c_str());
     }
-
-    //隣のエビウス編隊の列との間隔を求める
-    if (getFormationColNum() > 1) {
-        d_next_col_ = -1.0 * (
-                papSplManufConn_[1]->peek()->_sp->_rotmat._43 -
-                papSplManufConn_[0]->peek()->_sp->_rotmat._43 );  //補正変換行列のZ平行移動値の差（補正前の座標の距離が欲しいで-1を掛ける）
-    } else {
-        d_next_col_ = 0;
-    }
 }
 
 void FormationOebius002::processBehavior() {
@@ -53,8 +44,8 @@ void FormationOebius002::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, i
     //(Z*sinRy, 0, Z*cosRy)
     float sinRy = ANG_SIN(entry_pos_.ry);
     float cosRy = ANG_COS(entry_pos_.ry);
-    float Z = (prm_col*d_next_col_)*rate_z; //rate_zを掛けることにより、ここで Z はcoordの単位となる。
-
+    double d_col = -1.0 * papSplManufConn_[prm_col]->peek()->_sp->_rotmat._43;
+    float Z = d_col*rate_z; //rate_zを掛けることにより、ここで Z はcoordの単位となる。
     coord dx = Z*sinRy;
     coord dy = 0;
     coord dz = Z*cosRy;
@@ -62,7 +53,6 @@ void FormationOebius002::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, i
                                               entry_pos_.y + dy,
                                               entry_pos_.z + dz);
     pOebius->pKurokoLeader_->fixStartMvAngle(entry_pos_.rz, entry_pos_.ry);
-
 
     pOebius->position( RND_ABOUT(entry_pos_.x + dx, PX_C(700)),
                        RND_ABOUT(entry_pos_.y + dy, PX_C(700)),

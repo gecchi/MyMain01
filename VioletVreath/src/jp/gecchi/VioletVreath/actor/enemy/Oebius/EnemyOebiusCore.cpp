@@ -120,7 +120,7 @@ void EnemyOebiusCore::processBehavior() {
         case PROG_WAIT03: {
             if (pProg->isJustChanged()) {
             }
-            if (pProg->getFrameInProgress() == 300) {
+            if (pProg->getFrameInProgress() == 600) {
                 pProg->changeNext();
             }
             break;

@@ -14,9 +14,6 @@ namespace VioletVreath {
  */
 class FormationOebius002 : public FormationOebius {
 
-    /** �ׂ̗�Ƃ̊Ԋu */
-    double d_next_col_;
-
 public:
     GgafLib::SplineManufactureConnection** papSplManufConn_;
 
