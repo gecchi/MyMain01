@@ -32,6 +32,9 @@ int MyShip::wk_dist = 0;
 angle MyShip::wk_angRx = 0;
 
 #define S_OPTION 0
+//Ternary numeral -1,0,1 の3数の3進法 を 配列要素のため正の10進数に変換するマクロ
+#define TN(X,Y,Z) (((3*3)*((X)+1)) + (3*((Y)+1)) + ((Z)+1))
+
 coord MyShip::lim_y_top_     =  0;
 coord MyShip::lim_y_bottom_  =  0;
 coord MyShip::lim_x_front_   =  0;

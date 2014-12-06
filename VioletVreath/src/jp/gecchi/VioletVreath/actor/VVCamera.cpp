@@ -1,4 +1,4 @@
-#include "Camera.h"
+#include "VVCamera.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "ViewPoint.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
@@ -12,9 +12,14 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-Camera::Camera(const char* prm_name) :
+
+
+//Ternary numeral -1,0,1 ÇÃ3êîÇÃ3êiñ@ Ç îzóÒóvëfÇÃÇΩÇﬂê≥ÇÃ10êiêîÇ…ïœä∑Ç∑ÇÈÉ}ÉNÉç
+#define TN(X,Y,Z) (((3*3)*((X)+1)) + (3*((Y)+1)) + ((Z)+1))
+
+VVCamera::VVCamera(const char* prm_name) :
         DefaultCamera(prm_name, PI * 90.0 / 180.0) {
-    _class_name = "Camera";
+    _class_name = "VVCamera";
     tx_ = _x;
     ty_ = _y;
     tz_ = _z;
@@ -24,19 +29,19 @@ Camera::Camera(const char* prm_name) :
     pAxsMver_Up_ = NEW GgafDxAxesMover(pUp_);
     pUp_->position(DX_C(_pVecCamUp->x), DX_C(_pVecCamUp->y), DX_C(_pVecCamUp->z));
     addSubLast(pUp_);
-    up_face_ = Camera::cnvVec2FaceNo(_pVecCamUp->x, _pVecCamUp->y, _pVecCamUp->z);
+    up_face_ = VVCamera::cnvVec2FaceNo(_pVecCamUp->x, _pVecCamUp->y, _pVecCamUp->z);
 }
 
-GgafDxCameraViewPoint* Camera::createViewPoint() {
+GgafDxCameraViewPoint* VVCamera::createViewPoint() {
     ViewPoint* pVP = NEW ViewPoint("ViewPoint");
     return (GgafDxCameraViewPoint*)pVP;
 }
 
-void Camera::initialize() {
+void VVCamera::initialize() {
     DefaultCamera::initialize();
 }
 
-void Camera::processBehavior() {
+void VVCamera::processBehavior() {
     ViewPoint* pVp = (ViewPoint*)getViewPoint();
     pAxsMver_Up_->behave();
     //ÉJÉÅÉâÇÃUPÇîΩâf
@@ -58,21 +63,21 @@ void Camera::processBehavior() {
     }
 #ifdef MY_DEBUG
     if (vcv_face_prev_!=vcv_face_) {
-        _TRACE_("Camera::processBehavior()  vcv="<<vcv_face_prev_<<"Å®"<<vcv_face_<<"");
+        _TRACE_("VVCamera::processBehavior()  vcv="<<vcv_face_prev_<<"Å®"<<vcv_face_<<"");
     }
 #endif
 }
 
-void Camera::slideMvTo(coord tx, coord ty, coord tz, frame t) {
+void VVCamera::slideMvTo(coord tx, coord ty, coord tz, frame t) {
     pAxsMver_->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               0.3, 0.7, 0, true);
 }
-void Camera::slideMvTo(GgafDxGeometricActor* pTarget, frame t) {
+void VVCamera::slideMvTo(GgafDxGeometricActor* pTarget, frame t) {
     slideMvTo(pTarget->_x, pTarget->_y, pTarget->_z, t);
 }
 
-void Camera::slideMvTo(coord tx, coord ty, coord tz, frame t,
+void VVCamera::slideMvTo(coord tx, coord ty, coord tz, frame t,
                        float prm_x_p1, float prm_y_p1, float prm_z_p1) {
     pAxsMver_->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
@@ -81,12 +86,12 @@ void Camera::slideMvTo(coord tx, coord ty, coord tz, frame t,
                               prm_z_p1, prm_z_p1, 0,
                               true);
 }
-void Camera::slideMvTo(GgafDxGeometricActor* pTarget, frame t,
+void VVCamera::slideMvTo(GgafDxGeometricActor* pTarget, frame t,
                        float prm_x_p1, float prm_y_p1, float prm_z_p1) {
     slideMvTo(pTarget->_x, pTarget->_y, pTarget->_z, t,
               prm_x_p1, prm_y_p1, prm_z_p1);
 }
-int Camera::getCamToVpFaceNo() {
+int VVCamera::getCamToVpFaceNo() {
     float vcv_x, vcv_y, vcv_z;
     ViewPoint* pVP = (ViewPoint*)getViewPoint();
     UTIL::getNormalizeVector (
@@ -94,31 +99,24 @@ int Camera::getCamToVpFaceNo() {
             pVP->_y - _y,
             pVP->_z - _z,
             vcv_x, vcv_y, vcv_z  );
-    return Camera::cnvVec2FaceNo(vcv_x, vcv_y, vcv_z);
+    return VVCamera::cnvVec2FaceNo(vcv_x, vcv_y, vcv_z);
 }
 
-int Camera::cnvVec2FaceNo(float vx, float vy, float vz) {
+int VVCamera::cnvVec2FaceNo(float vx, float vy, float vz) {
+
+//              ________
+//            Å^        Å_
+//          Å^            Å_
+//        Å^                Å_
+//       |                    |
+//       |                    |
+//       |                    |
+//        Å_                Å^
+//          Å_            Å^
+//            Å_ÅQÅQÅQÅQÅ^
 //
-//                       (+y)áA      áB(+z)
-//                           ^      Å¢
-//                           |      /
-//                     ______|_________
-//                    /|     |    /   /|
-//                   / |     |   /   / |
-//                  /  |            /  |
-//                 /   |           /   |
-//                /_______________/    |
-//   (-x)áE <-----|--  |__________|____| ------>á@(+x)
-//                |    /          |    /
-//                |   /           |   /
-//                |  /   /   |    |  /
-//                | /   /    |    | /
-//                |/___/__________|/
-//                    /      |
-//                   Å§      |
-//                  áC(-z)   v
-//                           áD(-y)
-//
+//               2-Å„2
+
     float abs_vx = ABS(vx);
     float abs_vy = ABS(vy);
     float abs_vz = ABS(vz);
@@ -164,7 +162,7 @@ int Camera::cnvVec2FaceNo(float vx, float vy, float vz) {
     return r_face_no;
 }
 
-void Camera::cnvFaceNo2Vec(int face_no, float& out_vx, float& out_vy, float& out_vz) {
+void VVCamera::cnvFaceNo2Vec(int face_no, float& out_vx, float& out_vy, float& out_vz) {
     if (face_no == 1) {
         out_vx = 1.0f;   out_vy = 0.0f;  out_vz = 0.0f;
     } else if (face_no == 6) {
@@ -178,30 +176,30 @@ void Camera::cnvFaceNo2Vec(int face_no, float& out_vx, float& out_vy, float& out
     } else if (face_no == 4) {
         out_vx = 0.0f;   out_vy = 0.0f;   out_vz = -1.0f;
     } else {
-        throwGgafCriticalException("CameraWorker::cnvFaceNo2Vec() face_no="<<face_no);
+        throwGgafCriticalException("VVCameraWorker::cnvFaceNo2Vec() face_no="<<face_no);
     }
 }
 
-void Camera::slideUpCamTo(int prm_face_no, frame prm_t) {
+void VVCamera::slideUpCamTo(int prm_face_no, frame prm_t) {
     dxcoord up_x, up_y, up_z;
-    Camera::cnvFaceNo2Vec(prm_face_no, up_x, up_y, up_z);
+    VVCamera::cnvFaceNo2Vec(prm_face_no, up_x, up_y, up_z);
     slideUpCamTo(DX_C(up_x), DX_C(up_y), DX_C(up_z), prm_t);
 }
 
-void Camera::slideUpCamTo(coord tx, coord ty, coord tz, frame t) {
+void VVCamera::slideUpCamTo(coord tx, coord ty, coord tz, frame t) {
     pAxsMver_Up_->asst()->
              slideVxyzMvByDtTo(tx, ty, tz, t, 0.3, 0.4, 0, true);
     int up_face_wk = up_face_;
-    up_face_ = Camera::cnvVec2FaceNo(C_DX(tx), C_DX(ty), C_DX(tz));
+    up_face_ = VVCamera::cnvVec2FaceNo(C_DX(tx), C_DX(ty), C_DX(tz));
 
 #ifdef MY_DEBUG
     if (up_face_wk != up_face_) {
-        _TRACE_("Camera::slideUpCamTo  up_face_="<<up_face_wk<<"Å®"<<up_face_<<"");
+        _TRACE_("VVCamera::slideUpCamTo  up_face_="<<up_face_wk<<"Å®"<<up_face_<<"");
     }
 #endif
 }
 
-Camera::~Camera() {
+VVCamera::~VVCamera() {
     GGAF_DELETE(pAxsMver_Up_);
     GGAF_DELETE(pAxsMver_);
 }

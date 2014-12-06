@@ -233,7 +233,42 @@ public:
      */
     static int getBeingPressedJoyDirection();
 
-
+    static inline bool isBeingPressedJoyXAxisPlus() {
+        return (_joy_state[_flip_js].lX > 127) ? true : false;
+    }
+    static inline bool isBeingPressedJoyXAxisMinus() {
+        return (_joy_state[_flip_js].lX < -127) ? true : false;
+    }
+    static inline bool isBeingPressedJoyYAxisPlus() {
+        return (_joy_state[_flip_js].lY > 127) ? true : false;
+    }
+    static inline bool isBeingPressedJoyYAxisMinus() {
+        return (_joy_state[_flip_js].lY < -127) ? true : false;
+    }
+    static inline bool isBeingPressedJoyZAxisPlus() {
+        return (_joy_state[_flip_js].lZ > 127) ? true : false;
+    }
+    static inline bool isBeingPressedJoyZAxisMinus() {
+        return (_joy_state[_flip_js].lZ < -127) ? true : false;
+    }
+    static inline bool isBeingPressedJoyRxPlus() {
+        return (_joy_state[_flip_js].lRx > 127) ? true : false;
+    }
+    static inline bool isBeingPressedJoyRxMinus() {
+        return (_joy_state[_flip_js].lRx < -127) ? true : false;
+    }
+    static inline bool isBeingPressedJoyRyPlus() {
+        return (_joy_state[_flip_js].lRy > 127) ? true : false;
+    }
+    static inline bool isBeingPressedJoyRyMinus() {
+        return (_joy_state[_flip_js].lRy < -127) ? true : false;
+    }
+    static inline bool isBeingPressedJoyRzPlus() {
+        return (_joy_state[_flip_js].lRz > 127) ? true : false;
+    }
+    static inline bool isBeingPressedJoyRzMinus() {
+        return (_joy_state[_flip_js].lRz < -127) ? true : false;
+    }
 
     /**
      * ハットスイッチの上方向の状態を調べる .

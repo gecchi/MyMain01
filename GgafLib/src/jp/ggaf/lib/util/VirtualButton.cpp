@@ -27,12 +27,12 @@ VirtualButton::KEYBOARDMAP VirtualButton::_keyboardmap = {
                               DIK_B,      // BUTTON8
                               DIK_N,      // BUTTON9
                               DIK_M,      // BUTTON10
-                              0xFF,      // BUTTON11
-                              0xFF,      // BUTTON12
-                              0xFF,      // BUTTON13
-                              0xFF,      // BUTTON14
-                              0xFF,      // BUTTON15
-                              0xFF,      // BUTTON16
+                              0xFF,       // BUTTON11
+                              0xFF,       // BUTTON12
+                              0xFF,       // BUTTON13
+                              0xFF,       // BUTTON14
+                              0xFF,       // BUTTON15
+                              0xFF,       // BUTTON16
                               DIK_ESCAPE, // PAUSE
                               DIK_UP,     // UP
                               DIK_DOWN,   // DOWN
@@ -42,6 +42,10 @@ VirtualButton::KEYBOARDMAP VirtualButton::_keyboardmap = {
                               DIK_DOWN,   // UI_DOWN
                               DIK_LEFT,   // UI_LEFT
                               DIK_RIGHT,  // UI_RIGHT
+                              0xFF,       // UI_S1_UP
+                              0xFF,       // UI_S1_DOWN
+                              0xFF,       // UI_S1_LEFT
+                              0xFF,       // UI_S1_RIGHT
                               DIK_RETURN, // UI_EXECUTE
                               DIK_ESCAPE, // UI_CANCEL
                               DIK_Q       // UI_DEBUG
@@ -69,12 +73,16 @@ VirtualButton::JOYSTICKMAP VirtualButton::_joystickmap = {
                               0x81, // DOWN
                               0x82, // LEFT
                               0x83, // RIGHT
+                              0xFF, // S1_UP
+                              0xFF, // S1_DOWN
+                              0xFF, // S1_LEFT
+                              0xFF, // S1_RIGHT
                               0x80, // UI_UP
                               0x81, // UI_DOWN
                               0x82, // UI_LEFT
                               0x83, // UI_RIGHT
-                              0,    // UI_EXECUTE
-                              1     // UI_CANCEL
+                              0x00, // UI_EXECUTE
+                              0x01  // UI_CANCEL
                               //, 0xFF  // UI_DEBUG
                            };
 
@@ -105,8 +113,9 @@ VirtualButton::VirtualButton(const char* prm_replay_file) : GgafObject() {
         _is_replaying = false;
         _TRACE_("VirtualButton("<<prm_replay_file<<") 通常記録モード。");
     }
-    if (!_is_init) {
-        init();
+    if (!VirtualButton::_is_init) {
+        init();//初回new時だけ実行。
+        VirtualButton::_is_init = true;
     }
     _was_replay_done = false;
     _with_pov = true;
@@ -289,14 +298,20 @@ void VirtualButton::init() {
     _mapStr2JoyBtn["JOY_BUTTON_13"] = 0x0D;
     _mapStr2JoyBtn["JOY_BUTTON_14"] = 0x0E;
     _mapStr2JoyBtn["JOY_BUTTON_15"] = 0x0F;
-    _mapStr2JoyBtn["JOY_UP"]        = 0x80;
-    _mapStr2JoyBtn["JOY_DOWN"]      = 0x81;
-    _mapStr2JoyBtn["JOY_LEFT"]      = 0x82;
-    _mapStr2JoyBtn["JOY_RIGHT"]     = 0x83;
-    _mapStr2JoyBtn["JOY_POV_UP"]    = 0x90;
-    _mapStr2JoyBtn["JOY_POV_DOWN"]  = 0x91;
-    _mapStr2JoyBtn["JOY_POV_LEFT"]  = 0x92;
-    _mapStr2JoyBtn["JOY_POV_RIGHT"] = 0x93;
+    _mapStr2JoyBtn["JOY_X_AXIS_MINUS"]  = 0x80;
+    _mapStr2JoyBtn["JOY_X_AXIS_PLUS"]   = 0x81;
+    _mapStr2JoyBtn["JOY_Y_AXIS_MINUS"]  = 0x82;
+    _mapStr2JoyBtn["JOY_Y_AXIS_PLUS"]   = 0x83;
+    _mapStr2JoyBtn["JOY_Z_AXIS_MINUS"]  = 0x84;
+    _mapStr2JoyBtn["JOY_Z_AXIS_PLUS"]   = 0x85;
+    _mapStr2JoyBtn["JOY_POV_UP"]     = 0x90;
+    _mapStr2JoyBtn["JOY_POV_DOWN"]   = 0x91;
+    _mapStr2JoyBtn["JOY_POV_LEFT"]   = 0x92;
+    _mapStr2JoyBtn["JOY_POV_RIGHT"]  = 0x93;
+    _mapStr2JoyBtn["V_JOY_UP"]       = 0xA0;
+    _mapStr2JoyBtn["V_JOY_DOWN"]     = 0xA1;
+    _mapStr2JoyBtn["V_JOY_LEFT"]     = 0xA2;
+    _mapStr2JoyBtn["V_JOY_RIGHT"]    = 0xA3;
 
     _mapDik2Str[0x01] = "DIK_ESCAPE";
     _mapDik2Str[0x02] = "DIK_1";
@@ -474,20 +489,36 @@ void VirtualButton::init() {
     _mapJoyBtn2Str[0x0D] = "JOY_BUTTON_13";
     _mapJoyBtn2Str[0x0E] = "JOY_BUTTON_14";
     _mapJoyBtn2Str[0x0F] = "JOY_BUTTON_15";
-    _mapJoyBtn2Str[0x80] = "JOY_UP";
-    _mapJoyBtn2Str[0x81] = "JOY_DOWN";
-    _mapJoyBtn2Str[0x82] = "JOY_LEFT";
-    _mapJoyBtn2Str[0x83] = "JOY_RIGHT";
+
+    _mapJoyBtn2Str[0x80] = "JOY_X_AXIS_MINUS";
+    _mapJoyBtn2Str[0x81] = "JOY_X_AXIS_PLUS";
+    _mapJoyBtn2Str[0x82] = "JOY_Y_AXIS_MINUS";
+    _mapJoyBtn2Str[0x83] = "JOY_Y_AXIS_PLUS";
+    _mapJoyBtn2Str[0x84] = "JOY_Z_AXIS_MINUS";
+    _mapJoyBtn2Str[0x85] = "JOY_Z_AXIS_PLUS";
+    _mapJoyBtn2Str[0x86] = "JOY_X_ROT_MINUS";
+    _mapJoyBtn2Str[0x87] = "JOY_X_ROT_PLUS";
+    _mapJoyBtn2Str[0x88] = "JOY_Y_ROT_MINUS";
+    _mapJoyBtn2Str[0x89] = "JOY_Y_ROT_PLUS";
+    _mapJoyBtn2Str[0x8A] = "JOY_Z_ROT_MINUS";
+    _mapJoyBtn2Str[0x8B] = "JOY_Z_ROT_PLUS";
     _mapJoyBtn2Str[0x90] = "JOY_POV_UP";
     _mapJoyBtn2Str[0x91] = "JOY_POV_DOWN";
     _mapJoyBtn2Str[0x92] = "JOY_POV_LEFT";
     _mapJoyBtn2Str[0x93] = "JOY_POV_RIGHT";
 
-
-    _mapVJoyBtn2Func[0x80] = GgafDxCore::GgafDxInput::isBeingPressedJoyUp;
-    _mapVJoyBtn2Func[0x81] = GgafDxCore::GgafDxInput::isBeingPressedJoyDown;
-    _mapVJoyBtn2Func[0x82] = GgafDxCore::GgafDxInput::isBeingPressedJoyLeft;
-    _mapVJoyBtn2Func[0x83] = GgafDxCore::GgafDxInput::isBeingPressedJoyRight;
+    _mapVJoyBtn2Func[0x80] = GgafDxCore::GgafDxInput::isBeingPressedJoyXAxisMinus;
+    _mapVJoyBtn2Func[0x81] = GgafDxCore::GgafDxInput::isBeingPressedJoyXAxisPlus;
+    _mapVJoyBtn2Func[0x82] = GgafDxCore::GgafDxInput::isBeingPressedJoyYAxisMinus;
+    _mapVJoyBtn2Func[0x83] = GgafDxCore::GgafDxInput::isBeingPressedJoyYAxisPlus;
+    _mapVJoyBtn2Func[0x84] = GgafDxCore::GgafDxInput::isBeingPressedJoyZAxisMinus;
+    _mapVJoyBtn2Func[0x85] = GgafDxCore::GgafDxInput::isBeingPressedJoyZAxisPlus;
+    _mapVJoyBtn2Func[0x86] = GgafDxCore::GgafDxInput::isBeingPressedJoyRxMinus;
+    _mapVJoyBtn2Func[0x87] = GgafDxCore::GgafDxInput::isBeingPressedJoyRxPlus;
+    _mapVJoyBtn2Func[0x88] = GgafDxCore::GgafDxInput::isBeingPressedJoyRyMinus;
+    _mapVJoyBtn2Func[0x89] = GgafDxCore::GgafDxInput::isBeingPressedJoyRyPlus;
+    _mapVJoyBtn2Func[0x8A] = GgafDxCore::GgafDxInput::isBeingPressedJoyRzMinus;
+    _mapVJoyBtn2Func[0x8B] = GgafDxCore::GgafDxInput::isBeingPressedJoyRzPlus;
     _mapVJoyBtn2Func[0x90] = GgafDxCore::GgafDxInput::isBeingPressedPovUp;
     _mapVJoyBtn2Func[0x91] = GgafDxCore::GgafDxInput::isBeingPressedPovDown;
     _mapVJoyBtn2Func[0x92] = GgafDxCore::GgafDxInput::isBeingPressedPovLeft;
@@ -527,8 +558,6 @@ vbsta VirtualButton::isAutoRepeat(vbsta prm_VB, frame prm_begin_repeat, frame pr
     }
     return false;
 }
-
-
 
 vbsta VirtualButton::wasBeingPressed(vbsta prm_VB, frame prm_frame_ago) {
     VirtualButton::VBRecord* pVBRecord_temp = getPastVBRecord(prm_frame_ago);
@@ -600,7 +629,6 @@ vbsta VirtualButton::isDoublePushedDown(vbsta prm_VB, frame prm_frame_push, fram
         return false;
     }
 }
-
 
 
 ////何所も押されていない→押した
@@ -763,7 +791,6 @@ bool VirtualButton::isScrewPushDown(vbsta prm_VB, frame prm_frame_delay) {
 }
 
 
-
 //vbsta VirtualButton::getPushedDownStickWith(vbsta prm_VB) {
 //    if (isBeingPressed(prm_VB)) {
 //        static bool prev1Flg, prev2Flg, prev3Flg;
@@ -873,6 +900,10 @@ void VirtualButton::update() {
         state |= (VB_DOWN  * GgafDxInput::isBeingPressedKey(kmap.DOWN));
         state |= (VB_LEFT  * GgafDxInput::isBeingPressedKey(kmap.LEFT));
         state |= (VB_RIGHT * GgafDxInput::isBeingPressedKey(kmap.RIGHT));
+        state |= (VB_S1_UP    * GgafDxInput::isBeingPressedKey(kmap.S1_UP));
+        state |= (VB_S1_DOWN  * GgafDxInput::isBeingPressedKey(kmap.S1_DOWN));
+        state |= (VB_S1_LEFT  * GgafDxInput::isBeingPressedKey(kmap.S1_LEFT));
+        state |= (VB_S1_RIGHT * GgafDxInput::isBeingPressedKey(kmap.S1_RIGHT));
         state |= (VB_UI_UP    * GgafDxInput::isBeingPressedKey(kmap.UI_UP));
         state |= (VB_UI_DOWN  * GgafDxInput::isBeingPressedKey(kmap.UI_DOWN));
         state |= (VB_UI_LEFT  * GgafDxInput::isBeingPressedKey(kmap.UI_LEFT));
@@ -903,6 +934,10 @@ void VirtualButton::update() {
             state |= (VB_DOWN  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.DOWN)  );
             state |= (VB_LEFT  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.LEFT)  );
             state |= (VB_RIGHT * VirtualButton::isBeingPressedVirtualJoyButton(jmap.RIGHT) );
+            state |= (VB_S1_UP    * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S1_UP)    );
+            state |= (VB_S1_DOWN  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S1_DOWN)  );
+            state |= (VB_S1_LEFT  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S1_LEFT)  );
+            state |= (VB_S1_RIGHT * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S1_RIGHT) );
             if (_with_pov) {
                 state |= (VB_UI_UP    * (VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_UP)    ||  GgafDxInput::isBeingPressedPovUp()    ));
                 state |= (VB_UI_DOWN  * (VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_DOWN)  ||  GgafDxInput::isBeingPressedPovDown()  ));
@@ -938,9 +973,10 @@ void VirtualButton::clear() {
     if (0 <= prm_virtual_joy_button_no && prm_virtual_joy_button_no <= 0x0F) {
         return GgafDxCore::GgafDxInput::isBeingPressedJoyButton(prm_virtual_joy_button_no);
     } else {
-        if ( ( 0x80 <= prm_virtual_joy_button_no && prm_virtual_joy_button_no <= 0x83 ) ||
+        if ( ( 0x80 <= prm_virtual_joy_button_no && prm_virtual_joy_button_no <= 0x8B ) ||
              ( 0x90 <= prm_virtual_joy_button_no && prm_virtual_joy_button_no <= 0x93 )   )
         {
+            //XYZ軸上下か、XYZ軸回転＋ーか、POVの方向の場合
             return (_mapVJoyBtn2Func[prm_virtual_joy_button_no])();
         } else {
             return -1;
@@ -950,14 +986,30 @@ void VirtualButton::clear() {
 int VirtualButton::getPushedDownVirtualJoyButton() {
     int JOY_pushed = GgafDxInput::getPushedDownJoyRgbButton();
     if (JOY_pushed == -1) {
-        if (GgafDxInput::isBeingPressedJoyUp()) {
+        if (GgafDxInput::isBeingPressedJoyXAxisMinus()) {
             return 0x80;
-        } else if (GgafDxInput::isBeingPressedJoyDown()) {
+        } else if (GgafDxInput::isBeingPressedJoyXAxisPlus()) {
             return 0x81;
-        } else if (GgafDxInput::isBeingPressedJoyLeft()) {
+        } else if (GgafDxInput::isBeingPressedJoyYAxisMinus()) {
             return 0x82;
-        } else if (GgafDxInput::isBeingPressedJoyRight()) {
+        } else if (GgafDxInput::isBeingPressedJoyYAxisPlus()) {
             return 0x83;
+        } else if (GgafDxInput::isBeingPressedJoyZAxisMinus()) {
+            return 0x84;
+        } else if (GgafDxInput::isBeingPressedJoyZAxisPlus()) {
+            return 0x85;
+        } else if (GgafDxInput::isBeingPressedJoyRxPlus()) {
+            return 0x86;
+        } else if (GgafDxInput::isBeingPressedJoyRxMinus()) {
+            return 0x87;
+        } else if (GgafDxInput::isBeingPressedJoyRyPlus()) {
+            return 0x88;
+        } else if (GgafDxInput::isBeingPressedJoyRyMinus()) {
+            return 0x89;
+        } else if (GgafDxInput::isBeingPressedJoyRzPlus()) {
+            return 0x8A;
+        } else if (GgafDxInput::isBeingPressedJoyRzMinus()) {
+            return 0x8B;
         } else if (GgafDxInput::isBeingPressedPovUp()) {
             return 0x90;
         } else if (GgafDxInput::isBeingPressedPovDown()) {

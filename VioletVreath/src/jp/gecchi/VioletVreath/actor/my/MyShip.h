@@ -14,8 +14,6 @@ namespace VioletVreath {
 
 #define MAX_LEVEL_MOVE_SPEED 5
 #define MIN_LEVEL_MOVE_SPEED 0
-//Ternary numeral -1,0,1 の3数の3進法 を 配列要素のため正の10進数に変換するマクロ
-#define TN(X,Y,Z) (((3*3)*((X)+1)) + (3*((Y)+1)) + ((Z)+1))
 
 #define EQ_OPTION 1
 #define EQ_MAX_OPTION 0

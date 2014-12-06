@@ -445,6 +445,13 @@ again2:
         } else {
         }
     }
+
+//    _TRACE_("lX="<<_joy_state[_flip_js].lX);
+//    _TRACE_("lY="<<_joy_state[_flip_js].lY);
+//    _TRACE_("lZ="<<_joy_state[_flip_js].lZ);
+//    _TRACE_("lRx="<<_joy_state[_flip_js].lRx);
+//    _TRACE_("lRy="<<_joy_state[_flip_js].lRy);
+//    _TRACE_("lRz="<<_joy_state[_flip_js].lRz);
 }
 
 bool GgafDxInput::isPushedDownJoyRgbButton(int prm_joy_button_no) {
