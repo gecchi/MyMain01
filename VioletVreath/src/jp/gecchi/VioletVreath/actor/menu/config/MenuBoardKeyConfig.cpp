@@ -155,29 +155,29 @@ void MenuBoardKeyConfig::processBehavior() {
     MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
     if (pSubConfirm->isJustDecidedOk()) {
         //現プロパティをファイルに保存
-        PROPERTY::setValue("MY_KEY_UP"      , paVBProperties[ITEM_UP       ].pKey->_draw_string);
-        PROPERTY::setValue("MY_KEY_DOWN"    , paVBProperties[ITEM_DOWN     ].pKey->_draw_string);
-        PROPERTY::setValue("MY_KEY_LEFT"    , paVBProperties[ITEM_LEFT     ].pKey->_draw_string);
-        PROPERTY::setValue("MY_KEY_RIGHT"   , paVBProperties[ITEM_RIGHT    ].pKey->_draw_string);
-        PROPERTY::setValue("MY_KEY_SHOT1"   , paVBProperties[ITEM_MAIN_SHOT].pKey->_draw_string);
-        PROPERTY::setValue("MY_KEY_SHOT2"   , paVBProperties[ITEM_SUB_SHOT ].pKey->_draw_string);
-        PROPERTY::setValue("MY_KEY_TURBO"   , paVBProperties[ITEM_TURBO    ].pKey->_draw_string);
-        PROPERTY::setValue("MY_KEY_OPTION"  , paVBProperties[ITEM_CONTROLL ].pKey->_draw_string);
-        PROPERTY::setValue("MY_KEY_POWERUP" , paVBProperties[ITEM_MAGIC    ].pKey->_draw_string);
-        PROPERTY::setValue("MY_KEY_VIEW"    , paVBProperties[ITEM_VAM      ].pKey->_draw_string);
-        PROPERTY::setValue("MY_KEY_PAUSE"   , paVBProperties[ITEM_PAUSE    ].pKey->_draw_string);
+        PROPERTY::setValue("MY_KEY_UP"      , paVBProperties[ITEM_UP       ].pKey->getDrawString());
+        PROPERTY::setValue("MY_KEY_DOWN"    , paVBProperties[ITEM_DOWN     ].pKey->getDrawString());
+        PROPERTY::setValue("MY_KEY_LEFT"    , paVBProperties[ITEM_LEFT     ].pKey->getDrawString());
+        PROPERTY::setValue("MY_KEY_RIGHT"   , paVBProperties[ITEM_RIGHT    ].pKey->getDrawString());
+        PROPERTY::setValue("MY_KEY_SHOT1"   , paVBProperties[ITEM_MAIN_SHOT].pKey->getDrawString());
+        PROPERTY::setValue("MY_KEY_SHOT2"   , paVBProperties[ITEM_SUB_SHOT ].pKey->getDrawString());
+        PROPERTY::setValue("MY_KEY_TURBO"   , paVBProperties[ITEM_TURBO    ].pKey->getDrawString());
+        PROPERTY::setValue("MY_KEY_OPTION"  , paVBProperties[ITEM_CONTROLL ].pKey->getDrawString());
+        PROPERTY::setValue("MY_KEY_POWERUP" , paVBProperties[ITEM_MAGIC    ].pKey->getDrawString());
+        PROPERTY::setValue("MY_KEY_VIEW"    , paVBProperties[ITEM_VAM      ].pKey->getDrawString());
+        PROPERTY::setValue("MY_KEY_PAUSE"   , paVBProperties[ITEM_PAUSE    ].pKey->getDrawString());
 
-        PROPERTY::setValue("MY_JOY_UP"      , paVBProperties[ITEM_UP       ].pJoy->_draw_string);
-        PROPERTY::setValue("MY_JOY_DOWN"    , paVBProperties[ITEM_DOWN     ].pJoy->_draw_string);
-        PROPERTY::setValue("MY_JOY_LEFT"    , paVBProperties[ITEM_LEFT     ].pJoy->_draw_string);
-        PROPERTY::setValue("MY_JOY_RIGHT"   , paVBProperties[ITEM_RIGHT    ].pJoy->_draw_string);
-        PROPERTY::setValue("MY_JOY_SHOT1"   , paVBProperties[ITEM_MAIN_SHOT].pJoy->_draw_string);
-        PROPERTY::setValue("MY_JOY_SHOT2"   , paVBProperties[ITEM_SUB_SHOT ].pJoy->_draw_string);
-        PROPERTY::setValue("MY_JOY_TURBO"   , paVBProperties[ITEM_TURBO    ].pJoy->_draw_string);
-        PROPERTY::setValue("MY_JOY_OPTION"  , paVBProperties[ITEM_CONTROLL ].pJoy->_draw_string);
-        PROPERTY::setValue("MY_JOY_POWERUP" , paVBProperties[ITEM_MAGIC    ].pJoy->_draw_string);
-        PROPERTY::setValue("MY_JOY_VIEW"    , paVBProperties[ITEM_VAM      ].pJoy->_draw_string);
-        PROPERTY::setValue("MY_JOY_PAUSE"   , paVBProperties[ITEM_PAUSE    ].pJoy->_draw_string);
+        PROPERTY::setValue("MY_JOY_UP"      , paVBProperties[ITEM_UP       ].pJoy->getDrawString());
+        PROPERTY::setValue("MY_JOY_DOWN"    , paVBProperties[ITEM_DOWN     ].pJoy->getDrawString());
+        PROPERTY::setValue("MY_JOY_LEFT"    , paVBProperties[ITEM_LEFT     ].pJoy->getDrawString());
+        PROPERTY::setValue("MY_JOY_RIGHT"   , paVBProperties[ITEM_RIGHT    ].pJoy->getDrawString());
+        PROPERTY::setValue("MY_JOY_SHOT1"   , paVBProperties[ITEM_MAIN_SHOT].pJoy->getDrawString());
+        PROPERTY::setValue("MY_JOY_SHOT2"   , paVBProperties[ITEM_SUB_SHOT ].pJoy->getDrawString());
+        PROPERTY::setValue("MY_JOY_TURBO"   , paVBProperties[ITEM_TURBO    ].pJoy->getDrawString());
+        PROPERTY::setValue("MY_JOY_OPTION"  , paVBProperties[ITEM_CONTROLL ].pJoy->getDrawString());
+        PROPERTY::setValue("MY_JOY_POWERUP" , paVBProperties[ITEM_MAGIC    ].pJoy->getDrawString());
+        PROPERTY::setValue("MY_JOY_VIEW"    , paVBProperties[ITEM_VAM      ].pJoy->getDrawString());
+        PROPERTY::setValue("MY_JOY_PAUSE"   , paVBProperties[ITEM_PAUSE    ].pJoy->getDrawString());
         PROPERTY::save(VV_CONFIG_FILE);
         PROPERTY::load(VV_CONFIG_FILE); //再反映
         //実行中アプリへも反映

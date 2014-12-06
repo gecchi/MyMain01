@@ -90,6 +90,7 @@ void God::initVB() {
     VirtualButton::_keyboardmap.UI_CANCEL  = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_UI_CANCEL  ];
     VirtualButton::_keyboardmap.UI_DEBUG   = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_UI_DEBUG   ];
 
+
     VirtualButton::_joystickmap.BUTTON1    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_SHOT1      ];
     VirtualButton::_joystickmap.BUTTON2    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_SHOT2      ];
     VirtualButton::_joystickmap.BUTTON3    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_OPTION     ];
@@ -99,8 +100,17 @@ void God::initVB() {
     VirtualButton::_joystickmap.BUTTON7    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_BUTTON7    ];
     VirtualButton::_joystickmap.BUTTON8    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_BUTTON8    ];
     VirtualButton::_joystickmap.PAUSE      = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_PAUSE      ];
+    VirtualButton::_joystickmap.UP         = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_UP         ];
+    VirtualButton::_joystickmap.DOWN       = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_DOWN       ];
+    VirtualButton::_joystickmap.LEFT       = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_LEFT       ];
+    VirtualButton::_joystickmap.RIGHT      = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_RIGHT      ];
+    VirtualButton::_joystickmap.UI_UP      = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_UI_UP      ];
+    VirtualButton::_joystickmap.UI_DOWN    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_UI_DOWN    ];
+    VirtualButton::_joystickmap.UI_LEFT    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_UI_LEFT    ];
+    VirtualButton::_joystickmap.UI_RIGHT   = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_UI_RIGHT   ];
     VirtualButton::_joystickmap.UI_EXECUTE = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_UI_EXECUTE ];
     VirtualButton::_joystickmap.UI_CANCEL  = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_UI_CANCEL  ];
+    //VirtualButton::_joystickmap.UI_DEBUG   = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_UI_DEBUG   ];
 }
 
 GgafUniverse* God::createUniverse() {

@@ -208,6 +208,15 @@ public:
         out_paCh[len] = '\0';
     }
 
+    inline std::string getDrawString() {
+        int len = _len;
+        char* paCh = NEW char[len+1];
+        getDrawString(paCh);
+        std::string s = paCh;
+        GGAF_DELETEARR(paCh);
+        return s;
+    }
+
     virtual ~GgafDxStringSpriteActor();
 
 };

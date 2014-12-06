@@ -271,7 +271,7 @@ void MenuBoardNameEntry::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, 
 void MenuBoardNameEntry::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
 //    if (prm_item_index == ITEM_BS) {
 //        //‚P•¶šœ‹
-//        std::string s = std::string(pLabelInputedName_->_draw_string);
+//        std::string s = getDrawString();
 //        if (s.length() > 0) {
 //            pLabelInputedName_->update(s.substr(0, s.length()-1).c_str());
 //        }

@@ -298,12 +298,18 @@ void VirtualButton::init() {
     _mapStr2JoyBtn["JOY_BUTTON_13"] = 0x0D;
     _mapStr2JoyBtn["JOY_BUTTON_14"] = 0x0E;
     _mapStr2JoyBtn["JOY_BUTTON_15"] = 0x0F;
-    _mapStr2JoyBtn["JOY_X_AXIS_MINUS"]  = 0x80;
-    _mapStr2JoyBtn["JOY_X_AXIS_PLUS"]   = 0x81;
-    _mapStr2JoyBtn["JOY_Y_AXIS_MINUS"]  = 0x82;
-    _mapStr2JoyBtn["JOY_Y_AXIS_PLUS"]   = 0x83;
-    _mapStr2JoyBtn["JOY_Z_AXIS_MINUS"]  = 0x84;
-    _mapStr2JoyBtn["JOY_Z_AXIS_PLUS"]   = 0x85;
+    _mapStr2JoyBtn["JOY_X_POS_MINUS"]  = 0x80;
+    _mapStr2JoyBtn["JOY_X_POS_PLUS"]   = 0x81;
+    _mapStr2JoyBtn["JOY_Y_POS_MINUS"]  = 0x82;
+    _mapStr2JoyBtn["JOY_Y_POS_PLUS"]   = 0x83;
+    _mapStr2JoyBtn["JOY_Z_POS_MINUS"]  = 0x84;
+    _mapStr2JoyBtn["JOY_Z_POS_PLUS"]   = 0x85;
+    _mapStr2JoyBtn["JOY_X_ROT_MINUS"]  = 0x86;
+    _mapStr2JoyBtn["JOY_X_ROT_PLUS"]   = 0x87;
+    _mapStr2JoyBtn["JOY_Y_ROT_MINUS"]  = 0x88;
+    _mapStr2JoyBtn["JOY_Y_ROT_PLUS"]   = 0x89;
+    _mapStr2JoyBtn["JOY_Z_ROT_MINUS"]  = 0x8A;
+    _mapStr2JoyBtn["JOY_Z_ROT_PLUS"]   = 0x8B;
     _mapStr2JoyBtn["JOY_POV_UP"]     = 0x90;
     _mapStr2JoyBtn["JOY_POV_DOWN"]   = 0x91;
     _mapStr2JoyBtn["JOY_POV_LEFT"]   = 0x92;
@@ -490,12 +496,12 @@ void VirtualButton::init() {
     _mapJoyBtn2Str[0x0E] = "JOY_BUTTON_14";
     _mapJoyBtn2Str[0x0F] = "JOY_BUTTON_15";
 
-    _mapJoyBtn2Str[0x80] = "JOY_X_AXIS_MINUS";
-    _mapJoyBtn2Str[0x81] = "JOY_X_AXIS_PLUS";
-    _mapJoyBtn2Str[0x82] = "JOY_Y_AXIS_MINUS";
-    _mapJoyBtn2Str[0x83] = "JOY_Y_AXIS_PLUS";
-    _mapJoyBtn2Str[0x84] = "JOY_Z_AXIS_MINUS";
-    _mapJoyBtn2Str[0x85] = "JOY_Z_AXIS_PLUS";
+    _mapJoyBtn2Str[0x80] = "JOY_X_POS_MINUS";
+    _mapJoyBtn2Str[0x81] = "JOY_X_POS_PLUS";
+    _mapJoyBtn2Str[0x82] = "JOY_Y_POS_MINUS";
+    _mapJoyBtn2Str[0x83] = "JOY_Y_POS_PLUS";
+    _mapJoyBtn2Str[0x84] = "JOY_Z_POS_MINUS";
+    _mapJoyBtn2Str[0x85] = "JOY_Z_POS_PLUS";
     _mapJoyBtn2Str[0x86] = "JOY_X_ROT_MINUS";
     _mapJoyBtn2Str[0x87] = "JOY_X_ROT_PLUS";
     _mapJoyBtn2Str[0x88] = "JOY_Y_ROT_MINUS";
@@ -998,17 +1004,17 @@ int VirtualButton::getPushedDownVirtualJoyButton() {
             return 0x84;
         } else if (GgafDxInput::isBeingPressedJoyZAxisPlus()) {
             return 0x85;
-        } else if (GgafDxInput::isBeingPressedJoyRxPlus()) {
-            return 0x86;
         } else if (GgafDxInput::isBeingPressedJoyRxMinus()) {
+            return 0x86;
+        } else if (GgafDxInput::isBeingPressedJoyRxPlus()) {
             return 0x87;
-        } else if (GgafDxInput::isBeingPressedJoyRyPlus()) {
-            return 0x88;
         } else if (GgafDxInput::isBeingPressedJoyRyMinus()) {
+            return 0x88;
+        } else if (GgafDxInput::isBeingPressedJoyRyPlus()) {
             return 0x89;
-        } else if (GgafDxInput::isBeingPressedJoyRzPlus()) {
-            return 0x8A;
         } else if (GgafDxInput::isBeingPressedJoyRzMinus()) {
+            return 0x8A;
+        } else if (GgafDxInput::isBeingPressedJoyRzPlus()) {
             return 0x8B;
         } else if (GgafDxInput::isBeingPressedPovUp()) {
             return 0x90;
