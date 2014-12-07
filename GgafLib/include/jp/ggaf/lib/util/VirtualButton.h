@@ -12,6 +12,40 @@ typedef uint64_t vbsta;
 
 namespace GgafLib {
 
+#define VBJ_BUTTON_00   (0x00)
+#define VBJ_BUTTON_01   (0x01)
+#define VBJ_BUTTON_02   (0x02)
+#define VBJ_BUTTON_03   (0x03)
+#define VBJ_BUTTON_04   (0x04)
+#define VBJ_BUTTON_05   (0x05)
+#define VBJ_BUTTON_06   (0x06)
+#define VBJ_BUTTON_07   (0x07)
+#define VBJ_BUTTON_08   (0x08)
+#define VBJ_BUTTON_09   (0x09)
+#define VBJ_BUTTON_10   (0x0A)
+#define VBJ_BUTTON_11   (0x0B)
+#define VBJ_BUTTON_12   (0x0C)
+#define VBJ_BUTTON_13   (0x0D)
+#define VBJ_BUTTON_14   (0x0E)
+#define VBJ_BUTTON_15   (0x0F)
+#define VBJ_X_POS_MINUS (0x80)
+#define VBJ_X_POS_PLUS  (0x81)
+#define VBJ_Y_POS_MINUS (0x82)
+#define VBJ_Y_POS_PLUS  (0x83)
+#define VBJ_Z_POS_MINUS (0x84)
+#define VBJ_Z_POS_PLUS  (0x85)
+#define VBJ_X_ROT_MINUS (0x86)
+#define VBJ_X_ROT_PLUS  (0x87)
+#define VBJ_Y_ROT_MINUS (0x88)
+#define VBJ_Y_ROT_PLUS  (0x89)
+#define VBJ_Z_ROT_MINUS (0x8A)
+#define VBJ_Z_ROT_PLUS  (0x8B)
+#define VBJ_POV_UP      (0x90)
+#define VBJ_POV_DOWN    (0x91)
+#define VBJ_POV_LEFT    (0x92)
+#define VBJ_POV_RIGHT   (0x93)
+
+
 #define VB_BUTTON1        (0x1)        //&B 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000001
 #define VB_BUTTON2        (0x2)        //&B 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000010
 #define VB_BUTTON3        (0x4)        //&B 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000100

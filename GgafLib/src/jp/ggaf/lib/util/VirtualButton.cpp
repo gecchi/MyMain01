@@ -52,37 +52,37 @@ VirtualButton::KEYBOARDMAP VirtualButton::_keyboardmap = {
                            };
 
 VirtualButton::JOYSTICKMAP VirtualButton::_joystickmap = {
-                              0x00, // BUTTON1
-                              0x01, // BUTTON2
-                              0x02, // BUTTON3
-                              0x03, // BUTTON4
-                              0x04, // BUTTON5
-                              0x05, // BUTTON6
-                              0x06, // BUTTON7
-                              0x07, // BUTTON8
-                              0x08, // BUTTON9
-                              0x09, // BUTTON10
-                              0x0A, // BUTTON11
-                              0x0B, // BUTTON12
-                              0x0C, // BUTTON13
-                              0x0D, // BUTTON14
-                              0x0E, // BUTTON15
-                              0x0F, // BUTTON16
-                              0x07, // PAUSE
-                              0x80, // UP
-                              0x81, // DOWN
-                              0x82, // LEFT
-                              0x83, // RIGHT
+                              VBJ_BUTTON_00,   // BUTTON1
+                              VBJ_BUTTON_01,   // BUTTON2
+                              VBJ_BUTTON_02,   // BUTTON3
+                              VBJ_BUTTON_03,   // BUTTON4
+                              VBJ_BUTTON_04,   // BUTTON5
+                              VBJ_BUTTON_05,   // BUTTON6
+                              VBJ_BUTTON_06,   // BUTTON7
+                              VBJ_BUTTON_07,   // BUTTON8
+                              VBJ_BUTTON_08,   // BUTTON9
+                              VBJ_BUTTON_09,   // BUTTON10
+                              VBJ_BUTTON_10,   // BUTTON11
+                              VBJ_BUTTON_11,   // BUTTON12
+                              VBJ_BUTTON_12,   // BUTTON13
+                              VBJ_BUTTON_13,   // BUTTON14
+                              VBJ_BUTTON_14,   // BUTTON15
+                              VBJ_BUTTON_15,   // BUTTON16
+                              VBJ_BUTTON_07,   // PAUSE
+                              VBJ_Y_POS_MINUS, // UP
+                              VBJ_Y_POS_PLUS , // DOWN
+                              VBJ_X_POS_MINUS, // LEFT
+                              VBJ_X_POS_PLUS , // RIGHT
                               0xFF, // S1_UP
                               0xFF, // S1_DOWN
                               0xFF, // S1_LEFT
                               0xFF, // S1_RIGHT
-                              0x80, // UI_UP
-                              0x81, // UI_DOWN
-                              0x82, // UI_LEFT
-                              0x83, // UI_RIGHT
-                              0x00, // UI_EXECUTE
-                              0x01  // UI_CANCEL
+                              VBJ_Y_POS_MINUS, // UI_UP
+                              VBJ_Y_POS_PLUS , // UI_DOWN
+                              VBJ_X_POS_MINUS, // UI_LEFT
+                              VBJ_X_POS_PLUS , // UI_RIGHT
+                              VBJ_BUTTON_00, // UI_EXECUTE
+                              VBJ_BUTTON_01  // UI_CANCEL
                               //, 0xFF  // UI_DEBUG
                            };
 
@@ -122,347 +122,343 @@ VirtualButton::VirtualButton(const char* prm_replay_file) : GgafObject() {
 }
 
 void VirtualButton::init() {
-    _mapStr2Dik["DIK_ESCAPE"]       = 0x01;
-    _mapStr2Dik["DIK_1"]            = 0x02;
-    _mapStr2Dik["DIK_2"]            = 0x03;
-    _mapStr2Dik["DIK_3"]            = 0x04;
-    _mapStr2Dik["DIK_4"]            = 0x05;
-    _mapStr2Dik["DIK_5"]            = 0x06;
-    _mapStr2Dik["DIK_6"]            = 0x07;
-    _mapStr2Dik["DIK_7"]            = 0x08;
-    _mapStr2Dik["DIK_8"]            = 0x09;
-    _mapStr2Dik["DIK_9"]            = 0x0A;
-    _mapStr2Dik["DIK_0"]            = 0x0B;
-    _mapStr2Dik["DIK_MINUS"]        = 0x0C;
-    _mapStr2Dik["DIK_EQUALS"]       = 0x0D;
-    _mapStr2Dik["DIK_BACK"]         = 0x0E;
-    _mapStr2Dik["DIK_TAB"]          = 0x0F;
-    _mapStr2Dik["DIK_Q"]            = 0x10;
-    _mapStr2Dik["DIK_W"]            = 0x11;
-    _mapStr2Dik["DIK_E"]            = 0x12;
-    _mapStr2Dik["DIK_R"]            = 0x13;
-    _mapStr2Dik["DIK_T"]            = 0x14;
-    _mapStr2Dik["DIK_Y"]            = 0x15;
-    _mapStr2Dik["DIK_U"]            = 0x16;
-    _mapStr2Dik["DIK_I"]            = 0x17;
-    _mapStr2Dik["DIK_O"]            = 0x18;
-    _mapStr2Dik["DIK_P"]            = 0x19;
-    _mapStr2Dik["DIK_LBRACKET"]     = 0x1A;
-    _mapStr2Dik["DIK_RBRACKET"]     = 0x1B;
-    _mapStr2Dik["DIK_RETURN"]       = 0x1C;
-    _mapStr2Dik["DIK_LCONTROL"]     = 0x1D;
-    _mapStr2Dik["DIK_A"]            = 0x1E;
-    _mapStr2Dik["DIK_S"]            = 0x1F;
-    _mapStr2Dik["DIK_D"]            = 0x20;
-    _mapStr2Dik["DIK_F"]            = 0x21;
-    _mapStr2Dik["DIK_G"]            = 0x22;
-    _mapStr2Dik["DIK_H"]            = 0x23;
-    _mapStr2Dik["DIK_J"]            = 0x24;
-    _mapStr2Dik["DIK_K"]            = 0x25;
-    _mapStr2Dik["DIK_L"]            = 0x26;
-    _mapStr2Dik["DIK_SEMICOLON"]    = 0x27;
-    _mapStr2Dik["DIK_APOSTROPHE"]   = 0x28;
-    _mapStr2Dik["DIK_GRAVE"]        = 0x29;
-    _mapStr2Dik["DIK_LSHIFT"]       = 0x2A;
-    _mapStr2Dik["DIK_BACKSLASH"]    = 0x2B;
-    _mapStr2Dik["DIK_Z"]            = 0x2C;
-    _mapStr2Dik["DIK_X"]            = 0x2D;
-    _mapStr2Dik["DIK_C"]            = 0x2E;
-    _mapStr2Dik["DIK_V"]            = 0x2F;
-    _mapStr2Dik["DIK_B"]            = 0x30;
-    _mapStr2Dik["DIK_N"]            = 0x31;
-    _mapStr2Dik["DIK_M"]            = 0x32;
-    _mapStr2Dik["DIK_COMMA"]        = 0x33;
-    _mapStr2Dik["DIK_PERIOD"]       = 0x34;
-    _mapStr2Dik["DIK_SLASH"]        = 0x35;
-    _mapStr2Dik["DIK_RSHIFT"]       = 0x36;
-    _mapStr2Dik["DIK_MULTIPLY"]     = 0x37;
-    _mapStr2Dik["DIK_LMENU"]        = 0x38;
-    _mapStr2Dik["DIK_SPACE"]        = 0x39;
-    _mapStr2Dik["DIK_CAPITAL"]      = 0x3A;
-    _mapStr2Dik["DIK_F1"]           = 0x3B;
-    _mapStr2Dik["DIK_F2"]           = 0x3C;
-    _mapStr2Dik["DIK_F3"]           = 0x3D;
-    _mapStr2Dik["DIK_F4"]           = 0x3E;
-    _mapStr2Dik["DIK_F5"]           = 0x3F;
-    _mapStr2Dik["DIK_F6"]           = 0x40;
-    _mapStr2Dik["DIK_F7"]           = 0x41;
-    _mapStr2Dik["DIK_F8"]           = 0x42;
-    _mapStr2Dik["DIK_F9"]           = 0x43;
-    _mapStr2Dik["DIK_F10"]          = 0x44;
-    _mapStr2Dik["DIK_NUMLOCK"]      = 0x45;
-    _mapStr2Dik["DIK_SCROLL"]       = 0x46;
-    _mapStr2Dik["DIK_NUMPAD7"]      = 0x47;
-    _mapStr2Dik["DIK_NUMPAD8"]      = 0x48;
-    _mapStr2Dik["DIK_NUMPAD9"]      = 0x49;
-    _mapStr2Dik["DIK_SUBTRACT"]     = 0x4A;
-    _mapStr2Dik["DIK_NUMPAD4"]      = 0x4B;
-    _mapStr2Dik["DIK_NUMPAD5"]      = 0x4C;
-    _mapStr2Dik["DIK_NUMPAD6"]      = 0x4D;
-    _mapStr2Dik["DIK_ADD"]          = 0x4E;
-    _mapStr2Dik["DIK_NUMPAD1"]      = 0x4F;
-    _mapStr2Dik["DIK_NUMPAD2"]      = 0x50;
-    _mapStr2Dik["DIK_NUMPAD3"]      = 0x51;
-    _mapStr2Dik["DIK_NUMPAD0"]      = 0x52;
-    _mapStr2Dik["DIK_DECIMAL"]      = 0x53;
-    _mapStr2Dik["DIK_OEM_102"]      = 0x56;
-    _mapStr2Dik["DIK_F11"]          = 0x57;
-    _mapStr2Dik["DIK_F12"]          = 0x58;
-    _mapStr2Dik["DIK_F13"]          = 0x64;
-    _mapStr2Dik["DIK_F14"]          = 0x65;
-    _mapStr2Dik["DIK_F15"]          = 0x66;
-    _mapStr2Dik["DIK_KANA"]         = 0x70;
-    _mapStr2Dik["DIK_ABNT_C1"]      = 0x73;
-    _mapStr2Dik["DIK_CONVERT"]      = 0x79;
-    _mapStr2Dik["DIK_NOCONVERT"]    = 0x7B;
-    _mapStr2Dik["DIK_YEN"]          = 0x7D;
-    _mapStr2Dik["DIK_ABNT_C2"]      = 0x7E;
-    _mapStr2Dik["DIK_NUMPADEQUALS"] = 0x8D;
-    _mapStr2Dik["DIK_PREVTRACK"]    = 0x90;
-    _mapStr2Dik["DIK_AT"]           = 0x91;
-    _mapStr2Dik["DIK_COLON"]        = 0x92;
-    _mapStr2Dik["DIK_UNDERLINE"]    = 0x93;
-    _mapStr2Dik["DIK_KANJI"]        = 0x94;
-    _mapStr2Dik["DIK_STOP"]         = 0x95;
-    _mapStr2Dik["DIK_AX"]           = 0x96;
-    _mapStr2Dik["DIK_UNLABELED"]    = 0x97;
-    _mapStr2Dik["DIK_NEXTTRACK"]    = 0x99;
-    _mapStr2Dik["DIK_NUMPADENTER"]  = 0x9C;
-    _mapStr2Dik["DIK_RCONTROL"]     = 0x9D;
-    _mapStr2Dik["DIK_MUTE"]         = 0xA0;
-    _mapStr2Dik["DIK_CALCULATOR"]   = 0xA1;
-    _mapStr2Dik["DIK_PLAYPAUSE"]    = 0xA2;
-    _mapStr2Dik["DIK_MEDIASTOP"]    = 0xA4;
-    _mapStr2Dik["DIK_VOLUMEDOWN"]   = 0xAE;
-    _mapStr2Dik["DIK_VOLUMEUP"]     = 0xB0;
-    _mapStr2Dik["DIK_WEBHOME"]      = 0xB2;
-    _mapStr2Dik["DIK_NUMPADCOMMA"]  = 0xB3;
-    _mapStr2Dik["DIK_DIVIDE"]       = 0xB5;
-    _mapStr2Dik["DIK_SYSRQ"]        = 0xB7;
-    _mapStr2Dik["DIK_RMENU"]        = 0xB8;
-    _mapStr2Dik["DIK_PAUSE"]        = 0xC5;
-    _mapStr2Dik["DIK_HOME"]         = 0xC7;
-    _mapStr2Dik["DIK_UP"]           = 0xC8;
-    _mapStr2Dik["DIK_PRIOR"]        = 0xC9;
-    _mapStr2Dik["DIK_LEFT"]         = 0xCB;
-    _mapStr2Dik["DIK_RIGHT"]        = 0xCD;
-    _mapStr2Dik["DIK_END"]          = 0xCF;
-    _mapStr2Dik["DIK_DOWN"]         = 0xD0;
-    _mapStr2Dik["DIK_NEXT"]         = 0xD1;
-    _mapStr2Dik["DIK_INSERT"]       = 0xD2;
-    _mapStr2Dik["DIK_DELETE"]       = 0xD3;
-    _mapStr2Dik["DIK_LWIN"]         = 0xDB;
-    _mapStr2Dik["DIK_RWIN"]         = 0xDC;
-    _mapStr2Dik["DIK_APPS"]         = 0xDD;
-    _mapStr2Dik["DIK_POWER"]        = 0xDE;
-    _mapStr2Dik["DIK_SLEEP"]        = 0xDF;
-    _mapStr2Dik["DIK_WAKE"]         = 0xE3;
-    _mapStr2Dik["DIK_WEBSEARCH"]    = 0xE5;
-    _mapStr2Dik["DIK_WEBFAVORITES"] = 0xE6;
-    _mapStr2Dik["DIK_WEBREFRESH"]   = 0xE7;
-    _mapStr2Dik["DIK_WEBSTOP"]      = 0xE8;
-    _mapStr2Dik["DIK_WEBFORWARD"]   = 0xE9;
-    _mapStr2Dik["DIK_WEBBACK"]      = 0xEA;
-    _mapStr2Dik["DIK_MYCOMPUTER"]   = 0xEB;
-    _mapStr2Dik["DIK_MAIL"]         = 0xEC;
-    _mapStr2Dik["DIK_MEDIASELECT"]  = 0xED;
-    _mapStr2Dik["DIK_BACKSPACE"]    = 0x0E;
-    _mapStr2Dik["DIK_NUMPADSTAR"]   = 0x37;
-    _mapStr2Dik["DIK_LALT"]         = 0x38;
-    _mapStr2Dik["DIK_CAPSLOCK"]     = 0x3A;
-    _mapStr2Dik["DIK_NUMPADMINUS"]  = 0x4A;
-    _mapStr2Dik["DIK_NUMPADPLUS"]   = 0x4E;
-    _mapStr2Dik["DIK_NUMPADPERIOD"] = 0x53;
-    _mapStr2Dik["DIK_NUMPADSLASH"]  = 0xB5;
-    _mapStr2Dik["DIK_RALT"]         = 0xB8;
-    _mapStr2Dik["DIK_UPARROW"]      = 0xC8;
-    _mapStr2Dik["DIK_PGUP"]         = 0xC9;
-    _mapStr2Dik["DIK_LEFTARROW"]    = 0xCB;
-    _mapStr2Dik["DIK_RIGHTARROW"]   = 0xCD;
-    _mapStr2Dik["DIK_DOWNARROW"]    = 0xD0;
-    _mapStr2Dik["DIK_PGDN"]         = 0xD1;
+    _mapStr2Dik["DIK_ESCAPE"]       = DIK_ESCAPE      ;
+    _mapStr2Dik["DIK_1"]            = DIK_1           ;
+    _mapStr2Dik["DIK_2"]            = DIK_2           ;
+    _mapStr2Dik["DIK_3"]            = DIK_3           ;
+    _mapStr2Dik["DIK_4"]            = DIK_4           ;
+    _mapStr2Dik["DIK_5"]            = DIK_5           ;
+    _mapStr2Dik["DIK_6"]            = DIK_6           ;
+    _mapStr2Dik["DIK_7"]            = DIK_7           ;
+    _mapStr2Dik["DIK_8"]            = DIK_8           ;
+    _mapStr2Dik["DIK_9"]            = DIK_9           ;
+    _mapStr2Dik["DIK_0"]            = DIK_0           ;
+    _mapStr2Dik["DIK_MINUS"]        = DIK_MINUS       ;
+    _mapStr2Dik["DIK_EQUALS"]       = DIK_EQUALS      ;
+    _mapStr2Dik["DIK_BACK"]         = DIK_BACK        ;
+    _mapStr2Dik["DIK_TAB"]          = DIK_TAB         ;
+    _mapStr2Dik["DIK_Q"]            = DIK_Q           ;
+    _mapStr2Dik["DIK_W"]            = DIK_W           ;
+    _mapStr2Dik["DIK_E"]            = DIK_E           ;
+    _mapStr2Dik["DIK_R"]            = DIK_R           ;
+    _mapStr2Dik["DIK_T"]            = DIK_T           ;
+    _mapStr2Dik["DIK_Y"]            = DIK_Y           ;
+    _mapStr2Dik["DIK_U"]            = DIK_U           ;
+    _mapStr2Dik["DIK_I"]            = DIK_I           ;
+    _mapStr2Dik["DIK_O"]            = DIK_O           ;
+    _mapStr2Dik["DIK_P"]            = DIK_P           ;
+    _mapStr2Dik["DIK_LBRACKET"]     = DIK_LBRACKET    ;
+    _mapStr2Dik["DIK_RBRACKET"]     = DIK_RBRACKET    ;
+    _mapStr2Dik["DIK_RETURN"]       = DIK_RETURN      ;
+    _mapStr2Dik["DIK_LCONTROL"]     = DIK_LCONTROL    ;
+    _mapStr2Dik["DIK_A"]            = DIK_A           ;
+    _mapStr2Dik["DIK_S"]            = DIK_S           ;
+    _mapStr2Dik["DIK_D"]            = DIK_D           ;
+    _mapStr2Dik["DIK_F"]            = DIK_F           ;
+    _mapStr2Dik["DIK_G"]            = DIK_G           ;
+    _mapStr2Dik["DIK_H"]            = DIK_H           ;
+    _mapStr2Dik["DIK_J"]            = DIK_J           ;
+    _mapStr2Dik["DIK_K"]            = DIK_K           ;
+    _mapStr2Dik["DIK_L"]            = DIK_L           ;
+    _mapStr2Dik["DIK_SEMICOLON"]    = DIK_SEMICOLON   ;
+    _mapStr2Dik["DIK_APOSTROPHE"]   = DIK_APOSTROPHE  ;
+    _mapStr2Dik["DIK_GRAVE"]        = DIK_GRAVE       ;
+    _mapStr2Dik["DIK_LSHIFT"]       = DIK_LSHIFT      ;
+    _mapStr2Dik["DIK_BACKSLASH"]    = DIK_BACKSLASH   ;
+    _mapStr2Dik["DIK_Z"]            = DIK_Z           ;
+    _mapStr2Dik["DIK_X"]            = DIK_X           ;
+    _mapStr2Dik["DIK_C"]            = DIK_C           ;
+    _mapStr2Dik["DIK_V"]            = DIK_V           ;
+    _mapStr2Dik["DIK_B"]            = DIK_B           ;
+    _mapStr2Dik["DIK_N"]            = DIK_N           ;
+    _mapStr2Dik["DIK_M"]            = DIK_M           ;
+    _mapStr2Dik["DIK_COMMA"]        = DIK_COMMA       ;
+    _mapStr2Dik["DIK_PERIOD"]       = DIK_PERIOD      ;
+    _mapStr2Dik["DIK_SLASH"]        = DIK_SLASH       ;
+    _mapStr2Dik["DIK_RSHIFT"]       = DIK_RSHIFT      ;
+    _mapStr2Dik["DIK_MULTIPLY"]     = DIK_MULTIPLY    ;
+    _mapStr2Dik["DIK_LMENU"]        = DIK_LMENU       ;
+    _mapStr2Dik["DIK_SPACE"]        = DIK_SPACE       ;
+    _mapStr2Dik["DIK_CAPITAL"]      = DIK_CAPITAL     ;
+    _mapStr2Dik["DIK_F1"]           = DIK_F1          ;
+    _mapStr2Dik["DIK_F2"]           = DIK_F2          ;
+    _mapStr2Dik["DIK_F3"]           = DIK_F3          ;
+    _mapStr2Dik["DIK_F4"]           = DIK_F4          ;
+    _mapStr2Dik["DIK_F5"]           = DIK_F5          ;
+    _mapStr2Dik["DIK_F6"]           = DIK_F6          ;
+    _mapStr2Dik["DIK_F7"]           = DIK_F7          ;
+    _mapStr2Dik["DIK_F8"]           = DIK_F8          ;
+    _mapStr2Dik["DIK_F9"]           = DIK_F9          ;
+    _mapStr2Dik["DIK_F10"]          = DIK_F10         ;
+    _mapStr2Dik["DIK_NUMLOCK"]      = DIK_NUMLOCK     ;
+    _mapStr2Dik["DIK_SCROLL"]       = DIK_SCROLL      ;
+    _mapStr2Dik["DIK_NUMPAD7"]      = DIK_NUMPAD7     ;
+    _mapStr2Dik["DIK_NUMPAD8"]      = DIK_NUMPAD8     ;
+    _mapStr2Dik["DIK_NUMPAD9"]      = DIK_NUMPAD9     ;
+    _mapStr2Dik["DIK_SUBTRACT"]     = DIK_SUBTRACT    ;
+    _mapStr2Dik["DIK_NUMPAD4"]      = DIK_NUMPAD4     ;
+    _mapStr2Dik["DIK_NUMPAD5"]      = DIK_NUMPAD5     ;
+    _mapStr2Dik["DIK_NUMPAD6"]      = DIK_NUMPAD6     ;
+    _mapStr2Dik["DIK_ADD"]          = DIK_ADD         ;
+    _mapStr2Dik["DIK_NUMPAD1"]      = DIK_NUMPAD1     ;
+    _mapStr2Dik["DIK_NUMPAD2"]      = DIK_NUMPAD2     ;
+    _mapStr2Dik["DIK_NUMPAD3"]      = DIK_NUMPAD3     ;
+    _mapStr2Dik["DIK_NUMPAD0"]      = DIK_NUMPAD0     ;
+    _mapStr2Dik["DIK_DECIMAL"]      = DIK_DECIMAL     ;
+    _mapStr2Dik["DIK_OEM_102"]      = DIK_OEM_102     ;
+    _mapStr2Dik["DIK_F11"]          = DIK_F11         ;
+    _mapStr2Dik["DIK_F12"]          = DIK_F12         ;
+    _mapStr2Dik["DIK_F13"]          = DIK_F13         ;
+    _mapStr2Dik["DIK_F14"]          = DIK_F14         ;
+    _mapStr2Dik["DIK_F15"]          = DIK_F15         ;
+    _mapStr2Dik["DIK_KANA"]         = DIK_KANA        ;
+    _mapStr2Dik["DIK_ABNT_C1"]      = DIK_ABNT_C1     ;
+    _mapStr2Dik["DIK_CONVERT"]      = DIK_CONVERT     ;
+    _mapStr2Dik["DIK_NOCONVERT"]    = DIK_NOCONVERT   ;
+    _mapStr2Dik["DIK_YEN"]          = DIK_YEN         ;
+    _mapStr2Dik["DIK_ABNT_C2"]      = DIK_ABNT_C2     ;
+    _mapStr2Dik["DIK_NUMPADEQUALS"] = DIK_NUMPADEQUALS;
+    _mapStr2Dik["DIK_PREVTRACK"]    = DIK_PREVTRACK   ;
+    _mapStr2Dik["DIK_AT"]           = DIK_AT          ;
+    _mapStr2Dik["DIK_COLON"]        = DIK_COLON       ;
+    _mapStr2Dik["DIK_UNDERLINE"]    = DIK_UNDERLINE   ;
+    _mapStr2Dik["DIK_KANJI"]        = DIK_KANJI       ;
+    _mapStr2Dik["DIK_STOP"]         = DIK_STOP        ;
+    _mapStr2Dik["DIK_AX"]           = DIK_AX          ;
+    _mapStr2Dik["DIK_UNLABELED"]    = DIK_UNLABELED   ;
+    _mapStr2Dik["DIK_NEXTTRACK"]    = DIK_NEXTTRACK   ;
+    _mapStr2Dik["DIK_NUMPADENTER"]  = DIK_NUMPADENTER ;
+    _mapStr2Dik["DIK_RCONTROL"]     = DIK_RCONTROL    ;
+    _mapStr2Dik["DIK_MUTE"]         = DIK_MUTE        ;
+    _mapStr2Dik["DIK_CALCULATOR"]   = DIK_CALCULATOR  ;
+    _mapStr2Dik["DIK_PLAYPAUSE"]    = DIK_PLAYPAUSE   ;
+    _mapStr2Dik["DIK_MEDIASTOP"]    = DIK_MEDIASTOP   ;
+    _mapStr2Dik["DIK_VOLUMEDOWN"]   = DIK_VOLUMEDOWN  ;
+    _mapStr2Dik["DIK_VOLUMEUP"]     = DIK_VOLUMEUP    ;
+    _mapStr2Dik["DIK_WEBHOME"]      = DIK_WEBHOME     ;
+    _mapStr2Dik["DIK_NUMPADCOMMA"]  = DIK_NUMPADCOMMA ;
+    _mapStr2Dik["DIK_DIVIDE"]       = DIK_DIVIDE      ;
+    _mapStr2Dik["DIK_SYSRQ"]        = DIK_SYSRQ       ;
+    _mapStr2Dik["DIK_RMENU"]        = DIK_RMENU       ;
+    _mapStr2Dik["DIK_PAUSE"]        = DIK_PAUSE       ;
+    _mapStr2Dik["DIK_HOME"]         = DIK_HOME        ;
+    _mapStr2Dik["DIK_UP"]           = DIK_UP          ;
+    _mapStr2Dik["DIK_PRIOR"]        = DIK_PRIOR       ;
+    _mapStr2Dik["DIK_LEFT"]         = DIK_LEFT        ;
+    _mapStr2Dik["DIK_RIGHT"]        = DIK_RIGHT       ;
+    _mapStr2Dik["DIK_END"]          = DIK_END         ;
+    _mapStr2Dik["DIK_DOWN"]         = DIK_DOWN        ;
+    _mapStr2Dik["DIK_NEXT"]         = DIK_NEXT        ;
+    _mapStr2Dik["DIK_INSERT"]       = DIK_INSERT      ;
+    _mapStr2Dik["DIK_DELETE"]       = DIK_DELETE      ;
+    _mapStr2Dik["DIK_LWIN"]         = DIK_LWIN        ;
+    _mapStr2Dik["DIK_RWIN"]         = DIK_RWIN        ;
+    _mapStr2Dik["DIK_APPS"]         = DIK_APPS        ;
+    _mapStr2Dik["DIK_POWER"]        = DIK_POWER       ;
+    _mapStr2Dik["DIK_SLEEP"]        = DIK_SLEEP       ;
+    _mapStr2Dik["DIK_WAKE"]         = DIK_WAKE        ;
+    _mapStr2Dik["DIK_WEBSEARCH"]    = DIK_WEBSEARCH   ;
+    _mapStr2Dik["DIK_WEBFAVORITES"] = DIK_WEBFAVORITES;
+    _mapStr2Dik["DIK_WEBREFRESH"]   = DIK_WEBREFRESH  ;
+    _mapStr2Dik["DIK_WEBSTOP"]      = DIK_WEBSTOP     ;
+    _mapStr2Dik["DIK_WEBFORWARD"]   = DIK_WEBFORWARD  ;
+    _mapStr2Dik["DIK_WEBBACK"]      = DIK_WEBBACK     ;
+    _mapStr2Dik["DIK_MYCOMPUTER"]   = DIK_MYCOMPUTER  ;
+    _mapStr2Dik["DIK_MAIL"]         = DIK_MAIL        ;
+    _mapStr2Dik["DIK_MEDIASELECT"]  = DIK_MEDIASELECT ;
+//    _mapStr2Dik["DIK_BACKSPACE"]    = ;
+//    _mapStr2Dik["DIK_NUMPADSTAR"]   = ;
+//    _mapStr2Dik["DIK_LALT"]         = ;
+//    _mapStr2Dik["DIK_CAPSLOCK"]     = ;
+//    _mapStr2Dik["DIK_NUMPADMINUS"]  = ;
+//    _mapStr2Dik["DIK_NUMPADPLUS"]   = ;
+//    _mapStr2Dik["DIK_NUMPADPERIOD"] = ;
+//    _mapStr2Dik["DIK_NUMPADSLASH"]  = ;
+//    _mapStr2Dik["DIK_RALT"]         = ;
+//    _mapStr2Dik["DIK_UPARROW"]      = ;
+//    _mapStr2Dik["DIK_PGUP"]         = ;
+//    _mapStr2Dik["DIK_LEFTARROW"]    = ;
+//    _mapStr2Dik["DIK_RIGHTARROW"]   = ;
+//    _mapStr2Dik["DIK_DOWNARROW"]    = ;
+//    _mapStr2Dik["DIK_PGDN"]         = ;
 
-    _mapStr2JoyBtn["JOY_BUTTON_00"] = 0x00;
-    _mapStr2JoyBtn["JOY_BUTTON_01"] = 0x01;
-    _mapStr2JoyBtn["JOY_BUTTON_02"] = 0x02;
-    _mapStr2JoyBtn["JOY_BUTTON_03"] = 0x03;
-    _mapStr2JoyBtn["JOY_BUTTON_04"] = 0x04;
-    _mapStr2JoyBtn["JOY_BUTTON_05"] = 0x05;
-    _mapStr2JoyBtn["JOY_BUTTON_06"] = 0x06;
-    _mapStr2JoyBtn["JOY_BUTTON_07"] = 0x07;
-    _mapStr2JoyBtn["JOY_BUTTON_08"] = 0x08;
-    _mapStr2JoyBtn["JOY_BUTTON_09"] = 0x09;
-    _mapStr2JoyBtn["JOY_BUTTON_10"] = 0x0A;
-    _mapStr2JoyBtn["JOY_BUTTON_11"] = 0x0B;
-    _mapStr2JoyBtn["JOY_BUTTON_12"] = 0x0C;
-    _mapStr2JoyBtn["JOY_BUTTON_13"] = 0x0D;
-    _mapStr2JoyBtn["JOY_BUTTON_14"] = 0x0E;
-    _mapStr2JoyBtn["JOY_BUTTON_15"] = 0x0F;
-    _mapStr2JoyBtn["JOY_X_POS_MINUS"]  = 0x80;
-    _mapStr2JoyBtn["JOY_X_POS_PLUS"]   = 0x81;
-    _mapStr2JoyBtn["JOY_Y_POS_MINUS"]  = 0x82;
-    _mapStr2JoyBtn["JOY_Y_POS_PLUS"]   = 0x83;
-    _mapStr2JoyBtn["JOY_Z_POS_MINUS"]  = 0x84;
-    _mapStr2JoyBtn["JOY_Z_POS_PLUS"]   = 0x85;
-    _mapStr2JoyBtn["JOY_X_ROT_MINUS"]  = 0x86;
-    _mapStr2JoyBtn["JOY_X_ROT_PLUS"]   = 0x87;
-    _mapStr2JoyBtn["JOY_Y_ROT_MINUS"]  = 0x88;
-    _mapStr2JoyBtn["JOY_Y_ROT_PLUS"]   = 0x89;
-    _mapStr2JoyBtn["JOY_Z_ROT_MINUS"]  = 0x8A;
-    _mapStr2JoyBtn["JOY_Z_ROT_PLUS"]   = 0x8B;
-    _mapStr2JoyBtn["JOY_POV_UP"]     = 0x90;
-    _mapStr2JoyBtn["JOY_POV_DOWN"]   = 0x91;
-    _mapStr2JoyBtn["JOY_POV_LEFT"]   = 0x92;
-    _mapStr2JoyBtn["JOY_POV_RIGHT"]  = 0x93;
-    _mapStr2JoyBtn["V_JOY_UP"]       = 0xA0;
-    _mapStr2JoyBtn["V_JOY_DOWN"]     = 0xA1;
-    _mapStr2JoyBtn["V_JOY_LEFT"]     = 0xA2;
-    _mapStr2JoyBtn["V_JOY_RIGHT"]    = 0xA3;
+    _mapStr2JoyBtn["VBJ_BUTTON_00"]   = VBJ_BUTTON_00  ;
+    _mapStr2JoyBtn["VBJ_BUTTON_01"]   = VBJ_BUTTON_01  ;
+    _mapStr2JoyBtn["VBJ_BUTTON_02"]   = VBJ_BUTTON_02  ;
+    _mapStr2JoyBtn["VBJ_BUTTON_03"]   = VBJ_BUTTON_03  ;
+    _mapStr2JoyBtn["VBJ_BUTTON_04"]   = VBJ_BUTTON_04  ;
+    _mapStr2JoyBtn["VBJ_BUTTON_05"]   = VBJ_BUTTON_05  ;
+    _mapStr2JoyBtn["VBJ_BUTTON_06"]   = VBJ_BUTTON_06  ;
+    _mapStr2JoyBtn["VBJ_BUTTON_07"]   = VBJ_BUTTON_07  ;
+    _mapStr2JoyBtn["VBJ_BUTTON_08"]   = VBJ_BUTTON_08  ;
+    _mapStr2JoyBtn["VBJ_BUTTON_09"]   = VBJ_BUTTON_09  ;
+    _mapStr2JoyBtn["VBJ_BUTTON_10"]   = VBJ_BUTTON_10  ;
+    _mapStr2JoyBtn["VBJ_BUTTON_11"]   = VBJ_BUTTON_11  ;
+    _mapStr2JoyBtn["VBJ_BUTTON_12"]   = VBJ_BUTTON_12  ;
+    _mapStr2JoyBtn["VBJ_BUTTON_13"]   = VBJ_BUTTON_13  ;
+    _mapStr2JoyBtn["VBJ_BUTTON_14"]   = VBJ_BUTTON_14  ;
+    _mapStr2JoyBtn["VBJ_BUTTON_15"]   = VBJ_BUTTON_15  ;
+    _mapStr2JoyBtn["VBJ_X_POS_MINUS"] = VBJ_X_POS_MINUS;
+    _mapStr2JoyBtn["VBJ_X_POS_PLUS"]  = VBJ_X_POS_PLUS ;
+    _mapStr2JoyBtn["VBJ_Y_POS_MINUS"] = VBJ_Y_POS_MINUS;
+    _mapStr2JoyBtn["VBJ_Y_POS_PLUS"]  = VBJ_Y_POS_PLUS ;
+    _mapStr2JoyBtn["VBJ_Z_POS_MINUS"] = VBJ_Z_POS_MINUS;
+    _mapStr2JoyBtn["VBJ_Z_POS_PLUS"]  = VBJ_Z_POS_PLUS ;
+    _mapStr2JoyBtn["VBJ_X_ROT_MINUS"] = VBJ_X_ROT_MINUS;
+    _mapStr2JoyBtn["VBJ_X_ROT_PLUS"]  = VBJ_X_ROT_PLUS ;
+    _mapStr2JoyBtn["VBJ_Y_ROT_MINUS"] = VBJ_Y_ROT_MINUS;
+    _mapStr2JoyBtn["VBJ_Y_ROT_PLUS"]  = VBJ_Y_ROT_PLUS ;
+    _mapStr2JoyBtn["VBJ_Z_ROT_MINUS"] = VBJ_Z_ROT_MINUS;
+    _mapStr2JoyBtn["VBJ_Z_ROT_PLUS"]  = VBJ_Z_ROT_PLUS ;
+    _mapStr2JoyBtn["VBJ_POV_UP"]      = VBJ_POV_UP     ;
+    _mapStr2JoyBtn["VBJ_POV_DOWN"]    = VBJ_POV_DOWN   ;
+    _mapStr2JoyBtn["VBJ_POV_LEFT"]    = VBJ_POV_LEFT   ;
+    _mapStr2JoyBtn["VBJ_POV_RIGHT"]   = VBJ_POV_RIGHT  ;
 
-    _mapDik2Str[0x01] = "DIK_ESCAPE";
-    _mapDik2Str[0x02] = "DIK_1";
-    _mapDik2Str[0x03] = "DIK_2";
-    _mapDik2Str[0x04] = "DIK_3";
-    _mapDik2Str[0x05] = "DIK_4";
-    _mapDik2Str[0x06] = "DIK_5";
-    _mapDik2Str[0x07] = "DIK_6";
-    _mapDik2Str[0x08] = "DIK_7";
-    _mapDik2Str[0x09] = "DIK_8";
-    _mapDik2Str[0x0A] = "DIK_9";
-    _mapDik2Str[0x0B] = "DIK_0";
-    _mapDik2Str[0x0C] = "DIK_MINUS";
-    _mapDik2Str[0x0D] = "DIK_EQUALS";
-    _mapDik2Str[0x0E] = "DIK_BACK";
-    _mapDik2Str[0x0F] = "DIK_TAB";
-    _mapDik2Str[0x10] = "DIK_Q";
-    _mapDik2Str[0x11] = "DIK_W";
-    _mapDik2Str[0x12] = "DIK_E";
-    _mapDik2Str[0x13] = "DIK_R";
-    _mapDik2Str[0x14] = "DIK_T";
-    _mapDik2Str[0x15] = "DIK_Y";
-    _mapDik2Str[0x16] = "DIK_U";
-    _mapDik2Str[0x17] = "DIK_I";
-    _mapDik2Str[0x18] = "DIK_O";
-    _mapDik2Str[0x19] = "DIK_P";
-    _mapDik2Str[0x1A] = "DIK_LBRACKET";
-    _mapDik2Str[0x1B] = "DIK_RBRACKET";
-    _mapDik2Str[0x1C] = "DIK_RETURN";
-    _mapDik2Str[0x1D] = "DIK_LCONTROL";
-    _mapDik2Str[0x1E] = "DIK_A";
-    _mapDik2Str[0x1F] = "DIK_S";
-    _mapDik2Str[0x20] = "DIK_D";
-    _mapDik2Str[0x21] = "DIK_F";
-    _mapDik2Str[0x22] = "DIK_G";
-    _mapDik2Str[0x23] = "DIK_H";
-    _mapDik2Str[0x24] = "DIK_J";
-    _mapDik2Str[0x25] = "DIK_K";
-    _mapDik2Str[0x26] = "DIK_L";
-    _mapDik2Str[0x27] = "DIK_SEMICOLON";
-    _mapDik2Str[0x28] = "DIK_APOSTROPHE";
-    _mapDik2Str[0x29] = "DIK_GRAVE";
-    _mapDik2Str[0x2A] = "DIK_LSHIFT";
-    _mapDik2Str[0x2B] = "DIK_BACKSLASH";
-    _mapDik2Str[0x2C] = "DIK_Z";
-    _mapDik2Str[0x2D] = "DIK_X";
-    _mapDik2Str[0x2E] = "DIK_C";
-    _mapDik2Str[0x2F] = "DIK_V";
-    _mapDik2Str[0x30] = "DIK_B";
-    _mapDik2Str[0x31] = "DIK_N";
-    _mapDik2Str[0x32] = "DIK_M";
-    _mapDik2Str[0x33] = "DIK_COMMA";
-    _mapDik2Str[0x34] = "DIK_PERIOD";
-    _mapDik2Str[0x35] = "DIK_SLASH";
-    _mapDik2Str[0x36] = "DIK_RSHIFT";
-    _mapDik2Str[0x37] = "DIK_MULTIPLY";
-    _mapDik2Str[0x38] = "DIK_LMENU";
-    _mapDik2Str[0x39] = "DIK_SPACE";
-    _mapDik2Str[0x3A] = "DIK_CAPITAL";
-    _mapDik2Str[0x3B] = "DIK_F1";
-    _mapDik2Str[0x3C] = "DIK_F2";
-    _mapDik2Str[0x3D] = "DIK_F3";
-    _mapDik2Str[0x3E] = "DIK_F4";
-    _mapDik2Str[0x3F] = "DIK_F5";
-    _mapDik2Str[0x40] = "DIK_F6";
-    _mapDik2Str[0x41] = "DIK_F7";
-    _mapDik2Str[0x42] = "DIK_F8";
-    _mapDik2Str[0x43] = "DIK_F9";
-    _mapDik2Str[0x44] = "DIK_F10";
-    _mapDik2Str[0x45] = "DIK_NUMLOCK";
-    _mapDik2Str[0x46] = "DIK_SCROLL";
-    _mapDik2Str[0x47] = "DIK_NUMPAD7";
-    _mapDik2Str[0x48] = "DIK_NUMPAD8";
-    _mapDik2Str[0x49] = "DIK_NUMPAD9";
-    _mapDik2Str[0x4A] = "DIK_SUBTRACT";
-    _mapDik2Str[0x4B] = "DIK_NUMPAD4";
-    _mapDik2Str[0x4C] = "DIK_NUMPAD5";
-    _mapDik2Str[0x4D] = "DIK_NUMPAD6";
-    _mapDik2Str[0x4E] = "DIK_ADD";
-    _mapDik2Str[0x4F] = "DIK_NUMPAD1";
-    _mapDik2Str[0x50] = "DIK_NUMPAD2";
-    _mapDik2Str[0x51] = "DIK_NUMPAD3";
-    _mapDik2Str[0x52] = "DIK_NUMPAD0";
-    _mapDik2Str[0x53] = "DIK_DECIMAL";
-    _mapDik2Str[0x56] = "DIK_OEM_102";
-    _mapDik2Str[0x57] = "DIK_F11";
-    _mapDik2Str[0x58] = "DIK_F12";
-    _mapDik2Str[0x64] = "DIK_F13";
-    _mapDik2Str[0x65] = "DIK_F14";
-    _mapDik2Str[0x66] = "DIK_F15";
-    _mapDik2Str[0x70] = "DIK_KANA";
-    _mapDik2Str[0x73] = "DIK_ABNT_C1";
-    _mapDik2Str[0x79] = "DIK_CONVERT";
-    _mapDik2Str[0x7B] = "DIK_NOCONVERT";
-    _mapDik2Str[0x7D] = "DIK_YEN";
-    _mapDik2Str[0x7E] = "DIK_ABNT_C2";
-    _mapDik2Str[0x8D] = "DIK_NUMPADEQUALS";
-    _mapDik2Str[0x90] = "DIK_PREVTRACK";
-    _mapDik2Str[0x91] = "DIK_AT";
-    _mapDik2Str[0x92] = "DIK_COLON";
-    _mapDik2Str[0x93] = "DIK_UNDERLINE";
-    _mapDik2Str[0x94] = "DIK_KANJI";
-    _mapDik2Str[0x95] = "DIK_STOP";
-    _mapDik2Str[0x96] = "DIK_AX";
-    _mapDik2Str[0x97] = "DIK_UNLABELED";
-    _mapDik2Str[0x99] = "DIK_NEXTTRACK";
-    _mapDik2Str[0x9C] = "DIK_NUMPADENTER";
-    _mapDik2Str[0x9D] = "DIK_RCONTROL";
-    _mapDik2Str[0xA0] = "DIK_MUTE";
-    _mapDik2Str[0xA1] = "DIK_CALCULATOR";
-    _mapDik2Str[0xA2] = "DIK_PLAYPAUSE";
-    _mapDik2Str[0xA4] = "DIK_MEDIASTOP";
-    _mapDik2Str[0xAE] = "DIK_VOLUMEDOWN";
-    _mapDik2Str[0xB0] = "DIK_VOLUMEUP";
-    _mapDik2Str[0xB2] = "DIK_WEBHOME";
-    _mapDik2Str[0xB3] = "DIK_NUMPADCOMMA";
-    _mapDik2Str[0xB5] = "DIK_DIVIDE";
-    _mapDik2Str[0xB7] = "DIK_SYSRQ";
-    _mapDik2Str[0xB8] = "DIK_RMENU";
-    _mapDik2Str[0xC5] = "DIK_PAUSE";
-    _mapDik2Str[0xC7] = "DIK_HOME";
-    _mapDik2Str[0xC8] = "DIK_UP";
-    _mapDik2Str[0xC9] = "DIK_PRIOR";
-    _mapDik2Str[0xCB] = "DIK_LEFT";
-    _mapDik2Str[0xCD] = "DIK_RIGHT";
-    _mapDik2Str[0xCF] = "DIK_END";
-    _mapDik2Str[0xD0] = "DIK_DOWN";
-    _mapDik2Str[0xD1] = "DIK_NEXT";
-    _mapDik2Str[0xD2] = "DIK_INSERT";
-    _mapDik2Str[0xD3] = "DIK_DELETE";
-    _mapDik2Str[0xDB] = "DIK_LWIN";
-    _mapDik2Str[0xDC] = "DIK_RWIN";
-    _mapDik2Str[0xDD] = "DIK_APPS";
-    _mapDik2Str[0xDE] = "DIK_POWER";
-    _mapDik2Str[0xDF] = "DIK_SLEEP";
-    _mapDik2Str[0xE3] = "DIK_WAKE";
-    _mapDik2Str[0xE5] = "DIK_WEBSEARCH";
-    _mapDik2Str[0xE6] = "DIK_WEBFAVORITES";
-    _mapDik2Str[0xE7] = "DIK_WEBREFRESH";
-    _mapDik2Str[0xE8] = "DIK_WEBSTOP";
-    _mapDik2Str[0xE9] = "DIK_WEBFORWARD";
-    _mapDik2Str[0xEA] = "DIK_WEBBACK";
-    _mapDik2Str[0xEB] = "DIK_MYCOMPUTER";
-    _mapDik2Str[0xEC] = "DIK_MAIL";
-    _mapDik2Str[0xED] = "DIK_MEDIASELECT";
+    _mapDik2Str[DIK_ESCAPE      ]  = "DIK_ESCAPE";
+    _mapDik2Str[DIK_1           ]  = "DIK_1";
+    _mapDik2Str[DIK_2           ]  = "DIK_2";
+    _mapDik2Str[DIK_3           ]  = "DIK_3";
+    _mapDik2Str[DIK_4           ]  = "DIK_4";
+    _mapDik2Str[DIK_5           ]  = "DIK_5";
+    _mapDik2Str[DIK_6           ]  = "DIK_6";
+    _mapDik2Str[DIK_7           ]  = "DIK_7";
+    _mapDik2Str[DIK_8           ]  = "DIK_8";
+    _mapDik2Str[DIK_9           ]  = "DIK_9";
+    _mapDik2Str[DIK_0           ]  = "DIK_0";
+    _mapDik2Str[DIK_MINUS       ]  = "DIK_MINUS";
+    _mapDik2Str[DIK_EQUALS      ]  = "DIK_EQUALS";
+    _mapDik2Str[DIK_BACK        ]  = "DIK_BACK";
+    _mapDik2Str[DIK_TAB         ]  = "DIK_TAB";
+    _mapDik2Str[DIK_Q           ]  = "DIK_Q";
+    _mapDik2Str[DIK_W           ]  = "DIK_W";
+    _mapDik2Str[DIK_E           ]  = "DIK_E";
+    _mapDik2Str[DIK_R           ]  = "DIK_R";
+    _mapDik2Str[DIK_T           ]  = "DIK_T";
+    _mapDik2Str[DIK_Y           ]  = "DIK_Y";
+    _mapDik2Str[DIK_U           ]  = "DIK_U";
+    _mapDik2Str[DIK_I           ]  = "DIK_I";
+    _mapDik2Str[DIK_O           ]  = "DIK_O";
+    _mapDik2Str[DIK_P           ]  = "DIK_P";
+    _mapDik2Str[DIK_LBRACKET    ]  = "DIK_LBRACKET";
+    _mapDik2Str[DIK_RBRACKET    ]  = "DIK_RBRACKET";
+    _mapDik2Str[DIK_RETURN      ]  = "DIK_RETURN";
+    _mapDik2Str[DIK_LCONTROL    ]  = "DIK_LCONTROL";
+    _mapDik2Str[DIK_A           ]  = "DIK_A";
+    _mapDik2Str[DIK_S           ]  = "DIK_S";
+    _mapDik2Str[DIK_D           ]  = "DIK_D";
+    _mapDik2Str[DIK_F           ]  = "DIK_F";
+    _mapDik2Str[DIK_G           ]  = "DIK_G";
+    _mapDik2Str[DIK_H           ]  = "DIK_H";
+    _mapDik2Str[DIK_J           ]  = "DIK_J";
+    _mapDik2Str[DIK_K           ]  = "DIK_K";
+    _mapDik2Str[DIK_L           ]  = "DIK_L";
+    _mapDik2Str[DIK_SEMICOLON   ]  = "DIK_SEMICOLON";
+    _mapDik2Str[DIK_APOSTROPHE  ]  = "DIK_APOSTROPHE";
+    _mapDik2Str[DIK_GRAVE       ]  = "DIK_GRAVE";
+    _mapDik2Str[DIK_LSHIFT      ]  = "DIK_LSHIFT";
+    _mapDik2Str[DIK_BACKSLASH   ]  = "DIK_BACKSLASH";
+    _mapDik2Str[DIK_Z           ]  = "DIK_Z";
+    _mapDik2Str[DIK_X           ]  = "DIK_X";
+    _mapDik2Str[DIK_C           ]  = "DIK_C";
+    _mapDik2Str[DIK_V           ]  = "DIK_V";
+    _mapDik2Str[DIK_B           ]  = "DIK_B";
+    _mapDik2Str[DIK_N           ]  = "DIK_N";
+    _mapDik2Str[DIK_M           ]  = "DIK_M";
+    _mapDik2Str[DIK_COMMA       ]  = "DIK_COMMA";
+    _mapDik2Str[DIK_PERIOD      ]  = "DIK_PERIOD";
+    _mapDik2Str[DIK_SLASH       ]  = "DIK_SLASH";
+    _mapDik2Str[DIK_RSHIFT      ]  = "DIK_RSHIFT";
+    _mapDik2Str[DIK_MULTIPLY    ]  = "DIK_MULTIPLY";
+    _mapDik2Str[DIK_LMENU       ]  = "DIK_LMENU";
+    _mapDik2Str[DIK_SPACE       ]  = "DIK_SPACE";
+    _mapDik2Str[DIK_CAPITAL     ]  = "DIK_CAPITAL";
+    _mapDik2Str[DIK_F1          ]  = "DIK_F1";
+    _mapDik2Str[DIK_F2          ]  = "DIK_F2";
+    _mapDik2Str[DIK_F3          ]  = "DIK_F3";
+    _mapDik2Str[DIK_F4          ]  = "DIK_F4";
+    _mapDik2Str[DIK_F5          ]  = "DIK_F5";
+    _mapDik2Str[DIK_F6          ]  = "DIK_F6";
+    _mapDik2Str[DIK_F7          ]  = "DIK_F7";
+    _mapDik2Str[DIK_F8          ]  = "DIK_F8";
+    _mapDik2Str[DIK_F9          ]  = "DIK_F9";
+    _mapDik2Str[DIK_F10         ]  = "DIK_F10";
+    _mapDik2Str[DIK_NUMLOCK     ]  = "DIK_NUMLOCK";
+    _mapDik2Str[DIK_SCROLL      ]  = "DIK_SCROLL";
+    _mapDik2Str[DIK_NUMPAD7     ]  = "DIK_NUMPAD7";
+    _mapDik2Str[DIK_NUMPAD8     ]  = "DIK_NUMPAD8";
+    _mapDik2Str[DIK_NUMPAD9     ]  = "DIK_NUMPAD9";
+    _mapDik2Str[DIK_SUBTRACT    ]  = "DIK_SUBTRACT";
+    _mapDik2Str[DIK_NUMPAD4     ]  = "DIK_NUMPAD4";
+    _mapDik2Str[DIK_NUMPAD5     ]  = "DIK_NUMPAD5";
+    _mapDik2Str[DIK_NUMPAD6     ]  = "DIK_NUMPAD6";
+    _mapDik2Str[DIK_ADD         ]  = "DIK_ADD";
+    _mapDik2Str[DIK_NUMPAD1     ]  = "DIK_NUMPAD1";
+    _mapDik2Str[DIK_NUMPAD2     ]  = "DIK_NUMPAD2";
+    _mapDik2Str[DIK_NUMPAD3     ]  = "DIK_NUMPAD3";
+    _mapDik2Str[DIK_NUMPAD0     ]  = "DIK_NUMPAD0";
+    _mapDik2Str[DIK_DECIMAL     ]  = "DIK_DECIMAL";
+    _mapDik2Str[DIK_OEM_102     ]  = "DIK_OEM_102";
+    _mapDik2Str[DIK_F11         ]  = "DIK_F11";
+    _mapDik2Str[DIK_F12         ]  = "DIK_F12";
+    _mapDik2Str[DIK_F13         ]  = "DIK_F13";
+    _mapDik2Str[DIK_F14         ]  = "DIK_F14";
+    _mapDik2Str[DIK_F15         ]  = "DIK_F15";
+    _mapDik2Str[DIK_KANA        ]  = "DIK_KANA";
+    _mapDik2Str[DIK_ABNT_C1     ]  = "DIK_ABNT_C1";
+    _mapDik2Str[DIK_CONVERT     ]  = "DIK_CONVERT";
+    _mapDik2Str[DIK_NOCONVERT   ]  = "DIK_NOCONVERT";
+    _mapDik2Str[DIK_YEN         ]  = "DIK_YEN";
+    _mapDik2Str[DIK_ABNT_C2     ]  = "DIK_ABNT_C2";
+    _mapDik2Str[DIK_NUMPADEQUALS]  = "DIK_NUMPADEQUALS";
+    _mapDik2Str[DIK_PREVTRACK   ]  = "DIK_PREVTRACK";
+    _mapDik2Str[DIK_AT          ]  = "DIK_AT";
+    _mapDik2Str[DIK_COLON       ]  = "DIK_COLON";
+    _mapDik2Str[DIK_UNDERLINE   ]  = "DIK_UNDERLINE";
+    _mapDik2Str[DIK_KANJI       ]  = "DIK_KANJI";
+    _mapDik2Str[DIK_STOP        ]  = "DIK_STOP";
+    _mapDik2Str[DIK_AX          ]  = "DIK_AX";
+    _mapDik2Str[DIK_UNLABELED   ]  = "DIK_UNLABELED";
+    _mapDik2Str[DIK_NEXTTRACK   ]  = "DIK_NEXTTRACK";
+    _mapDik2Str[DIK_NUMPADENTER ]  = "DIK_NUMPADENTER";
+    _mapDik2Str[DIK_RCONTROL    ]  = "DIK_RCONTROL";
+    _mapDik2Str[DIK_MUTE        ]  = "DIK_MUTE";
+    _mapDik2Str[DIK_CALCULATOR  ]  = "DIK_CALCULATOR";
+    _mapDik2Str[DIK_PLAYPAUSE   ]  = "DIK_PLAYPAUSE";
+    _mapDik2Str[DIK_MEDIASTOP   ]  = "DIK_MEDIASTOP";
+    _mapDik2Str[DIK_VOLUMEDOWN  ]  = "DIK_VOLUMEDOWN";
+    _mapDik2Str[DIK_VOLUMEUP    ]  = "DIK_VOLUMEUP";
+    _mapDik2Str[DIK_WEBHOME     ]  = "DIK_WEBHOME";
+    _mapDik2Str[DIK_NUMPADCOMMA ]  = "DIK_NUMPADCOMMA";
+    _mapDik2Str[DIK_DIVIDE      ]  = "DIK_DIVIDE";
+    _mapDik2Str[DIK_SYSRQ       ]  = "DIK_SYSRQ";
+    _mapDik2Str[DIK_RMENU       ]  = "DIK_RMENU";
+    _mapDik2Str[DIK_PAUSE       ]  = "DIK_PAUSE";
+    _mapDik2Str[DIK_HOME        ]  = "DIK_HOME";
+    _mapDik2Str[DIK_UP          ]  = "DIK_UP";
+    _mapDik2Str[DIK_PRIOR       ]  = "DIK_PRIOR";
+    _mapDik2Str[DIK_LEFT        ]  = "DIK_LEFT";
+    _mapDik2Str[DIK_RIGHT       ]  = "DIK_RIGHT";
+    _mapDik2Str[DIK_END         ]  = "DIK_END";
+    _mapDik2Str[DIK_DOWN        ]  = "DIK_DOWN";
+    _mapDik2Str[DIK_NEXT        ]  = "DIK_NEXT";
+    _mapDik2Str[DIK_INSERT      ]  = "DIK_INSERT";
+    _mapDik2Str[DIK_DELETE      ]  = "DIK_DELETE";
+    _mapDik2Str[DIK_LWIN        ]  = "DIK_LWIN";
+    _mapDik2Str[DIK_RWIN        ]  = "DIK_RWIN";
+    _mapDik2Str[DIK_APPS        ]  = "DIK_APPS";
+    _mapDik2Str[DIK_POWER       ]  = "DIK_POWER";
+    _mapDik2Str[DIK_SLEEP       ]  = "DIK_SLEEP";
+    _mapDik2Str[DIK_WAKE        ]  = "DIK_WAKE";
+    _mapDik2Str[DIK_WEBSEARCH   ]  = "DIK_WEBSEARCH";
+    _mapDik2Str[DIK_WEBFAVORITES]  = "DIK_WEBFAVORITES";
+    _mapDik2Str[DIK_WEBREFRESH  ]  = "DIK_WEBREFRESH";
+    _mapDik2Str[DIK_WEBSTOP     ]  = "DIK_WEBSTOP";
+    _mapDik2Str[DIK_WEBFORWARD  ]  = "DIK_WEBFORWARD";
+    _mapDik2Str[DIK_WEBBACK     ]  = "DIK_WEBBACK";
+    _mapDik2Str[DIK_MYCOMPUTER  ]  = "DIK_MYCOMPUTER";
+    _mapDik2Str[DIK_MAIL        ]  = "DIK_MAIL";
+    _mapDik2Str[DIK_MEDIASELECT ]  = "DIK_MEDIASELECT";
 //    _mapDik2Str[0x0E] = "DIK_BACKSPACE";
 //    _mapDik2Str[0x37] = "DIK_NUMPADSTAR";
 //    _mapDik2Str[0x38] = "DIK_LALT";
@@ -479,56 +475,55 @@ void VirtualButton::init() {
 //    _mapDik2Str[0xD0] = "DIK_DOWNARROW";
 //    _mapDik2Str[0xD1] = "DIK_PGDN";
 
-    _mapJoyBtn2Str[0x00] = "JOY_BUTTON_00";
-    _mapJoyBtn2Str[0x01] = "JOY_BUTTON_01";
-    _mapJoyBtn2Str[0x02] = "JOY_BUTTON_02";
-    _mapJoyBtn2Str[0x03] = "JOY_BUTTON_03";
-    _mapJoyBtn2Str[0x04] = "JOY_BUTTON_04";
-    _mapJoyBtn2Str[0x05] = "JOY_BUTTON_05";
-    _mapJoyBtn2Str[0x06] = "JOY_BUTTON_06";
-    _mapJoyBtn2Str[0x07] = "JOY_BUTTON_07";
-    _mapJoyBtn2Str[0x08] = "JOY_BUTTON_08";
-    _mapJoyBtn2Str[0x09] = "JOY_BUTTON_09";
-    _mapJoyBtn2Str[0x0A] = "JOY_BUTTON_10";
-    _mapJoyBtn2Str[0x0B] = "JOY_BUTTON_11";
-    _mapJoyBtn2Str[0x0C] = "JOY_BUTTON_12";
-    _mapJoyBtn2Str[0x0D] = "JOY_BUTTON_13";
-    _mapJoyBtn2Str[0x0E] = "JOY_BUTTON_14";
-    _mapJoyBtn2Str[0x0F] = "JOY_BUTTON_15";
+    _mapJoyBtn2Str[VBJ_BUTTON_00  ] = "VBJ_BUTTON_00";
+    _mapJoyBtn2Str[VBJ_BUTTON_01  ] = "VBJ_BUTTON_01";
+    _mapJoyBtn2Str[VBJ_BUTTON_02  ] = "VBJ_BUTTON_02";
+    _mapJoyBtn2Str[VBJ_BUTTON_03  ] = "VBJ_BUTTON_03";
+    _mapJoyBtn2Str[VBJ_BUTTON_04  ] = "VBJ_BUTTON_04";
+    _mapJoyBtn2Str[VBJ_BUTTON_05  ] = "VBJ_BUTTON_05";
+    _mapJoyBtn2Str[VBJ_BUTTON_06  ] = "VBJ_BUTTON_06";
+    _mapJoyBtn2Str[VBJ_BUTTON_07  ] = "VBJ_BUTTON_07";
+    _mapJoyBtn2Str[VBJ_BUTTON_08  ] = "VBJ_BUTTON_08";
+    _mapJoyBtn2Str[VBJ_BUTTON_09  ] = "VBJ_BUTTON_09";
+    _mapJoyBtn2Str[VBJ_BUTTON_10  ] = "VBJ_BUTTON_10";
+    _mapJoyBtn2Str[VBJ_BUTTON_11  ] = "VBJ_BUTTON_11";
+    _mapJoyBtn2Str[VBJ_BUTTON_12  ] = "VBJ_BUTTON_12";
+    _mapJoyBtn2Str[VBJ_BUTTON_13  ] = "VBJ_BUTTON_13";
+    _mapJoyBtn2Str[VBJ_BUTTON_14  ] = "VBJ_BUTTON_14";
+    _mapJoyBtn2Str[VBJ_BUTTON_15  ] = "VBJ_BUTTON_15";
+    _mapJoyBtn2Str[VBJ_X_POS_MINUS] = "VBJ_X_POS_MINUS";
+    _mapJoyBtn2Str[VBJ_X_POS_PLUS ] = "VBJ_X_POS_PLUS";
+    _mapJoyBtn2Str[VBJ_Y_POS_MINUS] = "VBJ_Y_POS_MINUS";
+    _mapJoyBtn2Str[VBJ_Y_POS_PLUS ] = "VBJ_Y_POS_PLUS";
+    _mapJoyBtn2Str[VBJ_Z_POS_MINUS] = "VBJ_Z_POS_MINUS";
+    _mapJoyBtn2Str[VBJ_Z_POS_PLUS ] = "VBJ_Z_POS_PLUS";
+    _mapJoyBtn2Str[VBJ_X_ROT_MINUS] = "VBJ_X_ROT_MINUS";
+    _mapJoyBtn2Str[VBJ_X_ROT_PLUS ] = "VBJ_X_ROT_PLUS";
+    _mapJoyBtn2Str[VBJ_Y_ROT_MINUS] = "VBJ_Y_ROT_MINUS";
+    _mapJoyBtn2Str[VBJ_Y_ROT_PLUS ] = "VBJ_Y_ROT_PLUS";
+    _mapJoyBtn2Str[VBJ_Z_ROT_MINUS] = "VBJ_Z_ROT_MINUS";
+    _mapJoyBtn2Str[VBJ_Z_ROT_PLUS ] = "VBJ_Z_ROT_PLUS";
+    _mapJoyBtn2Str[VBJ_POV_UP     ] = "VBJ_POV_UP";
+    _mapJoyBtn2Str[VBJ_POV_DOWN   ] = "VBJ_POV_DOWN";
+    _mapJoyBtn2Str[VBJ_POV_LEFT   ] = "VBJ_POV_LEFT";
+    _mapJoyBtn2Str[VBJ_POV_RIGHT  ] = "VBJ_POV_RIGHT";
 
-    _mapJoyBtn2Str[0x80] = "JOY_X_POS_MINUS";
-    _mapJoyBtn2Str[0x81] = "JOY_X_POS_PLUS";
-    _mapJoyBtn2Str[0x82] = "JOY_Y_POS_MINUS";
-    _mapJoyBtn2Str[0x83] = "JOY_Y_POS_PLUS";
-    _mapJoyBtn2Str[0x84] = "JOY_Z_POS_MINUS";
-    _mapJoyBtn2Str[0x85] = "JOY_Z_POS_PLUS";
-    _mapJoyBtn2Str[0x86] = "JOY_X_ROT_MINUS";
-    _mapJoyBtn2Str[0x87] = "JOY_X_ROT_PLUS";
-    _mapJoyBtn2Str[0x88] = "JOY_Y_ROT_MINUS";
-    _mapJoyBtn2Str[0x89] = "JOY_Y_ROT_PLUS";
-    _mapJoyBtn2Str[0x8A] = "JOY_Z_ROT_MINUS";
-    _mapJoyBtn2Str[0x8B] = "JOY_Z_ROT_PLUS";
-    _mapJoyBtn2Str[0x90] = "JOY_POV_UP";
-    _mapJoyBtn2Str[0x91] = "JOY_POV_DOWN";
-    _mapJoyBtn2Str[0x92] = "JOY_POV_LEFT";
-    _mapJoyBtn2Str[0x93] = "JOY_POV_RIGHT";
-
-    _mapVJoyBtn2Func[0x80] = GgafDxCore::GgafDxInput::isBeingPressedJoyXAxisMinus;
-    _mapVJoyBtn2Func[0x81] = GgafDxCore::GgafDxInput::isBeingPressedJoyXAxisPlus;
-    _mapVJoyBtn2Func[0x82] = GgafDxCore::GgafDxInput::isBeingPressedJoyYAxisMinus;
-    _mapVJoyBtn2Func[0x83] = GgafDxCore::GgafDxInput::isBeingPressedJoyYAxisPlus;
-    _mapVJoyBtn2Func[0x84] = GgafDxCore::GgafDxInput::isBeingPressedJoyZAxisMinus;
-    _mapVJoyBtn2Func[0x85] = GgafDxCore::GgafDxInput::isBeingPressedJoyZAxisPlus;
-    _mapVJoyBtn2Func[0x86] = GgafDxCore::GgafDxInput::isBeingPressedJoyRxMinus;
-    _mapVJoyBtn2Func[0x87] = GgafDxCore::GgafDxInput::isBeingPressedJoyRxPlus;
-    _mapVJoyBtn2Func[0x88] = GgafDxCore::GgafDxInput::isBeingPressedJoyRyMinus;
-    _mapVJoyBtn2Func[0x89] = GgafDxCore::GgafDxInput::isBeingPressedJoyRyPlus;
-    _mapVJoyBtn2Func[0x8A] = GgafDxCore::GgafDxInput::isBeingPressedJoyRzMinus;
-    _mapVJoyBtn2Func[0x8B] = GgafDxCore::GgafDxInput::isBeingPressedJoyRzPlus;
-    _mapVJoyBtn2Func[0x90] = GgafDxCore::GgafDxInput::isBeingPressedPovUp;
-    _mapVJoyBtn2Func[0x91] = GgafDxCore::GgafDxInput::isBeingPressedPovDown;
-    _mapVJoyBtn2Func[0x92] = GgafDxCore::GgafDxInput::isBeingPressedPovLeft;
-    _mapVJoyBtn2Func[0x93] = GgafDxCore::GgafDxInput::isBeingPressedPovRight;
+    _mapVJoyBtn2Func[VBJ_X_POS_MINUS] = GgafDxCore::GgafDxInput::isBeingPressedJoyXAxisMinus;
+    _mapVJoyBtn2Func[VBJ_X_POS_PLUS ] = GgafDxCore::GgafDxInput::isBeingPressedJoyXAxisPlus;
+    _mapVJoyBtn2Func[VBJ_Y_POS_MINUS] = GgafDxCore::GgafDxInput::isBeingPressedJoyYAxisMinus;
+    _mapVJoyBtn2Func[VBJ_Y_POS_PLUS ] = GgafDxCore::GgafDxInput::isBeingPressedJoyYAxisPlus;
+    _mapVJoyBtn2Func[VBJ_Z_POS_MINUS] = GgafDxCore::GgafDxInput::isBeingPressedJoyZAxisMinus;
+    _mapVJoyBtn2Func[VBJ_Z_POS_PLUS ] = GgafDxCore::GgafDxInput::isBeingPressedJoyZAxisPlus;
+    _mapVJoyBtn2Func[VBJ_X_ROT_MINUS] = GgafDxCore::GgafDxInput::isBeingPressedJoyRxMinus;
+    _mapVJoyBtn2Func[VBJ_X_ROT_PLUS ] = GgafDxCore::GgafDxInput::isBeingPressedJoyRxPlus;
+    _mapVJoyBtn2Func[VBJ_Y_ROT_MINUS] = GgafDxCore::GgafDxInput::isBeingPressedJoyRyMinus;
+    _mapVJoyBtn2Func[VBJ_Y_ROT_PLUS ] = GgafDxCore::GgafDxInput::isBeingPressedJoyRyPlus;
+    _mapVJoyBtn2Func[VBJ_Z_ROT_MINUS] = GgafDxCore::GgafDxInput::isBeingPressedJoyRzMinus;
+    _mapVJoyBtn2Func[VBJ_Z_ROT_PLUS ] = GgafDxCore::GgafDxInput::isBeingPressedJoyRzPlus;
+    _mapVJoyBtn2Func[VBJ_POV_UP     ] = GgafDxCore::GgafDxInput::isBeingPressedPovUp;
+    _mapVJoyBtn2Func[VBJ_POV_DOWN   ] = GgafDxCore::GgafDxInput::isBeingPressedPovDown;
+    _mapVJoyBtn2Func[VBJ_POV_LEFT   ] = GgafDxCore::GgafDxInput::isBeingPressedPovLeft;
+    _mapVJoyBtn2Func[VBJ_POV_RIGHT  ] = GgafDxCore::GgafDxInput::isBeingPressedPovRight;
 }
 
 VirtualButton::VBRecord* VirtualButton::getPastVBRecord(frame prm_frame_ago) {
@@ -990,8 +985,8 @@ void VirtualButton::clear() {
     }
 }
 int VirtualButton::getPushedDownVirtualJoyButton() {
-    int JOY_pushed = GgafDxInput::getPushedDownJoyRgbButton();
-    if (JOY_pushed == -1) {
+    int VBJ_pushed = GgafDxInput::getPushedDownJoyRgbButton();
+    if (VBJ_pushed == -1) {
         if (GgafDxInput::isBeingPressedJoyXAxisMinus()) {
             return 0x80;
         } else if (GgafDxInput::isBeingPressedJoyXAxisPlus()) {
@@ -1028,7 +1023,7 @@ int VirtualButton::getPushedDownVirtualJoyButton() {
             return -1;
         }
      } else {
-         return JOY_pushed;
+         return VBJ_pushed;
      }
 }
 

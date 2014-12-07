@@ -211,9 +211,9 @@ void MenuBoardKeyConfig::processBehavior() {
                 input_mode_ = 2;
             }
 
-            int JOY_pushed = VirtualButton::getPushedDownVirtualJoyButton();
-            if (JOY_pushed != -1) {
-                 paVBProperties[index].pJoy->update(VirtualButton::_mapJoyBtn2Str[JOY_pushed].c_str());
+            int VBJ_pushed = VirtualButton::getPushedDownVirtualJoyButton();
+            if (VBJ_pushed != -1) {
+                 paVBProperties[index].pJoy->update(VirtualButton::_mapJoyBtn2Str[VBJ_pushed].c_str());
                  paVBProperties[index].pJoy->_pAFader->beat(10, 5, 0, 5, 6.5);
                  paVBProperties[index].pKey->_pAFader->transitionLinerToTop(5);
                  input_mode_ = 2;
