@@ -7,86 +7,90 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-std::map<std::string, int> VirtualButton::_mapStr2Dik;
-std::map<std::string, int> VirtualButton::_mapStr2JoyBtn;
-std::map<int, std::string> VirtualButton::_mapDik2Str;
-std::map<int, std::string> VirtualButton::_mapJoyBtn2Str;
-std::map<int, VirtualButton::funcVJBtn> VirtualButton::_mapVJoyBtn2Func;
+std::map<std::string, int> VirtualButton::_mapStr2VBK;
+std::map<std::string, int> VirtualButton::_mapStr2VBJ;
+std::map<int, std::string> VirtualButton::_mapVBK2Str;
+std::map<int, std::string> VirtualButton::_mapVBJ2Str;
+std::map<int, VirtualButton::funcVJBtn> VirtualButton::_mapVBJ2Func;
 
 bool VirtualButton::_is_init = false;
 
-//組み込み標準キーボード割り当て
-VirtualButton::KEYBOARDMAP VirtualButton::_keyboardmap = {
-                              DIK_Z,      // BUTTON1
-                              DIK_X,      // BUTTON2
-                              DIK_C,      // BUTTON3
-                              DIK_A,      // BUTTON4
-                              DIK_S,      // BUTTON5
-                              DIK_D,      // BUTTON6
-                              DIK_V,      // BUTTON7
-                              DIK_B,      // BUTTON8
-                              DIK_N,      // BUTTON9
-                              DIK_M,      // BUTTON10
-                              0xFF,       // BUTTON11
-                              0xFF,       // BUTTON12
-                              0xFF,       // BUTTON13
-                              0xFF,       // BUTTON14
-                              0xFF,       // BUTTON15
-                              0xFF,       // BUTTON16
-                              DIK_ESCAPE, // PAUSE
-                              DIK_UP,     // UP
-                              DIK_DOWN,   // DOWN
-                              DIK_LEFT,   // LEFT
-                              DIK_RIGHT,  // RIGHT
-                              DIK_UP,     // UI_UP
-                              DIK_DOWN,   // UI_DOWN
-                              DIK_LEFT,   // UI_LEFT
-                              DIK_RIGHT,  // UI_RIGHT
-                              0xFF,       // UI_S1_UP
-                              0xFF,       // UI_S1_DOWN
-                              0xFF,       // UI_S1_LEFT
-                              0xFF,       // UI_S1_RIGHT
-                              DIK_RETURN, // UI_EXECUTE
-                              DIK_ESCAPE, // UI_CANCEL
-                              DIK_Q       // UI_DEBUG
-                           };
-
-VirtualButton::JOYSTICKMAP VirtualButton::_joystickmap = {
-                              VBJ_BUTTON_00,   // BUTTON1
-                              VBJ_BUTTON_01,   // BUTTON2
-                              VBJ_BUTTON_02,   // BUTTON3
-                              VBJ_BUTTON_03,   // BUTTON4
-                              VBJ_BUTTON_04,   // BUTTON5
-                              VBJ_BUTTON_05,   // BUTTON6
-                              VBJ_BUTTON_06,   // BUTTON7
-                              VBJ_BUTTON_07,   // BUTTON8
-                              VBJ_BUTTON_08,   // BUTTON9
-                              VBJ_BUTTON_09,   // BUTTON10
-                              VBJ_BUTTON_10,   // BUTTON11
-                              VBJ_BUTTON_11,   // BUTTON12
-                              VBJ_BUTTON_12,   // BUTTON13
-                              VBJ_BUTTON_13,   // BUTTON14
-                              VBJ_BUTTON_14,   // BUTTON15
-                              VBJ_BUTTON_15,   // BUTTON16
-                              VBJ_BUTTON_07,   // PAUSE
-                              VBJ_Y_POS_MINUS, // UP
-                              VBJ_Y_POS_PLUS , // DOWN
-                              VBJ_X_POS_MINUS, // LEFT
-                              VBJ_X_POS_PLUS , // RIGHT
-                              0xFF, // S1_UP
-                              0xFF, // S1_DOWN
-                              0xFF, // S1_LEFT
-                              0xFF, // S1_RIGHT
-                              VBJ_Y_POS_MINUS, // UI_UP
-                              VBJ_Y_POS_PLUS , // UI_DOWN
-                              VBJ_X_POS_MINUS, // UI_LEFT
-                              VBJ_X_POS_PLUS , // UI_RIGHT
-                              VBJ_BUTTON_00, // UI_EXECUTE
-                              VBJ_BUTTON_01  // UI_CANCEL
-                              //, 0xFF  // UI_DEBUG
-                           };
-
 VirtualButton::VirtualButton(const char* prm_replay_file) : GgafObject() {
+    _keyboardmap.BUTTON1     = VBK_Z;
+    _keyboardmap.BUTTON2     = VBK_X;
+    _keyboardmap.BUTTON3     = VBK_C;
+    _keyboardmap.BUTTON4     = VBK_A;
+    _keyboardmap.BUTTON5     = VBK_S;
+    _keyboardmap.BUTTON6     = VBK_D;
+    _keyboardmap.BUTTON7     = VBK_V;
+    _keyboardmap.BUTTON8     = VBK_B;
+    _keyboardmap.BUTTON9     = VBK_N;
+    _keyboardmap.BUTTON10    = VBK_M;
+    _keyboardmap.BUTTON11    = 0xFF;
+    _keyboardmap.BUTTON12    = 0xFF;
+    _keyboardmap.BUTTON13    = 0xFF;
+    _keyboardmap.BUTTON14    = 0xFF;
+    _keyboardmap.BUTTON15    = 0xFF;
+    _keyboardmap.BUTTON16    = 0xFF;
+    _keyboardmap.PAUSE       = VBK_ESCAPE;
+    _keyboardmap.UP          = VBK_UP;
+    _keyboardmap.DOWN        = VBK_DOWN;
+    _keyboardmap.LEFT        = VBK_LEFT;
+    _keyboardmap.RIGHT       = VBK_RIGHT;
+    _keyboardmap.S1_UP       = 0xFF;
+    _keyboardmap.S1_DOWN     = 0xFF;
+    _keyboardmap.S1_LEFT     = 0xFF;
+    _keyboardmap.S1_RIGHT    = 0xFF;
+    _keyboardmap.S2_UP       = 0xFF;
+    _keyboardmap.S2_DOWN     = 0xFF;
+    _keyboardmap.S2_LEFT     = 0xFF;
+    _keyboardmap.S2_RIGHT    = 0xFF;
+    _keyboardmap.UI_UP       = VBK_UP;
+    _keyboardmap.UI_DOWN     = VBK_DOWN;
+    _keyboardmap.UI_LEFT     = VBK_LEFT;
+    _keyboardmap.UI_RIGHT    = VBK_RIGHT;
+    _keyboardmap.UI_EXECUTE  = VBK_RETURN;
+    _keyboardmap.UI_CANCEL   = VBK_ESCAPE;
+    _keyboardmap.UI_DEBUG    = VBK_Q;
+
+    _joystickmap.BUTTON1     = VBJ_BUTTON_01;
+    _joystickmap.BUTTON2     = VBJ_BUTTON_02;
+    _joystickmap.BUTTON3     = VBJ_BUTTON_03;
+    _joystickmap.BUTTON4     = VBJ_BUTTON_04;
+    _joystickmap.BUTTON5     = VBJ_BUTTON_05;
+    _joystickmap.BUTTON6     = VBJ_BUTTON_06;
+    _joystickmap.BUTTON7     = VBJ_BUTTON_07;
+    _joystickmap.BUTTON8     = VBJ_BUTTON_08;
+    _joystickmap.BUTTON9     = VBJ_BUTTON_09;
+    _joystickmap.BUTTON10    = VBJ_BUTTON_10;
+    _joystickmap.BUTTON11    = VBJ_BUTTON_11;
+    _joystickmap.BUTTON12    = VBJ_BUTTON_12;
+    _joystickmap.BUTTON13    = VBJ_BUTTON_13;
+    _joystickmap.BUTTON14    = VBJ_BUTTON_14;
+    _joystickmap.BUTTON15    = VBJ_BUTTON_15;
+    _joystickmap.BUTTON16    = VBJ_BUTTON_16;
+    _joystickmap.PAUSE       = VBJ_BUTTON_08;
+    _joystickmap.UP          = VBJ_Y_POS_MINUS;
+    _joystickmap.DOWN        = VBJ_Y_POS_PLUS ;
+    _joystickmap.LEFT        = VBJ_X_POS_MINUS;
+    _joystickmap.RIGHT       = VBJ_X_POS_PLUS ;
+    _joystickmap.S1_UP       = 0xFF;
+    _joystickmap.S1_DOWN     = 0xFF;
+    _joystickmap.S1_LEFT     = 0xFF;
+    _joystickmap.S1_RIGHT    = 0xFF;
+    _joystickmap.S2_UP       = 0xFF;
+    _joystickmap.S2_DOWN     = 0xFF;
+    _joystickmap.S2_LEFT     = 0xFF;
+    _joystickmap.S2_RIGHT    = 0xFF;
+    _joystickmap.UI_UP       = VBJ_Y_POS_MINUS;
+    _joystickmap.UI_DOWN     = VBJ_Y_POS_PLUS ;
+    _joystickmap.UI_LEFT     = VBJ_X_POS_MINUS;
+    _joystickmap.UI_RIGHT    = VBJ_X_POS_PLUS ;
+    _joystickmap.UI_EXECUTE  = VBJ_BUTTON_01;
+    _joystickmap.UI_CANCEL   = VBJ_BUTTON_02;
+    //_joystickmap.UI_DEBUG    = //; 0xFF
+
+
     //環状双方向連結リスト構築
     _pVBRecord_active = NEW VBRecord();
     VirtualButton::VBRecord* pVBRecord_temp = _pVBRecord_active;
@@ -122,408 +126,379 @@ VirtualButton::VirtualButton(const char* prm_replay_file) : GgafObject() {
 }
 
 void VirtualButton::init() {
-    _mapStr2Dik["DIK_ESCAPE"]       = DIK_ESCAPE      ;
-    _mapStr2Dik["DIK_1"]            = DIK_1           ;
-    _mapStr2Dik["DIK_2"]            = DIK_2           ;
-    _mapStr2Dik["DIK_3"]            = DIK_3           ;
-    _mapStr2Dik["DIK_4"]            = DIK_4           ;
-    _mapStr2Dik["DIK_5"]            = DIK_5           ;
-    _mapStr2Dik["DIK_6"]            = DIK_6           ;
-    _mapStr2Dik["DIK_7"]            = DIK_7           ;
-    _mapStr2Dik["DIK_8"]            = DIK_8           ;
-    _mapStr2Dik["DIK_9"]            = DIK_9           ;
-    _mapStr2Dik["DIK_0"]            = DIK_0           ;
-    _mapStr2Dik["DIK_MINUS"]        = DIK_MINUS       ;
-    _mapStr2Dik["DIK_EQUALS"]       = DIK_EQUALS      ;
-    _mapStr2Dik["DIK_BACK"]         = DIK_BACK        ;
-    _mapStr2Dik["DIK_TAB"]          = DIK_TAB         ;
-    _mapStr2Dik["DIK_Q"]            = DIK_Q           ;
-    _mapStr2Dik["DIK_W"]            = DIK_W           ;
-    _mapStr2Dik["DIK_E"]            = DIK_E           ;
-    _mapStr2Dik["DIK_R"]            = DIK_R           ;
-    _mapStr2Dik["DIK_T"]            = DIK_T           ;
-    _mapStr2Dik["DIK_Y"]            = DIK_Y           ;
-    _mapStr2Dik["DIK_U"]            = DIK_U           ;
-    _mapStr2Dik["DIK_I"]            = DIK_I           ;
-    _mapStr2Dik["DIK_O"]            = DIK_O           ;
-    _mapStr2Dik["DIK_P"]            = DIK_P           ;
-    _mapStr2Dik["DIK_LBRACKET"]     = DIK_LBRACKET    ;
-    _mapStr2Dik["DIK_RBRACKET"]     = DIK_RBRACKET    ;
-    _mapStr2Dik["DIK_RETURN"]       = DIK_RETURN      ;
-    _mapStr2Dik["DIK_LCONTROL"]     = DIK_LCONTROL    ;
-    _mapStr2Dik["DIK_A"]            = DIK_A           ;
-    _mapStr2Dik["DIK_S"]            = DIK_S           ;
-    _mapStr2Dik["DIK_D"]            = DIK_D           ;
-    _mapStr2Dik["DIK_F"]            = DIK_F           ;
-    _mapStr2Dik["DIK_G"]            = DIK_G           ;
-    _mapStr2Dik["DIK_H"]            = DIK_H           ;
-    _mapStr2Dik["DIK_J"]            = DIK_J           ;
-    _mapStr2Dik["DIK_K"]            = DIK_K           ;
-    _mapStr2Dik["DIK_L"]            = DIK_L           ;
-    _mapStr2Dik["DIK_SEMICOLON"]    = DIK_SEMICOLON   ;
-    _mapStr2Dik["DIK_APOSTROPHE"]   = DIK_APOSTROPHE  ;
-    _mapStr2Dik["DIK_GRAVE"]        = DIK_GRAVE       ;
-    _mapStr2Dik["DIK_LSHIFT"]       = DIK_LSHIFT      ;
-    _mapStr2Dik["DIK_BACKSLASH"]    = DIK_BACKSLASH   ;
-    _mapStr2Dik["DIK_Z"]            = DIK_Z           ;
-    _mapStr2Dik["DIK_X"]            = DIK_X           ;
-    _mapStr2Dik["DIK_C"]            = DIK_C           ;
-    _mapStr2Dik["DIK_V"]            = DIK_V           ;
-    _mapStr2Dik["DIK_B"]            = DIK_B           ;
-    _mapStr2Dik["DIK_N"]            = DIK_N           ;
-    _mapStr2Dik["DIK_M"]            = DIK_M           ;
-    _mapStr2Dik["DIK_COMMA"]        = DIK_COMMA       ;
-    _mapStr2Dik["DIK_PERIOD"]       = DIK_PERIOD      ;
-    _mapStr2Dik["DIK_SLASH"]        = DIK_SLASH       ;
-    _mapStr2Dik["DIK_RSHIFT"]       = DIK_RSHIFT      ;
-    _mapStr2Dik["DIK_MULTIPLY"]     = DIK_MULTIPLY    ;
-    _mapStr2Dik["DIK_LMENU"]        = DIK_LMENU       ;
-    _mapStr2Dik["DIK_SPACE"]        = DIK_SPACE       ;
-    _mapStr2Dik["DIK_CAPITAL"]      = DIK_CAPITAL     ;
-    _mapStr2Dik["DIK_F1"]           = DIK_F1          ;
-    _mapStr2Dik["DIK_F2"]           = DIK_F2          ;
-    _mapStr2Dik["DIK_F3"]           = DIK_F3          ;
-    _mapStr2Dik["DIK_F4"]           = DIK_F4          ;
-    _mapStr2Dik["DIK_F5"]           = DIK_F5          ;
-    _mapStr2Dik["DIK_F6"]           = DIK_F6          ;
-    _mapStr2Dik["DIK_F7"]           = DIK_F7          ;
-    _mapStr2Dik["DIK_F8"]           = DIK_F8          ;
-    _mapStr2Dik["DIK_F9"]           = DIK_F9          ;
-    _mapStr2Dik["DIK_F10"]          = DIK_F10         ;
-    _mapStr2Dik["DIK_NUMLOCK"]      = DIK_NUMLOCK     ;
-    _mapStr2Dik["DIK_SCROLL"]       = DIK_SCROLL      ;
-    _mapStr2Dik["DIK_NUMPAD7"]      = DIK_NUMPAD7     ;
-    _mapStr2Dik["DIK_NUMPAD8"]      = DIK_NUMPAD8     ;
-    _mapStr2Dik["DIK_NUMPAD9"]      = DIK_NUMPAD9     ;
-    _mapStr2Dik["DIK_SUBTRACT"]     = DIK_SUBTRACT    ;
-    _mapStr2Dik["DIK_NUMPAD4"]      = DIK_NUMPAD4     ;
-    _mapStr2Dik["DIK_NUMPAD5"]      = DIK_NUMPAD5     ;
-    _mapStr2Dik["DIK_NUMPAD6"]      = DIK_NUMPAD6     ;
-    _mapStr2Dik["DIK_ADD"]          = DIK_ADD         ;
-    _mapStr2Dik["DIK_NUMPAD1"]      = DIK_NUMPAD1     ;
-    _mapStr2Dik["DIK_NUMPAD2"]      = DIK_NUMPAD2     ;
-    _mapStr2Dik["DIK_NUMPAD3"]      = DIK_NUMPAD3     ;
-    _mapStr2Dik["DIK_NUMPAD0"]      = DIK_NUMPAD0     ;
-    _mapStr2Dik["DIK_DECIMAL"]      = DIK_DECIMAL     ;
-    _mapStr2Dik["DIK_OEM_102"]      = DIK_OEM_102     ;
-    _mapStr2Dik["DIK_F11"]          = DIK_F11         ;
-    _mapStr2Dik["DIK_F12"]          = DIK_F12         ;
-    _mapStr2Dik["DIK_F13"]          = DIK_F13         ;
-    _mapStr2Dik["DIK_F14"]          = DIK_F14         ;
-    _mapStr2Dik["DIK_F15"]          = DIK_F15         ;
-    _mapStr2Dik["DIK_KANA"]         = DIK_KANA        ;
-    _mapStr2Dik["DIK_ABNT_C1"]      = DIK_ABNT_C1     ;
-    _mapStr2Dik["DIK_CONVERT"]      = DIK_CONVERT     ;
-    _mapStr2Dik["DIK_NOCONVERT"]    = DIK_NOCONVERT   ;
-    _mapStr2Dik["DIK_YEN"]          = DIK_YEN         ;
-    _mapStr2Dik["DIK_ABNT_C2"]      = DIK_ABNT_C2     ;
-    _mapStr2Dik["DIK_NUMPADEQUALS"] = DIK_NUMPADEQUALS;
-    _mapStr2Dik["DIK_PREVTRACK"]    = DIK_PREVTRACK   ;
-    _mapStr2Dik["DIK_AT"]           = DIK_AT          ;
-    _mapStr2Dik["DIK_COLON"]        = DIK_COLON       ;
-    _mapStr2Dik["DIK_UNDERLINE"]    = DIK_UNDERLINE   ;
-    _mapStr2Dik["DIK_KANJI"]        = DIK_KANJI       ;
-    _mapStr2Dik["DIK_STOP"]         = DIK_STOP        ;
-    _mapStr2Dik["DIK_AX"]           = DIK_AX          ;
-    _mapStr2Dik["DIK_UNLABELED"]    = DIK_UNLABELED   ;
-    _mapStr2Dik["DIK_NEXTTRACK"]    = DIK_NEXTTRACK   ;
-    _mapStr2Dik["DIK_NUMPADENTER"]  = DIK_NUMPADENTER ;
-    _mapStr2Dik["DIK_RCONTROL"]     = DIK_RCONTROL    ;
-    _mapStr2Dik["DIK_MUTE"]         = DIK_MUTE        ;
-    _mapStr2Dik["DIK_CALCULATOR"]   = DIK_CALCULATOR  ;
-    _mapStr2Dik["DIK_PLAYPAUSE"]    = DIK_PLAYPAUSE   ;
-    _mapStr2Dik["DIK_MEDIASTOP"]    = DIK_MEDIASTOP   ;
-    _mapStr2Dik["DIK_VOLUMEDOWN"]   = DIK_VOLUMEDOWN  ;
-    _mapStr2Dik["DIK_VOLUMEUP"]     = DIK_VOLUMEUP    ;
-    _mapStr2Dik["DIK_WEBHOME"]      = DIK_WEBHOME     ;
-    _mapStr2Dik["DIK_NUMPADCOMMA"]  = DIK_NUMPADCOMMA ;
-    _mapStr2Dik["DIK_DIVIDE"]       = DIK_DIVIDE      ;
-    _mapStr2Dik["DIK_SYSRQ"]        = DIK_SYSRQ       ;
-    _mapStr2Dik["DIK_RMENU"]        = DIK_RMENU       ;
-    _mapStr2Dik["DIK_PAUSE"]        = DIK_PAUSE       ;
-    _mapStr2Dik["DIK_HOME"]         = DIK_HOME        ;
-    _mapStr2Dik["DIK_UP"]           = DIK_UP          ;
-    _mapStr2Dik["DIK_PRIOR"]        = DIK_PRIOR       ;
-    _mapStr2Dik["DIK_LEFT"]         = DIK_LEFT        ;
-    _mapStr2Dik["DIK_RIGHT"]        = DIK_RIGHT       ;
-    _mapStr2Dik["DIK_END"]          = DIK_END         ;
-    _mapStr2Dik["DIK_DOWN"]         = DIK_DOWN        ;
-    _mapStr2Dik["DIK_NEXT"]         = DIK_NEXT        ;
-    _mapStr2Dik["DIK_INSERT"]       = DIK_INSERT      ;
-    _mapStr2Dik["DIK_DELETE"]       = DIK_DELETE      ;
-    _mapStr2Dik["DIK_LWIN"]         = DIK_LWIN        ;
-    _mapStr2Dik["DIK_RWIN"]         = DIK_RWIN        ;
-    _mapStr2Dik["DIK_APPS"]         = DIK_APPS        ;
-    _mapStr2Dik["DIK_POWER"]        = DIK_POWER       ;
-    _mapStr2Dik["DIK_SLEEP"]        = DIK_SLEEP       ;
-    _mapStr2Dik["DIK_WAKE"]         = DIK_WAKE        ;
-    _mapStr2Dik["DIK_WEBSEARCH"]    = DIK_WEBSEARCH   ;
-    _mapStr2Dik["DIK_WEBFAVORITES"] = DIK_WEBFAVORITES;
-    _mapStr2Dik["DIK_WEBREFRESH"]   = DIK_WEBREFRESH  ;
-    _mapStr2Dik["DIK_WEBSTOP"]      = DIK_WEBSTOP     ;
-    _mapStr2Dik["DIK_WEBFORWARD"]   = DIK_WEBFORWARD  ;
-    _mapStr2Dik["DIK_WEBBACK"]      = DIK_WEBBACK     ;
-    _mapStr2Dik["DIK_MYCOMPUTER"]   = DIK_MYCOMPUTER  ;
-    _mapStr2Dik["DIK_MAIL"]         = DIK_MAIL        ;
-    _mapStr2Dik["DIK_MEDIASELECT"]  = DIK_MEDIASELECT ;
-//    _mapStr2Dik["DIK_BACKSPACE"]    = ;
-//    _mapStr2Dik["DIK_NUMPADSTAR"]   = ;
-//    _mapStr2Dik["DIK_LALT"]         = ;
-//    _mapStr2Dik["DIK_CAPSLOCK"]     = ;
-//    _mapStr2Dik["DIK_NUMPADMINUS"]  = ;
-//    _mapStr2Dik["DIK_NUMPADPLUS"]   = ;
-//    _mapStr2Dik["DIK_NUMPADPERIOD"] = ;
-//    _mapStr2Dik["DIK_NUMPADSLASH"]  = ;
-//    _mapStr2Dik["DIK_RALT"]         = ;
-//    _mapStr2Dik["DIK_UPARROW"]      = ;
-//    _mapStr2Dik["DIK_PGUP"]         = ;
-//    _mapStr2Dik["DIK_LEFTARROW"]    = ;
-//    _mapStr2Dik["DIK_RIGHTARROW"]   = ;
-//    _mapStr2Dik["DIK_DOWNARROW"]    = ;
-//    _mapStr2Dik["DIK_PGDN"]         = ;
 
-    _mapStr2JoyBtn["VBJ_BUTTON_00"]   = VBJ_BUTTON_00  ;
-    _mapStr2JoyBtn["VBJ_BUTTON_01"]   = VBJ_BUTTON_01  ;
-    _mapStr2JoyBtn["VBJ_BUTTON_02"]   = VBJ_BUTTON_02  ;
-    _mapStr2JoyBtn["VBJ_BUTTON_03"]   = VBJ_BUTTON_03  ;
-    _mapStr2JoyBtn["VBJ_BUTTON_04"]   = VBJ_BUTTON_04  ;
-    _mapStr2JoyBtn["VBJ_BUTTON_05"]   = VBJ_BUTTON_05  ;
-    _mapStr2JoyBtn["VBJ_BUTTON_06"]   = VBJ_BUTTON_06  ;
-    _mapStr2JoyBtn["VBJ_BUTTON_07"]   = VBJ_BUTTON_07  ;
-    _mapStr2JoyBtn["VBJ_BUTTON_08"]   = VBJ_BUTTON_08  ;
-    _mapStr2JoyBtn["VBJ_BUTTON_09"]   = VBJ_BUTTON_09  ;
-    _mapStr2JoyBtn["VBJ_BUTTON_10"]   = VBJ_BUTTON_10  ;
-    _mapStr2JoyBtn["VBJ_BUTTON_11"]   = VBJ_BUTTON_11  ;
-    _mapStr2JoyBtn["VBJ_BUTTON_12"]   = VBJ_BUTTON_12  ;
-    _mapStr2JoyBtn["VBJ_BUTTON_13"]   = VBJ_BUTTON_13  ;
-    _mapStr2JoyBtn["VBJ_BUTTON_14"]   = VBJ_BUTTON_14  ;
-    _mapStr2JoyBtn["VBJ_BUTTON_15"]   = VBJ_BUTTON_15  ;
-    _mapStr2JoyBtn["VBJ_X_POS_MINUS"] = VBJ_X_POS_MINUS;
-    _mapStr2JoyBtn["VBJ_X_POS_PLUS"]  = VBJ_X_POS_PLUS ;
-    _mapStr2JoyBtn["VBJ_Y_POS_MINUS"] = VBJ_Y_POS_MINUS;
-    _mapStr2JoyBtn["VBJ_Y_POS_PLUS"]  = VBJ_Y_POS_PLUS ;
-    _mapStr2JoyBtn["VBJ_Z_POS_MINUS"] = VBJ_Z_POS_MINUS;
-    _mapStr2JoyBtn["VBJ_Z_POS_PLUS"]  = VBJ_Z_POS_PLUS ;
-    _mapStr2JoyBtn["VBJ_X_ROT_MINUS"] = VBJ_X_ROT_MINUS;
-    _mapStr2JoyBtn["VBJ_X_ROT_PLUS"]  = VBJ_X_ROT_PLUS ;
-    _mapStr2JoyBtn["VBJ_Y_ROT_MINUS"] = VBJ_Y_ROT_MINUS;
-    _mapStr2JoyBtn["VBJ_Y_ROT_PLUS"]  = VBJ_Y_ROT_PLUS ;
-    _mapStr2JoyBtn["VBJ_Z_ROT_MINUS"] = VBJ_Z_ROT_MINUS;
-    _mapStr2JoyBtn["VBJ_Z_ROT_PLUS"]  = VBJ_Z_ROT_PLUS ;
-    _mapStr2JoyBtn["VBJ_POV_UP"]      = VBJ_POV_UP     ;
-    _mapStr2JoyBtn["VBJ_POV_DOWN"]    = VBJ_POV_DOWN   ;
-    _mapStr2JoyBtn["VBJ_POV_LEFT"]    = VBJ_POV_LEFT   ;
-    _mapStr2JoyBtn["VBJ_POV_RIGHT"]   = VBJ_POV_RIGHT  ;
+    VirtualButton::_mapStr2VBK["VBK_ESCAPE"]       = VBK_ESCAPE      ;
+    VirtualButton::_mapStr2VBK["VBK_1"]            = VBK_1           ;
+    VirtualButton::_mapStr2VBK["VBK_2"]            = VBK_2           ;
+    VirtualButton::_mapStr2VBK["VBK_3"]            = VBK_3           ;
+    VirtualButton::_mapStr2VBK["VBK_4"]            = VBK_4           ;
+    VirtualButton::_mapStr2VBK["VBK_5"]            = VBK_5           ;
+    VirtualButton::_mapStr2VBK["VBK_6"]            = VBK_6           ;
+    VirtualButton::_mapStr2VBK["VBK_7"]            = VBK_7           ;
+    VirtualButton::_mapStr2VBK["VBK_8"]            = VBK_8           ;
+    VirtualButton::_mapStr2VBK["VBK_9"]            = VBK_9           ;
+    VirtualButton::_mapStr2VBK["VBK_0"]            = VBK_0           ;
+    VirtualButton::_mapStr2VBK["VBK_MINUS"]        = VBK_MINUS       ;
+    VirtualButton::_mapStr2VBK["VBK_EQUALS"]       = VBK_EQUALS      ;
+    VirtualButton::_mapStr2VBK["VBK_BACK"]         = VBK_BACK        ;
+    VirtualButton::_mapStr2VBK["VBK_TAB"]          = VBK_TAB         ;
+    VirtualButton::_mapStr2VBK["VBK_Q"]            = VBK_Q           ;
+    VirtualButton::_mapStr2VBK["VBK_W"]            = VBK_W           ;
+    VirtualButton::_mapStr2VBK["VBK_E"]            = VBK_E           ;
+    VirtualButton::_mapStr2VBK["VBK_R"]            = VBK_R           ;
+    VirtualButton::_mapStr2VBK["VBK_T"]            = VBK_T           ;
+    VirtualButton::_mapStr2VBK["VBK_Y"]            = VBK_Y           ;
+    VirtualButton::_mapStr2VBK["VBK_U"]            = VBK_U           ;
+    VirtualButton::_mapStr2VBK["VBK_I"]            = VBK_I           ;
+    VirtualButton::_mapStr2VBK["VBK_O"]            = VBK_O           ;
+    VirtualButton::_mapStr2VBK["VBK_P"]            = VBK_P           ;
+    VirtualButton::_mapStr2VBK["VBK_LBRACKET"]     = VBK_LBRACKET    ;
+    VirtualButton::_mapStr2VBK["VBK_RBRACKET"]     = VBK_RBRACKET    ;
+    VirtualButton::_mapStr2VBK["VBK_RETURN"]       = VBK_RETURN      ;
+    VirtualButton::_mapStr2VBK["VBK_LCONTROL"]     = VBK_LCONTROL    ;
+    VirtualButton::_mapStr2VBK["VBK_A"]            = VBK_A           ;
+    VirtualButton::_mapStr2VBK["VBK_S"]            = VBK_S           ;
+    VirtualButton::_mapStr2VBK["VBK_D"]            = VBK_D           ;
+    VirtualButton::_mapStr2VBK["VBK_F"]            = VBK_F           ;
+    VirtualButton::_mapStr2VBK["VBK_G"]            = VBK_G           ;
+    VirtualButton::_mapStr2VBK["VBK_H"]            = VBK_H           ;
+    VirtualButton::_mapStr2VBK["VBK_J"]            = VBK_J           ;
+    VirtualButton::_mapStr2VBK["VBK_K"]            = VBK_K           ;
+    VirtualButton::_mapStr2VBK["VBK_L"]            = VBK_L           ;
+    VirtualButton::_mapStr2VBK["VBK_SEMICOLON"]    = VBK_SEMICOLON   ;
+    VirtualButton::_mapStr2VBK["VBK_APOSTROPHE"]   = VBK_APOSTROPHE  ;
+    VirtualButton::_mapStr2VBK["VBK_GRAVE"]        = VBK_GRAVE       ;
+    VirtualButton::_mapStr2VBK["VBK_LSHIFT"]       = VBK_LSHIFT      ;
+    VirtualButton::_mapStr2VBK["VBK_BACKSLASH"]    = VBK_BACKSLASH   ;
+    VirtualButton::_mapStr2VBK["VBK_Z"]            = VBK_Z           ;
+    VirtualButton::_mapStr2VBK["VBK_X"]            = VBK_X           ;
+    VirtualButton::_mapStr2VBK["VBK_C"]            = VBK_C           ;
+    VirtualButton::_mapStr2VBK["VBK_V"]            = VBK_V           ;
+    VirtualButton::_mapStr2VBK["VBK_B"]            = VBK_B           ;
+    VirtualButton::_mapStr2VBK["VBK_N"]            = VBK_N           ;
+    VirtualButton::_mapStr2VBK["VBK_M"]            = VBK_M           ;
+    VirtualButton::_mapStr2VBK["VBK_COMMA"]        = VBK_COMMA       ;
+    VirtualButton::_mapStr2VBK["VBK_PERIOD"]       = VBK_PERIOD      ;
+    VirtualButton::_mapStr2VBK["VBK_SLASH"]        = VBK_SLASH       ;
+    VirtualButton::_mapStr2VBK["VBK_RSHIFT"]       = VBK_RSHIFT      ;
+    VirtualButton::_mapStr2VBK["VBK_MULTIPLY"]     = VBK_MULTIPLY    ;
+    VirtualButton::_mapStr2VBK["VBK_LMENU"]        = VBK_LMENU       ;
+    VirtualButton::_mapStr2VBK["VBK_SPACE"]        = VBK_SPACE       ;
+    VirtualButton::_mapStr2VBK["VBK_CAPITAL"]      = VBK_CAPITAL     ;
+    VirtualButton::_mapStr2VBK["VBK_F1"]           = VBK_F1          ;
+    VirtualButton::_mapStr2VBK["VBK_F2"]           = VBK_F2          ;
+    VirtualButton::_mapStr2VBK["VBK_F3"]           = VBK_F3          ;
+    VirtualButton::_mapStr2VBK["VBK_F4"]           = VBK_F4          ;
+    VirtualButton::_mapStr2VBK["VBK_F5"]           = VBK_F5          ;
+    VirtualButton::_mapStr2VBK["VBK_F6"]           = VBK_F6          ;
+    VirtualButton::_mapStr2VBK["VBK_F7"]           = VBK_F7          ;
+    VirtualButton::_mapStr2VBK["VBK_F8"]           = VBK_F8          ;
+    VirtualButton::_mapStr2VBK["VBK_F9"]           = VBK_F9          ;
+    VirtualButton::_mapStr2VBK["VBK_F10"]          = VBK_F10         ;
+    VirtualButton::_mapStr2VBK["VBK_NUMLOCK"]      = VBK_NUMLOCK     ;
+    VirtualButton::_mapStr2VBK["VBK_SCROLL"]       = VBK_SCROLL      ;
+    VirtualButton::_mapStr2VBK["VBK_NUMPAD7"]      = VBK_NUMPAD7     ;
+    VirtualButton::_mapStr2VBK["VBK_NUMPAD8"]      = VBK_NUMPAD8     ;
+    VirtualButton::_mapStr2VBK["VBK_NUMPAD9"]      = VBK_NUMPAD9     ;
+    VirtualButton::_mapStr2VBK["VBK_SUBTRACT"]     = VBK_SUBTRACT    ;
+    VirtualButton::_mapStr2VBK["VBK_NUMPAD4"]      = VBK_NUMPAD4     ;
+    VirtualButton::_mapStr2VBK["VBK_NUMPAD5"]      = VBK_NUMPAD5     ;
+    VirtualButton::_mapStr2VBK["VBK_NUMPAD6"]      = VBK_NUMPAD6     ;
+    VirtualButton::_mapStr2VBK["VBK_ADD"]          = VBK_ADD         ;
+    VirtualButton::_mapStr2VBK["VBK_NUMPAD1"]      = VBK_NUMPAD1     ;
+    VirtualButton::_mapStr2VBK["VBK_NUMPAD2"]      = VBK_NUMPAD2     ;
+    VirtualButton::_mapStr2VBK["VBK_NUMPAD3"]      = VBK_NUMPAD3     ;
+    VirtualButton::_mapStr2VBK["VBK_NUMPAD0"]      = VBK_NUMPAD0     ;
+    VirtualButton::_mapStr2VBK["VBK_DECIMAL"]      = VBK_DECIMAL     ;
+    VirtualButton::_mapStr2VBK["VBK_OEM_102"]      = VBK_OEM_102     ;
+    VirtualButton::_mapStr2VBK["VBK_F11"]          = VBK_F11         ;
+    VirtualButton::_mapStr2VBK["VBK_F12"]          = VBK_F12         ;
+    VirtualButton::_mapStr2VBK["VBK_F13"]          = VBK_F13         ;
+    VirtualButton::_mapStr2VBK["VBK_F14"]          = VBK_F14         ;
+    VirtualButton::_mapStr2VBK["VBK_F15"]          = VBK_F15         ;
+    VirtualButton::_mapStr2VBK["VBK_KANA"]         = VBK_KANA        ;
+    VirtualButton::_mapStr2VBK["VBK_ABNT_C1"]      = VBK_ABNT_C1     ;
+    VirtualButton::_mapStr2VBK["VBK_CONVERT"]      = VBK_CONVERT     ;
+    VirtualButton::_mapStr2VBK["VBK_NOCONVERT"]    = VBK_NOCONVERT   ;
+    VirtualButton::_mapStr2VBK["VBK_YEN"]          = VBK_YEN         ;
+    VirtualButton::_mapStr2VBK["VBK_ABNT_C2"]      = VBK_ABNT_C2     ;
+    VirtualButton::_mapStr2VBK["VBK_NUMPADEQUALS"] = VBK_NUMPADEQUALS;
+    VirtualButton::_mapStr2VBK["VBK_PREVTRACK"]    = VBK_PREVTRACK   ;
+    VirtualButton::_mapStr2VBK["VBK_AT"]           = VBK_AT          ;
+    VirtualButton::_mapStr2VBK["VBK_COLON"]        = VBK_COLON       ;
+    VirtualButton::_mapStr2VBK["VBK_UNDERLINE"]    = VBK_UNDERLINE   ;
+    VirtualButton::_mapStr2VBK["VBK_KANJI"]        = VBK_KANJI       ;
+    VirtualButton::_mapStr2VBK["VBK_STOP"]         = VBK_STOP        ;
+    VirtualButton::_mapStr2VBK["VBK_AX"]           = VBK_AX          ;
+    VirtualButton::_mapStr2VBK["VBK_UNLABELED"]    = VBK_UNLABELED   ;
+    VirtualButton::_mapStr2VBK["VBK_NEXTTRACK"]    = VBK_NEXTTRACK   ;
+    VirtualButton::_mapStr2VBK["VBK_NUMPADENTER"]  = VBK_NUMPADENTER ;
+    VirtualButton::_mapStr2VBK["VBK_RCONTROL"]     = VBK_RCONTROL    ;
+    VirtualButton::_mapStr2VBK["VBK_MUTE"]         = VBK_MUTE        ;
+    VirtualButton::_mapStr2VBK["VBK_CALCULATOR"]   = VBK_CALCULATOR  ;
+    VirtualButton::_mapStr2VBK["VBK_PLAYPAUSE"]    = VBK_PLAYPAUSE   ;
+    VirtualButton::_mapStr2VBK["VBK_MEDIASTOP"]    = VBK_MEDIASTOP   ;
+    VirtualButton::_mapStr2VBK["VBK_VOLUMEDOWN"]   = VBK_VOLUMEDOWN  ;
+    VirtualButton::_mapStr2VBK["VBK_VOLUMEUP"]     = VBK_VOLUMEUP    ;
+    VirtualButton::_mapStr2VBK["VBK_WEBHOME"]      = VBK_WEBHOME     ;
+    VirtualButton::_mapStr2VBK["VBK_NUMPADCOMMA"]  = VBK_NUMPADCOMMA ;
+    VirtualButton::_mapStr2VBK["VBK_DIVIDE"]       = VBK_DIVIDE      ;
+    VirtualButton::_mapStr2VBK["VBK_SYSRQ"]        = VBK_SYSRQ       ;
+    VirtualButton::_mapStr2VBK["VBK_RMENU"]        = VBK_RMENU       ;
+    VirtualButton::_mapStr2VBK["VBK_PAUSE"]        = VBK_PAUSE       ;
+    VirtualButton::_mapStr2VBK["VBK_HOME"]         = VBK_HOME        ;
+    VirtualButton::_mapStr2VBK["VBK_UP"]           = VBK_UP          ;
+    VirtualButton::_mapStr2VBK["VBK_PRIOR"]        = VBK_PRIOR       ;
+    VirtualButton::_mapStr2VBK["VBK_LEFT"]         = VBK_LEFT        ;
+    VirtualButton::_mapStr2VBK["VBK_RIGHT"]        = VBK_RIGHT       ;
+    VirtualButton::_mapStr2VBK["VBK_END"]          = VBK_END         ;
+    VirtualButton::_mapStr2VBK["VBK_DOWN"]         = VBK_DOWN        ;
+    VirtualButton::_mapStr2VBK["VBK_NEXT"]         = VBK_NEXT        ;
+    VirtualButton::_mapStr2VBK["VBK_INSERT"]       = VBK_INSERT      ;
+    VirtualButton::_mapStr2VBK["VBK_DELETE"]       = VBK_DELETE      ;
+    VirtualButton::_mapStr2VBK["VBK_LWIN"]         = VBK_LWIN        ;
+    VirtualButton::_mapStr2VBK["VBK_RWIN"]         = VBK_RWIN        ;
+    VirtualButton::_mapStr2VBK["VBK_APPS"]         = VBK_APPS        ;
+    VirtualButton::_mapStr2VBK["VBK_POWER"]        = VBK_POWER       ;
+    VirtualButton::_mapStr2VBK["VBK_SLEEP"]        = VBK_SLEEP       ;
+    VirtualButton::_mapStr2VBK["VBK_WAKE"]         = VBK_WAKE        ;
+    VirtualButton::_mapStr2VBK["VBK_WEBSEARCH"]    = VBK_WEBSEARCH   ;
+    VirtualButton::_mapStr2VBK["VBK_WEBFAVORITES"] = VBK_WEBFAVORITES;
+    VirtualButton::_mapStr2VBK["VBK_WEBREFRESH"]   = VBK_WEBREFRESH  ;
+    VirtualButton::_mapStr2VBK["VBK_WEBSTOP"]      = VBK_WEBSTOP     ;
+    VirtualButton::_mapStr2VBK["VBK_WEBFORWARD"]   = VBK_WEBFORWARD  ;
+    VirtualButton::_mapStr2VBK["VBK_WEBBACK"]      = VBK_WEBBACK     ;
+    VirtualButton::_mapStr2VBK["VBK_MYCOMPUTER"]   = VBK_MYCOMPUTER  ;
+    VirtualButton::_mapStr2VBK["VBK_MAIL"]         = VBK_MAIL        ;
+    VirtualButton::_mapStr2VBK["VBK_MEDIASELECT"]  = VBK_MEDIASELECT ;
 
-    _mapDik2Str[DIK_ESCAPE      ]  = "DIK_ESCAPE";
-    _mapDik2Str[DIK_1           ]  = "DIK_1";
-    _mapDik2Str[DIK_2           ]  = "DIK_2";
-    _mapDik2Str[DIK_3           ]  = "DIK_3";
-    _mapDik2Str[DIK_4           ]  = "DIK_4";
-    _mapDik2Str[DIK_5           ]  = "DIK_5";
-    _mapDik2Str[DIK_6           ]  = "DIK_6";
-    _mapDik2Str[DIK_7           ]  = "DIK_7";
-    _mapDik2Str[DIK_8           ]  = "DIK_8";
-    _mapDik2Str[DIK_9           ]  = "DIK_9";
-    _mapDik2Str[DIK_0           ]  = "DIK_0";
-    _mapDik2Str[DIK_MINUS       ]  = "DIK_MINUS";
-    _mapDik2Str[DIK_EQUALS      ]  = "DIK_EQUALS";
-    _mapDik2Str[DIK_BACK        ]  = "DIK_BACK";
-    _mapDik2Str[DIK_TAB         ]  = "DIK_TAB";
-    _mapDik2Str[DIK_Q           ]  = "DIK_Q";
-    _mapDik2Str[DIK_W           ]  = "DIK_W";
-    _mapDik2Str[DIK_E           ]  = "DIK_E";
-    _mapDik2Str[DIK_R           ]  = "DIK_R";
-    _mapDik2Str[DIK_T           ]  = "DIK_T";
-    _mapDik2Str[DIK_Y           ]  = "DIK_Y";
-    _mapDik2Str[DIK_U           ]  = "DIK_U";
-    _mapDik2Str[DIK_I           ]  = "DIK_I";
-    _mapDik2Str[DIK_O           ]  = "DIK_O";
-    _mapDik2Str[DIK_P           ]  = "DIK_P";
-    _mapDik2Str[DIK_LBRACKET    ]  = "DIK_LBRACKET";
-    _mapDik2Str[DIK_RBRACKET    ]  = "DIK_RBRACKET";
-    _mapDik2Str[DIK_RETURN      ]  = "DIK_RETURN";
-    _mapDik2Str[DIK_LCONTROL    ]  = "DIK_LCONTROL";
-    _mapDik2Str[DIK_A           ]  = "DIK_A";
-    _mapDik2Str[DIK_S           ]  = "DIK_S";
-    _mapDik2Str[DIK_D           ]  = "DIK_D";
-    _mapDik2Str[DIK_F           ]  = "DIK_F";
-    _mapDik2Str[DIK_G           ]  = "DIK_G";
-    _mapDik2Str[DIK_H           ]  = "DIK_H";
-    _mapDik2Str[DIK_J           ]  = "DIK_J";
-    _mapDik2Str[DIK_K           ]  = "DIK_K";
-    _mapDik2Str[DIK_L           ]  = "DIK_L";
-    _mapDik2Str[DIK_SEMICOLON   ]  = "DIK_SEMICOLON";
-    _mapDik2Str[DIK_APOSTROPHE  ]  = "DIK_APOSTROPHE";
-    _mapDik2Str[DIK_GRAVE       ]  = "DIK_GRAVE";
-    _mapDik2Str[DIK_LSHIFT      ]  = "DIK_LSHIFT";
-    _mapDik2Str[DIK_BACKSLASH   ]  = "DIK_BACKSLASH";
-    _mapDik2Str[DIK_Z           ]  = "DIK_Z";
-    _mapDik2Str[DIK_X           ]  = "DIK_X";
-    _mapDik2Str[DIK_C           ]  = "DIK_C";
-    _mapDik2Str[DIK_V           ]  = "DIK_V";
-    _mapDik2Str[DIK_B           ]  = "DIK_B";
-    _mapDik2Str[DIK_N           ]  = "DIK_N";
-    _mapDik2Str[DIK_M           ]  = "DIK_M";
-    _mapDik2Str[DIK_COMMA       ]  = "DIK_COMMA";
-    _mapDik2Str[DIK_PERIOD      ]  = "DIK_PERIOD";
-    _mapDik2Str[DIK_SLASH       ]  = "DIK_SLASH";
-    _mapDik2Str[DIK_RSHIFT      ]  = "DIK_RSHIFT";
-    _mapDik2Str[DIK_MULTIPLY    ]  = "DIK_MULTIPLY";
-    _mapDik2Str[DIK_LMENU       ]  = "DIK_LMENU";
-    _mapDik2Str[DIK_SPACE       ]  = "DIK_SPACE";
-    _mapDik2Str[DIK_CAPITAL     ]  = "DIK_CAPITAL";
-    _mapDik2Str[DIK_F1          ]  = "DIK_F1";
-    _mapDik2Str[DIK_F2          ]  = "DIK_F2";
-    _mapDik2Str[DIK_F3          ]  = "DIK_F3";
-    _mapDik2Str[DIK_F4          ]  = "DIK_F4";
-    _mapDik2Str[DIK_F5          ]  = "DIK_F5";
-    _mapDik2Str[DIK_F6          ]  = "DIK_F6";
-    _mapDik2Str[DIK_F7          ]  = "DIK_F7";
-    _mapDik2Str[DIK_F8          ]  = "DIK_F8";
-    _mapDik2Str[DIK_F9          ]  = "DIK_F9";
-    _mapDik2Str[DIK_F10         ]  = "DIK_F10";
-    _mapDik2Str[DIK_NUMLOCK     ]  = "DIK_NUMLOCK";
-    _mapDik2Str[DIK_SCROLL      ]  = "DIK_SCROLL";
-    _mapDik2Str[DIK_NUMPAD7     ]  = "DIK_NUMPAD7";
-    _mapDik2Str[DIK_NUMPAD8     ]  = "DIK_NUMPAD8";
-    _mapDik2Str[DIK_NUMPAD9     ]  = "DIK_NUMPAD9";
-    _mapDik2Str[DIK_SUBTRACT    ]  = "DIK_SUBTRACT";
-    _mapDik2Str[DIK_NUMPAD4     ]  = "DIK_NUMPAD4";
-    _mapDik2Str[DIK_NUMPAD5     ]  = "DIK_NUMPAD5";
-    _mapDik2Str[DIK_NUMPAD6     ]  = "DIK_NUMPAD6";
-    _mapDik2Str[DIK_ADD         ]  = "DIK_ADD";
-    _mapDik2Str[DIK_NUMPAD1     ]  = "DIK_NUMPAD1";
-    _mapDik2Str[DIK_NUMPAD2     ]  = "DIK_NUMPAD2";
-    _mapDik2Str[DIK_NUMPAD3     ]  = "DIK_NUMPAD3";
-    _mapDik2Str[DIK_NUMPAD0     ]  = "DIK_NUMPAD0";
-    _mapDik2Str[DIK_DECIMAL     ]  = "DIK_DECIMAL";
-    _mapDik2Str[DIK_OEM_102     ]  = "DIK_OEM_102";
-    _mapDik2Str[DIK_F11         ]  = "DIK_F11";
-    _mapDik2Str[DIK_F12         ]  = "DIK_F12";
-    _mapDik2Str[DIK_F13         ]  = "DIK_F13";
-    _mapDik2Str[DIK_F14         ]  = "DIK_F14";
-    _mapDik2Str[DIK_F15         ]  = "DIK_F15";
-    _mapDik2Str[DIK_KANA        ]  = "DIK_KANA";
-    _mapDik2Str[DIK_ABNT_C1     ]  = "DIK_ABNT_C1";
-    _mapDik2Str[DIK_CONVERT     ]  = "DIK_CONVERT";
-    _mapDik2Str[DIK_NOCONVERT   ]  = "DIK_NOCONVERT";
-    _mapDik2Str[DIK_YEN         ]  = "DIK_YEN";
-    _mapDik2Str[DIK_ABNT_C2     ]  = "DIK_ABNT_C2";
-    _mapDik2Str[DIK_NUMPADEQUALS]  = "DIK_NUMPADEQUALS";
-    _mapDik2Str[DIK_PREVTRACK   ]  = "DIK_PREVTRACK";
-    _mapDik2Str[DIK_AT          ]  = "DIK_AT";
-    _mapDik2Str[DIK_COLON       ]  = "DIK_COLON";
-    _mapDik2Str[DIK_UNDERLINE   ]  = "DIK_UNDERLINE";
-    _mapDik2Str[DIK_KANJI       ]  = "DIK_KANJI";
-    _mapDik2Str[DIK_STOP        ]  = "DIK_STOP";
-    _mapDik2Str[DIK_AX          ]  = "DIK_AX";
-    _mapDik2Str[DIK_UNLABELED   ]  = "DIK_UNLABELED";
-    _mapDik2Str[DIK_NEXTTRACK   ]  = "DIK_NEXTTRACK";
-    _mapDik2Str[DIK_NUMPADENTER ]  = "DIK_NUMPADENTER";
-    _mapDik2Str[DIK_RCONTROL    ]  = "DIK_RCONTROL";
-    _mapDik2Str[DIK_MUTE        ]  = "DIK_MUTE";
-    _mapDik2Str[DIK_CALCULATOR  ]  = "DIK_CALCULATOR";
-    _mapDik2Str[DIK_PLAYPAUSE   ]  = "DIK_PLAYPAUSE";
-    _mapDik2Str[DIK_MEDIASTOP   ]  = "DIK_MEDIASTOP";
-    _mapDik2Str[DIK_VOLUMEDOWN  ]  = "DIK_VOLUMEDOWN";
-    _mapDik2Str[DIK_VOLUMEUP    ]  = "DIK_VOLUMEUP";
-    _mapDik2Str[DIK_WEBHOME     ]  = "DIK_WEBHOME";
-    _mapDik2Str[DIK_NUMPADCOMMA ]  = "DIK_NUMPADCOMMA";
-    _mapDik2Str[DIK_DIVIDE      ]  = "DIK_DIVIDE";
-    _mapDik2Str[DIK_SYSRQ       ]  = "DIK_SYSRQ";
-    _mapDik2Str[DIK_RMENU       ]  = "DIK_RMENU";
-    _mapDik2Str[DIK_PAUSE       ]  = "DIK_PAUSE";
-    _mapDik2Str[DIK_HOME        ]  = "DIK_HOME";
-    _mapDik2Str[DIK_UP          ]  = "DIK_UP";
-    _mapDik2Str[DIK_PRIOR       ]  = "DIK_PRIOR";
-    _mapDik2Str[DIK_LEFT        ]  = "DIK_LEFT";
-    _mapDik2Str[DIK_RIGHT       ]  = "DIK_RIGHT";
-    _mapDik2Str[DIK_END         ]  = "DIK_END";
-    _mapDik2Str[DIK_DOWN        ]  = "DIK_DOWN";
-    _mapDik2Str[DIK_NEXT        ]  = "DIK_NEXT";
-    _mapDik2Str[DIK_INSERT      ]  = "DIK_INSERT";
-    _mapDik2Str[DIK_DELETE      ]  = "DIK_DELETE";
-    _mapDik2Str[DIK_LWIN        ]  = "DIK_LWIN";
-    _mapDik2Str[DIK_RWIN        ]  = "DIK_RWIN";
-    _mapDik2Str[DIK_APPS        ]  = "DIK_APPS";
-    _mapDik2Str[DIK_POWER       ]  = "DIK_POWER";
-    _mapDik2Str[DIK_SLEEP       ]  = "DIK_SLEEP";
-    _mapDik2Str[DIK_WAKE        ]  = "DIK_WAKE";
-    _mapDik2Str[DIK_WEBSEARCH   ]  = "DIK_WEBSEARCH";
-    _mapDik2Str[DIK_WEBFAVORITES]  = "DIK_WEBFAVORITES";
-    _mapDik2Str[DIK_WEBREFRESH  ]  = "DIK_WEBREFRESH";
-    _mapDik2Str[DIK_WEBSTOP     ]  = "DIK_WEBSTOP";
-    _mapDik2Str[DIK_WEBFORWARD  ]  = "DIK_WEBFORWARD";
-    _mapDik2Str[DIK_WEBBACK     ]  = "DIK_WEBBACK";
-    _mapDik2Str[DIK_MYCOMPUTER  ]  = "DIK_MYCOMPUTER";
-    _mapDik2Str[DIK_MAIL        ]  = "DIK_MAIL";
-    _mapDik2Str[DIK_MEDIASELECT ]  = "DIK_MEDIASELECT";
-//    _mapDik2Str[0x0E] = "DIK_BACKSPACE";
-//    _mapDik2Str[0x37] = "DIK_NUMPADSTAR";
-//    _mapDik2Str[0x38] = "DIK_LALT";
-//    _mapDik2Str[0x3A] = "DIK_CAPSLOCK";
-//    _mapDik2Str[0x4A] = "DIK_NUMPADMINUS";
-//    _mapDik2Str[0x4E] = "DIK_NUMPADPLUS";
-//    _mapDik2Str[0x53] = "DIK_NUMPADPERIOD";
-//    _mapDik2Str[0xB5] = "DIK_NUMPADSLASH";
-//    _mapDik2Str[0xB8] = "DIK_RALT";
-//    _mapDik2Str[0xC8] = "DIK_UPARROW";
-//    _mapDik2Str[0xC9] = "DIK_PGUP";
-//    _mapDik2Str[0xCB] = "DIK_LEFTARROW";
-//    _mapDik2Str[0xCD] = "DIK_RIGHTARROW";
-//    _mapDik2Str[0xD0] = "DIK_DOWNARROW";
-//    _mapDik2Str[0xD1] = "DIK_PGDN";
+    VirtualButton::_mapStr2VBJ["VBJ_BUTTON_01"]   = VBJ_BUTTON_01  ;
+    VirtualButton::_mapStr2VBJ["VBJ_BUTTON_02"]   = VBJ_BUTTON_02  ;
+    VirtualButton::_mapStr2VBJ["VBJ_BUTTON_03"]   = VBJ_BUTTON_03  ;
+    VirtualButton::_mapStr2VBJ["VBJ_BUTTON_04"]   = VBJ_BUTTON_04  ;
+    VirtualButton::_mapStr2VBJ["VBJ_BUTTON_05"]   = VBJ_BUTTON_05  ;
+    VirtualButton::_mapStr2VBJ["VBJ_BUTTON_06"]   = VBJ_BUTTON_06  ;
+    VirtualButton::_mapStr2VBJ["VBJ_BUTTON_07"]   = VBJ_BUTTON_07  ;
+    VirtualButton::_mapStr2VBJ["VBJ_BUTTON_08"]   = VBJ_BUTTON_08  ;
+    VirtualButton::_mapStr2VBJ["VBJ_BUTTON_09"]   = VBJ_BUTTON_09  ;
+    VirtualButton::_mapStr2VBJ["VBJ_BUTTON_10"]   = VBJ_BUTTON_10  ;
+    VirtualButton::_mapStr2VBJ["VBJ_BUTTON_11"]   = VBJ_BUTTON_11  ;
+    VirtualButton::_mapStr2VBJ["VBJ_BUTTON_12"]   = VBJ_BUTTON_12  ;
+    VirtualButton::_mapStr2VBJ["VBJ_BUTTON_13"]   = VBJ_BUTTON_13  ;
+    VirtualButton::_mapStr2VBJ["VBJ_BUTTON_14"]   = VBJ_BUTTON_14  ;
+    VirtualButton::_mapStr2VBJ["VBJ_BUTTON_15"]   = VBJ_BUTTON_15  ;
+    VirtualButton::_mapStr2VBJ["VBJ_BUTTON_15"]   = VBJ_BUTTON_16  ;
+    VirtualButton::_mapStr2VBJ["VBJ_X_POS_MINUS"] = VBJ_X_POS_MINUS;
+    VirtualButton::_mapStr2VBJ["VBJ_X_POS_PLUS"]  = VBJ_X_POS_PLUS ;
+    VirtualButton::_mapStr2VBJ["VBJ_Y_POS_MINUS"] = VBJ_Y_POS_MINUS;
+    VirtualButton::_mapStr2VBJ["VBJ_Y_POS_PLUS"]  = VBJ_Y_POS_PLUS ;
+    VirtualButton::_mapStr2VBJ["VBJ_Z_POS_MINUS"] = VBJ_Z_POS_MINUS;
+    VirtualButton::_mapStr2VBJ["VBJ_Z_POS_PLUS"]  = VBJ_Z_POS_PLUS ;
+    VirtualButton::_mapStr2VBJ["VBJ_X_ROT_MINUS"] = VBJ_X_ROT_MINUS;
+    VirtualButton::_mapStr2VBJ["VBJ_X_ROT_PLUS"]  = VBJ_X_ROT_PLUS ;
+    VirtualButton::_mapStr2VBJ["VBJ_Y_ROT_MINUS"] = VBJ_Y_ROT_MINUS;
+    VirtualButton::_mapStr2VBJ["VBJ_Y_ROT_PLUS"]  = VBJ_Y_ROT_PLUS ;
+    VirtualButton::_mapStr2VBJ["VBJ_Z_ROT_MINUS"] = VBJ_Z_ROT_MINUS;
+    VirtualButton::_mapStr2VBJ["VBJ_Z_ROT_PLUS"]  = VBJ_Z_ROT_PLUS ;
+    VirtualButton::_mapStr2VBJ["VBJ_POV_UP"]      = VBJ_POV_UP     ;
+    VirtualButton::_mapStr2VBJ["VBJ_POV_DOWN"]    = VBJ_POV_DOWN   ;
+    VirtualButton::_mapStr2VBJ["VBJ_POV_LEFT"]    = VBJ_POV_LEFT   ;
+    VirtualButton::_mapStr2VBJ["VBJ_POV_RIGHT"]   = VBJ_POV_RIGHT  ;
 
-    _mapJoyBtn2Str[VBJ_BUTTON_00  ] = "VBJ_BUTTON_00";
-    _mapJoyBtn2Str[VBJ_BUTTON_01  ] = "VBJ_BUTTON_01";
-    _mapJoyBtn2Str[VBJ_BUTTON_02  ] = "VBJ_BUTTON_02";
-    _mapJoyBtn2Str[VBJ_BUTTON_03  ] = "VBJ_BUTTON_03";
-    _mapJoyBtn2Str[VBJ_BUTTON_04  ] = "VBJ_BUTTON_04";
-    _mapJoyBtn2Str[VBJ_BUTTON_05  ] = "VBJ_BUTTON_05";
-    _mapJoyBtn2Str[VBJ_BUTTON_06  ] = "VBJ_BUTTON_06";
-    _mapJoyBtn2Str[VBJ_BUTTON_07  ] = "VBJ_BUTTON_07";
-    _mapJoyBtn2Str[VBJ_BUTTON_08  ] = "VBJ_BUTTON_08";
-    _mapJoyBtn2Str[VBJ_BUTTON_09  ] = "VBJ_BUTTON_09";
-    _mapJoyBtn2Str[VBJ_BUTTON_10  ] = "VBJ_BUTTON_10";
-    _mapJoyBtn2Str[VBJ_BUTTON_11  ] = "VBJ_BUTTON_11";
-    _mapJoyBtn2Str[VBJ_BUTTON_12  ] = "VBJ_BUTTON_12";
-    _mapJoyBtn2Str[VBJ_BUTTON_13  ] = "VBJ_BUTTON_13";
-    _mapJoyBtn2Str[VBJ_BUTTON_14  ] = "VBJ_BUTTON_14";
-    _mapJoyBtn2Str[VBJ_BUTTON_15  ] = "VBJ_BUTTON_15";
-    _mapJoyBtn2Str[VBJ_X_POS_MINUS] = "VBJ_X_POS_MINUS";
-    _mapJoyBtn2Str[VBJ_X_POS_PLUS ] = "VBJ_X_POS_PLUS";
-    _mapJoyBtn2Str[VBJ_Y_POS_MINUS] = "VBJ_Y_POS_MINUS";
-    _mapJoyBtn2Str[VBJ_Y_POS_PLUS ] = "VBJ_Y_POS_PLUS";
-    _mapJoyBtn2Str[VBJ_Z_POS_MINUS] = "VBJ_Z_POS_MINUS";
-    _mapJoyBtn2Str[VBJ_Z_POS_PLUS ] = "VBJ_Z_POS_PLUS";
-    _mapJoyBtn2Str[VBJ_X_ROT_MINUS] = "VBJ_X_ROT_MINUS";
-    _mapJoyBtn2Str[VBJ_X_ROT_PLUS ] = "VBJ_X_ROT_PLUS";
-    _mapJoyBtn2Str[VBJ_Y_ROT_MINUS] = "VBJ_Y_ROT_MINUS";
-    _mapJoyBtn2Str[VBJ_Y_ROT_PLUS ] = "VBJ_Y_ROT_PLUS";
-    _mapJoyBtn2Str[VBJ_Z_ROT_MINUS] = "VBJ_Z_ROT_MINUS";
-    _mapJoyBtn2Str[VBJ_Z_ROT_PLUS ] = "VBJ_Z_ROT_PLUS";
-    _mapJoyBtn2Str[VBJ_POV_UP     ] = "VBJ_POV_UP";
-    _mapJoyBtn2Str[VBJ_POV_DOWN   ] = "VBJ_POV_DOWN";
-    _mapJoyBtn2Str[VBJ_POV_LEFT   ] = "VBJ_POV_LEFT";
-    _mapJoyBtn2Str[VBJ_POV_RIGHT  ] = "VBJ_POV_RIGHT";
+    VirtualButton::_mapVBK2Str[VBK_ESCAPE      ] = "VBK_ESCAPE";
+    VirtualButton::_mapVBK2Str[VBK_1           ] = "VBK_1";
+    VirtualButton::_mapVBK2Str[VBK_2           ] = "VBK_2";
+    VirtualButton::_mapVBK2Str[VBK_3           ] = "VBK_3";
+    VirtualButton::_mapVBK2Str[VBK_4           ] = "VBK_4";
+    VirtualButton::_mapVBK2Str[VBK_5           ] = "VBK_5";
+    VirtualButton::_mapVBK2Str[VBK_6           ] = "VBK_6";
+    VirtualButton::_mapVBK2Str[VBK_7           ] = "VBK_7";
+    VirtualButton::_mapVBK2Str[VBK_8           ] = "VBK_8";
+    VirtualButton::_mapVBK2Str[VBK_9           ] = "VBK_9";
+    VirtualButton::_mapVBK2Str[VBK_0           ] = "VBK_0";
+    VirtualButton::_mapVBK2Str[VBK_MINUS       ] = "VBK_MINUS";
+    VirtualButton::_mapVBK2Str[VBK_EQUALS      ] = "VBK_EQUALS";
+    VirtualButton::_mapVBK2Str[VBK_BACK        ] = "VBK_BACK";
+    VirtualButton::_mapVBK2Str[VBK_TAB         ] = "VBK_TAB";
+    VirtualButton::_mapVBK2Str[VBK_Q           ] = "VBK_Q";
+    VirtualButton::_mapVBK2Str[VBK_W           ] = "VBK_W";
+    VirtualButton::_mapVBK2Str[VBK_E           ] = "VBK_E";
+    VirtualButton::_mapVBK2Str[VBK_R           ] = "VBK_R";
+    VirtualButton::_mapVBK2Str[VBK_T           ] = "VBK_T";
+    VirtualButton::_mapVBK2Str[VBK_Y           ] = "VBK_Y";
+    VirtualButton::_mapVBK2Str[VBK_U           ] = "VBK_U";
+    VirtualButton::_mapVBK2Str[VBK_I           ] = "VBK_I";
+    VirtualButton::_mapVBK2Str[VBK_O           ] = "VBK_O";
+    VirtualButton::_mapVBK2Str[VBK_P           ] = "VBK_P";
+    VirtualButton::_mapVBK2Str[VBK_LBRACKET    ] = "VBK_LBRACKET";
+    VirtualButton::_mapVBK2Str[VBK_RBRACKET    ] = "VBK_RBRACKET";
+    VirtualButton::_mapVBK2Str[VBK_RETURN      ] = "VBK_RETURN";
+    VirtualButton::_mapVBK2Str[VBK_LCONTROL    ] = "VBK_LCONTROL";
+    VirtualButton::_mapVBK2Str[VBK_A           ] = "VBK_A";
+    VirtualButton::_mapVBK2Str[VBK_S           ] = "VBK_S";
+    VirtualButton::_mapVBK2Str[VBK_D           ] = "VBK_D";
+    VirtualButton::_mapVBK2Str[VBK_F           ] = "VBK_F";
+    VirtualButton::_mapVBK2Str[VBK_G           ] = "VBK_G";
+    VirtualButton::_mapVBK2Str[VBK_H           ] = "VBK_H";
+    VirtualButton::_mapVBK2Str[VBK_J           ] = "VBK_J";
+    VirtualButton::_mapVBK2Str[VBK_K           ] = "VBK_K";
+    VirtualButton::_mapVBK2Str[VBK_L           ] = "VBK_L";
+    VirtualButton::_mapVBK2Str[VBK_SEMICOLON   ] = "VBK_SEMICOLON";
+    VirtualButton::_mapVBK2Str[VBK_APOSTROPHE  ] = "VBK_APOSTROPHE";
+    VirtualButton::_mapVBK2Str[VBK_GRAVE       ] = "VBK_GRAVE";
+    VirtualButton::_mapVBK2Str[VBK_LSHIFT      ] = "VBK_LSHIFT";
+    VirtualButton::_mapVBK2Str[VBK_BACKSLASH   ] = "VBK_BACKSLASH";
+    VirtualButton::_mapVBK2Str[VBK_Z           ] = "VBK_Z";
+    VirtualButton::_mapVBK2Str[VBK_X           ] = "VBK_X";
+    VirtualButton::_mapVBK2Str[VBK_C           ] = "VBK_C";
+    VirtualButton::_mapVBK2Str[VBK_V           ] = "VBK_V";
+    VirtualButton::_mapVBK2Str[VBK_B           ] = "VBK_B";
+    VirtualButton::_mapVBK2Str[VBK_N           ] = "VBK_N";
+    VirtualButton::_mapVBK2Str[VBK_M           ] = "VBK_M";
+    VirtualButton::_mapVBK2Str[VBK_COMMA       ] = "VBK_COMMA";
+    VirtualButton::_mapVBK2Str[VBK_PERIOD      ] = "VBK_PERIOD";
+    VirtualButton::_mapVBK2Str[VBK_SLASH       ] = "VBK_SLASH";
+    VirtualButton::_mapVBK2Str[VBK_RSHIFT      ] = "VBK_RSHIFT";
+    VirtualButton::_mapVBK2Str[VBK_MULTIPLY    ] = "VBK_MULTIPLY";
+    VirtualButton::_mapVBK2Str[VBK_LMENU       ] = "VBK_LMENU";
+    VirtualButton::_mapVBK2Str[VBK_SPACE       ] = "VBK_SPACE";
+    VirtualButton::_mapVBK2Str[VBK_CAPITAL     ] = "VBK_CAPITAL";
+    VirtualButton::_mapVBK2Str[VBK_F1          ] = "VBK_F1";
+    VirtualButton::_mapVBK2Str[VBK_F2          ] = "VBK_F2";
+    VirtualButton::_mapVBK2Str[VBK_F3          ] = "VBK_F3";
+    VirtualButton::_mapVBK2Str[VBK_F4          ] = "VBK_F4";
+    VirtualButton::_mapVBK2Str[VBK_F5          ] = "VBK_F5";
+    VirtualButton::_mapVBK2Str[VBK_F6          ] = "VBK_F6";
+    VirtualButton::_mapVBK2Str[VBK_F7          ] = "VBK_F7";
+    VirtualButton::_mapVBK2Str[VBK_F8          ] = "VBK_F8";
+    VirtualButton::_mapVBK2Str[VBK_F9          ] = "VBK_F9";
+    VirtualButton::_mapVBK2Str[VBK_F10         ] = "VBK_F10";
+    VirtualButton::_mapVBK2Str[VBK_NUMLOCK     ] = "VBK_NUMLOCK";
+    VirtualButton::_mapVBK2Str[VBK_SCROLL      ] = "VBK_SCROLL";
+    VirtualButton::_mapVBK2Str[VBK_NUMPAD7     ] = "VBK_NUMPAD7";
+    VirtualButton::_mapVBK2Str[VBK_NUMPAD8     ] = "VBK_NUMPAD8";
+    VirtualButton::_mapVBK2Str[VBK_NUMPAD9     ] = "VBK_NUMPAD9";
+    VirtualButton::_mapVBK2Str[VBK_SUBTRACT    ] = "VBK_SUBTRACT";
+    VirtualButton::_mapVBK2Str[VBK_NUMPAD4     ] = "VBK_NUMPAD4";
+    VirtualButton::_mapVBK2Str[VBK_NUMPAD5     ] = "VBK_NUMPAD5";
+    VirtualButton::_mapVBK2Str[VBK_NUMPAD6     ] = "VBK_NUMPAD6";
+    VirtualButton::_mapVBK2Str[VBK_ADD         ] = "VBK_ADD";
+    VirtualButton::_mapVBK2Str[VBK_NUMPAD1     ] = "VBK_NUMPAD1";
+    VirtualButton::_mapVBK2Str[VBK_NUMPAD2     ] = "VBK_NUMPAD2";
+    VirtualButton::_mapVBK2Str[VBK_NUMPAD3     ] = "VBK_NUMPAD3";
+    VirtualButton::_mapVBK2Str[VBK_NUMPAD0     ] = "VBK_NUMPAD0";
+    VirtualButton::_mapVBK2Str[VBK_DECIMAL     ] = "VBK_DECIMAL";
+    VirtualButton::_mapVBK2Str[VBK_OEM_102     ] = "VBK_OEM_102";
+    VirtualButton::_mapVBK2Str[VBK_F11         ] = "VBK_F11";
+    VirtualButton::_mapVBK2Str[VBK_F12         ] = "VBK_F12";
+    VirtualButton::_mapVBK2Str[VBK_F13         ] = "VBK_F13";
+    VirtualButton::_mapVBK2Str[VBK_F14         ] = "VBK_F14";
+    VirtualButton::_mapVBK2Str[VBK_F15         ] = "VBK_F15";
+    VirtualButton::_mapVBK2Str[VBK_KANA        ] = "VBK_KANA";
+    VirtualButton::_mapVBK2Str[VBK_ABNT_C1     ] = "VBK_ABNT_C1";
+    VirtualButton::_mapVBK2Str[VBK_CONVERT     ] = "VBK_CONVERT";
+    VirtualButton::_mapVBK2Str[VBK_NOCONVERT   ] = "VBK_NOCONVERT";
+    VirtualButton::_mapVBK2Str[VBK_YEN         ] = "VBK_YEN";
+    VirtualButton::_mapVBK2Str[VBK_ABNT_C2     ] = "VBK_ABNT_C2";
+    VirtualButton::_mapVBK2Str[VBK_NUMPADEQUALS] = "VBK_NUMPADEQUALS";
+    VirtualButton::_mapVBK2Str[VBK_PREVTRACK   ] = "VBK_PREVTRACK";
+    VirtualButton::_mapVBK2Str[VBK_AT          ] = "VBK_AT";
+    VirtualButton::_mapVBK2Str[VBK_COLON       ] = "VBK_COLON";
+    VirtualButton::_mapVBK2Str[VBK_UNDERLINE   ] = "VBK_UNDERLINE";
+    VirtualButton::_mapVBK2Str[VBK_KANJI       ] = "VBK_KANJI";
+    VirtualButton::_mapVBK2Str[VBK_STOP        ] = "VBK_STOP";
+    VirtualButton::_mapVBK2Str[VBK_AX          ] = "VBK_AX";
+    VirtualButton::_mapVBK2Str[VBK_UNLABELED   ] = "VBK_UNLABELED";
+    VirtualButton::_mapVBK2Str[VBK_NEXTTRACK   ] = "VBK_NEXTTRACK";
+    VirtualButton::_mapVBK2Str[VBK_NUMPADENTER ] = "VBK_NUMPADENTER";
+    VirtualButton::_mapVBK2Str[VBK_RCONTROL    ] = "VBK_RCONTROL";
+    VirtualButton::_mapVBK2Str[VBK_MUTE        ] = "VBK_MUTE";
+    VirtualButton::_mapVBK2Str[VBK_CALCULATOR  ] = "VBK_CALCULATOR";
+    VirtualButton::_mapVBK2Str[VBK_PLAYPAUSE   ] = "VBK_PLAYPAUSE";
+    VirtualButton::_mapVBK2Str[VBK_MEDIASTOP   ] = "VBK_MEDIASTOP";
+    VirtualButton::_mapVBK2Str[VBK_VOLUMEDOWN  ] = "VBK_VOLUMEDOWN";
+    VirtualButton::_mapVBK2Str[VBK_VOLUMEUP    ] = "VBK_VOLUMEUP";
+    VirtualButton::_mapVBK2Str[VBK_WEBHOME     ] = "VBK_WEBHOME";
+    VirtualButton::_mapVBK2Str[VBK_NUMPADCOMMA ] = "VBK_NUMPADCOMMA";
+    VirtualButton::_mapVBK2Str[VBK_DIVIDE      ] = "VBK_DIVIDE";
+    VirtualButton::_mapVBK2Str[VBK_SYSRQ       ] = "VBK_SYSRQ";
+    VirtualButton::_mapVBK2Str[VBK_RMENU       ] = "VBK_RMENU";
+    VirtualButton::_mapVBK2Str[VBK_PAUSE       ] = "VBK_PAUSE";
+    VirtualButton::_mapVBK2Str[VBK_HOME        ] = "VBK_HOME";
+    VirtualButton::_mapVBK2Str[VBK_UP          ] = "VBK_UP";
+    VirtualButton::_mapVBK2Str[VBK_PRIOR       ] = "VBK_PRIOR";
+    VirtualButton::_mapVBK2Str[VBK_LEFT        ] = "VBK_LEFT";
+    VirtualButton::_mapVBK2Str[VBK_RIGHT       ] = "VBK_RIGHT";
+    VirtualButton::_mapVBK2Str[VBK_END         ] = "VBK_END";
+    VirtualButton::_mapVBK2Str[VBK_DOWN        ] = "VBK_DOWN";
+    VirtualButton::_mapVBK2Str[VBK_NEXT        ] = "VBK_NEXT";
+    VirtualButton::_mapVBK2Str[VBK_INSERT      ] = "VBK_INSERT";
+    VirtualButton::_mapVBK2Str[VBK_DELETE      ] = "VBK_DELETE";
+    VirtualButton::_mapVBK2Str[VBK_LWIN        ] = "VBK_LWIN";
+    VirtualButton::_mapVBK2Str[VBK_RWIN        ] = "VBK_RWIN";
+    VirtualButton::_mapVBK2Str[VBK_APPS        ] = "VBK_APPS";
+    VirtualButton::_mapVBK2Str[VBK_POWER       ] = "VBK_POWER";
+    VirtualButton::_mapVBK2Str[VBK_SLEEP       ] = "VBK_SLEEP";
+    VirtualButton::_mapVBK2Str[VBK_WAKE        ] = "VBK_WAKE";
+    VirtualButton::_mapVBK2Str[VBK_WEBSEARCH   ] = "VBK_WEBSEARCH";
+    VirtualButton::_mapVBK2Str[VBK_WEBFAVORITES] = "VBK_WEBFAVORITES";
+    VirtualButton::_mapVBK2Str[VBK_WEBREFRESH  ] = "VBK_WEBREFRESH";
+    VirtualButton::_mapVBK2Str[VBK_WEBSTOP     ] = "VBK_WEBSTOP";
+    VirtualButton::_mapVBK2Str[VBK_WEBFORWARD  ] = "VBK_WEBFORWARD";
+    VirtualButton::_mapVBK2Str[VBK_WEBBACK     ] = "VBK_WEBBACK";
+    VirtualButton::_mapVBK2Str[VBK_MYCOMPUTER  ] = "VBK_MYCOMPUTER";
+    VirtualButton::_mapVBK2Str[VBK_MAIL        ] = "VBK_MAIL";
+    VirtualButton::_mapVBK2Str[VBK_MEDIASELECT ] = "VBK_MEDIASELECT";
 
-    _mapVJoyBtn2Func[VBJ_X_POS_MINUS] = GgafDxCore::GgafDxInput::isBeingPressedJoyXAxisMinus;
-    _mapVJoyBtn2Func[VBJ_X_POS_PLUS ] = GgafDxCore::GgafDxInput::isBeingPressedJoyXAxisPlus;
-    _mapVJoyBtn2Func[VBJ_Y_POS_MINUS] = GgafDxCore::GgafDxInput::isBeingPressedJoyYAxisMinus;
-    _mapVJoyBtn2Func[VBJ_Y_POS_PLUS ] = GgafDxCore::GgafDxInput::isBeingPressedJoyYAxisPlus;
-    _mapVJoyBtn2Func[VBJ_Z_POS_MINUS] = GgafDxCore::GgafDxInput::isBeingPressedJoyZAxisMinus;
-    _mapVJoyBtn2Func[VBJ_Z_POS_PLUS ] = GgafDxCore::GgafDxInput::isBeingPressedJoyZAxisPlus;
-    _mapVJoyBtn2Func[VBJ_X_ROT_MINUS] = GgafDxCore::GgafDxInput::isBeingPressedJoyRxMinus;
-    _mapVJoyBtn2Func[VBJ_X_ROT_PLUS ] = GgafDxCore::GgafDxInput::isBeingPressedJoyRxPlus;
-    _mapVJoyBtn2Func[VBJ_Y_ROT_MINUS] = GgafDxCore::GgafDxInput::isBeingPressedJoyRyMinus;
-    _mapVJoyBtn2Func[VBJ_Y_ROT_PLUS ] = GgafDxCore::GgafDxInput::isBeingPressedJoyRyPlus;
-    _mapVJoyBtn2Func[VBJ_Z_ROT_MINUS] = GgafDxCore::GgafDxInput::isBeingPressedJoyRzMinus;
-    _mapVJoyBtn2Func[VBJ_Z_ROT_PLUS ] = GgafDxCore::GgafDxInput::isBeingPressedJoyRzPlus;
-    _mapVJoyBtn2Func[VBJ_POV_UP     ] = GgafDxCore::GgafDxInput::isBeingPressedPovUp;
-    _mapVJoyBtn2Func[VBJ_POV_DOWN   ] = GgafDxCore::GgafDxInput::isBeingPressedPovDown;
-    _mapVJoyBtn2Func[VBJ_POV_LEFT   ] = GgafDxCore::GgafDxInput::isBeingPressedPovLeft;
-    _mapVJoyBtn2Func[VBJ_POV_RIGHT  ] = GgafDxCore::GgafDxInput::isBeingPressedPovRight;
+    VirtualButton::_mapVBJ2Str[VBJ_BUTTON_01  ] = "VBJ_BUTTON_01";
+    VirtualButton::_mapVBJ2Str[VBJ_BUTTON_02  ] = "VBJ_BUTTON_02";
+    VirtualButton::_mapVBJ2Str[VBJ_BUTTON_03  ] = "VBJ_BUTTON_03";
+    VirtualButton::_mapVBJ2Str[VBJ_BUTTON_04  ] = "VBJ_BUTTON_04";
+    VirtualButton::_mapVBJ2Str[VBJ_BUTTON_05  ] = "VBJ_BUTTON_05";
+    VirtualButton::_mapVBJ2Str[VBJ_BUTTON_06  ] = "VBJ_BUTTON_06";
+    VirtualButton::_mapVBJ2Str[VBJ_BUTTON_07  ] = "VBJ_BUTTON_07";
+    VirtualButton::_mapVBJ2Str[VBJ_BUTTON_08  ] = "VBJ_BUTTON_08";
+    VirtualButton::_mapVBJ2Str[VBJ_BUTTON_09  ] = "VBJ_BUTTON_09";
+    VirtualButton::_mapVBJ2Str[VBJ_BUTTON_10  ] = "VBJ_BUTTON_10";
+    VirtualButton::_mapVBJ2Str[VBJ_BUTTON_11  ] = "VBJ_BUTTON_11";
+    VirtualButton::_mapVBJ2Str[VBJ_BUTTON_12  ] = "VBJ_BUTTON_12";
+    VirtualButton::_mapVBJ2Str[VBJ_BUTTON_13  ] = "VBJ_BUTTON_13";
+    VirtualButton::_mapVBJ2Str[VBJ_BUTTON_14  ] = "VBJ_BUTTON_14";
+    VirtualButton::_mapVBJ2Str[VBJ_BUTTON_15  ] = "VBJ_BUTTON_15";
+    VirtualButton::_mapVBJ2Str[VBJ_BUTTON_16  ] = "VBJ_BUTTON_16";
+    VirtualButton::_mapVBJ2Str[VBJ_X_POS_MINUS] = "VBJ_X_POS_MINUS";
+    VirtualButton::_mapVBJ2Str[VBJ_X_POS_PLUS ] = "VBJ_X_POS_PLUS";
+    VirtualButton::_mapVBJ2Str[VBJ_Y_POS_MINUS] = "VBJ_Y_POS_MINUS";
+    VirtualButton::_mapVBJ2Str[VBJ_Y_POS_PLUS ] = "VBJ_Y_POS_PLUS";
+    VirtualButton::_mapVBJ2Str[VBJ_Z_POS_MINUS] = "VBJ_Z_POS_MINUS";
+    VirtualButton::_mapVBJ2Str[VBJ_Z_POS_PLUS ] = "VBJ_Z_POS_PLUS";
+    VirtualButton::_mapVBJ2Str[VBJ_X_ROT_MINUS] = "VBJ_X_ROT_MINUS";
+    VirtualButton::_mapVBJ2Str[VBJ_X_ROT_PLUS ] = "VBJ_X_ROT_PLUS";
+    VirtualButton::_mapVBJ2Str[VBJ_Y_ROT_MINUS] = "VBJ_Y_ROT_MINUS";
+    VirtualButton::_mapVBJ2Str[VBJ_Y_ROT_PLUS ] = "VBJ_Y_ROT_PLUS";
+    VirtualButton::_mapVBJ2Str[VBJ_Z_ROT_MINUS] = "VBJ_Z_ROT_MINUS";
+    VirtualButton::_mapVBJ2Str[VBJ_Z_ROT_PLUS ] = "VBJ_Z_ROT_PLUS";
+    VirtualButton::_mapVBJ2Str[VBJ_POV_UP     ] = "VBJ_POV_UP";
+    VirtualButton::_mapVBJ2Str[VBJ_POV_DOWN   ] = "VBJ_POV_DOWN";
+    VirtualButton::_mapVBJ2Str[VBJ_POV_LEFT   ] = "VBJ_POV_LEFT";
+    VirtualButton::_mapVBJ2Str[VBJ_POV_RIGHT  ] = "VBJ_POV_RIGHT";
+
+    VirtualButton::_mapVBJ2Func[VBJ_X_POS_MINUS] = GgafDxCore::GgafDxInput::isBeingPressedJoyXAxisMinus;
+    VirtualButton::_mapVBJ2Func[VBJ_X_POS_PLUS ] = GgafDxCore::GgafDxInput::isBeingPressedJoyXAxisPlus;
+    VirtualButton::_mapVBJ2Func[VBJ_Y_POS_MINUS] = GgafDxCore::GgafDxInput::isBeingPressedJoyYAxisMinus;
+    VirtualButton::_mapVBJ2Func[VBJ_Y_POS_PLUS ] = GgafDxCore::GgafDxInput::isBeingPressedJoyYAxisPlus;
+    VirtualButton::_mapVBJ2Func[VBJ_Z_POS_MINUS] = GgafDxCore::GgafDxInput::isBeingPressedJoyZAxisMinus;
+    VirtualButton::_mapVBJ2Func[VBJ_Z_POS_PLUS ] = GgafDxCore::GgafDxInput::isBeingPressedJoyZAxisPlus;
+    VirtualButton::_mapVBJ2Func[VBJ_X_ROT_MINUS] = GgafDxCore::GgafDxInput::isBeingPressedJoyRxMinus;
+    VirtualButton::_mapVBJ2Func[VBJ_X_ROT_PLUS ] = GgafDxCore::GgafDxInput::isBeingPressedJoyRxPlus;
+    VirtualButton::_mapVBJ2Func[VBJ_Y_ROT_MINUS] = GgafDxCore::GgafDxInput::isBeingPressedJoyRyMinus;
+    VirtualButton::_mapVBJ2Func[VBJ_Y_ROT_PLUS ] = GgafDxCore::GgafDxInput::isBeingPressedJoyRyPlus;
+    VirtualButton::_mapVBJ2Func[VBJ_Z_ROT_MINUS] = GgafDxCore::GgafDxInput::isBeingPressedJoyRzMinus;
+    VirtualButton::_mapVBJ2Func[VBJ_Z_ROT_PLUS ] = GgafDxCore::GgafDxInput::isBeingPressedJoyRzPlus;
+    VirtualButton::_mapVBJ2Func[VBJ_POV_UP     ] = GgafDxCore::GgafDxInput::isBeingPressedPovUp;
+    VirtualButton::_mapVBJ2Func[VBJ_POV_DOWN   ] = GgafDxCore::GgafDxInput::isBeingPressedPovDown;
+    VirtualButton::_mapVBJ2Func[VBJ_POV_LEFT   ] = GgafDxCore::GgafDxInput::isBeingPressedPovLeft;
+    VirtualButton::_mapVBJ2Func[VBJ_POV_RIGHT  ] = GgafDxCore::GgafDxInput::isBeingPressedPovRight;
 }
 
 VirtualButton::VBRecord* VirtualButton::getPastVBRecord(frame prm_frame_ago) {
@@ -534,8 +509,8 @@ VirtualButton::VBRecord* VirtualButton::getPastVBRecord(frame prm_frame_ago) {
     return pVBRecord_temp;
 }
 
-vbsta VirtualButton::isAutoRepeat(vbsta prm_VB, frame prm_begin_repeat, frame prm_while_repeat) {
-    vbsta sta = (_pVBRecord_active->_state & prm_VB);
+vb_sta VirtualButton::isAutoRepeat(vb_sta prm_VB, frame prm_begin_repeat, frame prm_while_repeat) {
+    vb_sta sta = (_pVBRecord_active->_state & prm_VB);
     if (sta) {
         _is_auto_repeat = true;
         if (sta == (_pVBRecord_active->_prev->_state & prm_VB)) {
@@ -560,12 +535,12 @@ vbsta VirtualButton::isAutoRepeat(vbsta prm_VB, frame prm_begin_repeat, frame pr
     return false;
 }
 
-vbsta VirtualButton::wasBeingPressed(vbsta prm_VB, frame prm_frame_ago) {
+vb_sta VirtualButton::wasBeingPressed(vb_sta prm_VB, frame prm_frame_ago) {
     VirtualButton::VBRecord* pVBRecord_temp = getPastVBRecord(prm_frame_ago);
     return (pVBRecord_temp->_state & prm_VB);
 }
 
-vbsta VirtualButton::isNotBeingPressed(vbsta prm_VB) {
+vb_sta VirtualButton::isNotBeingPressed(vb_sta prm_VB) {
     if (isBeingPressed(prm_VB)) {
         return false;
     } else {
@@ -573,7 +548,7 @@ vbsta VirtualButton::isNotBeingPressed(vbsta prm_VB) {
     }
 }
 
-vbsta VirtualButton::wasNotBeingPressed(vbsta prm_VB, frame prm_frame_ago) {
+vb_sta VirtualButton::wasNotBeingPressed(vb_sta prm_VB, frame prm_frame_ago) {
     if (wasBeingPressed(prm_VB, prm_frame_ago)) {
         return false;
     } else {
@@ -581,7 +556,7 @@ vbsta VirtualButton::wasNotBeingPressed(vbsta prm_VB, frame prm_frame_ago) {
     }
 }
 
-vbsta VirtualButton::isDoublePushedDown(vbsta prm_VB, frame prm_frame_push, frame prm_frame_delay) {
+vb_sta VirtualButton::isDoublePushedDown(vb_sta prm_VB, frame prm_frame_push, frame prm_frame_delay) {
     //-------oooo-----o
     //       <--><--->
     //         |    `-- prm_frame_delay
@@ -646,7 +621,7 @@ vbsta VirtualButton::isDoublePushedDown(vbsta prm_VB, frame prm_frame_push, fram
 //	}
 //}
 
-vbsta VirtualButton::arePushedDownAtOnce(vbsta prm_aVB[], int prm_num_button) {
+vb_sta VirtualButton::arePushedDownAtOnce(vb_sta prm_aVB[], int prm_num_button) {
 
     //現在は全て押されていなければならない
     for (int i = 0; i < prm_num_button; i++) {
@@ -688,7 +663,7 @@ vbsta VirtualButton::arePushedDownAtOnce(vbsta prm_aVB[], int prm_num_button) {
     return false;
 }
 
-vbsta VirtualButton::wasPushedDown(vbsta prm_VB, frame prm_frame_ago) {
+vb_sta VirtualButton::wasPushedDown(vb_sta prm_VB, frame prm_frame_ago) {
     if (wasBeingPressed(prm_VB, prm_frame_ago) && wasNotBeingPressed(prm_VB, prm_frame_ago + 1)) {
         return true;
     } else {
@@ -696,7 +671,7 @@ vbsta VirtualButton::wasPushedDown(vbsta prm_VB, frame prm_frame_ago) {
     }
 }
 
-vbsta VirtualButton::isReleasedUp(vbsta prm_VB) {
+vb_sta VirtualButton::isReleasedUp(vb_sta prm_VB) {
     if ((_pVBRecord_active->_prev->_state & prm_VB) && !(_pVBRecord_active->_state & prm_VB)) {
         return true;
     } else {
@@ -704,7 +679,7 @@ vbsta VirtualButton::isReleasedUp(vbsta prm_VB) {
     }
 }
 
-vbsta VirtualButton::isPushedUp(vbsta prm_VB, frame prm_frame_push) {
+vb_sta VirtualButton::isPushedUp(vb_sta prm_VB, frame prm_frame_push) {
     //←過去      現在
     //            ↓
     //---------ooo-
@@ -749,7 +724,7 @@ vbsta VirtualButton::isPushedUp(vbsta prm_VB, frame prm_frame_push) {
 }
 
 
-vbsta VirtualButton::wasReleasedUp(vbsta prm_VB, frame prm_frame_ago) {
+vb_sta VirtualButton::wasReleasedUp(vb_sta prm_VB, frame prm_frame_ago) {
     if (wasNotBeingPressed(prm_VB, prm_frame_ago) && wasBeingPressed(prm_VB, prm_frame_ago + 1)) {
         return true;
     } else {
@@ -758,7 +733,7 @@ vbsta VirtualButton::wasReleasedUp(vbsta prm_VB, frame prm_frame_ago) {
 }
 
 
-bool VirtualButton::isScrewPushDown(vbsta prm_VB, frame prm_frame_delay) {
+bool VirtualButton::isScrewPushDown(vb_sta prm_VB, frame prm_frame_delay) {
     if (isPushedDown(prm_VB)) {
         VirtualButton::VBRecord* pVBRecord;
         pVBRecord = _pVBRecord_active;
@@ -792,7 +767,7 @@ bool VirtualButton::isScrewPushDown(vbsta prm_VB, frame prm_frame_delay) {
 }
 
 
-//vbsta VirtualButton::getPushedDownStickWith(vbsta prm_VB) {
+//vb_sta VirtualButton::getPushedDownStickWith(vb_sta prm_VB) {
 //    if (isBeingPressed(prm_VB)) {
 //        static bool prev1Flg, prev2Flg, prev3Flg;
 //        //ボタンに押されていない期間が直前にあったか
@@ -849,7 +824,7 @@ bool VirtualButton::isScrewPushDown(vbsta prm_VB, frame prm_frame_delay) {
 //
 //}
 
-vbsta VirtualButton::getState() {
+vb_sta VirtualButton::getState() {
     return _pVBRecord_active->_state;
 }
 
@@ -876,7 +851,7 @@ void VirtualButton::update() {
         //通常操作時
         _pVBRecord_active = _pVBRecord_active->_next;
 
-        vbsta state = 0;
+        vb_sta state = 0;
         KEYBOARDMAP& kmap = _keyboardmap;
         JOYSTICKMAP& jmap = _joystickmap;
 
@@ -896,15 +871,19 @@ void VirtualButton::update() {
         state |= (VB_BUTTON14 * GgafDxInput::isBeingPressedKey(kmap.BUTTON14));
         state |= (VB_BUTTON15 * GgafDxInput::isBeingPressedKey(kmap.BUTTON15));
         state |= (VB_BUTTON16 * GgafDxInput::isBeingPressedKey(kmap.BUTTON16));
-        state |= (VB_PAUSE   * GgafDxInput::isBeingPressedKey(kmap.PAUSE));
-        state |= (VB_UP    * GgafDxInput::isBeingPressedKey(kmap.UP));
-        state |= (VB_DOWN  * GgafDxInput::isBeingPressedKey(kmap.DOWN));
-        state |= (VB_LEFT  * GgafDxInput::isBeingPressedKey(kmap.LEFT));
-        state |= (VB_RIGHT * GgafDxInput::isBeingPressedKey(kmap.RIGHT));
+        state |= (VB_PAUSE    * GgafDxInput::isBeingPressedKey(kmap.PAUSE));
+        state |= (VB_UP       * GgafDxInput::isBeingPressedKey(kmap.UP));
+        state |= (VB_DOWN     * GgafDxInput::isBeingPressedKey(kmap.DOWN));
+        state |= (VB_LEFT     * GgafDxInput::isBeingPressedKey(kmap.LEFT));
+        state |= (VB_RIGHT    * GgafDxInput::isBeingPressedKey(kmap.RIGHT));
         state |= (VB_S1_UP    * GgafDxInput::isBeingPressedKey(kmap.S1_UP));
         state |= (VB_S1_DOWN  * GgafDxInput::isBeingPressedKey(kmap.S1_DOWN));
         state |= (VB_S1_LEFT  * GgafDxInput::isBeingPressedKey(kmap.S1_LEFT));
         state |= (VB_S1_RIGHT * GgafDxInput::isBeingPressedKey(kmap.S1_RIGHT));
+        state |= (VB_S2_UP    * GgafDxInput::isBeingPressedKey(kmap.S2_UP));
+        state |= (VB_S2_DOWN  * GgafDxInput::isBeingPressedKey(kmap.S2_DOWN));
+        state |= (VB_S2_LEFT  * GgafDxInput::isBeingPressedKey(kmap.S2_LEFT));
+        state |= (VB_S2_RIGHT * GgafDxInput::isBeingPressedKey(kmap.S2_RIGHT));
         state |= (VB_UI_UP    * GgafDxInput::isBeingPressedKey(kmap.UI_UP));
         state |= (VB_UI_DOWN  * GgafDxInput::isBeingPressedKey(kmap.UI_DOWN));
         state |= (VB_UI_LEFT  * GgafDxInput::isBeingPressedKey(kmap.UI_LEFT));
@@ -930,15 +909,19 @@ void VirtualButton::update() {
             state |= (VB_BUTTON14 * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON14));
             state |= (VB_BUTTON15 * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON15));
             state |= (VB_BUTTON16 * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON16));
-            state |= (VB_PAUSE * VirtualButton::isBeingPressedVirtualJoyButton(jmap.PAUSE));
-            state |= (VB_UP    * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UP)    );
-            state |= (VB_DOWN  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.DOWN)  );
-            state |= (VB_LEFT  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.LEFT)  );
-            state |= (VB_RIGHT * VirtualButton::isBeingPressedVirtualJoyButton(jmap.RIGHT) );
-            state |= (VB_S1_UP    * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S1_UP)    );
-            state |= (VB_S1_DOWN  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S1_DOWN)  );
-            state |= (VB_S1_LEFT  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S1_LEFT)  );
-            state |= (VB_S1_RIGHT * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S1_RIGHT) );
+            state |= (VB_PAUSE    * VirtualButton::isBeingPressedVirtualJoyButton(jmap.PAUSE));
+            state |= (VB_UP       * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UP));
+            state |= (VB_DOWN     * VirtualButton::isBeingPressedVirtualJoyButton(jmap.DOWN));
+            state |= (VB_LEFT     * VirtualButton::isBeingPressedVirtualJoyButton(jmap.LEFT));
+            state |= (VB_RIGHT    * VirtualButton::isBeingPressedVirtualJoyButton(jmap.RIGHT));
+            state |= (VB_S1_UP    * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S1_UP));
+            state |= (VB_S1_DOWN  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S1_DOWN));
+            state |= (VB_S1_LEFT  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S1_LEFT));
+            state |= (VB_S1_RIGHT * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S1_RIGHT));
+            state |= (VB_S2_UP    * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S2_UP));
+            state |= (VB_S2_DOWN  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S2_DOWN));
+            state |= (VB_S2_LEFT  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S2_LEFT));
+            state |= (VB_S2_RIGHT * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S2_RIGHT));
             if (_with_pov) {
                 state |= (VB_UI_UP    * (VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_UP)    ||  GgafDxInput::isBeingPressedPovUp()    ));
                 state |= (VB_UI_DOWN  * (VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_DOWN)  ||  GgafDxInput::isBeingPressedPovDown()  ));
@@ -949,10 +932,9 @@ void VirtualButton::update() {
                 state |= (VB_UI_DOWN  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_DOWN) );
                 state |= (VB_UI_LEFT  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_LEFT) );
                 state |= (VB_UI_RIGHT * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_RIGHT));
-
             }
             state |= (VB_UI_EXECUTE * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_EXECUTE));
-            state |= (VB_UI_CANCEL * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_CANCEL));
+            state |= (VB_UI_CANCEL  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_CANCEL));
             //state |= (VB_UI_DEBUG * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_DEBUG)); //JoyStickにはDEBUGボタンは無い仕様
         }
         _pVBRecord_active->_state = state;
@@ -970,55 +952,56 @@ void VirtualButton::clear() {
 }
 
 
- bool VirtualButton::isBeingPressedVirtualJoyButton(int prm_virtual_joy_button_no) {
-    if (0 <= prm_virtual_joy_button_no && prm_virtual_joy_button_no <= 0x0F) {
-        return GgafDxCore::GgafDxInput::isBeingPressedJoyButton(prm_virtual_joy_button_no);
+ bool VirtualButton::isBeingPressedVirtualJoyButton(int prm_VBJ) {
+    if (0 <= prm_VBJ && prm_VBJ <= 0x0F) {
+        return GgafDxCore::GgafDxInput::isBeingPressedJoyButton(prm_VBJ);
     } else {
-        if ( ( 0x80 <= prm_virtual_joy_button_no && prm_virtual_joy_button_no <= 0x8B ) ||
-             ( 0x90 <= prm_virtual_joy_button_no && prm_virtual_joy_button_no <= 0x93 )   )
+        if ( ( 0x80 <= prm_VBJ && prm_VBJ <= 0x8B ) ||
+             ( 0x90 <= prm_VBJ && prm_VBJ <= 0x93 )   )
         {
             //XYZ軸上下か、XYZ軸回転＋ーか、POVの方向の場合
-            return (_mapVJoyBtn2Func[prm_virtual_joy_button_no])();
+            return (VirtualButton::_mapVBJ2Func[prm_VBJ])();
         } else {
             return -1;
         }
     }
 }
+
 int VirtualButton::getPushedDownVirtualJoyButton() {
     int VBJ_pushed = GgafDxInput::getPushedDownJoyRgbButton();
     if (VBJ_pushed == -1) {
         if (GgafDxInput::isBeingPressedJoyXAxisMinus()) {
-            return 0x80;
+            return VBJ_X_POS_MINUS;
         } else if (GgafDxInput::isBeingPressedJoyXAxisPlus()) {
-            return 0x81;
+            return VBJ_X_POS_PLUS;
         } else if (GgafDxInput::isBeingPressedJoyYAxisMinus()) {
-            return 0x82;
+            return VBJ_Y_POS_MINUS;
         } else if (GgafDxInput::isBeingPressedJoyYAxisPlus()) {
-            return 0x83;
+            return VBJ_Y_POS_PLUS;
         } else if (GgafDxInput::isBeingPressedJoyZAxisMinus()) {
-            return 0x84;
+            return VBJ_Z_POS_MINUS;
         } else if (GgafDxInput::isBeingPressedJoyZAxisPlus()) {
-            return 0x85;
+            return VBJ_Z_POS_PLUS;
         } else if (GgafDxInput::isBeingPressedJoyRxMinus()) {
-            return 0x86;
+            return VBJ_X_ROT_MINUS;
         } else if (GgafDxInput::isBeingPressedJoyRxPlus()) {
-            return 0x87;
+            return VBJ_X_ROT_PLUS;
         } else if (GgafDxInput::isBeingPressedJoyRyMinus()) {
-            return 0x88;
+            return VBJ_Y_ROT_MINUS;
         } else if (GgafDxInput::isBeingPressedJoyRyPlus()) {
-            return 0x89;
+            return VBJ_Y_ROT_PLUS;
         } else if (GgafDxInput::isBeingPressedJoyRzMinus()) {
-            return 0x8A;
+            return VBJ_Z_ROT_MINUS;
         } else if (GgafDxInput::isBeingPressedJoyRzPlus()) {
-            return 0x8B;
+            return VBJ_Z_ROT_PLUS;
         } else if (GgafDxInput::isBeingPressedPovUp()) {
-            return 0x90;
+            return VBJ_POV_UP;
         } else if (GgafDxInput::isBeingPressedPovDown()) {
-            return 0x91;
+            return VBJ_POV_DOWN;
         } else if (GgafDxInput::isBeingPressedPovLeft()) {
-            return 0x92;
+            return VBJ_POV_LEFT;
         } else if (GgafDxInput::isBeingPressedPovRight()) {
-            return 0x93;
+            return VBJ_POV_RIGHT;
         } else {
             return -1;
         }

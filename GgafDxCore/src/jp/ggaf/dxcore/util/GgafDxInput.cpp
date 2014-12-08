@@ -226,7 +226,7 @@ BOOL CALLBACK GgafDxInput::enumGameCtrlCallback(const DIDEVICEINSTANCE *pDIDevic
 
     HRESULT hr;
 
-    // ゲームスティックデバイスを探すする
+    // ゲームスティックデバイスを探す
     hr = GgafDxInput::_pIDirectInput8->CreateDevice(pDIDeviceInstance->guidInstance, &GgafDxInput::_pJoystickInputDevice, nullptr);
     if(hr != D3D_OK) {
         _TRACE_("enumGameCtrlCallback ジョイスティックCreateDeviceに失敗しました");

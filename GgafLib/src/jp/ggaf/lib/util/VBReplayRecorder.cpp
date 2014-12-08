@@ -9,7 +9,7 @@ VBReplayRecorder::VBReplayRecorder() : GgafObject() {
     _pRecNote = nullptr;
     _pRecNote_read_prev = nullptr;
     _write_realtime = false;
-    _frame_of_the_same_vbsta_reading = 0;
+    _frame_of_the_same_vb_sta_reading = 0;
 }
 
 bool VBReplayRecorder::setRealtimeOutputFile(const char* prm_filename) {
@@ -26,15 +26,15 @@ bool VBReplayRecorder::setRealtimeOutputFile(const char* prm_filename) {
 
 void VBReplayRecorder::first() {
     _pRecNote = _pFirstVBNote;
-    _frame_of_the_same_vbsta_reading = 0;
+    _frame_of_the_same_vb_sta_reading = 0;
 }
 
-vbsta VBReplayRecorder::read() {
+vb_sta VBReplayRecorder::read() {
     if (_pRecNote) {
-        vbsta r = _pRecNote->_state;
-        _frame_of_the_same_vbsta_reading++;
-        if (_pRecNote->_frame_of_keeping == _frame_of_the_same_vbsta_reading) {
-            _frame_of_the_same_vbsta_reading = 0;
+        vb_sta r = _pRecNote->_state;
+        _frame_of_the_same_vb_sta_reading++;
+        if (_pRecNote->_frame_of_keeping == _frame_of_the_same_vb_sta_reading) {
+            _frame_of_the_same_vb_sta_reading = 0;
             _pRecNote_read_prev = _pRecNote; //•Û‘¶
             _pRecNote = _pRecNote->_pNext;
         }
@@ -44,7 +44,7 @@ vbsta VBReplayRecorder::read() {
     }
 }
 
-void VBReplayRecorder::write(vbsta prm_state) {
+void VBReplayRecorder::write(vb_sta prm_state) {
     if (_write_realtime) {
         _ofs_realtime << prm_state << " 1" << std::endl;
     }
@@ -96,7 +96,7 @@ bool VBReplayRecorder::importFile(const char* prm_filename) {
     _pRecNote = p;
     ifs >> (p->_state) >> (p->_frame_of_keeping);
 
-    vbsta in_state;
+    vb_sta in_state;
     frame in_frame_of_keeping;
     while (!ifs.eof()) {
         ifs >> in_state >> in_frame_of_keeping;

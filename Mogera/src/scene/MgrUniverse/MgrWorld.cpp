@@ -23,8 +23,8 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace Mogera;
 
-#define MGR_MIKATA 1
-#define MGR_TEKI 2
+#define MGR_MIKATA (0x01U)
+#define MGR_TEKI   (0x10U)
 
 std::string MgrWorld::key_="ABCDEFG";
 
@@ -65,11 +65,10 @@ MgrWorld::MgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
 
     pTeki002_ = NEW Teki002("Teki002");
     getSceneDirector()->addSubGroup(MGR_TEKI, pTeki002_);
-    VirtualButton::_keyboardmap.BUTTON1 = DIK_SPACE; //ボタン１=スペースキー とする。
-    VirtualButton::_keyboardmap.UI_DEBUG = DIK_Q;
+
     vb_ = NEW VirtualButton();
-
-
+    vb_->remap_VB_BUTTON1(VBK_SPACE, VBJ_BUTTON_01);
+    vb_->remap_VB_UI_DEBUG(VBK_Q);
 }
 
 void MgrWorld::initialize() {

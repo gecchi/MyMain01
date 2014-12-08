@@ -80,7 +80,7 @@ void MyOptionController::onActive() {
 void MyOptionController::processBehavior() {
     MyShip* const pMyShip = P_MYSHIP;
     VirtualButton* const pVbPlay = VB_PLAY;
-    vbsta is_double_push_VB_OPTION = pVbPlay->isDoublePushedDown(VB_OPTION,8,8);
+    vb_sta is_double_push_VB_OPTION = pVbPlay->isDoublePushedDown(VB_OPTION,8,8);
     GgafDxKuroko* pKuroko = getKuroko();
     if (is_double_push_VB_OPTION) {
         //‚à‚Æ‚É–ß‚·

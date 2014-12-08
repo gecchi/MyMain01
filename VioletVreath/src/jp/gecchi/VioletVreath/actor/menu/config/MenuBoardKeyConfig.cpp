@@ -205,7 +205,7 @@ void MenuBoardKeyConfig::processBehavior() {
         } else {
             int DIK_pushed = GgafDxInput::getPushedDownKey();
             if (DIK_pushed != -1 && 0x00 <= DIK_pushed && DIK_pushed <= 0xD1) {
-                paVBProperties[index].pKey->update(VirtualButton::_mapDik2Str[DIK_pushed].c_str());
+                paVBProperties[index].pKey->update(VirtualButton::_mapVBK2Str[DIK_pushed].c_str());
                 paVBProperties[index].pKey->_pAFader->beat(10, 5, 0, 5, 6.5);
                 paVBProperties[index].pJoy->_pAFader->transitionLinerToTop(5);
                 input_mode_ = 2;
@@ -213,7 +213,7 @@ void MenuBoardKeyConfig::processBehavior() {
 
             int VBJ_pushed = VirtualButton::getPushedDownVirtualJoyButton();
             if (VBJ_pushed != -1) {
-                 paVBProperties[index].pJoy->update(VirtualButton::_mapJoyBtn2Str[VBJ_pushed].c_str());
+                 paVBProperties[index].pJoy->update(VirtualButton::_mapVBJ2Str[VBJ_pushed].c_str());
                  paVBProperties[index].pJoy->_pAFader->beat(10, 5, 0, 5, 6.5);
                  paVBProperties[index].pKey->_pAFader->transitionLinerToTop(5);
                  input_mode_ = 2;

@@ -27,7 +27,7 @@ public:
         /** [r]次のリプレイデータ要素 */
         VBRecordNote* _pNext;
         /** [r]仮想ボタンステータス */
-        vbsta _state;
+        vb_sta _state;
         /** [r]ステータス継続フレーム数 */
         frame _frame_of_keeping;
     public:
@@ -42,7 +42,7 @@ public:
          * @param state 仮想ボタンステータス
          * @param frame_of_keeping ステータス継続フレーム数
          */
-        VBRecordNote(vbsta state, frame frame_of_keeping) : _pNext(nullptr),_state(state),_frame_of_keeping(frame_of_keeping) {
+        VBRecordNote(vb_sta state, frame frame_of_keeping) : _pNext(nullptr),_state(state),_frame_of_keeping(frame_of_keeping) {
         }
 
         ~VBRecordNote() {
@@ -55,7 +55,7 @@ public:
     VBRecordNote* _pRecNote;
     VBRecordNote* _pRecNote_read_prev;
     /** [r]同一ステータス継続フレームカウンタ */
-    frame _frame_of_the_same_vbsta_reading;
+    frame _frame_of_the_same_vb_sta_reading;
 
     std::ofstream _ofs_realtime;
 
@@ -77,11 +77,11 @@ public:
      * 仮想ボタンステータス読み込み、内部状態を、次の状態へ遷移 .
      * @return 仮想ボタンステータス
      */
-    vbsta read();
+    vb_sta read();
 
     /**
      * リアルタイム記述モードをオンにする(主にデバッグ用) .
-     * write(vbsta) 実行の度に、リアルタイムでファイルに情報を記述していきます。
+     * write(vb_sta) 実行の度に、リアルタイムでファイルに情報を記述していきます。
      * @param prm_filename リアルタイムに書きだすファイル名
      * @return
      */
@@ -90,7 +90,7 @@ public:
      * 仮想ボタンステータスを書き込み、内部状態を、次の状態へ遷移 .
      * @param state
      */
-    void write(vbsta state);
+    void write(vb_sta state);
 
     /**
      * ファイルにリプレイデータを書きだす。

@@ -47,7 +47,7 @@ God::God() :
         //プレイリプレイあり、かつUIリプレイ無しの場合のみ、プレイリプレイのPAUSE情報を除去する
         VBReplayRecorder* pRepPlay = pVbtn_PLAY_->_pRpy;
         VBReplayRecorder::VBRecordNote* pRecNote = pRepPlay->_pFirstVBNote;
-        vbsta vb_pause_not_mask = ~((vbsta)VB_PAUSE);
+        vb_sta vb_pause_not_mask = ~((vb_sta)VB_PAUSE);
         while (pRecNote) {
             pRecNote->_state = (pRecNote->_state & vb_pause_not_mask);
             pRecNote = pRecNote->_pNext;
@@ -69,48 +69,48 @@ HRESULT God::initDevice() {
 
 void God::initVB() {
     //仮想ボタンを本ゲーム用に上書きして再定義
-    VirtualButton::_keyboardmap.BUTTON1    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_SHOT1      ];
-    VirtualButton::_keyboardmap.BUTTON2    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_SHOT2      ];
-    VirtualButton::_keyboardmap.BUTTON3    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_OPTION     ];
-    VirtualButton::_keyboardmap.BUTTON4    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_VIEW       ];
-    VirtualButton::_keyboardmap.BUTTON5    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_TURBO      ];
-    VirtualButton::_keyboardmap.BUTTON6    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_POWERUP    ];
-    VirtualButton::_keyboardmap.BUTTON7    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_BUTTON7    ];
-    VirtualButton::_keyboardmap.BUTTON8    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_BUTTON8    ];
-    VirtualButton::_keyboardmap.PAUSE      = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_PAUSE      ];
-    VirtualButton::_keyboardmap.UP         = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_UP         ];
-    VirtualButton::_keyboardmap.DOWN       = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_DOWN       ];
-    VirtualButton::_keyboardmap.LEFT       = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_LEFT       ];
-    VirtualButton::_keyboardmap.RIGHT      = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_RIGHT      ];
-    VirtualButton::_keyboardmap.UI_UP      = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_UI_UP      ];
-    VirtualButton::_keyboardmap.UI_DOWN    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_UI_DOWN    ];
-    VirtualButton::_keyboardmap.UI_LEFT    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_UI_LEFT    ];
-    VirtualButton::_keyboardmap.UI_RIGHT   = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_UI_RIGHT   ];
-    VirtualButton::_keyboardmap.UI_EXECUTE = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_UI_EXECUTE ];
-    VirtualButton::_keyboardmap.UI_CANCEL  = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_UI_CANCEL  ];
-    VirtualButton::_keyboardmap.UI_DEBUG   = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_UI_DEBUG   ];
+    God::pVbtn_PLAY_->remap_VB_BUTTON1   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_SHOT1      ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_SHOT1      ]);
+    God::pVbtn_PLAY_->remap_VB_BUTTON2   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_SHOT2      ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_SHOT2      ]);
+    God::pVbtn_PLAY_->remap_VB_BUTTON3   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_OPTION     ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_OPTION     ]);
+    God::pVbtn_PLAY_->remap_VB_BUTTON4   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_VIEW       ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_VIEW       ]);
+    God::pVbtn_PLAY_->remap_VB_BUTTON5   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_TURBO      ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_TURBO      ]);
+    God::pVbtn_PLAY_->remap_VB_BUTTON6   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_POWERUP    ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_POWERUP    ]);
+    God::pVbtn_PLAY_->remap_VB_BUTTON7   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_BUTTON7    ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_BUTTON7    ]);
+    God::pVbtn_PLAY_->remap_VB_BUTTON8   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_BUTTON8    ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_BUTTON8    ]);
+    God::pVbtn_PLAY_->remap_VB_PAUSE     (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_PAUSE      ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_PAUSE      ]);
+    God::pVbtn_PLAY_->remap_VB_UP        (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_UP         ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_UP         ]);
+    God::pVbtn_PLAY_->remap_VB_DOWN      (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_DOWN       ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_DOWN       ]);
+    God::pVbtn_PLAY_->remap_VB_LEFT      (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_LEFT       ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_LEFT       ]);
+    God::pVbtn_PLAY_->remap_VB_RIGHT     (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_RIGHT      ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_RIGHT      ]);
+    God::pVbtn_PLAY_->remap_VB_UI_UP     (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_UI_UP      ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_UI_UP      ]);
+    God::pVbtn_PLAY_->remap_VB_UI_DOWN   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_UI_DOWN    ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_UI_DOWN    ]);
+    God::pVbtn_PLAY_->remap_VB_UI_LEFT   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_UI_LEFT    ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_UI_LEFT    ]);
+    God::pVbtn_PLAY_->remap_VB_UI_RIGHT  (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_UI_RIGHT   ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_UI_RIGHT   ]);
+    God::pVbtn_PLAY_->remap_VB_UI_EXECUTE(VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_UI_EXECUTE ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_UI_EXECUTE ]);
+    God::pVbtn_PLAY_->remap_VB_UI_CANCEL (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_UI_CANCEL  ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_UI_CANCEL  ]);
+    God::pVbtn_PLAY_->remap_VB_UI_DEBUG  (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_UI_DEBUG   ]                                                          );
 
+    God::pVbtn_UI_->remap_VB_BUTTON1   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_SHOT1      ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_SHOT1      ]);
+    God::pVbtn_UI_->remap_VB_BUTTON2   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_SHOT2      ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_SHOT2      ]);
+    God::pVbtn_UI_->remap_VB_BUTTON3   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_OPTION     ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_OPTION     ]);
+    God::pVbtn_UI_->remap_VB_BUTTON4   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_VIEW       ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_VIEW       ]);
+    God::pVbtn_UI_->remap_VB_BUTTON5   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_TURBO      ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_TURBO      ]);
+    God::pVbtn_UI_->remap_VB_BUTTON6   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_POWERUP    ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_POWERUP    ]);
+    God::pVbtn_UI_->remap_VB_BUTTON7   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_BUTTON7    ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_BUTTON7    ]);
+    God::pVbtn_UI_->remap_VB_BUTTON8   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_BUTTON8    ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_BUTTON8    ]);
+    God::pVbtn_UI_->remap_VB_PAUSE     (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_PAUSE      ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_PAUSE      ]);
+    God::pVbtn_UI_->remap_VB_UP        (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_UP         ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_UP         ]);
+    God::pVbtn_UI_->remap_VB_DOWN      (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_DOWN       ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_DOWN       ]);
+    God::pVbtn_UI_->remap_VB_LEFT      (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_LEFT       ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_LEFT       ]);
+    God::pVbtn_UI_->remap_VB_RIGHT     (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_RIGHT      ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_RIGHT      ]);
+    God::pVbtn_UI_->remap_VB_UI_UP     (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_UI_UP      ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_UI_UP      ]);
+    God::pVbtn_UI_->remap_VB_UI_DOWN   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_UI_DOWN    ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_UI_DOWN    ]);
+    God::pVbtn_UI_->remap_VB_UI_LEFT   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_UI_LEFT    ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_UI_LEFT    ]);
+    God::pVbtn_UI_->remap_VB_UI_RIGHT  (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_UI_RIGHT   ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_UI_RIGHT   ]);
+    God::pVbtn_UI_->remap_VB_UI_EXECUTE(VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_UI_EXECUTE ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_UI_EXECUTE ]);
+    God::pVbtn_UI_->remap_VB_UI_CANCEL (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_UI_CANCEL  ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_UI_CANCEL  ]);
+    God::pVbtn_UI_->remap_VB_UI_DEBUG  (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_UI_DEBUG   ]                                                          );
 
-    VirtualButton::_joystickmap.BUTTON1    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_SHOT1      ];
-    VirtualButton::_joystickmap.BUTTON2    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_SHOT2      ];
-    VirtualButton::_joystickmap.BUTTON3    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_OPTION     ];
-    VirtualButton::_joystickmap.BUTTON4    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_VIEW       ];
-    VirtualButton::_joystickmap.BUTTON5    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_TURBO      ];
-    VirtualButton::_joystickmap.BUTTON6    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_POWERUP    ];
-    VirtualButton::_joystickmap.BUTTON7    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_BUTTON7    ];
-    VirtualButton::_joystickmap.BUTTON8    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_BUTTON8    ];
-    VirtualButton::_joystickmap.PAUSE      = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_PAUSE      ];
-    VirtualButton::_joystickmap.UP         = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_UP         ];
-    VirtualButton::_joystickmap.DOWN       = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_DOWN       ];
-    VirtualButton::_joystickmap.LEFT       = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_LEFT       ];
-    VirtualButton::_joystickmap.RIGHT      = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_RIGHT      ];
-    VirtualButton::_joystickmap.UI_UP      = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_UI_UP      ];
-    VirtualButton::_joystickmap.UI_DOWN    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_UI_DOWN    ];
-    VirtualButton::_joystickmap.UI_LEFT    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_UI_LEFT    ];
-    VirtualButton::_joystickmap.UI_RIGHT   = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_UI_RIGHT   ];
-    VirtualButton::_joystickmap.UI_EXECUTE = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_UI_EXECUTE ];
-    VirtualButton::_joystickmap.UI_CANCEL  = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_UI_CANCEL  ];
-    //VirtualButton::_joystickmap.UI_DEBUG   = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_UI_DEBUG   ];
 }
 
 GgafUniverse* God::createUniverse() {
