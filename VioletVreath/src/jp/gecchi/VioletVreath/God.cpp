@@ -72,7 +72,7 @@ void God::initVB() {
     God::pVbtn_PLAY_->remap_VB_BUTTON1   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_SHOT1      ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_SHOT1      ]);
     God::pVbtn_PLAY_->remap_VB_BUTTON2   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_SHOT2      ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_SHOT2      ]);
     God::pVbtn_PLAY_->remap_VB_BUTTON3   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_OPTION     ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_OPTION     ]);
-    God::pVbtn_PLAY_->remap_VB_BUTTON4   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_VIEW       ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_VIEW       ]);
+//    God::pVbtn_PLAY_->remap_VB_BUTTON4   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_VIEW       ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_VIEW       ]);
     God::pVbtn_PLAY_->remap_VB_BUTTON5   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_TURBO      ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_TURBO      ]);
     God::pVbtn_PLAY_->remap_VB_BUTTON6   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_POWERUP    ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_POWERUP    ]);
     God::pVbtn_PLAY_->remap_VB_BUTTON7   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_BUTTON7    ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_BUTTON7    ]);
@@ -82,6 +82,10 @@ void God::initVB() {
     God::pVbtn_PLAY_->remap_VB_DOWN      (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_DOWN       ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_DOWN       ]);
     God::pVbtn_PLAY_->remap_VB_LEFT      (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_LEFT       ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_LEFT       ]);
     God::pVbtn_PLAY_->remap_VB_RIGHT     (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_RIGHT      ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_RIGHT      ]);
+    God::pVbtn_PLAY_->remap_VB_S1_UP     (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_VIEW_UP    ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_VIEW_UP    ]);
+    God::pVbtn_PLAY_->remap_VB_S1_DOWN   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_VIEW_DOWN  ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_VIEW_DOWN  ]);
+    God::pVbtn_PLAY_->remap_VB_S1_LEFT   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_VIEW_LEFT  ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_VIEW_LEFT  ]);
+    God::pVbtn_PLAY_->remap_VB_S1_RIGHT  (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_VIEW_RIGHT ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_VIEW_RIGHT ]);
     God::pVbtn_PLAY_->remap_VB_UI_UP     (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_UI_UP      ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_UI_UP      ]);
     God::pVbtn_PLAY_->remap_VB_UI_DOWN   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_UI_DOWN    ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_UI_DOWN    ]);
     God::pVbtn_PLAY_->remap_VB_UI_LEFT   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_UI_LEFT    ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_UI_LEFT    ]);
@@ -93,7 +97,7 @@ void God::initVB() {
     God::pVbtn_UI_->remap_VB_BUTTON1   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_SHOT1      ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_SHOT1      ]);
     God::pVbtn_UI_->remap_VB_BUTTON2   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_SHOT2      ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_SHOT2      ]);
     God::pVbtn_UI_->remap_VB_BUTTON3   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_OPTION     ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_OPTION     ]);
-    God::pVbtn_UI_->remap_VB_BUTTON4   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_VIEW       ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_VIEW       ]);
+//    God::pVbtn_UI_->remap_VB_BUTTON4   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_VIEW       ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_VIEW       ]);
     God::pVbtn_UI_->remap_VB_BUTTON5   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_TURBO      ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_TURBO      ]);
     God::pVbtn_UI_->remap_VB_BUTTON6   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_POWERUP    ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_POWERUP    ]);
     God::pVbtn_UI_->remap_VB_BUTTON7   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_BUTTON7    ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_BUTTON7    ]);
@@ -103,6 +107,10 @@ void God::initVB() {
     God::pVbtn_UI_->remap_VB_DOWN      (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_DOWN       ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_DOWN       ]);
     God::pVbtn_UI_->remap_VB_LEFT      (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_LEFT       ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_LEFT       ]);
     God::pVbtn_UI_->remap_VB_RIGHT     (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_RIGHT      ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_RIGHT      ]);
+    God::pVbtn_UI_->remap_VB_S1_UP     (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_VIEW_UP    ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_VIEW_UP    ]);
+    God::pVbtn_UI_->remap_VB_S1_DOWN   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_VIEW_DOWN  ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_VIEW_DOWN  ]);
+    God::pVbtn_UI_->remap_VB_S1_LEFT   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_VIEW_LEFT  ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_VIEW_LEFT  ]);
+    God::pVbtn_UI_->remap_VB_S1_RIGHT  (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_VIEW_RIGHT ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_VIEW_RIGHT ]);
     God::pVbtn_UI_->remap_VB_UI_UP     (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_UI_UP      ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_UI_UP      ]);
     God::pVbtn_UI_->remap_VB_UI_DOWN   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_UI_DOWN    ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_UI_DOWN    ]);
     God::pVbtn_UI_->remap_VB_UI_LEFT   (VirtualButton::_mapStr2VBK[ PROPERTY::MY_KEY_UI_LEFT    ], VirtualButton::_mapStr2VBJ[ PROPERTY::MY_JOY_UI_LEFT    ]);

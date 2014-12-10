@@ -19,12 +19,16 @@ public:
         ITEM_DOWN,
         ITEM_LEFT,
         ITEM_RIGHT,
+        ITEM_VIEW_UP,
+        ITEM_VIEW_DOWN,
+        ITEM_VIEW_LEFT,
+        ITEM_VIEW_RIGHT,
         ITEM_MAIN_SHOT,
         ITEM_SUB_SHOT  ,
         ITEM_TURBO     ,
         ITEM_CONTROLL  ,
         ITEM_MAGIC     ,
-        ITEM_VAM       ,
+//        ITEM_VAM       ,
         ITEM_PAUSE     ,
     };
 

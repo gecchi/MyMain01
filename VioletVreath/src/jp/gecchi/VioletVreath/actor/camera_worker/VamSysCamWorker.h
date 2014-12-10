@@ -60,6 +60,7 @@ public:
 
     int pos_camera_;
     int pos_camera_prev_;
+    int pos_camera_pressed_;
     coord dZ_camera_init_;
 
     frame cam_mv_frame_;

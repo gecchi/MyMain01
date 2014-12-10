@@ -39,6 +39,7 @@ VamSysCamWorker::VamSysCamWorker(const char* prm_name) : CameraWorker(prm_name) 
     is_cam_pos_option_back_ = false;
     pos_camera_prev_ = -1;
     pos_camera_ = VAM_POS_RIGHT;
+    pos_camera_pressed_ = VAM_POS_RIGHT;
     cam_mv_frame_base_ = 50;
     cam_mv_frame_ = cam_mv_frame_base_;
     mv_t_x_CAM_prev_ = 0;
@@ -80,47 +81,161 @@ void VamSysCamWorker::processBehavior() {
 
     //カメラ位置番号を決定処理
     is_cam_pos_option_back_ = false;
-    if (pVbPlay->isBeingPressed(VB_OPTION)) { //オプション操作時
-        if (MyOptionController::now_option_num_ >= 1 && pVbPlay->isBeingPressed(VB_VIEW)) {
-            is_cam_pos_option_back_ = true; //TODO:オプション操作中のオプション[0]の背面に回る
-        }
-    } else if (pVbPlay->isPushedDown(VB_VIEW)) { //ビューボタンプッシュ                              //オプション非操作時（通常時）
-        _TRACE_("VB_VIEW!! now pos_camera_="<<pos_camera_);
-        if (pos_camera_ < VAM_POS_TO_BEHIND) { //背面ビューポイントではない場合、
-            pos_camera_ += VAM_POS_TO_BEHIND;  //それぞれの対応背面ビューポイントへ
-        } else if (pos_camera_ > VAM_POS_TO_BEHIND) {//背面ビューポイントの場合
-            //方向入力により新たなビューポイントへ
-            if (pVbPlay->isBeingPressed(VB_RIGHT)) {
-                pos_camera_ = VAM_POS_LEFT;
-            } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
+//    if (pVbPlay->isBeingPressed(VB_OPTION)) { //オプション操作時
+//        if (MyOptionController::now_option_num_ >= 1 && pVbPlay->isBeingPressed(VB_VIEW)) {
+//            is_cam_pos_option_back_ = true; //TODO:オプション操作中のオプション[0]の背面に回る
+//        }
+//    } else if (pVbPlay->isPushedDown(VB_VIEW)) { //ビューボタンプッシュ                              //オプション非操作時（通常時）
+//        _TRACE_("VB_VIEW!! now pos_camera_="<<pos_camera_);
+//        if (pos_camera_ < VAM_POS_TO_BEHIND) { //背面ビューポイントではない場合、
+//            pos_camera_ += VAM_POS_TO_BEHIND;  //それぞれの対応背面ビューポイントへ
+//        } else if (pos_camera_ > VAM_POS_TO_BEHIND) {//背面ビューポイントの場合
+//            //方向入力により新たなビューポイントへ
+//            if (pVbPlay->isBeingPressed(VB_RIGHT)) {
+//                pos_camera_ = VAM_POS_LEFT;
+//            } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
+//                pos_camera_ = VAM_POS_RIGHT;
+//            } else if (pVbPlay->isBeingPressed(VB_UP)) {
+//                pos_camera_ = VAM_POS_BOTTOM;
+//            } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
+//                pos_camera_ = VAM_POS_TOP;
+//            } else {
+//                //方向未入力の場合、元のビューポイントへ
+//                pos_camera_ -= VAM_POS_TO_BEHIND;
+//            }
+//        }
+//        _TRACE_("VB_VIEW!!  -> pos_camera_="<<pos_camera_);
+//    }
+    bool isBeingPressed_VB_VIEW_RIGHT = pVbPlay->isBeingPressed(VB_VIEW_RIGHT);
+    bool isBeingPressed_VB_VIEW_LEFT = pVbPlay->isBeingPressed(VB_VIEW_LEFT);
+    bool isBeingPressed_VB_VIEW_UP = pVbPlay->isBeingPressed(VB_VIEW_UP);
+    bool isBeingPressed_VB_VIEW_DOWN = pVbPlay->isBeingPressed(VB_VIEW_DOWN);
+    bool isBeingPressed_VB_VIEW = isBeingPressed_VB_VIEW_RIGHT || isBeingPressed_VB_VIEW_LEFT || isBeingPressed_VB_VIEW_UP || isBeingPressed_VB_VIEW_DOWN;
+
+
+    bool isReleasedUp_VB_VIEW_RIGHT = pVbPlay->isReleasedUp(VB_VIEW_RIGHT);
+    bool isReleasedUp_VB_VIEW_LEFT = pVbPlay->isReleasedUp(VB_VIEW_LEFT);
+    bool isReleasedUp_VB_VIEW_UP = pVbPlay->isReleasedUp(VB_VIEW_UP);
+    bool isReleasedUp_VB_VIEW_DOWN = pVbPlay->isReleasedUp(VB_VIEW_DOWN);
+    bool isReleasedUp_VB_VIEW = isReleasedUp_VB_VIEW_RIGHT || isReleasedUp_VB_VIEW_LEFT || isReleasedUp_VB_VIEW_UP || isReleasedUp_VB_VIEW_DOWN;
+
+    bool isPushedDown_VB_VIEW_RIGHT = pVbPlay->isPushedDown(VB_VIEW_RIGHT);
+    bool isPushedDown_VB_VIEW_LEFT = pVbPlay->isPushedDown(VB_VIEW_LEFT);
+    bool isPushedDown_VB_VIEW_UP = pVbPlay->isPushedDown(VB_VIEW_UP);
+    bool isPushedDown_VB_VIEW_DOWN = pVbPlay->isPushedDown(VB_VIEW_DOWN);
+    bool isPushedDown_VB_VIEW = isPushedDown_VB_VIEW_RIGHT || isPushedDown_VB_VIEW_LEFT || isPushedDown_VB_VIEW_UP || isPushedDown_VB_VIEW_DOWN;
+
+    if (isPushedDown_VB_VIEW_RIGHT) {
+        pos_camera_pressed_ = pos_camera_;
+        if (pos_camera_ < VAM_POS_TO_BEHIND) {
+            if (pos_camera_ == VAM_POS_RIGHT) {
+                //出来ない
+            } else if (pos_camera_ == VAM_POS_LEFT) {
+                pos_camera_ = VAM_POS_BEHIND_LEFT;
+            } else if (pos_camera_ == VAM_POS_TOP) {
                 pos_camera_ = VAM_POS_RIGHT;
-            } else if (pVbPlay->isBeingPressed(VB_UP)) {
-                pos_camera_ = VAM_POS_BOTTOM;
-            } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                pos_camera_ = VAM_POS_TOP;
-            } else {
-                //方向未入力の場合、元のビューポイントへ
-                pos_camera_ -= VAM_POS_TO_BEHIND;
+            } else if (pos_camera_ == VAM_POS_BOTTOM) {
+                pos_camera_ = VAM_POS_RIGHT;
             }
+        } else if (pos_camera_ > VAM_POS_TO_BEHIND) {
+            pos_camera_ = VAM_POS_RIGHT;
         }
-        _TRACE_("VB_VIEW!!  -> pos_camera_="<<pos_camera_);
+    } else if (isPushedDown_VB_VIEW_LEFT) {
+        pos_camera_pressed_ = pos_camera_;
+        if (pos_camera_ < VAM_POS_TO_BEHIND) {
+            if (pos_camera_ == VAM_POS_RIGHT) {
+                pos_camera_ = VAM_POS_BEHIND_RIGHT;
+            } else if (pos_camera_ == VAM_POS_LEFT) {
+                //出来ない
+            } else if (pos_camera_ == VAM_POS_TOP) {
+                pos_camera_ = VAM_POS_LEFT;
+            } else if (pos_camera_ == VAM_POS_BOTTOM) {
+                pos_camera_ = VAM_POS_LEFT;
+            }
+        } else if (pos_camera_ > VAM_POS_TO_BEHIND) {
+            pos_camera_ = VAM_POS_LEFT;
+        }
+    } else if (isPushedDown_VB_VIEW_UP) {
+        pos_camera_pressed_ = pos_camera_;
+        if (pos_camera_ < VAM_POS_TO_BEHIND) {
+            if (pos_camera_ == VAM_POS_RIGHT) {
+                pos_camera_ = VAM_POS_TOP;
+            } else if (pos_camera_ == VAM_POS_LEFT) {
+                pos_camera_ = VAM_POS_TOP;
+            } else if (pos_camera_ == VAM_POS_TOP) {
+                //出来ない
+            } else if (pos_camera_ == VAM_POS_BOTTOM) {
+                pos_camera_ = VAM_POS_BEHIND_BOTTOM;
+            }
+        } else if (pos_camera_ > VAM_POS_TO_BEHIND) {
+            pos_camera_ = VAM_POS_TOP;
+        }
+    } else if (isPushedDown_VB_VIEW_DOWN) {
+        pos_camera_pressed_ = pos_camera_;
+        if (pos_camera_ < VAM_POS_TO_BEHIND) {
+            if (pos_camera_ == VAM_POS_RIGHT) {
+                pos_camera_ = VAM_POS_BOTTOM;
+            } else if (pos_camera_ == VAM_POS_LEFT) {
+                pos_camera_ = VAM_POS_BOTTOM;
+            } else if (pos_camera_ == VAM_POS_TOP) {
+                pos_camera_ = VAM_POS_BEHIND_TOP;
+            } else if (pos_camera_ == VAM_POS_BOTTOM) {
+                //出来ない
+            }
+        } else if (pos_camera_ > VAM_POS_TO_BEHIND) {
+            pos_camera_ = VAM_POS_BOTTOM;
+        }
     }
 
-    //VB_VIEW離した時の処理
-    if (pVbPlay->isReleasedUp(VB_VIEW)) {
-        if (pVbPlay->isPushedUp(VB_VIEW, 20)) {
+
+    if (isReleasedUp_VB_VIEW_UP) {
+        if (pVbPlay->isPushedUp(VB_VIEW_UP, 20)) {
             //チョン押しの場合、なにもしない（普通にビューポイント移動となる）
         } else {
             //長押し後離した場合、元のビューポイントへ戻る
-            if (pos_camera_ < VAM_POS_TO_BEHIND) { //背面ビューポイント以外への移動途中だった場合
-                //背面ビューポイントへ戻る。
-                pos_camera_ += VAM_POS_TO_BEHIND;
-            } else if (pos_camera_ > VAM_POS_TO_BEHIND) {//背面ビューポイントへの途中だった場合
-                //それぞれの元の対応ビューポイントへ戻る。
-                pos_camera_ -= VAM_POS_TO_BEHIND;
-            }
+            pos_camera_ = pos_camera_pressed_;
         }
     }
+    if (isReleasedUp_VB_VIEW_DOWN) {
+        if (pVbPlay->isPushedUp(VB_VIEW_DOWN, 20)) {
+            //チョン押しの場合、なにもしない（普通にビューポイント移動となる）
+        } else {
+            //長押し後離した場合、元のビューポイントへ戻る
+            pos_camera_ = pos_camera_pressed_;
+        }
+    }
+    if (isReleasedUp_VB_VIEW_LEFT) {
+        if (pVbPlay->isPushedUp(VB_VIEW_LEFT, 20)) {
+            //チョン押しの場合、なにもしない（普通にビューポイント移動となる）
+        } else {
+            //長押し後離した場合、元のビューポイントへ戻る
+            pos_camera_ = pos_camera_pressed_;
+        }
+    }
+    if (isReleasedUp_VB_VIEW_RIGHT) {
+        if (pVbPlay->isPushedUp(VB_VIEW_RIGHT, 20)) {
+            //チョン押しの場合、なにもしない（普通にビューポイント移動となる）
+        } else {
+            //長押し後離した場合、元のビューポイントへ戻る
+            pos_camera_ = pos_camera_pressed_;
+        }
+    }
+
+//    //VB_VIEW離した時の処理
+//    if (pVbPlay->isReleasedUp(VB_VIEW)) {
+//        if (pVbPlay->isPushedUp(VB_VIEW, 20)) {
+//            //チョン押しの場合、なにもしない（普通にビューポイント移動となる）
+//        } else {
+//            //長押し後離した場合、元のビューポイントへ戻る
+//            if (pos_camera_ < VAM_POS_TO_BEHIND) { //背面ビューポイント以外への移動途中だった場合
+//                //背面ビューポイントへ戻る。
+//                pos_camera_ += VAM_POS_TO_BEHIND;
+//            } else if (pos_camera_ > VAM_POS_TO_BEHIND) {//背面ビューポイントへの途中だった場合
+//                //それぞれの元の対応ビューポイントへ戻る。
+//                pos_camera_ -= VAM_POS_TO_BEHIND;
+//            }
+//        }
+//    }
 
     //カメラの移動目標座標
     coord mv_t_x_CAM, mv_t_y_CAM, mv_t_z_CAM;
@@ -342,15 +457,15 @@ void VamSysCamWorker::processBehavior() {
 
     //ターゲットへ移動
     if (onChangeToActive() ||
-        pVbPlay->isPushedDown(VB_VIEW) || pVbPlay->isReleasedUp(VB_VIEW) ||
+        isPushedDown_VB_VIEW || isReleasedUp_VB_VIEW ||
         mv_t_x_CAM_prev_ != mv_t_x_CAM ||
         mv_t_y_CAM_prev_ != mv_t_y_CAM ||
         mv_t_z_CAM_prev_ != mv_t_z_CAM ) {
 
 
-
         //VB_VIEW押した時の処理
-        if (pVbPlay->isBeingPressed(VB_VIEW)) {
+//        if (pVbPlay->isBeingPressed(VB_VIEW)) {
+        if (isBeingPressed_VB_VIEW) {
             //VB_VIEWを押しっぱなし中は、ゆっくりな移動速度に制限
             GgafDxAxesMover* pCamAxMvr = pCam_->pAxsMver_;
             pCamAxMvr->setZeroVxyzMvAcce();
@@ -427,7 +542,7 @@ void VamSysCamWorker::processBehavior() {
                     mv_t_z_VP, cam_mv_frame_);
 
         //UPを補正
-        if (onChangeToActive() || pVbPlay->isPushedDown(VB_VIEW) || pVbPlay->isReleasedUp(VB_VIEW)) {
+        if (onChangeToActive() || isPushedDown_VB_VIEW || isReleasedUp_VB_VIEW) {
             if (pos_camera_ == VAM_POS_RIGHT || pos_camera_ == VAM_POS_LEFT || pos_camera_ > VAM_POS_TO_BEHIND) {
                 pCam_->slideUpCamTo(Camera::FACE_TOP, cam_mv_frame_/2);
             } else if (pos_camera_ == VAM_POS_TOP) {

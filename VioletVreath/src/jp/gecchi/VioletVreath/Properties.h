@@ -15,7 +15,7 @@ public:
     static std::string MY_KEY_SHOT1;
     static std::string MY_KEY_SHOT2;
     static std::string MY_KEY_OPTION;
-    static std::string MY_KEY_VIEW;
+//    static std::string MY_KEY_VIEW;
     static std::string MY_KEY_TURBO;
     static std::string MY_KEY_POWERUP;
     static std::string MY_KEY_BUTTON7;
@@ -25,6 +25,10 @@ public:
     static std::string MY_KEY_DOWN;
     static std::string MY_KEY_LEFT;
     static std::string MY_KEY_RIGHT;
+    static std::string MY_KEY_VIEW_UP;
+    static std::string MY_KEY_VIEW_DOWN;
+    static std::string MY_KEY_VIEW_LEFT;
+    static std::string MY_KEY_VIEW_RIGHT;
     static std::string MY_KEY_UI_UP;
     static std::string MY_KEY_UI_DOWN;
     static std::string MY_KEY_UI_LEFT;
@@ -35,7 +39,7 @@ public:
     static std::string MY_JOY_SHOT1;
     static std::string MY_JOY_SHOT2;
     static std::string MY_JOY_OPTION;
-    static std::string MY_JOY_VIEW;
+//    static std::string MY_JOY_VIEW;
     static std::string MY_JOY_TURBO;
     static std::string MY_JOY_POWERUP;
     static std::string MY_JOY_BUTTON7;
@@ -45,6 +49,10 @@ public:
     static std::string MY_JOY_DOWN;
     static std::string MY_JOY_LEFT;
     static std::string MY_JOY_RIGHT;
+    static std::string MY_JOY_VIEW_UP;
+    static std::string MY_JOY_VIEW_DOWN;
+    static std::string MY_JOY_VIEW_LEFT;
+    static std::string MY_JOY_VIEW_RIGHT;
     static std::string MY_JOY_UI_UP;
     static std::string MY_JOY_UI_DOWN;
     static std::string MY_JOY_UI_LEFT;
