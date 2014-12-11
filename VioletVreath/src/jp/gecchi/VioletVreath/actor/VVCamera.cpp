@@ -1,4 +1,5 @@
 #include "VVCamera.h"
+
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "ViewPoint.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
@@ -6,7 +7,8 @@
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
-#include "jp/ggaf/core/util/GgafUtil.h"
+#include "jp/ggaf/lib/util/RhombicuboctahedronUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -16,6 +18,11 @@ using namespace VioletVreath;
 
 //Ternary numeral -1,0,1 ‚Ì3”‚Ì3i–@ ‚ð ”z—ñ—v‘f‚Ì‚½‚ß³‚Ì10i”‚É•ÏŠ·‚·‚éƒ}ƒNƒ
 #define TN(X,Y,Z) (((3*3)*((X)+1)) + (3*((Y)+1)) + ((Z)+1))
+
+#define V3E (0.57735026918963)    // ŽÎ‚ß‚Ì’PˆÊƒxƒNƒgƒ‹Še—v‘f(t = (1.0 / ã(1*1+1*1+1*1)) * 1 )
+#define V2E (0.70710678118655)    // t = (1.0 / ã(1*1+1*1)) * 1
+
+
 
 VVCamera::VVCamera(const char* prm_name) :
         DefaultCamera(prm_name, PI * 90.0 / 180.0) {
@@ -102,82 +109,14 @@ int VVCamera::getCamToVpFaceNo() {
     return VVCamera::cnvVec2FaceNo(vcv_x, vcv_y, vcv_z);
 }
 
-int VVCamera::cnvVec2FaceNo(float vx, float vy, float vz) {
-
-//              ________
-//            ^        _
-//          ^            _
-//        ^                _
-//       |                    |
-//       |                    |
-//       |                    |
-//        _                ^
-//          _            ^
-//            _QQQQ^
-//
-//               2-ã2
-
-    float abs_vx = ABS(vx);
-    float abs_vy = ABS(vy);
-    float abs_vz = ABS(vz);
-    int r_face_no = -1;
-    //’PˆÊ—§•û‘Ì‚Ì‚Ç‚Ì–Ê‚ÉƒxƒNƒgƒ‹‚ÍŽh‚³‚é‚©
-    if (abs_vx >= abs_vy) {
-        if (abs_vx >= abs_vz) {
-            if (vx >= 0) {
-                //x+ –Ê‚É“Ë‚«Žh‚³‚é
-                r_face_no = 1;
-            } else {
-                //x- –Ê‚É“Ë‚«Žh‚³‚é
-                r_face_no = 6;
-            }
-        } else {
-            if (vz >= 0) {
-                //z+ –Ê‚É“Ë‚«Žh‚³‚é
-                r_face_no = 3;
-            } else {
-                //z- –Ê‚É“Ë‚«Žh‚³‚é
-                r_face_no = 4;
-            }
-        }
-    } else {
-        if (abs_vy >= abs_vz) {
-            if (vy >= 0) {
-                //y+ –Ê‚É“Ë‚«Žh‚³‚é
-                r_face_no = 2;
-            } else {
-                //y- –Ê‚É“Ë‚«Žh‚³‚é
-                r_face_no = 5;
-            }
-        } else {
-            if (vz >= 0) {
-                //z+ –Ê‚É“Ë‚«Žh‚³‚é
-                r_face_no = 3;
-            } else {
-                //z- –Ê‚É“Ë‚«Žh‚³‚é
-                r_face_no = 4;
-            }
-        }
-    }
-    return r_face_no;
+int VVCamera::cnvVec2FaceNo(float prm_vx, float prm_vy, float prm_vz) {
+    return RhombicuboctahedronUtil::cnvVec2FaceNo(prm_vx, prm_vy, prm_vz);
 }
 
 void VVCamera::cnvFaceNo2Vec(int face_no, float& out_vx, float& out_vy, float& out_vz) {
-    if (face_no == 1) {
-        out_vx = 1.0f;   out_vy = 0.0f;  out_vz = 0.0f;
-    } else if (face_no == 6) {
-        out_vx = -1.0f;  out_vy = 0.0f;  out_vz = 0.0f;
-    } else if (face_no == 2) {
-        out_vx = 0.0f;   out_vy = 1.0f;   out_vz = 0.0f;
-    } else if (face_no == 5) {
-        out_vx = 0.0f;   out_vy = -1.0f;  out_vz = 0.0f;
-    } else if (face_no == 3) {
-        out_vx = 0.0f;   out_vy = 0.0f;   out_vz = 1.0f;
-    } else if (face_no == 4) {
-        out_vx = 0.0f;   out_vy = 0.0f;   out_vz = -1.0f;
-    } else {
-        throwGgafCriticalException("VVCameraWorker::cnvFaceNo2Vec() face_no="<<face_no);
-    }
+    out_vx = RhombicuboctahedronUtil::face_vec[face_no].vx;
+    out_vy = RhombicuboctahedronUtil::face_vec[face_no].vy;
+    out_vz = RhombicuboctahedronUtil::face_vec[face_no].vz;
 }
 
 void VVCamera::slideUpCamTo(int prm_face_no, frame prm_t) {

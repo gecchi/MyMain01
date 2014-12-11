@@ -125,7 +125,7 @@ void VamSysCamWorker::processBehavior() {
     bool isPushedDown_VB_VIEW_DOWN = pVbPlay->isPushedDown(VB_VIEW_DOWN);
     bool isPushedDown_VB_VIEW = isPushedDown_VB_VIEW_RIGHT || isPushedDown_VB_VIEW_LEFT || isPushedDown_VB_VIEW_UP || isPushedDown_VB_VIEW_DOWN;
 
-    if (isPushedDown_VB_VIEW_RIGHT) {
+    if (isPushedDown_VB_VIEW_LEFT) {
         pos_camera_pressed_ = pos_camera_;
         if (pos_camera_ < VAM_POS_TO_BEHIND) {
             if (pos_camera_ == VAM_POS_RIGHT) {
@@ -140,7 +140,7 @@ void VamSysCamWorker::processBehavior() {
         } else if (pos_camera_ > VAM_POS_TO_BEHIND) {
             pos_camera_ = VAM_POS_RIGHT;
         }
-    } else if (isPushedDown_VB_VIEW_LEFT) {
+    } else if (isPushedDown_VB_VIEW_RIGHT) {
         pos_camera_pressed_ = pos_camera_;
         if (pos_camera_ < VAM_POS_TO_BEHIND) {
             if (pos_camera_ == VAM_POS_RIGHT) {
@@ -155,7 +155,7 @@ void VamSysCamWorker::processBehavior() {
         } else if (pos_camera_ > VAM_POS_TO_BEHIND) {
             pos_camera_ = VAM_POS_LEFT;
         }
-    } else if (isPushedDown_VB_VIEW_UP) {
+    } else if (isPushedDown_VB_VIEW_DOWN) {
         pos_camera_pressed_ = pos_camera_;
         if (pos_camera_ < VAM_POS_TO_BEHIND) {
             if (pos_camera_ == VAM_POS_RIGHT) {
@@ -170,7 +170,7 @@ void VamSysCamWorker::processBehavior() {
         } else if (pos_camera_ > VAM_POS_TO_BEHIND) {
             pos_camera_ = VAM_POS_TOP;
         }
-    } else if (isPushedDown_VB_VIEW_DOWN) {
+    } else if (isPushedDown_VB_VIEW_UP) {
         pos_camera_pressed_ = pos_camera_;
         if (pos_camera_ < VAM_POS_TO_BEHIND) {
             if (pos_camera_ == VAM_POS_RIGHT) {

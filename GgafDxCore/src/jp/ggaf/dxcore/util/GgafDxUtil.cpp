@@ -527,32 +527,50 @@ void GgafDxUtil::convVectorToRzRy(coord vx,
     }
 #endif
     //象限によって回転角を補正
-    if (vx >= 0 && vy >= 0 && vz >= 0) { //第一象限
-        out_angRz = rot_z;
-        out_angRy = (D360ANG - rot_y_rev);
-    } else if (vx <= 0 && vy >= 0 && vz >= 0) { //第二象限
-        out_angRz = rot_z;
-        out_angRy = (D180ANG + rot_y_rev);
-    } else if (vx <= 0 && vy <= 0 && vz >= 0) { //第三象限
-        out_angRz = (D360ANG - rot_z);
-        out_angRy = (D180ANG + rot_y_rev);
-    } else if (vx >= 0 && vy <= 0 && vz >= 0) { //第四象限
-        out_angRz = (D360ANG - rot_z);
-        out_angRy = (D360ANG - rot_y_rev);
-    } else if (vx >= 0 && vy >= 0 && vz <= 0) { //第五象限
-        out_angRz = rot_z;
-        out_angRy = rot_y_rev;
-    } else if (vx <= 0 && vy >= 0 && vz <= 0) { //第六象限
-        out_angRz = rot_z;
-        out_angRy = (D180ANG - rot_y_rev);
-    } else if (vx <= 0 && vy <= 0 && vz <= 0) { //第七象限
-        out_angRz = (D360ANG - rot_z);
-        out_angRy = (D180ANG - rot_y_rev);
-    } else if (vx >= 0 && vy <= 0 && vz <= 0) { //第八象限
-        out_angRz = (D360ANG - rot_z);
-        out_angRy = rot_y_rev;
-    } else {
-        throwGgafCriticalException("GgafDxUtil::getRzRyAng ありえません。vx,vy,vz="<<vx<<","<<vy<<","<<vz);
+    if (vx >= 0) {
+        if (vy >= 0) {
+            if (vz >= 0) {
+                //第一象限
+                out_angRz = rot_z;
+                out_angRy = (D360ANG - rot_y_rev);
+            } else { //vz < 0
+                //第五象限
+                out_angRz = rot_z;
+                out_angRy = rot_y_rev;
+            }
+        } else { //vy < 0
+            if (vz >= 0) {
+                //第四象限
+                out_angRz = (D360ANG - rot_z);
+                out_angRy = (D360ANG - rot_y_rev);
+            } else { //vz < 0
+                //第八象限
+                out_angRz = (D360ANG - rot_z);
+                out_angRy = rot_y_rev;
+            }
+        }
+    } else { //vx < 0
+        if (vy >= 0) {
+            if (vz >= 0) {
+                //第二象限
+                out_angRz = rot_z;
+                out_angRy = (D180ANG + rot_y_rev);
+            } else { //vz < 0
+                //第六象限
+                out_angRz = rot_z;
+                out_angRy = (D180ANG - rot_y_rev);
+            }
+        } else { //vy < 0
+            if (vz >= 0) {
+                //第三象限
+                out_angRz = (D360ANG - rot_z);
+                out_angRy = (D180ANG + rot_y_rev);
+            } else { //vz < 0
+                //第七象限
+                out_angRz = (D360ANG - rot_z);
+                out_angRy = (D180ANG - rot_y_rev);
+            }
+        }
     }
 
 #if MY_DEBUG

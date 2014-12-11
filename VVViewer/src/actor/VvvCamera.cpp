@@ -6,6 +6,7 @@
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
+#include "jp/ggaf/lib/util/RhombicuboctahedronUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -59,21 +60,55 @@ void VvvCamera::processBehavior() {
 
     if (isMoving() || pVP->isMoving()) {
         vcv_face_ = getCamToVpFaceNo();
-//        _TRACE_("CAM or VP move  vcv_face_ = "<<vcv_face_);
         if (vcv_face_ != vcv_face_prev_) {
-            if (vcv_face_ == up_face_) {
-                //今のUP(up_face_)の面にカメラ→視点ベクトル(vcv_face_)が突き刺さる場合
-                //以前のカメラ→視点(vcv_face_prev_) の真裏の面にUPが移動
-                slideUpCamTo(7 - vcv_face_prev_);
-            } else if (vcv_face_ == 7 - up_face_) {  //up_face_の裏面
-                 //今のUP(up_face_)の面の真裏にカメラ→視点ベクトル(vcv_face_)が突き刺さる場合
-                 //以前のカメラ→視点(vcv_face_prev_) の面がUPに変更
-                slideUpCamTo(vcv_face_prev_);
-            } else {
-                //変化しない
-                slideUpCamTo(up_face_);
+            int face_sgn_x = RhombicuboctahedronUtil::face_sgn[vcv_face_].sgn_x;
+            int face_sgn_y = RhombicuboctahedronUtil::face_sgn[vcv_face_].sgn_y;
+            int face_sgn_z = RhombicuboctahedronUtil::face_sgn[vcv_face_].sgn_z;
+            int face_prev_sgn_x = RhombicuboctahedronUtil::face_sgn[vcv_face_prev_].sgn_x;
+            int face_prev_sgn_y = RhombicuboctahedronUtil::face_sgn[vcv_face_prev_].sgn_y;
+            int face_prev_sgn_z = RhombicuboctahedronUtil::face_sgn[vcv_face_prev_].sgn_z;
+
+            if (up_face_ == RhombicuboctahedronUtil::FACE_UP) {
+                if (face_sgn_x == 0 && face_sgn_y == 0) {
+                    //何もしない
+                } else {
+                    if (face_sgn_y == 1) {
+//                        slideUpCamTo
+                    }
+                }
+
+
+
             }
+
         }
+
+
+
+
+
+
+
+
+
+
+
+
+////        _TRACE_("CAM or VP move  vcv_face_ = "<<vcv_face_);
+//        if (vcv_face_ != vcv_face_prev_) {
+//            if (vcv_face_ == up_face_) {
+//                //今のUP(up_face_)の面にカメラ→視点ベクトル(vcv_face_)が突き刺さる場合
+//                //以前のカメラ→視点(vcv_face_prev_) の真裏の面にUPが移動
+//                slideUpCamTo(7 - vcv_face_prev_);
+//            } else if (vcv_face_ == 7 - up_face_) {  //up_face_の裏面
+//                 //今のUP(up_face_)の面の真裏にカメラ→視点ベクトル(vcv_face_)が突き刺さる場合
+//                 //以前のカメラ→視点(vcv_face_prev_) の面がUPに変更
+//                slideUpCamTo(vcv_face_prev_);
+//            } else {
+//                //変化しない
+//                slideUpCamTo(up_face_);
+//            }
+//        }
     }
     //_TRACE_("cam=("<<_x<<","<<_y<<","<<_z<<")");
 //    _TRACE_("cam=("<<_x<<","<<_y<<","<<_z<<") vp=("<< pVP->_x <<","<< pVP->_y <<","<< pVP->_z <<")  UP=("<< pUp_->_x <<","<< pUp_->_y <<","<< pUp_->_z <<") CAM_UP=("<< _pVecCamUp->x <<","<< _pVecCamUp->y <<","<< _pVecCamUp->z <<")");
@@ -103,88 +138,13 @@ int VvvCamera::getCamToVpFaceNo() {
 }
 
 int VvvCamera::cnvVec2FaceNo(float vx, float vy, float vz) {
-//
-//                       (+y)②      ③(+z)
-//                           ^      △
-//                           |      /
-//                     ______|_________
-//                    /|     |    /   /|
-//                   / |     |   /   / |
-//                  /  |            /  |
-//                 /   |           /   |
-//                /_______________/    |
-//   (-x)⑥ <-----|--  |__________|____| ------>①(+x)
-//                |    /          |    /
-//                |   /           |   /
-//                |  /   /   |    |  /
-//                | /   /    |    | /
-//                |/___/__________|/
-//                    /      |
-//                   ▽      |
-//                  ④(-z)   v
-//                           ⑤(-y)
-//
-    float abs_vx = ABS(vx);
-    float abs_vy = ABS(vy);
-    float abs_vz = ABS(vz);
-    int r_face_no = -1;
-    //単位立方体のどの面にベクトルは刺さるか
-    if (abs_vx >= abs_vy) {
-        if (abs_vx >= abs_vz) {
-            if (vx >= 0) {
-                //x+ 面に突き刺さる
-                r_face_no = 1;
-            } else {
-                //x- 面に突き刺さる
-                r_face_no = 6;
-            }
-        } else {
-            if (vz >= 0) {
-                //z+ 面に突き刺さる
-                r_face_no = 3;
-            } else {
-                //z- 面に突き刺さる
-                r_face_no = 4;
-            }
-        }
-    } else {
-        if (abs_vy >= abs_vz) {
-            if (vy >= 0) {
-                //y+ 面に突き刺さる
-                r_face_no = 2;
-            } else {
-                //y- 面に突き刺さる
-                r_face_no = 5;
-            }
-        } else {
-            if (vz >= 0) {
-                //z+ 面に突き刺さる
-                r_face_no = 3;
-            } else {
-                //z- 面に突き刺さる
-                r_face_no = 4;
-            }
-        }
-    }
-    return r_face_no;
+    return RhombicuboctahedronUtil::cnvVec2FaceNo(vx, vy, vz);
 }
 
 void VvvCamera::cnvFaceNo2Vec(int face_no, float& out_vx, float& out_vy, float& out_vz) {
-    if (face_no == 1) {
-        out_vx = 1.0f;   out_vy = 0.0f;  out_vz = 0.0f;
-    } else if (face_no == 6) {
-        out_vx = -1.0f;  out_vy = 0.0f;  out_vz = 0.0f;
-    } else if (face_no == 2) {
-        out_vx = 0.0f;   out_vy = 1.0f;   out_vz = 0.0f;
-    } else if (face_no == 5) {
-        out_vx = 0.0f;   out_vy = -1.0f;  out_vz = 0.0f;
-    } else if (face_no == 3) {
-        out_vx = 0.0f;   out_vy = 0.0f;   out_vz = 1.0f;
-    } else if (face_no == 4) {
-        out_vx = 0.0f;   out_vy = 0.0f;   out_vz = -1.0f;
-    } else {
-        throwGgafCriticalException("VvvCameraWorker::slideUpCamTo() face_no="<<face_no);
-    }
+    out_vx = RhombicuboctahedronUtil::face_vec[face_no].vx;
+    out_vy = RhombicuboctahedronUtil::face_vec[face_no].vy;
+    out_vz = RhombicuboctahedronUtil::face_vec[face_no].vz;
 }
 void VvvCamera::slideUpCamTo(int prm_face_no) {
     up_face_ = prm_face_no;

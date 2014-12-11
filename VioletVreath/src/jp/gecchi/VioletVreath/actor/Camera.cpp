@@ -7,6 +7,7 @@
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
 #include "jp/ggaf/core/util/GgafUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
