@@ -11,7 +11,7 @@ using namespace GgafLib;
 
 #define V3E (0.57735026918963)    // 斜めの単位ベクトル各要素(t = (1.0 / √(1*1+1*1+1*1)) * 1 )
 #define V2E (0.70710678118655)    // t = (1.0 / √(1*1+1*1)) * 1
-RhombicuboctahedronUtil::FaceVec RhombicuboctahedronUtil::face_vec[28] = {
+RhombicuboctahedronUtil::FaceVec RhombicuboctahedronUtil::face_vec[27] = {
         {-V3E, -V3E, -V3E},      //0   FACE_ZRIGHT_DOWN_BEHIND = 0,     TN(-1,-1,-1)
         {-V2E, -V2E,    0},      //1   FACE_DOWN_BEHIND,                TN(-1,-1, 0)
         {-V3E, -V3E, +V3E},      //2   FACE_ZLEFT_DOWN_BEHIND,          TN(-1,-1, 1)
@@ -41,7 +41,7 @@ RhombicuboctahedronUtil::FaceVec RhombicuboctahedronUtil::face_vec[28] = {
         {+V3E, +V3E, +V3E}       //26  FACE_ZLEFT_UP_FRONT              TN( 1, 1, 1)
 };
 
-RhombicuboctahedronUtil::FaceVec RhombicuboctahedronUtil::face_sgn[28] = {
+RhombicuboctahedronUtil::FaceSgn RhombicuboctahedronUtil::face_sgn[27] = {
          {-1,-1,-1 },      //0   FACE_ZRIGHT_DOWN_BEHIND = 0,
          {-1,-1, 0 },      //1   FACE_DOWN_BEHIND,
          {-1,-1, 1 },      //2   FACE_ZLEFT_DOWN_BEHIND,
@@ -68,7 +68,7 @@ RhombicuboctahedronUtil::FaceVec RhombicuboctahedronUtil::face_sgn[28] = {
          { 1, 0, 1 },      //23  FACE_ZLEFT_FRONT,
          { 1, 1,-1 },      //24  FACE_ZRIGHT_UP_FRONT,
          { 1, 1, 0 },      //25  FACE_UP_FRONT,
-         { 1, 1, 1 },      //26  FACE_ZLEFT_UP_FRONT
+         { 1, 1, 1 }      //26  FACE_ZLEFT_UP_FRONT
 };
 
 int RhombicuboctahedronUtil::cnvVec2FaceNo(float prm_vx, float prm_vy, float prm_vz) {

@@ -39,7 +39,7 @@ public:
         FACE_ZLEFT_FRONT,              //23   TN( 1, 0, 1)
         FACE_ZRIGHT_UP_FRONT,          //24   TN( 1, 1,-1)
         FACE_UP_FRONT,                 //25   TN( 1, 1, 0)
-        FACE_ZLEFT_UP_FRONT            //26   TN( 1, 1, 1)
+        FACE_ZLEFT_UP_FRONT,           //26   TN( 1, 1, 1)
     };
 
     struct FaceVec {
@@ -54,8 +54,10 @@ public:
         int sgn_z;
     };
 
-    static FaceVec face_vec[28];
-    static FaceSgn face_sgn[28];
+    static FaceVec face_vec[];
+    static FaceSgn face_sgn[];
+
+    static int relation_up_vec[27][27];
 
     static int cnvVec2FaceNo(float vx, float vy, float vz);
 
