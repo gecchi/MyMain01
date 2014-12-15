@@ -152,7 +152,7 @@ public:
 
     /**
      * キーボードの押された直後のキーを調べる .
-     * @return 押された直後のキー(DIK_*) / 0:何も押されていない
+     * @return 押された直後のキー(DIK_*) / -1:何も押されていない
      */
     static int getPushedDownKey();
 

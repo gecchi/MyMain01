@@ -54,16 +54,19 @@ public:
         int sgn_z;
     };
 
-    static FaceVec face_vec[];
-    static FaceSgn face_sgn[];
-
+    static FaceVec face_vec[27];
+    static FaceSgn face_sgn[27];
     static int relation_up_vec[27][27];
+    static bool unused;
+
+    static void initialize();
 
     static int cnvVec2FaceNo(float vx, float vy, float vz);
 
     static void cnvFaceNo2Vec(int prm_face_no, float& out_vx, float& out_vy, float& out_vz);
 
     static void cnvFaceNo2Sgn(int prm_face_no, int& out_sgn_x, int& out_sgn_y, int& out_sgn_z);
+
 };
 
 }

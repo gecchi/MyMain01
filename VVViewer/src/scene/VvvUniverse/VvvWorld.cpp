@@ -1,4 +1,3 @@
-
 #include "VvvWorld.h"
 
 #include <algorithm>
@@ -23,6 +22,8 @@
 #include "actor/VvvCamera.h"
 #include "actor/Font01.h"
 
+#include <scene/VvvUniverse/test/TestScene.h>
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -43,6 +44,9 @@ VvvWorld::VvvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     getSceneDirector()->addSubGroup(pFont01_help_);
     view_help_ = true;
     view_info_ = true;
+
+
+    addSubLast(NEW TestScene("TestScene"));
 }
 
 void VvvWorld::initialize() {
