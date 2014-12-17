@@ -216,8 +216,8 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultSpriteSetActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\scene\DefaultUniverse.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DepositoryFormation.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\DirectionUtil.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\PxQuantity.cpp" />
-    <ClCompile Include="src\jp\ggaf\lib\util\RhombicuboctahedronUtil.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedFrameSplineKurokoLeader.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedFrameSplineManufacture.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedVelocitySplineKurokoLeader.cpp" />
@@ -292,8 +292,8 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultSpriteSetActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\scene\DefaultUniverse.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DepositoryFormation.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\directionutil.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\pxquantity.h" />
-    <ClInclude Include="include\jp\ggaf\lib\util\rhombicuboctahedronutil.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\spline\fixedframesplinekurokoleader.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedFrameSplineManufacture.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\spline\fixedvelocitysplinekurokoleader.h" />

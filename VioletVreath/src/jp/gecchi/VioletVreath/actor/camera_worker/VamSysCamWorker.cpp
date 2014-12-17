@@ -546,16 +546,16 @@ void VamSysCamWorker::processBehavior() {
             if (pos_camera_ == VAM_POS_RIGHT || pos_camera_ == VAM_POS_LEFT || pos_camera_ > VAM_POS_TO_BEHIND) {
                 pCam_->slideUpCamTo(Camera::FACE_TOP, cam_mv_frame_/2);
             } else if (pos_camera_ == VAM_POS_TOP) {
-                if (pCam_->vcv_face_ == Camera::FACE_BEHIND) {
+                if (pCam_->vcv_face_ == Camera::FACE_NZZ) {
                     pCam_->slideUpCamTo(Camera::FACE_BOTTOM, cam_mv_frame_/2);
                 } else {
-                    pCam_->slideUpCamTo(Camera::FACE_FRONT, cam_mv_frame_/2);
+                    pCam_->slideUpCamTo(Camera::FACE_PZZ, cam_mv_frame_/2);
                 }
             } else if (pos_camera_ == VAM_POS_BOTTOM) {
-                if (pCam_->vcv_face_ == Camera::FACE_BEHIND) {
+                if (pCam_->vcv_face_ == Camera::FACE_NZZ) {
                     pCam_->slideUpCamTo(Camera::FACE_BOTTOM, cam_mv_frame_/2);
                 } else {
-                    pCam_->slideUpCamTo(Camera::FACE_BEHIND, cam_mv_frame_/2);
+                    pCam_->slideUpCamTo(Camera::FACE_NZZ, cam_mv_frame_/2);
                 }
             } else {
                 throwGgafCriticalException("VamSysCamWorker::processBehavior() ‚Ç‚±‚ÉƒJƒƒ‰‚ªs‚Á‚½‚Ì‚©‚í‚©‚è‚Ü‚¹‚ñ(2)");

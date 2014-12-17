@@ -24,6 +24,7 @@
 
 #include <scene/VvvUniverse/test/TestScene.h>
 
+#include "jp/ggaf/lib/util/DirectionUtil.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -92,7 +93,7 @@ void VvvWorld::processBehavior() {
         VvvCamera* pCam = P_CAM;
         pCamWorker_->slideMvCamTo(0,0,DX_C(pCam->_cameraZ_org),60);
         pCamWorker_->slideMvVpTo(0,0,0,60);
-        pCam->slideUpCamTo(2);
+        pCam->slideUpCamTo(DirectionUtil::FACE_ZPZ); //上
 
     } else if (GgafDxInput::isPushedDownKey(DIK_F2)) {
         //ターゲット変更＋カメラ向く

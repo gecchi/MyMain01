@@ -7,7 +7,7 @@
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
-#include "jp/ggaf/lib/util/RhombicuboctahedronUtil.h"
+#include "jp/ggaf/lib/util/DirectionUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -110,13 +110,11 @@ int VVCamera::getCamToVpFaceNo() {
 }
 
 int VVCamera::cnvVec2FaceNo(float prm_vx, float prm_vy, float prm_vz) {
-    return RhombicuboctahedronUtil::cnvVec2FaceNo(prm_vx, prm_vy, prm_vz);
+    return DirectionUtil::cnvVec2FaceNo(prm_vx, prm_vy, prm_vz);
 }
 
 void VVCamera::cnvFaceNo2Vec(int face_no, float& out_vx, float& out_vy, float& out_vz) {
-    out_vx = RhombicuboctahedronUtil::face_vec[face_no].vx;
-    out_vy = RhombicuboctahedronUtil::face_vec[face_no].vy;
-    out_vz = RhombicuboctahedronUtil::face_vec[face_no].vz;
+     DirectionUtil::cnvFaceNo2Vec(face_no, out_vx, out_vy, out_vz);
 }
 
 void VVCamera::slideUpCamTo(int prm_face_no, frame prm_t) {

@@ -51,36 +51,6 @@ public:
         SW_SUB = -1
     };
 
-    enum MoveWay {
-        WAY_ZRIGHT_DOWN_BEHIND = 0,   //0    TN(-1,-1,-1)
-        WAY_DOWN_BEHIND,              //1    TN(-1,-1, 0)
-        WAY_ZLEFT_DOWN_BEHIND,        //2    TN(-1,-1, 1)
-        WAY_ZRIGHT_BEHIND,            //3    TN(-1, 0,-1)
-        WAY_BEHIND,                   //4    TN(-1, 0, 0)
-        WAY_ZLEFT_BEHIND,             //5    TN(-1, 0, 1)
-        WAY_ZRIGHT_UP_BEHIND,         //6    TN(-1, 1,-1)
-        WAY_UP_BEHIND,                //7    TN(-1, 1, 0)
-        WAY_ZLEFT_UP_BEHIND,          //8    TN(-1, 1, 1)
-        WAY_ZRIGHT_DOWN,              //9    TN( 0,-1,-1)
-        WAY_DOWN,                     //10   TN( 0,-1, 0)
-        WAY_ZLEFT_DOWN,               //11   TN( 0,-1, 1)
-        WAY_ZRIGHT,                   //12   TN( 0, 0,-1)
-        WAY_NONE,                     //13   TN( 0, 0, 0)
-        WAY_ZLEFT,                    //14   TN( 0, 0, 1)
-        WAY_ZRIGHT_UP,                //15   TN( 0, 1,-1)
-        WAY_UP,                       //16   TN( 0, 1, 0)
-        WAY_ZLEFT_UP,                 //17   TN( 0, 1, 1)
-        WAY_ZRIGHT_DOWN_FRONT,        //18   TN( 1,-1,-1)
-        WAY_DOWN_FRONT,               //19   TN( 1,-1, 0)
-        WAY_ZLEFT_DOWN_FRONT,         //20   TN( 1,-1, 1)
-        WAY_ZRIGHT_FRONT,             //21   TN( 1, 0,-1)
-        WAY_FRONT,                    //22   TN( 1, 0, 0)
-        WAY_ZLEFT_FRONT,              //23   TN( 1, 0, 1)
-        WAY_ZRIGHT_UP_FRONT,          //24   TN( 1, 1,-1)
-        WAY_UP_FRONT,                 //25   TN( 1, 1, 0)
-        WAY_ZLEFT_UP_FRONT            //26   TN( 1, 1, 1)
-    };
-
     enum {
         SE_DAMAGED     ,
         SE_EXPLOSION   ,
@@ -192,7 +162,7 @@ public:
         inline int getIndex() {
             //3進数→10進数変換
             //_TRACE_("way_.X, way_.Y, way_.Z="<<way_.X<<","<<way_.Y<<","<< way_.Z);
-            return (3*3*(SGN(way_.X)+1)) + (3*(SGN(way_.Y)+1)) + (SGN(way_.Z)+1);
+            return (3*3*(SGN(way_.X))) + (3*(SGN(way_.Y))) + (SGN(way_.Z));
         }
 
         inline void dump() {
@@ -234,8 +204,8 @@ public:
     MyTorpedoController* pTorpedoCtrler_;
 
     /** ターボ中、移動方角 */
-    MoveWay way_;
-    MoveWay prev_way_;
+    int way_;
+    int prev_way_;
     bool is_just_change_way_;
     /** 移動スピードレベルに相応する移動スピード */
     velo mv_speed_;
@@ -594,7 +564,7 @@ public:
      */
     void turbo_WAY_ZRIGHT_DOWN_BEHIND();
 
-    void onChangeWay(MoveWay prev_way, MoveWay new_way) {
+    void onChangeWay(int prev_way, int new_way) {
 
         switch(new_way) {
             case 0: {

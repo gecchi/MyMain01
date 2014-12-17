@@ -106,16 +106,16 @@ public:
                 return D270ANG;
             } else {
                 //原点である、不定。
+                _TRACE_("＜警告＞ GgafDxUtil::getAngle2D() ("<<prm_vx<<","<<prm_vy<<") は原点である、なす角は不定、0を返します。(1)");
                 return 0;
             }
-        }
-        if (prm_vy == 0) {
+        } else if (prm_vy == 0) {
             if (prm_vx > 0) {
                 return 0;
             } else if (prm_vx < 0) {
                 return D180ANG;
             } else {
-                //原点である、不定。
+                _TRACE_("＜警告＞ GgafDxUtil::getAngle2D() ("<<prm_vx<<","<<prm_vy<<") は原点である、なす角は不定、0を返します。(2)");
                 return 0;
             }
         }
@@ -156,6 +156,7 @@ public:
                 return D270ANG;
             } else {
                 //原点である、不定。
+                _TRACE_("＜警告＞ GgafDxUtil::getAngle2D() ("<<prm_vx<<","<<prm_vy<<") は原点である、なす角は不定、0を返します。(3)");
                 return 0;
             }
         }
@@ -165,6 +166,7 @@ public:
             } else if (prm_vx < 0) {
                 return D180ANG;
             } else {
+                _TRACE_("＜警告＞ GgafDxUtil::getAngle2D() ("<<prm_vx<<","<<prm_vy<<") は原点である、なす角は不定、0を返します。(4)");
                 //原点である、不定。
                 return 0;
             }

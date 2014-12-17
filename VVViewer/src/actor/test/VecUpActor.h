@@ -15,13 +15,8 @@ class VecUpActor : public GgafLib::DefaultMeshActor {
 
 public:
 
-    int _hx;
-    int _hy;
-    int _hz;
-
-    int _hx_prev;
-    int _hy_prev;
-    int _hz_prev;
+    int up_face_no_;
+    int up_face_no_prev_;
 
     /**
      * コンストラクタ

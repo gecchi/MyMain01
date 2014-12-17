@@ -21,12 +21,12 @@ class Camera : public GgafLib::DefaultCamera {
 public:
 
     enum {
-        FACE_FRONT = 1,
-        FACE_BEHIND = 6,
+        FACE_PZZ = 1,
+        FACE_NZZ = 6,
         FACE_TOP = 2,
         FACE_BOTTOM = 5,
-        FACE_ZLEFT = 3,
-        FACE_ZRIGHT = 4,
+        FACE_ZZP = 3,
+        FACE_ZZN = 4,
     };
 
     int up_face_;
@@ -52,8 +52,8 @@ public:
     virtual void processBehavior() override;
 
     /**
-     * カメラ→視点ベクトルの面番号を取得します .
-     * @return カメラ→視点ベクトルの面番号(1～6)
+     * カメラ→視点ベクトルが突き刺さる面番号を取得します .
+     * @return カメラ→視点ベクトルが突き刺さる面番号(1～6)
      */
     int getCamToVpFaceNo();
 
