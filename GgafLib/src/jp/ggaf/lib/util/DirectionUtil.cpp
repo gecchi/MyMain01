@@ -89,6 +89,12 @@ void DirectionUtil::init() {
     }
     _relation_up_by_vec =  (int (*)[3*3*3])(&(DirectionUtil::_relation_up_vec[13][13])); //13 は 3*3*3=27 の真ん中の要素、_relation_up_vec[-13～13][-13～13]でアクセスする為
 
+
+//    for (int j = 0; j < 3*3*3; j++) {
+//        DirectionUtil::_relation_up_vec[TN(0, 0, 0)][j] = TN( 0, 1, 0); //上
+//    }
+//    DirectionUtil::_relation_up_vec[TN(0, 0, 0)][TN(0, 0, 0)] = TN(0, 0, 0);
+
     DirectionUtil::_relation_up_by_vec[TN( 1, 0, 0)][TN( 1,-1,-1)] = TN( 1, 1, 1);
     DirectionUtil::_relation_up_by_vec[TN( 1, 0, 0)][TN( 1,-1, 0)] = TN( 1, 1, 0);
     DirectionUtil::_relation_up_by_vec[TN( 1, 0, 0)][TN( 1,-1, 1)] = TN( 1, 1,-1);

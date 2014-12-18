@@ -17,6 +17,8 @@ class TestScene : public GgafLib::DefaultScene {
 public:
     VecUpActor* _pVecUpActor;
     VecEyeActor* _pVecEyeActor;
+    int eye_face_no_;
+    int eye_face_no_prev_;
     /**
      * コンストラクタ .
      * @param prm_name 名称
