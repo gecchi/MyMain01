@@ -32,8 +32,7 @@ private:
     static FaceVec _vec[3*3*3];
     /** 面番号と各軸の正負のテーブル */
     static FaceSgn _sgn[3*3*3];
-    /** カメラのUP要素ベクトルの面番号と、視線の反対ベクトルの面番号との関連テーブル */
-    static face26 _relation_up_vec[3*3*3][3*3*3];
+
 public:
     /**
      * 斜方立方八面体の面番号定数 .
@@ -73,7 +72,7 @@ public:
 
     static FaceSgn* _face2sgn;
 
-    static int (*_relation_up_by_vec)[3*3*3];
+
     /** 初期化用 */
     static bool is_init;
 

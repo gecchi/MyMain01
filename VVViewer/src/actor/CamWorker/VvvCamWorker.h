@@ -22,8 +22,7 @@ public:
     coord t_x_CAM_, t_y_CAM_, t_z_CAM_;
     /** カメラマンのビューポイントの移動目標座標 */
     coord t_x_VP_, t_y_VP_, t_z_VP_;
-    /** カメラマンの頭の方向番号 */
-    int t_cam_up_face_;
+
     frame frame_of_behaving_since_onSwitch_;
 
     int cd_;

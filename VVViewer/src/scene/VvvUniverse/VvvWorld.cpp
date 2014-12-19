@@ -94,6 +94,7 @@ void VvvWorld::processBehavior() {
         pCamWorker_->slideMvCamTo(0,0,DX_C(pCam->_cameraZ_org),60);
         pCamWorker_->slideMvVpTo(0,0,0,60);
         pCam->slideUpCamTo(DirectionUtil::FACE_ZPZ); //上
+        pCam->auto_up_wait_frames = 65;
 
     } else if (GgafDxInput::isPushedDownKey(DIK_F2)) {
         //ターゲット変更＋カメラ向く

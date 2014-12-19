@@ -27,7 +27,6 @@ VvvCamWorker::VvvCamWorker(const char* prm_name) : DefaultGeometricActor(prm_nam
     frame_of_behaving_since_onSwitch_ = 0;
     pCam_ = nullptr;
     pVp_ = nullptr;
-    t_cam_up_face_ = 2;
 
     cd_ = 0;
     mdz_flg_ = false;
@@ -44,8 +43,6 @@ void VvvCamWorker::initialize() {
     t_x_CAM_ = pCam_->_x;
     t_y_CAM_ = pCam_->_y;
     t_z_CAM_ = pCam_->_z;
-    t_cam_up_face_ = pCam_->up_face_;
-
 }
 void VvvCamWorker::onActive() {
     //現在のターゲットを再ターゲット

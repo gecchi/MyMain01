@@ -34,6 +34,11 @@ namespace VioletVreath {
 #define TRACE_DELAY_WAIT_FRAME (0x7fffffff)
 
 #define MYSHIP_SHOT_MATRIX (7)
+
+
+
+
+
 /**
  * 自機クラス
  * @version 1.00
@@ -195,8 +200,13 @@ public:
     GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
     MyShipWaySwitch way_switch_;
-    void (MyShip::*paFuncMove[3*3*3])();
-    void (MyShip::*paFuncTurbo[3*3*3])();
+
+    typedef void (MyShip::*FuncMove)();
+    FuncMove paFuncMove_[3*3*3];
+    FuncMove paFuncTurbo_[3*3*3];
+    FuncMove* funcMove_;
+    FuncMove* funcTurbo_;
+//    void (MyShip::*funcMove[3*3*3])();
 
     /** [r]ロックオンコントローラー */
     MyLockonController* pLockonCtrler_;
