@@ -1,17 +1,18 @@
-#ifndef VVVVIEWPOINT_H_
-#define VVVVIEWPOINT_H_
+#ifndef VVVCAMERAUPVECTOR_H_
+#define VVVCAMERAUPVECTOR_H_
 #include "VVViewer.h"
-#include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
+
+#include "jp/ggaf/lib/actor/DefaultCameraViewPoint.h"
 
 namespace VVViewer {
 
 /**
  * éãì_.
  * @version 1.00
- * @since 2013/12/05
+ * @since 2014/12/22
  * @author Masatoshi Tsuge
  */
-class VvvViewPoint : public GgafDxCore::GgafDxCameraViewPoint {
+class VvvViewPoint : public GgafLib::DefaultCameraViewPoint {
 public:
     /** ïΩçsà⁄ìÆéxâá */
     GgafDxCore::GgafDxAxesMover* pAxsMver_;
@@ -29,4 +30,4 @@ public:
 
 
 }
-#endif /*VVVVIEWPOINT_H_*/
+#endif /*VVVCAMERAUPVECTOR_H_*/

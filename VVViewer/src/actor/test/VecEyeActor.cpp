@@ -3,10 +3,9 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
-#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantB.h"
 
-#include "jp/ggaf/lib/util/DirectionUtil.h"
+#include "jp/ggaf/dxcore/util/GgafDxDirectionUtil.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -72,7 +71,7 @@ void VecEyeActor::processBehavior() {
     }
     if(_hx != _hx_prev || _hy != _hy_prev || _hz != _hz_prev) {
         float vx,vy,vz;
-        DirectionUtil::cnvFaceNo2Vec(TN(_hx,_hy,_hz), vx, vy, vz);
+        GgafDxDirectionUtil::cnvFaceNo2Vec(TN(_hx,_hy,_hz), vx, vy, vz);
         getKuroko()->asstB()->turnFaceAngByVdTwd(
                 D_ANG(2),
                 vx * PX_C(100), vy * PX_C(100), vz* PX_C(100), TURN_CLOSE_TO, true,

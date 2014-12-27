@@ -297,36 +297,6 @@ public:
     }
 
     /**
-     * C文字列比較 .
-     * @param s1
-     * @param s2
-     * @return s1 > s2 で正の値、s1 < s2 で負の値、s1 = s2で 0 を返す。
-     */
-    static inline int strcmp_ascii(const char* s1, const char* s2) {
-        while (*s1 == *s2++) {
-            if (*s1++ == 0) {
-                return (0);
-            }
-        }
-        return (*s1 - *(s2 - 1));
-    }
-
-    /**
-     * C文字列比較 .
-     * @param s1
-     * @param s2
-     * @return s1 > s2 で正の値、s1 < s2 で負の値、s1 = s2で 0 を返す。
-     */
-    static inline int strcmp_ascii(char* s1, const char* s2) {
-        while (*s1 == *s2++) {
-            if (*s1++ == 0) {
-                return (0);
-            }
-        }
-        return (*s1 - *(s2 - 1));
-    }
-
-    /**
      * 10進数-->2進数文字列変換関数
      * @param prm_decimal
      * @param out_binstr 2進数文字列化  char[33]  [out]

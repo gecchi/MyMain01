@@ -24,19 +24,11 @@ public:
 public:
     GgafMainActor(const char* prm_name, GgafStatus* prm_pStat);
 
-    /**
-     * 次のノード取得する。 .
-     * @return  次ノード
-     */
-    virtual GgafMainActor* getNext() override {
+    virtual GgafMainActor* getNext() const override { //共変戻り値
         return (GgafMainActor*)GgafActor::getNext();
     }
 
-    /**
-     * 前のノード取得する。 .
-     * @return  前ノード
-     */
-    virtual GgafMainActor* getPrev() override {
+    virtual GgafMainActor* getPrev() const override { //共変戻り値
         return (GgafMainActor*)GgafActor::getPrev();
     }
 

@@ -1,7 +1,7 @@
 #ifndef MYOPTIONLOCKONCONTROLLER_H_
 #define MYOPTIONLOCKONCONTROLLER_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/core/actor/ex/GgafDummyActor.h"
+#include "jp/ggaf/core/actor/ex/GgafDestructActor.h"
 
 #include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
@@ -15,7 +15,7 @@ namespace VioletVreath {
  * @since 2010/09/08
  * @author Masatoshi Tsuge
  */
-class MyLockonController : public GgafCore::GgafDummyActor {
+class MyLockonController : public GgafCore::GgafDestructActor {
 
 public:
     /** [r]１オプション当たりの最大可能ロックオン数 */

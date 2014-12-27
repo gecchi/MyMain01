@@ -22,8 +22,8 @@ void GgafDxKurokoAssistantA::behave() {
 }
 
 void GgafDxKurokoAssistantA::slideMvByDt(coord prm_target_distance, int prm_target_frames,
-                                      float prm_p1, float prm_p2, velo prm_end_velo,
-                                      bool prm_endacc_flg) {
+                                         float prm_p1, float prm_p2, velo prm_end_velo,
+                                         bool prm_endacc_flg) {
     _smthMv._value = 0;
     _smthMv._velo = _pMaster->_velo_mv;
     _smthMv._acce = _pMaster->_acc_mv;

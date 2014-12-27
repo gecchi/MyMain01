@@ -76,7 +76,7 @@ void EnemyHisbeLaserChip002::processJudgement() {
     }
 }
 
-bool EnemyHisbeLaserChip002::isOutOfUniverse() {
+bool EnemyHisbeLaserChip002::isOutOfUniverse() const {
     //EnemyHisbe出現時（壁ブロック配置時）はX軸方向の大抵空間外のため
     if (GgafDxUniverse::_x_gone_left < _x) {
         //if (_x < GgafDxUniverse::_x_gone_right) {

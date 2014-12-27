@@ -11,7 +11,7 @@ GgafDxMorphMeshEffect::GgafDxMorphMeshEffect(char* prm_effect_name) : GgafDxEffe
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
     //射影変換行列
-    hr = _pID3DXEffect->SetMatrix("g_matProj", &P_CAM->_matProj );
+    hr = _pID3DXEffect->SetMatrix("g_matProj", P_CAM->getProjectionMatrix() );
     checkDxException(hr, D3D_OK, "GgafDxMeshActor::GgafDxMorphMeshEffect SetMatrix() に失敗しました。");
     //ライト方向
     hr = _pID3DXEffect->SetValue("g_vecLightFrom_World", &(GgafDxGod::_d3dlight9_default.Direction), sizeof(D3DVECTOR) );
@@ -23,7 +23,7 @@ GgafDxMorphMeshEffect::GgafDxMorphMeshEffect(char* prm_effect_name) : GgafDxEffe
     hr = _pID3DXEffect->SetValue("g_colLightAmbient", &(GgafDxGod::_d3dlight9_default.Ambient), sizeof(D3DCOLORVALUE));
     checkDxException(hr, D3D_OK, "GgafDxMorphMeshEffect::GgafDxMorphMeshEffect SetValue(g_colLightAmbient) に失敗しました。");
 
-    hr = _pID3DXEffect->SetFloat("g_zf", P_CAM->_zf);
+    hr = _pID3DXEffect->SetFloat("g_zf", P_CAM->getZFar());
     checkDxException(hr, D3D_OK, "GgafDxMorphMeshEffect::GgafDxSpriteEffect SetFloat(g_zf) に失敗しました。");
 
 
@@ -51,9 +51,9 @@ GgafDxMorphMeshEffect::GgafDxMorphMeshEffect(char* prm_effect_name) : GgafDxEffe
 }
 
 void GgafDxMorphMeshEffect::setParamPerFrame() {
-    HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, &(P_CAM->_matView) );
+    HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, P_CAM->getViewMatrix() );
     checkDxException(hr, D3D_OK, "GgafDxMorphMeshEffect::setParamPerFrame SetMatrix(_h_matView) に失敗しました。");
-    hr = _pID3DXEffect->SetValue(_h_posCam, P_CAM->_pVecCamFromPoint, sizeof(D3DXVECTOR3) );
+    hr = _pID3DXEffect->SetValue(_h_posCam, P_CAM->getVecCamFromPoint(), sizeof(D3DXVECTOR3) );
     checkDxException(hr, D3D_OK, "GgafDxMorphMeshEffect::setParamPerFrame SetValue(_h_posCam) に失敗しました。");
 }
 

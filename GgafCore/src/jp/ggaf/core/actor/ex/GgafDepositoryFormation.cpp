@@ -116,7 +116,7 @@ GgafActor* GgafDepositoryFormation::callUpMember(int prm_formation_sub_num) {
     }
 }
 
-bool GgafDepositoryFormation::canCallUp() {
+bool GgafDepositoryFormation::canCallUp() const {
     return _can_call_up;
 }
 

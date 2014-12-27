@@ -17,7 +17,7 @@ int MyTorpedoController::torpedo_num_ = 0;
 MyTorpedoController::MyTorpedoController(const char* prm_name,
                                          GgafDxCore::GgafDxGeometricActor* prm_pOrg,
                                          MyLockonController* prm_pLockonCtrler) :
-        GgafDummyActor(prm_name, nullptr) {
+        GgafDestructActor(prm_name, nullptr) {
     _class_name = "MyTorpedoController";
     firing_num_ = 0;
     in_firing_ = false;

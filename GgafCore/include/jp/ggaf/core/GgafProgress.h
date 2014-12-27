@@ -53,11 +53,11 @@ public:
      * 現在の進捗番号取得 .
      * @return 進捗番号(PROGRESS_NOTHING or 0～)
      */
-    inline progress get() {
+    inline progress get() const {
         return _progress;
     }
 
-    inline int getProgressNum() {
+    inline int getProgressNum() const {
         return _num_progress;
     }
 
@@ -84,7 +84,7 @@ public:
      * @param prm_progress 進捗番号(0～)
      * @return 引数の進捗番号へ変更された時(直近)の時間
      */
-    frame getFrameWhenChanged(progress prm_progress);
+    frame getFrameWhenChanged(progress prm_progress) const;
 
     /**
      * 現在の進捗番号内で何フレームなのかを取得(0～) .
@@ -92,7 +92,7 @@ public:
      * その後、加算されていく。
      * @return 進捗内経過時間
      */
-    inline frame getFrameInProgress() {
+    inline frame getFrameInProgress() const {
         return ((*_p_frame_counter) - _pa_frame_of_progress_changed[_progress+1]);
     }
 
@@ -155,7 +155,7 @@ public:
      * change(progress) 又は changeNext() を実行した次フレームで取得条件が成立。
      * @return true:進捗に切り替わった直後である／false:それ以外
      */
-    inline bool isJustChanged() {
+    inline bool isJustChanged() const {
         if (_progress != _progress_prev && _progress_prev >= PROGRESS_NOTHING) {
             return true;
         } else {
@@ -166,7 +166,7 @@ public:
      * 現在の進捗番号がPROGRESS_NOTHINGが否か調べる。 .
      * @return
      */
-    inline bool isNothing() {
+    inline bool isNothing() const {
         return _progress == PROGRESS_NOTHING ? true : false;
     }
 
@@ -177,7 +177,7 @@ public:
      * @param prm_progress 現在の進捗番号条件
      * @return true:引数の進捗番号に切り替わった／false:そうではない
      */
-    bool isJustChangedTo(progress prm_progress);
+    bool isJustChangedTo(progress prm_progress) const;
 
     /**
      * 引数の進捗番号から切り替わった直後なのかどうかを調べる。.
@@ -186,7 +186,7 @@ public:
      * @param prm_progress 前回（切り替わる前）の進捗番号
      * @return true:切り替わった際、前回の進捗番号は引数の進捗番号だった／false:そうではない
      */
-    bool isJustChangedFrom(progress prm_progress);
+    bool isJustChangedFrom(progress prm_progress) const;
 
     /**
      * 進捗番号が変化したか（前回と同じかどうか）調べる .
@@ -198,7 +198,7 @@ public:
      *         PROGRESS_NOTHING：進捗番号が無し PROGRESS_NOTHING(-1) に変化した直後だった。
      *         0～             ：進捗番号が変化した直後であるので、その新しい進捗番号を返す
      */
-    progress getProgOnChange();
+    progress getProgOnChange() const;
 
     /**
      * 進捗番号が何から変化したか調べる .
@@ -210,7 +210,7 @@ public:
      *         PROGRESS_NOTHING：進捗番号が無し PROGRESS_NOTHING(-1) から変化した直後だった。
      *         0～             ：進捗番号が変化がした直後であるので、変化前の元の進捗番号返す
      */
-    progress getFromProgOnChange();
+    progress getFromProgOnChange() const;
 
     /**
      * 進捗番号が次フレームに変更される予定ならば、現在の進捗番号を取得する .
@@ -220,7 +220,7 @@ public:
      *         PROGRESS_NOTHING：現在進捗が無し PROGRESS_NOTHING(-1) で、次フレームに進捗番号が変更される予定である。
      *         0～             ：次フレームに進捗番号が変更される予定であるので、現在の進捗番号を返す。
      */
-    progress getProgWhenProgWillChange();
+    progress getProgWhenProgWillChange() const;
 
     /**
      * 進捗番号が次フレームに変更される予定ならば、その変更される進捗番号を取得する .
@@ -230,7 +230,7 @@ public:
      *         PROGRESS_NOTHING：次フレームに進捗無し PROGRESS_NOTHING(-1) となる予定である。
      *         0～             ：次フレームに進捗番号が変更される予定であるので、その新しい進捗番号を返す。
      */
-    progress getToProgWhenProgWillChange();
+    progress getToProgWhenProgWillChange() const;
 
     /**
      * 時間に伴って進捗を更新 .

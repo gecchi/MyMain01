@@ -1,5 +1,5 @@
-#ifndef GGAFCORE_GGAFDUMMYACTOR_H_
-#define GGAFCORE_GGAFDUMMYACTOR_H_
+#ifndef GGAFCORE_GGAFDESTRUCTACTOR_H_
+#define GGAFCORE_GGAFDESTRUCTACTOR_H_
 #include "GgafCommonHeader.h"
 #include "jp/ggaf/core/actor/GgafMainActor.h"
 
@@ -13,10 +13,10 @@ namespace GgafCore {
  * @since 2007/11/29
  * @author Masatoshi Tsuge
  */
-class GgafDummyActor : public GgafMainActor {
+class GgafDestructActor : public GgafMainActor {
 
 public:
-    GgafDummyActor(const char* prm_name, GgafStatus* prm_pStat = nullptr);
+    GgafDestructActor(const char* prm_name, GgafStatus* prm_pStat = nullptr);
 
     virtual void initialize() override {
     }
@@ -57,8 +57,8 @@ public:
     virtual void onHit(GgafActor* prm_pOtherActor) override {
     }
 
-    virtual ~GgafDummyActor();
+    virtual ~GgafDestructActor();
 };
 
 }
-#endif /*GGAFCORE_GGAFDUMMYACTOR_H_*/
+#endif /*GGAFCORE_GGAFDESTRUCTACTOR_H_*/

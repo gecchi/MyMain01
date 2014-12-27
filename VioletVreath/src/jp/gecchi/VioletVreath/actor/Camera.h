@@ -38,14 +38,11 @@ public:
     /** 平行移動支援 */
     GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
-    /** [r]カメラのUPベクトルにコピーされて同期を取るベクトル座標のアクター */
-    GgafLib::DefaultGeometricActor* pUp_;
-    /** [r]pUp_を滑らかに移動させるためのヘルパー */
-    GgafDxCore::GgafDxAxesMover* pAxsMver_Up_;
-
     Camera(const char* prm_name);
 
-    GgafDxCore::GgafDxCameraViewPoint* createViewPoint() override;
+    GgafDxCore::GgafDxCameraViewPoint* createCameraViewPoint() override;
+
+    GgafDxCore::GgafDxCameraUpVector* createCameraUpVector() override;
 
     virtual void initialize() override;
 

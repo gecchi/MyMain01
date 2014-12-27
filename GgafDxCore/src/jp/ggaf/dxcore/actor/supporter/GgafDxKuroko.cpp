@@ -966,7 +966,7 @@ void GgafDxKuroko::reverseMvAng() {
     }
 }
 
-void GgafDxKuroko::setStopTargetMvAngTwd(GgafDxGeometricActor* prm_pActor_target) {
+void GgafDxKuroko::setStopTargetMvAngTwd(const GgafDxGeometricActor* prm_pActor_target) {
     setStopTargetMvAngTwd(
         prm_pActor_target->_x,
         prm_pActor_target->_y,

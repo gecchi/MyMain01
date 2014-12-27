@@ -49,13 +49,13 @@ public:
 
     int isOutOfView() override;
 
-    bool isOutOfUniverse() override;
+    bool isOutOfUniverse() const override;
 
     virtual ~HoshiBoshiTestActor();
 
 
 
-    static void setWorldMatrix_HoshiBoshiTestActor(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void setWorldMatrix_HoshiBoshiTestActor(const GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 };
 
 }

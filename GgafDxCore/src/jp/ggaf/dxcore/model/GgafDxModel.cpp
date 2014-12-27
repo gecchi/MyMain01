@@ -49,7 +49,7 @@ _pTexBlinker(new GgafDxTextureBlinker(this)) {
 void GgafDxModel::swapTopTextureOrder(const char* prm_texture0) {
     int idx = -1;
     for (DWORD i = 0; i < _num_materials; i++) {
-        if (UTIL::strcmp_ascii(_papTextureConnection[i]->peek()->getName(), prm_texture0) == 0) {
+        if (strcmp(_papTextureConnection[i]->peek()->getName(), prm_texture0) == 0) {
             if (i == 0) {
                 return; //swap•s—v‚·‚Å‚ÉTop
             } else {

@@ -1,12 +1,11 @@
-#ifndef GGAFLIB_DirectionUtil_H_
-#define GGAFLIB_DirectionUtil_H_
-#include "GgafLibCommonHeader.h"
+#ifndef GGAFLIB_GGAFDXDIRECTIONUTIL_H_
+#define GGAFLIB_GGAFDXDIRECTIONUTIL_H_
+#include "GgafDxCommonHeader.h"
 
 //Ternary numeral -1,0,1 の3数の3進法 を 配列要素のため正の10進数に変換するマクロ(-13～+13)
 #define TN(X,Y,Z) (((3*3)*(X)) + (3*(Y)) + (Z))
-typedef int face26;
 
-namespace GgafLib {
+namespace GgafDxCore {
 
 /**
  * 斜方立方八面体２６方向ユーティリティ .
@@ -14,7 +13,7 @@ namespace GgafLib {
  * @since 2014/12/11
  * @author Masatoshi Tsuge
  */
-class DirectionUtil {
+class GgafDxDirectionUtil {
 private:
     struct FaceVec {
         float vx;
@@ -90,4 +89,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_DirectionUtil_H_*/
+#endif /*GGAFLIB_GGAFDXDIRECTIONUTIL_H_*/

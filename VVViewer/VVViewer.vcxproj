@@ -220,6 +220,7 @@
     <ClInclude Include="src\actor\test\VecEyeActor.h" />
     <ClInclude Include="src\actor\test\VecUpActor.h" />
     <ClInclude Include="src\actor\VvvCamera.h" />
+    <ClInclude Include="src\actor\VvvCameraUpVector.h" />
     <ClInclude Include="src\actor\VvvCursor.h" />
     <ClInclude Include="src\actor\VvvGrid.h" />
     <ClInclude Include="src\actor\vvvviewpoint.h" />
@@ -263,6 +264,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\actor\VvvCameraUpVector.cpp" />
     <ClCompile Include="src\actor\VvvCursor.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>

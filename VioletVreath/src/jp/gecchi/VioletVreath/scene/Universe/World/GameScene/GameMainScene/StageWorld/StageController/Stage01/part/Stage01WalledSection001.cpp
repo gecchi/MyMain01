@@ -19,7 +19,7 @@ using namespace VioletVreath;
 Stage01WalledSection001::Stage01WalledSection001(const char* prm_name, WalledScene* prm_pWalledScene, const char* prm_data_filename)
      : WalledSectionScene(prm_name, prm_data_filename, prm_pWalledScene) {
     _class_name = "Stage01WalledSection001";
-    bound_alpha_ = -P_CAM->_cameraZ_org*0.7; //背面時カメラは_cameraZ_org*0.6に由来している
+    bound_alpha_ = -P_CAM->getZOrigin()*0.7; //背面時カメラは_cameraZ_org*0.6に由来している
 }
 
 void Stage01WalledSection001::processBehavior() {

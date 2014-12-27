@@ -121,6 +121,7 @@ enum {
 
 typedef int axis;
 
+typedef int face26;
 
 #define MAX_SCALE (2147483647)
 
@@ -316,6 +317,7 @@ class GgafDxSpriteActor;
 class GgafDxSpriteSetActor;
 class GgafDxCamera;
 class GgafDxCameraViewPoint;
+class GgafDxCameraUpVector;
 class GgafDxBoardActor;
 class GgafDxBoardSetActor;
 class GgafDxPointSpriteActor;
@@ -359,6 +361,7 @@ class GgafDxScene;
 class GgafDxUniverse;
 
 class GgafDxUtil;
+class GgafDxDirectionUtil;
 
 class GgafDxAgainstWay;
 class GgafDxSphereRadiusVectors;

@@ -1,4 +1,5 @@
 #include "Camera.h"
+
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "ViewPoint.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
@@ -8,6 +9,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
 #include "jp/ggaf/core/util/GgafUtil.h"
 
+#include "CameraUpVector.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -20,17 +22,16 @@ Camera::Camera(const char* prm_name) :
     ty_ = _y;
     tz_ = _z;
     pAxsMver_ = NEW GgafDxAxesMover(this);
-
-    pUp_ = NEW DefaultGeometricActor("CAM_UP", nullptr, nullptr);
-    pAxsMver_Up_ = NEW GgafDxAxesMover(pUp_);
-    pUp_->position(DX_C(_pVecCamUp->x), DX_C(_pVecCamUp->y), DX_C(_pVecCamUp->z));
-    addSubLast(pUp_);
-    up_face_ = Camera::cnvVec2FaceNo(_pVecCamUp->x, _pVecCamUp->y, _pVecCamUp->z);
+    up_face_ = 2;
 }
 
-GgafDxCameraViewPoint* Camera::createViewPoint() {
+GgafDxCameraViewPoint* Camera::createCameraViewPoint() {
     ViewPoint* pVP = NEW ViewPoint("ViewPoint");
     return (GgafDxCameraViewPoint*)pVP;
+}
+GgafDxCameraUpVector* Camera::createCameraUpVector() {
+    CameraUpVector* pUp = NEW CameraUpVector("CameraUpVector");
+    return (GgafDxCameraUpVector*)pUp;
 }
 
 void Camera::initialize() {
@@ -39,24 +40,15 @@ void Camera::initialize() {
 
 void Camera::processBehavior() {
     ViewPoint* pVp = (ViewPoint*)getViewPoint();
-    pAxsMver_Up_->behave();
-    //ÉJÉÅÉâÇÃUPÇîΩâf
-    float v_up_x, v_up_y, v_up_z;
-    UTIL::getNormalizeVector (
-            pUp_->_x,
-            pUp_->_y,
-            pUp_->_z,
-            v_up_x, v_up_y, v_up_z );
-    setVecCamUp(v_up_x, v_up_y, v_up_z );
     pAxsMver_->behave();
     getKuroko()->behave();
 
     DefaultCamera::processBehavior();
 
     vcv_face_prev_ = vcv_face_;
-    if (isMoving() || pVp->isMoving()) {  //isMoving()ÇÕç¿ïWà⁄ìÆå„Ç≈Ç»Ç¢Ç∆à”ñ°Ç™ñ≥Ç¢
+//    if (isMoving() || pVp->isMoving()) {  //isMoving()ÇÕç¿ïWà⁄ìÆå„Ç≈Ç»Ç¢Ç∆à”ñ°Ç™ñ≥Ç¢
          vcv_face_ = getCamToVpFaceNo();
-    }
+//    }
 #ifdef MY_DEBUG
     if (vcv_face_prev_!=vcv_face_) {
         _TRACE_("Camera::processBehavior()  vcv="<<vcv_face_prev_<<"Å®"<<vcv_face_<<"");
@@ -190,7 +182,9 @@ void Camera::slideUpCamTo(int prm_face_no, frame prm_t) {
 }
 
 void Camera::slideUpCamTo(coord tx, coord ty, coord tz, frame t) {
-    pAxsMver_Up_->asst()->
+    CameraUpVector* pUp = (CameraUpVector*)getCameraUpVector();
+    int up_face = Camera::cnvVec2FaceNo(C_DX(tx), C_DX(ty), C_DX(tz));
+    pUp->pAxsMver_->asst()->
              slideVxyzMvByDtTo(tx, ty, tz, t, 0.3, 0.4, 0, true);
     int up_face_wk = up_face_;
     up_face_ = Camera::cnvVec2FaceNo(C_DX(tx), C_DX(ty), C_DX(tz));
@@ -203,6 +197,5 @@ void Camera::slideUpCamTo(coord tx, coord ty, coord tz, frame t) {
 }
 
 Camera::~Camera() {
-    GGAF_DELETE(pAxsMver_Up_);
     GGAF_DELETE(pAxsMver_);
 }

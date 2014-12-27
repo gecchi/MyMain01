@@ -30,7 +30,7 @@ private:
      * 使用不可のため、privateでoverride
      * @return
      */
-    bool isOutOfUniverse() override {
+    bool isOutOfUniverse() const override {
         throwGgafCriticalException("GgafDxBoardSetActor::isOutOfUniverse() は使用不可です。");
         return false;
     }
@@ -66,10 +66,10 @@ private:
         return nullptr;
     }
 
-    void setFaceAngAs(GgafDxGeoElem* prm_pActor) override {
+    void setFaceAngAs(const GgafDxGeoElem* prm_pActor) override {
         throwGgafCriticalException("GgafDxBoardSetActor::setFaceAngAs() は使用不可です。");
     }
-    void setFaceAngAs(GgafDxGeometricActor* prm_pActor) override {
+    void setFaceAngAs(const GgafDxGeometricActor* prm_pActor) override {
         throwGgafCriticalException("GgafDxBoardSetActor::setFaceAngAs() は使用不可です。");
     }
     void setScale(scale S) override {
@@ -105,7 +105,7 @@ private:
     void setMaterialColor(float r, float g, float b) override {
         throwGgafCriticalException("GgafDxSpriteSetActor::setMaterialColor は使用不可です。(1)");
     }
-    void setMaterialColor(GgafCore::GgafRgb* prm_rgb) override {
+    void setMaterialColor(const GgafCore::GgafRgb* prm_rgb) override {
         throwGgafCriticalException("GgafDxSpriteSetActor::setMaterialColor は使用不可です。(2)");
     }
     void resetMaterialColor() override {
@@ -143,9 +143,9 @@ public:
 
     virtual ~GgafDxBoardSetActor(); //デストラクタ
 
-    virtual void positionAs(GgafDxGeometricActor* prm_pActor) override;
+    virtual void positionAs(const GgafDxGeometricActor* prm_pActor) override;
 
-    virtual void positionAs(GgafDxGeoElem* prm_pGeoElem) override;
+    virtual void positionAs(const GgafDxGeoElem* prm_pGeoElem) override;
 
     virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign);
     virtual void setAlign(GgafDxAlign prm_align);

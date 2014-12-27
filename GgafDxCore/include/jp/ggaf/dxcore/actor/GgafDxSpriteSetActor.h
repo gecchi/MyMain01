@@ -18,7 +18,7 @@ private:
     void setMaterialColor(float r, float g, float b) override {
         throwGgafCriticalException("GgafDxSpriteSetActor::setMaterialColor は使用不可です。(1)");
     }
-    void setMaterialColor(GgafCore::GgafRgb* prm_rgb) override {
+    void setMaterialColor(const GgafCore::GgafRgb* prm_rgb) override {
         throwGgafCriticalException("GgafDxSpriteSetActor::setMaterialColor は使用不可です。(2)");
     }
     void resetMaterialColor() override {

@@ -21,7 +21,7 @@ void WallAAPrismTestActor::onCreateModel() {
     pModel->getTexBlinker()->beat(10*20, 10*9, 0, 10*9, -1);
 }
 
-bool WallAAPrismTestActor::isOutOfUniverse() {
+bool WallAAPrismTestActor::isOutOfUniverse() const {
     if (GgafDxUniverse::_x_gone_left < _x) {
         return false;
     }

@@ -15,7 +15,7 @@ int MyLockonController::lockon_num_ = 0;
 
 
 MyLockonController::MyLockonController(const char* prm_name) :
-        GgafDummyActor(prm_name, nullptr) {
+        GgafDestructActor(prm_name, nullptr) {
     _class_name = "MyLockonController";
     pRingTarget_ = NEW GgafLinkedListRing<GgafDxCore::GgafDxGeometricActor>();
     pMainLockonEffect_ = NEW EffectLockon001_Main("MAIN");

@@ -21,8 +21,12 @@ namespace GgafDxCore {
  * @author Masatoshi Tsuge
  */
 class GgafDxCamera : public GgafDxGeometricActor {
+    friend GgafDxGod;
+    friend GgafDxUtil;
+    friend GgafDxGeometricActor;
+    friend GgafDxSeTransmitterForActor;
 
-public:
+private:
     D3DVIEWPORT9 _viewport;
 
     // 視錐台の6つの面の頂点座標
@@ -49,18 +53,18 @@ public:
     /** [r]視錐台を左右に分割する垂直面、左右の効果音のパンに使用(読み込み専用、毎フレーム更新) */
     D3DXPLANE _plnVerticalCenter;
 
-    /** [r]射影変換行列 */
+    /** [r]DirectX射影変換行列 */
     D3DXMATRIX _matProj;
-    /** [r]正射影変換行列 */
+    /** [r]DirectX正射影変換行列 */
     D3DXMATRIX _vMatrixOrthoProj;
 
-    /** [r]カメラの位置(フレーム毎更新) */
+    /** [r]DirectXカメラの位置(フレーム毎更新) */
     D3DXVECTOR3* _pVecCamFromPoint;
-    /** [r]カメラの注視点(フレーム毎更新) */
+    /** [r]DirectXカメラの注視点(フレーム毎更新) */
     D3DXVECTOR3* _pVecCamLookatPoint;
-    /** [r]カメラの上ベクトル(フレーム毎更新) */
+    /** [r]DirectXカメラの上ベクトル(フレーム毎更新) */
     D3DXVECTOR3* _pVecCamUp;
-    /** [r]VIEW変換行列(フレーム毎更新) */
+    /** [r]DirectXVIEW変換行列(フレーム毎更新) */
     D3DXMATRIX _matView;
     /** [r]視野角Xラジアン */
     double _rad_fovX;
@@ -86,11 +90,11 @@ public:
     dxcoord _zf;
     /** [r]深さ（_cameraZ_orgの何倍か)  */
     double _dep;
-    /** [r/w]注視点 **/
-    GgafDxCameraViewPoint* _pViewPoint;
+    /** [r/w]注視点（座標が _pVecCamLookatPoint と連動） **/
+    GgafDxCameraViewPoint* _pCameraViewPoint;
+    GgafDxCameraUpVector* _pCameraUpVector;
 
     coord _x_prev, _y_prev, _z_prev;
-
     coord _x_buffer_left;
     coord _x_buffer_right;
     coord _y_buffer_top;
@@ -122,37 +126,83 @@ public:
 
     virtual void initialize() override;
 
+    /**
+     * 視錐台面情報を更新する。
+     */
     virtual void processBehavior() override;
 
+
+    virtual void processSettlementBehavior() override {
+        _fX = C_DX(_x);
+        _fY = C_DX(_y);
+        _fZ = C_DX(_z);
+    }
+
+    /**
+     * DirectXのカメラへ反映 .
+     * 自身の座標を _pVecCamFromPoint へコピー
+     * _pCameraViewPoint の座標を _pVecCamLookatPoint へコピー。
+     * _pCameraUpVector の位置ベクトルを _pVecCamUp ヘコピー。
+     * _pVecCamFromPoint, _pVecCamLookatPoint, _pVecCamUp で
+     * D3DXMatrixLookAtLH() を実行。
+     */
     virtual void processJudgement() override;
 
-    virtual void processPreDraw() override {
-    }
-
-    virtual void processDraw() override {
-    }
-
-    virtual void processAfterDraw() override {
-    }
-
-    virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
-    }
-
-    virtual void processFinal() override {
-    }
-
-    virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override {
-    }
 
     virtual void setDefaultPosition();
 
-    virtual void setVecCamUp(float prm_up_x, float prm_up_y, float prm_up_z);
-
+    /**
+     * 視点用アクターを取得 .
+     * 生成済みの視点用アクターを取得します。
+     * 但し、初めて呼び出した場合、createCameraViewPoint() が呼び出され
+     * インスタンスが作成されます。
+     * @return 生成済み視点用アクター
+     */
     virtual GgafDxCameraViewPoint* getViewPoint();
 
-    virtual GgafDxCameraViewPoint* createViewPoint();
+    /**
+     * 視点用アクターのインスタンスを生成 .
+     * 独自のインスタンスを生成したい場合は、オーバーライドしてください。
+     * @return 生成された視点用アクター
+     */
+    virtual GgafDxCameraViewPoint* createCameraViewPoint() = 0;
+
+    virtual GgafDxCameraUpVector* getCameraUpVector();
+
+    virtual GgafDxCameraUpVector* createCameraUpVector() = 0;
 
     bool isMoving();
+
+    inline dxcoord getZFar() {
+        return _zf;
+    }
+
+    inline dxcoord getZNear() {
+        return _zn;
+    }
+
+    inline D3DXMATRIX* getProjectionMatrix() {
+        return &_matProj;
+    }
+
+    inline D3DXMATRIX* getViewMatrix() {
+        return &_matView;
+    }
+
+    inline D3DXVECTOR3* getVecCamFromPoint() {
+        return _pVecCamFromPoint;
+    }
+
+    inline D3DXVECTOR3* getVecCamLookatPoint() {
+        return _pVecCamLookatPoint;
+    }
+
+    inline dxcoord getZOrigin() {
+        return _cameraZ_org;
+    }
+
+    void setCamUpVecByFaceNo(face26 prm_face_no);
+
 
     virtual ~GgafDxCamera(); //デストラクタ
 };

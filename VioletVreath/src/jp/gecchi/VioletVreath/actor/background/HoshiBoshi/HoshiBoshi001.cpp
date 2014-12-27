@@ -15,7 +15,7 @@ HoshiBoshi001::HoshiBoshi001(const char* prm_name) :
     _class_name = "HoshiBoshi001";
     //¯X‚ÍDIRECTX‹——£-1.0`1.0i-10px`10px)‚ÉŽû‚Ü‚Á‚Ä‚¢‚é‘O’ñB
     far_rate_ = 30.0f;
-    _sx = _sy = _sz =  (P_CAM->_zf*LEN_UNIT)*far_rate_;
+    _sx = _sy = _sz =  (P_CAM->getZFar()*LEN_UNIT)*far_rate_;
 }
 
 void HoshiBoshi001::onActive() {

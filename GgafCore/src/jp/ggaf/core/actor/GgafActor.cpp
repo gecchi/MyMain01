@@ -118,10 +118,6 @@ void GgafActor::notifyDestroyedToFormation() {
     }
 }
 
-GgafFormation* GgafActor::getFormation() {
-    return _pFormation;
-}
-
 void GgafActor::dump() {
     _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"]"<<DUMP_FLGS);
 

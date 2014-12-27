@@ -28,14 +28,14 @@ HoshiBoshiTestActor::HoshiBoshiTestActor(const char* prm_name) :
 
     effectBlendOne(); //‰ÁZ‡¬
     setHitAble(false);
-    CAM_ZF_ = ABS(P_CAM->_zf * PX_UNIT * LEN_UNIT);
+    CAM_ZF_ = ABS(P_CAM->getZFar() * PX_UNIT * LEN_UNIT);
     _TRACE_("HoshiBoshiTestActor::HoshiBoshiTestActor CAM_ZF_="<<CAM_ZF_);
     //“Æ©ƒ[ƒ‹ƒh•ÏŠ·
     defineRotMvWorldMatrix(HoshiBoshiTestActor::setWorldMatrix_HoshiBoshiTestActor);
     setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL);//Å[•”‚ÌŸ‚­‚ç‚¢‚ÉEE
     //¯‚ÍDIRECTX‹——£-1.0`1.0‚Éû‚Ü‚Á‚Ä‚¢‚é‘O’ñ‚ÅA
     //Œ»‹óŠÔ‚Ì‘å‚«‚³‚ÉU‚ç‚Î‚ç‚¹‚é
-    _sx = _sy = _sz =  P_CAM->_zf*1000;
+    _sx = _sy = _sz =  P_CAM->getZFar()*1000;
 }
 
 int HoshiBoshiTestActor::isOutOfView() {
@@ -43,7 +43,7 @@ int HoshiBoshiTestActor::isOutOfView() {
     return 0;
 }
 
-bool HoshiBoshiTestActor::isOutOfUniverse() {
+bool HoshiBoshiTestActor::isOutOfUniverse() const {
     //ƒQ[ƒ€À•W”ÍˆÍŠO”»’è–³‚µ
     return false;
 }
@@ -96,7 +96,7 @@ void HoshiBoshiTestActor::drawHitArea() {
 HoshiBoshiTestActor::~HoshiBoshiTestActor() {
 }
 
-void HoshiBoshiTestActor::setWorldMatrix_HoshiBoshiTestActor(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void HoshiBoshiTestActor::setWorldMatrix_HoshiBoshiTestActor(const GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //World•ÏŠ·
     //Šg‘åk¬ ~ X²‰ñ“] ~ Z²‰ñ“] ~ Y²‰ñ“] ~ •½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ğİ’è<BR>
     //¦XYZ‚Ì‡‚Å‚È‚¢‚±‚Æ‚É’ˆÓ

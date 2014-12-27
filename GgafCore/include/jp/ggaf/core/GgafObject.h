@@ -38,7 +38,7 @@ public:
      * @param prm_Obj_xxxx 調べるクラスのマクロ定数
      * @return
      */
-    virtual bool instanceOf(classkind prm_Obj_xxxx) {
+    inline virtual bool instanceOf(classkind prm_Obj_xxxx) const {
         if ((_obj_class & prm_Obj_xxxx) == prm_Obj_xxxx) {
             return true;
         } else {

@@ -9,13 +9,13 @@ using namespace GgafLib;
 using namespace VVViewer;
 
 VvvViewPoint::VvvViewPoint(const char* prm_name) :
-        GgafDxCameraViewPoint(prm_name) {
+        DefaultCameraViewPoint(prm_name) {
     _class_name = "VvvViewPoint";
     pAxsMver_ = NEW GgafDxAxesMover(this);
 }
 
 void VvvViewPoint::processBehavior() {
-    GgafDxCameraViewPoint::processBehavior();
+    DefaultCameraViewPoint::processBehavior();
     pAxsMver_->behave();
     getKuroko()->behave();
 }

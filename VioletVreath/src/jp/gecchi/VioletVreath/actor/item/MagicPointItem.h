@@ -50,7 +50,7 @@ public:
 //        return 0;
 //    }
 //
-//    bool isOutOfUniverse() override {
+//    bool isOutOfUniverse() const override {
 //        //ƒQ[ƒ€À•W”ÍˆÍŠO”»’è–³‚µ
 //        return false;
 //    }

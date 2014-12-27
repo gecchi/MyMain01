@@ -11,6 +11,7 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Universe.h"
 
+#include "jp/gecchi/VioletVreath/Properties.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -23,7 +24,7 @@ EnemyEres::EnemyEres(const char* prm_name, GgafActorDepository* prm_pDepo_EnemyE
     _x = -356000; //ŠJŽnÀ•W
     _y = 0;
     _z = -680000;
-    X_turn_ = P_CAM->_x_buffer_right - 30000;
+    X_turn_ = (PX_C(PROPERTY::GAME_BUFFER_WIDTH) / 2) - 30000;
     Y_turn_ = -10000;
     Z_turn_ = 0;
 
@@ -129,8 +130,8 @@ void EnemyEres::onInactive() {
     sayonara();
 }
 
-bool EnemyEres::isOutOfUniverse() {
-    if (_x < P_CAM->_x_buffer_left - 20000000) {
+bool EnemyEres::isOutOfUniverse() const {
+    if (_x < (PX_C(PROPERTY::GAME_BUFFER_WIDTH) / -2) - 20000000) {
         return true;
     } else {
         return false;

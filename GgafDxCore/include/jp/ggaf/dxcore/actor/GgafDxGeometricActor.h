@@ -78,7 +78,7 @@ public:
     /** [r]視錐台奥面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
     dxcoord _dest_from_vppln_back;
     /** [r/w]WORLD変換(回転×移動)行列計算関数 */
-    void (*_pFunc_calc_rot_mv_world_matrix)(GgafDxGeometricActor*, D3DXMATRIX&);
+    void (*_pFunc_calc_rot_mv_world_matrix)(const GgafDxGeometricActor*, D3DXMATRIX&);
     /** [r]自身の現在のWorld変換行列(通常は「拡大縮小×回転×移動」)。土台がある場合は、その土台と行列の積になっている。 */
     D3DXMATRIX _matWorld;
     /** [r]自身の現在のWorld変換行列の「回転×移動」のみ。土台がある場合は、その土台と行列の積になっている。 */
@@ -153,19 +153,11 @@ public:
                          GgafCore::GgafStatus* prm_pStat,
                          GgafDxChecker* prm_pChecker);
 
-    /**
-     * 次のアクターを取得
-     * @return 次のアクター
-     */
-    virtual GgafDxGeometricActor* getPrev() override {
+    virtual GgafDxGeometricActor* getPrev() const override { //共変の戻り値
         return (GgafDxGeometricActor*)GgafActor::getPrev();
     }
 
-    /**
-     * 前のアクターを取得
-     * @return 前のアクター
-     */
-    virtual GgafDxGeometricActor* getNext() override {
+    virtual GgafDxGeometricActor* getNext() const override { //共変の戻り値
         return (GgafDxGeometricActor*)GgafActor::getNext();
     }
 
@@ -227,7 +219,7 @@ public:
      * 画面内、画面外とは無関係
      * @return true:活動範囲外/false:活動範囲内
      */
-    virtual bool isOutOfUniverse();
+    virtual bool isOutOfUniverse() const;
 
     /**
      * ワールド座標を設定 .
@@ -372,7 +364,7 @@ public:
      * 座標(_x, _y, _z)をコピーして設定 .
      * @param prm_pActor コピー元アクター
      */
-    virtual void positionAs(GgafDxGeometricActor* prm_pActor) {
+    virtual void positionAs(const GgafDxGeometricActor* prm_pActor) {
         _x = prm_pActor->_x;
         _y = prm_pActor->_y;
         _z = prm_pActor->_z;
@@ -382,28 +374,28 @@ public:
      * 座標(_x, _y, _z)をコピーして設定 .
      * @param prm_pGeoElem 座標オブジェクト
      */
-    virtual void positionAs(GgafDxGeoElem* prm_pGeoElem);
+    virtual void positionAs(const GgafDxGeoElem* prm_pGeoElem);
 
 
-    virtual void positionAboutAs(GgafDxGeometricActor* prm_pActor, coord margin) {
+    virtual void positionAboutAs(const GgafDxGeometricActor* prm_pActor, coord margin) {
         _x = RND_ABOUT(prm_pActor->_x, margin);
         _y = RND_ABOUT(prm_pActor->_y, margin);
         _z = RND_ABOUT(prm_pActor->_z, margin);
     }
 
-    virtual void positionAboutAs(GgafDxGeoElem* prm_pGeoElem, coord margin);
+    virtual void positionAboutAs(const GgafDxGeoElem* prm_pGeoElem, coord margin);
 
     /**
      * 回転角度 _rx, _ry, _rz をコピーして設定 .
      * @param prm_pActor コピー元アクター
      */
-    virtual void setFaceAngAs(GgafDxGeometricActor* prm_pActor);
+    virtual void setFaceAngAs(const GgafDxGeometricActor* prm_pActor);
 
     /**
      * 回転角度 _rx, _ry, _rz をコピーして設定 .
      * @param prm_pGeoElem 座標オブジェクト
      */
-    virtual void setFaceAngAs(GgafDxGeoElem* prm_pGeoElem);
+    virtual void setFaceAngAs(const GgafDxGeoElem* prm_pGeoElem);
 
     /**
      * X軸方角のアングル値を設定 .
@@ -460,7 +452,7 @@ public:
      * X軸Y軸Z軸スケール _sx, _sy, _sz をコピーして設定 .
      * @param prm_pActor コピー元アクター
      */
-    virtual void scaleAs(GgafDxGeometricActor* prm_pActor);
+    virtual void scaleAs(const GgafDxGeometricActor* prm_pActor);
 
     /**
      * 自身の内部ワールド変換(_matWorldRotMv) の逆行列を未計算なら計算し、計算済みならそのまま返す .
@@ -595,7 +587,7 @@ public:
      * 描画されないアクターや、ビルボードを行いたい場合等の場合に必要と目論む。<BR>
      * @param prm_pFunc 回転×移動の行列作成関数へのポインタ
      */
-    void defineRotMvWorldMatrix(void (*prm_pFunc)(GgafDxGeometricActor*, D3DXMATRIX&));
+    void defineRotMvWorldMatrix(void (*prm_pFunc)(const GgafDxGeometricActor*, D3DXMATRIX&));
 
     /**
      * モデルの境界球半径の倍率設定 .
@@ -619,7 +611,7 @@ public:
      * 本アクターの黒衣を取得 .
      * @return 黒衣
      */
-    inline GgafDxKuroko* getKuroko() {
+    inline GgafDxKuroko* getKuroko() const {
         return _pKuroko;
     }
 
@@ -627,7 +619,7 @@ public:
      * 本アクターのサウンドエフェクト出力支援オブジェクトを取得 .
      * @return サウンドエフェクト出力支援オブジェクト
      */
-    inline GgafDxSeTransmitterForActor* getSeTx() {
+    inline GgafDxSeTransmitterForActor* getSeTx() const {
         return _pSeTx;
     }
 
@@ -639,7 +631,7 @@ public:
      * addSubGroupAsFk()を実行したアクターを指す。
      * @return 土台となるアクター
      */
-    inline GgafDxGeometricActor* getBaseActor() {
+    inline GgafDxGeometricActor* getBaseActor() const {
         return _pActor_base;
     }
 

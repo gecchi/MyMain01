@@ -6,7 +6,10 @@
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
-#include "jp/ggaf/lib/util/DirectionUtil.h"
+
+#include "jp/ggaf/dxcore/util/GgafDxDirectionUtil.h"
+
+#include "VvvCameraUpVector.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -17,20 +20,13 @@ VvvCamera::VvvCamera(const char* prm_name) :
     _class_name = "VvvCamera";
     pAxsMver_ = NEW GgafDxAxesMover(this);
 
-    pUpVec_ = NEW DefaultGeometricActor("CAM_UP"); //原点からの自身の座標へのベクトルがUPベクトルとする
-                                                //_pVecCamUp の coord 座標単位版ようなもの。
-                                                //GgafDxAxesMoverを使用したいため。
-    pAxsMver_Up_ = NEW GgafDxAxesMover(pUpVec_);
-    pUpVec_->position(DX_C(_pVecCamUp->x), DX_C(_pVecCamUp->y), DX_C(_pVecCamUp->z));
-    addSubLast(pUpVec_);
-    up_face_ = TN(0,1,0);
     vcv_face_ = 0;
     vcv_face_prev_ = vcv_face_;
 
 
     for (int i = 0; i < 3*3*3; i++) {
         for (int j = 0; j < 3*3*3; j++) {
-            relation_up_vec_[i][j] = DirectionUtil::FACE_XXX;
+            relation_up_vec_[i][j] = GgafDxDirectionUtil::FACE_XXX;
         }
     }
     relation_up_by_vec_ =  (int (*)[3*3*3])(&(relation_up_vec_[13][13])); //13 は 3*3*3=27 の真ん中の要素、_relation_up_vec[-13～13][-13～13]でアクセスする為
@@ -469,9 +465,14 @@ VvvCamera::VvvCamera(const char* prm_name) :
     auto_up_wait_frames = 0;
 }
 
-GgafDxCameraViewPoint* VvvCamera::createViewPoint() {
+GgafDxCameraViewPoint* VvvCamera::createCameraViewPoint() {
     VvvViewPoint* pVP = NEW VvvViewPoint("VvvViewPoint");
     return (GgafDxCameraViewPoint*)pVP;
+}
+
+GgafDxCameraUpVector* VvvCamera::createCameraUpVector() {
+    VvvCameraUpVector* pUp = NEW VvvCameraUpVector("VvvCameraUpVector");
+    return (GgafDxCameraUpVector*)pUp;
 }
 
 void VvvCamera::initialize() {
@@ -480,47 +481,37 @@ void VvvCamera::initialize() {
 
 void VvvCamera::processBehavior() {
     VvvViewPoint* pVP = (VvvViewPoint*)getViewPoint();
-
-    pAxsMver_Up_->behave();
-
-    float v_up_x, v_up_y, v_up_z;
-    UTIL::getNormalizeVector (
-            pUpVec_->_x,
-            pUpVec_->_y,
-            pUpVec_->_z,
-            v_up_x, v_up_y, v_up_z );
-    setVecCamUp(v_up_x, v_up_y, v_up_z ); //UPを反映
+    VvvCameraUpVector* pUpV = (VvvCameraUpVector*)getCameraUpVector();
 
     pAxsMver_->behave();
     getKuroko()->behave();
-
 
     vcv_face_ = getCamToVpFaceNo();
 
     if (auto_up_wait_frames == 0) {
         if (vcv_face_ != vcv_face_prev_) { //カメラ→視点ベクトルの面番号が変化したらUPを１回考慮
 
-            int up_face_wk = up_face_; //デバッグ用
+            int up_face_wk = pUpV->up_face_; //デバッグ用
 
             int up_hx1, up_hy1, up_hz1;
-            DirectionUtil::cnvFaceNo2Sgn(up_face_, up_hx1, up_hy1, up_hz1);
+            GgafDxDirectionUtil::cnvFaceNo2Sgn(pUpV->up_face_, up_hx1, up_hy1, up_hz1);
 
-            int up_face_next = relation_up_by_vec_[up_face_][vcv_face_];
-            if (up_face_next == DirectionUtil::FACE_XXX) {
+            int up_face_next = relation_up_by_vec_[pUpV->up_face_][vcv_face_];
+            if (up_face_next == GgafDxDirectionUtil::FACE_XXX) {
                 //FACE_XXXは、UPは動く必要なし
             } else {
-                if (up_face_next == DirectionUtil::FACE_ZZZ) {
+                if (up_face_next == GgafDxDirectionUtil::FACE_ZZZ) {
                     //カメラ→視点ベクトルの面番号が、UPの面番号と同じか真裏になった。
                     //その場合は、カメラ→視点ベクトルの一つ前の面番号を採用してUPの場所を求める。
-                    int up_face_next_other = relation_up_by_vec_[up_face_][vcv_face_prev_];
-                    if (up_face_next_other == DirectionUtil::FACE_XXX) {
+                    int up_face_next_other = relation_up_by_vec_[pUpV->up_face_][vcv_face_prev_];
+                    if (up_face_next_other == GgafDxDirectionUtil::FACE_XXX) {
                         //FACE_XXXは、UPは動く必要なし
                     } else {
-                        if (up_face_next_other == DirectionUtil::FACE_ZZZ) {
+                        if (up_face_next_other == GgafDxDirectionUtil::FACE_ZZZ) {
                             //カメラ→視点ベクトルの面番号が真裏へ一気に動いたことになる。
                             //お手上げ。UPはどこに行けばよいか不定。したがってUPはそのまま。
                         } else {
-                            slideUpCamTo(up_face_next_other);
+                            pUpV->setFaceNo(up_face_next_other);
                         }
                     }
                 } else {
@@ -528,21 +519,21 @@ void VvvCamera::processBehavior() {
                     //その隣接面の反対側の隣接面の方角へUPベクトルを逃す。
                     //或いは、カメラ→視点ベクトル面番号が、UPベクトル面番号から直角以上の角度で遠ざかるので、
                     //UPベクトルを近寄らせる。
-                    slideUpCamTo(up_face_next);
+                    pUpV->setFaceNo(up_face_next);
                 }
             }
 
 
             int eye_hx1, eye_hy1, eye_hz1;
-            DirectionUtil::cnvFaceNo2Sgn(vcv_face_prev_, eye_hx1, eye_hy1, eye_hz1);
+            GgafDxDirectionUtil::cnvFaceNo2Sgn(vcv_face_prev_, eye_hx1, eye_hy1, eye_hz1);
             int eye_hx2, eye_hy2, eye_hz2;
-            DirectionUtil::cnvFaceNo2Sgn(vcv_face_, eye_hx2, eye_hy2, eye_hz2);
+            GgafDxDirectionUtil::cnvFaceNo2Sgn(vcv_face_, eye_hx2, eye_hy2, eye_hz2);
             int up_hx_1, up_hy_1, up_hz_1;
-            DirectionUtil::cnvFaceNo2Sgn(up_face_wk, up_hx_1, up_hy_1, up_hz_1);
+            GgafDxDirectionUtil::cnvFaceNo2Sgn(up_face_wk, up_hx_1, up_hy_1, up_hz_1);
             int up_hx2, up_hy2, up_hz2;
-            DirectionUtil::cnvFaceNo2Sgn(up_face_, up_hx2, up_hy2, up_hz2);
+            GgafDxDirectionUtil::cnvFaceNo2Sgn(pUpV->up_face_, up_hx2, up_hy2, up_hz2);
             _TRACE_("EYE["<<vcv_face_prev_<<"]("<<eye_hx1<<","<< eye_hy1<<","<<eye_hz1<<") → ["<<vcv_face_<<"]("<<eye_hx2<<","<< eye_hy2<<","<<eye_hz2<<")");
-            _TRACE_(" → UP["<<up_face_wk<<"]("<<up_hx_1<<","<< up_hy_1<<","<<up_hz_1<<") → ["<<up_face_<<"]("<<up_hx2<<","<< up_hy2<<","<<up_hz2<<")");
+            _TRACE_(" → UP["<<up_face_wk<<"]("<<up_hx_1<<","<< up_hy_1<<","<<up_hz_1<<") → ["<<pUpV->up_face_<<"]("<<up_hx2<<","<< up_hy2<<","<<up_hz2<<")");
         }
     } else {
         auto_up_wait_frames--;
@@ -570,17 +561,9 @@ int VvvCamera::getCamToVpFaceNo() {
             pVP->_y - _y,
             pVP->_z - _z,
             vcv_x, vcv_y, vcv_z  );
-    return DirectionUtil::cnvVec2FaceNo(vcv_x, vcv_y, vcv_z);
+    return GgafDxDirectionUtil::cnvVec2FaceNo(vcv_x, vcv_y, vcv_z);
 }
 
-void VvvCamera::slideUpCamTo(int prm_face_no) {
-    dxcoord up_x, up_y, up_z;
-    DirectionUtil::cnvFaceNo2Vec(prm_face_no, up_x, up_y, up_z);
-    pAxsMver_Up_->asst()->
-             slideVxyzMvByDtTo(DX_C(up_x), DX_C(up_y), DX_C(up_z), 30, 0.3, 0.4, 0, true);
-    up_face_ = prm_face_no;
-}
 VvvCamera::~VvvCamera() {
-    GGAF_DELETE(pAxsMver_Up_);
     GGAF_DELETE(pAxsMver_);
 }

@@ -23,7 +23,7 @@ public:
     int vcv_face_;
     int vcv_face_prev_;
 
-    int up_face_;
+
     /** 自動UP制御機能を一時的にOFFにするフレーム */
     frame auto_up_wait_frames;
 
@@ -34,18 +34,17 @@ public:
     /** 平行移動支援 */
     GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
-    /** カメラのUPベクトル用アクター */
-    GgafLib::DefaultGeometricActor* pUpVec_;
-    /** pUpVec_ の平行移動支援 */
-    GgafDxCore::GgafDxAxesMover* pAxsMver_Up_;
 
 public:
 
 
     VvvCamera(const char* prm_name);
-    GgafDxCore::GgafDxCameraViewPoint* createViewPoint() override;
+
+    GgafDxCore::GgafDxCameraUpVector* createCameraUpVector() override;
+    GgafDxCore::GgafDxCameraViewPoint* createCameraViewPoint() override;
 
     virtual void initialize() override;
+
     void processBehavior() override;
 
 
@@ -55,11 +54,6 @@ public:
      */
     int getCamToVpFaceNo();
 
-    /**
-     * カメラのUP面番号、引数の面番号にセットし、UPベクトルをスライド移動を開始させます。
-     * @param prm_face_no カメラのUP面番号
-     */
-    void slideUpCamTo(int prm_face_no);
 
     /**
      * カメラを指定位置に滑らか移動させます。 .

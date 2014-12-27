@@ -109,6 +109,86 @@ namespace GgafCore {
  */
 class GgafLinearOctree : public GgafObject {
 
+private:
+    /**
+     * 同一Level空間の八分木モートン順序の通し空間番号取得 .
+     * 同一Levelとは <BR>
+     * 「引数と結果は同一level空間ですよ」<BR>
+     * という意味。本メソッドの引数は任意のLevel空間を受け入れる。<BR>
+     * やっていることは<BR>
+     * ・引数をそれぞれ3bitごとに間隔を開ける<BR>
+     * ・引数2の結果を1ビット、引数2の結果を2ビット  ずらして OR を取る<BR>
+     * 以上。<BR>
+     * <BR>
+     * 図解すると、つまり
+     * <pre><code>
+     * 000000000000000000000000abcdefgh ,
+     * 000000000000000000000000ijklmnop ,
+     * 000000000000000000000000qrstuvwx
+     * を
+     * 00000000 00a 00b 00c 00d 00e 00f 00g 00h  --> X方向情報
+     * 00000000 0i0 0j0 0k0 0l0 0m0 0n0 0o0 0p0  --> Y方向情報
+     * 00000000 q00 r00 s00 t00 u00 v00 w00 x00  --> Z方向情報
+     * こうして、ORした結果(下の結果)が戻り値になる。意味は、
+     * 00000000 qia rjb skc tld ume vnf wog xph
+     *                                      ^^^-->&B(xph)       = そのLevelの空間のモートン順序通し空間番号 0～7
+     *                                  ^^^^^^^-->&B(wogxph)    = そのLevelの親空間のモートン順序通し空間番号 0～63
+     *                              ^^^^^^^^^^^-->&B(vnfwogxph) = そのLevelの親の親空間のモートン順序通し空間番号 0～511
+     *                          ^^^ ^^^ ^^^ ^^^
+     *                           |   |   |   |
+     *                           |   |   |   &B(xph) = そのLevelの空間のモートン順序の位置 0～7
+     *             ............  |   |   `---&B(wog) = そのLevelの親空間のモートン順序の位置  0～7
+     *                           |   `-------&B(vnf) = そのLevelの親の親の空間のモートン順序の位置 0～7
+     * </code></pre>
+     * @param x_space_index 同一のレベル空間のx座標空間インデックス (ただし 0～255 とする)
+     * @param y_space_index 同一のレベル空間のy座標空間インデックス (ただし 0～255 とする)
+     * @param z_space_index 同一のレベル空間のz座標空間インデックス (ただし 0～255 とする)
+     * @return そのLevell空間の(x_index, y_index, z_index)で示される空間に対応する
+     *         八分木モートン順序の通し空間番号(最大Level8で、0～23068671)
+     */
+    static inline uint32_t getMortonOrderNumFromXYZindex( uint32_t x_space_index, uint32_t y_space_index, uint32_t z_space_index ) {
+        return GgafLinearOctree::separateEveryThirdBit(x_space_index) |
+               GgafLinearOctree::separateEveryThirdBit(y_space_index)<<1 |
+               GgafLinearOctree::separateEveryThirdBit(z_space_index)<<2;
+    }
+
+
+    /**
+     * 3bitごとに間隔を開ける .
+     * <pre><code>
+     * 000000000000000000000000abcdefgh  を
+     * 0000000000a00b00c00d00e00f00g00h  にします
+     * ＜アルゴリズム＞
+     * n          = 0000 0000 0000 0000 0000 0000 abcd efgh のとき
+     * n<<8       = 0000 0000 0000 0000 abcd efgh 0000 0000
+     * n|n<<8     = 0000 0000 0000 0000 abcd efgh abcd efgh
+     * 0x0000f00f = 0000 0000 0000 0000 1111 0000 0000 1111 であるので
+     * (n|n<<8) & 0x0000f00f =
+     *              0000 0000 0000 0000 abcd 0000 0000 efgh となる。
+     * この結果をまた n に代入する
+     * n          = 0000 0000 0000 0000 abcd 0000 0000 efgh
+     * 以下同様に
+     * n<<4       = 0000 0000 0000 abcd 0000 0000 efgh 0000
+     * n|n<<4     = 0000 0000 0000 abcd abcd 0000 efgh efgh
+     * 0x000c30c3 = 0000 0000 0000 1100 0011 0000 1100 0011
+     * n ← (n|n<<4) & 0x000c30c3 =
+     *              0000 0000 0000 ab00 00cd 0000 ef00 00gh
+     * n<<2       = 0000 0000 00ab 0000 cd00 00ef 0000 gh00
+     * n|n(n<<2)  = 0000 0000 00ab ab00 cdcd 00ef ef00 ghgh
+     * 0x00249249 = 0000 0000 0010 0100 1001 0010 0100 1001
+     * n ← (n|n<<2) & 0x00249249 =
+     *              0000 0000 00a0 0b00 c00d 00e0 0f00 g00h
+     * </code></pre>
+     * @param n 0～255までの数値
+     * @return 3bitごとに間隔が空けられた値
+     */
+    static inline uint32_t separateEveryThirdBit(uint32_t n) {
+        n = ( n | n<<8 ) & 0x0000f00f;
+        n = ( n | n<<4 ) & 0x000c30c3;
+        n = ( n | n<<2 ) & 0x00249249;
+        return n;
+    }
+
 public:
     /** [r]八分木の空間を一直線に並べた線形配列 */
     GgafLinearOctreeSpace* _paSpace; //_paSpace[0] は ROOT空間へのポインタ
@@ -186,83 +266,6 @@ public:
      * により八分木へ再度要素登録が可能となる。
      */
     void clearElem();
-
-    /**
-     * 同一Level空間の八分木モートン順序の通し空間番号取得 .
-     * 同一Levelとは <BR>
-     * 「引数と結果は同一level空間ですよ」<BR>
-     * という意味。本メソッドの引数は任意のLevel空間を受け入れる。<BR>
-     * やっていることは<BR>
-     * ・引数をそれぞれ3bitごとに間隔を開ける<BR>
-     * ・引数2の結果を1ビット、引数2の結果を2ビット  ずらして OR を取る<BR>
-     * 以上。<BR>
-     * <BR>
-     * 図解すると、つまり
-     * <pre><code>
-     * 000000000000000000000000abcdefgh ,
-     * 000000000000000000000000ijklmnop ,
-     * 000000000000000000000000qrstuvwx
-     * を
-     * 00000000 00a 00b 00c 00d 00e 00f 00g 00h  --> X方向情報
-     * 00000000 0i0 0j0 0k0 0l0 0m0 0n0 0o0 0p0  --> Y方向情報
-     * 00000000 q00 r00 s00 t00 u00 v00 w00 x00  --> Z方向情報
-     * こうして、ORした結果(下の結果)が戻り値になる。意味は、
-     * 00000000 qia rjb skc tld ume vnf wog xph
-     *                                      ^^^-->&B(xph)       = そのLevelの空間のモートン順序通し空間番号 0～7
-     *                                  ^^^^^^^-->&B(wogxph)    = そのLevelの親空間のモートン順序通し空間番号 0～63
-     *                              ^^^^^^^^^^^-->&B(vnfwogxph) = そのLevelの親の親空間のモートン順序通し空間番号 0～511
-     *                          ^^^ ^^^ ^^^ ^^^
-     *                           |   |   |   |
-     *                           |   |   |   &B(xph) = そのLevelの空間のモートン順序の位置 0～7
-     *             ............  |   |   `---&B(wog) = そのLevelの親空間のモートン順序の位置  0～7
-     *                           |   `-------&B(vnf) = そのLevelの親の親の空間のモートン順序の位置 0～7
-     * </code></pre>
-     * @param x_space_index 同一のレベル空間のx座標空間インデックス (ただし 0～255 とする)
-     * @param y_space_index 同一のレベル空間のy座標空間インデックス (ただし 0～255 とする)
-     * @param z_space_index 同一のレベル空間のz座標空間インデックス (ただし 0～255 とする)
-     * @return そのLevell空間の(x_index, y_index, z_index)で示される空間に対応する
-     *         八分木モートン順序の通し空間番号(最大Level8で、0～23068671)
-     */
-    inline uint32_t getMortonOrderNumFromXYZindex( uint32_t x_space_index, uint32_t y_space_index, uint32_t z_space_index ) {
-        return separateEveryThirdBit(x_space_index) | separateEveryThirdBit(y_space_index)<<1 | separateEveryThirdBit(z_space_index)<<2;
-    }
-
-
-    /**
-     * 3bitごとに間隔を開ける .
-     * <pre><code>
-     * 000000000000000000000000abcdefgh  を
-     * 0000000000a00b00c00d00e00f00g00h  にします
-     * ＜アルゴリズム＞
-     * n          = 0000 0000 0000 0000 0000 0000 abcd efgh のとき
-     * n<<8       = 0000 0000 0000 0000 abcd efgh 0000 0000
-     * n|n<<8     = 0000 0000 0000 0000 abcd efgh abcd efgh
-     * 0x0000f00f = 0000 0000 0000 0000 1111 0000 0000 1111 であるので
-     * (n|n<<8) & 0x0000f00f =
-     *              0000 0000 0000 0000 abcd 0000 0000 efgh となる。
-     * この結果をまた n に代入する
-     * n          = 0000 0000 0000 0000 abcd 0000 0000 efgh
-     * 以下同様に
-     * n<<4       = 0000 0000 0000 abcd 0000 0000 efgh 0000
-     * n|n<<4     = 0000 0000 0000 abcd abcd 0000 efgh efgh
-     * 0x000c30c3 = 0000 0000 0000 1100 0011 0000 1100 0011
-     * n ← (n|n<<4) & 0x000c30c3 =
-     *              0000 0000 0000 ab00 00cd 0000 ef00 00gh
-     * n<<2       = 0000 0000 00ab 0000 cd00 00ef 0000 gh00
-     * n|n(n<<2)  = 0000 0000 00ab ab00 cdcd 00ef ef00 ghgh
-     * 0x00249249 = 0000 0000 0010 0100 1001 0010 0100 1001
-     * n ← (n|n<<2) & 0x00249249 =
-     *              0000 0000 00a0 0b00 c00d 00e0 0f00 g00h
-     * </code></pre>
-     * @param n 0～255までの数値
-     * @return 3bitごとに間隔が空けられた値
-     */
-    inline uint32_t separateEveryThirdBit(uint32_t n) {
-        n = ( n | n<<8 ) & 0x0000f00f;
-        n = ( n | n<<4 ) & 0x000c30c3;
-        n = ( n | n<<2 ) & 0x00249249;
-        return n;
-    }
 
 
     virtual ~GgafLinearOctree();

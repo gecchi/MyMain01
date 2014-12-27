@@ -97,7 +97,7 @@ GgafDxDrawableActor* StgUtil::shotWay001(coord prm_x, coord prm_y, coord prm_z,
     return pActor_shot;
 }
 
-GgafDxDrawableActor* StgUtil::shotWay001(GgafDxGeometricActor* prm_pFrom,
+GgafDxDrawableActor* StgUtil::shotWay001(const GgafDxGeometricActor* prm_pFrom,
                                          GgafActorDepository* prm_pDepo_shot,
                                          coord prm_r,
                                          velo prm_velo_first, acce prm_acce,
@@ -191,7 +191,7 @@ GgafDxDrawableActor* StgUtil::shotWay002(coord prm_x, coord prm_y, coord prm_z,
     return pActor_shot;
 }
 
-GgafDxCore::GgafDxDrawableActor* StgUtil::shotWay002(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
+GgafDxCore::GgafDxDrawableActor* StgUtil::shotWay002(const GgafDxCore::GgafDxGeometricActor* prm_pFrom,
                                                      GgafCore::GgafActorDepository* prm_pDepo_shot,
                                                      coord prm_r,
                                                      int prm_way_N,
@@ -320,7 +320,7 @@ GgafDxDrawableActor* StgUtil::shotWay003(coord prm_x, coord prm_y, coord prm_z,
 }
 
 
-GgafDxDrawableActor* StgUtil::shotWay003(GgafDxGeometricActor* prm_pFrom,
+GgafDxDrawableActor* StgUtil::shotWay003(const GgafDxGeometricActor* prm_pFrom,
                                          GgafActorDepository* prm_pDepo_shot1, uint32_t* prm_paUint32_dotmat1,
                                          GgafActorDepository* prm_pDepo_shot2, uint32_t* prm_paUint32_dotmat2,
                                          GgafActorDepository* prm_pDepo_shot3, uint32_t* prm_paUint32_dotmat3,
@@ -403,7 +403,7 @@ GgafDxDrawableActor* StgUtil::shotWay004(coord prm_x, coord prm_y, coord prm_z,
     return pActor_shot;
 }
 
-GgafDxDrawableActor* StgUtil::shotWay004(GgafDxGeometricActor* prm_pFrom,
+GgafDxDrawableActor* StgUtil::shotWay004(const GgafDxGeometricActor* prm_pFrom,
                                          GgafActorDepository* prm_pDepo_shot,
                                          coord prm_r,
                                          int prm_way, angle prm_expanse_angle,

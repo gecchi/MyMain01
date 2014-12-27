@@ -57,7 +57,7 @@ int MyMagicEnergy::isOutOfView() {
     return 0;
 }
 
-bool MyMagicEnergy::isOutOfUniverse() {
+bool MyMagicEnergy::isOutOfUniverse() const {
     //ƒQ[ƒ€À•W”ÍˆÍŠO”»’è–³‚µ
     return false;
 }

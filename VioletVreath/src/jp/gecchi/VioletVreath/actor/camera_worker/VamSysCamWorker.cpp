@@ -50,7 +50,7 @@ void VamSysCamWorker::initialize() {
     CameraWorker::initialize();
 
     //初期カメラZ位置
-    dZ_camera_init_ = -DX_C(pCam_->_cameraZ_org);
+    dZ_camera_init_ = -DX_C(pCam_->getZOrigin());
 
     //画面背後用範囲差分
     //背後のZ座標はdZ_camera_init_/2

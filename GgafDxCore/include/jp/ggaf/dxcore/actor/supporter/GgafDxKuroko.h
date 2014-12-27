@@ -227,7 +227,7 @@ public: //_x, _y, _z 操作関連 //////////////////////////////////////////////
     //false : 移動方角（Y軸回転）とY軸軸回転方角は独立
 
     bool _taget_face_ang_alltime_flg;
-    GgafDxGeometricActor* _taget_face_ang_alltime_pActor;
+    const GgafDxGeometricActor* _taget_face_ang_alltime_pActor;
     coord _taget_face_ang_alltime_tx;
     coord _taget_face_ang_alltime_ty;
     coord _taget_face_ang_alltime_tz;
@@ -268,7 +268,7 @@ public:
      * 現在の移動速度を取得 .
      * @return 現在の移動速度
      */
-    inline velo getMvVelo() {
+    inline velo getMvVelo() const {
         return _velo_mv;
     }
 
@@ -276,7 +276,7 @@ public:
      * 上限移動速度を取得 .
      * @return 上限移動速度
      */
-    inline velo getMvVeloTop() {
+    inline velo getMvVeloTop() const {
         return _top_velo_mv;
     }
 
@@ -284,7 +284,7 @@ public:
      * 下限移動速度を取得 .
      * @return 下限移動速度
      */
-    inline velo getMvVeloBottom() {
+    inline velo getMvVeloBottom() const {
         return _bottom_velo_mv;
     }
 
@@ -640,7 +640,7 @@ public:
      * 方向ベクトル正規化も内部で行なう。
      * @param prm_pActor_target 目標対象アクター
      */
-    inline void setMvAngTwd(GgafDxGeometricActor* prm_pActor_target) {
+    inline void setMvAngTwd(const GgafDxGeometricActor* prm_pActor_target) {
         setMvAngTwd(
             prm_pActor_target->_x,
             prm_pActor_target->_y,
@@ -648,7 +648,7 @@ public:
         );
     }
 
-    inline void setMvAngTwd(GgafDxGeoElem* prm_pGeoElem) {
+    inline void setMvAngTwd(const GgafDxGeoElem* prm_pGeoElem) {
         setMvAngTwd(
             prm_pGeoElem->x,
             prm_pGeoElem->y,
@@ -660,7 +660,7 @@ public:
 
     void setStopTargetMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz);
 
-    void setStopTargetMvAngTwd(GgafDxGeometricActor* prm_pActor_target);
+    void setStopTargetMvAngTwd(const GgafDxGeometricActor* prm_pActor_target);
 
     /**
      * 軸回転方角(Z軸とY軸)を目標にターゲットするシークエンスを実行 .
@@ -722,7 +722,7 @@ public:
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_ang_rz_target, prm_ang_ry_target をそのままターゲートとする。<BR>
      */
-    inline void turnFaceAngTwd(GgafDxGeometricActor* prm_pActor_target,
+    inline void turnFaceAngTwd(const GgafDxGeometricActor* prm_pActor_target,
                                angvelo prm_angvelo, angacce prm_angacce,
                                int prm_way, bool prm_optimize_ang) {
         turnFaceAngTwd(
@@ -735,7 +735,7 @@ public:
                 prm_optimize_ang
         );
     }
-    inline void turnFaceAngTwd(GgafDxGeoElem* prm_pGeoElem,
+    inline void turnFaceAngTwd(const GgafDxGeoElem* prm_pGeoElem,
                                angvelo prm_angvelo, angacce prm_angacce,
                                int prm_way, bool prm_optimize_ang) {
         turnFaceAngTwd(
@@ -891,7 +891,7 @@ public:
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_ang_rz_target, prm_ang_ry_target をそのままターゲートとする。<BR>
      */
-    void keepOnTurningFaceAngTwd(GgafDxGeometricActor* prm_pActor_target,
+    void keepOnTurningFaceAngTwd(const GgafDxGeometricActor* prm_pActor_target,
                                  angvelo prm_angvelo, angacce prm_angacce,
                                  int prm_way, bool prm_optimize_ang) {
         keepOnTurningFaceAngTwd(
@@ -919,7 +919,7 @@ public:
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_ang_rz_target, prm_ang_ry_target をそのままターゲートとする。<BR>
      */
-    inline void turnMvAngTwd(GgafDxGeometricActor* prm_pActor_target,
+    inline void turnMvAngTwd(const GgafDxGeometricActor* prm_pActor_target,
                              angvelo prm_angvelo, angacce prm_angacce,
                              int prm_way, bool prm_optimize_ang) {
         turnMvAngTwd(
@@ -933,7 +933,7 @@ public:
         );
     }
 
-    inline void turnMvAngTwd(GgafDxGeoElem* prm_pGeoElem,
+    inline void turnMvAngTwd(const GgafDxGeoElem* prm_pGeoElem,
                              angvelo prm_angvelo, angacce prm_angacce,
                              int prm_way, bool prm_optimize_ang) {
         turnMvAngTwd(

@@ -11,7 +11,6 @@
 #include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
-#include "jp/ggaf/lib/util/DirectionUtil.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectTurbo001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/DamageDispBar.h"
@@ -24,6 +23,7 @@
 #include "jp/gecchi/VioletVreath/Properties.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
+#include "jp/ggaf/dxcore/util/GgafDxDirectionUtil.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -307,8 +307,8 @@ MyShip::MyShip(const char* prm_name) :
     blown_veloX_ = 0;
     blown_veloY_ = 0;
     blown_veloZ_ = 0;
-    way_ = DirectionUtil::FACE_ZZZ;
-    prev_way_ = DirectionUtil::FACE_ZZZ;
+    way_ = GgafDxDirectionUtil::FACE_ZZZ;
+    prev_way_ = GgafDxDirectionUtil::FACE_ZZZ;
     is_just_change_way_ = true;
 
     //MPèâä˙íl
@@ -386,8 +386,8 @@ void MyShip::onReset() {
     can_shoot_laser_ = false;
     frame_shot_pressed_ = 0;
     _x = _y = _z = 0;
-    way_ = DirectionUtil::FACE_ZZZ;
-    prev_way_ = DirectionUtil::FACE_ZZZ;
+    way_ = GgafDxDirectionUtil::FACE_ZZZ;
+    prev_way_ = GgafDxDirectionUtil::FACE_ZZZ;
     way_switch_.reset();
 
     mp_ = MY_SHIP_START_MP;

@@ -16,7 +16,7 @@ XpmManager::XpmManager(const char* prm_manager_name) :
 GgafXpm* XpmManager::processCreateResource(char* prm_idstr, void* prm_pConnector) {
     GgafXpm* pResource = nullptr;
 
-    if (UTIL::strcmp_ascii("jiki", prm_idstr) == 0) {
+    if (strcmp("jiki", prm_idstr) == 0) {
         /* XPM */
         static const char *jiki[] = {
             /* columns rows colors chars-per-pixel */
@@ -132,7 +132,7 @@ GgafXpm* XpmManager::processCreateResource(char* prm_idstr, void* prm_pConnector
 
         pResource = NEW GgafXpm(jiki);
     }
-    if (UTIL::strcmp_ascii("jikir", prm_idstr) == 0) {
+    if (strcmp("jikir", prm_idstr) == 0) {
         /* XPM */
         static const char *jikir[] = {
                 /* columns rows colors chars-per-pixel */
@@ -249,7 +249,7 @@ GgafXpm* XpmManager::processCreateResource(char* prm_idstr, void* prm_pConnector
         pResource = NEW GgafXpm(jikir);
     }
 
-    if (UTIL::strcmp_ascii("FormationOebius002_Xpm", prm_idstr) == 0) {
+    if (strcmp("FormationOebius002_Xpm", prm_idstr) == 0) {
         /* XPM */
         static const char *xpm_FormationOebius002[] = {
                 "6 20 2 1",

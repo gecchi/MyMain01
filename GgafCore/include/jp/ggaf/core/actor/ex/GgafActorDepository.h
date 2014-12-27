@@ -1,7 +1,7 @@
 #ifndef GGAFCORE_GGAFACTORDEPOSITORY_H_
 #define GGAFCORE_GGAFACTORDEPOSITORY_H_
 #include "GgafCommonHeader.h"
-#include "jp/ggaf/core/actor/ex/GgafDummyActor.h"
+#include "jp/ggaf/core/actor/ex/GgafDestructActor.h"
 
 namespace GgafCore {
 
@@ -19,7 +19,7 @@ namespace GgafCore {
  * @since 2008/08/11
  * @author Masatoshi Tsuge
  */
-class GgafActorDepository : public GgafDummyActor {
+class GgafActorDepository : public GgafDestructActor {
 private:
     //Žg—p•s‰Â
     void addSubLast(GgafActor* prm_pSub) override {

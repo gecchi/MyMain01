@@ -4,7 +4,7 @@
 
 using namespace GgafCore;
 
-GgafActorDepository::GgafActorDepository(const char* prm_name, GgafStatus* prm_pStat) : GgafDummyActor(prm_name, prm_pStat) {
+GgafActorDepository::GgafActorDepository(const char* prm_name, GgafStatus* prm_pStat) : GgafDestructActor(prm_name, prm_pStat) {
     _obj_class |= Obj_GgafActorDepository;
     _class_name = "GgafActorDepository";
     setHitAble(false);
@@ -25,7 +25,7 @@ void GgafActorDepository::put(GgafActor* prm_pSub) {
     }
     prm_pSub->_pDependenceDepository = this;
     prm_pSub->inactivate(); //‹­§”ñŠˆ“®‚É _will_activate_after_flg = false; ‚É‚È‚éB
-    GgafDummyActor::addSubLast(prm_pSub);
+    GgafDestructActor::addSubLast(prm_pSub);
 }
 
 void GgafActorDepository::onReset() {

@@ -108,11 +108,11 @@ public:
                         GgafCore::GgafStatus* prm_pStat,
                         GgafDxChecker* prm_pChecker);
 
-    virtual GgafDxDrawableActor* getPrev() override {
+    virtual GgafDxDrawableActor* getPrev() const override {  //共変の戻り値
         return (GgafDxDrawableActor*)GgafActor::getPrev();
     }
 
-    virtual GgafDxDrawableActor* getNext() override {
+    virtual GgafDxDrawableActor* getNext() const  override {  //共変の戻り値
         return (GgafDxDrawableActor*)GgafActor::getNext();
     }
 
@@ -213,7 +213,7 @@ public:
      * 本アクターの描画時のマテリアルアルファ値を取得 .
      * @return アクターの現在のアルファ値
      */
-    virtual float getAlpha() {
+    virtual float getAlpha() const {
         return _alpha;
     }
 
@@ -237,18 +237,18 @@ public:
      * 本アクターの描画時のマテリアルカラーを設定。 .
      * @param prm_rgb
      */
-    virtual void setMaterialColor(GgafCore::GgafRgb* prm_rgb);
+    virtual void setMaterialColor(const GgafCore::GgafRgb* prm_rgb);
 
     /**
      * マテリアルカラーをモデル読み込み時の状態にリセット。
      */
     virtual void resetMaterialColor();
 
-    inline GgafDxModel* getModel() {
+    inline GgafDxModel* getModel() const {
         return _pModel;
     }
 
-    virtual GgafDxEffect* getEffect() {
+    virtual GgafDxEffect* getEffect() const {
         return _pEffect;
     }
 

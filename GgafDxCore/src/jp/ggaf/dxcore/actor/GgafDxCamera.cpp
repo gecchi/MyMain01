@@ -3,6 +3,7 @@
 #include "jp/ggaf/dxcore/GgafDxProperties.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
+#include "jp/ggaf/dxcore/actor/GgafDxCameraUpVector.h"
 #include "jp/ggaf/dxcore/GgafDxGod.h"
 
 using namespace GgafCore;
@@ -89,19 +90,17 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, double prm_rad_fovX, double prm
     _y_prev = 0;
     _z_prev = 0;
 
-    _pViewPoint = nullptr;
-}
-
-GgafDxCameraViewPoint* GgafDxCamera::createViewPoint() {
-    return NEW GgafDxCameraViewPoint("GgafDxCameraViewPoint");
+    _pCameraViewPoint = nullptr;
+    _pCameraUpVector = nullptr;
 }
 
 void GgafDxCamera::initialize() {
-
+    getViewPoint();
+    getCameraUpVector();
 }
 
 void GgafDxCamera::processBehavior() {
-    //if (isMoving() || _pViewPoint->isMoving()) {
+    //if (isMoving() || _pCameraViewPoint->isMoving()) {
         //if (_frame_of_behaving % 2 == 0) { //10フレームに１回だけ計算
         //スクリーン全体のクライアント領域を保持。
 
@@ -218,8 +217,6 @@ void GgafDxCamera::processBehavior() {
 
 }
 
-
-
 void GgafDxCamera::processJudgement() {
     _x_prev = _x;
     _y_prev = _y;
@@ -229,21 +226,36 @@ void GgafDxCamera::processJudgement() {
     _pVecCamFromPoint->y = _fY;
     _pVecCamFromPoint->z = _fZ;
     GgafDxCameraViewPoint* pVp = getViewPoint();
-    _pVecCamLookatPoint->x = C_DX(pVp->_x);
-    _pVecCamLookatPoint->y = C_DX(pVp->_y);
-    _pVecCamLookatPoint->z = C_DX(pVp->_z);
+    _pVecCamLookatPoint->x = pVp->_fX;
+    _pVecCamLookatPoint->y = pVp->_fY;
+    _pVecCamLookatPoint->z = pVp->_fZ;
+    GgafDxCameraUpVector* pUpv = getCameraUpVector();
+    _pVecCamUp->x = pUpv->_fX;
+    _pVecCamUp->y = pUpv->_fY;
+    _pVecCamUp->z = pUpv->_fZ;
     D3DXMatrixLookAtLH(&_matView,
                        _pVecCamFromPoint, _pVecCamLookatPoint, _pVecCamUp);
 }
 
 GgafDxCameraViewPoint* GgafDxCamera::getViewPoint() {
-    if (_pViewPoint) {
-        return _pViewPoint;
+    if (_pCameraViewPoint) {
+        return _pCameraViewPoint;
     } else {
-        _pViewPoint = createViewPoint();
-        _pViewPoint->position(0, 0, 0);
-        addSubGroup(_pViewPoint);// 問題有り
-        return _pViewPoint;
+        _pCameraViewPoint = createCameraViewPoint();
+        _pCameraViewPoint->position(0, 0, 0);
+        addSubGroup(_pCameraViewPoint);
+        return _pCameraViewPoint;
+    }
+}
+
+GgafDxCameraUpVector* GgafDxCamera::getCameraUpVector() {
+    if (_pCameraUpVector) {
+        return _pCameraUpVector;
+    } else {
+        _pCameraUpVector = createCameraUpVector();
+        _pCameraUpVector->position(0, PX_C(1), 0);
+        addSubGroup(_pCameraUpVector);
+        return _pCameraUpVector;
     }
 }
 
@@ -252,18 +264,9 @@ void GgafDxCamera::setDefaultPosition() {
     _y = 0;
     _z = DX_C(_cameraZ_org);
     GgafDxCameraViewPoint* pVp = getViewPoint();
-    pVp->_x = 0;
-    pVp->_y = 0;
-    pVp->_z = 0;
-    _pVecCamUp->x = 0.0f;
-    _pVecCamUp->y = 1.0f;
-    _pVecCamUp->z = 0.0f;
-}
-
-void GgafDxCamera::setVecCamUp(float prm_up_x, float prm_up_y, float prm_up_z) {
-    _pVecCamUp->x = prm_up_x;
-    _pVecCamUp->y = prm_up_y;
-    _pVecCamUp->z = prm_up_z;
+    pVp->position(0, 0, 0);
+    GgafDxCameraUpVector* pUpv = getCameraUpVector();
+    pUpv->position(0, PX_C(1), 0);
 }
 
 bool GgafDxCamera::isMoving() {
@@ -272,6 +275,11 @@ bool GgafDxCamera::isMoving() {
     } else {
         return true;
     }
+}
+
+void GgafDxCamera::setCamUpVecByFaceNo(face26 prm_face_no) {
+    GgafDxCameraUpVector* pUpv = getCameraUpVector();
+    pUpv->positionByFaceNo(prm_face_no);
 }
 
 GgafDxCamera::~GgafDxCamera() {

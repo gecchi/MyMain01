@@ -465,7 +465,7 @@ void GgafDxAxesMover::execGravitationMvSequenceTwd(coord prm_tx, coord prm_ty, c
     forceVzMvVeloRange(-prm_max_velo, prm_max_velo);
 }
 
-void GgafDxAxesMover::execGravitationMvSequenceTwd(GgafDxGeometricActor* prm_pActor_target,
+void GgafDxAxesMover::execGravitationMvSequenceTwd(const GgafDxGeometricActor* prm_pActor_target,
                                                    velo prm_max_velo,
                                                    acce prm_acce,
                                                    int prm_stop_renge ) {

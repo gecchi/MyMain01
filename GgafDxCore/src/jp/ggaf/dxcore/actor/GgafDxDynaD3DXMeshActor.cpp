@@ -38,7 +38,7 @@ void GgafDxDynaD3DXMeshActor::processDraw() {
     ID3DXEffect* pID3DXEffect = _pMeshEffect->_pID3DXEffect;
     //(*_pFunc_calc_rot_mv_world_matrix)(this, _matWorld);
     HRESULT hr;
-//    hr = pID3DXEffect->SetMatrix( _pMeshEffect->_h_matView, &P_CAM->_matView );
+//    hr = pID3DXEffect->SetMatrix( _pMeshEffect->_h_matView, P_CAM->getViewMatrix() );
 //    checkDxException(hr, D3D_OK, "GgafDxDynaD3DXMeshActor::GgafDxMeshEffect SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_h_matWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "GgafDxDynaD3DXMeshActor::processDraw() SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

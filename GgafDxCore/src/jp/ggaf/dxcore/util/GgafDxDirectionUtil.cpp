@@ -1,14 +1,13 @@
-#include "jp/ggaf/lib/util/DirectionUtil.h"
+#include "jp/ggaf/dxcore/util/GgafDxDirectionUtil.h"
 
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
-using namespace GgafLib;
 
 #define V3E (0.57735026918963)    // 斜めの単位ベクトル各要素(t = (1.0 / √(1*1+1*1+1*1)) * 1 )
 #define V2E (0.70710678118655)    // t = (1.0 / √(1*1+1*1)) * 1
-DirectionUtil::FaceVec DirectionUtil::_vec[3*3*3] = {
+GgafDxDirectionUtil::FaceVec GgafDxDirectionUtil::_vec[3*3*3] = {
         {-V3E, -V3E, -V3E},      //FACE_NNN,     //TN(-1,-1,-1)
         {-V2E, -V2E,    0},      //FACE_NNZ,     //TN(-1,-1, 0)
         {-V3E, -V3E, +V3E},      //FACE_NNP,     //TN(-1,-1, 1)
@@ -38,9 +37,9 @@ DirectionUtil::FaceVec DirectionUtil::_vec[3*3*3] = {
         {+V3E, +V3E, +V3E}       //FACE_PPP      //TN( 1, 1, 1)
 
 };
-DirectionUtil::FaceVec* DirectionUtil::_face2vec = &(DirectionUtil::_vec[13]); //13 は 3*3*3=27 の真ん中の要素。_face2vec[-13～13]でアクセスする為
+GgafDxDirectionUtil::FaceVec* GgafDxDirectionUtil::_face2vec = &(GgafDxDirectionUtil::_vec[13]); //13 は 3*3*3=27 の真ん中の要素。_face2vec[-13～13]でアクセスする為
 
-DirectionUtil::FaceSgn DirectionUtil::_sgn[3*3*3] = {
+GgafDxDirectionUtil::FaceSgn GgafDxDirectionUtil::_sgn[3*3*3] = {
          {-1,-1,-1 },      //FACE_NNN,
          {-1,-1, 0 },      //FACE_NNZ,
          {-1,-1, 1 },      //FACE_NNP,
@@ -69,28 +68,28 @@ DirectionUtil::FaceSgn DirectionUtil::_sgn[3*3*3] = {
          { 1, 1, 0 },      //FACE_PPZ,
          { 1, 1, 1 }       //FACE_PPP
 };
-DirectionUtil::FaceSgn* DirectionUtil::_face2sgn = &(DirectionUtil::_sgn[13]); //13 は 3*3*3=27 の真ん中の要素。_face2sgn[-13～13]でアクセスする為
+GgafDxDirectionUtil::FaceSgn* GgafDxDirectionUtil::_face2sgn = &(GgafDxDirectionUtil::_sgn[13]); //13 は 3*3*3=27 の真ん中の要素。_face2sgn[-13～13]でアクセスする為
 
-bool DirectionUtil::is_init = false;
+bool GgafDxDirectionUtil::is_init = false;
 
 
-void DirectionUtil::init() {
-    if (DirectionUtil::is_init) {
+void GgafDxDirectionUtil::init() {
+    if (GgafDxDirectionUtil::is_init) {
         return;
     }
-    _TRACE_("DirectionUtil::init()");
+    _TRACE_("GgafDxDirectionUtil::init()");
 
 
-    DirectionUtil::is_init = true;
+    GgafDxDirectionUtil::is_init = true;
 }
-face26 DirectionUtil::cnvVec2FaceNo(float prm_vx, float prm_vy, float prm_vz) {
+face26 GgafDxDirectionUtil::cnvVec2FaceNo(float prm_vx, float prm_vy, float prm_vz) {
     int sgn_x, sgn_y, sgn_z;
-    DirectionUtil::cnvVec2Sgn(prm_vx, prm_vy, prm_vz,
+    GgafDxDirectionUtil::cnvVec2Sgn(prm_vx, prm_vy, prm_vz,
                               sgn_x, sgn_y, sgn_z);
     return TN(sgn_x, sgn_y, sgn_z);
 }
 
-void DirectionUtil::cnvVec2Sgn(float prm_vx, float prm_vy, float prm_vz,
+void GgafDxDirectionUtil::cnvVec2Sgn(float prm_vx, float prm_vy, float prm_vz,
                                 int& out_sgn_x, int& out_sgn_y, int& out_sgn_z) {
     //半径１に内接する正八角形の１辺は 2√2 - 2
     //                  y
@@ -155,14 +154,14 @@ void DirectionUtil::cnvVec2Sgn(float prm_vx, float prm_vy, float prm_vz,
 }
 
 
-void DirectionUtil::cnvFaceNo2Vec(face26 prm_face_no, float& out_vx, float& out_vy, float& out_vz) {
-    out_vx = DirectionUtil::_face2vec[prm_face_no].vx;
-    out_vy = DirectionUtil::_face2vec[prm_face_no].vy;
-    out_vz = DirectionUtil::_face2vec[prm_face_no].vz;
+void GgafDxDirectionUtil::cnvFaceNo2Vec(face26 prm_face_no, float& out_vx, float& out_vy, float& out_vz) {
+    out_vx = GgafDxDirectionUtil::_face2vec[prm_face_no].vx;
+    out_vy = GgafDxDirectionUtil::_face2vec[prm_face_no].vy;
+    out_vz = GgafDxDirectionUtil::_face2vec[prm_face_no].vz;
 }
 
-void DirectionUtil::cnvFaceNo2Sgn(face26 prm_face_no, int& out_sgn_x, int& out_sgn_y, int& out_sgn_z) {
-    out_sgn_x = DirectionUtil::_face2sgn[prm_face_no].sgn_x;
-    out_sgn_y = DirectionUtil::_face2sgn[prm_face_no].sgn_y;
-    out_sgn_z = DirectionUtil::_face2sgn[prm_face_no].sgn_z;
+void GgafDxDirectionUtil::cnvFaceNo2Sgn(face26 prm_face_no, int& out_sgn_x, int& out_sgn_y, int& out_sgn_z) {
+    out_sgn_x = GgafDxDirectionUtil::_face2sgn[prm_face_no].sgn_x;
+    out_sgn_y = GgafDxDirectionUtil::_face2sgn[prm_face_no].sgn_y;
+    out_sgn_z = GgafDxDirectionUtil::_face2sgn[prm_face_no].sgn_z;
 }

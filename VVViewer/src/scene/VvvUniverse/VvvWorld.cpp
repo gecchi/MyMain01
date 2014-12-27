@@ -24,7 +24,7 @@
 
 #include <scene/VvvUniverse/test/TestScene.h>
 
-#include "jp/ggaf/lib/util/DirectionUtil.h"
+#include "jp/ggaf/dxcore/util/GgafDxDirectionUtil.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -91,9 +91,8 @@ void VvvWorld::processBehavior() {
     if (GgafDxInput::isPushedDownKey(DIK_F1)) {
         //ƒJƒƒ‰‚ð‰ŠúˆÊ’u‚Ö
         VvvCamera* pCam = P_CAM;
-        pCamWorker_->slideMvCamTo(0,0,DX_C(pCam->_cameraZ_org),60);
+        pCamWorker_->slideMvCamTo(0,0,DX_C(pCam->getZOrigin()),60);
         pCamWorker_->slideMvVpTo(0,0,0,60);
-        pCam->slideUpCamTo(DirectionUtil::FACE_ZPZ); //ã
         pCam->auto_up_wait_frames = 65;
 
     } else if (GgafDxInput::isPushedDownKey(DIK_F2)) {

@@ -34,7 +34,7 @@ public:
 
     void useProgress(int prm_num = 10) override;
 
-    SceneProgress* getProgress() override;
+    virtual SceneProgress* getProgress() const override; //‹¤•Ï–ß‚è’l
 
     virtual void initialize() override {
     }

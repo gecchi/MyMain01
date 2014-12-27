@@ -13,16 +13,16 @@ GgafDxPointSpriteEffect::GgafDxPointSpriteEffect(char* prm_effect_name) : GgafDx
 //    hr = _pID3DXEffect->SetMatrix( "g_matView", &GgafDxGod::_matView );
 //    checkDxException(hr, D3D_OK, "GgafDxPointSpriteEffect::GgafDxPointSpriteEffect SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     //éÀâeïœä∑çsóÒ
-    hr = _pID3DXEffect->SetMatrix("g_matProj", &P_CAM->_matProj );
+    hr = _pID3DXEffect->SetMatrix("g_matProj", P_CAM->getProjectionMatrix() );
     checkDxException(hr, D3D_OK, "GgafDxPointSpriteEffect::GgafDxPointSpriteEffect SetMatrix(g_matProj) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = _pID3DXEffect->SetFloat("g_dist_CamZ_default", -(P_CAM->_cameraZ_org));
+    hr = _pID3DXEffect->SetFloat("g_dist_CamZ_default", -(P_CAM->getZOrigin()));
     checkDxException(hr, D3D_OK, "GgafDxPointSpriteEffect::GgafDxPointSpriteEffect SetFloat(g_dist_CamZ_default) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = _pID3DXEffect->SetFloat("g_zn", P_CAM->_zn);
+    hr = _pID3DXEffect->SetFloat("g_zn", P_CAM->getZNear());
     checkDxException(hr, D3D_OK, "GgafDxPointSpriteEffect::GgafDxPointSpriteEffect SetFloat(g_zn) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = _pID3DXEffect->SetFloat("g_zf", P_CAM->_zf);
+    hr = _pID3DXEffect->SetFloat("g_zf", P_CAM->getZFar());
     checkDxException(hr, D3D_OK, "GgafDxPointSpriteEffect::GgafDxSpriteEffect SetFloat(g_zf) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
-    //_TRACE_("GgafDxPointSpriteEffect::GgafDxPointSpriteEffect g_dist_CamZ_default="<<P_CAM->_zn<<" g_dist_CamZ_default="<<( -(P_CAM->_cameraZ_org))<<"");
+    //_TRACE_("GgafDxPointSpriteEffect::GgafDxPointSpriteEffect g_dist_CamZ_default="<<P_CAM->getZNear()<<" g_dist_CamZ_default="<<( -(P_CAM->_cameraZ_org))<<"");
     //checkDxException(hr, D3D_OK, "GgafDxPointSpriteEffect::GgafDxPointSpriteEffect SetFloat(g_zn) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     //ÉVÉFÅ[É_Å[ÉnÉìÉhÉã
     _h_matView  = _pID3DXEffect->GetParameterByName( nullptr, "g_matView" );
@@ -38,7 +38,7 @@ GgafDxPointSpriteEffect::GgafDxPointSpriteEffect(char* prm_effect_name) : GgafDx
 }
 
 void GgafDxPointSpriteEffect::setParamPerFrame() {
-    HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, &(P_CAM->_matView) );
+    HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, P_CAM->getViewMatrix() );
     checkDxException(hr, D3D_OK, "setParamPerFrame SetMatrix(_h_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 }
 

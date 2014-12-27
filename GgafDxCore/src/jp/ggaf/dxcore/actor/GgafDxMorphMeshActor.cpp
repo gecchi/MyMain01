@@ -124,7 +124,7 @@ void GgafDxMorphMeshActor::processDraw() {
     GgafDxMorphMeshEffect* pMorphMeshEffect = _pMorphMeshEffect;
     ID3DXEffect* pID3DXEffect = pMorphMeshEffect->_pID3DXEffect;
     HRESULT hr;
-    hr = pID3DXEffect->SetMatrix(pMorphMeshEffect->_h_matView, &P_CAM->_matView );
+    hr = pID3DXEffect->SetMatrix(pMorphMeshEffect->_h_matView, P_CAM->getViewMatrix() );
     checkDxException(hr, D3D_OK, "GgafDxMorphMeshActor::processDraw() SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = pID3DXEffect->SetInt(pMorphMeshEffect->_h_morph_target_num, _pMorphMeshModel->_morph_target_num);
     checkDxException(hr, D3D_OK, "GgafDxMorphMeshActor::processDraw() SetInt(_h_morph_target_num) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

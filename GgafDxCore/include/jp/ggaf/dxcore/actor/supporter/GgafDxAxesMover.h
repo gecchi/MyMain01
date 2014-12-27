@@ -59,7 +59,7 @@ public:
     coord _grv_mv_target_x;
     coord _grv_mv_target_y;
     coord _grv_mv_target_z;
-    GgafDxGeometricActor* _grv_mv_pActor_target;
+    const GgafDxGeometricActor* _grv_mv_pActor_target;
     velo _grv_mv_max_velo;
     acce _grv_mv_acce;
     coord _grv_mv_stop_renge;
@@ -341,7 +341,7 @@ public:
      * @param prm_acce 引き寄せられている最中の各軸(XYZ)の軸移動加速度上限値
      * @param prm_stop_renge 速度が抑えられる目標座標からの各軸の距離
      */
-    void execGravitationMvSequenceTwd(GgafDxGeometricActor* prm_pActor_target,
+    void execGravitationMvSequenceTwd(const GgafDxGeometricActor* prm_pActor_target,
                                       velo prm_max_velo,
                                       acce prm_acce,
                                       coord prm_stop_renge);
@@ -350,7 +350,7 @@ public:
      * 重力により物体が引き寄せられるかような感じの動きみたいな感じっぽいの目標座標を更新設定 .
      * @param prm_pActor_target 引き寄せられて到達する目標座標となるアクター
      */
-    void setGravitationTwd(GgafDxGeometricActor* prm_pActor_target) {
+    void setGravitationTwd(const GgafDxGeometricActor* prm_pActor_target) {
         _grv_mv_target_x = 0;
         _grv_mv_target_y = 0;
         _grv_mv_target_z = 0;

@@ -72,7 +72,7 @@ void GgafDxSeTransmitterForActor::play3D(int prm_id) {
     double DY = C_PX(pCam->_y - _pActor->_y);
     double DZ = C_PX(pCam->_z - _pActor->_z);
     double d = sqrt(DX*DX + DY*DY + DZ*DZ); //dはピクセル
-    int vol =  VOLUME_MIN_3D + ((1.0 - (d / (DX_PX(pCam->_zf)*0.6) )) * VOLUME_RANGE_3D); // 0.6 は調整補正、最遠でもMAX*0.4倍の音量となる。
+    int vol =  VOLUME_MIN_3D + ((1.0 - (d / (DX_PX(pCam->getZFar())*0.6) )) * VOLUME_RANGE_3D); // 0.6 は調整補正、最遠でもMAX*0.4倍の音量となる。
                                                                                           // 値を減らすと、遠くても音量がより大きくなる。
     if (VOLUME_MAX_3D < vol) {
         vol = VOLUME_MAX_3D;
@@ -89,8 +89,8 @@ void GgafDxSeTransmitterForActor::play3D(int prm_id) {
     angle ang = UTIL::getAngle2D(fDist_VpVerticalCenter, -_pActor->_dest_from_vppln_front );
     float pan = ANG_COS(ang) * 0.9; //0.9は完全に右のみ或いは左のみから聞こえるのをやや緩和
 
-    int delay = (d / DX_PX(pCam->_zf))*PROPERTY::MAX_SE_DELAY - 10; //10フレーム底上げ
-                                                                    //pCam->_zf はカメラの表示範囲の最遠距離
+    int delay = (d / DX_PX(pCam->getZFar()))*PROPERTY::MAX_SE_DELAY - 10; //10フレーム底上げ
+                                                                    //pCam->getZFar() はカメラの表示範囲の最遠距離
                                                                     //最遠に位置したアクターのSEはMAX_SE_DELAYフレーム遅れる
     if (delay < 0) {
         delay = 0;
@@ -163,7 +163,7 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
 
                         //リアルタイムの音量を計算
                         double d = sqrt(DX*DX + DY*DY + DZ*DZ); //dはピクセル
-                        vol =  VOLUME_MIN_3D + ((1.0 - (d / (DX_PX(pCam->_zf)*0.6) )) * VOLUME_RANGE_3D); //0.6 は調整補正
+                        vol =  VOLUME_MIN_3D + ((1.0 - (d / (DX_PX(pCam->getZFar())*0.6) )) * VOLUME_RANGE_3D); //0.6 は調整補正
 
                         if (VOLUME_MAX_3D < vol) {
                             vol = VOLUME_MAX_3D;

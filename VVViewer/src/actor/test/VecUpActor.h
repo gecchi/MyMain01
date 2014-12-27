@@ -40,4 +40,3 @@ public:
 
 }
 #endif /*VECUPACTOR_H_*/
-

@@ -55,7 +55,7 @@ public:
 
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
-    bool isOutOfUniverse() override;
+    bool isOutOfUniverse() const override;
 
     void onInactive() override;
 

@@ -225,8 +225,8 @@ void GgafDxDrawableActor::processPreDraw() {
 
                 static const double dep_rate_point1 = 0.3;                                //r‚­‚È‚éƒ|ƒCƒ“ƒg‚P‚ÌŠ„‡(ƒJƒƒ‰‰ÂŽ‹‰œs‚Ì 3/10 ‚Ì’n“_)
                 static const double dep_rate_point2 = 0.6;                                //r‚­‚È‚éƒ|ƒCƒ“ƒg‚Q‚ÌŠ„‡(ƒJƒƒ‰‰ÂŽ‹‰œs‚Ì 6/10 ‚Ì’n“_)
-                static const dxcoord roughly_dep_point1 = (P_CAM->_zf * dep_rate_point1); //r‚­‚È‚éƒ|ƒCƒ“ƒg‚P‹——£
-                static const dxcoord roughly_dep_point2 = (P_CAM->_zf * dep_rate_point2); //r‚­‚È‚éƒ|ƒCƒ“ƒg‚Q‹——£
+                static const dxcoord roughly_dep_point1 = (P_CAM->getZFar() * dep_rate_point1); //r‚­‚È‚éƒ|ƒCƒ“ƒg‚P‹——£
+                static const dxcoord roughly_dep_point2 = (P_CAM->getZFar() * dep_rate_point2); //r‚­‚È‚éƒ|ƒCƒ“ƒg‚Q‹——£
                 static const double dep_level_rate_cam_to_point1 = 0.5;                   //Ž‹“_`r‚­‚È‚éƒ|ƒCƒ“ƒg‚P‚Ü‚Å‚ÌA[“xƒŒƒxƒ‹‚ð‹‚ß‚é‚½‚ß‚É‹——£‚Éæ‚¸‚éŠ„‡B
                 static const double dep_level_rate_point1_to_point2 = 0.2;                //r‚­‚È‚éƒ|ƒCƒ“ƒg‚P`ƒ|ƒCƒ“ƒg‚QŠÔ‚ÌA[“xƒŒƒxƒ‹‚ð‹‚ß‚é‚½‚ß‚É‹——£‚Éæ‚¸‚éŠ„‡B
                 static const double dep_level_rate_point2_to_far_away = 0.01;             //r‚­‚È‚éƒ|ƒCƒ“ƒg‚Q`Å‰“‚ÌA[“xƒŒƒxƒ‹‚ð‹‚ß‚é‚½‚ß‚É‹——£‚Éæ‚¸‚éŠ„‡B
@@ -326,7 +326,7 @@ void GgafDxDrawableActor::setMaterialBlue(float b) {
     }
 }
 
-void GgafDxDrawableActor::setMaterialColor(GgafCore::GgafRgb* prm_rgb) {
+void GgafDxDrawableActor::setMaterialColor(const GgafCore::GgafRgb* prm_rgb) {
     setMaterialColor(prm_rgb->_r, prm_rgb->_g, prm_rgb->_b);
 }
 

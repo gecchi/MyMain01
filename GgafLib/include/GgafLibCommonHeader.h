@@ -24,6 +24,8 @@ namespace GgafLib {
 class DefaultGod;
 class DefaultUniverse;
 class DefaultCamera;
+class DefaultCameraViewPoint;
+class DefaultCameraUpVector;
 class StgUtil;
 class VirtualButton;
 class VBReplayRecorder;

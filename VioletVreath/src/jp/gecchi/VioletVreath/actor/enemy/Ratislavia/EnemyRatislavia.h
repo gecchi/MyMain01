@@ -60,7 +60,7 @@ public:
 
     virtual int isOutOfView() override;
 
-    virtual bool isOutOfUniverse() override;
+    virtual bool isOutOfUniverse() const override;
 
     virtual ~EnemyRatislavia();
 

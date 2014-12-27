@@ -174,7 +174,7 @@ int EnemyRatislavia::isOutOfView() {
     return 0;
 }
 
-bool EnemyRatislavia::isOutOfUniverse() {
+bool EnemyRatislavia::isOutOfUniverse() const {
     if (GgafDxCore::GgafDxUniverse::_x_gone_left < _x) {
         return false;
     } else {

@@ -1,7 +1,7 @@
 #ifndef VIEWPOINT_H_
 #define VIEWPOINT_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
+#include "jp/ggaf/lib/actor/DefaultCameraViewPoint.h"
 
 namespace VioletVreath {
 
@@ -11,7 +11,7 @@ namespace VioletVreath {
  * @since 2013/12/05
  * @author Masatoshi Tsuge
  */
-class ViewPoint : public GgafDxCore::GgafDxCameraViewPoint {
+class ViewPoint : public GgafLib::DefaultCameraViewPoint {
 public:
     /** ïΩçsà⁄ìÆéxâá */
     GgafDxCore::GgafDxAxesMover* pAxsMver_;

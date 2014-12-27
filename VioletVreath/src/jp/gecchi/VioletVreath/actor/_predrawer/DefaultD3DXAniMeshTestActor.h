@@ -29,7 +29,7 @@ public:
         return 0;
     }
 
-    bool isOutOfUniverse() override {
+    bool isOutOfUniverse() const override {
         return false;
     }
 

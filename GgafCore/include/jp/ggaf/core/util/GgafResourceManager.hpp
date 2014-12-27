@@ -186,7 +186,7 @@ GgafResourceConnection<T>* GgafResourceManager<T>::find(char* prm_idstr) {
 
     while (pCurrent) {
         //_TRACE_("pCurrent->_idstr -> "<<(pCurrent->_idstr)<<" prm_idstr="<<prm_idstr);
-        if (UTIL::strcmp_ascii(pCurrent->_idstr, prm_idstr) == 0) {
+        if (strcmp(pCurrent->_idstr, prm_idstr) == 0) {
             return pCurrent;
         }
         pCurrent = pCurrent->_pNext;

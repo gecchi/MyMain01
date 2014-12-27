@@ -27,7 +27,7 @@ HoshiBoshi::HoshiBoshi(const char* prm_name, const char* prm_model_id) :
     h_far_rate_   = pID3DXEffect->GetParameterByName( nullptr, "g_far_rate" );
     effectBlendOne(); //‰ÁZ‡¬
     setHitAble(false);
-    CAM_ZF_ = ABS(DX_C(P_CAM->_zf));
+    CAM_ZF_ = ABS(DX_C(P_CAM->getZFar()));
     _TRACE_("HoshiBoshi::HoshiBoshi CAM_ZF_="<<CAM_ZF_);
     //“Æ©ƒ[ƒ‹ƒh•ÏŠ·
     defineRotMvWorldMatrix(HoshiBoshi::setWorldMatrix_HoshiBoshi);
@@ -35,7 +35,7 @@ HoshiBoshi::HoshiBoshi(const char* prm_name, const char* prm_model_id) :
     //¯X‚ÍDIRECTX‹——£-1.0`1.0i-10px`10px)‚Éû‚Ü‚Á‚Ä‚¢‚é‘O’ñ‚ÅA
     //Œ»‹óŠÔ‚Ì‘å‚«‚³‚ÉU‚ç‚Î‚ç‚¹‚é
     far_rate_ = 30.0f;
-    _sx = _sy = _sz =  (P_CAM->_zf*LEN_UNIT)*far_rate_;
+    _sx = _sy = _sz =  (P_CAM->getZFar()*LEN_UNIT)*far_rate_;
 }
 
 int HoshiBoshi::isOutOfView() {
@@ -43,7 +43,7 @@ int HoshiBoshi::isOutOfView() {
     return 0;
 }
 
-bool HoshiBoshi::isOutOfUniverse() {
+bool HoshiBoshi::isOutOfUniverse() const {
     //ƒQ[ƒ€À•W”ÍˆÍŠO”»’è–³‚µ
     return false;
 }
@@ -97,7 +97,7 @@ void HoshiBoshi::drawHitArea() {
 HoshiBoshi::~HoshiBoshi() {
 }
 
-void HoshiBoshi::setWorldMatrix_HoshiBoshi(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void HoshiBoshi::setWorldMatrix_HoshiBoshi(const GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //World•ÏŠ·
     //Šg‘åk¬ ~ X²‰ñ“] ~ Z²‰ñ“] ~ Y²‰ñ“] ~ •½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ğİ’è<BR>
     //¦XYZ‚Ì‡‚Å‚È‚¢‚±‚Æ‚É’ˆÓ

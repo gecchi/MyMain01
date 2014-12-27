@@ -13,7 +13,7 @@ HoshiBoshi002::HoshiBoshi002(const char* prm_name) :
     _class_name = "HoshiBoshi002";
     effectBlendOne(); //‰ÁŽZ‡¬
     setHitAble(false);
-    CAM_ZF_ = ABS(DX_C(P_CAM->_zf));
+    CAM_ZF_ = ABS(DX_C(P_CAM->getZFar()));
     setSpecialDrawDepth(DRAW_DEPTH_LEVEL_HOSHIBOSHI);
     _TRACE_("HoshiBoshi002::HoshiBoshi002 CAM_ZF_="<<CAM_ZF_);
 }
@@ -23,7 +23,7 @@ int HoshiBoshi002::isOutOfView() {
     return 0;
 }
 
-bool HoshiBoshi002::isOutOfUniverse() {
+bool HoshiBoshi002::isOutOfUniverse() const {
     //ƒQ[ƒ€À•W”ÍˆÍŠO”»’è–³‚µ
     return false;
 }

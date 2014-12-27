@@ -15,7 +15,7 @@ HoshiBoshiTitle::HoshiBoshiTitle(const char* prm_name) :
     pAFader_ = NEW GgafDxAlphaFader(this);
     //¯X‚ÍDIRECTX‹——£-1.0`1.0i-10px`10px)‚ÉŽû‚Ü‚Á‚Ä‚¢‚é‘O’ñB
     far_rate_ = 10.0f;
-    _sx = _sy = _sz =  (P_CAM->_zf*LEN_UNIT)*far_rate_;
+    _sx = _sy = _sz =  (P_CAM->getZFar()*LEN_UNIT)*far_rate_;
 }
 
 void HoshiBoshiTitle::onActive() {

@@ -13,10 +13,10 @@ GgafDxSpriteSetEffect::GgafDxSpriteSetEffect(char* prm_effect_name) : GgafDxEffe
 //    hr = _pID3DXEffect->SetMatrix( "g_matView", &GgafDxGod::_matView );
 //    checkDxException(hr, D3D_OK, "GgafDxSpriteSetEffect::GgafDxSpriteSetEffect SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     //éÀâeïœä∑çsóÒ
-    hr = _pID3DXEffect->SetMatrix("g_matProj", &P_CAM->_matProj );
+    hr = _pID3DXEffect->SetMatrix("g_matProj", P_CAM->getProjectionMatrix() );
     checkDxException(hr, D3D_OK, "GgafDxSpriteSetEffect::GgafDxSpriteSetEffect SetMatrix() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
-    hr = _pID3DXEffect->SetFloat("g_zf", P_CAM->_zf);
+    hr = _pID3DXEffect->SetFloat("g_zf", P_CAM->getZFar());
     checkDxException(hr, D3D_OK, "GgafDxSpriteEffect::GgafDxSpriteEffect SetFloat(g_zf) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 
@@ -177,7 +177,7 @@ GgafDxSpriteSetEffect::GgafDxSpriteSetEffect(char* prm_effect_name) : GgafDxEffe
 }
 
 void GgafDxSpriteSetEffect::setParamPerFrame() {
-    HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, &(P_CAM->_matView));
+    HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, P_CAM->getViewMatrix());
     checkDxException(hr, D3D_OK, "setParamPerFrame SetMatrix(_h_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 }
 

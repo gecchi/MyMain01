@@ -85,7 +85,7 @@ public:
      * まだ、編隊隊員確保が不十分で、callUpMember() をする余地があるかどうか。 .
      * @return true：余地あり／false：余地なし
      */
-    bool canCallUp();
+    bool canCallUp() const;
 
     /**
      * メンバーが残っていれば解放します。

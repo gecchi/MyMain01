@@ -4,7 +4,6 @@
 #include "jp/ggaf/lib/manager/SplineManufactureManager.h"
 
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/DirectionUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -18,7 +17,6 @@ DefaultGod::DefaultGod() :
 
 HRESULT DefaultGod::initDevice() {
     StgUtil::init();  //ユーティリティ準備
-    DirectionUtil::init();
     return GgafDxGod::initDevice();
 }
 

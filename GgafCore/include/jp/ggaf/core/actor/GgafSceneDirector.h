@@ -130,7 +130,7 @@ public:
     GgafGroupHead* addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor);
 
     /**
-     * 単独GgafActor、或いはGgafDummyActorが単独親となるGgafActor連続体を<BR>
+     * 単独GgafActor、或いはGgafDestructActorが単独親となるGgafActor連続体を<BR>
      * 種別は引数子アクターのステータス(getStatus())の項目 'STAT_DEFAULT_ACTOR_KIND' の値が、種別として
      * 上書きコピーされる。
      * 本関数はの部的処理は prm_pActor を GgafGroupHead の子アクターとしているだけである。<BR>

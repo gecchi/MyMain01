@@ -1,7 +1,7 @@
 #ifndef MYTORPEDOCONTROLLER_H_
 #define MYTORPEDOCONTROLLER_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/core/actor/ex/GgafDummyActor.h"
+#include "jp/ggaf/core/actor/ex/GgafDestructActor.h"
 
 namespace VioletVreath {
 
@@ -12,7 +12,7 @@ namespace VioletVreath {
  * @since 2010/09/15
  * @author Masatoshi Tsuge
  */
-class MyTorpedoController : public GgafCore::GgafDummyActor {
+class MyTorpedoController : public GgafCore::GgafDestructActor {
 
 public:
     /** [r]１オプション当たりの最大魚雷発射可能数 */

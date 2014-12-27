@@ -186,6 +186,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxFkFormation.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxCameraUpVector.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\interface\GgafDxIBumpMapActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxAxesMover.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxAxesMoverAssistantA.cpp" />
@@ -200,6 +201,7 @@
     <ClCompile Include="src\jp\ggaf\dxcore\sound\GgafDxBgmPerformer.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\sound\GgafDxSeTransmitter.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\util\GgafDxAgainstWay.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\util\GgafDxDirectionUtil.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\util\GgafDxGeoElem.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\util\XFile\framework\Frm_Mesh.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxAABActor.cpp" />
@@ -305,6 +307,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ex\ggafdxfkformation.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\ggafdxcameraupvector.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\interface\GgafDxIBumpMapActor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxaxesmover.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxaxesmoverassistanta.h" />
@@ -318,6 +321,7 @@
     <ClInclude Include="include\jp\ggaf\dxcore\sound\CWaveDecorder.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\sound\ggafdxbgmperformer.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\sound\ggafdxsetransmitter.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\util\ggafdxdirectionutil.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\framework\Frm_3DMath.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\framework\Frm_IO.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\framework\Frm_Material.h" />

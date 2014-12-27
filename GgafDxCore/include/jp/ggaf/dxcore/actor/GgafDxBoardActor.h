@@ -29,7 +29,7 @@ class GgafDxBoardActor : public GgafDxDrawableActor {
      * 使用不可のため、privateでoverride
      * @return
      */
-    bool isOutOfUniverse() override {
+    bool isOutOfUniverse() const override {
         throwGgafCriticalException("GgafDxBoardActor::isOutOfUniverse() は使用不可です。");
         return false;
     }
@@ -100,8 +100,8 @@ public:
     virtual void setAlign(GgafDxAlign prm_align);
     virtual void setValign(GgafDxValign prm_valign);
 
-    virtual void positionAs(GgafDxGeometricActor* prm_pActor) override;
-    virtual void positionAs(GgafDxGeoElem* prm_pGeoElem) override;
+    virtual void positionAs(const GgafDxGeometricActor* prm_pActor) override;
+    virtual void positionAs(const GgafDxGeoElem* prm_pGeoElem) override;
     virtual void setScale(scale s) override;
     virtual void setScale(scale sx, scale sy) override;
     virtual void setScale(scale sx, scale sy, scale sz) override;

@@ -1,6 +1,8 @@
 #include "jp/ggaf/lib/actor/DefaultCamera.h"
 
 #include "jp/ggaf/lib/GgafLibProperties.h"
+#include "jp/ggaf/lib/actor/DefaultCameraViewPoint.h"
+#include "jp/ggaf/lib/actor/DefaultCameraUpVector.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -20,6 +22,14 @@ DefaultCamera::DefaultCamera(const char* prm_name) :
     _class_name = "DefaultCamera";
 }
 
+GgafDxCameraViewPoint* DefaultCamera::createCameraViewPoint() {
+    DefaultCameraViewPoint* p = NEW DefaultCameraViewPoint("DefaultCameraViewPoint");
+    return (GgafDxCameraViewPoint*)p;
+}
 
+GgafDxCameraUpVector* DefaultCamera::createCameraUpVector() {
+    DefaultCameraUpVector* p = NEW DefaultCameraUpVector("DefaultCameraUpVector");
+    return (GgafDxCameraUpVector*)p;
+}
 DefaultCamera::~DefaultCamera() {
 }

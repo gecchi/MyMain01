@@ -15,7 +15,7 @@ SplineLineManager::SplineLineManager(const char* prm_manager_name) :
 SplineLine* SplineLineManager::processCreateResource(char* prm_idstr, void* prm_pConnector) {
     SplineLine* pResource = nullptr;
 
-    if (UTIL::strcmp_ascii("Spl_001", prm_idstr) == 0) {
+    if (strcmp("Spl_001", prm_idstr) == 0) {
         double p[][3] = { //        X ,        Y ,       Z
                           { -1024000 ,  -300000 ,  680000 },
                           {  -800000 ,   300000 ,  480000 },
@@ -38,7 +38,7 @@ SplineLine* SplineLineManager::processCreateResource(char* prm_idstr, void* prm_
         pResource = NEW SplineLine(p, 17, 0.2);//粒度 0.2
     }
 
-    if (UTIL::strcmp_ascii("Spl_00201_", prm_idstr) == 0) {
+    if (strcmp("Spl_00201_", prm_idstr) == 0) {
         //後方から
         double p[][3] = { //           X  ,                       Y ,                         Z
            { MyShip::lim_x_behaind_ - 500000.0 ,                      0.0 ,  MyShip::lim_z_left_ * 0.8 },
@@ -50,7 +50,7 @@ SplineLine* SplineLineManager::processCreateResource(char* prm_idstr, void* prm_
         pResource = NEW SplineLine(p, 5, 0.2); //粒度 0.2
     }
 
-    if (UTIL::strcmp_ascii("Spl_00202_", prm_idstr) == 0) {
+    if (strcmp("Spl_00202_", prm_idstr) == 0) {
         //後方から
         double p[][3] = { //           X  ,                          Y ,                         Z
            { MyShip::lim_x_behaind_ - 500000.0 ,                         0.0 , MyShip::lim_z_right_ * 0.8 },
@@ -62,7 +62,7 @@ SplineLine* SplineLineManager::processCreateResource(char* prm_idstr, void* prm_
         pResource = NEW SplineLine(p, 5, 0.2); //粒度 0.2
     }
 
-    if (UTIL::strcmp_ascii("Spl_HAN", prm_idstr) == 0) {
+    if (strcmp("Spl_HAN", prm_idstr) == 0) {
         double p[][3] = { //     X  ,       Y ,       Z
                           {  200000 ,     0.0 ,     0.0 },
                           {  250000 ,  200000 ,     0.0 },
@@ -89,7 +89,7 @@ SplineLine* SplineLineManager::processCreateResource(char* prm_idstr, void* prm_
         pResource = NEW SplineLine(p, 21, 0.2); //粒度 0.2
     }
 
-    if (UTIL::strcmp_ascii("Spl_Allas01", prm_idstr) == 0) {
+    if (strcmp("Spl_Allas01", prm_idstr) == 0) {
         double p[][3] = { //     X  ,       Y ,       Z
                           { -1.724577 ,  0.000000 ,  0.000000 },
                           { -0.964337 , -0.088378 , -0.344892 },

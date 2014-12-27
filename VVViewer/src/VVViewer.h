@@ -16,6 +16,7 @@ class VvvUniverse;
 class VvvWorld;
 class VvvCamera;
 class VvvViewPoint;
+class VvvCameraUpVector;
 class VvvCursor;
 class VvvGrid;
 class VvvCamWorker;

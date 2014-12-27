@@ -27,7 +27,7 @@ public:
         return 0;
     }
 
-    virtual bool isOutOfUniverse() override {
+    virtual bool isOutOfUniverse() const override {
         return false;
     }
 

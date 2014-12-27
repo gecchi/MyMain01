@@ -278,10 +278,6 @@ void GgafScene::clean(int prm_num_cleaning) {
     }
 }
 
-GgafSceneDirector* GgafScene::getSceneDirector() {
-    return _pSceneDirector;
-}
-
 GgafGod* GgafScene::askGod() {
     if (_pGod == nullptr) {
         _pGod = getParent()->askGod();

@@ -48,7 +48,7 @@ EnemyHalia::EnemyHalia(const char* prm_name) :
 
     useProgress(PROG_BANPEI);
     //‰ŠúƒJƒƒ‰ZˆÊ’u
-    dZ_camera_init_ = -1 * DX_C(P_CAM->_cameraZ_org);
+    dZ_camera_init_ = -1 * DX_C(P_CAM->getZOrigin());
 }
 
 void EnemyHalia::onCreateModel() {

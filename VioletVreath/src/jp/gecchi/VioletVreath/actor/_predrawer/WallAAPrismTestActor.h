@@ -19,7 +19,7 @@ public:
 
     void onCreateModel() override;
 
-    bool isOutOfUniverse() override;
+    bool isOutOfUniverse() const override;
 
     virtual ~WallAAPrismTestActor() {}
 };

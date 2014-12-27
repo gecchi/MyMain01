@@ -40,7 +40,7 @@ public:
         return 0; //í‚É•\¦
     }
 
-    virtual bool isOutOfUniverse() override {
+    virtual bool isOutOfUniverse() const override {
         return false; //í‚É•\¦
     }
 

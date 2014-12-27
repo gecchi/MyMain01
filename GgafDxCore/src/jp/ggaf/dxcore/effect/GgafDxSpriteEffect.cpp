@@ -13,10 +13,10 @@ GgafDxSpriteEffect::GgafDxSpriteEffect(char* prm_effect_name) : GgafDxEffect(prm
 //    hr = _pID3DXEffect->SetMatrix( "g_matView", &GgafDxGod::_matView );
 //    checkDxException(hr, D3D_OK, "GgafDxSpriteEffect::GgafDxSpriteEffect SetMatrix(g_matView) に失敗しました。");
     //射影変換行列
-    hr = _pID3DXEffect->SetMatrix("g_matProj", &P_CAM->_matProj );
+    hr = _pID3DXEffect->SetMatrix("g_matProj", P_CAM->getProjectionMatrix() );
     checkDxException(hr, D3D_OK, "GgafDxSpriteEffect::GgafDxSpriteEffect SetMatrix() に失敗しました。");
 
-    hr = _pID3DXEffect->SetFloat("g_zf", P_CAM->_zf);
+    hr = _pID3DXEffect->SetFloat("g_zf", P_CAM->getZFar());
     checkDxException(hr, D3D_OK, "GgafDxSpriteEffect::GgafDxSpriteEffect SetFloat(g_zf) に失敗しました。");
 
     //シェーダーハンドル
@@ -31,7 +31,7 @@ GgafDxSpriteEffect::GgafDxSpriteEffect(char* prm_effect_name) : GgafDxEffect(prm
 }
 
 void GgafDxSpriteEffect::setParamPerFrame() {
-    HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, &(P_CAM->_matView) );
+    HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, P_CAM->getViewMatrix() );
     checkDxException(hr, D3D_OK, "setParamPerFrame SetMatrix(_h_matView) に失敗しました。");
 }
 

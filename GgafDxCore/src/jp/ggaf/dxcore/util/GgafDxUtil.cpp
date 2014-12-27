@@ -753,9 +753,7 @@ void GgafDxUtil::convRzRyToVector(angle prm_ang_rz,
 }
 
 
-
-
-void GgafDxUtil::setWorldMatrix_ScRxRzRyMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDxUtil::setWorldMatrix_ScRxRzRyMv(const GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //World•ÏŠ·
     //Šg‘åk¬ ~ X²‰ñ“] ~ Z²‰ñ“] ~ Y²‰ñ“] ~ •½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ğİ’è<BR>
     //¦XYZ‚Ì‡‚Å‚È‚¢‚±‚Æ‚É’ˆÓ
@@ -803,7 +801,7 @@ void GgafDxUtil::setWorldMatrix_ScRxRzRyMv(GgafDxGeometricActor* prm_pActor, D3D
      */
 }
 
-void GgafDxUtil::setWorldMatrix_RzRy(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDxUtil::setWorldMatrix_RzRy(const GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //World•ÏŠ·
     //’PˆÊs—ñ ~ Z²‰ñ“] ~ Y²‰ñ“] ‚Ì•ÏŠ·s—ñ‚ğì¬
     //¦XYZ‚Ì‡‚Å‚È‚¢‚±‚Æ‚É’ˆÓ
@@ -872,7 +870,7 @@ void GgafDxUtil::setWorldMatrix_RzRy(angle prm_Rz, angle prm_Ry, D3DXMATRIX& out
     out_matWorld._44 = 1.0f;
 }
 
-void GgafDxUtil::setWorldMatrix_RxRzRy(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDxUtil::setWorldMatrix_RxRzRy(const GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //World•ÏŠ·
     //’PˆÊs—ñ ~ X²‰ñ“] ~ Z²‰ñ“] ~ Y²‰ñ“] ‚Ì•ÏŠ·s—ñ‚ğì¬
     //¦XYZ‚Ì‡‚Å‚È‚¢‚±‚Æ‚É’ˆÓ
@@ -945,7 +943,7 @@ void GgafDxUtil::setWorldMatrix_RxRzRy(angle prm_rx, angle prm_rz, angle prm_ry,
 }
 
 
-void GgafDxUtil::setWorldMatrix_ScRzRyMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDxUtil::setWorldMatrix_ScRzRyMv(const GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     float sinRz = ANG_SIN(prm_pActor->_rz);
     float cosRz = ANG_COS(prm_pActor->_rz);
     float sinRy = ANG_SIN(prm_pActor->_ry);
@@ -977,7 +975,7 @@ void GgafDxUtil::setWorldMatrix_ScRzRyMv(GgafDxGeometricActor* prm_pActor, D3DXM
 
 
 
-void GgafDxUtil::mulWorldMatrix_RzRyScMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDxUtil::mulWorldMatrix_RzRyScMv(const GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //    |  cosRz*cosRy*sx  sinRz*sy   cosRz*-sinRy*sz   0 |
     //    | -sinRz*cosRy*sx  cosRz*sy  -sinRz*-sinRy*sz   0 |
     //    |  sinRy*sx        0          cosRy*sz          0 |
@@ -1011,7 +1009,7 @@ void GgafDxUtil::mulWorldMatrix_RzRyScMv(GgafDxGeometricActor* prm_pActor, D3DXM
     out_matWorld._44 = 1.0f;
 }
 
-void GgafDxUtil::setWorldMatrix_RxRzRyScMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDxUtil::setWorldMatrix_RxRzRyScMv(const GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //World•ÏŠ·
     //’PˆÊs—ñ ~ X²‰ñ“] ~ Z²‰ñ“] ~ Y²‰ñ“] ~ Šg‘åk¬ ~ •½sˆÚ“®@‚Ì•ÏŠ·s—ñ‚ğì¬
     //¦XYZ‚Ì‡‚Å‚È‚¢‚±‚Æ‚É’ˆÓ
@@ -1051,7 +1049,7 @@ void GgafDxUtil::setWorldMatrix_RxRzRyScMv(GgafDxGeometricActor* prm_pActor, D3D
 }
 
 
-void GgafDxUtil::setWorldMatrix_RxRyRzScMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDxUtil::setWorldMatrix_RxRyRzScMv(const GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //World•ÏŠ·
     //’PˆÊs—ñ ~ X²‰ñ“] ~ Y²‰ñ“] ~ Z²‰ñ“] ~ Šg‘åk¬ ~ •½sˆÚ“®@‚Ì•ÏŠ·s—ñ‚ğì¬
     //    |                           cosRy*cosRz*sx,                        cosRy*sinRz*sy  ,      -sinRy*sz,  0 |
@@ -1091,8 +1089,7 @@ void GgafDxUtil::setWorldMatrix_RxRyRzScMv(GgafDxGeometricActor* prm_pActor, D3D
 }
 
 
-
-void GgafDxUtil::setWorldMatrix_RxRzRxScMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDxUtil::setWorldMatrix_RxRzRxScMv(const GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //World•ÏŠ·
     //’PˆÊs—ñ ~ X²‰ñ“] ~ Z²‰ñ“] ~ X²‰ñ“] ~ Šg‘åk¬ ~ •½sˆÚ“®@‚Ì•ÏŠ·s—ñ‚ğì¬.
     //¦Y²‰ñ“]‚ª‚ ‚è‚Ü‚¹‚ñBRY‚Í‚Q‰ñ–Ú‚ÌX²‰ñ“]‚Æ‚È‚é
@@ -1132,7 +1129,7 @@ void GgafDxUtil::setWorldMatrix_RxRzRxScMv(GgafDxGeometricActor* prm_pActor, D3D
 }
 
 
-void GgafDxUtil::setWorldMatrix_RzMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDxUtil::setWorldMatrix_RzMv(const GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //World•ÏŠ·
     //’PˆÊs—ñ ~ Z²‰ñ“] ~ •½sˆÚ“®@‚Ì•ÏŠ·s—ñ‚ğì¬
     // |cosZ  , sinZ , 0  , 0  |
@@ -1163,8 +1160,7 @@ void GgafDxUtil::setWorldMatrix_RzMv(GgafDxGeometricActor* prm_pActor, D3DXMATRI
 }
 
 
-
-void GgafDxUtil::setWorldMatrix_ScRzMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDxUtil::setWorldMatrix_ScRzMv(const GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //World•ÏŠ·
     //’PˆÊs—ñ ~ Šg‘åk¬ ~ Z²‰ñ“] ~ •½sˆÚ“®@‚Ì•ÏŠ·s—ñ‚ğì¬
     // |sx*cosZ , sx*sinZ , 0    , 0  |
@@ -1198,8 +1194,7 @@ void GgafDxUtil::setWorldMatrix_ScRzMv(GgafDxGeometricActor* prm_pActor, D3DXMAT
     out_matWorld._44 = 1.0f;
 }
 
-
-void GgafDxUtil::setWorldMatrix_ScMvRxRzRy(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDxUtil::setWorldMatrix_ScMvRxRzRy(const GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     float sinRx = ANG_SIN(prm_pActor->_rx);
     float cosRx = ANG_COS(prm_pActor->_rx);
     float sinRy = ANG_SIN(prm_pActor->_ry);
@@ -1235,23 +1230,14 @@ void GgafDxUtil::setWorldMatrix_ScMvRxRzRy(GgafDxGeometricActor* prm_pActor, D3D
 
 }
 
-
-
-
-void GgafDxUtil::updateWorldMatrix_Mv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDxUtil::updateWorldMatrix_Mv(const GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     out_matWorld._41 = prm_pActor->_fX;
     out_matWorld._42 = prm_pActor->_fY;
     out_matWorld._43 = prm_pActor->_fZ;
     out_matWorld._44 = 1.0f;
 }
 
-
-
-
-
-
-
-void GgafDxUtil::setWorldMatrix_BxyzScMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDxUtil::setWorldMatrix_BxyzScMv(const GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     float sx = SC_R(prm_pActor->_sx);
     float sy = SC_R(prm_pActor->_sy);
     float sz = SC_R(prm_pActor->_sz);
@@ -1277,8 +1263,7 @@ void GgafDxUtil::setWorldMatrix_BxyzScMv(GgafDxGeometricActor* prm_pActor, D3DXM
     out_matWorld._44 = 1.0f;
 }
 
-
-void GgafDxUtil::setWorldMatrix_BxyzMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDxUtil::setWorldMatrix_BxyzMv(const GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
 
     out_matWorld._11 = _pCam->_matView._11;
     out_matWorld._12 = _pCam->_matView._21;
@@ -1303,7 +1288,7 @@ void GgafDxUtil::setWorldMatrix_BxyzMv(GgafDxGeometricActor* prm_pActor, D3DXMAT
 
 
 
-void GgafDxUtil::setWorldMatrix_ScRzBxyzMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDxUtil::setWorldMatrix_ScRzBxyzMv(const GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
 
     float sinRz = ANG_SIN(prm_pActor->_rz);
     float cosRz = ANG_COS(prm_pActor->_rz);
@@ -1333,7 +1318,7 @@ void GgafDxUtil::setWorldMatrix_ScRzBxyzMv(GgafDxGeometricActor* prm_pActor, D3D
 }
 
 
-void GgafDxUtil::mulWorldMatrix_ScRxRzRyMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& inout_matWorld) {
+void GgafDxUtil::mulWorldMatrix_ScRxRzRyMv(const GgafDxGeometricActor* prm_pActor, D3DXMATRIX& inout_matWorld) {
     //World•ÏŠ·
     //Šg‘åk¬ ~ X²‰ñ“] ~ Z²‰ñ“] ~ Y²‰ñ“] ~ •½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ğİ’è<BR>
     //¦XYZ‚Ì‡‚Å‚È‚¢‚±‚Æ‚É’ˆÓ
@@ -1377,7 +1362,7 @@ void GgafDxUtil::mulWorldMatrix_ScRxRzRyMv(GgafDxGeometricActor* prm_pActor, D3D
 
 
 
-void GgafDxUtil::setWorldMatrix_RzBxyzMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDxUtil::setWorldMatrix_RzBxyzMv(const GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     D3DXMATRIX& matView = _pCam->_matView;
     float sinRz = ANG_SIN(prm_pActor->_rz);
     float cosRz = ANG_COS(prm_pActor->_rz);
@@ -1402,7 +1387,7 @@ void GgafDxUtil::setWorldMatrix_RzBxyzMv(GgafDxGeometricActor* prm_pActor, D3DXM
     out_matWorld._43 = prm_pActor->_fZ;
     out_matWorld._44 = 1.0f;
 }
-void GgafDxUtil::setWorldMatrix_ScMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDxUtil::setWorldMatrix_ScMv(const GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     out_matWorld._11 = SC_R(prm_pActor->_sx);
     out_matWorld._12 = 0.0f;
     out_matWorld._13 = 0.0f;

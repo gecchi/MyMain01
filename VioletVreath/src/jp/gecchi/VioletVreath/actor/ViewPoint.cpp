@@ -1,7 +1,6 @@
 #include "ViewPoint.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
-#include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/actor/DefaultMeshActor.h"
@@ -14,17 +13,17 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 ViewPoint::ViewPoint(const char* prm_name) :
-        GgafDxCameraViewPoint(prm_name) {
+        DefaultCameraViewPoint(prm_name) {
     _class_name = "ViewPoint";
     pAxsMver_ = NEW GgafDxAxesMover(this);
 }
 
 void ViewPoint::initialize() {
-    GgafDxCameraViewPoint::initialize();
+    DefaultCameraViewPoint::initialize();
 }
 
 void ViewPoint::processBehavior() {
-    GgafDxCameraViewPoint::processBehavior();
+    DefaultCameraViewPoint::processBehavior();
     pAxsMver_->behave();
     getKuroko()->behave();
 }

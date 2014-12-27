@@ -198,8 +198,9 @@ public:
      * 自シーンの監督を取得 .
      * @return シーン監督
      */
-    virtual GgafSceneDirector* getSceneDirector();
-
+    inline virtual GgafSceneDirector* getSceneDirector() const {
+        return _pSceneDirector;
+    }
 
     /**
      * デバッグ用：ツリー構造を表示 .

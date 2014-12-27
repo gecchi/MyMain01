@@ -181,7 +181,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\GgafDummyActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\ex\GgafDestructActor.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\GgafSceneDirector.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\CmRandomNumberGenerator.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\GgafActor.cpp" />
@@ -218,7 +218,7 @@
     <ClCompile Include="src\jp\ggaf\core\util\GgafXpm.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\jp\ggaf\core\actor\ex\ggafdummyactor.h" />
+    <ClInclude Include="include\jp\ggaf\core\actor\ex\GgafDestructActor.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\ggafscenedirector.h" />
     <ClInclude Include="include\jp\ggaf\core\util\CmRandomNumberGenerator.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\GgafActor.h" />

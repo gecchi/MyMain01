@@ -12,6 +12,7 @@
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
 #include "jp/ggaf/dxcore/sound/GgafDxSound.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
+#include "jp/ggaf/dxcore/util/GgafDxDirectionUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -1392,7 +1393,7 @@ HRESULT GgafDxGod::initDevice() {
     GgafDxUtil::init();  //ユーティリティ準備
     GgafDxInput::init(); //DirectInput準備
     GgafDxSound::init(); //DirectSound準備
-
+    GgafDxDirectionUtil::init();
     //デバイス初期化
     hr = initDx9Device();
     if (hr == E_FAIL) {

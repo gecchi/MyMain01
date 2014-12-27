@@ -32,7 +32,7 @@ public:
 
     int isOutOfView() override;
 
-    bool isOutOfUniverse() override;
+    bool isOutOfUniverse() const override;
 
     virtual ~DefaultPointSpriteTestActor();
 };

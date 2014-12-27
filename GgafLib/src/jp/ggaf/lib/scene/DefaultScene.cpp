@@ -22,7 +22,7 @@ void DefaultScene::useProgress(int prm_num) {
     }
 }
 
-SceneProgress* DefaultScene::getProgress() {
+SceneProgress* DefaultScene::getProgress() const {
     return (SceneProgress*)(GgafScene::getProgress());
 }
 

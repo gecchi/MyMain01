@@ -41,7 +41,7 @@ class GgafActor : public GgafElement<GgafActor> {
     friend class GgafMainActor;
     friend class GgafSceneDirector;
     friend class GgafGroupHead;
-    friend class GgafDummyActor;
+    friend class GgafDestructActor;
     friend class GgafScene;
     friend class GgafUniverse;
     friend class GgafGarbageBox;
@@ -106,7 +106,7 @@ public:
      * 注意：衝突能力があるかどうかでは無い。
      * @return	bool true:衝突可能状況／false:衝突不可能状況
      */
-    inline bool canHit() {
+    inline bool canHit() const {
         if (_can_live_flg && _is_active_flg && _can_hit_flg) {
             return true;
         } else {
@@ -166,7 +166,7 @@ public:
      * 未所属の場合nullptr
      * @return 所属Depository
      */
-    GgafActorDepository* getDependenceDepository() {
+    GgafActorDepository* getDependenceDepository() const {
         return _pDependenceDepository;
     }
 
@@ -205,8 +205,9 @@ public:
      * 自身がの所属のフォーメーションを返す .
      * @return フォーメーション。或いは、所属してない場合はnullptr
      */
-    virtual GgafFormation* getFormation();
-
+    inline virtual GgafFormation* getFormation() const {
+        return _pFormation;
+    }
     /**
      * さよならします .
      * Depository に所属している場合は inactiveAfter(prm_offset_frames) <BR>
@@ -229,7 +230,7 @@ public:
      * @param prm_Obj_xxxx 調べるクラスのマクロ定数
      * @return
      */
-    virtual bool instanceOf(classkind prm_Obj_xxxx) override {
+    virtual bool instanceOf(classkind prm_Obj_xxxx) const override {
         if ((Obj_SceneBit & prm_Obj_xxxx) == Obj_SceneBit) {
             //シーンを示すビットが立っていたら
             return false;
@@ -238,7 +239,7 @@ public:
         }
     }
 
-    inline GgafStatus* getStatus() {
+    inline GgafStatus* getStatus() const {
         return _pStatus;
     }
 

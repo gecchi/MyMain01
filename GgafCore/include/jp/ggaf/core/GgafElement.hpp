@@ -42,7 +42,7 @@ private:
      * ツリー構造において、再帰呼び出しを行う。
      * @param pFunc 再帰呼び出しするメソッド
      */
-    inline void callRecursive(void (GgafElement<T>::*pFunc)()) {
+    inline void callRecursive(void (GgafElement<T>::*pFunc)()) const {
         T* pElementTemp = GgafNode<T>::_pSubFirst;
         while (pElementTemp) {
             (pElementTemp->*pFunc)(); //実行
@@ -59,7 +59,7 @@ private:
      * @param pFunc 再帰呼び出しするメソッド(frame 引数有り)
      * @param prm_frame pFuncの引数であるframe
      */
-    inline void callRecursive(void (GgafElement<T>::*pFunc)(frame), frame prm_frame) {
+    inline void callRecursive(void (GgafElement<T>::*pFunc)(frame), frame prm_frame) const {
         T* pElementTemp = GgafNode<T>::_pSubFirst;
         while (pElementTemp) {
             (pElementTemp->*pFunc)(prm_frame); //実行
@@ -766,7 +766,9 @@ public:
      * 他のノードの状態変化を知りたい時のために、本メソッドを準備しました。<BR>
      * @return  bool true:非活動から活動状態切り替わった／false:切り替わっていない
      */
-    inline bool onChangeToActive();
+    inline bool onChangeToActive() const {
+        return (_can_live_flg && _on_change_to_active_flg) ? true : false;
+    }
 
     /**
      * 自ノードが活動状態から非活動に切り替わったかどうか調べる .
@@ -775,13 +777,15 @@ public:
      * 他のノードの状態変化を知りたい時のために、本メソッドを準備しました。<BR>
      * @return  bool true:活動状態から非活動に切り替わった／false:切り替わっていない
      */
-    inline bool onChangeToInactive();
+    inline bool onChangeToInactive() const {
+        return (_can_live_flg && _on_change_to_inactive_flg) ? true : false;
+    }
 
     /**
      * 生存可能状態か調べる
      * @return  bool true:生存可能状態／false:生存不可状態
      */
-    inline bool canLive() {
+    inline bool canLive() const {
         return _can_live_flg;
     }
 
@@ -790,7 +794,9 @@ public:
      * 自身フラグの状態で活動中かどうか判断
      * @return  bool true:活動中／false:非活動中
      */
-    inline bool isActive();
+    inline bool isActive() const {
+        return (_can_live_flg && _is_active_flg) ? true : false;
+    }
 
     /**
      * 自ツリーで活動中かどうか判断 <BR>
@@ -798,20 +804,26 @@ public:
      * 自身は活動出来ない。それも考慮した上で、本当に活動中かどうか判定を行う。
      * @return true:自ツリーで活動中／false:自ツリーで非活動中
      */
-    inline bool isActiveInTheTree();
+    inline bool isActiveInTheTree() const {
+        return (_is_active_in_the_tree_flg && _can_live_flg) ? true : false;
+    }
 
     /**
      * 一時停止状態かどうか判断
      * @return true:一時停止状態／false:一時停止状態では無い
      */
-    inline bool wasPaused();
+    inline bool wasPaused() const {
+        return _was_paused_flg;
+    }
 
     /**
      * 終了宣言したかどうか .
      * end(frame) が実行済みかどうか調べます。
      * @return true:終了宣言済み／false:まだ終了宣言されていない
      */
-    inline bool wasDeclaredEnd();
+    inline bool wasDeclaredEnd() const {
+        return (_will_end_after_flg || _can_live_flg == false) ? true : false;
+    }
 
     /**
      * 振る舞い状態時に加算されるフレーム数を取得する .
@@ -822,7 +834,7 @@ public:
      * 以降、振る舞い態時にフレーム加算される。<BR>
      * @return 振る舞いフレーム数総計
      */
-    inline frame getBehaveingFrame() {
+    inline frame getBehaveingFrame() const {
         return _frame_of_behaving;
     }
 
@@ -835,7 +847,7 @@ public:
      * getBehaveingFrame() と同じタイミングで加算される。processBehavior()では、1 ～ を返す。<BR>
      * @return onActive() からの振る舞いフレーム数
      */
-    inline frame getActiveFrame() {
+    inline frame getActiveFrame() const {
         return _frame_of_behaving_since_onActive;
     }
 
@@ -895,7 +907,7 @@ public:
         }
     }
 
-    virtual GgafProgress* getProgress() {
+    inline virtual GgafProgress* getProgress() const {
         return _pProg;
     }
 
@@ -1410,35 +1422,6 @@ void GgafElement<T>::end(frame prm_offset_frames) {
             pElementTemp = pElementTemp->_pNext;
         }
     }
-}
-
-template<class T>
-bool GgafElement<T>::isActive() {
-    return (_can_live_flg && _is_active_flg) ? true : false;
-}
-template<class T>
-bool GgafElement<T>::isActiveInTheTree() {
-    return (_is_active_in_the_tree_flg && _can_live_flg) ? true : false;
-}
-
-template<class T>
-bool GgafElement<T>::onChangeToActive() {
-    return (_can_live_flg && _on_change_to_active_flg) ? true : false;
-}
-
-template<class T>
-bool GgafElement<T>::onChangeToInactive() {
-    return (_can_live_flg && _on_change_to_inactive_flg) ? true : false;
-}
-
-template<class T>
-bool GgafElement<T>::wasPaused() {
-    return _was_paused_flg;
-}
-
-template<class T>
-bool GgafElement<T>::wasDeclaredEnd() {
-    return (_will_end_after_flg || _can_live_flg == false) ? true : false;
 }
 
 //template<class T>

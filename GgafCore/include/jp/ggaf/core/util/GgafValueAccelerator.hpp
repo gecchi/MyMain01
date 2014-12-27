@@ -616,7 +616,7 @@ public:
                     if (_prm._progress == 3) {
                         //減速中
                         //_TRACE_("減速中");
-                        if (_prm._frame_of_spent & 1 == 0) { //2回に1回
+                        if ((_prm._frame_of_spent & 1) == 0) { //2回に1回
                             //_TRACE_("補正・補正・補正");
                             //補正・補正・補正
                             //最後の台形補正

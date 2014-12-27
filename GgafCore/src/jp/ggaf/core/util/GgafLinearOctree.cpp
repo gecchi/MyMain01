@@ -81,14 +81,14 @@ void GgafLinearOctree::registerElem(GgafLinearOctreeElem* prm_pElem,
     uint32_t index = 0xffffffff; //tx1,ty1,tz1,tx2,ty2,tz2 から、これ(index)を求める
 
     //BOXの左下手前のXYZ座標点が所属する空間は、最大レベル空間でモートン順序通し空間番号は何番かを取得
-    uint32_t minnum_in_toplevel = getMortonOrderNumFromXYZindex(
+    uint32_t minnum_in_toplevel = GgafLinearOctree::getMortonOrderNumFromXYZindex(
                                     (uint32_t)((tx1 - _root_x1) * _r_top_level_dx),
                                     (uint32_t)((ty1 - _root_y1) * _r_top_level_dy),
                                     (uint32_t)((tz1 - _root_z1) * _r_top_level_dz)
                                   );
 
     //BOXの右上奥のXYZ座標点が所属する空間は、最大レベル空間でモートン順序通し空間番号は何番かを取得
-    uint32_t maxnum_in_toplevel = getMortonOrderNumFromXYZindex(
+    uint32_t maxnum_in_toplevel = GgafLinearOctree::getMortonOrderNumFromXYZindex(
                                     (uint32_t)((tx2 - _root_x1) * _r_top_level_dx),
                                     (uint32_t)((ty2 - _root_y1) * _r_top_level_dy),
                                     (uint32_t)((tz2 - _root_z1) * _r_top_level_dz)

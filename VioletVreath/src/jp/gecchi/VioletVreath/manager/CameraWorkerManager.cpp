@@ -19,23 +19,23 @@ CameraWorkerManager::CameraWorkerManager(const char* prm_manager_name) :
 CameraWorker* CameraWorkerManager::processCreateResource(char* prm_idstr, void* prm_pConnector) {
     CameraWorker* pResource = nullptr;
 
-    if (UTIL::strcmp_ascii("DefaultCamWorker", prm_idstr) == 0) {
+    if (strcmp("DefaultCamWorker", prm_idstr) == 0) {
         pResource = NEW DefaultCamWorker("DefaultCamWorker");
     }
 
-    if (UTIL::strcmp_ascii("VamSysCamWorker", prm_idstr) == 0) {
+    if (strcmp("VamSysCamWorker", prm_idstr) == 0) {
         pResource = NEW VamSysCamWorker("VamSysCamWorker");
     }
 
-    if (UTIL::strcmp_ascii("PauseCamWorker", prm_idstr) == 0) {
+    if (strcmp("PauseCamWorker", prm_idstr) == 0) {
         pResource = NEW PauseCamWorker("PauseCamWorker");
     }
 
-    if (UTIL::strcmp_ascii("TestCamWorker", prm_idstr) == 0) {
+    if (strcmp("TestCamWorker", prm_idstr) == 0) {
         pResource = NEW TestCamWorker("TestCamWorker");
     }
 
-    if (UTIL::strcmp_ascii("MyShipDivingCamWorker", prm_idstr) == 0) {
+    if (strcmp("MyShipDivingCamWorker", prm_idstr) == 0) {
         pResource = NEW MyShipDivingCamWorker("MyShipDivingCamWorker");
     }
 

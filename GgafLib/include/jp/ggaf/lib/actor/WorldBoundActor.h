@@ -43,7 +43,7 @@ public:
         return 0;
     }
 
-    virtual bool isOutOfUniverse() override {;
+    virtual bool isOutOfUniverse() const override {;
         //ƒQ[ƒ€À•W”ÍˆÍŠO”»’è–³‚µ
         return false;
     }

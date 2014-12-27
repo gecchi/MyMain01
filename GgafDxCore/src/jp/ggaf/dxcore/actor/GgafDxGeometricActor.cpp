@@ -173,7 +173,7 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         //となる
     }
 
-    //視錐台更新
+    //視錐台面からの距離を更新
     GgafDxCamera* pCam = P_CAM;
     _dest_from_vppln_top    = pCam->_plnTop.a * _fX +
                               pCam->_plnTop.b * _fY +
@@ -323,7 +323,7 @@ int GgafDxGeometricActor::isOutOfView() {
     return _offscreen_kind;
 }
 
-bool GgafDxGeometricActor::isOutOfUniverse() {
+bool GgafDxGeometricActor::isOutOfUniverse() const {
     if (GgafDxUniverse::_x_gone_left < _x) {
         if (_x < GgafDxUniverse::_x_gone_right) {
             if (GgafDxUniverse::_y_gone_bottom < _y) {
@@ -340,27 +340,27 @@ bool GgafDxGeometricActor::isOutOfUniverse() {
     return true;
 }
 
-void GgafDxGeometricActor::defineRotMvWorldMatrix(void (*prm_pFunc)(GgafDxGeometricActor*, D3DXMATRIX&)) {
+void GgafDxGeometricActor::defineRotMvWorldMatrix(void (*prm_pFunc)(const GgafDxGeometricActor*, D3DXMATRIX&)) {
     _pFunc_calc_rot_mv_world_matrix = prm_pFunc;
     (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
 }
 
-void GgafDxGeometricActor::positionAs(GgafDxGeoElem* prm_pGeoElem) {
+void GgafDxGeometricActor::positionAs(const GgafDxGeoElem* prm_pGeoElem) {
     _x = prm_pGeoElem->x;
     _y = prm_pGeoElem->y;
     _z = prm_pGeoElem->z;
 }
-void GgafDxGeometricActor::positionAboutAs(GgafDxGeoElem* prm_pGeoElem, coord margin) {
+void GgafDxGeometricActor::positionAboutAs(const GgafDxGeoElem* prm_pGeoElem, coord margin) {
     _x = RND_ABOUT(prm_pGeoElem->x, margin);
     _y = RND_ABOUT(prm_pGeoElem->y, margin);
     _z = RND_ABOUT(prm_pGeoElem->z, margin);
 }
-void GgafDxGeometricActor::setFaceAngAs(GgafDxGeometricActor* prm_pActor) {
+void GgafDxGeometricActor::setFaceAngAs(const GgafDxGeometricActor* prm_pActor) {
     _rx = prm_pActor->_rx;
     _ry = prm_pActor->_ry;
     _rz = prm_pActor->_rz;
 }
-void GgafDxGeometricActor::setFaceAngAs(GgafDxGeoElem* prm_pGeoElem) {
+void GgafDxGeometricActor::setFaceAngAs(const GgafDxGeoElem* prm_pGeoElem) {
     _rx = prm_pGeoElem->rx;
     _ry = prm_pGeoElem->ry;
     _rz = prm_pGeoElem->rz;
@@ -390,7 +390,7 @@ void GgafDxGeometricActor::setFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_t
                  );
 }
 
-void GgafDxGeometricActor::scaleAs(GgafDxGeometricActor* prm_pActor) {
+void GgafDxGeometricActor::scaleAs(const GgafDxGeometricActor* prm_pActor) {
     _sx = prm_pActor->_sx;
     _sy = prm_pActor->_sy;
     _sz = prm_pActor->_sz;

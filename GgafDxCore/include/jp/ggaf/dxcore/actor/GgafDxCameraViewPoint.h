@@ -1,5 +1,5 @@
-#ifndef GGAFDXCORE_GGAFDXCAMERAVIEWPOINT_H_
-#define GGAFDXCORE_GGAFDXCAMERAVIEWPOINT_H_
+#ifndef GGAFDXCORE_GGAFDXCAMERAUPPOINT_H_
+#define GGAFDXCORE_GGAFDXCAMERAUPPOINT_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 
@@ -14,41 +14,16 @@ namespace GgafDxCore {
 class GgafDxCameraViewPoint : public GgafDxGeometricActor {
 
 public:
-    coord _x_prev, _y_prev, _z_prev;
-    frame _offset_frames;
-
-public:
     GgafDxCameraViewPoint(const char* prm_name);
 
-    virtual void initialize() override;
-
-    virtual void processBehavior() override;
-
-    virtual void processJudgement() override {
+    virtual void processSettlementBehavior() override {
+        _fX = C_DX(_x);
+        _fY = C_DX(_y);
+        _fZ = C_DX(_z);
     }
-
-    virtual void processPreDraw() override {
-    }
-
-    virtual void processDraw() override {
-    }
-
-    virtual void processAfterDraw() override {
-    }
-
-    virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
-    }
-
-    virtual void processFinal() override {
-    }
-
-    virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override {
-    }
-
-    bool isMoving();
 
     virtual ~GgafDxCameraViewPoint();
 };
 
 }
-#endif /*GGAFDXCORE_GGAFDXCAMERAVIEWPOINT_H_*/
+#endif /*GGAFDXCORE_GGAFDXCAMERAUPPOINT_H_*/
