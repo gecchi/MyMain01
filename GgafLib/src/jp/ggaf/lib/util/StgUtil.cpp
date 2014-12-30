@@ -359,7 +359,7 @@ GgafDxDrawableActor* StgUtil::shotWay004(coord prm_x, coord prm_y, coord prm_z,
     angle expanse_rz = (D180ANG - prm_expanse_angle)/2;
 
     D3DXMATRIX matWorldRot;
-    GgafDxUtil::setWorldMatrix_RzRy(GgafDxUtil::simplifyAng(prm_rz-D90ANG),prm_ry, matWorldRot);
+    GgafDxUtil::setWorldMatrix_RzRy(GgafDxUtil::simplifyAng(prm_rz-D90ANG), prm_ry, matWorldRot);
 
     float vx, vy, vz;
     float tx, ty, tz; //最終方向の絶対座標の単位ベクトル

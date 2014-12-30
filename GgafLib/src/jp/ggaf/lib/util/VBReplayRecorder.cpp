@@ -70,7 +70,6 @@ void VBReplayRecorder::write(vb_sta prm_state) {
             _pRecNote->_frame_of_keeping++;
         }
     }
-
 }
 
 void VBReplayRecorder::outputFile(const char* prm_filename) {
@@ -110,7 +109,6 @@ bool VBReplayRecorder::importFile(const char* prm_filename) {
     }
     this->first();
     return true;
-}
 
 
 VBReplayRecorder::~VBReplayRecorder() {
@@ -127,3 +125,4 @@ VBReplayRecorder::~VBReplayRecorder() {
     }
 
 }
+

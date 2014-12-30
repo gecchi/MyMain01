@@ -17,7 +17,6 @@ template<class VAL_TYPE>
 class GgafValueAccelerator : public GgafObject {
 public:
 
-
     class SmoothPrm {
      public:
          /** [r]なめらか移動シークエンスを実行中はtrue */

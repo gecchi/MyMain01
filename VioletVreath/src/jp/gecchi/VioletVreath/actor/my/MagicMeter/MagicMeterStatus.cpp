@@ -36,7 +36,7 @@ void MagicMeterStatus::processDraw() {
     const coord mm_x = pMM->_x;
     const coord mm_y = pMM->_y;
     for (int i = 0; i < len_magics; i++) {
-        pMagic = pElem->_pValue;//一周したのでアクティブであるはず
+        pMagic = pElem->getValue();//一周したのでアクティブであるはず
         //各メーター下段表示（現在のレベルの残時間表示）
         if (pMagic->level_ > 0) {
             setAlpha(alpha1);

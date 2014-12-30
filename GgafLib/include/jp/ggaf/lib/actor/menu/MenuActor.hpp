@@ -1494,7 +1494,7 @@ void MenuActor<T>::riseMe() {
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor>::Elem* pElem = _lstItems.getElemFirst();
     int n_i = _lstItems.length();
     for (int i = 0; i < n_i; i++) {
-        p = pElem->_pValue;
+        p = pElem->getValue();
         p->position(T::_x + p->_x_local,
                     T::_y + p->_y_local,
                     T::_z + p->_z_local);
@@ -1506,7 +1506,7 @@ void MenuActor<T>::riseMe() {
     pElem = _lstDispActors.getElemFirst();
     int n_da = _lstDispActors.length();
     for (int i = 0; i < n_da; i++) {
-        p = pElem->_pValue;
+        p = pElem->getValue();
         p->position(T::_x + p->_x_local,
                     T::_y + p->_y_local,
                     T::_z + p->_z_local);
@@ -1588,7 +1588,7 @@ void MenuActor<T>::processBehavior() {
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor>::Elem* pElem = _lstItems.getElemFirst();
     int n_i = _lstItems.length();
     for (int i = 0; i < n_i; i++) {
-        p = pElem->_pValue;
+        p = pElem->getValue();
         p->position(T::_x + p->_x_local,
                     T::_y + p->_y_local,
                     T::_z + p->_z_local);
@@ -1608,7 +1608,7 @@ void MenuActor<T>::processBehavior() {
     pElem = _lstDispActors.getElemFirst();
     int n_da = _lstDispActors.length();
     for (int i = 0; i < n_da; i++) {
-        p = pElem->_pValue;
+        p = pElem->getValue();
         p->position(T::_x + p->_x_local,
                     T::_y + p->_y_local,
                     T::_z + p->_z_local);

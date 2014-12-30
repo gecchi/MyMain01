@@ -635,7 +635,7 @@ void MagicMeter::processDraw() {
     float z = float(C_PX(_z));
     float alpha = getAlpha();
     for (int i = 0; i < len_magics; i++) {
-        pMagic = pElem->_pValue;//一周したのでアクティブであるはず
+        pMagic = pElem->getValue();//一周したのでアクティブであるはず
         pMagic_level = pMagic->level_;
         n = 0;
         float wx = width_px_*i;
