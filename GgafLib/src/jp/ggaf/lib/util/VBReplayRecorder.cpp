@@ -109,7 +109,7 @@ bool VBReplayRecorder::importFile(const char* prm_filename) {
     }
     this->first();
     return true;
-
+}
 
 VBReplayRecorder::~VBReplayRecorder() {
     VBRecordNote* p = _pFirstVBNote;
