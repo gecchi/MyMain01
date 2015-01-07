@@ -8,7 +8,7 @@
 #include "jp/gecchi/VioletVreath/actor/ViewPointGuide.h"
 #include "jp/gecchi/VioletVreath/Properties.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World.h"
-#include "jp/gecchi/VioletVreath/actor/ViewPoint.h"
+#include "jp/gecchi/VioletVreath/actor/CameraViewPoint.h"
 #include "jp/gecchi/VioletVreath/actor/Camera.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
 

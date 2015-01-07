@@ -1,5 +1,5 @@
-#ifndef VVVVIEWPOINT_H_
-#define VVVVIEWPOINT_H_
+#ifndef VVVCAMERAUPVECTOR_H_
+#define VVVCAMERAUPVECTOR_H_
 #include "VVViewer.h"
 #include "jp/ggaf/lib/actor/DefaultCameraUpVector.h"
 
@@ -37,4 +37,4 @@ public:
 
 
 }
-#endif /*VVVVIEWPOINT_H_*/
+#endif /*VVVCAMERAUPVECTOR_H_*/

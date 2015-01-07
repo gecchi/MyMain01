@@ -8,7 +8,7 @@
 #include "jp/gecchi/VioletVreath/scene/Universe.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/actor/Camera.h"
-#include "jp/gecchi/VioletVreath/actor/ViewPoint.h"
+#include "jp/gecchi/VioletVreath/actor/CameraViewPoint.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
 
 using namespace GgafCore;
@@ -76,7 +76,7 @@ void VamSysCamWorker::processBehavior() {
         return; //MyShipSceneシーンが未だならカメラワーク禁止
     }
     Camera* pCam = pCam_;
-    ViewPoint* pVP = (ViewPoint*)(pCam->getViewPoint());
+    CameraViewPoint* pVP = (CameraViewPoint*)(pCam->getViewPoint());
     MyOptionController* pOptCtrler = P_MYSHIP_SCENE->papOptionCtrler_[0];
 
     //カメラ位置番号を決定処理

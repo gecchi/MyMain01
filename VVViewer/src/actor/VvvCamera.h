@@ -17,12 +17,8 @@ class VvvCamera : public GgafLib::DefaultCamera {
     int relation_up_vec_[3*3*3][3*3*3];
 
 public:
-//    int up_face_;
-//
-//    coord tx_, ty_, tz_;
     int vcv_face_;
     int vcv_face_prev_;
-
 
     /** 自動UP制御機能を一時的にOFFにするフレーム */
     frame auto_up_wait_frames;
@@ -34,10 +30,7 @@ public:
     /** 平行移動支援 */
     GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
-
 public:
-
-
     VvvCamera(const char* prm_name);
 
     GgafDxCore::GgafDxCameraUpVector* createCameraUpVector() override;

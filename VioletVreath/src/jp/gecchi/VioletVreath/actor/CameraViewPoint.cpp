@@ -1,4 +1,4 @@
-#include "ViewPoint.h"
+#include "CameraViewPoint.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
@@ -12,33 +12,33 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-ViewPoint::ViewPoint(const char* prm_name) :
+CameraViewPoint::CameraViewPoint(const char* prm_name) :
         DefaultCameraViewPoint(prm_name) {
-    _class_name = "ViewPoint";
+    _class_name = "CameraViewPoint";
     pAxsMver_ = NEW GgafDxAxesMover(this);
 }
 
-void ViewPoint::initialize() {
+void CameraViewPoint::initialize() {
     DefaultCameraViewPoint::initialize();
 }
 
-void ViewPoint::processBehavior() {
+void CameraViewPoint::processBehavior() {
     DefaultCameraViewPoint::processBehavior();
     pAxsMver_->behave();
     getKuroko()->behave();
 }
 
-void ViewPoint::slideMvTo(coord tx, coord ty, coord tz, frame t) {
-    //_TRACE_(" ViewPoint::slideMvTo("<<tx<<","<<ty<<","<<tz<<",t="<<t<<")  now("<<_x<<","<<_y<<","<<_z<<")");
+void CameraViewPoint::slideMvTo(coord tx, coord ty, coord tz, frame t) {
+    //_TRACE_(" CameraViewPoint::slideMvTo("<<tx<<","<<ty<<","<<tz<<",t="<<t<<")  now("<<_x<<","<<_y<<","<<_z<<")");
     //ƒJƒƒ‰‚Ê‚é‚Á‚ÆˆÚ“®
     pAxsMver_->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               0.3, 0.4, 0, true);
 }
-void ViewPoint::slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t) {
+void CameraViewPoint::slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t) {
     slideMvTo(pTarget->_x, pTarget->_y, pTarget->_z, t);
 }
 
-ViewPoint::~ViewPoint() {
+CameraViewPoint::~CameraViewPoint() {
     GGAF_DELETE(pAxsMver_);
 }

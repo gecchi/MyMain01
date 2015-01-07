@@ -17,7 +17,7 @@ public:
     /** [r]カメラへの参照 */
     VvvCamera* pCam_;
     /** [r]視点への参照 */
-    VvvViewPoint* pVp_;
+    VvvCameraViewPoint* pVp_;
     /** カメラマンの移動目標座標 */
     coord t_x_CAM_, t_y_CAM_, t_z_CAM_;
     /** カメラマンのビューポイントの移動目標座標 */

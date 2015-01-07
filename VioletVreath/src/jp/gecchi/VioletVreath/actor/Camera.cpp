@@ -1,7 +1,7 @@
 #include "Camera.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
-#include "ViewPoint.h"
+#include "CameraViewPoint.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
@@ -26,7 +26,7 @@ Camera::Camera(const char* prm_name) :
 }
 
 GgafDxCameraViewPoint* Camera::createCameraViewPoint() {
-    ViewPoint* pVP = NEW ViewPoint("ViewPoint");
+    CameraViewPoint* pVP = NEW CameraViewPoint("CameraViewPoint");
     return (GgafDxCameraViewPoint*)pVP;
 }
 GgafDxCameraUpVector* Camera::createCameraUpVector() {
@@ -39,7 +39,7 @@ void Camera::initialize() {
 }
 
 void Camera::processBehavior() {
-    ViewPoint* pVp = (ViewPoint*)getViewPoint();
+    CameraViewPoint* pVp = (CameraViewPoint*)getViewPoint();
     pAxsMver_->behave();
     getKuroko()->behave();
 
@@ -81,7 +81,7 @@ void Camera::slideMvTo(GgafDxGeometricActor* pTarget, frame t,
 }
 int Camera::getCamToVpFaceNo() {
     float vcv_x, vcv_y, vcv_z;
-    ViewPoint* pVP = (ViewPoint*)getViewPoint();
+    CameraViewPoint* pVP = (CameraViewPoint*)getViewPoint();
     UTIL::getNormalizeVector (
             pVP->_x - _x,
             pVP->_y - _y,

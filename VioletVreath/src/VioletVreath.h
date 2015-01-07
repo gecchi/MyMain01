@@ -284,7 +284,7 @@ class Stage02_Climax;
 
 class Camera;
 class CameraUpVector;
-class ViewPoint;
+class CameraViewPoint;
 class ViewPointGuide;
 class CameraWorker;
 class DefaultCamWorker;

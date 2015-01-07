@@ -8,7 +8,7 @@
 #include "VvvGod.h"
 #include "actor/VvvCamera.h"
 #include "scene/VvvUniverse.h"
-#include "actor/VvvViewPoint.h"
+#include "actor/VvvCameraViewPoint.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
 
 using namespace GgafCore;
@@ -36,7 +36,7 @@ VvvCamWorker::VvvCamWorker(const char* prm_name) : DefaultGeometricActor(prm_nam
 
 void VvvCamWorker::initialize() {
     pCam_ = P_CAM;
-    pVp_ = (VvvViewPoint*)(pCam_->getViewPoint());
+    pVp_ = (VvvCameraViewPoint*)(pCam_->getViewPoint());
     t_x_VP_ = pVp_->_x;
     t_y_VP_ = pVp_->_y;
     t_z_VP_ = pVp_->_z;

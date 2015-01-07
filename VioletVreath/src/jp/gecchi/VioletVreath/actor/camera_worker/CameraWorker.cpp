@@ -3,7 +3,7 @@
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/gecchi/VioletVreath/scene/Universe.h"
-#include "jp/gecchi/VioletVreath/actor/ViewPoint.h"
+#include "jp/gecchi/VioletVreath/actor/CameraViewPoint.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
@@ -33,7 +33,7 @@ CameraWorker::CameraWorker(const char* prm_name) : GgafMainActor(prm_name, nullp
 
 void CameraWorker::initialize() {
     pCam_ = P_CAM;
-    pVp_ = (ViewPoint*)(pCam_->getViewPoint());
+    pVp_ = (CameraViewPoint*)(pCam_->getViewPoint());
     t_x_VP_ = pVp_->_x;
     t_y_VP_ = pVp_->_y;
     t_z_VP_ = pVp_->_z;

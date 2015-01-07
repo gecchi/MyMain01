@@ -7,7 +7,7 @@ namespace VioletVreath {
 
 /**
  * カメラマン .
- * カメラ(VioletVreath::Camera)と、視点(VioletVreath::ViewPoint) を操り、
+ * カメラ(VioletVreath::Camera)と、視点(VioletVreath::CameraViewPoint) を操り、
  * さらに UPの方向ベクトル pUp_ を管理します。
  * @version 1.00
  * @since 2010/10/25
@@ -19,7 +19,7 @@ public:
     /** [r]カメラへの参照 */
     Camera* pCam_;
     /** [r]視点への参照 */
-    ViewPoint* pVp_;
+    CameraViewPoint* pVp_;
     /** カメラマンの移動目標座標 */
     coord t_x_CAM_, t_y_CAM_, t_z_CAM_;
     /** カメラマンのビューポイントの移動目標座標 */

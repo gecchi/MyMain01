@@ -2,7 +2,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
-#include "actor/VvvViewPoint.h"
+#include "actor/VvvCameraViewPoint.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
@@ -466,7 +466,7 @@ VvvCamera::VvvCamera(const char* prm_name) :
 }
 
 GgafDxCameraViewPoint* VvvCamera::createCameraViewPoint() {
-    VvvViewPoint* pVP = NEW VvvViewPoint("VvvViewPoint");
+    VvvCameraViewPoint* pVP = NEW VvvCameraViewPoint("VvvCameraViewPoint");
     return (GgafDxCameraViewPoint*)pVP;
 }
 
@@ -480,7 +480,7 @@ void VvvCamera::initialize() {
 }
 
 void VvvCamera::processBehavior() {
-    VvvViewPoint* pVP = (VvvViewPoint*)getViewPoint();
+    VvvCameraViewPoint* pVP = (VvvCameraViewPoint*)getViewPoint();
     VvvCameraUpVector* pUpV = (VvvCameraUpVector*)getCameraUpVector();
 
     pAxsMver_->behave();
@@ -555,7 +555,7 @@ void VvvCamera::slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t) {
 }
 int VvvCamera::getCamToVpFaceNo() {
     float vcv_x, vcv_y, vcv_z;
-    VvvViewPoint* pVP = (VvvViewPoint*)getViewPoint();
+    VvvCameraViewPoint* pVP = (VvvCameraViewPoint*)getViewPoint();
     UTIL::getNormalizeVector (
             pVP->_x - _x,
             pVP->_y - _y,
