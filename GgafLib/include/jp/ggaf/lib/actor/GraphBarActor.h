@@ -1,5 +1,5 @@
-#ifndef GRAPHBARACTOR_H_
-#define GRAPHBARACTOR_H_
+#ifndef GGAFLIB_GRAPHBARACTOR_H_
+#define GGAFLIB_GRAPHBARACTOR_H_
 #include "jp/ggaf/lib/actor/DefaultBoardActor.h"
 #include "jp/ggaf/lib/util/PxQuantity.h"
 
@@ -118,5 +118,5 @@ public:
 };
 
 }
-#endif /*GRAPHBARACTOR_H_*/
+#endif /*GGAFLIB_GRAPHBARACTOR_H_*/
 

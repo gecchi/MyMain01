@@ -1,5 +1,5 @@
-#ifndef CAPPEDGRAPHBARACTOR_H_
-#define CAPPEDGRAPHBARACTOR_H_
+#ifndef GGAFLIB_CAPPEDGRAPHBARACTOR_H_
+#define GGAFLIB_CAPPEDGRAPHBARACTOR_H_
 #include "jp/ggaf/lib/actor/GraphBarActor.h"
 
 namespace GgafLib {
@@ -36,5 +36,5 @@ public:
 };
 
 }
-#endif /*CAPPEDGRAPHBARACTOR_H_*/
+#endif /*GGAFLIB_CAPPEDGRAPHBARACTOR_H_*/
 
