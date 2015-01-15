@@ -13,6 +13,7 @@
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/CommonScene.h"
 
+#include "jp/ggaf/dxcore/util/GgafDxInput.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -23,15 +24,16 @@ EnemyStraea::EnemyStraea(const char* prm_name) :
         DefaultMeshActor(prm_name, "Straea", STATUS(EnemyStraea)) {
     pAFader_ = NEW GgafDxAlphaFader(this);
     //レーザー
-    laser_way_ = 3;
+    laser_way_ = 5;
     cnt_laserchip_ = 0;
     _x = 0;
     _y = 0;
     _z = 0;
     laser_length_ = 30;
-    laser_interval_ = 300;
+    laser_interval_ = 300; //発射間隔
+
     angvelo_turn_ = 5000;
-    ang_clearance_ = 30000;//開き具合
+    ang_clearance_ = 10000;//開き具合
     papapLaserChipDepo_ = NEW LaserChipDepository**[laser_way_];
     for (int i = 0; i < laser_way_; i++) {
         papapLaserChipDepo_[i] = NEW LaserChipDepository*[laser_way_];
@@ -88,7 +90,6 @@ void EnemyStraea::initialize() {
     pChecker->setColliSphere(0, PX_C(200));
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setRzRyMvAng(0, D180ANG);
-    pKuroko->setMvVelo(PX_C(5));
 }
 
 void EnemyStraea::onActive() {
@@ -123,7 +124,6 @@ void EnemyStraea::processBehavior() {
                 angle v = angvelo_turn_ / 50;
                 pKuroko->setFaceAngVelo(RND(-v, v), RND(-v, v), RND(-v, v));
                 pKuroko->setMvVelo(2000);
-                //_pKuroko->setMvVelo(0);
             }
             if (getActiveFrame() % laser_interval_ == 0) {
                 pProg->changeNext();

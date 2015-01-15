@@ -45,7 +45,8 @@ void EnemyStraeaLaserChip004::onActive() {
     getStatus()->reset();
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setMvVelo(10000);
-    pKuroko->setMvAcce(400);
+    pKuroko->setMvAcce(300);
+    //pKuroko->forceMvVeloRange(0, 70000);
     pKuroko->relateFaceByMvAng(true);
     pKurokoLeader_->stop();
     _force_alpha = 1.50; //Å‰‚Í‚¿‚å‚Á‚Æ–¾‚é‚ß

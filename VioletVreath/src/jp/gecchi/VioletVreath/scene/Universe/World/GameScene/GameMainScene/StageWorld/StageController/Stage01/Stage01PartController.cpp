@@ -22,19 +22,11 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,100,200,300,400,500,600,700,800,900,1000,1100};
-	_paFrame_NextEvent = new frame[12];
+	frame f[] = {1,300};
+	_paFrame_NextEvent = new frame[2];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 12;
-	orderActorToFactory(10000000, EnemyOebiusCore, "EnemyOebiusCore-1");
-	orderActorToFactory(10000001, EnemyOebiusCore, "EnemyOebiusCore-2");
-	orderActorToFactory(10000002, EnemyOebiusCore, "EnemyOebiusCore-3");
-	orderActorToFactory(10000003, EnemyOebiusCore, "EnemyOebiusCore-4");
-	orderActorToFactory(10000004, EnemyOebiusCore, "EnemyOebiusCore-5");
-	orderActorToFactory(10000005, EnemyOebiusCore, "EnemyOebiusCore-6");
-	orderActorToFactory(10000006, EnemyOebiusCore, "EnemyOebiusCore-7");
-	orderActorToFactory(10000007, EnemyOebiusCore, "EnemyOebiusCore-8");
-	orderActorToFactory(10000008, EnemyOebiusCore, "EnemyOebiusCore-9");
+	_event_num = 2;
+	orderActorToFactory(10000000, EnemyStraea, "EnemyStraea-1");
     // gen01 end
     useProgress(Stage01PartController::PROG_BANPEI-1);
 }
@@ -52,78 +44,15 @@ void Stage01PartController::processBehavior() {
 			case 1: {
 				break;
 			}
-			case 100: {
-				EnemyOebiusCore* p1 = (EnemyOebiusCore*)obtainActorFromFactory(10000000);
-				getSceneDirector()->addSubGroup(p1);
-				p1->position(RND_ABOUT(PX_C(2300), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND_ABOUT(0, PX_C(2000)) );
-				orderActorToFactory(10000009, EnemyOebiusCore, "EnemyOebiusCore-10");
-				break;
-			}
-			case 200: {
-				EnemyOebiusCore* p1 = (EnemyOebiusCore*)obtainActorFromFactory(10000001);
-				getSceneDirector()->addSubGroup(p1);
-				p1->position(RND_ABOUT(PX_C(2300), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND_ABOUT(0, PX_C(2000)) );
-				orderActorToFactory(10000010, EnemyOebiusCore, "EnemyOebiusCore-11");
-				break;
-			}
 			case 300: {
-				EnemyOebiusCore* p1 = (EnemyOebiusCore*)obtainActorFromFactory(10000002);
+				EnemyStraea* p1 = (EnemyStraea*)obtainActorFromFactory(10000000);
 				getSceneDirector()->addSubGroup(p1);
-				p1->position(RND_ABOUT(PX_C(2300), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND_ABOUT(0, PX_C(2000)) );
-				break;
-			}
-			case 400: {
-				EnemyOebiusCore* p1 = (EnemyOebiusCore*)obtainActorFromFactory(10000003);
-				getSceneDirector()->addSubGroup(p1);
-				p1->position(RND_ABOUT(PX_C(2300), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND_ABOUT(0, PX_C(2000)) );
-				break;
-			}
-			case 500: {
-				EnemyOebiusCore* p1 = (EnemyOebiusCore*)obtainActorFromFactory(10000004);
-				getSceneDirector()->addSubGroup(p1);
-				p1->position(RND_ABOUT(PX_C(2300), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND_ABOUT(0, PX_C(2000)) );
-				break;
-			}
-			case 600: {
-				EnemyOebiusCore* p2 = (EnemyOebiusCore*)obtainActorFromFactory(10000005);
-				getSceneDirector()->addSubGroup(p2);
-				p2->position(RND_ABOUT(PX_C(2300), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND_ABOUT(0, PX_C(2000)) );
-				break;
-			}
-			case 700: {
-				EnemyOebiusCore* p2 = (EnemyOebiusCore*)obtainActorFromFactory(10000006);
-				getSceneDirector()->addSubGroup(p2);
-				p2->position(RND_ABOUT(PX_C(2300), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND_ABOUT(0, PX_C(2000)) );
-				break;
-			}
-			case 800: {
-				EnemyOebiusCore* p2 = (EnemyOebiusCore*)obtainActorFromFactory(10000007);
-				getSceneDirector()->addSubGroup(p2);
-				p2->position(RND_ABOUT(PX_C(2300), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND_ABOUT(0, PX_C(2000)) );
-				break;
-			}
-			case 900: {
-				EnemyOebiusCore* p2 = (EnemyOebiusCore*)obtainActorFromFactory(10000008);
-				getSceneDirector()->addSubGroup(p2);
-				p2->position(RND_ABOUT(PX_C(2300), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND_ABOUT(0, PX_C(2000)) );
-				break;
-			}
-			case 1000: {
-				EnemyOebiusCore* p2 = (EnemyOebiusCore*)obtainActorFromFactory(10000009);
-				getSceneDirector()->addSubGroup(p2);
-				p2->position(RND_ABOUT(PX_C(2300), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND_ABOUT(0, PX_C(2000)) );
-				break;
-			}
-			case 1100: {
-				EnemyOebiusCore* p2 = (EnemyOebiusCore*)obtainActorFromFactory(10000010);
-				getSceneDirector()->addSubGroup(p2);
-				p2->position(RND_ABOUT(PX_C(2300), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND_ABOUT(0, PX_C(2000)) );
 				break;
 			}
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 12-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 2-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
 

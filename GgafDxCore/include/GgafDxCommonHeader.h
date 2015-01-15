@@ -363,13 +363,11 @@ class GgafDxUniverse;
 class GgafDxUtil;
 class GgafDxDirectionUtil;
 
-class GgafDxAgainstWay;
 class GgafDxSphereRadiusVectors;
 class GgafDxQuaternion;
 class GgafDxCollisionArea;
 class GgafDxCollisionPart;
 class GgafDxGeoElem;
-class GgafDxGeoChain;
 class GgafDxKuroko;
 class GgafDxKurokoAssistantA;
 class GgafDxKurokoAssistantB;

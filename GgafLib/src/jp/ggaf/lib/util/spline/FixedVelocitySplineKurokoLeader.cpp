@@ -155,15 +155,11 @@ void FixedVelocitySplineKurokoLeader::restart() {
         _cosRzMv_begin = ANG_COS(_ang_rz_mv_start);
         _sinRyMv_begin = ANG_SIN(_ang_ry_mv_start);
         _cosRyMv_begin = ANG_COS(_ang_ry_mv_start);
-        _distance_to_begin = UTIL::getDistance(
-                                       0.0, 0.0, 0.0,
-                                       p0x, p0y, p0z
-                                  );
+        _distance_to_begin = UTIL::getDistance(0.0, 0.0, 0.0,
+                                               p0x, p0y, p0z );
     } else if (_option == RELATIVE_COORD) {
-        _distance_to_begin = UTIL::getDistance(
-                                       0.0, 0.0, 0.0,
-                                       p0x, p0y, p0z
-                                  );
+        _distance_to_begin = UTIL::getDistance(0.0, 0.0, 0.0,
+                                               p0x, p0y, p0z );
     } else { //ABSOLUTE_COORD
         _distance_to_begin = UTIL::getDistance(
                                 (double)(_pActor_target->_x),
@@ -178,6 +174,7 @@ void FixedVelocitySplineKurokoLeader::behave() {
         GgafDxKuroko* const pKuroko_target = _pActor_target->getKuroko();
         //変わり目
         if (_leadning_fFrames >= _fFrame_of_next) {
+again:
             _point_index++;
             if ( _point_index == _pFixedVeloSplManuf->_sp->_rnum) {
                 if (_cnt_loop == _max_loop) {
@@ -192,12 +189,7 @@ void FixedVelocitySplineKurokoLeader::behave() {
                     _point_index++;
                 }
             }
-            coord x, y, z;
-            getPointCoord(_point_index, x, y, z);
-            pKuroko_target->turnMvAngTwd(x, y, z,
-                                         _pFixedVeloSplManuf->_angveloRzRyMv, 0,
-                                         _pFixedVeloSplManuf->_turn_way,
-                                         _pFixedVeloSplManuf->_turn_optimize);
+
             if (_point_index == 0) {
                 //最初の必然ブレイク、始点へ行く
                 //始点までに必要なフレーム数取得
@@ -206,12 +198,23 @@ void FixedVelocitySplineKurokoLeader::behave() {
                 //始点以外の場合次の補完点までに必要なフレーム数を更新
                 _fFrame_of_next = (1.0*_distance_to_begin / _pFixedVeloSplManuf->_velo_mvUnit) +
                                      _pFixedVeloSplManuf->_paFrame_need_at[_point_index];
-             }
+            }
         }
+        if (_leadning_fFrames >= _fFrame_of_next) {
+            //_fFrame_of_nextを次に進めても足りない場合、もう一つ_point_indexを進める
+            goto again;
+        }
+
+        coord x, y, z;
+        getPointCoord(_point_index, x, y, z);
+        pKuroko_target->turnMvAngTwd(x, y, z,
+                                     _pFixedVeloSplManuf->_angveloRzRyMv, 0,
+                                     _pFixedVeloSplManuf->_turn_way,
+                                     _pFixedVeloSplManuf->_turn_optimize);
+
         //キャラの速度が1000ならば、_leadning_fFrames ++;
         //キャラの速度が2000ならば  _leadning_fFrames += 2.0;
         //キャラの速度が500ならば、 _leadning_fFrames += 0.5
-//        _leadning_fFrames += (1.0*pKuroko_target->_velo_mv / LEN_UNIT);
         _leadning_fFrames += (pKuroko_target->_velo_mv * (1.0 / LEN_UNIT));
     }
 }

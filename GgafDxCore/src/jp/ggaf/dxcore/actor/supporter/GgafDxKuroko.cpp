@@ -1324,6 +1324,8 @@ void GgafDxKuroko::stopTurnMvAng() {
     if (_pAsstC) {
         _pAsstC->stopTurnMvAng();
     }
+    setRzRyMvAngVelo(0, 0);
+    setRzRyMvAngAcce(0, 0);
 }
 
 void GgafDxKuroko::stopTurnFaceAng() {
@@ -1335,6 +1337,10 @@ void GgafDxKuroko::stopTurnFaceAng() {
     if (_pAsstB) {
         _pAsstB->stopTurnFaceAng();
     }
+    setFaceAngVelo(AXIS_Z, 0);
+    setFaceAngVelo(AXIS_Y, 0);
+    setFaceAngAcce(AXIS_Z, 0);
+    setFaceAngAcce(AXIS_Y, 0);
 }
 
 bool GgafDxKuroko::isTurningFaceAng() {
