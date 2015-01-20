@@ -26,10 +26,10 @@ void CameraUpVector::processBehavior() {
     getKuroko()->behave();
 }
 
-void CameraUpVector::setFaceNo(int prm_face_no) {
+void CameraUpVector::moveTo(face26 prm_face_no, frame prm_spent) {
     dxcoord up_x, up_y, up_z;
     GgafDxDirectionUtil::cnvFaceNo2Vec(prm_face_no, up_x, up_y, up_z);
-    pAxsMver_->asst()->slideVxyzMvByDtTo(DX_C(up_x), DX_C(up_y), DX_C(up_z), 30, 0.3, 0.4, 0, true);
+    pAxsMver_->asst()->slideVxyzMvByDtTo(DX_C(up_x), DX_C(up_y), DX_C(up_z), prm_spent, 0.3, 0.4, 0, true);
     up_face_ = prm_face_no;
 }
 

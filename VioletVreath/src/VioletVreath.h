@@ -2,7 +2,7 @@
 #define VIOLETVREATHHEADER_H_
 #include "VioletVreath.h"
 
-//「DirectX9ライブラリ」を利用する（利用者は俺！）場合
+//「DirectXライブラリ」を利用する（利用者は俺！）場合
 //次の"GgafLibCommonHeader.h"ヘッダをインクルードします。
 
 #include "GgafLibCommonHeader.h"
@@ -214,8 +214,7 @@ enum {
 
 namespace VioletVreath {
 
-//その他のヘッダファイルはここに記述
-
+//前方宣言
 class God;
 class World;
 
@@ -227,8 +226,6 @@ class Cursor001;
 class PreDrawScene;
 class LaserChipTestActor;
 class DefaultMeshTestActor;
-
-
 
 class GameScene;
 class MyShipScene;
@@ -249,7 +246,6 @@ class RankUp004;
 class RankUp005;
 class RankUp006;
 class RankUp007;
-
 
 class StageWorld;
 class StageController;
@@ -300,7 +296,6 @@ class EnemyRatislavia;
 class EnemyRatislaviaEye;
 class EnemyRatislaviaEyeStraightLaserChip001;
 class EffectRatislaviaEye001;
-
 
 class SingleLaser;
 class Shot001;
@@ -395,7 +390,6 @@ class EffectEntry003;
 class HoshiBoshiTransit;
 class HoshiBoshiRankUp;
 class HoshiBoshi001;
-class HoshiBoshi002;
 class HoshiBoshiTitle;
 class WorldBoundSpaceTransit;
 class WorldBoundSpace001;
@@ -428,8 +422,6 @@ class TestNomal;
 
 class EnemyTamago01Actor;
 class GameGlobal;
-
-
 
 class EnemyEres;
 class EnemyEresShot001;
@@ -555,6 +547,7 @@ class EnemyOzartiaPillar01;
 
 class EnemyOebius;
 class EnemyOebiusCore;
+class EnemyOebiusController;
 class FormationOebius;
 class FormationOebius001;
 class FormationOebius002;
@@ -608,7 +601,7 @@ class DefaultPointSpriteTestActor;
 class DefaultSpriteTestActor;
 class DefaultSpriteSetTestActor;
 class GroundMeshTestActor;
-class HoshiBoshiTestActor;
+class HoshiboshiTestActor;
 class LaserChipTestActor;
 class SingleLaserTestActor;
 class SpriteMeshTestActor;

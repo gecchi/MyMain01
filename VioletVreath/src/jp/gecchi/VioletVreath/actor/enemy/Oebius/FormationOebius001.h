@@ -17,7 +17,7 @@ class FormationOebius001 : public FormationOebius {
 public:
     GgafLib::SplineManufactureConnection** papSplManufConn_;
 
-    FormationOebius001(const char* prm_name);
+    FormationOebius001(const char* prm_name, EnemyOebiusController* prm_pController);
 
     virtual void processBehavior() override;
     virtual void onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_row, int prm_col) override;

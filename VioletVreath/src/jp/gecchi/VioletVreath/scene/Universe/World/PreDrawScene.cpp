@@ -18,7 +18,7 @@
 #include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultPointSpriteTestActor.h"
 #include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultSpriteTestActor.h"
 #include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultSpriteSetTestActor.h"
-#include "jp/gecchi/VioletVreath/actor/_predrawer/HoshiBoshiTestActor.h"
+#include "jp/gecchi/VioletVreath/actor/_predrawer/HoshiboshiTestActor.h"
 #include "jp/gecchi/VioletVreath/actor/_predrawer/LaserChipTestActor.h"
 #include "jp/gecchi/VioletVreath/actor/_predrawer/SingleLaserTestActor.h"
 #include "jp/gecchi/VioletVreath/actor/_predrawer/SpriteMeshTestActor.h"
@@ -50,7 +50,7 @@ PreDrawScene::PreDrawScene(const char* prm_name) : DefaultScene(prm_name) {
 //    orderActorToFactory(id, DefaultPointSpriteTestActor, "DefaultPointSpriteTestActor");    id++;
 //    orderActorToFactory(id, DefaultSpriteTestActor     , "DefaultSpriteTestActor");         id++;
 //    orderActorToFactory(id, DefaultSpriteSetTestActor  , "DefaultSpriteSetTestActor");      id++;
-//    orderActorToFactory(id, HoshiBoshiTestActor        , "HoshiBoshiTestActor");            id++;
+    orderActorToFactory(id, HoshiBoshiTestActor        , "HoshiBoshiTestActor");            id++;
     orderActorToFactory(id, LaserChipTestActor         , "LaserChipTestActor");             id++;
     orderActorToFactory(id, SingleLaserTestActor       , "SingleLaserTestActor");           id++;
     orderActorToFactory(id, SpriteMeshTestActor        , "SpriteMeshTestActor");            id++;
@@ -144,7 +144,6 @@ void PreDrawScene::processBehavior() {
 //////        getSceneDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //DefaultPointSpriteTestActor
 //////        getSceneDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //DefaultSpriteTestActor
 //////        getSceneDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //DefaultSpriteSetTestActor
-//////        getSceneDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //HoshiBoshiTestActor
 ////        getSceneDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //LaserChipTestActor
 ////        getSceneDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //SingleLaserTestActor
 ////        getSceneDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //SpriteMeshTestActor

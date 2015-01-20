@@ -36,7 +36,7 @@ VvvCamWorker::VvvCamWorker(const char* prm_name) : DefaultGeometricActor(prm_nam
 
 void VvvCamWorker::initialize() {
     pCam_ = P_CAM;
-    pVp_ = (VvvCameraViewPoint*)(pCam_->getViewPoint());
+    pVp_ = (VvvCameraViewPoint*)(pCam_->getCameraViewPoint());
     t_x_VP_ = pVp_->_x;
     t_y_VP_ = pVp_->_y;
     t_z_VP_ = pVp_->_z;

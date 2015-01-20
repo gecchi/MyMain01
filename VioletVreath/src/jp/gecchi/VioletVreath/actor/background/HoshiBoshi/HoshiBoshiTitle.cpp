@@ -13,9 +13,10 @@ HoshiBoshiTitle::HoshiBoshiTitle(const char* prm_name) :
         HoshiBoshi(prm_name, "HoshiBoshi001") {
     _class_name = "HoshiBoshiTitle";
     pAFader_ = NEW GgafDxAlphaFader(this);
-    //¯X‚ÍDIRECTX‹——£-1.0`1.0i-10px`10px)‚ÉŽû‚Ü‚Á‚Ä‚¢‚é‘O’ñB
-    far_rate_ = 10.0f;
-    _sx = _sy = _sz =  (P_CAM->getZFar()*LEN_UNIT)*far_rate_;
+}
+
+void HoshiBoshiTitle::initialize() {
+    setFarRate(10.0f);
 }
 
 void HoshiBoshiTitle::onActive() {
@@ -23,11 +24,7 @@ void HoshiBoshiTitle::onActive() {
 }
 
 void HoshiBoshiTitle::processBehavior() {
-    if (_x < -CAM_ZF_*far_rate_) {
-        _x += (CAM_ZF_*far_rate_*2);
-    } else {
-        _x -= 10000*far_rate_;
-    }
+    _x -= 10000*getFarRate();
     getUvFlipper()->behave();
     pAFader_->behave();
 }

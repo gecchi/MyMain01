@@ -22,10 +22,6 @@ class VvvGrid;
 class VvvCamWorker;
 class Font01;
 
-class TestScene;
-class Grid26Actor;
-class VecEyeActor;
-class VecUpActor;
 }
 
 #endif /*VVVIEWER_H_*/

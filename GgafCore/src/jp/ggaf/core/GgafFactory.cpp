@@ -309,7 +309,7 @@ void GgafFactory::debuginfo() {
                 } else {
                     _TRACE_("・注文ID="<<p->_order_id<<", "<<
                             "進捗="<<p->_progress<<", "<<
-                            "商品=nullptr,"<<
+                            "商品=nullptr, "<<
                             "発注者=("<<p->_pOrderer<<")"
                     );
                 }

@@ -12,11 +12,11 @@ using namespace GgafLib;
 
 DefaultPointSpriteActor::DefaultPointSpriteActor(const char* prm_name, const char* prm_model_id, GgafStatus* prm_pStat) :
     GgafDxPointSpriteActor(prm_name,
-                            prm_model_id,
-                            "DefaultPointSpriteEffect",
-                            "DefaultPointSpriteTechnique",
-                            prm_pStat,
-                            NEW CollisionChecker3D(this) ) {
+                           prm_model_id,
+                           "DefaultPointSpriteEffect",
+                           "DefaultPointSpriteTechnique",
+                           prm_pStat,
+                           NEW CollisionChecker3D(this) ) {
 
     _class_name = "DefaultPointSpriteActor";
     _pColliChecker = (CollisionChecker3D*)_pChecker;

@@ -259,7 +259,6 @@
   <ItemGroup>
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi001.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi002.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshiRankUp.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshiTitle.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshiTransit.cpp" />
@@ -373,6 +372,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ida\FormationIda001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Irce\EnemyIrce.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebius.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebiusController.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebiusCore.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\FormationOebius.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\FormationOebius001.cpp" />
@@ -609,7 +609,6 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi001.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi002.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshiRankUp.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshiTitle.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshiTransit.h" />
@@ -724,6 +723,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ida\FormationIda001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Irce\EnemyIrce.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\oebius\enemyoebius.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\oebius\enemyoebiuscontroller.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebiusCore.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\oebius\formationoebius.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\oebius\formationoebius001.h" />

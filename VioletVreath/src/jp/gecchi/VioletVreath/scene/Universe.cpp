@@ -215,7 +215,7 @@ void Universe::resetCamWorker() {
     pCam->setDefaultPosition();
     pActiveCamWorker_ = stack_CamWorkerConnection_.getLast()->peek();
     pActiveCamWorker_->slideMvCamTo(pCam, 60);
-    pActiveCamWorker_->slideMvVpTo(pCam->getViewPoint(), 60);
+    pActiveCamWorker_->slideMvVpTo(pCam->getCameraViewPoint(), 60);
 //    pActiveCamWorker_->angXY_nowCamUp_ = UTIL::getAngle2D((double)(pCam->_pVecCamUp->z), (double)(pCam->_pVecCamUp->y));
 //    pActiveCamWorker_->move_target_ZY_CAM_UP_ = pActiveCamWorker_->angXY_nowCamUp_;
     pActiveCamWorker_->activate();

@@ -18,7 +18,9 @@ namespace GgafLib {
 class SingleLaser : public GgafDxCore::GgafDxMeshSetActor {
 
 public:
-    D3DXHANDLE _ah_matWorld[26];
+    static D3DXHANDLE _ah_matWorld[26];
+    static bool _is_init;
+
     /** 衝突判定支援オブジェクト */
     CollisionChecker3D* _pColliChecker;
 

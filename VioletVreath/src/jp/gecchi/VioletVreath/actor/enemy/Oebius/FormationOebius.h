@@ -17,14 +17,15 @@ class FormationOebius : public GgafLib::TreeFormation {
 
     enum {
         PROG_INIT  ,
-        PROG_ENTRY_OEBIUS_CORE ,
-        PROG_ENTRY_OEBIUS ,
-        PROG_CALM ,
-        PROG_SHOT_BY_OEBIUS_CORE ,
+        PROG_ENTRY ,
+        PROG_WAIT  ,
+        PROG_SCATTER ,
         PROG_BANPEI,
     };
 
 public:
+    EnemyOebiusController* pController_;
+
     int num_Oebius_;
 
     int formation_col_num_;
@@ -38,8 +39,8 @@ public:
     XpmConnection* pXpmConnection_;
 
 public:
-    FormationOebius(const char* prm_name, int prm_formation_col_num, int prm_formation_row_num, frame prm_call_up_interval);
-    FormationOebius(const char* prm_name, const char* prm_xpm_id, frame prm_call_up_interval);
+    FormationOebius(const char* prm_name, int prm_formation_col_num, int prm_formation_row_num, frame prm_call_up_interval, EnemyOebiusController* prm_pController);
+    FormationOebius(const char* prm_name, const char* prm_xpm_id, frame prm_call_up_interval, EnemyOebiusController* prm_pController);
 
     /**
      * ï“ë‡ÇçÏê¨ .
@@ -56,6 +57,9 @@ public:
 
     virtual void onFinshLeading(GgafDxCore::GgafDxDrawableActor* prm_pActor) = 0;
 
+    virtual void onSayonaraAll() override;
+
+    void scatterMember();
 
     int getFormationColNum() {
         return formation_col_num_;

@@ -22,8 +22,6 @@
 #include "actor/VvvCamera.h"
 #include "actor/Font01.h"
 
-#include <scene/VvvUniverse/test/TestScene.h>
-
 #include "jp/ggaf/dxcore/util/GgafDxDirectionUtil.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -46,8 +44,6 @@ VvvWorld::VvvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     view_help_ = true;
     view_info_ = true;
 
-
-    addSubLast(NEW TestScene("TestScene"));
 }
 
 void VvvWorld::initialize() {
@@ -510,7 +506,7 @@ void VvvWorld::processBehavior() {
             listActorInfo_.last(); //ƒJƒŒƒ“ƒg‚ðlast‚Ö
             VvvCamera* pCam = P_CAM;
 
-            GgafDxGeometricActor* p = pCam->getViewPoint();
+            GgafDxGeometricActor* p = pCam->getCameraViewPoint();
             pActor->positionAs(p);
         }
 

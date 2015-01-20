@@ -10,15 +10,18 @@
 #include "jp/gecchi/VioletVreath/manager/XpmManager.h"
 #include "jp/gecchi/VioletVreath/manager/XpmConnection.h"
 #include "EnemyOebiusCore.h"
+#include "EnemyOebiusController.h"
 
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-FormationOebius::FormationOebius(const char* prm_name, int prm_formation_col_num, int prm_formation_row_num, frame prm_call_up_interval) :
+FormationOebius::FormationOebius(const char* prm_name, int prm_formation_col_num, int prm_formation_row_num, frame prm_call_up_interval, EnemyOebiusController* prm_pController) :
         TreeFormation(prm_name) {
     _class_name = "FormationOebius";
+    pController_ = prm_pController;
     pXpmConnection_ = nullptr;
     formation_col_num_ = prm_formation_col_num;
     formation_row_num_ = prm_formation_row_num;
@@ -32,9 +35,10 @@ FormationOebius::FormationOebius(const char* prm_name, int prm_formation_col_num
     useProgress(PROG_BANPEI);
 }
 
-FormationOebius::FormationOebius(const char* prm_name, const char* prm_xpm_id, frame prm_call_up_interval)  :
+FormationOebius::FormationOebius(const char* prm_name, const char* prm_xpm_id, frame prm_call_up_interval, EnemyOebiusController* prm_pController)  :
             TreeFormation(prm_name) {
     _class_name = "FormationOebius";
+    pController_ = prm_pController;
     pXpmConnection_ = getConnection_XpmManager(prm_xpm_id);
     GgafXpm* pXpM = pXpmConnection_->peek();
     formation_col_num_ = pXpM->getWidth();
@@ -64,15 +68,7 @@ void FormationOebius::processBehavior() {
             pProg->changeNext();
             break;
         }
-        case PROG_ENTRY_OEBIUS_CORE: {
-            if (pProg->isJustChanged()) {
-            }
-            if (pProg->getFrameInProgress() == 300) {
-                pProg->changeNext();
-            }
-            break;
-        }
-        case PROG_ENTRY_OEBIUS: {
+        case PROG_ENTRY: {
             if (pProg->isJustChanged()) {
             }
             if (canCallUp()) {
@@ -99,7 +95,12 @@ void FormationOebius::processBehavior() {
             }
             break;
         }
-        case PROG_CALM: {
+        case PROG_WAIT: {
+            if (pProg->isJustChanged()) {
+            }
+            break;
+        }
+        case PROG_SCATTER: {
             if (pProg->isJustChanged()) {
             }
             break;
@@ -109,8 +110,23 @@ void FormationOebius::processBehavior() {
     }
 }
 
+void FormationOebius::scatterMember() {
+    EnemyOebius* pOebius = (EnemyOebius*)getSubFirst();
+    while (pOebius) {
+        pOebius->scatter();
+        if (pOebius->isLast()) {
+            break;
+        } else {
+            pOebius = (EnemyOebius*)(pOebius->getNext());
+        }
+    }
+}
+
 void FormationOebius::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
     UTIL::transactFormationDestroyAll((GgafDxDrawableActor*)prm_pActor_last_destroyed);
+}
+void FormationOebius::onSayonaraAll() {
+    pController_->pFormationOebius_ = nullptr;
 }
 
 FormationOebius::~FormationOebius() {

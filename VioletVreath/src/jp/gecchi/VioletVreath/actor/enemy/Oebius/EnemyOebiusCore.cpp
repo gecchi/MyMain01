@@ -11,17 +11,20 @@
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/FormationOebius001.h"
+#include "EnemyOebiusController.h"
 
+#include "jp/ggaf/dxcore/util/GgafDxInput.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
 
-EnemyOebiusCore::EnemyOebiusCore(const char* prm_name) :
+EnemyOebiusCore::EnemyOebiusCore(const char* prm_name, EnemyOebiusController* prm_pController) :
         DefaultMorphMeshActor(prm_name, "1/OebiusCore", STATUS(EnemyOebiusCore)) {
     _class_name = "EnemyOebiusCore";
     pAFader_ = NEW GgafDxAlphaFader(this);
+    pController_ = prm_pController;
 
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
@@ -31,9 +34,6 @@ EnemyOebiusCore::EnemyOebiusCore(const char* prm_name) :
 
     useProgress(PROG_BANPEI);
 
-    pFormationOebius_ = NEW FormationOebius001("FormationOebius");
-    pFormationOebius_->inactivate();
-    addSubGroup(pFormationOebius_);
 }
 
 void EnemyOebiusCore::onCreateModel() {
@@ -81,46 +81,7 @@ void EnemyOebiusCore::processBehavior() {
             if (pProg->isJustChanged()) {
                 pKuroko->keepOnTurningFaceAngTwd(P_MYSHIP, D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
-            if (pProg->getFrameInProgress() == 120) {
-                pProg->changeNext();
-            }
-            break;
-        }
-
-        case PROG_COIL_OEBIUS: {
-            if (pProg->isJustChanged()) {
-                pFormationOebius_->position(_x, _y, _z);
-                pFormationOebius_->setRzRyAng(_rz, _ry);
-                pFormationOebius_->activate();
-            }
-            if (pProg->getFrameInProgress() == 300) {
-                pProg->changeNext();
-            }
-            break;
-        }
-
-        case PROG_WAIT02: {
-            if (pProg->isJustChanged()) {
-            }
-            if (pProg->getFrameInProgress() == 300) {
-                pProg->changeNext();
-            }
-            break;
-        }
-
-        case PROG_SHOOT: {
-            if (pProg->isJustChanged()) {
-            }
-            if (pProg->getFrameInProgress() == 300) {
-                pProg->changeNext();
-            }
-            break;
-        }
-
-        case PROG_WAIT03: {
-            if (pProg->isJustChanged()) {
-            }
-            if (pProg->getFrameInProgress() == 600) {
+            if (GgafDxInput::isPushedDownKey(DIK_H)) {
                 pProg->changeNext();
             }
             break;
@@ -164,6 +125,7 @@ void EnemyOebiusCore::onHit(GgafActor* prm_pOtherActor) {
 
 void EnemyOebiusCore::onInactive() {
     sayonara();
+    pController_->pOebiusCore_ = nullptr;
 }
 
 EnemyOebiusCore::~EnemyOebiusCore() {

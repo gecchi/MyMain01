@@ -95,7 +95,7 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, double prm_rad_fovX, double prm
 }
 
 void GgafDxCamera::initialize() {
-    getViewPoint();
+    getCameraViewPoint();
     getCameraUpVector();
 }
 
@@ -225,7 +225,7 @@ void GgafDxCamera::processJudgement() {
     _pVecCamFromPoint->x = _fX;
     _pVecCamFromPoint->y = _fY;
     _pVecCamFromPoint->z = _fZ;
-    GgafDxCameraViewPoint* pVp = getViewPoint();
+    GgafDxCameraViewPoint* pVp = getCameraViewPoint();
     _pVecCamLookatPoint->x = pVp->_fX;
     _pVecCamLookatPoint->y = pVp->_fY;
     _pVecCamLookatPoint->z = pVp->_fZ;
@@ -237,7 +237,7 @@ void GgafDxCamera::processJudgement() {
                        _pVecCamFromPoint, _pVecCamLookatPoint, _pVecCamUp);
 }
 
-GgafDxCameraViewPoint* GgafDxCamera::getViewPoint() {
+GgafDxCameraViewPoint* GgafDxCamera::getCameraViewPoint() {
     if (_pCameraViewPoint) {
         return _pCameraViewPoint;
     } else {
@@ -263,7 +263,7 @@ void GgafDxCamera::setDefaultPosition() {
     _x = 0;
     _y = 0;
     _z = DX_C(_cameraZ_org);
-    GgafDxCameraViewPoint* pVp = getViewPoint();
+    GgafDxCameraViewPoint* pVp = getCameraViewPoint();
     pVp->position(0, 0, 0);
     GgafDxCameraUpVector* pUpv = getCameraUpVector();
     pUpv->position(0, PX_C(1), 0);

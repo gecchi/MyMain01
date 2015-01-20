@@ -26,6 +26,8 @@ EnemyOebius::EnemyOebius(const char* prm_name) :
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
     pKurokoLeader_ = nullptr; //フォーメーションオブジェクトが設定する
+    scatter_flg_ = false;
+    delay_ = 0;
 }
 
 void EnemyOebius::onCreateModel() {
@@ -82,23 +84,30 @@ void EnemyOebius::processBehavior() {
         case PROG_SPLINE: {
             if (pProg->isJustChanged()) {
                 getKuroko()->setMvAcce(0); //加速度がある場合は切っておく
-                pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION, 15);
+                pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION, -1); //-1は無限ループ
             }
             pKurokoLeader_->behave(); //スプライン移動を振る舞い
 
-            if (pKurokoLeader_->isFinished()) {
-                position(pKurokoLeader_->_x_start, pKurokoLeader_->_y_start, pKurokoLeader_->_z_start);
-                pKuroko->setRzRyMvAng(pKurokoLeader_->_ang_rz_mv_start, pKurokoLeader_->_ang_ry_mv_start);
-                ((FormationOebius*)getFormation() )->onFinshLeading(this);
+            if (scatter_flg_) {
                 pProg->changeNext();
             }
             break;
         }
 
-        case PROG_MOVE_AFTER: {
+
+        case PROG_SCATTER: {
             if (pProg->isJustChanged()) {
+                delay_ = RND(0, 120);
             }
-            if (pProg->getFrameInProgress() == 120) {
+            if (pProg->getFrameInProgress() == delay_) {
+                //散り散りになる
+                pKurokoLeader_->stop();
+                pKuroko->turnRzRyMvAngTo(RND_ABOUT(pKuroko->_ang_rz_mv, D_ANG(90)), RND_ABOUT(pKuroko->_ang_ry_mv, D_ANG(90)),
+                                         D_ANG(2), 0, TURN_CLOSE_TO,false);
+                pKuroko->setMvAcce(100);
+            }
+
+            if (pProg->getFrameInProgress() == delay_ + 200) {
                 pProg->changeNext();
             }
             break;
@@ -145,6 +154,10 @@ void EnemyOebius::onInactive() {
         //EnemyOebiusCoreに管理されている。初めはInactive()であるため。
         sayonara();
     }
+}
+void EnemyOebius::scatter() {
+    //Formationから指示がある。
+    scatter_flg_ = true;
 }
 
 EnemyOebius::~EnemyOebius() {

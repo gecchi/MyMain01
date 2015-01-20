@@ -26,7 +26,7 @@ public:
         PROG_ENTRY  ,
         PROG_MOVE_BEGIN ,
         PROG_SPLINE ,
-        PROG_MOVE_AFTER ,
+        PROG_SCATTER ,
         PROG_LEAVE ,
         PROG_BANPEI,
     };
@@ -35,6 +35,10 @@ public:
     GgafDxCore::GgafDxAlphaFader* pAFader_;
     /** 移動スプラインプログラム */
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
+
+    bool scatter_flg_;
+
+    frame delay_;
 public:
     /**
      * コンストラクタ
@@ -73,6 +77,11 @@ public:
 
 
     void onInactive() override;
+
+    /**
+     * 散り散りになる .
+     */
+    void scatter();
 
 
     virtual ~EnemyOebius();

@@ -14,8 +14,8 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-FormationOebius002::FormationOebius002(const char* prm_name) :
-        FormationOebius(prm_name, "FormationOebius002_Xpm", 8) {
+FormationOebius002::FormationOebius002(const char* prm_name, EnemyOebiusController* prm_pController) :
+        FormationOebius(prm_name, "FormationOebius002_Xpm", 8, prm_pController) {
     _class_name = "FormationOebius002";
 
     papSplManufConn_ = NEW SplineManufactureConnection*[getFormationColNum()];
@@ -70,11 +70,7 @@ void FormationOebius002::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, i
 }
 
 void FormationOebius002::onFinshLeading(GgafDxCore::GgafDxDrawableActor* prm_pActor) {
-    //ÅŒã‚ÍŽU‚èŽU‚è‚É“®‚­
-    GgafDxKuroko* pKuroko = prm_pActor->getKuroko();
-    pKuroko->turnRzRyMvAngTo(RND_ABOUT(pKuroko->_ang_rz_mv, D_ANG(120)), RND_ABOUT(pKuroko->_ang_rz_mv, D_ANG(120)),
-                             D_ANG(2), 0, TURN_CLOSE_TO,false);
-    pKuroko->setMvAcce(300);
+
 }
 
 FormationOebius002::~FormationOebius002() {

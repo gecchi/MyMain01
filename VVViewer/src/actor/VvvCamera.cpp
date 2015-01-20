@@ -480,7 +480,7 @@ void VvvCamera::initialize() {
 }
 
 void VvvCamera::processBehavior() {
-    VvvCameraViewPoint* pVP = (VvvCameraViewPoint*)getViewPoint();
+    VvvCameraViewPoint* pVP = (VvvCameraViewPoint*)getCameraViewPoint();
     VvvCameraUpVector* pUpV = (VvvCameraUpVector*)getCameraUpVector();
 
     pAxsMver_->behave();
@@ -555,7 +555,7 @@ void VvvCamera::slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t) {
 }
 int VvvCamera::getCamToVpFaceNo() {
     float vcv_x, vcv_y, vcv_z;
-    VvvCameraViewPoint* pVP = (VvvCameraViewPoint*)getViewPoint();
+    VvvCameraViewPoint* pVP = (VvvCameraViewPoint*)getCameraViewPoint();
     UTIL::getNormalizeVector (
             pVP->_x - _x,
             pVP->_y - _y,

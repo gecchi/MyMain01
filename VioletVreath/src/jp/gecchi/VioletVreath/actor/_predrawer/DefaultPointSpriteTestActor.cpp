@@ -13,9 +13,7 @@ DefaultPointSpriteTestActor::DefaultPointSpriteTestActor(const char* prm_name) :
     _class_name = "DefaultPointSpriteTestActor";
     effectBlendOne(); //‰ÁŽZ‡¬
     setHitAble(false);
-    CAM_ZF_ = ABS(P_CAM->getZFar() * PX_UNIT * LEN_UNIT);
     setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL-1);
-    _TRACE_("DefaultPointSpriteTestActor::DefaultPointSpriteTestActor CAM_ZF_="<<CAM_ZF_);
 }
 
 int DefaultPointSpriteTestActor::isOutOfView() {
@@ -36,12 +34,6 @@ void DefaultPointSpriteTestActor::onActive() {
 }
 
 void DefaultPointSpriteTestActor::processBehavior() {
-    if (_x < -CAM_ZF_) {
-        _x += (CAM_ZF_*2);
-    } else {
-        _x -= 10000;
-    }
-
     getUvFlipper()->behave();
 }
 

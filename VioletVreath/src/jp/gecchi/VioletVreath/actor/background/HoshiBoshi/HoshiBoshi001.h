@@ -16,6 +16,8 @@ class HoshiBoshi001 : public HoshiBoshi {
 public:
     HoshiBoshi001(const char* prm_name);
 
+    void initialize() override;
+
     void onActive() override;
 
     void processBehavior() override;

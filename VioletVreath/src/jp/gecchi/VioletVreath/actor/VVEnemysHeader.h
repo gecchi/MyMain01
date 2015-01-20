@@ -116,13 +116,13 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Unomia/FormationUnomia002b.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/EnemyOebius.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/EnemyOebiusCore.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Oebius/EnemyOebiusController.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/FormationOebius.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/FormationOebius001.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/FormationOebius002.h"
-//"VioletVreath.h"‚Ö‚Ì’Ç‹L‚à–Y‚ê‚¸‚É
+//"VioletVreath.h"‚Ö‚Ì‘O•ûéŒ¾’Ç‹L‚à–Y‚ê‚¸‚É
 
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
-
 #include "jp/ggaf/lib/scene/FormationTableScene.h"
 
 #endif /*VVENEMYSHEADER_H_*/

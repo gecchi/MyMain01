@@ -214,7 +214,7 @@ void PauseCamWorker::processBehavior() {
         mdz_flg_ = false;
     }
 
-    behaveAutoCamUp();
+    CameraWorker::processBehavior();
 }
 
 PauseCamWorker::~PauseCamWorker() {

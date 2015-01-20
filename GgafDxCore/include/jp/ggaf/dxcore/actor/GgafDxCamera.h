@@ -158,7 +158,7 @@ public:
      * インスタンスが作成されます。
      * @return 生成済み視点用アクター
      */
-    virtual GgafDxCameraViewPoint* getViewPoint();
+    virtual GgafDxCameraViewPoint* getCameraViewPoint();
 
     /**
      * 視点用アクターのインスタンスを生成 .

@@ -11,6 +11,7 @@
 #include "jp/gecchi/VioletVreath/actor/CameraViewPoint.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
 
+#include "jp/ggaf/dxcore/util/GgafDxDirectionUtil.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -76,7 +77,7 @@ void VamSysCamWorker::processBehavior() {
         return; //MyShipSceneシーンが未だならカメラワーク禁止
     }
     Camera* pCam = pCam_;
-    CameraViewPoint* pVP = (CameraViewPoint*)(pCam->getViewPoint());
+    CameraViewPoint* pVP = (CameraViewPoint*)(pCam->getCameraViewPoint());
     MyOptionController* pOptCtrler = P_MYSHIP_SCENE->papOptionCtrler_[0];
 
     //カメラ位置番号を決定処理
@@ -495,7 +496,6 @@ void VamSysCamWorker::processBehavior() {
             }
         }
 
-//        _TRACE_("VamSysCamWorker::processBehavior() ターゲットへ移動 cam_mv_frame_="<<cam_mv_frame_<<" pos_camera_="<<pos_camera_);
         //ターゲットへカメラ移動
         if (pos_camera_ < VAM_POS_TO_BEHIND) {
             if (pos_camera_ == VAM_POS_RIGHT) {
@@ -544,19 +544,23 @@ void VamSysCamWorker::processBehavior() {
         //UPを補正
         if (onChangeToActive() || isPushedDown_VB_VIEW || isReleasedUp_VB_VIEW) {
             if (pos_camera_ == VAM_POS_RIGHT || pos_camera_ == VAM_POS_LEFT || pos_camera_ > VAM_POS_TO_BEHIND) {
-                pCam_->slideUpCamTo(Camera::FACE_TOP, cam_mv_frame_/2);
+                slideMvUpTo(GgafDxDirectionUtil::FACE_ZPZ, cam_mv_frame_/2);
             } else if (pos_camera_ == VAM_POS_TOP) {
-                if (pCam_->vcv_face_ == Camera::FACE_NZZ) {
-                    pCam_->slideUpCamTo(Camera::FACE_BOTTOM, cam_mv_frame_/2);
-                } else {
-                    pCam_->slideUpCamTo(Camera::FACE_PZZ, cam_mv_frame_/2);
-                }
+                slideMvUpTo(GgafDxDirectionUtil::FACE_PZZ, cam_mv_frame_/2);
+
+//                if (ABS(mv_t_x_VP - mv_t_x_CAM) < ABS(mv_t_y_VP - mv_t_y_CAM)) {
+//                    slideMvUpTo(GgafDxDirectionUtil::FACE_PZZ, cam_mv_frame_/2);
+//                } else {
+//                    slideMvUpTo(GgafDxDirectionUtil::FACE_ZNZ, cam_mv_frame_/2);
+//                }
             } else if (pos_camera_ == VAM_POS_BOTTOM) {
-                if (pCam_->vcv_face_ == Camera::FACE_NZZ) {
-                    pCam_->slideUpCamTo(Camera::FACE_BOTTOM, cam_mv_frame_/2);
-                } else {
-                    pCam_->slideUpCamTo(Camera::FACE_NZZ, cam_mv_frame_/2);
-                }
+                slideMvUpTo(GgafDxDirectionUtil::FACE_NZZ, cam_mv_frame_/2);
+
+//                if (ABS(mv_t_x_VP - mv_t_x_CAM) < ABS(mv_t_y_VP - mv_t_y_CAM)) {
+//                    slideMvUpTo(GgafDxDirectionUtil::FACE_NZZ, cam_mv_frame_/2);
+//                } else {
+//                    slideMvUpTo(GgafDxDirectionUtil::FACE_ZNZ, cam_mv_frame_/2);
+//                }
             } else {
                 throwGgafCriticalException("VamSysCamWorker::processBehavior() どこにカメラが行ったのかわかりません(2)");
             }

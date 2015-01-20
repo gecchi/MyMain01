@@ -21,10 +21,6 @@ public:
         PROG_INIT  ,
         PROG_ENTRY ,
         PROG_WAIT01 ,
-        PROG_COIL_OEBIUS ,
-        PROG_WAIT02 ,
-        PROG_SHOOT ,
-        PROG_WAIT03 ,
         PROG_LEAVE ,
         PROG_BANPEI,
     };
@@ -36,17 +32,18 @@ public:
         SE_FIRE,
     };
 
+    EnemyOebiusController* pController_;
+
     /** フィードイン・フェードアウト支援 */
     GgafDxCore::GgafDxAlphaFader* pAFader_;
 
-    FormationOebius* pFormationOebius_;
 public:
     /**
      * コンストラクタ
      * @param prm_name
      * @return
      */
-    EnemyOebiusCore(const char* prm_name);
+    EnemyOebiusCore(const char* prm_name, EnemyOebiusController* prm_pController);
 
     void onCreateModel() override;
 

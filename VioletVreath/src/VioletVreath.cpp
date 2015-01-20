@@ -48,9 +48,6 @@ int main(int argc, char *argv[]) {
     return GgafLibMain(argc, argv);
 }
 
-
-static VioletVreath::God* pGod = nullptr;
-
 /**
  * VCならばエントリポイント
  */
@@ -128,7 +125,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 #endif
 
     MSG msg;
-    pGod = NEW VioletVreath::God();
+    VioletVreath::God* pGod = NEW VioletVreath::God();
     try {
         //神の誕生
         pGod->createWindow(wcex1, wcex2, szTitle, "secondary", dwStyle, dwStyle, hWnd1, hWnd2);
@@ -403,7 +400,6 @@ BOOL CustmizeSysMenu(HWND hWnd)
 //        //システムメニューの項目を消去
 //        DeleteMenu(hMenu, 0, MF_BYPOSITION);
 //    //システムメニューの項目を追加
-
 
     HMENU menu_vp = CreateMenu();
     InsertMenu(menu_vp,  0, MF_STRING | MF_BYPOSITION, MY_IDM_VPOS_7, "7");

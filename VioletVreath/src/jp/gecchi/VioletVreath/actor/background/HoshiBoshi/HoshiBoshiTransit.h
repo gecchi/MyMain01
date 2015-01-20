@@ -16,6 +16,8 @@ class HoshiBoshiTransit : public HoshiBoshi {
 public:
     HoshiBoshiTransit(const char* prm_name);
 
+    void initialize() override;
+
     void onActive() override;
 
     void processBehavior() override;

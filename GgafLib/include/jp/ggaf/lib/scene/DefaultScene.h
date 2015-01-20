@@ -18,7 +18,7 @@ class DefaultScene : public GgafDxCore::GgafDxScene {
 
 public:
     /** [r]シーンイベント用のフレーム値の配列(※「シーンCreater.xls」マクロの生成PGに組み込まれる） */
-    uint32_t* _paFrame_NextEvent;
+    frame* _paFrame_NextEvent;
     /** [r]シーンのイベント数（_paFrame_NextEventの要素数）(※「シーンCreater.xls」マクロの生成PGに組み込まれる） */
     int _event_num;
     /** シーンの現在イベント(※「シーンCreater.xls」マクロの生成PGに組み込まれる） */

@@ -14,7 +14,6 @@ namespace VioletVreath {
 class DefaultPointSpriteTestActor : public GgafLib::DefaultPointSpriteActor {
 
 public:
-    int CAM_ZF_;
 
     DefaultPointSpriteTestActor(const char* prm_name);
 

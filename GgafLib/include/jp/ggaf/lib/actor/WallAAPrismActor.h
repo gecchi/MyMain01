@@ -15,13 +15,14 @@ namespace GgafLib {
 class WallAAPrismActor : public WallPartsActor {
 
 public:
-    D3DXHANDLE _h_distance_AlphaTarget;
-    D3DXHANDLE _h_wall_dep;
-    D3DXHANDLE _h_wall_height;
-    D3DXHANDLE _h_wall_width;
-    static bool _init;
+    static D3DXHANDLE _h_distance_AlphaTarget;
+    static D3DXHANDLE _h_wall_dep;
+    static D3DXHANDLE _h_wall_height;
+    static D3DXHANDLE _h_wall_width;
     /** プリズム無条件追加描画不要面テーブル */
     static std::map<int, UINT> _delface;
+
+    static bool _is_init;
 
 public:
     WallAAPrismActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
