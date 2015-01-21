@@ -68,13 +68,14 @@ void FormationOebius::processBehavior() {
             pProg->changeNext();
             break;
         }
-        case PROG_ENTRY: {
+        case PROG_CALL_UP: {
             if (pProg->isJustChanged()) {
             }
             if (canCallUp()) {
                 if (getActiveFrame() % call_up_interval_ == 0) {
                     for (int col = 0; col < formation_col_num_; col++) {
                         if (pXpmConnection_) {
+                            //xpm•Ò‘à
                             if (!pXpmConnection_->peek()->isNonColor(call_up_row_cnt_, col)) {
                                 EnemyOebius* pOebius = (EnemyOebius*)callUpMember();
                                 if (pOebius) {
@@ -96,11 +97,6 @@ void FormationOebius::processBehavior() {
             break;
         }
         case PROG_WAIT: {
-            if (pProg->isJustChanged()) {
-            }
-            break;
-        }
-        case PROG_SCATTER: {
             if (pProg->isJustChanged()) {
             }
             break;

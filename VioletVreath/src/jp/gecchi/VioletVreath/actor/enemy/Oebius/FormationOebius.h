@@ -17,9 +17,8 @@ class FormationOebius : public GgafLib::TreeFormation {
 
     enum {
         PROG_INIT  ,
-        PROG_ENTRY ,
+        PROG_CALL_UP ,
         PROG_WAIT  ,
-        PROG_SCATTER ,
         PROG_BANPEI,
     };
 

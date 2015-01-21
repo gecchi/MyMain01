@@ -348,6 +348,8 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\util\VamSysCamPosition.cpp" />
     <ClCompile Include="src\VioletVreath.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebiusController.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebiusController001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebiusController002.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
@@ -702,6 +704,8 @@
     <ClInclude Include="src\VioletVreath.h" />
     <ClInclude Include="VioletVreath.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\oebius\enemyoebiuscontroller.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebiusController001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebiusController002.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="VioletVreath.rc" />

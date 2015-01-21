@@ -9,8 +9,7 @@
 namespace VioletVreath {
 
 /**
- * エビウスのコアと、エビウス編隊を管理 .
- * シーンに追加するアクターはこのアクターです。
+ * エビウスのコアと、エビウス編隊を管理クラス基底 .
  * @version 1.00
  * @since 2015/01/19
  * @author Masatoshi Tsuge
@@ -38,14 +37,13 @@ public:
      * @param prm_name
      * @return
      */
-    EnemyOebiusController(const char* prm_name);
+    EnemyOebiusController(const char* prm_name, EnemyOebiusCore* prm_pCore, FormationOebius* prm_pFormation);
 
     void position(coord x, coord y, coord z) {
         entry_pos_.x = x;
         entry_pos_.y = y;
         entry_pos_.z = z;
     }
-
 
 
     /**

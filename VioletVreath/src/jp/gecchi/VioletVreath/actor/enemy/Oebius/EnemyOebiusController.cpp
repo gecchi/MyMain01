@@ -12,15 +12,17 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 
-EnemyOebiusController::EnemyOebiusController(const char* prm_name) : GgafDestructActor(prm_name, nullptr) {
+EnemyOebiusController::EnemyOebiusController(const char* prm_name, EnemyOebiusCore* prm_pCore,
+                                                                   FormationOebius* prm_pFormation) :
+  GgafDestructActor(prm_name, nullptr) {
     _class_name = "EnemyOebiusController";
     useProgress(PROG_BANPEI);
 
-    pOebiusCore_ = NEW EnemyOebiusCore("EnemyOebiusCore", this);
+    pOebiusCore_ = prm_pCore;
     pOebiusCore_->inactivate();
     addSubGroup(pOebiusCore_);
 
-    pFormationOebius_ = NEW FormationOebius001("FormationOebius", this);
+    pFormationOebius_ = prm_pFormation;
     pFormationOebius_->inactivate();
     addSubGroup(pFormationOebius_);
 }

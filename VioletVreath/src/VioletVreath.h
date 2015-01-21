@@ -548,6 +548,8 @@ class EnemyOzartiaPillar01;
 class EnemyOebius;
 class EnemyOebiusCore;
 class EnemyOebiusController;
+class EnemyOebiusController001;
+class EnemyOebiusController002;
 class FormationOebius;
 class FormationOebius001;
 class FormationOebius002;

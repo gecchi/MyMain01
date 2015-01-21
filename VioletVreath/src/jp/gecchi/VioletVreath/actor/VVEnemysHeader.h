@@ -117,6 +117,8 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/EnemyOebius.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/EnemyOebiusCore.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/EnemyOebiusController.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Oebius/EnemyOebiusController001.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Oebius/EnemyOebiusController002.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/FormationOebius.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/FormationOebius001.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/FormationOebius002.h"

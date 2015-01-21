@@ -22,11 +22,12 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,600};
-	_paFrame_NextEvent = new frame[2];
+	frame f[] = {1,600,620};
+	_paFrame_NextEvent = new frame[3];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 2;
-	orderActorToFactory(10000000, EnemyOebiusController, "EnemyOebiusController-1");
+	_event_num = 3;
+	orderActorToFactory(10000000, EnemyOebiusController001, "EnemyOebiusController001-1");
+	orderActorToFactory(10000001, EnemyOebiusController002, "EnemyOebiusController002-2");
     // gen01 end
     useProgress(Stage01PartController::PROG_BANPEI-1);
 }
@@ -45,15 +46,21 @@ void Stage01PartController::processBehavior() {
 				break;
 			}
 			case 600: {
-				EnemyOebiusController* p2 = (EnemyOebiusController*)obtainActorFromFactory(10000000);
+				EnemyOebiusController001* p1 = (EnemyOebiusController001*)obtainActorFromFactory(10000000);
+				getSceneDirector()->addSubGroup(p1);
+				p1->position(PX_C(800), PX_C(100), PX_C(400) );
+				break;
+			}
+			case 620: {
+				EnemyOebiusController002* p2 = (EnemyOebiusController002*)obtainActorFromFactory(10000001);
 				getSceneDirector()->addSubGroup(p2);
-				p2->position(PX_C(800), PX_C(100), PX_C(100) );
+				p2->position(PX_C(800), PX_C(400), PX_C(100) );
 				break;
 			}
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 2-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 3-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
 
