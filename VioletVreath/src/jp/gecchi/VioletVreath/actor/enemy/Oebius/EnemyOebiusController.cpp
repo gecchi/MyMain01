@@ -80,6 +80,7 @@ void EnemyOebiusController::processBehavior() {
             if (pProg->isJustChanged()) {
             }
             if (pOebiusCore_ == nullptr) {
+                //ƒRƒA‚ª‚¢‚È‚­‚È‚Á‚½‚çŽU‚èŽU‚è‚É
                 scatterOebiusFormation();
                 pProg->changeNothing(); //‚¨‚µ‚Ü‚¢
             }
