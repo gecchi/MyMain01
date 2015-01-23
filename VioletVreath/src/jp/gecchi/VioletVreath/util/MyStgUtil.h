@@ -514,6 +514,8 @@ public:
 	static GgafCore::GgafStatus* resetEnemyOebiusStatus(GgafCore::GgafStatus* p);
 	//エビウスコア
 	static GgafCore::GgafStatus* resetEnemyOebiusCoreStatus(GgafCore::GgafStatus* p);
+	//ウリュディケ
+	static GgafCore::GgafStatus* resetEnemyUrydikeStatus(GgafCore::GgafStatus* p);
     // gen01 end
 };
 

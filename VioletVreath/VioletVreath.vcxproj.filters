@@ -350,6 +350,9 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebiusController.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebiusController001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebiusController002.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Urydike\EnemyUrydike.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Urydike\FormationUrydike.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Urydike\FormationUrydike001.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
@@ -706,6 +709,9 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\oebius\enemyoebiuscontroller.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebiusController001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebiusController002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Urydike\EnemyUrydike.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Urydike\FormationUrydike.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Urydike\FormationUrydike001.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="VioletVreath.rc" />

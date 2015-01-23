@@ -419,6 +419,9 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia002.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia002a.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia002b.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Urydike\EnemyUrydike.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Urydike\FormationUrydike.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Urydike\FormationUrydike001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestChoki.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestEnemy.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestGu.cpp" />
@@ -772,6 +775,9 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia002.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia002a.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia002b.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Urydike\EnemyUrydike.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Urydike\FormationUrydike.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Urydike\FormationUrydike001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestChoki.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestEnemy.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestGu.h" />
