@@ -557,6 +557,7 @@ class FormationOebius002;
 class EnemyUrydike;
 class FormationUrydike;
 class FormationUrydike001;
+class FormationUrydike002;
 //"VVEnemysHeader.h" Ç‡ÇÌÇ∑ÇÍÇÈÇ»Å`
 
 class DepositoryConnection;

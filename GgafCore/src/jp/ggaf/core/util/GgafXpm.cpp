@@ -13,10 +13,14 @@ GgafXpm::GgafXpm(const char** prm_xpm) : GgafObject() {
     _width = 0;
     _height = 0;
     _colors = 0;
-    std::istringstream line0(_xpm_hd[0]); //"16 491 5 1 "
-    line0 >> _width >> _height >> _colors;
+    _char_on_pixel = 0;
+    std::istringstream line0(_xpm_hd[0]); //"16 491 5 1 "  <width/cols> <height/rows> <colors> <char on pixel>
+    line0 >> _width >> _height >> _colors >> _char_on_pixel;  //char on pixel は 1 しか対応していない・・・
     if (line0.fail()) {
         throwGgafCriticalException("GgafXpm::GgafXpm 不正なヘッダデータです line0=["<<line0<<"]");
+    }
+    if (_char_on_pixel != 1) {
+        throwGgafCriticalException("GgafXpm::GgafXpm _char_on_pixel は1文字しか対応していません。 line0=["<<line0<<"]");
     }
     for (int i = 0; i < _colors; i++) {
         char c = _xpm_hd[i + 1][0]; //１文字だけ対応
@@ -26,7 +30,7 @@ GgafXpm::GgafXpm(const char** prm_xpm) : GgafObject() {
             _mapCharRgb[c] = NEW GgafRgb(strcolor);
         } else {
             std::string strcolor = std::string(&(_xpm_hd[i+1][4]));
-            if (strcolor == "None" || strcolor == "none") {
+            if (strcolor == "None" || strcolor == "none" || strcolor == "    ") {
                 _c_px_non = c;
                 _mapCharRgb[c] = NEW GgafRgb("#000000");
             } else {

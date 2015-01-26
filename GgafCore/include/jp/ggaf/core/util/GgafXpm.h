@@ -25,6 +25,9 @@ public:
     int _num_color_pixels;
     /** [r]透明ピクセルの文字 */
     char _c_px_non;
+
+    int _char_on_pixel;
+
     /** [r]ピクセル色の文字の配列 */
     std::vector<char> _vecColorChar;
     /** [r]ピクセル色の文字に対応する、実際のRGB値 */

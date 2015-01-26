@@ -279,6 +279,37 @@ GgafXpm* XpmManager::processCreateResource(char* prm_idstr, void* prm_pConnector
 
         pResource = NEW GgafXpm(xpm_FormationOebius002);
     }
+
+    if (strcmp("FormationUrydike002_Xpm", prm_idstr) == 0) {
+        /* XPM */
+        static const char *xpm_FormationUrydike002[] = {
+                "9 20 3 1",
+                " 	c None",
+                ".	c #ED1C24",
+                "Q	c #FFFFFF",
+                "Q.......Q",
+                "Q   .   Q",
+                "Q   .   Q",
+                "Q.......Q",
+                "Q       Q",
+                "Q ..... Q",
+                "Q.     .Q",
+                "Q.     .Q",
+                "Q ..... Q",
+                "Q       Q",
+                "Q ..... Q",
+                "Q.     .Q",
+                "Q. .   .Q",
+                "Q .. .. Q",
+                "Q       Q",
+                "Q.......Q",
+                "Q.  .  .Q",
+                "Q.  .  .Q",
+                "Q.     .Q",
+                "Q       Q"};
+
+        pResource = NEW GgafXpm(xpm_FormationUrydike002);
+    }
     if (pResource == nullptr) {
         throwGgafCriticalException("XpmManager::processCreateResource("<<prm_idstr<<") 想定外のIDです。GgafXpmが作成できません。");
     }

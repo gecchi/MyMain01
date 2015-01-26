@@ -33,9 +33,8 @@ void FormationOebius002::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, i
     if (pOebius->pKurokoLeader_) {
         throwGgafCriticalException("FormationOebius002::onCallUp pOebius->pKurokoLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpOebius="<<pOebius<<"("<<pOebius->getName()<<")");
     } else {
-        SplineKurokoLeader* pKurokoLeader = papSplManufConn_[prm_col]->peek()->
-                                                createKurokoLeader(pOebius->getKuroko());
-        pOebius->pKurokoLeader_ = pKurokoLeader;
+        pOebius->pKurokoLeader_ = papSplManufConn_[prm_col]->peek()->
+                                      createKurokoLeader(pOebius->getKuroko());
     }
     double rate_z = pOebius->pKurokoLeader_->_pManufacture->_rate_z;
 

@@ -114,17 +114,10 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Unomia/FormationUnomia002.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Unomia/FormationUnomia002a.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Unomia/FormationUnomia002b.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Oebius/EnemyOebius.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Oebius/EnemyOebiusCore.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Oebius/EnemyOebiusController.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/EnemyOebiusController001.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/EnemyOebiusController002.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Oebius/FormationOebius.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Oebius/FormationOebius001.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Oebius/FormationOebius002.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Urydike/EnemyUrydike.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Urydike/FormationUrydike.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Urydike/FormationUrydike001.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Urydike/FormationUrydike002.h"
 //"VioletVreath.h"Ç÷ÇÃëOï˚êÈåæí«ãLÇ‡ñYÇÍÇ∏Ç…
 
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"

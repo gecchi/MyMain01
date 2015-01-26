@@ -118,6 +118,7 @@ void FormationUrydike::scatterMember() {
 void FormationUrydike::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
     UTIL::transactFormationDestroyAll((GgafDxDrawableActor*)prm_pActor_last_destroyed);
 }
+
 void FormationUrydike::onSayonaraAll() {
 }
 

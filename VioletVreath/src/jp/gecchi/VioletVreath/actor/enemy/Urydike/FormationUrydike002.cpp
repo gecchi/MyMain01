@@ -1,19 +1,20 @@
-#include "FormationUrydike001.h"
+#include "FormationUrydike002.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 #include "jp/ggaf/lib/util/spline/SplineManufacture.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Urydike/EnemyUrydike.h"
-
+#include "jp/ggaf/core/util/GgafXpm.h"
+#include "jp/gecchi/VioletVreath/manager/XpmConnection.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-FormationUrydike001::FormationUrydike001(const char* prm_name) :
-        FormationUrydike(prm_name, 9, 256, 8) {
-    _class_name = "FormationUrydike001";
+FormationUrydike002::FormationUrydike002(const char* prm_name) :
+        FormationUrydike(prm_name, "FormationUrydike002_Xpm", 8) {
+    _class_name = "FormationUrydike002";
 
     papSplManufConn_ = NEW SplineManufactureConnection*[getFormationColNum()];
     papSplManufConn_[0] = getConnection_SplineManufactureManager("FormationUrydike001_0_4");
@@ -27,14 +28,14 @@ FormationUrydike001::FormationUrydike001(const char* prm_name) :
     papSplManufConn_[8] = getConnection_SplineManufactureManager("FormationUrydike001_1_4");
 }
 
-void FormationUrydike001::processBehavior() {
+void FormationUrydike002::processBehavior() {
     FormationUrydike::processBehavior();
 }
 
-void FormationUrydike001::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_row, int prm_col) {
+void FormationUrydike002::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_row, int prm_col) {
     EnemyUrydike* pUrydike = (EnemyUrydike*)prm_pActor;
     if (pUrydike->pKurokoLeader_) {
-        throwGgafCriticalException("FormationUrydike001::onCallUp pUrydike->pKurokoLeader_Ç™ê›íËÇ≥ÇÍÇƒÇ‹Ç∑ÅBpUrydike="<<pUrydike<<"("<<pUrydike->getName()<<")");
+        throwGgafCriticalException("FormationUrydike002::onCallUp pUrydike->pKurokoLeader_Ç™ê›íËÇ≥ÇÍÇƒÇ‹Ç∑ÅBpUrydike="<<pUrydike<<"("<<pUrydike->getName()<<")");
     } else {
         pUrydike->pKurokoLeader_ = papSplManufConn_[prm_col]->peek()->
                                      createKurokoLeader(pUrydike->getKuroko());
@@ -69,17 +70,16 @@ void FormationUrydike001::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, 
     pUrydike->getKuroko()->setMvVelo(0);
     pUrydike->getKuroko()->setMvAcce(80);
 
-    double r = RANGE_CONV(0, getFormationColNum()                      , prm_col         , 0.3, 1.0);
-    double g = RANGE_CONV(0, getFormationColNum()*getFormationRowNum() , prm_col*prm_row , 0.3, 1.0);
-    double b = RANGE_CONV(0, getFormationRowNum()                      , prm_row         , 0.3, 1.0);
-    pUrydike->setMaterialColor(r, g, b);
+    //êFÇê›íË
+    GgafXpm* pXpM = pXpmConnection_->peek();
+    pUrydike->setMaterialColor(pXpM->getColor(prm_row, prm_col));
 }
 
-void FormationUrydike001::onFinshLeading(GgafDxCore::GgafDxDrawableActor* prm_pActor) {
+void FormationUrydike002::onFinshLeading(GgafDxCore::GgafDxDrawableActor* prm_pActor) {
 
 }
 
-FormationUrydike001::~FormationUrydike001() {
+FormationUrydike002::~FormationUrydike002() {
     for (int col = 0; col < getFormationColNum(); col++) {
         papSplManufConn_[col]->close();
     }

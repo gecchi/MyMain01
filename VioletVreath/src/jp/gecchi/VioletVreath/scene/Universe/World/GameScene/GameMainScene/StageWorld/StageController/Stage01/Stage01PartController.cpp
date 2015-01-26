@@ -22,11 +22,11 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,302};
+	frame f[] = {1,303};
 	_paFrame_NextEvent = new frame[2];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 2;
-	orderActorToFactory(10000000, FormationUrydike001, "FormationUrydike001-1");
+	orderActorToFactory(10000000, FormationUrydike002, "FormationUrydike002-1");
     // gen01 end
     useProgress(Stage01PartController::PROG_BANPEI-1);
 }
@@ -44,8 +44,8 @@ void Stage01PartController::processBehavior() {
 			case 1: {
 				break;
 			}
-			case 302: {
-				FormationUrydike001* p1 = (FormationUrydike001*)obtainActorFromFactory(10000000);
+			case 303: {
+				FormationUrydike002* p1 = (FormationUrydike002*)obtainActorFromFactory(10000000);
 				getSceneDirector()->addSubGroup(p1);
 				p1->position(PX_C(-500), PX_C(-800), PX_C(2000) );
 				break;
