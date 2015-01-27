@@ -27,8 +27,6 @@ private:
     static D3DXHANDLE _ah_kind[11];
     static D3DXHANDLE _ah_force_alpha[11];
     static D3DXHANDLE _ah_matWorld_front[11];
-    static bool _is_init;
-    //D3DXHANDLE _h_cnt_vertec;
 
     /** onAcive() でリセットされる振る舞い時フレーム数 */
     frame _frame_of_behaving_from_onActive;
@@ -62,6 +60,8 @@ public:
 
 public:
     LaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
+
+    bool initStatic();
 
     virtual void executeHitChk_MeAnd(GgafActor* prm_pOtherActor) override;
 

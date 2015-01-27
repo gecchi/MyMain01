@@ -14,12 +14,6 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-D3DXHANDLE LaserChip::_ah_kind[11];
-D3DXHANDLE LaserChip::_ah_force_alpha[11];
-D3DXHANDLE LaserChip::_ah_matWorld_front[11];
-bool LaserChip::_is_init = false;
-
-
 LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
       GgafDxMeshSetActor(prm_name,
                          std::string("11/" + std::string(prm_model)).c_str(),
@@ -38,51 +32,54 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
     _hitarea_edge_length = 0;
     _harf_hitarea_edge_length = 0;
     _can_chikei_hit = false;
-    if (!LaserChip::_is_init) {
-        ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
-
-        LaserChip::_ah_kind[0]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind001" );
-        LaserChip::_ah_kind[1]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind002" );
-        LaserChip::_ah_kind[2]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind003" );
-        LaserChip::_ah_kind[3]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind004" );
-        LaserChip::_ah_kind[4]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind005" );
-        LaserChip::_ah_kind[5]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind006" );
-        LaserChip::_ah_kind[6]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind007" );
-        LaserChip::_ah_kind[7]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind008" );
-        LaserChip::_ah_kind[8]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind009" );
-        LaserChip::_ah_kind[9]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind010" );
-        LaserChip::_ah_kind[10] = pID3DXEffect->GetParameterByName( nullptr, "g_kind011" );
-
-        LaserChip::_ah_force_alpha[0]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha001" );
-        LaserChip::_ah_force_alpha[1]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha002" );
-        LaserChip::_ah_force_alpha[2]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha003" );
-        LaserChip::_ah_force_alpha[3]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha004" );
-        LaserChip::_ah_force_alpha[4]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha005" );
-        LaserChip::_ah_force_alpha[5]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha006" );
-        LaserChip::_ah_force_alpha[6]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha007" );
-        LaserChip::_ah_force_alpha[7]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha008" );
-        LaserChip::_ah_force_alpha[8]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha009" );
-        LaserChip::_ah_force_alpha[9]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha010" );
-        LaserChip::_ah_force_alpha[10] = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha011" );
-
-        LaserChip::_ah_matWorld_front[0]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front001" );
-        LaserChip::_ah_matWorld_front[1]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front002" );
-        LaserChip::_ah_matWorld_front[2]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front003" );
-        LaserChip::_ah_matWorld_front[3]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front004" );
-        LaserChip::_ah_matWorld_front[4]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front005" );
-        LaserChip::_ah_matWorld_front[5]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front006" );
-        LaserChip::_ah_matWorld_front[6]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front007" );
-        LaserChip::_ah_matWorld_front[7]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front008" );
-        LaserChip::_ah_matWorld_front[8]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front009" );
-        LaserChip::_ah_matWorld_front[9]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front010" );
-        LaserChip::_ah_matWorld_front[10] = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front011" );
-        LaserChip::_is_init = true;
-    }
 
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(false);  //Zバッファは書き込み無し
     setAlpha(0.99);
     _middle_colli_able = false;
+
+    static bool is_init = LaserChip::initStatic(); //静的メンバ初期化
+}
+
+D3DXHANDLE LaserChip::_ah_kind[11];
+D3DXHANDLE LaserChip::_ah_force_alpha[11];
+D3DXHANDLE LaserChip::_ah_matWorld_front[11];
+bool LaserChip::initStatic() {
+    ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
+    LaserChip::_ah_kind[0]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind001" );
+    LaserChip::_ah_kind[1]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind002" );
+    LaserChip::_ah_kind[2]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind003" );
+    LaserChip::_ah_kind[3]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind004" );
+    LaserChip::_ah_kind[4]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind005" );
+    LaserChip::_ah_kind[5]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind006" );
+    LaserChip::_ah_kind[6]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind007" );
+    LaserChip::_ah_kind[7]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind008" );
+    LaserChip::_ah_kind[8]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind009" );
+    LaserChip::_ah_kind[9]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind010" );
+    LaserChip::_ah_kind[10] = pID3DXEffect->GetParameterByName( nullptr, "g_kind011" );
+    LaserChip::_ah_force_alpha[0]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha001" );
+    LaserChip::_ah_force_alpha[1]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha002" );
+    LaserChip::_ah_force_alpha[2]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha003" );
+    LaserChip::_ah_force_alpha[3]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha004" );
+    LaserChip::_ah_force_alpha[4]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha005" );
+    LaserChip::_ah_force_alpha[5]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha006" );
+    LaserChip::_ah_force_alpha[6]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha007" );
+    LaserChip::_ah_force_alpha[7]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha008" );
+    LaserChip::_ah_force_alpha[8]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha009" );
+    LaserChip::_ah_force_alpha[9]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha010" );
+    LaserChip::_ah_force_alpha[10] = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha011" );
+    LaserChip::_ah_matWorld_front[0]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front001" );
+    LaserChip::_ah_matWorld_front[1]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front002" );
+    LaserChip::_ah_matWorld_front[2]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front003" );
+    LaserChip::_ah_matWorld_front[3]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front004" );
+    LaserChip::_ah_matWorld_front[4]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front005" );
+    LaserChip::_ah_matWorld_front[5]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front006" );
+    LaserChip::_ah_matWorld_front[6]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front007" );
+    LaserChip::_ah_matWorld_front[7]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front008" );
+    LaserChip::_ah_matWorld_front[8]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front009" );
+    LaserChip::_ah_matWorld_front[9]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front010" );
+    LaserChip::_ah_matWorld_front[10] = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front011" );
+    return true;
 }
 
 void LaserChip::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {

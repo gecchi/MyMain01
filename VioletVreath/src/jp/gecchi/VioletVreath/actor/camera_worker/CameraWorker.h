@@ -15,12 +15,10 @@ namespace VioletVreath {
  */
 class CameraWorker : public GgafCore::GgafMainActor {
 
-
     /** カメラのUP要素ベクトルの面番号と、視線の反対ベクトルの面番号との関連テーブル */
     static int relation_up_vec_[3*3*3][3*3*3];
     /** relation_up_vec_アクセス用 */
     static int (*relation_up_by_vec_)[3*3*3];
-    static bool _is_init;
 
 private:
     /** 現在のカメラ→視点の方向番号 */
@@ -46,6 +44,8 @@ public:
 
 public:
     CameraWorker(const char* prm_name);
+
+    bool initStatic();
 
     virtual void initialize() override;
     virtual void onActive() override;

@@ -22,10 +22,10 @@ public:
     /** プリズム無条件追加描画不要面テーブル */
     static std::map<int, UINT> _delface;
 
-    static bool _is_init;
-
 public:
     WallAAPrismActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
+
+    bool initStatic();
 
     virtual void processDraw() override;
 

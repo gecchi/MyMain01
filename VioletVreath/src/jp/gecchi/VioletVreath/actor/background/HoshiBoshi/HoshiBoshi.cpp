@@ -11,14 +11,6 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-D3DXHANDLE HoshiBoshi::h_fX_MyShip_;
-D3DXHANDLE HoshiBoshi::h_fY_MyShip_;
-D3DXHANDLE HoshiBoshi::h_fZ_MyShip_;
-D3DXHANDLE HoshiBoshi::h_far_rate_;
-coord HoshiBoshi::CAM_ZF_;
-bool HoshiBoshi::is_init_ = false;
-
-
 HoshiBoshi::HoshiBoshi(const char* prm_name, const char* prm_model_id) :
         GgafDxPointSpriteActor(prm_name,
                                prm_model_id,
@@ -27,15 +19,6 @@ HoshiBoshi::HoshiBoshi(const char* prm_name, const char* prm_model_id) :
                                nullptr,
                                nullptr ) {
     _class_name = "HoshiBoshi";
-    if (!HoshiBoshi::is_init_) {
-        ID3DXEffect* pID3DXEffect = getEffect()->_pID3DXEffect;
-        HoshiBoshi::h_fX_MyShip_ = pID3DXEffect->GetParameterByName( nullptr, "g_fX_MyShip" );
-        HoshiBoshi::h_fY_MyShip_ = pID3DXEffect->GetParameterByName( nullptr, "g_fY_MyShip" );
-        HoshiBoshi::h_fZ_MyShip_ = pID3DXEffect->GetParameterByName( nullptr, "g_fZ_MyShip" );
-        HoshiBoshi::h_far_rate_  = pID3DXEffect->GetParameterByName( nullptr, "g_far_rate" );
-        HoshiBoshi::CAM_ZF_ = ABS(DX_C(P_CAM->getZFar()));
-        HoshiBoshi::is_init_ = true;
-    }
     effectBlendOne(); //加算合成
     setHitAble(false);
 
@@ -44,7 +27,26 @@ HoshiBoshi::HoshiBoshi(const char* prm_name, const char* prm_model_id) :
     setSpecialDrawDepth(DRAW_DEPTH_LEVEL_HOSHIBOSHI);
     pCriteria_ = P_CAM;
     setFarRate(1.0);
+
+    static bool is_init = HoshiBoshi::initStatic(); //静的メンバ初期化
 }
+
+
+D3DXHANDLE HoshiBoshi::h_fX_MyShip_;
+D3DXHANDLE HoshiBoshi::h_fY_MyShip_;
+D3DXHANDLE HoshiBoshi::h_fZ_MyShip_;
+D3DXHANDLE HoshiBoshi::h_far_rate_;
+coord HoshiBoshi::CAM_ZF_;
+bool HoshiBoshi::initStatic() {
+    ID3DXEffect* pID3DXEffect = getEffect()->_pID3DXEffect;
+    HoshiBoshi::h_fX_MyShip_ = pID3DXEffect->GetParameterByName( nullptr, "g_fX_MyShip" );
+    HoshiBoshi::h_fY_MyShip_ = pID3DXEffect->GetParameterByName( nullptr, "g_fY_MyShip" );
+    HoshiBoshi::h_fZ_MyShip_ = pID3DXEffect->GetParameterByName( nullptr, "g_fZ_MyShip" );
+    HoshiBoshi::h_far_rate_  = pID3DXEffect->GetParameterByName( nullptr, "g_far_rate" );
+    HoshiBoshi::CAM_ZF_ = ABS(DX_C(P_CAM->getZFar()));
+    return true;
+}
+
 void HoshiBoshi::setFarRate(float prm_far_rate) {
     //星々はDIRECTX距離-1.0～1.0（-10px～10px)に収まっている前提で、
     //現空間の大きさに散らばらせる

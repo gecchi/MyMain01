@@ -17,10 +17,10 @@ namespace VioletVreath {
 class HoshiBoshi : public GgafDxCore::GgafDxPointSpriteActor {
 
 public:
-
-
     float far_rate_;
+
     coord space_distance_;
+
     GgafDxCore::GgafDxGeometricActor* pCriteria_;
 
     static D3DXHANDLE h_fX_MyShip_;
@@ -29,10 +29,10 @@ public:
     static D3DXHANDLE h_far_rate_;
     static coord CAM_ZF_;
 
-    static bool is_init_;
-
 public:
     HoshiBoshi(const char* prm_name, const char* prm_model_id);
+
+    bool initStatic();
 
     /**
      * ¯X‚ÌL‚ª‚è‚ÌŠg‘å”{—¦‚ğİ’è .

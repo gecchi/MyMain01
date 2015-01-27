@@ -17,10 +17,11 @@ class WallAABActor : public WallPartsActor {
 public:
     static D3DXHANDLE _h_distance_AlphaTarget;
     static D3DXHANDLE _ah_wall_draw_face[16];
-    static bool _is_init;
 
 public:
     WallAABActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
+
+    bool initStatic();
 
     virtual void processDraw() override;
 

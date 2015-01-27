@@ -7,14 +7,6 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-std::map<std::string, int> VirtualButton::_mapStr2VBK;
-std::map<std::string, int> VirtualButton::_mapStr2VBJ;
-std::map<int, std::string> VirtualButton::_mapVBK2Str;
-std::map<int, std::string> VirtualButton::_mapVBJ2Str;
-std::map<int, VirtualButton::funcVJBtn> VirtualButton::_mapVBJ2Func;
-
-bool VirtualButton::_is_init = false;
-
 VirtualButton::VirtualButton(const char* prm_replay_file) : GgafObject() {
     _keyboardmap.BUTTON1     = VBK_Z;
     _keyboardmap.BUTTON2     = VBK_X;
@@ -117,16 +109,19 @@ VirtualButton::VirtualButton(const char* prm_replay_file) : GgafObject() {
         _is_replaying = false;
         _TRACE_("VirtualButton("<<prm_replay_file<<") 通常記録モード。");
     }
-    if (!VirtualButton::_is_init) {
-        init();//初回new時だけ実行。
-        VirtualButton::_is_init = true;
-    }
+
     _was_replay_done = false;
     _with_pov = true;
+
+    static bool is_init = VirtualButton::initStatic(); //静的メンバ初期化
 }
 
-void VirtualButton::init() {
-
+std::map<std::string, int> VirtualButton::_mapStr2VBK;
+std::map<std::string, int> VirtualButton::_mapStr2VBJ;
+std::map<int, std::string> VirtualButton::_mapVBK2Str;
+std::map<int, std::string> VirtualButton::_mapVBJ2Str;
+std::map<int, VirtualButton::funcVJBtn> VirtualButton::_mapVBJ2Func;
+bool VirtualButton::initStatic() {
     VirtualButton::_mapStr2VBK["VBK_ESCAPE"]       = VBK_ESCAPE      ;
     VirtualButton::_mapStr2VBK["VBK_1"]            = VBK_1           ;
     VirtualButton::_mapStr2VBK["VBK_2"]            = VBK_2           ;
@@ -499,6 +494,7 @@ void VirtualButton::init() {
     VirtualButton::_mapVBJ2Func[VBJ_POV_DOWN   ] = GgafDxCore::GgafDxInput::isBeingPressedPovDown;
     VirtualButton::_mapVBJ2Func[VBJ_POV_LEFT   ] = GgafDxCore::GgafDxInput::isBeingPressedPovLeft;
     VirtualButton::_mapVBJ2Func[VBJ_POV_RIGHT  ] = GgafDxCore::GgafDxInput::isBeingPressedPovRight;
+    return true;
 }
 
 VirtualButton::VBRecord* VirtualButton::getPastVBRecord(frame prm_frame_ago) {

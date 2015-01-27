@@ -348,8 +348,6 @@ public:
     typedef bool (*funcVJBtn)(void);
     static std::map<int, funcVJBtn> _mapVBJ2Func;
 
-    static bool _is_init;
-
 public:
     /** キーボード割り当て値 */
     KEYBOARDMAP _keyboardmap;
@@ -378,6 +376,8 @@ public:
      * @param prm_replay_file リプレイファイル
      */
     VirtualButton(const char* prm_replay_file = "VirtualButton.rep");
+
+    bool initStatic();
 
     static bool isBeingPressedVirtualJoyButton(int prm_VBJ);
 

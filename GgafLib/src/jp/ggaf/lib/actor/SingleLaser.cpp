@@ -13,9 +13,6 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-D3DXHANDLE SingleLaser::_ah_matWorld[26];
-bool SingleLaser::_is_init = false;
-
 
 SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id, GgafStatus* prm_pStat) :
              GgafDxMeshSetActor(prm_name,
@@ -33,40 +30,43 @@ SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id, GgafSta
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(false);  //Zバッファは書き込み無し
 
-    if (!SingleLaser::_is_init) {
-        ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
-        SingleLaser::_ah_matWorld[0]   = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld001" );
-        SingleLaser::_ah_matWorld[1]   = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld002" );
-        SingleLaser::_ah_matWorld[2]   = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld003" );
-        SingleLaser::_ah_matWorld[3]   = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld004" );
-        SingleLaser::_ah_matWorld[4]   = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld005" );
-        SingleLaser::_ah_matWorld[5]   = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld006" );
-        SingleLaser::_ah_matWorld[6]   = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld007" );
-        SingleLaser::_ah_matWorld[7]   = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld008" );
-        SingleLaser::_ah_matWorld[8]   = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld009" );
-        SingleLaser::_ah_matWorld[9]   = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld010" );
-        SingleLaser::_ah_matWorld[10]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld011" );
-        SingleLaser::_ah_matWorld[11]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld012" );
-        SingleLaser::_ah_matWorld[12]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld013" );
-        SingleLaser::_ah_matWorld[13]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld014" );
-        SingleLaser::_ah_matWorld[14]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld015" );
-        SingleLaser::_ah_matWorld[15]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld016" );
-        SingleLaser::_ah_matWorld[16]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld017" );
-        SingleLaser::_ah_matWorld[17]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld018" );
-        SingleLaser::_ah_matWorld[18]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld019" );
-        SingleLaser::_ah_matWorld[19]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld020" );
-        SingleLaser::_ah_matWorld[20]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld021" );
-        SingleLaser::_ah_matWorld[21]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld022" );
-        SingleLaser::_ah_matWorld[22]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld023" );
-        SingleLaser::_ah_matWorld[23]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld024" );
-        SingleLaser::_ah_matWorld[24]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld025" );
-        SingleLaser::_ah_matWorld[25]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld026" );
-    //    SingleLaser::_ah_matWorld[26]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld027" );
-    //    SingleLaser::_ah_matWorld[27]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld028" );
-    //    SingleLaser::_ah_matWorld[28]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld029" );
-    //    SingleLaser::_ah_matWorld[29]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld030" );
-        SingleLaser::_is_init = true;
-    }
+    static bool is_init = SingleLaser::initStatic(); //静的メンバ初期化
+}
+
+D3DXHANDLE SingleLaser::_ah_matWorld[26];
+bool SingleLaser::initStatic() {
+    ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
+    SingleLaser::_ah_matWorld[0]   = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld001" );
+    SingleLaser::_ah_matWorld[1]   = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld002" );
+    SingleLaser::_ah_matWorld[2]   = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld003" );
+    SingleLaser::_ah_matWorld[3]   = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld004" );
+    SingleLaser::_ah_matWorld[4]   = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld005" );
+    SingleLaser::_ah_matWorld[5]   = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld006" );
+    SingleLaser::_ah_matWorld[6]   = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld007" );
+    SingleLaser::_ah_matWorld[7]   = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld008" );
+    SingleLaser::_ah_matWorld[8]   = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld009" );
+    SingleLaser::_ah_matWorld[9]   = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld010" );
+    SingleLaser::_ah_matWorld[10]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld011" );
+    SingleLaser::_ah_matWorld[11]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld012" );
+    SingleLaser::_ah_matWorld[12]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld013" );
+    SingleLaser::_ah_matWorld[13]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld014" );
+    SingleLaser::_ah_matWorld[14]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld015" );
+    SingleLaser::_ah_matWorld[15]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld016" );
+    SingleLaser::_ah_matWorld[16]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld017" );
+    SingleLaser::_ah_matWorld[17]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld018" );
+    SingleLaser::_ah_matWorld[18]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld019" );
+    SingleLaser::_ah_matWorld[19]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld020" );
+    SingleLaser::_ah_matWorld[20]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld021" );
+    SingleLaser::_ah_matWorld[21]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld022" );
+    SingleLaser::_ah_matWorld[22]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld023" );
+    SingleLaser::_ah_matWorld[23]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld024" );
+    SingleLaser::_ah_matWorld[24]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld025" );
+    SingleLaser::_ah_matWorld[25]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld026" );
+//    SingleLaser::_ah_matWorld[26]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld027" );
+//    SingleLaser::_ah_matWorld[27]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld028" );
+//    SingleLaser::_ah_matWorld[28]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld029" );
+//    SingleLaser::_ah_matWorld[29]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld030" );
+    return true;
 }
 
 //void SingleLaser::onCreateModel() {

@@ -19,13 +19,18 @@ class SingleLaser : public GgafDxCore::GgafDxMeshSetActor {
 
 public:
     static D3DXHANDLE _ah_matWorld[26];
-    static bool _is_init;
 
     /** 衝突判定支援オブジェクト */
     CollisionChecker3D* _pColliChecker;
 
 public:
     SingleLaser(const char* prm_name, const char* prm_model_id, GgafCore::GgafStatus* prm_pStat=nullptr);
+
+    /**
+     * スタティックイニシャライザもどき .
+     * @return true
+     */
+    bool initStatic();
 
     virtual void onCreateModel() override {}
 

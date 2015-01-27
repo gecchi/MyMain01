@@ -4,9 +4,6 @@
 
 using namespace GgafCore;
 
-bool GgafRgb::_is_init = false;
-std::map<std::string, std::string> GgafRgb::_cname;
-
 GgafRgb::GgafRgb() : GgafObject(),
         _allowedChars("0123456789abcdefABCDEF#") , _red(0), _green(0), _blue(0), _r(0), _g(0), _b(0), _hex(""), _is_valid(true) {
     init();
@@ -17,6 +14,9 @@ GgafRgb::GgafRgb(std::string prm_str_color) : GgafObject(),
     init();
     set(prm_str_color);
 }
+
+bool GgafRgb::_is_init = false;
+std::map<std::string, std::string> GgafRgb::_cname;
 void GgafRgb::init() {
     if (GgafRgb::_is_init) {
         return;
