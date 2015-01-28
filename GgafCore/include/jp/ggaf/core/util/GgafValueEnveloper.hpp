@@ -1,5 +1,5 @@
-#ifndef GGAFCORE_GGAFVALUETRANSITIONER_H_
-#define GGAFCORE_GGAFVALUETRANSITIONER_H_
+#ifndef GGAFCORE_GGAFVALUEENVELOPER_H_
+#define GGAFCORE_GGAFVALUEENVELOPER_H_
 #include "GgafCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 
@@ -15,7 +15,7 @@ namespace GgafCore {
  * @author Masatoshi Tsuge
  */
 template <class VAL_TYPE, int N>
-class GgafValueTransitioner : public GgafObject {
+class GgafValueEnveloper : public GgafObject {
     enum TransitionMethod {
         NO_TRANSITION,
         TARGET_LINER_TO,
@@ -42,7 +42,7 @@ public:
     frame _beat_frame_of_attack_finish[N];
     frame _beat_frame_of_sustain_finish[N];
     /** [r]ビート時、各対象インデックスのアタックから下限までのフレーム数 */
-    frame _beat_frame_of_decay_finish[N];
+    frame _beat_frame_of_release_finish[N];
     /** [r]ビート時、各対象インデックスの台形波の波形で値遷移のレストフレーム数 */
     frame _beat_roop_frames[N];
     /** [r]ビート時、各対象インデックスの値遷移に費やすフレーム数 */
@@ -71,7 +71,7 @@ public:
     /**
      * コンストラクタ<BR>
      */
-    GgafValueTransitioner() : GgafObject() {
+    GgafValueEnveloper() : GgafObject() {
         for (int i = 0; i < N; i++) {
             _velo[i] = 0;
             _acce[i] = 0;
@@ -80,7 +80,7 @@ public:
             _bottom[i] = 0;
             _beat_frame_of_attack_finish[i] = 0;
             _beat_frame_of_sustain_finish[i] = 0;
-            _beat_frame_of_decay_finish[i] = 0;
+            _beat_frame_of_release_finish[i] = 0;
             _beat_roop_frames[i] = 0;
             _beat_target_frames[i] = 0;
             _beat_frame_count_in_roop[i] = 0;
@@ -386,23 +386,23 @@ public:
      * ① １ループ(変化して元に戻るまで)に費やすフレーム数<BR>
      * ② アタックまでのフレーム数<BR>
      * ③ 維持フレーム数<BR>
-     * ④ 減衰フレーム数<BR>
+     * ④ 減衰(余韻)フレーム数<BR>
      * ⑤ 遷移上限(_top[対象インデックス] 配列が保持)<BR>
      * ⑥ 遷移下限(_bottom[対象インデックス] 配列が保持)<BR>
      * この内 ①～④を引数で設定、⑤⑥はforceRange()の設定値が使用される。<BR>
      * @param prm_roop_frames 上図で①のフレーム数
      * @param prm_attack_frames 上図で②のフレーム数
      * @param prm_sustain_frames 上図で③のフレーム数
-     * @param prm_decay_frames 上図で④のフレーム数
+     * @param prm_release_frames 上図で④のフレーム数
      * @param prm_beat_num ループ数(-1で無限)
      */
     virtual void beat(frame prm_roop_frames,
                       frame prm_attack_frames,
                       frame prm_sustain_frames,
-                      frame prm_decay_frames,
+                      frame prm_release_frames,
                       double prm_beat_num) {
         for (int i = 0; i < N; i++) {
-            beat(i, prm_roop_frames, prm_attack_frames, prm_sustain_frames, prm_decay_frames, prm_beat_num);
+            beat(i, prm_roop_frames, prm_attack_frames, prm_sustain_frames, prm_release_frames, prm_beat_num);
         }
     }
 
@@ -423,7 +423,7 @@ public:
      * ① １ループ(変化して元に戻るまで)に費やすフレーム数<BR>
      * ② アタックまでのフレーム数<BR>
      * ③ 維持フレーム数<BR>
-     * ④ 減衰フレーム数<BR>
+     * ④ 減衰(余韻)フレーム数<BR>
      * ⑤ 遷移上限(_top[対象インデックス] 配列が保持)<BR>
      * ⑥ 遷移下限(_bottom[対象インデックス] 配列が保持)<BR>
      * この内 ①～④を引数で設定、⑤⑥はforceRange()の設定値が使用される。<BR>
@@ -431,21 +431,21 @@ public:
      * @param prm_roop_frames 上図で①のフレーム数
      * @param prm_attack_frames 上図で②のフレーム数
      * @param prm_sustain_frames 上図で③のフレーム数
-     * @param prm_decay_frames 上図で④のフレーム数
+     * @param prm_release_frames 上図で④のフレーム数
      * @param prm_beat_num ループ数(-1で無限)
      */
     virtual void beat(int prm_idx,
                       frame prm_roop_frames,
                       frame prm_attack_frames,
                       frame prm_sustain_frames,
-                      frame prm_decay_frames,
+                      frame prm_release_frames,
                       double prm_beat_num) {
         _method[prm_idx] = BEAT_TRIANGLEWAVE;
         _beat_frame_count[prm_idx] = 0;
         _beat_frame_count_in_roop[prm_idx] = 0;
         _beat_frame_of_attack_finish[prm_idx] = prm_attack_frames;
         _beat_frame_of_sustain_finish[prm_idx] = _beat_frame_of_attack_finish[prm_idx] + prm_sustain_frames;
-        _beat_frame_of_decay_finish[prm_idx] = _beat_frame_of_sustain_finish[prm_idx] + prm_decay_frames;
+        _beat_frame_of_release_finish[prm_idx] = _beat_frame_of_sustain_finish[prm_idx] + prm_release_frames;
         _beat_roop_frames[prm_idx] = prm_roop_frames; //同じ
         if (prm_beat_num < 0) {
             _beat_target_frames[prm_idx] = MAX_FRAME;
@@ -496,7 +496,7 @@ public:
             _bottom[i] = 1;
             _beat_frame_of_attack_finish[i] = 0;
             _beat_frame_of_sustain_finish[i] = 0;
-            _beat_frame_of_decay_finish[i] = 0;
+            _beat_frame_of_release_finish[i] = 0;
             _beat_roop_frames[i] = 0;
             _beat_target_frames[i] = 0;
             _beat_frame_count_in_roop[i] = 0;
@@ -576,16 +576,16 @@ public:
                     //維持終時
                     if (cnt == _beat_frame_of_sustain_finish[i]) {
                         val = top;
-                        frame attenuate_frames = _beat_frame_of_decay_finish[i] - _beat_frame_of_sustain_finish[i]; //減衰時間
-                        //下限までの減衰速度設定
+                        frame attenuate_frames = _beat_frame_of_release_finish[i] - _beat_frame_of_sustain_finish[i]; //減衰(余韻)時間
+                        //下限までの減衰(余韻)速度設定
                         if (attenuate_frames > 0)  {
                             _velo[i] = (VAL_TYPE)( (double)(bottom-top) / ((double)attenuate_frames) );
                         } else {
                             _velo[i] = bottom-top;
                         }
                     }
-                    //減衰終了
-                    if (cnt == _beat_frame_of_decay_finish[i]) {
+                    //減衰(余韻)終了
+                    if (cnt == _beat_frame_of_release_finish[i]) {
                         val = bottom;
                         _velo[i] = 0;
                     }
@@ -618,11 +618,11 @@ public:
         }
     }
 
-    virtual ~GgafValueTransitioner() {
+    virtual ~GgafValueEnveloper() {
     }
 };
 
 
 }
-#endif /*GGAFCORE_GGAFVALUETRANSITIONER_H_*/
+#endif /*GGAFCORE_GGAFVALUEENVELOPER_H_*/
 

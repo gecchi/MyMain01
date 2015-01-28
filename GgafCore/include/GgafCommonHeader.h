@@ -371,7 +371,7 @@ template <class VAL_TYPE>
 class GgafValueAccelerator;
 
 template <class VAL_TYPE, int N>
-class GgafValueTransitioner;
+class GgafValueEnveloper;
 
 class GgafFactory;
 class GgafGarbageBox;

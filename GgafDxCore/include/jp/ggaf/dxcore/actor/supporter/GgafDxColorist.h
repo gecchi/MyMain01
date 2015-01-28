@@ -1,7 +1,7 @@
 #ifndef GGAFDXCORE_GGAFDXCOLORIST_H_
 #define GGAFDXCORE_GGAFDXCOLORIST_H_
 #include "GgafDxCommonHeader.h"
-#include "jp/ggaf/core/util/GgafValueTransitioner.hpp"
+#include "jp/ggaf/core/util/GgafValueEnveloper.hpp"
 
 namespace GgafDxCore {
 
@@ -11,7 +11,7 @@ namespace GgafDxCore {
  * @since 2011/07/28
  * @author Masatoshi Tsuge
  */
-class GgafDxColorist : public GgafCore::GgafValueTransitioner<float, 3 > {
+class GgafDxColorist : public GgafCore::GgafValueEnveloper<float, 3 > {
 
 public:
     /** 対象アクター */

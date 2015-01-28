@@ -5,12 +5,12 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxAlphaFader::GgafDxAlphaFader(GgafDxDrawableActor* prm_pActor) : GgafValueTransitioner<float, 1 > (),
+GgafDxAlphaFader::GgafDxAlphaFader(GgafDxDrawableActor* prm_pActor) : GgafValueEnveloper<float, 1 > (),
 _pActor(prm_pActor) {
     forceRange(0.0f, 1.0f);
 }
 void GgafDxAlphaFader::reset() {
-    GgafValueTransitioner<float, 1 >::reset();
+    GgafValueEnveloper<float, 1 >::reset();
     forceRange(0.0f, 1.0f);
 }
 

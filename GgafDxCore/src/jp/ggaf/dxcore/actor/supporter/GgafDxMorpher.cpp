@@ -8,7 +8,7 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxMorpher::GgafDxMorpher(GgafDxMorphMeshActor* prm_pActor) : GgafValueTransitioner<float, (MAX_MORPH_TARGET+1) >(),
+GgafDxMorpher::GgafDxMorpher(GgafDxMorphMeshActor* prm_pActor) : GgafValueEnveloper<float, (MAX_MORPH_TARGET+1) >(),
 _pActor(prm_pActor) {
     _pAsstA = nullptr;
     forceRange(0.0f, 1.0f);
@@ -18,7 +18,7 @@ GgafDxMorpherAssistantA* GgafDxMorpher::asst() {
 }
 
 void GgafDxMorpher::reset() {
-    GgafValueTransitioner<float, (MAX_MORPH_TARGET+1) >::reset();
+    GgafValueEnveloper<float, (MAX_MORPH_TARGET+1) >::reset();
     forceRange(0.0f, 1.0f);
 }
 float GgafDxMorpher::getValue(int idx) {
@@ -31,7 +31,7 @@ void GgafDxMorpher::behave(int s, int n) {
     if (_pAsstA) {
         _pAsstA->behave();
     }
-    GgafValueTransitioner<float, (MAX_MORPH_TARGET+1) >::behave(1, _pActor->_morph_target_num);
+    GgafValueEnveloper<float, (MAX_MORPH_TARGET+1) >::behave(1, _pActor->_morph_target_num);
 }
 
 

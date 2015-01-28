@@ -6,7 +6,7 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxColorist::GgafDxColorist(GgafDxDrawableActor* prm_pActor) : GgafValueTransitioner<float, 3 > (),
+GgafDxColorist::GgafDxColorist(GgafDxDrawableActor* prm_pActor) : GgafValueEnveloper<float, 3 > (),
 _pActor(prm_pActor) {
     _pa_diffuse[0] = &(prm_pActor->_paMaterial[0].Diffuse.r);
     _pa_diffuse[1] = &(prm_pActor->_paMaterial[0].Diffuse.g);
@@ -15,7 +15,7 @@ _pActor(prm_pActor) {
 }
 
 void GgafDxColorist::reset() {
-    GgafValueTransitioner<float, 3 >::reset();
+    GgafValueEnveloper<float, 3 >::reset();
     forceRange(0, 1.0);
 }
 

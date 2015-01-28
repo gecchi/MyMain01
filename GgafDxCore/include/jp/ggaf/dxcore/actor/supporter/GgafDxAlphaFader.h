@@ -1,7 +1,7 @@
 #ifndef GGAFDXCORE_GGAFDXALPHAFADER_H_
 #define GGAFDXCORE_GGAFDXALPHAFADER_H_
 #include "GgafDxCommonHeader.h"
-#include "jp/ggaf/core/util/GgafValueTransitioner.hpp"
+#include "jp/ggaf/core/util/GgafValueEnveloper.hpp"
 
 namespace GgafDxCore {
 
@@ -14,7 +14,7 @@ namespace GgafDxCore {
  * @since 2010/07/28
  * @author Masatoshi Tsuge
  */
-class GgafDxAlphaFader : public GgafCore::GgafValueTransitioner<float, 1 > {
+class GgafDxAlphaFader : public GgafCore::GgafValueEnveloper<float, 1 > {
 
 public:
     /** [r]対象アクター */

@@ -1,7 +1,7 @@
 #ifndef GGAFDXCORE_GGAFDXSCALER_H_
 #define GGAFDXCORE_GGAFDXSCALER_H_
 #include "GgafDxCommonHeader.h"
-#include "jp/ggaf/core/util/GgafValueTransitioner.hpp"
+#include "jp/ggaf/core/util/GgafValueEnveloper.hpp"
 
 namespace GgafDxCore {
 
@@ -24,7 +24,7 @@ namespace GgafDxCore {
  * @since 2009/05/22
  * @author Masatoshi Tsuge
  */
-class GgafDxScaler : public GgafCore::GgafValueTransitioner<scale, 3 > {
+class GgafDxScaler : public GgafCore::GgafValueEnveloper<scale, 3 > {
 
 public:
     /** [r]対象アクター */

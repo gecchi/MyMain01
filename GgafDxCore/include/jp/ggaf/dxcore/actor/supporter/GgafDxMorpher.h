@@ -1,7 +1,7 @@
 #ifndef GGAFDXCORE_GGAFDXMORPHER_H_
 #define GGAFDXCORE_GGAFDXMORPHER_H_
 #include "GgafDxCommonHeader.h"
-#include "jp/ggaf/core/util/GgafValueTransitioner.hpp"
+#include "jp/ggaf/core/util/GgafValueEnveloper.hpp"
 
 namespace GgafDxCore {
 
@@ -15,7 +15,7 @@ namespace GgafDxCore {
  * @since 2009/05/11
  * @author Masatoshi Tsuge
  */
-class GgafDxMorpher : public GgafCore::GgafValueTransitioner<float, (MAX_MORPH_TARGET+1) > {
+class GgafDxMorpher : public GgafCore::GgafValueEnveloper<float, (MAX_MORPH_TARGET+1) > {
 
 private:
     /** [r]モーファーの助手A */

@@ -1,7 +1,7 @@
 #ifndef GGAFDXCORE_GGAFDXTEXTUREBLINKER_H_
 #define GGAFDXCORE_GGAFDXTEXTUREBLINKER_H_
 #include "GgafDxCommonHeader.h"
-#include "jp/ggaf/core/util/GgafValueTransitioner.hpp"
+#include "jp/ggaf/core/util/GgafValueEnveloper.hpp"
 
 namespace GgafDxCore {
 
@@ -17,7 +17,7 @@ namespace GgafDxCore {
  * @since 2009/05/22
  * @author Masatoshi Tsuge
  */
-class GgafDxTextureBlinker : public GgafCore::GgafValueTransitioner<float, 1 > {
+class GgafDxTextureBlinker : public GgafCore::GgafValueEnveloper<float, 1 > {
 
 public:
     /** 対象アクター */
