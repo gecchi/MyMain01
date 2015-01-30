@@ -1,0 +1,677 @@
+#include <stdlib.h>
+#include <cmath>
+#include <ios>
+#include <iosfwd>
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <sstream>
+#include <string>
+#include <float.h>
+#include <limits.h>
+
+#define ZEROd_EQ(X) (_zerod_eq_(X))
+#define ONEd_EQ(X) (_zerod_eq_((X)-1.0))
+#define ABS(X) (_abs_(X))
+#define XTOS(X) (_xtos_(X))
+bool _zerod_eq_(double val, double epsilon = 1e-13) {
+    return (-epsilon < val && val < epsilon);
+}
+
+template<typename T>
+inline T _abs_(T x) {
+    return x < 0 ? -x : x;
+}
+
+inline int _abs_(int x) {
+    return (x == INT_MIN) ? INT_MAX : (x < 0 ? -x : x);
+}
+/**
+ * いろいろな型の値を文字列に変換 .
+ * @param prm_x
+ * @return 文字列
+ */
+template<typename T>
+std::string _xtos_(T prm_x) {
+    std::ostringstream oss;
+    oss << prm_x;
+    return oss.str();
+}
+
+/**
+ * いろいろな型の値を文字列に変換の bool 特殊化 .
+ * @param prm_x
+ * @return
+ */
+template<typename T>
+std::string _xtos_(bool prm_x) {
+    if (prm_x) {
+        return "true";
+    } else {
+        return "false";
+    }
+}
+
+class Coord {
+public:
+    double _x;
+    double _y;
+
+    Coord() {
+        _x = 0;
+        _y = 0;
+    }
+
+    Coord(double x, double y) {
+        _x = x;
+        _y = y;
+    }
+};
+
+class LineSeg {
+public:
+    double _x1;
+    double _y1;
+    double _x2;
+    double _y2;
+
+    LineSeg() {
+        _x1 = _y1 = _x2 = _y2 = 0;
+    }
+
+    LineSeg(double x1, double y1, double x2, double y2) {
+        _x1 = x1;
+        _y1 = y1;
+        _x2 = x2;
+        _y2 = y2;
+    }
+
+    LineSeg(Coord& c1, Coord& c2) {
+        _x1 = c1._x;
+        _y1 = c1._y;
+        _x2 = c2._x;
+        _y2 = c2._y;
+    }
+
+
+    bool chkCrossing(LineSeg& in_opp) {
+        return chkCrossing(_x1, _y1, _x2, _y2, in_opp._x1, in_opp._y1, in_opp._x2, in_opp._y2);
+    }
+
+    static bool chkCrossing(double x11, double y11, double x12, double y12, double x21, double y21, double x22, double y22) {
+        //x座標によるチェック
+        if (x11 >= x12) {
+            if ((x11 < x21 && x11 < x22) || (x12 > x21 && x12 > x22)) {
+                return false;
+            }
+        } else {
+            if ((x12 < x21 && x12 < x22) || (x11 > x21 && x11 > x22)) {
+                return false;
+            }
+        }
+        //y座標によるチェック
+        if (y11 >= y12) {
+            if ((y11 < y21 && y11 < y22) || (y12 > y21 && y12 > y22)) {
+                return false;
+            }
+        } else {
+            if ((y12 < y21 && y12 < y22) || (y11 > y21 && y11 > y22)) {
+                return false;
+            }
+        }
+        if (((x11 - x12) * (y21 - y11) + (y11 - y12) * (x11 - x21)) * ((x11 - x12) * (y22 - y11) + (y11 - y12)
+                * (x11 - x22)) > 0) {
+            return false;
+        }
+        if (((x21 - x22) * (y11 - y21) + (y21 - y22) * (x21 - x11)) * ((x21 - x22) * (y12 - y21) + (y21 - y22)
+                * (x21 - x12)) > 0) {
+            return false;
+        }
+        return true;
+    }
+};
+
+
+
+
+
+
+
+class Line {
+
+public:
+    // ax + by + c ＝ 0
+    // y = (-a / b)x + (-c / b)
+    double _a;
+    double _b;
+    double _c;
+
+    Line() {
+        _a = 0;
+        _b = 0;
+        _c = 0;
+    }
+    /**
+     * 傾きと切片で作成
+     * @param slope 傾き
+     * @param interceptY 切片
+     */
+    Line(double slope, double interceptY) {
+        //b = 1.0で決め打ち
+        //y = (-a / b)x + (-c / b)
+        //y = (-a)x + (-c)
+        // -a = slope
+        //  b = 1.0
+        // -c = interceptY
+        _a = -slope;
+        _b = 1.0;
+        _c = -interceptY;
+    }
+
+    /**
+     * 法線ベクトル(a,b) な直線で作成
+     * @param a 法線ベクトルX要素
+     * @param b 法線ベクトルY要素
+     * @param c
+     */
+    Line(double a, double b, double c) {
+        _a = a;
+        _b = b;
+        _c = c;
+    }
+
+    /**
+     * 法線(a,b)で、点pを通る直線
+     * @param a
+     * @param b
+     * @param p1
+     */
+    Line(double a, double b, Coord& p) {
+        //x1,y1を通る直線は
+        //a*(x - x1) + b*(y - y1) = 0
+        // a x + b y + (-b y1 - a x1) =0
+        _a = a;
+        _b = b;
+        _c = (-_b * p._y - _a * p._x);
+    }
+
+    /**
+     * 2点を通る直線で作成
+     * @param x1
+     * @param y1
+     * @param x2
+     * @param y2
+     */
+    Line(double x1, double y1, double x2, double y2) {
+        if (x2 == x1) {
+            //Y軸平行
+            // ax + by + c ＝ 0
+            // y = (-a / b)x + (-c / b)
+            _a = 1.0;
+            _b = 0;
+            _c = -x1;
+        } else {
+            //Y軸平行ではない
+            double slope = (y2-y1) / (x2-x1);
+            double intercept = -(x1*y2-x2*y1) / (x2-x1);
+            _a = -slope;
+            _b = 1.0;
+            _c = -intercept;
+        }
+    }
+
+    /**
+     * 2点を通る直線で作成
+     * @param c1
+     * @param c2
+     */
+    Line(Coord& c1, Coord& c2) :
+        Line(c1._x, c1._y, c2._x, c2._y) {
+    }
+
+    /**
+     * 線分を含む直線として作成
+     * @param s1
+     */
+    Line(LineSeg& s1)  :
+        Line(s1._x1, s1._y1, s1._x2, s1._y2) {
+    }
+
+    /**
+     * 傾きを得る .
+     * @return 傾き（Y軸平衡時は、DBL_MAXを返す）
+     */
+    double getSlope() {
+        // ax + by + c ＝ 0
+        // y = (-a / b)x + (-c / b)
+        if (_b == 0.0) {
+            std::cerr << "警告：Y軸と平行の直線です。傾きは∞です" << std::endl;
+            return DBL_MAX;
+        } else {
+            return (-_a / _b);
+        }
+    }
+
+    /**
+     * 切片を得る
+     * @return 切片
+     */
+    double getInterceptY() {
+        // ax + by + c = 0
+        // y = (-a / b)x + (-c / b)
+        if (_b == 0.0) {
+            std::cerr << "警告：Y軸と平行の直線です。切片は存在しません。" << std::endl;
+            return DBL_MAX;
+        } else {
+            return (-_c / _b);
+        }
+    }
+
+    /**
+     * X座標よりY座標を得る
+     * @param x
+     * @return y
+     */
+    double solve(double x) {
+        //y = (-a / b)x + (-c / b)
+        if (_b == 0.0) {
+            std::cerr << "警告：Y軸と平行の直線です。X座標は指定不可です。Y座標は任意です。" << std::endl;
+            return DBL_MAX;
+        } else {
+            return ( (-_a / _b)*x + (-_c / _b) );
+        }
+    }
+    /**
+     * Y座標よりX座標を得る
+     * @param y
+     * @return x
+     */
+    double solveX(double y) {
+        //x= -(b*y+c)/a
+        if (_a == 0.0) {
+            std::cerr << "警告：X軸と平行の直線です。Y座標は指定不可です。X座標は任意です。" << std::endl;
+            return DBL_MAX;
+        } else {
+            return ( -(_b * y +_c) / _a );
+        }
+    }
+
+    bool isParallel(Line& in_opp, double epsilon = 1e-13) {
+        double slope = getSlope();
+        double opp_slope = in_opp.getSlope();
+        if (_zerod_eq_(slope - opp_slope, epsilon)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 直線との交点を得る
+     * @param in_opp 相手直線
+     * @param out_p 交点
+     * @return true:交点取得成功/false:平行なので取得失敗
+     */
+    bool getIntersection(Line& in_opp, Coord& out_p) {
+        //   a1*x + b1*y + c1 = 0  ・・・①
+        //   a2*x + b2*y + c2 = 0  ・・・②
+        //
+        //   ①は
+        //   y = -(a1*x+c1)/b1   ②へ代入
+        //   a2*x + b2*(-(a1*x+c1)/b1) + c2 = 0
+        //   x=(b1*c2-b2*c1)/(a1*b2-a2*b1)
+        //
+        //   ①は
+        //   x = -(b1*y+c1)/a1   ②へ代入
+        //   a2*(-(b1*y+c1)/a1) + b2*y + c2 = 0
+        //   y=-(a1*c2-a2*c1)/(a1*b2-a2*b1)
+        double det = _a * in_opp._b - in_opp._a*_b;
+        if (det == 0) {
+            return false;
+        } else {
+            out_p._x =  (_b * in_opp._c - in_opp._b*_c ) / det;
+            out_p._y = -(_a * in_opp._c - in_opp._a*_c ) / det;
+            return true;
+        }
+    }
+    // y=ax + bの時
+    //        c._x = -( (in_opp._b - _b) / (in_opp._a - _a) );
+    //        c._y = -( ((_a*in_opp._b) - (_b*in_opp._a)) / (in_opp._a - _a) );
+
+
+    /**
+     * 距離 D 離れた平行な直線を得る(２個)。
+     * @param D 
+     * @return
+     */
+    void getParallel(double D, Line& out_parallel1, Line& out_parallel2) {
+        //ax+by+c=0 の法線ベクトルは(a,b)。
+        //単位法線ベクトル n は n = L(a,b),  L=1 / √(a^2+b^2)
+        //離れた距離を D = k・｜L(a,b)｜(kは単位ベクトルの倍数)と表現すると
+        //求める直線は、元の直線上の点(x,y)を単位法線ベクトル方向にずらし点なので
+        // (x,y) ± k・L(a,b)
+        //の集合ですから、その方程式は
+        // a(x ± k・La) + b(y ± k・Lb) + c = 0
+        //計算すると
+        //ax + by + c ± (a^2 + b^2)・k・L=0
+        //
+        // L = 1 / √(a^2+b^2)
+        // k = D / |L(a,b)|
+        // k = D / (  ( 1/√(a^2+b^2) ) * √(a^2+b^2)  )
+        //を代入して整理すると
+        //ax + by + c ± √(a^2+b^2) * D = 0
+        out_parallel1._a = _a;
+        out_parallel1._b = _b;
+        out_parallel1._c = _c + (sqrt(_b*_b+_a*_a)*D);
+        out_parallel2._a = _a;
+        out_parallel2._b = _b;
+        out_parallel2._c = _c - (sqrt(_b*_b+_a*_a)*D);
+    }
+    // y=ax + bの時
+//    Line f;
+//    f._a = _a;
+//    f._b = _b + (d * sqrt((_a*_a) + 1)); //b±d√(a^2+1)
+
+    /**
+     * 自身の直線上の点(x, y)座標よから、距離 d 離れた平行な直線上の最短距離の座標を得る。
+     * @param d
+     * @return
+     */
+    void getDistantCoordByX(double x1, double D, Coord& out_p1, Coord& out_p2) {
+        //自身の直線上の点(x1, y1) を通る垂直は
+        //b (x - x1) - a (y -y1) = 0            ・・・①
+        //距離D離れた平行線は
+        //ax + by + c ± √(a^2+b^2) * D = 0    ・・・②
+        //①と②の交点が求める座標である
+        double y1 = solve(x1);
+        Line vertical = Line(_b, -_a, _a*y1 - _b*x1); //①垂線 b x - a y + a y1 - b x1 =0
+        Line parallel1;
+        Line parallel2;
+        getParallel(D, parallel1, parallel2);  //②の平行線
+
+        vertical.getIntersection(parallel1, out_p1);
+        vertical.getIntersection(parallel2, out_p2);
+    }
+
+    void  getDistantCoordByY(double y1, double D, Coord& out_p1, Coord& out_p2) {
+        //自身の直線上の点(x1, y1) を通る垂直は
+        //b (x - x1) - a (y -y1) = 0            ・・・①
+        //距離D離れた平行線は
+        //ax + by + c ± √(a^2+b^2) * D = 0    ・・・②
+        //①と②の交点が求める座標である
+        double x1 = solveX(y1);
+        Line vertical = Line(_b, -_a, _a*y1 - _b*x1); //①垂線 b x - a y + a y1 - b x1 =0
+        Line parallel1;
+        Line parallel2;
+        getParallel(D, parallel1, parallel2);  //②の平行線
+
+        vertical.getIntersection(parallel1, out_p1);
+        vertical.getIntersection(parallel2, out_p2);
+    }
+
+    /**
+     * 線分と交差しているか判定。
+     * @param b 線分
+     * @return true/false
+     */
+    bool intersectLine_Seg(LineSeg& b) {
+        if (ZEROd_EQ(_b)) {
+            //ｙ軸平行
+            Coord p1 = Coord(solveX(0), 0);
+            Coord p2 = Coord(solveX(1), 1);
+            Coord p3 = Coord(b._x1, b._y1);
+            Coord p4 = Coord(b._x2, b._y2);
+            return Line::intersectLine_Seg(p1, p2, p3, p4);
+        } else {
+            Coord p1 = Coord(0, solve(0));
+            Coord p2 = Coord(1, solve(1));
+            Coord p3 = Coord(b._x1, b._y1);
+            Coord p4 = Coord(b._x2, b._y2);
+            return Line::intersectLine_Seg(p1, p2, p3, p4);
+        }
+    }
+    //座標 p1,p2 を通る直線と座標 p3,p4 を結ぶ線分が交差しているかを調べる
+    static inline bool intersectLine_Seg(Coord& p1, Coord& p2, Coord& p3, Coord& p4) {
+        if (((p1._x - p2._x) * (p3._y - p1._y) + (p1._y - p2._y) * (p1._x - p3._x)) *
+            ((p1._x - p2._x) * (p4._y - p1._y) + (p1._y - p2._y) * (p1._x - p4._x)) > 0) {
+            //交差しない
+            return false;
+        } else {
+            return true;
+        }
+    }
+};
+
+static inline std::string trim(std::string& str) {
+    str.erase(0, str.find_first_not_of(' '));
+    str.erase(str.find_last_not_of(' ')+1);
+    return str;
+}
+
+
+
+
+double getDistance(double x1, double y1, double x2, double y2) {
+    return sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)));
+}
+double getDistance(Coord& p1, Coord& p2) {
+    return getDistance(p1._x, p1._y, p2._x, p2._y);
+}
+
+
+
+/**
+ * gnuplotの２Dの座標データを縁取るようなデータを作成。
+ * @param data_filename 入力 gnuplot ２次元のデータファイル。
+ * @param D 縁取る距離
+ * @param out_filename  出力 gnuplot ２次元のデータファイル。
+ * @return
+ */
+void bordering(std::string data_filename, double D, std::string out_filename) {
+
+    std::ifstream ifs;
+    ifs.open(data_filename.c_str());
+    if (ifs.fail()) {
+        std::cerr << "エラー "<<data_filename<<" が開けません" << std::endl;
+        exit(-1);
+    }
+
+    std::string line;
+    double x, y;
+    int cnt = 0;
+    std::vector<Coord> polyline;
+    while( getline(ifs,line) ) {
+        if (trim(line).size() == 0 ) continue;
+        if (line.c_str()[0] == '#') continue;
+
+        std::istringstream iss(line);
+        iss >> x;
+        iss >> y;
+        cnt++;
+        if (iss.fail()) {
+            std::cerr << "エラー 不正な数値データです line=["<<line<<"]" << std::endl;
+            exit(-1);
+        }
+        Coord c(x, y);
+        polyline.push_back(c);
+    }
+    ifs.close();
+
+    //計算
+    Coord* out_paParallelLine = new Coord[cnt]; //出力の縁をなぞる座標結果
+    for (int i = 0; i < cnt; i++) {
+        Coord pointThis_Parallel; //求める点
+
+        //前回の平行縁線の交点
+        Coord pointPrev_Parallel = Coord(out_paParallelLine[i-1]._x, out_paParallelLine[i-1]._y);
+
+        if (i == 0) {
+            //最初の点
+            Coord pointThis_main = polyline[ i ];
+            Coord pointNext_main = polyline[i+1];
+            Line lineNext_main = Line(pointThis_main, pointNext_main);
+            Coord wk;
+
+            if (ZEROd_EQ(lineNext_main._b)) {
+                lineNext_main.getDistantCoordByY(pointThis_main._y, D, pointThis_Parallel, wk);
+            } else {
+                lineNext_main.getDistantCoordByX(pointThis_main._x, D, pointThis_Parallel, wk);
+            }
+
+        } else if (i == cnt-1) {
+            //最後の点
+            //linePrev_mainの終点（pointThis_main）の getDistantCoordByX としたいが、２(p1,p2)のうちどちらが縁取りかを判定する為
+            //それぞれ傾きを調べ、近い方を採用。
+            Coord pointPrev_main = polyline[i-1];
+            Coord pointThis_main = polyline[ i ];
+            Line linePrev_main = Line(pointPrev_main, pointThis_main);
+            Coord p1;
+            Coord p2;
+
+            if (ZEROd_EQ(linePrev_main._b)) {
+                linePrev_main.getDistantCoordByY(pointThis_main._y, D, p1, p2);
+            } else {
+                linePrev_main.getDistantCoordByX(pointThis_main._x, D, p1, p2);
+            }
+
+            Line l1 = Line(pointPrev_Parallel, p1);
+            Line l2 = Line(pointPrev_Parallel, p2);
+            double s1 = l1.getSlope();
+            double s2 = l2.getSlope();
+            double s_main = linePrev_main.getSlope();
+            if (ABS(s_main-s1) < ABS(s_main-s2)) {
+                pointThis_Parallel = p1;
+            } else {
+                pointThis_Parallel = p2;
+            }
+        } else {
+
+            Coord pointPrev_main = polyline[i-1];
+            Coord pointThis_main = polyline[ i ];
+            Coord pointNext_main = polyline[i+1];
+            Line linePrev_main = Line(pointPrev_main, pointThis_main);
+            Line lineNext_main = Line(pointThis_main, pointNext_main);
+            static const double epsilon = 1e-4;
+            if (linePrev_main.isParallel(lineNext_main, epsilon)) {
+                //直線的につながっている場合
+                //lineNext_mainの始点の getDistantCoordByX としたいが、２(p1,p2)のうちどちらが縁取りかを判定する為
+                //それぞれ傾きを調べ、近い方を採用。
+                Coord p1;
+                Coord p2;
+                if (ZEROd_EQ(lineNext_main._b)) {
+                    lineNext_main.getDistantCoordByY(pointThis_main._y, D, p1, p2);
+                } else {
+                    lineNext_main.getDistantCoordByX(pointThis_main._x, D, p1, p2);
+                }
+                Line l1 = Line(pointPrev_Parallel, p1);
+                Line l2 = Line(pointPrev_Parallel, p2);
+                double s1 = l1.getSlope();
+                double s2 = l2.getSlope();
+                double s_main = lineNext_main.getSlope();
+                if (ABS(s_main-s1) < ABS(s_main-s2)) {
+                    pointThis_Parallel = p1;
+                } else {
+                    pointThis_Parallel = p2;
+                }
+            } else {
+                //折れ曲がっている場合
+                Line lineNext_parallel1; //距離d平行線候補その１
+                Line lineNext_parallel2; //距離d平行線候補その２
+                lineNext_main.getParallel(D, lineNext_parallel1, lineNext_parallel2);
+                //どちらの方が手前にあるかを、交点との距離で判断する。
+                //交点
+                Coord p_parallel1;
+                bool r1 = linePrev_main.getIntersection(lineNext_parallel1, p_parallel1);
+                Coord p_parallel2;
+                bool r2 = linePrev_main.getIntersection(lineNext_parallel2, p_parallel2);
+                //距離
+                double d_parallel1 = getDistance(pointPrev_main, p_parallel1);
+                double d_parallel2 = getDistance(pointPrev_main, p_parallel2);
+
+                Line lineNext_parallel_near; //手前の距離d平行線
+                Line lineNext_parallel_far;  //奥の距離d平行線
+                if (d_parallel1 < d_parallel2) {
+                    lineNext_parallel_near = lineNext_parallel1;
+                    lineNext_parallel_far = lineNext_parallel2;
+                } else {
+                    lineNext_parallel_far = lineNext_parallel1;
+                    lineNext_parallel_near = lineNext_parallel2;
+                }
+
+                //次は、前回の距離d平行線と、次回のポリライン線分が交わるかを判定。
+                Line linePrev_parallel = Line(linePrev_main._a, linePrev_main._b, pointPrev_Parallel); //前回の距離d平行線
+                LineSeg segNext_main = LineSeg(pointThis_main, pointNext_main); //次回のポリライン線分
+                bool m = linePrev_parallel.intersectLine_Seg(segNext_main);
+
+                //交差する場合、手前の距離d平行線を採用
+                //交差しない場合、奥の距離d平行線を採用
+                Line lineNext_parallel;
+                if (m) {
+                    lineNext_parallel = lineNext_parallel_near;
+                } else {
+                    lineNext_parallel = lineNext_parallel_far;
+                }
+
+                //採用された次の距離d平行線との交点を求める
+                linePrev_parallel.getIntersection(lineNext_parallel, pointThis_Parallel);
+            }
+
+        }
+        out_paParallelLine[i] = pointThis_Parallel;
+        std::cout <<  out_paParallelLine[i]._x <<"  " << out_paParallelLine[i]._y << std::endl;
+    }
+
+    //表示
+//    std::cout.setf(std::ios_base::fixed,std::ios_base::floatfield);
+//    for (int i = 0; i < cnt; i++) {
+//        std::cout <<  out_paParallelLine[i]._x <<"  " << out_paParallelLine[i]._y << std::endl;
+//    }
+
+    //柿田足
+    std::ofstream ofs;
+    ofs.open(out_filename.c_str());
+    ofs.setf(std::ios_base::fixed,std::ios_base::floatfield);
+    ofs << "#	X	Y" << std::endl;
+    for (int i = 0; i < cnt; i++) {
+        ofs << out_paParallelLine[i]._x << "  " << out_paParallelLine[i]._y << std::endl;
+    }
+    ofs.close();
+    delete[] out_paParallelLine;
+}
+
+
+
+int main(int argc, char *argv[]) {
+//    std::string path = "C:\\cygwin\\workspace\\MyStgResource\\gnuplot\\ヒルベルト\\";
+//    std::string data_filename = path + "hilbert4.dat";
+//
+//    double dD = 0.2; //縁取る距離
+//
+//
+//    for (int i = -4; i <= -1; i++) {
+//        std::string out_filename = path + "hilbert4_0_" + XTOS(ABS(i)) +".dat";
+//        bordering(data_filename, dD * i, out_filename);
+//    }
+//
+//    for (int i = 1; i <= 4; i++) {
+//        std::string out_filename = path + "hilbert4_1_" + XTOS(i) +".dat";
+//        bordering(data_filename, dD * i, out_filename);
+//    }
+
+
+    std::string path = "C:\\cygwin\\workspace\\MyStgResource\\gnuplot\\ゴスパー\\";
+    std::string data_filename = path + "gosper2.dat";
+
+    double dD = 0.01; //縁取る距離
+
+
+    for (int i = -4; i <= -1; i++) {
+        std::string out_filename = path + "gosper2_0_" + XTOS(ABS(i)) +".dat";
+        bordering(data_filename, dD * i, out_filename);
+    }
+
+    for (int i = 1; i <= 4; i++) {
+        std::string out_filename = path + "gosper2_1_" + XTOS(i) +".dat";
+        bordering(data_filename, dD * i, out_filename);
+    }
+}
