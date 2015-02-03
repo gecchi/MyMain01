@@ -700,7 +700,7 @@ public:
      * 所属することになる。その後、神(GgafGod)が余裕のある時 (FPSが高いとき) を見計らい clean() メソッドにより、<BR>
      * GgafGarbageBox に所属する配下ノードを delete するし、メモリーから消え去る。<BR>
      * <b>【注意】</b><BR>
-     * お気づきかと思うが、本メソッドを実行して引数の猶予フレーム後になっても、
+     * 本メソッドを実行して引数の猶予フレーム後になっても、
      * GgafGarbageBox 配下に移るだけで、直ぐには deleteされるとは限らないため、
      * 不正ポインタによる潜在的バグを起こす。細心の注意をはらおう～（うん、そう決めた）<BR>
      * @param prm_offset_frames 生存終了猶予フレーム(1～)
@@ -889,7 +889,6 @@ public:
      * @param prm2 渡したい引数その２
      */
     virtual void executeFuncLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2);
-
 
     /**
      * 進捗管理オブジェクト(GgafProgress) が管理する進捗の場合数を設定する。

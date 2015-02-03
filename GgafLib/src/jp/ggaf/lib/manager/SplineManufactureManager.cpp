@@ -24,19 +24,39 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
     double rate_y = 1.0f;
     double rate_z = 1.0f;
 
-    std::string spl_data_file="";
-    std::string spl_filename = PROPERTY::DIR_SPLINE + std::string(prm_idstr) + ".spl";
+    std::string id_str = std::string(prm_idstr);
+    std::vector<std::string> spline_id = UTIL::split(id_str, "/"); // "FormationUrydike001/3"のようにスラッシュ区切りがあるか
 
+
+    std::string spl_data_file="";
+    std::string spl_filename = PROPERTY::DIR_SPLINE + spline_id[0] + ".spl";
 
     GgafStrMap mapSplPropperties;
-
     UTIL::readProperties(spl_filename, &mapSplPropperties);
 
-    if (UTIL::isExistKey("SPLINE", &mapSplPropperties)) {
-        spl_data_file = mapSplPropperties["SPLINE"];
+    if (spline_id.size() == 1) {
+        //prm_idstr = "FormationUrydike001"
+        if (UTIL::isExistKey("SPLINE", &mapSplPropperties)) {
+            spl_data_file = mapSplPropperties["SPLINE"];
+        } else {
+            throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [SPLINE] が指定されてません。(1)");
+        }
     } else {
-        throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [SPLINE] が指定されてません。");
+        //prm_idstr = "FormationUrydike001/3"
+        //のように、区切りがある場合、
+        //splファイルの SPLINEは
+        //SPLINE=mobius1.dat,mobius2.dat,mobius3.dat,mobius4.dat
+        //のようにCSVで複数指定していて、スラッシュの後の数値がインデックスとする。
+        if (UTIL::isExistKey("SPLINE", &mapSplPropperties)) {
+            std::string spl_data_file_csv = mapSplPropperties["SPLINE"];
+            std::vector<std::string> vecSplineData = UTIL::split(spl_data_file_csv, ",");
+            int i = STOI(spline_id[1]);
+            spl_data_file = vecSplineData[i];
+        } else {
+            throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [SPLINE] が指定されてません。(2)");
+        }
     }
+
 
     if (UTIL::isExistKey("MAG_X", &mapSplPropperties)) {
         rate_x = atof(mapSplPropperties["MAG_X"].c_str());

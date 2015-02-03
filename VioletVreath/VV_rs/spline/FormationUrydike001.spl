@@ -1,4 +1,4 @@
-SPLINE=Hilbert3.dat
+SPLINE=Hilbert3_0_4.dat,Hilbert3_0_3.dat,Hilbert3_0_2.dat,Hilbert3_0_1.dat,Hilbert3.dat,Hilbert3_1_1.dat,Hilbert3_1_2.dat,Hilbert3_1_3.dat,Hilbert3_1_4.dat
 MAG_X=300000
 MAG_Y=300000
 MAG_Z=300000

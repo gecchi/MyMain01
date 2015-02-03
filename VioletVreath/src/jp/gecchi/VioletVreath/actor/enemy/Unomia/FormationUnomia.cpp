@@ -22,12 +22,7 @@ FormationUnomia::FormationUnomia(const char* prm_name, const char* prm_spl_id)
     setFormationMember(pConn_depo_Unomia_->peek());
 
     //スプライン定義ファイルを読み込む
-    papConn_pSplManuf_ = NEW SplineManufactureConnection*[7];
-    for (int i = 0; i < 7; i++) {
-        std::stringstream spl_id;
-        spl_id << prm_spl_id << "_" << i;  //＜例＞"FormationUnomia001_0"
-        papConn_pSplManuf_[i] = getConnection_SplineManufactureManager(spl_id.str().c_str());
-    }
+    pConn_pSplManuf_ = getConnection_SplineManufactureManager(prm_spl_id);
     pDepo_shot_ = getCommonDepository(Shot004);
     updateRankParameter();
 
@@ -62,7 +57,7 @@ void FormationUnomia::processBehavior() {
         for (int i = 0; i < RF_num_formation_col_; i++) {
             EnemyUnomia* pUnomia = (EnemyUnomia*)callUpMember(RF_num_formation_col_*RF_num_formation_row_);
             if (pUnomia) {
-                SplineKurokoLeader* pKurokoLeader = papConn_pSplManuf_[i]->peek()->
+                SplineKurokoLeader* pKurokoLeader = pConn_pSplManuf_->peek()->
                                               createKurokoLeader(pUnomia->getKuroko());
                 pUnomia->config(pKurokoLeader, nullptr, nullptr);
                 pUnomia->getKuroko()->setMvVelo(RF_mv_velo_);
@@ -94,8 +89,5 @@ void FormationUnomia::processBehavior() {
 
 FormationUnomia::~FormationUnomia() {
     pConn_depo_Unomia_->close();
-    for (int i = 0; i < 7; i++) {
-        papConn_pSplManuf_[i]->close();
-    }
-    GGAF_DELETEARR(papConn_pSplManuf_);
+    pConn_pSplManuf_->close();
 }

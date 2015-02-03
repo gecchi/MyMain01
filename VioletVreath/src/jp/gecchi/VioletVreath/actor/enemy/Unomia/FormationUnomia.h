@@ -19,7 +19,7 @@ public:
     GgafCore::GgafActorDepository* pDepo_shot_;
 
     /** スプライン定義資源への接続 */
-    GgafLib::SplineManufactureConnection** papConn_pSplManuf_;
+    GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
     /** 編隊列数(RANK変動) */
     int RF_num_formation_col_;
     /** １列の編隊数(RANK変動) */
