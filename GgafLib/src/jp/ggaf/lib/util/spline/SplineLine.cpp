@@ -1,5 +1,6 @@
 #include "jp/ggaf/lib/util/spline/SplineLine.h"
 
+#include "jp/ggaf/core/exception/GgafCriticalException.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -48,11 +49,11 @@ void SplineLine::init(double prm_paaEstablish[][3], int prm_num, double prm_accu
     _x_compute = nullptr;
     _y_compute = nullptr;
     _z_compute = nullptr;
-    compute(prm_accuracy);
+    compute();
 }
 
-void SplineLine::compute(double prm_accuracy) {
-    _rnum = _num_basepoint/prm_accuracy;
+void SplineLine::compute() {
+    _rnum = _num_basepoint/_accuracy;
     if (_x_compute) {
         GGAF_DELETEARR(_x_compute);
         GGAF_DELETEARR(_y_compute);
@@ -63,7 +64,12 @@ void SplineLine::compute(double prm_accuracy) {
     _z_compute = NEW double[_rnum];
 
     int index = 0;
-    for (double t = 0.0; t <= (_num_basepoint+0.000001) - 1.0; t += prm_accuracy) { //0.000001 は最後を成立させるため
+    for (double t = 0.0; t <= (_num_basepoint+0.000001) - 1.0; t += _accuracy) { //0.000001 は最後を成立させるため
+#ifdef MY_DEBUG
+        if (_rnum < index+1) {
+            throwGgafCriticalException("SplineLine::compute() 補間点配列の要素数の範囲外指定です。_rnum="<<_rnum<<" index="<<index<<" t="<<t);
+        }
+#endif
         _x_compute[index] = _xs.compute(t);
         _y_compute[index] = _ys.compute(t);
         _z_compute[index] = _zs.compute(t);

@@ -14,78 +14,57 @@ using namespace GgafLib;
 SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKuroko* const prm_pKuroko_target) :
         SplineKurokoLeader(prm_pManufacture, prm_pKuroko_target) {
     _pSteppedSplManuf = (SteppedCoordSplineManufacture*)prm_pManufacture;
-    _leadning_fFrames = 0.0f;
-    _fFrame_of_next = -0.00001f;
-    _point_index = 0;
-    _sinRzMv_begin = 0.0f;
-    _cosRzMv_begin = 0.0f;
-    _sinRyMv_begin = 0.0f;
-    _cosRyMv_begin = 0.0f;
+    _leading_frames = 0;
+    _point_index = -1;
 }
 
 SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(GgafDxKuroko* const prm_pKuroko_target,
-                                                                 SplineLine* prm_pSpl,
-                                                                 angvelo prm_angveloRzRyMv):
+                                                               SplineLine* prm_pSpl):
         SplineKurokoLeader(nullptr, prm_pKuroko_target) { //nullptrで渡す事により、_is_created_pManufacture が falseになる
-    _pSteppedSplManuf = NEW SteppedCoordSplineManufacture(NEW SplineSource(prm_pSpl), prm_angveloRzRyMv);
+    _pSteppedSplManuf = NEW SteppedCoordSplineManufacture(NEW SplineSource(prm_pSpl));
     _pSteppedSplManuf->calculate(); //忘れないように。いずれこのタイプは消す
     _pManufacture = _pSteppedSplManuf; //基底メンバーセット。忘れないように。いずれこのタイプは消す
-
-    _leadning_fFrames = 0.0f;
-    _fFrame_of_next = -0.00001f;
-    _point_index = 0;
-    _sinRzMv_begin = 0.0f;
-    _cosRzMv_begin = 0.0f;
-    _sinRyMv_begin = 0.0f;
-    _cosRyMv_begin = 0.0f;
-}
-
-void SteppedCoordSplineKurokoLeader::start(SplinTraceOption prm_option, int prm_max_loop) {
-    if (_pSteppedSplManuf) {
-        _was_started = true;
-        _is_leading = true;
-        _option = prm_option;
-        _max_loop = prm_max_loop;
-        _cnt_loop = 1;
-        restart();
-    } else {
-        throwGgafCriticalException("SplineKurokoLeader::exec Manufactureがありません。_pActor_target="<<_pActor_target->getName());
-    }
+    _leading_frames = 0;
+    _point_index = -1;
 }
 
 void SteppedCoordSplineKurokoLeader::restart() {
-    _leadning_fFrames = 0.0f;
-    _fFrame_of_next = -0.00001f;
-    _point_index = 0;
-    SplineLine* pSpl = _pSteppedSplManuf->_sp;
-    if (_option == RELATIVE_DIRECTION) {
-        if (!_is_fix_start_pos) {
-            _x_start = (_flip_x * pSpl->_x_compute[0] * _pSteppedSplManuf->_rate_x) + _offset_x - _pActor_target->_x;
-            _y_start = (_flip_y * pSpl->_y_compute[0] * _pSteppedSplManuf->_rate_y) + _offset_y - _pActor_target->_y;
-            _z_start = (_flip_z * pSpl->_z_compute[0] * _pSteppedSplManuf->_rate_z) + _offset_z - _pActor_target->_z;
-        }
-        GgafDxKuroko* const pKuroko_target = _pActor_target->getKuroko();
-        _sinRzMv_begin = ANG_SIN(pKuroko_target->_ang_rz_mv);
-        _cosRzMv_begin = ANG_COS(pKuroko_target->_ang_rz_mv);
-        _sinRyMv_begin = ANG_SIN(pKuroko_target->_ang_ry_mv);
-        _cosRyMv_begin = ANG_COS(pKuroko_target->_ang_ry_mv);
-    } else if (_option == RELATIVE_COORD) {
-        if (!_is_fix_start_pos) {
-            _x_start = (_flip_x * pSpl->_x_compute[0] * _pSteppedSplManuf->_rate_x) + _offset_x - _pActor_target->_x;
-            _y_start = (_flip_y * pSpl->_y_compute[0] * _pSteppedSplManuf->_rate_y) + _offset_y - _pActor_target->_y;
-            _z_start = (_flip_z * pSpl->_z_compute[0] * _pSteppedSplManuf->_rate_z) + _offset_z - _pActor_target->_z;
-        }
-    } else { //ABSOLUTE_COORD
-        if (!_is_fix_start_pos) {
-            _x_start = (_flip_x * pSpl->_x_compute[0] * _pSteppedSplManuf->_rate_x) + _offset_x;
-            _y_start = (_flip_y * pSpl->_y_compute[0] * _pSteppedSplManuf->_rate_y) + _offset_y;
-            _z_start = (_flip_z * pSpl->_z_compute[0] * _pSteppedSplManuf->_rate_z) + _offset_z;
-        }
-   }
+    SplineKurokoLeader::restart();
+    _leading_frames = 0;
+    //始点へ行く特別処理。
+    if (ABS(_distance_to_begin) <= PX_C(1)) {
+        //始点との距離が無い場合(PX_C(1)以下)の場合、
+        //スプライン補間点の第１点目を間引いて、始点の次の補間点からスタート
+        _point_index = 0;
+    } else {
+        //始点との距離が離れていれば、１フレーム費やし始点へ
+        _point_index = -1;
+    }
 }
 
 void SteppedCoordSplineKurokoLeader::behave() {
-    //TODO:未実装！早く作ろう
+    if (_is_leading) {
+        GgafDxKuroko* const pKuroko_target = _pActor_target->getKuroko();
+        _point_index++;
+        if (_point_index == _pSteppedSplManuf->_sp->_rnum) {
+            if (_cnt_loop == _max_loop) {
+                //終了
+                _is_leading = false;
+                return;
+            } else {
+                //ループ
+                _cnt_loop++;
+                restart();
+                _point_index++;
+            }
+        }
+        coord x, y, z;
+        getPointCoord(_point_index, x, y, z);
+        coord d = UTIL::getDistance(_pActor_target->_x, _pActor_target->_y, _pActor_target->_z, x, y, z);
+        pKuroko_target->setMvAngTwd(x, y, z);
+        pKuroko_target->setMvVelo(d);
+        _leading_frames++;
+    }
 }
 
 SteppedCoordSplineKurokoLeader::~SteppedCoordSplineKurokoLeader() {

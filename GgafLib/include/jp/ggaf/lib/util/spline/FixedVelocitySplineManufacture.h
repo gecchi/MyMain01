@@ -25,8 +25,6 @@ public:
     int _turn_way;
     /** [rw]旋回最適化有無 */
     bool _turn_optimize;
-    /** [r]補完点(基準点も含む)の数 */
-    int _point_index;
 
 public:
     /**

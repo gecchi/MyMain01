@@ -23,8 +23,6 @@ public:
 
     /** スプライン情報セット */
     SplineManufacture* _pManufacture;
-    /** start()からの経過フレーム数 */
-    frame _leading_frames;
     /** 先導開始をしたかどうか */
     bool _was_started;
     /** 現在先導中であるかどうか */
@@ -61,14 +59,18 @@ public:
     int _flip_z;
     /** [r]アクターの現在位置からスプライン始点までの距離。start()時点で更新される。 */
     int _distance_to_begin;
-    /** [r]現在向かっている最中の補完点(基準点も含む)の数 */
-    int _point_index;
     /** [r]始点座標を固定する。（固定しない場合は黒子Aのアクターの座標になる） */
     bool _is_fix_start_pos;
 
     bool _is_fix_start_mv_ang;
     angle _ang_rz_mv_start;
     angle _ang_ry_mv_start;
+
+    float _sinRzMv_begin;
+    float _cosRzMv_begin;
+    float _sinRyMv_begin;
+    float _cosRyMv_begin;
+
 public:
     /**
      * コンストラクタ .
@@ -129,6 +131,8 @@ public:
      */
     virtual void start(SplinTraceOption prm_option, int prm_max_loop = 1);
 
+    virtual void restart();
+
     /**
      * スプライン曲線の補完点を移動する先導をやめる（注：アクターが停止するわけではない） .
      */
@@ -141,7 +145,7 @@ public:
      * start() を行った最初のbehave()は、『現在の座標→ポイント[0]』への処理となります。<BR>
      * 黒衣(GgafDxCore::GgafDxKuroko)のbehave();より先に実行して下さい。
      */
-    virtual void behave();
+    virtual void behave() = 0;
 
     /**
      * 黒衣を先導中か否か .

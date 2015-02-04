@@ -40,7 +40,6 @@ void EnemyUrydike::initialize() {
     pChecker->setColliAAB_Cube(0, 40000);
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->relateFaceByMvAng(true);
-    pKuroko->forceMvVeloRange(PX_C(15));
 }
 
 void EnemyUrydike::onActive() {

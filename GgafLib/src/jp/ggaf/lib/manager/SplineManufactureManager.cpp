@@ -15,6 +15,8 @@ SplineManufactureManager::SplineManufactureManager(const char* prm_manager_name)
 }
 
 SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_idstr, void* prm_pConnector) {
+    _TRACE_("SplineManufactureManager::processCreateResource idstr="<<prm_idstr<<"");
+
     frame spent_frame = 0;
     angvelo angveloRzRyMv = 0;
     std::string classname = "";
@@ -34,47 +36,65 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
     GgafStrMap mapSplPropperties;
     UTIL::readProperties(spl_filename, &mapSplPropperties);
 
-    if (spline_id.size() == 1) {
-        //prm_idstr = "FormationUrydike001"
-        if (UTIL::isExistKey("SPLINE", &mapSplPropperties)) {
-            spl_data_file = mapSplPropperties["SPLINE"];
+    if (UTIL::isExistKey("SPLINE", &mapSplPropperties)) {
+        if (spline_id.size() == 1) {
+            //prm_idstr = "FormationUrydike001"
+            std::string spl_data_file_csv = mapSplPropperties["SPLINE"];
+            std::vector<std::string> vecSplineData = UTIL::split(spl_data_file_csv, ",");
+#ifdef MY_DEBUG
+            if (0 < vecSplineData.size()) {
+                _TRACE_("＜警告＞ SplineManufactureManager::processCreateResource "<<prm_idstr<<" [SPLINE] はカンマ区切りの配列ですが、呼び出し側はインデックス指定していません。意図していますか？");
+            }
+#endif
+            spl_data_file = vecSplineData[0];
         } else {
-            throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [SPLINE] が指定されてません。(1)");
-        }
-    } else {
-        //prm_idstr = "FormationUrydike001/3"
-        //のように、区切りがある場合、
-        //splファイルの SPLINEは
-        //SPLINE=mobius1.dat,mobius2.dat,mobius3.dat,mobius4.dat
-        //のようにCSVで複数指定していて、スラッシュの後の数値がインデックスとする。
-        if (UTIL::isExistKey("SPLINE", &mapSplPropperties)) {
+            //prm_idstr = "FormationUrydike001/3"
+            //のように、区切りがある場合、
+            //splファイルの SPLINEは
+            //SPLINE=mobius1.dat,mobius2.dat,mobius3.dat,mobius4.dat
+            //のようにCSVで複数指定していて、スラッシュの後の数値がインデックスとする。
             std::string spl_data_file_csv = mapSplPropperties["SPLINE"];
             std::vector<std::string> vecSplineData = UTIL::split(spl_data_file_csv, ",");
             int i = STOI(spline_id[1]);
+#ifdef MY_DEBUG
+            if (i+1 > vecSplineData.size()) {
+                throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [SPLINE] の配列要素数は"<<(vecSplineData.size())<<"ですが、指定インデックスは"<<i<<"の為、範囲外です。(許容範囲=0～"<<(vecSplineData.size()-1)<<")");
+            }
+            if (vecSplineData.size() == 1) {
+                _TRACE_("＜警告＞ SplineManufactureManager::processCreateResource "<<prm_idstr<<" [SPLINE]はカンマ区切りの配列ではありませんが、呼び出し側は0番目のインデックス指定です。意図していますか？");
+            }
+#endif
             spl_data_file = vecSplineData[i];
-        } else {
-            throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [SPLINE] が指定されてません。(2)");
         }
+    } else {
+        throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [SPLINE] は必須です。");
     }
-
+    if (spl_data_file.length() == 0) {
+        throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [SPLINE] が指定されてません。");
+    }
 
     if (UTIL::isExistKey("MAG_X", &mapSplPropperties)) {
         rate_x = atof(mapSplPropperties["MAG_X"].c_str());
     } else {
-        throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [MAG_X] が指定されてません。");
+        rate_x = 1.0;
     }
-
     if (UTIL::isExistKey("MAG_Y", &mapSplPropperties)) {
         rate_y = atof(mapSplPropperties["MAG_Y"].c_str());
     } else {
-        throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [MAG_Y] が指定されてません。");
+        rate_y = 1.0;
     }
-
     if (UTIL::isExistKey("MAG_Z", &mapSplPropperties)) {
         rate_z = atof(mapSplPropperties["MAG_Z"].c_str());
     } else {
-        throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [MAG_Z] が指定されてません。");
+        rate_z = 1.0;
     }
+
+    //CLASS
+    enum SplineLeader {
+        CLASS_FixedFrameSpline,
+        CLASS_FixedVelocitySpline,
+        CLASS_SteppedCoordSpline,
+    } leader;
 
     if (UTIL::isExistKey("CLASS", &mapSplPropperties)) {
         classname = mapSplPropperties["CLASS"];
@@ -85,77 +105,118 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
         throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [CLASS] が指定されてません。");
     }
 
-    if (UTIL::isExistKey("ANGLE_VELOCITY", &mapSplPropperties)) {
-        angveloRzRyMv = (angvelo)atoi(mapSplPropperties["ANGLE_VELOCITY"].c_str());
-    } else {
-        throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [CLASS] が指定されてません。");
-    }
-
-    if (UTIL::isExistKey("TURN_WAY", &mapSplPropperties)) {
-        if (mapSplPropperties["TURN_WAY"] == "TURN_CLOSE_TO") {
-            turn_way = TURN_CLOSE_TO;
-        } else if (mapSplPropperties["TURN_WAY"] == "TURN_ANTICLOSE_TO") {
-            turn_way = TURN_ANTICLOSE_TO;
-        } else if (mapSplPropperties["TURN_WAY"] == "TURN_CLOCKWISE") {
-            turn_way = TURN_CLOCKWISE;
-        } else if (mapSplPropperties["TURN_WAY"] == "TURN_COUNTERCLOCKWISE") {
-            turn_way = TURN_COUNTERCLOCKWISE;
-        } else {
-            throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [TURN_WAY] の値('"<<mapSplPropperties["TURN_WAY"]<<"')が不正です。\n" <<
-                                       "TURN_CLOSE_TO/TURN_ANTICLOSE_TO/TURN_CLOCKWISE/TURN_COUNTERCLOCKWISE の何れかを指定してください");
-        }
-    } else {
-        throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [TURN_WAY] が指定されてません。");
-    }
-
-    if (UTIL::isExistKey("TURN_OPTIMIZE", &mapSplPropperties)) {
-        turn_optimize = UTIL::cnvBool(mapSplPropperties["TURN_OPTIMIZE"]);
-    } else {
-        throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [TURN_OPTIMIZE] が指定されてません。");
-    }
-
-
-    if (spl_data_file.length() == 0) {
-        throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [SPLINE] が指定されてません。");
-    }
-
-    SplineManufacture* pSplManuf = nullptr;
     if (classname.find("FixedFrameSpline") != std::string::npos) {
-        if (UTIL::isExistKey("SPENT_FRAME", &mapSplPropperties)) {
-            spent_frame = (frame)atoi(mapSplPropperties["SPENT_FRAME"].c_str());
-        } else {
-            throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [CLASS] が FixedFrameSplineの場合は、SPENT_FRAME が必要です。");
-        }
+        leader = CLASS_FixedFrameSpline;
+    } else if (classname.find("FixedVelocitySpline") != std::string::npos) {
+        leader = CLASS_FixedVelocitySpline;
+    } else if (classname.find("SteppedCoordSpline") != std::string::npos) {
+        leader = CLASS_SteppedCoordSpline;
+    } else {
+        throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" : "<<
+                "[CLASS]="<<classname<<" は指定出来ません。可能なクラスは FixedFrameSpline/FixedVelocitySpline/SteppedCoordSpline のみです。");
+    }
 
-        if (spent_frame == 0) {
-            throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [SPENT_FRAME] が0です。");
+    //SPENT_FRAME
+    if (UTIL::isExistKey("SPENT_FRAME", &mapSplPropperties)) {
+        if (leader == CLASS_FixedFrameSpline) {
+            spent_frame = (frame)atoi(mapSplPropperties["SPENT_FRAME"].c_str());
+            if (spent_frame == 0) {
+                throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" : "<<
+                        "[SPENT_FRAME] に 0 は指定出来ません。");
+            }
+        } else {
+            throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" : "<<
+                    "[CLASS]="<<classname<<" の場合は、[SPENT_FRAME] の指定は不可です。(コメント等にして除去して下さい)");
         }
-        pSplManuf = NEW FixedFrameSplineManufacture(spl_data_file.c_str(), spent_frame,
+    } else {
+        if (leader == CLASS_FixedFrameSpline) {
+            throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" : "<<
+                    "[CLASS]="<<classname<<" の場合は、[SPENT_FRAME] の指定が必須です。");
+        }
+    }
+
+    //ANGLE_VELOCITY
+    if (UTIL::isExistKey("ANGLE_VELOCITY", &mapSplPropperties)) {
+        if (leader == CLASS_FixedFrameSpline || leader == CLASS_FixedVelocitySpline) {
+            angveloRzRyMv = (angvelo)atoi(mapSplPropperties["ANGLE_VELOCITY"].c_str());
+            if (angveloRzRyMv == 0) {
+                _TRACE_("＜警告＞ SplineManufactureManager::processCreateResource "<<prm_idstr<<" : "<<
+                        "[ANGLE_VELOCITY] が 0 です。意図してますか？");
+            }
+        } else {
+            throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" : "<<
+                    "[CLASS]="<<classname<<" の場合は、[ANGLE_VELOCITY] の指定は不可です。(コメント等にして除去して下さい)");
+        }
+    } else {
+        if (leader == CLASS_FixedFrameSpline || leader == CLASS_FixedVelocitySpline) {
+            throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" : "<<
+                    "[CLASS]="<<classname<<" の場合は、[ANGLE_VELOCITY] の指定が必須です。");
+        }
+    }
+
+    //TURN_WAY
+    if (UTIL::isExistKey("TURN_WAY", &mapSplPropperties)) {
+        if (leader == CLASS_FixedFrameSpline || leader == CLASS_FixedVelocitySpline) {
+            if (mapSplPropperties["TURN_WAY"] == "TURN_CLOSE_TO") {
+                turn_way = TURN_CLOSE_TO;
+            } else if (mapSplPropperties["TURN_WAY"] == "TURN_ANTICLOSE_TO") {
+                turn_way = TURN_ANTICLOSE_TO;
+            } else if (mapSplPropperties["TURN_WAY"] == "TURN_CLOCKWISE") {
+                turn_way = TURN_CLOCKWISE;
+            } else if (mapSplPropperties["TURN_WAY"] == "TURN_COUNTERCLOCKWISE") {
+                turn_way = TURN_COUNTERCLOCKWISE;
+            } else {
+                throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" : "<<
+                        "[TURN_WAY] の値('"<<mapSplPropperties["TURN_WAY"]<<"')が不正です。\n" <<
+                                           "TURN_CLOSE_TO/TURN_ANTICLOSE_TO/TURN_CLOCKWISE/TURN_COUNTERCLOCKWISE の何れかを指定してください");
+            }
+        } else {
+            throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" : "<<
+                    "[CLASS]="<<classname<<" の場合は、[TURN_WAY] の指定は不可です。");
+        }
+    } else {
+        if (leader == CLASS_FixedFrameSpline || leader == CLASS_FixedVelocitySpline) {
+            throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" : "<<
+                    "[CLASS]="<<classname<<" の場合は、[TURN_WAY] の指定が必須です。");
+        }
+    }
+
+    //TURN_OPTIMIZE
+    if (UTIL::isExistKey("TURN_OPTIMIZE", &mapSplPropperties)) {
+        if (leader == CLASS_FixedFrameSpline || leader == CLASS_FixedVelocitySpline) {
+            turn_optimize = UTIL::cnvBool(mapSplPropperties["TURN_OPTIMIZE"]);
+        } else {
+            throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" : "<<
+                    "[CLASS]="<<classname<<" の場合は、[TURN_OPTIMIZE] の指定は不可です。(コメント等にして除去して下さい)");
+        }
+    } else {
+        if (leader == CLASS_FixedFrameSpline || leader == CLASS_FixedVelocitySpline) {
+            throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" : "<<
+                    "[CLASS]="<<classname<<" の場合は、[TURN_OPTIMIZE] の指定が必須です。");
+        }
+    }
+
+    //SplineManufacture作成
+    SplineManufacture* pSplManuf = nullptr;
+    if (leader == CLASS_FixedFrameSpline) {
+        pSplManuf = NEW FixedFrameSplineManufacture(spl_data_file.c_str(),
+                                                    spent_frame,
                                                     angveloRzRyMv,
                                                     turn_way,
                                                     turn_optimize);
-        pSplManuf->adjustAxisRate(rate_x, rate_y, rate_z); //拡大縮小
-        pSplManuf->calculate();
-    } else if (classname.find("FixedVelocitySpline") != std::string::npos) {
+    } else if (leader == CLASS_FixedVelocitySpline) {
         pSplManuf = NEW FixedVelocitySplineManufacture(spl_data_file.c_str(),
                                                        angveloRzRyMv,
                                                        turn_way,
                                                        turn_optimize);
-        pSplManuf->adjustAxisRate(rate_x, rate_y, rate_z); //拡大縮小
-        pSplManuf->calculate();
-    } else if (classname.find("SteppedCoordSpline") != std::string::npos) {
-        pSplManuf = NEW SteppedCoordSplineManufacture(spl_data_file.c_str(),
-                                                      // angveloRzRyMv,
-                                                      turn_way,
-                                                      turn_optimize);
-        pSplManuf->adjustAxisRate(rate_x, rate_y, rate_z); //拡大縮小
-        pSplManuf->calculate();
+    } else if (leader == CLASS_SteppedCoordSpline) {
+        pSplManuf = NEW SteppedCoordSplineManufacture(spl_data_file.c_str());
     } else {
         throwGgafCriticalException("SplineManufactureManager::processCreateResource _classname="<<classname<< "は不明なクラスです");
     }
-    if (angveloRzRyMv == 0) {
-        throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [ANGLE_VELOCITY] が指定されてません。");
-    }
+    pSplManuf->adjustAxisRate(rate_x, rate_y, rate_z); //拡大縮小
+    pSplManuf->calculate(); //計算！
+
     return pSplManuf;
 }
 

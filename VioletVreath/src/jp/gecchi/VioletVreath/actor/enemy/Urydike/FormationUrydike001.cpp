@@ -12,19 +12,20 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationUrydike001::FormationUrydike001(const char* prm_name) :
-        FormationUrydike(prm_name, 9, 256, 8) {
+//        FormationUrydike(prm_name, 9, 256, 8) {
+    FormationUrydike(prm_name, 1, 300, 1) {
     _class_name = "FormationUrydike001";
 
     papSplManufConn_ = NEW SplineManufactureConnection*[getFormationColNum()];
-    papSplManufConn_[0] = getConnection_SplineManufactureManager("FormationUrydike001/0");
-    papSplManufConn_[1] = getConnection_SplineManufactureManager("FormationUrydike001/1");
-    papSplManufConn_[2] = getConnection_SplineManufactureManager("FormationUrydike001/2");
-    papSplManufConn_[3] = getConnection_SplineManufactureManager("FormationUrydike001/3");
-    papSplManufConn_[4] = getConnection_SplineManufactureManager("FormationUrydike001/4");
-    papSplManufConn_[5] = getConnection_SplineManufactureManager("FormationUrydike001/5");
-    papSplManufConn_[6] = getConnection_SplineManufactureManager("FormationUrydike001/6");
-    papSplManufConn_[7] = getConnection_SplineManufactureManager("FormationUrydike001/7");
-    papSplManufConn_[8] = getConnection_SplineManufactureManager("FormationUrydike001/8");
+    papSplManufConn_[0] = getConnection_SplineManufactureManager("FormationUrydike001_STEP/0");
+//    papSplManufConn_[1] = getConnection_SplineManufactureManager("FormationUrydike001/1");
+//    papSplManufConn_[2] = getConnection_SplineManufactureManager("FormationUrydike001/2");
+//    papSplManufConn_[3] = getConnection_SplineManufactureManager("FormationUrydike001/3");
+//    papSplManufConn_[4] = getConnection_SplineManufactureManager("FormationUrydike001/4");
+//    papSplManufConn_[5] = getConnection_SplineManufactureManager("FormationUrydike001/5");
+//    papSplManufConn_[6] = getConnection_SplineManufactureManager("FormationUrydike001/6");
+//    papSplManufConn_[7] = getConnection_SplineManufactureManager("FormationUrydike001/7");
+//    papSplManufConn_[8] = getConnection_SplineManufactureManager("FormationUrydike001");
 }
 
 void FormationUrydike001::processBehavior() {
@@ -69,10 +70,10 @@ void FormationUrydike001::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, 
     pUrydike->getKuroko()->setMvVelo(0);
     pUrydike->getKuroko()->setMvAcce(80);
 
-    double r = RANGE_CONV(0, getFormationColNum()                      , prm_col         , 0.3, 1.0);
-    double g = RANGE_CONV(0, getFormationColNum()*getFormationRowNum() , prm_col*prm_row , 0.3, 1.0);
-    double b = RANGE_CONV(0, getFormationRowNum()                      , prm_row         , 0.3, 1.0);
-    pUrydike->setMaterialColor(r, g, b);
+//    double r = RANGE_CONV(0, getFormationColNum()                      , prm_col         , 0.3, 1.0);
+//    double g = RANGE_CONV(0, getFormationColNum()*getFormationRowNum() , prm_col*prm_row , 0.3, 1.0);
+//    double b = RANGE_CONV(0, getFormationRowNum()                      , prm_row         , 0.3, 1.0);
+//    pUrydike->setMaterialColor(r, g, b);
 }
 
 void FormationUrydike001::onFinshLeading(GgafDxCore::GgafDxDrawableActor* prm_pActor) {

@@ -70,7 +70,6 @@ public:
      */
     SplineManufacture(SplineSource* prm_pSplSrc);
 
-
     /**
      * 各補完点を、X軸方向、Y軸方向、Z軸方向それぞれに割合を乗じ、補正します .
      * デフォルトは adjustAxisRate(1.0, 1.0, 1.0) となります。<BR>
@@ -89,7 +88,7 @@ public:
      * _paDistance_to[] と _total_distance を計算します。<BR>
      * プロパティを変更した場合、内部テーブル情報を更新するために
      * 一度実行する必要があります。
-     * 下位で実装して下さい。
+     * 下位で呼び出しして下さい。
      */
     virtual void calculate();
 
@@ -101,7 +100,6 @@ public:
      * @return
      */
     virtual SplineKurokoLeader* createKurokoLeader(GgafDxCore::GgafDxKuroko* const prm_pKuroko) = 0;
-
 
     virtual ~SplineManufacture();
 };

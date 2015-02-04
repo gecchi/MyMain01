@@ -21,6 +21,7 @@ SplineManufacture::SplineManufacture(const char* prm_source_file) : GgafObject()
     _rate_z = 1.0;
     _total_distance = 0;
 }
+
 SplineManufacture::SplineManufacture(SplineSource* prm_pSplSrc) {
     _source_file = "Nothing";
     _pSplSrcCon = nullptr;
@@ -32,11 +33,13 @@ SplineManufacture::SplineManufacture(SplineSource* prm_pSplSrc) {
     _rate_z = 1.0;
     _total_distance = 0;
 }
+
 void SplineManufacture::adjustAxisRate(double prm_rate_x, double prm_rate_y, double prm_rate_z) {
     _rate_x = prm_rate_x;
     _rate_y = prm_rate_y;
     _rate_z = prm_rate_z;
 }
+
 void SplineManufacture::calculate() {
     coord x_from, y_from, z_from;
     coord x_to, y_to, z_to;

@@ -17,15 +17,15 @@ FormationUrydike002::FormationUrydike002(const char* prm_name) :
     _class_name = "FormationUrydike002";
 
     papSplManufConn_ = NEW SplineManufactureConnection*[getFormationColNum()];
-    papSplManufConn_[0] = getConnection_SplineManufactureManager("FormationUrydike001_0_4");
-    papSplManufConn_[1] = getConnection_SplineManufactureManager("FormationUrydike001_0_3");
-    papSplManufConn_[2] = getConnection_SplineManufactureManager("FormationUrydike001_0_2");
-    papSplManufConn_[3] = getConnection_SplineManufactureManager("FormationUrydike001_0_1");
-    papSplManufConn_[4] = getConnection_SplineManufactureManager("FormationUrydike001");
-    papSplManufConn_[5] = getConnection_SplineManufactureManager("FormationUrydike001_1_1");
-    papSplManufConn_[6] = getConnection_SplineManufactureManager("FormationUrydike001_1_2");
-    papSplManufConn_[7] = getConnection_SplineManufactureManager("FormationUrydike001_1_3");
-    papSplManufConn_[8] = getConnection_SplineManufactureManager("FormationUrydike001_1_4");
+    papSplManufConn_[0] = getConnection_SplineManufactureManager("FormationUrydike002/0");
+    papSplManufConn_[1] = getConnection_SplineManufactureManager("FormationUrydike002/1");
+    papSplManufConn_[2] = getConnection_SplineManufactureManager("FormationUrydike002/2");
+    papSplManufConn_[3] = getConnection_SplineManufactureManager("FormationUrydike002/3");
+    papSplManufConn_[4] = getConnection_SplineManufactureManager("FormationUrydike002/4");
+    papSplManufConn_[5] = getConnection_SplineManufactureManager("FormationUrydike002/5");
+    papSplManufConn_[6] = getConnection_SplineManufactureManager("FormationUrydike002/6");
+    papSplManufConn_[7] = getConnection_SplineManufactureManager("FormationUrydike002/7");
+    papSplManufConn_[8] = getConnection_SplineManufactureManager("FormationUrydike002/8");
 }
 
 void FormationUrydike002::processBehavior() {
@@ -58,7 +58,6 @@ void FormationUrydike002::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, 
                                                entry_pos_.y + dy,
                                                entry_pos_.z + dz);
     pUrydike->pKurokoLeader_->fixStartMvAngle(entry_pos_.rz, entry_pos_.ry);
-
 
     pUrydike->position( RND_ABOUT(entry_pos_.x + dx, PX_C(700)),
                         RND_ABOUT(entry_pos_.y + dy, PX_C(700)),

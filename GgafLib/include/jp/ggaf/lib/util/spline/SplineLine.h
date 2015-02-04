@@ -187,12 +187,8 @@ public:
 
     /**
      * 補完点計算
-     * @param prm_accuracy 補完点挿入粒度。
-     *                     1.0で補完点なし。
-     *                     0.5で制御点間に中点を1つ追加。
-     *                     0.1だと制御点間に9個の補完点、といった具合
      */
-    void compute(double prm_accuracy);
+    void compute();
 
     virtual ~SplineLine();
 

@@ -54,10 +54,10 @@ _pActor(prm_pActor) {
     _ang_ry_mv = 0;
     //移動速度
     _velo_mv = 0;
-    //移動速度上限 = 256 px/fream
-    _top_velo_mv = INT_MAX; //_velo_mv が 256000(=256px) を上回る移動量であっても、強制的に座標増分は 256px に抑えられる。
-    //移動速度下限 = 0   px/fream
-    _bottom_velo_mv = INT_MIN; //_velo_mv が -256000(-256px) を下回る移動量があっても、強制的に座標増分は -256000px に抑えられる。
+    //移動速度上限
+    _top_velo_mv = INT_MAX;
+    //移動速度下限
+    _bottom_velo_mv = INT_MIN;
     //移動加速度（移動速度の増分） = 0 px/fream^2
     _acc_mv = 0; //_velo_mv の増分。デフォルトは加速無し
 
