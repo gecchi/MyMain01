@@ -31,24 +31,18 @@ FormationHalia::FormationHalia(const char* prm_name) :
 }
 
 void FormationHalia::initialize() {
-
 }
 
 void FormationHalia::onActive() {
-//    for (int i = 0; i < num_Halia_; i++) {
-//        //papHalia_[i]->position(MyShip::lim_x_behaind_, -2000000 + (i * 400000), 0);
-//        papHalia_[i]->position(1000000, -1000000 + (i * 200000), 0);
-//        papHalia_[i]->activateDelay(i*interval_frames_ + 1);//interval_frames_ä‘äuÇ≈ActiveÇ…Ç∑ÇÈÅB
-//    }
-
-        papHalia_[0]->position(1000000, -1000000 + (5 * 200000), 0);
-        papHalia_[0]->activateDelay(5*interval_frames_ + 1);//interval_frames_ä‘äuÇ≈ActiveÇ…Ç∑ÇÈÅB
+    for (int i = 0; i < num_Halia_; i++) {
+        papHalia_[i]->position(1000000, -1000000 + (i * 200000), 0);
+        papHalia_[i]->activateDelay(i*interval_frames_ + 1);//interval_frames_ä‘äuÇ≈ActiveÇ…Ç∑ÇÈÅB
+    }
 }
 
 void FormationHalia::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
     UTIL::transactFormationDestroyAll((GgafDxDrawableActor*)prm_pActor_last_destroyed);
 }
-
 
 FormationHalia::~FormationHalia() {
     GGAF_DELETEARR(papHalia_);

@@ -18,18 +18,11 @@ Stage02_01::Stage02_01(const char* prm_name) : DefaultScene(prm_name) {
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,100,1000};
-	_paFrame_NextEvent = new frame[3];
+	frame f[] = {1,100,400,1000};
+	_paFrame_NextEvent = new frame[4];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 3;
+	_event_num = 4;
 	orderActorToFactory(70000000, FormationGeria001, "FormationGeria001-1");
-	
-	orderActorToFactory(70000002, FormationRis001, "FormationRis001-2");
-	orderActorToFactory(70000003, FormationRis002, "FormationRis002-3");
-	orderActorToFactory(70000004, FormationRis001, "FormationRis001-4");
-	orderActorToFactory(70000005, FormationRis002, "FormationRis002-5");
-	orderActorToFactory(70000006, FormationRis001, "FormationRis001-6");
-	orderActorToFactory(70000007, FormationRis002, "FormationRis002-7");
     // gen01 end
 }
 
@@ -51,6 +44,15 @@ void Stage02_01::processBehavior() {
 				getSceneDirector()->addSubGroup(pF);
 				break;
 			}
+			case 400: {
+				orderActorToFactory(70000002, FormationRis001, "FormationRis001-2");
+				orderActorToFactory(70000003, FormationRis002, "FormationRis002-3");
+				orderActorToFactory(70000004, FormationRis001, "FormationRis001-4");
+				orderActorToFactory(70000005, FormationRis002, "FormationRis002-5");
+				orderActorToFactory(70000006, FormationRis001, "FormationRis001-6");
+				orderActorToFactory(70000007, FormationRis002, "FormationRis002-7");
+				break;
+			}
 			case 1000: {
 				{
 				FormationTableScene* ta = NEW FormationTableScene("FormationTableScene-8");
@@ -68,7 +70,7 @@ void Stage02_01::processBehavior() {
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 3-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 4-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
 

@@ -21,11 +21,11 @@ Stage02PartController::Stage02PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-    frame f[] = {1,3,1200,3000};
-    _paFrame_NextEvent = new frame[4];
-    memcpy(_paFrame_NextEvent, f, sizeof(f));
-    _event_num = 4;
-    orderSceneToFactory(60000000, Stage02_01, "Stage02_01-1");
+	frame f[] = {1,3,2100,3000};
+	_paFrame_NextEvent = new frame[4];
+	memcpy(_paFrame_NextEvent, f, sizeof(f));
+	_event_num = 4;
+	orderSceneToFactory(60000000, Stage02_01, "Stage02_01-1");
     // gen01 end
     useProgress(Stage02PartController::PROG_BANPEI-1);
 }
@@ -39,33 +39,33 @@ void Stage02PartController::processBehavior() {
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
-    if (getBehaveingFrame() == _paFrame_NextEvent[_cnt_event]) {
-        switch (getBehaveingFrame()) {
-            case 1: {
-                break;
-            }
-            case 3: {
-                Stage02_01* pScene = (Stage02_01*)obtainSceneFromFactory(60000000);
-                addSubLast(pScene);
-                getBGMer()->play_fadein(0);
-                break;
-            }
-            case 1200: {
-                orderSceneToFactory(60000001, Stage02_Climax, "Stage02_Climax-2");
-                break;
-            }
-            case 3000: {
-                Stage02_Climax* pScene = (Stage02_Climax*)obtainSceneFromFactory(60000001);
-                addSubLast(pScene);
-                getBGMer()->fadeout_stop(0);
-                getBGMer()->play_fadein(1);
-                break;
-            }
-            default :
-                break;
-        }
-        _cnt_event = (_cnt_event < 4-1 ? _cnt_event+1 : _cnt_event);
-    }
+	if (getBehaveingFrame() == _paFrame_NextEvent[_cnt_event]) {
+		switch (getBehaveingFrame()) {
+			case 1: {
+				break;
+			}
+			case 3: {
+				Stage02_01* pScene = (Stage02_01*)obtainSceneFromFactory(60000000);
+				addSubLast(pScene);
+				_pBgmPerformer->play_fadein(0);
+				break;
+			}
+			case 2100: {
+				orderSceneToFactory(60000001, Stage02_Climax, "Stage02_Climax-2");
+				break;
+			}
+			case 3000: {
+				Stage02_Climax* pScene = (Stage02_Climax*)obtainSceneFromFactory(60000001);
+				addSubLast(pScene);
+				_pBgmPerformer->fadeout_stop(0);
+				_pBgmPerformer->play_fadein(1);
+				break;
+			}
+			default :
+				break;
+		}
+		_cnt_event = (_cnt_event < 4-1 ? _cnt_event+1 : _cnt_event);
+	}
     // gen02 end
 
     SceneProgress* pProg = getProgress();
