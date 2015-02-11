@@ -1,26 +1,26 @@
-#ifndef TESTACTOR_H_
-#define TESTACTOR_H_
+#ifndef TEKI001_H_
+#define TEKI001_H_
 #include "Mogera.h"
-#include "jp/ggaf/lib/actor/DefaultSpriteActor.h"
-#include "jp/ggaf/lib/actor/DefaultBoardActor.h"
+#include "jp/ggaf/lib/actor/DefaultMeshActor.h"
 
 namespace Mogera {
 
 /**
- * テスト背景 .
+ * テスト敵キャラクタ .
  * @version 1.00
- * @since 2013/08/29
+ * @since 2013/08/30
  * @author Masatoshi Tsuge
  */
-class TestActor : public GgafLib::DefaultBoardActor {
+class Zako : public GgafLib::DefaultMeshActor {
 
 public:
+
     /**
      * コンストラクタ
      * @param prm_name
      * @return
      */
-    TestActor(const char* prm_name);
+    Zako(const char* prm_name);
 
     /**
      * キャラの初期処理 .
@@ -32,9 +32,9 @@ public:
      */
     void processBehavior() override;
 
-    virtual ~TestActor();
+    virtual ~Zako();
 };
 
 }
-#endif /*TESTACTOR_H_*/
+#endif /*TEKI001_H_*/
 

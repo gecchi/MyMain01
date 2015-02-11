@@ -29,13 +29,7 @@ class MgrWorld : public GgafLib::DefaultScene {
 public:
     /** “ü—ÍŽó•t */
     GgafLib::VirtualButton* vb_;
-    TestActor* pBack_;
-    MgrActor* pMgrActor1_;
-    Teki001* pTeki_;
-    Teki002* pTeki002_;
-    Mikata001* pMikata_;
-    TestBar* pTestBar_;
-    TestCappedBar* pBar_;
+    Zako* pTeki_;
     int mp_;
 //    GgafLib::PxQuantity* pBarVal_;
 

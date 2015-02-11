@@ -1,75 +1,44 @@
-#include "VvvCamWorker.h"
+#include "MgrMouseCamWorker.h"
 
-#include "jp/ggaf/dxcore/util/GgafDxQuaternion.h"
-#include "jp/ggaf/dxcore/util/GgafDxInput.h"
-#include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
+#include "jp/ggaf/core/GgafFactory.h"
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/lib/GgafLibProperties.h"
-#include "VvvGod.h"
-#include "actor/VvvCamera.h"
-#include "scene/VvvUniverse.h"
-#include "actor/VvvCameraViewPoint.h"
+#include "jp/ggaf/dxcore/util/GgafDxInput.h"
+#include "jp/ggaf/dxcore/util/GgafDxQuaternion.h"
+#include "scene/MgrUniverse/MgrWorld.h"
+#include "actor/camera/MgrCameraViewPoint.h"
+#include "actor/camera/MgrCamera.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
 
+#include "scene/MgrUniverse/MgrWorld.h"
+
+#include "jp/ggaf/lib/GgafLibProperties.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
-using namespace VVViewer;
+using namespace Mogera;
 
-VvvCamWorker::VvvCamWorker(const char* prm_name) : DefaultGeometricActor(prm_name) {
-    _class_name = "VvvCamWorker";
-    t_x_VP_ =  0;
-    t_y_VP_ =  0;
-    t_z_VP_ =  0;
-    t_x_CAM_ =  0;
-    t_y_CAM_ =  0;
-    t_z_CAM_ =  0;
-    frame_of_behaving_since_onSwitch_ = 0;
-    pCam_ = nullptr;
-    pVp_ = nullptr;
-
+MgrMouseCamWorker::MgrMouseCamWorker(const char* prm_name) : MgrCameraWorker(prm_name) {
+    _class_name = "MgrMouseCamWorker";
     cd_ = 0;
     mdz_flg_ = false;
     mdz_vx_ = mdz_vy_ = mdz_vz_ = mdz_t_ = 0.0;
-    //注意：Cameraはまだ生成されていないためここでP_CAMは使用不可
 }
 
-void VvvCamWorker::initialize() {
-    pCam_ = P_CAM;
-    pVp_ = (VvvCameraViewPoint*)(pCam_->getCameraViewPoint());
-    t_x_VP_ = pVp_->_x;
-    t_y_VP_ = pVp_->_y;
-    t_z_VP_ = pVp_->_z;
-    t_x_CAM_ = pCam_->_x;
-    t_y_CAM_ = pCam_->_y;
-    t_z_CAM_ = pCam_->_z;
-}
-void VvvCamWorker::onActive() {
-    //現在のターゲットを再ターゲット
-    slideMvCamTo(t_x_CAM_, t_y_CAM_, t_z_CAM_, 60);
-    slideMvVpTo(t_x_VP_, t_y_VP_, t_z_VP_, 60);
+void MgrMouseCamWorker::initialize() {
+    MgrCameraWorker::initialize();
 }
 
-void VvvCamWorker::slideMvCamTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t) {
-    slideMvCamTo(pTarget->_x, pTarget->_y, pTarget->_z, t);
-}
-void VvvCamWorker::slideMvVpTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t) {
-    slideMvVpTo(pTarget->_x, pTarget->_y, pTarget->_z, t);
-}
-void VvvCamWorker::slideMvCamTo(coord tx, coord ty, coord tz, frame t) {
-    t_x_CAM_ = tx;
-    t_y_CAM_ = ty;
-    t_z_CAM_ = tz;
-    pCam_->slideMvTo(tx, ty, tz, t);
-}
-void VvvCamWorker::slideMvVpTo(coord tx, coord ty, coord tz, frame t) {
-    t_x_VP_ = tx;
-    t_y_VP_ = ty;
-    t_z_VP_ = tz;
-    pVp_->slideMvTo(tx, ty, tz, t);
+void MgrMouseCamWorker::onActive() {
+    _TRACE_("MgrMouseCamWorker::onActive()");
+    MgrCameraWorker::onActive();
+    //MgrCameraWorker::onActive(); を上書きして、
+    //その場座標をターゲット座標に上書き
+    slideMvCamTo(pCam_->_x, pCam_->_y, pCam_->_z, 60);
+    slideMvVpTo(pVp_->_x, pVp_->_y, pVp_->_z, 60);
 }
 
-void VvvCamWorker::processBehavior() {
+void MgrMouseCamWorker::processBehavior() {
     //TODO:精度を上げるアイディア
     //マウスポイントの履歴を取り、mdx,mdy,mdzは、３フレームほど過去との差にすると回転軸が安定するだろう
 
@@ -242,8 +211,8 @@ void VvvCamWorker::processBehavior() {
         mdz_flg_ = false;
     }
 
-
+    MgrCameraWorker::processBehavior();
 }
 
-VvvCamWorker::~VvvCamWorker() {
+MgrMouseCamWorker::~MgrMouseCamWorker() {
 }

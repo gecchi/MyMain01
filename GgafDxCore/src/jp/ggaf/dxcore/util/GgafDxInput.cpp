@@ -102,6 +102,7 @@ HRESULT GgafDxInput::initMouse() {
     if (_pMouseInputDevice) {
         _pMouseInputDevice->Acquire();
     }
+    _TRACE_("GgafDxInput::initMouse() マウスデバイス取得OK");
     return D3D_OK;
 }
 
@@ -156,6 +157,7 @@ HRESULT GgafDxInput::initKeybord() {
     if (_pKeyboardInputDevice) {
         _pKeyboardInputDevice->Acquire();
     }
+    _TRACE_("GgafDxInput::initKeybord() キーボードデバイス取得OK");
     return D3D_OK;
 }
 HRESULT GgafDxInput::initJoyStick() {

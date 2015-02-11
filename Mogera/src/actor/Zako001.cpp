@@ -1,10 +1,8 @@
-#include "actor/Teki001.h"
+#include "Zako001.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
-#include <dinput.h>
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
-#include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantB.h"
 
 using namespace GgafCore;
@@ -12,12 +10,12 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace Mogera;
 
-Teki001::Teki001(const char* prm_name) :
-        GgafLib::DefaultMeshActor(prm_name, "jiki") { //Guruguru.x が参照される。
+Zako::Zako(const char* prm_name) :
+        GgafLib::DefaultMeshActor(prm_name, "Zako") {
 
 }
 
-void Teki001::initialize() {
+void Zako::initialize() {
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->makeCollision(1);
     pChecker->setColliAAB_Cube(0, PX_C(40));
@@ -26,7 +24,7 @@ void Teki001::initialize() {
     //黒衣にキャラのZ軸回転の角速度を設定(毎フレーム2度)
 }
 
-void Teki001::processBehavior() {
+void Zako::processBehavior() {
 
     int sx = 0;
     int sy = 0;
@@ -103,5 +101,5 @@ void Teki001::processBehavior() {
     getKuroko()->behave(); //黒衣を活動させる（Z軸回転する）
 }
 
-Teki001::~Teki001() {
+Zako::~Zako() {
 }

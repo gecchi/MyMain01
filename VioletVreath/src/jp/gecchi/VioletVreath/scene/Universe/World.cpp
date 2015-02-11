@@ -287,7 +287,6 @@ void World::processBehavior() {
             break;
         }
     }
-    GgafDxInput::updateMouseState();
     if (PROPERTY::FULL_SCREEN) {
         //しばらくカーソルを動かさなければ消す。
         long mdx, mdy, mdz;

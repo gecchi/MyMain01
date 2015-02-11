@@ -19,13 +19,11 @@ class MgrGod;
 class MgrUniverse;
 class MgrWorld;
 class MgrCamera;
-class MgrActor;
-class TestActor;
-class TestBar;
-class TestCappedBar;
-class Teki001;
-class Teki002;
-class Mikata001;
+class MgrCameraViewPoint;
+class MgrCameraUpVector;
+class MgrCameraWorker;
+class MgrMouseCamWorker;
+class Zako;
 class MgrUtil;
 }
 

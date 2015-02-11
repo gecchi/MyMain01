@@ -1,105 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="ソース ファイル">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="ヘッダー ファイル">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="リソース ファイル">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\actor\MgrActor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\actor\MgrCamera.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scene\MgrUniverse\MgrWorld.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scene\MgrUniverse.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\MgrGod.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Mogera.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\actor\TestActor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\actor\LabelGecchi16Font.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\actor\Mikata001.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\actor\Teki001.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\util\MgrUtil.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\actor\TestBar.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\actor\TestCappedBar.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\actor\Teki002.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
+    <ClCompile Include="src\actor\camera\MgrCamera.cpp" />
+    <ClCompile Include="src\actor\camera\MgrCameraUpVector.cpp" />
+    <ClCompile Include="src\actor\camera\MgrCameraViewPoint.cpp" />
+    <ClCompile Include="src\actor\camera\MgrCameraWorker.cpp" />
+    <ClCompile Include="src\actor\camera\MgrMouseCamWorker.cpp" />
+    <ClCompile Include="src\scene\MgrUniverse\MgrWorld.cpp" />
+    <ClCompile Include="src\scene\MgrUniverse.cpp" />
+    <ClCompile Include="src\util\MgrUtil.cpp" />
+    <ClCompile Include="src\MgrGod.cpp" />
+    <ClCompile Include="src\Mogera.cpp" />
+    <ClCompile Include="src\actor\Zako001.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\actor\MgrActor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\actor\MgrCamera.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scene\MgrUniverse\MgrWorld.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scene\MgrUniverse.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MgrGod.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Mogera.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\actor\TestActor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\actor\LabelGecchi16Font.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\actor\Mikata001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\actor\Teki001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\util\mgrutil.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\actor\testbar.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\actor\testcappedbar.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\actor\Teki002.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
+    <ClInclude Include="src\actor\camera\MgrCamera.h" />
+    <ClInclude Include="src\actor\camera\MgrCameraUpVector.h" />
+    <ClInclude Include="src\actor\camera\MgrCameraViewPoint.h" />
+    <ClInclude Include="src\actor\camera\MgrCameraWorker.h" />
+    <ClInclude Include="src\actor\camera\MgrMouseCamWorker.h" />
+    <ClInclude Include="src\scene\MgrUniverse\MgrWorld.h" />
+    <ClInclude Include="src\scene\MgrUniverse.h" />
+    <ClInclude Include="src\util\MgrUtil.h" />
+    <ClInclude Include="src\MgrGod.h" />
+    <ClInclude Include="src\Mogera.h" />
+    <ClInclude Include="src\actor\zako001.h" />
   </ItemGroup>
 </Project>

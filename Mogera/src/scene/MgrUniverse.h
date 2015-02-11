@@ -3,7 +3,7 @@
 #include "Mogera.h"
 #include "jp/ggaf/lib/scene/DefaultUniverse.h"
 
-#include "actor/MgrCamera.h"
+#include "actor/camera/MgrCamera.h"
 #ifdef P_GOD
     #undef P_UNIVERSE
     #define P_UNIVERSE ((Mogera::MgrUniverse*)(P_GOD->_pUniverse))
@@ -29,6 +29,7 @@ class MgrUniverse : public GgafLib::DefaultUniverse {
 public:
     MgrWorld* pWorld_;
 
+    MgrCameraWorker* pActiveCamWorker_;
 public:
     /**
      * コンストラクタ .

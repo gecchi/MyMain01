@@ -832,6 +832,7 @@ void VirtualButton::update() {
 #endif
     GgafDxInput::updateKeyboardState();
     GgafDxInput::updateJoystickState();
+    GgafDxInput::updateMouseState();
 
     if (_is_replaying && _was_replay_done == false) {
         //リプレイモード時
