@@ -20,9 +20,10 @@ namespace GgafLib {
  */
 class CollisionChecker3D : public GgafDxCore::GgafDxChecker {
 
+    LinearOctreeForActor* _pLinearOctree; //TODO:どこに持たせようか悩むがとりあえずココに
+
 public:
-    /** 線形８分木オブジェクトへのポインタ */
-    static LinearOctreeForActor* _pLinearOctree; //TODO:どこに持たせようか悩むがとりあえずココに
+
     /** １フレームの当たり判定要素同士の判定回数 */
     static int _num_check;
     /** 当たり判定領域の境界領域(AABB)を再計算するかどうかのフラグ */

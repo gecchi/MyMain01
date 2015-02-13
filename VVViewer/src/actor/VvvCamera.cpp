@@ -1,7 +1,7 @@
 #include "VvvCamera.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
-#include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
+#include "jp/ggaf/dxcore/actor/camera/GgafDxCameraViewPoint.h"
 #include "actor/VvvCameraViewPoint.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"

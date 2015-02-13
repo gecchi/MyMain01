@@ -2,7 +2,7 @@
 
 #include <algorithm>
 #include "jp/ggaf/core/GgafFactory.h"
-#include "jp/ggaf/dxcore/actor/GgafDxCamera.h"
+#include "jp/ggaf/dxcore/actor/camera/GgafDxCamera.h"
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/GgafDxProperties.h"

@@ -16,3 +16,4 @@ back.properties
 /gmon.out
 /DebugCdt
 /DebugCdt
+*.dat

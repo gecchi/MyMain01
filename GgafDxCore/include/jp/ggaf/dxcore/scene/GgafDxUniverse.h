@@ -4,7 +4,7 @@
 #include "jp/ggaf/core/scene/GgafUniverse.h"
 
 #include "jp/ggaf/dxcore/GgafDxGod.h"
-#include "jp/ggaf/dxcore/actor/GgafDxCamera.h"
+#include "jp/ggaf/dxcore/actor/camera/GgafDxCamera.h"
 
 #ifdef P_GOD
     #undef P_UNIVERSE

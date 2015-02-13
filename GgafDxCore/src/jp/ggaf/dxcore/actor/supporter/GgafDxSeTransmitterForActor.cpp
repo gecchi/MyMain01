@@ -1,7 +1,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 
 #include "jp/ggaf/core/util/GgafRepeatSeq.h"
-#include "jp/ggaf/dxcore/actor/GgafDxCamera.h"
+#include "jp/ggaf/dxcore/actor/camera/GgafDxCamera.h"
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/GgafDxProperties.h"

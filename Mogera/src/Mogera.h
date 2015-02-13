@@ -13,17 +13,24 @@
 #undef P_UNIVERSE
 #define P_UNIVERSE ((Mogera::MgrUniverse*)(P_GOD->_pUniverse))
 
+#define MGR_MIKATA (0x01U)
+#define MGR_TEKI   (0x10U)
+
 //ëOï˚êÈåæ
 namespace Mogera {
 class MgrGod;
 class MgrUniverse;
 class MgrWorld;
+class TrialAndErrScene;
 class MgrCamera;
 class MgrCameraViewPoint;
 class MgrCameraUpVector;
 class MgrCameraWorker;
 class MgrMouseCamWorker;
 class Zako;
+class Zakoko;
+class FormationZako;
+class FormationZako001;
 class MgrUtil;
 }
 

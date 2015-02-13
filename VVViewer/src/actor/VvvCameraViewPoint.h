@@ -2,7 +2,7 @@
 #define VVVCAMERAVIEWPOINT_H_
 #include "VVViewer.h"
 
-#include "jp/ggaf/lib/actor/DefaultCameraViewPoint.h"
+#include "jp/ggaf/lib/actor/camera/DefaultCameraViewPoint.h"
 
 namespace VVViewer {
 

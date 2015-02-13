@@ -1,7 +1,7 @@
 #ifndef MGRCAMERAVIEWPOINT_H_
 #define MGRCAMERAVIEWPOINT_H_
 #include "Mogera.h"
-#include "jp/ggaf/lib/actor/DefaultCameraViewPoint.h"
+#include "jp/ggaf/lib/actor/camera/DefaultCameraViewPoint.h"
 
 namespace Mogera {
 

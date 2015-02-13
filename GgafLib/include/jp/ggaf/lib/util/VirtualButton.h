@@ -423,6 +423,43 @@ public:
     inline void remap_VB_UI_RIGHT  (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.UI_RIGHT=prm_VBK; _joystickmap.UI_RIGHT=prm_VBJ;  }
     inline void remap_VB_UI_EXECUTE(vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.UI_EXECUTE=prm_VBK; _joystickmap.UI_EXECUTE=prm_VBJ;  }
     inline void remap_VB_UI_CANCEL (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.UI_CANCEL=prm_VBK; _joystickmap.UI_CANCEL=prm_VBJ;  }
+
+    inline void remap_VB_BUTTON1   (vbk prm_VBK) {  _keyboardmap.BUTTON1=prm_VBK;    }
+    inline void remap_VB_BUTTON2   (vbk prm_VBK) {  _keyboardmap.BUTTON2=prm_VBK;    }
+    inline void remap_VB_BUTTON3   (vbk prm_VBK) {  _keyboardmap.BUTTON3=prm_VBK;    }
+    inline void remap_VB_BUTTON4   (vbk prm_VBK) {  _keyboardmap.BUTTON4=prm_VBK;    }
+    inline void remap_VB_BUTTON5   (vbk prm_VBK) {  _keyboardmap.BUTTON5=prm_VBK;    }
+    inline void remap_VB_BUTTON6   (vbk prm_VBK) {  _keyboardmap.BUTTON6=prm_VBK;    }
+    inline void remap_VB_BUTTON7   (vbk prm_VBK) {  _keyboardmap.BUTTON7=prm_VBK;    }
+    inline void remap_VB_BUTTON8   (vbk prm_VBK) {  _keyboardmap.BUTTON8=prm_VBK;    }
+    inline void remap_VB_BUTTON9   (vbk prm_VBK) {  _keyboardmap.BUTTON9=prm_VBK;    }
+    inline void remap_VB_BUTTON10  (vbk prm_VBK) {  _keyboardmap.BUTTON10=prm_VBK;   }
+    inline void remap_VB_BUTTON11  (vbk prm_VBK) {  _keyboardmap.BUTTON11=prm_VBK;   }
+    inline void remap_VB_BUTTON12  (vbk prm_VBK) {  _keyboardmap.BUTTON12=prm_VBK;   }
+    inline void remap_VB_BUTTON13  (vbk prm_VBK) {  _keyboardmap.BUTTON13=prm_VBK;   }
+    inline void remap_VB_BUTTON14  (vbk prm_VBK) {  _keyboardmap.BUTTON14=prm_VBK;   }
+    inline void remap_VB_BUTTON15  (vbk prm_VBK) {  _keyboardmap.BUTTON15=prm_VBK;   }
+    inline void remap_VB_BUTTON16  (vbk prm_VBK) {  _keyboardmap.BUTTON16=prm_VBK;   }
+    inline void remap_VB_PAUSE     (vbk prm_VBK) {  _keyboardmap.PAUSE=prm_VBK;      }
+    inline void remap_VB_UP        (vbk prm_VBK) {  _keyboardmap.UP=prm_VBK;         }
+    inline void remap_VB_DOWN      (vbk prm_VBK) {  _keyboardmap.DOWN=prm_VBK;       }
+    inline void remap_VB_LEFT      (vbk prm_VBK) {  _keyboardmap.LEFT=prm_VBK;       }
+    inline void remap_VB_RIGHT     (vbk prm_VBK) {  _keyboardmap.RIGHT=prm_VBK;      }
+    inline void remap_VB_S1_UP     (vbk prm_VBK) {  _keyboardmap.S1_UP=prm_VBK;      }
+    inline void remap_VB_S1_DOWN   (vbk prm_VBK) {  _keyboardmap.S1_DOWN=prm_VBK;    }
+    inline void remap_VB_S1_LEFT   (vbk prm_VBK) {  _keyboardmap.S1_LEFT=prm_VBK;    }
+    inline void remap_VB_S1_RIGHT  (vbk prm_VBK) {  _keyboardmap.S1_RIGHT=prm_VBK;   }
+    inline void remap_VB_S2_UP     (vbk prm_VBK) {  _keyboardmap.S2_UP=prm_VBK;      }
+    inline void remap_VB_S2_DOWN   (vbk prm_VBK) {  _keyboardmap.S2_DOWN=prm_VBK;    }
+    inline void remap_VB_S2_LEFT   (vbk prm_VBK) {  _keyboardmap.S2_LEFT=prm_VBK;    }
+    inline void remap_VB_S2_RIGHT  (vbk prm_VBK) {  _keyboardmap.S2_RIGHT=prm_VBK;   }
+    inline void remap_VB_UI_UP     (vbk prm_VBK) {  _keyboardmap.UI_UP=prm_VBK;      }
+    inline void remap_VB_UI_DOWN   (vbk prm_VBK) {  _keyboardmap.UI_DOWN=prm_VBK;    }
+    inline void remap_VB_UI_LEFT   (vbk prm_VBK) {  _keyboardmap.UI_LEFT=prm_VBK;    }
+    inline void remap_VB_UI_RIGHT  (vbk prm_VBK) {  _keyboardmap.UI_RIGHT=prm_VBK;   }
+    inline void remap_VB_UI_EXECUTE(vbk prm_VBK) {  _keyboardmap.UI_EXECUTE=prm_VBK; }
+    inline void remap_VB_UI_CANCEL (vbk prm_VBK) {  _keyboardmap.UI_CANCEL=prm_VBK;  }
+
     inline void remap_VB_UI_DEBUG  (vbk prm_VBK) {  _keyboardmap.UI_DEBUG=prm_VBK; }
     /**     * âﬂãéÇÃì¸óÕèÛë‘ÇéÊìæ .     * @param prm_frame_ago åªç›ÇÊÇËâΩÉtÉåÅ[ÉÄâﬂãéÇ©ÇéwíË     * @return âﬂãéÇÃì¸óÕèÛë‘     */    VirtualButton::VBRecord* getPastVBRecord(frame prm_frame_ago);
 

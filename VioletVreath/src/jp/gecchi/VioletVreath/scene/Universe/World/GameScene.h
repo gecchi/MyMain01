@@ -54,7 +54,7 @@ public:
     bool was_paused_flg_GameMainScene_prev_frame_;
 
 public:
-  GameScene(const char* prm_name);
+    GameScene(const char* prm_name);
 
     void onReset() override;
     void initialize() override;

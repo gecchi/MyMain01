@@ -1,6 +1,6 @@
 #include "ViewPointGuide.h"
 
-#include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
+#include "jp/ggaf/dxcore/actor/camera/GgafDxCameraViewPoint.h"
 #include "jp/gecchi/VioletVreath/scene/Universe.h"
 
 using namespace GgafCore;

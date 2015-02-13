@@ -4,7 +4,7 @@
 #include "jp/ggaf/lib/scene/DefaultUniverse.h"
 
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/gecchi/VioletVreath/actor/Camera.h"
+#include "jp/gecchi/VioletVreath/actor/camera/Camera.h"
 #include "jp/gecchi/VioletVreath/manager/CameraWorkerManager.h"
 #include "jp/gecchi/VioletVreath/manager/CameraWorkerConnection.h"
 

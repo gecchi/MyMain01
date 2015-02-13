@@ -7,7 +7,7 @@
 #include "jp/ggaf/lib/actor/ColliSphereActor.h"
 #include "jp/ggaf/lib/DefaultGod.h"
 #include "jp/ggaf/lib/scene/DefaultUniverse.h"
-#include "jp/ggaf/lib/actor/DefaultCamera.h"
+#include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

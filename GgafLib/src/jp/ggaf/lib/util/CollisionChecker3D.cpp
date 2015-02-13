@@ -13,21 +13,16 @@
 #include "jp/ggaf/lib/util/LinearOctreeActorElem.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 
-
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
 int CollisionChecker3D::_num_check = 0;
-LinearOctreeForActor* CollisionChecker3D::_pLinearOctree = nullptr;
 CollisionChecker3D::CollisionChecker3D(GgafDxGeometricActor* prm_pActor) : GgafDxChecker(prm_pActor) {
-    if (CollisionChecker3D::_pLinearOctree == nullptr) {
-        CollisionChecker3D::_pLinearOctree  = ((DefaultUniverse*)(GgafGod::_pGod->_pUniverse))->_pLinearOctree;
-    }
     _pElem = NEW LinearOctreeActorElem(prm_pActor, 0);
+    _pLinearOctree = P_UNIVERSE->getLinearOctree();
     _need_update_aabb = true;
 }
-
 
 void CollisionChecker3D::setColliSphere(int prm_index, coord x, coord y, coord z, coord r, bool rot_x, bool rot_y, bool rot_z) {
 #ifdef MY_DEBUG
@@ -119,7 +114,6 @@ void CollisionChecker3D::setColliAAPrism(int prm_index,
     pAAPrism->set(x1, y1, z1, x2, y2, z2, pos_prism, rot_x, rot_y, rot_z);
     _need_update_aabb = true;
 }
-
 
 void CollisionChecker3D::updateHitArea() {
     GgafDxGeometricActor* pActor = _pActor;

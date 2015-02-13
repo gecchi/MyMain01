@@ -3,7 +3,7 @@
 #include "VioletVreath.h"
 #include "jp/ggaf/core/util/GgafResourceConnection.hpp"
 
-#include "jp/gecchi/VioletVreath/actor/camera_worker/CameraWorker.h"
+#include "jp/gecchi/VioletVreath/actor/camera/worker/CameraWorker.h"
 
 namespace VioletVreath {
 

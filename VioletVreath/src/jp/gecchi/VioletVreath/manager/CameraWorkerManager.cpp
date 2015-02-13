@@ -1,11 +1,11 @@
 #include "CameraWorkerManager.h"
 
 #include "jp/gecchi/VioletVreath/manager/CameraWorkerConnection.h"
-#include "jp/gecchi/VioletVreath/actor/camera_worker/DefaultCamWorker.h"
-#include "jp/gecchi/VioletVreath/actor/camera_worker/VamSysCamWorker.h"
-#include "jp/gecchi/VioletVreath/actor/camera_worker/PauseCamWorker.h"
-#include "jp/gecchi/VioletVreath/actor/camera_worker/MyShipDivingCamWorker.h"
-#include "jp/gecchi/VioletVreath/actor/camera_worker/TestCamWorker.h"
+#include "jp/gecchi/VioletVreath/actor/camera/worker/DefaultCamWorker.h"
+#include "jp/gecchi/VioletVreath/actor/camera/worker/VamSysCamWorker.h"
+#include "jp/gecchi/VioletVreath/actor/camera/worker/PauseCamWorker.h"
+#include "jp/gecchi/VioletVreath/actor/camera/worker/MyShipDivingCamWorker.h"
+#include "jp/gecchi/VioletVreath/actor/camera/worker/TestCamWorker.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

@@ -1,39 +1,26 @@
-#include <actor/Zako001.h>
 #include "MgrWorld.h"
 
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
-#include "jp/ggaf/dxcore/GgafDxGod.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/lib/util/LinearOctreeForActor.h"
-#include "jp/ggaf/lib/util/PxQuantity.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
-#include "util/MgrUtil.h"
-#include "jp/ggaf/core/util/GgafRepeatSeq.h"
-#include "jp/ggaf/core/util/GgafTable.h"
-
+#include "jp/ggaf/core/GgafFactory.h"
+#include "scene/MgrUniverse/MgrWorld/TrialAndErrScene.h"
+#include "scene/MgrUniverse.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace Mogera;
 
-#define MGR_MIKATA (0x01U)
-#define MGR_TEKI   (0x10U)
-
-std::string MgrWorld::key_="ABCDEFG";
-
-
 MgrWorld::MgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
-    pTeki_ = NEW Zako("Zako");
-    getSceneDirector()->addSubGroup(MGR_TEKI, pTeki_);
-
     vb_ = NEW VirtualButton();
-    vb_->remap_VB_BUTTON1(VBK_SPACE, VBJ_BUTTON_01);
     vb_->remap_VB_UI_DEBUG(VBK_Q);
+    vb_->remap_VB_PAUSE(VBK_ESCAPE);
+    pTrialAndErrScene_ = nullptr;
 }
 
 void MgrWorld::initialize() {
-    pTeki_->position(0, PX_C(240)/2);
+    pTrialAndErrScene_ = createInFactory(TrialAndErrScene, "TrialAndErrScene");
+    addSubLast(pTrialAndErrScene_);
 }
 
 void MgrWorld::processBehavior() {
@@ -47,11 +34,21 @@ void MgrWorld::processBehavior() {
             GgafDxGod::_d3dfillmode = D3DFILL_WIREFRAME;
         }
     }
+
+    //ˆêŽž’âŽ~
+    if (vb_->isPushedDown(VB_PAUSE)) {
+        if (pTrialAndErrScene_->wasPaused()) {
+            pTrialAndErrScene_->unpause();
+        } else {
+            pTrialAndErrScene_->pause();
+        }
+    }
+
 }
 
 void MgrWorld::processJudgement() {
     //“–‚½‚è”»’èƒ`ƒFƒbƒN
-    CollisionChecker3D::_pLinearOctree->executeAllHitChk(MGR_MIKATA, MGR_TEKI);
+    P_UNIVERSE->getLinearOctree()->executeAllHitChk(MGR_MIKATA, MGR_TEKI);
     //executeAllHitChk ‚Í processJudgement() ‚ÅŒÄ‚Ô•K—v‚ ‚è
     //(processBehavior())‚Å‚Í‚Ü‚¾“o˜^‚³‚ê‚Ä‚¢‚È‚¢)
 }

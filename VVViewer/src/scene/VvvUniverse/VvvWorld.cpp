@@ -7,7 +7,7 @@
 #include "jp/ggaf/dxcore/actor/GgafDxMorphMeshActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
 #include "jp/ggaf/dxcore/model/GgafDxMorphMeshModel.h"
-#include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
+#include "jp/ggaf/dxcore/actor/camera/GgafDxCameraViewPoint.h"
 #include "jp/ggaf/lib/actor/CubeMapMeshActor.h"
 #include "jp/ggaf/lib/actor/CubeMapMorphMeshActor.h"
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"

@@ -257,6 +257,28 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ProjectReference Include="..\_Ogg\_Ogg.vcxproj">
+      <Project>{2fdefa24-55e5-4955-8497-44085c92a5b1}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\_Vorbis\_Vorbis.vcxproj">
+      <Project>{3a06bba2-2a59-4965-8095-3836e2a10840}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\GgafCore\GgafCore.vcxproj">
+      <Project>{4cd46674-bb16-4b83-b01e-d6daf7fb6c81}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\GgafDxCore\GgafDxCore.vcxproj">
+      <Project>{f04b2bae-f007-4de8-a91f-ea7e9ddcb6f2}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\GgafLib\GgafLib.vcxproj">
+      <Project>{55c018db-2586-4f20-addb-8da23932824c}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshiRankUp.cpp" />
@@ -268,15 +290,15 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundSpaceRankUp.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundSpaceTransit.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundTitle.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\Camera.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\CameraUpVector.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\CameraViewPoint.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera_worker\CameraWorker.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera_worker\DefaultCamWorker.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera_worker\MyShipDivingCamWorker.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera_worker\PauseCamWorker.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera_worker\TestCamWorker.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera_worker\VamSysCamWorker.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\Camera.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\CameraUpVector.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\CameraViewPoint.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\worker\CameraWorker.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\worker\DefaultCamWorker.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\worker\MyShipDivingCamWorker.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\worker\PauseCamWorker.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\worker\TestCamWorker.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\worker\VamSysCamWorker.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Horizon\Horizon001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001Atmosphere.cpp" />
@@ -624,16 +646,16 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundSpaceRankUp.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundSpaceTransit.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundTitle.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\Camera.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\CameraUpVector.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\cameraviewpoint.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera_worker\CameraWorker.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera_worker\DefaultCamWorker.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera_worker\MyShipDivingCamWorker.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera_worker\PauseCamWorker.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera_worker\TestCamWorker.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera_worker\VamSysCamWorker.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\chikei\horizon\horizon001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\camera\camera.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\CameraUpVector.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\CameraViewPoint.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\camera\worker\cameraworker.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\camera\worker\defaultcamworker.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\camera\worker\myshipdivingcamworker.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\camera\worker\pausecamworker.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\camera\worker\testcamworker.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\camera\worker\vamsyscamworker.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\Horizon\Horizon001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001Atmosphere.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\wall\Wall001.h" />
@@ -684,7 +706,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Delheid\FormationDelheid001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Drastea\EnemyDrastea.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Drastea\FormationDrastea001.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\duna\enemyduna.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Duna\EnemyDuna.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ebe\EnemyEbe.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ebe\FormationEbe.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ebe\FormationEbe001.h" />
@@ -712,7 +734,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Geria\EnemyGeria.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Geria\FormationGeria.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Geria\FormationGeria001.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\geria\formationgeria002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Geria\FormationGeria002.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Glaja\EnemyGlaja.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Glaja\EnemyGlajaLance001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Halia\EnemyHalia.h" />
@@ -728,14 +750,14 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ida\FormationIda.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ida\FormationIda001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Irce\EnemyIrce.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\oebius\enemyoebius.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\oebius\enemyoebiuscontroller.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebius.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebiusController.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebiusController001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebiusController002.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebiusCore.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\oebius\formationoebius.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\oebius\formationoebius001.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\oebius\formationoebius002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\FormationOebius.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\FormationOebius001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\FormationOebius002.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Omulus\EnemyOmulus.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\EnemyOrtuna.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001.h" />
@@ -743,7 +765,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001b.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartia.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartiaLaserChip01.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\ozartia\enemyozartiapillar01.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartiaPillar01.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartiaShot01.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EffectRatislaviaEye001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EnemyRatislavia.h" />
@@ -779,7 +801,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Urydike\EnemyUrydike.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Urydike\FormationUrydike.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Urydike\FormationUrydike001.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\urydike\formationurydike002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Urydike\FormationUrydike002.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestChoki.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestEnemy.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestGu.h" />
@@ -790,7 +812,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\MagicPointItem.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\MagicPointItem001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\MagicPointItem002.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\item\magicpointitem003.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\MagicPointItem003.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\ScoreItem.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\ScoreItem001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\VreathItem.h" />
@@ -804,13 +826,13 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelRankFont.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelRankingFont.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelSceneSymbol.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\labelscorefont.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelScoreFont.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelBonus001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelGecchi32Font.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelTest.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig002.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\config\cursorconfig003.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig003.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig004.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig005.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardConfig.h" />
@@ -818,7 +840,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardScreenConfig.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardSoundConfig.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\screen\CursorResolutionSelect.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\config\screen\menuboardresolutionselect.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\screen\MenuBoardResolutionSelect.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorConfirmMenu.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardConfirm.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\MenuBoard.h" />
@@ -855,13 +877,13 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\LockonMagic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\Magic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\OptionMagic.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\magicmeter\magic\shotmagic.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\ShotMagic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\SmileMagic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\SpeedMagic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\TorpedoMagic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\TractorMagic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\VreathMagic.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\magicmeter\mpbar.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MpBar.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\VreathBar.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyLockonController.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyMagicEnergy.h" />
@@ -966,39 +988,12 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\TamagoScene.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Universe\World\PreDrawScene.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\util\MyStgUtil.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\util\rankingtable.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\util\RankingTable.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\util\VamSysCamPosition.h" />
     <ClInclude Include="src\VioletVreath.h" />
-    <ClInclude Include="VioletVreath.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="small.ico" />
-    <None Include="VioletVreath.ico" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="VioletVreath.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\_Ogg\_Ogg.vcxproj">
-      <Project>{2fdefa24-55e5-4955-8497-44085c92a5b1}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\_Vorbis\_Vorbis.vcxproj">
-      <Project>{3a06bba2-2a59-4965-8095-3836e2a10840}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\GgafCore\GgafCore.vcxproj">
-      <Project>{4cd46674-bb16-4b83-b01e-d6daf7fb6c81}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\GgafDxCore\GgafDxCore.vcxproj">
-      <Project>{f04b2bae-f007-4de8-a91f-ea7e9ddcb6f2}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\GgafLib\GgafLib.vcxproj">
-      <Project>{55c018db-2586-4f20-addb-8da23932824c}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

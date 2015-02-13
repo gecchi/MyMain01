@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dxcore/util/GgafDxQuaternion.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
-#include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
+#include "jp/ggaf/dxcore/actor/camera/GgafDxCameraViewPoint.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/GgafLibProperties.h"
 #include "VvvGod.h"

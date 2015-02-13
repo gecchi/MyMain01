@@ -9,7 +9,7 @@
 #include "jp/ggaf/dxcore/util/GgafDxSphereRadiusVectors.h"
 #include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
-#include "jp/ggaf/dxcore/actor/GgafDxCamera.h"
+#include "jp/ggaf/dxcore/actor/camera/GgafDxCamera.h"
 
 #ifdef UTIL
     #undef UTIL

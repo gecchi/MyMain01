@@ -1,8 +1,8 @@
 #include "MyShipScene.h"
 
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
-#include "jp/gecchi/VioletVreath/actor/camera_worker/MyShipDivingCamWorker.h"
-#include "jp/gecchi/VioletVreath/actor/camera_worker/VamSysCamWorker.h"
+#include "jp/gecchi/VioletVreath/actor/camera/worker/MyShipDivingCamWorker.h"
+#include "jp/gecchi/VioletVreath/actor/camera/worker/VamSysCamWorker.h"
 #include "jp/gecchi/VioletVreath/actor/my/EffectMyShipExplosion.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/VreathMagic.h"

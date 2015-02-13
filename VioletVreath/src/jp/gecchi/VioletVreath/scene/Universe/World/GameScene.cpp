@@ -361,22 +361,24 @@ void GameScene::processJudgement() {
         //空間分割(八分木)アルゴリズムにより、チェック回数の最適化を行っています。
         //詳細は 「種別相関定義コピペツール.xls」 の 「種別相関」 シート参照
 
+        LinearOctreeForActor* pLinearOctree = P_UNIVERSE->getLinearOctree();
+
         //八分木アルゴリズムでヒットチェック
-        CollisionChecker3D::_pLinearOctree->executeAllHitChk(
-        KIND_CHIKEI,
-        KIND_MY_CHIKEI_HIT|KIND_ENEMY_CHIKEI_HIT|KIND_ITEM_CHIKEI_HIT|KIND_CHIKEI_CHIKEI_HIT
+        pLinearOctree->executeAllHitChk(
+            KIND_CHIKEI,
+            KIND_MY_CHIKEI_HIT|KIND_ENEMY_CHIKEI_HIT|KIND_ITEM_CHIKEI_HIT|KIND_CHIKEI_CHIKEI_HIT
         );
-        CollisionChecker3D::_pLinearOctree->executeAllHitChk(
-        KIND_ITEM,
-        KIND_MY_BODY_CHIKEI_HIT
+        pLinearOctree->executeAllHitChk(
+            KIND_ITEM,
+            KIND_MY_BODY_CHIKEI_HIT
         );
-        CollisionChecker3D::_pLinearOctree->executeAllHitChk(
-        KIND_MY,
-        KIND_ENEMY_BODY
+        pLinearOctree->executeAllHitChk(
+            KIND_MY,
+            KIND_ENEMY_BODY
         );
-        CollisionChecker3D::_pLinearOctree->executeAllHitChk(
-        KIND_ENEMY_SHOT,
-        KIND_MY_BODY
+        pLinearOctree->executeAllHitChk(
+            KIND_ENEMY_SHOT,
+            KIND_MY_BODY
         );
 
 

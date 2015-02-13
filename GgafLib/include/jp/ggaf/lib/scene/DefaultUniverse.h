@@ -4,7 +4,7 @@
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
 
 #include "jp/ggaf/lib/DefaultGod.h"
-#include "jp/ggaf/lib/actor/DefaultCamera.h"
+#include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
 
 #ifdef P_GOD
     #undef P_UNIVERSE
@@ -35,6 +35,10 @@ public:
 
 public:
     DefaultUniverse(const char* prm_name, DefaultCamera* prm_pCamera);
+
+    inline LinearOctreeForActor* getLinearOctree() {
+        return _pLinearOctree;
+    }
 
     virtual ~DefaultUniverse();
 };

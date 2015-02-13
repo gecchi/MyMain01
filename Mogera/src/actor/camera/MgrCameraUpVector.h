@@ -1,7 +1,7 @@
 #ifndef MGRCAMERAUPVECTOR_H_
 #define MGRCAMERAUPVECTOR_H_
 #include "Mogera.h"
-#include "jp/ggaf/lib/actor/DefaultCameraUpVector.h"
+#include "jp/ggaf/lib/actor/camera/DefaultCameraUpVector.h"
 
 namespace Mogera {
 

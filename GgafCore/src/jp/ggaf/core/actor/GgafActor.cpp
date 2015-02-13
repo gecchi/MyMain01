@@ -16,7 +16,7 @@ GgafActor::GgafActor(const char* prm_name, GgafStatus* prm_pStat) :
     _class_name = "GgafActor";
     _obj_class = Obj_GgafActor;
     if (_pStatus == nullptr) {
-        _pStatus = NEW GgafStatus(12);
+        _pStatus = NEW GgafStatus(12, nullptr);
         getStatus()->set(0, 0);
     }
     _TRACE_("new "<<_class_name<<"("<<this<<")["<<prm_name<<"] _id="<<getId());

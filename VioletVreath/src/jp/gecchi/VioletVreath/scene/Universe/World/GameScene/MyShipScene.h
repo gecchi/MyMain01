@@ -5,7 +5,7 @@
 
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
-#include "jp/gecchi/VioletVreath/actor/camera_worker/VamSysCamWorker.h"
+#include "jp/gecchi/VioletVreath/actor/camera/worker/VamSysCamWorker.h"
 
 #ifdef P_GAME_SCENE
     #define P_MYSHIP_SCENE (P_GAME_SCENE->pMyShipScene_)

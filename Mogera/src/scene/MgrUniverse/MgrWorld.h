@@ -15,6 +15,7 @@ namespace Mogera {
     #error P_UNIVERSE isnt define
 #endif
 
+
 /**
  * 世界シーンの雛形 .
  * GgafLib::DefaultScene を継承してシーンクラスを作成して下さい。<BR>
@@ -29,11 +30,8 @@ class MgrWorld : public GgafLib::DefaultScene {
 public:
     /** 入力受付 */
     GgafLib::VirtualButton* vb_;
-    Zako* pTeki_;
-    int mp_;
-//    GgafLib::PxQuantity* pBarVal_;
 
-    static std::string key_;
+    TrialAndErrScene* pTrialAndErrScene_;
     /**
      * コンストラクタ .
      * @param prm_name 名称
