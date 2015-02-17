@@ -5,7 +5,7 @@
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxChecker.h"
-#include "jp/gecchi/VioletVreath/scene/Universe.h"
+#include "jp/gecchi/VioletVreath/God.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 
 using namespace GgafCore;

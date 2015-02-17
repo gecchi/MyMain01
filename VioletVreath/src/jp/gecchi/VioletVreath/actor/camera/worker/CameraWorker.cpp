@@ -1,18 +1,17 @@
 #include "CameraWorker.h"
 
-#include "jp/gecchi/VioletVreath/actor/camera/CameraUpVector.h"
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
-#include "jp/gecchi/VioletVreath/scene/Universe.h"
-#include "jp/gecchi/VioletVreath/actor/camera/CameraViewPoint.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantB.h"
-#include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/ggaf/dxcore/util/GgafDxDirectionUtil.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
-
+#include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/actor/camera/CameraUpVector.h"
+#include "jp/gecchi/VioletVreath/actor/camera/CameraViewPoint.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -482,7 +481,7 @@ bool CameraWorker::initStatic() {
 }
 
 void CameraWorker::initialize() {
-    pCam_ = P_CAM;
+    pCam_ = P_GOD->getUniverse()->getCamera();
     pVp_ = (CameraViewPoint*)(pCam_->getCameraViewPoint());
     pUp_ = (CameraUpVector*)(pCam_->getCameraUpVector());
     t_x_VP_ = pVp_->_x;

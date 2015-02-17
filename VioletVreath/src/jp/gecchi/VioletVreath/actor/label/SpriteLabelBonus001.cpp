@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
-#include "jp/gecchi/VioletVreath/scene/Universe.h"
+#include "jp/gecchi/VioletVreath/God.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -38,6 +38,7 @@ void SpriteLabelBonus001::onDispatched(GgafDxGeometricActor* prm_pOrgActor) {
 }
 
 void SpriteLabelBonus001::processBehavior() {
+    Camera* pCam = P_GOD->getUniverse()->getCamera();
     GgafDxKuroko* pKuroko = getKuroko();
     GgafProgress* pProg = getProgress();
     switch (pProg->get()) {
@@ -49,16 +50,16 @@ void SpriteLabelBonus001::processBehavior() {
             //‚µ‚Î‚ç‚­’¼i
             if (pProg->getFrameInProgress() == 60) {
                 //ƒJƒƒ‰‚ÉŒü‚©‚Á‚Ä•ûŒü“]Š·1
-                pKuroko->turnMvAngTwd(P_CAM,
+                pKuroko->turnMvAngTwd(pCam,
                                       D_ANG(3), 0, TURN_CLOSE_TO, true);
             }
             if (pProg->getFrameInProgress() == 60+30) {
                 //ƒJƒƒ‰‚ÉŒü‚©‚Á‚Ä•ûŒü“]Š·2
-                pKuroko->turnMvAngTwd(P_CAM,
+                pKuroko->turnMvAngTwd(pCam,
                                       D_ANG(1), 0, TURN_CLOSE_TO, true);
             }
 
-            if (ABS(P_CAM->_x - _x) < PX_C(200) || pProg->getFrameInProgress() >= 60+30+120) {
+            if (ABS(pCam->_x - _x) < PX_C(200) || pProg->getFrameInProgress() >= 60+30+120) {
                 pProg->changeNext();
             }
             break;

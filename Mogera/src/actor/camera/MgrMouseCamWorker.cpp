@@ -3,16 +3,14 @@
 #include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "jp/ggaf/dxcore/util/GgafDxQuaternion.h"
-#include "scene/MgrUniverse/MgrWorld.h"
-#include "actor/camera/MgrCameraViewPoint.h"
-#include "actor/camera/MgrCamera.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
-
-#include "scene/MgrUniverse/MgrWorld.h"
-
 #include "jp/ggaf/lib/GgafLibProperties.h"
+#include "actor/camera/MgrCamera.h"
+#include "actor/camera/MgrCameraViewPoint.h"
+#include "MgrGod.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

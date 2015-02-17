@@ -1,20 +1,18 @@
 #include "MgrCameraWorker.h"
 
-#include "actor/camera/MgrCameraUpVector.h"
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
-#include "scene/MgrUniverse.h"
-#include "actor/camera/MgrCameraViewPoint.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantB.h"
-#include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/ggaf/dxcore/util/GgafDxDirectionUtil.h"
-
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
-
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
+#include "MgrGod.h"
+#include "scene/MgrUniverse.h"
+#include "actor/camera/MgrCameraUpVector.h"
+#include "actor/camera/MgrCameraViewPoint.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -484,7 +482,7 @@ bool MgrCameraWorker::initStatic() {
 }
 
 void MgrCameraWorker::initialize() {
-    pCam_ = P_CAM;
+    pCam_ = P_GOD->getUniverse()->getCamera();
     pVp_ = (MgrCameraViewPoint*)(pCam_->getCameraViewPoint());
     pUp_ = (MgrCameraUpVector*)(pCam_->getCameraUpVector());
     t_x_VP_ = pVp_->_x;

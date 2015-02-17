@@ -2,9 +2,9 @@
 
 #include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
-#include "jp/gecchi/VioletVreath/scene/Universe.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameOverScene/NameEntryScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
@@ -68,7 +68,7 @@ void GameOverScene::processBehavior() {
                 }
             }
             if (pProg->getFrameInProgress() == 420) {
-                P_UNIVERSE->resetCamWorker();
+                P_GOD->getUniverse()->resetCamWorker();
                 if (need_name_entry_) {
                     _TRACE_("pProg->change(GameOverScene::PROG_NAMEENTRY);");
                     pProg->change(GameOverScene::PROG_NAMEENTRY);

@@ -1,7 +1,7 @@
 #include "ViewPointGuide.h"
 
 #include "jp/ggaf/dxcore/actor/camera/GgafDxCameraViewPoint.h"
-#include "jp/gecchi/VioletVreath/scene/Universe.h"
+#include "jp/gecchi/VioletVreath/God.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -24,7 +24,8 @@ void ViewPointGuide::onActive() {
 }
 
 void ViewPointGuide::processBehavior() {
-    positionAs(P_CAM->getCameraViewPoint());
+    Camera* pCam = P_GOD->getUniverse()->getCamera();
+    positionAs(pCam->getCameraViewPoint());
 }
 
 void ViewPointGuide::processJudgement() {

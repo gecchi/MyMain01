@@ -211,7 +211,7 @@ void Universe::resetCamWorker() {
             pCon->close();
         }
     }
-    Camera* pCam = P_CAM;
+    Camera* pCam = getCamera();
     pCam->setDefaultPosition();
     pActiveCamWorker_ = stack_CamWorkerConnection_.getLast()->peek();
     pActiveCamWorker_->slideMvCamTo(pCam, 60);

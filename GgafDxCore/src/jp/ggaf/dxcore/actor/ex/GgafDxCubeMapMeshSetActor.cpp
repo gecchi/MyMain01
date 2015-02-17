@@ -1,5 +1,6 @@
 #include "jp/ggaf/dxcore/actor/ex/GgafDxCubeMapMeshSetActor.h"
 
+#include "jp/ggaf/dxcore/GgafDxGod.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/effect/ex/GgafDxCubeMapMeshSetEffect.h"
 #include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMeshSetModel.h"

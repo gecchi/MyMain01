@@ -1,5 +1,6 @@
 #include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
 
+#include "jp/ggaf/dxcore/GgafDxGod.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
@@ -139,6 +140,7 @@ _pEffect((GgafDxEffect*)_pEffectCon->peek())
 }
 
 void GgafDxDrawableActor::processPreDraw() {
+    GgafDxCamera* pCam = P_GOD->getUniverse()->getCamera();
 #ifdef MY_DEBUG
     if (getPlatformScene()->instanceOf(Obj_GgafDxScene)) {
         //OK
@@ -225,8 +227,8 @@ void GgafDxDrawableActor::processPreDraw() {
 
                 static const double dep_rate_point1 = 0.3;                                //荒くなるポイント１の割合(カメラ可視奥行の 3/10 の地点)
                 static const double dep_rate_point2 = 0.6;                                //荒くなるポイント２の割合(カメラ可視奥行の 6/10 の地点)
-                static const dxcoord roughly_dep_point1 = (P_CAM->getZFar() * dep_rate_point1); //荒くなるポイント１距離
-                static const dxcoord roughly_dep_point2 = (P_CAM->getZFar() * dep_rate_point2); //荒くなるポイント２距離
+                static const dxcoord roughly_dep_point1 = (pCam->getZFar() * dep_rate_point1); //荒くなるポイント１距離
+                static const dxcoord roughly_dep_point2 = (pCam->getZFar() * dep_rate_point2); //荒くなるポイント２距離
                 static const double dep_level_rate_cam_to_point1 = 0.5;                   //視点～荒くなるポイント１までの、深度レベルを求めるために距離に乗ずる割合。
                 static const double dep_level_rate_point1_to_point2 = 0.2;                //荒くなるポイント１～ポイント２間の、深度レベルを求めるために距離に乗ずる割合。
                 static const double dep_level_rate_point2_to_far_away = 0.01;             //荒くなるポイント２～最遠の、深度レベルを求めるために距離に乗ずる割合。

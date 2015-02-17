@@ -1,5 +1,6 @@
 #include "jp/ggaf/dxcore/effect/GgafDxMorphMeshEffect.h"
 
+#include "jp/ggaf/dxcore/GgafDxGod.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
 
@@ -7,11 +8,11 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxMorphMeshEffect::GgafDxMorphMeshEffect(char* prm_effect_name) : GgafDxEffect(prm_effect_name) {
-
+    GgafDxCamera* pCam = P_GOD->getUniverse()->getCamera();
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
     //射影変換行列
-    hr = _pID3DXEffect->SetMatrix("g_matProj", P_CAM->getProjectionMatrix() );
+    hr = _pID3DXEffect->SetMatrix("g_matProj", pCam->getProjectionMatrix() );
     checkDxException(hr, D3D_OK, "GgafDxMeshActor::GgafDxMorphMeshEffect SetMatrix() に失敗しました。");
     //ライト方向
     hr = _pID3DXEffect->SetValue("g_vecLightFrom_World", &(GgafDxGod::_d3dlight9_default.Direction), sizeof(D3DVECTOR) );
@@ -23,7 +24,7 @@ GgafDxMorphMeshEffect::GgafDxMorphMeshEffect(char* prm_effect_name) : GgafDxEffe
     hr = _pID3DXEffect->SetValue("g_colLightAmbient", &(GgafDxGod::_d3dlight9_default.Ambient), sizeof(D3DCOLORVALUE));
     checkDxException(hr, D3D_OK, "GgafDxMorphMeshEffect::GgafDxMorphMeshEffect SetValue(g_colLightAmbient) に失敗しました。");
 
-    hr = _pID3DXEffect->SetFloat("g_zf", P_CAM->getZFar());
+    hr = _pID3DXEffect->SetFloat("g_zf", pCam->getZFar());
     checkDxException(hr, D3D_OK, "GgafDxMorphMeshEffect::GgafDxSpriteEffect SetFloat(g_zf) に失敗しました。");
 
 
@@ -51,9 +52,10 @@ GgafDxMorphMeshEffect::GgafDxMorphMeshEffect(char* prm_effect_name) : GgafDxEffe
 }
 
 void GgafDxMorphMeshEffect::setParamPerFrame() {
-    HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, P_CAM->getViewMatrix() );
+    GgafDxCamera* pCam = P_GOD->getUniverse()->getCamera();
+    HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, pCam->getViewMatrix() );
     checkDxException(hr, D3D_OK, "GgafDxMorphMeshEffect::setParamPerFrame SetMatrix(_h_matView) に失敗しました。");
-    hr = _pID3DXEffect->SetValue(_h_posCam, P_CAM->getVecCamFromPoint(), sizeof(D3DXVECTOR3) );
+    hr = _pID3DXEffect->SetValue(_h_posCam, pCam->getVecCamFromPoint(), sizeof(D3DXVECTOR3) );
     checkDxException(hr, D3D_OK, "GgafDxMorphMeshEffect::setParamPerFrame SetValue(_h_posCam) に失敗しました。");
 }
 

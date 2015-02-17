@@ -3,18 +3,7 @@
 #include "VVViewer.h"
 #include "jp/ggaf/lib/scene/DefaultUniverse.h"
 
-#include "VvvGod.h"
 #include "actor/VvvCamera.h"
-
-#ifdef P_GOD
-    #undef P_UNIVERSE
-    #define P_UNIVERSE ((VVViewer::VvvUniverse*)(P_GOD->_pUniverse))
-    #undef P_CAM
-    #define P_CAM ((VVViewer::VvvCamera*)(P_UNIVERSE->_pCamera))
-#else
-    #undef P_UNIVERSE
-    #undef P_CAM
-#endif
 
 namespace VVViewer {
 
@@ -45,6 +34,10 @@ public:
      * u‚±‚Ì¢v‚ÌU‚é•‘‚¢ˆ— .
      */
     void processBehavior() override {}
+
+    virtual VvvCamera* getCamera() override { //‹¤•Ï‚Ì–ß‚è’l
+        return (VvvCamera*)_pCamera;
+    }
 
     virtual ~VvvUniverse();
 };

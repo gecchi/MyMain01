@@ -3,17 +3,10 @@
 #include "VVViewer.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
-#include "scene/VvvUniverse.h"
+#include "VvvGod.h"
 #include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
 
 namespace VVViewer {
-
-#ifdef P_UNIVERSE
-    #undef P_WORLD
-    #define P_WORLD ((VVViewer::VvvWorld*)(P_UNIVERSE->pWorld_))
-#else
-    #undef P_WORLD
-#endif
 
 /**
  * VVViewer‚Ì¢ŠEƒV[ƒ“ .

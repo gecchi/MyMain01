@@ -2322,7 +2322,8 @@ void GgafDxGod::adjustGameScreen(HWND prm_pHWnd) {
         _TRACE_(" _aRect_Present[0].bottom = "<<_aRect_Present[0].bottom);
     }
 #endif
-    GgafDxGod::_pID3DDevice9->GetViewport(&(P_CAM->_viewport));
+    GgafDxCamera* pCam = getUniverse()->getCamera();
+    GgafDxGod::_pID3DDevice9->GetViewport(&(pCam->_viewport));
     _adjustGameScreen = false;
     _pHWnd_adjustScreen = nullptr;
 }

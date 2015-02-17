@@ -3,18 +3,7 @@
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/scene/GgafUniverse.h"
 
-#include "jp/ggaf/dxcore/GgafDxGod.h"
 #include "jp/ggaf/dxcore/actor/camera/GgafDxCamera.h"
-
-#ifdef P_GOD
-    #undef P_UNIVERSE
-    #define P_UNIVERSE ((GgafDxCore::GgafDxUniverse*)(P_GOD->_pUniverse))
-    #undef P_CAM
-    #define P_CAM (P_UNIVERSE->_pCamera)
-#else
-    #undef P_UNIVERSE
-    #undef P_CAM
-#endif
 
 namespace GgafDxCore {
 
@@ -90,6 +79,9 @@ public:
 
     virtual ~GgafDxUniverse();
 
+    virtual GgafDxCamera* getCamera() {
+        return _pCamera;
+    }
 
     /**
      * •`‰æƒŒƒxƒ‹i‡˜j‚ğ“o˜^ .

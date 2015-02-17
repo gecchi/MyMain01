@@ -3,27 +3,16 @@
 #include "VioletVreath.h"
 #include "jp/ggaf/lib/scene/DefaultUniverse.h"
 
-#include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/camera/Camera.h"
 #include "jp/gecchi/VioletVreath/manager/CameraWorkerManager.h"
 #include "jp/gecchi/VioletVreath/manager/CameraWorkerConnection.h"
-
-#ifdef P_GOD
-    #undef P_UNIVERSE
-    #define P_UNIVERSE ((VioletVreath::Universe*)(P_GOD->_pUniverse))
-    #undef P_CAM
-    #define P_CAM ((VioletVreath::Camera*)(P_UNIVERSE->_pCamera))
-#else
-    #undef P_UNIVERSE
-    #undef P_CAM
-#endif
 
 /**
  * この世が保持する CameraWorkerManager に接続し、コネクションを取得。
  * X：識別文字列（CameraWorkerManager::processCreateResource(char* prm_idstr, void* prm_pConnector) の prm_idstr に渡る)
  * また、CameraWorkerManager::processCreateResource(char* prm_idstr, void* prm_pConnector) の prm_p には nullptr がセットされている。
  */
-#define getConnection_CameraWorkerManager(X) ((VioletVreath::CameraWorkerConnection*)P_UNIVERSE->pCamWorkerManager_->connect((X), this))
+#define getConnection_CameraWorkerManager(X) ((VioletVreath::CameraWorkerConnection*)P_GOD->getUniverse()->pCamWorkerManager_->connect((X), this))
 
 
 namespace VioletVreath {
@@ -104,6 +93,13 @@ public:
      */
     void resetCamWorker();
 
+    virtual Camera* getCamera() override { //共変の戻り値
+        return (Camera*)_pCamera;
+    }
+
+    World* getWorld() {
+        return pWorld_;
+    }
     virtual ~Universe();
 };
 

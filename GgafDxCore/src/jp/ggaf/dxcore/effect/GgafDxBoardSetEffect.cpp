@@ -1,5 +1,6 @@
 #include "jp/ggaf/dxcore/effect/GgafDxBoardSetEffect.h"
 
+#include "jp/ggaf/dxcore/GgafDxGod.h"
 #include "jp/ggaf/dxcore/GgafDxProperties.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 

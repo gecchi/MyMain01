@@ -10,8 +10,6 @@
 
 #undef P_GOD
 #define P_GOD ((Mogera::MgrGod*)Mogera::MgrGod::_pGod)
-#undef P_UNIVERSE
-#define P_UNIVERSE ((Mogera::MgrUniverse*)(P_GOD->_pUniverse))
 
 #define MGR_MIKATA (0x01U)
 #define MGR_TEKI   (0x10U)

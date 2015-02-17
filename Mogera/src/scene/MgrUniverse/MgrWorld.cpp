@@ -1,10 +1,12 @@
 #include "MgrWorld.h"
 
+#include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/lib/util/LinearOctreeForActor.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "jp/ggaf/core/GgafFactory.h"
 #include "scene/MgrUniverse/MgrWorld/TrialAndErrScene.h"
 #include "scene/MgrUniverse.h"
+#include "MgrGod.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -48,7 +50,7 @@ void MgrWorld::processBehavior() {
 
 void MgrWorld::processJudgement() {
     //当たり判定チェック
-    P_UNIVERSE->getLinearOctree()->executeAllHitChk(MGR_MIKATA, MGR_TEKI);
+    P_GOD->getUniverse()->getLinearOctree()->executeAllHitChk(MGR_MIKATA, MGR_TEKI);
     //executeAllHitChk は processJudgement() で呼ぶ必要あり
     //(processBehavior())ではまだ登録されていない)
 }

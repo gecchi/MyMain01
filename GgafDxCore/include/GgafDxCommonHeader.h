@@ -31,6 +31,7 @@
 /** 回転方法定数、どちらかの回転（いずれの回転でも） */
 #define TURN_BOTH 0
 
+
 //プリズム姿勢(位置)定数
 #define POS_PRISM_XY_nn   (0x11) //0b 0010001
 #define POS_PRISM_XY_np   (0x12) //0b 0010010
@@ -44,7 +45,6 @@
 #define POS_PRISM_ZX_np   (0x42) //0b 1000010
 #define POS_PRISM_ZX_pn   (0x44) //0b 1000100
 #define POS_PRISM_ZX_pp   (0x48) //0b 1001000
-
 
 //プリズムは、どの面から向かってスライスされたかを示す
 /** XY平面に垂直にスライスした形である */
@@ -66,8 +66,6 @@
 #define POS_PRISM_pn      (0x4)  //0b 0000100
 /** 直角がある場所 は, (正, 正)である */
 #define POS_PRISM_pp      (0x8)  //0b 0001000
-
-
 
 //DirectXの3D空間の座標単位１に対しての原点付近の画面px相当数（画面高さ(px)などを、PX_UNITで割ると3D空間の座標単位１になる）
 #define PX_UNIT (10)

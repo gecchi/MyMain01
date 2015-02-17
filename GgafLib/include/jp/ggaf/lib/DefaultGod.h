@@ -7,6 +7,7 @@
 #include "jp/ggaf/lib/manager/SplineSourceConnection.h"
 #include "jp/ggaf/lib/manager/SplineManufactureManager.h"
 #include "jp/ggaf/lib/manager/SplineManufactureConnection.h"
+#include "jp/ggaf/lib/scene/DefaultUniverse.h"
 
 #undef P_GOD
 #define P_GOD ((GgafLib::DefaultGod*)GgafCore::GgafGod::_pGod)
@@ -27,7 +28,13 @@ public:
 public:
     DefaultGod();
     virtual HRESULT initDevice() override;
+
+    virtual DefaultUniverse* getUniverse() override {  //‹¤•Ï‚Ì–ß‚è’l
+        return (DefaultUniverse*)_pUniverse;
+    }
+
     virtual void clean() override;
+
     virtual ~DefaultGod();
 };
 

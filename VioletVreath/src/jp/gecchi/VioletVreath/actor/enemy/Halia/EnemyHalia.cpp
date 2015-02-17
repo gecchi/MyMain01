@@ -1,20 +1,20 @@
 #include "EnemyHalia.h"
 
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+#include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/common/laserchip/EnemyStraightLaserChip001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
-#include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -48,7 +48,8 @@ EnemyHalia::EnemyHalia(const char* prm_name) :
 
     useProgress(PROG_BANPEI);
     //‰ŠúƒJƒƒ‰ZˆÊ’u
-    dZ_camera_init_ = -1 * DX_C(P_CAM->getZOrigin());
+    Camera* pCam = P_GOD->getUniverse()->getCamera();
+    dZ_camera_init_ = -1 * DX_C(pCam->getZOrigin());
 }
 
 void EnemyHalia::onCreateModel() {

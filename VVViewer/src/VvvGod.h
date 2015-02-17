@@ -3,6 +3,7 @@
 #include "VVViewer.h"
 #include "jp/ggaf/lib/DefaultGod.h"
 
+#include "scene/VvvUniverse.h"
 
 #undef P_GOD
 #define P_GOD ((VVViewer::VvvGod*)VVViewer::VvvGod::_pGod)
@@ -36,6 +37,10 @@ public:
      * @return ê∂ê¨ÇµÇΩÅuÇ±ÇÃê¢Åv
      */
     GgafCore::GgafUniverse* createUniverse() override;
+
+    virtual VvvUniverse* getUniverse() override {  //ã§ïœÇÃñﬂÇËíl
+        return (VvvUniverse*)_pUniverse;
+    }
 
     virtual ~VvvGod();
 };

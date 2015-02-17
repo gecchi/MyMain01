@@ -3,15 +3,12 @@
 #include "VioletVreath.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
+#include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World.h"
 
 namespace VioletVreath {
 
-#ifdef P_WORLD
-    #define P_GAME_SCENE (P_WORLD->pGameScene_)
-#else
-    #undef P_GAME_SCENE
-#endif
+#define P_GAME_SCENE (P_GOD->getUniverse()->getWorld()->pGameScene_)
 
 /**
  * ゲームシーンクラス .

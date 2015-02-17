@@ -1,11 +1,12 @@
 #include "jp/ggaf/dxcore/actor/GgafDxMorphMeshActor.h"
 
-#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
-#include "jp/ggaf/dxcore/effect/GgafDxMorphMeshEffect.h"
-#include "jp/ggaf/dxcore/model/GgafDxMorphMeshModel.h"
+#include "jp/ggaf/dxcore/GgafDxGod.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
+#include "jp/ggaf/dxcore/effect/GgafDxMorphMeshEffect.h"
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/model/GgafDxMorphMeshModel.h"
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -121,10 +122,11 @@ void GgafDxMorphMeshActor::addAlpha(float prm_alpha) {
 }
 
 void GgafDxMorphMeshActor::processDraw() {
+    GgafDxCamera* pCam = P_GOD->getUniverse()->getCamera();
     GgafDxMorphMeshEffect* pMorphMeshEffect = _pMorphMeshEffect;
     ID3DXEffect* pID3DXEffect = pMorphMeshEffect->_pID3DXEffect;
     HRESULT hr;
-    hr = pID3DXEffect->SetMatrix(pMorphMeshEffect->_h_matView, P_CAM->getViewMatrix() );
+    hr = pID3DXEffect->SetMatrix(pMorphMeshEffect->_h_matView, pCam->getViewMatrix() );
     checkDxException(hr, D3D_OK, "GgafDxMorphMeshActor::processDraw() SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = pID3DXEffect->SetInt(pMorphMeshEffect->_h_morph_target_num, _pMorphMeshModel->_morph_target_num);
     checkDxException(hr, D3D_OK, "GgafDxMorphMeshActor::processDraw() SetInt(_h_morph_target_num) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

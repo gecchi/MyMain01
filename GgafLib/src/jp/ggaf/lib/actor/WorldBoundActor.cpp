@@ -26,23 +26,25 @@ WorldBoundActor::WorldBoundActor(const char* prm_name, const char* prm_model) :
 }
 
 void WorldBoundActor::initialize() {
+    DefaultCamera* pCam = P_GOD->getUniverse()->getCamera();
     setHitAble(false);
-    positionAs(P_CAM);
+    positionAs(pCam);
     setFaceAng(0, 0, 0);
-    dxcoord world_r = P_CAM->getZFar(); //世界境界球半径
+    dxcoord world_r = pCam->getZFar(); //世界境界球半径
     dxcoord world_bound_model_r = 1.0f; //WorldBoundSpace001のモデルは半径DIRECTX距離1の球である
     setScaleR((world_r*0.989)/world_bound_model_r);
 }
 
 
 void WorldBoundActor::processSettlementBehavior() {
+    DefaultCamera* pCam = P_GOD->getUniverse()->getCamera();
     //画面外判定無しに伴ない処理簡略化。
     //次の処理を無視しています
     //・自身がボーン時の考慮
     //・８分木登録
     //・視錐台からの距離計算
     //GgafDxGeometricActor::processSettlementBehavior() と同期を取る事！
-    positionAs(P_CAM);
+    positionAs(pCam);
     _fX = C_DX(_x);
     _fY = C_DX(_y);
     _fZ = C_DX(_z);

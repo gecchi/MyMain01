@@ -1,5 +1,6 @@
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 
+#include "jp/ggaf/dxcore/GgafDxGod.h"
 #include "jp/ggaf/core/util/GgafStatus.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxChecker.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
@@ -174,7 +175,7 @@ void GgafDxGeometricActor::processSettlementBehavior() {
     }
 
     //Ž‹‘ä–Ê‚©‚ç‚Ì‹——£‚ðXV
-    GgafDxCamera* pCam = P_CAM;
+    GgafDxCamera* pCam = P_GOD->getUniverse()->getCamera();
     _dest_from_vppln_top    = pCam->_plnTop.a * _fX +
                               pCam->_plnTop.b * _fY +
                               pCam->_plnTop.c * _fZ +

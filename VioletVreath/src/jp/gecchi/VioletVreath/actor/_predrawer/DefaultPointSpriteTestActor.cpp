@@ -1,7 +1,6 @@
 #include "DefaultPointSpriteTestActor.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-#include "jp/gecchi/VioletVreath/scene/Universe.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

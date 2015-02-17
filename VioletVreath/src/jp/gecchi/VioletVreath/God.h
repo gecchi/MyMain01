@@ -9,6 +9,7 @@
 #include "jp/gecchi/VioletVreath/manager/DepositoryConnection.h"
 #include "jp/gecchi/VioletVreath/manager/SplineLineManager.h"
 #include "jp/gecchi/VioletVreath/manager/SplineLineConnection.h"
+#include "jp/gecchi/VioletVreath/scene/Universe.h"
 
 #undef P_GOD
 #define P_GOD ((VioletVreath::God*)VioletVreath::God::_pGod)
@@ -109,6 +110,11 @@ public:
      * Worldシーンを作成。を実装
      */
     GgafCore::GgafUniverse* createUniverse() override;
+
+    virtual Universe* getUniverse() override {  //共変の戻り値
+        return (Universe*)_pUniverse;
+    }
+
     /**
      * アプリケーション再起動 .
      */

@@ -1,7 +1,7 @@
 #include "WorldBoundSpaceRankUp.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/gecchi/VioletVreath/scene/Universe.h"
+#include "jp/gecchi/VioletVreath/God.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -18,10 +18,11 @@ void WorldBoundSpaceRankUp::onCreateModel() {
 
 }
 void WorldBoundSpaceRankUp::initialize() {
+    Camera* pCam = P_GOD->getUniverse()->getCamera();
     setHitAble(false);
-    positionAs(P_CAM);
+    positionAs(pCam);
     setFaceAng(0, 0, 0);
-    dxcoord world_r = P_CAM->getZFar(); //¢ŠE‹«ŠE‹…”¼Œa
+    dxcoord world_r = pCam->getZFar(); //¢ŠE‹«ŠE‹…”¼Œa
     dxcoord world_bound_model_r = 1.0f; //WorldBoundSpace001‚Ìƒ‚ƒfƒ‹‚Í”¼ŒaDIRECTX‹——£1‚Ì‹…‚Å‚ ‚é
     setScaleR((world_r*0.989)/world_bound_model_r);
 }

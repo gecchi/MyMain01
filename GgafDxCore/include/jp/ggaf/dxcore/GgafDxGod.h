@@ -2,7 +2,10 @@
 #define GGAFDXCORE_GGAFDXGOD_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/GgafGod.h"
+
+#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+
 
 #undef P_GOD
 #define P_GOD ((GgafDxCore::GgafDxGod*)GgafDxCore::GgafDxGod::_pGod)
@@ -280,6 +283,16 @@ public:
     virtual void makeUniversalMaterialize() override;
     virtual void presentUniversalVisualize() override;
     virtual void finalizeUniverse() override;
+
+
+    /**
+     * この世を取得 .
+     * 下位でオーバーライド可能。<BR>
+     * @return この世
+     */
+    virtual GgafDxUniverse* getUniverse() override {  //共変の戻り値
+        return (GgafDxUniverse*)_pUniverse;
+    }
 
     virtual void clean() override;
 

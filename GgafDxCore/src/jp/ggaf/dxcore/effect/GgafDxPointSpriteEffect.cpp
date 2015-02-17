@@ -1,5 +1,6 @@
 #include "jp/ggaf/dxcore/effect/GgafDxPointSpriteEffect.h"
 
+#include "jp/ggaf/dxcore/GgafDxGod.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
 
@@ -7,23 +8,22 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxPointSpriteEffect::GgafDxPointSpriteEffect(char* prm_effect_name) : GgafDxEffect(prm_effect_name) {
+    GgafDxCamera* pCam = P_GOD->getUniverse()->getCamera();
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
 //    //VIEW変換行列
 //    hr = _pID3DXEffect->SetMatrix( "g_matView", &GgafDxGod::_matView );
 //    checkDxException(hr, D3D_OK, "GgafDxPointSpriteEffect::GgafDxPointSpriteEffect SetMatrix(g_matView) に失敗しました。");
     //射影変換行列
-    hr = _pID3DXEffect->SetMatrix("g_matProj", P_CAM->getProjectionMatrix() );
+    hr = _pID3DXEffect->SetMatrix("g_matProj", pCam->getProjectionMatrix() );
     checkDxException(hr, D3D_OK, "GgafDxPointSpriteEffect::GgafDxPointSpriteEffect SetMatrix(g_matProj) に失敗しました。");
-    hr = _pID3DXEffect->SetFloat("g_dist_CamZ_default", -(P_CAM->getZOrigin()));
+    hr = _pID3DXEffect->SetFloat("g_dist_CamZ_default", -(pCam->getZOrigin()));
     checkDxException(hr, D3D_OK, "GgafDxPointSpriteEffect::GgafDxPointSpriteEffect SetFloat(g_dist_CamZ_default) に失敗しました。");
-    hr = _pID3DXEffect->SetFloat("g_zn", P_CAM->getZNear());
+    hr = _pID3DXEffect->SetFloat("g_zn", pCam->getZNear());
     checkDxException(hr, D3D_OK, "GgafDxPointSpriteEffect::GgafDxPointSpriteEffect SetFloat(g_zn) に失敗しました。");
-    hr = _pID3DXEffect->SetFloat("g_zf", P_CAM->getZFar());
+    hr = _pID3DXEffect->SetFloat("g_zf", pCam->getZFar());
     checkDxException(hr, D3D_OK, "GgafDxPointSpriteEffect::GgafDxSpriteEffect SetFloat(g_zf) に失敗しました。");
 
-    //_TRACE_("GgafDxPointSpriteEffect::GgafDxPointSpriteEffect g_dist_CamZ_default="<<P_CAM->getZNear()<<" g_dist_CamZ_default="<<( -(P_CAM->_cameraZ_org))<<"");
-    //checkDxException(hr, D3D_OK, "GgafDxPointSpriteEffect::GgafDxPointSpriteEffect SetFloat(g_zn) に失敗しました。");
     //シェーダーハンドル
     _h_matView  = _pID3DXEffect->GetParameterByName( nullptr, "g_matView" );
     _h_matWorld = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld" );
@@ -38,7 +38,8 @@ GgafDxPointSpriteEffect::GgafDxPointSpriteEffect(char* prm_effect_name) : GgafDx
 }
 
 void GgafDxPointSpriteEffect::setParamPerFrame() {
-    HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, P_CAM->getViewMatrix() );
+    GgafDxCamera* pCam = P_GOD->getUniverse()->getCamera();
+    HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, pCam->getViewMatrix() );
     checkDxException(hr, D3D_OK, "setParamPerFrame SetMatrix(_h_matView) に失敗しました。");
 }
 

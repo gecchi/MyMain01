@@ -166,8 +166,11 @@ void God::oops() {
 }
 
 God::~God() {
-    if (P_WORLD) {
-        P_WORLD->throwEventLowerTree(EVENT_GOD_WILL_DIE); //全シーンに通知
+    if (getUniverse()) {
+        World* pWorld = getUniverse()->getWorld();
+        if (pWorld) {
+            pWorld->throwEventLowerTree(EVENT_GOD_WILL_DIE); //全シーンに通知
+        }
     }
     clean();
     _was_cleaned = true;

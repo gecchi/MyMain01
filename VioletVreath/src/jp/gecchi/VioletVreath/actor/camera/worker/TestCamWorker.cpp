@@ -2,7 +2,6 @@
 
 #include "jp/ggaf/dxcore/actor/camera/GgafDxCameraViewPoint.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
-#include "jp/gecchi/VioletVreath/scene/Universe.h"
 #include "jp/gecchi/VioletVreath/God.h"
 
 using namespace GgafCore;
@@ -19,19 +18,19 @@ void TestCamWorker::onActive() {
 }
 
 void TestCamWorker::onSwitchCameraWork() {
-    Camera* pCam = P_CAM;
+    Camera* pCam = P_GOD->getUniverse()->getCamera();
     pCam->positionAs(P_MYSHIP);
     GgafDxGeometricActor* pVP = pCam->getCameraViewPoint();
     pVP->positionAs(P_MYSHIP);
 }
 
 void TestCamWorker::processBehavior() {
-    Camera* pCam = P_CAM;
+    Camera* pCam = P_GOD->getUniverse()->getCamera();
     GgafDxGeometricActor* pVP = pCam->getCameraViewPoint();
     pVP->positionAs(P_MYSHIP);
-    P_CAM->_x += 2000;
-    P_CAM->_y += 2000;
-    P_CAM->_z += 2000;
+    pCam->_x += 2000;
+    pCam->_y += 2000;
+    pCam->_z += 2000;
 }
 
 void TestCamWorker::processJudgement() {

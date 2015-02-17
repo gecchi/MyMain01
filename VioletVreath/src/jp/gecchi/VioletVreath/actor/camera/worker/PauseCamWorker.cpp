@@ -5,6 +5,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "jp/ggaf/dxcore/util/GgafDxQuaternion.h"
+#include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/ViewPointGuide.h"
 #include "jp/gecchi/VioletVreath/Properties.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World.h"
@@ -29,7 +30,7 @@ PauseCamWorker::PauseCamWorker(const char* prm_name) : CameraWorker(prm_name) {
 void PauseCamWorker::initialize() {
     CameraWorker::initialize();
     pVPGuide_->inactivate();
-    P_WORLD->getSceneDirector()->addSubGroup(pVPGuide_);
+    P_GOD->getUniverse()->getWorld()->getSceneDirector()->addSubGroup(pVPGuide_);
 }
 
 void PauseCamWorker::onActive() {

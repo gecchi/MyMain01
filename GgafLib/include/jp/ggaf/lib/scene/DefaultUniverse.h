@@ -3,18 +3,7 @@
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
 
-#include "jp/ggaf/lib/DefaultGod.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
-
-#ifdef P_GOD
-    #undef P_UNIVERSE
-    #define P_UNIVERSE ((GgafLib::DefaultUniverse*)(P_GOD->_pUniverse))
-    #undef P_CAM
-    #define P_CAM ((GgafLib::DefaultCamera*)(P_UNIVERSE->_pCamera))
-#else
-    #undef P_UNIVERSE
-    #undef P_CAM
-#endif
 
 namespace GgafLib {
 
@@ -38,6 +27,9 @@ public:
 
     inline LinearOctreeForActor* getLinearOctree() {
         return _pLinearOctree;
+    }
+    virtual DefaultCamera* getCamera() override { //‹¤•Ï‚Ì–ß‚è’l
+        return (DefaultCamera*)_pCamera;
     }
 
     virtual ~DefaultUniverse();

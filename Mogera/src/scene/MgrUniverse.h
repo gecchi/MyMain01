@@ -4,16 +4,6 @@
 #include "jp/ggaf/lib/scene/DefaultUniverse.h"
 
 #include "actor/camera/MgrCamera.h"
-#ifdef P_GOD
-    #undef P_UNIVERSE
-    #define P_UNIVERSE ((Mogera::MgrUniverse*)(P_GOD->_pUniverse))
-    #ifdef P_CAM
-        #undef P_CAM
-    #endif
-    #define P_CAM ((Mogera::MgrCamera*)(P_UNIVERSE->_pCamera))
-#else
-    #error P_UNIVERSE isnt define
-#endif
 
 namespace Mogera {
 
@@ -47,6 +37,10 @@ public:
      * u‚±‚Ì¢v‚ÌU‚é•‘‚¢ˆ— .
      */
     void processBehavior() override;
+
+    virtual MgrCamera* getCamera() override { //‹¤•Ï‚Ì–ß‚è’l
+        return (MgrCamera*)_pCamera;
+    }
 
     virtual ~MgrUniverse();
 };

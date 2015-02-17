@@ -6,6 +6,7 @@
 #include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
 #include "jp/ggaf/dxcore/model/GgafDxBoardSetModel.h"
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

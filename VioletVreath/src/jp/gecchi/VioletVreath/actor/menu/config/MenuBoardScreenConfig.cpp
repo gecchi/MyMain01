@@ -368,6 +368,7 @@ void MenuBoardScreenConfig::onRise() {
 void MenuBoardScreenConfig::processBehavior() {
     MenuBoard::processBehavior();
 
+    World* pWorld = P_GOD->getUniverse()->getWorld();
     //キー入力、ボタン入力、反映
     VirtualButton* pVB = VB;
     int selected_index = getSelectedIndex();
@@ -383,7 +384,7 @@ void MenuBoardScreenConfig::processBehavior() {
                 PROPERTY::setValue("FULL_SCREEN", false);
             }
             if (PROPERTY::FULL_SCREEN != PROPERTY::getBool("FULL_SCREEN")) {
-                P_WORLD->need_reboot_ = 1;
+                pWorld->need_reboot_ = 1;
             }
 
             if (getSelectedIndexOnSupCursor(SUPCUR_DUAL_VIEW) == ITEM_DUAL_VIEW) {
@@ -392,7 +393,7 @@ void MenuBoardScreenConfig::processBehavior() {
                 PROPERTY::setValue("DUAL_VIEW", false);
             }
             if (PROPERTY::DUAL_VIEW != PROPERTY::getBool("DUAL_VIEW")) {
-                P_WORLD->need_reboot_ = 1;
+                pWorld->need_reboot_ = 1;
             }
 
             if (PROPERTY::DUAL_VIEW) {
@@ -403,7 +404,7 @@ void MenuBoardScreenConfig::processBehavior() {
                 }
             }
             if (PROPERTY::SWAP_GAME_VIEW != PROPERTY::getBool("SWAP_GAME_VIEW")) {
-                P_WORLD->need_reboot_ = 1;
+                pWorld->need_reboot_ = 1;
             }
 
             if (getSelectedIndexOnSupCursor(SUPCUR_FIXED_GAME_VIEW_ASPECT) == ITEM_FIXED_GAME_VIEW_ASPECT) {
@@ -413,13 +414,13 @@ void MenuBoardScreenConfig::processBehavior() {
             }
             //_TRACE_("PROPERTY::FULL_SCREEN="<<PROPERTY::FULL_SCREEN<<" PROPERTY::FIXED_GAME_VIEW_ASPECT="<<PROPERTY::FIXED_GAME_VIEW_ASPECT<<" PROPERTY::getBool(\"FIXED_GAME_VIEW_ASPECT\")="<<PROPERTY::getBool("FIXED_GAME_VIEW_ASPECT"));
             if (PROPERTY::FIXED_GAME_VIEW_ASPECT != PROPERTY::getBool("FIXED_GAME_VIEW_ASPECT")) {
-                P_WORLD->need_reboot_ = 1;
+                pWorld->need_reboot_ = 1;
             }
 
             int pos = getSelectedIndexOnSupCursor(SUPCUR_SINGLE_VIEW_DRAW_POSITION)+1 - VALUE_POS_1;
             PROPERTY::setValue("SINGLE_VIEW_DRAW_POSITION", pos);
             if (PROPERTY::SINGLE_VIEW_DRAW_POSITION != PROPERTY::getInt("SINGLE_VIEW_DRAW_POSITION")) {
-                P_WORLD->need_reboot_ = 1;
+                pWorld->need_reboot_ = 1;
             }
 
             int pos1 = getSelectedIndexOnSupCursor(SUPCUR_DUAL_VIEW_DRAW_POSITION1)+1 - VALUE_POS1_1;
@@ -427,10 +428,10 @@ void MenuBoardScreenConfig::processBehavior() {
             int pos2 = getSelectedIndexOnSupCursor(SUPCUR_DUAL_VIEW_DRAW_POSITION2)+1 - VALUE_POS2_1;
             PROPERTY::setValue("DUAL_VIEW_DRAW_POSITION2", pos2);
             if (PROPERTY::DUAL_VIEW_DRAW_POSITION1 != PROPERTY::getInt("DUAL_VIEW_DRAW_POSITION1")) {
-                P_WORLD->need_reboot_ = 1;
+                pWorld->need_reboot_ = 1;
             }
             if (PROPERTY::DUAL_VIEW_DRAW_POSITION2 != PROPERTY::getInt("DUAL_VIEW_DRAW_POSITION2")) {
-                P_WORLD->need_reboot_ = 1;
+                pWorld->need_reboot_ = 1;
             }
 
             //FULL_SCREEN、DUAL_VIEWは、アプリ実行中に変更できない。 現在値を保持
@@ -498,13 +499,13 @@ void MenuBoardScreenConfig::processBehavior() {
         if (pVB->isPushedDown(VB_UI_LEFT)) {
             selectItemBySupCursor(SUPCUR_FIXED_GAME_VIEW_ASPECT, VALUE_FIXED_GAME_VIEW_TRUE);
             PROPERTY::setValue("FIXED_GAME_VIEW_ASPECT", true);
-            if (!P_WORLD->need_reboot_) {
+            if (!pWorld->need_reboot_) {
                 GgafDxCore::GgafDxGod::chengeViewAspect(true);
             }
         } else if (pVB->isPushedDown(VB_UI_RIGHT)) {
             selectItemBySupCursor(SUPCUR_FIXED_GAME_VIEW_ASPECT, VALUE_FIXED_GAME_VIEW_FALSE);
             PROPERTY::setValue("FIXED_GAME_VIEW_ASPECT", false);
-            if (!P_WORLD->need_reboot_) {
+            if (!pWorld->need_reboot_) {
                 GgafDxCore::GgafDxGod::chengeViewAspect(false);
             }
         }
@@ -518,7 +519,7 @@ void MenuBoardScreenConfig::processBehavior() {
             }
             selectItemBySupCursor(SUPCUR_SINGLE_VIEW_DRAW_POSITION, i);
             PROPERTY::setValue("SINGLE_VIEW_DRAW_POSITION", i+1 - VALUE_POS_1);
-            if (!P_WORLD->need_reboot_) {
+            if (!pWorld->need_reboot_) {
                 GgafDxCore::GgafDxGod::chengeViewPos1(i+1 - VALUE_POS_1);
             }
         } else if (pVB->isAutoRepeat(VB_UI_LEFT)) {
@@ -530,7 +531,7 @@ void MenuBoardScreenConfig::processBehavior() {
             }
             selectItemBySupCursor(SUPCUR_SINGLE_VIEW_DRAW_POSITION, i);
             PROPERTY::setValue("SINGLE_VIEW_DRAW_POSITION", i+1 - VALUE_POS_1);
-            if (!P_WORLD->need_reboot_) {
+            if (!P_GOD->getUniverse()->getWorld()->need_reboot_) {
                 GgafDxCore::GgafDxGod::chengeViewPos1(i+1 - VALUE_POS_1);
             }
         }

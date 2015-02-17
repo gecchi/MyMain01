@@ -1,7 +1,6 @@
 #include "VvvGod.h"
 
 #include "actor/VvvCamera.h"
-#include "scene/VvvUniverse.h"
 
 using namespace VVViewer;
 

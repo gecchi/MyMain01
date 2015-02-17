@@ -6,14 +6,8 @@
 #include "scene/MgrUniverse.h"
 #include "jp/ggaf/lib/util/PxQuantity.h"
 
-
 namespace Mogera {
 
-#ifdef P_UNIVERSE
-    #define P_WORLD ((Mogera::MgrWorld*)(P_UNIVERSE->pWorld_))
-#else
-    #error P_UNIVERSE isnt define
-#endif
 
 
 /**

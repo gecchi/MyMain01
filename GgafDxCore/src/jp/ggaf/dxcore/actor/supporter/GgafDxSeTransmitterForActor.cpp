@@ -1,6 +1,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 
 #include "jp/ggaf/core/util/GgafRepeatSeq.h"
+#include "jp/ggaf/dxcore/GgafDxGod.h"
 #include "jp/ggaf/dxcore/actor/camera/GgafDxCamera.h"
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
@@ -56,6 +57,7 @@ void GgafDxSeTransmitterForActor::play(int prm_id) {
 }
 
 void GgafDxSeTransmitterForActor::play3D(int prm_id) {
+    GgafDxUniverse* pUniverse = P_GOD->getUniverse();
 #ifdef MY_DEBUG
     if (prm_id < 0 || prm_id >= _se_num) {
         throwGgafCriticalException("GgafDxSeTransmitterForActor::play3D() IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
@@ -64,7 +66,7 @@ void GgafDxSeTransmitterForActor::play3D(int prm_id) {
     static const int VOLUME_MAX_3D = GGAF_MAX_VOLUME;
     static const int VOLUME_MIN_3D = GGAF_MIN_VOLUME;
     static const int VOLUME_RANGE_3D = VOLUME_MAX_3D - VOLUME_MIN_3D;
-    GgafDxCamera* pCam = P_CAM;
+    GgafDxCamera* pCam = pUniverse->getCamera();
     //距離計算
     //遅延なし、音量100％の場所をP_CAMの場所とする
     //自身とP_CAMの距離
@@ -110,7 +112,7 @@ void GgafDxSeTransmitterForActor::play3D(int prm_id) {
     }
 
 
-    P_UNIVERSE->registerSe(_papSeConnection[prm_id]->peek(), vol, pan, rate_frequency, delay, _pActor); // + (GgafDxSe::VOLUME_RANGE / 6) は音量底上げ
+    pUniverse->registerSe(_papSeConnection[prm_id]->peek(), vol, pan, rate_frequency, delay, _pActor); // + (GgafDxSe::VOLUME_RANGE / 6) は音量底上げ
 
     _paBool_is_playing_3d[prm_id] = true;
     //真ん中からの距離
@@ -137,7 +139,7 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
     static const int VOLUME_RANGE_3D = VOLUME_MAX_3D - VOLUME_MIN_3D;
 
     bool calc_flg = true;
-    GgafDxCamera* pCam = P_CAM;
+    GgafDxCamera* pCam = P_GOD->getUniverse()->getCamera();
     float pan = 0.0f;
     int vol = 0;
     float rate_frequency = 1.0;

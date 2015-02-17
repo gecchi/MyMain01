@@ -80,7 +80,7 @@ void GameScene::onReset() {
             pSubScene->inactivate();
         }
     }
-    P_UNIVERSE->resetCamWorker();
+    P_GOD->getUniverse()->resetCamWorker();
     G_RANK = 0.0;
     G_RANKUP_LEVEL = 0;
     G_SCORE = 0;
@@ -91,7 +91,7 @@ void GameScene::onActive() {
 }
 
 void GameScene::processBehavior() {
-
+    Universe* pUniverse = P_GOD->getUniverse();
 #ifdef MY_DEBUG
     //ワイヤフレーム表示切替
     if (VB->isPushedDown(VB_UI_DEBUG)) {
@@ -124,8 +124,9 @@ void GameScene::processBehavior() {
             if ((pProg->getFrameInProgress() == 120)) {
                 _TRACE_("P_GOD->_fps = "<<P_GOD->_fps);
                 pProg->changeWithSceneCrossfading(GameScene::PROG_PRE_TITLE);
-                P_WORLD->pPreDrawScene_->inactivateTreeImmed();
-                P_WORLD->pPreDrawScene_->pauseTreeImmed();
+                World* pWorld = pUniverse->getWorld();
+                pWorld->pPreDrawScene_->inactivateTreeImmed();
+                pWorld->pPreDrawScene_->pauseTreeImmed();
                 getBGMer()->stop();
             }
             break;
@@ -191,7 +192,7 @@ void GameScene::processBehavior() {
                 if (was_paused_flg_GameMainScene_prev_frame_)  {
                     //現フレームポーズではない、かつ前フレームポーズの場合。
                     //ポーズ解除から最初のフレーム処理はココへ
-                    P_UNIVERSE->undoCameraWork();
+                    pUniverse->undoCameraWork();
                 }
 
                 //通常進行時処理はココ
@@ -215,7 +216,7 @@ void GameScene::processBehavior() {
                     GgafDxInput::updateMouseState();
                     GgafDxInput::updateMouseState(); //マウス座標の相対座標を0にリセットするため
                                                      //連続２回呼び出す
-                    P_UNIVERSE->switchCameraWork("PauseCamWorker");
+                    pUniverse->switchCameraWork("PauseCamWorker");
                 }
 
                 //ポーズ進行時処理はココ
@@ -361,7 +362,7 @@ void GameScene::processJudgement() {
         //空間分割(八分木)アルゴリズムにより、チェック回数の最適化を行っています。
         //詳細は 「種別相関定義コピペツール.xls」 の 「種別相関」 シート参照
 
-        LinearOctreeForActor* pLinearOctree = P_UNIVERSE->getLinearOctree();
+        LinearOctreeForActor* pLinearOctree = P_GOD->getUniverse()->getLinearOctree();
 
         //八分木アルゴリズムでヒットチェック
         pLinearOctree->executeAllHitChk(

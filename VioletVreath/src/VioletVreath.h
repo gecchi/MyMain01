@@ -216,6 +216,7 @@ namespace VioletVreath {
 
 //‘O•ûéŒ¾
 class God;
+class Universe;
 class World;
 
 class CommonScene;

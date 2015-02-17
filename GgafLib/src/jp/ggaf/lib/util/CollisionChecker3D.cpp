@@ -20,7 +20,7 @@ using namespace GgafLib;
 int CollisionChecker3D::_num_check = 0;
 CollisionChecker3D::CollisionChecker3D(GgafDxGeometricActor* prm_pActor) : GgafDxChecker(prm_pActor) {
     _pElem = NEW LinearOctreeActorElem(prm_pActor, 0);
-    _pLinearOctree = P_UNIVERSE->getLinearOctree();
+    _pLinearOctree = P_GOD->getUniverse()->getLinearOctree();
     _need_update_aabb = true;
 }
 

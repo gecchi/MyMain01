@@ -1,6 +1,7 @@
 #include "MyShipScene.h"
 
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/camera/worker/MyShipDivingCamWorker.h"
 #include "jp/gecchi/VioletVreath/actor/camera/worker/VamSysCamWorker.h"
 #include "jp/gecchi/VioletVreath/actor/my/EffectMyShipExplosion.h"
@@ -11,7 +12,7 @@
 #include "jp/gecchi/VioletVreath/actor/my/MyOptionController.h"
 #include "jp/gecchi/VioletVreath/actor/my/option/MyOption.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
-#include "jp/gecchi/VioletVreath/scene/Universe.h"
+#include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
@@ -95,7 +96,7 @@ void MyShipScene::onReset() {
     }
     fadeoutSceneWithBgm(0);
     getProgress()->reset(MyShipScene::PROG_INIT);
-    P_UNIVERSE->resetCamWorker();
+    P_GOD->getUniverse()->resetCamWorker();
 }
 
 void MyShipScene::onActive() {
@@ -103,10 +104,11 @@ void MyShipScene::onActive() {
 }
 
 void MyShipScene::processBehavior() {
+    Universe* pUniverse = P_GOD->getUniverse();
      SceneProgress* pProg = getProgress();
     switch (pProg->getFromProgOnChange()) {
         case MyShipScene::PROG_BEGIN: {
-            P_UNIVERSE->undoCameraWork(); //MyShipDivingCamWorker‰ðœ
+            pUniverse->undoCameraWork(); //MyShipDivingCamWorker‰ðœ
             break;
         }
         default: {
@@ -117,8 +119,8 @@ void MyShipScene::processBehavior() {
     switch (pProg->get()) {
         case MyShipScene::PROG_INIT: {
             pProg->change(MyShipScene::PROG_BEGIN);
-            if (P_UNIVERSE->getActiveCamWorker() != pVamSysCamWorker_) {
-                pVamSysCamWorker_ = (VamSysCamWorker*)(P_UNIVERSE->switchCameraWork("VamSysCamWorker"));
+            if (pUniverse->getActiveCamWorker() != pVamSysCamWorker_) {
+                pVamSysCamWorker_ = (VamSysCamWorker*)(pUniverse->switchCameraWork("VamSysCamWorker"));
                 pVamSysCamWorker_->pMyShip_ = pMyShip_;
             }
             break;
@@ -146,7 +148,7 @@ void MyShipScene::processBehavior() {
                 pMyShip_->is_diving_ = true;
                 pMyShip_->activate();
                 MyShipDivingCamWorker* pCamWorker =
-                        (MyShipDivingCamWorker*)(P_UNIVERSE->switchCameraWork("MyShipDivingCamWorker"));
+                        (MyShipDivingCamWorker*)(pUniverse->switchCameraWork("MyShipDivingCamWorker"));
             }
             pMyShip_->_x += PX_C(30); //30000;
             if (pMyShip_->_x > 0) {
@@ -182,7 +184,7 @@ void MyShipScene::processBehavior() {
             if (pProg->getFrameInProgress() == 240) {
                 if (G_ZANKI == 0) {
                    throwEventUpperTree(EVENT_ALL_MY_SHIP_WAS_DESTROYED);
-                   P_UNIVERSE->undoCameraWork(); //VamSysCamWorker‰ðœ
+                   pUniverse->undoCameraWork(); //VamSysCamWorker‰ðœ
                    pProg->changeNothing();
                    inactivate();
                 } else {

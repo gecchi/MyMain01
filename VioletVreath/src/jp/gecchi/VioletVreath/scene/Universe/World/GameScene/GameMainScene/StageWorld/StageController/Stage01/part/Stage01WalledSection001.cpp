@@ -5,7 +5,7 @@
 #include "jp/ggaf/lib/scene/FormationTableScene.h"
 #include "../Stage01PartController.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
-#include "jp/gecchi/VioletVreath/scene/Universe.h"
+#include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
@@ -19,7 +19,8 @@ using namespace VioletVreath;
 Stage01WalledSection001::Stage01WalledSection001(const char* prm_name, WalledScene* prm_pWalledScene, const char* prm_data_filename)
      : WalledSectionScene(prm_name, prm_data_filename, prm_pWalledScene) {
     _class_name = "Stage01WalledSection001";
-    bound_alpha_ = -P_CAM->getZOrigin()*0.7; //背面時カメラは_cameraZ_org*0.6に由来している
+    Camera* pCam = P_GOD->getUniverse()->getCamera();
+    bound_alpha_ = -pCam->getZOrigin()*0.7; //背面時カメラは_cameraZ_org*0.6に由来している
 }
 
 void Stage01WalledSection001::processBehavior() {

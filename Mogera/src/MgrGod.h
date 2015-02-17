@@ -3,6 +3,11 @@
 #include "Mogera.h"
 #include "jp/ggaf/lib/DefaultGod.h"
 
+#include "scene/MgrUniverse.h"
+
+#undef P_GOD
+#define P_GOD ((Mogera::MgrGod*)GgafCore::GgafGod::_pGod)
+
 namespace Mogera {
 
 /**
@@ -30,6 +35,10 @@ public:
      * @return ê∂ê¨ÇµÇΩÅuÇ±ÇÃê¢Åv
      */
     GgafCore::GgafUniverse* createUniverse() override;
+
+    virtual MgrUniverse* getUniverse() override {  //ã§ïœÇÃñﬂÇËíl
+        return (MgrUniverse*)_pUniverse;
+    }
 
     virtual ~MgrGod();
 };
