@@ -212,9 +212,9 @@ void LaserChip::processSettlementBehavior() {
     if (getActiveFrame() > 60 && _force_alpha > 0) {
         _force_alpha -= 0.01;
     }
-    GgafDxMeshSetActor::processSettlementBehavior(); //‚W•ª–Ø“o˜^
-    //TODO:‚W•ª–Ø“o˜^‚¾‚¯‚È‚çprocessSettlementBehavior()‚ğŒÄ‚Ño‚·‚Ì‚Í­‚µŒø—¦‚ªˆ«‚©‚à‚µ‚ê‚È‚¢B
-    //“–‚½‚è”»’è—Ìˆæ‚ğXV‚µ‚Ä‚©‚çprocessSettlementBehavior‚Å‚W•ª–Ø“o˜^‚·‚é‚±‚ÆB
+    GgafDxMeshSetActor::processSettlementBehavior(); //”ª•ª–Ø“o˜^
+    //TODO:”ª•ª–Ø“o˜^‚¾‚¯‚È‚çprocessSettlementBehavior()‚ğŒÄ‚Ño‚·‚Ì‚Í­‚µŒø—¦‚ªˆ«‚©‚à‚µ‚ê‚È‚¢B
+    //“–‚½‚è”»’è—Ìˆæ‚ğXV‚µ‚Ä‚©‚çprocessSettlementBehavior‚Å”ª•ª–Ø“o˜^‚·‚é‚±‚ÆB
 }
 
 void LaserChip::processPreDraw() {

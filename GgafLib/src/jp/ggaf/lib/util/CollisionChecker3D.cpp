@@ -140,7 +140,7 @@ void CollisionChecker3D::updateHitArea() {
             _need_update_aabb = false;
         }
 
-        //‚W•ª–Ø‚É“o˜^I
+        //”ª•ª–Ø‚É“o˜^I
         _pElem->_kindbit = pActor->getMyGroupHead()->_kind;
         _pLinearOctree->registerElem(_pElem, pActor->_x + pCollisionArea->_aabb_x1,
                                              pActor->_y + pCollisionArea->_aabb_y1,

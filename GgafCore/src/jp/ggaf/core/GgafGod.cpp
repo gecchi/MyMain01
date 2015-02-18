@@ -24,7 +24,6 @@ DWORD GgafGod::_aaTime_offset_of_next_view[3][60] = {
         {25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25},
         {33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34}
 };
-volatile bool GgafGod::_can_be = false;
 
 GgafGod::GgafGod() : GgafObject(),
   _pUniverse(nullptr),
@@ -49,14 +48,12 @@ GgafGod::GgafGod() : GgafObject(),
     _is_behaved_flg = false;
     _is_materialized_flg = false;
     GgafGarbageBox::_pGarbageBox = NEW GgafGarbageBox();
-    _is_being = false;
     _was_cleaned = false;
     _skip_count_of_frame = 0;
     _max_skip_frames = (int)PROPERTY::MAX_SKIP_FRAME;
     _slowdown_mode = SLOWDOWN_MODE_DEFAULT;
     _sync_frame_time = false;
     _cnt_frame = 0;
-    GgafGod::_can_be = true;
 }
 
 void GgafGod::be() {
@@ -104,97 +101,93 @@ void GgafGod::be() {
     //   例えば上図での 3frame begin  ～ 4frame begin 間の時間は前処理により変動する。
     //
 
-    if (GgafGod::_can_be) {
-        _is_being = true;
+    if (_pUniverse == nullptr) {
+        //この世がまだ無い場合は、先ずこの世を作成。
+        _pUniverse = createUniverse();
+#ifdef MY_DEBUG
         if (_pUniverse == nullptr) {
-            //この世がまだ無い場合は、先ずこの世を作成。
-            _pUniverse = createUniverse();
-#ifdef MY_DEBUG
-            if (_pUniverse == nullptr) {
-                throwGgafCriticalException("GgafGod::be() Error! この世を実装して下さい！");
-            }
-#endif
-            _pUniverse->_pGod = this;
-            _time_at_beginning_frame = timeGetTime();
-            _time_of_next_view = (frame)(_time_at_beginning_frame+100); //0.1秒後開始
-            _time_calc_fps_next = _time_at_beginning_frame + 1;
-        }
-#ifdef MY_DEBUG
-        //工場（別スレッド）例外をチェック
-        if (_pException_factory) {
-            throw *_pException_factory;
+            throwGgafCriticalException("GgafGod::be() Error! この世を実装して下さい！");
         }
 #endif
-
-        if (_is_behaved_flg == false) {
-            _is_behaved_flg = true;
-            BEGIN_SYNCHRONIZED1; // ----->排他開始
-            _frame_of_God++;
-            presentUniversalMoment(); //①
-            executeUniversalJudge();  //②
-            _time_of_next_view += _aaTime_offset_of_next_view[_slowdown_mode][_cnt_frame];
-            _cnt_frame++;
-            if (_cnt_frame == 60) { _cnt_frame = 0; }
-            if (timeGetTime() >= _time_of_next_view) { //描画タイミングフレームになった、或いは過ぎている場合
-                //makeUniversalMaterialize はパス
-                _is_materialized_flg = false;
-            } else {
-                //描画タイミングフレームになっていない。余裕がある。
-                 _is_materialized_flg = true;
-                makeUniversalMaterialize(); //③
-                //但し makeUniversalMaterialize() によりオーバーするかもしれない。
-            }
-            END_SYNCHRONIZED1;  // <-----排他終了
-        }
-
+        _pUniverse->_pGod = this;
         _time_at_beginning_frame = timeGetTime();
-
-        if (_time_at_beginning_frame >= _time_of_next_view) {
-            //描画タイミングフレームになった、或いは過ぎている場合
-            BEGIN_SYNCHRONIZED1;  // ----->排他開始
-            if (_is_materialized_flg) { // ③ makeUniversalMaterialize() 実行済みの場合
-                //描画有り（スキップなし）
-                presentUniversalVisualize(); _visualize_frames++; //④
-                finalizeUniverse(); //⑤
-            } else {                   // ③ makeUniversalMaterialize() 実行していない場合
-                //描画無し（スキップ時）
-                if (_sync_frame_time) { //同期調整モード時は
-                    //無条件で描画なし。
-                    finalizeUniverse(); //⑤
-                } else {   //同期調整モードではない場合は通常スキップ
-                    _skip_count_of_frame++;
-                    //但し、スキップするといっても MAX_SKIP_FRAME フレームに１回は描画はする。
-                    if (_skip_count_of_frame >= _max_skip_frames) {
-                        makeUniversalMaterialize(); //③
-                        presentUniversalVisualize(); _visualize_frames++; //④
-                        finalizeUniverse();        //⑤
-                        _skip_count_of_frame = 0;
-                    } else {
-                        finalizeUniverse(); //⑤
-                    }
-                }
-            }
-            _is_behaved_flg = false;
-            END_SYNCHRONIZED1;    // <-----排他終了
-
-            //fps計算
-            if (_time_at_beginning_frame >= _time_calc_fps_next) {
-                int d_visualize_frames = _visualize_frames - _prev_visualize_frames;
-                if (d_visualize_frames == 0) {
-                    _fps = 0;
-                } else {
-                    _fps = (float)(d_visualize_frames) * (1000.0f / 100);
-                }
-                _time_calc_fps_next += 100;
-                _prev_visualize_frames = _visualize_frames;
-            }
-
-         } else { //描画タイミングフレームになってない(余裕がある)
-             _sync_frame_time = false;
-             Sleep(1); //<--- wait ---> な ひととき
-         }
-        _is_being = false;
+        _time_of_next_view = (frame)(_time_at_beginning_frame+100); //0.1秒後開始
+        _time_calc_fps_next = _time_at_beginning_frame + 1;
     }
+#ifdef MY_DEBUG
+    //工場（別スレッド）例外をチェック
+    if (_pException_factory) {
+        throw *_pException_factory;
+    }
+#endif
+
+    if (_is_behaved_flg == false) {
+        _is_behaved_flg = true;
+        BEGIN_SYNCHRONIZED1; // ----->排他開始
+        _frame_of_God++;
+        presentUniversalMoment(); //①
+        executeUniversalJudge();  //②
+        _time_of_next_view += _aaTime_offset_of_next_view[_slowdown_mode][_cnt_frame];
+        _cnt_frame++;
+        if (_cnt_frame == 60) { _cnt_frame = 0; }
+        if (timeGetTime() >= _time_of_next_view) { //描画タイミングフレームになった、或いは過ぎている場合
+            //makeUniversalMaterialize はパス
+            _is_materialized_flg = false;
+        } else {
+            //描画タイミングフレームになっていない。余裕がある。
+             _is_materialized_flg = true;
+            makeUniversalMaterialize(); //③
+            //但し makeUniversalMaterialize() によりオーバーするかもしれない。
+        }
+        END_SYNCHRONIZED1;  // <-----排他終了
+    }
+
+    _time_at_beginning_frame = timeGetTime();
+
+    if (_time_at_beginning_frame >= _time_of_next_view) {
+        //描画タイミングフレームになった、或いは過ぎている場合
+        BEGIN_SYNCHRONIZED1;  // ----->排他開始
+        if (_is_materialized_flg) { // ③ makeUniversalMaterialize() 実行済みの場合
+            //描画有り（スキップなし）
+            presentUniversalVisualize(); _visualize_frames++; //④
+            finalizeUniverse(); //⑤
+        } else {                   // ③ makeUniversalMaterialize() 実行していない場合
+            //描画無し（スキップ時）
+            if (_sync_frame_time) { //同期調整モード時は
+                //無条件で描画なし。
+                finalizeUniverse(); //⑤
+            } else {   //同期調整モードではない場合は通常スキップ
+                _skip_count_of_frame++;
+                //但し、スキップするといっても MAX_SKIP_FRAME フレームに１回は描画はする。
+                if (_skip_count_of_frame >= _max_skip_frames) {
+                    makeUniversalMaterialize(); //③
+                    presentUniversalVisualize(); _visualize_frames++; //④
+                    finalizeUniverse();        //⑤
+                    _skip_count_of_frame = 0;
+                } else {
+                    finalizeUniverse(); //⑤
+                }
+            }
+        }
+        _is_behaved_flg = false;
+        END_SYNCHRONIZED1;    // <-----排他終了
+
+        //fps計算
+        if (_time_at_beginning_frame >= _time_calc_fps_next) {
+            int d_visualize_frames = _visualize_frames - _prev_visualize_frames;
+            if (d_visualize_frames == 0) {
+                _fps = 0;
+            } else {
+                _fps = (float)(d_visualize_frames) * (1000.0f / 100);
+            }
+            _time_calc_fps_next += 100;
+            _prev_visualize_frames = _visualize_frames;
+        }
+
+     } else { //描画タイミングフレームになってない(余裕がある)
+         _sync_frame_time = false;
+         Sleep(1); //<--- wait ---> な ひととき
+     }
     return;
 }
 

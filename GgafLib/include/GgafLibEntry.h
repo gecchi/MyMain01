@@ -7,36 +7,10 @@
 #include "jp/ggaf/lib/GgafLibProperties.h"
 #include "jp/ggaf/lib/DefaultGod.h"
 
-#ifdef  __cplusplus
-extern "C" {
-#endif
-
-#ifdef _MSC_VER
-
-#else
-    //無理やりリンクエラー回避 for GCC
-    //VC では不要。これで良いだろうか・・・
-//    uintptr_t __security_cookie;
-//    void __declspec(naked) __fastcall __security_check_cookie(DWORD_PTR cookie) {}
-#endif
-
-#ifdef  __cplusplus
-};
-#endif
-
-
-//HWND _hWnd1_ = nullptr;
-//HWND _hWnd2_ = nullptr;
 HINSTANCE WinMain_hInstance;
 HINSTANCE WinMain_hPrevInstance;
 LPTSTR WinMain_lpCmdLine;
 int WinMain_nCmdShow;
-//
-//#include <windows.h>
-//#include <iphlpapi.h>
-//#include <stdio.h>
-//
-//
 
 /**
  * メイン処理 .
@@ -91,11 +65,9 @@ void GgafLibWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLi
 void GgafLibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     switch (message) {
         case WM_SIZE:
-            if (GgafDxCore::GgafDxGod::_can_be) {
-                if (!PROPERTY::FULL_SCREEN) {
-                    GgafDxCore::GgafDxGod::_adjustGameScreen = true;
-                    GgafDxCore::GgafDxGod::_pHWnd_adjustScreen = hWnd;
-                }
+            if (!PROPERTY::FULL_SCREEN) {
+                GgafDxCore::GgafDxGod::_adjustGameScreen = true;
+                GgafDxCore::GgafDxGod::_pHWnd_adjustScreen = hWnd;
             }
             break;
         case WM_SETFOCUS:

@@ -25,35 +25,27 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     //プロパティファイル読込み
     GgafLib::GgafLibProperties::load(".\\config.properties");
     //神の誕生
-    SmpGod* pGod = new SmpGod();
+    SmpGod god = SmpGod();
     //メイン処理
     MSG msg;
     HWND hWnd1, hWnd2; //HWNDは２つ用意します。
     try {
         //ウィンドウ作成
-        pGod->createWindow(WndProc,
-                           "SimpleSample[1]", "SimpleSample[2]",
-                           hWnd1, hWnd2); //HWNDが代入されます(戻り値)
+        god.createWindow(WndProc,
+                         "SimpleSample[1]", "SimpleSample[2]",
+                         hWnd1, hWnd2); //HWNDが代入されます(戻り値)
         //ループ本体
         while (true) {
             if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
                 if (msg.message == WM_QUIT) {
                     //終了メッセージの場合アプリを終了
-                    if (SmpGod::_can_be) {
-                        SmpGod::_can_be = false;
-                        while (pGod->_is_being) { Sleep(2); }
-                        GGAF_DELETE(pGod);
-                        GgafLib::GgafLibProperties::clean(); //プロパティ解放
-                    }
+                    GgafLib::GgafLibProperties::clean(); //プロパティ解放
                     return EXIT_SUCCESS; //アプリ終了
                 }
                 TranslateMessage(&msg);
                 DispatchMessage(&msg);
             } else {
-                //次のようにひたすら神の be() メソッドをコールしてください。
-                if (SmpGod::_can_be) {
-                    pGod->be();
-                }
+                god.be(); //このように神の be() メソッドをひたすらコールしてください。
             }
         }
 

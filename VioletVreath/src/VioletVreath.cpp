@@ -125,24 +125,15 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 #endif
 
     MSG msg;
-    VioletVreath::God* pGod = NEW VioletVreath::God();
+    VioletVreath::God god = VioletVreath::God();
     try {
         //神の誕生
-        pGod->createWindow(wcex1, wcex2, szTitle, "secondary", dwStyle, dwStyle, hWnd1, hWnd2);
+        god.createWindow(wcex1, wcex2, szTitle, "secondary", dwStyle, dwStyle, hWnd1, hWnd2);
         // ループ・ザ・ループ
         while (true) {
             if (::PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
                 if (msg.message == WM_QUIT) {
-                    if (VioletVreath::God::_can_be) {
-                        VioletVreath::God::_can_be = false;
-                        while (pGod->_is_being) {
-                            Sleep(2);
-                            _TRACE_("Wait! 神 is being yet..");
-                        }
-                        GGAF_DELETE(pGod); //神の最期
-                        pGod = nullptr;
-                        VioletVreath::Properties::clean();
-                    }
+                    VioletVreath::Properties::clean();
 
 #ifdef MY_DEBUG
     #ifdef _MSC_VER
@@ -199,9 +190,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                 TranslateMessage(&msg);
                 DispatchMessage(&msg);
             } else {
-                if (VioletVreath::God::_can_be && pGod->_is_being == false) {
-                    pGod->be(); //be() で、この世が動く
-                }
+                god.be(); //be() で、この世が動く
 
             }
         }

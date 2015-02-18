@@ -12,12 +12,12 @@ using namespace GgafLib;
 
 DefaultUniverse::DefaultUniverse(const char* prm_name, DefaultCamera* prm_pCamera) : GgafDxUniverse(prm_name, prm_pCamera) {
     _class_name = "DefaultUniverse";
-    //８分木作成
-    _TRACE_("８分木作成開始");
+    //八分木作成
+    _TRACE_("八分木作成開始");
     _pLinearOctree = NEW LinearOctreeForActor(PROPERTY::OCTREE_LEVEL);
     _pLinearOctree->setRootSpace(_x_gone_left  ,_y_gone_bottom, _z_gone_near ,
                                  _x_gone_right ,_y_gone_top   , _z_gone_far   );
-    _TRACE_("８分木作成終了");
+    _TRACE_("八分木作成終了");
 }
 
 void DefaultUniverse::processFinal() {

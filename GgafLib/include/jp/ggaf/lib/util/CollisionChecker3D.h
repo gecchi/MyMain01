@@ -28,7 +28,7 @@ public:
     static int _num_check;
     /** 当たり判定領域の境界領域(AABB)を再計算するかどうかのフラグ */
     bool _need_update_aabb;
-    /** 線形８分木登録用要素 */
+    /** 線形八分木登録用要素 */
     LinearOctreeActorElem* _pElem;
 
 public:
@@ -39,7 +39,7 @@ public:
     explicit CollisionChecker3D(GgafDxCore::GgafDxGeometricActor* prm_pActor);
 
     /**
-     * 当たり判定領域BOXの回転平行移動と、８分木登録を行います .
+     * 当たり判定領域BOXの回転平行移動と、八分木登録を行います .
      * 当たり判定機能を使用するには、このメソッドを毎フレーム実行する必要があります。<br>
      * しかし、フレームワークに組み込まれているため、実装者は特に気にする必要がない。<br>
      * 現在は GgafDxGeometricActor::processSettlementBehavior から毎フレームコールされている。<br>

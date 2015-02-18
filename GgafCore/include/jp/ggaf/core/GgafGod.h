@@ -38,8 +38,6 @@ private:
     bool _is_materialized_flg;
 
 public:
-    /** [r] be() できるかどうか */
-    static volatile bool _can_be;
     /** [r] クリティカルセクションその１ */
     static CRITICAL_SECTION CS1;
     /** [r] クリティカルセクションその２ */
@@ -51,8 +49,6 @@ public:
     /** [r] 次にこの世を活動させる時間のオフセット */
     static DWORD _aaTime_offset_of_next_view[3][60];
 
-    /** [r] be() 中かどうか */
-    bool _is_being;
     /** [r] GgafFactory::work スレッドハンドル  */
     HANDLE _handleFactory01;
     /** [r] GgafFactory::work スレッドID  */

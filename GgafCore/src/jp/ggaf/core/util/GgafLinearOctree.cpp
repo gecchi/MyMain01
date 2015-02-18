@@ -30,9 +30,9 @@ GgafLinearOctree::GgafLinearOctree(int prm_level) : GgafObject() {
         _pa_8pow[i] = _pa_8pow[i-1] * 8;
         //_TRACE_("_pa_8pow["<<i<<"]="<<_pa_8pow[i]);
     }
-    //線形８分木配列作成
+    //線形八分木配列作成
     _num_space = (int)((_pa_8pow[_top_space_level+1] -1) / 7); //空間数
-    _TRACE_("線形八分木空間配列要素数 _num_space="<<_num_space);
+    _TRACE_("GgafLinearOctree::GgafLinearOctree("<<prm_level<<") 線形八分木空間配列要素数 _num_space="<<_num_space);
     _paSpace = NEW GgafLinearOctreeSpace[_num_space];
     for (uint32_t i = 0; i < _num_space; i++) {
         _paSpace[i]._my_index = i;
@@ -54,8 +54,8 @@ void GgafLinearOctree::setRootSpace(int x1, int y1, int z1, int x2, int y2, int 
     _r_top_level_dy = 1.0 / _top_level_dy;
     _r_top_level_dz = 1.0 / _top_level_dz;
 
-    _TRACE_("八分木レベル0空間=" << _root_x2-_root_x1 << "x" << _root_y2-_root_y1 << "x" << _root_z2-_root_z1);
-    _TRACE_("八分木レベル"<<_top_space_level<<"空間=" << _top_level_dx << "x" << _top_level_dy << "x" << _top_level_dz);
+    _TRACE_("GgafLinearOctree::setRootSpace 八分木ルートレベル(level=0)の空間の広さ=" << _root_x2-_root_x1 << "x" << _root_y2-_root_y1 << "x" << _root_z2-_root_z1);
+    _TRACE_("GgafLinearOctree::setRootSpace 八分木末端レベル(level="<<_top_space_level<<")の空間の広さ=" << _top_level_dx << "x" << _top_level_dy << "x" << _top_level_dz);
 }
 
 void GgafLinearOctree::registerElem(GgafLinearOctreeElem* prm_pElem,
@@ -230,7 +230,7 @@ void GgafLinearOctree::registerElem(GgafLinearOctreeElem* prm_pElem,
     }
 
     prm_pElem->_pLinearOctree = this;
-    //要素を線形８分木空間に登録(所属させる)
+    //要素を線形八分木空間に登録(所属させる)
     prm_pElem->belongTo(&(_paSpace[index]));
 }
 
@@ -264,7 +264,6 @@ void GgafLinearOctree::putTree() {
     int lv0_order_pos = 0;
 
     int LV0 = 0;
-
 
     if (_paSpace[0]._kindinfobit == 0) {
         _TRACE_("8分木に何も無し！");

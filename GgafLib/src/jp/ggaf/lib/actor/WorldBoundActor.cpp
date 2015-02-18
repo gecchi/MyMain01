@@ -41,7 +41,7 @@ void WorldBoundActor::processSettlementBehavior() {
     //画面外判定無しに伴ない処理簡略化。
     //次の処理を無視しています
     //・自身がボーン時の考慮
-    //・８分木登録
+    //・八分木登録
     //・視錐台からの距離計算
     //GgafDxGeometricActor::processSettlementBehavior() と同期を取る事！
     positionAs(pCam);

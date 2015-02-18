@@ -42,34 +42,26 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 
 
     //神の誕生
-    VvvGod* pGod = new VvvGod();
+    VvvGod god = VvvGod();
     //ゲームループ
     MSG msg;
     try {
-        pGod->createWindow(wcex1, wcex2,
-                           "VVViewer[1]", "VVViewer[2]", //タイトル文字列
-                           dwStyle, dwStyle,
-                           hWnd1, hWnd2);
+        god.createWindow(wcex1, wcex2,
+                         "VVViewer[1]", "VVViewer[2]", //タイトル文字列
+                         dwStyle, dwStyle,
+                         hWnd1, hWnd2);
         DragAcceptFiles(hWnd1, TRUE);
         //ループ本体
         while (true) {
             if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
                 if (msg.message == WM_QUIT) {
-                    //終了メッセージの場合アプリを終了
-                    if (VvvGod::_can_be) {
-                        VvvGod::_can_be = false;
-                        while (pGod->_is_being) { Sleep(2); }
-                        delete pGod;
-                        GgafLib::GgafLibProperties::clean(); //プロパティ解放
-                    }
+                    GgafLib::GgafLibProperties::clean(); //プロパティ解放
                     return EXIT_SUCCESS; //アプリ終了
                 }
                 TranslateMessage(&msg);
                 DispatchMessage(&msg);
             } else {
-                if (VvvGod::_can_be) {
-                    pGod->be();
-                }
+                god.be();
             }
         }
     } catch (std::exception& e2) {

@@ -207,7 +207,7 @@ void GgafDxGeometricActor::processSettlementBehavior() {
                               pCam->_plnBack.d;
     _offscreen_kind = -1;
 
-    //８分木登録
+    //八分木登録
     if (_pChecker) {
         if (_can_hit_flg) {
             if (_can_hit_out_of_view == false && isOutOfView()) {
@@ -274,7 +274,7 @@ GgafGroupHead* GgafDxGeometricActor::addSubGroupAsFk(GgafDxGeometricActor* prm_p
 bool GgafDxGeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {
     if (_can_hit_flg && prm_pOtherActor->_can_hit_flg) {
         //&& prm_pOtherActor->instanceOf(Obj_GgafDxGeometricActor)) { 当たり判定があるのでGgafDxGeometricActor以上と判断
-        //_can_hit_flg && prm_pOtherActor->_can_hit_flg のチェックは８分木登録前にもチェックしてるが
+        //_can_hit_flg && prm_pOtherActor->_can_hit_flg のチェックは八分木登録前にもチェックしてるが
         //ここでももう一度チェックするほうがより良い。
         //なぜならば、無駄なヒットチェックを行わないため、onHit(GgafActor*) 処理中で setHitAble(false) が行われ、
         //２重ヒットチェック防止を行っているかもしれないから。

@@ -247,7 +247,7 @@
     //#define _TRACE4_(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
     #define _TRACE4_(X)
 
-    /** ８分木、あたり判定関連ログ */
+    /** 八分木、あたり判定関連ログ */
     //#define _TRACE5_(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
     #define _TRACE5_(X)
     //#define _TRACE5_N_(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss); }
