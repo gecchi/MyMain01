@@ -1,7 +1,7 @@
 #ifndef GGAFDXCORE_GGAFDXBOARDACTORD_H_
 #define GGAFDXCORE_GGAFDXBOARDACTORD_H_
 #include "GgafDxCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+#include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
 
 namespace GgafDxCore {
 
@@ -15,7 +15,7 @@ namespace GgafDxCore {
  * @since 2008/02/27
  * @author Masatoshi Tsuge
  */
-class GgafDxBoardActor : public GgafDxDrawableActor {
+class GgafDxBoardActor : public GgafDxFigureActor {
     /**
      * 使用不可のため、privateでoverride
      * @return

@@ -14,7 +14,7 @@ GgafDxBoardActor::GgafDxBoardActor(const char* prm_name,
                                    const char* prm_model_id,
                                    const char* prm_effect_id,
                                    const char* prm_technique) :
-                                       GgafDxDrawableActor(prm_name,
+                                       GgafDxFigureActor(prm_name,
                                                            prm_model_id,
                                                            "B",
                                                            prm_effect_id,

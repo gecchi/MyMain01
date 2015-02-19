@@ -62,7 +62,7 @@ void MyStgUtil::init() {
     MyStgUtil::_was_MyStgUtil_inited_flg = true;
 }
 
-GgafDxDrawableActor* MyStgUtil::shotWayGoldenAng(coord prm_x, coord prm_y, coord prm_z,
+GgafDxFigureActor* MyStgUtil::shotWayGoldenAng(coord prm_x, coord prm_y, coord prm_z,
                                                  angle prm_rz, angle prm_ry,
                                                  GgafActorDepository* prm_pDepo_shot,
                                                  coord prm_r,
@@ -70,7 +70,7 @@ GgafDxDrawableActor* MyStgUtil::shotWayGoldenAng(coord prm_x, coord prm_y, coord
                                                  angle prm_first_expanse_angle, angle prm_inc_expanse_angle,
                                                  velo prm_velo_first, acce prm_acce,
                                                  int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                 void (*pFunc_call_back_dispatched)(GgafDxDrawableActor*, int, int, int)) {
+                                                 void (*pFunc_call_back_dispatched)(GgafDxFigureActor*, int, int, int)) {
     if (prm_way_num <= 0 || prm_set_num <= 0) {  return nullptr;  }
     GgafDxGeoElem* paGeo = NEW GgafDxGeoElem[prm_way_num];
     angle expanse_rz = (D180ANG - prm_first_expanse_angle)/2;
@@ -92,13 +92,13 @@ GgafDxDrawableActor* MyStgUtil::shotWayGoldenAng(coord prm_x, coord prm_y, coord
                                      paGeo[i].rz, paGeo[i].ry);
         expanse_rz -= (prm_inc_expanse_angle/2);
     }
-    GgafDxDrawableActor* pActor_shot = nullptr;
+    GgafDxFigureActor* pActor_shot = nullptr;
     velo now_velo = prm_velo_first;
     acce now_acce = prm_acce;
     int dispatch_num = 0;
     for (int n = 0; n < prm_set_num; n++) {
         for (int i = 0; i < prm_way_num; i++) {
-            pActor_shot = (GgafDxDrawableActor*)prm_pDepo_shot->dispatch(n*prm_interval_frames+1);
+            pActor_shot = (GgafDxFigureActor*)prm_pDepo_shot->dispatch(n*prm_interval_frames+1);
             if (pActor_shot) {
                 dispatch_num++;
                 pActor_shot->position(prm_x + paGeo[i].x,
@@ -120,14 +120,14 @@ GgafDxDrawableActor* MyStgUtil::shotWayGoldenAng(coord prm_x, coord prm_y, coord
     return pActor_shot;
 }
 
-GgafDxDrawableActor* MyStgUtil::shotWayGoldenAng(GgafDxGeometricActor* prm_pFrom,
+GgafDxFigureActor* MyStgUtil::shotWayGoldenAng(GgafDxGeometricActor* prm_pFrom,
                                                GgafActorDepository* prm_pDepo_shot,
                                                coord prm_r,
                                                int prm_way_num,
                                                angle prm_first_expanse_angle, angle prm_inc_expanse_angle,
                                                velo prm_velo_first, acce prm_acce,
                                                int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                               void (*pFunc_call_back_dispatched)(GgafDxDrawableActor*, int, int, int)) {
+                                               void (*pFunc_call_back_dispatched)(GgafDxFigureActor*, int, int, int)) {
     return shotWayGoldenAng(prm_pFrom->_x, prm_pFrom->_y, prm_pFrom->_z,
                             prm_pFrom->_rz, prm_pFrom->_ry,
                             prm_pDepo_shot,
@@ -256,8 +256,8 @@ int MyStgUtil::calcEnemyStamina(GgafMainActor* prm_pEnemy, GgafMainActor* prm_pO
     return enemy_stamina;
 }
 
-GgafDxDrawableActor* MyStgUtil::activateExplosionEffectOf(GgafDxGeometricActor* prm_pActor) {
-    GgafDxDrawableActor* pE = nullptr;
+GgafDxFigureActor* MyStgUtil::activateExplosionEffectOf(GgafDxGeometricActor* prm_pActor) {
+    GgafDxFigureActor* pE = nullptr;
     switch (prm_pActor->getStatus()->get(STAT_ExplosionEffectKind)) {
         case 0: {
             pE = nullptr; //爆発エフェクト無し
@@ -310,8 +310,8 @@ GgafDxDrawableActor* MyStgUtil::activateExplosionEffectOf(GgafDxGeometricActor* 
 }
 
 
-GgafDxDrawableActor* MyStgUtil::activateDamagedEffectOf(GgafDxGeometricActor* prm_pActor) {
-    GgafDxDrawableActor* pE = nullptr;
+GgafDxFigureActor* MyStgUtil::activateDamagedEffectOf(GgafDxGeometricActor* prm_pActor) {
+    GgafDxFigureActor* pE = nullptr;
     switch (prm_pActor->getStatus()->get(STAT_DamagedEffectKind)) {
         case 0: {
             pE = nullptr; //爆発エフェクト無し
@@ -335,8 +335,8 @@ GgafDxDrawableActor* MyStgUtil::activateDamagedEffectOf(GgafDxGeometricActor* pr
     }
     return pE;
 }
-GgafDxDrawableActor* MyStgUtil::activateAttackShotOf(GgafDxGeometricActor* prm_pActor) {
-    GgafDxDrawableActor* pI = nullptr;
+GgafDxFigureActor* MyStgUtil::activateAttackShotOf(GgafDxGeometricActor* prm_pActor) {
+    GgafDxFigureActor* pI = nullptr;
     switch (prm_pActor->getStatus()->get(STAT_AttackShotKind)) {
         case 0: {
             pI = nullptr; //ショット無し
@@ -384,8 +384,8 @@ GgafActorDepository* MyStgUtil::getDepositoryOf(GgafDxGeometricActor* prm_pActor
 }
 
 
-GgafDxDrawableActor* MyStgUtil::activateRevengeShotOf(GgafDxGeometricActor* prm_pActor) {
-    GgafDxDrawableActor* pI = nullptr;
+GgafDxFigureActor* MyStgUtil::activateRevengeShotOf(GgafDxGeometricActor* prm_pActor) {
+    GgafDxFigureActor* pI = nullptr;
     switch (prm_pActor->getStatus()->get(STAT_RevengeShotKind)) {
         case 0: {
             pI = nullptr; //ショット無し
@@ -459,8 +459,8 @@ GgafDxDrawableActor* MyStgUtil::activateRevengeShotOf(GgafDxGeometricActor* prm_
     return pI;
 }
 
-GgafDxDrawableActor* MyStgUtil::activateItemOf(GgafDxGeometricActor* prm_pActor) {
-    GgafDxDrawableActor* pI = nullptr;
+GgafDxFigureActor* MyStgUtil::activateItemOf(GgafDxGeometricActor* prm_pActor) {
+    GgafDxFigureActor* pI = nullptr;
     switch (prm_pActor->getStatus()->get(STAT_ItemKind)) {
         case 0: {
             pI = nullptr; //アイテム無し
@@ -491,8 +491,8 @@ GgafDxDrawableActor* MyStgUtil::activateItemOf(GgafDxGeometricActor* prm_pActor)
     return pI;
 }
 
-GgafDxDrawableActor* MyStgUtil::activateDestroyedEffectOf(GgafDxGeometricActor* prm_pActor) {
-    GgafDxDrawableActor* pE = nullptr;
+GgafDxFigureActor* MyStgUtil::activateDestroyedEffectOf(GgafDxGeometricActor* prm_pActor) {
+    GgafDxFigureActor* pE = nullptr;
     switch (prm_pActor->getStatus()->get(STAT_DestroyedEffectKind)) {
         case 0: {
             pE = nullptr; //爆発エフェクト無し
@@ -522,8 +522,8 @@ GgafDxDrawableActor* MyStgUtil::activateDestroyedEffectOf(GgafDxGeometricActor* 
     return pE;
 }
 
-GgafDxDrawableActor* MyStgUtil::activateEntryEffectOf(GgafDxGeometricActor* prm_pActor) {
-    GgafDxDrawableActor* pRet = nullptr;
+GgafDxFigureActor* MyStgUtil::activateEntryEffectOf(GgafDxGeometricActor* prm_pActor) {
+    GgafDxFigureActor* pRet = nullptr;
     switch (prm_pActor->getStatus()->get(STAT_EntryEffectKind)) {
         case 0: {
             pRet = nullptr; //入場エフェクト無し
@@ -625,8 +625,8 @@ GgafDxDrawableActor* MyStgUtil::activateEntryEffectOf(GgafDxGeometricActor* prm_
     return pRet;
 }
 
-GgafDxDrawableActor* MyStgUtil::activateLeaveEffectOf(GgafDxGeometricActor* prm_pActor) {
-    GgafDxDrawableActor* pRet = nullptr;
+GgafDxFigureActor* MyStgUtil::activateLeaveEffectOf(GgafDxGeometricActor* prm_pActor) {
+    GgafDxFigureActor* pRet = nullptr;
     switch (prm_pActor->getStatus()->get(STAT_LeaveEffectKind)) {
         case 0: {
             pRet = nullptr; //退場エフェクト無し
@@ -688,9 +688,9 @@ GgafDxDrawableActor* MyStgUtil::activateLeaveEffectOf(GgafDxGeometricActor* prm_
     return pRet;
 }
 
-GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDxGeometricActor* prm_pActor) {
+GgafDxFigureActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDxGeometricActor* prm_pActor) {
 
-    GgafDxDrawableActor* pE = nullptr;
+    GgafDxFigureActor* pE = nullptr;
     switch (prm_pActor->getStatus()->get(STAT_FormationDestroyedEffectKind)) {
         case 0: {
             pE = nullptr; //エフェクト無し
@@ -735,8 +735,8 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDxGeometr
     return pE;
 }
 
-GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometricActor* prm_pActor) {
-    GgafDxDrawableActor* pI = nullptr;
+GgafDxFigureActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometricActor* prm_pActor) {
+    GgafDxFigureActor* pI = nullptr;
     switch (prm_pActor->getStatus()->get(STAT_FormationDestroyedItemKind)) {
         case 0: {
             pI = nullptr; //アイテム無し
@@ -767,8 +767,8 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
     return pI;
 }
 
-GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeometricActor* prm_pActor) {
-    GgafDxDrawableActor* pE = nullptr;
+GgafDxFigureActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeometricActor* prm_pActor) {
+    GgafDxFigureActor* pE = nullptr;
     switch (prm_pActor->getStatus()->get(STAT_ProperEffect01Kind)) {
         case 0: {
             pE = nullptr; //エフェクト無し
@@ -793,7 +793,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 
 }
 
-bool MyStgUtil::transactEnemyHit(GgafDxDrawableActor* prm_this, GgafDxGeometricActor* prm_pOther) {
+bool MyStgUtil::transactEnemyHit(GgafDxFigureActor* prm_this, GgafDxGeometricActor* prm_pOther) {
     if (UTIL::calcEnemyStamina(prm_this, prm_pOther) <= 0) { //体力が無くなったら
         //＜破壊された場合＞
         prm_this->setHitAble(false); //当たり判定消失
@@ -828,11 +828,11 @@ bool MyStgUtil::transactEnemyHit(GgafDxDrawableActor* prm_this, GgafDxGeometricA
     }
 }
 
-GgafDxDrawableActor* MyStgUtil::transactFormationDestroyAll(GgafDxDrawableActor* prm_pActor_last_destroyed) {
+GgafDxFigureActor* MyStgUtil::transactFormationDestroyAll(GgafDxFigureActor* prm_pActor_last_destroyed) {
     //編隊全滅時ボーナス加算
     G_SCORE += prm_pActor_last_destroyed->getStatus()->get(STAT_FormationDestroyedAddScorePoint);
     //編隊全滅時エフェクト出現
-    GgafDxDrawableActor* pEffect = UTIL::activateFormationDestroyedEffectOf(prm_pActor_last_destroyed);
+    GgafDxFigureActor* pEffect = UTIL::activateFormationDestroyedEffectOf(prm_pActor_last_destroyed);
     //編隊全滅アイテム出現
     UTIL::activateFormationDestroyedItemOf(prm_pActor_last_destroyed);
     return pEffect;

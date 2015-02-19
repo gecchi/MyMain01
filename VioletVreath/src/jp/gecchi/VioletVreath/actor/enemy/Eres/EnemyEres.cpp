@@ -80,16 +80,16 @@ void EnemyEres::processBehavior() {
         angle way[32];
         //UTIL::getWayAngle2D(180000, 8, 10000, way);
         UTIL::getRadialAngle2D(0, 32, way); //TODO:ñàâÒãÅÇﬂÇÈÇÃÇÕñ≥ë 
-        GgafDxDrawableActor* pTama;
+        GgafDxFigureActor* pTama;
         for (int i = 0; i < 16; i++) {
-            pTama = (GgafDxDrawableActor*)pDepo_shot001_->dispatch();
+            pTama = (GgafDxFigureActor*)pDepo_shot001_->dispatch();
             if (pTama) {
                 pTama->position(_x, _y, _z);
                 pTama->getKuroko()->setRzRyMvAng(-D90ANG + way[i], D90ANG);
             }
         }
         for (int i = 16; i < 32; i++) {
-            pTama = (GgafDxDrawableActor*)pDepo_shot001_->dispatch();
+            pTama = (GgafDxFigureActor*)pDepo_shot001_->dispatch();
             if (pTama) {
                 pTama->position(_x, _y, _z);
                 pTama->getKuroko()->setRzRyMvAng(-D90ANG - way[i], -D90ANG);

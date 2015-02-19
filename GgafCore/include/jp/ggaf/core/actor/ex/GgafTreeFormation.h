@@ -30,6 +30,7 @@ private:
     /** [r]callUpMember()用のカーソル */
     GgafCore::GgafActor* _pIte;
     bool _can_call_up;
+    bool _is_addmember_experienced;
 
 public:
     /**

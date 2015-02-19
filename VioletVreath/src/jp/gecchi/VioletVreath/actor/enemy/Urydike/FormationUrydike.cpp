@@ -11,6 +11,8 @@
 #include "jp/gecchi/VioletVreath/manager/XpmConnection.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+
+#include "jp/ggaf/core/GgafFactory.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -23,12 +25,14 @@ FormationUrydike::FormationUrydike(const char* prm_name, int prm_formation_col_n
     formation_col_num_ = prm_formation_col_num;
     formation_row_num_ = prm_formation_row_num;
     num_Urydike_ = prm_formation_col_num  * prm_formation_row_num;
+    call_up_interval_ = prm_call_up_interval; //出現間隔
+    call_up_row_cnt_ = 0;
+
     for (int i = 0; i < num_Urydike_; i++) {
         std::string name = "Urydike("+XTOS(i)+")";
         addFormationMember(NEW EnemyUrydike(name.c_str()));
     }
-    call_up_interval_ = prm_call_up_interval; //出現間隔
-    call_up_row_cnt_ = 0;
+
     useProgress(PROG_BANPEI);
 }
 
@@ -40,17 +44,25 @@ FormationUrydike::FormationUrydike(const char* prm_name, const char* prm_xpm_id,
     formation_col_num_ = pXpM->getWidth();
     formation_row_num_ = pXpM->getHeight();
     num_Urydike_ = pXpM->getPixelNum();
+    call_up_interval_ = prm_call_up_interval; //出現間隔
+    call_up_row_cnt_ = 0;
+
+    //ここではいいのだが
     for (int i = 0; i < num_Urydike_; i++) {
         std::string name = "Urydike("+XTOS(i)+")";
         addFormationMember(NEW EnemyUrydike(name.c_str()));
-        Sleep(1);
     }
-    call_up_interval_ = prm_call_up_interval; //出現間隔
-    call_up_row_cnt_ = 0;
+
     useProgress(PROG_BANPEI);
 }
 
 void FormationUrydike::initialize() {
+    //ここではエラーセグメンテーションフォルト
+    //addFormationMember時に属性がおかしくないかな？？
+//    for (int i = 0; i < num_Urydike_; i++) {
+//        std::string name = "Urydike("+XTOS(i)+")";
+//        addFormationMember(NEW EnemyUrydike(name.c_str()));
+//    }
 }
 
 void FormationUrydike::onActive() {
@@ -65,8 +77,19 @@ void FormationUrydike::processBehavior() {
             pProg->changeNext();
             break;
         }
+        case PROG_INTERVAL: {
+            if (pProg->isJustChanged()) {
+
+            }
+            if (pProg->getFrameInProgress() == 120) {
+
+                pProg->changeNext();
+            }
+            break;
+        }
         case PROG_CALL_UP: {
             if (pProg->isJustChanged()) {
+
             }
             if (canCallUp()) {
                 if (getActiveFrame() % call_up_interval_ == 0) {
@@ -116,7 +139,7 @@ void FormationUrydike::scatterMember() {
 }
 
 void FormationUrydike::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
-    UTIL::transactFormationDestroyAll((GgafDxDrawableActor*)prm_pActor_last_destroyed);
+    UTIL::transactFormationDestroyAll((GgafDxFigureActor*)prm_pActor_last_destroyed);
 }
 
 void FormationUrydike::onSayonaraAll() {

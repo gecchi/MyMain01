@@ -174,7 +174,7 @@ void EnemyGlaja::onHit(GgafActor* prm_pOtherActor) {
 void EnemyGlaja::onInactive() {
 }
 
-void EnemyGlaja::onDispatchedShot(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_dispatch_num, int prm_set_index, int prm_way_index) {
+void EnemyGlaja::onDispatchedShot(GgafDxCore::GgafDxFigureActor* prm_pActor, int prm_dispatch_num, int prm_set_index, int prm_way_index) {
     prm_pActor->activateDelay(prm_way_index*5 + 1); //activate ã‘‚«Bnum_fire_*5 ‚Ì 5 ‚Æ“¯‚¶’l‚É‚·‚é‚±‚Æ
 }
 

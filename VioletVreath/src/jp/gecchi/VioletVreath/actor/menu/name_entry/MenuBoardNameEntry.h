@@ -42,8 +42,8 @@ public:
     void selectExNext() override;
     void selectExPrev() override;
 
-    void onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) override;
-    void onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) override;
+    void onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) override;
+    void onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) override;
     void processBehavior() override;
 
     virtual ~MenuBoardNameEntry();

@@ -55,7 +55,7 @@ void WorldBoundActor::processSettlementBehavior() {
 //    //次の処理を無視しています
 //    //・段階レンダリングの深度計算
 //    //・一時テクニック考慮
-//    //GgafDxDrawableActor::processPreDraw() と同期を取る事！
+//    //GgafDxFigureActor::processPreDraw() と同期を取る事！
 //    if (_pModel->_is_init_model == false) {
 //        onCreateModel(); //モデル作成時の初期処理
 //        _pModel->_is_init_model = true;

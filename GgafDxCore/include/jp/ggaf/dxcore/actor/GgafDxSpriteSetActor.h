@@ -1,19 +1,19 @@
 #ifndef GGAFDXCORE_GGAFDXSPRITESETACTOR_H_
 #define GGAFDXCORE_GGAFDXSPRITESETACTOR_H_
 #include "GgafDxCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+#include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
 
 namespace GgafDxCore {
 
 /**
  * スプライトセットアクター.
- * GgafDxDrawableActor を継承し、板ポリゴンにテクスチャを貼り付けた<BR>
+ * GgafDxFigureActor を継承し、板ポリゴンにテクスチャを貼り付けた<BR>
  * 擬似スプライト機能を追加し、複数同時描画に最適化されたアクターです。<BR>
  * @version 1.00
  * @since 2009/07/14
  * @author Masatoshi Tsuge
  */
-class GgafDxSpriteSetActor : public GgafDxDrawableActor {
+class GgafDxSpriteSetActor : public GgafDxFigureActor {
 private:
     void setMaterialColor(float r, float g, float b) override {
         throwGgafCriticalException("GgafDxSpriteSetActor::setMaterialColor は使用不可です。(1)");

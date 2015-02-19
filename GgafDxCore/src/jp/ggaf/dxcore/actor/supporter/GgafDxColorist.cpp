@@ -1,12 +1,12 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxColorist.h"
 
-#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+#include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxColorist::GgafDxColorist(GgafDxDrawableActor* prm_pActor) : GgafValueEnveloper<float, 3 > (),
+GgafDxColorist::GgafDxColorist(GgafDxFigureActor* prm_pActor) : GgafValueEnveloper<float, 3 > (),
 _pActor(prm_pActor) {
     _pa_diffuse[0] = &(prm_pActor->_paMaterial[0].Diffuse.r);
     _pa_diffuse[1] = &(prm_pActor->_paMaterial[0].Diffuse.g);

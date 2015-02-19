@@ -188,6 +188,6 @@ EnemyGeria::~EnemyGeria() {
     GGAF_DELETE(pAxsMver_);
 }
 
-void EnemyGeria::callbackDispatched(GgafDxDrawableActor* prm_pDispatched, int prm_dispatched_seq, int prm_set_seq) {
+void EnemyGeria::callbackDispatched(GgafDxFigureActor* prm_pDispatched, int prm_dispatched_seq, int prm_set_seq) {
 }
 

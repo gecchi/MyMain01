@@ -71,7 +71,7 @@ public:
 
     /**
      * 発射弾設定 .
-     * @param prm_pDepo (GgafDxDrawableActor*)にキャスト可能なアクターをサブに持つデポジトリのポインタ
+     * @param prm_pDepo (GgafDxFigureActor*)にキャスト可能なアクターをサブに持つデポジトリのポインタ
      */
     void setDepository_Shot(GgafCore::GgafActorDepository* prm_pDepo) {
         pDepo_shot_ = prm_pDepo;
@@ -79,7 +79,7 @@ public:
 
     /**
      * 効果エフェクト設定 .
-     * @param prm_pDepo (GgafDxDrawableActor*)にキャスト可能なアクターをサブに持つデポジトリのポインタ
+     * @param prm_pDepo (GgafDxFigureActor*)にキャスト可能なアクターをサブに持つデポジトリのポインタ
      */
     void setDepository_ShotEffect(GgafCore::GgafActorDepository* prm_pDepo) {
         pDepo_effect_ = prm_pDepo;

@@ -88,7 +88,7 @@ void MenuBoardTitle::onSelect(int prm_from, int prm_to) {
     }
 }
 
-void MenuBoardTitle::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
+void MenuBoardTitle::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
     if (prm_item_index == ITEM_GAME_START) {
         //GameTitleSceneクラス側でイベント実行
     } else if (prm_item_index == ITEM_KEY_CONFIG) {
@@ -109,7 +109,7 @@ void MenuBoardTitle::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int 
     }
 }
 
-void MenuBoardTitle::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
+void MenuBoardTitle::onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
 }
 
 void MenuBoardTitle::processBehavior() {

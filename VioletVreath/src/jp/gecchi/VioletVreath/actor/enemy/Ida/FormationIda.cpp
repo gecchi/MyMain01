@@ -26,7 +26,7 @@ void FormationIda::onActive() {
 }
 
 void FormationIda::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
-    UTIL::transactFormationDestroyAll((GgafDxDrawableActor*)prm_pActor_last_destroyed);
+    UTIL::transactFormationDestroyAll((GgafDxFigureActor*)prm_pActor_last_destroyed);
 }
 
 FormationIda::~FormationIda() {

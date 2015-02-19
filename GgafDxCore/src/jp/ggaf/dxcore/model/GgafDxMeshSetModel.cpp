@@ -58,7 +58,7 @@ GgafDxMeshSetModel::GgafDxMeshSetModel(char* prm_model_name) : GgafDxModel(prm_m
 }
 
 //描画
-HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_target, int prm_draw_set_num) {
+HRESULT GgafDxMeshSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num) {
     _TRACE4_("GgafDxMeshSetModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
 #ifdef MY_DEBUG
     if (prm_draw_set_num > _set_num) {
@@ -115,7 +115,7 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_target, int prm
             //理由はGgafDxMeshSetActorのメモ【GgafDxMeshSetActorのマテリアルカラーについて】を参照
         }
 
-        if (material_grp_index == 0 && (GgafDxEffectManager::_pEffect_active != pMeshSetEffect || GgafDxDrawableActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique)) {
+        if (material_grp_index == 0 && (GgafDxEffectManager::_pEffect_active != pMeshSetEffect || GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique)) {
             if (GgafDxEffectManager::_pEffect_active) {
                 _TRACE4_("EndPass("<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
                 hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->EndPass();
@@ -182,7 +182,7 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_target, int prm
     }
     GgafDxModelManager::_pModelLastDraw = this;
     GgafDxEffectManager::_pEffect_active = pMeshSetEffect;
-    GgafDxDrawableActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
+    GgafDxFigureActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
     return D3D_OK;
 }
 

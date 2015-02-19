@@ -26,7 +26,7 @@ void FormationThagoras001::processBehavior() {
     FormationThagoras::processBehavior();
 }
 
-void FormationThagoras001::onCallUp(GgafDxDrawableActor* prm_pActor, int prm_row, int prm_col) {
+void FormationThagoras001::onCallUp(GgafDxFigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyThagoras* pThagoras = (EnemyThagoras*)prm_pActor;
     if (pThagoras->pKurokoLeader_) {
         throwGgafCriticalException("FormationThagoras001::onCallUp pThagoras->pKurokoLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpThagoras="<<pThagoras<<"("<<pThagoras->getName()<<")");

@@ -1,19 +1,19 @@
 #ifndef GGAFDXCORE_GGAFDXMORPHMESHACTOR_H_
 #define GGAFDXCORE_GGAFDXMORPHMESHACTOR_H_
 #include "GgafDxCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+#include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
 
 namespace GgafDxCore {
 
 /**
  * モーフメッシュアクター.
- * GgafDxDrawableActor を継承し、Xファイル定義のメッシュ表示機能及び<BR>
+ * GgafDxFigureActor を継承し、Xファイル定義のメッシュ表示機能及び<BR>
  * モーフアニメーション機能を備えたアクター<BR>
  * @version 1.00
  * @since 2009/05/08
  * @author Masatoshi Tsuge
  */
-class GgafDxMorphMeshActor : public GgafDxDrawableActor {
+class GgafDxMorphMeshActor : public GgafDxFigureActor {
 
 private:
     /** モーフィング支援オブジェクト */

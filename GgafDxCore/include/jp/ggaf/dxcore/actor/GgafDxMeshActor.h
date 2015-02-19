@@ -1,20 +1,20 @@
 #ifndef GGAFDXCORE_GGAFDXMESHACTOR_H_
 #define GGAFDXCORE_GGAFDXMESHACTOR_H_
 #include "GgafDxCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+#include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
 #include "jp/ggaf/dxcore/actor/interface/GgafDxIBumpMapActor.h"
 
 namespace GgafDxCore {
 
 /**
  * メッシュアクター.
- * GgafDxDrawableActor を継承し、独自のXファイル定義のメッシュ表示機能を<BR>
+ * GgafDxFigureActor を継承し、独自のXファイル定義のメッシュ表示機能を<BR>
  * 追加したアクターです。<BR>
  * @version 1.00
  * @since 2009/02/26
  * @author Masatoshi Tsuge
  */
-class GgafDxMeshActor : public GgafDxDrawableActor, public GgafDxIBumpMapActor {
+class GgafDxMeshActor : public GgafDxFigureActor, public GgafDxIBumpMapActor {
 
 public:
     /** [r]モデル資源 */

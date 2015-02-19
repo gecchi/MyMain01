@@ -140,7 +140,7 @@ public:
      * @param pFunc_call_back_dispatched
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
-    static GgafDxCore::GgafDxDrawableActor* shotWayGoldenAng(coord prm_x, coord prm_y, coord prm_z,
+    static GgafDxCore::GgafDxFigureActor* shotWayGoldenAng(coord prm_x, coord prm_y, coord prm_z,
                                                              angle prm_rz, angle prm_ry,
                                                              GgafCore::GgafActorDepository* prm_pDepo_shot,
                                                              coord prm_r,
@@ -148,7 +148,7 @@ public:
                                                              angle prm_first_expanse_angle, angle prm_inc_expanse_angle,
                                                              velo prm_velo_first, acce prm_acce,
                                                              int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                             void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxDrawableActor*, int, int, int) = nullptr);
+                                                             void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxFigureActor*, int, int, int) = nullptr);
 
     /**
      * 発射元が向いている方向（_rz > _ry）に向かって黄金角拡散放射状弾を複数セット同時に撃つ .
@@ -169,14 +169,14 @@ public:
      * @param pFunc_call_back_dispatched
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
-    static GgafDxCore::GgafDxDrawableActor* shotWayGoldenAng(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
+    static GgafDxCore::GgafDxFigureActor* shotWayGoldenAng(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
                                                              GgafCore::GgafActorDepository* prm_pDepo_shot,
                                                              coord prm_r,
                                                              int prm_way_num,
                                                              angle prm_first_expanse_angle, angle prm_inc_expanse_angle,
                                                              velo prm_velo_first, acce prm_acce,
                                                              int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                             void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxDrawableActor*, int, int, int) = nullptr);
+                                                             void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxFigureActor*, int, int, int) = nullptr);
 
 
 
@@ -226,7 +226,7 @@ public:
      * @param prm_pActor 対象アクター
      * @return 対象アクターの爆発エフェクト（活動済み）。又は、取得できない場合 nullptr。
      */
-    static GgafDxCore::GgafDxDrawableActor* activateExplosionEffectOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
+    static GgafDxCore::GgafDxFigureActor* activateExplosionEffectOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
 
     /**
      * 対象アクターに紐ついたダメージ時エフェクトを、取得できれば発動し、それを返す .
@@ -235,14 +235,14 @@ public:
      * @return 対象アクターのダメージ時エフェクト（活動済み）。又は、取得できない場合 nullptr。
      * @return
      */
-    static GgafDxCore::GgafDxDrawableActor* activateDamagedEffectOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
+    static GgafDxCore::GgafDxFigureActor* activateDamagedEffectOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
 
     /**
      * 通常ショット .
      * @param prm_pActor
      * @return
      */
-    static GgafDxCore::GgafDxDrawableActor* activateAttackShotOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
+    static GgafDxCore::GgafDxFigureActor* activateAttackShotOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
 
     /**     */
     static GgafCore::GgafActorDepository* getDepositoryOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
@@ -252,7 +252,7 @@ public:
      * @param prm_pActor
      * @return
      */
-    static GgafDxCore::GgafDxDrawableActor* activateRevengeShotOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
+    static GgafDxCore::GgafDxFigureActor* activateRevengeShotOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
 
     /**
      * 対象アクターに紐ついた保持アイテムを、取得できれば有効にし、それを返す .
@@ -260,7 +260,7 @@ public:
      * @param prm_pActor 対象アクター
      * @return 対象アクターの保持アイテム（活動済み）。又は、取得できない場合 nullptr。
      */
-    static GgafDxCore::GgafDxDrawableActor* activateItemOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
+    static GgafDxCore::GgafDxFigureActor* activateItemOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
 
     /**
      * 対象アクターに紐ついた消滅エフェクトを、取得できれば有効にし、それを返す .
@@ -270,7 +270,7 @@ public:
      * @param prm_pActor 対象アクタ
      * @return 対象アクターの消滅エフェクト（活動済み）。又は、取得できない場合 nullptr。
      */
-    static GgafDxCore::GgafDxDrawableActor* activateDestroyedEffectOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
+    static GgafDxCore::GgafDxFigureActor* activateDestroyedEffectOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
 
     /**
      * 対象アクターに紐ついた入場エフェクトを、取得できれば有効にし、それを返す .
@@ -278,7 +278,7 @@ public:
      * @param prm_pActor 対象アクター
      * @return 対象アクターの入場エフェクト（活動済み）。又は、取得できない場合 nullptr。
      */
-    static GgafDxCore::GgafDxDrawableActor* activateEntryEffectOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
+    static GgafDxCore::GgafDxFigureActor* activateEntryEffectOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
 
     /**
      * 対象アクターに紐ついた退場エフェクトを、取得できれば有効にし、それを返す .
@@ -286,7 +286,7 @@ public:
      * @param prm_pActor 対象アクター
      * @return 対象アクターの退場エフェクト（活動済み）。又は、取得できない場合 nullptr。
      */
-    static GgafDxCore::GgafDxDrawableActor* activateLeaveEffectOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
+    static GgafDxCore::GgafDxFigureActor* activateLeaveEffectOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
 
     /**
      * 対象アクターの紐ついた、フォーメーション全滅エフェクトとスコア加算処理 .
@@ -294,14 +294,14 @@ public:
      * @param prm_pActor 対象アクター
      * @return 対象アクターのフォーメーション全滅エフェクト（活動済み）。又は、取得できない場合 nullptr。
      */
-    static GgafDxCore::GgafDxDrawableActor* activateFormationDestroyedEffectOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
+    static GgafDxCore::GgafDxFigureActor* activateFormationDestroyedEffectOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
     /**
      * 対象アクターのに紐ついたフォーメーション全滅アイテムを、取得できれば有効にし、それを返す .
      * ステータス(getStatus())の STAT_FormationDestroyedItemKind の値によってアイテム種類が振り分けられる。
      * @param prm_pActor 対象アクター
      * @return 対象アクターのフォーメーション全滅アイテム（活動済み）。又は、取得できない場合 nullptr。
      */
-    static GgafDxCore::GgafDxDrawableActor* activateFormationDestroyedItemOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
+    static GgafDxCore::GgafDxFigureActor* activateFormationDestroyedItemOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
 
     /**
      * 対象アクターに紐ついた固有エフェクト（その１）を、取得できれば有効にし、それを返す .
@@ -309,7 +309,7 @@ public:
      * @param prm_pActor 対象アクター
      * @return 対象アクターの入場エフェクト（活動済み）。又は、取得できない場合 nullptr。
      */
-    static GgafDxCore::GgafDxDrawableActor* activateProperEffect01Of(GgafDxCore::GgafDxGeometricActor* prm_pActor);
+    static GgafDxCore::GgafDxFigureActor* activateProperEffect01Of(GgafDxCore::GgafDxGeometricActor* prm_pActor);
 
     /**
      * 敵キャラヒット時の標準的な処理 .
@@ -330,14 +330,14 @@ public:
      * @param prm_pOther ヒットした相手のアクターを渡す
      * @return true:破壊された/false:破壊されてない
      */
-    static bool transactEnemyHit(GgafDxCore::GgafDxDrawableActor* prm_this, GgafDxCore::GgafDxGeometricActor* prm_pOther);
+    static bool transactEnemyHit(GgafDxCore::GgafDxFigureActor* prm_this, GgafDxCore::GgafDxGeometricActor* prm_pOther);
 
     /**
      * 編隊全破壊時の標準的な処理 .
      * @param prm_pActor_last_destroyed 編隊の最後に破壊されたアクターを渡す
      * @return 編隊全滅時エフェクト
      */
-    static GgafDxCore::GgafDxDrawableActor* transactFormationDestroyAll(GgafDxCore::GgafDxDrawableActor* prm_pActor_last_destroyed);
+    static GgafDxCore::GgafDxFigureActor* transactFormationDestroyAll(GgafDxCore::GgafDxFigureActor* prm_pActor_last_destroyed);
 
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コード変更は「ステータスCreater.xls」から行うこと。

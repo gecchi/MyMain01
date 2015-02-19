@@ -3,7 +3,7 @@
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
 #include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
 #include "jp/ggaf/core/util/GgafRepeatSeq.h"
-#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+#include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
 #include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/GgafDxGod.h"
@@ -20,10 +20,10 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxDrawableActor* GgafDxUniverse::_apFirstActor_draw_depth_level[MAX_DRAW_DEPTH_LEVEL+1];
-GgafDxDrawableActor* GgafDxUniverse::_apLastActor_draw_depth_level[MAX_DRAW_DEPTH_LEVEL+1];
-//GgafDxDrawableActor* GgafDxUniverse::_pActors_DrawMaxDrawDepth = nullptr;
-GgafDxDrawableActor* GgafDxUniverse::_pActor_draw_active = nullptr;
+GgafDxFigureActor* GgafDxUniverse::_apFirstActor_draw_depth_level[MAX_DRAW_DEPTH_LEVEL+1];
+GgafDxFigureActor* GgafDxUniverse::_apLastActor_draw_depth_level[MAX_DRAW_DEPTH_LEVEL+1];
+//GgafDxFigureActor* GgafDxUniverse::_pActors_DrawMaxDrawDepth = nullptr;
+GgafDxFigureActor* GgafDxUniverse::_pActor_draw_active = nullptr;
 std::string GgafDxUniverse::_seqkey_se_delay = "_SE_D_";
 
 coord GgafDxUniverse::_x_gone_left   = 0;
@@ -163,7 +163,7 @@ void GgafDxUniverse::draw() {
     //段階レンダリング描画
     IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
     GgafDxScene* pScene;
-    GgafDxDrawableActor* pDrawActor;
+    GgafDxFigureActor* pDrawActor;
     for (int i = MAX_DRAW_DEPTH_LEVEL; i >= 0; i--) {
         pDrawActor = _pActor_draw_active = _apFirstActor_draw_depth_level[i];
         while (pDrawActor) {
@@ -233,12 +233,12 @@ void GgafDxUniverse::draw() {
 #endif
         GgafDxEffectManager::_pEffect_active = nullptr;
         GgafDxModelManager::_pModelLastDraw = nullptr;
-        GgafDxDrawableActor::_hash_technique_last_draw = 0;
+        GgafDxFigureActor::_hash_technique_last_draw = 0;
     }
 
 }
 
-int GgafDxUniverse::setDrawDepthLevel(int prm_draw_depth_level, GgafDxDrawableActor* prm_pActor) {
+int GgafDxUniverse::setDrawDepthLevel(int prm_draw_depth_level, GgafDxFigureActor* prm_pActor) {
     int draw_depth_level;
     //上限下限カット
     if (prm_draw_depth_level > MAX_DRAW_DEPTH_LEVEL - 4) {
@@ -255,7 +255,7 @@ int GgafDxUniverse::setDrawDepthLevel(int prm_draw_depth_level, GgafDxDrawableAc
         _apFirstActor_draw_depth_level[draw_depth_level] = prm_pActor;
         _apLastActor_draw_depth_level[draw_depth_level] = prm_pActor;
     } else {
-        GgafDxDrawableActor* pActorTmp;
+        GgafDxFigureActor* pActorTmp;
         if (prm_pActor->_is_2D) {
             //同一深度で2Dの場合、連結リストのお尻に追加していく
             //つまり、最後に addSubLast() すればするほど、描画順が後になり、プライオリティが高い。

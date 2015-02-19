@@ -20,9 +20,9 @@ public:
     /** 表示中モデルのリスト */
     class ActorInfo {
     public:
-        GgafDxCore::GgafDxDrawableActor* pActor_;
+        GgafDxCore::GgafDxFigureActor* pActor_;
         std::string modelfile_;
-        ActorInfo(GgafDxCore::GgafDxDrawableActor* pActor, std::string modelfile) {
+        ActorInfo(GgafDxCore::GgafDxFigureActor* pActor, std::string modelfile) {
             pActor_ = pActor;
             modelfile_ = modelfile;
         }

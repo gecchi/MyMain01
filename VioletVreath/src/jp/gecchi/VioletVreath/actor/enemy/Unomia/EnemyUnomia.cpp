@@ -97,9 +97,9 @@ void EnemyUnomia::processBehavior() {
 //                int way = RF_EnemyUnomia_ShotWay(G_RANK); //ショットWAY数
 //                angle* paAng_way = NEW angle[way];
 //                UTIL::getRadialAngle2D(0, way, paAng_way);
-//                GgafDxDrawableActor* pActor_shot;
+//                GgafDxFigureActor* pActor_shot;
 //                for (int i = 0; i < way; i++) {
-//                    pActor_shot = (GgafDxDrawableActor*)pDepo_shot_->dispatch();
+//                    pActor_shot = (GgafDxFigureActor*)pDepo_shot_->dispatch();
 //                    if (pActor_shot) {
 //                        pActor_shot->positionAs(this);
 //                        pActor_shot->getKuroko()->setRzRyMvAng(paAng_way[i], D90ANG);
@@ -108,7 +108,7 @@ void EnemyUnomia::processBehavior() {
 //                GGAF_DELETEARR(paAng_way);
 //                //ショット発射エフェクト
 //                if (pDepo_effect_) {
-//                    GgafDxDrawableActor* pTestActor_Shot = (GgafDxDrawableActor*)pDepo_effect_->dispatch();
+//                    GgafDxFigureActor* pTestActor_Shot = (GgafDxFigureActor*)pDepo_effect_->dispatch();
 //                    if (pTestActor_Shot) {
 //                        pTestActor_Shot->positionAs(this);
 //                    }

@@ -23,7 +23,7 @@ LaserChipDepository::LaserChipDepository(const char* prm_name, GgafStatus* prm_p
 
 void LaserChipDepository::config(int prm_num_continual_dispatch_max,
                                  uint32_t prm_num_chip_interval,
-                                 GgafDxCore::GgafDxDrawableActor* prm_pEffectActor_irradiate) {
+                                 GgafDxCore::GgafDxFigureActor* prm_pEffectActor_irradiate) {
     _num_continual_dispatch_max = prm_num_continual_dispatch_max;
     _num_chip_interval = prm_num_chip_interval;
     _pEffectActor_irradiate = prm_pEffectActor_irradiate;

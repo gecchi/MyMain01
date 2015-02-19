@@ -39,8 +39,8 @@
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxBoardSetActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxD3DXAniMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxD3DXMeshActor.cpp" />
-    <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxDrawableActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxDynaD3DXMeshActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxFigureActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxGeometricActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxMeshSetActor.cpp" />
@@ -160,8 +160,8 @@
     <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxBoardSetActor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxD3DXAniMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxD3DXMeshActor.h" />
-    <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxDrawableActor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxDynaD3DXMeshActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\ggafdxfigureactor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxGeometricActor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxMeshSetActor.h" />

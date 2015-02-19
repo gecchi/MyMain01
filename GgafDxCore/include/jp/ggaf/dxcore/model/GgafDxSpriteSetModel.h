@@ -56,7 +56,7 @@ public:
     GgafDxSpriteSetModel(char* prm_model_name);
 
 
-    virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_target, int prm_draw_set_num = 1) override;
+    virtual HRESULT draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num = 1) override;
 
     virtual void restore() override;
 

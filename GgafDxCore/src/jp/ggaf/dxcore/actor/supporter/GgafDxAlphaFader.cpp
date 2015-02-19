@@ -1,11 +1,11 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 
-#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+#include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxAlphaFader::GgafDxAlphaFader(GgafDxDrawableActor* prm_pActor) : GgafValueEnveloper<float, 1 > (),
+GgafDxAlphaFader::GgafDxAlphaFader(GgafDxFigureActor* prm_pActor) : GgafValueEnveloper<float, 1 > (),
 _pActor(prm_pActor) {
     forceRange(0.0f, 1.0f);
 }

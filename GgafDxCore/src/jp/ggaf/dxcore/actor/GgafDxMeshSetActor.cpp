@@ -16,7 +16,7 @@ GgafDxMeshSetActor::GgafDxMeshSetActor(const char* prm_name,
                                        GgafStatus* prm_pStat,
                                        GgafDxChecker* prm_pChecker) :
 
-                                           GgafDxDrawableActor(prm_name,
+                                           GgafDxFigureActor(prm_name,
                                                                prm_model_id,
                                                                "x",
                                                                prm_effect_id,
@@ -41,7 +41,7 @@ GgafDxMeshSetActor::GgafDxMeshSetActor(const char* prm_name,
                                        GgafStatus* prm_pStat,
                                        GgafDxChecker* prm_pChecker) :
 
-                                           GgafDxDrawableActor(prm_name,
+                                           GgafDxFigureActor(prm_name,
                                                                prm_model_id,
                                                                prm_model_type,
                                                                prm_effect_id,
@@ -81,7 +81,7 @@ void GgafDxMeshSetActor::processDraw() {
                        //連続しているカウント数。同一描画深度は一度に描画する。
     ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     HRESULT hr;
-    GgafDxDrawableActor* pDrawActor = this;
+    GgafDxFigureActor* pDrawActor = this;
     GgafDxMeshSetActor* pMeshSetActor = nullptr;
     int model_set_num = _pMeshSetModel->_set_num;
     while (pDrawActor) {

@@ -115,7 +115,7 @@ void EnemyAppho::processBehavior() {
                  int shot_num   = RF_EnemyAppho_ShotWay(G_RANK);    //弾数、ランク変動
                  velo shot_velo = RF_EnemyAppho_ShotMvVelo(G_RANK); //弾速、ランク変動
                  for (int i = 0; i < shot_num; i++) {
-                     GgafDxDrawableActor* pShot = UTIL::activateAttackShotOf(this);
+                     GgafDxFigureActor* pShot = UTIL::activateAttackShotOf(this);
                      if (pShot) {
                          pShot->activateDelay(1+(i*10)); //ばらつかせ。activate タイミング上書き！
                          GgafDxKuroko* pShot_pKuroko = pShot->getKuroko();

@@ -7,7 +7,7 @@ namespace GgafDxCore {
 
 /**
  * フェーディング支援クラス .
- * GgafDxDrawableActor のメンバの
+ * GgafDxFigureActor のメンバの
  * _alpha(アクターのα強度)をなめらかに変化させ、<BR>
  * フェーディングを行うことを主な目的<BR>
  * @version 1.00
@@ -18,14 +18,14 @@ class GgafDxAlphaFader : public GgafCore::GgafValueEnveloper<float, 1 > {
 
 public:
     /** [r]対象アクター */
-    GgafDxDrawableActor* const _pActor;
+    GgafDxFigureActor* const _pActor;
 
 public:
     /**
      * コンストラクタ<BR>
      * @param   prm_pActor  適用対象のActor
      */
-    explicit GgafDxAlphaFader(GgafDxDrawableActor* prm_pActor);
+    explicit GgafDxAlphaFader(GgafDxFigureActor* prm_pActor);
 
     void reset() override;
 

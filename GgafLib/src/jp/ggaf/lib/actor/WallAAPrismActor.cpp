@@ -117,7 +117,7 @@ void WallAAPrismActor::processDraw() {
         hr = pID3DXEffect->SetFloat(WallAAPrismActor::_h_distance_AlphaTarget, -100.0f);
         checkDxException(hr, D3D_OK, "WallAAPrismActor::processDraw() SetMatrix(_h_distance_AlphaTarget) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     }
-    GgafDxDrawableActor* pDrawActor = this;
+    GgafDxFigureActor* pDrawActor = this;
     WallPartsActor* pWallPartsActor = nullptr;
     int model_set_num = _pMeshSetModel->_set_num;
     while (pDrawActor) {

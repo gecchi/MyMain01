@@ -41,7 +41,7 @@ void GgafDxCubeMapMeshSetActor::processDraw() {
     GgafDxGod::_pID3DDevice9->SetTexture(1, getCubeMapTexture());
 
     //Šî–{ƒ‚ƒfƒ‹’¸“_”
-    GgafDxDrawableActor* pDrawActor = this;
+    GgafDxFigureActor* pDrawActor = this;
     GgafDxCubeMapMeshSetActor* pCubeMapMeshSetActor = nullptr;
     int model_set_num = _pCubeMapMeshSetModel->_set_num;
     while (pDrawActor) {

@@ -208,7 +208,7 @@ void EnemyOmulus::processJudgement() {
             if (getMorphWeight(MORPHTARGET_HATCH_OPEN) > 0.5) { //モーションが半分以上まで到達したなら
                 if (pProg->getFrameInProgress() % (frame)(RF_EnemyOmulus_ShotInterval(G_RANK)) == 0) { //出現間隔
                     if (pDepo_Fired_) {
-                        GgafDxDrawableActor* pActor = (GgafDxDrawableActor*)pDepo_Fired_->dispatch();
+                        GgafDxFigureActor* pActor = (GgafDxFigureActor*)pDepo_Fired_->dispatch();
                         if (pActor) {
                             pActor->getKuroko()->setRzRyMvAng(_rz, _ry); //絶対座標系での向き
                             pActor->position(_x, _y, _z);

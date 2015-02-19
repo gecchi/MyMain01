@@ -382,13 +382,15 @@ void GgafDxGeometricActor::setRxFaceAng(angle prm_angFace) {
 }
 
 void GgafDxGeometricActor::setFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz) {
-    UTIL::convVectorToRzRy(
-                   prm_tx - _x,
-                   prm_ty - _y,
-                   prm_tz - _z,
-                   _rz,
-                   _ry
-                 );
+    coord vx = prm_tx - _x;
+    coord vy = prm_ty - _y;
+    coord vz = prm_tz - _z;
+    if (vx == 0 && vy == 0 && vz == 0) {
+        //é©êgÇÃç¿ïWÇ…ìôÇµÇ¢ÇÃÇ≈ÅAâΩÇ‡ÇµÇ»Ç¢
+    } else {
+        UTIL::convVectorToRzRy(vx, vy, vz,
+                               _rz, _ry );
+    }
 }
 
 void GgafDxGeometricActor::scaleAs(const GgafDxGeometricActor* prm_pActor) {

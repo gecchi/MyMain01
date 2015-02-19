@@ -48,12 +48,12 @@ public:
     GgafDxCamera* _pCamera;
 
     /** レンダリング順序配列に登録されている各アクターリストの先頭のアクターの配列 */
-    static GgafDxDrawableActor* _apFirstActor_draw_depth_level[];
+    static GgafDxFigureActor* _apFirstActor_draw_depth_level[];
     /** レンダリング順序配列に登録されている各アクターリストの末尾のアクターの配列 */
-    static GgafDxDrawableActor* _apLastActor_draw_depth_level[];
+    static GgafDxFigureActor* _apLastActor_draw_depth_level[];
 
     /** 描画アクターのカーソル */
-    static GgafDxDrawableActor* _pActor_draw_active;
+    static GgafDxFigureActor* _pActor_draw_active;
 
     /** [r]アプリケーション領域、X座標の最小値 */
     static coord _x_gone_left;
@@ -89,7 +89,7 @@ public:
      * @param prm_draw_depth_level レベル
      * @param prm_pActor アクター
      */
-    static int setDrawDepthLevel(int prm_draw_depth_level, GgafDxDrawableActor* prm_pActor);
+    static int setDrawDepthLevel(int prm_draw_depth_level, GgafDxFigureActor* prm_pActor);
 
     void registerSe(GgafDxSe* prm_pSe,
                     int prm_volume,

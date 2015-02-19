@@ -81,7 +81,7 @@ public:
 
     void onInactive() override;
 
-    static void onDispatchedShot(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_dispatch_num, int prm_set_index, int prm_way_index);
+    static void onDispatchedShot(GgafDxCore::GgafDxFigureActor* prm_pActor, int prm_dispatch_num, int prm_set_index, int prm_way_index);
 
     virtual ~EnemyGlaja();
 };

@@ -17,6 +17,7 @@ class FormationUrydike : public GgafLib::TreeFormation {
 
     enum {
         PROG_INIT  ,
+        PROG_INTERVAL,
         PROG_CALL_UP ,
         PROG_WAIT  ,
         PROG_BANPEI,
@@ -50,9 +51,9 @@ public:
 
     virtual void onDestroyAll(GgafCore::GgafActor* prm_pActor_last_destroyed) override;
 
-    virtual void onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_row, int prm_col) = 0;
+    virtual void onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int prm_row, int prm_col) = 0;
 
-    virtual void onFinshLeading(GgafDxCore::GgafDxDrawableActor* prm_pActor) = 0;
+    virtual void onFinshLeading(GgafDxCore::GgafDxFigureActor* prm_pActor) = 0;
 
     virtual void onSayonaraAll() override;
 

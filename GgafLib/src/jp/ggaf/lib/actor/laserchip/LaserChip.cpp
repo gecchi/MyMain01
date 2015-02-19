@@ -85,12 +85,12 @@ bool LaserChip::initStatic() {
 void LaserChip::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
     if (prm_pOtherActor->instanceOf(Obj_WallPartsActor)) {
         if (_chip_kind == 3 || _can_chikei_hit) {  //3:中間先頭チップ か、1/8の地形当たり判定有りチップ
-            GgafDxDrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
+            GgafDxFigureActor::executeHitChk_MeAnd(prm_pOtherActor);
         } else {
             return;
         }
     } else {
-        GgafDxDrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
+        GgafDxFigureActor::executeHitChk_MeAnd(prm_pOtherActor);
     }
 }
 
@@ -220,7 +220,7 @@ void LaserChip::processSettlementBehavior() {
 void LaserChip::processPreDraw() {
     if (_chip_kind < 4) {
         //4以外を表示対象にする
-        GgafDxDrawableActor::processPreDraw();
+        GgafDxFigureActor::processPreDraw();
     }
 }
 
@@ -230,7 +230,7 @@ void LaserChip::processDraw() {
     ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     HRESULT hr;
     //基本モデル頂点数
-    GgafDxDrawableActor* pDrawActor = this;
+    GgafDxFigureActor* pDrawActor = this;
     LaserChip* pLaserChip = nullptr;
     int model_set_num = _pMeshSetModel->_set_num;
 

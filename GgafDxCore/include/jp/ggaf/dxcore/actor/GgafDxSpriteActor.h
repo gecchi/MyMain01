@@ -1,7 +1,7 @@
 #ifndef GGAFDXCORE_GGAFDXSPRITEACTORD_H_
 #define GGAFDXCORE_GGAFDXSPRITEACTORD_H_
 #include "GgafDxCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+#include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
 
 namespace GgafDxCore {
 
@@ -14,7 +14,7 @@ namespace GgafDxCore {
  * @since 2007/11/14
  * @author Masatoshi Tsuge
  */
-class GgafDxSpriteActor : public GgafDxDrawableActor {
+class GgafDxSpriteActor : public GgafDxFigureActor {
 
 public:
     /** [r]ƒ‚ƒfƒ‹Ž‘Œ¹ */

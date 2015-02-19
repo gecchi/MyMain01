@@ -32,7 +32,7 @@ void FormationUrydike001::processBehavior() {
     FormationUrydike::processBehavior();
 }
 
-void FormationUrydike001::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_row, int prm_col) {
+void FormationUrydike001::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyUrydike* pUrydike = (EnemyUrydike*)prm_pActor;
     if (pUrydike->pKurokoLeader_) {
         throwGgafCriticalException("FormationUrydike001::onCallUp pUrydike->pKurokoLeader_Ç™ê›íËÇ≥ÇÍÇƒÇ‹Ç∑ÅBpUrydike="<<pUrydike<<"("<<pUrydike->getName()<<")");
@@ -76,7 +76,7 @@ void FormationUrydike001::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, 
 //    pUrydike->setMaterialColor(r, g, b);
 }
 
-void FormationUrydike001::onFinshLeading(GgafDxCore::GgafDxDrawableActor* prm_pActor) {
+void FormationUrydike001::onFinshLeading(GgafDxCore::GgafDxFigureActor* prm_pActor) {
 
 }
 

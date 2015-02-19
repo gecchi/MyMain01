@@ -16,7 +16,7 @@ GgafDxBoardSetActor::GgafDxBoardSetActor(const char* prm_name,
                                          const char* prm_effect_id,
                                          const char* prm_technique) :
 
-                                             GgafDxDrawableActor(prm_name,
+                                             GgafDxFigureActor(prm_name,
                                                                  prm_model_id,
                                                                  "b",
                                                                  prm_effect_id,
@@ -59,7 +59,7 @@ void GgafDxBoardSetActor::processDraw() {
     GgafDxBoardSetEffect* pBoardSetEffect = _pBoardSetEffect;
     ID3DXEffect* pID3DXEffect = pBoardSetEffect->_pID3DXEffect;
     HRESULT hr;
-    GgafDxDrawableActor* pDrawActor = this;
+    GgafDxFigureActor* pDrawActor = this;
     GgafDxBoardSetActor* pBoardSetActor = nullptr;
     int model_set_num = _pBoardSetModel->_set_num;
     float u,v;

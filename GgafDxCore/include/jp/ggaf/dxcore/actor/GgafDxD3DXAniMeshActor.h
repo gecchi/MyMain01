@@ -1,13 +1,13 @@
 #ifndef GGAFDXCORE_GGAFDXD3DXANIMESHACTOR_H_
 #define GGAFDXCORE_GGAFDXD3DXANIMESHACTOR_H_
 #include "GgafDxCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+#include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
 
 namespace GgafDxCore {
 
 /**
  * フレームアニメーション付きメッシュアクター.
- * GgafDxDrawableActor を継承し、Xファイル定義の
+ * GgafDxFigureActor を継承し、Xファイル定義の
  * フレームアニメーションメッシュ表示機能を<BR>
  * 追加したアクターです<BR>
  * アニメーションはパペッター(GgafDxPuppeteer)にお願いします。<BR>
@@ -15,7 +15,7 @@ namespace GgafDxCore {
  * @since 2009/11/25
  * @author Masatoshi Tsuge
  */
-class GgafDxD3DXAniMeshActor : public GgafDxDrawableActor {
+class GgafDxD3DXAniMeshActor : public GgafDxFigureActor {
 
 public:
     static DWORD FVF;

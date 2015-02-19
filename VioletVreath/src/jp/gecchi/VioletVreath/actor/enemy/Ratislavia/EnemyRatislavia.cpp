@@ -108,7 +108,7 @@ void EnemyRatislavia::processBehavior() {
                 //沸々爆発
                 //当たり判定球付近に爆発エフェクトを散乱させる
                 GgafDxCollisionPart* pPart;
-                GgafDxDrawableActor* pE;
+                GgafDxFigureActor* pE;
                 CollisionChecker3D* pChecker = getCollisionChecker();
                 for (int j = 0; j < colli_part_num_; j++) {
                     pPart = pChecker->getArea()->getPart(j);
@@ -126,7 +126,7 @@ void EnemyRatislavia::processBehavior() {
                 //ここで大きい爆発
                 //当たり判定球付近に爆発エフェクトを散乱させる
                 GgafDxCollisionPart* pPart;
-                GgafDxDrawableActor* pE;
+                GgafDxFigureActor* pE;
                 CollisionChecker3D* pChecker = getCollisionChecker();
                 for (int j = 0; j < colli_part_num_; j++) {
                     pPart = pChecker->getArea()->getPart(j);

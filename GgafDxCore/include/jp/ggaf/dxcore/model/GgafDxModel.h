@@ -148,7 +148,7 @@ public:
      * @param prm_draw_set_num 描画するモデルのセット数
      * @return
      */
-    virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_target, int prm_draw_set_num = 1) = 0;
+    virtual HRESULT draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num = 1) = 0;
 
     /**
      * マテリアルのテクスチャを入れ替えて切り替える。 .

@@ -54,9 +54,9 @@ void MenuBoardConfirm::onRise() {
     selectItem(ITEM_OK); //初期選択をリセット
     MenuBoard::onRise();
 }
-void MenuBoardConfirm::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
+void MenuBoardConfirm::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
 }
-void MenuBoardConfirm::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
+void MenuBoardConfirm::onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
 }
 
 bool MenuBoardConfirm::isJustDecidedOk() {

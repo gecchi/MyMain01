@@ -17,7 +17,7 @@ GgafDxDynaD3DXMeshActor::GgafDxDynaD3DXMeshActor(const char* prm_name,
                                                  GgafStatus* prm_pStat,
                                                  GgafDxChecker* prm_pChecker) :
 
-                                                     GgafDxDrawableActor(prm_name,
+                                                     GgafDxFigureActor(prm_name,
                                                                          prm_model_id,
                                                                          "d",
                                                                          prm_effect_id,

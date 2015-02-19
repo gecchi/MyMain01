@@ -1,5 +1,5 @@
-#ifndef GGAFDXCORE_GGAFDXDRAWABLEACTOR_H_
-#define GGAFDXCORE_GGAFDXDRAWABLEACTOR_H_
+#ifndef GGAFDXCORE_GGAFDXFIGUREACTOR_H_
+#define GGAFDXCORE_GGAFDXFIGUREACTOR_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 
@@ -13,7 +13,7 @@ namespace GgafDxCore {
  * @since 2009/06/10
  * @author Masatoshi Tsuge
  */
-class GgafDxDrawableActor : public GgafDxGeometricActor {
+class GgafDxFigureActor : public GgafDxGeometricActor {
 private:
     /**
      * draw()の使用禁止 .
@@ -49,7 +49,7 @@ public:
     static hashval _hash_technique_last_draw;
 
     /** [r]同一描画レベルの次のアクター */
-    GgafDxDrawableActor* _pNextActor_in_draw_depth_level;
+    GgafDxFigureActor* _pNextActor_in_draw_depth_level;
     /** [r/w]現在のマテリアルのα値 (0.0 <= _alpha <= 1.0) */
     float _alpha;
     /** [r]現在描画に使用しているシェーダーテクニック名 */
@@ -78,12 +78,12 @@ public:
      * @param prm_pStat 使用するステータスオブジェクト(使用しない時 nullptrでよい)
      * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はnullptrでよい）
      */
-    GgafDxDrawableActor(const char* prm_name,
-                        const char* prm_model,
-                        const char* prm_effect,
-                        const char* prm_technique,
-                        GgafCore::GgafStatus* prm_pStat,
-                        GgafDxChecker* prm_pChecker);
+    GgafDxFigureActor(const char* prm_name,
+                      const char* prm_model,
+                      const char* prm_effect,
+                      const char* prm_technique,
+                      GgafCore::GgafStatus* prm_pStat,
+                      GgafDxChecker* prm_pChecker);
 
     /**
      * コンストラクタ .
@@ -99,21 +99,21 @@ public:
      * @param prm_pStat 使用するステータスオブジェクト(使用しない時 nullptrでよい)
      * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はnullptrでよい）
      */
-    GgafDxDrawableActor(const char* prm_name,
-                        const char* prm_model_id,
-                        const char* prm_model_type,
-                        const char* prm_effect_id,
-                        const char* prm_effect_type,
-                        const char* prm_technique,
-                        GgafCore::GgafStatus* prm_pStat,
-                        GgafDxChecker* prm_pChecker);
+    GgafDxFigureActor(const char* prm_name,
+                      const char* prm_model_id,
+                      const char* prm_model_type,
+                      const char* prm_effect_id,
+                      const char* prm_effect_type,
+                      const char* prm_technique,
+                      GgafCore::GgafStatus* prm_pStat,
+                      GgafDxChecker* prm_pChecker);
 
-    virtual GgafDxDrawableActor* getPrev() const override {  //共変の戻り値
-        return (GgafDxDrawableActor*)GgafActor::getPrev();
+    virtual GgafDxFigureActor* getPrev() const override {  //共変の戻り値
+        return (GgafDxFigureActor*)GgafActor::getPrev();
     }
 
-    virtual GgafDxDrawableActor* getNext() const  override {  //共変の戻り値
-        return (GgafDxDrawableActor*)GgafActor::getNext();
+    virtual GgafDxFigureActor* getNext() const  override {  //共変の戻り値
+        return (GgafDxFigureActor*)GgafActor::getNext();
     }
 
     /**
@@ -170,7 +170,7 @@ public:
      * ・一時テクニック考慮
      * オーバーライド非推奨。
      * オーバーライドする場合は、
-     * GgafDxDrawableActor::processPreDraw() をメソッド内で呼び出すか、
+     * GgafDxFigureActor::processPreDraw() をメソッド内で呼び出すか、
      * 或いは自前で同等の処理を実装するか、問題ないか考慮してください。
      * TODO:private virtual にするべきか否か？。fainal が欲しい
      */
@@ -288,8 +288,8 @@ public:
      */
     virtual int isOutOfView() override;
 
-    virtual ~GgafDxDrawableActor(); //デストラクタ
+    virtual ~GgafDxFigureActor(); //デストラクタ
 };
 
 }
-#endif /*GGAFDXCORE_GGAFDXDRAWABLEACTOR_H_*/
+#endif /*GGAFDXCORE_GGAFDXFIGUREACTOR_H_*/

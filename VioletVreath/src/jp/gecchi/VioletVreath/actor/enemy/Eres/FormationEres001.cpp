@@ -25,7 +25,7 @@ void FormationEres001::processBehavior() {
 }
 
 void FormationEres001::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
-    UTIL::transactFormationDestroyAll((GgafDxDrawableActor*)prm_pActor_last_destroyed);
+    UTIL::transactFormationDestroyAll((GgafDxFigureActor*)prm_pActor_last_destroyed);
 }
 
 FormationEres001::~FormationEres001() {

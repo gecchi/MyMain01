@@ -41,7 +41,7 @@ void GgafDxSpriteMeshSetActor::processDraw() {
                        //˜A‘±‚µ‚Ä‚¢‚éƒJƒEƒ“ƒg”B“¯ˆê•`‰æ[“x‚Íˆê“x‚É•`‰æ‚·‚éB
     ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     HRESULT hr;
-    GgafDxDrawableActor* pDrawActor = this;
+    GgafDxFigureActor* pDrawActor = this;
     GgafDxSpriteMeshSetActor* pSpriteMeshSetActor = nullptr;
     int model_set_num = _pMeshSetModel->_set_num;
     float u = 0;

@@ -234,7 +234,7 @@ void MenuBoardNameEntry::processBehavior() {
     //pLabelSelectedChar_->_x = pLabelInputedName_->_x + PX_C(pLabelInputedName_->_chr_width_px * len);
 }
 
-void MenuBoardNameEntry::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
+void MenuBoardNameEntry::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
     //åàíËÅiêUÇÈïëÇ¢ÅjÇÃèàóù
     int item_index = getSelectedIndex();
     int len = pLabelInputedName_->_len;
@@ -268,7 +268,7 @@ void MenuBoardNameEntry::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, 
     }
 }
 
-void MenuBoardNameEntry::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
+void MenuBoardNameEntry::onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
 //    if (prm_item_index == ITEM_BS) {
 //        //ÇPï∂éöèúãé
 //        std::string s = getDrawString();

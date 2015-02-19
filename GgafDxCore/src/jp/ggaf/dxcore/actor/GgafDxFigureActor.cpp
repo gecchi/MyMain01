@@ -1,4 +1,4 @@
-#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+#include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
 
 #include "jp/ggaf/dxcore/GgafDxGod.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
@@ -16,14 +16,14 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-hashval GgafDxDrawableActor::_hash_technique_last_draw = 0;
+hashval GgafDxFigureActor::_hash_technique_last_draw = 0;
 
-GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
-                                         const char* prm_model,
-                                         const char* prm_effect,
-                                         const char* prm_technique,
-                                         GgafStatus* prm_pStat,
-                                         GgafDxChecker* prm_pChecker) :
+GgafDxFigureActor::GgafDxFigureActor(const char* prm_name,
+                                     const char* prm_model,
+                                     const char* prm_effect,
+                                     const char* prm_technique,
+                                     GgafStatus* prm_pStat,
+                                     GgafDxChecker* prm_pChecker) :
   GgafDxGeometricActor(prm_name, prm_pStat, prm_pChecker),
 _pModelCon((GgafDxModelConnection*)GgafDxGod::_pModelManager->connect(
                   std::string(prm_model).c_str(),
@@ -34,8 +34,8 @@ _pEffectCon((GgafDxEffectConnection*)GgafDxGod::_pEffectManager->connect(
                   this)),
 _pEffect((GgafDxEffect*)_pEffectCon->peek()) {
 
-    _obj_class |= Obj_GgafDxDrawableActor;
-    _class_name = "GgafDxDrawableActor";
+    _obj_class |= Obj_GgafDxFigureActor;
+    _class_name = "GgafDxFigureActor";
 
     _technique = NEW char[51];
     strcpy(_technique, prm_technique);
@@ -67,14 +67,14 @@ _pEffect((GgafDxEffect*)_pEffectCon->peek()) {
     _hash_technique = UTIL::easy_hash(prm_technique) + UTIL::easy_hash(_pModel->getName());
 }
 
-GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
-                                         const char* prm_model_id,
-                                         const char* prm_model_type,
-                                         const char* prm_effect_id,
-                                         const char* prm_effect_type,
-                                         const char* prm_technique,
-                                         GgafStatus* prm_pStat,
-                                         GgafDxChecker* prm_pChecker) :
+GgafDxFigureActor::GgafDxFigureActor(const char* prm_name,
+                                     const char* prm_model_id,
+                                     const char* prm_model_type,
+                                     const char* prm_effect_id,
+                                     const char* prm_effect_type,
+                                     const char* prm_technique,
+                                     GgafStatus* prm_pStat,
+                                     GgafDxChecker* prm_pChecker) :
   GgafDxGeometricActor(prm_name, prm_pStat, prm_pChecker),
 _pModelCon((GgafDxModelConnection*)GgafDxGod::_pModelManager->connect(
                     (std::string(prm_model_type) + std::string("/") + std::string(prm_model_id)).c_str(),
@@ -86,7 +86,7 @@ _pEffectCon((GgafDxEffectConnection*)GgafDxGod::_pEffectManager->connect(
 _pEffect((GgafDxEffect*)_pEffectCon->peek())
           {
 
-    _class_name = "GgafDxDrawableActor";
+    _class_name = "GgafDxFigureActor";
 
     _technique = NEW char[51];
     strcpy(_technique, prm_technique);
@@ -139,13 +139,13 @@ _pEffect((GgafDxEffect*)_pEffectCon->peek())
     _hash_technique = UTIL::easy_hash(prm_technique) + UTIL::easy_hash(_pModel->getName());
 }
 
-void GgafDxDrawableActor::processPreDraw() {
+void GgafDxFigureActor::processPreDraw() {
     GgafDxCamera* pCam = P_GOD->getUniverse()->getCamera();
 #ifdef MY_DEBUG
     if (getPlatformScene()->instanceOf(Obj_GgafDxScene)) {
         //OK
     } else {
-        throwGgafCriticalException("GgafDxDrawableActor::processPreDraw() name="<<getName()<<"を描画登録しようとしましたが、所属シーンが name="<<getName()<<"->getPlatformScene()["<<(getPlatformScene()->getName())<<"]が、GgafDxScene に変換不可です。this="<<this<<" \n"<<
+        throwGgafCriticalException("GgafDxFigureActor::processPreDraw() name="<<getName()<<"を描画登録しようとしましたが、所属シーンが name="<<getName()<<"->getPlatformScene()["<<(getPlatformScene()->getName())<<"]が、GgafDxScene に変換不可です。this="<<this<<" \n"<<
                 "getPlatformScene()->_obj_class="<<getPlatformScene()->_obj_class<< " Obj_GgafDxScene="<<Obj_GgafDxScene<<" \n"<<
                 "(getPlatformScene()->_obj_class & Obj_GgafDxScene)="<<((getPlatformScene()->_obj_class) & Obj_GgafDxScene) <<" ==?? Obj_GgafDxScene("<<Obj_GgafDxScene<<")");
     }
@@ -176,7 +176,7 @@ void GgafDxDrawableActor::processPreDraw() {
                         GgafDxUniverse::_apLastActor_draw_depth_level[_specal_drawdepth] = this;
                     } else {
                         //前に追加
-                        GgafDxDrawableActor* pActorTmp = GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth];
+                        GgafDxFigureActor* pActorTmp = GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth];
                         this->_pNextActor_in_draw_depth_level = pActorTmp;
                         GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth] = this;
                     }
@@ -261,7 +261,7 @@ void GgafDxDrawableActor::processPreDraw() {
                         GgafDxUniverse::_apLastActor_draw_depth_level[_specal_drawdepth] = this;
                     } else {
                         //前に追加
-                        GgafDxDrawableActor* pActorTmp = GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth];
+                        GgafDxFigureActor* pActorTmp = GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth];
                         this->_pNextActor_in_draw_depth_level = pActorTmp;
                         GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth] = this;
                     }
@@ -287,7 +287,7 @@ void GgafDxDrawableActor::processPreDraw() {
 }
 
 
-void GgafDxDrawableActor::processAfterDraw() {
+void GgafDxFigureActor::processAfterDraw() {
 #ifdef MY_DEBUG
     //当たり判定領域表示
     if (GgafDxGod::_d3dfillmode == D3DFILL_WIREFRAME) {
@@ -298,7 +298,7 @@ void GgafDxDrawableActor::processAfterDraw() {
 #endif
 }
 
-void GgafDxDrawableActor::setMaterialColor(float r, float g, float b) {
+void GgafDxFigureActor::setMaterialColor(float r, float g, float b) {
     for (DWORD i = 0; i < _pModel->_num_materials; i++) {
         _paMaterial[i].Ambient.r = r;
         _paMaterial[i].Diffuse.r = r;
@@ -309,30 +309,30 @@ void GgafDxDrawableActor::setMaterialColor(float r, float g, float b) {
     }
 }
 
-void GgafDxDrawableActor::setMaterialRed(float r) {
+void GgafDxFigureActor::setMaterialRed(float r) {
     for (DWORD i = 0; i < _pModel->_num_materials; i++) {
         _paMaterial[i].Ambient.r = r;
         _paMaterial[i].Diffuse.r = r;
     }
 }
-void GgafDxDrawableActor::setMaterialGreen(float g) {
+void GgafDxFigureActor::setMaterialGreen(float g) {
     for (DWORD i = 0; i < _pModel->_num_materials; i++) {
         _paMaterial[i].Ambient.g = g;
         _paMaterial[i].Diffuse.g = g;
     }
 }
-void GgafDxDrawableActor::setMaterialBlue(float b) {
+void GgafDxFigureActor::setMaterialBlue(float b) {
     for (DWORD i = 0; i < _pModel->_num_materials; i++) {
         _paMaterial[i].Ambient.b = b;
         _paMaterial[i].Diffuse.b = b;
     }
 }
 
-void GgafDxDrawableActor::setMaterialColor(const GgafCore::GgafRgb* prm_rgb) {
+void GgafDxFigureActor::setMaterialColor(const GgafCore::GgafRgb* prm_rgb) {
     setMaterialColor(prm_rgb->_r, prm_rgb->_g, prm_rgb->_b);
 }
 
-void GgafDxDrawableActor::resetMaterialColor() {
+void GgafDxFigureActor::resetMaterialColor() {
     for (DWORD i = 0; i < _pModel->_num_materials; i++) {
         _paMaterial[i].Ambient.r = _pModel->_paMaterial_default[i].Ambient.r;
         _paMaterial[i].Diffuse.r = _pModel->_paMaterial_default[i].Diffuse.r;
@@ -343,7 +343,7 @@ void GgafDxDrawableActor::resetMaterialColor() {
     }
 }
 
-void GgafDxDrawableActor::setSpecialDrawDepth(int prm_drawdepth) {
+void GgafDxFigureActor::setSpecialDrawDepth(int prm_drawdepth) {
     if (prm_drawdepth > MAX_DRAW_DEPTH_LEVEL) {
         _specal_drawdepth = MAX_DRAW_DEPTH_LEVEL;
     } else {
@@ -351,11 +351,11 @@ void GgafDxDrawableActor::setSpecialDrawDepth(int prm_drawdepth) {
     }
 }
 
-void GgafDxDrawableActor::changeEffectTechnique(const char* prm_technique) {
+void GgafDxFigureActor::changeEffectTechnique(const char* prm_technique) {
     _hash_technique = UTIL::easy_hash(prm_technique) + UTIL::easy_hash(_pModel->getName());
     strcpy(_technique, prm_technique);
 }
-void GgafDxDrawableActor::changeEffectTechniqueInterim(const char* prm_technique, frame prm_frame) {
+void GgafDxFigureActor::changeEffectTechniqueInterim(const char* prm_technique, frame prm_frame) {
     if (_is_temp_technique == false) { //すでに一時テクニック使用時は無視
         //元々のテクニックを退避
         _hash_temp_technique = _hash_technique;
@@ -372,15 +372,15 @@ void GgafDxDrawableActor::changeEffectTechniqueInterim(const char* prm_technique
     }
 }
 
-void GgafDxDrawableActor::effectFlush(frame prm_frame) {
+void GgafDxFigureActor::effectFlush(frame prm_frame) {
     changeEffectTechniqueInterim("Flush", prm_frame); //フラッシュ
 }
 
-void GgafDxDrawableActor::effectBlendOne(frame prm_frame) {
+void GgafDxFigureActor::effectBlendOne(frame prm_frame) {
     changeEffectTechniqueInterim("DestBlendOne", prm_frame);
 }
 
-void GgafDxDrawableActor::effectDefault() {
+void GgafDxFigureActor::effectDefault() {
     if (_is_temp_technique) {
         _hash_technique = _hash_temp_technique;
         strcpy(_technique, _temp_technique);
@@ -388,7 +388,7 @@ void GgafDxDrawableActor::effectDefault() {
         _hash_temp_technique = 0;
     }
 }
-int GgafDxDrawableActor::isOutOfView() {
+int GgafDxFigureActor::isOutOfView() {
     //_TRACE_("name="<<getName()<<" _bounding_sphere_radius="<<_bounding_sphere_radius);
     if (_offscreen_kind == -1) {
         dxcoord bound = getModel()->_bounding_sphere_radius * _rate_of_bounding_sphere_radius*2;//掛ける2は境界球を大きくして、画面境界のチラツキを抑える
@@ -427,11 +427,10 @@ int GgafDxDrawableActor::isOutOfView() {
     }
     return _offscreen_kind;
 }
-GgafDxDrawableActor::~GgafDxDrawableActor() {
+GgafDxFigureActor::~GgafDxFigureActor() {
     GGAF_DELETEARR(_technique);
     GGAF_DELETEARR(_temp_technique);
     GGAF_DELETEARR(_paMaterial);
-
     _pEffectCon->close();
     _pModelCon->close();
 }

@@ -38,7 +38,7 @@ void FormationZako001::processBehavior() {
     FormationZako::processBehavior();
 }
 
-void FormationZako001::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_row, int prm_col) {
+void FormationZako001::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int prm_row, int prm_col) {
     Zako* pZako = (Zako*)prm_pActor;
     if (prm_row == 0) {
         pZako->is_head_ = true;
@@ -79,7 +79,7 @@ void FormationZako001::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, int
     pZako->getKuroko()->setMvAngByFaceAng();
 }
 
-void FormationZako001::onFinshLeading(GgafDxCore::GgafDxDrawableActor* prm_pActor) {
+void FormationZako001::onFinshLeading(GgafDxCore::GgafDxFigureActor* prm_pActor) {
 
 }
 

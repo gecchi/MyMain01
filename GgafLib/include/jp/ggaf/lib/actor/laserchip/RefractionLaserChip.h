@@ -47,11 +47,11 @@ private:
     angle _prev_rz;
 
     bool _prev_is_refracting;
-    GgafDxCore::GgafDxDrawableActor* _prev_pRefractionEffect;
+    GgafDxCore::GgafDxFigureActor* _prev_pRefractionEffect;
 
     /** 屈折エフェクトアクターのデポジトリ（シーン所属済みであること） */
     GgafCore::GgafActorDepository* _pDepo_refraction_effect;
-    GgafDxCore::GgafDxDrawableActor* _pRefractionEffect;
+    GgafDxCore::GgafDxFigureActor* _pRefractionEffect;
 
 public:
     /** [r]最終的な屈折回数 */

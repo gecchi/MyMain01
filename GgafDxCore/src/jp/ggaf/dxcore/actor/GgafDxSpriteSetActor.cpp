@@ -18,7 +18,7 @@ GgafDxSpriteSetActor::GgafDxSpriteSetActor(const char* prm_name,
                                            GgafStatus* prm_pStat,
                                            GgafDxChecker* prm_pChecker) :
 
-                                               GgafDxDrawableActor(prm_name,
+                                               GgafDxFigureActor(prm_name,
                                                                    prm_model_id,
                                                                    "s",
                                                                    prm_effect_id,
@@ -50,7 +50,7 @@ void GgafDxSpriteSetActor::processDraw() {
     ID3DXEffect* pID3DXEffect = pSpriteSetEffect->_pID3DXEffect;
     HRESULT hr;
 
-    GgafDxDrawableActor* pDrawActor = this;
+    GgafDxFigureActor* pDrawActor = this;
     GgafDxSpriteSetActor* pSpriteSetActor = nullptr;
     int model_set_num = _pSpriteSetModel->_set_num;
     float u,v;

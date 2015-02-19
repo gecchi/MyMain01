@@ -161,9 +161,9 @@ void EnemyTamago01::processBehavior() {
             angle target_RyRz_Ry, target_RyRz_Rz;
             UTIL::convRzRyToRyRz(target_RzRy_Rz, target_RzRy_Ry, target_RyRz_Ry, target_RyRz_Rz);
             UTIL::getWayAngle2D(target_RyRz_Ry, way, 10000, paAng_way);
-            GgafDxDrawableActor* pActor;
+            GgafDxFigureActor* pActor;
             for (int i = 0; i < way; i++) {
-                pActor = (GgafDxDrawableActor*)pDepo_shot_->dispatch();
+                pActor = (GgafDxFigureActor*)pDepo_shot_->dispatch();
                 if (pActor) {
                     pActor->getKuroko()->relateFaceByMvAng(true);
                     pActor->getKuroko()->setRzRyMvAng_by_RyRz(paAng_way[i], target_RyRz_Rz);
@@ -173,7 +173,7 @@ void EnemyTamago01::processBehavior() {
             GGAF_DELETEARR(paAng_way);
             //ショット発射エフェクト
             if (pDepo_effect_) {
-                pActor = (GgafDxDrawableActor*)pDepo_shot_->dispatch();
+                pActor = (GgafDxFigureActor*)pDepo_shot_->dispatch();
                 if (pActor) {
                     pActor->positionAs(this);
                 }

@@ -21,9 +21,9 @@ public:
 
     virtual void processBehavior() override;
 
-    virtual void onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_row, int prm_col) override;
+    virtual void onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int prm_row, int prm_col) override;
 
-    virtual void onFinshLeading(GgafDxCore::GgafDxDrawableActor* prm_pActor) override;
+    virtual void onFinshLeading(GgafDxCore::GgafDxFigureActor* prm_pActor) override;
 
     virtual ~FormationOebius002();
 };

@@ -62,9 +62,9 @@ public:
      */
     virtual void riseSubMenu(int prm_index, coord prm_target_x, coord prm_target_y);
 
-    void onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) override {
+    void onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) override {
     }
-    void onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) override {
+    void onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) override {
     }
 
     virtual void onRise() override;

@@ -148,7 +148,7 @@ void EnemyErmioneArm::processBehavior() {
     changeGeoFinal();
     //pScaler_->behave();
     if (_pActor_base) {
-        setAlpha(((GgafDxDrawableActor*)_pActor_base)->getAlpha());
+        setAlpha(((GgafDxFigureActor*)_pActor_base)->getAlpha());
     }
 }
 

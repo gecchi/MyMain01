@@ -1,13 +1,13 @@
 #ifndef GGAFDXCORE_GGAFDXPOINTSPRITEACTOR_H_
 #define GGAFDXCORE_GGAFDXPOINTSPRITEACTOR_H_
 #include "GgafDxCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+#include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
 
 namespace GgafDxCore {
 
 /**
  * ポイントスプライトアクター.
- * GgafDxDrawableActor を継承し、ポイントスプライト表示機能を備えたアクター<BR>
+ * GgafDxFigureActor を継承し、ポイントスプライト表示機能を備えたアクター<BR>
  * 次の例ようなポイントスプライト表示機能を備える。
  * （※px相当＝画面上pxとほぼ一致）
  * <pre>
@@ -122,7 +122,7 @@ namespace GgafDxCore {
  * @since 2010/02/26
  * @author Masatoshi Tsuge
  */
-class GgafDxPointSpriteActor : public GgafDxDrawableActor {
+class GgafDxPointSpriteActor : public GgafDxFigureActor {
 
 public:
     /** [r]モデル資源 */

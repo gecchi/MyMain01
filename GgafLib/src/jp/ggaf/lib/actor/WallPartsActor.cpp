@@ -43,12 +43,12 @@ void WallPartsActor::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
         LaserChip* pLaserChip = (LaserChip*)prm_pOtherActor;
         if (pLaserChip->_chip_kind == 3 || pLaserChip->_can_chikei_hit) {
             //相手が 3:中間先頭チップ か、1/8の地形当たり判定有りチップ
-            GgafDxDrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
+            GgafDxFigureActor::executeHitChk_MeAnd(prm_pOtherActor);
         } else {
             return;
         }
     } else {
-        GgafDxDrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
+        GgafDxFigureActor::executeHitChk_MeAnd(prm_pOtherActor);
     }
 }
 
@@ -74,7 +74,7 @@ void WallPartsActor::processJudgement() {
 void WallPartsActor::processPreDraw() {
     if (_wall_draw_face > 0) {
         //描画面がある場合は表示対象にする
-        GgafDxDrawableActor::processPreDraw();
+        GgafDxFigureActor::processPreDraw();
     }
 }
 

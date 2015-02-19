@@ -126,18 +126,23 @@ void GgafDxKurokoAssistantC::turnMvAngByDtTwd(
         int prm_target_frames,
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
         bool prm_endacc_flg) {
-    angle out_angRz_Target;
-    angle out_angRy_Target;
-    UTIL::convVectorToRzRy(prm_tx - _pMaster->_pActor->_x,
-                           prm_ty - _pMaster->_pActor->_y,
-                           prm_tz - _pMaster->_pActor->_z,
-                           out_angRz_Target,
-                           out_angRy_Target);
-    turnRzRyMvAngByDtTo(
-            out_angRz_Target, out_angRy_Target, prm_way, prm_optimize_ang,
-            prm_target_frames,
-            prm_p1, prm_p2, prm_end_angvelo,
-            prm_endacc_flg);
+    coord vx = prm_tx - _pMaster->_pActor->_x;
+    coord vy = prm_ty - _pMaster->_pActor->_y;
+    coord vz = prm_tz - _pMaster->_pActor->_z;
+    if (vx == 0 && vy == 0 && vz == 0) {
+        //アクターの座標に等しいので、何もしない
+    } else {
+        angle out_angRz_Target;
+        angle out_angRy_Target;
+        UTIL::convVectorToRzRy(vx, vy, vz,
+                               out_angRz_Target,
+                               out_angRy_Target);
+        turnRzRyMvAngByDtTo(
+                out_angRz_Target, out_angRy_Target, prm_way, prm_optimize_ang,
+                prm_target_frames,
+                prm_p1, prm_p2, prm_end_angvelo,
+                prm_endacc_flg);
+    }
 
 }
 
@@ -221,18 +226,24 @@ void GgafDxKurokoAssistantC::turnMvAngByVdTwd(
         coord prm_tx, coord prm_ty, coord prm_tz, int prm_way, bool prm_optimize_ang,
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
         bool prm_endacc_flg) {
-    angle out_angRz_Target;
-    angle out_angRy_Target;
-    UTIL::convVectorToRzRy(prm_tx - _pMaster->_pActor->_x,
-                           prm_ty - _pMaster->_pActor->_y,
-                           prm_tz - _pMaster->_pActor->_z,
-                           out_angRz_Target,
-                           out_angRy_Target);
-    turnRzRyMvAngByVdTo(
-            prm_top_angvelo,
-            out_angRz_Target, out_angRy_Target, prm_way, prm_optimize_ang,
-            prm_p1, prm_p2, prm_end_angvelo,
-            prm_endacc_flg);
+
+    coord vx = prm_tx - _pMaster->_pActor->_x;
+    coord vy = prm_ty - _pMaster->_pActor->_y;
+    coord vz = prm_tz - _pMaster->_pActor->_z;
+    if (vx == 0 && vy == 0 && vz == 0) {
+         //アクターの座標に等しいので、何もしない
+    } else {
+        angle out_angRz_Target;
+        angle out_angRy_Target;
+        UTIL::convVectorToRzRy(vx, vy, vz,
+                               out_angRz_Target,
+                               out_angRy_Target);
+        turnRzRyMvAngByVdTo(
+                prm_top_angvelo,
+                out_angRz_Target, out_angRy_Target, prm_way, prm_optimize_ang,
+                prm_p1, prm_p2, prm_end_angvelo,
+                prm_endacc_flg);
+    }
 }
 
 void GgafDxKurokoAssistantC::turnMvAngByVdTwd(

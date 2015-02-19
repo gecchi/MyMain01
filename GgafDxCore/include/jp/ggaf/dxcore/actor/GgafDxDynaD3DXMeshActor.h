@@ -1,7 +1,7 @@
 #ifndef GGAFDXCORE_GGAFDXDYNAD3DXMESHACTOR_H_
 #define GGAFDXCORE_GGAFDXDYNAD3DXMESHACTOR_H_
 #include "GgafDxCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+#include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
 
 namespace GgafDxCore {
 
@@ -10,7 +10,7 @@ namespace GgafDxCore {
 //     現在は全てプログラマブルシェーダーであるため、もう使わない。
 /**
  * メッシュアクター.
- * GgafDxDrawableActor を継承し、Xファイル定義のメッシュ表示機能を<BR>
+ * GgafDxFigureActor を継承し、Xファイル定義のメッシュ表示機能を<BR>
  * 追加したアクターです。<BR>
  * GgafDxD3DXMeshActor との違いは、頂点バッファに直接アクセスをことに考慮して、<BR>
  * D3DXMESH_DYNAMIC オプションを使用しているところだけです。<BR>
@@ -19,7 +19,7 @@ namespace GgafDxCore {
  * @since 2008/11/17
  * @author Masatoshi Tsuge
  */
-class GgafDxDynaD3DXMeshActor : public GgafDxDrawableActor {
+class GgafDxDynaD3DXMeshActor : public GgafDxFigureActor {
 
 public:
     static DWORD FVF;

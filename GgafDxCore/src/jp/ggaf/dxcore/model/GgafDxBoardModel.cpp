@@ -32,7 +32,7 @@ GgafDxBoardModel::GgafDxBoardModel(char* prm_model_name) :
     //で行っている。
 }
 
-HRESULT GgafDxBoardModel::draw(GgafDxDrawableActor* prm_pActor_target, int prm_draw_set_num) {
+HRESULT GgafDxBoardModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num) {
     _TRACE4_("GgafDxBoardModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
     IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
     //対象Actor
@@ -61,7 +61,7 @@ HRESULT GgafDxBoardModel::draw(GgafDxDrawableActor* prm_pActor_target, int prm_d
     checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw() SetFloat(_h_offset_v) に失敗しました。");
 
 
-    if (GgafDxEffectManager::_pEffect_active != pBoardEffect || GgafDxDrawableActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) {
+    if (GgafDxEffectManager::_pEffect_active != pBoardEffect || GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) {
         if (GgafDxEffectManager::_pEffect_active) {
             _TRACE4_("EndPass("<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
             hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->EndPass();
@@ -106,7 +106,7 @@ HRESULT GgafDxBoardModel::draw(GgafDxDrawableActor* prm_pActor_target, int prm_d
     //前回描画モデル保持
     GgafDxModelManager::_pModelLastDraw = this;
     GgafDxEffectManager::_pEffect_active = pBoardEffect;
-    GgafDxDrawableActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
+    GgafDxFigureActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
     GgafGod::_num_actor_drawing++;
     return D3D_OK;
 

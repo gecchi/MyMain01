@@ -53,7 +53,7 @@ public:
     /** [r]発射するショットのデポジトリ */
     GgafCore::GgafActorDepository* pDepo_MyOptionShot_;
     /** [r]レーザー発射中のエフェクト */
-    GgafDxCore::GgafDxDrawableActor* pEffect_LaserIrradiate_;
+    GgafDxCore::GgafDxFigureActor* pEffect_LaserIrradiate_;
 
     /** [r]計算された現在の旋廻円周移動角速度（読み出し専用） */
     angvelo angveloMove_;

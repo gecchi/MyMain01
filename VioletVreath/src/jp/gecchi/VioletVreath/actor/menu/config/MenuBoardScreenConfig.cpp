@@ -662,7 +662,7 @@ void MenuBoardScreenConfig::processBehavior() {
     }
 }
 
-void MenuBoardScreenConfig::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
+void MenuBoardScreenConfig::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
     if (prm_item_index == ITEM_CANCEL) {
         PROPERTY::FULL_SCREEN               = in_FULL_SCREEN_              ;
         PROPERTY::DUAL_VIEW                 = in_DUAL_VIEW_                ;
@@ -688,7 +688,7 @@ void MenuBoardScreenConfig::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pIte
     }
 }
 
-void MenuBoardScreenConfig::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
+void MenuBoardScreenConfig::onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
 }
 
 MenuBoardScreenConfig::~MenuBoardScreenConfig() {

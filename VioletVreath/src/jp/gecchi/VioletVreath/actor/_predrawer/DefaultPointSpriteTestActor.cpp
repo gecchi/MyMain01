@@ -49,7 +49,7 @@ void DefaultPointSpriteTestActor::processJudgement() {
 
 //void DefaultPointSpriteTestActor::processPreDraw() {
 //    //画面外判定無しに伴ない処理簡略化
-//    //GgafDxDrawableActor::processPreDraw() と同期を取る事！
+//    //GgafDxFigureActor::processPreDraw() と同期を取る事！
 //    GgafDxUniverse::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL-1,this); //最深部-1、最深部はWorldBound
 //
 ////    //一時テクニック期間チェック

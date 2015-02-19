@@ -62,7 +62,7 @@ public:
     void setMigrationLength(coord prm_migration_length) {
         migration_length_ = prm_migration_length;
     }
-    static void callbackDispatched(GgafDxCore::GgafDxDrawableActor* prm_pDispatched,
+    static void callbackDispatched(GgafDxCore::GgafDxFigureActor* prm_pDispatched,
                                    int prm_dispatched_seq,
                                    int prm_set_seq);
 };

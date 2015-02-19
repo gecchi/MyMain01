@@ -2,7 +2,7 @@
 
 #include <math.h>
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
-#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+#include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantB.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantC.h"
@@ -943,16 +943,21 @@ void GgafDxKuroko::setRzRyMvAng_by_RyRz(angle prm_ang_ryRz_Ry, angle prm_ang_ryR
 
 
 void GgafDxKuroko::setMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz) {
-    UTIL::convVectorToRzRy(prm_tx - _pActor->_x,
-                           prm_ty - _pActor->_y,
-                           prm_tz - _pActor->_z,
-                           _vX, _vY, _vZ,
-                           _ang_rz_mv, _ang_ry_mv );
-    if (_relate_RzFaceAng_with_RzMvAng_flg) {
-        _pActor->_rz = _ang_rz_mv;
-    }
-    if (_relate_RyFaceAng_with_RyMvAng_flg) {
-        _pActor->_ry = _ang_ry_mv;
+    coord vx = prm_tx - _pActor->_x;
+    coord vy = prm_ty - _pActor->_y;
+    coord vz = prm_tz - _pActor->_z;
+    if (vx == 0 && vy == 0 && vz == 0) {
+        //アクターの座標に等しいので、何もしない。
+    } else {
+        UTIL::convVectorToRzRy( vx,  vy,  vz,
+                               _vX, _vY, _vZ,
+                               _ang_rz_mv, _ang_ry_mv );
+        if (_relate_RzFaceAng_with_RzMvAng_flg) {
+            _pActor->_rz = _ang_rz_mv;
+        }
+        if (_relate_RyFaceAng_with_RyMvAng_flg) {
+            _pActor->_ry = _ang_ry_mv;
+        }
     }
 }
 
@@ -975,22 +980,24 @@ void GgafDxKuroko::setStopTargetMvAngTwd(const GgafDxGeometricActor* prm_pActor_
 }
 
 void GgafDxKuroko::setStopTargetMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz) {
-    angle angRz_Target;
-    angle angRy_Target;
-    float dummy1, dummy2, dummy3;
+    coord vx = prm_tx - _pActor->_x;
+    coord vy = prm_ty - _pActor->_y;
+    coord vz = prm_tz - _pActor->_z;
+    if (vx == 0 && vy == 0 && vz == 0) {
+        //アクターの座標に等しいので、何もしない。
+    } else {
+        angle angRz_Target;
+        angle angRy_Target;
+        float dummy1, dummy2, dummy3;
 
-    UTIL::convVectorToRzRy(
-                   prm_tx - _pActor->_x,
-                   prm_ty - _pActor->_y,
-                   prm_tz - _pActor->_z,
-                   dummy1,
-                   dummy2,
-                   dummy3,
-                   angRz_Target,
-                   angRy_Target
-                 );
-    setStopTargetRzMvAng(angRz_Target);
-    setStopTargetRyMvAng(angRy_Target);
+        UTIL::convVectorToRzRy(
+                       vx, vy, vz,
+                       dummy1, dummy2, dummy3,
+                       angRz_Target, angRy_Target
+                     );
+        setStopTargetRzMvAng(angRz_Target);
+        setStopTargetRyMvAng(angRy_Target);
+    }
 }
 
 void GgafDxKuroko::turnRzRyFaceAngTo(angle prm_ang_rz_target, angle prm_ang_ry_target,
@@ -1083,17 +1090,21 @@ void GgafDxKuroko::turnRzRyFaceAngTo(angle prm_ang_rz_target, angle prm_ang_ry_t
 void GgafDxKuroko::turnFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
                                   angvelo prm_angvelo, angacce prm_angacce,
                                   int prm_way, bool prm_optimize_ang) {
-    angle out_angRz_Target;
-    angle out_angRy_Target;
-    UTIL::convVectorToRzRy(prm_tx - _pActor->_x,
-                           prm_ty - _pActor->_y,
-                           prm_tz - _pActor->_z,
-                           out_angRz_Target,
-                           out_angRy_Target);
+    coord vx = prm_tx - _pActor->_x;
+    coord vy = prm_ty - _pActor->_y;
+    coord vz = prm_tz - _pActor->_z;
+    if (vx == 0 && vy == 0 && vz == 0) {
+        //自身の座標に等しいので、何もしない
+    } else {
+        angle out_angRz_Target;
+        angle out_angRy_Target;
+        UTIL::convVectorToRzRy(vx, vy, vz,
+                               out_angRz_Target, out_angRy_Target);
 
-    turnRzRyFaceAngTo(out_angRz_Target, out_angRy_Target,
-                      prm_angvelo, prm_angacce,
-                      prm_way, prm_optimize_ang);
+        turnRzRyFaceAngTo(out_angRz_Target, out_angRy_Target,
+                          prm_angvelo, prm_angacce,
+                          prm_way, prm_optimize_ang);
+    }
 }
 
 
@@ -1235,24 +1246,28 @@ void GgafDxKuroko::turnRzRyMvAngTo(angle prm_ang_rz_target, angle prm_ang_ry_tar
     }
     setStopTargetRzMvAng(prm_ang_rz_target);
     setStopTargetRyMvAng(prm_ang_ry_target);
-
 }
-
 
 void GgafDxKuroko::turnMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
                                 angvelo prm_angvelo, angacce prm_angacce,
                                 int prm_way, bool prm_optimize_ang) {
-    angle out_angRz_Target;
-    angle out_angRy_Target;
-    UTIL::convVectorToRzRy(prm_tx - _pActor->_x,
-                           prm_ty - _pActor->_y,
-                           prm_tz - _pActor->_z,
-                           out_angRz_Target,
-                           out_angRy_Target);
-    turnRzRyMvAngTo(out_angRz_Target, out_angRy_Target,
-                    prm_angvelo, prm_angacce,
-                    prm_way, prm_optimize_ang);
+    coord vx = prm_tx - _pActor->_x;
+    coord vy = prm_ty - _pActor->_y;
+    coord vz = prm_tz - _pActor->_z;
+    if (vx == 0 && vy == 0 && vz == 0) {
+        //アクターの座標に等しいので、何もしない。
+    } else {
+        angle out_angRz_Target;
+        angle out_angRy_Target;
+        UTIL::convVectorToRzRy(vx, vy, vz,
+                               out_angRz_Target,
+                               out_angRy_Target);
+        turnRzRyMvAngTo(out_angRz_Target, out_angRy_Target,
+                        prm_angvelo, prm_angacce,
+                        prm_way, prm_optimize_ang);
+    }
 }
+
 void GgafDxKuroko::turnRzMvAng(angle prm_angular_distance,
                                angvelo prm_angvelo, angacce prm_angacce) {
     int s = SGN(prm_angular_distance);

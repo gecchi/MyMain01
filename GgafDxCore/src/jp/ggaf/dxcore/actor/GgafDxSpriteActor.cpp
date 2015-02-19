@@ -18,7 +18,7 @@ GgafDxSpriteActor::GgafDxSpriteActor(const char* prm_name,
                                      GgafStatus* prm_pStat,
                                      GgafDxChecker* prm_pChecker) :
 
-                                         GgafDxDrawableActor(prm_name,
+                                         GgafDxFigureActor(prm_name,
                                                              prm_model_id,
                                                              "S",
                                                              prm_effect_id,

@@ -40,7 +40,15 @@ void LinearOctreeForActor::executeHitChk(uint32_t prm_index) {
             if (pElem == pElem_last) {
                 break;
             }
+
+            if (pElem->_pNext) {
+
+            } else {
+            _TRACE_("prev ["<<prm_index<<"] pElem_last="<<pElem_last<<":Actor:"<<(((LinearOctreeActorElem*)pElem_last)->_pActor)<<":"<<(((LinearOctreeActorElem*)pElem_last)->_pActor->getName())<<"");
+            _TRACE_("prev ["<<prm_index<<"] pElem="<<pElem<<":Actor:"<<(pElem->_pActor)<<":"<<(pElem->_pActor->getName())<<"");
+            }
             pElem = (LinearOctreeActorElem*)(pElem->_pNext);
+
         }
         //現在の空間のグループAとグループB総当り
         executeHitChk_RoundRobin(&_stackCurrentSpaceActor_GroupA, &_stackCurrentSpaceActor_GroupB);

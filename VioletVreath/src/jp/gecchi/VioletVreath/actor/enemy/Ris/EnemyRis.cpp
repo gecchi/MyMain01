@@ -86,7 +86,7 @@ void EnemyRis::processBehavior() {
                                  nullptr );
                 //ショット発射エフェクト
                 if (pDepo_effect_) {
-                    GgafDxDrawableActor* pTestActor_Shot = (GgafDxDrawableActor*)pDepo_effect_->dispatch();
+                    GgafDxFigureActor* pTestActor_Shot = (GgafDxFigureActor*)pDepo_effect_->dispatch();
                     if (pTestActor_Shot) {
                         pTestActor_Shot->positionAs(this);
                     }

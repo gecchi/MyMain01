@@ -136,7 +136,7 @@ void MenuBoardPause::processBehavior() {
     }
 }
 
-void MenuBoardPause::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
+void MenuBoardPause::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
     if (prm_item_index == ITEM_BACK_TO_GAME) {
         sinkMe();
     } else if (prm_item_index == ITEM_KEY_CONFIG) {
@@ -159,7 +159,7 @@ void MenuBoardPause::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int 
         }
     }
 }
-void MenuBoardPause::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
+void MenuBoardPause::onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
 }
 
 MenuBoardPause::~MenuBoardPause() {

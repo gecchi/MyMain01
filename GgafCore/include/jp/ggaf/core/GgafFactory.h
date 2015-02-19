@@ -2,6 +2,12 @@
 #define GGAFCORE_GGAFGACTORY_H_
 #include "GgafCommonHeader.h"
 
+#ifdef _MSC_VER
+
+#else
+    #include <atomic>
+#endif
+
 #define ORDER_ID_MAX     (0xffffffffffffffffULL)
 
 namespace GgafCore {
@@ -61,6 +67,8 @@ public:
     //_is_last_order_flg == false を常に判定し、最終注文でなくなったら（新規注文があれば）、
     //製造を行って次に進める。 _is_last_order_flg == false になるまで製造しつづける
 
+#ifdef _MSC_VER
+    //x86系ならばアトミック性がある・・・・・・・・。
     /** [r]活動フラグ(神が操作する) */
     static volatile bool _is_working_flg;
     /** [r]休むフラグ */
@@ -69,7 +77,16 @@ public:
     static volatile bool _is_resting_flg;
     /** [r]完全店終い */
     static volatile bool _was_finished_flg;
-
+#else
+    /** [r]活動フラグ(神が操作する) */
+    static volatile std::atomic<bool> _is_working_flg;
+    /** [r]休むフラグ */
+    static volatile std::atomic<bool> _have_to_rest_flg;
+    /** [r]休でいるフラグ */
+    static volatile std::atomic<bool> _is_resting_flg;
+    /** [r]完全店終い */
+    static volatile std::atomic<bool> _was_finished_flg;
+#endif
 public:
     /**
      * 工場にアクター作成の注文を行う（メインスレッドが使用） .

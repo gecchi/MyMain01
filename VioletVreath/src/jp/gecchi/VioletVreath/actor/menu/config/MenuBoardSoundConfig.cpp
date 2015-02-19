@@ -154,7 +154,7 @@ void MenuBoardSoundConfig::processBehavior() {
     }
 }
 
-void MenuBoardSoundConfig::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
+void MenuBoardSoundConfig::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
     if (prm_item_index == ITEM_INDEX_CANCEL_) {
         //‰¹—Ê‚ðŒ³‚É–ß‚·
         GgafDxSound::setSeMasterVolume(PROPERTY::SE_VOLUME);
@@ -167,7 +167,7 @@ void MenuBoardSoundConfig::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem
 
     }
 }
-void MenuBoardSoundConfig::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
+void MenuBoardSoundConfig::onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
 }
 
 MenuBoardSoundConfig::~MenuBoardSoundConfig() {

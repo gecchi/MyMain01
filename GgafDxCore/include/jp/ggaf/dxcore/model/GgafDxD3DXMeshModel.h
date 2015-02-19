@@ -38,7 +38,7 @@ public:
      */
     GgafDxD3DXMeshModel(char* prm_model, DWORD prm_dwOptions);
 
-    virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_target, int prm_draw_set_num = 1) override;
+    virtual HRESULT draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num = 1) override;
 
     virtual void restore() override;
 

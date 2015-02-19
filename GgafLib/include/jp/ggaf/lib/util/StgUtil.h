@@ -706,13 +706,13 @@ public:
      * @param pFunc_call_back_dispatched 弾がデポジトリから dispach() された時に呼び出すコールバック。
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
-    static GgafDxCore::GgafDxDrawableActor* shotWay001(coord prm_x, coord prm_y, coord prm_z,
+    static GgafDxCore::GgafDxFigureActor* shotWay001(coord prm_x, coord prm_y, coord prm_z,
                                                        angle prm_rz, angle prm_ry,
                                                        GgafCore::GgafActorDepository* prm_pDepo_shot,
                                                        coord prm_r,
                                                        velo prm_velo_first, acce prm_acce,
                                                        int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                       void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxDrawableActor*, int, int) = nullptr);
+                                                       void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxFigureActor*, int, int) = nullptr);
 
     /**
      * 発射元が向いている方向（_rz > _ry）に向かって 弾を複数個撃つ .
@@ -735,13 +735,13 @@ public:
      * @param pFunc_call_back_dispatched
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
-    static GgafDxCore::GgafDxDrawableActor* shotWay001(coord prm_from_x, coord prm_from_y, coord prm_from_z,
+    static GgafDxCore::GgafDxFigureActor* shotWay001(coord prm_from_x, coord prm_from_y, coord prm_from_z,
                                                        coord prm_to_x, coord prm_to_y, coord prm_to_z,
                                                        GgafCore::GgafActorDepository* prm_pDepo_shot,
                                                        coord prm_r,
                                                        velo prm_velo_first, acce prm_acce,
                                                        int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                       void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxDrawableActor*, int, int) = nullptr);
+                                                       void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxFigureActor*, int, int) = nullptr);
 
     /**
      * 発射元が向いている方向（_rz > _ry）に向かって 弾を複数個撃つ .
@@ -759,12 +759,12 @@ public:
      * @param pFunc_call_back_dispatched
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
-    static GgafDxCore::GgafDxDrawableActor* shotWay001(const GgafDxCore::GgafDxGeometricActor* prm_pFrom,
+    static GgafDxCore::GgafDxFigureActor* shotWay001(const GgafDxCore::GgafDxGeometricActor* prm_pFrom,
                                                        GgafCore::GgafActorDepository* prm_pDepo_shot,
                                                        coord prm_r,
                                                        velo prm_velo_first, acce prm_acce,
                                                        int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                       void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxDrawableActor*, int, int) = nullptr);
+                                                       void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxFigureActor*, int, int) = nullptr);
 
 
     /**
@@ -788,7 +788,7 @@ public:
      * @param pFunc_call_back_dispatched
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
-    static GgafDxCore::GgafDxDrawableActor* shotWay002(coord prm_x, coord prm_y, coord prm_z,
+    static GgafDxCore::GgafDxFigureActor* shotWay002(coord prm_x, coord prm_y, coord prm_z,
                                                        angle prm_rx, angle prm_rz, angle prm_ry,
                                                        GgafCore::GgafActorDepository* prm_pDepo_shot,
                                                        coord prm_r,
@@ -796,7 +796,7 @@ public:
                                                        angle prm_ang_clearance_N,
                                                        velo prm_velo_first, acce prm_acce,
                                                        int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                       void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxDrawableActor*, int, int, int) = nullptr);
+                                                       void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxFigureActor*, int, int, int) = nullptr);
 
     /**
      * 発射元が向いている方向（_rx, _rz > _ry）N-Way弾（Rz変化）を複数セット撃つ .
@@ -816,14 +816,14 @@ public:
      * @param pFunc_call_back_dispatched
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
-    static GgafDxCore::GgafDxDrawableActor* shotWay002(const GgafDxCore::GgafDxGeometricActor* prm_pFrom,
+    static GgafDxCore::GgafDxFigureActor* shotWay002(const GgafDxCore::GgafDxGeometricActor* prm_pFrom,
                                                        GgafCore::GgafActorDepository* prm_pDepo_shot,
                                                        coord prm_r,
                                                        int prm_way_N,
                                                        angle prm_ang_clearance_N,
                                                        velo prm_velo_first, acce prm_acce,
                                                        int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                       void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxDrawableActor*, int, int, int) = nullptr);
+                                                       void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxFigureActor*, int, int, int) = nullptr);
 
     /**
      * N*M-Way弾を複数セット撃つ .
@@ -855,7 +855,7 @@ public:
      * @param pFunc_call_back_dispatched
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
-    static GgafDxCore::GgafDxDrawableActor* shotWay003(coord prm_x, coord prm_y, coord prm_z,
+    static GgafDxCore::GgafDxFigureActor* shotWay003(coord prm_x, coord prm_y, coord prm_z,
                                                        angle prm_rx, angle prm_rz, angle prm_ry,
                                                        GgafCore::GgafActorDepository* prm_pDepo_shot1, uint32_t* prm_paUint32_dotmat1,
                                                        GgafCore::GgafActorDepository* prm_pDepo_shot2, uint32_t* prm_paUint32_dotmat2,
@@ -865,7 +865,7 @@ public:
                                                        angle prm_ang_clearance_N, angle prm_ang_clearance_M,
                                                        velo prm_velo_first, acce prm_acce,
                                                        int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                       void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxDrawableActor*, int, int, int, int, int) = nullptr);
+                                                       void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxFigureActor*, int, int, int, int, int) = nullptr);
 
 
     /**
@@ -893,7 +893,7 @@ public:
      * @param pFunc_call_back_dispatched
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
-    static GgafDxCore::GgafDxDrawableActor* shotWay003(const GgafDxCore::GgafDxGeometricActor* prm_pFrom,
+    static GgafDxCore::GgafDxFigureActor* shotWay003(const GgafDxCore::GgafDxGeometricActor* prm_pFrom,
                                                        GgafCore::GgafActorDepository* prm_pDepo_shot1, uint32_t* prm_paUint32_dotmat1,
                                                        GgafCore::GgafActorDepository* prm_pDepo_shot2, uint32_t* prm_paUint32_dotmat2,
                                                        GgafCore::GgafActorDepository* prm_pDepo_shot3, uint32_t* prm_paUint32_dotmat3,
@@ -902,7 +902,7 @@ public:
                                                        angle prm_ang_clearance_N, angle prm_ang_clearance_M,
                                                        velo prm_velo_first, acce prm_acce,
                                                        int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                       void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxDrawableActor*, int, int, int, int, int) = nullptr);
+                                                       void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxFigureActor*, int, int, int, int, int) = nullptr);
 
     /**
      * 拡散放射状弾を複数セット同時に撃つ .
@@ -926,21 +926,21 @@ public:
      * @param pFunc_call_back_dispatched デポジトリ(prm_pDepo_shot)から dispatch() されて、
      *                                 移動方向、初期速度、加速度が設定された後にコールバックされる関数を設定。
      *                                 引数には次の値が引き渡される。
-     *                                 void f(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_dispatch_num, int prm_set_index, int prm_way_index)
+     *                                 void f(GgafDxCore::GgafDxFigureActor* prm_pActor, int prm_dispatch_num, int prm_set_index, int prm_way_index)
      *                                 prm_pActor         dispatch()された弾のアクター
      *                                 prm_dispatch_num   何回目の dispatch() の弾か  (1～)
      *                                 prm_set_index      放射状WAY弾何セット目であるか (0～)
      *                                 prm_way_index      何WAY目の弾であるか         (0～)
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
-    static GgafDxCore::GgafDxDrawableActor* shotWay004(coord prm_x, coord prm_y, coord prm_z,
+    static GgafDxCore::GgafDxFigureActor* shotWay004(coord prm_x, coord prm_y, coord prm_z,
                                                        angle prm_rz, angle prm_ry,
                                                        GgafCore::GgafActorDepository* prm_pDepo_shot,
                                                        coord prm_r,
                                                        int prm_radial_way_num, angle prm_expanse_angle,
                                                        velo prm_velo_first, acce prm_acce,
                                                        int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                       void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxDrawableActor*, int, int, int) = nullptr);
+                                                       void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxFigureActor*, int, int, int) = nullptr);
 
     /**
      * 発射元が向いている方向（_rz > _ry）に向かって拡散放射状弾を複数セット同時に撃つ .
@@ -960,20 +960,20 @@ public:
      * @param pFunc_call_back_dispatched デポジトリ(prm_pDepo_shot)から dispatch() されて、
      *                                 移動方向、初期速度、加速度が設定された後にコールバックされる関数を設定。
      *                                 引数には次の値が引き渡される。
-     *                                 void f(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_dispatch_num, int prm_set_index, int prm_way_index)
+     *                                 void f(GgafDxCore::GgafDxFigureActor* prm_pActor, int prm_dispatch_num, int prm_set_index, int prm_way_index)
      *                                 prm_pActor         dispatch()された弾のアクター
      *                                 prm_dispatch_num   何回目の dispatch() の弾か  (1～)
      *                                 prm_set_index      放射状WAY弾何セット目であるか (0～)
      *                                 prm_way_index      何WAY目の弾であるか         (0～)
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
-    static GgafDxCore::GgafDxDrawableActor* shotWay004(const GgafDxCore::GgafDxGeometricActor* prm_pFrom,
+    static GgafDxCore::GgafDxFigureActor* shotWay004(const GgafDxCore::GgafDxGeometricActor* prm_pFrom,
                                                        GgafCore::GgafActorDepository* prm_pDepo_shot,
                                                        coord prm_r,
                                                        int prm_radial_way_num, angle prm_expanse_angle,
                                                        velo prm_velo_first, acce prm_acce,
                                                        int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                       void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxDrawableActor*, int, int, int) = nullptr);
+                                                       void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxFigureActor*, int, int, int) = nullptr);
 
 
 };

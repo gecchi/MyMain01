@@ -80,7 +80,7 @@ void SingleLaser::processDraw() {
     ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     HRESULT hr;
     //Šî–{ƒ‚ƒfƒ‹’¸“_”
-    GgafDxDrawableActor* pDrawActor = this;
+    GgafDxFigureActor* pDrawActor = this;
     SingleLaser* pSingleLaserChip = nullptr;
     int model_Set_num = _pMeshSetModel->_set_num;
 

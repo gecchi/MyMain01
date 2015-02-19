@@ -26,7 +26,7 @@ void FormationOebius001::processBehavior() {
     FormationOebius::processBehavior();
 }
 
-void FormationOebius001::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_row, int prm_col) {
+void FormationOebius001::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyOebius* pOebius = (EnemyOebius*)prm_pActor;
     if (pOebius->pKurokoLeader_) {
         throwGgafCriticalException("FormationOebius001::onCallUp pOebius->pKurokoLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpOebius="<<pOebius<<"("<<pOebius->getName()<<")");
@@ -69,7 +69,7 @@ void FormationOebius001::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, i
     pOebius->setMaterialColor(r, g, b);
 }
 
-void FormationOebius001::onFinshLeading(GgafDxCore::GgafDxDrawableActor* prm_pActor) {
+void FormationOebius001::onFinshLeading(GgafDxCore::GgafDxFigureActor* prm_pActor) {
 
 }
 

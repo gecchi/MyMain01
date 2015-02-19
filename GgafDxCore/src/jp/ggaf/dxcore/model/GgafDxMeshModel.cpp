@@ -42,11 +42,11 @@ GgafDxMeshModel::GgafDxMeshModel(char* prm_model_name) : GgafDxModel(prm_model_n
 }
 
 //描画
-HRESULT GgafDxMeshModel::draw(GgafDxDrawableActor* prm_pActor_target, int prm_draw_set_num) {
+HRESULT GgafDxMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num) {
     IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
     //対象アクター
     //GgafDxMeshActor* pTargetActor = (GgafDxMeshActor*)prm_pActor_target;
-    GgafDxDrawableActor* pTargetActor = prm_pActor_target;
+    GgafDxFigureActor* pTargetActor = prm_pActor_target;
     //対象MeshActorのエフェクトラッパ
     GgafDxMeshEffect* pMeshEffect = (GgafDxMeshEffect*)prm_pActor_target->getEffect();
     //対象エフェクト
@@ -87,7 +87,7 @@ HRESULT GgafDxMeshModel::draw(GgafDxDrawableActor* prm_pActor_target, int prm_dr
         hr = pID3DXEffect->SetValue(pMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
         checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() SetValue(g_colMaterialDiffuse) に失敗しました。");
 
-        if ((GgafDxEffectManager::_pEffect_active != pMeshEffect || GgafDxDrawableActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) && i == 0) {
+        if ((GgafDxEffectManager::_pEffect_active != pMeshEffect || GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) && i == 0) {
             //本モデル描画初回
             if (GgafDxEffectManager::_pEffect_active) {
                 _TRACE4_("前回_pEffect_active != pMeshEffect (" <<(GgafDxEffectManager::_pEffect_active->_effect_name)<<"!="<<(pMeshEffect->_effect_name)<<")");
@@ -158,7 +158,7 @@ HRESULT GgafDxMeshModel::draw(GgafDxDrawableActor* prm_pActor_target, int prm_dr
     }
     GgafDxModelManager::_pModelLastDraw = this;
     GgafDxEffectManager::_pEffect_active = pMeshEffect;
-    GgafDxDrawableActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
+    GgafDxFigureActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
     return D3D_OK;
 }
 

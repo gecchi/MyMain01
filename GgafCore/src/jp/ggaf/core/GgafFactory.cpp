@@ -13,10 +13,17 @@ using namespace GgafCore;
 //èâä˙âª
 GgafOrder* GgafFactory::ROOT_ORDER = nullptr;
 GgafOrder* GgafFactory::CREATING_ORDER = nullptr;
-volatile bool GgafFactory::_is_working_flg = true;
+#ifdef _MSC_VER
+volatile bool GgafFactory::_is_working_flg   = true;
 volatile bool GgafFactory::_have_to_rest_flg = false;
-volatile bool GgafFactory::_is_resting_flg = false;
+volatile bool GgafFactory::_is_resting_flg   = false;
 volatile bool GgafFactory::_was_finished_flg = false;
+#else
+volatile std::atomic<bool> GgafFactory::_is_working_flg(true);
+volatile std::atomic<bool> GgafFactory::_have_to_rest_flg(false);
+volatile std::atomic<bool> GgafFactory::_is_resting_flg(false);
+volatile std::atomic<bool> GgafFactory::_was_finished_flg(false);
+#endif
 
 GgafMainActor* GgafFactory::obtainActor(uint64_t prm_order_id, GgafObject* prm_org) {
     return (GgafMainActor*)GgafFactory::obtain(prm_order_id, prm_org);

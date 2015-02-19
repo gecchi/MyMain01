@@ -188,7 +188,7 @@ void RefractionLaserChip::processBehavior() {
                         _is_refracting = true;
 
                         if (_pDepo_refraction_effect) {
-                            _pRefractionEffect = (GgafDxDrawableActor*)_pDepo_refraction_effect->dispatch();
+                            _pRefractionEffect = (GgafDxFigureActor*)_pDepo_refraction_effect->dispatch();
                             if (_pRefractionEffect) {
                                 _pRefractionEffect->positionAs(this);
                                 //Å’·ŽžŠÔ‚Ì‰ðœ—\–ñB

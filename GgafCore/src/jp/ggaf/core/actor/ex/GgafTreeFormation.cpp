@@ -10,6 +10,7 @@ GgafTreeFormation::GgafTreeFormation(const char* prm_name, frame prm_offset_fram
     _class_name = "GgafTreeFormation";
     _pIte = nullptr;
     _can_call_up = true;
+    _is_addmember_experienced = false;
 }
 
 void GgafTreeFormation::addFormationMember(GgafActor* prm_pSub) {
@@ -35,16 +36,22 @@ void GgafTreeFormation::addFormationMember(GgafActor* prm_pSub) {
     prm_pSub->_pFormation = this; //メンバーへフォーメーションを設定
     GgafFormation::addSubLast(prm_pSub);
     prm_pSub->inactivate(); //フォーメーションなのでcallUpまで非活動。
+    _is_addmember_experienced = true;
 }
 
 void GgafTreeFormation::processFinal() {
     if (_was_all_sayonara || wasDeclaredEnd() || _will_inactivate_after_flg) {
         //終了を待つのみ
     } else {
-        if (getSubFirst() == nullptr) {  //配下がない場合、フォーメーションはなかったことになり、自身を終了
-            onSayonaraAll(); //コールバック
-            sayonara(_offset_frames_end);
-            _was_all_sayonara = true;
+        if (getSubFirst() == nullptr) {  //配下がない場合、フォーメーションはなかったことになり、自身を終了かな？
+            if (_is_addmember_experienced) {
+                onSayonaraAll(); //コールバック
+                sayonara(_offset_frames_end);
+                _was_all_sayonara = true;
+            } else {
+                //だがしかし、まだ一回もaddFormationMember()を経験していないので終了しない。
+                //TreeFormationとしての役割を果たすまでは死ねない。
+            }
         }
     }
 }

@@ -244,7 +244,7 @@ void MenuBoardKeyConfig::processBehavior() {
 
 }
 
-void MenuBoardKeyConfig::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
+void MenuBoardKeyConfig::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
     if (prm_item_index == ITEM_INDEX_CANCEL_) {
         input_mode_ = 0;
         sinkMe();
@@ -258,7 +258,7 @@ void MenuBoardKeyConfig::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, 
         paVBProperties[prm_item_index].pJoy->_pAFader->beat(30, 15, 0, 15, -1);
     }
 }
-void MenuBoardKeyConfig::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
+void MenuBoardKeyConfig::onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
 
 }
 

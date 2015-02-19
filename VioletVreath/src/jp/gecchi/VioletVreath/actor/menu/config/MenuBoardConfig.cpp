@@ -87,7 +87,7 @@ void MenuBoardConfig::processBehavior() {
     MenuBoard::processBehavior();
 }
 
-void MenuBoardConfig::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
+void MenuBoardConfig::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
     if (prm_item_index == ITEM_BACK) {
         sinkMe();
     } else if (prm_item_index == ITEM_KEY_CONFIG) {
@@ -99,7 +99,7 @@ void MenuBoardConfig::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int
     }
 }
 
-void MenuBoardConfig::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
+void MenuBoardConfig::onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
 }
 
 void MenuBoardConfig::onSinkDone() {

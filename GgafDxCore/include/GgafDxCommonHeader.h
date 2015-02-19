@@ -229,7 +229,7 @@ enum GgafDxValign {
 
 #define Obj_GgafDxBaseActor             (0x100U)          //0b 00000000 00000000 00000001 00000000
 #define Obj_GgafDxGeometricActor        (0x200U)          //0b 00000000 00000000 00000010 00000000
-#define Obj_GgafDxDrawableActor         (0x400U)          //0b 00000000 00000000 00000100 00000000
+#define Obj_GgafDxFigureActor         (0x400U)          //0b 00000000 00000000 00000100 00000000
 #define Obj_GgafDxMeshActor             (0x800U)          //0b 00000000 00000000 00001000 00000000
 #define Obj_GgafDxMeshSetActor          (0x1000U)         //0b 00000000 00000000 00010000 00000000
 #define Obj_GgafDxMorphMeshActor        (0x2000U)         //0b 00000000 00000000 00100000 00000000
@@ -292,7 +292,7 @@ class GgafDxIBumpMapActor;
 
 class GgafDxBaseActor;
 class GgafDxGeometricActor;
-class GgafDxDrawableActor;
+class GgafDxFigureActor;
 class GgafDxMeshActor;
 class GgafDxMeshSetActor;
 class GgafDxMorphMeshActor;

@@ -15,7 +15,7 @@ class GgafDxColorist : public GgafCore::GgafValueEnveloper<float, 3 > {
 
 public:
     /** 対象アクター */
-    GgafDxDrawableActor* const _pActor;
+    GgafDxFigureActor* const _pActor;
     float* _pa_diffuse[3];
 
     enum {
@@ -29,7 +29,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pActor  適用対象のActor
      */
-    explicit GgafDxColorist(GgafDxDrawableActor* prm_pActor);
+    explicit GgafDxColorist(GgafDxFigureActor* prm_pActor);
 
     void reset() override;
 
