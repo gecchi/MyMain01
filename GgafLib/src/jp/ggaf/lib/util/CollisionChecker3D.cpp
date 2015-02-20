@@ -121,7 +121,7 @@ void CollisionChecker3D::updateHitArea() {
     if (pActor == nullptr || pCollisionArea == nullptr) {
         return;
     }
-    if (pActor->isActiveInTheTree() ) {
+    if (pActor->isActiveInTheTree() && pActor->isActive()) {
         GgafDxCollisionPart* pColliPart;
         for (int i = 0; i < pCollisionArea->_colli_part_num; i++) {
 #ifdef MY_DEBUG
@@ -142,6 +142,11 @@ void CollisionChecker3D::updateHitArea() {
 
         //”ª•ª–Ø‚É“o˜^I
         _pElem->_kindbit = pActor->getMyGroupHead()->_kind;
+#ifdef MY_DEBUG
+        if (_pElem->_kindbit == 0) {
+            _TRACE_("ƒŒx„ CollisionChecker3D::updateHitArea() pActor="<<pActor->getName()<<"("<<pActor<<")‚Ìí•Ê‚ª0‚É‚à‚©‚©‚í‚ç‚¸A”ª•ª–Ø‚É“o˜^‚µ‚æ‚¤‚Æ‚µ‚Ä‚¢‚Ü‚·B‚È‚º‚Å‚·‚©HB");
+        }
+#endif
         _pLinearOctree->registerElem(_pElem, pActor->_x + pCollisionArea->_aabb_x1,
                                              pActor->_y + pCollisionArea->_aabb_y1,
                                              pActor->_z + pCollisionArea->_aabb_z1,

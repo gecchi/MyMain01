@@ -12,6 +12,7 @@ using namespace VioletVreath;
 WallAABTestActor::WallAABTestActor(const char* prm_name) :
         WallAABActor(prm_name, "_chk_WallAABTestModel", nullptr) {
     _class_name = "WallAABTestActor";
+    setHitAble(false);
 }
 
 void WallAABTestActor::onCreateModel() {

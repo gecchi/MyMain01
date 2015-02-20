@@ -41,6 +41,7 @@ void GgafDepositoryFormation::setFormationMember(GgafActorDepository* prm_pDepo)
     _pDepo = prm_pDepo;
     //団長に種別を正しく伝えるためにデポジトリ種別引継ぎ
     getStatus()->set(STAT_DEFAULT_ACTOR_KIND, _pDepo->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND));
+    //TODO:↑必要だっただろうか、Treeじゃないので不要ではないか？？2015/02/20
 }
 
 void GgafDepositoryFormation::processFinal() {

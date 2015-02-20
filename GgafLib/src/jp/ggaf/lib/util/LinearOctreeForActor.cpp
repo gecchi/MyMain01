@@ -44,8 +44,10 @@ void LinearOctreeForActor::executeHitChk(uint32_t prm_index) {
             if (pElem->_pNext) {
 
             } else {
-            _TRACE_("prev ["<<prm_index<<"] pElem_last="<<pElem_last<<":Actor:"<<(((LinearOctreeActorElem*)pElem_last)->_pActor)<<":"<<(((LinearOctreeActorElem*)pElem_last)->_pActor->getName())<<"");
-            _TRACE_("prev ["<<prm_index<<"] pElem="<<pElem<<":Actor:"<<(pElem->_pActor)<<":"<<(pElem->_pActor->getName())<<"");
+                frame active_frame = pElem->_pActor->getParent()->getActiveFrame();
+
+            _TRACE_(active_frame<<":prev ["<<prm_index<<"] pElem_last="<<pElem_last<<":Actor:"<<(((LinearOctreeActorElem*)pElem_last)->_pActor)<<":"<<(((LinearOctreeActorElem*)pElem_last)->_pActor->getName())<<"");
+            _TRACE_(active_frame<<":prev ["<<prm_index<<"] pElem="<<pElem<<":Actor:"<<(pElem->_pActor)<<":"<<(pElem->_pActor->getName())<<"");
             }
             pElem = (LinearOctreeActorElem*)(pElem->_pNext);
 

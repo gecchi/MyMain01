@@ -1,5 +1,7 @@
 #include "jp/ggaf/core/actor/ex/GgafTreeFormation.h"
 
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafGroupHead.h"
 #include "jp/ggaf/core/util/GgafStatus.h"
 
 using namespace GgafCore;
@@ -22,8 +24,41 @@ void GgafTreeFormation::addFormationMember(GgafActor* prm_pSub) {
 #endif
     _num_formation_member++;
     if (_pSubFirst == nullptr) {
-        //団長に種別を正しく伝えるために、初回追加の種別を、自身の種別に上書きする
-        getStatus()->set(STAT_DEFAULT_ACTOR_KIND, prm_pSub->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND));
+        //団長に種別を正しく伝えるために、初回追加の種別を、自身の種別に上書（GgafTreeFormation）きする
+        actorkind kind = prm_pSub->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND);
+        getStatus()->set(STAT_DEFAULT_ACTOR_KIND, kind);
+        //メンバー無しの GgafTreeFormation を、addSubGroup した後に addFormationMember を行った場合、
+        //まずメンバー無しの GgafTreeFormation を、addSubGroup した直後は、種別=0なので、作成された団長の種別も0で作成されてしまう。
+        //その後にaddFormationMemberを行っても、種別0に属してしまうという問題が有る。
+        //そこで、自身（GgafTreeFormation）が既に団長に属している場合。種別が異なれば、新たな団長の配下に所属し直す。
+        GgafGroupHead* myGroupHead = getMyGroupHead(); //団長
+        if (myGroupHead) {
+            //既に所属してしまっている。（シーンに属している）
+            if (myGroupHead->_kind != kind) {
+                //種別が変わったので、この団長の配下にはもういられない！
+                GgafActor* pGroupHeadParent = myGroupHead->getParent();
+                if (pGroupHeadParent->instanceOf(Obj_GgafMainActor)) {
+                    this->extract();
+                    GgafMainActor* pGroupHeadParentMainActor = (GgafMainActor*)pGroupHeadParent;
+                    pGroupHeadParentMainActor->addSubGroup(this);
+                    _TRACE_("GgafTreeFormation::addFormationMember "<<getName()<<"("<<this<<") は、所属済み団長の種別(＝自身の種別)"<<myGroupHead->_kind<<"と、追加メンバーの種別"<<kind<<"が異なるので、"<<
+                            "団長をすげ替えました。旧団長="<<myGroupHead->getName()<<"("<<myGroupHead<<") → 新団長="<<getMyGroupHead()->getName()<<"("<<getMyGroupHead()<<")。（ちなみに親はGgafMainActorでした。)");
+                } else if (pGroupHeadParent->instanceOf(Obj_GgafSceneDirector)) {
+                    this->extract();
+                    GgafSceneDirector* pMySceneDirector = (GgafSceneDirector*)pGroupHeadParent;
+                    pMySceneDirector->addSubGroup(this);
+                    _TRACE_("GgafTreeFormation::addFormationMember "<<getName()<<"("<<this<<") は、所属済み団長の種別(＝自身の種別)"<<myGroupHead->_kind<<"と、追加メンバーの種別"<<kind<<"が異なるので、"<<
+                            "団長をすげ替えました。旧団長="<<myGroupHead->getName()<<"("<<myGroupHead<<") → 新団長="<<getMyGroupHead()->getName()<<"("<<getMyGroupHead()<<")。（ちなみに親はGgafSceneDirectorでした。)");
+                } else {
+                    throwGgafCriticalException(
+                            "GgafTreeFormation::addFormationMember "<<getName()<<"("<<this<<") は、所属済み団長の種別(＝自身の種別)"<<myGroupHead->_kind<<"と、追加メンバーの種別"<<kind<<"が異なるので、"<<
+                            "団長の変更を試みましたが、団長の親が GgafMainActor でも GgafSceneDirector でも無いので、諦めました。");
+                }
+            }
+        } else {
+            //団長がいない＝シーンには未所属なので、
+            //シーンに所属時に自身の種別で団長が作成されるのでよし。
+        }
     } else {
 #ifdef MY_DEBUG
         if (getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND) != prm_pSub->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND)) {

@@ -27,12 +27,6 @@ FormationUrydike::FormationUrydike(const char* prm_name, int prm_formation_col_n
     num_Urydike_ = prm_formation_col_num  * prm_formation_row_num;
     call_up_interval_ = prm_call_up_interval; //出現間隔
     call_up_row_cnt_ = 0;
-
-    for (int i = 0; i < num_Urydike_; i++) {
-        std::string name = "Urydike("+XTOS(i)+")";
-        addFormationMember(NEW EnemyUrydike(name.c_str()));
-    }
-
     useProgress(PROG_BANPEI);
 }
 
@@ -46,23 +40,10 @@ FormationUrydike::FormationUrydike(const char* prm_name, const char* prm_xpm_id,
     num_Urydike_ = pXpM->getPixelNum();
     call_up_interval_ = prm_call_up_interval; //出現間隔
     call_up_row_cnt_ = 0;
-
-    //ここではいいのだが
-    for (int i = 0; i < num_Urydike_; i++) {
-        std::string name = "Urydike("+XTOS(i)+")";
-        addFormationMember(NEW EnemyUrydike(name.c_str()));
-    }
-
     useProgress(PROG_BANPEI);
 }
 
 void FormationUrydike::initialize() {
-    //ここではエラーセグメンテーションフォルト
-    //addFormationMember時に属性がおかしくないかな？？
-//    for (int i = 0; i < num_Urydike_; i++) {
-//        std::string name = "Urydike("+XTOS(i)+")";
-//        addFormationMember(NEW EnemyUrydike(name.c_str()));
-//    }
 }
 
 void FormationUrydike::onActive() {
@@ -79,10 +60,14 @@ void FormationUrydike::processBehavior() {
         }
         case PROG_INTERVAL: {
             if (pProg->isJustChanged()) {
-
+                for (int i = 0; i < num_Urydike_; i++) {
+                    orderActorToFactory(getId()*10000 + i, EnemyUrydike, "EnemyUrydike");
+                }
             }
             if (pProg->getFrameInProgress() == 120) {
-
+                for (int i = 0; i < num_Urydike_; i++) {
+                    addFormationMember(obtainActorFromFactory(getId()*10000 + i));
+                }
                 pProg->changeNext();
             }
             break;
