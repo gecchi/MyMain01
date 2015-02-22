@@ -2,6 +2,10 @@
 #define GGAFCORE_GGAFOBJECT_H_
 #include "GgafCommonHeader.h"
 
+#ifndef _MSC_VER
+    #include <atomic>
+#endif
+
 namespace GgafCore {
 
 /** クラス種別 */
@@ -14,18 +18,25 @@ typedef uint32_t classkind;
  * @author Masatoshi Tsuge
  */
 class GgafObject {
-    static uint64_t _obj_seq;
-    uint64_t _id;
-public:
 
+#ifdef _MSC_VER
+    //x86系ならばアトミック性がある・・・・・・・・。
+    static uint64_t _obj_seq;
+#else
+    static std::atomic<uint64_t> _obj_seq;
+#endif
+    uint64_t _id;
+
+public:
     /** [r]インスタンス種類 */
     classkind _obj_class;
 
 public:
     GgafObject();
-    uint64_t getId() {
+    inline uint64_t getId() {
         return _id;
     }
+
     /**
      * 識別名取得 .
      * @return 識別名

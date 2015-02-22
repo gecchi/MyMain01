@@ -2,9 +2,7 @@
 #define GGAFCORE_GGAFGACTORY_H_
 #include "GgafCommonHeader.h"
 
-#ifdef _MSC_VER
-
-#else
+#ifndef _MSC_VER
     #include <atomic>
 #endif
 
