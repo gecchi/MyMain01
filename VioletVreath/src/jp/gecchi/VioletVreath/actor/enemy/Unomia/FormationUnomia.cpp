@@ -8,24 +8,21 @@
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/CommonScene.h"
 
+#include "jp/ggaf/core/GgafFactory.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationUnomia::FormationUnomia(const char* prm_name, const char* prm_spl_id)
-   : DepositoryFormation(prm_name, 20*60) {
+   : TreeFormation(prm_name, 20*60) {
     _class_name = "FormationUnomia";
-
-    //ウーノミア編隊用デポジトリ
-    pConn_depo_Unomia_ = getConnection_DepositoryManager("EnemyUnomia4Formation");
-    setFormationMember(pConn_depo_Unomia_->peek());
 
     //スプライン定義ファイルを読み込む
     pConn_pSplManuf_ = getConnection_SplineManufactureManager(prm_spl_id);
     pDepo_shot_ = getCommonDepository(Shot004);
     updateRankParameter();
-
+    useProgress(PROG_BANPEI);
 }
 
 void FormationUnomia::updateRankParameter() {
@@ -36,6 +33,7 @@ void FormationUnomia::updateRankParameter() {
 }
 
 void FormationUnomia::initialize() {
+    getProgress()->reset(PROG_INIT);
 //    if (pConn_depo_Unomia_->chkFirstConnectionIs(this)) {
 //        _TRACE_("pConn_depo_Unomia_ は、ワシ("<<this<<")が育てたエヘン！")
 //        getPlatformScene()->getSceneDirector()->addSubGroup(
@@ -53,41 +51,89 @@ void FormationUnomia::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
 }
 
 void FormationUnomia::processBehavior() {
-    if (canCallUp() && (getActiveFrame() % RF_interval_frames_ == 0)) {
-        for (int i = 0; i < RF_num_formation_col_; i++) {
-            EnemyUnomia* pUnomia = (EnemyUnomia*)callUpMember(RF_num_formation_col_*RF_num_formation_row_);
-            if (pUnomia) {
-                SplineKurokoLeader* pKurokoLeader = pConn_pSplManuf_->peek()->
-                                              createKurokoLeader(pUnomia->getKuroko());
-                pUnomia->config(pKurokoLeader, nullptr, nullptr);
-                pUnomia->getKuroko()->setMvVelo(RF_mv_velo_);
-                onCallUpUnomia(pUnomia, i); //フォーメーション個別実装の処理
-            }
+   GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
+        case PROG_INIT: {
+            pProg->changeNext();
+            break;
         }
-    }
+        case PROG_READY_MEMBER: {
+            if (pProg->isJustChanged()) {
+                for (int i = 0; i < RF_num_formation_col_*RF_num_formation_row_; i++) {
+                    orderActorToFactory(getId()*10000 + i, EnemyUnomia, "EnemyUnomia");
+                }
+            }
+            if (pProg->getFrameInProgress() == 120) {
+                for (int i = 0; i < RF_num_formation_col_*RF_num_formation_row_; i++) {
+                    addFormationMember(obtainActorFromFactory(getId()*10000 + i));
+                }
+                pProg->changeNext();
+            }
+            break;
+        }
+        case PROG_CALL_UP: {
+            if (pProg->isJustChanged()) {
 
-    if (getActiveFrame() == 60 * 20) {
-        MyShip* pMy = P_MYSHIP;
-        GgafActor* pFollower = _listFollower.getCurrent();
-        int num_follwer = _listFollower.length();
-        EnemyUnomia* pUnomia;
-        GgafDxGeometricActor* pShot;
-        for (int i = 0; i < num_follwer; i++) {
-            pUnomia = (EnemyUnomia*)pFollower;
-            pShot = (GgafDxGeometricActor*)pDepo_shot_->dispatch();
-            if (pShot) {
-                pShot->positionAs(pUnomia);
-                GgafDxKuroko* pShot_pKuroko = pShot->getKuroko();
-                pShot_pKuroko->setMvAngTwd(pMy);
-                pShot_pKuroko->setMvVelo(PX_C(10));
-                pShot_pKuroko->setMvAcce(0);
             }
-            pFollower = _listFollower.next();
+            if (canCallUp()) {
+                if (getActiveFrame() % RF_interval_frames_ == 0) {
+                    for (int col = 0; col < RF_num_formation_col_; col++) {
+                        EnemyUnomia* pUnomia = (EnemyUnomia*)callUpMember();
+                        if (pUnomia) {
+                            SplineKurokoLeader* pKurokoLeader = pConn_pSplManuf_->peek()->
+                                                          createKurokoLeader(pUnomia->getKuroko());
+                            pUnomia->config(pKurokoLeader, nullptr, nullptr);
+                            pUnomia->getKuroko()->setMvVelo(RF_mv_velo_);
+                            onCallUpUnomia(pUnomia, col); //フォーメーション個別実装の処理
+                        }
+                    }
+                }
+            } else {
+                pProg->changeNext();
+            }
+            break;
         }
+        case PROG_WAIT1: {
+            if (pProg->getFrameInProgress() == 60*20) {
+                pProg->changeNext();
+            }
+            break;
+        }
+        case PROG_SHOT: {
+            if (pProg->isJustChanged()) {
+                MyShip* pMy = P_MYSHIP;
+                GgafActor* pFollower = getSubFirst();
+                while(true) {
+                    EnemyUnomia* pUnomia =  (EnemyUnomia*)pFollower;
+                    if (pUnomia->isActive()) {
+                        GgafDxGeometricActor* pShot = (GgafDxGeometricActor*)pDepo_shot_->dispatch();
+                        if (pShot) {
+                            pShot->positionAs(pUnomia);
+                            GgafDxKuroko* pShot_pKuroko = pShot->getKuroko();
+                            pShot_pKuroko->setMvAngTwd(pMy);
+                            pShot_pKuroko->setMvVelo(PX_C(10));
+                            pShot_pKuroko->setMvAcce(0);
+                        }
+                    }
+                    if (pFollower->isLast()) {
+                        break;
+                    }
+                    pFollower = pFollower->getNext();
+                }
+            }
+            pProg->changeNext();
+            break;
+        }
+        case PROG_WAIT2: {
+            if (pProg->isJustChanged()) {
+            }
+            break;
+        }
+        default :
+            break;
     }
 }
 
 FormationUnomia::~FormationUnomia() {
-    pConn_depo_Unomia_->close();
     pConn_pSplManuf_->close();
 }

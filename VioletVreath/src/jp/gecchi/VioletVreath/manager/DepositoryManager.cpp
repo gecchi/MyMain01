@@ -132,15 +132,6 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         }
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
 
-    } else if (strcmp("EnemyUnomia4Formation", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("EnemyUnomiaDepo");
-        for (int i = 0; i < 800; i++) {
-            std::string name = "Unomia["+XTOS(i)+"]";
-            pResource->put(NEW EnemyUnomia(name.c_str()));
-            Sleep(1);
-        }
-        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
-
     } else if (strcmp("Emilia", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("Deop_Emilia");
         for (int i = 0; i < 200; i++) {

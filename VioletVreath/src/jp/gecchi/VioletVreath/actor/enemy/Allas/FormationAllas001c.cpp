@@ -16,7 +16,6 @@ FormationAllas001c::FormationAllas001c(const char* prm_name) : FormationAllas001
 void FormationAllas001c::onCallUpAllas(EnemyAllas* prm_pAllas) {
     prm_pAllas->pKurokoLeader_->adjustAxisZFlip();
     prm_pAllas->pKurokoLeader_->setAbsoluteBeginCoord();
-    prm_pAllas->getKuroko()->setMvVelo(velo_mv_);
 }
 
 FormationAllas001c::~FormationAllas001c() {

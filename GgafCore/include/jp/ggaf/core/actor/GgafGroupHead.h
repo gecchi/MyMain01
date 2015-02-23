@@ -46,6 +46,8 @@ public:
 public:
     GgafGroupHead(actorkind prm_kind, GgafStatus* prm_pStat = nullptr);
 
+    void setKind(actorkind prm_kind);
+
     /**
      * ‰Šúˆ— .
      */
@@ -112,6 +114,7 @@ public:
     GgafGod* askGod();
 
     void updateActiveInTheTree() override;
+
 
     virtual ~GgafGroupHead();
 };

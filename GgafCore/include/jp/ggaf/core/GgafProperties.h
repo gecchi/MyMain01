@@ -4,6 +4,9 @@
 
 #include "jp/ggaf/core/util/GgafUtil.h"
 #include "jp/ggaf/core/util/GgafRgb.h"
+#ifndef _MSC_VER
+    #include <atomic>
+#endif
 
 #ifdef PROPERTY
     #undef PROPERTY
@@ -52,6 +55,13 @@ public:
 
     /** [r] 保持プロパティMAP */
     static GgafStrMap* _pMapProperties;
+#ifdef _MSC_VER
+    //TODO:VC++2005以降(x86) の volatile は、メモリバリア効果がある（と思う）。
+    //gcc(x86)は、アトミック保証は無いが std::atomic が使える。VC++に atomic が実装されるまではとりあえず・・・。
+    static volatile bool _is_lock;
+#else
+    static volatile std::atomic<bool> _is_lock;
+#endif
 
 public:
     /**

@@ -1,7 +1,7 @@
 #ifndef FORMATIONUNOMIA_H_
 #define FORMATIONUNOMIA_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/DepositoryFormation.h"
+#include "jp/ggaf/lib/actor/TreeFormation.h"
 
 namespace VioletVreath {
 
@@ -11,11 +11,20 @@ namespace VioletVreath {
  * @since 2011/02/14
  * @author Masatoshi Tsuge
  */
-class FormationUnomia : public GgafLib::DepositoryFormation {
+class FormationUnomia : public GgafLib::TreeFormation {
 
 public:
-    /** ウーノミア借り入れ元Depository資源への接続 */
-    DepositoryConnection* pConn_depo_Unomia_;
+    enum {
+        PROG_INIT  ,
+        PROG_READY_MEMBER,
+        PROG_CALL_UP ,
+        PROG_WAIT1,
+        PROG_SHOT,
+        PROG_WAIT2,
+        PROG_BANPEI,
+    };
+
+    /** ウーノミアの玉、借り入れ元Depository資源への接続 */
     GgafCore::GgafActorDepository* pDepo_shot_;
 
     /** スプライン定義資源への接続 */

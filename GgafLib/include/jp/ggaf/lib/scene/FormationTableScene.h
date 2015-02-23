@@ -48,6 +48,8 @@ namespace GgafLib {
  *                                                             :          280までに間に合っているので出現する。
  *                                                             :          仮に編隊dが5フレーム以内で消滅された場合は、編隊eも出現可能。
  *  </code></pre>
+ * 即刻次の編隊、という即効表示が必要な場合は、TreeFormation より、DepositoryFormationのほうが
+ * 編隊準備が不要なので良い・・・。
  * @version 1.00
  * @since 2010/08/19
  * @author Masatoshi Tsuge

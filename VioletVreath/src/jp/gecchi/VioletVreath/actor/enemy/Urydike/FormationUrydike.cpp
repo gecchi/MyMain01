@@ -58,7 +58,7 @@ void FormationUrydike::processBehavior() {
             pProg->changeNext();
             break;
         }
-        case PROG_INTERVAL: {
+        case PROG_READY_MEMBER: {
             if (pProg->isJustChanged()) {
                 for (int i = 0; i < num_Urydike_; i++) {
                     orderActorToFactory(getId()*10000 + i, EnemyUrydike, "EnemyUrydike");

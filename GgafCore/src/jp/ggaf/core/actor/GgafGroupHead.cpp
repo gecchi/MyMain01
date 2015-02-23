@@ -21,6 +21,16 @@ GgafGroupHead::GgafGroupHead(actorkind prm_kind, GgafStatus* prm_pStat) : GgafAc
     _pSceneDirector = nullptr;
 }
 
+void GgafGroupHead::setKind(actorkind prm_kind) {
+    char aChar_strbit[33];
+    UTIL::strbin(prm_kind, aChar_strbit);
+    std::stringstream ss;
+    ss << "kind=" << aChar_strbit << "";
+    std::string name = ss.str();
+    strcpy(_name, name.c_str());
+    _kind = prm_kind;
+}
+
 GgafSceneDirector* GgafGroupHead::getSceneDirector() {
     if (_pSceneDirector == nullptr) {
         if (_pParent == nullptr) {
