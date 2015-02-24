@@ -12,6 +12,7 @@ using namespace VioletVreath;
 WallAAPrismTestActor::WallAAPrismTestActor(const char* prm_name) :
         WallAAPrismActor(prm_name, "_chk_WallAAPrismTestModel", nullptr) {
     _class_name = "WallAAPrismTestActor";
+    setHitAble(false);
 }
 
 void WallAAPrismTestActor::onCreateModel() {

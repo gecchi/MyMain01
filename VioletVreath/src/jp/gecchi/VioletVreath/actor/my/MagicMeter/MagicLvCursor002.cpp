@@ -25,7 +25,7 @@ void MagicLvCursor002::moveSmoothTo(int prm_lv, frame prm_spent) {
 
 void MagicLvCursor002::dispDisable() {
     GgafDxUvFlipper* pUvFlipper = getUvFlipper();
-    int lock_ptn_no = pUvFlipper->getBottomPtnno() + 1; //最後のパターンの次はロック表示
+    int lock_ptn_no = 3; //最後のパターンの次はロック表示
     pUvFlipper->setFlipPtnRange(lock_ptn_no,lock_ptn_no); //ロック表示
     pUvFlipper->setActivePtn(lock_ptn_no);
 }

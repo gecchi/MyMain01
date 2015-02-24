@@ -2,6 +2,7 @@
 
 #include "jp/ggaf/core/actor/ex/GgafFormation.h"
 
+#include "jp/ggaf/core/GgafFactory.h"
 using namespace GgafCore;
 
 GgafActor::GgafActor(const char* prm_name, GgafStatus* prm_pStat) :
@@ -25,6 +26,11 @@ GgafActor::GgafActor(const char* prm_name, GgafStatus* prm_pStat) :
 GgafActor::~GgafActor() {
     _pFormation = nullptr;
     GGAF_DELETE(_pStatus);
+    if (GgafFactory::_is_working_flg) {
+        GgafFactory::removeOrder(this); //自身が注文しっぱなしの商品を掃除
+    } else {
+        //アプリ終了処理時のため、工場ももれなく掃除されるため考慮不要
+    }
     _TRACE_("delete "<<_class_name<<"("<<this<<")["<<getName()<<"] _id="<<getId());
     //OutputDebugStringA("*");
 }

@@ -35,6 +35,7 @@ private:
      * @param prm_order_id	注文識別ID番号
      * @param prm_pFunc	実際に製造処理を行う関数のポインタ
      * @param prm_pOrderer 発注者
+     * @param prm_pReceiver 受け取り予定者
      * @param prm_pArg1	製造処理を行う関数への引数1
      * @param prm_pArg2	製造処理を行う関数への引数2
      * @param prm_pArg3	製造処理を行う関数への引数3
@@ -42,6 +43,7 @@ private:
     static void order(uint64_t prm_order_id,
                       GgafObject* (*prm_pFunc)(void*, void*, void*),
                       GgafObject* prm_pOrderer,
+                      GgafObject* prm_pReceiver,
                       void* prm_pArg1,
                       void* prm_pArg2,
                       void* prm_pArg3);
@@ -50,10 +52,10 @@ private:
      * 注文した商品を取り出す .
      * 未製造だった場合、製造が完了するまで待つ。<BR>
      * @param   prm_order_id	注文識別ID番号
-     * @param   prm_org 注文元（デバッグ用）
+     * @param   prm_pReceiver	受取人
      * @return	製品のポインタ
      */
-    static void* obtain(uint64_t prm_order_id, GgafObject* prm_org);
+    static void* obtain(uint64_t prm_order_id, GgafObject* prm_pReceiver);
 
 public:
     /** 先頭の注文 */
@@ -64,7 +66,18 @@ public:
     //全て製造済みかつ、製品が全て取得されてしまった場合は nullptr になる。
     //_is_last_order_flg == false を常に判定し、最終注文でなくなったら（新規注文があれば）、
     //製造を行って次に進める。 _is_last_order_flg == false になるまで製造しつづける
+    // また、先頭と末尾の注文もポインタでつながっている(環状)
 
+    //      ROOT_ORDER
+    //        ↓
+    //      pOrder <-> pOrder <-> pOrder <-> pOrder <-> pOrder <-> pOrder
+    //     (製造済)   (製造済)  （製造中）  (未着手)   (未着手)   (未着手)
+    //                              ↑                            _is_last_order_flg == true
+    //                        CREATING_ORDER
+    //                    製造を終えると右に動く  ===>
+    //
+    //prev <------古い注文----------------------------------新しい注文-----> next
+    //                                               注文は末尾についてくる
 #ifdef _MSC_VER
     //x86系ならばアトミック性がある・・・・・・・・。
     /** [r]活動フラグ(神が操作する) */
@@ -100,10 +113,11 @@ public:
     static void orderActor(uint64_t prm_order_id,
                            X* (*prm_pFunc)(void*, void*, void*),
                            GgafObject* prm_pOrderer,
+                           GgafObject* prm_pReceiver,
                            void* prm_pArg1,
                            void* prm_pArg2,
                            void* prm_pArg3) {
-        order(prm_order_id, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pArg1, prm_pArg2, prm_pArg3);
+        order(prm_order_id, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
     }
 
     /**
@@ -120,10 +134,11 @@ public:
     static void orderScene(uint64_t prm_order_id,
                            X* (*prm_pFunc)(void*, void*, void*),
                            GgafObject* prm_pOrderer,
+                           GgafObject* prm_pReceiver,
                            void* prm_pArg1,
                            void* prm_pArg2,
                            void* prm_pArg3) {
-        order(prm_order_id, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pArg1, prm_pArg2, prm_pArg3);
+        order(prm_order_id, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
     }
 
     /**
@@ -131,30 +146,31 @@ public:
      * メイン処理が呼び出します。<BR>
      * 未製造だった場合、製造が完了するまで待つ。<BR>
      * @param   prm_id	注文識別ID
-     * @param   prm_org 注文元（デバッグ用）
+     * @param   prm_pReceiver 受取人
      * @return	生成されたアクターのポインタ
      */
-    static GgafMainActor* obtainActor(uint64_t prm_order_id, GgafObject* prm_org);
+    static GgafMainActor* obtainActor(uint64_t prm_order_id, GgafObject* prm_pReceiver);
 
     /**
      * 注文したシーンを取り出す。（メインスレッドが使用） .
      * メイン処理が呼び出します。<BR>
      * 未製造だった場合、製造が完了するまで待つ。<BR>
      * @param   prm_id	注文識別ID
-     * @param   prm_org 注文元（デバッグ用）
+     * @param   prm_pReceiver 受取人
      * @return	生成されたシーンのポインタ
      */
-    static GgafMainScene* obtainScene(uint64_t prm_order_id, GgafObject* prm_org);
+    static GgafMainScene* obtainScene(uint64_t prm_order_id, GgafObject* prm_pReceiver);
 
 
     template<class X>
     static X* makeObject(X* (*prm_pFunc)(void*, void*, void*),
                          GgafObject* prm_pOrderer,
+                         GgafObject* prm_pReceiver,
                          void* prm_pArg1,
                          void* prm_pArg2,
                          void* prm_pArg3,
                          GgafObject* prm_org) {
-        order(ORDER_ID_MAX, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pArg1, prm_pArg2, prm_pArg3);
+        order(ORDER_ID_MAX, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
         return (X*)(obtain(ORDER_ID_MAX, prm_org));
     }
 
@@ -177,6 +193,8 @@ public:
      *     END_SYNCHRONIZED1; // <----- 排他終了<BR>
      */
     static void clean();
+
+    static void removeOrder(GgafObject* prm_pReceiver);
 
     /**
      * 稼動する。（工場スレッドメインループ）.
@@ -235,12 +253,12 @@ public:
 
 
 };
-#define orderSceneToFactory(ID, CLASS, NAME) (GgafCore::GgafFactory::orderScene<CLASS>((ID),GgafCore::GgafFactory::createScene, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr)))
-#define orderActorToFactory(ID, CLASS, NAME) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActor, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr)))
+#define orderSceneToFactory(ID, CLASS, NAME) (GgafCore::GgafFactory::orderScene<CLASS>((ID),GgafCore::GgafFactory::createScene, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr)))
+#define orderActorToFactory(ID, CLASS, NAME) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActor, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr)))
 #define obtainActorFromFactory(ID) (GgafCore::GgafFactory::obtainActor((ID),this))
 #define obtainSceneFromFactory(ID) (GgafCore::GgafFactory::obtainScene((ID),this))
-#define createInFactory(CLASS, NAME) (GgafCore::GgafFactory::makeObject<CLASS>(GgafCore::GgafFactory::create, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr),this))
-#define createInFactory2(CLASS, NAME, MODEL) (GgafCore::GgafFactory::makeObject<CLASS>(GgafCore::GgafFactory::create2, this, (void*)(NAME),(void*)(MODEL),(void*)(nullptr),this))
+#define createInFactory(CLASS, NAME) (GgafCore::GgafFactory::makeObject<CLASS>(GgafCore::GgafFactory::create, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr),this))
+#define createInFactory2(CLASS, NAME, MODEL) (GgafCore::GgafFactory::makeObject<CLASS>(GgafCore::GgafFactory::create2, this, this, (void*)(NAME),(void*)(MODEL),(void*)(nullptr),this))
 
 }
 #endif /*GGAFCORE_GGAFGACTORY_H_*/

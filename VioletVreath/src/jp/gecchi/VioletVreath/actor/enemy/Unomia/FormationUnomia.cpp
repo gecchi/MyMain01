@@ -60,12 +60,12 @@ void FormationUnomia::processBehavior() {
         case PROG_READY_MEMBER: {
             if (pProg->isJustChanged()) {
                 for (int i = 0; i < RF_num_formation_col_*RF_num_formation_row_; i++) {
-                    orderActorToFactory(getId()*10000 + i, EnemyUnomia, "EnemyUnomia");
+                    orderActorToFactory(i, EnemyUnomia, "EnemyUnomia");
                 }
             }
             if (pProg->getFrameInProgress() == 120) {
                 for (int i = 0; i < RF_num_formation_col_*RF_num_formation_row_; i++) {
-                    addFormationMember(obtainActorFromFactory(getId()*10000 + i));
+                    addFormationMember(obtainActorFromFactory(i));
                 }
                 pProg->changeNext();
             }

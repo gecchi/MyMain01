@@ -7,6 +7,7 @@ namespace GgafCore {
 
 /**
  * 商品（インスタンス）の注文クラス .
+ * 注文識別ID(_order_id) + 受取予定人(_pReceiver) で商品は管理されユニークになります。
  * 工場(GgafFactory)に渡す注文を表したクラスで、 商品（インスタンス）１つを内部保持します。<BR>
  * また注文オブジェクト同士で連結リストを作成でき、そのリストは工場(GgafFactory)が操作することになります。<BR>
  * @version 1.00
@@ -20,6 +21,8 @@ class GgafOrder : public GgafObject {
 private:
     /** 発注者 */
     GgafObject* _pOrderer;
+    /** 受取予定人(nullptrの場合は、だれでも受け取れる) */
+    GgafObject* _pReceiver;
     /** 一つ次の注文 */
     GgafOrder* _pOrder_next;
     /** 一つ前の注文 */

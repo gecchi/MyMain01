@@ -166,7 +166,7 @@ pStore_EnemyStraightLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_Enem
     //汎用ストレートレーザー
     {
         LaserChipDepository* pLaserChipDepo;
-        for (int laser_no = 0; laser_no < 10; laser_no++) { //セット本数
+        for (int laser_no = 0; laser_no < 256; laser_no++) { //セット本数
             std::string name_depo = "LaserChipDepo["+XTOS(laser_no)+"]";
             pLaserChipDepo = NEW LaserChipDepository(name_depo.c_str());
             for (int chip_no = 0; chip_no < 80; chip_no++) { //１本の長さ

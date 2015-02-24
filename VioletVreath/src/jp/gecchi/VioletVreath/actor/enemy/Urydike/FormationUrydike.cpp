@@ -61,12 +61,12 @@ void FormationUrydike::processBehavior() {
         case PROG_READY_MEMBER: {
             if (pProg->isJustChanged()) {
                 for (int i = 0; i < num_Urydike_; i++) {
-                    orderActorToFactory(getId()*10000 + i, EnemyUrydike, "EnemyUrydike");
+                    orderActorToFactory(i, EnemyUrydike, "EnemyUrydike");
                 }
             }
             if (pProg->getFrameInProgress() == 120) {
                 for (int i = 0; i < num_Urydike_; i++) {
-                    addFormationMember(obtainActorFromFactory(getId()*10000 + i));
+                    addFormationMember(obtainActorFromFactory(i));
                 }
                 pProg->changeNext();
             }

@@ -79,7 +79,7 @@ private:
             _max_delay_offset = prm_max_delay_offset;
         }
         virtual ~TblElem() {
-            //_pActorはシーン所属となるため解放は不要
+            //_pFormationActorはシーン所属となるため解放は不要
         }
     };
 

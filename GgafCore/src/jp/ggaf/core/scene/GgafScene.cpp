@@ -2,6 +2,7 @@
 
 #include "jp/ggaf/core/GgafGod.h"
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/GgafFactory.h"
 
 using namespace GgafCore;
 
@@ -19,7 +20,11 @@ GgafScene::GgafScene(const char* prm_name) : GgafElement<GgafScene> (prm_name) {
 }
 
 GgafScene::~GgafScene() {
-
+    if (GgafFactory::_is_working_flg) {
+        GgafFactory::removeOrder(this); //自身が注文しっぱなしの商品を掃除
+    } else {
+        //アプリ終了処理時のため、工場ももれなく掃除されるため考慮不要
+    }
 #ifdef MY_DEBUG
     _TRACE_("delete "<<_class_name<<"("<<this<<")["<<getName()<<"] _id="<<getId());
 #else

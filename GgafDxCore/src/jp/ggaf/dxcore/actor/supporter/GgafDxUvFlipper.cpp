@@ -70,7 +70,7 @@ void GgafDxUvFlipper::setRotation(int prm_ptn_col_num, int prm_ptn_row_num) {
 void GgafDxUvFlipper::setActivePtn(int prm_pattno_uvflip) {
 #ifdef MY_DEBUG
     if (prm_pattno_uvflip > _pattno_uvflip_max) {
-        throwGgafCriticalException("GgafDxUvFlipper::setActivePtn 引数のパターン番号="<<prm_pattno_uvflip<<"は、範囲外です。_pattno_uvflip_max="<<_pattno_uvflip_max<<" Texture="<<_pTexture->_texture_name);
+        throwGgafCriticalException("＜警告＞GgafDxUvFlipper::setActivePtn 引数のパターン番号="<<prm_pattno_uvflip<<"は、最大パターン番号（NOT 上限パターン番号）を超えています。_pattno_uvflip_max="<<_pattno_uvflip_max<<" Texture="<<_pTexture->_texture_name);
     }
 #endif
     _pattno_uvflip_now = prm_pattno_uvflip;

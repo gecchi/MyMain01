@@ -47,12 +47,12 @@ void FormationAllas001::processBehavior() {
         case PROG_READY_MEMBER: {
             if (pProg->isJustChanged()) {
                 for (int i = 0; i < num_Allas_; i++) {
-                    orderActorToFactory(getId()*10000 + i, EnemyAllas, "EnemyAllas");
+                    orderActorToFactory(i, EnemyAllas, "EnemyAllas");
                 }
             }
             if (pProg->getFrameInProgress() == 60) {
                 for (int i = 0; i < num_Allas_; i++) {
-                    addFormationMember(obtainActorFromFactory(getId()*10000 + i));
+                    addFormationMember(obtainActorFromFactory(i));
                 }
                 pProg->changeNext();
             }

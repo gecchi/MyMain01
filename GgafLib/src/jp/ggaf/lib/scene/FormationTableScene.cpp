@@ -18,7 +18,7 @@ GgafGroupHead* FormationTableScene::addToTable(GgafFormation* prm_pFormationActo
     if (prm_pFormationActor->instanceOf(Obj_GgafFormation)) {
         //OK
     } else {
-        throwGgafCriticalException("FormationTableScene::addToTable() TreeFormation 以外が登録されています。");
+        throwGgafCriticalException("FormationTableScene::addToTable() GgafFormation 以外が登録されています。");
     }
     prm_pFormationActor->_offset_frames_end = FORMATION_END_DELAY;
     prm_pFormationActor->inactivate();
@@ -55,14 +55,6 @@ void FormationTableScene::processBehavior() {
         TblElem* e = _table.getCurrent();
         GgafFormation* pF = e->_pFormationActor;
         //全滅判定
-//        bool was_destroyed = false;
-//
-//        if (pF->_was_all_destroyed) { //編隊破壊による全滅(画面外に逃げた場合は0にはならない)
-//            was_destroyed = true;
-//        } else {
-//            was_destroyed = false;
-//        }
-
         if (pF->_was_all_destroyed) {
             //全滅の場合
             if (_table.isLast()) {

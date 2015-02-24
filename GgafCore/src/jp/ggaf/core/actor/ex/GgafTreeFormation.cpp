@@ -17,9 +17,9 @@ GgafTreeFormation::GgafTreeFormation(const char* prm_name, frame prm_offset_fram
 
 void GgafTreeFormation::addFormationMember(GgafActor* prm_pSub) {
 #ifdef MY_DEBUG
-    if (wasDeclaredEnd() || _will_inactivate_after_flg) {
+    if (wasDeclaredEnd()) {
         //終了を待つのみ
-        throwGgafCriticalException("GgafTreeFormation::addSubLast("<<prm_pSub->getName()<<") 既に死にゆく定めのFormationです。サブに追加することはおかしいでしょう。this="<<getName());
+        _TRACE_("＜警告＞ GgafTreeFormation::addSubLast("<<prm_pSub->getName()<<"("<<prm_pSub<<")) 既に死にゆく定めのFormationです。サブに追加することはおかしいのではないか？いいのか？。this="<<getName()<<"("<<this<<")");
     }
 #endif
     _num_formation_member++;
