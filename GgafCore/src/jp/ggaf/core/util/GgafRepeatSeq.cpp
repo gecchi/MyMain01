@@ -27,7 +27,6 @@ void GgafRepeatSeq::create(std::string& ID, int min, int max) {
 #endif
     _TRACE_("シークエンスを作成します。 GgafRepeatSeq::create("<<ID<<","<<min<<","<<max<<")");
     mapSeq[ID].init(min, max);
-    Sleep(1);
 }
 
 void GgafRepeatSeq::create(const char* ID, int min, int max) {

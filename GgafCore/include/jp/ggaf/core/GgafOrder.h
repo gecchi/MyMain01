@@ -2,6 +2,7 @@
 #define GGAFCORE_GGAFORDER_H_
 #include "GgafCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
+#include <windows.h>
 
 namespace GgafCore {
 
@@ -23,6 +24,12 @@ private:
     GgafObject* _pOrderer;
     /** 受取予定人(nullptrの場合は、だれでも受け取れる) */
     GgafObject* _pReceiver;
+    /** 発注時刻 */
+    DWORD _time_of_order;
+    /** 製造開始時刻 */
+    DWORD _time_of_create_begin;
+    /** 製造完了時刻 */
+    DWORD _time_of_create_finish;
     /** 一つ次の注文 */
     GgafOrder* _pOrder_next;
     /** 一つ前の注文 */

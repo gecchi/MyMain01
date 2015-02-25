@@ -39,9 +39,9 @@ void GgafProperties::load(std::string prm_properties_filename) {
     WAIT_LOCK;
     GgafProperties::_is_lock = true;
 
-    if (_pMapProperties == nullptr) {
-        _pMapProperties = NEW GgafStrMap();
-        UTIL::readProperties(prm_properties_filename, _pMapProperties);
+    if (GgafProperties::_pMapProperties == nullptr) {
+        GgafProperties::_pMapProperties = NEW GgafStrMap();
+        UTIL::readProperties(prm_properties_filename, GgafProperties::_pMapProperties);
     }
 
     if (GgafProperties::isExistKey("MAX_SKIP_FRAME")) {
@@ -115,18 +115,18 @@ void GgafProperties::load(std::string prm_properties_filename) {
 void GgafProperties::save(std::string prm_properties_filename) {
     WAIT_LOCK;
     GgafProperties::_is_lock = true;
-    UTIL::writeProperties(prm_properties_filename.c_str(), _pMapProperties);
+    UTIL::writeProperties(prm_properties_filename.c_str(), GgafProperties::_pMapProperties);
     GgafProperties::_is_lock = false;
 }
 
 void GgafProperties::clean() {
     _TRACE_("Properties::clean()");
-    GGAF_DELETE_NULLABLE(_pMapProperties);
+    GGAF_DELETE_NULLABLE(GgafProperties::_pMapProperties);
 }
 
 std::string GgafProperties::getStr(std::string prm_key) {
     if (isExistKey(prm_key)) {
-        std::string* r = NEW std::string((*_pMapProperties)[prm_key].c_str());
+        std::string* r = NEW std::string((*GgafProperties::_pMapProperties)[prm_key].c_str());
         std::string val = *r;
         GGAF_DELETE(r);
         return val;
@@ -137,7 +137,7 @@ std::string GgafProperties::getStr(std::string prm_key) {
 
 float GgafProperties::getFloat(std::string prm_key) {
     if (isExistKey(prm_key)) {
-        float ret = (float)atof((*_pMapProperties)[prm_key].c_str());
+        float ret = (float)atof((*GgafProperties::_pMapProperties)[prm_key].c_str());
         return ret;
     } else {
         throwGgafCriticalException("GgafProperties::getInt() Error! プロパティに、キー("<<prm_key<<")が存在しません。");
@@ -146,7 +146,7 @@ float GgafProperties::getFloat(std::string prm_key) {
 }
 int GgafProperties::getInt(std::string prm_key) {
     if (isExistKey(prm_key)) {
-        int ret = (int)(atoi((*_pMapProperties)[prm_key].c_str()));
+        int ret = (int)(atoi((*GgafProperties::_pMapProperties)[prm_key].c_str()));
         return ret;
     } else {
         throwGgafCriticalException("GgafProperties::getInt() Error! プロパティに、キー("<<prm_key<<")が存在しません。");
@@ -155,7 +155,7 @@ int GgafProperties::getInt(std::string prm_key) {
 
 uint32_t GgafProperties::getUInt(std::string prm_key) {
     if (isExistKey(prm_key)) {
-        uint32_t ret = (uint32_t)(atof((*_pMapProperties)[prm_key].c_str()));
+        uint32_t ret = (uint32_t)(atof((*GgafProperties::_pMapProperties)[prm_key].c_str()));
         return ret;
     } else {
         throwGgafCriticalException("GgafProperties::getUInt() Error! プロパティに、キー("<<prm_key<<")が存在しません。");
@@ -164,7 +164,7 @@ uint32_t GgafProperties::getUInt(std::string prm_key) {
 
 bool GgafProperties::getBool(std::string prm_key) {
     if (isExistKey(prm_key)) {
-        return UTIL::cnvBool((*_pMapProperties)[prm_key]);
+        return UTIL::cnvBool((*GgafProperties::_pMapProperties)[prm_key]);
     } else {
         throwGgafCriticalException("GgafProperties::getBool() Error! プロパティに、キー("<<prm_key<<")が存在しません。");
     }
@@ -172,7 +172,7 @@ bool GgafProperties::getBool(std::string prm_key) {
 
 double GgafProperties::getDouble(std::string prm_key) {
     if (isExistKey(prm_key)) {
-        double ret = atof((*_pMapProperties)[prm_key].c_str());
+        double ret = atof((*GgafProperties::_pMapProperties)[prm_key].c_str());
         return ret;
     } else {
         throwGgafCriticalException("GgafProperties::getDouble() Error! プロパティに、キー("<<prm_key<<")が存在しません。");
@@ -192,7 +192,7 @@ void GgafProperties::setValue(std::string prm_key, int prm_value) {
     WAIT_LOCK;
     GgafProperties::_is_lock = true;
     if (isExistKey(prm_key)) {
-        (*_pMapProperties)[prm_key] = XTOS(prm_value);
+        (*GgafProperties::_pMapProperties)[prm_key] = XTOS(prm_value);
     } else {
         throwGgafCriticalException("GgafProperties::setValue(int) Error! プロパティに、キー("<<prm_key<<")が存在しません。");
     }
@@ -203,7 +203,7 @@ void GgafProperties::setValue(std::string prm_key, uint32_t prm_value) {
     WAIT_LOCK;
     GgafProperties::_is_lock = true;
     if (isExistKey(prm_key)) {
-        (*_pMapProperties)[prm_key] = XTOS(prm_value);
+        (*GgafProperties::_pMapProperties)[prm_key] = XTOS(prm_value);
     } else {
         throwGgafCriticalException("GgafProperties::setValue(uint32_t) Error! プロパティに、キー("<<prm_key<<")が存在しません。");
     }
@@ -213,7 +213,7 @@ void GgafProperties::setValue(std::string prm_key, uint32_t prm_value) {
 void GgafProperties::setValue(std::string prm_key, std::string prm_value) {
     WAIT_LOCK;
     if (isExistKey(prm_key)) {
-        (*_pMapProperties)[prm_key] = prm_value;
+        (*GgafProperties::_pMapProperties)[prm_key] = prm_value;
     } else {
         throwGgafCriticalException("GgafProperties::setValue(std::string) Error! プロパティに、キー("<<prm_key<<")が存在しません。");
     }
@@ -224,7 +224,7 @@ void GgafProperties::setValue(std::string prm_key, float prm_value) {
     WAIT_LOCK;
     GgafProperties::_is_lock = true;
     if (isExistKey(prm_key)) {
-        (*_pMapProperties)[prm_key] = XTOS(prm_value);
+        (*GgafProperties::_pMapProperties)[prm_key] = XTOS(prm_value);
     } else {
         throwGgafCriticalException("GgafProperties::setValue(float) Error! プロパティに、キー("<<prm_key<<")が存在しません。");
     }
@@ -235,7 +235,7 @@ void GgafProperties::setValue(std::string prm_key, double prm_value) {
     WAIT_LOCK;
     GgafProperties::_is_lock = true;
     if (isExistKey(prm_key)) {
-        (*_pMapProperties)[prm_key] = XTOS(prm_value);
+        (*GgafProperties::_pMapProperties)[prm_key] = XTOS(prm_value);
     } else {
         throwGgafCriticalException("GgafProperties::setValue(double) Error! プロパティに、キー("<<prm_key<<")が存在しません。");
     }
@@ -247,9 +247,9 @@ void GgafProperties::setValue(std::string prm_key, bool prm_value) {
     GgafProperties::_is_lock = true;
     if (isExistKey(prm_key)) {
         if (prm_value) {
-            (*_pMapProperties)[prm_key] = "true";
+            (*GgafProperties::_pMapProperties)[prm_key] = "true";
         } else {
-            (*_pMapProperties)[prm_key] = "false";
+            (*GgafProperties::_pMapProperties)[prm_key] = "false";
         }
     } else {
         throwGgafCriticalException("GgafProperties::setValue(bool) Error! プロパティに、キー("<<prm_key<<")が存在しません。");
@@ -261,7 +261,7 @@ void GgafProperties::setValue(std::string prm_key, GgafRgb prm_value) {
     WAIT_LOCK;
     GgafProperties::_is_lock = true;
     if (isExistKey(prm_key)) {
-        (*_pMapProperties)[prm_key] = prm_value.toStr();
+        (*GgafProperties::_pMapProperties)[prm_key] = prm_value.toStr();
     } else {
         throwGgafCriticalException("GgafProperties::setValue(GgafRgb) Error! プロパティに、キー("<<prm_key<<")が存在しません。");
     }
@@ -269,6 +269,6 @@ void GgafProperties::setValue(std::string prm_key, GgafRgb prm_value) {
 }
 
 bool GgafProperties::isExistKey(std::string prm_key) {
-    return _pMapProperties->find(prm_key) != _pMapProperties->end() ? true :false;
+    return GgafProperties::_pMapProperties->find(prm_key) != GgafProperties::_pMapProperties->end() ? true :false;
 }
 

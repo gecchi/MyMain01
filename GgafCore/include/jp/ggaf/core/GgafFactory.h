@@ -31,7 +31,7 @@ class GgafFactory {
 
 private:
     /**
-     * 工場に注文を行う .
+     * 工場に注文を行う（メインスレッドが使用） .
      * @param prm_order_id	注文識別ID番号
      * @param prm_pFunc	実際に製造処理を行う関数のポインタ
      * @param prm_pOrderer 発注者
@@ -49,7 +49,7 @@ private:
                       void* prm_pArg3);
 
     /**
-     * 注文した商品を取り出す .
+     * 注文した商品を受け取る（メインスレッドが使用） .
      * 未製造だった場合、製造が完了するまで待つ。<BR>
      * @param   prm_order_id	注文識別ID番号
      * @param   prm_pReceiver	受取人
@@ -101,10 +101,11 @@ public:
 public:
     /**
      * 工場にアクター作成の注文を行う（メインスレッドが使用） .
-     * メイン処理が呼び出します。<BR>
+     * 未製造だった場合、製造が完了するまで待つ。<BR>
      * @param prm_id    注文識別ID番号
      * @param prm_pFunc 実際に製造処理を行う関数のポインタ
-     * @param prm_pOrderer 注文元オブジェクト
+     * @param prm_pOrderer 注文者
+     * @param prm_pReceiver 受取人
      * @param prm_pArg1 製造処理を行う関数への引数1
      * @param prm_pArg2 製造処理を行う関数への引数2
      * @param prm_pArg3 製造処理を行う関数への引数3
@@ -122,10 +123,11 @@ public:
 
     /**
      * 工場にシーン作成の注文を行う（メインスレッドが使用） .
-     * メイン処理が呼び出します。<BR>
+     * 未製造だった場合、製造が完了するまで待つ。<BR>
      * @param prm_id	注文識別ID番号
      * @param prm_pFunc	実際に製造処理を行う関数のポインタ
-     * @param prm_pOrderer 注文元オブジェクト
+     * @param prm_pOrderer 注文者
+     * @param prm_pReceiver 受取人
      * @param prm_pArg1	製造処理を行う関数への引数1
      * @param prm_pArg2	製造処理を行う関数への引数2
      * @param prm_pArg3	製造処理を行う関数への引数3
@@ -138,11 +140,11 @@ public:
                            void* prm_pArg1,
                            void* prm_pArg2,
                            void* prm_pArg3) {
-        order(prm_order_id, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
+        GgafFactory::order(prm_order_id, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
     }
 
     /**
-     * 注文したアクターを取り出す。（メインスレッドが使用） .
+     * 注文したアクターを受け取る。（メインスレッドが使用） .
      * メイン処理が呼び出します。<BR>
      * 未製造だった場合、製造が完了するまで待つ。<BR>
      * @param   prm_id	注文識別ID
@@ -152,7 +154,7 @@ public:
     static GgafMainActor* obtainActor(uint64_t prm_order_id, GgafObject* prm_pReceiver);
 
     /**
-     * 注文したシーンを取り出す。（メインスレッドが使用） .
+     * 注文したシーンを受け取る。（メインスレッドが使用） .
      * メイン処理が呼び出します。<BR>
      * 未製造だった場合、製造が完了するまで待つ。<BR>
      * @param   prm_id	注文識別ID
@@ -161,7 +163,17 @@ public:
      */
     static GgafMainScene* obtainScene(uint64_t prm_order_id, GgafObject* prm_pReceiver);
 
-
+    /**
+     * 注文し即受け取る。
+     * @param prm_pFunc
+     * @param prm_pOrderer
+     * @param prm_pReceiver
+     * @param prm_pArg1
+     * @param prm_pArg2
+     * @param prm_pArg3
+     * @param prm_org
+     * @return
+     */
     template<class X>
     static X* makeObject(X* (*prm_pFunc)(void*, void*, void*),
                          GgafObject* prm_pOrderer,
@@ -170,8 +182,8 @@ public:
                          void* prm_pArg2,
                          void* prm_pArg3,
                          GgafObject* prm_org) {
-        order(ORDER_ID_MAX, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
-        return (X*)(obtain(ORDER_ID_MAX, prm_org));
+        GgafFactory::order(ORDER_ID_MAX, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
+        return (X*)(GgafFactory::obtain(ORDER_ID_MAX, prm_org));
     }
 
 

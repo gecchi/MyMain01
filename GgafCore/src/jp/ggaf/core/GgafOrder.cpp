@@ -15,6 +15,9 @@ GgafOrder::GgafOrder(uint64_t prm_order_id) : GgafObject() {
     _pArg1 = nullptr;
     _pArg2 = nullptr;
     _pArg3 = nullptr;
+    _time_of_order = 0;
+    _time_of_create_begin = 0;
+    _time_of_create_finish = 0;
     _progress = 0;
 }
 
