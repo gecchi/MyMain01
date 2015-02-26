@@ -16,6 +16,7 @@ DamageDispBar::DamageDispBar(const char* prm_name, GgafLib::GraphBarActor* prm_p
     pSourceBar_ = prm_pTargetSourceBar;
     damege_disp_timer_ = 0;
     velo_clear_damege_ = -100;
+    is_damege_disp_ = false;
 }
 
 void DamageDispBar::initialize() {
@@ -38,11 +39,13 @@ void DamageDispBar::onActive() {
 }
 
 void DamageDispBar::processBehavior() {
-    if (damege_disp_timer_ > 0) {
-
+    if (is_damege_disp_) {
         _x = pSourceBar_->_x + PX_C(pSourceBar_->getBarPx()); //pSourceBar_先端の座標
         getUvFlipper()->behave();
         damege_disp_timer_--;
+        if (damege_disp_timer_ <= 0) {
+            is_damege_disp_ = false;
+        }
     } else {
         //0へ向かう
         if (getQty() > 0) {
@@ -61,9 +64,16 @@ void DamageDispBar::onInactive() {
 }
 
 void DamageDispBar::addDamage(int prm_val) {
+    if (is_damege_disp_) {
+        if (damege_disp_timer_ <= 20) {
+            damege_disp_timer_ = 20; //赤表示時間(ほぼ連続ダメージ)
+        }
+    } else {
+        damege_disp_timer_ = 60; //赤表示時間(間隔が開いてから)
+    }
+    is_damege_disp_ = true;
     incQty(prm_val);
-    damege_disp_timer_ = 2*60; //赤表示の２秒表示時間リセット
-    velo_clear_damege_ = -1* ((getQty() / 30) + 1); //0.5秒でするするっと赤が消える
+    velo_clear_damege_ = -1* ((getQty() / 20) + 1); //20フレームでするするっと赤が消える
 }
 
 DamageDispBar::~DamageDispBar() {

@@ -62,12 +62,12 @@ void StgUtil::init() {
 }
 
 GgafDxFigureActor* StgUtil::shotWay001(coord prm_x, coord prm_y, coord prm_z,
-                                         angle prm_rz, angle prm_ry,
-                                         GgafActorDepository* prm_pDepo_shot,
-                                         coord prm_r,
-                                         velo prm_velo_first, acce prm_acce,
-                                         int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                         void (*pFunc_call_back_dispatched)(GgafDxFigureActor*, int, int)) {
+                                       angle prm_rz, angle prm_ry,
+                                       GgafActorDepository* prm_pDepo_shot,
+                                       coord prm_r,
+                                       velo prm_velo_first, acce prm_acce,
+                                       int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                       void (*pFunc_call_back_dispatched)(GgafDxFigureActor*, int, int)) {
     if (prm_set_num <= 0) {  return nullptr;  }
     float vx, vy, vz;
     GgafDxUtil::convRzRyToVector(prm_rz, prm_ry, vx, vy, vz);
@@ -113,12 +113,12 @@ GgafDxFigureActor* StgUtil::shotWay001(const GgafDxGeometricActor* prm_pFrom,
 }
 
 GgafDxFigureActor* StgUtil::shotWay001(coord prm_from_x, coord prm_from_y, coord prm_from_z,
-                                         coord prm_to_x, coord prm_to_y, coord prm_to_z,
-                                         GgafActorDepository* prm_pDepo_shot,
-                                         coord prm_r,
-                                         velo prm_velo_first, acce prm_acce,
-                                         int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                         void (*pFunc_call_back_dispatched)(GgafDxFigureActor*, int, int)) {
+                                       coord prm_to_x, coord prm_to_y, coord prm_to_z,
+                                       GgafActorDepository* prm_pDepo_shot,
+                                       coord prm_r,
+                                       velo prm_velo_first, acce prm_acce,
+                                       int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                       void (*pFunc_call_back_dispatched)(GgafDxFigureActor*, int, int)) {
     angle rz,ry;
     GgafDxUtil::convVectorToRzRy(prm_to_x - prm_from_x,
                                  prm_to_y - prm_from_y,
@@ -192,13 +192,13 @@ GgafDxFigureActor* StgUtil::shotWay002(coord prm_x, coord prm_y, coord prm_z,
 }
 
 GgafDxCore::GgafDxFigureActor* StgUtil::shotWay002(const GgafDxCore::GgafDxGeometricActor* prm_pFrom,
-                                                     GgafCore::GgafActorDepository* prm_pDepo_shot,
-                                                     coord prm_r,
-                                                     int prm_way_N,
-                                                     angle prm_ang_clearance_N,
-                                                     velo prm_velo_first, acce prm_acce,
-                                                     int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                     void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxFigureActor*, int, int, int)) {
+                                                   GgafCore::GgafActorDepository* prm_pDepo_shot,
+                                                   coord prm_r,
+                                                   int prm_way_N,
+                                                   angle prm_ang_clearance_N,
+                                                   velo prm_velo_first, acce prm_acce,
+                                                   int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                                   void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxFigureActor*, int, int, int)) {
     return shotWay002(prm_pFrom->_x, prm_pFrom->_y, prm_pFrom->_z,
                       prm_pFrom->_rx, prm_pFrom->_rz, prm_pFrom->_ry,
                       prm_pDepo_shot,
@@ -211,16 +211,16 @@ GgafDxCore::GgafDxFigureActor* StgUtil::shotWay002(const GgafDxCore::GgafDxGeome
 }
 
 GgafDxFigureActor* StgUtil::shotWay003(coord prm_x, coord prm_y, coord prm_z,
-                                         angle prm_rx, angle prm_rz, angle prm_ry,
-                                         GgafActorDepository* prm_pDepo_shot1, uint32_t* prm_paUint32_dotmat1,
-                                         GgafActorDepository* prm_pDepo_shot2, uint32_t* prm_paUint32_dotmat2,
-                                         GgafActorDepository* prm_pDepo_shot3, uint32_t* prm_paUint32_dotmat3,
-                                         coord prm_r,
-                                         int prm_way_N, int prm_way_M,
-                                         angle prm_ang_clearance_N, angle prm_ang_clearance_M,
-                                         velo prm_velo_first, acce prm_acce,
-                                         int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                         void (*pFunc_call_back_dispatched)(GgafDxFigureActor*, int, int, int, int, int)) {
+                                       angle prm_rx, angle prm_rz, angle prm_ry,
+                                       GgafActorDepository* prm_pDepo_shot1, uint32_t* prm_paUint32_dotmat1,
+                                       GgafActorDepository* prm_pDepo_shot2, uint32_t* prm_paUint32_dotmat2,
+                                       GgafActorDepository* prm_pDepo_shot3, uint32_t* prm_paUint32_dotmat3,
+                                       coord prm_r,
+                                       int prm_way_N, int prm_way_M,
+                                       angle prm_ang_clearance_N, angle prm_ang_clearance_M,
+                                       velo prm_velo_first, acce prm_acce,
+                                       int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                       void (*pFunc_call_back_dispatched)(GgafDxFigureActor*, int, int, int, int, int)) {
     if (prm_way_N <= 0 || prm_way_M <= 0 || prm_set_num <= 0) {  return nullptr;  }
     angle* paAng_way_N = NEW angle[prm_way_N];
     angle* paAng_way_M = NEW angle[prm_way_M];
@@ -345,13 +345,13 @@ GgafDxFigureActor* StgUtil::shotWay003(const GgafDxGeometricActor* prm_pFrom,
 
 
 GgafDxFigureActor* StgUtil::shotWay004(coord prm_x, coord prm_y, coord prm_z,
-                                         angle prm_rz, angle prm_ry,
-                                         GgafActorDepository* prm_pDepo_shot,
-                                         coord prm_r,
-                                         int prm_radial_way_num, angle prm_expanse_angle,
-                                         velo prm_velo_first, acce prm_acce,
-                                         int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                         void (*pFunc_call_back_dispatched)(GgafDxFigureActor*, int, int, int)) {
+                                       angle prm_rz, angle prm_ry,
+                                       GgafActorDepository* prm_pDepo_shot,
+                                       coord prm_r,
+                                       int prm_radial_way_num, angle prm_expanse_angle,
+                                       velo prm_velo_first, acce prm_acce,
+                                       int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                       void (*pFunc_call_back_dispatched)(GgafDxFigureActor*, int, int, int)) {
     if (prm_radial_way_num <= 0 || prm_set_num <= 0) {  return nullptr;  }
     angle* paAng_way = NEW angle[prm_radial_way_num];
     GgafDxUtil::getRadialAngle2D(0, prm_radial_way_num, paAng_way);
@@ -404,12 +404,12 @@ GgafDxFigureActor* StgUtil::shotWay004(coord prm_x, coord prm_y, coord prm_z,
 }
 
 GgafDxFigureActor* StgUtil::shotWay004(const GgafDxGeometricActor* prm_pFrom,
-                                         GgafActorDepository* prm_pDepo_shot,
-                                         coord prm_r,
-                                         int prm_way, angle prm_expanse_angle,
-                                         velo prm_velo_first, acce prm_acce,
-                                         int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                         void (*pFunc_call_back_dispatched)(GgafDxFigureActor*, int, int, int)) {
+                                       GgafActorDepository* prm_pDepo_shot,
+                                       coord prm_r,
+                                       int prm_way, angle prm_expanse_angle,
+                                       velo prm_velo_first, acce prm_acce,
+                                       int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                       void (*pFunc_call_back_dispatched)(GgafDxFigureActor*, int, int, int)) {
     return shotWay004(prm_pFrom->_x, prm_pFrom->_y, prm_pFrom->_z,
                       prm_pFrom->_rz, prm_pFrom->_ry,
                       prm_pDepo_shot,

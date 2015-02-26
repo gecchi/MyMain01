@@ -58,7 +58,7 @@ void GgafLinearOctree::setRootSpace(int x1, int y1, int z1, int x2, int y2, int 
     _TRACE_("GgafLinearOctree::setRootSpace 八分木末端レベル(level="<<_top_space_level<<")の空間の広さ=" << _top_level_dx << "x" << _top_level_dy << "x" << _top_level_dz);
 }
 
-void GgafLinearOctree::registerElem(GgafLinearOctreeElem* prm_pElem,
+void GgafLinearOctree::registerElem(GgafLinearOctreeElem* const prm_pElem,
                                     int tx1, int ty1, int tz1,
                                     int tx2, int ty2, int tz2) {
 
@@ -228,8 +228,6 @@ void GgafLinearOctree::registerElem(GgafLinearOctreeElem* prm_pElem,
                                    "クリアがなされていないか、２重登録しています。現所属空間インデックス="<<(prm_pElem->_pSpace_current->_my_index)<<"  要素対象オブジェクト="<<(prm_pElem->_pObject));
 #endif
     }
-
-    prm_pElem->_pLinearOctree = this;
     //要素を線形八分木空間に登録(所属させる)
     prm_pElem->belongTo(&(_paSpace[index]));
 }

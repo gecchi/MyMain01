@@ -255,7 +255,7 @@ public:
      * @param ty2 ÅV
      * @param tz2 ÅV
      */
-    void registerElem(GgafLinearOctreeElem* prm_pElem,
+    void registerElem(GgafLinearOctreeElem* const prm_pElem,
                       int tx1, int ty1, int tz1,
                       int tx2, int ty2, int tz2);
 

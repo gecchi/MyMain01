@@ -204,6 +204,7 @@ void MagicMeter::initialize() {
         papLvTgtMvCur_[i]->moveTo(pMagic->level_);
         papLvNowCur_[i]->moveTo(pMagic->level_);
         papLvCastingCur_[i]->moveTo(0);
+        papLvCastingCur_[i]->markOff();
     }
 }
 void MagicMeter::onReset() {
@@ -214,6 +215,7 @@ void MagicMeter::onReset() {
         papLvTgtMvCur_[i]->moveTo(pMagic->level_);
         papLvNowCur_[i]->moveTo(pMagic->level_);
         papLvCastingCur_[i]->moveTo(0);
+        papLvCastingCur_[i]->markOff();
 
         r_roll_[i] = 0.0f;
         r_roll_velo_[i] = 0.0f;
@@ -233,12 +235,13 @@ void MagicMeter::processBehavior() {
 
     ////////////////////////魔法メーターについての処理//////////////////////////
     VirtualButton* pVbPlay = VB_PLAY;
-    if (pVbPlay->isBeingPressed(VB_POWERUP)) {
+    MyShip* pMyShip = P_MYSHIP;
+    if (pMyShip->canControl() && pVbPlay->isBeingPressed(VB_POWERUP)) {
         alpha_velo_ = 0.05f;
         Magic* pActiveMagic = lstMagic_.getCurrent();     //アクティブな魔法
         int active_idx = lstMagic_.getCurrentIndex();     //アクティブな魔法のインデックス
         progress active_prg = pActiveMagic->getProgress()->get();  //アクティブな魔法の進捗
-        if (pVbPlay->isPushedDown(VB_POWERUP)) {
+        if (pMyShip->canControl() && pVbPlay->isPushedDown(VB_POWERUP)) {
             rollOpen(active_idx);
         }
 
@@ -371,7 +374,7 @@ void MagicMeter::processBehavior() {
         }
     } else  {
         alpha_velo_ = -0.02f;
-        if (pVbPlay->isReleasedUp(VB_POWERUP)) {
+        if (!pMyShip->canControl() || pVbPlay->isReleasedUp(VB_POWERUP)) {
             rollClose(lstMagic_.getCurrentIndex());
         }
         pMpCostDispBar_->setQty(0);

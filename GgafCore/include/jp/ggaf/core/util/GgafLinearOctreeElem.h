@@ -31,17 +31,17 @@ private:
 
 public:
     /** [r]所属ツリー */
-    GgafLinearOctree* _pLinearOctree;
+    GgafLinearOctree* const _pLinearOctree;
+    /** [r]対象オブジェクト */
+    GgafObject* const _pObject;
+    /** [r]対象オブジェクト種別 */
+    uint32_t _kindbit;
     /** [r]所属空間 */
     GgafLinearOctreeSpace* _pSpace_current;
     /** [r]次要素 */
     GgafLinearOctreeElem* _pNext;
     /** [r]前要素 */
     GgafLinearOctreeElem* _pPrev;
-    /** [r]対象オブジェクト */
-    GgafObject* _pObject;
-    /** [r]対象オブジェクト種別 */
-    uint32_t _kindbit;
     /** [r]登録リスト用リンク */
     GgafLinearOctreeElem* _pRegLinkNext;
 
@@ -51,7 +51,7 @@ public:
      * @param prm_kindbit その対象オブジェクの種別、種類分け不要な場合は、任意の数値でよい。
      * @return
      */
-    GgafLinearOctreeElem(GgafObject* prm_pObject, uint32_t prm_kindbit);
+    GgafLinearOctreeElem(GgafLinearOctree* prm_pLinearOctree, GgafObject* prm_pObject, uint32_t prm_kindbit);
 
     void dump();
 

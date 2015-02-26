@@ -6,7 +6,7 @@
 namespace VioletVreath {
 
 /**
- * 各魔法のレベルカーソル（操作移動用） .
+ * 各魔法のユーザーレベル選択(操作移動用)カーソル .
  * @version 1.00
  * @since 2011/12/12
  * @author Masatoshi Tsuge

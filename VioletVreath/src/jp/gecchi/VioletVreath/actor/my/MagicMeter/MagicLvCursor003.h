@@ -8,7 +8,7 @@
 namespace VioletVreath {
 
 /**
- * 各魔法の詠唱中発動中レベル強調表示カーソル .
+ * 各魔法のレベルの状況（詠唱開始～詠唱中/発動中/発動開始)エフェクト表示カーソル .
  * @version 1.00
  * @since 2012/04/24
  * @author Masatoshi Tsuge
@@ -28,11 +28,30 @@ public:
     void processPreDraw() override;
     void processAfterDraw() override;
     void markOff();
-    void markOnLevelUpCast(int prm_lv);
-    void markOnLevelDownCast(int prm_lv);
-    void markOnInvoke(int prm_lv);
-    void markOnEffect(int prm_lv);
 
+    /**
+     * 詠唱開始～詠唱中（レベルアップ時）のエフェクト開始 .
+     * @param prm_lv レベル
+     */
+    void markOnLevelUpCast(int prm_lv);
+
+    /**
+     * レベルダウン発動のエフェクト開始 .
+     * @param prm_lv レベル
+     */
+    void markOnLevelDownCast(int prm_lv);
+
+    /**
+     * 発動中エフェクト開始 .
+     * @param prm_lv レベル
+     */
+    void markOnInvoke(int prm_lv);
+
+    /**
+     * 発動開始エフェクト開始 .
+     * @param prm_lv
+     */
+    void markOnEffect(int prm_lv);
 
     virtual ~MagicLvCursor003();
 };

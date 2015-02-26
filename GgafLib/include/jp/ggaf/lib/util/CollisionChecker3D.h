@@ -20,7 +20,7 @@ namespace GgafLib {
  */
 class CollisionChecker3D : public GgafDxCore::GgafDxChecker {
 
-    LinearOctreeForActor* _pLinearOctree; //TODO:どこに持たせようか悩むがとりあえずココに
+    LinearOctreeForActor* const _pLinearOctree; //TODO:どこに持たせようか悩むがとりあえずココに
 
 public:
 

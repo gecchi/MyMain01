@@ -18,8 +18,13 @@ class MyOptionWateringLaserChip001 : public GgafLib::WateringLaserChip {
     int default_stamina_;
     /** 加速度範囲( max_velo_renge_ / r_max_acce_ ) */
     float max_acce_renge_;
-    /** チップの動きを計算 */
-    void moveChip(int vTx, int vTy, int vTz);
+    /**
+     * 的（ロックオン座標）へレーザーチップを移動させる為の座標を計算
+     * @param vTx 目標X座標
+     * @param vTy 目標Y座標
+     * @param vTz 目標Z座標
+     */
+    void aimChip(int vTx, int vTy, int vTz);
 
 public:
     /** 平行移動支援 */

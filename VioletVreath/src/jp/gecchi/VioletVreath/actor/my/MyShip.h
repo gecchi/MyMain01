@@ -601,6 +601,14 @@ public:
      */
     void setInvincibleFrames(int prm_frames);
 
+    /**
+     * ©‹@‚ª‘€ì‰Â”\‚Èó‘Ô‚©‚Ç‚¤‚© B
+     * @return
+     */
+    inline bool canControl() {
+        return can_control_;
+    }
+
     virtual ~MyShip();
 
 };

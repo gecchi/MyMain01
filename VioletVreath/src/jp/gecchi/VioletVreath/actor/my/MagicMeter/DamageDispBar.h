@@ -11,6 +11,7 @@ public:
     GgafLib::GraphBarActor* pSourceBar_;
     int velo_clear_damege_;
     frame damege_disp_timer_;
+    bool is_damege_disp_;
 public:
     /**
      *

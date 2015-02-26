@@ -5,13 +5,14 @@
 
 using namespace GgafCore;
 
-GgafLinearOctreeElem::GgafLinearOctreeElem(GgafObject* prm_pObject, uint32_t prm_kindbit) : GgafObject() {
+GgafLinearOctreeElem::GgafLinearOctreeElem(GgafLinearOctree* prm_pLinearOctree, GgafObject* prm_pObject, uint32_t prm_kindbit) : GgafObject() ,
+    _pLinearOctree(prm_pLinearOctree),
+    _pObject(prm_pObject)
+{
+    _kindbit = prm_kindbit;
     _pSpace_current = nullptr;
     _pNext = nullptr;
     _pPrev = nullptr;
-    _pObject = prm_pObject;
-    _kindbit = prm_kindbit;
-    _pLinearOctree = nullptr;
     _pRegLinkNext = nullptr;
 }
 

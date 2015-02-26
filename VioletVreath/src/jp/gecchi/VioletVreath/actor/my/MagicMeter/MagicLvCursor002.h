@@ -8,7 +8,7 @@
 namespace VioletVreath {
 
 /**
- * 各魔法のレベルカーソル（現在のレベル強調） .
+ * 各魔法の現行レベル強調表示カーソル（） .
  * @version 1.00
  * @since 2012/04/19
  * @author Masatoshi Tsuge

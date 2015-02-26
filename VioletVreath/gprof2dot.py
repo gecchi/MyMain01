@@ -2941,7 +2941,7 @@ class DotWriter:
         fontcolor = theme.graph_fontcolor()
         nodestyle = theme.node_style()
 
-        self.attr('graph', fontname=fontname, ranksep=0.25, nodesep=0.125)
+        self.attr('graph', fontname=fontname, ranksep=2.00, nodesep=0.125)
         self.attr('node', fontname=fontname, shape="box", style=nodestyle, fontcolor=fontcolor, width=0, height=0)
         self.attr('edge', fontname=fontname)
 

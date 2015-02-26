@@ -98,7 +98,7 @@ void MyOptionWateringLaserChip001::processBehavior() {
     if (getActiveFrame() > 6) {
         if (lockon_st_ == 1) {
             if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheTree()) {
-                moveChip(pMainLockOnTarget->_x,
+                aimChip(pMainLockOnTarget->_x,
                          pMainLockOnTarget->_y,
                          pMainLockOnTarget->_z );
             } else {
@@ -110,11 +110,11 @@ void MyOptionWateringLaserChip001::processBehavior() {
         if (lockon_st_ == 2) {
             if (_pLeader) {
                 if (_pLeader == this) {
-                    moveChip(_x + pAxsMver_->_velo_vx_mv*4+1,
+                    aimChip(_x + pAxsMver_->_velo_vx_mv*4+1,
                              _y + pAxsMver_->_velo_vy_mv*2+1,
                              _z + pAxsMver_->_velo_vz_mv*2+1 );
                 } else {
-                    moveChip(_pLeader->_x, _pLeader->_y, _pLeader->_z);
+                    aimChip(_pLeader->_x, _pLeader->_y, _pLeader->_z);
                 }
             }
         }
@@ -132,7 +132,7 @@ void MyOptionWateringLaserChip001::processBehavior() {
 
 }
 
-void MyOptionWateringLaserChip001::moveChip(int tX, int tY, int tZ) {
+void MyOptionWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     //    |                            vVT 仮的                        |
     //    |                                ^ ┌                        |
     //    |                 |仮的| > 5*vM /    ＼  vVP 仮自→仮的      |      仮的
@@ -220,7 +220,6 @@ void MyOptionWateringLaserChip001::moveChip(int tX, int tY, int tZ) {
             _ry += D360ANG;
         }
     }
-
 }
 
 void MyOptionWateringLaserChip001::onHit(GgafActor* prm_pOtherActor) {

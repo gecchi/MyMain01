@@ -15,11 +15,12 @@ namespace GgafLib {
 class LinearOctreeActorElem : public GgafCore::GgafLinearOctreeElem {
 
 public:
-    GgafCore::GgafActor* _pActor;
+    GgafCore::GgafActor* const _pActor;
 
 public:
-    LinearOctreeActorElem(GgafCore::GgafObject* prm_pObject, uint32_t prm_kindbit) : GgafCore::GgafLinearOctreeElem(prm_pObject,prm_kindbit) {
-        _pActor = (GgafCore::GgafActor*)prm_pObject;
+    LinearOctreeActorElem(GgafCore::GgafLinearOctree* prm_pLinearOctree, GgafCore::GgafObject* prm_pObject, uint32_t prm_kindbit) :
+        GgafCore::GgafLinearOctreeElem(prm_pLinearOctree, prm_pObject,prm_kindbit) ,
+        _pActor((GgafCore::GgafActor*)prm_pObject) {
     }
 };
 
