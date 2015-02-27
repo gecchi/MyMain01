@@ -54,15 +54,15 @@ void GamePreTitleScene::processBehavior() {
             if (pProg->isJustChanged()) {
 //                fadeinScene(FADE_FRAMES);
             }
-            if (pProg->getFrameInProgress() == 1) {
+            if (pProg->arriveAtFrameOf(1)) {
                 pLabel01_->update("[STORY]");
-            } else if (pProg->getFrameInProgress() == 120) {
+            } else if (pProg->arriveAtFrameOf(120)) {
                 pLabel01_->update("MUKASHI MUKASHI ARU TOKORONI...");
-            } else if (pProg->getFrameInProgress() == 240) {
+            } else if (pProg->arriveAtFrameOf(240)) {
                 pLabel01_->update("OITOITE...");
-            } else if (pProg->getFrameInProgress() == 360) {
+            } else if (pProg->arriveAtFrameOf(360)) {
                 pLabel01_->update("PRESENTED BY GECCHI.");
-            } else if (pProg->getFrameInProgress() > 361) {
+            } else if (pProg->getFrame() > 361) {
                 //タイトルが下からニューっと
                 pTitleBoard_->_y -= PX_C(1);
                 if (pTitleBoard_->_y <= PX_C(90)) {

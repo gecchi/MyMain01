@@ -443,7 +443,7 @@ void Magic::processBehavior() {
             }
             //詠唱中処理
             processCastingBehavior(level_, new_level_); //コールバック
-            if (level_ > new_level_ || pProg->getFrameInProgress() >= time_of_next_state_) {
+            if (level_ > new_level_ || pProg->getFrame() >= time_of_next_state_) {
                 //レベルダウン時は即効で発動へ、あるいは詠唱終了時に発動へ
                 int r = invoke(new_level_);
                 processCastFinish(level_, new_level_, r);  //コールバック
@@ -461,7 +461,7 @@ void Magic::processBehavior() {
             }
             //発動中処理
             processInvokingBehavior(level_, new_level_);  //コールバック
-            if (level_ > new_level_ || pProg->getFrameInProgress() >= time_of_next_state_) {
+            if (level_ > new_level_ || pProg->getFrame() >= time_of_next_state_) {
                 //レベルダウン時は即効で効果開始、あるいは発動終了時に効果開始へ
                 int r = effect(new_level_);
                 processInvokeFinish(level_, new_level_, r); //コールバック

@@ -63,7 +63,7 @@ void EnemyThagoras::processBehavior() {
             if (pProg->isJustChanged()) {
                 pAFader_->transitionLinerUntil(1.0, 30);
             }
-            if (pProg->getFrameInProgress() == 10) {
+            if (pProg->arriveAtFrameOf(10)) {
                 setHitAble(true);
                 pProg->changeNext();
             }
@@ -84,7 +84,7 @@ void EnemyThagoras::processBehavior() {
                 UTIL::activateLeaveEffectOf(this);
                 pAFader_->transitionLinerUntil(0.0, 30);
             }
-            if (pProg->getFrameInProgress() == 60) {
+            if (pProg->arriveAtFrameOf(60)) {
                 sayonara();
                 pProg->changeNothing(); //Ç®ÇµÇ‹Ç¢ÅI
             }

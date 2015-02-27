@@ -60,7 +60,7 @@ void EnemyOrtuna::processBehavior() {
              break;
          }
          case PROG_ENTRY: {
-             if (pProg->getFrameInProgress() == 60) {
+             if (pProg->arriveAtFrameOf(60)) {
                  pAFader_->transitionLinerUntil(1.0, 60);
              }
              if (getAlpha() > 0.5) {
@@ -82,7 +82,7 @@ void EnemyOrtuna::processBehavior() {
 
              pKuroko->setFaceAngVelo(AXIS_X, pKuroko->_velo_mv); //¨‚¢‚É”ä—á‚µ‚Ä‚®‚é‚®‚é`
 
-             if (pProg->getFrameInProgress() > hanging_pos_frames_) {
+             if (pProg->getFrame() > hanging_pos_frames_) {
                  pKuroko->setMvVelo(PX_C(1));
                  pKuroko->setMvAcce(0);
                  pProg->changeNext();
@@ -99,7 +99,7 @@ void EnemyOrtuna::processBehavior() {
                  getMorpher()->transitionLinerUntil(MPH_OPEN, 1.0, 60);
              }
              //‘Ø—¯’†
-             if (pProg->getFrameInProgress() % 16U == 0) {
+             if (pProg->getFrame() % 16U == 0) {
                  if (pKuroko->isTurningMvAng()) {
                      //‚¿‚å‚­‚¿‚å‚­Ž©‹@‚ðŒ©‚Â‚ß‚é
                      pKuroko->turnFaceAngTwd(P_MYSHIP,
@@ -107,7 +107,7 @@ void EnemyOrtuna::processBehavior() {
                  }
              }
 
-             if (pProg->getFrameInProgress() == 60) {
+             if (pProg->arriveAtFrameOf(60)) {
                  //Ž©‹@‚Ì•û‚ÉŒü‚¢‚½‚ç“G’e”­ŽËI
                  int shot_num = RF_EnemyOrtuna_ShotWay(G_RANK); //’e”Aƒ‰ƒ“ƒN•Ï“®
                  velo shot_velo = RF_EnemyOrtuna_ShotMvVelo(G_RANK); //’e‘¬Aƒ‰ƒ“ƒN•Ï“®
@@ -122,7 +122,7 @@ void EnemyOrtuna::processBehavior() {
                      }
                  }
              }
-             if (pProg->getFrameInProgress() == 60) {
+             if (pProg->arriveAtFrameOf(60)) {
                  pProg->changeNext();
              }
              break;

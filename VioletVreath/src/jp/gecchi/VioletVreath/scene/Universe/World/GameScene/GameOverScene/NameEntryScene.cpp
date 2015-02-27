@@ -64,7 +64,7 @@ void NameEntryScene::processBehavior() {
                 pWorldBound_->fadein();
             }
 
-            if(pProg->getFrameInProgress() >= 120) {
+            if(pProg->getFrame() >= 120) {
                 pProg->change(NameEntryScene::PROG_INPUT);
             }
             break;
@@ -111,7 +111,7 @@ void NameEntryScene::processBehavior() {
 
                 pWorldBound_->fadeout();
             }
-            if(pProg->getFrameInProgress() >= 180) {
+            if(pProg->getFrame() >= 180) {
                 pProg->change(NameEntryScene::PROG_FINISH);
             }
 

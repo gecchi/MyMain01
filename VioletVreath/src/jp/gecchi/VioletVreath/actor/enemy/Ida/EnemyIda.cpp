@@ -63,7 +63,7 @@ void EnemyIda::processBehavior() {
             if (pProg->isJustChanged()) {
                 pAFader_->transitionLinerUntil(1.0, 30);
             }
-            if (pProg->getFrameInProgress() == 25) {
+            if (pProg->arriveAtFrameOf(25)) {
                 setHitAble(true);
                 pProg->changeNext();
             }

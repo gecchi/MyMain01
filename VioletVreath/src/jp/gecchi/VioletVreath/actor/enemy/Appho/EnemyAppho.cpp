@@ -61,7 +61,7 @@ void EnemyAppho::processBehavior() {
              break;
          }
          case PROG_ENTRY: {
-             if (pProg->getFrameInProgress() == 60) {
+             if (pProg->arriveAtFrameOf(60)) {
                  pAFader_->transitionLinerUntil(1.0, 60);
              }
              if (getAlpha() > 0.5) {
@@ -80,7 +80,7 @@ void EnemyAppho::processBehavior() {
                                                0.2, 0.8, 200, true);
              }
              //滞留ポイントまで移動中
-             if (pProg->getFrameInProgress() % 32U == 0) {
+             if (pProg->getFrame() % 32U == 0) {
                  //ちょくちょく自機を見つめる
                  pKuroko->turnFaceAngTwd(P_MYSHIP, D_ANG(0.5), 0,
                                          TURN_CLOSE_TO, true);
@@ -104,13 +104,13 @@ void EnemyAppho::processBehavior() {
                                          D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
              //滞留中
-             if (pProg->getFrameInProgress() % 16U == 0) {
+             if (pProg->getFrame() % 16U == 0) {
                  //ちょくちょく自機を見つめる
                  pKuroko->turnFaceAngTwd(P_MYSHIP,
                                          D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
 
-             if (pProg->getFrameInProgress() == 180) {
+             if (pProg->arriveAtFrameOf(180)) {
                  //自機の方に向いたら敵弾発射！
                  int shot_num   = RF_EnemyAppho_ShotWay(G_RANK);    //弾数、ランク変動
                  velo shot_velo = RF_EnemyAppho_ShotMvVelo(G_RANK); //弾速、ランク変動
@@ -125,7 +125,7 @@ void EnemyAppho::processBehavior() {
                      }
                  }
              }
-             if (pProg->getFrameInProgress() == 240) {
+             if (pProg->arriveAtFrameOf(240)) {
                  pProg->changeNext();
              }
              break;
@@ -139,7 +139,7 @@ void EnemyAppho::processBehavior() {
                                        D_ANG(1), D_ANG(1), TURN_CLOSE_TO, false);
                  pKuroko->setMvAcce(10);
              }
-             if (pProg->getFrameInProgress() % 16U == 0) {
+             if (pProg->getFrame() % 16U == 0) {
                  pKuroko->turnFaceAngTwd(P_MYSHIP,
                                          D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
@@ -156,7 +156,7 @@ void EnemyAppho::processBehavior() {
                                        D_ANG(1), 0, TURN_CLOSE_TO, false);
                  pKuroko->setMvAcce(100+(G_RANK*200));
              }
-             if (pProg->getFrameInProgress() % 16U == 0) {
+             if (pProg->getFrame() % 16U == 0) {
                  //ちょくちょく自機を見つめる
                  pKuroko->turnFaceAngTwd(P_MYSHIP,
                                          D_ANG(1), 0, TURN_CLOSE_TO, true);

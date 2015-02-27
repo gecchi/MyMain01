@@ -127,7 +127,7 @@ void EnemyErmione::processBehavior() {
         }
 
         case PROG_ENTRY: {
-            if (pProg->getFrameInProgress() == 120) {
+            if (pProg->arriveAtFrameOf(120)) {
                 pAFader_->transitionAcceStep(1.0, 0.000, 0.0001);
             }
             if (getAlpha() > 0.8) {

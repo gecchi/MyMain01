@@ -88,7 +88,7 @@ void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
 
 void OptionMagic::processCastingBehavior(int prm_now_level, int prm_new_level){
     if (prm_new_level > prm_now_level) {
-        frame t = getProgress()->getFrameInProgress();
+        frame t = getProgress()->getFrame();
         float s = 10.0f * (1.0f * t / time_of_next_state_);
         if (s < 1.0f) {
             s = 1.0f;
@@ -177,7 +177,7 @@ void OptionMagic::processEffectBegin(int prm_last_level, int prm_now_level)  {
 
 void OptionMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {
     //エフェクトの処理
-    frame t = getProgress()->getFrameInProgress();
+    frame t = getProgress()->getFrame();
     if (prm_now_level > prm_last_level) {
         if (t < 180) {
             float a = t*(1.0/180);

@@ -48,7 +48,7 @@ void VvvCursor::processBehavior() {
             break;
         }
         case CUR_STAY: {
-            if (_pProg->getFrameInProgress() > 60) {
+            if (_pProg->getFrame() > 60) {
                 pAFader_->transitionLinerUntil(0.0, 120);
                 _pProg->change(CUR_SINK);
             }

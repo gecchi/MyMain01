@@ -70,7 +70,7 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
                                       TURN_CLOSE_TO, false);
             }
 
-            if (_y > begin_y_+turn_dy_ || pProg->getFrameInProgress() > 300) {
+            if (_y > begin_y_+turn_dy_ || pProg->getFrame() > 300) {
                 pProg->changeNext();
             }
             break;
@@ -84,7 +84,7 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
                                       D_ANG(10), 0,
                                       TURN_CLOSE_TO, false);
             }
-            if (!pKuroko->isTurningMvAng() || pProg->getFrameInProgress() > 300) {
+            if (!pKuroko->isTurningMvAng() || pProg->getFrame() > 300) {
                 pProg->changeNext();
             }
             break;
@@ -92,13 +92,13 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
 
         case PROG_TURN2: {
             //‹üÜ•â³
-            if (pProg->getFrameInProgress() % 8U == 0) {
+            if (pProg->getFrame() % 8U == 0) {
                 pKuroko->turnMvAngTwd(tx2_, ty2_, tz2_,
                                       D_ANG(5), 0,
                                       TURN_CLOSE_TO, false);
                 pKuroko->setMvVelo(pKuroko->_velo_mv*2);
             }
-            if (pProg->getFrameInProgress() > 60) {
+            if (pProg->getFrame() > 60) {
                 pProg->changeNext();
             }
             break;
@@ -108,12 +108,12 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
             if (pProg->isJustChanged()) {
                 getSeTx()->play3D(SE_FIRE);
             }
-            if (pProg->getFrameInProgress() % 16U == 0) {
+            if (pProg->getFrame() % 16U == 0) {
                 pKuroko->turnMvAngTwd(tx2_, ty2_, tz2_,
                                       100, 0,
                                       TURN_CLOSE_TO, false);
             }
-            if (pProg->getFrameInProgress() > 90) {
+            if (pProg->getFrame() > 90) {
                 pKuroko->stopTurnMvAng();
                 pKuroko->setRzRyMvAngVelo(0,0);
                 pProg->changeNext();

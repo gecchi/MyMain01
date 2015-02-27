@@ -8,7 +8,7 @@ namespace GgafCore {
 
 /**
  * 商品（インスタンス）の注文クラス .
- * 注文識別ID(_order_id) + 受取予定人(_pReceiver) で商品は管理されユニークになります。
+ * 注文番号(_order_no) + 受取予定人(_pReceiver) で商品は管理されユニークになります。
  * 工場(GgafFactory)に渡す注文を表したクラスで、 商品（インスタンス）１つを内部保持します。<BR>
  * また注文オブジェクト同士で連結リストを作成でき、そのリストは工場(GgafFactory)が操作することになります。<BR>
  * @version 1.00
@@ -48,15 +48,18 @@ private:
     void* _pArg3;
 
 public:
-    /** 注文識別ID */
-    uint64_t _order_id;
+    /** 注文番号 */
+    uint64_t _order_no;
     /** 進捗具合（0:未着手/1:製造中/2:製造済み） */
     int _progress;
     /** 商品へのポインタ */
     GgafObject* _pObject_creation;
 
 public:
-    GgafOrder(uint64_t prm_order_id);
+    GgafOrder(uint64_t prm_order_no);
+
+    std::string getDebuginfo();
+
     virtual ~GgafOrder();
 };
 

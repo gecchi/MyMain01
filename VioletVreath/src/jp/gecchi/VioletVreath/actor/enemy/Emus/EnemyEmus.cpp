@@ -86,7 +86,7 @@ void EnemyEmus::processBehavior() {
             }
 
             //次へ
-            if (pProg->getFrameInProgress() >= frame_of_close_interval_ + frame_of_morph_interval_) {
+            if (pProg->getFrame() >= frame_of_close_interval_ + frame_of_morph_interval_) {
                 pProg->change(PROG_HATCH_OPEN);
             }
             break;
@@ -97,7 +97,7 @@ void EnemyEmus::processBehavior() {
                                            1.0f, frame_of_morph_interval_);
                 pKuroko->setFaceAngVelo(AXIS_X, 3000);
             }
-            if (pProg->getFrameInProgress() == (frame_of_morph_interval_/2)) {
+            if (pProg->arriveAtFrameOf(frame_of_morph_interval_/2)) {
                 //開くモーションが半分以上まで到達したなら
                 pProg->change(PROG_FIRE);
             }
@@ -117,7 +117,7 @@ void EnemyEmus::processBehavior() {
             }
 
 
-            if (pProg->getFrameInProgress() >= (frame_of_morph_interval_/2) + frame_of_open_interval_) {
+            if (pProg->getFrame() >= (frame_of_morph_interval_/2) + frame_of_open_interval_) {
                 is_firing_ = false;
                 pLaserChipDepo_ = nullptr;
                 pProg->change(PROG_HATCH_CLOSE);

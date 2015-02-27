@@ -91,7 +91,7 @@ void EnemyRatislaviaEye::processBehavior() {
             if (pProg->isJustChanged()) {
                 getMorpher()->transitionLinerUntil(1, 1.0, 180); //ŠJ‚­
             }
-            if (pProg->getFrameInProgress() > 240) {
+            if (pProg->getFrame() > 240) {
                 pProg->changeNext();
             }
             pKuroko->takeoverMvFrom(pRatislavia_->getKuroko());
@@ -105,7 +105,7 @@ void EnemyRatislaviaEye::processBehavior() {
                 pKuroko->turnMvAngTwd(P_MYSHIP,
                                         D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
-            if (pProg->getFrameInProgress() > 240) {
+            if (pProg->getFrame() > 240) {
                 pProg->changeNext();
             }
             break;
@@ -144,7 +144,7 @@ void EnemyRatislaviaEye::processBehavior() {
                                           pRatislavia_->getKuroko()->_angvelo_face[AXIS_Y]);
             }
             //d’¼
-            if (pProg->getFrameInProgress() >= 300) {
+            if (pProg->getFrame() >= 300) {
                 pProg->change(PROG_OPEN);
             }
             break;

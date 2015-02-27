@@ -45,7 +45,7 @@ void EnemyOzartiaShot01::processBehavior() {
             if (pProg->isJustChanged()) {
                 pAFader_->transitionLinerUntil(1.0, 15);
             }
-            if (pProg->getFrameInProgress() == 8) {
+            if (pProg->arriveAtFrameOf(8)) {
                 setHitAble(true);
                 pProg->change(PROG_MOVE01);
             }
@@ -54,7 +54,7 @@ void EnemyOzartiaShot01::processBehavior() {
         case PROG_MOVE01: {
             if (pProg->isJustChanged()) {
             }
-            if (pProg->getFrameInProgress() == 60*10) {
+            if (pProg->arriveAtFrameOf(60*10)) {
                 pProg->change(PROG_LEAVE);
             }
             break;
@@ -64,7 +64,7 @@ void EnemyOzartiaShot01::processBehavior() {
                  UTIL::activateLeaveEffectOf(this);
                  pAFader_->transitionLinerUntil(0.0, 15);
              }
-             if (pProg->getFrameInProgress() == 60) {
+             if (pProg->arriveAtFrameOf(60)) {
                  sayonara();
                  pProg->changeNothing(); //Ç®ÇµÇ‹Ç¢ÅI
              }

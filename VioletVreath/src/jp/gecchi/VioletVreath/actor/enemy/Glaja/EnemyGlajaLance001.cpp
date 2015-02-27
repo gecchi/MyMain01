@@ -78,7 +78,7 @@ void EnemyGlajaLance001::processBehavior() {
             if (pProg->isJustChanged()) {
 
             }
-            if (pProg->getFrameInProgress() == 120) {
+            if (pProg->arriveAtFrameOf(120)) {
                 pProg->changeNext();
             }
             break;
@@ -120,7 +120,7 @@ void EnemyGlajaLance001::processBehavior() {
                 pKuroko->setFaceAngVelo(AXIS_X, D_ANG(1)); //スピンスピン
                 pKuroko->setFaceAngAcce(AXIS_X, 100); //スピンスピン
             }
-            if (pProg->getFrameInProgress() >= 60) {
+            if (pProg->getFrame() >= 60) {
                 pProg->changeNext();
             }
             break;

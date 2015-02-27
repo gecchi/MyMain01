@@ -77,14 +77,14 @@ void GameDemoScene::processBehavior() {
                 pLabel02_->pAFader_->beat(60, 3, 27, 3,-1);
             }
 
-//            if (pProg->getFrameInProgress() % 60 == 0) {
+//            if (pProg->getFrame() % 60 == 0) {
 //                pLabel02_->update("");
-//            } else if (pProg->getFrameInProgress() % 60 == 30) {
+//            } else if (pProg->getFrame() % 60 == 30) {
 //                pLabel02_->update("GAME OVER");
 //            }
 
 
-            if (pProg->getFrameInProgress() == 600) {
+            if (pProg->arriveAtFrameOf(600)) {
                 pProg->change(GameDemoScene::PROG_RANKING_TABLE);
             }
             break;
@@ -131,7 +131,7 @@ void GameDemoScene::processBehavior() {
             if (pProg->isJustChanged()) {
                 _TRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to GameDemoScene::PROG_FINISH)");
             }
-            if (pProg->getFrameInProgress() == 600) {
+            if (pProg->arriveAtFrameOf(600)) {
                 _TRACE_("GameDemoScene::processBehavior() throwEventUpperTree(EVENT_GAMEDEMOSCENE_FINISH)");
                 throwEventUpperTree(EVENT_GAMEDEMOSCENE_FINISH); //終わったイベント発動
             }

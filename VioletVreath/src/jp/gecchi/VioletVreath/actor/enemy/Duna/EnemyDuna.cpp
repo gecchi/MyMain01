@@ -82,7 +82,7 @@ void EnemyDuna::processBehavior() {
             break;
         }
          case PROG_ENTRY_EFFECT: {
-             if (pProg->getFrameInProgress() == 60) {
+             if (pProg->arriveAtFrameOf(60)) {
                  pAFader_->transitionLinerUntil(1.0, 60);
              }
              if (getAlpha() > 0.5) {

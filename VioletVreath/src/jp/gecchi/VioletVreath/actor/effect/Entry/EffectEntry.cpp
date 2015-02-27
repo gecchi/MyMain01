@@ -59,7 +59,7 @@ void EffectEntry::processBehavior() {
         }
 
         case PROG_STAY: {
-            if (pProg->getFrameInProgress() >= duration_frames_) {
+            if (pProg->getFrame() >= duration_frames_) {
                 pScaler_->transitionLinerToBottom(scale_in_frames_);
                 pProg->changeNext();
             }

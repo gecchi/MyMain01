@@ -52,7 +52,7 @@ void StageWorld::processBehavior() {
             _TRACE_("ランクアップシーン差し込みします！");
             pRankUpStageCtrler_->startRunkUpStage(G_RANKUP_LEVEL);
             _TRACE_("P_STAGE_CTRLER をスロー");
-            pStageCtrler_->addRunFrameOnce(3); //スロー開始
+            pStageCtrler_->addRunFrameOnce(SLOW_FRAME_RANKUP); //スロー開始
         } else {
             //スルー
         }
@@ -65,7 +65,7 @@ void StageWorld::onCatchEvent(hashval prm_no, void* prm_pSource) {
         _TRACE_("StageWorld::onCatchEvent EVENT_RANKUP_WAS_END");
         //スロー回復
         _TRACE_("P_STAGE_CTRLER をスロー回復");
-        pStageCtrler_->addRunFrameOnce(-3); //スロー開始
+        pStageCtrler_->addRunFrameOnce(-SLOW_FRAME_RANKUP); //スロー開始
     }
 }
 

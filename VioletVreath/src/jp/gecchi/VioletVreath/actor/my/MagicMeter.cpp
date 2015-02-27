@@ -472,7 +472,7 @@ void MagicMeter::processBehavior() {
         if (pMagicProg->get() == Magic::STATE_CASTING) {
             if (pMagic->new_level_ > pMagic_level) {
                 //レベルアップなら音程アップ
-                float r = ((float)(pMagicProg->getFrameInProgress())) / ((float)(pMagic->time_of_next_state_));
+                float r = ((float)(pMagicProg->getFrame())) / ((float)(pMagic->time_of_next_state_));
                 pSeTx4Cast_->get(m)->setFrequencyRate(1.0f + (r*3.0f));
             }
         }
@@ -512,7 +512,7 @@ void MagicMeter::processBehavior() {
         if (pMagicProg->get() == Magic::STATE_INVOKING) {
             if (pMagic->new_level_ > pMagic_level) {
                 //レベルアップ時
-                float r = ((float)(pMagicProg->getFrameInProgress())) / ((float)(pMagic->time_of_next_state_));
+                float r = ((float)(pMagicProg->getFrame())) / ((float)(pMagic->time_of_next_state_));
                 pSeTx4Invoke_->get(m)->setFrequencyRate(1.0f + (r*3.0f));//音程を上げる
             }
         }

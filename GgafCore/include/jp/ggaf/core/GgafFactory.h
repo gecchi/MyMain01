@@ -32,7 +32,7 @@ class GgafFactory {
 private:
     /**
      * 工場に注文を行う（メインスレッドが使用） .
-     * @param prm_order_id	注文識別ID番号
+     * @param prm_order_no	注文番号番号
      * @param prm_pFunc	実際に製造処理を行う関数のポインタ
      * @param prm_pOrderer 発注者
      * @param prm_pReceiver 受け取り予定者
@@ -40,7 +40,7 @@ private:
      * @param prm_pArg2	製造処理を行う関数への引数2
      * @param prm_pArg3	製造処理を行う関数への引数3
      */
-    static void order(uint64_t prm_order_id,
+    static void order(uint64_t prm_order_no,
                       GgafObject* (*prm_pFunc)(void*, void*, void*),
                       GgafObject* prm_pOrderer,
                       GgafObject* prm_pReceiver,
@@ -51,11 +51,11 @@ private:
     /**
      * 注文した商品を受け取る（メインスレッドが使用） .
      * 未製造だった場合、製造が完了するまで待つ。<BR>
-     * @param   prm_order_id	注文識別ID番号
+     * @param   prm_order_no	注文番号番号
      * @param   prm_pReceiver	受取人
      * @return	製品のポインタ
      */
-    static void* obtain(uint64_t prm_order_id, GgafObject* prm_pReceiver);
+    static void* obtain(uint64_t prm_order_no, GgafObject* prm_pReceiver);
 
 public:
     /** 先頭の注文 */
@@ -102,7 +102,7 @@ public:
     /**
      * 工場にアクター作成の注文を行う（メインスレッドが使用） .
      * 未製造だった場合、製造が完了するまで待つ。<BR>
-     * @param prm_id    注文識別ID番号
+     * @param prm_id    注文番号番号
      * @param prm_pFunc 実際に製造処理を行う関数のポインタ
      * @param prm_pOrderer 注文者
      * @param prm_pReceiver 受取人
@@ -111,20 +111,20 @@ public:
      * @param prm_pArg3 製造処理を行う関数への引数3
      */
     template<class X>
-    static void orderActor(uint64_t prm_order_id,
+    static void orderActor(uint64_t prm_order_no,
                            X* (*prm_pFunc)(void*, void*, void*),
                            GgafObject* prm_pOrderer,
                            GgafObject* prm_pReceiver,
                            void* prm_pArg1,
                            void* prm_pArg2,
                            void* prm_pArg3) {
-        order(prm_order_id, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
+        order(prm_order_no, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
     }
 
     /**
      * 工場にシーン作成の注文を行う（メインスレッドが使用） .
      * 未製造だった場合、製造が完了するまで待つ。<BR>
-     * @param prm_id	注文識別ID番号
+     * @param prm_id	注文番号番号
      * @param prm_pFunc	実際に製造処理を行う関数のポインタ
      * @param prm_pOrderer 注文者
      * @param prm_pReceiver 受取人
@@ -133,35 +133,35 @@ public:
      * @param prm_pArg3	製造処理を行う関数への引数3
      */
     template<class X>
-    static void orderScene(uint64_t prm_order_id,
+    static void orderScene(uint64_t prm_order_no,
                            X* (*prm_pFunc)(void*, void*, void*),
                            GgafObject* prm_pOrderer,
                            GgafObject* prm_pReceiver,
                            void* prm_pArg1,
                            void* prm_pArg2,
                            void* prm_pArg3) {
-        GgafFactory::order(prm_order_id, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
+        GgafFactory::order(prm_order_no, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
     }
 
     /**
      * 注文したアクターを受け取る。（メインスレッドが使用） .
      * メイン処理が呼び出します。<BR>
      * 未製造だった場合、製造が完了するまで待つ。<BR>
-     * @param   prm_id	注文識別ID
+     * @param   prm_id	注文番号
      * @param   prm_pReceiver 受取人
      * @return	生成されたアクターのポインタ
      */
-    static GgafMainActor* obtainActor(uint64_t prm_order_id, GgafObject* prm_pReceiver);
+    static GgafMainActor* obtainActor(uint64_t prm_order_no, GgafObject* prm_pReceiver);
 
     /**
      * 注文したシーンを受け取る。（メインスレッドが使用） .
      * メイン処理が呼び出します。<BR>
      * 未製造だった場合、製造が完了するまで待つ。<BR>
-     * @param   prm_id	注文識別ID
+     * @param   prm_id	注文番号
      * @param   prm_pReceiver 受取人
      * @return	生成されたシーンのポインタ
      */
-    static GgafMainScene* obtainScene(uint64_t prm_order_id, GgafObject* prm_pReceiver);
+    static GgafMainScene* obtainScene(uint64_t prm_order_no, GgafObject* prm_pReceiver);
 
     /**
      * 注文し即受け取る。
@@ -189,10 +189,10 @@ public:
 
     /**
      * 注文した商品が出来上がっているか調べる。（メインスレッドが使用） .
-     * @param   prm_order_id   注文識別ID
-     * @return   注文識別IDの商品の進捗具合(-2:工場自体が動いてない/-1:注文すらしていない/0:注文済みで工場未着手/1:製造中/2:製造済み）
+     * @param   prm_order_no   注文番号
+     * @return   注文番号の商品の進捗具合(-2:工場自体が動いてない/-1:注文すらしていない/0:注文済みで工場未着手/1:製造中/2:製造済み）
      */
-    static int chkProgress(uint64_t prm_order_id);
+    static int chkProgress(uint64_t prm_order_no);
 
     /**
      * 工場を掃除する（メインスレッドが使用） .

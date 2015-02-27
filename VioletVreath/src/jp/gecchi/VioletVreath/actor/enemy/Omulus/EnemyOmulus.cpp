@@ -130,7 +130,7 @@ void EnemyOmulus::processBehavior() {
             }
 
             //次へ
-            if (pProg->getFrameInProgress() >= frame_of_close_interval_ + frame_of_morph_interval_) {
+            if (pProg->getFrame() >= frame_of_close_interval_ + frame_of_morph_interval_) {
                 pProg->change(PROG_HATCH_OPEN);
             }
             break;
@@ -142,7 +142,7 @@ void EnemyOmulus::processBehavior() {
                 pKuroko->setFaceAngVelo(AXIS_X, 0);
             }
             //processJudgement()でショット発射
-            if (pProg->getFrameInProgress() >= frame_of_open_interval_+ frame_of_morph_interval_) {
+            if (pProg->getFrame() >= frame_of_open_interval_+ frame_of_morph_interval_) {
                 pProg->change(PROG_HATCH_CLOSE);
             }
             break;
@@ -206,7 +206,7 @@ void EnemyOmulus::processJudgement() {
         case PROG_HATCH_OPEN: {
             //オープン時敵出現処理
             if (getMorphWeight(MORPHTARGET_HATCH_OPEN) > 0.5) { //モーションが半分以上まで到達したなら
-                if (pProg->getFrameInProgress() % (frame)(RF_EnemyOmulus_ShotInterval(G_RANK)) == 0) { //出現間隔
+                if (pProg->getFrame() % (frame)(RF_EnemyOmulus_ShotInterval(G_RANK)) == 0) { //出現間隔
                     if (pDepo_Fired_) {
                         GgafDxFigureActor* pActor = (GgafDxFigureActor*)pDepo_Fired_->dispatch();
                         if (pActor) {

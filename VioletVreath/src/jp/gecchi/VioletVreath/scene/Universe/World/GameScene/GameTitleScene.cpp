@@ -93,7 +93,7 @@ void GameTitleScene::processBehavior() {
             if (VB->isPushedDown(VB_UI_EXECUTE)) {
                 pSeConnection_exec_->peek()->play();
                 pProg->change(GameTitleScene::PROG_SELECT);
-            } else if (pProg->getFrameInProgress() == GAMETITLE_TIMEOUT) {
+            } else if (pProg->arriveAtFrameOf(GAMETITLE_TIMEOUT)) {
                 //ボーっと見てた場合
                 _TRACE_("GameTitleScene throwEventUpperTree(EVENT_GAMETITLESCENE_FINISH)");
                 throwEventUpperTree(EVENT_GAMETITLESCENE_FINISH); //普通に終了イベント
@@ -105,7 +105,7 @@ void GameTitleScene::processBehavior() {
         case GameTitleScene::PROG_SELECT: {
             if (pProg->isJustChanged()) {
                 pMenu_->rise(PX_C(50), PX_C(250));
-                frame_of_noinput_ = pProg->getFrameInProgress();
+                frame_of_noinput_ = pProg->getFrame();
             }
 
             if (pMenu_->canControll()) {
@@ -117,10 +117,10 @@ void GameTitleScene::processBehavior() {
             }
 
             if (GgafDxInput::getBeingPressedJoyRgbButton() != -1) { //
-                frame_of_noinput_ = pProg->getFrameInProgress();
+                frame_of_noinput_ = pProg->getFrame();
             }
 
-            if (pProg->getFrameInProgress() >= frame_of_noinput_ + GAMETITLE_TIMEOUT) {
+            if (pProg->getFrame() >= frame_of_noinput_ + GAMETITLE_TIMEOUT) {
                 //ボーっと見てた場合
                 _TRACE_("GameTitleScene throwEventUpperTree(EVENT_GAMETITLESCENE_FINISH)");
                 throwEventUpperTree(EVENT_GAMETITLESCENE_FINISH); //普通に終了イベント
@@ -132,12 +132,12 @@ void GameTitleScene::processBehavior() {
         case GameTitleScene::PROG_GAMESTART: {
             if (pProg->isJustChanged()) {
             }
-            if (pProg->getFrameInProgress() == 90) {
+            if (pProg->arriveAtFrameOf(90)) {
                 throwEventUpperTree(EVENT_GAMESTART);      //スタートでに終了イベント
                 pProg->change(GameTitleScene::PROG_FINISH); //タイトルシーン終了へ
             }
             //点滅
-            if (pProg->getFrameInProgress() % 10U < 5 ) {
+            if (pProg->getFrame() % 10U < 5 ) {
                 pLabel02_->update(PX_C(700), PX_C(200), "READY GO!");
             } else {
                 pLabel02_->update(PX_C(700), PX_C(200), "");

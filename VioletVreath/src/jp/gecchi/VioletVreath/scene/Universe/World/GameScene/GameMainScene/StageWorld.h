@@ -13,6 +13,8 @@ namespace VioletVreath {
     #error P_GAME_SCENE isnt define
 #endif
 
+#define SLOW_FRAME_RANKUP (3)
+
 /**
  * ステージ世界シーン .
  * ゲームの面に当たる「ステージ」の頂点に位置するシーンクラスです。

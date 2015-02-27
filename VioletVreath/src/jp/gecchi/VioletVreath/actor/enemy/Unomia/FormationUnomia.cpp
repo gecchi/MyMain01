@@ -63,7 +63,7 @@ void FormationUnomia::processBehavior() {
                     orderActorToFactory(i, EnemyUnomia, "EnemyUnomia");
                 }
             }
-            if (pProg->getFrameInProgress() == 120) {
+            if (pProg->arriveAtFrameOf(120)) {
                 for (int i = 0; i < RF_num_formation_col_*RF_num_formation_row_; i++) {
                     addFormationMember(obtainActorFromFactory(i));
                 }
@@ -94,7 +94,7 @@ void FormationUnomia::processBehavior() {
             break;
         }
         case PROG_WAIT1: {
-            if (pProg->getFrameInProgress() == 60*20) {
+            if (pProg->arriveAtFrameOf(60)*20) {
                 pProg->changeNext();
             }
             break;

@@ -92,9 +92,19 @@ public:
      * その後、加算されていく。
      * @return 進捗内経過時間
      */
-    inline frame getFrameInProgress() const {
+    inline frame getFrame() const {
         return ((*_p_frame_counter) - _pa_frame_of_progress_changed[_progress+1]);
     }
+
+    /**
+     * 現在の進捗番号内でのフレーム数と引数のフレームが同じかを調べる .
+     * @param prm_frame
+     * @return
+     */
+    inline bool arriveAtFrameOf(frame prm_frame) const {
+        return prm_frame == ((*_p_frame_counter) - _pa_frame_of_progress_changed[_progress+1]) ? true : false;
+    }
+
 
     /**
      * 進捗番号を変更 .

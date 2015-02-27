@@ -12,14 +12,12 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/dxcore/manager/GgafDxSeConnection.h"
 
-
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-
-#define ORDER_ID_RANKUP 80
+#define ORDER_ID_RANKUP (80)
 
 RankUpStageController::RankUpStageController(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "RankUpStageController";
@@ -43,9 +41,9 @@ void RankUpStageController::startRunkUpStage(int prm_rank_up_level) {
     GgafScene* pRankUpStage = getSubFirst();
     if (pRankUpStage) {
         //他のランクアップ中
-        //既存ランクアップシーンをスローにする
+        //既存ランクアップシーンをさらにスローにする
         while (1) {
-            pRankUpStage->addRunFrameOnce(3);
+            pRankUpStage->addRunFrameOnce(SLOW_FRAME_RANKUP);
             if (pRankUpStage->isLast()) {
                 break;
             } else {
@@ -419,7 +417,7 @@ void RankUpStageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
                 if (pRankUpStage == prm_pSource) {
                     break;
                 } else {
-                    pRankUpStage->addRunFrameOnce(-1); //スロー回復
+                    pRankUpStage->addRunFrameOnce(-SLOW_FRAME_RANKUP); //スロー回復
                     _TRACE_("pRankUpStage="<<pRankUpStage->getName()<<"をスロー回復");
                     pRankUpStage = pRankUpStage->getNext();
                 }

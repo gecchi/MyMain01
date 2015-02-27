@@ -71,7 +71,7 @@ void EnemyTalante::processBehavior() {
             //ちょっとそのまま真っ直ぐ進む
             if (pProg->isJustChanged()) {
             }
-            if (pProg->getFrameInProgress() > 60) {
+            if (pProg->getFrame() > 60) {
                 pProg->changeNext(); //次の動きへ
             }
             break;
@@ -114,7 +114,7 @@ void EnemyTalante::processBehavior() {
                 if (Y_ok_ && Z_ok_) {
                     //Z座標Y座標揃ったら次の動きへ
                     pProg->changeNext();
-                } else if (pProg->getFrameInProgress() >= 480) {
+                } else if (pProg->getFrame() >= 480) {
                     //Z座標Y座標揃わずとも一定時間で次の動きへ
                     pProg->changeNext();
                 }

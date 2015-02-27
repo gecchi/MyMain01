@@ -66,7 +66,7 @@ void EnemyEbe::processBehavior() {
     GgafProgress* pProg = getProgress();
     switch (pProg->get()) {
         case PROG_MOVE01_1: {
-            if ((int)(pProg->getFrameInProgress()) > (int)(PX_C(300) / ABS(pKuroko->_velo_mv))) {
+            if ((int)(pProg->getFrame()) > (int)(PX_C(300) / ABS(pKuroko->_velo_mv))) {
                 pProg->changeNext();
             }
             break;

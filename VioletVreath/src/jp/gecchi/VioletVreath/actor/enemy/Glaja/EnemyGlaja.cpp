@@ -65,7 +65,7 @@ void EnemyGlaja::processBehavior() {
              break;
          }
          case PROG_ENTRY: {
-             if (pProg->getFrameInProgress() == 60) {
+             if (pProg->arriveAtFrameOf(60)) {
                  pAFader_->transitionLinerUntil(1.0, 60);
              }
              if (getAlpha() > 0.5) {
@@ -99,7 +99,7 @@ void EnemyGlaja::processBehavior() {
          case PROG_MOVE02: {
              if (pProg->isJustChanged()) {
              }
-             if (pProg->getFrameInProgress() == 60) {
+             if (pProg->arriveAtFrameOf(60)) {
                  pProg->changeNext();
              }
              break;
@@ -109,7 +109,7 @@ void EnemyGlaja::processBehavior() {
              if (pProg->isJustChanged()) {
                  getMorpher()->transitionLinerUntil(MPH_OPEN, 1.0, 30);
              }
-             if (pProg->getFrameInProgress() == 30) {
+             if (pProg->arriveAtFrameOf(30)) {
                  pProg->changeNext();
              }
              break;
@@ -129,7 +129,7 @@ void EnemyGlaja::processBehavior() {
                  );
 
              }
-             if (pProg->getFrameInProgress() >= num_fire_*5) {
+             if (pProg->getFrame() >= num_fire_*5) {
                  pProg->changeNext();
              }
              break;
@@ -139,7 +139,7 @@ void EnemyGlaja::processBehavior() {
              if (pProg->isJustChanged()) {
                  getMorpher()->transitionLinerUntil(MPH_OPEN, 0.0, 30);
              }
-             if (pProg->getFrameInProgress() == 30) {
+             if (pProg->arriveAtFrameOf(30)) {
                  pProg->change(PROG_MOVE01); //ŒJ‚è•Ô‚µ
              }
              break;

@@ -144,7 +144,7 @@ void Stage01PartController::processBehavior() {
                 _TRACE_("STG01Climax_終焉のStage01PartController::PROG_FAINALきた");
             }
 
-            if (pProg->getFrameInProgress() == 60) {
+            if (pProg->arriveAtFrameOf(60)) {
                 fadeoutSceneWithBgm(300);
                 throwEventUpperTree(EVENT_STG01_CTRLER_WAS_END); //ステージエンドを上位に伝える
             }

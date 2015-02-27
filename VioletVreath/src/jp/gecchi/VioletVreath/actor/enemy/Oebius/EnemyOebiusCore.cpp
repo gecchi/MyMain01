@@ -70,7 +70,7 @@ void EnemyOebiusCore::processBehavior() {
                 pAFader_->transitionLinerUntil(1.0, 30);
                 pKuroko->setSpinAngVelo(D_ANG(3));
             }
-            if (pProg->getFrameInProgress() == 10) {
+            if (pProg->arriveAtFrameOf(10)) {
                 setHitAble(true);
                 pProg->changeNext();
             }
@@ -81,7 +81,7 @@ void EnemyOebiusCore::processBehavior() {
             if (pProg->isJustChanged()) {
                 pKuroko->keepOnTurningFaceAngTwd(P_MYSHIP, D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
-            if (pProg->getFrameInProgress() == 3600) {
+            if (pProg->arriveAtFrameOf(3600)) {
                 pProg->changeNext();
             }
             break;
@@ -92,7 +92,7 @@ void EnemyOebiusCore::processBehavior() {
                 UTIL::activateLeaveEffectOf(this);
                 pAFader_->transitionLinerUntil(0.0, 30);
             }
-            if (pProg->getFrameInProgress() == 60) {
+            if (pProg->arriveAtFrameOf(60)) {
                 sayonara();
                 pProg->changeNothing(); //Ç®ÇµÇ‹Ç¢ÅI
             }

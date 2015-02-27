@@ -233,7 +233,7 @@ void World::processBehavior() {
         }
 
         case World::PROG_CALM2: {
-            if ((pProg->getFrameInProgress() >= 60 && P_GOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) || pProg->getFrameInProgress() >= 60*60*5) {
+            if ((pProg->getFrame() >= 60 && P_GOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) || pProg->getFrame() >= 60*60*5) {
                 pGameScene_ = (GameScene*)obtainSceneFromFactory(2);
                 pProg->changeNext();
             }
@@ -244,7 +244,7 @@ void World::processBehavior() {
         case World::PROG_CALM3: {
             if (pProg->isJustChanged()) {
             }
-            if ((pProg->getFrameInProgress() >= 60 && P_GOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) || pProg->getFrameInProgress() >= 60*60*5) {
+            if ((pProg->getFrame() >= 60 && P_GOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) || pProg->getFrame() >= 60*60*5) {
                 pProg->changeNext();
             }
             pLabel_aster_->pAFader_->behave(); //右上＊チカチカ
@@ -254,7 +254,7 @@ void World::processBehavior() {
         case World::PROG_CALM4: {
             if (pProg->isJustChanged()) {
             }
-            if (pProg->getFrameInProgress() >= 60) {
+            if (pProg->getFrame() >= 60) {
                 pLabel_aster_->update("*");
                 pLabel_aster_->sayonara(60);
                 pLabel_resolution1_->sayonara();

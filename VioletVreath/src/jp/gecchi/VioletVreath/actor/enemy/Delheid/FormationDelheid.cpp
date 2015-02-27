@@ -121,7 +121,7 @@ void FormationDelheid::processBehavior() {
                  //開始ハッチがオープンが存在中の場合
                  if (canCallUp()) {
                      //招集未完了時
-                     if (pProg->getFrameInProgress() % RV_LaunchInterval == 0) {
+                     if (pProg->getFrame() % RV_LaunchInterval == 0) {
                          //機数 RV_Num_ 機まで招集
                          EnemyDelheid* pDelheid = (EnemyDelheid*)callUpMember(RV_Num_);
                          if (pDelheid) {
@@ -154,7 +154,7 @@ void FormationDelheid::processBehavior() {
              if (pProg->isJustChanged()) {
                  _listFollower.executeFunc(FormationDelheid::order1, this, nullptr);
              }
-             if (pProg->getFrameInProgress() == 120) {
+             if (pProg->arriveAtFrameOf(120)) {
                  pProg->changeNext();
              }
 
@@ -166,7 +166,7 @@ void FormationDelheid::processBehavior() {
              if (pProg->isJustChanged()) {
                  _listFollower.executeFunc(FormationDelheid::order2, this, nullptr);
              }
-             if (pProg->getFrameInProgress() == 360) {
+             if (pProg->arriveAtFrameOf(360)) {
                  pProg->changeNext(); //停滞終了！
              }
              break;
@@ -177,7 +177,7 @@ void FormationDelheid::processBehavior() {
              if (pProg->isJustChanged()) {
                  _listFollower.executeFunc(FormationDelheid::order3, this, nullptr);
              }
-             if (pProg->getFrameInProgress() == 120) {
+             if (pProg->arriveAtFrameOf(120)) {
                  pProg->changeNext(); //再始動完了
              }
              break;

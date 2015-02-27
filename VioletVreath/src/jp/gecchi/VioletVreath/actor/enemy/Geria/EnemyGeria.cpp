@@ -96,7 +96,7 @@ void EnemyGeria::processBehavior() {
                 will_shot_ = false;
             }
             if (will_shot_) {
-                if (pProg->getFrameInProgress() == frame_when_shot_) {
+                if (pProg->arriveAtFrameOf(frame_when_shot_)) {
                     pProg->change(PROG_FIRE);
                 }
             } else {
@@ -105,7 +105,7 @@ void EnemyGeria::processBehavior() {
                     if (pM->_z - 500000 < _z && _z < pM->_z + 500000 &&
                         pM->_y - 500000 < _y && _y < pM->_y + 500000 )
                     {
-                        frame_when_shot_ = pProg->getFrameInProgress() + RND(1, 20); //ショット撃ち初めまでのラグを設けて散らばらせる
+                        frame_when_shot_ = pProg->getFrame() + RND(1, 20); //ショット撃ち初めまでのラグを設けて散らばらせる
                         will_shot_ = true;
                     }
                 }
@@ -145,7 +145,7 @@ void EnemyGeria::processBehavior() {
                 UTIL::activateLeaveEffectOf(this);
                 pAFader_->transitionLinerUntil(0.0, 30);
             }
-            if (pProg->getFrameInProgress() == 60) {
+            if (pProg->arriveAtFrameOf(60)) {
                 sayonara();
                 pProg->changeNothing(); //おしまい！
             }
