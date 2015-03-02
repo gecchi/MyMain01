@@ -16,7 +16,8 @@ class FormationUnomia : public GgafLib::TreeFormation {
 public:
     enum {
         PROG_INIT  ,
-        PROG_READY_MEMBER,
+        PROG_READY_MEMBER_ORDER,
+        PROG_READY_MEMBER_OBTAIN,
         PROG_CALL_UP ,
         PROG_WAIT1,
         PROG_SHOT,
@@ -30,13 +31,15 @@ public:
     /** スプライン定義資源への接続 */
     GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
     /** 編隊列数(RANK変動) */
-    int RF_num_formation_col_;
+    int num_formation_col_;
     /** １列の編隊数(RANK変動) */
-    int RF_num_formation_row_;
+    int num_formation_row_;
+    /** 編隊数 */
+    int num_formation_member_;
     /** 編隊メンバーの出現間隔フレーム(RANK変動) */
-    frame RF_interval_frames_;
+    frame launch_interval_;
     /** 編隊メンバーの移動速度(RANK変動) */
-    velo RF_mv_velo_;
+    velo mv_velo_;
 
 public:
     /**

@@ -70,9 +70,9 @@ void FormationUrydike001::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, in
     pUrydike->getKuroko()->setMvVelo(0);
     pUrydike->getKuroko()->setMvAcce(80);
 
-//    double r = RANGE_CONV(0, getFormationColNum()                      , prm_col         , 0.3, 1.0);
-//    double g = RANGE_CONV(0, getFormationColNum()*getFormationRowNum() , prm_col*prm_row , 0.3, 1.0);
-//    double b = RANGE_CONV(0, getFormationRowNum()                      , prm_row         , 0.3, 1.0);
+//    double r = RCNV(0, getFormationColNum()                      , prm_col         , 0.3, 1.0);
+//    double g = RCNV(0, getFormationColNum()*getFormationRowNum() , prm_col*prm_row , 0.3, 1.0);
+//    double b = RCNV(0, getFormationRowNum()                      , prm_row         , 0.3, 1.0);
 //    pUrydike->setMaterialColor(r, g, b);
 }
 

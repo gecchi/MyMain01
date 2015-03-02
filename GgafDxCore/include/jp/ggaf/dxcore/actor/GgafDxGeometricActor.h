@@ -190,6 +190,15 @@ public:
     virtual void processSettlementBehavior() override;
 
     /**
+     * 絶対座標計算後の処理 .
+     * 土台となるアクター(_pActor_base) がある場合、processSettlementBehavior() 内で
+     * 絶対座標計算後に行割れた後から、八分木登録の直前にコールバックされる。
+     * 土台に乗っかるアクターから弾を発射したい場合等を想定。絶対座標で指定できる。
+     */
+    virtual void processChangeGeoFinal() {
+    }
+
+    /**
      * 当たり判定ロジック .
      * 当たり判定ロジックを実装している。<BR>
      * チェッカーオブジェクトがある場合、<BR>

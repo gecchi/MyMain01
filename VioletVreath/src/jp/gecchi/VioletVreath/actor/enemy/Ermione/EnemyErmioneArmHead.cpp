@@ -40,11 +40,10 @@ void EnemyErmioneArmHead::processBehavior() {
     } else {
         pDepo_laser_chip_ = nullptr;
     }
-
     EnemyErmioneArm::processBehavior();
 }
 
-void  EnemyErmioneArmHead::processJudgement() {
+void  EnemyErmioneArmHead::processChangeGeoFinal() {
     LaserChip* pChip = nullptr;
     if (pDepo_laser_chip_) {
         pChip = pDepo_laser_chip_->dispatch();

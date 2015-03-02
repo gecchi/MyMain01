@@ -46,7 +46,7 @@ public:
 //    /** [r]デポジトリマネージャーへの接続 */
 //    DepositoryConnection* pConn_pDepoStore_laser_set;
     /** [r]レーザーセット(レーザーチップのデポジトリ) */
-    GgafLib::LaserChipDepository* pLaserChipDepo_;
+    GgafCore::GgafActorDepository* pDepo_;
 
     bool is_firing_;
 
@@ -76,7 +76,7 @@ public:
      * エムスの振る舞い .
      */
     void processBehavior() override;
-
+    void processChangeGeoFinal() override;
     /**
      * エムスの振る舞い後の判定処理 .
      */

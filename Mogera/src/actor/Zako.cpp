@@ -32,8 +32,8 @@ Zako::Zako(const char* prm_name) :
         static coord r = PX_C(50);
         Zakoko* pZakoko = NEW Zakoko("Zakoko");
         addSubGroupAsFk(pZakoko, 0,  z*r,  y*r, 0, 0, 0);
-        pZakoko->setMaterialColor(RANGE_CONV(0, n-1, t, 5, 1.0),
-                                   RANGE_CONV(0, n-1, t, 1.0, 5),
+        pZakoko->setMaterialColor(RCNV(0, n-1, t, 5, 1.0),
+                                   RCNV(0, n-1, t, 1.0, 5),
                                   0.5);
     }
     is_head_ = false;

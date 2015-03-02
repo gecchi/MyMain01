@@ -26,10 +26,11 @@ FormationUnomia::FormationUnomia(const char* prm_name, const char* prm_spl_id)
 }
 
 void FormationUnomia::updateRankParameter() {
-    RF_num_formation_col_ = RF_FormationUnomia001_Col(G_RANK);            //編隊列数
-    RF_num_formation_row_ = RF_FormationUnomia001_Num(G_RANK);            //１列の編隊数
-    RF_interval_frames_   = RF_FormationUnomia001_LaunchInterval(G_RANK); //ウーノミアの間隔(frame)
-    RF_mv_velo_           = RF_FormationUnomia001_MvVelo(G_RANK);         //速度
+    num_formation_col_ = RF_FormationUnomia001_Col(G_RANK);            //編隊列数
+    num_formation_row_ = RF_FormationUnomia001_Num(G_RANK);            //１列の編隊数
+    launch_interval_   = RF_FormationUnomia001_LaunchInterval(G_RANK); //ウーノミアの間隔(frame)
+    mv_velo_           = RF_FormationUnomia001_MvVelo(G_RANK);         //速度
+    num_formation_member_ = num_formation_col_*num_formation_row_;
 }
 
 void FormationUnomia::initialize() {
@@ -57,33 +58,28 @@ void FormationUnomia::processBehavior() {
             pProg->changeNext();
             break;
         }
-        case PROG_READY_MEMBER: {
-            if (pProg->isJustChanged()) {
-                for (int i = 0; i < RF_num_formation_col_*RF_num_formation_row_; i++) {
-                    orderActorToFactory(i, EnemyUnomia, "EnemyUnomia");
-                }
-            }
-            if (pProg->arriveAtFrameOf(120)) {
-                for (int i = 0; i < RF_num_formation_col_*RF_num_formation_row_; i++) {
-                    addFormationMember(obtainActorFromFactory(i));
-                }
-                pProg->changeNext();
-            }
+        case PROG_READY_MEMBER_ORDER: {
+            uint64_t order_no = pProg->getFrame();
+            orderActorToFactory(order_no, EnemyUnomia, "EnemyUnomia");
+            pProg->changeNextIfArriveAt(num_formation_member_);
+            break;
+        }
+        case PROG_READY_MEMBER_OBTAIN: {
+            uint64_t order_no = pProg->getFrame();
+            addFormationMember(obtainActorFromFactory(order_no));
+            pProg->changeNextIfArriveAt(num_formation_member_);
             break;
         }
         case PROG_CALL_UP: {
-            if (pProg->isJustChanged()) {
-
-            }
             if (canCallUp()) {
-                if (getActiveFrame() % RF_interval_frames_ == 0) {
-                    for (int col = 0; col < RF_num_formation_col_; col++) {
+                if (getActiveFrame() % launch_interval_ == 0) {
+                    for (int col = 0; col < num_formation_col_; col++) {
                         EnemyUnomia* pUnomia = (EnemyUnomia*)callUpMember();
                         if (pUnomia) {
                             SplineKurokoLeader* pKurokoLeader = pConn_pSplManuf_->peek()->
                                                           createKurokoLeader(pUnomia->getKuroko());
                             pUnomia->config(pKurokoLeader, nullptr, nullptr);
-                            pUnomia->getKuroko()->setMvVelo(RF_mv_velo_);
+                            pUnomia->getKuroko()->setMvVelo(mv_velo_);
                             onCallUpUnomia(pUnomia, col); //フォーメーション個別実装の処理
                         }
                     }
@@ -94,39 +90,34 @@ void FormationUnomia::processBehavior() {
             break;
         }
         case PROG_WAIT1: {
-            if (pProg->arriveAtFrameOf(60)*20) {
-                pProg->changeNext();
-            }
+            pProg->changeNextIfArriveAt(120);
             break;
         }
         case PROG_SHOT: {
-            if (pProg->isJustChanged()) {
-                MyShip* pMy = P_MYSHIP;
-                GgafActor* pFollower = getSubFirst();
-                while(true) {
-                    EnemyUnomia* pUnomia =  (EnemyUnomia*)pFollower;
-                    if (pUnomia->isActive()) {
-                        GgafDxGeometricActor* pShot = (GgafDxGeometricActor*)pDepo_shot_->dispatch();
-                        if (pShot) {
-                            pShot->positionAs(pUnomia);
-                            GgafDxKuroko* pShot_pKuroko = pShot->getKuroko();
-                            pShot_pKuroko->setMvAngTwd(pMy);
-                            pShot_pKuroko->setMvVelo(PX_C(10));
-                            pShot_pKuroko->setMvAcce(0);
-                        }
+            MyShip* pMy = P_MYSHIP;
+            GgafActor* pFollower = getSubFirst();
+            while(true) {
+                EnemyUnomia* pUnomia =  (EnemyUnomia*)pFollower;
+                if (pUnomia->isActive()) {
+                    GgafDxGeometricActor* pShot = (GgafDxGeometricActor*)pDepo_shot_->dispatch();
+                    if (pShot) {
+                        pShot->positionAs(pUnomia);
+                        GgafDxKuroko* pShot_pKuroko = pShot->getKuroko();
+                        pShot_pKuroko->setMvAngTwd(pMy);
+                        pShot_pKuroko->setMvVelo(PX_C(10));
+                        pShot_pKuroko->setMvAcce(0);
                     }
-                    if (pFollower->isLast()) {
-                        break;
-                    }
-                    pFollower = pFollower->getNext();
                 }
+                if (pFollower->isLast()) {
+                    break;
+                }
+                pFollower = pFollower->getNext();
             }
             pProg->changeNext();
             break;
         }
         case PROG_WAIT2: {
-            if (pProg->isJustChanged()) {
-            }
+            //おしまい
             break;
         }
         default :
@@ -137,3 +128,4 @@ void FormationUnomia::processBehavior() {
 FormationUnomia::~FormationUnomia() {
     pConn_pSplManuf_->close();
 }
+

@@ -154,7 +154,7 @@ void FormationDelheid::processBehavior() {
              if (pProg->isJustChanged()) {
                  _listFollower.executeFunc(FormationDelheid::order1, this, nullptr);
              }
-             if (pProg->arriveAtFrameOf(120)) {
+             if (pProg->arriveAt(120)) {
                  pProg->changeNext();
              }
 
@@ -166,7 +166,7 @@ void FormationDelheid::processBehavior() {
              if (pProg->isJustChanged()) {
                  _listFollower.executeFunc(FormationDelheid::order2, this, nullptr);
              }
-             if (pProg->arriveAtFrameOf(360)) {
+             if (pProg->arriveAt(360)) {
                  pProg->changeNext(); //’â‘ØI—¹I
              }
              break;
@@ -177,7 +177,7 @@ void FormationDelheid::processBehavior() {
              if (pProg->isJustChanged()) {
                  _listFollower.executeFunc(FormationDelheid::order3, this, nullptr);
              }
-             if (pProg->arriveAtFrameOf(120)) {
+             if (pProg->arriveAt(120)) {
                  pProg->changeNext(); //Än“®Š®—¹
              }
              break;

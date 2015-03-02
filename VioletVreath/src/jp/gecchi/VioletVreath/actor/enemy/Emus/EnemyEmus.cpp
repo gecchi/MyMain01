@@ -33,11 +33,10 @@ EnemyEmus::EnemyEmus(const char* prm_name) :
 //             "EnemyEmusLaserChip001DepoStore"
 //         );
 //    pDepoStore_laser_set = (GgafActorDepositoryStore*)(pConn_pDepoStore_laser_set->peek());
-    pLaserChipDepo_ = nullptr;
+    pDepo_ = nullptr;
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    is_firing_ = false;
     useProgress(PROG_BANPEI);
 }
 
@@ -97,7 +96,7 @@ void EnemyEmus::processBehavior() {
                                            1.0f, frame_of_morph_interval_);
                 pKuroko->setFaceAngVelo(AXIS_X, 3000);
             }
-            if (pProg->arriveAtFrameOf(frame_of_morph_interval_/2)) {
+            if (pProg->arriveAt(frame_of_morph_interval_/2)) {
                 //開くモーションが半分以上まで到達したなら
                 pProg->change(PROG_FIRE);
             }
@@ -105,21 +104,12 @@ void EnemyEmus::processBehavior() {
         }
         case PROG_FIRE: {
             if (pProg->isJustChanged()) {
-
-                if (!pLaserChipDepo_) {
-                    pLaserChipDepo_ = (LaserChipDepository*)UTIL::getDepositoryOf(this);
-                }
-                if(pLaserChipDepo_) {
-                    is_firing_ = true; //レーザーセットの借り入れ出来た
-                } else {
-                    is_firing_ = false; //レーザーセットが借りれなかった
+                if (!pDepo_) {
+                    pDepo_ = (LaserChipDepository*)UTIL::getDepositoryOf(this);
                 }
             }
-
-
             if (pProg->getFrame() >= (frame_of_morph_interval_/2) + frame_of_open_interval_) {
-                is_firing_ = false;
-                pLaserChipDepo_ = nullptr;
+                pDepo_ = nullptr;
                 pProg->change(PROG_HATCH_CLOSE);
             }
             break;
@@ -132,20 +122,31 @@ void EnemyEmus::processBehavior() {
 
     getMorpher()->behave();
     pKuroko->behave();
-    changeGeoFinal();
+    changeGeoFinal(); //絶対座標系に戻す
+}
+
+void EnemyEmus::processChangeGeoFinal() {
+    //絶対座標系での操作
+    GgafProgress* pProg = getProgress();
+    switch (pProg->get()) {
+        case PROG_FIRE: {
+            if(pDepo_) {
+                GgafDxFigureActor* pChip = (GgafDxFigureActor*)pDepo_->dispatch();
+                if (pChip) {
+                    pChip->positionAs(this);
+                    pChip->getKuroko()->setRzRyMvAng(_rz, _ry); //絶対座標系での向き
+                } else {
+                    pDepo_ = nullptr;
+                }
+            }
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 void EnemyEmus::processJudgement() {
-    //絶対座標が更新されてから～オープン時レーザー
-    if (is_firing_) {
-        LaserChip* pChip = pLaserChipDepo_->dispatch();
-        if (pChip) {
-            pChip->position(_x, _y, _z);
-            pChip->getKuroko()->setRzRyMvAng(_rz, _ry); //絶対座標系での向き
-        } else {
-            is_firing_ = false;
-        }
-    }
 
     if (getBaseActor() && getBaseActor()->isActiveInTheTree()) {
 //        (*(_pActor_base->_pFunc_calc_rot_mv_world_matrix))(_pActor_base, _matWorld);

@@ -60,7 +60,7 @@ void EnemyAntiope::processBehavior() {
              if (pProg->isJustChanged()) {
                  pAFader_->transitionLinerUntil(1.0, 30);
              }
-             if (pProg->arriveAtFrameOf(30)) {
+             if (pProg->arriveAt(30)) {
                  setHitAble(true);
                  pProg->changeNext();
              }
@@ -97,7 +97,7 @@ void EnemyAntiope::processBehavior() {
                  UTIL::activateLeaveEffectOf(this);
                  pAFader_->transitionLinerUntil(0.0, 15);
              }
-             if (pProg->arriveAtFrameOf(15)) {
+             if (pProg->arriveAt(15)) {
                  setHitAble(false);
                  sayonara();
              }

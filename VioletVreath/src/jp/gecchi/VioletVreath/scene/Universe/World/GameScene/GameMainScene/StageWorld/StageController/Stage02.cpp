@@ -45,7 +45,7 @@ void Stage02::processBehavior() {
     }
 
     if (pProg->get() == Stage::PROG_BEGIN) {
-        if (pProg->arriveAtFrameOf(180)) { //ステージ2開始！
+        if (pProg->arriveAt(180)) { //ステージ2開始！
             pMessage_->activateImmed();
             pMessage_->update(300*1000, 300*1000, "SCENE 02 START!");
             pMessage_->inactivateDelay(240);
@@ -62,13 +62,13 @@ void Stage02::processBehavior() {
             throwEventUpperTree(EVENT_PREPARE_TRANSIT_STAGE); //通過ステージ準備へ
         }
 
-        if (pProg->arriveAtFrameOf(60)) {
+        if (pProg->arriveAt(60)) {
             pMessage_->activateImmed();
             pMessage_->update(300*1000, 300*1000, "SCENE 02 CLEAR!!");
             pMessage_->inactivateDelay(120);
             fadeoutSceneWithBgm(300);
         }
-        if (pProg->arriveAtFrameOf(300)) {
+        if (pProg->arriveAt(300)) {
             throwEventUpperTree(EVENT_STG02_WAS_END);
         }
     }

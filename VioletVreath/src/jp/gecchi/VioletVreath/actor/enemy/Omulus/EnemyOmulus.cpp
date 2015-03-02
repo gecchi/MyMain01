@@ -199,7 +199,7 @@ void EnemyOmulus::processBehavior() {
     changeGeoFinal();
 }
 
-void EnemyOmulus::processJudgement() {
+void EnemyOmulus::processChangeGeoFinal() {
     //â‘ÎÀ•W‚ªXV‚³‚ê‚Ä‚©‚ç`
     GgafProgress* pProg = getProgress();
     switch (pProg->get()) {
@@ -222,8 +222,9 @@ void EnemyOmulus::processJudgement() {
         default :
             break;
     }
+}
 
-
+void EnemyOmulus::processJudgement() {
     if (getBaseActor() && getBaseActor()->isActiveInTheTree()) {
 //        (*(_pActor_base->_pFunc_calc_rot_mv_world_matrix))(_pActor_base, _matWorld);
     } else {

@@ -130,7 +130,7 @@ void EnemyDelheid::processBehavior() {
             if (pProg2_->isJustChanged()) {
                 shot_begin_frame_ = RND(120, 240);
             }
-            if (pProg2_->arriveAtFrameOf(shot_begin_frame_)) {
+            if (pProg2_->arriveAt(shot_begin_frame_)) {
                 UTIL::shotWay002(
                        this,
                        pDepoShot_,
@@ -145,7 +145,7 @@ void EnemyDelheid::processBehavior() {
                        nullptr
                      );
             }
-            if (pProg2_->arriveAtFrameOf(240)) {
+            if (pProg2_->arriveAt(240)) {
                 pProg2_->changeNext();
             }
             break;

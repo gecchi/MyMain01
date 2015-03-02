@@ -94,15 +94,15 @@ enum {
 // ウノミア(EnemyUnomia) のランク式
 #define RF_EnemyUnomia_ShotWay(X)  (10+(X)*10)  //発射弾(Way)数
 // ウノミア編隊001(FormationUnomia001) のランク式
-#define RF_FormationUnomia001_Col(X)  (5 + ((X)>1.0?1.0:(X))*2)  //列数
-#define RF_FormationUnomia001_Num(X)  (20 + (X)*10)  //隊数
-#define RF_FormationUnomia001_LaunchInterval(X)  (2  + (10 - ((X)>1.0?1.0:(X))*10))  //出現間隔
-#define RF_FormationUnomia001_MvVelo(X)  (10000 + (X)*10000)  //移動速度
+#define RF_FormationUnomia001_Col(X)  (R_FUNC_LL(X, 5, 10))  //列数
+#define RF_FormationUnomia001_Num(X)  (R_FUNC_L(X, 20, 30))  //隊数
+#define RF_FormationUnomia001_LaunchInterval(X)  (R_FUNC_UL(X, 12, 2))  //出現間隔
+#define RF_FormationUnomia001_MvVelo(X)  (R_FUNC_LL(X, 10000, 20000))  //移動速度
 // ウノミア編隊002(FormationUnomia002) のランク式
-#define RF_FormationUnomia002_Col(X)  (5 + ((X)>1.0?1.0:(X))*2)  //列数
-#define RF_FormationUnomia002_Num(X)  (20 + (X)*10)  //隊数
-#define RF_FormationUnomia002_LaunchInterval(X)  (2  + (10 - ((X)>1.0?1.0:(X))*10))  //出現間隔
-#define RF_FormationUnomia002_MvVelo(X)  (10000 + (X)*10000)  //移動速度
+#define RF_FormationUnomia002_Col(X)  (R_FUNC_LL(X, 5, 7))  //列数
+#define RF_FormationUnomia002_Num(X)  (R_FUNC_L(X, 20, 30))  //隊数
+#define RF_FormationUnomia002_LaunchInterval(X)  (R_FUNC_UL(X, 12, 2))  //出現間隔
+#define RF_FormationUnomia002_MvVelo(X)  (R_FUNC_LL(X, 10000, 20000))  //移動速度
 // リス(EnemyRis) のランク式
 #define RF_EnemyRis_ShotWay(X)  (10+(X)*10)  //発射弾(Way)数
 // リス編隊001(FormationRis001) のランク式

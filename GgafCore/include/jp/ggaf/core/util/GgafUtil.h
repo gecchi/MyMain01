@@ -31,8 +31,7 @@
  * ”ÍˆÍ __MIN1__ ` __MAX1__ ‚Ì X ‚Ì’l‚ğA”ÍˆÍ __MIN2__ ` __MAX2__ ‚É•ÏŠ·‚µ‚½ê‡‚Ì’l‚ğ“¾‚é<br>
  * y=((min2-max2)*x-max1*min2+max2*min1)/(min1-max1)<br>
  */
-#define RANGE_CONV(__MIN1__,__MAX1__,X,__MIN2__,__MAX2__) ( ( ((__MIN2__)-(__MAX2__))*((double)(X)) - ((__MAX1__)*((double)(__MIN2__))) + ((__MAX2__)*((double)(__MIN1__))) ) / ((__MIN1__)-(__MAX1__)) )
-
+#define RCNV(__MIN1__,__MAX1__,X,__MIN2__,__MAX2__) ( ( ((__MIN2__)-(__MAX2__))*((double)(X)) - ((__MAX1__)*((double)(__MIN2__))) + ((__MAX2__)*((double)(__MIN1__))) ) / ((__MIN1__)-(__MAX1__)) )
 
 /**
  * ®”‚Ì—”‚ğ“¾‚é .

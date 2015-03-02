@@ -25,7 +25,7 @@ public:
 
     void processBehavior() override;
 
-    void processJudgement() override;
+    void processChangeGeoFinal() override;
 
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 

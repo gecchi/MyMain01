@@ -100,7 +100,7 @@ void StageController::processBehavior() {
                 _TRACE_("StageController::processBehavior() Prog has Just Changed (to StageController::PROG_BEGIN)");
                 _TRACE_("StageController::processBehavior() ’¼Œã main_stage_="<<main_stage_);
             }
-            if (pProg->arriveAtFrameOf(120)) { //‚Q•b—V‚Ô
+            if (pProg->arriveAt(120)) { //‚Q•b—V‚Ô
                 pProg->change(StageController::PROG_PLAY_STAGE);
             }
             break;

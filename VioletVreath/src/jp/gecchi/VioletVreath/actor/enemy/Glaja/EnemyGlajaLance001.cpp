@@ -78,7 +78,7 @@ void EnemyGlajaLance001::processBehavior() {
             if (pProg->isJustChanged()) {
 
             }
-            if (pProg->arriveAtFrameOf(120)) {
+            if (pProg->arriveAt(120)) {
                 pProg->changeNext();
             }
             break;

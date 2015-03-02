@@ -234,8 +234,8 @@
     //#define _TRACE_N_(X)
 
     /** 工場関連関連ログ */
-    #define _TRACE2_(X) {std::stringstream ss; ss << "[製造工場]" << X; GgafCore::GgafLogger::writeln(ss); }
-    //#define _TRACE2_(X)
+    //#define _TRACE2_(X) {std::stringstream ss; ss << "[製造工場]" << X; GgafCore::GgafLogger::writeln(ss); }
+    #define _TRACE2_(X)
 
     /** 資源マネージャ、コネクション関連ログ */
     //#define _TRACE3_(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }

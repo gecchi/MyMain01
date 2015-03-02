@@ -32,7 +32,7 @@ class GgafFactory {
 private:
     /**
      * 工場に注文を行う（メインスレッドが使用） .
-     * @param prm_order_no	注文番号番号
+     * @param prm_order_no	注文番号
      * @param prm_pFunc	実際に製造処理を行う関数のポインタ
      * @param prm_pOrderer 発注者
      * @param prm_pReceiver 受け取り予定者
@@ -51,7 +51,7 @@ private:
     /**
      * 注文した商品を受け取る（メインスレッドが使用） .
      * 未製造だった場合、製造が完了するまで待つ。<BR>
-     * @param   prm_order_no	注文番号番号
+     * @param   prm_order_no	注文番号
      * @param   prm_pReceiver	受取人
      * @return	製品のポインタ
      */
@@ -102,7 +102,7 @@ public:
     /**
      * 工場にアクター作成の注文を行う（メインスレッドが使用） .
      * 未製造だった場合、製造が完了するまで待つ。<BR>
-     * @param prm_id    注文番号番号
+     * @param prm_order_no 注文番号
      * @param prm_pFunc 実際に製造処理を行う関数のポインタ
      * @param prm_pOrderer 注文者
      * @param prm_pReceiver 受取人
@@ -124,7 +124,7 @@ public:
     /**
      * 工場にシーン作成の注文を行う（メインスレッドが使用） .
      * 未製造だった場合、製造が完了するまで待つ。<BR>
-     * @param prm_id	注文番号番号
+     * @param prm_order_no 注文番号
      * @param prm_pFunc	実際に製造処理を行う関数のポインタ
      * @param prm_pOrderer 注文者
      * @param prm_pReceiver 受取人
@@ -147,7 +147,7 @@ public:
      * 注文したアクターを受け取る。（メインスレッドが使用） .
      * メイン処理が呼び出します。<BR>
      * 未製造だった場合、製造が完了するまで待つ。<BR>
-     * @param   prm_id	注文番号
+     * @param   prm_order_no 注文番号
      * @param   prm_pReceiver 受取人
      * @return	生成されたアクターのポインタ
      */
@@ -157,7 +157,7 @@ public:
      * 注文したシーンを受け取る。（メインスレッドが使用） .
      * メイン処理が呼び出します。<BR>
      * 未製造だった場合、製造が完了するまで待つ。<BR>
-     * @param   prm_id	注文番号
+     * @param   prm_order_no 注文番号
      * @param   prm_pReceiver 受取人
      * @return	生成されたシーンのポインタ
      */

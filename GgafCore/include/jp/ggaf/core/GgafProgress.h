@@ -101,10 +101,9 @@ public:
      * @param prm_frame
      * @return
      */
-    inline bool arriveAtFrameOf(frame prm_frame) const {
+    inline bool arriveAt(frame prm_frame) const {
         return prm_frame == ((*_p_frame_counter) - _pa_frame_of_progress_changed[_progress+1]) ? true : false;
     }
-
 
     /**
      * 進捗番号を変更 .
@@ -157,6 +156,17 @@ public:
      * change(_progress+1) と同じ意味である。
      */
     virtual void changeNext();
+
+    /**
+     * 現在の進捗番号内でのフレーム数と引数のフレームが同じならば、進捗番号を+1する .
+     * 但し、直後には反映されず update() 時に反映される。
+     * @param prm_frame
+     */
+    inline void changeNextIfArriveAt(frame prm_frame) {
+        if (arriveAt(prm_frame)) {
+            changeNext();
+        }
+    }
 
     /**
      * 進捗番号が切り替わった直後なのかどうかを判定。 .

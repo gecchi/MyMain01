@@ -113,7 +113,7 @@ void EnemyEsperia::processBehavior() {
             if (pProg->isJustChanged()) {
 
             }
-            if (pProg->arriveAtFrameOf(100)) {
+            if (pProg->arriveAt(100)) {
                 pProg->changeNext();
             }
             break;
@@ -124,7 +124,7 @@ void EnemyEsperia::processBehavior() {
                 getSeTx()->play3D(SE_HATCH_OPEN);
                 getMorpher()->transitionLinerUntil(1, 1.0, 120);
             }
-            if (pProg->arriveAtFrameOf(120)) {
+            if (pProg->arriveAt(120)) {
                 pProg->changeNext();
             }
             break;
@@ -312,14 +312,14 @@ void EnemyEsperia::processBehavior() {
                 getSeTx()->play3D(SE_HATCH_CLOSE);
                 getMorpher()->transitionLinerUntil(1, 0.0, 120);
             }
-            if (pProg->arriveAtFrameOf(120)) {
+            if (pProg->arriveAt(120)) {
                 pProg->changeNext();
             }
             break;
         }
 
         case PROG_NOTHING: {
-            if (pProg->arriveAtFrameOf(600)) {
+            if (pProg->arriveAt(600)) {
                 pProg->change(PROG_MOVE);
             }
             break;

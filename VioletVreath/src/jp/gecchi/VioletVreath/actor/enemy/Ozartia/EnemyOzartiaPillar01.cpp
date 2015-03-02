@@ -45,7 +45,7 @@ void EnemyOzartiaPillar01::processBehavior() {
             if (pProg->isJustChanged()) {
                 pAFader_->transitionLinerUntil(1.0, 15);
             }
-            if (pProg->arriveAtFrameOf(8)) {
+            if (pProg->arriveAt(8)) {
                 setHitAble(true);
                 pProg->change(PROG_MOVE01);
             }
@@ -54,7 +54,7 @@ void EnemyOzartiaPillar01::processBehavior() {
         case PROG_MOVE01: {
             if (pProg->isJustChanged()) {
             }
-            if (pProg->arriveAtFrameOf(60*10)) {
+            if (pProg->arriveAt(60*10)) {
                 pProg->change(PROG_LEAVE);
             }
             break;
@@ -64,7 +64,7 @@ void EnemyOzartiaPillar01::processBehavior() {
                  UTIL::activateLeaveEffectOf(this);
                  pAFader_->transitionLinerUntil(0.0, 15);
              }
-             if (pProg->arriveAtFrameOf(60)) {
+             if (pProg->arriveAt(60)) {
                  sayonara();
                  pProg->changeNothing(); //Ç®ÇµÇ‹Ç¢ÅI
              }

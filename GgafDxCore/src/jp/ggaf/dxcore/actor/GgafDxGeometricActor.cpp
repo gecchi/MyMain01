@@ -172,6 +172,7 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         //
         //UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13, _rz, _ry);
         //‚Æ‚È‚é
+        processChangeGeoFinal();
     }
 
     //‹‘ä–Ê‚©‚ç‚Ì‹——£‚ğXV

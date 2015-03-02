@@ -72,7 +72,7 @@ void RankUpStage::processBehavior() {
                 getBGMer()->play_fadein(0);
             }
 
-            if (pProg->arriveAtFrameOf(60)) { //ステージ開始！
+            if (pProg->arriveAt(60)) { //ステージ開始！
                 pProg->change(RankUpStage::PROG_PLAYING);
             }
             break;
@@ -89,7 +89,7 @@ void RankUpStage::processBehavior() {
                     _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] 全滅させた！");
                     pProg->change(RankUpStage::PROG_RESULT);
                     pSeConnection_all_hit_->peek()->play(); //全滅時SE!
-                } else if (pProg->arriveAtFrameOf(_paFrame_NextEvent[_event_num-1]+1200)) {
+                } else if (pProg->arriveAt(_paFrame_NextEvent[_event_num-1]+1200)) {
                     //最後の敵機が出現以降最高２分で強制結果画面へ
                     _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] 強制結果画面へ！");
                     pProg->change(RankUpStage::PROG_RESULT);
@@ -109,7 +109,7 @@ void RankUpStage::processBehavior() {
             }
 
             //結果表示？
-            if (pProg->arriveAtFrameOf(320)) {
+            if (pProg->arriveAt(320)) {
                 getBGMer()->fadeout_stop(0);
                 if (all_hit_num_ <= hit_enemy_num_) { //全滅させた！
                     pMessage2_->update("PERFECT!!!!");
@@ -122,7 +122,7 @@ void RankUpStage::processBehavior() {
                 }
             }
 
-            if (pProg->arriveAtFrameOf(320+300)) {
+            if (pProg->arriveAt(320+300)) {
                 pProg->change(RankUpStage::PROG_END);
             }
             break;

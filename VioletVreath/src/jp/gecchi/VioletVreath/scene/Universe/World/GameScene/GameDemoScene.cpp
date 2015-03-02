@@ -84,7 +84,7 @@ void GameDemoScene::processBehavior() {
 //            }
 
 
-            if (pProg->arriveAtFrameOf(600)) {
+            if (pProg->arriveAt(600)) {
                 pProg->change(GameDemoScene::PROG_RANKING_TABLE);
             }
             break;
@@ -131,7 +131,7 @@ void GameDemoScene::processBehavior() {
             if (pProg->isJustChanged()) {
                 _TRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to GameDemoScene::PROG_FINISH)");
             }
-            if (pProg->arriveAtFrameOf(600)) {
+            if (pProg->arriveAt(600)) {
                 _TRACE_("GameDemoScene::processBehavior() throwEventUpperTree(EVENT_GAMEDEMOSCENE_FINISH)");
                 throwEventUpperTree(EVENT_GAMEDEMOSCENE_FINISH); //終わったイベント発動
             }

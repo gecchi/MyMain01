@@ -61,7 +61,7 @@ void EnemyAppho::processBehavior() {
              break;
          }
          case PROG_ENTRY: {
-             if (pProg->arriveAtFrameOf(60)) {
+             if (pProg->arriveAt(60)) {
                  pAFader_->transitionLinerUntil(1.0, 60);
              }
              if (getAlpha() > 0.5) {
@@ -110,7 +110,7 @@ void EnemyAppho::processBehavior() {
                                          D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
 
-             if (pProg->arriveAtFrameOf(180)) {
+             if (pProg->arriveAt(180)) {
                  //Ž©‹@‚Ì•û‚ÉŒü‚¢‚½‚ç“G’e”­ŽËI
                  int shot_num   = RF_EnemyAppho_ShotWay(G_RANK);    //’e”Aƒ‰ƒ“ƒN•Ï“®
                  velo shot_velo = RF_EnemyAppho_ShotMvVelo(G_RANK); //’e‘¬Aƒ‰ƒ“ƒN•Ï“®
@@ -125,7 +125,7 @@ void EnemyAppho::processBehavior() {
                      }
                  }
              }
-             if (pProg->arriveAtFrameOf(240)) {
+             if (pProg->arriveAt(240)) {
                  pProg->changeNext();
              }
              break;

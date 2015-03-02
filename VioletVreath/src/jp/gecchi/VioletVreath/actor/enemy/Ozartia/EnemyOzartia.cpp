@@ -99,7 +99,7 @@ void EnemyOzartia::processBehavior() {
 pKuroko->setMvAngTwd(pMyShip);
                 pAFader_->transitionLinerUntil(1.0, 30);
             }
-            if (pProg->arriveAtFrameOf(15)) {
+            if (pProg->arriveAt(15)) {
                 setHitAble(true);
                 pProg->change(PROG1_STAY);
             }
@@ -112,7 +112,7 @@ pKuroko->setMvAngTwd(pMyShip);
                 //pKuroko->turnMvAngTwd(pMyShip, D_ANG(1), 0, TURN_ANTICLOSE_TO, false);
             }
             pProg->change(PROG1_SP_MV01);
-//            if (is_hit_ || pProg->arriveAtFrameOf(5*60)) {
+//            if (is_hit_ || pProg->arriveAt(5*60)) {
 //                //ヒットするか、しばらくボーっとしてると移動開始
 //                pProg->changeProbab(0, PROG1_MV_POS0,
 //                                    0, PROG1_MV_POS1,
@@ -217,7 +217,7 @@ pKuroko->setMvAngTwd(pMyShip);
                 UTIL::activateLeaveEffectOf(this);
                 pAFader_->transitionLinerUntil(0.0, 30);
             }
-            if (pProg->arriveAtFrameOf(60)) {
+            if (pProg->arriveAt(60)) {
                 sayonara();
                 pProg->changeNothing(); //おしまい！
             }
@@ -242,7 +242,7 @@ pKuroko->setMvAngTwd(pMyShip);
                 faceang_to_ship_ = true;
                 getMorpher()->transitionLinerUntil(MPH_SHOT01, 1.0, 120);
             }
-            if (pProg->arriveAtFrameOf(120)) {
+            if (pProg->arriveAt(120)) {
                 pProg->change(PROG2_SHOT01_02);
             }
             break;

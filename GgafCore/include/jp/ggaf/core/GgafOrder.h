@@ -2,6 +2,7 @@
 #define GGAFCORE_GGAFORDER_H_
 #include "GgafCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
+#include <string>
 #include <windows.h>
 
 namespace GgafCore {

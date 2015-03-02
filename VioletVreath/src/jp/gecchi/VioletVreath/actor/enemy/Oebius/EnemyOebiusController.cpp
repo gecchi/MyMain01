@@ -54,7 +54,7 @@ void EnemyOebiusController::processBehavior() {
         case PROG_WAIT01: {
             if (pProg->isJustChanged()) {
             }
-            if (pProg->arriveAtFrameOf(120)) {
+            if (pProg->arriveAt(120)) {
                 pProg->changeNext();
             }
             break;
@@ -70,7 +70,7 @@ void EnemyOebiusController::processBehavior() {
                     pFormationOebius_->activate();
                 }
             }
-            if (pProg->arriveAtFrameOf(300)) {
+            if (pProg->arriveAt(300)) {
                 pProg->changeNext();
             }
             break;

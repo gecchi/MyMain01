@@ -72,7 +72,7 @@ public:
      * オムルスの振る舞い .
      */
     void processBehavior() override;
-
+    void processChangeGeoFinal() override;
     /**
      * オムルスの振る舞い後の判定処理 .
      */
