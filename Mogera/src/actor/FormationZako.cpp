@@ -76,18 +76,6 @@ void FormationZako::processBehavior() {
     }
 }
 
-void FormationZako::scatterMember() {
-    Zako* pZako = (Zako*)getSubFirst();
-    while (pZako) {
-        pZako->scatter();
-        if (pZako->isLast()) {
-            break;
-        } else {
-            pZako = (Zako*)(pZako->getNext());
-        }
-    }
-}
-
 void FormationZako::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
 }
 

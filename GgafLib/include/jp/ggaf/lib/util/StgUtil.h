@@ -687,7 +687,7 @@ public:
 
 
     /**
-     * 弾を複数個撃つ .
+     * 単発弾を複数個撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
      * ・ショットの _x, _y, _z 座標 <BR>
      * ・ショットの GgafDxKuroko の移動方向、移動速度、加速度<BR>
@@ -715,7 +715,7 @@ public:
                                                      void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxFigureActor*, int, int) = nullptr);
 
     /**
-     * 発射元が向いている方向（_rz > _ry）に向かって 弾を複数個撃つ .
+     * 発射元が向いている方向（_rz > _ry）に向かって 単発弾を複数個撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
      * ・ショットの _x, _y, _z 座標 <BR>
      * ・ショットの GgafDxKuroko の移動方向、移動速度、加速度<BR>
@@ -744,7 +744,7 @@ public:
                                                      void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxFigureActor*, int, int) = nullptr);
 
     /**
-     * 発射元が向いている方向（_rz > _ry）に向かって 弾を複数個撃つ .
+     * 発射元が向いている方向（_rz > _ry）に向かって 単発弾を複数個撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
      * ・ショットの _x, _y, _z 座標 <BR>
      * ・ショットの GgafDxKuroko の移動方向、移動速度、加速度<BR>
@@ -779,7 +779,7 @@ public:
      * @param prm_pDepo_shot       発射するショットのデポジトリ
      * @param prm_r                発射元と発射するショットの初期表示位置距離(発射元からの半径)。0より大きい値の必要有り。
      * @param prm_way_N            N-Way数（Rz変化）
-     * @param prm_ang_clearance_N   N-Wayの間隔角度
+     * @param prm_ang_clearance_N  N-Wayの間隔角度
      * @param prm_velo_first       N-Way弾初弾セットのショット初期速度。初弾セット以降の初期速度は prm_attenuated を乗じていく。
      * @param prm_acce             N-Way弾各セットのショット初期加速度
      * @param prm_set_num          発射する N-Way弾セットの合計セット数
@@ -807,7 +807,7 @@ public:
      * @param prm_pDepo_shot             発射するショットのデポジトリ
      * @param prm_r                      発射元と発射するショットの初期表示位置距離(発射元からの半径)。0より大きい値の必要有り。
      * @param prm_way_N                  N-Way数（Rz変化）
-     * @param prm_ang_clearance_N         N-Wayの間隔角度
+     * @param prm_ang_clearance_N        N-Wayの間隔角度
      * @param prm_velo_first             N-Way弾初弾セットのショット初期速度。初弾セット以降の初期速度は prm_attenuated を乗じていく。
      * @param prm_acce                   N-Way弾各セットのショット初期加速度
      * @param prm_set_num                発射する N-Way弾セットの合計セット数

@@ -96,7 +96,7 @@ void EnemyEmus::processBehavior() {
                                            1.0f, frame_of_morph_interval_);
                 pKuroko->setFaceAngVelo(AXIS_X, 3000);
             }
-            if (pProg->arriveAt(frame_of_morph_interval_/2)) {
+            if (pProg->hasArrivedAt(frame_of_morph_interval_/2)) {
                 //開くモーションが半分以上まで到達したなら
                 pProg->change(PROG_FIRE);
             }

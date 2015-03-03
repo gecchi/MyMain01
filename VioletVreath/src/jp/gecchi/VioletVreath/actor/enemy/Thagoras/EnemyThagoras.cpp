@@ -37,13 +37,13 @@ void EnemyThagoras::initialize() {
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->makeCollision(1);
     pChecker->setColliAAB_Cube(0, 40000);
+}
+
+void EnemyThagoras::onActive() {
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->relateFaceByMvAng(true);
     pKuroko->setFaceAngVelo(AXIS_X, 2000);
     pKuroko->forceMvVeloRange(PX_C(15));
-}
-
-void EnemyThagoras::onActive() {
     getStatus()->reset();
     getProgress()->reset(PROG_INIT);
     pActor4Sc_ = ((FormationThagoras*)(getFormation()))->pActor4Sc_;
@@ -63,7 +63,7 @@ void EnemyThagoras::processBehavior() {
             if (pProg->isJustChanged()) {
                 pAFader_->transitionLinerUntil(1.0, 30);
             }
-            if (pProg->arriveAt(10)) {
+            if (pProg->hasArrivedAt(10)) {
                 setHitAble(true);
                 pProg->changeNext();
             }
@@ -84,7 +84,7 @@ void EnemyThagoras::processBehavior() {
                 UTIL::activateLeaveEffectOf(this);
                 pAFader_->transitionLinerUntil(0.0, 30);
             }
-            if (pProg->arriveAt(60)) {
+            if (pProg->hasArrivedAt(60)) {
                 sayonara();
                 pProg->changeNothing(); //Ç®ÇµÇ‹Ç¢ÅI
             }

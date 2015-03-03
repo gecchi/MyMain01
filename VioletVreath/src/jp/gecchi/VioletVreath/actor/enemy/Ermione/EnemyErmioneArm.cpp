@@ -60,7 +60,7 @@ void EnemyErmioneArm::processBehavior() {
             if (pProg->isJustChanged() ) {
                 behave_frames_ = RND(30, 60);
             }
-            if (pProg->arriveAt(behave_frames_)) {
+            if (pProg->hasArrivedAt(behave_frames_)) {
                 pProg->change(PROG_AIMING);
             }
             break;

@@ -48,12 +48,12 @@ void SpriteLabelBonus001::processBehavior() {
         }
         case PROG_MOVE01: {
             //‚µ‚Î‚ç‚­’¼i
-            if (pProg->arriveAt(60)) {
+            if (pProg->hasArrivedAt(60)) {
                 //ƒJƒƒ‰‚ÉŒü‚©‚Á‚Ä•ûŒü“]Š·1
                 pKuroko->turnMvAngTwd(pCam,
                                       D_ANG(3), 0, TURN_CLOSE_TO, true);
             }
-            if (pProg->arriveAt(60+30)) {
+            if (pProg->hasArrivedAt(60+30)) {
                 //ƒJƒƒ‰‚ÉŒü‚©‚Á‚Ä•ûŒü“]Š·2
                 pKuroko->turnMvAngTwd(pCam,
                                       D_ANG(1), 0, TURN_CLOSE_TO, true);

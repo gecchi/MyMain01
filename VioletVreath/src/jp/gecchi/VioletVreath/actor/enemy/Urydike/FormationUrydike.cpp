@@ -64,7 +64,7 @@ void FormationUrydike::processBehavior() {
                     orderActorToFactory(i, EnemyUrydike, "EnemyUrydike");
                 }
             }
-            if (pProg->arriveAt(120)) {
+            if (pProg->hasArrivedAt(120)) {
                 for (int i = 0; i < num_Urydike_; i++) {
                     addFormationMember(obtainActorFromFactory(i));
                 }

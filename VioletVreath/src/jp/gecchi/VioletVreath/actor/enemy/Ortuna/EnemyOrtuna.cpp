@@ -60,7 +60,7 @@ void EnemyOrtuna::processBehavior() {
              break;
          }
          case PROG_ENTRY: {
-             if (pProg->arriveAt(60)) {
+             if (pProg->hasArrivedAt(60)) {
                  pAFader_->transitionLinerUntil(1.0, 60);
              }
              if (getAlpha() > 0.5) {
@@ -107,7 +107,7 @@ void EnemyOrtuna::processBehavior() {
                  }
              }
 
-             if (pProg->arriveAt(60)) {
+             if (pProg->hasArrivedAt(60)) {
                  //Ž©‹@‚Ì•û‚ÉŒü‚¢‚½‚ç“G’e”­ŽËI
                  int shot_num = RF_EnemyOrtuna_ShotWay(G_RANK); //’e”Aƒ‰ƒ“ƒN•Ï“®
                  velo shot_velo = RF_EnemyOrtuna_ShotMvVelo(G_RANK); //’e‘¬Aƒ‰ƒ“ƒN•Ï“®
@@ -122,7 +122,7 @@ void EnemyOrtuna::processBehavior() {
                      }
                  }
              }
-             if (pProg->arriveAt(60)) {
+             if (pProg->hasArrivedAt(60)) {
                  pProg->changeNext();
              }
              break;

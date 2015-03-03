@@ -101,7 +101,7 @@ public:
      * @param prm_frame
      * @return
      */
-    inline bool arriveAt(frame prm_frame) const {
+    inline bool hasArrivedAt(frame prm_frame) const {
         return prm_frame == ((*_p_frame_counter) - _pa_frame_of_progress_changed[_progress+1]) ? true : false;
     }
 
@@ -162,8 +162,8 @@ public:
      * íAÇµÅAíºå„Ç…ÇÕîΩâfÇ≥ÇÍÇ∏ update() éûÇ…îΩâfÇ≥ÇÍÇÈÅB
      * @param prm_frame
      */
-    inline void changeNextIfArriveAt(frame prm_frame) {
-        if (arriveAt(prm_frame)) {
+    inline void changeNextWhenArrivedAt(frame prm_frame) {
+        if (hasArrivedAt(prm_frame)) {
             changeNext();
         }
     }

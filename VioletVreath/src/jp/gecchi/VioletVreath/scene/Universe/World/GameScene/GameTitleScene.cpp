@@ -93,7 +93,7 @@ void GameTitleScene::processBehavior() {
             if (VB->isPushedDown(VB_UI_EXECUTE)) {
                 pSeConnection_exec_->peek()->play();
                 pProg->change(GameTitleScene::PROG_SELECT);
-            } else if (pProg->arriveAt(GAMETITLE_TIMEOUT)) {
+            } else if (pProg->hasArrivedAt(GAMETITLE_TIMEOUT)) {
                 //ボーっと見てた場合
                 _TRACE_("GameTitleScene throwEventUpperTree(EVENT_GAMETITLESCENE_FINISH)");
                 throwEventUpperTree(EVENT_GAMETITLESCENE_FINISH); //普通に終了イベント
@@ -132,7 +132,7 @@ void GameTitleScene::processBehavior() {
         case GameTitleScene::PROG_GAMESTART: {
             if (pProg->isJustChanged()) {
             }
-            if (pProg->arriveAt(90)) {
+            if (pProg->hasArrivedAt(90)) {
                 throwEventUpperTree(EVENT_GAMESTART);      //スタートでに終了イベント
                 pProg->change(GameTitleScene::PROG_FINISH); //タイトルシーン終了へ
             }

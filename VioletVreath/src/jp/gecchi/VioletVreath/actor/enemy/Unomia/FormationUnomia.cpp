@@ -61,13 +61,13 @@ void FormationUnomia::processBehavior() {
         case PROG_READY_MEMBER_ORDER: {
             uint64_t order_no = pProg->getFrame();
             orderActorToFactory(order_no, EnemyUnomia, "EnemyUnomia");
-            pProg->changeNextIfArriveAt(num_formation_member_);
+            pProg->changeNextWhenArrivedAt(num_formation_member_);
             break;
         }
         case PROG_READY_MEMBER_OBTAIN: {
             uint64_t order_no = pProg->getFrame();
             addFormationMember(obtainActorFromFactory(order_no));
-            pProg->changeNextIfArriveAt(num_formation_member_);
+            pProg->changeNextWhenArrivedAt(num_formation_member_);
             break;
         }
         case PROG_CALL_UP: {
@@ -90,7 +90,7 @@ void FormationUnomia::processBehavior() {
             break;
         }
         case PROG_WAIT1: {
-            pProg->changeNextIfArriveAt(120);
+            pProg->changeNextWhenArrivedAt(120);
             break;
         }
         case PROG_SHOT: {

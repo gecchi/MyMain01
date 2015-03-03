@@ -122,7 +122,7 @@ void EnemyRatislavia::processBehavior() {
             }
 
 
-            if (pProg->arriveAt(480)) {
+            if (pProg->hasArrivedAt(480)) {
                 //ここで大きい爆発
                 //当たり判定球付近に爆発エフェクトを散乱させる
                 GgafDxCollisionPart* pPart;

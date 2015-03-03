@@ -60,7 +60,7 @@ void EnemyAlisana::processBehavior() {
             if (pProg->isJustChanged()) {
                 pAFader_->transitionLinerUntil(0.7, 30);
             }
-            if (pProg->arriveAt(20)) {
+            if (pProg->hasArrivedAt(20)) {
                 setHitAble(true);
                 pProg->changeNext();
             }
@@ -101,7 +101,7 @@ void EnemyAlisana::processBehavior() {
                 UTIL::activateLeaveEffectOf(this);
                 pAFader_->transitionLinerUntil(0.0, 30);
             }
-            if (pProg->arriveAt(60)) {
+            if (pProg->hasArrivedAt(60)) {
                 sayonara();
                 pProg->changeNothing(); //Ç®ÇµÇ‹Ç¢ÅI
             }

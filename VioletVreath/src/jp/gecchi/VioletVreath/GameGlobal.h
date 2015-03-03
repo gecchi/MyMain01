@@ -26,36 +26,39 @@
 #define G_MAX_RANKUP_LEVEL (1230)
 
 /**
- * ランク用関数 .
+ * ランク用関数(上限下限無し) .
  * 引数のランク値(RANK_VAL)が、
  * G_MIN_RANK ～ G_MAX_RANK に推移するに伴って MIN_VAL～MAX_VAL に推移する値を取得。
  */
-#define R_FUNC(RANK_VAL, MIN_VAL, MAX_VAL)  ( RCNV( (G_MIN_RANK), (G_MAX_RANK), (RANK_VAL), (MIN_VAL), (MAX_VAL) ) )
+#define RF(RANK_VAL, MIN_VAL, MAX_VAL)  ( RCNV( (G_MIN_RANK), (G_MAX_RANK), (RANK_VAL), (MIN_VAL), (MAX_VAL) ) )
 
 /**
- * ランク用関数 .
- * 引数のランク値(RANK_VAL)が、
- * G_MIN_RANK ～ G_MAX_RANK に推移するに伴って MIN_VAL～MAX_VAL に推移する値を取得。
- * 但し、ランク値(RANK_VAL)がG_MIN_RANKを下回る場合は、MIN_VALに補正。
- * ランク値(RANK_VAL)がG_MAX_RANKを上回る場合は、MAX_VALに補正
+ * ランク用関数(上限下限有り) .
+ * 引数のランク値(RANK_VAL)が、G_MIN_RANK ～ G_MAX_RANK に推移するに伴って MIN_VAL～MAX_VAL に推移する値を取得。
+ * 但し、定義域(RANK_VAL)：G_MIN_RANK <= RANK_VAL <= G_MIN_RANK  に対して、
+ *         値域(N)       ：   MIN_VAL <=    N     <= MAX_VAL     を返す。
+ * ランク値(RANK_VAL)がG_MIN_RANKを下回る場合は、MIN_VALに固定。
+ * ランク値(RANK_VAL)がG_MAX_RANKを上回る場合は、MAX_VALに固定。
  */
-#define R_FUNC_L(RANK_VAL, MIN_VAL, MAX_VAL)  ( ((RANK_VAL) < (G_MIN_RANK)) ? (MIN_VAL) : ( ((RANK_VAL) > (G_MAX_RANK)) ? (MAX_VAL) : (RCNV((G_MIN_RANK), (G_MAX_RANK), (RANK_VAL), (MIN_VAL), (MAX_VAL))) ) )
+#define RF_ULL(RANK_VAL, MIN_VAL, MAX_VAL)  ( ((RANK_VAL) < (G_MIN_RANK)) ? (MIN_VAL) : ( ((RANK_VAL) > (G_MAX_RANK)) ? (MAX_VAL) : (RCNV((G_MIN_RANK), (G_MAX_RANK), (RANK_VAL), (MIN_VAL), (MAX_VAL))) ) )
 
 /**
- * ランク用関数 .
- * 引数のランク値(RANK_VAL)が、
- * G_MIN_RANK ～ G_MAX_RANK に推移するに伴って MIN_VAL～MAX_VAL に推移する値を取得。
- * 但し、ランク値(RANK_VAL)がG_MIN_RANKを下回る場合は、MIN_VALに補正。
+ * ランク用関数(下限のみ有り) .
+ * 引数のランク値(RANK_VAL)が、G_MIN_RANK ～ G_MAX_RANK に推移するに伴って MIN_VAL～MAX_VAL に推移する値を取得。
+ * 但し、定義域(RANK_VAL)：G_MIN_RANK <= RANK_VAL  に対して、
+ *         値域(N)       ：   MIN_VAL <=    N      を返す。
+ * ランク値(RANK_VAL)がG_MIN_RANKを下回る場合は、MIN_VALに固定。
  */
-#define R_FUNC_LL(RANK_VAL, MIN_VAL, MAX_VAL)  ( ((RANK_VAL) < (G_MIN_RANK)) ? (MIN_VAL) : (RCNV((G_MIN_RANK), (G_MAX_RANK), (RANK_VAL), (MIN_VAL), (MAX_VAL))) )
+#define RF_LL(RANK_VAL, MIN_VAL, MAX_VAL)  ( ((RANK_VAL) < (G_MIN_RANK)) ? (MIN_VAL) : (RCNV((G_MIN_RANK), (G_MAX_RANK), (RANK_VAL), (MIN_VAL), (MAX_VAL))) )
 
 /**
- * ランク用関数 .
- * 引数のランク値(RANK_VAL)が、
- * G_MIN_RANK ～ G_MAX_RANK に推移するに伴って MIN_VAL～MAX_VAL に推移する値を取得。
- * 但し、ランク値(RANK_VAL)がG_MAX_RANKを上回る場合は、MAX_VALに補正
+ * ランク用関数(上限のみ有り) .
+ * 引数のランク値(RANK_VAL)が、G_MIN_RANK ～ G_MAX_RANK に推移するに伴って MIN_VAL～MAX_VAL に推移する値を取得。
+ * 但し、定義域(RANK_VAL)：RANK_VAL <= G_MIN_RANK  に対して、
+ *         値域(N)       ：   N     <= MAX_VAL     を返す。
+ * ランク値(RANK_VAL)がG_MAX_RANKを上回る場合は、MAX_VALに固定。
  */
-#define R_FUNC_UL(RANK_VAL, MIN_VAL, MAX_VAL)  ( ((RANK_VAL) > (G_MAX_RANK)) ? (MAX_VAL) : (RCNV((G_MIN_RANK), (G_MAX_RANK), (RANK_VAL), (MIN_VAL), (MAX_VAL))) )
+#define RF_UL(RANK_VAL, MIN_VAL, MAX_VAL)  ( ((RANK_VAL) > (G_MAX_RANK)) ? (MAX_VAL) : (RCNV((G_MIN_RANK), (G_MAX_RANK), (RANK_VAL), (MIN_VAL), (MAX_VAL))) )
 
 
 namespace VioletVreath {

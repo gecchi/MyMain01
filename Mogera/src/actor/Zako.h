@@ -28,12 +28,6 @@ public:
     /** 移動スプラインプログラム */
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
 
-    bool scatter_flg_;
-
-    frame delay_;
-
-    bool is_head_;
-
     std::ofstream* pOs_;
 public:
     /**
@@ -73,11 +67,6 @@ public:
 
 
     void onInactive() override;
-
-    /**
-     * 散り散りになる .
-     */
-    void scatter();
 
 
     virtual ~Zako();

@@ -63,7 +63,7 @@ void EnemyUrydike::processBehavior() {
                 pAFader_->transitionLinerUntil(1.0, 30);
                 pKuroko->setSpinAngVelo(D_ANG(3));
             }
-            if (pProg->arriveAt(10)) {
+            if (pProg->hasArrivedAt(10)) {
                 setHitAble(true);
                 pProg->changeNext();
             }
@@ -74,7 +74,7 @@ void EnemyUrydike::processBehavior() {
             if (pProg->isJustChanged()) {
 
             }
-            if (pProg->arriveAt(120)) {
+            if (pProg->hasArrivedAt(120)) {
                 pProg->changeNext();
             }
             break;
@@ -98,7 +98,7 @@ void EnemyUrydike::processBehavior() {
             if (pProg->isJustChanged()) {
                 delay_ = RND(0, 120);
             }
-            if (pProg->arriveAt(delay_)) {
+            if (pProg->hasArrivedAt(delay_)) {
                 //éUÇËéUÇËÇ…Ç»ÇÈ
                 pKurokoLeader_->stop();
                 pKuroko->turnRzRyMvAngTo(RND_ABOUT(pKuroko->_ang_rz_mv, D_ANG(90)), RND_ABOUT(pKuroko->_ang_ry_mv, D_ANG(90)),
@@ -106,7 +106,7 @@ void EnemyUrydike::processBehavior() {
                 pKuroko->setMvAcce(100);
             }
 
-            if (pProg->arriveAt(delay_ + 200)) {
+            if (pProg->hasArrivedAt(delay_ + 200)) {
                 pProg->changeNext();
             }
             break;
@@ -117,7 +117,7 @@ void EnemyUrydike::processBehavior() {
                 UTIL::activateLeaveEffectOf(this);
                 pAFader_->transitionLinerUntil(0.0, 30);
             }
-            if (pProg->arriveAt(60)) {
+            if (pProg->hasArrivedAt(60)) {
                 sayonara();
                 pProg->changeNothing(); //Ç®ÇµÇ‹Ç¢ÅI
             }

@@ -96,7 +96,7 @@ void EnemyGeria::processBehavior() {
                 will_shot_ = false;
             }
             if (will_shot_) {
-                if (pProg->arriveAt(frame_when_shot_)) {
+                if (pProg->hasArrivedAt(frame_when_shot_)) {
                     pProg->change(PROG_FIRE);
                 }
             } else {
@@ -145,7 +145,7 @@ void EnemyGeria::processBehavior() {
                 UTIL::activateLeaveEffectOf(this);
                 pAFader_->transitionLinerUntil(0.0, 30);
             }
-            if (pProg->arriveAt(60)) {
+            if (pProg->hasArrivedAt(60)) {
                 sayonara();
                 pProg->changeNothing(); //Ç®ÇµÇ‹Ç¢ÅI
             }

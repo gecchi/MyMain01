@@ -96,7 +96,7 @@ void EnemyStraea::onActive() {
     getStatus()->reset();
     setHitAble(false);
     _x = GgafDxCore::GgafDxUniverse::_x_gone_right - 1000;
-    getProgress()->reset(PROG_ENTRY);
+    getProgress()->reset(PROG_INIT);
 }
 
 void EnemyStraea::processBehavior() {
@@ -105,13 +105,15 @@ void EnemyStraea::processBehavior() {
     GgafDxKuroko* pKuroko = getKuroko();
     GgafProgress* pProg = getProgress();
     switch (pProg->get()) {
+        case PROG_INIT: {
+            UTIL::activateEntryEffectOf(this);
+            setAlpha(0);
+            pAFader_->transitionLinerUntil(0.98, 20);
+            pKuroko->setFaceAngVelo(AXIS_X, 4000);
+            pProg->changeNext();
+            break;
+        }
         case PROG_ENTRY: {
-            if (pProg->isJustChanged()) {
-                UTIL::activateEntryEffectOf(this);
-                setAlpha(0);
-                pAFader_->transitionLinerUntil(0.98, 20);
-                pKuroko->setFaceAngVelo(AXIS_X, 4000);
-            }
             if (!pAFader_->isTransitioning()) {
                 setHitAble(true);
                 pProg->changeNext();

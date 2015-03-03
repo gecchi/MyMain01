@@ -3,6 +3,9 @@
 #include "Mogera.h"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
+#include <iostream>
+#include <fstream>
+
 namespace Mogera {
 
 /**
@@ -12,6 +15,8 @@ namespace Mogera {
  * @author Masatoshi Tsuge
  */
 class Zakoko : public GgafLib::DefaultMeshSetActor {
+public:
+    std::ofstream* pOs_;
 
 public:
     /**

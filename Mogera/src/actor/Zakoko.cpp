@@ -16,6 +16,7 @@ using namespace Mogera;
 Zakoko::Zakoko(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Zakoko") {
     _class_name = "Zakoko";
+    pOs_ = nullptr;
 }
 
 void Zakoko::onCreateModel() {
@@ -27,6 +28,10 @@ void Zakoko::initialize() {
 }
 
 void Zakoko::onActive() {
+    if (getBaseActor()->isFirst()) {
+        std::string filename = XTOS(getName()) + ".dat";
+        pOs_ = NEW std::ofstream(filename.c_str());
+    }
 }
 
 void Zakoko::processBehavior() {
@@ -35,6 +40,9 @@ void Zakoko::processBehavior() {
 }
 
 void Zakoko::processJudgement() {
+    if (pOs_) {
+        (*pOs_) << _x <<"  "<< _y <<"  " <<_z<< std::endl;
+    }
 }
 
 void Zakoko::onHit(GgafActor* prm_pOtherActor) {
@@ -47,4 +55,7 @@ void Zakoko::scatter() {
 }
 
 Zakoko::~Zakoko() {
+    if (pOs_) {
+        (*pOs_).close();
+    }
 }

@@ -60,7 +60,7 @@ void TransitStage::processBehavior() {
 
             //始まって少し猶予
 
-            if (pProg->arriveAt(180)) { //通過ステージ開始
+            if (pProg->hasArrivedAt(180)) { //通過ステージ開始
                 pProg->change(Stage::PROG_PLAYING);
             }
             break;
@@ -70,7 +70,7 @@ void TransitStage::processBehavior() {
                 _TRACE_("TransitStage::processBehavior() Prog has Just Changed (to Stage::PROG_PLAYING)");
                 _TRACE_("TransitStage::processBehavior() 直後 STAGE="<<teansit_stage_<<"→?");
             }
-            if (pProg->arriveAt(120)) { //次ステージ開始！
+            if (pProg->hasArrivedAt(120)) { //次ステージ開始！
                 pMessage_->update("SELECT NEXT STAGE!");
 //                pMessage_->inactivateDelay(240);
             }
@@ -87,11 +87,11 @@ void TransitStage::processBehavior() {
                 throwEventUpperTree(EVENT_PREPARE_NEXT_STAGE, (void*)(&next_main_stage_)); //次ステージ準備へ
             }
 
-            if (pProg->arriveAt(120)) {
+            if (pProg->hasArrivedAt(120)) {
                 pMessage_->update("GOOD LUCK!");
             }
 
-            if (pProg->arriveAt(300)) {
+            if (pProg->hasArrivedAt(300)) {
                 _TRACE_("TransitStage::processBehavior() Prog(=Stage::PROG_END) and throwEventUpperTree(EVENT_TRANSIT_WAS_END).");
                 _TRACE_("TransitStage::processBehavior() 直後 STAGE="<<teansit_stage_<<"→"<<next_main_stage_);
                 throwEventUpperTree(EVENT_TRANSIT_WAS_END);
@@ -143,7 +143,7 @@ void TransitStage::processBehaviorProgPlaying() {
     SceneProgress* pProg = getProgress();
     switch (teansit_stage_) {
         case 1:
-             if (pProg->arriveAt(5)*60) {
+             if (pProg->hasArrivedAt(5)*60) {
 
                 //５秒経ったら渡島氏
                 pMessage_->update("OKOKOK!! NEXT STAGE 2");
@@ -153,7 +153,7 @@ void TransitStage::processBehaviorProgPlaying() {
             }
             break;
         case 2:
-            if (pProg->arriveAt(5)*60) {
+            if (pProg->hasArrivedAt(5)*60) {
 
                //５秒経ったら渡島氏
                 pMessage_->update("OKOKOK!! NEXT STAGE 3?");

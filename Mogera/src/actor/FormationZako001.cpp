@@ -30,7 +30,7 @@ FormationZako001::FormationZako001(const char* prm_name) :
 //    papSplManufConn_[7] = getConnection_SplineManufactureManager("FormationZako001/7");
 //    papSplManufConn_[8] = getConnection_SplineManufactureManager("FormationZako001");
 
-    int num = papSplManufConn_[0]->peek()->_pSplSrc->_pSp->_rnum;
+    int num = 1;//papSplManufConn_[0]->peek()->_pSplSrc->_pSp->_rnum;
     createMember(col, num, 1);
 }
 
@@ -40,11 +40,6 @@ void FormationZako001::processBehavior() {
 
 void FormationZako001::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int prm_row, int prm_col) {
     Zako* pZako = (Zako*)prm_pActor;
-    if (prm_row == 0) {
-        pZako->is_head_ = true;
-    } else {
-        pZako->is_head_ = false;
-    }
     if (pZako->pKurokoLeader_) {
         throwGgafCriticalException("FormationZako001::onCallUp pZako->pKurokoLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpZako="<<pZako<<"("<<pZako->getName()<<")");
     } else {

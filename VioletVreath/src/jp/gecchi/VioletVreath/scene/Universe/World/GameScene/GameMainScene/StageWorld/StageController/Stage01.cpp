@@ -66,7 +66,7 @@ void Stage01::processBehavior() {
             break;
         }
         case Stage::PROG_BEGIN: {
-            if (pProg->arriveAt(180)) { //ステージ１開始！
+            if (pProg->hasArrivedAt(180)) { //ステージ１開始！
                 pMessage_->activateImmed();
                 pWorldBoundSpace_->activateTree();    //背景ON
                 pHoshiBoshi_->activateTree();    //背景ON
@@ -80,7 +80,7 @@ void Stage01::processBehavior() {
             break;
         }
         case Stage::PROG_PLAYING: {
-            if (pProg->arriveAt(60)) { //ステージ１開始！
+            if (pProg->hasArrivedAt(60)) { //ステージ１開始！
                 pMessage_->update(PX_C(300), PX_C(300), "SCENE 01 START!");
                 pMessage_->inactivateDelay(240);
             }
@@ -93,13 +93,13 @@ void Stage01::processBehavior() {
                 throwEventUpperTree(EVENT_PREPARE_TRANSIT_STAGE); //通過ステージ準備へ
             }
 
-            if (pProg->arriveAt(60)) {
+            if (pProg->hasArrivedAt(60)) {
                 pMessage_->activateImmed();
                 pMessage_->update(PX_C(300), PX_C(300), "SCENE 01 CLEAR!!");
                 pMessage_->inactivateDelay(120);
                 fadeoutSceneWithBgm(300);
             }
-            if (pProg->arriveAt(300)) {
+            if (pProg->hasArrivedAt(300)) {
                 throwEventUpperTree(EVENT_STG01_WAS_END);
             }
             break;

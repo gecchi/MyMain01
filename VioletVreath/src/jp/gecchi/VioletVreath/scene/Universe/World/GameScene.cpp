@@ -121,7 +121,7 @@ void GameScene::processBehavior() {
         case GameScene::PROG_INIT: {
 //            _TRACE_("GameScene::processBehavior() Prog(=GameScene::PROG_INIT) has Just Changed");
             //P_GOD->syncTimeFrame(); //描画を中止して、フレームと時間の同期を行う
-            if ((pProg->arriveAt(120))) {
+            if ((pProg->hasArrivedAt(120))) {
                 _TRACE_("P_GOD->_fps = "<<P_GOD->_fps);
                 pProg->changeWithSceneCrossfading(GameScene::PROG_PRE_TITLE);
                 World* pWorld = pUniverse->getWorld();
@@ -263,7 +263,7 @@ void GameScene::processBehavior() {
                     }
                 }
             }
-            if (pProg->arriveAt(FADE_FRAMES+10)) {
+            if (pProg->hasArrivedAt(FADE_FRAMES+10)) {
                 reset(); //リセット（最初の進捗状態に戻る）
             }
             break;

@@ -20,8 +20,6 @@ Zako::Zako(const char* prm_name) :
     pAFader_ = NEW GgafDxAlphaFader(this);
     useProgress(PROG_BANPEI);
     pKurokoLeader_ = nullptr; //フォーメーションオブジェクトが設定する
-    scatter_flg_ = false;
-    delay_ = 0;
     pOs_ = nullptr;
 
     int n = 6;
@@ -30,13 +28,13 @@ Zako::Zako(const char* prm_name) :
         double z = cos(rad_pos);
         double y = sin(rad_pos);
         static coord r = PX_C(50);
-        Zakoko* pZakoko = NEW Zakoko("Zakoko");
+        std::string name = "Zakoko("+XTOS(t)+")";
+        Zakoko* pZakoko = NEW Zakoko(name.c_str());
         addSubGroupAsFk(pZakoko, 0,  z*r,  y*r, 0, 0, 0);
         pZakoko->setMaterialColor(RCNV(0, n-1, t, 5, 1.0),
-                                   RCNV(0, n-1, t, 1.0, 5),
+                                  RCNV(0, n-1, t, 1.0, 5),
                                   0.5);
     }
-    is_head_ = false;
 }
 
 void Zako::onCreateModel() {
@@ -51,7 +49,7 @@ void Zako::initialize() {
 
 void Zako::onActive() {
     getProgress()->reset(PROG_INIT);
-    if (is_head_) {
+    if (isFirst()) {
         std::string filename = XTOS(getName()) + ".dat";
         pOs_ = NEW std::ofstream(filename.c_str());
     }
@@ -73,7 +71,7 @@ void Zako::processBehavior() {
             }
             pKurokoLeader_->behave(); //スプライン移動を振る舞い
 
-            if (scatter_flg_) {
+            if (pKurokoLeader_->isFinished()) {
                 pProg->changeNext();
             }
             break;
@@ -94,12 +92,8 @@ void Zako::processBehavior() {
 }
 
 void Zako::processJudgement() {
-    if (isOutOfUniverse()) {
-        sayonara();
-    }
-
     if (pOs_) {
-        (*pOs_) << _x <<"  "<< _y <<"   " <<_z<< std::endl;
+        (*pOs_) << _x <<"  "<< _y <<"  " <<_z<< std::endl;
     }
 }
 
@@ -107,14 +101,6 @@ void Zako::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void Zako::onInactive() {
-    if (getBehaveingFrame() > 10) {
-        //ZakoCoreに管理されている。初めはInactive()であるため。
-        sayonara();
-    }
-}
-void Zako::scatter() {
-    //Formationから指示がある。
-    scatter_flg_ = true;
 }
 
 Zako::~Zako() {

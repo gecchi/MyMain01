@@ -177,11 +177,11 @@ void MyShipScene::processBehavior() {
                 std::string z(G_ZANKI, '*');
                 pLabelZanki_->update(z.c_str());
             }
-            if (pProg->arriveAt(120)) {
+            if (pProg->hasArrivedAt(120)) {
                 fadeoutScene(120);
                 pMyShip_->inactivateDelay(120);
             }
-            if (pProg->arriveAt(240)) {
+            if (pProg->hasArrivedAt(240)) {
                 if (G_ZANKI == 0) {
                    throwEventUpperTree(EVENT_ALL_MY_SHIP_WAS_DESTROYED);
                    pUniverse->undoCameraWork(); //VamSysCamWorker‰ğœ

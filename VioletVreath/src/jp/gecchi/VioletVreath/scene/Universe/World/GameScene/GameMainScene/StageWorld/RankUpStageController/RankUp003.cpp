@@ -276,7 +276,7 @@ void RankUp003::processBehavior() {
                 _TRACE_("RankUp003::processBehavior() RankUpStage::PROG_PLAYING ‚É‚È‚è‚Ü‚·‚½I");
             }
 
-            if (pProg->arriveAt(_paFrame_NextEvent[_event_num-1]+600)) {
+            if (pProg->hasArrivedAt(_paFrame_NextEvent[_event_num-1]+600)) {
                 _TRACE_("RankUp003::processBehavior() RankUpStage::PROG_PLAYING ‚¨‚í‚Á‚½");
                 pProg->change(RankUpStage::PROG_RESULT); //RankUpStage‚Ì‹¤’Êˆ—‚Ö
             }

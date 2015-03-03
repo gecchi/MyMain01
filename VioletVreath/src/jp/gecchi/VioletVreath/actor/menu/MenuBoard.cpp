@@ -150,10 +150,13 @@ void MenuBoard::onSink() {
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setMvAngTwd(target_x_ + slide_from_offset_x_,
                          target_y_ + slide_from_offset_y_);
-    pKuroko->asstA()->slideMvByDt(UTIL::getDistance(
+    pKuroko->asstA()->slideMvByDt(
+                           UTIL::getDistance(
                                   _x, _y,
-                                  target_x_+slide_from_offset_x_, target_y_+slide_from_offset_y_
-                           ), _fade_frames,
+                                  target_x_+slide_from_offset_x_,
+                                  target_y_+slide_from_offset_y_
+                           ),
+                           _fade_frames,
                            0.2, 0.3, 0, true);
 }
 

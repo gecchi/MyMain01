@@ -50,7 +50,7 @@ void FormationAllas001::processBehavior() {
                     orderActorToFactory(i, EnemyAllas, "EnemyAllas");
                 }
             }
-            if (pProg->arriveAt(60)) {
+            if (pProg->hasArrivedAt(60)) {
                 for (int i = 0; i < num_Allas_; i++) {
                     addFormationMember(obtainActorFromFactory(i));
                 }
