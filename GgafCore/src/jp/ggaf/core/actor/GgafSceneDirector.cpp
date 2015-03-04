@@ -79,7 +79,7 @@ void GgafSceneDirector::updateActiveInTheTree() {
             _is_active_in_the_tree_flg = false;
         }
     } else {
-        throwGgafCriticalException("GgafSceneDirector::updateActiveInTheTree() _is_active_in_the_tree_flg 更新できません。 name="<<getName()<<" this="<<this);
+        throwGgafCriticalException("GgafSceneDirector::updateActiveInTheTree() _is_active_in_the_tree_flg 更新できません。 this="<<NODE_INFO);
     }
 }
 

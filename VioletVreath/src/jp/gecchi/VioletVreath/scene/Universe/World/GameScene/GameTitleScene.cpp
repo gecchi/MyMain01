@@ -50,7 +50,7 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
 }
 
 void GameTitleScene::onReset() {
-    _TRACE_("GameTitleScene::onReset()");
+    _TRACE_("GameTitleScene::onReset() "<<NODE_INFO<<"");
     pLabel01_->update("");
     pLabel02_->update("");
     pTitleBoard_->position(PX_C(100), PX_C(90));

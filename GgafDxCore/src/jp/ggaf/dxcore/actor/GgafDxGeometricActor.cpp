@@ -236,7 +236,7 @@ GgafGroupHead* GgafDxGeometricActor::addSubGroupAsFk(actorkind prm_kind,
         //OK
     } else {
         throwGgafCriticalException("GgafDxGeometricActor::addSubGroupAsFk() : "<<
-                                   "this=("<<this<<")["<<getName()<<"] ÇÕÅA_pFunc_calc_rot_mv_world_matrix Ç™ nullptrÇÃà◊ÅAFKÉxÅ[ÉXÇ∆Ç»ÇÈéëäiÇ™Ç†ÇËÇ‹ÇπÇÒ");
+                                   "this="<<NODE_INFO<<" ÇÕÅA_pFunc_calc_rot_mv_world_matrix Ç™ nullptrÇÃà◊ÅAFKÉxÅ[ÉXÇ∆Ç»ÇÈéëäiÇ™Ç†ÇËÇ‹ÇπÇÒ");
     }
 #endif
     GgafGroupHead* pGroupHead = addSubGroup(prm_kind, prm_pGeoActor);
@@ -411,14 +411,14 @@ GgafDxGeometricActor::~GgafDxGeometricActor() {
 }
 
 void GgafDxGeometricActor::dump() {
-    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"]("<<_x<<","<<_y<<","<<_z<<")"<<DUMP_FLGS);
+    _TRACE_("\t\t\t\t\t\t\t\t"<<NODE_INFO<<"("<<_x<<","<<_y<<","<<_z<<")"<<DUMP_FLGS);
     GgafActor* pActor_tmp = _pSubFirst;
     while (pActor_tmp) {
         pActor_tmp->dump("\t\t\t\t\t\t\t\tÅb");
         if (pActor_tmp->getNext()) {
             pActor_tmp = pActor_tmp->getNext();
         } else {
-            _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ‹Ç∑");
+            _TRACE_("ÅyåxçêÅz"<<NODE_INFO<<" ÇÃnextÇ™nullptrÇ¡ÇƒÇ‹Ç∑");
             break;
         }
         if (pActor_tmp->isFirst()) {
@@ -429,14 +429,14 @@ void GgafDxGeometricActor::dump() {
 }
 
 void GgafDxGeometricActor::dump(std::string prm_parent) {
-    _TRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"]("<<_x<<","<<_y<<","<<_z<<")"<<DUMP_FLGS);
+    _TRACE_(prm_parent <<NODE_INFO<<"("<<_x<<","<<_y<<","<<_z<<")"<<DUMP_FLGS);
     GgafActor* pActor_tmp = _pSubFirst;
     while (pActor_tmp) {
         pActor_tmp->dump(prm_parent + "Åb");
         if (pActor_tmp->getNext()) {
             pActor_tmp = pActor_tmp->getNext();
         } else {
-            _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ‹Ç∑");
+            _TRACE_("ÅyåxçêÅz"<<NODE_INFO<<" ÇÃnextÇ™nullptrÇ¡ÇƒÇ‹Ç∑");
             break;
         }
         if (pActor_tmp->isFirst()) {

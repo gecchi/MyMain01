@@ -16,8 +16,6 @@ namespace VioletVreath {
 class FormationThagoras : public GgafLib::TreeFormation {
 
 public:
-    int num_Thagoras_;
-
     int cnt_call_up_row_;
     frame call_up_interval_;
 

@@ -24,7 +24,7 @@ GameBeginningScene::GameBeginningScene(const char* prm_name) : DefaultScene(prm_
 }
 
 void GameBeginningScene::onReset() {
-    _TRACE_("GameBeginningScene::onReset()");
+    _TRACE_("GameBeginningScene::onReset() "<<NODE_INFO<<"");
     getProgress()->change(GameBeginningScene::PROG_INIT);
 //    fadeinScene(0);
     pLabel01_->update("");

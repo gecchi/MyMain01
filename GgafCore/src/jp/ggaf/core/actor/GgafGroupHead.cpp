@@ -72,7 +72,7 @@ void GgafGroupHead::updateActiveInTheTree() {
 #ifdef MY_DEBUG
     if (_pParent) {
     } else {
-        throwGgafCriticalException("GgafGroupHead::updateActiveInTheTree() _is_active_in_the_tree_flg 更新できません。 name="<<getName()<<" this="<<this);
+        throwGgafCriticalException("GgafGroupHead::updateActiveInTheTree() _is_active_in_the_tree_flg 更新できません。 this="<<NODE_INFO);
     }
 #endif
     if (_pParent->_is_active_in_the_tree_flg) {

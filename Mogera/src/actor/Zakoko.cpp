@@ -41,7 +41,7 @@ void Zakoko::processBehavior() {
 
 void Zakoko::processJudgement() {
     if (pOs_) {
-        (*pOs_) << _x <<"  "<< _y <<"  " <<_z<< std::endl;
+        (*pOs_) << _x << "  " <<  _y  << "  " << _z << std::endl;
     }
 }
 

@@ -378,7 +378,7 @@ void MyShip::initialize() {
 
 
 void MyShip::onReset() {
-    _TRACE_("MyShip::onReset()");
+    _TRACE_("MyShip::onReset() "<<NODE_INFO<<"");
     frame_soft_rapidshot_ = 0;
     is_being_soft_rapidshot_ = false;
     just_shot_ = false;

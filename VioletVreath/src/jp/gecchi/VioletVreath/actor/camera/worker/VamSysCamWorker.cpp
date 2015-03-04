@@ -61,7 +61,7 @@ void VamSysCamWorker::initialize() {
     mv_t_x_CAM_prev_ = 0;
     mv_t_y_CAM_prev_ = 0;
     mv_t_z_CAM_prev_ = 0;
-    _TRACE_("VamSysCamWorker::initialize() this="<<this);
+    _TRACE_("VamSysCamWorker::initialize() this="<<NODE_INFO);
     dump();
 }
 void VamSysCamWorker::onActive() {

@@ -57,7 +57,7 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
 }
 
 void GameMainScene::onReset() {
-    _TRACE_("GameMainScene::onReset()");
+    _TRACE_("GameMainScene::onReset() "<<NODE_INFO<<"");
     getProgress()->reset(GameMainScene::PROG_INIT);
 }
 

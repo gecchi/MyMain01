@@ -356,6 +356,8 @@ public:
 
     /**
      * 自ノードと自ノードよりも親にあたるノード全てにイベントメッセージを通知(通知対象：ツリー全て) .
+     * 但し、ノードは正しいツリーの一員でなければ通知されません。<BR>
+     * 正しいツリーの一員とは、_can_live_flg と _was_initialize_flg が true である事です。<BR>
      * イベントを受け取る側は、onCatchEvent(hashval, void) を実装が必要です。<BR>
      * 自身の onCatchEvent(hashval, void) にも通知されるので注意して下さい。<BR>
      * @param prm_no イベントメッセージ番号
@@ -365,6 +367,8 @@ public:
 
     /**
      * 自ノードと自ノードよりも親にあたるノード全てにイベントメッセージを通知(通知対象：ツリー全て) .
+     * 但し、ノードは正しいツリーの一員でなければ通知されません。<BR>
+     * 正しいツリーの一員とは、_can_live_flg と _was_initialize_flg が true である事です。<BR>
      * イベントを受け取る側は、onCatchEvent(hashval, void) を実装が必要です。<BR>
      * 自身の onCatchEvent(hashval, void) にも通知されるので注意して下さい。<BR>
      * 汎用引数 void* には、this が設定されます。<BR>
@@ -710,6 +714,8 @@ public:
     /**
      * ゴミ箱に放り込まれる直前に呼び出されるコールバック .
      * end(frame) 実行後、ゴミ箱(GgafGarbageBox) に取り込まれる直前に呼び出される。<BR>
+     * つまり、_can_live_flg が false から true になった時に呼び出される。<BR>
+     * ですが、まだツリーに所属していおり、自身のノードの鎖はまだ切れていない状態です。<BR>
      * 最速で、end(frame) で指定したフレーム + GGAF_END_DELAY 後に発生する。<BR>
      * 処理がもたつくと、それ以上の先のフレームで発生する。<BR>
      * 直前に処理が必要な場合は、オーバーライドして実装可能。<BR>

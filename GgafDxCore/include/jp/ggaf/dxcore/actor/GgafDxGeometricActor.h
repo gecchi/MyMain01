@@ -535,10 +535,10 @@ public:
     inline void changeGeoLocal() {
 #ifdef MY_DEBUG
         if (!_pActor_base) {
-            throwGgafCriticalException("changeGeoLocal() : 土台アクターがありません。確認して下さい。this="<<getName()<<"("<<this<<")");
+            throwGgafCriticalException("changeGeoLocal() : 土台アクターがありません。確認して下さい。this="<<NODE_INFO<<"");
         }
         if (_is_local) {
-            throwGgafCriticalException("changeGeoLocal() : 既にローカル座標系です。対応を確認して下さい。this="<<getName()<<"("<<this<<")");
+            throwGgafCriticalException("changeGeoLocal() : 既にローカル座標系です。対応を確認して下さい。this="<<NODE_INFO<<"");
         }
 #endif
         _x_final  = _x;
@@ -565,10 +565,10 @@ public:
     inline void changeGeoFinal() {
 #ifdef MY_DEBUG
         if (!_pActor_base) {
-            throwGgafCriticalException("changeGeoFinal() : 土台アクターがありません。確認して下さい。this="<<getName()<<"("<<this<<")");
+            throwGgafCriticalException("changeGeoFinal() : 土台アクターがありません。確認して下さい。this="<<NODE_INFO<<"");
         }
         if (!_is_local) {
-            throwGgafCriticalException("changeGeoFinal() : 既にローカル座標系です。対応を確認して下さい。this="<<getName()<<"("<<this<<")");
+            throwGgafCriticalException("changeGeoFinal() : 既にローカル座標系です。対応を確認して下さい。this="<<NODE_INFO<<"");
         }
 #endif
         _x_local = _x;

@@ -125,7 +125,7 @@ void Magic::init() {
 }
 
 void Magic::onReset() {
-    _TRACE_("Magic::onReset() ["<<getName()<<"] ");
+    _TRACE_("Magic::onReset() "<<NODE_INFO<<"");
     new_level_  = 0;
     last_level_ = 0;
     level_      = 0;

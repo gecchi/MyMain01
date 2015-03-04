@@ -59,7 +59,7 @@ void EnemyDelheid::initialize() {
 
 void EnemyDelheid::onActive() {
     if (pKurokoLeader_ == nullptr) {
-        throwGgafCriticalException("EnemyDelheidはスプライン必須ですconfigして下さい。 this="<<this<<" name="<<getName());
+        throwGgafCriticalException("EnemyDelheidはスプライン必須ですconfigして下さい。this="<<NODE_INFO);
     }
     getStatus()->reset();
     setHitAble(true);

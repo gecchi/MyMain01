@@ -125,6 +125,11 @@ void GgafProgress::changeNothing() {
 }
 
 void GgafProgress::changeNext() {
+#ifdef MY_DEBUG
+    if (_progress_next == _progress+1) {
+        throwGgafCriticalException("gafProgress::changeNext Šù‚É_progress_next="<<_progress_next<<"‚Å‚·B˜A‘±‚Å changeNext() ‚µ‚Ä‚¢‚Ü‚¹‚ñ‚©H");
+    }
+#endif
     _progress_next = _progress+1;
 #ifdef MY_DEBUG
     if (_progress_next < 0 || _progress_next > _num_progress) {

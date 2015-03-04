@@ -33,7 +33,7 @@ void TransitStage::initialize() {
 }
 
 void TransitStage::onReset() {
-    _TRACE_("TransitStage::onReset()");
+    _TRACE_("TransitStage::onReset() "<<NODE_INFO<<"");
     pMessage_->update("");
     getProgress()->reset(Stage::PROG_INIT);
 }

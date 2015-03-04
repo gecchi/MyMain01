@@ -41,7 +41,7 @@ StageController::StageController(const char* prm_name) : DefaultScene(prm_name) 
 }
 
 void StageController::onReset() {
-    _TRACE_("StageController::onReset()");
+    _TRACE_("StageController::onReset() "<<NODE_INFO<<"");
     if (pStageMainCannel_) {
         pStageMainCannel_->inactivate();
     }

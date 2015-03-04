@@ -32,7 +32,7 @@ void CappedGraphBarActor::processDraw() {
     HRESULT hr;
 #ifdef MY_DEBUG
     if (_align != ALIGN_LEFT) {
-        throwGgafCriticalException("CappedGraphBarActor::processDraw() X座標アライメントは ALIGN_LEFT 以外出来ません。name="<<getName()<<" this="<<this);
+        throwGgafCriticalException("CappedGraphBarActor::processDraw() X座標アライメントは ALIGN_LEFT 以外出来ません。this="<<NODE_INFO);
     }
 #endif
     if (_valign == VALIGN_BOTTOM) {

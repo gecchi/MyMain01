@@ -61,7 +61,7 @@ EffectLockon001::~EffectLockon001() {
 //
 //
 //void EffectLockon001::dump() {
-//    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"] Target="<<(pTarget_==nullptr?"nullptr":pTarget_->getName())<<" "<<
+//    _TRACE_("\t\t\t\t\t\t\t\t"<<NODE_INFO<<" Target="<<(pTarget_==nullptr?"nullptr":pTarget_->getName())<<" "<<
 //                                                                               "@"<<frame_of_behaving_since_onActive_<<
 //                                                                               "/"<<
 //                                                                               frame_of_behaving_<<
@@ -97,7 +97,7 @@ EffectLockon001::~EffectLockon001() {
 //            if (pActor_tmp->_pNext) {
 //                pActor_tmp = pActor_tmp->_pNext;
 //            } else {
-//                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
+//                _TRACE_("ÅyåxçêÅz"<<NODE_INFO<<" ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
 //                break;
 //            }
 //            if (pActor_tmp->is_first_flg_) {
@@ -110,7 +110,7 @@ EffectLockon001::~EffectLockon001() {
 
 
 //void EffectLockon001::dump(std::string prm_parent) {
-//    _TRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"] Target="<<(pTarget_==nullptr?"nullptr":pTarget_->getName())<<" "<<
+//    _TRACE_(prm_parent <<NODE_INFO<<" Target="<<(pTarget_==nullptr?"nullptr":pTarget_->getName())<<" "<<
 //                                                                         "@"<<frame_of_behaving_since_onActive_<<
 //                                                                         "/"<<
 //                                                                         frame_of_behaving_<<
@@ -146,7 +146,7 @@ EffectLockon001::~EffectLockon001() {
 //            if (pActor_tmp->_pNext) {
 //                pActor_tmp = pActor_tmp->_pNext;
 //            } else {
-//                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
+//                _TRACE_("ÅyåxçêÅz"<<NODE_INFO<<" ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
 //                break;
 //            }
 //            if (pActor_tmp->is_first_flg_) {

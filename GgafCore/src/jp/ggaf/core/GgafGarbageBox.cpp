@@ -26,7 +26,7 @@ void GgafGarbageBox::add(GgafActor* prm_pActor) {
         if (GgafGarbageBox::_wait) {
             Sleep(1);
             if (i == GgafGarbage_MAX_WAIT-1) {
-                _TRACE_("ƒŒx„ GgafGarbageBox::add("<<prm_pActor<<"["<<prm_pActor->getName()<<"]) ‹­§add");
+                _TRACE_("ƒŒx„ GgafGarbageBox::add("<<NODE_INFO_P(prm_pActor)<<") ‹­§add");
             }
         } else {
             break;
@@ -36,7 +36,7 @@ void GgafGarbageBox::add(GgafActor* prm_pActor) {
     prm_pActor->_can_live_flg = false;
     prm_pActor->inactivateTreeImmed();
     _pDisusedActor->addSubFirst(prm_pActor->extract()); //addSubFirst‚Å‚·IaddSubLast‚É”ñ‚¸
-    _TRACE_("ƒSƒ~” (Actor) GgafGarbageBox::add("<<prm_pActor<<"["<<prm_pActor->getName()<<"])");
+    _TRACE_("ƒSƒ~” (Actor) GgafGarbageBox::add("<<NODE_INFO_P(prm_pActor)<<")");
     GgafGarbageBox::_wait = false;
 }
 
@@ -46,7 +46,7 @@ void GgafGarbageBox::add(GgafScene* prm_pScene) {
         if (GgafGarbageBox::_wait) {
             Sleep(1);
             if (i == GgafGarbage_MAX_WAIT-1) {
-                _TRACE_("ƒŒx„ GgafGarbageBox::add("<<prm_pScene<<"["<<prm_pScene->getName()<<"]) ‹­§add");
+                _TRACE_("ƒŒx„ GgafGarbageBox::add("<<NODE_INFO_P(prm_pScene)<<") ‹­§add");
             }
         } else {
             break;
@@ -62,10 +62,10 @@ void GgafGarbageBox::add(GgafScene* prm_pScene) {
         pSceneDirector->_can_live_flg = false;
         pSceneDirector->inactivateTreeImmed();
         _pDisusedActor->addSubFirst(pSceneDirector); //addSubFirst‚Å‚·IaddSubLast‚É”ñ‚¸
-        _TRACE_("ƒSƒ~” (Actor) GgafGarbageBox::add("<<prm_pScene<<"["<<prm_pScene->getName()<<"] ‚ÌŠÄ“Â"<<pSceneDirector<<"["<<pSceneDirector->getName()<<"])");
+        _TRACE_("ƒSƒ~” (Actor) GgafGarbageBox::add( "<<NODE_INFO_P(prm_pScene)<<"‚ÌŠÄ“Â‚Ì"<<NODE_INFO_P(pSceneDirector)<<")");
     }
     _pDisusedScene->addSubFirst(prm_pScene->extract()); //addSubFirst‚Å‚·IaddSubLast‚É”ñ‚¸
-    _TRACE_("ƒSƒ~” (Scene) GgafGarbageBox::add("<<prm_pScene<<"["<<prm_pScene->getName()<<"])");
+    _TRACE_("ƒSƒ~” (Scene) GgafGarbageBox::add("<<NODE_INFO_P(prm_pScene)<<")");
     GgafGarbageBox::_wait = false;
 }
 

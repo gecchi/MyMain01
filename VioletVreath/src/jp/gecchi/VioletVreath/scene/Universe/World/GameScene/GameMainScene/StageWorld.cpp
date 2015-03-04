@@ -23,8 +23,7 @@ StageWorld::StageWorld(const char* prm_name) : DefaultScene(prm_name) {
 }
 
 void StageWorld::onReset() {
-    _TRACE_("StageWorld::onReset() ");
-    _TRACE_("Stage::onReset() GOD="<<P_GOD->_frame_of_God << ":");
+    _TRACE_("StageWorld::onReset() "<<NODE_INFO<<" GOD="<<P_GOD->_frame_of_God);
     _TRACE_("MyShipScene ‚ðAƒXƒ[‚Ì‰e‹¿‚ð—^‚¦‚È‚¢‚½‚ß‚Éˆê‚Âã‚Éˆø‚«ã‚°‚Ü‚· addSubLast(P_MYSHIP_SCENE->extract()); ");
     P_MYSHIP_SCENE->resetTree();
     P_MYSHIP_SCENE->activateImmed();

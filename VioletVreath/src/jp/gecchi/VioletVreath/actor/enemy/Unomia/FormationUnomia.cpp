@@ -36,7 +36,7 @@ void FormationUnomia::updateRankParameter() {
 void FormationUnomia::initialize() {
     getProgress()->reset(PROG_INIT);
 //    if (pConn_depo_Unomia_->chkFirstConnectionIs(this)) {
-//        _TRACE_("pConn_depo_Unomia_ は、ワシ("<<this<<")が育てたエヘン！")
+//        _TRACE_("pConn_depo_Unomia_ は、ワシ(this="<<NODE_INFO<<")が育てたエヘン！")
 //        getPlatformScene()->getSceneDirector()->addSubGroup(
 //                pConn_depo_Unomia_->peek()->extract()
 //                );

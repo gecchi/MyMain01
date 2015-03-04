@@ -17,25 +17,25 @@ void GgafDepositoryFormation::setFormationMember(GgafActorDepository* prm_pDepo)
 #ifdef MY_DEBUG
     if (_pDepo) {
         throwGgafCriticalException("GgafDepositoryFormation::setFormationMember 既にデポジトリは登録済み("<<_pDepo->getName()<<")です。\n"<<
-                                   "this="<<this<<"("<<getName()<<") prm_pDepo="<<prm_pDepo);
+                                   "this="<<NODE_INFO<<" prm_pDepo="<<NODE_INFO_P(prm_pDepo)<<"");
     }
     if (prm_pDepo) {
         //OK
     } else {
         throwGgafCriticalException("GgafDepositoryFormation::setFormationMember 不正なデポジトリです。\n"<<
-                                   "this="<<this<<"("<<getName()<<") prm_pDepo="<<prm_pDepo);
+                                   "this="<<NODE_INFO<<" prm_pDepo="<<NODE_INFO_P(prm_pDepo)<<"");
     }
     if (prm_pDepo->getSubFirst()) {
         //OK
     } else {
         throwGgafCriticalException("GgafDepositoryFormation::setFormationMember("<<prm_pDepo->getName()<<") 引数デポジトリのサブが存在しません。\n"<<
-                                   "this="<<this<<"("<<getName()<<") prm_pDepo="<<prm_pDepo);
+                                   "this="<<NODE_INFO<<" prm_pDepo="<<NODE_INFO_P(prm_pDepo)<<"");
     }
     if (prm_pDepo->getPlatformScene()) {
         //OK
     } else {
         throwGgafCriticalException("GgafDepositoryFormation::setFormationMember("<<prm_pDepo->getName()<<") 引数デポジトリがシーンに未所属です。\n"<<
-                                   "this="<<this<<"("<<getName()<<") prm_pDepo="<<prm_pDepo);
+                                   "this="<<NODE_INFO<<" prm_pDepo="<<NODE_INFO_P(prm_pDepo)<<"");
     }
 #endif
     _pDepo = prm_pDepo;
@@ -135,7 +135,7 @@ void GgafDepositoryFormation::sayonaraFollwer() {
             _listFollower.getCurrent()->_pFormation = nullptr;
         } else {
             throwGgafCriticalException("GgafDepositoryFormation::sayonaraFollwer() _listFollowerに自身のformation管理ではないメンバーがいました！\n"<<
-                                       " this="<<getName()<<"("<<this<<") \n"<<
+                                       " this="<<NODE_INFO<<" \n"<<
                                        " _listFollower.getCurrent()="<<(_listFollower.getCurrent()->getName())<<"("<<(_listFollower.getCurrent())<<") \n"<<
                                        " _listFollower.getCurrent()->_pFormation="<<(_listFollower.getCurrent()->_pFormation->getName())<<"("<<(_listFollower.getCurrent()->_pFormation)<<") ");
         }

@@ -20,7 +20,7 @@ GgafActor::GgafActor(const char* prm_name, GgafStatus* prm_pStat) :
         _pStatus = NEW GgafStatus(12, nullptr);
         getStatus()->set(0, 0);
     }
-    _TRACE_("new "<<_class_name<<"("<<this<<")["<<prm_name<<"] _id="<<getId());
+    _TRACE_("new "<<NODE_INFO<<" _id="<<getId());
 }
 
 GgafActor::~GgafActor() {
@@ -31,7 +31,7 @@ GgafActor::~GgafActor() {
     } else {
         //ÉAÉvÉäèIóπèàóùéûÇÃÇΩÇﬂÅAçHèÍÇ‡Ç‡ÇÍÇ»Ç≠ë|èúÇ≥ÇÍÇÈÇΩÇﬂçló∂ïsóv
     }
-    _TRACE_("delete "<<_class_name<<"("<<this<<")["<<getName()<<"] _id="<<getId());
+    _TRACE_("delete "<<NODE_INFO<<" _id="<<getId());
     //OutputDebugStringA("*");
 }
 
@@ -125,7 +125,7 @@ void GgafActor::notifyDestroyedToFormation() {
 }
 
 void GgafActor::dump() {
-    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"]"<<DUMP_FLGS);
+    _TRACE_("\t\t\t\t\t\t\t\t"<<NODE_INFO<<DUMP_FLGS);
 
     GgafActor* pActor_tmp = _pSubFirst;
     while (pActor_tmp) {
@@ -133,7 +133,7 @@ void GgafActor::dump() {
         if (pActor_tmp->_pNext) {
             pActor_tmp = pActor_tmp->_pNext;
         } else {
-            _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
+            _TRACE_("ÅyåxçêÅz"<<NODE_INFO<<" ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
             break;
         }
         if (pActor_tmp->_is_first_flg) {
@@ -144,14 +144,14 @@ void GgafActor::dump() {
 }
 
 void GgafActor::dump(std::string prm_parent) {
-    _TRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"]"<<DUMP_FLGS);
+    _TRACE_(prm_parent <<NODE_INFO<<DUMP_FLGS);
     GgafActor* pActor_tmp = _pSubFirst;
     while (pActor_tmp) {
         pActor_tmp->dump(prm_parent + "Åb");
         if (pActor_tmp->_pNext) {
             pActor_tmp = pActor_tmp->_pNext;
         } else {
-            _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
+            _TRACE_("ÅyåxçêÅz"<<NODE_INFO<<"ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
             break;
         }
         if (pActor_tmp->_is_first_flg) {

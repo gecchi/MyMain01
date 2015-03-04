@@ -101,7 +101,7 @@ void EnemyHisbe::initialize() {
     pChecker->setColliSphere(0, 40000);
 
 //    if (pConn_pDepoStore_laser_set->chkFirstConnectionIs(this)) {
-//        _TRACE_("pConn_pDepoStore_laser_setは、ワシ("<<this<<")が育てたエヘン！")
+//        _TRACE_("pConn_pDepoStore_laser_setは、ワシ"<<NODE_INFO<<"が育てたエヘン！")
 //        getPlatformScene()->getSceneDirector()->addSubGroup(
 //                pConn_pDepoStore_laser_set->peek()->extract()
 //                );

@@ -70,6 +70,10 @@ public:
      */
     virtual void onEnd() override;
 
+    inline int getMemberNum() {
+        return _num_formation_member;
+    }
+
     virtual ~GgafFormation();
 };
 

@@ -22,8 +22,7 @@ FormationThagoras::FormationThagoras(const char* prm_name,
     _class_name = "FormationThagoras";
 
     pXpmConnection_ = getConnection_XpmManager(prm_xpm_id);
-    num_Thagoras_ = getXpm()->getPixelNum();  //ï“ë‡êî
-    for (int i = 0; i < num_Thagoras_; i++) {
+    for (int i = 0; i < getXpm()->getPixelNum(); i++) {
         std::string name = "Thagoras("+XTOS(i)+")";
         addFormationMember(NEW EnemyThagoras(name.c_str()));
     }

@@ -24,7 +24,7 @@ Zako::Zako(const char* prm_name) :
 
     int n = 6;
     for (int t = 0; t < n; t++) {
-        double rad_pos = PI*2.0*n / t;
+        double rad_pos = ((PI*2.0)*t) / n;
         double z = cos(rad_pos);
         double y = sin(rad_pos);
         static coord r = PX_C(50);
@@ -45,6 +45,7 @@ void Zako::initialize() {
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->relateFaceByMvAng(true);
     pKuroko->setSpinAngVelo(D_ANG(2));
+    pKuroko->setMvVelo(PX_C(1));
 }
 
 void Zako::onActive() {
@@ -93,7 +94,7 @@ void Zako::processBehavior() {
 
 void Zako::processJudgement() {
     if (pOs_) {
-        (*pOs_) << _x <<"  "<< _y <<"  " <<_z<< std::endl;
+        (*pOs_) << _x << "  " << _y << "  " << _z << std::endl;
     }
 }
 
@@ -104,11 +105,9 @@ void Zako::onInactive() {
 }
 
 Zako::~Zako() {
-
     if (pOs_) {
         (*pOs_).close();
     }
-
     GGAF_DELETE(pAFader_);
     GGAF_DELETE_NULLABLE(pKurokoLeader_);
 }

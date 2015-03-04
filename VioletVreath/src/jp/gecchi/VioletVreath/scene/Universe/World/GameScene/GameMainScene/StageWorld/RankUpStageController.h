@@ -12,7 +12,6 @@
 #endif
 
 HASHVAL(EVENT_RANKUP_WAS_END);
-HASHVAL(EVENT_RANKUP_ON_GARBAGED);
 
 namespace VioletVreath {
 

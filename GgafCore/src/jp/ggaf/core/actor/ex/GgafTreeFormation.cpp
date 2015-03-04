@@ -19,7 +19,7 @@ void GgafTreeFormation::addFormationMember(GgafActor* prm_pSub) {
 #ifdef MY_DEBUG
     if (wasDeclaredEnd()) {
         //終了を待つのみ
-        _TRACE_("＜警告＞ GgafTreeFormation::addSubLast("<<prm_pSub->getName()<<"("<<prm_pSub<<")) 既に死にゆく定めのFormationです。サブに追加することはおかしいのではないか？いいのか？。this="<<getName()<<"("<<this<<")");
+        _TRACE_("＜警告＞ GgafTreeFormation::addSubLast("<<NODE_INFO_P(prm_pSub)<<") 既に死にゆく定めのFormationです。サブに追加することはおかしいのではないか？いいのか？。this="<<NODE_INFO);
     }
 #endif
     _num_formation_member++;
@@ -40,15 +40,15 @@ void GgafTreeFormation::addFormationMember(GgafActor* prm_pSub) {
                 //種別が変わっている。この団長の種別を無理やり変更できるか？
                 if (myGroupHead->_kind == 0) {
                     //種別0だったので無理やり団長の種別を書き換えてしまおう。
-                    _TRACE_("GgafTreeFormation::addFormationMember "<<getName()<<"("<<this<<") は、所属済み団長の種別(＝自身の種別)"<<myGroupHead->_kind<<"と、追加メンバーの種別"<<kind<<"が異なります。"<<
+                    _TRACE_("GgafTreeFormation::addFormationMember "<<NODE_INFO<<" は、所属済み団長の種別(＝自身の種別)"<<myGroupHead->_kind<<"と、追加メンバーの種別"<<kind<<"が異なります。"<<
                             "幸いにも、団長種別が 0 だったので、無理やり更新しました。旧団長種別="<<myGroupHead->_kind<<" → 新団長種別="<<kind<<"");
                     myGroupHead->setKind(kind);
                 } else {
-                    _TRACE_("GgafTreeFormation::addFormationMember "<<getName()<<"("<<this<<") は、所属済み団長の種別(＝自身の種別)"<<myGroupHead->_kind<<"と、追加メンバーの種別"<<kind<<"が異なります。");
+                    _TRACE_("GgafTreeFormation::addFormationMember "<<NODE_INFO<<" は、所属済み団長の種別(＝自身の種別)"<<myGroupHead->_kind<<"と、追加メンバーの種別"<<kind<<"が異なります。");
                     _TRACE_("所属済み団長配下の状態は以下です");
                     myGroupHead->dump();
                     throwGgafCriticalException(
-                            "GgafTreeFormation::addFormationMember "<<getName()<<"("<<this<<") は、所属済み団長の種別(＝自身の種別)"<<myGroupHead->_kind<<"と、追加メンバーの種別"<<kind<<"が異なります。");
+                            "GgafTreeFormation::addFormationMember "<<NODE_INFO<<" は、所属済み団長の種別(＝自身の種別)"<<myGroupHead->_kind<<"と、追加メンバーの種別"<<kind<<"が異なります。");
                 }
             }
         } else {
