@@ -99,13 +99,13 @@ public:
      * 自身が管理されているシーンの監督を取得 .
      * @return シーン監督
      */
-    GgafSceneDirector* getSceneDirector();
+    GgafSceneDirector* getMySceneDirector();
 
     /**
      * シーン監督(GgafSceneDirector)を設定 .
      * @param prm_pSceneDirector 監督
      */
-    void setSceneDirector(GgafSceneDirector* prm_pSceneDirector);
+    void setMySceneDirector(GgafSceneDirector* prm_pSceneDirector);
 
     /**
      * 神に謁見 .

@@ -51,12 +51,12 @@ void TamagoScene::initialize() {
 void TamagoScene::processBehavior() {
 //    if (getActiveFrame() == 60) {
 //        VarietyRatislavia001* p = (VarietyRatislavia001*)obtainActorFromFactory(900000001);
-//        getSceneDirector()->addSubGroup(p);
+//        bringDirector()->addSubGroup(p);
 //    }
 
 //    if (getActiveFrame() == 120) {
 //        FormationGeria001* p = (FormationGeria001*)obtainActorFromFactory(100000001);
-//        getSceneDirector()->addSubGroup(p);
+//        bringDirector()->addSubGroup(p);
 //    }
 //    if (getActiveFrame() == 120) {
 //
@@ -76,14 +76,14 @@ void TamagoScene::processBehavior() {
 //        p9->addSubGroupAsFk(p5,       0,  300000,       0, D0ANG, D0ANG,     D90ANG);
 //        p9->addSubGroupAsFk(p6,       0, -300000,       0, D0ANG, D0ANG,    D270ANG);
 //
-//        getSceneDirector()->addSubGroup(p9);
+//        bringDirector()->addSubGroup(p9);
 //
 //    }
 //    for (int i = 1; i <= 1; i++) {
 //        if (getBehaveingFrame() == (i*8)) {
 //            HoshiBoshi001* p = (HoshiBoshi001*)(obtainActorFromFactory(100000000+i));
 //            p->position(0,0,0);
-//            getSceneDirector()->addSubGroup(p);
+//            bringDirector()->addSubGroup(p);
 //        }
 //    }
 

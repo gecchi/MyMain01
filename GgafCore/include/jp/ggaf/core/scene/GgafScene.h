@@ -198,7 +198,7 @@ public:
      * 自シーンの監督を取得 .
      * @return シーン監督
      */
-    inline virtual GgafSceneDirector* getSceneDirector() const {
+    inline GgafSceneDirector* bringDirector() const {
         return _pSceneDirector;
     }
 

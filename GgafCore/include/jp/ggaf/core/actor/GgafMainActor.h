@@ -46,18 +46,18 @@ public:
     /**
      * シーン監督を設定する。 .
      */
-    virtual void setSceneDirector(GgafSceneDirector* prm_pSceneDirector);
+    virtual void setMySceneDirector(GgafSceneDirector* prm_pSceneDirector);
 
     /**
      * 団長を設定する。<BR>
      */
-    virtual void setGroupHead(GgafGroupHead* prm_pGroupHead);
+    virtual void setMyGroupHead(GgafGroupHead* prm_pGroupHead);
 
     /**
-     * シーン監督取得。 .
+     * 所属シーンのシーン監督取得。但しシーンに所属していない場合は、この世(Universe)のシーン監督を返す .
      * @return 所属シーン監督の監督。(いない場合 この世(Universe)の監督)
      */
-    virtual GgafSceneDirector* getSceneDirector();
+    GgafSceneDirector* getMySceneDirector();
 
     /**
      * シーン団長を取得する。 .

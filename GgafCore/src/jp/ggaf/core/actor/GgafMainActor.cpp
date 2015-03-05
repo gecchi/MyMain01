@@ -18,8 +18,9 @@ GgafMainActor::GgafMainActor(const char* prm_name, GgafStatus* prm_pStat) :
 
 GgafMainActor* GgafMainActor::extract() {
     GgafMainActor* pActor = (GgafMainActor*)GgafActor::extract();
-    pActor->setSceneDirector(nullptr); //監督アクターリセット
-    pActor->setGroupHead(nullptr); //団長アクターリセット
+    pActor->setPlatformScene(nullptr);
+    pActor->setMySceneDirector(nullptr);
+    pActor->setMyGroupHead(nullptr);
     return pActor;
 }
 
@@ -38,14 +39,14 @@ void GgafMainActor::updateActiveInTheTree() {
 
 }
 
-void GgafMainActor::setSceneDirector(GgafSceneDirector* prm_pSceneDirector) {
+void GgafMainActor::setMySceneDirector(GgafSceneDirector* prm_pSceneDirector) {
     _pSceneDirector = prm_pSceneDirector;
     GgafActor* pActor = getSubFirst();
     while (pActor) {
         if (pActor->instanceOf(Obj_GgafMainActor)) {
-            ((GgafMainActor*)(pActor))->setSceneDirector(prm_pSceneDirector);
+            ((GgafMainActor*)(pActor))->setMySceneDirector(prm_pSceneDirector);
         } else if (pActor->instanceOf(Obj_GgafGroupHead)) {
-            ((GgafGroupHead*)(pActor))->setSceneDirector(prm_pSceneDirector);
+            ((GgafGroupHead*)(pActor))->setMySceneDirector(prm_pSceneDirector);
         }
         if (pActor->_is_last_flg) {
             break;
@@ -55,12 +56,12 @@ void GgafMainActor::setSceneDirector(GgafSceneDirector* prm_pSceneDirector) {
     }
 }
 
-void GgafMainActor::setGroupHead(GgafGroupHead* prm_pGroupHead) {
+void GgafMainActor::setMyGroupHead(GgafGroupHead* prm_pGroupHead) {
     _pGroupHead = prm_pGroupHead;
     GgafActor* pActor = getSubFirst();
     while (pActor) {
         if (pActor->instanceOf(Obj_GgafMainActor)) {
-            ((GgafMainActor*)(pActor))->setGroupHead(prm_pGroupHead);
+            ((GgafMainActor*)(pActor))->setMyGroupHead(prm_pGroupHead);
         } else if (pActor->instanceOf(Obj_GgafGroupHead)) {
             //スルーする
             //下位ツリーにGgafGroupHeadがあれば、そのツリーには影響させないこととする
@@ -92,16 +93,16 @@ GgafGroupHead* GgafMainActor::getMyGroupHead() {
 }
 
 
-GgafSceneDirector* GgafMainActor::getSceneDirector() {
+GgafSceneDirector* GgafMainActor::getMySceneDirector() {
     if (_pSceneDirector) {
         return _pSceneDirector;
     } else {
         if (_pParent) {
             if (_pParent->instanceOf(Obj_GgafMainActor)) {
-                _pSceneDirector = ((GgafMainActor*)(_pParent))->getSceneDirector();
+                _pSceneDirector = ((GgafMainActor*)(_pParent))->getMySceneDirector();
                 return _pSceneDirector;
             } else if (_pParent->instanceOf(Obj_GgafGroupHead)) {
-                _pSceneDirector = ((GgafGroupHead*)(_pParent))->getSceneDirector();
+                _pSceneDirector = ((GgafGroupHead*)(_pParent))->getMySceneDirector();
                 return _pSceneDirector;
             } else if (_pParent->instanceOf(Obj_GgafSceneDirector)) { //ありえんかな
                 _pSceneDirector = (GgafSceneDirector*)_pParent;
@@ -111,9 +112,7 @@ GgafSceneDirector* GgafMainActor::getSceneDirector() {
                 return _pSceneDirector;
             }
         } else {
-            _pSceneDirector = GgafGod::_pGod->_pUniverse->getSceneDirector(); //この世の監督アクターに仮所属
-            _TRACE_("【警告】GgafMainActor::getSceneDirector 所属していないため、Directorがとれません！("<<getName()<<")。"<<
-                "そこで仮所属でこの世(Universe)のDirectorを返しました。最終的に、親アクターがシーンに所属すれば、その時に更新されてご破算です。確認して下さい。");
+            _pSceneDirector = nullptr;
             return _pSceneDirector;
         }
     }
@@ -127,27 +126,33 @@ GgafGroupHead* GgafMainActor::addSubGroup(actorkind prm_kind, GgafMainActor* prm
     }
     GgafGroupHead* pMyGroupHead = getMyGroupHead();
     if (pMyGroupHead != nullptr && pMyGroupHead->_kind == prm_kind) {
-        //自身の団長種別と引数種別が同じ場合、
-        addSubLast(prm_pMainActor); //単純にサブに追加でOK
-        prm_pMainActor->setGroupHead(pMyGroupHead);
-        prm_pMainActor->setSceneDirector(getSceneDirector()); //監督アクターリセット
-        prm_pMainActor->setPlatformScene(getPlatformScene()); //所属シーンリセット
+        //自身の所属済み団長種別と引数のアクターの種別が同じ場合
+        addSubLast(prm_pMainActor); //単純に自分のサブに追加でOK
+        prm_pMainActor->setMyGroupHead(pMyGroupHead);             //団長を反映
+        prm_pMainActor->setMySceneDirector(getMySceneDirector()); //監督を反映
+        prm_pMainActor->setPlatformScene(getPlatformScene());     //所属シーンを反映
         return pMyGroupHead;
     } else {
-        //自身の種別と違う場合
-        GgafGroupHead* pSubGroupActor = searchSubGroupHead(prm_kind); //サブに同じ種別団長が居るか探す
-        if (pSubGroupActor == nullptr) {
-            //サブに同じ種別団長がいない場合、団長を新たに作成
-            pSubGroupActor = NEW GgafGroupHead(prm_kind);
-            addSubLast(pSubGroupActor);
-        } else {
+        //自身の所属済み団長種別と引数のアクターの種別が異なる場合
+        GgafGroupHead* pSubGroupActor = searchSubGroupHead(prm_kind); //では、自分のサブに引数のアクターと同じ種別の団長が居るか探す
+        if (pSubGroupActor) {
             //サブに同じ種別団長がいた場合、その団長のサブへ
+            pSubGroupActor->addSubLast(prm_pMainActor);                //サブに居る既存団長の配下に追加
+            prm_pMainActor->setMyGroupHead(pSubGroupActor);            //団長を反映
+            prm_pMainActor->setMySceneDirector(getMySceneDirector());  //監督を反映
+            prm_pMainActor->setPlatformScene(getPlatformScene());      //所属シーンを反映
+            return pSubGroupActor;
+        } else {
+            //サブに同じ種別団長がいない場合、団長を新たに作成し自身のサブへ、
+            //引数のアクターは団長のそのサブへ
+            GgafGroupHead* pNewSubGroupActor = NEW GgafGroupHead(prm_kind);
+            addSubLast(pNewSubGroupActor);                          //自身の配下に新団長を追加し
+            pNewSubGroupActor->addSubLast(prm_pMainActor);          //新団長の配下に引数のアクター
+            prm_pMainActor->setMyGroupHead(pNewSubGroupActor);            //団長を反映
+            pNewSubGroupActor->setMySceneDirector(getMySceneDirector());  //新団長配下に監督を反映
+            pNewSubGroupActor->setPlatformScene(getPlatformScene());      //新団長配下に所属シーンセット
+            return pNewSubGroupActor;
         }
-        pSubGroupActor->addSubLast(prm_pMainActor); //団長のサブに追加
-        prm_pMainActor->setGroupHead(pSubGroupActor);
-        prm_pMainActor->setSceneDirector(getSceneDirector()); //監督アクターリセット
-        prm_pMainActor->setPlatformScene(getPlatformScene()); //所属シーンリセット
-        return pSubGroupActor;
     }
 }
 

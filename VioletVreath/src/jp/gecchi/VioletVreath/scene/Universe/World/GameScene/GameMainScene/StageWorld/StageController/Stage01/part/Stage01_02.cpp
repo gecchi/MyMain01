@@ -73,67 +73,67 @@ void Stage01_02::processBehavior() {
 			}
 			case 100: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000000);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000020, EnemyEtis, "EnemyEtis-21");
 				break;
 			}
 			case 130: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000001);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000021, EnemyEtis, "EnemyEtis-22");
 				break;
 			}
 			case 160: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000002);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000022, EnemyEtis, "EnemyEtis-23");
 				break;
 			}
 			case 190: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000003);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000023, EnemyEtis, "EnemyEtis-24");
 				break;
 			}
 			case 220: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000004);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000024, EnemyEtis, "EnemyEtis-25");
 				break;
 			}
 			case 250: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000005);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000025, EnemyEtis, "EnemyEtis-26");
 				break;
 			}
 			case 280: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000006);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000026, EnemyEtis, "EnemyEtis-27");
 				break;
 			}
 			case 310: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000007);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000027, EnemyEtis, "EnemyEtis-28");
 				break;
 			}
 			case 340: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000008);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000028, EnemyEtis, "EnemyEtis-29");
 				break;
 			}
 			case 370: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000009);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000029, EnemyEtis, "EnemyEtis-30");
 				break;
 			}
 			case 400: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000010);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000030, EnemyEtis, "EnemyEtis-31");
 				orderActorToFactory(30000997, VarietyRatislavia001, "VarietyRatislavia001-32");
 				orderActorToFactory(30001019, FormationHalia, "FormationHalia-33");
@@ -142,265 +142,265 @@ void Stage01_02::processBehavior() {
 			}
 			case 430: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000011);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000031, EnemyEtis, "EnemyEtis-35");
 				break;
 			}
 			case 460: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000012);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000032, EnemyEtis, "EnemyEtis-36");
 				break;
 			}
 			case 490: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000013);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000033, EnemyEtis, "EnemyEtis-37");
 				break;
 			}
 			case 520: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000014);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000034, EnemyEtis, "EnemyEtis-38");
 				break;
 			}
 			case 550: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000015);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000035, EnemyEtis, "EnemyEtis-39");
 				break;
 			}
 			case 580: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000016);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000036, EnemyEtis, "EnemyEtis-40");
 				break;
 			}
 			case 610: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000017);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000037, EnemyEtis, "EnemyEtis-41");
 				break;
 			}
 			case 640: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000018);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000038, EnemyEtis, "EnemyEtis-42");
 				break;
 			}
 			case 670: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000019);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000039, EnemyEtis, "EnemyEtis-43");
 				break;
 			}
 			case 700: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000020);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000040, EnemyEtis, "EnemyEtis-44");
 				break;
 			}
 			case 730: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000021);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000041, EnemyEtis, "EnemyEtis-45");
 				break;
 			}
 			case 760: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000022);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000042, EnemyEtis, "EnemyEtis-46");
 				break;
 			}
 			case 790: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000023);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000043, EnemyEtis, "EnemyEtis-47");
 				break;
 			}
 			case 820: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000024);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000044, EnemyEtis, "EnemyEtis-48");
 				break;
 			}
 			case 850: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000025);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000045, EnemyEtis, "EnemyEtis-49");
 				break;
 			}
 			case 880: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000026);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000046, EnemyEtis, "EnemyEtis-50");
 				break;
 			}
 			case 910: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000027);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000047, EnemyEtis, "EnemyEtis-51");
 				break;
 			}
 			case 940: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000028);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000048, EnemyEtis, "EnemyEtis-52");
 				break;
 			}
 			case 970: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000029);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000049, EnemyEtis, "EnemyEtis-53");
 				break;
 			}
 			case 1000: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000030);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000050, EnemyEtis, "EnemyEtis-54");
 				VarietyRatislavia001* pRatislavia = (VarietyRatislavia001*)obtainActorFromFactory(30000997);
-				getSceneDirector()->addSubGroup(pRatislavia);
+				bringDirector()->addSubGroup(pRatislavia);
 				FormationHalia* pF = (FormationHalia*)obtainActorFromFactory(30001019);
-				getSceneDirector()->addSubGroup(pF);
+				bringDirector()->addSubGroup(pF);
 				FormationEbe001* pF55 = (FormationEbe001*)obtainActorFromFactory(30001030);
-				getSceneDirector()->addSubGroup(pF55);
+				bringDirector()->addSubGroup(pF55);
 				break;
 			}
 			case 1030: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000031);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000051, EnemyEtis, "EnemyEtis-56");
 				break;
 			}
 			case 1060: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000032);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000052, EnemyEtis, "EnemyEtis-57");
 				break;
 			}
 			case 1090: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000033);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000053, EnemyEtis, "EnemyEtis-58");
 				break;
 			}
 			case 1120: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000034);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000054, EnemyEtis, "EnemyEtis-59");
 				break;
 			}
 			case 1150: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000035);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000055, EnemyEtis, "EnemyEtis-60");
 				break;
 			}
 			case 1180: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000036);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000056, EnemyEtis, "EnemyEtis-61");
 				break;
 			}
 			case 1210: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000037);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000057, EnemyEtis, "EnemyEtis-62");
 				break;
 			}
 			case 1240: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000038);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000058, EnemyEtis, "EnemyEtis-63");
 				break;
 			}
 			case 1270: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000039);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000059, EnemyEtis, "EnemyEtis-64");
 				break;
 			}
 			case 1300: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000040);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000060, EnemyEtis, "EnemyEtis-65");
 				break;
 			}
 			case 1330: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000041);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000061, EnemyEtis, "EnemyEtis-66");
 				break;
 			}
 			case 1360: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000042);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000062, EnemyEtis, "EnemyEtis-67");
 				break;
 			}
 			case 1390: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000043);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000063, EnemyEtis, "EnemyEtis-68");
 				break;
 			}
 			case 1420: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000044);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000064, EnemyEtis, "EnemyEtis-69");
 				break;
 			}
 			case 1450: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000045);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000065, EnemyEtis, "EnemyEtis-70");
 				break;
 			}
 			case 1480: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000046);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000066, EnemyEtis, "EnemyEtis-71");
 				break;
 			}
 			case 1510: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000047);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000067, EnemyEtis, "EnemyEtis-72");
 				break;
 			}
 			case 1540: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000048);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000068, EnemyEtis, "EnemyEtis-73");
 				break;
 			}
 			case 1570: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000049);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000069, EnemyEtis, "EnemyEtis-74");
 				break;
 			}
 			case 1600: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000050);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000070, EnemyEtis, "EnemyEtis-75");
 				break;
 			}
 			case 1630: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000051);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000071, EnemyEtis, "EnemyEtis-76");
 				break;
 			}
 			case 1660: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000052);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000072, EnemyEtis, "EnemyEtis-77");
 				break;
 			}
 			case 1690: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000053);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000073, EnemyEtis, "EnemyEtis-78");
 				break;
 			}
@@ -410,80 +410,80 @@ void Stage01_02::processBehavior() {
 			}
 			case 1720: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000054);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000074, EnemyEtis, "EnemyEtis-80");
 				break;
 			}
 			case 1750: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000055);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000075, EnemyEtis, "EnemyEtis-81");
 				break;
 			}
 			case 1780: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000056);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000076, EnemyEtis, "EnemyEtis-82");
 				break;
 			}
 			case 1810: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000057);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000077, EnemyEtis, "EnemyEtis-83");
 				break;
 			}
 			case 1840: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000058);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000078, EnemyEtis, "EnemyEtis-84");
 				break;
 			}
 			case 1870: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000059);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000079, EnemyEtis, "EnemyEtis-85");
 				break;
 			}
 			case 1900: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000060);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000080, EnemyEtis, "EnemyEtis-86");
 				orderActorToFactory(30000999, FormationEmilia, "FormationEmilia-87");
 				break;
 			}
 			case 1930: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000061);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000081, EnemyEtis, "EnemyEtis-88");
 				break;
 			}
 			case 1960: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000062);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000082, EnemyEtis, "EnemyEtis-89");
 				break;
 			}
 			case 1990: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000063);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000083, EnemyEtis, "EnemyEtis-90");
 				break;
 			}
 			case 2020: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000064);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000084, EnemyEtis, "EnemyEtis-91");
 				break;
 			}
 			case 2050: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000065);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000085, EnemyEtis, "EnemyEtis-92");
 				break;
 			}
 			case 2080: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000066);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000086, EnemyEtis, "EnemyEtis-93");
 				break;
 			}
@@ -504,68 +504,68 @@ void Stage01_02::processBehavior() {
 			}
 			case 2110: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000067);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000087, EnemyEtis, "EnemyEtis-106");
 				break;
 			}
 			case 2140: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000068);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000088, EnemyEtis, "EnemyEtis-107");
 				break;
 			}
 			case 2170: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000069);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000089, EnemyEtis, "EnemyEtis-108");
 				break;
 			}
 			case 2200: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000070);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000090, EnemyEtis, "EnemyEtis-109");
 				break;
 			}
 			case 2230: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000071);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000091, EnemyEtis, "EnemyEtis-110");
 				break;
 			}
 			case 2260: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000072);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000092, EnemyEtis, "EnemyEtis-111");
 				break;
 			}
 			case 2290: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000073);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000093, EnemyEtis, "EnemyEtis-112");
 				break;
 			}
 			case 2300: {
 				EnemyStraea* pStraea2 = (EnemyStraea*)obtainActorFromFactory(30000998);
-				getSceneDirector()->addSubGroup(pStraea2);
+				bringDirector()->addSubGroup(pStraea2);
 				pStraea2->_z = 1800000;
 				pStraea2->_y = -100000;
 				break;
 			}
 			case 2320: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000074);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000094, EnemyEtis, "EnemyEtis-113");
 				break;
 			}
 			case 2350: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000075);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000095, EnemyEtis, "EnemyEtis-114");
 				break;
 			}
 			case 2380: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000076);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000096, EnemyEtis, "EnemyEtis-115");
 				break;
 			}
@@ -575,63 +575,63 @@ void Stage01_02::processBehavior() {
 			}
 			case 2410: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000077);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000097, EnemyEtis, "EnemyEtis-117");
 				break;
 			}
 			case 2440: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000078);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000098, EnemyEtis, "EnemyEtis-118");
 				break;
 			}
 			case 2470: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000079);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000099, EnemyEtis, "EnemyEtis-119");
 				break;
 			}
 			case 2500: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000080);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000100, EnemyEtis, "EnemyEtis-120");
 				FormationEmilia* pFormationEmilia = (FormationEmilia*)obtainActorFromFactory(30000999);
-				getSceneDirector()->addSubGroup(pFormationEmilia);
+				bringDirector()->addSubGroup(pFormationEmilia);
 				break;
 			}
 			case 2530: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000081);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000101, EnemyEtis, "EnemyEtis-121");
 				break;
 			}
 			case 2560: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000082);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000102, EnemyEtis, "EnemyEtis-122");
 				break;
 			}
 			case 2590: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000083);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000103, EnemyEtis, "EnemyEtis-123");
 				break;
 			}
 			case 2620: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000084);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000104, EnemyEtis, "EnemyEtis-124");
 				break;
 			}
 			case 2650: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000085);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000105, EnemyEtis, "EnemyEtis-125");
 				break;
 			}
 			case 2680: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000086);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000106, EnemyEtis, "EnemyEtis-126");
 				break;
 			}
@@ -657,351 +657,351 @@ void Stage01_02::processBehavior() {
 			}
 			case 2710: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000087);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000107, EnemyEtis, "EnemyEtis-128");
 				break;
 			}
 			case 2740: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000088);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000108, EnemyEtis, "EnemyEtis-129");
 				break;
 			}
 			case 2770: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000089);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000109, EnemyEtis, "EnemyEtis-130");
 				break;
 			}
 			case 2800: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000090);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000110, EnemyEtis, "EnemyEtis-131");
 				break;
 			}
 			case 2830: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000091);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000111, EnemyEtis, "EnemyEtis-132");
 				break;
 			}
 			case 2860: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000092);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000112, EnemyEtis, "EnemyEtis-133");
 				break;
 			}
 			case 2890: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000093);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000113, EnemyEtis, "EnemyEtis-134");
 				break;
 			}
 			case 2920: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000094);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000114, EnemyEtis, "EnemyEtis-135");
 				break;
 			}
 			case 2950: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000095);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000115, EnemyEtis, "EnemyEtis-136");
 				break;
 			}
 			case 2980: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000096);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000116, EnemyEtis, "EnemyEtis-137");
 				break;
 			}
 			case 3000: {
 				FormationGeria001* pF138 = (FormationGeria001*)obtainActorFromFactory(30001013);
-				getSceneDirector()->addSubGroup(pF138);
+				bringDirector()->addSubGroup(pF138);
 				break;
 			}
 			case 3010: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000097);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000117, EnemyEtis, "EnemyEtis-139");
 				break;
 			}
 			case 3040: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000098);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000118, EnemyEtis, "EnemyEtis-140");
 				break;
 			}
 			case 3070: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000099);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000119, EnemyEtis, "EnemyEtis-141");
 				break;
 			}
 			case 3100: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000100);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000120, EnemyEtis, "EnemyEtis-142");
 				break;
 			}
 			case 3130: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000101);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000121, EnemyEtis, "EnemyEtis-143");
 				break;
 			}
 			case 3160: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000102);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000122, EnemyEtis, "EnemyEtis-144");
 				break;
 			}
 			case 3190: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000103);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000123, EnemyEtis, "EnemyEtis-145");
 				break;
 			}
 			case 3220: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000104);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000124, EnemyEtis, "EnemyEtis-146");
 				break;
 			}
 			case 3250: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000105);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000125, EnemyEtis, "EnemyEtis-147");
 				break;
 			}
 			case 3280: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000106);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000126, EnemyEtis, "EnemyEtis-148");
 				break;
 			}
 			case 3310: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000107);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000127, EnemyEtis, "EnemyEtis-149");
 				break;
 			}
 			case 3340: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000108);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000128, EnemyEtis, "EnemyEtis-150");
 				break;
 			}
 			case 3370: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000109);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000129, EnemyEtis, "EnemyEtis-151");
 				break;
 			}
 			case 3400: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000110);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000130, EnemyEtis, "EnemyEtis-152");
 				orderActorToFactory(30001014, VarietyRatislavia001, "VarietyRatislavia001-153");
 				break;
 			}
 			case 3430: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000111);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000131, EnemyEtis, "EnemyEtis-154");
 				break;
 			}
 			case 3460: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000112);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000132, EnemyEtis, "EnemyEtis-155");
 				break;
 			}
 			case 3490: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000113);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000133, EnemyEtis, "EnemyEtis-156");
 				break;
 			}
 			case 3520: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000114);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000134, EnemyEtis, "EnemyEtis-157");
 				break;
 			}
 			case 3550: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000115);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000135, EnemyEtis, "EnemyEtis-158");
 				break;
 			}
 			case 3580: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000116);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000136, EnemyEtis, "EnemyEtis-159");
 				break;
 			}
 			case 3610: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000117);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000137, EnemyEtis, "EnemyEtis-160");
 				break;
 			}
 			case 3640: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000118);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000138, EnemyEtis, "EnemyEtis-161");
 				break;
 			}
 			case 3670: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000119);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000139, EnemyEtis, "EnemyEtis-162");
 				break;
 			}
 			case 3700: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000120);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000140, EnemyEtis, "EnemyEtis-163");
 				break;
 			}
 			case 3730: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000121);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000141, EnemyEtis, "EnemyEtis-164");
 				break;
 			}
 			case 3760: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000122);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000142, EnemyEtis, "EnemyEtis-165");
 				break;
 			}
 			case 3790: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000123);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000143, EnemyEtis, "EnemyEtis-166");
 				break;
 			}
 			case 3820: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000124);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000144, EnemyEtis, "EnemyEtis-167");
 				break;
 			}
 			case 3850: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000125);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000145, EnemyEtis, "EnemyEtis-168");
 				break;
 			}
 			case 3880: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000126);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000146, EnemyEtis, "EnemyEtis-169");
 				break;
 			}
 			case 3910: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000127);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000147, EnemyEtis, "EnemyEtis-170");
 				break;
 			}
 			case 3940: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000128);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000148, EnemyEtis, "EnemyEtis-171");
 				break;
 			}
 			case 3970: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000129);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000149, EnemyEtis, "EnemyEtis-172");
 				break;
 			}
 			case 4000: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000130);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000150, EnemyEtis, "EnemyEtis-173");
 				VarietyRatislavia001* pRatislavia = (VarietyRatislavia001*)obtainActorFromFactory(30001014);
-				getSceneDirector()->addSubGroup(pRatislavia);
+				bringDirector()->addSubGroup(pRatislavia);
 				break;
 			}
 			case 4030: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000131);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000151, EnemyEtis, "EnemyEtis-174");
 				break;
 			}
 			case 4060: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000132);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000152, EnemyEtis, "EnemyEtis-175");
 				break;
 			}
 			case 4090: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000133);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000153, EnemyEtis, "EnemyEtis-176");
 				break;
 			}
 			case 4120: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000134);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000154, EnemyEtis, "EnemyEtis-177");
 				break;
 			}
 			case 4150: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000135);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000155, EnemyEtis, "EnemyEtis-178");
 				break;
 			}
 			case 4180: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000136);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000156, EnemyEtis, "EnemyEtis-179");
 				break;
 			}
 			case 4210: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000137);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000157, EnemyEtis, "EnemyEtis-180");
 				break;
 			}
 			case 4240: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000138);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000158, EnemyEtis, "EnemyEtis-181");
 				break;
 			}
 			case 4270: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000139);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000159, EnemyEtis, "EnemyEtis-182");
 				break;
 			}
 			case 4300: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000140);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000160, EnemyEtis, "EnemyEtis-183");
 				break;
 			}
 			case 4330: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000141);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000161, EnemyEtis, "EnemyEtis-184");
 				break;
 			}
 			case 4360: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000142);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000162, EnemyEtis, "EnemyEtis-185");
 				break;
 			}
 			case 4390: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000143);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000163, EnemyEtis, "EnemyEtis-186");
 				break;
 			}
@@ -1013,208 +1013,208 @@ void Stage01_02::processBehavior() {
 			}
 			case 4420: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000144);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000164, EnemyEtis, "EnemyEtis-190");
 				break;
 			}
 			case 4450: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000145);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000165, EnemyEtis, "EnemyEtis-191");
 				break;
 			}
 			case 4480: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000146);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000166, EnemyEtis, "EnemyEtis-192");
 				break;
 			}
 			case 4510: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000147);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000167, EnemyEtis, "EnemyEtis-193");
 				break;
 			}
 			case 4540: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000148);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000168, EnemyEtis, "EnemyEtis-194");
 				break;
 			}
 			case 4570: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000149);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000169, EnemyEtis, "EnemyEtis-195");
 				break;
 			}
 			case 4600: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000150);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000170, EnemyEtis, "EnemyEtis-196");
 				break;
 			}
 			case 4630: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000151);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000171, EnemyEtis, "EnemyEtis-197");
 				break;
 			}
 			case 4660: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000152);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000172, EnemyEtis, "EnemyEtis-198");
 				break;
 			}
 			case 4690: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000153);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000173, EnemyEtis, "EnemyEtis-199");
 				break;
 			}
 			case 4720: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000154);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000174, EnemyEtis, "EnemyEtis-200");
 				break;
 			}
 			case 4750: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000155);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000175, EnemyEtis, "EnemyEtis-201");
 				break;
 			}
 			case 4780: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000156);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000176, EnemyEtis, "EnemyEtis-202");
 				break;
 			}
 			case 4810: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000157);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000177, EnemyEtis, "EnemyEtis-203");
 				break;
 			}
 			case 4840: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000158);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000178, EnemyEtis, "EnemyEtis-204");
 				break;
 			}
 			case 4870: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000159);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000179, EnemyEtis, "EnemyEtis-205");
 				break;
 			}
 			case 4900: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000160);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000180, EnemyEtis, "EnemyEtis-206");
 				break;
 			}
 			case 4930: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000161);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000181, EnemyEtis, "EnemyEtis-207");
 				break;
 			}
 			case 4960: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000162);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000182, EnemyEtis, "EnemyEtis-208");
 				break;
 			}
 			case 4990: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000163);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000183, EnemyEtis, "EnemyEtis-209");
 				break;
 			}
 			case 5000: {
 				VarietyRatislavia002* pRatislaviaA = (VarietyRatislavia002*)obtainActorFromFactory(30001015);
-				getSceneDirector()->addSubGroup(pRatislaviaA);
+				bringDirector()->addSubGroup(pRatislaviaA);
 				FormationHalia* pF = (FormationHalia*)obtainActorFromFactory(30001020);
-				getSceneDirector()->addSubGroup(pF);
+				bringDirector()->addSubGroup(pF);
 				EnemyEsperia* p210 = (EnemyEsperia*)obtainActorFromFactory(30001031);
-				getSceneDirector()->addSubGroup(p210);
+				bringDirector()->addSubGroup(p210);
 				break;
 			}
 			case 5020: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000164);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000184, EnemyEtis, "EnemyEtis-211");
 				break;
 			}
 			case 5050: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000165);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000185, EnemyEtis, "EnemyEtis-212");
 				break;
 			}
 			case 5080: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000166);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000186, EnemyEtis, "EnemyEtis-213");
 				break;
 			}
 			case 5110: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000167);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000187, EnemyEtis, "EnemyEtis-214");
 				break;
 			}
 			case 5140: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000168);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000188, EnemyEtis, "EnemyEtis-215");
 				break;
 			}
 			case 5170: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000169);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000189, EnemyEtis, "EnemyEtis-216");
 				break;
 			}
 			case 5200: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000170);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000190, EnemyEtis, "EnemyEtis-217");
 				break;
 			}
 			case 5230: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000171);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000191, EnemyEtis, "EnemyEtis-218");
 				break;
 			}
 			case 5260: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000172);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000192, EnemyEtis, "EnemyEtis-219");
 				break;
 			}
 			case 5290: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000173);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000193, EnemyEtis, "EnemyEtis-220");
 				break;
 			}
 			case 5320: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000174);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000194, EnemyEtis, "EnemyEtis-221");
 				break;
 			}
 			case 5350: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000175);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000195, EnemyEtis, "EnemyEtis-222");
 				break;
 			}
 			case 5380: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000176);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000196, EnemyEtis, "EnemyEtis-223");
 				break;
 			}
@@ -1225,212 +1225,212 @@ void Stage01_02::processBehavior() {
 			}
 			case 5410: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000177);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000197, EnemyEtis, "EnemyEtis-226");
 				break;
 			}
 			case 5440: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000178);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000198, EnemyEtis, "EnemyEtis-227");
 				break;
 			}
 			case 5470: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000179);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000199, EnemyEtis, "EnemyEtis-228");
 				break;
 			}
 			case 5500: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000180);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000200, EnemyEtis, "EnemyEtis-229");
 				break;
 			}
 			case 5530: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000181);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000201, EnemyEtis, "EnemyEtis-230");
 				break;
 			}
 			case 5560: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000182);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000202, EnemyEtis, "EnemyEtis-231");
 				break;
 			}
 			case 5590: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000183);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000203, EnemyEtis, "EnemyEtis-232");
 				break;
 			}
 			case 5620: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000184);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000204, EnemyEtis, "EnemyEtis-233");
 				break;
 			}
 			case 5650: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000185);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000205, EnemyEtis, "EnemyEtis-234");
 				break;
 			}
 			case 5680: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000186);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000206, EnemyEtis, "EnemyEtis-235");
 				break;
 			}
 			case 5710: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000187);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000207, EnemyEtis, "EnemyEtis-236");
 				break;
 			}
 			case 5740: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000188);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000208, EnemyEtis, "EnemyEtis-237");
 				break;
 			}
 			case 5770: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000189);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000209, EnemyEtis, "EnemyEtis-238");
 				break;
 			}
 			case 5800: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000190);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000210, EnemyEtis, "EnemyEtis-239");
 				break;
 			}
 			case 5830: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000191);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000211, EnemyEtis, "EnemyEtis-240");
 				break;
 			}
 			case 5860: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000192);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000212, EnemyEtis, "EnemyEtis-241");
 				break;
 			}
 			case 5890: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000193);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000213, EnemyEtis, "EnemyEtis-242");
 				break;
 			}
 			case 5920: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000194);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000214, EnemyEtis, "EnemyEtis-243");
 				break;
 			}
 			case 5950: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000195);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000215, EnemyEtis, "EnemyEtis-244");
 				break;
 			}
 			case 5980: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000196);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000216, EnemyEtis, "EnemyEtis-245");
 				break;
 			}
 			case 6000: {
 				VarietyRatislavia003* pRatislaviaB = (VarietyRatislavia003*)obtainActorFromFactory(30001016);
-				getSceneDirector()->addSubGroup(pRatislaviaB);
+				bringDirector()->addSubGroup(pRatislaviaB);
 				EnemyEsperia* p246 = (EnemyEsperia*)obtainActorFromFactory(30001032);
-				getSceneDirector()->addSubGroup(p246);
+				bringDirector()->addSubGroup(p246);
 				break;
 			}
 			case 6010: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000197);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000217, EnemyEtis, "EnemyEtis-247");
 				break;
 			}
 			case 6040: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000198);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000218, EnemyEtis, "EnemyEtis-248");
 				break;
 			}
 			case 6070: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000199);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000219, EnemyEtis, "EnemyEtis-249");
 				break;
 			}
 			case 6100: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000200);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000220, EnemyEtis, "EnemyEtis-250");
 				break;
 			}
 			case 6130: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000201);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000221, EnemyEtis, "EnemyEtis-251");
 				break;
 			}
 			case 6160: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000202);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000222, EnemyEtis, "EnemyEtis-252");
 				break;
 			}
 			case 6190: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000203);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000223, EnemyEtis, "EnemyEtis-253");
 				break;
 			}
 			case 6220: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000204);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000224, EnemyEtis, "EnemyEtis-254");
 				break;
 			}
 			case 6250: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000205);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000225, EnemyEtis, "EnemyEtis-255");
 				break;
 			}
 			case 6280: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000206);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000226, EnemyEtis, "EnemyEtis-256");
 				break;
 			}
 			case 6310: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000207);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000227, EnemyEtis, "EnemyEtis-257");
 				break;
 			}
 			case 6340: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000208);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000228, EnemyEtis, "EnemyEtis-258");
 				break;
 			}
 			case 6370: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000209);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000229, EnemyEtis, "EnemyEtis-259");
 				break;
 			}
 			case 6400: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000210);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000230, EnemyEtis, "EnemyEtis-260");
 				orderActorToFactory(30001017, VarietyRatislavia004, "VarietyRatislavia004-261");
 				orderActorToFactory(30001033, EnemyEsperia, "EnemyEsperia-262");
@@ -1438,203 +1438,203 @@ void Stage01_02::processBehavior() {
 			}
 			case 6430: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000211);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000231, EnemyEtis, "EnemyEtis-263");
 				break;
 			}
 			case 6460: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000212);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000232, EnemyEtis, "EnemyEtis-264");
 				break;
 			}
 			case 6490: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000213);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000233, EnemyEtis, "EnemyEtis-265");
 				break;
 			}
 			case 6520: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000214);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000234, EnemyEtis, "EnemyEtis-266");
 				break;
 			}
 			case 6550: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000215);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000235, EnemyEtis, "EnemyEtis-267");
 				break;
 			}
 			case 6580: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000216);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000236, EnemyEtis, "EnemyEtis-268");
 				break;
 			}
 			case 6610: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000217);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000237, EnemyEtis, "EnemyEtis-269");
 				break;
 			}
 			case 6640: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000218);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000238, EnemyEtis, "EnemyEtis-270");
 				break;
 			}
 			case 6670: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000219);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000239, EnemyEtis, "EnemyEtis-271");
 				break;
 			}
 			case 6700: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000220);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000240, EnemyEtis, "EnemyEtis-272");
 				break;
 			}
 			case 6730: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000221);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000241, EnemyEtis, "EnemyEtis-273");
 				break;
 			}
 			case 6760: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000222);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000242, EnemyEtis, "EnemyEtis-274");
 				break;
 			}
 			case 6790: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000223);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000243, EnemyEtis, "EnemyEtis-275");
 				break;
 			}
 			case 6820: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000224);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000244, EnemyEtis, "EnemyEtis-276");
 				break;
 			}
 			case 6850: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000225);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000245, EnemyEtis, "EnemyEtis-277");
 				break;
 			}
 			case 6880: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000226);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000246, EnemyEtis, "EnemyEtis-278");
 				break;
 			}
 			case 6910: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000227);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000247, EnemyEtis, "EnemyEtis-279");
 				break;
 			}
 			case 6940: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000228);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000248, EnemyEtis, "EnemyEtis-280");
 				break;
 			}
 			case 6970: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000229);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000249, EnemyEtis, "EnemyEtis-281");
 				break;
 			}
 			case 7000: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000230);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000250, EnemyEtis, "EnemyEtis-282");
 				VarietyRatislavia004* pRatislavia = (VarietyRatislavia004*)obtainActorFromFactory(30001017);
-				getSceneDirector()->addSubGroup(pRatislavia);
+				bringDirector()->addSubGroup(pRatislavia);
 				EnemyEsperia* p283 = (EnemyEsperia*)obtainActorFromFactory(30001033);
-				getSceneDirector()->addSubGroup(p283);
+				bringDirector()->addSubGroup(p283);
 				break;
 			}
 			case 7030: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000231);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000251, EnemyEtis, "EnemyEtis-284");
 				break;
 			}
 			case 7060: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000232);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000252, EnemyEtis, "EnemyEtis-285");
 				break;
 			}
 			case 7090: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000233);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000253, EnemyEtis, "EnemyEtis-286");
 				break;
 			}
 			case 7120: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000234);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000254, EnemyEtis, "EnemyEtis-287");
 				break;
 			}
 			case 7150: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000235);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000255, EnemyEtis, "EnemyEtis-288");
 				break;
 			}
 			case 7180: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000236);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000256, EnemyEtis, "EnemyEtis-289");
 				break;
 			}
 			case 7210: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000237);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000257, EnemyEtis, "EnemyEtis-290");
 				break;
 			}
 			case 7240: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000238);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000258, EnemyEtis, "EnemyEtis-291");
 				break;
 			}
 			case 7270: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000239);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000259, EnemyEtis, "EnemyEtis-292");
 				break;
 			}
 			case 7300: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000240);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000260, EnemyEtis, "EnemyEtis-293");
 				break;
 			}
 			case 7330: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000241);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000261, EnemyEtis, "EnemyEtis-294");
 				break;
 			}
 			case 7360: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000242);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000262, EnemyEtis, "EnemyEtis-295");
 				break;
 			}
 			case 7390: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000243);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000263, EnemyEtis, "EnemyEtis-296");
 				break;
 			}
@@ -1645,206 +1645,206 @@ void Stage01_02::processBehavior() {
 			}
 			case 7420: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000244);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000264, EnemyEtis, "EnemyEtis-299");
 				break;
 			}
 			case 7450: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000245);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000265, EnemyEtis, "EnemyEtis-300");
 				break;
 			}
 			case 7480: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000246);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000266, EnemyEtis, "EnemyEtis-301");
 				break;
 			}
 			case 7510: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000247);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000267, EnemyEtis, "EnemyEtis-302");
 				break;
 			}
 			case 7540: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000248);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000268, EnemyEtis, "EnemyEtis-303");
 				break;
 			}
 			case 7570: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000249);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000269, EnemyEtis, "EnemyEtis-304");
 				break;
 			}
 			case 7600: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000250);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000270, EnemyEtis, "EnemyEtis-305");
 				break;
 			}
 			case 7630: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000251);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000271, EnemyEtis, "EnemyEtis-306");
 				break;
 			}
 			case 7660: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000252);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000272, EnemyEtis, "EnemyEtis-307");
 				break;
 			}
 			case 7690: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000253);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000273, EnemyEtis, "EnemyEtis-308");
 				break;
 			}
 			case 7720: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000254);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000274, EnemyEtis, "EnemyEtis-309");
 				break;
 			}
 			case 7750: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000255);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000275, EnemyEtis, "EnemyEtis-310");
 				break;
 			}
 			case 7780: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000256);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000276, EnemyEtis, "EnemyEtis-311");
 				break;
 			}
 			case 7810: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000257);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000277, EnemyEtis, "EnemyEtis-312");
 				break;
 			}
 			case 7840: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000258);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000278, EnemyEtis, "EnemyEtis-313");
 				break;
 			}
 			case 7870: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000259);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000279, EnemyEtis, "EnemyEtis-314");
 				break;
 			}
 			case 7900: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000260);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000280, EnemyEtis, "EnemyEtis-315");
 				break;
 			}
 			case 7930: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000261);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000281, EnemyEtis, "EnemyEtis-316");
 				break;
 			}
 			case 7960: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000262);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000282, EnemyEtis, "EnemyEtis-317");
 				break;
 			}
 			case 7990: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000263);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000283, EnemyEtis, "EnemyEtis-318");
 				break;
 			}
 			case 8000: {
 				VarietyRatislavia004* pRatislavia = (VarietyRatislavia004*)obtainActorFromFactory(30001018);
-				getSceneDirector()->addSubGroup(pRatislavia);
+				bringDirector()->addSubGroup(pRatislavia);
 				EnemyEsperia* p319 = (EnemyEsperia*)obtainActorFromFactory(30001034);
-				getSceneDirector()->addSubGroup(p319);
+				bringDirector()->addSubGroup(p319);
 				break;
 			}
 			case 8020: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000264);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000284, EnemyEtis, "EnemyEtis-320");
 				break;
 			}
 			case 8050: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000265);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000285, EnemyEtis, "EnemyEtis-321");
 				break;
 			}
 			case 8080: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000266);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000286, EnemyEtis, "EnemyEtis-322");
 				break;
 			}
 			case 8110: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000267);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000287, EnemyEtis, "EnemyEtis-323");
 				break;
 			}
 			case 8140: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000268);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000288, EnemyEtis, "EnemyEtis-324");
 				break;
 			}
 			case 8170: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000269);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000289, EnemyEtis, "EnemyEtis-325");
 				break;
 			}
 			case 8200: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000270);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000290, EnemyEtis, "EnemyEtis-326");
 				break;
 			}
 			case 8230: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000271);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000291, EnemyEtis, "EnemyEtis-327");
 				break;
 			}
 			case 8260: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000272);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000292, EnemyEtis, "EnemyEtis-328");
 				break;
 			}
 			case 8290: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000273);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000293, EnemyEtis, "EnemyEtis-329");
 				break;
 			}
 			case 8320: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000274);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000294, EnemyEtis, "EnemyEtis-330");
 				break;
 			}
 			case 8350: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000275);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000295, EnemyEtis, "EnemyEtis-331");
 				break;
 			}
 			case 8380: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000276);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000296, EnemyEtis, "EnemyEtis-332");
 				break;
 			}
@@ -1855,43 +1855,43 @@ void Stage01_02::processBehavior() {
 			}
 			case 8410: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000277);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000297, EnemyEtis, "EnemyEtis-335");
 				break;
 			}
 			case 8440: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000278);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000298, EnemyEtis, "EnemyEtis-336");
 				break;
 			}
 			case 8470: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000279);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000299, EnemyEtis, "EnemyEtis-337");
 				break;
 			}
 			case 8500: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000280);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000300, EnemyEtis, "EnemyEtis-338");
 				break;
 			}
 			case 8530: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000281);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000301, EnemyEtis, "EnemyEtis-339");
 				break;
 			}
 			case 8560: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000282);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000302, EnemyEtis, "EnemyEtis-340");
 				break;
 			}
 			case 8590: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000283);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000303, EnemyEtis, "EnemyEtis-341");
 				break;
 			}
@@ -1906,61 +1906,61 @@ void Stage01_02::processBehavior() {
 			}
 			case 8620: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000284);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000304, EnemyEtis, "EnemyEtis-348");
 				break;
 			}
 			case 8650: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000285);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000305, EnemyEtis, "EnemyEtis-349");
 				break;
 			}
 			case 8680: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000286);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000306, EnemyEtis, "EnemyEtis-350");
 				break;
 			}
 			case 8710: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000287);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000307, EnemyEtis, "EnemyEtis-351");
 				break;
 			}
 			case 8740: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000288);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000308, EnemyEtis, "EnemyEtis-352");
 				break;
 			}
 			case 8770: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000289);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000309, EnemyEtis, "EnemyEtis-353");
 				break;
 			}
 			case 8800: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000290);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000310, EnemyEtis, "EnemyEtis-354");
 				break;
 			}
 			case 8830: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000291);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000311, EnemyEtis, "EnemyEtis-355");
 				break;
 			}
 			case 8860: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000292);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000312, EnemyEtis, "EnemyEtis-356");
 				break;
 			}
 			case 8890: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000293);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000313, EnemyEtis, "EnemyEtis-357");
 				break;
 			}
@@ -1970,68 +1970,68 @@ void Stage01_02::processBehavior() {
 			}
 			case 8920: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000294);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000314, EnemyEtis, "EnemyEtis-359");
 				break;
 			}
 			case 8950: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000295);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000315, EnemyEtis, "EnemyEtis-360");
 				break;
 			}
 			case 8980: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000296);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000316, EnemyEtis, "EnemyEtis-361");
 				break;
 			}
 			case 9000: {
 				FormationHalia* pF = (FormationHalia*)obtainActorFromFactory(30001021);
-				getSceneDirector()->addSubGroup(pF);
+				bringDirector()->addSubGroup(pF);
 				EnemyEsperia* p362 = (EnemyEsperia*)obtainActorFromFactory(30001035);
-				getSceneDirector()->addSubGroup(p362);
+				bringDirector()->addSubGroup(p362);
 				break;
 			}
 			case 9010: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000297);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000317, EnemyEtis, "EnemyEtis-363");
 				break;
 			}
 			case 9040: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000298);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000318, EnemyEtis, "EnemyEtis-364");
 				break;
 			}
 			case 9070: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000299);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000319, EnemyEtis, "EnemyEtis-365");
 				break;
 			}
 			case 9100: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000300);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000320, EnemyEtis, "EnemyEtis-366");
 				break;
 			}
 			case 9130: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000301);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000321, EnemyEtis, "EnemyEtis-367");
 				break;
 			}
 			case 9160: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000302);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000322, EnemyEtis, "EnemyEtis-368");
 				break;
 			}
 			case 9190: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000303);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000323, EnemyEtis, "EnemyEtis-369");
 				break;
 			}
@@ -2051,4148 +2051,4148 @@ void Stage01_02::processBehavior() {
 			}
 			case 9220: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000304);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000324, EnemyEtis, "EnemyEtis-371");
 				break;
 			}
 			case 9250: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000305);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000325, EnemyEtis, "EnemyEtis-372");
 				break;
 			}
 			case 9280: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000306);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000326, EnemyEtis, "EnemyEtis-373");
 				break;
 			}
 			case 9310: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000307);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000327, EnemyEtis, "EnemyEtis-374");
 				break;
 			}
 			case 9340: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000308);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000328, EnemyEtis, "EnemyEtis-375");
 				break;
 			}
 			case 9370: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000309);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000329, EnemyEtis, "EnemyEtis-376");
 				break;
 			}
 			case 9400: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000310);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000330, EnemyEtis, "EnemyEtis-377");
 				orderActorToFactory(30001036, EnemyEsperia, "EnemyEsperia-378");
 				break;
 			}
 			case 9430: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000311);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000331, EnemyEtis, "EnemyEtis-379");
 				break;
 			}
 			case 9460: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000312);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000332, EnemyEtis, "EnemyEtis-380");
 				break;
 			}
 			case 9490: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000313);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000333, EnemyEtis, "EnemyEtis-381");
 				break;
 			}
 			case 9500: {
 				EnemyIrce* p382 = (EnemyIrce*)obtainActorFromFactory(30001029);
-				getSceneDirector()->addSubGroup(p382);
+				bringDirector()->addSubGroup(p382);
 				break;
 			}
 			case 9520: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000314);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000334, EnemyEtis, "EnemyEtis-383");
 				break;
 			}
 			case 9550: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000315);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000335, EnemyEtis, "EnemyEtis-384");
 				break;
 			}
 			case 9580: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000316);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000336, EnemyEtis, "EnemyEtis-385");
 				break;
 			}
 			case 9610: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000317);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000337, EnemyEtis, "EnemyEtis-386");
 				break;
 			}
 			case 9640: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000318);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000338, EnemyEtis, "EnemyEtis-387");
 				break;
 			}
 			case 9670: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000319);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000339, EnemyEtis, "EnemyEtis-388");
 				break;
 			}
 			case 9700: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000320);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000340, EnemyEtis, "EnemyEtis-389");
 				break;
 			}
 			case 9730: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000321);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000341, EnemyEtis, "EnemyEtis-390");
 				break;
 			}
 			case 9760: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000322);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000342, EnemyEtis, "EnemyEtis-391");
 				break;
 			}
 			case 9790: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000323);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000343, EnemyEtis, "EnemyEtis-392");
 				break;
 			}
 			case 9820: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000324);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000344, EnemyEtis, "EnemyEtis-393");
 				break;
 			}
 			case 9850: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000325);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000345, EnemyEtis, "EnemyEtis-394");
 				break;
 			}
 			case 9880: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000326);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000346, EnemyEtis, "EnemyEtis-395");
 				break;
 			}
 			case 9910: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000327);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000347, EnemyEtis, "EnemyEtis-396");
 				break;
 			}
 			case 9940: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000328);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000348, EnemyEtis, "EnemyEtis-397");
 				break;
 			}
 			case 9970: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000329);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000349, EnemyEtis, "EnemyEtis-398");
 				break;
 			}
 			case 10000: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000330);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000350, EnemyEtis, "EnemyEtis-399");
 				EnemyEsperia* p400 = (EnemyEsperia*)obtainActorFromFactory(30001036);
-				getSceneDirector()->addSubGroup(p400);
+				bringDirector()->addSubGroup(p400);
 				break;
 			}
 			case 10030: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000331);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000351, EnemyEtis, "EnemyEtis-401");
 				break;
 			}
 			case 10060: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000332);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000352, EnemyEtis, "EnemyEtis-402");
 				break;
 			}
 			case 10090: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000333);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000353, EnemyEtis, "EnemyEtis-403");
 				break;
 			}
 			case 10120: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000334);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000354, EnemyEtis, "EnemyEtis-404");
 				break;
 			}
 			case 10150: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000335);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000355, EnemyEtis, "EnemyEtis-405");
 				break;
 			}
 			case 10180: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000336);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000356, EnemyEtis, "EnemyEtis-406");
 				break;
 			}
 			case 10210: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000337);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000357, EnemyEtis, "EnemyEtis-407");
 				break;
 			}
 			case 10240: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000338);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000358, EnemyEtis, "EnemyEtis-408");
 				break;
 			}
 			case 10270: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000339);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000359, EnemyEtis, "EnemyEtis-409");
 				break;
 			}
 			case 10300: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000340);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000360, EnemyEtis, "EnemyEtis-410");
 				break;
 			}
 			case 10330: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000341);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000361, EnemyEtis, "EnemyEtis-411");
 				break;
 			}
 			case 10360: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000342);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000362, EnemyEtis, "EnemyEtis-412");
 				break;
 			}
 			case 10390: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000343);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000363, EnemyEtis, "EnemyEtis-413");
 				break;
 			}
 			case 10420: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000344);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000364, EnemyEtis, "EnemyEtis-414");
 				break;
 			}
 			case 10450: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000345);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000365, EnemyEtis, "EnemyEtis-415");
 				break;
 			}
 			case 10480: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000346);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000366, EnemyEtis, "EnemyEtis-416");
 				break;
 			}
 			case 10510: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000347);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000367, EnemyEtis, "EnemyEtis-417");
 				break;
 			}
 			case 10540: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000348);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000368, EnemyEtis, "EnemyEtis-418");
 				break;
 			}
 			case 10570: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000349);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000369, EnemyEtis, "EnemyEtis-419");
 				break;
 			}
 			case 10600: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000350);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000370, EnemyEtis, "EnemyEtis-420");
 				break;
 			}
 			case 10630: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000351);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000371, EnemyEtis, "EnemyEtis-421");
 				break;
 			}
 			case 10660: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000352);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000372, EnemyEtis, "EnemyEtis-422");
 				break;
 			}
 			case 10690: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000353);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000373, EnemyEtis, "EnemyEtis-423");
 				break;
 			}
 			case 10720: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000354);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000374, EnemyEtis, "EnemyEtis-424");
 				break;
 			}
 			case 10750: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000355);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000375, EnemyEtis, "EnemyEtis-425");
 				break;
 			}
 			case 10780: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000356);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000376, EnemyEtis, "EnemyEtis-426");
 				break;
 			}
 			case 10810: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000357);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000377, EnemyEtis, "EnemyEtis-427");
 				break;
 			}
 			case 10840: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000358);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000378, EnemyEtis, "EnemyEtis-428");
 				break;
 			}
 			case 10870: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000359);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000379, EnemyEtis, "EnemyEtis-429");
 				break;
 			}
 			case 10900: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000360);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000380, EnemyEtis, "EnemyEtis-430");
 				break;
 			}
 			case 10930: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000361);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000381, EnemyEtis, "EnemyEtis-431");
 				break;
 			}
 			case 10960: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000362);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000382, EnemyEtis, "EnemyEtis-432");
 				break;
 			}
 			case 10990: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000363);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000383, EnemyEtis, "EnemyEtis-433");
 				break;
 			}
 			case 11020: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000364);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000384, EnemyEtis, "EnemyEtis-434");
 				break;
 			}
 			case 11050: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000365);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000385, EnemyEtis, "EnemyEtis-435");
 				break;
 			}
 			case 11080: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000366);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000386, EnemyEtis, "EnemyEtis-436");
 				break;
 			}
 			case 11110: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000367);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000387, EnemyEtis, "EnemyEtis-437");
 				break;
 			}
 			case 11140: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000368);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000388, EnemyEtis, "EnemyEtis-438");
 				break;
 			}
 			case 11170: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000369);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000389, EnemyEtis, "EnemyEtis-439");
 				break;
 			}
 			case 11200: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000370);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000390, EnemyEtis, "EnemyEtis-440");
 				break;
 			}
 			case 11230: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000371);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000391, EnemyEtis, "EnemyEtis-441");
 				break;
 			}
 			case 11260: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000372);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000392, EnemyEtis, "EnemyEtis-442");
 				break;
 			}
 			case 11290: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000373);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000393, EnemyEtis, "EnemyEtis-443");
 				break;
 			}
 			case 11320: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000374);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000394, EnemyEtis, "EnemyEtis-444");
 				break;
 			}
 			case 11350: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000375);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000395, EnemyEtis, "EnemyEtis-445");
 				break;
 			}
 			case 11380: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000376);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000396, EnemyEtis, "EnemyEtis-446");
 				break;
 			}
 			case 11410: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000377);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000397, EnemyEtis, "EnemyEtis-447");
 				break;
 			}
 			case 11440: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000378);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000398, EnemyEtis, "EnemyEtis-448");
 				break;
 			}
 			case 11470: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000379);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000399, EnemyEtis, "EnemyEtis-449");
 				break;
 			}
 			case 11500: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000380);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000400, EnemyEtis, "EnemyEtis-450");
 				break;
 			}
 			case 11530: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000381);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000401, EnemyEtis, "EnemyEtis-451");
 				break;
 			}
 			case 11560: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000382);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000402, EnemyEtis, "EnemyEtis-452");
 				break;
 			}
 			case 11590: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000383);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000403, EnemyEtis, "EnemyEtis-453");
 				break;
 			}
 			case 11620: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000384);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000404, EnemyEtis, "EnemyEtis-454");
 				break;
 			}
 			case 11650: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000385);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000405, EnemyEtis, "EnemyEtis-455");
 				break;
 			}
 			case 11680: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000386);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000406, EnemyEtis, "EnemyEtis-456");
 				break;
 			}
 			case 11710: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000387);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000407, EnemyEtis, "EnemyEtis-457");
 				break;
 			}
 			case 11740: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000388);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000408, EnemyEtis, "EnemyEtis-458");
 				break;
 			}
 			case 11770: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000389);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000409, EnemyEtis, "EnemyEtis-459");
 				break;
 			}
 			case 11800: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000390);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000410, EnemyEtis, "EnemyEtis-460");
 				break;
 			}
 			case 11830: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000391);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000411, EnemyEtis, "EnemyEtis-461");
 				break;
 			}
 			case 11860: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000392);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000412, EnemyEtis, "EnemyEtis-462");
 				break;
 			}
 			case 11890: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000393);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000413, EnemyEtis, "EnemyEtis-463");
 				break;
 			}
 			case 11920: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000394);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000414, EnemyEtis, "EnemyEtis-464");
 				break;
 			}
 			case 11950: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000395);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000415, EnemyEtis, "EnemyEtis-465");
 				break;
 			}
 			case 11980: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000396);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000416, EnemyEtis, "EnemyEtis-466");
 				break;
 			}
 			case 12010: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000397);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000417, EnemyEtis, "EnemyEtis-467");
 				break;
 			}
 			case 12040: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000398);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000418, EnemyEtis, "EnemyEtis-468");
 				break;
 			}
 			case 12070: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000399);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000419, EnemyEtis, "EnemyEtis-469");
 				break;
 			}
 			case 12100: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000400);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000420, EnemyEtis, "EnemyEtis-470");
 				break;
 			}
 			case 12130: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000401);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000421, EnemyEtis, "EnemyEtis-471");
 				break;
 			}
 			case 12160: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000402);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000422, EnemyEtis, "EnemyEtis-472");
 				break;
 			}
 			case 12190: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000403);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000423, EnemyEtis, "EnemyEtis-473");
 				break;
 			}
 			case 12220: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000404);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000424, EnemyEtis, "EnemyEtis-474");
 				break;
 			}
 			case 12250: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000405);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000425, EnemyEtis, "EnemyEtis-475");
 				break;
 			}
 			case 12280: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000406);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000426, EnemyEtis, "EnemyEtis-476");
 				break;
 			}
 			case 12310: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000407);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000427, EnemyEtis, "EnemyEtis-477");
 				break;
 			}
 			case 12340: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000408);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000428, EnemyEtis, "EnemyEtis-478");
 				break;
 			}
 			case 12370: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000409);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000429, EnemyEtis, "EnemyEtis-479");
 				break;
 			}
 			case 12400: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000410);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000430, EnemyEtis, "EnemyEtis-480");
 				break;
 			}
 			case 12430: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000411);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000431, EnemyEtis, "EnemyEtis-481");
 				break;
 			}
 			case 12460: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000412);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000432, EnemyEtis, "EnemyEtis-482");
 				break;
 			}
 			case 12490: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000413);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000433, EnemyEtis, "EnemyEtis-483");
 				break;
 			}
 			case 12520: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000414);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000434, EnemyEtis, "EnemyEtis-484");
 				break;
 			}
 			case 12550: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000415);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000435, EnemyEtis, "EnemyEtis-485");
 				break;
 			}
 			case 12580: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000416);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000436, EnemyEtis, "EnemyEtis-486");
 				break;
 			}
 			case 12610: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000417);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000437, EnemyEtis, "EnemyEtis-487");
 				break;
 			}
 			case 12640: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000418);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000438, EnemyEtis, "EnemyEtis-488");
 				break;
 			}
 			case 12670: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000419);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000439, EnemyEtis, "EnemyEtis-489");
 				break;
 			}
 			case 12700: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000420);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000440, EnemyEtis, "EnemyEtis-490");
 				break;
 			}
 			case 12730: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000421);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000441, EnemyEtis, "EnemyEtis-491");
 				break;
 			}
 			case 12760: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000422);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000442, EnemyEtis, "EnemyEtis-492");
 				break;
 			}
 			case 12790: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000423);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000443, EnemyEtis, "EnemyEtis-493");
 				break;
 			}
 			case 12820: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000424);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000444, EnemyEtis, "EnemyEtis-494");
 				break;
 			}
 			case 12850: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000425);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000445, EnemyEtis, "EnemyEtis-495");
 				break;
 			}
 			case 12880: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000426);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000446, EnemyEtis, "EnemyEtis-496");
 				break;
 			}
 			case 12910: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000427);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000447, EnemyEtis, "EnemyEtis-497");
 				break;
 			}
 			case 12940: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000428);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000448, EnemyEtis, "EnemyEtis-498");
 				break;
 			}
 			case 12970: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000429);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000449, EnemyEtis, "EnemyEtis-499");
 				break;
 			}
 			case 13000: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000430);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000450, EnemyEtis, "EnemyEtis-500");
 				break;
 			}
 			case 13030: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000431);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000451, EnemyEtis, "EnemyEtis-501");
 				break;
 			}
 			case 13060: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000432);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000452, EnemyEtis, "EnemyEtis-502");
 				break;
 			}
 			case 13090: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000433);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000453, EnemyEtis, "EnemyEtis-503");
 				break;
 			}
 			case 13120: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000434);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000454, EnemyEtis, "EnemyEtis-504");
 				break;
 			}
 			case 13150: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000435);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000455, EnemyEtis, "EnemyEtis-505");
 				break;
 			}
 			case 13180: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000436);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000456, EnemyEtis, "EnemyEtis-506");
 				break;
 			}
 			case 13210: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000437);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000457, EnemyEtis, "EnemyEtis-507");
 				break;
 			}
 			case 13240: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000438);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000458, EnemyEtis, "EnemyEtis-508");
 				break;
 			}
 			case 13270: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000439);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000459, EnemyEtis, "EnemyEtis-509");
 				break;
 			}
 			case 13300: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000440);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000460, EnemyEtis, "EnemyEtis-510");
 				break;
 			}
 			case 13330: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000441);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000461, EnemyEtis, "EnemyEtis-511");
 				break;
 			}
 			case 13360: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000442);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000462, EnemyEtis, "EnemyEtis-512");
 				break;
 			}
 			case 13390: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000443);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000463, EnemyEtis, "EnemyEtis-513");
 				break;
 			}
 			case 13420: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000444);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000464, EnemyEtis, "EnemyEtis-514");
 				break;
 			}
 			case 13450: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000445);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000465, EnemyEtis, "EnemyEtis-515");
 				break;
 			}
 			case 13480: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000446);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000466, EnemyEtis, "EnemyEtis-516");
 				break;
 			}
 			case 13510: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000447);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000467, EnemyEtis, "EnemyEtis-517");
 				break;
 			}
 			case 13540: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000448);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000468, EnemyEtis, "EnemyEtis-518");
 				break;
 			}
 			case 13570: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000449);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000469, EnemyEtis, "EnemyEtis-519");
 				break;
 			}
 			case 13600: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000450);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000470, EnemyEtis, "EnemyEtis-520");
 				break;
 			}
 			case 13630: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000451);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000471, EnemyEtis, "EnemyEtis-521");
 				break;
 			}
 			case 13660: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000452);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000472, EnemyEtis, "EnemyEtis-522");
 				break;
 			}
 			case 13690: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000453);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000473, EnemyEtis, "EnemyEtis-523");
 				break;
 			}
 			case 13720: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000454);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000474, EnemyEtis, "EnemyEtis-524");
 				break;
 			}
 			case 13750: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000455);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000475, EnemyEtis, "EnemyEtis-525");
 				break;
 			}
 			case 13780: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000456);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000476, EnemyEtis, "EnemyEtis-526");
 				break;
 			}
 			case 13810: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000457);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000477, EnemyEtis, "EnemyEtis-527");
 				break;
 			}
 			case 13840: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000458);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000478, EnemyEtis, "EnemyEtis-528");
 				break;
 			}
 			case 13870: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000459);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000479, EnemyEtis, "EnemyEtis-529");
 				break;
 			}
 			case 13900: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000460);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000480, EnemyEtis, "EnemyEtis-530");
 				break;
 			}
 			case 13930: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000461);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000481, EnemyEtis, "EnemyEtis-531");
 				break;
 			}
 			case 13960: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000462);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000482, EnemyEtis, "EnemyEtis-532");
 				break;
 			}
 			case 13990: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000463);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000483, EnemyEtis, "EnemyEtis-533");
 				break;
 			}
 			case 14020: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000464);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000484, EnemyEtis, "EnemyEtis-534");
 				break;
 			}
 			case 14050: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000465);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000485, EnemyEtis, "EnemyEtis-535");
 				break;
 			}
 			case 14080: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000466);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000486, EnemyEtis, "EnemyEtis-536");
 				break;
 			}
 			case 14110: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000467);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000487, EnemyEtis, "EnemyEtis-537");
 				break;
 			}
 			case 14140: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000468);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000488, EnemyEtis, "EnemyEtis-538");
 				break;
 			}
 			case 14170: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000469);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000489, EnemyEtis, "EnemyEtis-539");
 				break;
 			}
 			case 14200: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000470);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000490, EnemyEtis, "EnemyEtis-540");
 				break;
 			}
 			case 14230: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000471);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000491, EnemyEtis, "EnemyEtis-541");
 				break;
 			}
 			case 14260: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000472);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000492, EnemyEtis, "EnemyEtis-542");
 				break;
 			}
 			case 14290: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000473);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000493, EnemyEtis, "EnemyEtis-543");
 				break;
 			}
 			case 14320: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000474);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000494, EnemyEtis, "EnemyEtis-544");
 				break;
 			}
 			case 14350: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000475);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000495, EnemyEtis, "EnemyEtis-545");
 				break;
 			}
 			case 14380: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000476);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000496, EnemyEtis, "EnemyEtis-546");
 				break;
 			}
 			case 14410: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000477);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000497, EnemyEtis, "EnemyEtis-547");
 				break;
 			}
 			case 14440: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000478);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000498, EnemyEtis, "EnemyEtis-548");
 				break;
 			}
 			case 14470: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000479);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000499, EnemyEtis, "EnemyEtis-549");
 				break;
 			}
 			case 14500: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000480);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000500, EnemyEtis, "EnemyEtis-550");
 				break;
 			}
 			case 14530: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000481);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000501, EnemyEtis, "EnemyEtis-551");
 				break;
 			}
 			case 14560: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000482);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000502, EnemyEtis, "EnemyEtis-552");
 				break;
 			}
 			case 14590: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000483);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000503, EnemyEtis, "EnemyEtis-553");
 				break;
 			}
 			case 14620: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000484);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000504, EnemyEtis, "EnemyEtis-554");
 				break;
 			}
 			case 14650: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000485);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000505, EnemyEtis, "EnemyEtis-555");
 				break;
 			}
 			case 14680: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000486);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000506, EnemyEtis, "EnemyEtis-556");
 				break;
 			}
 			case 14710: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000487);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000507, EnemyEtis, "EnemyEtis-557");
 				break;
 			}
 			case 14740: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000488);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000508, EnemyEtis, "EnemyEtis-558");
 				break;
 			}
 			case 14770: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000489);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000509, EnemyEtis, "EnemyEtis-559");
 				break;
 			}
 			case 14800: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000490);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000510, EnemyEtis, "EnemyEtis-560");
 				break;
 			}
 			case 14830: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000491);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000511, EnemyEtis, "EnemyEtis-561");
 				break;
 			}
 			case 14860: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000492);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000512, EnemyEtis, "EnemyEtis-562");
 				break;
 			}
 			case 14890: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000493);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000513, EnemyEtis, "EnemyEtis-563");
 				break;
 			}
 			case 14920: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000494);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000514, EnemyEtis, "EnemyEtis-564");
 				break;
 			}
 			case 14950: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000495);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000515, EnemyEtis, "EnemyEtis-565");
 				break;
 			}
 			case 14980: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000496);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000516, EnemyEtis, "EnemyEtis-566");
 				break;
 			}
 			case 15010: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000497);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000517, EnemyEtis, "EnemyEtis-567");
 				break;
 			}
 			case 15040: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000498);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000518, EnemyEtis, "EnemyEtis-568");
 				break;
 			}
 			case 15070: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000499);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000519, EnemyEtis, "EnemyEtis-569");
 				break;
 			}
 			case 15100: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000500);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000520, EnemyEtis, "EnemyEtis-570");
 				break;
 			}
 			case 15130: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000501);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000521, EnemyEtis, "EnemyEtis-571");
 				break;
 			}
 			case 15160: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000502);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000522, EnemyEtis, "EnemyEtis-572");
 				break;
 			}
 			case 15190: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000503);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000523, EnemyEtis, "EnemyEtis-573");
 				break;
 			}
 			case 15220: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000504);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000524, EnemyEtis, "EnemyEtis-574");
 				break;
 			}
 			case 15250: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000505);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000525, EnemyEtis, "EnemyEtis-575");
 				break;
 			}
 			case 15280: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000506);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000526, EnemyEtis, "EnemyEtis-576");
 				break;
 			}
 			case 15310: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000507);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000527, EnemyEtis, "EnemyEtis-577");
 				break;
 			}
 			case 15340: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000508);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000528, EnemyEtis, "EnemyEtis-578");
 				break;
 			}
 			case 15370: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000509);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000529, EnemyEtis, "EnemyEtis-579");
 				break;
 			}
 			case 15400: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000510);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000530, EnemyEtis, "EnemyEtis-580");
 				break;
 			}
 			case 15430: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000511);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000531, EnemyEtis, "EnemyEtis-581");
 				break;
 			}
 			case 15460: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000512);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000532, EnemyEtis, "EnemyEtis-582");
 				break;
 			}
 			case 15490: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000513);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000533, EnemyEtis, "EnemyEtis-583");
 				break;
 			}
 			case 15520: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000514);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000534, EnemyEtis, "EnemyEtis-584");
 				break;
 			}
 			case 15550: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000515);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000535, EnemyEtis, "EnemyEtis-585");
 				break;
 			}
 			case 15580: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000516);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000536, EnemyEtis, "EnemyEtis-586");
 				break;
 			}
 			case 15610: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000517);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000537, EnemyEtis, "EnemyEtis-587");
 				break;
 			}
 			case 15640: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000518);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000538, EnemyEtis, "EnemyEtis-588");
 				break;
 			}
 			case 15670: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000519);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000539, EnemyEtis, "EnemyEtis-589");
 				break;
 			}
 			case 15700: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000520);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000540, EnemyEtis, "EnemyEtis-590");
 				break;
 			}
 			case 15730: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000521);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000541, EnemyEtis, "EnemyEtis-591");
 				break;
 			}
 			case 15760: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000522);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000542, EnemyEtis, "EnemyEtis-592");
 				break;
 			}
 			case 15790: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000523);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000543, EnemyEtis, "EnemyEtis-593");
 				break;
 			}
 			case 15820: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000524);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000544, EnemyEtis, "EnemyEtis-594");
 				break;
 			}
 			case 15850: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000525);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000545, EnemyEtis, "EnemyEtis-595");
 				break;
 			}
 			case 15880: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000526);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000546, EnemyEtis, "EnemyEtis-596");
 				break;
 			}
 			case 15910: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000527);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000547, EnemyEtis, "EnemyEtis-597");
 				break;
 			}
 			case 15940: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000528);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000548, EnemyEtis, "EnemyEtis-598");
 				break;
 			}
 			case 15970: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000529);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000549, EnemyEtis, "EnemyEtis-599");
 				break;
 			}
 			case 16000: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000530);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000550, EnemyEtis, "EnemyEtis-600");
 				break;
 			}
 			case 16030: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000531);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000551, EnemyEtis, "EnemyEtis-601");
 				break;
 			}
 			case 16060: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000532);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000552, EnemyEtis, "EnemyEtis-602");
 				break;
 			}
 			case 16090: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000533);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000553, EnemyEtis, "EnemyEtis-603");
 				break;
 			}
 			case 16120: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000534);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000554, EnemyEtis, "EnemyEtis-604");
 				break;
 			}
 			case 16150: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000535);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000555, EnemyEtis, "EnemyEtis-605");
 				break;
 			}
 			case 16180: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000536);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000556, EnemyEtis, "EnemyEtis-606");
 				break;
 			}
 			case 16210: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000537);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000557, EnemyEtis, "EnemyEtis-607");
 				break;
 			}
 			case 16240: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000538);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000558, EnemyEtis, "EnemyEtis-608");
 				break;
 			}
 			case 16270: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000539);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000559, EnemyEtis, "EnemyEtis-609");
 				break;
 			}
 			case 16300: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000540);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000560, EnemyEtis, "EnemyEtis-610");
 				break;
 			}
 			case 16330: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000541);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000561, EnemyEtis, "EnemyEtis-611");
 				break;
 			}
 			case 16360: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000542);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000562, EnemyEtis, "EnemyEtis-612");
 				break;
 			}
 			case 16390: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000543);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000563, EnemyEtis, "EnemyEtis-613");
 				break;
 			}
 			case 16420: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000544);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000564, EnemyEtis, "EnemyEtis-614");
 				break;
 			}
 			case 16450: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000545);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000565, EnemyEtis, "EnemyEtis-615");
 				break;
 			}
 			case 16480: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000546);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000566, EnemyEtis, "EnemyEtis-616");
 				break;
 			}
 			case 16510: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000547);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000567, EnemyEtis, "EnemyEtis-617");
 				break;
 			}
 			case 16540: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000548);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000568, EnemyEtis, "EnemyEtis-618");
 				break;
 			}
 			case 16570: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000549);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000569, EnemyEtis, "EnemyEtis-619");
 				break;
 			}
 			case 16600: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000550);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000570, EnemyEtis, "EnemyEtis-620");
 				break;
 			}
 			case 16630: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000551);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000571, EnemyEtis, "EnemyEtis-621");
 				break;
 			}
 			case 16660: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000552);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000572, EnemyEtis, "EnemyEtis-622");
 				break;
 			}
 			case 16690: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000553);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000573, EnemyEtis, "EnemyEtis-623");
 				break;
 			}
 			case 16720: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000554);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000574, EnemyEtis, "EnemyEtis-624");
 				break;
 			}
 			case 16750: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000555);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000575, EnemyEtis, "EnemyEtis-625");
 				break;
 			}
 			case 16780: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000556);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000576, EnemyEtis, "EnemyEtis-626");
 				break;
 			}
 			case 16810: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000557);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000577, EnemyEtis, "EnemyEtis-627");
 				break;
 			}
 			case 16840: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000558);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000578, EnemyEtis, "EnemyEtis-628");
 				break;
 			}
 			case 16870: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000559);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000579, EnemyEtis, "EnemyEtis-629");
 				break;
 			}
 			case 16900: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000560);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000580, EnemyEtis, "EnemyEtis-630");
 				break;
 			}
 			case 16930: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000561);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000581, EnemyEtis, "EnemyEtis-631");
 				break;
 			}
 			case 16960: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000562);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000582, EnemyEtis, "EnemyEtis-632");
 				break;
 			}
 			case 16990: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000563);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000583, EnemyEtis, "EnemyEtis-633");
 				break;
 			}
 			case 17020: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000564);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000584, EnemyEtis, "EnemyEtis-634");
 				break;
 			}
 			case 17050: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000565);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000585, EnemyEtis, "EnemyEtis-635");
 				break;
 			}
 			case 17080: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000566);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000586, EnemyEtis, "EnemyEtis-636");
 				break;
 			}
 			case 17110: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000567);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000587, EnemyEtis, "EnemyEtis-637");
 				break;
 			}
 			case 17140: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000568);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000588, EnemyEtis, "EnemyEtis-638");
 				break;
 			}
 			case 17170: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000569);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000589, EnemyEtis, "EnemyEtis-639");
 				break;
 			}
 			case 17200: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000570);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000590, EnemyEtis, "EnemyEtis-640");
 				break;
 			}
 			case 17230: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000571);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000591, EnemyEtis, "EnemyEtis-641");
 				break;
 			}
 			case 17260: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000572);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000592, EnemyEtis, "EnemyEtis-642");
 				break;
 			}
 			case 17290: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000573);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000593, EnemyEtis, "EnemyEtis-643");
 				break;
 			}
 			case 17320: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000574);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000594, EnemyEtis, "EnemyEtis-644");
 				break;
 			}
 			case 17350: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000575);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000595, EnemyEtis, "EnemyEtis-645");
 				break;
 			}
 			case 17380: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000576);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000596, EnemyEtis, "EnemyEtis-646");
 				break;
 			}
 			case 17410: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000577);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000597, EnemyEtis, "EnemyEtis-647");
 				break;
 			}
 			case 17440: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000578);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000598, EnemyEtis, "EnemyEtis-648");
 				break;
 			}
 			case 17470: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000579);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000599, EnemyEtis, "EnemyEtis-649");
 				break;
 			}
 			case 17500: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000580);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000600, EnemyEtis, "EnemyEtis-650");
 				break;
 			}
 			case 17530: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000581);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000601, EnemyEtis, "EnemyEtis-651");
 				break;
 			}
 			case 17560: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000582);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000602, EnemyEtis, "EnemyEtis-652");
 				break;
 			}
 			case 17590: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000583);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000603, EnemyEtis, "EnemyEtis-653");
 				break;
 			}
 			case 17620: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000584);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000604, EnemyEtis, "EnemyEtis-654");
 				break;
 			}
 			case 17650: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000585);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000605, EnemyEtis, "EnemyEtis-655");
 				break;
 			}
 			case 17680: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000586);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000606, EnemyEtis, "EnemyEtis-656");
 				break;
 			}
 			case 17710: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000587);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000607, EnemyEtis, "EnemyEtis-657");
 				break;
 			}
 			case 17740: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000588);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000608, EnemyEtis, "EnemyEtis-658");
 				break;
 			}
 			case 17770: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000589);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000609, EnemyEtis, "EnemyEtis-659");
 				break;
 			}
 			case 17800: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000590);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000610, EnemyEtis, "EnemyEtis-660");
 				break;
 			}
 			case 17830: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000591);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000611, EnemyEtis, "EnemyEtis-661");
 				break;
 			}
 			case 17860: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000592);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000612, EnemyEtis, "EnemyEtis-662");
 				break;
 			}
 			case 17890: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000593);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000613, EnemyEtis, "EnemyEtis-663");
 				break;
 			}
 			case 17920: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000594);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000614, EnemyEtis, "EnemyEtis-664");
 				break;
 			}
 			case 17950: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000595);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000615, EnemyEtis, "EnemyEtis-665");
 				break;
 			}
 			case 17980: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000596);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000616, EnemyEtis, "EnemyEtis-666");
 				break;
 			}
 			case 18010: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000597);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000617, EnemyEtis, "EnemyEtis-667");
 				break;
 			}
 			case 18040: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000598);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000618, EnemyEtis, "EnemyEtis-668");
 				break;
 			}
 			case 18070: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000599);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000619, EnemyEtis, "EnemyEtis-669");
 				break;
 			}
 			case 18100: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000600);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000620, EnemyEtis, "EnemyEtis-670");
 				break;
 			}
 			case 18130: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000601);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000621, EnemyEtis, "EnemyEtis-671");
 				break;
 			}
 			case 18160: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000602);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000622, EnemyEtis, "EnemyEtis-672");
 				break;
 			}
 			case 18190: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000603);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000623, EnemyEtis, "EnemyEtis-673");
 				break;
 			}
 			case 18220: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000604);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000624, EnemyEtis, "EnemyEtis-674");
 				break;
 			}
 			case 18250: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000605);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000625, EnemyEtis, "EnemyEtis-675");
 				break;
 			}
 			case 18280: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000606);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000626, EnemyEtis, "EnemyEtis-676");
 				break;
 			}
 			case 18310: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000607);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000627, EnemyEtis, "EnemyEtis-677");
 				break;
 			}
 			case 18340: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000608);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000628, EnemyEtis, "EnemyEtis-678");
 				break;
 			}
 			case 18370: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000609);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000629, EnemyEtis, "EnemyEtis-679");
 				break;
 			}
 			case 18400: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000610);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000630, EnemyEtis, "EnemyEtis-680");
 				break;
 			}
 			case 18430: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000611);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000631, EnemyEtis, "EnemyEtis-681");
 				break;
 			}
 			case 18460: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000612);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000632, EnemyEtis, "EnemyEtis-682");
 				break;
 			}
 			case 18490: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000613);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000633, EnemyEtis, "EnemyEtis-683");
 				break;
 			}
 			case 18520: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000614);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000634, EnemyEtis, "EnemyEtis-684");
 				break;
 			}
 			case 18550: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000615);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000635, EnemyEtis, "EnemyEtis-685");
 				break;
 			}
 			case 18580: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000616);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000636, EnemyEtis, "EnemyEtis-686");
 				break;
 			}
 			case 18610: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000617);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000637, EnemyEtis, "EnemyEtis-687");
 				break;
 			}
 			case 18640: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000618);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000638, EnemyEtis, "EnemyEtis-688");
 				break;
 			}
 			case 18670: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000619);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000639, EnemyEtis, "EnemyEtis-689");
 				break;
 			}
 			case 18700: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000620);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000640, EnemyEtis, "EnemyEtis-690");
 				break;
 			}
 			case 18730: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000621);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000641, EnemyEtis, "EnemyEtis-691");
 				break;
 			}
 			case 18760: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000622);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000642, EnemyEtis, "EnemyEtis-692");
 				break;
 			}
 			case 18790: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000623);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000643, EnemyEtis, "EnemyEtis-693");
 				break;
 			}
 			case 18820: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000624);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000644, EnemyEtis, "EnemyEtis-694");
 				break;
 			}
 			case 18850: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000625);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000645, EnemyEtis, "EnemyEtis-695");
 				break;
 			}
 			case 18880: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000626);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000646, EnemyEtis, "EnemyEtis-696");
 				break;
 			}
 			case 18910: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000627);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000647, EnemyEtis, "EnemyEtis-697");
 				break;
 			}
 			case 18940: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000628);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000648, EnemyEtis, "EnemyEtis-698");
 				break;
 			}
 			case 18970: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000629);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000649, EnemyEtis, "EnemyEtis-699");
 				break;
 			}
 			case 19000: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000630);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000650, EnemyEtis, "EnemyEtis-700");
 				break;
 			}
 			case 19030: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000631);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000651, EnemyEtis, "EnemyEtis-701");
 				break;
 			}
 			case 19060: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000632);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000652, EnemyEtis, "EnemyEtis-702");
 				break;
 			}
 			case 19090: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000633);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000653, EnemyEtis, "EnemyEtis-703");
 				break;
 			}
 			case 19120: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000634);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000654, EnemyEtis, "EnemyEtis-704");
 				break;
 			}
 			case 19150: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000635);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000655, EnemyEtis, "EnemyEtis-705");
 				break;
 			}
 			case 19180: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000636);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000656, EnemyEtis, "EnemyEtis-706");
 				break;
 			}
 			case 19210: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000637);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000657, EnemyEtis, "EnemyEtis-707");
 				break;
 			}
 			case 19240: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000638);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000658, EnemyEtis, "EnemyEtis-708");
 				break;
 			}
 			case 19270: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000639);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000659, EnemyEtis, "EnemyEtis-709");
 				break;
 			}
 			case 19300: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000640);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000660, EnemyEtis, "EnemyEtis-710");
 				break;
 			}
 			case 19330: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000641);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000661, EnemyEtis, "EnemyEtis-711");
 				break;
 			}
 			case 19360: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000642);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000662, EnemyEtis, "EnemyEtis-712");
 				break;
 			}
 			case 19390: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000643);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000663, EnemyEtis, "EnemyEtis-713");
 				break;
 			}
 			case 19420: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000644);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000664, EnemyEtis, "EnemyEtis-714");
 				break;
 			}
 			case 19450: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000645);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000665, EnemyEtis, "EnemyEtis-715");
 				break;
 			}
 			case 19480: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000646);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000666, EnemyEtis, "EnemyEtis-716");
 				break;
 			}
 			case 19510: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000647);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000667, EnemyEtis, "EnemyEtis-717");
 				break;
 			}
 			case 19540: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000648);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000668, EnemyEtis, "EnemyEtis-718");
 				break;
 			}
 			case 19570: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000649);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000669, EnemyEtis, "EnemyEtis-719");
 				break;
 			}
 			case 19600: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000650);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000670, EnemyEtis, "EnemyEtis-720");
 				break;
 			}
 			case 19630: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000651);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000671, EnemyEtis, "EnemyEtis-721");
 				break;
 			}
 			case 19660: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000652);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000672, EnemyEtis, "EnemyEtis-722");
 				break;
 			}
 			case 19690: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000653);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000673, EnemyEtis, "EnemyEtis-723");
 				break;
 			}
 			case 19720: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000654);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000674, EnemyEtis, "EnemyEtis-724");
 				break;
 			}
 			case 19750: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000655);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000675, EnemyEtis, "EnemyEtis-725");
 				break;
 			}
 			case 19780: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000656);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000676, EnemyEtis, "EnemyEtis-726");
 				break;
 			}
 			case 19810: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000657);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000677, EnemyEtis, "EnemyEtis-727");
 				break;
 			}
 			case 19840: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000658);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000678, EnemyEtis, "EnemyEtis-728");
 				break;
 			}
 			case 19870: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000659);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000679, EnemyEtis, "EnemyEtis-729");
 				break;
 			}
 			case 19900: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000660);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000680, EnemyEtis, "EnemyEtis-730");
 				break;
 			}
 			case 19930: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000661);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000681, EnemyEtis, "EnemyEtis-731");
 				break;
 			}
 			case 19960: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000662);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000682, EnemyEtis, "EnemyEtis-732");
 				break;
 			}
 			case 19990: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000663);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000683, EnemyEtis, "EnemyEtis-733");
 				break;
 			}
 			case 20020: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000664);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000684, EnemyEtis, "EnemyEtis-734");
 				break;
 			}
 			case 20050: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000665);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000685, EnemyEtis, "EnemyEtis-735");
 				break;
 			}
 			case 20080: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000666);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000686, EnemyEtis, "EnemyEtis-736");
 				break;
 			}
 			case 20110: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000667);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000687, EnemyEtis, "EnemyEtis-737");
 				break;
 			}
 			case 20140: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000668);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000688, EnemyEtis, "EnemyEtis-738");
 				break;
 			}
 			case 20170: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000669);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000689, EnemyEtis, "EnemyEtis-739");
 				break;
 			}
 			case 20200: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000670);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000690, EnemyEtis, "EnemyEtis-740");
 				break;
 			}
 			case 20230: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000671);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000691, EnemyEtis, "EnemyEtis-741");
 				break;
 			}
 			case 20260: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000672);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000692, EnemyEtis, "EnemyEtis-742");
 				break;
 			}
 			case 20290: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000673);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000693, EnemyEtis, "EnemyEtis-743");
 				break;
 			}
 			case 20320: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000674);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000694, EnemyEtis, "EnemyEtis-744");
 				break;
 			}
 			case 20350: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000675);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000695, EnemyEtis, "EnemyEtis-745");
 				break;
 			}
 			case 20380: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000676);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000696, EnemyEtis, "EnemyEtis-746");
 				break;
 			}
 			case 20410: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000677);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000697, EnemyEtis, "EnemyEtis-747");
 				break;
 			}
 			case 20440: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000678);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000698, EnemyEtis, "EnemyEtis-748");
 				break;
 			}
 			case 20470: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000679);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000699, EnemyEtis, "EnemyEtis-749");
 				break;
 			}
 			case 20500: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000680);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000700, EnemyEtis, "EnemyEtis-750");
 				break;
 			}
 			case 20530: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000681);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000701, EnemyEtis, "EnemyEtis-751");
 				break;
 			}
 			case 20560: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000682);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000702, EnemyEtis, "EnemyEtis-752");
 				break;
 			}
 			case 20590: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000683);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000703, EnemyEtis, "EnemyEtis-753");
 				break;
 			}
 			case 20620: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000684);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000704, EnemyEtis, "EnemyEtis-754");
 				break;
 			}
 			case 20650: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000685);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000705, EnemyEtis, "EnemyEtis-755");
 				break;
 			}
 			case 20680: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000686);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000706, EnemyEtis, "EnemyEtis-756");
 				break;
 			}
 			case 20710: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000687);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000707, EnemyEtis, "EnemyEtis-757");
 				break;
 			}
 			case 20740: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000688);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000708, EnemyEtis, "EnemyEtis-758");
 				break;
 			}
 			case 20770: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000689);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000709, EnemyEtis, "EnemyEtis-759");
 				break;
 			}
 			case 20800: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000690);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000710, EnemyEtis, "EnemyEtis-760");
 				break;
 			}
 			case 20830: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000691);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000711, EnemyEtis, "EnemyEtis-761");
 				break;
 			}
 			case 20860: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000692);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000712, EnemyEtis, "EnemyEtis-762");
 				break;
 			}
 			case 20890: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000693);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000713, EnemyEtis, "EnemyEtis-763");
 				break;
 			}
 			case 20920: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000694);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000714, EnemyEtis, "EnemyEtis-764");
 				break;
 			}
 			case 20950: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000695);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000715, EnemyEtis, "EnemyEtis-765");
 				break;
 			}
 			case 20980: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000696);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000716, EnemyEtis, "EnemyEtis-766");
 				break;
 			}
 			case 21010: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000697);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000717, EnemyEtis, "EnemyEtis-767");
 				break;
 			}
 			case 21040: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000698);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000718, EnemyEtis, "EnemyEtis-768");
 				break;
 			}
 			case 21070: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000699);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000719, EnemyEtis, "EnemyEtis-769");
 				break;
 			}
 			case 21100: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000700);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000720, EnemyEtis, "EnemyEtis-770");
 				break;
 			}
 			case 21130: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000701);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000721, EnemyEtis, "EnemyEtis-771");
 				break;
 			}
 			case 21160: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000702);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000722, EnemyEtis, "EnemyEtis-772");
 				break;
 			}
 			case 21190: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000703);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000723, EnemyEtis, "EnemyEtis-773");
 				break;
 			}
 			case 21220: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000704);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000724, EnemyEtis, "EnemyEtis-774");
 				break;
 			}
 			case 21250: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000705);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000725, EnemyEtis, "EnemyEtis-775");
 				break;
 			}
 			case 21280: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000706);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000726, EnemyEtis, "EnemyEtis-776");
 				break;
 			}
 			case 21310: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000707);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000727, EnemyEtis, "EnemyEtis-777");
 				break;
 			}
 			case 21340: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000708);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000728, EnemyEtis, "EnemyEtis-778");
 				break;
 			}
 			case 21370: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000709);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000729, EnemyEtis, "EnemyEtis-779");
 				break;
 			}
 			case 21400: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000710);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000730, EnemyEtis, "EnemyEtis-780");
 				break;
 			}
 			case 21430: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000711);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000731, EnemyEtis, "EnemyEtis-781");
 				break;
 			}
 			case 21460: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000712);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000732, EnemyEtis, "EnemyEtis-782");
 				break;
 			}
 			case 21490: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000713);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000733, EnemyEtis, "EnemyEtis-783");
 				break;
 			}
 			case 21520: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000714);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000734, EnemyEtis, "EnemyEtis-784");
 				break;
 			}
 			case 21550: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000715);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000735, EnemyEtis, "EnemyEtis-785");
 				break;
 			}
 			case 21580: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000716);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000736, EnemyEtis, "EnemyEtis-786");
 				break;
 			}
 			case 21610: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000717);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000737, EnemyEtis, "EnemyEtis-787");
 				break;
 			}
 			case 21640: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000718);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000738, EnemyEtis, "EnemyEtis-788");
 				break;
 			}
 			case 21670: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000719);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000739, EnemyEtis, "EnemyEtis-789");
 				break;
 			}
 			case 21700: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000720);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000740, EnemyEtis, "EnemyEtis-790");
 				break;
 			}
 			case 21730: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000721);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000741, EnemyEtis, "EnemyEtis-791");
 				break;
 			}
 			case 21760: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000722);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000742, EnemyEtis, "EnemyEtis-792");
 				break;
 			}
 			case 21790: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000723);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000743, EnemyEtis, "EnemyEtis-793");
 				break;
 			}
 			case 21820: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000724);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000744, EnemyEtis, "EnemyEtis-794");
 				break;
 			}
 			case 21850: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000725);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000745, EnemyEtis, "EnemyEtis-795");
 				break;
 			}
 			case 21880: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000726);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000746, EnemyEtis, "EnemyEtis-796");
 				break;
 			}
 			case 21910: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000727);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000747, EnemyEtis, "EnemyEtis-797");
 				break;
 			}
 			case 21940: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000728);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000748, EnemyEtis, "EnemyEtis-798");
 				break;
 			}
 			case 21970: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000729);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000749, EnemyEtis, "EnemyEtis-799");
 				break;
 			}
 			case 22000: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000730);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000750, EnemyEtis, "EnemyEtis-800");
 				break;
 			}
 			case 22030: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000731);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000751, EnemyEtis, "EnemyEtis-801");
 				break;
 			}
 			case 22060: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000732);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000752, EnemyEtis, "EnemyEtis-802");
 				break;
 			}
 			case 22090: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000733);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000753, EnemyEtis, "EnemyEtis-803");
 				break;
 			}
 			case 22120: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000734);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000754, EnemyEtis, "EnemyEtis-804");
 				break;
 			}
 			case 22150: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000735);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000755, EnemyEtis, "EnemyEtis-805");
 				break;
 			}
 			case 22180: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000736);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000756, EnemyEtis, "EnemyEtis-806");
 				break;
 			}
 			case 22210: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000737);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000757, EnemyEtis, "EnemyEtis-807");
 				break;
 			}
 			case 22240: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000738);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000758, EnemyEtis, "EnemyEtis-808");
 				break;
 			}
 			case 22270: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000739);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000759, EnemyEtis, "EnemyEtis-809");
 				break;
 			}
 			case 22300: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000740);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000760, EnemyEtis, "EnemyEtis-810");
 				break;
 			}
 			case 22330: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000741);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000761, EnemyEtis, "EnemyEtis-811");
 				break;
 			}
 			case 22360: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000742);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000762, EnemyEtis, "EnemyEtis-812");
 				break;
 			}
 			case 22390: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000743);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000763, EnemyEtis, "EnemyEtis-813");
 				break;
 			}
 			case 22420: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000744);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000764, EnemyEtis, "EnemyEtis-814");
 				break;
 			}
 			case 22450: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000745);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000765, EnemyEtis, "EnemyEtis-815");
 				break;
 			}
 			case 22480: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000746);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000766, EnemyEtis, "EnemyEtis-816");
 				break;
 			}
 			case 22510: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000747);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000767, EnemyEtis, "EnemyEtis-817");
 				break;
 			}
 			case 22540: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000748);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000768, EnemyEtis, "EnemyEtis-818");
 				break;
 			}
 			case 22570: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000749);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000769, EnemyEtis, "EnemyEtis-819");
 				break;
 			}
 			case 22600: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000750);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000770, EnemyEtis, "EnemyEtis-820");
 				break;
 			}
 			case 22630: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000751);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000771, EnemyEtis, "EnemyEtis-821");
 				break;
 			}
 			case 22660: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000752);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000772, EnemyEtis, "EnemyEtis-822");
 				break;
 			}
 			case 22690: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000753);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000773, EnemyEtis, "EnemyEtis-823");
 				break;
 			}
 			case 22720: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000754);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000774, EnemyEtis, "EnemyEtis-824");
 				break;
 			}
 			case 22750: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000755);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000775, EnemyEtis, "EnemyEtis-825");
 				break;
 			}
 			case 22780: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000756);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000776, EnemyEtis, "EnemyEtis-826");
 				break;
 			}
 			case 22810: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000757);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000777, EnemyEtis, "EnemyEtis-827");
 				break;
 			}
 			case 22840: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000758);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000778, EnemyEtis, "EnemyEtis-828");
 				break;
 			}
 			case 22870: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000759);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000779, EnemyEtis, "EnemyEtis-829");
 				break;
 			}
 			case 22900: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000760);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000780, EnemyEtis, "EnemyEtis-830");
 				break;
 			}
 			case 22930: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000761);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000781, EnemyEtis, "EnemyEtis-831");
 				break;
 			}
 			case 22960: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000762);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000782, EnemyEtis, "EnemyEtis-832");
 				break;
 			}
 			case 22990: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000763);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000783, EnemyEtis, "EnemyEtis-833");
 				break;
 			}
 			case 23020: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000764);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000784, EnemyEtis, "EnemyEtis-834");
 				break;
 			}
 			case 23050: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000765);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000785, EnemyEtis, "EnemyEtis-835");
 				break;
 			}
 			case 23080: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000766);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000786, EnemyEtis, "EnemyEtis-836");
 				break;
 			}
 			case 23110: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000767);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000787, EnemyEtis, "EnemyEtis-837");
 				break;
 			}
 			case 23140: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000768);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000788, EnemyEtis, "EnemyEtis-838");
 				break;
 			}
 			case 23170: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000769);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000789, EnemyEtis, "EnemyEtis-839");
 				break;
 			}
 			case 23200: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000770);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000790, EnemyEtis, "EnemyEtis-840");
 				break;
 			}
 			case 23230: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000771);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000791, EnemyEtis, "EnemyEtis-841");
 				break;
 			}
 			case 23260: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000772);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000792, EnemyEtis, "EnemyEtis-842");
 				break;
 			}
 			case 23290: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000773);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000793, EnemyEtis, "EnemyEtis-843");
 				break;
 			}
 			case 23320: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000774);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000794, EnemyEtis, "EnemyEtis-844");
 				break;
 			}
 			case 23350: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000775);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000795, EnemyEtis, "EnemyEtis-845");
 				break;
 			}
 			case 23380: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000776);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000796, EnemyEtis, "EnemyEtis-846");
 				break;
 			}
 			case 23410: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000777);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000797, EnemyEtis, "EnemyEtis-847");
 				break;
 			}
 			case 23440: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000778);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000798, EnemyEtis, "EnemyEtis-848");
 				break;
 			}
 			case 23470: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000779);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000799, EnemyEtis, "EnemyEtis-849");
 				break;
 			}
 			case 23500: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000780);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000800, EnemyEtis, "EnemyEtis-850");
 				break;
 			}
 			case 23530: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000781);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000801, EnemyEtis, "EnemyEtis-851");
 				break;
 			}
 			case 23560: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000782);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000802, EnemyEtis, "EnemyEtis-852");
 				break;
 			}
 			case 23590: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000783);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000803, EnemyEtis, "EnemyEtis-853");
 				break;
 			}
 			case 23620: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000784);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000804, EnemyEtis, "EnemyEtis-854");
 				break;
 			}
 			case 23650: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000785);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000805, EnemyEtis, "EnemyEtis-855");
 				break;
 			}
 			case 23680: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000786);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000806, EnemyEtis, "EnemyEtis-856");
 				break;
 			}
 			case 23710: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000787);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000807, EnemyEtis, "EnemyEtis-857");
 				break;
 			}
 			case 23740: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000788);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000808, EnemyEtis, "EnemyEtis-858");
 				break;
 			}
 			case 23770: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000789);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000809, EnemyEtis, "EnemyEtis-859");
 				break;
 			}
 			case 23800: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000790);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000810, EnemyEtis, "EnemyEtis-860");
 				break;
 			}
 			case 23830: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000791);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000811, EnemyEtis, "EnemyEtis-861");
 				break;
 			}
 			case 23860: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000792);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000812, EnemyEtis, "EnemyEtis-862");
 				break;
 			}
 			case 23890: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000793);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000813, EnemyEtis, "EnemyEtis-863");
 				break;
 			}
 			case 23920: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000794);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000814, EnemyEtis, "EnemyEtis-864");
 				break;
 			}
 			case 23950: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000795);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000815, EnemyEtis, "EnemyEtis-865");
 				break;
 			}
 			case 23980: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000796);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000816, EnemyEtis, "EnemyEtis-866");
 				break;
 			}
 			case 24010: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000797);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000817, EnemyEtis, "EnemyEtis-867");
 				break;
 			}
 			case 24040: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000798);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000818, EnemyEtis, "EnemyEtis-868");
 				break;
 			}
 			case 24070: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000799);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000819, EnemyEtis, "EnemyEtis-869");
 				break;
 			}
 			case 24100: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000800);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000820, EnemyEtis, "EnemyEtis-870");
 				break;
 			}
 			case 24130: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000801);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000821, EnemyEtis, "EnemyEtis-871");
 				break;
 			}
 			case 24160: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000802);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000822, EnemyEtis, "EnemyEtis-872");
 				break;
 			}
 			case 24190: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000803);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000823, EnemyEtis, "EnemyEtis-873");
 				break;
 			}
 			case 24220: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000804);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000824, EnemyEtis, "EnemyEtis-874");
 				break;
 			}
 			case 24250: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000805);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000825, EnemyEtis, "EnemyEtis-875");
 				break;
 			}
 			case 24280: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000806);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000826, EnemyEtis, "EnemyEtis-876");
 				break;
 			}
 			case 24310: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000807);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000827, EnemyEtis, "EnemyEtis-877");
 				break;
 			}
 			case 24340: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000808);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000828, EnemyEtis, "EnemyEtis-878");
 				break;
 			}
 			case 24370: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000809);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000829, EnemyEtis, "EnemyEtis-879");
 				break;
 			}
 			case 24400: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000810);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000830, EnemyEtis, "EnemyEtis-880");
 				break;
 			}
 			case 24430: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000811);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000831, EnemyEtis, "EnemyEtis-881");
 				break;
 			}
 			case 24460: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000812);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000832, EnemyEtis, "EnemyEtis-882");
 				break;
 			}
 			case 24490: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000813);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000833, EnemyEtis, "EnemyEtis-883");
 				break;
 			}
 			case 24520: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000814);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000834, EnemyEtis, "EnemyEtis-884");
 				break;
 			}
 			case 24550: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000815);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000835, EnemyEtis, "EnemyEtis-885");
 				break;
 			}
 			case 24580: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000816);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000836, EnemyEtis, "EnemyEtis-886");
 				break;
 			}
 			case 24610: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000817);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000837, EnemyEtis, "EnemyEtis-887");
 				break;
 			}
 			case 24640: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000818);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000838, EnemyEtis, "EnemyEtis-888");
 				break;
 			}
 			case 24670: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000819);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000839, EnemyEtis, "EnemyEtis-889");
 				break;
 			}
 			case 24700: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000820);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000840, EnemyEtis, "EnemyEtis-890");
 				break;
 			}
 			case 24730: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000821);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000841, EnemyEtis, "EnemyEtis-891");
 				break;
 			}
 			case 24760: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000822);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000842, EnemyEtis, "EnemyEtis-892");
 				break;
 			}
 			case 24790: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000823);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000843, EnemyEtis, "EnemyEtis-893");
 				break;
 			}
 			case 24820: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000824);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000844, EnemyEtis, "EnemyEtis-894");
 				break;
 			}
 			case 24850: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000825);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000845, EnemyEtis, "EnemyEtis-895");
 				break;
 			}
 			case 24880: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000826);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000846, EnemyEtis, "EnemyEtis-896");
 				break;
 			}
 			case 24910: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000827);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000847, EnemyEtis, "EnemyEtis-897");
 				break;
 			}
 			case 24940: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000828);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000848, EnemyEtis, "EnemyEtis-898");
 				break;
 			}
 			case 24970: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000829);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000849, EnemyEtis, "EnemyEtis-899");
 				break;
 			}
 			case 25000: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000830);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000850, EnemyEtis, "EnemyEtis-900");
 				break;
 			}
 			case 25030: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000831);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000851, EnemyEtis, "EnemyEtis-901");
 				break;
 			}
 			case 25060: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000832);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000852, EnemyEtis, "EnemyEtis-902");
 				break;
 			}
 			case 25090: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000833);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000853, EnemyEtis, "EnemyEtis-903");
 				break;
 			}
 			case 25120: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000834);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000854, EnemyEtis, "EnemyEtis-904");
 				break;
 			}
 			case 25150: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000835);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000855, EnemyEtis, "EnemyEtis-905");
 				break;
 			}
 			case 25180: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000836);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000856, EnemyEtis, "EnemyEtis-906");
 				break;
 			}
 			case 25210: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000837);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000857, EnemyEtis, "EnemyEtis-907");
 				break;
 			}
 			case 25240: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000838);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000858, EnemyEtis, "EnemyEtis-908");
 				break;
 			}
 			case 25270: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000839);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000859, EnemyEtis, "EnemyEtis-909");
 				break;
 			}
 			case 25300: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000840);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000860, EnemyEtis, "EnemyEtis-910");
 				break;
 			}
 			case 25330: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000841);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000861, EnemyEtis, "EnemyEtis-911");
 				break;
 			}
 			case 25360: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000842);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000862, EnemyEtis, "EnemyEtis-912");
 				break;
 			}
 			case 25390: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000843);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000863, EnemyEtis, "EnemyEtis-913");
 				break;
 			}
 			case 25420: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000844);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000864, EnemyEtis, "EnemyEtis-914");
 				break;
 			}
 			case 25450: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000845);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000865, EnemyEtis, "EnemyEtis-915");
 				break;
 			}
 			case 25480: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000846);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000866, EnemyEtis, "EnemyEtis-916");
 				break;
 			}
 			case 25510: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000847);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000867, EnemyEtis, "EnemyEtis-917");
 				break;
 			}
 			case 25540: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000848);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000868, EnemyEtis, "EnemyEtis-918");
 				break;
 			}
 			case 25570: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000849);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000869, EnemyEtis, "EnemyEtis-919");
 				break;
 			}
 			case 25600: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000850);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000870, EnemyEtis, "EnemyEtis-920");
 				break;
 			}
 			case 25630: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000851);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000871, EnemyEtis, "EnemyEtis-921");
 				break;
 			}
 			case 25660: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000852);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000872, EnemyEtis, "EnemyEtis-922");
 				break;
 			}
 			case 25690: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000853);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000873, EnemyEtis, "EnemyEtis-923");
 				break;
 			}
 			case 25720: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000854);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000874, EnemyEtis, "EnemyEtis-924");
 				break;
 			}
 			case 25750: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000855);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000875, EnemyEtis, "EnemyEtis-925");
 				break;
 			}
 			case 25780: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000856);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000876, EnemyEtis, "EnemyEtis-926");
 				break;
 			}
 			case 25810: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000857);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000877, EnemyEtis, "EnemyEtis-927");
 				break;
 			}
 			case 25840: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000858);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000878, EnemyEtis, "EnemyEtis-928");
 				break;
 			}
 			case 25870: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000859);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000879, EnemyEtis, "EnemyEtis-929");
 				break;
 			}
 			case 25900: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000860);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000880, EnemyEtis, "EnemyEtis-930");
 				break;
 			}
 			case 25930: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000861);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000881, EnemyEtis, "EnemyEtis-931");
 				break;
 			}
 			case 25960: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000862);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000882, EnemyEtis, "EnemyEtis-932");
 				break;
 			}
 			case 25990: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000863);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000883, EnemyEtis, "EnemyEtis-933");
 				break;
 			}
 			case 26020: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000864);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000884, EnemyEtis, "EnemyEtis-934");
 				break;
 			}
 			case 26050: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000865);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000885, EnemyEtis, "EnemyEtis-935");
 				break;
 			}
 			case 26080: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000866);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000886, EnemyEtis, "EnemyEtis-936");
 				break;
 			}
 			case 26110: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000867);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000887, EnemyEtis, "EnemyEtis-937");
 				break;
 			}
 			case 26140: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000868);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000888, EnemyEtis, "EnemyEtis-938");
 				break;
 			}
 			case 26170: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000869);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000889, EnemyEtis, "EnemyEtis-939");
 				break;
 			}
 			case 26200: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000870);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000890, EnemyEtis, "EnemyEtis-940");
 				break;
 			}
 			case 26230: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000871);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000891, EnemyEtis, "EnemyEtis-941");
 				break;
 			}
 			case 26260: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000872);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000892, EnemyEtis, "EnemyEtis-942");
 				break;
 			}
 			case 26290: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000873);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000893, EnemyEtis, "EnemyEtis-943");
 				break;
 			}
 			case 26320: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000874);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000894, EnemyEtis, "EnemyEtis-944");
 				break;
 			}
 			case 26350: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000875);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000895, EnemyEtis, "EnemyEtis-945");
 				break;
 			}
 			case 26380: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000876);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000896, EnemyEtis, "EnemyEtis-946");
 				break;
 			}
 			case 26410: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000877);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000897, EnemyEtis, "EnemyEtis-947");
 				break;
 			}
 			case 26440: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000878);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000898, EnemyEtis, "EnemyEtis-948");
 				break;
 			}
 			case 26470: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000879);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000899, EnemyEtis, "EnemyEtis-949");
 				break;
 			}
 			case 26500: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000880);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000900, EnemyEtis, "EnemyEtis-950");
 				break;
 			}
 			case 26530: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000881);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000901, EnemyEtis, "EnemyEtis-951");
 				break;
 			}
 			case 26560: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000882);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000902, EnemyEtis, "EnemyEtis-952");
 				break;
 			}
 			case 26590: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000883);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000903, EnemyEtis, "EnemyEtis-953");
 				break;
 			}
 			case 26620: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000884);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000904, EnemyEtis, "EnemyEtis-954");
 				break;
 			}
 			case 26650: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000885);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000905, EnemyEtis, "EnemyEtis-955");
 				break;
 			}
 			case 26680: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000886);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000906, EnemyEtis, "EnemyEtis-956");
 				break;
 			}
 			case 26710: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000887);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000907, EnemyEtis, "EnemyEtis-957");
 				break;
 			}
 			case 26740: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000888);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000908, EnemyEtis, "EnemyEtis-958");
 				break;
 			}
 			case 26770: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000889);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000909, EnemyEtis, "EnemyEtis-959");
 				break;
 			}
 			case 26800: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000890);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000910, EnemyEtis, "EnemyEtis-960");
 				break;
 			}
 			case 26830: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000891);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000911, EnemyEtis, "EnemyEtis-961");
 				break;
 			}
 			case 26860: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000892);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000912, EnemyEtis, "EnemyEtis-962");
 				break;
 			}
 			case 26890: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000893);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000913, EnemyEtis, "EnemyEtis-963");
 				break;
 			}
 			case 26920: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000894);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000914, EnemyEtis, "EnemyEtis-964");
 				break;
 			}
 			case 26950: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000895);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000915, EnemyEtis, "EnemyEtis-965");
 				break;
 			}
 			case 26980: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000896);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000916, EnemyEtis, "EnemyEtis-966");
 				break;
 			}
 			case 27010: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000897);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000917, EnemyEtis, "EnemyEtis-967");
 				break;
 			}
 			case 27040: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000898);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000918, EnemyEtis, "EnemyEtis-968");
 				break;
 			}
 			case 27070: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000899);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000919, EnemyEtis, "EnemyEtis-969");
 				break;
 			}
 			case 27100: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000900);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000920, EnemyEtis, "EnemyEtis-970");
 				break;
 			}
 			case 27130: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000901);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000921, EnemyEtis, "EnemyEtis-971");
 				break;
 			}
 			case 27160: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000902);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000922, EnemyEtis, "EnemyEtis-972");
 				break;
 			}
 			case 27190: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000903);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000923, EnemyEtis, "EnemyEtis-973");
 				break;
 			}
 			case 27220: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000904);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000924, EnemyEtis, "EnemyEtis-974");
 				break;
 			}
 			case 27250: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000905);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000925, EnemyEtis, "EnemyEtis-975");
 				break;
 			}
 			case 27280: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000906);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000926, EnemyEtis, "EnemyEtis-976");
 				break;
 			}
 			case 27310: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000907);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000927, EnemyEtis, "EnemyEtis-977");
 				break;
 			}
 			case 27340: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000908);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000928, EnemyEtis, "EnemyEtis-978");
 				break;
 			}
 			case 27370: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000909);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000929, EnemyEtis, "EnemyEtis-979");
 				break;
 			}
 			case 27400: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000910);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000930, EnemyEtis, "EnemyEtis-980");
 				break;
 			}
 			case 27430: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000911);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000931, EnemyEtis, "EnemyEtis-981");
 				break;
 			}
 			case 27460: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000912);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000932, EnemyEtis, "EnemyEtis-982");
 				break;
 			}
 			case 27490: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000913);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000933, EnemyEtis, "EnemyEtis-983");
 				break;
 			}
 			case 27520: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000914);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000934, EnemyEtis, "EnemyEtis-984");
 				break;
 			}
 			case 27550: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000915);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000935, EnemyEtis, "EnemyEtis-985");
 				break;
 			}
 			case 27580: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000916);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000936, EnemyEtis, "EnemyEtis-986");
 				break;
 			}
 			case 27610: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000917);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000937, EnemyEtis, "EnemyEtis-987");
 				break;
 			}
 			case 27640: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000918);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000938, EnemyEtis, "EnemyEtis-988");
 				break;
 			}
 			case 27670: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000919);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000939, EnemyEtis, "EnemyEtis-989");
 				break;
 			}
 			case 27700: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000920);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000940, EnemyEtis, "EnemyEtis-990");
 				break;
 			}
 			case 27730: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000921);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000941, EnemyEtis, "EnemyEtis-991");
 				break;
 			}
 			case 27760: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000922);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000942, EnemyEtis, "EnemyEtis-992");
 				break;
 			}
 			case 27790: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000923);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000943, EnemyEtis, "EnemyEtis-993");
 				break;
 			}
 			case 27820: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000924);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000944, EnemyEtis, "EnemyEtis-994");
 				break;
 			}
 			case 27850: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000925);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000945, EnemyEtis, "EnemyEtis-995");
 				break;
 			}
 			case 27880: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000926);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000946, EnemyEtis, "EnemyEtis-996");
 				break;
 			}
 			case 27910: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000927);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000947, EnemyEtis, "EnemyEtis-997");
 				break;
 			}
 			case 27940: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000928);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000948, EnemyEtis, "EnemyEtis-998");
 				break;
 			}
 			case 27970: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000929);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000949, EnemyEtis, "EnemyEtis-999");
 				break;
 			}
 			case 28000: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000930);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000950, EnemyEtis, "EnemyEtis-1000");
 				break;
 			}
 			case 28030: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000931);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000951, EnemyEtis, "EnemyEtis-1001");
 				break;
 			}
 			case 28060: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000932);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000952, EnemyEtis, "EnemyEtis-1002");
 				break;
 			}
 			case 28090: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000933);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000953, EnemyEtis, "EnemyEtis-1003");
 				break;
 			}
 			case 28120: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000934);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000954, EnemyEtis, "EnemyEtis-1004");
 				break;
 			}
 			case 28150: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000935);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000955, EnemyEtis, "EnemyEtis-1005");
 				break;
 			}
 			case 28180: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000936);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000956, EnemyEtis, "EnemyEtis-1006");
 				break;
 			}
 			case 28210: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000937);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000957, EnemyEtis, "EnemyEtis-1007");
 				break;
 			}
 			case 28240: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000938);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000958, EnemyEtis, "EnemyEtis-1008");
 				break;
 			}
 			case 28270: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000939);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000959, EnemyEtis, "EnemyEtis-1009");
 				break;
 			}
 			case 28300: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000940);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000960, EnemyEtis, "EnemyEtis-1010");
 				break;
 			}
 			case 28330: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000941);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000961, EnemyEtis, "EnemyEtis-1011");
 				break;
 			}
 			case 28360: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000942);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000962, EnemyEtis, "EnemyEtis-1012");
 				break;
 			}
 			case 28390: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000943);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000963, EnemyEtis, "EnemyEtis-1013");
 				break;
 			}
 			case 28420: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000944);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000964, EnemyEtis, "EnemyEtis-1014");
 				break;
 			}
 			case 28450: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000945);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000965, EnemyEtis, "EnemyEtis-1015");
 				break;
 			}
 			case 28480: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000946);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000966, EnemyEtis, "EnemyEtis-1016");
 				break;
 			}
 			case 28510: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000947);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000967, EnemyEtis, "EnemyEtis-1017");
 				break;
 			}
 			case 28540: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000948);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000968, EnemyEtis, "EnemyEtis-1018");
 				break;
 			}
 			case 28570: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000949);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000969, EnemyEtis, "EnemyEtis-1019");
 				break;
 			}
 			case 28600: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000950);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000970, EnemyEtis, "EnemyEtis-1020");
 				break;
 			}
 			case 28630: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000951);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000971, EnemyEtis, "EnemyEtis-1021");
 				break;
 			}
 			case 28660: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000952);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000972, EnemyEtis, "EnemyEtis-1022");
 				break;
 			}
 			case 28690: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000953);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000973, EnemyEtis, "EnemyEtis-1023");
 				break;
 			}
 			case 28720: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000954);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000974, EnemyEtis, "EnemyEtis-1024");
 				break;
 			}
 			case 28750: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000955);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000975, EnemyEtis, "EnemyEtis-1025");
 				break;
 			}
 			case 28780: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000956);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000976, EnemyEtis, "EnemyEtis-1026");
 				break;
 			}
 			case 28810: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000957);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000977, EnemyEtis, "EnemyEtis-1027");
 				break;
 			}
 			case 28840: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000958);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000978, EnemyEtis, "EnemyEtis-1028");
 				break;
 			}
 			case 28870: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000959);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000979, EnemyEtis, "EnemyEtis-1029");
 				break;
 			}
 			case 28900: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000960);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000980, EnemyEtis, "EnemyEtis-1030");
 				break;
 			}
 			case 28930: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000961);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000981, EnemyEtis, "EnemyEtis-1031");
 				break;
 			}
 			case 28960: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000962);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000982, EnemyEtis, "EnemyEtis-1032");
 				break;
 			}
 			case 28990: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000963);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000983, EnemyEtis, "EnemyEtis-1033");
 				break;
 			}
 			case 29020: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000964);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000984, EnemyEtis, "EnemyEtis-1034");
 				break;
 			}
 			case 29050: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000965);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000985, EnemyEtis, "EnemyEtis-1035");
 				break;
 			}
 			case 29080: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000966);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000986, EnemyEtis, "EnemyEtis-1036");
 				break;
 			}
 			case 29110: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000967);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000987, EnemyEtis, "EnemyEtis-1037");
 				break;
 			}
 			case 29140: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000968);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000988, EnemyEtis, "EnemyEtis-1038");
 				break;
 			}
 			case 29170: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000969);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000989, EnemyEtis, "EnemyEtis-1039");
 				break;
 			}
 			case 29200: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000970);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000990, EnemyEtis, "EnemyEtis-1040");
 				break;
 			}
 			case 29230: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000971);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000991, EnemyEtis, "EnemyEtis-1041");
 				break;
 			}
 			case 29260: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000972);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000992, EnemyEtis, "EnemyEtis-1042");
 				break;
 			}
 			case 29290: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000973);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000993, EnemyEtis, "EnemyEtis-1043");
 				break;
 			}
 			case 29320: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000974);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000994, EnemyEtis, "EnemyEtis-1044");
 				break;
 			}
 			case 29350: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000975);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000995, EnemyEtis, "EnemyEtis-1045");
 				break;
 			}
 			case 29380: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000976);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000996, EnemyEtis, "EnemyEtis-1046");
 				break;
 			}
 			case 29410: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000977);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				break;
 			}
 			case 29440: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000978);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				break;
 			}
 			case 29470: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000979);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				break;
 			}
 			case 29500: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000980);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				break;
 			}
 			case 29530: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000981);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				break;
 			}
 			case 29560: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000982);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				break;
 			}
 			case 29590: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000983);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				break;
 			}
 			case 29620: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000984);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				break;
 			}
 			case 29650: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000985);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				break;
 			}
 			case 29680: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000986);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				break;
 			}
 			case 29710: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000987);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				break;
 			}
 			case 29740: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000988);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				break;
 			}
 			case 29770: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000989);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				break;
 			}
 			case 29800: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000990);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				break;
 			}
 			case 29830: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000991);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				break;
 			}
 			case 29860: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000992);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				break;
 			}
 			case 29890: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000993);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				break;
 			}
 			case 29920: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000994);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				break;
 			}
 			case 29950: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000995);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				break;
 			}
 			case 29980: {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000996);
-				getSceneDirector()->addSubGroup(pEtis);
+				bringDirector()->addSubGroup(pEtis);
 				break;
 			}
 			default :

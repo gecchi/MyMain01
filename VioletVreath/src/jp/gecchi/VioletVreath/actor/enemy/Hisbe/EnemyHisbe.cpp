@@ -102,7 +102,7 @@ void EnemyHisbe::initialize() {
 
 //    if (pConn_pDepoStore_laser_set->chkFirstConnectionIs(this)) {
 //        _TRACE_("pConn_pDepoStore_laser_setは、ワシ"<<NODE_INFO<<"が育てたエヘン！")
-//        getPlatformScene()->getSceneDirector()->addSubGroup(
+//        getPlatformScene()->bringDirector()->addSubGroup(
 //                pConn_pDepoStore_laser_set->peek()->extract()
 //                );
 //    }

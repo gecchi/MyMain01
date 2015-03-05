@@ -29,18 +29,25 @@ GgafGroupHead* GgafSceneDirector::addSubGroup(actorkind prm_kind, GgafMainActor*
     if (prm_pMainActor->_pSceneDirector) {
         prm_pMainActor->extract();
     }
-    GgafGroupHead* pSubGroupActor = searchSubGroupHead(prm_kind);
-    if (pSubGroupActor == nullptr) {
-        pSubGroupActor = NEW GgafGroupHead(prm_kind);
-        addSubLast(pSubGroupActor);
+    GgafGroupHead* pSubGroupActor = searchSubGroupHead(prm_kind); //サブに同じ種別団長が居るか探す
+    if (pSubGroupActor) {
+        //サブに同じ種別団長がいた場合、その団長のサブへ
+        pSubGroupActor->addSubLast(prm_pMainActor);
+        prm_pMainActor->setMyGroupHead(pSubGroupActor);
+        prm_pMainActor->setMySceneDirector(this);
+        prm_pMainActor->setPlatformScene(_pScene_platform);
+        return pSubGroupActor;
     } else {
-       //OK
+        //サブに同じ種別団長がいない場合、団長を新たに作成
+        GgafGroupHead* pNewSubGroupActor = NEW GgafGroupHead(prm_kind);
+        addSubLast(pNewSubGroupActor);
+        pNewSubGroupActor->addSubLast(prm_pMainActor);
+        prm_pMainActor->setMyGroupHead(pNewSubGroupActor);
+        pNewSubGroupActor->setMySceneDirector(this);
+        pNewSubGroupActor->setPlatformScene(_pScene_platform);
+        return pNewSubGroupActor;
     }
-    pSubGroupActor->addSubLast(prm_pMainActor);
-    prm_pMainActor->setGroupHead(pSubGroupActor);       // TODO:この３行を
-    prm_pMainActor->setSceneDirector(this);             // TODO:なんとか１回で
-    prm_pMainActor->setPlatformScene(_pScene_platform); // TODO:できないものか。
-    return pSubGroupActor;
+
 }
 
 GgafGroupHead* GgafSceneDirector::addSubGroup(GgafMainActor* prm_pMainActor) {

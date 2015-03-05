@@ -79,7 +79,7 @@ EnemyErmione::EnemyErmione(const char* prm_name) :
             } else {
                 //節が根本以外場合
                 //先に行くほど可動範囲と回転スピードが大きくする（これで、FKなのにIKっぽくも見える！）
-                paArm_[arm].papArmPart_[i]->config(D_ANG(10+(i*2.5)), 20+(i*60));
+                paArm_[arm].papArmPart_[i]->config(D_ANG(10+(i*2.5)), 10+(i*40));
                 //一つ前の腕の節を土台とするFK設定
                 paArm_[arm].papArmPart_[i-1]->addSubGroupAsFk(
                                                paArm_[arm].papArmPart_[i],

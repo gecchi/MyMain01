@@ -38,8 +38,8 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
         pDepo_wall->put(pWallAABActor);
         Sleep(1);
     }
-    P_COMMON_SCENE->getSceneDirector()->addSubGroup(pDepo_wall);
-    //getSceneDirector()->addSubGroup(pDepo_wall); は P_UNIVERSE 配下になってしまう
+    P_COMMON_SCENE->bringDirector()->addSubGroup(pDepo_wall);
+    //bringDirector()->addSubGroup(pDepo_wall); は P_UNIVERSE 配下になってしまう
 
     //壁ブロック(プリズム)デポジトリ生成
     WallAAPrismActor* pWallAAPrismActor;
@@ -51,7 +51,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
         pDepo_prism->put(pWallAAPrismActor);
         Sleep(1);
     }
-    P_COMMON_SCENE->getSceneDirector()->addSubGroup(pDepo_prism);
+    P_COMMON_SCENE->bringDirector()->addSubGroup(pDepo_prism);
 
     //シーンセクション生成
     WalledSectionScene* apSection[] = {
@@ -108,7 +108,7 @@ void Stage01WalledScene::processBehavior() {
 			}
 			case 100: {
 				EnemyEsperia* p = (EnemyEsperia*)obtainActorFromFactory(50000000);
-				getSceneDirector()->addSubGroup(p);
+				bringDirector()->addSubGroup(p);
 				break;
 			}
 			case 1400: {
@@ -117,7 +117,7 @@ void Stage01WalledScene::processBehavior() {
 			}
 			case 2000: {
 				FormationUnomia001a* pFormationUnomia = (FormationUnomia001a*)obtainActorFromFactory(50000005);
-				getSceneDirector()->addSubGroup(pFormationUnomia);
+				bringDirector()->addSubGroup(pFormationUnomia);
 				break;
 			}
 			case 4400: {
@@ -127,9 +127,9 @@ void Stage01WalledScene::processBehavior() {
 			}
 			case 5000: {
 				EnemyEsperia* p = (EnemyEsperia*)obtainActorFromFactory(50000001);
-				getSceneDirector()->addSubGroup(p);
+				bringDirector()->addSubGroup(p);
 				VarietyRatislavia003* pRatislaviaB = (VarietyRatislavia003*)obtainActorFromFactory(50000004);
-				getSceneDirector()->addSubGroup(pRatislaviaB);
+				bringDirector()->addSubGroup(pRatislaviaB);
 				break;
 			}
 			case 5400: {
@@ -138,7 +138,7 @@ void Stage01WalledScene::processBehavior() {
 			}
 			case 6000: {
 				FormationUnomia001b* pFormationUnomia = (FormationUnomia001b*)obtainActorFromFactory(50000006);
-				getSceneDirector()->addSubGroup(pFormationUnomia);
+				bringDirector()->addSubGroup(pFormationUnomia);
 				break;
 			}
 			case 7400: {
@@ -148,9 +148,9 @@ void Stage01WalledScene::processBehavior() {
 			}
 			case 8000: {
 				EnemyEsperia* p = (EnemyEsperia*)obtainActorFromFactory(50000002);
-				getSceneDirector()->addSubGroup(p);
+				bringDirector()->addSubGroup(p);
 				VarietyRatislavia002* pRatislaviaA = (VarietyRatislavia002*)obtainActorFromFactory(50000003);
-				getSceneDirector()->addSubGroup(pRatislaviaA);
+				bringDirector()->addSubGroup(pRatislaviaA);
 				break;
 			}
 			default :

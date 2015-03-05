@@ -27,27 +27,27 @@ Stage01::Stage01(const char* prm_name) : Stage(prm_name) {
     addSubLast(pScene_StagePartCtrler_);
     Sleep(2);
     pWorldBoundSpace_  = NEW WorldBoundSpace001("BG_SPACE");
-    getSceneDirector()->addSubGroup(pWorldBoundSpace_);
+    bringDirector()->addSubGroup(pWorldBoundSpace_);
 
     pHoshiBoshi_ = NEW HoshiBoshi001("HoshiBoshi001");
-    getSceneDirector()->addSubGroup(pHoshiBoshi_);
+    bringDirector()->addSubGroup(pHoshiBoshi_);
 
     pMessage_ = NEW LabelGecchi16Font("Stage01Msg");
-    getSceneDirector()->addSubGroup(pMessage_);
+    bringDirector()->addSubGroup(pMessage_);
     pMessage_->inactivate();
 
 
     pPlanet_ = NEW Planet001("Planet001");
-    getSceneDirector()->addSubGroup(KIND_EFFECT, pPlanet_);
+    bringDirector()->addSubGroup(KIND_EFFECT, pPlanet_);
     pHorizon_ = NEW Horizon001("Horizon001");
-    getSceneDirector()->addSubGroup(KIND_CHIKEI, pHorizon_);
+    bringDirector()->addSubGroup(KIND_CHIKEI, pHorizon_);
 
     //debug ---->
 //    EnemyHisbe* pTest = NEW EnemyHisbe("tst");
 //    pTest->position(PX_C(0),PX_C(0), PX_C(100));
 //    pTest->setFaceAngTwd(PX_C(100), PX_C(100), PX_C(100));
 //    pTest->getKuroko()->behave();
-//    getSceneDirector()->addSubGroup(pTest);
+//    bringDirector()->addSubGroup(pTest);
     //<-----debug
 
     fadeoutSceneWithBgm(0); //Å‰‚Í”ñ•\Ž¦

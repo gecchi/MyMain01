@@ -25,7 +25,7 @@ MgrUniverse::MgrUniverse(const char* prm_name, MgrCamera* prm_pCam) :
     UTIL::center_y_ = PX_C(PROPERTY::RENDER_TARGET_BUFFER_HEIGHT / 2);
 
     pActiveCamWorker_ = NEW MgrMouseCamWorker("MgrMouseCamWorker");
-    getSceneDirector()->addSubGroup(pActiveCamWorker_); //基底デフォルトカメラワーク
+    bringDirector()->addSubGroup(pActiveCamWorker_); //基底デフォルトカメラワーク
 
     _TRACE_("再設定 Gone=X ("<<_x_gone_left<<" ~ "<<_x_gone_right<<") Y("<<_y_gone_bottom<<" ~ "<<_y_gone_top<<") Z("<<_z_gone_near<<" ~ "<<_z_gone_far<<")");
 }

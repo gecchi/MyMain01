@@ -25,7 +25,7 @@ void TrialAndErrScene::initialize() {
 void TrialAndErrScene::processBehavior() {
     if (getActiveFrame() == 120) {
         FormationZako001* p = (FormationZako001*)obtainActorFromFactory(999);
-        getSceneDirector()->addSubGroup(p);
+        bringDirector()->addSubGroup(p);
         p->position(0,0,0);
     }
 }

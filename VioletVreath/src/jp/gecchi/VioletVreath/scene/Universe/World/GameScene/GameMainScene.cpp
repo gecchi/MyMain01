@@ -27,17 +27,17 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     pLabel_SCORE_ = NEW LabelScoreFont("SCORE");
     pLabel_SCORE_->setAlign(ALIGN_RIGHT, VALIGN_TOP);
     pLabel_SCORE_->position(PX_C(PROPERTY::GAME_BUFFER_WIDTH), PX_C(1));
-    getSceneDirector()->addSubGroup(pLabel_SCORE_);
+    bringDirector()->addSubGroup(pLabel_SCORE_);
 
     pLabel_RANK_ = NEW LabelGecchi16Font("RANK");
     pLabel_RANK_->setAlign(ALIGN_RIGHT, VALIGN_TOP);
     pLabel_RANK_->position(PX_C(PROPERTY::GAME_BUFFER_WIDTH), PX_C(30));
-    getSceneDirector()->addSubGroup(pLabel_RANK_);
+    bringDirector()->addSubGroup(pLabel_RANK_);
 
     pLabel_STAMINA_ = NEW LabelGecchi16Font("STAMINA");
     pLabel_STAMINA_->setAlign(ALIGN_RIGHT, VALIGN_TOP);
     pLabel_STAMINA_->position(PX_C(PROPERTY::GAME_BUFFER_WIDTH), PX_C(50));
-    getSceneDirector()->addSubGroup(pLabel_STAMINA_);
+    bringDirector()->addSubGroup(pLabel_STAMINA_);
 
     pLabel_JIKI_x_ = NEW LabelGecchi8Font("JIKI_x");
     pLabel_JIKI_y_ = NEW LabelGecchi8Font("JIKI_y");
@@ -45,13 +45,13 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     pLabel_JIKI_x_->position(PX_C(1), PX_C(PROPERTY::GAME_BUFFER_HEIGHT - 8*3-1));
     pLabel_JIKI_y_->position(PX_C(1), PX_C(PROPERTY::GAME_BUFFER_HEIGHT - 8*2-1));
     pLabel_JIKI_z_->position(PX_C(1), PX_C(PROPERTY::GAME_BUFFER_HEIGHT - 8*1-1));
-    getSceneDirector()->addSubGroup(pLabel_JIKI_x_);
-    getSceneDirector()->addSubGroup(pLabel_JIKI_y_);
-    getSceneDirector()->addSubGroup(pLabel_JIKI_z_);
+    bringDirector()->addSubGroup(pLabel_JIKI_x_);
+    bringDirector()->addSubGroup(pLabel_JIKI_y_);
+    bringDirector()->addSubGroup(pLabel_JIKI_z_);
 
     pRankFont_ = NEW LabelRankFont("RankFont"); //LabelRankFont‚Í ALIGN_RIGHT,VALIGN_BOTTOM ŒÅ’è
     pRankFont_->position(PX_C(PROPERTY::GAME_BUFFER_WIDTH), PX_C(PROPERTY::GAME_BUFFER_HEIGHT));
-    getSceneDirector()->addSubGroup(pRankFont_);
+    bringDirector()->addSubGroup(pRankFont_);
 
     useProgress(GameMainScene::PROG_BANPEI-1);
 }

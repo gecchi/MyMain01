@@ -18,14 +18,14 @@ TransitStage::TransitStage(const char* prm_name) : Stage(prm_name) {
     teansit_stage_ = 0;
     next_main_stage_ = 1;
     pWorldBoundSpace_ = NEW WorldBoundSpaceTransit("WBSTransit");
-    getSceneDirector()->addSubGroup(pWorldBoundSpace_);
+    bringDirector()->addSubGroup(pWorldBoundSpace_);
 
     pHoshiBoshi_ = NEW HoshiBoshiTransit("HoshiBoshiTransit");
-    getSceneDirector()->addSubGroup(KIND_EFFECT, pHoshiBoshi_);
+    bringDirector()->addSubGroup(KIND_EFFECT, pHoshiBoshi_);
 
     pMessage_ = NEW LabelGecchi16Font("TransitStageMsg");
     pMessage_->update(300*1000, 300*1000, "");
-    getSceneDirector()->addSubGroup(KIND_EFFECT, pMessage_);
+    bringDirector()->addSubGroup(KIND_EFFECT, pMessage_);
 }
 
 void TransitStage::initialize() {

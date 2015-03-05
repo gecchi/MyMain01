@@ -24,22 +24,22 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     getProgress()->reset(GameTitleScene::PROG_INIT);
 
     pLabel01_ = NEW LabelGecchi16Font("STR01");
-    getSceneDirector()->addSubGroup(pLabel01_);
+    bringDirector()->addSubGroup(pLabel01_);
 
     pLabel02_ = NEW LabelGecchi16Font("STR02");
-    getSceneDirector()->addSubGroup(pLabel02_);
+    bringDirector()->addSubGroup(pLabel02_);
 
     pTitleBoard_ = NEW TitleBoard("TitleBoard");
-    getSceneDirector()->addSubGroup(pTitleBoard_);
+    bringDirector()->addSubGroup(pTitleBoard_);
 
     pMenu_ = NEW MenuBoardTitle("pMenu_");
-    getSceneDirector()->addSubGroup(pMenu_);
+    bringDirector()->addSubGroup(pMenu_);
 
     pWorldBound_ = NEW WorldBoundTitle("TITLE_BG_WB");
-    getSceneDirector()->addSubGroup(pWorldBound_);
+    bringDirector()->addSubGroup(pWorldBound_);
 
     pHoshiBoshi_ = NEW HoshiBoshiTitle("TITLE_BG_HOSHI");
-    getSceneDirector()->addSubGroup(pHoshiBoshi_);
+    bringDirector()->addSubGroup(pHoshiBoshi_);
 
     pSeConnection_exec_ = getConnection_SeManager("WAVE_EXECUTE");
 

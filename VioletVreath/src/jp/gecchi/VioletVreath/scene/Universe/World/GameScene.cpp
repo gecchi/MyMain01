@@ -43,7 +43,7 @@ pStageWorld_(nullptr) {
     addSubLast(pStageWorld_);
 
     pMenuBoardPause_ = NEW MenuBoardPause("MenuBoardPause");
-    getSceneDirector()->addSubGroup(pMenuBoardPause_);
+    bringDirector()->addSubGroup(pMenuBoardPause_);
 
     addSubLast(NEW GamePreTitleScene("PreGameTitle"));
     addSubLast(NEW GameTitleScene("GameTitle"));

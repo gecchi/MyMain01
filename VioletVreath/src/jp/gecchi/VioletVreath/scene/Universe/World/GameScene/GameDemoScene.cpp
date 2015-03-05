@@ -24,16 +24,16 @@ GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameDemoScene";
     useProgress(GameDemoScene::PROG_BANPEI-1);
     pLabel01_ = NEW LabelGecchi16Font("STR01");
-    getSceneDirector()->addSubGroup(pLabel01_);
+    bringDirector()->addSubGroup(pLabel01_);
     pLabel02_ = NEW LabelGecchi16Font("STR02");
-    getSceneDirector()->addSubGroup(pLabel02_);
+    bringDirector()->addSubGroup(pLabel02_);
     demo_stage_ = 1;
 
     papLabel_ranking_ = NEW LabelRankingFont*[G_RANKING_TABLE.getCount()];
     int cnt = (int)(G_RANKING_TABLE.getCount());
     for (int i = 0; i < cnt; i++) {
         papLabel_ranking_[i] = NEW LabelRankingFont("RANK_INFO");
-        getSceneDirector()->addSubGroup(papLabel_ranking_[i]);
+        bringDirector()->addSubGroup(papLabel_ranking_[i]);
     }
 
 }

@@ -30,7 +30,7 @@ PauseCamWorker::PauseCamWorker(const char* prm_name) : CameraWorker(prm_name) {
 void PauseCamWorker::initialize() {
     CameraWorker::initialize();
     pVPGuide_->inactivate();
-    P_GOD->getUniverse()->getWorld()->getSceneDirector()->addSubGroup(pVPGuide_);
+    P_GOD->getUniverse()->getWorld()->bringDirector()->addSubGroup(pVPGuide_);
 }
 
 void PauseCamWorker::onActive() {

@@ -32,7 +32,7 @@ papOptionCtrler_(nullptr) {
     for (int i = 0; i < MyOptionController::max_option_num_; i ++) {
         std::string name = "MyOpCtrler("+XTOS(i)+")";
         papOptionCtrler_[i] = NEW MyOptionController(name.c_str(), i);
-        getSceneDirector()->addSubLast(papOptionCtrler_[i]);
+        bringDirector()->addSubLast(papOptionCtrler_[i]);
     }
 
     papOptionCtrler_[0]->pOption_->config(60000, D0ANG, 0, 1000);
@@ -64,17 +64,17 @@ papOptionCtrler_(nullptr) {
     papOptionCtrler_[8]->pOption_->setMaterialColor(1.0, 0.0, 1.0);
     papOptionCtrler_[8]->pOption_->setAlpha(0.7);
 
-    getSceneDirector()->addSubGroup(pMyShip_);
+    bringDirector()->addSubGroup(pMyShip_);
 
     pEffectMyShipExplosion_ = NEW EffectMyShipExplosion("EffectMyShipExplosion");
     pEffectMyShipExplosion_->inactivate();
-    getSceneDirector()->addSubGroup(pEffectMyShipExplosion_);
+    bringDirector()->addSubGroup(pEffectMyShipExplosion_);
     pVamSysCamWorker_ = nullptr;
     //z_ = 0.99;//ÇΩÇ‘ÇÒç≈îwñ  Åi0 <= z_ < 1.0ÅjZ=(0Å`+1)
     //z_ = 0.9999999f;
 
     pLabelZanki_ = NEW LabelGecchi16Font("zankdisp");
-    getSceneDirector()->addSubGroup(pLabelZanki_);
+    bringDirector()->addSubGroup(pLabelZanki_);
     useProgress(PROG_BANPEI);
 }
 

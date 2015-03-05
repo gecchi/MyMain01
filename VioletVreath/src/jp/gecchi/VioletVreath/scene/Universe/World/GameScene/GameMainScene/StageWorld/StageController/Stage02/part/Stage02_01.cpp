@@ -41,7 +41,7 @@ void Stage02_01::processBehavior() {
 			}
 			case 100: {
 				FormationGeria001* pF = (FormationGeria001*)obtainActorFromFactory(70000000);
-				getSceneDirector()->addSubGroup(pF);
+				bringDirector()->addSubGroup(pF);
 				break;
 			}
 			case 400: {

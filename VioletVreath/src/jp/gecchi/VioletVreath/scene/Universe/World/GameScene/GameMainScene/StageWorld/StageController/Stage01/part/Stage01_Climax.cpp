@@ -44,7 +44,7 @@ void Stage01_Climax::processBehavior() {
         pBoss_ = (EnemyStraea*)obtainActorFromFactory(11111111);
         pBoss_->_z = -1800000;
         pBoss_->_y = -100000;
-        getSceneDirector()->addSubGroup(pBoss_);
+        bringDirector()->addSubGroup(pBoss_);
     }
 
     if (getBehaveingFrame() > 60) {

@@ -26,18 +26,18 @@ RankUpStage::RankUpStage(const char* prm_name) : DefaultScene(prm_name) {
 
     pWorldBoundSpace_  = NEW WorldBoundSpaceRankUp("BG_RankUp");
     pWorldBoundSpace_->inactivate();
-    getSceneDirector()->addSubGroup(pWorldBoundSpace_);
+    bringDirector()->addSubGroup(pWorldBoundSpace_);
     pHoshiBoshi_ = NEW HoshiBoshiRankUp("HoshiBoshiRankUp");
-    getSceneDirector()->addSubGroup( pHoshiBoshi_);
+    bringDirector()->addSubGroup( pHoshiBoshi_);
     pMessage1_ = NEW LabelGecchi16Font("RankUpMsg1");
     pMessage1_->position(PX_C(400), PX_C(200));
-    getSceneDirector()->addSubGroup(pMessage1_);
+    bringDirector()->addSubGroup(pMessage1_);
     pMessage2_ = NEW LabelGecchi16Font("RankUpMsg2");
     pMessage2_->position(PX_C(400), PX_C(230));
-    getSceneDirector()->addSubGroup(pMessage2_);
+    bringDirector()->addSubGroup(pMessage2_);
     pMessage3_ = NEW LabelGecchi16Font("RankUpMsg2");
     pMessage3_->position(PX_C(400), PX_C(260));
-    getSceneDirector()->addSubGroup(pMessage3_);
+    bringDirector()->addSubGroup(pMessage3_);
 
 
     useProgress(PROG_BANPEI);
