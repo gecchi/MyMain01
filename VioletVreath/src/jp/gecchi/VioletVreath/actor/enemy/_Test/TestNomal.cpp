@@ -37,16 +37,13 @@ void TestNomal::processJudgement() {
 }
 
 void TestNomal::onHit(GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
-        //破壊時
-        setHitAble(false);
-        UTIL::activateExplosionEffectOf(this); //爆発効果
+    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    if (was_destroyed) {
+        //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
-        //非破壊時
-        effectFlush(2); //フラッシュ
+        //破壊されなかった時(スタミナ > 0)
         getSeTx()->play3D(SE_DAMAGED);
     }
 }

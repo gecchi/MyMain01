@@ -91,15 +91,13 @@ void EnemyEresShot001::processJudgement() {
 }
 
 void EnemyEresShot001::onHit(GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    //ここにヒットエフェクト
-    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
-        setHitAble(false);
-        //爆発効果
-        UTIL::activateExplosionEffectOf(this);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    if (was_destroyed) {
+        //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(ERESSHOT001_SE_EXPLOSION);
-
         sayonara();
+    } else {
+        //破壊されなかった時(スタミナ > 0)
     }
 }
 

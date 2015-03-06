@@ -197,16 +197,13 @@ void EnemyTamago01::processJudgement() {
 }
 
 void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    EffectExplosion001* pExplo001 = dispatchFromCommon(EffectExplosion001);
-    getSeTx()->play3D(0);
-    _TRACE_("HIT!!!");
-    if (pExplo001) {
-        pExplo001->positionAs(this);
-    }
-
-    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
+    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    if (was_destroyed) {
+        //破壊された時(スタミナ <= 0)
+        getSeTx()->play3D(0);
         sayonara();
+    } else {
+        //破壊されなかった時(スタミナ > 0)
     }
 }
 

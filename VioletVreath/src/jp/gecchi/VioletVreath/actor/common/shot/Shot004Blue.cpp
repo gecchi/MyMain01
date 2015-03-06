@@ -67,11 +67,12 @@ void Shot004Blue::processJudgement() {
 }
 
 void Shot004Blue::onHit(GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-//    //・・・ココにヒットされたエフェクト
-    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
-        UTIL::activateExplosionEffectOf(this); //爆発エフェクト
+    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    if (was_destroyed) {
+        //破壊された時(スタミナ <= 0)
         sayonara();
+    } else {
+        //破壊されなかった時(スタミナ > 0)
     }
 }
 

@@ -83,15 +83,12 @@ void EnemyOzartiaPillar01::processJudgement() {
 }
 
 void EnemyOzartiaPillar01::onHit(GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    //ここにヒットエフェクト
-    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
-        setHitAble(false);
-        //爆発効果
-        UTIL::activateExplosionEffectOf(this);
-//        getSeTx()->play3D(ERESSHOT001_SE_EXPLOSION);
-
+    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    if (was_destroyed) {
+        //破壊された時(スタミナ <= 0)
         sayonara();
+    } else {
+        //破壊されなかった時(スタミナ > 0)
     }
 }
 

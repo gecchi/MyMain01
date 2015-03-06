@@ -29,9 +29,9 @@ void EnemyErmioneArmWeak::initialize() {
 void EnemyErmioneArmWeak::onHit(GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
-        //破壊時
+        //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);
-
+        sayonara();
         //腕のみ爆発
         if (getParent()) {
             getParent()->throwEventUpperTree(EVENT_ERMIONE_SAYONARA);
@@ -42,7 +42,7 @@ void EnemyErmioneArmWeak::onHit(GgafActor* prm_pOtherActor) {
         //↑本体(EnemyErmione) に EVENT_ERMIONE_SAYONARA のイベント処理は無いので
         //この処理で、腕のみ爆発となる。
     } else {
-        //非破壊時
+        //破壊されなかった時(スタミナ > 0)
         getSeTx()->play3D(SE_DAMAGED);
     }
 }

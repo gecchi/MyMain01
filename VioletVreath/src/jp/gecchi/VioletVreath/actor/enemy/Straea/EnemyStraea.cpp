@@ -297,9 +297,10 @@ void EnemyStraea::onHit(GgafActor* prm_pOtherActor) {
 
     bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
-        //破壊時
+        //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);
-        //打ち返し
+        sayonara();
+        //固有打ち返し
         UTIL::shotWay003(this,
                          getCommonDepository(Shot004) , red_dot,
                          pConn_pShotDepo2_->peek(), yellow_dot,
@@ -310,7 +311,7 @@ void EnemyStraea::onHit(GgafActor* prm_pOtherActor) {
                          5000, 100,
                          2, 1, 0.9);
     } else {
-        //非破壊時
+        //破壊されなかった時(スタミナ > 0)
     }
 }
 

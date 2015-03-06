@@ -95,9 +95,12 @@ bool EnemyHisbeLaserChip002::isOutOfUniverse() const {
 
 }
 void EnemyHisbeLaserChip002::onHit(GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
+    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    if (was_destroyed) {
+        //破壊された時(スタミナ <= 0)
         sayonara();
+    } else {
+        //破壊されなかった時(スタミナ > 0)
     }
 }
 

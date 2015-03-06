@@ -44,14 +44,17 @@ void EnemyWateringLaserChip001::processBehavior() {
 
 void EnemyWateringLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    if (getActiveFrame() < 3 && (pOther->getKind() & KIND_CHIKEI)) {
-        //出現3フレーム以内でヒット相手が地形ならば無視（出現即地形による破壊されを回避）
+    if (getActiveFrame() <= 2 && (pOther->getKind() & KIND_CHIKEI)) {
+        //出現2フレーム以内でヒット相手が地形ならば無視（出現即地形による破壊されを回避）
         return;
     }
-    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
-        setHitAble(false); //以降同一フレーム内でヒットさせない。
-        UTIL::activateExplosionEffectOf(this); //爆発エフェクト出現
+
+    bool was_destroyed = UTIL::transactEnemyHit(this, pOther);
+    if (was_destroyed) {
+        //破壊された時(スタミナ <= 0)
         sayonara();
+    } else {
+        //破壊されなかった時(スタミナ > 0)
     }
 }
 

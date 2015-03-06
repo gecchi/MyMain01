@@ -129,15 +129,12 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
 }
 
 void EnemyEsperiaLaserChip001::onHit(GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    //ヒット時
-    //体力計算
-    int sta = UTIL::calcEnemyStamina(this, pOther);
-    if (sta <= 0) {
-        //ヒットして消滅時
+    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    if (was_destroyed) {
+        //破壊された時(スタミナ <= 0)
         sayonara();
     } else {
-        //ヒットして生存時
+        //破壊されなかった時(スタミナ > 0)
     }
 }
 

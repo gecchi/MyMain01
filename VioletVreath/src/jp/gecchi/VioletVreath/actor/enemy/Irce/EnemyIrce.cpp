@@ -69,10 +69,11 @@ void EnemyIrce::processJudgement() {
 void EnemyIrce::onHit(GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
-        //破壊時
+        //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);
+        sayonara();
     } else {
-        //非破壊時
+        //破壊されなかった時(スタミナ > 0)
     }
 }
 

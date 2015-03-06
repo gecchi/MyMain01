@@ -90,7 +90,7 @@ void FormationUnomia::processBehavior() {
             break;
         }
         case PROG_WAIT1: {
-            pProg->changeNextWhenArrivedAt(120);
+            pProg->changeNextWhenArrivedAt(1200);
             break;
         }
         case PROG_SHOT: {

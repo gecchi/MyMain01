@@ -41,15 +41,14 @@ void EnemyEmusLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     if (getActiveFrame() < 30 && (pOther->getKind() & KIND_CHIKEI)) {
         //出現30フレーム以内でヒット相手が地形ならば無視（出現即地形による破壊されを回避）
         return;
-    }
-    //ヒット時
-    //体力計算
-    int sta = UTIL::calcEnemyStamina(this, pOther);
-    if (sta <= 0) {
-        //ヒットして消滅時
-        sayonara();
     } else {
-        //ヒットして生存時
+        bool was_destroyed = UTIL::transactEnemyHit(this, pOther);
+        if (was_destroyed) {
+            //破壊された時(スタミナ <= 0)
+            sayonara();
+        } else {
+            //破壊されなかった時(スタミナ > 0)
+        }
     }
 }
 void EnemyEmusLaserChip001::onInactive() {

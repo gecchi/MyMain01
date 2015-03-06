@@ -134,7 +134,7 @@ void EnemyErmione::processBehavior() {
                 setHitAble(true);
                 throwEventLowerTree(EVENT_ERMIONE_ENTRY_DONE);
                 pKuroko->setMvAngTwd(P_MYSHIP);
-                pKuroko->setMvVelo(10);
+                pKuroko->setMvVelo(100);
                 pKuroko->asstB()->turnFaceAngByDtTwd(
                         P_MYSHIP, TURN_CLOSE_TO, true, 60*30,
                         0.4, 0.6, 0, true);
@@ -146,9 +146,9 @@ void EnemyErmione::processBehavior() {
 
         case PROG_MOVE: {
             if (pProg->isJustChanged()) {
-                pKuroko->setFaceAngVelo(AXIS_X, 15);
-                pKuroko->setFaceAngVelo(AXIS_Y, 13);
-                pKuroko->setFaceAngVelo(AXIS_Z, 11);
+                pKuroko->setFaceAngVelo(AXIS_X, 55);
+                pKuroko->setFaceAngVelo(AXIS_Y, 53);
+                pKuroko->setFaceAngVelo(AXIS_Z, 51);
             }
             break;
         }
@@ -172,11 +172,12 @@ void EnemyErmione::processJudgement() {
 void EnemyErmione::onHit(GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
-        //破壊時
+        //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);
+        sayonara();
         throwEventLowerTree(EVENT_ERMIONE_SAYONARA);
     } else {
-        //非破壊時
+        //破壊されなかった時(スタミナ > 0)
         getSeTx()->play3D(SE_DAMAGED);
     }
 }
