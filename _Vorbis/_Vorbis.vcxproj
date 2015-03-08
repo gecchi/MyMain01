@@ -143,6 +143,7 @@
       <CompileAs>CompileAsC</CompileAs>
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
     </ClCompile>
     <Lib>
       <AdditionalLibraryDirectories>..\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -168,6 +169,7 @@
       <CompileAs>CompileAsC</CompileAs>
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
     </ClCompile>
     <Lib>
       <AdditionalLibraryDirectories>..\$(Configuration)\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

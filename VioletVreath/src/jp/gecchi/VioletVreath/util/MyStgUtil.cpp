@@ -794,13 +794,14 @@ GgafDxFigureActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeometr
 }
 
 bool MyStgUtil::transactEnemyHit(GgafDxFigureActor* prm_this, GgafDxGeometricActor* prm_pOther) {
+    GgafStatus* pThisStatus  = prm_this->getStatus();
     if (UTIL::calcEnemyStamina(prm_this, prm_pOther) <= 0) { //体力が無くなったら
         //＜破壊された場合＞
         prm_this->setHitAble(false); //当たり判定消失
         if (prm_pOther->getKind() & KIND_MY) {
             //相手(自機)の種別が MY*** （自機関連） ならば
-            G_SCORE += prm_this->getStatus()->get(STAT_AddDestroyScorePoint);   //破壊時得点
-            G_RANK  += prm_this->getStatus()->getDouble(STAT_AddRankPoint);     //ランク加算
+            G_SCORE += pThisStatus->get(STAT_AddDestroyScorePoint);   //破壊時得点
+            G_RANK  += pThisStatus->getDouble(STAT_AddRankPoint);     //ランク加算
 
             prm_this->notifyDestroyedToFormation();     //編隊全滅判定に有効な破壊のされ方でしたよ、と通知
             UTIL::activateItemOf(prm_this);             //アイテム出現
@@ -817,9 +818,9 @@ bool MyStgUtil::transactEnemyHit(GgafDxFigureActor* prm_this, GgafDxGeometricAct
     } else {
         //＜非破壊時、ダメージを受けた場合＞
         if (prm_pOther->getKind() & KIND_MY) { //相手(自機)の種別が MY*** （自機関連） ならば
-            G_SCORE += prm_this->getStatus()->get(STAT_AddDamagedScorePoint);   //ダメージ時得点
+            G_SCORE += pThisStatus->get(STAT_AddDamagedScorePoint);   //ダメージ時得点
         }
-        if (prm_this->getStatus()->get(STAT_FlushAble)) { //ダメージフラッシュするかどうか
+        if (pThisStatus->get(STAT_FlushAble)) { //ダメージフラッシュするかどうか
             prm_this->effectFlush(2); //フラッシュ！
         }
         UTIL::activateDamagedEffectOf(prm_this); //ダメージエフェクト

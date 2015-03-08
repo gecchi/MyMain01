@@ -152,6 +152,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
     </ClCompile>
     <Lib>
       <TargetMachine>MachineX86</TargetMachine>
@@ -174,6 +175,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
     </ClCompile>
     <Lib>
       <TargetMachine>MachineX64</TargetMachine>
