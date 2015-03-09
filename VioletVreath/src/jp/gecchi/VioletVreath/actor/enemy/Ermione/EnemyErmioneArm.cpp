@@ -26,6 +26,8 @@ EnemyErmioneArm::EnemyErmioneArm(const char* prm_name, const char* prm_model, Gg
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001"); //腕破壊
     useProgress(PROG_BANPEI);
     behave_frames_ = 0;
+    arm_no_ = 0;
+    arm_part_no_ = 0;
 }
 
 
@@ -89,7 +91,7 @@ void EnemyErmioneArm::processBehavior() {
                     //
                     //mvx mvy mvz を求める
                     int mvx,mvy,mvz;
-                    if (RND(1, 100) < 96) {
+                    if (RND(1, 100) < 97 || arm_part_no_ >= 8) {
                         //絶対座標系で通常の自機を狙う方向ベクトル
                         GgafDxGeometricActor* pTargetActor = P_MYSHIP;
                         mvx = pTargetActor->_x - _x_final; //ここで自身の _x, _y, _z は絶対座標(_x_final)であることがポイント

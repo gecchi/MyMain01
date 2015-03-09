@@ -29,6 +29,7 @@ void EnemyErmioneArmHead::initialize() {
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->makeCollision(1);
     pChecker->setColliAAB_Cube(0, 40000);
+    getKuroko()->setFaceAngVelo(AXIS_X, PX_C(2));
 }
 
 void EnemyErmioneArmHead::processBehavior() {

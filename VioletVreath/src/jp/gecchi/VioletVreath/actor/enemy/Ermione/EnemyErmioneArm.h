@@ -25,7 +25,10 @@ public:
         SE_DAMAGED  ,
         SE_EXPLOSION,
     };
-
+    /** ©•ª‚Ì˜r‚Ì”Ô† */
+    int arm_no_;
+    /** ©•ª‚Ì˜r‚ÌŠÖß”Ô† */
+    int arm_part_no_;
     angvelo aiming_ang_velo_;
     angle aiming_movable_limit_ang_;
     frame behave_frames_;
@@ -61,11 +64,16 @@ public:
 
     /**
      * ˜r‚Ìß‚Ìİ’è .
+     * @param prm_arm_no ˜r‚Ì”Ô†
+     * @param prm_arm_part_no ˜r‚ÌŠÖß”Ô†
      * @param prm_aiming_movable_limit_ang ƒGƒCƒ~ƒ“ƒOŠÖß‰Â“®Šp“x§ŒÀ”ÍˆÍ(10 ‚ğw’è‚Å -10 ` +10 ‚ÆŒ¾‚¤İ’è‚É‚È‚é)
      * @param prm_aiming_ang_velo ƒGƒCƒ~ƒ“ƒOŠÖß‰Â“®Šp‘¬“x
      */
-    virtual void config(angle prm_aiming_movable_limit_ang,
+    virtual void config(int prm_arm_no, int prm_arm_part_no,
+                        angle prm_aiming_movable_limit_ang,
                         frame prm_aiming_ang_velo) {
+        arm_no_ = prm_arm_no;
+        arm_part_no_ = prm_arm_part_no;
         aiming_movable_limit_ang_ = prm_aiming_movable_limit_ang;
         aiming_ang_velo_ = prm_aiming_ang_velo;
     }

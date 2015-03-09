@@ -23,10 +23,37 @@ EnemyErmione::EnemyErmione(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Ermione", STATUS(EnemyErmione)) {
     _class_name = "EnemyErmione";
     pAFader_ = NEW GgafDxAlphaFader(this);
-    num_arm_ = 6; //腕の合計本数
+//    num_arm_ = 6; //腕の合計本数
+//    num_arm_part_ = 11;  //各腕の節数（3以上）
+//    angle pos_rz[] = {D_ANG(0),   D_ANG(90),   D_ANG(180),  D_ANG(270), D_ANG(0) , D_ANG(0)   }; //生やす場所
+//    angle pos_ry[] = {D_ANG(0),   D_ANG(0),    D_ANG(0)  ,  D_ANG(0)  , D_ANG(90), D_ANG(270) };
+
+
+    num_arm_ = 4; //腕の合計本数
     num_arm_part_ = 11;  //各腕の節数（3以上）
-    angle pos_rz[] = {D_ANG(0),   D_ANG(90),   D_ANG(180),  D_ANG(270), D_ANG(0) , D_ANG(0)  }; //生やす場所
-    angle pos_ry[] = {D_ANG(0),   D_ANG(0),    D_ANG(0)  ,  D_ANG(0)  , D_ANG(90), D_ANG(270) };
+    //正四面体の頂点に腕を生やそう！
+    //1辺をa とすると高さは  (√6)a / 3
+    //重心は高さの1/4
+    //  (√6)a / 3) * (3/4) = (√6)a / 4
+    //  (√6)a / 3) * (1/4) = (√6)a / 12
+    //重心を(0,0,0)とし、右の頂点を一つ
+    //(   (√6)a / 4 ,            0,     0 ) とすると
+    //残りは
+    //( -((√6)a / 12),  (√3)a / 2,     0 )
+    //( -((√6)a / 12), -(√3)a / 6,   a/2 )
+    //( -((√6)a / 12), -(√3)a / 6,  -a/2 )
+    //http://sansuu.noblog.net/blog/e/10762566.writeback
+    double a = 1.0;
+    angle pos_rz[4];
+    angle pos_ry[4];
+    const double sqrt6 = sqrt(6.0);
+    const double sqrt3 = sqrt(3.0);
+    pos_rz[0] = D_ANG(0);   pos_ry[0] = D_ANG(0);
+    UTIL::convVectorToRzRy( -(sqrt6*a)/12.0,  (sqrt3*a)/2.0,    0.0,   pos_rz[1], pos_ry[1]);
+    UTIL::convVectorToRzRy( -(sqrt6*a)/12.0, -(sqrt3*a)/6.0,  a/2.0,   pos_rz[2], pos_ry[2]);
+    UTIL::convVectorToRzRy( -(sqrt6*a)/12.0, -(sqrt3*a)/6.0, -a/2.0,   pos_rz[3], pos_ry[3]);
+
+
     static coord R = PX_C(130);     //本体Ermioneの半径
     static coord arm_R = PX_C(45);  //可動部の腕の関節１個の半径
 
@@ -70,7 +97,7 @@ EnemyErmione::EnemyErmione(const char* prm_name) :
             if (i == 0) {
                 //節が根本の場合
                 //関節固定させる
-                paArm_[arm].papArmPart_[i]->config(0, 0);
+                paArm_[arm].papArmPart_[i]->config(arm, i, 0, 0);
                 //自身を土台とするFK設定
                 this->addSubGroupAsFk(
                         paArm_[arm].papArmPart_[i],
@@ -79,7 +106,7 @@ EnemyErmione::EnemyErmione(const char* prm_name) :
             } else {
                 //節が根本以外場合
                 //先に行くほど可動範囲と回転スピードが大きくする（これで、FKなのにIKっぽくも見える！）
-                paArm_[arm].papArmPart_[i]->config(D_ANG(10+(i*2.5)), 10+(i*40));
+                paArm_[arm].papArmPart_[i]->config(arm, i, D_ANG(10+(i*2.5)), 10+(i*40));
                 //一つ前の腕の節を土台とするFK設定
                 paArm_[arm].papArmPart_[i-1]->addSubGroupAsFk(
                                                paArm_[arm].papArmPart_[i],

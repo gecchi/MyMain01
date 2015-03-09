@@ -102,6 +102,8 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
     </ClCompile>
     <Lib>
       <AdditionalLibraryDirectories>..\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -118,6 +120,8 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
     </ClCompile>
     <Lib>
       <AdditionalLibraryDirectories>..\$(Configuration)\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

@@ -3,13 +3,10 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 
-
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
-
-
 
 EnemyWateringLaserChip001::EnemyWateringLaserChip001(const char* prm_name) :
         WateringLaserChip(prm_name, "EnemyWateringLaserChip001", STATUS(EnemyWateringLaserChip001)) {
@@ -30,14 +27,20 @@ void EnemyWateringLaserChip001::onCreateModel() {
 
 void EnemyWateringLaserChip001::onActive() {
     WateringLaserChip::onActive();
-    getKuroko()->setMvVelo(PX_C(80));
+    getKuroko()->setMvVelo(PX_C(100));
     getKuroko()->setMvAcce(300);
     getStatus()->reset();
 }
 
 void EnemyWateringLaserChip001::processBehavior() {
-    GgafDxKuroko* pKuroko = getKuroko();
-    pKuroko->behave();
+    if (onChangeToActive()) {
+        //アクティブになった瞬間は、
+        //利用元アクターが指定した最初の座標で表示したい。
+        //黒衣の活動を行うと、ずれるので、最初だけはそのままの座標で表示。
+    } else {
+        GgafDxKuroko* pKuroko = getKuroko();
+        pKuroko->behave();
+    }
     WateringLaserChip::processBehavior();//座標を移動させてから呼び出すこと
 }
 
