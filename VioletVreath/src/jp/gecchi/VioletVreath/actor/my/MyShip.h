@@ -286,15 +286,18 @@ public:
     /** ショットしたフレームのみ true になる */
     bool just_shot_;
     uint32_t shot_count_;
+
+    /** ソフト連射間隔 */
+    frame soft_rapidshot_interval_;
+    /** ソフト連射数 */
+    int soft_rapidshot_num_;
+
     /** レーザー発射中かどうか */
     bool is_shooting_laser_;
-
     /** レーザー発射可能かどうか */
     bool can_shoot_laser_;
-
     /** SHOTボタン押しっぱなし経過フレーム数（レーザー発射開始判定のため） */
     frame frame_shot_pressed_;
-
     /** シーン突入時かどうか */
     bool is_diving_;
 
@@ -324,11 +327,7 @@ public:
     frame trace_delay_count_;
 
 
-    /** ソフト連射間隔 */
-    frame soft_rapidshot_interval_;
 
-    /** ソフト連射数 */
-    int soft_rapidshot_num_;
 
     int shot_level_;
 

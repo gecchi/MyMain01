@@ -106,7 +106,7 @@ EnemyErmione::EnemyErmione(const char* prm_name) :
             } else {
                 //節が根本以外場合
                 //先に行くほど可動範囲と回転スピードが大きくする（これで、FKなのにIKっぽくも見える！）
-                paArm_[arm].papArmPart_[i]->config(arm, i, D_ANG(10+(i*2.5)), 10+(i*40));
+                paArm_[arm].papArmPart_[i]->config(arm, i, D_ANG(10+(i*2.5)), 10+(i*10));
                 //一つ前の腕の節を土台とするFK設定
                 paArm_[arm].papArmPart_[i-1]->addSubGroupAsFk(
                                                paArm_[arm].papArmPart_[i],
@@ -161,7 +161,7 @@ void EnemyErmione::processBehavior() {
                 setHitAble(true);
                 throwEventLowerTree(EVENT_ERMIONE_ENTRY_DONE);
                 pKuroko->setMvAngTwd(P_MYSHIP);
-                pKuroko->setMvVelo(100);
+                pKuroko->setMvVelo(0);
                 pKuroko->asstB()->turnFaceAngByDtTwd(
                         P_MYSHIP, TURN_CLOSE_TO, true, 60*30,
                         0.4, 0.6, 0, true);

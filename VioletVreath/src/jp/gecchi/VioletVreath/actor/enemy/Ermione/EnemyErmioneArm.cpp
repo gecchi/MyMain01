@@ -60,7 +60,7 @@ void EnemyErmioneArm::processBehavior() {
 
         case PROG_NOTHING: {
             if (pProg->isJustChanged() ) {
-                behave_frames_ = RND(30, 60);
+                behave_frames_ = RND(1, 10);
             }
             if (pProg->hasArrivedAt(behave_frames_)) {
                 pProg->change(PROG_AIMING);
@@ -89,9 +89,9 @@ void EnemyErmioneArm::processBehavior() {
                     // | tvx tvy tvz | = | mvx mvy mvz | | b_mat_21 b_mat_22 b_mat_23 |
                     //                                   | b_mat_31 b_mat_32 b_mat_33 |
                     //
-                    //mvx mvy mvz を求める
+                    //mvx mvy mvz は、自機への方向ベクトルである
                     int mvx,mvy,mvz;
-                    if (RND(1, 100) < 97 || arm_part_no_ >= 8) {
+                    if (RND(1, 1000) < 960 || arm_part_no_ >= 9) {
                         //絶対座標系で通常の自機を狙う方向ベクトル
                         GgafDxGeometricActor* pTargetActor = P_MYSHIP;
                         mvx = pTargetActor->_x - _x_final; //ここで自身の _x, _y, _z は絶対座標(_x_final)であることがポイント
@@ -107,9 +107,9 @@ void EnemyErmioneArm::processBehavior() {
                     //逆行列取得
                     D3DXMATRIX* pBaseInvMatRM = getBaseActor()->getInvMatWorldRotMv();
                     //ローカル座標でのターゲットとなる方向ベクトル計算
-                    int tvx = mvx*pBaseInvMatRM->_11 + mvy*pBaseInvMatRM->_21 + mvz * pBaseInvMatRM->_31;
-                    int tvy = mvx*pBaseInvMatRM->_12 + mvy*pBaseInvMatRM->_22 + mvz * pBaseInvMatRM->_32;
-                    int tvz = mvx*pBaseInvMatRM->_13 + mvy*pBaseInvMatRM->_23 + mvz * pBaseInvMatRM->_33;
+                    int tvx = mvx*pBaseInvMatRM->_11 + mvy*pBaseInvMatRM->_21 + mvz*pBaseInvMatRM->_31;
+                    int tvy = mvx*pBaseInvMatRM->_12 + mvy*pBaseInvMatRM->_22 + mvz*pBaseInvMatRM->_32;
+                    int tvz = mvx*pBaseInvMatRM->_13 + mvy*pBaseInvMatRM->_23 + mvz*pBaseInvMatRM->_33;
                     //自動方向向きシークエンス開始
                     angle angRz_Target, angRy_Target;
                     UTIL::convVectorToRzRy(tvx, tvy, tvz, angRz_Target, angRy_Target);
@@ -129,7 +129,7 @@ void EnemyErmioneArm::processBehavior() {
 
                     pKuroko->turnRzRyFaceAngTo(
                                     angRz_Target, angRy_Target,
-                                    aiming_ang_velo_, aiming_ang_velo_*0.04,
+                                    aiming_ang_velo_, aiming_ang_velo_*0.01,
                                     TURN_CLOSE_TO, false);
                 }
             }

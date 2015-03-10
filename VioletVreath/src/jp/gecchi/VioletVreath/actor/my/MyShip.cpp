@@ -698,64 +698,6 @@ void MyShip::processBehavior() {
 
     //毎フレームの呼吸の消費
     getStatus()->minus(STAT_Stamina, MY_SHIP_VREATH_COST);
-}
-
-void MyShip::processJudgement() {
-    if (!can_control_) {
-        return;
-    }
-    VirtualButton* pVbPlay = VB_PLAY;
-
-
-
-    //debug ---->
-//    if (GgafDxInput::isPushedDownKey(DIK_W)) {
-//        TestGuShot* pShot = (TestGuShot*)pDepo_TestGuShot_->dispatch();
-//        if (pShot) {
-//            pShot->positionAs(this);
-//        }
-//    }
-//    if (GgafDxInput::isPushedDownKey(DIK_E)) {
-//        TestChokiShot* pShot = (TestChokiShot*)pDepo_TestChokiShot_->dispatch();
-//        if (pShot) {
-//            pShot->positionAs(this);
-//        }
-//    }
-//    if (GgafDxInput::isPushedDownKey(DIK_R)) {
-//        TestPaShot* pShot = (TestPaShot*)pDepo_TestPaShot_->dispatch();
-//        if (pShot) {
-//            pShot->positionAs(this);
-//        }
-//    }
-//    if (GgafDxInput::isPushedDownKey(DIK_T)) {
-//        TestNomalShot* pShot = (TestNomalShot*)pDepo_TestNomalShot_->dispatch();
-//        if (pShot) {
-//            pShot->positionAs(this);
-//        }
-//    }
-    //<---- debug
-
-
-    //debug ---->
-//#ifdef MY_DEBUG
-//    if (GgafDxInput::isPushedDownKey(DIK_W)) {
-//        MyStraightLaserChip001::chengeTex(0);
-//    }
-//    if (GgafDxInput::isPushedDownKey(DIK_E)) {
-//        MyStraightLaserChip001::chengeTex(1);
-//    }
-//    if (GgafDxInput::isPushedDownKey(DIK_R)) {
-//        MyStraightLaserChip001::chengeTex(2);
-//    }
-//#endif
-    //<---- debug
-
-
-    //自機消滅テスト
-//    if (pVbPlay->isBeingPressed(VB_BUTTON8)) {
-//        _TRACE_("自機消滅テスト");
-//        throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
-//    }
 
 
 
@@ -788,7 +730,7 @@ void MyShip::processJudgement() {
     }
 
     //ソフト連射
-    //1プッシュで4F毎に最大3発
+    //1プッシュ目は１発。２プッシュ目以降、１プッシュで4F毎に最大3発
     if (pVbPlay->isPushedDown(VB_SHOT1) && !pVbPlay->isBeingPressed(VB_POWERUP)) {
         is_being_soft_rapidshot_ = true;
         if (frame_soft_rapidshot_ >= soft_rapidshot_interval_) {
@@ -868,32 +810,9 @@ void MyShip::processJudgement() {
         getSeTx()->play3D(SE_EXPLOSION);
         throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
     }
+}
 
-//    if (pVbPlay->isBeingPressed(VB_SHOT2)) {
-//        MyOptionController** papOptCtrler = P_MYSHIP_SCENE->papOptionCtrler_;
-//        for (int i = 0; i < MyOptionController::now_option_num_; i++) {
-//            if (papOptCtrler[i]->pOption_->pTorpedoCtrler_->fire()) {
-//                papOptCtrler[i]->pOption_->getSeTx()->play3D(MyOption::SE_FIRE_TORPEDO);
-//            }
-//        }
-//
-////        bool can_fire = true;
-////        for (int i = 0; i < MyOptionController::now_option_num_; i++) {
-////            if (papOptCtrler[i]->pOption_->pTorpedoCtrler_->in_firing_) {
-////                can_fire = false;
-////                break;
-////            }
-////        }
-////        if (can_fire) {
-////            for (int i = 0; i < MyOptionController::now_option_num_; i++) {
-////                if (i == 0) {
-////                    getSeTx()->play3D(3);
-////                }
-////                papOptCtrler[i]->pOption_->pTorpedoCtrler_->fire();
-////            }
-////        }
-//    }
-
+void MyShip::processJudgement() {
 }
 
 void MyShip::onHit(GgafActor* prm_pOtherActor) {
