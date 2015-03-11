@@ -84,11 +84,11 @@ void GgafTable::exportToFile(std::string prm_file_name) {
     GGAF_DELETEARR(header);
 }
 
-size_t GgafTable::getCount() {
+size_t GgafTable::getCount() const {
     return _lstTtable.size();
 }
 
-bool GgafTable::hasRecord() {
+bool GgafTable::hasRecord() const {
     if (getCount() == 0) {
         return false;
     } else {

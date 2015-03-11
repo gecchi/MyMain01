@@ -82,21 +82,21 @@ public:
      * 識別名を返す .
      * @return 識別名
      */
-    char* getIdStr();
+    char* getIdStr() const ;
 
     /**
      * リスト連結されている次の資源接続オブジェクトを返す .
      * 終端であった場合は nullptr が返る。
      * @return 次の資源接続オブジェクト 又は、nullptr
      */
-    GgafResourceConnection<T>* getNext();
+    GgafResourceConnection<T>* getNext() const;
 
     /**
      * コネクション先の資源を取得 .
      * 接続カウンタは増えません<BR>
      * @return 資源へのポインタ
      */
-    inline T* peek() {
+    inline T* peek() const {
         return _pResource;
     }
 
@@ -105,13 +105,13 @@ public:
      * @param prm_this 調べるオブジェクト。thisを渡して下さい。
      * @return true:初めてconnectした(=resourceを new した）オブジェクトである。/false:そうではない。
      */
-    bool chkFirstConnectionIs(void* prm_this);
+    bool chkFirstConnectionIs(void* prm_this) const;
 
     /**
      * 資源(Resource)への接続数を取得 .
      * @return 資源(Resource)への接続数
      */
-    int getNumConnection();
+    int getNumConnection() const;
 
     /**
      * 資源接続を解除 .
@@ -128,12 +128,12 @@ template<class T>
 volatile bool GgafResourceConnection<T>::_is_closing_resource = false;
 
 template<class T>
-char* GgafResourceConnection<T>::getIdStr() {
+char* GgafResourceConnection<T>::getIdStr() const {
     return _idstr;
 }
 
 template<class T>
-GgafResourceConnection<T>* GgafResourceConnection<T>::getNext() {
+GgafResourceConnection<T>* GgafResourceConnection<T>::getNext() const {
     return _pNext;
 }
 
@@ -151,12 +151,12 @@ GgafResourceConnection<T>::GgafResourceConnection(char* prm_idstr, T* prm_pResou
 }
 
 template<class T>
-int GgafResourceConnection<T>::getNumConnection() {
+int GgafResourceConnection<T>::getNumConnection() const {
     return _num_connection;
 }
 
 template<class T>
-bool GgafResourceConnection<T>::chkFirstConnectionIs(void* prm_this) {
+bool GgafResourceConnection<T>::chkFirstConnectionIs(void* prm_this) const {
     if (_p_first_connector == prm_this) {
         return true;
     } else {

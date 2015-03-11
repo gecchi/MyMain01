@@ -17,6 +17,7 @@
 #include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyMagicEnergyCore.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShot001.h"
+#include "jp/gecchi/VioletVreath/actor/my/MySnipeShot001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyStraightLaserChip001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyTorpedoController.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -24,6 +25,8 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 #include "jp/ggaf/dxcore/util/GgafDxDirectionUtil.h"
+
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -103,6 +106,11 @@ uint32_t MyShip::shot3_matrix_[2][MYSHIP_SHOT_MATRIX] = {
     }
 };
 
+/** ソフト連射数で、１プッシュで撃つことが出来る連射数 */
+#define SOFT_RAPIDSHOT_NUM       (3)
+/** ソフト連射数でのショットとショットの間隔 */
+#define SOFT_RAPIDSHOT_INTERVAL  (4)
+
 MyShip::MyShip(const char* prm_name) :
         DefaultD3DXMeshActor(prm_name, "VicViper", STATUS(MyShip)) {
 //DefaultMeshActor(prm_name, "jiki", STATUS(MyShip)) {
@@ -118,13 +126,13 @@ MyShip::MyShip(const char* prm_name) :
     coord harf_width  = PX_C(PROPERTY::GAME_BUFFER_WIDTH)/2;
     coord harf_height = PX_C(PROPERTY::GAME_BUFFER_HEIGHT)/2;
 
-    lim_y_top_     =  harf_height + PX_C(PROPERTY::GAME_BUFFER_HEIGHT*4);  //上は、高さ4画面分
-    lim_y_bottom_  = -harf_height - PX_C(PROPERTY::GAME_BUFFER_HEIGHT*4);  //下は、高さ4画面分
-    lim_x_front_   =  harf_width  + PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //前は、幅の2画面分
-    lim_x_behaind_ = -harf_width  - PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //後ろは、幅の2画面分
-    lim_z_left_   =  harf_width  + PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //手前は、幅の2画面分
-    lim_z_right_  = -harf_width  - PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //奥は、幅の2画面分
-    _TRACE_("MyShip::MyShip 範囲 X("<<lim_x_behaind_<<" ~ "<<lim_x_front_<<") Y("<<lim_y_bottom_<<" ~ "<<lim_y_top_<<") Z("<<lim_z_right_<<" ~ "<<lim_z_left_<<")");
+    MyShip::lim_y_top_     =  harf_height + PX_C(PROPERTY::GAME_BUFFER_HEIGHT*4);  //上は、高さ4画面分
+    MyShip::lim_y_bottom_  = -harf_height - PX_C(PROPERTY::GAME_BUFFER_HEIGHT*4);  //下は、高さ4画面分
+    MyShip::lim_x_front_   =  harf_width  + PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //前は、幅の2画面分
+    MyShip::lim_x_behaind_ = -harf_width  - PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //後ろは、幅の2画面分
+    MyShip::lim_z_left_   =  harf_width  + PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //手前は、幅の2画面分
+    MyShip::lim_z_right_  = -harf_width  - PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //奥は、幅の2画面分
+    _TRACE_("MyShip 範囲 X("<<MyShip::lim_x_behaind_<<" ~ "<<MyShip::lim_x_front_<<") Y("<<MyShip::lim_y_bottom_<<" ~ "<<MyShip::lim_y_top_<<") Z("<<MyShip::lim_z_right_<<" ~ "<<MyShip::lim_z_left_<<")");
 
 
     //CommonSceneがnewの場合設定
@@ -173,6 +181,15 @@ MyShip::MyShip(const char* prm_name) :
         pDepo_MyShots001_->put(pShot);
     }
     addSubGroup(pDepo_MyShots001_);
+
+    pDepo_MySnipeShots001_ = NEW GgafActorDepository("RotShot001");
+    MySnipeShot001* pSnipeShot;
+    for (int i = 0; i < 5; i++) { //自弾ストック
+        pSnipeShot = NEW MySnipeShot001("MY_MySnipeShot001");
+        pSnipeShot->inactivate();
+        pDepo_MySnipeShots001_->put(pSnipeShot);
+    }
+    addSubGroup(pDepo_MySnipeShots001_);
 
     pLaserChipDepo_ = NEW LaserChipDepository("MyRotLaser");
     MyStraightLaserChip001* pChip;
@@ -294,9 +311,14 @@ MyShip::MyShip(const char* prm_name) :
     veloTurboTop_ = 30000;
     veloTurboBottom_ = 10000;
 
-    frame_soft_rapidshot_ = 0;
     is_being_soft_rapidshot_ = false;
-    just_shot_ = false;
+    soft_rapidshot_shot_count_ = 0;
+    soft_rapidshot_push_cnt_ = 0;
+    soft_rapidshot_shot_count_in_one_push_ = 0;
+    soft_rapidshot_frames_in_one_push = 0;
+    is_snipe_shot_ = false;
+
+    is_just_shot_ = false;
     is_shooting_laser_ = false;
     can_shoot_laser_ = false;
     frame_shot_pressed_ = 0;
@@ -331,9 +353,7 @@ MyShip::MyShip(const char* prm_name) :
     trace_delay_count_ = 0;
     is_trace_waiting_ = false;
 
-    soft_rapidshot_interval_ = 4;
-    soft_rapidshot_num_ = 3;
-    shot_count_ = 0;
+
 
     shot_level_ = 1;
 }
@@ -379,9 +399,14 @@ void MyShip::initialize() {
 
 void MyShip::onReset() {
     _TRACE_("MyShip::onReset() "<<NODE_INFO<<"");
-    frame_soft_rapidshot_ = 0;
     is_being_soft_rapidshot_ = false;
-    just_shot_ = false;
+    soft_rapidshot_shot_count_ = 0;
+    soft_rapidshot_push_cnt_ = 0;
+    soft_rapidshot_shot_count_in_one_push_ = 0;
+    soft_rapidshot_frames_in_one_push = 0;
+    is_snipe_shot_ = false;
+    is_being_soft_rapidshot_ = false;
+    is_just_shot_ = false;
     is_shooting_laser_ = false;
     can_shoot_laser_ = false;
     frame_shot_pressed_ = 0;
@@ -730,71 +755,127 @@ void MyShip::processBehavior() {
     }
 
     //ソフト連射
-    //1プッシュ目は１発。２プッシュ目以降、１プッシュで4F毎に最大3発
-    if (pVbPlay->isPushedDown(VB_SHOT1) && !pVbPlay->isBeingPressed(VB_POWERUP)) {
-        is_being_soft_rapidshot_ = true;
-        if (frame_soft_rapidshot_ >= soft_rapidshot_interval_) {
-            //soft_rapidshot_interval_ フレームより遅い場合
-            //連射と連射のつなぎ目が無いようにする
-            frame_soft_rapidshot_ = frame_soft_rapidshot_ % soft_rapidshot_interval_;
+    //１プッシュ目の初弾のみ１発のみ発射のスナイプショット。
+    //２プッシュ目以降ソフト連射、１プッシュで4F毎に最大3発
+    bool push_down = pVbPlay->isPushedDown(VB_SHOT1);
+
+    if (push_down && !pVbPlay->isBeingPressed(VB_POWERUP)) {
+        if (is_being_soft_rapidshot_) {
+            if (soft_rapidshot_frames_in_one_push >= SOFT_RAPIDSHOT_INTERVAL) {
+                //ソフト連射による２発目の SOFT_RAPIDSHOT_INTERVAL フレームより遅い場合
+                //連射と連射のつなぎ目が無いようにするために、
+                //soft_rapidshot_frames_in_one_push を直近のショットから開始したかのようにリセット
+                soft_rapidshot_frames_in_one_push = soft_rapidshot_frames_in_one_push % SOFT_RAPIDSHOT_INTERVAL;
+            } else {
+                //ソフト連射による２発目の SOFT_RAPIDSHOT_INTERVAL フレームより速い手連の場合
+                //これを受け入れて強制的に発射できる(速い手動連射のほうがより連射できるようにしたい。)
+                soft_rapidshot_frames_in_one_push = 0;
+                soft_rapidshot_shot_count_in_one_push_ = 0;
+            }
         } else {
-            //soft_rapidshot_interval_ フレームより速い連射の場合
-            //これを受け入れて強制的に発射できる(速い手動連射のほうがより連射できるようにしたい。)
-            frame_soft_rapidshot_ = 0;
-        }
-    }
-    just_shot_ = false;
-    if (is_being_soft_rapidshot_) {
-        if (frame_soft_rapidshot_ % soft_rapidshot_interval_ == 0) {
-            just_shot_ = true;//たった今ショットしましたフラグ
-            if (frame_soft_rapidshot_ >= soft_rapidshot_interval_*(soft_rapidshot_num_-1)) {
-                //soft_rapidshot_num_ 発打ち終えたらソフト連射終了
-                is_being_soft_rapidshot_ = false;
+            if (is_being_soft_rapidshot_ == false) {
+                is_being_soft_rapidshot_ = true;
+                soft_rapidshot_frames_in_one_push = 0;
+                soft_rapidshot_shot_count_in_one_push_ = 0;
+                soft_rapidshot_push_cnt_ = 1;
+            } else {
+                soft_rapidshot_frames_in_one_push = 0;
+                soft_rapidshot_shot_count_in_one_push_ = 0;
+                soft_rapidshot_push_cnt_++;
             }
         }
     }
+
     if (is_being_soft_rapidshot_) {
-        frame_soft_rapidshot_++;
+        if (soft_rapidshot_frames_in_one_push % SOFT_RAPIDSHOT_INTERVAL == 0) {
+            is_just_shot_ = true;//たった今ショットしましたフラグ
+
+            soft_rapidshot_shot_count_++;
+            soft_rapidshot_shot_count_in_one_push_++;
+
+            if(soft_rapidshot_frames_in_one_push > SOFT_RAPIDSHOT_INTERVAL*(SOFT_RAPIDSHOT_NUM-1)) {
+                //スナイプショット、或いは、SOFT_RAPIDSHOT_NUM 発打ち終えたら
+                is_being_soft_rapidshot_ = false; //ソフト連射解除
+                soft_rapidshot_shot_count_ = 0;
+                soft_rapidshot_shot_count_in_one_push_ = 0;
+                soft_rapidshot_push_cnt_ = 0;
+                is_just_shot_ = false;
+            }
+        } else {
+            is_just_shot_ = false;
+        }
+    } else {
+        is_just_shot_ = false;
     }
 
-    if (just_shot_) {
+    if (is_being_soft_rapidshot_) {
+        soft_rapidshot_frames_in_one_push++;
+    }
 
-        if (shot_level_ >= 1) {
-            MyShot001* pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
-            if (pShot) {
+    is_snipe_shot_ = false;
+    if (is_just_shot_) {
+        if (soft_rapidshot_push_cnt_ == 1) {
+            if (soft_rapidshot_shot_count_in_one_push_ == 1) {
+                is_snipe_shot_ = true;
+            }
+            if (2 <= soft_rapidshot_shot_count_in_one_push_ && soft_rapidshot_shot_count_in_one_push_ <= SOFT_RAPIDSHOT_NUM) {
+                is_just_shot_ = false; //最初のグループの弾は、初弾以外無理やりショット無し矯正。
+            } else {
+                is_just_shot_ = true;
+            }
+        }
+    }
+
+    if (is_just_shot_) {
+        if (is_snipe_shot_) {
+            //スナイプショット時
+            MySnipeShot001* pSnipeShot = (MySnipeShot001*)pDepo_MySnipeShots001_->dispatch();
+            if (pSnipeShot) {
                 getSeTx()->play3D(SE_FIRE_SHOT);
-                pShot->positionAs(this);
-                pShot->getKuroko()->setRzRyMvAng(_rz, _ry);
-                pShot->getKuroko()->setMvVelo(PX_C(70));
-                pShot->getKuroko()->setMvAcce(100);
+                pSnipeShot->positionAs(this);
+                pSnipeShot->getKuroko()->setRzRyMvAng(_rz, _ry);
+                pSnipeShot->getKuroko()->setMvVelo(PX_C(100));
+                pSnipeShot->getKuroko()->setMvAcce(100);
+            }
+        } else {
+            //スナイプショット以外時
+            if (shot_level_ >= 1) {
+                MyShot001* pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
+                if (pShot) {
+                    getSeTx()->play3D(SE_FIRE_SHOT);
+                    pShot->positionAs(this);
+                    pShot->getKuroko()->setRzRyMvAng(_rz, _ry);
+                    pShot->getKuroko()->setMvVelo(PX_C(70));
+                    pShot->getKuroko()->setMvAcce(100);
+                }
+            }
+
+            if (shot_level_ == 2) {
+                uint32_t i = soft_rapidshot_shot_count_ % 4;
+                UTIL::shotWay003(this,
+                                 pDepo_MyShots001_ , MyShip::shot2_matrix_[i],
+                                 nullptr, nullptr,
+                                 nullptr, nullptr,
+                                 PX_C(1),
+                                 MYSHIP_SHOT_MATRIX, MYSHIP_SHOT_MATRIX,
+                                 D_ANG(5), D_ANG(5),
+                                 PX_C(70), 100,
+                                 1, 0, 1.0);
+            } else if (shot_level_ >= 3) {
+                uint32_t i = soft_rapidshot_shot_count_ % 2;
+                UTIL::shotWay003(this,
+                                 pDepo_MyShots001_ , MyShip::shot3_matrix_[i],
+                                 nullptr, nullptr,
+                                 nullptr, nullptr,
+                                 PX_C(1),
+                                 MYSHIP_SHOT_MATRIX, MYSHIP_SHOT_MATRIX,
+                                 D_ANG(5), D_ANG(5),
+                                 PX_C(70), 100,
+                                 1, 0, 1.0);
             }
         }
-
-        if (shot_level_ == 2) {
-            uint32_t i = shot_count_ % 4;
-            UTIL::shotWay003(this,
-                             pDepo_MyShots001_ , MyShip::shot2_matrix_[i],
-                             nullptr, nullptr,
-                             nullptr, nullptr,
-                             PX_C(1),
-                             MYSHIP_SHOT_MATRIX, MYSHIP_SHOT_MATRIX,
-                             D_ANG(5), D_ANG(5),
-                             PX_C(70), 100,
-                             1, 0, 1.0);
-        } else if (shot_level_ >= 3) {
-            uint32_t i = shot_count_ % 2;
-            UTIL::shotWay003(this,
-                             pDepo_MyShots001_ , MyShip::shot3_matrix_[i],
-                             nullptr, nullptr,
-                             nullptr, nullptr,
-                             PX_C(1),
-                             MYSHIP_SHOT_MATRIX, MYSHIP_SHOT_MATRIX,
-                             D_ANG(5), D_ANG(5),
-                             PX_C(70), 100,
-                             1, 0, 1.0);
-        }
-        shot_count_++;
     }
+
 
     //光子魚雷発射
     if (pVbPlay->isPushedDown(VB_SHOT2)) {

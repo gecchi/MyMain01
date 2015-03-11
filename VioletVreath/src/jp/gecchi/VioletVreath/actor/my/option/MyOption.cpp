@@ -16,6 +16,7 @@
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
+#include "jp/gecchi/VioletVreath/actor/my/option/MyOptionSnipeShot001.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -87,12 +88,19 @@ MyOption::MyOption(const char* prm_name, uint32_t prm_no, MyOptionController* pr
     pLaserChipDepo_->config(80, 25, pEffect_LaserIrradiate_);
     addSubGroup(pLaserChipDepo_);
 
-    pDepo_MyOptionShot_ = NEW GgafActorDepository("RotShot001");
+    pDepo_MyOptionShot_ = NEW GgafActorDepository("Depo_MyOptionShot");
     for (int i = 0; i < 40; i++) { //自弾ストック
         std::string name = std::string(getName()) + "'s Shot001(" + XTOS(i) + ")";
         pDepo_MyOptionShot_->put(NEW MyOptionShot001(name.c_str()));
     }
     addSubGroup(pDepo_MyOptionShot_);
+
+    pDepo_MySnipeOptionShot_ = NEW GgafActorDepository("Depo_MySnipeOptionShot");
+    for (int i = 0; i < 5; i++) { //自弾ストック
+        std::string name = std::string(getName()) + "'s SnipeShot001(" + XTOS(i) + ")";
+        pDepo_MySnipeOptionShot_->put(NEW MyOptionSnipeShot001(name.c_str()));
+    }
+    addSubGroup(pDepo_MySnipeOptionShot_);
 
     //ロックオンコントローラー
     pLockonCtrler_ = NEW MyLockonController("LockonController");
@@ -599,39 +607,50 @@ void MyOption::processBehavior() {
     }
 
     //ショット発射
-    if (pMyShip->just_shot_) {
-        if (pMyShip->shot_level_ >= 1) {
-            MyOptionShot001* pShot = (MyOptionShot001*)pDepo_MyOptionShot_->dispatch();
-            if (pShot) {
+    if (pMyShip->is_just_shot_) {
+        if (pMyShip->is_snipe_shot_) {
+            MyOptionSnipeShot001* pSnipeShot = (MyOptionSnipeShot001*)pDepo_MySnipeOptionShot_->dispatch();
+            if (pSnipeShot) {
                 getSeTx()->play3D(SE_FIRE_SHOT);
-                pShot->positionAs(this);
-                pShot->getKuroko()->setRzRyMvAng(_rz, _ry);
-                pShot->getKuroko()->setMvVelo(PX_C(70));
-                pShot->getKuroko()->setMvAcce(100);
+                pSnipeShot->positionAs(this);
+                pSnipeShot->getKuroko()->setRzRyMvAng(_rz, _ry);
+                pSnipeShot->getKuroko()->setMvVelo(PX_C(70));
+                pSnipeShot->getKuroko()->setMvAcce(100);
             }
-        }
-        if (pMyShip->shot_level_ == 2) {
-            uint32_t i = pMyShip->shot_count_ % 4;
-            UTIL::shotWay003(this,
-                             pDepo_MyOptionShot_ , MyShip::shot2_matrix_[i],
-                             nullptr, nullptr,
-                             nullptr, nullptr,
-                             PX_C(1),
-                             MYSHIP_SHOT_MATRIX, MYSHIP_SHOT_MATRIX,
-                             D_ANG(5), D_ANG(5),
-                             PX_C(70), 100,
-                             1, 0, 1.0);
-        } else if (pMyShip->shot_level_ >= 3) {
-            uint32_t i = pMyShip->shot_count_ % 2;
-            UTIL::shotWay003(this,
-                             pDepo_MyOptionShot_ , MyShip::shot3_matrix_[i],
-                             nullptr, nullptr,
-                             nullptr, nullptr,
-                             PX_C(1),
-                             MYSHIP_SHOT_MATRIX, MYSHIP_SHOT_MATRIX,
-                             D_ANG(5), D_ANG(5),
-                             PX_C(70), 100,
-                             1, 0, 1.0);
+        } else {
+            if (pMyShip->shot_level_ >= 1) {
+                MyOptionShot001* pShot = (MyOptionShot001*)pDepo_MyOptionShot_->dispatch();
+                if (pShot) {
+                    getSeTx()->play3D(SE_FIRE_SHOT);
+                    pShot->positionAs(this);
+                    pShot->getKuroko()->setRzRyMvAng(_rz, _ry);
+                    pShot->getKuroko()->setMvVelo(PX_C(70));
+                    pShot->getKuroko()->setMvAcce(100);
+                }
+            }
+            if (pMyShip->shot_level_ == 2) {
+                uint32_t i = pMyShip->soft_rapidshot_shot_count_ % 4;
+                UTIL::shotWay003(this,
+                                 pDepo_MyOptionShot_ , MyShip::shot2_matrix_[i],
+                                 nullptr, nullptr,
+                                 nullptr, nullptr,
+                                 PX_C(1),
+                                 MYSHIP_SHOT_MATRIX, MYSHIP_SHOT_MATRIX,
+                                 D_ANG(5), D_ANG(5),
+                                 PX_C(70), 100,
+                                 1, 0, 1.0);
+            } else if (pMyShip->shot_level_ >= 3) {
+                uint32_t i = pMyShip->soft_rapidshot_shot_count_ % 2;
+                UTIL::shotWay003(this,
+                                 pDepo_MyOptionShot_ , MyShip::shot3_matrix_[i],
+                                 nullptr, nullptr,
+                                 nullptr, nullptr,
+                                 PX_C(1),
+                                 MYSHIP_SHOT_MATRIX, MYSHIP_SHOT_MATRIX,
+                                 D_ANG(5), D_ANG(5),
+                                 PX_C(70), 100,
+                                 1, 0, 1.0);
+            }
         }
     }
     //光子魚雷発射

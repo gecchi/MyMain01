@@ -74,9 +74,9 @@ public:
      * レコード件数を返す .
      * @return レコード件数
      */
-    size_t getCount();
+    size_t getCount() const;
 
-    bool hasRecord();
+    bool hasRecord() const ;
 
     /**
      * データを取得 .

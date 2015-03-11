@@ -126,15 +126,15 @@ public:
         return _paValue[prm_status_kind]._double_val *= val;
     }
 
-    inline int get(int prm_status_kind) {
+    inline int get(int prm_status_kind) const {
         return _paValue[prm_status_kind]._int_val;
     }
 
-    inline int getChar(int prm_status_kind) {
+    inline int getChar(int prm_status_kind) const {
         return _paValue[prm_status_kind]._char_val;
     }
 
-    inline int getInt(int prm_status_kind) {
+    inline int getInt(int prm_status_kind) const {
         return _paValue[prm_status_kind]._int_val;
     }
 
@@ -142,11 +142,11 @@ public:
         return _paValue[prm_status_kind]._uint_val;
     }
 
-    inline double getDouble(int prm_status_kind) {
+    inline double getDouble(int prm_status_kind) const {
         return _paValue[prm_status_kind]._double_val;
     }
 
-    inline void* getPtr(int prm_status_kind) {
+    inline void* getPtr(int prm_status_kind) const {
         return _paValue[prm_status_kind]._ptr;
     }
 

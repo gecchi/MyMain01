@@ -48,10 +48,12 @@ public:
     MyLockonController* pLockonCtrler_;
     /** [r]魚雷コントローラー */
     MyTorpedoController* pTorpedoCtrler_;
-    /** [r]発射するレーザーチップのデポジトリ */
+    /** [r]レーザーチップのデポジトリ */
     GgafLib::LaserChipDepository* pLaserChipDepo_;
-    /** [r]発射するショットのデポジトリ */
+    /** [r]ショットのデポジトリ */
     GgafCore::GgafActorDepository* pDepo_MyOptionShot_;
+    /** [r]スナイプショットのデポジトリ */
+    GgafCore::GgafActorDepository* pDepo_MySnipeOptionShot_;
     /** [r]レーザー発射中のエフェクト */
     GgafDxCore::GgafDxFigureActor* pEffect_LaserIrradiate_;
 

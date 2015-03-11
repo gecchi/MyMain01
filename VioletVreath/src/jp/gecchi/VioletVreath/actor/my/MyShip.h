@@ -268,6 +268,7 @@ public:
     /** 自機の毎フレームの移動履歴（絶対座標）  */
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_MyShipGeoHistory2_;
     GgafCore::GgafActorDepository* pDepo_MyShots001_;
+    GgafCore::GgafActorDepository* pDepo_MySnipeShots001_;
     GgafLib::LaserChipDepository* pLaserChipDepo_;
 
     EffectTurbo001* pEffectTurbo001_;
@@ -279,18 +280,29 @@ public:
 //    GgafCore::GgafActorDepository* pDepo_TestNomalShot_;
 //    //<---- debug
 
-    /** ソフト連射開始からの経過フレーム数 */
-    frame frame_soft_rapidshot_;
-    /** ソフト連射中であるか否か */
-    bool is_being_soft_rapidshot_;
-    /** ショットしたフレームのみ true になる */
-    bool just_shot_;
-    uint32_t shot_count_;
 
-    /** ソフト連射間隔 */
-    frame soft_rapidshot_interval_;
-    /** ソフト連射数 */
-    int soft_rapidshot_num_;
+    /** ソフト連射発動中であるか否か */
+    bool is_being_soft_rapidshot_;
+
+    /** ソフト連射が発動開始してからの発射数カウント合計 */
+    uint32_t soft_rapidshot_shot_count_;
+    /** ソフト連射が発動開始してからのプッシュカウント */
+    int soft_rapidshot_push_cnt_;
+
+    /** １プッシュ内のソフト連射開始からの経過フレーム数 */
+    frame soft_rapidshot_frames_in_one_push;
+    /** １プッシュ内のソフト連射開始からの発射数カウント */
+    int soft_rapidshot_shot_count_in_one_push_;
+
+    /** ショットが発生したフレームのみ true になる */
+    bool is_just_shot_;
+    /** ショットが先頭の一発目のスナイプショットか否か、スナイプショットの時のみ true になる */
+    bool is_snipe_shot_;
+
+
+
+
+
 
     /** レーザー発射中かどうか */
     bool is_shooting_laser_;

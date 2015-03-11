@@ -161,7 +161,7 @@ void CollisionChecker3D::updateHitArea() {
 bool CollisionChecker3D::isHit(GgafDxCore::GgafDxChecker* const prm_pOppChecker) {
     GgafDxCollisionArea* const pCollisionArea = _pCollisionArea;
     GgafDxCollisionArea* const pOppCollisionArea = prm_pOppChecker->_pCollisionArea; //相手の当たり判定領域
-    GgafDxGeometricActor* pOppActor = prm_pOppChecker->_pActor;                //相手のアクター
+    GgafDxGeometricActor* const pOppActor = prm_pOppChecker->_pActor;                //相手のアクター
     const int colli_part_num = pCollisionArea->_colli_part_num;
     for (int i = 0; i < colli_part_num; i++) {
         GgafDxCollisionPart* const pColliPart = pCollisionArea->_papColliPart[i];
