@@ -66,7 +66,7 @@ void EnemyOzartia::initialize() {
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->makeCollision(1);
     pChecker->setColliAAB_Cube(0, 40000);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->relateFaceByMvAng(false); //独立
     setHitAble(false);
 }
@@ -84,8 +84,8 @@ void EnemyOzartia::processBehavior() {
 
     MyShip* pMyShip = P_MYSHIP;
     //本体移動系の処理 ここから --->
-    GgafDxKuroko* pKuroko = getKuroko();
-    GgafProgress* pProg = getProgress();
+    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG1_INIT: {
             setHitAble(false);
@@ -279,7 +279,7 @@ void EnemyOzartia::processJudgement() {
 }
 
 void EnemyOzartia::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

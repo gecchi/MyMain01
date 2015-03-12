@@ -32,7 +32,7 @@ void VarietyRatislavia001::initialize() {
     _x = GgafDxCore::GgafDxUniverse::_x_gone_right+r1_+r2_;
     _y = 0;
     _z = 0;
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setRzRyMvAng(D180ANG, 0);
     pKuroko->setMvVelo(2000);
     pKuroko->setFaceAngVelo(AXIS_Z, 60);

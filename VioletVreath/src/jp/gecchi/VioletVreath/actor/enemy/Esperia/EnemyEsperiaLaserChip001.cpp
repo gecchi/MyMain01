@@ -29,7 +29,7 @@ void EnemyEsperiaLaserChip001::initialize() {
     pChecker->setColliAAB_Cube(0, 20000);
     setHitAble(true, false);
     setScaleR(5.0);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->forceMvVeloRange(PX_C(100));
     pKuroko->relateFaceByMvAng(true);
     useProgress(PROG_BANPEI);
@@ -40,7 +40,7 @@ void EnemyEsperiaLaserChip001::onActive() {
     //ステータスリセット
     getStatus()->reset();
     begin_y_ = _y;
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->stopTurnMvAng();
     if (getFrontChip() == nullptr) {
         pKuroko->setMvAngTwd(tx1_, ty1_, tz1_);
@@ -57,8 +57,8 @@ void EnemyEsperiaLaserChip001::onActive() {
 
 void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
     MyShip* pMyShip = P_MYSHIP;
-    GgafDxKuroko* pKuroko = getKuroko();
-    GgafProgress* pProg = getProgress();
+    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_MOVE_UP: {
             //レーザー上昇
@@ -129,7 +129,7 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
 }
 
 void EnemyEsperiaLaserChip001::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         sayonara();

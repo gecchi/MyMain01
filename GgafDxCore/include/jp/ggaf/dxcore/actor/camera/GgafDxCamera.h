@@ -173,15 +173,15 @@ public:
 
     bool isMoving();
 
-    inline dxcoord getZFar() {
+    inline dxcoord getZFar() const {
         return _zf;
     }
 
-    inline dxcoord getZNear() {
+    inline dxcoord getZNear() const {
         return _zn;
     }
 
-    inline D3DXMATRIX* getProjectionMatrix() {
+    inline D3DXMATRIX* getProjectionMatrix()  {
         return &_matProj;
     }
 
@@ -189,15 +189,15 @@ public:
         return &_matView;
     }
 
-    inline D3DXVECTOR3* getVecCamFromPoint() {
+    inline D3DXVECTOR3* getVecCamFromPoint() const {
         return _pVecCamFromPoint;
     }
 
-    inline D3DXVECTOR3* getVecCamLookatPoint() {
+    inline D3DXVECTOR3* getVecCamLookatPoint() const {
         return _pVecCamLookatPoint;
     }
 
-    inline dxcoord getZOrigin() {
+    inline dxcoord getZOrigin() const {
         return _cameraZ_org;
     }
 

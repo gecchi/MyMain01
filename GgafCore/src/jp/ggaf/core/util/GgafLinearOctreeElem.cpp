@@ -52,7 +52,7 @@ void GgafLinearOctreeElem::clear() {
 //基本ツリーは、登録と、クリアのみ行うという設計
 }
 
-void GgafLinearOctreeElem::belongTo(GgafLinearOctreeSpace* prm_pSpace_target) {
+void GgafLinearOctreeElem::belongTo(GgafLinearOctreeSpace* const prm_pSpace_target) {
     if (_pSpace_current == prm_pSpace_target) {
         //_TRACE_("belongToせんでいい");
         return;
@@ -77,8 +77,8 @@ void GgafLinearOctreeElem::belongTo(GgafLinearOctreeSpace* prm_pSpace_target) {
     }
     //引数の要素番号
     uint32_t index = prm_pSpace_target->_my_index;
-    GgafLinearOctreeSpace* paSpace = _pLinearOctree->_paSpace;
-    uint32_t this_kindbit = this->_kindbit;
+    GgafLinearOctreeSpace* const paSpace = _pLinearOctree->_paSpace;
+    const uint32_t this_kindbit = this->_kindbit;
     //親空間すべてに要素種別情報を流す
     while (true) {
         if (paSpace[index]._kindinfobit & this_kindbit) {

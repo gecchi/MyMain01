@@ -65,7 +65,7 @@ void EnemyDelheid::onActive() {
     setHitAble(true);
     getMorpher()->reset();
     setRzFaceAng(0);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvAcce(0);
     pKuroko->keepOnTurningFaceAngTwd(P_MYSHIP,
                                      D_ANG(1), 0, TURN_CLOSE_TO, false);
@@ -79,7 +79,7 @@ void EnemyDelheid::processBehavior() {
     MyShip* pMyShip = P_MYSHIP;
 
     //移動の状態遷移------------------------------
-    GgafProgress* pProg = getProgress();
+    GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION);
@@ -162,7 +162,7 @@ void EnemyDelheid::processBehavior() {
         }
     }
     //-----------------------------------------------
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->_angvelo_face[AXIS_X] = pKuroko->_velo_mv/2;
     pKurokoLeader_->behave(); //スプライン移動を振る舞い
     pKuroko->behave();
@@ -170,7 +170,7 @@ void EnemyDelheid::processBehavior() {
 }
 
 void EnemyDelheid::processJudgement() {
-    GgafProgress* pProg = getProgress();
+    GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_SPLINE_MOVING: {
             if (pKurokoLeader_->isFinished()) {
@@ -202,7 +202,7 @@ void EnemyDelheid::processJudgement() {
 
 void EnemyDelheid::onHit(GgafActor* prm_pOtherActor) {
     if (getMorphWeight(MPH_OPEN) > 0.1) {
-        bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+        const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
         if (was_destroyed) {
             //破壊された時(スタミナ <= 0)
             getSeTx()->play3D(SE_EXPLOSION);

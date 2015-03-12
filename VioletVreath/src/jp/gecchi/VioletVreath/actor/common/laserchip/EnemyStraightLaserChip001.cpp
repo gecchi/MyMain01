@@ -37,7 +37,7 @@ void EnemyStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
         //出現2フレーム以内でヒット相手が地形ならば無視（出現即地形による破壊されを回避）
         return;
     }
-    bool was_destroyed = UTIL::transactEnemyHit(this, pOther);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, pOther);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         sayonara();

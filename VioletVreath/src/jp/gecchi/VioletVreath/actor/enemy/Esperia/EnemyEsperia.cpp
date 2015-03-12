@@ -70,7 +70,7 @@ void EnemyEsperia::initialize() {
 void EnemyEsperia::onActive() {
     getStatus()->reset();
     setHitAble(false);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setRzRyMvAng(0, D180ANG);
     pKuroko->setMvVelo(1000);
 
@@ -93,8 +93,8 @@ void EnemyEsperia::processBehavior() {
     //加算ランクポイントを減少
     UTIL::updateEnemyRankPoint(this);
     MyShip* pMyShip = P_MYSHIP;
-    GgafDxKuroko* pKuroko = getKuroko();
-    GgafProgress* pProg = getProgress();
+    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_ENTRY: {
             if (pProg->isJustChanged()) {
@@ -336,7 +336,7 @@ void EnemyEsperia::processJudgement() {
 }
 
 void EnemyEsperia::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

@@ -40,7 +40,7 @@ void EnemyThagoras::initialize() {
 }
 
 void EnemyThagoras::onActive() {
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->relateFaceByMvAng(true);
     pKuroko->setFaceAngVelo(AXIS_X, 2000);
     pKuroko->forceMvVeloRange(PX_C(15));
@@ -50,7 +50,7 @@ void EnemyThagoras::onActive() {
 }
 
 void EnemyThagoras::processBehavior() {
-    GgafProgress* pProg = getProgress();
+    GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
@@ -110,7 +110,7 @@ void EnemyThagoras::processJudgement() {
 }
 
 void EnemyThagoras::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

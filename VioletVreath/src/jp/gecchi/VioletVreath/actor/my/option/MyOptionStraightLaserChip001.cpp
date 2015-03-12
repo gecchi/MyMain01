@@ -40,7 +40,7 @@ void MyOptionStraightLaserChip001::onActive() {
     StraightLaserChip::onActive();
 
     GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvVelo(80000);
     pKuroko->setMvAcce(300);
     is_lockon_ = false;

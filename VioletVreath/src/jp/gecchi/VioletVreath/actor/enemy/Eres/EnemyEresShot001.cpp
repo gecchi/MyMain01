@@ -39,7 +39,7 @@ EnemyEresShot001::EnemyEresShot001(const char* prm_name) :
 }
 
 void EnemyEresShot001::initialize() {
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->forceMvVeloRange(veloTop_, veloBottom_);
     pKuroko->relateFaceByMvAng(true);
     CollisionChecker3D* pChecker = getCollisionChecker();
@@ -52,7 +52,7 @@ void EnemyEresShot001::onActive() {
     getStatus()->reset();
 
     //出現時
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvVelo(velo1st_);
     pKuroko->setMvAcce(iMoveAcce_1st_);
 
@@ -62,7 +62,7 @@ void EnemyEresShot001::onActive() {
 void EnemyEresShot001::processBehavior() {
     //加算ランクポイントを減少
     UTIL::updateEnemyRankPoint(this);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     //方向転換開始
     if (getActiveFrame() == frame_TurnBegin_) {
         pKuroko->turnMvAngTwd(P_MYSHIP,
@@ -91,7 +91,7 @@ void EnemyEresShot001::processJudgement() {
 }
 
 void EnemyEresShot001::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(ERESSHOT001_SE_EXPLOSION);

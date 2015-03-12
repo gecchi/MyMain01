@@ -381,7 +381,7 @@ void MyShip::initialize() {
 //    pChecker->setColliSphere(3, 0,0,-100000, 30000, true, true, true);
 //    pChecker->setColliSphere(4, 0,0,100000, 30000, true, true, true);
 
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvVelo(0);
 
     //setMaterialColor(1.0, 0.5, 0.5);
@@ -439,7 +439,7 @@ void MyShip::onInactive() {
 void MyShip::processBehavior() {
     VirtualButton* pVbPlay = VB_PLAY;
     int pos_camera = P_VAM->pos_camera_;
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     //VAMSystemの実装
     // (Viewpoint Adaptive Moving System 視点適応型移動システム)
     if (pos_camera == VAM_POS_RIGHT) {
@@ -757,79 +757,86 @@ void MyShip::processBehavior() {
     //ソフト連射
     //１プッシュ目の初弾のみ１発のみ発射のスナイプショット。
     //２プッシュ目以降ソフト連射、１プッシュで4F毎に最大3発
-    bool push_down = pVbPlay->isPushedDown(VB_SHOT1);
-
-    if (push_down && !pVbPlay->isBeingPressed(VB_POWERUP)) {
+    if (pVbPlay->isPushedDown(VB_SHOT1) && !pVbPlay->isBeingPressed(VB_POWERUP)) {
         if (is_being_soft_rapidshot_) {
             if (soft_rapidshot_frames_in_one_push >= SOFT_RAPIDSHOT_INTERVAL) {
-                //ソフト連射による２発目の SOFT_RAPIDSHOT_INTERVAL フレームより遅い場合
-                //連射と連射のつなぎ目が無いようにするために、
-                //soft_rapidshot_frames_in_one_push を直近のショットから開始したかのようにリセット
+                //プッシュ後のソフト連射による２発目の SOFT_RAPIDSHOT_INTERVAL フレームより次のプッシュが遅い場合
+                //連射と連射のつなぎ目が無いように演出するめに、
+                //soft_rapidshot_frames_in_one_push を SOFT_RAPIDSHOT_INTERVAL 倍の値農地最小値にする
                 soft_rapidshot_frames_in_one_push = soft_rapidshot_frames_in_one_push % SOFT_RAPIDSHOT_INTERVAL;
-            } else {
-                //ソフト連射による２発目の SOFT_RAPIDSHOT_INTERVAL フレームより速い手連の場合
-                //これを受け入れて強制的に発射できる(速い手動連射のほうがより連射できるようにしたい。)
-                soft_rapidshot_frames_in_one_push = 0;
+                if (soft_rapidshot_frames_in_one_push > 0) {
+                    //soft_rapidshot_frames_in_one_push が運良く0ならば、SOFT_RAPIDSHOT_NUM 発の弾がソフト連射により発射されることになるが、
+                    //soft_rapidshot_frames_in_one_push > 0 ならば、SOFT_RAPIDSHOT_NUM-1 発になり１発減ってしまう。
+                    //これを避ける為、SOFT_RAPIDSHOT_NUM 発の弾を撃つことを保証するために、soft_rapidshot_frames_in_one_pushを補正
+                    soft_rapidshot_frames_in_one_push -= SOFT_RAPIDSHOT_INTERVAL;
+                }
                 soft_rapidshot_shot_count_in_one_push_ = 0;
-            }
-        } else {
-            if (is_being_soft_rapidshot_ == false) {
-                is_being_soft_rapidshot_ = true;
-                soft_rapidshot_frames_in_one_push = 0;
-                soft_rapidshot_shot_count_in_one_push_ = 0;
-                soft_rapidshot_push_cnt_ = 1;
+                soft_rapidshot_push_cnt_++;
             } else {
+                //プッシュ後、ソフト連射による２発目の SOFT_RAPIDSHOT_INTERVAL フレームより次のプッシュが速い場合
+                //これを受け入れて強制的に発射できる(SOFT_RAPIDSHOT_INTERVALより速い手動連射は、連射優先)
                 soft_rapidshot_frames_in_one_push = 0;
                 soft_rapidshot_shot_count_in_one_push_ = 0;
                 soft_rapidshot_push_cnt_++;
             }
+        } else {
+            //ソフト連射開始！
+            is_being_soft_rapidshot_ = true;
+            soft_rapidshot_frames_in_one_push = 0;
+            soft_rapidshot_shot_count_in_one_push_ = 0;
+            soft_rapidshot_push_cnt_ = 1;
         }
     }
 
     if (is_being_soft_rapidshot_) {
+        //ソフト連射中、実際にショットを放つタイミングの判定
         if (soft_rapidshot_frames_in_one_push % SOFT_RAPIDSHOT_INTERVAL == 0) {
-            is_just_shot_ = true;//たった今ショットしましたフラグ
-
+            //ショットを放つタイミングではあるが、果たしてショットしてもよいか？
             soft_rapidshot_shot_count_++;
             soft_rapidshot_shot_count_in_one_push_++;
-
+            //ソフト連射維持時間外判定
             if(soft_rapidshot_frames_in_one_push > SOFT_RAPIDSHOT_INTERVAL*(SOFT_RAPIDSHOT_NUM-1)) {
-                //スナイプショット、或いは、SOFT_RAPIDSHOT_NUM 発打ち終えたら
-                is_being_soft_rapidshot_ = false; //ソフト連射解除
+                //ソフト連射解除
+                is_being_soft_rapidshot_ = false;
                 soft_rapidshot_shot_count_ = 0;
                 soft_rapidshot_shot_count_in_one_push_ = 0;
                 soft_rapidshot_push_cnt_ = 0;
-                is_just_shot_ = false;
+                is_just_shot_ = false; //ショット無しよ
+            } else {
+                //ソフト連射維持時間内なので
+                is_just_shot_ = true;  //ショットしましょう
+                soft_rapidshot_frames_in_one_push++;
             }
         } else {
+            //ソフト連射中だが、タイミングが悪い
             is_just_shot_ = false;
+            soft_rapidshot_frames_in_one_push++;
         }
     } else {
+         //ソフト連射中ですらない
         is_just_shot_ = false;
     }
 
-    if (is_being_soft_rapidshot_) {
-        soft_rapidshot_frames_in_one_push++;
-    }
-
+    //スナイプショットの判定
     is_snipe_shot_ = false;
     if (is_just_shot_) {
-        if (soft_rapidshot_push_cnt_ == 1) {
-            if (soft_rapidshot_shot_count_in_one_push_ == 1) {
-                is_snipe_shot_ = true;
+        if (soft_rapidshot_push_cnt_ == 1) { //最初のプッシュである。
+            if (soft_rapidshot_shot_count_in_one_push_ == 1) {  //最初のプッシュの１発目である
+                is_snipe_shot_ = true; //スナイプショット！
             }
             if (2 <= soft_rapidshot_shot_count_in_one_push_ && soft_rapidshot_shot_count_in_one_push_ <= SOFT_RAPIDSHOT_NUM) {
-                is_just_shot_ = false; //最初のグループの弾は、初弾以外無理やりショット無し矯正。
+                is_just_shot_ = false; //スナイプショット時のプッシュは、初弾以外を無理やりショット無し矯正。
             } else {
                 is_just_shot_ = true;
             }
         }
+    } else {
     }
 
     if (is_just_shot_) {
         if (is_snipe_shot_) {
             //スナイプショット時
-            MySnipeShot001* pSnipeShot = (MySnipeShot001*)pDepo_MySnipeShots001_->dispatch();
+            MySnipeShot001* const pSnipeShot = (MySnipeShot001*)pDepo_MySnipeShots001_->dispatch();
             if (pSnipeShot) {
                 getSeTx()->play3D(SE_FIRE_SHOT);
                 pSnipeShot->positionAs(this);
@@ -840,7 +847,7 @@ void MyShip::processBehavior() {
         } else {
             //スナイプショット以外時
             if (shot_level_ >= 1) {
-                MyShot001* pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
+                MyShot001* const pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
                 if (pShot) {
                     getSeTx()->play3D(SE_FIRE_SHOT);
                     pShot->positionAs(this);

@@ -65,7 +65,7 @@ void MyOptionController::initialize() {
 }
 
 void MyOptionController::onReset() {
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvVelo(0);
     pKuroko->forceRzRyMvAngVeloRange(-1*angVelo_Turn_, angVelo_Turn_);
     pKuroko->setRzRyMvAng(0,0);
@@ -79,9 +79,10 @@ void MyOptionController::onActive() {
 
 void MyOptionController::processBehavior() {
     MyShip* const pMyShip = P_MYSHIP;
-    VirtualButton* const pVbPlay = VB_PLAY;
-    vb_sta is_double_push_VB_OPTION = pVbPlay->isDoublePushedDown(VB_OPTION,8,8);
-    GgafDxKuroko* pKuroko = getKuroko();
+    const VirtualButton* const pVbPlay = VB_PLAY;
+    const vb_sta is_double_push_VB_OPTION = pVbPlay->isDoublePushedDown(VB_OPTION,8,8);
+    GgafDxKuroko* const pKuroko = getKuroko();
+    MyOption* const pOption = pOption_;
     if (is_double_push_VB_OPTION) {
         //もとに戻す
         pKuroko->turnRzRyMvAngTo(D0ANG, D0ANG,
@@ -92,12 +93,12 @@ void MyOptionController::processBehavior() {
         is_handle_move_mode_ = false;
         return_to_default_position_seq_ = true;
         MyOptionController::adjustDefaltAngPosition(60);
-        pOption_->return_to_base_radiusPosition_seq_ = true;
-        pOption_->return_to_base_angExpanse_seq_= true;
-        if (pOption_->isActive()) {
-            EffectTurbo002* pTurbo002 = dispatchFromCommon(EffectTurbo002);
+        pOption->return_to_base_radiusPosition_seq_ = true;
+        pOption->return_to_base_angExpanse_seq_= true;
+        if (pOption->isActive()) {
+            EffectTurbo002* const pTurbo002 = dispatchFromCommon(EffectTurbo002);
             if (pTurbo002) {
-                pTurbo002->positionAs(pOption_);
+                pTurbo002->positionAs(pOption);
             }
         }
     } else if (pVbPlay->isBeingPressed(VB_OPTION) && !pVbPlay->isBeingPressed(VB_TURBO)) {
@@ -171,13 +172,13 @@ void MyOptionController::processBehavior() {
             is_handle_move_mode_ = false; //VB_OPTION離すと解除
             pKuroko->setMvVelo(0);
             //VB_OPTION 押下と無関係で フリーズオプションのよーな感じになる
-            GgafDxGeoElem* pGeoMyShipPrev = pMyShip->pRing_MyShipGeoHistory2_->getPrev();
+            const GgafDxGeoElem* const pGeoMyShipPrev = pMyShip->pRing_MyShipGeoHistory2_->getPrev();
             _x += (pMyShip->_x - pGeoMyShipPrev->x);
             _y += (pMyShip->_y - pGeoMyShipPrev->y);
             _z += (pMyShip->_z - pGeoMyShipPrev->z);
         }
     } else {
-        GgafDxGeoElem* pGeoMyShipTrace = pMyShip->pRing_MyShipGeoHistory4OptCtrler_->getPrev(MyOptionController::o2o_*(no_+1));
+        const GgafDxGeoElem* const pGeoMyShipTrace = pMyShip->pRing_MyShipGeoHistory4OptCtrler_->getPrev(MyOptionController::o2o_*(no_+1));
         coord tx = pMyShip->_x_local + pGeoMyShipTrace->x;
         coord ty = pMyShip->_y_local + pGeoMyShipTrace->y;
         coord tz = pMyShip->_z_local + pGeoMyShipTrace->z;
@@ -223,7 +224,7 @@ void MyOptionController::processBehavior() {
 
 
 void MyOptionController::setNumOption(int prm_num) {
-    MyShipScene* pMyShipScene = P_MYSHIP_SCENE;
+    const MyShipScene* const pMyShipScene = P_MYSHIP_SCENE;
     MyOptionController::now_option_num_ = prm_num;
     for (int i = 0; i < MyOptionController::max_option_num_; i++) {
         if (i >= MyOptionController::now_option_num_) {
@@ -235,7 +236,7 @@ void MyOptionController::setNumOption(int prm_num) {
     }
 }
 void MyOptionController::adjustDefaltAngPosition(frame prm_spent_frame) {
-    MyShipScene* pMyShipScene = P_MYSHIP_SCENE;
+    const MyShipScene* const pMyShipScene = P_MYSHIP_SCENE;
     if (MyOptionController::now_option_num_ <= 4) {
         for (int i = 0; i < MyOptionController::now_option_num_; i++) {
             pMyShipScene->papOptionCtrler_[i]->pOption_->adjustAngPosition((D360ANG/MyOptionController::now_option_num_)*i,prm_spent_frame);
@@ -251,7 +252,7 @@ void MyOptionController::adjustDefaltAngPosition(frame prm_spent_frame) {
 }
 
 void MyOptionController::adjustDefaltAngPosition(frame prm_spent_frame, int prm_start_opt_no, int prm_end_opt_no) {
-    MyShipScene* pMyShipScene = P_MYSHIP_SCENE;
+    const MyShipScene* const pMyShipScene = P_MYSHIP_SCENE;
     if (MyOptionController::now_option_num_ <= 4) {
         for (int i = 0; i < MyOptionController::now_option_num_; i++) {
             if (prm_start_opt_no <= i && i <= prm_end_opt_no) {

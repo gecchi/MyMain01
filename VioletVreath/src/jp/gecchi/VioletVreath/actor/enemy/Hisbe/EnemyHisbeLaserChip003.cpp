@@ -43,7 +43,7 @@ void EnemyHisbeLaserChip003::onActive() {
 }
 
 void EnemyHisbeLaserChip003::processBehavior() {
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     if (pNearestScrollingScene_ && pNearestScrollingScene_->_pFuncScrolling == WalledScene::scrollX) {
         pKurokoLeader_->_x_start -= pNearestScrollingScene_->getScrollSpeed();
     }
@@ -74,7 +74,7 @@ void EnemyHisbeLaserChip003::processJudgement() {
 }
 
 void EnemyHisbeLaserChip003::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         sayonara();

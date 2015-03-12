@@ -42,7 +42,7 @@ void FormationZako::onActive() {
 }
 
 void FormationZako::processBehavior() {
-    GgafProgress* pProg = getProgress();
+    GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             pProg->changeNext();

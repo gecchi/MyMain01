@@ -32,7 +32,7 @@ void Shot002::onActive() {
     getStatus()->reset();
     setHitAble(true);
     setScale(2000);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->relateFaceByMvAng(true);
     pKuroko->setMvVelo(RF_Shot002_MvVelo(G_RANK));
     pKuroko->setFaceAngVelo(AXIS_X, RF_Shot002_AngVelo(G_RANK));
@@ -41,7 +41,7 @@ void Shot002::onActive() {
 void Shot002::processBehavior() {
     //加算ランクポイントを減少
     UTIL::updateEnemyRankPoint(this);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     if (getActiveFrame() == 70) {
         pKuroko->turnMvAngTwd(P_MYSHIP,
                               3000, 0,
@@ -66,7 +66,7 @@ void Shot002::processJudgement() {
 }
 
 void Shot002::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(0);

@@ -88,7 +88,7 @@ void EnemyStraea::initialize() {
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->makeCollision(1);
     pChecker->setColliSphere(0, PX_C(200));
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setRzRyMvAng(0, D180ANG);
 }
 
@@ -102,8 +102,8 @@ void EnemyStraea::onActive() {
 void EnemyStraea::processBehavior() {
     //加算ランクポイントを減少
     UTIL::updateEnemyRankPoint(this);
-    GgafDxKuroko* pKuroko = getKuroko();
-    GgafProgress* pProg = getProgress();
+    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             UTIL::activateEntryEffectOf(this);
@@ -295,7 +295,7 @@ void EnemyStraea::onHit(GgafActor* prm_pOtherActor) {
         };
 
 
-    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

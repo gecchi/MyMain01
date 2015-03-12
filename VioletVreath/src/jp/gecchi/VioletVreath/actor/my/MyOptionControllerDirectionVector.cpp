@@ -23,7 +23,7 @@ void MyOptionControllerDirectionVector::onActive() {
 }
 
 void MyOptionControllerDirectionVector::processBehavior() {
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->behave();
 }
 

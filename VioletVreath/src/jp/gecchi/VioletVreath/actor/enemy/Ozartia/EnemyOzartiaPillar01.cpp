@@ -31,8 +31,8 @@ void EnemyOzartiaPillar01::onActive() {
 void EnemyOzartiaPillar01::processBehavior() {
     UTIL::updateEnemyRankPoint(this);
     //本体移動系の処理 ここから --->
-    GgafDxKuroko* pKuroko = getKuroko();
-    GgafProgress* pProg = getProgress();
+    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
@@ -83,7 +83,7 @@ void EnemyOzartiaPillar01::processJudgement() {
 }
 
 void EnemyOzartiaPillar01::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         sayonara();

@@ -76,7 +76,7 @@ void EnemyDrastea::initialize() {
 
 void EnemyDrastea::onActive() {
     getStatus()->reset();
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvVelo(0);
     pKuroko->setFaceAngVelo(700, 300, 1100);
     pAxsMver_->setVxMvVelo(-3000);
@@ -104,7 +104,7 @@ void EnemyDrastea::processJudgement() {
 }
 
 void EnemyDrastea::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

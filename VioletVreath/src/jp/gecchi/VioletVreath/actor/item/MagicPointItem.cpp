@@ -23,7 +23,7 @@ MagicPointItem::MagicPointItem(const char* prm_name, const char* prm_model, Ggaf
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(false);  //Zバッファは書き込み無し
     setAlpha(0.9);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
     pKuroko->relateFaceByMvAng(true);
     kDX_ = kDY_ = kDZ_ = 0;
@@ -55,7 +55,7 @@ void MagicPointItem::onActive() {
 //    //発生地点から、自機への方向への散らばり範囲正方形領域が位置する距離（scattered_distance > (scattered_renge/2) であること)
 ////    int scattered_distance = scattered_renge/2 + 400000;
 //    //従って、scattered_distance 離れていても、自機は動かなくてもぎりぎり全て回収できる。
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->forceMvVeloRange(0, 20000);
     float vX, vY, vZ;
     UTIL::getNormalizeVector(
@@ -77,8 +77,8 @@ void MagicPointItem::onActive() {
 
 void MagicPointItem::processBehavior() {
     MyShip* pMyShip = P_MYSHIP;
-    GgafDxKuroko* pKuroko = getKuroko();
-    GgafProgress* pProg = getProgress();
+    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafProgress* const pProg = getProgress();
     //通常移動
     if (pProg->get() == PROG_DRIFT) {
         //TractorMagic発動中はPROG_ATTACHへ移行
@@ -165,7 +165,7 @@ void MagicPointItem::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
 
-    GgafProgress* pProg = getProgress();
+    GgafProgress* const pProg = getProgress();
     if (pProg->get() == PROG_DRIFT && (pOther->getKind() & KIND_MY_BODY))  {
         setHitAble(false);
         pProg->change(PROG_ATTACH);

@@ -42,8 +42,8 @@ void EnemyOrtuna::onActive() {
 
 void EnemyOrtuna::processBehavior() {
     UTIL::updateEnemyRankPoint(this);
-    GgafDxKuroko* pKuroko = getKuroko();
-    GgafProgress* pProg = getProgress();
+    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
          case PROG_INIT: {
              setHitAble(false);
@@ -154,7 +154,7 @@ void EnemyOrtuna::processJudgement() {
 }
 
 void EnemyOrtuna::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

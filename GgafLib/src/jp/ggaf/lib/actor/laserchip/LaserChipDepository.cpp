@@ -52,7 +52,7 @@ LaserChip* LaserChipDepository::dispatch(int prm_offset_frames) {
         _num_interval_frame_count++;
         return nullptr;
     } else {
-        LaserChip* pChip = (LaserChip*)GgafActorDepository::dispatch(prm_offset_frames);
+        LaserChip* const pChip = (LaserChip*)GgafActorDepository::dispatch(prm_offset_frames);
         if (pChip) {
             if (_pChip_prev_dispatch) {
                 //以前のdispatch()したチップ

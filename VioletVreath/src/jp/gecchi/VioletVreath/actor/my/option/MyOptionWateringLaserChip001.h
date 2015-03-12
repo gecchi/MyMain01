@@ -41,6 +41,7 @@ public:
     /** [r/w]速度に対する加速度の割合（この値を大きくすると、カーブが緩くなる） */
     int r_max_acce_;
     double rr_max_acce_;
+
     static int tex_no_;
     static GgafDxCore::GgafDxModel* pModel_;
     static char aaTextureName[3][51];

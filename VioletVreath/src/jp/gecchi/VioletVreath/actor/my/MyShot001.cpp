@@ -48,7 +48,7 @@ void MyShot001::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     setHitAble(false);
     UTIL::activateExplosionEffectOf(this);
-    sayonara();
+    sayonara(); //•K‚¸ŠÑ’Ê‚µ‚È‚¢
 }
 
 

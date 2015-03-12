@@ -30,12 +30,12 @@ void CubeMapMeshSetTestActor::initialize() {
 }
 
 void CubeMapMeshSetTestActor::onActive() {
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(AXIS_Y, 200);
 }
 
 void CubeMapMeshSetTestActor::processBehavior() {
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->behave();
 }
 

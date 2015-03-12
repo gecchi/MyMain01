@@ -52,7 +52,7 @@ void FormationUnomia::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
 }
 
 void FormationUnomia::processBehavior() {
-   GgafProgress* pProg = getProgress();
+   GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             pProg->changeNext();

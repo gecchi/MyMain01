@@ -29,7 +29,7 @@ void Planet001Atmosphere::initialize() {
 }
 
 void Planet001Atmosphere::processBehavior() {
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->behave();
 }
 

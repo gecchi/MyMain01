@@ -30,7 +30,7 @@ void EnemyTalante::onCreateModel() {
 }
 
 void EnemyTalante::initialize() {
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->relateFaceByMvAng(true);
     pKuroko->setFaceAngVelo(AXIS_X, 5000);
     CollisionChecker3D* pChecker = getCollisionChecker();
@@ -48,7 +48,7 @@ void EnemyTalante::onActive() {
     getStatus()->reset();
     setHitAble(true);
     Z_ok_ = Y_ok_ = false;
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvAcce(0);
     pKuroko->setMvVelo(4000);
     pKuroko->forceMvVeloRange(50000);
@@ -59,8 +59,8 @@ void EnemyTalante::processBehavior() {
     //加算ランクポイントを減少
     UTIL::updateEnemyRankPoint(this);
     MyShip* pMyShip = P_MYSHIP;
-    GgafDxKuroko* pKuroko = getKuroko();
-    GgafProgress* pProg = getProgress();
+    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             pProg->changeNext();
@@ -167,7 +167,7 @@ void EnemyTalante::onHit(GgafActor* prm_pOtherActor) {
          return;
     }
 
-    bool was_destroyed = UTIL::transactEnemyHit(this, pOther);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, pOther);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

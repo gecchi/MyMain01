@@ -29,7 +29,7 @@ void Shot004Blue::initialize() {
 void Shot004Blue::onReset() {
     setScaleR(3.0);
     setAlpha(0.99); //半透明にすることで両面レンダリング
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(AXIS_X, D_ANG(3));
     pKuroko->setMvVelo(40000);             //移動速度
     pKuroko->setMvAcce(1000);             //移動速度
@@ -67,7 +67,7 @@ void Shot004Blue::processJudgement() {
 }
 
 void Shot004Blue::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         sayonara();

@@ -52,7 +52,7 @@ void FormationUrydike::onActive() {
 }
 
 void FormationUrydike::processBehavior() {
-    GgafProgress* pProg = getProgress();
+    GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             pProg->changeNext();

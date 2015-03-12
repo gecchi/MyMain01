@@ -137,7 +137,7 @@ void NameEntryScene::processBehavior() {
 }
 
 void NameEntryScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
-    GgafProgress* pProg = getProgress();
+    GgafProgress* const pProg = getProgress();
     if (prm_no == EVENT_MENU_NAMEENTRY_DONE) {
         _TRACE_("NameEntryScene::onCatchEvent(EVENT_MENU_NAMEENTRY_DONE)");
         pProg->change(PROG_DONE_DISP);

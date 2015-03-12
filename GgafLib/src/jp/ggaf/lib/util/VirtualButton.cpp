@@ -497,7 +497,7 @@ bool VirtualButton::initStatic() {
     return true;
 }
 
-VirtualButton::VBRecord* VirtualButton::getPastVBRecord(frame prm_frame_ago) {
+VirtualButton::VBRecord* VirtualButton::getPastVBRecord(frame prm_frame_ago) const {
     VirtualButton::VBRecord* pVBRecord_temp = _pVBRecord_active;
     for (frame i = 0; i < prm_frame_ago; i++) {
         pVBRecord_temp = pVBRecord_temp->_prev;
@@ -531,12 +531,12 @@ vb_sta VirtualButton::isAutoRepeat(vb_sta prm_VB, frame prm_begin_repeat, frame 
     return false;
 }
 
-vb_sta VirtualButton::wasBeingPressed(vb_sta prm_VB, frame prm_frame_ago) {
+vb_sta VirtualButton::wasBeingPressed(vb_sta prm_VB, frame prm_frame_ago) const {
     VirtualButton::VBRecord* pVBRecord_temp = getPastVBRecord(prm_frame_ago);
     return (pVBRecord_temp->_state & prm_VB);
 }
 
-vb_sta VirtualButton::isNotBeingPressed(vb_sta prm_VB) {
+vb_sta VirtualButton::isNotBeingPressed(vb_sta prm_VB) const {
     if (isBeingPressed(prm_VB)) {
         return false;
     } else {
@@ -544,7 +544,7 @@ vb_sta VirtualButton::isNotBeingPressed(vb_sta prm_VB) {
     }
 }
 
-vb_sta VirtualButton::wasNotBeingPressed(vb_sta prm_VB, frame prm_frame_ago) {
+vb_sta VirtualButton::wasNotBeingPressed(vb_sta prm_VB, frame prm_frame_ago) const {
     if (wasBeingPressed(prm_VB, prm_frame_ago)) {
         return false;
     } else {
@@ -552,7 +552,7 @@ vb_sta VirtualButton::wasNotBeingPressed(vb_sta prm_VB, frame prm_frame_ago) {
     }
 }
 
-vb_sta VirtualButton::isDoublePushedDown(vb_sta prm_VB, frame prm_frame_push, frame prm_frame_delay) {
+vb_sta VirtualButton::isDoublePushedDown(vb_sta prm_VB, frame prm_frame_push, frame prm_frame_delay) const {
     //-------oooo-----o
     //       <--><--->
     //         |    `-- prm_frame_delay
@@ -617,7 +617,7 @@ vb_sta VirtualButton::isDoublePushedDown(vb_sta prm_VB, frame prm_frame_push, fr
 //	}
 //}
 
-vb_sta VirtualButton::arePushedDownAtOnce(vb_sta prm_aVB[], int prm_num_button) {
+vb_sta VirtualButton::arePushedDownAtOnce(vb_sta prm_aVB[], int prm_num_button) const {
 
     //åªç›ÇÕëSÇƒâüÇ≥ÇÍÇƒÇ¢Ç»ÇØÇÍÇŒÇ»ÇÁÇ»Ç¢
     for (int i = 0; i < prm_num_button; i++) {
@@ -659,7 +659,7 @@ vb_sta VirtualButton::arePushedDownAtOnce(vb_sta prm_aVB[], int prm_num_button) 
     return false;
 }
 
-vb_sta VirtualButton::wasPushedDown(vb_sta prm_VB, frame prm_frame_ago) {
+vb_sta VirtualButton::wasPushedDown(vb_sta prm_VB, frame prm_frame_ago) const {
     if (wasBeingPressed(prm_VB, prm_frame_ago) && wasNotBeingPressed(prm_VB, prm_frame_ago + 1)) {
         return true;
     } else {
@@ -667,7 +667,7 @@ vb_sta VirtualButton::wasPushedDown(vb_sta prm_VB, frame prm_frame_ago) {
     }
 }
 
-vb_sta VirtualButton::isReleasedUp(vb_sta prm_VB) {
+vb_sta VirtualButton::isReleasedUp(vb_sta prm_VB) const {
     if ((_pVBRecord_active->_prev->_state & prm_VB) && !(_pVBRecord_active->_state & prm_VB)) {
         return true;
     } else {
@@ -675,7 +675,7 @@ vb_sta VirtualButton::isReleasedUp(vb_sta prm_VB) {
     }
 }
 
-vb_sta VirtualButton::isPushedUp(vb_sta prm_VB, frame prm_frame_push) {
+vb_sta VirtualButton::isPushedUp(vb_sta prm_VB, frame prm_frame_push) const {
     //Å©âﬂãé      åªç›
     //            Å´
     //---------ooo-
@@ -720,7 +720,7 @@ vb_sta VirtualButton::isPushedUp(vb_sta prm_VB, frame prm_frame_push) {
 }
 
 
-vb_sta VirtualButton::wasReleasedUp(vb_sta prm_VB, frame prm_frame_ago) {
+vb_sta VirtualButton::wasReleasedUp(vb_sta prm_VB, frame prm_frame_ago) const {
     if (wasNotBeingPressed(prm_VB, prm_frame_ago) && wasBeingPressed(prm_VB, prm_frame_ago + 1)) {
         return true;
     } else {
@@ -729,7 +729,7 @@ vb_sta VirtualButton::wasReleasedUp(vb_sta prm_VB, frame prm_frame_ago) {
 }
 
 
-bool VirtualButton::isScrewPushDown(vb_sta prm_VB, frame prm_frame_delay) {
+bool VirtualButton::isScrewPushDown(vb_sta prm_VB, frame prm_frame_delay) const {
     if (isPushedDown(prm_VB)) {
         VirtualButton::VBRecord* pVBRecord;
         pVBRecord = _pVBRecord_active;
@@ -820,7 +820,7 @@ bool VirtualButton::isScrewPushDown(vb_sta prm_VB, frame prm_frame_delay) {
 //
 //}
 
-vb_sta VirtualButton::getState() {
+vb_sta VirtualButton::getState() const {
     return _pVBRecord_active->_state;
 }
 

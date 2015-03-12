@@ -78,7 +78,7 @@ public:
     /** [r]視錐台奥面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
     dxcoord _dest_from_vppln_back;
     /** [r/w]WORLD変換(回転×移動)行列計算関数 */
-    void (*_pFunc_calc_rot_mv_world_matrix)(const GgafDxGeometricActor*, D3DXMATRIX&);
+    void (*_pFunc_calc_rot_mv_world_matrix)(const GgafDxGeometricActor* const, D3DXMATRIX&);
     /** [r]自身の現在のWorld変換行列(通常は「拡大縮小×回転×移動」)。土台がある場合は、その土台と行列の積になっている。 */
     D3DXMATRIX _matWorld;
     /** [r]自身の現在のWorld変換行列の「回転×移動」のみ。土台がある場合は、その土台と行列の積になっている。 */

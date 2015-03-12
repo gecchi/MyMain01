@@ -70,7 +70,7 @@ void FormationDelheid::processBehavior() {
             pAlisana_goal = nullptr;
         }
     }
-    GgafProgress* pProg = getProgress();
+    GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
          case PROG_INIT: {
              updateRankParameter();

@@ -31,7 +31,7 @@ void Cursor001::processJudgement() {
 }
 
 void Cursor001::moveTo(coord tx, coord ty) {
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvAngTwd(tx, ty);
     pKuroko->asstA()->slideMvByDt(UTIL::getDistance(_x, _y, tx, ty),
                                   8, 0.2, 0.3, 0, true);

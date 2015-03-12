@@ -107,8 +107,9 @@ void LaserChip::onActive() {
 }
 
 void LaserChip::processSettlementBehavior() {
-    LaserChip* pChip_front = _pChip_front;
-    CollisionChecker3D* pChecker = getCollisionChecker();
+    CollisionChecker3D* const pChecker = getCollisionChecker();
+    const LaserChip* const pChip_front = _pChip_front;
+
 
     //レーザーチップ種別 設定。
     //シェーダーのパラメータとなります。

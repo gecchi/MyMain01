@@ -154,7 +154,7 @@ void LabelRankFont::initialize() {
 
 void LabelRankFont::processBehavior() {
 //    //<---- debug
-    GgafProgress* pProg = getProgress();
+    GgafProgress* const pProg = getProgress();
 
     int rank_level = G_RANK_DISP;
     if (rank_level != tmp_rank_) {

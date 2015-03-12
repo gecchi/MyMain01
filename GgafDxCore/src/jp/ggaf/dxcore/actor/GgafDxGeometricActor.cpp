@@ -68,48 +68,49 @@ void GgafDxGeometricActor::processSettlementBehavior() {
     if (_pFunc_calc_rot_mv_world_matrix) {
         //‰ñ“]~ˆÚ“®‚Ì‚ÝŒvŽZ‚µ _matWorldRotMv ‚É•ÛŽ
         (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
+        const D3DXMATRIX& matWorldRotMv = _matWorldRotMv;
         //‰ñ“]~ˆÚ“® ‚Ì‘O‚É ƒXƒP[ƒ‹‚ðl—¶‚µ‚ÄA
         //ÅI“I‚È _matWorld  s—ñ(Šg‘å~‰ñ“]~ˆÚ“®)‚ð•ÛŽ
         if (_sx != LEN_UNIT) {
-            float sx = SC_R(_sx);
-            _matWorld._11 = sx * _matWorldRotMv._11;
-            _matWorld._12 = sx * _matWorldRotMv._12;
-            _matWorld._13 = sx * _matWorldRotMv._13;
+            const float sx = SC_R(_sx);
+            _matWorld._11 = sx * matWorldRotMv._11;
+            _matWorld._12 = sx * matWorldRotMv._12;
+            _matWorld._13 = sx * matWorldRotMv._13;
         } else {
-            _matWorld._11 = _matWorldRotMv._11;
-            _matWorld._12 = _matWorldRotMv._12;
-            _matWorld._13 = _matWorldRotMv._13;
+            _matWorld._11 = matWorldRotMv._11;
+            _matWorld._12 = matWorldRotMv._12;
+            _matWorld._13 = matWorldRotMv._13;
         }
-        _matWorld._14 = _matWorldRotMv._14;
+        _matWorld._14 = matWorldRotMv._14;
 
         if (_sy != LEN_UNIT) {
-            float sy = SC_R(_sy);
-            _matWorld._21 = sy * _matWorldRotMv._21;
-            _matWorld._22 = sy * _matWorldRotMv._22;
-            _matWorld._23 = sy * _matWorldRotMv._23;
+            const float sy = SC_R(_sy);
+            _matWorld._21 = sy * matWorldRotMv._21;
+            _matWorld._22 = sy * matWorldRotMv._22;
+            _matWorld._23 = sy * matWorldRotMv._23;
         } else {
-            _matWorld._21 = _matWorldRotMv._21;
-            _matWorld._22 = _matWorldRotMv._22;
-            _matWorld._23 = _matWorldRotMv._23;
+            _matWorld._21 = matWorldRotMv._21;
+            _matWorld._22 = matWorldRotMv._22;
+            _matWorld._23 = matWorldRotMv._23;
         }
-        _matWorld._24 = _matWorldRotMv._24;
+        _matWorld._24 = matWorldRotMv._24;
 
         if (_sz != LEN_UNIT) {
-            float sz = SC_R(_sz);
-            _matWorld._31 = sz * _matWorldRotMv._31;
-            _matWorld._32 = sz * _matWorldRotMv._32;
-            _matWorld._33 = sz * _matWorldRotMv._33;
+            const float sz = SC_R(_sz);
+            _matWorld._31 = sz * matWorldRotMv._31;
+            _matWorld._32 = sz * matWorldRotMv._32;
+            _matWorld._33 = sz * matWorldRotMv._33;
         } else {
-            _matWorld._31 = _matWorldRotMv._31;
-            _matWorld._32 = _matWorldRotMv._32;
-            _matWorld._33 = _matWorldRotMv._33;
+            _matWorld._31 = matWorldRotMv._31;
+            _matWorld._32 = matWorldRotMv._32;
+            _matWorld._33 = matWorldRotMv._33;
         }
-        _matWorld._34 = _matWorldRotMv._34;
+        _matWorld._34 = matWorldRotMv._34;
 
-        _matWorld._41 = _matWorldRotMv._41;
-        _matWorld._42 = _matWorldRotMv._42;
-        _matWorld._43 = _matWorldRotMv._43;
-        _matWorld._44 = _matWorldRotMv._44;
+        _matWorld._41 = matWorldRotMv._41;
+        _matWorld._42 = matWorldRotMv._42;
+        _matWorld._43 = matWorldRotMv._43;
+        _matWorld._44 = matWorldRotMv._44;
     }
 
     //ƒfƒtƒHƒ‹ƒg‚Å‚ÍA_matWorldRotMv = ‰ñ“]•ÏŠ·s—ñ ~ •½sˆÚ“®•ÏŠ·s—ñ
@@ -176,36 +177,40 @@ void GgafDxGeometricActor::processSettlementBehavior() {
     }
 
     //Ž‹‘ä–Ê‚©‚ç‚Ì‹——£‚ðXV
-    GgafDxCamera* pCam = P_GOD->getUniverse()->getCamera();
-    _dest_from_vppln_top    = pCam->_plnTop.a * _fX +
-                              pCam->_plnTop.b * _fY +
-                              pCam->_plnTop.c * _fZ +
-                              pCam->_plnTop.d;
-
-    _dest_from_vppln_bottom = pCam->_plnBottom.a * _fX +
-                              pCam->_plnBottom.b * _fY +
-                              pCam->_plnBottom.c * _fZ +
-                              pCam->_plnBottom.d;
-
-    _dest_from_vppln_left   = pCam->_plnLeft.a * _fX +
-                              pCam->_plnLeft.b * _fY +
-                              pCam->_plnLeft.c * _fZ +
-                              pCam->_plnLeft.d;
-
-    _dest_from_vppln_right  = pCam->_plnRight.a * _fX +
-                              pCam->_plnRight.b * _fY +
-                              pCam->_plnRight.c * _fZ +
-                              pCam->_plnRight.d;
-
-    _dest_from_vppln_front  = pCam->_plnFront.a * _fX +
-                              pCam->_plnFront.b * _fY +
-                              pCam->_plnFront.c * _fZ +
-                              pCam->_plnFront.d;
-
-    _dest_from_vppln_back   = pCam->_plnBack.a * _fX +
-                              pCam->_plnBack.b * _fY +
-                              pCam->_plnBack.c * _fZ +
-                              pCam->_plnBack.d;
+    const dxcoord fX = _fX;
+    const dxcoord fY = _fY;
+    const dxcoord fZ = _fZ;
+    const GgafDxCamera* const pCam = P_GOD->getUniverse()->getCamera();
+    const D3DXPLANE& plnTop = pCam->_plnTop;
+    _dest_from_vppln_top    = plnTop.a * fX +
+                              plnTop.b * fY +
+                              plnTop.c * fZ +
+                              plnTop.d;
+    const D3DXPLANE& plnBottom = pCam->_plnBottom;
+    _dest_from_vppln_bottom = plnBottom.a * fX +
+                              plnBottom.b * fY +
+                              plnBottom.c * fZ +
+                              plnBottom.d;
+    const D3DXPLANE& plnLeft = pCam->_plnLeft;
+    _dest_from_vppln_left   = plnLeft.a * fX +
+                              plnLeft.b * fY +
+                              plnLeft.c * fZ +
+                              plnLeft.d;
+    const D3DXPLANE& plnRight = pCam->_plnRight;
+    _dest_from_vppln_right  = plnRight.a * fX +
+                              plnRight.b * fY +
+                              plnRight.c * fZ +
+                              plnRight.d;
+    const D3DXPLANE& plnFront = pCam->_plnFront;
+    _dest_from_vppln_front  = plnFront.a * fX +
+                              plnFront.b * fY +
+                              plnFront.c * fZ +
+                              plnFront.d;
+   const D3DXPLANE& plnBack = pCam->_plnBack;
+    _dest_from_vppln_back   = plnBack.a * fX +
+                              plnBack.b * fY +
+                              plnBack.c * fZ +
+                              plnBack.d;
     _offscreen_kind = -1;
 
     //”ª•ª–Ø“o˜^

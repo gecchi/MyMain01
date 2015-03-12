@@ -45,7 +45,7 @@ void MagicLvCursor::initialize() {
 }
 
 void MagicLvCursor::processBehavior() {
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->behave();
     if (pKuroko->asstA()->isJustFinishSlidingMv()) {
         //理想位置に補正
@@ -83,7 +83,7 @@ void MagicLvCursor::processAfterDraw() {
 }
 
 void MagicLvCursor::moveTo(int prm_lv) {
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->asstA()->stopSlidingMv();
     pKuroko->stopMv();
     point_lv_ = prm_lv;
@@ -92,7 +92,7 @@ void MagicLvCursor::moveTo(int prm_lv) {
 }
 
 void MagicLvCursor::moveSmoothTo(int prm_lv, frame prm_target_frames, float prm_p1, float prm_p2) {
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->stopMv();
     //Y座標のロール（スライド表示）の分考慮せずにY座標のLVカーソル移動計算を行っている。
     //processPreDraw()でロール分を補正する。

@@ -36,7 +36,7 @@ void EnemyRis::onCreateModel() {
 
 void EnemyRis::initialize() {
     setHitAble(true);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->relateFaceByMvAng(true);
     pKuroko->setFaceAngVelo(AXIS_X, 5000);
     CollisionChecker3D* pChecker = getCollisionChecker();
@@ -52,7 +52,7 @@ void EnemyRis::onActive() {
 void EnemyRis::processBehavior() {
     //加算ランクポイントを減少
     UTIL::updateEnemyRankPoint(this);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     switch (iMovePatternNo_) {
         case 0:  //【パターン０：スプライン移動開始】
             if (pKurokoLeader_) {
@@ -130,7 +130,7 @@ void EnemyRis::processJudgement() {
 }
 
 void EnemyRis::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

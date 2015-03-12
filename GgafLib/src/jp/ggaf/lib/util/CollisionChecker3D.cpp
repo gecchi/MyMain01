@@ -116,8 +116,8 @@ void CollisionChecker3D::setColliAAPrism(int prm_index,
 }
 
 void CollisionChecker3D::updateHitArea() {
-    GgafDxGeometricActor* pActor = _pActor;
-    GgafDxCollisionArea* pCollisionArea = _pCollisionArea;
+    GgafDxGeometricActor* const pActor = _pActor;
+    GgafDxCollisionArea* const pCollisionArea = _pCollisionArea;
     if (pActor == nullptr || pCollisionArea == nullptr) {
         return;
     }
@@ -161,15 +161,15 @@ void CollisionChecker3D::updateHitArea() {
 bool CollisionChecker3D::isHit(GgafDxCore::GgafDxChecker* const prm_pOppChecker) {
     GgafDxCollisionArea* const pCollisionArea = _pCollisionArea;
     GgafDxCollisionArea* const pOppCollisionArea = prm_pOppChecker->_pCollisionArea; //相手の当たり判定領域
-    GgafDxGeometricActor* const pOppActor = prm_pOppChecker->_pActor;                //相手のアクター
+    const GgafDxGeometricActor* const pOppActor = prm_pOppChecker->_pActor;                //相手のアクター
     const int colli_part_num = pCollisionArea->_colli_part_num;
     for (int i = 0; i < colli_part_num; i++) {
-        GgafDxCollisionPart* const pColliPart = pCollisionArea->_papColliPart[i];
+        const GgafDxCollisionPart* const pColliPart = pCollisionArea->_papColliPart[i];
         if (!pColliPart->_is_valid_flg) { continue; }
         const int shape_kind = pColliPart->_shape_kind;
         const int opp_colli_part_num = pOppCollisionArea->_colli_part_num; //相手の当たり判定要素数
         for (int j = 0; j < opp_colli_part_num; j++) {
-            GgafDxCollisionPart* const pOppColliPart = pOppCollisionArea->_papColliPart[j];
+            const GgafDxCollisionPart* const pOppColliPart = pOppCollisionArea->_papColliPart[j];
             if (!pOppColliPart->_is_valid_flg) { continue; }
             const int opp_shape_kind = pOppColliPart->_shape_kind;
 #ifdef MY_DEBUG

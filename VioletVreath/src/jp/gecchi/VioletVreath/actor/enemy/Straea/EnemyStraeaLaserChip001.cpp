@@ -27,14 +27,14 @@ void EnemyStraeaLaserChip001::onActive() {
     HomingLaserChip::onActive();
     //ステータスリセット
     getStatus()->reset();
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvVelo(10000);
     pKuroko->setMvAcce(400);
     pKuroko->relateFaceByMvAng(true);
 }
 
 void EnemyStraeaLaserChip001::processBehaviorHeadChip() {
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     if (getActiveFrame() == 40) {
         pKuroko->turnMvAngTwd(P_MYSHIP,
                               7000, 0,
@@ -56,7 +56,7 @@ void EnemyStraeaLaserChip001::processBehaviorHeadChip() {
 }
 
 void EnemyStraeaLaserChip001::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         sayonara();

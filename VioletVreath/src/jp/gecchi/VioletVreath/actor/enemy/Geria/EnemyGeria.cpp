@@ -44,7 +44,7 @@ void EnemyGeria::initialize() {
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->makeCollision(1);
     pChecker->setColliAAB_Cube(0, 45000);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(AXIS_Z, -7000);
 }
 
@@ -55,7 +55,7 @@ void EnemyGeria::onActive() {
     can_Shot_ = true;
     shot_num_ = 0;
     frame_when_shot_ = 0;
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     velo_mv_begin_ = pKuroko->getMvVelo(); //初期移動速度を保存
     pKuroko->setMvVelo(0);
     setRzFaceAng(0);
@@ -67,8 +67,8 @@ void EnemyGeria::onActive() {
 void EnemyGeria::processBehavior() {
     //加算ランクポイントを減少
     UTIL::updateEnemyRankPoint(this);
-    GgafDxKuroko* pKuroko = getKuroko();
-    GgafProgress* pProg = getProgress();
+    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafProgress* const pProg = getProgress();
 
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -174,7 +174,7 @@ void EnemyGeria::onInactive() {
 }
 
 void EnemyGeria::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

@@ -23,7 +23,7 @@ void EnemyStraeaLaserChip003::initialize() {
     setHitAble(true, false);
     setScaleR(5.0);
     setAlpha(0.9);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvVelo(30000);
     pKuroko->relateFaceByMvAng(true);
 }
@@ -42,7 +42,7 @@ void EnemyStraeaLaserChip003::processBehavior() {
 }
 
 void EnemyStraeaLaserChip003::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         sayonara();

@@ -32,7 +32,7 @@ void EnemyHisbeLaserChip001::onActive() {
     HomingLaserChip::onActive();
     //ステータスリセット
     getStatus()->reset();
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvVelo(30000);
     pKuroko->forceRzRyMvAngVeloRange(-D_ANG(45), D_ANG(45));
     pKuroko->relateFaceByMvAng(true);
@@ -64,7 +64,7 @@ void EnemyHisbeLaserChip001::processJudgement() {
 }
 
 void EnemyHisbeLaserChip001::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         sayonara();

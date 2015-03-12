@@ -95,12 +95,12 @@ void MyOptionWateringLaserChip001::onActive() {
 
 void MyOptionWateringLaserChip001::processBehavior() {
     GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
-    if (getActiveFrame() > 6) {
+    if (getActiveFrame() > 7) {
         if (lockon_st_ == 1) {
             if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheTree()) {
                 aimChip(pMainLockOnTarget->_x,
-                         pMainLockOnTarget->_y,
-                         pMainLockOnTarget->_z );
+                        pMainLockOnTarget->_y,
+                        pMainLockOnTarget->_z );
             } else {
                 //pAxsMver_->setZeroVxyzMvAcce();
                 lockon_st_ = 2;
@@ -108,14 +108,12 @@ void MyOptionWateringLaserChip001::processBehavior() {
         }
 
         if (lockon_st_ == 2) {
-            if (_pLeader) {
-                if (_pLeader == this) {
-                    aimChip(_x + pAxsMver_->_velo_vx_mv*4+1,
-                             _y + pAxsMver_->_velo_vy_mv*2+1,
-                             _z + pAxsMver_->_velo_vz_mv*2+1 );
-                } else {
-                    aimChip(_pLeader->_x, _pLeader->_y, _pLeader->_z);
-                }
+            if (_pLeader == this) {
+                aimChip(_x + pAxsMver_->_velo_vx_mv*4+1,
+                        _y + pAxsMver_->_velo_vy_mv*2+1,
+                        _z + pAxsMver_->_velo_vz_mv*2+1 );
+            } else {
+                aimChip(_pLeader->_x, _pLeader->_y, _pLeader->_z);
             }
         }
     }
@@ -154,30 +152,30 @@ void MyOptionWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     // vVP が動きたい方向。vVPを求める！
 
     //自→的
-    int vTx = tX - _x;
-    int vTy = tY - _y;
-    int vTz = tZ - _z;
+    const int vTx = tX - _x;
+    const int vTy = tY - _y;
+    const int vTz = tZ - _z;
 
     //自→仮自。上図の |仮自| = 5*vM
-    int vVMx = pAxsMver_->_velo_vx_mv*5;
-    int vVMy = pAxsMver_->_velo_vy_mv*5;
-    int vVMz = pAxsMver_->_velo_vz_mv*5;
+    const int vVMx = pAxsMver_->_velo_vx_mv*5;
+    const int vVMy = pAxsMver_->_velo_vy_mv*5;
+    const int vVMz = pAxsMver_->_velo_vz_mv*5;
 
     //|仮自|
-    int lVM = MAX3(ABS(vVMx), ABS(vVMy), ABS(vVMz)); //仮自ベクトル大きさ簡易版
+    const int lVM = MAX3(ABS(vVMx), ABS(vVMy), ABS(vVMz)); //仮自ベクトル大きさ簡易版
     //|的|
-    int lT =  MAX3(ABS(vTx), ABS(vTy), ABS(vTz)); //的ベクトル大きさ簡易版
+    const int lT =  MAX3(ABS(vTx), ABS(vTy), ABS(vTz)); //的ベクトル大きさ簡易版
     //|仮自|/|的|      vT の何倍が vVT 仮的 になるのかを求める。
-    double r = (lVM*1.5) / lT;
-    //* 2は 右上図のように一直線に並んだ際も、進行方向を維持するために、
+    const double r = (lVM*1.5) / lT;
+    //* 1.5は 右上図のように一直線に並んだ際も、進行方向を維持するために、
     //|仮的| > |仮自| という関係を維持するためにかけた適当な割合
 
     //vVP 仮自→仮的 の加速度設定
-    double accX = ((vTx * r) - vVMx) * rr_max_acce_;
-    double accY = ((vTy * r) - vVMy) * rr_max_acce_;
-    double accZ = ((vTz * r) - vVMz) * rr_max_acce_;
+    const double accX = ((vTx * r) - vVMx) * rr_max_acce_;
+    const double accY = ((vTy * r) - vVMy) * rr_max_acce_;
+    const double accZ = ((vTz * r) - vVMz) * rr_max_acce_;
 
-    if (getFrontChip() == nullptr) {
+    if (_pLeader == this) {
         //先頭はやや速めに。SGN(accX)*5 を加算するのは、加速度を0にしないため
         pAxsMver_->setVxyzMvAcce(accX + SGN(accX)*5.0,
                                  accY + SGN(accY)*5.0,
@@ -191,8 +189,8 @@ void MyOptionWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     if (lVM > max_velo_renge_/2) {
         angle rz_temp, ry_temp;
         UTIL::convVectorToRzRy(vVMx, vVMy, vVMz, rz_temp, ry_temp);
-        angle angDRZ = UTIL::getAngDiff(rz_temp, _rz);
-        angle angDRY = UTIL::getAngDiff(ry_temp, _ry);
+        const angle angDRZ = UTIL::getAngDiff(rz_temp, _rz);
+        const angle angDRY = UTIL::getAngDiff(ry_temp, _ry);
         if (-4000 <= angDRZ) {
             _rz -= 4000;
         } else if (angDRZ <= 4000) {

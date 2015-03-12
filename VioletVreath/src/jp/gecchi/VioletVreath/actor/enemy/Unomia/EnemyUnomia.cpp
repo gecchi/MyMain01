@@ -31,7 +31,7 @@ void EnemyUnomia::onCreateModel() {
 }
 
 void EnemyUnomia::initialize() {
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->relateFaceByMvAng(true);
     pKuroko->setFaceAngVelo(AXIS_X, -4000);
     CollisionChecker3D* pChecker = getCollisionChecker();
@@ -67,8 +67,8 @@ void EnemyUnomia::onActive() {
 void EnemyUnomia::processBehavior() {
     //加算ランクポイントを減少
     UTIL::updateEnemyRankPoint(this);
-    GgafDxKuroko* pKuroko = getKuroko();
-    GgafProgress* pProg = getProgress();
+    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_ENTRY: {
             pKurokoLeader_->start(SplineKurokoLeader::ABSOLUTE_COORD);
@@ -131,7 +131,7 @@ void EnemyUnomia::processJudgement() {
 }
 
 void EnemyUnomia::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

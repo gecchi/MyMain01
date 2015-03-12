@@ -60,7 +60,7 @@ void MyTorpedo::onActive() {
     _sx = _sy = _sz = 100;
     setScale(100);
     pScaler_->transitionLinerStep(7000, 500);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
     if (pTarget_) {
         pKuroko->forceMvVeloRange(4000, 100000);
@@ -88,8 +88,8 @@ void MyTorpedo::onActive() {
 }
 
 void MyTorpedo::processBehavior() {
-    GgafDxKuroko* pKuroko = getKuroko();
-    GgafProgress* pProg = getProgress();
+    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafProgress* const pProg = getProgress();
     if (pProg->get() == MyTorpedo_RELEASE) {
         if (pTailEffectDepository_->_num_chip_active == 0) {
             //軌跡エフェクトが全て非活動になった場合
@@ -206,7 +206,7 @@ void MyTorpedo::processBehavior() {
 }
 
 void MyTorpedo::processJudgement() {
-    GgafProgress* pProg = getProgress();
+    GgafProgress* const pProg = getProgress();
     if (isOutOfUniverse() && pProg->get() == MyTorpedo_IN_FIRE) {
         setHitAble(false);
         pProg->change(MyTorpedo_RELEASE);
@@ -231,7 +231,7 @@ void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
     int sta = UTIL::calcMyStamina(this, pOther);
     setHitAble(false);
 
-    GgafProgress* pProg = getProgress();
+    GgafProgress* const pProg = getProgress();
     pProg->change(MyTorpedo_RELEASE);
     GgafMainActor* pTailEffect = (GgafMainActor*)pTailEffectDepository_->getSubFirst();
     for (int i = 0; i < length_TailEffect_; i++) {

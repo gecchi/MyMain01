@@ -117,7 +117,7 @@ void RefractionLaserChip::onInactive() {
     if (_pChip_behind) {
         RefractionLaserChip* const pChip_behind = (RefractionLaserChip*)_pChip_behind;
         GgafDxKuroko* const pChip_behind_pKuroko = pChip_behind->getKuroko();
-        GgafDxKuroko* pKuroko = getKuroko();
+        GgafDxKuroko* const pKuroko = getKuroko();
         pChip_behind_pKuroko->_vX = pKuroko->_vX;
         pChip_behind_pKuroko->_vY = pKuroko->_vY;
         pChip_behind_pKuroko->_vZ = pKuroko->_vZ;
@@ -160,7 +160,7 @@ void RefractionLaserChip::processBehavior() {
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     //その際 は、本クラスの processBehavior() メソッドも呼び出してください。
     //座標に反映
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     RefractionLaserChip* pChip_front =  (RefractionLaserChip*)_pChip_front;
     if (getActiveFrame() > 1) {
         //GgafActorDepository::dispatch() は

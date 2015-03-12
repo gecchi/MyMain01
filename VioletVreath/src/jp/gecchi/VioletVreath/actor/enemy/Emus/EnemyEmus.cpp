@@ -70,8 +70,8 @@ void EnemyEmus::onActive() {
 
 void EnemyEmus::processBehavior() {
     changeGeoLocal(); //ŒvŽZ‚Íƒ[ƒJƒ‹À•WŒn
-    GgafDxKuroko* pKuroko = getKuroko();
-    GgafProgress* pProg = getProgress();
+    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             pProg->change(PROG_HATCH_CLOSE);
@@ -127,7 +127,7 @@ void EnemyEmus::processBehavior() {
 
 void EnemyEmus::processChangeGeoFinal() {
     //â‘ÎÀ•WŒn‚Å‚Ì‘€ì
-    GgafProgress* pProg = getProgress();
+    GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_FIRE: {
             if(pDepo_) {
@@ -162,7 +162,7 @@ void EnemyEmus::processJudgement() {
 }
 
 void EnemyEmus::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //”j‰óŽž
         getSeTx()->play3D(SE_EXPLOSION);

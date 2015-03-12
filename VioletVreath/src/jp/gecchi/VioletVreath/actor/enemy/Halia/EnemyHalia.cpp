@@ -73,7 +73,7 @@ void EnemyHalia::onActive() {
     getStatus()->reset();
     setMorphWeight(0.0);
     getProgress()->reset(PROG_INIT);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(AXIS_X, 1000);
     pKuroko->setMvVelo(0);
     pKuroko->setMvAcce(0);
@@ -82,8 +82,8 @@ void EnemyHalia::onActive() {
 void EnemyHalia::processBehavior() {
     //加算ランクポイントを減少
     UTIL::updateEnemyRankPoint(this);
-    GgafDxKuroko* pKuroko = getKuroko();
-    GgafProgress* pProg = getProgress();
+    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
@@ -189,7 +189,7 @@ void EnemyHalia::processJudgement() {
 
 void EnemyHalia::onHit(GgafActor* prm_pOtherActor) {
     if (getMorphWeight(1) > 0.3) { //口が空いてたら
-        bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+        const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
         if (was_destroyed) {
             //破壊された時(スタミナ <= 0)
             getSeTx()->play3D(SE_EXPLOSION);

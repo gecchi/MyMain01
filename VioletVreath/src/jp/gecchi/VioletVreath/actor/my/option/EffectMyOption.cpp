@@ -29,7 +29,7 @@ void EffectMyOption::onCreateModel() {
 }
 
 void EffectMyOption::initialize() {
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(AXIS_X, D_ANG(5));
     pKuroko->setFaceAngVelo(AXIS_Y, D_ANG(3));
     pKuroko->setFaceAngVelo(AXIS_Z, D_ANG(1));

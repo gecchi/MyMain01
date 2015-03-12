@@ -46,7 +46,7 @@ void EnemyTamago01::onCreateModel() {
 
 void EnemyTamago01::initialize() {
     setHitAble(true);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->relateFaceByMvAng(true);
     pKuroko->setFaceAngVelo(AXIS_X, 1000);
     pKuroko->setMvAngTwd(900000, 300000, 300000);
@@ -120,7 +120,7 @@ void EnemyTamago01::processBehavior() {
 //    if (GgafDxInput::isBeingPressedKey(DIK_0)) {
 //        pModel->getTexBlinker()->->setScaleToBottom();
 //    }
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
 
     //加算ランクポイントを減少
     UTIL::updateEnemyRankPoint(this);
@@ -197,7 +197,7 @@ void EnemyTamago01::processJudgement() {
 }
 
 void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(0);

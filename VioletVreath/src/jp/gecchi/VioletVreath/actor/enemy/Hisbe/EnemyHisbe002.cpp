@@ -46,7 +46,7 @@ void EnemyHisbe002::onCreateModel() {
 }
 
 void EnemyHisbe002::initialize() {
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(AXIS_Y, 500);
     pKuroko->relateFaceByMvAng(true);
     CollisionChecker3D* pChecker = getCollisionChecker();
@@ -63,8 +63,8 @@ void EnemyHisbe002::onActive() {
 void EnemyHisbe002::processBehavior() {
     //加算ランクポイントを減少
     UTIL::updateEnemyRankPoint(this);
-    GgafDxKuroko* pKuroko = getKuroko();
-    GgafProgress* pProg = getProgress();
+    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_WAIT: {
             if (pLaserChipDepo_->_num_chip_active == 0) {
@@ -125,7 +125,7 @@ void EnemyHisbe002::processJudgement() {
 }
 
 void EnemyHisbe002::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

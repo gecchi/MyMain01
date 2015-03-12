@@ -75,30 +75,31 @@ void GgafLinearOctree::registerElem(GgafLinearOctreeElem* const prm_pElem,
         return; //空間外は登録しない
     }
 
+    //＜tx1,ty1,tz1,tx2,ty2,tz2 から、空間番号 を求める＞
     //BOX領域座標から空間配列要素番号（線形八分木配列の要素番号）を算出 .
     //まず、BOXの所属空間 Level と、その空間Levelのモートン順序通し空間番号を求め
-    //モートン順序通し空間番号から計算して配列のIndexを求める。
-    uint32_t index = 0xffffffff; //tx1,ty1,tz1,tx2,ty2,tz2 から、これ(index)を求める
+    //モートン順序通し空間番号から計算して配列の index を求める。
+
 
     //BOXの左下手前のXYZ座標点が所属する空間は、最大レベル空間でモートン順序通し空間番号は何番かを取得
-    uint32_t minnum_in_toplevel = GgafLinearOctree::getMortonOrderNumFromXYZindex(
-                                    (uint32_t)((tx1 - _root_x1) * _r_top_level_dx),
-                                    (uint32_t)((ty1 - _root_y1) * _r_top_level_dy),
-                                    (uint32_t)((tz1 - _root_z1) * _r_top_level_dz)
-                                  );
+    const uint32_t minnum_in_toplevel = GgafLinearOctree::getMortonOrderNumFromXYZindex(
+                                            (uint32_t)((tx1 - _root_x1) * _r_top_level_dx),
+                                            (uint32_t)((ty1 - _root_y1) * _r_top_level_dy),
+                                            (uint32_t)((tz1 - _root_z1) * _r_top_level_dz)
+                                        );
 
     //BOXの右上奥のXYZ座標点が所属する空間は、最大レベル空間でモートン順序通し空間番号は何番かを取得
-    uint32_t maxnum_in_toplevel = GgafLinearOctree::getMortonOrderNumFromXYZindex(
-                                    (uint32_t)((tx2 - _root_x1) * _r_top_level_dx),
-                                    (uint32_t)((ty2 - _root_y1) * _r_top_level_dy),
-                                    (uint32_t)((tz2 - _root_z1) * _r_top_level_dz)
-                                  );                 //↑_root_x2,_root_y2,_root_z2 と間違えていません。
+    const uint32_t maxnum_in_toplevel = GgafLinearOctree::getMortonOrderNumFromXYZindex(
+                                            (uint32_t)((tx2 - _root_x1) * _r_top_level_dx),
+                                            (uint32_t)((ty2 - _root_y1) * _r_top_level_dy),
+                                            (uint32_t)((tz2 - _root_z1) * _r_top_level_dz)
+                                        );                 //↑_root_x2,_root_y2,_root_z2 と間違えていません。
 
 
     //引数のBOXは、どのレベルの空間に所属しているのか取得
-    uint32_t differ_bit_pos = maxnum_in_toplevel ^ minnum_in_toplevel;
+    const uint32_t differ_bit_pos = maxnum_in_toplevel ^ minnum_in_toplevel;
     uint32_t shift_num = 0;
-    uint32_t lv = (uint32_t)_top_space_level;
+    const uint32_t lv = (uint32_t)_top_space_level;
     for(uint32_t i = 0; i < lv; i++) {
         if (((differ_bit_pos>>(i*3)) & 0x7) != 0 ) {
             shift_num = i+1;
@@ -171,7 +172,7 @@ void GgafLinearOctree::registerElem(GgafLinearOctreeElem* const prm_pElem,
     // あとはこれを配列Indexに変換するのみ
 
     //所属空間(シフト回数)とその空間のモートン順序通し空間番号から線形八分木配列の要素番号を求める
-    index = morton_order_space_num + (_pa_8pow[_top_space_level-shift_num]-1)/7;
+    const uint32_t index = morton_order_space_num + (_pa_8pow[_top_space_level-shift_num]-1)/7;
     //(_pa_8pow[_top_space_level-shift_num]-1)/7;
     //は、線形八分木空間配列の、所属空間レベルの最初の空間の要素番号をあらわす。
     //等比数列の和

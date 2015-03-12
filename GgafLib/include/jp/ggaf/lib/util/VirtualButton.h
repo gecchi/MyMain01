@@ -461,14 +461,14 @@ public:
     inline void remap_VB_UI_CANCEL (vbk prm_VBK) {  _keyboardmap.UI_CANCEL=prm_VBK;  }
 
     inline void remap_VB_UI_DEBUG  (vbk prm_VBK) {  _keyboardmap.UI_DEBUG=prm_VBK; }
-    /**     * 過去の入力状態を取得 .     * @param prm_frame_ago 現在より何フレーム過去かを指定     * @return 過去の入力状態     */    VirtualButton::VBRecord* getPastVBRecord(frame prm_frame_ago);
+    /**     * 過去の入力状態を取得 .     * @param prm_frame_ago 現在より何フレーム過去かを指定     * @return 過去の入力状態     */    VirtualButton::VBRecord* getPastVBRecord(frame prm_frame_ago) const;
 
     /**
      * 現在ボタンが押されているか判定 .
      * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
      * @return true / false
      */
-    inline vb_sta isBeingPressed(vb_sta prm_VB) {
+    inline vb_sta isBeingPressed(vb_sta prm_VB) const {
         return (_pVBRecord_active->_state & prm_VB);
     }
 
@@ -478,7 +478,7 @@ public:
      * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
      * @return true / false
      */
-    vb_sta isNotBeingPressed(vb_sta prm_VB);
+    vb_sta isNotBeingPressed(vb_sta prm_VB) const ;
 
     /**
      * 過去にボタンが押されていたかどうか判定 .
@@ -488,7 +488,7 @@ public:
      * 最大 (VB_MAP_BUFFER-1) フレーム前まで可
      * @return true / false
      */
-    vb_sta wasBeingPressed(vb_sta prm_VB, frame prm_frame_ago);
+    vb_sta wasBeingPressed(vb_sta prm_VB, frame prm_frame_ago) const;
 
     /**
      * 過去にボタンが押されていなかったのかどうか判定 .
@@ -499,7 +499,7 @@ public:
      *                      最大 (VB_MAP_BUFFER-1) フレーム前まで可
      * @return true / false
      */
-    vb_sta wasNotBeingPressed(vb_sta prm_VB, frame prm_frame_ago);
+    vb_sta wasNotBeingPressed(vb_sta prm_VB, frame prm_frame_ago) const;
 
     /**
      * 現在ボタンが押された瞬間なのかどうか判定 .
@@ -507,7 +507,7 @@ public:
      * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
      * @return true / false
      */
-    inline vb_sta isPushedDown(vb_sta prm_VB) {
+    inline vb_sta isPushedDown(vb_sta prm_VB) const {
         return (!(_pVBRecord_active->_prev->_state & prm_VB) && (_pVBRecord_active->_state & prm_VB)) ? true : false;
     }
 
@@ -520,7 +520,7 @@ public:
      *                      最大 (VB_MAP_BUFFER-1) フレーム前まで可
      * @return true / false
      */
-    vb_sta wasPushedDown(vb_sta prm_VB, frame prm_frame_ago);
+    vb_sta wasPushedDown(vb_sta prm_VB, frame prm_frame_ago) const;
 
     /**
      * 現在ボタンを離した瞬間なのかどうか判定 .
@@ -528,7 +528,7 @@ public:
      * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
      * @return true / false
      */
-    vb_sta isReleasedUp(vb_sta prm_VB);
+    vb_sta isReleasedUp(vb_sta prm_VB) const;
 
     /**
      * 過去にボタンを離した瞬間があったのかどうか判定 .
@@ -538,7 +538,7 @@ public:
      *                      1 で 1フレーム前、2 で 2フレーム前、0 は isReleasedUp(vb_sta) と同じ意味になる。
      * @return true / false
      */
-    vb_sta wasReleasedUp(vb_sta prm_VB, frame prm_frame_ago);
+    vb_sta wasReleasedUp(vb_sta prm_VB, frame prm_frame_ago) const;
 
     /**
      * チョン押し判定 .
@@ -550,7 +550,7 @@ public:
      * @param prm_frame_push 許容するボタンを押していた期間フレーム(default=5)
      * @return true / false
      */
-    vb_sta isPushedUp(vb_sta prm_VB, frame prm_frame_push = 5);
+    vb_sta isPushedUp(vb_sta prm_VB, frame prm_frame_push = 5) const;
 
     /**
      * ダブルプッシュ判定 .
@@ -563,7 +563,7 @@ public:
      * @param prm_frame_delay 許容する(c)～(d) の期間
      * @return true / false
      */
-    vb_sta isDoublePushedDown(vb_sta prm_VB, frame prm_frame_push = 5, frame prm_frame_delay = 5);
+    vb_sta isDoublePushedDown(vb_sta prm_VB, frame prm_frame_push = 5, frame prm_frame_delay = 5) const;
 
     /**
      * 複数ボタン同時押し判定 .
@@ -587,7 +587,7 @@ public:
      * @param prm_num_button 配列の要素数
      * @return true / false
      */
-    vb_sta arePushedDownAtOnce(vb_sta prm_aVB[], int prm_num_button);
+    vb_sta arePushedDownAtOnce(vb_sta prm_aVB[], int prm_num_button) const;
 
     /**
      * ３フレ猶予の２つボタン同時押し判定 .
@@ -595,7 +595,7 @@ public:
      * @param prm_VB2 判定対象仮想ボタン２
      * @return true / false
      */
-    vb_sta arePushedDownAtOnce(vb_sta prm_VB1, vb_sta prm_VB2) {
+    vb_sta arePushedDownAtOnce(vb_sta prm_VB1, vb_sta prm_VB2) const {
         vb_sta vb[2];
         vb[0] = prm_VB1;
         vb[1] = prm_VB2;
@@ -609,7 +609,7 @@ public:
      * @param prm_VB3 判定対象仮想ボタン３
      * @return true / false
      */
-    vb_sta arePushedDownAtOnce(vb_sta prm_VB1, vb_sta prm_VB2, vb_sta prm_VB3) {
+    vb_sta arePushedDownAtOnce(vb_sta prm_VB1, vb_sta prm_VB2, vb_sta prm_VB3) const {
         vb_sta vb[3];
         vb[0] = prm_VB1;
         vb[1] = prm_VB2;
@@ -625,7 +625,7 @@ public:
      * @param prm_VB4 判定対象仮想ボタン４
      * @return true / false
      */
-    vb_sta arePushedDownAtOnce(vb_sta prm_VB1, vb_sta prm_VB2, vb_sta prm_VB3, vb_sta prm_VB4) {
+    vb_sta arePushedDownAtOnce(vb_sta prm_VB1, vb_sta prm_VB2, vb_sta prm_VB3, vb_sta prm_VB4) const {
         vb_sta vb[4];
         vb[0] = prm_VB1;
         vb[1] = prm_VB2;
@@ -653,13 +653,13 @@ public:
      * @param prm_frame_delay 「グルッとポン」が成立する全体の許容フレーム
      * @return true / false
      */
-    bool isScrewPushDown(vb_sta prm_VB, frame prm_frame_delay=30);
+    bool isScrewPushDown(vb_sta prm_VB, frame prm_frame_delay=30) const;
 
 
-    vb_sta getPushedDownStick();
+    vb_sta getPushedDownStick() const;
 
 
-    vb_sta getState();
+    vb_sta getState() const;
 
     /**
      * 入力情報を更新 .

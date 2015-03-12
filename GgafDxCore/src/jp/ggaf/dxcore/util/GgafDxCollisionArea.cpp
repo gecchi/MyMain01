@@ -23,21 +23,21 @@ GgafDxCollisionArea::GgafDxCollisionArea(int prm_colli_part_num) : GgafObject() 
 }
 
 void GgafDxCollisionArea::updateAABB() {
-    GgafDxCollisionPart* pColliPart = _papColliPart[0];
+    const  GgafDxCollisionPart* const pColliPart0 = _papColliPart[0];
 #ifdef MY_DEBUG
-    if (pColliPart) {
+    if (pColliPart0) {
 
     } else {
         throwGgafCriticalException("GgafDxCollisionArea::updateAABB() _papColliPart[0]=nullptr‚Å‚·");
     }
 #endif
-    if (pColliPart->_is_valid_flg) {
-        _aabb_x1 = pColliPart->_aab_x1;
-        _aabb_y1 = pColliPart->_aab_y1;
-        _aabb_z1 = pColliPart->_aab_z1;
-        _aabb_x2 = pColliPart->_aab_x2;
-        _aabb_y2 = pColliPart->_aab_y2;
-        _aabb_z2 = pColliPart->_aab_z2;
+    if (pColliPart0->_is_valid_flg) {
+        _aabb_x1 = pColliPart0->_aab_x1;
+        _aabb_y1 = pColliPart0->_aab_y1;
+        _aabb_z1 = pColliPart0->_aab_z1;
+        _aabb_x2 = pColliPart0->_aab_x2;
+        _aabb_y2 = pColliPart0->_aab_y2;
+        _aabb_z2 = pColliPart0->_aab_z2;
     } else {
         _aabb_x1=_aabb_y1=_aabb_z1=_aabb_x2=_aabb_y2=_aabb_z2 = 0;
     }
@@ -45,7 +45,7 @@ void GgafDxCollisionArea::updateAABB() {
         return;
     } else {
         for (int i = 1; i < _colli_part_num; i++) {
-            pColliPart = _papColliPart[i];
+            const GgafDxCollisionPart* const  pColliPart = _papColliPart[i];
             if (pColliPart->_is_valid_flg) {
                 if (pColliPart->_aab_x1 < _aabb_x1) {
                     _aabb_x1 = pColliPart->_aab_x1;

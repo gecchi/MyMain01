@@ -27,7 +27,7 @@ private:
      * にて、八分木全要素クリアされるまで、再度 belongTo() は出来ない。
      * @param prm_pSpace_target 所属する空間
      */
-    void belongTo(GgafLinearOctreeSpace* prm_pSpace_target);
+    void belongTo(GgafLinearOctreeSpace* const prm_pSpace_target);
 
 public:
     /** [r]所属ツリー */

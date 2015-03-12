@@ -90,7 +90,7 @@ face26 GgafDxDirectionUtil::cnvVec2FaceNo(float prm_vx, float prm_vy, float prm_
 }
 
 void GgafDxDirectionUtil::cnvVec2Sgn(float prm_vx, float prm_vy, float prm_vz,
-                                int& out_sgn_x, int& out_sgn_y, int& out_sgn_z) {
+                                     int& out_sgn_x, int& out_sgn_y, int& out_sgn_z) {
     //îºåaÇPÇ…ì‡ê⁄Ç∑ÇÈê≥î™äpå`ÇÃÇPï”ÇÕ 2Å„2 - 2
     //                  y
     //                  ^

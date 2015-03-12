@@ -42,7 +42,7 @@ void Zako::onCreateModel() {
 }
 
 void Zako::initialize() {
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->relateFaceByMvAng(true);
     pKuroko->setSpinAngVelo(D_ANG(2));
     pKuroko->setMvVelo(PX_C(1));
@@ -57,8 +57,8 @@ void Zako::onActive() {
 }
 
 void Zako::processBehavior() {
-    GgafDxKuroko* pKuroko = getKuroko();
-    GgafProgress* pProg = getProgress();
+    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             pProg->changeNext();

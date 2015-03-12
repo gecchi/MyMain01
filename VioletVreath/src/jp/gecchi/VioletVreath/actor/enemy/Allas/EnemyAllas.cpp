@@ -35,7 +35,7 @@ void EnemyAllas::onCreateModel() {
 
 void EnemyAllas::initialize() {
     setHitAble(true);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(AXIS_Z, -7000);
     pKuroko->relateFaceByMvAng(true);
     CollisionChecker3D* pChecker = getCollisionChecker();
@@ -56,8 +56,8 @@ void EnemyAllas::onActive() {
 void EnemyAllas::processBehavior() {
     //加算ランクポイントを減少
     UTIL::updateEnemyRankPoint(this);
-    GgafDxKuroko* pKuroko = getKuroko();
-    GgafProgress* pProg = getProgress();
+    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafProgress* const pProg = getProgress();
     //【パターン1：スプライン移動】
     if (pProg->isJustChangedTo(1)) {
         pKurokoLeader_->start(SplineKurokoLeader::ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
@@ -141,7 +141,7 @@ void EnemyAllas::processJudgement() {
 }
 
 void EnemyAllas::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

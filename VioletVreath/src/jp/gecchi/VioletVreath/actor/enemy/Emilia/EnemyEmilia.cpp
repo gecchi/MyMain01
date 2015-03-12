@@ -36,7 +36,7 @@ void EnemyEmilia::onActive() {
     _x = GgafDxUniverse::_x_gone_right - 1000;
     _y = RND(-(appearances_renge_y/2) , +(appearances_renge_y/2));
     _z = RND(-(appearances_renge_z/2) , +(appearances_renge_z/2));
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvAngTwd(0, D180ANG);
     pKuroko->addRyMvAng(RND(D_ANG(-5), D_ANG(+5)));
     pKuroko->addRzMvAng(RND(D_ANG(-5), D_ANG(+5)));

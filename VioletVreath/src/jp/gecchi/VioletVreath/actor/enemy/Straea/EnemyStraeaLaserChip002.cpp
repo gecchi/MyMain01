@@ -28,7 +28,7 @@ void EnemyStraeaLaserChip002::onActive() {
     RefractionLaserChip::onActive();
     //ステータスリセット
     getStatus()->reset();
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvVelo(80000);
     //_pKuroko->setMvAcce(300);
     //_pKuroko->forceRyMvAngVeloRange(-90000, 90000);
@@ -43,7 +43,7 @@ void EnemyStraeaLaserChip002::onRefractionFinish(int prm_num_refraction)  {
     if (prm_num_refraction == 0) {
 
     } else {
-        GgafDxKuroko* pKuroko = getKuroko();
+        GgafDxKuroko* const pKuroko = getKuroko();
         angle out_angRz_Target;
         angle out_angRy_Target;
         angle out_d_ang_rz;

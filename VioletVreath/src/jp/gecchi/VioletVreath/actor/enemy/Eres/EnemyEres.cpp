@@ -62,7 +62,7 @@ void EnemyEres::onActive() {
     getStatus()->reset();
     iMovePatternNo_ = 0;
     frame_Active_ = 0;
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->relateFaceByMvAng(true);
     pKuroko->setFaceAngVelo(AXIS_X, 6000);
     pKuroko->setMvVelo(8000);
@@ -112,7 +112,7 @@ void EnemyEres::processJudgement() {
 
 
 void EnemyEres::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

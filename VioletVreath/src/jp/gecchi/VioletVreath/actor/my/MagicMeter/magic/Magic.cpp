@@ -180,7 +180,7 @@ void Magic::load(std::stringstream& sts) {
 }
 
 int Magic::chkCastAble(int prm_new_level) {
-    GgafProgress* pProg = getProgress();
+    GgafProgress* const pProg = getProgress();
     if (pProg->get() == STATE_INVOKING) {
         return MAGIC_CAST_NG_INVOKING_NOW; //発動中のため実行不可
     } else if (pProg->get() == STATE_CASTING) {
@@ -218,7 +218,7 @@ int Magic::chkCastAble(int prm_new_level) {
 }
 
 int Magic::cast(int prm_new_level) {
-    GgafProgress* pProg = getProgress();
+    GgafProgress* const pProg = getProgress();
 
     last_cast_ = MAGIC_CAST_NOTHING;
     last_invoke_ = MAGIC_INVOKE_NOTHING;
@@ -283,7 +283,7 @@ int Magic::cast(int prm_new_level) {
 }
 
 int Magic::chkInvokeAble(int prm_new_level) {
-    GgafProgress* pProg = getProgress();
+    GgafProgress* const pProg = getProgress();
     if (pProg->get() == STATE_INVOKING) {
         //発動中のため実行不可
         return MAGIC_INVOKE_NG_INVOKING_NOW;
@@ -318,7 +318,7 @@ int Magic::chkEffectAble(int prm_level) {
 }
 
 int Magic::invoke(int prm_new_level) {
-    GgafProgress* pProg = getProgress();
+    GgafProgress* const pProg = getProgress();
     last_cast_ = MAGIC_CAST_NOTHING;
     last_invoke_ = MAGIC_INVOKE_NOTHING;
     last_effect_ = MAGIC_EFFECT_NOTHING;
@@ -358,7 +358,7 @@ int Magic::invoke(int prm_new_level) {
 }
 
 int Magic::effect(int prm_level) {
-    GgafProgress* pProg = getProgress();
+    GgafProgress* const pProg = getProgress();
     last_cast_ = MAGIC_CAST_NOTHING;
     last_invoke_ = MAGIC_INVOKE_NOTHING;
     last_effect_ = MAGIC_EFFECT_NOTHING;
@@ -410,7 +410,7 @@ void Magic::nextFrame() {
     last_level_ =  last_level_nextframe_;
 }
 void Magic::processBehavior() {
-    GgafProgress* pProg = getProgress();
+    GgafProgress* const pProg = getProgress();
     progress prog = pProg->get();
     switch (prog) {
         /////////////////////////////////////// 待機

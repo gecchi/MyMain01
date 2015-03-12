@@ -122,7 +122,7 @@ void MenuBoard::onRise() {
     //スライドイントランジション
     position(target_x_ + slide_from_offset_x_,
              target_y_ + slide_from_offset_y_);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvAngTwd(target_x_, target_y_);
     pKuroko->asstA()->slideMvByDt(UTIL::getDistance(_x, _y, target_x_, target_y_), _fade_frames,
                                   0.2, 0.3, 0, true);
@@ -130,7 +130,7 @@ void MenuBoard::onRise() {
 }
 
 void MenuBoard::processBehavior() {
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     if (pKuroko->asstA()->isJustFinishSlidingMv()) {
         //スライド終了時、目的の座標へ補正
         position(target_x_, target_y_);
@@ -147,7 +147,7 @@ void MenuBoard::processJudgement() {
 
 void MenuBoard::onSink() {
     //スライドアウトトランジション
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvAngTwd(target_x_ + slide_from_offset_x_,
                          target_y_ + slide_from_offset_y_);
     pKuroko->asstA()->slideMvByDt(

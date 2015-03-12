@@ -39,7 +39,7 @@ void EffectEntry::processBehavior() {
         sayonara();
     }
 
-    GgafProgress* pProg = getProgress();
+    GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             pScaler_->transitionLinerToTop(scale_in_frames_);

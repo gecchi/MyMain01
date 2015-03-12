@@ -28,7 +28,7 @@ void MyMagicEnergy::onCreateModel() {
 }
 
 void MyMagicEnergy::initialize() {
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(AXIS_X, 1111);
     pKuroko->setFaceAngVelo(AXIS_Y, 1333);
     pKuroko->setFaceAngVelo(AXIS_Z, 1777);
@@ -38,7 +38,7 @@ void MyMagicEnergy::onActive() {
 }
 
 void MyMagicEnergy::processBehavior() {
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     positionAs(pCore_);
     setScale(pCore_->_sx);
     pKuroko->behave();

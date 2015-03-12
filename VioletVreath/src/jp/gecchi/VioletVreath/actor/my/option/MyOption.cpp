@@ -128,7 +128,7 @@ void MyOption::initialize() {
 
 void MyOption::onReset() {
     angveloMove_ = ((1.0f*veloMv_ / radiusPosition_)*(double)D180ANG)/PI;
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvVelo(veloMv_);
     pKuroko->setRzMvAng(angPosition_+D90ANG);
     pKuroko->setRyMvAng(-D90ANG);
@@ -207,7 +207,7 @@ void MyOption::setRadiusPosition(int prm_radius) {
 //    z_org_ = _z;
 //より前
 //でしか呼び出してはいけません。
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     radiusPosition_ = prm_radius;
     if (radiusPosition_ == -1  || radiusPosition_ == 0 || radiusPosition_ == 1) {
         _z = _y = 0;
@@ -246,9 +246,10 @@ void MyOption::adjustAngPosition(angle prm_new_angPosition_base, frame prm_spent
 
 
 void MyOption::processBehavior() {
-    MyShip* pMyShip = P_MYSHIP;
-    VirtualButton* pVbPlay = VB_PLAY;
+    const MyShip* const pMyShip = P_MYSHIP;
+    const VirtualButton* const pVbPlay = VB_PLAY;
     GgafDxKuroko* const pKuroko = getKuroko();
+    const MyOptionController* const pOptionCtrler = pOptionCtrler_;
     //処理メイン
 
     //退避していたローカル座標系を、(x_org_,y_org_,z_org_) を
@@ -273,10 +274,10 @@ void MyOption::processBehavior() {
     } else {
 
         //オプション独立移動制御時
-        if (pVbPlay->isBeingPressed(VB_OPTION) && pOptionCtrler_->is_handle_move_mode_) {
+        if (pVbPlay->isBeingPressed(VB_OPTION) && pOptionCtrler->is_handle_move_mode_) {
             //オプションの広がり角より、オプション移動速度と、旋回半径増加速度にベクトル分解。
             //そのうちの旋回半径増加速度のみを設定。
-            addRadiusPosition(ANG_SIN(angExpanse_) * pOptionCtrler_->veloOptionsMv_);
+            addRadiusPosition(ANG_SIN(angExpanse_) * pOptionCtrler->veloOptionsMv_);
             //オプション移動速度の処理はMyOptionクラスで行う。
         }
     }
@@ -297,7 +298,7 @@ void MyOption::processBehavior() {
     } else {
         //オプション広がりと向き制御
         if (pVbPlay->isBeingPressed(VB_OPTION) && pVbPlay->isBeingPressed(VB_TURBO)) {
-            int pos_camera = P_VAM->pos_camera_;
+            const int pos_camera = P_VAM->pos_camera_;
             if (pos_camera == VAM_POS_RIGHT) {
                 if (pVbPlay->isBeingPressed(VB_RIGHT)) {
                     angExpanse_ += angveloExpanseNomal_;
@@ -393,16 +394,16 @@ void MyOption::processBehavior() {
             }
             angExpanse_ = UTIL::simplifyAng(angExpanse_);
         } else {
-            if (pOptionCtrler_->is_free_from_myship_mode_) {
+            if (pOptionCtrler->is_free_from_myship_mode_) {
                 //
             } else {
-                GgafDxGeoElem* pGeoOpCtrl = pOptionCtrler_->pRing_OptCtrlGeoHistory_->getPrev();
+                const GgafDxGeoElem* const pGeoOpCtrl = pOptionCtrler->pRing_OptCtrlGeoHistory_->getPrev();
                 if (pVbPlay->isBeingPressed(VB_OPTION)) {
                     //オプションボタン押下時は
                     //radiusPositionをいじらない
-                } else if (pGeoOpCtrl->x == pOptionCtrler_->_x &&
-                           pGeoOpCtrl->y == pOptionCtrler_->_y &&
-                           pGeoOpCtrl->z == pOptionCtrler_->_z )
+                } else if (pGeoOpCtrl->x == pOptionCtrler->_x &&
+                           pGeoOpCtrl->y == pOptionCtrler->_y &&
+                           pGeoOpCtrl->z == pOptionCtrler->_z )
                 {
                     //オプションコントローラー非移動時、
                     //元の軌道に戻るために半径座標を増やす。
@@ -468,11 +469,11 @@ void MyOption::processBehavior() {
                 ang_diff = UTIL::getAngDiff(angPosition_now, adjust_angPos_seq_new_angPosition_base_, TURN_CLOSE_TO);
             }
             //残フレームと残移動角より必要な角速度
-            angvelo angvelo_need = ang_diff / (angvelo)adjust_angPos_seq_spent_frame_;
+            const angvelo angvelo_need = ang_diff / (angvelo)adjust_angPos_seq_spent_frame_;
             //必要な角速度差分
-            angvelo angvelo_offset = angvelo_need - angveloMove_;
+            const angvelo angvelo_offset = angvelo_need - angveloMove_;
             //必要な角速度差分に対応する移動速度を求める
-            velo veloMv_offset =  (2.0*PI*radiusPosition_ * angvelo_offset) / D360ANG;
+            const velo veloMv_offset =  (2.0*PI*radiusPosition_ * angvelo_offset) / D360ANG;
             //速度設定
             pKuroko->setRzMvAngVelo(angveloMove_ + angvelo_offset);
             pKuroko->setMvVelo(veloMv_ + veloMv_offset);
@@ -526,15 +527,15 @@ void MyOption::processBehavior() {
     //しかしまだ色々と回転したいため。あとは普通に計算（力技）で、座標回転、向き回転を行なう。
     //ダミーのアクターを連結しようとしたがいろいろ難しい、Quaternion を使わざるを得ない（のではないか；）。
     //TODO:最適化すべし、Quaternionは便利だが避けたい。いつか汎用化
-    GgafDxKuroko* const pOptionCtrler_pKuroko = pOptionCtrler_->getKuroko();
-    float sin_rz = ANG_SIN(pOptionCtrler_->_rz);
-    float cos_rz = ANG_COS(pOptionCtrler_->_rz);
-    float sin_ry = ANG_SIN(pOptionCtrler_->_ry);
-    float cos_ry = ANG_COS(pOptionCtrler_->_ry);
+    GgafDxKuroko* const pOptionCtrler_pKuroko = pOptionCtrler->getKuroko();
+    const float sin_rz = ANG_SIN(pOptionCtrler->_rz);
+    const float cos_rz = ANG_COS(pOptionCtrler->_rz);
+    const float sin_ry = ANG_SIN(pOptionCtrler->_ry);
+    const float cos_ry = ANG_COS(pOptionCtrler->_ry);
     //全オプションを一つの塊としてOptionControllerを中心にWORLD変換のような旋廻
-    coord X = cos_ry*cos_rz*x_org_ + cos_ry*-sin_rz*y_org_ + sin_ry*z_org_;
-    coord Y = sin_rz*x_org_ + cos_rz*y_org_;
-    coord Z = -sin_ry*cos_rz*x_org_ + -sin_ry*-sin_rz*y_org_ + cos_ry*z_org_;
+    const coord X = cos_ry*cos_rz*x_org_ + cos_ry*-sin_rz*y_org_ + sin_ry*z_org_;
+    const coord Y = sin_rz*x_org_ + cos_rz*y_org_;
+    const coord Z = -sin_ry*cos_rz*x_org_ + -sin_ry*-sin_rz*y_org_ + cos_ry*z_org_;
 
 
     //懐中電灯の照射角が広がるような回転（Quaternionで実現）
@@ -551,11 +552,11 @@ void MyOption::processBehavior() {
     //ある座標(x, y, z)＝方向ベクトル(pOptionCtrler_pKuroko->_vX,pOptionCtrler_pKuroko->_vY,pOptionCtrler_pKuroko->_vZ)
     //回転軸  (α, β, γ)=(vX_axis, vY_axis, vZ_axis) 、
     //回転角θ= angExpanse_
-    float vX_axis = cos_ry*cos_rz*pKuroko->_vX + cos_ry*-sin_rz*pKuroko->_vY + sin_ry*pKuroko->_vZ;
-    float vY_axis = sin_rz*pKuroko->_vX + cos_rz*pKuroko->_vY;
-    float vZ_axis = -sin_ry*cos_rz*pKuroko->_vX + -sin_ry*-sin_rz*pKuroko->_vY + cos_ry*pKuroko->_vZ;
-    float sinHalf = ANG_SIN(angExpanse_/2); //angExpanse_=回転させたい角度
-    float cosHalf = ANG_COS(angExpanse_/2);
+    const float vX_axis = cos_ry*cos_rz*pKuroko->_vX + cos_ry*-sin_rz*pKuroko->_vY + sin_ry*pKuroko->_vZ;
+    const float vY_axis = sin_rz*pKuroko->_vX + cos_rz*pKuroko->_vY;
+    const float vZ_axis = -sin_ry*cos_rz*pKuroko->_vX + -sin_ry*-sin_rz*pKuroko->_vY + cos_ry*pKuroko->_vZ;
+    const float sinHalf = ANG_SIN(angExpanse_/2); //angExpanse_=回転させたい角度
+    const float cosHalf = ANG_COS(angExpanse_/2);
 
     GgafDxQuaternion Q(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf); //R
     Q.mul(0,
@@ -568,9 +569,9 @@ void MyOption::processBehavior() {
     UTIL::convVectorToRzRy(Q._x, Q._y, Q._z, _rz, _ry);
 
     //最終的にな(_x,_y,_z)に絶対座標系の座標値に更新。
-    _x = X + pOptionCtrler_->_x;
-    _y = Y + pOptionCtrler_->_y;
-    _z = Z + pOptionCtrler_->_z;
+    _x = X + pOptionCtrler->_x;
+    _y = Y + pOptionCtrler->_y;
+    _z = Z + pOptionCtrler->_z;
     //ちなみにローカル座標系結果は、(x_org_,y_org_,z_org_)
 
 
@@ -582,11 +583,11 @@ void MyOption::processBehavior() {
 //                pLaserChipDepo_->_pEffectActor_irradiate->positionAs(this);
 //            }
             //カーブ用
-            int max_velo_renge = pLaserChip->max_velo_renge_;
-            int r_max_acce = pLaserChip->r_max_acce_;
-            velo veloVx = Q._x*max_velo_renge;
-            velo veloVy = Q._y*max_velo_renge;
-            velo veloVz = Q._z*max_velo_renge;
+            const int max_velo_renge = pLaserChip->max_velo_renge_;
+            const int r_max_acce = pLaserChip->r_max_acce_;
+            const velo veloVx = Q._x*max_velo_renge;
+            const velo veloVy = Q._y*max_velo_renge;
+            const velo veloVz = Q._z*max_velo_renge;
             pLaserChip->pAxsMver_->setVxyzMvVelo(veloVx, veloVy, veloVz);
             pLaserChip->pAxsMver_->setVxyzMvAcce(veloVx / r_max_acce,
                                                  veloVy / r_max_acce,
@@ -609,7 +610,7 @@ void MyOption::processBehavior() {
     //ショット発射
     if (pMyShip->is_just_shot_) {
         if (pMyShip->is_snipe_shot_) {
-            MyOptionSnipeShot001* pSnipeShot = (MyOptionSnipeShot001*)pDepo_MySnipeOptionShot_->dispatch();
+            MyOptionSnipeShot001* const pSnipeShot = (MyOptionSnipeShot001*)pDepo_MySnipeOptionShot_->dispatch();
             if (pSnipeShot) {
                 getSeTx()->play3D(SE_FIRE_SHOT);
                 pSnipeShot->positionAs(this);
@@ -619,7 +620,7 @@ void MyOption::processBehavior() {
             }
         } else {
             if (pMyShip->shot_level_ >= 1) {
-                MyOptionShot001* pShot = (MyOptionShot001*)pDepo_MyOptionShot_->dispatch();
+                MyOptionShot001* const  pShot = (MyOptionShot001*)pDepo_MyOptionShot_->dispatch();
                 if (pShot) {
                     getSeTx()->play3D(SE_FIRE_SHOT);
                     pShot->positionAs(this);

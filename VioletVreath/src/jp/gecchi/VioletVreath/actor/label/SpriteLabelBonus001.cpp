@@ -30,7 +30,7 @@ void SpriteLabelBonus001::initialize() {
 
 void SpriteLabelBonus001::onDispatched(GgafDxGeometricActor* prm_pOrgActor) {
     positionAs(prm_pOrgActor);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->takeoverMvFrom(prm_pOrgActor->getKuroko());
     pKuroko->setMvAcce(300);
     setAlpha(0.7);
@@ -39,8 +39,8 @@ void SpriteLabelBonus001::onDispatched(GgafDxGeometricActor* prm_pOrgActor) {
 
 void SpriteLabelBonus001::processBehavior() {
     Camera* pCam = P_GOD->getUniverse()->getCamera();
-    GgafDxKuroko* pKuroko = getKuroko();
-    GgafProgress* pProg = getProgress();
+    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             pProg->changeNext();

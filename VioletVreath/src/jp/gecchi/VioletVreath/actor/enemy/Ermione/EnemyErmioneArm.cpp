@@ -42,8 +42,8 @@ void EnemyErmioneArm::onActive() {
 void EnemyErmioneArm::processBehavior() {
 
     changeGeoLocal(); //ローカル座標の操作とする。
-    GgafDxKuroko* pKuroko = getKuroko();
-    GgafProgress* pProg = getProgress();
+    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             pProg->change(PROG_WAITING);

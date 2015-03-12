@@ -70,7 +70,7 @@ public:
      */
     virtual void onEnd() override;
 
-    inline int getMemberNum() {
+    inline int getMemberNum() const {
         return _num_formation_member;
     }
 

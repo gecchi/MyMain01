@@ -86,7 +86,7 @@ void MyStraightLaserChip001::onActive() {
 }
 
 void MyStraightLaserChip001::processBehavior() {
-    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
+    const GgafDxGeometricActor* const pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
 
     if (lockon_st_ == 1) {
         if (getActiveFrame() < 120) {
@@ -133,7 +133,7 @@ void MyStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             pOrg_->pLockonCtrler_->lockon(pOther);
         }
 
-        int stamina = UTIL::calcMyStamina(this, pOther);
+        const int stamina = UTIL::calcMyStamina(this, pOther);
         if (stamina <= 0) {
             //ˆêŒ‚‚Åƒ`ƒbƒvÁ–Å‚ÌUŒ‚—Í
             setHitAble(false);

@@ -45,8 +45,8 @@ void EffectLockon001_Sub::onActive() {
 
 void EffectLockon001_Sub::processBehavior() {
     EffectLockon001::processBehavior();
-    GgafDxKuroko* pKuroko = getKuroko();
-    GgafProgress* pProg = getProgress();
+    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafProgress* const pProg = getProgress();
     if (pProg->get() == LOCKON001_PROG_LOCK) {
         if (getAlpha() < 0.7) {
             if (pEffectLockon001_Main_->getProgress()->get() == LOCKON001_PROG_LOCK) {
@@ -107,8 +107,8 @@ void EffectLockon001_Sub::lockon(GgafDxGeometricActor* prm_pTarget) {
         return;
     }
     pTarget_ = prm_pTarget;
-    GgafDxKuroko* pKuroko = getKuroko();
-    GgafProgress* pProg = getProgress();
+    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafProgress* const pProg = getProgress();
     if (pProg->get() == LOCKON001_PROG_LOCK) {
     } else if (pProg->get() == LOCKON001_PROG_RELEASE) {
         pKuroko->setFaceAngVelo(AXIS_Z, 1000);   //‰E‰ñ“]
@@ -119,8 +119,8 @@ void EffectLockon001_Sub::lockon(GgafDxGeometricActor* prm_pTarget) {
 void EffectLockon001_Sub::releaseLockon() {
 
     if (isActiveInTheTree()) {
-        GgafDxKuroko* pKuroko = getKuroko();
-        GgafProgress* pProg = getProgress();
+        GgafDxKuroko* const pKuroko = getKuroko();
+        GgafProgress* const pProg = getProgress();
         if (pProg->get() == LOCKON001_PROG_LOCK) {
             pKuroko->setFaceAngVelo(AXIS_Z, pKuroko->_angvelo_face[AXIS_Z]*-3); //‘¬‚­‹t‰ñ“]
             pProg->change(LOCKON001_PROG_RELEASE);

@@ -23,7 +23,7 @@ void Zakoko::onCreateModel() {
 }
 
 void Zakoko::initialize() {
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->relateFaceByMvAng(true);
 }
 
@@ -35,7 +35,7 @@ void Zakoko::onActive() {
 }
 
 void Zakoko::processBehavior() {
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     getKuroko()->behave();
 }
 

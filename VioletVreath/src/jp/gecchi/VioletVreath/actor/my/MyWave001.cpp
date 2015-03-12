@@ -19,7 +19,7 @@ MyWave001::MyWave001(const char* prm_name) :
 
 void MyWave001::initialize() {
     //exec(FLIP_OSCILLATE_LOOP, 2);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setRzMvAngVelo(0);
     //_pKuroko->setFaceAngVelo(AXIS_Z, 2*1000);
     //_pKuroko->setRzMvAng(0);
@@ -51,7 +51,7 @@ void MyWave001::initialize() {
 }
 
 void MyWave001::processBehavior() {
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     if (onChangeToActive()) {
         //èoåªéûã§í èàóù
         setScale(1000);

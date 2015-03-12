@@ -39,7 +39,7 @@ void Shot001::initialize() {
 void Shot001::onActive() {
     getStatus()->reset();
     setHitAble(true);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->relateFaceByMvAng(true);
     pKuroko->setMvVelo(RF_Shot001_MvVelo(G_RANK));    //移動速度
     pKuroko->setFaceAngVelo(AXIS_X, RF_Shot001_AngVelo(G_RANK)); //きりもみ具合
@@ -52,7 +52,7 @@ void Shot001::processBehavior() {
 //    _TRACE_("Shot001::processBehavior() before id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<getKuroko()->_ang_rz_mv<<"\t"<<getKuroko()->_ang_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
     //加算ランクポイントを減少
     UTIL::updateEnemyRankPoint(this);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     //座標に反映
     pKurokoLeader_->behave(); //スプライン移動を振る舞い
     pKuroko->behave();
@@ -67,7 +67,7 @@ void Shot001::processJudgement() {
 }
 
 void Shot001::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(0);

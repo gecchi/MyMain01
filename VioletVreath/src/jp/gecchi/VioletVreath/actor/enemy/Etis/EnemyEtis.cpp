@@ -49,7 +49,7 @@ void EnemyEtis::initialize() {
 void EnemyEtis::onActive() {
     getStatus()->reset();
     setAlpha(1.0);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(AXIS_Z, D_ANG(1));
     pKuroko->setRzRyMvAng(D0ANG, D180ANG);
     pKuroko->setMvVelo(PX_C(3));
@@ -75,7 +75,7 @@ void EnemyEtis::processJudgement() {
 }
 
 void EnemyEtis::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

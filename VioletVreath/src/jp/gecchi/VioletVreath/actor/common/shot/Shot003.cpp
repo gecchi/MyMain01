@@ -34,7 +34,7 @@ void Shot003::onActive() {
 void Shot003::processBehavior() {
     //‰ÁZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ğŒ¸­
     //À•W‚É”½‰f
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->behave();
 }
 

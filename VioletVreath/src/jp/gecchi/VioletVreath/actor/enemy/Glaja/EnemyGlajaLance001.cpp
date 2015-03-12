@@ -44,7 +44,7 @@ void EnemyGlajaLance001::onReset() {
 }
 
 void EnemyGlajaLance001::onActive() {
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvAcce(0);
     pKuroko->setMvVelo(PX_C(3));
     setFaceAng(0,
@@ -65,8 +65,8 @@ void EnemyGlajaLance001::onActive() {
 
 void EnemyGlajaLance001::processBehavior() {
     MyShip* pMyShip = P_MYSHIP;
-    GgafDxKuroko* pKuroko = getKuroko();
-    GgafProgress* pProg = getProgress();
+    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             setHitAble(true, false);
@@ -159,7 +159,7 @@ void EnemyGlajaLance001::processJudgement() {
 }
 
 void EnemyGlajaLance001::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getKuroko()->stopMv();

@@ -115,8 +115,8 @@ void EnemyOmulus::processBehavior() {
     //    pKuroko->behave();
     //    changeGeoFinal();
     //TODO:混在感をもっとなくす。
-    GgafDxKuroko* pKuroko = getKuroko();
-    GgafProgress* pProg = getProgress();
+    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             pProg->change(PROG_HATCH_CLOSE);
@@ -201,7 +201,7 @@ void EnemyOmulus::processBehavior() {
 
 void EnemyOmulus::processChangeGeoFinal() {
     //絶対座標が更新されてから～
-    GgafProgress* pProg = getProgress();
+    GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_HATCH_OPEN: {
             //オープン時敵出現処理
@@ -239,7 +239,7 @@ void EnemyOmulus::processJudgement() {
 }
 
 void EnemyOmulus::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

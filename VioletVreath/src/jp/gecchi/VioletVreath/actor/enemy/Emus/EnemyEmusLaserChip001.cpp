@@ -20,7 +20,7 @@ void EnemyEmusLaserChip001::initialize() {
     setHitAble(true, false);
     setScaleR(5.0);
     setAlpha(0.9);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvVelo(300000);
     pKuroko->relateFaceByMvAng(true);
 }
@@ -42,7 +42,7 @@ void EnemyEmusLaserChip001::onHit(GgafActor* prm_pOtherActor) {
         //出現30フレーム以内でヒット相手が地形ならば無視（出現即地形による破壊されを回避）
         return;
     } else {
-        bool was_destroyed = UTIL::transactEnemyHit(this, pOther);
+        const bool was_destroyed = UTIL::transactEnemyHit(this, pOther);
         if (was_destroyed) {
             //破壊された時(スタミナ <= 0)
             sayonara();

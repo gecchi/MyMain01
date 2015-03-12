@@ -34,7 +34,7 @@ void EnemyIrce::onCreateModel() {
 void EnemyIrce::initialize() {
     setHitAble(true);
     setScale(1000);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->relateFaceByMvAng(true);
     pKuroko->setMvVelo(3000);
     CollisionChecker3D* pChecker = getCollisionChecker();
@@ -51,7 +51,7 @@ void EnemyIrce::onActive() {
 void EnemyIrce::processBehavior() {
     //加算ランクポイントを減少
     UTIL::updateEnemyRankPoint(this);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->turnMvAngTwd(P_MYSHIP,
                           50, 0, TURN_CLOSE_TO, true);
     pKuroko->behave();
@@ -67,7 +67,7 @@ void EnemyIrce::processJudgement() {
 }
 
 void EnemyIrce::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

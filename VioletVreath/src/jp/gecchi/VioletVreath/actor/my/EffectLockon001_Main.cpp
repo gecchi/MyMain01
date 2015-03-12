@@ -50,8 +50,8 @@ void EffectLockon001_Main::onActive() {
 
 void EffectLockon001_Main::processBehavior() {
     EffectLockon001::processBehavior();
-    GgafDxKuroko* pKuroko = getKuroko();
-    GgafProgress* pProg = getProgress();
+    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafProgress* const pProg = getProgress();
     if (pProg->get() == LOCKON001_PROG_LOCK || pProg->get() == LOCKON001_PROG_FIRST_LOCK) {
         if (getAlpha() < 1.0) {
             addAlpha(0.01);
@@ -111,8 +111,8 @@ void EffectLockon001_Main::lockon(GgafDxGeometricActor* prm_pTarget) {
         return;
     }
     pTarget_ = prm_pTarget;
-    GgafDxKuroko* pKuroko = getKuroko();
-    GgafProgress* pProg = getProgress();
+    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafProgress* const pProg = getProgress();
     if (pProg->get() == LOCKON001_PROG_FIRST_LOCK) {
 
     } else if (pProg->get() == LOCKON001_PROG_LOCK) {
@@ -127,8 +127,8 @@ void EffectLockon001_Main::lockon(GgafDxGeometricActor* prm_pTarget) {
 }
 void EffectLockon001_Main::releaseLockon() {
     if (isActiveInTheTree()) {
-        GgafDxKuroko* pKuroko = getKuroko();
-        GgafProgress* pProg = getProgress();
+        GgafDxKuroko* const pKuroko = getKuroko();
+        GgafProgress* const pProg = getProgress();
         if (pProg->get() == LOCKON001_PROG_FIRST_LOCK) {
             pScaler_->forceRange(60000, 2000); //スケーリング・範囲
             pScaler_->transitionLinerUntil(60000, 60);//スケーリング

@@ -86,7 +86,7 @@ void HomingLaserChip::onInactive() {
     if (_chip_kind == 1) {
 
     } else if (_chip_kind == 2) {
-        LaserChip* pChip_behind = _pChip_behind;
+        const LaserChip* const pChip_behind = _pChip_behind;
         //中間チップ消失時の場合
         //自身のチップが消失することにより、レーザーの数珠つなぎ構造が２分されてしまう。
         //消失前の先頭以外のチップは、一つ前に追従してるだけなので、中間チップ Mover 内部パラメータは不定。
@@ -129,7 +129,7 @@ void HomingLaserChip::onInactive() {
     } else if (_chip_kind == 4) {
         if (_pChip_behind) {
             GgafDxKuroko* const pChip_behind_pKuroko = _pChip_behind->getKuroko();
-            GgafDxKuroko* pKuroko = getKuroko();
+            GgafDxKuroko* const pKuroko = getKuroko();
             pChip_behind_pKuroko->_vX = pKuroko->_vX;
             pChip_behind_pKuroko->_vY = pKuroko->_vY;
             pChip_behind_pKuroko->_vZ = pKuroko->_vZ;
@@ -147,7 +147,7 @@ void HomingLaserChip::processBehavior() {
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     //その際 は、本クラスの processBehavior() メソッドも呼び出してください。
     //座標に反映
-    HomingLaserChip* pChip_front =  (HomingLaserChip*)_pChip_front;
+    const HomingLaserChip* const pChip_front =  (HomingLaserChip*)_pChip_front;
     if (getActiveFrame() > 1) {
         //GgafActorDepository::dispatch() は
         //取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者のサブの一番後ろに移動される。

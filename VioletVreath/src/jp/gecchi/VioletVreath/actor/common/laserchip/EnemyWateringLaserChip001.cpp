@@ -38,7 +38,7 @@ void EnemyWateringLaserChip001::processBehavior() {
         //利用元アクターが指定した最初の座標で表示したい。
         //黒衣の活動を行うと、ずれるので、最初だけはそのままの座標で表示。
     } else {
-        GgafDxKuroko* pKuroko = getKuroko();
+        GgafDxKuroko* const pKuroko = getKuroko();
         pKuroko->behave();
     }
     WateringLaserChip::processBehavior();//座標を移動させてから呼び出すこと
@@ -52,7 +52,7 @@ void EnemyWateringLaserChip001::onHit(GgafActor* prm_pOtherActor) {
         return;
     }
 
-    bool was_destroyed = UTIL::transactEnemyHit(this, pOther);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, pOther);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         sayonara();

@@ -21,7 +21,7 @@ EnemyIdaBase001::EnemyIdaBase001(const char* prm_name) :
 
 void EnemyIdaBase001::initialize() {
     EnemyIdaBase::initialize();
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->relateFaceByMvAng(true);
     pKuroko->setFaceAngVelo(D_ANG(2), D_ANG(0.4), D0ANG );
 }
@@ -33,8 +33,8 @@ void EnemyIdaBase001::onActive() {
 
 void EnemyIdaBase001::processBehavior() {
     EnemyIdaBase::processBehavior();
-    GgafDxKuroko* pKuroko = getKuroko();
-    GgafProgress* pProg = getProgress();
+    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_COORD, 3);

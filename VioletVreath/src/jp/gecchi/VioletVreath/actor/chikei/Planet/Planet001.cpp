@@ -40,7 +40,7 @@ void Planet001::initialize() {
     pAtmosphere_->positionAs(this);
 }
 void Planet001::processBehavior() {
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxKuroko* const pKuroko = getKuroko();
 
     //巨大オブジェクト移動テスト
     if (GgafDxInput::isBeingPressedKey(DIK_I)) {
