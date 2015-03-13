@@ -35,9 +35,6 @@ template<class T>
 class GgafElement : public GgafNode<T> {
 
 private:
-
-
-
     /**
      * ツリー構造において、再帰呼び出しを行う。
      * @param pFunc 再帰呼び出しするメソッド
@@ -963,7 +960,7 @@ void GgafElement<T>::nextFrame() {
     //moveLast予約時
     if (_will_mv_last_in_next_frame_flg) {
         _will_mv_last_in_next_frame_flg = false;
-        moveLastImmed();
+        moveLastImmed(); //即座に自ノードを最終ノードに移動（ローテーション）
         return;
         //即returnする事は重要。nextFrame() 処理の２重実行をさけるため。
         //このノードは、末尾に回されているため、必ずもう一度 nextFrame() の機会が訪れる。
@@ -1007,8 +1004,8 @@ void GgafElement<T>::nextFrame() {
                 }
                 _frame_of_behaving_since_onActive++;
             }
-            //onActive処理
-            if (_on_change_to_active_flg) {
+
+            if (_on_change_to_active_flg) {          //onActive処理
                 if (!_was_initialize_flg) {
                     initialize();       //初期化
                     _was_initialize_flg = true;
@@ -1019,9 +1016,7 @@ void GgafElement<T>::nextFrame() {
                 _frame_of_life_when_activation = 0;
                 _will_activate_after_flg = false;
                 _frame_of_behaving_since_onActive = 1;
-            }
-            //onInactive処理
-            if (_on_change_to_inactive_flg) {
+            } else if (_on_change_to_inactive_flg) { //onInactive処理
                 onInactive(); //コールバック
                 _frame_of_life_when_inactivation = 0;
                 _will_inactivate_after_flg = false;
@@ -1030,23 +1025,23 @@ void GgafElement<T>::nextFrame() {
     }
 
     //配下の全ノードに再帰的にnextFrame()実行
-    T* pElement = GgafNode<T>::_pSubFirst; //一つ配下の先頭ノード
+    T* pElement = GgafNode<T>::_pSubFirst; //一つ配下の先頭ノード。潜れる場合は先に潜る。
     if (pElement) {
         while (!pElement->_is_last_flg) {
-            //一つ配下の先頭～中間ノードに nextFrame()
-            pElement->nextFrame();
+            //配下の先頭 ～ 末尾-1 ノードに nextFrame()
+            pElement->nextFrame();  //再帰
             if (pElement->_can_live_flg) {
                 pElement = pElement->_pNext;
             } else {
                 pElement->onEnd();
-                pElement = pElement->_pNext; //一個進ませて退避させてから
+                pElement = pElement->_pNext; //先に一個進ませて退避させてから
                 GgafGarbageBox::_pGarbageBox->add(pElement->_pPrev); //一個前をゴミ箱へ(連結が切れる)
             }
         }
-        //一つ配下の末尾ノードに nextFrame()
-        pElement->nextFrame();
+        //配下の最後の末尾ノードに nextFrame()
+        pElement->nextFrame(); //再帰
         if (pElement->_can_live_flg) {
-            //OK何もしない
+            //OK 次は無し→親ノードの処理へ
         } else {
             pElement->onEnd();
             GgafGarbageBox::_pGarbageBox->add(pElement); //ゴミ箱へ
@@ -1055,7 +1050,7 @@ void GgafElement<T>::nextFrame() {
 
     if (_will_mv_first_in_next_frame_flg) {
         _will_mv_first_in_next_frame_flg = false;
-        moveFirstImmed();
+        moveFirstImmed(); //即座に自ノードを先頭ノードに移動（ローテーション）させる
         //moveFirstを一番最後にすることは重要。
         //これは nextFrame() の２重実行を避けるため。
     }

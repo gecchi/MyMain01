@@ -106,7 +106,7 @@ void WalledSectionScene::onActive() {
 }
 
 void WalledSectionScene::processBehavior() {
-    velo parent_scroll_speed =_pWalledScene->getScrollSpeed();
+    const velo parent_scroll_speed =_pWalledScene->getScrollSpeed();
     if (!_is_loop_end && parent_scroll_speed != 0) {
 
         if (_pWallPartsLast == nullptr || (_wall_start_x - _pWallPartsLast->_x) >= _wall_dep) {
@@ -124,10 +124,9 @@ void WalledSectionScene::processBehavior() {
                 }
             }
             WallPartsActor* pWallParts = nullptr;
-            WallInfo* pWallInfo = nullptr;
-            int len = _paWallInfoLen[_cnt_area_len];
+            const int len = _paWallInfoLen[_cnt_area_len];
             for (int n = 0; n < len; n++) {
-                pWallInfo = &(_papaWallInfo[_cnt_area_len][n]);
+                WallInfo* const pWallInfo = &(_papaWallInfo[_cnt_area_len][n]);
                 if (pWallInfo->_pos_prism == 0) {
                     pWallParts = (WallPartsActor*)_pDepo_wall->dispatchForce();
                 } else {
@@ -165,7 +164,7 @@ void WalledSectionScene::processBehavior() {
     }
 }
 
-WallPartsActor* WalledSectionScene::getLastWallParts() {
+WallPartsActor* WalledSectionScene::getLastWallParts() const {
     return _pWallPartsLast;
 }
 

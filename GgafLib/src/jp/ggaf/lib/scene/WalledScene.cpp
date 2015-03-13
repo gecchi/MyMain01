@@ -114,10 +114,10 @@ void WalledScene::processBehavior() {
     if (!_is_finished) {
         if (!_is_all_active_section_scenes) {
 
-            WalledSectionScene* pCurrentSection = _ringHoldSection.getCurrent();
+            const WalledSectionScene* const pCurrentSection = _ringHoldSection.getCurrent();
             if (!pCurrentSection->isLast()) {
                 if (pCurrentSection->_is_loop_end) {
-                    WalledSectionScene* pNewSection = _ringHoldSection.next();
+                    WalledSectionScene* const pNewSection = _ringHoldSection.next();
                     pNewSection->activate();
                     pNewSection->_pWallPartsLast = pCurrentSection->getLastWallParts();
                     _ringLoopEndSection.addLast(pCurrentSection, false);
@@ -133,8 +133,9 @@ void WalledScene::processBehavior() {
         //_ringLoopEndSectionチェック
         //WallPartsActor::_pWalledSectionScene が不正ポインタにならないための考慮である。
         for (int i = 0; i < _ringLoopEndSection.length(); i++) { //_ringLoopEndSection.length()をローカル変数に置き換えてはいけません
-            WalledSectionScene* pSection =_ringLoopEndSection.next();
-            if (pSection->_pWallPartsLast->_pWalledSectionScene != pSection || !pSection->_pWallPartsLast->isActive() ) {
+            WalledSectionScene* const pSection =_ringLoopEndSection.next();
+            const WallPartsActor* const pWallPartsLast = pSection->_pWallPartsLast;
+            if (pWallPartsLast->_pWalledSectionScene != pSection || !pWallPartsLast->isActive() ) {
                 //＜メモ＞
                 //pSection->_pWallPartsLast->_pWalledSectionScene != pSection は、
                 //pSection->_pWallPartsLast つまり最終壁の紐付くセクションはが自分でない、

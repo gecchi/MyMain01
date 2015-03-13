@@ -264,8 +264,8 @@
     #define _TRACE5_N_(X)
 #endif
 
-#define NODE_INFO        _class_name<<"("<<_name<<")<-"<<this<<""
-#define NODE_INFO_P(P)   ((P)->_class_name)<<"("<<((P)->_name)<<")<-"<<(P)<<""
+#define NODE_INFO        _class_name<<"["<<_name<<"]("<<this<<")"
+#define NODE_INFO_P(P)   ((P)->_class_name)<<"["<<((P)->_name)<<"]("<<(P)<<")"
 
 #define DUMP_FLGS   "@"<< \
                     _frame_of_behaving_since_onActive<< \

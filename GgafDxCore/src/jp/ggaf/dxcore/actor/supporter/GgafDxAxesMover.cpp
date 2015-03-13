@@ -70,25 +70,27 @@ void GgafDxAxesMover::behave() {
     if(_grv_mv_flg) {
         coord dx, dy, dz;
         if (_grv_mv_pActor_target) {
-            dx = _grv_mv_pActor_target->_x - _pActor->_x;
-            dy = _grv_mv_pActor_target->_y - _pActor->_y;
-            dz = _grv_mv_pActor_target->_z - _pActor->_z;
+            //_grv_mv_pActor_target 指定時の _grv_mv_target_(xyz) は、_grv_mv_pActor_targetからの補正相対座標
+            dx = (_grv_mv_pActor_target->_x + _grv_mv_target_x) - _pActor->_x;
+            dy = (_grv_mv_pActor_target->_y + _grv_mv_target_y) - _pActor->_y;
+            dz = (_grv_mv_pActor_target->_z + _grv_mv_target_z) - _pActor->_z;
         } else {
+            //_grv_mv_pActor_target 未定時の _grv_mv_target_(xyz) は、絶対座標
             dx = _grv_mv_target_x - _pActor->_x;
             dy = _grv_mv_target_y - _pActor->_y;
             dz = _grv_mv_target_z - _pActor->_z;
         }
-        coord dx_abs = ABS(dx);
-        coord dy_abs = ABS(dy);
-        coord dz_abs = ABS(dz);
-        coord dmax = MAX3(dx_abs, dy_abs, dz_abs);//距離簡易計算
+        const coord dx_abs = ABS(dx);
+        const coord dy_abs = ABS(dy);
+        const coord dz_abs = ABS(dz);
+        const coord dmax = MAX3(dx_abs, dy_abs, dz_abs);//距離簡易計算
         if (dmax > _grv_mv_max_velo) {
             double rr = 1.0*_grv_mv_max_velo / dmax;
             dx *= rr;
             dy *= rr;
             dz *= rr;
         }
-        double r_acce = 1.7*_grv_mv_acce / dmax;
+        const double r_acce = 1.7*_grv_mv_acce / dmax;
         acce x_acce = r_acce * dx_abs;
         acce y_acce = r_acce * dy_abs;
         acce z_acce = r_acce * dz_abs;
@@ -101,8 +103,8 @@ void GgafDxAxesMover::behave() {
         if (z_acce > _grv_mv_acce) {
             z_acce = _grv_mv_acce;
         }
-        velo last_velo_vx_mv = _velo_vx_mv;
-        velo new_velo_vx_mv = _grv_mv_max_velo * (dx * 1.0 / _grv_mv_stop_renge);
+        const velo last_velo_vx_mv = _velo_vx_mv;
+        const velo new_velo_vx_mv = _grv_mv_max_velo * (dx * 1.0 / _grv_mv_stop_renge);
         if (last_velo_vx_mv - x_acce <= new_velo_vx_mv &&
                                         new_velo_vx_mv <= last_velo_vx_mv + x_acce) {
             _velo_vx_mv = new_velo_vx_mv;
@@ -114,8 +116,8 @@ void GgafDxAxesMover::behave() {
             }
         }
 
-        velo last_velo_vy_mv = _velo_vy_mv;
-        velo new_velo_vy_mv = _grv_mv_max_velo * (dy * 1.0 / _grv_mv_stop_renge);
+        const velo last_velo_vy_mv = _velo_vy_mv;
+        const velo new_velo_vy_mv = _grv_mv_max_velo * (dy * 1.0 / _grv_mv_stop_renge);
         if (last_velo_vy_mv - y_acce <= new_velo_vy_mv &&
                                         new_velo_vy_mv <= last_velo_vy_mv + y_acce) {
             _velo_vy_mv = new_velo_vy_mv;
@@ -127,8 +129,8 @@ void GgafDxAxesMover::behave() {
             }
         }
 
-        velo last_velo_vz_mv = _velo_vz_mv;
-        velo new_velo_vz_mv = _grv_mv_max_velo * (dz * 1.0 / _grv_mv_stop_renge);
+        const velo last_velo_vz_mv = _velo_vz_mv;
+        const velo new_velo_vz_mv = _grv_mv_max_velo * (dz * 1.0 / _grv_mv_stop_renge);
         if (last_velo_vz_mv - z_acce <= new_velo_vz_mv &&
                                         new_velo_vz_mv <= last_velo_vz_mv + z_acce) {
             _velo_vz_mv = new_velo_vz_mv;
@@ -472,6 +474,25 @@ void GgafDxAxesMover::execGravitationMvSequenceTwd(const GgafDxGeometricActor* p
     _grv_mv_target_x = 0;
     _grv_mv_target_y = 0;
     _grv_mv_target_z = 0;
+    _grv_mv_pActor_target = prm_pActor_target;
+    _grv_mv_max_velo = prm_max_velo;
+    _grv_mv_acce = prm_acce;
+    _grv_mv_stop_renge = prm_stop_renge;
+    _grv_mv_flg = true;
+
+    forceVxMvVeloRange(-prm_max_velo, prm_max_velo);
+    forceVyMvVeloRange(-prm_max_velo, prm_max_velo);
+    forceVzMvVeloRange(-prm_max_velo, prm_max_velo);
+}
+
+void GgafDxAxesMover::execGravitationMvSequenceTwd(const GgafDxGeometricActor* prm_pActor_target,
+                                                   coord prm_local_offset_tx, coord prm_local_offset_ty, coord prm_local_offset_tz,
+                                                   velo prm_max_velo,
+                                                   acce prm_acce,
+                                                   coord prm_stop_renge) {
+    _grv_mv_target_x = prm_local_offset_tx;
+    _grv_mv_target_y = prm_local_offset_ty;
+    _grv_mv_target_z = prm_local_offset_tz;
     _grv_mv_pActor_target = prm_pActor_target;
     _grv_mv_max_velo = prm_max_velo;
     _grv_mv_acce = prm_acce;

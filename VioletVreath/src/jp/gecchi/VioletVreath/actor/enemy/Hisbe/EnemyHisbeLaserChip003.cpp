@@ -19,8 +19,8 @@ EnemyHisbeLaserChip003::EnemyHisbeLaserChip003(const char* prm_name) :
     pConn_pSplManuf_ = getConnection_SplineManufactureManager("EnemyHisbeLaserChip003"); //ƒSƒXƒp[‹Èü
     pKurokoLeader_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
     pKurokoLeader_->adjustCoordOffset(PX_C(100), 0, 0);
-    sp_index_ = 0;
     pNearestScrollingScene_ = nullptr;
+    sp_index_ = 0;
 }
 
 void EnemyHisbeLaserChip003::initialize() {
@@ -44,6 +44,7 @@ void EnemyHisbeLaserChip003::onActive() {
 
 void EnemyHisbeLaserChip003::processBehavior() {
     GgafDxKuroko* const pKuroko = getKuroko();
+
     if (pNearestScrollingScene_ && pNearestScrollingScene_->_pFuncScrolling == WalledScene::scrollX) {
         pKurokoLeader_->_x_start -= pNearestScrollingScene_->getScrollSpeed();
     }

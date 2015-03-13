@@ -65,20 +65,20 @@ void WallAABActor::config(WalledSectionScene* prm_pWalledSectionScene, int prm_p
         pChecker->disable(0);
     } else {
         pChecker->setColliAAB(0, -(_wall_dep/2)    - (_wall_dep    * (prm_aColliBoxStretch[FACE_B_IDX]-1)),
-                                       -(_wall_height/2) - (_wall_height * (prm_aColliBoxStretch[FACE_D_IDX]-1)),
-                                       -(_wall_width/2)  - (_wall_width  * (prm_aColliBoxStretch[FACE_E_IDX]-1)),
-                                        (_wall_dep/2)    + (_wall_dep    * (prm_aColliBoxStretch[FACE_F_IDX]-1)),
-                                        (_wall_height/2) + (_wall_height * (prm_aColliBoxStretch[FACE_A_IDX]-1)),
-                                        (_wall_width/2)  + (_wall_width  * (prm_aColliBoxStretch[FACE_C_IDX]-1))
-                                       );
+                                 -(_wall_height/2) - (_wall_height * (prm_aColliBoxStretch[FACE_D_IDX]-1)),
+                                 -(_wall_width/2)  - (_wall_width  * (prm_aColliBoxStretch[FACE_E_IDX]-1)),
+                                  (_wall_dep/2)    + (_wall_dep    * (prm_aColliBoxStretch[FACE_F_IDX]-1)),
+                                  (_wall_height/2) + (_wall_height * (prm_aColliBoxStretch[FACE_A_IDX]-1)),
+                                  (_wall_width/2)  + (_wall_width  * (prm_aColliBoxStretch[FACE_C_IDX]-1))
+                             );
          pChecker->enable(0);
     }
 }
 
 void WallAABActor::processDraw() {
     int draw_set_num = 0; //GgafDxMeshSetActorの同じモデルで同じテクニックが
-                       //連続しているカウント数。同一描画深度は一度に描画する。
-    ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
+                          //連続しているカウント数。同一描画深度は一度に描画する。
+    ID3DXEffect* const pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     HRESULT hr;
     if (_pWalledSectionScene->_pActor_front_alpha_target) {
         hr = pID3DXEffect->SetFloat(WallAABActor::_h_distance_AlphaTarget, -(_pWalledSectionScene->_pActor_front_alpha_target->_dest_from_vppln_front));
@@ -93,10 +93,6 @@ void WallAABActor::processDraw() {
     while (pDrawActor) {
         if (pDrawActor->getModel() == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
             pWallPartsActor = (WallPartsActor*)pDrawActor;
-//                _TRACE_("WallAABActor::processDraw() pWallPartsActor->_wall_draw_face="<<(pWallPartsActor->_wall_draw_face)<<" befor._matWorld._14="<<(pWallPartsActor->_matWorld._14));
-
-            //pWallPartsActor->_matWorld._14 = pWallPartsActor->_wall_draw_face;  //描画面番号をワールド変換行列のmatWorld._14 に埋め込む
-
             hr = pID3DXEffect->SetInt(WallAABActor::_ah_wall_draw_face[draw_set_num], pWallPartsActor->_wall_draw_face);
             checkDxException(hr, D3D_OK, "WallPartsActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
 
@@ -106,9 +102,6 @@ void WallAABActor::processDraw() {
             //_set_num 19を18に、あるいは２とか３に減らしてみたはどうか
             //FXをVS_2_0 に変えてみてはどうか
             //
-
-
-
 //                D3DXMATRIX& mat = pWallPartsActor->_matWorld;
 //                _TRACE_(mat._11<<","<<mat._12<<","<<mat._13<<","<<mat._14);
 //                _TRACE_(mat._21<<","<<mat._22<<","<<mat._23<<","<<mat._24);

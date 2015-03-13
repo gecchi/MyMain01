@@ -39,7 +39,10 @@ void MyMagicEnergyCore::initialize() {
 }
 
 void MyMagicEnergyCore::onActive() {
-    pAxsMver_->execGravitationMvSequenceTwd(P_MYSHIP, 10000, 200, 2000);
+    pAxsMver_->execGravitationMvSequenceTwd(
+                      P_MYSHIP,
+                      +PX_C(90), 0, 0,
+                      PX_C(10), 1000, PX_C(20));
 }
 
 void MyMagicEnergyCore::processBehavior() {
@@ -53,7 +56,7 @@ void MyMagicEnergyCore::processBehavior() {
     CollisionChecker3D* pChecker = getCollisionChecker();
     if (s > 0.0) {
         pChecker->enable(0);
-        pChecker->setColliSphere(0, s*PX_C(30));
+        pChecker->setColliSphere(0, s*PX_C(40));
     } else {
         pChecker->disable(0);
     }

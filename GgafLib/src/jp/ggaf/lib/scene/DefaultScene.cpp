@@ -29,7 +29,7 @@ SceneProgress* DefaultScene::getProgress() const {
 void DefaultScene::processSettlementBehavior() {
     GgafDxScene::processSettlementBehavior();
     if (_pFuncScrolling && _is_active_flg && !_was_paused_flg && _can_live_flg) {
-        executeFuncLowerTree(_pFuncScrolling, &_scroll_speed, nullptr);
+        executeFuncLowerTree(_pFuncScrolling, &_scroll_speed, nullptr); //配下アクターにスクロール実行！！
         //ここの executeFuncLowerTree の第２第３引数は、
         //このメソッドのエディタ上の直ぐ上に記述してある DefaultScene::scroll_x の受取り引数 p1 ,p2 と対応する
         //  this           → GgafObject* pThat

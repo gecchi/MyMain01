@@ -107,8 +107,8 @@ void WallAAPrismActor::config(WalledSectionScene* prm_pWalledSectionScene, int p
 
 void WallAAPrismActor::processDraw() {
     int draw_set_num = 0; //GgafDxMeshSetActorの同じモデルで同じテクニックが
-                       //連続しているカウント数。同一描画深度は一度に描画する。
-    ID3DXEffect* pID3DXEffect = getEffect()->_pID3DXEffect;
+                          //連続しているカウント数。同一描画深度は一度に描画する。
+    ID3DXEffect* const pID3DXEffect = getEffect()->_pID3DXEffect;
     HRESULT hr;
     if (_pWalledSectionScene->_pActor_front_alpha_target) {
         hr = pID3DXEffect->SetFloat(WallAAPrismActor::_h_distance_AlphaTarget, -(_pWalledSectionScene->_pActor_front_alpha_target->_dest_from_vppln_front));

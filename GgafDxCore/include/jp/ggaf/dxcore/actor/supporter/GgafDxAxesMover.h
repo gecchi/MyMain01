@@ -306,9 +306,9 @@ public:
      * 各軸それぞれ、目標に近づくと軸速度は0に近づく、という訳で重力とは物理的に動きが異なります。<BR>
      * でも、重力で引き付けるかのような効果を期待出来ます。<BR>
      * 数学的には、目標の座標に限りなく近づくだけで、目標座標と一致することはありません。<BR>
-     * @param prm_tx 引き寄せられて到達する目標のX座標
-     * @param prm_ty 引き寄せられて到達する目標のY座標
-     * @param prm_tz 引き寄せられて到達する目標のZ座標
+     * @param prm_tx 引き寄せられて到達する目標のX座標(絶対座標)
+     * @param prm_ty 引き寄せられて到達する目標のY座標(絶対座標)
+     * @param prm_tz 引き寄せられて到達する目標のZ座標(絶対座標)
      * @param prm_max_velo 引き寄せられている最中の各軸(XYZ)の軸移動速度上限値
      * @param prm_acce 引き寄せられている最中の各軸(XYZ)の軸移動加速度上限値
      * @param prm_stop_renge 速度が抑えられる目標座標からの各軸の距離
@@ -345,6 +345,25 @@ public:
                                       velo prm_max_velo,
                                       acce prm_acce,
                                       coord prm_stop_renge);
+    /**
+     * 重力により物体が引き寄せられるかような感じの動きみたいな感じっぽいのを実行 .
+     * 説明は、
+     * execGravitationMvSequenceTwd(coord,coord,coord,velo,acce,int)
+     * を参照。
+     * @param prm_pActor_target 引き寄せられて到達する目標座標となるアクター
+     * @param prm_local_offset_tx 目標X座標位置の補正。prm_pActor_targetからの相対座標を設定する。
+     * @param prm_local_offset_ty 目標Y座標位置の補正。prm_pActor_targetからの相対座標を設定する。
+     * @param prm_local_offset_tz 目標Z座標位置の補正。prm_pActor_targetからの相対座標を設定する。
+     * @param prm_max_velo 引き寄せられている最中の各軸(XYZ)の軸移動速度上限値
+     * @param prm_acce 引き寄せられている最中の各軸(XYZ)の軸移動加速度上限値
+     * @param prm_stop_renge 速度が抑えられる目標座標からの各軸の距離
+     */
+    void execGravitationMvSequenceTwd(const GgafDxGeometricActor* prm_pActor_target,
+                                      coord prm_local_offset_tx, coord prm_local_offset_ty, coord prm_local_offset_tz,
+                                      velo prm_max_velo,
+                                      acce prm_acce,
+                                      coord prm_stop_renge);
+
 
     /**
      * 重力により物体が引き寄せられるかような感じの動きみたいな感じっぽいの目標座標を更新設定 .

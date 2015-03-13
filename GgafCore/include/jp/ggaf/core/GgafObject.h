@@ -9,7 +9,7 @@
 namespace GgafCore {
 
 /** クラス種別 */
-typedef uint32_t classkind;
+typedef uint64_t classkind;
 
 /**
  * 基底クラス

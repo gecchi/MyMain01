@@ -118,7 +118,7 @@ public:
      */
     virtual void processBehavior() override;
 
-    WallPartsActor* getLastWallParts();
+    WallPartsActor* getLastWallParts() const;
 
     /**
      * 手前ブロックの透過機能を有効にする。
