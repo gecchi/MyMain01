@@ -29,7 +29,7 @@ public:
     /** “–‚½‚è”»’è—Ìˆæ‚Ì‹«ŠE—Ìˆæ(AABB)‚ğÄŒvZ‚·‚é‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO */
     bool _need_update_aabb;
     /** üŒ`”ª•ª–Ø“o˜^—p—v‘f */
-    LinearOctreeActorElem* _pElem;
+    LinearOctreeActorElem* const _pElem;
 
 public:
     /**
@@ -313,7 +313,7 @@ public:
      * @param prm_pOppChecker ‘¼‚Ì“–‚½‚è”»’è—Ìˆæ
      * @return true:“–‚½‚Á‚Ä‚¢‚é / false:“–‚½‚Á‚Ä‚¢‚È‚¢
      */
-    virtual bool isHit(GgafDxCore::GgafDxChecker* prm_pOppChecker) override;
+    virtual bool isHit(const GgafDxCore::GgafDxChecker* const prm_pOppChecker) override;
 
     virtual ~CollisionChecker3D();
 };

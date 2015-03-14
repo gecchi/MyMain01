@@ -42,7 +42,7 @@ public:
      * @param prm_pOtherChecker 相手のチェッカー
      * @return
      */
-    virtual bool isHit(GgafDxChecker* prm_pOtherChecker) = 0;
+    virtual bool isHit(const GgafDxChecker* const prm_pOtherChecker) = 0;
 
     virtual GgafDxGeometricActor* getTargetActor() {
         if (_pActor == nullptr) {

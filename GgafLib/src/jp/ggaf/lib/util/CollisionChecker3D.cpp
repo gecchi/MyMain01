@@ -19,8 +19,9 @@ using namespace GgafLib;
 
 int CollisionChecker3D::_num_check = 0;
 CollisionChecker3D::CollisionChecker3D(GgafDxGeometricActor* prm_pActor) : GgafDxChecker(prm_pActor) ,
-_pLinearOctree(P_GOD->getUniverse()->getLinearOctree()) {
-    _pElem = NEW LinearOctreeActorElem(_pLinearOctree, prm_pActor, 0);
+        _pLinearOctree(P_GOD->getUniverse()->getLinearOctree()),
+_pElem(NEW LinearOctreeActorElem(_pLinearOctree, prm_pActor, 0))
+{
     _need_update_aabb = true;
 }
 
@@ -158,7 +159,7 @@ void CollisionChecker3D::updateHitArea() {
 }
 
 
-bool CollisionChecker3D::isHit(GgafDxCore::GgafDxChecker* const prm_pOppChecker) {
+bool CollisionChecker3D::isHit(const GgafDxCore::GgafDxChecker* const prm_pOppChecker) {
     GgafDxCollisionArea* const pCollisionArea = _pCollisionArea;
     GgafDxCollisionArea* const pOppCollisionArea = prm_pOppChecker->_pCollisionArea; //相手の当たり判定領域
     const GgafDxGeometricActor* const pOppActor = prm_pOppChecker->_pActor;                //相手のアクター
@@ -264,7 +265,7 @@ bool CollisionChecker3D::isHit(GgafDxCore::GgafDxChecker* const prm_pOppChecker)
 
 
 CollisionChecker3D::~CollisionChecker3D() {
-    GGAF_DELETE(_pElem);
+    delete _pElem;
     GGAF_DELETE_NULLABLE(_pCollisionArea);
     //当たり判定はないかもしれない。この場合_pElemは無駄な生成と解放をすることになる。。
 }

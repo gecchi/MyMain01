@@ -10,35 +10,33 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxCamera::GgafDxCamera(const char* prm_name, double prm_rad_fovX, double prm_dep) :
-        GgafDxGeometricActor(prm_name, nullptr, nullptr) {
+        GgafDxGeometricActor(prm_name, nullptr, nullptr),
+_rad_fovX(prm_rad_fovX),      //全ての基準はfovXから考える
+_dep(prm_dep),
+_rad_half_fovX(_rad_fovX / 2.0),
+_screen_aspect(1.0 * (PROPERTY::GAME_BUFFER_WIDTH) / (PROPERTY::GAME_BUFFER_HEIGHT)),
+_rad_fovY(atan( ( (tan(_rad_fovX/2.0)) / _screen_aspect) )*2.0),
+_rad_half_fovY(_rad_fovY / 2.0),
+_tan_half_fovX(tan(_rad_fovX/2.0)),
+_tan_half_fovY(tan(_rad_fovY/2.0)),
+_cameraZ_org(-1.0 * ((1.0 * (PROPERTY::GAME_BUFFER_HEIGHT) / PX_UNIT) / 2.0) / _tan_half_fovY),
+_zn(0.1f),
+_zf(-_cameraZ_org*(_dep+1.0)),
+_x_buffer_left(PX_C(PROPERTY::GAME_BUFFER_WIDTH) / -2),
+_x_buffer_right(PX_C(PROPERTY::GAME_BUFFER_WIDTH) / 2),
+_y_buffer_top(PX_C(PROPERTY::GAME_BUFFER_HEIGHT) / 2),
+_y_buffer_bottom(PX_C(PROPERTY::GAME_BUFFER_HEIGHT) / -2)
+{
     _class_name = "GgafDxCamera";
-
-    static double rev = 1.000; //Spriteをドットパーピクセルで表示するための補正値
-
-    //全ての基準はfovXから考える
-    _rad_fovX = prm_rad_fovX;
-    //半分を保持
-    _rad_half_fovX = _rad_fovX / 2.0;
-    //画面アスペクト比(w/h)
-    _screen_aspect = 1.0 * (PROPERTY::GAME_BUFFER_WIDTH*rev) / (PROPERTY::GAME_BUFFER_HEIGHT*rev);
     //fovXとアスペクト比からfovYを計算して求める
-    double xzRatio = tan(_rad_fovX/2.0);
-    double yRatio = xzRatio / _screen_aspect;
-    _rad_fovY = atan( yRatio )*2.0;
     _TRACE_("GgafDxCamera::GgafDxCamera 画面アスペクト："<<_screen_aspect);
     _TRACE_("GgafDxCamera::GgafDxCamera FovX="<<prm_rad_fovX<<" FovY="<<_rad_fovY);
 
-    //半分を保持
-    _rad_half_fovY = _rad_fovY / 2.0;
-    //tan値も保持
-    _tan_half_fovY = tan(_rad_fovY/2.0);
-    _tan_half_fovX = tan(_rad_fovX/2.0);
+
     //初期カメラ位置は視点(0,0,Z)、注視点(0,0,0)
     //Zは、キャラがZ=0のXY平面で丁度キャラが値ピクセル幅と一致するような所にカメラを引く
-    _cameraZ = -1.0 * ((1.0 * (PROPERTY::GAME_BUFFER_HEIGHT*rev) / PX_UNIT) / 2.0) / _tan_half_fovY;
-    _cameraZ_org = _cameraZ;
-    _TRACE_("GgafDxCamera::GgafDxCamera カメラの位置(0,0,"<<_cameraZ<<")");
-    _pVecCamFromPoint   = NEW D3DXVECTOR3( 0.0f, 0.0f, (FLOAT)_cameraZ); //位置
+    _TRACE_("GgafDxCamera::GgafDxCamera カメラの位置(0,0,"<<_cameraZ_org<<")");
+    _pVecCamFromPoint   = NEW D3DXVECTOR3( 0.0f, 0.0f, (FLOAT)_cameraZ_org); //位置
     _pVecCamLookatPoint = NEW D3DXVECTOR3( 0.0f, 0.0f, 0.0f ); //注視する方向
     _pVecCamUp          = NEW D3DXVECTOR3( 0.0f, 1.0f, 0.0f ); //上方向
 
@@ -51,16 +49,15 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, double prm_rad_fovX, double prm
     );
 
     // 射影変換行列作成
-    _dep = prm_dep;
-    _zn = 0.1f;
-    _zf = -_cameraZ_org*(_dep+1.0);
+
+
     _TRACE_("GgafDxCamera::GgafDxCamera 範囲 ["<<_zn<<" ~ "<<_zf<<"]");
     if (PROPERTY::PRJ_2D_MODE) {
         //2Dモード正射影
         D3DXMatrixOrthoLH(
             &_matProj,
-            PX_DX(PROPERTY::GAME_BUFFER_WIDTH*rev),
-            PX_DX(PROPERTY::GAME_BUFFER_HEIGHT*rev),
+            PX_DX(PROPERTY::GAME_BUFFER_WIDTH),
+            PX_DX(PROPERTY::GAME_BUFFER_HEIGHT),
             _zn,
             _zf
         );
@@ -75,15 +72,11 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, double prm_rad_fovX, double prm
         );
     }
 
-    position(0, 0, DX_C(_cameraZ));
+    position(0, 0, DX_C(_cameraZ_org));
     setFaceAngTwd(0,0,0);
     getKuroko()->setMvAngTwd(0,0,0);
     setHitAble(false);
 
-    _x_buffer_left   = PX_C(PROPERTY::GAME_BUFFER_WIDTH) / -2;
-    _x_buffer_right  = PX_C(PROPERTY::GAME_BUFFER_WIDTH) / 2;
-    _y_buffer_top    = PX_C(PROPERTY::GAME_BUFFER_HEIGHT) / 2;
-    _y_buffer_bottom = PX_C(PROPERTY::GAME_BUFFER_HEIGHT) / -2;
     GgafDxGod::_pID3DDevice9->GetViewport(&_viewport);
 
     _x_prev = 0;
@@ -105,10 +98,10 @@ void GgafDxCamera::processBehavior() {
         //スクリーン全体のクライアント領域を保持。
 
         // _viewport.MinZ / MaxZ は、通常それぞれ 0 / 1
-        dxcoord x1 = dxcoord(_viewport.X);
-        dxcoord y1 = dxcoord(_viewport.Y);
-        dxcoord x2 = dxcoord(_viewport.X + _viewport.Width);
-        dxcoord y2 = dxcoord(_viewport.Y + _viewport.Height);
+        const dxcoord x1 = dxcoord(_viewport.X);
+        const dxcoord y1 = dxcoord(_viewport.Y);
+        const dxcoord x2 = dxcoord(_viewport.X + _viewport.Width);
+        const dxcoord y2 = dxcoord(_viewport.Y + _viewport.Height);
 
         // 視錐台の８点が格納されるインスタンス
         _vecNear[0].x = x1;  _vecNear[0].y = y1;  _vecNear[0].z = _viewport.MinZ;   // 左下 (変換後)
@@ -122,8 +115,12 @@ void GgafDxCamera::processBehavior() {
         _vecFar[3].x  = x2;  _vecFar[3].y  = y2;  _vecFar[3].z  = _viewport.MaxZ;   // 右上 (変換後)
 
         // 視錐台の８点の計算
-        D3DXMATRIX mat_world;
-        D3DXMatrixIdentity( &mat_world );
+        const D3DXMATRIX mat_world = D3DXMATRIX(
+            1.0f,  0.0f,  0.0f,  0.0f,
+            0.0f,  1.0f,  0.0f,  0.0f,
+            0.0f,  0.0f,  1.0f,  0.0f,
+            0.0f,  0.0f,  0.0f,  1.0f
+        );
         // ワールド → ビュー → 射影 → スクリーン変換 の逆を行う
         for( int i = 0; i < 4; ++i ) {
             D3DXVec3Unproject(

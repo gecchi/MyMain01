@@ -518,7 +518,7 @@ public:
                             //t = 1;
                             //補正しない(_veloがあまりにも小さいため、t が爆発する)
                         } else {
-                            if (_prm._frame_of_spent & 1) { //2回に1回
+                            if ((_prm._frame_of_spent & 1) == 0) { //2回に1回
         //                      if (t > 3 && ABS(diff_to_end) > ABS(_prm._top_velo)*0.0001 && _prm._frame_of_spent % 4U == 0) {
                                 //_TRACE_("t="<<t<<" が爆発してないので、補正・補正・補正");
                                 //補正・補正・補正

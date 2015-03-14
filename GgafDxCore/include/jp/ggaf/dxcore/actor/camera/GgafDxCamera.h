@@ -66,39 +66,43 @@ private:
     D3DXVECTOR3* _pVecCamUp;
     /** [r]DirectXVIEW変換行列(フレーム毎更新) */
     D3DXMATRIX _matView;
+
     /** [r]視野角Xラジアン */
-    double _rad_fovX;
-    /** [r]視野角Xラジアンの半分 */
-    double _rad_half_fovX;
-    /** [r]視野角Yラジアン */
-    double _rad_fovY;
-    /** [r]視野角Yラジアンの半分 */
-    double _rad_half_fovY;
-    /** [r]カメラのZ座標 */
-    dxcoord _cameraZ;
-    /** [r]カメラのZ座標初期位置 */
-    dxcoord _cameraZ_org;
-    /** [r]アスペクト比 */
-    double _screen_aspect;
-    /** [r]視野角Yタンジェントの半分 */
-    double _tan_half_fovY;
-    /** [r]視野角Xタンジェントの半分 */
-    double _tan_half_fovX;
-    /** [r]カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0 */
-    dxcoord _zn;
-    /** [r]カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn */
-    dxcoord _zf;
+    const double _rad_fovX;
     /** [r]深さ（_cameraZ_orgの何倍か)  */
-    double _dep;
+    const double _dep;
+    /** [r]視野角Xラジアンの半分 */
+    const double _rad_half_fovX;
+    /** [r]アスペクト比 */
+    const double _screen_aspect;
+    /** [r]視野角Yラジアン */
+    const double _rad_fovY;
+    /** [r]視野角Yラジアンの半分 */
+    const double _rad_half_fovY;
+    /** [r]視野角Xタンジェントの半分 */
+    const double _tan_half_fovX;
+    /** [r]視野角Yタンジェントの半分 */
+    const double _tan_half_fovY;
+    /** [r]カメラのZ座標初期位置 */
+    const dxcoord _cameraZ_org;
+    /** [r]カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0 */
+    const dxcoord _zn;
+    /** [r]カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn */
+    const dxcoord _zf;
+    const coord _x_buffer_left;
+    const coord _x_buffer_right;
+    const coord _y_buffer_top;
+    const coord _y_buffer_bottom;
+
+
+
+
     /** [r/w]注視点（座標が _pVecCamLookatPoint と連動） **/
     GgafDxCameraViewPoint* _pCameraViewPoint;
     GgafDxCameraUpVector* _pCameraUpVector;
 
     coord _x_prev, _y_prev, _z_prev;
-    coord _x_buffer_left;
-    coord _x_buffer_right;
-    coord _y_buffer_top;
-    coord _y_buffer_bottom;
+
 
 public:
     /**

@@ -140,7 +140,7 @@ _pEffect((GgafDxEffect*)_pEffectCon->peek())
 }
 
 void GgafDxFigureActor::processPreDraw() {
-    GgafDxCamera* pCam = P_GOD->getUniverse()->getCamera();
+    const GgafDxCamera* const pCam = P_GOD->getUniverse()->getCamera();
 #ifdef MY_DEBUG
     if (getPlatformScene()->instanceOf(Obj_GgafDxScene)) {
         //OK
@@ -223,7 +223,7 @@ void GgafDxFigureActor::processPreDraw() {
                 //   7975036 <DEBUG> GgafDxCamera::GgafDxCamera 範囲 [0.01 ~ 1001.07]
                 //
                 // 1001.07 つまり約10000px相当の奥行きを描画
-                dxcoord dep = -_dest_from_vppln_front; //オブジェクトの視点からの距離(DIRECTX距離)
+                const dxcoord dep = -_dest_from_vppln_front; //オブジェクトの視点からの距離(DIRECTX距離)
 
                 static const double dep_rate_point1 = 0.3;                                //荒くなるポイント１の割合(カメラ可視奥行の 3/10 の地点)
                 static const double dep_rate_point2 = 0.6;                                //荒くなるポイント２の割合(カメラ可視奥行の 6/10 の地点)
@@ -355,6 +355,7 @@ void GgafDxFigureActor::changeEffectTechnique(const char* prm_technique) {
     _hash_technique = UTIL::easy_hash(prm_technique) + UTIL::easy_hash(_pModel->getName());
     strcpy(_technique, prm_technique);
 }
+
 void GgafDxFigureActor::changeEffectTechniqueInterim(const char* prm_technique, frame prm_frame) {
     if (_is_temp_technique == false) { //すでに一時テクニック使用時は無視
         //元々のテクニックを退避
@@ -391,7 +392,7 @@ void GgafDxFigureActor::effectDefault() {
 int GgafDxFigureActor::isOutOfView() {
     //_TRACE_("name="<<getName()<<" _bounding_sphere_radius="<<_bounding_sphere_radius);
     if (_offscreen_kind == -1) {
-        dxcoord bound = getModel()->_bounding_sphere_radius * _rate_of_bounding_sphere_radius*2;//掛ける2は境界球を大きくして、画面境界のチラツキを抑える
+        const dxcoord bound = getModel()->_bounding_sphere_radius * _rate_of_bounding_sphere_radius*2;//掛ける2は境界球を大きくして、画面境界のチラツキを抑える
         if (_dest_from_vppln_top < bound) {
             if (_dest_from_vppln_bottom < bound) {
                 if (_dest_from_vppln_left < bound) {

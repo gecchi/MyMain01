@@ -207,7 +207,7 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
 }
 
 void GgafDxSeTransmitterForActor::behave() {
-    if (_pActor->_frame_of_life & 1) {//2回に1回
+    if ((_pActor->_frame_of_life & 1) == 0) {//2回に1回
         //擬似３D音効果の為2フレームに１回SEの環境効果更新
         updatePanVolume3D();
     }

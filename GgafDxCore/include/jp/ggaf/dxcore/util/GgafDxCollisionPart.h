@@ -71,8 +71,7 @@ public:
      * @param rz ローカルZ軸回転アングル値(0~360000)
      * @return
      */
-    virtual void rotateRxRzRy(angle rx, angle ry, angle rz) {
-    }
+    virtual void rotateRxRzRy(angle rx, angle ry, angle rz) = 0;
 
     virtual ~GgafDxCollisionPart();
 };
