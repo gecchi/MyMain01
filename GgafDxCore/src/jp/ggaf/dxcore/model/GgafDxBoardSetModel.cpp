@@ -55,13 +55,13 @@ HRESULT GgafDxBoardSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
         _TRACE_("GgafDxBoardSetModel::draw() "<<_model_name<<" の描画セット数オーバー。_set_num="<<_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
     }
 #endif
-    IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = GgafDxGod::_pID3DDevice9;
     //対象Actor
-    GgafDxBoardSetActor* pTargetActor = (GgafDxBoardSetActor*)prm_pActor_target;
+    const GgafDxBoardSetActor* const pTargetActor = (GgafDxBoardSetActor*)prm_pActor_target;
     //対象BoardSetActorのエフェクトラッパ
-    GgafDxBoardSetEffect* pBoardSetEffect = (GgafDxBoardSetEffect*)prm_pActor_target->getEffect();
+    GgafDxBoardSetEffect* const pBoardSetEffect = (GgafDxBoardSetEffect*)prm_pActor_target->getEffect();
     //対象エフェクト
-    ID3DXEffect* pID3DXEffect = pBoardSetEffect->_pID3DXEffect;
+    ID3DXEffect* const pID3DXEffect = pBoardSetEffect->_pID3DXEffect;
 
     HRESULT hr;
     //モデルが同じならば頂点バッファ等、の設定はスキップできる
@@ -118,7 +118,7 @@ HRESULT GgafDxBoardSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
         checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw() CommitChanges() に失敗しました。");
     }
     _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardSetEffect->_effect_name);
-    INDEXPARAM& idxparam = _paIndexParam[prm_draw_set_num-1];
+    const INDEXPARAM& idxparam = _paIndexParam[prm_draw_set_num-1];
     pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                   idxparam.BaseVertexIndex,
                                   idxparam.MinIndex,

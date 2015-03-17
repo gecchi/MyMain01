@@ -160,7 +160,7 @@ OUT_VS GgafDxVS_LaserChip(
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 
-	int index = (int)prm_index;
+	const int index = (int)prm_index;
 
 	//頂点計算
 	float4x4 matWorld;
@@ -300,7 +300,7 @@ OUT_VS GgafDxVS_LaserChip(
 		out_vs.uv.y = 1;
 	}
 	//αフォグ
-    float c = 1.25-(((out_vs.posModel_Proj.z)/g_zf)*2);
+    const float c = 1.25-(((out_vs.posModel_Proj.z)/g_zf)*2);
 	out_vs.color = (c < 0.3  ? 0.3 : c);
     if (force_alpha > out_vs.color.a) {
         out_vs.color.a = force_alpha*g_alpha_master;
@@ -340,7 +340,7 @@ float4 GgafDxPS_LaserChip_ZERO(
 	float2 prm_uv	  : TEXCOORD0,
 	float4 prm_color    : COLOR0
 ) : COLOR  {
-	float4 colOut = float4(1,1,1,1);
+	const float4 colOut = float4(1,1,1,1);
 	return colOut;
 }
 

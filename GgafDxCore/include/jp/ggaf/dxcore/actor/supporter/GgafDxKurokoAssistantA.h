@@ -17,7 +17,7 @@ class GgafDxKurokoAssistantA : public GgafCore::GgafObject {
 
 public:
     /** [r]étè† */
-    GgafDxKuroko* _pMaster;
+    GgafDxKuroko* const _pMaster;
     GgafCore::GgafValueAccelerator<int> _smthMv;
 
 public:

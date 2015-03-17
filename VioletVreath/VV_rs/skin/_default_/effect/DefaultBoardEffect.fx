@@ -49,8 +49,8 @@ OUT_VS GgafDxVS_DefaultBoard(
         out_vs.posModel_Proj.y =   1 - ( (2*( ((prm_posModel_Local.y + g_local_left_top_y)*g_sy) + g_transformed_y) - 1) / g_game_buffer_height);
     } else {
         //回転考慮
-        float lx = (prm_posModel_Local.x + g_local_left_top_x) * g_sx;
-        float ly = (prm_posModel_Local.y + g_local_left_top_y) * g_sy;
+        const float lx = (prm_posModel_Local.x + g_local_left_top_x) * g_sx;
+        const float ly = (prm_posModel_Local.y + g_local_left_top_y) * g_sy;
         //X座標Y座標をを -1 ～ +1 に押し込める。
         out_vs.posModel_Proj.x = - 1 + ( (2*( (lx * cos(g_rz) - ly * sin(g_rz))                  + g_transformed_x) - 1) / g_game_buffer_width);
         out_vs.posModel_Proj.y =   1 - ( (2*( (lx * sin(g_rz) + ly * cos(g_rz))                  + g_transformed_y) - 1) / g_game_buffer_height);

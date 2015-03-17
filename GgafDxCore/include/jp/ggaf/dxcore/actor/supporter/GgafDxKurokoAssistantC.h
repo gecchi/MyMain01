@@ -17,7 +17,7 @@ class GgafDxKurokoAssistantC : public GgafCore::GgafObject {
 
 public:
     /** [r]étè† */
-    GgafDxKuroko* _pMaster;
+    GgafDxKuroko* const _pMaster;
     GgafCore::GgafValueAccelerator<int> _smthMvRzAng;
     GgafCore::GgafValueAccelerator<int> _smthMvRyAng;
 
@@ -238,7 +238,7 @@ public:
             bool prm_endacc_flg);
 
 
-    inline bool isTurningMvAng() {
+    inline bool isTurningMvAng() const {
         return (_smthMvRzAng._prm._flg || _smthMvRyAng._prm._flg) ? true : false;
     }
 

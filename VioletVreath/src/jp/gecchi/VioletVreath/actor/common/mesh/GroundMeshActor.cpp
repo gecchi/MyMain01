@@ -44,7 +44,7 @@ GroundMeshActor::GroundMeshActor(const char* prm_name, const char* prm_model, Gg
 //}
 
 void GroundMeshActor::processDraw() {
-    ID3DXEffect* pID3DXEffect = _pMeshEffect->_pID3DXEffect;
+    ID3DXEffect* const pID3DXEffect = _pMeshEffect->_pID3DXEffect;
     HRESULT hr;
     UTIL::setWorldMatrix_RxRzRyMv(this, _matWorld);
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_h_matWorld, &_matWorld );

@@ -46,7 +46,7 @@ _pUvFlipper(NEW GgafDxUvFlipper(_pSpriteModel->_papTextureConnection[0]->peek())
 }
 
 void GgafDxSpriteActor::processDraw() {
-    ID3DXEffect* pID3DXEffect = _pSpriteEffect->_pID3DXEffect;
+    ID3DXEffect* const pID3DXEffect = _pSpriteEffect->_pID3DXEffect;
     HRESULT hr;
     if (_align == ALIGN_CENTER) {
         //do nothing

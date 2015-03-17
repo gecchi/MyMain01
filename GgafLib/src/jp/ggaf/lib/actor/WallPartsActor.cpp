@@ -88,7 +88,7 @@ bool WallPartsActor::isOutOfUniverse() const {
 
 int WallPartsActor::isOutOfView() {
     if (_offscreen_kind == -1) {
-        dxcoord bound = getModel()->_bounding_sphere_radius * _rate_of_bounding_sphere_radius*2;//Š|‚¯‚é2‚Í‹«ŠE‹…‚ğ‘å‚«‚­‚µ‚ÄA‰æ–Ê‹«ŠE‚Ìƒ`ƒ‰ƒcƒL‚ğ—}‚¦‚é
+        dxcoord bound = getModel()->_bounding_sphere_radius * _rate_of_bounding_sphere_radius*2.0f;//Š|‚¯‚é2‚Í‹«ŠE‹…‚ğ‘å‚«‚­‚µ‚ÄA‰æ–Ê‹«ŠE‚Ìƒ`ƒ‰ƒcƒL‚ğ—}‚¦‚é
         if (_dest_from_vppln_top < bound) {
             if (_dest_from_vppln_bottom < bound) {
                 if (_dest_from_vppln_left < bound) {

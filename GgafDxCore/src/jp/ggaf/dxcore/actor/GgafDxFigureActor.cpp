@@ -156,36 +156,31 @@ void GgafDxFigureActor::processPreDraw() {
     }
     _pNextActor_in_draw_depth_level = nullptr;
     //TODO:要検証
-    if (_alpha > 0.0f && isActiveInTheTree()) { //isActiveInTheTree() で判定すると、
+    if (_alpha > 0.0f && isActiveInTheTree() && ((GgafDxScene*)getPlatformScene())->_master_alpha > 0.0f) { //isActiveInTheTree() で判定すると、
         if (_is_2D) {
 //            _now_drawdepth = GgafDxUniverse::setDrawDepthLevel(
 //                                (int)((1.0*_z/LEN_UNIT) * MAX_DRAW_DEPTH_LEVEL),
 //                                this
 //                             );
-            if (((GgafDxScene*)getPlatformScene())->_master_alpha <= 0.0f) {
-                //描画しないので登録なし
+            if (_specal_drawdepth < 0) { //特別な描画深度指定無し
+                _now_drawdepth = GgafDxUniverse::setDrawDepthLevel(_z, this); //2Dは_zはプライオリティに使用。
             } else {
-                if (_specal_drawdepth < 0) { //特別な描画深度指定無し
-                    _now_drawdepth = GgafDxUniverse::setDrawDepthLevel(_z, this); //2Dは_zはプライオリティに使用。
+                //特別な描画深度指定有り
+                if (GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth] == nullptr) {
+                    //そのprm_draw_depth_levelで最初のアクターの場合
+                    this->_pNextActor_in_draw_depth_level = nullptr;
+                    GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth] = this;
+                    GgafDxUniverse::_apLastActor_draw_depth_level[_specal_drawdepth] = this;
                 } else {
-                    //特別な描画深度指定有り
-                    if (GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth] == nullptr) {
-                        //そのprm_draw_depth_levelで最初のアクターの場合
-                        this->_pNextActor_in_draw_depth_level = nullptr;
-                        GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth] = this;
-                        GgafDxUniverse::_apLastActor_draw_depth_level[_specal_drawdepth] = this;
-                    } else {
-                        //前に追加
-                        GgafDxFigureActor* pActorTmp = GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth];
-                        this->_pNextActor_in_draw_depth_level = pActorTmp;
-                        GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth] = this;
-                    }
-                    _now_drawdepth = _specal_drawdepth;
+                    //前に追加
+                    GgafDxFigureActor* pActorTmp = GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth];
+                    this->_pNextActor_in_draw_depth_level = pActorTmp;
+                    GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth] = this;
                 }
-
+                _now_drawdepth = _specal_drawdepth;
             }
         } else {
-            if (((GgafDxScene*)getPlatformScene())->_pAlphaCurtain->_alpha <= 0.0f || isOutOfView()) {
+            if (isOutOfView()) {
                 //描画しないので登録なし
             } else {
                 //＜メモ＞
@@ -390,9 +385,8 @@ void GgafDxFigureActor::effectDefault() {
     }
 }
 int GgafDxFigureActor::isOutOfView() {
-    //_TRACE_("name="<<getName()<<" _bounding_sphere_radius="<<_bounding_sphere_radius);
     if (_offscreen_kind == -1) {
-        const dxcoord bound = getModel()->_bounding_sphere_radius * _rate_of_bounding_sphere_radius*2;//掛ける2は境界球を大きくして、画面境界のチラツキを抑える
+        const dxcoord bound = getModel()->_bounding_sphere_radius * _rate_of_bounding_sphere_radius*2.0f;//掛ける2は境界球を大きくして、画面境界のチラツキを抑える
         if (_dest_from_vppln_top < bound) {
             if (_dest_from_vppln_bottom < bound) {
                 if (_dest_from_vppln_left < bound) {

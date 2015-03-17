@@ -102,7 +102,7 @@ void HoshiBoshi::processJudgement() {
 }
 
 void HoshiBoshi::processDraw() {
-    ID3DXEffect* pID3DXEffect = _pPointSpriteEffect->_pID3DXEffect;
+    ID3DXEffect* const pID3DXEffect = _pPointSpriteEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetFloat(HoshiBoshi::h_fX_MyShip_, pCriteria_->_fX);
     checkDxException(hr, D3D_OK, "GgafDxPointSpriteActor::processDraw() SetFloat(h_fX_MyShip_) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

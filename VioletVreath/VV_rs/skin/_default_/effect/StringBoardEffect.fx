@@ -137,7 +137,7 @@ OUT_VS GgafDxVS_StringBoard(
     float2 prm_uv             : TEXCOORD0     // モデルの頂点のUV
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
-	int index = (int)prm_index;
+	const int index = (int)prm_index;
 	float offsetU; //テクスチャU座標増分
 	float offsetV; //テクスチャV座標増分
 	float transformedX;
@@ -274,7 +274,7 @@ float4 GgafDxPS_StringBoard(
 	float4 prm_color : COLOR0 
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 colTex = tex2D( MyTextureSampler, prm_uv); 
+	const float4 colTex = tex2D( MyTextureSampler, prm_uv); 
 	//求める色
 	float4 colOut = colTex; 
 	if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {

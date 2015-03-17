@@ -62,7 +62,7 @@ public:
      * GgafDxSe を取得。
      * @param prm_id SEのID ( 0 ～ SE数-1 )
      */
-    virtual GgafDxSe* get(int prm_id);
+    virtual GgafDxSe* get(int prm_id) const;
 
     /**
      * デストラクタ

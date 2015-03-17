@@ -111,13 +111,12 @@ OUT_VS GgafDxVS_DefaultSpriteSet(
       float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
-	int index = (int)prm_index;
+	const int index = (int)prm_index;
 	//頂点計算
 	float4x4 matWorld;
 	float offsetU;
 	float offsetV;
 	float alpha;
-
 	if (index == 0) {
 		matWorld = g_matWorld001;
 		offsetU  = g_offset_u001;

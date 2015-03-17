@@ -122,7 +122,7 @@ public:
      * @param prm_idx 対象インデックス
      * @return 上限値
      */
-    virtual VAL_TYPE getTop(int prm_idx) {
+    virtual VAL_TYPE getTop(int prm_idx) const {
         return _top[prm_idx];
     }
 
@@ -131,7 +131,7 @@ public:
      * @param prm_idx 対象インデックス
      * @return
      */
-    virtual VAL_TYPE getBottom(int prm_idx) {
+    virtual VAL_TYPE getBottom(int prm_idx) const {
         return _bottom[prm_idx];
     }
 
@@ -140,7 +140,7 @@ public:
      * 対象インデックスが２以上の場合、全上限値の中で最小を返す。
      * @return 上限値
      */
-    virtual VAL_TYPE getTop() {
+    virtual VAL_TYPE getTop() const {
         //_topの最小値を返す
         VAL_TYPE minv = _top[0];
         for (int i = 1; i < N; i++) {
@@ -156,7 +156,7 @@ public:
      * 対象インデックスが２以上の場合、全下限値の中で最大を返す。
      * @return 上限値
      */
-    virtual VAL_TYPE getBottom() {
+    virtual VAL_TYPE getBottom() const {
         //_bottomの最大値を返す
         VAL_TYPE maxv = _bottom[0];
         for (int i = 1; i < N; i++) {
@@ -168,7 +168,7 @@ public:
     }
 
     /**
-     * 値遷移を停止させる。 （全対象インデックス指定） .
+     * 値遷移を停止させる。（全対象インデックス指定） .
      */
     virtual void stop() {
         for (int i = 0; i < N; i++) {
@@ -211,7 +211,7 @@ public:
         _target[prm_idx] = prm_target;
         _method[prm_idx] = TARGET_LINER_TO;
         //最初のアタックまでの速度
-        VAL_TYPE val = getValue(prm_idx);
+        const VAL_TYPE val = getValue(prm_idx);
         if (_beat_target_frames[prm_idx] > 0 ) {
             _velo[prm_idx] = (VAL_TYPE)( ((double)(_target[prm_idx] - val)) / ((double)(_beat_target_frames[prm_idx])) );
         } else if (_beat_target_frames[prm_idx] == 0 ) {
@@ -321,7 +321,7 @@ public:
      * @param prm_is_to_top true:初めはTOPに遷移する／false:初めはBOTTOMに遷移
      */
     virtual void transitionLinerLoop(int prm_idx, frame prm_roop_frames, double prm_beat_num, bool prm_is_to_top) {
-        VAL_TYPE val = getValue(prm_idx);
+        const VAL_TYPE val = getValue(prm_idx);
         _method[prm_idx] = BEAT_LINER;
         _beat_frame_count[prm_idx] = 0;
         _beat_frame_count_in_roop[prm_idx] = 0;
@@ -453,7 +453,7 @@ public:
             _beat_target_frames[prm_idx] = _beat_roop_frames[prm_idx] * prm_beat_num;
         }
         //最初のアタックまでの速度
-        VAL_TYPE val = getValue(prm_idx);
+        const VAL_TYPE val = getValue(prm_idx);
         if (_beat_frame_of_attack_finish[prm_idx] > 0 ) {
             _velo[prm_idx] = (VAL_TYPE)( ((double)(_top[prm_idx] - val)) / ((double)(_beat_frame_of_attack_finish[prm_idx])) );
         } else if (_beat_frame_of_attack_finish[prm_idx] == 0 ) {
@@ -466,7 +466,7 @@ public:
      * @param prm_idx 対象インデックス
      * @return true/false
      */
-    virtual bool isTransitioning(int prm_idx) {
+    virtual bool isTransitioning(int prm_idx) const {
         if (_method[prm_idx] == NO_TRANSITION) {
             return false;
         } else {
@@ -478,7 +478,7 @@ public:
      * 値遷移中かどうか調べる .
      * @return true/false
      */
-    virtual bool isTransitioning() {
+    virtual bool isTransitioning() const {
         for (int i = 0; i < N; i++) {
             if (_method[i] != NO_TRANSITION) {
                 return true;
@@ -515,10 +515,10 @@ public:
     virtual void behave(int s = 0, int n = N) {
 
         for (int i = s; i < s+n; i++) {
-            TransitionMethod method = _method[i];
+            const TransitionMethod method = _method[i];
             VAL_TYPE val = getValue(i);
-            VAL_TYPE top = _top[i];
-            VAL_TYPE bottom = _bottom[i];
+            const VAL_TYPE top = _top[i];
+            const VAL_TYPE bottom = _bottom[i];
             _beat_frame_count[i]++;
             _velo[i] += _acce[i];
             val += _velo[i];

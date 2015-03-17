@@ -39,7 +39,7 @@ void GgafDxSpriteMeshSetActor::processDraw() {
 
     int draw_set_num = 0; //GgafDxSpriteMeshSetActorの同じモデルで同じテクニックが
                        //連続しているカウント数。同一描画深度は一度に描画する。
-    ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
+    ID3DXEffect* const pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     HRESULT hr;
     GgafDxFigureActor* pDrawActor = this;
     GgafDxSpriteMeshSetActor* pSpriteMeshSetActor = nullptr;

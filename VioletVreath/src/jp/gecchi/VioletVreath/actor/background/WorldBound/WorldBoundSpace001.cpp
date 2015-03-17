@@ -20,7 +20,7 @@ void WorldBoundSpace001::onCreateModel() {
 }
 
 void WorldBoundSpace001::initialize() {
-    Camera* pCam = P_GOD->getUniverse()->getCamera();
+    const Camera* const pCam = P_GOD->getUniverse()->getCamera();
     setHitAble(false);
     positionAs(pCam);
     setFaceAng(0, 0, 0);

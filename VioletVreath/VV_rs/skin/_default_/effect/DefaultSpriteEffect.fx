@@ -39,9 +39,9 @@ OUT_VS GgafDxVS_DefaultSprite(
 	OUT_VS out_vs = (OUT_VS)0;
 
 	//’¸“_ŒvZ
-	float4 posModel_World = mul(prm_posModel_Local, g_matWorld ); // World•ÏŠ·
-	float4 posModel_View = mul(posModel_World, g_matView );       // View•ÏŠ·
-	float4 posModel_Proj = mul(posModel_View, g_matProj);         // Ë‰e•ÏŠ·
+	const float4 posModel_World = mul(prm_posModel_Local, g_matWorld ); // World•ÏŠ·
+	const float4 posModel_View = mul(posModel_World, g_matView );       // View•ÏŠ·
+	const float4 posModel_Proj = mul(posModel_View, g_matProj);         // Ë‰e•ÏŠ·
 	out_vs.posModel_Proj = posModel_Proj;                         // o—Í‚Éİ’è
     if (g_far_rate > 0.0) {
         if (out_vs.posModel_Proj.z > g_zf*g_far_rate) {   

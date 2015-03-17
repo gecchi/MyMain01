@@ -15,7 +15,7 @@ WorldBoundSpace002::WorldBoundSpace002(const char* prm_name) :
     base_v_ = 0;
 }
 void WorldBoundSpace002::initialize() {
-    Camera* pCam = P_GOD->getUniverse()->getCamera();
+    const Camera* const pCam = P_GOD->getUniverse()->getCamera();
     //    getUvFlipper()->setRotation(16, 1/16.0, 1/16.0);
     //    getUvFlipper()->exec(FLIP_ORDER_LOOP, 5);
     //    getUvFlipper()->setFlipPtnRange(0, 16*16-1);

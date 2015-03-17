@@ -228,7 +228,7 @@ public:
      * @param out_y 戻り値Y座標
      * @param out_z 戻り値Z座標
      */
-    virtual void getPointCoord(int prm_index, coord &out_x, coord&out_y, coord &out_z);
+    virtual void getPointCoord(int prm_index, coord& out_x, coord& out_y, coord& out_z);
 
     /**
      * スプラインの開始座標を引数の座標に固定（start()時に影響しない）。

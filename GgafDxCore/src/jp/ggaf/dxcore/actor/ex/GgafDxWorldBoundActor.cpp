@@ -33,7 +33,7 @@ GgafDxWorldBoundActor::GgafDxWorldBoundActor(const char* prm_name,
 }
 
 void GgafDxWorldBoundActor::processDraw() {
-    ID3DXEffect* pID3DXEffect = _pWorldBoundEffect->_pID3DXEffect;
+    ID3DXEffect* const pID3DXEffect = _pWorldBoundEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetInt(_pWorldBoundEffect->_h_morph_target_num, _pWorldBoundModel->_morph_target_num);
     checkDxException(hr, D3D_OK, "GgafDxWorldBoundActor::processDraw() SetInt(_h_morph_target_num) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

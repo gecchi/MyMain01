@@ -26,13 +26,13 @@ GgafDxD3DXMeshModel::GgafDxD3DXMeshModel(char* prm_model_name, DWORD prm_dwOptio
 
 HRESULT GgafDxD3DXMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num) {
     _TRACE4_("GgafDxD3DXMeshModel::draw("<<prm_pActor_target->getName()<<")");
-    IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = GgafDxGod::_pID3DDevice9;
     //対象アクター
-    GgafDxD3DXMeshActor* pTargetActor = (GgafDxD3DXMeshActor*)prm_pActor_target;
+    const GgafDxD3DXMeshActor* const pTargetActor = (GgafDxD3DXMeshActor*)prm_pActor_target;
     //対象MeshActorのエフェクトラッパ
-    GgafDxMeshEffect* pMeshEffect = (GgafDxMeshEffect*)prm_pActor_target->getEffect();
+    GgafDxMeshEffect* const pMeshEffect = (GgafDxMeshEffect*)prm_pActor_target->getEffect();
     //対象エフェクト
-    ID3DXEffect* pID3DXEffect = pMeshEffect->_pID3DXEffect;
+    ID3DXEffect* const pID3DXEffect = pMeshEffect->_pID3DXEffect;
 
     pDevice->SetFVF(GgafDxD3DXMeshActor::FVF);
     HRESULT hr;
@@ -50,8 +50,6 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
             //マテリアルのセット
             hr = pID3DXEffect->SetValue(pMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[i].Diffuse), sizeof(D3DCOLORVALUE) );
             checkDxException(hr, D3D_OK, "GgafDxD3DXMeshModel::draw() SetValue(g_colMaterialDiffuse) に失敗しました。");
-
-
             hr = pID3DXEffect->SetFloat(pMeshEffect->_h_tex_blink_power, _power_blink);
             checkDxException(hr, D3D_OK, "GgafDxD3DXMeshModel::draw() SetFloat(_h_tex_blink_power) に失敗しました。");
             hr = pID3DXEffect->SetFloat(pMeshEffect->_h_tex_blink_threshold, _blink_threshold);

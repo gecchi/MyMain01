@@ -57,39 +57,37 @@ void GgafDxSeTransmitterForActor::play(int prm_id) {
 }
 
 void GgafDxSeTransmitterForActor::play3D(int prm_id) {
-    GgafDxUniverse* pUniverse = P_GOD->getUniverse();
+    GgafDxUniverse* const pUniverse = P_GOD->getUniverse();
 #ifdef MY_DEBUG
     if (prm_id < 0 || prm_id >= _se_num) {
         throwGgafCriticalException("GgafDxSeTransmitterForActor::play3D() IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
     }
 #endif
-    static const int VOLUME_MAX_3D = GGAF_MAX_VOLUME;
-    static const int VOLUME_MIN_3D = GGAF_MIN_VOLUME;
-    static const int VOLUME_RANGE_3D = VOLUME_MAX_3D - VOLUME_MIN_3D;
-    GgafDxCamera* pCam = pUniverse->getCamera();
+    static const int VOLUME_RANGE_3D = GGAF_MAX_VOLUME - GGAF_MIN_VOLUME;
+    const GgafDxCamera* const pCam = pUniverse->getCamera();
     //距離計算
     //遅延なし、音量100％の場所をP_CAMの場所とする
     //自身とP_CAMの距離
-    double DX = C_PX(pCam->_x - _pActor->_x);
-    double DY = C_PX(pCam->_y - _pActor->_y);
-    double DZ = C_PX(pCam->_z - _pActor->_z);
-    double d = sqrt(DX*DX + DY*DY + DZ*DZ); //dはピクセル
-    int vol =  VOLUME_MIN_3D + ((1.0 - (d / (DX_PX(pCam->getZFar())*0.6) )) * VOLUME_RANGE_3D); // 0.6 は調整補正、最遠でもMAX*0.4倍の音量となる。
+    const double DX = C_PX(pCam->_x - _pActor->_x);
+    const double DY = C_PX(pCam->_y - _pActor->_y);
+    const double DZ = C_PX(pCam->_z - _pActor->_z);
+    const double d = sqrt(DX*DX + DY*DY + DZ*DZ); //dはピクセル
+    int vol =  GGAF_MIN_VOLUME + ((1.0 - (d / (DX_PX(pCam->getZFar())*0.6) )) * VOLUME_RANGE_3D); // 0.6 は調整補正、最遠でもMAX*0.4倍の音量となる。
                                                                                           // 値を減らすと、遠くても音量がより大きくなる。
-    if (VOLUME_MAX_3D < vol) {
-        vol = VOLUME_MAX_3D;
-    } else if (VOLUME_MIN_3D > vol) {
-        vol = VOLUME_MIN_3D;
+    if (GGAF_MAX_VOLUME < vol) {
+        vol = GGAF_MAX_VOLUME;
+    } else if (GGAF_MIN_VOLUME > vol) {
+        vol = GGAF_MIN_VOLUME;
     }
 
-    dxcoord fDist_VpVerticalCenter  =
+    const dxcoord fDist_VpVerticalCenter  =
             pCam->_plnVerticalCenter.a*_pActor->_fX +
             pCam->_plnVerticalCenter.b*_pActor->_fY +
             pCam->_plnVerticalCenter.c*_pActor->_fZ +
             pCam->_plnVerticalCenter.d;
 
-    angle ang = UTIL::getAngle2D(fDist_VpVerticalCenter, -_pActor->_dest_from_vppln_front );
-    float pan = ANG_COS(ang) * 0.9; //0.9は完全に右のみ或いは左のみから聞こえるのをやや緩和
+    const angle ang = UTIL::getAngle2D(fDist_VpVerticalCenter, -_pActor->_dest_from_vppln_front );
+    const float pan = ANG_COS(ang) * 0.9; //0.9は完全に右のみ或いは左のみから聞こえるのをやや緩和
 
     int delay = (d / DX_PX(pCam->getZFar()))*PROPERTY::MAX_SE_DELAY - 10; //10フレーム底上げ
                                                                     //pCam->getZFar() はカメラの表示範囲の最遠距離
@@ -127,59 +125,54 @@ void GgafDxSeTransmitterForActor::play3D(int prm_id) {
    //                    //d * tan (_rad_half_fovY - θ) = 距離
    //                    //d * tan (_rad_half_fovY - asin(dPlnLeft/d)) = 距離
    //                    //本当にこうしなければいけない？
-
-
-
    // _papSe[prm_id]->play();
 }
 
 void GgafDxSeTransmitterForActor::updatePanVolume3D() {
-    static const int VOLUME_MAX_3D = GGAF_MAX_VOLUME;
-    static const int VOLUME_MIN_3D = GGAF_MIN_VOLUME;
-    static const int VOLUME_RANGE_3D = VOLUME_MAX_3D - VOLUME_MIN_3D;
+    static const int VOLUME_RANGE_3D = GGAF_MAX_VOLUME - GGAF_MIN_VOLUME;
 
     bool calc_flg = true;
-    GgafDxCamera* pCam = P_GOD->getUniverse()->getCamera();
+    const GgafDxCamera* const pCam = P_GOD->getUniverse()->getCamera();
     float pan = 0.0f;
     int vol = 0;
     float rate_frequency = 1.0;
-    int se_num = _se_num;
+    const int se_num = _se_num;
     for (int i = 0; i < se_num; i++) {
         if (_paBool_is_playing_3d[i]) {
             if (_papSeConnection[i]) {
-                GgafDxSe* pSe = _papSeConnection[i]->peek();
+                GgafDxSe* const pSe = _papSeConnection[i]->peek();
                 if (pSe->isPlaying() && pSe->_pActor_last_played == _pActor) {
                     if (calc_flg) {
-                        calc_flg = false;
+                        calc_flg = false; //最初の１回目のループだけ距離計算
 
                         //距離計算
                         //遅延なし、音量100％の場所をP_CAMの場所とする
                         //自身とP_CAMの距離
-                        double DX = C_PX(pCam->_x - _pActor->_x);
-                        double DY = C_PX(pCam->_y - _pActor->_y);
-                        double DZ = C_PX(pCam->_z - _pActor->_z);
+                        const double DX = C_PX(pCam->_x - _pActor->_x);
+                        const double DY = C_PX(pCam->_y - _pActor->_y);
+                        const double DZ = C_PX(pCam->_z - _pActor->_z);
 
                         //備忘録
                         //例えば消滅時の爆発だった場合、_pActor->_x みたいに、消滅後も値を参照したい。
                         //そこで GGAF_END_DELAY が重要になっている
 
                         //リアルタイムの音量を計算
-                        double d = sqrt(DX*DX + DY*DY + DZ*DZ); //dはピクセル
-                        vol =  VOLUME_MIN_3D + ((1.0 - (d / (DX_PX(pCam->getZFar())*0.6) )) * VOLUME_RANGE_3D); //0.6 は調整補正
+                        const double d = sqrt(DX*DX + DY*DY + DZ*DZ); //dはピクセル
+                        vol =  GGAF_MIN_VOLUME + ((1.0 - (d / (DX_PX(pCam->getZFar())*0.6) )) * VOLUME_RANGE_3D); //0.6 は調整補正
 
-                        if (VOLUME_MAX_3D < vol) {
-                            vol = VOLUME_MAX_3D;
-                        } else if (VOLUME_MIN_3D > vol) {
-                            vol = VOLUME_MIN_3D;
+                        if (GGAF_MAX_VOLUME < vol) {
+                            vol = GGAF_MAX_VOLUME;
+                        } else if (GGAF_MIN_VOLUME > vol) {
+                            vol = GGAF_MIN_VOLUME;
                         }
 
                         //リアルタイムのパンを計算
-                        dxcoord fDist_VpVerticalCenter  =
+                        const dxcoord fDist_VpVerticalCenter  =
                                 pCam->_plnVerticalCenter.a*_pActor->_fX +
                                 pCam->_plnVerticalCenter.b*_pActor->_fY +
                                 pCam->_plnVerticalCenter.c*_pActor->_fZ +
                                 pCam->_plnVerticalCenter.d;
-                        angle ang = UTIL::getAngle2D(fDist_VpVerticalCenter, -_pActor->_dest_from_vppln_front );
+                        const angle ang = UTIL::getAngle2D(fDist_VpVerticalCenter, -_pActor->_dest_from_vppln_front );
                         pan = ANG_COS(ang) * 0.8; //0.8意味は、完全に右のみ或いは左のみから聞こえるのを避けるため
                                                               //最高で 0.2 : 0.8 の割合に留めるため。
                         //リアルタイムのパンを計算

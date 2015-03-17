@@ -15,7 +15,6 @@ float3 g_posCam_World;
 float g_specular;
 float g_specular_power;
 
-
 float g_distance_AlphaTarget;
 float g_zf;
 float g_tex_blink_power;   
@@ -73,9 +72,9 @@ sampler MyTextureSampler : register(s0);
 //頂点シェーダー、出力構造体
 struct OUT_VS
 {
-    float4 posModel_Proj    : POSITION;
-	float2 uv     : TEXCOORD0;
-	float4 color    : COLOR0;
+    float4 posModel_Proj : POSITION;
+	float2 uv            : TEXCOORD0;
+	float4 color         : COLOR0;
 };
 
 
@@ -90,7 +89,7 @@ OUT_VS GgafDxVS_WallAAB(
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 	//ワールド変換行列を割り当てる
-	int index = (int)prm_object_index; 
+	const int index = (int)prm_object_index; 
 	float4x4 matWorld;
     int draw_face = 0;
 
@@ -283,14 +282,14 @@ OUT_VS GgafDxVS_WallAAB(
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
 float4 GgafDxPS_WallAAB(
-	float2 prm_uv	  : TEXCOORD0,
-	float4 prm_color    : COLOR0
+	float2 prm_uv	 : TEXCOORD0,
+	float4 prm_color : COLOR0
 ) : COLOR  {
     if (prm_color.a == 0) {
         return 0;
     }
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 colTex = tex2D( MyTextureSampler, prm_uv);        
+	const float4 colTex = tex2D( MyTextureSampler, prm_uv);        
 	float4 colOut = colTex * prm_color;
 
     //Blinkerを考慮
@@ -304,12 +303,12 @@ float4 GgafDxPS_WallAAB(
 
 
 float4 PS_Flush( 
-	float2 prm_uv	  : TEXCOORD0,
-    float4 prm_color    : COLOR0
+	float2 prm_uv	 : TEXCOORD0,
+    float4 prm_color : COLOR0
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 colTex = tex2D( MyTextureSampler, prm_uv);        
-	float4 colOut = colTex * prm_color * FLUSH_COLOR;
+	const float4 colTex = tex2D( MyTextureSampler, prm_uv);        
+	const float4 colOut = colTex * prm_color * FLUSH_COLOR;
 	return colOut;
 }
 

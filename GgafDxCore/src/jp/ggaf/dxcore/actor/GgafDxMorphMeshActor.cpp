@@ -122,9 +122,9 @@ void GgafDxMorphMeshActor::addAlpha(float prm_alpha) {
 }
 
 void GgafDxMorphMeshActor::processDraw() {
-    GgafDxCamera* pCam = P_GOD->getUniverse()->getCamera();
-    GgafDxMorphMeshEffect* pMorphMeshEffect = _pMorphMeshEffect;
-    ID3DXEffect* pID3DXEffect = pMorphMeshEffect->_pID3DXEffect;
+    GgafDxCamera* const pCam = P_GOD->getUniverse()->getCamera();
+    const GgafDxMorphMeshEffect* const pMorphMeshEffect = _pMorphMeshEffect;
+    ID3DXEffect* const pID3DXEffect = pMorphMeshEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(pMorphMeshEffect->_h_matView, pCam->getViewMatrix() );
     checkDxException(hr, D3D_OK, "GgafDxMorphMeshActor::processDraw() SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

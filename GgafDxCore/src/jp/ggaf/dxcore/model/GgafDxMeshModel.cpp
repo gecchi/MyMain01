@@ -43,14 +43,14 @@ GgafDxMeshModel::GgafDxMeshModel(char* prm_model_name) : GgafDxModel(prm_model_n
 
 //描画
 HRESULT GgafDxMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num) {
-    IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = GgafDxGod::_pID3DDevice9;
     //対象アクター
     //GgafDxMeshActor* pTargetActor = (GgafDxMeshActor*)prm_pActor_target;
-    GgafDxFigureActor* pTargetActor = prm_pActor_target;
+    const GgafDxFigureActor* const pTargetActor = prm_pActor_target;
     //対象MeshActorのエフェクトラッパ
-    GgafDxMeshEffect* pMeshEffect = (GgafDxMeshEffect*)prm_pActor_target->getEffect();
+    GgafDxMeshEffect* const pMeshEffect = (GgafDxMeshEffect*)prm_pActor_target->getEffect();
     //対象エフェクト
-    ID3DXEffect* pID3DXEffect = pMeshEffect->_pID3DXEffect;
+    ID3DXEffect* const pID3DXEffect = pMeshEffect->_pID3DXEffect;
 
     HRESULT hr;
     UINT material_no;
@@ -72,7 +72,7 @@ HRESULT GgafDxMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw
 
     //描画
     for (UINT i = 0; i < _material_list_grp_num; i++) {
-        INDEXPARAM& idxparam = _paIndexParam[i];
+        const INDEXPARAM& idxparam = _paIndexParam[i];
         material_no = idxparam.MaterialNo;
         if (GgafDxModelManager::_pModelLastDraw != this || _material_list_grp_num != 1) {
             if (_papTextureConnection[material_no]) {

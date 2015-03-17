@@ -52,7 +52,7 @@ void GraphBarActor::processDraw() {
     if (bar_width == 0.0f) { //I know float ==
         return;
     }
-    ID3DXEffect* pID3DXEffect = _pBoardEffect->_pID3DXEffect;
+    ID3DXEffect* const pID3DXEffect = _pBoardEffect->_pID3DXEffect;
     HRESULT hr;
 #ifdef MY_DEBUG
     if (_align != ALIGN_LEFT) {

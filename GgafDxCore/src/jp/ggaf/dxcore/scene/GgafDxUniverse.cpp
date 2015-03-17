@@ -161,8 +161,7 @@ void GgafDxUniverse::draw() {
     GgafDxGod::_pEffectManager->setParamPerFrameAll();
 
     //段階レンダリング描画
-    IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
-    GgafDxScene* pScene;
+    IDirect3DDevice9* const pDevice = GgafDxGod::_pID3DDevice9;
     GgafDxFigureActor* pDrawActor;
     for (int i = MAX_DRAW_DEPTH_LEVEL; i >= 0; i--) {
         pDrawActor = _pActor_draw_active = _apFirstActor_draw_depth_level[i];
@@ -177,7 +176,7 @@ void GgafDxUniverse::draw() {
             }
 #endif
             //各所属シーンのαカーテンを設定する。
-            pScene = (GgafDxScene*)pDrawActor->getPlatformScene();
+            const GgafDxScene* const pScene = (GgafDxScene*)pDrawActor->getPlatformScene();
             pDrawActor->getEffect()->_pID3DXEffect->SetFloat(
                     pDrawActor->getEffect()->_h_alpha_master, pScene->_master_alpha);
 
@@ -255,11 +254,10 @@ int GgafDxUniverse::setDrawDepthLevel(int prm_draw_depth_level, GgafDxFigureActo
         _apFirstActor_draw_depth_level[draw_depth_level] = prm_pActor;
         _apLastActor_draw_depth_level[draw_depth_level] = prm_pActor;
     } else {
-        GgafDxFigureActor* pActorTmp;
         if (prm_pActor->_is_2D) {
             //同一深度で2Dの場合、連結リストのお尻に追加していく
             //つまり、最後に addSubLast() すればするほど、描画順が後になり、プライオリティが高い。
-            pActorTmp = _apLastActor_draw_depth_level[draw_depth_level];
+            GgafDxFigureActor* pActorTmp = _apLastActor_draw_depth_level[draw_depth_level];
             pActorTmp->_pNextActor_in_draw_depth_level = prm_pActor;
             prm_pActor->_pNextActor_in_draw_depth_level = nullptr;
             _apLastActor_draw_depth_level[draw_depth_level] = prm_pActor;
@@ -269,14 +267,14 @@ int GgafDxUniverse::setDrawDepthLevel(int prm_draw_depth_level, GgafDxFigureActo
             //同一深度なので、プライオリティ（描画順）によって透けない部分が生じてしまう。
             //これを描画順を毎フレーム変化させることで、交互表示でちらつかせ若干のごまかしを行う。
             //TODO:(課題)２、３のオブジェクトの交差は場合は見た目にも許容できるが、たくさん固まると本当にチラチラする。
-            if ((GgafGod::_pGod->_pUniverse->_frame_of_behaving & 1) == 0) { //偶数
+            if ((GgafGod::_pGod->_pUniverse->_frame_of_behaving & 1) == 1) { //奇数
                 //前に追加
-                pActorTmp = _apFirstActor_draw_depth_level[draw_depth_level];
+                GgafDxFigureActor* pActorTmp = _apFirstActor_draw_depth_level[draw_depth_level];
                 prm_pActor->_pNextActor_in_draw_depth_level = pActorTmp;
                 _apFirstActor_draw_depth_level[draw_depth_level] = prm_pActor;
             } else {
                 //お尻に追加
-                pActorTmp = _apLastActor_draw_depth_level[draw_depth_level];
+                GgafDxFigureActor* pActorTmp = _apLastActor_draw_depth_level[draw_depth_level];
                 pActorTmp->_pNextActor_in_draw_depth_level = prm_pActor;
                 prm_pActor->_pNextActor_in_draw_depth_level = nullptr;
                 _apLastActor_draw_depth_level[draw_depth_level] = prm_pActor;

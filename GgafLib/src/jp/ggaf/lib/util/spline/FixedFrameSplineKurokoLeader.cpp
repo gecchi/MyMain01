@@ -101,11 +101,11 @@ void FixedFrameSplineKurokoLeader::behave() {
                 //誤差も仕方ないので _frame_of_segment で始点に移動する速度を付与
                 pKuroko_target->setMvVelo((velo)(_distance_to_begin / _pFixedFrameSplManuf->_frame_of_segment));
             } else {
-                coord d = UTIL::getDistance(
-                            _pActor_target->_x,
-                            _pActor_target->_y,
-                            _pActor_target->_z,
-                            x, y, z);
+                const coord d = UTIL::getDistance(
+                                        _pActor_target->_x,
+                                        _pActor_target->_y,
+                                        _pActor_target->_z,
+                                        x, y, z);
                 if (_pFixedFrameSplManuf->_paDistance_to[_point_index]*1.1 < d) {
                     //補正：距離が予想より開いているので少し急ぐ(1.1倍のスピードにする)
                     pKuroko_target->setMvVelo(_pFixedFrameSplManuf->_paSPMvVeloTo[_point_index] * 1.1) ;

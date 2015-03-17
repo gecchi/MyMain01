@@ -34,14 +34,14 @@ GgafDxSpriteModel::GgafDxSpriteModel(char* prm_model_name) : GgafDxModel(prm_mod
 
 //描画
 HRESULT GgafDxSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num) {
-    IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = GgafDxGod::_pID3DDevice9;
     _TRACE4_("GgafDxSpriteModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
     //対象Actor
-    GgafDxSpriteActor* pTargetActor = (GgafDxSpriteActor*)prm_pActor_target;
+    const GgafDxSpriteActor* const pTargetActor = (GgafDxSpriteActor*)prm_pActor_target;
     //対象SpriteActorのエフェクトラッパ
-    GgafDxSpriteEffect* pSpriteEffect = (GgafDxSpriteEffect*)prm_pActor_target->getEffect();
+    GgafDxSpriteEffect* const pSpriteEffect = (GgafDxSpriteEffect*)prm_pActor_target->getEffect();
     //対象エフェクト
-    ID3DXEffect* pID3DXEffect = pSpriteEffect->_pID3DXEffect;
+    ID3DXEffect* const pID3DXEffect = pSpriteEffect->_pID3DXEffect;
 
     //今回描画のUV
     float u,v;

@@ -61,7 +61,6 @@ float4 g_colMaterialDiffuse014;
 float4 g_colMaterialDiffuse015;
 //float4 g_colMaterialDiffuse016;
 
-
 /** スペキュラーの範囲（ハーフベクトル・法線内積のg_specular乗） */
 float g_specular;
 /** スペキュラーの強度 */
@@ -95,7 +94,7 @@ OUT_VS GgafDxVS_DefaultMeshSet(
 
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
-	int index = (int)prm_index;
+	const int index = (int)prm_index;
 
 	//頂点計算
 	float4x4 matWorld;
@@ -149,7 +148,7 @@ OUT_VS GgafDxVS_DefaultMeshSet(
 	}
 
     //頂点計算
-    float4 posModel_World = mul(prm_posModel_Local, matWorld);
+    const float4 posModel_World = mul(prm_posModel_Local, matWorld);
     out_vs.posModel_Proj = mul( mul( posModel_World, g_matView), g_matProj);  //World*View*射影
     //UV計算
     out_vs.uv = prm_uv;  //そのまま
@@ -185,11 +184,11 @@ float4 GgafDxPS_DefaultMeshSet(
     float s = 0.0f; //スペキュラ成分
     if (g_specular_power != 0.0f) {
         //ハーフベクトル（「頂点→カメラ視点」方向ベクトル と、「頂点→ライト」方向ベクトルの真ん中の方向ベクトル）
-        float3 vecHarf = normalize(prm_vecEye_World + (-g_vecLightFrom_World));
+        const float3 vecHarf = normalize(prm_vecEye_World + (-g_vecLightFrom_World));
         //ハーフベクトルと法線の内積よりスペキュラ具合を計算
         s = pow( max(0.0f, dot(prm_vecNormal_World, vecHarf)), g_specular ) * g_specular_power;
     }
-    float4 colTex = tex2D( MyTextureSampler, prm_uv);
+    const float4 colTex = tex2D( MyTextureSampler, prm_uv);
     //テクスチャ色に        
     float4 colOut = colTex * prm_color + s;
 
@@ -208,7 +207,7 @@ float4 PS_Flush(
     float4 prm_color : COLOR0
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 colTex = tex2D( MyTextureSampler, prm_uv);        
+	const float4 colTex = tex2D( MyTextureSampler, prm_uv);        
 	float4 colOut = colTex * prm_color * FLUSH_COLOR;
     colOut.a *= g_alpha_master;
 	return colOut;

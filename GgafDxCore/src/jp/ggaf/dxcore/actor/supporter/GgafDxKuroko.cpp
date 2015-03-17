@@ -153,7 +153,7 @@ void GgafDxKuroko::behave() {
         if (_is_targeting_ang_face[ax]) { //ターゲット方向がある場合
 
             if (_angvelo_face[ax] > 0) { //反時計回りの場合
-                angle angDistance = getFaceAngDistance(ax, _target_ang_face[ax], TURN_COUNTERCLOCKWISE);
+                const angle angDistance = getFaceAngDistance(ax, _target_ang_face[ax], TURN_COUNTERCLOCKWISE);
                 if (_angvelo_face[ax] > angDistance && _ang_face_stop_allow_way[ax] != TURN_CLOCKWISE &&
                         _ang_face_stop_allow_angvelo[ax] >= _angvelo_face[ax]) {
                     _angvelo_face[ax] = angDistance;
@@ -165,7 +165,7 @@ void GgafDxKuroko::behave() {
                     // なにもしなくてよい
                 }
             } else if (_angvelo_face[ax] < 0) { //時計回りの場合
-                angle angDistance = getFaceAngDistance(ax, _target_ang_face[ax], TURN_CLOCKWISE);
+                const angle angDistance = getFaceAngDistance(ax, _target_ang_face[ax], TURN_CLOCKWISE);
                 if (_angvelo_face[ax] < angDistance && _ang_face_stop_allow_way[ax] != TURN_COUNTERCLOCKWISE
                         && -1 * _ang_face_stop_allow_angvelo[ax] <= _angvelo_face[ax]) { //目標を行き過ぎてしまいそう・・・な日
                     _angvelo_face[ax] = angDistance;
@@ -178,7 +178,7 @@ void GgafDxKuroko::behave() {
                 }
             } else {
                 //_angvelo_face[ax] == 0
-                angle angDistance = getFaceAngDistance(ax, _target_ang_face[ax], TURN_CLOSE_TO);
+                const angle angDistance = getFaceAngDistance(ax, _target_ang_face[ax], TURN_CLOSE_TO);
                 if (angDistance == 0) {
                     if (_ang_face_targeting_stop_flg[ax]) {
                         _is_targeting_ang_face[ax] = false; //フラグを戻して終了
@@ -229,7 +229,7 @@ void GgafDxKuroko::behave() {
         setRzMvAngVelo(_angvelo_rz_mv);
 
         if (_angvelo_rz_mv > 0) { //反時計回りの場合
-            angle angDistance = getRzMvAngDistance(_target_ang_rz_mv, TURN_COUNTERCLOCKWISE);
+            const angle angDistance = getRzMvAngDistance(_target_ang_rz_mv, TURN_COUNTERCLOCKWISE);
             if (_angvelo_rz_mv > angDistance && _ang_rz_mv_stop_allow_way != TURN_CLOCKWISE
                     && _ang_rz_mv_stop_allow_angvelo >= _angvelo_rz_mv) { //目標を行き過ぎてしまいそう・・・な日
                 addRzMvAng(angDistance);
@@ -242,7 +242,7 @@ void GgafDxKuroko::behave() {
             }
         } else if (_angvelo_rz_mv < 0) { //時計回りの場合
 
-            angle angDistance = getRzMvAngDistance(_target_ang_rz_mv, TURN_CLOCKWISE);
+            const angle angDistance = getRzMvAngDistance(_target_ang_rz_mv, TURN_CLOCKWISE);
             if (_angvelo_rz_mv < angDistance && _ang_rz_mv_stop_allow_way != TURN_COUNTERCLOCKWISE
                     && -1*_ang_rz_mv_stop_allow_angvelo <= _angvelo_rz_mv) {
                 addRzMvAng(angDistance);
@@ -254,7 +254,7 @@ void GgafDxKuroko::behave() {
                 addRzMvAng(_angvelo_rz_mv);
             }
         } else {
-            angle angDistance = getRzMvAngDistance(_target_ang_rz_mv, TURN_CLOSE_TO);
+            const angle angDistance = getRzMvAngDistance(_target_ang_rz_mv, TURN_CLOSE_TO);
             if (angDistance == 0) {
                 addRzMvAng(angDistance);
                 if (_ang_rz_mv_targeting_stop_flg) { //停止指定ありならば
@@ -1358,7 +1358,7 @@ void GgafDxKuroko::stopTurnFaceAng() {
     setFaceAngAcce(AXIS_Y, 0);
 }
 
-bool GgafDxKuroko::isTurningFaceAng() {
+bool GgafDxKuroko::isTurningFaceAng() const {
     if (_is_targeting_ang_face[AXIS_X] ||
         _is_targeting_ang_face[AXIS_Y] ||
         _is_targeting_ang_face[AXIS_Z] ) {
@@ -1373,7 +1373,7 @@ bool GgafDxKuroko::isTurningFaceAng() {
     }
 }
 
-bool GgafDxKuroko::isTurningMvAng() {
+bool GgafDxKuroko::isTurningMvAng() const {
     if (_is_targeting_ang_rz_mv || _is_targeting_ang_ry_mv) {
         return true;
     } else {

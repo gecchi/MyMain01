@@ -849,8 +849,8 @@ void VirtualButton::update() {
         _pVBRecord_active = _pVBRecord_active->_next;
 
         vb_sta state = 0;
-        KEYBOARDMAP& kmap = _keyboardmap;
-        JOYSTICKMAP& jmap = _joystickmap;
+        const KEYBOARDMAP& kmap = _keyboardmap;
+        const JOYSTICKMAP& jmap = _joystickmap;
 
         state |= (VB_BUTTON1  * GgafDxInput::isBeingPressedKey(kmap.BUTTON1));
         state |= (VB_BUTTON2  * GgafDxInput::isBeingPressedKey(kmap.BUTTON2));

@@ -292,8 +292,10 @@ bool GgafDxGeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {
 }
 
 int GgafDxGeometricActor::isOutOfView() {
+    //境界半径（モデル自体が無い）ので、PX_DX(1) が画面内にあるかどうかを判定する。
+    //モデルが画面内にあるかどうか判定は、GgafDxFigureActor でオーバーライドされてた方で行う。
     if (_offscreen_kind == -1) {
-        dxcoord bound = 1; //境界半径
+        const dxcoord bound = PX_DX(1); //境界半径
         if (_dest_from_vppln_top < bound) {
             if (_dest_from_vppln_bottom < bound) {
                 if (_dest_from_vppln_left < bound) {

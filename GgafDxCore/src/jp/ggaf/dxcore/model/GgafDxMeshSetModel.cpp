@@ -65,17 +65,15 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_d
         _TRACE_("GgafDxMeshSetModel::draw() "<<_model_name<<" の描画セット数オーバー。_set_num="<<_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
     }
 #endif
-    IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = GgafDxGod::_pID3DDevice9;
     //対象アクター
-    GgafDxMeshSetActor* pTargetActor = (GgafDxMeshSetActor*)prm_pActor_target;
+    const GgafDxMeshSetActor* const pTargetActor = (GgafDxMeshSetActor*)prm_pActor_target;
     //対象MeshSetActorのエフェクトラッパ
-    GgafDxMeshSetEffect* pMeshSetEffect = (GgafDxMeshSetEffect*)prm_pActor_target->getEffect();
+    GgafDxMeshSetEffect* const pMeshSetEffect = (GgafDxMeshSetEffect*)prm_pActor_target->getEffect();
     //対象エフェクト
-    ID3DXEffect* pID3DXEffect = pMeshSetEffect->_pID3DXEffect;
+    ID3DXEffect* const pID3DXEffect = pMeshSetEffect->_pID3DXEffect;
 
     HRESULT hr;
-    UINT material_no;
-
     //モデルが同じでかつ、セット数も同じならば頂点バッファ、インデックスバッファの設定はスキップできる
     if (GgafDxModelManager::_pModelLastDraw  != this) {
         //頂点バッファとインデックスバッファを設定
@@ -95,14 +93,13 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_d
 
     //描画
     for (UINT material_grp_index = 0; material_grp_index < _paUint_material_list_grp_num[prm_draw_set_num-1]; material_grp_index++) {
-        INDEXPARAM& idxparam = _papaIndexParam[prm_draw_set_num-1][material_grp_index];
-
+        const INDEXPARAM& idxparam = _papaIndexParam[prm_draw_set_num-1][material_grp_index];
         // TODO
         //モデルが同じでかつ、セット数も同じかつ、マテリアルNOが１つしかないならば、テクスチャ設定もスキップできる
         if (GgafDxModelManager::_pModelLastDraw  != this      ||
             _paUint_material_list_grp_num[prm_draw_set_num-1] != 1)
         {
-            material_no = idxparam.MaterialNo;
+            const UINT material_no = idxparam.MaterialNo;
             if (_papTextureConnection[material_no]) {
                 //テクスチャをs0レジスタにセット
                 pDevice->SetTexture(0, _papTextureConnection[material_no]->peek()->_pIDirect3DBaseTexture9);

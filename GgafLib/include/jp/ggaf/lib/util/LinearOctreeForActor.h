@@ -122,7 +122,6 @@ public:
      */
     void executeHitChk_RoundRobin(CollisionStack* prm_pStackA, CollisionStack* prm_pStackB);
 
-
     virtual ~LinearOctreeForActor();
 };
 

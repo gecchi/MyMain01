@@ -28,9 +28,9 @@ private:
     };
 
     /** 面番号(方向番号)とベクトルのテーブル */
-    static FaceVec _vec[3*3*3];
+    static const FaceVec _vec[3*3*3];
     /** 面番号(方向番号)と各軸の正負のテーブル */
-    static FaceSgn _sgn[3*3*3];
+    static const FaceSgn _sgn[3*3*3];
 
 public:
     /**
@@ -67,9 +67,9 @@ public:
         FACE_XXX = 666,
     };
 
-    static FaceVec* _face2vec;
+    static const FaceVec* _face2vec;
 
-    static FaceSgn* _face2sgn;
+    static const FaceSgn* _face2sgn;
 
 
     /** 初期化用 */

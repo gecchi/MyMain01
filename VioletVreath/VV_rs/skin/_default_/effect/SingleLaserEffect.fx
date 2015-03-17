@@ -84,7 +84,7 @@ OUT_VS GgafDxVS_SingleLaser(
 
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
-	int index = (int)prm_index;
+	const int index = (int)prm_index;
 
 	//頂点計算
 	float4x4 matWorld;
@@ -151,7 +151,7 @@ OUT_VS GgafDxVS_SingleLaser(
 	//UVはそのまま
 	out_vs.uv = prm_uv;
 	//αフォグ
-    float c = 1.3-((out_vs.posModel_Proj.z)/g_zf);
+    const float c = 1.3-((out_vs.posModel_Proj.z)/g_zf);
 	out_vs.color = (c < 0.5  ? 0.5 : c);
 	//out_vs.color = (c < 0.5  ? 0.5 : c);
 
@@ -171,7 +171,7 @@ float4 GgafDxPS_SingleLaser(
 	float2 prm_uv	  : TEXCOORD0,
 	float4 prm_color    : COLOR0
 ) : COLOR  {
-	float4 colOut = tex2D( MyTextureSampler, prm_uv) * prm_color;
+	const float4 colOut = tex2D( MyTextureSampler, prm_uv) * prm_color;
 	return colOut;
 }
 

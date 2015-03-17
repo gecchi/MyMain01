@@ -48,7 +48,7 @@ EnemyHalia::EnemyHalia(const char* prm_name) :
 
     useProgress(PROG_BANPEI);
     //‰ŠúƒJƒƒ‰ZˆÊ’u
-    Camera* pCam = P_GOD->getUniverse()->getCamera();
+    const Camera* const pCam = P_GOD->getUniverse()->getCamera();
     dZ_camera_init_ = -1 * DX_C(pCam->getZOrigin());
 }
 

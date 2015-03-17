@@ -34,13 +34,13 @@ GgafDxBoardModel::GgafDxBoardModel(char* prm_model_name) :
 
 HRESULT GgafDxBoardModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num) {
     _TRACE4_("GgafDxBoardModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
-    IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = GgafDxGod::_pID3DDevice9;
     //対象Actor
-    GgafDxBoardActor* pTargetActor = (GgafDxBoardActor*)prm_pActor_target;
+    const GgafDxBoardActor* const pTargetActor = (GgafDxBoardActor*)prm_pActor_target;
     //対象BoardActorのエフェクトラッパ
-    GgafDxBoardEffect* pBoardEffect = (GgafDxBoardEffect*)prm_pActor_target->getEffect();
+    GgafDxBoardEffect* const pBoardEffect = (GgafDxBoardEffect*)prm_pActor_target->getEffect();
     //対象エフェクト
-    ID3DXEffect* pID3DXEffect = pBoardEffect->_pID3DXEffect;
+    ID3DXEffect* const pID3DXEffect = pBoardEffect->_pID3DXEffect;
     //今回描画のUV
     float u,v;
     pTargetActor->_pUvFlipper->getUV(u,v);

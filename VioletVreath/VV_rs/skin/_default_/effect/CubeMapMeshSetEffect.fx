@@ -89,12 +89,11 @@ OUT_VS GgafDxVS_CubeMapMeshSet(
       float2 prm_uv     : TEXCOORD0      // モデルの頂点のUV
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
-	int index = (int)prm_index;
+	const int index = (int)prm_index;
 
 	//頂点計算
 	float4x4 matWorld;
 	float4 colMaterialDiffuse;
-
 	if (index == 0) {
 		matWorld = g_matWorld001;
 		colMaterialDiffuse = g_colMaterialDiffuse001;
@@ -147,7 +146,7 @@ OUT_VS GgafDxVS_CubeMapMeshSet(
 //	}
 
 	//頂点計算
-    float4 posModel_World = mul(prm_posModel_Local, matWorld);
+    const float4 posModel_World = mul(prm_posModel_Local, matWorld);
     out_vs.posModel_Proj = mul( mul( posModel_World, g_matView), g_matProj);  //World*View*射影
     //UV計算
     out_vs.uv = prm_uv;  //そのまま
@@ -155,7 +154,7 @@ OUT_VS GgafDxVS_CubeMapMeshSet(
     //法線を World 変換して正規化
     out_vs.vecNormal_World = normalize(mul(prm_vecNormal_Local, matWorld));     
     //法線と、拡散光方向の内積からライト入射角を求め、面に対する拡散光の減衰率を求める。
-    float power = max(dot(out_vs.vecNormal_World, -g_vecLightFrom_World ), 0);      
+    const float power = max(dot(out_vs.vecNormal_World, -g_vecLightFrom_World ), 0);      
     //拡散光色に減衰率を乗じ、環境光色を加算し、全体をマテリアル色を掛ける。
     out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power)) * colMaterialDiffuse;
     //「頂点→カメラ視点」方向ベクトル                                                        
@@ -179,13 +178,13 @@ float4 GgafDxPS_CubeMapMeshSet(
     float3 prm_vecNormal_World : TEXCOORD1,
     float3 prm_vecEye_World    : TEXCOORD2   //頂点 -> 視点 ベクトル
 ) : COLOR  {
-	float4 colTexCube = texCUBE(CubeMapTextureSampler, reflect(-prm_vecEye_World, prm_vecNormal_World));
-    float4 colTex2D   = tex2D( MyTextureSampler, prm_uv);
+	const float4 colTexCube = texCUBE(CubeMapTextureSampler, reflect(-prm_vecEye_World, prm_vecNormal_World));
+    const float4 colTex2D   = tex2D( MyTextureSampler, prm_uv);
 
     float s = 0.0f; //スペキュラ成分
     if (g_specular_power != 0) {
         //ハーフベクトル（「頂点→カメラ視点」方向ベクトル と、「頂点→ライト」方向ベクトルの真ん中の方向ベクトル）
-        float3 vecHarf = normalize(prm_vecEye_World + (-g_vecLightFrom_World));
+        const float3 vecHarf = normalize(prm_vecEye_World + (-g_vecLightFrom_World));
         //ハーフベクトルと法線の内積よりスペキュラ具合を計算
         s = pow( max(0.0f, dot(prm_vecNormal_World, vecHarf)), g_specular ) * g_specular_power;
     }
@@ -206,7 +205,7 @@ float4 PS_Flush(
     float4 prm_color    : COLOR0
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 colTex = tex2D( MyTextureSampler, prm_uv);        
+	const float4 colTex = tex2D( MyTextureSampler, prm_uv);        
 	float4 colOut = colTex * prm_color * FLUSH_COLOR;
     colOut.a *= g_alpha_master;
 	return colOut;

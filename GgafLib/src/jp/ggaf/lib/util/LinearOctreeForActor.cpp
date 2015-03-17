@@ -40,17 +40,7 @@ void LinearOctreeForActor::executeHitChk(uint32_t prm_index) {
             if (pElem == pElem_last) {
                 break;
             }
-
-            if (pElem->_pNext) {
-
-            } else {
-                frame active_frame = pElem->_pActor->getParent()->getActiveFrame();
-
-            _TRACE_(active_frame<<":prev ["<<prm_index<<"] pElem_last="<<pElem_last<<":Actor:"<<(((LinearOctreeActorElem*)pElem_last)->_pActor)<<":"<<(((LinearOctreeActorElem*)pElem_last)->_pActor->getName())<<"");
-            _TRACE_(active_frame<<":prev ["<<prm_index<<"] pElem="<<pElem<<":Actor:"<<(pElem->_pActor)<<":"<<(pElem->_pActor->getName())<<"");
-            }
             pElem = (LinearOctreeActorElem*)(pElem->_pNext);
-
         }
         //現在の空間のグループAとグループB総当り
         executeHitChk_RoundRobin(&_stackCurrentSpaceActor_GroupA, &_stackCurrentSpaceActor_GroupB);
@@ -60,7 +50,7 @@ void LinearOctreeForActor::executeHitChk(uint32_t prm_index) {
         executeHitChk_RoundRobin(&_stackParentSpaceActor_GroupA , &_stackCurrentSpaceActor_GroupB);
     }
 
-    uint32_t next_level_index = prm_index*8 + 1; //_papSpace[prm_index] 空間の子空間のモートン順序位置0番の配列要素番号
+    const uint32_t next_level_index = prm_index*8 + 1; //_papSpace[prm_index] 空間の子空間のモートン順序位置0番の配列要素番号
     if ( next_level_index > _num_space_minus_one) {
         //要素数オーバー、つまりリーフ
         _stackCurrentSpaceActor_GroupA.clear();
@@ -70,8 +60,8 @@ void LinearOctreeForActor::executeHitChk(uint32_t prm_index) {
         //もぐる。が、その前に現空間アクターを親空間アクターのスタックへ追加。
         //もぐった空間から見た場合の親空間アクター累計を作っておいてやる。
         //(現空間スタックも開放)
-        int stackParentSpaceActor_GroupA_p = _stackParentSpaceActor_GroupA._p; //スタックポインタ保存
-        int stackParentSpaceActor_GroupB_p = _stackParentSpaceActor_GroupB._p;
+        const int stackParentSpaceActor_GroupA_p = _stackParentSpaceActor_GroupA._p; //スタックポインタ保存
+        const int stackParentSpaceActor_GroupB_p = _stackParentSpaceActor_GroupB._p;
 
         GgafActor* pActor;
         while (pActor = _stackCurrentSpaceActor_GroupA.pop()) { //  I know "=" , not "=="

@@ -82,7 +82,7 @@ void GgafDxMeshActor::addAlpha(float prm_alpha) {
 
 
 void GgafDxMeshActor::processDraw() {
-    ID3DXEffect* pID3DXEffect = _pMeshEffect->_pID3DXEffect;
+    ID3DXEffect* const pID3DXEffect = _pMeshEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_h_matWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetMatrix(_h_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

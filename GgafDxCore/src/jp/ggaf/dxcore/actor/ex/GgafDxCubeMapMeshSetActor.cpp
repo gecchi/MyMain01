@@ -33,7 +33,7 @@ GgafDxCubeMapMeshSetActor::GgafDxCubeMapMeshSetActor(const char* prm_name,
 void GgafDxCubeMapMeshSetActor::processDraw() {
     int draw_set_num = 0; //GgafDxCubeMapMeshSetActorの同じモデルで同じテクニックが
                        //連続しているカウント数。同一描画深度は一度に描画する。
-    ID3DXEffect* pID3DXEffect = _pCubeMapMeshSetEffect->_pID3DXEffect;
+    ID3DXEffect* const pID3DXEffect = _pCubeMapMeshSetEffect->_pID3DXEffect;
     HRESULT hr;
 
     hr = pID3DXEffect->SetFloat(_pCubeMapMeshSetEffect->_h_reflectance, getCubeMapReflectance());

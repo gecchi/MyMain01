@@ -89,7 +89,7 @@ OUT_VS VS_HoshiBoshi(
 	//out_vs.posModel_Proj = mul(prm_posModel_Local, g_matWorld);  //World
     float4 posModel_World = mul(prm_posModel_Local, g_matWorld);  //
 
-    float w_zf = g_zf * g_far_rate;
+    const float w_zf = g_zf * g_far_rate;
 	//カメラの最大視野範囲(-_zf ～ _zf, -_zf ～ _zf, -_zf ～ _zf)
 	//を超えている場合、ループする。
 	if (posModel_World.x > w_zf) {
@@ -160,9 +160,9 @@ OUT_VS VS_HoshiBoshi(
 //
 // ここで (x,y,z) に星の座標を代入して、③→②へ移動中にアルファを減らそうとした。
 
-	float r2 = ( abs(posModel_World.x-g_fX_MyShip)/15.0 + 
-                 abs(posModel_World.y-g_fY_MyShip)/2.0 + 
-                 abs(posModel_World.z-g_fZ_MyShip)/2.0  ) / g_dist_CamZ_default;
+	const float r2 = ( abs(posModel_World.x-g_fX_MyShip)/15.0 + 
+                       abs(posModel_World.y-g_fY_MyShip)/2.0 + 
+                       abs(posModel_World.z-g_fZ_MyShip)/2.0  ) / g_dist_CamZ_default;
 	// r2 < 1.0         がA領域
 	// 1.0 < r2 < 2.0   がB領域  となる
 
@@ -173,9 +173,9 @@ OUT_VS VS_HoshiBoshi(
 		//A領域外側の場合、星を距離に応じて半透明
         out_vs.color.a = r2 - 1.0;
 	}
-    float4 posModel_View = mul(posModel_World, g_matView);
+    const float4 posModel_View = mul(posModel_World, g_matView);
 
-	float dep = posModel_View.z  + 1.0; //+1.0の意味は
+	const float dep = posModel_View.z  + 1.0; //+1.0の意味は
                                           //VIEW変換は(0.0, 0.0, -1.0) から (0.0, 0.0, 0.0) を見ているため、
                                           //距離に加える。
 //    if (dep > g_zf) {

@@ -46,13 +46,13 @@ _pUvFlipper(NEW GgafDxUvFlipper(_pSpriteSetModel->_papTextureConnection[0]->peek
 void GgafDxSpriteSetActor::processDraw() {
     int draw_set_num = 0; //GgafDxSpriteSetActorの同じモデルで同じテクニックが
                        //連続しているカウント数。同一描画深度は一度に描画する。
-    GgafDxSpriteSetEffect* pSpriteSetEffect = _pSpriteSetEffect;
-    ID3DXEffect* pID3DXEffect = pSpriteSetEffect->_pID3DXEffect;
+    GgafDxSpriteSetEffect* const pSpriteSetEffect = _pSpriteSetEffect;
+    ID3DXEffect* const pID3DXEffect = pSpriteSetEffect->_pID3DXEffect;
     HRESULT hr;
 
     GgafDxFigureActor* pDrawActor = this;
     GgafDxSpriteSetActor* pSpriteSetActor = nullptr;
-    int model_set_num = _pSpriteSetModel->_set_num;
+    const int model_set_num = _pSpriteSetModel->_set_num;
     float u,v;
     while (pDrawActor) {
         if (pDrawActor->getModel() == _pSpriteSetModel && pDrawActor->_hash_technique == _hash_technique) {

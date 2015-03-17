@@ -57,7 +57,7 @@ void GgafDxPointSpriteActor::addAlpha(float prm_alpha) {
 }
 
 void GgafDxPointSpriteActor::processDraw() {
-    ID3DXEffect* pID3DXEffect = _pPointSpriteEffect->_pID3DXEffect;
+    ID3DXEffect* const pID3DXEffect = _pPointSpriteEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pPointSpriteEffect->_h_matWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "GgafDxPointSpriteActor::processDraw() SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

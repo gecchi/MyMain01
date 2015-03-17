@@ -67,14 +67,13 @@ HRESULT GgafDxMorphMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
     _TRACE4_("GgafDxMorphMeshModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
 
     //対象アクター
-    GgafDxMorphMeshActor* pTargetActor = (GgafDxMorphMeshActor*)prm_pActor_target;
+    const GgafDxMorphMeshActor* const pTargetActor = (GgafDxMorphMeshActor*)prm_pActor_target;
     //対象アクターのエフェクトラッパ
-    GgafDxMorphMeshEffect* pMorphMeshEffect = (GgafDxMorphMeshEffect*)prm_pActor_target->getEffect();
+    GgafDxMorphMeshEffect* const pMorphMeshEffect = (GgafDxMorphMeshEffect*)prm_pActor_target->getEffect();
     //対象エフェクト
-    ID3DXEffect* pID3DXEffect = pMorphMeshEffect->_pID3DXEffect;
+    ID3DXEffect* const pID3DXEffect = pMorphMeshEffect->_pID3DXEffect;
 
     HRESULT hr;
-    UINT material_no;
     //頂点バッファ設定
     if (GgafDxModelManager::_pModelLastDraw != this) {
         pDevice->SetVertexDeclaration( _pIDirect3DVertexDeclaration9); //頂点フォーマット
@@ -97,7 +96,7 @@ HRESULT GgafDxMorphMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
 
     //描画
     for (UINT i = 0; i < _material_list_grp_num; i++) {
-        material_no = _paIndexParam[i].MaterialNo;
+        const UINT material_no = _paIndexParam[i].MaterialNo;
         if (GgafDxModelManager::_pModelLastDraw != this || _material_list_grp_num != 1) {
             if (_papTextureConnection[material_no]) {
                 //テクスチャをs0レジスタにセット

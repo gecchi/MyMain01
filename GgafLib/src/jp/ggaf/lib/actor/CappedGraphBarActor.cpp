@@ -26,7 +26,7 @@ void CappedGraphBarActor::processDraw() {
     if (bar_width == 0.0f) { //I know float ==
         return;
     }
-    ID3DXEffect* pID3DXEffect = _pBoardEffect->_pID3DXEffect;
+    ID3DXEffect* const pID3DXEffect = _pBoardEffect->_pID3DXEffect;
     float left_x = (float)(C_PX(_x));
     float top_y = (float)(C_PX(_y));
     HRESULT hr;

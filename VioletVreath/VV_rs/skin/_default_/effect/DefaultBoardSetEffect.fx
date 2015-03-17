@@ -214,7 +214,7 @@ OUT_VS GgafDxVS_DefaultBoardSet(
 
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
-	int index = (int)prm_index;
+	const int index = (int)prm_index;
 	float offsetU; //テクスチャU座標増分
 	float offsetV; //テクスチャV座標増分
 	float transformedX; //変換済みX座標(px)

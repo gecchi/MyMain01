@@ -35,7 +35,7 @@ SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id, GgafSta
 
 D3DXHANDLE SingleLaser::_ah_matWorld[26];
 bool SingleLaser::initStatic() {
-    ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
+    ID3DXEffect* const pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     SingleLaser::_ah_matWorld[0]   = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld001" );
     SingleLaser::_ah_matWorld[1]   = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld002" );
     SingleLaser::_ah_matWorld[2]   = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld003" );
@@ -77,7 +77,7 @@ bool SingleLaser::initStatic() {
 void SingleLaser::processDraw() {
     int draw_set_num = 0; //GgafDxMeshSetActorの同じモデルで同じテクニックが
                           //連続しているカウント数。同一描画深度は一度に描画する。
-    ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
+    ID3DXEffect* const pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     HRESULT hr;
     //基本モデル頂点数
     GgafDxFigureActor* pDrawActor = this;

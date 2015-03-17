@@ -329,8 +329,8 @@ angle GgafDxUtil::addAng(angle prm_angNow, angle prm_angOffset) {
 }
 
 angle GgafDxUtil::getAngDiff(angle prm_ang_from, angle prm_ang_to, int prm_way) {
-    angle ang_from = UTIL::simplifyAng(prm_ang_from);
-    angle ang_to = UTIL::simplifyAng(prm_ang_to);
+    const angle ang_from = UTIL::simplifyAng(prm_ang_from);
+    const angle ang_to = UTIL::simplifyAng(prm_ang_to);
     if (prm_way == TURN_CLOSE_TO) {
         if (0 <= ang_from && ang_from < D180ANG) {
             if (0 <= ang_to && ang_to < ang_from) {
@@ -502,10 +502,10 @@ void GgafDxUtil::convVectorToRzRy(coord vx,
     vy = (vy == 0 ? 1 : vy);
     vz = (vz == 0 ? 1 : vz);
 
-    angle prj_rXY = GgafDxUtil::getAngle2D(ABS(vx), ABS(vy)); //Rz
-    angle prj_rXZ = GgafDxUtil::getAngle2D(ABS(vx), ABS(vz));
-    angle prj_rZY = GgafDxUtil::getAngle2D(ABS(vz), ABS(vy)); //Rz
-    angle prj_rZX = GgafDxUtil::getAngle2D(ABS(vz), ABS(vx));
+    const angle prj_rXY = GgafDxUtil::getAngle2D(ABS(vx), ABS(vy)); //Rz
+    const angle prj_rXZ = GgafDxUtil::getAngle2D(ABS(vx), ABS(vz));
+    const angle prj_rZY = GgafDxUtil::getAngle2D(ABS(vz), ABS(vy)); //Rz
+    const angle prj_rZX = GgafDxUtil::getAngle2D(ABS(vz), ABS(vx));
 
     angle rot_z, rot_y_rev;
     if (0 <= prj_rXZ && prj_rXZ <= D45ANG) {

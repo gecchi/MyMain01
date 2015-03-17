@@ -31,7 +31,7 @@ GgafDxCubeMapMorphMeshActor::GgafDxCubeMapMorphMeshActor(const char* prm_name,
 }
 
 void GgafDxCubeMapMorphMeshActor::processDraw() {
-    ID3DXEffect* pID3DXEffect = _pCubeMapMorphMeshEffect->_pID3DXEffect;
+    ID3DXEffect* const pID3DXEffect = _pCubeMapMorphMeshEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetInt(_pCubeMapMorphMeshEffect->_h_morph_target_num, _pCubeMapMorphMeshModel->_morph_target_num);
     checkDxException(hr, D3D_OK, "GgafDxCubeMapMorphMeshActor::processDraw() SetInt(_h_morph_target_num) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

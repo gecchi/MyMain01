@@ -80,8 +80,8 @@ OUT_VS GgafDxVS_DefaultPointSprite(
     float2 prm_ptn_no         : TEXCOORD0 //UVでは無くて、prm_ptn_no.xには、表示したいアニメーションパターン番号が埋め込んである
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
-    float4 posModel_View = mul(mul(prm_posModel_Local, g_matWorld), g_matView); 
-	float dep = posModel_View.z + 1.0; //+1.0の意味は
+    const float4 posModel_View = mul(mul(prm_posModel_Local, g_matWorld), g_matView); 
+	const float dep = posModel_View.z + 1.0; //+1.0の意味は
                                     //VIEW変換は(0.0, 0.0, -1.0) から (0.0, 0.0, 0.0) を見ているため、
                                     //距離に加える。
 	out_vs.posModel_Proj = mul(posModel_View, g_matProj);  //射影変換
@@ -128,9 +128,8 @@ float4 PS_Flush(
 	float4 prm_color                : COLOR0,
 	float4 prm_uv_ps              : COLOR1
 ) : COLOR  {
-	float2 uv = (float2)0;
-	uv.x = prm_uv_pointsprite.x * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.x;
-	uv.y = prm_uv_pointsprite.y * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.y;
+	const float2 uv = { prm_uv_pointsprite.x * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.x,
+	                    prm_uv_pointsprite.y * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.y };
 	float4 colOut = tex2D( MyTextureSampler, uv) * prm_color * FLUSH_COLOR * g_colMaterialDiffuse;
 	colOut.a *= g_alpha_master; 
 	return colOut;

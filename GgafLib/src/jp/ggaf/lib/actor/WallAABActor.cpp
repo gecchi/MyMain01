@@ -35,7 +35,7 @@ WallAABActor::WallAABActor(const char* prm_name,
 D3DXHANDLE WallAABActor::_h_distance_AlphaTarget;
 D3DXHANDLE WallAABActor::_ah_wall_draw_face[16];
 bool WallAABActor::initStatic() {
-    ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
+    ID3DXEffect* const pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     WallAABActor::_h_distance_AlphaTarget = pID3DXEffect->GetParameterByName( nullptr, "g_distance_AlphaTarget" );
     WallAABActor::_ah_wall_draw_face[0]   = pID3DXEffect->GetParameterByName( nullptr, "g_wall_draw_face001" );
     WallAABActor::_ah_wall_draw_face[1]   = pID3DXEffect->GetParameterByName( nullptr, "g_wall_draw_face002" );

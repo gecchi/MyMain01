@@ -68,7 +68,7 @@ OUT_VS GgafDx9VS_WorldBound0(
     OUT_VS out_vs = (OUT_VS)0;
 
 	//頂点計算
-    float4 posModel_World = mul(prm_posPrimary_Local, g_matWorld);
+    const float4 posModel_World = mul(prm_posPrimary_Local, g_matWorld);
     out_vs.posModel_Proj = mul( mul( posModel_World, g_matView), g_matProj);  //World*View*射影
     //UV計算
     //out_vs.uv = prm_uv0;  //そのまま
@@ -312,7 +312,7 @@ float4 GgafDx9PS_WorldBound(
     //float3 prm_vecEye_World    : TEXCOORD2   //頂点 -> 視点 ベクトル
 ) : COLOR  {
 	//float4 colTexCube = texCUBE(CubeMapTextureSampler, reflect(-prm_vecEye_World, -prm_vecNormal_World));
-	float4 colTexCube = texCUBE(CubeMapTextureSampler, -prm_vecNormal_World);
+	const float4 colTexCube = texCUBE(CubeMapTextureSampler, -prm_vecNormal_World);
 
 //    float4 colTex2D   = tex2D( MyTextureSampler, prm_uv);
 
@@ -336,11 +336,8 @@ float4 GgafDx9PS_WorldBound(
 	return colOut;
 }
 float4 PS_Flush(       
-
 	float4 prm_color  : COLOR0,
     float3 prm_vecNormal_Local : TEXCOORD0 
-
-
 //	float2 prm_uv	  : TEXCOORD0,
 //	float4 prm_color    : COLOR0,
 //    float3 prm_vecNormal_Local : TEXCOORD1,
@@ -348,7 +345,7 @@ float4 PS_Flush(
 ) : COLOR  {
 
 //	float4 colTexCube = texCUBE(CubeMapTextureSampler, reflect(-prm_vecEye_World, -prm_vecNormal_Local));
-	float4 colTexCube = texCUBE(CubeMapTextureSampler, -prm_vecNormal_Local);
+	const float4 colTexCube = texCUBE(CubeMapTextureSampler, -prm_vecNormal_Local);
     float4 colOut = colTexCube * prm_color * FLUSH_COLOR;
     colOut.a *= g_alpha_master;
 	return 	colOut;

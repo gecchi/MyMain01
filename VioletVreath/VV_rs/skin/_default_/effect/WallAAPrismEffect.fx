@@ -91,7 +91,7 @@ OUT_VS GgafDxVS_WallAAPrism(
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 	//ワールド変換行列を割り当てる
-	int index = (int)prm_object_index; 
+	const int index = (int)prm_object_index; 
 	float4x4 matWorld;
 	if (index == 0) {
 		matWorld = g_matWorld001;
@@ -339,7 +339,7 @@ float4 GgafDxPS_WallAAPrism(
         return 0;
     }
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 colTex = tex2D( MyTextureSampler, prm_uv);        
+	const float4 colTex = tex2D( MyTextureSampler, prm_uv);        
 	float4 colOut = colTex * prm_color;
 
     //Blinkerを考慮
@@ -357,7 +357,7 @@ float4 PS_Flush(
     float4 prm_color    : COLOR0
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 colTex = tex2D( MyTextureSampler, prm_uv);        
+	const float4 colTex = tex2D( MyTextureSampler, prm_uv);        
 	float4 colOut = colTex * prm_color * FLUSH_COLOR;
     colOut.a *= g_alpha_master;
 	return colOut;

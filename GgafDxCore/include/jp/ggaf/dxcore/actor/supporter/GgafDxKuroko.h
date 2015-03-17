@@ -997,13 +997,13 @@ public:
      * 目標軸回転方角にターゲットするシークエンスが実行中か .
      * @return true:実行中/false:実行中でない
      */
-    bool isTurningFaceAng();
+    bool isTurningFaceAng() const;
 
     /**
      * 目標移動方角にターゲットするシークエンスが実行中か .
      * @return true:実行中/false:実行中でない
      */
-    bool isTurningMvAng();
+    bool isTurningMvAng() const;
 
     /**
      * 移動方角に伴って軸回転方角を更新 .

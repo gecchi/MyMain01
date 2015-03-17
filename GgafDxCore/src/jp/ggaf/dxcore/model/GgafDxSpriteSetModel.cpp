@@ -56,15 +56,15 @@ HRESULT GgafDxSpriteSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
         throwGgafCriticalException("GgafDxSpriteSetModel::draw() "<<_model_name<<" の描画セット数オーバー。_set_num="<<_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
     }
 #endif
-    IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = GgafDxGod::_pID3DDevice9;
     //対象Actor
-    GgafDxSpriteSetActor* pTargetActor = (GgafDxSpriteSetActor*)prm_pActor_target;
+    const GgafDxSpriteSetActor* const pTargetActor = (GgafDxSpriteSetActor*)prm_pActor_target;
     //対象SpriteSetActorのエフェクトラッパ
-    GgafDxSpriteSetEffect* pSpriteSetEffect = (GgafDxSpriteSetEffect*)prm_pActor_target->getEffect();
+    GgafDxSpriteSetEffect* const pSpriteSetEffect = (GgafDxSpriteSetEffect*)prm_pActor_target->getEffect();
     //対象エフェクト
-    ID3DXEffect* pID3DXEffect = pSpriteSetEffect->_pID3DXEffect;
+    ID3DXEffect* const pID3DXEffect = pSpriteSetEffect->_pID3DXEffect;
 
-    static HRESULT hr;
+    HRESULT hr;
     //モデルが同じならば頂点バッファ等、の設定はスキップできる
     if (GgafDxModelManager::_pModelLastDraw  != this) {
         pDevice->SetStreamSource(0, _pVertexBuffer, 0, _size_vertex_unit);
@@ -118,7 +118,7 @@ HRESULT GgafDxSpriteSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
         checkDxException(hr, D3D_OK, "GgafDxSpriteSetModel::draw() CommitChanges() に失敗しました。");
     }
     _TRACE4_("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteSetEffect->_effect_name);
-    INDEXPARAM& idxparam = _paIndexParam[prm_draw_set_num - 1];
+    const INDEXPARAM& idxparam = _paIndexParam[prm_draw_set_num - 1];
     pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                   idxparam.BaseVertexIndex,
                                   idxparam.MinIndex,

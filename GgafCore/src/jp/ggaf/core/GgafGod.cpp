@@ -174,7 +174,7 @@ void GgafGod::be() {
 
         //fpsŒvŽZ
         if (_time_at_beginning_frame >= _time_calc_fps_next) {
-            int d_visualize_frames = _visualize_frames - _prev_visualize_frames;
+            const int d_visualize_frames = _visualize_frames - _prev_visualize_frames;
             if (d_visualize_frames == 0) {
                 _fps = 0;
             } else {

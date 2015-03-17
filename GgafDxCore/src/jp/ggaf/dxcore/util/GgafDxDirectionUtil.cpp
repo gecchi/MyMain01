@@ -7,7 +7,7 @@ using namespace GgafDxCore;
 
 #define V3E (0.57735026918963)    // 斜めの単位ベクトル各要素(t = (1.0 / √(1*1+1*1+1*1)) * 1 )
 #define V2E (0.70710678118655)    // t = (1.0 / √(1*1+1*1)) * 1
-GgafDxDirectionUtil::FaceVec GgafDxDirectionUtil::_vec[3*3*3] = {
+const GgafDxDirectionUtil::FaceVec GgafDxDirectionUtil::_vec[3*3*3] = {
         {-V3E, -V3E, -V3E},      //FACE_NNN,     //TN(-1,-1,-1)
         {-V2E, -V2E,    0},      //FACE_NNZ,     //TN(-1,-1, 0)
         {-V3E, -V3E, +V3E},      //FACE_NNP,     //TN(-1,-1, 1)
@@ -37,9 +37,9 @@ GgafDxDirectionUtil::FaceVec GgafDxDirectionUtil::_vec[3*3*3] = {
         {+V3E, +V3E, +V3E}       //FACE_PPP      //TN( 1, 1, 1)
 
 };
-GgafDxDirectionUtil::FaceVec* GgafDxDirectionUtil::_face2vec = &(GgafDxDirectionUtil::_vec[13]); //13 は 3*3*3=27 の真ん中の要素。_face2vec[-13～13]でアクセスする為
+const GgafDxDirectionUtil::FaceVec* GgafDxDirectionUtil::_face2vec = &(GgafDxDirectionUtil::_vec[13]); //13 は 3*3*3=27 の真ん中の要素。_face2vec[-13～13]でアクセスする為
 
-GgafDxDirectionUtil::FaceSgn GgafDxDirectionUtil::_sgn[3*3*3] = {
+const GgafDxDirectionUtil::FaceSgn GgafDxDirectionUtil::_sgn[3*3*3] = {
          {-1,-1,-1 },      //FACE_NNN,
          {-1,-1, 0 },      //FACE_NNZ,
          {-1,-1, 1 },      //FACE_NNP,
@@ -68,7 +68,7 @@ GgafDxDirectionUtil::FaceSgn GgafDxDirectionUtil::_sgn[3*3*3] = {
          { 1, 1, 0 },      //FACE_PPZ,
          { 1, 1, 1 }       //FACE_PPP
 };
-GgafDxDirectionUtil::FaceSgn* GgafDxDirectionUtil::_face2sgn = &(GgafDxDirectionUtil::_sgn[13]); //13 は 3*3*3=27 の真ん中の要素。_face2sgn[-13～13]でアクセスする為
+const GgafDxDirectionUtil::FaceSgn* GgafDxDirectionUtil::_face2sgn = &(GgafDxDirectionUtil::_sgn[13]); //13 は 3*3*3=27 の真ん中の要素。_face2sgn[-13～13]でアクセスする為
 
 bool GgafDxDirectionUtil::is_init = false;
 

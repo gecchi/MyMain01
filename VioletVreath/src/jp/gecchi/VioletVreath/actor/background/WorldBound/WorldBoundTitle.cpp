@@ -21,7 +21,7 @@ void WorldBoundTitle::onCreateModel() {
 }
 
 void WorldBoundTitle::initialize() {
-    Camera* pCam = P_GOD->getUniverse()->getCamera();
+    const Camera* const pCam = P_GOD->getUniverse()->getCamera();
     setHitAble(false);
     positionAs(pCam);
     setFaceAng(0, 0, 0);

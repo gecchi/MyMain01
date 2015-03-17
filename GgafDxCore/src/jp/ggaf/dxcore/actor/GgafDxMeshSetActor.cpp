@@ -79,11 +79,11 @@ void GgafDxMeshSetActor::addAlpha(float prm_alpha) {
 void GgafDxMeshSetActor::processDraw() {
     int draw_set_num = 0; //GgafDxMeshSetActorの同じモデルで同じテクニックが
                        //連続しているカウント数。同一描画深度は一度に描画する。
-    ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
+    ID3DXEffect* const pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     HRESULT hr;
     GgafDxFigureActor* pDrawActor = this;
     GgafDxMeshSetActor* pMeshSetActor = nullptr;
-    int model_set_num = _pMeshSetModel->_set_num;
+    const int model_set_num = _pMeshSetModel->_set_num;
     while (pDrawActor) {
         if (pDrawActor->getModel() == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
             pMeshSetActor = (GgafDxMeshSetActor*)pDrawActor;

@@ -84,7 +84,7 @@ void GgafDxSeTransmitter::setLooping(int prm_id, bool prm_can_looping) {
     _papSeConnection[prm_id]->peek()->setLooping(prm_can_looping);
 }
 
-GgafDxSe* GgafDxSeTransmitter::get(int prm_id) {
+GgafDxSe* GgafDxSeTransmitter::get(int prm_id) const {
 #ifdef MY_DEBUG
     if (prm_id < 0 || prm_id >= _se_num) {
         throwGgafCriticalException("GgafDxSeTransmitter::play() ID‚ª”ÍˆÍŠO‚Å‚·B0~"<<(_se_num-1)<<"‚Å‚¨Šè‚¢‚µ‚Ü‚·Bprm_id="<<prm_id);

@@ -15,7 +15,6 @@
 /gprofA_result.txt
 /gprofq_result.txt
 /gprofp_result.txt
-/gprofdot_result.png
 *.rep
 *.tbl
 /back.properties

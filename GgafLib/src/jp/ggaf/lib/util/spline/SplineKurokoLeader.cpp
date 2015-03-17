@@ -46,50 +46,22 @@ SplineKurokoLeader::SplineKurokoLeader(SplineManufacture* prm_pManufacture, Ggaf
     _ang_ry_mv_start = prm_pKuroko->_ang_ry_mv;
 }
 
-void SplineKurokoLeader::getPointCoord(int prm_point_index, coord &out_x, coord&out_y, coord &out_z) {
+void SplineKurokoLeader::getPointCoord(int prm_point_index, coord& out_x, coord& out_y, coord& out_z) {
 #ifdef MY_DEBUG
     if (prm_point_index >= _pManufacture->_sp->_rnum) {
         throwGgafCriticalException("SplineKurokoLeader::getPointCoord ポイントのインデックスオーバー。"<<
                                    "補完点数="<<(_pManufacture->_sp->_rnum)<<" prm_point_index="<<prm_point_index);
     }
 #endif
-    SplineLine* pSpl = _pManufacture->_sp;
-    double dx = _flip_x*pSpl->_x_compute[prm_point_index]*_pManufacture->_rate_x + _offset_x;
-    double dy = _flip_y*pSpl->_y_compute[prm_point_index]*_pManufacture->_rate_y + _offset_y;
-    double dz = _flip_z*pSpl->_z_compute[prm_point_index]*_pManufacture->_rate_z + _offset_z;
+    const SplineLine* const pSpl = _pManufacture->_sp;
+    const double dx = _flip_x*pSpl->_x_compute[prm_point_index]*_pManufacture->_rate_x + _offset_x;
+    const double dy = _flip_y*pSpl->_y_compute[prm_point_index]*_pManufacture->_rate_y + _offset_y;
+    const double dz = _flip_z*pSpl->_z_compute[prm_point_index]*_pManufacture->_rate_z + _offset_z;
     //次の補間点（or制御点)に移動方角を向ける
     if (_option == RELATIVE_DIRECTION) {
-        if (_is_leading == false) {
-            //黒衣さんが先導していない(leading中)
-            //まだ start されていないので、未来の補間点座標が未確定
-            //この場合、仮にいまココで start された場合の座標を計算して返す
-            GgafDxKuroko* const pKuroko_target = _pActor_target->getKuroko();
-            float sinRzMv_now = ANG_SIN(pKuroko_target->_ang_rz_mv);
-            float cosRzMv_now = ANG_COS(pKuroko_target->_ang_rz_mv);
-            float sinRyMv_now = ANG_SIN(pKuroko_target->_ang_ry_mv);
-            float cosRyMv_now = ANG_COS(pKuroko_target->_ang_ry_mv);
-            coord x_start_now = 0;
-            coord y_start_now = 0;
-            coord z_start_now = 0;
-            if (!_is_fix_start_pos) {
-                x_start_now = _pActor_target->_x;
-                y_start_now = _pActor_target->_y;
-                z_start_now = _pActor_target->_z;
-            }
-
-            //    平行移動 ＞ Z軸回転 ＞ Y軸回転
-            //    | cosRz*cosRy                            , sinRz                , cosRz*-sinRy                            , 0 |
-            //    | -sinRz*cosRy                           , cosRz                , -sinRz*-sinRy                           , 0 |
-            //    | sinRy                                  , 0                    , cosRy                                   , 0 |
-            //    | (dx*cosRz + dy*-sinRz)*cosRy + dz*sinRy, (dx*sinRz + dy*cosRz), (dx*cosRz + dy*-sinRz)*-sinRy + dz*cosRy, 1 |
-            out_x = ((dx*cosRzMv_now + dy*-sinRzMv_now) *  cosRyMv_now + dz*sinRyMv_now) + x_start_now;
-            out_y =  (dx*sinRzMv_now + dy* cosRzMv_now)                                  + y_start_now;
-            out_z = ((dx*cosRzMv_now + dy*-sinRzMv_now) * -sinRyMv_now + dz*cosRyMv_now) + z_start_now;
-
-        } else {
+        if (_is_leading) {
             //黒衣さんが先導中(leading中)
             //startされているので、未来の補間点座標が確定している
-
             //    平行移動 ＞ Z軸回転 ＞ Y軸回転
             //    | cosRz*cosRy                            , sinRz                , cosRz*-sinRy                            , 0 |
             //    | -sinRz*cosRy                           , cosRz                , -sinRz*-sinRy                           , 0 |
@@ -98,25 +70,50 @@ void SplineKurokoLeader::getPointCoord(int prm_point_index, coord &out_x, coord&
             out_x = ((dx*_cosRzMv_begin + dy*-_sinRzMv_begin) *  _cosRyMv_begin + dz*_sinRyMv_begin) + _x_start;
             out_y =  (dx*_sinRzMv_begin + dy* _cosRzMv_begin)                                        + _y_start;
             out_z = ((dx*_cosRzMv_begin + dy*-_sinRzMv_begin) * -_sinRyMv_begin + dz*_cosRyMv_begin) + _z_start;
+        } else {
+            //黒衣さんが先導していない(not leading 中)
+            //まだ start されていないので、未来の補間点座標が未確定
+            //この場合、仮に今ココで start された場合の座標を計算して返す
+            const GgafDxKuroko* const pKuroko_target = _pActor_target->getKuroko();
+            const float sinRzMv_now = ANG_SIN(pKuroko_target->_ang_rz_mv);
+            const float cosRzMv_now = ANG_COS(pKuroko_target->_ang_rz_mv);
+            const float sinRyMv_now = ANG_SIN(pKuroko_target->_ang_ry_mv);
+            const float cosRyMv_now = ANG_COS(pKuroko_target->_ang_ry_mv);
+            //    平行移動 ＞ Z軸回転 ＞ Y軸回転
+            //    | cosRz*cosRy                            , sinRz                , cosRz*-sinRy                            , 0 |
+            //    | -sinRz*cosRy                           , cosRz                , -sinRz*-sinRy                           , 0 |
+            //    | sinRy                                  , 0                    , cosRy                                   , 0 |
+            //    | (dx*cosRz + dy*-sinRz)*cosRy + dz*sinRy, (dx*sinRz + dy*cosRz), (dx*cosRz + dy*-sinRz)*-sinRy + dz*cosRy, 1 |
+            if (_is_fix_start_pos) {
+                out_x = ((dx*cosRzMv_now + dy*-sinRzMv_now) *  cosRyMv_now + dz*sinRyMv_now) + 0;
+                out_y =  (dx*sinRzMv_now + dy* cosRzMv_now)                                  + 0;
+                out_z = ((dx*cosRzMv_now + dy*-sinRzMv_now) * -sinRyMv_now + dz*cosRyMv_now) + 0;
+            } else {
+                out_x = ((dx*cosRzMv_now + dy*-sinRzMv_now) *  cosRyMv_now + dz*sinRyMv_now) + _pActor_target->_x;
+                out_y =  (dx*sinRzMv_now + dy* cosRzMv_now)                                  + _pActor_target->_y;
+                out_z = ((dx*cosRzMv_now + dy*-sinRzMv_now) * -sinRyMv_now + dz*cosRyMv_now) + _pActor_target->_z;
+            }
+
+
         }
     } else if (_option == RELATIVE_COORD) {
         //相対座標ターゲット
-        if (_is_leading == false) {
-            coord x_start_now = 0;
-            coord y_start_now = 0;
-            coord z_start_now = 0;
-            if (!_is_fix_start_pos) {
-                x_start_now = _pActor_target->_x;
-                y_start_now = _pActor_target->_y;
-                z_start_now = _pActor_target->_z;
-            }
-            out_x = dx + x_start_now;
-            out_y = dy + y_start_now;
-            out_z = dz + z_start_now;
-        } else {
+        if (_is_leading) {
+            //黒衣さんが先導中(leading中)
             out_x = dx + _x_start;
             out_y = dy + _y_start;
             out_z = dz + _z_start;
+        } else {
+            //黒衣さんが先導していない(not leading 中)
+            if (_is_fix_start_pos) {
+                out_x = dx + 0;
+                out_y = dy + 0;
+                out_z = dz + 0;
+            } else {
+                out_x = dx + _pActor_target->_x;
+                out_y = dy + _pActor_target->_y;
+                out_z = dz + _pActor_target->_z;
+            }
         }
     } else { //RELATIVE_DIRECTION
         //絶対座標ターゲット
@@ -127,10 +124,10 @@ void SplineKurokoLeader::getPointCoord(int prm_point_index, coord &out_x, coord&
 }
 
 void SplineKurokoLeader::restart() {
-    SplineLine* pSpl = _pManufacture->_sp;
-    double p0x = _flip_x * pSpl->_x_compute[0] * _pManufacture->_rate_x + _offset_x;
-    double p0y = _flip_y * pSpl->_y_compute[0] * _pManufacture->_rate_y + _offset_y;
-    double p0z = _flip_z * pSpl->_z_compute[0] * _pManufacture->_rate_z + _offset_z;
+    const SplineLine* const pSpl = _pManufacture->_sp;
+    const double p0x = _flip_x * pSpl->_x_compute[0] * _pManufacture->_rate_x + _offset_x;
+    const double p0y = _flip_y * pSpl->_y_compute[0] * _pManufacture->_rate_y + _offset_y;
+    const double p0z = _flip_z * pSpl->_z_compute[0] * _pManufacture->_rate_z + _offset_z;
     if (_cnt_loop >= 2) {
         //２周目以降は fixStartPosition() が設定されていても、効力はなくなる。
         _is_fix_start_pos = false;

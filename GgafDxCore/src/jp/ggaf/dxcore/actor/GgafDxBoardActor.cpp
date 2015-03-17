@@ -43,7 +43,7 @@ _pUvFlipper(NEW GgafDxUvFlipper(_pBoardModel->_papTextureConnection[0]->peek()))
 }
 
 void GgafDxBoardActor::processDraw() {
-    ID3DXEffect* pID3DXEffect = _pBoardEffect->_pID3DXEffect;
+    ID3DXEffect* const pID3DXEffect = _pBoardEffect->_pID3DXEffect;
 
     HRESULT hr;
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_transformed_x, float(C_PX(_x)));

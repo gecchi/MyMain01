@@ -25,7 +25,7 @@ public:
 public:
     DefaultUniverse(const char* prm_name, DefaultCamera* prm_pCamera);
 
-    inline LinearOctreeForActor* getLinearOctree() {
+    inline LinearOctreeForActor* getLinearOctree() const {
         return _pLinearOctree;
     }
     virtual DefaultCamera* getCamera() override { //‹¤•Ï‚Ì–ß‚è’l

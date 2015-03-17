@@ -86,7 +86,7 @@ void VvvWorld::processBehavior() {
 
     if (GgafDxInput::isPushedDownKey(DIK_F1)) {
         //ƒJƒƒ‰‚ð‰ŠúˆÊ’u‚Ö
-        VvvCamera* pCam = P_GOD->getUniverse()->getCamera();;
+        VvvCamera* const pCam = P_GOD->getUniverse()->getCamera();;
         pCamWorker_->slideMvCamTo(0,0,DX_C(pCam->getZOrigin()),60);
         pCamWorker_->slideMvVpTo(0,0,0,60);
         pCam->auto_up_wait_frames = 65;
@@ -171,6 +171,7 @@ void VvvWorld::processBehavior() {
 
     if (listActorInfo_.length() > 0) {
         GgafDxFigureActor* pActor =  listActorInfo_.getCurrent()->pActor_;
+        _TRACE_("pActor->isOutOfView()="<<pActor->isOutOfView());
         int d = 1;
         if (GgafDxInput::isBeingPressedKey(DIK_SPACE) || GgafDxInput::isBeingPressedKey(DIK_LCONTROL) || GgafDxInput::isBeingPressedKey(DIK_RCONTROL)) {
             d = 10;
@@ -436,6 +437,8 @@ void VvvWorld::processBehavior() {
             }
         }
     }
+
+
 
     if (VvvGod::is_wm_dropfiles_) {
         string dropfile_dir = UTIL::getFileDirName(VvvGod::dropfiles_) + "/";

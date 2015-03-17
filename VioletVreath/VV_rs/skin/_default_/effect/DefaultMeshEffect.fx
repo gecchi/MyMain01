@@ -100,7 +100,7 @@ OUT_VS GgafDxVS_DefaultMesh(
     OUT_VS out_vs = (OUT_VS)0;
 
     //頂点計算
-    float4 posModel_World = mul(prm_posModel_Local, g_matWorld); //World変換
+    const float4 posModel_World = mul(prm_posModel_Local, g_matWorld); //World変換
     out_vs.posModel_Proj = mul( mul( posModel_World, g_matView), g_matProj);  //World*View*射影
 
     //UV計算
@@ -110,7 +110,7 @@ OUT_VS GgafDxVS_DefaultMesh(
     //法線を World 変換して正規化
     out_vs.vecNormal_World = normalize(mul(prm_vecNormal_Local, g_matWorld));
     //法線と、拡散光方向の内積からライト入射角を求め、面に対する拡散光の減衰率を求める。
-    float power = max(dot(out_vs.vecNormal_World, -g_vecLightFrom_World ), 0);
+    const float power = max(dot(out_vs.vecNormal_World, -g_vecLightFrom_World ), 0);
     //拡散光色に減衰率を乗じ、環境光色を加算し、全体をマテリアル色を掛ける。
     out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power)) * g_colMaterialDiffuse;
     //「頂点→カメラ視点」方向ベクトル（スペキュラで使用）
@@ -156,11 +156,11 @@ float4 GgafDxPS_DefaultMesh(
     float s = 0.0f; //スペキュラ成分
     if (g_specular_power != 0) {
         //ハーフベクトル（「頂点→カメラ視点」方向ベクトル と、「頂点→ライト」方向ベクトルの真ん中の方向ベクトル）
-        float3 vecHarf = normalize(prm_vecEye_World + (-g_vecLightFrom_World));
+        const float3 vecHarf = normalize(prm_vecEye_World + (-g_vecLightFrom_World));
         //ハーフベクトルと法線の内積よりスペキュラ具合を計算
         s = pow( max(0.0f, dot(prm_vecNormal_World, vecHarf)), g_specular ) * g_specular_power;
     }
-    float4 colTex = tex2D( MyTextureSampler, prm_uv);
+    const float4 colTex = tex2D( MyTextureSampler, prm_uv);
     //テクスチャ色に
     float4 colOut = colTex * prm_color + s;
     //Blinkerを考慮
@@ -221,16 +221,16 @@ OUT_VS_BM GgafDxVS_BumpMapping(
     OUT_VS_BM out_vs = (OUT_VS_BM)0;
 
     //頂点計算
-    float4 posModel_World = mul(prm_posModel_Local, g_matWorld); //World変換
+    const float4 posModel_World = mul(prm_posModel_Local, g_matWorld); //World変換
     out_vs.posModel_Proj = mul( mul( posModel_World, g_matView), g_matProj);  //World*View*射影
 
     //UV計算
     out_vs.uv = prm_uv;  //そのまま
 
     // 接空間行列の逆行列を算出
-    float4x4 matTangent = getInvTangentMatrix(prm_vecTangent_Local, prm_vecBinormal_Local, prm_vecNormal_Local );
+    const float4x4 matTangent = getInvTangentMatrix(prm_vecTangent_Local, prm_vecBinormal_Local, prm_vecNormal_Local );
     // Worldライトベクトルを接空間に移す
-    float3 vecLight_Local = mul(-g_vecLightFrom_World, g_matInvWorld); //ローカルに戻して（TODO:ここは予め計算できる…）
+    const float3 vecLight_Local = mul(-g_vecLightFrom_World, g_matInvWorld); //ローカルに戻して（TODO:ここは予め計算できる…）
     out_vs.vecLight_Tangent = mul(vecLight_Local, matTangent);         //接空間座標系へ
 
     if (g_specular_power != 0) {
@@ -283,15 +283,15 @@ float4 GgafDxPS_BumpMapping(
     float3 prm_vecLight_Tangent : TEXCOORD3,
     float3 prm_vecHarf_Tangent  : TEXCOORD4
 ) : COLOR  {
-    float a = prm_color.a; //α保持
+    const float a = prm_color.a; //α保持
 
     //法線マップからの法線
-    float3 vecNormal_Tangent = normalize(2.0f * tex2D( BumpMapTextureSampler, prm_uv ).xyz - 1.0);
+    const float3 vecNormal_Tangent = normalize(2.0f * tex2D( BumpMapTextureSampler, prm_uv ).xyz - 1.0);
 
     //法線(法線マップの法線、つまり接空間座標系の法線になる）と、
     //拡散光方向ベクトル(頂点シェーダーで接空間座標系に予め変換済み) の内積から
     //ライト入射角を求め、面に対する拡散光の減衰率(power)を求める
-    float power = max(dot(vecNormal_Tangent, normalize(prm_vecLight_Tangent) ), 0);
+    const float power = max(dot(vecNormal_Tangent, normalize(prm_vecLight_Tangent) ), 0);
 
     float s = 0.0f; //スペキュラ成分
     if (g_specular_power != 0) {
@@ -300,7 +300,7 @@ float4 GgafDxPS_BumpMapping(
         s = pow( max(0.0f, dot(vecNormal_Tangent, prm_vecHarf_Tangent)), g_specular ) * g_specular_power; //法線マップの凸凹を考慮。
     }
 
-    float4 colTex = tex2D( MyTextureSampler, prm_uv); //単純にUVから色取得、つまり法線マップの凸凹は未考慮。
+    const float4 colTex = tex2D( MyTextureSampler, prm_uv); //単純にUVから色取得、つまり法線マップの凸凹は未考慮。
     //環境光色、テクスチャ色、頂点カラー、減衰率、スペキュラ を考慮した色作成
     //tex・mate・(amb + (light・pow)) + spow
     float4 colOut = colTex * ((g_colLightAmbient + ( g_colLightDiffuse * power)) * prm_color ) + s; //prm_color = g_colMaterialDiffuse
@@ -323,7 +323,7 @@ float4 PS_Flush(
     float2 prm_uv  : TEXCOORD0,
     float4 prm_color : COLOR0
 ) : COLOR  {
-    float4 colTex = tex2D( MyTextureSampler, prm_uv);
+    const float4 colTex = tex2D( MyTextureSampler, prm_uv);
     float4 colOut = colTex * prm_color * FLUSH_COLOR;
     colOut.a *= g_alpha_master;
     return colOut;

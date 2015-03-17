@@ -8,7 +8,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxSpriteEffect::GgafDxSpriteEffect(char* prm_effect_name) : GgafDxEffect(prm_effect_name) {
-    GgafDxCamera* pCam = P_GOD->getUniverse()->getCamera();
+    GgafDxCamera* const pCam = P_GOD->getUniverse()->getCamera();
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
     //射影変換行列
@@ -30,7 +30,7 @@ GgafDxSpriteEffect::GgafDxSpriteEffect(char* prm_effect_name) : GgafDxEffect(prm
 }
 
 void GgafDxSpriteEffect::setParamPerFrame() {
-    GgafDxCamera* pCam = P_GOD->getUniverse()->getCamera();
+    GgafDxCamera* const pCam = P_GOD->getUniverse()->getCamera();
     HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, pCam->getViewMatrix() );
     checkDxException(hr, D3D_OK, "setParamPerFrame SetMatrix(_h_matView) に失敗しました。");
 }

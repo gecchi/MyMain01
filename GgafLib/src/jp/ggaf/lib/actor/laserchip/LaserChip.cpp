@@ -45,7 +45,7 @@ D3DXHANDLE LaserChip::_ah_kind[11];
 D3DXHANDLE LaserChip::_ah_force_alpha[11];
 D3DXHANDLE LaserChip::_ah_matWorld_front[11];
 bool LaserChip::initStatic() {
-    ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
+    ID3DXEffect* const pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     LaserChip::_ah_kind[0]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind001" );
     LaserChip::_ah_kind[1]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind002" );
     LaserChip::_ah_kind[2]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind003" );
@@ -228,7 +228,7 @@ void LaserChip::processPreDraw() {
 void LaserChip::processDraw() {
     int draw_set_num = 0; //GgafDxMeshSetActorの同じモデルで同じテクニックが
                        //連続しているカウント数。同一描画深度は一度に描画する。
-    ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
+    ID3DXEffect* const pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     HRESULT hr;
     //基本モデル頂点数
     GgafDxFigureActor* pDrawActor = this;

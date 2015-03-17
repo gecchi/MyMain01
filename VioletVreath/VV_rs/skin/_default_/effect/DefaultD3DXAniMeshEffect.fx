@@ -50,9 +50,9 @@ OUT_VS GgafDxVS_DefaultD3DXAniMesh(
     //頂点カラー計算
 
 	//法線を World 変換して正規化
-    float3 vecNormal_World = normalize(mul(prm_vecNormal_Local, g_matWorld)); 	
+    const float3 vecNormal_World = normalize(mul(prm_vecNormal_Local, g_matWorld)); 	
     //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
-	float power = max(dot(vecNormal_World, -g_vecLightFrom_World ), 0);      
+	const float power = max(dot(vecNormal_World, -g_vecLightFrom_World ), 0);      
 	//Ambientライト色、Diffuseライト色、Diffuseライト方向、マテリアル色 を考慮したカラー作成。      
 	out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power)) * g_colMaterialDiffuse;
 	//αフォグ
@@ -72,7 +72,7 @@ float4 GgafDxPS_DefaultD3DXAniMesh(
     float4 prm_color    : COLOR0
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 colTex = tex2D( MyTextureSampler, prm_uv);        
+	const float4 colTex = tex2D( MyTextureSampler, prm_uv);        
 	float4 colOut = colTex * prm_color;
 
     //Blinkerを考慮
@@ -89,7 +89,7 @@ float4 GgafDxPS_DefaultD3DXAniMesh2(
     float4 prm_color    : COLOR0
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 colTex = tex2D( MyTextureSampler, prm_uv);        
+	const float4 colTex = tex2D( MyTextureSampler, prm_uv);        
 	float4 colOut = colTex * prm_color;
 
     //Blinkerを考慮

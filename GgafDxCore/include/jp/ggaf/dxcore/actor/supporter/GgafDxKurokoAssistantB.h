@@ -17,7 +17,7 @@ class GgafDxKurokoAssistantB : public GgafCore::GgafObject {
 
 public:
     /** [r]étè† */
-    GgafDxKuroko* _pMaster;
+    GgafDxKuroko* const _pMaster;
     GgafCore::GgafValueAccelerator<int> _smthFaceAng[3];
 
 public:
@@ -251,7 +251,7 @@ public:
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_endacc_flg);
 
-    inline bool isTurningFaceAng() {
+    inline bool isTurningFaceAng() const {
         if (_smthFaceAng[AXIS_X]._prm._flg || _smthFaceAng[AXIS_Y]._prm._flg || _smthFaceAng[AXIS_Z]._prm._flg) {
             return true;
         } else {

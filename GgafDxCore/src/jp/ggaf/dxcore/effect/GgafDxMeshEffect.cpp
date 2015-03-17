@@ -8,7 +8,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxMeshEffect::GgafDxMeshEffect(char* prm_effect_name) : GgafDxEffect(prm_effect_name) {
-    GgafDxCamera* pCam = P_GOD->getUniverse()->getCamera();
+    GgafDxCamera* const pCam = P_GOD->getUniverse()->getCamera();
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
     //射影変換行列
@@ -43,7 +43,7 @@ GgafDxMeshEffect::GgafDxMeshEffect(char* prm_effect_name) : GgafDxEffect(prm_eff
 }
 
 void GgafDxMeshEffect::setParamPerFrame() {
-    GgafDxCamera* pCam = P_GOD->getUniverse()->getCamera();
+    GgafDxCamera* const pCam = P_GOD->getUniverse()->getCamera();
     HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, pCam->getViewMatrix() );
     checkDxException(hr, D3D_OK, "GgafDxMeshEffect::setParamPerFrame SetMatrix(_h_matView) に失敗しました。_effect_name="<<_effect_name);
     hr = _pID3DXEffect->SetValue(_h_posCam, pCam->getVecCamFromPoint(), sizeof(D3DXVECTOR3) );
