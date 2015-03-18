@@ -40,7 +40,7 @@ public:
 
     virtual void onInactive() override;
 
-    virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
+    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
 
     virtual ~ScoreItem();
 };

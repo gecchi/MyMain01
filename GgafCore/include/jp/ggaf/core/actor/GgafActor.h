@@ -28,7 +28,7 @@ namespace GgafCore {
  * ＜毎フレーム呼び出されるわけではない純粋仮想関数＞<BR>
  * void onCatchEvent(hashval prm_no, void* prm_pSource) ・・・その他のイベント時の処理 <BR>
  * bool processHitChkLogic(GgafActor* prm_pOtherActor) ・・・衝突判定ロジック <BR>
- * void onHit(GgafActor* prm_pOtherActor) ・・・衝突判定ロジックがtrueの場合の処理 <BR>
+ * void onHit(const GgafActor* prm_pOtherActor) ・・・衝突判定ロジックがtrueの場合の処理 <BR>
  * <BR>
  * 基底テンプレートクラスの GgafNode と、GgafElement の説明も参照のこと。<BR>
  * @version 1.00
@@ -159,7 +159,7 @@ public:
      * 衝突判定の結果、衝突した場合の処理を下位クラス実装してください。<BR>
      * @param	prm_pOtherActor	衝突している相手のアクター（１つ）
      */
-    virtual void onHit(GgafActor* prm_pOtherActor) {}
+    virtual void onHit(const GgafActor* prm_pOtherActor) {}
 
     /**
      * Depositoryに所属している場合、それを返す。
@@ -185,7 +185,7 @@ public:
      * オーバーライドで行って下さい。
      * <code><pre>
      * ＜例＞
-     * void SampleActor::onHit(GgafActor* prm_pOtherActor) {
+     * void SampleActor::onHit(const GgafActor* prm_pOtherActor) {
      *    //自身の耐久力チェック
      *    if (MyStgUtil::calcSampleStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
      *        //Hitの相手のチェック

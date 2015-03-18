@@ -25,7 +25,7 @@ void SingleLaserTestActor::processBehavior() {
 void SingleLaserTestActor::processJudgement() {
 }
 
-void SingleLaserTestActor::onHit(GgafActor* prm_pOtherActor) {
+void SingleLaserTestActor::onHit(const GgafActor* prm_pOtherActor) {
 }
 
 

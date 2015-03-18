@@ -66,7 +66,7 @@ void EnemyStraeaLaserChip002::onRefractionFinish(int prm_num_refraction)  {
     }
 }
 
-void EnemyStraeaLaserChip002::onHit(GgafActor* prm_pOtherActor) {
+void EnemyStraeaLaserChip002::onHit(const GgafActor* prm_pOtherActor) {
 //    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 //    //ƒqƒbƒgŽž
 //

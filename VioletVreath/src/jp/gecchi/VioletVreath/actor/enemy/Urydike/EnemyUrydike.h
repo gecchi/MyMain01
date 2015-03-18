@@ -72,7 +72,7 @@ public:
      * ウリュディケの衝突時処理 .
      * @param prm_pOtherActor 衝突対象
      */
-    void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
 
 
     void onInactive() override;

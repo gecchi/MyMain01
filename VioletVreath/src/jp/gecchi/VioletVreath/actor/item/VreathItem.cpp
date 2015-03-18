@@ -160,7 +160,7 @@ void VreathItem::processJudgement() {
 void VreathItem::onInactive() {
 }
 
-void VreathItem::onHit(GgafActor* prm_pOtherActor) {
+void VreathItem::onHit(const GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
 

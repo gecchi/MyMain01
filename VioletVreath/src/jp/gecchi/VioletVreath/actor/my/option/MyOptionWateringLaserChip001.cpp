@@ -220,7 +220,7 @@ void MyOptionWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     }
 }
 
-void MyOptionWateringLaserChip001::onHit(GgafActor* prm_pOtherActor) {
+void MyOptionWateringLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*) prm_pOtherActor;
     GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
     //ヒットエフェクト

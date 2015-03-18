@@ -903,7 +903,7 @@ void MyShip::processBehavior() {
 void MyShip::processJudgement() {
 }
 
-void MyShip::onHit(GgafActor* prm_pOtherActor) {
+void MyShip::onHit(const GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
     int vreath = getStatus()->get(STAT_Stamina);

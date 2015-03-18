@@ -28,7 +28,7 @@ void SpriteLabelBonus001::initialize() {
 
 }
 
-void SpriteLabelBonus001::onDispatched(GgafDxGeometricActor* prm_pOrgActor) {
+void SpriteLabelBonus001::onDispatched(const GgafDxGeometricActor* prm_pOrgActor) {
     positionAs(prm_pOrgActor);
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->takeoverMvFrom(prm_pOrgActor->getKuroko());

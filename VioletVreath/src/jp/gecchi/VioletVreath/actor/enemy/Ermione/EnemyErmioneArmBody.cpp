@@ -26,7 +26,7 @@ void EnemyErmioneArmBody::initialize() {
     pChecker->setColliAAB_Cube(0, 40000);
 }
 
-void EnemyErmioneArmBody::onHit(GgafActor* prm_pOtherActor) {
+void EnemyErmioneArmBody::onHit(const GgafActor* prm_pOtherActor) {
 }
 
 EnemyErmioneArmBody::~EnemyErmioneArmBody() {

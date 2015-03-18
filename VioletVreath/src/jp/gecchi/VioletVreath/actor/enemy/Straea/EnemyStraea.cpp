@@ -225,7 +225,7 @@ void EnemyStraea::processJudgement() {
     }
 }
 
-void EnemyStraea::onHit(GgafActor* prm_pOtherActor) {
+void EnemyStraea::onHit(const GgafActor* prm_pOtherActor) {
     static uint32_t spritedoller[24] = {
                                      6144      ,       //  000000000001100000000000
                                      14336     ,       //  000000000011100000000000
@@ -295,7 +295,7 @@ void EnemyStraea::onHit(GgafActor* prm_pOtherActor) {
         };
 
 
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

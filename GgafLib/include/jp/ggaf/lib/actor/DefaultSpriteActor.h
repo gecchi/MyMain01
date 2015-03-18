@@ -46,7 +46,7 @@ public:
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
 
-    virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override {
+    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {
     }
 
     virtual void drawHitArea() override;

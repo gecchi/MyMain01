@@ -90,7 +90,7 @@ public:
         return false;
     }
 
-    virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) {
+    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) {
     }
     /**
      * •`‰æ•¶š‚ğXVİ’è .

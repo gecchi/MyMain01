@@ -89,8 +89,8 @@ void LinearOctreeForActor::executeHitChk(uint32_t prm_index) {
 
 void LinearOctreeForActor::executeHitChk_RoundRobin(CollisionStack* prm_pStackA, CollisionStack* prm_pStackB) {
     //‚Ç‚¿‚ç‚©–³‚¯‚ê‚ÎI—¹
-    uint32_t num_stackA = prm_pStackA->_p;
-    uint32_t num_stackB = prm_pStackB->_p;
+    const uint32_t num_stackA = prm_pStackA->_p;
+    const uint32_t num_stackB = prm_pStackB->_p;
     GgafActor** papStackActor_A = prm_pStackA->_apActor;
     GgafActor** papStackActor_B = prm_pStackB->_apActor;
     GgafActor* pActor_A;

@@ -138,7 +138,7 @@ public:
         return _paValue[prm_status_kind]._int_val;
     }
 
-    inline unsigned int getUint(int prm_status_kind) {
+    inline unsigned int getUint(int prm_status_kind) const {
         return _paValue[prm_status_kind]._uint_val;
     }
 

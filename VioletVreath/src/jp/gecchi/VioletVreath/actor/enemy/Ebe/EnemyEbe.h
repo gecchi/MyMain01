@@ -70,7 +70,7 @@ public:
      * ƒG[ƒx‚ÌÕ“Ëˆ— .
      * @param prm_pOtherActor Õ“Ë‘ÎÛ
      */
-    void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
 
 
     void onInactive() override;

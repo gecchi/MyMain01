@@ -53,7 +53,7 @@ void MyTorpedoBlast::processBehavior() {
 void MyTorpedoBlast::processJudgement() {
 }
 
-void MyTorpedoBlast::onHit(GgafActor* prm_pOtherActor) {
+void MyTorpedoBlast::onHit(const GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     //ÉqÉbÉgÇµÇƒÇ‡è¡ñ≈ÇµÇ‹ÇπÇÒ
     int sta = UTIL::calcMyStamina(this, pOther);

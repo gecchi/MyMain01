@@ -41,8 +41,8 @@ void EnemyStraeaLaserChip003::processBehavior() {
     WateringLaserChip::processBehavior();
 }
 
-void EnemyStraeaLaserChip003::onHit(GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+void EnemyStraeaLaserChip003::onHit(const GgafActor* prm_pOtherActor) {
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         sayonara();

@@ -156,7 +156,7 @@ void GgafLinearOctree::registerElem(GgafLinearOctreeElem* const prm_pElem,
     //所属空間Level = 8 7 6 5 4 3 2 1 0
 
     //所属空間のモートン順序の通し空間番号を求める
-    uint32_t morton_order_space_num = minnum_in_toplevel>>(shift_num*3);
+    const uint32_t morton_order_space_num = minnum_in_toplevel>>(shift_num*3);
     //不揃いの下位のビットを3ビット単位で除去し、所属のモートン順序番号を求める
     //
     // minnum_in_toplevel>>(shift_num*3); について、

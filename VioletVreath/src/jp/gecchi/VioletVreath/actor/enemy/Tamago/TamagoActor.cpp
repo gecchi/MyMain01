@@ -61,7 +61,7 @@ void TamagoActor::processBehavior() {
 void TamagoActor::processJudgement() {
 }
 
-void TamagoActor::onHit(GgafActor* prm_pOtherActor) {
+void TamagoActor::onHit(const GgafActor* prm_pOtherActor) {
     _TRACE_("TamagoActorÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_x<<","<<_y<<","<<_z<<")");
 }
 

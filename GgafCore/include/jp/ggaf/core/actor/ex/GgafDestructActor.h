@@ -54,7 +54,7 @@ public:
         return false;
     }
 
-    virtual void onHit(GgafActor* prm_pOtherActor) override {
+    virtual void onHit(const GgafActor* prm_pOtherActor) override {
     }
 
     virtual ~GgafDestructActor();

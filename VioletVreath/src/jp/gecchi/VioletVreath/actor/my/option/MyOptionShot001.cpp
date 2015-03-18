@@ -44,7 +44,7 @@ void MyOptionShot001::processJudgement() {
     }
 }
 
-void MyOptionShot001::onHit(GgafActor* prm_pOtherActor) {
+void MyOptionShot001::onHit(const GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     setHitAble(false);
     UTIL::activateExplosionEffectOf(this);

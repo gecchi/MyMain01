@@ -27,7 +27,7 @@ public:
 
     void processChangeGeoFinal() override;
 
-    void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
 
     virtual ~EnemyErmioneArmHead();
 };

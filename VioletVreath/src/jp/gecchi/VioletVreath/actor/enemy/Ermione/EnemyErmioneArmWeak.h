@@ -20,7 +20,7 @@ public:
 
     void initialize() override;
 
-    void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
 
     virtual ~EnemyErmioneArmWeak();
 };

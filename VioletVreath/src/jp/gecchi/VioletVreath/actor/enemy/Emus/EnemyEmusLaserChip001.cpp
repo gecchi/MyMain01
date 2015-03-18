@@ -36,7 +36,7 @@ void EnemyEmusLaserChip001::processBehavior() {
     WateringLaserChip::processBehavior();
 }
 
-void EnemyEmusLaserChip001::onHit(GgafActor* prm_pOtherActor) {
+void EnemyEmusLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     if (getActiveFrame() < 30 && (pOther->getKind() & KIND_CHIKEI)) {
         //出現30フレーム以内でヒット相手が地形ならば無視（出現即地形による破壊されを回避）

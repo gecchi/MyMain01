@@ -157,7 +157,7 @@ void EnemyRatislavia::processJudgement() {
     }
 }
 
-void EnemyRatislavia::onHit(GgafActor* prm_pOtherActor) {
+void EnemyRatislavia::onHit(const GgafActor* prm_pOtherActor) {
 
 }
 

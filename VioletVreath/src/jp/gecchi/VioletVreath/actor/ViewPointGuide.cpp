@@ -34,7 +34,7 @@ void ViewPointGuide::processJudgement() {
 void ViewPointGuide::onInactive() {
 }
 
-void ViewPointGuide::onHit(GgafActor* prm_pOtherActor) {
+void ViewPointGuide::onHit(const GgafActor* prm_pOtherActor) {
 }
 
 ViewPointGuide::~ViewPointGuide() {

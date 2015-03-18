@@ -687,7 +687,7 @@ void MyOption::onInactive() {
     //pLaserChipDepo_->reset();
 }
 
-void MyOption::onHit(GgafActor* prm_pOtherActor) {
+void MyOption::onHit(const GgafActor* prm_pOtherActor) {
     sayonara();
 }
 

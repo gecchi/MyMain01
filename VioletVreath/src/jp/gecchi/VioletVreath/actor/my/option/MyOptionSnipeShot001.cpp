@@ -42,7 +42,7 @@ void MyOptionSnipeShot001::processJudgement() {
     }
 }
 
-void MyOptionSnipeShot001::onHit(GgafActor* prm_pOtherActor) {
+void MyOptionSnipeShot001::onHit(const GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     setHitAble(false);
     UTIL::activateExplosionEffectOf(this);

@@ -92,7 +92,7 @@ void EffectEntry::onInactive() {
     pTarget_ = nullptr;
 }
 
-void EffectEntry::positionFollow(GgafDxCore::GgafDxGeometricActor* prm_pTarget) {
+void EffectEntry::positionFollow(const GgafDxCore::GgafDxGeometricActor* prm_pTarget) {
     pTarget_  = prm_pTarget;
 }
 

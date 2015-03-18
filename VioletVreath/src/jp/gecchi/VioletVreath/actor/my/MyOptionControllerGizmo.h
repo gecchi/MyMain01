@@ -33,7 +33,7 @@ public:
     void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
 
-    void onHit(GgafCore::GgafActor* prm_pOtherActor) override {
+    void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {
     }
 
     void drawHitArea() override;

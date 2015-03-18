@@ -158,8 +158,8 @@ void EnemyGlajaLance001::processJudgement() {
     }
 }
 
-void EnemyGlajaLance001::onHit(GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+void EnemyGlajaLance001::onHit(const GgafActor* prm_pOtherActor) {
+    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getKuroko()->stopMv();

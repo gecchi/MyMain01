@@ -162,7 +162,7 @@ void ScoreItem::processJudgement() {
 void ScoreItem::onInactive() {
 }
 
-void ScoreItem::onHit(GgafActor* prm_pOtherActor) {
+void ScoreItem::onHit(const GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
 

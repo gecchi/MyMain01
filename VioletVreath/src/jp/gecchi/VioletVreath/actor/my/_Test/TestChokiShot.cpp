@@ -40,7 +40,7 @@ void TestChokiShot::processJudgement() {
     }
 }
 
-void TestChokiShot::onHit(GgafActor* prm_pOtherActor) {
+void TestChokiShot::onHit(const GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     setHitAble(false);
     UTIL::activateExplosionEffectOf(this);

@@ -19,7 +19,7 @@ void MyVreath::processBehavior() {
 void MyVreath::processJudgement() {
 }
 
-void MyVreath::onHit(GgafActor* prm_pOtherActor) {
+void MyVreath::onHit(const GgafActor* prm_pOtherActor) {
     sayonara();
 }
 

@@ -92,7 +92,7 @@ public:
         return false;
     }
 
-    void onHit(GgafActor* prm_pOtherActor) override {
+    void onHit(const GgafActor* prm_pOtherActor) override {
     }
 
     /**

@@ -59,7 +59,7 @@ void  EnemyErmioneArmHead::processChangeGeoFinal() {
     }
 }
 
-void EnemyErmioneArmHead::onHit(GgafActor* prm_pOtherActor) {
+void EnemyErmioneArmHead::onHit(const GgafActor* prm_pOtherActor) {
 
 
 

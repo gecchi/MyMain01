@@ -98,7 +98,7 @@ void Zako::processJudgement() {
     }
 }
 
-void Zako::onHit(GgafActor* prm_pOtherActor) {
+void Zako::onHit(const GgafActor* prm_pOtherActor) {
 }
 
 void Zako::onInactive() {

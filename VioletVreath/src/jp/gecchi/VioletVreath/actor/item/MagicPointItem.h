@@ -54,7 +54,7 @@ public:
 //        //ƒQ[ƒ€À•W”ÍˆÍŠO”»’è–³‚µ
 //        return false;
 //    }
-    virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
+    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
 
     virtual ~MagicPointItem();
 };

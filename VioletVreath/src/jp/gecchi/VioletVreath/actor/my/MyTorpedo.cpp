@@ -225,7 +225,7 @@ void MyTorpedo::processJudgement() {
 void MyTorpedo::onInactive() {
 }
 
-void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
+void MyTorpedo::onHit(const GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     //ƒqƒbƒgŽž’ÊŠÑ‚Í‚µ‚Ü‚¹‚ñ
     int sta = UTIL::calcMyStamina(this, pOther);

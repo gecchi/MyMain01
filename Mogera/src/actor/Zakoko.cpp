@@ -45,7 +45,7 @@ void Zakoko::processJudgement() {
     }
 }
 
-void Zakoko::onHit(GgafActor* prm_pOtherActor) {
+void Zakoko::onHit(const GgafActor* prm_pOtherActor) {
 }
 
 void Zakoko::onInactive() {

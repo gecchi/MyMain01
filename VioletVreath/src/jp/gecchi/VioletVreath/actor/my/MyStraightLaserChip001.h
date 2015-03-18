@@ -30,7 +30,7 @@ public:
 
     void onInactive() override;
 
-    void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
 
     /**
      * レーザーのテクスチャを変える

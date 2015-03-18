@@ -29,7 +29,7 @@ public:
     /** [r]エフェクト持続完了～消滅までのフレーム数 */
     frame scale_out_frames_;
     /** [r]エフェクト対象のアクター */
-    GgafDxCore::GgafDxGeometricActor* pTarget_;
+    const GgafDxCore::GgafDxGeometricActor* pTarget_;
     /** [r]拡大縮小支援オブジェクト */
     GgafDxCore::GgafDxScaler* pScaler_;
 
@@ -53,7 +53,7 @@ public:
      * エフェクトの座標を引数のアクターと同じ座標に継続させる .
      * @param prm_pTarget エフェクトの座標になるアクター
      */
-    void positionFollow(GgafDxCore::GgafDxGeometricActor* prm_pTarget);
+    void positionFollow(const GgafDxCore::GgafDxGeometricActor* prm_pTarget);
 
     /**
      * エフェクトの発生、持続、消滅の時間を設定。.
