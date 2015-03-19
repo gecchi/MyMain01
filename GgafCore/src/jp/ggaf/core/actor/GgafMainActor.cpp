@@ -170,7 +170,7 @@ GgafGroupHead* GgafMainActor::searchSubGroupHead(actorkind prm_kind) {
         do {
             if (pSubActor->instanceOf(Obj_GgafGroupHead)) {
                 pSubGroupHead_ret = (GgafGroupHead*)pSubActor;
-                if (pSubGroupHead_ret->_kind == prm_kind && pSubGroupHead_ret->_will_end_after_flg == false) {
+                if (pSubGroupHead_ret->_kind == prm_kind && pSubGroupHead_ret->_frame_of_life_when_end == 0) {
                     return pSubGroupHead_ret;
                 }
             }

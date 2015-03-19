@@ -10,7 +10,7 @@ GgafDxSeManager::GgafDxSeManager(const char* prm_manager_name) :
     GgafResourceManager<GgafDxSe> (prm_manager_name) {
 }
 
-GgafDxSe* GgafDxSeManager::processCreateResource(char* prm_idstr, void* prm_pConnector) {
+GgafDxSe* GgafDxSeManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) {
     // prm_idstr = "1/laser" の場合、モデルマネージャーのキーには"1/laser"で登録し
     // 読み込むwaveファイルは"laser.wav"とする。
     // これは、同一waveを複数チャンネルで鳴らしたい場合等、最初の数値を変化されば、資源が複数
@@ -44,7 +44,7 @@ void GgafDxSeManager::updateVolume() {
     }
 }
 
-GgafResourceConnection<GgafDxSe>* GgafDxSeManager::processCreateConnection(char* prm_idstr, GgafDxSe* prm_pResource) {
+GgafResourceConnection<GgafDxSe>* GgafDxSeManager::processCreateConnection(const char* prm_idstr, GgafDxSe* prm_pResource) {
     _TRACE3_(" GgafDxSeManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
     GgafDxSeConnection* pConne = NEW GgafDxSeConnection(prm_idstr, prm_pResource);
     _TRACE3_(" GgafDxSeManager::processCreateConnection "<<prm_idstr<<" を生成終了。");

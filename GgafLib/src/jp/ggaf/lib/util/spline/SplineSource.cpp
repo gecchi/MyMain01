@@ -15,7 +15,7 @@ SplineSource::SplineSource(SplineLine* prm_pSp) : GgafObject() {
     _is_create_SplineLine = false;
 }
 
-SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
+SplineSource::SplineSource(const char* prm_idstr)  : GgafObject() {
     _idstr = std::string(prm_idstr);
     double accuracy = 1.0;
     SplineLine::RotMat rotmat;

@@ -5,7 +5,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-DepositoryConnection::DepositoryConnection(char* prm_idstr, GgafActorDepository* prm_pResource) :
+DepositoryConnection::DepositoryConnection(const char* prm_idstr, GgafActorDepository* prm_pResource) :
     GgafResourceConnection<GgafActorDepository> (prm_idstr, prm_pResource) {
 }
 

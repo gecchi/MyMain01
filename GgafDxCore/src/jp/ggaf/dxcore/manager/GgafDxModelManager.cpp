@@ -107,10 +107,10 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
 #endif
 }
 
-GgafDxModel* GgafDxModelManager::processCreateResource(char* prm_idstr, void* prm_pConnector) {
+GgafDxModel* GgafDxModelManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) {
     //振り分け
     char model_type = *prm_idstr; //頭一文字
-    char* model_name = prm_idstr + 2; //３文字目以降
+    const char* model_name = prm_idstr + 2; //３文字目以降
     GgafDxModel* pResourceModel;
     switch (model_type) {
         case 'D':
@@ -186,68 +186,68 @@ GgafDxModel* GgafDxModelManager::processCreateResource(char* prm_idstr, void* pr
     return pResourceModel;
 }
 
-GgafDxD3DXMeshModel* GgafDxModelManager::createD3DXMeshModel(char* prm_model_name, DWORD prm_dwOptions) {
+GgafDxD3DXMeshModel* GgafDxModelManager::createD3DXMeshModel(const char* prm_model_name, DWORD prm_dwOptions) {
     GgafDxD3DXMeshModel* pD3DXMeshModel_new = NEW GgafDxD3DXMeshModel(prm_model_name, prm_dwOptions);
     restoreD3DXMeshModel(pD3DXMeshModel_new);
     return pD3DXMeshModel_new;
 }
 
-GgafDxD3DXAniMeshModel* GgafDxModelManager::createD3DXAniMeshModel(char* prm_model_name) {
+GgafDxD3DXAniMeshModel* GgafDxModelManager::createD3DXAniMeshModel(const char* prm_model_name) {
     GgafDxD3DXAniMeshModel* pD3DXAniMeshModel_new = NEW GgafDxD3DXAniMeshModel(prm_model_name);
     restoreD3DXAniMeshModel(pD3DXAniMeshModel_new);
     return pD3DXAniMeshModel_new;
 }
 
-GgafDxSpriteModel* GgafDxModelManager::createSpriteModel(char* prm_model_name) {
+GgafDxSpriteModel* GgafDxModelManager::createSpriteModel(const char* prm_model_name) {
     GgafDxSpriteModel* pSpriteModel_new = NEW GgafDxSpriteModel(prm_model_name);
     restoreSpriteModel(pSpriteModel_new);
     return pSpriteModel_new;
 }
 
-GgafDxSpriteSetModel* GgafDxModelManager::createSpriteSetModel(char* prm_model_name) {
+GgafDxSpriteSetModel* GgafDxModelManager::createSpriteSetModel(const char* prm_model_name) {
     GgafDxSpriteSetModel* pSpriteSetModel_new = NEW GgafDxSpriteSetModel(prm_model_name);
     restoreSpriteSetModel(pSpriteSetModel_new);
     return pSpriteSetModel_new;
 }
 
-GgafDxBoardModel* GgafDxModelManager::createBoardModel(char* prm_model_name) {
+GgafDxBoardModel* GgafDxModelManager::createBoardModel(const char* prm_model_name) {
     GgafDxBoardModel* pBoardModel_new = NEW GgafDxBoardModel(prm_model_name);
     restoreBoardModel(pBoardModel_new);
     return pBoardModel_new;
 }
 
-GgafDxBoardSetModel* GgafDxModelManager::createBoardSetModel(char* prm_model_name) {
+GgafDxBoardSetModel* GgafDxModelManager::createBoardSetModel(const char* prm_model_name) {
     GgafDxBoardSetModel* pBoardSetModel_new = NEW GgafDxBoardSetModel(prm_model_name);
     restoreBoardSetModel(pBoardSetModel_new);
     return pBoardSetModel_new;
 }
 
-GgafDxMeshModel* GgafDxModelManager::createMeshModel(char* prm_model_name) {
+GgafDxMeshModel* GgafDxModelManager::createMeshModel(const char* prm_model_name) {
     GgafDxMeshModel* pMeshModel_new = NEW GgafDxMeshModel(prm_model_name);
     restoreMeshModel(pMeshModel_new);
     return pMeshModel_new;
 }
 
-GgafDxMeshSetModel* GgafDxModelManager::createMeshSetModel(char* prm_model_name) {
+GgafDxMeshSetModel* GgafDxModelManager::createMeshSetModel(const char* prm_model_name) {
     GgafDxMeshSetModel* pMeshSetModel_new = NEW GgafDxMeshSetModel(prm_model_name);
     restoreMeshSetModel(pMeshSetModel_new);
     return pMeshSetModel_new;
 }
 
-GgafDxCubeMapMeshModel* GgafDxModelManager::createCubeMapMeshModel(char* prm_model_name) {
+GgafDxCubeMapMeshModel* GgafDxModelManager::createCubeMapMeshModel(const char* prm_model_name) {
     GgafDxCubeMapMeshModel* pMeshCubeMapModel_new = NEW GgafDxCubeMapMeshModel(prm_model_name);
     restoreMeshModel((GgafDxMeshModel*)pMeshCubeMapModel_new);
     return pMeshCubeMapModel_new;
 }
 
-GgafDxCubeMapMeshSetModel* GgafDxModelManager::createCubeMapMeshSetModel(char* prm_model_name) {
+GgafDxCubeMapMeshSetModel* GgafDxModelManager::createCubeMapMeshSetModel(const char* prm_model_name) {
     GgafDxCubeMapMeshSetModel* pMeshCubeMapSetModel_new = NEW GgafDxCubeMapMeshSetModel(prm_model_name);
     restoreMeshSetModel((GgafDxMeshSetModel*)pMeshCubeMapSetModel_new);
     return pMeshCubeMapSetModel_new;
 }
 
 
-GgafDxMorphMeshModel* GgafDxModelManager::createMorphMeshModel(char* prm_model_name) {
+GgafDxMorphMeshModel* GgafDxModelManager::createMorphMeshModel(const char* prm_model_name) {
     // "M/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
     // ここでprm_model_name は "4/xxxxx" という文字列になっている。
     // モーフターゲット数が違うモデルは、別モデルという扱いにするため、モデル名に数値を残す。
@@ -256,21 +256,21 @@ GgafDxMorphMeshModel* GgafDxModelManager::createMorphMeshModel(char* prm_model_n
     return pMorphMeshModel_new;
 }
 
-GgafDxCubeMapMorphMeshModel* GgafDxModelManager::createCubeMapMorphMeshModel(char* prm_model_name) {
+GgafDxCubeMapMorphMeshModel* GgafDxModelManager::createCubeMapMorphMeshModel(const char* prm_model_name) {
     GgafDxCubeMapMorphMeshModel* pCubeMapMorphMeshModel_new = NEW GgafDxCubeMapMorphMeshModel(prm_model_name);
     restoreMorphMeshModel((GgafDxMorphMeshModel*)pCubeMapMorphMeshModel_new);
     return pCubeMapMorphMeshModel_new;
 }
 
 
-GgafDxWorldBoundModel* GgafDxModelManager::createWorldBoundModel(char* prm_model_name) {
+GgafDxWorldBoundModel* GgafDxModelManager::createWorldBoundModel(const char* prm_model_name) {
     GgafDxWorldBoundModel* pWorldBoundModel_new = NEW GgafDxWorldBoundModel(prm_model_name);
     restoreMorphMeshModel((GgafDxWorldBoundModel*)pWorldBoundModel_new);
     return pWorldBoundModel_new;
 }
 
 
-GgafDxPointSpriteModel* GgafDxModelManager::createPointSpriteModel(char* prm_model_name) {
+GgafDxPointSpriteModel* GgafDxModelManager::createPointSpriteModel(const char* prm_model_name) {
     GgafDxPointSpriteModel* pPointSpriteModel_new = NEW GgafDxPointSpriteModel(prm_model_name);
     restorePointSpriteModel(pPointSpriteModel_new);
     return pPointSpriteModel_new;
@@ -2934,7 +2934,7 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
 }
 
 
-GgafResourceConnection<GgafDxModel>* GgafDxModelManager::processCreateConnection(char* prm_idstr, GgafDxModel* prm_pResource) {
+GgafResourceConnection<GgafDxModel>* GgafDxModelManager::processCreateConnection(const char* prm_idstr, GgafDxModel* prm_pResource) {
     _TRACE3_(" GgafDxModelManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
     GgafDxModelConnection* p = NEW GgafDxModelConnection(prm_idstr, prm_pResource);
     _TRACE3_(" GgafDxModelManager::processCreateConnection "<<prm_idstr<<" を生成終了。");

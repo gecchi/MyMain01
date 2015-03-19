@@ -86,7 +86,7 @@ public:
         if (_pSubFirst == nullptr) {
             throwGgafCriticalException("GgafActorDepository::dispatch() this="<<NODE_INFO<<" の子がありません");
         }
-        if (_is_active_flg || (_will_activate_after_flg && _frame_of_life+1 == _frame_of_life_when_activation)) {
+        if (_is_active_flg || _frame_of_life+1 == _frame_of_life_when_activation) {
             //活動フラグが立っている→問題無し
             //あるいは、次フレームで活動フラグが立つ予定→デポジトリを作った直後の同一フレーム内処理のため許可
         } else {
@@ -100,7 +100,7 @@ public:
         frame offset_frames = (prm_offset_frames < 1 ? 1 : prm_offset_frames);
         GgafMainActor* pActor = (GgafMainActor*)_pSubFirst;
         while (true) {
-            if (pActor->_is_active_flg == false && pActor->_will_activate_after_flg == false) {
+            if (pActor->_is_active_flg == false && pActor->willActivateAfter() == false) {
                 //取得！
                 pActor->moveLast(); //次フレームお尻に回す
                 pActor->activateDelay(offset_frames); //activate自動実行。

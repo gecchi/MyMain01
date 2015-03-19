@@ -38,7 +38,7 @@ public:
      * コンストラクタ<BR>
      * @param prm_effect_name エフェクト定義の識別名。".fx"を追加するとエフェクトファイル名になる。
      */
-    explicit GgafDxEffect(char* prm_effect_name);
+    explicit GgafDxEffect(const char* prm_effect_name);
 
     char* getName() {
         return _effect_name;
@@ -49,6 +49,8 @@ public:
      * このメソッドに記述する。
      */
     virtual void setParamPerFrame() = 0;
+
+    void setAlphaMaster(float prm_master_alpha);
 
     /**
      * デストラクタ<BR>

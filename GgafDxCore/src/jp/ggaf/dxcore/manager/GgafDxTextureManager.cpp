@@ -9,7 +9,7 @@ GgafDxTextureManager::GgafDxTextureManager(const char* prm_manager_name) :
     GgafResourceManager<GgafDxTexture> (prm_manager_name) {
 }
 
-GgafDxTexture* GgafDxTextureManager::processCreateResource(char* prm_idstr, void* prm_pConnector) {
+GgafDxTexture* GgafDxTextureManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) {
     GgafDxTexture* pResourceTexture;
     pResourceTexture = NEW GgafDxTexture(prm_idstr);
     _TRACE3_(" GgafDxTextureManager::processCreateResource "<<prm_idstr<<" のテクスチャ生成しました。");
@@ -36,7 +36,7 @@ void GgafDxTextureManager::restoreAll() {
     _TRACE_("GgafDxTextureManager::restoreAll() end<--");
 }
 
-GgafResourceConnection<GgafDxTexture>* GgafDxTextureManager::processCreateConnection(char* prm_idstr, GgafDxTexture* prm_pResource) {
+GgafResourceConnection<GgafDxTexture>* GgafDxTextureManager::processCreateConnection(const char* prm_idstr, GgafDxTexture* prm_pResource) {
     _TRACE3_(" GgafDxTextureManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
     GgafDxTextureConnection* pConne = NEW GgafDxTextureConnection(prm_idstr, prm_pResource);
     _TRACE3_(" GgafDxTextureManager::processCreateConnection "<<prm_idstr<<" を生成終了。");

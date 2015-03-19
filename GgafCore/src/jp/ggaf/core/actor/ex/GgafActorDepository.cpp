@@ -24,7 +24,7 @@ void GgafActorDepository::put(GgafActor* prm_pSub) {
 #endif
     }
     prm_pSub->_pDependenceDepository = this;
-    prm_pSub->inactivate(); //強制非活動に _will_activate_after_flg = false; になる。
+    prm_pSub->inactivate(); //強制非活動に。
     GgafDestructActor::addSubLast(prm_pSub);
 }
 
@@ -39,11 +39,11 @@ void GgafActorDepository::onReset() {
         if (pActor->isActive()) {
             //TODO:・・・ちょっと悩みどころ
             pActor->inactivateImmed();
-            pActor->_will_activate_after_flg = false;
+            pActor->_frame_of_life_when_activation = 0;
             pActor->onInactive();
         } else {
             //TODO:・・・ちょっと悩みどころ
-            pActor->_will_activate_after_flg = false;
+            pActor->_frame_of_life_when_activation = 0;
         }
         if (pActor->isLast()) {
             break;
@@ -55,14 +55,12 @@ void GgafActorDepository::onReset() {
 }
 void GgafActorDepository::end(frame prm_offset_frames) {
     frame end_frame_delay = prm_offset_frames + (_sub_num*2) + 1; //メンバーを順に少し遅らせる。
-    if (_will_end_after_flg) {
-        //既にend()実行済みの場合、より早くend()するならば有効とする
-        if (_frame_of_life_when_end < _frame_of_life + end_frame_delay + GGAF_END_DELAY) {
-            //今回指定の方が遅いフレーム指定であるため無視する。
-            return;
-        }
+    //既にend()実行済みの場合、より早くend()するならば有効とする
+    if (_frame_of_life < _frame_of_life_when_end &&
+                         _frame_of_life_when_end < _frame_of_life + end_frame_delay + GGAF_END_DELAY) {
+        //既にend()実行済みであり、さらに今回指定のよりも早く _frame_of_life_when_end に到達するため無視する。
+        return;
     }
-    _will_end_after_flg = true;
     _frame_of_life_when_end = _frame_of_life + end_frame_delay + GGAF_END_DELAY;
     inactivateDelay(prm_offset_frames); //指定フレームにはinactivateが行われるのは同じ
 

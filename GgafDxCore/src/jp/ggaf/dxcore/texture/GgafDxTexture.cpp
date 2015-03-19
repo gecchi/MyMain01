@@ -8,7 +8,7 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxTexture::GgafDxTexture(char* prm_texture_name) : GgafObject() {
+GgafDxTexture::GgafDxTexture(const char* prm_texture_name) : GgafObject() {
     _texture_name = NEW char[51];
     strcpy(_texture_name, prm_texture_name);
     restore();

@@ -23,9 +23,9 @@ public:
      */
     GgafDxSeManager(const char* prm_manager_name);
 
-    GgafCore::GgafResourceConnection<GgafDxSe>* processCreateConnection(char* prm_idstr, GgafDxSe* prm_pResource) override;
+    GgafCore::GgafResourceConnection<GgafDxSe>* processCreateConnection(const char* prm_idstr, GgafDxSe* prm_pResource) override;
 
-    GgafDxSe* processCreateResource(char* prm_idstr, void* prm_pConnector) override;
+    GgafDxSe* processCreateResource(const char* prm_idstr, void* prm_pConnector) override;
 
     void updateVolume();
 

@@ -5,7 +5,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-SplineLineConnection::SplineLineConnection(char* prm_idstr, GgafLib::SplineLine* prm_pResource) :
+SplineLineConnection::SplineLineConnection(const char* prm_idstr, GgafLib::SplineLine* prm_pResource) :
     GgafResourceConnection<GgafLib::SplineLine> (prm_idstr, prm_pResource) {
 }
 

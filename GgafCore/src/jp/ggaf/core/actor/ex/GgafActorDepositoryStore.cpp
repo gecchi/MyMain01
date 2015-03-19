@@ -27,11 +27,11 @@ void GgafActorDepositoryStore::put(GgafActor* prm_pSub) {
 void GgafActorDepositoryStore::processFinal() {
     GgafActor* pSubDepository = getSubFirst(); //子はデポジトリのはず
     while (pSubDepository) {
-        if (pSubDepository->_is_active_flg && !(pSubDepository->_will_inactivate_after_flg)) {
+        if (pSubDepository->_is_active_flg && !(pSubDepository->willInactivateAfter())) {
             bool is_inactive_all = false; //全メンバーが非活動の場合true
             GgafActor* pActor = pSubDepository->getSubFirst()->getPrev(); //お尻から見る(アクティブは後ろに回されているためブレイク確立が高い）
             while (true) {
-                if (pActor->_is_active_flg || pActor->_will_activate_after_flg) {
+                if (pActor->_is_active_flg || pActor->willActivateAfter()) {
                     //dispatch の
                     //if (pActor->_is_active_flg == false && pActor->_will_activate_after_flg == false) {
                     //の対偶の条件で判定すること。

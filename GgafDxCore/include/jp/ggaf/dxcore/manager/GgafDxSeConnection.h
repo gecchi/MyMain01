@@ -21,7 +21,7 @@ public:
      * @param prm_idstr サウンドエフェクト識別名
      * @param prm_pGgafDxSe サウンドエフェクトオブジェクト（実値のポインタ）
      */
-    GgafDxSeConnection(char* prm_idstr, GgafDxSe* prm_pGgafDxSe);
+    GgafDxSeConnection(const char* prm_idstr, GgafDxSe* prm_pGgafDxSe);
 
     void processReleaseResource(GgafDxSe* prm_pResource);
 

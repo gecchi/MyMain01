@@ -63,7 +63,7 @@ void EffectLockon001_Main::processBehavior() {
             pProg->change(LOCKON001_PROG_LOCK);
         }
         if (pTarget_) {
-            if (pTarget_->isActiveInTheTree() || pTarget_->_will_activate_after_flg) {
+            if (pTarget_->isActiveInTheTree() || pTarget_->willActivateAfter()) {
                 if (ABS(pTarget_->_x-_x) <= PX_C(200) &&
                     ABS(pTarget_->_y-_y) <= PX_C(200) &&
                     ABS(pTarget_->_z-_z) <= PX_C(200)) {

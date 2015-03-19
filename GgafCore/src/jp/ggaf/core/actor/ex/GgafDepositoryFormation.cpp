@@ -58,7 +58,7 @@ void GgafDepositoryFormation::processFinal() {
             if (_can_live_flg) {
                 if (pFollower->_is_active_flg) {
                     _listFollower.next();
-                } else if (pFollower->_will_activate_after_flg && (pFollower->_frame_of_life <= pFollower->_frame_of_life_when_activation)) {
+                } else if (pFollower->willActivateAfter() && (pFollower->_frame_of_life <= pFollower->_frame_of_life_when_activation)) {
                     //–¢—ˆ‚ÉŠˆ“®—\’è‚Å‚àc‚·
                     _listFollower.next();
                 } else {
@@ -88,7 +88,7 @@ void GgafDepositoryFormation::processFinal() {
 }
 
 GgafActor* GgafDepositoryFormation::callUpMember(int prm_formation_sub_num) {
-    if (_can_call_up == false || wasDeclaredEnd() || _will_inactivate_after_flg) {
+    if (_can_call_up == false || wasDeclaredEnd() || willInactivateAfter()) {
         //I—¹‚ğ‘Ò‚Â‚Ì‚İ
         return nullptr;
     }

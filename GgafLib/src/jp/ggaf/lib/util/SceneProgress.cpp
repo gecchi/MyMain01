@@ -40,7 +40,7 @@ void SceneProgress::changeWithScene(progress prm_progress) {
         _mapProg2Scene[prm_progress]->reset();
         _mapProg2Scene[prm_progress]->activate();
         _mapProg2Scene[prm_progress]->fadeinSceneTree(0);
-    } 
+    }
     change(prm_progress);
 }
 
@@ -50,7 +50,7 @@ void SceneProgress::changeWithSceneFlipping(progress prm_progress) {
     if (_mapProg2Scene.find(get()) == _mapProg2Scene.end()) {
         _TRACE_("＜警告＞SceneProgress::changeWithSceneFlipping シーン("<<_pScene->getName()<<")で、"<<
             "サブシーンと関連付けされていない遷移元進捗(get()="<<get()<<")だった為、inactivate() ができませんでした。");
-    } else {     
+    } else {
         _mapProg2Scene[get()]->inactivate();
     }
     if (_mapProg2Scene.find(prm_progress) == _mapProg2Scene.end()) {
@@ -148,7 +148,7 @@ void SceneProgress::change(progress prm_progress) {
         //異なる場合は、前回のシーンの活動予約を取り消す。
         if (prm_progress == _progress_next_promise) {
             //遷移先シーンが同じ、
-            //_progress+1 のシーンは 即activate()で、既存activateDelay()を上書きするのでOK 
+            //_progress+1 のシーンは 即activate()で、既存activateDelay()を上書きするのでOK
         } else {
             //_progress_next_promiseの activateDelay() を取り消す。
             if (_mapProg2Scene.find(_progress_next_promise) == _mapProg2Scene.end()) {
@@ -159,7 +159,7 @@ void SceneProgress::change(progress prm_progress) {
                 _TRACE_("＜情報＞SceneProgress::change("<<prm_progress<<")  シーン("<<_pScene->getName()<<")で、"<<
                     "遷移先予約進捗(_progress_next_promise="<<_progress_next_promise<<")が存在し、関連シーン("<<(_mapProg2Scene[_progress_next_promise]->getName())<<")が、"<<
                     "既に activateDelay() されています。しかし、本 change() を優先し、シーン("<<(_mapProg2Scene[_progress_next_promise]->getName())<<"の activateDelay() を取り消しました。");
-                _mapProg2Scene[_progress_next_promise]->_will_activate_after_flg = false;
+                _mapProg2Scene[_progress_next_promise]->_frame_of_life_when_activation = 0;
             }
         }
         _progress_next_promise = 0;
@@ -180,7 +180,7 @@ void SceneProgress::changeNothing() {
             _TRACE_("＜情報＞SceneProgress::changeNothing()  シーン("<<_pScene->getName()<<")で、"<<
                 "遷移先予約進捗(_progress_next_promise="<<_progress_next_promise<<")が存在し、関連シーン("<<(_mapProg2Scene[_progress_next_promise]->getName())<<")が、"<<
                 "既に activateDelay() されています。しかし、本 changeNothing() を優先し、シーン("<<(_mapProg2Scene[_progress_next_promise]->getName())<<"の activateDelay() を取り消しました。");
-            _mapProg2Scene[_progress_next_promise]->_will_activate_after_flg = false;
+            _mapProg2Scene[_progress_next_promise]->_frame_of_life_when_activation = 0;
         }
         _progress_next_promise = 0;
         _count_next_promise = 0;
@@ -195,7 +195,7 @@ void SceneProgress::changeNext() {
         //異なる場合は、シーンの活動予約を取り消す。
         if (_progress+1 == _progress_next_promise) {
             //遷移先シーンが同じ、
-            //_progress+1 のシーンは 即activate()で、既存activateDelay()を上書きするのでOK 
+            //_progress+1 のシーンは 即activate()で、既存activateDelay()を上書きするのでOK
         } else {
             //_progress_next_promiseの activateDelay() を取り消す。
             if (_mapProg2Scene.find(_progress_next_promise) == _mapProg2Scene.end()) {
@@ -206,7 +206,7 @@ void SceneProgress::changeNext() {
                 _TRACE_("＜情報＞SceneProgress::changeNext() _progress+1="<<(_progress+1)<<" シーン("<<_pScene->getName()<<")で、"<<
                 "遷移先予約進捗(_progress_next_promise="<<_progress_next_promise<<")が存在し、関連シーン("<<(_mapProg2Scene[_progress_next_promise]->getName())<<")が、"<<
                 "既に activateDelay() されています。しかし、本 changeNext() を優先し、シーン("<<(_mapProg2Scene[_progress_next_promise]->getName())<<"の activateDelay() を取り消しました。");
-                _mapProg2Scene[_progress_next_promise]->_will_activate_after_flg = false;
+                _mapProg2Scene[_progress_next_promise]->_frame_of_life_when_activation = 0;
             }
         }
         _progress_next_promise = 0;

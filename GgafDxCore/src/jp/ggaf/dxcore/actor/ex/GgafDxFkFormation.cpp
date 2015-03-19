@@ -38,7 +38,7 @@ void GgafDxFkFormation::addFormationMember(GgafDxGeometricActor* prm_pMember,
                                            int prm_rz_init_local) {
 
 #ifdef MY_DEBUG
-    if (wasDeclaredEnd() || _will_inactivate_after_flg) {
+    if (wasDeclaredEnd() || willInactivateAfter()) {
         //終了を待つのみ
         throwGgafCriticalException("GgafDxFkFormation::addFormationMember() : "<<
                                    "既に死にゆく定めのFormationです。サブに追加することはおかしいでしょう。this="<<getName());
@@ -62,7 +62,7 @@ void GgafDxFkFormation::addFormationMember(GgafDxGeometricActor* prm_pMember,
 }
 
 void GgafDxFkFormation::processFinal() {
-    if (_was_all_sayonara || wasDeclaredEnd() || _will_inactivate_after_flg) {
+    if (_was_all_sayonara || wasDeclaredEnd() || willInactivateAfter()) {
         //終了を待つのみ
     } else {
         GgafMainActor* pFkBase = (GgafMainActor*)(getSubFirst()); //FKベース
@@ -84,7 +84,7 @@ void GgafDxFkFormation::onEnd() {
 }
 
 GgafDxGeometricActor* GgafDxFkFormation::callUpMember() {
-    if (wasDeclaredEnd() || _will_inactivate_after_flg) {
+    if (wasDeclaredEnd() || willInactivateAfter()) {
         //終了を待つのみ
         return nullptr;
     }

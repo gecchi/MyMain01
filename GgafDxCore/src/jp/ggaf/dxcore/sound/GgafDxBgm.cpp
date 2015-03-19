@@ -11,7 +11,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace IkdLib;
 
-//GgafDxBgm::GgafDxBgm(char* prm_ogg_name) : GgafObject() {
+//GgafDxBgm::GgafDxBgm(const char* prm_ogg_name) : GgafObject() {
 //    _TRACE_("GgafDxBgm::GgafDxBgm "<<prm_ogg_name);
 //    if (GgafDxSound::_pIDirectSound8 == nullptr) {
 //        throwGgafCriticalException("GgafDxBgm::GgafDxBgm("<<prm_ogg_name<<") DirectSound が、まだ初期化されていません。");
@@ -23,7 +23,7 @@ using namespace IkdLib;
 //    _pPcmPlayer = NEW PCMPlayer(GgafDxSound::_pIDirectSound8 , _pOggDecoder);
 //}
 
-GgafDxBgm::GgafDxBgm(char* prm_bgm_key) : GgafObject() {
+GgafDxBgm::GgafDxBgm(const char* prm_bgm_key) : GgafObject() {
     if (GgafDxSound::_pIDirectSound8 == nullptr) {
         throwGgafCriticalException("GgafDxBgm::GgafDxBgm("<<prm_bgm_key<<") DirectSound が、まだ初期化されていません。");
     }

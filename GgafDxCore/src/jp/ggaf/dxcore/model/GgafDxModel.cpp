@@ -8,7 +8,7 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxModel::GgafDxModel(char* prm_model_name) : GgafObject(),
+GgafDxModel::GgafDxModel(const char* prm_model_name) : GgafObject(),
 _pTexBlinker(new GgafDxTextureBlinker(this)) {
     _TRACE3_("GgafDxModel::GgafDxModel(" << prm_model_name << ")");
     _id = GgafDxModelManager::getNextId();

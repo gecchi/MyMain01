@@ -24,10 +24,10 @@ GgafDxEffectManager::GgafDxEffectManager(const char* prm_manager_name) :
     GgafResourceManager<GgafDxEffect> (prm_manager_name) {
 }
 
-GgafDxEffect* GgafDxEffectManager::processCreateResource(char* prm_idstr, void* prm_pConnector) {
+GgafDxEffect* GgafDxEffectManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) {
     //U‚è•ª‚¯
     char effect_type = *prm_idstr; //“ªˆê•¶Žš
-    char* effect_name = prm_idstr + 2; //‚R•¶Žš–ÚˆÈ~
+    const char* effect_name = prm_idstr + 2; //‚R•¶Žš–ÚˆÈ~
     GgafDxEffect* pResourceEffect;
     switch (effect_type) {
         case 'D':
@@ -113,7 +113,7 @@ void GgafDxEffectManager::setParamPerFrameAll() {
         pCurrent = pCurrent->getNext();
     }
 }
-GgafResourceConnection<GgafDxEffect>* GgafDxEffectManager::processCreateConnection(char* prm_idstr,
+GgafResourceConnection<GgafDxEffect>* GgafDxEffectManager::processCreateConnection(const char* prm_idstr,
                                                                                      GgafDxEffect* prm_pResource) {
     _TRACE3_(" GgafDxEffectManager::processCreateConnection "<<prm_idstr<<" ‚ð¶¬ŠJŽnB");
     GgafDxEffectConnection* pConne = NEW GgafDxEffectConnection(prm_idstr, prm_pResource);

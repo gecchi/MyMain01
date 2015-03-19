@@ -21,7 +21,7 @@ public:
      * @param prm_idstr OGG¯•Ê–¼(ƒtƒ@ƒCƒ‹–¼)
      * @param prm_pGgafDxBgm OGG
      */
-    GgafDxBgmConnection(char* prm_idstr, GgafDxBgm* prm_pGgafDxBgm);
+    GgafDxBgmConnection(const char* prm_idstr, GgafDxBgm* prm_pGgafDxBgm);
 
     void processReleaseResource(GgafDxBgm* prm_pResource);
 

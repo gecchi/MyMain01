@@ -61,7 +61,7 @@ void EffectLockon001_Sub::processBehavior() {
         _sx = _sy = _sz = pEffectLockon001_Main_->_sx;
         pKuroko->_angvelo_face[AXIS_Z] = pEffectLockon001_Main_->getKuroko()->_angvelo_face[AXIS_Z];
         if (pTarget_) {
-            if (pTarget_->isActiveInTheTree() || pTarget_->_will_activate_after_flg) {
+            if (pTarget_->isActiveInTheTree() || pTarget_->willActivateAfter()) {
                 if (ABS(pTarget_->_x-_x) <= PX_C(200) &&
                     ABS(pTarget_->_y-_y) <= PX_C(200) &&
                     ABS(pTarget_->_z-_z) <= PX_C(200)) {

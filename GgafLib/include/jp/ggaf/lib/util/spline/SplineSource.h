@@ -22,7 +22,7 @@ public:
     bool _is_create_SplineLine;
 
 public:
-    explicit SplineSource(char* prm_idstr);
+    explicit SplineSource(const char* prm_idstr);
 
     explicit SplineSource(SplineLine* prm_pSp);
 

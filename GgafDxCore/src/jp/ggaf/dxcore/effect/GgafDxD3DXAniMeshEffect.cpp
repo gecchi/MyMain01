@@ -8,7 +8,7 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxD3DXAniMeshEffect::GgafDxD3DXAniMeshEffect(char* prm_effect_name) : GgafDxEffect(prm_effect_name) {
+GgafDxD3DXAniMeshEffect::GgafDxD3DXAniMeshEffect(const char* prm_effect_name) : GgafDxEffect(prm_effect_name) {
     GgafDxCamera* pCam = P_GOD->getUniverse()->getCamera();
     //シェーダー共通のグローバル変数設定
     HRESULT hr;

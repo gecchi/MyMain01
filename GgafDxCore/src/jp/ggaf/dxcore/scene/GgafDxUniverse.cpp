@@ -164,54 +164,58 @@ void GgafDxUniverse::draw() {
     IDirect3DDevice9* const pDevice = GgafDxGod::_pID3DDevice9;
     GgafDxFigureActor* pDrawActor;
     for (int i = MAX_DRAW_DEPTH_LEVEL; i >= 0; i--) {
-        pDrawActor = _pActor_draw_active = _apFirstActor_draw_depth_level[i];
-        while (pDrawActor) {
+        pDrawActor = GgafDxUniverse::_apFirstActor_draw_depth_level[i];
+        if (pDrawActor) {
+            while (pDrawActor) {
+                GgafDxUniverse::_pActor_draw_active = pDrawActor;
 #ifdef MY_DEBUG
-            if (pDrawActor->getPlatformScene()->instanceOf(Obj_GgafDxScene)) {
-                //OK
-            } else {
-                throwGgafCriticalException("GgafDxUniverse::draw() err2. 描画アクターの所属シーン _pActor_draw_active["<<(pDrawActor->getName())<<"->getPlatformScene()["<<(pDrawActor->getPlatformScene()->getName())<<"]が、GgafDxScene に変換不可です。this="<<getName()<<" \n"<<
-                        "pDrawActor->getPlatformScene()->_obj_class="<<pDrawActor->getPlatformScene()->_obj_class<< " Obj_GgafDxScene="<<Obj_GgafDxScene<<" \n"<<
-                        "(pDrawActor->getPlatformScene()->_obj_class & Obj_GgafDxScene)="<<((pDrawActor->getPlatformScene()->_obj_class) & Obj_GgafDxScene) <<" ==?? Obj_GgafDxScene("<<Obj_GgafDxScene<<")");
-            }
+                if (pDrawActor->getPlatformScene()->instanceOf(Obj_GgafDxScene)) {
+                    //OK
+                } else {
+                    throwGgafCriticalException("GgafDxUniverse::draw() err2. 描画アクターの所属シーン _pActor_draw_active["<<(pDrawActor->getName())<<"->getPlatformScene()["<<(pDrawActor->getPlatformScene()->getName())<<"]が、GgafDxScene に変換不可です。this="<<getName()<<" \n"<<
+                            "pDrawActor->getPlatformScene()->_obj_class="<<pDrawActor->getPlatformScene()->_obj_class<< " Obj_GgafDxScene="<<Obj_GgafDxScene<<" \n"<<
+                            "(pDrawActor->getPlatformScene()->_obj_class & Obj_GgafDxScene)="<<((pDrawActor->getPlatformScene()->_obj_class) & Obj_GgafDxScene) <<" ==?? Obj_GgafDxScene("<<Obj_GgafDxScene<<")");
+                }
 #endif
-            //各所属シーンのαカーテンを設定する。
-            const GgafDxScene* const pScene = (GgafDxScene*)pDrawActor->getPlatformScene();
-            pDrawActor->getEffect()->_pID3DXEffect->SetFloat(
-                    pDrawActor->getEffect()->_h_alpha_master, pScene->_master_alpha);
+                //各所属シーンのαカーテンを設定する。
+                pDrawActor->getEffect()->setAlphaMaster(
+                                            ((GgafDxScene*)pDrawActor->getPlatformScene())->_master_alpha
+                                         );
 
-            //半透明要素ありの場合カリングを一時OFF
-            if (pDrawActor->_alpha < 1.0f) {
-                pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-            }
-            //Zバッファを考慮無効設定
-            if (!pDrawActor->_zenable) {
-                pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
-            }
-            // Zバッファ書き込み不可設定
-            if (!pDrawActor->_zwriteenable) {
-                pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
-            }
+                //半透明要素ありの場合カリングを一時OFF
+                if (pDrawActor->_alpha < 1.0f) {
+                    pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+                }
+                //Zバッファを考慮無効設定
+                if (!pDrawActor->_zenable) {
+                    pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
+                }
+                // Zバッファ書き込み不可設定
+                if (!pDrawActor->_zwriteenable) {
+                    pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
+                }
 
-            pDrawActor->processDraw(); //描画！！！
+                pDrawActor->processDraw(); //ここで描画。
+                //setの描画等で、GgafDxUniverse::_pActor_draw_active が更新される
 
-            //カリング有りに戻す
-            if (pDrawActor->_alpha < 1.0f) {
-                pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
-            }
-            //Zバッファを考慮無効設定
-            if (!pDrawActor->_zenable) {
-                pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
-            }
-            // Zバッファ書き込み不可設定
-            if (!pDrawActor->_zwriteenable) {
-                pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
-            }
+                //カリング有りに戻す
+                if (pDrawActor->_alpha < 1.0f) {
+                    pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+                }
+                //Zバッファを考慮無効設定
+                if (!pDrawActor->_zenable) {
+                    pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+                }
+                // Zバッファ書き込み不可設定
+                if (!pDrawActor->_zwriteenable) {
+                    pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+                }
 
-            pDrawActor = _pActor_draw_active = _pActor_draw_active->_pNextActor_in_draw_depth_level;
+                pDrawActor = GgafDxUniverse::_pActor_draw_active->_pNextActor_in_draw_depth_level;
+            }
+            GgafDxUniverse::_apFirstActor_draw_depth_level[i] = nullptr; //次回のためにリセット
+            GgafDxUniverse::_apLastActor_draw_depth_level[i] = nullptr;
         }
-        _apFirstActor_draw_depth_level[i] = nullptr; //次回のためにリセット
-        _apLastActor_draw_depth_level[i] = nullptr;
     }
 
     //最後のEndPass
@@ -248,19 +252,19 @@ int GgafDxUniverse::setDrawDepthLevel(int prm_draw_depth_level, GgafDxFigureActo
         draw_depth_level = prm_draw_depth_level;
     }
 
-    if (_apFirstActor_draw_depth_level[draw_depth_level] == nullptr) {
+    if (GgafDxUniverse::_apFirstActor_draw_depth_level[draw_depth_level] == nullptr) {
         //そのprm_draw_depth_levelで最初のアクターの場合
         prm_pActor->_pNextActor_in_draw_depth_level = nullptr;
-        _apFirstActor_draw_depth_level[draw_depth_level] = prm_pActor;
-        _apLastActor_draw_depth_level[draw_depth_level] = prm_pActor;
+        GgafDxUniverse::_apFirstActor_draw_depth_level[draw_depth_level] = prm_pActor;
+        GgafDxUniverse::_apLastActor_draw_depth_level[draw_depth_level] = prm_pActor;
     } else {
         if (prm_pActor->_is_2D) {
             //同一深度で2Dの場合、連結リストのお尻に追加していく
             //つまり、最後に addSubLast() すればするほど、描画順が後になり、プライオリティが高い。
-            GgafDxFigureActor* pActorTmp = _apLastActor_draw_depth_level[draw_depth_level];
+            GgafDxFigureActor* pActorTmp = GgafDxUniverse::_apLastActor_draw_depth_level[draw_depth_level];
             pActorTmp->_pNextActor_in_draw_depth_level = prm_pActor;
             prm_pActor->_pNextActor_in_draw_depth_level = nullptr;
-            _apLastActor_draw_depth_level[draw_depth_level] = prm_pActor;
+            GgafDxUniverse::_apLastActor_draw_depth_level[draw_depth_level] = prm_pActor;
         } else {
             //同一深度で3Dの場合、前に追加と、お尻に追加を交互に行う。
             //何故そんなことをするかというと、Zバッファ有りのテクスチャに透明があるオブジェクトや、半透明オブジェクトが交差した場合、
@@ -269,15 +273,15 @@ int GgafDxUniverse::setDrawDepthLevel(int prm_draw_depth_level, GgafDxFigureActo
             //TODO:(課題)２、３のオブジェクトの交差は場合は見た目にも許容できるが、たくさん固まると本当にチラチラする。
             if ((GgafGod::_pGod->_pUniverse->_frame_of_behaving & 1) == 1) { //奇数
                 //前に追加
-                GgafDxFigureActor* pActorTmp = _apFirstActor_draw_depth_level[draw_depth_level];
+                GgafDxFigureActor* pActorTmp = GgafDxUniverse::_apFirstActor_draw_depth_level[draw_depth_level];
                 prm_pActor->_pNextActor_in_draw_depth_level = pActorTmp;
-                _apFirstActor_draw_depth_level[draw_depth_level] = prm_pActor;
+                GgafDxUniverse::_apFirstActor_draw_depth_level[draw_depth_level] = prm_pActor;
             } else {
                 //お尻に追加
-                GgafDxFigureActor* pActorTmp = _apLastActor_draw_depth_level[draw_depth_level];
+                GgafDxFigureActor* pActorTmp = GgafDxUniverse::_apLastActor_draw_depth_level[draw_depth_level];
                 pActorTmp->_pNextActor_in_draw_depth_level = prm_pActor;
                 prm_pActor->_pNextActor_in_draw_depth_level = nullptr;
-                _apLastActor_draw_depth_level[draw_depth_level] = prm_pActor;
+                GgafDxUniverse::_apLastActor_draw_depth_level[draw_depth_level] = prm_pActor;
             }
         }
     }

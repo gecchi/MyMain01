@@ -115,7 +115,7 @@ public:
      * コンストラクタ<BR>
      * @param prm_model_name モデル定義の識別名
      */
-    GgafDxMorphMeshModel(char* prm_model_name);
+    GgafDxMorphMeshModel(const char* prm_model_name);
 
     virtual HRESULT draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num = 1) override;
 

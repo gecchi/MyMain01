@@ -92,26 +92,26 @@ public:
 
     /** [r]次フレームの一時停止フラグ、次フレームのフレーム加算時 _was_paused_flg に反映される */
     bool _was_paused_flg_in_next_frame;
-    /** [r]終了フラグ */
-    bool _will_end_after_flg;
+//    /** [r]終了フラグ */
+//    bool _will_end_after_flg;
     /** [r]終了する予定の _frame_of_life */
     frame _frame_of_life_when_end;
 
 
-    /** [r]あとで活動予約フラグ */
-    bool _will_activate_after_flg;
+//    /** [r]あとで活動予約フラグ */
+//    bool _will_activate_after_flg;
     /** [r]活動開始する予定の _frame_of_life */
     frame _frame_of_life_when_activation;
 
-    /** [r]あとで非活動予約フラグ */
-    bool _will_inactivate_after_flg;
+//    /** [r]あとで非活動予約フラグ */
+//    bool _will_inactivate_after_flg;
     /** [r]活動終了する予定の _frame_of_life */
     frame _frame_of_life_when_inactivation;
 
-    /** [r]ノードが活動に切り替わった(_is_active_flg が false → true)瞬間に１フレームだけセットされるフラグ */
-    bool _on_change_to_active_flg;
-    /** [r]ノードが停止に切り替わった(_is_active_flg が true → false)瞬間に１フレームだけセットされるフラグ */
-    bool _on_change_to_inactive_flg;
+//    /** [r]ノードが活動に切り替わった(_is_active_flg が false → true)瞬間に１フレームだけセットされるフラグ */
+//    bool _on_change_to_active_flg;
+//    /** [r]ノードが停止に切り替わった(_is_active_flg が true → false)瞬間に１フレームだけセットされるフラグ */
+//    bool _on_change_to_inactive_flg;
 
     /** [r]先頭ノードに移動予約フラグ、次フレームのフレーム加算時に、自ノードが先頭ノードに移動する */
     bool _will_mv_first_in_next_frame_flg;
@@ -770,7 +770,7 @@ public:
      * @return  bool true:非活動から活動状態切り替わった／false:切り替わっていない
      */
     inline bool onChangeToActive() const {
-        return (_can_live_flg && _on_change_to_active_flg) ? true : false;
+        return (_can_live_flg && _frame_of_life == _frame_of_life_when_activation) ? true : false;
     }
 
     /**
@@ -781,7 +781,7 @@ public:
      * @return  bool true:活動状態から非活動に切り替わった／false:切り替わっていない
      */
     inline bool onChangeToInactive() const {
-        return (_can_live_flg && _on_change_to_inactive_flg) ? true : false;
+        return (_can_live_flg && _frame_of_life == _frame_of_life_when_inactivation && _frame_of_life_when_inactivation > 0) ? true : false;
     }
 
     /**
@@ -825,7 +825,7 @@ public:
      * @return true:終了宣言済み／false:まだ終了宣言されていない
      */
     inline bool wasDeclaredEnd() const {
-        return (_will_end_after_flg || _can_live_flg == false) ? true : false;
+        return (_frame_of_life_when_end > _frame_of_life || _can_live_flg == false) ? true : false;
     }
 
     /**
@@ -922,6 +922,30 @@ public:
      */
     virtual void updateActiveInTheTree() = 0;
 
+    /**
+     * 活動予定か否かを返す .
+     * @return
+     */
+    inline bool willActivateAfter() {
+        if (_frame_of_life_when_activation > _frame_of_life) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 非活動予定か否かを返す .
+     * @return
+     */
+    inline bool willInactivateAfter() {
+        if (0 < _frame_of_life_when_inactivation &&
+                _frame_of_life_when_inactivation > _frame_of_life) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 };
 
 ///////////////////////////////////////////////////////////////// ここからは実装部
@@ -939,14 +963,9 @@ GgafElement<T>::GgafElement(const char* prm_name) :
     _was_paused_flg(false),
     _can_live_flg(true),
     _was_paused_flg_in_next_frame(false),
-    _will_end_after_flg(false),
-    _frame_of_life_when_end(MAX_FRAME),
-    _will_activate_after_flg(true),    //初回フレームにアクティブになるため
+    _frame_of_life_when_end(0),
     _frame_of_life_when_activation(1), //初回フレームにアクティブになるために1
-    _will_inactivate_after_flg(false),
     _frame_of_life_when_inactivation(0),
-    _on_change_to_active_flg(false),
-    _on_change_to_inactive_flg(false),
     _will_mv_first_in_next_frame_flg(false),
     _will_mv_last_in_next_frame_flg(false),
     _is_already_reset(false),
@@ -968,28 +987,19 @@ void GgafElement<T>::nextFrame() {
     _was_paused_flg = _was_paused_flg_in_next_frame;
     if (!_was_paused_flg) {
         _frame_of_life++;
-        if (_will_end_after_flg && _frame_of_life_when_end == _frame_of_life) {
+        if (_frame_of_life == _frame_of_life_when_end) {
             _can_live_flg = false; //終了の時だ
-        }
-        _on_change_to_active_flg = false;
-        _on_change_to_inactive_flg = false;
-        if (_can_live_flg) {
+        } else {
+            int on_change_to = 0;
             if (_is_active_flg) {  //現在activate
-                if (_will_inactivate_after_flg) {  //現在activate で、２フレーム目以降で、
-                                                   //さらに inactivate予定
-                    if (_frame_of_life == _frame_of_life_when_inactivation) { //現在activate で、２フレーム目以降で、
-                                                                              //inactivate予定で、今inactivateになる時が来た
-                        _is_active_flg = false; //活動フラグOFF
-                        _on_change_to_inactive_flg = true; //onInactive確定
-                    }
+                if (_frame_of_life == _frame_of_life_when_inactivation) { //現在 activate だが、今inactivateになる時が来た
+                    _is_active_flg = false; //活動フラグOFF
+                    on_change_to = 1;       //onInactive確定
                 }
             } else { //現在inactivate
-                if (_will_activate_after_flg) { //現在inactivate だが、activate予定。
-                    if(_frame_of_life == _frame_of_life_when_activation) { //現在inactivate だが、activate予定
-                                                                           //そして、activateになる時が来た
-                        _is_active_flg = true; //活動フラグON
-                        _on_change_to_active_flg = true;  //onActive処理
-                    }
+                if(_frame_of_life == _frame_of_life_when_activation) { //現在inactivate だが、今activateになる時が来た
+                    _is_active_flg = true;  //活動フラグON
+                    on_change_to = 2;       //onActive処理
                 }
             }
             _is_already_reset = false;
@@ -1005,21 +1015,19 @@ void GgafElement<T>::nextFrame() {
                 _frame_of_behaving_since_onActive++;
             }
 
-            if (_on_change_to_active_flg) {          //onActive処理
+            if (on_change_to == 0) {
+                //コールバック特になし
+            } else if (on_change_to == 1) { //onInactive処理
+                onInactive(); //コールバック
+            } else if (on_change_to == 2) { //onActive処理
                 if (!_was_initialize_flg) {
                     initialize();       //初期化
                     _was_initialize_flg = true;
                     reset(); //リセット
                 }
                 _frame_of_behaving_since_onActive = 0; //リセット
-                onActive(); //コールバック
-                _frame_of_life_when_activation = 0;
-                _will_activate_after_flg = false;
+                onActive();   //コールバック
                 _frame_of_behaving_since_onActive = 1;
-            } else if (_on_change_to_inactive_flg) { //onInactive処理
-                onInactive(); //コールバック
-                _frame_of_life_when_inactivation = 0;
-                _will_inactivate_after_flg = false;
             }
         }
     }
@@ -1165,7 +1173,7 @@ void GgafElement<T>::activateImmed() {
             reset(); //リセット
         }
         _is_active_flg = true;
-        _will_activate_after_flg = true;
+        _frame_of_life_when_activation = _frame_of_life;
         updateActiveInTheTree();
     }
 }
@@ -1203,11 +1211,9 @@ void GgafElement<T>::activateDelay(frame prm_offset_frames) {
         //activate();
         //inactivate();
         //の順に実行すると、inactivate() が勝つ
-        _will_inactivate_after_flg = false;
-
         //既にactivateDelay()実行済みの場合は、今回指定算フレームで上書きする（後勝ち）。
         //(※inactivateDelay() と優先の考えが違うため注意)
-        _will_activate_after_flg = true;
+        _frame_of_life_when_inactivation = 0;
         _frame_of_life_when_activation = _frame_of_life + prm_offset_frames;
     }
 }
@@ -1223,9 +1229,7 @@ void GgafElement<T>::activateWhile(frame prm_frames) {
     }
 #endif
     if (_can_live_flg) {
-        _will_activate_after_flg = true;
         _frame_of_life_when_activation = _frame_of_life + 1;
-        _will_inactivate_after_flg = true;
         _frame_of_life_when_inactivation = _frame_of_life + prm_frames;
     }
 }
@@ -1272,27 +1276,28 @@ void GgafElement<T>::inactivateDelay(frame prm_offset_frames) {
     }
 #endif
     if (_can_live_flg) {
-        if (_will_activate_after_flg) {
-            //既にactivateDelay()実行済みの場合
-            if (_frame_of_life_when_activation >= _frame_of_life + prm_offset_frames) {
-                //inactive と同フレーム、または inactive 予定よりも後に active 予定ならば、
-                //(activeにはならないようにするため)_will_activate_after_flg を無効にする。
-                //
-                //activate();
-                //inactivate();
-                //の順に実行すると、inactivate() が勝つ
-                _will_activate_after_flg = false;
-            }
+
+
+        if (_frame_of_life_when_activation >= _frame_of_life + prm_offset_frames) {
+            //inactive と同フレーム、または inactive 予定よりも後に active 予定ならば、
+            //(activeにはならないようにするため)無効にする。
+            //activate();
+            //inactivate();
+            //の順に実行すると、inactivate() が勝つ
+            _frame_of_life_when_activation = 0;
         }
-        if (_will_inactivate_after_flg) {
-            //既にinactivateDelay()実行済みの場合、より早く inactivate するならば上書きする
-            if (_frame_of_life_when_inactivation < _frame_of_life + prm_offset_frames) {
-                //今回指定算フレームの方が遅い場合は無視される。
-                return;
-            }
+
+        //既にinactivateDelay()実行済みの場合、今回の指定が、
+        //より早く inactivate する指定ならば上書きするが、
+        //より遅く inactivate する指定ならば、過去のinactivate する方を優先
+        if (0 < _frame_of_life_when_inactivation &&
+                _frame_of_life_when_inactivation < _frame_of_life + prm_offset_frames) {
+            //今回指定算フレームの方が遅い場合は無視される。
+            return;
+        } else {
+            //inactivateを予約
+            _frame_of_life_when_inactivation = _frame_of_life + prm_offset_frames;
         }
-        _will_inactivate_after_flg = true;
-        _frame_of_life_when_inactivation = _frame_of_life + prm_offset_frames;
     }
 }
 
@@ -1321,7 +1326,6 @@ void GgafElement<T>::inactivateImmed() {
 #endif
     if (_can_live_flg) {
         _is_active_flg = false;
-        _will_inactivate_after_flg = true;
         _frame_of_life_when_inactivation = _frame_of_life;
         updateActiveInTheTree();
     }
@@ -1401,14 +1405,11 @@ void GgafElement<T>::unpauseImmed() {
 
 template<class T>
 void GgafElement<T>::end(frame prm_offset_frames) {
-    if (_will_end_after_flg) {
-        //既にend()実行済みの場合、より早くend()するならば有効とする
-        if (_frame_of_life_when_end < _frame_of_life + prm_offset_frames + GGAF_END_DELAY) {
-            //今回指定の方が遅いフレーム指定であるため無視する。
-            return;
-        }
+    if (_frame_of_life < _frame_of_life_when_end &&
+                         _frame_of_life_when_end < _frame_of_life + prm_offset_frames + GGAF_END_DELAY) {
+        //既にend()実行済みであり、さらに今回指定のよりも早く _frame_of_life_when_end に到達するため無視する。
+        return;
     }
-    _will_end_after_flg = true;
     _frame_of_life_when_end = _frame_of_life + prm_offset_frames + GGAF_END_DELAY;
     inactivateDelay(prm_offset_frames);
     //指定フレーム時には、まずinactivateが行われ、+GGAF_END_DELAY フレーム後 _can_live_flg = falseになる。

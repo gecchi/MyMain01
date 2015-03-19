@@ -18,7 +18,7 @@ DepositoryManager::DepositoryManager(const char* prm_manager_name) :
     GgafResourceManager<GgafActorDepository> (prm_manager_name) {
 }
 
-GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, void* prm_pConnector) {
+GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) {
     GgafActorDepository* pResource = nullptr;
 
     if (strcmp("Shot001", prm_idstr) == 0) {
@@ -315,7 +315,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     return pResource;
 }
 
-GgafResourceConnection<GgafActorDepository>* DepositoryManager::processCreateConnection(char* prm_idstr, GgafActorDepository* prm_pResource) {
+GgafResourceConnection<GgafActorDepository>* DepositoryManager::processCreateConnection(const char* prm_idstr, GgafActorDepository* prm_pResource) {
     _TRACE3_(" DepositoryManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
     DepositoryConnection* pConne = NEW DepositoryConnection(prm_idstr, prm_pResource);
     _TRACE3_(" DepositoryManager::processCreateConnection "<<prm_idstr<<" を生成終了。");

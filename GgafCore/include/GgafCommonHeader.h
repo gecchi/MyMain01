@@ -282,16 +282,11 @@
                     _is_active_in_the_tree_flg<< \
                     _is_active_flg<< \
                     "-"<< \
-                    _will_activate_after_flg<< \
                     "("<<_frame_of_life_when_activation<<")"<< \
-                    _on_change_to_active_flg<< \
                     "-"<< \
-                    _will_inactivate_after_flg<< \
                     "("<<_frame_of_life_when_inactivation<<")"<< \
-                    _on_change_to_inactive_flg<< \
                     ","<< \
-                    _will_end_after_flg<< \
-                    "("<<(_frame_of_life_when_end==MAX_FRAME ? 0 : _frame_of_life_when_end)<<")"<< \
+                    "("<<(_frame_of_life_when_end)<<")"<< \
                     ","<< \
                     _will_mv_first_in_next_frame_flg<< \
                     _will_mv_last_in_next_frame_flg<< \
