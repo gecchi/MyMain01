@@ -3,7 +3,7 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxSeConnection::GgafDxSeConnection(const char* prm_idstr, GgafDxSe* prm_pGgafDxSe) :
+GgafDxSeConnection::GgafDxSeConnection(char* prm_idstr, GgafDxSe* prm_pGgafDxSe) :
     GgafResourceConnection<GgafDxSe> (prm_idstr, prm_pGgafDxSe) {
 }
 

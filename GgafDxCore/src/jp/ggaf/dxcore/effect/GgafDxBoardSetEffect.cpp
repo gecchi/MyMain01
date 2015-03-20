@@ -7,7 +7,7 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxBoardSetEffect::GgafDxBoardSetEffect(const char* prm_effect_name) : GgafDxEffect(prm_effect_name) {
+GgafDxBoardSetEffect::GgafDxBoardSetEffect(char* prm_effect_name) : GgafDxEffect(prm_effect_name) {
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
     static float game_buffer_width = (float)(PROPERTY::GAME_BUFFER_WIDTH);

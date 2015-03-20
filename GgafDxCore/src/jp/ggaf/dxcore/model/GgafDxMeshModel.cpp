@@ -19,7 +19,7 @@ DWORD GgafDxMeshModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DF
                                     D3DFVF_TEXCOORDSIZE3(1) | // tangent
                                     D3DFVF_TEXCOORDSIZE3(2)   // binormal
                                     );
-GgafDxMeshModel::GgafDxMeshModel(const char* prm_model_name) : GgafDxModel(prm_model_name) {
+GgafDxMeshModel::GgafDxMeshModel(char* prm_model_name) : GgafDxModel(prm_model_name) {
     _TRACE3_("GgafDxMeshModel::GgafDxMeshModel(" << _model_name << ")");
     _pModel3D = nullptr;
     _pMeshesFront = nullptr;

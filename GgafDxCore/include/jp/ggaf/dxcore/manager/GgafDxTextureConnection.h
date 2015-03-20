@@ -21,7 +21,7 @@ public:
      * @param prm_idstr テクスチャ識別名
      * @param prm_pResource テクスチャ
      */
-    GgafDxTextureConnection(const char* prm_idstr, GgafDxTexture* prm_pResource);
+    GgafDxTextureConnection(char* prm_idstr, GgafDxTexture* prm_pResource);
 
     void processReleaseResource(GgafDxTexture* prm_pResource);
 

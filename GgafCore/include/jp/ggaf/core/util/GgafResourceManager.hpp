@@ -40,16 +40,16 @@ private:
      * @param prm_idstr 識別名
      * @return  所望のGgafResourceConnectionオブジェクトのポインタ。リストに存在しなかった場合 nullptr
      */
-    virtual GgafResourceConnection<T>* find(const char* prm_idstr);
+    virtual GgafResourceConnection<T>* find(char* prm_idstr);
 
     /**
      * 資源のを生成する .
      * connect() 時、資源が実生成場合呼び出されます。
-     * processCreateResource(const char*, void*) をコールします。
+     * processCreateResource(char*, void*) をコールします。
      * @param prm_idstr connect() で渡された識別名
      * @param prm_p connect() で渡された自由パラメータ
      */
-    T* createResource(const char* prm_idstr, void* prm_p);
+    T* createResource(char* prm_idstr, void* prm_p);
 
     /**
      * 資源接続オブジェクトを生成.
@@ -57,7 +57,7 @@ private:
      * @param prm_pResource 資源接続オブジェクトのValue。つまり資源インスタンス。
      * @return 資源接続オブジェクト
      */
-    GgafResourceConnection<T>* createResourceConnection(const char* prm_idstr, T* prm_pResource);
+    GgafResourceConnection<T>* createResourceConnection(char* prm_idstr, T* prm_pResource);
 
 protected:
     /** connect中はtrueの排他フラグ */
@@ -65,7 +65,7 @@ protected:
     /** connectするために待っているフラグ */
     static volatile bool _is_waiting_to_connect;
     /** [r]マネージャ名称 */
-    char* _manager_name;
+    const char* _manager_name;
     /** [r]GgafResourceConnectionオブジェクトのリストの先頭のポインタ。終端はnullptr */
     GgafResourceConnection<T>* _pConn_first;
 
@@ -79,7 +79,7 @@ protected:
      * @param prm_pResource 資源ポインタ
      * @return GgafResourceConnection 資源接続オブジェクトのインスタンス（＝GgafResourceConnection 実装クラスのインスタンス）
      */
-    virtual GgafResourceConnection<T>* processCreateConnection(const char* prm_idstr, T* prm_pResource) = 0;
+    virtual GgafResourceConnection<T>* processCreateConnection(char* prm_idstr, T* prm_pResource) = 0;
 
     /**
      * 実際の資源のを生成を下位で実装します。.
@@ -89,7 +89,7 @@ protected:
      * @param prm_p 自由パラメータ
      * @return 資源インスタンスのポインタ
      */
-    virtual T* processCreateResource(const char* prm_idstr, void* prm_pConnector) = 0;
+    virtual T* processCreateResource(char* prm_idstr, void* prm_pConnector) = 0;
 
 //    int GgafResourceManager<T>::getConnectionNum();
 
@@ -114,10 +114,10 @@ public:
      * 保持リストから取得した場合、接続カウンタが増えます。<BR>
      * new した場合、接続カウンタは1です。<BR>
      * @param prm_idstr 識別名
-     * @param prm_connector 何らかの引数(主に接続元、thisを渡して下さい。)
+     * @param prm_connector 接続元、thisを渡して下さい。
      * @return 識別名に紐付く資源接続(GgafResourceConnection)
      */
-    virtual GgafResourceConnection<T>* connect(const char* prm_idstr, void* prm_connector);
+    virtual GgafResourceConnection<T>* connect(char* prm_idstr, void* prm_connector);
 
 //    /**
 //     * 資源接続(GgafResourceConnection)オブジェクトを取得。<BR>
@@ -127,7 +127,7 @@ public:
 //     * @param prm_idstr 識別名
 //     * @return 識別名に紐付く資源接続(GgafResourceConnection)
 //     */
-//    virtual GgafResourceConnection<T>* connect(const char* prm_idstr) {
+//    virtual GgafResourceConnection<T>* connect(char* prm_idstr) {
 //        return this->connect(prm_idstr, nullptr);
 //    }
 //
@@ -143,18 +143,18 @@ public:
 //        return this->connect((char*)prm_idstr, nullptr);
 //    }
 
-//    /**
-//     * 資源接続(GgafResourceConnection)オブジェクトを取得。<BR>
-//     * 保持リストに存在すればそれを返し、存在しなければ new します。<BR>
-//     * 保持リストから取得した場合、接続カウンタが増えます。<BR>
-//     * new した場合、接続カウンタは1です。<BR>
-//     * @param prm_idstr 識別名
-//     * @param prm_p 何らかの引数
-//     * @return 識別名に紐付く資源接続(GgafResourceConnection)
-//     */
-//    virtual GgafResourceConnection<T>* connect(const char* prm_idstr, void* prm_p) {
-//        return this->connect((char*)prm_idstr, prm_p);
-//    }
+    /**
+     * 資源接続(GgafResourceConnection)オブジェクトを取得。<BR>
+     * 保持リストに存在すればそれを返し、存在しなければ new します。<BR>
+     * 保持リストから取得した場合、接続カウンタが増えます。<BR>
+     * new した場合、接続カウンタは1です。<BR>
+     * @param prm_idstr 識別名
+     * @param prm_p 何らかの引数
+     * @return 識別名に紐付く資源接続(GgafResourceConnection)
+     */
+    virtual GgafResourceConnection<T>* connect(const char* prm_idstr, void* prm_p) {
+        return this->connect((char*)prm_idstr, prm_p);
+    }
 
     /**
      * マネジャーが保持するリストを出力します。（デバッグ用） .
@@ -172,17 +172,16 @@ template<class T>
 volatile bool GgafResourceManager<T>::_is_waiting_to_connect = false;
 
 template<class T>
-GgafResourceManager<T>::GgafResourceManager(const char* prm_manager_name) : GgafObject() {
+GgafResourceManager<T>::GgafResourceManager(const char* prm_manager_name) : GgafObject(),
+      _manager_name(prm_manager_name) {
     _TRACE3_("GgafResourceManager<T>::GgafResourceManager(" << prm_manager_name << ")");
-    _manager_name = NEW char[51];
-    strcpy(_manager_name, prm_manager_name);
     _pConn_first = nullptr;
     _is_connecting_resource = false;
     _is_waiting_to_connect = false;
 }
 
 template<class T>
-GgafResourceConnection<T>* GgafResourceManager<T>::find(const char* prm_idstr) {
+GgafResourceConnection<T>* GgafResourceManager<T>::find(char* prm_idstr) {
     GgafResourceConnection<T>* pCurrent = _pConn_first;
 
     while (pCurrent) {
@@ -211,7 +210,7 @@ void GgafResourceManager<T>::add(GgafResourceConnection<T>* prm_pResource_new) {
 }
 
 template<class T>
-GgafResourceConnection<T>* GgafResourceManager<T>::connect(const char* prm_idstr, void* prm_connector) {
+GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr, void* prm_connector) {
     if (prm_idstr == nullptr) {
         _TRACE3_("警告 GgafResourceManager<T>::connect(nullptr) [" << _manager_name << "]");
     }
@@ -270,14 +269,14 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(const char* prm_idstr
 }
 
 template<class T>
-T* GgafResourceManager<T>::createResource(const char* prm_idstr, void* prm_p) {
+T* GgafResourceManager<T>::createResource(char* prm_idstr, void* prm_p) {
     _TRACE3_("GgafResourceManager<T>::createResource [" << _manager_name << "]" << prm_idstr << "を生成しましょう");
     T* p = processCreateResource(prm_idstr, prm_p);
     return p;
 }
 
 template<class T>
-GgafResourceConnection<T>* GgafResourceManager<T>::createResourceConnection(const char* prm_idstr, T* prm_pResource) {
+GgafResourceConnection<T>* GgafResourceManager<T>::createResourceConnection(char* prm_idstr, T* prm_pResource) {
     _TRACE3_("GgafResourceManager<T>::createResourceConnection [" << _manager_name << "]" << prm_idstr << "を生成しましょう");
     GgafResourceConnection<T>* p = processCreateConnection(prm_idstr, prm_pResource);
     p->_pManager = this; //マネージャ登録
@@ -349,11 +348,9 @@ GgafResourceManager<T>::~GgafResourceManager() {
             }
         }
     }
-
 #ifdef MY_DEBUG
     _TRACE_("GgafResourceManager<T>::~GgafResourceManager() ["<<_manager_name<<"] end   <---");
 #endif
-    GGAF_DELETEARR_NULLABLE(_manager_name);
 }
 
 }

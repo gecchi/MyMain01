@@ -3,7 +3,7 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxTextureConnection::GgafDxTextureConnection(const char* prm_idstr, GgafDxTexture* prm_pResource)
+GgafDxTextureConnection::GgafDxTextureConnection(char* prm_idstr, GgafDxTexture* prm_pResource)
     :GgafResourceConnection<GgafDxTexture>(prm_idstr, prm_pResource) {
     _TRACE3_("GgafDxTextureConnection：コンストラクタ prm_idstr="<<prm_idstr);
 }

@@ -45,7 +45,7 @@ public:
      * @param prm_wave_name 識別ID (プロパティファイルのキー)
      * @return
      */
-    explicit GgafDxSe(const char* prm_wave_key);
+    explicit GgafDxSe(char* prm_wave_key);
 
     /**
      * バッファへWaveデータを転送 .

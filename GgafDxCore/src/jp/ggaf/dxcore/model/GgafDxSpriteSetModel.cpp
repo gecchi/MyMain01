@@ -14,7 +14,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 DWORD GgafDxSpriteSetModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D3DFVF_TEX1);
-GgafDxSpriteSetModel::GgafDxSpriteSetModel(const char* prm_model_name) : GgafDxModel(prm_model_name) {
+GgafDxSpriteSetModel::GgafDxSpriteSetModel(char* prm_model_name) : GgafDxModel(prm_model_name) {
     _TRACE3_("GgafDxSpriteSetModel::GgafDxSpriteSetModel(" << _model_name << ")");
 
     _model_width_px = 32.0f;

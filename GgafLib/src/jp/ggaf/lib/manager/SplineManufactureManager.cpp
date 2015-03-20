@@ -14,7 +14,7 @@ SplineManufactureManager::SplineManufactureManager(const char* prm_manager_name)
     GgafResourceManager<SplineManufacture> (prm_manager_name) {
 }
 
-SplineManufacture* SplineManufactureManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) {
+SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_idstr, void* prm_pConnector) {
     _TRACE_("SplineManufactureManager::processCreateResource idstr="<<prm_idstr<<"");
 
     frame spent_frame = 0;
@@ -220,7 +220,7 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
     return pSplManuf;
 }
 
-GgafResourceConnection<SplineManufacture>* SplineManufactureManager::processCreateConnection(const char* prm_idstr, SplineManufacture* prm_pResource) {
+GgafResourceConnection<SplineManufacture>* SplineManufactureManager::processCreateConnection(char* prm_idstr, SplineManufacture* prm_pResource) {
     _TRACE3_(" SplineManufactureManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
     SplineManufactureConnection* pConne = NEW SplineManufactureConnection(prm_idstr, prm_pResource);
     _TRACE3_(" SplineManufactureManager::processCreateConnection "<<prm_idstr<<" を生成終了。");

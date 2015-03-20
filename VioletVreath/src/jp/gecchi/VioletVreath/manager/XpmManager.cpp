@@ -13,7 +13,7 @@ XpmManager::XpmManager(const char* prm_manager_name) :
     GgafResourceManager<GgafCore::GgafXpm> (prm_manager_name) {
 }
 
-GgafXpm* XpmManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) {
+GgafXpm* XpmManager::processCreateResource(char* prm_idstr, void* prm_pConnector) {
     GgafXpm* pResource = nullptr;
 
     if (strcmp("jiki", prm_idstr) == 0) {
@@ -316,7 +316,7 @@ GgafXpm* XpmManager::processCreateResource(const char* prm_idstr, void* prm_pCon
     return pResource;
 }
 
-GgafResourceConnection<GgafCore::GgafXpm>* XpmManager::processCreateConnection(const char* prm_idstr, GgafXpm* prm_pResource) {
+GgafResourceConnection<GgafCore::GgafXpm>* XpmManager::processCreateConnection(char* prm_idstr, GgafXpm* prm_pResource) {
     _TRACE3_(" XpmManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
     XpmConnection* pConne = NEW XpmConnection(prm_idstr, prm_pResource);
     _TRACE3_(" XpmManager::processCreateConnection "<<prm_idstr<<" を生成終了。");

@@ -23,9 +23,9 @@ public:
      */
     GgafDxTextureManager(const char* prm_manager_name);
 
-    GgafCore::GgafResourceConnection<GgafDxTexture>* processCreateConnection(const char* prm_idstr, GgafDxTexture* prm_pResource) override;
+    GgafCore::GgafResourceConnection<GgafDxTexture>* processCreateConnection(char* prm_idstr, GgafDxTexture* prm_pResource) override;
 
-    GgafDxTexture* processCreateResource(const char* prm_idstr, void* prm_pConnector) override;
+    GgafDxTexture* processCreateResource(char* prm_idstr, void* prm_pConnector) override;
 
     void releaseAll();
 

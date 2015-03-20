@@ -38,7 +38,7 @@ void GgafDxSeTransmitterForActor::set(int prm_id, const char* prm_se_key, int pr
 }
 
 void GgafDxSeTransmitterForActor::set(int prm_id, const char* prm_se_key) {
-    std::string ch_key = std::string(prm_se_key) + "_CH";
+    std::string ch_key = std::string(prm_se_key) + std::string("_CH");
     if (GgafRepeatSeq::isExist(ch_key)) {
         set(prm_id, prm_se_key, GgafRepeatSeq::nextVal(ch_key));
     } else {

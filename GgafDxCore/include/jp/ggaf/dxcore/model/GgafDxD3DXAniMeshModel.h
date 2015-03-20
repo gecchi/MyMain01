@@ -36,7 +36,7 @@ public:
      * @param prm_model モデルの識別名。".x"を追加すると定義Xファイル名になる。
      * @return
      */
-    GgafDxD3DXAniMeshModel(const char* prm_model);
+    GgafDxD3DXAniMeshModel(char* prm_model);
 
     virtual HRESULT draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num = 1) override;
 

@@ -19,13 +19,14 @@ if (GgafRepeatSeq::_is_lock) { Sleep(1); goto wait; } \
 } while(0)
 
 
-void GgafRepeatSeq::create(std::string& ID, int min, int max) {
+void GgafRepeatSeq::create(std::string ID, int min, int max) {
 #ifdef MY_DEBUG
     if (isExist(ID)) {
         throwGgafCriticalException("GgafRepeatSeq::create() ID="<<ID<<"は既に存在します(1)");
     }
 #endif
     _TRACE_("シークエンスを作成します。 GgafRepeatSeq::create("<<ID<<","<<min<<","<<max<<")");
+    mapSeq.insert(std::make_pair(ID, Seq()));
     mapSeq[ID].init(min, max);
 }
 
@@ -36,6 +37,7 @@ void GgafRepeatSeq::create(const char* ID, int min, int max) {
     }
 #endif
     _TRACE_("シークエンスを作成します。 GgafRepeatSeq::create("<<ID<<","<<min<<","<<max<<")");
+    mapSeq.insert(std::make_pair(std::string(ID), Seq()));
     mapSeq[ID].init(min, max);
 }
 void GgafRepeatSeq::set(std::string& ID, int val) {

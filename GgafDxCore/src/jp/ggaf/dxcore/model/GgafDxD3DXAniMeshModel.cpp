@@ -14,7 +14,7 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxD3DXAniMeshModel::GgafDxD3DXAniMeshModel(const char* prm_model_name) : GgafDxModel(prm_model_name) {
+GgafDxD3DXAniMeshModel::GgafDxD3DXAniMeshModel(char* prm_model_name) : GgafDxModel(prm_model_name) {
     _pAH = nullptr;
     _pFR = nullptr;
     _pAcBase = nullptr;

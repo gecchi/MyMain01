@@ -23,9 +23,9 @@ public:
      */
     SplineLineManager(const char* prm_manager_name);
 
-    GgafLib::SplineLine* processCreateResource(const char* prm_idstr, void* prm_pConnector) override;
+    GgafLib::SplineLine* processCreateResource(char* prm_idstr, void* prm_pConnector) override;
 
-    GgafCore::GgafResourceConnection<GgafLib::SplineLine>* processCreateConnection(const char* prm_idstr, GgafLib::SplineLine* prm_pResource) override;
+    GgafCore::GgafResourceConnection<GgafLib::SplineLine>* processCreateConnection(char* prm_idstr, GgafLib::SplineLine* prm_pResource) override;
 
 
     virtual ~SplineLineManager() {

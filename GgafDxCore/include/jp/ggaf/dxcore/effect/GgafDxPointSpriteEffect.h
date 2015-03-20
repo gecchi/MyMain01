@@ -32,7 +32,7 @@ public:
      * @param prm_effect_name エフェクト識別名。".fx"を追加するとエフェクトファイル名になる。
      * @return
      */
-    GgafDxPointSpriteEffect(const char* prm_effect_name);
+    GgafDxPointSpriteEffect(char* prm_effect_name);
 
 
     virtual void setParamPerFrame() override;

@@ -20,9 +20,9 @@ public:
      */
     SplineManufactureManager(const char* prm_manager_name);
 
-    SplineManufacture* processCreateResource(const char* prm_idstr, void* prm_pConnector) override;
+    SplineManufacture* processCreateResource(char* prm_idstr, void* prm_pConnector) override;
 
-    GgafCore::GgafResourceConnection<SplineManufacture>* processCreateConnection(const char* prm_idstr, SplineManufacture* prm_pResource) override;
+    GgafCore::GgafResourceConnection<SplineManufacture>* processCreateConnection(char* prm_idstr, SplineManufacture* prm_pResource) override;
 
     virtual ~SplineManufactureManager() {
     }

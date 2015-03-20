@@ -27,7 +27,7 @@ public:
      * @param prm_effect_name エフェクト識別名。".fx"を追加するとエフェクトファイル名になる。
      * @return
      */
-    GgafDxD3DXAniMeshEffect(const char* prm_effect_name);
+    GgafDxD3DXAniMeshEffect(char* prm_effect_name);
 
 
     virtual void setParamPerFrame() override;

@@ -23,9 +23,9 @@ public:
      */
     GgafDxBgmManager(const char* prm_manager_name);
 
-    GgafDxBgm* processCreateResource(const char* prm_idstr, void* prm_pConnector) override;
+    GgafDxBgm* processCreateResource(char* prm_idstr, void* prm_pConnector) override;
 
-    GgafCore::GgafResourceConnection<GgafDxBgm>* processCreateConnection(const char* prm_idstr, GgafDxBgm* prm_pResource) override;
+    GgafCore::GgafResourceConnection<GgafDxBgm>* processCreateConnection(char* prm_idstr, GgafDxBgm* prm_pResource) override;
 
     /**
      * 現在演奏中のBGMのボリュームを更新 .

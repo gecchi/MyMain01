@@ -12,7 +12,7 @@ SplineLineManager::SplineLineManager(const char* prm_manager_name) :
     GgafResourceManager<GgafLib::SplineLine> (prm_manager_name) {
 }
 
-SplineLine* SplineLineManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) {
+SplineLine* SplineLineManager::processCreateResource(char* prm_idstr, void* prm_pConnector) {
     SplineLine* pResource = nullptr;
 
     if (strcmp("Spl_001", prm_idstr) == 0) {
@@ -126,7 +126,7 @@ SplineLine* SplineLineManager::processCreateResource(const char* prm_idstr, void
     return pResource;
 }
 
-GgafResourceConnection<GgafLib::SplineLine>* SplineLineManager::processCreateConnection(const char* prm_idstr, SplineLine* prm_pResource) {
+GgafResourceConnection<GgafLib::SplineLine>* SplineLineManager::processCreateConnection(char* prm_idstr, SplineLine* prm_pResource) {
     _TRACE3_(" SplineLineManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
     SplineLineConnection* pConne = NEW SplineLineConnection(prm_idstr, prm_pResource);
     _TRACE3_(" SplineLineManager::processCreateConnection "<<prm_idstr<<" を生成終了。");

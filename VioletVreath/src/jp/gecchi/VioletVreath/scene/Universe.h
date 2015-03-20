@@ -9,8 +9,8 @@
 
 /**
  * この世が保持する CameraWorkerManager に接続し、コネクションを取得。
- * X：識別文字列（CameraWorkerManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) の prm_idstr に渡る)
- * また、CameraWorkerManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) の prm_p には nullptr がセットされている。
+ * X：識別文字列（CameraWorkerManager::processCreateResource(char* prm_idstr, void* prm_pConnector) の prm_idstr に渡る)
+ * また、CameraWorkerManager::processCreateResource(char* prm_idstr, void* prm_pConnector) の prm_p には nullptr がセットされている。
  */
 #define getConnection_CameraWorkerManager(X) ((VioletVreath::CameraWorkerConnection*)P_GOD->getUniverse()->pCamWorkerManager_->connect((X), this))
 

@@ -8,27 +8,41 @@ using namespace GgafCore;
 GgafGroupHead::GgafGroupHead(actorkind prm_kind, GgafStatus* prm_pStat) : GgafActor("GROUP", prm_pStat) {
     _obj_class |= Obj_GgafGroupHead;
     _class_name = "GgafGroupHead";
-
-    char aChar_strbit[33];
-    UTIL::strbin(prm_kind, aChar_strbit);
-    std::stringstream ss;
-    ss << "kind=" << aChar_strbit << "";
-    std::string name = ss.str();
-    strcpy(_name, name.c_str());
-
     _kind = prm_kind;
     setHitAble(false);
     _pSceneDirector = nullptr;
-}
 
-void GgafGroupHead::setKind(actorkind prm_kind) {
-    char aChar_strbit[33];
-    UTIL::strbin(prm_kind, aChar_strbit);
+#ifdef MY_DEBUG
+    //デバッグ用。名前に種別ビットを表示
+    GGAF_DELETEARR(_name);
+    const int bitnum = 32;
+    char aChar_strbit[bitnum+1];
+    UTIL::strbin(prm_kind, aChar_strbit, bitnum);
     std::stringstream ss;
     ss << "kind=" << aChar_strbit << "";
     std::string name = ss.str();
+    int len = strlen(name.c_str());
+    _name = NEW char[len+1];
     strcpy(_name, name.c_str());
+#endif
+}
+
+void GgafGroupHead::setKind(actorkind prm_kind) {
     _kind = prm_kind;
+
+#ifdef MY_DEBUG
+    //デバッグ用。名前の種別ビット表示を更新
+    GGAF_DELETEARR(_name);
+    const int bitnum = 32;
+    char aChar_strbit[bitnum+1];
+    UTIL::strbin(prm_kind, aChar_strbit, bitnum);
+    std::stringstream ss;
+    ss << "kind=" << aChar_strbit << "";
+    std::string name = ss.str();
+    int len = strlen(name.c_str());
+    _name = NEW char[len+1];
+    strcpy(_name, name.c_str());
+#endif
 }
 
 GgafSceneDirector* GgafGroupHead::getMySceneDirector() {

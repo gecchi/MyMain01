@@ -15,7 +15,7 @@ D3DXMACRO GgafDxEffect::_aD3DXMacro_Defines[3] =
     { nullptr, nullptr }
 };
 
-GgafDxEffect::GgafDxEffect(const char* prm_effect_name) : GgafObject() {
+GgafDxEffect::GgafDxEffect(char* prm_effect_name) : GgafObject() {
     _TRACE4_("GgafDxEffect::GgafDxEffect(" << prm_effect_name << ")");
     _effect_name = NEW char[51];
     strcpy(_effect_name, prm_effect_name);

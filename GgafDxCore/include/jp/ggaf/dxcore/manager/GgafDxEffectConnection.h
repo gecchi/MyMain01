@@ -22,7 +22,7 @@ public:
      * @param prm_idstr エフェクト識別名(＝ファイル名)
      * @param prm_pEffect エフェクト
      */
-    GgafDxEffectConnection(const char* prm_idstr, GgafDxEffect* prm_pEffect);
+    GgafDxEffectConnection(char* prm_idstr, GgafDxEffect* prm_pEffect);
 
     /**
      * オーバーライド

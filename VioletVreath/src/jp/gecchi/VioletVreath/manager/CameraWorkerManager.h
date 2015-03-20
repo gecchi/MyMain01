@@ -19,9 +19,9 @@ class CameraWorkerManager : public GgafCore::GgafResourceManager<CameraWorker> {
 public:
     CameraWorkerManager(const char* prm_manager_name);
 
-    CameraWorker* processCreateResource(const char* prm_idstr, void* prm_pConnector) override;
+    CameraWorker* processCreateResource(char* prm_idstr, void* prm_pConnector) override;
 
-    GgafCore::GgafResourceConnection<CameraWorker>* processCreateConnection(const char* prm_idstr, CameraWorker* prm_pResource) override;
+    GgafCore::GgafResourceConnection<CameraWorker>* processCreateConnection(char* prm_idstr, CameraWorker* prm_pResource) override;
 
     virtual ~CameraWorkerManager() {
     }

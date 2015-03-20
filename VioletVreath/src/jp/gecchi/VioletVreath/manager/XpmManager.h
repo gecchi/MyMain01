@@ -22,9 +22,9 @@ public:
      */
     XpmManager(const char* prm_manager_name);
 
-    GgafCore::GgafXpm* processCreateResource(const char* prm_idstr, void* prm_pConnector) override;
+    GgafCore::GgafXpm* processCreateResource(char* prm_idstr, void* prm_pConnector) override;
 
-    GgafCore::GgafResourceConnection<GgafCore::GgafXpm>* processCreateConnection(const char* prm_idstr, GgafCore::GgafXpm* prm_pResource) override;
+    GgafCore::GgafResourceConnection<GgafCore::GgafXpm>* processCreateConnection(char* prm_idstr, GgafCore::GgafXpm* prm_pResource) override;
 
 
     virtual ~XpmManager() {

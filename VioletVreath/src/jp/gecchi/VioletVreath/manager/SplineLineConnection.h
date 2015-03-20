@@ -21,7 +21,7 @@ public:
      * @param prm_idstr 識別名
      * @param prm_pSpl3D SplineLineオブジェクト
      */
-    SplineLineConnection(const char* prm_idstr, GgafLib::SplineLine* prm_pSpl3D);
+    SplineLineConnection(char* prm_idstr, GgafLib::SplineLine* prm_pSpl3D);
 
     void processReleaseResource(GgafLib::SplineLine* prm_pResource);
 

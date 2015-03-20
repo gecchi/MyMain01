@@ -13,7 +13,7 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxMorphMeshModel::GgafDxMorphMeshModel(const char* prm_model_name) : GgafDxModel(prm_model_name) {
+GgafDxMorphMeshModel::GgafDxMorphMeshModel(char* prm_model_name) : GgafDxModel(prm_model_name) {
     _TRACE3_("GgafDxMorphMeshModel::GgafDxMorphMeshModel(" << _model_name << ")");
     _TRACE_("GgafDxMorphMeshModel::GgafDxMorphMeshModel(" << _model_name << ") Begin");
     // 下位実装クラスが指定するモデル名は"M/4/xxxxx"という形式で、GgafDxModelManagerは

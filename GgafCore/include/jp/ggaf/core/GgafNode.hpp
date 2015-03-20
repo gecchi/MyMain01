@@ -375,13 +375,21 @@ GgafNode<T>::GgafNode(const char* prm_name) :
     _is_last_flg(false),
     _sub_num(0)
 {
-#ifdef MY_DEBUG
-    if (strlen(prm_name) > 49) {
-        throwGgafCriticalException("[GgafNode コンストラクタ Error! prm_name の文字数オーバー prm_name="<<prm_name<<"");
-    }
-#endif
-    _name = NEW char[51];
+    int len = strlen(prm_name);
+    _name = NEW char[len+1];
     strcpy(_name, prm_name);
+
+//#ifdef MY_DEBUG
+//    if (strlen(prm_name) > 49) {
+//        throwGgafCriticalException("[GgafNode コンストラクタ Error! prm_name の文字数オーバー prm_name="<<prm_name<<"");
+//    }
+//    if (strlen(prm_name) == 0) {
+//        throwGgafCriticalException("[GgafNode コンストラクタ Error! prm_name の文字数が0prm_name="<<prm_name<<"");
+//
+//    }
+//#endif
+//    _name = NEW char[51];
+//    strcpy(_name, prm_name);
 }
 
 template<class T>

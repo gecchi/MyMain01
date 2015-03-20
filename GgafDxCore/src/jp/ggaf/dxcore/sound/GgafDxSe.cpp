@@ -10,7 +10,7 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxSe::GgafDxSe(const char* prm_wave_key) : GgafObject() {
+GgafDxSe::GgafDxSe(char* prm_wave_key) : GgafObject() {
     if (GgafDxSound::_pIDirectSound8 == nullptr) {
         throwGgafCriticalException("GgafDxSe::GgafDxSe("<<prm_wave_key<<") DirectSound ‚ªA‚Ü‚¾‰Šú‰»‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB");
     }

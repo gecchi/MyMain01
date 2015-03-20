@@ -95,7 +95,6 @@ void RankUpStageController::processBehavior() {
             break;
         }
 
-
         case PROG_PLAY: {
             if (pProg->isJustChanged()) {
             }
@@ -139,8 +138,8 @@ void RankUpStageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
                                        "this="<<NODE_INFO<<" prm_pSource="<<prm_pSource);
         }
     }
-
 }
+
 void RankUpStageController::sayonaraRankUpStages() {
     if (getSubFirst()) {
         GgafScene* pRankUpStage = getSubFirst()->getPrev();//last

@@ -7,7 +7,7 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxSpriteEffect::GgafDxSpriteEffect(const char* prm_effect_name) : GgafDxEffect(prm_effect_name) {
+GgafDxSpriteEffect::GgafDxSpriteEffect(char* prm_effect_name) : GgafDxEffect(prm_effect_name) {
     GgafDxCamera* const pCam = P_GOD->getUniverse()->getCamera();
     //シェーダー共通のグローバル変数設定
     HRESULT hr;

@@ -18,7 +18,7 @@ public:
     D3DXHANDLE _h_reflectance;
 
 public:
-    GgafDxCubeMapMeshEffect(const char* prm_effect_name);
+    GgafDxCubeMapMeshEffect(char* prm_effect_name);
 
     virtual ~GgafDxCubeMapMeshEffect(); //デストラクタ
 

@@ -182,6 +182,7 @@ void GgafDxUniverse::draw() {
                                             ((GgafDxScene*)pDrawActor->getPlatformScene())->_master_alpha
                                          );
 
+
                 //”¼“§–¾—v‘f‚ ‚è‚Ìê‡ƒJƒŠƒ“ƒO‚ðˆêŽžOFF
                 if (pDrawActor->_alpha < 1.0f) {
                     pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);

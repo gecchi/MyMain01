@@ -15,7 +15,7 @@ class GgafDxWorldBoundEffect : public GgafDxMorphMeshEffect {
     friend class GgafDxEffectManager;
 
 public:
-    GgafDxWorldBoundEffect(const char* prm_effect_name);
+    GgafDxWorldBoundEffect(char* prm_effect_name);
 
     virtual ~GgafDxWorldBoundEffect(); //デストラクタ
 };

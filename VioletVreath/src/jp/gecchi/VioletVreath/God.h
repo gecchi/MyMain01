@@ -38,13 +38,13 @@ namespace VioletVreath {
 
 /**
  * 神が保持する DepositoryManager に接続し、コネクションを取得。
- * X：識別文字列（DepositoryManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) の prm_idstr に渡る)
+ * X：識別文字列（DepositoryManager::processCreateResource(char* prm_idstr, void* prm_pConnector) の prm_idstr に渡る)
  */
 #define getConnection_DepositoryManager(X) ((VioletVreath::DepositoryConnection*)(P_GOD->pDepoManager_->connect((X), this)))
 
 /**
  * 神が保持する SplineLineManager に接続し、コネクションを取得。
- * X：識別文字列（SplineLineManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) の prm_idstr に渡る)
+ * X：識別文字列（SplineLineManager::processCreateResource(char* prm_idstr, void* prm_pConnector) の prm_idstr に渡る)
  */
 #define getConnection_SplineLineManager(X)   ((VioletVreath::SplineLineConnection*)(P_GOD->pSpl3DManager_->connect((X), this)))
 

@@ -67,7 +67,7 @@ public:
      * @param min 最小値
      * @param max 最大値
      */
-    static void create(std::string& ID, int min, int max);
+    static void create(std::string ID, int min, int max);
     static void create(const char* ID, int min, int max);
     /**
      * IDの順序オブジェクトが作成済みか調べる .

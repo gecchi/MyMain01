@@ -9,7 +9,7 @@ GgafDxBgmManager::GgafDxBgmManager(const char* prm_manager_name) :
     GgafResourceManager<GgafDxBgm> (prm_manager_name) {
 }
 
-GgafDxBgm* GgafDxBgmManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) {
+GgafDxBgm* GgafDxBgmManager::processCreateResource(char* prm_idstr, void* prm_pConnector) {
     GgafDxBgm* pResourceBgm = NEW GgafDxBgm(prm_idstr);
     return pResourceBgm;
 }
@@ -28,7 +28,7 @@ void GgafDxBgmManager::updateVolume() {
     }
 }
 
-GgafResourceConnection<GgafDxBgm>* GgafDxBgmManager::processCreateConnection(const char* prm_idstr, GgafDxBgm* prm_pResource) {
+GgafResourceConnection<GgafDxBgm>* GgafDxBgmManager::processCreateConnection(char* prm_idstr, GgafDxBgm* prm_pResource) {
     _TRACE3_(" GgafDxBgmManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
     GgafDxBgmConnection* pConne = NEW GgafDxBgmConnection(prm_idstr, prm_pResource);
     _TRACE3_(" GgafDxBgmManager::processCreateConnection "<<prm_idstr<<" を生成終了。");

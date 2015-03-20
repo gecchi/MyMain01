@@ -21,7 +21,7 @@ public:
      * @param prm_idstr モデル識別名
      * @param prm_pModel リソースとなるモデル
      */
-    GgafDxModelConnection(const char* prm_idstr, GgafDxModel* prm_pModel);
+    GgafDxModelConnection(char* prm_idstr, GgafDxModel* prm_pModel);
 
     void processReleaseResource(GgafDxModel* prm_pResource);
 

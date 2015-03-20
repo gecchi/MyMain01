@@ -52,21 +52,21 @@ private:
     };
 
 private:
-    GgafDxD3DXMeshModel*         createD3DXMeshModel(const char* prm_model_name, DWORD prm_dwOptions);
-    GgafDxD3DXAniMeshModel*      createD3DXAniMeshModel(const char* prm_model_name);
-    GgafDxD3DXMeshModel*         createDynaMeshModel(const char* prm_model_name);
-    GgafDxSpriteModel*           createSpriteModel(const char* prm_model_name);
-    GgafDxSpriteSetModel*        createSpriteSetModel(const char* prm_model_name);
-    GgafDxBoardModel*            createBoardModel(const char* prm_model_name);
-    GgafDxBoardSetModel*         createBoardSetModel(const char* prm_model_name);
-    GgafDxMeshModel*             createMeshModel(const char* prm_model_name);
-    GgafDxMeshSetModel*          createMeshSetModel(const char* prm_model_name);
-    GgafDxCubeMapMeshModel*      createCubeMapMeshModel(const char* prm_model_name);
-    GgafDxCubeMapMeshSetModel*   createCubeMapMeshSetModel(const char* prm_model_name);
-    GgafDxMorphMeshModel*        createMorphMeshModel(const char* prm_model_name);
-    GgafDxCubeMapMorphMeshModel* createCubeMapMorphMeshModel(const char* prm_model_name);
-    GgafDxWorldBoundModel*       createWorldBoundModel(const char* prm_model_name);
-    GgafDxPointSpriteModel*      createPointSpriteModel(const char* prm_model_name);
+    GgafDxD3DXMeshModel*         createD3DXMeshModel(char* prm_model_name, DWORD prm_dwOptions);
+    GgafDxD3DXAniMeshModel*      createD3DXAniMeshModel(char* prm_model_name);
+    GgafDxD3DXMeshModel*         createDynaMeshModel(char* prm_model_name);
+    GgafDxSpriteModel*           createSpriteModel(char* prm_model_name);
+    GgafDxSpriteSetModel*        createSpriteSetModel(char* prm_model_name);
+    GgafDxBoardModel*            createBoardModel(char* prm_model_name);
+    GgafDxBoardSetModel*         createBoardSetModel(char* prm_model_name);
+    GgafDxMeshModel*             createMeshModel(char* prm_model_name);
+    GgafDxMeshSetModel*          createMeshSetModel(char* prm_model_name);
+    GgafDxCubeMapMeshModel*      createCubeMapMeshModel(char* prm_model_name);
+    GgafDxCubeMapMeshSetModel*   createCubeMapMeshSetModel(char* prm_model_name);
+    GgafDxMorphMeshModel*        createMorphMeshModel(char* prm_model_name);
+    GgafDxCubeMapMorphMeshModel* createCubeMapMorphMeshModel(char* prm_model_name);
+    GgafDxWorldBoundModel*       createWorldBoundModel(char* prm_model_name);
+    GgafDxPointSpriteModel*      createPointSpriteModel(char* prm_model_name);
     void setMaterial(Frm::Mesh* in_pMeshesFront,
                      int* pOut_material_num,
                      D3DMATERIAL9**                pOut_paMaterial,
@@ -148,7 +148,7 @@ public:
      * @param prm_p 自由パラメータ、現在未使用
      * @return モデルオブジェクト
      */
-    GgafDxModel* processCreateResource(const char* prm_idstr, void* prm_pConnector) override;
+    GgafDxModel* processCreateResource(char* prm_idstr, void* prm_pConnector) override;
 
     /**
      * GgafDxD3DXMeshModel オブジェクトを再構築する。 .
@@ -186,7 +186,7 @@ public:
     /**
      * オーバーライド
      */
-    GgafCore::GgafResourceConnection<GgafDxModel>* processCreateConnection(const char* prm_idstr, GgafDxModel* prm_pResource) override;
+    GgafCore::GgafResourceConnection<GgafDxModel>* processCreateConnection(char* prm_idstr, GgafDxModel* prm_pResource) override;
 
     /**
      * モデルオブジェクトリストの各インスタンスの内容を再構築。 .
