@@ -8,12 +8,14 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxModel::GgafDxModel(char* prm_model_name) : GgafObject(),
+GgafDxModel::GgafDxModel(const char* prm_model_name) : GgafObject(),
 _pTexBlinker(new GgafDxTextureBlinker(this)) {
     _TRACE3_("GgafDxModel::GgafDxModel(" << prm_model_name << ")");
-    _id = GgafDxModelManager::getNextId();
-    _model_name = NEW char[51];
+
+    int len = strlen(prm_model_name);
+    _model_name = NEW char[len+1];
     strcpy(_model_name, prm_model_name);
+
     _paMaterial_default = nullptr;
     _num_materials = 0;
     _papTextureConnection = nullptr;

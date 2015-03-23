@@ -9,6 +9,8 @@
 #include "jp/ggaf/lib/scene/WalledSectionScene.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/lib/DefaultGod.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -79,7 +81,8 @@ void WallPartsActor::processPreDraw() {
 }
 
 bool WallPartsActor::isOutOfUniverse() const {
-    if (_x+_wall_dep < GgafDxUniverse::_x_gone_left) {
+    DefaultUniverse* pUniverse =  P_GOD->getUniverse();
+    if (_x+_wall_dep < pUniverse->_x_gone_left) {
         return true;
     } else {
         return false;

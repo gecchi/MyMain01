@@ -61,7 +61,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     //\’z
     buildWalledScene(
         wall_dep*scale_r, wall_width*scale_r, wall_height*scale_r,
-        GgafDxUniverse::_x_gone_right,
+        P_GOD->getUniverse()->_x_gone_right,
         (WalledSectionScene**)&apSection, 4,
         pDepo_wall ,pDepo_prism
     );

@@ -1,7 +1,8 @@
 #include "WallAABTestActor.h"
+#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
-#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/gecchi/VioletVreath/God.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -23,7 +24,8 @@ void WallAABTestActor::onCreateModel() {
 }
 
 bool WallAABTestActor::isOutOfUniverse() const {
-    if (GgafDxUniverse::_x_gone_left < _x) {
+    Universe* pUniverse =  P_GOD->getUniverse();
+    if (pUniverse->_x_gone_left < _x) {
         return false;
     }
     return true;

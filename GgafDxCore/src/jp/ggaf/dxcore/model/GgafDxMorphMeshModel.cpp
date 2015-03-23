@@ -13,7 +13,7 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxMorphMeshModel::GgafDxMorphMeshModel(char* prm_model_name) : GgafDxModel(prm_model_name) {
+GgafDxMorphMeshModel::GgafDxMorphMeshModel(const char* prm_model_name) : GgafDxModel(prm_model_name) {
     _TRACE3_("GgafDxMorphMeshModel::GgafDxMorphMeshModel(" << _model_name << ")");
     _TRACE_("GgafDxMorphMeshModel::GgafDxMorphMeshModel(" << _model_name << ") Begin");
     // 下位実装クラスが指定するモデル名は"M/4/xxxxx"という形式で、GgafDxModelManagerは
@@ -23,21 +23,22 @@ GgafDxMorphMeshModel::GgafDxMorphMeshModel(char* prm_model_name) : GgafDxModel(p
     // モーフターゲット数が違うモデルは、別モデルという扱いにするため、モデル名に数値を残そう
     // モデル名からフターゲット数を取得
     _TRACE_("GgafDxMorphMeshModel prm_model_name="<<prm_model_name);
-    char nm[51];
-    strcpy(nm, prm_model_name);
-    const char* pT = strtok(nm, "/" );
-    int num = (int)strtol(pT, nullptr, 10);
-    pT = strtok(nullptr, "/");
-    if (pT == nullptr) {
+
+
+
+
+    std::string model_name = std::string(prm_model_name);
+    std::vector<std::string> names = UTIL::split(model_name, "/", 1);
+    if (names.size() != 2) {
         throwGgafCriticalException("GgafDxMorphMeshModel::GgafDxMorphMeshModel モデルIDにモーフターゲット数が指定されてません。prm_model_name="<<prm_model_name);
     } else {
-        _morph_target_num = num;
+        _morph_target_num = STOI(names[0]);
         _TRACE_("GgafDxMorphMeshModel モーフターゲット数は指定あり、_morph_target_num="<<_morph_target_num);
+        if (_morph_target_num > 6) {
+            _TRACE_("GgafDxMorphMeshModel::GgafDxMorphMeshModel モーフターゲット数が最大6個以上指定されてます。意図していますか？ _morph_target_num="<<_morph_target_num<<"/_model_name="<<_model_name);
+        }
     }
-    //_morph_target_num = (int)(*prm_model_name - '0'); //頭一文字の半角数字文字を数値に
-    if (_morph_target_num > 6) {
-        _TRACE_("GgafDxMorphMeshModel::GgafDxMorphMeshModel モーフターゲット数が最大6個以上指定されてます。意図していますか？ _morph_target_num="<<_morph_target_num<<"/_model_name="<<_model_name);
-    }
+
     _papModel3D = nullptr;
     _papMeshesFront = nullptr;
 

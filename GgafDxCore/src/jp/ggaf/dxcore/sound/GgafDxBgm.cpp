@@ -23,12 +23,16 @@ using namespace IkdLib;
 //    _pPcmPlayer = NEW PCMPlayer(GgafDxSound::_pIDirectSound8 , _pOggDecoder);
 //}
 
-GgafDxBgm::GgafDxBgm(char* prm_bgm_key) : GgafObject() {
+GgafDxBgm::GgafDxBgm(const char* prm_bgm_key) : GgafObject() {
     if (GgafDxSound::_pIDirectSound8 == nullptr) {
         throwGgafCriticalException("GgafDxBgm::GgafDxBgm("<<prm_bgm_key<<") DirectSound が、まだ初期化されていません。");
     }
-    std::string bgm_key = std::string(prm_bgm_key);
-    _ogg_file_name = (*GgafProperties::_pMapProperties)[bgm_key];
+
+    int len = strlen(prm_bgm_key);
+    _bgm_key = NEW char[len+1];
+    strcpy(_bgm_key, prm_bgm_key);
+
+    _ogg_file_name = (*GgafProperties::_pMapProperties)[std::string(_bgm_key)];
     if (_ogg_file_name == "") {
         throwGgafCriticalException("GgafDxBgm::GgafDxBgm("<<prm_bgm_key<<") プロパティファイルにキーがありません");
     }
@@ -117,6 +121,7 @@ GgafDxBgm::~GgafDxBgm() {
     GGAF_DELETE(_pOggDecoder);
     _TRACE_("GGAF_DELETE(_pOggResource);");
     GGAF_DELETE(_pOggResource);
+    GGAF_DELETEARR(_bgm_key);
     _TRACE_("GgafDxBgm::~GgafDxBgm() end");
 }
 

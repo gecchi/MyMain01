@@ -55,7 +55,8 @@ void EnemyHisbeLaserChip001::processBehaviorHeadChip() {
 
 void EnemyHisbeLaserChip001::processJudgement() {
     if (isOutOfUniverse()) {
-        if (_x >= GgafDxUniverse::_x_gone_right) {
+        Universe* pUniverse =  P_GOD->getUniverse();
+        if (_x >= pUniverse->_x_gone_right) {
             //WALLì‡é¿å±
         } else {
             sayonara();

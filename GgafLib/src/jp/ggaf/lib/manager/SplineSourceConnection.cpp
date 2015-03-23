@@ -4,7 +4,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-SplineSourceConnection::SplineSourceConnection(char* prm_idstr, SplineSource* prm_pResource) :
+SplineSourceConnection::SplineSourceConnection(const char* prm_idstr, SplineSource* prm_pResource) :
     GgafResourceConnection<SplineSource> (prm_idstr, prm_pResource) {
 }
 

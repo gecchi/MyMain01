@@ -99,13 +99,6 @@ public:
      * @param prm_str 描画文字列
      */
     virtual void update(coord X, coord Y, const char* prm_str);
-    /**
-     * 描画文字を更新設定  .
-     * @param X X座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
-     * @param Y Y座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
-     * @param prm_str 描画文字列
-     */
-    virtual void update(coord X, coord Y, char* prm_str);
 
     /**
      * 描画文字を更新設定  .
@@ -117,22 +110,9 @@ public:
     virtual void update(coord X, coord Y, coord Z, const char* prm_str);
     /**
      * 描画文字を更新設定  .
-     * @param X X座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
-     * @param Y Y座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
-     * @param Z プライオリティ(値が小さい方が手前)
-     * @param prm_str 描画文字列
-     */
-    virtual void update(coord X, coord Y, coord Z, char* prm_str);
-    /**
-     * 描画文字を更新設定  .
      * @param prm_str 描画文字列
      */
     virtual void update(const char* prm_str);
-    /**
-     * 描画文字を更新設定  .
-     * @param prm_str 描画文字列
-     */
-    virtual void update(char* prm_str);
 
     /**
      * 描画文字を更新設定 .
@@ -143,17 +123,6 @@ public:
      * @param prm_valign VALIGN_TOP:Y座標は文字列の高さの上辺／VALIGN_MIDDLE:Y座標は文字列の高さの真ん中／VALIGN_BOTTOM:Y座標は文字列の高さの底辺
      */
     virtual void update(coord X, coord Y, const char* prm_str,
-                        GgafDxAlign prm_align,
-                        GgafDxValign prm_valign);
-    /**
-     * 描画文字を更新設定  .
-     * @param X X座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
-     * @param Y Y座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
-     * @param prm_str 描画文字列
-     * @param prm_align ALIGN_LEFT:X座標は文字列の左端／ALIGN_CENTER:X座標は文字列の真ん中／ALIGN_RIGHT:X座標は右端
-     * @param prm_valign VALIGN_TOP:Y座標は文字列の高さの上辺／VALIGN_MIDDLE:Y座標は文字列の高さの真ん中／VALIGN_BOTTOM:Y座標は文字列の高さの底辺
-     */
-    virtual void update(coord X, coord Y, char* prm_str,
                         GgafDxAlign prm_align,
                         GgafDxValign prm_valign);
 
@@ -171,32 +140,11 @@ public:
                         GgafDxValign prm_valign);
     /**
      * 描画文字を更新設定  .
-     * @param X X座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
-     * @param Y Y座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
-     * @param Z プライオリティ(値が小さい方が手前)
-     * @param prm_str 描画文字列
-     * @param prm_align ALIGN_LEFT:X座標は文字列の左端／ALIGN_CENTER:X座標は文字列の真ん中／ALIGN_RIGHT:X座標は右端
-     * @param prm_valign VALIGN_TOP:Y座標は文字列の高さの上辺／VALIGN_MIDDLE:Y座標は文字列の高さの真ん中／VALIGN_BOTTOM:Y座標は文字列の高さの底辺
-     */
-    virtual void update(coord X, coord Y, coord Z, char* prm_str,
-                        GgafDxAlign prm_align,
-                        GgafDxValign prm_valign);
-    /**
-     * 描画文字を更新設定  .
      * @param prm_str 描画文字列
      * @param prm_align ALIGN_LEFT:X座標は文字列の左端／ALIGN_CENTER:X座標は文字列の真ん中／ALIGN_RIGHT:X座標は右端
      * @param prm_valign VALIGN_TOP:Y座標は文字列の高さの上辺／VALIGN_MIDDLE:Y座標は文字列の高さの真ん中／VALIGN_BOTTOM:Y座標は文字列の高さの底辺
      */
     virtual void update(const char* prm_str,
-                        GgafDxAlign prm_align,
-                        GgafDxValign prm_valign);
-    /**
-     * 描画文字を更新設定  .
-     * @param prm_str 描画文字列
-     * @param prm_align ALIGN_LEFT:X座標は文字列の左端／ALIGN_CENTER:X座標は文字列の真ん中／ALIGN_RIGHT:X座標は右端
-     * @param prm_valign VALIGN_TOP:Y座標は文字列の高さの上辺／VALIGN_MIDDLE:Y座標は文字列の高さの真ん中／VALIGN_BOTTOM:Y座標は文字列の高さの底辺
-     */
-    virtual void update(char* prm_str,
                         GgafDxAlign prm_align,
                         GgafDxValign prm_valign);
 

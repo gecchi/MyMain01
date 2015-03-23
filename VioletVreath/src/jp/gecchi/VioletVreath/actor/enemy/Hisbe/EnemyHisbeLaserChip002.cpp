@@ -77,13 +77,14 @@ void EnemyHisbeLaserChip002::processJudgement() {
 }
 
 bool EnemyHisbeLaserChip002::isOutOfUniverse() const {
+    Universe* pUniverse =  P_GOD->getUniverse();
     //EnemyHisbe出現時（壁ブロック配置時）はX軸方向の大抵空間外のため
-    if (GgafDxUniverse::_x_gone_left < _x) {
-        //if (_x < GgafDxUniverse::_x_gone_right) {
-            if (GgafDxUniverse::_y_gone_bottom < _y) {
-                if (_y < GgafDxUniverse::_y_gone_top) {
-                    if (GgafDxUniverse::_z_gone_near < _z) {
-                        if (_z < GgafDxUniverse::_z_gone_far) {
+    if (pUniverse->_x_gone_left < _x) {
+        //if (_x < pUniverse->_x_gone_right) {
+            if (pUniverse->_y_gone_bottom < _y) {
+                if (_y < pUniverse->_y_gone_top) {
+                    if (pUniverse->_z_gone_near < _z) {
+                        if (_z < pUniverse->_z_gone_far) {
                             return false;
                         }
                     }

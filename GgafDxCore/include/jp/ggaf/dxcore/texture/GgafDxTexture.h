@@ -35,7 +35,7 @@ public:
      * コンストラクタ<BR>
      * @param prm_texture_name モデル定義の識別名。".x"を追加すると定義Xファイル名になる。
      */
-    explicit GgafDxTexture(char* prm_texture_name);
+    explicit GgafDxTexture(const char* prm_texture_name);
 
     void restore();
 

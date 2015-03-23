@@ -5,6 +5,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Geria/EnemyGeria.h"
+#include "jp/gecchi/VioletVreath/God.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -34,7 +35,8 @@ void FormationGeria001::processBehavior() {
 }
 
 void FormationGeria001::processJudgement() {
-    if (_x < GgafDxUniverse::_x_gone_left) {
+    Universe* pUniverse =  P_GOD->getUniverse();
+    if (_x < pUniverse->_x_gone_left) {
         _TRACE_("FormationGeria001::processJudgement() èIóπ");
         sayonara();
     }

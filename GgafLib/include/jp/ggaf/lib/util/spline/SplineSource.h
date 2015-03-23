@@ -18,11 +18,11 @@ class SplineSource : public GgafCore::GgafObject {
 
 public:
     SplineLine* _pSp;
-    std::string _idstr;
+    char* _idstr;
     bool _is_create_SplineLine;
 
 public:
-    explicit SplineSource(char* prm_idstr);
+    explicit SplineSource(const char* prm_idstr);
 
     explicit SplineSource(SplineLine* prm_pSp);
 

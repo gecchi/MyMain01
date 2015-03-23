@@ -142,8 +142,8 @@ void MyShipScene::processBehavior() {
                 } else {
                     throwGgafCriticalException("VreathMagic‚ª‚ ‚è‚Ü‚¹‚ñB");
                 }
-
-                pMyShip_->_x = Universe::_x_gone_left + 1000;
+                Universe* pUniverse =  P_GOD->getUniverse();
+                pMyShip_->_x = pUniverse->_x_gone_left + 1000;
                 pMyShip_->can_control_ = true;
                 pMyShip_->is_diving_ = true;
                 pMyShip_->activate();

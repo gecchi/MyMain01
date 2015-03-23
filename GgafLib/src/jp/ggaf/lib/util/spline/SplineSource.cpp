@@ -4,19 +4,27 @@
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
 #include "jp/ggaf/lib/util/spline/SplineLine.h"
 #include "jp/ggaf/lib/GgafLibProperties.h"
+#include "jp/ggaf/lib/DefaultGod.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
 SplineSource::SplineSource(SplineLine* prm_pSp) : GgafObject() {
-    _idstr = "Nothing";
+    const char* idstr = "Nothing";
+    int len = strlen(idstr);
+    _idstr = NEW char[len+1];
+    strcpy(_idstr, idstr);
+
     _pSp = prm_pSp;
     _is_create_SplineLine = false;
 }
 
-SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
-    _idstr = std::string(prm_idstr);
+SplineSource::SplineSource(const char* prm_idstr)  : GgafObject() {
+    int len = strlen(prm_idstr);
+    _idstr = NEW char[len+1];
+    strcpy(_idstr, prm_idstr);
+
     double accuracy = 1.0;
     SplineLine::RotMat rotmat;
     std::string data_filename = PROPERTY::DIR_SPLINE + _idstr;// + ".spls";
@@ -99,24 +107,25 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
     if (d != 0 && d != 4) {
         throwGgafCriticalException("SplineSource::SplineSource "<<_idstr<<" [ADJUST_MAT] のデータ数が中途半端です。４列４行の行列を設定してください。");
     }
+    DefaultUniverse* pUniverse =  P_GOD->getUniverse();
     for (int i = 0; i < n; i++) {
-        if (p[i][0] > GgafDxUniverse::_x_gone_right*0.9999) {
-            p[i][0] = GgafDxUniverse::_x_gone_right*0.9999;
+        if (p[i][0] > pUniverse->_x_gone_right*0.9999) {
+            p[i][0] = pUniverse->_x_gone_right*0.9999;
         }
-        if (p[i][0] < GgafDxUniverse::_x_gone_left*0.9999) {
-            p[i][0] = GgafDxUniverse::_x_gone_left*0.9999;
+        if (p[i][0] < pUniverse->_x_gone_left*0.9999) {
+            p[i][0] = pUniverse->_x_gone_left*0.9999;
         }
-        if (p[i][1] > GgafDxUniverse::_y_gone_top*0.9999) {
-            p[i][1] = GgafDxUniverse::_y_gone_top*0.9999;
+        if (p[i][1] > pUniverse->_y_gone_top*0.9999) {
+            p[i][1] = pUniverse->_y_gone_top*0.9999;
         }
-        if (p[i][1] < GgafDxUniverse::_y_gone_bottom*0.9999) {
-            p[i][1] = GgafDxUniverse::_y_gone_bottom*0.9999;
+        if (p[i][1] < pUniverse->_y_gone_bottom*0.9999) {
+            p[i][1] = pUniverse->_y_gone_bottom*0.9999;
         }
-        if (p[i][2] > GgafDxUniverse::_z_gone_far*0.9999) {
-            p[i][2] = GgafDxUniverse::_z_gone_far*0.9999;
+        if (p[i][2] > pUniverse->_z_gone_far*0.9999) {
+            p[i][2] = pUniverse->_z_gone_far*0.9999;
         }
-        if (p[i][2] < GgafDxUniverse::_z_gone_near*0.9999) {
-            p[i][2] = GgafDxUniverse::_z_gone_near*0.9999;
+        if (p[i][2] < pUniverse->_z_gone_near*0.9999) {
+            p[i][2] = pUniverse->_z_gone_near*0.9999;
         }
     }
     if (d == 4) {
@@ -192,4 +201,5 @@ SplineSource::~SplineSource() {
     if (_is_create_SplineLine) {
         GGAF_DELETE(_pSp);
     }
+    GGAF_DELETEARR(_idstr);
 }

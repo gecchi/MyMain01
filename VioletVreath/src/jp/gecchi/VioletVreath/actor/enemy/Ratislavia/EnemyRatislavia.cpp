@@ -175,7 +175,8 @@ int EnemyRatislavia::isOutOfView() {
 }
 
 bool EnemyRatislavia::isOutOfUniverse() const {
-    if (GgafDxCore::GgafDxUniverse::_x_gone_left < _x) {
+    Universe* pUniverse =  P_GOD->getUniverse();
+    if (pUniverse->_x_gone_left < _x) {
         return false;
     } else {
         return true;

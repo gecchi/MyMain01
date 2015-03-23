@@ -25,9 +25,6 @@ public:
         float nx, ny, nz; // 法線
     };
 
-
-    /** [r]ID */
-    int _id;
     /** [r]最大可能同時描画セット数（キャラクタ数）*/
     int _set_num;
     /** [r]モデル定義の識別名。(50文字まで) */
@@ -71,7 +68,7 @@ public:
      * コンストラクタ<BR>
      * @param prm_model_name モデル定義の識別名。".x"を追加すると定義Xファイル名になる。
      */
-    explicit GgafDxModel(char* prm_model_name);
+    explicit GgafDxModel(const char* prm_model_name);
 
     char* getName(){
         return _model_name;

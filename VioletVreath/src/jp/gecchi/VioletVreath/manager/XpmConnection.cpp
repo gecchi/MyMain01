@@ -5,7 +5,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-XpmConnection::XpmConnection(char* prm_idstr, GgafCore::GgafXpm* prm_pResource) :
+XpmConnection::XpmConnection(const char* prm_idstr, GgafCore::GgafXpm* prm_pResource) :
     GgafResourceConnection<GgafCore::GgafXpm> (prm_idstr, prm_pResource) {
 }
 

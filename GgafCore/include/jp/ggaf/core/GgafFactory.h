@@ -236,20 +236,20 @@ public:
     template<class X>
     static X* create(void* p1, void* p2, void* p3) {
         //p1 : –¼Ì
-        X* p = NEW X((char*)p1);
+        X* p = NEW X((const char*)p1);
         return p;
     }
     template<class X>
     static X* create2(void* p1, void* p2, void* p3) {
         //p1 : –¼Ì
-        X* p = NEW X((char*)p1, (char*)p2);
+        X* p = NEW X((const char*)p1, (const char*)p2);
         return p;
     }
 
     template<class X>
     static X* createActor(void* p1, void* p2, void* p3) {
         //p1 : –¼Ì
-        X* p = NEW X((char*)p1);
+        X* p = NEW X((const char*)p1);
         return p;
     }
 
@@ -257,7 +257,7 @@ public:
     static X* createScene(void* p1, void* p2, void* p3) {
         //Scene¶¬‚Åˆê”Ô‘½‚¢Œ`‚Ìˆø”B
         //p1 : ¯•Ê–¼Ì
-        X* p = NEW X((char*)p1);
+        X* p = NEW X((const char*)p1);
         return p;
     }
 

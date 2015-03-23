@@ -111,8 +111,32 @@ public:
         }
         return r;
     }
-
-
+    /**
+     * デミリタで分割 .
+     * @param str 文字列
+     * @param delim 分割文字
+     * @param split_number_of_times 分割回数
+     * @return
+     */
+    static inline std::vector<std::string> split(std::string str, std::string delim, int split_number_of_times) {
+        std::vector<std::string> r;
+        size_t cutAt;
+        int cnt = 0;
+        while ((cutAt = str.find_first_of(delim)) != str.npos) {
+            if (cutAt > 0) {
+                r.push_back(str.substr(0, cutAt));
+            }
+            str = str.substr(cutAt + 1);
+            cnt++;
+            if (split_number_of_times <= cnt) {
+                break;
+            }
+        }
+        if (str.length() > 0) {
+            r.push_back(str);
+        }
+        return r;
+    }
 
     /**
      * 移動加速度を、「停止時移動距離」「現時点の速度」により求める .
@@ -338,20 +362,7 @@ public:
 //        return hash;
 //    }
 
-
-
     static inline const hashval easy_hash(const char* str) {
-        //APHash
-        hashval hash = 0xAAAAAAAA;
-        char c;
-        for (std::size_t i = 0; (c = *str++) > 0; i++) {
-            hash ^= ((i & 1) == 0) ? (  (hash <<  7) ^ c * (hash >> 3)) :
-                                     (~((hash << 11) + (c ^ (hash >> 5))));
-        }
-        return hash;
-    }
-
-    static inline const hashval easy_hash(char* str) {
         //APHash
         hashval hash = 0xAAAAAAAA;
         char c;

@@ -16,7 +16,7 @@ CameraWorkerManager::CameraWorkerManager(const char* prm_manager_name) :
     GgafResourceManager<CameraWorker> (prm_manager_name) {
 }
 
-CameraWorker* CameraWorkerManager::processCreateResource(char* prm_idstr, void* prm_pConnector) {
+CameraWorker* CameraWorkerManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) {
     CameraWorker* pResource = nullptr;
 
     if (strcmp("DefaultCamWorker", prm_idstr) == 0) {
@@ -47,7 +47,7 @@ CameraWorker* CameraWorkerManager::processCreateResource(char* prm_idstr, void* 
     return pResource;
 }
 
-GgafResourceConnection<CameraWorker>* CameraWorkerManager::processCreateConnection(char* prm_idstr, CameraWorker* prm_pResource) {
+GgafResourceConnection<CameraWorker>* CameraWorkerManager::processCreateConnection(const char* prm_idstr, CameraWorker* prm_pResource) {
     _TRACE3_(" CameraWorkerManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
     CameraWorkerConnection* pConne = NEW CameraWorkerConnection(prm_idstr, prm_pResource);
     _TRACE3_(" CameraWorkerManager::processCreateConnection "<<prm_idstr<<" を生成終了。");

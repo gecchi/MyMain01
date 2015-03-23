@@ -13,7 +13,7 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxCubeMapMorphMeshModel::GgafDxCubeMapMorphMeshModel(char* prm_model_name) : GgafDxMorphMeshModel(prm_model_name) {
+GgafDxCubeMapMorphMeshModel::GgafDxCubeMapMorphMeshModel(const char* prm_model_name) : GgafDxMorphMeshModel(prm_model_name) {
     _TRACE3_("GgafDxCubeMapMorphMeshModel::GgafDxCubeMapMorphMeshModel(" << _model_name << ")");
     _obj_model |= Obj_GgafDxCubeMapMorphMeshModel;
 }

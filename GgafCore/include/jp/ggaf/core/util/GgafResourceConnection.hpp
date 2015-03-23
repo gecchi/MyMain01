@@ -61,7 +61,7 @@ protected:
      * @param prm_idstr 識別名(29文字まで)
      * @param prm_pResource 使いまわす資源
      */
-    GgafResourceConnection(char* prm_idstr, T* prm_pResource);
+    GgafResourceConnection(const char* prm_idstr, T* prm_pResource);
 
     /**
      * デストラクタ<BR>
@@ -138,7 +138,7 @@ GgafResourceConnection<T>* GgafResourceConnection<T>::getNext() const {
 }
 
 template<class T>
-GgafResourceConnection<T>::GgafResourceConnection(char* prm_idstr, T* prm_pResource) : GgafObject() {
+GgafResourceConnection<T>::GgafResourceConnection(const char* prm_idstr, T* prm_pResource) : GgafObject() {
     _TRACE3_("GgafResourceConnection::GgafResourceConnection(prm_idstr = " <<  prm_idstr << ")");
     _is_closing_resource = false;
     _pResource = prm_pResource;
@@ -146,7 +146,9 @@ GgafResourceConnection<T>::GgafResourceConnection(char* prm_idstr, T* prm_pResou
     _pManager = nullptr;
     _num_connection = 0;
     _p_first_connector = nullptr;
-    _idstr = NEW char[51];
+
+    int len = strlen(prm_idstr);
+    _idstr = NEW char[len+1];
     strcpy(_idstr, prm_idstr);
 }
 

@@ -46,7 +46,7 @@ public:
      * コンストラクタ<BR>
      * @param prm_model_name スプライト定義の識別名。".psprx"を追加すると定義Xファイル名になる。
      */
-    GgafDxPointSpriteModel(char* prm_model_name);
+    GgafDxPointSpriteModel(const char* prm_model_name);
 
     virtual HRESULT draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num = 1) override;
 

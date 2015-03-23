@@ -15,7 +15,7 @@ using namespace GgafDxCore;
 
 DWORD GgafDxBoardModel::FVF = (D3DFVF_XYZ | D3DFVF_TEX1);
 
-GgafDxBoardModel::GgafDxBoardModel(char* prm_model_name) :
+GgafDxBoardModel::GgafDxBoardModel(const char* prm_model_name) :
     GgafDxModel(prm_model_name) {
     _TRACE3_("GgafDxBoardModel::GgafDxBoardModel(" << _model_name << ")");
     _model_width_px = 32.0f;

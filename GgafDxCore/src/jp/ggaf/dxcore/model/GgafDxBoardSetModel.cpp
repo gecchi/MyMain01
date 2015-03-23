@@ -14,7 +14,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 DWORD GgafDxBoardSetModel::FVF = (D3DFVF_XYZ | D3DFVF_PSIZE | D3DFVF_TEX1);
-GgafDxBoardSetModel::GgafDxBoardSetModel(char* prm_model_name) : GgafDxModel(prm_model_name) {
+GgafDxBoardSetModel::GgafDxBoardSetModel(const char* prm_model_name) : GgafDxModel(prm_model_name) {
     _TRACE3_("GgafDxBoardSetModel::GgafDxBoardSetModel(" << _model_name << ")");
 
     _model_width_px = 32.0f;
@@ -28,20 +28,25 @@ GgafDxBoardSetModel::GgafDxBoardSetModel(char* prm_model_name) : GgafDxModel(prm
     _paIndexParam = nullptr;
     _obj_model |= Obj_GgafDxBoardSetModel;
 
-    char nm[51];
-    strcpy(nm, prm_model_name);
-    const char* pT = strtok(nm, "/" );
-    int num = (int)strtol(pT, nullptr, 10);
-    pT = strtok(nullptr, "/");
-    if (pT == nullptr) {
-        _TRACE_("GgafDxBoardSetModel("<<prm_model_name<<") の同時描画セット数省略のため、最大の28がセットされます。");
-        _set_num = 28;
-    } else {
-        _set_num = num;
+
+
+    std::string model_name = std::string(prm_model_name);
+    std::vector<std::string> names = UTIL::split(model_name, "/", 1);
+    if (names.size() > 2) {
+        throwGgafCriticalException("GgafDxBoardSetModel::GgafDxBoardSetModel "<<
+                "prm_model_name には \"xxxxxx\" or \"8/xxxxx\" 形式を指定してください。 \n"<<
+                "実際の引数は、prm_idstr="<<prm_model_name);
+    }
+    if (names.size() == 2) {
+        _set_num = STOI(names[0]);
         if (_set_num > 28) {
             _TRACE_("GgafDxBoardSetModel("<<prm_model_name<<") の同時描画セット数オーバー。最大の28がセットですが、それ以上のセット数です。意図していますか？_set_num="<<_set_num);
         }
+    } else {
+        _TRACE_("GgafDxBoardSetModel("<<prm_model_name<<") の同時描画セット数省略のため、最大の28がセットされます。");
+        _set_num = 28;
     }
+
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel*)
     //で行うようにした。要参照。

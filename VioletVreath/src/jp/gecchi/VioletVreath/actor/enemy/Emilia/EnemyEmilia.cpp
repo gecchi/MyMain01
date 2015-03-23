@@ -6,6 +6,7 @@
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/gecchi/VioletVreath/God.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -31,9 +32,10 @@ void EnemyEmilia::onActive() {
     //ステータスリセット
     UTIL::resetEnemyEmiliaStatus(getStatus());
     setHitAble(true);
-    static coord appearances_renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 3;
-    static coord appearances_renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 3;
-    _x = GgafDxUniverse::_x_gone_right - 1000;
+    const coord appearances_renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 3;
+    const coord appearances_renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 3;
+    Universe* pUniverse =  P_GOD->getUniverse();
+    _x = pUniverse->_x_gone_right - 1000;
     _y = RND(-(appearances_renge_y/2) , +(appearances_renge_y/2));
     _z = RND(-(appearances_renge_z/2) , +(appearances_renge_z/2));
     GgafDxKuroko* const pKuroko = getKuroko();

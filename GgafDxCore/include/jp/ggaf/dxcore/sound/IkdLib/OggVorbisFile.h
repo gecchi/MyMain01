@@ -32,7 +32,7 @@ public:
     bool open(const char* filePath);
 
 protected:
-    char _filepath[256];	// ファイル名
+    char _filepath[1024];	// ファイル名
 };
 
 }

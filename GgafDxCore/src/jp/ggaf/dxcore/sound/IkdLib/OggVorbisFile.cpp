@@ -24,8 +24,7 @@ void OggVorbisFile::clear() {
 }
 
 OggVorbisResource* OggVorbisFile::createClone() {
-    OggVorbisFile * obj = NEW
-    OggVorbisFile;
+    OggVorbisFile * obj = NEW OggVorbisFile;
     if (obj->open(_filepath) == false) {
         return 0;
     }

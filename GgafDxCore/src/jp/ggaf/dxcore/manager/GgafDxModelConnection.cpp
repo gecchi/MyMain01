@@ -5,7 +5,7 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxModelConnection::GgafDxModelConnection(char* prm_idstr, GgafDxModel* prm_pModel) :
+GgafDxModelConnection::GgafDxModelConnection(const char* prm_idstr, GgafDxModel* prm_pModel) :
     GgafResourceConnection<GgafDxModel> (prm_idstr, prm_pModel) {
 }
 

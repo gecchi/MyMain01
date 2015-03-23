@@ -53,9 +53,10 @@ void EnemyEtis::onActive() {
     pKuroko->setFaceAngVelo(AXIS_Z, D_ANG(1));
     pKuroko->setRzRyMvAng(D0ANG, D180ANG);
     pKuroko->setMvVelo(PX_C(3));
-    static coord renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 3;
-    static coord renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 3;
-    _x = GgafDxUniverse::_x_gone_right - 1000;
+    const coord renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 3;
+    const coord renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 3;
+    Universe* pUniverse =  P_GOD->getUniverse();
+    _x = pUniverse->_x_gone_right - 1000;
     _y = RND(-(renge_y/2) , +(renge_y/2));
     _z = RND(-(renge_z/2) , +(renge_z/2));
     setHitAble(true);

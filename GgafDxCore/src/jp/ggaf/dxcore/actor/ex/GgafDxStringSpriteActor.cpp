@@ -47,17 +47,7 @@ void GgafDxStringSpriteActor::update(coord X, coord Y, const char* prm_str) {
     position(X, Y);
 }
 
-void GgafDxStringSpriteActor::update(coord X, coord Y, char* prm_str) {
-    update(prm_str);
-    position(X, Y);
-}
-
 void GgafDxStringSpriteActor::update(coord X, coord Y, coord Z, const char* prm_str) {
-    update(prm_str);
-    position(X, Y, Z);
-}
-
-void GgafDxStringSpriteActor::update(coord X, coord Y, coord Z, char* prm_str) {
     update(prm_str);
     position(X, Y, Z);
 }
@@ -107,56 +97,8 @@ void GgafDxStringSpriteActor::update(const char* prm_str) {
     }
 }
 
-void GgafDxStringSpriteActor::update(char* prm_str) {
-    _len = strlen(prm_str);
-    if (_len+1 > _max_len) {
-        chengeBufferLen(_len+1); //バッファ拡張
-    }
-    onUpdate(); //コールバック
-    _draw_string = _buf;
-    _aWidth_line_px[0] = 0;
-    int nn = 0;
-    pixcoord max_len_px = 0;
-    int len = _len;
-    for (int i = 0; i < len+1; i++) {
-        _draw_string[i] = prm_str[i]; //保持
-        if (prm_str[i] == '\n') {
-            if (max_len_px < _aWidth_line_px[_nn]) {
-                max_len_px = _aWidth_line_px[_nn];
-            }
-            nn++;
-            continue;
-        }
-        if (prm_str[i] == '\0') {
-            if (max_len_px < _aWidth_line_px[_nn]) {
-                max_len_px = _aWidth_line_px[_nn];
-            }
-            nn++;
-            break;
-        }
-#ifdef MY_DEBUG
-        if (nn > _max_len) {
-            throwGgafCriticalException("GgafDxStringSpriteActor::update 文字列の改行数が"<<_max_len<<"個を超えました。name="<<getName()<<" prm_str="<<prm_str);
-        }
-        if (0 > _draw_string[i] || _draw_string[i] > 256) {
-            throwGgafCriticalException("GgafDxStringBoardActor::update 範囲外の扱えない文字種がありました _draw_string["<<i<<"]="<<_draw_string[i]<<"。 0～255の範囲にして下さい。name="<<getName()<<" prm_str="<<prm_str);
-        }
-#endif
-        _aWidth_line_px[nn] += _aWidthPx[_draw_string[i]];
-    }
-    _nn = nn;
-    if (max_len_px > _chr_width_px) {
-        setBoundingSphereRadiusRate(2*max_len_px/_chr_width_px);
-    }
-}
-
 void GgafDxStringSpriteActor::update(coord X, coord Y, const char* prm_str, GgafDxAlign prm_align,
                                      GgafDxValign prm_valign) {
-    update(prm_str, prm_align, prm_valign);
-    position(X, Y);
-}
-
-void GgafDxStringSpriteActor::update(coord X, coord Y, char* prm_str, GgafDxAlign prm_align, GgafDxValign prm_valign) {
     update(prm_str, prm_align, prm_valign);
     position(X, Y);
 }
@@ -167,18 +109,7 @@ void GgafDxStringSpriteActor::update(coord X, coord Y, coord Z, const char* prm_
     position(X, Y, Z);
 }
 
-void GgafDxStringSpriteActor::update(coord X, coord Y, coord Z, char* prm_str, GgafDxAlign prm_align,
-                                     GgafDxValign prm_valign) {
-    update(prm_str, prm_align, prm_valign);
-    position(X, Y, Z);
-}
-
 void GgafDxStringSpriteActor::update(const char* prm_str, GgafDxAlign prm_align, GgafDxValign prm_valign) {
-    update(prm_str);
-    setAlign(prm_align, prm_valign);
-}
-
-void GgafDxStringSpriteActor::update(char* prm_str, GgafDxAlign prm_align, GgafDxValign prm_valign) {
     update(prm_str);
     setAlign(prm_align, prm_valign);
 }

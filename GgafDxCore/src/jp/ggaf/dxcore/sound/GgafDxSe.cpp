@@ -10,11 +10,13 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxSe::GgafDxSe(char* prm_wave_key) : GgafObject() {
+GgafDxSe::GgafDxSe(const char* prm_wave_key) : GgafObject() {
     if (GgafDxSound::_pIDirectSound8 == nullptr) {
         throwGgafCriticalException("GgafDxSe::GgafDxSe("<<prm_wave_key<<") DirectSound ‚ªA‚Ü‚¾‰Šú‰»‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB");
     }
-    _wave_key = NEW char[80];
+
+    int len = strlen(prm_wave_key);
+    _wave_key = NEW char[len+1];
     strcpy(_wave_key, prm_wave_key);
 
     _wave_file_name = (*GgafProperties::_pMapProperties)[prm_wave_key];

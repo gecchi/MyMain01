@@ -1,5 +1,6 @@
 #include "EnemyHisbe.h"
 
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
@@ -12,7 +13,6 @@
 #include "jp/gecchi/VioletVreath/actor/effect/EffectLaserRefraction001.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Hisbe/EnemyHisbeLaserChip002.h"
 
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -186,7 +186,8 @@ void EnemyHisbe::processBehavior() {
 
 void EnemyHisbe::processJudgement() {
     if (isOutOfUniverse()) {
-        if (_x >= GgafDxUniverse::_x_gone_right) {
+        Universe* pUniverse =  P_GOD->getUniverse();
+        if (_x >= pUniverse->_x_gone_right) {
             //WALL内実験
             //空間外でも消えません（壁出現時は空間外もおおい)
         } else {

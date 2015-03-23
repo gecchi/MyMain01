@@ -14,6 +14,7 @@ class GgafDxBgm : public GgafCore::GgafObject {
     static std::string getOggFileName(std::string prm_file);
 
 public:
+    char* _bgm_key;
 //    /** [r]BGM の BMP */
 //    int _bpm;
 //    /** [r]BGM の タイトル */
@@ -38,7 +39,7 @@ public:
      *                    _OGG, _BPM, _TITLE のプレフィックスを指定
      * @return
      */
-    explicit GgafDxBgm(char* prm_bgm_key);
+    explicit GgafDxBgm(const char* prm_bgm_key);
 
     /**
      * BGM再生 .

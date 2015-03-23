@@ -24,10 +24,16 @@ GgafDxEffectManager::GgafDxEffectManager(const char* prm_manager_name) :
     GgafResourceManager<GgafDxEffect> (prm_manager_name) {
 }
 
-GgafDxEffect* GgafDxEffectManager::processCreateResource(char* prm_idstr, void* prm_pConnector) {
-    //振り分け
-    char effect_type = *prm_idstr; //頭一文字
-    char* effect_name = prm_idstr + 2; //３文字目以降
+GgafDxEffect* GgafDxEffectManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) {
+    std::string idstr = std::string(prm_idstr);
+    std::vector<std::string> names = UTIL::split(idstr, "/", 1);
+    if (names.size() != 2) {
+        throwGgafCriticalException("GgafDxEffectManager::processCreateResource "<<
+                "引数は、次の形式で与えてください。『エフェクトタイプ1文字  + \"/\" + fxファイル名(拡張子 .fx を除いたもの)』\n"<<
+                "実際の引数は、prm_idstr="<<prm_idstr);
+    }
+    char effect_type = (names[0])[0];
+    const char* effect_name = names[1].c_str();
     GgafDxEffect* pResourceEffect;
     switch (effect_type) {
         case 'D':
@@ -113,7 +119,7 @@ void GgafDxEffectManager::setParamPerFrameAll() {
         pCurrent = pCurrent->getNext();
     }
 }
-GgafResourceConnection<GgafDxEffect>* GgafDxEffectManager::processCreateConnection(char* prm_idstr,
+GgafResourceConnection<GgafDxEffect>* GgafDxEffectManager::processCreateConnection(const char* prm_idstr,
                                                                                      GgafDxEffect* prm_pResource) {
     _TRACE3_(" GgafDxEffectManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
     GgafDxEffectConnection* pConne = NEW GgafDxEffectConnection(prm_idstr, prm_pResource);

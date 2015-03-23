@@ -4,7 +4,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 
-GgafDxEffectConnection::GgafDxEffectConnection(char* prm_idstr, GgafDxEffect* prm_pEffect)
+GgafDxEffectConnection::GgafDxEffectConnection(const char* prm_idstr, GgafDxEffect* prm_pEffect)
     :GgafResourceConnection<GgafDxEffect>(prm_idstr, prm_pEffect) {
 }
 

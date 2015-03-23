@@ -21,7 +21,7 @@ public:
      * @param prm_idstr 識別名
      * @param prm_pDepo デポジトリ
      */
-    DepositoryConnection(char* prm_idstr, GgafCore::GgafActorDepository* prm_pDepo);
+    DepositoryConnection(const char* prm_idstr, GgafCore::GgafActorDepository* prm_pDepo);
 
     void processReleaseResource(GgafCore::GgafActorDepository* prm_pResource);
 

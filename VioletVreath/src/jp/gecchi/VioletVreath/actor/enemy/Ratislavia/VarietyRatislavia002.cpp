@@ -26,7 +26,8 @@ VarietyRatislavia002::VarietyRatislavia002(const char* prm_name) :
 
 void VarietyRatislavia002::initialize() {
     EnemyRatislavia::initialize();
-    _x = GgafDxCore::GgafDxUniverse::_x_gone_right+r1_+r2_;
+    Universe* pUniverse =  P_GOD->getUniverse();
+    _x = pUniverse->_x_gone_right + r1_ + r2_;
     _y = 0;
     _z = MyShip::lim_z_left_;
     GgafDxKuroko* const pKuroko = getKuroko();

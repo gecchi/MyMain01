@@ -14,8 +14,24 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 DWORD GgafDxSpriteSetModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D3DFVF_TEX1);
-GgafDxSpriteSetModel::GgafDxSpriteSetModel(char* prm_model_name) : GgafDxModel(prm_model_name) {
+GgafDxSpriteSetModel::GgafDxSpriteSetModel(const char* prm_model_name) : GgafDxModel(prm_model_name) {
     _TRACE3_("GgafDxSpriteSetModel::GgafDxSpriteSetModel(" << _model_name << ")");
+    std::string model_name = std::string(prm_model_name);
+    std::vector<std::string> names = UTIL::split(model_name, "/", 1);
+    if (names.size() > 2) {
+        throwGgafCriticalException("GgafDxSpriteSetModel::GgafDxSpriteSetModel "<<
+                "prm_model_name には \"xxxxxx\" or \"8/xxxxx\" 形式を指定してください。 \n"<<
+                "実際の引数は、prm_idstr="<<prm_model_name);
+    }
+    if (names.size() == 2) {
+        _set_num = STOI(names[0]);
+        if (_set_num > 18) {
+            _TRACE_("GgafDxSpriteSetModel("<<prm_model_name<<") の同時描画セット数オーバー。最大の18セットですがそれ以上のセット数です。意図していますか？ _set_num="<<_set_num<<"。");
+        }
+    } else {
+        _TRACE_("GgafDxSpriteSetModel("<<prm_model_name<<") の同時描画セット数省略。最大の18セットが設定されます。");
+        _set_num = 18;
+    }
 
     _model_width_px = 32.0f;
     _model_height_px = 32.0f;
@@ -26,21 +42,6 @@ GgafDxSpriteSetModel::GgafDxSpriteSetModel(char* prm_model_name) : GgafDxModel(p
     _size_vertices = 0;
     _size_vertex_unit = 0;
     _paIndexParam = nullptr;
-
-    char nm[51];
-    strcpy(nm, prm_model_name);
-    const char* pT = strtok(nm, "/" );
-    int num = (int)strtol(pT, nullptr, 10);
-    pT = strtok(nullptr, "/");
-    if (pT == nullptr) {
-        _TRACE_("GgafDxSpriteSetModel("<<prm_model_name<<") の同時描画セット数省略。最大の18セットが設定されます。");
-        _set_num = 18;
-    } else {
-        _set_num = num;
-        if (_set_num > 18) {
-            _TRACE_("GgafDxSpriteSetModel("<<prm_model_name<<") の同時描画セット数オーバー。最大の18セットですがそれ以上のセット数です。意図していますか？ _set_num="<<_set_num<<"。");
-        }
-    }
     _obj_model |= Obj_GgafDxSpriteSetModel;
 
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は

@@ -16,7 +16,7 @@ using namespace GgafDxCore;
 DWORD GgafDxMeshSetModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DFVF_TEX1  );
 //LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer = nullptr;
 
-GgafDxMeshSetModel::GgafDxMeshSetModel(char* prm_model_name) : GgafDxModel(prm_model_name) {
+GgafDxMeshSetModel::GgafDxMeshSetModel(const char* prm_model_name) : GgafDxModel(prm_model_name) {
     _TRACE3_("GgafDxMeshSetModel::GgafDxMeshSetModel(" << _model_name << ")");
     _pModel3D = nullptr;
     _pMeshesFront = nullptr;
@@ -24,19 +24,21 @@ GgafDxMeshSetModel::GgafDxMeshSetModel(char* prm_model_name) : GgafDxModel(prm_m
     // 同時描画セット数が8という意味です。
     // モーフターゲット数が違うモデルは、別モデルという扱いにするため、モデル名に数値を残そうかな。
     // モデル名から同時描画セット数指定があれば取り出す。無ければ8
-    char nm[51];
-    strcpy(nm, prm_model_name);
-    const char* pT = strtok(nm, "/" );
-    int num = (int)strtol(pT, nullptr, 10);
-    pT = strtok(nullptr, "/");
-    if (pT == nullptr) {
-        _TRACE_("GgafDxMeshSetModel("<<prm_model_name<<") のセット数省略のため、標準の最大の15セットが設定されます。");
-        _set_num = 15;
-    } else {
-        _set_num = num;
+    std::string model_name = std::string(prm_model_name);
+    std::vector<std::string> names = UTIL::split(model_name, "/", 1);
+    if (names.size() > 2) {
+        throwGgafCriticalException("GgafDxMeshSetModel::GgafDxMeshSetModel "<<
+                "prm_model_name には \"xxxxxx\" or \"8/xxxxx\" 形式を指定してください。 \n"<<
+                "実際の引数は、prm_idstr="<<prm_model_name);
+    }
+    if (names.size() == 2) {
+        _set_num = STOI(names[0]);
         if (_set_num > 15) {
             _TRACE_("GgafDxMeshSetModel("<<prm_model_name<<") の同時描画セット数オーバー。最大は15セットがですがそれ以上が設定されています。意図していますか？ _set_num="<<_set_num<<"。");
         }
+    } else {
+        _TRACE_("GgafDxMeshSetModel("<<prm_model_name<<") のセット数省略のため、標準の最大の15セットが設定されます。");
+        _set_num = 15;
     }
     _pVertexBuffer = nullptr;
     _pIndexBuffer = nullptr;

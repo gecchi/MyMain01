@@ -26,14 +26,6 @@ GgafDxFigureActor* GgafDxUniverse::_apLastActor_draw_depth_level[MAX_DRAW_DEPTH_
 GgafDxFigureActor* GgafDxUniverse::_pActor_draw_active = nullptr;
 std::string GgafDxUniverse::_seqkey_se_delay = "_SE_D_";
 
-coord GgafDxUniverse::_x_gone_left   = 0;
-coord GgafDxUniverse::_x_gone_right  = 0;
-coord GgafDxUniverse::_y_gone_top    = 0;
-coord GgafDxUniverse::_y_gone_bottom = 0;
-coord GgafDxUniverse::_z_gone_far   = 0;
-coord GgafDxUniverse::_z_gone_near  = 0;
-
-
 GgafDxUniverse::SeArray::SeArray() {
 #ifdef MY_DEBUG
     if (PROPERTY::MAX_SE_AT_ONCE > 64) {
@@ -71,9 +63,19 @@ void GgafDxUniverse::SeArray::play(int index) {
     _apSe[index] = nullptr;
 }
 
-GgafDxUniverse::GgafDxUniverse(const char* prm_name, GgafDxCamera* prm_pCamera) : GgafUniverse(prm_name) {
+GgafDxUniverse::GgafDxUniverse(const char* prm_name, GgafDxCamera* prm_pCamera) : GgafUniverse(prm_name),
+_x_gone_left  (-DX_C(prm_pCamera->getZFar())), //カメラの写す範囲＝Universeの範囲
+_x_gone_right (+DX_C(prm_pCamera->getZFar())),
+_y_gone_bottom(-DX_C(prm_pCamera->getZFar())),
+_y_gone_top   (+DX_C(prm_pCamera->getZFar())),
+_z_gone_near  (-DX_C(prm_pCamera->getZFar())),
+_z_gone_far   (+DX_C(prm_pCamera->getZFar()))
+{
     _obj_class |= Obj_GgafDxUniverse;
     _class_name = "GgafDxUniverse";
+
+    _TRACE_("Gone=X ("<<_x_gone_left<<" ~ "<<_x_gone_right<<") Y("<<_y_gone_bottom<<" ~ "<<_y_gone_top<<") Z("<<_z_gone_near<<" ~ "<<_z_gone_far<<")");
+
 //TODO:フォグいつか
 //    _colFog.r = 0.0;
 //    _colFog.g = 0.0;
@@ -90,16 +92,6 @@ GgafDxUniverse::GgafDxUniverse(const char* prm_name, GgafDxCamera* prm_pCamera) 
 
     bringDirector()->addSubGroup(_pCamera);
     _pActor_draw_active = nullptr;
-
-    //カメラの写す範囲。
-    coord F = DX_C(_pCamera->getZFar());
-    _x_gone_right  = +F;
-    _x_gone_left   = -F;
-    _y_gone_top    = +F;
-    _y_gone_bottom = -F;
-    _z_gone_far    = +F;
-    _z_gone_near   = -F;
-    _TRACE_("Gone=X ("<<_x_gone_left<<" ~ "<<_x_gone_right<<") Y("<<_y_gone_bottom<<" ~ "<<_y_gone_top<<") Z("<<_z_gone_near<<" ~ "<<_z_gone_far<<")");
 
     _pRing_pSeArray = NEW GgafLinkedListRing<SeArray>();
     for (int i = 0; i < PROPERTY::MAX_SE_DELAY; i++) { //GGAF_END_DELAYは最大解放遅れフレームだが、遠方SEの遅延の最高フレーム数としても使う

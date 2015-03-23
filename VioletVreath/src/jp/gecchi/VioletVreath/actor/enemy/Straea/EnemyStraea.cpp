@@ -95,7 +95,8 @@ void EnemyStraea::initialize() {
 void EnemyStraea::onActive() {
     getStatus()->reset();
     setHitAble(false);
-    _x = GgafDxCore::GgafDxUniverse::_x_gone_right - 1000;
+    Universe* pUniverse =  P_GOD->getUniverse();
+    _x = pUniverse->_x_gone_right - 1000;
     getProgress()->reset(PROG_INIT);
 }
 

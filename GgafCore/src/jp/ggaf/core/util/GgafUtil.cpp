@@ -52,7 +52,7 @@ void GgafUtil::readProperties(std::string filename, GgafStrMap* pMap) {
         throwGgafCriticalException("GgafUtil::readProperties() ファイルが見つかりません。 filename="<<filename);
     }
     _TRACE_("GgafUtil::readProperties..."<<filename);
-    readProperties(file, pMap);
+    GgafUtil::readProperties(file, pMap);
     file.close();
 }
 
@@ -109,7 +109,7 @@ void GgafUtil::readProperties(std::istream &is, GgafStrMap* pMap) {
 
 void GgafUtil::writeProperties(const char *filename, GgafStrMap* pMap, const char *header) {
     std::ofstream file(filename);
-    writeProperties(file, pMap, header);
+    GgafUtil::writeProperties(file, pMap, header);
     file.close();
 }
 
@@ -117,7 +117,7 @@ void GgafUtil::writeProperties(std::ostream &os, GgafStrMap* pMap, const char *h
     if (header != nullptr) {
         os << '#' << header << std::endl;
     }
-    os << '#' << "update " << getSystemDateTimeStr() << std::endl;
+    os << '#' << "update " << GgafUtil::getSystemDateTimeStr() << std::endl;
 
     for (GgafStrMap::iterator it = pMap->begin(), end = pMap->end(); it != end; ++it) {
         const std::string &key = (*it).first, &val = (*it).second;
@@ -162,7 +162,7 @@ bool GgafUtil::cnvBool(std::string prm_str) {
 }
 
 std::string GgafUtil::getFileBaseNameWithoutExt(const char* prm_filepath) {
-    std::string basename = getFileBaseName(prm_filepath);
+    std::string basename = GgafUtil::getFileBaseName(prm_filepath);
     int p = (int)basename.find_first_of('.');
     if (p == 0) {
         //ドット始まりのファイル名
@@ -188,7 +188,7 @@ std::string GgafUtil::getFileBaseName(const char* prm_filepath) {
     while (!(prm_filepath[p] == '/' || prm_filepath[p] == '\\')) {
         res += prm_filepath[p--];
     }
-    reverseStr((char*)res.c_str());
+    GgafUtil::reverseStr((char*)res.c_str());
     return res;
 }
 
@@ -209,7 +209,7 @@ std::string GgafUtil::getFileDirName(const char* prm_filepath) {
 }
 
 std::string GgafUtil::getFileExt(const char* prm_filepath) {
-    std::string basename = getFileBaseName(prm_filepath);
+    std::string basename = GgafUtil::getFileBaseName(prm_filepath);
     int epos = (int)basename.find_last_of('.');
     if (epos < 0) {
         return "";
