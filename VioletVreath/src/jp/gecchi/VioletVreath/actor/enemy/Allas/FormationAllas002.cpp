@@ -5,7 +5,7 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Allas/EnemyAllas.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafCore;

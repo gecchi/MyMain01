@@ -1,4 +1,4 @@
-#include "jp/ggaf/lib/scene/DefaultUniverse.h"
+#include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 
 #include "jp/ggaf/lib/GgafLibProperties.h"
 #include "jp/ggaf/lib/util/LinearOctreeForActor.h"
@@ -10,24 +10,24 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-DefaultUniverse::DefaultUniverse(const char* prm_name, DefaultCamera* prm_pCamera) : GgafDxUniverse(prm_name, prm_pCamera) {
-    _class_name = "DefaultUniverse";
+DefaultSpacetime::DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCamera) : GgafDxSpacetime(prm_name, prm_pCamera) {
+    _class_name = "DefaultSpacetime";
     //八分木作成
     _TRACE_("八分木作成開始");
     _pLinearOctree = NEW LinearOctreeForActor(PROPERTY::OCTREE_LEVEL);
-    _pLinearOctree->setRootSpace(_x_gone_left  ,_y_gone_bottom, _z_gone_near ,
+    _pLinearOctree->setRootOctant(_x_gone_left  ,_y_gone_bottom, _z_gone_near ,
                                  _x_gone_right ,_y_gone_top   , _z_gone_far   );
     _TRACE_("八分木作成終了");
 }
 
-void DefaultUniverse::processFinal() {
+void DefaultSpacetime::processFinal() {
     _pLinearOctree->clearElem();
     //ルート空間更新
-//    _pLinearOctree->setRootSpace(_x_gone_left  ,_y_gone_bottom, _z_gone_near ,
+//    _pLinearOctree->setRootOctant(_x_gone_left  ,_y_gone_bottom, _z_gone_near ,
 //                                     _x_gone_right ,_y_gone_top   , _z_gone_far   );
 }
 
-DefaultUniverse::~DefaultUniverse() {
+DefaultSpacetime::~DefaultSpacetime() {
 #ifdef MY_DEBUG
     _pLinearOctree->putTree();
     ColliAABActor::release();

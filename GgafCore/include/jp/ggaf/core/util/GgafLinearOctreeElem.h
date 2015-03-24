@@ -6,7 +6,7 @@
 namespace GgafCore {
 
 /**
- * 線形八分木配列用空間の要素クラス .
+ * 線形八分木配列用空間にぶら下がる要素クラス .
  * @version 1.00
  * @since 2009/11/23
  * @author Masatoshi Tsuge
@@ -25,19 +25,19 @@ private:
      * 一度 belongTo() を実行し所属したならば、
      * GgafLinearOctree::clearElem();
      * にて、八分木全要素クリアされるまで、再度 belongTo() は出来ない。
-     * @param prm_pSpace_target 所属する空間
+     * @param prm_pOctant_target 所属する空間
      */
-    void belongTo(GgafLinearOctreeSpace* const prm_pSpace_target);
+    void belongTo(GgafLinearOctreeOctant* const prm_pOctant_target);
 
 public:
     /** [r]所属ツリー */
     GgafLinearOctree* const _pLinearOctree;
-    /** [r]対象オブジェクト */
+    /** [r]要素オブジェクト（これが本体） */
     GgafObject* const _pObject;
-    /** [r]対象オブジェクト種別 */
+    /** [r]要素オブジェクトの種別 */
     uint32_t _kindbit;
     /** [r]所属空間 */
-    GgafLinearOctreeSpace* _pSpace_current;
+    GgafLinearOctreeOctant* _pOctant_current;
     /** [r]次要素 */
     GgafLinearOctreeElem* _pNext;
     /** [r]前要素 */

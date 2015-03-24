@@ -17,8 +17,8 @@ class GgafDxFigureActor : public GgafDxGeometricActor {
 private:
     /**
      * draw()の使用禁止 .
-     * 世界(GgafDxUniverse)が全ての描画を行う仕組みになりました。
-     * GgafDxUniverse::draw() を参照せよ。
+     * 世界(GgafDxSpacetime)が全ての描画を行う仕組みになりました。
+     * GgafDxSpacetime::draw() を参照せよ。
      * ノードツリー用 draw メソッドを下位で使えないようにするためprivateで実装。
      */
     void draw() override {}

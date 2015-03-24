@@ -82,7 +82,7 @@ void EffectEntry::processBehavior() {
 }
 
 void EffectEntry::processJudgement() {
-    if (isOutOfUniverse()) {
+    if (isOutOfSpacetime()) {
         pTarget_ = nullptr;
         sayonara();
     }

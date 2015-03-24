@@ -31,7 +31,7 @@ public:
 
     int isOutOfView() override;
 
-    bool isOutOfUniverse() const override;
+    bool isOutOfSpacetime() const override;
 
     virtual ~DefaultPointSpriteTestActor();
 };

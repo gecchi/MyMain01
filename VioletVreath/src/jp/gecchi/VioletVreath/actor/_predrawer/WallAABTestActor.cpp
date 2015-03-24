@@ -1,5 +1,5 @@
 #include "WallAABTestActor.h"
-#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -23,9 +23,9 @@ void WallAABTestActor::onCreateModel() {
     pModel->getTexBlinker()->beat(10*20, 10*9, 0, 10*9, -1);
 }
 
-bool WallAABTestActor::isOutOfUniverse() const {
-    Universe* pUniverse =  P_GOD->getUniverse();
-    if (pUniverse->_x_gone_left < _x) {
+bool WallAABTestActor::isOutOfSpacetime() const {
+    Spacetime* pSpacetime =  P_GOD->getSpacetime();
+    if (pSpacetime->_x_gone_left < _x) {
         return false;
     }
     return true;

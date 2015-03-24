@@ -17,7 +17,7 @@
 //‘O•ûéŒ¾
 namespace Mogera {
 class MgrGod;
-class MgrUniverse;
+class MgrSpacetime;
 class MgrWorld;
 class TrialAndErrScene;
 class MgrCamera;

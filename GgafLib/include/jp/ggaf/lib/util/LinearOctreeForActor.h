@@ -78,13 +78,13 @@ public:
     };
 
     /** [r]全空間の当たり判定時、現在の空間に所属するアクター種別Aグループのスタック */
-    CollisionStack _stackCurrentSpaceActor_GroupA;
+    CollisionStack _stackCurrentOctantActor_GroupA;
     /** [r]全空間の当たり判定時、現在の空間に所属するアクター種別Bグループのスタック */
-    CollisionStack _stackCurrentSpaceActor_GroupB;
+    CollisionStack _stackCurrentOctantActor_GroupB;
     /** [r]ある空間の当たり判定時、それよりも親空間に所属した全アクター種別Aグループのスタック */
-    CollisionStack _stackParentSpaceActor_GroupA;
+    CollisionStack _stackParentOctantActor_GroupA;
     /** [r]ある空間の当たり判定時、それよりも親空間に所属した全アクター種別Bグループのスタック */
-    CollisionStack _stackParentSpaceActor_GroupB;
+    CollisionStack _stackParentOctantActor_GroupB;
 
     /** [r]今回当たり判定を行うアクター種別A */
     actorkind _kind_groupA;

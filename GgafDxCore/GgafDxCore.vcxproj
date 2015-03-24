@@ -109,7 +109,7 @@
     <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxSpriteSetModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\model\supporter\GgafDxTextureBlinker.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\scene\GgafDxScene.cpp" />
-    <ClCompile Include="src\jp\ggaf\dxcore\scene\GgafDxUniverse.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\scene\GgafDxSpacetime.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\scene\supporter\GgafDxAlphaCurtain.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\scene\supporter\GgafDxBgmPerformerForScene.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\sound\CWaveDecorder.cpp" />
@@ -230,7 +230,7 @@
     <ClInclude Include="include\jp\ggaf\dxcore\model\GgafDxSpriteSetModel.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\model\supporter\GgafDxTextureBlinker.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\scene\GgafDxScene.h" />
-    <ClInclude Include="include\jp\ggaf\dxcore\scene\GgafDxUniverse.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\scene\GgafDxSpacetime.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\scene\supporter\GgafDxAlphaCurtain.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\scene\supporter\ggafdxbgmperformerforscene.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\sound\CWaveDecorder.h" />

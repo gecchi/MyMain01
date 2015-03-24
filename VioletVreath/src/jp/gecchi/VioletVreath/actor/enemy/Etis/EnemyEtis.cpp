@@ -4,7 +4,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
-#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -55,8 +55,8 @@ void EnemyEtis::onActive() {
     pKuroko->setMvVelo(PX_C(3));
     const coord renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 3;
     const coord renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 3;
-    Universe* pUniverse =  P_GOD->getUniverse();
-    _x = pUniverse->_x_gone_right - 1000;
+    Spacetime* pSpacetime =  P_GOD->getSpacetime();
+    _x = pSpacetime->_x_gone_right - 1000;
     _y = RND(-(renge_y/2) , +(renge_y/2));
     _z = RND(-(renge_z/2) , +(renge_z/2));
     setHitAble(true);
@@ -70,7 +70,7 @@ void EnemyEtis::processBehavior() {
 }
 
 void EnemyEtis::processJudgement() {
-    if (isOutOfUniverse()) {
+    if (isOutOfSpacetime()) {
         sayonara();
     }
 }

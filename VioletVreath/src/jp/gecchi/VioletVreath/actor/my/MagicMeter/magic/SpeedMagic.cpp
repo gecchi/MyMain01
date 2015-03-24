@@ -4,7 +4,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectSpeedMagic.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyMagicEnergyCore.h"
 
 using namespace GgafCore;

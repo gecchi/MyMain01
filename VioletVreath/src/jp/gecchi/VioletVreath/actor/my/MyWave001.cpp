@@ -4,7 +4,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -75,7 +75,7 @@ void MyWave001::processBehavior() {
 }
 
 void MyWave001::processJudgement() {
-    if (isOutOfUniverse()) {
+    if (isOutOfSpacetime()) {
         sayonara();
     }
 

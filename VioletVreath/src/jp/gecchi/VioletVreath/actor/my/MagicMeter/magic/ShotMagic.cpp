@@ -4,7 +4,7 @@
 #include "jp/gecchi/VioletVreath/actor/my/MyMagicEnergyCore.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyStraightLaserChip001.h"
 #include "jp/gecchi/VioletVreath/actor/my/option/MyOptionWateringLaserChip001.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 

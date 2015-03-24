@@ -27,7 +27,7 @@ public:
 
     void processJudgement() override;
 
-    bool isOutOfUniverse() const override;
+    bool isOutOfSpacetime() const override;
 
     void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
 

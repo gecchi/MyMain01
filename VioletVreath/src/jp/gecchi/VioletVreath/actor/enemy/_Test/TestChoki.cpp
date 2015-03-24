@@ -30,7 +30,7 @@ void TestChoki::processBehavior() {
 }
 
 void TestChoki::processJudgement() {
-    if (isOutOfUniverse()) {
+    if (isOutOfSpacetime()) {
         sayonara();
     }
 }

@@ -19,7 +19,7 @@ namespace GgafCore {
 #define  SLOWDOWN_MODE_30FPS 2
 /**
  * 神クラス.
- * 主にこの世(GgafUniverse)を管理し操作することを目的とするクラスです。たぶん一番えらい。<BR>
+ * 主にこの世(GgafSpacetime)を管理し操作することを目的とするクラスです。たぶん一番えらい。<BR>
  * 本クラスの be() メソッドを呼び続けることで、この世が動くことになる、という設計。<BR>
  * インスタンスは１個です。<BR>
  * TODO:グローバルな参照を保持したり便利屋クラスになりつつある；。<BR>
@@ -64,7 +64,7 @@ public:
     /** [r] この世を視覚化できなかった（スキップした）回数 */
     int _skip_count_of_frame;
     /** [r] この世 */
-    GgafUniverse* _pUniverse;
+    GgafSpacetime* _pSpacetime;
     /** [r] fps値（約1000ms毎に計算される） */
     float _fps;
 
@@ -92,8 +92,8 @@ public:
 
     /**
      * 「存在する」というメソッド .
-     * 神が存在する、すなわち、この世(GgafUniverse)が動き、アプリが進行します。<BR>
-     * 初回呼び出し時、この世(GgafUniverse)が作成されます。<BR>
+     * 神が存在する、すなわち、この世(GgafSpacetime)が動き、アプリが進行します。<BR>
+     * 初回呼び出し時、この世(GgafSpacetime)が作成されます。<BR>
      * アプリケーションは、最小時間単位でこのメソッドをひたすら呼び続けてください。<BR>
      */
     void be();
@@ -101,35 +101,35 @@ public:
     /**
      * この世の、とある最小時間単位の瞬間を創造 .
      */
-    virtual void presentUniversalMoment();
+    virtual void presentSpacetimeMoment();
 
     /**
      * この世の、創造された最小時間単位の瞬間について審判（チェック）する .
      */
-    virtual void executeUniversalJudge();
+    virtual void executeSpacetimeJudge();
 
     /**
      * この世の、創造された最小時間単位の瞬間を具現化する .
      */
-    virtual void makeUniversalMaterialize();
+    virtual void makeSpacetimeMaterialize();
 
     /**
      * この世に描いた物を、異界の人間共にも認識（目視）できるように表面化する .
      */
-    virtual void presentUniversalVisualize();
+    virtual void presentSpacetimeVisualize();
 
     /**
      * この世の次の最小時間単位の瞬間を創造するための準備、後始末 .
      */
-    virtual void finalizeUniverse();
+    virtual void finalizeSpacetime();
 
     /**
      * この世を取得 .
      * 下位でオーバーライド可能。<BR>
      * @return この世
      */
-    virtual GgafUniverse* getUniverse() {
-        return _pUniverse;
+    virtual GgafSpacetime* getSpacetime() {
+        return _pSpacetime;
     }
 
     /**
@@ -137,7 +137,7 @@ public:
      * 下位でこの世の創造方法を実装してください。<BR>
      * @return この世
      */
-    virtual GgafUniverse* createUniverse() = 0;
+    virtual GgafSpacetime* createSpacetime() = 0;
 
     /**
      * 描画を一時停止し、フレームと時間の同期を行う

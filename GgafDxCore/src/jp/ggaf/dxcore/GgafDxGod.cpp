@@ -9,7 +9,7 @@
 #include "jp/ggaf/dxcore/manager/GgafDxEffectManager.h"
 #include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
 #include "jp/ggaf/dxcore/manager/GgafDxTextureManager.h"
-#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/dxcore/sound/GgafDxSound.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "jp/ggaf/dxcore/util/GgafDxDirectionUtil.h"
@@ -1826,22 +1826,22 @@ HRESULT GgafDxGod::releaseFullScreenRenderTarget() {
     return D3D_OK;
 }
 
-void GgafDxGod::presentUniversalMoment() {
+void GgafDxGod::presentSpacetimeMoment() {
     if (_is_device_lost_flg) {
         return;
     } else {
-        GgafGod::presentUniversalMoment();
+        GgafGod::presentSpacetimeMoment();
     }
 }
 
-void GgafDxGod::executeUniversalJudge() {
+void GgafDxGod::executeSpacetimeJudge() {
     if (_is_device_lost_flg) {
         return;
     } else {
-        GgafGod::executeUniversalJudge();
+        GgafGod::executeSpacetimeJudge();
     }
 }
-void GgafDxGod::makeUniversalMaterialize() {
+void GgafDxGod::makeSpacetimeMaterialize() {
     if (_is_device_lost_flg) {
         return;
     }
@@ -1864,14 +1864,14 @@ void GgafDxGod::makeUniversalMaterialize() {
 #ifdef MY_DEBUG
     GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDxGod::_d3dfillmode);
 #endif
-    GgafGod::makeUniversalMaterialize(); //スーパーのmaterialize実行
+    GgafGod::makeSpacetimeMaterialize(); //スーパーのmaterialize実行
     //描画事後処理
     hr = GgafDxGod::_pID3DDevice9->EndScene();
     checkDxException(hr, D3D_OK, "GgafDxGod::_pID3DDevice9->EndScene() に失敗しました。");
 
 }
 
-void GgafDxGod::presentUniversalVisualize() {
+void GgafDxGod::presentSpacetimeVisualize() {
     //垂直帰線期間
     //if (GgafDxGod::_pID3DDevice9->Present(nullptr,&_aRect_Present[0],nullptr,nullptr) == D3DERR_DEVICELOST) {
     //        static D3DRASTER_STATUS rs;
@@ -1997,7 +1997,7 @@ void GgafDxGod::presentUniversalVisualize() {
             //モデル解放
             GgafDxGod::_pModelManager->onDeviceLostAll();
             //全ノードに解放しなさいイベント発令
-            getUniverse()->throwEventLowerTree(GGAF_EVENT_ON_DEVICE_LOST);
+            getSpacetime()->throwEventLowerTree(GGAF_EVENT_ON_DEVICE_LOST);
             _TRACE_("【デバイスロスト処理】リソース解放 <-------- END");
             _is_device_lost_flg = true;
         }
@@ -2073,7 +2073,7 @@ void GgafDxGod::presentUniversalVisualize() {
         //モデル再設定
         GgafDxGod::_pModelManager->restoreAll();
         //全ノードに再設定しなさいイベント発令
-        getUniverse()->throwEventLowerTree(GGAF_EVENT_ON_DEVICE_LOST, this);
+        getSpacetime()->throwEventLowerTree(GGAF_EVENT_ON_DEVICE_LOST, this);
         //前回描画モデル情報を無効にする
         GgafDxModelManager::_pModelLastDraw = nullptr;
         _is_device_lost_flg = false;
@@ -2097,11 +2097,11 @@ void GgafDxGod::presentUniversalVisualize() {
     }
 }
 
-void GgafDxGod::finalizeUniverse() {
+void GgafDxGod::finalizeSpacetime() {
     if (_is_device_lost_flg) {
         return;
     } else {
-        GgafGod::finalizeUniverse();
+        GgafGod::finalizeSpacetime();
     }
 }
 
@@ -2318,7 +2318,7 @@ void GgafDxGod::adjustGameScreen(HWND prm_pHWnd) {
         _TRACE_(" _aRect_Present[0].bottom = "<<_aRect_Present[0].bottom);
     }
 #endif
-    GgafDxCamera* pCam = getUniverse()->getCamera();
+    GgafDxCamera* pCam = getSpacetime()->getCamera();
     GgafDxGod::_pID3DDevice9->GetViewport(&(pCam->_viewport));
     _adjustGameScreen = false;
     _pHWnd_adjustScreen = nullptr;

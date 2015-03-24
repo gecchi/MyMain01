@@ -5,7 +5,7 @@
 #include "jp/ggaf/dxcore/effect/GgafDxMorphMeshEffect.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/model/GgafDxMorphMeshModel.h"
-#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 using namespace GgafCore;
@@ -122,7 +122,7 @@ void GgafDxMorphMeshActor::addAlpha(float prm_alpha) {
 }
 
 void GgafDxMorphMeshActor::processDraw() {
-    GgafDxCamera* const pCam = P_GOD->getUniverse()->getCamera();
+    GgafDxCamera* const pCam = P_GOD->getSpacetime()->getCamera();
     const GgafDxMorphMeshEffect* const pMorphMeshEffect = _pMorphMeshEffect;
     ID3DXEffect* const pID3DXEffect = pMorphMeshEffect->_pID3DXEffect;
     HRESULT hr;

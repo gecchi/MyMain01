@@ -156,7 +156,7 @@ void EnemyEmus::processJudgement() {
     }
 
 
-//    if (isOutOfUniverse()) {
+//    if (isOutOfSpacetime()) {
 //        sayonara();
 //    }
 }

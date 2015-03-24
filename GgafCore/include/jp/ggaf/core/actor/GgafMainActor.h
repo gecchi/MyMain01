@@ -54,8 +54,8 @@ public:
     virtual void setMyGroupHead(GgafGroupHead* prm_pGroupHead);
 
     /**
-     * 所属シーンのシーン監督取得。但しシーンに所属していない場合は、この世(Universe)のシーン監督を返す .
-     * @return 所属シーン監督の監督。(いない場合 この世(Universe)の監督)
+     * 所属シーンのシーン監督取得。但しシーンに所属していない場合は、この世(Spacetime)のシーン監督を返す .
+     * @return 所属シーン監督の監督。(いない場合 この世(Spacetime)の監督)
      */
     GgafSceneDirector* getMySceneDirector();
 

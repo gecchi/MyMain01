@@ -37,7 +37,7 @@ public:
         return 0;
     }
 
-    bool isOutOfUniverse() const override {
+    bool isOutOfSpacetime() const override {
         //ƒQ[ƒ€À•W”ÍˆÍŠO”»’è–³‚µ
         return false;
     }

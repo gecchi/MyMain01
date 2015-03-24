@@ -4,7 +4,7 @@
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/dxcore/effect/GgafDxMeshSetEffect.h"
 #include "jp/ggaf/dxcore/model/GgafDxMeshSetModel.h"
-#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -107,7 +107,7 @@ void GgafDxMeshSetActor::processDraw() {
             break;
         }
     }
-    GgafDxUniverse::_pActor_draw_active = pMeshSetActor; //描画セットの最後アクターをセット
+    GgafDxSpacetime::_pActor_draw_active = pMeshSetActor; //描画セットの最後アクターをセット
     ((GgafDxMeshSetModel*)_pMeshSetModel)->GgafDxMeshSetModel::draw(this, draw_set_num);
 }
 

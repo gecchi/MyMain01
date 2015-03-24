@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/lib/manager/SplineManufactureConnection.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 #include "jp/ggaf/lib/scene/WalledScene.h"
@@ -71,20 +71,20 @@ void EnemyHisbeLaserChip002::processBehavior() {
 }
 
 void EnemyHisbeLaserChip002::processJudgement() {
-    if (isOutOfUniverse()) {
+    if (isOutOfSpacetime()) {
         sayonara();
     }
 }
 
-bool EnemyHisbeLaserChip002::isOutOfUniverse() const {
-    Universe* pUniverse =  P_GOD->getUniverse();
+bool EnemyHisbeLaserChip002::isOutOfSpacetime() const {
+    Spacetime* pSpacetime =  P_GOD->getSpacetime();
     //EnemyHisbe出現時（壁ブロック配置時）はX軸方向の大抵空間外のため
-    if (pUniverse->_x_gone_left < _x) {
-        //if (_x < pUniverse->_x_gone_right) {
-            if (pUniverse->_y_gone_bottom < _y) {
-                if (_y < pUniverse->_y_gone_top) {
-                    if (pUniverse->_z_gone_near < _z) {
-                        if (_z < pUniverse->_z_gone_far) {
+    if (pSpacetime->_x_gone_left < _x) {
+        //if (_x < pSpacetime->_x_gone_right) {
+            if (pSpacetime->_y_gone_bottom < _y) {
+                if (_y < pSpacetime->_y_gone_top) {
+                    if (pSpacetime->_z_gone_near < _z) {
+                        if (_z < pSpacetime->_z_gone_far) {
                             return false;
                         }
                     }

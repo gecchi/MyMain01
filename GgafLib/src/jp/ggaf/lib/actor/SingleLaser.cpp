@@ -1,6 +1,6 @@
 #include "jp/ggaf/lib/actor/SingleLaser.h"
 
-#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/effect/GgafDxMeshSetEffect.h"
 #include "jp/ggaf/dxcore/model/GgafDxMeshSetModel.h"
@@ -30,7 +30,7 @@ SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id, GgafSta
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(false);  //Zバッファは書き込み無し
 
-    static bool is_init = SingleLaser::initStatic(); //静的メンバ初期化
+    static volatile bool is_init = SingleLaser::initStatic(); //静的メンバ初期化
 }
 
 D3DXHANDLE SingleLaser::_ah_matWorld[26];
@@ -98,7 +98,7 @@ void SingleLaser::processDraw() {
             break;
         }
     }
-    GgafDxUniverse::_pActor_draw_active = pSingleLaserChip; //描画セットの最後アクターをセット
+    GgafDxSpacetime::_pActor_draw_active = pSingleLaserChip; //描画セットの最後アクターをセット
     _pMeshSetModel->GgafDxMeshSetModel::draw(this, draw_set_num);
 }
 

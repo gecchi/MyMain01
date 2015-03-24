@@ -22,7 +22,7 @@
 namespace GgafLib {
 
 class DefaultGod;
-class DefaultUniverse;
+class DefaultSpacetime;
 class DefaultCamera;
 class DefaultCameraViewPoint;
 class DefaultCameraUpVector;

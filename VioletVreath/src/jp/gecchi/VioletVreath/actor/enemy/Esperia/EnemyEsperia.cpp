@@ -11,7 +11,7 @@
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Esperia/EnemyEsperiaLaserChip001.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafCore;
@@ -78,8 +78,8 @@ void EnemyEsperia::onActive() {
     //oŒ»ˆÊ’u
     const coord appearances_renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 3;
     const coord appearances_renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 3;
-    Universe* pUniverse =  P_GOD->getUniverse();
-    _x = pUniverse->_x_gone_right - 1000;
+    Spacetime* pSpacetime =  P_GOD->getSpacetime();
+    _x = pSpacetime->_x_gone_right - 1000;
     _y = RND(-(appearances_renge_y/2) , +(appearances_renge_y/2));
     _z = RND(-(appearances_renge_z/2) , +(appearances_renge_z/2));
 
@@ -331,7 +331,7 @@ void EnemyEsperia::processBehavior() {
 }
 
 void EnemyEsperia::processJudgement() {
-    if (isOutOfUniverse()) {
+    if (isOutOfSpacetime()) {
         sayonara();
     }
 }

@@ -2,13 +2,13 @@
 
 #include "jp/ggaf/dxcore/GgafDxGod.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxMeshEffect::GgafDxMeshEffect(const char* prm_effect_name) : GgafDxEffect(prm_effect_name) {
-    GgafDxCamera* const pCam = P_GOD->getUniverse()->getCamera();
+    GgafDxCamera* const pCam = P_GOD->getSpacetime()->getCamera();
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
     //射影変換行列
@@ -43,7 +43,7 @@ GgafDxMeshEffect::GgafDxMeshEffect(const char* prm_effect_name) : GgafDxEffect(p
 }
 
 void GgafDxMeshEffect::setParamPerFrame() {
-    GgafDxCamera* const pCam = P_GOD->getUniverse()->getCamera();
+    GgafDxCamera* const pCam = P_GOD->getSpacetime()->getCamera();
     HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, pCam->getViewMatrix() );
     checkDxException(hr, D3D_OK, "GgafDxMeshEffect::setParamPerFrame SetMatrix(_h_matView) に失敗しました。_effect_name="<<_effect_name);
     hr = _pID3DXEffect->SetValue(_h_posCam, pCam->getVecCamFromPoint(), sizeof(D3DXVECTOR3) );

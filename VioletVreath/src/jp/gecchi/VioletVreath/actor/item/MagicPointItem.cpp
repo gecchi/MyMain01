@@ -7,7 +7,7 @@
 #include "jp/gecchi/VioletVreath/actor/item/Item.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/TractorMagic.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyMagicEnergyCore.h"
 
 using namespace GgafCore;
@@ -140,7 +140,7 @@ void MagicPointItem::processBehavior() {
 }
 
 void MagicPointItem::processJudgement() {
-    if (isOutOfUniverse()) {
+    if (isOutOfSpacetime()) {
         sayonara();
     }
 //    //í èÌà⁄ìÆ

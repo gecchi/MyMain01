@@ -26,8 +26,8 @@ void Wall001::processBehavior() {
 //    }
 //    _TRACE_(getName()<<":"<<_x<<","<<_y<<","<<_z);
 }
-//bool Wall001::isOutOfUniverse() const {
-//    if (GgafDxUniverse::_x_gone_left/2 < _x) {
+//bool Wall001::isOutOfSpacetime() const {
+//    if (GgafDxSpacetime::_x_gone_left/2 < _x) {
 //        return false;
 //    }
 //    return true;

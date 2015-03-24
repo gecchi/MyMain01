@@ -34,7 +34,7 @@ VvvCamWorker::VvvCamWorker(const char* prm_name) : DefaultGeometricActor(prm_nam
 }
 
 void VvvCamWorker::initialize() {
-    pCam_ = P_GOD->getUniverse()->getCamera();
+    pCam_ = P_GOD->getSpacetime()->getCamera();
     pVp_ = (VvvCameraViewPoint*)(pCam_->getCameraViewPoint());
     t_x_VP_ = pVp_->_x;
     t_y_VP_ = pVp_->_y;

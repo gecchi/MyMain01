@@ -10,7 +10,7 @@
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "MgrGod.h"
-#include "scene/MgrUniverse.h"
+#include "scene/MgrSpacetime.h"
 #include "actor/camera/MgrCameraUpVector.h"
 #include "actor/camera/MgrCameraViewPoint.h"
 
@@ -35,7 +35,7 @@ MgrCameraWorker::MgrCameraWorker(const char* prm_name) : GgafMainActor(prm_name,
     vcv_face_ = 0;
     vcv_face_prev_ = vcv_face_;
 
-    static bool is_init = MgrCameraWorker::initStatic(); //静的メンバ初期化
+    static volatile bool is_init = MgrCameraWorker::initStatic(); //静的メンバ初期化
     //注意：MgrCameraはまだ生成されていないためここでP_CAMは使用不可
 }
 
@@ -482,7 +482,7 @@ bool MgrCameraWorker::initStatic() {
 }
 
 void MgrCameraWorker::initialize() {
-    pCam_ = P_GOD->getUniverse()->getCamera();
+    pCam_ = P_GOD->getSpacetime()->getCamera();
     pVp_ = (MgrCameraViewPoint*)(pCam_->getCameraViewPoint());
     pUp_ = (MgrCameraUpVector*)(pCam_->getCameraUpVector());
     t_x_VP_ = pVp_->_x;

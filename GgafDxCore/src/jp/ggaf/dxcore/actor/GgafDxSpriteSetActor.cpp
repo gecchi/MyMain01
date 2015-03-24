@@ -6,7 +6,7 @@
 #include "jp/ggaf/dxcore/model/GgafDxSpriteSetModel.h"
 #include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -92,7 +92,7 @@ void GgafDxSpriteSetActor::processDraw() {
             break;
         }
     }
-    GgafDxUniverse::_pActor_draw_active = pSpriteSetActor; //描画セットの最後アクターをセット
+    GgafDxSpacetime::_pActor_draw_active = pSpriteSetActor; //描画セットの最後アクターをセット
     _pSpriteSetModel->GgafDxSpriteSetModel::draw(this, draw_set_num);
 }
 

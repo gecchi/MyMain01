@@ -27,7 +27,7 @@ void EnemyEmiliaBase::processBehavior() {
 }
 
 void EnemyEmiliaBase::processJudgement() {
-    if (isOutOfUniverse()) {
+    if (isOutOfSpacetime()) {
         sayonara();
     }
 }

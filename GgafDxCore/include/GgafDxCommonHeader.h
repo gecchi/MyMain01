@@ -225,7 +225,7 @@ enum GgafDxValign {
 
 
 #define Obj_GgafDxScene                 (0x80000010U)     //0b 10000000 00000000 00000000 00010000
-#define Obj_GgafDxUniverse              (0x80000020U)     //0b 10000000 00000000 00000000 00100000
+#define Obj_GgafDxSpacetime              (0x80000020U)     //0b 10000000 00000000 00000000 00100000
 
 #define Obj_GgafDxBaseActor             (0x100U)          //0b 00000000 00000000 00000001 00000000
 #define Obj_GgafDxGeometricActor        (0x200U)          //0b 00000000 00000000 00000010 00000000
@@ -356,7 +356,7 @@ class GgafDxPointSpriteEffect;
 class GgafDxTexture;
 
 class GgafDxScene;
-class GgafDxUniverse;
+class GgafDxSpacetime;
 
 class GgafDxUtil;
 class GgafDxDirectionUtil;

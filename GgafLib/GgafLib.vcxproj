@@ -146,7 +146,7 @@
     <ClInclude Include="include\jp\ggaf\lib\manager\SplineSourceConnection.h" />
     <ClInclude Include="include\jp\ggaf\lib\manager\SplineSourceManager.h" />
     <ClInclude Include="include\jp\ggaf\lib\scene\DefaultScene.h" />
-    <ClInclude Include="include\jp\ggaf\lib\scene\DefaultUniverse.h" />
+    <ClInclude Include="include\jp\ggaf\lib\scene\DefaultSpacetime.h" />
     <ClInclude Include="include\jp\ggaf\lib\scene\FormationTableScene.h" />
     <ClInclude Include="include\jp\ggaf\lib\scene\WalledScene.h" />
     <ClInclude Include="include\jp\ggaf\lib\scene\WalledSectionScene.h" />

@@ -8,7 +8,7 @@
 #include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafCore;
@@ -233,7 +233,7 @@ void EnemyOmulus::processJudgement() {
     }
 
 
-//    if (isOutOfUniverse()) {
+//    if (isOutOfSpacetime()) {
 //        sayonara();
 //    }
 }

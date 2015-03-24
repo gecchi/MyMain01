@@ -77,7 +77,7 @@ void EnemyOzartiaPillar01::processBehavior() {
 }
 
 void EnemyOzartiaPillar01::processJudgement() {
-    if (isOutOfUniverse()) {
+    if (isOutOfSpacetime()) {
         sayonara();
     }
 }

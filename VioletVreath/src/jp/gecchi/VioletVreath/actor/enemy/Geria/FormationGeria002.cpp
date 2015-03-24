@@ -1,7 +1,7 @@
 #include "FormationGeria002.h"
 
 #include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
-#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Geria/EnemyGeria.h"
@@ -35,8 +35,8 @@ void FormationGeria002::processBehavior() {
 }
 
 void FormationGeria002::processJudgement() {
-    Universe* pUniverse =  P_GOD->getUniverse();
-    if (_x < pUniverse->_x_gone_left) {
+    Spacetime* pSpacetime =  P_GOD->getSpacetime();
+    if (_x < pSpacetime->_x_gone_left) {
         _TRACE_("FormationGeria002::processJudgement() èIóπ");
         sayonara();
     }

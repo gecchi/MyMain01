@@ -1,6 +1,6 @@
 #include "jp/ggaf/core/util/GgafLinearOctreeElem.h"
 
-#include "jp/ggaf/core/util/GgafLinearOctreeSpace.h"
+#include "jp/ggaf/core/util/GgafLinearOctreeOctant.h"
 #include "jp/ggaf/core/util/GgafLinearOctree.h"
 
 using namespace GgafCore;
@@ -10,27 +10,27 @@ GgafLinearOctreeElem::GgafLinearOctreeElem(GgafLinearOctree* prm_pLinearOctree, 
     _pObject(prm_pObject)
 {
     _kindbit = prm_kindbit;
-    _pSpace_current = nullptr;
+    _pOctant_current = nullptr;
     _pNext = nullptr;
     _pPrev = nullptr;
     _pRegLinkNext = nullptr;
 }
 
 void GgafLinearOctreeElem::clear() {
-    if(_pSpace_current == nullptr) {
+    if(_pOctant_current == nullptr) {
         //_TRACE_("GgafLinearOctreeElem::extract() できません。意図してますか？");
         return;
     }
     //情報リセット
-    uint32_t index = _pSpace_current->_my_index;
-    GgafLinearOctreeSpace* paSpace = _pLinearOctree->_paSpace;
+    uint32_t index = _pOctant_current->_my_index;
+    GgafLinearOctreeOctant* paOctant = _pLinearOctree->_paOctant;
     while (true) {
-        if (paSpace[index]._kindinfobit == 0 ) {
+        if (paOctant[index]._kindinfobit == 0 ) {
             break;
         } else {
-            paSpace[index]._kindinfobit = 0;
-            paSpace[index]._pElem_first = nullptr;
-            paSpace[index]._pElem_last = nullptr;
+            paOctant[index]._kindinfobit = 0;
+            paOctant[index]._pElem_first = nullptr;
+            paOctant[index]._pElem_last = nullptr;
         }
 
         if (index == 0) {
@@ -41,7 +41,7 @@ void GgafLinearOctreeElem::clear() {
     }
     _pNext = nullptr;
     _pPrev = nullptr;
-    _pSpace_current = nullptr;
+    _pOctant_current = nullptr;
 
 //要素は各空間にリストにぶら下がっているため、clear() の機能を本当に綺麗に実装するならば、
 //所属空間の _kindinfobit も XOR などしてビットをアンセットし、
@@ -52,41 +52,41 @@ void GgafLinearOctreeElem::clear() {
 //基本ツリーは、登録と、クリアのみ行うという設計
 }
 
-void GgafLinearOctreeElem::belongTo(GgafLinearOctreeSpace* const prm_pSpace_target) {
-    if (_pSpace_current == prm_pSpace_target) {
+void GgafLinearOctreeElem::belongTo(GgafLinearOctreeOctant* const prm_pOctant_target) {
+    if (_pOctant_current == prm_pOctant_target) {
         //_TRACE_("belongToせんでいい");
         return;
     } else {
-        if (prm_pSpace_target->_pElem_first == nullptr) {
+        if (prm_pOctant_target->_pElem_first == nullptr) {
             //１番目に追加の場合
-            prm_pSpace_target->_pElem_first = this;
-            prm_pSpace_target->_pElem_last = this;
+            prm_pOctant_target->_pElem_first = this;
+            prm_pOctant_target->_pElem_last = this;
 //nullptrはclear時設定済み。省略しても大丈夫なはず。
 //            _pNext = nullptr;
 //            _pPrev = nullptr;
-            _pSpace_current = prm_pSpace_target;
+            _pOctant_current = prm_pOctant_target;
         } else {
             //末尾に追加の場合
-            prm_pSpace_target->_pElem_last->_pNext = this;
-            _pPrev = prm_pSpace_target->_pElem_last;
+            prm_pOctant_target->_pElem_last->_pNext = this;
+            _pPrev = prm_pOctant_target->_pElem_last;
 //nullptrはclear時設定済み。省略しても大丈夫なはず。
 //            _pNext = nullptr;
-            prm_pSpace_target->_pElem_last = this;
-            _pSpace_current = prm_pSpace_target;
+            prm_pOctant_target->_pElem_last = this;
+            _pOctant_current = prm_pOctant_target;
         }
     }
     //引数の要素番号
-    uint32_t index = prm_pSpace_target->_my_index;
-    GgafLinearOctreeSpace* const paSpace = _pLinearOctree->_paSpace;
+    uint32_t index = prm_pOctant_target->_my_index;
+    GgafLinearOctreeOctant* const paOctant = _pLinearOctree->_paOctant;
     const uint32_t this_kindbit = this->_kindbit;
     //親空間すべてに要素種別情報を流す
     while (true) {
-        if (paSpace[index]._kindinfobit & this_kindbit) {
+        if (paOctant[index]._kindinfobit & this_kindbit) {
             //もう種別情報が設定済みならば、それ以上の親も設定済みの為、抜ける
             break;
         } else {
             //空間に種別情報が未設定ならば設定
-            paSpace[index]._kindinfobit |= this_kindbit;
+            paOctant[index]._kindinfobit |= this_kindbit;
         }
         if (index == 0) {
             break;

@@ -32,7 +32,7 @@ public:
         return 0;
     }
 
-    virtual bool isOutOfUniverse() const override {
+    virtual bool isOutOfSpacetime() const override {
         return false;
     }
 

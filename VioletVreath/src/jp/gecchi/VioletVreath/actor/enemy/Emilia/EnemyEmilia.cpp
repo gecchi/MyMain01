@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -34,8 +34,8 @@ void EnemyEmilia::onActive() {
     setHitAble(true);
     const coord appearances_renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 3;
     const coord appearances_renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 3;
-    Universe* pUniverse =  P_GOD->getUniverse();
-    _x = pUniverse->_x_gone_right - 1000;
+    Spacetime* pSpacetime =  P_GOD->getSpacetime();
+    _x = pSpacetime->_x_gone_right - 1000;
     _y = RND(-(appearances_renge_y/2) , +(appearances_renge_y/2));
     _z = RND(-(appearances_renge_z/2) , +(appearances_renge_z/2));
     GgafDxKuroko* const pKuroko = getKuroko();

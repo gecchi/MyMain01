@@ -37,7 +37,7 @@ void MySnipeShot001::processBehavior() {
 }
 
 void MySnipeShot001::processJudgement() {
-    if (isOutOfUniverse()) {
+    if (isOutOfSpacetime()) {
         sayonara();
     }
 }

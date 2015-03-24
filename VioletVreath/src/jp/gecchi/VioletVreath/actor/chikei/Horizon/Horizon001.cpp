@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxChecker.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -33,13 +33,13 @@ void Horizon001::initialize() {
     position(0, PX_C(-100), 0);
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->makeCollision(1);
-    Universe* pUniverse =  P_GOD->getUniverse();
-    pChecker->setColliAAB(0, pUniverse->_x_gone_left  + (chip_width_*2),
+    Spacetime* pSpacetime =  P_GOD->getSpacetime();
+    pChecker->setColliAAB(0, pSpacetime->_x_gone_left  + (chip_width_*2),
                                   0,
-                                  pUniverse->_z_gone_near  + (chip_width_*2),
-                                  pUniverse->_x_gone_right - (chip_width_*2),
-                                  pUniverse->_y_gone_bottom - (chip_width_*2),
-                                  pUniverse->_z_gone_far - (chip_width_*2));
+                                  pSpacetime->_z_gone_near  + (chip_width_*2),
+                                  pSpacetime->_x_gone_right - (chip_width_*2),
+                                  pSpacetime->_y_gone_bottom - (chip_width_*2),
+                                  pSpacetime->_z_gone_far - (chip_width_*2));
     setBumpMapTexture("bumpstar_nmap.bmp");
 }
 void Horizon001::processBehavior() {

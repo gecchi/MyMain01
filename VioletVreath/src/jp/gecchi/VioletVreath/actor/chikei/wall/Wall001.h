@@ -18,7 +18,7 @@ public:
     void onCreateModel() override;
 
     void processBehavior() override;
-//    bool isOutOfUniverse() const override;
+//    bool isOutOfSpacetime() const override;
 
     virtual ~Wall001() {}
 };

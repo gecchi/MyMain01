@@ -36,7 +36,7 @@ void Zakoko::onActive() {
 
 void Zakoko::processBehavior() {
     GgafDxKuroko* const pKuroko = getKuroko();
-    getKuroko()->behave();
+    pKuroko->behave();
 }
 
 void Zakoko::processJudgement() {

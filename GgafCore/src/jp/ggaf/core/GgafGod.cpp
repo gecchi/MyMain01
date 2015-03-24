@@ -4,7 +4,7 @@
 #include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/core/GgafGarbageBox.h"
 #include "jp/ggaf/core/GgafProperties.h"
-#include "jp/ggaf/core/scene/GgafUniverse.h"
+#include "jp/ggaf/core/scene/GgafSpacetime.h"
 #include "jp/ggaf/core/scene/GgafDisusedScene.h"
 #include "jp/ggaf/core/actor/GgafDisusedActor.h"
 
@@ -26,7 +26,7 @@ DWORD GgafGod::_aaTime_offset_of_next_view[3][60] = {
 };
 
 GgafGod::GgafGod() : GgafObject(),
-  _pUniverse(nullptr),
+  _pSpacetime(nullptr),
   _fps(0) {
     timeBeginPeriod(1);
     _frame_of_God = 0;
@@ -61,11 +61,11 @@ void GgafGod::be() {
     // 【メモ】
     // １サイクル（１フレーム）の処理は以下の様に大きく５つに分け、順に実行するものとした。
     //
-    // ①Mo = presentUniversalMoment();     ･･･ メイン処理・必須処理
-    // ②Ju = executeUniversalJudge();      ･･･ 判定処理・必須処理
-    // ③Ma = makeUniversalMaterialize();   ･･･ 描画処理(重い)・スキップ可
-    // ④Vi = presentUniversalVisualize();  ･･･ 描画フリップ処理・スキップ可(但し③と④はセット処理)
-    // ⑤Fi = finalizeUniverse();          ･･･ 最終処理・必須処理
+    // ①Mo = presentSpacetimeMoment();     ･･･ メイン処理・必須処理
+    // ②Ju = executeSpacetimeJudge();      ･･･ 判定処理・必須処理
+    // ③Ma = makeSpacetimeMaterialize();   ･･･ 描画処理(重い)・スキップ可
+    // ④Vi = presentSpacetimeVisualize();  ･･･ 描画フリップ処理・スキップ可(但し③と④はセット処理)
+    // ⑤Fi = finalizeSpacetime();          ･･･ 最終処理・必須処理
     //
     // ここで行ないたいことは『できる限り、④Vi を 1/60 秒毎に安定して実行すること』とした。
     // そこで、次の様な設計を行った。
@@ -101,15 +101,15 @@ void GgafGod::be() {
     //   例えば上図での 3frame begin  ～ 4frame begin 間の時間は前処理により変動する。
     //
 
-    if (_pUniverse == nullptr) {
+    if (_pSpacetime == nullptr) {
         //この世がまだ無い場合は、先ずこの世を作成。
-        _pUniverse = createUniverse();
+        _pSpacetime = createSpacetime();
 #ifdef MY_DEBUG
-        if (_pUniverse == nullptr) {
+        if (_pSpacetime == nullptr) {
             throwGgafCriticalException("GgafGod::be() Error! この世を実装して下さい！");
         }
 #endif
-        _pUniverse->_pGod = this;
+        _pSpacetime->_pGod = this;
         _time_at_beginning_frame = timeGetTime();
         _time_of_next_view = (frame)(_time_at_beginning_frame+100); //0.1秒後開始
         _time_calc_fps_next = _time_at_beginning_frame + 1;
@@ -125,19 +125,19 @@ void GgafGod::be() {
         _is_behaved_flg = true;
         BEGIN_SYNCHRONIZED1; // ----->排他開始
         _frame_of_God++;
-        presentUniversalMoment(); //①
-        executeUniversalJudge();  //②
+        presentSpacetimeMoment(); //①
+        executeSpacetimeJudge();  //②
         _time_of_next_view += _aaTime_offset_of_next_view[_slowdown_mode][_cnt_frame];
         _cnt_frame++;
         if (_cnt_frame == 60) { _cnt_frame = 0; }
         if (timeGetTime() >= _time_of_next_view) { //描画タイミングフレームになった、或いは過ぎている場合
-            //makeUniversalMaterialize はパス
+            //makeSpacetimeMaterialize はパス
             _is_materialized_flg = false;
         } else {
             //描画タイミングフレームになっていない。余裕がある。
              _is_materialized_flg = true;
-            makeUniversalMaterialize(); //③
-            //但し makeUniversalMaterialize() によりオーバーするかもしれない。
+            makeSpacetimeMaterialize(); //③
+            //但し makeSpacetimeMaterialize() によりオーバーするかもしれない。
         }
         END_SYNCHRONIZED1;  // <-----排他終了
     }
@@ -147,25 +147,25 @@ void GgafGod::be() {
     if (_time_at_beginning_frame >= _time_of_next_view) {
         //描画タイミングフレームになった、或いは過ぎている場合
         BEGIN_SYNCHRONIZED1;  // ----->排他開始
-        if (_is_materialized_flg) { // ③ makeUniversalMaterialize() 実行済みの場合
+        if (_is_materialized_flg) { // ③ makeSpacetimeMaterialize() 実行済みの場合
             //描画有り（スキップなし）
-            presentUniversalVisualize(); _visualize_frames++; //④
-            finalizeUniverse(); //⑤
-        } else {                   // ③ makeUniversalMaterialize() 実行していない場合
+            presentSpacetimeVisualize(); _visualize_frames++; //④
+            finalizeSpacetime(); //⑤
+        } else {                   // ③ makeSpacetimeMaterialize() 実行していない場合
             //描画無し（スキップ時）
             if (_sync_frame_time) { //同期調整モード時は
                 //無条件で描画なし。
-                finalizeUniverse(); //⑤
+                finalizeSpacetime(); //⑤
             } else {   //同期調整モードではない場合は通常スキップ
                 _skip_count_of_frame++;
                 //但し、スキップするといっても MAX_SKIP_FRAME フレームに１回は描画はする。
                 if (_skip_count_of_frame >= _max_skip_frames) {
-                    makeUniversalMaterialize(); //③
-                    presentUniversalVisualize(); _visualize_frames++; //④
-                    finalizeUniverse();        //⑤
+                    makeSpacetimeMaterialize(); //③
+                    presentSpacetimeVisualize(); _visualize_frames++; //④
+                    finalizeSpacetime();        //⑤
                     _skip_count_of_frame = 0;
                 } else {
-                    finalizeUniverse(); //⑤
+                    finalizeSpacetime(); //⑤
                 }
             }
         }
@@ -191,17 +191,17 @@ void GgafGod::be() {
     return;
 }
 
-void GgafGod::presentUniversalMoment() {
-    _pUniverse->nextFrame();
-    _pUniverse->behave();
+void GgafGod::presentSpacetimeMoment() {
+    _pSpacetime->nextFrame();
+    _pSpacetime->behave();
 }
 
-void GgafGod::executeUniversalJudge() {
-    _pUniverse->settleBehavior();
-    _pUniverse->judge();
+void GgafGod::executeSpacetimeJudge() {
+    _pSpacetime->settleBehavior();
+    _pSpacetime->judge();
 }
 
-void GgafGod::makeUniversalMaterialize() {
+void GgafGod::makeSpacetimeMaterialize() {
     if (_num_actor_drawing > PROPERTY::DRAWNUM_TO_SLOWDOWN2) {
         _slowdown_mode = SLOWDOWN_MODE_30FPS;
     } else if (_num_actor_drawing > PROPERTY::DRAWNUM_TO_SLOWDOWN1) {
@@ -210,25 +210,25 @@ void GgafGod::makeUniversalMaterialize() {
         _slowdown_mode = SLOWDOWN_MODE_DEFAULT;
     }
     _num_actor_drawing = 0;
-    GgafUniverse* pUniverse = _pUniverse;
-    pUniverse->preDraw();
-    pUniverse->draw();
-    pUniverse->afterDraw();
+    GgafSpacetime* pSpacetime = _pSpacetime;
+    pSpacetime->preDraw();
+    pSpacetime->draw();
+    pSpacetime->afterDraw();
 }
 
-void GgafGod::presentUniversalVisualize() {
-    _pUniverse->dump();
+void GgafGod::presentSpacetimeVisualize() {
+    _pSpacetime->dump();
 }
 
-void GgafGod::finalizeUniverse() {
-    _pUniverse->doFinally();
+void GgafGod::finalizeSpacetime() {
+    _pSpacetime->doFinally();
 }
 
 void GgafGod::clean() {
     if (!_was_cleaned) {
         _TRACE_("GgafGod::clean() start");
-        if (_pUniverse) {
-            _TRACE_("_pUniverse != nullptr");
+        if (_pSpacetime) {
+            _TRACE_("_pSpacetime != nullptr");
             //工場を止める
             Sleep(10);
             GgafFactory::_is_working_flg = false;
@@ -256,8 +256,8 @@ void GgafGod::clean() {
 
 #ifdef MY_DEBUG
             //ツリー構造表示
-            _TRACE_("Dumping _pUniverse ...");
-            _pUniverse->dump();
+            _TRACE_("Dumping _pSpacetime ...");
+            _pSpacetime->dump();
 #endif
 
             //工場掃除
@@ -274,8 +274,8 @@ void GgafGod::clean() {
             GGAF_DELETE(GgafGarbageBox::_pGarbageBox);
             //この世で生きている物も掃除
             Sleep(20);
-            _TRACE_("GGAF_DELETE(_pUniverse);");
-            GGAF_DELETE(_pUniverse);
+            _TRACE_("GGAF_DELETE(_pSpacetime);");
+            GGAF_DELETE(_pSpacetime);
             _TRACE_("GgafGod::~GgafGod()  DeleteCriticalSection(&(GgafGod::CS2)); .....");
             DeleteCriticalSection(&(GgafGod::CS2));
         }

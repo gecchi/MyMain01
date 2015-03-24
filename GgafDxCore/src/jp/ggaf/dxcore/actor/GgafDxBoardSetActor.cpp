@@ -5,7 +5,7 @@
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
 #include "jp/ggaf/dxcore/model/GgafDxBoardSetModel.h"
-#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
 
 using namespace GgafCore;
@@ -104,7 +104,7 @@ void GgafDxBoardSetActor::processDraw() {
             break;
         }
     }
-    GgafDxUniverse::_pActor_draw_active = pBoardSetActor; //描画セットの最後アクターをセット
+    GgafDxSpacetime::_pActor_draw_active = pBoardSetActor; //描画セットの最後アクターをセット
     _pBoardSetModel->GgafDxBoardSetModel::draw(this, draw_set_num);
 }
 

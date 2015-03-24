@@ -6,7 +6,7 @@
 #include "jp/gecchi/VioletVreath/manager/SplineLineManager.h"
 #include "jp/gecchi/VioletVreath/manager/XpmManager.h"
 #include "jp/gecchi/VioletVreath/Properties.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafCore;
@@ -121,10 +121,10 @@ void God::initVB() {
 
 }
 
-GgafUniverse* God::createUniverse() {
+GgafSpacetime* God::createSpacetime() {
     Camera* pCamera = NEW Camera("CAMERA");
-    Universe* pUniverse = NEW Universe("MYUNIVERSE", pCamera);
-    return (GgafUniverse*)pUniverse;
+    Spacetime* pSpacetime = NEW Spacetime("MYSPACETIME", pCamera);
+    return (GgafSpacetime*)pSpacetime;
 }
 
 void God::clean() {
@@ -166,8 +166,8 @@ void God::oops() {
 }
 
 God::~God() {
-    if (getUniverse()) {
-        World* pWorld = getUniverse()->getWorld();
+    if (getSpacetime()) {
+        World* pWorld = getSpacetime()->getWorld();
         if (pWorld) {
             pWorld->throwEventLowerTree(EVENT_GOD_WILL_DIE); //全シーンに通知
         }

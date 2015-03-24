@@ -119,7 +119,7 @@ void EnemyHisbe002::processBehavior() {
 }
 
 void EnemyHisbe002::processJudgement() {
-    if (isOutOfUniverse()) {
+    if (isOutOfSpacetime()) {
         sayonara();
     }
 }

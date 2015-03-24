@@ -29,7 +29,7 @@ public:
         return 0;
     }
 
-    bool isOutOfUniverse() const override {
+    bool isOutOfSpacetime() const override {
         return false;
     }
 

@@ -33,7 +33,7 @@ int MyOptionControllerGizmo::isOutOfView() {
     return 0;
 }
 
-bool MyOptionControllerGizmo::isOutOfUniverse() const {
+bool MyOptionControllerGizmo::isOutOfSpacetime() const {
     //ƒQ[ƒ€À•W”ÍˆÍŠO”»’è–³‚µ
     return false;
 }

@@ -228,7 +228,7 @@ public:
      * 画面内、画面外とは無関係
      * @return true:活動範囲外/false:活動範囲内
      */
-    virtual bool isOutOfUniverse() const;
+    virtual bool isOutOfSpacetime() const;
 
     /**
      * ワールド座標を設定 .

@@ -216,7 +216,7 @@ namespace VioletVreath {
 
 //ëOï˚êÈåæ
 class God;
-class Universe;
+class Spacetime;
 class World;
 
 class CommonScene;
@@ -394,10 +394,10 @@ class HoshiBoshiTransit;
 class HoshiBoshiRankUp;
 class HoshiBoshi001;
 class HoshiBoshiTitle;
-class WorldBoundSpaceTransit;
-class WorldBoundSpace001;
-class WorldBoundSpace002;
-class WorldBoundSpaceRankUp;
+class WorldBoundTransit;
+class WorldBound001;
+class WorldBound002;
+class WorldBoundRankUp;
 class WorldBoundTitle;
 class WorldBoundNameEntry;
 

@@ -19,7 +19,7 @@ public:
 
     void onCreateModel() override;
 
-    bool isOutOfUniverse() const override;
+    bool isOutOfSpacetime() const override;
 
     virtual ~WallAABTestActor() {}
 };

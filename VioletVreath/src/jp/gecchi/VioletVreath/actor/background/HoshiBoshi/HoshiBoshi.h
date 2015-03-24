@@ -73,7 +73,7 @@ public:
 
     virtual int isOutOfView() override;
 
-    virtual bool isOutOfUniverse() const override;
+    virtual bool isOutOfSpacetime() const override;
 
 
 

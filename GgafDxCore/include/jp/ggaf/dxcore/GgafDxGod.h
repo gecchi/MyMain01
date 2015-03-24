@@ -3,7 +3,7 @@
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/GgafGod.h"
 
-#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 
@@ -278,11 +278,11 @@ public:
      */
     virtual HRESULT initDevice();
 
-    virtual void presentUniversalMoment() override;
-    virtual void executeUniversalJudge() override;
-    virtual void makeUniversalMaterialize() override;
-    virtual void presentUniversalVisualize() override;
-    virtual void finalizeUniverse() override;
+    virtual void presentSpacetimeMoment() override;
+    virtual void executeSpacetimeJudge() override;
+    virtual void makeSpacetimeMaterialize() override;
+    virtual void presentSpacetimeVisualize() override;
+    virtual void finalizeSpacetime() override;
 
 
     /**
@@ -290,8 +290,8 @@ public:
      * 下位でオーバーライド可能。<BR>
      * @return この世
      */
-    virtual GgafDxUniverse* getUniverse() override {  //共変の戻り値
-        return (GgafDxUniverse*)_pUniverse;
+    virtual GgafDxSpacetime* getSpacetime() override {  //共変の戻り値
+        return (GgafDxSpacetime*)_pSpacetime;
     }
 
     virtual void clean() override;

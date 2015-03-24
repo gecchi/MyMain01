@@ -70,7 +70,7 @@ public:
 
     virtual void processPreDraw() override;
 
-    virtual bool isOutOfUniverse() const override;
+    virtual bool isOutOfSpacetime() const override;
 
     virtual int isOutOfView() override;
 

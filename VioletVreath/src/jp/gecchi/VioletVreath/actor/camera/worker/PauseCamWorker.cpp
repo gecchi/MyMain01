@@ -8,7 +8,7 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/ViewPointGuide.h"
 #include "jp/gecchi/VioletVreath/Properties.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World.h"
 #include "jp/gecchi/VioletVreath/actor/camera/CameraViewPoint.h"
 #include "jp/gecchi/VioletVreath/actor/camera/Camera.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
@@ -30,7 +30,7 @@ PauseCamWorker::PauseCamWorker(const char* prm_name) : CameraWorker(prm_name) {
 void PauseCamWorker::initialize() {
     CameraWorker::initialize();
     pVPGuide_->inactivate();
-    P_GOD->getUniverse()->getWorld()->bringDirector()->addSubGroup(pVPGuide_);
+    P_GOD->getSpacetime()->getWorld()->bringDirector()->addSubGroup(pVPGuide_);
 }
 
 void PauseCamWorker::onActive() {

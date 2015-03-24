@@ -1,5 +1,5 @@
 #include "MyShipDivingCamWorker.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 
 #include "jp/ggaf/dxcore/util/GgafDxDirectionUtil.h"
 using namespace GgafCore;
@@ -23,11 +23,11 @@ void MyShipDivingCamWorker::onActive() {
 }
 void MyShipDivingCamWorker::processBehavior() {
     if (getActiveFrame() > 30) {
-        Universe* pUniverse =  P_GOD->getUniverse();
+        Spacetime* pSpacetime =  P_GOD->getSpacetime();
         MyShip* pMyShip = P_MYSHIP;
         frame f = getSwitchedFrame();
         coord dx = ABS(P_MYSHIP->_x);
-        static const coord dc = ABS(pUniverse->_x_gone_left);
+        static const coord dc = ABS(pSpacetime->_x_gone_left);
         static const coord r = PX_C(500);
         double t = (1.0-(1.0*dx / dc)); //t=0.0¨1.0
         angle a = UTIL::simplifyAng((D180ANG)*t); //180“x‰ñ“]ƒJƒƒ‰‚ª‚®‚é[‚ñ‚Æ‰ñ‚·

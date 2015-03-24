@@ -5,7 +5,7 @@
 #include "jp/gecchi/VioletVreath/actor/my/MyOptionController.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/Properties.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/actor/camera/Camera.h"
 #include "jp/gecchi/VioletVreath/actor/camera/CameraViewPoint.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"

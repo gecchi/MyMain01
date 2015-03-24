@@ -9,7 +9,7 @@
 #include "jp/gecchi/VioletVreath/manager/DepositoryConnection.h"
 #include "jp/gecchi/VioletVreath/manager/SplineLineManager.h"
 #include "jp/gecchi/VioletVreath/manager/SplineLineConnection.h"
-#include "jp/gecchi/VioletVreath/scene/Universe.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime.h"
 
 #undef P_GOD
 #define P_GOD ((VioletVreath::God*)VioletVreath::God::_pGod)
@@ -99,20 +99,20 @@ public:
     /**
      * この世の瞬間を創造する前に、VBを更新する。
      */
-    virtual void presentUniversalMoment() override {
+    virtual void presentSpacetimeMoment() override {
         //VBを反映
         pVbtn_active_ = pVbtn_active_next_frame_;
         //上位呼び出し
-        GgafLib::DefaultGod::presentUniversalMoment();
+        GgafLib::DefaultGod::presentSpacetimeMoment();
     }
 
     /**
      * Worldシーンを作成。を実装
      */
-    GgafCore::GgafUniverse* createUniverse() override;
+    GgafCore::GgafSpacetime* createSpacetime() override;
 
-    virtual Universe* getUniverse() override {  //共変の戻り値
-        return (Universe*)_pUniverse;
+    virtual Spacetime* getSpacetime() override {  //共変の戻り値
+        return (Spacetime*)_pSpacetime;
     }
 
     /**

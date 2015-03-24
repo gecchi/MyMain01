@@ -27,10 +27,10 @@ private :
     }
     /**
      * draw() のオーバーライド禁止 .
-     * 世界(GgafDxUniverse)が全ての描画を行う仕組みになりました。<BR>
+     * 世界(GgafDxSpacetime)が全ての描画を行う仕組みになりました。<BR>
      * したがって、オーバーライドしてもフレームワークより呼び出されることはありません。<BR>
      * 誤ってオーバーライドしないために private で実装。<BR>
-     * GgafDxUniverse::draw() を参照せよ。<BR>
+     * GgafDxSpacetime::draw() を参照せよ。<BR>
      */
     void draw() override {
     }

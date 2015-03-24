@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/actor/WallPartsActor.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/lib/actor/ColliAABActor.h"
 #include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
@@ -68,7 +68,7 @@ void WallPartsActor::processBehavior() {
 }
 
 void WallPartsActor::processJudgement() {
-    if (isOutOfUniverse()) {
+    if (isOutOfSpacetime()) {
         sayonara();
     }
 }
@@ -80,9 +80,9 @@ void WallPartsActor::processPreDraw() {
     }
 }
 
-bool WallPartsActor::isOutOfUniverse() const {
-    DefaultUniverse* pUniverse =  P_GOD->getUniverse();
-    if (_x+_wall_dep < pUniverse->_x_gone_left) {
+bool WallPartsActor::isOutOfSpacetime() const {
+    DefaultSpacetime* pSpacetime =  P_GOD->getSpacetime();
+    if (_x+_wall_dep < pSpacetime->_x_gone_left) {
         return true;
     } else {
         return false;

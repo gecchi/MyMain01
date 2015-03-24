@@ -35,7 +35,7 @@ void TestNomalShot::processBehavior() {
 }
 
 void TestNomalShot::processJudgement() {
-    if (isOutOfUniverse()) {
+    if (isOutOfSpacetime()) {
         sayonara();
     }
 }

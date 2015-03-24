@@ -12,7 +12,7 @@
 
 namespace VVViewer {
 class VvvGod;
-class VvvUniverse;
+class VvvSpacetime;
 class VvvWorld;
 class VvvCamera;
 class VvvCameraViewPoint;

@@ -7,7 +7,7 @@
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 
@@ -98,7 +98,7 @@ void EnemyIda::processBehavior() {
 }
 
 void EnemyIda::processJudgement() {
-    if (isOutOfUniverse()) {
+    if (isOutOfSpacetime()) {
         sayonara();
     }
 }

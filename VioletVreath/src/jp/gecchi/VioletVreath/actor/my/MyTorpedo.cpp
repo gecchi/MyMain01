@@ -207,7 +207,7 @@ void MyTorpedo::processBehavior() {
 
 void MyTorpedo::processJudgement() {
     GgafProgress* const pProg = getProgress();
-    if (isOutOfUniverse() && pProg->get() == MyTorpedo_IN_FIRE) {
+    if (isOutOfSpacetime() && pProg->get() == MyTorpedo_IN_FIRE) {
         setHitAble(false);
         pProg->change(MyTorpedo_RELEASE);
         GgafMainActor* pTailEffect = (GgafMainActor*)pTailEffectDepository_->getSubFirst();

@@ -8,7 +8,7 @@
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/God.h"
 
 using namespace GgafCore;
@@ -135,7 +135,7 @@ void EnemyAllas::processBehavior() {
 }
 
 void EnemyAllas::processJudgement() {
-    if (isOutOfUniverse()) {
+    if (isOutOfSpacetime()) {
         sayonara();
     }
 }

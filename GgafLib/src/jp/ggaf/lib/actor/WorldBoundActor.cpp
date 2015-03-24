@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/lib/DefaultGod.h"
-#include "jp/ggaf/lib/scene/DefaultUniverse.h"
+#include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
 
 using namespace GgafCore;
@@ -26,18 +26,18 @@ WorldBoundActor::WorldBoundActor(const char* prm_name, const char* prm_model) :
 }
 
 void WorldBoundActor::initialize() {
-    DefaultCamera* pCam = P_GOD->getUniverse()->getCamera();
+    DefaultCamera* pCam = P_GOD->getSpacetime()->getCamera();
     setHitAble(false);
     positionAs(pCam);
     setFaceAng(0, 0, 0);
     dxcoord world_r = pCam->getZFar(); //ê¢äEã´äEãÖîºåa
-    dxcoord world_bound_model_r = 1.0f; //WorldBoundSpace001ÇÃÉÇÉfÉãÇÕîºåaDIRECTXãóó£1ÇÃãÖÇ≈Ç†ÇÈ
+    dxcoord world_bound_model_r = 1.0f; //WorldBound001ÇÃÉÇÉfÉãÇÕîºåaDIRECTXãóó£1ÇÃãÖÇ≈Ç†ÇÈ
     setScaleR((world_r*0.989)/world_bound_model_r);
 }
 
 
 void WorldBoundActor::processSettlementBehavior() {
-    DefaultCamera* pCam = P_GOD->getUniverse()->getCamera();
+    DefaultCamera* pCam = P_GOD->getSpacetime()->getCamera();
     //âÊñ äOîªíËñ≥ÇµÇ…î∫Ç»Ç¢èàóùä»ó™âªÅB
     //éüÇÃèàóùÇñ≥éãÇµÇƒÇ¢Ç‹Ç∑
     //ÅEé©êgÇ™É{Å[ÉìéûÇÃçló∂
@@ -60,7 +60,7 @@ void WorldBoundActor::processSettlementBehavior() {
 //        onCreateModel(); //ÉÇÉfÉãçÏê¨éûÇÃèâä˙èàóù
 //        _pModel->_is_init_model = true;
 //    }
-//    GgafDxUniverse::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL,this); //ç≈ê[ïî
+//    GgafDxSpacetime::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL,this); //ç≈ê[ïî
 //}
 
 WorldBoundActor::~WorldBoundActor() {

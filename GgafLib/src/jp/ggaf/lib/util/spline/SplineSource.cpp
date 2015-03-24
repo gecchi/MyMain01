@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
 
 #include <fstream>
-#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/lib/util/spline/SplineLine.h"
 #include "jp/ggaf/lib/GgafLibProperties.h"
 #include "jp/ggaf/lib/DefaultGod.h"
@@ -107,25 +107,25 @@ SplineSource::SplineSource(const char* prm_idstr)  : GgafObject() {
     if (d != 0 && d != 4) {
         throwGgafCriticalException("SplineSource::SplineSource "<<_idstr<<" [ADJUST_MAT] のデータ数が中途半端です。４列４行の行列を設定してください。");
     }
-    DefaultUniverse* pUniverse =  P_GOD->getUniverse();
+    DefaultSpacetime* pSpacetime =  P_GOD->getSpacetime();
     for (int i = 0; i < n; i++) {
-        if (p[i][0] > pUniverse->_x_gone_right*0.9999) {
-            p[i][0] = pUniverse->_x_gone_right*0.9999;
+        if (p[i][0] > pSpacetime->_x_gone_right*0.9999) {
+            p[i][0] = pSpacetime->_x_gone_right*0.9999;
         }
-        if (p[i][0] < pUniverse->_x_gone_left*0.9999) {
-            p[i][0] = pUniverse->_x_gone_left*0.9999;
+        if (p[i][0] < pSpacetime->_x_gone_left*0.9999) {
+            p[i][0] = pSpacetime->_x_gone_left*0.9999;
         }
-        if (p[i][1] > pUniverse->_y_gone_top*0.9999) {
-            p[i][1] = pUniverse->_y_gone_top*0.9999;
+        if (p[i][1] > pSpacetime->_y_gone_top*0.9999) {
+            p[i][1] = pSpacetime->_y_gone_top*0.9999;
         }
-        if (p[i][1] < pUniverse->_y_gone_bottom*0.9999) {
-            p[i][1] = pUniverse->_y_gone_bottom*0.9999;
+        if (p[i][1] < pSpacetime->_y_gone_bottom*0.9999) {
+            p[i][1] = pSpacetime->_y_gone_bottom*0.9999;
         }
-        if (p[i][2] > pUniverse->_z_gone_far*0.9999) {
-            p[i][2] = pUniverse->_z_gone_far*0.9999;
+        if (p[i][2] > pSpacetime->_z_gone_far*0.9999) {
+            p[i][2] = pSpacetime->_z_gone_far*0.9999;
         }
-        if (p[i][2] < pUniverse->_z_gone_near*0.9999) {
-            p[i][2] = pUniverse->_z_gone_near*0.9999;
+        if (p[i][2] < pSpacetime->_z_gone_near*0.9999) {
+            p[i][2] = pSpacetime->_z_gone_near*0.9999;
         }
     }
     if (d == 4) {

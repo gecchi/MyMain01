@@ -34,7 +34,7 @@ CameraWorker::CameraWorker(const char* prm_name) : GgafMainActor(prm_name, nullp
     vcv_face_ = 0;
     vcv_face_prev_ = vcv_face_;
 
-    static bool is_init = CameraWorker::initStatic(); //静的メンバ初期化
+    static volatile bool is_init = CameraWorker::initStatic(); //静的メンバ初期化
     //注意：Cameraはまだ生成されていないためここでP_CAMは使用不可
 }
 
@@ -481,7 +481,7 @@ bool CameraWorker::initStatic() {
 }
 
 void CameraWorker::initialize() {
-    pCam_ = P_GOD->getUniverse()->getCamera();
+    pCam_ = P_GOD->getSpacetime()->getCamera();
     pVp_ = (CameraViewPoint*)(pCam_->getCameraViewPoint());
     pUp_ = (CameraUpVector*)(pCam_->getCameraUpVector());
     t_x_VP_ = pVp_->_x;
@@ -500,7 +500,7 @@ void CameraWorker::onActive() {
 }
 
 void CameraWorker::onSwitchCameraWork() {
-    //frame_of_behaving_since_onSwitch_ = 0; は Universe::switchCameraWork() が行う。
+    //frame_of_behaving_since_onSwitch_ = 0; は Spacetime::switchCameraWork() が行う。
 }
 
 void CameraWorker::onUndoCameraWork() {

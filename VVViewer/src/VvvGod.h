@@ -3,7 +3,7 @@
 #include "VVViewer.h"
 #include "jp/ggaf/lib/DefaultGod.h"
 
-#include "scene/VvvUniverse.h"
+#include "scene/VvvSpacetime.h"
 
 #undef P_GOD
 #define P_GOD ((VVViewer::VvvGod*)VVViewer::VvvGod::_pGod)
@@ -36,10 +36,10 @@ public:
      * 神クラスを作成するには、「この世」の生成方法を実装する必要があります。
      * @return 生成した「この世」
      */
-    GgafCore::GgafUniverse* createUniverse() override;
+    GgafCore::GgafSpacetime* createSpacetime() override;
 
-    virtual VvvUniverse* getUniverse() override {  //共変の戻り値
-        return (VvvUniverse*)_pUniverse;
+    virtual VvvSpacetime* getSpacetime() override {  //共変の戻り値
+        return (VvvSpacetime*)_pSpacetime;
     }
 
     virtual ~VvvGod();

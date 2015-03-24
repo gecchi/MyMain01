@@ -300,7 +300,8 @@ unsigned __stdcall PCMPlayer::streamThread(void* playerPtr) {
         // 終了位置判定チェック
         if (isEnd) {
             DWORD curPlayPos;
-            player->_pDSBuffer->GetCurrentPosition(&curPlayPos, 0);
+            HRESULT hr = player->_pDSBuffer->GetCurrentPosition(&curPlayPos, 0);
+            checkDxException(hr, DS_OK , "PCMPlayer::streamThread()  GetCurrentPosition に失敗しました。");
             if (curPlayPos < prePlayPos) {
                 // バッファをループした瞬間
                 //if ( prePlayPos <= finishPos ) {
@@ -330,7 +331,8 @@ bool PCMPlayer::play(bool prm_is_looping) {
     }
     _is_looping = prm_is_looping;
     _pPCMDecoder->setLooping(_is_looping);
-    _pDSBuffer->Play(0, 0, DSBPLAY_LOOPING);
+    HRESULT hr = _pDSBuffer->Play(0, 0, DSBPLAY_LOOPING);
+    checkDxException(hr, DS_OK , "PCMPlayer::play("<<prm_is_looping<<")  に失敗しました。");
     _state = STATE_PLAY;
     return true;
 }
@@ -339,7 +341,8 @@ bool PCMPlayer::play(bool prm_is_looping) {
 void PCMPlayer::pause() {
     if (_state == STATE_PLAY) {
         // 動いていたら止める
-        _pDSBuffer->Stop();
+        HRESULT hr = _pDSBuffer->Stop();
+        checkDxException(hr, DS_OK , "PCMPlayer::pause() に失敗しました。");
         _state = STATE_PAUSE;
     } else if (_state == STATE_PAUSE) {
         //PAUSE中にpause()しても無視
@@ -365,8 +368,8 @@ void PCMPlayer::stop() {
         return;
     }
     _state = STATE_STOP;
-    _pDSBuffer->Stop();
-
+    HRESULT hr = _pDSBuffer->Stop();
+    checkDxException(hr, DS_OK , "PCMPlayer::stop() に失敗しました。");
     // バッファの頭出し
     bool r = initializeBuffer();
     _TRACE_("PCMPlayer::stop() initializeBuffer() = " << r);
@@ -375,14 +378,16 @@ void PCMPlayer::stop() {
 //! 音量を変える
 void PCMPlayer::setVolume(int volume) {
     if (isReady()) {
-        _pDSBuffer->SetVolume(volume);
+        HRESULT hr = _pDSBuffer->SetVolume(volume);
+        checkDxException(hr, DS_OK , "PCMPlayer::setVolume("<<volume<<") に失敗しました。");
     }
 }
 
 //! パンの位置を変える
 void PCMPlayer::setPan(int pan) {
     if (isReady()) {
-        _pDSBuffer->SetPan(pan);
+        HRESULT hr = _pDSBuffer->SetPan(pan);
+        checkDxException(hr, DS_OK , "PCMPlayer::setPan("<<pan<<") に失敗しました。");
     }
 }
 

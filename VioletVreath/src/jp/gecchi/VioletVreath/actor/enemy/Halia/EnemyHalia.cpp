@@ -13,7 +13,7 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/common/laserchip/EnemyStraightLaserChip001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafCore;
@@ -48,7 +48,7 @@ EnemyHalia::EnemyHalia(const char* prm_name) :
 
     useProgress(PROG_BANPEI);
     //‰ŠúƒJƒƒ‰ZˆÊ’u
-    const Camera* const pCam = P_GOD->getUniverse()->getCamera();
+    const Camera* const pCam = P_GOD->getSpacetime()->getCamera();
     dZ_camera_init_ = -1 * DX_C(pCam->getZOrigin());
 }
 
@@ -182,7 +182,7 @@ void EnemyHalia::processBehavior() {
 }
 
 void EnemyHalia::processJudgement() {
-    if (isOutOfUniverse()) {
+    if (isOutOfSpacetime()) {
         sayonara();
     }
 }

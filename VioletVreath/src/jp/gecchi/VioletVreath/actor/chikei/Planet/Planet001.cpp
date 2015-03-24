@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "Planet001Atmosphere.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -31,8 +31,8 @@ void Planet001::onCreateModel() {
 
 void Planet001::initialize() {
     setAlpha(0.99);
-    Universe* pUniverse =  P_GOD->getUniverse();
-    _x = pUniverse->_x_gone_right*10;
+    Spacetime* pSpacetime =  P_GOD->getSpacetime();
+    _x = pSpacetime->_x_gone_right*10;
     setScale(1000*1000);
     setRzFaceAng(D90ANG - D_ANG(30));
     setRyFaceAng(D45ANG);

@@ -6,7 +6,7 @@
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion004.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/CommonScene.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafCore;
@@ -152,7 +152,7 @@ void EnemyRatislavia::processBehavior() {
 }
 
 void EnemyRatislavia::processJudgement() {
-    if (wasDeclaredEnd() == false && isOutOfUniverse()) {
+    if (wasDeclaredEnd() == false && isOutOfSpacetime()) {
         sayonara(600);
     }
 }
@@ -174,9 +174,9 @@ int EnemyRatislavia::isOutOfView() {
     return 0;
 }
 
-bool EnemyRatislavia::isOutOfUniverse() const {
-    Universe* pUniverse =  P_GOD->getUniverse();
-    if (pUniverse->_x_gone_left < _x) {
+bool EnemyRatislavia::isOutOfSpacetime() const {
+    Spacetime* pSpacetime =  P_GOD->getSpacetime();
+    if (pSpacetime->_x_gone_left < _x) {
         return false;
     } else {
         return true;

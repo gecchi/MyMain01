@@ -323,7 +323,7 @@ typedef uint32_t frame;
 #define Obj_GgafScene             (0x80000001U)       //0b 10000000 00000000 00000000 00000001
 #define Obj_GgafMainScene         (0x80000002U)       //0b 10000000 00000000 00000000 00000010
 #define Obj_GgafDisusedScene      (0x80000004U)       //0b 10000000 00000000 00000000 00000100
-#define Obj_GgafUniverse          (0x80000008U)       //0b 10000000 00000000 00000000 00001000
+#define Obj_GgafSpacetime          (0x80000008U)       //0b 10000000 00000000 00000000 00001000
 
 #define Obj_GgafActor             (0x1U)              //0b 00000000 00000000 00000000 00000001
 #define Obj_GgafMainActor         (0x2U)              //0b 00000000 00000000 00000000 00000010
@@ -379,7 +379,7 @@ class GgafStatus;
 class GgafDisusedActor;
 class GgafMainActor;
 class GgafDestructActor;
-class GgafUniverse;
+class GgafSpacetime;
 class GgafMainScene;
 class GgafSceneDirector;
 class GgafGroupHead;
@@ -396,7 +396,7 @@ class GgafRgb;
 class GgafProperties;
 
 class GgafLinearOctree;
-class GgafLinearOctreeSpace;
+class GgafLinearOctreeOctant;
 class GgafLinearOctreeElem;
 
 class GgafCurtain;

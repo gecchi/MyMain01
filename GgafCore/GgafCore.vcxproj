@@ -187,6 +187,7 @@
   <ItemGroup>
     <ClCompile Include="src\jp\ggaf\core\actor\ex\GgafDestructActor.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\GgafSceneDirector.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\scene\GgafSpacetime.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\CmRandomNumberGenerator.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\GgafActor.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\ex\GgafActorDepository.cpp" />
@@ -203,7 +204,7 @@
     <ClCompile Include="src\jp\ggaf\core\actor\GgafGroupHead.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafLinearOctree.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafLinearOctreeElem.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\GgafLinearOctreeSpace.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\GgafLinearOctreeOctant.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafLogger.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\GgafMainActor.cpp" />
     <ClCompile Include="src\jp\ggaf\core\scene\GgafMainScene.cpp" />
@@ -216,7 +217,6 @@
     <ClCompile Include="src\jp\ggaf\core\util\GgafRgb.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafStasus.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\ex\GgafTreeFormation.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\scene\GgafUniverse.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafTable.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafUtil.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafXpm.cpp" />
@@ -224,6 +224,7 @@
   <ItemGroup>
     <ClInclude Include="include\jp\ggaf\core\actor\ex\GgafDestructActor.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\ggafscenedirector.h" />
+    <ClInclude Include="include\jp\ggaf\core\scene\GgafSpacetime.h" />
     <ClInclude Include="include\jp\ggaf\core\util\CmRandomNumberGenerator.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\GgafActor.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\ex\GgafActorDepository.h" />
@@ -245,7 +246,7 @@
     <ClInclude Include="include\jp\ggaf\core\util\GgafEnumIndex.h" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafLinearOctree.h" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafLinearOctreeElem.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\GgafLinearOctreeSpace.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\ggaflinearoctreeoctant.h" />
     <ClInclude Include="include\jp\ggaf\core\util\ggaflinkedlistring.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafLogger.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\GgafMainActor.h" />
@@ -262,7 +263,6 @@
     <ClInclude Include="include\jp\ggaf\core\scene\GgafScene.h" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafStatus.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\ex\GgafTreeFormation.h" />
-    <ClInclude Include="include\jp\ggaf\core\scene\GgafUniverse.h" />
     <ClInclude Include="include\jp\ggaf\core\util\ggaftable.h" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafUtil.h" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafValueAccelerator.hpp" />

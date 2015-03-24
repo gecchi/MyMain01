@@ -21,7 +21,7 @@ void EnemyIdaBase::processBehavior() {
 }
 
 void EnemyIdaBase::processJudgement() {
-    if (isOutOfUniverse()) {
+    if (isOutOfSpacetime()) {
         sayonara();
     }
 }

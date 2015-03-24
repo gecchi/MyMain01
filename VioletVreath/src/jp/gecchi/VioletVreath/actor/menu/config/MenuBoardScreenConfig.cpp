@@ -10,7 +10,7 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/Properties.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelMenuItemFont01.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World.h"
 
 
 using namespace GgafCore;
@@ -368,7 +368,7 @@ void MenuBoardScreenConfig::onRise() {
 void MenuBoardScreenConfig::processBehavior() {
     MenuBoard::processBehavior();
 
-    World* pWorld = P_GOD->getUniverse()->getWorld();
+    World* pWorld = P_GOD->getSpacetime()->getWorld();
     //キー入力、ボタン入力、反映
     VirtualButton* pVB = VB;
     int selected_index = getSelectedIndex();
@@ -531,7 +531,7 @@ void MenuBoardScreenConfig::processBehavior() {
             }
             selectItemBySupCursor(SUPCUR_SINGLE_VIEW_DRAW_POSITION, i);
             PROPERTY::setValue("SINGLE_VIEW_DRAW_POSITION", i+1 - VALUE_POS_1);
-            if (!P_GOD->getUniverse()->getWorld()->need_reboot_) {
+            if (!P_GOD->getSpacetime()->getWorld()->need_reboot_) {
                 GgafDxCore::GgafDxGod::chengeViewPos1(i+1 - VALUE_POS_1);
             }
         }

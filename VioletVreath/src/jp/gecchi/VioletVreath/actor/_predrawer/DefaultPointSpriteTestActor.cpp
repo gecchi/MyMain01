@@ -20,7 +20,7 @@ int DefaultPointSpriteTestActor::isOutOfView() {
     return 0;
 }
 
-bool DefaultPointSpriteTestActor::isOutOfUniverse() const {
+bool DefaultPointSpriteTestActor::isOutOfSpacetime() const {
     //ゲーム座標範囲外判定無し
     return false;
 }
@@ -50,7 +50,7 @@ void DefaultPointSpriteTestActor::processJudgement() {
 //void DefaultPointSpriteTestActor::processPreDraw() {
 //    //画面外判定無しに伴ない処理簡略化
 //    //GgafDxFigureActor::processPreDraw() と同期を取る事！
-//    GgafDxUniverse::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL-1,this); //最深部-1、最深部はWorldBound
+//    GgafDxSpacetime::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL-1,this); //最深部-1、最深部はWorldBound
 //
 ////    //一時テクニック期間チェック
 ////    if (is_temp_technique_) {

@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/actor/WallAABActor.h"
 
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/dxcore/model/GgafDxMeshSetModel.h"
 #include "jp/ggaf/dxcore/effect/GgafDxMeshSetEffect.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
@@ -29,7 +29,7 @@ WallAABActor::WallAABActor(const char* prm_name,
     setZEnable(true);       //Zバッファは考慮有り
     setZWriteEnable(true);  //Zバッファは書き込み有り
 
-    static bool is_init = WallAABActor::initStatic(); //静的メンバ初期化
+    static volatile bool is_init = WallAABActor::initStatic(); //静的メンバ初期化
 }
 
 D3DXHANDLE WallAABActor::_h_distance_AlphaTarget;
@@ -118,7 +118,7 @@ void WallAABActor::processDraw() {
             break;
         }
     }
-    GgafDxUniverse::_pActor_draw_active = pWallPartsActor; //描画セットの最後アクターをセット
+    GgafDxSpacetime::_pActor_draw_active = pWallPartsActor; //描画セットの最後アクターをセット
     _pMeshSetModel->GgafDxMeshSetModel::draw(this, draw_set_num);
 }
 

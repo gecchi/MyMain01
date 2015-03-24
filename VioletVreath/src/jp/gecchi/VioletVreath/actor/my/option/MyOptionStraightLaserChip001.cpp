@@ -7,7 +7,7 @@
 #include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
 #include "jp/gecchi/VioletVreath/actor/my/option/MyOption.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/CommonScene.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafCore;

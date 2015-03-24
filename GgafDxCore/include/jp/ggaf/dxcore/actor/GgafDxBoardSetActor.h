@@ -30,8 +30,8 @@ private:
      * 使用不可のため、privateでoverride
      * @return
      */
-    bool isOutOfUniverse() const override {
-        throwGgafCriticalException("GgafDxBoardSetActor::isOutOfUniverse() は使用不可です。");
+    bool isOutOfSpacetime() const override {
+        throwGgafCriticalException("GgafDxBoardSetActor::isOutOfSpacetime() は使用不可です。");
         return false;
     }
 

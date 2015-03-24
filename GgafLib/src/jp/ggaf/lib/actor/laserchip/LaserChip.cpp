@@ -3,7 +3,7 @@
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/model/GgafDxMeshSetModel.h"
 #include "jp/ggaf/dxcore/effect/GgafDxMeshSetEffect.h"
-#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/actor/ColliAABActor.h"
@@ -38,7 +38,7 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
     setAlpha(0.99);
     _middle_colli_able = false;
 
-    static bool is_init = LaserChip::initStatic(); //静的メンバ初期化
+    static volatile bool is_init = LaserChip::initStatic(); //静的メンバ初期化
 }
 
 D3DXHANDLE LaserChip::_ah_kind[11];
@@ -204,7 +204,7 @@ void LaserChip::processSettlementBehavior() {
     }
 
 
-    if (isOutOfUniverse()) {
+    if (isOutOfSpacetime()) {
         sayonara();
     }
 
@@ -267,7 +267,7 @@ void LaserChip::processDraw() {
             break;
         }
     }
-    GgafDxUniverse::_pActor_draw_active = pLaserChip; //描画セットの最後アクターをセット
+    GgafDxSpacetime::_pActor_draw_active = pLaserChip; //描画セットの最後アクターをセット
     if (draw_set_num > 0) { //描画されない可能性があるためこの判定が必要
         _pMeshSetModel->GgafDxMeshSetModel::draw(this, draw_set_num);
     }

@@ -6,7 +6,7 @@
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/CommonScene.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

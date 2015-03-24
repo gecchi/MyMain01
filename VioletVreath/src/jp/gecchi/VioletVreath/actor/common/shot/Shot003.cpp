@@ -39,7 +39,7 @@ void Shot003::processBehavior() {
 }
 
 void Shot003::processJudgement() {
-    if (isOutOfUniverse()) {
+    if (isOutOfSpacetime()) {
         sayonara();
     }
 }

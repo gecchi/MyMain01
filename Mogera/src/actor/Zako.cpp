@@ -89,7 +89,7 @@ void Zako::processBehavior() {
     }
 
     pAFader_->behave();
-    getKuroko()->behave();
+    pKuroko->behave();
 }
 
 void Zako::processJudgement() {

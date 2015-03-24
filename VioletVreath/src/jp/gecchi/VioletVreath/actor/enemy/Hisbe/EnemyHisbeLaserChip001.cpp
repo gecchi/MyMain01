@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 #include "jp/ggaf/lib/scene/WalledScene.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
@@ -54,9 +54,9 @@ void EnemyHisbeLaserChip001::processBehaviorHeadChip() {
 }
 
 void EnemyHisbeLaserChip001::processJudgement() {
-    if (isOutOfUniverse()) {
-        Universe* pUniverse =  P_GOD->getUniverse();
-        if (_x >= pUniverse->_x_gone_right) {
+    if (isOutOfSpacetime()) {
+        Spacetime* pSpacetime =  P_GOD->getSpacetime();
+        if (_x >= pSpacetime->_x_gone_right) {
             //WALLì‡é¿å±
         } else {
             sayonara();

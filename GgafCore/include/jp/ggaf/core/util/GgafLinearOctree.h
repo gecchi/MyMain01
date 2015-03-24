@@ -66,7 +66,7 @@ namespace GgafCore {
  * <BR>
  * <B>＜空間(配列)要素番号＞</B><BR>
  * 空間番号に対応する線形配列のインデックスを指す。<BR>
- * 具体的には _paSpace の要素番号。<BR>
+ * 具体的には _paOctant の要素番号。<BR>
  * <BR>
  *
  *  <B>【例１】</B><BR>
@@ -191,7 +191,7 @@ private:
 
 public:
     /** [r]八分木の空間を一直線に並べた線形配列 */
-    GgafLinearOctreeSpace* _paSpace; //_paSpace[0] は ROOT空間へのポインタ
+    GgafLinearOctreeOctant* _paOctant; //_paOctant[0] は ROOT空間へのポインタ
     /** [r]八分木の空間に登録を行った要素の先頭要素 */
     GgafLinearOctreeElem* _pRegElemFirst;
     /** [r]root空間の対角の頂点となるx座標の小さい方 */
@@ -241,7 +241,7 @@ public:
      * @param y2 〃
      * @param z2 〃
      */
-    virtual void setRootSpace(int x1, int y1, int z1,
+    virtual void setRootOctant(int x1, int y1, int z1,
                               int x2, int y2, int z2);
 
     /**

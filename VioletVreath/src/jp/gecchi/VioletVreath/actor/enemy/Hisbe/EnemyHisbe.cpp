@@ -4,7 +4,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
@@ -185,9 +185,9 @@ void EnemyHisbe::processBehavior() {
 }
 
 void EnemyHisbe::processJudgement() {
-    if (isOutOfUniverse()) {
-        Universe* pUniverse =  P_GOD->getUniverse();
-        if (_x >= pUniverse->_x_gone_right) {
+    if (isOutOfSpacetime()) {
+        Spacetime* pSpacetime =  P_GOD->getSpacetime();
+        if (_x >= pSpacetime->_x_gone_right) {
             //WALL内実験
             //空間外でも消えません（壁出現時は空間外もおおい)
         } else {

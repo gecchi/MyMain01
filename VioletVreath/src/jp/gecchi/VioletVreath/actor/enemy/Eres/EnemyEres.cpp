@@ -105,7 +105,7 @@ void EnemyEres::processBehavior() {
 }
 
 void EnemyEres::processJudgement() {
-    if (isOutOfUniverse()) {
+    if (isOutOfSpacetime()) {
         sayonara();
     }
 }
@@ -131,7 +131,7 @@ void EnemyEres::onInactive() {
     sayonara();
 }
 
-bool EnemyEres::isOutOfUniverse() const {
+bool EnemyEres::isOutOfSpacetime() const {
     if (_x < (PX_C(PROPERTY::GAME_BUFFER_WIDTH) / -2) - 20000000) {
         return true;
     } else {

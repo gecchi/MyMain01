@@ -78,7 +78,7 @@ angle GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_x_REV[D90SANG+1][D90SANG+1];
 angle GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_y[D90SANG+1][D90SANG+1];
 
 GgafDxSphereRadiusVectors GgafDxUtil::_srv = GgafDxSphereRadiusVectors();
-GgafDxCamera* GgafDxUtil::_pCam = nullptr; //GgafDxUniverse::GgafDxUniverse() Ç≈ê›íËÇ≥ÇÍÇÈ
+GgafDxCamera* GgafDxUtil::_pCam = nullptr; //GgafDxSpacetime::GgafDxSpacetime() Ç≈ê›íËÇ≥ÇÍÇÈ
 
 void GgafDxUtil::init() {
     if (GgafDxUtil::_was_GgafDxUtil_inited_flg) {

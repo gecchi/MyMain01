@@ -29,8 +29,8 @@ class GgafDxBoardActor : public GgafDxFigureActor {
      * 使用不可のため、privateでoverride
      * @return
      */
-    bool isOutOfUniverse() const override {
-        throwGgafCriticalException("GgafDxBoardActor::isOutOfUniverse() は使用不可です。");
+    bool isOutOfSpacetime() const override {
+        throwGgafCriticalException("GgafDxBoardActor::isOutOfSpacetime() は使用不可です。");
         return false;
     }
 

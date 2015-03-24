@@ -12,7 +12,7 @@ namespace GgafCore {
 /**
  * ノード(GgafNode<T>)に、様々な状態管理機能を追加したクラス .
  * 所謂タスクシステムに必要な状態遷移機能が実装されている。<BR>
- * 毎フレーム、神(GgafGod)は、この世(GgafUniverse)に、次のメソッドを順に呼び出す仕組みになっている。<BR>
+ * 毎フレーム、神(GgafGod)は、この世(GgafSpacetime)に、次のメソッドを順に呼び出す仕組みになっている。<BR>
  * nextFrame() > behave() > settleBehavior() > judge() > [preDraw() > draw() > afterDraw()] > doFinally() <BR>
  * アプリケーションに登場するノードは全て、「この世」のツリーに所属するため、全ノードに対して上記の処理が行われる。
  * 上記の内、nextFrame() のみ毎フレーム必ず実行される。<BR>
@@ -158,7 +158,7 @@ public:
      * それぞれ、自ノードの先頭ノードへの移動、末尾ノードへの移動処理も実行される。<BR>
      * その後、配下ノード全てに nextFrame() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して nextFrame() 実行後、次は behave() を実行することになる。<BR>
+     * 神(GgafGod)は、この世(GgafSpacetime)に対して nextFrame() 実行後、次は behave() を実行することになる。<BR>
      * 次のような構造の場合、実行順は①～⑬の順序となる。<BR>
      * ノード間で参照関係がある場合は、注意が必要。<BR>
      * <pre>
@@ -184,7 +184,7 @@ public:
      * behave() は 仮想関数 processBehavior() をコールした後、配下のノード全てについて behave() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックで本メソッドを直接呼び出しを行わないこととする。<BR>
      * 下位クラスではコールされる processBehavior() をオーバーライドして具体的な座標移動ロジックを実装する。 <BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して behave() 実行後、次は settleBehavior() を実行することになる。<BR>
+     * 神(GgafGod)は、この世(GgafSpacetime)に対して behave() 実行後、次は settleBehavior() を実行することになる。<BR>
      */
     virtual void behave();
 
@@ -198,7 +198,7 @@ public:
      * settleBehavior()は、仮想関数 processSettlementBehavior() をコールした後、配下のノード全てについて settleBehavior() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックで本メソッドを直接呼び出しを行わないこととする。<BR>
      * 下位クラスではコールされる processSettlementBehavior() をオーバーライドしてロジックを実装することとする。 <BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して settleBehavior() 実行後、次に judge() を実行することになる。<BR>
+     * 神(GgafGod)は、この世(GgafSpacetime)に対して settleBehavior() 実行後、次に judge() を実行することになる。<BR>
      */
     virtual void settleBehavior();
 
@@ -212,7 +212,7 @@ public:
      * judge() は 仮想関数 processJudgement() をコールした後、配下のノード全てについて judge() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックで本メソッドを直接呼び出しを行わないこととする。<BR>
      * 下位クラスではコールされる processJudgement() をオーバーライドしてロジックを実装する <BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して judge() 実行後、<BR>
+     * 神(GgafGod)は、この世(GgafSpacetime)に対して judge() 実行後、<BR>
      * 神(GgafGod)はこの後、次フレームまでの残時間に余裕があれば preDraw() 無ければ doFinally() を実行することになる。<BR>
      */
     virtual void judge();
@@ -224,7 +224,7 @@ public:
      * processPreDraw() をコールした後、配下のノード全てについて preDraw() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
      * 下位クラスではコールされる processPreDraw() をオーバーライドしてロジックを実装する <BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して preDraw() 実行後、次に draw() を実行することになる。<BR>
+     * 神(GgafGod)は、この世(GgafSpacetime)に対して preDraw() 実行後、次に draw() を実行することになる。<BR>
      */
     virtual void preDraw();
 
@@ -235,7 +235,7 @@ public:
      * processDraw() をコールした後、配下のノード全てについて draw() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
      * 下位クラスではコールされる processDraw() をオーバーライドしてロジックを実装する <BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して draw() 実行後、次に afterDraw() を実行することになる。<BR>
+     * 神(GgafGod)は、この世(GgafSpacetime)に対して draw() 実行後、次に afterDraw() を実行することになる。<BR>
      */
     virtual void draw();
 
@@ -246,7 +246,7 @@ public:
      * processAfterDraw() をコールした後、配下のノード全てについて afterDraw() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
      * 下位クラスではコールされる processAfterDraw() をオーバーライドしてロジックを実装する <BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して afterDraw() 実行後、次に doFinally() を実行することになる。<BR>
+     * 神(GgafGod)は、この世(GgafSpacetime)に対して afterDraw() 実行後、次に doFinally() を実行することになる。<BR>
      */
     virtual void afterDraw();
 
@@ -259,7 +259,7 @@ public:
      * processFinal() をコールした後、配下のノード全てについて doFinally() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
      * 下位クラスではコールされる processFinal() をオーバーライドしてロジックを実装する <BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して doFinally() 実行後、<BR>
+     * 神(GgafGod)は、この世(GgafSpacetime)に対して doFinally() 実行後、<BR>
      * 次フレームまでの残時間に余裕があれば clean() を実行する。<BR>
      * その後は nextFrame() を実行することになる。<BR>
      */

@@ -9,7 +9,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
@@ -273,7 +273,7 @@ pKuroko->setMvAngTwd(pMyShip);
 }
 
 void EnemyOzartia::processJudgement() {
-    if (isOutOfUniverse()) {
+    if (isOutOfSpacetime()) {
         sayonara();
     }
 }

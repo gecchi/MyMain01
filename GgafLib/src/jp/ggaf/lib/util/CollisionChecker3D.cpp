@@ -4,7 +4,7 @@
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
 #include "jp/ggaf/lib/DefaultGod.h"
-#include "jp/ggaf/lib/scene/DefaultUniverse.h"
+#include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/lib/util/ColliAAB.h"
 #include "jp/ggaf/lib/util/ColliSphere.h"
@@ -19,7 +19,7 @@ using namespace GgafLib;
 
 int CollisionChecker3D::_num_check = 0;
 CollisionChecker3D::CollisionChecker3D(GgafDxGeometricActor* prm_pActor) : GgafDxChecker(prm_pActor) ,
-        _pLinearOctree(P_GOD->getUniverse()->getLinearOctree()),
+        _pLinearOctree(P_GOD->getSpacetime()->getLinearOctree()),
 _pElem(NEW LinearOctreeActorElem(_pLinearOctree, prm_pActor, 0))
 {
     _need_update_aabb = true;

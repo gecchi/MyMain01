@@ -1,7 +1,7 @@
 #include "jp/ggaf/core/actor/GgafGroupHead.h"
 
 #include "jp/ggaf/core/actor/GgafMainActor.h"
-#include "jp/ggaf/core/scene/GgafUniverse.h"
+#include "jp/ggaf/core/scene/GgafSpacetime.h"
 
 using namespace GgafCore;
 
@@ -48,8 +48,8 @@ void GgafGroupHead::setKind(actorkind prm_kind) {
 GgafSceneDirector* GgafGroupHead::getMySceneDirector() {
     if (_pSceneDirector == nullptr) {
         if (_pParent == nullptr) {
-            _TRACE_("【警告】GgafGroupHead::getSceneDirector 所属していないため、Directorがとれません！("<<getName()<<")。そこで勝手にこの世(GgafUniverse)所属のDirectorを返しました");
-            _pSceneDirector = GgafGod::_pGod->_pUniverse->bringDirector();
+            _TRACE_("【警告】GgafGroupHead::getSceneDirector 所属していないため、Directorがとれません！("<<getName()<<")。そこで勝手にこの世(GgafSpacetime)所属のDirectorを返しました");
+            _pSceneDirector = GgafGod::_pGod->_pSpacetime->bringDirector();
         } else {
             if (_pParent->instanceOf(Obj_GgafMainActor)) {
                 _pSceneDirector = ((GgafMainActor*)(_pParent))->getMySceneDirector();
@@ -58,8 +58,8 @@ GgafSceneDirector* GgafGroupHead::getMySceneDirector() {
             } else if (_pParent->instanceOf(Obj_GgafSceneDirector)) {
                 return (GgafSceneDirector*)_pParent; //Actorツリー頂点
             }
-            _TRACE_("【警告】GgafGroupHead::getSceneDirector このツリーにはDirectorがいません！("<<getName()<<")。そこで勝手にこの世(GgafUniverse)所属のDirectorを返しました");
-            _pSceneDirector = GgafGod::_pGod->_pUniverse->bringDirector();
+            _TRACE_("【警告】GgafGroupHead::getSceneDirector このツリーにはDirectorがいません！("<<getName()<<")。そこで勝手にこの世(GgafSpacetime)所属のDirectorを返しました");
+            _pSceneDirector = GgafGod::_pGod->_pSpacetime->bringDirector();
         }
     }
     return _pSceneDirector;

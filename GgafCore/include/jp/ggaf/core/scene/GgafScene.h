@@ -83,7 +83,7 @@ namespace GgafCore {
 class GgafScene : public GgafElement<GgafScene> {
 
     friend class GgafGod;
-    friend class GgafUniverse;
+    friend class GgafSpacetime;
     friend class GgafActor;
     friend class GgafGroupHead;
     friend class GgafSceneDirector;

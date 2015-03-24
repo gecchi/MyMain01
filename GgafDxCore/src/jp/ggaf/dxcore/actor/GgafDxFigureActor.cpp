@@ -9,7 +9,7 @@
 #include "jp/ggaf/dxcore/manager/GgafDxEffectConnection.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "jp/ggaf/dxcore/scene/GgafDxScene.h"
-#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/dxcore/scene/supporter/GgafDxAlphaCurtain.h"
 #include "jp/ggaf/core/util/GgafRgb.h"
 
@@ -140,7 +140,7 @@ _pEffect((GgafDxEffect*)_pEffectCon->peek())
 }
 
 void GgafDxFigureActor::processPreDraw() {
-    const GgafDxCamera* const pCam = P_GOD->getUniverse()->getCamera();
+    const GgafDxCamera* const pCam = P_GOD->getSpacetime()->getCamera();
 #ifdef MY_DEBUG
     if (getPlatformScene()->instanceOf(Obj_GgafDxScene)) {
         //OK
@@ -158,24 +158,24 @@ void GgafDxFigureActor::processPreDraw() {
     //TODO:要検証
     if (_alpha > 0.0f && isActiveInTheTree() && ((GgafDxScene*)getPlatformScene())->_master_alpha > 0.0f) { //isActiveInTheTree() で判定すると、
         if (_is_2D) {
-//            _now_drawdepth = GgafDxUniverse::setDrawDepthLevel(
+//            _now_drawdepth = GgafDxSpacetime::setDrawDepthLevel(
 //                                (int)((1.0*_z/LEN_UNIT) * MAX_DRAW_DEPTH_LEVEL),
 //                                this
 //                             );
             if (_specal_drawdepth < 0) { //特別な描画深度指定無し
-                _now_drawdepth = GgafDxUniverse::setDrawDepthLevel(_z, this); //2Dは_zはプライオリティに使用。
+                _now_drawdepth = GgafDxSpacetime::setDrawDepthLevel(_z, this); //2Dは_zはプライオリティに使用。
             } else {
                 //特別な描画深度指定有り
-                if (GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth] == nullptr) {
+                if (GgafDxSpacetime::_apFirstActor_draw_depth_level[_specal_drawdepth] == nullptr) {
                     //そのprm_draw_depth_levelで最初のアクターの場合
                     this->_pNextActor_in_draw_depth_level = nullptr;
-                    GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth] = this;
-                    GgafDxUniverse::_apLastActor_draw_depth_level[_specal_drawdepth] = this;
+                    GgafDxSpacetime::_apFirstActor_draw_depth_level[_specal_drawdepth] = this;
+                    GgafDxSpacetime::_apLastActor_draw_depth_level[_specal_drawdepth] = this;
                 } else {
                     //前に追加
-                    GgafDxFigureActor* pActorTmp = GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth];
+                    GgafDxFigureActor* pActorTmp = GgafDxSpacetime::_apFirstActor_draw_depth_level[_specal_drawdepth];
                     this->_pNextActor_in_draw_depth_level = pActorTmp;
-                    GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth] = this;
+                    GgafDxSpacetime::_apFirstActor_draw_depth_level[_specal_drawdepth] = this;
                 }
                 _now_drawdepth = _specal_drawdepth;
             }
@@ -191,13 +191,13 @@ void GgafDxFigureActor::processPreDraw() {
                 //本ライブラリはDIRECTX座標の1は原点付近ので画面上約10px相当という計算を行っている。よって
                 //次の文は約10px間隔相当の奥からの段階レンダリングの設定となる
                 //
-                //  GgafDxUniverse::setDrawDepthLevel(-1.0*_dest_from_vppln_front, this);
+                //  GgafDxSpacetime::setDrawDepthLevel(-1.0*_dest_from_vppln_front, this);
                 //   (※_dest_from_vppln_frontは視錐台手前面からオブジェクトまでの距離の負数)
                 //
                 //これは、1000 段階の深度判定となる。
                 //また、
                 //
-                //  GgafDxUniverse::setDrawDepthLevel(-1.0*_dest_from_vppln_front*10.0, this);
+                //  GgafDxSpacetime::setDrawDepthLevel(-1.0*_dest_from_vppln_front*10.0, this);
                 //
                 //これは1px間隔相当で約 10000 段階となる。
                 //MAX_DRAW_DEPTH_LEVELを増やせば問題ないが、600段階ぐらいが研究の末パフォーマンス的にちょうどよさげである。
@@ -233,32 +233,32 @@ void GgafDxFigureActor::processPreDraw() {
 
                 if (_specal_drawdepth < 0) { //特別な描画深度指定無し
                     if (dep <= roughly_dep_point1) {         //depが 視点 ～ r荒くなるポイント１ までの距離のオブジェクト
-                        _now_drawdepth = GgafDxUniverse::setDrawDepthLevel(
+                        _now_drawdepth = GgafDxSpacetime::setDrawDepthLevel(
                                              dep*dep_level_rate_cam_to_point1,
                                              this); //DirectXの距離1の0.5倍、DirectXの距離2が深さ1。よって約20px間隔
                     } else if (dep <= roughly_dep_point2) {  //depが 荒くなるポイント１～ポイント２間
-                        _now_drawdepth = GgafDxUniverse::setDrawDepthLevel(
+                        _now_drawdepth = GgafDxSpacetime::setDrawDepthLevel(
                                              roughly_dep_point1_DRAW_DEPTH_LEVEL +
                                                ((dep - roughly_dep_point1) * dep_level_rate_point1_to_point2),
                                              this);  //DirectXの距離1の0.2倍。つまりDirectXの距離5が深さ1。よって50px間隔で段階レンダ
                     } else {                                 //depが ポイント２以降
-                        _now_drawdepth = GgafDxUniverse::setDrawDepthLevel(
+                        _now_drawdepth = GgafDxSpacetime::setDrawDepthLevel(
                                              roughly_dep_point2_DRAW_DEPTH_LEVEL +
                                                ((dep - roughly_dep_point2) * dep_level_rate_point2_to_far_away),
                                              this); //0.01倍。つまりDirectXの距離100が深さ1。よって1000px間隔で段階レンダ
                     }
                 } else {
                     //特別な描画深度指定有り
-                    if (GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth] == nullptr) {
+                    if (GgafDxSpacetime::_apFirstActor_draw_depth_level[_specal_drawdepth] == nullptr) {
                         //そのprm_draw_depth_levelで最初のアクターの場合
                         this->_pNextActor_in_draw_depth_level = nullptr;
-                        GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth] = this;
-                        GgafDxUniverse::_apLastActor_draw_depth_level[_specal_drawdepth] = this;
+                        GgafDxSpacetime::_apFirstActor_draw_depth_level[_specal_drawdepth] = this;
+                        GgafDxSpacetime::_apLastActor_draw_depth_level[_specal_drawdepth] = this;
                     } else {
                         //前に追加
-                        GgafDxFigureActor* pActorTmp = GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth];
+                        GgafDxFigureActor* pActorTmp = GgafDxSpacetime::_apFirstActor_draw_depth_level[_specal_drawdepth];
                         this->_pNextActor_in_draw_depth_level = pActorTmp;
-                        GgafDxUniverse::_apFirstActor_draw_depth_level[_specal_drawdepth] = this;
+                        GgafDxSpacetime::_apFirstActor_draw_depth_level[_specal_drawdepth] = this;
                     }
                     _now_drawdepth = _specal_drawdepth;
                 }

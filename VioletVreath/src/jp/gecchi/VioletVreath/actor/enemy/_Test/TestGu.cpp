@@ -31,7 +31,7 @@ void TestGu::processBehavior() {
 }
 
 void TestGu::processJudgement() {
-    if (isOutOfUniverse()) {
+    if (isOutOfSpacetime()) {
         sayonara();
     }
 }

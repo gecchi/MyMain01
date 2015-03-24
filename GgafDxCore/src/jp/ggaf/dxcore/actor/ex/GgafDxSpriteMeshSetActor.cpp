@@ -6,7 +6,7 @@
 #include "jp/ggaf/dxcore/GgafDxProperties.h"
 #include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
 #include "jp/ggaf/dxcore/model/GgafDxMeshSetModel.h"
-#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 using namespace GgafCore;
@@ -94,7 +94,7 @@ void GgafDxSpriteMeshSetActor::processDraw() {
             break;
         }
     }
-    GgafDxUniverse::_pActor_draw_active = pSpriteMeshSetActor; //描画セットの最後アクターをセット
+    GgafDxSpacetime::_pActor_draw_active = pSpriteMeshSetActor; //描画セットの最後アクターをセット
     _pMeshSetModel->GgafDxMeshSetModel::draw(this, draw_set_num);
 }
 

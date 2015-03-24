@@ -22,9 +22,9 @@ void WallAAPrismTestActor::onCreateModel() {
     pModel->getTexBlinker()->beat(10*20, 10*9, 0, 10*9, -1);
 }
 
-bool WallAAPrismTestActor::isOutOfUniverse() const {
-    Universe* pUniverse =  P_GOD->getUniverse();
-    if (pUniverse->_x_gone_left < _x) {
+bool WallAAPrismTestActor::isOutOfSpacetime() const {
+    Spacetime* pSpacetime =  P_GOD->getSpacetime();
+    if (pSpacetime->_x_gone_left < _x) {
         return false;
     }
     return true;

@@ -4,7 +4,7 @@
 #include "jp/ggaf/dxcore/effect/GgafDxPointSpriteEffect.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -25,10 +25,10 @@ HoshiBoshi::HoshiBoshi(const char* prm_name, const char* prm_model_id) :
     //独自ワールド変換
     defineRotMvWorldMatrix(HoshiBoshi::setWorldMatrix_HoshiBoshi);
     setSpecialDrawDepth(DRAW_DEPTH_LEVEL_HOSHIBOSHI);
-    pCriteria_ = P_GOD->getUniverse()->getCamera();
+    pCriteria_ = P_GOD->getSpacetime()->getCamera();
     setFarRate(1.0);
 
-    static bool is_init = HoshiBoshi::initStatic(); //静的メンバ初期化
+    static volatile bool is_init = HoshiBoshi::initStatic(); //静的メンバ初期化
 }
 
 
@@ -43,7 +43,7 @@ bool HoshiBoshi::initStatic() {
     HoshiBoshi::h_fY_MyShip_ = pID3DXEffect->GetParameterByName( nullptr, "g_fY_MyShip" );
     HoshiBoshi::h_fZ_MyShip_ = pID3DXEffect->GetParameterByName( nullptr, "g_fZ_MyShip" );
     HoshiBoshi::h_far_rate_  = pID3DXEffect->GetParameterByName( nullptr, "g_far_rate" );
-    HoshiBoshi::CAM_ZF_ = ABS(DX_C(P_GOD->getUniverse()->getCamera()->getZFar()));
+    HoshiBoshi::CAM_ZF_ = ABS(DX_C(P_GOD->getSpacetime()->getCamera()->getZFar()));
     return true;
 }
 
@@ -52,7 +52,7 @@ void HoshiBoshi::setFarRate(float prm_far_rate) {
     //現空間の大きさに散らばらせる
     far_rate_ = prm_far_rate;
     space_distance_ = HoshiBoshi::CAM_ZF_*far_rate_;
-    _sx = _sy = _sz =  (P_GOD->getUniverse()->getCamera()->getZFar()*LEN_UNIT)*far_rate_;
+    _sx = _sy = _sz =  (P_GOD->getSpacetime()->getCamera()->getZFar()*LEN_UNIT)*far_rate_;
 }
 int HoshiBoshi::isOutOfView() {
     //画面外判定無し
@@ -63,7 +63,7 @@ void HoshiBoshi::setCriteriaActor(GgafDxGeometricActor* prm_pCriteria) {
     pCriteria_ = prm_pCriteria;
 }
 
-bool HoshiBoshi::isOutOfUniverse() const {
+bool HoshiBoshi::isOutOfSpacetime() const {
     //ゲーム座標範囲外判定無し
     return false;
 }

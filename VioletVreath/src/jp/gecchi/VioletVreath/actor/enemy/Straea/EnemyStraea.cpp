@@ -10,8 +10,8 @@
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/CommonScene.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 using namespace GgafCore;
@@ -95,8 +95,8 @@ void EnemyStraea::initialize() {
 void EnemyStraea::onActive() {
     getStatus()->reset();
     setHitAble(false);
-    Universe* pUniverse =  P_GOD->getUniverse();
-    _x = pUniverse->_x_gone_right - 1000;
+    Spacetime* pSpacetime =  P_GOD->getSpacetime();
+    _x = pSpacetime->_x_gone_right - 1000;
     getProgress()->reset(PROG_INIT);
 }
 
@@ -221,7 +221,7 @@ void EnemyStraea::processBehavior() {
 }
 
 void EnemyStraea::processJudgement() {
-    if (isOutOfUniverse()) {
+    if (isOutOfSpacetime()) {
         sayonara();
     }
 }

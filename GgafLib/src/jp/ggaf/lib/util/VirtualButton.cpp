@@ -113,7 +113,7 @@ VirtualButton::VirtualButton(const char* prm_replay_file) : GgafObject() {
     _was_replay_done = false;
     _with_pov = true;
 
-    static bool is_init = VirtualButton::initStatic(); //静的メンバ初期化
+    static volatile bool is_init = VirtualButton::initStatic(); //静的メンバ初期化
 }
 
 std::map<std::string, int> VirtualButton::_mapStr2VBK;

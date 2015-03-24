@@ -6,7 +6,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 using namespace GgafCore;
@@ -180,7 +180,7 @@ void GgafDxGeometricActor::processSettlementBehavior() {
     const dxcoord fX = _fX;
     const dxcoord fY = _fY;
     const dxcoord fZ = _fZ;
-    const GgafDxCamera* const pCam = P_GOD->getUniverse()->getCamera();
+    const GgafDxCamera* const pCam = P_GOD->getSpacetime()->getCamera();
     const D3DXPLANE& plnTop = pCam->_plnTop;
     _dest_from_vppln_top    = plnTop.a * fX +
                               plnTop.b * fY +
@@ -332,14 +332,14 @@ int GgafDxGeometricActor::isOutOfView() {
     return _offscreen_kind;
 }
 
-bool GgafDxGeometricActor::isOutOfUniverse() const {
-    GgafDxUniverse* pUniverse =  P_GOD->getUniverse();
-    if (pUniverse->_x_gone_left < _x) {
-        if (_x < pUniverse->_x_gone_right) {
-            if (pUniverse->_y_gone_bottom < _y) {
-                if (_y < pUniverse->_y_gone_top) {
-                    if (pUniverse->_z_gone_near < _z) {
-                        if (_z < pUniverse->_z_gone_far) {
+bool GgafDxGeometricActor::isOutOfSpacetime() const {
+    GgafDxSpacetime* pSpacetime =  P_GOD->getSpacetime();
+    if (pSpacetime->_x_gone_left < _x) {
+        if (_x < pSpacetime->_x_gone_right) {
+            if (pSpacetime->_y_gone_bottom < _y) {
+                if (_y < pSpacetime->_y_gone_top) {
+                    if (pSpacetime->_z_gone_near < _z) {
+                        if (_z < pSpacetime->_z_gone_far) {
                             return false;
                         }
                     }

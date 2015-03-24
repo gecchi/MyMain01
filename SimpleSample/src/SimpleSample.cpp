@@ -13,7 +13,7 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
  * GCC のエントリポイント
  */
 int main(int argc, char *argv[]) {
-    return GgafLibMain(argc, argv); //直後に、この様に呼び出して下さい。
+    return GgafLibMain(argc, argv); //直後に、こう呼び出して下さい。
 }
 
 /**

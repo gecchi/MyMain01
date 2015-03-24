@@ -8,7 +8,7 @@
 //‘O•ûéŒ¾
 namespace SimpleSample {
 class SmpGod;
-class SmpUniverse;
+class SmpSpacetime;
 class SmpWorld;
 class SmpCamera;
 class SmpActor;

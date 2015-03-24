@@ -9,7 +9,7 @@
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Delheid/FormationDelheid.h"
 
 using namespace GgafCore;
@@ -104,7 +104,7 @@ void EnemyDelheid::processBehavior() {
         }
         case PROG_AFTER_LEAD_MOVING: {
             //もう2回だけ同じスプライン移動が終わった後の動き
-            //isOutOfUniverse() 成立待ち
+            //isOutOfSpacetime() 成立待ち
             break;
         }
     }
@@ -195,7 +195,7 @@ void EnemyDelheid::processJudgement() {
         }
     }
 
-    if (isOutOfUniverse()) {
+    if (isOutOfSpacetime()) {
         sayonara();
     }
 }

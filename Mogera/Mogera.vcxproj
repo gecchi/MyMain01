@@ -238,9 +238,9 @@
     <ClCompile Include="src\actor\Zakoko.cpp" />
     <ClCompile Include="src\MgrGod.cpp" />
     <ClCompile Include="src\Mogera.cpp" />
-    <ClCompile Include="src\scene\MgrUniverse.cpp" />
-    <ClCompile Include="src\scene\MgrUniverse\MgrWorld.cpp" />
-    <ClCompile Include="src\scene\MgrUniverse\MgrWorld\TrialAndErrScene.cpp" />
+    <ClCompile Include="src\scene\MgrSpacetime.cpp" />
+    <ClCompile Include="src\scene\MgrSpacetime\MgrWorld.cpp" />
+    <ClCompile Include="src\scene\MgrSpacetime\MgrWorld\TrialAndErrScene.cpp" />
     <ClCompile Include="src\util\MgrUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -252,12 +252,12 @@
     <ClInclude Include="src\actor\FormationZako.h" />
     <ClInclude Include="src\actor\FormationZako001.h" />
     <ClInclude Include="src\actor\Zako.h" />
-    <ClInclude Include="src\actor\zakoko.h" />
+    <ClInclude Include="src\actor\Zakoko.h" />
     <ClInclude Include="src\MgrGod.h" />
     <ClInclude Include="src\Mogera.h" />
-    <ClInclude Include="src\scene\MgrUniverse.h" />
-    <ClInclude Include="src\scene\MgrUniverse\MgrWorld.h" />
-    <ClInclude Include="src\scene\MgrUniverse\MgrWorld\TrialAndErrScene.h" />
+    <ClInclude Include="src\scene\MgrSpacetime.h" />
+    <ClInclude Include="src\scene\MgrSpacetime\MgrWorld.h" />
+    <ClInclude Include="src\scene\MgrSpacetime\MgrWorld\TrialAndErrScene.h" />
     <ClInclude Include="src\util\MgrUtil.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

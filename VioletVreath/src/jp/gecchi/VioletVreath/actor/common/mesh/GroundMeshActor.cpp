@@ -39,7 +39,7 @@ GroundMeshActor::GroundMeshActor(const char* prm_name, const char* prm_model, Gg
 //    pNext_TheSameDrawDepthLevel_ = nullptr;
 //    if (is_active_flg_ && can_live_flg_) {
 //        //”wŒi‚È‚Ì‚Å”w–Ê‚Å•`‰æ
-//        GgafDxUniverse::setDrawDepthMaxLevel(this);
+//        GgafDxSpacetime::setDrawDepthMaxLevel(this);
 //    }
 //}
 

@@ -1,6 +1,6 @@
 #include "FormationThagoras001.h"
 
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Thagoras/EnemyThagoras.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"

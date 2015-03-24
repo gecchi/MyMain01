@@ -6,7 +6,7 @@
 #include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
 #include "jp/ggaf/lib/actor/ColliSphereActor.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
-#include "jp/ggaf/lib/scene/DefaultUniverse.h"
+#include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 
 using namespace GgafCore;
@@ -27,7 +27,7 @@ SpriteMeshWorldBoundActor::SpriteMeshWorldBoundActor(const char* prm_name,
 }
 
 void SpriteMeshWorldBoundActor::processSettlementBehavior() {
-    DefaultCamera* pCam = P_GOD->getUniverse()->getCamera();
+    DefaultCamera* pCam = P_GOD->getSpacetime()->getCamera();
     //画面外判定無しに伴ない処理簡略化。
     //次の処理を無視しています
     //・自身がボーン時の考慮
@@ -50,7 +50,7 @@ void SpriteMeshWorldBoundActor::processSettlementBehavior() {
 //        onCreateModel(); //モデル作成時の初期処理
 //        _pModel->_is_init_model = true;
 //    }
-//    GgafDxUniverse::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL,this); //最深部
+//    GgafDxSpacetime::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL,this); //最深部
 //}
 
 SpriteMeshWorldBoundActor::~SpriteMeshWorldBoundActor() {

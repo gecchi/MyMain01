@@ -35,7 +35,7 @@ void TestChokiShot::processBehavior() {
 }
 
 void TestChokiShot::processJudgement() {
-    if (isOutOfUniverse()) {
+    if (isOutOfSpacetime()) {
         sayonara();
     }
 }
