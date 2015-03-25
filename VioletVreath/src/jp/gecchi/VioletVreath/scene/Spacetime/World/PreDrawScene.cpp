@@ -60,7 +60,7 @@ PreDrawScene::PreDrawScene(const char* prm_name) : DefaultScene(prm_name) {
     orderActorToFactory(id, WallAAPrismTestActor       , "WallAAPrismTestActor");           id++;
     order_id_end_ = id - 1;
     useProgress();
-    getProgress()->reset(PreDrawScene::PROG_INIT);
+    getProgress()->reset(PROG_DISP);
 }
 
 void PreDrawScene::onReset() {
@@ -98,13 +98,13 @@ void PreDrawScene::initialize() {
 void PreDrawScene::processBehavior() {
     SceneProgress* pProg = getProgress();
     switch (pProg->get()) {
-        case PreDrawScene::PROG_INIT: {
-            if (pProg->getFrame() % 20U == 0 && P_GOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) {
+        case PROG_DISP: {
+            if (pProg->getFrame() % 10U == 0 && P_GOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) {
                 if (_id_ > order_id_end_-order_id_begin_) {
                     pProg->changeNext();
                 } else {
                     GgafDxGeometricActor* pActor = (GgafDxGeometricActor*)obtainActorFromFactory(_id_+order_id_begin_);
-                    pActor->position(PX_C(_id_*70 - 500), PX_C(-100), 0);
+                    pActor->position(PX_C(_id_*70 - 700), PX_C(-100), 0);
                     bringDirector()->addSubGroup(pActor);  _id_++;
                 }
             }
@@ -115,15 +115,15 @@ void PreDrawScene::processBehavior() {
             }
             break;
         }
-        case PreDrawScene::PROG_CALM: {
-            if ((pProg->getFrame() > 60 && P_GOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) ||
+        case PROG_CALM_DOWN: {
+            if ((pProg->getFrame() > 30 && P_GOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) ||
                  pProg->getFrame() > 60*60) {
                 fadeoutSceneWithBgmTree(120);
                 pProg->changeNext();
             }
             break;
         }
-        case PreDrawScene::PROG_WAIT: {
+        case PROG_WAIT: {
             //World シーンが sayonara をしてくれるまで・・
             break;
         }

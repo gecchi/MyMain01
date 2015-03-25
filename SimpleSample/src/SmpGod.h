@@ -8,7 +8,7 @@ namespace SimpleSample {
 /**
  * 神の雛形 .
  * GgafLib::DefaultGod を継承し、神クラスを作成して下さい。<BR>
- * その際、GgafCore::GgafSpacetime* createSpacetime() をオーバーライド＆実装して下さい。<BR>
+ * その際、GgafCore::GgafSpacetime* createSpacetime() をオーバーライドし、実装して下さい。<BR>
  * @version 1.00
  * @since 2012/02/16
  * @author Masatoshi Tsuge

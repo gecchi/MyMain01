@@ -12,7 +12,7 @@ SmpGod::SmpGod() :
 GgafCore::GgafSpacetime* SmpGod::createSpacetime() {
     //この世の作成のサンプル
     SmpCamera* pCam = new SmpCamera("SMP_CAM");                 //カメラ作成し、
-    SmpSpacetime* pSpacetime = new SmpSpacetime("SMP_UNIV", pCam); //カメラを引数にこの世を生成。
+    SmpSpacetime* pSpacetime = new SmpSpacetime("SMP_SPACETIME", pCam); //カメラを引数にこの世を生成。
     return pSpacetime;
 }
 

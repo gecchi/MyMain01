@@ -282,16 +282,16 @@
                     _is_active_in_the_tree_flg<< \
                     _is_active_flg<< \
                     "-"<< \
-                    "("<<_frame_of_life_when_activation<<")"<< \
+                    _frame_of_life_when_activation<< \
                     "-"<< \
-                    "("<<_frame_of_life_when_inactivation<<")"<< \
+                    _frame_of_life_when_inactivation<< \
                     ","<< \
-                    "("<<(_frame_of_life_when_end)<<")"<< \
+                    _frame_of_life_when_end<< \
                     ","<< \
                     _will_mv_first_in_next_frame_flg<< \
                     _will_mv_last_in_next_frame_flg<< \
                     ","<< \
-                    "prog="<<"("<<(_pProg?_pProg->_progress_prev:-9)<<")"<<(_pProg?_pProg->_progress:-9)<<"("<<(_pProg?_pProg->_progress_next:-9)<<")"<< \
+                    "prog="<<(_pProg?_pProg->_progress:-9)<<"("<<(_pProg?_pProg->getFrame():0)<<")"<< \
                     ","<< \
                     "id="<<getId()
 
@@ -323,7 +323,7 @@ typedef uint32_t frame;
 #define Obj_GgafScene             (0x80000001U)       //0b 10000000 00000000 00000000 00000001
 #define Obj_GgafMainScene         (0x80000002U)       //0b 10000000 00000000 00000000 00000010
 #define Obj_GgafDisusedScene      (0x80000004U)       //0b 10000000 00000000 00000000 00000100
-#define Obj_GgafSpacetime          (0x80000008U)       //0b 10000000 00000000 00000000 00001000
+#define Obj_GgafSpacetime         (0x80000008U)       //0b 10000000 00000000 00000000 00001000
 
 #define Obj_GgafActor             (0x1U)              //0b 00000000 00000000 00000000 00000001
 #define Obj_GgafMainActor         (0x2U)              //0b 00000000 00000000 00000000 00000010

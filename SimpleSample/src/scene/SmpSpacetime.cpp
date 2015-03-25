@@ -8,13 +8,15 @@ using namespace SimpleSample;
 
 SmpSpacetime::SmpSpacetime(const char* prm_name, SmpCamera* prm_pCam) :
         GgafLib::DefaultSpacetime(prm_name, prm_pCam) {
-    //「この世」コンストラクタ内で、シーンの new は行わないで下さい。
+    //SmpWorldシーンの作成を注文する
+    orderSceneToFactory(0, SimpleSample::SmpWorld, "SIMPLE_WORLD");
+    //この世(Spacetime)コンストラクタ内で、
+    //他のシーンの所属( addSubLast(GgafScene*) )は実行しないでください。
 }
 
 void SmpSpacetime::initialize() {
-    //世界シーン生成し、自シーンの配下に所属させる
-    SmpWorld* pWorld = createInFactory(SimpleSample::SmpWorld, "SIMPLE_WORLD");
-    addSubLast(pWorld);
+    //世界シーン(SmpWorld)を配下に所属させる
+    addSubLast(obtainSceneFromFactory(0));
 }
 
 SmpSpacetime::~SmpSpacetime() {
