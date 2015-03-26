@@ -51,9 +51,9 @@ double GgafDxProperties::VIEW2_HEIGHT_RATIO = 1.0;
 std::string GgafDxProperties::BORDER_COLOR = "#222222";
 std::string GgafDxProperties::BG_COLOR = "#000000";
 
-int GgafDxProperties::MASTER_VOLUME = 80;
-int GgafDxProperties::BGM_VOLUME = 80;
-int GgafDxProperties::SE_VOLUME = 80;
+int GgafDxProperties::MASTER_VOLUME = 800;
+int GgafDxProperties::BGM_VOLUME = 800;
+int GgafDxProperties::SE_VOLUME = 800;
 int GgafDxProperties::MAX_SE_AT_ONCE = 16;
 int GgafDxProperties::MAX_SE_DELAY = 240;
 
@@ -226,10 +226,10 @@ void GgafDxProperties::load(std::string prm_properties_filename) {
         GgafDxProperties::SE_VOLUME = getInt("SE_VOLUME");
     }
     if (GgafProperties::isExistKey("MAX_SE_AT_ONCE")) {
-        GgafDxProperties::SE_VOLUME = getInt("MAX_SE_AT_ONCE");
+        GgafDxProperties::MAX_SE_AT_ONCE = getInt("MAX_SE_AT_ONCE");
     }
     if (GgafProperties::isExistKey("MAX_SE_DELAY")) {
-        GgafDxProperties::SE_VOLUME = getInt("MAX_SE_DELAY");
+        GgafDxProperties::MAX_SE_DELAY = getInt("MAX_SE_DELAY");
     }
     if (GgafProperties::isExistKey("DIRNAME_RESOURCE_SKIN_XXX_MESH")) {
         GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_MESH = getStr("DIRNAME_RESOURCE_SKIN_XXX_MESH");

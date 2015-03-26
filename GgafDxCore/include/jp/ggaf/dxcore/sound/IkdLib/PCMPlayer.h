@@ -53,8 +53,8 @@ public:
     //! 停止
     void stop();
 
-    //! 音量を変える
-    void setVolume(int volume);
+    //! 音量を変える(デシベル)
+    void setVolume(int db);
 
     //! パンの位置を変える
     void setPan(int pan);

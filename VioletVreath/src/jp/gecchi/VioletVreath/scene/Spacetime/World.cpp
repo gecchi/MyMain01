@@ -277,11 +277,11 @@ void World::processBehavior() {
 
             //F5キーが音量下げ
             if (GgafDxInput::isBeingPressedKey(DIK_F5)) {
-                GgafDxSound::addAppMasterVolume(-1);
+                GgafDxSound::addAppMasterVolume(-10);
             }
             //F6キーが音量上げ
             if (GgafDxInput::isBeingPressedKey(DIK_F6)) {
-                GgafDxSound::addAppMasterVolume(1);
+                GgafDxSound::addAppMasterVolume(10);
             }
 
             break;

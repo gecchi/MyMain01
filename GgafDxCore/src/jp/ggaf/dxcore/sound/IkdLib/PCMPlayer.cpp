@@ -376,10 +376,10 @@ void PCMPlayer::stop() {
 }
 
 //! ‰¹—Ê‚ð•Ï‚¦‚é
-void PCMPlayer::setVolume(int volume) {
+void PCMPlayer::setVolume(int db) {
     if (isReady()) {
-        HRESULT hr = _pDSBuffer->SetVolume(volume);
-        checkDxException(hr, DS_OK , "PCMPlayer::setVolume("<<volume<<") ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+        HRESULT hr = _pDSBuffer->SetVolume(db);
+        checkDxException(hr, DS_OK , "PCMPlayer::setVolume("<<db<<") ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     }
 }
 

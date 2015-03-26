@@ -77,11 +77,11 @@ public:
     static std::string BORDER_COLOR;
     /** [r/w] ゲーム表示領域内の背景色 */
     static std::string BG_COLOR;
-    /** [r/w] マスターボリューム(0～100) */
+    /** [r/w] マスターボリューム(GGAF_MIN_VOLUME ～ GGAF_MAX_VOLUME) */
     static int MASTER_VOLUME;
-    /** [r/w] BGM ボリューム(0～100) */
+    /** [r/w] BGM ボリューム(GGAF_MIN_VOLUME ～ GGAF_MAX_VOLUME) */
     static int BGM_VOLUME;
-    /** [r/w] SoundEffect ボリューム(0～100) */
+    /** [r/w] SoundEffect ボリューム(GGAF_MIN_VOLUME ～ GGAF_MAX_VOLUME) */
     static int SE_VOLUME;
     /** [r/w] SE最大同時発声数(1～64) */
     static int MAX_SE_AT_ONCE;

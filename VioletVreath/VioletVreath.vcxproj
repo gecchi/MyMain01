@@ -136,7 +136,7 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>COPY /Y ..\$(Configuration)\$(Platform)\$(ProjectName).exe .\$(ProjectName)_$(Platform).exe</Command>
+      <Command>COPY /Y ..\$(Configuration)\$(Platform)\$(ProjectName).exe .\$(ProjectName)_$(Platform)_$(Configuration).exe</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -176,9 +176,10 @@
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
+      <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>COPY /Y ..\$(Configuration)\$(Platform)\$(ProjectName).exe .\$(ProjectName)_$(Platform).exe</Command>
+      <Command>COPY /Y ..\$(Configuration)\$(Platform)\$(ProjectName).exe .\$(ProjectName)_$(Platform)_$(Configuration).exe</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -218,7 +219,7 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>COPY /Y ..\$(Configuration)\$(Platform)\$(ProjectName).exe .\$(ProjectName)_$(Platform).exe</Command>
+      <Command>COPY /Y ..\$(Configuration)\$(Platform)\$(ProjectName).exe .\$(ProjectName)_$(Platform)_$(Configuration).exe</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -255,9 +256,10 @@
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
+      <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>COPY /Y ..\$(Configuration)\$(Platform)\$(ProjectName).exe .\$(ProjectName)_$(Platform).exe</Command>
+      <Command>COPY /Y ..\$(Configuration)\$(Platform)\$(ProjectName).exe .\$(ProjectName)_$(Platform)_$(Configuration).exe</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

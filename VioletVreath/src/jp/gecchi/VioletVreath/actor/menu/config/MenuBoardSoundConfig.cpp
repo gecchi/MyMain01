@@ -132,23 +132,23 @@ void MenuBoardSoundConfig::processBehavior() {
     int index = getSelectedIndex();
     if (index == ITEM_SE_VOL) {
         if (pVB->isAutoRepeat(VB_UI_RIGHT)) {
-            GgafDxSound::addSeMasterVolume(+1);
+            GgafDxSound::addSeMasterVolume(+10);
         } else if (pVB->isAutoRepeat(VB_UI_LEFT)) {
-            GgafDxSound::addSeMasterVolume(-1);
+            GgafDxSound::addSeMasterVolume(-10);
         }
         pLabel_SeVol_->update(XTOS(GgafDxSound::_se_master_volume).c_str());
     } else if (index == ITEM_BGM_VOL) {
         if (pVB->isAutoRepeat(VB_UI_RIGHT)) {
-            GgafDxSound::addBgmMasterVolume(+1);
+            GgafDxSound::addBgmMasterVolume(+10);
         } else if (pVB->isAutoRepeat(VB_UI_LEFT)) {
-            GgafDxSound::addBgmMasterVolume(-1);
+            GgafDxSound::addBgmMasterVolume(-10);
         }
         pLabel_BgmVol_->update(XTOS(GgafDxSound::_bgm_master_volume).c_str());
     } else if (index == ITEM_MASTER_VOL) {
         if (pVB->isAutoRepeat(VB_UI_RIGHT)) {
-            GgafDxSound::addAppMasterVolume(+1);
+            GgafDxSound::addAppMasterVolume(+10);
         } else if (pVB->isAutoRepeat(VB_UI_LEFT)) {
-            GgafDxSound::addAppMasterVolume(-1);
+            GgafDxSound::addAppMasterVolume(-10);
         }
         pLabel_MasterVol_->update(XTOS(GgafDxSound::_app_master_volume).c_str());
     }

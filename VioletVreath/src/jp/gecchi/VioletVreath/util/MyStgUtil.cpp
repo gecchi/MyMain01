@@ -66,14 +66,14 @@ void MyStgUtil::init() {
 }
 
 GgafDxFigureActor* MyStgUtil::shotWayGoldenAng(coord prm_x, coord prm_y, coord prm_z,
-                                                 angle prm_rz, angle prm_ry,
-                                                 GgafActorDepository* prm_pDepo_shot,
-                                                 coord prm_r,
-                                                 int prm_way_num,
-                                                 angle prm_first_expanse_angle, angle prm_inc_expanse_angle,
-                                                 velo prm_velo_first, acce prm_acce,
-                                                 int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                 void (*pFunc_call_back_dispatched)(GgafDxFigureActor*, int, int, int)) {
+                                               angle prm_rz, angle prm_ry,
+                                               GgafActorDepository* prm_pDepo_shot,
+                                               coord prm_r,
+                                               int prm_way_num,
+                                               angle prm_first_expanse_angle, angle prm_inc_expanse_angle,
+                                               velo prm_velo_first, acce prm_acce,
+                                               int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                               void (*pFunc_call_back_dispatched)(GgafDxFigureActor*, int, int, int)) {
     if (prm_way_num <= 0 || prm_set_num <= 0) {  return nullptr;  }
     GgafDxGeoElem* paGeo = NEW GgafDxGeoElem[prm_way_num];
     angle expanse_rz = (D180ANG - prm_first_expanse_angle)/2;

@@ -27,60 +27,60 @@ public:
 
     /**
      * BGMを設定する。
-     * @param prm_id BGMチャンネル番号(0 ～ )
+     * @param prm_channel BGMチャンネル番号(0 ～ )
      * @param prm_bgm_name プロパティファイルの_OGG, _BPM, _TITLE のプレフィックスとなっているkey文字列
      */
-    virtual void ready(int prm_id, const char* prm_bgm_name);
+    virtual void ready(int prm_channel, const char* prm_bgm_name);
 
     /**
      * ボリュームを設定する。
-     * @param prm_id     BGMチャンネル番号(0 ～ )
-     * @param prm_volume ボリューム値(0 ～ 100)
+     * @param prm_channel     BGMチャンネル番号(0 ～ )
+     * @param prm_volume ボリューム値(0 ～ 1000)
      */
-    virtual void setVolume(int prm_id, int prm_volume);
+    virtual void setVolume(int prm_channel, int prm_volume);
 
     /**
      * BGMを再生する。
-     * @param prm_id       BGMチャンネル番号(0 ～ )
-     * @param prm_volume   ボリューム値(0 ～ 100)
+     * @param prm_channel       BGMチャンネル番号(0 ～ )
+     * @param prm_volume   ボリューム値(0 ～ 1000)
      * @param prm_is_loop  ループするかどうか（true:ループ再生する／false:ループ再生しない）
      */
-    virtual void play(int prm_id, int prm_volume, bool prm_is_loop);
+    virtual void play(int prm_channel, int prm_volume, bool prm_is_loop);
 
     /**
      * BGMを再生する(ループ再生)。
-     * @param prm_id     BGMチャンネル番号(0 ～ )
-     * @param prm_volume ボリューム値(0 ～ 100)
+     * @param prm_channel     BGMチャンネル番号(0 ～ )
+     * @param prm_volume ボリューム値(0 ～ 1000)
      */
-    virtual void play(int prm_id, int prm_volume) {
-        play(prm_id, prm_volume, true);
+    virtual void play(int prm_channel, int prm_volume) {
+        play(prm_channel, prm_volume, true);
     }
 
     /**
      * BGMを再生する(ループ再生, ボリュームGGAF_MAX_VOLUME)。
-     * @param prm_id BGMチャンネル番号(0 ～ )
+     * @param prm_channel BGMチャンネル番号(0 ～ )
      */
-    virtual void play(int prm_id) {
-        play(prm_id, GGAF_MAX_VOLUME);
+    virtual void play(int prm_channel) {
+        play(prm_channel, GGAF_MAX_VOLUME);
     }
 
     /**
      * BGMを停止する .
-     * @param prm_id BGMチャンネル番号(0 ～ )
+     * @param prm_channel BGMチャンネル番号(0 ～ )
      */
-    virtual void stop(int prm_id);
+    virtual void stop(int prm_channel);
 
     /**
      * BGMを一時停止する .
-     * @param prm_id BGMチャンネル番号(0 ～ )
+     * @param prm_channel BGMチャンネル番号(0 ～ )
      */
-    virtual void pause(int prm_id);
+    virtual void pause(int prm_channel);
 
     /**
      * BGMの一時停止を解除する .
-     * @param prm_id  BGMチャンネル番号(0 ～ )
+     * @param prm_channel  BGMチャンネル番号(0 ～ )
      */
-    virtual void unpause(int prm_id);
+    virtual void unpause(int prm_channel);
 
     /**
      * 全BGMチャンネル番号のBGMを停止 .

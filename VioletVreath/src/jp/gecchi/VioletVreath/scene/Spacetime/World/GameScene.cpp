@@ -54,8 +54,6 @@ pStageWorld_(nullptr) {
     addSubLast(NEW GameOverScene("GameOver"));
 
     getProgress()->relateSubScene(GameScene::PROG_PRE_TITLE, GameScene::PROG_GAME_OVER,  "PreGameTitle");
-    //‚½‚Ü‚²
-    //addSubLast(NEW TamagoScene("TamagoScene"));
     is_frame_advance_ = false;
 
     was_paused_flg_GameMainScene_prev_frame_ = false;

@@ -65,7 +65,7 @@ public:
      * ボリュームについて、内部でマスタボリュームの考慮が処理されるので、
      * アプリケーション側は、本来の音量を気にせず通常再生したい場合は、
      * ボリュームを100で設定する事。
-     * @param prm_volume ボリューム(0 ～ 100)
+     * @param prm_volume ボリューム(0 ～ 1000)
      * @param prm_pan パン(left:-1.0 ～ center:0 ～ right:1.0)
      * @param prm_frequency 元の周波数に乗ずる率
      */
@@ -76,7 +76,7 @@ public:
      * ボリュームについて、内部でマスタボリュームの考慮が処理されるので、
      * アプリケーション側は、本来の音量を気にせず通常再生したい場合は、
      * ボリュームを100で設定する事。
-     * @param prm_volume ボリューム(0 ～ 100)
+     * @param prm_volume ボリューム(0 ～ 1000)
      * @param prm_pan    パン(left:-1.0 ～ center:0 ～ right:1.0)
      */
     virtual void play(int prm_volume, float prm_pan) {
@@ -100,7 +100,7 @@ public:
      * ボリュームを変更 .
      * play()実行後、SEが再生中に音量を変化させるなどに使用することを想定 .
      * 内部でマスタボリュームの考慮が処理される。
-     * @param prm_volume ボリューム(0 ～ 100)
+     * @param prm_volume ボリューム(0 ～ 1000)
      */
     void setVolume(int prm_volume);
 

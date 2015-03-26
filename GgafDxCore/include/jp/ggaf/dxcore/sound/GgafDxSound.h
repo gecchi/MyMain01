@@ -48,11 +48,11 @@ public:
     static GgafDxSeManager* _pSeManager;
     /** [r]GgafDxBgm 管理クラス */
     static GgafDxBgmManager* _pBgmManager;
-    /** [r]アプリケーション・マスターボリューム値(0～100) */
+    /** [r]アプリケーション・マスターボリューム値(0～1000) */
     static int _app_master_volume;
-    /** [r]BGM・マスターボリューム値(0～100) */
+    /** [r]BGM・マスターボリューム値(0～1000) */
     static int _bgm_master_volume;
-    /** [r]サウンドエフェクト・マスターボリューム値(0～100) */
+    /** [r]サウンドエフェクト・マスターボリューム値(0～1000) */
     static int _se_master_volume;
     /** [r]アプリケーション・マスターボリュームの割合 0.0～1.0 */
     static float _app_master_volume_rate;
@@ -61,7 +61,7 @@ public:
     /** [r]サウンドエフェクト・マスターボリューム割合 0.0～1.0 */
     static float _se_master_volume_rate;
     /** [r]要素番号にボリューム値を入れると、対応デシベルが取得できる配列 */
-    static int _a_db_volume[GGAF_MAX_VOLUME+1];
+    static double _a_db_volume[GGAF_MAX_VOLUME+1];
 
 public:
     /**
@@ -78,7 +78,7 @@ public:
 
     /**
      * アプリ全体のマスタボリューム設定 .
-     * @param prm_app_master_volume 0(無音) ～ 100(最大)
+     * @param prm_app_master_volume 0(無音) ～ 1000(最大)
      */
     static void setAppMasterVolume(int prm_app_master_volume);
 
@@ -90,7 +90,7 @@ public:
 
     /**
      * 全BGMのマスタボリュームの設定 .
-     * @param prm_bgm_master_volume  0(無音) ～ 100(最大)
+     * @param prm_bgm_master_volume  0(無音) ～ 1000(最大)
      */
     static void setBgmMasterVolume(float prm_bgm_master_volume);
 
@@ -102,7 +102,7 @@ public:
 
     /**
      * 全SEのマスタボリュームの率設定 .
-     * @param prm_se_master_volume  0(無音) ～ 100(最大)
+     * @param prm_se_master_volume  0(無音) ～ 1000(最大)
      */
     static void setSeMasterVolume(float prm_se_master_volume);
 
