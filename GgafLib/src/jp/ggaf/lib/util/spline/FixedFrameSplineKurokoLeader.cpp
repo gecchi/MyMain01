@@ -11,7 +11,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKuroko* const prm_pKuroko_target) :
+FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKuroko* prm_pKuroko_target) :
         SplineKurokoLeader(prm_pManufacture, prm_pKuroko_target) {
     _pFixedFrameSplManuf = (FixedFrameSplineManufacture*)prm_pManufacture;
     _leading_frames = 0;
@@ -19,7 +19,7 @@ FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(SplineManufacture* pr
     _prev_point_index = -1;
     _hosei_frames = 0;
 }
-FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(GgafDxKuroko* const prm_pKuroko_target,
+FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(GgafDxKuroko* prm_pKuroko_target,
                                                            SplineLine* prm_pSpl,
                                                            frame prm_spent_frame,
                                                            angvelo prm_angveloRzRyMv):

@@ -79,8 +79,8 @@ void RefractionLaserChip::onActive() {
         _cnt_refraction = 0;
         _frame_refraction_enter = getBehaveingFrame() + _frame_between_refraction;
         _frame_refraction_out = _frame_refraction_enter + _frame_standstill_refraction;
-        //onRefractionBegin(_cnt_refraction);
-        onRefractionFinish(_cnt_refraction);  //コールバック 0回目の屈折終了からスタートする
+        //onRefractionInto(_cnt_refraction);
+        onRefractionOutOf(_cnt_refraction);  //コールバック 0回目の屈折終了からスタートする
     } else {
         _is_leader = false;
         _begining_x = pChip_front->_begining_x;
@@ -183,7 +183,7 @@ void RefractionLaserChip::processBehavior() {
                 if (getBehaveingFrame() >= _frame_refraction_enter) {
                     if (_cnt_refraction < _num_refraction) {
                         _cnt_refraction++;
-                        onRefractionBegin(_cnt_refraction); //コールバック
+                        onRefractionInto(_cnt_refraction); //コールバック
                         _frame_refraction_out = getBehaveingFrame()  + _frame_standstill_refraction;
                         _is_refracting = true;
 
@@ -202,14 +202,15 @@ void RefractionLaserChip::processBehavior() {
 
             if (_is_refracting) {
                 if (getBehaveingFrame() >= _frame_refraction_out) {
-                    onRefractionFinish(_cnt_refraction); //コールバック
-                    _frame_refraction_enter = getBehaveingFrame() + _frame_between_refraction;
+                    onRefractionOutOf(_cnt_refraction); //コールバック
+                    _frame_refraction_enter = getBehaveingFrame() + _frame_between_refraction + 1; 
+                    //↑_frame_refraction_enterの判定は、次フレームである。
+                    //getBehaveingFrame() は次フレームで+1されるので+1しておく必要がある
                     //座標を変えず方向だけ転換
                     coord x = _x; coord y = _y; coord z = _z;
                     pKuroko->behave(); //
                     _x = x; _y = y; _z = z;
                     _is_refracting = false;
-
                     return;
                 }
             }

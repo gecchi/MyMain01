@@ -288,9 +288,6 @@
                     ","<< \
                     _frame_of_life_when_end<< \
                     ","<< \
-                    _will_mv_first_in_next_frame_flg<< \
-                    _will_mv_last_in_next_frame_flg<< \
-                    ","<< \
                     "prog="<<(_pProg?_pProg->_progress:-9)<<"("<<(_pProg?_pProg->getFrame():0)<<")"<< \
                     ","<< \
                     "id="<<getId()

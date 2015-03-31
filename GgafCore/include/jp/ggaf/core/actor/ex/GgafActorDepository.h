@@ -102,7 +102,7 @@ public:
         while (true) {
             if (pActor->_is_active_flg == false && pActor->willActivateAfter() == false) {
                 //取得！
-                pActor->moveLast(); //次フレームお尻に回す
+                pActor->moveLast(); //お尻に回す
                 pActor->activateDelay(offset_frames); //activate自動実行。
                 break;
             } else {   //今活動中、或いは、次フレーム活動予定の場合は見送る
@@ -145,7 +145,7 @@ public:
         GgafMainActor* pActor = dispatch(1);
         if (pActor == nullptr) {
             pActor = (GgafMainActor*)getSubFirst();
-            pActor->moveLastImmed(); //お尻に回す
+            pActor->moveLast(); //お尻に回す
         }
         return pActor;
     }

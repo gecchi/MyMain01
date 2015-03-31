@@ -22,7 +22,7 @@ EnemyHisbeLaserChip002::EnemyHisbeLaserChip002(const char* prm_name) :
     _class_name = "EnemyHisbeLaserChip002";
     pConn_pSplManuf_ = getConnection_SplineManufactureManager("EnemyHisbeLaserChip002"); //ヒルベルト曲線
     pKurokoLeader_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
-    pKurokoLeader_->adjustCoordOffset(PX_C(100), 0, 0);
+//    pKurokoLeader_->adjustCoordOffset(PX_C(100), 0, 0);
     pNearestScrollingScene_ = nullptr;
 }
 
@@ -41,36 +41,35 @@ void EnemyHisbeLaserChip002::onActive() {
     pNearestScrollingScene_ = ((DefaultScene*)getPlatformScene())->getNearestScrollingScene();
 }
 
-void EnemyHisbeLaserChip002::onRefractionBegin(int prm_num_refraction)  {
+void EnemyHisbeLaserChip002::onRefractionInto(int prm_num_refraction)  {
 
 }
 
-void EnemyHisbeLaserChip002::onRefractionFinish(int prm_num_refraction)  {
+void EnemyHisbeLaserChip002::onRefractionOutOf(int prm_num_refraction)  {
     if (prm_num_refraction == 0) {
         pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION); //向てる方向にスプライン座標をワールド変換
     }
-
     pKurokoLeader_->behave();
-    getKuroko()->behave();
-
     if (pKurokoLeader_->isFinished()) {
-        EnemyHisbeLaserChip002::end_active_frame_ = getActiveFrame(); //終了フレームセット
         sayonara();
     }
 }
 
 void EnemyHisbeLaserChip002::processBehavior() {
-
     if (pNearestScrollingScene_ && pNearestScrollingScene_->_pFuncScrolling == WalledScene::scrollX) {
-        pKurokoLeader_->_x_start -= pNearestScrollingScene_->getScrollSpeed();
+        if (_is_leader) {
+            pKurokoLeader_->_x_start -= pNearestScrollingScene_->getScrollSpeed();
+        }
     }
     RefractionLaserChip::processBehavior();
-    if (getActiveFrame() == EnemyHisbeLaserChip002::end_active_frame_) {
-        sayonara();
-    }
 }
 
 void EnemyHisbeLaserChip002::processJudgement() {
+    if (!_is_leader) {
+        if (!getFrontChip()) {
+            sayonara();
+        }
+    }
     if (isOutOfSpacetime()) {
         sayonara();
     }

@@ -83,8 +83,8 @@ bool LaserChip::initStatic() {
 }
 
 void LaserChip::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
-    if (prm_pOtherActor->instanceOf(Obj_WallPartsActor)) {
-        if (_chip_kind == 3 || _can_chikei_hit) {  //3:中間先頭チップ か、1/8の地形当たり判定有りチップ
+    if (prm_pOtherActor->instanceOf(Obj_WallPartsActor)) { //相手が地形ブロック
+        if (_chip_kind == 3 || _can_chikei_hit) {  //3:中間先頭チップ か、1/16の地形当たり判定有りチップ
             GgafDxFigureActor::executeHitChk_MeAnd(prm_pOtherActor);
         } else {
             return;
@@ -139,7 +139,7 @@ void LaserChip::processSettlementBehavior() {
                     _chip_kind = 2; //中間テクスチャチップ
                     _pLeader = pChip_front->_pLeader;
                 } else {
-                    _chip_kind = 3; //先頭テクスチャチップ
+                    _chip_kind = 3; //中間先頭テクスチャチップ
                     _pLeader = pChip_front->_pLeader;
                 }
             } else {

@@ -294,9 +294,9 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
         //CommonSceneを拾い上げ、解放順序が後になるように操作する。(共有デポジトリとかあるし)
         addSubLast(P_MYSHIP_SCENE->extract());
         addSubLast(P_COMMON_SCENE->extract());
-        P_MYSHIP_SCENE->moveFirstImmed();
-        P_COMMON_SCENE->moveFirstImmed();
-        //moveFirstImmed()する理由は、解放は末尾ノードから行われるため。
+        P_MYSHIP_SCENE->moveFirst();
+        P_COMMON_SCENE->moveFirst();
+        //moveFirst()する理由は、解放は末尾ノードから行われるため。
         //先にCommonSceneが解放されないようにするため。
         //GgafCore::template<class T> GgafNode<T>::~GgafNode() のコメントを参照
     } else if (prm_no == EVENT_PREGAMETITLESCENE_FINISH) {

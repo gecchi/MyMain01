@@ -82,7 +82,7 @@ void MyLockonController::processBehavior() {
                     //メインロックオンエフェクトを直近ロックオンへ戻すし
                     //メインロックオンエフェクトの次のエフェクトを解放するという動作をしたい
                     ((EffectLockon001*)pLockonEffect_Active->getNext())->releaseLockon(); //次のロックオンエフェクトをリリース実行
-                    pLockonEffect_Active->getNext()->moveLastImmed();               //次のロックオンエフェクトを末尾へ
+                    pLockonEffect_Active->getNext()->moveLast();               //次のロックオンエフェクトを末尾へ
                     //「次回処理ロックオンエフェクトアクター次へ」の処理対象移動は不要。次に処理したいロックオンエフェクトアクターそのままであるため。
                 }
             } else {
@@ -91,7 +91,7 @@ void MyLockonController::processBehavior() {
                 pTarget = pRingTarget_->getCurrent(); //次回処理ターゲットを次へ（remove()により次のターゲットはgetCurrent()となる）
                 ((EffectLockon001*)pLockonEffect_Active)->releaseLockon(); //ロックオンエフェクトをリリース実行
                 pLockonEffect_Active = pLockonEffect_Active->getNext();    //次回処理ロックオンエフェクトアクター次へ
-                pLockonEffect_Active->getPrev()->moveLastImmed();    //今回処理ロックオンエフェクトアクターを末尾へ
+                pLockonEffect_Active->getPrev()->moveLast();    //今回処理ロックオンエフェクトアクターを末尾へ
             }
         }
     }

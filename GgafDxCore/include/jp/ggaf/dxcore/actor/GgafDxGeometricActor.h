@@ -224,9 +224,9 @@ public:
     virtual int isOutOfView();
 
     /**
-     * 現在の座標がゲーム活動範囲内かどうか判定 .
+     * 現在の座標がこの世の外側なのか否か .
      * 画面内、画面外とは無関係
-     * @return true:活動範囲外/false:活動範囲内
+     * @return true:この世の外側/false:この世の内側
      */
     virtual bool isOutOfSpacetime() const;
 

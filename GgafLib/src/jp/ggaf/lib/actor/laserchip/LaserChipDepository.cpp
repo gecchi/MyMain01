@@ -18,17 +18,17 @@ LaserChipDepository::LaserChipDepository(const char* prm_name, GgafStatus* prm_p
 
     _num_interval_frame_count = _num_chip_interval; //生成直後はインターバルなど無し
     _num_continual_dispatch_max = _num_chip_max;
-    _pEffectActor_irradiate = nullptr;
+    _pEffectActor = nullptr;
 }
 
 void LaserChipDepository::config(int prm_num_continual_dispatch_max,
                                  uint32_t prm_num_chip_interval,
-                                 GgafDxCore::GgafDxFigureActor* prm_pEffectActor_irradiate) {
+                                 GgafDxCore::GgafDxFigureActor* prm_pEffectActor) {
     _num_continual_dispatch_max = prm_num_continual_dispatch_max;
     _num_chip_interval = prm_num_chip_interval;
-    _pEffectActor_irradiate = prm_pEffectActor_irradiate;
-    if (_pEffectActor_irradiate) {
-        _pEffectActor_irradiate->inactivate();
+    _pEffectActor = prm_pEffectActor;
+    if (_pEffectActor) {
+        _pEffectActor->inactivate();
     }
 }
 
@@ -78,8 +78,8 @@ LaserChip* LaserChipDepository::dispatch(int prm_offset_frames) {
             }
             _pChip_prev_dispatch = pChip;
             _frame_of_behaving_prev_dispatch = pChip->getBehaveingFrame();
-            //8回に一回は地形ヒットありのチップとする
-            if (_num_continual_dispatch_count % 8U == 0) {
+            //16回に一回は Obj_WallPartsActor ヒットありのチップとする
+            if (_num_continual_dispatch_count % 16U == 0) {
                 pChip->_can_chikei_hit = true;
             } else {
                 pChip->_can_chikei_hit = false;
@@ -100,14 +100,14 @@ LaserChip* LaserChipDepository::dispatch(int prm_offset_frames) {
 
 void LaserChipDepository::processFinal() {
     //発射中エフェクト表示切り替え
-    if (_pEffectActor_irradiate) {
+    if (_pEffectActor) {
         if (_pChip_prev_dispatch && _frame_of_behaving_prev_dispatch == _pChip_prev_dispatch->getBehaveingFrame()) {
-            if (_pEffectActor_irradiate->_is_active_flg == false) {
-                _pEffectActor_irradiate->activate();
+            if (_pEffectActor->_is_active_flg == false) {
+                _pEffectActor->activate();
             }
         } else {
-            if (_pEffectActor_irradiate->_is_active_flg) {
-                _pEffectActor_irradiate->inactivate();
+            if (_pEffectActor->_is_active_flg) {
+                _pEffectActor->inactivate();
             }
         }
     }

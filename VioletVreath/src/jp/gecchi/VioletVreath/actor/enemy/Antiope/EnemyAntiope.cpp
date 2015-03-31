@@ -71,6 +71,7 @@ void EnemyAntiope::processBehavior() {
              if (pProg->isJustChanged()) {
                  pKuroko->setMvVelo(PX_C(30));
                  pKuroko->setMvAcce(-1000);
+                 //平行移動速度の方向ベクトル mv_velo_twd_ はフォーメーションが設定
                  pAxsMver_->setVxyzMvVelo(mv_velo_twd_.x, mv_velo_twd_.y, mv_velo_twd_.z);
              }
 
@@ -105,6 +106,7 @@ void EnemyAntiope::processBehavior() {
          }
 
          case PROG_RUSH: {
+             //相方がいなくなった場合
              if (pProg->isJustChanged()) {
                  pAxsMver_->execGravitationMvSequenceTwd(P_MYSHIP, PX_C(30), 200, PX_C(50));
                  pKuroko->keepOnTurningFaceAngTwd(P_MYSHIP, D_ANG(2), 0, TURN_CLOSE_TO, false);

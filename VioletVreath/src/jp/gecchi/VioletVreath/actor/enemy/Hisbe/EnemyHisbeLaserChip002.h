@@ -19,9 +19,9 @@ public:
 
     void onActive() override;
 
-    void onRefractionBegin(int prm_num_refraction) override;
+    void onRefractionInto(int prm_num_refraction) override;
 
-    void onRefractionFinish(int prm_num_refraction) override;
+    void onRefractionOutOf(int prm_num_refraction) override;
 
     void processBehavior() override;
 

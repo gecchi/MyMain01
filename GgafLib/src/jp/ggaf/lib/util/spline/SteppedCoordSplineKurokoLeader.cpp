@@ -11,14 +11,14 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKuroko* const prm_pKuroko_target) :
+SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKuroko* prm_pKuroko_target) :
         SplineKurokoLeader(prm_pManufacture, prm_pKuroko_target) {
     _pSteppedSplManuf = (SteppedCoordSplineManufacture*)prm_pManufacture;
     _leading_frames = 0;
     _point_index = -1;
 }
 
-SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(GgafDxKuroko* const prm_pKuroko_target,
+SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(GgafDxKuroko* prm_pKuroko_target,
                                                                SplineLine* prm_pSpl):
         SplineKurokoLeader(nullptr, prm_pKuroko_target) { //nullptrÇ≈ìnÇ∑éñÇ…ÇÊÇËÅA_is_created_pManufacture Ç™ falseÇ…Ç»ÇÈ
     _pSteppedSplManuf = NEW SteppedCoordSplineManufacture(NEW SplineSource(prm_pSpl));

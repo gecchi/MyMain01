@@ -62,15 +62,8 @@ void LinearOctreeForActor::executeHitChk(uint32_t prm_index) {
         //(現空間スタックも開放)
         const int stackParentOctantActor_GroupA_p = _stackParentOctantActor_GroupA._p; //スタックポインタ保存
         const int stackParentOctantActor_GroupB_p = _stackParentOctantActor_GroupB._p;
-
-        GgafActor* pActor;
-        while (pActor = _stackCurrentOctantActor_GroupA.pop()) { //  I know "=" , not "=="
-            _stackParentOctantActor_GroupA.push(pActor);
-        }
-
-        while (pActor = _stackCurrentOctantActor_GroupB.pop()) { //  I know "=" , not "=="
-            _stackParentOctantActor_GroupB.push(pActor);
-        }
+        _stackParentOctantActor_GroupA.pop_push(&_stackCurrentOctantActor_GroupA);
+        _stackParentOctantActor_GroupB.pop_push(&_stackCurrentOctantActor_GroupB);
 
         //子空間へもぐるが良い
         for(uint32_t i = next_level_index; i < next_level_index+8; i++) {

@@ -35,11 +35,11 @@ void EnemyStraeaLaserChip002::onActive() {
     pKuroko->relateFaceByMvAng(true);
 }
 
-void EnemyStraeaLaserChip002::onRefractionBegin(int prm_num_refraction)  {
+void EnemyStraeaLaserChip002::onRefractionInto(int prm_num_refraction)  {
 
 }
 
-void EnemyStraeaLaserChip002::onRefractionFinish(int prm_num_refraction)  {
+void EnemyStraeaLaserChip002::onRefractionOutOf(int prm_num_refraction)  {
     if (prm_num_refraction == 0) {
 
     } else {

@@ -34,7 +34,7 @@ public:
      * @param prm_pManufacture calculate()済みのSplineManufactureを設定すること
      * @param prm_pKuroko 対象のアクターの黒衣
      */
-    FixedVelocitySplineKurokoLeader(SplineManufacture* prm_pManufacture,  GgafDxCore::GgafDxKuroko* const prm_pKuroko);
+    FixedVelocitySplineKurokoLeader(SplineManufacture* prm_pManufacture,  GgafDxCore::GgafDxKuroko* prm_pKuroko);
 
     /**
      * コンストラクタ .
@@ -43,7 +43,7 @@ public:
      * @param prm_sp 計算済みスプラインオブジェクト
      * @param prm_angveloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
      */
-    FixedVelocitySplineKurokoLeader(GgafDxCore::GgafDxKuroko* const prm_pKuroko,
+    FixedVelocitySplineKurokoLeader(GgafDxCore::GgafDxKuroko* prm_pKuroko,
                                     SplineLine* prm_sp,
                                     angvelo prm_angveloRzRyMv);
 

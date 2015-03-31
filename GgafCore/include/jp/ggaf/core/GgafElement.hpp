@@ -92,31 +92,12 @@ public:
 
     /** [r]次フレームの一時停止フラグ、次フレームのフレーム加算時 _was_paused_flg に反映される */
     bool _was_paused_flg_in_next_frame;
-//    /** [r]終了フラグ */
-//    bool _will_end_after_flg;
     /** [r]終了する予定の _frame_of_life */
     frame _frame_of_life_when_end;
-
-
-//    /** [r]あとで活動予約フラグ */
-//    bool _will_activate_after_flg;
     /** [r]活動開始する予定の _frame_of_life */
     frame _frame_of_life_when_activation;
-
-//    /** [r]あとで非活動予約フラグ */
-//    bool _will_inactivate_after_flg;
     /** [r]活動終了する予定の _frame_of_life */
     frame _frame_of_life_when_inactivation;
-
-//    /** [r]ノードが活動に切り替わった(_is_active_flg が false → true)瞬間に１フレームだけセットされるフラグ */
-//    bool _on_change_to_active_flg;
-//    /** [r]ノードが停止に切り替わった(_is_active_flg が true → false)瞬間に１フレームだけセットされるフラグ */
-//    bool _on_change_to_inactive_flg;
-
-    /** [r]先頭ノードに移動予約フラグ、次フレームのフレーム加算時に、自ノードが先頭ノードに移動する */
-    bool _will_mv_first_in_next_frame_flg;
-    /** [r]末尾ノードに移動予約フラグ、次フレームのフレーム加算時に、自ノードが末尾ノードに移動する */
-    bool _will_mv_last_in_next_frame_flg;
     /** [r]カレントフレーム内で一度でもリセットが実行されればtrue。毎フレーム false に更新される */
     bool _is_already_reset;
     /** [r]状態進捗管理オブジェクト */
@@ -721,48 +702,6 @@ public:
     }
 
     /**
-     * 自ノードを最終ノードに移動する .
-     * 正確には、次フレームから最終ノードに移動する予約フラグを立てる。<BR>
-     * そして、次フレーム先頭処理(nextFrame())内で、自ノードを最終ノードに移動させる処理が行われる。<BR>
-     * 自ノードは切り離されて、両隣のノードは新たに接合し、現在の最終ノードの次のノードしてインサートされる。<BR>
-     * 本メソッドを実行しても『同一フレーム内』は、ノード移動は無いため、一貫性は保たれる。<BR>
-     */
-    virtual void moveLast() override {
-        _will_mv_last_in_next_frame_flg = true;
-    }
-
-    /**
-     * 即座に自ノードを最終ノードに移動する .
-     * 即座に自ノードを最終ノードに移動（ローテーション）させることにより、
-     * 同一フレーム内で、ノード処理の２重実行、処理が行われないノード等が発生する恐れがある。<BR>
-     * 他ノードの影響、ツリー構造を良く考えて使用すること。<BR>
-     */
-    virtual void moveLastImmed() {
-        GgafNode<T>::moveLast();
-    }
-
-    /**
-     * 自ノードを先頭ノードに移動する .
-     * 正確には、次フレームから最終ノードに移動する予約フラグを立てる。<BR>
-     * そして、次フレーム先頭処理(nextFrame())内で、自ノードを先頭ノードに移動させる処理が行われる。<BR>
-     * 自ノードは切り離されて、両隣のノードは新たに接合し、現在の先頭ノードの前のノードしてインサートされる。<BR>
-     * 本メソッドを実行しても『同一フレーム内』は、ノード移動は無いため、一貫性は保たれる。<BR>
-     */
-    virtual void moveFirst() override {
-        _will_mv_first_in_next_frame_flg = true;
-    }
-
-    /**
-     * 即座に自ノードを先頭ノードに移動する .
-     * 即座に自ノードを先頭ノードに移動（ローテーション）させることにより、
-     * 同一フレーム内で、ノード処理の２重実行、処理が行われないノード等が発生する恐れがある。<BR>
-     * 他ノードの影響、ツリー構造を良く考えて使用すること。<BR>
-     */
-    virtual void moveFirstImmed() {
-        GgafNode<T>::moveFirst();
-    }
-
-    /**
      * 自ノードが非活動から活動状態に切り替わったかどうか調べる .
      * onActive() が呼ばれたフレームのみ true になる。
      * onActive() オーバーライドで事足りる場合は、その方がすっきり記述できるはず。<BR>
@@ -966,8 +905,6 @@ GgafElement<T>::GgafElement(const char* prm_name) :
     _frame_of_life_when_end(0),
     _frame_of_life_when_activation(1), //初回フレームにアクティブになるために1
     _frame_of_life_when_inactivation(0),
-    _will_mv_first_in_next_frame_flg(false),
-    _will_mv_last_in_next_frame_flg(false),
     _is_already_reset(false),
     _pProg(nullptr)
 {
@@ -976,14 +913,6 @@ GgafElement<T>::GgafElement(const char* prm_name) :
 
 template<class T>
 void GgafElement<T>::nextFrame() {
-    //moveLast予約時
-    if (_will_mv_last_in_next_frame_flg) {
-        _will_mv_last_in_next_frame_flg = false;
-        moveLastImmed(); //即座に自ノードを最終ノードに移動（ローテーション）
-        return;
-        //即returnする事は重要。nextFrame() 処理の２重実行をさけるため。
-        //このノードは、末尾に回されているため、必ずもう一度 nextFrame() の機会が訪れる。
-    }
     _was_paused_flg = _was_paused_flg_in_next_frame;
     if (!_was_paused_flg) {
         _frame_of_life++;
@@ -1054,13 +983,6 @@ void GgafElement<T>::nextFrame() {
             pElement->onEnd();
             GgafGarbageBox::_pGarbageBox->add(pElement); //ゴミ箱へ
         }
-    }
-
-    if (_will_mv_first_in_next_frame_flg) {
-        _will_mv_first_in_next_frame_flg = false;
-        moveFirstImmed(); //即座に自ノードを先頭ノードに移動（ローテーション）させる
-        //moveFirstを一番最後にすることは重要。
-        //これは nextFrame() の２重実行を避けるため。
     }
 }
 

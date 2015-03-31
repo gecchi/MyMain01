@@ -5,6 +5,7 @@
 
 namespace GgafLib {
 
+#define MAX_COLLISIONSTACK_ACTOR_NUM (2000)
 /**
  * GgafActorを要素とし当たり判定機能を追加した線形八分木配列クラス .
  * 種別Aグループ 対 種別Bグループの2グループ間の当たり判定を行う
@@ -24,8 +25,8 @@ public:
     class CollisionStack {
     public:
         /** [r]一つの空間にスタックするアクターの配列 */
-        GgafCore::GgafActor* _apActor[3000]; //１空間に 3000 もキャラが集まらないだろうという安易で浅はかな見積もり
-        /** [r]カーソルポインタ  */
+        GgafCore::GgafActor* _apActor[MAX_COLLISIONSTACK_ACTOR_NUM]; //１空間に 3000 もキャラが集まらないだろうという安易で浅はかな見積もり
+        /** [r]カーソルポインタ(次にPUSH出来る要素を指している)  */
         uint32_t _p;
     public:
         /**
@@ -40,13 +41,14 @@ public:
          * @param prm_pActor 積むアクター
          */
         inline void push(GgafCore::GgafActor* prm_pActor) {
-            if (_p > 3000-1) {
-                _TRACE_("LinearOctreeForActor::push("<<prm_pActor<<") スタックを使い切りました。無視します。一箇所に当たり判定が塊過ぎです。");
+            if (_p == MAX_COLLISIONSTACK_ACTOR_NUM) {
+                _TRACE_("＜警告＞ LinearOctreeForActor::push("<<prm_pActor<<") スタックを使い切りました。無視します。一箇所に当たり判定が塊過ぎです。");
                 return;
             }
             _apActor[_p] = prm_pActor;
             _p++;
         }
+
         /**
          * スタックから取り出す .
          * @return 取り出されたアクター
@@ -57,6 +59,26 @@ public:
             } else {
                 _p--;
                 return (_apActor[_p]);
+            }
+        }
+
+        /**
+         * 引数のスタックから全て取り出し、出来る限り自身のスタックに積む .
+         * @param prm_pCollisionStack
+         */
+        inline void pop_push(CollisionStack* prm_pCollisionStack) {
+            if (_p == MAX_COLLISIONSTACK_ACTOR_NUM) {
+                _TRACE_("＜警告＞ LinearOctreeForActor::pop_push("<<prm_pCollisionStack<<") スタックを使い切ってます。無視します。一箇所に当たり判定が塊過ぎです。");
+                prm_pCollisionStack->_p = 0;
+                return;
+            }
+            while (_apActor[_p] = prm_pCollisionStack->pop()) { //  I know "=" , not "=="
+                _p++;
+                if (_p == MAX_COLLISIONSTACK_ACTOR_NUM) {
+                    _TRACE_("＜警告＞ LinearOctreeForActor::pop_push("<<prm_pCollisionStack<<") スタックを使い切りました。無視します。一箇所に当たり判定が塊過ぎです。");
+                    prm_pCollisionStack->_p = 0;
+                    break;
+                }
             }
         }
         /**

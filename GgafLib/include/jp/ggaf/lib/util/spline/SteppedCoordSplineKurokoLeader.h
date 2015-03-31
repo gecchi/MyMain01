@@ -28,7 +28,7 @@ public:
      * @param prm_pManufacture calculate()済みのSplineManufactureを設定すること
      * @param prm_pKuroko 対象のアクターの黒衣
      */
-    SteppedCoordSplineKurokoLeader(SplineManufacture* prm_pManufacture,  GgafDxCore::GgafDxKuroko* const prm_pKuroko);
+    SteppedCoordSplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxCore::GgafDxKuroko* prm_pKuroko);
 
     /**
      * コンストラクタ .
@@ -37,7 +37,7 @@ public:
      * @param prm_sp 計算済みスプラインオブジェクト
      * @return
      */
-    SteppedCoordSplineKurokoLeader(GgafDxCore::GgafDxKuroko* const prm_pKuroko,
+    SteppedCoordSplineKurokoLeader(GgafDxCore::GgafDxKuroko* prm_pKuroko,
                                     SplineLine* prm_sp);
 
 
