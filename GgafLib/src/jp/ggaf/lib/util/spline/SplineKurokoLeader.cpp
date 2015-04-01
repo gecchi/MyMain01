@@ -15,19 +15,21 @@ SplineKurokoLeader::SplineKurokoLeader(SplineManufacture* prm_pManufacture, Ggaf
     _pManufacture = prm_pManufacture;
     _pActor_target = prm_pKuroko->_pActor;
     _option = ABSOLUTE_COORD;
-    _x_start = 0;
-    _y_start = 0;
-    _z_start = 0;
+    _x_start_in_loop = 0;
+    _y_start_in_loop = 0;
+    _z_start_in_loop = 0;
     _offset_x = 0;
     _offset_y = 0;
     _offset_z = 0;
     _flip_x = 1;
     _flip_y = 1;
     _flip_z = 1;
-    _sinRzMv_begin = 0.0f;
-    _cosRzMv_begin = 0.0f;
-    _sinRyMv_begin = 0.0f;
-    _cosRyMv_begin = 0.0f;
+    _sinRx_begin = 0.0f;
+    _cosRx_begin = 0.0f;
+    _sinRz_begin = 0.0f;
+    _cosRz_begin = 0.0f;
+    _sinRy_begin = 0.0f;
+    _cosRy_begin = 0.0f;
 
     _was_started = false;
     _is_leading = false;
@@ -41,9 +43,12 @@ SplineKurokoLeader::SplineKurokoLeader(SplineManufacture* prm_pManufacture, Ggaf
     _max_loop = 1;
     _is_fix_start_pos = false;
 
-    _is_fix_start_mv_ang = false;
-    _ang_rz_mv_start = prm_pKuroko->_ang_rz_mv;
-    _ang_ry_mv_start = prm_pKuroko->_ang_ry_mv;
+    _is_fix_start_ang = false;
+    _ang_rx_mv_start = _pActor_target->_rx;
+    _ang_rz_mv_start = _pActor_target->_rz;
+    _ang_ry_mv_start = _pActor_target->_ry;
+//    _is_linked_start_pos = false;
+//    _is_linked_start_ang = false;
 }
 
 void SplineKurokoLeader::getPointCoord(int prm_point_index, coord& out_x, coord& out_y, coord& out_z) {
@@ -62,36 +67,33 @@ void SplineKurokoLeader::getPointCoord(int prm_point_index, coord& out_x, coord&
         if (_is_leading) {
             //黒衣さんが先導中(leading中)
             //startされているので、未来の補間点座標が確定している
-            //    平行移動 ＞ Z軸回転 ＞ Y軸回転
-            //    | cosRz*cosRy                            , sinRz                , cosRz*-sinRy                            , 0 |
-            //    | -sinRz*cosRy                           , cosRz                , -sinRz*-sinRy                           , 0 |
-            //    | sinRy                                  , 0                    , cosRy                                   , 0 |
-            //    | (dx*cosRz + dy*-sinRz)*cosRy + dz*sinRy, (dx*sinRz + dy*cosRz), (dx*cosRz + dy*-sinRz)*-sinRy + dz*cosRy, 1 |
-            out_x = ((dx*_cosRzMv_begin + dy*-_sinRzMv_begin) *  _cosRyMv_begin + dz*_sinRyMv_begin) + _x_start;
-            out_y =  (dx*_sinRzMv_begin + dy* _cosRzMv_begin)                                        + _y_start;
-            out_z = ((dx*_cosRzMv_begin + dy*-_sinRzMv_begin) * -_sinRyMv_begin + dz*_cosRyMv_begin) + _z_start;
+            //    平行移動 ＞ X軸回転 ＞ Z軸回転 ＞ Y軸回転
+            // | cosRz*cosRy                                                                       sinRz                                       cosRz*-sinRy                                                                        0 |
+            // | cosRx*-sinRz*cosRy + sinRx*sinRy                                                  cosRx*cosRz                                 cosRx*-sinRz*-sinRy + sinRx*cosRy                                                   0 |
+            // | -sinRx*-sinRz*cosRy + cosRx*sinRy                                                 -sinRx*cosRz                                -sinRx*-sinRz*-sinRy + cosRx*cosRy                                                  0 |
+            // | (dx*cosRz + (dy*cosRx + dz*-sinRx)*-sinRz)*cosRy + ((dy*sinRx + dz*cosRx))*sinRy  (dx*sinRz + (dy*cosRx + dz*-sinRx)*cosRz)   (dx*cosRz + (dy*cosRx + dz*-sinRx)*-sinRz)*-sinRy + ((dy*sinRx + dz*cosRx))*cosRy   1 |
+            out_x = ((dx*_cosRz_begin + (dy*_cosRx_begin + dz*-_sinRx_begin)*-_sinRz_begin)* _cosRy_begin + ((dy*_sinRx_begin + dz*_cosRx_begin))*_sinRy_begin ) + _x_start_in_loop;
+            out_y = ((dx*_sinRz_begin + (dy*_cosRx_begin + dz*-_sinRx_begin)* _cosRz_begin)                                                                    ) + _y_start_in_loop;
+            out_z = ((dx*_cosRz_begin + (dy*_cosRx_begin + dz*-_sinRx_begin)*-_sinRz_begin)*-_sinRy_begin + ((dy*_sinRx_begin + dz*_cosRx_begin))*_cosRy_begin ) + _z_start_in_loop;
         } else {
             //黒衣さんが先導していない(not leading 中)
             //まだ start されていないので、未来の補間点座標が未確定
             //この場合、仮に今ココで start された場合の座標を計算して返す
-            const GgafDxKuroko* const pKuroko_target = _pActor_target->getKuroko();
-            const float sinRzMv_now = ANG_SIN(pKuroko_target->_ang_rz_mv);
-            const float cosRzMv_now = ANG_COS(pKuroko_target->_ang_rz_mv);
-            const float sinRyMv_now = ANG_SIN(pKuroko_target->_ang_ry_mv);
-            const float cosRyMv_now = ANG_COS(pKuroko_target->_ang_ry_mv);
-            //    平行移動 ＞ Z軸回転 ＞ Y軸回転
-            //    | cosRz*cosRy                            , sinRz                , cosRz*-sinRy                            , 0 |
-            //    | -sinRz*cosRy                           , cosRz                , -sinRz*-sinRy                           , 0 |
-            //    | sinRy                                  , 0                    , cosRy                                   , 0 |
-            //    | (dx*cosRz + dy*-sinRz)*cosRy + dz*sinRy, (dx*sinRz + dy*cosRz), (dx*cosRz + dy*-sinRz)*-sinRy + dz*cosRy, 1 |
+            const float sinRx_now = ANG_SIN(_pActor_target->_rx);
+            const float cosRx_now = ANG_COS(_pActor_target->_rx);
+            const float sinRz_now = ANG_SIN(_pActor_target->_rz);
+            const float cosRz_now = ANG_COS(_pActor_target->_rz);
+            const float sinRy_now = ANG_SIN(_pActor_target->_ry);
+            const float cosRy_now = ANG_COS(_pActor_target->_ry);
+            //    平行移動 ＞ X軸回転 ＞ Z軸回転 ＞ Y軸回転
             if (_is_fix_start_pos) {
-                out_x = ((dx*cosRzMv_now + dy*-sinRzMv_now) *  cosRyMv_now + dz*sinRyMv_now) + 0;
-                out_y =  (dx*sinRzMv_now + dy* cosRzMv_now)                                  + 0;
-                out_z = ((dx*cosRzMv_now + dy*-sinRzMv_now) * -sinRyMv_now + dz*cosRyMv_now) + 0;
+                out_x = ((dx*cosRz_now + (dy*cosRx_now + dz*-sinRx_now)*-sinRz_now)* cosRy_now + ((dy*sinRx_now + dz*cosRx_now))*sinRy_now ) + 0;
+                out_y = ((dx*sinRz_now + (dy*cosRx_now + dz*-sinRx_now)* cosRz_now)                                                                ) + 0;
+                out_z = ((dx*cosRz_now + (dy*cosRx_now + dz*-sinRx_now)*-sinRz_now)*-sinRy_now + ((dy*sinRx_now + dz*cosRx_now))*cosRy_now ) + 0;
             } else {
-                out_x = ((dx*cosRzMv_now + dy*-sinRzMv_now) *  cosRyMv_now + dz*sinRyMv_now) + _pActor_target->_x;
-                out_y =  (dx*sinRzMv_now + dy* cosRzMv_now)                                  + _pActor_target->_y;
-                out_z = ((dx*cosRzMv_now + dy*-sinRzMv_now) * -sinRyMv_now + dz*cosRyMv_now) + _pActor_target->_z;
+                out_x = ((dx*cosRz_now + (dy*cosRx_now + dz*-sinRx_now)*-sinRz_now)* cosRy_now + ((dy*sinRx_now + dz*cosRx_now))*sinRy_now ) + _pActor_target->_x;
+                out_y = ((dx*sinRz_now + (dy*cosRx_now + dz*-sinRx_now)* cosRz_now)                                                        ) + _pActor_target->_y;
+                out_z = ((dx*cosRz_now + (dy*cosRx_now + dz*-sinRx_now)*-sinRz_now)*-sinRy_now + ((dy*sinRx_now + dz*cosRx_now))*cosRy_now ) + _pActor_target->_z;
             }
 
 
@@ -100,9 +102,9 @@ void SplineKurokoLeader::getPointCoord(int prm_point_index, coord& out_x, coord&
         //相対座標ターゲット
         if (_is_leading) {
             //黒衣さんが先導中(leading中)
-            out_x = dx + _x_start;
-            out_y = dy + _y_start;
-            out_z = dz + _z_start;
+            out_x = dx + _x_start_in_loop;
+            out_y = dy + _y_start_in_loop;
+            out_z = dz + _z_start_in_loop;
         } else {
             //黒衣さんが先導していない(not leading 中)
             if (_is_fix_start_pos) {
@@ -131,43 +133,48 @@ void SplineKurokoLeader::restart() {
     if (_cnt_loop >= 2) {
         //２周目以降は fixStartPosition() が設定されていても、効力はなくなる。
         _is_fix_start_pos = false;
-        _is_fix_start_mv_ang = false;
+        _is_fix_start_ang = false;
     }
     if (_is_fix_start_pos) {
-        //開始座標(_x_start, _y_start, _z_start)は、
+        //開始座標(_x_start_in_loop, _y_start_in_loop, _z_start_in_loop)は、
         //別途 fixStartPosition() により設定済み
     } else {
         if (_cnt_loop == 1) {
             //１週目は正に今の座標が開始座標
-            _x_start = _pActor_target->_x;
-            _y_start = _pActor_target->_y;
-            _z_start = _pActor_target->_z;
+            _x_start_in_loop = _pActor_target->_x;
+            _y_start_in_loop = _pActor_target->_y;
+            _z_start_in_loop = _pActor_target->_z;
         } else {
             //２週目以降は、開始座標は、前回の論理最終座標が、開始座標
             coord end_x, end_y, end_z;
             getPointCoord(getPointNum()-1, end_x, end_y, end_z);
-            _x_start = end_x;
-            _y_start = end_y;
-            _z_start = end_z;
+            _x_start_in_loop = end_x;
+            _y_start_in_loop = end_y;
+            _z_start_in_loop = end_z;
         }
     }
 
-    if (_is_fix_start_mv_ang) {
+    if (_is_fix_start_ang) {
         //_rz_mv_start, _ry_mv_start、は
-        //別途 fixStartMvAngle() により設定済み
-        _sinRzMv_begin = ANG_SIN(_ang_rz_mv_start);
-        _cosRzMv_begin = ANG_COS(_ang_rz_mv_start);
-        _sinRyMv_begin = ANG_SIN(_ang_ry_mv_start);
-        _cosRyMv_begin = ANG_COS(_ang_ry_mv_start);
+        //別途 fixStartAngle() により設定済み
+        _sinRx_begin = ANG_SIN(_ang_rx_mv_start);
+        _cosRx_begin = ANG_COS(_ang_rx_mv_start);
+        _sinRz_begin = ANG_SIN(_ang_rz_mv_start);
+        _cosRz_begin = ANG_COS(_ang_rz_mv_start);
+        _sinRy_begin = ANG_SIN(_ang_ry_mv_start);
+        _cosRy_begin = ANG_COS(_ang_ry_mv_start);
     } else {
         if (_cnt_loop == 1) {
             //１週目は正に今の移動方向が開始移動方向
-            _ang_rz_mv_start = _pActor_target->getKuroko()->_ang_rz_mv;
-            _ang_ry_mv_start = _pActor_target->getKuroko()->_ang_ry_mv;
-            _sinRzMv_begin = ANG_SIN(_ang_rz_mv_start);
-            _cosRzMv_begin = ANG_COS(_ang_rz_mv_start);
-            _sinRyMv_begin = ANG_SIN(_ang_ry_mv_start);
-            _cosRyMv_begin = ANG_COS(_ang_ry_mv_start);
+            _ang_rx_mv_start = _pActor_target->_rx;
+            _ang_rz_mv_start = _pActor_target->_rz;
+            _ang_ry_mv_start = _pActor_target->_ry;
+            _sinRx_begin = ANG_SIN(_ang_rx_mv_start);
+            _cosRx_begin = ANG_COS(_ang_rx_mv_start);
+            _sinRz_begin = ANG_SIN(_ang_rz_mv_start);
+            _cosRz_begin = ANG_COS(_ang_rz_mv_start);
+            _sinRy_begin = ANG_SIN(_ang_ry_mv_start);
+            _cosRy_begin = ANG_COS(_ang_ry_mv_start);
         } else {
             //２週目以降は、そのまま;
         }

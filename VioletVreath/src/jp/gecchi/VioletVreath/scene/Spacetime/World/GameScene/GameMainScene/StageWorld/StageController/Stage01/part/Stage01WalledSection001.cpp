@@ -51,12 +51,14 @@ void Stage01WalledSection001::onBlockLaunch(int prm_loop_count, int prm_wall_cou
     if (prm_wall_count == 1) {
         EnemyHisbe* p = createInFactory(EnemyHisbe,"TTT");
         p->position(prm_wall_x, -PX_C(600), -PX_C(600));
+        p->setRxFaceAng(D_ANG(45));
         p->setRyFaceAng(-D90ANG);
         bringDirector()->addSubGroup(p);
     }
     if (prm_wall_count == 2) {
         EnemyHisbe* p = createInFactory(EnemyHisbe,"TTT");
         p->position(prm_wall_x, PX_C(600), PX_C(600));
+        p->setRxFaceAng(D_ANG(80));
         p->setRzFaceAng(D180ANG);
         p->setRyFaceAng(-D90ANG);
         bringDirector()->addSubGroup(p);

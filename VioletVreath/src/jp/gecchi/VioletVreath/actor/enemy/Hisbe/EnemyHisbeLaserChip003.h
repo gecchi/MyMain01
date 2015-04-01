@@ -11,7 +11,7 @@ public:
     GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
     int sp_index_;
-    GgafLib::DefaultScene* pNearestScrollingScene_;
+    GgafLib::DefaultScene* pScrollingScene_;
 public:
     EnemyHisbeLaserChip003(const char* prm_name);
 

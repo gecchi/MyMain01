@@ -1014,6 +1014,8 @@ public:
     void relateFaceByMvAng(bool prm_b) {
         _relate_RyFaceAng_with_RyMvAng_flg = prm_b;
         _relate_RzFaceAng_with_RzMvAng_flg = prm_b;
+        _pActor->_rz = _ang_rz_mv;
+        _pActor->_ry = _ang_ry_mv;
     }
 
 

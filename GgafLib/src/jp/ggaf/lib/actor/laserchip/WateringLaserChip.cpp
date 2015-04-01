@@ -39,8 +39,8 @@ void WateringLaserChip::processSettlementBehavior() {
     if (_was_paused_flg) {
         GgafDxGeometricActor::processSettlementBehavior();
     } else {
-        const WateringLaserChip* const pF = (WateringLaserChip*)_pChip_front;
-        const WateringLaserChip* const pB = (WateringLaserChip*)_pChip_behind;
+        const WateringLaserChip* pF = (WateringLaserChip*)_pChip_front;
+        const WateringLaserChip* pB = (WateringLaserChip*)_pChip_behind;
         if (pF && pB && pF->_is_active_flg && pB->_is_active_flg) {
             //_pChip_behind == nullptr の判定だけではだめ。_pChip_behind->_is_active_flg と判定すること
             //なぜなら dispatch の瞬間に_pChip_behind != nullptr となるが、active()により有効になるのは次フレームだから

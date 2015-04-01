@@ -43,12 +43,12 @@ public:
     /** [r] 設定ループ数。-1 で無限 */
     int _max_loop;
 
-    /** [r]始点X座標 */
-    coord _x_start;
-    /** [r]始点Y座標 */
-    coord _y_start;
-    /** [r]始点Z座標 */
-    coord _z_start;
+    /** [r]そのループでの始点X座標 */
+    coord _x_start_in_loop;
+    /** [r]そのループでの始点Y座標 */
+    coord _y_start_in_loop;
+    /** [r]そのループでの始点Z座標 */
+    coord _z_start_in_loop;
 
     coord _offset_x;
     coord _offset_y;
@@ -62,14 +62,28 @@ public:
     /** [r]始点座標を固定する。（固定しない場合は黒子Aのアクターの座標になる） */
     bool _is_fix_start_pos;
 
-    bool _is_fix_start_mv_ang;
+    bool _is_fix_start_ang;
+    angle _ang_rx_mv_start;
     angle _ang_rz_mv_start;
     angle _ang_ry_mv_start;
 
-    float _sinRzMv_begin;
-    float _cosRzMv_begin;
-    float _sinRyMv_begin;
-    float _cosRyMv_begin;
+//    bool _is_linked_start_pos;
+//    bool _is_linked_start_ang;
+
+    float _sinRx_begin;
+    float _cosRx_begin;
+    float _sinRz_begin;
+    float _cosRz_begin;
+    float _sinRy_begin;
+    float _cosRy_begin;
+
+
+    coord _actor_prev_x;
+    coord _actor_prev_y;
+    coord _actor_prev_z;
+    coord _actor_prev_rx;
+    coord _actor_prev_rz;
+    coord _actor_prev_ry;
 
 public:
     /**
@@ -140,9 +154,10 @@ public:
 
     /**
      * 移動実行メソッド .
-     * 移動を行うために、毎フレームこのメソッドを呼び出す必要があります。<BR>
+     * 移動を行うために、黒衣の状態を更新します。
      * start() を行った同一フレームに実行を避けるといったことは不要。<BR>
-     * start() を行った最初のbehave()は、『現在の座標→ポイント[0]』への処理となります。<BR>
+     * start() を行った最初のbehave()は、現在の座標～ポイント[0] が離れていればその移動処理、
+     * もし、現在の座標とポイント[0]が重なっていれば、現在の座標～ポイント[1]への移動処理となります。<BR>
      * 黒衣(GgafDxCore::GgafDxKuroko)のbehave();より先に実行して下さい。
      */
     virtual void behave() = 0;
@@ -245,22 +260,22 @@ public:
      */
     void fixStartPosition(coord prm_x, coord prm_y, coord prm_z) {
         _is_fix_start_pos = true;
-        _x_start = prm_x;
-        _y_start = prm_y;
-        _z_start = prm_z;
+        _x_start_in_loop = prm_x;
+        _y_start_in_loop = prm_y;
+        _z_start_in_loop = prm_z;
     }
 
     /**
      * スプラインの開始移動方向を固定（start()時に影響しない）。
      * もし、本メソッドを実行しなかった場合、スプライン開始時のスプライン方向は、<BR>
-     * 「スプライン開始方向 ＝ start()時の対象アクターの黒子Aの移動方向(_ang_rz_mv, _ang_ry_mv」となる。<BR>
+     * 「スプライン開始方向 ＝ start()時の対象アクターの黒子Aの移動方向(_ang_rz_mv, _ang_ry_mv）となる。<BR>
      * これを避けて、スプライン開始時、任意のスプライン方向に上書き設定を行う。<BR>
      * ※スプライン方向の設定は、RELATIVE_DIRECTION の場合のみ意味がある。
      * @param prm_rz
      * @param prm_ry
      */
-    void fixStartMvAngle(angle prm_rz, angle prm_ry) {
-        _is_fix_start_mv_ang = true;
+    void fixStartAngle(angle prm_rz, angle prm_ry) {
+        _is_fix_start_ang = true;
         _ang_rz_mv_start = prm_rz;
         _ang_ry_mv_start = prm_ry;
     }
@@ -271,6 +286,29 @@ public:
     void unfixStartPosition() {
         _is_fix_start_pos = false;
     }
+
+    void unfixStartAngle() {
+        _is_fix_start_ang = false;
+    }
+
+//    void linkedStartPosition() {
+//        unfixStartPosition();
+//        _is_linked_start_pos = true;
+//    }
+//
+//    void unlinkedStartPosition() {
+//        _is_linked_start_pos = false;
+//    }
+//
+//    void linkedStartAngle() {
+//        unfixStartAngle();
+//        _is_linked_start_ang = true;
+//    }
+//
+//    void unlinkedStartAngle() {
+//        _is_linked_start_ang = false;
+//    }
+
     virtual ~SplineKurokoLeader();
 };
 

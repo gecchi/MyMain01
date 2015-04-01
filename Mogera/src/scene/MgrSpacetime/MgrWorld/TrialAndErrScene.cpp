@@ -1,11 +1,11 @@
 #include "TrialAndErrScene.h"
 
-#include "scene/MgrSpacetime/MgrWorld.h"
+#include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
 #include "actor/Zako.h"
-#include "jp/ggaf/core/GgafFactory.h"
-#include <actor/FormationZako001.h>
+#include "actor/FormationZako001.h"
+#include "scene/MgrSpacetime/MgrWorld.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

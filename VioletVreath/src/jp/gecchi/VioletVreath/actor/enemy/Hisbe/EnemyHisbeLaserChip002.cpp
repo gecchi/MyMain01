@@ -22,8 +22,8 @@ EnemyHisbeLaserChip002::EnemyHisbeLaserChip002(const char* prm_name) :
     _class_name = "EnemyHisbeLaserChip002";
     pConn_pSplManuf_ = getConnection_SplineManufactureManager("EnemyHisbeLaserChip002"); //ヒルベルト曲線
     pKurokoLeader_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
-//    pKurokoLeader_->adjustCoordOffset(PX_C(100), 0, 0);
-    pNearestScrollingScene_ = nullptr;
+    pKurokoLeader_->adjustCoordOffset(PX_C(100), 0, 0);
+    pScrollingScene_ = nullptr;
 }
 
 void EnemyHisbeLaserChip002::initialize() {
@@ -38,7 +38,10 @@ void EnemyHisbeLaserChip002::onActive() {
     //ステータスリセット
     getStatus()->reset();
     getKuroko()->relateFaceByMvAng(true);
-    pNearestScrollingScene_ = ((DefaultScene*)getPlatformScene())->getNearestScrollingScene();
+    pScrollingScene_ = ((DefaultScene*)getPlatformScene())->getNearestScrollingScene();
+    if (pScrollingScene_->_pFuncScrolling != WalledScene::scrollX) {
+        pScrollingScene_ = nullptr;
+    }
 }
 
 void EnemyHisbeLaserChip002::onRefractionInto(int prm_num_refraction)  {
@@ -56,9 +59,9 @@ void EnemyHisbeLaserChip002::onRefractionOutOf(int prm_num_refraction)  {
 }
 
 void EnemyHisbeLaserChip002::processBehavior() {
-    if (pNearestScrollingScene_ && pNearestScrollingScene_->_pFuncScrolling == WalledScene::scrollX) {
-        if (_is_leader) {
-            pKurokoLeader_->_x_start -= pNearestScrollingScene_->getScrollSpeed();
+    if (_is_leader) {
+        if (pScrollingScene_) {
+            pKurokoLeader_->_x_start_in_loop -= pScrollingScene_->getScrollSpeed();
         }
     }
     RefractionLaserChip::processBehavior();

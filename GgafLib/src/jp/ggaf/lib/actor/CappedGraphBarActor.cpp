@@ -48,8 +48,6 @@ void CappedGraphBarActor::processDraw() {
     checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_h_rz) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_depth_z, (float)(C_PX(_z)));
     checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_h_depth_z) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-//    hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_alpha, _alpha);
-//    checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_h_alpha) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = pID3DXEffect->SetValue(_pBoardEffect->_h_colMaterialDiffuse, &(_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
     checkDxException(hr, D3D_OK, "CappedGraphBarActor::draw() SetValue(_h_colMaterialDiffuse) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 

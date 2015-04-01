@@ -51,7 +51,7 @@ void FormationOebius002::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int
     pOebius->pKurokoLeader_->fixStartPosition(entry_pos_.x + dx,
                                               entry_pos_.y + dy,
                                               entry_pos_.z + dz);
-    pOebius->pKurokoLeader_->fixStartMvAngle(entry_pos_.rz, entry_pos_.ry);
+    pOebius->pKurokoLeader_->fixStartAngle(entry_pos_.rz, entry_pos_.ry);
 
     pOebius->position( RND_ABOUT(entry_pos_.x + dx, PX_C(700)),
                        RND_ABOUT(entry_pos_.y + dy, PX_C(700)),

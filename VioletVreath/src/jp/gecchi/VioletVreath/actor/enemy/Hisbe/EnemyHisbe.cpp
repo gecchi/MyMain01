@@ -95,7 +95,7 @@ void EnemyHisbe::onCreateModel() {
 }
 
 void EnemyHisbe::initialize() {
-    getKuroko()->relateFaceByMvAng(true);
+//    getKuroko()->relateFaceByMvAng(true);
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->makeCollision(1);
     pChecker->setColliSphere(0, 40000);
@@ -149,8 +149,7 @@ void EnemyHisbe::processBehavior() {
                 LaserChip* pLaser = pLaserChipDepo_->dispatch();
                 if (pLaser) {
                     pLaser->positionAs(this);
-                    pLaser->getKuroko()->setRzRyMvAng(_rz, _ry);
-                                       //レーザーのスプラインがRELATIVE_DIRECTIONのためMvAngの設定が必要。
+                    pLaser->setFaceAngAs(this); //レーザーのスプラインがRELATIVE_DIRECTIONのため向き設定が必要。
                     if (pLaser->getFrontChip() == nullptr) {
                         getSeTx()->play3D(SE_FIRE);
                     }

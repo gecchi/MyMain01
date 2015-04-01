@@ -77,7 +77,7 @@ void RefractionLaserChip::onActive() {
         _begining_ry = _ry;
         _begining_rz = _rz;
         _cnt_refraction = 0;
-        _frame_refraction_enter = getBehaveingFrame() + _frame_between_refraction;
+        _frame_refraction_enter = getBehaveingFrame() + _frame_between_refraction + 1;
         _frame_refraction_out = _frame_refraction_enter + _frame_standstill_refraction;
         //onRefractionInto(_cnt_refraction);
         onRefractionOutOf(_cnt_refraction);  //コールバック 0回目の屈折終了からスタートする
@@ -162,7 +162,7 @@ void RefractionLaserChip::processBehavior() {
     //座標に反映
     GgafDxKuroko* const pKuroko = getKuroko();
     RefractionLaserChip* pChip_front =  (RefractionLaserChip*)_pChip_front;
-    if (getActiveFrame() > 1) {
+    if (getActiveFrame() > 1) { //１フレーム目は、設定座標で表示させるため。移動させない
         //GgafActorDepository::dispatch() は
         //取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者のサブの一番後ろに移動される。
         //したがって、レーザーの先頭から順番にprocessBehavior() が呼ばれるため、以下のようにすると
@@ -203,7 +203,7 @@ void RefractionLaserChip::processBehavior() {
             if (_is_refracting) {
                 if (getBehaveingFrame() >= _frame_refraction_out) {
                     onRefractionOutOf(_cnt_refraction); //コールバック
-                    _frame_refraction_enter = getBehaveingFrame() + _frame_between_refraction + 1; 
+                    _frame_refraction_enter = getBehaveingFrame() + _frame_between_refraction + 1;
                     //↑_frame_refraction_enterの判定は、次フレームである。
                     //getBehaveingFrame() は次フレームで+1されるので+1しておく必要がある
                     //座標を変えず方向だけ転換
