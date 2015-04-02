@@ -39,9 +39,6 @@ void EnemyHisbeLaserChip001::onActive() {
     //à íuÇ∆å¸Ç´ÇÕEnemyHisbeÇ™ê›íË
     pKurokoLeader_->stop();
     pScrollingScene_ = ((DefaultScene*)getPlatformScene())->getNearestScrollingScene();
-    if (pScrollingScene_->_pFuncScrolling != WalledScene::scrollX) {
-        pScrollingScene_ = nullptr;
-    }
 }
 
 void EnemyHisbeLaserChip001::processBehaviorHeadChip() {
@@ -57,12 +54,7 @@ void EnemyHisbeLaserChip001::processBehaviorHeadChip() {
 
 void EnemyHisbeLaserChip001::processJudgement() {
     if (isOutOfSpacetime()) {
-        Spacetime* pSpacetime =  P_GOD->getSpacetime();
-        if (_x >= pSpacetime->_x_gone_right) {
-            //WALLì‡é¿å±
-        } else {
-            sayonara();
-        }
+        sayonara();
     }
 }
 

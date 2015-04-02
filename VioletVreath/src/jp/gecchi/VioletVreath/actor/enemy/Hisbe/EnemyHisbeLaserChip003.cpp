@@ -40,9 +40,6 @@ void EnemyHisbeLaserChip003::onActive() {
     pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION); //向てる方向にスプライン座標をワールド変換
     sp_index_ = 0;
     pScrollingScene_ = ((DefaultScene*)getPlatformScene())->getNearestScrollingScene();
-    if (pScrollingScene_->_pFuncScrolling != WalledScene::scrollX) {
-        pScrollingScene_ = nullptr;
-    }
 }
 
 void EnemyHisbeLaserChip003::processBehavior() {

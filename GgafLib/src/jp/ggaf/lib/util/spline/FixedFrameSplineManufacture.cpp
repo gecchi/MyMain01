@@ -96,10 +96,12 @@ void FixedFrameSplineManufacture::calculate() {
     //                  _spent_frame = １区間は 120/8 Frame = _spent_frame / (sp._rnum-1);
     SplineManufacture::calculate();
     int rnum = _sp->_rnum;
+    //_TRACE_("rnum="<<rnum);
     for (int t = 1; t < rnum; t++) {
         //距離 paDistanceTo[t] を、時間frm_segment で移動するために必要な速度を求める。
         //速さ＝距離÷時間
         _paSPMvVeloTo[t] = ((velo)(_paDistance_to[t] / _frame_of_segment)) + 1; //+1は切り上げ
+        //_TRACE_("_paDistance_to["<<t<<"]="<<_paDistance_to[t]<<" _frame_of_segment="<<_frame_of_segment<<" _paSPMvVeloTo["<<t<<"]="<<_paDistance_to[t]<<"");
     }
     _paSPMvVeloTo[0] = 0; //始点までの速度など分からない。
     _paDistance_to[0] = 0;   //始点までの距離など分からない。

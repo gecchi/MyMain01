@@ -97,6 +97,7 @@ class WateringLaserChip;
 class HomingLaserChip;
 class StraightLaserChip;
 class RefractionLaserChip;
+class NomalLaserChip;
 class LaserChipDepository;
 }
 

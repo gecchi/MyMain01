@@ -27,7 +27,7 @@ MgrSpacetime::MgrSpacetime(const char* prm_name, MgrCamera* prm_pCam) :
     pActiveCamWorker_ = NEW MgrMouseCamWorker("MgrMouseCamWorker");
     bringDirector()->addSubGroup(pActiveCamWorker_); //基底デフォルトカメラワーク
 
-    _TRACE_("再設定 Gone=X ("<<_x_gone_left<<" ~ "<<_x_gone_right<<") Y("<<_y_gone_bottom<<" ~ "<<_y_gone_top<<") Z("<<_z_gone_near<<" ~ "<<_z_gone_far<<")");
+    _TRACE_("Spacetime Bound = X("<<_x_bound_left<<" ~ "<<_x_bound_right<<") Y("<<_y_bound_bottom<<" ~ "<<_y_bound_top<<") Z("<<_z_bound_near<<" ~ "<<_z_bound_far<<")");
 }
 
 void MgrSpacetime::initialize() {

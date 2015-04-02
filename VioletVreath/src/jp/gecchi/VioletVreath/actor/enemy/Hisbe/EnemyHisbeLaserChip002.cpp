@@ -15,7 +15,6 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-frame EnemyHisbeLaserChip002::end_active_frame_ = INT_MAX;
 
 EnemyHisbeLaserChip002::EnemyHisbeLaserChip002(const char* prm_name) :
         RefractionLaserChip(prm_name, "HisbeLaserChip002", STATUS(EnemyHisbeLaserChip002)) {
@@ -39,9 +38,6 @@ void EnemyHisbeLaserChip002::onActive() {
     getStatus()->reset();
     getKuroko()->relateFaceByMvAng(true);
     pScrollingScene_ = ((DefaultScene*)getPlatformScene())->getNearestScrollingScene();
-    if (pScrollingScene_->_pFuncScrolling != WalledScene::scrollX) {
-        pScrollingScene_ = nullptr;
-    }
 }
 
 void EnemyHisbeLaserChip002::onRefractionInto(int prm_num_refraction)  {
@@ -68,35 +64,14 @@ void EnemyHisbeLaserChip002::processBehavior() {
 }
 
 void EnemyHisbeLaserChip002::processJudgement() {
-    if (!_is_leader) {
-        if (!getFrontChip()) {
-            sayonara();
-        }
+    if (getActiveFrame() >= getRefractionFinishFrames()) {
+        sayonara();
     }
     if (isOutOfSpacetime()) {
         sayonara();
     }
 }
 
-bool EnemyHisbeLaserChip002::isOutOfSpacetime() const {
-    Spacetime* pSpacetime =  P_GOD->getSpacetime();
-    //EnemyHisbe出現時（壁ブロック配置時）はX軸方向の大抵空間外のため
-    if (pSpacetime->_x_gone_left < _x) {
-        //if (_x < pSpacetime->_x_gone_right) {
-            if (pSpacetime->_y_gone_bottom < _y) {
-                if (_y < pSpacetime->_y_gone_top) {
-                    if (pSpacetime->_z_gone_near < _z) {
-                        if (_z < pSpacetime->_z_gone_far) {
-                            return false;
-                        }
-                    }
-                }
-            }
-        //}
-    }
-    return true;
-
-}
 void EnemyHisbeLaserChip002::onHit(const GgafActor* prm_pOtherActor) {
     const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {

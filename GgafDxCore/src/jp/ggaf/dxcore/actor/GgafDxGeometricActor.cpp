@@ -334,12 +334,12 @@ int GgafDxGeometricActor::isOutOfView() {
 
 bool GgafDxGeometricActor::isOutOfSpacetime() const {
     GgafDxSpacetime* pSpacetime =  P_GOD->getSpacetime();
-    if (pSpacetime->_x_gone_left < _x) {
-        if (_x < pSpacetime->_x_gone_right) {
-            if (pSpacetime->_y_gone_bottom < _y) {
-                if (_y < pSpacetime->_y_gone_top) {
-                    if (pSpacetime->_z_gone_near < _z) {
-                        if (_z < pSpacetime->_z_gone_far) {
+    if (pSpacetime->_x_bound_left <= _x) {
+        if (_x <= pSpacetime->_x_bound_right) {
+            if (pSpacetime->_y_bound_bottom <= _y) {
+                if (_y <= pSpacetime->_y_bound_top) {
+                    if (pSpacetime->_z_bound_near <= _z) {
+                        if (_z <= pSpacetime->_z_bound_far) {
                             return false;
                         }
                     }

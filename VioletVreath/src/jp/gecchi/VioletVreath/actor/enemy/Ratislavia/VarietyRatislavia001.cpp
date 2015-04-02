@@ -30,7 +30,7 @@ VarietyRatislavia001::VarietyRatislavia001(const char* prm_name) :
 void VarietyRatislavia001::initialize() {
     EnemyRatislavia::initialize();
     Spacetime* pSpacetime =  P_GOD->getSpacetime();
-    _x = pSpacetime->_x_gone_right + r1_ + r2_;
+    _x = pSpacetime->_x_bound_right + r1_ + r2_;
     _y = 0;
     _z = 0;
     GgafDxKuroko* const pKuroko = getKuroko();

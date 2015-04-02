@@ -25,7 +25,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     coord wall_dep    = DX_C(40);  //壁ブロックモデル１個のX軸方向の幅設定（Xファイルにより決まる）
     coord wall_width  = DX_C(10);  //壁ブロックモデル１個のZ軸方向の幅設定（Xファイルにより決まる）
     coord wall_height = DX_C(10);  //壁ブロックモデル１個のY軸方向の幅設定（Xファイルにより決まる）
-    float scale_r = 8.0f;        //今回壁ブロックの拡大率（ここで設定可能）
+    float scale_r = 6.0f;        //今回壁ブロックの拡大率（ここで設定可能）
     //****************************
 
     //壁ブロック(直方体)デポジトリ生成
@@ -61,7 +61,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     //構築
     buildWalledScene(
         wall_dep*scale_r, wall_width*scale_r, wall_height*scale_r,
-        P_GOD->getSpacetime()->_x_gone_right,
+        P_GOD->getSpacetime()->_x_bound_right,
         (WalledSectionScene**)&apSection, 4,
         pDepo_wall ,pDepo_prism
     );
@@ -110,6 +110,15 @@ void Stage01WalledScene::processBehavior() {
     }
     // gen02 end
 
+    //デバッグ
+    if (GgafDxInput::isBeingPressedKey(DIK_PGUP)) {
+        addScrollSpeed(PX_C(1));
+        P_COMMON_SCENE->addScrollSpeed(PX_C(1));
+    }
+    if (GgafDxInput::isBeingPressedKey(DIK_PGDN)) {
+        addScrollSpeed(PX_C(-1));
+        P_COMMON_SCENE->addScrollSpeed(PX_C(-1));
+    }
 
 }
 

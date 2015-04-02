@@ -63,12 +63,12 @@ void GgafLinearOctree::registerElem(GgafLinearOctreeElem* const prm_pElem,
                                     int tx2, int ty2, int tz2) {
 
     //はみ出る場合は補正
-    tx1 = tx1<=_root_x1 ? _root_x1+1 : tx1;
-    tx2 = tx2>=_root_x2 ? _root_x2-1 : tx2;
-    ty1 = ty1<=_root_y1 ? _root_y1+1 : ty1;
-    ty2 = ty2>=_root_y2 ? _root_y2-1 : ty2;
-    tz1 = tz1<=_root_z1 ? _root_z1+1 : tz1;
-    tz2 = tz2>=_root_z2 ? _root_z2-1 : tz2;
+    tx1 = tx1<=_root_x1 ? _root_x1 : tx1;
+    tx2 = tx2>=_root_x2 ? _root_x2 : tx2;
+    ty1 = ty1<=_root_y1 ? _root_y1 : ty1;
+    ty2 = ty2>=_root_y2 ? _root_y2 : ty2;
+    tz1 = tz1<=_root_z1 ? _root_z1 : tz1;
+    tz2 = tz2>=_root_z2 ? _root_z2 : tz2;
 
     //軸座標の大小が裏返った場合、つまりLevel0より外か、Level0全体より大きい場合は無視する
     if (tx1 >= tx2 || ty1 >= ty2 || tz1 >= tz2) {

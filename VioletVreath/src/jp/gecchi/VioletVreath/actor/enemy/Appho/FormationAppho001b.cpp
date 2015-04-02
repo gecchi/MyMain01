@@ -26,8 +26,8 @@ void FormationAppho001b::onCallUpAppho(EnemyAppho* prm_pAppho, int prm_index) {
                                   P_MYSHIP->_y - y,
                                   P_MYSHIP->_z      );
     Spacetime* pSpacetime =  P_GOD->getSpacetime();
-    prm_pAppho->leave_pos_.set( (pSpacetime->_x_gone_right/2)  + RND(-PX_C(d),PX_C(d)),
-                                (pSpacetime->_y_gone_bottom/2) + RND(-PX_C(d),PX_C(d)),
+    prm_pAppho->leave_pos_.set( (pSpacetime->_x_bound_right/2)  + RND(-PX_C(d),PX_C(d)),
+                                (pSpacetime->_y_bound_bottom/2) + RND(-PX_C(d),PX_C(d)),
                                 P_MYSHIP->_z                                         );
 }
 

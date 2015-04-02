@@ -64,17 +64,17 @@ void GgafDxSpacetime::SeArray::play(int index) {
 }
 
 GgafDxSpacetime::GgafDxSpacetime(const char* prm_name, GgafDxCamera* prm_pCamera) : GgafSpacetime(prm_name),
-_x_gone_left  (-DX_C(prm_pCamera->getZFar())), //カメラの写す範囲＝Spacetimeの範囲
-_x_gone_right (+DX_C(prm_pCamera->getZFar())),
-_y_gone_bottom(-DX_C(prm_pCamera->getZFar())),
-_y_gone_top   (+DX_C(prm_pCamera->getZFar())),
-_z_gone_near  (-DX_C(prm_pCamera->getZFar())),
-_z_gone_far   (+DX_C(prm_pCamera->getZFar()))
+_x_bound_left  (-DX_C(prm_pCamera->getZFar())), //カメラの写す範囲＝Spacetimeの範囲
+_x_bound_right (+DX_C(prm_pCamera->getZFar())),
+_y_bound_bottom(-DX_C(prm_pCamera->getZFar())),
+_y_bound_top   (+DX_C(prm_pCamera->getZFar())),
+_z_bound_near  (-DX_C(prm_pCamera->getZFar())),
+_z_bound_far   (+DX_C(prm_pCamera->getZFar()))
 {
     _obj_class |= Obj_GgafDxSpacetime;
     _class_name = "GgafDxSpacetime";
 
-    _TRACE_("Gone=X ("<<_x_gone_left<<" ~ "<<_x_gone_right<<") Y("<<_y_gone_bottom<<" ~ "<<_y_gone_top<<") Z("<<_z_gone_near<<" ~ "<<_z_gone_far<<")");
+    _TRACE_("Spacetime Bound = X("<<_x_bound_left<<" ~ "<<_x_bound_right<<") Y("<<_y_bound_bottom<<" ~ "<<_y_bound_top<<") Z("<<_z_bound_near<<" ~ "<<_z_bound_far<<")");
 
 //TODO:フォグいつか
 //    _colFog.r = 0.0;

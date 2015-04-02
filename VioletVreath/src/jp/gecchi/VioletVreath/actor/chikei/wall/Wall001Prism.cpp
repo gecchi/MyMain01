@@ -27,7 +27,7 @@ void Wall001Prism::processBehavior() {
 //    _TRACE_(getName()<<":"<<_x<<","<<_y<<","<<_z);
 }
 //bool Wall001Prism::isOutOfSpacetime() const {
-//    if (GgafDxSpacetime::_x_gone_left < _x) {
+//    if (GgafDxSpacetime::_x_bound_left <= _x) {
 //        return false;
 //    }
 //    return true;

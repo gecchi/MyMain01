@@ -35,7 +35,7 @@ void EnemyEmilia::onActive() {
     const coord appearances_renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 3;
     const coord appearances_renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 3;
     Spacetime* pSpacetime =  P_GOD->getSpacetime();
-    _x = pSpacetime->_x_gone_right - 1000;
+    _x = pSpacetime->_x_bound_right;
     _y = RND(-(appearances_renge_y/2) , +(appearances_renge_y/2));
     _z = RND(-(appearances_renge_z/2) , +(appearances_renge_z/2));
     GgafDxKuroko* const pKuroko = getKuroko();

@@ -107,27 +107,27 @@ SplineSource::SplineSource(const char* prm_idstr)  : GgafObject() {
     if (d != 0 && d != 4) {
         throwGgafCriticalException("SplineSource::SplineSource "<<_idstr<<" [ADJUST_MAT] のデータ数が中途半端です。４列４行の行列を設定してください。");
     }
-    DefaultSpacetime* pSpacetime =  P_GOD->getSpacetime();
-    for (int i = 0; i < n; i++) {
-        if (p[i][0] > pSpacetime->_x_gone_right*0.9999) {
-            p[i][0] = pSpacetime->_x_gone_right*0.9999;
-        }
-        if (p[i][0] < pSpacetime->_x_gone_left*0.9999) {
-            p[i][0] = pSpacetime->_x_gone_left*0.9999;
-        }
-        if (p[i][1] > pSpacetime->_y_gone_top*0.9999) {
-            p[i][1] = pSpacetime->_y_gone_top*0.9999;
-        }
-        if (p[i][1] < pSpacetime->_y_gone_bottom*0.9999) {
-            p[i][1] = pSpacetime->_y_gone_bottom*0.9999;
-        }
-        if (p[i][2] > pSpacetime->_z_gone_far*0.9999) {
-            p[i][2] = pSpacetime->_z_gone_far*0.9999;
-        }
-        if (p[i][2] < pSpacetime->_z_gone_near*0.9999) {
-            p[i][2] = pSpacetime->_z_gone_near*0.9999;
-        }
-    }
+//    DefaultSpacetime* pSpacetime =  P_GOD->getSpacetime();
+//    for (int i = 0; i < n; i++) {
+//        if (p[i][0] > pSpacetime->_x_bound_right*0.9999) {
+//            p[i][0] = pSpacetime->_x_bound_right*0.9999;
+//        }
+//        if (p[i][0] < pSpacetime->_x_bound_left*0.9999) {
+//            p[i][0] = pSpacetime->_x_bound_left*0.9999;
+//        }
+//        if (p[i][1] > pSpacetime->_y_bound_top*0.9999) {
+//            p[i][1] = pSpacetime->_y_bound_top*0.9999;
+//        }
+//        if (p[i][1] < pSpacetime->_y_bound_bottom*0.9999) {
+//            p[i][1] = pSpacetime->_y_bound_bottom*0.9999;
+//        }
+//        if (p[i][2] > pSpacetime->_z_bound_far*0.9999) {
+//            p[i][2] = pSpacetime->_z_bound_far*0.9999;
+//        }
+//        if (p[i][2] < pSpacetime->_z_bound_near*0.9999) {
+//            p[i][2] = pSpacetime->_z_bound_near*0.9999;
+//        }
+//    }
     if (d == 4) {
         _pSp = NEW SplineLine(p, n, accuracy, rotmat);
     } else {

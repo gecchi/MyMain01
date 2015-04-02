@@ -82,6 +82,10 @@ EnemyHisbe::EnemyHisbe(const char* prm_name) :
     //リフレクション(リポジトリ)------>
     pConn_pDepoStore_laser_set = getConnection_DepositoryManager("EnemyHisbeLaserChip002DepoStore");
     pLaserChipDepo_ = nullptr;
+    //<---------------------
+
+    //普通のレーザー
+
 
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
@@ -185,13 +189,7 @@ void EnemyHisbe::processBehavior() {
 
 void EnemyHisbe::processJudgement() {
     if (isOutOfSpacetime()) {
-        Spacetime* pSpacetime =  P_GOD->getSpacetime();
-        if (_x >= pSpacetime->_x_gone_right) {
-            //WALL内実験
-            //空間外でも消えません（壁出現時は空間外もおおい)
-        } else {
-            sayonara();
-        }
+        sayonara();
     }
 }
 

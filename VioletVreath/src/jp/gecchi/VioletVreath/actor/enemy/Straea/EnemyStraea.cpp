@@ -96,7 +96,7 @@ void EnemyStraea::onActive() {
     getStatus()->reset();
     setHitAble(false);
     Spacetime* pSpacetime =  P_GOD->getSpacetime();
-    _x = pSpacetime->_x_gone_right - 1000;
+    _x = pSpacetime->_x_bound_right;
     getProgress()->reset(PROG_INIT);
 }
 

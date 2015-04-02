@@ -26,7 +26,7 @@ void WalledScene::buildWalledScene(
         GgafActorDepository* prm_pDepo_wall,
         GgafActorDepository* prm_pDepo_prism) {
     _TRACE_("WalledScene::buildWalledScene ["<<getName()<<"] build...");
-    setScrollingFunction(WalledScene::scrollX);
+    setScrollingFunction(WalledScene::scrollX); //XŽ²•ûŒüƒXƒNƒ[ƒ‹ŠÖ”
 
     _pDepo_wall = prm_pDepo_wall;
     _pDepo_prism = prm_pDepo_prism;
@@ -156,7 +156,6 @@ void WalledScene::processBehavior() {
         }
     } else {
     }
-
 }
 
 void WalledScene::processFinal() {

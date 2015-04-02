@@ -23,7 +23,6 @@ class RefractionLaserChip : public LaserChip {
     friend class LaserChipDepository;
 
 private:
-public:
     /** [r](次回の)屈折開始フレーム */
     frame _frame_refraction_enter;
     /** [r]屈折終了フレーム */
@@ -32,7 +31,6 @@ public:
     bool _is_refracting;
     /** [r]現在の屈折回数 */
     int _cnt_refraction;
-
 
     int _begining_x;
     int _begining_y;
@@ -53,7 +51,8 @@ public:
     /** 屈折エフェクトアクターのデポジトリ（シーン所属済みであること） */
     GgafCore::GgafActorDepository* _pDepo_refraction_effect;
     GgafDxCore::GgafDxFigureActor* _pRefractionEffect;
-
+    /** 屈折終了までのフレーム数 */
+    frame _refraction_end_frames;
 public:
     /** 先導チップ（本当の先頭チップ）フラグ */
     bool _is_leader; //本当の先頭チップとは、レーザー移動中にちぎれて発生するにわか先頭チップでは無いという意味。;
@@ -134,6 +133,14 @@ public:
      * その際 は、本クラスの onInactive() メソッドも呼び出してください。
      */
     virtual void onInactive() override;
+
+    /**
+     * 屈折レーザー開始～終了までのフレーム数を得る .
+     * @return 屈折レーザー開始～終了までのフレーム数
+     */
+    inline frame getRefractionFinishFrames() {
+        return _refraction_end_frames;
+    }
 
     virtual ~RefractionLaserChip();
 

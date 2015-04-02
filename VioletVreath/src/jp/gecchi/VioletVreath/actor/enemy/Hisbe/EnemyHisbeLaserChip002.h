@@ -8,7 +8,6 @@ namespace VioletVreath {
 class EnemyHisbeLaserChip002 : public GgafLib::RefractionLaserChip {
 
 public:
-    static frame end_active_frame_;
     GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
     GgafLib::DefaultScene* pScrollingScene_;
@@ -26,8 +25,6 @@ public:
     void processBehavior() override;
 
     void processJudgement() override;
-
-    bool isOutOfSpacetime() const override;
 
     void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
 

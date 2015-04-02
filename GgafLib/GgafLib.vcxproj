@@ -47,6 +47,7 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\HomingLaserChip.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\LaserChip.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\LaserChipDepository.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\NomalLaserChip.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\RefractionLaserChip.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\StraightLaserChip.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\WateringLaserChip.cpp" />
@@ -124,6 +125,7 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\HomingLaserChip.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\LaserChip.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\LaserChipDepository.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\nomallaserchip.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\RefractionLaserChip.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\StraightLaserChip.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\WateringLaserChip.h" />

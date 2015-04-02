@@ -176,7 +176,7 @@ int EnemyRatislavia::isOutOfView() {
 
 bool EnemyRatislavia::isOutOfSpacetime() const {
     Spacetime* pSpacetime =  P_GOD->getSpacetime();
-    if (pSpacetime->_x_gone_left < _x) {
+    if (pSpacetime->_x_bound_left <= _x) {
         return false;
     } else {
         return true;

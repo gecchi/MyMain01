@@ -11,7 +11,7 @@ RefractionLaserChip::RefractionLaserChip(const char* prm_name, const char* prm_m
         LaserChip(prm_name, prm_model, prm_pStat) {
     _class_name = "RefractionLaserChip";
     _is_leader = false;
-    _num_refraction = 2;
+    _num_refraction = 1;
     _frame_standstill_refraction = 10;
     _frame_between_refraction = 20;
 
@@ -38,6 +38,7 @@ RefractionLaserChip::RefractionLaserChip(const char* prm_name, const char* prm_m
     _prev_rz = _rz;
     _prev_is_refracting = false;
     _is_fix_begin_pos = true;
+    _refraction_end_frames = 0;
 }
 
 void RefractionLaserChip::config(int prm_num_refraction,
@@ -58,6 +59,8 @@ void RefractionLaserChip::config(int prm_num_refraction,
     _frame_standstill_refraction = prm_frame_standstill_refraction;
     _is_fix_begin_pos = prm_is_fix_begin_pos;
     _pDepo_refraction_effect = prm_pDepo_refraction_effect;
+    _refraction_end_frames = (_num_refraction * _frame_standstill_refraction) +
+                             ((_num_refraction+1) * prm_frame_between_refraction);
 }
 
 void RefractionLaserChip::onActive() {
@@ -100,6 +103,7 @@ void RefractionLaserChip::onActive() {
         _cnt_refraction = 0;
         _frame_refraction_enter = INT_MAX;
         _frame_refraction_out = INT_MAX;
+        _refraction_end_frames = pChip_front->_refraction_end_frames;
     }
 
     _is_refracting = false;
@@ -114,6 +118,9 @@ void RefractionLaserChip::onInactive() {
     //加速度や、移動予約など引き継がれないものが多数あるので、複雑な移動をする際は、ココに注意を払うこと！
     //レーザーがゲーム領域外にたっしたときも、先頭チップから順に連続で引継ぎが発生することになる。
     //ちょっと無駄っぽいけど、さもなくば先頭の次のチップが領域外に向かって移動するとは限らないので、やはり必要。
+    //【注意】
+    //もし先頭チップ停止中（移動速度0）に inactive となった場合、停止が引き継がれるため、
+    //RefractionLaser はそこに溜まり込んでしまう。これは回避すること。
     if (_pChip_behind) {
         RefractionLaserChip* const pChip_behind = (RefractionLaserChip*)_pChip_behind;
         GgafDxKuroko* const pChip_behind_pKuroko = pChip_behind->getKuroko();
@@ -184,7 +191,7 @@ void RefractionLaserChip::processBehavior() {
                     if (_cnt_refraction < _num_refraction) {
                         _cnt_refraction++;
                         onRefractionInto(_cnt_refraction); //コールバック
-                        _frame_refraction_out = getBehaveingFrame()  + _frame_standstill_refraction;
+                        _frame_refraction_out = getBehaveingFrame()  + _frame_standstill_refraction - 1; //0で最速。但し方向転換で１フレムかかる
                         _is_refracting = true;
 
                         if (_pDepo_refraction_effect) {
@@ -241,7 +248,6 @@ void RefractionLaserChip::processBehavior() {
             _pRefractionEffect = pChip_front->_prev_pRefractionEffect;
             if (_pChip_behind == nullptr) {
                 if (_pRefractionEffect) {
-                    //_TRACE_("_pRefractionEffect->sayonara();");
                     _pRefractionEffect->sayonara(_frame_standstill_refraction);
                 }
             }

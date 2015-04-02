@@ -9,7 +9,7 @@
 namespace GgafLib {
 
 /**
- * 壁ブロックシーン .
+ * X軸方向スクロールの壁ブロックシーン .
  * 一つの WalledScene は、複数個の WalledSectionScene を繋ぎあわせたものです。
  * @version 1.00
  * @since 2010/11/05
@@ -38,7 +38,7 @@ public:
     WalledScene(const char* prm_name);
 
     /**
-     * WalledSceneを構築する。
+     * X軸方向スクロール WalledScene を設定する。
      * 本クラス new 後 initialize() までに、必ず１回実行する必要があります。
      * 【注意】
      * prm_pDepo_wallox 及び prm_pDepo_prism は処理内で本シーンのinitialize() で
@@ -50,8 +50,8 @@ public:
      * @param prm_wall_start_x  外壁出現のX座標位置
      * @param prm_papSection    セクションシーン配列へのポインタ
      * @param prm_section_num   セクションシーン数
-     * @param prm_pDepo_wallox 壁ブロック(WallAABActor)を供給するデポジトリ（※initialize()時、配下に強制移動）
-     * @param prm_pDepo_prism 壁プリズム(WallAAPrismActor)を供給するデポジトリ（※initialize()時、配下に強制移。プリズムが無い時は省略可）
+     * @param prm_pDepo_wallox  壁ブロック(WallAABActor)を供給するデポジトリ（※initialize()時、配下に強制移動）
+     * @param prm_pDepo_prism   壁プリズム(WallAAPrismActor)を供給するデポジトリ（※initialize()時、配下に強制移。プリズムが無い時は省略可）
      */
     void buildWalledScene(
             coord prm_wall_dep, coord prm_wall_width, coord prm_wall_height,

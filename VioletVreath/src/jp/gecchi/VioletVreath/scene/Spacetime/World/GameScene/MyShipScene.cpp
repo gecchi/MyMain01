@@ -143,7 +143,7 @@ void MyShipScene::processBehavior() {
                     throwGgafCriticalException("VreathMagic‚ª‚ ‚è‚Ü‚¹‚ñB");
                 }
                 Spacetime* pSpacetime =  P_GOD->getSpacetime();
-                pMyShip_->_x = pSpacetime->_x_gone_left + 1000;
+                pMyShip_->_x = pSpacetime->_x_bound_left;
                 pMyShip_->can_control_ = true;
                 pMyShip_->is_diving_ = true;
                 pMyShip_->activate();

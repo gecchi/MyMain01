@@ -55,17 +55,17 @@ public:
     /** 描画アクターのカーソル */
     static GgafDxFigureActor* _pActor_draw_active;
     /** [r]アプリケーション領域、X座標の最小値 */
-    const coord _x_gone_left;
+    const coord _x_bound_left;
     /** [r]アプリケーション領域、X座標の最大値 */
-    const coord _x_gone_right;
+    const coord _x_bound_right;
     /** [r]アプリケーション領域、Y座標の最小値 */
-    const coord _y_gone_bottom;
+    const coord _y_bound_bottom;
     /** [r]アプリケーション領域、Y座標の最大値 */
-    const coord _y_gone_top;
+    const coord _y_bound_top;
     /** [r]アプリケーション領域、Z座標の最小値 */
-    const coord _z_gone_near;
+    const coord _z_bound_near;
     /** [r]アプリケーション領域、Z座標の最大値 */
-    const coord _z_gone_far;
+    const coord _z_bound_far;
 
     static std::string _seqkey_se_delay;
 

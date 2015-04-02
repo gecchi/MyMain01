@@ -81,12 +81,11 @@ void WallPartsActor::processPreDraw() {
 }
 
 bool WallPartsActor::isOutOfSpacetime() const {
-    DefaultSpacetime* pSpacetime =  P_GOD->getSpacetime();
-    if (_x+_wall_dep < pSpacetime->_x_gone_left) {
-        return true;
-    } else {
+    GgafDxSpacetime* pSpacetime =  P_GOD->getSpacetime();
+    if (pSpacetime->_x_bound_left <= _x+_wall_dep) {
         return false;
     }
+    return true;
 }
 
 int WallPartsActor::isOutOfView() {

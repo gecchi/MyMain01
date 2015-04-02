@@ -1,5 +1,5 @@
-#ifndef GGAFLIB_CURVELASERCHIP_H_
-#define GGAFLIB_CURVELASERCHIP_H_
+#ifndef GGAFLIB_WATERINGLASERCHIP_H_
+#define GGAFLIB_WATERINGLASERCHIP_H_
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
 
@@ -10,7 +10,7 @@ namespace GgafLib {
  * 水撒きレーザーなどと表現しているが、正確には<BR>
  * ・発射座標任意（発射元座標が移動可能）<BR>
  * ・各チップの移動方向、速度共に固定<BR>
- * ・しかし、隣接するチップとチップが手を取り合い、チップ間に当たり判定が発生<BR>
+ * ・しかし、隣接するチップとチップが手を取り合い、角がとれて滑らかになる。チップ間に当たり判定が発生<BR>
  * というべきか、グラディウスＶのディレクションレーザー(TYPE2)と言うべきか、そんな感じ。<BR>
  * AxesMover で移動します。dispatch() したら、座標と AxesMover（各軸の移動速度）を設定して下さい。<BR>
  * @version 1.00
@@ -46,6 +46,9 @@ public:
 
     virtual void processJudgement() override {}
 
+    /**
+     * 平均曲線座標設定。(レーザーを滑らかにするノーマライズ） .
+     */
     virtual void processSettlementBehavior() override;
 
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {}
@@ -55,5 +58,5 @@ public:
 };
 
 }
-#endif /*GGAFLIB_CURVELASERCHIP_H_*/
+#endif /*GGAFLIB_WATERINGLASERCHIP_H_*/
 
