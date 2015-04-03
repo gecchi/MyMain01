@@ -25,7 +25,7 @@ MagicPointItem::MagicPointItem(const char* prm_name, const char* prm_model, Ggaf
     setAlpha(0.9);
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
-    pKuroko->relateFaceByMvAng(true);
+    pKuroko->linkFaceAngByMvAng(true);
     kDX_ = kDY_ = kDZ_ = 0;
     useProgress(PROG_BANPEI);
     setHitAble(true, false); //‰æ–ÊŠO“–‚½‚è”»’è‚Í–³Œø

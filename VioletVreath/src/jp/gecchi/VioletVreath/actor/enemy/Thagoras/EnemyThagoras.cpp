@@ -41,7 +41,7 @@ void EnemyThagoras::initialize() {
 
 void EnemyThagoras::onActive() {
     GgafDxKuroko* const pKuroko = getKuroko();
-    pKuroko->relateFaceByMvAng(true);
+    pKuroko->linkFaceAngByMvAng(true);
     pKuroko->setFaceAngVelo(AXIS_X, 2000);
     pKuroko->forceMvVeloRange(PX_C(15));
     getStatus()->reset();

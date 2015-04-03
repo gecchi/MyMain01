@@ -1011,7 +1011,7 @@ public:
      * false を設定すると、移動方角と向きは独立、デフォルトはこちら。<BR>
      * @param prm_b true:移動方角に伴って軸回転方角を更新/false:移動方角と軸回転方角は独立
      */
-    void relateFaceByMvAng(bool prm_b) {
+    void linkFaceAngByMvAng(bool prm_b) {
         _relate_RyFaceAng_with_RyMvAng_flg = prm_b;
         _relate_RzFaceAng_with_RzMvAng_flg = prm_b;
         _pActor->_rz = _ang_rz_mv;

@@ -50,7 +50,7 @@ void EnemyEmus::onCreateModel() {
 
 void EnemyEmus::initialize() {
     setHitAble(true);
-    getKuroko()->relateFaceByMvAng(true);
+    getKuroko()->linkFaceAngByMvAng(true);
     getMorpher()->forceRange(MORPHTARGET_HATCH_OPEN, 0.0f, 1.0f);
     setMorphWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     CollisionChecker3D* pChecker = getCollisionChecker();

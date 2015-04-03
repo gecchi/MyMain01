@@ -63,7 +63,7 @@ void EnemyEres::onActive() {
     iMovePatternNo_ = 0;
     frame_Active_ = 0;
     GgafDxKuroko* const pKuroko = getKuroko();
-    pKuroko->relateFaceByMvAng(true);
+    pKuroko->linkFaceAngByMvAng(true);
     pKuroko->setFaceAngVelo(AXIS_X, 6000);
     pKuroko->setMvVelo(8000);
     pKurokoLeader_->start(SplineKurokoLeader::ABSOLUTE_COORD); //スプライン移動を開始

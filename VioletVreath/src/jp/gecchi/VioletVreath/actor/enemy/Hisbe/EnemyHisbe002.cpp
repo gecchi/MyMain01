@@ -48,7 +48,7 @@ void EnemyHisbe002::onCreateModel() {
 void EnemyHisbe002::initialize() {
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(AXIS_Y, 500);
-    pKuroko->relateFaceByMvAng(true);
+    pKuroko->linkFaceAngByMvAng(true);
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->makeCollision(1);
     pChecker->setColliSphere(0, 40000);

@@ -43,7 +43,7 @@ void Zako::onCreateModel() {
 
 void Zako::initialize() {
     GgafDxKuroko* const pKuroko = getKuroko();
-    pKuroko->relateFaceByMvAng(true);
+    pKuroko->linkFaceAngByMvAng(true);
     pKuroko->setSpinAngVelo(D_ANG(2));
     pKuroko->setMvVelo(PX_C(1));
 }

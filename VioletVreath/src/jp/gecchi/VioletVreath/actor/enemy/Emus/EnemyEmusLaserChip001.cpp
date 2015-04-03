@@ -22,7 +22,7 @@ void EnemyEmusLaserChip001::initialize() {
     setAlpha(0.9);
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvVelo(300000);
-    pKuroko->relateFaceByMvAng(true);
+    pKuroko->linkFaceAngByMvAng(true);
 }
 
 void EnemyEmusLaserChip001::onActive() {

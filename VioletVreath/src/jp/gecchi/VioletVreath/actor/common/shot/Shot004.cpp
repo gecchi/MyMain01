@@ -33,7 +33,7 @@ void Shot004::onReset() {
     pKuroko->setFaceAngVelo(AXIS_X, D_ANG(3));
     pKuroko->setMvVelo(30000);
     pKuroko->setMvAcce(1000);
-    pKuroko->relateFaceByMvAng(true);
+    pKuroko->linkFaceAngByMvAng(true);
 }
 
 void Shot004::onActive() {

@@ -23,6 +23,8 @@ EnemyHisbeLaserChip002::EnemyHisbeLaserChip002(const char* prm_name) :
     pKurokoLeader_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
     pKurokoLeader_->adjustCoordOffset(PX_C(100), 0, 0);
     pScrollingScene_ = nullptr;
+    getKuroko()->setMvAngByFaceAng();
+    getKuroko()->linkFaceAngByMvAng(true);
 }
 
 void EnemyHisbeLaserChip002::initialize() {
@@ -36,7 +38,6 @@ void EnemyHisbeLaserChip002::onActive() {
     RefractionLaserChip::onActive();
     //ステータスリセット
     getStatus()->reset();
-    getKuroko()->relateFaceByMvAng(true);
     pScrollingScene_ = ((DefaultScene*)getPlatformScene())->getNearestScrollingScene();
 }
 

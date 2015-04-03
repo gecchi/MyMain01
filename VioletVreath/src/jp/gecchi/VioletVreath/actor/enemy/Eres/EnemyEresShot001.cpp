@@ -41,7 +41,7 @@ EnemyEresShot001::EnemyEresShot001(const char* prm_name) :
 void EnemyEresShot001::initialize() {
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->forceMvVeloRange(veloTop_, veloBottom_);
-    pKuroko->relateFaceByMvAng(true);
+    pKuroko->linkFaceAngByMvAng(true);
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->makeCollision(1);
     pChecker->setColliAAB(0, -30000, -30000, 30000, 30000);

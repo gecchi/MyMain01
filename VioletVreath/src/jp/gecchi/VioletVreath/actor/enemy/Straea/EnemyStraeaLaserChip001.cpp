@@ -30,7 +30,7 @@ void EnemyStraeaLaserChip001::onActive() {
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvVelo(10000);
     pKuroko->setMvAcce(400);
-    pKuroko->relateFaceByMvAng(true);
+    pKuroko->linkFaceAngByMvAng(true);
 }
 
 void EnemyStraeaLaserChip001::processBehaviorHeadChip() {

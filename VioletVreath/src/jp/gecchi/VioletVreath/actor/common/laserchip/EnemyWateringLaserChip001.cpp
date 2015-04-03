@@ -14,7 +14,7 @@ EnemyWateringLaserChip001::EnemyWateringLaserChip001(const char* prm_name) :
 }
 
 void EnemyWateringLaserChip001::initialize() {
-    getKuroko()->relateFaceByMvAng(true);
+    getKuroko()->linkFaceAngByMvAng(true);
     registerHitAreaCube_AutoGenMidColli(50000);
     setHitAble(true);
     setScaleR(6.0);

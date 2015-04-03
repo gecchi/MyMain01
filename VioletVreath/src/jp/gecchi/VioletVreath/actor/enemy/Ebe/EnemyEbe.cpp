@@ -23,7 +23,7 @@ EnemyEbe::EnemyEbe(const char* prm_name) :
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
-    getKuroko()->relateFaceByMvAng(true);
+    getKuroko()->linkFaceAngByMvAng(true);
     useProgress(PROG_BANPEI);
 }
 

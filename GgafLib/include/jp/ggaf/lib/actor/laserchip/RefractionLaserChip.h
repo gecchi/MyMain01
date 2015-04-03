@@ -38,12 +38,18 @@ private:
     angle _begining_rx;
     angle _begining_ry;
     angle _begining_rz;
+    angle _begining_ang_rz_mv;
+    angle _begining_ang_ry_mv;
+    velo _begining_velo_mv;
     int _prev_x;
     int _prev_y;
     int _prev_z;
     angle _prev_rx;
     angle _prev_ry;
     angle _prev_rz;
+    angle _prev_ang_rz_mv;
+    angle _prev_ang_ry_mv;
+    velo _prev_velo_mv;
 
     bool _prev_is_refracting;
     GgafDxCore::GgafDxFigureActor* _prev_pRefractionEffect;
@@ -114,6 +120,7 @@ public:
      * 先頭チップのレーザーのため後屈折後終了～直進開始時の処理 .
      * 先頭チップのみコールバックされます。<BR>
      * 実際には存在しない0回目の屈折終了からスタートする。<BR>
+     * 0回目の屈折終了は onActive() 時にコールバックされます。<BR>
      * オーバーライドし、屈折後の次の移動方向と速度を黒衣Aに設定する実装を
      * 行ってください。<BR>
      * @param prm_num_refraction 屈折カウント(何回目の屈折終了か)(0～)

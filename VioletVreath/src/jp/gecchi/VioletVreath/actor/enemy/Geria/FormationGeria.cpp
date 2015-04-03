@@ -21,7 +21,7 @@ FormationGeria::FormationGeria(
     for (int i = 0; i < prm_nGeriaStock; i++) {
         std::string name = "Geria"+XTOS(i);
         EnemyGeria* pEnemyGeria = NEW EnemyGeria(name.c_str());
-        pEnemyGeria->getKuroko()->relateFaceByMvAng(true);
+        pEnemyGeria->getKuroko()->linkFaceAngByMvAng(true);
         pDepo_->put(pEnemyGeria);
     }
     addSubGroup(pDepo_);

@@ -26,7 +26,7 @@ void MyShot001::initialize() {
     pChecker->setColliAAB(0, -PX_C(50), -PX_C(50), -PX_C(50),
                               PX_C(50),  PX_C(50),  PX_C(50));
     getKuroko()->setFaceAngVelo(AXIS_X, D_ANG(12));
-    getKuroko()->relateFaceByMvAng(true);
+    getKuroko()->linkFaceAngByMvAng(true);
 }
 
 void MyShot001::onActive() {

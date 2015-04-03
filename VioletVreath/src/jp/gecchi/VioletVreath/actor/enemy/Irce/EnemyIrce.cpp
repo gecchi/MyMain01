@@ -35,7 +35,7 @@ void EnemyIrce::initialize() {
     setHitAble(true);
     setScale(1000);
     GgafDxKuroko* const pKuroko = getKuroko();
-    pKuroko->relateFaceByMvAng(true);
+    pKuroko->linkFaceAngByMvAng(true);
     pKuroko->setMvVelo(3000);
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->makeCollision(1);

@@ -37,7 +37,7 @@ void EnemyAllas::initialize() {
     setHitAble(true);
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(AXIS_Z, -7000);
-    pKuroko->relateFaceByMvAng(true);
+    pKuroko->linkFaceAngByMvAng(true);
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->makeCollision(1);
     pChecker->setColliAAB_Cube(0, 40000);

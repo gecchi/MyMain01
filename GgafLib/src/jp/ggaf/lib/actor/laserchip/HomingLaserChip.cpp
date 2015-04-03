@@ -17,12 +17,18 @@ HomingLaserChip::HomingLaserChip(const char* prm_name, const char* prm_model, Gg
     _begining_rx = _rx;
     _begining_ry = _ry;
     _begining_rz = _rz;
+    _begining_ang_rz_mv = getKuroko()->_ang_rz_mv;
+    _begining_ang_ry_mv = getKuroko()->_ang_ry_mv;
+    _begining_velo_mv   = getKuroko()->_velo_mv;
     _prev_x = _x;
     _prev_y = _y;
     _prev_z = _z;
     _prev_rx = _rx;
     _prev_ry = _ry;
     _prev_rz = _rz;
+    _prev_ang_rz_mv = getKuroko()->_ang_rz_mv;
+    _prev_ang_ry_mv = getKuroko()->_ang_ry_mv;
+    _prev_velo_mv   = getKuroko()->_velo_mv;
     _is_fix_begin_pos = true;
 }
 
@@ -30,8 +36,8 @@ void HomingLaserChip::onActive() {
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     //その際 は、本クラスの onActive() メソッドも呼び出してください。
     LaserChip::onActive();
+    GgafDxKuroko* pKuroko = getKuroko();
     HomingLaserChip* pChip_front =  (HomingLaserChip*)_pChip_front;
-
     //レーザーチップ出現時処理
     if (pChip_front == nullptr) {
         //_TRACE_("HomingLaserChip::onActive() "<<getName()<<" pChip_front == nullptr");
@@ -43,6 +49,9 @@ void HomingLaserChip::onActive() {
         _begining_rx = _rx;
         _begining_ry = _ry;
         _begining_rz = _rz;
+        _begining_ang_rz_mv = pKuroko->_ang_rz_mv;
+        _begining_ang_ry_mv = pKuroko->_ang_ry_mv;
+        _begining_velo_mv   = pKuroko->_velo_mv;
     } else {
         _is_leader = false;
         //_TRACE_("HomingLaserChip::onActive() "<<getName()<<" pChip_front =="<<(pChip_front->getName()));
@@ -52,6 +61,9 @@ void HomingLaserChip::onActive() {
         _begining_rx = pChip_front->_begining_rx;
         _begining_ry = pChip_front->_begining_ry;
         _begining_rz = pChip_front->_begining_rz;
+        _begining_ang_rz_mv = pChip_front->_begining_ang_rz_mv;
+        _begining_ang_ry_mv = pChip_front->_begining_ang_ry_mv;
+        _begining_velo_mv   = pChip_front->_begining_velo_mv;
         if (_is_fix_begin_pos) {
             _x = _begining_x;
             _y = _begining_y;
@@ -59,6 +71,8 @@ void HomingLaserChip::onActive() {
             _rx = _begining_rx;
             _ry = _begining_ry;
             _rz = _begining_rz;
+            pKuroko->setRzRyMvAng(_begining_ang_rz_mv, _begining_ang_ry_mv);
+            pKuroko->setMvVelo(_begining_velo_mv);
         }
     }
 }
@@ -83,59 +97,47 @@ void HomingLaserChip::onInactive() {
     //
 
     //_TRACE_("A HomingLaserChip::onInactive() _chip_kind ="<<_chip_kind <<")");
+    LaserChip* pChip_behind = _pChip_behind;
+    GgafDxKuroko* pKuroko = getKuroko();
     if (_chip_kind == 1) {
 
     } else if (_chip_kind == 2) {
-        const LaserChip* const pChip_behind = _pChip_behind;
         //中間チップ消失時の場合
-        //自身のチップが消失することにより、レーザーの数珠つなぎ構造が２分されてしまう。
-        //消失前の先頭以外のチップは、一つ前に追従してるだけなので、中間チップ Mover 内部パラメータは不定。
-        //後方チップが新たな先頭チップとなるレーザー構造のグループを getKuroko()->behave() で動作を継続させるために、
-        //新たな先頭チップへ現在の移動方向と移動速度の情報を伝達する必要がある。
         if (pChip_behind) {
-            int D = (int)(sqrt(
-                              (
-                                ((double)(pChip_behind->_x - _x)) * ((double)(pChip_behind->_x - _x))
-                              ) + (
-                                ((double)(pChip_behind->_y - _y)) * ((double)(pChip_behind->_y - _y))
-                              ) + (
-                                ((double)(pChip_behind->_z - _z)) * ((double)(pChip_behind->_z - _z))
-                              )
-                            )
-                         );
-            pChip_behind->getKuroko()->setMvVelo(D); //距離が速度になる
-            pChip_behind->getKuroko()->setMvAngTwd(this);
+            GgafDxKuroko* pChip_behind_pKuroko = pChip_behind->getKuroko();
+            pChip_behind->_rx = _rx;
+            pChip_behind->_ry = _ry;
+            pChip_behind->_rz = _rz;
+            pChip_behind_pKuroko->setRzRyMvAng(pKuroko->_ang_rz_mv, pKuroko->_ang_ry_mv);
+            pChip_behind_pKuroko->setMvVelo(pKuroko->_velo_mv);
         } else {
             //throwGgafCriticalException("HomingLaserChip::onInactive() _chip_kind == 2 であるにも関わらず、_pChip_behindが存在しません");
         }
     } else if (_chip_kind == 3) {
         //中間先頭チップ消失時の場合
         //殆どの場合、先頭から順に消えていくはずである。
-        //行いたいことは中間チップ消失時の場合と同じで、後方チップへ情報を伝達する必要がある。
+        //行いたいことは中間チップ消失時の場合と同じで、その場で停止しなように
+        //後方チップへ移動のための情報を伝達する必要がある。
         //先端チップ Mover 内部パラメータの移動方向と移動速度の情報をコピーすることでOK
         //計算速度を稼ぐ
-        if (_pChip_behind && _pChip_front) {
-            GgafDxKuroko* const pChip_behind_pKuroko = _pChip_behind->getKuroko();
-            GgafDxKuroko* const pChip_front_pKuroko = _pChip_front->getKuroko();
-            pChip_behind_pKuroko->_vX = pChip_front_pKuroko->_vX;
-            pChip_behind_pKuroko->_vY = pChip_front_pKuroko->_vY;
-            pChip_behind_pKuroko->_vZ = pChip_front_pKuroko->_vZ;
-            pChip_behind_pKuroko->_ang_rz_mv = pChip_front_pKuroko->_ang_rz_mv;
-            pChip_behind_pKuroko->_ang_ry_mv = pChip_front_pKuroko->_ang_ry_mv;
-            pChip_behind_pKuroko->_velo_mv =  pChip_front_pKuroko->_velo_mv;
+        if (pChip_behind) {
+            GgafDxKuroko* pChip_behind_pKuroko = pChip_behind->getKuroko();
+            pChip_behind->_rx = _rx;
+            pChip_behind->_ry = _ry;
+            pChip_behind->_rz = _rz;
+            pChip_behind_pKuroko->setRzRyMvAng(pKuroko->_ang_rz_mv, pKuroko->_ang_ry_mv);
+            pChip_behind_pKuroko->setMvVelo(pKuroko->_velo_mv);
         } else {
             //throwGgafCriticalException("HomingLaserChip::onInactive() _chip_kind == 2 であるにも関わらず、_pChip_front と _pChip_behind が両方存在しません");
         }
     } else if (_chip_kind == 4) {
         if (_pChip_behind) {
-            GgafDxKuroko* const pChip_behind_pKuroko = _pChip_behind->getKuroko();
-            GgafDxKuroko* const pKuroko = getKuroko();
-            pChip_behind_pKuroko->_vX = pKuroko->_vX;
-            pChip_behind_pKuroko->_vY = pKuroko->_vY;
-            pChip_behind_pKuroko->_vZ = pKuroko->_vZ;
-            pChip_behind_pKuroko->_ang_rz_mv = pKuroko->_ang_rz_mv;
-            pChip_behind_pKuroko->_ang_ry_mv = pKuroko->_ang_ry_mv;
-            pChip_behind_pKuroko->_velo_mv  = pKuroko->_velo_mv;
+            GgafDxKuroko* pChip_behind_pKuroko = pChip_behind->getKuroko();
+            pChip_behind->_rx = _rx;
+            pChip_behind->_ry = _ry;
+            pChip_behind->_rz = _rz;
+            pChip_behind_pKuroko->setRzRyMvAng(pKuroko->_ang_rz_mv, pKuroko->_ang_ry_mv);
+            pChip_behind_pKuroko->setMvVelo(pKuroko->_velo_mv);
         } else {
             //throwGgafCriticalException("HomingLaserChip::onInactive() _chip_kind == 4 であるにも関わらず、_pChip_behind が存在しません");
         }
@@ -148,6 +150,7 @@ void HomingLaserChip::processBehavior() {
     //その際 は、本クラスの processBehavior() メソッドも呼び出してください。
     //座標に反映
     const HomingLaserChip* const pChip_front =  (HomingLaserChip*)_pChip_front;
+    GgafDxKuroko* pKuroko = getKuroko();
     if (getActiveFrame() > 1) {
         //GgafActorDepository::dispatch() は
         //取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者のサブの一番後ろに移動される。
@@ -161,20 +164,29 @@ void HomingLaserChip::processBehavior() {
             _prev_rx = _rx;
             _prev_ry = _ry;
             _prev_rz = _rz;
+            _prev_ang_rz_mv = pKuroko->_ang_rz_mv;
+            _prev_ang_ry_mv = pKuroko->_ang_ry_mv;
+            _prev_velo_mv   = pKuroko->_velo_mv;
             processBehaviorHeadChip(); //先頭チップのみ移動実装
         } else {
+            //先頭以外のチップ数珠繋ぎ処理
             _prev_x  = _x;
             _prev_y  = _y;
             _prev_z  = _z;
             _prev_rx = _rx;
             _prev_ry = _ry;
             _prev_rz = _rz;
+            _prev_ang_rz_mv = pKuroko->_ang_rz_mv;
+            _prev_ang_ry_mv = pKuroko->_ang_ry_mv;
+            _prev_velo_mv   = pKuroko->_velo_mv;
             _x  = pChip_front->_prev_x;
             _y  = pChip_front->_prev_y;
             _z  = pChip_front->_prev_z;
             _rx = pChip_front->_prev_rx;
             _ry = pChip_front->_prev_ry;
             _rz = pChip_front->_prev_rz;
+            pKuroko->setRzRyMvAng(pChip_front->_prev_ang_rz_mv, pChip_front->_prev_ang_ry_mv);
+            pKuroko->setMvVelo(pChip_front->_prev_velo_mv);
         }
     }
 }

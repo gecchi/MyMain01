@@ -75,13 +75,13 @@ EnemyHisbe::EnemyHisbe(const char* prm_name) :
 
 
     //ホーミング(リポジトリ)------>
-//    pConn_pDepoStore_laser_set = getConnection_DepositoryManager("EnemyHisbeLaserChip001DepoStore");
-//    pLaserChipDepo_ = nullptr;
+    pConn_pDepoStore_laser_set = getConnection_DepositoryManager("EnemyHisbeLaserChip001DepoStore");
+    pLaserChipDepo_ = nullptr;
     //<---------------------
 
     //リフレクション(リポジトリ)------>
-    pConn_pDepoStore_laser_set = getConnection_DepositoryManager("EnemyHisbeLaserChip002DepoStore");
-    pLaserChipDepo_ = nullptr;
+//    pConn_pDepoStore_laser_set = getConnection_DepositoryManager("EnemyHisbeLaserChip002DepoStore");
+//    pLaserChipDepo_ = nullptr;
     //<---------------------
 
     //普通のレーザー
@@ -99,7 +99,7 @@ void EnemyHisbe::onCreateModel() {
 }
 
 void EnemyHisbe::initialize() {
-//    getKuroko()->relateFaceByMvAng(true);
+//    getKuroko()->linkFaceAngByMvAng(true);
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->makeCollision(1);
     pChecker->setColliSphere(0, 40000);

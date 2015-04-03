@@ -47,7 +47,7 @@ void EnemyTamago01::onCreateModel() {
 void EnemyTamago01::initialize() {
     setHitAble(true);
     GgafDxKuroko* const pKuroko = getKuroko();
-    pKuroko->relateFaceByMvAng(true);
+    pKuroko->linkFaceAngByMvAng(true);
     pKuroko->setFaceAngVelo(AXIS_X, 1000);
     pKuroko->setMvAngTwd(900000, 300000, 300000);
     pKuroko->setMvVelo(3000);
@@ -165,7 +165,7 @@ void EnemyTamago01::processBehavior() {
             for (int i = 0; i < way; i++) {
                 pActor = (GgafDxFigureActor*)pDepo_shot_->dispatch();
                 if (pActor) {
-                    pActor->getKuroko()->relateFaceByMvAng(true);
+                    pActor->getKuroko()->linkFaceAngByMvAng(true);
                     pActor->getKuroko()->setRzRyMvAng_by_RyRz(paAng_way[i], target_RyRz_Rz);
                     pActor->positionAs(this);
                 }

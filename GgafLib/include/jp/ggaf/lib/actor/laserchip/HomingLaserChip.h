@@ -31,12 +31,18 @@ public:
     angle _begining_rx;
     angle _begining_ry;
     angle _begining_rz;
+    angle _begining_ang_rz_mv;
+    angle _begining_ang_ry_mv;
+    velo _begining_velo_mv;
     int _prev_x;
     int _prev_y;
     int _prev_z;
     angle _prev_rx;
     angle _prev_ry;
     angle _prev_rz;
+    angle _prev_ang_rz_mv;
+    angle _prev_ang_ry_mv;
+    velo _prev_velo_mv;
     /** [r]発射開始座標固定か否か(true:固定、呼び元の座標等を上書きして、最初の[0]の座標に強制上書き/false:非固定。スクロールシーン配下等の場合は false が良い */
     bool _is_fix_begin_pos;
 

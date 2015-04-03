@@ -29,7 +29,7 @@ void EnemyHisbeLaserChip003::initialize() {
     setScaleR(5.0);
     setAlpha(0.9);
 
-    getKuroko()->relateFaceByMvAng(true);
+    getKuroko()->linkFaceAngByMvAng(true);
     sp_index_ = 0;
 }
 

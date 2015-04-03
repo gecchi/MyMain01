@@ -107,8 +107,8 @@ void LaserChip::onActive() {
 }
 
 void LaserChip::processSettlementBehavior() {
-    CollisionChecker3D* const pChecker = getCollisionChecker();
-    const LaserChip* const pChip_front = _pChip_front;
+    CollisionChecker3D* pChecker = getCollisionChecker();
+    const LaserChip* pChip_front = _pChip_front;
 
 
     //レーザーチップ種別 設定。
@@ -132,7 +132,7 @@ void LaserChip::processSettlementBehavior() {
     //
     //先頭と先端という言葉で区別しています。
     setHitAble(true);
-    if (pChip_front) {
+    if (pChip_front && pChip_front->isActive()) {
         if (_pChip_behind) {
             if (_pChip_behind->isActiveInTheTree()) {
                 if (pChip_front->_pChip_front) {

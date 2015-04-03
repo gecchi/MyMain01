@@ -32,7 +32,7 @@ void EnemyStraeaLaserChip002::onActive() {
     pKuroko->setMvVelo(80000);
     //_pKuroko->setMvAcce(300);
     //_pKuroko->forceRyMvAngVeloRange(-90000, 90000);
-    pKuroko->relateFaceByMvAng(true);
+    pKuroko->linkFaceAngByMvAng(true);
 }
 
 void EnemyStraeaLaserChip002::onRefractionInto(int prm_num_refraction)  {

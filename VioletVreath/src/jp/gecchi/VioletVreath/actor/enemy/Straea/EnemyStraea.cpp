@@ -190,9 +190,9 @@ void EnemyStraea::processBehavior() {
                                 //ワールド変換行列の回転部分（matWorldRot)の成分を mat_xx、
                                 //最終的な方向ベクトルを(vX, vY, vZ) とすると
                                 //
-                                //                       | mat_11 mat_12 mat_13 |
+                                //                          | mat_11 mat_12 mat_13 |
                                 // | x_org_ y_org_ z_org_ | | mat_21 mat_22 mat_23 | = | vX vY vZ |
-                                //                       | mat_31 mat_32 mat_33 |
+                                //                          | mat_31 mat_32 mat_33 |
                                 //よって
                                 // vX = x_org_*mat_11 + y_org_*mat_21 + z_org_*mat_31
                                 // vY = x_org_*mat_12 + y_org_*mat_22 + z_org_*mat_32

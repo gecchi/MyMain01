@@ -22,7 +22,7 @@ EnemyIdaBase001::EnemyIdaBase001(const char* prm_name) :
 void EnemyIdaBase001::initialize() {
     EnemyIdaBase::initialize();
     GgafDxKuroko* const pKuroko = getKuroko();
-    pKuroko->relateFaceByMvAng(true);
+    pKuroko->linkFaceAngByMvAng(true);
     pKuroko->setFaceAngVelo(D_ANG(2), D_ANG(0.4), D0ANG );
 }
 

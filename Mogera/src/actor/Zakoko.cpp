@@ -24,7 +24,7 @@ void Zakoko::onCreateModel() {
 
 void Zakoko::initialize() {
     GgafDxKuroko* const pKuroko = getKuroko();
-    pKuroko->relateFaceByMvAng(true);
+    pKuroko->linkFaceAngByMvAng(true);
 }
 
 void Zakoko::onActive() {
