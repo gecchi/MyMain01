@@ -81,6 +81,7 @@ public:
 
     GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
     GgafLib::SplineKurokoLeader* pKurokoLeader01_;
+
 public:
     /**
      * コンストラクタ

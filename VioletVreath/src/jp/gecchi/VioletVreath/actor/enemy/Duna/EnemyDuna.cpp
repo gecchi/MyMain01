@@ -12,6 +12,7 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 
+#include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -77,15 +78,20 @@ void EnemyDuna::processBehavior() {
             pKuroko->setRzMvAngVelo(D_ANG(12));
             pKuroko->setRzMvAngAcce(D_ANG(0.05));
             setMorphWeight(0.0);
-            UTIL::activateEntryEffectOf(this);
             pProg->changeNext();
             break;
         }
          case PROG_ENTRY_EFFECT: {
-             if (pProg->hasArrivedAt(60)) {
-                 pAFader_->transitionLinerUntil(1.0, 60);
+             EffectBlink* pEffectEntry = nullptr;
+             if (pProg->isJustChanged()) {
+                 pEffectEntry = UTIL::activateEntryEffectOf(this);
              }
-             if (getAlpha() > 0.5) {
+             static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
+             static const frame duration_frames = pEffectEntry->duration_frames_;
+             if (_pProg->hasArrivedAt(scale_in_frames)) {
+                 pAFader_->transitionLinerUntil(1.0, duration_frames);
+             }
+             if (getAlpha() > 0.9) {
                  setHitAble(true);
                  pProg->changeNext();
              }

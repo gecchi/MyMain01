@@ -449,13 +449,13 @@ public:
      */
     static int32_t _rnd_int32_(int32_t prm_from, int32_t prm_to);
 
-    static void readProperties(std::string filename, GgafStrMap* pMap);
-    static void readProperties(std::istream &is, GgafStrMap* pMap);
-    static void writeProperties(const char *filename, GgafStrMap* pMap, const char *header = nullptr);
-    static void writeProperties(std::ostream &os, GgafStrMap* pMap, const char *header = nullptr);
-    static void printProperties(std::ostream &os, GgafStrMap* pMap);
+    static void readProperties(std::string filename, GgafStrMap& mapStr);
+    static void readProperties(std::istream &is, GgafStrMap& mapStr);
+    static void writeProperties(const char *filename, GgafStrMap& mapStr, const char *header = nullptr);
+    static void writeProperties(std::ostream &os, GgafStrMap& mapStr, const char *header = nullptr);
+    static void printProperties(std::ostream &os, GgafStrMap& mapStr);
 
-    static bool isExistKey(std::string prm_key, GgafStrMap* p);
+    static bool isExistKey(std::string prm_key, GgafStrMap& mapStr);
     static bool cnvBool(std::string prm_str);
 
     static std::string getFileBaseNameWithoutExt(const char* prm_filepath);

@@ -12,6 +12,7 @@
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Urydike/FormationUrydike.h"
 
+#include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -54,22 +55,26 @@ void EnemyUrydike::processBehavior() {
         case PROG_INIT: {
             setHitAble(false);
             setAlpha(0);
-            UTIL::activateEntryEffectOf(this);
             pProg->changeNext();
             break;
         }
         case PROG_ENTRY: {
+            EffectBlink* pEffectEntry = nullptr;
             if (pProg->isJustChanged()) {
-                pAFader_->transitionLinerUntil(1.0, 30);
-                pKuroko->setSpinAngVelo(D_ANG(3));
+                pEffectEntry = UTIL::activateEntryEffectOf(this);
+                pKuroko->setRollFaceAngVelo(D_ANG(3));
             }
-            if (pProg->hasArrivedAt(10)) {
+            static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
+            static const frame duration_frames = pEffectEntry->duration_frames_;
+            if (_pProg->hasArrivedAt(scale_in_frames)) {
+                pAFader_->transitionLinerUntil(1.0, duration_frames);
+            }
+            if (getAlpha() > 0.9) {
                 setHitAble(true);
                 pProg->changeNext();
             }
             break;
         }
-
         case PROG_MOVE_BEGIN: {
             if (pProg->isJustChanged()) {
 

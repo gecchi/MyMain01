@@ -281,7 +281,7 @@ void VvvWorld::processBehavior() {
                 pActor->addRzFaceAng(-D_ANG(d));
             }
             if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
-                pActor->setFaceAng(0,0,0);
+                pActor->setFaceAngZero();
             }
         } else if (GgafDxInput::isBeingPressedKey(DIK_C)) {
             //環境マップテクスチャ映りこみ率

@@ -47,10 +47,9 @@ void EnemyGlajaLance001::onActive() {
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvAcce(0);
     pKuroko->setMvVelo(PX_C(3));
-    setFaceAng(0,
-               RND(D_ANG(0), D_ANG(360)),
-               RND(D_ANG(0), D_ANG(360)) );
-    pKuroko->setFaceAngVelo(D_ANG(0), D_ANG(15), D_ANG(20));
+    setRollPitchYawFaceAng(0, RND(D_ANG(0), D_ANG(360)),
+                              RND(D_ANG(0), D_ANG(360)) );
+    pKuroko->setRollPitchYawFaceAngVelo(D_ANG(0), D_ANG(20), D_ANG(15));
     pKuroko->linkFaceAngByMvAng(true);
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->disable(1);
@@ -87,7 +86,7 @@ void EnemyGlajaLance001::processBehavior() {
             if (pProg->isJustChanged()) {
                 //シャキーンと槍になる！（伸びる！）
                 pKuroko->stopMv();
-                pKuroko->setFaceAngVelo(0, 0, 0);
+                pKuroko->setRollPitchYawFaceAngVelo(0, 0, 0);
                 pScaler_->transitionAcceStep(AXIS_X, R_SC(30), R_SC(1), R_SC(0.1));
                 pScaler_->transitionAcceStep(AXIS_Y, R_SC(2), R_SC(1), R_SC(0.1));
                 pScaler_->transitionAcceStep(AXIS_Z, R_SC(2), R_SC(1), R_SC(0.1));
@@ -117,8 +116,8 @@ void EnemyGlajaLance001::processBehavior() {
             if (pProg->isJustChanged()) {
                 pKuroko->setMvAngByFaceAng(); //今向いてる方向にこれから移動する
                 pKuroko->setMvVelo(-PX_C(3)); //ちょっとバックして貯めを表現
-                pKuroko->setFaceAngVelo(AXIS_X, D_ANG(1)); //スピンスピン
-                pKuroko->setFaceAngAcce(AXIS_X, 100); //スピンスピン
+                pKuroko->setRollFaceAngVelo(D_ANG(1)); //スピンスピン
+                pKuroko->setRollFaceAngAcce(100); //スピンスピン
             }
             if (pProg->getFrame() >= 60) {
                 pProg->changeNext();
@@ -164,7 +163,7 @@ void EnemyGlajaLance001::onHit(const GgafActor* prm_pOtherActor) {
         //破壊された時(スタミナ <= 0)
         getKuroko()->stopMv();
         sayonara(90);
-        getProgress()->change(PROG_LEAVE); //矢がフェードアウトする 
+        getProgress()->change(PROG_LEAVE); //矢がフェードアウトする
     } else {
         //破壊されなかった時(スタミナ > 0)
     }

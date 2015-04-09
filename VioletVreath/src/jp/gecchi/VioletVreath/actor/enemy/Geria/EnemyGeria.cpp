@@ -10,6 +10,7 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 
+#include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -76,15 +77,20 @@ void EnemyGeria::processBehavior() {
             shot_num_ = 0;  //Œ‚‚Á‚½ƒVƒ‡ƒbƒg‰ñ”
             setHitAble(false);
             setAlpha(0);
-            UTIL::activateEntryEffectOf(this);
             pProg->changeNext();
             break;
         }
         case PROG_ENTRY: {  //“oê
+            EffectBlink* pEffectEntry = nullptr;
             if (pProg->isJustChanged()) {
-                pAFader_->transitionAcceStep(1.0, 0, 0.001);
+                pEffectEntry = UTIL::activateEntryEffectOf(this);
             }
-            if (getAlpha() > 0.8) {
+            static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
+            static const frame duration_frames = pEffectEntry->duration_frames_;
+            if (_pProg->hasArrivedAt(scale_in_frames)) {
+                pAFader_->transitionLinerUntil(1.0, duration_frames);
+            }
+            if (getAlpha() > 0.9) {
                 setHitAble(true);
                 pProg->changeNext();
             }
@@ -115,7 +121,7 @@ void EnemyGeria::processBehavior() {
         case PROG_FIRE: {  //”­ŽË
             if (pProg->isJustChanged()) {
                 pKuroko->setMvVelo(PX_C(3)); //Œ¸‘¬
-                pKuroko->spinRxFaceAngTo(D180ANG, D_ANG(3), 0, TURN_CLOCKWISE); //—\”õ“®ì‚Ì‚®‚é‚Á‚Æ‰ñ“]
+                pKuroko->rollFaceAngTo(D180ANG, D_ANG(3), 0, TURN_CLOCKWISE); //—\”õ“®ì‚Ì‚®‚é‚Á‚Æ‰ñ“]
             }
 
             if (!pKuroko->isTurningFaceAng()) {

@@ -4,6 +4,7 @@
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 
+#include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -37,15 +38,20 @@ void EnemyOzartiaPillar01::processBehavior() {
         case PROG_INIT: {
             setHitAble(false);
             setAlpha(0);
-            UTIL::activateEntryEffectOf(this);
             pProg->changeNext();
             break;
         }
         case PROG_ENTRY: {
+            EffectBlink* pEffectEntry = nullptr;
             if (pProg->isJustChanged()) {
-                pAFader_->transitionLinerUntil(1.0, 15);
+                pEffectEntry = UTIL::activateEntryEffectOf(this);
             }
-            if (pProg->hasArrivedAt(8)) {
+            static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
+            static const frame duration_frames = pEffectEntry->duration_frames_;
+            if (_pProg->hasArrivedAt(scale_in_frames)) {
+                pAFader_->transitionLinerUntil(1.0, duration_frames);
+            }
+            if (getAlpha() > 0.9) {
                 setHitAble(true);
                 pProg->change(PROG_MOVE01);
             }

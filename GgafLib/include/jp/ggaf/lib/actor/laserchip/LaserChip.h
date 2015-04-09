@@ -21,6 +21,7 @@ class LaserChip : public GgafDxCore::GgafDxMeshSetActor {
     friend class HomingLaserChip;
     friend class RefractionLaserChip;
     friend class StraightLaserChip;
+    friend class NomalLaserChip;
     friend class LaserChipDepository;
 
 private:

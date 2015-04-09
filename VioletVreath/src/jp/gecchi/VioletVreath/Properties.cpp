@@ -156,6 +156,3 @@ void Properties::load(std::string prm_ini_filename) {
 
 }
 
-void Properties::clean() {
-    GgafLibProperties::clean();
-}

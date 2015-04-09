@@ -15,6 +15,8 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
 
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+
+#include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -90,16 +92,21 @@ void EnemyOzartia::processBehavior() {
         case PROG1_INIT: {
             setHitAble(false);
             setAlpha(0);
-            UTIL::activateEntryEffectOf(this);
+            pKuroko->setMvAngTwd(pMyShip);
             pProg->changeNext();
             break;
         }
         case PROG1_ENTRY: {
+            EffectBlink* pEffectEntry = nullptr;
             if (pProg->isJustChanged()) {
-pKuroko->setMvAngTwd(pMyShip);
-                pAFader_->transitionLinerUntil(1.0, 30);
+                pEffectEntry = UTIL::activateEntryEffectOf(this);
             }
-            if (pProg->hasArrivedAt(15)) {
+            static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
+            static const frame duration_frames = pEffectEntry->duration_frames_;
+            if (_pProg->hasArrivedAt(scale_in_frames)) {
+                pAFader_->transitionLinerUntil(1.0, duration_frames);
+            }
+            if (getAlpha() > 0.9) {
                 setHitAble(true);
                 pProg->change(PROG1_STAY);
             }

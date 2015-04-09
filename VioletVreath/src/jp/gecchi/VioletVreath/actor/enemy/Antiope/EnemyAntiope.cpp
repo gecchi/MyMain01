@@ -7,6 +7,7 @@
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -50,17 +51,22 @@ void EnemyAntiope::processBehavior() {
              setHitAble(false);
              setAlpha(0);
              pKuroko->stopMv();
-             pKuroko->setFaceAngVelo(AXIS_X, D_ANG(10));
+             pKuroko->setRollFaceAngVelo(D_ANG(10));
              pAxsMver_->setZeroVxyzMvVelo();
-             UTIL::activateEntryEffectOf(this);
              pProg->changeNext();
              break;
          }
          case PROG_ENTRY: {
+             EffectBlink* pEffectEntry = nullptr;
              if (pProg->isJustChanged()) {
-                 pAFader_->transitionLinerUntil(1.0, 30);
+                 pEffectEntry = UTIL::activateEntryEffectOf(this);
              }
-             if (pProg->hasArrivedAt(30)) {
+             static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
+             static const frame duration_frames = pEffectEntry->duration_frames_;
+             if (_pProg->hasArrivedAt(scale_in_frames)) {
+                 pAFader_->transitionLinerUntil(1.0, duration_frames);
+             }
+             if (getAlpha() > 0.9) {
                  setHitAble(true);
                  pProg->changeNext();
              }

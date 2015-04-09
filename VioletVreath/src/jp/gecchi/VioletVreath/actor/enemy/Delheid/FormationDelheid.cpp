@@ -19,7 +19,7 @@ FormationDelheid::FormationDelheid(const char* prm_name)
     _class_name = "FormationDelheid";
 
     pAlisana_start = NEW EnemyAlisana("Alisana_START");
-    pAlisana_start->inactivate();
+    pAlisana_start->inactivate(); //生成直後は非活動なので、これで onInactive() は発生しません。
     addSubGroup(pAlisana_start);
 
     pAlisana_goal = NEW EnemyAlisana("Alisana_GOAL");
@@ -43,9 +43,9 @@ FormationDelheid::FormationDelheid(const char* prm_name)
 }
 
 void FormationDelheid::updateRankParameter() {
-    RV_Num_    = RF_FormationDelheid_Num(G_RANK);    //編隊数
-    RV_MvVelo_          = RF_FormationDelheid_MvVelo(G_RANK); //速度
-    RV_LaunchInterval  = 64 / C_PX(RV_MvVelo_);
+    RV_Num_           = RF_FormationDelheid_Num(G_RANK);    //編隊数
+    RV_MvVelo_        = RF_FormationDelheid_MvVelo(G_RANK); //速度
+    RV_LaunchInterval = 64 / C_PX(RV_MvVelo_);
 }
 
 void FormationDelheid::initialize() {
@@ -60,13 +60,13 @@ void FormationDelheid::onActive() {
 void FormationDelheid::processBehavior() {
     //pAlisana_start が破壊されているかチェック
     if (pAlisana_start) {
-        if (pAlisana_start->onChangeToInactive()) {
+        if (pAlisana_start->isJustChangedToInactive()) {
             pAlisana_start = nullptr;
         }
     }
     //pAlisana_goal が破壊されているかチェック
     if (pAlisana_goal) {
-        if (pAlisana_goal->onChangeToInactive()) {
+        if (pAlisana_goal->isJustChangedToInactive()) {
             pAlisana_goal = nullptr;
         }
     }

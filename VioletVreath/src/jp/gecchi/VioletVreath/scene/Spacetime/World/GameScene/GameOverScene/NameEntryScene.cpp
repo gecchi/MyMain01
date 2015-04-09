@@ -76,7 +76,7 @@ void NameEntryScene::processBehavior() {
                 _TRACE_("NameEntryScene::processBehavior() Prog has Just Changed (to NameEntryScene::PROG_INPUT)");
                 pLabel01_->update(PX_C(62), PX_C(32), "PLEASE ENTRY YOUR NAME!!!!");
                 pNameEntryBoard_->rise(PX_C(50), PX_C(10)); //ネームエントリー板出現
-                pLabelInputedName_->getKuroko()->setFaceAngVelo(1700, 1500, 1000);
+                pLabelInputedName_->getKuroko()->setRollPitchYawFaceAngVelo(1700, 1500, 1000);
             }
             pLabelInputedName_->getKuroko()->behave();
             pLabelSelectedChar_->setFaceAngAs(pLabelInputedName_);
@@ -95,7 +95,7 @@ void NameEntryScene::processBehavior() {
                 pLabelInputedName_->getKuroko()->turnRzRyFaceAngTo(D0ANG, D0ANG,
                                                                    8000, 0,
                                                                    TURN_COUNTERCLOCKWISE, false);//急いで正常姿勢へ
-                pLabelInputedName_->getKuroko()->spinRxFaceAngTo(D0ANG, 8000, 0, TURN_COUNTERCLOCKWISE);
+                pLabelInputedName_->getKuroko()->rollFaceAngTo(D0ANG, 8000, 0, TURN_COUNTERCLOCKWISE);
                 //ここでハイスコア更新処理
                 char* cstr = NEW char[pLabelInputedName_->_len + 1];
                 for (int i = 0; i < pLabelInputedName_->_len; i++) {

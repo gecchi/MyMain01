@@ -19,7 +19,7 @@ GgafDxSe::GgafDxSe(const char* prm_wave_key) : GgafObject() {
     _wave_key = NEW char[len+1];
     strcpy(_wave_key, prm_wave_key);
 
-    _wave_file_name = (*GgafProperties::_pMapProperties)[prm_wave_key];
+    _wave_file_name = GgafProperties::_mapProperties[std::string(_wave_key)];
     std::string full_wave_file_name = getWaveFileName(_wave_file_name);
 
     HRESULT hr;

@@ -28,7 +28,7 @@ void MyMagicEnergy::onCreateModel() {
 }
 
 void MyMagicEnergy::initialize() {
-    getKuroko()->setFaceAngVelo(2111, 2333, 2777);
+    getKuroko()->setRollPitchYawFaceAngVelo(2111, 2333, 2777);
 }
 
 void MyMagicEnergy::onActive() {

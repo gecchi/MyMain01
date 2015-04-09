@@ -12,6 +12,7 @@
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Thagoras/FormationThagoras.h"
 
+#include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -37,13 +38,13 @@ void EnemyThagoras::initialize() {
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->makeCollision(1);
     pChecker->setColliAAB_Cube(0, 40000);
+    GgafDxKuroko* const pKuroko = getKuroko();
+    pKuroko->linkFaceAngByMvAng(true);
+    pKuroko->setRollFaceAngVelo(2000);
+    pKuroko->forceMvVeloRange(PX_C(15));
 }
 
 void EnemyThagoras::onActive() {
-    GgafDxKuroko* const pKuroko = getKuroko();
-    pKuroko->linkFaceAngByMvAng(true);
-    pKuroko->setFaceAngVelo(AXIS_X, 2000);
-    pKuroko->forceMvVeloRange(PX_C(15));
     getStatus()->reset();
     getProgress()->reset(PROG_INIT);
     pActor4Sc_ = ((FormationThagoras*)(getFormation()))->pActor4Sc_;
@@ -55,15 +56,20 @@ void EnemyThagoras::processBehavior() {
         case PROG_INIT: {
             setHitAble(false);
             setAlpha(0);
-            UTIL::activateEntryEffectOf(this);
             pProg->changeNext();
             break;
         }
         case PROG_ENTRY: {
+            EffectBlink* pEffectEntry = nullptr;
             if (pProg->isJustChanged()) {
-                pAFader_->transitionLinerUntil(1.0, 30);
+                pEffectEntry = UTIL::activateEntryEffectOf(this);
             }
-            if (pProg->hasArrivedAt(10)) {
+            static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
+            static const frame duration_frames = pEffectEntry->duration_frames_;
+            if (_pProg->hasArrivedAt(scale_in_frames)) {
+                pAFader_->transitionLinerUntil(1.0, duration_frames);
+            }
+            if (getAlpha() > 0.9) {
                 setHitAble(true);
                 pProg->changeNext();
             }

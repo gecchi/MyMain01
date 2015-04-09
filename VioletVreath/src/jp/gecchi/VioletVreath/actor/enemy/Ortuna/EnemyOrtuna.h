@@ -40,9 +40,10 @@ public:
     /** [r]出現座標(フォーメーションオブジェクトが設定) */
     GgafDxCore::GgafDxGeoElem entry_pos_;
     /** [r]折り返し座標(フォーメーションオブジェクトが設定) */
-    GgafDxCore::GgafDxGeoElem hanging_pos_;
+    GgafDxCore::GgafDxGeoElem stagnating_pos_;
 
-    frame hanging_pos_frames_;
+    frame stagnating_pos_frames_;
+
 public:
     /**
      * コンストラクタ

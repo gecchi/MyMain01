@@ -53,11 +53,11 @@ public:
     GgafCore::GgafActorDepository* const P_COMMON_DEPO(MagicPointItem003);
 
     /** 汎用出現エフェクトその１用、常備デポジトリ */
-    GgafCore::GgafActorDepository* const P_COMMON_DEPO(EffectEntry001);
+    GgafCore::GgafActorDepository* const P_COMMON_DEPO(EffectBlink001);
     /** 汎用出現エフェクトその２用、常備デポジトリ */
-    GgafCore::GgafActorDepository* const P_COMMON_DEPO(EffectEntry002);
+    GgafCore::GgafActorDepository* const P_COMMON_DEPO(EffectBlink002);
     /** 汎用出現エフェクトその３用、常備デポジトリ */
-    GgafCore::GgafActorDepository* const P_COMMON_DEPO(EffectEntry003);
+    GgafCore::GgafActorDepository* const P_COMMON_DEPO(EffectBlink003);
 
     GgafCore::GgafActorDepository* const P_COMMON_DEPO(SpriteLabelBonus001);
 

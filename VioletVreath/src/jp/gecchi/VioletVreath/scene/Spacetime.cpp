@@ -90,7 +90,7 @@ void Spacetime::processBehavior() {
     if (!pActiveCamWorker_->_was_initialize_flg) {
         pActiveCamWorker_->initialize();
     }
-    if (pActiveCamWorker_->onChangeToActive()) {
+    if (pActiveCamWorker_->isJustChangedToActive()) {
         if (pActiveCamWorker_->frame_of_behaving_since_onSwitch_== 0) {
             pActiveCamWorker_->onSwitchCameraWork(); //コールバック
         } else {

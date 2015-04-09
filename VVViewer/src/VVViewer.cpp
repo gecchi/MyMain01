@@ -55,7 +55,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
         while (true) {
             if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
                 if (msg.message == WM_QUIT) {
-                    GgafLib::GgafLibProperties::clean(); //プロパティ解放
                     return EXIT_SUCCESS; //アプリ終了
                 }
                 TranslateMessage(&msg);

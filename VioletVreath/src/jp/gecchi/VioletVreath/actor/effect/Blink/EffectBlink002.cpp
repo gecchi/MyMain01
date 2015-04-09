@@ -1,4 +1,4 @@
-#include "EffectEntry002.h"
+#include "EffectBlink002.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
@@ -8,31 +8,31 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-EffectEntry002::EffectEntry002(const char* prm_name) :
-        EffectEntry(prm_name, "EffectEntry002") {
-    _class_name = "EffectEntry002";
+EffectBlink002::EffectBlink002(const char* prm_name) :
+        EffectBlink(prm_name, "EffectBlink002") {
+    _class_name = "EffectBlink002";
     effectBlendOne();
     setZEnable(false);
     setZWriteEnable(false);
 //    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ビルボードRz回転
 }
 
-void EffectEntry002::initialize() {
-    EffectEntry::initialize();
+void EffectBlink002::initialize() {
+    EffectBlink::initialize();
     //getUvFlipper()->exec(FLIP_ORDER_LOOP, 1);
     setAlpha(0.99);
 }
 
-void EffectEntry002::onActive() {
-    EffectEntry::onActive();
+void EffectBlink002::onActive() {
+    EffectBlink::onActive();
     //getUvFlipper()->setActivePtnToTop();
     getKuroko()->setFaceAngVelo(AXIS_Z, 4000);
 }
 
-void EffectEntry002::processBehavior() {
-    EffectEntry::processBehavior();
+void EffectBlink002::processBehavior() {
+    EffectBlink::processBehavior();
     getKuroko()->behave();
 }
 
-EffectEntry002::~EffectEntry002() {
+EffectBlink002::~EffectBlink002() {
 }

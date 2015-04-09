@@ -525,94 +525,81 @@ GgafDxFigureActor* MyStgUtil::activateDestroyedEffectOf(const GgafDxGeometricAct
     return pE;
 }
 
-GgafDxFigureActor* MyStgUtil::activateEntryEffectOf(const GgafDxGeometricActor* const prm_pActor) {
-    GgafDxFigureActor* pRet = nullptr;
+EffectBlink* MyStgUtil::activateEntryEffectOf(const GgafDxGeometricActor* const prm_pActor) {
+    EffectBlink* pRet = nullptr;
     switch (prm_pActor->getStatus()->get(STAT_EntryEffectKind)) {
-        case 0: {
-            pRet = nullptr; //入場エフェクト無し
-            break;
-        }
-        case EF_ENTRY_SMALL001_LONG: { //EffectEntry001で210F。アクターに追従する。
-            EffectEntry001* pE = dispatchFromCommon(EffectEntry001);
+        case EF_ENTRY_SMALL001_LONG: { //EffectBlink001で210F。アクターに追従する。
+            EffectBlink001* pE = dispatchForceFromCommon(EffectBlink001);
             if (pE) {
-                pE->positionFollow(prm_pActor);
-                pE->config(30,120,60);
+                pE->blink(30, 120, 60, prm_pActor);
             }
             pRet = pE;
             break;
         }
-        case EF_ENTRY_SMALL001_F30: { //EffectEntry001で30F。アクターに追従する。
-            EffectEntry001* pE = dispatchFromCommon(EffectEntry001);
+        case EF_ENTRY_SMALL001_F30: { //EffectBlink001で30F。アクターに追従する。
+            EffectBlink001* pE = dispatchForceFromCommon(EffectBlink001);
             if (pE) {
-                pE->positionFollow(prm_pActor);
-                pE->config(12,6,12);
+                pE->blink(12, 6, 12, prm_pActor);
             }
             pRet = pE;
             break;
         }
-        case EF_ENTRY_SMALL001_F60: { //EffectEntry001で60F。アクターに追従する。
-            EffectEntry001* pE = dispatchFromCommon(EffectEntry001);
+        case EF_ENTRY_SMALL001_F60: { //EffectBlink001で60F。アクターに追従する。
+            EffectBlink001* pE = dispatchForceFromCommon(EffectBlink001);
             if (pE) {
-                pE->positionFollow(prm_pActor);
-                pE->config(25,10,25);
+                pE->blink(25, 10, 25, prm_pActor);
             }
             pRet = pE;
             break;
         }
-        case EF_ENTRY_SMALL001_F90: { //EffectEntry001で60F。アクターに追従する。
-            EffectEntry001* pE = dispatchFromCommon(EffectEntry001);
+        case EF_ENTRY_SMALL001_F90: { //EffectBlink001で60F。アクターに追従する。
+            EffectBlink001* pE = dispatchForceFromCommon(EffectBlink001);
             if (pE) {
-                pE->positionFollow(prm_pActor);
-                pE->config(35,20,35);
+                pE->blink(35, 20, 35, prm_pActor);
             }
             pRet = pE;
             break;
         }
 
-        case EF_ENTRY_SMALL001_STAY_F30: { //EffectEntry001で60F。その場にとどまる、アクター追従無し。
-            EffectEntry001* pE = dispatchFromCommon(EffectEntry001);
+        case EF_ENTRY_SMALL001_STAY_F30: { //EffectBlink001で60F。その場にとどまる、アクター追従無し。
+            EffectBlink001* pE = dispatchForceFromCommon(EffectBlink001);
             if (pE) {
-                pE->positionFollow(nullptr);
                 pE->positionAs(prm_pActor);
-                pE->config(12,6,12);
+                pE->blink(12, 6, 12, nullptr);
             }
             pRet = pE;
             break;
         }
-        case EF_ENTRY_SMALL001_STAY_F60: {  //EffectEntry001で60F。その場にとどまる、アクター追従無し。
-            EffectEntry001* pE = dispatchFromCommon(EffectEntry001);
+        case EF_ENTRY_SMALL001_STAY_F60: {  //EffectBlink001で60F。その場にとどまる、アクター追従無し。
+            EffectBlink001* pE = dispatchForceFromCommon(EffectBlink001);
             if (pE) {
-                pE->positionFollow(nullptr);
                 pE->positionAs(prm_pActor);
-                pE->config(25,10,25);
+                pE->blink(25, 10, 25, nullptr);
             }
             pRet = pE;
             break;
         }
-        case EF_ENTRY_SMALL001_STAY_F90: {  //EffectEntry001で60F。その場にとどまる、アクター追従無し。
-            EffectEntry001* pE = dispatchFromCommon(EffectEntry001);
+        case EF_ENTRY_SMALL001_STAY_F90: {  //EffectBlink001で60F。その場にとどまる、アクター追従無し。
+            EffectBlink001* pE = dispatchForceFromCommon(EffectBlink001);
             if (pE) {
-                pE->positionFollow(nullptr);
                 pE->positionAs(prm_pActor);
-                pE->config(35,20,35);
+                pE->blink(35, 20, 35, nullptr);
             }
             pRet = pE;
             break;
         }
-        case EF_ENTRY_MIDDLE001: {  //EffectEntry002で180F。アクターに追従する。
-            EffectEntry002* pE = dispatchFromCommon(EffectEntry002);
+        case EF_ENTRY_MIDDLE001: {  //EffectBlink002で180F。アクターに追従する。
+            EffectBlink002* pE = dispatchForceFromCommon(EffectBlink002);
             if (pE) {
-                pE->positionFollow(prm_pActor);
-                pE->config(60,60,60);
+                pE->blink(60, 60, 60, prm_pActor);
             }
             pRet = pE;
             break;
         }
         case EF_ENTRY_LARGE001: {
-            EffectEntry003* pE = dispatchFromCommon(EffectEntry003);
+            EffectBlink003* pE = dispatchForceFromCommon(EffectBlink003);
             if (pE) {
-                pE->positionFollow(prm_pActor);
-                pE->config(60,60,60);
+                pE->blink(60, 60, 60, prm_pActor);
             }
             pRet = pE;
             break;
@@ -623,59 +610,51 @@ GgafDxFigureActor* MyStgUtil::activateEntryEffectOf(const GgafDxGeometricActor* 
             break;
         }
     }
-    if (pRet) {
+    if (!pRet) {
+        throwGgafCriticalException("MyStgUtil::activateEntryEffectOf() エフェクトが取得できていない。prm_pActor="<<prm_pActor->getName()<<"("<<prm_pActor<<")");
     }
     return pRet;
 }
 
-GgafDxFigureActor* MyStgUtil::activateLeaveEffectOf(const GgafDxGeometricActor* const prm_pActor) {
-    GgafDxFigureActor* pRet = nullptr;
+EffectBlink* MyStgUtil::activateLeaveEffectOf(const GgafDxGeometricActor* const prm_pActor) {
+    EffectBlink* pRet = nullptr;
     switch (prm_pActor->getStatus()->get(STAT_LeaveEffectKind)) {
-        case 0: {
-            pRet = nullptr; //退場エフェクト無し
-            break;
-        }
         case EF_LEAVE_SMALL001_F30: {
-            EffectEntry001* pE = dispatchFromCommon(EffectEntry001);
+            EffectBlink001* pE = dispatchForceFromCommon(EffectBlink001);
             if (pE) {
-                pE->positionFollow(prm_pActor);
-                pE->config(10,1,20);
+                pE->blink(10, 1, 20, prm_pActor);
             }
             pRet = pE;
             break;
         }
         case EF_LEAVE_SMALL001_F60: {
-            EffectEntry001* pE = dispatchFromCommon(EffectEntry001);
+            EffectBlink001* pE = dispatchForceFromCommon(EffectBlink001);
             if (pE) {
-                pE->positionFollow(prm_pActor);
-                pE->config(20,0,40);
+                pE->blink(20, 0, 40, prm_pActor);
             }
             pRet = pE;
             break;
         }
         case EF_LEAVE_SMALL001_F90: {
-            EffectEntry001* pE = dispatchFromCommon(EffectEntry001);
+            EffectBlink001* pE = dispatchForceFromCommon(EffectBlink001);
             if (pE) {
-                pE->positionFollow(prm_pActor);
-                pE->config(30,0,60);
+                pE->blink(30, 0, 60, prm_pActor);
             }
             pRet = pE;
             break;
         }
         case EF_LEAVE_MIDDLE001: {
-            EffectEntry002* pE = dispatchFromCommon(EffectEntry002);
+            EffectBlink002* pE = dispatchForceFromCommon(EffectBlink002);
             if (pE) {
-                pE->positionFollow(prm_pActor);
-                pE->config(20,0,40);
+                pE->blink(20, 0, 40, prm_pActor);
             }
             pRet = pE;
             break;
         }
         case EF_LEAVE_LARGE001: {
-            EffectEntry003* pE = dispatchFromCommon(EffectEntry003);
+            EffectBlink003* pE = dispatchForceFromCommon(EffectBlink003);
             if (pE) {
-                pE->positionFollow(prm_pActor);
-                pE->config(20,0,40);
+                pE->blink(20, 0, 40, prm_pActor);
             }
             pRet = pE;
             break;
@@ -686,7 +665,8 @@ GgafDxFigureActor* MyStgUtil::activateLeaveEffectOf(const GgafDxGeometricActor* 
             break;
         }
     }
-    if (pRet) {
+    if (!pRet) {
+        throwGgafCriticalException("MyStgUtil::activateLeaveEffectOf() エフェクトが取得できていない。prm_pActor="<<prm_pActor->getName()<<"("<<prm_pActor<<")");
     }
     return pRet;
 }
@@ -1439,8 +1419,8 @@ GgafStatus* MyStgUtil::resetEnemyStraeaStatus(GgafStatus* p) {
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+	p->set(STAT_EntryEffectKind, EF_ENTRY_MIDDLE001);  //出現エフェクト種別
+	p->set(STAT_LeaveEffectKind, EF_LEAVE_MIDDLE001);  //退出エフェクト種別
 	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
 	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別
@@ -2483,8 +2463,8 @@ GgafStatus* MyStgUtil::resetEnemyEsperiaStatus(GgafStatus* p) {
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
-	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
+	p->set(STAT_EntryEffectKind, EF_ENTRY_MIDDLE001);  //出現エフェクト種別
+	p->set(STAT_LeaveEffectKind, EF_LEAVE_MIDDLE001);  //退出エフェクト種別
 	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION002);  //爆発エフェクト種別
 	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
 	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別

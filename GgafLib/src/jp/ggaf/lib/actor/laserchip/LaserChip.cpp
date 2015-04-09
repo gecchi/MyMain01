@@ -132,23 +132,34 @@ void LaserChip::processSettlementBehavior() {
     //
     //先頭と先端という言葉で区別しています。
     setHitAble(true);
-    if (pChip_front && pChip_front->isActive()) {
-        if (_pChip_behind) {
-            if (_pChip_behind->isActiveInTheTree()) {
-                if (pChip_front->_pChip_front) {
-                    _chip_kind = 2; //中間テクスチャチップ
-                    _pLeader = pChip_front->_pLeader;
+    if (pChip_front) {
+        if (pChip_front->isActive()) {
+            if (_pChip_behind) {
+                if (_pChip_behind->isActiveInTheTree()) {
+                    if (pChip_front->_pChip_front) {
+                        _chip_kind = 2; //中間テクスチャチップ
+                        _pLeader = pChip_front->_pLeader;
+                    } else {
+                        _chip_kind = 3; //中間先頭テクスチャチップ
+                        _pLeader = pChip_front->_pLeader;
+                    }
                 } else {
-                    _chip_kind = 3; //中間先頭テクスチャチップ
+                    _chip_kind = 1; //発射元の末端テクスチャチップ
                     _pLeader = pChip_front->_pLeader;
                 }
             } else {
-                _chip_kind = 1; //発射元の末端テクスチャチップ
+                _chip_kind = 1; //普通の末端テクスチャ
                 _pLeader = pChip_front->_pLeader;
             }
         } else {
-            _chip_kind = 1; //普通の末端テクスチャ
-            _pLeader = pChip_front->_pLeader;
+            _chip_kind = 4; //先端チップ。何も描画したくない
+            _pLeader = this;
+            _pChip_front->_pChip_behind = nullptr; //前後のつながりを
+            _pChip_front = nullptr;                //切断
+            if (getActiveFrame() > 1 && _pChip_behind == nullptr) {
+                sayonara();
+            }
+            setHitAble(false);
         }
     } else {
         _chip_kind = 4; //先端チップ。何も描画したくない

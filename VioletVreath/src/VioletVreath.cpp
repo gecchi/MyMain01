@@ -76,7 +76,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     } else {
         MessageBox(nullptr, "既定設定ファイル(.default_config.properties)が見つかりません。",
                                  "Error", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
-        VioletVreath::Properties::clean();
         return EXIT_FAILURE;
     }
 
@@ -133,8 +132,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
         while (true) {
             if (::PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
                 if (msg.message == WM_QUIT) {
-                    VioletVreath::Properties::clean();
-
 #ifdef MY_DEBUG
     #ifdef _MSC_VER
         #ifdef _DEBUG

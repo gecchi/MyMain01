@@ -297,17 +297,17 @@ public:
      * 対象アクターに紐ついた入場エフェクトを、取得できれば有効にし、それを返す .
      * ステータス(getStatus())の STAT_EntryEffectKind の値によって種類が振り分けられる。
      * @param prm_pActor 対象アクター
-     * @return 対象アクターの入場エフェクト（活動済み）。又は、取得できない場合 nullptr。
+     * @return 対象アクターの入場エフェクト（活動済み、nullptrは返らない)
      */
-    static GgafDxCore::GgafDxFigureActor* activateEntryEffectOf(const GgafDxCore::GgafDxGeometricActor* const prm_pActor);
+    static EffectBlink* activateEntryEffectOf(const GgafDxCore::GgafDxGeometricActor* const prm_pActor);
 
     /**
      * 対象アクターに紐ついた退場エフェクトを、取得できれば有効にし、それを返す .
      * ステータス(getStatus())の STAT_LeaveEffectKind の値によって種類が振り分けられる。
      * @param prm_pActor 対象アクター
-     * @return 対象アクターの退場エフェクト（活動済み）。又は、取得できない場合 nullptr。
+     * @return 対象アクターの退場エフェクト（活動済み、nullptrは返らない)
      */
-    static GgafDxCore::GgafDxFigureActor* activateLeaveEffectOf(const GgafDxCore::GgafDxGeometricActor* const prm_pActor);
+    static EffectBlink* activateLeaveEffectOf(const GgafDxCore::GgafDxGeometricActor* const prm_pActor);
 
     /**
      * 対象アクターに紐ついた固有エフェクト（その１）を、取得できれば有効にし、それを返す .
@@ -460,9 +460,9 @@ public:
 	static GgafCore::GgafStatus* resetEnemyDrasteaStatus(GgafCore::GgafStatus* p);
 	//タランテ
 	static GgafCore::GgafStatus* resetEnemyTalanteStatus(GgafCore::GgafStatus* p);
-	//エストラエア
+	//エスペリア
 	static GgafCore::GgafStatus* resetEnemyEsperiaStatus(GgafCore::GgafStatus* p);
-	//エストラエアレーザー
+	//エスペリアアレーザー
 	static GgafCore::GgafStatus* resetEnemyEsperiaLaserChip001Status(GgafCore::GgafStatus* p);
 	//グーテスト
 	static GgafCore::GgafStatus* resetTestGuStatus(GgafCore::GgafStatus* p);

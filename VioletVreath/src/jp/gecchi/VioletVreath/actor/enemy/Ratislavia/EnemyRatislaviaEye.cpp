@@ -117,7 +117,7 @@ void EnemyRatislaviaEye::processBehavior() {
                 pEffect_->activate();
             }
             pEffect_->positionAs(this);
-            if (pEffect_->onChangeToInactive()) {
+            if (pEffect_->isJustChangedToInactive()) {
                 pProg->changeNext();
             }
             break;

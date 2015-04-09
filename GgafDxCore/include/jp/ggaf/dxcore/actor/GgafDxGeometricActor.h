@@ -438,15 +438,19 @@ public:
     /**
      * Actorの正面方角を設定 .
      * @param prm_axis_x_angFace X軸方角のアングル値(-360,000～360,000)
-     * @param prm_axis_y_angFace Y軸方角のアングル値(-360,000～360,000)
      * @param prm_axis_z_angFace Z軸方角のアングル値(-360,000～360,000)
+     * @param prm_axis_y_angFace Y軸方角のアングル値(-360,000～360,000)
      */
-    virtual void setFaceAng(angle prm_axis_x_angFace,
-                            angle prm_axis_y_angFace,
-                            angle prm_axis_z_angFace) {
+    virtual void setRollPitchYawFaceAng(angle prm_axis_x_angFace,
+                                        angle prm_axis_z_angFace,
+                                        angle prm_axis_y_angFace) {
         setRxFaceAng(prm_axis_x_angFace);
-        setRyFaceAng(prm_axis_y_angFace);
         setRzFaceAng(prm_axis_z_angFace);
+        setRyFaceAng(prm_axis_y_angFace);
+    }
+
+    inline void setFaceAngZero() {
+        _rx = _rz = _ry = 0;
     }
 
     /**

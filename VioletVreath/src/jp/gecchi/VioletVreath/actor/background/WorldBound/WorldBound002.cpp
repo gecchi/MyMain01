@@ -22,7 +22,7 @@ void WorldBound002::initialize() {
     //    getUvFlipper()->setActivePtn(0);
     setHitAble(false);
     positionAs(pCam);
-    setFaceAng(0, 0, 0);
+    setFaceAngZero();
     dxcoord world_r = pCam->getZFar(); //¢ŠE‹«ŠE‹…”¼Œa
     dxcoord world_bound_model_r = 1.0f; //WorldBound001‚Ìƒ‚ƒfƒ‹‚Í”¼ŒaDIRECTX‹——£1‚Ì‹…‚Å‚ ‚é
     setScaleR((world_r*0.989)/world_bound_model_r);

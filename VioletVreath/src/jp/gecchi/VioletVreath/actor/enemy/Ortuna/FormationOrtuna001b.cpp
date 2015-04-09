@@ -30,7 +30,7 @@ void FormationOrtuna001b::onCallUpOrtuna(EnemyOrtuna* prm_pOrtuna, int prm_index
                                 y + (ANG_SIN(ang) * r1),
                                 z + (ANG_COS(ang) * r1));
     static coord r2 = PX_C(200); //Ü‚è•Ô‚µ’n“_”¼Œa
-    prm_pOrtuna->hanging_pos_.set( x,
+    prm_pOrtuna->stagnating_pos_.set( x,
                                    y + (ANG_SIN(ang) * r2),
                                    z + (ANG_COS(ang) * r2));
 }

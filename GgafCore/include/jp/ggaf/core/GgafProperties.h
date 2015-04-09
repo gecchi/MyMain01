@@ -54,7 +54,7 @@ public:
 
 
     /** [r] 保持プロパティMAP */
-    static GgafStrMap* _pMapProperties;
+    static GgafStrMap _mapProperties;
 #ifdef _MSC_VER
     //TODO:VC++2005以降(x86) の volatile は、メモリバリア効果がある（と思う）。
     //gcc(x86)は、アトミック保証は無いが std::atomic が使える。VC++に atomic が実装されるまではとりあえず・・・。
@@ -75,11 +75,6 @@ public:
      * @param prm_properties_filename プロパティファイル
      */
     static void save(std::string prm_properties_filename);
-
-    /**
-     * 保持プロパティを解放 .
-     */
-    static void clean();
 
     /**
      * 保持プロパティMAPにキーが存在するか調べる .

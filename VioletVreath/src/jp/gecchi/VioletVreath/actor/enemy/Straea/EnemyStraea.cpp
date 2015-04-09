@@ -14,6 +14,8 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
+
+#include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -107,15 +109,23 @@ void EnemyStraea::processBehavior() {
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
-            UTIL::activateEntryEffectOf(this);
+            setHitAble(false);
             setAlpha(0);
-            pAFader_->transitionLinerUntil(0.98, 20);
-            pKuroko->setFaceAngVelo(AXIS_X, 4000);
+            pKuroko->setRollFaceAngVelo(4000);
             pProg->changeNext();
             break;
         }
         case PROG_ENTRY: {
-            if (!pAFader_->isTransitioning()) {
+            EffectBlink* pEffectEntry = nullptr;
+            if (pProg->isJustChanged()) {
+                pEffectEntry = UTIL::activateEntryEffectOf(this);
+            }
+            static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
+            static const frame duration_frames = pEffectEntry->duration_frames_;
+            if (_pProg->hasArrivedAt(scale_in_frames)) {
+                pAFader_->transitionLinerUntil(1.0, duration_frames);
+            }
+            if (getAlpha() > 0.9) {
                 setHitAble(true);
                 pProg->changeNext();
             }
@@ -125,7 +135,7 @@ void EnemyStraea::processBehavior() {
         case PROG_MOVE: {
             if (pProg->isJustChanged()) {
                 angle v = angvelo_turn_ / 50;
-                pKuroko->setFaceAngVelo(RND(-v, v), RND(-v, v), RND(-v, v));
+                pKuroko->setRollPitchYawFaceAngVelo(RND(-v, v), RND(-v, v), RND(-v, v));
                 pKuroko->setMvVelo(2000);
             }
             if (getActiveFrame() % laser_interval_ == 0) {
@@ -145,7 +155,7 @@ void EnemyStraea::processBehavior() {
                 //ƒ^[ƒ“’†
             } else {
                 //Ž©‹@‚É‚ª‚¢‚½•ûŒü‚ÉU‚èŒü‚«‚ªŠ®—¹Žž
-                pKuroko->setFaceAngVelo(angvelo_turn_*2, 0, 0);
+                pKuroko->setRollPitchYawFaceAngVelo(angvelo_turn_*2, 0, 0);
                 pKuroko->setMvVelo(0);
                 pProg->changeNext();
             }

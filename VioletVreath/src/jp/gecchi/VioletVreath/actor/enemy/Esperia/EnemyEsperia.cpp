@@ -14,6 +14,7 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
+#include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -87,7 +88,7 @@ void EnemyEsperia::onActive() {
    // positionAboutAs(P_MYSHIP, PX_C(400));
 
 
-    getProgress()->reset(PROG_ENTRY);
+    getProgress()->reset(PROG_INIT);
 }
 
 void EnemyEsperia::processBehavior() {
@@ -97,13 +98,23 @@ void EnemyEsperia::processBehavior() {
     GgafDxKuroko* const pKuroko = getKuroko();
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
+        case PROG_INIT: {
+            setHitAble(false);
+            setAlpha(0);
+            pProg->changeNext();
+            break;
+        }
         case PROG_ENTRY: {
+            EffectBlink* pEffectEntry = nullptr;
             if (pProg->isJustChanged()) {
-                UTIL::activateEntryEffectOf(this);
-                setAlpha(0);
-                pAFader_->transitionLinerUntil(0.98, 20);
+                pEffectEntry = UTIL::activateEntryEffectOf(this);
             }
-            if (!pAFader_->isTransitioning()) {
+            static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
+            static const frame duration_frames = pEffectEntry->duration_frames_;
+            if (_pProg->hasArrivedAt(scale_in_frames)) {
+                pAFader_->transitionLinerUntil(0.99, duration_frames);
+            }
+            if (getAlpha() > 0.9) {
                 setHitAble(true);
                 pProg->changeNext();
             }

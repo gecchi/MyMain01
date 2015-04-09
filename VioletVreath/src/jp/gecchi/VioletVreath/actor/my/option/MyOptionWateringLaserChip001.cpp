@@ -121,7 +121,7 @@ void MyOptionWateringLaserChip001::processBehavior() {
 
     WateringLaserChip::processBehavior();//座標を移動させてから呼び出すこと
     //根元からレーザー表示のため強制的に座標補正
-    if (onChangeToActive()) {
+    if (isJustChangedToActive()) {
         positionAs(pOrg_);
         _tmpX = _x;
         _tmpY = _y;

@@ -46,17 +46,17 @@ int32_t GgafUtil::_rnd_int32_(int32_t prm_from, int32_t prm_to) {
     //↑[N3551 Random Number Generation in C++11] を読んで焦って修正、今まで剰余使ってたし！ 2013/03/22
 }
 
-void GgafUtil::readProperties(std::string filename, GgafStrMap* pMap) {
+void GgafUtil::readProperties(std::string filename, GgafStrMap& mapStr) {
     std::ifstream file(filename.c_str());
     if (!file) {
         throwGgafCriticalException("GgafUtil::readProperties() ファイルが見つかりません。 filename="<<filename);
     }
     _TRACE_("GgafUtil::readProperties..."<<filename);
-    GgafUtil::readProperties(file, pMap);
+    GgafUtil::readProperties(file, mapStr);
     file.close();
 }
 
-void GgafUtil::readProperties(std::istream &is, GgafStrMap* pMap) {
+void GgafUtil::readProperties(std::istream& is, GgafStrMap& mapStr) {
     if (!is)
         throwGgafCriticalException("unable to read from stream");
 
@@ -103,38 +103,38 @@ void GgafUtil::readProperties(std::istream &is, GgafStrMap* pMap) {
             ch = next;
         }
         _TRACE_("[" << key.str() << "]=>[" << val.str() <<"]");
-        (*pMap)[key.str()] = val.str();
+        mapStr[key.str()] = val.str();
     }
 }
 
-void GgafUtil::writeProperties(const char *filename, GgafStrMap* pMap, const char *header) {
+void GgafUtil::writeProperties(const char *filename, GgafStrMap& mapStr, const char *header) {
     std::ofstream file(filename);
-    GgafUtil::writeProperties(file, pMap, header);
+    GgafUtil::writeProperties(file, mapStr, header);
     file.close();
 }
 
-void GgafUtil::writeProperties(std::ostream &os, GgafStrMap* pMap, const char *header) {
+void GgafUtil::writeProperties(std::ostream &os, GgafStrMap& mapStr, const char *header) {
     if (header != nullptr) {
         os << '#' << header << std::endl;
     }
     os << '#' << "update " << GgafUtil::getSystemDateTimeStr() << std::endl;
 
-    for (GgafStrMap::iterator it = pMap->begin(), end = pMap->end(); it != end; ++it) {
+    for (GgafStrMap::iterator it = mapStr.begin(), end = mapStr.end(); it != end; ++it) {
         const std::string &key = (*it).first, &val = (*it).second;
         os << key << '=' << val << std::endl;
     }
 }
 
-void GgafUtil::printProperties(std::ostream &os, GgafStrMap* pMap) {
-    GgafStrMap::iterator it = pMap->begin(), end = pMap->end();
+void GgafUtil::printProperties(std::ostream &os, GgafStrMap& mapStr) {
+    GgafStrMap::iterator it = mapStr.begin(), end = mapStr.end();
     for (; it != end; ++it)
         os << (*it).first << "=" << (*it).second << std::endl;
 }
 
 
-bool GgafUtil::isExistKey(std::string prm_key, GgafStrMap* p) {
-    GgafStrMap::iterator itr = p->find(prm_key);
-    if (itr != p->end()) {
+bool GgafUtil::isExistKey(std::string prm_key, GgafStrMap& mapStr) {
+    GgafStrMap::iterator itr = mapStr.find(prm_key);
+    if (itr != mapStr.end()) {
         return true;
     } else {
         return false;

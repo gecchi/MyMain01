@@ -22,7 +22,7 @@ void FormationAppho001a::onCallUpAppho(EnemyAppho* prm_pAppho, int prm_index) {
     angle pos_ang = D_ANG((prm_index+1)*8);
     coord x = ANG_COS(pos_ang) * r;
     coord y = ANG_SIN(pos_ang) * r;
-    prm_pAppho->hanging_pos_.set( P_MYSHIP->_x + x,
+    prm_pAppho->stagnating_pos_.set( P_MYSHIP->_x + x,
                                   P_MYSHIP->_y + y,
                                   P_MYSHIP->_z      );
     Spacetime* pSpacetime =  P_GOD->getSpacetime();

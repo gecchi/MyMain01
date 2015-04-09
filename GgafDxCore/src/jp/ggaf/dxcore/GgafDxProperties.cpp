@@ -423,6 +423,3 @@ void GgafDxProperties::load(std::string prm_properties_filename) {
 
 }
 
-void GgafDxProperties::clean() {
-    GgafProperties::clean();
-}

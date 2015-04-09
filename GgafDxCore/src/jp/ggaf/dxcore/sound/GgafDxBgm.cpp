@@ -32,12 +32,12 @@ GgafDxBgm::GgafDxBgm(const char* prm_bgm_key) : GgafObject() {
     _bgm_key = NEW char[len+1];
     strcpy(_bgm_key, prm_bgm_key);
 
-    _ogg_file_name = (*GgafProperties::_pMapProperties)[std::string(_bgm_key)];
+    _ogg_file_name = GgafProperties::_mapProperties[std::string(_bgm_key)];
     if (_ogg_file_name == "") {
         throwGgafCriticalException("GgafDxBgm::GgafDxBgm("<<prm_bgm_key<<") プロパティファイルにキーがありません");
     }
-//    _bpm = atoi((*GgafProperties::_pMapProperties)[bgm_key+"_BPM"].c_str());
-//    _title = (*GgafProperties::_pMapProperties)[bgm_key+"_TITLE"];
+//    _bpm = atoi(GgafProperties::_mapProperties[bgm_key+"_BPM"].c_str());
+//    _title = GgafProperties::_mapProperties[bgm_key+"_TITLE"];
 //    _TRACE_("GgafDxBgm::GgafDxBgm KEY="<<prm_bgm_key<<" _file_name="<<_ogg_file_name<<" _bpm="<<_bpm<<" _title="<<_title);
     std::string full_ogg_file_name = getOggFileName(_ogg_file_name);
     _pOggResource = NEW OggVorbisFile( full_ogg_file_name.c_str() );

@@ -30,7 +30,7 @@ void Shot004::onReset() {
     setScaleR(3.0);
     setAlpha(0.99); //”¼“§–¾‚É‚·‚é‚±‚Æ‚Å—¼–ÊƒŒƒ“ƒ_ƒŠƒ“ƒO
     GgafDxKuroko* const pKuroko = getKuroko();
-    pKuroko->setFaceAngVelo(AXIS_X, D_ANG(3));
+    pKuroko->setRollFaceAngVelo(D_ANG(3));
     pKuroko->setMvVelo(30000);
     pKuroko->setMvAcce(1000);
     pKuroko->linkFaceAngByMvAng(true);

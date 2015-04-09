@@ -11,6 +11,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 
+#include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -53,17 +54,22 @@ void EnemyIda::processBehavior() {
     switch (pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
-            pKuroko->setFaceAngVelo(AXIS_X, D_ANG(4));
+            pKuroko->setRollFaceAngVelo(D_ANG(4));
             setAlpha(0);
-             UTIL::activateEntryEffectOf(this);
             pProg->changeNext();
             break;
         }
         case PROG_ENTRY: {
+            EffectBlink* pEffectEntry = nullptr;
             if (pProg->isJustChanged()) {
-                pAFader_->transitionLinerUntil(1.0, 30);
+                pEffectEntry = UTIL::activateEntryEffectOf(this);
             }
-            if (pProg->hasArrivedAt(25)) {
+            static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
+            static const frame duration_frames = pEffectEntry->duration_frames_;
+            if (_pProg->hasArrivedAt(scale_in_frames)) {
+                pAFader_->transitionLinerUntil(1.0, duration_frames);
+            }
+            if (getAlpha() > 0.9) {
                 setHitAble(true);
                 pProg->changeNext();
             }

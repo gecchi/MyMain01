@@ -23,7 +23,7 @@ void EnemyIdaBase001::initialize() {
     EnemyIdaBase::initialize();
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->linkFaceAngByMvAng(true);
-    pKuroko->setFaceAngVelo(D_ANG(2), D_ANG(0.4), D0ANG );
+    pKuroko->setRollPitchYawFaceAngVelo(D_ANG(2), D0ANG, D_ANG(0.4));
 }
 
 void EnemyIdaBase001::onActive() {

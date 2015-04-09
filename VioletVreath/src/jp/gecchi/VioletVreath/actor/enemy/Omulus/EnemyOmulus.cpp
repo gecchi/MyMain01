@@ -126,7 +126,7 @@ void EnemyOmulus::processBehavior() {
             if (pProg->isJustChanged()) {
                 getMorpher()->transitionLinerUntil(MORPHTARGET_HATCH_OPEN,
                                                 0.0f, frame_of_morph_interval_);
-                pKuroko->setFaceAngVelo(AXIS_X, -3000);
+                pKuroko->setRollFaceAngVelo(-3000);
             }
 
             //ŽŸ‚Ö
@@ -139,7 +139,7 @@ void EnemyOmulus::processBehavior() {
             if (pProg->isJustChanged()) {
                 getMorpher()->transitionLinerUntil(MORPHTARGET_HATCH_OPEN,
                                            1.0f, frame_of_morph_interval_);
-                pKuroko->setFaceAngVelo(AXIS_X, 0);
+                pKuroko->setRollFaceAngVelo(0);
             }
             //processJudgement()‚ÅƒVƒ‡ƒbƒg”­ŽË
             if (pProg->getFrame() >= frame_of_open_interval_+ frame_of_morph_interval_) {

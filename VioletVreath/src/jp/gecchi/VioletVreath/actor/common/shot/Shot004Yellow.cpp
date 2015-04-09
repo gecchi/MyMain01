@@ -30,7 +30,7 @@ void Shot004Yellow::onReset() {
     setScaleR(3.0);
     setAlpha(0.99); //半透明にすることで両面レンダリング
     GgafDxKuroko* const pKuroko = getKuroko();
-    pKuroko->setFaceAngVelo(AXIS_X, D_ANG(3));
+    pKuroko->setRollFaceAngVelo(D_ANG(3));
     pKuroko->setMvVelo(40000);             //移動速度
     pKuroko->setMvAcce(1000);             //移動速度
     pKuroko->linkFaceAngByMvAng(true);

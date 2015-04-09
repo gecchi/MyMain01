@@ -34,9 +34,9 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
     std::string spl_filename = PROPERTY::DIR_SPLINE + spline_id[0] + ".spl";
 
     GgafStrMap mapSplPropperties;
-    UTIL::readProperties(spl_filename, &mapSplPropperties);
+    UTIL::readProperties(spl_filename, mapSplPropperties);
 
-    if (UTIL::isExistKey("SPLINE", &mapSplPropperties)) {
+    if (UTIL::isExistKey("SPLINE", mapSplPropperties)) {
         if (spline_id.size() == 1) {
             //prm_idstr = "FormationUrydike001"
             std::string spl_data_file_csv = mapSplPropperties["SPLINE"];
@@ -73,17 +73,17 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
         throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [SPLINE] が指定されてません。");
     }
 
-    if (UTIL::isExistKey("MAG_X", &mapSplPropperties)) {
+    if (UTIL::isExistKey("MAG_X", mapSplPropperties)) {
         rate_x = atof(mapSplPropperties["MAG_X"].c_str());
     } else {
         rate_x = 1.0;
     }
-    if (UTIL::isExistKey("MAG_Y", &mapSplPropperties)) {
+    if (UTIL::isExistKey("MAG_Y", mapSplPropperties)) {
         rate_y = atof(mapSplPropperties["MAG_Y"].c_str());
     } else {
         rate_y = 1.0;
     }
-    if (UTIL::isExistKey("MAG_Z", &mapSplPropperties)) {
+    if (UTIL::isExistKey("MAG_Z", mapSplPropperties)) {
         rate_z = atof(mapSplPropperties["MAG_Z"].c_str());
     } else {
         rate_z = 1.0;
@@ -96,7 +96,7 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
         CLASS_SteppedCoordSpline,
     } leader;
 
-    if (UTIL::isExistKey("CLASS", &mapSplPropperties)) {
+    if (UTIL::isExistKey("CLASS", mapSplPropperties)) {
         classname = mapSplPropperties["CLASS"];
         if (classname.length() == 0) {
             throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [CLASS] が指定されてません。");
@@ -117,7 +117,7 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
     }
 
     //SPENT_FRAME
-    if (UTIL::isExistKey("SPENT_FRAME", &mapSplPropperties)) {
+    if (UTIL::isExistKey("SPENT_FRAME", mapSplPropperties)) {
         if (leader == CLASS_FixedFrameSpline) {
             spent_frame = (frame)atoi(mapSplPropperties["SPENT_FRAME"].c_str());
             if (spent_frame == 0) {
@@ -136,7 +136,7 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
     }
 
     //ANGLE_VELOCITY
-    if (UTIL::isExistKey("ANGLE_VELOCITY", &mapSplPropperties)) {
+    if (UTIL::isExistKey("ANGLE_VELOCITY", mapSplPropperties)) {
         if (leader == CLASS_FixedFrameSpline || leader == CLASS_FixedVelocitySpline) {
             angveloRzRyMv = (angvelo)atoi(mapSplPropperties["ANGLE_VELOCITY"].c_str());
             if (angveloRzRyMv == 0) {
@@ -155,7 +155,7 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
     }
 
     //TURN_WAY
-    if (UTIL::isExistKey("TURN_WAY", &mapSplPropperties)) {
+    if (UTIL::isExistKey("TURN_WAY", mapSplPropperties)) {
         if (leader == CLASS_FixedFrameSpline || leader == CLASS_FixedVelocitySpline) {
             if (mapSplPropperties["TURN_WAY"] == "TURN_CLOSE_TO") {
                 turn_way = TURN_CLOSE_TO;
@@ -182,7 +182,7 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
     }
 
     //TURN_OPTIMIZE
-    if (UTIL::isExistKey("TURN_OPTIMIZE", &mapSplPropperties)) {
+    if (UTIL::isExistKey("TURN_OPTIMIZE", mapSplPropperties)) {
         if (leader == CLASS_FixedFrameSpline || leader == CLASS_FixedVelocitySpline) {
             turn_optimize = UTIL::cnvBool(mapSplPropperties["TURN_OPTIMIZE"]);
         } else {

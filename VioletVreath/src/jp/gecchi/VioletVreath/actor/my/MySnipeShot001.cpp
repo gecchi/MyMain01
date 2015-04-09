@@ -23,7 +23,7 @@ void MySnipeShot001::initialize() {
     pChecker->makeCollision(1);
     pChecker->setColliAAB(0, -PX_C(50), -PX_C(50), -PX_C(50),
                               PX_C(50),  PX_C(50),  PX_C(50));
-    getKuroko()->setFaceAngVelo(AXIS_X, D_ANG(12));
+    getKuroko()->setRollFaceAngVelo(D_ANG(12));
     getKuroko()->linkFaceAngByMvAng(true);
 }
 

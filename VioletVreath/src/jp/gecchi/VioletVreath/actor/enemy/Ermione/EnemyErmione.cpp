@@ -13,6 +13,7 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Ermione/EnemyErmioneArmBody.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantB.h"
 
+#include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -148,16 +149,21 @@ void EnemyErmione::processBehavior() {
             setHitAble(false);
             setAlpha(0);
             pKuroko->setMvVelo(10);
-            UTIL::activateEntryEffectOf(this);
             pProg->changeNext();
             break;
         }
 
         case PROG_ENTRY: {
-            if (pProg->hasArrivedAt(120)) {
-                pAFader_->transitionAcceStep(1.0, 0.000, 0.0001);
+            EffectBlink* pEffectEntry = nullptr;
+            if (pProg->isJustChanged()) {
+                pEffectEntry = UTIL::activateEntryEffectOf(this);
             }
-            if (getAlpha() > 0.8) {
+            static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
+            static const frame duration_frames = pEffectEntry->duration_frames_;
+            if (_pProg->hasArrivedAt(scale_in_frames)) {
+                pAFader_->transitionLinerUntil(1.0, duration_frames);
+            }
+            if (getAlpha() > 0.9) {
                 setHitAble(true);
                 throwEventLowerTree(EVENT_ERMIONE_ENTRY_DONE);
                 pKuroko->setMvAngTwd(P_MYSHIP);

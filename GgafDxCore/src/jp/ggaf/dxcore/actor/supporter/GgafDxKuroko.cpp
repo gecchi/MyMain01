@@ -12,14 +12,29 @@ using namespace GgafDxCore;
 
 GgafDxKuroko::GgafDxKuroko(GgafDxGeometricActor* prm_pActor) : GgafObject(),
 _pActor(prm_pActor) {
-
     _pAsstA = nullptr;
     _pAsstB = nullptr;
     _pAsstC = nullptr;
+    reset();
+}
+GgafDxKurokoAssistantA* GgafDxKuroko::asstA() {
+    return _pAsstA ? _pAsstA : _pAsstA = NEW GgafDxKurokoAssistantA(this);
+}
+GgafDxKurokoAssistantB* GgafDxKuroko::asstB() {
+    return _pAsstB ? _pAsstB : _pAsstB = NEW GgafDxKurokoAssistantB(this);
+}
+GgafDxKurokoAssistantC* GgafDxKuroko::asstC() {
+    return _pAsstC ? _pAsstC : _pAsstC = NEW GgafDxKurokoAssistantC(this);
+}
 
-    _actor_ang_face[0] = &(prm_pActor->_rx);
-    _actor_ang_face[1] = &(prm_pActor->_ry);
-    _actor_ang_face[2] = &(prm_pActor->_rz);
+void GgafDxKuroko::reset() {
+    GGAF_DELETE_NULLABLE(_pAsstA);
+    GGAF_DELETE_NULLABLE(_pAsstB);
+    GGAF_DELETE_NULLABLE(_pAsstC);
+
+    _actor_ang_face[0] = &(_pActor->_rx);
+    _actor_ang_face[1] = &(_pActor->_ry);
+    _actor_ang_face[2] = &(_pActor->_rz);
 
     for (int ax = 0; ax < 3; ax++) { // i=0:XŽ²A1:YŽ²A2:ZŽ² ‚ð•\‚·
         //³–Ê•ûŠp‚ÌŠp‘¬“xi³–Ê•ûŠp‚Ì‘•ªj= 0 angle/fream
@@ -118,17 +133,8 @@ _pActor(prm_pActor) {
     _taget_face_ang_alltime_angAcce = 0;
     _taget_face_ang_alltime_way = TURN_CLOSE_TO;
     _taget_face_ang_alltime_optimize_ang = true;
+}
 
-}
-GgafDxKurokoAssistantA* GgafDxKuroko::asstA() {
-    return _pAsstA ? _pAsstA : _pAsstA = NEW GgafDxKurokoAssistantA(this);
-}
-GgafDxKurokoAssistantB* GgafDxKuroko::asstB() {
-    return _pAsstB ? _pAsstB : _pAsstB = NEW GgafDxKurokoAssistantB(this);
-}
-GgafDxKurokoAssistantC* GgafDxKuroko::asstC() {
-    return _pAsstC ? _pAsstC : _pAsstC = NEW GgafDxKurokoAssistantC(this);
-}
 void GgafDxKuroko::behave() {
     if (_pAsstA) {
         _pAsstA->behave();
@@ -390,12 +396,12 @@ void GgafDxKuroko::setFaceAngVelo(axis prm_axis, angvelo prm_angvelo) {
     }
 }
 
-void GgafDxKuroko::setFaceAngVelo(angvelo prm_axis_x_angvelo,
-                                  angvelo prm_axis_y_angvelo,
-                                  angvelo prm_axis_z_angvelo) {
+void GgafDxKuroko::setRollPitchYawFaceAngVelo(angvelo prm_axis_x_angvelo,
+                                              angvelo prm_axis_z_angvelo,
+                                              angvelo prm_axis_y_angvelo) {
     setFaceAngVelo(AXIS_X, prm_axis_x_angvelo);
-    setFaceAngVelo(AXIS_Y, prm_axis_y_angvelo);
     setFaceAngVelo(AXIS_Z, prm_axis_z_angvelo);
+    setFaceAngVelo(AXIS_Y, prm_axis_y_angvelo);
 }
 
 void GgafDxKuroko::forceFaceAngVeloRange(axis prm_axis,
@@ -1150,7 +1156,7 @@ void GgafDxKuroko::turnRyFaceAngTo(angle prm_ang_ry_target,
     _taget_face_ang_alltime_flg = false;
 }
 
-void GgafDxKuroko::spinRxFaceAngTo(angle prm_ang_rx_Target,
+void GgafDxKuroko::rollFaceAngTo(angle prm_ang_rx_Target,
                                    angvelo prm_angvelo, angacce prm_angacce,
                                    int prm_way) {
     if (getFaceAngDistance(AXIS_X, prm_ang_rx_Target, prm_way) > 0) {

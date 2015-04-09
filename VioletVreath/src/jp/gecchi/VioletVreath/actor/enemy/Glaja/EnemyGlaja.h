@@ -43,6 +43,7 @@ public:
     DepositoryConnection* pConn_pShot_;
     GgafDxCore::GgafDxGeoElem next_pos_;
     int num_fire_;
+
 public:
     /**
      * コンストラクタ

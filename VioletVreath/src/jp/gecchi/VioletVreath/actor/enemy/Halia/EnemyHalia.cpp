@@ -16,6 +16,7 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
+#include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -74,7 +75,7 @@ void EnemyHalia::onActive() {
     setMorphWeight(0.0);
     getProgress()->reset(PROG_INIT);
     GgafDxKuroko* const pKuroko = getKuroko();
-    pKuroko->setFaceAngVelo(AXIS_X, 1000);
+    pKuroko->setRollFaceAngVelo(1000);
     pKuroko->setMvVelo(0);
     pKuroko->setMvAcce(0);
 }
@@ -88,15 +89,20 @@ void EnemyHalia::processBehavior() {
         case PROG_INIT: {
             setHitAble(false);
             setAlpha(0);
-            UTIL::activateEntryEffectOf(this);
             pProg->changeNext();
             break;
         }
         case PROG_ENTRY: {  //ìoèÍ
+            EffectBlink* pEffectEntry = nullptr;
             if (pProg->isJustChanged()) {
-                pAFader_->transitionAcceStep(1.0, 0, 0.001);
+                pEffectEntry = UTIL::activateEntryEffectOf(this);
             }
-            if (getAlpha() > 0.8) {
+            static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
+            static const frame duration_frames = pEffectEntry->duration_frames_;
+            if (_pProg->hasArrivedAt(scale_in_frames)) {
+                pAFader_->transitionLinerUntil(1.0, duration_frames);
+            }
+            if (getAlpha() > 0.9) {
                 setHitAble(true);
                 pProg->change(PROG_FIRST_MOVE);
             }
@@ -107,7 +113,7 @@ void EnemyHalia::processBehavior() {
                 pKuroko->setRzRyMvAng(0, 0);
                 pKuroko->asstA()->slideMvByVd(veloTopMv_, PX_C(1000),
                                               0.4, 0.6, 0, true);
-                pKuroko->setFaceAngVelo(AXIS_X,  D_ANG(1));
+                pKuroko->setRollFaceAngVelo(D_ANG(1));
             }
             if (!pKuroko->asstA()->isSlidingMv()) {
                 pProg->change(PROG_TURN_OPEN);
@@ -118,7 +124,7 @@ void EnemyHalia::processBehavior() {
             if (pProg->isJustChanged()) {
                 pKuroko->asstA()->slideMvByVd(veloTopMv_, PX_C(1000),
                                               0.4, 0.6, 0, true);
-                pKuroko->setFaceAngVelo(AXIS_X, D_ANG(1));
+                pKuroko->setRollFaceAngVelo(D_ANG(1));
             }
             if (!pKuroko->asstA()->isSlidingMv()) {
                 pProg->change(PROG_TURN_OPEN);
@@ -144,7 +150,7 @@ void EnemyHalia::processBehavior() {
             if (!getMorpher()->isTransitioning()) {
                 if ( _x - P_MYSHIP->_x > -dZ_camera_init_) {
                     pKuroko->setMvVelo(PX_C(1)); //ÇøÇÂÇ¡Ç∆ÉoÉbÉN
-                    pKuroko->setFaceAngVelo(AXIS_X, D_ANG(5));//î≠éÀíÜÇÕë¨Ç¢âÒì]
+                    pKuroko->setRollFaceAngVelo(D_ANG(5));//î≠éÀíÜÇÕë¨Ç¢âÒì]
                     pProg->change(PROG_IN_FIRE);
                 } else {
                     //îwå„Ç©ÇÁÇÕåÇÇΩÇ»Ç¢ÅB

@@ -1,7 +1,7 @@
-#ifndef EFFECTENTRANCE002_H_
-#define EFFECTENTRANCE002_H_
+#ifndef EFFECTBLINK002_H_
+#define EFFECTBLINK002_H_
 #include "VioletVreath.h"
-#include "jp/gecchi/VioletVreath/actor/effect/Entry/EffectEntry.h"
+#include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
 namespace VioletVreath {
 
@@ -11,10 +11,10 @@ namespace VioletVreath {
  * @since 2012/07/18
  * @author Masatoshi Tsuge
  */
-class EffectEntry002 : public EffectEntry {
+class EffectBlink002 : public EffectBlink {
 
 public:
-    EffectEntry002(const char* prm_name);
+    EffectBlink002(const char* prm_name);
 
     void initialize() override;
 
@@ -22,9 +22,9 @@ public:
 
     void onActive() override;
 
-    virtual ~EffectEntry002();
+    virtual ~EffectBlink002();
 };
 
 }
-#endif /*EFFECTENTRANCE002_H_*/
+#endif /*EFFECTBLINK002_H_*/
 

@@ -76,7 +76,7 @@ void GgafDxKurokoAssistantB::turnRyFaceAngByDtTo(angle prm_ang_ry_target, int pr
                     prm_endacc_flg);
 }
 
-void GgafDxKurokoAssistantB::spinRxFaceAngByDtTo(angle prm_ang_rx_target, int prm_way, int prm_target_frames,
+void GgafDxKurokoAssistantB::rollFaceAngByDtTo(angle prm_ang_rx_target, int prm_way, int prm_target_frames,
                                                 float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                                                 bool prm_endacc_flg) {
     angle angular_distance = _pMaster->getFaceAngDistance(AXIS_X, prm_ang_rx_target, prm_way);
@@ -174,7 +174,7 @@ void GgafDxKurokoAssistantB::turnRyFaceAngByVdTo(
                 prm_endacc_flg);
 }
 
-void GgafDxKurokoAssistantB::spinRxFaceAngByVdTo(
+void GgafDxKurokoAssistantB::rollFaceAngByVdTo(
         angvelo prm_top_angvelo, angle prm_ang_rx_target, int prm_way,
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
         bool prm_endacc_flg) {

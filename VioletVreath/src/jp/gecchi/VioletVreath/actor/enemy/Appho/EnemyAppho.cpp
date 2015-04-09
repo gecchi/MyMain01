@@ -10,6 +10,7 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
 
+#include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -51,20 +52,27 @@ void EnemyAppho::processBehavior() {
          case PROG_INIT: {
              setHitAble(false);
              positionAs(&entry_pos_);
+             setFaceAngTwd(stagnating_pos_.x, stagnating_pos_.y, stagnating_pos_.z);
              setAlpha(0);
+             pKuroko->linkFaceAngByMvAng(false);
              pKuroko->setMvVelo(0);
-             pKuroko->linkFaceAngByMvAng(true);
-             pKuroko->setMvAngTwd(&hanging_pos_);
-             pKuroko->setFaceAngVelo(AXIS_X, D_ANG(3));
-             UTIL::activateEntryEffectOf(this);
+             pKuroko->setMvAngTwd(&stagnating_pos_);
+             pKuroko->setRollFaceAngVelo(D_ANG(3));
              pProg->changeNext();
              break;
          }
          case PROG_ENTRY: {
-             if (pProg->hasArrivedAt(60)) {
-                 pAFader_->transitionLinerUntil(1.0, 60);
+             EffectBlink* pEffectEntry = nullptr;
+             if (pProg->isJustChanged()) {
+                 pEffectEntry = UTIL::activateEntryEffectOf(this);
+                 pKuroko->setRollFaceAngVelo(D_ANG(3));
              }
-             if (getAlpha() > 0.5) {
+             static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
+             static const frame duration_frames = pEffectEntry->duration_frames_;
+             if (_pProg->hasArrivedAt(scale_in_frames)) {
+                 pAFader_->transitionLinerUntil(1.0, duration_frames);
+             }
+             if (getAlpha() > 0.9) {
                  setHitAble(true);
                  pProg->changeNext();
              }
@@ -75,7 +83,7 @@ void EnemyAppho::processBehavior() {
              if (pProg->isJustChanged()) {
                  //滞留ポイントへGO!
                  velo mv_velo = RF_EnemyAppho_MvVelo(G_RANK);
-                 coord d = UTIL::getDistance(this, &hanging_pos_);
+                 coord d = UTIL::getDistance(this, &stagnating_pos_);
                  pKuroko->asstA()->slideMvByVd(mv_velo, d,
                                                0.2, 0.8, 200, true);
              }
@@ -94,8 +102,6 @@ void EnemyAppho::processBehavior() {
 
          case PROG_MOVE02: {
              if (pProg->isJustChanged()) {
-                 //移動方向と向きの連携解除
-                 pKuroko->linkFaceAngByMvAng(false);
                  //滞留ポイント到着、自機方向へジワリ移動させる
                  pKuroko->turnMvAngTwd(P_MYSHIP,
                                        100, 0, TURN_CLOSE_TO, false);

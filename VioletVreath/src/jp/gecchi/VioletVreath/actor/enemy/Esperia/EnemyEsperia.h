@@ -20,6 +20,7 @@ private:
 
 public:
     enum {
+        PROG_INIT,
         PROG_ENTRY,
         PROG_MOVE,
         PROG_HATCH_OPEN,

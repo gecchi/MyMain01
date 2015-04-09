@@ -42,7 +42,7 @@ void Shot001::onActive() {
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->linkFaceAngByMvAng(true);
     pKuroko->setMvVelo(RF_Shot001_MvVelo(G_RANK));    //ˆÚ“®‘¬“x
-    pKuroko->setFaceAngVelo(AXIS_X, RF_Shot001_AngVelo(G_RANK)); //‚«‚è‚à‚Ý‹ï‡
+    pKuroko->setRollFaceAngVelo(RF_Shot001_AngVelo(G_RANK)); //‚«‚è‚à‚Ý‹ï‡
     pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION);
     pScaler_->beat(30,5,0,2,-1);
 //    _TRACE_("Shot001::onActive() id=["<<getId()<<"]("<<getActiveFrame()<<") ¨ = \t"<<getKuroko()->_ang_rz_mv<<"\t"<<getKuroko()->_ang_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");

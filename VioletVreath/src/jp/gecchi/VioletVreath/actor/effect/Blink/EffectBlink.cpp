@@ -1,4 +1,4 @@
-#include "EffectEntry.h"
+#include "EffectBlink.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
@@ -8,9 +8,9 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-EffectEntry::EffectEntry(const char* prm_name, const char* prm_model) :
+EffectBlink::EffectBlink(const char* prm_name, const char* prm_model) :
         DefaultMeshSetActor(prm_name, prm_model, nullptr) {
-    _class_name = "EffectEntry";
+    _class_name = "EffectBlink";
     setHitAble(false);
     pScaler_ = NEW GgafDxScaler(this);
     pTarget_ = nullptr;
@@ -21,14 +21,14 @@ EffectEntry::EffectEntry(const char* prm_name, const char* prm_model) :
     pScaler_->forceRange(0, R_SC(1.0));
 }
 
-void EffectEntry::onActive() {
+void EffectBlink::onActive() {
     setScale(pScaler_->getBottom());
     getProgress()->reset(PROG_INIT);
 }
 
-void EffectEntry::processBehavior() {
+void EffectBlink::processBehavior() {
     if (pTarget_) {
-        if (pTarget_->onChangeToInactive()) {
+        if (pTarget_->isJustChangedToInactive()) {
             pTarget_ = nullptr;
         } else {
             positionAs(pTarget_);
@@ -81,28 +81,28 @@ void EffectEntry::processBehavior() {
     pScaler_->behave();
 }
 
-void EffectEntry::processJudgement() {
+void EffectBlink::processJudgement() {
     if (isOutOfSpacetime()) {
         pTarget_ = nullptr;
         sayonara();
     }
 }
 
-void EffectEntry::onInactive() {
+void EffectBlink::onInactive() {
     pTarget_ = nullptr;
 }
 
-void EffectEntry::positionFollow(const GgafDxCore::GgafDxGeometricActor* prm_pTarget) {
-    pTarget_  = prm_pTarget;
-}
-
-void EffectEntry::config(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames) {
+void EffectBlink::blink(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames,
+                        const GgafDxCore::GgafDxGeometricActor* prm_pFollowTarget) {
+    pTarget_  = prm_pFollowTarget;
     scale_in_frames_ = prm_scale_in_frames;
     duration_frames_ = prm_duration_frames;
     scale_out_frames_ = prm_scale_out_frames;
+    setScale(pScaler_->getBottom());
+    getProgress()->reset(PROG_INIT);
 }
 
-EffectEntry::~EffectEntry() {
+EffectBlink::~EffectBlink() {
     GGAF_DELETE(pScaler_);
     pTarget_ = nullptr;
 }

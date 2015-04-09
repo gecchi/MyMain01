@@ -49,6 +49,3 @@ void GgafLibProperties::load(std::string prm_properties_filename) {
     _TRACE_("GgafLibProperties::OCTREE_LEVEL=" << GgafLibProperties::OCTREE_LEVEL);
 }
 
-void GgafLibProperties::clean() {
-    GgafDxProperties::clean();
-}

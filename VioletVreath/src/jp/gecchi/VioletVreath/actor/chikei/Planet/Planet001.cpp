@@ -36,7 +36,7 @@ void Planet001::initialize() {
     setScale(1000*1000);
     setRzFaceAng(D90ANG - D_ANG(30));
     setRyFaceAng(D45ANG);
-    getKuroko()->setFaceAngVelo(AXIS_X, 500); //Ž©“]‚Ì‘¬‚³
+    getKuroko()->setRollFaceAngVelo(500); //Ž©“]‚Ì‘¬‚³
 
     pAtmosphere_->setScale(_sx);
     pAtmosphere_->positionAs(this);

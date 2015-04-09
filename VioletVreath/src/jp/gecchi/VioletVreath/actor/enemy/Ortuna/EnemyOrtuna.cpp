@@ -10,6 +10,7 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
 
+#include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -51,38 +52,42 @@ void EnemyOrtuna::processBehavior() {
              setAlpha(0);
              pKuroko->setMvVelo(0);
              pKuroko->linkFaceAngByMvAng(true);
-             pKuroko->setMvAngTwd(&hanging_pos_);
+             pKuroko->setMvAngTwd(&stagnating_pos_);
              velo mv_velo = RF_EnemyOrtuna_MvVelo(G_RANK);
-             pKuroko->setFaceAngVelo(AXIS_X, mv_velo); //‚®‚é‚®‚é`
+             pKuroko->setRollFaceAngVelo(mv_velo); //‚®‚é‚®‚é`
              setMorphWeight(0.0);
-             UTIL::activateEntryEffectOf(this);
              pProg->changeNext();
              break;
          }
          case PROG_ENTRY: {
-             if (pProg->hasArrivedAt(60)) {
-                 pAFader_->transitionLinerUntil(1.0, 60);
+             EffectBlink* pEffectEntry = nullptr;
+             if (pProg->isJustChanged()) {
+                 pEffectEntry = UTIL::activateEntryEffectOf(this);
              }
-             if (getAlpha() > 0.5) {
+             static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
+             static const frame duration_frames = pEffectEntry->duration_frames_;
+             if (_pProg->hasArrivedAt(scale_in_frames)) {
+                 pAFader_->transitionLinerUntil(1.0, duration_frames);
+             }
+             if (getAlpha() > 0.9) {
                  setHitAble(true);
                  pProg->changeNext();
              }
              break;
          }
-
          case PROG_MOVE01: {
              if (pProg->isJustChanged()) {
                  //Ü‚è•Ô‚µƒ|ƒCƒ“ƒg‚ÖGO!
                  //velo mv_velo = RF_EnemyOrtuna_MvVelo(G_RANK);
                  velo mv_velo = PX_C(20);
-                 coord d = UTIL::getDistance(this, &hanging_pos_);
+                 coord d = UTIL::getDistance(this, &stagnating_pos_);
                  pKuroko->setMvVelo(mv_velo);//¨‚¢‚æ‚­ƒ|[ƒ“‚Æ
-                 hanging_pos_frames_ = pKuroko->setMvAcceByD(d, PX_C(1));
+                 stagnating_pos_frames_ = pKuroko->setMvAcceByD(d, PX_C(1));
              }
 
-             pKuroko->setFaceAngVelo(AXIS_X, pKuroko->_velo_mv); //¨‚¢‚É”ä—á‚µ‚Ä‚®‚é‚®‚é`
+             pKuroko->setRollFaceAngVelo(pKuroko->_velo_mv); //¨‚¢‚É”ä—á‚µ‚Ä‚®‚é‚®‚é`
 
-             if (pProg->getFrame() > hanging_pos_frames_) {
+             if (pProg->getFrame() > stagnating_pos_frames_) {
                  pKuroko->setMvVelo(PX_C(1));
                  pKuroko->setMvAcce(0);
                  pProg->changeNext();

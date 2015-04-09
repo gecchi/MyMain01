@@ -107,9 +107,9 @@ public:
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe) （内部で正負がprm_angular_distanceの正負に合わせられる）
      * @param prm_endacc_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
-    void spinRxFaceAngByDtTo(angle prm_ang_rx_target, int prm_way, int prm_target_frames,
-                                     float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                                     bool prm_endacc_flg);
+    void rollFaceAngByDtTo(angle prm_ang_rx_target, int prm_way, int prm_target_frames,
+                           float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                           bool prm_endacc_flg);
 
     /**
      * 目標の軸回転方角へ滑らかに回転するシークエンスを実行(時間指定、角速度変動) .
@@ -227,7 +227,7 @@ public:
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_endacc_flg);
 
-    void spinRxFaceAngByVdTo(
+    void rollFaceAngByVdTo(
             angvelo prm_top_angvelo, angle prm_ang_rx_target, int prm_way,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_endacc_flg);

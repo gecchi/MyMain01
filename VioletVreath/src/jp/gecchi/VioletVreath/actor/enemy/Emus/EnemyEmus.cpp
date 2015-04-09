@@ -81,7 +81,7 @@ void EnemyEmus::processBehavior() {
             if (pProg->isJustChanged()) {
                 getMorpher()->transitionLinerUntil(MORPHTARGET_HATCH_OPEN,
                                            0.0f, frame_of_morph_interval_);
-                pKuroko->setFaceAngVelo(AXIS_X, 0);
+                pKuroko->setRollFaceAngVelo(0);
             }
 
             //次へ
@@ -94,7 +94,7 @@ void EnemyEmus::processBehavior() {
             if (pProg->isJustChanged()) {
                 getMorpher()->transitionLinerUntil(MORPHTARGET_HATCH_OPEN,
                                            1.0f, frame_of_morph_interval_);
-                pKuroko->setFaceAngVelo(AXIS_X, 3000);
+                pKuroko->setRollFaceAngVelo(3000);
             }
             if (pProg->hasArrivedAt(frame_of_morph_interval_/2)) {
                 //開くモーションが半分以上まで到達したなら

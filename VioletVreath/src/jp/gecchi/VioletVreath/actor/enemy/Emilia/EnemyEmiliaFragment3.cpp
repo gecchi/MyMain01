@@ -23,7 +23,7 @@ void EnemyEmiliaFragment3::initialize() {
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->makeCollision(1);
     pChecker->setColliSphere(0, PX_C(20));
-    getKuroko()->setFaceAngVelo(D_ANG(0), D_ANG(10), D_ANG(0));
+    getKuroko()->setRollPitchYawFaceAngVelo(D_ANG(0), D_ANG(0), D_ANG(10));
 }
 
 void EnemyEmiliaFragment3::onActive() {

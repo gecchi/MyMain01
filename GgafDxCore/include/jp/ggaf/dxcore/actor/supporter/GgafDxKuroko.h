@@ -66,6 +66,7 @@ public:
      */
     GgafDxKurokoAssistantC* asstC();
 
+    void reset();
 
 public: //_rx , _ry, _rz ‘€ìŠÖ˜A //////////////////////////////////////////////
     /** [r]‘ÎÛƒLƒƒƒ‰‚ÌŒü‚«(_rx, _ry, _rz)‚Ö‚ÌŽQÆ */
@@ -135,25 +136,79 @@ public:
     /**
      * Ž²‰ñ“]•ûŠp‚ÌŠp‘¬“xiŽ²‰ñ“]•ûŠp‚É–ˆƒtƒŒ[ƒ€‰ÁŽZ‚·‚é’lj‚ðÝ’è .
      * @param prm_axis_x_angvelo XŽ²‰ñ“]‚ÌŠp‘¬“x
+     * @param prm_axis_z_angvelo ZŽ²‰ñ“]‚ÌŠp‘¬“x
      * @param prm_axis_y_angvelo YŽ²‰ñ“]‚ÌŠp‘¬“x
+     */
+    void setRollPitchYawFaceAngVelo(angvelo prm_axis_x_angvelo,
+                                    angvelo prm_axis_z_angvelo,
+                                    angvelo prm_axis_y_angvelo);
+
+    /**
+     * Rolling(XŽ²‰ñ“]•ûŠp)‚ÌŠp‘¬“x‚ðÝ’è .
+     * setFaceAngVelo(AXIS_X, prm_angvelo); ‚Æ“™‰¿B
+     * @param prm_axis_x_angvelo XŽ²‰ñ“]‚ÌŠp‘¬“x
+     */
+    inline void setRollFaceAngVelo(angvelo prm_axis_x_angvelo) {
+        setFaceAngVelo(AXIS_X, prm_axis_x_angvelo);
+    }
+
+    /**
+     * Pitching(ZŽ²‰ñ“]•ûŠp)‚ÌŠp‘¬“x‚ðÝ’è .
+     * setFaceAngVelo(AXIS_Z, prm_angvelo); ‚Æ“™‰¿B
      * @param prm_axis_z_angvelo ZŽ²‰ñ“]‚ÌŠp‘¬“x
      */
-    void setFaceAngVelo(angvelo prm_axis_x_angvelo,
-                        angvelo prm_axis_y_angvelo,
-                        angvelo prm_axis_z_angvelo);
-    /**
-     * XŽ²‰ñ“]•ûŠp‚ÌŠp‘¬“xiŽ²‰ñ“]•ûŠp‚É–ˆƒtƒŒ[ƒ€‰ÁŽZ‚·‚é’lj‚ðÝ’è .
-     * @param prm_angvelo XŽ²‰ñ“]‚ÌŠp‘¬“x
-     */
-    void setSpinAngVelo(angvelo prm_angvelo) {
-        setFaceAngVelo(AXIS_X, prm_angvelo);
+    inline void setPitchFaceAngVelo(angvelo prm_axis_z_angvelo) {
+        setFaceAngVelo(AXIS_Z, prm_axis_z_angvelo);
     }
+
+    /**
+     * Yawing(YŽ²‰ñ“]•ûŠp)‚ÌŠp‘¬“x‚ðÝ’è .
+     * setFaceAngVelo(AXIS_Y, prm_angvelo); ‚Æ“™‰¿B
+     * @param prm_axis_y_angvelo YŽ²‰ñ“]‚ÌŠp‘¬“x
+     */
+    inline void setYawFaceAngVelo(angvelo prm_axis_y_angvelo) {
+        setFaceAngVelo(AXIS_Y, prm_axis_y_angvelo);
+    }
+
+
 
     void forceFaceAngVeloRange(axis prm_axis,
                                angvelo prm_angvelo01,
                                angvelo prm_angvelo02);
-
+    /**
+     * Ž²‰ñ“]•ûŠp‚ÌŠp‰Á‘¬“xiŽ²‰ñ“]•ûŠp‚ÌŠp‘¬“x‚É–ˆƒtƒŒ[ƒ€‰ÁŽZ‚·‚é’lj‚ðÝ’è .
+     * @param prm_axis ‰ñ“]Ž²iAXIS_X / AXIS_Y / AXIS_Z)
+     * @param prm_angacce Šp‰Á‘¬“x
+     */
     void setFaceAngAcce(axis prm_axis, angacce prm_angacce);
+
+    /**
+     * Rolling(XŽ²‰ñ“]•ûŠp)‚ÌŠp‰Á‘¬“x‚ðÝ’è .
+     * setFaceAngAcce(AXIS_X, prm_angacce); ‚Æ“™‰¿B
+     * @param prm_axis_x_angacce XŽ²‰ñ“]•ûŠp‚ÌŠp‰Á‘¬“x
+     */
+    inline void setRollFaceAngAcce(angvelo prm_axis_x_angacce) {
+        setFaceAngAcce(AXIS_X, prm_axis_x_angacce);
+    }
+
+    /**
+     * Pitching(ZŽ²‰ñ“]•ûŠp)‚ÌŠp‰Á‘¬“x‚ðÝ’è .
+     * setFaceAngAcce(AXIS_Z, prm_angacce); ‚Æ“™‰¿B
+     * @param prm_axis_z_angacce ZŽ²‰ñ“]•ûŠp‚ÌŠp‰Á‘¬“x
+     */
+    inline void setPitchFaceAngAcce(angvelo prm_axis_z_angacce) {
+        setFaceAngAcce(AXIS_Z, prm_axis_z_angacce);
+    }
+
+    /**
+     * Yawing(YŽ²‰ñ“]•ûŠp)‚ÌŠp‰Á‘¬“x‚ðÝ’è .
+     * setFaceAngAcce(AXIS_Y, prm_angacce); ‚Æ“™‰¿B
+     * @param prm_axis_y_angacce YŽ²‰ñ“]•ûŠp‚ÌŠp‰Á‘¬“x
+     */
+    inline void setYawFaceAngAcce(angvelo prm_axis_y_angacce) {
+        setFaceAngAcce(AXIS_Y, prm_axis_y_angacce);
+    }
+
     angle getFaceAngDistance(axis prm_axis, coord prm_tx, coord prm_ty, int prm_way);
 
     angle getFaceAngDistance(axis prm_axis, angle prm_ang_target, int prm_way);
@@ -792,7 +847,7 @@ public:
      * @param prm_way ƒ^[ƒQƒbƒg‚·‚é‚½‚ß‚ÌA‰ñ“]•ûŒüŽwŽ¦BŽŸ‚Ì‚¢‚¸‚ê‚©‚ðŽw’èB
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
-    void spinRxFaceAngTo(angle prm_ang_rx_Target,
+    void rollFaceAngTo(angle prm_ang_rx_Target,
                          angvelo prm_angvelo, angacce prm_angacce,
                          int prm_way);
 
@@ -1014,8 +1069,10 @@ public:
     void linkFaceAngByMvAng(bool prm_b) {
         _relate_RyFaceAng_with_RyMvAng_flg = prm_b;
         _relate_RzFaceAng_with_RzMvAng_flg = prm_b;
-        _pActor->_rz = _ang_rz_mv;
-        _pActor->_ry = _ang_ry_mv;
+        if (prm_b) {
+            _pActor->_rz = _ang_rz_mv;
+            _pActor->_ry = _ang_ry_mv;
+        }
     }
 
 

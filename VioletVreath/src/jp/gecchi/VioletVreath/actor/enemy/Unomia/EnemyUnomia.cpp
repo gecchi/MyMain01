@@ -33,7 +33,7 @@ void EnemyUnomia::onCreateModel() {
 void EnemyUnomia::initialize() {
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->linkFaceAngByMvAng(true);
-    pKuroko->setFaceAngVelo(AXIS_X, -4000);
+    pKuroko->setRollFaceAngVelo(-4000);
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->makeCollision(1);
     pChecker->setColliAAB_Cube(0, 40000);

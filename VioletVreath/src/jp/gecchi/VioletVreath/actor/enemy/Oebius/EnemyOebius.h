@@ -39,6 +39,7 @@ public:
     bool scatter_flg_;
 
     frame delay_;
+
 public:
     /**
      * コンストラクタ

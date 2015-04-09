@@ -146,7 +146,6 @@ public:
 
 public:
     static void load(std::string prm_properties_filename); //shadows
-    static void clean();                                   //shadows
 };
 
 }

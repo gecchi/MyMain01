@@ -98,6 +98,8 @@ public:
     frame _frame_of_life_when_activation;
     /** [r]活動終了する予定の _frame_of_life */
     frame _frame_of_life_when_inactivation;
+    /** [r]活動状態変更時のフラグ。0:コールバックなし / 1:onInactive()成立時 / 2:onActive()成立時 */
+    int _on_change_to;
     /** [r]カレントフレーム内で一度でもリセットが実行されればtrue。毎フレーム false に更新される */
     bool _is_already_reset;
     /** [r]状態進捗管理オブジェクト */
@@ -708,8 +710,8 @@ public:
      * 他のノードの状態変化を知りたい時のために、本メソッドを準備しました。<BR>
      * @return  bool true:非活動から活動状態切り替わった／false:切り替わっていない
      */
-    inline bool onChangeToActive() const {
-        return (_can_live_flg && _frame_of_life == _frame_of_life_when_activation) ? true : false;
+    inline bool isJustChangedToActive() const {
+        return _on_change_to == 2 ? true : false;
     }
 
     /**
@@ -719,8 +721,8 @@ public:
      * 他のノードの状態変化を知りたい時のために、本メソッドを準備しました。<BR>
      * @return  bool true:活動状態から非活動に切り替わった／false:切り替わっていない
      */
-    inline bool onChangeToInactive() const {
-        return (_can_live_flg && _frame_of_life == _frame_of_life_when_inactivation && _frame_of_life_when_inactivation > 0) ? true : false;
+    inline bool isJustChangedToInactive() const {
+        return _on_change_to == 1 ? true : false;
     }
 
     /**
@@ -919,16 +921,16 @@ void GgafElement<T>::nextFrame() {
         if (_frame_of_life == _frame_of_life_when_end) {
             _can_live_flg = false; //終了の時だ
         } else {
-            int on_change_to = 0;
+            _on_change_to = 0;
             if (_is_active_flg) {  //現在activate
                 if (_frame_of_life == _frame_of_life_when_inactivation) { //現在 activate だが、今inactivateになる時が来た
                     _is_active_flg = false; //活動フラグOFF
-                    on_change_to = 1;       //onInactive確定
+                    _on_change_to = 1;       //onInactive確定
                 }
             } else { //現在inactivate
                 if(_frame_of_life == _frame_of_life_when_activation) { //現在inactivate だが、今activateになる時が来た
                     _is_active_flg = true;  //活動フラグON
-                    on_change_to = 2;       //onActive処理
+                    _on_change_to = 2;       //onActive処理
                 }
             }
             _is_already_reset = false;
@@ -944,11 +946,11 @@ void GgafElement<T>::nextFrame() {
                 _frame_of_behaving_since_onActive++;
             }
 
-            if (on_change_to == 0) {
+            if (_on_change_to == 0) {
                 //コールバック特になし
-            } else if (on_change_to == 1) { //onInactive処理
+            } else if (_on_change_to == 1) { //onInactive処理
                 onInactive(); //コールバック
-            } else if (on_change_to == 2) { //onActive処理
+            } else if (_on_change_to == 2) { //onActive処理
                 if (!_was_initialize_flg) {
                     initialize();       //初期化
                     _was_initialize_flg = true;

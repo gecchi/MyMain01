@@ -48,7 +48,7 @@ void EnemyTamago01::initialize() {
     setHitAble(true);
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->linkFaceAngByMvAng(true);
-    pKuroko->setFaceAngVelo(AXIS_X, 1000);
+    pKuroko->setRollFaceAngVelo(1000);
     pKuroko->setMvAngTwd(900000, 300000, 300000);
     pKuroko->setMvVelo(3000);
     CollisionChecker3D* pChecker = getCollisionChecker();

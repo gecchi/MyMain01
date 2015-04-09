@@ -38,9 +38,10 @@ public:
     /** [r]出現座標(フォーメーションオブジェクトが設定) */
     GgafDxCore::GgafDxGeoElem entry_pos_;
     /** [r]ウロウロする座標(フォーメーションオブジェクトが設定) */
-    GgafDxCore::GgafDxGeoElem hanging_pos_;
+    GgafDxCore::GgafDxGeoElem stagnating_pos_;
     /** [r]退出座標(フォーメーションオブジェクトが設定) */
     GgafDxCore::GgafDxGeoElem leave_pos_;
+
 public:
     /**
      * コンストラクタ

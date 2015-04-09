@@ -6,12 +6,13 @@
 namespace VioletVreath {
 
 /**
- * 登場エフェクト基底 .
+ * またたきエフェクト基底 .
+ * 入退場時のエフェクトなどを想定。
  * @version 1.00
  * @since 2013/06/28
  * @author Masatoshi Tsuge
  */
-class EffectEntry : public GgafLib::DefaultMeshSetActor {
+class EffectBlink : public GgafLib::DefaultMeshSetActor {
 
 public:
     enum {
@@ -39,7 +40,7 @@ public:
      * @param prm_name 識別名
      * @param prm_model モデルID
      */
-    EffectEntry(const char* prm_name, const char* prm_model);
+    EffectBlink(const char* prm_name, const char* prm_model);
 
     virtual void onInactive() override;
 
@@ -50,13 +51,8 @@ public:
     virtual void processJudgement() override;
 
     /**
-     * エフェクトの座標を引数のアクターと同じ座標に継続させる .
-     * @param prm_pTarget エフェクトの座標になるアクター
-     */
-    void positionFollow(const GgafDxCore::GgafDxGeometricActor* prm_pTarget);
-
-    /**
-     * エフェクトの発生、持続、消滅の時間を設定。.
+     * またたかせる .
+     * エフェクトの発生、持続、消滅を行う。
      * </PRE>
      *       ＿＿＿＿               ← Top スケール
      *      /:      :＼
@@ -70,13 +66,22 @@ public:
      *
      * </PRE>
      * Top スケール,Bottom スケールは pScaler_->forceRange(TOP,BOTTOM) で上書き設定可能。
-     * @param prm_scale_in_frames 上記①のフレーム数 (1～)
-     * @param prm_duration_frames 上記②のフレーム数 (0～)
-     * @param prm_scale_out_frames 上記③のフレーム数 (1～)
+     * @param prm_scale_in_frames 発生時間、上記①のフレーム数 (1～)
+     * @param prm_duration_frames 持続時間、上記②のフレーム数 (0～)
+     * @param prm_scale_out_frames 消滅時間、上記③のフレーム数 (1～)
+     * @param prm_pFollowTarget エフェクト座標を引数のアクターと同じ座標に同期をとる(追従させる)。 不要の場合は nullptr .
      */
-    void config(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames);
+    void blink(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames,
+               const GgafDxCore::GgafDxGeometricActor* prm_pFollowTarget);
 
-    virtual ~EffectEntry();
+    /**
+     * またたきフレームを取得 .
+     */
+    frame getBlinkFrames() {
+        return (scale_in_frames_+duration_frames_+scale_out_frames_);
+    }
+
+    virtual ~EffectBlink();
 };
 
 }

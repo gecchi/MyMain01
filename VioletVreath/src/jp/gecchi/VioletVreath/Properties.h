@@ -63,7 +63,6 @@ public:
 
 public:
     static void load(std::string prm_ini_filename); //shadows
-    static void clean();                            //shadows
 };
 
 }

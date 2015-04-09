@@ -138,7 +138,7 @@ void MyOption::onReset() {
     _y = ANG_SIN(angPosition_)*radiusPosition_; //X軸の正の方向を向いて時計回りに配置
                                                 //ワールド変換の（左手法）のX軸回転とはと逆の回転なので注意
     _x = 0;
-    pKuroko->setFaceAngVelo(AXIS_X, 4000);
+    pKuroko->setRollFaceAngVelo(4000);
     //ローカル座標系を、(x_org_,y_org_,z_org_) へ退避
     x_org_ = _x;
     y_org_ = _y;

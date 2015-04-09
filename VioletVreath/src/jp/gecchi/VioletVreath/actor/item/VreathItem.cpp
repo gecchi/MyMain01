@@ -23,7 +23,7 @@ VreathItem::VreathItem(const char* prm_name, const char* prm_model, GgafCore::Gg
     setZWriteEnable(false);  //Zバッファは書き込み無し
     setAlpha(0.9);
     GgafDxKuroko* const pKuroko = getKuroko();
-    pKuroko->setFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
+    pKuroko->setRollPitchYawFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
     pKuroko->linkFaceAngByMvAng(true);
     kDX_ = kDY_ = kDZ_ = 0;
     useProgress(PROG_BANPEI);

@@ -35,7 +35,7 @@ void Shot002::onActive() {
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->linkFaceAngByMvAng(true);
     pKuroko->setMvVelo(RF_Shot002_MvVelo(G_RANK));
-    pKuroko->setFaceAngVelo(AXIS_X, RF_Shot002_AngVelo(G_RANK));
+    pKuroko->setRollFaceAngVelo(RF_Shot002_AngVelo(G_RANK));
 }
 
 void Shot002::processBehavior() {

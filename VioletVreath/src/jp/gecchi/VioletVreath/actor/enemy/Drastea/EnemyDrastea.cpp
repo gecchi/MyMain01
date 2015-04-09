@@ -79,7 +79,7 @@ void EnemyDrastea::onActive() {
     getStatus()->reset();
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvVelo(0);
-    pKuroko->setFaceAngVelo(700, 300, 1100);
+    pKuroko->setRollPitchYawFaceAngVelo(700, 1100, 300);
     pAxsMver_->setVxMvVelo(-3000);
     const coord appearances_renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 3;
     const coord appearances_renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 3;

@@ -97,7 +97,7 @@ void MyOptionStraightLaserChip001::processBehavior() {
     StraightLaserChip::processBehavior();//座標を移動させてから呼び出すこと
     //根元からレーザー表示のため強敵に座標補正
     //根元からレーザー表示のため強制的に座標補正
-    if (onChangeToActive()) {
+    if (isJustChangedToActive()) {
         positionAs(pOrg_);
 //        _tmpX = _x;
 //        _tmpY = _y;

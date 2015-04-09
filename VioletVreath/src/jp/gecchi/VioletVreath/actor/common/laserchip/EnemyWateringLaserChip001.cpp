@@ -33,7 +33,7 @@ void EnemyWateringLaserChip001::onActive() {
 }
 
 void EnemyWateringLaserChip001::processBehavior() {
-    if (onChangeToActive()) {
+    if (isJustChangedToActive()) {
         //アクティブになった瞬間は、
         //利用元アクターが指定した最初の座標で表示したい。
         //黒衣の活動を行うと、ずれるので、最初だけはそのままの座標で表示。
