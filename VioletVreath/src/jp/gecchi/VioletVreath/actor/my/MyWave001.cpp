@@ -52,7 +52,7 @@ void MyWave001::initialize() {
 
 void MyWave001::processBehavior() {
     GgafDxKuroko* const pKuroko = getKuroko();
-    if (isJustChangedToActive()) {
+    if (hasJustChangedToActive()) {
         //oŒ»Žž‹¤’Êˆ—
         setScale(1000);
         pScaler_->transitionLinerStep(100000,100);

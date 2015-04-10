@@ -54,14 +54,14 @@ void EnemyDuna::processBehavior() {
     //‰ÁŽZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ðŒ¸­
     UTIL::updateEnemyRankPoint(this);
 
-//    if (pProg->isJustChanged()) {
+//    if (pProg->hasJustChanged()) {
 //        _TRACE_("EnemyDuna::"<<pProg->getFromProgOnChange()<<"¨"<<pProg->get()<<"");
 //    }
 
     MyShip* pMyShip = P_MYSHIP;
     GgafDxKuroko* const pKuroko = getKuroko();
     GgafProgress* const pProg = getProgress();
-    if (pProg->isJustChanged()) {
+    if (pProg->hasJustChanged()) {
         pAxsMver_->execGravitationMvSequenceTwd(pMyShip, PX_C(3), 30, PX_C(1));
     }
 
@@ -83,7 +83,7 @@ void EnemyDuna::processBehavior() {
         }
          case PROG_ENTRY_EFFECT: {
              EffectBlink* pEffectEntry = nullptr;
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  pEffectEntry = UTIL::activateEntryEffectOf(this);
              }
              static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
@@ -98,7 +98,7 @@ void EnemyDuna::processBehavior() {
              break;
          }
          case PROG_ENTRY_MOVE01: {
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
              }
              _x -= PX_C(10);
              if (_x < pMyShip->_x + PX_C(1000)) {
@@ -107,7 +107,7 @@ void EnemyDuna::processBehavior() {
              break;
          }
          case PROG_ENTRY_MOVE02: {
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  pKuroko->turnRzRyMvAngTo(0, D180ANG, D_ANG(5), 0, TURN_CLOSE_TO, false);
                  pKuroko->turnRzRyFaceAngTo(0, D180ANG, D_ANG(5), 0, TURN_CLOSE_TO, false);
              }
@@ -159,7 +159,7 @@ void EnemyDuna::processBehavior() {
          //  ‡G EEE PROG_MOVE_REV_SMALL_SEMIARC_CCW        •ûŒü”½“]A¬‰~ŒÊˆÚ“®A”¼ŽžŒv‰ñ‚è
 
          case PROG_MOVE_ORDER_LARGE_SEMIARC_CW: {  //‡@
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  pKuroko->turnRzMvAngTo(pKuroko->_ang_rz_mv - SEMIARC_ANG,
                                         LARGE_SEMIARC_ANGVELO, 0, TURN_CLOCKWISE);
              }
@@ -180,7 +180,7 @@ void EnemyDuna::processBehavior() {
          }
 
          case PROG_MOVE_ORDER_LARGE_SEMIARC_CCW: { //‡A
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  //‰~ŒÊˆÚ“®
                  pKuroko->turnRzMvAngTo(pKuroko->_ang_rz_mv + SEMIARC_ANG,
                                         LARGE_SEMIARC_ANGVELO, 0, TURN_COUNTERCLOCKWISE);
@@ -201,7 +201,7 @@ void EnemyDuna::processBehavior() {
              break;
          }
          case PROG_MOVE_REV_LARGE_SEMIARC_CW: {  //‡B
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  //‚Ü‚¸ŠJŽnó‘Ô‚Ì^— •ûŒü‚ÉŒü‚­
                  pKuroko->turnRzMvAngTo(pKuroko->_ang_rz_mv - D180ANG,
                                         REV_TURN_ANGVELO, 0, TURN_CLOSE_TO);
@@ -229,7 +229,7 @@ void EnemyDuna::processBehavior() {
              break;
          }
          case PROG_MOVE_REV_LARGE_SEMIARC_CCW: {  //‡C
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  //‚Ü‚¸ŠJŽnó‘Ô‚Ì^— •ûŒü‚ÉŒü‚­
                  pKuroko->turnRzMvAngTo(pKuroko->_ang_rz_mv + D180ANG,
                                         REV_TURN_ANGVELO, 0, TURN_CLOSE_TO);
@@ -263,7 +263,7 @@ void EnemyDuna::processBehavior() {
 
 
          case PROG_MOVE_ORDER_SMALL_SEMIARC_CW: {  //‡D
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  pKuroko->turnRzMvAngTo(pKuroko->_ang_rz_mv - SEMIARC_ANG,
                                         SMALL_SEMIARC_ANGVELO, 0, TURN_CLOCKWISE);
              }
@@ -284,7 +284,7 @@ void EnemyDuna::processBehavior() {
          }
 
          case PROG_MOVE_ORDER_SMALL_SEMIARC_CCW: { //‡E
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  //‰~ŒÊˆÚ“®
                  pKuroko->turnRzMvAngTo(pKuroko->_ang_rz_mv + SEMIARC_ANG,
                                         SMALL_SEMIARC_ANGVELO, 0, TURN_COUNTERCLOCKWISE);
@@ -305,7 +305,7 @@ void EnemyDuna::processBehavior() {
              break;
          }
          case PROG_MOVE_REV_SMALL_SEMIARC_CW: {  //‡F
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  //‚Ü‚¸ŠJŽnó‘Ô‚Ì^— •ûŒü‚ÉŒü‚­
                  pKuroko->turnRzMvAngTo(pKuroko->_ang_rz_mv - D180ANG,
                                         REV_TURN_ANGVELO, 0, TURN_CLOSE_TO);
@@ -333,7 +333,7 @@ void EnemyDuna::processBehavior() {
              break;
          }
          case PROG_MOVE_REV_SMALL_SEMIARC_CCW: {  //‡G
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  //‚Ü‚¸ŠJŽnó‘Ô‚Ì^— •ûŒü‚ÉŒü‚­
                  pKuroko->turnRzMvAngTo(pKuroko->_ang_rz_mv + D180ANG,
                                         REV_TURN_ANGVELO, 0, TURN_CLOSE_TO);
@@ -380,7 +380,7 @@ void EnemyDuna::processJudgement() {
 }
 
 void EnemyDuna::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //”j‰ó‚³‚ê‚½Žž(ƒXƒ^ƒ~ƒi <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

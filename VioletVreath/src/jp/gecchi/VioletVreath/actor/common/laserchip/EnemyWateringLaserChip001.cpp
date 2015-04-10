@@ -33,7 +33,7 @@ void EnemyWateringLaserChip001::onActive() {
 }
 
 void EnemyWateringLaserChip001::processBehavior() {
-    if (isJustChangedToActive()) {
+    if (hasJustChangedToActive()) {
         //アクティブになった瞬間は、
         //利用元アクターが指定した最初の座標で表示したい。
         //黒衣の活動を行うと、ずれるので、最初だけはそのままの座標で表示。
@@ -52,7 +52,7 @@ void EnemyWateringLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
         return;
     }
 
-    const bool was_destroyed = UTIL::transactEnemyHit(this, pOther);
+    bool was_destroyed = UTIL::transactEnemyHit(this, pOther);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         sayonara();

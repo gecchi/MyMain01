@@ -66,9 +66,9 @@ void Zako::processBehavior() {
         }
 
         case PROG_SPLINE: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 getKuroko()->setMvAcce(0); //加速度がある場合は切っておく
-                pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION, 1);
+                pKurokoLeader_->start(RELATIVE_COORD_DIRECTION, 1);
             }
             pKurokoLeader_->behave(); //スプライン移動を振る舞い
 
@@ -79,7 +79,7 @@ void Zako::processBehavior() {
         }
 
         case PROG_LEAVE: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 sayonara();
             }
             break;

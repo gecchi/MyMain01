@@ -94,7 +94,7 @@ void EnemyHalia::processBehavior() {
         }
         case PROG_ENTRY: {  //“oê
             EffectBlink* pEffectEntry = nullptr;
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pEffectEntry = UTIL::activateEntryEffectOf(this);
             }
             static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
@@ -109,7 +109,7 @@ void EnemyHalia::processBehavior() {
             break;
         }
         case PROG_FIRST_MOVE: { //‰‰ñˆÚ“®
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pKuroko->setRzRyMvAng(0, 0);
                 pKuroko->asstA()->slideMvByVd(veloTopMv_, PX_C(1000),
                                               0.4, 0.6, 0, true);
@@ -121,7 +121,7 @@ void EnemyHalia::processBehavior() {
             break;
         }
         case PROG_MOVE: {  //‚Q‰ñˆÈ~‚ÌˆÚ“®
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pKuroko->asstA()->slideMvByVd(veloTopMv_, PX_C(1000),
                                               0.4, 0.6, 0, true);
                 pKuroko->setRollFaceAngVelo(D_ANG(1));
@@ -132,7 +132,7 @@ void EnemyHalia::processBehavior() {
             break;
         }
         case PROG_TURN_OPEN: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pKuroko->turnMvAngTwd(P_MYSHIP,
                                       0, 100,
                                       TURN_CLOSE_TO, false);
@@ -195,7 +195,7 @@ void EnemyHalia::processJudgement() {
 
 void EnemyHalia::onHit(const GgafActor* prm_pOtherActor) {
     if (getMorphWeight(1) > 0.3) { //Œû‚ª‹ó‚¢‚Ä‚½‚ç
-        const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+        bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
         if (was_destroyed) {
             //”j‰ó‚³‚ê‚½Žž(ƒXƒ^ƒ~ƒi <= 0)
             getSeTx()->play3D(SE_EXPLOSION);

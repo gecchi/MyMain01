@@ -100,30 +100,30 @@ void MenuBoardPause::processBehavior() {
     int selected = getSelectedIndex();
     if (selected == ITEM_QUIT_GAME) { //自身のメニューが"ITEM_QUIT"を指している場合
         MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(MENU_CONFIRM);
-        if (pSubConfirm->isJustDecidedOk()) {
+        if (pSubConfirm->hasJustDecidedOk()) {
             PostQuitMessage(0);
-        } else if (pSubConfirm->isJustDecidedCancel()) {
+        } else if (pSubConfirm->hasJustDecidedCancel()) {
             sinkCurrentSubMenu();
         }
     }
 
     if (selected == ITEM_REBOOT) { //自身のメニューが"ITEM_REBOOT"を指している場合
         MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(MENU_CONFIRM);
-        if (pSubConfirm->isJustDecidedOk()) {
+        if (pSubConfirm->hasJustDecidedOk()) {
             God::reboot(); //再起動！
-        } else if (pSubConfirm->isJustDecidedCancel()) {
+        } else if (pSubConfirm->hasJustDecidedCancel()) {
             sinkCurrentSubMenu();
         }
     }
 
     if (selected == ITEM_GO_TO_TITLE) {
         MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(MENU_CONFIRM);
-        if (pSubConfirm->isJustDecidedOk()) {
+        if (pSubConfirm->hasJustDecidedOk()) {
             sinkCurrentSubMenu();
             sinkMe();
             _TRACE_("MenuBoardPause::processBehavior() throwEventUpperTree(EVENT_GO_TO_TITLE)");
             throwEventUpperTree(EVENT_GO_TO_TITLE);
-        } else if (pSubConfirm->isJustDecidedCancel()) {
+        } else if (pSubConfirm->hasJustDecidedCancel()) {
             sinkCurrentSubMenu();
         }
     }

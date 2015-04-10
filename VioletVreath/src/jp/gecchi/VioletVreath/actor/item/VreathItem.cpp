@@ -91,7 +91,7 @@ void VreathItem::processBehavior() {
     //自機と当たり判定がヒットし、自機に向かう動き
     if (pProg->get() == PROG_ATTACH) {
         MyShip* pMyShip = P_MYSHIP;
-        if (pProg->isJustChanged()) {
+        if (pProg->hasJustChanged()) {
             //自機に引力で引き寄せられるような動き設定
             pAxsMver_->setVxyzMvVelo(pKuroko->_vX * pKuroko->_velo_mv,
                                      pKuroko->_vY * pKuroko->_velo_mv,
@@ -116,7 +116,7 @@ void VreathItem::processBehavior() {
     //自機近辺に到達し、吸着、吸収中の動き
     if (pProg->get() == PROG_ABSORB) {
         MyShip* pMyShip = P_MYSHIP;
-        if (pProg->isJustChanged()) {
+        if (pProg->hasJustChanged()) {
             pAxsMver_->setZeroVxyzMvVelo();
             pAxsMver_->setZeroVxyzMvAcce();
             pAxsMver_->stopGravitationMvSequence();

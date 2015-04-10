@@ -59,16 +59,16 @@ void MenuBoardConfirm::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int 
 void MenuBoardConfirm::onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
 }
 
-bool MenuBoardConfirm::isJustDecidedOk() {
-    if (isJustDecided() && getSelectedIndex() == ITEM_OK) {
+bool MenuBoardConfirm::hasJustDecidedOk() {
+    if (hasJustDecided() && getSelectedIndex() == ITEM_OK) {
         return true;
     } else {
         return false;
     }
 }
 
-bool MenuBoardConfirm::isJustDecidedCancel() {
-    if (isJustDecided() && getSelectedIndex() == ITEM_CANCEL) {
+bool MenuBoardConfirm::hasJustDecidedCancel() {
+    if (hasJustDecided() && getSelectedIndex() == ITEM_CANCEL) {
         return true;
     } else {
         return false;

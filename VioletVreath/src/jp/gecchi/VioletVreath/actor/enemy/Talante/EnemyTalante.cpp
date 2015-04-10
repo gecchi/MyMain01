@@ -69,7 +69,7 @@ void EnemyTalante::processBehavior() {
 
         case PROG_MOVE01_1: {
             //ちょっとそのまま真っ直ぐ進む
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
             }
             if (pProg->getFrame() > 60) {
                 pProg->changeNext(); //次の動きへ
@@ -78,7 +78,7 @@ void EnemyTalante::processBehavior() {
         }
 
         case PROG_MOVE01_2: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
             }
             if (Z_ok_ == false && pMyShip->_z - PX_C(5) <= _z && _z <= pMyShip->_z + PX_C(5)) {
                 //Z座標揃った
@@ -123,7 +123,7 @@ void EnemyTalante::processBehavior() {
         }
 
         case PROG_MOVE01_3: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 //X軸方向に動く
                 if (pMyShip->_x <= _x) {
                     //左へ折れる
@@ -142,7 +142,7 @@ void EnemyTalante::processBehavior() {
         }
 
         case PROG_MOVE01_4: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pKuroko->setMvAcce(300);//加速開始
             }
             break;
@@ -167,7 +167,7 @@ void EnemyTalante::onHit(const GgafActor* prm_pOtherActor) {
          return;
     }
 
-    const bool was_destroyed = UTIL::transactEnemyHit(this, pOther);
+    bool was_destroyed = UTIL::transactEnemyHit(this, pOther);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

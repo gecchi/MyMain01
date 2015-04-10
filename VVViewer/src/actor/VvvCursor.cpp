@@ -61,7 +61,7 @@ void VvvCursor::processBehavior() {
 
     _pUvFlipper->behave();
     getKuroko()->behave();
-    if (getKuroko()->asstA()->isJustFinishSlidingMv()) {
+    if (getKuroko()->asstA()->hasJustFinishedSlidingMv()) {
         //—‘zˆÊ’u‚É•â³
         _x = tx_;
         _y = ty_;

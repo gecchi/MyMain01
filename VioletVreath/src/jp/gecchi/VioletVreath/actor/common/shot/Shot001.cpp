@@ -43,7 +43,7 @@ void Shot001::onActive() {
     pKuroko->linkFaceAngByMvAng(true);
     pKuroko->setMvVelo(RF_Shot001_MvVelo(G_RANK));    //移動速度
     pKuroko->setRollFaceAngVelo(RF_Shot001_AngVelo(G_RANK)); //きりもみ具合
-    pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION);
+    pKurokoLeader_->start(RELATIVE_COORD_DIRECTION);
     pScaler_->beat(30,5,0,2,-1);
 //    _TRACE_("Shot001::onActive() id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<getKuroko()->_ang_rz_mv<<"\t"<<getKuroko()->_ang_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
 }
@@ -67,7 +67,7 @@ void Shot001::processJudgement() {
 }
 
 void Shot001::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(0);

@@ -51,7 +51,7 @@ void EnemyErmioneArm::processBehavior() {
             break;
         }
         case PROG_WAITING: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 //本体からFKとして追加された直後は、一度processSettlementBehavior()が実行されないと
                 //座標反映されない、したがって。１フレーム後のPROG_WAITINGでエントリエフェ実行行う事
                 UTIL::activateEntryEffectOf(this);
@@ -60,7 +60,7 @@ void EnemyErmioneArm::processBehavior() {
         }
 
         case PROG_NOTHING: {
-            if (pProg->isJustChanged() ) {
+            if (pProg->hasJustChanged() ) {
                 behave_frames_ = RND(1, 10);
             }
             if (pProg->hasArrivedAt(behave_frames_)) {
@@ -70,7 +70,7 @@ void EnemyErmioneArm::processBehavior() {
         }
 
         case PROG_AIMING: {
-            if (pProg->isJustChanged() ) {
+            if (pProg->hasJustChanged() ) {
                 if (aiming_movable_limit_ang_ > 0) {
                     //自機へ方向を向ける
                     //考え方：ローカル座標系で予めどの方向に向いておけば、最終的に自機に向くことになるかを求める

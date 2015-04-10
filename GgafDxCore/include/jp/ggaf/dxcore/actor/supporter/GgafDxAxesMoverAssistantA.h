@@ -290,7 +290,7 @@ public:
      * なめらかな移動シークエンス終了直後か否か。
      * @return
      */
-    bool isJustFinishSlidingMv() {
+    bool hasJustFinishedSlidingMv() {
         if (isSlidingMv()) {
             return false;
         } else {

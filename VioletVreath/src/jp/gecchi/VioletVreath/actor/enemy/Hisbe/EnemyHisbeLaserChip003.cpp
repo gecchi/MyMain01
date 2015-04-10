@@ -37,7 +37,7 @@ void EnemyHisbeLaserChip003::onActive() {
     WateringLaserChip::onActive();
     //ステータスリセット
     getStatus()->reset();
-    pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION); //向てる方向にスプライン座標をワールド変換
+    pKurokoLeader_->start(RELATIVE_COORD_DIRECTION); //向てる方向にスプライン座標をワールド変換
     sp_index_ = 0;
     pScrollingScene_ = ((DefaultScene*)getPlatformScene())->getNearestScrollingScene();
 }
@@ -75,7 +75,7 @@ void EnemyHisbeLaserChip003::processJudgement() {
 }
 
 void EnemyHisbeLaserChip003::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         sayonara();

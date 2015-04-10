@@ -123,7 +123,7 @@ void EnemyOmulus::processBehavior() {
             break;
         }
         case PROG_HATCH_CLOSE: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 getMorpher()->transitionLinerUntil(MORPHTARGET_HATCH_OPEN,
                                                 0.0f, frame_of_morph_interval_);
                 pKuroko->setRollFaceAngVelo(-3000);
@@ -136,7 +136,7 @@ void EnemyOmulus::processBehavior() {
             break;
         }
         case PROG_HATCH_OPEN: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 getMorpher()->transitionLinerUntil(MORPHTARGET_HATCH_OPEN,
                                            1.0f, frame_of_morph_interval_);
                 pKuroko->setRollFaceAngVelo(0);
@@ -239,7 +239,7 @@ void EnemyOmulus::processJudgement() {
 }
 
 void EnemyOmulus::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

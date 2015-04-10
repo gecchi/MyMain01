@@ -196,7 +196,7 @@ void MenuBoardNameEntry::processBehavior() {
     MenuBoard::processBehavior();
     if (getSelectedIndex() == ITEM_INDEX_OK_) {
         StringBoardMenu* pMenuConfirm = getSubMenu(0);
-        if (pMenuConfirm->isJustDecided()) { //サブメニューで「決定（振る舞い）」の時
+        if (pMenuConfirm->hasJustDecided()) { //サブメニューで「決定（振る舞い）」の時
             if (pMenuConfirm->getSelectedIndex() == MenuBoardConfirm::ITEM_OK) {
                 //ネームエントリー完了OK
                 throwEventUpperTree(EVENT_MENU_NAMEENTRY_DONE);

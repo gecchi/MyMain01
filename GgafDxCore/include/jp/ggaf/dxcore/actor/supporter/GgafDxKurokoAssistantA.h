@@ -114,7 +114,7 @@ public:
         _smthMv._prm._flg = false;
     }
 
-    bool isJustFinishSlidingMv() {
+    bool hasJustFinishedSlidingMv() {
         if (_smthMv._prm._flg == false && _smthMv._prm._progress != -1) {
             return true;
         } else {

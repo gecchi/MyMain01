@@ -59,7 +59,7 @@ void FormationUrydike::processBehavior() {
             break;
         }
         case PROG_READY_MEMBER: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 for (int i = 0; i < num_Urydike_; i++) {
                     orderActorToFactory(i, EnemyUrydike, "EnemyUrydike");
                 }
@@ -73,7 +73,7 @@ void FormationUrydike::processBehavior() {
             break;
         }
         case PROG_CALL_UP: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
 
             }
             if (canCallUp()) {
@@ -102,7 +102,7 @@ void FormationUrydike::processBehavior() {
             break;
         }
         case PROG_WAIT: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
             }
             break;
         }

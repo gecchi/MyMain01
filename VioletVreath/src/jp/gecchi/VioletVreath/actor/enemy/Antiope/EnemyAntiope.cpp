@@ -58,7 +58,7 @@ void EnemyAntiope::processBehavior() {
          }
          case PROG_ENTRY: {
              EffectBlink* pEffectEntry = nullptr;
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  pEffectEntry = UTIL::activateEntryEffectOf(this);
              }
              static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
@@ -74,7 +74,7 @@ void EnemyAntiope::processBehavior() {
          }
 
          case PROG_MOVE01: { //放物線のような動き
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  pKuroko->setMvVelo(PX_C(30));
                  pKuroko->setMvAcce(-1000);
                  //平行移動速度の方向ベクトル mv_velo_twd_ はフォーメーションが設定
@@ -100,7 +100,7 @@ void EnemyAntiope::processBehavior() {
          }
 
          case PROG_LEAVE: {
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  UTIL::activateLeaveEffectOf(this);
                  pAFader_->transitionLinerUntil(0.0, 15);
              }
@@ -113,7 +113,7 @@ void EnemyAntiope::processBehavior() {
 
          case PROG_RUSH: {
              //相方がいなくなった場合
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  pAxsMver_->execGravitationMvSequenceTwd(P_MYSHIP, PX_C(30), 200, PX_C(50));
                  pKuroko->keepOnTurningFaceAngTwd(P_MYSHIP, D_ANG(2), 0, TURN_CLOSE_TO, false);
              }
@@ -139,7 +139,7 @@ void EnemyAntiope::processJudgement() {
 }
 
 void EnemyAntiope::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

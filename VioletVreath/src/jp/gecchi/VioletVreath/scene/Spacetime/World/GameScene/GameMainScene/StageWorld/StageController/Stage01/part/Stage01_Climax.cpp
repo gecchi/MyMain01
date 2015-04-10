@@ -48,7 +48,7 @@ void Stage01_Climax::processBehavior() {
     }
 
     if (getBehaveingFrame() > 60) {
-        if (pBoss_->isJustChangedToInactive()) {
+        if (pBoss_->hasJustChangedToInactive()) {
             getBGMer()->fadeout_stop(0);
             _TRACE_("Stage01_Climax::processBehavior() EVENT_STG01_CLIMAX_WAS_BROKEN!!!!");
             throwEventUpperTree(EVENT_STG01_CLIMAX_WAS_BROKEN);

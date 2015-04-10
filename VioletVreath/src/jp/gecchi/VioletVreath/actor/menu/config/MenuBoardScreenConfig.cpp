@@ -376,7 +376,7 @@ void MenuBoardScreenConfig::processBehavior() {
     //OK時の確認メニュー判定
     if (selected_index == ITEM_OK || selected_index == ITEM_OK_REBOOT) {
         MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
-        if (pSubConfirm->isJustDecidedOk()) { //SAVE確認OK!
+        if (pSubConfirm->hasJustDecidedOk()) { //SAVE確認OK!
             //現プロパティへ書き込み
             if (getSelectedIndexOnSupCursor(SUPCUR_FULL_SCREEN) == ITEM_FULL_SCREEN) {
                 PROPERTY::setValue("FULL_SCREEN", true);
@@ -460,7 +460,7 @@ void MenuBoardScreenConfig::processBehavior() {
                 sinkCurrentSubMenu();
                 sinkMe();
             }
-        } else if (pSubConfirm->isJustDecidedCancel()) { //確認でキャンセル
+        } else if (pSubConfirm->hasJustDecidedCancel()) { //確認でキャンセル
             sinkCurrentSubMenu();
         } else {
 

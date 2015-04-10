@@ -74,7 +74,7 @@ void EnemyGlajaLance001::processBehavior() {
             break;
         }
         case PROG_MOVE01: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
 
             }
             if (pProg->hasArrivedAt(120)) {
@@ -83,7 +83,7 @@ void EnemyGlajaLance001::processBehavior() {
             break;
         }
         case PROG_AIM_ANIME01: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 //シャキーンと槍になる！（伸びる！）
                 pKuroko->stopMv();
                 pKuroko->setRollPitchYawFaceAngVelo(0, 0, 0);
@@ -102,7 +102,7 @@ void EnemyGlajaLance001::processBehavior() {
              break;
         }
         case PROG_AIM_ANIME02: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 //自機にグルンと向く
                 pKuroko->asstB()->turnFaceAngByDtTwd(pMyShip, TURN_ANTICLOSE_TO, false,
                                                         60, 0.2, 0.4, 0, true );
@@ -113,7 +113,7 @@ void EnemyGlajaLance001::processBehavior() {
             break;
         }
         case PROG_MOVE02: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pKuroko->setMvAngByFaceAng(); //今向いてる方向にこれから移動する
                 pKuroko->setMvVelo(-PX_C(3)); //ちょっとバックして貯めを表現
                 pKuroko->setRollFaceAngVelo(D_ANG(1)); //スピンスピン
@@ -125,7 +125,7 @@ void EnemyGlajaLance001::processBehavior() {
             break;
         }
         case PROG_MOVE03: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 //ズキューーンと移動
                 pKuroko->setMvVelo(PX_C(50));
             }
@@ -134,7 +134,7 @@ void EnemyGlajaLance001::processBehavior() {
         }
 
         case PROG_LEAVE: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 //HIT後消えるまで
             }
             addAlpha(-1.0/90.0); //sayonara(90);だから
@@ -158,7 +158,7 @@ void EnemyGlajaLance001::processJudgement() {
 }
 
 void EnemyGlajaLance001::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getKuroko()->stopMv();

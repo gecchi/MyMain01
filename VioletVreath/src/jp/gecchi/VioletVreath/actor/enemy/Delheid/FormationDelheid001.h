@@ -3,8 +3,6 @@
 #include "VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Delheid/FormationDelheid.h"
 
-#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
-
 namespace VioletVreath {
 
 /**
@@ -16,29 +14,10 @@ namespace VioletVreath {
 class FormationDelheid001 : public FormationDelheid {
 
 public:
-    /** [r]設置座標と向き */
-    GgafDxCore::GgafDxGeoElem geoLocate_;
     /** [r]スプライン情報オブジェクト資源への接続 */
     GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
 
     FormationDelheid001(const char* prm_name);
-
-    /**
-     * 設置座標と向きをセット .
-     * @param X
-     * @param Y
-     * @param Z
-     * @param rz
-     * @param ry
-     */
-    void position(coord x, coord y, coord z,
-                        angle rz, angle ry) {
-        geoLocate_.x = x;
-        geoLocate_.y = y;
-        geoLocate_.z = z;
-        geoLocate_.rz = rz;
-        geoLocate_.ry = ry;
-    }
 
     /**
      * 編隊メンバーとして招集された瞬間に呼び出されるコールバック実装、設置座標と向きをセット。

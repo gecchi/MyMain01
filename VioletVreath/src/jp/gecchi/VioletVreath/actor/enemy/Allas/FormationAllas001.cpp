@@ -45,7 +45,7 @@ void FormationAllas001::processBehavior() {
             break;
         }
         case PROG_READY_MEMBER: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 for (int i = 0; i < num_Allas_; i++) {
                     orderActorToFactory(i, EnemyAllas, "EnemyAllas");
                 }
@@ -59,7 +59,7 @@ void FormationAllas001::processBehavior() {
             break;
         }
         case PROG_CALL_UP: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
 
             }
             if (canCallUp()) {
@@ -78,7 +78,7 @@ void FormationAllas001::processBehavior() {
             break;
         }
         case PROG_WAIT: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
             }
             break;
         }

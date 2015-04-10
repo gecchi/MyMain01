@@ -417,7 +417,7 @@ void MagicMeter::processBehavior() {
         }
 
         //詠唱開始
-        if (pMagicProg->isJustChangedTo(Magic::STATE_CASTING)) {
+        if (pMagicProg->hasJustChangedTo(Magic::STATE_CASTING)) {
             switch (pMagic->last_cast_) {
                 case MAGIC_CAST_OK_LEVELUP: {
                     getSeTx()->play(SE_EXECUTE_LEVELUP_MAGIC);
@@ -477,12 +477,12 @@ void MagicMeter::processBehavior() {
             }
         }
         //詠唱中ではなくなった
-        if (pMagicProg->isJustChangedFrom(Magic::STATE_CASTING)) {
+        if (pMagicProg->hasJustChangedFrom(Magic::STATE_CASTING)) {
             pSeTx4Cast_->stop(m); //消音
         }
 
         //発動開始時
-        if (pMagicProg->isJustChangedTo(Magic::STATE_INVOKING)) {
+        if (pMagicProg->hasJustChangedTo(Magic::STATE_INVOKING)) {
             switch (pMagic->last_invoke_) {
                 case MAGIC_INVOKE_OK_LEVELUP: {
                     pSeTx4Invoke_->play(m);
@@ -517,13 +517,13 @@ void MagicMeter::processBehavior() {
             }
         }
         //発動ではなくなった
-        if (pMagicProg->isJustChangedFrom(Magic::STATE_INVOKING)) {
+        if (pMagicProg->hasJustChangedFrom(Magic::STATE_INVOKING)) {
             pSeTx4Invoke_->stop(m); //消音
             pLvTgtMvCur->dispEnable(); //操作不可表示を解除
             pLvNowCur->dispEnable();
         }
         //効果開始時
-        if (pMagicProg->isJustChangedTo(Magic::STATE_EFFECT_START)) {
+        if (pMagicProg->hasJustChangedTo(Magic::STATE_EFFECT_START)) {
             switch (pMagic->last_effect_) {
                 case MAGIC_EFFECT_OK_LEVELUP: {
                     if (pMagic->time_of_effect_base_ == 0) {
@@ -566,8 +566,8 @@ void MagicMeter::processBehavior() {
         }
 
         //STATE_NOTHINGへ移行した
-        if (pMagicProg->isJustChangedTo(Magic::STATE_NOTHING)) {
-            if (pMagicProg->isJustChangedFrom(Magic::STATE_CASTING)) { //詠唱→STATE_NOTHING
+        if (pMagicProg->hasJustChangedTo(Magic::STATE_NOTHING)) {
+            if (pMagicProg->hasJustChangedFrom(Magic::STATE_CASTING)) { //詠唱→STATE_NOTHING
                 //空詠唱（詠唱をキャンセルした or 詠唱したが詠唱完了時にMPが足りなかった）
                 _TRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] 詠唱→STATE_NOTHING 空詠唱乙。");
                 pLvCastingCur->markOff(); //マークオフ！
@@ -580,7 +580,7 @@ void MagicMeter::processBehavior() {
                     getSeTx()->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
                 }
             }
-            if (pMagicProg->isJustChangedFrom(Magic::STATE_INVOKING)) {  //発動→STATE_NOTHING
+            if (pMagicProg->hasJustChangedFrom(Magic::STATE_INVOKING)) {  //発動→STATE_NOTHING
                 //空発動（発動したが、発動完了時、MPが足りなかったので、効果開始出来なかった）
                 _TRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] 発動→STATE_NOTHING 空発動乙 ");
                 pLvCastingCur->markOff(); //マークオフ！

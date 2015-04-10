@@ -456,7 +456,7 @@ void VamSysCamWorker::processBehavior() {
     }
 
     //ターゲットへ移動
-    if (isJustChangedToActive() ||
+    if (hasJustChangedToActive() ||
         isPushedDown_VB_VIEW || isReleasedUp_VB_VIEW ||
         mv_t_x_CAM_prev_ != mv_t_x_CAM ||
         mv_t_y_CAM_prev_ != mv_t_y_CAM ||
@@ -541,7 +541,7 @@ void VamSysCamWorker::processBehavior() {
                     mv_t_z_VP, cam_mv_frame_);
 
         //UPを補正
-        if (isJustChangedToActive() || isPushedDown_VB_VIEW || isReleasedUp_VB_VIEW) {
+        if (hasJustChangedToActive() || isPushedDown_VB_VIEW || isReleasedUp_VB_VIEW) {
             if (pos_camera_ == VAM_POS_RIGHT || pos_camera_ == VAM_POS_LEFT || pos_camera_ > VAM_POS_TO_BEHIND) {
                 slideMvUpTo(GgafDxDirectionUtil::FACE_ZPZ, cam_mv_frame_/2);
             } else if (pos_camera_ == VAM_POS_TOP) {

@@ -78,7 +78,7 @@ void EnemyTamago01::initialize() {
 void EnemyTamago01::onActive() {
     getStatus()->reset();
     if (pProgram_Tamago01Move_) {
-        pProgram_Tamago01Move_->start(SplineKurokoLeader::ABSOLUTE_COORD); //スプライン移動をプログラムしておく
+        pProgram_Tamago01Move_->start(ABSOLUTE_COORD); //スプライン移動をプログラムしておく
     }
 
 //    getUvFlipper()->setRotation(16, 1/16.0, 1/16.0);
@@ -197,7 +197,7 @@ void EnemyTamago01::processJudgement() {
 }
 
 void EnemyTamago01::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(0);

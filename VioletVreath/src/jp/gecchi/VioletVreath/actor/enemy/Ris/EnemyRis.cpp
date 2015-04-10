@@ -56,7 +56,7 @@ void EnemyRis::processBehavior() {
     switch (iMovePatternNo_) {
         case 0:  //【パターン０：スプライン移動開始】
             if (pKurokoLeader_) {
-                pKurokoLeader_->start(SplineKurokoLeader::ABSOLUTE_COORD); //スプライン移動を開始
+                pKurokoLeader_->start(ABSOLUTE_COORD); //スプライン移動を開始
             }
             iMovePatternNo_++; //次の行動パターンへ
             break;
@@ -130,7 +130,7 @@ void EnemyRis::processJudgement() {
 }
 
 void EnemyRis::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

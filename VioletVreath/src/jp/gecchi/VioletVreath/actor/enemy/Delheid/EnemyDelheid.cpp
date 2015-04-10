@@ -82,12 +82,12 @@ void EnemyDelheid::processBehavior() {
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
-            pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION);
+            pKurokoLeader_->start(RELATIVE_COORD_DIRECTION);
             pProg->changeNext();
             break;
         }
         case PROG_SPLINE_MOVING: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
             }
             //processJudgement() で pKurokoLeader_->isFinished() 成立待ち
             break;
@@ -95,9 +95,9 @@ void EnemyDelheid::processBehavior() {
 
         //ゴールのアリサナがいない場合、その後の移動
         case PROG_AFTER_LEAD: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 //もう2回だけ同じスプライン移動する
-                pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION, 2);
+                pKurokoLeader_->start(RELATIVE_COORD_DIRECTION, 2);
             }
             //processJudgement() で pKurokoLeader_->isFinished() 成立待ち
             break;
@@ -116,7 +116,7 @@ void EnemyDelheid::processBehavior() {
             break;
         }
         case PROG2_OPEN: {
-            if (pProg2_->isJustChanged()) {
+            if (pProg2_->hasJustChanged()) {
                 getMorpher()->transitionAcceStep(MPH_OPEN, 1.1, 0, 0.001);
             }
             if (!getMorpher()->isTransitioning()) {
@@ -127,7 +127,7 @@ void EnemyDelheid::processBehavior() {
         }
 
         case PROG2_SHOT: {
-            if (pProg2_->isJustChanged()) {
+            if (pProg2_->hasJustChanged()) {
                 shot_begin_frame_ = RND(120, 240);
             }
             if (pProg2_->hasArrivedAt(shot_begin_frame_)) {
@@ -151,7 +151,7 @@ void EnemyDelheid::processBehavior() {
             break;
         }
         case PROG2_CLOSE: {
-            if (pProg2_->isJustChanged()) {
+            if (pProg2_->hasJustChanged()) {
                 getMorpher()->transitionAcceStep(MPH_OPEN, 0.0, 0, -0.01);
             }
             if (!getMorpher()->isTransitioning()) {
@@ -202,7 +202,7 @@ void EnemyDelheid::processJudgement() {
 
 void EnemyDelheid::onHit(const GgafActor* prm_pOtherActor) {
     if (getMorphWeight(MPH_OPEN) > 0.1) {
-        const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+        bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
         if (was_destroyed) {
             //破壊された時(スタミナ <= 0)
             getSeTx()->play3D(SE_EXPLOSION);

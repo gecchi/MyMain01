@@ -73,7 +73,7 @@ void EnemyHisbe002::processBehavior() {
             break;
         }
         case PROG_OPEN: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 getMorpher()->transitionLinerUntil(1, 1.0, 120);
             }
             if (!getMorpher()->isTransitioning()) {
@@ -88,7 +88,7 @@ void EnemyHisbe002::processBehavior() {
             if (pLaser) {
                 pLaser->positionAs(this);
                 pLaser->getKuroko()->setRzRyMvAng(_rz, _ry);
-                                   //レーザーのスプラインがRELATIVE_DIRECTIONのためMvAngの設定が必要。
+                                   //レーザーのスプラインがRELATIVE_COORD_DIRECTIONのためMvAngの設定が必要。
                 if (pLaser->getFrontChip() == nullptr) {
                     getSeTx()->play3D(SE_FIRE);
                 }
@@ -98,7 +98,7 @@ void EnemyHisbe002::processBehavior() {
             break;
         }
         case PROG_CLOSE: { //１サイクルレーザー打ち切った
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 getMorpher()->transitionLinerUntil(1, 0.0, 120); //閉じる
             }
             if (!getMorpher()->isTransitioning()) {
@@ -125,7 +125,7 @@ void EnemyHisbe002::processJudgement() {
 }
 
 void EnemyHisbe002::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

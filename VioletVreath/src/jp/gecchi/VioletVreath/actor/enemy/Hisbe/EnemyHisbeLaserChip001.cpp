@@ -44,7 +44,7 @@ void EnemyHisbeLaserChip001::processBehaviorHeadChip() {
     }
 
     if (getActiveFrame() == 2) {
-        pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION); //向いた方向にワールド変換
+        pKurokoLeader_->start(RELATIVE_COORD_DIRECTION); //向いた方向にワールド変換
     }
     if (pScrollingScene_) {
         pKurokoLeader_->_x_start_in_loop -= pScrollingScene_->getScrollSpeed();
@@ -63,7 +63,7 @@ void EnemyHisbeLaserChip001::processJudgement() {
 }
 
 void EnemyHisbeLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         sayonara();

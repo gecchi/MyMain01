@@ -155,7 +155,7 @@ void EnemyErmione::processBehavior() {
 
         case PROG_ENTRY: {
             EffectBlink* pEffectEntry = nullptr;
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pEffectEntry = UTIL::activateEntryEffectOf(this);
             }
             static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
@@ -178,7 +178,7 @@ void EnemyErmione::processBehavior() {
         }
 
         case PROG_MOVE: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pKuroko->setFaceAngVelo(AXIS_X, 55);
                 pKuroko->setFaceAngVelo(AXIS_Y, 53);
                 pKuroko->setFaceAngVelo(AXIS_Z, 51);
@@ -203,7 +203,7 @@ void EnemyErmione::processJudgement() {
 }
 
 void EnemyErmione::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

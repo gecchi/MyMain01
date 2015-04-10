@@ -61,7 +61,7 @@ void EnemyOrtuna::processBehavior() {
          }
          case PROG_ENTRY: {
              EffectBlink* pEffectEntry = nullptr;
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  pEffectEntry = UTIL::activateEntryEffectOf(this);
              }
              static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
@@ -76,7 +76,7 @@ void EnemyOrtuna::processBehavior() {
              break;
          }
          case PROG_MOVE01: {
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  //折り返しポイントへGO!
                  //velo mv_velo = RF_EnemyOrtuna_MvVelo(G_RANK);
                  velo mv_velo = PX_C(20);
@@ -96,7 +96,7 @@ void EnemyOrtuna::processBehavior() {
          }
 
          case PROG_MOVE02: {
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  //方向転換
                  //ゆっくり自機の方へ向かせる
                  pKuroko->turnMvAngTwd(P_MYSHIP,
@@ -135,7 +135,7 @@ void EnemyOrtuna::processBehavior() {
 
          case PROG_MOVE03: {
              //さよなら～
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  pKuroko->setMvVelo(PX_C(4));
                  pKuroko->setMvAcce(100);
              }
@@ -159,7 +159,7 @@ void EnemyOrtuna::processJudgement() {
 }
 
 void EnemyOrtuna::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

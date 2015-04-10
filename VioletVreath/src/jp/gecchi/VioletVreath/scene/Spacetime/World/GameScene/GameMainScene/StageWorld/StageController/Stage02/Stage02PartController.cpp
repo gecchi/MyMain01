@@ -71,7 +71,7 @@ void Stage02PartController::processBehavior() {
     SceneProgress* pProg = getProgress();
     switch (pProg->get()) {
         case PROG_FAINAL: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 //STG01Climax_Ià‚Ìˆ—
                 _TRACE_("Stage02PartController::PROG_FAINAL‚«‚½");
             }

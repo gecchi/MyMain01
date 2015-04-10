@@ -88,7 +88,7 @@ void Stage01::processBehavior() {
             break;
         }
         case Stage::PROG_END: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 _TRACE_("Stage01::processBehavior()  Stage::PROG_ENDになりますた！");
                 throwEventUpperTree(EVENT_PREPARE_TRANSIT_STAGE); //通過ステージ準備へ
             }

@@ -95,7 +95,7 @@ void GameMainScene::processBehavior() {
         }
 
         case GameMainScene::PROG_BEGIN: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 _TRACE_("GameMainScene::processBehavior() Prog has Just Changed (to GameMainScene::PROG_BEGIN)");
                 pProg->change(GameMainScene::PROG_PLAY);
             }
@@ -103,14 +103,14 @@ void GameMainScene::processBehavior() {
         }
 
         case GameMainScene::PROG_PLAY: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 _TRACE_("GameMainScene::processBehavior() Prog has Just Changed (to GameMainScene::PROG_PLAY)");
             }
             break;
         }
 
         case GameMainScene::PROG_FINISH: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 _TRACE_("GameMainScene::processBehavior() Prog has Just Changed (to GameMainScene::PROG_FINISH)");
             }
             break;

@@ -59,8 +59,8 @@ void EnemyAllas::processBehavior() {
     GgafDxKuroko* const pKuroko = getKuroko();
     GgafProgress* const pProg = getProgress();
     //【パターン1：スプライン移動】
-    if (pProg->isJustChangedTo(1)) {
-        pKurokoLeader_->start(SplineKurokoLeader::ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
+    if (pProg->hasJustChangedTo(1)) {
+        pKurokoLeader_->start(ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
     }
     if (pProg->get() == 1) {
         //スプライン移動終了待ち
@@ -72,7 +72,7 @@ void EnemyAllas::processBehavior() {
     switch (iMovePatternNo_) {
         case 0:  //【パターン０：スプライン移動開始】
             if (pKurokoLeader_) {
-                pKurokoLeader_->start(SplineKurokoLeader::ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
+                pKurokoLeader_->start(ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
             }
             iMovePatternNo_++; //次の行動パターンへ
             break;
@@ -141,7 +141,7 @@ void EnemyAllas::processJudgement() {
 }
 
 void EnemyAllas::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

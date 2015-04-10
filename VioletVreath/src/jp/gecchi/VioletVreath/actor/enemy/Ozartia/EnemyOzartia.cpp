@@ -98,7 +98,7 @@ void EnemyOzartia::processBehavior() {
         }
         case PROG1_ENTRY: {
             EffectBlink* pEffectEntry = nullptr;
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pEffectEntry = UTIL::activateEntryEffectOf(this);
             }
             static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
@@ -113,7 +113,7 @@ void EnemyOzartia::processBehavior() {
             break;
         }
         case PROG1_STAY: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 faceang_to_ship_ = true;
                 pKuroko->setMvAcce(0);
                 //pKuroko->turnMvAngTwd(pMyShip, D_ANG(1), 0, TURN_ANTICLOSE_TO, false);
@@ -182,7 +182,7 @@ void EnemyOzartia::processBehavior() {
         }
         //////////// 通常移動開始 ////////////
         case PROG1_MOVE_START: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 //ターン
                 faceang_to_ship_ = false;
                 pKuroko->setMvVeloBottom();
@@ -196,7 +196,7 @@ void EnemyOzartia::processBehavior() {
             break;
         }
         case PROG1_MOVING: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 //自機の正面付近へスイーっと行きます
                 pKuroko->asstA()->slideMvByVd(pKuroko->getMvVeloTop(), UTIL::getDistance(this, &posMvTarget_),
                                        0.3f, 0.7f, pKuroko->getMvVeloBottom(), true);
@@ -209,9 +209,9 @@ void EnemyOzartia::processBehavior() {
         }
         //////////// 特殊移動開始 ////////////
         case PROG1_SP_MV01: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pKuroko->setMvAngTwd(pMyShip);
-                pKurokoLeader01_->start(SplineKurokoLeader::RELATIVE_DIRECTION, 10); //10回
+                pKurokoLeader01_->start(RELATIVE_COORD_DIRECTION, 10); //10回
             }
             if (pKurokoLeader01_->isFinished()) {
                 pProg->change(PROG1_STAY);
@@ -220,7 +220,7 @@ void EnemyOzartia::processBehavior() {
         }
         //////////// 時間切れ退出 ////////////
         case PROG1_LEAVE: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 UTIL::activateLeaveEffectOf(this);
                 pAFader_->transitionLinerUntil(0.0, 30);
             }
@@ -240,12 +240,12 @@ void EnemyOzartia::processBehavior() {
     //ショット発射系処理 ここから --->
     switch (pProg2_->get()) {
         case PROG2_WAIT: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
             }
             break;
         }
         case PROG2_SHOT01_01: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 faceang_to_ship_ = true;
                 getMorpher()->transitionLinerUntil(MPH_SHOT01, 1.0, 120);
             }
@@ -286,7 +286,7 @@ void EnemyOzartia::processJudgement() {
 }
 
 void EnemyOzartia::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

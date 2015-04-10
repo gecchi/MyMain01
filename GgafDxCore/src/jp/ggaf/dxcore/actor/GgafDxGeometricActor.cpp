@@ -390,6 +390,11 @@ void GgafDxGeometricActor::setRxFaceAng(angle prm_angFace) {
     _rx = UTIL::simplifyAng(prm_angFace);
 }
 
+void GgafDxGeometricActor::setRzRyFaceAng(angle prm_angRzFace, angle prm_angRyFace) {
+    _rz = UTIL::simplifyAng(prm_angRzFace);
+    _ry = UTIL::simplifyAng(prm_angRyFace);
+}
+
 void GgafDxGeometricActor::setFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz) {
     coord vx = prm_tx - _x;
     coord vy = prm_ty - _y;

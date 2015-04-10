@@ -58,7 +58,7 @@ void EnemyAlisana::processBehavior() {
         }
         case PROG_ENTRY: {
             EffectBlink* pEffectEntry = nullptr;
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pEffectEntry = UTIL::activateEntryEffectOf(this);
             }
             static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
@@ -73,7 +73,7 @@ void EnemyAlisana::processBehavior() {
             break;
         }
         case PROG_HATCH_OPEN: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 getMorpher()->transitionLinerUntil(MPH_HATCH_OPEN,
                                            1.0, frame_of_morph_interval_);
             }
@@ -84,7 +84,7 @@ void EnemyAlisana::processBehavior() {
         }
 
         case PROG_HATCH_OPEN_DONE: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
             }
             //おしまい。
             break;
@@ -92,7 +92,7 @@ void EnemyAlisana::processBehavior() {
 
         //-----------------------------------------------------------------------
         case PROG_HATCH_CLOSE: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 getMorpher()->transitionLinerUntil(MPH_HATCH_OPEN,
                                            0.0, frame_of_morph_interval_);
             }
@@ -102,7 +102,7 @@ void EnemyAlisana::processBehavior() {
             break;
         }
         case PROG_LEAVE: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 setHitAble(false);
                 UTIL::activateLeaveEffectOf(this);
                 pAFader_->transitionLinerUntil(0.0, 30);
@@ -127,7 +127,7 @@ void EnemyAlisana::processJudgement() {
 }
 
 void EnemyAlisana::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

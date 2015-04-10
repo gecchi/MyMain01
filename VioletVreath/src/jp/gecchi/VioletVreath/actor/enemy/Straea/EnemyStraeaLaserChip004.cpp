@@ -66,14 +66,14 @@ void EnemyStraeaLaserChip004::processBehaviorHeadChip() {
 //    //<--debug
 
     if (getActiveFrame() == 2) {
-        pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION); //向いた方向にワールド変換
+        pKurokoLeader_->start(RELATIVE_COORD_DIRECTION); //向いた方向にワールド変換
     }
     pKurokoLeader_->behave(); //←途中でちょんぎれたらだめじゃん
     getKuroko()->behave();
 }
 
 void EnemyStraeaLaserChip004::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         sayonara();

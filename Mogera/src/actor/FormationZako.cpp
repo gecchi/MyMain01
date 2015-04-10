@@ -49,7 +49,7 @@ void FormationZako::processBehavior() {
             break;
         }
         case PROG_CALL_UP: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
             }
             if (canCallUp()) {
                 if (getActiveFrame() % call_up_interval_ == 0) {
@@ -67,7 +67,7 @@ void FormationZako::processBehavior() {
             break;
         }
         case PROG_WAIT: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
             }
             break;
         }

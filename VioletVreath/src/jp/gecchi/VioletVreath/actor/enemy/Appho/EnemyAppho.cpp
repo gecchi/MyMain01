@@ -63,7 +63,7 @@ void EnemyAppho::processBehavior() {
          }
          case PROG_ENTRY: {
              EffectBlink* pEffectEntry = nullptr;
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  pEffectEntry = UTIL::activateEntryEffectOf(this);
                  pKuroko->setRollFaceAngVelo(D_ANG(3));
              }
@@ -80,7 +80,7 @@ void EnemyAppho::processBehavior() {
          }
 
          case PROG_MOVE01: {
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  //滞留ポイントへGO!
                  velo mv_velo = RF_EnemyAppho_MvVelo(G_RANK);
                  coord d = UTIL::getDistance(this, &stagnating_pos_);
@@ -93,7 +93,7 @@ void EnemyAppho::processBehavior() {
                  pKuroko->turnFaceAngTwd(P_MYSHIP, D_ANG(0.5), 0,
                                          TURN_CLOSE_TO, true);
              }
-             if (pKuroko->asstA()->isJustFinishSlidingMv()) {
+             if (pKuroko->asstA()->hasJustFinishedSlidingMv()) {
                  pProg->changeNext();
              }
              //_TRACE_("PROG_MOVE01:"<<_x<<","<<_y<<","<<_z<<","<<_pKuroko->_velo_mv<<","<<_pKuroko->_acc_mv);
@@ -101,7 +101,7 @@ void EnemyAppho::processBehavior() {
          }
 
          case PROG_MOVE02: {
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  //滞留ポイント到着、自機方向へジワリ移動させる
                  pKuroko->turnMvAngTwd(P_MYSHIP,
                                        100, 0, TURN_CLOSE_TO, false);
@@ -139,7 +139,7 @@ void EnemyAppho::processBehavior() {
 
          case PROG_MOVE03: {
              //さよなら準備
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  //ゆっくりさよならポイントへ向ける
                  pKuroko->turnMvAngTwd(&leave_pos_,
                                        D_ANG(1), D_ANG(1), TURN_CLOSE_TO, false);
@@ -157,7 +157,7 @@ void EnemyAppho::processBehavior() {
 
          case PROG_MOVE04: {
              //さよなら～
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  pKuroko->turnMvAngTwd(&leave_pos_,
                                        D_ANG(1), 0, TURN_CLOSE_TO, false);
                  pKuroko->setMvAcce(100+(G_RANK*200));
@@ -185,7 +185,7 @@ void EnemyAppho::processJudgement() {
 }
 
 void EnemyAppho::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

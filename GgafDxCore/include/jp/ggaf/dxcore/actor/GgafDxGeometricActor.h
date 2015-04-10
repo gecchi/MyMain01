@@ -424,6 +424,8 @@ public:
      */
     virtual void setRxFaceAng(angle prm_angFace);
 
+    virtual void setRzRyFaceAng(angle prm_angRzFace, angle prm_angRyFace);
+
     virtual void addRzFaceAng(angle prm_ang_rz) {
         setRzFaceAng(_rz + prm_ang_rz);
     }
@@ -435,6 +437,7 @@ public:
     virtual void addRxFaceAng(angle prm_ang_rx) {
         setRxFaceAng(_rx + prm_ang_rx);
     }
+
     /**
      * Actor‚Ì³–Ê•ûŠp‚ğİ’è .
      * @param prm_axis_x_angFace X²•ûŠp‚ÌƒAƒ“ƒOƒ‹’l(-360,000`360,000)

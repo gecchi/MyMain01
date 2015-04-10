@@ -43,7 +43,7 @@ void EnemyOzartiaShot01::processBehavior() {
         }
         case PROG_ENTRY: {
             EffectBlink* pEffectEntry = nullptr;
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pEffectEntry = UTIL::activateEntryEffectOf(this);
             }
             static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
@@ -58,7 +58,7 @@ void EnemyOzartiaShot01::processBehavior() {
             break;
         }
         case PROG_MOVE01: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
             }
             if (pProg->hasArrivedAt(60*10)) {
                 pProg->change(PROG_LEAVE);
@@ -66,7 +66,7 @@ void EnemyOzartiaShot01::processBehavior() {
             break;
         }
         case PROG_LEAVE: {
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  UTIL::activateLeaveEffectOf(this);
                  pAFader_->transitionLinerUntil(0.0, 15);
              }
@@ -89,7 +89,7 @@ void EnemyOzartiaShot01::processJudgement() {
 }
 
 void EnemyOzartiaShot01::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         sayonara();

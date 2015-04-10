@@ -106,7 +106,7 @@ void MenuBoardSoundConfig::processBehavior() {
     //OK時の確認メニュー判定
     if (getSelectedIndex() == ITEM_INDEX_OK_) {
         MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
-        if (pSubConfirm->isJustDecidedOk()) { //SAVE確認OK!
+        if (pSubConfirm->hasJustDecidedOk()) { //SAVE確認OK!
             //現プロパティへ書き込み
             PROPERTY::setValue("SE_VOLUME", GgafDxSound::_se_master_volume);
             PROPERTY::setValue("BGM_VOLUME", GgafDxSound::_bgm_master_volume);
@@ -120,7 +120,7 @@ void MenuBoardSoundConfig::processBehavior() {
 
             sinkCurrentSubMenu();
             sinkMe();
-        } else if (pSubConfirm->isJustDecidedCancel()) { //SAVE確認でキャンセル
+        } else if (pSubConfirm->hasJustDecidedCancel()) { //SAVE確認でキャンセル
             sinkCurrentSubMenu();
         } else {
 

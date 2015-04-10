@@ -242,7 +242,7 @@ void World::processBehavior() {
         }
 
         case PROG_CALM3: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
             }
             if ((pProg->getFrame() >= 30 && P_GOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) || pProg->getFrame() >= 60*60*5) {
                 pProg->changeNext();
@@ -252,7 +252,7 @@ void World::processBehavior() {
         }
 
         case PROG_CALM4: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
             }
             if (pProg->getFrame() >= 60) {
                 pLabel_aster_->update("*");
@@ -269,7 +269,7 @@ void World::processBehavior() {
         }
 
         case PROG_MAINLOOP: { //¢ŠE‚ÌƒƒCƒ“ƒ‹[ƒv
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 addSubLast(pGameScene_);
             }
 

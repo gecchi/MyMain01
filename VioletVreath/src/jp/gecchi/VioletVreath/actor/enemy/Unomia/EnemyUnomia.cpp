@@ -71,7 +71,7 @@ void EnemyUnomia::processBehavior() {
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_ENTRY: {
-            pKurokoLeader_->start(SplineKurokoLeader::ABSOLUTE_COORD);
+            pKurokoLeader_->start(ABSOLUTE_COORD);
             pProg->changeNext();
             break;
         }
@@ -83,7 +83,7 @@ void EnemyUnomia::processBehavior() {
             break;
         }
         case PROG_MOVE01_1: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 //自機へ方向転換
                 pKuroko->turnMvAngTwd(
                                P_MYSHIP->_x, _y, P_MYSHIP->_z,
@@ -131,7 +131,7 @@ void EnemyUnomia::processJudgement() {
 }
 
 void EnemyUnomia::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

@@ -59,7 +59,7 @@ bool MenuSelectSub::condSelectExPrev() {
     return false;
 }
 bool MenuSelectSub::condSelectCancel() {
-    return isJustCancelled();
+    return hasJustCancelled();
 }
 
 void MenuSelectSub::riseMe() {

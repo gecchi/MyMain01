@@ -62,7 +62,7 @@ void EnemyOebius::processBehavior() {
         }
         case PROG_ENTRY: {
             EffectBlink* pEffectEntry = nullptr;
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pEffectEntry = UTIL::activateEntryEffectOf(this);
             }
             static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
@@ -78,7 +78,7 @@ void EnemyOebius::processBehavior() {
         }
 
         case PROG_MOVE_BEGIN: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
 
             }
             if (pProg->hasArrivedAt(120)) {
@@ -88,9 +88,9 @@ void EnemyOebius::processBehavior() {
         }
 
         case PROG_SPLINE: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 getKuroko()->setMvAcce(0); //加速度がある場合は切っておく
-                pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION, -1); //-1は無限ループ
+                pKurokoLeader_->start(RELATIVE_COORD_DIRECTION, -1); //-1は無限ループ
             }
             pKurokoLeader_->behave(); //スプライン移動を振る舞い
 
@@ -102,7 +102,7 @@ void EnemyOebius::processBehavior() {
 
 
         case PROG_SCATTER: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 delay_ = RND(0, 120);
             }
             if (pProg->hasArrivedAt(delay_)) {
@@ -120,7 +120,7 @@ void EnemyOebius::processBehavior() {
         }
 
         case PROG_LEAVE: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 UTIL::activateLeaveEffectOf(this);
                 pAFader_->transitionLinerUntil(0.0, 30);
             }
@@ -146,7 +146,7 @@ void EnemyOebius::processJudgement() {
 }
 
 void EnemyOebius::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

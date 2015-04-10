@@ -69,7 +69,7 @@ void EnemyOebiusCore::processBehavior() {
         }
         case PROG_ENTRY: {
             EffectBlink* pEffectEntry = nullptr;
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pEffectEntry = UTIL::activateEntryEffectOf(this);
             }
             static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
@@ -85,7 +85,7 @@ void EnemyOebiusCore::processBehavior() {
         }
 
         case PROG_WAIT01: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pKuroko->keepOnTurningFaceAngTwd(P_MYSHIP, D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
             if (pProg->hasArrivedAt(3600)) {
@@ -95,7 +95,7 @@ void EnemyOebiusCore::processBehavior() {
         }
 
         case PROG_LEAVE: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 UTIL::activateLeaveEffectOf(this);
                 pAFader_->transitionLinerUntil(0.0, 30);
             }
@@ -121,7 +121,7 @@ void EnemyOebiusCore::processJudgement() {
 }
 
 void EnemyOebiusCore::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

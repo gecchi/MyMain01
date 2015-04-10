@@ -710,7 +710,7 @@ public:
      * 他のノードの状態変化を知りたい時のために、本メソッドを準備しました。<BR>
      * @return  bool true:非活動から活動状態切り替わった／false:切り替わっていない
      */
-    inline bool isJustChangedToActive() const {
+    inline bool hasJustChangedToActive() const {
         return _on_change_to == 2 ? true : false;
     }
 
@@ -721,7 +721,7 @@ public:
      * 他のノードの状態変化を知りたい時のために、本メソッドを準備しました。<BR>
      * @return  bool true:活動状態から非活動に切り替わった／false:切り替わっていない
      */
-    inline bool isJustChangedToInactive() const {
+    inline bool hasJustChangedToInactive() const {
         return _on_change_to == 1 ? true : false;
     }
 

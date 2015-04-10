@@ -66,7 +66,7 @@ void EnemyEres::onActive() {
     pKuroko->linkFaceAngByMvAng(true);
     pKuroko->setRollFaceAngVelo(6000);
     pKuroko->setMvVelo(8000);
-    pKurokoLeader_->start(SplineKurokoLeader::ABSOLUTE_COORD); //スプライン移動を開始
+    pKurokoLeader_->start(ABSOLUTE_COORD); //スプライン移動を開始
     frame_Active_ = 0;
 }
 
@@ -110,9 +110,8 @@ void EnemyEres::processJudgement() {
     }
 }
 
-
 void EnemyEres::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);
@@ -144,3 +143,4 @@ EnemyEres::~EnemyEres() {
     pSplLineConnection_->close();
     GGAF_DELETE_NULLABLE(pKurokoLeader_);
 }
+

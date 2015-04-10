@@ -25,7 +25,7 @@ void Stage::processBehavior() {
     SceneProgress* pProg = getProgress();
     switch (pProg->get()) {
         case Stage::PROG_BEGIN: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 //乱数シード更新
                 uint32_t seed = (uint32_t)G_RANK_DISP;
                 _TRACE_("Stage::processBehavior() 乱数シード更新 changeSeed("+XTOS(seed)+")");

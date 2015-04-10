@@ -770,7 +770,7 @@ public:
      * riseMe()が実行された直後か否かを返す .
      * @return true:今丁度 riseMe()が 実行された直後である/false:そうではない
      */
-    virtual bool isJustRisen() {
+    virtual bool hasJustRisen() {
         return _is_just_risen;
     }
 
@@ -778,7 +778,7 @@ public:
      * sinkMe() が実行された直後か否かを返す .
      * @return true:今丁度 sinkMe() が実行された直後である/false:そうではない
      */
-    virtual bool isJustSunk() {
+    virtual bool hasJustSunk() {
         return _is_just_sunk;
     }
 
@@ -786,7 +786,7 @@ public:
      * 「決定（振る舞い）」が行われた直後か否かを返す .
      * @return rue:今丁度 「決定（振る舞い）」 が実行された直後である/false:そうではない
      */
-    virtual bool isJustDecided() {
+    virtual bool hasJustDecided() {
         if (_is_just_decided && _can_controll) {
             return true;
         } else {
@@ -798,7 +798,7 @@ public:
      * 「キャンセル（振る舞い）」が行われた直後か否かを返す .
      * @return rue:今丁度 「キャンセル（振る舞い）」 が実行された直後である/false:そうではない
      */
-    virtual bool isJustCancelled() {
+    virtual bool hasJustCancelled() {
         if (_is_just_cancelled && _can_controll) {
             return true;
         } else {
@@ -1682,11 +1682,11 @@ void MenuActor<T>::processBehavior() {
     int n_sm = _lstSubMenu.length();
     for (int i = 0; i < n_sm; i++) {
         MenuActor<T>* pSubMenu = _lstSubMenu.getFromFirst(i);
-        if (pSubMenu->isJustRisen()) {
+        if (pSubMenu->hasJustRisen()) {
             disableControll(); //サブメニューが立ち上がったので、自身は操作不可
             _can_controll = false; //即刻
         }
-        if (pSubMenu->isJustSunk()) {
+        if (pSubMenu->hasJustSunk()) {
             if (_with_sinking || _is_just_sunk || _will_be_sinking_next_frame) {
                 disableControll(); //自身も同時に閉じている場合
                 _can_controll = false; //即刻

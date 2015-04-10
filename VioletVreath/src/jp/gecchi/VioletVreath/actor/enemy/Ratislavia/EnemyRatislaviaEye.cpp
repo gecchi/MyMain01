@@ -88,7 +88,7 @@ void EnemyRatislaviaEye::processBehavior() {
             break;
         }
         case PROG_OPEN: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 getMorpher()->transitionLinerUntil(1, 1.0, 180); //開く
             }
             if (pProg->getFrame() > 240) {
@@ -101,7 +101,7 @@ void EnemyRatislaviaEye::processBehavior() {
         }
 
         case PROG_TURN: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pKuroko->turnMvAngTwd(P_MYSHIP,
                                         D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
@@ -112,18 +112,18 @@ void EnemyRatislaviaEye::processBehavior() {
         }
 
         case PROG_FIRE_BEGIN: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 //_pKuroko->turnMvAngTwd(P_MYSHIP, D_ANG(1), 0, TURN_ANTICLOSE_TO, false);
                 pEffect_->activate();
             }
             pEffect_->positionAs(this);
-            if (pEffect_->isJustChangedToInactive()) {
+            if (pEffect_->hasJustChangedToInactive()) {
                 pProg->changeNext();
             }
             break;
         }
         case PROG_IN_FIRE: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pKuroko->turnMvAngTwd(P_MYSHIP,
                                         10, 0, TURN_CLOSE_TO, false);
             }
@@ -138,7 +138,7 @@ void EnemyRatislaviaEye::processBehavior() {
             break;
         }
         case PROG_FIRE_END: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 getMorpher()->transitionLinerUntil(1, 0.0, 180); //閉じる
                 pKuroko->setRzRyMvAngVelo(pRatislavia_->getKuroko()->_angvelo_face[AXIS_Z],
                                           pRatislavia_->getKuroko()->_angvelo_face[AXIS_Y]);
@@ -167,7 +167,7 @@ void EnemyRatislaviaEye::processJudgement() {
 }
 
 void EnemyRatislaviaEye::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

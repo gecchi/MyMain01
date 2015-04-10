@@ -96,13 +96,13 @@ void RankUpStageController::processBehavior() {
         }
 
         case PROG_PLAY: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
             }
             break;
         }
 
         case PROG_FINISH: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
             }
             break;
         }

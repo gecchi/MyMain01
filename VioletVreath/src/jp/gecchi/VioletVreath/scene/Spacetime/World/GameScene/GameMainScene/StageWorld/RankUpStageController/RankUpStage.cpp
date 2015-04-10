@@ -73,7 +73,7 @@ void RankUpStage::processBehavior() {
             break;
         }
         case PROG_PLAYING: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pMessage1_->update("RANKUPSTAGE::PROG_PLAYING");
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] PROG_BEGIN !");
             }
@@ -99,7 +99,7 @@ void RankUpStage::processBehavior() {
             break;
         }
         case PROG_RESULT: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pMessage1_->update("RANKUPSTAGE::PROG_RESULT");
                 pMessage2_->update("KEKKA HAPYOU!!!");
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] PROG_RESULT !");

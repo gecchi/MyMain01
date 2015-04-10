@@ -73,8 +73,8 @@ void EnemyEbe::processBehavior() {
         }
 
         case PROG_SPLINE_MOVE: {
-            if (pProg->isJustChanged()) {
-                pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_COORD);
+            if (pProg->hasJustChanged()) {
+                pKurokoLeader_->start(RELATIVE_COORD);
             }
             pKurokoLeader_->behave();
 
@@ -85,7 +85,7 @@ void EnemyEbe::processBehavior() {
         }
 
         case PROG_MOVE02_1: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pKuroko->turnMvAngTwd(_x - PX_C(300), _y, _z,
                                       D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
@@ -104,7 +104,7 @@ void EnemyEbe::processJudgement() {
 }
 
 void EnemyEbe::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

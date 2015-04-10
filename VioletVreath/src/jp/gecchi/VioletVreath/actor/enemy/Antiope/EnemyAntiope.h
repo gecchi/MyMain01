@@ -37,9 +37,9 @@ public:
     GgafDxCore::GgafDxAxesMover* pAxsMver_;
     /** 平行移動速度ベクトル */
     GgafDxCore::GgafDxGeoElem mv_velo_twd_;
-
     /** 相方 */
     EnemyAntiope* pP_;
+
 public:
     /**
      * コンストラクタ

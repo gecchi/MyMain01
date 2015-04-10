@@ -82,7 +82,7 @@ void EnemyGeria::processBehavior() {
         }
         case PROG_ENTRY: {  //“oê
             EffectBlink* pEffectEntry = nullptr;
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pEffectEntry = UTIL::activateEntryEffectOf(this);
             }
             static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
@@ -97,7 +97,7 @@ void EnemyGeria::processBehavior() {
             break;
         }
         case PROG_MOVE: {  //ˆÚ“®
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pKuroko->setMvVelo(velo_mv_begin_);
                 will_shot_ = false;
             }
@@ -119,7 +119,7 @@ void EnemyGeria::processBehavior() {
             break;
         }
         case PROG_FIRE: {  //”­ŽË
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pKuroko->setMvVelo(PX_C(3)); //Œ¸‘¬
                 pKuroko->rollFaceAngTo(D180ANG, D_ANG(3), 0, TURN_CLOCKWISE); //—\”õ“®ì‚Ì‚®‚é‚Á‚Æ‰ñ“]
             }
@@ -145,7 +145,7 @@ void EnemyGeria::processBehavior() {
             break;
         }
         case PROG_LEAVE: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 setHitAble(false);
                 pKuroko->setMvVelo(0);
                 UTIL::activateLeaveEffectOf(this);
@@ -180,7 +180,7 @@ void EnemyGeria::onInactive() {
 }
 
 void EnemyGeria::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //”j‰ó‚³‚ê‚½Žž(ƒXƒ^ƒ~ƒi <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

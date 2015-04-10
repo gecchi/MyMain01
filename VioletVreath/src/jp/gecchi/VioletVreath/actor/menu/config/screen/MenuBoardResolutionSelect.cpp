@@ -60,16 +60,16 @@ void MenuBoardResolutionSelect::onDecision(GgafDxCore::GgafDxFigureActor* prm_pI
 void MenuBoardResolutionSelect::onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
 }
 
-bool MenuBoardResolutionSelect::isJustDecidedOk() {
-    if (isJustDecided() && getSelectedIndex() == ITEM_OK) {
+bool MenuBoardResolutionSelect::hasJustDecidedOk() {
+    if (hasJustDecided() && getSelectedIndex() == ITEM_OK) {
         return true;
     } else {
         return false;
     }
 }
 
-bool MenuBoardResolutionSelect::isJustDecidedCancel() {
-    if (isJustDecided() && getSelectedIndex() == ITEM_CANCEL) {
+bool MenuBoardResolutionSelect::hasJustDecidedCancel() {
+    if (hasJustDecided() && getSelectedIndex() == ITEM_CANCEL) {
         return true;
     } else {
         return false;

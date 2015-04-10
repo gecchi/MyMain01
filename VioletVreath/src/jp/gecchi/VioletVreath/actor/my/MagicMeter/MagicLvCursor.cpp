@@ -47,7 +47,7 @@ void MagicLvCursor::initialize() {
 void MagicLvCursor::processBehavior() {
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->behave();
-    if (pKuroko->asstA()->isJustFinishSlidingMv()) {
+    if (pKuroko->asstA()->hasJustFinishedSlidingMv()) {
         //—‘zˆÊ’u‚É•â³
         _x = tx_;
         _y = ty_;

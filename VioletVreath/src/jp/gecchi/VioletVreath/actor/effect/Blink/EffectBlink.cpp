@@ -28,7 +28,7 @@ void EffectBlink::onActive() {
 
 void EffectBlink::processBehavior() {
     if (pTarget_) {
-        if (pTarget_->isJustChangedToInactive()) {
+        if (pTarget_->hasJustChangedToInactive()) {
             pTarget_ = nullptr;
         } else {
             positionAs(pTarget_);

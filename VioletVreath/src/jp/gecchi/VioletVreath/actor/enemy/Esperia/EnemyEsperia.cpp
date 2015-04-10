@@ -106,7 +106,7 @@ void EnemyEsperia::processBehavior() {
         }
         case PROG_ENTRY: {
             EffectBlink* pEffectEntry = nullptr;
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pEffectEntry = UTIL::activateEntryEffectOf(this);
             }
             static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
@@ -122,7 +122,7 @@ void EnemyEsperia::processBehavior() {
             break;
         }
         case PROG_MOVE: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
 
             }
             if (pProg->hasArrivedAt(100)) {
@@ -132,7 +132,7 @@ void EnemyEsperia::processBehavior() {
         }
 
         case PROG_HATCH_OPEN: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 getSeTx()->play3D(SE_HATCH_OPEN);
                 getMorpher()->transitionLinerUntil(1, 1.0, 120);
             }
@@ -143,7 +143,7 @@ void EnemyEsperia::processBehavior() {
         }
 
         case PROG_FIRE: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 //レーザーセット（レーザーチップのデポジトリで、１本分のレーザー）のデポジトリから、
                 //レーザーセットの借入を試みる
                 now_laser_way_ = RF_EnemyEsperia_ShotWay(G_RANK); //今回発射レーザー本数
@@ -320,7 +320,7 @@ void EnemyEsperia::processBehavior() {
         }
 
         case PROG_HATCH_CLOSE: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 getSeTx()->play3D(SE_HATCH_CLOSE);
                 getMorpher()->transitionLinerUntil(1, 0.0, 120);
             }
@@ -348,7 +348,7 @@ void EnemyEsperia::processJudgement() {
 }
 
 void EnemyEsperia::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);
@@ -389,9 +389,9 @@ coord EnemyEsperia::getTurnDY(GgafDxCore::GgafDxGeometricActor* pThis,
     //        :     DT(引数)  |
     //
     //DY = DT・tan(5°) - (敵_y - 自機_y)
-    static double tan5 = tan(5*(PI/180.0)); //５度上から打ち下ろす
+    static const double TAN5 = tan(5*(PI/180.0)); //５度上から打ち下ろす
     coord dY = pThis->_y - pMyShip->_y;
-    coord TurnDY = DT*tan5 - dY;
+    coord TurnDY = DT*TAN5 - dY;
     if (TurnDY < PX_C(100)) {
         return PX_C(100);
     } else {

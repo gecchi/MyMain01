@@ -127,7 +127,7 @@ void MyShipScene::processBehavior() {
         }
 
         case MyShipScene::PROG_BEGIN: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 fadeinScene(120);
                 pMyShip_->resetTree();
 
@@ -160,14 +160,14 @@ void MyShipScene::processBehavior() {
         }
 
         case MyShipScene::PROG_PLAY: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
             }
             //ƒCƒxƒ“ƒg EVENT_MY_SHIP_WAS_DESTROYED_BEGIN ‘Ò‚¿
             break;
         }
 
         case MyShipScene::PROG_DESTROY: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pEffectMyShipExplosion_->activate(); //”š”­
                 pMyShip_->can_control_ = false;
                 for (int i = 0; i < MyOptionController::max_option_num_; i ++) {

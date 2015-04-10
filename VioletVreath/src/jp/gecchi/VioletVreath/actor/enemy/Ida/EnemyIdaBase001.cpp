@@ -37,7 +37,7 @@ void EnemyIdaBase001::processBehavior() {
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
-            pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_COORD, 3);
+            pKurokoLeader_->start(RELATIVE_COORD, 3);
             pProg->changeNext();
             break;
         }

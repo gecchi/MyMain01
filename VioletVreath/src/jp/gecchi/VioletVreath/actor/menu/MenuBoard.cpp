@@ -79,7 +79,7 @@ bool MenuBoard::condSelectExPrev() {
 }
 
 bool MenuBoard::condSelectCancel() {
-    return isJustCancelled();
+    return hasJustCancelled();
 }
 
 void MenuBoard::riseMe() {
@@ -131,7 +131,7 @@ void MenuBoard::onRise() {
 
 void MenuBoard::processBehavior() {
     GgafDxKuroko* const pKuroko = getKuroko();
-    if (pKuroko->asstA()->isJustFinishSlidingMv()) {
+    if (pKuroko->asstA()->hasJustFinishedSlidingMv()) {
         //スライド終了時、目的の座標へ補正
         position(target_x_, target_y_);
     }

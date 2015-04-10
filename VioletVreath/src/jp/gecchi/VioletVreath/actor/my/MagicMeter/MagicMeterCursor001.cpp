@@ -34,7 +34,7 @@ void MagicMeterCursor001::processBehavior() {
     GgafDxKuroko* const pKuroko = getKuroko();
     setAlpha(pMagicMeter_->getAlpha());
     pKuroko->behave();
-    if (pKuroko->asstA()->isJustFinishSlidingMv()) {
+    if (pKuroko->asstA()->hasJustFinishedSlidingMv()) {
         //—‘zˆÊ’u‚É•â³
         _x = tx_;
         _y = ty_;

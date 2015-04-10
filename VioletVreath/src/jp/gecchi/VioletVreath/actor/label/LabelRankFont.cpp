@@ -168,14 +168,14 @@ void LabelRankFont::processBehavior() {
 
     switch (pProg->get()) {
         case PROG_NOMALDISP: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 getModel()->getTexBlinker()->transitionLinerUntil(1.0, 5);
             }
             break;
         }
 
         case PROG_RANKUP: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 getSeTx()->play(SE_RANK_UP);
                 getModel()->getTexBlinker()->beat(30, 15, 0, 15, 3);
             }

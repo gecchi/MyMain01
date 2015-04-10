@@ -101,7 +101,7 @@ void EnemyRatislavia::processBehavior() {
         }
 
         case PROG_EXPLOSION: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 _TRACE_("EnemyRatislavia::processBehavior() _pProg=PROG_EXPLOSION ‚«‚½‚í`");
             }
             if (pProg->getFrame() % 16U == 0) {

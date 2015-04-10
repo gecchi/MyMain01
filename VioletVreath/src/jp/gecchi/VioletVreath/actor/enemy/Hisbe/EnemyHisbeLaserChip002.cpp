@@ -47,7 +47,7 @@ void EnemyHisbeLaserChip002::onRefractionInto(int prm_num_refraction)  {
 
 void EnemyHisbeLaserChip002::onRefractionOutOf(int prm_num_refraction)  {
     if (prm_num_refraction == 0) {
-        pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION); //向てる方向にスプライン座標をワールド変換
+        pKurokoLeader_->start(RELATIVE_COORD_DIRECTION); //向てる方向にスプライン座標をワールド変換
     }
     pKurokoLeader_->behave();
     if (pKurokoLeader_->isFinished()) {
@@ -74,7 +74,7 @@ void EnemyHisbeLaserChip002::processJudgement() {
 }
 
 void EnemyHisbeLaserChip002::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         sayonara();

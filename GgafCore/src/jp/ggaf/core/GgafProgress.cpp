@@ -139,10 +139,10 @@ void GgafProgress::changeNext() {
 }
 
 
-bool GgafProgress::isJustChangedTo(progress prm_progress) const {
+bool GgafProgress::hasJustChangedTo(progress prm_progress) const {
 #ifdef MY_DEBUG
     if (prm_progress < 0 || prm_progress > _num_progress) {
-        throwGgafCriticalException("GgafProgress::isJustChangedTo 進捗番号が範囲外です。\nisJustChangedTo 引数の使用可能な進捗番号は(0～"<<_num_progress<<")です。引数：prm_progress="<<prm_progress<<"");
+        throwGgafCriticalException("GgafProgress::hasJustChangedTo 進捗番号が範囲外です。\nhasJustChangedTo 引数の使用可能な進捗番号は(0～"<<_num_progress<<")です。引数：prm_progress="<<prm_progress<<"");
     }
 #endif
     if (_progress != _progress_prev && _progress_prev >= PROGRESS_NOTHING) {
@@ -156,10 +156,10 @@ bool GgafProgress::isJustChangedTo(progress prm_progress) const {
     }
 }
 
-bool GgafProgress::isJustChangedFrom(progress prm_progress) const {
+bool GgafProgress::hasJustChangedFrom(progress prm_progress) const {
 #ifdef MY_DEBUG
     if (prm_progress < 0 || prm_progress > _num_progress) {
-        throwGgafCriticalException("GgafProgress::isJustChangedFrom 進捗番号が範囲外です。\nisJustChangedFrom 引数の使用可能な進捗番号は(0～"<<_num_progress<<")です。引数：prm_progress="<<prm_progress<<"");
+        throwGgafCriticalException("GgafProgress::hasJustChangedFrom 進捗番号が範囲外です。\nhasJustChangedFrom 引数の使用可能な進捗番号は(0～"<<_num_progress<<")です。引数：prm_progress="<<prm_progress<<"");
     }
 #endif
     if (_progress != _progress_prev && _progress_prev >= PROGRESS_NOTHING) {

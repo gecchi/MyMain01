@@ -43,7 +43,7 @@ void EnemyOebiusController::processBehavior() {
             break;
         }
         case PROG_ENTRY_CORE: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pOebiusCore_->positionAs(&entry_pos_);
                 pOebiusCore_->activate();
             }
@@ -52,7 +52,7 @@ void EnemyOebiusController::processBehavior() {
         }
 
         case PROG_WAIT01: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
             }
             if (pProg->hasArrivedAt(120)) {
                 pProg->changeNext();
@@ -61,7 +61,7 @@ void EnemyOebiusController::processBehavior() {
         }
 
         case PROG_ENTRY_FORMATION: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 if (pOebiusCore_) {
                     pFormationOebius_->position(pOebiusCore_->_x,
                                                 pOebiusCore_->_y,
@@ -77,7 +77,7 @@ void EnemyOebiusController::processBehavior() {
         }
 
         case PROG_WAIT02: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
             }
             if (pOebiusCore_ == nullptr) {
                 //ƒRƒA‚ª‚¢‚È‚­‚È‚Á‚½‚çU‚èU‚è‚É

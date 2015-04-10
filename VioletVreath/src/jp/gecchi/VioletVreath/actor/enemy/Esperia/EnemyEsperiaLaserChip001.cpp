@@ -69,7 +69,6 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
                                       D_ANG(5), 0,
                                       TURN_CLOSE_TO, false);
             }
-
             if (_y > begin_y_+turn_dy_ || pProg->getFrame() > 300) {
                 pProg->changeNext();
             }
@@ -78,7 +77,7 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
 
         case PROG_TURN1: {
             //自機より少し上の座標で屈折
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pKuroko->setMvVelo(pKuroko->_velo_mv/3); //屈折時少しスローダウン
                 pKuroko->turnMvAngTwd(tx2_, ty2_, tz2_,
                                       D_ANG(10), 0,
@@ -105,7 +104,7 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
         }
 
         case PROG_INTO_MYSHIP: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 getSeTx()->play3D(SE_FIRE);
             }
             if (pProg->getFrame() % 16U == 0) {
@@ -129,7 +128,7 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
 }
 
 void EnemyEsperiaLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         sayonara();

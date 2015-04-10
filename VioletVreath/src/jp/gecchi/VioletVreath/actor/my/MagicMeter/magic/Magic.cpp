@@ -415,11 +415,11 @@ void Magic::processBehavior() {
     switch (prog) {
         /////////////////////////////////////// 待機
         case STATE_NOTHING: {
-            if (pProg->isJustChanged()) {
-                if (pProg->isJustChangedFrom(STATE_CASTING)) {
+            if (pProg->hasJustChanged()) {
+                if (pProg->hasJustChangedFrom(STATE_CASTING)) {
                     _TRACE_("Magic::processBehavior() ["<<getName()<<"] 詠唱キャンセル終了！");
                     processCastingCancel(level_); //コールバック
-                } else if (pProg->isJustChangedFrom(STATE_INVOKING)) {
+                } else if (pProg->hasJustChangedFrom(STATE_INVOKING)) {
                     _TRACE_("Magic::processBehavior() ["<<getName()<<"] 発動キャンセル終了！");
                     processInvokingCancel(level_); //コールバック
                 }
@@ -436,7 +436,7 @@ void Magic::processBehavior() {
         }
         /////////////////////////////////////// 詠唱中
         case STATE_CASTING: {
-            if (pProg->isJustChanged()) { //詠唱開始
+            if (pProg->hasJustChanged()) { //詠唱開始
                 time_of_next_state_ = level_up_time_of_casting_[level_][new_level_]; //詠唱終了時間
                 _TRACE_("Magic::processBehavior() ["<<getName()<<"] STATE_CASTING begin new_level_="<<new_level_<<" level_="<<level_<<" time_of_next_state_="<<time_of_next_state_<<"");
                 processCastBegin(level_, new_level_);  //コールバック
@@ -454,7 +454,7 @@ void Magic::processBehavior() {
 
         /////////////////////////////////////// 発動中
         case STATE_INVOKING: {
-            if (pProg->isJustChanged()) { //発動開始
+            if (pProg->hasJustChanged()) { //発動開始
                 time_of_next_state_ = level_up_time_of_invoking_[level_][new_level_]; //発動終了時間
                 _TRACE_("Magic::processBehavior() ["<<getName()<<"] STATE_INVOKING begin new_level_="<<new_level_<<" level_="<<level_<<" time_of_next_state_="<<time_of_next_state_<<"");
                 processInvokeBegin(level_, new_level_);     //コールバック
@@ -477,7 +477,7 @@ void Magic::processBehavior() {
         }
         /////////////////////////////////////// 持続開始
         case STATE_EFFECT_START: {
-            if (pProg->isJustChanged()) { //持続開始
+            if (pProg->hasJustChanged()) { //持続開始
                 _TRACE_("Magic::processBehavior() ["<<getName()<<"] STATE_EFFECT_START begin");
 
                 processEffectBegin(last_level_, level_); //効果持続開始コールバック
@@ -548,7 +548,7 @@ void Magic::processBehavior() {
 
     do { //break 脱出用、ここから -->
     if (level_ > 0) {
-        if (pProg->isJustChangedTo(STATE_EFFECT_START) && time_of_effect_base_ == 0) {
+        if (pProg->hasJustChangedTo(STATE_EFFECT_START) && time_of_effect_base_ == 0) {
             //即効性魔法のため終了
             for (int lv = 1; lv <= level_; lv++) { //全レベルリセットを設定
                  lvinfo_[lv].remainingtime_of_effect_ = 0; //効果持続終了残り時間を0

@@ -117,7 +117,7 @@ void EnemyStraea::processBehavior() {
         }
         case PROG_ENTRY: {
             EffectBlink* pEffectEntry = nullptr;
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pEffectEntry = UTIL::activateEntryEffectOf(this);
             }
             static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
@@ -133,7 +133,7 @@ void EnemyStraea::processBehavior() {
             break;
         }
         case PROG_MOVE: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 angle v = angvelo_turn_ / 50;
                 pKuroko->setRollPitchYawFaceAngVelo(RND(-v, v), RND(-v, v), RND(-v, v));
                 pKuroko->setMvVelo(2000);
@@ -145,7 +145,7 @@ void EnemyStraea::processBehavior() {
         }
 
         case PROG_TURN: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 //ターン開始
                 pKuroko->turnFaceAngTwd(P_MYSHIP,
                                         angvelo_turn_, 0, TURN_ANTICLOSE_TO, false);
@@ -163,7 +163,7 @@ void EnemyStraea::processBehavior() {
         }
 
         case PROG_FIRE: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 //レーザーセット、借入
                 GgafActorDepositoryStore* pLaserChipDepoStore =
                         (GgafActorDepositoryStore*)(pConn_pDepoStore_laser_set->peek());
@@ -306,7 +306,7 @@ void EnemyStraea::onHit(const GgafActor* prm_pOtherActor) {
         };
 
 
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

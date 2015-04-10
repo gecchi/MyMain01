@@ -53,7 +53,7 @@ void GameOverScene::processBehavior() {
         }
 
         case GameOverScene::PROG_DISP: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 pLabel01_->update(500*1000, 300*1000, "GAME OVER (-_-;)");
                 fadeinScene(FADE_FRAMES);
 
@@ -80,7 +80,7 @@ void GameOverScene::processBehavior() {
         }
 
         case GameOverScene::PROG_NAMEENTRY: {
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  pNameEntryScene_ = (NameEntryScene*)obtainSceneFromFactory(ORDER_ID_NAMEENTRYSCENE);
                  addSubLast(pNameEntryScene_);
              }
@@ -89,7 +89,7 @@ void GameOverScene::processBehavior() {
          }
 
         case GameOverScene::PROG_FINISH: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 if (pNameEntryScene_) {
                     pNameEntryScene_->sayonara();
                 }

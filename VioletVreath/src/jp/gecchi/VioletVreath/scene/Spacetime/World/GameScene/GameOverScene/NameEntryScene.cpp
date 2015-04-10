@@ -59,7 +59,7 @@ void NameEntryScene::processBehavior() {
 
         case NameEntryScene::PROG_PRE_DISP: {
             //##########  事前画面表示  ##########
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 _TRACE_("NameEntryScene::processBehavior() Prog has Just Changed (to NameEntryScene::PROG_PRE_DISP)");
                 pWorldBound_->fadein();
             }
@@ -72,7 +72,7 @@ void NameEntryScene::processBehavior() {
 
         case NameEntryScene::PROG_INPUT: {
             //##########  ネームエントリー  ##########
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 _TRACE_("NameEntryScene::processBehavior() Prog has Just Changed (to NameEntryScene::PROG_INPUT)");
                 pLabel01_->update(PX_C(62), PX_C(32), "PLEASE ENTRY YOUR NAME!!!!");
                 pNameEntryBoard_->rise(PX_C(50), PX_C(10)); //ネームエントリー板出現
@@ -87,7 +87,7 @@ void NameEntryScene::processBehavior() {
 
         case NameEntryScene::PROG_DONE_DISP: {
             //##########  ネームエントリー完了後の画面表示  ##########
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 _TRACE_("NameEntryScene::processBehavior() Prog has Just Changed (to NameEntryScene::PROG_DONE_DISP)");
                 pNameEntryBoard_->sinkMe(); //ネームエントリー板消去
                 pLabelSelectedChar_->inactivate(); //選択表示文字消去
@@ -122,7 +122,7 @@ void NameEntryScene::processBehavior() {
         }
 
         case NameEntryScene::PROG_FINISH: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 _TRACE_("NameEntryScene::processBehavior() Prog has Just Changed (to NameEntryScene::PROG_FINISH)");
                 _TRACE_("おわりじゃよ！");
                 throwEventUpperTree(EVENT_NAMEENTRYSCENE_FINISH);

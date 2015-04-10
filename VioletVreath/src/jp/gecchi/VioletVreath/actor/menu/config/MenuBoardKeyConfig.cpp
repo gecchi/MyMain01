@@ -165,7 +165,7 @@ void MenuBoardKeyConfig::processBehavior() {
 
     //サブメニュー判定
     MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
-    if (pSubConfirm->isJustDecidedOk()) {
+    if (pSubConfirm->hasJustDecidedOk()) {
         //現プロパティをファイルに保存
         PROPERTY::setValue("MY_KEY_UP"        , paVBProperties[ITEM_UP        ].pKey->getDrawString());
         PROPERTY::setValue("MY_KEY_DOWN"      , paVBProperties[ITEM_DOWN      ].pKey->getDrawString());
@@ -205,7 +205,7 @@ void MenuBoardKeyConfig::processBehavior() {
 
         sinkCurrentSubMenu(); //確認メニュー閉じる
         sinkMe();        //自身メニュー閉じる
-    } else if (pSubConfirm->isJustDecidedCancel()) {
+    } else if (pSubConfirm->hasJustDecidedCancel()) {
         sinkCurrentSubMenu();
     } else {
 

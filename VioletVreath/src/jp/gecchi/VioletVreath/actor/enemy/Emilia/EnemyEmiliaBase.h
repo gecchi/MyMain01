@@ -40,8 +40,6 @@ public:
 
     virtual void onInactive() override;
 
-
-
     virtual ~EnemyEmiliaBase();
 };
 

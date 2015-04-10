@@ -23,8 +23,8 @@ void FormationAppho001a::onCallUpAppho(EnemyAppho* prm_pAppho, int prm_index) {
     coord x = ANG_COS(pos_ang) * r;
     coord y = ANG_SIN(pos_ang) * r;
     prm_pAppho->stagnating_pos_.set( P_MYSHIP->_x + x,
-                                  P_MYSHIP->_y + y,
-                                  P_MYSHIP->_z      );
+                                     P_MYSHIP->_y + y,
+                                     P_MYSHIP->_z      );
     Spacetime* pSpacetime =  P_GOD->getSpacetime();
     prm_pAppho->leave_pos_.set( (pSpacetime->_x_bound_right/2) + RND(-PX_C(d),PX_C(d)),
                                 (pSpacetime->_y_bound_top/2)   + RND(-PX_C(d),PX_C(d)),

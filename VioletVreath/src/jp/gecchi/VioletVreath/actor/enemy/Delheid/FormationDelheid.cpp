@@ -60,13 +60,13 @@ void FormationDelheid::onActive() {
 void FormationDelheid::processBehavior() {
     //pAlisana_start が破壊されているかチェック
     if (pAlisana_start) {
-        if (pAlisana_start->isJustChangedToInactive()) {
+        if (pAlisana_start->hasJustChangedToInactive()) {
             pAlisana_start = nullptr;
         }
     }
     //pAlisana_goal が破壊されているかチェック
     if (pAlisana_goal) {
-        if (pAlisana_goal->isJustChangedToInactive()) {
+        if (pAlisana_goal->hasJustChangedToInactive()) {
             pAlisana_goal = nullptr;
         }
     }
@@ -77,8 +77,11 @@ void FormationDelheid::processBehavior() {
              //ダミー(pDummy_)を使ってメンバーのスプライン移動の開始位置と方向、終了位置と方向を予め求める
              pDummy_->config(getSplManuf()->createKurokoLeader(pDummy_->getKuroko()), nullptr);
              pDummy_->getKuroko()->setMvVelo(RV_MvVelo_);
-             onCallUpDelheid(pDummy_); //メンバー(Delheid)のフォーメーション開始座標と方向を得る
-             pDummy_->pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION); //座標計算のためスタート＆オプション指定が必要
+             pDummy_->positionAs(&geoLocate_);
+             pDummy_->setFaceAngAs(&geoLocate_);
+             pDummy_->getKuroko()->setRzRyMvAng(geoLocate_.rz, geoLocate_.ry);
+             onCallUpDelheid(pDummy_);
+             pDummy_->pKurokoLeader_->start(RELATIVE_COORD_DIRECTION); //座標計算のためスタート＆オプション指定が必要
              coord next_x, next_y, next_z;             //開始+1 の補完点座標
              coord end_x, end_y, end_z;                //最終の補完点座標
              coord end_prev_x, end_prev_y, end_prev_z; //最終-1 の補完点座標
@@ -131,6 +134,9 @@ void FormationDelheid::processBehavior() {
                              pDelheid->getKuroko()->setMvVelo(RV_MvVelo_);
 
                              pDelheid->getKuroko()->setMvAcce(0);
+                             pDelheid->positionAs(&geoLocate_);
+                             pDelheid->setFaceAngAs(&geoLocate_);
+                             pDelheid->getKuroko()->setRzRyMvAng(geoLocate_.rz, geoLocate_.ry);
                              onCallUpDelheid(pDelheid); //下位フォーメーションクラス個別実装の処理
                          } else {
                              //招集おしまい
@@ -151,7 +157,7 @@ void FormationDelheid::processBehavior() {
 
          //全メンバー減速
          case PROG_FROMATION_MOVE2: {
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  _listFollower.executeFunc(FormationDelheid::order1, this, nullptr);
              }
              if (pProg->hasArrivedAt(120)) {
@@ -163,7 +169,7 @@ void FormationDelheid::processBehavior() {
 
          //メンバー停滞&発射
          case PROG_FROMATION_MOVE3: {
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  _listFollower.executeFunc(FormationDelheid::order2, this, nullptr);
              }
              if (pProg->hasArrivedAt(360)) {
@@ -174,7 +180,7 @@ void FormationDelheid::processBehavior() {
 
          //メンバー再始動
          case PROG_FROMATION_MOVE4: {
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  _listFollower.executeFunc(FormationDelheid::order3, this, nullptr);
              }
              if (pProg->hasArrivedAt(120)) {
@@ -185,7 +191,7 @@ void FormationDelheid::processBehavior() {
 
          //待機
          case PROG_FROMATION_MOVE5: {
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
              }
              //onSayonaraAll() コールバック待ち
              break;
@@ -194,7 +200,7 @@ void FormationDelheid::processBehavior() {
 //----------------------------------------------
          //編隊メンバー全機非活動時(onSayonaraAll()時)
          case PROG_LEAVE: {
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                   if (pAlisana_goal) {
                       pAlisana_goal->close_sayonara();
                   }

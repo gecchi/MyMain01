@@ -63,7 +63,7 @@ void SplineKurokoLeader::getPointCoord(int prm_point_index, coord& out_x, coord&
     const double dy = _flip_y*pSpl->_y_compute[prm_point_index]*_pManufacture->_rate_y + _offset_y;
     const double dz = _flip_z*pSpl->_z_compute[prm_point_index]*_pManufacture->_rate_z + _offset_z;
     //次の補間点（or制御点)に移動方角を向ける
-    if (_option == RELATIVE_DIRECTION) {
+    if (_option == RELATIVE_COORD_DIRECTION) {
         if (_is_leading) {
             //黒衣さんが先導中(leading中)
             //startされているので、未来の補間点座標が確定している
@@ -117,7 +117,7 @@ void SplineKurokoLeader::getPointCoord(int prm_point_index, coord& out_x, coord&
                 out_z = dz + _pActor_target->_z;
             }
         }
-    } else { //RELATIVE_DIRECTION
+    } else { //RELATIVE_COORD_DIRECTION
         //絶対座標ターゲット
         out_x = dx;
         out_y = dy;
@@ -180,7 +180,7 @@ void SplineKurokoLeader::restart() {
         }
     }
 
-    if (_option == RELATIVE_DIRECTION) {
+    if (_option == RELATIVE_COORD_DIRECTION) {
         _distance_to_begin = UTIL::getDistance(0.0, 0.0, 0.0,
                                                p0x, p0y, p0z );
     } else if (_option == RELATIVE_COORD) {

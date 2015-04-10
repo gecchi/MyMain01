@@ -3,6 +3,8 @@
 #include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DepositoryFormation.h"
 
+#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+
 namespace VioletVreath {
 
 /**
@@ -38,6 +40,8 @@ public:
     EnemyAlisana* pAlisana_start;
     /** 終点のアリサナ */
     EnemyAlisana* pAlisana_goal;
+    /** [r]設置座標と向き */
+    GgafDxCore::GgafDxGeoElem geoLocate_;
 
     /** 編隊数(RANK変動) */
     int RV_Num_;
@@ -84,6 +88,18 @@ public:
 
     static void order3(GgafCore::GgafActor* prm_pDelheid, void* prm1, void* prm2);
 
+    /**
+     * 設置座標と向きをセット .
+     */
+    void position(coord x, coord y, coord z,
+                  angle rx, angle rz, angle ry) {
+        geoLocate_.x = x;
+        geoLocate_.y = y;
+        geoLocate_.z = z;
+        geoLocate_.rx = rx;
+        geoLocate_.rz = rz;
+        geoLocate_.ry = ry;
+    }
 
     virtual ~FormationDelheid();
 };

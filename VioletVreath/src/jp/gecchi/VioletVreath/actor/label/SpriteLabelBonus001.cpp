@@ -65,7 +65,7 @@ void SpriteLabelBonus001::processBehavior() {
             break;
         }
         case PROG_MOVE02: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
             }
             addAlpha(-0.01);
             if (getAlpha() <= 0.0) {
@@ -74,7 +74,7 @@ void SpriteLabelBonus001::processBehavior() {
             break;
         }
         case PROG_LEAVE: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 sayonara();
                 pProg->changeNothing();
             }

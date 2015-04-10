@@ -66,7 +66,7 @@ void EnemyGlaja::processBehavior() {
          }
          case PROG_ENTRY: {
              EffectBlink* pEffectEntry = nullptr;
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  pEffectEntry = UTIL::activateEntryEffectOf(this);
              }
              static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
@@ -82,7 +82,7 @@ void EnemyGlaja::processBehavior() {
          }
 
          case PROG_MOVE01: {
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  next_pos_.set(
                              pMyShip->_x + PX_C(300) + RND(PX_C(-100), PX_C(100)),
                              pMyShip->_y + RND(PX_C(-400), PX_C(400)),
@@ -96,14 +96,14 @@ void EnemyGlaja::processBehavior() {
                  pKuroko->asstA()->slideMvByVd(Vt, D, 0.1, 0.5, Ve, true);
              }
 
-             if (pKuroko->asstA()->isJustFinishSlidingMv()) {
+             if (pKuroko->asstA()->hasJustFinishedSlidingMv()) {
                  pProg->changeNext();
              }
              break;
          }
 
          case PROG_MOVE02: {
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
              }
              if (pProg->hasArrivedAt(60)) {
                  pProg->changeNext();
@@ -112,7 +112,7 @@ void EnemyGlaja::processBehavior() {
          }
 
          case PROG_OPEN: {
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  getMorpher()->transitionLinerUntil(MPH_OPEN, 1.0, 30);
              }
              if (pProg->hasArrivedAt(30)) {
@@ -122,7 +122,7 @@ void EnemyGlaja::processBehavior() {
          }
 
          case PROG_FIRE: {
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  num_fire_ = RF_EnemyGlaja_ShotWay(G_RANK);
                  UTIL::shotWay004(
                      this,
@@ -142,7 +142,7 @@ void EnemyGlaja::processBehavior() {
          }
 
          case PROG_CLOSE: {
-             if (pProg->isJustChanged()) {
+             if (pProg->hasJustChanged()) {
                  getMorpher()->transitionLinerUntil(MPH_OPEN, 0.0, 30);
              }
              if (pProg->hasArrivedAt(30)) {
@@ -168,7 +168,7 @@ void EnemyGlaja::processJudgement() {
 }
 
 void EnemyGlaja::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

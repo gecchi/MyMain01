@@ -78,7 +78,7 @@ void EnemyEmus::processBehavior() {
             break;
         }
         case PROG_HATCH_CLOSE: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 getMorpher()->transitionLinerUntil(MORPHTARGET_HATCH_OPEN,
                                            0.0f, frame_of_morph_interval_);
                 pKuroko->setRollFaceAngVelo(0);
@@ -91,7 +91,7 @@ void EnemyEmus::processBehavior() {
             break;
         }
         case PROG_HATCH_OPEN: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 getMorpher()->transitionLinerUntil(MORPHTARGET_HATCH_OPEN,
                                            1.0f, frame_of_morph_interval_);
                 pKuroko->setRollFaceAngVelo(3000);
@@ -103,7 +103,7 @@ void EnemyEmus::processBehavior() {
             break;
         }
         case PROG_FIRE: {
-            if (pProg->isJustChanged()) {
+            if (pProg->hasJustChanged()) {
                 if (!pDepo_) {
                     pDepo_ = (LaserChipDepository*)UTIL::getDepositoryOf(this);
                 }
@@ -162,7 +162,7 @@ void EnemyEmus::processJudgement() {
 }
 
 void EnemyEmus::onHit(const GgafActor* prm_pOtherActor) {
-    const bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //”j‰óŽž
         getSeTx()->play3D(SE_EXPLOSION);

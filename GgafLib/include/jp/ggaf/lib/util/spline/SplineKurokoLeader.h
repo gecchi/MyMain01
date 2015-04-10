@@ -5,6 +5,12 @@
 
 namespace GgafLib {
 
+enum SplinTraceOption {
+    ABSOLUTE_COORD,     //絶対座標移動
+    RELATIVE_COORD,     //スプライン座標の(0,0,0)を、アクターの現座標とし相対座標で計算
+    RELATIVE_COORD_DIRECTION, //スプライン座標の(0,0,0)を、アクターの現座標とし相対座標とし、アクターの現在の向き（_rx > _rz > _ry)でスプライン座標群をワールド変換。
+};
+
 /**
  * スプライン曲線移動を実行するためのオブジェクト .
  * 黒衣に指示を出して移動を先導します。
@@ -15,12 +21,6 @@ namespace GgafLib {
 class SplineKurokoLeader : public GgafCore::GgafObject {
 
 public:
-    enum SplinTraceOption {
-        ABSOLUTE_COORD,     //絶対座標移動
-        RELATIVE_COORD,     //スプライン座標の(0,0,0)を、アクターの現座標とし相対座標で計算
-        RELATIVE_DIRECTION, //スプライン座標の(0,0,0)を、アクターの現座標とし相対座標とし、アクターの現在向き（_pKuroko の _ang_rz_mv, _ang_ry_mv)でスプライン座標群をワールド変換。
-    };
-
     /** スプライン情報セット */
     SplineManufacture* _pManufacture;
     /** 先導開始をしたかどうか */
@@ -35,7 +35,7 @@ public:
      * [r]オプション
      * ABSOLUTE_COORD     : 絶対座標移動。
      * RELATIVE_COORD     : 始点を現座標とし、スプライン座標群は相対移動で計算。
-     * RELATIVE_DIRECTION : 始点を現座標とし、さらに現在の向き（_pKuroko の _ang_rz_mv, _ang_ry_mv)でスプライン座標群をワールド変換。
+     * RELATIVE_COORD_DIRECTION : 始点を現座標とし、さらに現在の向き（_pKuroko の _ang_rz_mv, _ang_ry_mv)でスプライン座標群をワールド変換。
      */
     SplinTraceOption _option;
     /** [r] ループカウンタ */
@@ -129,7 +129,7 @@ public:
 
     /**
      * 対象アクター(_pActor_target)の座標を、スプラインの一番最初の制御点座標で設定する .
-     * start(SplineKurokoLeader::ABSOLUTE_COORD) の場合、つまり「絶対座標移動スプライン」の場合、
+     * start(ABSOLUTE_COORD) の場合、つまり「絶対座標移動スプライン」の場合、
      * 有効な設定となりうるでしょう。<BR>
      */
     void setAbsoluteBeginCoord();
@@ -142,6 +142,10 @@ public:
 
     /**
      * スプライン曲線の補完点を移動する先導開始 .
+     * @param prm_option ABSOLUTE_COORD     絶対座標移動
+     *                   RELATIVE_COORD     スプライン座標の(0,0,0)を、対象黒衣のアクターの現座標とし、相対座標で計算
+     *                   RELATIVE_COORD_DIRECTION スプライン座標の(0,0,0)を、対象黒衣のアクターの現座標とし、相対座標で計算。その後、現在の向き（_rx > _rz > _ry)でスプライン座標群をワールド変換。
+     * @param prm_max_loop 繰り返し回数、省略時は１ループ。
      */
     virtual void start(SplinTraceOption prm_option, int prm_max_loop = 1);
 
@@ -270,7 +274,7 @@ public:
      * もし、本メソッドを実行しなかった場合、スプライン開始時のスプライン方向は、<BR>
      * 「スプライン開始方向 ＝ start()時の対象アクターの黒子Aの移動方向(_ang_rz_mv, _ang_ry_mv）となる。<BR>
      * これを避けて、スプライン開始時、任意のスプライン方向に上書き設定を行う。<BR>
-     * ※スプライン方向の設定は、RELATIVE_DIRECTION の場合のみ意味がある。
+     * ※スプライン方向の設定は、RELATIVE_COORD_DIRECTION の場合のみ意味がある。
      * @param prm_rz
      * @param prm_ry
      */

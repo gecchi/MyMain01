@@ -17,8 +17,6 @@ FormationDelheid001::FormationDelheid001(const char* prm_name) :
 }
 
 void FormationDelheid001::onCallUpDelheid(EnemyDelheid* pEnemyDelheid) {
-    pEnemyDelheid->positionAs(&geoLocate_);
-    pEnemyDelheid->getKuroko()->setRzRyMvAng(geoLocate_.rz, geoLocate_.ry);
 }
 
 GgafLib::SplineManufacture* FormationDelheid001::getSplManuf() {
