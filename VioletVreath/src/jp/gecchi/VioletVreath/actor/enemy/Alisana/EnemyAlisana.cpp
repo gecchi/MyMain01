@@ -44,7 +44,6 @@ void EnemyAlisana::initialize() {
 void EnemyAlisana::onActive() {
     getStatus()->reset();
     getProgress()->reset(PROG_INIT);
-    getKuroko()->setRollFaceAngVelo(200);
 }
 
 void EnemyAlisana::processBehavior() {

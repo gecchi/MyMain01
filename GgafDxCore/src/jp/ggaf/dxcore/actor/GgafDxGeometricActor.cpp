@@ -366,14 +366,14 @@ void GgafDxGeometricActor::positionAboutAs(const GgafDxGeoElem* prm_pGeoElem, co
     _z = RND_ABOUT(prm_pGeoElem->z, margin);
 }
 void GgafDxGeometricActor::setFaceAngAs(const GgafDxGeometricActor* prm_pActor) {
-    _rx = prm_pActor->_rx;
-    _ry = prm_pActor->_ry;
-    _rz = prm_pActor->_rz;
+    setRxFaceAng(prm_pActor->_rx);
+    setRyFaceAng(prm_pActor->_ry);
+    setRzFaceAng(prm_pActor->_rz);
 }
 void GgafDxGeometricActor::setFaceAngAs(const GgafDxGeoElem* prm_pGeoElem) {
-    _rx = prm_pGeoElem->rx;
-    _ry = prm_pGeoElem->ry;
-    _rz = prm_pGeoElem->rz;
+    setRxFaceAng(prm_pGeoElem->rx);
+    setRyFaceAng(prm_pGeoElem->ry);
+    setRzFaceAng(prm_pGeoElem->rz);
 }
 
 //void GgafDxGeometricActor::setFaceAng(axis prm_axis, angle prm_angFace) {
@@ -391,8 +391,8 @@ void GgafDxGeometricActor::setRxFaceAng(angle prm_angFace) {
 }
 
 void GgafDxGeometricActor::setRzRyFaceAng(angle prm_angRzFace, angle prm_angRyFace) {
-    _rz = UTIL::simplifyAng(prm_angRzFace);
-    _ry = UTIL::simplifyAng(prm_angRyFace);
+    setRzFaceAng(prm_angRzFace);
+    setRyFaceAng(prm_angRyFace);
 }
 
 void GgafDxGeometricActor::setFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz) {

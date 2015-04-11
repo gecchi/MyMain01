@@ -64,11 +64,6 @@ void EnemyDelheid::onActive() {
     getStatus()->reset();
     setHitAble(true);
     getMorpher()->reset();
-    setRzFaceAng(0);
-    GgafDxKuroko* const pKuroko = getKuroko();
-    pKuroko->setMvAcce(0);
-    pKuroko->keepOnTurningFaceAngTwd(P_MYSHIP,
-                                     D_ANG(1), 0, TURN_CLOSE_TO, false);
     getProgress()->reset(PROG_INIT);
     pProg2_->reset(PROG2_WAIT);
 }
@@ -83,6 +78,9 @@ void EnemyDelheid::processBehavior() {
     switch (pProg->get()) {
         case PROG_INIT: {
             pKurokoLeader_->start(RELATIVE_COORD_DIRECTION);
+            getKuroko()->setMvAcce(0);
+            getKuroko()->keepOnTurningFaceAngTwd(P_MYSHIP,
+                                             D_ANG(1), 0, TURN_CLOSE_TO, false);
             pProg->changeNext();
             break;
         }
