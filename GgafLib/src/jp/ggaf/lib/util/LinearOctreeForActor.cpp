@@ -98,5 +98,3 @@ void LinearOctreeForActor::executeHitChk_RoundRobin(CollisionStack* prm_pStackA,
 LinearOctreeForActor::~LinearOctreeForActor() {
 }
 
-
-

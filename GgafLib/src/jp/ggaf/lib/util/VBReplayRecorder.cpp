@@ -123,6 +123,5 @@ VBReplayRecorder::~VBReplayRecorder() {
     if (_write_realtime) {
         _ofs_realtime.close();
     }
-
 }
 

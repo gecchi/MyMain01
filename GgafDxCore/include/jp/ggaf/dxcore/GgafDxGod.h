@@ -249,6 +249,16 @@ public:
 
     /**
      * ウィンドウ生成処理 .
+     * 標準的なウィンドウを作成します。
+     * @param prm_WndProc ウィンドウプロシージャ関数
+     * @param prm_title1 １画面目のタイトル
+     * @param prm_title2 ２画面目のタイトル
+     */
+    void createWindow(WNDPROC prm_WndProc,
+                      const char* prm_title1, const char* prm_title2);
+
+    /**
+     * ウィンドウ生成処理 .
      * ウィンドウモード時のウインドウスタイル定数は WS_OVERLAPPEDWINDOW が設定されます。
      * @param prm_wndclass1 １画面目のWNDCLASSEXパラメータ
      * @param prm_wndclass2 ２画面目のWNDCLASSEXパラメータ

@@ -75,10 +75,26 @@ public:
                const GgafDxCore::GgafDxGeometricActor* prm_pFollowTarget);
 
     /**
-     * またたきフレームを取得 .
+     * またたきフレーム数を取得 .
      */
     frame getBlinkFrames() {
         return (scale_in_frames_+duration_frames_+scale_out_frames_);
+    }
+
+    /**
+     * 入場エフェクトとして使用した場合の、アクターの入場開始フレームを取得 .
+     * @return 入場開始フレーム
+     */
+    frame getFrameOfSummonsBegin() {
+        return (scale_in_frames_/2);
+    }
+
+    /**
+     * 入場エフェクトとして使用した場合の、入場に費やすフレーム数を取得 .
+     * @return 入場に費やすフレーム数
+     */
+    frame getSummoningFrames() {
+        return ( (scale_in_frames_/2) + duration_frames_ + (scale_out_frames_/2) );
     }
 
     virtual ~EffectBlink();

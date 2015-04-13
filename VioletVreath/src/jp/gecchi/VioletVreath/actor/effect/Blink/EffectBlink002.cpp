@@ -12,7 +12,6 @@ EffectBlink002::EffectBlink002(const char* prm_name) :
         EffectBlink(prm_name, "EffectBlink002") {
     _class_name = "EffectBlink002";
     effectBlendOne();
-    setZEnable(false);
     setZWriteEnable(false);
 //    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ビルボードRz回転
 }

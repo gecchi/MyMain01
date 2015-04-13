@@ -28,18 +28,14 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     SmpGod god = SmpGod();
     //メイン処理
     MSG msg;
-    HWND hWnd1, hWnd2; //HWNDは２つ用意します。
     try {
         //ウィンドウ作成
-        god.createWindow(WndProc,
-                         "SimpleSample[1]", "SimpleSample[2]",
-                         hWnd1, hWnd2); //HWNDが代入されます(戻り値)
+        god.createWindow(WndProc, "SimpleSample[1]", "SimpleSample[2]");
         //ループ本体
         while (true) {
             if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
                 if (msg.message == WM_QUIT) {
-                    //終了メッセージの場合
-                    return EXIT_SUCCESS; //アプリ終了
+                    return EXIT_SUCCESS; //終了メッセージの場合、アプリ終了
                 }
                 TranslateMessage(&msg);
                 DispatchMessage(&msg);

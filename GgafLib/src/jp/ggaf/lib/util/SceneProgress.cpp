@@ -11,9 +11,11 @@ SceneProgress::SceneProgress(DefaultScene* prm_pScene, int prm_num_progress)  : 
     _progress_next_promise = 0;
     _count_next_promise = 0;
 }
+
 void SceneProgress::relateSubScene(progress prm_FirstProgress, progress prm_EndProgress, const char* prm_FirstSubSceneName) {
     relateSubScene(prm_FirstProgress, prm_EndProgress, (DefaultScene*)(_pScene->getSubByName(prm_FirstSubSceneName)));
 }
+
 void SceneProgress::relateSubScene(progress prm_FirstProgress, progress prm_EndProgress, DefaultScene* prm_pFirstSubScene) {
     DefaultScene* pSub = prm_pFirstSubScene;
     int num = 1;

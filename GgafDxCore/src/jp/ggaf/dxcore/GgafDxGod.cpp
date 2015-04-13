@@ -1270,6 +1270,13 @@ void GgafDxGod::createWindow(WNDPROC prm_WndProc,
                   out_hWnd1, out_hWnd2   );
 }
 
+void GgafDxGod::createWindow(WNDPROC prm_WndProc,
+                             const char* prm_title1, const char* prm_title2) {
+    HWND hWnd1, hWnd2;
+    createWindow(prm_WndProc,
+                 prm_title1, prm_title2,
+                 hWnd1, hWnd2);
+}
 
 HRESULT GgafDxGod::initDevice() {
 //    //default

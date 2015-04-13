@@ -20,6 +20,7 @@ FormationAppho001::FormationAppho001(const char* prm_name) :
     }
     cnt_call_up_ = 0;
 }
+
 void FormationAppho001::initialize() {
 }
 

@@ -70,15 +70,12 @@ void ColliSphere::rotateRxRzRy(angle rx, angle ry, angle rz) {
         wk_cy = _cy;
         wk_cz = _cz;
     }
-
-    //
     if (_rot_z) {
         _cx = (wk_cx * UTIL::COS[s_rz]) - (wk_cy * UTIL::SIN[s_rz]);
         _cy = (wk_cx * UTIL::SIN[s_rz]) + (wk_cy * UTIL::COS[s_rz]);
         wk_cx = _cx;
         wk_cy = _cy;
     }
-
     if (_rot_y) {
 //            _cz = (wk_cz * UTIL::COS[s_ry]) - (wk_cx * UTIL::SIN[s_ry]);
 //            _cx = (wk_cz * UTIL::SIN[s_ry]) + (wk_cx * UTIL::COS[s_ry]);
@@ -101,7 +98,6 @@ void ColliSphere::rotateRxRzRy(angle rx, angle ry, angle rz) {
     _aab_y2 = _y + _r;
     _aab_z2 = _z + _r;
 }
-
 
 ColliSphere::~ColliSphere() {
 }

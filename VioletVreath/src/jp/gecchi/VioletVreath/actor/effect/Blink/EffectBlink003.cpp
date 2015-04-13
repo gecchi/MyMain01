@@ -12,7 +12,6 @@ EffectBlink003::EffectBlink003(const char* prm_name) :
         EffectBlink(prm_name, "EffectBlink003") {
     _class_name = "EffectBlink003";
     effectBlendOne();
-    setZEnable(false);
     setZWriteEnable(false);
 }
 

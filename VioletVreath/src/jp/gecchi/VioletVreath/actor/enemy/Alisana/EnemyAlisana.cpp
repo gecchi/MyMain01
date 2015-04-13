@@ -60,12 +60,12 @@ void EnemyAlisana::processBehavior() {
             if (pProg->hasJustChanged()) {
                 pEffectEntry = UTIL::activateEntryEffectOf(this);
             }
-            static const frame scale_in_frames = pEffectEntry->scale_in_frames_;
-            static const frame duration_frames = pEffectEntry->duration_frames_;
-            if (_pProg->hasArrivedAt(scale_in_frames)) {
-                pAFader_->transitionLinerUntil(0.99, duration_frames);
+            static const frame frame_of_summons = pEffectEntry->getFrameOfSummonsBegin();
+            static const frame summoning_frames = pEffectEntry->getSummoningFrames();
+            if (_pProg->hasArrivedAt(frame_of_summons)) {
+                pAFader_->transitionLinerUntil(0.999, summoning_frames);
             }
-            if (getAlpha() > 0.9) {
+            if (_pProg->hasArrivedAt(frame_of_summons+summoning_frames)) {
                 setHitAble(true);
                 pProg->changeNext();
             }
@@ -144,6 +144,7 @@ void EnemyAlisana::onInactive() {
 void EnemyAlisana::acitve_open(frame prm_delay) {
     activateDelay(prm_delay);
 }
+
 bool EnemyAlisana::isOpenDone() {
     if (getProgress()->get() == PROG_HATCH_OPEN_DONE) {
         return true;
@@ -151,12 +152,13 @@ bool EnemyAlisana::isOpenDone() {
         return false;
     }
 }
+
 void EnemyAlisana::close_sayonara() {
     getMorpher()->stop();
     getProgress()->change(PROG_HATCH_CLOSE);
 }
 
-
 EnemyAlisana::~EnemyAlisana() {
     GGAF_DELETE(pAFader_);
 }
+

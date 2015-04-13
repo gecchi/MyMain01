@@ -11,8 +11,7 @@ FixedFrameSplineManufacture::FixedFrameSplineManufacture(const char* prm_source_
                                                          frame prm_spent_frame,
                                                          angvelo prm_angveloRzRyMv,
                                                          int prm_turn_way,
-                                                         bool prm_turn_optimaize) :
-        SplineManufacture(prm_source_file) {
+                                                         bool prm_turn_optimaize) : SplineManufacture(prm_source_file) {
     _spent_frame = prm_spent_frame;
     _angveloRzRyMv = prm_angveloRzRyMv;
     _turn_way = prm_turn_way;
@@ -33,8 +32,7 @@ FixedFrameSplineManufacture::FixedFrameSplineManufacture(SplineSource* prm_pSplS
                                                          frame prm_spent_frame,
                                                          angvelo prm_angveloRzRyMv,
                                                          int prm_turn_way,
-                                                         bool prm_turn_optimaize) :
-      SplineManufacture(prm_pSplSrc) {
+                                                         bool prm_turn_optimaize) : SplineManufacture(prm_pSplSrc) {
     _spent_frame = prm_spent_frame;
     _angveloRzRyMv = prm_angveloRzRyMv;
     _turn_way = prm_turn_way;

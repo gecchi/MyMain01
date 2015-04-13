@@ -1,10 +1,10 @@
 #include "jp/ggaf/lib/util/spline/SplineLine.h"
 
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
-
 
 SplineLine::SplineLine() : GgafObject() {
     _x_basepoint = nullptr;
