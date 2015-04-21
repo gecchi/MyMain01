@@ -98,7 +98,7 @@ public:
     void initialize() override;
 
     /**
-     * オーツァルティアのがアクティブになった瞬間の処理 .
+     * オーツァルティアがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 

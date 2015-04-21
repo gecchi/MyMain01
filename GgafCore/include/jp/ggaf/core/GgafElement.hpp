@@ -27,6 +27,7 @@ namespace GgafCore {
  * initialize() は、上記の nextFrame() ～ doFinally() を何れかを呼び出す前にインスタンスごとに１回だけ呼ばれる仕組みになっている。<BR>
  * 生存フラグ(_can_live_flg)がfalseの場合は、nextFrame() ～ doFinally() は全て実行されない。<BR>
  * (※旧クラス名はGgafFactor)
+ * @tparam T 管理する要素の型（この型のポインタ型が内部で管理される。）
  * @version 1.00
  * @since 2008/08/21
  * @author Masatoshi Tsuge

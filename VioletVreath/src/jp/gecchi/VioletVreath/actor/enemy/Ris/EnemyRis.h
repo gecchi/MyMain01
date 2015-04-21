@@ -47,7 +47,7 @@ public:
     void initialize() override;
 
     /**
-     * リスのがアクティブになった瞬間の処理 .
+     * リスがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 

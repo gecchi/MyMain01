@@ -318,6 +318,13 @@ class MyShip;
 class MyMagicEnergyCore;
 class MyMagicEnergy;
 class MyLockonController;
+
+
+class MyBunshinBase;
+class MyBunshin;
+class MyBunshinShot001;
+class MyBunshinSnipeShot001;
+
 class MyOptionController;
 class MyOptionControllerGizmo;
 class MyOptionControllerDirectionVector;

@@ -20,7 +20,7 @@ private:
     GgafDxMorpher* const _pMorpher;
 
 public:
-
+    /** [r]モーフターゲット数(モデルのコピーした値) */
     int _morph_target_num;
     /** [r]モデル資源 */
     GgafDxMorphMeshModel* const _pMorphMeshModel;

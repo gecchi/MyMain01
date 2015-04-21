@@ -102,6 +102,7 @@ public:
     /**
      * 工場にアクター作成の注文を行う（メインスレッドが使用） .
      * 未製造だった場合、製造が完了するまで待つ。<BR>
+     * @tparam X 注文アクターの型
      * @param prm_order_no 注文番号
      * @param prm_pFunc 実際に製造処理を行う関数のポインタ
      * @param prm_pOrderer 注文者
@@ -124,6 +125,7 @@ public:
     /**
      * 工場にシーン作成の注文を行う（メインスレッドが使用） .
      * 未製造だった場合、製造が完了するまで待つ。<BR>
+     * @tparam X 注文シーンの型
      * @param prm_order_no 注文番号
      * @param prm_pFunc	実際に製造処理を行う関数のポインタ
      * @param prm_pOrderer 注文者
@@ -165,6 +167,7 @@ public:
 
     /**
      * 注文し即受け取る。
+     * @tparam X 注文商品の型
      * @param prm_pFunc
      * @param prm_pOrderer
      * @param prm_pReceiver
@@ -172,7 +175,7 @@ public:
      * @param prm_pArg2
      * @param prm_pArg3
      * @param prm_org
-     * @return
+     * @return 出来上がった商品
      */
     template<class X>
     static X* makeObject(X* (*prm_pFunc)(void*, void*, void*),
@@ -185,7 +188,6 @@ public:
         GgafFactory::order(ORDER_ID_MAX, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
         return (X*)(GgafFactory::obtain(ORDER_ID_MAX, prm_org));
     }
-
 
     /**
      * 注文した商品が出来上がっているか調べる。（メインスレッドが使用） .
@@ -233,12 +235,29 @@ public:
      */
     static void finishRest();
 
+    /**
+     * 商品を生成する(引数は１つ) .
+     * @tparam X 商品の型
+     * @param p1 商品生成の為の引数1 (使用される)
+     * @param p2 商品生成の為の引数2 (無視される)
+     * @param p3 商品生成の為の引数3 (無視される)
+     * @return 生成された商品
+     */
     template<class X>
     static X* create(void* p1, void* p2, void* p3) {
         //p1 : 名称
         X* p = NEW X((const char*)p1);
         return p;
     }
+
+    /**
+     * 商品を生成する(引数は２つ) .
+     * @tparam X 商品の型
+     * @param p1 商品生成の為の引数1 (使用される)
+     * @param p2 商品生成の為の引数2 (使用される)
+     * @param p3 商品生成の為の引数3 (無視される)
+     * @return 生成された商品
+     */
     template<class X>
     static X* create2(void* p1, void* p2, void* p3) {
         //p1 : 名称
@@ -246,6 +265,14 @@ public:
         return p;
     }
 
+    /**
+     * アクターを生成する(引数は１つ) .
+     * @tparam X アクターの型
+     * @param p1 アクター生成の為の引数1 (使用される)
+     * @param p2 アクター生成の為の引数2 (無視される)
+     * @param p3 アクター生成の為の引数3 (無視される)
+     * @return 生成されたアクター
+     */
     template<class X>
     static X* createActor(void* p1, void* p2, void* p3) {
         //p1 : 名称
@@ -253,6 +280,14 @@ public:
         return p;
     }
 
+    /**
+     * シーンを生成する(引数は１つ) .
+     * @tparam X アクターの型
+     * @param p1 シーン生成の為の引数1 (使用される)
+     * @param p2 シーン生成の為の引数2 (無視される)
+     * @param p3 シーン生成の為の引数3 (無視される)
+     * @return 生成されたシーン
+     */
     template<class X>
     static X* createScene(void* p1, void* p2, void* p3) {
         //Scene生成で一番多い形の引数。
@@ -262,7 +297,6 @@ public:
     }
 
     static void debuginfo();
-
 
 };
 #define orderSceneToFactory(ID, CLASS, NAME) (GgafCore::GgafFactory::orderScene<CLASS>((ID),GgafCore::GgafFactory::createScene, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr)))

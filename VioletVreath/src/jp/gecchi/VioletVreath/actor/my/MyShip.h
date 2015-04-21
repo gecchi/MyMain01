@@ -264,9 +264,13 @@ public:
 
     /** VB_OPTION を離した瞬間の座標を(0,0,0)として、そこからの相対座標履歴（VB_OPTION押している時は除外されている） */
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_MyShipGeoHistory4OptCtrler_;
-
     /** 自機の毎フレームの移動履歴（絶対座標）  */
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_MyShipGeoHistory2_;
+
+    /** 分身用のトレース座標の歴史（絶対座標）  */
+    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_GeoHistory4Bunshin_;
+
+
     GgafCore::GgafActorDepository* pDepo_MyShots001_;
     GgafCore::GgafActorDepository* pDepo_MySnipeShots001_;
     GgafLib::LaserChipDepository* pLaserChipDepo_;

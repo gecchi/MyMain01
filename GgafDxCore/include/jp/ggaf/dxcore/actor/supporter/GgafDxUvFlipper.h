@@ -222,8 +222,8 @@ public:
     /**
      * 現在のアニメーションパターン番号(_pattno_uvflip_now)に対応する左上のUV座標を取得する。 .
      * 事前に setRotation() の呼び出を行ってく必要がある。
-     * @param out_u [out] 座標U
-     * @param out_v [out] 座標V
+     * @param out_u[out] 座標U
+     * @param out_v[out] 座標V
      */
     virtual void getUV(float& out_u, float& out_v);
 

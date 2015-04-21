@@ -44,7 +44,7 @@ public:
     void initialize() override;
 
     /**
-     * アラスのがアクティブになった瞬間の処理 .
+     * アラスがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 

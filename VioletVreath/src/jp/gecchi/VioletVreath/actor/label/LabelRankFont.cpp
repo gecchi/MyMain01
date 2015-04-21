@@ -143,7 +143,7 @@ LabelRankFont::LabelRankFont(const char* prm_name) :
 
 void LabelRankFont::onCreateModel() {
     GgafDxModel* pModel = getModel();
-    pModel->getTexBlinker()->forceRange(0.5, 5.0);
+    pModel->getTexBlinker()->setRange(0.5, 5.0);
     pModel->setBlinkPower(1.0, 0.01);
 }
 

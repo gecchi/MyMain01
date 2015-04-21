@@ -23,7 +23,7 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/Properties.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-
+#include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshinBase.h"
 #include "jp/ggaf/dxcore/util/GgafDxDirectionUtil.h"
 
 
@@ -217,17 +217,27 @@ MyShip::MyShip(const char* prm_name) :
     pMyMagicEnergyCore_ = NEW MyMagicEnergyCore("MyMagicEnergyCore");
     addSubGroup(pMyMagicEnergyCore_);
 
+//---->けす
     //トレース用履歴
     pRing_MyShipGeoHistory4OptCtrler_ = NEW GgafLinkedListRing<GgafDxGeoElem>();
     pRing_MyShipGeoHistory2_ = NEW GgafLinkedListRing<GgafDxGeoElem>();
-//    pRing_MyShipGeoOffsetHistory_ = NEW GgafLinkedListRing<GgafDxGeoElem>();
     for (uint32_t i = 0; i < 300; i++) {
         pRing_MyShipGeoHistory4OptCtrler_->addLast(NEW GgafDxGeoElem(this));
         pRing_MyShipGeoHistory2_->addLast(NEW GgafDxGeoElem(0,0,0));
-//        pRing_MyShipGeoOffsetHistory_->addLast(NEW GgafDxGeoElem(this));
     }
     pRing_MyShipGeoHistory4OptCtrler_->indexedValue();
     pRing_MyShipGeoHistory2_->indexedValue();
+//<----けす
+
+    pRing_GeoHistory4Bunshin_ = NEW GgafLinkedListRing<GgafDxGeoElem>();
+    for (uint32_t i = 0; i <  MyBunshinBase::max_bunshin_num_ * 30; i++) {
+        pRing_GeoHistory4Bunshin_->addLast(NEW GgafDxGeoElem(this));
+    }
+    pRing_GeoHistory4Bunshin_->indexedValue();
+
+
+
+
 
     //X, Y    方向のスイッチで、普通の2次元の8方向レバー・・・で、
     //X, Y, Z 方向のスイッチで、3次元の26方向レバーを考えた。
@@ -684,6 +694,21 @@ void MyShip::processBehavior() {
             _z = MyShip::lim_z_right_;
         }
     }
+
+
+
+
+
+    //分身のための移動座標履歴保存
+    pRing_GeoHistory4Bunshin_->next()->set(this);
+
+
+
+
+
+
+
+
 
 
     //オプションのために座標情報保存
@@ -1648,8 +1673,12 @@ void MyShip::turbo_WAY_ZRIGHT_DOWN_BEHIND() {
 
 MyShip::~MyShip() {
     GGAF_DELETE(pAxsMver_);
+//けす
     GGAF_DELETE(pRing_MyShipGeoHistory4OptCtrler_);
     GGAF_DELETE(pRing_MyShipGeoHistory2_);
+//けす
+
+    GGAF_DELETE(pRing_GeoHistory4Bunshin_);
 }
 
 

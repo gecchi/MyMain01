@@ -424,6 +424,10 @@ public:
      */
     virtual void setRxFaceAng(angle prm_angFace);
 
+    virtual void setRollFaceAng(angle prm_angFace) {
+        setRxFaceAng(prm_angFace);
+    }
+
     virtual void setRzRyFaceAng(angle prm_angRzFace, angle prm_angRyFace);
 
     virtual void addRzFaceAng(angle prm_ang_rz) {
@@ -436,6 +440,10 @@ public:
 
     virtual void addRxFaceAng(angle prm_ang_rx) {
         setRxFaceAng(_rx + prm_ang_rx);
+    }
+
+    virtual void addRollFaceAng(angle prm_ang_rx) {
+        setRxFaceAng(prm_ang_rx);
     }
 
     /**
@@ -650,7 +658,6 @@ public:
     inline GgafDxGeometricActor* getBaseActor() const {
         return _pActor_base;
     }
-
 
     /**
      * デストラクタ

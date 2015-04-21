@@ -62,10 +62,10 @@ void EnemyAlisana::processBehavior() {
             }
             static const frame frame_of_summons = pEffectEntry->getFrameOfSummonsBegin();
             static const frame summoning_frames = pEffectEntry->getSummoningFrames();
-            if (_pProg->hasArrivedAt(frame_of_summons)) {
+            if (pProg->hasArrivedAt(frame_of_summons)) {
                 pAFader_->transitionLinerUntil(0.999, summoning_frames);
             }
-            if (_pProg->hasArrivedAt(frame_of_summons+summoning_frames)) {
+            if (pProg->hasArrivedAt(frame_of_summons + summoning_frames)) {
                 setHitAble(true);
                 pProg->changeNext();
             }

@@ -21,7 +21,7 @@ void EffectRatislaviaEye001::initialize() {
 
 void EffectRatislaviaEye001::onActive() {
     cnt_ = 0;
-    pScaler_->forceRange(100000, 1); //スケーリング・範囲
+    pScaler_->setRange(100000, 1); //スケーリング・範囲
     setScale(100000);
     pScaler_->beat(30, 0, 0, 30, 3);
 }

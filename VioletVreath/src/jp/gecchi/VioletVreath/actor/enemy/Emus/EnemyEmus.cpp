@@ -44,20 +44,20 @@ void EnemyEmus::onCreateModel() {
     GgafDxModel* pModel = getModel();
     pModel->setSpecular(5.0, 1.0);
     pModel->setBlinkPower(0.1, 0.9);
-    pModel->getTexBlinker()->forceRange(0.1, 1.0);
+    pModel->getTexBlinker()->setRange(0.1, 1.0);
     pModel->getTexBlinker()->beat(120, 60, 0, 60, -1);
 }
 
 void EnemyEmus::initialize() {
     setHitAble(true);
     getKuroko()->linkFaceAngByMvAng(true);
-    getMorpher()->forceRange(MORPHTARGET_HATCH_OPEN, 0.0f, 1.0f);
+    getMorpher()->setRange(MORPHTARGET_HATCH_OPEN, 0.0f, 1.0f);
     setMorphWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->makeCollision(1);
     pChecker->setColliAAB_Cube(0, 200000);
     setScale(1000);
-    pScaler_->forceRange(1000, 1200);
+    pScaler_->setRange(1000, 1200);
     pScaler_->beat(30, 5, 0, 20, -1);
 }
 

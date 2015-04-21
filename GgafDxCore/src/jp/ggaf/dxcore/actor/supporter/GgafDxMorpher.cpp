@@ -11,7 +11,7 @@ using namespace GgafDxCore;
 GgafDxMorpher::GgafDxMorpher(GgafDxMorphMeshActor* prm_pActor) : GgafValueEnveloper<float, (MAX_MORPH_TARGET+1) >(),
 _pActor(prm_pActor) {
     _pAsstA = nullptr;
-    forceRange(0.0f, 1.0f);
+    setRange(0.0f, 1.0f);
 }
 GgafDxMorpherAssistantA* GgafDxMorpher::asst() {
     return _pAsstA ? _pAsstA : _pAsstA = NEW GgafDxMorpherAssistantA(this);
@@ -19,7 +19,7 @@ GgafDxMorpherAssistantA* GgafDxMorpher::asst() {
 
 void GgafDxMorpher::reset() {
     GgafValueEnveloper<float, (MAX_MORPH_TARGET+1) >::reset();
-    forceRange(0.0f, 1.0f);
+    setRange(0.0f, 1.0f);
 }
 float GgafDxMorpher::getValue(int idx) {
     return _pActor->_weight[idx];

@@ -13,11 +13,11 @@ _pActor(prm_pActor) {
     _apActorScale[0] = &(prm_pActor->_sx);
     _apActorScale[1] = &(prm_pActor->_sy);
     _apActorScale[2] = &(prm_pActor->_sz);
-    forceRange(0, MAX_SCALE);
+    setRange(0, MAX_SCALE);
 }
 void GgafDxScaler::reset() {
     GgafValueEnveloper<scale, 3 >::reset();
-    forceRange(0, MAX_SCALE);
+    setRange(0, MAX_SCALE);
 }
 scale GgafDxScaler::getValue(int idx) {
     return (*(_apActorScale[idx]));

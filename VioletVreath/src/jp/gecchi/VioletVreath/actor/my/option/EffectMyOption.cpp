@@ -34,7 +34,7 @@ void EffectMyOption::initialize() {
     pKuroko->setFaceAngVelo(AXIS_Y, D_ANG(3));
     pKuroko->setFaceAngVelo(AXIS_Z, D_ANG(1));
     setScale(R_SC(1));
-    pScaler_->forceRange(R_SC(1), R_SC(4.0));
+    pScaler_->setRange(R_SC(1), R_SC(4.0));
 //    pScaler_->beat(AXIS_X, 30, 10, 1, -1);
 //    pScaler_->beat(AXIS_Y, 30, 15, 1, -1);
 //    pScaler_->beat(AXIS_Z, 30, 20, 1, -1);

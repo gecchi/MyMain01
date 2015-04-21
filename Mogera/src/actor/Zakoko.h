@@ -34,7 +34,7 @@ public:
     void initialize() override;
 
     /**
-     * 雑魚っ子のがアクティブになった瞬間の処理 .
+     * 雑魚っ子がアクティブになった瞬間の処理 .
      */
     void onActive() override;
 

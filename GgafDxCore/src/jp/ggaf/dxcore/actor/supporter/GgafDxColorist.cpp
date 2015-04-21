@@ -11,12 +11,12 @@ _pActor(prm_pActor) {
     _pa_diffuse[0] = &(prm_pActor->_paMaterial[0].Diffuse.r);
     _pa_diffuse[1] = &(prm_pActor->_paMaterial[0].Diffuse.g);
     _pa_diffuse[2] = &(prm_pActor->_paMaterial[0].Diffuse.b);
-    forceRange(0, 1.0);
+    setRange(0, 1.0);
 }
 
 void GgafDxColorist::reset() {
     GgafValueEnveloper<float, 3 >::reset();
-    forceRange(0, 1.0);
+    setRange(0, 1.0);
 }
 
 float GgafDxColorist::getValue(int idx) {
@@ -27,19 +27,19 @@ void GgafDxColorist::setValue(int idx, float value) {
     int num_materials = _pActor->getModel()->_num_materials;
     D3DMATERIAL9* paMaterial = _pActor->_paMaterial;
     switch (idx) {
-        case 0: //RED
+        case RED:
             for (int i = 0; i < num_materials; i++) {
                 paMaterial[i].Ambient.r = value;
                 paMaterial[i].Diffuse.r = value;
             }
             break;
-        case 1: //GREEN
+        case GREEN:
             for (int i = 0; i < num_materials; i++) {
                 paMaterial[i].Ambient.g = value;
                 paMaterial[i].Diffuse.g = value;
             }
             break;
-        case 2: //BRUE
+        case BLUE:
             for (int i = 0; i < num_materials; i++) {
                 paMaterial[i].Ambient.b = value;
                 paMaterial[i].Diffuse.b = value;

@@ -28,7 +28,7 @@ public:
     TestChoki(const char* prm_name);
 
     /**
-     * 敵のがアクティブになった瞬間の処理 .
+     * 敵がアクティブになった瞬間の処理 .
      */
     void onActive() override;
 

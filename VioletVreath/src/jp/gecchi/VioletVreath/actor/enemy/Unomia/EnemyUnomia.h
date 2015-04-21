@@ -56,7 +56,7 @@ public:
     void onReset() override;
 
     /**
-     * ウーノミアのがアクティブになった瞬間の処理 .
+     * ウーノミアがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 

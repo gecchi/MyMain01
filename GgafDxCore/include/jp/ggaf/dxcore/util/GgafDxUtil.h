@@ -16,7 +16,7 @@
 #endif
 #define UTIL GgafDxCore::GgafDxUtil
 
-////イベント用 uint32_t 数値宣言
+////イベント用
 HASHVAL(GGAF_EVENT_ON_DEVICE_LOST);
 
 namespace GgafDxCore {
@@ -423,7 +423,6 @@ public:
                          out_angRy );
     }
 
-
     /**
      * Z軸回転+Y軸回転値から単位方向ベクトルを取得
      * 本クラスの中核とも言うべきメソッドその2<BR>
@@ -440,6 +439,7 @@ public:
                                  float& out_nvx,
                                  float& out_nvy,
                                  float& out_nvz);
+
     /**
      * ベクトル正規化 .
      * @param x
@@ -513,50 +513,6 @@ public:
         rz1 = rz2;
         ry1 = ry2;
     }
-
-//    /**
-//     * RzRyの最適化を試みる。
-//     * 方向を変えず、Z軸回転+Y軸回転もう一つの組み合わせと比較し。
-//     * @param rz1
-//     * @param ry1
-//     */
-//    static void optimizeRzRy(angle& rz1, angle& ry1) {
-//        int rz2 = 0;
-//        int ry2 = 0;
-//        if (0 <= rz1 && rz1 < D90ANG) {
-//            rz2 = D180ANG - rz1;
-//
-//            if (0 <= ry1 && ry1 < D180ANG) {
-//                ry2 = ry1 + D180ANG;
-//            } else {
-//                ry2 = ry1 - D180ANG;
-//            }
-//        } else if (D90ANG <= rz1 && rz1 < D180ANG) {
-//            rz2 = D180ANG - rz1;
-//            if (0 <= ry1 && ry1 < D180ANG) {
-//                ry2 = ry1 + D180ANG;
-//            } else {
-//                ry2 = ry1 - D180ANG;
-//            }
-//        } else if (D180ANG <= rz1 && rz1 < D270ANG) {
-//            rz2 = D180ANG + (D360ANG - rz1);
-//            if (0 <= ry1 && ry1 < D180ANG) {
-//                ry2 = ry1 + D180ANG;
-//            } else {
-//                ry2 = ry1 - D180ANG;
-//            }
-//        } else if (D270ANG <= rz1 && rz1 <= D360ANG) {
-//            rz2 = D180ANG + (D360ANG - rz1);
-//            if (0 <= ry1 && ry1 < D180ANG) {
-//                ry2 = ry1 + D180ANG;
-//            } else {
-//                ry2 = ry1 - D180ANG;
-//            }
-//        }
-//        rz1 = rz2;
-//        ry1 = ry2;
-//    }
-//
 
     static inline angle simplifyAng(angle prm_ang) {
         if (0 <= prm_ang && prm_ang < D360ANG) {
@@ -682,12 +638,12 @@ public:
         // | (cosRx*-sinRz*cosRy + sinRx*sinRy) , cosRx*cosRz , (cosRx*-sinRz*-sinRy + sinRx*cosRy) , 0 |
         // | (-sinRx*-sinRz*cosRy + cosRx*sinRy), -sinRx*cosRz, (-sinRx*-sinRz*-sinRy + cosRx*cosRy), 0 |
         // | dx                                 , dy          , dz                                  , 1 |
-        float sinRx = ANG_SIN(prm_pActor->_rx);
-        float cosRx = ANG_COS(prm_pActor->_rx);
-        float sinRy = ANG_SIN(prm_pActor->_ry);
-        float cosRy = ANG_COS(prm_pActor->_ry);
-        float sinRz = ANG_SIN(prm_pActor->_rz);
-        float cosRz = ANG_COS(prm_pActor->_rz);
+        const float sinRx = ANG_SIN(prm_pActor->_rx);
+        const float cosRx = ANG_COS(prm_pActor->_rx);
+        const float sinRy = ANG_SIN(prm_pActor->_ry);
+        const float cosRy = ANG_COS(prm_pActor->_ry);
+        const float sinRz = ANG_SIN(prm_pActor->_rz);
+        const float cosRz = ANG_COS(prm_pActor->_rz);
 
         out_matWorld._11 = cosRz*cosRy;
         out_matWorld._12 = sinRz;

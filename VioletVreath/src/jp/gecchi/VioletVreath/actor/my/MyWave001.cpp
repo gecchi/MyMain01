@@ -43,7 +43,7 @@ void MyWave001::initialize() {
     //	pChecker->pHitAreaBoxs_->setLine(4, 30000, 30000, -30000, -30000, true);
     //	pChecker->pHitAreaBoxs_->setLine(5, -30000, 30000, 30000, -30000, true);
     //
-    pScaler_->forceRange(1000,20000);
+    pScaler_->setRange(1000,20000);
     //setAlpha(0.2);
 
     setHitAble(true);

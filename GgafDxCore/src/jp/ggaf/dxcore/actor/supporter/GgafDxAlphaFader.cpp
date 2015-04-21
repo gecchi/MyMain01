@@ -7,11 +7,11 @@ using namespace GgafDxCore;
 
 GgafDxAlphaFader::GgafDxAlphaFader(GgafDxFigureActor* prm_pActor) : GgafValueEnveloper<float, 1 > (),
 _pActor(prm_pActor) {
-    forceRange(0.0f, 1.0f);
+    setRange(0.0f, 1.0f);
 }
 void GgafDxAlphaFader::reset() {
     GgafValueEnveloper<float, 1 >::reset();
-    forceRange(0.0f, 1.0f);
+    setRange(0.0f, 1.0f);
 }
 
 float GgafDxAlphaFader::getValue(int idx) {

@@ -56,7 +56,7 @@ public:
     void initialize() override;
 
     /**
-     * アンティオペのがアクティブになった瞬間の処理 .
+     * アンティオペがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 

@@ -36,7 +36,7 @@ void MyTorpedoBlast::onReset() {
     getCollisionChecker()->setColliSphere(0, PX_C(10));
     getKuroko()->setMvVelo(0);
     setScale(R_SC(1));
-    pScaler_->forceRange(R_SC(1), R_SC(400));
+    pScaler_->setRange(R_SC(1), R_SC(400));
     pScaler_->beat(120, 120/2, 0, 120/2, 1); //1‰ñ–c‚ç‚ñ‚Å‚µ‚Ú‚Þ
 }
 

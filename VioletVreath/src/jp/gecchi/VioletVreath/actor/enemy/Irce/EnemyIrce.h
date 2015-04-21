@@ -42,7 +42,7 @@ public:
     void initialize() override;
 
     /**
-     * イルケのがアクティブになった瞬間の処理 .
+     * イルケがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 

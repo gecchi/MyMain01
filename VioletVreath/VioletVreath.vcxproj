@@ -500,6 +500,10 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\pause\MenuBoardPause.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\title\CursorTitleMenu.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\title\MenuBoardTitle.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshin.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinBase.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinShot001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinSnipeShot001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\EffectLockon001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\EffectLockon001_Main.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\EffectLockon001_Sub.cpp" />
@@ -537,9 +541,6 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyLockonController.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyMagicEnergy.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyMagicEnergyCore.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyOptionController.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyOptionControllerDirectionVector.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyOptionControllerGizmo.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyShip.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyShot001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MySnipeShot001.cpp" />
@@ -552,6 +553,9 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyWave001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\EffectMyOption.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOption.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOptionController.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOptionControllerDirectionVector.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOptionControllerGizmo.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOptionShot001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOptionSnipeShot001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOptionStraightLaserChip001.cpp" />
@@ -859,6 +863,10 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\pause\MenuBoardPause.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\title\CursorTitleMenu.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\title\MenuBoardTitle.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshin.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinBase.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\bunshin\mybunshinshot001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\bunshin\mybunshinsnipeshot001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\effectlockon001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\effectlockon001_main.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\effectlockon001_sub.h" />
@@ -896,9 +904,6 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyLockonController.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyMagicEnergy.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyMagicEnergyCore.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyOptionController.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyOptionControllerDirectionVector.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyOptionControllerGizmo.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyShip.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyShot001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\mysnipeshot001.h" />
@@ -911,6 +916,9 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyWave001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\option\effectmyoption.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOption.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOptionController.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOptionControllerDirectionVector.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOptionControllerGizmo.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOptionShot001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOptionSnipeShot001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOptionStraightLaserChip001.h" />

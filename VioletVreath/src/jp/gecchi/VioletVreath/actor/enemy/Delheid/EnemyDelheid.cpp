@@ -80,7 +80,7 @@ void EnemyDelheid::processBehavior() {
             pKurokoLeader_->start(RELATIVE_COORD_DIRECTION);
             getKuroko()->setMvAcce(0);
             getKuroko()->keepOnTurningFaceAngTwd(P_MYSHIP,
-                                             D_ANG(1), 0, TURN_CLOSE_TO, false);
+                                                 D_ANG(1), 0, TURN_CLOSE_TO, false);
             pProg->changeNext();
             break;
         }

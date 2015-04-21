@@ -9,7 +9,7 @@
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/VreathMagic.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicLvCursor001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicLvCursor002.h"
-#include "jp/gecchi/VioletVreath/actor/my/MyOptionController.h"
+#include "jp/gecchi/VioletVreath/actor/my/option/MyOptionController.h"
 #include "jp/gecchi/VioletVreath/actor/my/option/MyOption.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -17,6 +17,9 @@
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 
+#include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshinBase.h"
+
+#include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshin.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -24,10 +27,13 @@ using namespace VioletVreath;
 
 MyShipScene::MyShipScene(const char* prm_name) : DefaultScene(prm_name) ,
 pMyShip_(nullptr),
-papOptionCtrler_(nullptr) {
+papOptionCtrler_(nullptr), //---->けす
+papBunshinBase_(nullptr) {
     _class_name = "MyShipScene";
     pMyShip_ = NEW MyShip("MYSHIP");
     pMyShip_->inactivate(); //配下に仮登録のアクター発送者とかあるし
+
+//---->けす
     papOptionCtrler_ = NEW MyOptionController*[MyOptionController::max_option_num_];
     for (int i = 0; i < MyOptionController::max_option_num_; i ++) {
         std::string name = "MyOpCtrler("+XTOS(i)+")";
@@ -65,6 +71,34 @@ papOptionCtrler_(nullptr) {
     papOptionCtrler_[8]->pOption_->setAlpha(0.7);
 
     bringDirector()->addSubGroup(pMyShip_);
+//<----けす
+
+    papBunshinBase_ = NEW MyBunshinBase*[9];
+    for (int i = 0; i < 9; i ++) {
+        std::string name = "BunshinBase("+XTOS(i)+")";
+        papBunshinBase_[i] = NEW MyBunshinBase(name.c_str(), i);
+        bringDirector()->addSubGroup(papBunshinBase_[i]);
+    }
+    papBunshinBase_[0]->config(60000, D0ANG, 0, 1000);
+    papBunshinBase_[0]->pBunshin_->setMaterialColor(1.0, 1.0, 1.0);
+    papBunshinBase_[1]->config(60000, D90ANG, 0, 1000);
+    papBunshinBase_[1]->pBunshin_->setMaterialColor(0.8, 1.0, 1.0);
+    papBunshinBase_[2]->config(60000, D180ANG, 0, 1000);
+    papBunshinBase_[2]->pBunshin_->setMaterialColor(1.0, 0.8, 0.8);
+    papBunshinBase_[3]->config(60000, D270ANG, 0, 1000);
+    papBunshinBase_[3]->pBunshin_->setMaterialColor(0.8, 1.0, 0.8);
+
+    papBunshinBase_[4]->config(120000, D_ANG(72*0), 0, -1500);
+    papBunshinBase_[4]->pBunshin_->setMaterialColor(0.8, 0.8, 1.0);
+    papBunshinBase_[5]->config(120000, D_ANG(72*1), 0, -1500);
+    papBunshinBase_[5]->pBunshin_->setMaterialColor(0.8, 1.0, 0.8);
+    papBunshinBase_[6]->config(120000, D_ANG(72*2), 0, -1500);
+    papBunshinBase_[6]->pBunshin_->setMaterialColor(1.0, 0.8, 0.8);
+    papBunshinBase_[7]->config(120000, D_ANG(72*3), 0, -1500);
+    papBunshinBase_[7]->pBunshin_->setMaterialColor(1.0, 1.0, 0.0);
+    papBunshinBase_[8]->config(120000, D_ANG(72*4), 0, -1500);
+    papBunshinBase_[8]->pBunshin_->setMaterialColor(1.0, 0.0, 1.0);
+
 
     pEffectMyShipExplosion_ = NEW EffectMyShipExplosion("EffectMyShipExplosion");
     pEffectMyShipExplosion_->inactivate();
@@ -210,5 +244,7 @@ void MyShipScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
 }
 
 MyShipScene::~MyShipScene() {
-    GGAF_DELETEARR(papOptionCtrler_);
+    GGAF_DELETEARR(papOptionCtrler_);	//けす
+
+    GGAF_DELETEARR(papBunshinBase_);
 }

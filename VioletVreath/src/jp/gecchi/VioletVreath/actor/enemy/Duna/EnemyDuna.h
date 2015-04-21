@@ -66,7 +66,7 @@ public:
     void initialize() override;
 
     /**
-     * ドゥーナのがアクティブになった瞬間の処理 .
+     * ドゥーナがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 

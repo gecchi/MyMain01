@@ -55,7 +55,7 @@ public:
     void initialize() override;
 
     /**
-     * ウリュディケのがアクティブになった瞬間の処理 .
+     * ウリュディケがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 

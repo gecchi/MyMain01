@@ -43,7 +43,7 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
         pLabel->update(apItemStr[i], ALIGN_CENTER, VALIGN_MIDDLE);
         addItem(pLabel, PX_C(200), PX_C(40+(i*18)));
         papItemAFader_[i] = NEW GgafDxAlphaFader(pLabel);
-        papItemAFader_[i]->forceRange(0, 0.6);
+        papItemAFader_[i]->setRange(0, 0.6);
         pLabel->setAlpha(0.6);
     }
     //キャンセル押下時移動先アイテム

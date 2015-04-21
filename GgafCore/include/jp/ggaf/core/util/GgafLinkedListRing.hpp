@@ -58,11 +58,12 @@ namespace GgafCore {
  * 「要素の値」という表現は Elem オブジェクトのメンバ _pValue を指します。<BR>
  * 「要素の値」の型は T* です。上の例では Object* 型を指します。Object の値自体ではありません。
  * <BR>
+ * @tparam T 管理する要素の型（この型のポインタ型が内部で管理される。）
  * @version 1.00
  * @since 2008/12/19
  * @author Masatoshi Tsuge
  */
-template<class T>  //T:管理する要素のポインタの型
+template<class T>
 class GgafLinkedListRing : public GgafObject {
 
 public:
@@ -806,7 +807,7 @@ public:
 
     /**
      * インデックスを作成 .
-     * 要素値の配列を別途作成し、内部保持します。
+     * 要素値への参照を、配列に別途内部保持します。
      * インデックスが引数で値を取得するメソッドのパフォーマンスが上がります。
      * 但し要素数を変更すると、再構築の必要があります。
      * 要素値を追加後、要素数が変化しないリストならば、本メソッドを実行しましょう。

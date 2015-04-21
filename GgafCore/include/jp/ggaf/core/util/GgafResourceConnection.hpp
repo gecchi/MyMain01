@@ -27,6 +27,7 @@ namespace GgafCore {
  * T には資源の型を指定してください。<BR>
  * 注意：スレッドセーフの保証は同時に２スレッドまで。３スレッド以上は正しく動作しません。<BR>
  * 注意：最終close()時の解放で、正しくデストラクタを呼び出す為に、T のクラスヘッダの include を忘れずに！！<BR>
+ * @tparam T 資源の型（この型のポインタ型が内部で管理される。）
  * @version 1.00
  * @since 2008/01/28
  * @author Masatoshi Tsuge
@@ -40,7 +41,7 @@ private:
     char* _idstr;
     /** 現在の資源マネジャーの資源に接続しているポインタ数 */
     int _num_connection;
-    /** 使いまわす大事な資源 */
+    /** 使いまわす資源へのポインタ */
     T* _pResource;
     /** 初めての接続元 */
     void* _p_first_connector;

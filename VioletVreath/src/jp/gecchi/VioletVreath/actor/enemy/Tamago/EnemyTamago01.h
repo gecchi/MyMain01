@@ -46,7 +46,7 @@ public:
     void initialize() override;
 
     /**
-     * たまごのがアクティブになった瞬間の処理 .
+     * たまごがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 

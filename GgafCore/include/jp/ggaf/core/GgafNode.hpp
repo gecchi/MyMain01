@@ -75,6 +75,7 @@ namespace GgafCore {
  * </TD>
  * </TR>
  * </TABLE>
+ * @tparam T 管理する要素の型（この型のポインタ型が内部で管理される。）
  * @version 1.00
  * @since 2008/09/08
  * @author Masatoshi Tsuge

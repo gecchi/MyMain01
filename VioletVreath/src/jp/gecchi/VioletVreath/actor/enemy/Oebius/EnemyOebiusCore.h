@@ -53,7 +53,7 @@ public:
     void initialize() override;
 
     /**
-     * エビウスのがアクティブになった瞬間の処理 .
+     * エビウスがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 

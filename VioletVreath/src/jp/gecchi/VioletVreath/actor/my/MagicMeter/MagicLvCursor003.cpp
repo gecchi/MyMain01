@@ -30,7 +30,7 @@ void MagicLvCursor003::initialize() {
     GgafDxUvFlipper* pUvFlipper = getUvFlipper();
     pUvFlipper->setFlipPtnRange(0, 3);
     pUvFlipper->exec(NOT_ANIMATED);
-    pScaler_->forceRange(1000, 10000);
+    pScaler_->setRange(1000, 10000);
 }
 
 void MagicLvCursor003::processPreDraw() {

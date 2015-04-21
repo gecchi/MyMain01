@@ -425,7 +425,7 @@ END_SYNCHRONIZED1; // <----- 排他終了
                     GgafFactory::CREATING_ORDER = GgafFactory::CREATING_ORDER->_pOrder_next;
 END_SYNCHRONIZED1; // <----- 排他終了
                 } else {
-                    _TRACE2_("GgafFactory::work ＜工場長＞ さて、未製造注文は無し。棚に製造済のがたまってるのを早く取に来い来い！。（待機）");
+                    _TRACE2_("GgafFactory::work ＜工場長＞ さて、未製造注文は無し。棚に製造済のんがたまってるのを早く取に来い来い！。（待機）");
 END_SYNCHRONIZED1; // <----- 排他終了
                     if (GgafGod::_pGod->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) {
                         _TRACE2_("GgafFactory::work ＜工場長＞ さほど忙しくないさそうなので、ゴミ箱のゴミを出しとこうか。");

@@ -28,7 +28,7 @@ void EffectTurbo002::initialize() {
 void EffectTurbo002::onActive() {
     getUvFlipper()->setActivePtnToTop();
     setAlpha(0.4);
-    pScaler_->forceRange(100000, 1000); //スケーリング・範囲
+    pScaler_->setRange(100000, 1000); //スケーリング・範囲
     setScale(1000);
     pScaler_->transitionLinerUntil(100000, 60);//スケーリング・60F費やして1000に縮小
     setRyFaceAng(D90ANG);

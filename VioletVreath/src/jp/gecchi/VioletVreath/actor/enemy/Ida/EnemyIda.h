@@ -49,7 +49,7 @@ public:
     void initialize() override;
 
     /**
-     * イーダのがアクティブになった瞬間の処理 .
+     * イーダがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 

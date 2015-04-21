@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
-#include "jp/gecchi/VioletVreath/actor/my/MyOptionController.h"
+#include "jp/gecchi/VioletVreath/actor/my/option/MyOptionController.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/Properties.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"

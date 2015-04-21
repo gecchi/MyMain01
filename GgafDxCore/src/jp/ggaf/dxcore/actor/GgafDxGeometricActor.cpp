@@ -173,7 +173,7 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         //
         //UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13, _rz, _ry);
         //となる
-        processChangeGeoFinal();
+        processChangeGeoFinal(); //絶対座標計算後の処理用コールバック
     }
 
     //視錐台面からの距離を更新

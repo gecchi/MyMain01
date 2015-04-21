@@ -151,6 +151,9 @@ public:
     inline void setRollFaceAngVelo(angvelo prm_axis_x_angvelo) {
         setFaceAngVelo(AXIS_X, prm_axis_x_angvelo);
     }
+    inline void setRxFaceAngVelo(angvelo prm_axis_x_angvelo) {
+        setFaceAngVelo(AXIS_X, prm_axis_x_angvelo);
+    }
 
     /**
      * Pitching(Zé≤âÒì]ï˚äp)ÇÃäpë¨ìxÇê›íË .
@@ -158,6 +161,9 @@ public:
      * @param prm_axis_z_angvelo Zé≤âÒì]ÇÃäpë¨ìx
      */
     inline void setPitchFaceAngVelo(angvelo prm_axis_z_angvelo) {
+        setFaceAngVelo(AXIS_Z, prm_axis_z_angvelo);
+    }
+    inline void setRzFaceAngVelo(angvelo prm_axis_z_angvelo) {
         setFaceAngVelo(AXIS_Z, prm_axis_z_angvelo);
     }
 
@@ -169,7 +175,9 @@ public:
     inline void setYawFaceAngVelo(angvelo prm_axis_y_angvelo) {
         setFaceAngVelo(AXIS_Y, prm_axis_y_angvelo);
     }
-
+    inline void setRyFaceAngVelo(angvelo prm_axis_y_angvelo) {
+        setFaceAngVelo(AXIS_Y, prm_axis_y_angvelo);
+    }
 
 
     void forceFaceAngVeloRange(axis prm_axis,
@@ -190,6 +198,9 @@ public:
     inline void setRollFaceAngAcce(angvelo prm_axis_x_angacce) {
         setFaceAngAcce(AXIS_X, prm_axis_x_angacce);
     }
+    inline void setRxFaceAngAcce(angvelo prm_axis_x_angacce) {
+        setFaceAngAcce(AXIS_X, prm_axis_x_angacce);
+    }
 
     /**
      * Pitching(Zé≤âÒì]ï˚äp)ÇÃäpâ¡ë¨ìxÇê›íË .
@@ -200,12 +211,20 @@ public:
         setFaceAngAcce(AXIS_Z, prm_axis_z_angacce);
     }
 
+    inline void setRzFaceAngAcce(angvelo prm_axis_z_angacce) {
+        setFaceAngAcce(AXIS_Z, prm_axis_z_angacce);
+    }
+
     /**
      * Yawing(Yé≤âÒì]ï˚äp)ÇÃäpâ¡ë¨ìxÇê›íË .
      * setFaceAngAcce(AXIS_Y, prm_angacce); Ç∆ìôâøÅB
      * @param prm_axis_y_angacce Yé≤âÒì]ï˚äpÇÃäpâ¡ë¨ìx
      */
     inline void setYawFaceAngAcce(angvelo prm_axis_y_angacce) {
+        setFaceAngAcce(AXIS_Y, prm_axis_y_angacce);
+    }
+
+    inline void setRyFaceAngAcce(angvelo prm_axis_y_angacce) {
         setFaceAngAcce(AXIS_Y, prm_axis_y_angacce);
     }
 

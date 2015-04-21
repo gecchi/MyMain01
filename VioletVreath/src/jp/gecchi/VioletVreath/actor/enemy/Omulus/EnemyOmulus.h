@@ -64,7 +64,7 @@ public:
     void initialize() override;
 
     /**
-     * オムルスのがアクティブになった瞬間の処理 .
+     * オムルスがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 

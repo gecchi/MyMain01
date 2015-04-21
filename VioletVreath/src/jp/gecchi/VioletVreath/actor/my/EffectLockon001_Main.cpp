@@ -22,7 +22,7 @@ void EffectLockon001_Main::initialize() {
     GgafDxUvFlipper* pUvFlipper = getUvFlipper();
     pUvFlipper->setFlipPtnRange(0, 3);   //アニメ範囲を０～１５
     pUvFlipper->exec(FLIP_ORDER_LOOP, 5); //アニメ順序
-    pScaler_->forceRange(60000, 2000); //スケーリング・範囲
+    pScaler_->setRange(60000, 2000); //スケーリング・範囲
 }
 
 void EffectLockon001_Main::onActive() {
@@ -33,7 +33,7 @@ void EffectLockon001_Main::onActive() {
     }
     getUvFlipper()->setActivePtnToTop();
     setAlpha(0.01);
-    pScaler_->forceRange(60000, 2000); //スケーリング・範囲
+    pScaler_->setRange(60000, 2000); //スケーリング・範囲
     setScale(60000); //(6000%)
     pScaler_->transitionLinerUntil(2000, 25);//スケーリング・25F費やして2000(200%)に縮小
     getKuroko()->setFaceAngVelo(AXIS_Z, 1000);        //回転
@@ -58,7 +58,7 @@ void EffectLockon001_Main::processBehavior() {
         }
         if (!pScaler_->isTransitioning()) {
             //縮小完了後、Beat
-            pScaler_->forceRange(2000, 4000);
+            pScaler_->setRange(2000, 4000);
             pScaler_->beat(50, 4, 0, 46, -1); //無限ループ
             pProg->change(LOCKON001_PROG_LOCK);
         }
@@ -117,7 +117,7 @@ void EffectLockon001_Main::lockon(GgafDxGeometricActor* prm_pTarget) {
 
     } else if (pProg->get() == LOCKON001_PROG_LOCK) {
     } else if (pProg->get() == LOCKON001_PROG_RELEASE) {
-        pScaler_->forceRange(60000, 2000); //スケーリング・範囲
+        pScaler_->setRange(60000, 2000); //スケーリング・範囲
         pScaler_->transitionLinerUntil(2000, 25);//スケーリング・20F費やして2000(200%)に縮小
         pKuroko->setFaceAngVelo(AXIS_Z, 1000);   //回転
         getSeTx()->play3D(0); //ロックオンSE
@@ -130,12 +130,12 @@ void EffectLockon001_Main::releaseLockon() {
         GgafDxKuroko* const pKuroko = getKuroko();
         GgafProgress* const pProg = getProgress();
         if (pProg->get() == LOCKON001_PROG_FIRST_LOCK) {
-            pScaler_->forceRange(60000, 2000); //スケーリング・範囲
+            pScaler_->setRange(60000, 2000); //スケーリング・範囲
             pScaler_->transitionLinerUntil(60000, 60);//スケーリング
             pKuroko->setFaceAngVelo(AXIS_Z, pKuroko->_angvelo_face[AXIS_Z]*-3); //速く逆回転
             pProg->change(LOCKON001_PROG_RELEASE);
         } else if (pProg->get() == LOCKON001_PROG_LOCK) {
-            pScaler_->forceRange(60000, 2000); //スケーリング・範囲
+            pScaler_->setRange(60000, 2000); //スケーリング・範囲
             pScaler_->transitionLinerUntil(60000, 60);//スケーリング
             pKuroko->setFaceAngVelo(AXIS_Z, pKuroko->_angvelo_face[AXIS_Z]*-3); //速く逆回転
             pProg->change(LOCKON001_PROG_RELEASE);

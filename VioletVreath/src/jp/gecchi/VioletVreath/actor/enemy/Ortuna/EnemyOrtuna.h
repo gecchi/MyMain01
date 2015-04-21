@@ -60,7 +60,7 @@ public:
     void initialize() override;
 
     /**
-     * オルトゥナのがアクティブになった瞬間の処理 .
+     * オルトゥナがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 

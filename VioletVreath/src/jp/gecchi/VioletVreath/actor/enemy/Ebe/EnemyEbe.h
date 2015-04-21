@@ -52,7 +52,7 @@ public:
     void initialize() override;
 
     /**
-     * エーベのがアクティブになった瞬間の処理 .
+     * エーベがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 

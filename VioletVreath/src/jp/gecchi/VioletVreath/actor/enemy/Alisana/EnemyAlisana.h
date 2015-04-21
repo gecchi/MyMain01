@@ -58,7 +58,7 @@ public:
     void initialize() override;
 
     /**
-     * アリサナのがアクティブになった瞬間の処理 .
+     * アリサナがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 

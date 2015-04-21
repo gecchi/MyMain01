@@ -360,10 +360,10 @@ class GgafElement;
 template<class T>
 class GgafLinkedListRing;
 
-template <class VAL_TYPE>
+template<class VAL_TYPE>
 class GgafValueAccelerator;
 
-template <class VAL_TYPE, int N>
+template<class VAL_TYPE, int N>
 class GgafValueEnveloper;
 
 class GgafFactory;

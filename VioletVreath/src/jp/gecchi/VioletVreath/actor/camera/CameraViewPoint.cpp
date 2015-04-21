@@ -5,7 +5,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/actor/DefaultMeshActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
-#include "jp/gecchi/VioletVreath/actor/my/MyOptionControllerGizmo.h"
+#include "jp/gecchi/VioletVreath/actor/my/option/MyOptionControllerGizmo.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

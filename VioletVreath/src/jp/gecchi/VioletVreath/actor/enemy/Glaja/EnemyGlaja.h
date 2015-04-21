@@ -60,7 +60,7 @@ public:
     void initialize() override;
 
     /**
-     * グラヤのがアクティブになった瞬間の処理 .
+     * グラヤがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 

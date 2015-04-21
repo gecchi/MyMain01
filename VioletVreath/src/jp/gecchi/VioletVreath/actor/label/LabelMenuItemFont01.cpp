@@ -20,13 +20,13 @@ void LabelMenuItemFont01::initialize() {
 }
 
 void LabelMenuItemFont01::onActive() {
-    _pAFader->forceRange(0.0, 1.0);
+    _pAFader->setRange(0.0, 1.0);
     setAlpha(0.0);
     _pAFader->transitionLinerToTop(60);
 }
 
 void LabelMenuItemFont01::onUpdate() {
-    _pAFader->forceRange(0.0, 1.0);
+    _pAFader->setRange(0.0, 1.0);
     setAlpha(0.0);
     _pAFader->beat(15, 5, 5, 5, 3.5);
 }

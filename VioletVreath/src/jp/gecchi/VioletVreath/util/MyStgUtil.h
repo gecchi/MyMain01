@@ -368,6 +368,12 @@ public:
 	static GgafCore::GgafStatus* resetMyOptionWateringLaserChip001Status(GgafCore::GgafStatus* p);
 	//オプションストレートレーザー
 	static GgafCore::GgafStatus* resetMyOptionStraightLaserChip001Status(GgafCore::GgafStatus* p);
+	//分身
+	static GgafCore::GgafStatus* resetMyBunshinStatus(GgafCore::GgafStatus* p);
+	//分身ションショット
+	static GgafCore::GgafStatus* resetMyBunshinShot001Status(GgafCore::GgafStatus* p);
+	//分身スナイプションショット
+	static GgafCore::GgafStatus* resetMyBunshinSnipeShot001Status(GgafCore::GgafStatus* p);
 	//トゥピード
 	static GgafCore::GgafStatus* resetMyTorpedoStatus(GgafCore::GgafStatus* p);
 	//トゥピード爆風

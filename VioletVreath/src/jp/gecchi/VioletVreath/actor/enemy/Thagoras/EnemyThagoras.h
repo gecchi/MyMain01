@@ -52,7 +52,7 @@ public:
     void initialize() override;
 
     /**
-     * タゴラスのがアクティブになった瞬間の処理 .
+     * タゴラスがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 

@@ -68,7 +68,7 @@ public:
     void initialize() override;
 
     /**
-     * エムスのがアクティブになった瞬間の処理 .
+     * エムスがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 

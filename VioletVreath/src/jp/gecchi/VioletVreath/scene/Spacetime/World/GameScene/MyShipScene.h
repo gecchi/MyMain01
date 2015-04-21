@@ -48,6 +48,9 @@ public:
     /** 残機表示 */
     LabelGecchi16Font* pLabelZanki_;
 
+    /** 分身土台 */
+    MyBunshinBase** papBunshinBase_;
+
 public:
     MyShipScene(const char* prm_name);
     /**

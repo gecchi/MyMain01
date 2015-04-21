@@ -9,6 +9,7 @@ namespace GgafCore {
 
 /**
  * 値の加速器 .
+ * @tparam VAL_TYPE 遷移値のデータ型
  * @version 1.00
  * @since 2013/12/05
  * @author Masatoshi Tsuge

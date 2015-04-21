@@ -33,7 +33,7 @@ void Shot001::initialize() {
     pChecker->makeCollision(1);
     pChecker->setColliAAB_Cube(0, PX_C(16));
     setScale(2000);
-    pScaler_->forceRange(2000, 3000);
+    pScaler_->setRange(2000, 3000);
 }
 
 void Shot001::onActive() {

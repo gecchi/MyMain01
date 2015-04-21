@@ -20,6 +20,7 @@ namespace GgafCore {
  * 内部保持していればそれを返し、保持していなければ生成して、リストに追加した後それを返します。
  * 注意：スレッドセーフの保証は同時に２スレッドまで。３スレッド以上は正しく動作しません。
  * (旧GdxfwActorManagerから汎用化)
+ * @tparam T 資源の型（この型に紐付いた資源接続オブジェクトを取得できる）
  * @version 1.00
  * @since 2007/11/16
  * @author Masatoshi Tsuge

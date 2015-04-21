@@ -70,7 +70,7 @@ public:
     void initialize() override;
 
     /**
-     * デルヘイドのがアクティブになった瞬間の処理 .
+     * デルヘイドがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 

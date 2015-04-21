@@ -56,7 +56,7 @@ EnemyHalia::EnemyHalia(const char* prm_name) :
 void EnemyHalia::onCreateModel() {
     GgafDxModel* pModel = getModel();
     pModel->setBlinkPower(0.1, 0.9);
-    pModel->getTexBlinker()->forceRange(0.1, 1.0);
+    pModel->getTexBlinker()->setRange(0.1, 1.0);
     pModel->getTexBlinker()->beat(120, 60, 0, 60, -1);
     pModel->setSpecular(5.0, 1.0);
 }
@@ -99,10 +99,10 @@ void EnemyHalia::processBehavior() {
             }
             static const frame frame_of_summons = pEffectEntry->getFrameOfSummonsBegin();
             static const frame summoning_frames = pEffectEntry->getSummoningFrames();
-            if (_pProg->hasArrivedAt(frame_of_summons)) {
+            if (pProg->hasArrivedAt(frame_of_summons)) {
                 pAFader_->transitionLinerUntil(1.0, summoning_frames);
             }
-            if (_pProg->hasArrivedAt(frame_of_summons+summoning_frames)) {
+            if (pProg->hasArrivedAt(frame_of_summons + summoning_frames)) {
                 setHitAble(true);
                 pProg->change(PROG_FIRST_MOVE);
             }

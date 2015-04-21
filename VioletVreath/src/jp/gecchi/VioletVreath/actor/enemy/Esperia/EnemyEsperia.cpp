@@ -58,7 +58,7 @@ EnemyEsperia::EnemyEsperia(const char* prm_name) :
 void EnemyEsperia::onCreateModel() {
     GgafDxModel* pModel = getModel();
     pModel->setBlinkPower(1.0, 0.97);
-    pModel->getTexBlinker()->forceRange(0.5, 12.0);
+    pModel->getTexBlinker()->setRange(0.5, 12.0);
     pModel->getTexBlinker()->beat(60*6, 60*2, 0, 60*2, -1);
 }
 
@@ -111,10 +111,10 @@ void EnemyEsperia::processBehavior() {
             }
             static const frame frame_of_summons = pEffectEntry->getFrameOfSummonsBegin();
             static const frame summoning_frames = pEffectEntry->getSummoningFrames();
-            if (_pProg->hasArrivedAt(frame_of_summons)) {
+            if (pProg->hasArrivedAt(frame_of_summons)) {
                 pAFader_->transitionLinerUntil(0.999, summoning_frames);
             }
-            if (_pProg->hasArrivedAt(frame_of_summons+summoning_frames)) {
+            if (pProg->hasArrivedAt(frame_of_summons + summoning_frames)) {
                 setHitAble(true);
                 pProg->changeNext();
             }

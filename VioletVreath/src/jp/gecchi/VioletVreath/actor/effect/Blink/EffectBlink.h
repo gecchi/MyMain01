@@ -65,7 +65,7 @@ public:
      * ←①→|←②→|←─ ③ ─→|
      *
      * </PRE>
-     * Top スケール,Bottom スケールは pScaler_->forceRange(TOP,BOTTOM) で上書き設定可能。
+     * Top スケール,Bottom スケールは pScaler_->setRange(TOP,BOTTOM) で上書き設定可能。
      * @param prm_scale_in_frames 発生時間、上記①のフレーム数 (1～)
      * @param prm_duration_frames 持続時間、上記②のフレーム数 (0～)
      * @param prm_scale_out_frames 消滅時間、上記③のフレーム数 (1～)

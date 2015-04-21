@@ -58,7 +58,7 @@ public:
     void initialize() override;
 
     /**
-     * アッポーのがアクティブになった瞬間の処理 .
+     * アッポーがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 

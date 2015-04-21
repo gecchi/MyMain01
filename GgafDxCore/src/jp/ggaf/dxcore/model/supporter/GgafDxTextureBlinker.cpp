@@ -8,11 +8,11 @@ using namespace GgafDxCore;
 
 GgafDxTextureBlinker::GgafDxTextureBlinker(GgafDxModel* prm_pModel)  : GgafValueEnveloper<float, 1 > (),
 _pModel(prm_pModel) {
-    forceRange(0.0f, 1000.0f);
+    setRange(0.0f, 1000.0f);
 }
 void GgafDxTextureBlinker::reset() {
     GgafValueEnveloper<float, 1 >::reset();
-    forceRange(0.0f, 1000.0f);
+    setRange(0.0f, 1000.0f);
 }
 
 float GgafDxTextureBlinker::getValue(int idx) {

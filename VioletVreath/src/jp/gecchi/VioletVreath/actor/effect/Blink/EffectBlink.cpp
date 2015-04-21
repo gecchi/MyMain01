@@ -18,7 +18,7 @@ EffectBlink::EffectBlink(const char* prm_name, const char* prm_model) :
     duration_frames_ = 1;
     scale_out_frames_ = 1;
     useProgress(PROG_BANPEI);
-    pScaler_->forceRange(0, R_SC(1.0));
+    pScaler_->setRange(0, R_SC(1.0));
 }
 
 void EffectBlink::onActive() {
@@ -94,7 +94,7 @@ void EffectBlink::onInactive() {
 
 void EffectBlink::blink(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames,
                         const GgafDxCore::GgafDxGeometricActor* prm_pFollowTarget) {
-    pTarget_  = prm_pFollowTarget;
+    pTarget_ = prm_pFollowTarget;
     scale_in_frames_ = prm_scale_in_frames;
     duration_frames_ = prm_duration_frames;
     scale_out_frames_ = prm_scale_out_frames;
