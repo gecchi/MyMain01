@@ -262,14 +262,12 @@ public:
     angvelo angRxVelo_BeginMZT_; //Rotation axisX angle Velo when I Begin To Move Z with Turbo
     //上の場合は正、下の場合はこれに -1 を乗ずる
 
+    //けす
     /** VB_OPTION を離した瞬間の座標を(0,0,0)として、そこからの相対座標履歴（VB_OPTION押している時は除外されている） */
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_MyShipGeoHistory4OptCtrler_;
     /** 自機の毎フレームの移動履歴（絶対座標）  */
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_MyShipGeoHistory2_;
-
-    /** 分身用のトレース座標の歴史（絶対座標）  */
-    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_GeoHistory4Bunshin_;
-
+    //けす
 
     GgafCore::GgafActorDepository* pDepo_MyShots001_;
     GgafCore::GgafActorDepository* pDepo_MySnipeShots001_;
@@ -349,6 +347,15 @@ public:
 
     /** SHOT1+SHOT2同時押しの武器のカウンター */
     int center_wepon_launch_count_;
+
+
+    coord prev_x_;
+    coord prev_y_;
+    coord prev_z_;
+    coord mv_offset_x_;
+    coord mv_offset_y_;
+    coord mv_offset_z_;
+    bool is_move_;
 public:
     MyShip(const char* prm_name);
 

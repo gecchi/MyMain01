@@ -455,7 +455,7 @@ int GgafDxInput::getPushedDownKey() {
 }
 
 
-bool GgafDxInput::isReleasedUpDownKey(int prm_DIK) {
+bool GgafDxInput::isReleasedUpKey(int prm_DIK) {
     if (!GgafDxInput::isBeingPressedKey(prm_DIK)) { //今は離している
         if (GgafDxInput::_keyboard_state[!GgafDxInput::_flip_ks][prm_DIK] & 0x80) {
             //前回セット[!GgafDxInput::_flip_ks]は押されていた。成立

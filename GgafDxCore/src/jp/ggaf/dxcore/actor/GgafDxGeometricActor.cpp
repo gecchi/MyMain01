@@ -138,14 +138,7 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         //ベクトル(1,0,0)に合成済み変換行列を掛ければ最終的なface方向を得れる
         UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13, _rz, _ry);
         _rx = _rx_local; //そのまま
-
-        //TODO:絶対座標系の_rx, _ry, _rz に変換は保留
-        //     現在の最終的な向きを、RzRyで取得求める方法は以下の通り、
-        //     フレームワークでは _rx, _ry, _rz はどうでもよく変換行列があれば良い。
-        //     したがって計算をスキップできる場合もある。
-        //     UTIL::convVectorToRzRy() の計算負荷と相談。
-        //
-        //＜説明＞
+        //何をやっているのか説明。
         //方向ベクトルはワールド変換行列の積（_matWorldRotMv)で変換され、現在の最終的な向きに向く。
         //大元の方向ベクトルを(x_org_,y_org_,z_org_)、
         //ワールド変換行列の回転部分の積（_matWorldRotMv)の成分を mat_xx、

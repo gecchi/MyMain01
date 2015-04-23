@@ -161,7 +161,7 @@ public:
      * @param prm_DIK prm_DIK 調べたいキー(DIK_*)
      * @return true：そのキーは離された直後である／false：そうでは無い
      */
-    static bool isReleasedUpDownKey(int prm_DIK);
+    static bool isReleasedUpKey(int prm_DIK);
 
     /**
      * ジョイスティックの状態を更新 .

@@ -30,15 +30,15 @@ public:
 
     GgafDxGeoElem(coord prm_x, coord prm_y, coord prm_z, angle prm_rx, angle prm_ry, angle prm_rz);
 
-    explicit GgafDxGeoElem(GgafDxGeometricActor* prm_pActor);
+    explicit GgafDxGeoElem(const GgafDxGeometricActor* prm_pActor);
 
     void set(coord prm_x, coord prm_y, coord prm_z, angle prm_rx, angle prm_ry, angle prm_rz);
 
     void set(coord prm_x, coord prm_y, coord prm_z);
 
-    void set(GgafDxGeometricActor* prm_pActor);
+    void set(const GgafDxGeometricActor* prm_pActor);
 
-    void set(GgafDxGeoElem* prm_pGeoElem);
+    void set(const GgafDxGeoElem* prm_pGeoElem);
 
     virtual ~GgafDxGeoElem();
 };

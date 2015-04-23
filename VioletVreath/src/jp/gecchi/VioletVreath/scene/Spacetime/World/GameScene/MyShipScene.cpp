@@ -73,10 +73,10 @@ papBunshinBase_(nullptr) {
     bringDirector()->addSubGroup(pMyShip_);
 //<----‚¯‚·
 
-    papBunshinBase_ = NEW MyBunshinBase*[9];
-    for (int i = 0; i < 9; i ++) {
+    papBunshinBase_ = NEW MyBunshinBase*[MyBunshinBase::MAX_BUNSHIN_NUM];
+    for (int i = 0; i < MyBunshinBase::MAX_BUNSHIN_NUM; i ++) {
         std::string name = "BunshinBase("+XTOS(i)+")";
-        papBunshinBase_[i] = NEW MyBunshinBase(name.c_str(), i);
+        papBunshinBase_[i] = NEW MyBunshinBase(name.c_str(), i+1);
         bringDirector()->addSubGroup(papBunshinBase_[i]);
     }
     papBunshinBase_[0]->config(60000, D0ANG, 0, 1000);

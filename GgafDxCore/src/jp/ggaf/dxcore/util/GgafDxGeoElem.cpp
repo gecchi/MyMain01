@@ -35,7 +35,7 @@ GgafDxGeoElem::GgafDxGeoElem(coord prm_x, coord prm_y, coord prm_z, angle prm_rx
     _next = nullptr;
 }
 
-GgafDxGeoElem::GgafDxGeoElem(GgafDxGeometricActor* prm_pActor) : GgafObject() {
+GgafDxGeoElem::GgafDxGeoElem(const GgafDxGeometricActor* prm_pActor) : GgafObject() {
     x = prm_pActor->_x;
     y = prm_pActor->_y;
     z = prm_pActor->_z;
@@ -60,7 +60,7 @@ void GgafDxGeoElem::set(coord prm_x, coord prm_y, coord prm_z) {
     z = prm_z;
 }
 
-void GgafDxGeoElem::set(GgafDxGeometricActor* prm_pActor) {
+void GgafDxGeoElem::set(const GgafDxGeometricActor* prm_pActor) {
     x = prm_pActor->_x;
     y = prm_pActor->_y;
     z = prm_pActor->_z;
@@ -69,7 +69,7 @@ void GgafDxGeoElem::set(GgafDxGeometricActor* prm_pActor) {
     rz = prm_pActor->_rz;
 }
 
-void GgafDxGeoElem::set(GgafDxGeoElem* prm_pGeoElem) {
+void GgafDxGeoElem::set(const GgafDxGeoElem* prm_pGeoElem) {
     x = prm_pGeoElem->x;
     y = prm_pGeoElem->y;
     z = prm_pGeoElem->z;

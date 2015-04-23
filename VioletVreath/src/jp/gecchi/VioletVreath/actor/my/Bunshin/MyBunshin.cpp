@@ -52,8 +52,7 @@ void MyBunshin::onCreateModel() {
 void MyBunshin::initialize() {
     setScaleR(2.0);
     GgafDxKuroko* pKuroko = getKuroko();
-    pKuroko->setRollFaceAngVelo(PX_C(3));
-    pKuroko->setRzFaceAngVelo(PX_C(0.1));
+    pKuroko->setRollFaceAngVelo(PX_C(4)); //•ªg‚Ì“_
 }
 
 void MyBunshin::onReset() {

@@ -15,29 +15,113 @@ namespace VioletVreath {
 class MyBunshinBase : public GgafLib::DefaultMeshActor {
 //class MyBunshinBase : public GgafDxCore::GgafDxGeometricActor {
 
+private:
+    class Pos {
+    public:
+        coord x, y, z;
+        Pos() : x(0), y(0), z(0) {}
+        void set(coord prm_x, coord prm_y, coord prm_z) {
+            x = prm_x;   y = prm_y;   z = prm_z;
+        }
+        void set(const GgafDxCore::GgafDxGeometricActor* p) {
+            x = p->_x;   y = p->_y;   z = p->_z;
+        }
+        void add(coord prm_x, coord prm_y, coord prm_z) {
+            x += prm_x;  y += prm_y;  z += prm_z;
+        }
+    };
+    class PosTrace {
+    public:
+        Pos* _paPos;
+        int _num;
+        int _p;
+        PosTrace(int n) {
+            _p = 0;
+            _num = n;
+            _paPos = NEW Pos[_num];
+        }
+        /**
+         * カレント要素を一つ進め、進めた後のPosを得る .
+         * @return
+         */
+        Pos* next() {
+            if (_p == _num-1) {
+                _p = 0;
+            } else {
+                _p++;
+            }
+            return &(_paPos[_p]);
+        }
+        Pos* getPrev() {
+            return &(_paPos[ (_p == 0 ? _num-1 : _p-1) ]);
+        }
+        Pos* getNext() {
+            return &(_paPos[ (_p == _num-1 ? 0 : _p+1) ]);
+        }
+        ~PosTrace() {
+            GGAF_DELETEARR(_paPos);
+        }
+    };
+    inline void positionAs(Pos *pPos) {
+         position(pPos->x, pPos->y, pPos->z);
+    }
 public:
     /** 最大分身数 */
-    static int max_bunshin_num_;
+    static const int MAX_BUNSHIN_NUM;
     /** [r]分身と分身の間隔 */
-    static frame bunshin_d_;
+    static const frame BUNSHIN_D;
+    /** [r]分身の向きの角速度 */
+    static const angvelo ANGVELO_TURN;
+    /** [r]分身向きの広がり回転角速度 */
+    static const angvelo ANGVELO_EXPANSE;
+
+
 
     /** [r]分身本体 */
     MyBunshin* pBunshin_;
+    /** 分身用のトレース座標の歴史（絶対座標）  */
+    PosTrace* pPosTrace;
     /** 自機トレースの座標からのオフセット(フリーでない場合は0) */
     GgafDxCore::GgafDxGeoElem trace_offset_;
     /** 分身番号(1～) */
     int no_;
 
-    /** [r]自身を中心とした、分身の公転の半径 */
-    coord bunshin_radius_position_;
-    /** [r]自身を中心とした、分身の公転軌道上の位置 */
-    angle bunshin_ang_position_;
-    /** [r]分身の広がり角度 */
-    angle bunshin_expanse_;
-    /** [r]自身を中心とした、分身の公転の角速度 */
-    angvelo bunshin_angvelo_mv_;
+    /** [r]自身を中心とした、分身の公転の半径(初期値) */
+    coord bunshin_default_radius_position_;
+    /** [r]自身を中心とした、分身の公転軌道上の位置(初期値) */
+    angle bunshin_default_ang_position_;
+    /** [r]分身の広がり角度(初期値) */
+    angle bunshin_default_expanse_;
+    /** [r]自身を中心とした、分身の公転の角速度(初期値) */
+    angvelo bunshin_default_angvelo_mv_;
+    /** [r]分身位置の広がり移動速度 */
+    velo bunshin_velo_mv_radius_pos_;
+
+    /** */
+    int trace_mode_;
+    enum {
+        TRACE_TWINBEE,
+        TRACE_GRADIUS,
+        TRACE_FREEZE,
+    };
+
+    enum {
+        PROG_INIT,
+        PROG_BUNSHIN_NOMAL_TRACE,
+        PROG_BUNSHIN_FREE_MOVE,
+        PROG_BUNSHIN_FREE_WAIT,
+        PROG_BUNSHIN_RETURN_DEFAULT_POS_BEGIN,
+        PROG_BUNSHIN_RETURNING_DEFAULT_POS,
+        PROG_BANPEI,
+    };
+    frame return_default_pos_frames_;
 
 public:
+    /**
+     * コンストラクタ .
+     * @param prm_name
+     * @param prm_no 分身番号 (1～)
+     */
     MyBunshinBase(const char* prm_name, int prm_no);
 
     void config(
@@ -65,6 +149,14 @@ public:
     virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {}
 
     virtual ~MyBunshinBase();
+
+    void setBunshinRadiusPosition(coord prm_radius_position);
+    void addBunshinRadiusPosition(coord prm_radius_position);
+    coord getBunshinRadiusPosition();
+
+    void setBunshinExpanse(angvelo prm_ang_expanse);
+    void addBunshinExpanse(angvelo prm_ang_expanse);
+    angvelo getBunshinExpanse();
 
 
 };

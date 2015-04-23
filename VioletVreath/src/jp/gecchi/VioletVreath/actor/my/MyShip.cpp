@@ -229,12 +229,6 @@ MyShip::MyShip(const char* prm_name) :
     pRing_MyShipGeoHistory2_->indexedValue();
 //<----‚¯‚·
 
-    pRing_GeoHistory4Bunshin_ = NEW GgafLinkedListRing<GgafDxGeoElem>();
-    for (uint32_t i = 0; i <  MyBunshinBase::max_bunshin_num_ * 30; i++) {
-        pRing_GeoHistory4Bunshin_->addLast(NEW GgafDxGeoElem(this));
-    }
-    pRing_GeoHistory4Bunshin_->indexedValue();
-
 
 
 
@@ -363,9 +357,11 @@ MyShip::MyShip(const char* prm_name) :
     trace_delay_count_ = 0;
     is_trace_waiting_ = false;
 
-
-
     shot_level_ = 1;
+
+    prev_x_ = _x;
+    prev_y_ = _y;
+    prev_z_ = _z;
 }
 void MyShip::onCreateModel() {
     GgafDxModel* pModel = getModel();
@@ -699,8 +695,7 @@ void MyShip::processBehavior() {
 
 
 
-    //•ªg‚Ì‚½‚ß‚ÌˆÚ“®À•W—š—ð•Û‘¶
-    pRing_GeoHistory4Bunshin_->next()->set(this);
+
 
 
 
@@ -923,6 +918,19 @@ void MyShip::processBehavior() {
         getSeTx()->play3D(SE_EXPLOSION);
         throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
     }
+
+
+    if (prev_x_ == _x && prev_y_ == _y && prev_z_ == _z) {
+        is_move_ = false;
+    } else {
+        is_move_ = true;
+    }
+    mv_offset_x_ = _x - prev_x_;
+    mv_offset_y_ = _y - prev_y_;
+    mv_offset_z_ = _z - prev_z_;
+    prev_x_ = _x;
+    prev_y_ = _y;
+    prev_z_ = _z;
 }
 
 void MyShip::processJudgement() {
@@ -1678,7 +1686,6 @@ MyShip::~MyShip() {
     GGAF_DELETE(pRing_MyShipGeoHistory2_);
 //‚¯‚·
 
-    GGAF_DELETE(pRing_GeoHistory4Bunshin_);
 }
 
 

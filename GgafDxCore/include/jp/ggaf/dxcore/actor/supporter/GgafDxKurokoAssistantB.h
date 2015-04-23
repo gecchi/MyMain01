@@ -63,9 +63,9 @@ public:
      * @param prm_endacc_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
     void turnFaceAngByDt(axis prm_axis,
-                             angle prm_angular_distance, int prm_target_frames,
-                             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                             bool prm_endacc_flg);
+                         angle prm_angular_distance, int prm_target_frames,
+                         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                         bool prm_endacc_flg);
 
     /**
      * 目標の軸回転方角(Z軸)へ滑らかに回転するシークエンスを実行(時間指定、角速度変動) .
@@ -79,8 +79,8 @@ public:
      * @param prm_endacc_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
     void turnRzFaceAngByDtTo(angle prm_ang_rz_target, int prm_way, int prm_target_frames,
-                                 float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                                 bool prm_endacc_flg);
+                             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                             bool prm_endacc_flg);
 
     /**
      * 目標の軸回転方角(Y軸)へ滑らかに回転するシークエンスを実行(時間指定、角速度変動) .
