@@ -13,7 +13,9 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantB.h"
 
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -70,7 +72,6 @@ void MyBunshin::processBehavior() {
     const VirtualButton* pVbPlay = VB_PLAY;
 
     pKuroko->behave();
-
 
     changeGeoFinal();
 }
@@ -155,7 +156,55 @@ void MyBunshin::onInactive() {
 
 void MyBunshin::onHit(const GgafActor* prm_pOtherActor) {
 }
-
+void MyBunshin::setRadiusPosition(coord prm_radius_position) {
+    if (_is_local) {
+        _y = prm_radius_position;
+    } else {
+        _y_local = prm_radius_position;
+    }
+}
+void MyBunshin::addRadiusPosition(coord prm_radius_position) {
+    if (_is_local) {
+        _y += prm_radius_position;
+    } else {
+        _y_local += prm_radius_position;
+    }
+}
+coord MyBunshin::getRadiusPosition() {
+    return _is_local ? _y : _y_local;
+}
+void MyBunshin::slideMvRadiusPosition(coord prm_target_radius_position, frame prm_spent_frames) {
+    bool is_local = _is_local;
+    if (!is_local) { changeGeoLocal(); }  //ローカル座標の操作とする。
+    coord d = prm_target_radius_position - _y;
+    getKuroko()->setRzRyMvAng(D90ANG, D0ANG); //Y軸方向
+    getKuroko()->asstA()->slideMvByDt(d, prm_spent_frames, 0.2, 0.8, 0, true);
+    if (!is_local) { changeGeoFinal(); }  //座標系を戻す
+}
+void MyBunshin::setExpanse(angvelo prm_ang_expanse) {
+    if (_is_local) {
+        _rz = UTIL::simplifyAng(prm_ang_expanse);
+    } else {
+        _rz_local = UTIL::simplifyAng(prm_ang_expanse);
+    }
+}
+void MyBunshin::addExpanse(angvelo prm_ang_expanse) {
+    if (_is_local) {
+        _rz = UTIL::simplifyAng(_rz+prm_ang_expanse);
+    } else {
+        _rz_local = UTIL::simplifyAng(_rz_local+prm_ang_expanse);
+    }
+}
+angvelo MyBunshin::getExpanse() {
+    return _is_local ? _rz : _rz_local;
+}
+void MyBunshin::turnExpanse(coord prm_target_ang_expanse, frame prm_spent_frames) {
+    bool is_local = _is_local;
+    if (!is_local) { changeGeoLocal(); }  //ローカル座標の操作とする。
+    getKuroko()->asstB()->turnRzFaceAngByDtTo(prm_target_ang_expanse, TURN_CLOSE_TO,
+                                              prm_spent_frames, 0.2, 0.8, 0, true);
+    if (!is_local) { changeGeoFinal(); }  //座標系を戻す
+}
 MyBunshin::~MyBunshin() {
 }
 

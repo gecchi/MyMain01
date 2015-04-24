@@ -28,7 +28,7 @@ MyBunshinBase::MyBunshinBase(const char* prm_name, int prm_no) :
         DefaultMeshActor(prm_name, "myvic") {
 
     trace_offset_.set(0,0,0);
-    no_ = prm_no;
+    no_ = prm_no; //１～
 
     std::string bunshin_name = "Bunshin" + XTOS(no_);
     pBunshin_ = NEW MyBunshin(bunshin_name.c_str(), this);
@@ -51,6 +51,8 @@ void MyBunshinBase::config(
     bunshin_default_expanse_ = prm_expanse;
     bunshin_default_angvelo_mv_ = prm_angvelo_mv;
     bunshin_velo_mv_radius_pos_ = 3000 * (bunshin_default_radius_position_/60000);
+
+    bunshin_radius_pos_ = bunshin_default_radius_position_;
 }
 
 void MyBunshinBase::initialize() {
@@ -61,8 +63,8 @@ void MyBunshinBase::initialize() {
 }
 
 void MyBunshinBase::onReset() {
-    setBunshinRadiusPosition(bunshin_default_radius_position_);
-    setBunshinExpanse(bunshin_default_expanse_);
+    pBunshin_->setRadiusPosition(bunshin_default_radius_position_);
+    bunshin_radius_pos_ = bunshin_default_radius_position_;
 
     setRollFaceAng(bunshin_default_ang_position_);
     getKuroko()->setRollFaceAngVelo(bunshin_default_angvelo_mv_);
@@ -96,6 +98,52 @@ void MyBunshinBase::processBehavior() {
 
             break;
         }
+
+        case PROG_BUNSHIN_FREE_IGNITED: { //分身フリーモード、点火！
+            if (pProg->hasJustChanged()) {
+            }
+
+            if (pVbPlay->isReleasedUp(VB_TURBO)) { //VB_OPTION離すとリセット
+                pProg->change(PROG_BUNSHIN_NOMAL_TRACE);
+            }
+
+
+            if (pProg->getFrame() >= (MyBunshinBase::MAX_BUNSHIN_NUM - (no_-1) )*10) { //最初のオプションほどカウントが多く必要
+                //発射点火OK時の処理
+                //点火OKの時に VB_OPTION + VB_TURBO離しで発射
+                if (pVbPlay->isReleasedUp(VB_TURBO)) {
+                    //pBunshin_なにかアクション
+
+
+                    //点火OKの時に VB_OPTION + VB_TURBO離しで発射
+//                    ignited_bushin_cnt_mode_ = false; //VB_TURBON離すとリセット
+//                    ignite_bushin_cnt_ = 0;
+//                    if (pVbPlay->isBeingPressed(VB_OPTION) && was_ignited_bushin_) { //点火OKだった
+//                        was_ignited_bushin_ = false;
+//
+//                        is_free_from_myship_mode_ = true;
+//                        is_handle_move_mode_ = true;
+//                        pAxsMver_->setZeroVxyzMvVelo();
+//                        pAxsMver_->setZeroVxyzMvAcce();
+//                        if (pOption_->isActive()) {
+//                            EffectTurbo002* pTurbo002 = dispatchFromCommon(EffectTurbo002);
+//                            if (pTurbo002) {
+//                                pTurbo002->positionAs(pOption_);
+//                            }
+//                        }
+//                    }
+
+
+                }
+            }
+
+
+            //点火OKの時に VB_OPTION + VB_TURBO離しで発射
+            if (pVbPlay->isReleasedUp(VB_TURBO)) {
+
+            }
+            break;
+        }
         case PROG_BUNSHIN_FREE_MOVE: { //分身フリーモード、操作移動中！
             if (pProg->hasJustChanged()) {
             }
@@ -109,47 +157,39 @@ void MyBunshinBase::processBehavior() {
             }
             break;
         }
-        case PROG_BUNSHIN_RETURN_DEFAULT_POS_BEGIN: { //分身、元の位置に戻り中
+        case PROG_BUNSHIN_RETURN_DEFAULT_POS_BEGIN: { //分身、元の位置る発動
             EffectTurbo002* const pTurbo002 = dispatchFromCommon(EffectTurbo002);
             if (pTurbo002) {
                 pTurbo002->positionAs(pBunshin_);
             }
-            //元に戻るのに必要なフレーム数基準値
-            return_default_pos_frames_ = 60;
-            //土台が前に向く。
+            //完全にデフォルト状態に元に戻ために、最低限必要なフレーム数基準値
+            return_default_pos_frames_ = MyBunshinBase::BUNSHIN_D * MyBunshinBase::MAX_BUNSHIN_NUM;
+            //土台がの向きが元に戻る（前方に向く）指示
             pKuroko->turnRzRyFaceAngTo(D0ANG, D0ANG,
                                        D_ANG(2), 0,
                                        TURN_CLOSE_TO,
                                        false );
-            //分身の初期の角度位置までの角距離
+            //分身の角度位置が元に戻る指示
             int angvelo_sgn = SGN(bunshin_default_angvelo_mv_);
-            angle ang_diff = UTIL::getAngDiff(_rx, bunshin_default_ang_position_, angvelo_sgn);
-            int way;
-            if (angvelo_sgn > 0) {
-                //正の角速度の回転＝反時計回り
-                if (ABS(ang_diff) > D_ANG(350)) {
-                    //逆に回る
-                    way = TURN_CLOCKWISE;
-                } else {
-                    way = TURN_COUNTERCLOCKWISE;
-                }
-            } else {
-                //負の角速度の回転＝時計回り
-                if (ABS(ang_diff) > D_ANG(350)) {
-                    //逆に回る
-                    way = TURN_COUNTERCLOCKWISE;
-                } else {
-                    way = TURN_CLOCKWISE;
-                }
-            }
-            //滑らかに元の位置に戻ろう。
-            pKuroko->asstB()->rollFaceAngByDtTo(bunshin_default_ang_position_, way, return_default_pos_frames_,
-                                                0.3, 0.7, bunshin_default_angvelo_mv_, true );
+            pKuroko->asstB()->rollFaceAngByDtTo(
+                                  bunshin_default_ang_position_,
+                                  angvelo_sgn > 0 ? TURN_COUNTERCLOCKWISE : TURN_CLOCKWISE,
+                                  return_default_pos_frames_,
+                                  0.3, 0.7,
+                                  bunshin_default_angvelo_mv_,
+                                  true
+                               );
+            //分身の半径位置が元に戻る指示
+            bunshin_radius_pos_ = bunshin_default_radius_position_;
+            pBunshin_->slideMvRadiusPosition(bunshin_radius_pos_, return_default_pos_frames_);
+            //分身の向きが元に戻る（前方に向く）指示
+            pBunshin_->turnExpanse(D_ANG(0), return_default_pos_frames_);
+
             pProg->change(PROG_BUNSHIN_RETURNING_DEFAULT_POS);
             break;
         }
         case PROG_BUNSHIN_RETURNING_DEFAULT_POS: { //分身、元の位置に戻り中
-
+            trace_mode_ = TRACE_TWINBEE; //トレースが初期に戻る
             if (pProg->hasArrivedAt(return_default_pos_frames_)) {
                 pProg->change(PROG_BUNSHIN_NOMAL_TRACE);
             }
@@ -158,6 +198,10 @@ void MyBunshinBase::processBehavior() {
         default :
             break;
     }
+
+
+
+
 
     if (pVbPlay->isDoublePushedDown(VB_OPTION,8,8)) {
         //分身が元の位置に戻る
@@ -170,94 +214,104 @@ void MyBunshinBase::processBehavior() {
             const int pos_camera = P_VAM->pos_camera_;
             if (pos_camera == VAM_POS_RIGHT) {
                 if (pVbPlay->isBeingPressed(VB_RIGHT)) {
-                    addBunshinExpanse(+MyBunshinBase::ANGVELO_EXPANSE);
+                    pBunshin_->addExpanse(+MyBunshinBase::ANGVELO_EXPANSE);
                 } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
-                    addBunshinExpanse(-MyBunshinBase::ANGVELO_EXPANSE);
+                    pBunshin_->addExpanse(-MyBunshinBase::ANGVELO_EXPANSE);
                 }
                 if (pVbPlay->isBeingPressed(VB_UP)) {
-                    addBunshinRadiusPosition(+bunshin_velo_mv_radius_pos_);
+                    pBunshin_->addRadiusPosition(+bunshin_velo_mv_radius_pos_);
                 } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    addBunshinRadiusPosition(-bunshin_velo_mv_radius_pos_);
+                    pBunshin_->addRadiusPosition(-bunshin_velo_mv_radius_pos_);
                 }
             } else if (pos_camera == VAM_POS_LEFT) {
                 if (pVbPlay->isBeingPressed(VB_RIGHT)) {
-                    addBunshinExpanse(-MyBunshinBase::ANGVELO_EXPANSE);
+                    pBunshin_->addExpanse(-MyBunshinBase::ANGVELO_EXPANSE);
                 } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
-                    addBunshinExpanse(+MyBunshinBase::ANGVELO_EXPANSE);
+                    pBunshin_->addExpanse(+MyBunshinBase::ANGVELO_EXPANSE);
                 }
                 if (pVbPlay->isBeingPressed(VB_UP)) {
-                    addBunshinRadiusPosition(+bunshin_velo_mv_radius_pos_);
+                    pBunshin_->addRadiusPosition(+bunshin_velo_mv_radius_pos_);
                 } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    addBunshinRadiusPosition(-bunshin_velo_mv_radius_pos_);
+                    pBunshin_->addRadiusPosition(-bunshin_velo_mv_radius_pos_);
                 }
             } else if (pos_camera == VAM_POS_TOP) {
                 if (pVbPlay->isBeingPressed(VB_RIGHT)) {
-                    addBunshinRadiusPosition(+bunshin_velo_mv_radius_pos_);
+                    pBunshin_->addRadiusPosition(+bunshin_velo_mv_radius_pos_);
                 } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
-                    addBunshinRadiusPosition(-bunshin_velo_mv_radius_pos_);
+                    pBunshin_->addRadiusPosition(-bunshin_velo_mv_radius_pos_);
                 }
                 if (pVbPlay->isBeingPressed(VB_UP)) {
-                    addBunshinExpanse(+MyBunshinBase::ANGVELO_EXPANSE);
+                    pBunshin_->addExpanse(+MyBunshinBase::ANGVELO_EXPANSE);
                 } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    addBunshinExpanse(-MyBunshinBase::ANGVELO_EXPANSE);
+                    pBunshin_->addExpanse(-MyBunshinBase::ANGVELO_EXPANSE);
                 }
             } else if (pos_camera == VAM_POS_BOTTOM) {
                 if (pVbPlay->isBeingPressed(VB_RIGHT)) {
-                    addBunshinRadiusPosition(-bunshin_velo_mv_radius_pos_);
+                    pBunshin_->addRadiusPosition(-bunshin_velo_mv_radius_pos_);
                 } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
-                    addBunshinRadiusPosition(+bunshin_velo_mv_radius_pos_);
+                    pBunshin_->addRadiusPosition(+bunshin_velo_mv_radius_pos_);
                 }
                 if (pVbPlay->isBeingPressed(VB_UP)) {
-                    addBunshinExpanse(-MyBunshinBase::ANGVELO_EXPANSE);
+                    pBunshin_->addExpanse(-MyBunshinBase::ANGVELO_EXPANSE);
                 } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    addBunshinExpanse(+MyBunshinBase::ANGVELO_EXPANSE);
+                    pBunshin_->addExpanse(+MyBunshinBase::ANGVELO_EXPANSE);
                 }
             } else if (pos_camera > VAM_POS_TO_BEHIND) {
                 if (pVbPlay->isBeingPressed(VB_RIGHT)) {
-                    addBunshinExpanse(+MyBunshinBase::ANGVELO_EXPANSE);
+                    pBunshin_->addExpanse(+MyBunshinBase::ANGVELO_EXPANSE);
                 } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
-                    addBunshinExpanse(-MyBunshinBase::ANGVELO_EXPANSE);
+                    pBunshin_->addExpanse(-MyBunshinBase::ANGVELO_EXPANSE);
                 }
                 if (pVbPlay->isBeingPressed(VB_UP)) {
-                    addBunshinRadiusPosition(+bunshin_velo_mv_radius_pos_);
+                    pBunshin_->addRadiusPosition(+bunshin_velo_mv_radius_pos_);
                 } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    addBunshinRadiusPosition(-bunshin_velo_mv_radius_pos_);
+                    pBunshin_->addRadiusPosition(-bunshin_velo_mv_radius_pos_);
                 }
             }
+
+            bunshin_radius_pos_ = pBunshin_->getRadiusPosition(); //標準半径位置
+
         } else {  //if ( pVbPlay->isBeingPressed(VB_TURBO) )  の else
             //分身の向き操作
             trace_mode_ = TRACE_FREEZE;
             if (pVbPlay->isBeingPressed(VB_UP)) {
                 addRzFaceAng(MyBunshinBase::ANGVELO_TURN);
-            }
-            if (pVbPlay->isBeingPressed(VB_DOWN)) {
+            } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
                 addRzFaceAng(-MyBunshinBase::ANGVELO_TURN);
             }
             if (pVbPlay->isBeingPressed(VB_RIGHT)) {
                 addRyFaceAng(MyBunshinBase::ANGVELO_TURN);
-            }
-            if (pVbPlay->isBeingPressed(VB_LEFT)) {
+            } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
                 addRyFaceAng(-MyBunshinBase::ANGVELO_TURN);
             }
         }
     }
+    //オプションフリーモードへの判断
+    if (pVbPlay->isBeingPressed(VB_OPTION)) {
+        if (pVbPlay->isDoublePushedDown(VB_TURBO)) { //VB_OPTION + VB_TURBOダブルプッシュ
+            pProg->change(PROG_BUNSHIN_FREE_IGNITED);
+        }
+    }
+
+
+
+
 
     if (trace_mode_ == TRACE_GRADIUS) {
         if (pMyShip->is_move_) {
             pPosTrace->next()->set(pMyShip);
         }
     } else if (trace_mode_ == TRACE_TWINBEE) {
-        if (pMyShip->is_move_) {
-            pPosTrace->next()->set(pMyShip);
-        }
+        pPosTrace->next()->set(pMyShip);
     } else if (trace_mode_ == TRACE_FREEZE) {
         if (pMyShip->is_move_) {
             int l = pPosTrace->_num;
             coord dx = pMyShip->mv_offset_x_;
             coord dy = pMyShip->mv_offset_y_;
             coord dz = pMyShip->mv_offset_z_;
+            Pos* p = pPosTrace->_paPos;
             for (int i = 0; i < l; i++) {
-                pPosTrace->_paPos[i].add(dx, dy, dz);
+                p[i].add(dx, dy, dz);
             }
         }
     }
@@ -282,25 +336,6 @@ void MyBunshinBase::processBehavior() {
 
 
 
-void MyBunshinBase::setBunshinRadiusPosition(coord prm_radius_position) {
-    pBunshin_->_y_local = prm_radius_position;
-}
-void MyBunshinBase::addBunshinRadiusPosition(coord prm_radius_position) {
-    pBunshin_->_y_local += prm_radius_position;
-}
-coord MyBunshinBase::getBunshinRadiusPosition() {
-    return pBunshin_->_y_local;
-}
-
-void MyBunshinBase::setBunshinExpanse(angvelo prm_ang_expanse) {
-    pBunshin_->_rz_local = UTIL::simplifyAng(prm_ang_expanse);
-}
-void MyBunshinBase::addBunshinExpanse(angvelo prm_ang_expanse) {
-    pBunshin_->_rz_local += UTIL::simplifyAng(prm_ang_expanse);
-}
-angvelo MyBunshinBase::getBunshinExpanse() {
-    return  pBunshin_->_rz_local;
-}
 MyBunshinBase::~MyBunshinBase() {
     GGAF_DELETE(pPosTrace);
 }

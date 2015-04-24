@@ -86,7 +86,7 @@ public:
     /** 分身番号(1～) */
     int no_;
 
-    /** [r]自身を中心とした、分身の公転の半径(初期値) */
+    /** [r]自身を中心とした、分身の半径距離の位置(初期値) */
     coord bunshin_default_radius_position_;
     /** [r]自身を中心とした、分身の公転軌道上の位置(初期値) */
     angle bunshin_default_ang_position_;
@@ -96,6 +96,10 @@ public:
     angvelo bunshin_default_angvelo_mv_;
     /** [r]分身位置の広がり移動速度 */
     velo bunshin_velo_mv_radius_pos_;
+    /** [r]自身を中心とした、分身の半径距離の位置(標準状態) */
+    velo bunshin_radius_pos_;
+
+
 
     /** */
     int trace_mode_;
@@ -108,6 +112,7 @@ public:
     enum {
         PROG_INIT,
         PROG_BUNSHIN_NOMAL_TRACE,
+        PROG_BUNSHIN_FREE_IGNITED,
         PROG_BUNSHIN_FREE_MOVE,
         PROG_BUNSHIN_FREE_WAIT,
         PROG_BUNSHIN_RETURN_DEFAULT_POS_BEGIN,
@@ -150,14 +155,7 @@ public:
 
     virtual ~MyBunshinBase();
 
-    void setBunshinRadiusPosition(coord prm_radius_position);
     void addBunshinRadiusPosition(coord prm_radius_position);
-    coord getBunshinRadiusPosition();
-
-    void setBunshinExpanse(angvelo prm_ang_expanse);
-    void addBunshinExpanse(angvelo prm_ang_expanse);
-    angvelo getBunshinExpanse();
-
 
 };
 

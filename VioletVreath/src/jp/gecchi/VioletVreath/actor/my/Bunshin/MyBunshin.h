@@ -3,7 +3,6 @@
 #include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
-
 namespace VioletVreath {
 
 //class MyBunshin : public GgafLib::DefaultMorphMeshActor {
@@ -44,8 +43,17 @@ public:
 
     virtual ~MyBunshin();
 
-    void adjustAngPosition(angle prm_new_angPosition_base, frame prm_spent_frame);
 
+    void setRadiusPosition(coord prm_radius_position);
+    void addRadiusPosition(coord prm_radius_position);
+    coord getRadiusPosition();
+
+    void slideMvRadiusPosition(coord prm_target_radius_position, frame prm_spent_frames);
+
+    void setExpanse(angvelo prm_ang_expanse);
+    void addExpanse(angvelo prm_ang_expanse);
+    angvelo getExpanse();
+    void turnExpanse(coord prm_target_ang_expanse, frame prm_spent_frames);
 };
 
 }
