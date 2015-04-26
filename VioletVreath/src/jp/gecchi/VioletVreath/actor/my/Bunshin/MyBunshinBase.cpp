@@ -190,7 +190,7 @@ void MyBunshinBase::processBehavior() {
         }
         case PROG_BUNSHIN_RETURNING_DEFAULT_POS: { //分身、元の位置に戻り中
             trace_mode_ = TRACE_TWINBEE; //トレースが初期に戻る
-            if (pProg->hasArrivedAt(return_default_pos_frames_)) {
+            if (pProg->hasArrivedAt(return_default_pos_frames_+2)) {
                 pProg->change(PROG_BUNSHIN_NOMAL_TRACE);
             }
             break;
