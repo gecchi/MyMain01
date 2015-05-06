@@ -99,7 +99,11 @@ public:
     /** [r]自身を中心とした、分身の半径距離の位置(標準状態) */
     velo bunshin_radius_pos_;
 
-
+    /** [r]平行移動支援 */
+    GgafDxCore::GgafDxAxesMover* pAxsMver_;
+    int renge_;
+    /** 分身フリー移動時の分身の移動速度 */
+    velo velo_bunshin_free_mv_;
 
     /** */
     int trace_mode_;
@@ -113,10 +117,9 @@ public:
         PROG_INIT,
         PROG_BUNSHIN_NOMAL_TRACE,
         PROG_BUNSHIN_FREE_IGNITED,
+        PROG_BUNSHIN_FREE_READY,
         PROG_BUNSHIN_FREE_MOVE,
         PROG_BUNSHIN_FREE_WAIT,
-        PROG_BUNSHIN_RETURN_DEFAULT_POS_BEGIN,
-        PROG_BUNSHIN_RETURNING_DEFAULT_POS,
         PROG_BANPEI,
     };
     frame return_default_pos_frames_;
