@@ -58,6 +58,9 @@ private:
         Pos* getNext() {
             return &(_paPos[ (_p == _num-1 ? 0 : _p+1) ]);
         }
+        Pos* get2Next() {
+            return &(_paPos[ (_p == _num-1 ? 1 : (_p == _num-2 ? 0 : _p+2) ) ]);
+        }
         ~PosTrace() {
             GGAF_DELETEARR(_paPos);
         }
@@ -79,13 +82,14 @@ public:
 
     /** [r]分身本体 */
     MyBunshin* pBunshin_;
-    /** 分身用のトレース座標の歴史（絶対座標）  */
-    PosTrace* pPosTrace;
+    /** 分身用のトレース座標の歴史（絶対座標）。カレントが自機座標。 */
+    PosTrace* pPosTrace_;
     /** 自機トレースの座標からのオフセット(フリーでない場合は0) */
     GgafDxCore::GgafDxGeoElem trace_offset_;
     /** 分身番号(1～) */
     int no_;
-
+    /** 分身番号1～MAXによって、バラける演出のための乗ずる割合が入る */
+    double delay_r_;
     /** [r]自身を中心とした、分身の半径距離の位置(初期値) */
     coord bunshin_default_radius_position_;
     /** [r]自身を中心とした、分身の公転軌道上の位置(初期値) */
@@ -101,6 +105,7 @@ public:
 
     /** [r]平行移動支援 */
     GgafDxCore::GgafDxAxesMover* pAxsMver_;
+    /** [r]分身が戻ってくる時のMAX速さ */
     int renge_;
     /** 分身フリー移動時の分身の移動速度 */
     velo velo_bunshin_free_mv_;
@@ -120,10 +125,11 @@ public:
         PROG_BUNSHIN_FREE_READY,
         PROG_BUNSHIN_FREE_MOVE,
         PROG_BUNSHIN_FREE_WAIT,
+        PROG_BUNSHIN_FREE_RETURN_DEFAULT_POS,
         PROG_BANPEI,
     };
     frame return_default_pos_frames_;
-
+    bool is_free_mode_;
 public:
     /**
      * コンストラクタ .

@@ -19,7 +19,8 @@ public:
     GgafCore::GgafActorDepository* pDepo_MyBunshinShot_;
     /** [r]スナイプショットのデポジトリ */
     GgafCore::GgafActorDepository* pDepo_MySnipeBunshinShot_;
-
+    /** 拡大縮小支援オブジェクト */
+    GgafDxCore::GgafDxScaler* pScaler_;
 public:
     MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase);
 
@@ -43,6 +44,7 @@ public:
 
     virtual ~MyBunshin();
 
+    void effectIgnited();
 
     void setRadiusPosition(coord prm_radius_position);
     void addRadiusPosition(coord prm_radius_position);

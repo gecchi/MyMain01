@@ -16,6 +16,8 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantB.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -42,6 +44,8 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) :
     }
     addSubGroup(pDepo_MySnipeBunshinShot_);
 
+    pScaler_ = NEW GgafDxScaler(this);
+
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(SE_FIRE_LASER,   "WAVE_MY_FIRE_LASER_002");
     pSeTx->set(SE_FIRE_SHOT,    "WAVE_MY_FIRE_SHOT_002");
@@ -53,6 +57,7 @@ void MyBunshin::onCreateModel() {
 
 void MyBunshin::initialize() {
     setScaleR(2.0);
+    pScaler_->setRange(R_SC(2.0), R_SC(2.0*4));
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setRollFaceAngVelo(PX_C(4)); //分身の時点
 }
@@ -71,7 +76,11 @@ void MyBunshin::processBehavior() {
     GgafDxKuroko* pKuroko = getKuroko();
     const VirtualButton* pVbPlay = VB_PLAY;
 
+
+
+
     pKuroko->behave();
+    pScaler_->behave();
 
     changeGeoFinal();
 }
@@ -156,18 +165,36 @@ void MyBunshin::onInactive() {
 
 void MyBunshin::onHit(const GgafActor* prm_pOtherActor) {
 }
+
+void MyBunshin::effectIgnited() {
+    pScaler_->beat(10, 4, 0, 4, 1); //オプションぷるぷる、発射じゅんびOKのエフェクト
+}
+
+
 void MyBunshin::setRadiusPosition(coord prm_radius_position) {
     if (_is_local) {
         _y = prm_radius_position;
+        if (_y < 1) {
+            _y = 1;
+        }
     } else {
         _y_local = prm_radius_position;
+        if (_y_local < 1) {
+            _y_local = 1;
+        }
     }
 }
 void MyBunshin::addRadiusPosition(coord prm_radius_position) {
     if (_is_local) {
         _y += prm_radius_position;
+        if (_y < 1) {
+            _y = 1;
+        }
     } else {
         _y_local += prm_radius_position;
+        if (_y_local < 1) {
+            _y_local = 1;
+        }
     }
 }
 coord MyBunshin::getRadiusPosition() {
@@ -206,8 +233,6 @@ void MyBunshin::turnExpanse(coord prm_target_ang_expanse, frame prm_spent_frames
     if (!is_local) { changeGeoFinal(); }  //座標系を戻す
 }
 MyBunshin::~MyBunshin() {
+    GGAF_DELETE(pScaler_);
 }
-
-
-
 
