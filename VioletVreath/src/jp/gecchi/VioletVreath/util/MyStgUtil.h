@@ -374,6 +374,8 @@ public:
 	static GgafCore::GgafStatus* resetMyBunshinShot001Status(GgafCore::GgafStatus* p);
 	//分身スナイプションショット
 	static GgafCore::GgafStatus* resetMyBunshinSnipeShot001Status(GgafCore::GgafStatus* p);
+	//分身カーブレーザー
+	static GgafCore::GgafStatus* resetMyBunshinWateringLaserChip001Status(GgafCore::GgafStatus* p);
 	//トゥピード
 	static GgafCore::GgafStatus* resetMyTorpedoStatus(GgafCore::GgafStatus* p);
 	//トゥピード爆風

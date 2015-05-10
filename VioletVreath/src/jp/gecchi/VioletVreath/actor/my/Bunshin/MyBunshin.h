@@ -14,11 +14,17 @@ public:
         SE_FIRE_SHOT   ,
         SE_FIRE_TORPEDO,
     };
-
     /** [r]ショットのデポジトリ */
     GgafCore::GgafActorDepository* pDepo_MyBunshinShot_;
     /** [r]スナイプショットのデポジトリ */
     GgafCore::GgafActorDepository* pDepo_MySnipeBunshinShot_;
+    /** [r]レーザーチップのデポジトリ */
+    GgafLib::LaserChipDepository* pLaserChipDepo_;
+    /** [r]ロックオンコントローラー */
+    MyLockonController* pLockonCtrler_;
+    /** [r]魚雷コントローラー */
+    MyTorpedoController* pTorpedoCtrler_;
+
     /** 拡大縮小支援オブジェクト */
     GgafDxCore::GgafDxScaler* pScaler_;
 public:

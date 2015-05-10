@@ -18,6 +18,14 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+
+#include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
+
+#include "jp/gecchi/VioletVreath/actor/my/MyTorpedoController.h"
+
+#include "jp/ggaf/lib/util/VirtualButton.h"
+
+#include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshinWateringLaserChip001.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -30,19 +38,38 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) :
 
     _class_name = "MyBunshin";
 
+    //自弾ストック
     pDepo_MyBunshinShot_ = NEW GgafActorDepository("Depo_MyBunshinShot");
-    for (int i = 0; i < 40; i++) { //自弾ストック
-        std::string name = std::string(getName()) + "'s Shot001(" + XTOS(i) + ")";
+    for (int i = 0; i < 40; i++) {
+        std::string name = std::string(getName()) + "'s Shot(" + XTOS(i) + ")";
         pDepo_MyBunshinShot_->put(NEW MyBunshinShot001(name.c_str()));
     }
     addSubGroup(pDepo_MyBunshinShot_);
 
+    //自弾（スナイプ）ストック
     pDepo_MySnipeBunshinShot_ = NEW GgafActorDepository("Depo_MySnipeBunshinShot");
-    for (int i = 0; i < 5; i++) { //自弾ストック
-        std::string name = std::string(getName()) + "'s SnipeShot001(" + XTOS(i) + ")";
+    for (int i = 0; i < 5; i++) {
+        std::string name = std::string(getName()) + "'s SnipeShot(" + XTOS(i) + ")";
         pDepo_MySnipeBunshinShot_->put(NEW MyBunshinSnipeShot001(name.c_str()));
     }
     addSubGroup(pDepo_MySnipeBunshinShot_);
+
+    //レーザーストック
+    pLaserChipDepo_ = NEW LaserChipDepository("DepoBunshinLaser");
+    for (int i = 0; i < 60; i++) {
+        std::string name = std::string(getName()) + "'s LaserChip(" + XTOS(i) + ")";
+        pLaserChipDepo_->put(NEW MyBunshinWateringLaserChip001(name.c_str()));
+    }
+    pLaserChipDepo_->config(80, 25, nullptr);
+    addSubGroup(pLaserChipDepo_);
+
+    //ロックオンコントローラー
+    pLockonCtrler_ = NEW MyLockonController("LockonController");
+    addSubGroup(pLockonCtrler_);
+
+    //フォトンコントローラー
+    pTorpedoCtrler_ = NEW MyTorpedoController("TorpedoController", this, pLockonCtrler_);
+    addSubGroup(pTorpedoCtrler_);
 
     pScaler_ = NEW GgafDxScaler(this);
 
@@ -66,6 +93,10 @@ void MyBunshin::onReset() {
 }
 
 void MyBunshin::onActive() {
+    //レーザーやロックンターゲットや魚雷がサブにいるため
+    //個別に呼び出す
+    pLockonCtrler_->onActive();
+    pTorpedoCtrler_->onActive();
 }
 
 
@@ -75,8 +106,6 @@ void MyBunshin::processBehavior() {
 
     GgafDxKuroko* pKuroko = getKuroko();
     const VirtualButton* pVbPlay = VB_PLAY;
-
-
 
 
     pKuroko->behave();
@@ -91,7 +120,7 @@ void MyBunshin::processChangeGeoFinal() {
 
 
     MyShip* const pMyShip = P_MYSHIP;
-
+    const VirtualButton* pVbPlay = VB_PLAY;
 
     if (pMyShip->is_just_shot_) {
         if (pMyShip->is_snipe_shot_) {
@@ -141,19 +170,40 @@ void MyBunshin::processChangeGeoFinal() {
     }
 
 
-//    LaserChip* pChip = nullptr;
-//    if (pDepo_laser_chip_) {
-//        pChip = pDepo_laser_chip_->dispatch();
-//        if (pChip) {
-//            //DEPO_LASER001の場合
-//            pChip->setRollPitchYawFaceAng(_rx, _rz, _ry);
-//            pChip->getKuroko()->setRzRyMvAng(_rz, _ry); //絶対座標系
-//            pChip->positionAs(this);
-//
-//            //DEPO_LASER002の場合
-//            //((StraightLaserChip*)pChip)->setSource(this);
-//        }
-//    }
+    //レーザー発射。TODO:最適化
+    if (pMyShip->is_shooting_laser_ && pVbPlay->isBeingPressed(VB_SHOT1)) {
+        MyBunshinWateringLaserChip001* pLaserChip = (MyBunshinWateringLaserChip001*)pLaserChipDepo_->dispatch();
+        if (pLaserChip) {
+            pLaserChip->onDispatchedBy(this);
+//            //カーブ用
+//            float vx,vy,vz;
+//            UTIL::convRzRyToVector(_rz, _ry, vx, vy, vz);
+//            const velo veloVx = vx*MyBunshinWateringLaserChip001::max_velo_renge_;
+//            const velo veloVy = vy*MyBunshinWateringLaserChip001::max_velo_renge_;
+//            const velo veloVz = vz*MyBunshinWateringLaserChip001::max_velo_renge_;
+//            pLaserChip->pAxsMver_->setVxyzMvVelo(veloVx, veloVy, veloVz);
+//            pLaserChip->pAxsMver_->setVxyzMvAcce(veloVx / MyBunshinWateringLaserChip001::r_max_acce_,
+//                                                 veloVy / MyBunshinWateringLaserChip001::r_max_acce_,
+//                                                 veloVz / MyBunshinWateringLaserChip001::r_max_acce_ );
+//            pLaserChip->pAxsMver_->behave();
+//            pLaserChip->positionAs(this);
+//            pLaserChip->_rz = _rz;
+//            pLaserChip->_ry = _ry;
+//            pLaserChip->pOrg_ = this;
+            if (pLaserChip->getFrontChip() == nullptr) {
+                getSeTx()->play3D(SE_FIRE_LASER);
+            }
+        }
+    } else {
+        pLockonCtrler_->releaseAllLockon(); //ロックオン解除
+    }
+    //光子魚雷発射
+    if (pVbPlay->isPushedDown(VB_SHOT2)) {
+        if (pTorpedoCtrler_->fire()) {
+            getSeTx()->play3D(SE_FIRE_TORPEDO);
+        }
+    }
+
 }
 
 void MyBunshin::processJudgement() {
@@ -161,6 +211,10 @@ void MyBunshin::processJudgement() {
 
 
 void MyBunshin::onInactive() {
+    //レーザーやロックンターゲットや魚雷がサブにいるため
+    //個別に呼び出す
+    pLockonCtrler_->onInactive();
+    pTorpedoCtrler_->onInactive();
 }
 
 void MyBunshin::onHit(const GgafActor* prm_pOtherActor) {
@@ -197,9 +251,11 @@ void MyBunshin::addRadiusPosition(coord prm_radius_position) {
         }
     }
 }
+
 coord MyBunshin::getRadiusPosition() {
     return _is_local ? _y : _y_local;
 }
+
 void MyBunshin::slideMvRadiusPosition(coord prm_target_radius_position, frame prm_spent_frames) {
     bool is_local = _is_local;
     if (!is_local) { changeGeoLocal(); }  //ローカル座標の操作とする。
@@ -208,6 +264,7 @@ void MyBunshin::slideMvRadiusPosition(coord prm_target_radius_position, frame pr
     getKuroko()->asstA()->slideMvByDt(d, prm_spent_frames, 0.2, 0.8, 0, true);
     if (!is_local) { changeGeoFinal(); }  //座標系を戻す
 }
+
 void MyBunshin::setExpanse(angvelo prm_ang_expanse) {
     if (_is_local) {
         _rz = UTIL::simplifyAng(prm_ang_expanse);
@@ -215,6 +272,7 @@ void MyBunshin::setExpanse(angvelo prm_ang_expanse) {
         _rz_local = UTIL::simplifyAng(prm_ang_expanse);
     }
 }
+
 void MyBunshin::addExpanse(angvelo prm_ang_expanse) {
     if (_is_local) {
         _rz = UTIL::simplifyAng(_rz+prm_ang_expanse);
@@ -222,9 +280,11 @@ void MyBunshin::addExpanse(angvelo prm_ang_expanse) {
         _rz_local = UTIL::simplifyAng(_rz_local+prm_ang_expanse);
     }
 }
+
 angvelo MyBunshin::getExpanse() {
     return _is_local ? _rz : _rz_local;
 }
+
 void MyBunshin::turnExpanse(coord prm_target_ang_expanse, frame prm_spent_frames) {
     bool is_local = _is_local;
     if (!is_local) { changeGeoLocal(); }  //ローカル座標の操作とする。
@@ -232,6 +292,7 @@ void MyBunshin::turnExpanse(coord prm_target_ang_expanse, frame prm_spent_frames
                                               prm_spent_frames, 0.2, 0.8, 0, true);
     if (!is_local) { changeGeoFinal(); }  //座標系を戻す
 }
+
 MyBunshin::~MyBunshin() {
     GGAF_DELETE(pScaler_);
 }

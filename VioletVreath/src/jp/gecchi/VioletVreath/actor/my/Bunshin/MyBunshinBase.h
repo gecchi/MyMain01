@@ -87,7 +87,7 @@ public:
     /** 自機トレースの座標からのオフセット(フリーでない場合は0) */
     GgafDxCore::GgafDxGeoElem trace_offset_;
     /** 分身番号(1～) */
-    int no_;
+    unsigned int no_;
     /** 分身番号1～MAXによって、バラける演出のための乗ずる割合が入る */
     double delay_r_;
     /** [r]自身を中心とした、分身の半径距離の位置(初期値) */
@@ -111,6 +111,7 @@ public:
     velo velo_bunshin_free_mv_;
 
     /** */
+    frame moving_frames_since_default_pos_;
     int trace_mode_;
     enum {
         TRACE_TWINBEE,
@@ -121,11 +122,11 @@ public:
     enum {
         PROG_INIT,
         PROG_BUNSHIN_NOMAL_TRACE,
-        PROG_BUNSHIN_FREE_IGNITED,
-        PROG_BUNSHIN_FREE_READY,
-        PROG_BUNSHIN_FREE_MOVE,
-        PROG_BUNSHIN_FREE_WAIT,
-        PROG_BUNSHIN_FREE_RETURN_DEFAULT_POS,
+        PROG_BUNSHIN_FREE_MODE_IGNITED,
+        PROG_BUNSHIN_FREE_MODE_READY,
+        PROG_BUNSHIN_FREE_MODE_MOVE,
+        PROG_BUNSHIN_FREE_MODE_STOP,
+        PROG_BUNSHIN_FREE_MODE_BACK_TO_DEFAULT_POS,
         PROG_BANPEI,
     };
     frame return_default_pos_frames_;
@@ -136,7 +137,7 @@ public:
      * @param prm_name
      * @param prm_no 分身番号 (1～)
      */
-    MyBunshinBase(const char* prm_name, int prm_no);
+    MyBunshinBase(const char* prm_name, unsigned int prm_no);
 
     void config(
             coord prm_radius_position,

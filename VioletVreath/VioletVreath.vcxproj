@@ -504,6 +504,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinBase.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinShot001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinSnipeShot001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinWateringLaserChip001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\EffectLockon001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\EffectLockon001_Main.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\EffectLockon001_Sub.cpp" />
@@ -867,6 +868,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinBase.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\bunshin\mybunshinshot001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\bunshin\mybunshinsnipeshot001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\bunshin\mybunshinwateringlaserchip001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\effectlockon001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\effectlockon001_main.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\effectlockon001_sub.h" />

@@ -1,21 +1,17 @@
 #include "MyBunshinBase.h"
 
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
-#include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshin.h"
-#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
-#include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
-
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
-
 #include "jp/gecchi/VioletVreath/actor/effect/EffectTurbo002.h"
-
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantB.h"
-
+#include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshin.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
+#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
-
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantB.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantC.h"
+#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -28,7 +24,7 @@ const angvelo MyBunshinBase::ANGVELO_EXPANSE = PX_C(3); //分身広がり回転角速度
 //MyBunshinBase::MyBunshinBase(const char* prm_name, int prm_no) :
 //  GgafDxGeometricActor(prm_name, nullptr, nullptr) {
 
-MyBunshinBase::MyBunshinBase(const char* prm_name, int prm_no) :
+MyBunshinBase::MyBunshinBase(const char* prm_name, unsigned int prm_no) :
         DefaultMeshActor(prm_name, "Nothing") {
 
     trace_offset_.set(0,0,0);
@@ -47,12 +43,19 @@ MyBunshinBase::MyBunshinBase(const char* prm_name, int prm_no) :
 
 
     pAxsMver_ = NEW GgafDxAxesMover(this);
-    renge_ = PX_C(80); //分身が戻ってくる時のMAX速さ
+    renge_ = PX_C(70); //分身が戻ってくる時のMAX速さ
     pAxsMver_->forceVxyzMvVeloRange(-renge_, renge_);
     pAxsMver_->forceVxyzMvAcceRange(-renge_ / 30, renge_ / 30);
 
     velo_bunshin_free_mv_ = PX_C(20);
     is_free_mode_ = false;
+    moving_frames_since_default_pos_ = 0;
+
+    bunshin_default_radius_position_ = 0;
+    bunshin_default_ang_position_  = 0;
+    bunshin_default_expanse_ = 0;
+    bunshin_default_angvelo_mv_ = 0;
+    bunshin_velo_mv_radius_pos_ = 0;
 }
 
 void MyBunshinBase::config(
@@ -105,19 +108,26 @@ void MyBunshinBase::processBehavior() {
         case PROG_BUNSHIN_NOMAL_TRACE: { //通常トレース
             if (pProg->hasJustChanged()) {
                 is_free_mode_ = false;
+                moving_frames_since_default_pos_ = 0;
             }
-            trace_mode_ = TRACE_GRADIUS;
+            //初期位置から２０フレーム以内の動きは、TRACE_TWINBEEによって初期位置を維持させる
+            if (pMyShip->is_move_) {
+                moving_frames_since_default_pos_++;
+            } else {
+                if (moving_frames_since_default_pos_ <= 20) {
+                    moving_frames_since_default_pos_ = 0;
+                }
+            }
+            trace_mode_ = moving_frames_since_default_pos_ > 20 ? TRACE_GRADIUS : TRACE_TWINBEE;
             break;
         }
-
-        case PROG_BUNSHIN_FREE_IGNITED: { //分身フリーモード、点火待ち！
+        case PROG_BUNSHIN_FREE_MODE_IGNITED: { //分身フリーモード、点火待ち！
             if (pProg->hasJustChanged()) {
             }
             if (pVbPlay->isBeingPressed(VB_OPTION | VB_TURBO) == (VB_OPTION | VB_TURBO)) {
                 if (pProg->getFrame() >= (MyBunshinBase::MAX_BUNSHIN_NUM - (no_-1) )*10) { //最初のオプションほどカウントが多く必要
-                    //点火完了。次へ
-                    pBunshin_->effectIgnited();
-                    pProg->change(PROG_BUNSHIN_FREE_READY);
+                    pBunshin_->effectIgnited(); //点火完了エフェクト
+                    pProg->change(PROG_BUNSHIN_FREE_MODE_READY);
                 }
             } else {
                 //分身フリーモード、リセット
@@ -125,11 +135,11 @@ void MyBunshinBase::processBehavior() {
             }
             break;
         }
-        case PROG_BUNSHIN_FREE_READY: { //分身フリーモード発射準備OK
+        case PROG_BUNSHIN_FREE_MODE_READY: { //分身フリーモード発射準備OK
             if (pVbPlay->isBeingPressed(VB_OPTION)) {
                 if(pVbPlay->isReleasedUp(VB_TURBO)) { //VB_OPTIONだけ離すと発射。
                     //発射！！
-                    pProg->change(PROG_BUNSHIN_FREE_MOVE);
+                    pProg->change(PROG_BUNSHIN_FREE_MODE_MOVE);
                 } else {
                     //発射待ち・・・
                 }
@@ -139,7 +149,7 @@ void MyBunshinBase::processBehavior() {
             }
             break;
         }
-        case PROG_BUNSHIN_FREE_MOVE: { //分身フリーモード、操作移動！
+        case PROG_BUNSHIN_FREE_MODE_MOVE: { //分身フリーモード、操作移動！
             if (pProg->hasJustChanged()) {
                 //分身フリーモード移動開始
                 is_free_mode_ = true;
@@ -156,28 +166,31 @@ void MyBunshinBase::processBehavior() {
                 angvelo bunshin_angvelo_expance = pBunshin_->getExpanse();
                 pKuroko->setMvVelo(ANG_COS(bunshin_angvelo_expance) * velo_bunshin_free_mv_); //MyBunshinBase
                 pBunshin_->addRadiusPosition(ANG_SIN(bunshin_angvelo_expance) * velo_bunshin_free_mv_);
+                // VB_OPTION を離すまで待つ・・・
             } else {
                 //分身フリーモード、中断待機
                 pKuroko->setMvVelo(0);
-                pProg->change(PROG_BUNSHIN_FREE_WAIT);
+                pProg->change(PROG_BUNSHIN_FREE_MODE_STOP);
             }
             break;
         }
-        case PROG_BUNSHIN_FREE_WAIT: { //分身フリーモード、待機中！
+        case PROG_BUNSHIN_FREE_MODE_STOP: { //分身フリーモード、停止中！
             if (pProg->hasJustChanged()) {
             }
             break;
         }
-        case PROG_BUNSHIN_FREE_RETURN_DEFAULT_POS: { //分身戻る！
+        case PROG_BUNSHIN_FREE_MODE_BACK_TO_DEFAULT_POS: { //分身元の場所に戻る！
             if (pProg->hasJustChanged()) {
             }
-            Pos* pTargetPos = pPosTrace_->getNext(); //通常時の本来の分身の座標位置を目標
+            Pos* pTargetPos = pPosTrace_->getNext(); //通常時の本来の分身の座標位置を目標にする
             coord tx = pTargetPos->x;
             coord ty = pTargetPos->y;
             coord tz = pTargetPos->z;
-            pAxsMver_->setVxyzMvAcce( (tx - (_x + pAxsMver_->_velo_vx_mv*6))*delay_r_,
-                                      (ty - (_y + pAxsMver_->_velo_vy_mv*6))*delay_r_,
-                                      (tz - (_z + pAxsMver_->_velo_vz_mv*6))*delay_r_ );
+            if (pProg->getFrame() >= 10*(no_-1)) { //ばらつかせ
+                pAxsMver_->setVxyzMvAcce( (tx - (_x + pAxsMver_->_velo_vx_mv*6*delay_r_)),
+                                          (ty - (_y + pAxsMver_->_velo_vy_mv*6*delay_r_)),
+                                          (tz - (_z + pAxsMver_->_velo_vz_mv*6*delay_r_)) );
+            }
             if (ABS(_x - tx) < 10000 &&
                 ABS(_y - ty) < 10000 &&
                 ABS(_z - tz) < 10000 &&
@@ -202,7 +215,7 @@ void MyBunshinBase::processBehavior() {
     if (pVbPlay->isBeingPressed(VB_OPTION)) {
         if (pVbPlay->isDoublePushedDown(VB_TURBO)) { //VB_OPTION + VB_TURBOダブルプッシュ
             //分身フリーモード、点火！
-            pProg->change(PROG_BUNSHIN_FREE_IGNITED);
+            pProg->change(PROG_BUNSHIN_FREE_MODE_IGNITED);
         }
     }
 
@@ -235,7 +248,7 @@ void MyBunshinBase::processBehavior() {
         pKuroko->asstB()->rollFaceAngByDtTo(
                               bunshin_default_ang_position_,
                               angvelo_sgn > 0 ? TURN_COUNTERCLOCKWISE : TURN_CLOCKWISE,
-                              return_default_pos_frames_, //ばらつかせるとズレるので  * delay_r_ しません
+                              return_default_pos_frames_/2, //ばらつかせるとズレるので  * delay_r_ しません
                               0.3, 0.7,
                               bunshin_default_angvelo_mv_,
                               true
@@ -251,7 +264,7 @@ void MyBunshinBase::processBehavior() {
         //後はreturn_default_pos_frames_ が0になるまで
         //trace_mode_ = TRACE_TWINBEE;
         //が行われる
-        pProg->change(PROG_BUNSHIN_FREE_RETURN_DEFAULT_POS); //分身元に戻る
+        pProg->change(PROG_BUNSHIN_FREE_MODE_BACK_TO_DEFAULT_POS); //分身元に戻る
     } else if (pVbPlay->isBeingPressed(VB_OPTION)) {
         //分身操作
         if (pVbPlay->isBeingPressed(VB_TURBO)) {

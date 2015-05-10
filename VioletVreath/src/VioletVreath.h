@@ -324,6 +324,7 @@ class MyBunshinBase;
 class MyBunshin;
 class MyBunshinShot001;
 class MyBunshinSnipeShot001;
+class MyBunshinWateringLaserChip001;
 
 class MyOptionController;
 class MyOptionControllerGizmo;
