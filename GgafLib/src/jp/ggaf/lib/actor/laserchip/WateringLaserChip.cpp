@@ -37,17 +37,19 @@ void WateringLaserChip::processSettlementBehavior() {
     if (_was_paused_flg) {
         GgafDxGeometricActor::processSettlementBehavior();
     } else {
-        const WateringLaserChip* pF = (WateringLaserChip*)_pChip_front;
-        const WateringLaserChip* pB = (WateringLaserChip*)_pChip_behind;
-        if (pF && pB && pF->_is_active_flg && pB->_is_active_flg) {
-            //_pChip_behind == nullptr の判定だけではだめ。_pChip_behind->_is_active_flg と判定すること
-            //なぜなら dispatch の瞬間に_pChip_behind != nullptr となるが、active()により有効になるのは次フレームだから
-            //_x,_y,_z にはまだ変な値が入っている。
+        if (getActiveFrame() > 2) { //FKオブジェクトからのレーザー発射も考慮すると、_tmpXYZ が埋まるのは3フレーム以降。
+            const WateringLaserChip* pF = (WateringLaserChip*)_pChip_front;
+            const WateringLaserChip* pB = (WateringLaserChip*)_pChip_behind;
+            if (pF && pB && pF->_is_active_flg && pB->_is_active_flg) {
+                //_pChip_behind == nullptr の判定だけではだめ。_pChip_behind->_is_active_flg と判定すること
+                //なぜなら dispatch の瞬間に_pChip_behind != nullptr となるが、active()により有効になるのは次フレームだから
+                //_x,_y,_z にはまだ変な値が入っている。
 
-            //中間座標に再設定
-            _x = ((pF->_tmpX + pB->_tmpX)/2 + _tmpX)/2;
-            _y = ((pF->_tmpY + pB->_tmpY)/2 + _tmpY)/2;
-            _z = ((pF->_tmpZ + pB->_tmpZ)/2 + _tmpZ)/2;
+                //中間座標に再設定
+                _x = ((pF->_tmpX + pB->_tmpX)/2 + _tmpX)/2;
+                _y = ((pF->_tmpY + pB->_tmpY)/2 + _tmpY)/2;
+                _z = ((pF->_tmpZ + pB->_tmpZ)/2 + _tmpZ)/2;
+            }
         }
         LaserChip::processSettlementBehavior();
     }

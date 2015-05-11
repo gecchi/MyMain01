@@ -77,8 +77,10 @@ public:
     static const angvelo ANGVELO_TURN;
     /** [r]分身向きの広がり回転角速度 */
     static const angvelo ANGVELO_EXPANSE;
-
-
+    /** [r]分身が戻ってくる時のMAX速さ */
+    static const int RENGE;
+    /** 分身フリー移動時の分身の移動速度 */
+    static const velo VELO_BUNSHIN_FREE_MV;
 
     /** [r]分身本体 */
     MyBunshin* pBunshin_;
@@ -105,10 +107,6 @@ public:
 
     /** [r]平行移動支援 */
     GgafDxCore::GgafDxAxesMover* pAxsMver_;
-    /** [r]分身が戻ってくる時のMAX速さ */
-    int renge_;
-    /** 分身フリー移動時の分身の移動速度 */
-    velo velo_bunshin_free_mv_;
 
     /** */
     frame moving_frames_since_default_pos_;

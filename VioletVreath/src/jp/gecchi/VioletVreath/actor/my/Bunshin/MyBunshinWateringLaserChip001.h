@@ -68,8 +68,9 @@ public:
 
     void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
 
+    /** 発射する */
+    void setOrg(MyBunshin* prm_pOrg);
 
-    void onDispatchedBy(MyBunshin* prm_pBunshin);
     /**
      * レーザーのテクスチャを変える
      * @param prm_tex_no

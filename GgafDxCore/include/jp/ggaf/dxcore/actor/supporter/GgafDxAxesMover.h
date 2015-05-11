@@ -3,6 +3,8 @@
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 
+#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
+
 namespace GgafDxCore {
 
 /**
@@ -216,6 +218,32 @@ public:
      * @param prm_velo_vz_mv Z軸方向移動速度
      */
     void setVxyzMvVelo(velo prm_velo_vx_mv, velo prm_velo_vy_mv, velo prm_velo_vz_mv);
+
+    /**
+     * X軸Y軸Z軸方向の移動速度を目標角度と移動速度で設定する。
+     * @param prm_rz 目標Z軸回転アングル値
+     * @param prm_ry 目標Y軸回転アングル値
+     * @param prm_velo 移動速度
+     */
+    void setVxyzMvVeloTwd(angle prm_rz, angle prm_ry, velo prm_velo);
+
+    /**
+     * X軸Y軸Z軸方向の移動速度を目標座標と移動速度で設定する。
+     * @param prm_tx 目標X座標
+     * @param prm_ty 目標Y座標
+     * @param prm_tz 目標Z座標
+     * @param prm_velo 移動速度
+     */
+    void setVxyzMvVeloTwd(coord prm_tx, coord prm_ty, coord prm_tz, velo prm_velo);
+
+    /**
+     * X軸Y軸Z軸方向の移動速度を目標アクターと移動速度で設定する。
+     * @param prm_pTargetActor 目標アクター
+     * @param prm_velo 移動速度
+     */
+    void setVxyzMvVeloTwd(const GgafDxGeometricActor* prm_pTargetActor, velo prm_velo) {
+        setVxyzMvVeloTwd(prm_pTargetActor->_x, prm_pTargetActor->_y, prm_pTargetActor->_z, prm_velo);
+    }
 
     /**
      * X軸Y軸Z軸方向の移動加速度を設定する。

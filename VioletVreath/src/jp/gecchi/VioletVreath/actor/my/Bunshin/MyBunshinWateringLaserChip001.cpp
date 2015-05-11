@@ -33,9 +33,9 @@ MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_nam
     pAxsMver_ = NEW GgafDxAxesMover(this);
     default_stamina_ = getStatus()->get(STAT_Stamina);
     pOrg_ = nullptr;
+    pOrg_pLockonCtrler_pRingTarget_ = nullptr;
     lockon_st_ = 0;
     is_lockon_ = false;
-
     GgafDxModel* pModel = getModel();
     if (!MyBunshinWateringLaserChip001::pModel_) {
         if (pModel->_num_materials != 3) {
@@ -54,6 +54,8 @@ void MyBunshinWateringLaserChip001::initialize() {
     setHitAble(true);
     setScaleR(6.0);
     setAlpha(0.99);
+    pAxsMver_->forceVxyzMvVeloRange(-max_velo_renge_, max_velo_renge_);
+    pAxsMver_->forceVxyzMvAcceRange(-max_acce_renge_, max_acce_renge_);
 }
 
 void MyBunshinWateringLaserChip001::onCreateModel() {
@@ -63,7 +65,10 @@ void MyBunshinWateringLaserChip001::onCreateModel() {
 void MyBunshinWateringLaserChip001::onActive() {
     getStatus()->reset();
     default_stamina_ = getStatus()->get(STAT_Stamina);
+
     WateringLaserChip::onActive();
+
+    //ロックオン情報の引き継ぎ
     GgafDxGeometricActor* pMainLockOnTarget = pOrg_pLockonCtrler_pRingTarget_->getCurrent();
     if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheTree()) {
         if (getFrontChip() == nullptr) {
@@ -84,12 +89,6 @@ void MyBunshinWateringLaserChip001::onActive() {
             lockon_st_ = pF->lockon_st_;//一つ前のロックオン情報を引き継ぐ
         }
     }
-    pAxsMver_->setZeroVxyzMvAcce(); //加速度リセット
-    //Vxyzの速度はオプション側で設定される
-
-
-    pAxsMver_->forceVxyzMvVeloRange(-max_velo_renge_, max_velo_renge_);
-    pAxsMver_->forceVxyzMvAcceRange(-max_acce_renge_, max_acce_renge_);
 }
 
 void MyBunshinWateringLaserChip001::processBehavior() {
@@ -101,11 +100,9 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                         pMainLockOnTarget->_y,
                         pMainLockOnTarget->_z );
             } else {
-                //pAxsMver_->setZeroVxyzMvAcce();
                 lockon_st_ = 2;
             }
         }
-
         if (lockon_st_ == 2) {
             if (_pLeader == this) {
                 aimChip(_x + pAxsMver_->_velo_vx_mv*4+1,
@@ -121,15 +118,20 @@ void MyBunshinWateringLaserChip001::processBehavior() {
 }
 
 void MyBunshinWateringLaserChip001::processSettlementBehavior() {
+    //分身はFKなので、絶対座標の確定が processSettlementBehavior() 以降となるため、ここで初期設定が必要
     if (hasJustChangedToActive()) {
-        //最初の表示フレームの処理
-        //根元からレーザー表示のため強制的に座標補正
+        //活動開始初回フレーム、チップの速度と向きの初期設定
+        setFaceAngAs(pOrg_);
         positionAs(pOrg_);
-        _tmpX = _x;
-        _tmpY = _y;
-        _tmpZ = _z;
+        pAxsMver_->setVxyzMvVeloTwd(_rz, _ry, PX_C(100));
+        pAxsMver_->setZeroVxyzMvAcce();
     }
     WateringLaserChip::processSettlementBehavior();
+}
+
+void MyBunshinWateringLaserChip001::setOrg(MyBunshin* prm_pOrg) {
+    pOrg_ = prm_pOrg;
+    pOrg_pLockonCtrler_pRingTarget_ = pOrg_->pLockonCtrler_->pRingTarget_;
 }
 
 void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
@@ -270,22 +272,8 @@ void MyBunshinWateringLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
 void MyBunshinWateringLaserChip001::onInactive() {
     WateringLaserChip::onInactive();
     lockon_st_ = 0;
-}
-
-void MyBunshinWateringLaserChip001::onDispatchedBy(MyBunshin* prm_pBunshin) {
-    pOrg_ = prm_pBunshin;
-    pOrg_pLockonCtrler_pRingTarget_ = pOrg_->pLockonCtrler_->pRingTarget_;
-    _rz = pOrg_->_rz;
-    _ry = pOrg_->_ry;
-    float vx,vy,vz;
-    UTIL::convRzRyToVector(_rz, _ry, vx, vy, vz);
-    const velo veloVx = vx*MyBunshinWateringLaserChip001::max_velo_renge_;
-    const velo veloVy = vy*MyBunshinWateringLaserChip001::max_velo_renge_;
-    const velo veloVz = vz*MyBunshinWateringLaserChip001::max_velo_renge_;
-    pAxsMver_->setVxyzMvVelo(veloVx, veloVy, veloVz);
-    pAxsMver_->setVxyzMvAcce(veloVx / MyBunshinWateringLaserChip001::r_max_acce_,
-                             veloVy / MyBunshinWateringLaserChip001::r_max_acce_,
-                             veloVz / MyBunshinWateringLaserChip001::r_max_acce_ );
+    pOrg_ = nullptr;
+    pOrg_pLockonCtrler_pRingTarget_ = nullptr;
 }
 
 void MyBunshinWateringLaserChip001::chengeTex(int prm_tex_no) {

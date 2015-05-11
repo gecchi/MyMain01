@@ -1,6 +1,5 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 
-#include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
@@ -387,6 +386,18 @@ void GgafDxAxesMover::setVxyzMvVelo(velo prm_velo_vx_mv, velo prm_velo_vy_mv, ve
     } else {
         _velo_vz_mv = prm_velo_vz_mv;
     }
+}
+
+void GgafDxAxesMover::setVxyzMvVeloTwd(angle prm_rz, angle prm_ry, velo prm_velo) {
+    float vx, vy, vz;
+    UTIL::convRzRyToVector(prm_rz, prm_ry, vx, vy, vz);
+    setVxyzMvVelo(vx*prm_velo, vy*prm_velo, vz*prm_velo);
+}
+
+void GgafDxAxesMover::setVxyzMvVeloTwd(coord prm_tx, coord prm_ty, coord prm_tz, velo prm_velo) {
+    float vx, vy, vz;
+    UTIL::getNormalizeVector(prm_tx, prm_ty, prm_tz, vx, vy, vz);
+    setVxyzMvVelo(vx*prm_velo, vy*prm_velo, vz*prm_velo);
 }
 
 void GgafDxAxesMover::setVxyzMvAcce(acce prm_acce_vx_mv, acce prm_acce_vy_mv, acce prm_acce_vz_mv) {

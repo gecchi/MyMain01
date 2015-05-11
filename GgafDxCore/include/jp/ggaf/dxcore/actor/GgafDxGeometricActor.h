@@ -547,29 +547,7 @@ public:
     /**
      * 座標と回転 _x,_y,_z,_rx,_ry,_rz を絶対座標系を退避して、ローカル座標(土台からの相対座標)に置き換える .
      */
-    inline void changeGeoLocal() {
-#ifdef MY_DEBUG
-        if (!_pActor_base) {
-            throwGgafCriticalException("changeGeoLocal() : 土台アクターがありません。確認して下さい。this="<<NODE_INFO<<"");
-        }
-        if (_is_local) {
-            throwGgafCriticalException("changeGeoLocal() : 既にローカル座標系です。対応を確認して下さい。this="<<NODE_INFO<<"");
-        }
-#endif
-        _x_final  = _x;
-        _y_final  = _y;
-        _z_final  = _z;
-        _rx_final = _rx;
-        _ry_final = _ry;
-        _rz_final = _rz;
-        _x  = _x_local;
-        _y  = _y_local;
-        _z  = _z_local;
-        _rx = _rx_local;
-        _ry = _ry_local;
-        _rz = _rz_local;
-        _is_local = true;
-    }
+    void changeGeoLocal();
 
     /**
      * 座標と回転 _x,_y,_z,_rx,_ry,_rz を退避していた絶対座標に戻す .
@@ -577,29 +555,7 @@ public:
      * processBehavior() の処理の最後で実行することを想定。<BR>
      * したがって、changeGeoFinal() で座標更新されるわけではないので注意。<BR>
      */
-    inline void changeGeoFinal() {
-#ifdef MY_DEBUG
-        if (!_pActor_base) {
-            throwGgafCriticalException("changeGeoFinal() : 土台アクターがありません。確認して下さい。this="<<NODE_INFO<<"");
-        }
-        if (!_is_local) {
-            throwGgafCriticalException("changeGeoFinal() : 既にローカル座標系です。対応を確認して下さい。this="<<NODE_INFO<<"");
-        }
-#endif
-        _x_local = _x;
-        _y_local = _y;
-        _z_local = _z;
-        _rx_local = _rx;
-        _ry_local = _ry;
-        _rz_local = _rz;
-        _x  = _x_final;
-        _y  = _y_final;
-        _z  = _z_final;
-        _rx = _rx_final;
-        _ry = _ry_final;
-        _rz = _rz_final;
-        _is_local = false;
-    }
+    void changeGeoFinal();
 
 //    void updateGeoFinalFromLocal();
 

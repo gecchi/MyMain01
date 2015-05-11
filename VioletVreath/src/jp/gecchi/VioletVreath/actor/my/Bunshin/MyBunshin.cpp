@@ -3,29 +3,23 @@
 #include "MyBunshinShot001.h"
 #include "MyBunshinSnipeShot001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshinWateringLaserChip001.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyTorpedoController.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/dxcore/util/GgafDxQuaternion.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
-#include "jp/gecchi/VioletVreath/God.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
-#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantB.h"
-
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
-
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-
-#include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
-
-#include "jp/gecchi/VioletVreath/actor/my/MyTorpedoController.h"
-
 #include "jp/ggaf/lib/util/VirtualButton.h"
 
-#include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshinWateringLaserChip001.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -117,8 +111,6 @@ void MyBunshin::processBehavior() {
 
 void MyBunshin::processChangeGeoFinal() {
      //絶対座標計算後
-
-
     MyShip* const pMyShip = P_MYSHIP;
     const VirtualButton* pVbPlay = VB_PLAY;
 
@@ -170,26 +162,11 @@ void MyBunshin::processChangeGeoFinal() {
     }
 
 
-    //レーザー発射。TODO:最適化
+    //レーザー発射。
     if (pMyShip->is_shooting_laser_ && pVbPlay->isBeingPressed(VB_SHOT1)) {
         MyBunshinWateringLaserChip001* pLaserChip = (MyBunshinWateringLaserChip001*)pLaserChipDepo_->dispatch();
         if (pLaserChip) {
-            pLaserChip->onDispatchedBy(this);
-//            //カーブ用
-//            float vx,vy,vz;
-//            UTIL::convRzRyToVector(_rz, _ry, vx, vy, vz);
-//            const velo veloVx = vx*MyBunshinWateringLaserChip001::max_velo_renge_;
-//            const velo veloVy = vy*MyBunshinWateringLaserChip001::max_velo_renge_;
-//            const velo veloVz = vz*MyBunshinWateringLaserChip001::max_velo_renge_;
-//            pLaserChip->pAxsMver_->setVxyzMvVelo(veloVx, veloVy, veloVz);
-//            pLaserChip->pAxsMver_->setVxyzMvAcce(veloVx / MyBunshinWateringLaserChip001::r_max_acce_,
-//                                                 veloVy / MyBunshinWateringLaserChip001::r_max_acce_,
-//                                                 veloVz / MyBunshinWateringLaserChip001::r_max_acce_ );
-//            pLaserChip->pAxsMver_->behave();
-//            pLaserChip->positionAs(this);
-//            pLaserChip->_rz = _rz;
-//            pLaserChip->_ry = _ry;
-//            pLaserChip->pOrg_ = this;
+            pLaserChip->setOrg(this);
             if (pLaserChip->getFrontChip() == nullptr) {
                 getSeTx()->play3D(SE_FIRE_LASER);
             }

@@ -21,12 +21,13 @@ const int MyBunshinBase::MAX_BUNSHIN_NUM = 9;
 const frame MyBunshinBase::BUNSHIN_D = 15;
 const angvelo MyBunshinBase::ANGVELO_TURN = PX_C(3); //分身の向きの角速度
 const angvelo MyBunshinBase::ANGVELO_EXPANSE = PX_C(3); //分身広がり回転角速度
+const int MyBunshinBase::RENGE = PX_C(70);                //分身が戻ってくる時のMAX速さ
+const velo MyBunshinBase::VELO_BUNSHIN_FREE_MV =PX_C(20);  //分身フリー移動時の分身の移動速度
 //MyBunshinBase::MyBunshinBase(const char* prm_name, int prm_no) :
 //  GgafDxGeometricActor(prm_name, nullptr, nullptr) {
 
 MyBunshinBase::MyBunshinBase(const char* prm_name, unsigned int prm_no) :
         DefaultMeshActor(prm_name, "Nothing") {
-
     trace_offset_.set(0,0,0);
     no_ = prm_no; //１～
     delay_r_ = RCNV(1,MyBunshinBase::MAX_BUNSHIN_NUM,no_,0.5,1.0);
@@ -41,13 +42,10 @@ MyBunshinBase::MyBunshinBase(const char* prm_name, unsigned int prm_no) :
     trace_mode_ = TRACE_GRADIUS;
     return_default_pos_frames_ = 0;
 
-
     pAxsMver_ = NEW GgafDxAxesMover(this);
-    renge_ = PX_C(70); //分身が戻ってくる時のMAX速さ
-    pAxsMver_->forceVxyzMvVeloRange(-renge_, renge_);
-    pAxsMver_->forceVxyzMvAcceRange(-renge_ / 30, renge_ / 30);
+    pAxsMver_->forceVxyzMvVeloRange(-MyBunshinBase::RENGE, MyBunshinBase::RENGE);
+    pAxsMver_->forceVxyzMvAcceRange(-MyBunshinBase::RENGE / 30, MyBunshinBase::RENGE / 30);
 
-    velo_bunshin_free_mv_ = PX_C(20);
     is_free_mode_ = false;
     moving_frames_since_default_pos_ = 0;
 
@@ -164,8 +162,8 @@ void MyBunshinBase::processBehavior() {
                 //分身フリーモードで移動中
                 //オプションの広がり角より、MyBunshinBaseの移動速度と、MyBunshin旋回半径増加速度にベクトル分解。
                 angvelo bunshin_angvelo_expance = pBunshin_->getExpanse();
-                pKuroko->setMvVelo(ANG_COS(bunshin_angvelo_expance) * velo_bunshin_free_mv_); //MyBunshinBase
-                pBunshin_->addRadiusPosition(ANG_SIN(bunshin_angvelo_expance) * velo_bunshin_free_mv_);
+                pKuroko->setMvVelo(ANG_COS(bunshin_angvelo_expance) * MyBunshinBase::VELO_BUNSHIN_FREE_MV); //MyBunshinBase
+                pBunshin_->addRadiusPosition(ANG_SIN(bunshin_angvelo_expance) * MyBunshinBase::VELO_BUNSHIN_FREE_MV);
                 // VB_OPTION を離すまで待つ・・・
             } else {
                 //分身フリーモード、中断待機
@@ -186,17 +184,29 @@ void MyBunshinBase::processBehavior() {
             coord tx = pTargetPos->x;
             coord ty = pTargetPos->y;
             coord tz = pTargetPos->z;
-            if (pProg->getFrame() >= 10*(no_-1)) { //ばらつかせ
-                pAxsMver_->setVxyzMvAcce( (tx - (_x + pAxsMver_->_velo_vx_mv*6*delay_r_)),
-                                          (ty - (_y + pAxsMver_->_velo_vy_mv*6*delay_r_)),
-                                          (tz - (_z + pAxsMver_->_velo_vz_mv*6*delay_r_)) );
+            if (pProg->getFrame() == 3*(no_-1)) { //ばらつかせ
+
+                // (0,1,0) × RxRzRy ＝ ( (cosRx*-sinRz*cosRy + sinRx*sinRy),  cosRx*cosRz, (cosRx*-sinRz*-sinRy + sinRx*cosRy) )
+                const float sinRx = ANG_SIN(_rx);
+                const float cosRx = ANG_COS(_rx);
+                const float sinRy = ANG_SIN(_ry);
+                const float cosRy = ANG_COS(_ry);
+                const float sinRz = ANG_SIN(_rz);
+                const float cosRz = ANG_COS(_rz);
+                pAxsMver_->setVxyzMvVelo((cosRx*-sinRz*cosRy + sinRx*sinRy)  * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
+                                         (cosRx*cosRz)                       * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
+                                         (cosRx*-sinRz*-sinRy + sinRx*cosRy) * MyBunshinBase::VELO_BUNSHIN_FREE_MV );
+            } else if (pProg->getFrame() > 3*(no_-1)) { //ばらつかせ
+                pAxsMver_->setVxyzMvAcce( (tx - (_x + pAxsMver_->_velo_vx_mv*6)),
+                                          (ty - (_y + pAxsMver_->_velo_vy_mv*6)),
+                                          (tz - (_z + pAxsMver_->_velo_vz_mv*6)) );
             }
             if (ABS(_x - tx) < 10000 &&
                 ABS(_y - ty) < 10000 &&
                 ABS(_z - tz) < 10000 &&
-                ABS(pAxsMver_->_velo_vx_mv) < 20000 &&
-                ABS(pAxsMver_->_velo_vy_mv) < 20000 &&
-                ABS(pAxsMver_->_velo_vz_mv) < 20000)
+                ABS(pAxsMver_->_velo_vx_mv) <= MyBunshinBase::VELO_BUNSHIN_FREE_MV &&
+                ABS(pAxsMver_->_velo_vy_mv) <= MyBunshinBase::VELO_BUNSHIN_FREE_MV &&
+                ABS(pAxsMver_->_velo_vz_mv) <= MyBunshinBase::VELO_BUNSHIN_FREE_MV)
             {
                 //もどった！
                 pAxsMver_->setZeroVxyzMvVelo();
