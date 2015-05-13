@@ -110,6 +110,7 @@ void OptionMagic::processCastFinish(int prm_now_level, int prm_new_level, int pr
 
 void OptionMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
     _TRACE_(getBehaveingFrame()<<":OptionMagic::processInvokeBegin("<<prm_now_level<<","<<prm_new_level<<")");
+    MyOptionController::setNumOption(prm_new_level);
     if (prm_new_level > prm_now_level) {
         //レベルアップ時
         for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
@@ -147,8 +148,6 @@ void OptionMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int 
 
 void OptionMagic::processEffectBegin(int prm_last_level, int prm_now_level)  {
     _TRACE_(getBehaveingFrame()<<":OptionMagic::processEffectBegin("<<prm_last_level<<","<<prm_now_level<<")");
-
-    MyOptionController::setNumOption(prm_now_level);
 
     if (prm_now_level > prm_last_level) {
         //レベルアップ時、エフェクトの処理

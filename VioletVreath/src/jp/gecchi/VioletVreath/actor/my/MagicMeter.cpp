@@ -28,6 +28,7 @@
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/VreathBar.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/ggaf/dxcore/sound/GgafDxSe.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/BunshinMagic.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -50,15 +51,17 @@ height_(PX_C(height_px_)) {
     pShotMagic_    = NEW ShotMagic("SHOT", prm_pMP_MyShip);
     pLaserMagic_   = NEW LaserMagic("LASER", prm_pMP_MyShip);
     pOptionMagic_  = NEW OptionMagic("OPTION", prm_pMP_MyShip);
+    pBunshinMagic_ = NEW BunshinMagic("BUNSHIN", prm_pMP_MyShip);
     pVreathMagic_  = NEW VreathMagic("VREATH", prm_pMP_MyShip);
     pSmileMagic_   = NEW SmileMagic("SMILE", prm_pMP_MyShip); //即効魔法
     lstMagic_.addLast(pTractorMagic_);
     lstMagic_.addLast(pSpeedMagic_  );
     lstMagic_.addLast(pLockonMagic_ );
     lstMagic_.addLast(pTorpedoMagic_);
-    lstMagic_.addLast(pShotMagic_  );
+    lstMagic_.addLast(pShotMagic_   );
     lstMagic_.addLast(pLaserMagic_  );
     lstMagic_.addLast(pOptionMagic_ );
+    lstMagic_.addLast(pBunshinMagic_);
     lstMagic_.addLast(pVreathMagic_ );
     lstMagic_.addLast(pSmileMagic_  );
 
@@ -493,8 +496,8 @@ void MagicMeter::processBehavior() {
                         //新しいレベルにこっそり動かしてあげる。
                         pLvTgtMvCur->moveSmoothTo(pMagic_new_level);
                     }
-                    frame time_of_invoking = (frame)(pMagic->level_up_time_of_invoking_[pMagic_level][pMagic_new_level]);
-                    pLvNowCur->moveSmoothTo(pMagic_new_level, time_of_invoking); //INVOKINGに合わせて動く
+                    frame invoking_frames = (frame)(pMagic->level_up_invoking_frames_[pMagic_level][pMagic_new_level]);
+                    pLvNowCur->moveSmoothTo(pMagic_new_level, invoking_frames); //INVOKINGに合わせて動く
                     pLvCastingCur->markOnInvoke(pMagic_new_level);
                     break;
                 }
@@ -526,7 +529,7 @@ void MagicMeter::processBehavior() {
         if (pMagicProg->hasJustChangedTo(Magic::STATE_EFFECT_START)) {
             switch (pMagic->last_effect_) {
                 case MAGIC_EFFECT_OK_LEVELUP: {
-                    if (pMagic->time_of_effect_base_ == 0) {
+                    if (pMagic->effecting_frames_base_ == 0) {
                         //即効性魔法の場合
                         getSeTx()->play(SE_EFFECT_MAGIC);
                         pLvCastingCur->markOnEffect(pMagic_level);
@@ -538,7 +541,7 @@ void MagicMeter::processBehavior() {
                     break;
                 }
                 case MAGIC_EFFECT_OK_LEVELDOWN: {
-                    if (pMagic->time_of_effect_base_ == 0) {
+                    if (pMagic->effecting_frames_base_ == 0) {
                         //速攻魔法の終了のレベルダウン場合
                         _TRACE_("MagicMeter::processBehavior() ["<<pMagic->getName()<<"] 速攻魔法のレベルダウンのレベルダウン");
                         pLvNowCur->moveSmoothTo(pMagic_level);
@@ -596,7 +599,7 @@ void MagicMeter::processBehavior() {
         }
 
         //もうすぐレベルダウン警告
-        if (pMagic->lvinfo_[pMagic_level].remainingtime_of_effect_ == fraeme_of_notice_remaind_) {
+        if (pMagic->lvinfo_[pMagic_level].remained_frame_of_effecting == fraeme_of_notice_remaind_) {
             getSeTx()->play(SE_NOTICE_LEVELDOWN_MAGIC);
         }
     }
@@ -651,7 +654,7 @@ void MagicMeter::processDraw() {
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_depth_z) に失敗しました。");
         hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_alpha[n], alpha);
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_alpha) に失敗しました。");
-        if (pMagic_level > 0 && pMagic->lvinfo_[pMagic_level].remainingtime_of_effect_ <= fraeme_of_notice_remaind_) {
+        if (pMagic_level > 0 && pMagic->lvinfo_[pMagic_level].remained_frame_of_effecting <= fraeme_of_notice_remaind_) {
             pUvFlipper->getUV(1, u, v); //パターン1は赤背景、残り時間がやばい事を示す
         } else {
             pUvFlipper->getUV(0, u, v); //パターン0は通常背景

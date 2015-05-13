@@ -70,7 +70,7 @@ private:
     }
 public:
     /** 最大分身数 */
-    static const int MAX_BUNSHIN_NUM;
+    static const unsigned int MAX_BUNSHIN_NUM;
     /** [r]分身と分身の間隔 */
     static const frame BUNSHIN_D;
     /** [r]分身の向きの角速度 */
@@ -81,6 +81,9 @@ public:
     static const int RENGE;
     /** 分身フリー移動時の分身の移動速度 */
     static const velo VELO_BUNSHIN_FREE_MV;
+
+    static unsigned int now_bunshin_num_;
+
 
     /** [r]分身本体 */
     MyBunshin* pBunshin_;
@@ -129,6 +132,7 @@ public:
     };
     frame return_default_pos_frames_;
     bool is_free_mode_;
+
 public:
     /**
      * コンストラクタ .
@@ -163,8 +167,9 @@ public:
 
     virtual ~MyBunshinBase();
 
-    void addBunshinRadiusPosition(coord prm_radius_position);
+    void resetBunshinPos(int prm_mode);
 
+    static void setBunshinNum(unsigned int prm_num);
 };
 
 }

@@ -518,6 +518,8 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicLvCursor003.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicMeterCursor001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicMeterStatus.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\BunshinMagic.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectBunshinMagic001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectLaserMagic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectLockonMagic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectMagic001.cpp" />
@@ -882,6 +884,8 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicLvCursor003.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicMeterCursor001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicMeterStatus.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\BunshinMagic.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectBunshinMagic001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\magicmeter\magic\effect\effectlasermagic.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\magicmeter\magic\effect\effectlockonmagic.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\magicmeter\magic\effect\effectmagic001.h" />

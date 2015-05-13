@@ -20,6 +20,9 @@
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
+
+#include "jp/ggaf/core/util/GgafValueEnveloper.hpp"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -66,6 +69,7 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) :
     addSubGroup(pTorpedoCtrler_);
 
     pScaler_ = NEW GgafDxScaler(this);
+    pAFader_ = NEW GgafDxAlphaFader(this);
 
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(SE_FIRE_LASER,   "WAVE_MY_FIRE_LASER_002");
@@ -77,8 +81,8 @@ void MyBunshin::onCreateModel() {
 }
 
 void MyBunshin::initialize() {
-    setScaleR(2.0);
-    pScaler_->setRange(R_SC(2.0), R_SC(2.0*4));
+    setScaleR(1.0);
+    pScaler_->setRange(R_SC(1.0), R_SC(4.0));
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setRollFaceAngVelo(PX_C(4)); //分身の時点
 }
@@ -91,8 +95,9 @@ void MyBunshin::onActive() {
     //個別に呼び出す
     pLockonCtrler_->onActive();
     pTorpedoCtrler_->onActive();
+    setAlpha(0);
+    pAFader_->transitionLinerToTop(120);
 }
-
 
 void MyBunshin::processBehavior() {
     changeGeoLocal(); //ローカル座標の操作とする。
@@ -104,12 +109,15 @@ void MyBunshin::processBehavior() {
 
     pKuroko->behave();
     pScaler_->behave();
-
+    pAFader_->behave();
     changeGeoFinal();
 }
 
 
 void MyBunshin::processChangeGeoFinal() {
+    if (getActiveFrame() <= 120) {
+        return;
+    }
      //絶対座標計算後
     MyShip* const pMyShip = P_MYSHIP;
     const VirtualButton* pVbPlay = VB_PLAY;
@@ -138,7 +146,7 @@ void MyBunshin::processChangeGeoFinal() {
             if (pMyShip->shot_level_ == 2) {
                 uint32_t i = pMyShip->soft_rapidshot_shot_count_ % 4;
                 UTIL::shotWay003(this,
-                                 pDepo_MyBunshinShot_ , MyShip::shot2_matrix_[i],
+                                 pDepo_MyBunshinShot_, MyShip::shot2_matrix_[i],
                                  nullptr, nullptr,
                                  nullptr, nullptr,
                                  PX_C(1),
@@ -149,7 +157,7 @@ void MyBunshin::processChangeGeoFinal() {
             } else if (pMyShip->shot_level_ >= 3) {
                 uint32_t i = pMyShip->soft_rapidshot_shot_count_ % 2;
                 UTIL::shotWay003(this,
-                                 pDepo_MyBunshinShot_ , MyShip::shot3_matrix_[i],
+                                 pDepo_MyBunshinShot_, MyShip::shot3_matrix_[i],
                                  nullptr, nullptr,
                                  nullptr, nullptr,
                                  PX_C(1),
@@ -160,7 +168,6 @@ void MyBunshin::processChangeGeoFinal() {
             }
         }
     }
-
 
     //レーザー発射。
     if (pMyShip->is_shooting_laser_ && pVbPlay->isBeingPressed(VB_SHOT1)) {
@@ -180,12 +187,10 @@ void MyBunshin::processChangeGeoFinal() {
             getSeTx()->play3D(SE_FIRE_TORPEDO);
         }
     }
-
 }
 
 void MyBunshin::processJudgement() {
 }
-
 
 void MyBunshin::onInactive() {
     //レーザーやロックンターゲットや魚雷がサブにいるため
@@ -200,7 +205,6 @@ void MyBunshin::onHit(const GgafActor* prm_pOtherActor) {
 void MyBunshin::effectIgnited() {
     pScaler_->beat(10, 4, 0, 4, 1); //オプションぷるぷる、発射じゅんびOKのエフェクト
 }
-
 
 void MyBunshin::setRadiusPosition(coord prm_radius_position) {
     if (_is_local) {
@@ -266,11 +270,12 @@ void MyBunshin::turnExpanse(coord prm_target_ang_expanse, frame prm_spent_frames
     bool is_local = _is_local;
     if (!is_local) { changeGeoLocal(); }  //ローカル座標の操作とする。
     getKuroko()->asstB()->turnRzFaceAngByDtTo(prm_target_ang_expanse, TURN_CLOSE_TO,
-                                              prm_spent_frames, 0.2, 0.8, 0, true);
+                                              prm_spent_frames, 0.3, 0.5, 0, true);
     if (!is_local) { changeGeoFinal(); }  //座標系を戻す
 }
 
 MyBunshin::~MyBunshin() {
     GGAF_DELETE(pScaler_);
+    GGAF_DELETE(pAFader_);
 }
 

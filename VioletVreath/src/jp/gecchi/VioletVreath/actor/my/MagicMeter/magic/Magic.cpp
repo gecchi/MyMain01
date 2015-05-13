@@ -11,25 +11,25 @@ using namespace VioletVreath;
 
 Magic::Magic(const char* prm_name, int* prm_pMP,
              int prm_max_level,
-             magic_point prm_cost_base            , double prm_r_every_lv_cost             , double prm_r_cost_lv_diff_base,
-             magic_time  prm_time_of_casting_base , double prm_r_every_lv_time_of_casting  , double prm_r_time_of_casting_lv_diff_base,
-             magic_time  prm_time_of_invoking_base, double prm_r_every_lv_time_of_invoking , double prm_r_time_of_invoking_lv_diff_base,
-             magic_time  prm_time_of_effect_base  , double prm_r_every_lv_time_of_effecting,
+             magic_point prm_cost_base            , double prm_r_every_lv_cost            , double prm_r_cost_lv_diff_base,
+             magic_time  prm_casting_frames_base  , double prm_r_every_lv_casting_frames  , double prm_r_casting_frames_lv_diff_base,
+             magic_time  prm_invoking_frames_base , double prm_r_every_lv_invoking_frames , double prm_r_invoking_frames_lv_diff_base,
+             magic_time  prm_effecting_frames_base, double prm_r_every_lv_effecting_frames,
              magic_point prm_keep_cost_base       , double prm_r_each_lv_keep_cost) : GgafMainActor(prm_name, nullptr),
 pMP_(prm_pMP),
 cost_base_(prm_cost_base),
-time_of_casting_base_(prm_time_of_casting_base),
-time_of_invoking_base_(prm_time_of_invoking_base),
-time_of_effect_base_(prm_time_of_effect_base),
+casting_frames_base_(prm_casting_frames_base),
+invoking_frames_base_(prm_invoking_frames_base),
+effecting_frames_base_(prm_effecting_frames_base),
 keep_cost_base_(prm_keep_cost_base),
 r_every_lv_cost_(prm_r_every_lv_cost),
-r_every_lv_time_of_casting_(prm_r_every_lv_time_of_casting),
-r_every_lv_time_of_invoking_(prm_r_every_lv_time_of_invoking),
-r_every_lv_time_of_effecting_(prm_r_every_lv_time_of_effecting),
+r_every_lv_casting_frames_(prm_r_every_lv_casting_frames),
+r_every_lv_invoking_frames_(prm_r_every_lv_invoking_frames),
+r_every_lv_effecting_frames_(prm_r_every_lv_effecting_frames),
 r_each_lv_keep_cost_(prm_r_each_lv_keep_cost),
 r_cost_lv_diff_base_(prm_r_cost_lv_diff_base),
-r_time_of_casting_lv_diff_base_(prm_r_time_of_casting_lv_diff_base),
-r_time_of_invoking_lv_diff_base_(prm_r_time_of_invoking_lv_diff_base) {
+r_casting_frames_lv_diff_base_(prm_r_casting_frames_lv_diff_base),
+r_invoking_frames_lv_diff_base_(prm_r_invoking_frames_lv_diff_base) {
 
     max_level_  = prm_max_level;
     new_level_  = 0;
@@ -43,41 +43,41 @@ r_time_of_invoking_lv_diff_base_(prm_r_time_of_invoking_lv_diff_base) {
     prev_frame_level_ = level_;
 
     //各レベル別持続時間及び、コスト、詠唱時間、発動時間、効果持続時間、維持コストを予め設定
-    lvinfo_[0].remainingtime_of_effect_ = MAX_MAGIC_TIME;
+    lvinfo_[0].remained_frame_of_effecting = MAX_MAGIC_TIME;
     lvinfo_[0].cost_             = 0;
-    lvinfo_[0].time_of_casting_  = 0;
-    lvinfo_[0].time_of_invoking_ = 0;
-    lvinfo_[0].time_of_effect_   = 0;
+    lvinfo_[0].casting_frames_   = 0;
+    lvinfo_[0].invoking_frames_  = 0;
+    lvinfo_[0].effecting_frames_ = 0;
     lvinfo_[0].keep_cost_        = 0;
-    lvinfo_[1].remainingtime_of_effect_ = 0;
+    lvinfo_[1].remained_frame_of_effecting = 0;
     lvinfo_[1].cost_             = cost_base_;
-    lvinfo_[1].time_of_casting_  = time_of_casting_base_;
-    lvinfo_[1].time_of_invoking_ = time_of_invoking_base_;
-    lvinfo_[1].time_of_effect_   = time_of_effect_base_;
+    lvinfo_[1].casting_frames_   = casting_frames_base_;
+    lvinfo_[1].invoking_frames_  = invoking_frames_base_;
+    lvinfo_[1].effecting_frames_ = effecting_frames_base_;
     lvinfo_[1].keep_cost_        = keep_cost_base_;
     for (int i = 2; i <= MMETER_MAX_LEVEL; i++) {
-        lvinfo_[i].remainingtime_of_effect_ = 0;
+        lvinfo_[i].remained_frame_of_effecting = 0;
         lvinfo_[i].cost_             = lvinfo_[i-1].cost_             * r_every_lv_cost_;
-        lvinfo_[i].time_of_casting_  = lvinfo_[i-1].time_of_casting_  * r_every_lv_time_of_casting_;
-        lvinfo_[i].time_of_invoking_ = lvinfo_[i-1].time_of_invoking_ * r_every_lv_time_of_invoking_;
-        lvinfo_[i].time_of_effect_   = lvinfo_[i-1].time_of_effect_   * r_every_lv_time_of_effecting_;
+        lvinfo_[i].casting_frames_   = lvinfo_[i-1].casting_frames_   * r_every_lv_casting_frames_;
+        lvinfo_[i].invoking_frames_  = lvinfo_[i-1].invoking_frames_  * r_every_lv_invoking_frames_;
+        lvinfo_[i].effecting_frames_ = lvinfo_[i-1].effecting_frames_ * r_every_lv_effecting_frames_;
         lvinfo_[i].keep_cost_        = lvinfo_[i-1].keep_cost_        * r_each_lv_keep_cost_;
     }
 
     //レベル差情報
-    lvdiff_[0].r_cost_lv_diff_             = 0.0; //レベル差０にコストは無い。
-    lvdiff_[0].r_time_of_casting_lv_diff_  = 0.0;
-    lvdiff_[0].r_time_of_invoking_lv_diff_ = 0.0;
-    lvdiff_[1].r_cost_lv_diff_             = 1.0;  //レベル差１にボーナス特典は無い。
-    lvdiff_[1].r_time_of_casting_lv_diff_  = 1.0;
-    lvdiff_[1].r_time_of_invoking_lv_diff_ = 1.0;
-    lvdiff_[2].r_cost_lv_diff_             = r_cost_lv_diff_base_; //レベル差２で初めてお得になる。
-    lvdiff_[2].r_time_of_casting_lv_diff_  = r_time_of_casting_lv_diff_base_;
-    lvdiff_[2].r_time_of_invoking_lv_diff_ = r_time_of_invoking_lv_diff_base_;
+    lvdiff_[0].r_cost_lv_diff_            = 0.0; //レベル差０にコストは無い。
+    lvdiff_[0].r_casting_frames_lv_diff_  = 0.0;
+    lvdiff_[0].r_invoking_frames_lv_diff_ = 0.0;
+    lvdiff_[1].r_cost_lv_diff_            = 1.0;  //レベル差１にボーナス特典は無い。
+    lvdiff_[1].r_casting_frames_lv_diff_  = 1.0;
+    lvdiff_[1].r_invoking_frames_lv_diff_ = 1.0;
+    lvdiff_[2].r_cost_lv_diff_            = r_cost_lv_diff_base_; //レベル差２で初めてお得になる。
+    lvdiff_[2].r_casting_frames_lv_diff_  = r_casting_frames_lv_diff_base_;
+    lvdiff_[2].r_invoking_frames_lv_diff_ = r_invoking_frames_lv_diff_base_;
     for (int i = 2; i <= MMETER_MAX_LEVEL; i++) { //レベル差が増えるとよりお得。
-        lvdiff_[i].r_cost_lv_diff_             = lvdiff_[i-1].r_cost_lv_diff_            * r_cost_lv_diff_base_;
-        lvdiff_[i].r_time_of_casting_lv_diff_  = lvdiff_[i-1].r_time_of_casting_lv_diff_ * r_time_of_casting_lv_diff_base_;
-        lvdiff_[i].r_time_of_invoking_lv_diff_ = lvdiff_[i-1].r_time_of_invoking_lv_diff_* r_time_of_invoking_lv_diff_base_;
+        lvdiff_[i].r_cost_lv_diff_            = lvdiff_[i-1].r_cost_lv_diff_           * r_cost_lv_diff_base_;
+        lvdiff_[i].r_casting_frames_lv_diff_  = lvdiff_[i-1].r_casting_frames_lv_diff_ * r_casting_frames_lv_diff_base_;
+        lvdiff_[i].r_invoking_frames_lv_diff_ = lvdiff_[i-1].r_invoking_frames_lv_diff_* r_invoking_frames_lv_diff_base_;
     }
 
     _TRACE_("Magic::Magic "<<getName()<<" のレベルアップ時の数値");
@@ -86,10 +86,10 @@ r_time_of_invoking_lv_diff_base_(prm_r_time_of_invoking_lv_diff_base) {
         for (int target_lv = now_lv; target_lv <= MMETER_MAX_LEVEL; target_lv++) {
             level_up_cost_[now_lv][target_lv] = (target_lv == now_lv ? 0 : level_up_cost_[now_lv][target_lv-1])
                                                  + (lvinfo_[target_lv].cost_ * lvdiff_[target_lv-now_lv].r_cost_lv_diff_);
-            level_up_time_of_casting_[now_lv][target_lv] = (target_lv == now_lv ? 0 : level_up_time_of_casting_[now_lv][target_lv-1])
-                                                           + (lvinfo_[target_lv].time_of_casting_ * lvdiff_[target_lv-now_lv].r_time_of_casting_lv_diff_);
-            level_up_time_of_invoking_[now_lv][target_lv] = (target_lv == now_lv ? 0 : level_up_time_of_invoking_[now_lv][target_lv-1])
-                                                            + (lvinfo_[target_lv].time_of_invoking_ * lvdiff_[target_lv-now_lv].r_time_of_invoking_lv_diff_);
+            level_up_casting_frames_[now_lv][target_lv] = (target_lv == now_lv ? 0 : level_up_casting_frames_[now_lv][target_lv-1])
+                                                           + (lvinfo_[target_lv].casting_frames_ * lvdiff_[target_lv-now_lv].r_casting_frames_lv_diff_);
+            level_up_invoking_frames_[now_lv][target_lv] = (target_lv == now_lv ? 0 : level_up_invoking_frames_[now_lv][target_lv-1])
+                                                            + (lvinfo_[target_lv].invoking_frames_ * lvdiff_[target_lv-now_lv].r_invoking_frames_lv_diff_);
         }
     }
 #ifdef MY_DEBUG
@@ -100,12 +100,12 @@ r_time_of_invoking_lv_diff_base_(prm_r_time_of_invoking_lv_diff_base) {
     }
     for (int now_lv = 0; now_lv <= MMETER_MAX_LEVEL; now_lv++) {
         for (int target_lv = now_lv; target_lv <= MMETER_MAX_LEVEL; target_lv++) {
-             _TRACE_("Magic::Magic["<<getName()<<"] level_up_time_of_casting_["<<now_lv<<"→"<<target_lv<<"]="<<level_up_time_of_casting_[now_lv][target_lv]);
+             _TRACE_("Magic::Magic["<<getName()<<"] level_up_casting_frames_["<<now_lv<<"→"<<target_lv<<"]="<<level_up_casting_frames_[now_lv][target_lv]);
         }
     }
     for (int now_lv = 0; now_lv <= MMETER_MAX_LEVEL; now_lv++) {
         for (int target_lv = now_lv; target_lv <= MMETER_MAX_LEVEL; target_lv++) {
-            _TRACE_("Magic::Magic["<<getName()<<"] level_up_time_of_invoking_["<<now_lv<<"→"<<target_lv<<"]="<<level_up_time_of_invoking_[now_lv][target_lv]);
+            _TRACE_("Magic::Magic["<<getName()<<"] level_up_invoking_frames_["<<now_lv<<"→"<<target_lv<<"]="<<level_up_invoking_frames_[now_lv][target_lv]);
         }
     }
 #endif
@@ -141,10 +141,10 @@ void Magic::onReset() {
 
     getProgress()->reset(STATE_NOTHING);
     //各レベル別持続時間及び、維持コストを予め設定
-    lvinfo_[0].remainingtime_of_effect_ = MAX_MAGIC_TIME;
-    lvinfo_[1].remainingtime_of_effect_ = 0;
+    lvinfo_[0].remained_frame_of_effecting = MAX_MAGIC_TIME;
+    lvinfo_[1].remained_frame_of_effecting = 0;
     for (int i = 2; i <= max_level_; i++) {
-        lvinfo_[i].remainingtime_of_effect_ = 0;
+        lvinfo_[i].remained_frame_of_effecting = 0;
     }
     time_of_next_state_ = 0;
     temp_hold_status_ = -1;
@@ -157,10 +157,10 @@ void Magic::save(std::stringstream& sts) {
            new_level_  << " " <<
            last_level_ << " ";
     for (int lv = 0; lv < MMETER_MAX_LEVEL+1; lv++) {
-        sts <<  lvinfo_[lv].remainingtime_of_effect_ << " " <<
-                lvinfo_[lv].time_of_effect_          << " " <<
-                lvinfo_[lv].keep_cost_               << " " <<
-                lvinfo_[lv].pno_                     << " ";
+        sts <<  lvinfo_[lv].remained_frame_of_effecting << " " <<
+                lvinfo_[lv].effecting_frames_           << " " <<
+                lvinfo_[lv].keep_cost_                  << " " <<
+                lvinfo_[lv].pno_                        << " ";
     }
 }
 
@@ -171,8 +171,8 @@ void Magic::load(std::stringstream& sts) {
         >> last_level_;
 
     for (int lv = 0; lv < MMETER_MAX_LEVEL+1; lv++) {
-        sts >> lvinfo_[lv].remainingtime_of_effect_
-            >> lvinfo_[lv].time_of_effect_
+        sts >> lvinfo_[lv].remained_frame_of_effecting
+            >> lvinfo_[lv].effecting_frames_
             >> lvinfo_[lv].keep_cost_
             >> lvinfo_[lv].pno_;
     }
@@ -437,7 +437,7 @@ void Magic::processBehavior() {
         /////////////////////////////////////// 詠唱中
         case STATE_CASTING: {
             if (pProg->hasJustChanged()) { //詠唱開始
-                time_of_next_state_ = level_up_time_of_casting_[level_][new_level_]; //詠唱終了時間
+                time_of_next_state_ = level_up_casting_frames_[level_][new_level_]; //詠唱終了時間
                 _TRACE_("Magic::processBehavior() ["<<getName()<<"] STATE_CASTING begin new_level_="<<new_level_<<" level_="<<level_<<" time_of_next_state_="<<time_of_next_state_<<"");
                 processCastBegin(level_, new_level_);  //コールバック
             }
@@ -455,7 +455,7 @@ void Magic::processBehavior() {
         /////////////////////////////////////// 発動中
         case STATE_INVOKING: {
             if (pProg->hasJustChanged()) { //発動開始
-                time_of_next_state_ = level_up_time_of_invoking_[level_][new_level_]; //発動終了時間
+                time_of_next_state_ = level_up_invoking_frames_[level_][new_level_]; //発動終了時間
                 _TRACE_("Magic::processBehavior() ["<<getName()<<"] STATE_INVOKING begin new_level_="<<new_level_<<" level_="<<level_<<" time_of_next_state_="<<time_of_next_state_<<"");
                 processInvokeBegin(level_, new_level_);     //コールバック
             }
@@ -488,7 +488,7 @@ void Magic::processBehavior() {
                     //レベルアップだった場合
                     //効果持続時間設定。飛び越された間のレベルも効果持続終了残り時間を満タンを設定
                     for (int lv = last_level_+1; lv <= level_; lv++) {
-                        lvinfo_[lv].remainingtime_of_effect_ = lvinfo_[lv].time_of_effect_; //持続時間を満タン
+                        lvinfo_[lv].remained_frame_of_effecting = lvinfo_[lv].effecting_frames_; //持続時間を満タン
                     }
 
                     *pMP_ -= level_up_cost_[last_level_][level_]; //MP消費
@@ -500,7 +500,7 @@ void Magic::processBehavior() {
                     _TRACE_("Magic::processBehavior() ["<<getName()<<"] レベルダウンだった。last_level_="<<last_level_<<" level_="<<level_);
                     //レベルダウンだった場合
                     if (keep_cost_base_ <= 0) { //維持コストがかからない魔法の場合は
-                        if (lvinfo_[last_level_].time_of_effect_ > 0) {
+                        if (lvinfo_[last_level_].effecting_frames_ > 0) {
                             //MP還元
                             magic_point rmp = calcReduceMp(last_level_, level_);
                             *pMP_ += rmp;
@@ -512,7 +512,7 @@ void Magic::processBehavior() {
                     }
                     //飛び越された間のレベルは停止して効果持続終了残り時間をリセットを設定
                     for (int lv = last_level_; lv >= level_+1; lv--) {
-                        lvinfo_[lv].remainingtime_of_effect_ = 0; //効果持続終了残り時間を0
+                        lvinfo_[lv].remained_frame_of_effecting = 0; //効果持続終了残り時間を0
                     }
                     //level_の効果持続時間は前の続き
                 } else {
@@ -548,10 +548,10 @@ void Magic::processBehavior() {
 
     do { //break 脱出用、ここから -->
     if (level_ > 0) {
-        if (pProg->hasJustChangedTo(STATE_EFFECT_START) && time_of_effect_base_ == 0) {
+        if (pProg->hasJustChangedTo(STATE_EFFECT_START) && effecting_frames_base_ == 0) {
             //即効性魔法のため終了
             for (int lv = 1; lv <= level_; lv++) { //全レベルリセットを設定
-                 lvinfo_[lv].remainingtime_of_effect_ = 0; //効果持続終了残り時間を0
+                 lvinfo_[lv].remained_frame_of_effecting = 0; //効果持続終了残り時間を0
             }
             effect(0);
             _TRACE_("Magic::processBehavior() ["<<getName()<<"] 即効性魔法のため、いきなり持続終了。last_level_="<<last_level_<<" level_="<<level_);
@@ -569,7 +569,7 @@ void Magic::processBehavior() {
                 //MP枯渇による持続終了時
                 *pMP_ = 0;
                 for (int lv = 1; lv <= level_; lv++) { //全レベルリセットを設定
-                     lvinfo_[lv].remainingtime_of_effect_ = 0; //効果持続終了残り時間を0
+                     lvinfo_[lv].remained_frame_of_effecting = 0; //効果持続終了残り時間を0
                 }
                 effect(0);
                 _TRACE_("Magic::processBehavior() ["<<getName()<<"] MP枯渇による持続終了。");
@@ -577,8 +577,8 @@ void Magic::processBehavior() {
             }
         }
 
-        lvinfo_[level_].remainingtime_of_effect_ --;   //効果持続残り時間減少
-        if (lvinfo_[level_].remainingtime_of_effect_ == 0) { //満期？
+        lvinfo_[level_].remained_frame_of_effecting --;   //効果持続残り時間減少
+        if (lvinfo_[level_].remained_frame_of_effecting == 0) { //満期？
             //持続時間満期でレベルダウン処理
              _TRACE_("Magic::processBehavior() ["<<getName()<<"] 持続時間満期処理 lv="<<level_<<"→"<<(level_-1)<<"");
             //effect(level_-1); をおこないたいのやまやまだが、
@@ -617,7 +617,7 @@ magic_point Magic::calcReduceMp(int prm_now_level, int prm_target_down_level) {
     //_TRACE_("prm_now_level="<<prm_now_level<<" prm_target_down_level="<<prm_target_down_level);
     magic_point mp = 0;
     for (int lv = prm_now_level; lv > prm_target_down_level; lv--) {
-        double utilization_rate = lvinfo_[lv].time_of_effect_ == 0 ? 0.0 : (1.0*lvinfo_[lv].remainingtime_of_effect_ / lvinfo_[lv].time_of_effect_); //使用率
+        double utilization_rate = lvinfo_[lv].effecting_frames_ == 0 ? 0.0 : (1.0*lvinfo_[lv].remained_frame_of_effecting / lvinfo_[lv].effecting_frames_); //使用率
         mp += (lvinfo_[lv].cost_ * utilization_rate * lvdiff_[max_level_-(prm_now_level-lv)].r_cost_lv_diff_);
         //_TRACE_(lv << ":lvinfo_["<<lv<<"].cost_="<<(lvinfo_[lv].cost_)<<" ");
         //_TRACE_(lv << ":utilization_rate="<<utilization_rate<<" ");

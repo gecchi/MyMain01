@@ -18,8 +18,8 @@
 #define STOI(X) (GgafCore::GgafUtil::_stoi_(X))
 #define ABS(X) (GgafCore::GgafUtil::_abs_(X))
 #define SGN(X) (GgafCore::GgafUtil::_sgn_(X))
-#define MAX3(a,b,c) (GgafCore::GgafUtil::_max3_(a,b,c))
-#define MIN3(a,b,c) (GgafCore::GgafUtil::_min3_(a,b,c))
+#define MAX3(a,b,c) (GgafCore::GgafUtil::_max3_((a),(b),(c)))
+#define MIN3(a,b,c) (GgafCore::GgafUtil::_min3_((a),(b),(c)))
 
 #define ZEROf_EQ(X) (GgafCore::GgafUtil::_zerof_eq_(X))
 #define ONEf_EQ(X) (GgafCore::GgafUtil::_zerof_eq_((X)-1.0f))
@@ -28,24 +28,24 @@
 
 /**
  * 範囲中のある値について、範囲を変換した場合の相対値を取得 .
- * 範囲 __MIN1__ ～ __MAX1__ の X の値を、範囲 __MIN2__ ～ __MAX2__ に変換した場合の値を得る<br>
- * y=((min2-max2)*x-max1*min2+max2*min1)/(min1-max1)<br>
+ * 範囲 MIN_A ～ MAX_A の X の値を、範囲 MIN_B ～ MAX_B に変換した場合の値を得る<br>
+ * y = ( (min_b-max_b)*x - (max_a*min_b) + (max_b*min_a) ) / (min_a-max_a)
  */
-#define RCNV(__MIN1__,__MAX1__,X,__MIN2__,__MAX2__) ( ( ((__MIN2__)-(__MAX2__))*((double)(X)) - ((__MAX1__)*((double)(__MIN2__))) + ((__MAX2__)*((double)(__MIN1__))) ) / ((__MIN1__)-(__MAX1__)) )
+#define RCNV(MIN_A,MAX_A,X,MIN_B,MAX_B) (GgafCore::GgafUtil::_rcnv_((double)(MIN_A),(double)(MAX_A),(double)(X),(double)(MIN_B),(double)(MAX_B)))
 
 /**
  * 整数の乱数を得る .
  * RND(3, 20)
  * → 3～20の乱数を得る 戻りは int32_t 型
  */
-#define RND(__FROM__,__TO__) (GgafCore::GgafUtil::_rnd_int32_(__FROM__,__TO__))
+#define RND(__FROM__,__TO__) (GgafCore::GgafUtil::_rnd_int32_((int32_t)(__FROM__),(int32_t)(__TO__)))
 
 /**
  * ある整数の周辺の乱数を得る .
  * RND_ABOUT(15, 4)   意味：15 の±4の範囲の乱数
  * → 11 ～ 19 の乱数になる
  */
-#define RND_ABOUT(__BASE_VALUE__, __MARGIN__) (RND((__BASE_VALUE__ - __MARGIN__), (__BASE_VALUE__ + __MARGIN__)))
+#define RND_ABOUT(__BASE_VALUE__, __MARGIN__) (RND(((int)(__BASE_VALUE__) - (int)(__MARGIN__)), (__BASE_VALUE__ + __MARGIN__)))
 
 typedef std::map<std::string, std::string> GgafStrMap;
 /** ハッシュ数値 */
@@ -439,6 +439,11 @@ public:
         str.erase(str.find_last_not_of(' ')+1);
         return str;
     }
+
+    static inline double _rcnv_(double min_a, double max_a, double x, double min_b, double max_b) {
+        return ( (min_b-max_b)*x - (max_a*min_b) + (max_b*min_a) ) / (min_a-max_a);
+    }
+
 
     /**
      * int32_tランダム関数 .

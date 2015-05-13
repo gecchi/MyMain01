@@ -77,26 +77,18 @@ papBunshinBase_(nullptr) {
     for (int i = 0; i < MyBunshinBase::MAX_BUNSHIN_NUM; i ++) {
         std::string name = "BunshinBase("+XTOS(i)+")";
         papBunshinBase_[i] = NEW MyBunshinBase(name.c_str(), i+1);
+        papBunshinBase_[i]->inactivate();
         bringDirector()->addSubGroup(papBunshinBase_[i]);
     }
-    papBunshinBase_[0]->config(60000, D0ANG, 0, 1000);
     papBunshinBase_[0]->pBunshin_->setMaterialColor(1.0, 1.0, 1.0);
-    papBunshinBase_[1]->config(60000, D90ANG, 0, 1000);
     papBunshinBase_[1]->pBunshin_->setMaterialColor(0.8, 1.0, 1.0);
-    papBunshinBase_[2]->config(60000, D180ANG, 0, 1000);
     papBunshinBase_[2]->pBunshin_->setMaterialColor(1.0, 0.8, 0.8);
-    papBunshinBase_[3]->config(60000, D270ANG, 0, 1000);
     papBunshinBase_[3]->pBunshin_->setMaterialColor(0.8, 1.0, 0.8);
 
-    papBunshinBase_[4]->config(120000, D_ANG(72*0), 0, -1500);
     papBunshinBase_[4]->pBunshin_->setMaterialColor(0.8, 0.8, 1.0);
-    papBunshinBase_[5]->config(120000, D_ANG(72*1), 0, -1500);
     papBunshinBase_[5]->pBunshin_->setMaterialColor(0.8, 1.0, 0.8);
-    papBunshinBase_[6]->config(120000, D_ANG(72*2), 0, -1500);
     papBunshinBase_[6]->pBunshin_->setMaterialColor(1.0, 0.8, 0.8);
-    papBunshinBase_[7]->config(120000, D_ANG(72*3), 0, -1500);
     papBunshinBase_[7]->pBunshin_->setMaterialColor(1.0, 1.0, 0.0);
-    papBunshinBase_[8]->config(120000, D_ANG(72*4), 0, -1500);
     papBunshinBase_[8]->pBunshin_->setMaterialColor(1.0, 0.0, 1.0);
 
 

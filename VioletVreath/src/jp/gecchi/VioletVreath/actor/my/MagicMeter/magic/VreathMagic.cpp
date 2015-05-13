@@ -132,7 +132,7 @@ VreathMagic::VreathMagic(const char* prm_name, int* prm_pMP)
                 sum_v_onebeat -= MY_SHIP_VREATH_COST;
             }
             //ŒÄ‹z‰ñ”‚ğæ‚¶‚Ä‘ŒÄ‹z—Ê‚ğŒvZ
-            aInt_total_vreath_[lv] = sum_v_onebeat * ((1.0 * lvinfo_[lv].time_of_effect_) / beat_time_[lv]);
+            aInt_total_vreath_[lv] = sum_v_onebeat * ((1.0 * lvinfo_[lv].effecting_frames_) / beat_time_[lv]);
         }
     }
 }

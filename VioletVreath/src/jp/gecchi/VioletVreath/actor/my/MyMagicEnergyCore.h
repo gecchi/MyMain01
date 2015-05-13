@@ -37,6 +37,7 @@ public:
      */
     void execOptionMagic();
 
+
     void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
 

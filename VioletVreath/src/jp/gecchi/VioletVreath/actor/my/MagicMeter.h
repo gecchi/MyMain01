@@ -47,6 +47,7 @@ public:
     ShotMagic*    pShotMagic_;
     LaserMagic*   pLaserMagic_;
     OptionMagic*  pOptionMagic_;
+    BunshinMagic* pBunshinMagic_;
     VreathMagic*  pVreathMagic_;
     SmileMagic*   pSmileMagic_;
 

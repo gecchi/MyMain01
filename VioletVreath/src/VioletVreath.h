@@ -362,6 +362,7 @@ class DamageDispBar;
 
 class Magic;
 class OptionMagic;
+class BunshinMagic;
 class LaserMagic;
 class ShotMagic;
 class SpeedMagic;
@@ -377,6 +378,7 @@ class EffectLockonMagic;
 class EffectLaserMagic;
 class EffectShotMagic;
 class EffectOptionMagic001;
+class EffectBunshinMagic001;
 class EffectVreathMagic001;
 class EffectSmileMagic001;
 
