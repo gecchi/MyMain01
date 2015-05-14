@@ -14,6 +14,7 @@ public:
         SE_FIRE_SHOT   ,
         SE_FIRE_TORPEDO,
     };
+    MyBunshinBase* pBase_;
     /** [r]ショットのデポジトリ */
     GgafCore::GgafActorDepository* pDepo_MyBunshinShot_;
     /** [r]スナイプショットのデポジトリ */

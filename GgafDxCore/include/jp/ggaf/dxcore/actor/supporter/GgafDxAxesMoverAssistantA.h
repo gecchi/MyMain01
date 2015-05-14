@@ -65,11 +65,11 @@ public:
      * @param prm_p1 トップスピードに達する時刻となるような、Teに対する割合(p1)
      * @param prm_p2 減速を開始時刻となるような、Teに対する割合(p2)
      * @param prm_end_velo 最終スピード(Ve)
-     * @param prm_endacc_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
+     * @param prm_zero_acc_end_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
     void slideVxMvByDt(coord prm_target_distance, int prm_target_frames,
                        float prm_p1, float prm_p2, velo prm_end_velo,
-                       bool prm_endacc_flg);
+                       bool prm_zero_acc_end_flg);
 
     /**
      * Y軸方向でなめらかな移動速度を変化させるシークエンスを実行(時間・距離指定、速度変動) .
@@ -79,11 +79,11 @@ public:
      * @param prm_p1 トップスピードに達する時刻となるような、Teに対する割合(p1)
      * @param prm_p2 減速を開始時刻となるような、Teに対する割合(p2)
      * @param prm_end_velo 最終スピード(Ve)
-     * @param prm_endacc_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
+     * @param prm_zero_acc_end_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
     void slideVyMvByDt(coord prm_target_distance, int prm_target_frames,
                        float prm_p1, float prm_p2, velo prm_end_velo,
-                       bool prm_endacc_flg);
+                       bool prm_zero_acc_end_flg);
 
     /**
      * Z軸方向でなめらかな移動速度を変化させるシークエンスを実行(時間・距離指定、速度変動) .
@@ -93,11 +93,11 @@ public:
      * @param prm_p1 トップスピードに達する時刻となるような、Teに対する割合(p1)
      * @param prm_p2 減速を開始時刻となるような、Teに対する割合(p2)
      * @param prm_end_velo 最終スピード(Ve)
-     * @param prm_endacc_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
+     * @param prm_zero_acc_end_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
     void slideVzMvByDt(coord prm_target_distance, int prm_target_frames,
                        float prm_p1, float prm_p2, velo prm_end_velo,
-                       bool prm_endacc_flg);
+                       bool prm_zero_acc_end_flg);
 
     /**
      * X,Y,Z軸方向でなめらかな移動速度を変化させるシークエンスを実行(時間・距離指定、速度変動) .
@@ -110,27 +110,27 @@ public:
      * @param prm_p1 トップスピードに達する時刻となるような、Teに対する割合(p1)
      * @param prm_p2 減速を開始時刻となるような、Teに対する割合(p2)
      * @param prm_end_velo 最終スピード(Ve)
-     * @param prm_endacc_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
+     * @param prm_zero_acc_end_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
     void slideVxyzMvByDt(coord prm_x_target_distance, coord prm_y_target_distance, coord prm_z_target_distance,
                          int prm_target_frames,
                          float prm_p1, float prm_p2, velo prm_end_velo,
-                         bool prm_endacc_flg) {
+                         bool prm_zero_acc_end_flg) {
         slideVxMvByDt(prm_x_target_distance, prm_target_frames,
                       prm_p1, prm_p2, prm_end_velo,
-                      prm_endacc_flg);
+                      prm_zero_acc_end_flg);
         slideVyMvByDt(prm_y_target_distance, prm_target_frames,
                       prm_p1, prm_p2, prm_end_velo,
-                      prm_endacc_flg);
+                      prm_zero_acc_end_flg);
         slideVzMvByDt(prm_z_target_distance, prm_target_frames,
                       prm_p1, prm_p2, prm_end_velo,
-                      prm_endacc_flg);
+                      prm_zero_acc_end_flg);
     }
 
     /**
      * X,Y,Z軸方向でなめらかな移動速度を変化させるシークエンスを実行(時間・距離指定、速度変動) .
      * 内部で slideVxMvByDt(), slideVyMvByDt(), slideVzMvByDt() を実行する。
-     * 費やす時間(prm_target_frames),prm_endacc_flgのみ共通。
+     * 費やす時間(prm_target_frames),prm_zero_acc_end_flgのみ共通。
      * @param prm_x_target_distance X軸方向目標移動距離(Dx)
      * @param prm_y_target_distance Y軸方向目標移動距離(Dy)
      * @param prm_z_target_distance Z軸方向目標移動距離(Dz)
@@ -144,23 +144,23 @@ public:
      * @param prm_z_p1 Z軸方向トップスピードに達する時刻となるような、Teに対する割合(p1)
      * @param prm_z_p2 Z軸方向減速を開始時刻となるような、Teに対する割合(p2)
      * @param prm_z_end_velo Z軸方向最終スピード(Ve)
-     * @param prm_endacc_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
+     * @param prm_zero_acc_end_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
     void slideVxyzMvByDt(coord prm_x_target_distance, coord prm_y_target_distance, coord prm_z_target_distance,
                          int prm_target_frames,
                          float prm_x_p1, float prm_x_p2, velo prm_x_end_velo,
                          float prm_y_p1, float prm_y_p2, velo prm_y_end_velo,
                          float prm_z_p1, float prm_z_p2, velo prm_z_end_velo,
-                         bool prm_endacc_flg) {
+                         bool prm_zero_acc_end_flg) {
         slideVxMvByDt(prm_x_target_distance, prm_target_frames,
                       prm_x_p1, prm_x_p2, prm_x_end_velo,
-                      prm_endacc_flg);
+                      prm_zero_acc_end_flg);
         slideVyMvByDt(prm_y_target_distance, prm_target_frames,
                       prm_y_p1, prm_y_p2, prm_y_end_velo,
-                      prm_endacc_flg);
+                      prm_zero_acc_end_flg);
         slideVzMvByDt(prm_z_target_distance, prm_target_frames,
                       prm_z_p1, prm_z_p2, prm_z_end_velo,
-                      prm_endacc_flg);
+                      prm_zero_acc_end_flg);
 
 
     }
@@ -175,12 +175,12 @@ public:
      * @param prm_p1 トップスピードに達する時刻となるような、Teに対する割合(p1)
      * @param prm_p2 減速を開始時刻となるような、Teに対する割合(p2)
      * @param prm_end_velo 最終スピード(Ve)
-     * @param prm_endacc_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
+     * @param prm_zero_acc_end_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
     void slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
                            int prm_target_frames,
                            float prm_p1, float prm_p2, velo prm_end_velo,
-                           bool prm_endacc_flg);
+                           bool prm_zero_acc_end_flg);
 
     /**
      * X,Y,Z軸方向でなめらかな移動速度を変化させるシークエンスを実行(時間・距離(目標座標)指定、速度変動) .
@@ -198,14 +198,14 @@ public:
      * @param prm_z_p1 Z軸方向トップスピードに達する時刻となるような、Teに対する割合(p1)
      * @param prm_z_p2 Z軸方向減速を開始時刻となるような、Teに対する割合(p2)
      * @param prm_z_end_velo Z軸方向最終スピード(Ve)
-     * @param prm_endacc_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
+     * @param prm_zero_acc_end_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
     void slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
                            int prm_target_frames,
                            float prm_x_p1, float prm_x_p2, velo prm_x_end_velo,
                            float prm_y_p1, float prm_y_p2, velo prm_y_end_velo,
                            float prm_z_p1, float prm_z_p2, velo prm_z_end_velo,
-                           bool prm_endacc_flg);
+                           bool prm_zero_acc_end_flg);
 
 
     /**
@@ -241,36 +241,36 @@ public:
      * @param prm_p1 トップスピードに達する距離となるような、距離(D)に対する割合。(d1 = D*prm_p1)
      * @param prm_p2 減速を開始距離となるような、距離(D)に対する割合 (d1+d2 = D*p2)
      * @param prm_end_velo 最終スピード(Ve)
-     * @param prm_endacc_flg true:目標時間に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
+     * @param prm_zero_acc_end_flg true:目標時間に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
     void slideVxMvByVd(velo prm_top_velo, coord prm_target_distance,
                        float prm_p1, float prm_p2, velo prm_end_velo,
-                       bool prm_endacc_flg);
+                       bool prm_zero_acc_end_flg);
 
     void slideVyMvByVd(velo prm_top_velo, coord prm_target_distance,
                        float prm_p1, float prm_p2, velo prm_end_velo,
-                       bool prm_endacc_flg);
+                       bool prm_zero_acc_end_flg);
 
     void slideVzMvByVd(velo prm_top_velo, coord prm_target_distance,
                        float prm_p1, float prm_p2, velo prm_end_velo,
-                       bool prm_endacc_flg);
+                       bool prm_zero_acc_end_flg);
 
     void slideVxyzMvByVd(velo prm_top_velo,
                          coord prm_x_target_distance, coord prm_y_target_distance, coord prm_z_target_distance,
                          float prm_p1, float prm_p2, velo prm_end_velo,
-                         bool prm_endacc_flg);
+                         bool prm_zero_acc_end_flg);
 
     void slideVxyzMvByVdTo(velo prm_top_velo,
                           coord prm_x_target, coord prm_y_target, coord prm_z_target,
                           float prm_p1, float prm_p2, velo prm_end_velo,
-                          bool prm_endacc_flg);
+                          bool prm_zero_acc_end_flg);
 
     /**
      * なめらかな移動シークエンスが作動中か（注意：移動しているか否かではない）.
      * @return true:作動中 / false:作動中ではない
      */
     bool isSlidingMv() {
-        if (_smthVxMv._prm._flg || _smthVyMv._prm._flg || _smthVzMv._prm._flg) {
+        if (_smthVxMv.isAccelerating() || _smthVyMv.isAccelerating() || _smthVzMv.isAccelerating()) {
             return true;
         } else {
             return false;
@@ -281,26 +281,11 @@ public:
      * なめらかな移動シークエンスを停止（注意：移動（速度）を停止させるという事は行っていない）.
      */
     void stopSlidingMv() {
-        _smthVxMv._prm._flg = false;
-        _smthVyMv._prm._flg = false;
-        _smthVzMv._prm._flg = false;
+        _smthVxMv.stopAccelerating();
+        _smthVyMv.stopAccelerating();
+        _smthVzMv.stopAccelerating();
     }
 
-    /**
-     * なめらかな移動シークエンス終了直後か否か。
-     * @return
-     */
-    bool hasJustFinishedSlidingMv() {
-        if (isSlidingMv()) {
-            return false;
-        } else {
-            if (_smthVxMv._prm._progress != -1 || _smthVyMv._prm._progress != -1 || _smthVzMv._prm._progress != -1) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
     virtual void behave();
 
     virtual ~GgafDxAxesMoverAssistantA();

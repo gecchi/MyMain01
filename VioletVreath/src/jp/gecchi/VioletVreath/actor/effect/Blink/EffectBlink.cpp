@@ -17,6 +17,7 @@ EffectBlink::EffectBlink(const char* prm_name, const char* prm_model) :
     scale_in_frames_ = 1;
     duration_frames_ = 1;
     scale_out_frames_ = 1;
+    sayonara_end_ = true;
     useProgress(PROG_BANPEI);
     pScaler_->setRange(0, R_SC(1.0));
 }
@@ -36,7 +37,9 @@ void EffectBlink::processBehavior() {
     }
     if (getActiveFrame() >= GGAF_END_DELAY) {
         pTarget_ = nullptr;
-        sayonara();
+        if (sayonara_end_) {
+            sayonara();
+        }
     }
 
     GgafProgress* const pProg = getProgress();
@@ -60,7 +63,7 @@ void EffectBlink::processBehavior() {
 
         case PROG_STAY: {
             if (pProg->getFrame() >= duration_frames_) {
-                pScaler_->transitionLinerToBottom(scale_in_frames_);
+                pScaler_->transitionLinerToBottom(scale_out_frames_);
                 pProg->changeNext();
             }
             break;
@@ -68,8 +71,10 @@ void EffectBlink::processBehavior() {
 
         case PROG_OUT: {
             if (pScaler_->isTransitioning() == false) {
-                pProg->changeNothing();
-                sayonara();
+                if (sayonara_end_) {
+                    sayonara();
+                }
+                pProg->changeNothing(); //I—¹
             }
             break;
         }
@@ -84,7 +89,9 @@ void EffectBlink::processBehavior() {
 void EffectBlink::processJudgement() {
     if (isOutOfSpacetime()) {
         pTarget_ = nullptr;
-        sayonara();
+        if (sayonara_end_) {
+            sayonara();
+        }
     }
 }
 
@@ -93,13 +100,23 @@ void EffectBlink::onInactive() {
 }
 
 void EffectBlink::blink(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames,
-                        const GgafDxCore::GgafDxGeometricActor* prm_pFollowTarget) {
+                        const GgafDxCore::GgafDxGeometricActor* prm_pFollowTarget, bool prm_sayonara_end) {
     pTarget_ = prm_pFollowTarget;
     scale_in_frames_ = prm_scale_in_frames;
     duration_frames_ = prm_duration_frames;
     scale_out_frames_ = prm_scale_out_frames;
+    sayonara_end_ = prm_sayonara_end;
     setScale(pScaler_->getBottom());
     getProgress()->reset(PROG_INIT);
+}
+
+bool EffectBlink::isBlinking() {
+    return getProgress()->isNothing();
+}
+
+void EffectBlink::forceFadeOut(frame prm_scale_out_frames) {
+    pScaler_->transitionLinerToBottom(prm_scale_out_frames);
+    getProgress()->change(PROG_OUT);
 }
 
 EffectBlink::~EffectBlink() {

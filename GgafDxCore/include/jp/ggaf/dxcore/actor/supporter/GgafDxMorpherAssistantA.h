@@ -62,12 +62,12 @@ public:
      * @param prm_p1 トップスピードに達する時刻となるような、Teに対する割合(p1)
      * @param prm_p2 減速を開始時刻となるような、Teに対する割合(p2)
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe) （内部で正負がprm_angular_distanceの正負に合わせられる）
-     * @param prm_endacc_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
+     * @param prm_zero_acc_end_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
     void morphByDt(int prm_target_mesh_no,
                    float prm_target_distance, int prm_target_frames,
                    float prm_p1, float prm_p2, float prm_end_velo,
-                   bool prm_endacc_flg = true);
+                   bool prm_zero_acc_end_flg = true);
    /**
      * 目標の軸回転方角(Z軸)へ滑らかに回転するシークエンスを実行(速度・距離指定、時間変動) .
      * 移動距離を3つのセクション(θ1,θ2,θ3)に分け、次のような角速度制御を自動的に行う。<BR>
@@ -102,12 +102,12 @@ public:
      * @param prm_p1 トップスピードに達する距離となるような、回転距離角(θ)に対する割合。(θ1 = θ*prm_p1)
      * @param prm_p2 角回転の減速を開始角となるような、回転距離角(θ)に対する割合 (θ1+θ2 = θ*p2)
      * @param prm_end_angvelo 最終角速度(ωe)
-     * @param prm_endacc_flg true:目標時間に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
+     * @param prm_zero_acc_end_flg true:目標時間に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
     void morphByVd(int prm_target_mesh_no,
                    float prm_top_velo, float prm_target_distance,
                    float prm_p1, float prm_p2, float prm_end_velo,
-                   bool prm_endacc_flg = true);
+                   bool prm_zero_acc_end_flg = true);
 
 
    /**

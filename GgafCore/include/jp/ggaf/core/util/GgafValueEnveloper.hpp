@@ -542,7 +542,7 @@ public:
                 //‰½‚à‚µ‚È‚¢
             } else {
                 if (method == TARGET_LINER_TO) {
-                    if (_beat_frame_count[i] == _beat_target_frames[i]) {
+                    if (_beat_frame_count[i] >= _beat_target_frames[i]) {
                         val = _target[i];
                         stop(i);//I—¹
                     }
@@ -622,7 +622,7 @@ public:
 
             setValue(i, val); //”½‰f
 
-            if (_beat_frame_count[i] == _beat_target_frames[i]) {
+            if (_beat_frame_count[i] >= _beat_target_frames[i]) {
                 stop(i);//I—¹
             }
         }

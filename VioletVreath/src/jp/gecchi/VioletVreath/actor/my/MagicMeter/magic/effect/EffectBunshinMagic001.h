@@ -1,7 +1,8 @@
 #ifndef EFFECTBUNSHINMAGIC001_H_
 #define EFFECTBUNSHINMAGIC001_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
+
+#include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
 namespace VioletVreath {
 
@@ -11,7 +12,7 @@ namespace VioletVreath {
  * @since 2013/07/31
  * @author Masatoshi Tsuge
  */
-class EffectBunshinMagic001 : public GgafLib::DefaultMeshSetActor {
+class EffectBunshinMagic001 : public EffectBlink {
 
 public:
     /** ïΩçsà⁄ìÆéxâá */

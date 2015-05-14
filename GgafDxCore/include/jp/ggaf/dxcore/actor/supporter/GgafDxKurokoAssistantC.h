@@ -60,15 +60,15 @@ public:
      * @param prm_p1 トップスピードに達する時刻となるような、Teに対する割合(p1)
      * @param prm_p2 減速を開始時刻となるような、Teに対する割合(p2)
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe) （内部で正負がprm_angular_distanceの正負に合わせられる）
-     * @param prm_endacc_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
+     * @param prm_zero_acc_end_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
     void turnRzMvAngByDt(angle prm_angular_distance, int prm_target_frames,
                          float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                         bool prm_endacc_flg);
+                         bool prm_zero_acc_end_flg);
 
     void turnRyMvAngByDt(angle prm_angular_distance, int prm_target_frames,
                          float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                         bool prm_endacc_flg);
+                         bool prm_zero_acc_end_flg);
     /**
      * 目標の移動方角(Z軸)へ滑らかに回転するシークエンスを実行(時間指定、角速度変動) .
      * @param prm_ang_rz_target 到達目標のZ移動方角
@@ -78,11 +78,11 @@ public:
      * @param prm_p1 トップスピードに達する時刻となるような、Teに対する割合(p1)
      * @param prm_p2 減速を開始時刻となるような、Teに対する割合(p2)
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe) （内部で正負がprm_angular_distanceの正負に合わせられる）
-     * @param prm_endacc_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
+     * @param prm_zero_acc_end_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
     void turnRzMvAngByDtTo(angle prm_ang_rz_target, int prm_way, int prm_target_frames,
                            float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                           bool prm_endacc_flg);
+                           bool prm_zero_acc_end_flg);
 
     /**
      * 目標の移動方角(Y軸)へ滑らかに回転するシークエンスを実行(時間指定、角速度変動) .
@@ -93,11 +93,11 @@ public:
      * @param prm_p1 トップスピードに達する時刻となるような、Teに対する割合(p1)
      * @param prm_p2 減速を開始時刻となるような、Teに対する割合(p2)
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe) （内部で正負がprm_angular_distanceの正負に合わせられる）
-     * @param prm_endacc_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
+     * @param prm_zero_acc_end_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
     void turnRyMvAngByDtTo(angle prm_ang_rt_target, int prm_way, int prm_target_frames,
                            float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                           bool prm_endacc_flg);
+                           bool prm_zero_acc_end_flg);
 
     /**
      * 目標の移動方角へ滑らかに回転するシークエンスを実行(時間指定、角速度変動) .
@@ -117,13 +117,13 @@ public:
      * @param prm_p1 トップスピードに達する時刻となるような、Teに対する割合(p1)
      * @param prm_p2 減速を開始時刻となるような、Teに対する割合(p2)
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe)
-     * @param prm_endacc_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
+     * @param prm_zero_acc_end_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
     void turnRzRyMvAngByDtTo(
             angle prm_ang_rz_target, angle prm_ang_ry_target, int prm_way, bool prm_optimize_ang,
             int prm_target_frames,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-            bool prm_endacc_flg);
+            bool prm_zero_acc_end_flg);
 
     /**
      * 目標の座標に向くように、滑らかに回転するシークエンスを実行(時間指定、角速度変動) .
@@ -137,13 +137,13 @@ public:
      * @param prm_p1 トップスピードに達する時刻となるような、Teに対する割合(p1)
      * @param prm_p2 減速を開始時刻となるような、Teに対する割合(p2)
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe)
-     * @param prm_endacc_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
+     * @param prm_zero_acc_end_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
     void turnMvAngByDtTwd(
             coord prm_tx, coord prm_ty, coord prm_tz, int prm_way, bool prm_optimize_ang,
             int prm_target_frames,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-            bool prm_endacc_flg);
+            bool prm_zero_acc_end_flg);
 
     /**
      * 目標のアクターの座標に向くように、滑らかに回転するシークエンスを実行(時間指定、角速度変動) .
@@ -155,13 +155,13 @@ public:
      * @param prm_p1 トップスピードに達する時刻となるような、Teに対する割合(p1)
      * @param prm_p2 減速を開始時刻となるような、Teに対する割合(p2)
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe)
-     * @param prm_endacc_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
+     * @param prm_zero_acc_end_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
     void turnMvAngByDtTwd(
             GgafDxGeometricActor* prm_pActor_target, int prm_way, bool prm_optimize_ang,
             int prm_target_frames,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-            bool prm_endacc_flg);
+            bool prm_zero_acc_end_flg);
 
     /**
      * 目標の移動方角(Z軸)へ滑らかに回転するシークエンスを実行(速度・距離指定、時間変動) .
@@ -197,54 +197,54 @@ public:
      * @param prm_p1 トップスピードに達する距離となるような、回転距離角(θ)に対する割合。(θ1 = θ*prm_p1)
      * @param prm_p2 角回転の減速を開始角となるような、回転距離角(θ)に対する割合 (θ1+θ2 = θ*p2)
      * @param prm_end_angvelo 最終角速度(ωe)
-     * @param prm_endacc_flg true:目標時間に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
+     * @param prm_zero_acc_end_flg true:目標時間に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
     void turnRzMvAngByVd(
             angvelo prm_top_angvelo, angle prm_angular_distance,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-            bool prm_endacc_flg);
+            bool prm_zero_acc_end_flg);
 
     void turnRyMvAngByVd(
             angvelo prm_top_angvelo, angle prm_angular_distance,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-            bool prm_endacc_flg);
+            bool prm_zero_acc_end_flg);
 
     void turnRzMvAngByVdTo(
             angvelo prm_top_angvelo, angle prm_ang_rz_target, int prm_way,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-            bool prm_endacc_flg);
+            bool prm_zero_acc_end_flg);
 
     void turnRyMvAngByVdTo(
             angvelo prm_top_angvelo, angle prm_ang_ry_target, int prm_way,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-            bool prm_endacc_flg);
+            bool prm_zero_acc_end_flg);
 
     void turnRzRyMvAngByVdTo(
             angvelo prm_top_angvelo,
             angle prm_ang_rz_target, angle prm_ang_ry_target, int prm_way, bool prm_optimize_ang,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-            bool prm_endacc_flg);
+            bool prm_zero_acc_end_flg);
 
     void turnMvAngByVdTwd(
             angvelo prm_top_angvelo,
             coord prm_tx, coord prm_ty, coord prm_tz, int prm_way, bool prm_optimize_ang,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-            bool prm_endacc_flg);
+            bool prm_zero_acc_end_flg);
 
     void turnMvAngByVdTwd(
             angvelo prm_top_angvelo,
             GgafDxGeometricActor* prm_pActor_target, int prm_way, bool prm_optimize_ang,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-            bool prm_endacc_flg);
+            bool prm_zero_acc_end_flg);
 
 
     inline bool isTurningMvAng() const {
-        return (_smthMvRzAng._prm._flg || _smthMvRyAng._prm._flg) ? true : false;
+        return (_smthMvRzAng.isAccelerating() || _smthMvRyAng.isAccelerating()) ? true : false;
     }
 
     inline void stopTurnMvAng() {
-        _smthMvRzAng._prm._flg = false;
-        _smthMvRyAng._prm._flg = false;
+        _smthMvRzAng.stopAccelerating();
+        _smthMvRyAng.stopAccelerating();
     }
 
    /**

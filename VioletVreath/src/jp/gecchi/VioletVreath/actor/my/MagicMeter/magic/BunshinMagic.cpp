@@ -73,10 +73,9 @@ void BunshinMagic::processCastBegin(int prm_now_level, int prm_new_level) {
                                               veloVyMv + (ANG_SIN(paAng_way[n]) * PX_C(3)),
                                               veloVzMv + (ANG_COS(paAng_way[n]) * PX_C(3)) ); //放射状にエフェクト放出
             pEffect->pAxsMver_->execGravitationMvSequenceTwd(P_MYSHIP, 10000, 200, 2000);
-            pEffect->setAlpha(0.9);
-            pEffect->setScaleR(1.0f);
             _TRACE_(getBehaveingFrame()<<":BunshinMagic::processCastBegin("<<prm_now_level<<","<<prm_new_level<<") papEffect_["<<(lv-1)<<"]->activate();");
             pEffect->activate();
+            pEffect->blink(10, MAX_FRAME, 0, nullptr, false);
         }
 //        pMyShip->pMyMagicEnergyCore_->execBunshinMagic();
         GGAF_DELETEARR(paAng_way);
@@ -88,14 +87,6 @@ void BunshinMagic::processCastBegin(int prm_now_level, int prm_new_level) {
 
 void BunshinMagic::processCastingBehavior(int prm_now_level, int prm_new_level){
     if (prm_new_level > prm_now_level) {
-        frame t = getProgress()->getFrame();
-        float s = 10.0f * (1.0f * t / time_of_next_state_);
-        if (s < 1.0f) {
-            s = 1.0f;
-        }
-        for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
-            papEffect_[lv-1]->setScaleR(s);
-        }
     }
 }
 
@@ -147,11 +138,8 @@ void BunshinMagic::processEffectBegin(int prm_last_level, int prm_now_level)  {
     if (prm_now_level > prm_last_level) {
         //レベルアップ時、エフェクトの処理
         for (int lv = prm_last_level+1; lv <= prm_now_level; lv++) {
-            MyBunshinBase* p = P_MYSHIP_SCENE->papBunshinBase_[lv-1];
-            papEffect_[lv-1]->inactivateDelay(120); //非活動の保険
-            _TRACE_(getBehaveingFrame()<<":BunshinMagic::processEffectBegin("<<prm_last_level<<","<<prm_now_level<<") papEffect_["<<(lv-1)<<"]->inactivateDelay(120);");
-            papEffect_[lv-1]->pAxsMver_->stopGravitationMvSequence();
-            papEffect_[lv-1]->positionAs(P_MYSHIP);
+            MyBunshin* pBunshin = P_MYSHIP_SCENE->papBunshinBase_[lv-1]->pBunshin_;
+            papEffect_[lv-1]->blink(0, 2, 120, pBunshin, false);
         }
     }
 }

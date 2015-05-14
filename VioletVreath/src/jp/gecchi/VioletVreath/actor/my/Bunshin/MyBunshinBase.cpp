@@ -48,6 +48,7 @@ MyBunshinBase::MyBunshinBase(const char* prm_name, unsigned int prm_no) :
     pAxsMver_->forceVxyzMvAcceRange(-MyBunshinBase::RENGE / 30, MyBunshinBase::RENGE / 30);
 
     is_free_mode_ = false;
+    is_isolate_mode_ = true;
     moving_frames_since_default_pos_ = 0;
 
     bunshin_default_radius_position_ = 0;
@@ -98,13 +99,18 @@ void MyBunshinBase::onActive() {
         p[i].set(P_MYSHIP);
     }
     pBunshin_->setRadiusPosition(0);
-    resetBunshinPos(0);
+    resetBunshin(0);
 }
 
 void MyBunshinBase::processBehavior() {
+    GgafDxKuroko* pKuroko = getKuroko();
+    if (is_isolate_mode_) {
+        pKuroko->behave();
+        pAxsMver_->behave();
+        return;
+    }
     const MyShip* pMyShip = P_MYSHIP;
     const VirtualButton* pVbPlay = VB_PLAY;
-    GgafDxKuroko* pKuroko = getKuroko();
     GgafProgress* const pProg = getProgress();
 
     switch (pProg->get()) {
@@ -251,12 +257,12 @@ void MyBunshinBase::processBehavior() {
         if (pVbPlay->isBeingPressed(VB_TURBO)) {
             //VB_OPTION ダブルプッシュ + VB_TURBO押しっぱなしの場合
             //オールリセット
-            resetBunshinPos(0);
+            resetBunshin(0);
         } else {
             //VB_OPTION ダブルプッシュ、VB_TURBOを押していないと、
             //チョットリセット
             //フリーモード維持、半径位置も維持、
-            resetBunshinPos(1);
+            resetBunshin(1);
         }
     } else if (pVbPlay->isBeingPressed(VB_OPTION)) {
         //分身操作
@@ -384,9 +390,10 @@ void MyBunshinBase::processBehavior() {
     pAxsMver_->behave();
 }
 
-void MyBunshinBase::resetBunshinPos(int prm_mode) {
+void MyBunshinBase::resetBunshin(int prm_mode) {
     //prm_mode = 0 オールリセット
     //prm_mode = 1 ハーフリセット
+    is_isolate_mode_ = false;
     GgafDxKuroko* pKuroko = getKuroko();
     GgafProgress* const pProg = getProgress();
     //完全にデフォルト状態に元に戻ために、最低限必要なフレーム数基準値
@@ -407,10 +414,9 @@ void MyBunshinBase::resetBunshinPos(int prm_mode) {
                    return_default_pos_frames_ * delay_r_
                );
     //分身の角度位置が元に戻る指示
-    int angvelo_sgn = SGN(bunshin_default_angvelo_mv_);
     pKuroko->asstB()->rollFaceAngByDtTo(
                           bunshin_default_ang_position_,
-                          angvelo_sgn > 0 ? TURN_COUNTERCLOCKWISE : TURN_CLOCKWISE,
+                          SGN(bunshin_default_angvelo_mv_) > 0 ? TURN_COUNTERCLOCKWISE : TURN_CLOCKWISE,
                           return_default_pos_frames_/2, //ばらつかせるとズレるので  * delay_r_ しません
                           0.3, 0.5,
                           bunshin_default_angvelo_mv_,

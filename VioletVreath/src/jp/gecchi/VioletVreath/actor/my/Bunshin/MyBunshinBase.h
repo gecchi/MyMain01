@@ -132,7 +132,7 @@ public:
     };
     frame return_default_pos_frames_;
     bool is_free_mode_;
-
+    bool is_isolate_mode_;
 public:
     /**
      * コンストラクタ .
@@ -167,7 +167,7 @@ public:
 
     virtual ~MyBunshinBase();
 
-    void resetBunshinPos(int prm_mode);
+    void resetBunshin(int prm_mode);
 
     static void setBunshinNum(unsigned int prm_num);
 };

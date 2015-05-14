@@ -61,11 +61,11 @@ public:
      * @param prm_p1 トップスピードに達する時刻となるような、Teに対する割合(p1)
      * @param prm_p2 減速を開始時刻となるような、Teに対する割合(p2)
      * @param prm_end_velo 最終スピード(Ve)
-     * @param prm_endacc_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
+     * @param prm_zero_acc_end_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
     void slideMvByDt(coord prm_target_distance, int prm_target_frames,
                      float prm_p1, float prm_p2, velo prm_end_velo,
-                     bool prm_endacc_flg);
+                     bool prm_zero_acc_end_flg);
 
     /**
      * なめらかな移動速度を変化させるシークエンスを実行(速度・距離指定、時間変動) .
@@ -100,26 +100,22 @@ public:
      * @param prm_p1 トップスピードに達する距離となるような、距離(D)に対する割合。(d1 = D*prm_p1)
      * @param prm_p2 減速を開始距離となるような、距離(D)に対する割合 (d1+d2 = D*p2)
      * @param prm_end_velo 最終スピード(Ve) (>=0)
-     * @param prm_endacc_flg true:目標時間に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
+     * @param prm_zero_acc_end_flg true:目標時間に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
     void slideMvByVd(velo prm_top_velo, coord prm_target_distance,
                      float prm_p1, float prm_p2, velo prm_end_velo,
-                     bool prm_endacc_flg);
+                     bool prm_zero_acc_end_flg);
 
     bool isSlidingMv() {
-        return _smthMv._prm._flg;
+        return _smthMv.isAccelerating();
     }
 
     void stopSlidingMv() {
-        _smthMv._prm._flg = false;
+        _smthMv.stopAccelerating();
     }
 
     bool hasJustFinishedSlidingMv() {
-        if (_smthMv._prm._flg == false && _smthMv._prm._progress != -1) {
-            return true;
-        } else {
-            return false;
-        }
+        return _smthMv.hasJustFinishedAccelerating();
     }
    /**
      * 黒衣の助手が振る舞う .

@@ -1,5 +1,6 @@
 #include "MyBunshin.h"
 
+#include "MyBunshinBase.h"
 #include "MyBunshinShot001.h"
 #include "MyBunshinSnipeShot001.h"
 
@@ -19,9 +20,7 @@
 #include "jp/ggaf/dxcore/util/GgafDxQuaternion.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
-
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-
 #include "jp/ggaf/core/util/GgafValueEnveloper.hpp"
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -34,6 +33,7 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) :
         DefaultMeshSetActor(prm_name, "8/myvic", STATUS(MyBunshin)) {
 
     _class_name = "MyBunshin";
+    pBase_ = prm_pBase;
 
     //自弾ストック
     pDepo_MyBunshinShot_ = NEW GgafActorDepository("Depo_MyBunshinShot");
@@ -102,10 +102,7 @@ void MyBunshin::onActive() {
 void MyBunshin::processBehavior() {
     changeGeoLocal(); //ローカル座標の操作とする。
 
-
     GgafDxKuroko* pKuroko = getKuroko();
-    const VirtualButton* pVbPlay = VB_PLAY;
-
 
     pKuroko->behave();
     pScaler_->behave();
@@ -115,6 +112,9 @@ void MyBunshin::processBehavior() {
 
 
 void MyBunshin::processChangeGeoFinal() {
+    if (pBase_->is_isolate_mode_) {
+        return;
+    }
     if (getActiveFrame() <= 120) {
         return;
     }
