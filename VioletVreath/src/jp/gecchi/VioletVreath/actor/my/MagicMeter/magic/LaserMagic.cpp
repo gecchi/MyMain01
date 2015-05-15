@@ -4,7 +4,6 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyStraightLaserChip001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectLaserMagic.h"
-#include "jp/gecchi/VioletVreath/actor/my/option/MyOptionWateringLaserChip001.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyMagicEnergyCore.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
@@ -94,7 +93,6 @@ void LaserMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
     if (prm_now_level > 0) {
         P_MYSHIP->can_shoot_laser_ = true;
         MyStraightLaserChip001::chengeTex(prm_now_level-1);
-        MyOptionWateringLaserChip001::chengeTex(prm_now_level-1);
     } else {
         //レベル0へレベルダウン時
         P_MYSHIP->can_shoot_laser_ = false;

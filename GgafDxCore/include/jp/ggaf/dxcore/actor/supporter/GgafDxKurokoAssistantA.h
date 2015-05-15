@@ -1,5 +1,5 @@
-#ifndef GGAFDXCORE_GGAFDXKUROKOHELPERA_H_
-#define GGAFDXCORE_GGAFDXKUROKOHELPERA_H_
+#ifndef GGAFDXCORE_GGAFDXKUROKOASSISTANT_H_
+#define GGAFDXCORE_GGAFDXKUROKOASSISTANT_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 #include "jp/ggaf/core/util/GgafValueAccelerator.hpp"
@@ -127,5 +127,5 @@ public:
 };
 
 }
-#endif /*GGAFDXCORE_GGAFDXKUROKOHELPERA_H_*/
+#endif /*GGAFDXCORE_GGAFDXKUROKOASSISTANT_H_*/
 

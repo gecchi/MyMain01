@@ -9,16 +9,6 @@
 
 namespace VioletVreath {
 
-#define SH_NOMAL 0;
-#define SH_LASER 1;
-
-#define MAX_LEVEL_MOVE_SPEED 5
-#define MIN_LEVEL_MOVE_SPEED 0
-
-#define EQ_OPTION 1
-#define EQ_MAX_OPTION 0
-
-
 //#define MY_SHIP_VREATH_COST (500)
 //無呼吸時 1000000/500/60 = 約33.3秒で死ぬ
 
@@ -34,8 +24,6 @@ namespace VioletVreath {
 #define TRACE_DELAY_WAIT_FRAME (0x7fffffff)
 
 #define MYSHIP_SHOT_MATRIX (7)
-
-
 
 
 
@@ -261,13 +249,6 @@ public:
     /** 上(+Y)又は下(-Y)へTurbo移動開始時のZ軸回転角速度の初速度 */
     angvelo angRxVelo_BeginMZT_; //Rotation axisX angle Velo when I Begin To Move Z with Turbo
     //上の場合は正、下の場合はこれに -1 を乗ずる
-
-    //けす
-    /** VB_OPTION を離した瞬間の座標を(0,0,0)として、そこからの相対座標履歴（VB_OPTION押している時は除外されている） */
-    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_MyShipGeoHistory4OptCtrler_;
-    /** 自機の毎フレームの移動履歴（絶対座標）  */
-    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_MyShipGeoHistory2_;
-    //けす
 
     GgafCore::GgafActorDepository* pDepo_MyShots001_;
     GgafCore::GgafActorDepository* pDepo_MySnipeShots001_;

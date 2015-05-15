@@ -1,5 +1,5 @@
-#ifndef MYOPTIONLOCKONCONTROLLER_H_
-#define MYOPTIONLOCKONCONTROLLER_H_
+#ifndef MYLOCKONCONTROLLER_H_
+#define MYLOCKONCONTROLLER_H_
 #include "VioletVreath.h"
 #include "jp/ggaf/core/actor/ex/GgafDestructActor.h"
 
@@ -57,5 +57,5 @@ public:
 };
 
 }
-#endif /*MYOPTIONLOCKONCONTROLLER_H_*/
+#endif /*MYLOCKONCONTROLLER_H_*/
 

@@ -311,8 +311,7 @@ class EnemyStraightLaserChip001;
 class VamSysCamWorker;
 class PauseCamWorker;
 class MyShipDivingCamWorker;
-class MyOptionWateringLaserChip001;
-class MyOptionStraightLaserChip001;
+
 class MyStraightLaserChip001;
 class MyShip;
 class MyMagicEnergyCore;
@@ -326,13 +325,7 @@ class MyBunshinShot001;
 class MyBunshinSnipeShot001;
 class MyBunshinWateringLaserChip001;
 
-class MyOptionController;
-class MyOptionControllerGizmo;
-class MyOptionControllerDirectionVector;
-class MyOption;
-class MyOptionShot001;
-class MyOptionSnipeShot001;
-class EffectMyOption;
+
 class MyTorpedoController;
 class MyTorpedoTail;
 class MyTorpedo;
@@ -361,7 +354,6 @@ class VreathBar;
 class DamageDispBar;
 
 class Magic;
-class OptionMagic;
 class BunshinMagic;
 class LaserMagic;
 class ShotMagic;
@@ -377,7 +369,6 @@ class EffectTorpedoMagic;
 class EffectLockonMagic;
 class EffectLaserMagic;
 class EffectShotMagic;
-class EffectOptionMagic001;
 class EffectBunshinMagic001;
 class EffectVreathMagic001;
 class EffectSmileMagic001;

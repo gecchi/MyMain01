@@ -35,8 +35,6 @@ using namespace VioletVreath;
 int MyShip::wk_dist = 0;
 angle MyShip::wk_angRx = 0;
 
-#define S_OPTION 0
-
 coord MyShip::lim_y_top_     =  0;
 coord MyShip::lim_y_bottom_  =  0;
 coord MyShip::lim_x_front_   =  0;
@@ -146,8 +144,6 @@ MyShip::MyShip(const char* prm_name) :
     veloBeginMT_ = 0;
     setMoveSpeed(2000);
 
-//    pOptionCtrler_ = NEW MyOptionController("MY_OPTION_PARENT");
-//    addSubLast(pOptionCtrler_);
 
 //    //debug ---->
 //    pDepo_TestGuShot_ = NEW GgafActorDepository("Depo_TestGuShot");
@@ -216,21 +212,6 @@ MyShip::MyShip(const char* prm_name) :
 
     pMyMagicEnergyCore_ = NEW MyMagicEnergyCore("MyMagicEnergyCore");
     addSubGroup(pMyMagicEnergyCore_);
-
-//---->けす
-    //トレース用履歴
-    pRing_MyShipGeoHistory4OptCtrler_ = NEW GgafLinkedListRing<GgafDxGeoElem>();
-    pRing_MyShipGeoHistory2_ = NEW GgafLinkedListRing<GgafDxGeoElem>();
-    for (uint32_t i = 0; i < 300; i++) {
-        pRing_MyShipGeoHistory4OptCtrler_->addLast(NEW GgafDxGeoElem(this));
-        pRing_MyShipGeoHistory2_->addLast(NEW GgafDxGeoElem(0,0,0));
-    }
-    pRing_MyShipGeoHistory4OptCtrler_->indexedValue();
-    pRing_MyShipGeoHistory2_->indexedValue();
-//<----けす
-
-
-
 
 
     //X, Y    方向のスイッチで、普通の2次元の8方向レバー・・・で、
@@ -694,53 +675,6 @@ void MyShip::processBehavior() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    //オプションのために座標情報保存
-    pRing_MyShipGeoHistory2_->next()->set(this);
-    if (pVbPlay->isBeingPressed(VB_OPTION)) {
-        GgafDxGeoElem* pGeoMyShipPrev = pRing_MyShipGeoHistory2_->getPrev();
-        //(_x_local, _y_local, _z_local) は、初期位置(0,0,0) から、
-        //VB_OPTIONを押している間のみ移動した増分座標を保持。
-        _x_local += (_x - pGeoMyShipPrev->x); //移動増分
-        _y_local += (_y - pGeoMyShipPrev->y);
-        _z_local += (_z - pGeoMyShipPrev->z);
-    } else {
-        //(_x_local, _y_local, _z_local) はVB_OPTIONを離した時の初期位置(0,0,0) からの増分座標がはいっている。
-        //したがって、pRing_MyShipGeoHistory4OptCtrler_は、
-        //自機の絶対座標履歴から、VB_OPTION を押した場合の増分座標を除外した移動座標履歴（絶対座標）となる。
-        //この履歴の座標に(_x_local, _y_local, _z_local) に(_x_local, _y_local, _z_local)座標を足せば、自機の座標と同値
-        GgafDxGeoElem* pGeo = pRing_MyShipGeoHistory4OptCtrler_->getCurrent();
-        if (pGeo->x == _x - _x_local && pGeo->y == _y - _y_local && pGeo->z == _z - _z_local) {
-            //移動していない場合
-            trace_delay_count_++;
-            if (trace_delay_count_ > TRACE_DELAY_WAIT_FRAME) { //1秒間トレースな状態を維持できるようにする。
-                pRing_MyShipGeoHistory4OptCtrler_->next()->set(_x - _x_local,
-                                                               _y - _y_local,
-                                                               _z - _z_local );
-                is_trace_waiting_ = false;
-            } else {
-                is_trace_waiting_ = true;
-            }
-        } else {
-            trace_delay_count_ = 0;
-            pRing_MyShipGeoHistory4OptCtrler_->next()->set(_x - _x_local,
-                                                           _y - _y_local,
-                                                           _z - _z_local );
-            is_trace_waiting_ = false;
-        }
-    }
-
     //毎フレームの呼吸の消費
     getStatus()->minus(STAT_Stamina, MY_SHIP_VREATH_COST);
 
@@ -955,11 +889,10 @@ void MyShip::onHit(const GgafActor* prm_pOtherActor) {
     if (pOther->getKind() & KIND_CHIKEI) {
         //吹っ飛び方向を考える。
         //現在の移動の逆方向（吹っ飛び威力は２倍に）
-        GgafDxGeoElem* pGeoMyShipPrev = pRing_MyShipGeoHistory2_->getPrev();
         float vx1,vy1,vz1;
-        coord dX1 = -(_x - pGeoMyShipPrev->x);
-        coord dY1 = -(_y - pGeoMyShipPrev->y);
-        coord dZ1 = -(_z - pGeoMyShipPrev->z);
+        coord dX1 = -mv_offset_x_;
+        coord dY1 = -mv_offset_y_;
+        coord dZ1 = -mv_offset_z_;
         if (dX1 == 0 && dY1 == 0 && dZ1 == 0) {
             vx1 = vy1 = vz1 = 0;
         } else {
@@ -1681,11 +1614,6 @@ void MyShip::turbo_WAY_ZRIGHT_DOWN_BEHIND() {
 
 MyShip::~MyShip() {
     GGAF_DELETE(pAxsMver_);
-//けす
-    GGAF_DELETE(pRing_MyShipGeoHistory4OptCtrler_);
-    GGAF_DELETE(pRing_MyShipGeoHistory2_);
-//けす
-
 }
 
 

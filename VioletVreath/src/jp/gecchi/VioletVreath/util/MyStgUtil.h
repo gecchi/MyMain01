@@ -358,16 +358,6 @@ public:
 	static GgafCore::GgafStatus* resetMyMagicEnergyCoreStatus(GgafCore::GgafStatus* p);
 	//自機レーザー
 	static GgafCore::GgafStatus* resetMyStraightLaserChip001Status(GgafCore::GgafStatus* p);
-	//オプション
-	static GgafCore::GgafStatus* resetMyOptionStatus(GgafCore::GgafStatus* p);
-	//オプションショット
-	static GgafCore::GgafStatus* resetMyOptionShot001Status(GgafCore::GgafStatus* p);
-	//オプスナイプションショット
-	static GgafCore::GgafStatus* resetMyOptionSnipeShot001Status(GgafCore::GgafStatus* p);
-	//オプションカーブレーザー
-	static GgafCore::GgafStatus* resetMyOptionWateringLaserChip001Status(GgafCore::GgafStatus* p);
-	//オプションストレートレーザー
-	static GgafCore::GgafStatus* resetMyOptionStraightLaserChip001Status(GgafCore::GgafStatus* p);
 	//分身
 	static GgafCore::GgafStatus* resetMyBunshinStatus(GgafCore::GgafStatus* p);
 	//分身ションショット

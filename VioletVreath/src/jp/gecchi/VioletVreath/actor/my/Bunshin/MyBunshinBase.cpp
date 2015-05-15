@@ -486,14 +486,14 @@ void MyBunshinBase::setBunshinNum(unsigned int prm_num) {
             papBase[0]->config(60000, D_ANG(90*0), 0, 1000);
             papBase[1]->config(60000, D_ANG(90*1), 0, 1000);
             papBase[2]->config(60000, D_ANG(90*2), 0, 1000);
-            papBase[3]->config(60000, D_ANG(90*2), 0, 1000);
+            papBase[3]->config(60000, D_ANG(90*3), 0, 1000);
             break;
         }
         case 5: {
             papBase[0]->config(60000, D_ANG(90*0), 0, 1000);
             papBase[1]->config(60000, D_ANG(90*1), 0, 1000);
             papBase[2]->config(60000, D_ANG(90*2), 0, 1000);
-            papBase[3]->config(60000, D_ANG(90*2), 0, 1000);
+            papBase[3]->config(60000, D_ANG(90*3), 0, 1000);
             papBase[4]->config(120000, D0ANG, 0, -1500);
             break;
         }
@@ -501,7 +501,7 @@ void MyBunshinBase::setBunshinNum(unsigned int prm_num) {
             papBase[0]->config(60000, D_ANG(90*0), 0, 1000);
             papBase[1]->config(60000, D_ANG(90*1), 0, 1000);
             papBase[2]->config(60000, D_ANG(90*2), 0, 1000);
-            papBase[3]->config(60000, D_ANG(90*2), 0, 1000);
+            papBase[3]->config(60000, D_ANG(90*3), 0, 1000);
             papBase[4]->config(120000, D0ANG  , 0, -1500);
             papBase[5]->config(120000, D180ANG, 0, -1500);
             break;

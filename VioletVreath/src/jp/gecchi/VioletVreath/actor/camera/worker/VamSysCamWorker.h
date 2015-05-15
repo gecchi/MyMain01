@@ -55,8 +55,6 @@ public:
     coord correction_width_;
     /** 画面背後時用Y軸補正範囲差分 */
     coord correction_height_;
-    /** カメラはオプション背面中である場合true */
-    bool is_cam_pos_option_back_;
 
     int pos_camera_;
     int pos_camera_prev_;

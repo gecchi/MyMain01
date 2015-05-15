@@ -2,7 +2,6 @@
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
-#include "jp/gecchi/VioletVreath/actor/my/option/MyOptionController.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/Properties.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
@@ -36,7 +35,6 @@ VamSysCamWorker::VamSysCamWorker(const char* prm_name) : CameraWorker(prm_name) 
     lim_VP_behaind_ = MyShip::lim_x_behaind_ + (PX_C(PROPERTY::GAME_BUFFER_WIDTH)/2)*revise;
     lim_VP_zleft_   = MyShip::lim_z_left_   - (PX_C(PROPERTY::GAME_BUFFER_WIDTH)/2)*revise;
     lim_VP_zright_  = MyShip::lim_z_right_  + (PX_C(PROPERTY::GAME_BUFFER_WIDTH)/2)*revise;
-    is_cam_pos_option_back_ = false;
     pos_camera_prev_ = -1;
     pos_camera_ = VAM_POS_RIGHT;
     pos_camera_pressed_ = VAM_POS_RIGHT;
@@ -77,41 +75,12 @@ void VamSysCamWorker::processBehavior() {
     }
     Camera* pCam = pCam_;
     CameraViewPoint* pVP = (CameraViewPoint*)(pCam->getCameraViewPoint());
-    MyOptionController* pOptCtrler = P_MYSHIP_SCENE->papOptionCtrler_[0];
 
-    //カメラ位置番号を決定処理
-    is_cam_pos_option_back_ = false;
-//    if (pVbPlay->isBeingPressed(VB_OPTION)) { //オプション操作時
-//        if (MyOptionController::now_option_num_ >= 1 && pVbPlay->isBeingPressed(VB_VIEW)) {
-//            is_cam_pos_option_back_ = true; //TODO:オプション操作中のオプション[0]の背面に回る
-//        }
-//    } else if (pVbPlay->isPushedDown(VB_VIEW)) { //ビューボタンプッシュ                              //オプション非操作時（通常時）
-//        _TRACE_("VB_VIEW!! now pos_camera_="<<pos_camera_);
-//        if (pos_camera_ < VAM_POS_TO_BEHIND) { //背面ビューポイントではない場合、
-//            pos_camera_ += VAM_POS_TO_BEHIND;  //それぞれの対応背面ビューポイントへ
-//        } else if (pos_camera_ > VAM_POS_TO_BEHIND) {//背面ビューポイントの場合
-//            //方向入力により新たなビューポイントへ
-//            if (pVbPlay->isBeingPressed(VB_RIGHT)) {
-//                pos_camera_ = VAM_POS_LEFT;
-//            } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
-//                pos_camera_ = VAM_POS_RIGHT;
-//            } else if (pVbPlay->isBeingPressed(VB_UP)) {
-//                pos_camera_ = VAM_POS_BOTTOM;
-//            } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
-//                pos_camera_ = VAM_POS_TOP;
-//            } else {
-//                //方向未入力の場合、元のビューポイントへ
-//                pos_camera_ -= VAM_POS_TO_BEHIND;
-//            }
-//        }
-//        _TRACE_("VB_VIEW!!  -> pos_camera_="<<pos_camera_);
-//    }
     bool isBeingPressed_VB_VIEW_RIGHT = pVbPlay->isBeingPressed(VB_VIEW_RIGHT);
     bool isBeingPressed_VB_VIEW_LEFT = pVbPlay->isBeingPressed(VB_VIEW_LEFT);
     bool isBeingPressed_VB_VIEW_UP = pVbPlay->isBeingPressed(VB_VIEW_UP);
     bool isBeingPressed_VB_VIEW_DOWN = pVbPlay->isBeingPressed(VB_VIEW_DOWN);
     bool isBeingPressed_VB_VIEW = isBeingPressed_VB_VIEW_RIGHT || isBeingPressed_VB_VIEW_LEFT || isBeingPressed_VB_VIEW_UP || isBeingPressed_VB_VIEW_DOWN;
-
 
     bool isReleasedUp_VB_VIEW_RIGHT = pVbPlay->isReleasedUp(VB_VIEW_RIGHT);
     bool isReleasedUp_VB_VIEW_LEFT = pVbPlay->isReleasedUp(VB_VIEW_LEFT);
@@ -246,122 +215,110 @@ void VamSysCamWorker::processBehavior() {
     static const coord Dx = PX_C(PROPERTY::GAME_BUFFER_WIDTH/4);
     static const int Ddx_hw = (int)((PROPERTY::GAME_BUFFER_WIDTH*LEN_UNIT/2) - (PROPERTY::GAME_BUFFER_HEIGHT*LEN_UNIT/2));
 
-    if (is_cam_pos_option_back_) { //TODO:オプション操作中のオプション[0]背面に回る
-        coord d = dZ_camera_init_*0.6;
-        GgafDxKuroko* pOptCtrler_pKuroko = pOptCtrler->getKuroko();
-        mv_t_x_CAM = pOptCtrler->_x + pOptCtrler_pKuroko->_vX*-d;
-        mv_t_y_CAM = pOptCtrler->_y + pOptCtrler_pKuroko->_vY*-d;
-        mv_t_z_CAM = pOptCtrler->_z + pOptCtrler_pKuroko->_vZ*-d;
-        mv_t_x_VP = pOptCtrler->_x + pOptCtrler_pKuroko->_vX*d;
-        mv_t_y_VP = pOptCtrler->_y + pOptCtrler_pKuroko->_vY*d;
-        mv_t_z_VP = pOptCtrler->_z + pOptCtrler_pKuroko->_vZ*d;
+    if (pos_camera_ < VAM_POS_TO_BEHIND) {
+        if (pos_camera_ == VAM_POS_RIGHT) {
+//            mv_t_x_CAM = 0;
+//            mv_t_y_CAM = 0;
+//            mv_t_z_CAM = -dZ_camera_init_;
+//            mv_t_x_VP = 0;
+//            mv_t_y_VP = 0;
+//            mv_t_z_VP = 0;
 
-    } else {//通常時VAM
-        if (pos_camera_ < VAM_POS_TO_BEHIND) {
-            if (pos_camera_ == VAM_POS_RIGHT) {
-    //            mv_t_x_CAM = 0;
-    //            mv_t_y_CAM = 0;
-    //            mv_t_z_CAM = -dZ_camera_init_;
-    //            mv_t_x_VP = 0;
-    //            mv_t_y_VP = 0;
-    //            mv_t_z_VP = 0;
-
-                mv_t_x_CAM = -Dx + (-pMyShip_->_x-200000)*2;
-                //↑ -200000 はカメラ移動位置、
-                //   *2 は自機が後ろに下がった時のカメラのパン具合。
-                //   この辺りの数値は納得いくまで調整を繰した。
-                //   TODO:本当はゲーム領域の大きさから動的に計算できる。いつかそうしたい。
-                if (-Dx > mv_t_x_CAM) {
-                    mv_t_x_CAM = -Dx;
-                } else if (mv_t_x_CAM > Dx/2) {
-                    mv_t_x_CAM = Dx/2;
-                }
-                mv_t_y_CAM = pMyShip_->_y;
-                mv_t_z_CAM = pMyShip_->_z - dZ_camera_init_;
-
-                mv_t_x_VP = Dx - (-pMyShip_->_x-200000)*2;
-                if (Dx < mv_t_x_VP) {
-                    mv_t_x_VP = Dx;
-                } else if ( mv_t_x_VP < -Dx/2) {
-                    mv_t_x_VP = -Dx/2;
-                }
-                mv_t_y_VP = pMyShip_->_y;
-                mv_t_z_VP = pMyShip_->_z-100000;
-            } else if (pos_camera_ == VAM_POS_LEFT) {
-                mv_t_x_CAM = -Dx + (-pMyShip_->_x-200000)*2;
-                if (-Dx > mv_t_x_CAM) {
-                    mv_t_x_CAM = -Dx;
-                } else if (mv_t_x_CAM > Dx/2) {
-                    mv_t_x_CAM = Dx/2;
-                }
-                mv_t_y_CAM = pMyShip_->_y;
-                mv_t_z_CAM = pMyShip_->_z + dZ_camera_init_;
-                mv_t_x_VP = Dx - (-pMyShip_->_x-200000)*2;
-                if (Dx < mv_t_x_VP) {
-                    mv_t_x_VP = Dx;
-                } else if ( mv_t_x_VP < -Dx/2) {
-                    mv_t_x_VP = -Dx/2;
-                }
-                mv_t_y_VP = pMyShip_->_y;
-                mv_t_z_VP = pMyShip_->_z+100000;
-            } else if (pos_camera_ == VAM_POS_TOP) {
-                mv_t_x_CAM = -Dx - Ddx_hw + (-pMyShip_->_x-125000)*2;
-                if ((-Dx - Ddx_hw) > mv_t_x_CAM) {
-                    mv_t_x_CAM = -Dx - Ddx_hw;
-                } else if (mv_t_x_CAM > (Dx + Ddx_hw)/2) {
-                    mv_t_x_CAM = (Dx + Ddx_hw)/2;
-                }
-                mv_t_y_CAM = pMyShip_->_y + dZ_camera_init_ + Ddx_hw;
-                mv_t_z_CAM = pMyShip_->_z;
-                mv_t_x_VP = Dx + Ddx_hw - (-pMyShip_->_x-125000)*2;
-                if (Dx + Ddx_hw < mv_t_x_VP) {
-                    mv_t_x_VP = Dx + Ddx_hw;
-                } else if ( mv_t_x_VP < -(Dx + Ddx_hw)/2) {
-                    mv_t_x_VP = -(Dx + Ddx_hw)/2;
-                }
-                mv_t_y_VP = pMyShip_->_y;
-                mv_t_z_VP = pMyShip_->_z;
-            } else if (pos_camera_ == VAM_POS_BOTTOM) {
-                mv_t_x_CAM = -Dx - Ddx_hw + (-pMyShip_->_x-125000)*2;
-                if ((-Dx - Ddx_hw) > mv_t_x_CAM) {
-                    mv_t_x_CAM = -Dx - Ddx_hw;
-                } else if (mv_t_x_CAM > (Dx + Ddx_hw)/2) {
-                    mv_t_x_CAM = (Dx + Ddx_hw)/2;
-                }
-                mv_t_y_CAM = pMyShip_->_y - dZ_camera_init_ - Ddx_hw;
-                mv_t_z_CAM = pMyShip_->_z;
-                mv_t_x_VP = Dx + Ddx_hw - (-pMyShip_->_x-125000)*2;
-                if (Dx + Ddx_hw < mv_t_x_VP) {
-                    mv_t_x_VP = Dx + Ddx_hw;
-                } else if ( mv_t_x_VP < -(Dx + Ddx_hw)/2) {
-                    mv_t_x_VP = -(Dx + Ddx_hw)/2;
-                }
-                mv_t_y_VP = pMyShip_->_y;
-                mv_t_z_VP = pMyShip_->_z;
+            mv_t_x_CAM = -Dx + (-pMyShip_->_x-200000)*2;
+            //↑ -200000 はカメラ移動位置、
+            //   *2 は自機が後ろに下がった時のカメラのパン具合。
+            //   この辺りの数値は納得いくまで調整を繰した。
+            //   TODO:本当はゲーム領域の大きさから動的に計算できる。いつかそうしたい。
+            if (-Dx > mv_t_x_CAM) {
+                mv_t_x_CAM = -Dx;
+            } else if (mv_t_x_CAM > Dx/2) {
+                mv_t_x_CAM = Dx/2;
             }
-        } else if (pos_camera_ > VAM_POS_TO_BEHIND) {
-            mv_t_x_CAM = pMyShip_->_x - (dZ_camera_init_*0.6);
             mv_t_y_CAM = pMyShip_->_y;
+            mv_t_z_CAM = pMyShip_->_z - dZ_camera_init_;
+
+            mv_t_x_VP = Dx - (-pMyShip_->_x-200000)*2;
+            if (Dx < mv_t_x_VP) {
+                mv_t_x_VP = Dx;
+            } else if ( mv_t_x_VP < -Dx/2) {
+                mv_t_x_VP = -Dx/2;
+            }
+            mv_t_y_VP = pMyShip_->_y;
+            mv_t_z_VP = pMyShip_->_z-100000;
+        } else if (pos_camera_ == VAM_POS_LEFT) {
+            mv_t_x_CAM = -Dx + (-pMyShip_->_x-200000)*2;
+            if (-Dx > mv_t_x_CAM) {
+                mv_t_x_CAM = -Dx;
+            } else if (mv_t_x_CAM > Dx/2) {
+                mv_t_x_CAM = Dx/2;
+            }
+            mv_t_y_CAM = pMyShip_->_y;
+            mv_t_z_CAM = pMyShip_->_z + dZ_camera_init_;
+            mv_t_x_VP = Dx - (-pMyShip_->_x-200000)*2;
+            if (Dx < mv_t_x_VP) {
+                mv_t_x_VP = Dx;
+            } else if ( mv_t_x_VP < -Dx/2) {
+                mv_t_x_VP = -Dx/2;
+            }
+            mv_t_y_VP = pMyShip_->_y;
+            mv_t_z_VP = pMyShip_->_z+100000;
+        } else if (pos_camera_ == VAM_POS_TOP) {
+            mv_t_x_CAM = -Dx - Ddx_hw + (-pMyShip_->_x-125000)*2;
+            if ((-Dx - Ddx_hw) > mv_t_x_CAM) {
+                mv_t_x_CAM = -Dx - Ddx_hw;
+            } else if (mv_t_x_CAM > (Dx + Ddx_hw)/2) {
+                mv_t_x_CAM = (Dx + Ddx_hw)/2;
+            }
+            mv_t_y_CAM = pMyShip_->_y + dZ_camera_init_ + Ddx_hw;
             mv_t_z_CAM = pMyShip_->_z;
-            mv_t_x_VP = pMyShip_->_x + (dZ_camera_init_*2);
+            mv_t_x_VP = Dx + Ddx_hw - (-pMyShip_->_x-125000)*2;
+            if (Dx + Ddx_hw < mv_t_x_VP) {
+                mv_t_x_VP = Dx + Ddx_hw;
+            } else if ( mv_t_x_VP < -(Dx + Ddx_hw)/2) {
+                mv_t_x_VP = -(Dx + Ddx_hw)/2;
+            }
             mv_t_y_VP = pMyShip_->_y;
             mv_t_z_VP = pMyShip_->_z;
-    //        if (pos_camera_ == VAM_POS_BEHIND_RIGHT) {
-    //            mv_t_z_CAM -= Dd;
-    //        } else if (pos_camera_ == VAM_POS_BEHIND_LEFT) {
-    //            mv_t_z_CAM += Dd;
-    //        } else if (pos_camera_ == VAM_POS_BEHIND_TOP) {
-    //            mv_t_y_CAM += Dd;
-    //        } else if (pos_camera_ == VAM_POS_BEHIND_BOTTOM) {
-    //            mv_t_y_CAM -= Dd;
-    //        }
-        } else {
-            throwGgafCriticalException("VamSysCamWorker::processBehavior() 不正なpos_camera_="<<pos_camera_);
+        } else if (pos_camera_ == VAM_POS_BOTTOM) {
+            mv_t_x_CAM = -Dx - Ddx_hw + (-pMyShip_->_x-125000)*2;
+            if ((-Dx - Ddx_hw) > mv_t_x_CAM) {
+                mv_t_x_CAM = -Dx - Ddx_hw;
+            } else if (mv_t_x_CAM > (Dx + Ddx_hw)/2) {
+                mv_t_x_CAM = (Dx + Ddx_hw)/2;
+            }
+            mv_t_y_CAM = pMyShip_->_y - dZ_camera_init_ - Ddx_hw;
+            mv_t_z_CAM = pMyShip_->_z;
+            mv_t_x_VP = Dx + Ddx_hw - (-pMyShip_->_x-125000)*2;
+            if (Dx + Ddx_hw < mv_t_x_VP) {
+                mv_t_x_VP = Dx + Ddx_hw;
+            } else if ( mv_t_x_VP < -(Dx + Ddx_hw)/2) {
+                mv_t_x_VP = -(Dx + Ddx_hw)/2;
+            }
+            mv_t_y_VP = pMyShip_->_y;
+            mv_t_z_VP = pMyShip_->_z;
         }
-        //カメラの目標座標、ビューポイントの目標座標について、現在の動いている方向への若干画面寄りを行う。（ﾅﾝﾉｺｯﾁｬ）
-        mv_t_z_CAM -= (pMyShip_->_z*0.08);
-        mv_t_y_CAM -= (pMyShip_->_y*0.08);
+    } else if (pos_camera_ > VAM_POS_TO_BEHIND) {
+        mv_t_x_CAM = pMyShip_->_x - (dZ_camera_init_*0.6);
+        mv_t_y_CAM = pMyShip_->_y;
+        mv_t_z_CAM = pMyShip_->_z;
+        mv_t_x_VP = pMyShip_->_x + (dZ_camera_init_*2);
+        mv_t_y_VP = pMyShip_->_y;
+        mv_t_z_VP = pMyShip_->_z;
+//        if (pos_camera_ == VAM_POS_BEHIND_RIGHT) {
+//            mv_t_z_CAM -= Dd;
+//        } else if (pos_camera_ == VAM_POS_BEHIND_LEFT) {
+//            mv_t_z_CAM += Dd;
+//        } else if (pos_camera_ == VAM_POS_BEHIND_TOP) {
+//            mv_t_y_CAM += Dd;
+//        } else if (pos_camera_ == VAM_POS_BEHIND_BOTTOM) {
+//            mv_t_y_CAM -= Dd;
+//        }
+    } else {
+        throwGgafCriticalException("VamSysCamWorker::processBehavior() 不正なpos_camera_="<<pos_camera_);
     }
+    //カメラの目標座標、ビューポイントの目標座標について、現在の動いている方向への若干画面寄りを行う。（ﾅﾝﾉｺｯﾁｬ）
+    mv_t_z_CAM -= (pMyShip_->_z*0.08);
+    mv_t_y_CAM -= (pMyShip_->_y*0.08);
 
     //カメラ移動座標を制限。
     //自機移動範囲に応じて、画面端の感じを演出するため。(無くとも問題ない？)

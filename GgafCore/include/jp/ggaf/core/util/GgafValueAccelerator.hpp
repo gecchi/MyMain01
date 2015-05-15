@@ -446,9 +446,9 @@ public:
      */
     bool hasJustFinishedAccelerating() {
         if (_flg == false && _progress != -1) {
-            return false;
-        } else {
             return true;
+        } else {
+            return false;
         }
     }
 

@@ -9,8 +9,6 @@
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/VreathMagic.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicLvCursor001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicLvCursor002.h"
-#include "jp/gecchi/VioletVreath/actor/my/option/MyOptionController.h"
-#include "jp/gecchi/VioletVreath/actor/my/option/MyOption.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -27,51 +25,11 @@ using namespace VioletVreath;
 
 MyShipScene::MyShipScene(const char* prm_name) : DefaultScene(prm_name) ,
 pMyShip_(nullptr),
-papOptionCtrler_(nullptr), //---->けす
 papBunshinBase_(nullptr) {
     _class_name = "MyShipScene";
     pMyShip_ = NEW MyShip("MYSHIP");
     pMyShip_->inactivate(); //配下に仮登録のアクター発送者とかあるし
-
-//---->けす
-    papOptionCtrler_ = NEW MyOptionController*[MyOptionController::max_option_num_];
-    for (int i = 0; i < MyOptionController::max_option_num_; i ++) {
-        std::string name = "MyOpCtrler("+XTOS(i)+")";
-        papOptionCtrler_[i] = NEW MyOptionController(name.c_str(), i);
-        bringDirector()->addSubLast(papOptionCtrler_[i]);
-    }
-
-    papOptionCtrler_[0]->pOption_->config(60000, D0ANG, 0, 1000);
-    papOptionCtrler_[0]->pOption_->setMaterialColor(1.0, 1.0, 1.0);
-    papOptionCtrler_[0]->pOption_->setAlpha(0.7);
-    papOptionCtrler_[1]->pOption_->config(60000, D90ANG, 0, 1000);
-    papOptionCtrler_[1]->pOption_->setMaterialColor(0.8, 1.0, 1.0);
-    papOptionCtrler_[1]->pOption_->setAlpha(0.7);
-    papOptionCtrler_[2]->pOption_->config(60000, D180ANG, 0, 1000);
-    papOptionCtrler_[2]->pOption_->setMaterialColor(1.0, 0.8, 0.8);
-    papOptionCtrler_[2]->pOption_->setAlpha(0.7);
-    papOptionCtrler_[3]->pOption_->config(60000, D270ANG, 0, 1000);
-    papOptionCtrler_[3]->pOption_->setMaterialColor(0.8, 1.0, 0.8);
-    papOptionCtrler_[3]->pOption_->setAlpha(0.7);
-
-    papOptionCtrler_[4]->pOption_->config(120000, D_ANG(72*0), 0, -1500);
-    papOptionCtrler_[4]->pOption_->setMaterialColor(0.8, 0.8, 1.0);
-    papOptionCtrler_[4]->pOption_->setAlpha(0.7);
-    papOptionCtrler_[5]->pOption_->config(120000, D_ANG(72*1), 0, -1500);
-    papOptionCtrler_[5]->pOption_->setMaterialColor(0.8, 1.0, 0.8);
-    papOptionCtrler_[5]->pOption_->setAlpha(0.7);
-    papOptionCtrler_[6]->pOption_->config(120000, D_ANG(72*2), 0, -1500);
-    papOptionCtrler_[6]->pOption_->setMaterialColor(1.0, 0.8, 0.8);
-    papOptionCtrler_[6]->pOption_->setAlpha(0.7);
-    papOptionCtrler_[7]->pOption_->config(120000, D_ANG(72*3), 0, -1500);
-    papOptionCtrler_[7]->pOption_->setMaterialColor(1.0, 1.0, 0.0);
-    papOptionCtrler_[7]->pOption_->setAlpha(0.7);
-    papOptionCtrler_[8]->pOption_->config(120000, D_ANG(72*4), 0, -1500);
-    papOptionCtrler_[8]->pOption_->setMaterialColor(1.0, 0.0, 1.0);
-    papOptionCtrler_[8]->pOption_->setAlpha(0.7);
-
     bringDirector()->addSubGroup(pMyShip_);
-//<----けす
 
     papBunshinBase_ = NEW MyBunshinBase*[MyBunshinBase::MAX_BUNSHIN_NUM];
     for (int i = 0; i < MyBunshinBase::MAX_BUNSHIN_NUM; i ++) {
@@ -117,9 +75,10 @@ void MyShipScene::onReset() {
     pLabelZanki_->update(z.c_str());
 
     pMyShip_->resetTree();
-    for (int i = 0; i < MyOptionController::max_option_num_; i ++) {
-        papOptionCtrler_[i]->resetTree();
+    for (int i = 0; i < MyBunshinBase::MAX_BUNSHIN_NUM; i ++) {
+        papBunshinBase_[i]->resetTree();
     }
+
     fadeoutSceneWithBgm(0);
     getProgress()->reset(MyShipScene::PROG_INIT);
     P_GOD->getSpacetime()->resetCamWorker();
@@ -196,8 +155,8 @@ void MyShipScene::processBehavior() {
             if (pProg->hasJustChanged()) {
                 pEffectMyShipExplosion_->activate(); //爆発
                 pMyShip_->can_control_ = false;
-                for (int i = 0; i < MyOptionController::max_option_num_; i ++) {
-                    papOptionCtrler_[i]->is_free_from_myship_mode_ = true;
+                for (int i = 0; i < MyBunshinBase::MAX_BUNSHIN_NUM; i ++) {
+                    papBunshinBase_[i]->is_isolate_mode_ = true;
                 }
                 G_ZANKI -= 1;
                 std::string z(G_ZANKI, '*');
@@ -236,7 +195,5 @@ void MyShipScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
 }
 
 MyShipScene::~MyShipScene() {
-    GGAF_DELETEARR(papOptionCtrler_);	//けす
-
     GGAF_DELETEARR(papBunshinBase_);
 }

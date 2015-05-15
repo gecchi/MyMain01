@@ -25,7 +25,7 @@ public:
     /** 拡大縮小支援オブジェクト */
     GgafDxCore::GgafDxScaler* pScaler_;
     /** [r]親アクターとなる魚雷コンローラー */
-    MyTorpedoController* pOptionTorpedoCtrler_;
+    MyTorpedoController* pTorpedoCtrler_;
     /** [r]魚雷の移動軌跡エフェクトの数 */
     int length_TailEffect_;
     /** [r]魚雷の移動軌跡エフェクトのデポジトリ */
@@ -43,10 +43,10 @@ public:
     /**
      * コンストラクタ .
      * @param prm_name
-     * @param prm_pOptionTorpedoController 親アクターとなる魚雷コンローラー .
+     * @param prm_pTorpedoController 親アクターとなる魚雷コンローラー .
      * @return
      */
-    MyTorpedo(const char* prm_name, MyTorpedoController* prm_pOptionTorpedoController);
+    MyTorpedo(const char* prm_name, MyTorpedoController* prm_pTorpedoController);
 
     void onCreateModel() override {
     }

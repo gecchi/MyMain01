@@ -1,5 +1,5 @@
-#ifndef GGAFDXCORE_GGAFDXMORPHERHELPERA_H_
-#define GGAFDXCORE_GGAFDXMORPHERHELPERA_H_
+#ifndef GGAFDXCORE_GGAFDXMORPHERASSISTANT_H_
+#define GGAFDXCORE_GGAFDXMORPHERASSISTANT_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 #include "jp/ggaf/core/util/GgafValueAccelerator.hpp"
@@ -120,5 +120,5 @@ public:
 };
 
 }
-#endif /*GGAFDXCORE_GGAFDXMORPHERHELPERA_H_*/
+#endif /*GGAFDXCORE_GGAFDXMORPHERASSISTANT_H_*/
 

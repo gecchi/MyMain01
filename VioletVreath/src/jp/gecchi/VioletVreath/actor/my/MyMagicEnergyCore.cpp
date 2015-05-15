@@ -68,10 +68,6 @@ void MyMagicEnergyCore::processBehavior() {
 void MyMagicEnergyCore::processJudgement() {
 }
 
-void MyMagicEnergyCore::execOptionMagic() {
-    ((MyMagicEnergy*)getSubFirst())->effectFlush(10);
-}
-
 int MyMagicEnergyCore::isOutOfView() {
     //‰æ–ÊŠO”»’è–³‚µ
     return 0;

@@ -16,11 +16,11 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-MyTorpedo::MyTorpedo(const char* prm_name, MyTorpedoController* prm_pOptionTorpedoController)
+MyTorpedo::MyTorpedo(const char* prm_name, MyTorpedoController* prm_pTorpedoController)
                : DefaultMeshSetActor(prm_name, "EffectLaserRefraction001", STATUS(MyTorpedo)) {
     _class_name = "MyTorpedo";
     pScaler_ = NEW GgafDxScaler(this);
-    pOptionTorpedoCtrler_ = prm_pOptionTorpedoController;
+    pTorpedoCtrler_ = prm_pTorpedoController;
     length_TailEffect_ = 8;
     begin_x_ = _x;
     begin_y_ = _y;
@@ -83,8 +83,8 @@ void MyTorpedo::onActive() {
     getProgress()->reset(MyTorpedo_IN_FIRE);
     move_section_ = 0;
     //非ターゲット時の方向、オプションの向いてる方向に飛ばす
-    trz_ = pOptionTorpedoCtrler_->pOrg_->_rz;
-    try_ = pOptionTorpedoCtrler_->pOrg_->_ry;
+    trz_ = pTorpedoCtrler_->pOrg_->_rz;
+    try_ = pTorpedoCtrler_->pOrg_->_ry;
 }
 
 void MyTorpedo::processBehavior() {
@@ -243,7 +243,7 @@ void MyTorpedo::onHit(const GgafActor* prm_pOtherActor) {
     //魚雷の移動エフェクトが全てinactive()になった際に自身もinactive()する
 
     //爆風発生
-    MyTorpedoBlast* pBlast = (MyTorpedoBlast*)(pOptionTorpedoCtrler_->pDepo_TorpedoBlast_->dispatchForce());
+    MyTorpedoBlast* pBlast = (MyTorpedoBlast*)(pTorpedoCtrler_->pDepo_TorpedoBlast_->dispatchForce());
     getSeTx()->play3D(SE_EXPLOSION);
     pBlast->reset();
     pBlast->positionAs(this);

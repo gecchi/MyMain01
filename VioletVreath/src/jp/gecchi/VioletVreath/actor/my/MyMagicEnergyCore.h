@@ -32,11 +32,6 @@ public:
 
     void processJudgement() override;
 
-    /**
-     * オプション詠唱開始時アニメーション .
-     */
-    void execOptionMagic();
-
 
     void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
