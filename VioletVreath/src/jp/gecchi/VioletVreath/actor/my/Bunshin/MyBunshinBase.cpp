@@ -17,19 +17,20 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-const unsigned int MyBunshinBase::MAX_BUNSHIN_NUM = 9;
+const int MyBunshinBase::MAX_BUNSHIN_NUM = 9;
 const frame MyBunshinBase::BUNSHIN_D = 16;
 const angvelo MyBunshinBase::ANGVELO_TURN = PX_C(2);        //分身の向きの角速度
 const angvelo MyBunshinBase::ANGVELO_EXPANSE = PX_C(2);     //分身広がり回転角速度
 const int MyBunshinBase::RENGE = PX_C(70);                  //分身が戻ってくる時のMAX速さ
 const velo MyBunshinBase::VELO_BUNSHIN_FREE_MV = PX_C(20);  //分身フリー移動時の分身の移動速度
 
-unsigned int MyBunshinBase::now_bunshin_num_ = 0;
-//MyBunshinBase::MyBunshinBase(const char* prm_name, int prm_no) :
-//  GgafDxGeometricActor(prm_name, nullptr, nullptr) {
+int MyBunshinBase::now_bunshin_num_ = 0;
 
 MyBunshinBase::MyBunshinBase(const char* prm_name, unsigned int prm_no) :
-        DefaultMeshActor(prm_name, "Nothing") {
+        DefaultGeometricActor(prm_name) {
+
+    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //DefaultGeometricActorでFKベースになるために必要
+
     trace_offset_.set(0,0,0);
     no_ = prm_no; //１～
     delay_r_ = RCNV(1,MyBunshinBase::MAX_BUNSHIN_NUM,no_,0.5,1.0);
@@ -56,6 +57,7 @@ MyBunshinBase::MyBunshinBase(const char* prm_name, unsigned int prm_no) :
     bunshin_default_expanse_ = 0;
     bunshin_default_angvelo_mv_ = 0;
     bunshin_velo_mv_radius_pos_ = 0;
+
 }
 
 void MyBunshinBase::config(
@@ -74,7 +76,6 @@ void MyBunshinBase::config(
 
 void MyBunshinBase::initialize() {
     setScaleR(2.0);
-    setAlpha(0.7);
     getKuroko()->linkFaceAngByMvAng(true);
     useProgress(PROG_BANPEI);
 }
@@ -135,10 +136,10 @@ void MyBunshinBase::processBehavior() {
         }
         case PROG_BUNSHIN_FREE_MODE_IGNITED: { //分身フリーモード、点火待ち！
             if (pProg->hasJustChanged()) {
+                pBunshin_->effectFreeModeIgnited(); //点火エフェクト
             }
             if (pVbPlay->isBeingPressed(VB_OPTION | VB_TURBO) == (VB_OPTION | VB_TURBO)) {
-                if (pProg->getFrame() >= (MyBunshinBase::now_bunshin_num_ - (no_-1) )*3) { //最初のオプションほどカウントが多く必要
-                    pBunshin_->effectIgnited(); //点火完了エフェクト
+                if (pProg->getFrame() >= (((MyBunshinBase::now_bunshin_num_ - (no_-1) )*5) + 10) ) { //おしりのオプションから
                     pProg->change(PROG_BUNSHIN_FREE_MODE_READY);
                 }
             } else {
@@ -152,19 +153,28 @@ void MyBunshinBase::processBehavior() {
             break;
         }
         case PROG_BUNSHIN_FREE_MODE_READY: { //分身フリーモード発射準備OK
-            if (pVbPlay->isBeingPressed(VB_OPTION)) {
-                if(pVbPlay->isReleasedUp(VB_TURBO)) { //VB_OPTIONだけ離すと発射。
-                    //発射！！
-                    pProg->change(PROG_BUNSHIN_FREE_MODE_MOVE);
-                } else {
-                    //発射待ち・・・
-                }
+            if (pProg->hasJustChanged()) {
+                pBunshin_->effectFreeModeReady(); //発射準備OKエフェクト
+            }
+            if (pProg->getFrame() >= ((MyBunshinBase::now_bunshin_num_*5) + 10) + 10) {
+                //強制発射
+                pProg->change(PROG_BUNSHIN_FREE_MODE_MOVE);
             } else {
-                //分身フリーモード、リセット
-                if (is_free_mode_) {
-                    pProg->change(PROG_BUNSHIN_FREE_MODE_STOP);
+                if (pVbPlay->isBeingPressed(VB_OPTION)) {
+                    if(pVbPlay->isReleasedUp(VB_TURBO)) { //VB_TURBOだけ離すと即発射。
+                        //ハーフ発射！！
+                        pProg->change(PROG_BUNSHIN_FREE_MODE_MOVE);
+                    } else {
+                        //発射待ち・・・
+                    }
                 } else {
-                    pProg->change(PROG_BUNSHIN_NOMAL_TRACE);
+                    //VB_OPTION を離すとリセット。
+                    //リセット
+                    if (is_free_mode_) {
+                        pProg->change(PROG_BUNSHIN_FREE_MODE_STOP);
+                    } else {
+                        pProg->change(PROG_BUNSHIN_NOMAL_TRACE);
+                    }
                 }
             }
             break;
@@ -172,13 +182,10 @@ void MyBunshinBase::processBehavior() {
         case PROG_BUNSHIN_FREE_MODE_MOVE: { //分身フリーモード、操作移動！
             if (pProg->hasJustChanged()) {
                 //分身フリーモード移動開始
+                 pBunshin_->effectFreeModeLaunch(); //発射エフェクト
                 is_free_mode_ = true;
                 pAxsMver_->setZeroVxyzMvVelo();
                 pAxsMver_->setZeroVxyzMvAcce();
-                EffectTurbo002* const pTurbo002 = dispatchFromCommon(EffectTurbo002);
-                if (pTurbo002) {
-                    pTurbo002->positionAs(pBunshin_);
-                }
             }
             if (pVbPlay->isBeingPressed(VB_OPTION)) {
                 //分身フリーモードで移動中
@@ -202,10 +209,10 @@ void MyBunshinBase::processBehavior() {
         case PROG_BUNSHIN_FREE_MODE_BACK_TO_DEFAULT_POS: { //分身元の場所に戻る！
             if (pProg->hasJustChanged()) {
             }
-            Pos* pTargetPos = pPosTrace_->getNext(); //通常時の本来の分身の座標位置を目標にする
-            coord tx = pTargetPos->x;
-            coord ty = pTargetPos->y;
-            coord tz = pTargetPos->z;
+            const Pos* pTargetPos = pPosTrace_->getNext(); //通常時の本来の分身の座標位置を目標にする
+            const coord tx = pTargetPos->x;
+            const coord ty = pTargetPos->y;
+            const coord tz = pTargetPos->z;
             if (pProg->getFrame() == 3*(no_-1)) { //ばらつかせ
 
                 // (0,1,0) × RxRzRy ＝ ( (cosRx*-sinRz*cosRy + sinRx*sinRy),  cosRx*cosRz, (cosRx*-sinRz*-sinRy + sinRx*cosRy) )
@@ -251,7 +258,6 @@ void MyBunshinBase::processBehavior() {
             pProg->change(PROG_BUNSHIN_FREE_MODE_IGNITED);
         }
     }
-
 
     if (pVbPlay->isDoublePushedDown(VB_OPTION,8,8)) {
         if (pVbPlay->isBeingPressed(VB_TURBO)) {
@@ -449,11 +455,10 @@ MyBunshinBase::~MyBunshinBase() {
     GGAF_DELETE(pAxsMver_);
 }
 
-
-void MyBunshinBase::setBunshinNum(unsigned int prm_num) {
+void MyBunshinBase::setBunshinNum(int prm_num) {
     MyBunshinBase::now_bunshin_num_ = prm_num;
     MyBunshinBase** papBase = P_MYSHIP_SCENE->papBunshinBase_;
-    for (unsigned int i = 0; i < MyBunshinBase::MAX_BUNSHIN_NUM; i++) {
+    for (int i = 0; i < MyBunshinBase::MAX_BUNSHIN_NUM; i++) {
         MyBunshinBase* p = papBase[i];
         if (i+1 <= prm_num) {
             if (!(p->isActive())) {

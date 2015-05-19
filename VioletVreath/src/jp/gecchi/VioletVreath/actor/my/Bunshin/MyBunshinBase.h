@@ -1,7 +1,8 @@
 #ifndef MYBUNSHINCONTROLLER_H_
 #define MYBUNSHINCONTROLLER_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/DefaultMeshActor.h"
+
+#include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
 
 namespace VioletVreath {
@@ -12,8 +13,7 @@ namespace VioletVreath {
  * @since 2015/04/17
  * @author Masatoshi Tsuge
  */
-class MyBunshinBase : public GgafLib::DefaultMeshActor {
-//class MyBunshinBase : public GgafDxCore::GgafDxGeometricActor {
+class MyBunshinBase : public GgafLib::DefaultGeometricActor {
 
 private:
     class Pos {
@@ -70,7 +70,7 @@ private:
     }
 public:
     /** 最大分身数 */
-    static const unsigned int MAX_BUNSHIN_NUM;
+    static const int MAX_BUNSHIN_NUM;
     /** [r]分身と分身の間隔 */
     static const frame BUNSHIN_D;
     /** [r]分身の向きの角速度 */
@@ -82,7 +82,7 @@ public:
     /** 分身フリー移動時の分身の移動速度 */
     static const velo VELO_BUNSHIN_FREE_MV;
 
-    static unsigned int now_bunshin_num_;
+    static int now_bunshin_num_;
 
 
     /** [r]分身本体 */
@@ -169,7 +169,7 @@ public:
 
     void resetBunshin(int prm_mode);
 
-    static void setBunshinNum(unsigned int prm_num);
+    static void setBunshinNum(int prm_num);
 };
 
 }

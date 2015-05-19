@@ -29,7 +29,7 @@ void GgafDxAxesMoverAssistantA::behave() {
         _pMaster->setVyMvAcce(_smthVyMv._org_acce);
     }
     if (_smthVzMv.isAccelerating()) {
-        _smthVyMv.behave();
+        _smthVzMv.behave();
         _pMaster->setVzMvVelo(_smthVzMv._org_velo - _smthVzMv._org_acce );
         _pMaster->setVzMvAcce(_smthVzMv._org_acce);
     }
@@ -43,7 +43,7 @@ void GgafDxAxesMoverAssistantA::slideVxMvByDt(coord prm_target_distance, int prm
     _smthVxMv._org_velo = _pMaster->_velo_vx_mv;
     _smthVxMv._org_acce = _pMaster->_acce_vx_mv;
     _smthVxMv.accelerateByDt(prm_target_distance, prm_target_frames,
-                             prm_p1,prm_p2,prm_end_velo,
+                             prm_p1, prm_p2, prm_end_velo,
                              prm_zero_acc_end_flg);
 }
 
@@ -54,7 +54,7 @@ void GgafDxAxesMoverAssistantA::slideVyMvByDt(coord prm_target_distance, int prm
     _smthVyMv._org_velo = _pMaster->_velo_vy_mv;
     _smthVyMv._org_acce = _pMaster->_acce_vy_mv;
     _smthVyMv.accelerateByDt(prm_target_distance, prm_target_frames,
-                             prm_p1,prm_p2,prm_end_velo,
+                             prm_p1, prm_p2, prm_end_velo,
                              prm_zero_acc_end_flg);
 }
 
@@ -65,7 +65,7 @@ void GgafDxAxesMoverAssistantA::slideVzMvByDt(coord prm_target_distance, int prm
     _smthVzMv._org_velo = _pMaster->_velo_vz_mv;
     _smthVzMv._org_acce = _pMaster->_acce_vz_mv;
     _smthVzMv.accelerateByDt(prm_target_distance, prm_target_frames,
-                             prm_p1,prm_p2,prm_end_velo,
+                             prm_p1, prm_p2, prm_end_velo,
                              prm_zero_acc_end_flg);
 }
 
@@ -77,7 +77,7 @@ void GgafDxAxesMoverAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_
                      prm_y_target - _pMaster->_pActor->_y,
                      prm_z_target - _pMaster->_pActor->_z,
                      prm_target_frames,
-                     prm_p1,  prm_p2,  prm_end_velo,
+                     prm_p1, prm_p2, prm_end_velo,
                      prm_zero_acc_end_flg);
 }
 
@@ -91,9 +91,9 @@ void GgafDxAxesMoverAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_
                      prm_y_target - _pMaster->_pActor->_y,
                      prm_z_target - _pMaster->_pActor->_z,
                      prm_target_frames,
-                     prm_x_p1,  prm_x_p2,  prm_x_end_velo,
-                     prm_y_p1,  prm_y_p2,  prm_y_end_velo,
-                     prm_z_p1,  prm_z_p2,  prm_z_end_velo,
+                     prm_x_p1, prm_x_p2, prm_x_end_velo,
+                     prm_y_p1, prm_y_p2, prm_y_end_velo,
+                     prm_z_p1, prm_z_p2, prm_z_end_velo,
                      prm_zero_acc_end_flg);
 }
 
@@ -104,7 +104,7 @@ void GgafDxAxesMoverAssistantA::slideVxMvByVd(velo prm_top_velo, coord prm_targe
     _smthVxMv._org_velo = _pMaster->_velo_vx_mv;
     _smthVxMv._org_acce = _pMaster->_acce_vx_mv;
     _smthVxMv.accelerateByVd(prm_top_velo, prm_target_distance,
-                             prm_p1,prm_p2,prm_end_velo,
+                             prm_p1, prm_p2, prm_end_velo,
                              prm_zero_acc_end_flg);
 }
 
@@ -126,7 +126,7 @@ void GgafDxAxesMoverAssistantA::slideVzMvByVd(velo prm_top_velo, coord prm_targe
     _smthVzMv._org_velo = _pMaster->_velo_vz_mv;
     _smthVzMv._org_acce = _pMaster->_acce_vz_mv;
     _smthVzMv.accelerateByVd(prm_top_velo, prm_target_distance,
-                             prm_p1,prm_p2,prm_end_velo,
+                             prm_p1, prm_p2, prm_end_velo,
                              prm_zero_acc_end_flg);
 }
 

@@ -22,6 +22,12 @@
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "jp/ggaf/core/util/GgafValueEnveloper.hpp"
+
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxColorist.h"
+
+#include "jp/gecchi/VioletVreath/actor/effect/EffectTurbo002.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -70,7 +76,7 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) :
 
     pScaler_ = NEW GgafDxScaler(this);
     pAFader_ = NEW GgafDxAlphaFader(this);
-
+    pColorist_ = NEW GgafDxColorist(this);
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(SE_FIRE_LASER,   "WAVE_MY_FIRE_LASER_002");
     pSeTx->set(SE_FIRE_SHOT,    "WAVE_MY_FIRE_SHOT_002");
@@ -97,6 +103,7 @@ void MyBunshin::onActive() {
     pTorpedoCtrler_->onActive();
     setAlpha(0);
     pAFader_->transitionLinerToTop(120);
+    resetMaterialColor();
 }
 
 void MyBunshin::processBehavior() {
@@ -107,6 +114,7 @@ void MyBunshin::processBehavior() {
     pKuroko->behave();
     pScaler_->behave();
     pAFader_->behave();
+    pColorist_->behave();
     changeGeoFinal();
 }
 
@@ -202,8 +210,27 @@ void MyBunshin::onInactive() {
 void MyBunshin::onHit(const GgafActor* prm_pOtherActor) {
 }
 
-void MyBunshin::effectIgnited() {
+void MyBunshin::effectFreeModeIgnited() {
+    pColorist_->flush(1.0, 5, 5, 3);
+}
+
+void MyBunshin::effectFreeModeReady() {
     pScaler_->beat(10, 4, 0, 4, 1); //オプションぷるぷる、発射じゅんびOKのエフェクト
+}
+
+void MyBunshin::effectFreeModeLaunch() {
+    EffectTurbo002* const pTurbo002 = dispatchFromCommon(EffectTurbo002);
+    if (pTurbo002) {
+        if (_is_local) {
+            pTurbo002->position(_x_final,_y_final,_z_final);
+            pTurbo002->setRollFaceAng(_rx_final);
+            pTurbo002->setRzRyFaceAng(_rz_final, _ry_final+D90ANG);
+        } else {
+            pTurbo002->positionAs(this);
+            pTurbo002->setRollFaceAng(_rx);
+            pTurbo002->setRzRyFaceAng(_rz, _ry+D90ANG);
+        }
+    }
 }
 
 void MyBunshin::setRadiusPosition(coord prm_radius_position) {
@@ -277,5 +304,6 @@ void MyBunshin::turnExpanse(coord prm_target_ang_expanse, frame prm_spent_frames
 MyBunshin::~MyBunshin() {
     GGAF_DELETE(pScaler_);
     GGAF_DELETE(pAFader_);
+    GGAF_DELETE(pColorist_);
 }
 

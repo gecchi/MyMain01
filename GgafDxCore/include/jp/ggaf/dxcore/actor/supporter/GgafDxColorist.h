@@ -37,6 +37,8 @@ public:
 
     void setValue(int idx, float value) override;
 
+    void flush(float prm_flush_max_color, frame prm_flush_freames, frame prm_rest_freames, double prm_flush_num);
+
     virtual ~GgafDxColorist();
 };
 

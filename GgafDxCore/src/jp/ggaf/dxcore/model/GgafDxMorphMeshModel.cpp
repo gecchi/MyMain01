@@ -24,9 +24,6 @@ GgafDxMorphMeshModel::GgafDxMorphMeshModel(const char* prm_model_name) : GgafDxM
     // モデル名からフターゲット数を取得
     _TRACE_("GgafDxMorphMeshModel prm_model_name="<<prm_model_name);
 
-
-
-
     std::string model_name = std::string(prm_model_name);
     std::vector<std::string> names = UTIL::split(model_name, "/", 1);
     if (names.size() != 2) {
@@ -207,8 +204,10 @@ void GgafDxMorphMeshModel::release() {
             GGAF_RELEASE(_paIDirect3DVertexBuffer9_morph[pattern-1]);
             GGAF_DELETEARR(_papaVtxBuffer_org_morph[pattern-1]);
         }
-        Frm::Model3D* p = _papModel3D[pattern];
-        GGAF_DELETE(p);
+        if (_papModel3D) {
+            Frm::Model3D* p = _papModel3D[pattern];
+            GGAF_DELETE(p);
+        }
     }
 
     GGAF_DELETEARR(_paIDirect3DVertexBuffer9_morph);

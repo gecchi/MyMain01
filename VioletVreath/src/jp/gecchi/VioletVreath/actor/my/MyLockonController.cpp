@@ -10,9 +10,8 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 /** １オプション当たりの最大可能ロックオン数 */
-int MyLockonController::max_lockon_num_ = 8;
+const int MyLockonController::max_lockon_num_ = 8;
 int MyLockonController::lockon_num_ = 0;
-
 
 MyLockonController::MyLockonController(const char* prm_name) :
         GgafDestructActor(prm_name, nullptr) {
@@ -136,16 +135,16 @@ void MyLockonController::lockon(GgafDxGeometricActor* prm_pTarget) {
                     //３個目の以降ターゲット追加時（２個目以降のサブロックオンターゲット追加時）
                     //ロックオンエフェクトの特殊なローテートを行う。（※最後のコメント＜追加の場合＞参照）
                     //Lastを切り出す
-                    GgafMainActor* const pLockonEffect = (GgafMainActor*)getSubFirst()->getPrev(); //Last
-                    GgafMainActor* const pLockonEffect_Next = pLockonEffect->getNext(); //Mainロックオンとなる
-                    GgafMainActor* const pLockonEffect_Prev = pLockonEffect->getPrev();
+                    GgafMainActor* pLockonEffect = (GgafMainActor*)getSubFirst()->getPrev(); //Last
+                    GgafMainActor* pLockonEffect_Next = pLockonEffect->getNext(); //Mainロックオンとなる
+                    GgafMainActor* pLockonEffect_Prev = pLockonEffect->getPrev();
                     pLockonEffect_Prev->_pNext = pLockonEffect_Next;
                     pLockonEffect_Next->_pPrev = pLockonEffect_Prev;
                     pLockonEffect_Prev->_is_last_flg = true;
                     pLockonEffect->_is_last_flg = false;
                     //First->Next の間に入れる
-                    GgafMainActor* const pMainLockonEffect = (GgafMainActor*)getSubFirst();
-                    GgafMainActor* const pMainLockonEffect_Next = (GgafMainActor*)getSubFirst()->getNext();
+                    GgafMainActor* pMainLockonEffect = (GgafMainActor*)getSubFirst();
+                    GgafMainActor* pMainLockonEffect_Next = (GgafMainActor*)getSubFirst()->getNext();
                     pMainLockonEffect->_pNext = pLockonEffect;
                     pLockonEffect->_pPrev = pMainLockonEffect;
                     pLockonEffect->_pNext = pMainLockonEffect_Next;

@@ -19,7 +19,7 @@ class MyLockonController : public GgafCore::GgafDestructActor {
 
 public:
     /** [r]１オプション当たりの最大可能ロックオン数 */
-    static int max_lockon_num_;
+    static const int max_lockon_num_;
     /** [r]１オプション当たりの現在可能ロックオン数 */
     static int lockon_num_;
 

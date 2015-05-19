@@ -607,8 +607,7 @@ public:
                         if (_beat_frame_of_attack_finish[i] > 0 ) {
                             _velo[i] = (VAL_TYPE)( ((double)(top - val)) / ((double)_beat_frame_of_attack_finish[i]) );
                         } else if (_beat_frame_of_attack_finish[i] == 0 ) {
-                            _velo[i] = 0;
-                            val = top;
+                            _velo[i] = _top[i] - val;
                         }
                     }
                 }
@@ -616,8 +615,8 @@ public:
 
             if (top < val) {
                 val = top;
-            } else if (bottom >  val) {
-                val =  bottom;
+            } else if (bottom > val) {
+                val = bottom;
             }
 
             setValue(i, val); //”½‰f
@@ -632,7 +631,7 @@ public:
     }
 };
 
-
 }
+
 #endif /*GGAFCORE_GGAFVALUEENVELOPER_H_*/
 

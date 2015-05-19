@@ -38,6 +38,7 @@ papBunshinBase_(nullptr) {
         papBunshinBase_[i]->inactivate();
         bringDirector()->addSubGroup(papBunshinBase_[i]);
     }
+    /*
     papBunshinBase_[0]->pBunshin_->setMaterialColor(1.0, 1.0, 1.0);
     papBunshinBase_[1]->pBunshin_->setMaterialColor(0.8, 1.0, 1.0);
     papBunshinBase_[2]->pBunshin_->setMaterialColor(1.0, 0.8, 0.8);
@@ -48,7 +49,7 @@ papBunshinBase_(nullptr) {
     papBunshinBase_[6]->pBunshin_->setMaterialColor(1.0, 0.8, 0.8);
     papBunshinBase_[7]->pBunshin_->setMaterialColor(1.0, 1.0, 0.0);
     papBunshinBase_[8]->pBunshin_->setMaterialColor(1.0, 0.0, 1.0);
-
+    */
 
     pEffectMyShipExplosion_ = NEW EffectMyShipExplosion("EffectMyShipExplosion");
     pEffectMyShipExplosion_->inactivate();

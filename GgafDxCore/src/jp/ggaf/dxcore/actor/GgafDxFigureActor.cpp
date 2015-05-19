@@ -323,6 +323,16 @@ void GgafDxFigureActor::setMaterialBlue(float b) {
     }
 }
 
+float GgafDxFigureActor::getMaterialRed() {
+    return _paMaterial[0].Diffuse.r;
+}
+float GgafDxFigureActor::getMaterialGreen() {
+    return _paMaterial[0].Diffuse.g;
+}
+float GgafDxFigureActor::getMaterialBlue() {
+    return _paMaterial[0].Diffuse.b;
+}
+
 void GgafDxFigureActor::setMaterialColor(const GgafCore::GgafRgb* prm_rgb) {
     setMaterialColor(prm_rgb->_r, prm_rgb->_g, prm_rgb->_b);
 }

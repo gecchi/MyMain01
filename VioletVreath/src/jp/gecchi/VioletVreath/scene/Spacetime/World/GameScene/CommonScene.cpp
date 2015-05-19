@@ -26,7 +26,7 @@ P_COMMON_DEPO(EffectBlink003) ( NEW GgafActorDepository("CommonDepo_EffectBlink0
 P_COMMON_DEPO(SpriteLabelBonus001) ( NEW GgafActorDepository("CommonDepo_SpriteLabelBonus001") ),
 P_COMMON_DEPO(Shot004) ( NEW GgafActorDepository("CommonDepo_Shot004") ),
 pStore_EnemyWateringLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_EnemyWateringLaser001") ),
-pStore_EnemyStraightLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_EnemyStraightLaser001_") )
+pStore_EnemyStraightLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_EnemyStraightLaser001") )
 
 {
     _class_name = "CommonScene";

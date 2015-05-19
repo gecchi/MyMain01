@@ -48,6 +48,7 @@ void Camera::slideMvTo(coord tx, coord ty, coord tz, frame t) {
                               tx, ty, tz, t,
                               0.3, 0.7, 0, true);
 }
+
 void Camera::slideMvTo(GgafDxGeometricActor* pTarget, frame t) {
     slideMvTo(pTarget->_x, pTarget->_y, pTarget->_z, t);
 }

@@ -232,6 +232,9 @@ public:
     virtual void setMaterialRed(float r);
     virtual void setMaterialGreen(float g);
     virtual void setMaterialBlue(float b);
+    virtual float getMaterialRed();
+    virtual float getMaterialGreen();
+    virtual float getMaterialBlue();
 
     /**
      * 本アクターの描画時のマテリアルカラーを設定。 .

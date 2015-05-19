@@ -116,19 +116,17 @@ void EnemyOzartia::processBehavior() {
             if (pProg->hasJustChanged()) {
                 faceang_to_ship_ = true;
                 pKuroko->setMvAcce(0);
-                //pKuroko->turnMvAngTwd(pMyShip, D_ANG(1), 0, TURN_ANTICLOSE_TO, false);
+                pKuroko->turnMvAngTwd(pMyShip, D_ANG(1), 0, TURN_ANTICLOSE_TO, false);
             }
-            pProg->change(PROG1_SP_MV01);
-//            if (is_hit_ || pProg->hasArrivedAt(5*60)) {
-//                //ヒットするか、しばらくボーっとしてると移動開始
-//                pProg->changeProbab(0, PROG1_MV_POS0,
-//                                    0, PROG1_MV_POS1,
-//                                    0, PROG1_MV_POS2,
-//                                    0, PROG1_MV_POS3,
-//                                    0, PROG1_MV_POS4,
-//                                    0, PROG1_MV_POS5,
-//                                    100,  PROG1_SP_MV01);
-//            }
+            if (is_hit_ || pProg->hasArrivedAt(5*60)) {
+                //ヒットするか、しばらくボーっとしてると移動開始
+                pProg->changeProbab(18, PROG1_MV_POS0,
+                                    16, PROG1_MV_POS1,
+                                    16, PROG1_MV_POS2,
+                                    16, PROG1_MV_POS3,
+                                    16, PROG1_MV_POS4,
+                                    18, PROG1_MV_POS5 );
+            }
             break;
         }
         //////////// 通常移動先決定 ////////////

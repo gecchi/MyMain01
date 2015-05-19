@@ -102,7 +102,7 @@ void GgafUtil::readProperties(std::istream& is, GgafStrMap& mapStr) {
             val << char(ch);
             ch = next;
         }
-        _TRACE_("[" << key.str() << "]=>[" << val.str() <<"]");
+        _TRACE_("\"" << key.str() << "\" => \"" << val.str() <<"\"");
         mapStr[key.str()] = val.str();
     }
 }

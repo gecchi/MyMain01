@@ -30,6 +30,8 @@ public:
     GgafDxCore::GgafDxScaler* pScaler_;
     /** [r]フィードイン・フェードアウト支援 */
     GgafDxCore::GgafDxAlphaFader* pAFader_;
+    /** [r]カラーリストさん */
+    GgafDxCore::GgafDxColorist* pColorist_;
 public:
     MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase);
 
@@ -53,7 +55,10 @@ public:
 
     virtual ~MyBunshin();
 
-    void effectIgnited();
+    void effectFreeModeIgnited();
+    void effectFreeModeReady();
+    void effectFreeModeLaunch();
+
 
     void setRadiusPosition(coord prm_radius_position);
     void addRadiusPosition(coord prm_radius_position);

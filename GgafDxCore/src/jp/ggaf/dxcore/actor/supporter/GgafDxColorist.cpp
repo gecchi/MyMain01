@@ -2,21 +2,21 @@
 
 #include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "d3d9types.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxColorist::GgafDxColorist(GgafDxFigureActor* prm_pActor) : GgafValueEnveloper<float, 3 > (),
 _pActor(prm_pActor) {
-    _pa_diffuse[0] = &(prm_pActor->_paMaterial[0].Diffuse.r);
-    _pa_diffuse[1] = &(prm_pActor->_paMaterial[0].Diffuse.g);
-    _pa_diffuse[2] = &(prm_pActor->_paMaterial[0].Diffuse.b);
+    _pa_diffuse[RED]   = &(_pActor->_paMaterial[0].Diffuse.r);
+    _pa_diffuse[GREEN] = &(_pActor->_paMaterial[0].Diffuse.g);
+    _pa_diffuse[BLUE]  = &(_pActor->_paMaterial[0].Diffuse.b);
     setRange(0, 1.0);
 }
 
 void GgafDxColorist::reset() {
     GgafValueEnveloper<float, 3 >::reset();
-    setRange(0, 1.0);
 }
 
 float GgafDxColorist::getValue(int idx) {
@@ -49,6 +49,17 @@ void GgafDxColorist::setValue(int idx, float value) {
             break;
         }
     }
+}
+
+void GgafDxColorist::flush(float prm_flush_max_color, frame prm_flush_freames, frame prm_rest_freames, double prm_flush_num) {
+    D3DMATERIAL9* paMaterial_default = _pActor->getModel()->_paMaterial_default;
+    float default_red   = paMaterial_default[0].Diffuse.r;
+    float default_green = paMaterial_default[0].Diffuse.g;
+    float default_blue  = paMaterial_default[0].Diffuse.b;
+    setRange(RED  , default_red  , prm_flush_max_color);
+    setRange(GREEN, default_green, prm_flush_max_color);
+    setRange(BLUE , default_blue , prm_flush_max_color);
+    beat(prm_flush_freames + prm_rest_freames, 0, prm_flush_freames, 0, prm_flush_num);
 }
 
 GgafDxColorist::~GgafDxColorist() {

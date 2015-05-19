@@ -219,8 +219,10 @@ void GgafDxMeshSetModel::release() {
     GGAF_DELETE(_pModel3D);
     //_pMeshesFront ‚Í _pModel3D ‚ðDELETE‚µ‚Ä‚¢‚é‚Ì‚Å‚·‚é•K—v‚Í–³‚¢
     _pMeshesFront = nullptr;
-    for (int i = 0; i < _set_num; i++) {
-        GGAF_DELETEARR(_papaIndexParam[i]);
+    if (_papaIndexParam) {
+        for (int i = 0; i < _set_num; i++) {
+            GGAF_DELETEARR(_papaIndexParam[i]);
+        }
     }
     GGAF_DELETEARR(_papaIndexParam);
     GGAF_DELETEARR(_paUint_material_list_grp_num);
