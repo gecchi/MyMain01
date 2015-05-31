@@ -42,10 +42,6 @@ void Shot004Blue::onActive() {
 }
 
 void Shot004Blue::processBehavior() {
-    //‰ÁZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ğŒ¸­
-    //UTIL::updateEnemyRankPoint(this);
-    //’e‚È‚Ì‚Å•s—v
-
     //À•W‚É”½‰f
     getKuroko()->behave();
 }

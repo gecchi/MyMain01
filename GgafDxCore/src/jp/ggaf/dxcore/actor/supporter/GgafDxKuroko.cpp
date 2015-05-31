@@ -3,34 +3,34 @@
 #include <math.h>
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantB.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantC.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoFaceAngAssistant.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAngAssistant.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxKuroko::GgafDxKuroko(GgafDxGeometricActor* prm_pActor) : GgafObject(),
 _pActor(prm_pActor) {
-    _pAsstA = nullptr;
-    _pAsstB = nullptr;
-    _pAsstC = nullptr;
+    _pAsstMv = nullptr;
+    _pAsstFaceAng = nullptr;
+    _pAsstMvAng = nullptr;
     reset();
 }
-GgafDxKurokoAssistantA* GgafDxKuroko::asstA() {
-    return _pAsstA ? _pAsstA : _pAsstA = NEW GgafDxKurokoAssistantA(this);
+GgafDxKurokoMvAssistant* GgafDxKuroko::asstMv() {
+    return _pAsstMv ? _pAsstMv : _pAsstMv = NEW GgafDxKurokoMvAssistant(this);
 }
-GgafDxKurokoAssistantB* GgafDxKuroko::asstB() {
-    return _pAsstB ? _pAsstB : _pAsstB = NEW GgafDxKurokoAssistantB(this);
+GgafDxKurokoFaceAngAssistant* GgafDxKuroko::asstFaceAng() {
+    return _pAsstFaceAng ? _pAsstFaceAng : _pAsstFaceAng = NEW GgafDxKurokoFaceAngAssistant(this);
 }
-GgafDxKurokoAssistantC* GgafDxKuroko::asstC() {
-    return _pAsstC ? _pAsstC : _pAsstC = NEW GgafDxKurokoAssistantC(this);
+GgafDxKurokoMvAngAssistant* GgafDxKuroko::asstMvAng() {
+    return _pAsstMvAng ? _pAsstMvAng : _pAsstMvAng = NEW GgafDxKurokoMvAngAssistant(this);
 }
 
 void GgafDxKuroko::reset() {
-    GGAF_DELETE_NULLABLE(_pAsstA);
-    GGAF_DELETE_NULLABLE(_pAsstB);
-    GGAF_DELETE_NULLABLE(_pAsstC);
+    GGAF_DELETE_NULLABLE(_pAsstMv);
+    GGAF_DELETE_NULLABLE(_pAsstFaceAng);
+    GGAF_DELETE_NULLABLE(_pAsstMvAng);
 
     _actor_ang_face[0] = &(_pActor->_rx);
     _actor_ang_face[1] = &(_pActor->_ry);
@@ -136,14 +136,14 @@ void GgafDxKuroko::reset() {
 }
 
 void GgafDxKuroko::behave() {
-    if (_pAsstA) {
-        _pAsstA->behave();
+    if (_pAsstMv) {
+        _pAsstMv->behave();
     }
-    if (_pAsstB) {
-        _pAsstB->behave();
+    if (_pAsstFaceAng) {
+        _pAsstFaceAng->behave();
     }
-    if (_pAsstC) {
-        _pAsstC->behave();
+    if (_pAsstMvAng) {
+        _pAsstMvAng->behave();
     }
 
     //³–Ê•ûŠpˆ—
@@ -1337,26 +1337,26 @@ void GgafDxKuroko::takeoverMvFrom(GgafDxKuroko* const prm_pKuroko) {
     //_jerkMv = prm_pKuroko->_jerkMv;
 }
 
-void GgafDxKuroko::stopTurnMvAng() {
+void GgafDxKuroko::stopTurningMvAng() {
     _is_targeting_ang_rz_mv = false;
     _ang_rz_mv_targeting_stop_flg = false;
     _is_targeting_ang_ry_mv = false;
     _ang_ry_mv_targeting_stop_flg = false;
-    if (_pAsstC) {
-        _pAsstC->stopTurnMvAng();
+    if (_pAsstMvAng) {
+        _pAsstMvAng->stopTurning();
     }
     setRzRyMvAngVelo(0, 0);
     setRzRyMvAngAcce(0, 0);
 }
 
-void GgafDxKuroko::stopTurnFaceAng() {
+void GgafDxKuroko::stopTurningFaceAng() {
     _is_targeting_ang_face[AXIS_X] = false;
     _is_targeting_ang_face[AXIS_Y] = false;
     _is_targeting_ang_face[AXIS_Z] = false;
     _taget_face_ang_alltime_pActor = nullptr;
     _taget_face_ang_alltime_flg = false;
-    if (_pAsstB) {
-        _pAsstB->stopTurnFaceAng();
+    if (_pAsstFaceAng) {
+        _pAsstFaceAng->stopTurn();
     }
     setFaceAngVelo(AXIS_Z, 0);
     setFaceAngVelo(AXIS_Y, 0);
@@ -1370,8 +1370,8 @@ bool GgafDxKuroko::isTurningFaceAng() const {
         _is_targeting_ang_face[AXIS_Z] ) {
         return true;
     } else {
-        if (_pAsstB) {
-            return _pAsstB->isTurningFaceAng();
+        if (_pAsstFaceAng) {
+            return _pAsstFaceAng->isTurning();
         } else {
             return false;
         }
@@ -1383,8 +1383,8 @@ bool GgafDxKuroko::isTurningMvAng() const {
     if (_is_targeting_ang_rz_mv || _is_targeting_ang_ry_mv) {
         return true;
     } else {
-        if (_pAsstC) {
-            return _pAsstC->isTurningMvAng();
+        if (_pAsstMvAng) {
+            return _pAsstMvAng->isTurning();
         } else {
             return false;
         }
@@ -1394,15 +1394,15 @@ bool GgafDxKuroko::isTurningMvAng() const {
 void GgafDxKuroko::stopMv() {
    setMvAcce(0);
    setMvVelo(0);
-   if (_pAsstA) {
-       _pAsstA->stopSlidingMv();
+   if (_pAsstMv) {
+       _pAsstMv->stopSliding();
    }
 }
 
 GgafDxKuroko::~GgafDxKuroko() {
-    GGAF_DELETE_NULLABLE(_pAsstA);
-    GGAF_DELETE_NULLABLE(_pAsstB);
-    GGAF_DELETE_NULLABLE(_pAsstC);
+    GGAF_DELETE_NULLABLE(_pAsstMv);
+    GGAF_DELETE_NULLABLE(_pAsstFaceAng);
+    GGAF_DELETE_NULLABLE(_pAsstMvAng);
 }
 
 

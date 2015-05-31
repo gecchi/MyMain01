@@ -91,8 +91,6 @@ void EnemyDrastea::onActive() {
 }
 
 void EnemyDrastea::processBehavior() {
-    //‰ÁZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ğŒ¸­
-    UTIL::updateEnemyRankPoint(this);
     //À•W‚É”½‰f
     getKuroko()->behave();
     pAxsMver_->behave();

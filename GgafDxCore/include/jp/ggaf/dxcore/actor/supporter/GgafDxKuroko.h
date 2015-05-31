@@ -31,11 +31,11 @@ class GgafDxKuroko : public GgafCore::GgafObject {
 
 private:
     /** [r]黒衣の助手A(移動速度の補佐) */
-    GgafDxKurokoAssistantA* _pAsstA;
+    GgafDxKurokoMvAssistant* _pAsstMv;
     /** [r]黒衣の助手B(軸回転方角角速度の補佐) */
-    GgafDxKurokoAssistantB* _pAsstB;
+    GgafDxKurokoFaceAngAssistant* _pAsstFaceAng;
     /** [r]黒衣の助手C(移動方角角速度の補佐) */
-    GgafDxKurokoAssistantC* _pAsstC;
+    GgafDxKurokoMvAngAssistant* _pAsstMvAng;
 
 public:
     /** [r]対象アクター */
@@ -52,19 +52,19 @@ public:
      * 黒衣の助手A(移動速度の補佐)を取得 .
      * @return 黒衣の助手A
      */
-    GgafDxKurokoAssistantA* asstA();
+    GgafDxKurokoMvAssistant* asstMv();
 
     /**
      * 黒衣の助手B(軸回転方角角速度の補佐)を取得 .
      * @return 黒衣の助手B
      */
-    GgafDxKurokoAssistantB* asstB();
+    GgafDxKurokoFaceAngAssistant* asstFaceAng();
 
     /**
      * 黒衣の助手C(移動方角角速度の補佐)を取得 .
      * @return 黒衣の助手C
      */
-    GgafDxKurokoAssistantC* asstC();
+    GgafDxKurokoMvAngAssistant* asstMvAng();
 
     void reset();
 
@@ -1063,9 +1063,9 @@ public:
                        angvelo prm_angvelo, angacce prm_angacce,
                        int prm_way);
 
-    void stopTurnMvAng();
+    void stopTurningMvAng();
 
-    void stopTurnFaceAng();
+    void stopTurningFaceAng();
 
     /**
      * 目標軸回転方角にターゲットするシークエンスが実行中か .

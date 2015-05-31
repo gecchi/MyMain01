@@ -23,8 +23,6 @@ void TestGu::onActive() {
 }
 
 void TestGu::processBehavior() {
-    //加算ランクポイントを減少
-    UTIL::updateEnemyRankPoint(this);
     getKuroko()->behave();
     //getSeTx()->behave();
     dispStamina();

@@ -49,8 +49,6 @@ void EnemyIrce::onActive() {
 }
 
 void EnemyIrce::processBehavior() {
-    //加算ランクポイントを減少
-    UTIL::updateEnemyRankPoint(this);
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->turnMvAngTwd(P_MYSHIP,
                           50, 0, TURN_CLOSE_TO, true);

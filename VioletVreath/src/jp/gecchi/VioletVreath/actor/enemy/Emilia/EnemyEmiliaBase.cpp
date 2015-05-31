@@ -21,8 +21,6 @@ void EnemyEmiliaBase::onCreateModel() {
 }
 
 void EnemyEmiliaBase::processBehavior() {
-    //加算ランクポイントを減少
-    UTIL::updateEnemyRankPoint(this);
     getKuroko()->behave();
 }
 

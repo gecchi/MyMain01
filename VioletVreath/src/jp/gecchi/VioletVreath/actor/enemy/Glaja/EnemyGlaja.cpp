@@ -11,7 +11,7 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Glaja/EnemyGlajaLance001.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
 
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 using namespace GgafCore;
@@ -49,8 +49,6 @@ void EnemyGlaja::onActive() {
 }
 
 void EnemyGlaja::processBehavior() {
-    //加算ランクポイントを減少
-    UTIL::updateEnemyRankPoint(this);
     MyShip* pMyShip = P_MYSHIP;
     GgafDxKuroko* const pKuroko = getKuroko();
     GgafProgress* const pProg = getProgress();
@@ -93,10 +91,10 @@ void EnemyGlaja::processBehavior() {
                  velo Vt = RF_EnemyGlaja_MvVelo(G_RANK);
                  velo Ve = 100;
                  coord D = UTIL::getDistance(this, &next_pos_);
-                 pKuroko->asstA()->slideMvByVd(Vt, D, 0.1, 0.5, Ve, true);
+                 pKuroko->asstMv()->slideByVd(Vt, D, 0.1, 0.5, Ve, true);
              }
 
-             if (pKuroko->asstA()->hasJustFinishedSlidingMv()) {
+             if (pKuroko->asstMv()->hasJustFinishedSliding()) {
                  pProg->changeNext();
              }
              break;

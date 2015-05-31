@@ -134,7 +134,6 @@ void EnemyOebius::processBehavior() {
             break;
     }
 
-    UTIL::updateEnemyRankPoint(this); //加算ランクポイントを減少
     pAFader_->behave();
     getKuroko()->behave();
 }

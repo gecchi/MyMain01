@@ -5,6 +5,8 @@
 
 namespace VioletVreath {
 
+#define MAX_LASER_LEVEL (3)
+
 /**
  * 魔法「レーザー」 .
  * @version 1.00

@@ -56,8 +56,6 @@ void EnemyTalante::onActive() {
 }
 
 void EnemyTalante::processBehavior() {
-    //加算ランクポイントを減少
-    UTIL::updateEnemyRankPoint(this);
     MyShip* pMyShip = P_MYSHIP;
     GgafDxKuroko* const pKuroko = getKuroko();
     GgafProgress* const pProg = getProgress();

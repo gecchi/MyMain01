@@ -8,8 +8,8 @@
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantB.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantC.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoFaceAngAssistant.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAngAssistant.h"
 #include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
 
 using namespace GgafCore;
@@ -156,7 +156,7 @@ void MyBunshinBase::processBehavior() {
             if (pProg->hasJustChanged()) {
                 pBunshin_->effectFreeModeReady(); //発射準備OKエフェクト
             }
-            if (pProg->getFrame() >= ((MyBunshinBase::now_bunshin_num_*5) + 10) + 10) {
+            if ( pProg->getFrame() >= ((no_-1)*5) + 10 ) { //最後の分身が発射準備OKになったあと+10
                 //強制発射
                 pProg->change(PROG_BUNSHIN_FREE_MODE_MOVE);
             } else {
@@ -182,7 +182,7 @@ void MyBunshinBase::processBehavior() {
         case PROG_BUNSHIN_FREE_MODE_MOVE: { //分身フリーモード、操作移動！
             if (pProg->hasJustChanged()) {
                 //分身フリーモード移動開始
-                 pBunshin_->effectFreeModeLaunch(); //発射エフェクト
+                pBunshin_->effectFreeModeLaunch(); //発射エフェクト
                 is_free_mode_ = true;
                 pAxsMver_->setZeroVxyzMvVelo();
                 pAxsMver_->setZeroVxyzMvAcce();
@@ -407,20 +407,20 @@ void MyBunshinBase::resetBunshin(int prm_mode) {
     //エフェクト
 
     //土台がの向きが元に戻る（前方に向く）指示
-    pKuroko->asstC()->turnRzRyMvAngByDtTo(D0ANG, D0ANG,
-                                          TURN_CLOSE_TO,
-                                          false,
-                                          return_default_pos_frames_ * delay_r_,
-                                          0.3, 0.5,
-                                          0,
-                                          true);
+    pKuroko->asstMvAng()->turnRzRyByDtTo(D0ANG, D0ANG,
+                                         TURN_CLOSE_TO,
+                                         false,
+                                         return_default_pos_frames_ * delay_r_,
+                                         0.3, 0.5,
+                                         0,
+                                         true);
     //分身の向きが元に戻る（前方に向く）指示
     pBunshin_->turnExpanse(
                    D_ANG(0),
                    return_default_pos_frames_ * delay_r_
                );
     //分身の角度位置が元に戻る指示
-    pKuroko->asstB()->rollFaceAngByDtTo(
+    pKuroko->asstFaceAng()->rollFaceAngByDtTo(
                           bunshin_default_ang_position_,
                           SGN(bunshin_default_angvelo_mv_) > 0 ? TURN_COUNTERCLOCKWISE : TURN_CLOCKWISE,
                           return_default_pos_frames_/2, //ばらつかせるとズレるので  * delay_r_ しません
@@ -431,7 +431,7 @@ void MyBunshinBase::resetBunshin(int prm_mode) {
     if (prm_mode == 0) {
         //VB_OPTION ダブルプッシュ + VB_TURBO押しっぱなしの場合
         //オールリセット
-        EffectTurbo002* const pTurbo002 = dispatchFromCommon(EffectTurbo002);
+        EffectTurbo002* pTurbo002 = dispatchFromCommon(EffectTurbo002);
         if (pTurbo002) {
             pTurbo002->positionAs(pBunshin_);
         }

@@ -1,6 +1,6 @@
 #include <actor/camera/MgrCameraViewPoint.h>
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/actor/DefaultMeshActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"

@@ -115,8 +115,6 @@ void EnemyAlisana::processBehavior() {
         default :
             break;
     }
-    //加算ランクポイントを減少
-    UTIL::updateEnemyRankPoint(this);
     pAFader_->behave();
     getMorpher()->behave();
     getKuroko()->behave();

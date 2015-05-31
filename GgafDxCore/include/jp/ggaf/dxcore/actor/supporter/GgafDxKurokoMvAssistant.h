@@ -1,5 +1,5 @@
-#ifndef GGAFDXCORE_GGAFDXKUROKOASSISTANT_H_
-#define GGAFDXCORE_GGAFDXKUROKOASSISTANT_H_
+#ifndef GGAFDXCORE_GGAFDXKUROKOMVASSISTANT_H_
+#define GGAFDXCORE_GGAFDXKUROKOMVASSISTANT_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 #include "jp/ggaf/core/util/GgafValueAccelerator.hpp"
@@ -13,7 +13,7 @@ namespace GgafDxCore {
  * @since 2013/12/05
  * @author Masatoshi Tsuge
  */
-class GgafDxKurokoAssistantA : public GgafCore::GgafObject {
+class GgafDxKurokoMvAssistant : public GgafCore::GgafObject {
 
 public:
     /** [r]師匠 */
@@ -25,7 +25,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pMaster  師匠
      */
-    explicit GgafDxKurokoAssistantA(GgafDxKuroko* prm_pMaster);
+    explicit GgafDxKurokoMvAssistant(GgafDxKuroko* prm_pMaster);
 
 
     /**
@@ -63,9 +63,9 @@ public:
      * @param prm_end_velo 最終スピード(Ve)
      * @param prm_zero_acc_end_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
-    void slideMvByDt(coord prm_target_distance, int prm_target_frames,
-                     float prm_p1, float prm_p2, velo prm_end_velo,
-                     bool prm_zero_acc_end_flg);
+    void slideByDt(coord prm_target_distance, int prm_target_frames,
+                   float prm_p1, float prm_p2, velo prm_end_velo,
+                   bool prm_zero_acc_end_flg);
 
     /**
      * なめらかな移動速度を変化させるシークエンスを実行(速度・距離指定、時間変動) .
@@ -102,19 +102,19 @@ public:
      * @param prm_end_velo 最終スピード(Ve) (>=0)
      * @param prm_zero_acc_end_flg true:目標時間に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
-    void slideMvByVd(velo prm_top_velo, coord prm_target_distance,
-                     float prm_p1, float prm_p2, velo prm_end_velo,
-                     bool prm_zero_acc_end_flg);
+    void slideByVd(velo prm_top_velo, coord prm_target_distance,
+                   float prm_p1, float prm_p2, velo prm_end_velo,
+                   bool prm_zero_acc_end_flg);
 
-    bool isSlidingMv() {
+    bool isSliding() {
         return _smthMv.isAccelerating();
     }
 
-    void stopSlidingMv() {
+    void stopSliding() {
         _smthMv.stopAccelerating();
     }
 
-    bool hasJustFinishedSlidingMv() {
+    bool hasJustFinishedSliding() {
         return _smthMv.hasJustFinishedAccelerating();
     }
    /**
@@ -123,9 +123,9 @@ public:
      */
     virtual void behave();
 
-    virtual ~GgafDxKurokoAssistantA();
+    virtual ~GgafDxKurokoMvAssistant();
 };
 
 }
-#endif /*GGAFDXCORE_GGAFDXKUROKOASSISTANT_H_*/
+#endif /*GGAFDXCORE_GGAFDXKUROKOMVASSISTANT_H_*/
 

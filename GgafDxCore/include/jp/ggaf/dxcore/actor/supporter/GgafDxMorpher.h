@@ -19,7 +19,7 @@ class GgafDxMorpher : public GgafCore::GgafValueEnveloper<float, (MAX_MORPH_TARG
 
 private:
     /** [r]モーファーの助手A */
-    GgafDxMorpherAssistantA* _pAsstA;
+    GgafDxMorpherAssistantA* _pAsstMv;
 
 public:
     /** [r]対象アクター */

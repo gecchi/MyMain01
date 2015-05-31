@@ -104,7 +104,7 @@ bool MyTorpedoController::fire() {
             //      :    Å^
             //      :  Å^
             //      :Å^
-            //     ÉI  É∆ Åc ê¨Ç∑äpexpanse        Å®ëOï˚
+            //     ï™  É∆   Åc ê¨Ç∑äpexpanse        Å®ëOï˚
             //      :Å_
             //      :  Å_
             //      :    Å_

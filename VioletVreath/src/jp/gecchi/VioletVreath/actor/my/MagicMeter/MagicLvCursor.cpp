@@ -7,7 +7,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/Magic.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -47,7 +47,7 @@ void MagicLvCursor::initialize() {
 void MagicLvCursor::processBehavior() {
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->behave();
-    if (pKuroko->asstA()->hasJustFinishedSlidingMv()) {
+    if (pKuroko->asstMv()->hasJustFinishedSliding()) {
         //理想位置に補正
         _x = tx_;
         _y = ty_;
@@ -84,7 +84,7 @@ void MagicLvCursor::processAfterDraw() {
 
 void MagicLvCursor::moveTo(int prm_lv) {
     GgafDxKuroko* const pKuroko = getKuroko();
-    pKuroko->asstA()->stopSlidingMv();
+    pKuroko->asstMv()->stopSliding();
     pKuroko->stopMv();
     point_lv_ = prm_lv;
     _x = tx_ = pMagicMeter_->_x + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
@@ -100,7 +100,7 @@ void MagicLvCursor::moveSmoothTo(int prm_lv, frame prm_target_frames, float prm_
     tx_ = pMagicMeter_->_x + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
     ty_ = pMagicMeter_->_y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
     pKuroko->setMvAngTwd(tx_, ty_);
-    pKuroko->asstA()->slideMvByDt(UTIL::getDistance(_x, _y, tx_, ty_), (int)prm_target_frames,
+    pKuroko->asstMv()->slideByDt(UTIL::getDistance(_x, _y, tx_, ty_), (int)prm_target_frames,
                                   prm_p1, prm_p2, 0, true); //ロールを考慮せずにとりあえず移動
 }
 

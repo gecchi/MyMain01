@@ -81,7 +81,7 @@ void MyShipScene::onReset() {
     }
 
     fadeoutSceneWithBgm(0);
-    getProgress()->reset(MyShipScene::PROG_INIT);
+    getProgress()->reset(PROG_INIT);
     P_GOD->getSpacetime()->resetCamWorker();
 }
 
@@ -93,7 +93,7 @@ void MyShipScene::processBehavior() {
     Spacetime* pSpacetime = P_GOD->getSpacetime();
      SceneProgress* pProg = getProgress();
     switch (pProg->getFromProgOnChange()) {
-        case MyShipScene::PROG_BEGIN: {
+        case PROG_BEGIN: {
             pSpacetime->undoCameraWork(); //MyShipDivingCamWorker解除
             break;
         }
@@ -103,8 +103,8 @@ void MyShipScene::processBehavior() {
     }
 
     switch (pProg->get()) {
-        case MyShipScene::PROG_INIT: {
-            pProg->change(MyShipScene::PROG_BEGIN);
+        case PROG_INIT: {
+            pProg->change(PROG_BEGIN);
             if (pSpacetime->getActiveCamWorker() != pVamSysCamWorker_) {
                 pVamSysCamWorker_ = (VamSysCamWorker*)(pSpacetime->switchCameraWork("VamSysCamWorker"));
                 pVamSysCamWorker_->pMyShip_ = pMyShip_;
@@ -112,7 +112,7 @@ void MyShipScene::processBehavior() {
             break;
         }
 
-        case MyShipScene::PROG_BEGIN: {
+        case PROG_BEGIN: {
             if (pProg->hasJustChanged()) {
                 fadeinScene(120);
                 pMyShip_->resetTree();
@@ -140,19 +140,19 @@ void MyShipScene::processBehavior() {
             if (pMyShip_->_x > 0) {
                 pMyShip_->_x = 0;
                 pMyShip_->is_diving_ = false;
-                pProg->change(MyShipScene::PROG_PLAY);
+                pProg->change(PROG_PLAY);
             }
             break;
         }
 
-        case MyShipScene::PROG_PLAY: {
+        case PROG_PLAY: {
             if (pProg->hasJustChanged()) {
             }
             //イベント EVENT_MY_SHIP_WAS_DESTROYED_BEGIN 待ち
             break;
         }
 
-        case MyShipScene::PROG_DESTROY: {
+        case PROG_DESTROY: {
             if (pProg->hasJustChanged()) {
                 pEffectMyShipExplosion_->activate(); //爆発
                 pMyShip_->can_control_ = false;
@@ -175,7 +175,7 @@ void MyShipScene::processBehavior() {
                    inactivate();
                 } else {
                    throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_FINISH);//←現在未使用
-                   pProg->change(MyShipScene::PROG_BEGIN);
+                   pProg->change(PROG_BEGIN);
                 }
             }
             break;
@@ -191,7 +191,7 @@ void MyShipScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
     SceneProgress* pProg = getProgress();
     if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_BEGIN) {
         _TRACE_("MyShipScene EVENT_MY_SHIP_WAS_DESTROYED_BEGIN was Catch!!");
-       pProg->change(MyShipScene::PROG_DESTROY);
+       pProg->change(PROG_DESTROY);
     }
 }
 

@@ -2,7 +2,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -33,7 +33,7 @@ void Cursor001::processJudgement() {
 void Cursor001::moveTo(coord tx, coord ty) {
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvAngTwd(tx, ty);
-    pKuroko->asstA()->slideMvByDt(UTIL::getDistance(_x, _y, tx, ty),
+    pKuroko->asstMv()->slideByDt(UTIL::getDistance(_x, _y, tx, ty),
                                   8, 0.2, 0.3, 0, true);
 }
 

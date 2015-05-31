@@ -37,7 +37,7 @@ StageController::StageController(const char* prm_name) : DefaultScene(prm_name) 
     bringDirector()->addSubGroup(_pSceneSymbol);
 
 
-    useProgress(StageController::PROG_BANPEI-1);
+    useProgress(PROG_BANPEI-1);
 }
 
 void StageController::onReset() {
@@ -49,7 +49,7 @@ void StageController::onReset() {
     P_COMMON_SCENE->resetTree();
     P_COMMON_SCENE->activateImmed();
     addSubLast(P_COMMON_SCENE->extract());
-    getProgress()->reset(StageController::PROG_INIT);
+    getProgress()->reset(PROG_INIT);
 }
 //void StageController::readyNextStage() {
 //    main_stage_++;
@@ -87,36 +87,36 @@ void StageController::processBehavior() {
     //SCORE表示
     SceneProgress* pProg = getProgress();
     switch (pProg->get()) {
-        case StageController::PROG_INIT: {
-            _TRACE_("StageController::processBehavior() Prog is StageController::PROG_INIT");
+        case PROG_INIT: {
+            _TRACE_("StageController::processBehavior() Prog is PROG_INIT");
 
             readyStage(main_stage_);
-            pProg->change(StageController::PROG_BEGIN);
+            pProg->change(PROG_BEGIN);
             break;
         }
 
-        case StageController::PROG_BEGIN: {
+        case PROG_BEGIN: {
             if (pProg->hasJustChanged()) {
-                _TRACE_("StageController::processBehavior() Prog has Just Changed (to StageController::PROG_BEGIN)");
+                _TRACE_("StageController::processBehavior() Prog has Just Changed (to PROG_BEGIN)");
                 _TRACE_("StageController::processBehavior() 直後 main_stage_="<<main_stage_);
             }
             if (pProg->hasArrivedAt(120)) { //２秒遊ぶ
-                pProg->change(StageController::PROG_PLAY_STAGE);
+                pProg->change(PROG_PLAY_STAGE);
             }
             break;
         }
 
-        case StageController::PROG_PLAY_STAGE: {
+        case PROG_PLAY_STAGE: {
             if (pProg->hasJustChanged()) {
-                _TRACE_("StageController::processBehavior() Prog has Just Changed (to StageController::PROG_PLAY_STAGE)");
+                _TRACE_("StageController::processBehavior() Prog has Just Changed (to PROG_PLAY_STAGE)");
                 _TRACE_("StageController::processBehavior() 直後 main_stage_="<<main_stage_);
                 readyStage(main_stage_); //念のために呼ぶ。通常はもう準備できているハズ。
                 //ステージシーン追加
                 if (pStageMainCannel_) {
-                    _TRACE_("いいのか！ StageController::PROG_PLAY_STAGE: 旧 pStageMainCannel_="<<pStageMainCannel_->getName()<<"");
+                    _TRACE_("いいのか！ PROG_PLAY_STAGE: 旧 pStageMainCannel_="<<pStageMainCannel_->getName()<<"");
                 }
                 pStageMainCannel_ = (Stage*)obtainSceneFromFactory(ORDER_ID_STAGE+main_stage_);
-                _TRACE_("StageController::PROG_PLAY_STAGE: 新 pStageMainCannel_="<<pStageMainCannel_->getName()<<"");
+                _TRACE_("PROG_PLAY_STAGE: 新 pStageMainCannel_="<<pStageMainCannel_->getName()<<"");
                 pStageMainCannel_->fadeoutSceneWithBgm(0);
 
                 addSubLast(pStageMainCannel_);
@@ -125,9 +125,9 @@ void StageController::processBehavior() {
             break;
         }
 
-        case StageController::PROG_PLAY_TRANSIT: {
+        case PROG_PLAY_TRANSIT: {
             if (pProg->hasJustChanged()) {
-                _TRACE_("StageController::processBehavior() Prog has Just Changed (to StageController::PROG_PLAY_TRANSIT)");
+                _TRACE_("StageController::processBehavior() Prog has Just Changed (to PROG_PLAY_TRANSIT)");
                 _TRACE_("StageController::processBehavior() 直後 main_stage_="<<main_stage_);
                 pTransitStage_->fadeoutSceneWithBgmTree(0);
                 _TRACE_("StageController::processBehavior() pTransitStage_->setStage("<<main_stage_<<")");
@@ -140,14 +140,14 @@ void StageController::processBehavior() {
             break;
         }
 
-        case StageController::PROG_FINISH: {
+        case PROG_FINISH: {
             if (pProg->hasJustChanged()) {
-                _TRACE_("StageController::processBehavior() Prog has Just Changed (to StageController::PROG_FINISH)");
+                _TRACE_("StageController::processBehavior() Prog has Just Changed (to PROG_FINISH)");
                 _TRACE_("StageController::processBehavior() 直後 main_stage_="<<main_stage_);
                 main_stage_ = pTransitStage_->next_main_stage_; //次のステージ
                 _TRACE_("StageController::processBehavior() main_stage_ = pTransitStage_->next_main_stage_;");
                 _TRACE_("StageController::processBehavior() 更新された main_stage_="<<main_stage_);
-                pProg->change(StageController::PROG_BEGIN); //ループ
+                pProg->change(PROG_BEGIN); //ループ
             }
             break;
         }
@@ -187,7 +187,7 @@ void StageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
         int next_stage = *((int*)(prm_pSource));
         readyStage(next_stage);//次のステージ準備
 //            _TRACE_("最終面クリア");
-//            pProg->change(StageController::PROG_END);
+//            pProg->change(PROG_END);
             //TODO:エデニング？
 //        }
     }
@@ -196,19 +196,19 @@ void StageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
         _TRACE_("StageController::onCatchEvent(EVENT_STG01_WAS_END)");
         pStageMainCannel_->sayonara(180);
         pStageMainCannel_->fadeoutSceneWithBgmTree(180);
-        pProg->change(StageController::PROG_PLAY_TRANSIT);
+        pProg->change(PROG_PLAY_TRANSIT);
     }
     if (prm_no == EVENT_STG02_WAS_END) {
         _TRACE_("StageController::onCatchEvent(EVENT_STG02_WAS_END)");
         pStageMainCannel_->sayonara(180);
         pStageMainCannel_->fadeoutSceneWithBgmTree(180);
-        pProg->change(StageController::PROG_PLAY_TRANSIT);
+        pProg->change(PROG_PLAY_TRANSIT);
     }
     if (prm_no == EVENT_TRANSIT_WAS_END) {
         _TRACE_("StageController::onCatchEvent(EVENT_TRANSIT_WAS_END)");
         pTransitStage_->inactivateDelay(180);
         pTransitStage_->fadeoutSceneWithBgmTree(180);
-        pProg->change(StageController::PROG_FINISH);
+        pProg->change(PROG_FINISH);
     }
 
 }

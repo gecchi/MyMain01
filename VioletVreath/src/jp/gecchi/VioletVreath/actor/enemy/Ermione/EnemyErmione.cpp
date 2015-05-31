@@ -11,7 +11,7 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Ermione/EnemyErmioneArmWeak.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ermione/EnemyErmioneArmHead.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ermione/EnemyErmioneArmBody.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoFaceAngAssistant.h"
 
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
@@ -140,8 +140,6 @@ void EnemyErmione::onActive() {
 }
 
 void EnemyErmione::processBehavior() {
-    //加算ランクポイントを減少
-    UTIL::updateEnemyRankPoint(this);
     GgafDxKuroko* const pKuroko = getKuroko();
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
@@ -168,7 +166,7 @@ void EnemyErmione::processBehavior() {
                 throwEventLowerTree(EVENT_ERMIONE_ENTRY_DONE);
                 pKuroko->setMvAngTwd(P_MYSHIP);
                 pKuroko->setMvVelo(0);
-                pKuroko->asstB()->turnFaceAngByDtTwd(
+                pKuroko->asstFaceAng()->turnFaceAngByDtTwd(
                         P_MYSHIP, TURN_CLOSE_TO, true, 60*30,
                         0.4, 0.6, 0, true);
 

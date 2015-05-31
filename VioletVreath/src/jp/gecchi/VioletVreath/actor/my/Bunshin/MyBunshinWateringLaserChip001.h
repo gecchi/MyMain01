@@ -49,7 +49,7 @@ public:
 
     static int tex_no_;
     static GgafDxCore::GgafDxModel* pModel_;
-    static char aaTextureName[3][51];
+    static char aaTextureName[][51];
 
 public:
     MyBunshinWateringLaserChip001(const char* prm_name);

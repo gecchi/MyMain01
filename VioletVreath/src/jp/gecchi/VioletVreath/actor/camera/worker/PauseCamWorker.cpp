@@ -11,7 +11,7 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World.h"
 #include "jp/gecchi/VioletVreath/actor/camera/CameraViewPoint.h"
 #include "jp/gecchi/VioletVreath/actor/camera/Camera.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

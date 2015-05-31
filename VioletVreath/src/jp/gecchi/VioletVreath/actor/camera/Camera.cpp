@@ -4,7 +4,7 @@
 #include "CameraViewPoint.h"
 #include "jp/ggaf/core/util/GgafUtil.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
 #include "jp/ggaf/dxcore/util/GgafDxDirectionUtil.h"

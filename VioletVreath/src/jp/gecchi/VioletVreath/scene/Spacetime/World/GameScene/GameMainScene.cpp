@@ -53,12 +53,12 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     pRankFont_->position(PX_C(PROPERTY::GAME_BUFFER_WIDTH), PX_C(PROPERTY::GAME_BUFFER_HEIGHT));
     bringDirector()->addSubGroup(pRankFont_);
 
-    useProgress(GameMainScene::PROG_BANPEI-1);
+    useProgress(PROG_BANPEI-1);
 }
 
 void GameMainScene::onReset() {
     _TRACE_("GameMainScene::onReset() "<<NODE_INFO<<"");
-    getProgress()->reset(GameMainScene::PROG_INIT);
+    getProgress()->reset(PROG_INIT);
 }
 
 void GameMainScene::initialize() {
@@ -84,34 +84,34 @@ void GameMainScene::processBehavior() {
 
     SceneProgress* pProg = getProgress();
     switch (pProg->get()) {
-        case GameMainScene::PROG_INIT: {
-            _TRACE_("GameMainScene::processBehavior() Prog is GameMainScene::PROG_INIT");
+        case PROG_INIT: {
+            _TRACE_("GameMainScene::processBehavior() Prog is PROG_INIT");
             addSubLast(P_STAGE_WORLD->extract());
             P_STAGE_WORLD->resetTree();
             P_STAGE_WORLD->inactivateImmed();
             P_STAGE_WORLD->activate();
-            pProg->change(GameMainScene::PROG_BEGIN);
+            pProg->change(PROG_BEGIN);
             break;
         }
 
-        case GameMainScene::PROG_BEGIN: {
+        case PROG_BEGIN: {
             if (pProg->hasJustChanged()) {
-                _TRACE_("GameMainScene::processBehavior() Prog has Just Changed (to GameMainScene::PROG_BEGIN)");
-                pProg->change(GameMainScene::PROG_PLAY);
+                _TRACE_("GameMainScene::processBehavior() Prog has Just Changed (to PROG_BEGIN)");
+                pProg->change(PROG_PLAY);
             }
             break;
         }
 
-        case GameMainScene::PROG_PLAY: {
+        case PROG_PLAY: {
             if (pProg->hasJustChanged()) {
-                _TRACE_("GameMainScene::processBehavior() Prog has Just Changed (to GameMainScene::PROG_PLAY)");
+                _TRACE_("GameMainScene::processBehavior() Prog has Just Changed (to PROG_PLAY)");
             }
             break;
         }
 
-        case GameMainScene::PROG_FINISH: {
+        case PROG_FINISH: {
             if (pProg->hasJustChanged()) {
-                _TRACE_("GameMainScene::processBehavior() Prog has Just Changed (to GameMainScene::PROG_FINISH)");
+                _TRACE_("GameMainScene::processBehavior() Prog has Just Changed (to PROG_FINISH)");
             }
             break;
         }

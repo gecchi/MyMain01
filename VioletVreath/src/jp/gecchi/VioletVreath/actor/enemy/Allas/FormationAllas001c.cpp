@@ -1,8 +1,8 @@
 #include "FormationAllas001c.h"
 
+#include "EnemyAllas.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Allas/EnemyAllas.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

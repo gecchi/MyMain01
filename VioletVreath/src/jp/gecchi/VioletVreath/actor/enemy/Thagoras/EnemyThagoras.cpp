@@ -99,8 +99,6 @@ void EnemyThagoras::processBehavior() {
         default :
             break;
     }
-    //加算ランクポイントを減少
-    UTIL::updateEnemyRankPoint(this);
     pAFader_->behave();
     getKuroko()->behave();
     //鼓動を同期

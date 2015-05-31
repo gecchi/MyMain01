@@ -39,8 +39,6 @@ void Shot002::onActive() {
 }
 
 void Shot002::processBehavior() {
-    //加算ランクポイントを減少
-    UTIL::updateEnemyRankPoint(this);
     GgafDxKuroko* const pKuroko = getKuroko();
     if (getActiveFrame() == 70) {
         pKuroko->turnMvAngTwd(P_MYSHIP,

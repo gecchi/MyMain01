@@ -1,8 +1,8 @@
 #include "FormationAllas002.h"
 
+#include "EnemyAllas.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Allas/EnemyAllas.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"

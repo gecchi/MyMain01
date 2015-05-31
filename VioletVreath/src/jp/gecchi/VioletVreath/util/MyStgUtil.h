@@ -261,12 +261,6 @@ public:
     static int judgeEnemyAdvantage(actorkind kattribute_enemy, actorkind attribute_my);
 
     /**
-     * 破壊時に加算されるランクポイントをSTAT_AddRankPoint_Reductionにより減少させる .
-     * @param prm_pEnemy 敵
-     */
-    static void updateEnemyRankPoint(GgafCore::GgafMainActor* prm_pEnemy);
-
-    /**
      * 自分(自機)の体力計算 .
      * @param prm_pMy  自分(自機)
      * @param prm_pOpp 相手(自機以外)
@@ -524,6 +518,8 @@ public:
 	static GgafCore::GgafStatus* resetEnemyOebiusCoreStatus(GgafCore::GgafStatus* p);
 	//ウリュディケ
 	static GgafCore::GgafStatus* resetEnemyUrydikeStatus(GgafCore::GgafStatus* p);
+	//弾幕アリス用ショット
+	static GgafCore::GgafStatus* resetAliceShotStatus(GgafCore::GgafStatus* p);
     // gen01 end
 };
 

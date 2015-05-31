@@ -23,8 +23,6 @@ void TestNomal::onActive() {
 }
 
 void TestNomal::processBehavior() {
-    //加算ランクポイントを減少
-    UTIL::updateEnemyRankPoint(this);
     getKuroko()->behave();
     //getSeTx()->behave();
     dispStamina();

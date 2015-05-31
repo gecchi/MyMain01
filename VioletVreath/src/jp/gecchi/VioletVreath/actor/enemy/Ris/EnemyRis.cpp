@@ -50,8 +50,6 @@ void EnemyRis::onActive() {
 }
 
 void EnemyRis::processBehavior() {
-    //加算ランクポイントを減少
-    UTIL::updateEnemyRankPoint(this);
     GgafDxKuroko* const pKuroko = getKuroko();
     switch (iMovePatternNo_) {
         case 0:  //【パターン０：スプライン移動開始】

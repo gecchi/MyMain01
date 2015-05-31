@@ -30,7 +30,6 @@ void EnemyOzartiaPillar01::onActive() {
 }
 
 void EnemyOzartiaPillar01::processBehavior() {
-    UTIL::updateEnemyRankPoint(this);
     //–{‘ÌˆÚ“®Œn‚Ìˆ— ‚±‚±‚©‚ç --->
     GgafDxKuroko* const pKuroko = getKuroko();
     GgafProgress* const pProg = getProgress();

@@ -10,11 +10,11 @@ using namespace GgafDxCore;
 
 GgafDxMorpher::GgafDxMorpher(GgafDxMorphMeshActor* prm_pActor) : GgafValueEnveloper<float, (MAX_MORPH_TARGET+1) >(),
 _pActor(prm_pActor) {
-    _pAsstA = nullptr;
+    _pAsstMv = nullptr;
     setRange(0.0f, 1.0f);
 }
 GgafDxMorpherAssistantA* GgafDxMorpher::asst() {
-    return _pAsstA ? _pAsstA : _pAsstA = NEW GgafDxMorpherAssistantA(this);
+    return _pAsstMv ? _pAsstMv : _pAsstMv = NEW GgafDxMorpherAssistantA(this);
 }
 
 void GgafDxMorpher::reset() {
@@ -28,13 +28,13 @@ void GgafDxMorpher::setValue(int idx, float value) {
     _pActor->_weight[idx] = value;
 }
 void GgafDxMorpher::behave(int s, int n) {
-    if (_pAsstA) {
-        _pAsstA->behave();
+    if (_pAsstMv) {
+        _pAsstMv->behave();
     }
     GgafValueEnveloper<float, (MAX_MORPH_TARGET+1) >::behave(1, _pActor->_morph_target_num);
 }
 
 
 GgafDxMorpher::~GgafDxMorpher() {
-    GGAF_DELETE_NULLABLE(_pAsstA);
+    GGAF_DELETE_NULLABLE(_pAsstMv);
 }

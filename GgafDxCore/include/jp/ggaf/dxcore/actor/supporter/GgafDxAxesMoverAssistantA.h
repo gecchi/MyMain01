@@ -269,7 +269,7 @@ public:
      * なめらかな移動シークエンスが作動中か（注意：移動しているか否かではない）.
      * @return true:作動中 / false:作動中ではない
      */
-    bool isSlidingMv() {
+    bool isSliding() {
         if (_smthVxMv.isAccelerating() || _smthVyMv.isAccelerating() || _smthVzMv.isAccelerating()) {
             return true;
         } else {
@@ -280,7 +280,7 @@ public:
     /**
      * なめらかな移動シークエンスを停止（注意：移動（速度）を停止させるという事は行っていない）.
      */
-    void stopSlidingMv() {
+    void stopSliding() {
         _smthVxMv.stopAccelerating();
         _smthVyMv.stopAccelerating();
         _smthVzMv.stopAccelerating();

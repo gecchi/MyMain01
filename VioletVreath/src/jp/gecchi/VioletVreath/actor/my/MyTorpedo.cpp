@@ -75,7 +75,7 @@ void MyTorpedo::onActive() {
     pKuroko->forceRzRyMvAngVeloRange(-40000, 40000);
     pKuroko->setRzRyMvAngVelo(0,0);
     pKuroko->setRzRyMvAngAcce(0,0);
-    pKuroko->stopTurnMvAng();
+    pKuroko->stopTurningMvAng();
     begin_x_ = _x;
     begin_y_ = _y;
     begin_z_ = _z;

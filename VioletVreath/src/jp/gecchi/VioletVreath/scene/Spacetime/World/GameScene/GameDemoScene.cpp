@@ -22,7 +22,7 @@ using namespace VioletVreath;
 #define ORDER_ID_DEMOSTAGE 12
 GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameDemoScene";
-    useProgress(GameDemoScene::PROG_BANPEI-1);
+    useProgress(PROG_BANPEI-1);
     pLabel01_ = NEW LabelGecchi16Font("STR01");
     bringDirector()->addSubGroup(pLabel01_);
     pLabel02_ = NEW LabelGecchi16Font("STR02");
@@ -38,7 +38,7 @@ GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
 
 }
 void GameDemoScene::onReset() {
-    getProgress()->reset(GameDemoScene::PROG_INIT);
+    getProgress()->reset(PROG_INIT);
     pLabel01_->update("");
     pLabel02_->update("");
     int cnt = (int)(G_RANKING_TABLE.getCount());
@@ -58,19 +58,19 @@ void GameDemoScene::initialize() {
 void GameDemoScene::processBehavior() {
     SceneProgress* pProg = getProgress();
     switch (pProg->get()) {
-        case GameDemoScene::PROG_INIT: {
-            _TRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to GameDemoScene::PROG_INIT)");
+        case PROG_INIT: {
+            _TRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to PROG_INIT)");
             addSubLast(P_STAGE_WORLD->extract());
             P_STAGE_WORLD->resetTree();
             P_STAGE_WORLD->inactivateImmed();
             P_STAGE_WORLD->activate();
-            pProg->change(GameDemoScene::PROG_DEMOPLAY);
+            pProg->change(PROG_DEMOPLAY);
             break;
         }
 
-        case GameDemoScene::PROG_DEMOPLAY: {
+        case PROG_DEMOPLAY: {
             if (pProg->hasJustChanged()) {
-                _TRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to GameDemoScene::PROG_DEMOPLAY)");
+                _TRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to PROG_DEMOPLAY)");
                 pLabel01_->update(100*1000, 100*1000, "DEMOPLAY NOW");
                 pLabel02_->update(100*1000, 150*1000, "GAME OVER");
                 pLabel02_->setAlpha(pLabel02_->pAFader_->getTop());
@@ -85,15 +85,15 @@ void GameDemoScene::processBehavior() {
 
 
             if (pProg->hasArrivedAt(600)) {
-                pProg->change(GameDemoScene::PROG_RANKING_TABLE);
+                pProg->change(PROG_RANKING_TABLE);
             }
             break;
         }
 
-        case GameDemoScene::PROG_RANKING_TABLE: {
+        case PROG_RANKING_TABLE: {
             int ranking_num = G_RANKING_TABLE.getCount();
             if (pProg->hasJustChanged()) {
-                _TRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to GameDemoScene::PROG_RANKING_TABLE)");
+                _TRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to PROG_RANKING_TABLE)");
                 pLabel01_->update(PX_C(100), PX_C(100), "RANKING NOW");
                 char buf[60];
                 for (int i = 0; i < ranking_num; i++) {
@@ -122,14 +122,14 @@ void GameDemoScene::processBehavior() {
                 for (int i = 0; i < ranking_num; i++) {
                     papLabel_ranking_[i]->inactivate();
                 }
-                pProg->change(GameDemoScene::PROG_FINISH);
+                pProg->change(PROG_FINISH);
             }
             break;
         }
 
-        case GameDemoScene::PROG_FINISH: {
+        case PROG_FINISH: {
             if (pProg->hasJustChanged()) {
-                _TRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to GameDemoScene::PROG_FINISH)");
+                _TRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to PROG_FINISH)");
             }
             if (pProg->hasArrivedAt(600)) {
                 _TRACE_("GameDemoScene::processBehavior() throwEventUpperTree(EVENT_GAMEDEMOSCENE_FINISH)");

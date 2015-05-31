@@ -117,9 +117,6 @@ void EnemyEmus::processBehavior() {
         default :
             break;
     }
-    //加算ランクポイントを減少
-    UTIL::updateEnemyRankPoint(this);
-
     getMorpher()->behave();
     pKuroko->behave();
     changeGeoFinal(); //絶対座標系に戻す

@@ -352,6 +352,9 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\God.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\Properties.cpp" />
     <ClCompile Include="src\VioletVreath.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\danmaku\Alice\AliceShot.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\danmaku\Alice\DanmakuAlice.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\danmaku\Alice\DanmakuAlice001.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\CubeMapMeshSetTestActor.h" />
@@ -710,6 +713,9 @@
     <ClInclude Include="src\VioletVreath.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Version.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\danmaku\Alice\AliceShot.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\danmaku\Alice\DanmakuAlice.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\danmaku\Alice\DanmakuAlice001.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="VioletVreath.rc" />

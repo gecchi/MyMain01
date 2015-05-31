@@ -42,7 +42,6 @@ void EnemyOrtuna::onActive() {
 }
 
 void EnemyOrtuna::processBehavior() {
-    UTIL::updateEnemyRankPoint(this);
     GgafDxKuroko* const pKuroko = getKuroko();
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {

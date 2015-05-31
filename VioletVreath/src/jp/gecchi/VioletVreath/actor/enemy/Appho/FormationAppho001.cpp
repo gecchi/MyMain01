@@ -12,7 +12,7 @@ using namespace VioletVreath;
 FormationAppho001::FormationAppho001(const char* prm_name) :
         TreeFormation(prm_name) {
     _class_name = "FormationAppho001";
-    num_Appho_      = RF_FormationAppho001_Num(G_RANK);    //ï“ë‡êî
+    num_Appho_       = RF_FormationAppho001_Num(G_RANK);    //ï“ë‡êî
     interval_frames_ = RF_FormationAppho001_LaunchInterval(G_RANK);  //ÉAÉâÉXÇÃä‘äu(frame)
     for (int i = 0; i < num_Appho_; i++) {
         std::string name = "Appho("+XTOS(i)+")";

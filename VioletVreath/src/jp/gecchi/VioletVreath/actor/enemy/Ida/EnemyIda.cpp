@@ -48,7 +48,6 @@ void EnemyIda::onActive() {
 void EnemyIda::processBehavior() {
     changeGeoLocal(); //ƒ[ƒJƒ‹À•WŒn‚Ö
 
-    UTIL::updateEnemyRankPoint(this);
     GgafDxKuroko* const pKuroko = getKuroko();
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {

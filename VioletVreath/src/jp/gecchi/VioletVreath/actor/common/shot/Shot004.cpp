@@ -42,8 +42,6 @@ void Shot004::onActive() {
 }
 
 void Shot004::processBehavior() {
-    //加算ランクポイントを減少
-    //UTIL::updateEnemyRankPoint(this);
     //弾なので不要
 
     //座標に反映

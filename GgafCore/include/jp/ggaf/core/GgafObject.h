@@ -20,7 +20,7 @@ typedef uint64_t classkind;
 class GgafObject {
 
 #ifdef _MSC_VER
-    //x86系ならばアトミック性がある・・64bitでも？？・・・。
+    //x86系VCならばアトミック性がある・・64bitでも？？・・・。
     //まぁ_obj_seqが狂ってもDEBUGの時にちょっと不便なだけなので・・・；
     static uint64_t _obj_seq;
 #else

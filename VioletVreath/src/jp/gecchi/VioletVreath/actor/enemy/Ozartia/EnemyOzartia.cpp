@@ -12,7 +12,7 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
 
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 
@@ -81,9 +81,6 @@ void EnemyOzartia::onActive() {
 }
 
 void EnemyOzartia::processBehavior() {
-    //加算ランクポイントを減少
-    UTIL::updateEnemyRankPoint(this);
-
     MyShip* pMyShip = P_MYSHIP;
     //本体移動系の処理 ここから --->
     GgafDxKuroko* const pKuroko = getKuroko();
@@ -196,10 +193,10 @@ void EnemyOzartia::processBehavior() {
         case PROG1_MOVING: {
             if (pProg->hasJustChanged()) {
                 //自機の正面付近へスイーっと行きます
-                pKuroko->asstA()->slideMvByVd(pKuroko->getMvVeloTop(), UTIL::getDistance(this, &posMvTarget_),
+                pKuroko->asstMv()->slideByVd(pKuroko->getMvVeloTop(), UTIL::getDistance(this, &posMvTarget_),
                                        0.3f, 0.7f, pKuroko->getMvVeloBottom(), true);
             }
-            if (!pKuroko->asstA()->isSlidingMv()) {
+            if (!pKuroko->asstMv()->isSliding()) {
                 //到着したら終了
                 pProg->change(PROG1_STAY);
             }

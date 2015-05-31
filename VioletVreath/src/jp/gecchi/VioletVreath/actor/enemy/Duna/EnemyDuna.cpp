@@ -51,9 +51,6 @@ void EnemyDuna::onActive() {
 }
 
 void EnemyDuna::processBehavior() {
-    //加算ランクポイントを減少
-    UTIL::updateEnemyRankPoint(this);
-
 //    if (pProg->hasJustChanged()) {
 //        _TRACE_("EnemyDuna::"<<pProg->getFromProgOnChange()<<"→"<<pProg->get()<<"");
 //    }

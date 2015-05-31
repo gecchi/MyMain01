@@ -8,7 +8,7 @@
 #include "VvvGod.h"
 #include "actor/VvvCamera.h"
 #include "actor/VvvCameraViewPoint.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

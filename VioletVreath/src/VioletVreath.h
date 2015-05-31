@@ -564,6 +564,13 @@ class FormationUrydike001;
 class FormationUrydike002;
 //"VVEnemysHeader.h" Ç‡ÇÌÇ∑ÇÍÇÈÇ»Å`
 
+
+
+class DanmakuAlice;
+class DanmakuAlice001;
+class AliceShot;
+//"VVEnemysHeader.h" Ç‡ÇÌÇ∑ÇÍÇÈÇ»Å`
+
 class DepositoryConnection;
 class DepositoryManager;
 class SplineLineConnection;

@@ -69,8 +69,6 @@ void EnemyDelheid::onActive() {
 }
 
 void EnemyDelheid::processBehavior() {
-    //加算ランクポイントを減少
-    UTIL::updateEnemyRankPoint(this);
     MyShip* pMyShip = P_MYSHIP;
 
     //移動の状態遷移------------------------------

@@ -7,7 +7,7 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoFaceAngAssistant.h"
 
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 using namespace GgafCore;

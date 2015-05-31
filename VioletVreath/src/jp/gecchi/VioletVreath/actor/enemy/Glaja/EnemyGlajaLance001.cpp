@@ -9,7 +9,7 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoFaceAngAssistant.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -104,7 +104,7 @@ void EnemyGlajaLance001::processBehavior() {
         case PROG_AIM_ANIME02: {
             if (pProg->hasJustChanged()) {
                 //Ž©‹@‚ÉƒOƒ‹ƒ“‚ÆŒü‚­
-                pKuroko->asstB()->turnFaceAngByDtTwd(pMyShip, TURN_ANTICLOSE_TO, false,
+                pKuroko->asstFaceAng()->turnFaceAngByDtTwd(pMyShip, TURN_ANTICLOSE_TO, false,
                                                         60, 0.2, 0.4, 0, true );
             }
             if (!pKuroko->isTurningFaceAng()) {

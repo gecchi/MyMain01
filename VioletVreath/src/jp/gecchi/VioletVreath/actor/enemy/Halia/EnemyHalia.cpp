@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
@@ -81,8 +81,6 @@ void EnemyHalia::onActive() {
 }
 
 void EnemyHalia::processBehavior() {
-    //‰ÁŽZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ðŒ¸­
-    UTIL::updateEnemyRankPoint(this);
     GgafDxKuroko* const pKuroko = getKuroko();
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
@@ -111,22 +109,22 @@ void EnemyHalia::processBehavior() {
         case PROG_FIRST_MOVE: { //‰‰ñˆÚ“®
             if (pProg->hasJustChanged()) {
                 pKuroko->setRzRyMvAng(0, 0);
-                pKuroko->asstA()->slideMvByVd(veloTopMv_, PX_C(1000),
+                pKuroko->asstMv()->slideByVd(veloTopMv_, PX_C(1000),
                                               0.4, 0.6, 0, true);
                 pKuroko->setRollFaceAngVelo(D_ANG(1));
             }
-            if (!pKuroko->asstA()->isSlidingMv()) {
+            if (!pKuroko->asstMv()->isSliding()) {
                 pProg->change(PROG_TURN_OPEN);
             }
             break;
         }
         case PROG_MOVE: {  //‚Q‰ñˆÈ~‚ÌˆÚ“®
             if (pProg->hasJustChanged()) {
-                pKuroko->asstA()->slideMvByVd(veloTopMv_, PX_C(1000),
+                pKuroko->asstMv()->slideByVd(veloTopMv_, PX_C(1000),
                                               0.4, 0.6, 0, true);
                 pKuroko->setRollFaceAngVelo(D_ANG(1));
             }
-            if (!pKuroko->asstA()->isSlidingMv()) {
+            if (!pKuroko->asstMv()->isSliding()) {
                 pProg->change(PROG_TURN_OPEN);
             }
             break;

@@ -21,7 +21,7 @@ using namespace VioletVreath;
 GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameTitleScene";
     useProgress(PROG_BANPEI);
-    getProgress()->reset(GameTitleScene::PROG_INIT);
+    getProgress()->reset(PROG_INIT);
 
     pLabel01_ = NEW LabelGecchi16Font("STR01");
     bringDirector()->addSubGroup(pLabel01_);
@@ -54,7 +54,7 @@ void GameTitleScene::onReset() {
     pLabel01_->update("");
     pLabel02_->update("");
     pTitleBoard_->position(PX_C(100), PX_C(90));
-    getProgress()->reset(GameTitleScene::PROG_INIT);
+    getProgress()->reset(PROG_INIT);
 }
 
 void GameTitleScene::onActive() {
@@ -64,7 +64,7 @@ void GameTitleScene::onActive() {
     pHoshiBoshi_->activate();
     pWorldBound_->fadein();
     pHoshiBoshi_->fadein();
-    getProgress()->reset(GameTitleScene::PROG_INIT);
+    getProgress()->reset(PROG_INIT);
 }
 
 void GameTitleScene::initialize() {
@@ -81,28 +81,28 @@ void GameTitleScene::processBehavior() {
     }
 
     switch (pProg->get()) {
-        case GameTitleScene::PROG_INIT: {
-            pProg->change(GameTitleScene::PROG_TITLE);
+        case PROG_INIT: {
+            pProg->change(PROG_TITLE);
             break;
         }
 
-        case GameTitleScene::PROG_TITLE: {
+        case PROG_TITLE: {
             if (pProg->hasJustChanged()) {
                 pLabel02_->update(PX_C(400), PX_C(400), "PUSH UI_EXECUTE TO BEGIN!");
             }
             if (VB->isPushedDown(VB_UI_EXECUTE)) {
                 pSeConnection_exec_->peek()->play();
-                pProg->change(GameTitleScene::PROG_SELECT);
+                pProg->change(PROG_SELECT);
             } else if (pProg->hasArrivedAt(GAMETITLE_TIMEOUT)) {
                 //ボーっと見てた場合
                 _TRACE_("GameTitleScene throwEventUpperTree(EVENT_GAMETITLESCENE_FINISH)");
                 throwEventUpperTree(EVENT_GAMETITLESCENE_FINISH); //普通に終了イベント
-                pProg->change(GameTitleScene::PROG_FINISH); //タイトルシーン終了へ
+                pProg->change(PROG_FINISH); //タイトルシーン終了へ
             }
             break;
         }
 
-        case GameTitleScene::PROG_SELECT: {
+        case PROG_SELECT: {
             if (pProg->hasJustChanged()) {
                 pMenu_->rise(PX_C(50), PX_C(250));
                 frame_of_noinput_ = pProg->getFrame();
@@ -112,7 +112,7 @@ void GameTitleScene::processBehavior() {
                 if (pMenu_->getOnDecidedIndex() == MenuBoardTitle::ITEM_GAME_START) {
                     pMenu_->disableControll(); //入力受付終わり
                     pSeConnection_exec_->peek()->play();
-                    pProg->change(GameTitleScene::PROG_GAMESTART);
+                    pProg->change(PROG_GAMESTART);
                 }
             }
 
@@ -124,17 +124,17 @@ void GameTitleScene::processBehavior() {
                 //ボーっと見てた場合
                 _TRACE_("GameTitleScene throwEventUpperTree(EVENT_GAMETITLESCENE_FINISH)");
                 throwEventUpperTree(EVENT_GAMETITLESCENE_FINISH); //普通に終了イベント
-                pProg->change(GameTitleScene::PROG_FINISH); //タイトルシーン終了へ
+                pProg->change(PROG_FINISH); //タイトルシーン終了へ
             }
             break;
         }
 
-        case GameTitleScene::PROG_GAMESTART: {
+        case PROG_GAMESTART: {
             if (pProg->hasJustChanged()) {
             }
             if (pProg->hasArrivedAt(90)) {
                 throwEventUpperTree(EVENT_GAMESTART);      //スタートでに終了イベント
-                pProg->change(GameTitleScene::PROG_FINISH); //タイトルシーン終了へ
+                pProg->change(PROG_FINISH); //タイトルシーン終了へ
             }
             //点滅
             if (pProg->getFrame() % 10U < 5 ) {
@@ -145,7 +145,7 @@ void GameTitleScene::processBehavior() {
             break;
         }
 
-        case GameTitleScene::PROG_FINISH: {
+        case PROG_FINISH: {
             if (pProg->hasJustChanged()) {
                 pMenu_->sinkMe();
 //                fadeoutSceneWithBgmTree(FADE_FRAMES);

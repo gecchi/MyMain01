@@ -78,8 +78,6 @@ void EnemyRatislaviaEye::onActive() {
 }
 
 void EnemyRatislaviaEye::processBehavior() {
-    //加算ランクポイントを減少
-    UTIL::updateEnemyRankPoint(this);
     positionAs(pRatislavia_);
     GgafDxKuroko* const pKuroko = getKuroko();
     GgafProgress* const pProg = getProgress();

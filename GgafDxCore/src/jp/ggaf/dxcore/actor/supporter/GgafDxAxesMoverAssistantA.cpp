@@ -10,28 +10,28 @@ using namespace GgafDxCore;
 
 GgafDxAxesMoverAssistantA::GgafDxAxesMoverAssistantA(GgafDxAxesMover* prm_pMaster) : GgafObject(),
         _pMaster(prm_pMaster) {
-    _smthVxMv._org_velo = _pMaster->_velo_vx_mv;
-    _smthVxMv._org_acce = _pMaster->_acce_vx_mv;
-    _smthVyMv._org_velo = _pMaster->_velo_vy_mv;
-    _smthVyMv._org_acce = _pMaster->_acce_vy_mv;
-    _smthVzMv._org_velo = _pMaster->_velo_vz_mv;
-    _smthVzMv._org_acce = _pMaster->_acce_vz_mv;
+    _smthVxMv._t_velo = _pMaster->_velo_vx_mv;
+    _smthVxMv._t_acce = _pMaster->_acce_vx_mv;
+    _smthVyMv._t_velo = _pMaster->_velo_vy_mv;
+    _smthVyMv._t_acce = _pMaster->_acce_vy_mv;
+    _smthVzMv._t_velo = _pMaster->_velo_vz_mv;
+    _smthVzMv._t_acce = _pMaster->_acce_vz_mv;
 }
 void GgafDxAxesMoverAssistantA::behave() {
     if (_smthVxMv.isAccelerating()) {
         _smthVxMv.behave();
-        _pMaster->setVxMvVelo(_smthVxMv._org_velo - _smthVxMv._org_acce);
-        _pMaster->setVxMvAcce(_smthVxMv._org_acce);
+        _pMaster->setVxMvVelo(_smthVxMv._t_velo - _smthVxMv._t_acce);
+        _pMaster->setVxMvAcce(_smthVxMv._t_acce);
     }
     if (_smthVyMv.isAccelerating()) {
         _smthVyMv.behave();
-        _pMaster->setVyMvVelo(_smthVyMv._org_velo - _smthVyMv._org_acce);
-        _pMaster->setVyMvAcce(_smthVyMv._org_acce);
+        _pMaster->setVyMvVelo(_smthVyMv._t_velo - _smthVyMv._t_acce);
+        _pMaster->setVyMvAcce(_smthVyMv._t_acce);
     }
     if (_smthVzMv.isAccelerating()) {
         _smthVzMv.behave();
-        _pMaster->setVzMvVelo(_smthVzMv._org_velo - _smthVzMv._org_acce );
-        _pMaster->setVzMvAcce(_smthVzMv._org_acce);
+        _pMaster->setVzMvVelo(_smthVzMv._t_velo - _smthVzMv._t_acce );
+        _pMaster->setVzMvAcce(_smthVzMv._t_acce);
     }
 
 }
@@ -39,9 +39,9 @@ void GgafDxAxesMoverAssistantA::behave() {
 void GgafDxAxesMoverAssistantA::slideVxMvByDt(coord prm_target_distance, int prm_target_frames,
                                               float prm_p1, float prm_p2, velo prm_end_velo,
                                               bool prm_zero_acc_end_flg) {
-    _smthVxMv._org_value = 0;
-    _smthVxMv._org_velo = _pMaster->_velo_vx_mv;
-    _smthVxMv._org_acce = _pMaster->_acce_vx_mv;
+    _smthVxMv._t_value = 0;
+    _smthVxMv._t_velo = _pMaster->_velo_vx_mv;
+    _smthVxMv._t_acce = _pMaster->_acce_vx_mv;
     _smthVxMv.accelerateByDt(prm_target_distance, prm_target_frames,
                              prm_p1, prm_p2, prm_end_velo,
                              prm_zero_acc_end_flg);
@@ -50,9 +50,9 @@ void GgafDxAxesMoverAssistantA::slideVxMvByDt(coord prm_target_distance, int prm
 void GgafDxAxesMoverAssistantA::slideVyMvByDt(coord prm_target_distance, int prm_target_frames,
                                               float prm_p1, float prm_p2, velo prm_end_velo,
                                               bool prm_zero_acc_end_flg) {
-    _smthVyMv._org_value = 0;
-    _smthVyMv._org_velo = _pMaster->_velo_vy_mv;
-    _smthVyMv._org_acce = _pMaster->_acce_vy_mv;
+    _smthVyMv._t_value = 0;
+    _smthVyMv._t_velo = _pMaster->_velo_vy_mv;
+    _smthVyMv._t_acce = _pMaster->_acce_vy_mv;
     _smthVyMv.accelerateByDt(prm_target_distance, prm_target_frames,
                              prm_p1, prm_p2, prm_end_velo,
                              prm_zero_acc_end_flg);
@@ -61,9 +61,9 @@ void GgafDxAxesMoverAssistantA::slideVyMvByDt(coord prm_target_distance, int prm
 void GgafDxAxesMoverAssistantA::slideVzMvByDt(coord prm_target_distance, int prm_target_frames,
                                               float prm_p1, float prm_p2, velo prm_end_velo,
                                               bool prm_zero_acc_end_flg) {
-    _smthVzMv._org_value = 0;
-    _smthVzMv._org_velo = _pMaster->_velo_vz_mv;
-    _smthVzMv._org_acce = _pMaster->_acce_vz_mv;
+    _smthVzMv._t_value = 0;
+    _smthVzMv._t_velo = _pMaster->_velo_vz_mv;
+    _smthVzMv._t_acce = _pMaster->_acce_vz_mv;
     _smthVzMv.accelerateByDt(prm_target_distance, prm_target_frames,
                              prm_p1, prm_p2, prm_end_velo,
                              prm_zero_acc_end_flg);
@@ -100,9 +100,9 @@ void GgafDxAxesMoverAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_
 void GgafDxAxesMoverAssistantA::slideVxMvByVd(velo prm_top_velo, coord prm_target_distance,
                                               float prm_p1, float prm_p2, velo prm_end_velo,
                                               bool prm_zero_acc_end_flg) {
-    _smthVxMv._org_value = 0;
-    _smthVxMv._org_velo = _pMaster->_velo_vx_mv;
-    _smthVxMv._org_acce = _pMaster->_acce_vx_mv;
+    _smthVxMv._t_value = 0;
+    _smthVxMv._t_velo = _pMaster->_velo_vx_mv;
+    _smthVxMv._t_acce = _pMaster->_acce_vx_mv;
     _smthVxMv.accelerateByVd(prm_top_velo, prm_target_distance,
                              prm_p1, prm_p2, prm_end_velo,
                              prm_zero_acc_end_flg);
@@ -111,9 +111,9 @@ void GgafDxAxesMoverAssistantA::slideVxMvByVd(velo prm_top_velo, coord prm_targe
 void GgafDxAxesMoverAssistantA::slideVyMvByVd(velo prm_top_velo, coord prm_target_distance,
                                               float prm_p1, float prm_p2, velo prm_end_velo,
                                               bool prm_zero_acc_end_flg) {
-    _smthVyMv._org_value = 0;
-    _smthVyMv._org_velo = _pMaster->_velo_vy_mv;
-    _smthVyMv._org_acce = _pMaster->_acce_vy_mv;
+    _smthVyMv._t_value = 0;
+    _smthVyMv._t_velo = _pMaster->_velo_vy_mv;
+    _smthVyMv._t_acce = _pMaster->_acce_vy_mv;
     _smthVyMv.accelerateByVd(prm_top_velo, prm_target_distance,
                              prm_p1,prm_p2,prm_end_velo,
                              prm_zero_acc_end_flg);
@@ -122,9 +122,9 @@ void GgafDxAxesMoverAssistantA::slideVyMvByVd(velo prm_top_velo, coord prm_targe
 void GgafDxAxesMoverAssistantA::slideVzMvByVd(velo prm_top_velo, coord prm_target_distance,
                                               float prm_p1, float prm_p2, velo prm_end_velo,
                                               bool prm_zero_acc_end_flg) {
-    _smthVzMv._org_value = 0;
-    _smthVzMv._org_velo = _pMaster->_velo_vz_mv;
-    _smthVzMv._org_acce = _pMaster->_acce_vz_mv;
+    _smthVzMv._t_value = 0;
+    _smthVzMv._t_velo = _pMaster->_velo_vz_mv;
+    _smthVzMv._t_acce = _pMaster->_acce_vz_mv;
     _smthVzMv.accelerateByVd(prm_top_velo, prm_target_distance,
                              prm_p1, prm_p2, prm_end_velo,
                              prm_zero_acc_end_flg);

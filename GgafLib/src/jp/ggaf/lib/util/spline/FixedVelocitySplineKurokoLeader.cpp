@@ -49,7 +49,7 @@ again:
                 if (_cnt_loop == _max_loop) {
                     //I—¹
                     _is_leading = false;
-                    pKuroko_target->stopTurnMvAng();
+                    pKuroko_target->stopTurningMvAng();
                     return;
                 } else {
                     //ƒ‹[ƒv

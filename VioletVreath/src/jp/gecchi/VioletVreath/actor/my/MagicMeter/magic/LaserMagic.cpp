@@ -1,12 +1,12 @@
 #include "LaserMagic.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
-#include "jp/gecchi/VioletVreath/actor/my/MyStraightLaserChip001.h"
+#include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshinWateringLaserChip001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectLaserMagic.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyMagicEnergyCore.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyStraightLaserChip001.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -15,7 +15,7 @@ using namespace VioletVreath;
 
 LaserMagic::LaserMagic(const char* prm_name, int* prm_pMP)
     : Magic(prm_name, prm_pMP,
-            3,                    //max_level
+            MAX_LASER_LEVEL,      //max_level
             1000*4  , 1.5, 0.9,   //基本魔法コスト, ＋１レベル毎のコスト増加率  , 飛びレベル時のコスト削減率
             60      , 1.5, 0.9,   //基本詠唱時間  , ＋１レベル毎の詠唱時間増加率, 飛びレベル時の詠唱時間削減率
             30      , 1.5, 0.9,   //基本発動時間  , ＋１レベル毎の発動時間増加率, 飛びレベル時の発動時間削減率
@@ -93,6 +93,7 @@ void LaserMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
     if (prm_now_level > 0) {
         P_MYSHIP->can_shoot_laser_ = true;
         MyStraightLaserChip001::chengeTex(prm_now_level-1);
+        MyBunshinWateringLaserChip001::chengeTex(prm_now_level-1);
     } else {
         //レベル0へレベルダウン時
         P_MYSHIP->can_shoot_laser_ = false;

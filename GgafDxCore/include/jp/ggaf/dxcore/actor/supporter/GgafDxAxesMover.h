@@ -67,7 +67,7 @@ public:
     coord _grv_mv_stop_renge;
     bool _grv_mv_flg;
     /** [r]•ˆßB‚Ì•èA */
-    GgafDxAxesMoverAssistantA* _pAsstA;
+    GgafDxAxesMoverAssistantA* _pAsstMv;
 
 public:
     /**

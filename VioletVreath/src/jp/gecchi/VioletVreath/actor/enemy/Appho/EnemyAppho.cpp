@@ -8,7 +8,7 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
 
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 using namespace GgafCore;
@@ -42,8 +42,6 @@ void EnemyAppho::onActive() {
 }
 
 void EnemyAppho::processBehavior() {
-    //加算ランクポイントを減少
-    UTIL::updateEnemyRankPoint(this);
     GgafDxKuroko* const pKuroko = getKuroko();
     GgafProgress* const pProg = getProgress();
 
@@ -84,7 +82,7 @@ void EnemyAppho::processBehavior() {
                  //滞留ポイントへGO!
                  velo mv_velo = RF_EnemyAppho_MvVelo(G_RANK);
                  coord d = UTIL::getDistance(this, &stagnating_pos_);
-                 pKuroko->asstA()->slideMvByVd(mv_velo, d,
+                 pKuroko->asstMv()->slideByVd(mv_velo, d,
                                                0.2, 0.8, 200, true);
              }
              //滞留ポイントまで移動中
@@ -93,7 +91,7 @@ void EnemyAppho::processBehavior() {
                  pKuroko->turnFaceAngTwd(P_MYSHIP, D_ANG(0.5), 0,
                                          TURN_CLOSE_TO, true);
              }
-             if (pKuroko->asstA()->hasJustFinishedSlidingMv()) {
+             if (pKuroko->asstMv()->hasJustFinishedSliding()) {
                  pProg->changeNext();
              }
              //_TRACE_("PROG_MOVE01:"<<_x<<","<<_y<<","<<_z<<","<<_pKuroko->_velo_mv<<","<<_pKuroko->_acc_mv);

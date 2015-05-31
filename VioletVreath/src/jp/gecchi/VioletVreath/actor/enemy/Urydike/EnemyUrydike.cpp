@@ -11,13 +11,12 @@
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Urydike/FormationUrydike.h"
-
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
-
 
 EnemyUrydike::EnemyUrydike(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Urydike", STATUS(EnemyUrydike)) {
@@ -98,7 +97,6 @@ void EnemyUrydike::processBehavior() {
             break;
         }
 
-
         case PROG_SCATTER: {
             if (pProg->hasJustChanged()) {
                 delay_ = RND(0, 120);
@@ -132,7 +130,6 @@ void EnemyUrydike::processBehavior() {
             break;
     }
 
-    UTIL::updateEnemyRankPoint(this); //加算ランクポイントを減少
     pAFader_->behave();
     getKuroko()->behave();
 }
@@ -160,6 +157,7 @@ void EnemyUrydike::onInactive() {
         sayonara();
     }
 }
+
 void EnemyUrydike::scatter() {
     //Formationから指示がある。
     scatter_flg_ = true;

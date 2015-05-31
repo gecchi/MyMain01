@@ -60,8 +60,6 @@ void EnemyEresShot001::onActive() {
 }
 
 void EnemyEresShot001::processBehavior() {
-    //加算ランクポイントを減少
-    UTIL::updateEnemyRankPoint(this);
     GgafDxKuroko* const pKuroko = getKuroko();
     //方向転換開始
     if (getActiveFrame() == frame_TurnBegin_) {

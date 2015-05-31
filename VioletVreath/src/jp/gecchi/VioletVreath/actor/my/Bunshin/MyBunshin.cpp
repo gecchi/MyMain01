@@ -12,8 +12,8 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoFaceAngAssistant.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
@@ -269,7 +269,7 @@ void MyBunshin::slideMvRadiusPosition(coord prm_target_radius_position, frame pr
     if (!is_local) { changeGeoLocal(); }  //ローカル座標の操作とする。
     coord d = prm_target_radius_position - _y;
     getKuroko()->setRzRyMvAng(D90ANG, D0ANG); //Y軸方向
-    getKuroko()->asstA()->slideMvByDt(d, prm_spent_frames, 0.2, 0.8, 0, true);
+    getKuroko()->asstMv()->slideByDt(d, prm_spent_frames, 0.2, 0.8, 0, true);
     if (!is_local) { changeGeoFinal(); }  //座標系を戻す
 }
 
@@ -296,8 +296,8 @@ angvelo MyBunshin::getExpanse() {
 void MyBunshin::turnExpanse(coord prm_target_ang_expanse, frame prm_spent_frames) {
     bool is_local = _is_local;
     if (!is_local) { changeGeoLocal(); }  //ローカル座標の操作とする。
-    getKuroko()->asstB()->turnRzFaceAngByDtTo(prm_target_ang_expanse, TURN_CLOSE_TO,
-                                              prm_spent_frames, 0.3, 0.5, 0, true);
+    getKuroko()->asstFaceAng()->turnRzFaceAngByDtTo(prm_target_ang_expanse, TURN_CLOSE_TO,
+                                                    prm_spent_frames, 0.3, 0.5, 0, true);
     if (!is_local) { changeGeoFinal(); }  //座標系を戻す
 }
 

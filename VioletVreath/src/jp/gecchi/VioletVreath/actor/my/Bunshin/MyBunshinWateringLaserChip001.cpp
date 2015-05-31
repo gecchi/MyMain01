@@ -12,7 +12,7 @@
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
 #include "jp/ggaf/lib/actor/laserchip/WateringLaserChip.h"
-
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/LaserMagic.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -24,7 +24,7 @@ const double MyBunshinWateringLaserChip001::rr_max_acce_ = 1.0 / r_max_acce_; //
 const float MyBunshinWateringLaserChip001::max_acce_renge_ = max_velo_renge_/r_max_acce_;
 
 GgafDxCore::GgafDxModel* MyBunshinWateringLaserChip001::pModel_  = nullptr;
-char MyBunshinWateringLaserChip001::aaTextureName[3][51];
+char MyBunshinWateringLaserChip001::aaTextureName[MAX_LASER_LEVEL][51];
 int MyBunshinWateringLaserChip001::tex_no_ = 0;
 
 MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_name) :
@@ -38,8 +38,8 @@ MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_nam
     is_lockon_ = false;
     GgafDxModel* pModel = getModel();
     if (!MyBunshinWateringLaserChip001::pModel_) {
-        if (pModel->_num_materials != 3) {
-            throwGgafCriticalException("MyBunshinWateringLaserChip001::onCreateModel() MyBunshinWateringLaserChip001モデルは、マテリアが３つ必要です。");
+        if (pModel->_num_materials != MAX_LASER_LEVEL) {
+            throwGgafCriticalException("MyBunshinWateringLaserChip001::onCreateModel() MyBunshinWateringLaserChip001モデルは、テクスチャ（マテリアル）が"<<MAX_LASER_LEVEL<<"つ必要です。");
         }
         for (DWORD i = 0; i < pModel->_num_materials; i ++) {
             strcpy(MyBunshinWateringLaserChip001::aaTextureName[i], pModel->_papTextureConnection[i]->peek()->getName());

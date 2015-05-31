@@ -1,15 +1,14 @@
 #include "FormationAllas001.h"
 
-#include "jp/ggaf/lib/DefaultGod.h"
-#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Allas/EnemyAllas.h"
+#include "EnemyAllas.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-
 #include "jp/ggaf/core/GgafFactory.h"
-
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/lib/DefaultGod.h"
+#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

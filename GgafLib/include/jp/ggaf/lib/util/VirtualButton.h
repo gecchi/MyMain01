@@ -159,39 +159,40 @@ namespace GgafLib {
 #define VBK_MAIL            DIK_MAIL
 #define VBK_MEDIASELECT     DIK_MEDIASELECT
 
-#define VBJ_BUTTON_01       0
-#define VBJ_BUTTON_02       1
-#define VBJ_BUTTON_03       2
-#define VBJ_BUTTON_04       3
-#define VBJ_BUTTON_05       4
-#define VBJ_BUTTON_06       5
-#define VBJ_BUTTON_07       6
-#define VBJ_BUTTON_08       7
-#define VBJ_BUTTON_09       8
-#define VBJ_BUTTON_10       9
-#define VBJ_BUTTON_11       10
-#define VBJ_BUTTON_12       11
-#define VBJ_BUTTON_13       12
-#define VBJ_BUTTON_14       13
-#define VBJ_BUTTON_15       14
-#define VBJ_BUTTON_16       15
-#define VBJ_X_POS_MINUS     (0x80)
-#define VBJ_X_POS_PLUS      (0x81)
-#define VBJ_Y_POS_MINUS     (0x82)
-#define VBJ_Y_POS_PLUS      (0x83)
-#define VBJ_Z_POS_MINUS     (0x84)
-#define VBJ_Z_POS_PLUS      (0x85)
-#define VBJ_X_ROT_MINUS     (0x86)
-#define VBJ_X_ROT_PLUS      (0x87)
-#define VBJ_Y_ROT_MINUS     (0x88)
-#define VBJ_Y_ROT_PLUS      (0x89)
-#define VBJ_Z_ROT_MINUS     (0x8A)
-#define VBJ_Z_ROT_PLUS      (0x8B)
-#define VBJ_POV_UP          (0x90)
-#define VBJ_POV_DOWN        (0x91)
-#define VBJ_POV_LEFT        (0x92)
-#define VBJ_POV_RIGHT       (0x93)
+#define VBJ_BUTTON_01       (0x00U)
+#define VBJ_BUTTON_02       (0x01U)
+#define VBJ_BUTTON_03       (0x02U)
+#define VBJ_BUTTON_04       (0x03U)
+#define VBJ_BUTTON_05       (0x04U)
+#define VBJ_BUTTON_06       (0x05U)
+#define VBJ_BUTTON_07       (0x06U)
+#define VBJ_BUTTON_08       (0x07U)
+#define VBJ_BUTTON_09       (0x08U)
+#define VBJ_BUTTON_10       (0x09U)
+#define VBJ_BUTTON_11       (0x0AU)
+#define VBJ_BUTTON_12       (0x0BU)
+#define VBJ_BUTTON_13       (0x0CU)
+#define VBJ_BUTTON_14       (0x0DU)
+#define VBJ_BUTTON_15       (0x0EU)
+#define VBJ_BUTTON_16       (0x0FU)
+#define VBJ_BUTTON_MAX      (0x0FU) //rgbボタン番兵
 
+#define VBJ_X_POS_MINUS     (0x80U)
+#define VBJ_X_POS_PLUS      (0x81U)
+#define VBJ_Y_POS_MINUS     (0x82U)
+#define VBJ_Y_POS_PLUS      (0x83U)
+#define VBJ_Z_POS_MINUS     (0x84U)
+#define VBJ_Z_POS_PLUS      (0x85U)
+#define VBJ_X_ROT_MINUS     (0x86U)
+#define VBJ_X_ROT_PLUS      (0x87U)
+#define VBJ_Y_ROT_MINUS     (0x88U)
+#define VBJ_Y_ROT_PLUS      (0x89U)
+#define VBJ_Z_ROT_MINUS     (0x8AU)
+#define VBJ_Z_ROT_PLUS      (0x8BU)
+#define VBJ_POV_UP          (0x8CU)
+#define VBJ_POV_DOWN        (0x8DU)
+#define VBJ_POV_LEFT        (0x8EU)
+#define VBJ_POV_RIGHT       (0x8FU)
 
 #define VB_BUTTON1        (0x1U)         //&B 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000001
 #define VB_BUTTON2        (0x2U)         //&B 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000010
@@ -379,7 +380,7 @@ public:
 
     bool initStatic();
 
-    static bool isBeingPressedVirtualJoyButton(int prm_VBJ);
+    static bool isBeingPressedVirtualJoyButton(vbj prm_VBJ);
 
     static int getPushedDownVirtualJoyButton();
 
@@ -465,20 +466,29 @@ public:
 
     /**
      * 現在ボタンが押されているか判定 .
-     * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
-     * @return true / false
+     * @param prm_VB 判定対象仮想ボタン定数。VB_ で始まる定数(の論理和)
+     * @retval 0   引数のボタンはいずれも押されていない(=false)
+     * @retval >0  引数のボタンの内、現在押されているボタンの VB_ で始まる定数(の論理和)
+     * @code
+     * VirtualButton vb_play = VirtualButton();
+     * vb_play.update();
+     *
+     * if (vb_play.isBeingPressed(VB_BUTTON1)) {
+     *     //VB_BUTTON1 が押されている場合の処理
+     * }
+     *
+     * if (vb_play.isBeingPressed(VB_BUTTON1|VB_BUTTON3)) {
+     *     //VB_BUTTON1 又は VB_BUTTON3 が押されている場合の処理
+     * }
+     *
+     * if (vb_play.isBeingPressed(VB_BUTTON1|VB_BUTTON3) == (VB_BUTTON1|VB_BUTTON3)) {
+     *     //VB_BUTTON1 と VB_BUTTON3 が両方押されている場合の処理
+     * }
+     * @endcode
      */
     inline vb_sta isBeingPressed(vb_sta prm_VB) const {
         return (_pVBRecord_active->_state & prm_VB);
     }
-
-    /**
-     * 現在ボタンが押されていないか判定 .
-     * isBeingPressed(vb_sta) の否定の結果が返る。
-     * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
-     * @return true / false
-     */
-    vb_sta isNotBeingPressed(vb_sta prm_VB) const ;
 
     /**
      * 過去にボタンが押されていたかどうか判定 .
@@ -486,7 +496,8 @@ public:
      * @param prm_frame_ago 何フレーム前(>0)を判定するのか指定。
      * 1 で 1フレーム前、2 で 2フレーム前、0 は isBeingPressed(vb_sta) と同じ意味になる。
      * 最大 (VB_MAP_BUFFER-1) フレーム前まで可
-     * @return true / false
+     * @retval 0   過去に、引数のボタンはいずれも押されていなかった(=false)
+     * @retval >0  引数のボタンの内、過去に押されていたボタンの VB_ で始まる定数(の論理和)
      */
     vb_sta wasBeingPressed(vb_sta prm_VB, frame prm_frame_ago) const;
 
@@ -499,7 +510,9 @@ public:
      *                      最大 (VB_MAP_BUFFER-1) フレーム前まで可
      * @return true / false
      */
-    vb_sta wasNotBeingPressed(vb_sta prm_VB, frame prm_frame_ago) const;
+    inline bool wasNotBeingPressed(vb_sta prm_VB, frame prm_frame_ago) const {
+        return wasBeingPressed(prm_VB, prm_frame_ago) ? false : true;
+    }
 
     /**
      * 現在ボタンが押された瞬間なのかどうか判定 .
@@ -507,7 +520,7 @@ public:
      * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
      * @return true / false
      */
-    inline vb_sta isPushedDown(vb_sta prm_VB) const {
+    inline bool isPushedDown(vb_sta prm_VB) const {
         return (!(_pVBRecord_active->_prev->_state & prm_VB) && (_pVBRecord_active->_state & prm_VB)) ? true : false;
     }
 
@@ -520,7 +533,7 @@ public:
      *                      最大 (VB_MAP_BUFFER-1) フレーム前まで可
      * @return true / false
      */
-    vb_sta wasPushedDown(vb_sta prm_VB, frame prm_frame_ago) const;
+    bool wasPushedDown(vb_sta prm_VB, frame prm_frame_ago) const;
 
     /**
      * 現在ボタンを離した瞬間なのかどうか判定 .
@@ -528,7 +541,7 @@ public:
      * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
      * @return true / false
      */
-    vb_sta isReleasedUp(vb_sta prm_VB) const;
+    bool isReleasedUp(vb_sta prm_VB) const;
 
     /**
      * 過去にボタンを離した瞬間があったのかどうか判定 .
@@ -538,7 +551,7 @@ public:
      *                      1 で 1フレーム前、2 で 2フレーム前、0 は isReleasedUp(vb_sta) と同じ意味になる。
      * @return true / false
      */
-    vb_sta wasReleasedUp(vb_sta prm_VB, frame prm_frame_ago) const;
+    bool wasReleasedUp(vb_sta prm_VB, frame prm_frame_ago) const;
 
     /**
      * チョン押し判定 .
@@ -550,7 +563,7 @@ public:
      * @param prm_frame_push 許容するボタンを押していた期間フレーム(default=5)
      * @return true / false
      */
-    vb_sta isPushedUp(vb_sta prm_VB, frame prm_frame_push = 5) const;
+    bool isPushedUp(vb_sta prm_VB, frame prm_frame_push = 5) const;
 
     /**
      * ダブルプッシュ判定 .
@@ -563,7 +576,7 @@ public:
      * @param prm_frame_delay 許容する(c)～(d) の期間
      * @return true / false
      */
-    vb_sta isDoublePushedDown(vb_sta prm_VB, frame prm_frame_push = 5, frame prm_frame_delay = 5) const;
+    bool isDoublePushedDown(vb_sta prm_VB, frame prm_frame_push = 5, frame prm_frame_delay = 5) const;
 
     /**
      * 複数ボタン同時押し判定 .
@@ -587,7 +600,7 @@ public:
      * @param prm_num_button 配列の要素数
      * @return true / false
      */
-    vb_sta arePushedDownAtOnce(vb_sta prm_aVB[], int prm_num_button) const;
+    bool arePushedDownAtOnce(vb_sta prm_aVB[], int prm_num_button) const;
 
     /**
      * ３フレ猶予の２つボタン同時押し判定 .
@@ -595,7 +608,7 @@ public:
      * @param prm_VB2 判定対象仮想ボタン２
      * @return true / false
      */
-    vb_sta arePushedDownAtOnce(vb_sta prm_VB1, vb_sta prm_VB2) const {
+    bool arePushedDownAtOnce(vb_sta prm_VB1, vb_sta prm_VB2) const {
         vb_sta vb[2];
         vb[0] = prm_VB1;
         vb[1] = prm_VB2;
@@ -609,7 +622,7 @@ public:
      * @param prm_VB3 判定対象仮想ボタン３
      * @return true / false
      */
-    vb_sta arePushedDownAtOnce(vb_sta prm_VB1, vb_sta prm_VB2, vb_sta prm_VB3) const {
+    bool arePushedDownAtOnce(vb_sta prm_VB1, vb_sta prm_VB2, vb_sta prm_VB3) const {
         vb_sta vb[3];
         vb[0] = prm_VB1;
         vb[1] = prm_VB2;
@@ -625,7 +638,7 @@ public:
      * @param prm_VB4 判定対象仮想ボタン４
      * @return true / false
      */
-    vb_sta arePushedDownAtOnce(vb_sta prm_VB1, vb_sta prm_VB2, vb_sta prm_VB3, vb_sta prm_VB4) const {
+    bool arePushedDownAtOnce(vb_sta prm_VB1, vb_sta prm_VB2, vb_sta prm_VB3, vb_sta prm_VB4) const {
         vb_sta vb[4];
         vb[0] = prm_VB1;
         vb[1] = prm_VB2;
@@ -641,7 +654,7 @@ public:
      * @param prm_while_repeat オートリピート開始後、リピート間隔フレーム数
      * @return true / false
      */
-    vb_sta isAutoRepeat(vb_sta prm_VB, frame prm_begin_repeat = 20, frame prm_while_repeat = 5);
+    bool isAutoRepeat(vb_sta prm_VB, frame prm_begin_repeat = 20, frame prm_while_repeat = 5);
 
     /**
      * グルッとポンか否か判定 .
@@ -656,10 +669,12 @@ public:
     bool isScrewPushDown(vb_sta prm_VB, frame prm_frame_delay=30) const;
 
 
-    vb_sta getPushedDownStick() const;
+    //vb_sta getPushedDownStick() const;
 
 
-    vb_sta getState() const;
+    inline vb_sta getState() const {
+        return _pVBRecord_active->_state;
+    }
 
     /**
      * 入力情報を更新 .
@@ -667,8 +682,6 @@ public:
      * 但し、リプレイ再生中は、読み込まれた外部ファイルのデータで、内部ステートを更新。
      */
     void update();
-
-    void init();
 
     void clear();
 

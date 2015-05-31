@@ -119,8 +119,6 @@ void EnemyHisbe::onActive() {
 }
 
 void EnemyHisbe::processBehavior() {
-    //加算ランクポイントを減少
-    UTIL::updateEnemyRankPoint(this);
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_WAIT: {

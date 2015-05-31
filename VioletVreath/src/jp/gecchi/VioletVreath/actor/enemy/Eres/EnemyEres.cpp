@@ -71,9 +71,6 @@ void EnemyEres::onActive() {
 }
 
 void EnemyEres::processBehavior() {
-    //‰ÁŽZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ðŒ¸­
-    UTIL::updateEnemyRankPoint(this);
-
     //•ûŒü“]Š·
     if (iMovePatternNo_ == 0 && _x > 400000) {
 

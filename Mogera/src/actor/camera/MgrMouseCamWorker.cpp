@@ -3,7 +3,7 @@
 #include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoAssistantA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "jp/ggaf/dxcore/util/GgafDxQuaternion.h"
 #include "jp/ggaf/lib/GgafLibProperties.h"

@@ -122,9 +122,6 @@ void EnemyTamago01::processBehavior() {
 //    }
     GgafDxKuroko* const pKuroko = getKuroko();
 
-    //加算ランクポイントを減少
-    UTIL::updateEnemyRankPoint(this);
-
     if (iMovePatternNo_ == 0) {
         //スプライン移動中
         if (pProgram_Tamago01Move_ && pProgram_Tamago01Move_->isFinished()) {

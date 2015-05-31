@@ -54,8 +54,6 @@ void EnemyAllas::onActive() {
 }
 
 void EnemyAllas::processBehavior() {
-    //加算ランクポイントを減少
-    UTIL::updateEnemyRankPoint(this);
     GgafDxKuroko* const pKuroko = getKuroko();
     GgafProgress* const pProg = getProgress();
     //【パターン1：スプライン移動】

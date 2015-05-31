@@ -63,8 +63,6 @@ void EnemyEtis::onActive() {
 }
 
 void EnemyEtis::processBehavior() {
-    //‰ÁZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ğŒ¸­
-    UTIL::updateEnemyRankPoint(this);
     //À•W‚É”½‰f
     getKuroko()->behave();
 }

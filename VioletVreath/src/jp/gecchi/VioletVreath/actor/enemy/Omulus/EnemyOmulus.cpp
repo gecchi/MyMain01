@@ -150,8 +150,6 @@ void EnemyOmulus::processBehavior() {
         default :
             break;
     }
-    //加算ランクポイントを減少
-    UTIL::updateEnemyRankPoint(this);
 
 //    if (getActiveFrame() % 10U == 0                   && 1 == 2) {
 //        //自機へ方向を向ける

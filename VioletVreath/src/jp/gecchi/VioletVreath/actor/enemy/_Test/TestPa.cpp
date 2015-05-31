@@ -23,8 +23,6 @@ void TestPa::onActive() {
 }
 
 void TestPa::processBehavior() {
-    //加算ランクポイントを減少
-    UTIL::updateEnemyRankPoint(this);
     getKuroko()->behave();
     //getSeTx()->behave();
     dispStamina();

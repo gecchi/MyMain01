@@ -43,7 +43,7 @@ void NameEntryScene::onReset() {
     pLabel01_->update("");
     pLabelInputedName_->update("");
     pWorldBound_->inactivate();
-    getProgress()->reset(NameEntryScene::PROG_INIT);
+    getProgress()->reset(PROG_INIT);
 }
 void NameEntryScene::initialize() {
     _TRACE_("NameEntryScene::initialize()");
@@ -52,28 +52,28 @@ void NameEntryScene::initialize() {
 void NameEntryScene::processBehavior() {
     SceneProgress* pProg = getProgress();
     switch (pProg->get()) {
-        case NameEntryScene::PROG_INIT: {
-            pProg->change(NameEntryScene::PROG_PRE_DISP);
+        case PROG_INIT: {
+            pProg->change(PROG_PRE_DISP);
             break;
         }
 
-        case NameEntryScene::PROG_PRE_DISP: {
+        case PROG_PRE_DISP: {
             //##########  事前画面表示  ##########
             if (pProg->hasJustChanged()) {
-                _TRACE_("NameEntryScene::processBehavior() Prog has Just Changed (to NameEntryScene::PROG_PRE_DISP)");
+                _TRACE_("NameEntryScene::processBehavior() Prog has Just Changed (to PROG_PRE_DISP)");
                 pWorldBound_->fadein();
             }
 
             if(pProg->getFrame() >= 120) {
-                pProg->change(NameEntryScene::PROG_INPUT);
+                pProg->change(PROG_INPUT);
             }
             break;
         }
 
-        case NameEntryScene::PROG_INPUT: {
+        case PROG_INPUT: {
             //##########  ネームエントリー  ##########
             if (pProg->hasJustChanged()) {
-                _TRACE_("NameEntryScene::processBehavior() Prog has Just Changed (to NameEntryScene::PROG_INPUT)");
+                _TRACE_("NameEntryScene::processBehavior() Prog has Just Changed (to PROG_INPUT)");
                 pLabel01_->update(PX_C(62), PX_C(32), "PLEASE ENTRY YOUR NAME!!!!");
                 pNameEntryBoard_->rise(PX_C(50), PX_C(10)); //ネームエントリー板出現
                 pLabelInputedName_->getKuroko()->setRollPitchYawFaceAngVelo(1700, 1500, 1000);
@@ -85,10 +85,10 @@ void NameEntryScene::processBehavior() {
             break;
         }
 
-        case NameEntryScene::PROG_DONE_DISP: {
+        case PROG_DONE_DISP: {
             //##########  ネームエントリー完了後の画面表示  ##########
             if (pProg->hasJustChanged()) {
-                _TRACE_("NameEntryScene::processBehavior() Prog has Just Changed (to NameEntryScene::PROG_DONE_DISP)");
+                _TRACE_("NameEntryScene::processBehavior() Prog has Just Changed (to PROG_DONE_DISP)");
                 pNameEntryBoard_->sinkMe(); //ネームエントリー板消去
                 pLabelSelectedChar_->inactivate(); //選択表示文字消去
                 pLabelInputedName_->pAFader_->beat(10, 5, 0, 5, -1); //入力ネーム点滅
@@ -112,7 +112,7 @@ void NameEntryScene::processBehavior() {
                 pWorldBound_->fadeout();
             }
             if(pProg->getFrame() >= 180) {
-                pProg->change(NameEntryScene::PROG_FINISH);
+                pProg->change(PROG_FINISH);
             }
 
             pLabelInputedName_->getKuroko()->behave();
@@ -121,9 +121,9 @@ void NameEntryScene::processBehavior() {
             break;
         }
 
-        case NameEntryScene::PROG_FINISH: {
+        case PROG_FINISH: {
             if (pProg->hasJustChanged()) {
-                _TRACE_("NameEntryScene::processBehavior() Prog has Just Changed (to NameEntryScene::PROG_FINISH)");
+                _TRACE_("NameEntryScene::processBehavior() Prog has Just Changed (to PROG_FINISH)");
                 _TRACE_("おわりじゃよ！");
                 throwEventUpperTree(EVENT_NAMEENTRYSCENE_FINISH);
             }

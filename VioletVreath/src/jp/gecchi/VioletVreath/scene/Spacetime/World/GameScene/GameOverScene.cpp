@@ -26,7 +26,7 @@ void GameOverScene::onReset() {
     fadeoutSceneWithBgm(0);
     pLabel01_->update("");
     pNameEntryScene_ = nullptr;
-    getProgress()->reset(GameOverScene::PROG_INIT);
+    getProgress()->reset(PROG_INIT);
 }
 void GameOverScene::initialize() {
     _TRACE_("GameOverScene::initialize()");
@@ -35,7 +35,7 @@ void GameOverScene::initialize() {
 void GameOverScene::processBehavior() {
 
 //    switch (pProg->getFromProgOnChange()) {
-//        case GameOverScene::PROG_DISP: {
+//        case PROG_DISP: {
 //            fadeoutSceneWithBgm(FADE_FRAMES);
 //            inactivateDelay(FADE_FRAMES);
 //            break;
@@ -47,12 +47,12 @@ void GameOverScene::processBehavior() {
 
     SceneProgress* pProg = getProgress();
     switch (pProg->get()) {
-        case GameOverScene::PROG_INIT: {
-            pProg->change(GameOverScene::PROG_DISP);
+        case PROG_INIT: {
+            pProg->change(PROG_DISP);
             break;
         }
 
-        case GameOverScene::PROG_DISP: {
+        case PROG_DISP: {
             if (pProg->hasJustChanged()) {
                 pLabel01_->update(500*1000, 300*1000, "GAME OVER (-_-;)");
                 fadeinScene(FADE_FRAMES);
@@ -70,16 +70,16 @@ void GameOverScene::processBehavior() {
             if (pProg->hasArrivedAt(420)) {
                 P_GOD->getSpacetime()->resetCamWorker();
                 if (need_name_entry_) {
-                    _TRACE_("pProg->change(GameOverScene::PROG_NAMEENTRY);");
-                    pProg->change(GameOverScene::PROG_NAMEENTRY);
+                    _TRACE_("pProg->change(PROG_NAMEENTRY);");
+                    pProg->change(PROG_NAMEENTRY);
                 } else {
-                    pProg->change(GameOverScene::PROG_FINISH);
+                    pProg->change(PROG_FINISH);
                 }
             }
             break;
         }
 
-        case GameOverScene::PROG_NAMEENTRY: {
+        case PROG_NAMEENTRY: {
              if (pProg->hasJustChanged()) {
                  pNameEntryScene_ = (NameEntryScene*)obtainSceneFromFactory(ORDER_ID_NAMEENTRYSCENE);
                  addSubLast(pNameEntryScene_);
@@ -88,7 +88,7 @@ void GameOverScene::processBehavior() {
              break;
          }
 
-        case GameOverScene::PROG_FINISH: {
+        case PROG_FINISH: {
             if (pProg->hasJustChanged()) {
                 if (pNameEntryScene_) {
                     pNameEntryScene_->sayonara();

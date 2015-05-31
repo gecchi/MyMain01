@@ -1,6 +1,9 @@
 #ifndef VVENEMYSHEADER_H_
 #define VVENEMYSHEADER_H_
 #include "VioletVreath.h"
+
+//シーンクラスに include されるヘッダです。
+
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestEnemy.h"
@@ -118,6 +121,10 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/EnemyOebiusController002.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Urydike/FormationUrydike001.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Urydike/FormationUrydike002.h"
+
+#include "jp/gecchi/VioletVreath/actor/Danmaku/Alice/DanmakuAlice.h";
+#include "jp/gecchi/VioletVreath/actor/Danmaku/Alice/DanmakuAlice001.h";
+#include "jp/gecchi/VioletVreath/actor/Danmaku/Alice/AliceShot.h";
 //"VioletVreath.h"への前方宣言追記も忘れずに
 
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"

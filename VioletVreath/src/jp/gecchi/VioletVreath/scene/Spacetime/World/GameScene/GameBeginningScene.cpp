@@ -20,12 +20,12 @@ GameBeginningScene::GameBeginningScene(const char* prm_name) : DefaultScene(prm_
     pLabel02_ = NEW LabelGecchi16Font("STR02");
     bringDirector()->addSubGroup(KIND_EFFECT, pLabel02_);
     selected_stage_ = 0;
-    useProgress(GameBeginningScene::PROG_BANPEI-1);
+    useProgress(PROG_BANPEI-1);
 }
 
 void GameBeginningScene::onReset() {
     _TRACE_("GameBeginningScene::onReset() "<<NODE_INFO<<"");
-    getProgress()->change(GameBeginningScene::PROG_INIT);
+    getProgress()->change(PROG_INIT);
 //    fadeinScene(0);
     pLabel01_->update("");
     pLabel02_->update("");
@@ -44,25 +44,25 @@ void GameBeginningScene::initialize() {
 void GameBeginningScene::processBehavior() {
     SceneProgress* pProg = getProgress();
     switch (pProg->get()) {
-        case GameBeginningScene::PROG_INIT: {
-            pProg->change(GameBeginningScene::PROG_SELECT_MODE);
+        case PROG_INIT: {
+            pProg->change(PROG_SELECT_MODE);
             break;
         }
 
-        case GameBeginningScene::PROG_SELECT_MODE: {
+        case PROG_SELECT_MODE: {
             if (pProg->hasJustChanged()) {
                 pLabel01_->update(PX_C(200), PX_C(200), "GAME_BEGINNING_SCENE BEGIN");
                 pLabel02_->update(PX_C(200), PX_C(250), "SELECT MODE!");
             }
-            if (pProg->get() == GameBeginningScene::PROG_SELECT_MODE) {
+            if (pProg->get() == PROG_SELECT_MODE) {
                 if (VB->isPushedDown(VB_UI_EXECUTE) || pProg->hasArrivedAt(300)) {
-                    pProg->change(GameBeginningScene::PROG_DECIDE);
+                    pProg->change(PROG_DECIDE);
                 }
             }
             break;
         }
 
-        case GameBeginningScene::PROG_DECIDE: {
+        case PROG_DECIDE: {
             if (pProg->hasJustChanged()) {
                 pLabel02_->update(PX_C(300), PX_C(300), "OK OK OK");
                 pLabel02_->pAFader_->beat(20, 3, 7, 3, -1);
@@ -74,12 +74,12 @@ void GameBeginningScene::processBehavior() {
 
 //
 //            if (pProg->hasArrivedAt(FADE_FRAMES)) {
-//                pProg->change(GameBeginningScene::PROG_FINISH);
+//                pProg->change(PROG_FINISH);
 //            }
             break;
         }
 
-        case GameBeginningScene::PROG_FINISH: {
+        case PROG_FINISH: {
             if (pProg->hasJustChanged()) {
                 //inactivate();
             }

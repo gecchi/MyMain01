@@ -12,6 +12,7 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/LaserMagic.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -19,7 +20,7 @@ using namespace VioletVreath;
 
 
 GgafDxCore::GgafDxModel* MyStraightLaserChip001::pModel_  = nullptr;
-char MyStraightLaserChip001::aaTextureName[3][51];
+char MyStraightLaserChip001::aaTextureName[MAX_LASER_LEVEL][51];
 int MyStraightLaserChip001::tex_no_ = 0;
 
 
@@ -32,8 +33,8 @@ MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) :
     lockon_st_ = 0;
     GgafDxModel* pModel = getModel();
     if (!MyStraightLaserChip001::pModel_) {
-        if (pModel->_num_materials != 3) {
-            throwGgafCriticalException("MyStraightLaserChip001::onCreateModel() MyStraightLaserChip001モデルは、マテリアが３つ必要です。");
+        if (pModel->_num_materials != MAX_LASER_LEVEL) {
+            throwGgafCriticalException("MyStraightLaserChip001::onCreateModel() MyStraightLaserChip001モデルは、テクスチャ（マテリアル）が"<<MAX_LASER_LEVEL<<"つ必要です。");
         }
         for (DWORD i = 0; i < pModel->_num_materials; i ++) {
             strcpy(MyStraightLaserChip001::aaTextureName[i], pModel->_papTextureConnection[i]->peek()->getName());

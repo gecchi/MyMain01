@@ -50,8 +50,6 @@ void Shot001::onActive() {
 
 void Shot001::processBehavior() {
 //    _TRACE_("Shot001::processBehavior() before id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<getKuroko()->_ang_rz_mv<<"\t"<<getKuroko()->_ang_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
-    //加算ランクポイントを減少
-    UTIL::updateEnemyRankPoint(this);
     GgafDxKuroko* const pKuroko = getKuroko();
     //座標に反映
     pKurokoLeader_->behave(); //スプライン移動を振る舞い
