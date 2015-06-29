@@ -191,8 +191,12 @@ void GgafDxKuroko::behave() {
                         _ang_face_targeting_stop_flg[ax] = false;
                     }
                 } else {
-                    _TRACE_("＜警告＞GgafDxKuroko::behave() : _angvelo_face["<<ax<<"]="<<_angvelo_face[ax]<<" で、ターゲットまでの距離angDistance="<<angDistance<<" なので、"<<
-                            "いつまでもターゲットに到達しないのではないだろうか？_pActor="<<_pActor->getName()<<"("<<_pActor<<")（要確認）");
+                    if (_angacce_face[ax] == 0) { //加速度も0の場合強制停止(永遠に到達しない)
+                        if (_ang_face_targeting_stop_flg[ax]) {
+                            _is_targeting_ang_face[ax] = false; //フラグを戻して終了
+                            _ang_face_targeting_stop_flg[ax] = false;
+                        }
+                    }
                 }
             }
 
@@ -268,8 +272,12 @@ void GgafDxKuroko::behave() {
                     _ang_rz_mv_targeting_stop_flg = false;
                 }
             } else {
-                _TRACE_("＜警告＞GgafDxKuroko::behave() : _angvelo_rz_mv="<<_angvelo_rz_mv<<" で、ターゲットまでの距離angDistance="<<angDistance<<" なので、"<<
-                        "いつまでもターゲットに到達しないのではないだろうか？_pActor="<<_pActor->getName()<<"("<<_pActor<<")（要確認）");
+                if (_angacce_rz_mv == 0) { //加速度もない場合強制停止
+                    if (_ang_rz_mv_targeting_stop_flg) { //停止指定ありならば
+                        _is_targeting_ang_rz_mv = false; //フラグを戻して終了
+                        _ang_rz_mv_targeting_stop_flg = false;
+                    }
+                }
             }
         }
         if (_is_targeting_ang_rz_mv == false) {
@@ -335,8 +343,12 @@ void GgafDxKuroko::behave() {
                     _ang_ry_mv_targeting_stop_flg = false;
                 }
             } else {
-                _TRACE_("＜警告＞GgafDxKuroko::behave() : _angvelo_ry_mv="<<_angvelo_ry_mv<<" で、ターゲットまでの距離angDistance="<<angDistance<<" なので、"<<
-                        "いつまでもターゲットに到達しないのではないだろうか？_pActor="<<_pActor->getName()<<"("<<_pActor<<")（要確認）");
+                if (_angacce_ry_mv == 0) { //加速度もない場合強制停止
+                    if (_ang_ry_mv_targeting_stop_flg) { //停止指定ありならば
+                        _is_targeting_ang_ry_mv = false; //フラグを戻して終了
+                        _ang_ry_mv_targeting_stop_flg = false;
+                    }
+                }
             }
         }
         if (_is_targeting_ang_ry_mv == false) {

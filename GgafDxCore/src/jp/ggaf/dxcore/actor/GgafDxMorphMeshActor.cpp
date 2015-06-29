@@ -26,10 +26,10 @@ GgafDxMorphMeshActor::GgafDxMorphMeshActor(const char* prm_name,
                                                                    prm_technique,
                                                                    prm_pStat,
                                                                    prm_pChecker),
+_pMorpher(new GgafDxMorpher(this)),
 _pMorphMeshModel((GgafDxMorphMeshModel*)_pModel),
-_pMorphMeshEffect((GgafDxMorphMeshEffect*)_pEffect),
-_pMorpher(new GgafDxMorpher(this)) {
-
+_pMorphMeshEffect((GgafDxMorphMeshEffect*)_pEffect)
+{
     _obj_class |= Obj_GgafDxMorphMeshActor;
     _class_name = "GgafDxMorphMeshActor";
     _pFunc_calc_rot_mv_world_matrix = UTIL::setWorldMatrix_RxRzRyMv;
@@ -59,9 +59,10 @@ GgafDxMorphMeshActor::GgafDxMorphMeshActor(const char* prm_name,
                                                                    prm_technique,
                                                                    prm_pStat,
                                                                    prm_pChecker),
+_pMorpher(new GgafDxMorpher(this)),
 _pMorphMeshModel((GgafDxMorphMeshModel*)_pModel),
-_pMorphMeshEffect((GgafDxMorphMeshEffect*)_pEffect),
-_pMorpher(new GgafDxMorpher(this)) {
+_pMorphMeshEffect((GgafDxMorphMeshEffect*)_pEffect)
+{
     _obj_class |= Obj_GgafDxMorphMeshActor;
     _class_name = "GgafDxMorphMeshActor";
     _pFunc_calc_rot_mv_world_matrix = UTIL::setWorldMatrix_RxRzRyMv;

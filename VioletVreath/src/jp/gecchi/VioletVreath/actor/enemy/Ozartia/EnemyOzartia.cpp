@@ -33,7 +33,6 @@ EnemyOzartia::EnemyOzartia(const char* prm_name) :
     useProgress(PROG_BANPEI1_-1);
     pProg2_ = createProgress(PROG2_BANPEI-1);
     is_hit_ = false;
-    _sx=_sy=_sz=100;
     pConn_pSplManuf_ = getConnection_SplineManufactureManager("EnemyOzartia01_TTT");
     pKurokoLeader01_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
 //    //バリアブロック
@@ -68,7 +67,8 @@ void EnemyOzartia::initialize() {
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->makeCollision(1);
     pChecker->setColliAAB_Cube(0, 40000);
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->forceMvVeloRange(PX_C(1), PX_C(30));
     pKuroko->linkFaceAngByMvAng(false); //独立
     setHitAble(false);
 }
@@ -113,9 +113,9 @@ void EnemyOzartia::processBehavior() {
             if (pProg->hasJustChanged()) {
                 faceang_to_ship_ = true;
                 pKuroko->setMvAcce(0);
-                pKuroko->turnMvAngTwd(pMyShip, D_ANG(1), 0, TURN_ANTICLOSE_TO, false);
+                pKuroko->turnMvAngTwd(pMyShip, D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
-            if (is_hit_ || pProg->hasArrivedAt(5*60)) {
+            if (is_hit_ || pProg->hasArrivedAt(4*60)) {
                 //ヒットするか、しばらくボーっとしてると移動開始
                 pProg->changeProbab(18, PROG1_MV_POS0,
                                     16, PROG1_MV_POS1,
@@ -194,7 +194,7 @@ void EnemyOzartia::processBehavior() {
             if (pProg->hasJustChanged()) {
                 //自機の正面付近へスイーっと行きます
                 pKuroko->asstMv()->slideByVd(pKuroko->getMvVeloTop(), UTIL::getDistance(this, &posMvTarget_),
-                                       0.3f, 0.7f, pKuroko->getMvVeloBottom(), true);
+                                       0.3, 0.7, pKuroko->getMvVeloBottom(), true);
             }
             if (!pKuroko->asstMv()->isSliding()) {
                 //到着したら終了

@@ -908,6 +908,7 @@ GgafElement<T>::GgafElement(const char* prm_name) :
     _frame_of_life_when_end(0),
     _frame_of_life_when_activation(1), //初回フレームにアクティブになるために1
     _frame_of_life_when_inactivation(0),
+    _on_change_to(0),
     _is_already_reset(false),
     _pProg(nullptr)
 {
