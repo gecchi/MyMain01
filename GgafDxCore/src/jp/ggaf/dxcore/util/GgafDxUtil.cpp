@@ -255,6 +255,8 @@ void GgafDxUtil::init() {
             //_TRACE_("["<<prj_ang_xy<<"]["<<prj_ang_xz<<"]=("<<PROJANG_XY_XZ_TO_ROTANG_z[prj_ang_xy][prj_ang_xz]<<","<<PROJANG_XY_XZ_TO_ROTANG_y_REV[prj_ang_xy][prj_ang_xz]<<")");
         }
     }
+
+
     GgafDxUtil::_was_GgafDxUtil_inited_flg = true;
 }
 

@@ -17,6 +17,7 @@
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/dxcore/GgafDxProperties.h"
 
+#include "jp/ggaf/core/util/GgafUtil.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -25,6 +26,8 @@ GgafDxFigureActor* GgafDxSpacetime::_apLastActor_draw_depth_level[MAX_DRAW_DEPTH
 //GgafDxFigureActor* GgafDxSpacetime::_pActors_DrawMaxDrawDepth = nullptr;
 GgafDxFigureActor* GgafDxSpacetime::_pActor_draw_active = nullptr;
 std::string GgafDxSpacetime::_seqkey_se_delay = "_SE_D_";
+
+int GgafDxSpacetime::_FUNC_DRAW_DEP[DEP_RESOLUTION+1];
 
 GgafDxSpacetime::SeArray::SeArray() {
 #ifdef MY_DEBUG
@@ -100,6 +103,17 @@ _z_bound_far   (+DX_C(prm_pCamera->getZFar()))
     _pRing_pSeArray->indexedValue();
 
     GgafRepeatSeq::create(_seqkey_se_delay, 0, 8); //ズレSE再生フレーム
+
+
+
+    //実際の深度と、描画の段階レンダリングの深度要素の関係
+    //画面に近い場合は細く段階レンダリングするが
+    //奥になればなるほどだんだんアバウトな段階にしていく
+    for (int z = 0; z <= DEP_RESOLUTION; z++) {
+        double ang = RCNV(0, DEP_RESOLUTION, z, 0, (PI/2.0));
+        _FUNC_DRAW_DEP[z] = (int) ( sin(ang) * MAX_DRAW_DEPTH_LEVEL);
+    }
+
 }
 
 void GgafDxSpacetime::registerSe(GgafDxSe* prm_pSe,

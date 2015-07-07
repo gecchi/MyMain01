@@ -22,7 +22,7 @@ WallAAPrismActor::WallAAPrismActor(const char* prm_name,
                                                      prm_pStat) {
 
     _class_name = "WallAAPrismActor";
-    _pMeshSetModel->_set_num = 11; //WallPartsActor最大セット数は20。
+    _pMeshSetModel->_set_num = 11; //WallAAPrismActor最大セット数は11。
 
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->makeCollision(1); //0:BOX用当たり判定、1:プリズム用当たり判定

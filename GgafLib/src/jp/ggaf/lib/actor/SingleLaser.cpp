@@ -69,10 +69,6 @@ bool SingleLaser::initStatic() {
     return true;
 }
 
-//void SingleLaser::onCreateModel() {
-//    _pMeshSetModel->_set_num = 27; //現在のSingleレーザーの最大セット数は27。
-//    _TRACE_("SingleLaser::onCreateModel() "<<_pMeshSetModel->getName()<<" のセット数は "<< _pMeshSetModel->_set_num<<" 個に強制されました。");
-//}
 
 void SingleLaser::processDraw() {
     int draw_set_num = 0; //GgafDxMeshSetActorの同じモデルで同じテクニックが

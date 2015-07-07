@@ -17,6 +17,12 @@ public:
 
     DefaultMeshTestActor(const char* prm_name);
 
+    void processBehavior() override;
+    void processJudgement() override;
+    bool isOutOfSpacetime() const override {
+        return false;
+    }
+
     virtual ~DefaultMeshTestActor();
 
 };

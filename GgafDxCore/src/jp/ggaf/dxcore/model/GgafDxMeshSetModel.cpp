@@ -94,13 +94,11 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_d
     }
 
     //描画
-    for (UINT material_grp_index = 0; material_grp_index < _paUint_material_list_grp_num[prm_draw_set_num-1]; material_grp_index++) {
+    const UINT material_list_grp_num = _paUint_material_list_grp_num[prm_draw_set_num-1];
+    for (UINT material_grp_index = 0; material_grp_index < material_list_grp_num; material_grp_index++) {
         const INDEXPARAM& idxparam = _papaIndexParam[prm_draw_set_num-1][material_grp_index];
-        // TODO
         //モデルが同じでかつ、セット数も同じかつ、マテリアルNOが１つしかないならば、テクスチャ設定もスキップできる
-        if (GgafDxModelManager::_pModelLastDraw  != this      ||
-            _paUint_material_list_grp_num[prm_draw_set_num-1] != 1)
-        {
+        if (GgafDxModelManager::_pModelLastDraw  != this || material_list_grp_num != 1) {
             const UINT material_no = idxparam.MaterialNo;
             if (_papTextureConnection[material_no]) {
                 //テクスチャをs0レジスタにセット

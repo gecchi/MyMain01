@@ -183,70 +183,19 @@ void GgafDxFigureActor::processPreDraw() {
             if (isOutOfView()) {
                 //描画しないので登録なし
             } else {
-                //＜メモ＞
-                //初期カメラ位置 _cameraZ_org = -47.6701、表示範囲奥行き  _zf は _dep=20のとき、_zf = -_cameraZ_org*(_dep+1); とした場合の例。。
-                //「参照：GgafDxCamera::GgafDxCamera()」
-                //表示範囲(奥行き:_zf)の距離は初期カメラの引き位置距離の21倍で約 1000(1001.0721) になる（これが _zf = -_cameraZ_org*20.0 の意味）
-                //さて MAX_DRAW_DEPTH_LEVEL (現在1000)とどのように対応させるか
-                //本ライブラリはDIRECTX座標の1は原点付近ので画面上約10px相当という計算を行っている。よって
-                //次の文は約10px間隔相当の奥からの段階レンダリングの設定となる
-                //
-                //  GgafDxSpacetime::setDrawDepthLevel(-1.0*_dest_from_vppln_front, this);
-                //   (※_dest_from_vppln_frontは視錐台手前面からオブジェクトまでの距離の負数)
-                //
-                //これは、1000 段階の深度判定となる。
-                //また、
-                //
-                //  GgafDxSpacetime::setDrawDepthLevel(-1.0*_dest_from_vppln_front*10.0, this);
-                //
-                //これは1px間隔相当で約 10000 段階となる。
-                //MAX_DRAW_DEPTH_LEVELを増やせば問題ないが、600段階ぐらいが研究の末パフォーマンス的にちょうどよさげである。
-                //なんとか600段階ぐらいで対応段階レンダリングしようと考えた。
-                //
-                //はるか遠いオブジェクト達を細かい段階描画してもあまり報われないと考えた。
-                //カメラに近いほど精密に、遠いほどアバウトに段階レンダリングしたいと考えた。
-                //
-                //  <o   |-+-+-+-+-+-+-+-+-+-+-+-+-+--+---+----+-----+------+------+-------+-----
-                //              ------> 奥         ^            ------> 奥                        ^
-                // カメラ                   アバウト間隔開始深度                                 最深部
-                //
-                //上図のようなイメージ段階的に荒くしていこう！
-                //【参考】
-                //   7975036 <DEBUG> GgafDxCamera::GgafDxCamera 画面アスペクト：1.33333
-                //   7975036 <DEBUG> GgafDxCamera::GgafDxCamera FovX=1.39626 FovY=1.12341
-                //   7975036 <DEBUG> GgafDxCamera::GgafDxCamera カメラの位置(0,0,-47.6701)
-                //   7975036 <DEBUG> GgafDxCamera::GgafDxCamera 範囲 [0.01 ~ 1001.07]
-                //
-                // 1001.07 つまり約10000px相当の奥行きを描画
-                const dxcoord dep = -_dest_from_vppln_front; //オブジェクトの視点からの距離(DIRECTX距離)
-
-                static const double dep_rate_point1 = 0.3;                                //荒くなるポイント１の割合(カメラ可視奥行の 3/10 の地点)
-                static const double dep_rate_point2 = 0.6;                                //荒くなるポイント２の割合(カメラ可視奥行の 6/10 の地点)
-                static const dxcoord roughly_dep_point1 = (pCam->getZFar() * dep_rate_point1); //荒くなるポイント１距離
-                static const dxcoord roughly_dep_point2 = (pCam->getZFar() * dep_rate_point2); //荒くなるポイント２距離
-                static const double dep_level_rate_cam_to_point1 = 0.5;                   //視点～荒くなるポイント１までの、深度レベルを求めるために距離に乗ずる割合。
-                static const double dep_level_rate_point1_to_point2 = 0.2;                //荒くなるポイント１～ポイント２間の、深度レベルを求めるために距離に乗ずる割合。
-                static const double dep_level_rate_point2_to_far_away = 0.01;             //荒くなるポイント２～最遠の、深度レベルを求めるために距離に乗ずる割合。
-                static const int roughly_dep_point1_DRAW_DEPTH_LEVEL = roughly_dep_point1*dep_level_rate_cam_to_point1;    //荒くなるポイント１深度レベル
-                static const int roughly_dep_point2_DRAW_DEPTH_LEVEL = roughly_dep_point1_DRAW_DEPTH_LEVEL +
-                               ((roughly_dep_point2 - roughly_dep_point1) * dep_level_rate_point1_to_point2);        //荒くなるポイント２深度レベル
 
                 if (_specal_drawdepth < 0) { //特別な描画深度指定無し
-                    if (dep <= roughly_dep_point1) {         //depが 視点 ～ r荒くなるポイント１ までの距離のオブジェクト
-                        _now_drawdepth = GgafDxSpacetime::setDrawDepthLevel(
-                                             dep*dep_level_rate_cam_to_point1,
-                                             this); //DirectXの距離1の0.5倍、DirectXの距離2が深さ1。よって約20px間隔
-                    } else if (dep <= roughly_dep_point2) {  //depが 荒くなるポイント１～ポイント２間
-                        _now_drawdepth = GgafDxSpacetime::setDrawDepthLevel(
-                                             roughly_dep_point1_DRAW_DEPTH_LEVEL +
-                                               ((dep - roughly_dep_point1) * dep_level_rate_point1_to_point2),
-                                             this);  //DirectXの距離1の0.2倍。つまりDirectXの距離5が深さ1。よって50px間隔で段階レンダ
-                    } else {                                 //depが ポイント２以降
-                        _now_drawdepth = GgafDxSpacetime::setDrawDepthLevel(
-                                             roughly_dep_point2_DRAW_DEPTH_LEVEL +
-                                               ((dep - roughly_dep_point2) * dep_level_rate_point2_to_far_away),
-                                             this); //0.01倍。つまりDirectXの距離100が深さ1。よって1000px間隔で段階レンダ
+                    dxcoord dep = -_dest_from_vppln_front; //オブジェクトの視点からの距離(DIRECTX距離)
+                    static const dxcoord range_gradually_draw = pCam->getZFar() * (3.0 / 4.0);  //zf の2/3 は段階レンダ対象
+                    if (dep < 0.0) {
+                        _now_drawdepth = GgafDxSpacetime::setDrawDepthLevel(0, this);
+                    } else if (0.0 <= dep && dep < range_gradually_draw) {
+                        int n = RCNV(0, range_gradually_draw, dep, 0, DEP_RESOLUTION);
+                        _now_drawdepth = GgafDxSpacetime::setDrawDepthLevel(GgafDxSpacetime::_FUNC_DRAW_DEP[n], this);
+                    } else {
+                        _now_drawdepth = GgafDxSpacetime::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL, this);
                     }
+
                 } else {
                     //特別な描画深度指定有り
                     if (GgafDxSpacetime::_apFirstActor_draw_depth_level[_specal_drawdepth] == nullptr) {
