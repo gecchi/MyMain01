@@ -113,7 +113,7 @@ void WallAABActor::processDraw() {
             if (draw_set_num >= model_set_num) {
                 break;
             }
-            pDrawActor = pDrawActor->_pNextActor_in_draw_depth_level;
+            pDrawActor = pDrawActor->_pNextActor_in_render_depth_level;
         } else {
             break;
         }

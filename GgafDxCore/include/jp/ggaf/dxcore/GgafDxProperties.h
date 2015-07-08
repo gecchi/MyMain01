@@ -22,6 +22,10 @@ public:
     static pixcoord GAME_BUFFER_HEIGHT;
     /** [r] ゲーム空間領域深さ割合の基準値 */
     static double GAME_SPACE_DEPTH;
+    /** [r] 段階レンダリング深度の数 */
+    static int RENDER_DEPTH_LEVELS_NUM;
+    /** [r] 段階レンダリングを行うカメラから最遠点の距離の割合 */
+    static double RENDER_DEPTH_STAGE_RATIO;
     /** [r] 射影変換を正射影で行う場合はtrue。デフォルトはfalse */
     static bool PRJ_2D_MODE;
     /** [r] 描画先サーフェイス幅のピクセルサイズ */

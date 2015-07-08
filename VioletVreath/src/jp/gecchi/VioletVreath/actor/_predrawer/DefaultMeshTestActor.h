@@ -2,6 +2,7 @@
 #define DEFAULTMESHEFFECTACTOR_H_
 #include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultMeshActor.h"
+#include <fstream>
 
 namespace VioletVreath {
 
@@ -14,6 +15,8 @@ namespace VioletVreath {
 class DefaultMeshTestActor : public GgafLib::DefaultMeshActor {
 
 public:
+
+//    std::ofstream ofs_;
 
     DefaultMeshTestActor(const char* prm_name);
 

@@ -49,7 +49,7 @@ public:
     static hashval _hash_technique_last_draw;
 
     /** [r]同一描画レベルの次のアクター */
-    GgafDxFigureActor* _pNextActor_in_draw_depth_level;
+    GgafDxFigureActor* _pNextActor_in_render_depth_level;
     /** [r/w]現在のマテリアルのα値 (0.0 <= _alpha <= 1.0) */
     float _alpha;
     /** [r]現在描画に使用しているシェーダーテクニック名 */
@@ -161,7 +161,7 @@ public:
      * @param prm_drawdepth
      */
     void setSpecialDrawDepth(int prm_drawdepth);
-
+    void resetSpecialDrawDepth();
     /**
      * 共通の描画事前処理 .
      * 描画を行うにあたっての重要な事前処理を行ないます。

@@ -4,6 +4,8 @@
 #include "jp/ggaf/dxcore/actor/GgafDxMorphMeshActor.h"
 #include "jp/ggaf/dxcore/actor/interface/GgafDxICubeMapActor.h"
 
+#define RENDER_DEPTH_LEVEL_WORLDBOUND (RENDER_DEPTH_LEVEL_SP_BACK1)
+
 namespace GgafDxCore {
 
 /**

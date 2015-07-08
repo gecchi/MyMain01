@@ -4,7 +4,9 @@
 #include "jp/ggaf/dxcore/effect/GgafDxPointSpriteEffect.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
+
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -24,7 +26,7 @@ HoshiBoshi::HoshiBoshi(const char* prm_name, const char* prm_model_id) :
 
     //“ÆŽ©ƒ[ƒ‹ƒh•ÏŠ·
     defineRotMvWorldMatrix(HoshiBoshi::setWorldMatrix_HoshiBoshi);
-    setSpecialDrawDepth(DRAW_DEPTH_LEVEL_HOSHIBOSHI);
+    setSpecialDrawDepth(RENDER_DEPTH_LEVEL_HOSHIBOSHI);
     pCriteria_ = P_GOD->getSpacetime()->getCamera();
     setFarRate(1.0);
 

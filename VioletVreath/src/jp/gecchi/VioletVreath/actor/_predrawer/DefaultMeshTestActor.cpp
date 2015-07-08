@@ -12,6 +12,10 @@ DefaultMeshTestActor::DefaultMeshTestActor(const char* prm_name) :
     setHitAble(false);
 
     position(0,0,0);
+
+//    ofs_.open("C:\\hogehoge.txt");
+//    ofs_ << std::unitbuf;
+
 }
 void DefaultMeshTestActor::processBehavior() {
     if (GgafDxInput::isBeingPressedKey(DIK_O)) {
@@ -23,8 +27,10 @@ void DefaultMeshTestActor::processBehavior() {
 }
 
 void DefaultMeshTestActor::processJudgement() {
-    //_TRACE_((-_dest_from_vppln_front)<<"\t"<<_now_drawdepth<<"\t"<<"("<<_x<<","<<_y<<","<<_z<<")");
+//    ofs_ << (-_dest_from_vppln_front) << "\t"<<_now_drawdepth<<"\t"<<"("<<_x<<","<<_y<<","<<_z<<")" << std::endl;
+//    _TRACE_((-_dest_from_vppln_front)<<"\t"<<_now_drawdepth<<"\t"<<"("<<_x<<","<<_y<<","<<_z<<")");
 }
 DefaultMeshTestActor::~DefaultMeshTestActor() {
+//    ofs_.close();
 }
 

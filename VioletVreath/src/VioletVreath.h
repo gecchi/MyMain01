@@ -201,8 +201,8 @@ enum {
 
 #define FADE_FRAMES 180
 
-#define DRAW_DEPTH_LEVEL_HOSHIBOSHI (MAX_DRAW_DEPTH_LEVEL-1)
-#define DRAW_DEPTH_LEVEL_BIGOBJ     (MAX_DRAW_DEPTH_LEVEL-2)
+#define RENDER_DEPTH_LEVEL_HOSHIBOSHI (RENDER_DEPTH_LEVEL_BACK-1)
+#define RENDER_DEPTH_LEVEL_BIGOBJ     (RENDER_DEPTH_LEVEL_BACK-2)
 
 
 #define VV_DEFAULT_CONFIG_FILE ".\\default_config.properties"
@@ -226,7 +226,6 @@ class Cursor001;
 
 class PreDrawScene;
 class LaserChipTestActor;
-class DefaultMeshTestActor;
 
 class GameScene;
 class MyShipScene;

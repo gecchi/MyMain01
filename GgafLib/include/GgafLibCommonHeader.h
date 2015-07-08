@@ -18,6 +18,7 @@
 #define Obj_WallPartsActor       (0x20000000U)     //0b 00100000 00000000 00000000 00000000
 #define Obj_IFormationAble       (0x40000000U)     //0b 01000000 00000000 00000000 00000000
 
+
 //‘O•ûéŒ¾(forward declaration)
 namespace GgafLib {
 

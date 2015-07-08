@@ -3,7 +3,31 @@
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/scene/GgafSpacetime.h"
 
+#include "jp/ggaf/dxcore/GgafDxProperties.h"
 #include "jp/ggaf/dxcore/actor/camera/GgafDxCamera.h"
+
+
+#define EX_RENDER_DEPTH_LEVELS_FRONT_NUM   (5)
+#define REGULAR_RENDER_DEPTH_LEVELS_NUM    (PROPERTY::RENDER_DEPTH_LEVELS_NUM)  //段階レンダー分解能
+#define EX_RENDER_DEPTH_LEVELS_BACK_NUM    (5)
+#define ALL_RENDER_DEPTH_LEVELS_NUM        (EX_RENDER_DEPTH_LEVELS_FRONT_NUM+REGULAR_RENDER_DEPTH_LEVELS_NUM+EX_RENDER_DEPTH_LEVELS_BACK_NUM)
+
+#define RENDER_DEPTH_LEVEL_FRONT      (EX_RENDER_DEPTH_LEVELS_FRONT_NUM)  //通常の最前面
+#define RENDER_DEPTH_LEVEL_BACK       (EX_RENDER_DEPTH_LEVELS_FRONT_NUM + REGULAR_RENDER_DEPTH_LEVELS_NUM - 1) //通常の最背面
+
+ //最前面より手前の特別な表示深度レベル
+#define RENDER_DEPTH_LEVEL_SP_FRONT1  (RENDER_DEPTH_LEVEL_FRONT - 1)
+#define RENDER_DEPTH_LEVEL_SP_FRONT2  (RENDER_DEPTH_LEVEL_SP_FRONT1 - 1)
+#define RENDER_DEPTH_LEVEL_SP_FRONT3  (RENDER_DEPTH_LEVEL_SP_FRONT2 - 1)
+#define RENDER_DEPTH_LEVEL_SP_FRONT4  (RENDER_DEPTH_LEVEL_SP_FRONT3 - 1)
+#define RENDER_DEPTH_LEVEL_SP_FRONT5  (RENDER_DEPTH_LEVEL_SP_FRONT4 - 1) //最前面の手前の中でも最も最前面
+
+ //最前面より奥の特別な表示深度レベル
+#define RENDER_DEPTH_LEVEL_SP_BACK1  (RENDER_DEPTH_LEVEL_BACK + 1)
+#define RENDER_DEPTH_LEVEL_SP_BACK2  (RENDER_DEPTH_LEVEL_SP_BACK1 + 1)
+#define RENDER_DEPTH_LEVEL_SP_BACK3  (RENDER_DEPTH_LEVEL_SP_BACK2 + 1)
+#define RENDER_DEPTH_LEVEL_SP_BACK4  (RENDER_DEPTH_LEVEL_SP_BACK3 + 1)
+#define RENDER_DEPTH_LEVEL_SP_BACK5  (RENDER_DEPTH_LEVEL_SP_BACK4 + 1)  //最背面の奥の中でも最も奥
 
 namespace GgafDxCore {
 
@@ -48,15 +72,12 @@ public:
     GgafDxCamera* _pCamera;
 
     /** レンダリング順序配列に登録されている各アクターリストの先頭のアクターの配列 */
-    static GgafDxFigureActor* _apFirstActor_draw_depth_level[];
+    GgafDxFigureActor** _papFirstActor_in_render_depth;
     /** レンダリング順序配列に登録されている各アクターリストの末尾のアクターの配列 */
-    static GgafDxFigureActor* _apLastActor_draw_depth_level[];
+    GgafDxFigureActor** _papLastActor_in_render_depth;
 
     /** 描画アクターのカーソル */
     static GgafDxFigureActor* _pActor_draw_active;
-
-
-    static int _FUNC_DRAW_DEP[];
 
     /** [r]アプリケーション領域、X座標の最小値 */
     const coord _x_bound_left;
@@ -73,7 +94,10 @@ public:
 
     static std::string _seqkey_se_delay;
 
-//    D3DCOLORVALUE _colFog;
+    /** オブジェクトのカメラからの遠さに対する、段階レンダリングインデックス */
+    int* _paDep2Lv;
+    /** 段階レンダリングが有効なカメラ（始点から）から奥への距離 */
+    dxcoord _dep_resolution;
 
 
 public:
@@ -90,10 +114,11 @@ public:
     /**
      * 描画レベル（順序）を登録 .
      * αなど半透明はこちらに登録した方が、ある程度前後関係が正しく表示される。
-     * @param prm_draw_depth_level レベル
+     * @param prm_render_depth_level レベル
      * @param prm_pActor アクター
      */
-    static int setDrawDepthLevel(int prm_draw_depth_level, GgafDxFigureActor* prm_pActor);
+    int setDrawDepthLevel2D(GgafDxFigureActor* prm_pActor);
+    int setDrawDepthLevel3D(GgafDxFigureActor* prm_pActor);
 
     void registerSe(GgafDxSe* prm_pSe,
                     int prm_volume,

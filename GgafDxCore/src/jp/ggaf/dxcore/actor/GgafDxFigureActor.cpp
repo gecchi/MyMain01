@@ -13,6 +13,7 @@
 #include "jp/ggaf/dxcore/scene/supporter/GgafDxAlphaCurtain.h"
 #include "jp/ggaf/core/util/GgafRgb.h"
 
+#include "jp/ggaf/dxcore/GgafDxProperties.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -46,7 +47,7 @@ _pEffect((GgafDxEffect*)_pEffectCon->peek()) {
 
     _frame_of_behaving_temp_technique_end = 0;
     _is_temp_technique = false;
-    _pNextActor_in_draw_depth_level = nullptr;
+    _pNextActor_in_render_depth_level = nullptr;
 //    //モデル取得connectModelManager
 //    _pModelCon = (GgafDxModelConnection*)GgafDxGod::_pModelManager->connect(prm_model, this);
 //    _pModel = (GgafDxModel*)_pModelCon->peek();
@@ -120,7 +121,7 @@ _pEffect((GgafDxEffect*)_pEffectCon->peek())
 //    // effelct_name     = "X/DefaultMeshEffect"
 //    // という文字列を作成。
 
-    _pNextActor_in_draw_depth_level = nullptr;
+    _pNextActor_in_render_depth_level = nullptr;
 
     //マテリアルをコピー
     _paMaterial = NEW D3DMATERIAL9[_pModel->_num_materials];
@@ -140,7 +141,7 @@ _pEffect((GgafDxEffect*)_pEffectCon->peek())
 }
 
 void GgafDxFigureActor::processPreDraw() {
-    const GgafDxCamera* const pCam = P_GOD->getSpacetime()->getCamera();
+    GgafDxSpacetime* pSpacetime = P_GOD->getSpacetime();
 #ifdef MY_DEBUG
     if (getPlatformScene()->instanceOf(Obj_GgafDxScene)) {
         //OK
@@ -154,65 +155,12 @@ void GgafDxFigureActor::processPreDraw() {
         onCreateModel(); //モデル作成時の初期処理
         _pModel->_is_init_model = true;
     }
-    _pNextActor_in_draw_depth_level = nullptr;
-    //TODO:要検証
+    _pNextActor_in_render_depth_level = nullptr;
     if (_alpha > 0.0f && isActiveInTheTree() && ((GgafDxScene*)getPlatformScene())->_master_alpha > 0.0f) { //isActiveInTheTree() で判定すると、
         if (_is_2D) {
-//            _now_drawdepth = GgafDxSpacetime::setDrawDepthLevel(
-//                                (int)((1.0*_z/LEN_UNIT) * MAX_DRAW_DEPTH_LEVEL),
-//                                this
-//                             );
-            if (_specal_drawdepth < 0) { //特別な描画深度指定無し
-                _now_drawdepth = GgafDxSpacetime::setDrawDepthLevel(_z, this); //2Dは_zはプライオリティに使用。
-            } else {
-                //特別な描画深度指定有り
-                if (GgafDxSpacetime::_apFirstActor_draw_depth_level[_specal_drawdepth] == nullptr) {
-                    //そのprm_draw_depth_levelで最初のアクターの場合
-                    this->_pNextActor_in_draw_depth_level = nullptr;
-                    GgafDxSpacetime::_apFirstActor_draw_depth_level[_specal_drawdepth] = this;
-                    GgafDxSpacetime::_apLastActor_draw_depth_level[_specal_drawdepth] = this;
-                } else {
-                    //前に追加
-                    GgafDxFigureActor* pActorTmp = GgafDxSpacetime::_apFirstActor_draw_depth_level[_specal_drawdepth];
-                    this->_pNextActor_in_draw_depth_level = pActorTmp;
-                    GgafDxSpacetime::_apFirstActor_draw_depth_level[_specal_drawdepth] = this;
-                }
-                _now_drawdepth = _specal_drawdepth;
-            }
+            _now_drawdepth = pSpacetime->setDrawDepthLevel2D(this);
         } else {
-            if (isOutOfView()) {
-                //描画しないので登録なし
-            } else {
-
-                if (_specal_drawdepth < 0) { //特別な描画深度指定無し
-                    dxcoord dep = -_dest_from_vppln_front; //オブジェクトの視点からの距離(DIRECTX距離)
-                    static const dxcoord range_gradually_draw = pCam->getZFar() * (3.0 / 4.0);  //zf の2/3 は段階レンダ対象
-                    if (dep < 0.0) {
-                        _now_drawdepth = GgafDxSpacetime::setDrawDepthLevel(0, this);
-                    } else if (0.0 <= dep && dep < range_gradually_draw) {
-                        int n = RCNV(0, range_gradually_draw, dep, 0, DEP_RESOLUTION);
-                        _now_drawdepth = GgafDxSpacetime::setDrawDepthLevel(GgafDxSpacetime::_FUNC_DRAW_DEP[n], this);
-                    } else {
-                        _now_drawdepth = GgafDxSpacetime::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL, this);
-                    }
-
-                } else {
-                    //特別な描画深度指定有り
-                    if (GgafDxSpacetime::_apFirstActor_draw_depth_level[_specal_drawdepth] == nullptr) {
-                        //そのprm_draw_depth_levelで最初のアクターの場合
-                        this->_pNextActor_in_draw_depth_level = nullptr;
-                        GgafDxSpacetime::_apFirstActor_draw_depth_level[_specal_drawdepth] = this;
-                        GgafDxSpacetime::_apLastActor_draw_depth_level[_specal_drawdepth] = this;
-                    } else {
-                        //前に追加
-                        GgafDxFigureActor* pActorTmp = GgafDxSpacetime::_apFirstActor_draw_depth_level[_specal_drawdepth];
-                        this->_pNextActor_in_draw_depth_level = pActorTmp;
-                        GgafDxSpacetime::_apFirstActor_draw_depth_level[_specal_drawdepth] = this;
-                    }
-                    _now_drawdepth = _specal_drawdepth;
-                }
-
-            }
+            _now_drawdepth = pSpacetime->setDrawDepthLevel3D(this);
         }
     }
 
@@ -298,13 +246,17 @@ void GgafDxFigureActor::resetMaterialColor() {
 }
 
 void GgafDxFigureActor::setSpecialDrawDepth(int prm_drawdepth) {
-    if (prm_drawdepth > MAX_DRAW_DEPTH_LEVEL) {
-        _specal_drawdepth = MAX_DRAW_DEPTH_LEVEL;
+    if (prm_drawdepth < 0) {
+        _specal_drawdepth = 0;
+    } else if (prm_drawdepth > ALL_RENDER_DEPTH_LEVELS_NUM-1) {
+        _specal_drawdepth = ALL_RENDER_DEPTH_LEVELS_NUM-1;
     } else {
         _specal_drawdepth = prm_drawdepth;
     }
 }
-
+void GgafDxFigureActor::resetSpecialDrawDepth() {
+    _specal_drawdepth = -1;
+}
 void GgafDxFigureActor::changeEffectTechnique(const char* prm_technique) {
     _hash_technique = UTIL::easy_hash(prm_technique) + UTIL::easy_hash(_pModel->getName());
     strcpy(_technique, prm_technique);

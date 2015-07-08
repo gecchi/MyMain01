@@ -5,6 +5,7 @@
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
 
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -19,7 +20,7 @@ WorldBoundActor::WorldBoundActor(const char* prm_name, const char* prm_model) :
 
     _class_name = "WorldBoundActor";
     _offset_frames = 0;
-    setSpecialDrawDepth(DRAW_DEPTH_LEVEL_WORLDBOUND);
+    setSpecialDrawDepth(RENDER_DEPTH_LEVEL_WORLDBOUND);
 
     setZEnable(false);        //Zバッファは考慮無し
     setZWriteEnable(false);  //Zバッファは書き込み無し
@@ -60,7 +61,7 @@ void WorldBoundActor::processSettlementBehavior() {
 //        onCreateModel(); //モデル作成時の初期処理
 //        _pModel->_is_init_model = true;
 //    }
-//    GgafDxSpacetime::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL,this); //最深部
+//    GgafDxSpacetime::setDrawDepthLevel(REGULAR_RENDER_DEPTH_LEVELS_NUM,this); //最深部
 //}
 
 WorldBoundActor::~WorldBoundActor() {

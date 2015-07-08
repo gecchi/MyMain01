@@ -6,8 +6,10 @@
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion004.h"
 #include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -68,7 +70,7 @@ void EnemyRatislavia::makeCollisionArea(int prm_nSphere){
                 false, true, true
                 );
     }
-    setSpecialDrawDepth(DRAW_DEPTH_LEVEL_BIGOBJ-2);
+    setSpecialDrawDepth(RENDER_DEPTH_LEVEL_BACK-2);
     GGAF_DELETE(paAngRadial);
 }
 

@@ -1,6 +1,7 @@
 #include "DefaultPointSpriteTestActor.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -12,7 +13,7 @@ DefaultPointSpriteTestActor::DefaultPointSpriteTestActor(const char* prm_name) :
     _class_name = "DefaultPointSpriteTestActor";
     effectBlendOne(); //加算合成
     setHitAble(false);
-    setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL-1);
+    setSpecialDrawDepth(RENDER_DEPTH_LEVEL_BACK);
 }
 
 int DefaultPointSpriteTestActor::isOutOfView() {
@@ -46,25 +47,6 @@ void DefaultPointSpriteTestActor::processSettlementBehavior() {
 
 void DefaultPointSpriteTestActor::processJudgement() {
 }
-
-//void DefaultPointSpriteTestActor::processPreDraw() {
-//    //画面外判定無しに伴ない処理簡略化
-//    //GgafDxFigureActor::processPreDraw() と同期を取る事！
-//    GgafDxSpacetime::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL-1,this); //最深部-1、最深部はWorldBound
-//
-////    //一時テクニック期間チェック
-////    if (is_temp_technique_) {
-////        if (frame_of_behaving_temp_technique_end_ <= frame_of_behaving_) {
-////            //一時テクニック期間満了。元に戻す
-////            hash_technique_ = hash_temp_technique_;
-////            strcpy(technique_, temp_technique_);
-////            is_temp_technique_ = false;
-////            //これはダメ。配列領域がどこかにいくため。temp_technique_ = "";
-////            hash_temp_technique_ = 0;
-////        }
-////    }
-//}
-
 
 DefaultPointSpriteTestActor::~DefaultPointSpriteTestActor() {
 }

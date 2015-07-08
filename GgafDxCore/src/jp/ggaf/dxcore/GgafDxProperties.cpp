@@ -11,6 +11,8 @@ bool GgafDxProperties::DUAL_VIEW = false;
 pixcoord GgafDxProperties::GAME_BUFFER_WIDTH = 1600;
 pixcoord GgafDxProperties::GAME_BUFFER_HEIGHT = 450;
 double GgafDxProperties::GAME_SPACE_DEPTH = 15.0;
+int GgafDxProperties::RENDER_DEPTH_LEVELS_NUM = 300;
+double GgafDxProperties::RENDER_DEPTH_STAGE_RATIO = (3.0/5.0);
 bool GgafDxProperties::PRJ_2D_MODE = false;
 pixcoord GgafDxProperties::RENDER_TARGET_BUFFER_WIDTH = 1600;
 pixcoord GgafDxProperties::RENDER_TARGET_BUFFER_HEIGHT = 450;
@@ -122,6 +124,12 @@ void GgafDxProperties::load(std::string prm_properties_filename) {
     }
     if (GgafProperties::isExistKey("GAME_SPACE_DEPTH")) {
         GgafDxProperties::GAME_SPACE_DEPTH = getDouble("GAME_SPACE_DEPTH");
+    }
+    if (GgafProperties::isExistKey("RENDER_DEPTH_LEVELS_NUM")) {
+        GgafDxProperties::RENDER_DEPTH_LEVELS_NUM = getInt("RENDER_DEPTH_LEVELS_NUM");
+    }
+    if (GgafProperties::isExistKey("RENDER_DEPTH_STAGE_RATIO")) {
+        GgafDxProperties::RENDER_DEPTH_STAGE_RATIO = getDouble("RENDER_DEPTH_STAGE_RATIO");
     }
     if (GgafProperties::isExistKey("PRJ_2D_MODE")) {
         GgafDxProperties::PRJ_2D_MODE = getBool("PRJ_2D_MODE");
@@ -364,6 +372,8 @@ void GgafDxProperties::load(std::string prm_properties_filename) {
     _TRACE_("GgafDxProperties::GAME_BUFFER_WIDTH=" << GgafDxProperties::GAME_BUFFER_WIDTH);
     _TRACE_("GgafDxProperties::GAME_BUFFER_HEIGHT=" << GgafDxProperties::GAME_BUFFER_HEIGHT);
     _TRACE_("GgafDxProperties::GAME_SPACE_DEPTH=" << GgafDxProperties::GAME_SPACE_DEPTH);
+    _TRACE_("GgafDxProperties::RENDER_DEPTH_LEVELS_NUM=" << GgafDxProperties::RENDER_DEPTH_LEVELS_NUM);
+    _TRACE_("GgafDxProperties::RENDER_DEPTH_STAGE_RATIO=" << GgafDxProperties::RENDER_DEPTH_STAGE_RATIO);
     _TRACE_("GgafDxProperties::PRJ_2D_MODE=" << GgafDxProperties::PRJ_2D_MODE);
     _TRACE_("GgafDxProperties::RENDER_TARGET_BUFFER_WIDTH=" << GgafDxProperties::RENDER_TARGET_BUFFER_WIDTH);
     _TRACE_("GgafDxProperties::RENDER_TARGET_BUFFER_HEIGHT=" << GgafDxProperties::RENDER_TARGET_BUFFER_HEIGHT);
