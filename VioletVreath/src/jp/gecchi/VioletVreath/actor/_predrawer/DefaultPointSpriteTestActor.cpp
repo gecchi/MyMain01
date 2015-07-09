@@ -13,7 +13,7 @@ DefaultPointSpriteTestActor::DefaultPointSpriteTestActor(const char* prm_name) :
     _class_name = "DefaultPointSpriteTestActor";
     effectBlendOne(); //â¡éZçáê¨
     setHitAble(false);
-    setSpecialDrawDepth(RENDER_DEPTH_LEVEL_BACK);
+    setSpecialRenderDepthIndex(RENDER_DEPTH_INDEX_BACK);
 }
 
 int DefaultPointSpriteTestActor::isOutOfView() {

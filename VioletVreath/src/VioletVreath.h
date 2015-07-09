@@ -201,10 +201,6 @@ enum {
 
 #define FADE_FRAMES 180
 
-#define RENDER_DEPTH_LEVEL_HOSHIBOSHI (RENDER_DEPTH_LEVEL_BACK-1)
-#define RENDER_DEPTH_LEVEL_BIGOBJ     (RENDER_DEPTH_LEVEL_BACK-2)
-
-
 #define VV_DEFAULT_CONFIG_FILE ".\\default_config.properties"
 #define VV_CONFIG_FILE         ".\\config.properties"
 

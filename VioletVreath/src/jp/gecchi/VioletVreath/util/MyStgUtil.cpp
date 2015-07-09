@@ -781,7 +781,9 @@ bool MyStgUtil::transactEnemyHit(GgafDxFigureActor* prm_this, const GgafDxGeomet
             double rp = pThisStatus->getDouble(STAT_AddRankPoint);    //加算初期ランク値
             if (!ZEROd_EQ(rp)) {
                 double rp_r = pThisStatus->getDouble(STAT_AddRankPoint_Reduction); //毎フレームのランク減少率
-                if (ONEd_EQ(rp_r)) {
+                if (ZEROd_EQ(rp_r)) {
+                    //なにもしない
+                } else if (ONEd_EQ(rp_r)) {
                     G_RANK  += rp; //減衰率が1.0ならば、そのまま加算初期ランク値をプラス
                 } else {
                     frame n = prm_this->getActiveFrame();   //稼働フレーム

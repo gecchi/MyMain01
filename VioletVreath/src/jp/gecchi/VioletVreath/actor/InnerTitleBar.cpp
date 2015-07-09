@@ -15,7 +15,7 @@ InnerTitleBar::InnerTitleBar(const char* prm_name)
 }
 
 void InnerTitleBar::initialize() {
-    setSpecialDrawDepth(1); //•`‰æ‡˜‚ğÅ‘O–Ê•`‰æ‚É‹­§B
+    setSpecialRenderDepthIndex(1); //•`‰æ‡˜‚ğÅ‘O–Ê•`‰æ‚É‹­§B
 }
 void InnerTitleBar::processBehavior() {
 }

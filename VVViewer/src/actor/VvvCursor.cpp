@@ -20,7 +20,7 @@ VvvCursor::VvvCursor(const char* prm_name) :
     effectBlendOne(); //エフェクトテクニックは加算合成に強制
     setZEnable(false);      //Zバッファは考慮無しに強制
     setZWriteEnable(false); //Zバッファは書き込み無しに強制
-    setSpecialDrawDepth(1); //描画順序を最前面描画に強制。ロックオンエフェクトが隠れないようにするため。
+    setSpecialRenderDepthIndex(1); //描画順序を最前面描画に強制。ロックオンエフェクトが隠れないようにするため。
     tx_ = _x;
     ty_ = _y;
     tz_ = _z;

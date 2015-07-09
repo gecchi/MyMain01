@@ -36,10 +36,10 @@ GgafDxSpacetime::SeArray::SeArray() {
     }
 }
 
-void GgafDxSpacetime::SeArray::add(GgafDxSe* prm_pSe, int prm_volume, float prm_pan, float prm_rate_frequency, GgafDxGeometricActor* prm_pActor) {
+void GgafDxSpacetime::SeArray::add(GgafDxSe* prm_pSe, int prm_volume, float prm_pan, float prm_frequency_rate, GgafDxGeometricActor* prm_pActor) {
     if (_p < PROPERTY::MAX_SE_AT_ONCE) {
         _apSe[_p] = prm_pSe;
-        _rate_frequency[_p] = prm_rate_frequency;
+        _frequency_rate[_p] = prm_frequency_rate;
         _volume[_p] = prm_volume;
         _pan[_p] = prm_pan;
         _apActor[_p] = prm_pActor;
@@ -54,7 +54,7 @@ void GgafDxSpacetime::SeArray::add(GgafDxSe* prm_pSe, int prm_volume, float prm_
 }
 
 void GgafDxSpacetime::SeArray::play(int index) {
-    _apSe[index]->play(_volume[index], _pan[index], _rate_frequency[index]);
+    _apSe[index]->play(_volume[index], _pan[index], _frequency_rate[index]);
     _apSe[index]->_pActor_last_played = _apActor[index];
     _apActor[index] = nullptr;
     _apSe[index] = nullptr;
@@ -78,9 +78,9 @@ _z_bound_far   (+DX_C(prm_pCamera->getZFar()))
 //    _colFog.g = 0.0;
 //    _colFog.b = 0.0;
 //    _colFog.a = 1.0;
-    _papFirstActor_in_render_depth = NEW GgafDxFigureActor*[ALL_RENDER_DEPTH_LEVELS_NUM];
-    _papLastActor_in_render_depth = NEW GgafDxFigureActor*[ALL_RENDER_DEPTH_LEVELS_NUM];
-    for (int i = 0; i < ALL_RENDER_DEPTH_LEVELS_NUM; i++) {
+    _papFirstActor_in_render_depth = NEW GgafDxFigureActor*[ALL_RENDER_DEPTH_INDEXS_NUM];
+    _papLastActor_in_render_depth = NEW GgafDxFigureActor*[ALL_RENDER_DEPTH_INDEXS_NUM];
+    for (int i = 0; i < ALL_RENDER_DEPTH_INDEXS_NUM; i++) {
         _papFirstActor_in_render_depth[i] = nullptr;
         _papLastActor_in_render_depth[i] = nullptr;
     }
@@ -107,7 +107,6 @@ _z_bound_far   (+DX_C(prm_pCamera->getZFar()))
     // y = sin(x^(e/pi))
     // 0 <= x <= (pi^(pi/e)) / (2^(pi/e))
     //                               ↑ y=1で接する箇所
-    _TRACE_("------------");
     const double e = 2.7182818284590452354;
     const double period = pow(PI, (PI/e)) / pow(2,(PI/e));
 
@@ -115,18 +114,29 @@ _z_bound_far   (+DX_C(prm_pCamera->getZFar()))
     pixcoord px_dep_resolution = DX_PX(_dep_resolution);
     _paDep2Lv = NEW int[px_dep_resolution+1];
 
-    for (int z = 0; z <= px_dep_resolution; z++) {
+    _paDep2Lv[0] = 0;
+    for (int z = 1; z <= px_dep_resolution; z++) {
         double ang = RCNV(0, px_dep_resolution, z, 0, period);
-        _paDep2Lv[z] = (int) ( sin( pow(ang, e/PI) ) * (REGULAR_RENDER_DEPTH_LEVELS_NUM-1) );
-        _TRACE_(z <<"\t"<<_paDep2Lv[z]);
+        _paDep2Lv[z] = (int) ( sin( pow(ang, e/PI) ) * (REGULAR_RENDER_DEPTH_INDEXS_NUM-1) );
     }
+    //ハマったことメモ
+    //pow(x,y)は
+    //x が有限な負の数かつ y が有限で整数値でない場合に定義域エラー (domain error) が発生．
+    //また，x が 0 で, かつ y が 0 以下の場合に定義域エラーが発生することがある
+    //double ang = RCNV(0, px_dep_resolution, z, 0, period); → z = 0 の場合 ang = -0; になる
+    //GCCの場合は pow(ang, e/PI) = -1.#IND となってしまう時が環境によりある。
+    //VCは 0 になった。
+    //powを使うときは気をつけよう。
 
+    _TRACE_("通常の段階レンダリング深度数："<<REGULAR_RENDER_DEPTH_INDEXS_NUM);
+    _TRACE_("通常の段階レンダリング距離範囲："<<DX_C(prm_pCamera->getZFar())<<" * "<<PROPERTY::RENDER_DEPTH_STAGE_RATIO <<
+                                             " = "<< DX_C((prm_pCamera->getZFar()) * PROPERTY::RENDER_DEPTH_STAGE_RATIO)   );
 }
 
 void GgafDxSpacetime::registerSe(GgafDxSe* prm_pSe,
                                  int prm_volume,
                                  float prm_pan,
-                                 float prm_rate_frequency,
+                                 float prm_frequency_rate,
                                  int prm_delay,
                                  GgafDxGeometricActor* prm_pActor) {
 //    int bpm = GgafDxBgmPerformer::_active_bgm_bpm;
@@ -146,7 +156,7 @@ void GgafDxSpacetime::registerSe(GgafDxSe* prm_pSe,
     if (delay > PROPERTY::MAX_SE_DELAY-1) {
         delay = PROPERTY::MAX_SE_DELAY-1;
     }
-    _pRing_pSeArray->getNext(delay)->add(prm_pSe, prm_volume, prm_pan, prm_rate_frequency, prm_pActor);
+    _pRing_pSeArray->getNext(delay)->add(prm_pSe, prm_volume, prm_pan, prm_frequency_rate, prm_pActor);
 }
 
 void GgafDxSpacetime::processSettlementBehavior() {
@@ -176,7 +186,7 @@ void GgafDxSpacetime::draw() {
     //段階レンダリング描画
     IDirect3DDevice9* const pDevice = GgafDxGod::_pID3DDevice9;
     GgafDxFigureActor* pDrawActor;
-    for (int i = ALL_RENDER_DEPTH_LEVELS_NUM - 1; i >= 0; i--) { //奥から
+    for (int i = ALL_RENDER_DEPTH_INDEXS_NUM - 1; i >= 0; i--) { //奥から
         pDrawActor = _papFirstActor_in_render_depth[i];
         if (pDrawActor) {
             while (pDrawActor) {
@@ -196,33 +206,92 @@ void GgafDxSpacetime::draw() {
                                          );
 
 
-                //半透明要素ありの場合カリングを一時OFF
                 if (pDrawActor->_alpha < 1.0f) {
+                    //半透明要素ありの場合カリングを一時OFF
                     pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-                }
-                //Zバッファを考慮無効設定
-                if (!pDrawActor->_zenable) {
-                    pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
-                }
-                // Zバッファ書き込み不可設定
-                if (!pDrawActor->_zwriteenable) {
-                    pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
-                }
-
-                pDrawActor->processDraw(); //ここで描画。
-
-                //カリング有りに戻す
-                if (pDrawActor->_alpha < 1.0f) {
+                    if (!pDrawActor->_zenable) {
+                        //Zバッファを考慮無効設定
+                        pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
+                        if (!pDrawActor->_zwriteenable) {
+                            // Zバッファ書き込み不可設定
+                            pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
+                            pDrawActor->processDraw();
+                            // Zバッファ書き込み可に戻す
+                            pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+                        } else {
+                            pDrawActor->processDraw();
+                        }
+                        //Zバッファを考慮有りに戻す
+                        pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+                    } else {
+                        if (!pDrawActor->_zwriteenable) {
+                            // Zバッファ書き込み不可設定
+                            pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
+                            pDrawActor->processDraw();
+                            // Zバッファ書き込み可に戻す
+                            pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+                        } else {
+                            pDrawActor->processDraw();
+                        }
+                    }
+                    //カリング有りに戻す
                     pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+                } else {
+                    if (!pDrawActor->_zenable) {
+                        //Zバッファを考慮無効設定
+                        pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
+                        if (!pDrawActor->_zwriteenable) {
+                            // Zバッファ書き込み不可設定
+                            pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
+                            pDrawActor->processDraw();
+                            // Zバッファ書き込み可に戻す
+                            pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+                        } else {
+                            pDrawActor->processDraw();
+                        }
+                        //Zバッファを考慮有りに戻す
+                        pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+                    } else {
+                        if (!pDrawActor->_zwriteenable) {
+                            // Zバッファ書き込み不可設定
+                            pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
+                            pDrawActor->processDraw();
+                            // Zバッファ書き込み可に戻す
+                            pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+                        } else {
+                            pDrawActor->processDraw();
+                        }
+                    }
                 }
-                //Zバッファを考慮無効設定
-                if (!pDrawActor->_zenable) {
-                    pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
-                }
-                // Zバッファ書き込み不可設定
-                if (!pDrawActor->_zwriteenable) {
-                    pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
-                }
+
+//
+//                //半透明要素ありの場合カリングを一時OFF
+//                if (pDrawActor->_alpha < 1.0f) {
+//                    pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+//                }
+//                //Zバッファを考慮無効設定
+//                if (!pDrawActor->_zenable) {
+//                    pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
+//                }
+//                // Zバッファ書き込み不可設定
+//                if (!pDrawActor->_zwriteenable) {
+//                    pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
+//                }
+//
+//                pDrawActor->processDraw(); //ここで描画。
+//
+//                //カリング有りに戻す
+//                if (pDrawActor->_alpha < 1.0f) {
+//                    pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+//                }
+//                //Zバッファを考慮無効設定
+//                if (!pDrawActor->_zenable) {
+//                    pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+//                }
+//                // Zバッファ書き込み不可設定
+//                if (!pDrawActor->_zwriteenable) {
+//                    pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+//                }
 
                 pDrawActor = GgafDxSpacetime::_pActor_draw_active->_pNextActor_in_render_depth_level;
                 //set系描画の場合は、pDrawActor->processDraw() 処理内で、
@@ -256,17 +325,17 @@ void GgafDxSpacetime::draw() {
     }
 
 }
-int GgafDxSpacetime::setDrawDepthLevel2D(GgafDxFigureActor* prm_pActor) {
+int GgafDxSpacetime::registerFigureActor2D(GgafDxFigureActor* prm_pActor) {
     int render_depth_level;
     int specal_drawdepth = prm_pActor->_specal_drawdepth;
     if (specal_drawdepth < 0) {
         //＊＊＊ 2Dで特別な描画深度指定無し ＊＊＊
-        render_depth_level = EX_RENDER_DEPTH_LEVELS_FRONT_NUM + prm_pActor->_z; //_z値がプライオリティ件描画深度。
+        render_depth_level = EX_RENDER_DEPTH_INDEXS_FRONT_NUM + prm_pActor->_z; //_z値がプライオリティ件描画深度。
         //上限下限カット
-        if (render_depth_level > EX_RENDER_DEPTH_LEVELS_FRONT_NUM + REGULAR_RENDER_DEPTH_LEVELS_NUM - 1) {
-            render_depth_level = EX_RENDER_DEPTH_LEVELS_FRONT_NUM + REGULAR_RENDER_DEPTH_LEVELS_NUM - 1;
-        } else if (render_depth_level < EX_RENDER_DEPTH_LEVELS_FRONT_NUM) {
-            render_depth_level = EX_RENDER_DEPTH_LEVELS_FRONT_NUM;
+        if (render_depth_level > EX_RENDER_DEPTH_INDEXS_FRONT_NUM + REGULAR_RENDER_DEPTH_INDEXS_NUM - 1) {
+            render_depth_level = EX_RENDER_DEPTH_INDEXS_FRONT_NUM + REGULAR_RENDER_DEPTH_INDEXS_NUM - 1;
+        } else if (render_depth_level < EX_RENDER_DEPTH_INDEXS_FRONT_NUM) {
+            render_depth_level = EX_RENDER_DEPTH_INDEXS_FRONT_NUM;
         }
         if (_papFirstActor_in_render_depth[render_depth_level] == nullptr) {
             //2Dでそのprm_render_depth_levelで最初のアクターの場合
@@ -299,7 +368,7 @@ int GgafDxSpacetime::setDrawDepthLevel2D(GgafDxFigureActor* prm_pActor) {
     return render_depth_level;
 }
 
-int GgafDxSpacetime::setDrawDepthLevel3D(GgafDxFigureActor* prm_pActor) {
+int GgafDxSpacetime::registerFigureActor3D(GgafDxFigureActor* prm_pActor) {
     int render_depth_level;
     int specal_drawdepth = prm_pActor->_specal_drawdepth;
     //＊＊＊３Dの場合
@@ -312,11 +381,11 @@ int GgafDxSpacetime::setDrawDepthLevel3D(GgafDxFigureActor* prm_pActor) {
             //＊＊＊ 3Dで特別な描画深度指定無し ＊＊＊
             dxcoord dep = -prm_pActor->_dest_from_vppln_front; //オブジェクトの視点からの距離(DIRECTX距離)
             if (dep < 0.0) {
-                render_depth_level = EX_RENDER_DEPTH_LEVELS_FRONT_NUM;
+                render_depth_level = EX_RENDER_DEPTH_INDEXS_FRONT_NUM;
             } else if (0.0 <= dep && dep < _dep_resolution) {
-                render_depth_level = EX_RENDER_DEPTH_LEVELS_FRONT_NUM + _paDep2Lv[DX_PX(dep)];
+                render_depth_level = EX_RENDER_DEPTH_INDEXS_FRONT_NUM + _paDep2Lv[DX_PX(dep)];
             } else {
-                render_depth_level = EX_RENDER_DEPTH_LEVELS_FRONT_NUM + REGULAR_RENDER_DEPTH_LEVELS_NUM - 1;
+                render_depth_level = EX_RENDER_DEPTH_INDEXS_FRONT_NUM + REGULAR_RENDER_DEPTH_INDEXS_NUM - 1;
             }
             if (_papFirstActor_in_render_depth[render_depth_level] == nullptr) {
                 //そのprm_render_depth_levelで最初のアクターの場合
@@ -366,9 +435,6 @@ int GgafDxSpacetime::setDrawDepthLevel3D(GgafDxFigureActor* prm_pActor) {
 GgafDxSpacetime::~GgafDxSpacetime() {
     GGAF_DELETE(_pRing_pSeArray);
     GGAF_DELETEARR(_paDep2Lv);
-
     GGAF_DELETEARR(_papFirstActor_in_render_depth);
     GGAF_DELETEARR(_papLastActor_in_render_depth);
-
-
 }

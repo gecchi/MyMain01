@@ -45,7 +45,7 @@ void MyMagicEnergy::processJudgement() {
 }
 
 void MyMagicEnergy::processPreDraw() {
-    setSpecialDrawDepth(pCore_->_now_drawdepth-1);//コア後に描画するため
+    setSpecialRenderDepthIndex(pCore_->_now_drawdepth-1);//コア後に描画するため
     DefaultMeshActor::processPreDraw();
 }
 

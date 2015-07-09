@@ -36,10 +36,10 @@ GroundMeshActor::GroundMeshActor(const char* prm_name, const char* prm_model, Gg
 }
 
 //void GroundMeshActor::processPreDraw() {
-//    pNext_TheSameDrawDepthLevel_ = nullptr;
+//    pNext_TheSameRenderDepthIndexLevel_ = nullptr;
 //    if (is_active_flg_ && can_live_flg_) {
 //        //”wŒi‚È‚Ì‚Å”w–Ê‚Å•`‰æ
-//        GgafDxSpacetime::setDrawDepthMaxLevel(this);
+//        GgafDxSpacetime::setRenderDepthIndexMaxLevel(this);
 //    }
 //}
 

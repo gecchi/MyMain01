@@ -67,9 +67,9 @@ public:
      * ボリュームを100で設定する事。
      * @param prm_volume ボリューム(0 ～ 1000)
      * @param prm_pan パン(left:-1.0 ～ center:0 ～ right:1.0)
-     * @param prm_frequency 元の周波数に乗ずる率
+     * @param prm_frequency_rate 元の周波数に乗ずる率
      */
-    virtual void play(int prm_volume, float prm_pan, float prm_frequency);
+    virtual void play(int prm_volume, float prm_pan, float prm_frequency_rate);
 
     /**
      * ボリュームとパンを指定してSEを1回再生
@@ -119,9 +119,9 @@ public:
     /**
      * 周波数の率を変更 .
      * play()実行後、SEが再生中に使用することを想定 .
-     * @param prm_frequency 元の周波数に乗ずる率
+     * @param prm_frequency_rate 元の周波数に乗ずる率
      */
-    void setFrequencyRate(float prm_frequency);
+    void setFrequencyRate(float prm_frequency_rate);
 
     virtual ~GgafDxSe();
 };

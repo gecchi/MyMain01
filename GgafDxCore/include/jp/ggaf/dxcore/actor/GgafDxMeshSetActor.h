@@ -76,7 +76,7 @@ public:
     virtual void addAlpha(float prm_alpha) override;
 
 
-//    int chkSequenceOfTheSameDrawDepth() {
+//    int chkSequenceOfTheSameRenderDepthIndex() {
 //
 //
 //    }

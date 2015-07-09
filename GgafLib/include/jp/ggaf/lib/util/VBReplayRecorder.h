@@ -80,6 +80,13 @@ public:
     vb_sta read();
 
     /**
+     * 読み込むレコードが存在するかどうか
+     * @return true:存在する／false:存在しない
+     */
+    bool hasNextRecord() {
+        return _pRecNote ? true : false;
+    }
+    /**
      * リアルタイム記述モードをオンにする(主にデバッグ用) .
      * write(vb_sta) 実行の度に、リアルタイムでファイルに情報を記述していきます。
      * @param prm_filename リアルタイムに書きだすファイル名

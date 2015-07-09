@@ -5,6 +5,9 @@
 
 namespace VioletVreath {
 
+
+#define RENDER_DEPTH_INDEX_HOSHIBOSHI (RENDER_DEPTH_INDEX_WORLDBOUND-1)
+
 /**
  * 星々ポイントスプライト基底 .
  * 星々の頂点(スプライト)座標群は、XYZ軸座標 -1.0～1.0 範囲内に集約して作成されていることが前提。<BR>

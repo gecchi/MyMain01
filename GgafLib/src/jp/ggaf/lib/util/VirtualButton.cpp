@@ -110,7 +110,6 @@ VirtualButton::VirtualButton(const char* prm_replay_file) : GgafObject() {
         _TRACE_("VirtualButton("<<prm_replay_file<<") 通常記録モード。");
     }
 
-    _was_replay_done = false;
     _with_pov = true;
 
     static volatile bool is_init = VirtualButton::initStatic(); //静的メンバ初期化
@@ -814,20 +813,13 @@ void VirtualButton::update() {
     GgafDxInput::updateJoystickState();
     GgafDxInput::updateMouseState();
 
-    if (_is_replaying && _was_replay_done == false) {
-        //リプレイモード時
-        _pVBRecord_active = _pVBRecord_active->_next;
+    _pVBRecord_active = _pVBRecord_active->_next;
+    if (_is_replaying && _pRpy->hasNextRecord()) {
+        //リプレイ継続時
         _pVBRecord_active->_state = _pRpy->read();
-        if (_pVBRecord_active->_state == 0) {
-            _was_replay_done = true;
-        }
         return;
-
     } else {
-
         //通常操作時
-        _pVBRecord_active = _pVBRecord_active->_next;
-
         vb_sta state = 0;
         const KEYBOARDMAP& kmap = _keyboardmap;
         const JOYSTICKMAP& jmap = _joystickmap;

@@ -2,9 +2,10 @@
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+#include "jp/ggaf/lib/actor/WorldBoundActor.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime.h"
-
+#include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshi.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -17,7 +18,7 @@ Planet001Atmosphere::Planet001Atmosphere(const char* prm_name) :
     setHitAble(false);
     setZEnable(true);        //Zバッファは考慮
     setZWriteEnable(false);  //Zバッファは書き込み無し
-    setSpecialDrawDepth(RENDER_DEPTH_LEVEL_SP_BACK1-2);
+    setSpecialRenderDepthIndex(RENDER_DEPTH_INDEX_HOSHIBOSHI-1);
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //XYZ軸ビルボード
     drawAnyFar(true); //遠くても表示
 }

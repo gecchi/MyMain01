@@ -158,9 +158,9 @@ void GgafDxFigureActor::processPreDraw() {
     _pNextActor_in_render_depth_level = nullptr;
     if (_alpha > 0.0f && isActiveInTheTree() && ((GgafDxScene*)getPlatformScene())->_master_alpha > 0.0f) { //isActiveInTheTree() ‚Å”»’è‚·‚é‚ÆA
         if (_is_2D) {
-            _now_drawdepth = pSpacetime->setDrawDepthLevel2D(this);
+            _now_drawdepth = pSpacetime->registerFigureActor2D(this);
         } else {
-            _now_drawdepth = pSpacetime->setDrawDepthLevel3D(this);
+            _now_drawdepth = pSpacetime->registerFigureActor3D(this);
         }
     }
 
@@ -245,16 +245,16 @@ void GgafDxFigureActor::resetMaterialColor() {
     }
 }
 
-void GgafDxFigureActor::setSpecialDrawDepth(int prm_drawdepth) {
+void GgafDxFigureActor::setSpecialRenderDepthIndex(int prm_drawdepth) {
     if (prm_drawdepth < 0) {
         _specal_drawdepth = 0;
-    } else if (prm_drawdepth > ALL_RENDER_DEPTH_LEVELS_NUM-1) {
-        _specal_drawdepth = ALL_RENDER_DEPTH_LEVELS_NUM-1;
+    } else if (prm_drawdepth > ALL_RENDER_DEPTH_INDEXS_NUM-1) {
+        _specal_drawdepth = ALL_RENDER_DEPTH_INDEXS_NUM-1;
     } else {
         _specal_drawdepth = prm_drawdepth;
     }
 }
-void GgafDxFigureActor::resetSpecialDrawDepth() {
+void GgafDxFigureActor::resetSpecialRenderDepthIndex() {
     _specal_drawdepth = -1;
 }
 void GgafDxFigureActor::changeEffectTechnique(const char* prm_technique) {

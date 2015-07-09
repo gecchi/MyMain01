@@ -155,13 +155,17 @@ public:
     virtual void effectDefault();
 
     /**
-     * 特別な描画深度を強制する。 .
+     * 特別な描画深度順序を強制する。 .
      * 0以上指定場合、描画深度指定にこの値が使用される。
      * 負の数の指定場合、自動設定に戻る（_specal_drawdepthのデフォルトは-1)
-     * @param prm_drawdepth
+     * @param prm_drawdepth 描画深度順序
      */
-    void setSpecialDrawDepth(int prm_drawdepth);
-    void resetSpecialDrawDepth();
+    void setSpecialRenderDepthIndex(int prm_drawdepth);
+
+    /**
+     * 特別な描画深度指定を解除する .
+     */
+    void resetSpecialRenderDepthIndex();
     /**
      * 共通の描画事前処理 .
      * 描画を行うにあたっての重要な事前処理を行ないます。

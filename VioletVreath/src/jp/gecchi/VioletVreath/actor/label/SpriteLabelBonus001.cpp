@@ -15,7 +15,7 @@ SpriteLabelBonus001::SpriteLabelBonus001(const char* prm_name) :
     _class_name = "SpriteLabelBonus001";
     setZEnable(false);      //Zバッファは考慮無しに強制
     setZWriteEnable(false); //Zバッファは書き込み無しに強制
-    setSpecialDrawDepth(1); //描画順序を最前面描画に強制。
+    setSpecialRenderDepthIndex(1); //描画順序を最前面描画に強制。
     setHitAble(false);
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_BxyzMv); //XYZ軸ビルボード
     useProgress(PROG_BANPEI);

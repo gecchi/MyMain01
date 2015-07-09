@@ -20,7 +20,7 @@ Horizon001::Horizon001(const char* prm_name) :
     setHitAble(false);
     setZEnable(true);        //Zバッファは考慮
 //    setZWriteEnable(false);  //Zバッファは書き込み無し
-//    setSpecialDrawDepth(RENDER_DEPTH_LEVEL_BACK-3);
+//    setSpecialRenderDepthIndex(RENDER_DEPTH_INDEX_BACK-3);
     drawAnyFar(true);//遠くても表示
     chip_width_ = PX_C(256);
 }

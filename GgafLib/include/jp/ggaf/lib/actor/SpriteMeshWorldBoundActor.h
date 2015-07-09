@@ -3,8 +3,6 @@
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/ex/GgafDxSpriteMeshActor.h"
 
-#define RENDER_DEPTH_LEVEL_WORLDBOUND (RENDER_DEPTH_LEVEL_SP_BACK1)
-
 namespace GgafLib {
 
 /**

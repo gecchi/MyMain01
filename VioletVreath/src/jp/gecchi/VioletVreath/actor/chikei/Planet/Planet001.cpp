@@ -5,8 +5,10 @@
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "Planet001Atmosphere.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
+#include "jp/ggaf/lib/actor/WorldBoundActor.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime.h"
+#include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshi.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -20,7 +22,7 @@ Planet001::Planet001(const char* prm_name) :
     setHitAble(false);
     setZEnable(true);        //Zバッファは考慮
     setZWriteEnable(false);  //Zバッファは書き込み無し
-    setSpecialDrawDepth(RENDER_DEPTH_LEVEL_SP_BACK1-3);
+    setSpecialRenderDepthIndex(RENDER_DEPTH_INDEX_HOSHIBOSHI-2);
     drawAnyFar(true);//遠くても表示
     //大気圏エフェクトスプライト
     pAtmosphere_ = NEW Planet001Atmosphere("P001ATMOS");
@@ -32,7 +34,7 @@ void Planet001::onCreateModel() {
 
 void Planet001::initialize() {
     setAlpha(0.99);
-    Spacetime* pSpacetime =  P_GOD->getSpacetime();
+    Spacetime* pSpacetime = P_GOD->getSpacetime();
     _x = pSpacetime->_x_bound_right*10;
     setScale(1000*1000);
     setRzFaceAng(D90ANG - D_ANG(30));

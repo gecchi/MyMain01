@@ -159,40 +159,40 @@ namespace GgafLib {
 #define VBK_MAIL            DIK_MAIL
 #define VBK_MEDIASELECT     DIK_MEDIASELECT
 
-#define VBJ_BUTTON_01       (0x00U)
-#define VBJ_BUTTON_02       (0x01U)
-#define VBJ_BUTTON_03       (0x02U)
-#define VBJ_BUTTON_04       (0x03U)
-#define VBJ_BUTTON_05       (0x04U)
-#define VBJ_BUTTON_06       (0x05U)
-#define VBJ_BUTTON_07       (0x06U)
-#define VBJ_BUTTON_08       (0x07U)
-#define VBJ_BUTTON_09       (0x08U)
-#define VBJ_BUTTON_10       (0x09U)
-#define VBJ_BUTTON_11       (0x0AU)
-#define VBJ_BUTTON_12       (0x0BU)
-#define VBJ_BUTTON_13       (0x0CU)
-#define VBJ_BUTTON_14       (0x0DU)
-#define VBJ_BUTTON_15       (0x0EU)
-#define VBJ_BUTTON_16       (0x0FU)
-#define VBJ_BUTTON_MAX      (0x0FU) //rgbボタン番兵
+#define VBJ_BUTTON_01       (0x00)
+#define VBJ_BUTTON_02       (0x01)
+#define VBJ_BUTTON_03       (0x02)
+#define VBJ_BUTTON_04       (0x03)
+#define VBJ_BUTTON_05       (0x04)
+#define VBJ_BUTTON_06       (0x05)
+#define VBJ_BUTTON_07       (0x06)
+#define VBJ_BUTTON_08       (0x07)
+#define VBJ_BUTTON_09       (0x08)
+#define VBJ_BUTTON_10       (0x09)
+#define VBJ_BUTTON_11       (0x0A)
+#define VBJ_BUTTON_12       (0x0B)
+#define VBJ_BUTTON_13       (0x0C)
+#define VBJ_BUTTON_14       (0x0D)
+#define VBJ_BUTTON_15       (0x0E)
+#define VBJ_BUTTON_16       (0x0F)
+#define VBJ_BUTTON_MAX      (0x0F) //rgbボタン番兵
 
-#define VBJ_X_POS_MINUS     (0x80U)
-#define VBJ_X_POS_PLUS      (0x81U)
-#define VBJ_Y_POS_MINUS     (0x82U)
-#define VBJ_Y_POS_PLUS      (0x83U)
-#define VBJ_Z_POS_MINUS     (0x84U)
-#define VBJ_Z_POS_PLUS      (0x85U)
-#define VBJ_X_ROT_MINUS     (0x86U)
-#define VBJ_X_ROT_PLUS      (0x87U)
-#define VBJ_Y_ROT_MINUS     (0x88U)
-#define VBJ_Y_ROT_PLUS      (0x89U)
-#define VBJ_Z_ROT_MINUS     (0x8AU)
-#define VBJ_Z_ROT_PLUS      (0x8BU)
-#define VBJ_POV_UP          (0x8CU)
-#define VBJ_POV_DOWN        (0x8DU)
-#define VBJ_POV_LEFT        (0x8EU)
-#define VBJ_POV_RIGHT       (0x8FU)
+#define VBJ_X_POS_MINUS     (0x80)
+#define VBJ_X_POS_PLUS      (0x81)
+#define VBJ_Y_POS_MINUS     (0x82)
+#define VBJ_Y_POS_PLUS      (0x83)
+#define VBJ_Z_POS_MINUS     (0x84)
+#define VBJ_Z_POS_PLUS      (0x85)
+#define VBJ_X_ROT_MINUS     (0x86)
+#define VBJ_X_ROT_PLUS      (0x87)
+#define VBJ_Y_ROT_MINUS     (0x88)
+#define VBJ_Y_ROT_PLUS      (0x89)
+#define VBJ_Z_ROT_MINUS     (0x8A)
+#define VBJ_Z_ROT_PLUS      (0x8B)
+#define VBJ_POV_UP          (0x8C)
+#define VBJ_POV_DOWN        (0x8D)
+#define VBJ_POV_LEFT        (0x8E)
+#define VBJ_POV_RIGHT       (0x8F)
 
 #define VB_BUTTON1        (0x1U)         //&B 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000001
 #define VB_BUTTON2        (0x2U)         //&B 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000010
@@ -364,8 +364,6 @@ public:
 
     /** [r]リプレイモード時:true／ユーザー入力（リプレイモード記入）モード:false */
     bool _is_replaying;
-    /** [r]初期状態:false／リプレイモード終了:true */
-    bool _was_replay_done;
     /** 現在フレームの入力状態 */
     VirtualButton::VBRecord* _pVBRecord_active;
 

@@ -17,7 +17,7 @@ EffectLockon001::EffectLockon001(const char* prm_name, const char* prm_model_id)
     effectBlendOne(); //エフェクトテクニックは加算合成に強制
     setZEnable(false);      //Zバッファは考慮無しに強制
     setZWriteEnable(false); //Zバッファは書き込み無しに強制
-    setSpecialDrawDepth(1); //描画順序を最前面描画に強制。ロックオンエフェクトが隠れないようにするため。
+    setSpecialRenderDepthIndex(1); //描画順序を最前面描画に強制。ロックオンエフェクトが隠れないようにするため。
     setAlpha(0.9);          //α部分があるため、カリングをOFFするため透明オブジェクト扱いにする。
 
     setHitAble(false); //当たり判定無し

@@ -3,6 +3,8 @@
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/ex/GgafDxWorldBoundActor.h"
 
+#define RENDER_DEPTH_INDEX_WORLDBOUND (RENDER_DEPTH_INDEX_SP_BACK(4))
+
 namespace GgafLib {
 
 /**
