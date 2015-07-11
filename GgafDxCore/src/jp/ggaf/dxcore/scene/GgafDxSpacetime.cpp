@@ -98,8 +98,6 @@ _z_bound_far   (+DX_C(prm_pCamera->getZFar()))
 
     GgafRepeatSeq::create(_seqkey_se_delay, 0, 8); //ズレSE再生フレーム
 
-
-
     //実際の深度と、描画の段階レンダリングの深度要素の関係
     //画面に近い場合は細く段階レンダリングするが
     //奥になればなるほどだんだんアバウトな段階にしていく
@@ -121,10 +119,8 @@ _z_bound_far   (+DX_C(prm_pCamera->getZFar()))
     }
     //ハマったことメモ
     //pow(x,y)は
-    //x が有限な負の数かつ y が有限で整数値でない場合に定義域エラー (domain error) が発生．
-    //また，x が 0 で, かつ y が 0 以下の場合に定義域エラーが発生することがある
     //double ang = RCNV(0, px_dep_resolution, z, 0, period); → z = 0 の場合 ang = -0; になる
-    //GCCの場合は pow(ang, e/PI) = -1.#IND となってしまう時が環境によりある。
+    //GCCの場合は底が負と解釈されるのか、 pow(ang, e/PI) = -1.#IND となってしまう時が環境によりある。
     //VCは 0 になった。
     //powを使うときは気をつけよう。
 
@@ -214,7 +210,7 @@ void GgafDxSpacetime::draw() {
                         pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
                         if (!pDrawActor->_zwriteenable) {
                             // Zバッファ書き込み不可設定
-                            pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
+                            pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
                             pDrawActor->processDraw();
                             // Zバッファ書き込み可に戻す
                             pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
@@ -226,7 +222,7 @@ void GgafDxSpacetime::draw() {
                     } else {
                         if (!pDrawActor->_zwriteenable) {
                             // Zバッファ書き込み不可設定
-                            pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
+                            pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
                             pDrawActor->processDraw();
                             // Zバッファ書き込み可に戻す
                             pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
@@ -242,7 +238,7 @@ void GgafDxSpacetime::draw() {
                         pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
                         if (!pDrawActor->_zwriteenable) {
                             // Zバッファ書き込み不可設定
-                            pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
+                            pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
                             pDrawActor->processDraw();
                             // Zバッファ書き込み可に戻す
                             pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
@@ -254,7 +250,7 @@ void GgafDxSpacetime::draw() {
                     } else {
                         if (!pDrawActor->_zwriteenable) {
                             // Zバッファ書き込み不可設定
-                            pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
+                            pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
                             pDrawActor->processDraw();
                             // Zバッファ書き込み可に戻す
                             pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
@@ -264,39 +260,10 @@ void GgafDxSpacetime::draw() {
                     }
                 }
 
-//
-//                //半透明要素ありの場合カリングを一時OFF
-//                if (pDrawActor->_alpha < 1.0f) {
-//                    pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-//                }
-//                //Zバッファを考慮無効設定
-//                if (!pDrawActor->_zenable) {
-//                    pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
-//                }
-//                // Zバッファ書き込み不可設定
-//                if (!pDrawActor->_zwriteenable) {
-//                    pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
-//                }
-//
-//                pDrawActor->processDraw(); //ここで描画。
-//
-//                //カリング有りに戻す
-//                if (pDrawActor->_alpha < 1.0f) {
-//                    pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
-//                }
-//                //Zバッファを考慮無効設定
-//                if (!pDrawActor->_zenable) {
-//                    pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
-//                }
-//                // Zバッファ書き込み不可設定
-//                if (!pDrawActor->_zwriteenable) {
-//                    pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
-//                }
-
-                pDrawActor = GgafDxSpacetime::_pActor_draw_active->_pNextActor_in_render_depth_level;
+                pDrawActor = GgafDxSpacetime::_pActor_draw_active->_pNextActor_in_render_depth;
                 //set系描画の場合は、pDrawActor->processDraw() 処理内で、
                 //GgafDxSpacetime::_pActor_draw_active が、set系の最終描画アクターに更新されている。
-                //_pNextActor_in_render_depth_level で表示が飛ばされることはない。
+                //_pNextActor_in_render_depth で表示が飛ばされることはない。
             }
             _papFirstActor_in_render_depth[i] = nullptr; //次回のためにリセット
             _papLastActor_in_render_depth[i] = nullptr;
@@ -323,75 +290,75 @@ void GgafDxSpacetime::draw() {
         GgafDxModelManager::_pModelLastDraw = nullptr;
         GgafDxFigureActor::_hash_technique_last_draw = 0;
     }
-
 }
+
 int GgafDxSpacetime::registerFigureActor2D(GgafDxFigureActor* prm_pActor) {
-    int render_depth_level;
-    int specal_drawdepth = prm_pActor->_specal_drawdepth;
-    if (specal_drawdepth < 0) {
+    int render_depth_index;
+    int specal_render_depth_index = prm_pActor->_specal_render_depth_index;
+    if (specal_render_depth_index < 0) {
         //＊＊＊ 2Dで特別な描画深度指定無し ＊＊＊
-        render_depth_level = EX_RENDER_DEPTH_INDEXS_FRONT_NUM + prm_pActor->_z; //_z値がプライオリティ件描画深度。
+        render_depth_index = EX_RENDER_DEPTH_INDEXS_FRONT_NUM + prm_pActor->_z; //_z値がプライオリティ件描画深度。
         //上限下限カット
-        if (render_depth_level > EX_RENDER_DEPTH_INDEXS_FRONT_NUM + REGULAR_RENDER_DEPTH_INDEXS_NUM - 1) {
-            render_depth_level = EX_RENDER_DEPTH_INDEXS_FRONT_NUM + REGULAR_RENDER_DEPTH_INDEXS_NUM - 1;
-        } else if (render_depth_level < EX_RENDER_DEPTH_INDEXS_FRONT_NUM) {
-            render_depth_level = EX_RENDER_DEPTH_INDEXS_FRONT_NUM;
+        if (render_depth_index > EX_RENDER_DEPTH_INDEXS_FRONT_NUM + REGULAR_RENDER_DEPTH_INDEXS_NUM - 1) {
+            render_depth_index = EX_RENDER_DEPTH_INDEXS_FRONT_NUM + REGULAR_RENDER_DEPTH_INDEXS_NUM - 1;
+        } else if (render_depth_index < EX_RENDER_DEPTH_INDEXS_FRONT_NUM) {
+            render_depth_index = EX_RENDER_DEPTH_INDEXS_FRONT_NUM;
         }
-        if (_papFirstActor_in_render_depth[render_depth_level] == nullptr) {
-            //2Dでそのprm_render_depth_levelで最初のアクターの場合
-            prm_pActor->_pNextActor_in_render_depth_level = nullptr;
-            _papFirstActor_in_render_depth[render_depth_level] = prm_pActor;
-            _papLastActor_in_render_depth[render_depth_level] = prm_pActor;
+        if (_papFirstActor_in_render_depth[render_depth_index] == nullptr) {
+            //2Dでそのprm_render_depth_indexで最初のアクターの場合
+            prm_pActor->_pNextActor_in_render_depth = nullptr;
+            _papFirstActor_in_render_depth[render_depth_index] = prm_pActor;
+            _papLastActor_in_render_depth[render_depth_index] = prm_pActor;
         } else {
             //2Dで同一深度で2Dの場合、連結リストのお尻に追加していく
             //つまり、最後に addSubLast() すればするほど、描画順が後になり、プライオリティが高いくなる。
-            GgafDxFigureActor* pActorTmp = _papLastActor_in_render_depth[render_depth_level];
-            pActorTmp->_pNextActor_in_render_depth_level = prm_pActor;
-            prm_pActor->_pNextActor_in_render_depth_level = nullptr;
-            _papLastActor_in_render_depth[render_depth_level] = prm_pActor;
+            GgafDxFigureActor* pActorTmp = _papLastActor_in_render_depth[render_depth_index];
+            pActorTmp->_pNextActor_in_render_depth = prm_pActor;
+            prm_pActor->_pNextActor_in_render_depth = nullptr;
+            _papLastActor_in_render_depth[render_depth_index] = prm_pActor;
         }
     } else {
         //＊＊＊ 2Dで特別な描画深度指定有り ＊＊＊
-        render_depth_level = specal_drawdepth;
-        if (_papFirstActor_in_render_depth[render_depth_level] == nullptr) {
-            //そのprm_render_depth_levelで最初のアクターの場合
-            prm_pActor->_pNextActor_in_render_depth_level = nullptr;
-            _papFirstActor_in_render_depth[render_depth_level] = prm_pActor;
-            _papLastActor_in_render_depth[render_depth_level] = prm_pActor;
+        render_depth_index = specal_render_depth_index;
+        if (_papFirstActor_in_render_depth[render_depth_index] == nullptr) {
+            //そのprm_render_depth_indexで最初のアクターの場合
+            prm_pActor->_pNextActor_in_render_depth = nullptr;
+            _papFirstActor_in_render_depth[render_depth_index] = prm_pActor;
+            _papLastActor_in_render_depth[render_depth_index] = prm_pActor;
         } else {
             //手前に追加
-            GgafDxFigureActor* pActorTmp = _papFirstActor_in_render_depth[render_depth_level];
-            prm_pActor->_pNextActor_in_render_depth_level = pActorTmp;
-            _papFirstActor_in_render_depth[render_depth_level] = prm_pActor;
+            GgafDxFigureActor* pActorTmp = _papFirstActor_in_render_depth[render_depth_index];
+            prm_pActor->_pNextActor_in_render_depth = pActorTmp;
+            _papFirstActor_in_render_depth[render_depth_index] = prm_pActor;
         }
     }
-    return render_depth_level;
+    return render_depth_index;
 }
 
 int GgafDxSpacetime::registerFigureActor3D(GgafDxFigureActor* prm_pActor) {
-    int render_depth_level;
-    int specal_drawdepth = prm_pActor->_specal_drawdepth;
+    int render_depth_index;
+    int specal_render_depth_index = prm_pActor->_specal_render_depth_index;
     //＊＊＊３Dの場合
     if (prm_pActor->isOutOfView()) {
         //描画しないので登録なし
-        render_depth_level = -1;
+        render_depth_index = -1;
     } else {
 
-        if (specal_drawdepth < 0) { //特別な描画深度指定無し
+        if (specal_render_depth_index < 0) { //特別な描画深度指定無し
             //＊＊＊ 3Dで特別な描画深度指定無し ＊＊＊
             dxcoord dep = -prm_pActor->_dest_from_vppln_front; //オブジェクトの視点からの距離(DIRECTX距離)
             if (dep < 0.0) {
-                render_depth_level = EX_RENDER_DEPTH_INDEXS_FRONT_NUM;
+                render_depth_index = RENDER_DEPTH_INDEX_FRONT;
             } else if (0.0 <= dep && dep < _dep_resolution) {
-                render_depth_level = EX_RENDER_DEPTH_INDEXS_FRONT_NUM + _paDep2Lv[DX_PX(dep)];
+                render_depth_index = RENDER_DEPTH_INDEX_FRONT + _paDep2Lv[DX_PX(dep)];
             } else {
-                render_depth_level = EX_RENDER_DEPTH_INDEXS_FRONT_NUM + REGULAR_RENDER_DEPTH_INDEXS_NUM - 1;
+                render_depth_index = RENDER_DEPTH_INDEX_BACK;
             }
-            if (_papFirstActor_in_render_depth[render_depth_level] == nullptr) {
-                //そのprm_render_depth_levelで最初のアクターの場合
-                prm_pActor->_pNextActor_in_render_depth_level = nullptr;
-                _papFirstActor_in_render_depth[render_depth_level] = prm_pActor;
-                _papLastActor_in_render_depth[render_depth_level] = prm_pActor;
+            if (_papFirstActor_in_render_depth[render_depth_index] == nullptr) {
+                //そのprm_render_depth_indexで最初のアクターの場合
+                prm_pActor->_pNextActor_in_render_depth = nullptr;
+                _papFirstActor_in_render_depth[render_depth_index] = prm_pActor;
+                _papLastActor_in_render_depth[render_depth_index] = prm_pActor;
             } else {
                 //同一深度で3Dの場合、前に追加と、お尻に追加を交互に行う。
                 //何故そんなことをするかというと、Zバッファ有りのテクスチャに透明があるオブジェクトや、半透明オブジェクトが交差した場合、
@@ -400,35 +367,35 @@ int GgafDxSpacetime::registerFigureActor3D(GgafDxFigureActor* prm_pActor) {
                 //TODO:(課題)２、３のオブジェクトの交差は場合は見た目にも許容できるが、たくさん固まると本当にチラチラする。
                 if ((_frame_of_behaving & 1) == 1) { //奇数
                     //前に追加
-                    GgafDxFigureActor* pActorTmp = _papFirstActor_in_render_depth[render_depth_level];
-                    prm_pActor->_pNextActor_in_render_depth_level = pActorTmp;
-                    _papFirstActor_in_render_depth[render_depth_level] = prm_pActor;
+                    GgafDxFigureActor* pActorTmp = _papFirstActor_in_render_depth[render_depth_index];
+                    prm_pActor->_pNextActor_in_render_depth = pActorTmp;
+                    _papFirstActor_in_render_depth[render_depth_index] = prm_pActor;
                 } else {
                     //お尻に追加
-                    GgafDxFigureActor* pActorTmp = _papLastActor_in_render_depth[render_depth_level];
-                    pActorTmp->_pNextActor_in_render_depth_level = prm_pActor;
-                    prm_pActor->_pNextActor_in_render_depth_level = nullptr;
-                    _papLastActor_in_render_depth[render_depth_level] = prm_pActor;
+                    GgafDxFigureActor* pActorTmp = _papLastActor_in_render_depth[render_depth_index];
+                    pActorTmp->_pNextActor_in_render_depth = prm_pActor;
+                    prm_pActor->_pNextActor_in_render_depth = nullptr;
+                    _papLastActor_in_render_depth[render_depth_index] = prm_pActor;
                 }
             }
 
         } else {
             //＊＊＊ 3Dで特別な描画深度指定有り
-            render_depth_level = specal_drawdepth;
-            if (_papFirstActor_in_render_depth[render_depth_level] == nullptr) {
-                //そのprm_render_depth_levelで最初のアクターの場合
-                prm_pActor->_pNextActor_in_render_depth_level = nullptr;
-                _papFirstActor_in_render_depth[render_depth_level] = prm_pActor;
-                _papLastActor_in_render_depth[render_depth_level] = prm_pActor;
+            render_depth_index = specal_render_depth_index;
+            if (_papFirstActor_in_render_depth[render_depth_index] == nullptr) {
+                //そのprm_render_depth_indexで最初のアクターの場合
+                prm_pActor->_pNextActor_in_render_depth = nullptr;
+                _papFirstActor_in_render_depth[render_depth_index] = prm_pActor;
+                _papLastActor_in_render_depth[render_depth_index] = prm_pActor;
             } else {
                 //前に追加
-                GgafDxFigureActor* pActorTmp = _papFirstActor_in_render_depth[render_depth_level];
-                prm_pActor->_pNextActor_in_render_depth_level = pActorTmp;
-                _papFirstActor_in_render_depth[render_depth_level] = prm_pActor;
+                GgafDxFigureActor* pActorTmp = _papFirstActor_in_render_depth[render_depth_index];
+                prm_pActor->_pNextActor_in_render_depth = pActorTmp;
+                _papFirstActor_in_render_depth[render_depth_index] = prm_pActor;
             }
         }
     }
-    return render_depth_level;
+    return render_depth_index;
 }
 
 

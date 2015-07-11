@@ -814,102 +814,106 @@ void VirtualButton::update() {
     GgafDxInput::updateMouseState();
 
     _pVBRecord_active = _pVBRecord_active->_next;
-    if (_is_replaying && _pRpy->hasNextRecord()) {
-        //リプレイ継続時
-        _pVBRecord_active->_state = _pRpy->read();
-        return;
-    } else {
-        //通常操作時
-        vb_sta state = 0;
-        const KEYBOARDMAP& kmap = _keyboardmap;
-        const JOYSTICKMAP& jmap = _joystickmap;
-
-        BYTE* kst = GgafDxInput::_keyboard_state[GgafDxInput::_flip_ks];
-        state |= ( VB_BUTTON1    * ((kst[kmap.BUTTON1] & 0x80)    == 0x80) );
-        state |= ( VB_BUTTON2    * ((kst[kmap.BUTTON2] & 0x80)    == 0x80) );
-        state |= ( VB_BUTTON3    * ((kst[kmap.BUTTON3] & 0x80)    == 0x80) );
-        state |= ( VB_BUTTON4    * ((kst[kmap.BUTTON4] & 0x80)    == 0x80) );
-        state |= ( VB_BUTTON5    * ((kst[kmap.BUTTON5] & 0x80)    == 0x80) );
-        state |= ( VB_BUTTON6    * ((kst[kmap.BUTTON6] & 0x80)    == 0x80) );
-        state |= ( VB_BUTTON7    * ((kst[kmap.BUTTON7] & 0x80)    == 0x80) );
-        state |= ( VB_BUTTON8    * ((kst[kmap.BUTTON8] & 0x80)    == 0x80) );
-        state |= ( VB_BUTTON9    * ((kst[kmap.BUTTON9] & 0x80)    == 0x80) );
-        state |= ( VB_BUTTON10   * ((kst[kmap.BUTTON10] & 0x80)   == 0x80) );
-        state |= ( VB_BUTTON11   * ((kst[kmap.BUTTON11] & 0x80)   == 0x80) );
-        state |= ( VB_BUTTON12   * ((kst[kmap.BUTTON12] & 0x80)   == 0x80) );
-        state |= ( VB_BUTTON13   * ((kst[kmap.BUTTON13] & 0x80)   == 0x80) );
-        state |= ( VB_BUTTON14   * ((kst[kmap.BUTTON14] & 0x80)   == 0x80) );
-        state |= ( VB_BUTTON15   * ((kst[kmap.BUTTON15] & 0x80)   == 0x80) );
-        state |= ( VB_BUTTON16   * ((kst[kmap.BUTTON16] & 0x80)   == 0x80) );
-        state |= ( VB_PAUSE      * ((kst[kmap.PAUSE] & 0x80)      == 0x80) );
-        state |= ( VB_UP         * ((kst[kmap.UP] & 0x80)         == 0x80) );
-        state |= ( VB_DOWN       * ((kst[kmap.DOWN] & 0x80)       == 0x80) );
-        state |= ( VB_LEFT       * ((kst[kmap.LEFT] & 0x80)       == 0x80) );
-        state |= ( VB_RIGHT      * ((kst[kmap.RIGHT] & 0x80)      == 0x80) );
-        state |= ( VB_S1_UP      * ((kst[kmap.S1_UP] & 0x80)      == 0x80) );
-        state |= ( VB_S1_DOWN    * ((kst[kmap.S1_DOWN] & 0x80)    == 0x80) );
-        state |= ( VB_S1_LEFT    * ((kst[kmap.S1_LEFT] & 0x80)    == 0x80) );
-        state |= ( VB_S1_RIGHT   * ((kst[kmap.S1_RIGHT] & 0x80)   == 0x80) );
-        state |= ( VB_S2_UP      * ((kst[kmap.S2_UP] & 0x80)      == 0x80) );
-        state |= ( VB_S2_DOWN    * ((kst[kmap.S2_DOWN] & 0x80)    == 0x80) );
-        state |= ( VB_S2_LEFT    * ((kst[kmap.S2_LEFT] & 0x80)    == 0x80) );
-        state |= ( VB_S2_RIGHT   * ((kst[kmap.S2_RIGHT] & 0x80)   == 0x80) );
-        state |= ( VB_UI_UP      * ((kst[kmap.UI_UP] & 0x80)      == 0x80) );
-        state |= ( VB_UI_DOWN    * ((kst[kmap.UI_DOWN] & 0x80)    == 0x80) );
-        state |= ( VB_UI_LEFT    * ((kst[kmap.UI_LEFT] & 0x80)    == 0x80) );
-        state |= ( VB_UI_RIGHT   * ((kst[kmap.UI_RIGHT] & 0x80)   == 0x80) );
-        state |= ( VB_UI_EXECUTE * ((kst[kmap.UI_EXECUTE] & 0x80) == 0x80) );
-        state |= ( VB_UI_CANCEL  * ((kst[kmap.UI_CANCEL] & 0x80)  == 0x80) );
-        state |= ( VB_UI_DEBUG   * ((kst[kmap.UI_DEBUG] & 0x80)   == 0x80) );
-
-        if (GgafDxInput::_pJoystickInputDevice) {
-
-            state |= (VB_BUTTON1  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON1));
-            state |= (VB_BUTTON2  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON2));
-            state |= (VB_BUTTON3  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON3));
-            state |= (VB_BUTTON4  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON4));
-            state |= (VB_BUTTON5  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON5));
-            state |= (VB_BUTTON6  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON6));
-            state |= (VB_BUTTON7  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON7));
-            state |= (VB_BUTTON8  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON8));
-            state |= (VB_BUTTON9  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON9));
-            state |= (VB_BUTTON10 * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON10));
-            state |= (VB_BUTTON11 * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON11));
-            state |= (VB_BUTTON12 * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON12));
-            state |= (VB_BUTTON13 * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON13));
-            state |= (VB_BUTTON14 * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON14));
-            state |= (VB_BUTTON15 * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON15));
-            state |= (VB_BUTTON16 * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON16));
-            state |= (VB_PAUSE    * VirtualButton::isBeingPressedVirtualJoyButton(jmap.PAUSE));
-            state |= (VB_UP       * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UP));
-            state |= (VB_DOWN     * VirtualButton::isBeingPressedVirtualJoyButton(jmap.DOWN));
-            state |= (VB_LEFT     * VirtualButton::isBeingPressedVirtualJoyButton(jmap.LEFT));
-            state |= (VB_RIGHT    * VirtualButton::isBeingPressedVirtualJoyButton(jmap.RIGHT));
-            state |= (VB_S1_UP    * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S1_UP));
-            state |= (VB_S1_DOWN  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S1_DOWN));
-            state |= (VB_S1_LEFT  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S1_LEFT));
-            state |= (VB_S1_RIGHT * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S1_RIGHT));
-            state |= (VB_S2_UP    * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S2_UP));
-            state |= (VB_S2_DOWN  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S2_DOWN));
-            state |= (VB_S2_LEFT  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S2_LEFT));
-            state |= (VB_S2_RIGHT * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S2_RIGHT));
-            if (_with_pov) {
-                state |= (VB_UI_UP    * (VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_UP)    ||  GgafDxInput::isBeingPressedPovUp()    ));
-                state |= (VB_UI_DOWN  * (VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_DOWN)  ||  GgafDxInput::isBeingPressedPovDown()  ));
-                state |= (VB_UI_LEFT  * (VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_LEFT)  ||  GgafDxInput::isBeingPressedPovLeft()  ));
-                state |= (VB_UI_RIGHT * (VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_RIGHT) ||  GgafDxInput::isBeingPressedPovRight() ));
-            } else {
-                state |= (VB_UI_UP    * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_UP)   );
-                state |= (VB_UI_DOWN  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_DOWN) );
-                state |= (VB_UI_LEFT  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_LEFT) );
-                state |= (VB_UI_RIGHT * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_RIGHT));
-            }
-            state |= (VB_UI_EXECUTE * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_EXECUTE));
-            state |= (VB_UI_CANCEL  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_CANCEL));
-            //state |= (VB_UI_DEBUG * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_DEBUG)); //JoyStickにはDEBUGボタンは無い仕様
+    if (_is_replaying) {
+        if (_pRpy->hasNextRecord()) {
+            //リプレイ継続時
+            _pVBRecord_active->_state = _pRpy->read();
+            return;
+        } else {
+            //リプレイ終了
+            _is_replaying = false;
         }
-        _pVBRecord_active->_state = state;
     }
+    //通常操作時
+    vb_sta state = 0;
+    const KEYBOARDMAP& kmap = _keyboardmap;
+    const JOYSTICKMAP& jmap = _joystickmap;
+
+    BYTE* kst = GgafDxInput::_keyboard_state[GgafDxInput::_flip_ks];
+    state |= ( VB_BUTTON1    * ((kst[kmap.BUTTON1] & 0x80)    == 0x80) );
+    state |= ( VB_BUTTON2    * ((kst[kmap.BUTTON2] & 0x80)    == 0x80) );
+    state |= ( VB_BUTTON3    * ((kst[kmap.BUTTON3] & 0x80)    == 0x80) );
+    state |= ( VB_BUTTON4    * ((kst[kmap.BUTTON4] & 0x80)    == 0x80) );
+    state |= ( VB_BUTTON5    * ((kst[kmap.BUTTON5] & 0x80)    == 0x80) );
+    state |= ( VB_BUTTON6    * ((kst[kmap.BUTTON6] & 0x80)    == 0x80) );
+    state |= ( VB_BUTTON7    * ((kst[kmap.BUTTON7] & 0x80)    == 0x80) );
+    state |= ( VB_BUTTON8    * ((kst[kmap.BUTTON8] & 0x80)    == 0x80) );
+    state |= ( VB_BUTTON9    * ((kst[kmap.BUTTON9] & 0x80)    == 0x80) );
+    state |= ( VB_BUTTON10   * ((kst[kmap.BUTTON10] & 0x80)   == 0x80) );
+    state |= ( VB_BUTTON11   * ((kst[kmap.BUTTON11] & 0x80)   == 0x80) );
+    state |= ( VB_BUTTON12   * ((kst[kmap.BUTTON12] & 0x80)   == 0x80) );
+    state |= ( VB_BUTTON13   * ((kst[kmap.BUTTON13] & 0x80)   == 0x80) );
+    state |= ( VB_BUTTON14   * ((kst[kmap.BUTTON14] & 0x80)   == 0x80) );
+    state |= ( VB_BUTTON15   * ((kst[kmap.BUTTON15] & 0x80)   == 0x80) );
+    state |= ( VB_BUTTON16   * ((kst[kmap.BUTTON16] & 0x80)   == 0x80) );
+    state |= ( VB_PAUSE      * ((kst[kmap.PAUSE] & 0x80)      == 0x80) );
+    state |= ( VB_UP         * ((kst[kmap.UP] & 0x80)         == 0x80) );
+    state |= ( VB_DOWN       * ((kst[kmap.DOWN] & 0x80)       == 0x80) );
+    state |= ( VB_LEFT       * ((kst[kmap.LEFT] & 0x80)       == 0x80) );
+    state |= ( VB_RIGHT      * ((kst[kmap.RIGHT] & 0x80)      == 0x80) );
+    state |= ( VB_S1_UP      * ((kst[kmap.S1_UP] & 0x80)      == 0x80) );
+    state |= ( VB_S1_DOWN    * ((kst[kmap.S1_DOWN] & 0x80)    == 0x80) );
+    state |= ( VB_S1_LEFT    * ((kst[kmap.S1_LEFT] & 0x80)    == 0x80) );
+    state |= ( VB_S1_RIGHT   * ((kst[kmap.S1_RIGHT] & 0x80)   == 0x80) );
+    state |= ( VB_S2_UP      * ((kst[kmap.S2_UP] & 0x80)      == 0x80) );
+    state |= ( VB_S2_DOWN    * ((kst[kmap.S2_DOWN] & 0x80)    == 0x80) );
+    state |= ( VB_S2_LEFT    * ((kst[kmap.S2_LEFT] & 0x80)    == 0x80) );
+    state |= ( VB_S2_RIGHT   * ((kst[kmap.S2_RIGHT] & 0x80)   == 0x80) );
+    state |= ( VB_UI_UP      * ((kst[kmap.UI_UP] & 0x80)      == 0x80) );
+    state |= ( VB_UI_DOWN    * ((kst[kmap.UI_DOWN] & 0x80)    == 0x80) );
+    state |= ( VB_UI_LEFT    * ((kst[kmap.UI_LEFT] & 0x80)    == 0x80) );
+    state |= ( VB_UI_RIGHT   * ((kst[kmap.UI_RIGHT] & 0x80)   == 0x80) );
+    state |= ( VB_UI_EXECUTE * ((kst[kmap.UI_EXECUTE] & 0x80) == 0x80) );
+    state |= ( VB_UI_CANCEL  * ((kst[kmap.UI_CANCEL] & 0x80)  == 0x80) );
+    state |= ( VB_UI_DEBUG   * ((kst[kmap.UI_DEBUG] & 0x80)   == 0x80) );
+
+    if (GgafDxInput::_pJoystickInputDevice) {
+
+        state |= (VB_BUTTON1  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON1));
+        state |= (VB_BUTTON2  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON2));
+        state |= (VB_BUTTON3  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON3));
+        state |= (VB_BUTTON4  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON4));
+        state |= (VB_BUTTON5  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON5));
+        state |= (VB_BUTTON6  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON6));
+        state |= (VB_BUTTON7  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON7));
+        state |= (VB_BUTTON8  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON8));
+        state |= (VB_BUTTON9  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON9));
+        state |= (VB_BUTTON10 * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON10));
+        state |= (VB_BUTTON11 * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON11));
+        state |= (VB_BUTTON12 * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON12));
+        state |= (VB_BUTTON13 * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON13));
+        state |= (VB_BUTTON14 * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON14));
+        state |= (VB_BUTTON15 * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON15));
+        state |= (VB_BUTTON16 * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON16));
+        state |= (VB_PAUSE    * VirtualButton::isBeingPressedVirtualJoyButton(jmap.PAUSE));
+        state |= (VB_UP       * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UP));
+        state |= (VB_DOWN     * VirtualButton::isBeingPressedVirtualJoyButton(jmap.DOWN));
+        state |= (VB_LEFT     * VirtualButton::isBeingPressedVirtualJoyButton(jmap.LEFT));
+        state |= (VB_RIGHT    * VirtualButton::isBeingPressedVirtualJoyButton(jmap.RIGHT));
+        state |= (VB_S1_UP    * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S1_UP));
+        state |= (VB_S1_DOWN  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S1_DOWN));
+        state |= (VB_S1_LEFT  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S1_LEFT));
+        state |= (VB_S1_RIGHT * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S1_RIGHT));
+        state |= (VB_S2_UP    * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S2_UP));
+        state |= (VB_S2_DOWN  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S2_DOWN));
+        state |= (VB_S2_LEFT  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S2_LEFT));
+        state |= (VB_S2_RIGHT * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S2_RIGHT));
+        if (_with_pov) {
+            state |= (VB_UI_UP    * (VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_UP)    ||  GgafDxInput::isBeingPressedPovUp()    ));
+            state |= (VB_UI_DOWN  * (VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_DOWN)  ||  GgafDxInput::isBeingPressedPovDown()  ));
+            state |= (VB_UI_LEFT  * (VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_LEFT)  ||  GgafDxInput::isBeingPressedPovLeft()  ));
+            state |= (VB_UI_RIGHT * (VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_RIGHT) ||  GgafDxInput::isBeingPressedPovRight() ));
+        } else {
+            state |= (VB_UI_UP    * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_UP)   );
+            state |= (VB_UI_DOWN  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_DOWN) );
+            state |= (VB_UI_LEFT  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_LEFT) );
+            state |= (VB_UI_RIGHT * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_RIGHT));
+        }
+        state |= (VB_UI_EXECUTE * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_EXECUTE));
+        state |= (VB_UI_CANCEL  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_CANCEL));
+        //state |= (VB_UI_DEBUG * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_DEBUG)); //JoyStickにはDEBUGボタンは無い仕様
+    }
+    _pVBRecord_active->_state = state;
     _pRpy->write(_pVBRecord_active->_state); //リプレイ情報記録
 }
 

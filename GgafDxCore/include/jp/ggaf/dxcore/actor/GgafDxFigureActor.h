@@ -49,7 +49,7 @@ public:
     static hashval _hash_technique_last_draw;
 
     /** [r]同一描画レベルの次のアクター */
-    GgafDxFigureActor* _pNextActor_in_render_depth_level;
+    GgafDxFigureActor* _pNextActor_in_render_depth;
     /** [r/w]現在のマテリアルのα値 (0.0 <= _alpha <= 1.0) */
     float _alpha;
     /** [r]現在描画に使用しているシェーダーテクニック名 */
@@ -62,7 +62,7 @@ public:
     /** [r/w]現在の描画深度 */
     int _now_drawdepth;
     /** [r/w]特別な固定描画深度、-1でなければ _now_drawdepth より優先でこの深度が適用される */
-    int _specal_drawdepth;
+    int _specal_render_depth_index;
     /** [r]一時テクニック適用中の場合 true */
     bool _is_temp_technique;
 
@@ -112,7 +112,7 @@ public:
         return (GgafDxFigureActor*)GgafActor::getPrev();
     }
 
-    virtual GgafDxFigureActor* getNext() const  override {  //共変の戻り値
+    virtual GgafDxFigureActor* getNext() const override {  //共変の戻り値
         return (GgafDxFigureActor*)GgafActor::getNext();
     }
 
@@ -157,7 +157,7 @@ public:
     /**
      * 特別な描画深度順序を強制する。 .
      * 0以上指定場合、描画深度指定にこの値が使用される。
-     * 負の数の指定場合、自動設定に戻る（_specal_drawdepthのデフォルトは-1)
+     * 負の数の指定場合、自動設定に戻る（_specal_render_depth_indexのデフォルトは-1)
      * @param prm_drawdepth 描画深度順序
      */
     void setSpecialRenderDepthIndex(int prm_drawdepth);
@@ -166,6 +166,7 @@ public:
      * 特別な描画深度指定を解除する .
      */
     void resetSpecialRenderDepthIndex();
+
     /**
      * 共通の描画事前処理 .
      * 描画を行うにあたっての重要な事前処理を行ないます。
@@ -263,7 +264,7 @@ public:
      * 描画時Zバッファを考慮するか .
      * @param prm_bool true:考慮する(default) / false:無視する
      */
-    void setZEnable(bool prm_bool) {
+    inline void setZEnable(bool prm_bool) {
         _zenable = prm_bool;
     }
 
@@ -271,7 +272,7 @@ public:
      * 描画時Zバッファを書き込むか .
      * @param prm_bool true:書き込む(default) / false:書き込まない
      */
-    void setZWriteEnable(bool prm_bool) {
+    inline void setZWriteEnable(bool prm_bool) {
         _zwriteenable = prm_bool;
     }
 

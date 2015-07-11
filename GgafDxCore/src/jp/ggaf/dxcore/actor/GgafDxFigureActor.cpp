@@ -47,7 +47,7 @@ _pEffect((GgafDxEffect*)_pEffectCon->peek()) {
 
     _frame_of_behaving_temp_technique_end = 0;
     _is_temp_technique = false;
-    _pNextActor_in_render_depth_level = nullptr;
+    _pNextActor_in_render_depth = nullptr;
 //    //モデル取得connectModelManager
 //    _pModelCon = (GgafDxModelConnection*)GgafDxGod::_pModelManager->connect(prm_model, this);
 //    _pModel = (GgafDxModel*)_pModelCon->peek();
@@ -62,7 +62,7 @@ _pEffect((GgafDxEffect*)_pEffectCon->peek()) {
     _alpha = 1.0f;
     //最大距離頂点
     _now_drawdepth = 0;
-    _specal_drawdepth = -1;
+    _specal_render_depth_index = -1;
     _zenable = true;
     _zwriteenable = true;
     _hash_technique = UTIL::easy_hash(prm_technique) + UTIL::easy_hash(_pModel->getName());
@@ -121,7 +121,7 @@ _pEffect((GgafDxEffect*)_pEffectCon->peek())
 //    // effelct_name     = "X/DefaultMeshEffect"
 //    // という文字列を作成。
 
-    _pNextActor_in_render_depth_level = nullptr;
+    _pNextActor_in_render_depth = nullptr;
 
     //マテリアルをコピー
     _paMaterial = NEW D3DMATERIAL9[_pModel->_num_materials];
@@ -134,7 +134,7 @@ _pEffect((GgafDxEffect*)_pEffectCon->peek())
 //    GGAF_DELETEARR(effelct_name);
 
     _now_drawdepth = 0;
-    _specal_drawdepth = -1;
+    _specal_render_depth_index = -1;
     _zenable = true;
     _zwriteenable = true;
     _hash_technique = UTIL::easy_hash(prm_technique) + UTIL::easy_hash(_pModel->getName());
@@ -155,7 +155,7 @@ void GgafDxFigureActor::processPreDraw() {
         onCreateModel(); //モデル作成時の初期処理
         _pModel->_is_init_model = true;
     }
-    _pNextActor_in_render_depth_level = nullptr;
+    _pNextActor_in_render_depth = nullptr;
     if (_alpha > 0.0f && isActiveInTheTree() && ((GgafDxScene*)getPlatformScene())->_master_alpha > 0.0f) { //isActiveInTheTree() で判定すると、
         if (_is_2D) {
             _now_drawdepth = pSpacetime->registerFigureActor2D(this);
@@ -175,7 +175,6 @@ void GgafDxFigureActor::processPreDraw() {
             _hash_temp_technique = 0;
         }
     }
-
 }
 
 
@@ -236,26 +235,27 @@ void GgafDxFigureActor::setMaterialColor(const GgafCore::GgafRgb* prm_rgb) {
 
 void GgafDxFigureActor::resetMaterialColor() {
     for (DWORD i = 0; i < _pModel->_num_materials; i++) {
-        _paMaterial[i].Ambient.r = _pModel->_paMaterial_default[i].Ambient.r;
-        _paMaterial[i].Diffuse.r = _pModel->_paMaterial_default[i].Diffuse.r;
-        _paMaterial[i].Ambient.g = _pModel->_paMaterial_default[i].Ambient.g;
-        _paMaterial[i].Diffuse.g = _pModel->_paMaterial_default[i].Diffuse.g;
-        _paMaterial[i].Ambient.b = _pModel->_paMaterial_default[i].Ambient.b;
-        _paMaterial[i].Diffuse.b = _pModel->_paMaterial_default[i].Diffuse.b;
+        D3DMATERIAL9* p = &(_pModel->_paMaterial_default[i]);
+        _paMaterial[i].Ambient.r = p->Ambient.r;
+        _paMaterial[i].Diffuse.r = p->Diffuse.r;
+        _paMaterial[i].Ambient.g = p->Ambient.g;
+        _paMaterial[i].Diffuse.g = p->Diffuse.g;
+        _paMaterial[i].Ambient.b = p->Ambient.b;
+        _paMaterial[i].Diffuse.b = p->Diffuse.b;
     }
 }
 
 void GgafDxFigureActor::setSpecialRenderDepthIndex(int prm_drawdepth) {
     if (prm_drawdepth < 0) {
-        _specal_drawdepth = 0;
+        _specal_render_depth_index = 0;
     } else if (prm_drawdepth > ALL_RENDER_DEPTH_INDEXS_NUM-1) {
-        _specal_drawdepth = ALL_RENDER_DEPTH_INDEXS_NUM-1;
+        _specal_render_depth_index = ALL_RENDER_DEPTH_INDEXS_NUM-1;
     } else {
-        _specal_drawdepth = prm_drawdepth;
+        _specal_render_depth_index = prm_drawdepth;
     }
 }
 void GgafDxFigureActor::resetSpecialRenderDepthIndex() {
-    _specal_drawdepth = -1;
+    _specal_render_depth_index = -1;
 }
 void GgafDxFigureActor::changeEffectTechnique(const char* prm_technique) {
     _hash_technique = UTIL::easy_hash(prm_technique) + UTIL::easy_hash(_pModel->getName());

@@ -785,9 +785,11 @@ bool MyStgUtil::transactEnemyHit(GgafDxFigureActor* prm_this, const GgafDxGeomet
                     //なにもしない
                 } else if (ONEd_EQ(rp_r)) {
                     G_RANK  += rp; //減衰率が1.0ならば、そのまま加算初期ランク値をプラス
-                } else {
+                } else if (rp_r > 0) {
                     frame n = prm_this->getActiveFrame();   //稼働フレーム
                     G_RANK  += (rp * pow(rp_r, (double)n)); //rp * (rp_r ^ n)  ランク加算
+                } else {
+                    //なにもしない
                 }
             }
             prm_this->notifyDestroyedToFormation();     //編隊全滅判定に有効な破壊のされ方でしたよ、と通知
