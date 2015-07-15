@@ -16,7 +16,6 @@
 #include "jp/ggaf/dxcore/sound/GgafDxSe.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
-#include "jp/ggaf/core/util/GgafUtil.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -299,10 +298,10 @@ int GgafDxSpacetime::registerFigureActor2D(GgafDxFigureActor* prm_pActor) {
         //＊＊＊ 2Dで特別な描画深度指定無し ＊＊＊
         render_depth_index = EX_RENDER_DEPTH_INDEXS_FRONT_NUM + prm_pActor->_z; //_z値がプライオリティ件描画深度。
         //上限下限カット
-        if (render_depth_index > EX_RENDER_DEPTH_INDEXS_FRONT_NUM + REGULAR_RENDER_DEPTH_INDEXS_NUM - 1) {
-            render_depth_index = EX_RENDER_DEPTH_INDEXS_FRONT_NUM + REGULAR_RENDER_DEPTH_INDEXS_NUM - 1;
-        } else if (render_depth_index < EX_RENDER_DEPTH_INDEXS_FRONT_NUM) {
-            render_depth_index = EX_RENDER_DEPTH_INDEXS_FRONT_NUM;
+        if (render_depth_index > RENDER_DEPTH_INDEX_BACK) {
+            render_depth_index = RENDER_DEPTH_INDEX_BACK;
+        } else if (render_depth_index < RENDER_DEPTH_INDEX_FRONT) {
+            render_depth_index = RENDER_DEPTH_INDEX_FRONT;
         }
         if (_papFirstActor_in_render_depth[render_depth_index] == nullptr) {
             //2Dでそのprm_render_depth_indexで最初のアクターの場合

@@ -25,12 +25,12 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,100,300};
-	_paFrame_NextEvent = new frame[3];
-	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 3;
-	orderSceneToFactory(10000000, Stage01WalledScene, "Stage01WalledScene-1");
-	orderActorToFactory(10000001, EnemyOzartia, "EnemyOzartia-2");
+    frame f[] = {1,100,300};
+    _paFrame_NextEvent = new frame[3];
+    memcpy(_paFrame_NextEvent, f, sizeof(f));
+    _event_num = 3;
+    orderSceneToFactory(10000000, Stage01WalledScene, "Stage01WalledScene-1");
+    orderActorToFactory(10000001, EnemyOzartia, "EnemyOzartia-2");
     // gen01 end
     useProgress(Stage01PartController::PROG_BANPEI-1);
 }
@@ -43,27 +43,27 @@ void Stage01PartController::processBehavior() {
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
-	if (getBehaveingFrame() == _paFrame_NextEvent[_cnt_event]) {
-		switch (getBehaveingFrame()) {
-			case 1: {
-				break;
-			}
-			case 100: {
-				Stage01WalledScene* pWScene = (Stage01WalledScene*)obtainSceneFromFactory(10000000);
-				addSubLast(pWScene);
-				break;
-			}
-			case 300: {
-				EnemyOzartia* p = (EnemyOzartia*)obtainActorFromFactory(10000001);
-				bringDirector()->addSubGroup(p);
-				p->position(1000000,0,0);
-				break;
-			}
-			default :
-				break;
-		}
-		_cnt_event = (_cnt_event < 3-1 ? _cnt_event+1 : _cnt_event);
-	}
+    if (getBehaveingFrame() == _paFrame_NextEvent[_cnt_event]) {
+        switch (getBehaveingFrame()) {
+            case 1: {
+                break;
+            }
+            case 100: {
+                Stage01WalledScene* pWScene = (Stage01WalledScene*)obtainSceneFromFactory(10000000);
+                addSubLast(pWScene);
+                break;
+            }
+            case 300: {
+                EnemyOzartia* p = (EnemyOzartia*)obtainActorFromFactory(10000001);
+                bringDirector()->addSubGroup(p);
+                p->position(1000000,0,0);
+                break;
+            }
+            default :
+                break;
+        }
+        _cnt_event = (_cnt_event < 3-1 ? _cnt_event+1 : _cnt_event);
+    }
     // gen02 end
 
     SceneProgress* pProg = getProgress();
@@ -83,11 +83,6 @@ void Stage01PartController::processBehavior() {
         }
         default :
             break;
-    }
-
-
-    if (getActiveFrame() == 100) {
-        bringDirector()->addSubGroup( createInFactory(DefaultMeshTestActor,"xxx"));
     }
 }
 

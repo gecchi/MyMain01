@@ -68,13 +68,16 @@ void GgafDxBgmPerformerForScene::fade(int prm_channel, frame prm_frame, int prm_
     _pa_target_volume[prm_channel] = (double)prm_target_volume;
     _pa_inc_volume[prm_channel] = (prm_target_volume - _pa_volume[prm_channel]) / (double)prm_frame;
 }
+
 void GgafDxBgmPerformerForScene::fadein_f(int prm_channel, frame prm_frame) {
     fade(prm_channel, prm_frame, GGAF_MAX_VOLUME);
 }
+
 void GgafDxBgmPerformerForScene::play_fadein_f(int prm_channel, frame prm_frame) {
     play(prm_channel, GGAF_MIN_VOLUME, true);
     fadein_f(prm_channel, prm_frame);
 }
+
 void GgafDxBgmPerformerForScene::fadeout_f(int prm_channel, frame prm_frame) {
     if (_papBgmConnection[prm_channel]->peek()->isPlaying()) {
         fade(prm_channel, prm_frame, GGAF_MIN_VOLUME);
@@ -84,6 +87,7 @@ void GgafDxBgmPerformerForScene::fadeout_f(int prm_channel, frame prm_frame) {
                 "再生されていないので、フェードアウトを無視しました。file_name="<<_papBgmConnection[prm_channel]->peek()->_ogg_file_name);
     }
 }
+
 void GgafDxBgmPerformerForScene::fadeout_stop_f(int prm_channel, frame prm_frame) {
     if (_papBgmConnection[prm_channel]->peek()->isPlaying()) {
         fade(prm_channel, prm_frame, GGAF_MIN_VOLUME);
