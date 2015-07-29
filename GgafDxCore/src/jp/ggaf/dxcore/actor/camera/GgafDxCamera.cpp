@@ -181,8 +181,8 @@ void GgafDxCamera::processBehavior() {
         );
         // 手前 ( N左上、N左下、N右上)
         D3DXPlaneNormalize(
-            &_plnFront,
-            D3DXPlaneFromPoints(&_plnFront, &(_vecNear[2]), &(_vecNear[0]), &(_vecNear[3]))
+            &_plnInfront,
+            D3DXPlaneFromPoints(&_plnInfront, &(_vecNear[2]), &(_vecNear[0]), &(_vecNear[3]))
         );
         // 奥 ( F右上、F左下、F左上)
         D3DXPlaneNormalize(

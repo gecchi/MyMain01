@@ -182,7 +182,7 @@ void MyBunshin::processChangeGeoFinal() {
         MyBunshinWateringLaserChip001* pLaserChip = (MyBunshinWateringLaserChip001*)pLaserChipDepo_->dispatch();
         if (pLaserChip) {
             pLaserChip->setOrg(this);
-            if (pLaserChip->getFrontChip() == nullptr) {
+            if (pLaserChip->getInfrontChip() == nullptr) {
                 getSeTx()->play3D(SE_FIRE_LASER);
             }
         }

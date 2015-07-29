@@ -42,7 +42,7 @@ void EnemyEsperiaLaserChip001::onActive() {
     begin_y_ = _y;
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->stopTurningMvAng();
-    if (getFrontChip() == nullptr) {
+    if (getInfrontChip() == nullptr) {
         pKuroko->setMvAngTwd(tx1_, ty1_, tz1_);
         getProgress()->reset(PROG_MOVE_UP);
     } else {

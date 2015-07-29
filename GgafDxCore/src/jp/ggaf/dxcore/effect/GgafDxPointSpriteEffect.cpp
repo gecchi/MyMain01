@@ -31,7 +31,7 @@ GgafDxPointSpriteEffect::GgafDxPointSpriteEffect(const char* prm_effect_name) : 
     _h_alpha    = _pID3DXEffect->GetParameterByName( nullptr, "g_alpha" );
     _h_tex_blink_power = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_power" );
     _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_threshold" );
-    _h_dist_VpFrontPlane = _pID3DXEffect->GetParameterByName( nullptr, "g_dist_VpFrontPlane" );
+    _h_dist_VpInfrontPlane = _pID3DXEffect->GetParameterByName( nullptr, "g_dist_VpInfrontPlane" );
     _hTexSize = _pID3DXEffect->GetParameterByName( nullptr, "g_TexSize" );
     _hTextureSplitRowcol = _pID3DXEffect->GetParameterByName( nullptr, "g_TextureSplitRowcol" );
     _hUvFlipPtnNo = _pID3DXEffect->GetParameterByName( nullptr, "g_UvFlipPtnNo" );

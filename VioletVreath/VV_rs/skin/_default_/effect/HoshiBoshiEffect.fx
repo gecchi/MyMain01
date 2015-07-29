@@ -16,7 +16,7 @@ float g_fZ_MyShip;
 float g_far_rate;
 
 float g_dist_CamZ_default;
-float g_dist_VpFrontPlane; //ほぼ視点からの距離
+float g_dist_VpInfrontPlane; //ほぼ視点からの距離
 float g_zn;
 float g_zf;
 float g_TexSize;  //読み込んだテクスチャ（正方形が前提）の幅テクセル数

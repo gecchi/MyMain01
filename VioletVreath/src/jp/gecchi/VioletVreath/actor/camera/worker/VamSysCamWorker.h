@@ -31,7 +31,7 @@ public:
     /** カメラY座標下限 */
     coord lim_CAM_bottom_;
     /** カメラX座標上限 */
-    coord lim_CAM_front_;
+    coord lim_CAM_infront_;
     /** カメラX座標下限 */
     coord lim_CAM_behaind_;
     /** カメラZ座標上限 */
@@ -43,7 +43,7 @@ public:
     /** ビューポイントY座標下限 */
     coord lim_VP_bottom_;
     /** ビューポイントX座標上限 */
-    coord lim_VP_front_;
+    coord lim_VP_infront_;
     /** ビューポイントX座標下限 */
     coord lim_VP_behaind_;
     /** ビューポイントZ座標上限 */

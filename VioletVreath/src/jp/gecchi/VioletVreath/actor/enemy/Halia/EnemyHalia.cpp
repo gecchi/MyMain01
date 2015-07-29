@@ -160,7 +160,7 @@ void EnemyHalia::processBehavior() {
         case PROG_IN_FIRE: {
             LaserChip* pLaser = pLaserChipDepo_->dispatch();
             if (pLaser) {
-                if (pLaser->getFrontChip() == nullptr) {
+                if (pLaser->getInfrontChip() == nullptr) {
                     getSeTx()->play3D(SE_FIRE);
                 }
             } else {

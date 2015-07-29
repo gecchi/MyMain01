@@ -67,7 +67,7 @@ public:
     GgafCore::GgafActorDepository* _pDepo_wall;
     GgafCore::GgafActorDepository* _pDepo_prism;
     /** [r]手前ブロックの透過機能有効時の基準となるアクター */
-    GgafDxCore::GgafDxGeometricActor* _pActor_front_alpha_target;
+    GgafDxCore::GgafDxGeometricActor* _pActor_infront_alpha_target;
     /** セクションシーン繰り返しフラグ */
     bool _is_loop_end;
     WallPartsActor* _pWallPartsLast;
@@ -123,10 +123,10 @@ public:
     /**
      * 手前ブロックの透過機能を有効にする。
      * 無効にしたい場合は nullptr を設定する
-     * @param prm_pActor_front_alpha_target 手前の基準になるアクター
+     * @param prm_pActor_infront_alpha_target 手前の基準になるアクター
      */
-    void enableFrontAlpha(GgafDxCore::GgafDxGeometricActor* prm_pActor_front_alpha_target) {
-        _pActor_front_alpha_target = prm_pActor_front_alpha_target;
+    void enableInfrontAlpha(GgafDxCore::GgafDxGeometricActor* prm_pActor_infront_alpha_target) {
+        _pActor_infront_alpha_target = prm_pActor_infront_alpha_target;
     }
 
     /**

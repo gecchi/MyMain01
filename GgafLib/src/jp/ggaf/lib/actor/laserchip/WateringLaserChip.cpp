@@ -38,7 +38,7 @@ void WateringLaserChip::processSettlementBehavior() {
         GgafDxGeometricActor::processSettlementBehavior();
     } else {
         if (getActiveFrame() > 2) { //FKオブジェクトからのレーザー発射も考慮すると、_tmpXYZ が埋まるのは3フレーム以降。
-            const WateringLaserChip* pF = (WateringLaserChip*)_pChip_front;
+            const WateringLaserChip* pF = (WateringLaserChip*)_pChip_infront;
             const WateringLaserChip* pB = (WateringLaserChip*)_pChip_behind;
             if (pF && pB && pF->_is_active_flg && pB->_is_active_flg) {
                 //_pChip_behind == nullptr の判定だけではだめ。_pChip_behind->_is_active_flg と判定すること

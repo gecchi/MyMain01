@@ -127,7 +127,7 @@ void EnemyRatislaviaEye::processBehavior() {
             }
             LaserChip* pChip = pLaserChipDepo_->dispatch();
             if (pChip) {
-                if (pChip->getFrontChip() == nullptr) {
+                if (pChip->getInfrontChip() == nullptr) {
                     getSeTx()->play3D(SE_FIRE);
                 }
             } else {

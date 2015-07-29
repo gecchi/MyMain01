@@ -11,7 +11,7 @@ float4x4 g_matView;   //View変換行列
 float4x4 g_matProj;   //射影変換行列
 
 float g_dist_CamZ_default;
-float g_dist_VpFrontPlane; //ほぼ視点からの距離
+float g_dist_VpInfrontPlane; //ほぼ視点からの距離
 float g_zn;
 float g_zf;
 float g_TexSize;  //読み込んだテクスチャ（正方形が前提）の幅テクセル数

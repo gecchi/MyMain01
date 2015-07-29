@@ -29,7 +29,7 @@ GgafDxGeometricActor::GgafDxGeometricActor(const char* prm_name,
     _dest_from_vppln_bottom(0.0f),
     _dest_from_vppln_left(0.0f),
     _dest_from_vppln_right(0.0f),
-    _dest_from_vppln_front(0.0f),
+    _dest_from_vppln_infront(0.0f),
     _dest_from_vppln_back(0.0f),
     _pFunc_calc_rot_mv_world_matrix(nullptr),
     _matWorld(),
@@ -194,11 +194,11 @@ void GgafDxGeometricActor::processSettlementBehavior() {
                               plnRight.b * fY +
                               plnRight.c * fZ +
                               plnRight.d;
-    const D3DXPLANE& plnFront = pCam->_plnFront;
-    _dest_from_vppln_front  = plnFront.a * fX +
-                              plnFront.b * fY +
-                              plnFront.c * fZ +
-                              plnFront.d;
+    const D3DXPLANE& plnInfront = pCam->_plnInfront;
+    _dest_from_vppln_infront  = plnInfront.a * fX +
+                              plnInfront.b * fY +
+                              plnInfront.c * fZ +
+                              plnInfront.d;
    const D3DXPLANE& plnBack = pCam->_plnBack;
     _dest_from_vppln_back   = plnBack.a * fX +
                               plnBack.b * fY +
@@ -341,7 +341,7 @@ int GgafDxGeometricActor::isOutOfView() {
             if (_dest_from_vppln_bottom < bound) {
                 if (_dest_from_vppln_left < bound) {
                     if (_dest_from_vppln_right < bound) {
-                        if (_dest_from_vppln_front < bound) {
+                        if (_dest_from_vppln_infront < bound) {
                             if (_dest_from_vppln_back < bound) {
                                 //Viewport”ÍˆÍ“à
                                 _offscreen_kind = 0;

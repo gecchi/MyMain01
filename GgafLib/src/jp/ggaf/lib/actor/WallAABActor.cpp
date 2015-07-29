@@ -80,8 +80,8 @@ void WallAABActor::processDraw() {
                           //連続しているカウント数。同一描画深度は一度に描画する。
     ID3DXEffect* const pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     HRESULT hr;
-    if (_pWalledSectionScene->_pActor_front_alpha_target) {
-        hr = pID3DXEffect->SetFloat(WallAABActor::_h_distance_AlphaTarget, -(_pWalledSectionScene->_pActor_front_alpha_target->_dest_from_vppln_front));
+    if (_pWalledSectionScene->_pActor_infront_alpha_target) {
+        hr = pID3DXEffect->SetFloat(WallAABActor::_h_distance_AlphaTarget, -(_pWalledSectionScene->_pActor_infront_alpha_target->_dest_from_vppln_infront));
         checkDxException(hr, D3D_OK, "GgafDxMeshSetActor::processDraw() SetMatrix(_h_distance_AlphaTarget) に失敗しました。");
     } else {
         hr = pID3DXEffect->SetFloat(WallAABActor::_h_distance_AlphaTarget, -100.0f);

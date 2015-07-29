@@ -87,7 +87,7 @@ void EnemyHisbe002::processBehavior() {
                 pLaser->positionAs(this);
                 pLaser->getKuroko()->setRzRyMvAng(_rz, _ry);
                                    //レーザーのスプラインがRELATIVE_COORD_DIRECTIONのためMvAngの設定が必要。
-                if (pLaser->getFrontChip() == nullptr) {
+                if (pLaser->getInfrontChip() == nullptr) {
                     getSeTx()->play3D(SE_FIRE);
                 }
             } else {

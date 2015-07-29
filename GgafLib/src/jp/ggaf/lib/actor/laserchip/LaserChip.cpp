@@ -25,7 +25,7 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
     _obj_class |= Obj_LaserChip;
     _pColliChecker = (CollisionChecker3D*)_pChecker;
     _class_name = "LaserChip";
-    _pChip_front = nullptr;
+    _pChip_infront = nullptr;
     _pChip_behind = nullptr;
     _pDepo = nullptr; //LaserChipDepositoryに追加される時に設定される。通常LaserChipとLaserChipDepositoryはセット。
     _chip_kind = 1;
@@ -43,7 +43,7 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
 
 D3DXHANDLE LaserChip::_ah_kind[11];
 D3DXHANDLE LaserChip::_ah_force_alpha[11];
-D3DXHANDLE LaserChip::_ah_matWorld_front[11];
+D3DXHANDLE LaserChip::_ah_matWorld_infront[11];
 bool LaserChip::initStatic() {
     ID3DXEffect* const pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     LaserChip::_ah_kind[0]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind001" );
@@ -68,17 +68,17 @@ bool LaserChip::initStatic() {
     LaserChip::_ah_force_alpha[8]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha009" );
     LaserChip::_ah_force_alpha[9]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha010" );
     LaserChip::_ah_force_alpha[10] = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha011" );
-    LaserChip::_ah_matWorld_front[0]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front001" );
-    LaserChip::_ah_matWorld_front[1]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front002" );
-    LaserChip::_ah_matWorld_front[2]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front003" );
-    LaserChip::_ah_matWorld_front[3]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front004" );
-    LaserChip::_ah_matWorld_front[4]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front005" );
-    LaserChip::_ah_matWorld_front[5]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front006" );
-    LaserChip::_ah_matWorld_front[6]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front007" );
-    LaserChip::_ah_matWorld_front[7]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front008" );
-    LaserChip::_ah_matWorld_front[8]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front009" );
-    LaserChip::_ah_matWorld_front[9]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front010" );
-    LaserChip::_ah_matWorld_front[10] = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front011" );
+    LaserChip::_ah_matWorld_infront[0]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_infront001" );
+    LaserChip::_ah_matWorld_infront[1]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_infront002" );
+    LaserChip::_ah_matWorld_infront[2]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_infront003" );
+    LaserChip::_ah_matWorld_infront[3]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_infront004" );
+    LaserChip::_ah_matWorld_infront[4]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_infront005" );
+    LaserChip::_ah_matWorld_infront[5]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_infront006" );
+    LaserChip::_ah_matWorld_infront[6]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_infront007" );
+    LaserChip::_ah_matWorld_infront[7]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_infront008" );
+    LaserChip::_ah_matWorld_infront[8]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_infront009" );
+    LaserChip::_ah_matWorld_infront[9]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_infront010" );
+    LaserChip::_ah_matWorld_infront[10] = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_infront011" );
     return true;
 }
 
@@ -108,7 +108,7 @@ void LaserChip::onActive() {
 
 void LaserChip::processSettlementBehavior() {
     CollisionChecker3D* pChecker = getCollisionChecker();
-    const LaserChip* pChip_front = _pChip_front;
+    const LaserChip* pChip_infront = _pChip_infront;
 
 
     //レーザーチップ種別 設定。
@@ -132,30 +132,30 @@ void LaserChip::processSettlementBehavior() {
     //
     //先頭と先端という言葉で区別しています。
     setHitAble(true);
-    if (pChip_front) {
-        if (pChip_front->isActive()) {
+    if (pChip_infront) {
+        if (pChip_infront->isActive()) {
             if (_pChip_behind) {
                 if (_pChip_behind->isActiveInTheTree()) {
-                    if (pChip_front->_pChip_front) {
+                    if (pChip_infront->_pChip_infront) {
                         _chip_kind = 2; //中間テクスチャチップ
-                        _pLeader = pChip_front->_pLeader;
+                        _pLeader = pChip_infront->_pLeader;
                     } else {
                         _chip_kind = 3; //中間先頭テクスチャチップ
-                        _pLeader = pChip_front->_pLeader;
+                        _pLeader = pChip_infront->_pLeader;
                     }
                 } else {
                     _chip_kind = 1; //発射元の末端テクスチャチップ
-                    _pLeader = pChip_front->_pLeader;
+                    _pLeader = pChip_infront->_pLeader;
                 }
             } else {
                 _chip_kind = 1; //普通の末端テクスチャ
-                _pLeader = pChip_front->_pLeader;
+                _pLeader = pChip_infront->_pLeader;
             }
         } else {
             _chip_kind = 4; //先端チップ。何も描画したくない
             _pLeader = this;
-            _pChip_front->_pChip_behind = nullptr; //前後のつながりを
-            _pChip_front = nullptr;                //切断
+            _pChip_infront->_pChip_behind = nullptr; //前後のつながりを
+            _pChip_infront = nullptr;                //切断
             if (getActiveFrame() > 1 && _pChip_behind == nullptr) {
                 sayonara();
             }
@@ -170,12 +170,12 @@ void LaserChip::processSettlementBehavior() {
         setHitAble(false);
     }
 
-    //この処理はprocessBehavior()で行えない。なぜならば、_pChip_front が座標移動済みの保証がないため。
+    //この処理はprocessBehavior()で行えない。なぜならば、_pChip_infront が座標移動済みの保証がないため。
     if (_middle_colli_able) { //おそらく水撒きレーザーチップの場合
         if (_chip_kind != 4) {
-            coord dX = pChip_front->_x - _x;
-            coord dY = pChip_front->_y - _y;
-            coord dZ = pChip_front->_z - _z;
+            coord dX = pChip_infront->_x - _x;
+            coord dY = pChip_infront->_y - _y;
+            coord dZ = pChip_infront->_z - _z;
             coord abs_dx = ABS(dX);
             coord abs_dy = ABS(dY);
             coord abs_dz = ABS(dZ);
@@ -251,13 +251,13 @@ void LaserChip::processDraw() {
             pLaserChip = (LaserChip*)pDrawActor;
             //もしここらへんで意味不明なエラーになったら、
             //GgafDxSpriteLaserChipActorの[MEMO]を読み直せ！
-            if (pLaserChip->_pChip_front) {
+            if (pLaserChip->_pChip_infront) {
                 //自身ワールド変換行列
                 hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[draw_set_num], &(pLaserChip->_matWorld));
                 checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_ah_matWorld) に失敗しました。");
                 //一つ前方のワールド変換行列
-                hr = pID3DXEffect->SetMatrix(LaserChip::_ah_matWorld_front[draw_set_num], &(pLaserChip->_pChip_front->_matWorld));
-                checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_ah_matWorld_front) に失敗しました。1");
+                hr = pID3DXEffect->SetMatrix(LaserChip::_ah_matWorld_infront[draw_set_num], &(pLaserChip->_pChip_infront->_matWorld));
+                checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_ah_matWorld_infront) に失敗しました。1");
                 //チップ種別
                 hr = pID3DXEffect->SetInt(LaserChip::_ah_kind[draw_set_num], pLaserChip->_chip_kind);
                 checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetInt(LaserChip::_ah_kind) に失敗しました。2");
@@ -298,12 +298,12 @@ void LaserChip::onInactive() {
         }
     }
     //前後の繋がりを切断
-    if (_pChip_front) {
-        _pChip_front->_pChip_behind = nullptr;
+    if (_pChip_infront) {
+        _pChip_infront->_pChip_behind = nullptr;
     }
-    _pChip_front = nullptr;
+    _pChip_infront = nullptr;
     if (_pChip_behind) {
-        _pChip_behind->_pChip_front = nullptr;
+        _pChip_behind->_pChip_infront = nullptr;
     }
     _pChip_behind = nullptr;
     _pLeader = nullptr;

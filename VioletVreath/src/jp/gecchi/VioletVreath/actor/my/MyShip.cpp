@@ -37,7 +37,7 @@ angle MyShip::wk_angRx = 0;
 
 coord MyShip::lim_y_top_     =  0;
 coord MyShip::lim_y_bottom_  =  0;
-coord MyShip::lim_x_front_   =  0;
+coord MyShip::lim_x_infront_   =  0;
 coord MyShip::lim_x_behaind_ =  0;
 coord MyShip::lim_z_left_   =  0;
 coord MyShip::lim_z_right_  =  0;
@@ -126,11 +126,11 @@ MyShip::MyShip(const char* prm_name) :
 
     MyShip::lim_y_top_     =  harf_height + PX_C(PROPERTY::GAME_BUFFER_HEIGHT*4);  //上は、高さ4画面分
     MyShip::lim_y_bottom_  = -harf_height - PX_C(PROPERTY::GAME_BUFFER_HEIGHT*4);  //下は、高さ4画面分
-    MyShip::lim_x_front_   =  harf_width  + PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //前は、幅の2画面分
+    MyShip::lim_x_infront_   =  harf_width  + PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //前は、幅の2画面分
     MyShip::lim_x_behaind_ = -harf_width  - PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //後ろは、幅の2画面分
     MyShip::lim_z_left_   =  harf_width  + PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //手前は、幅の2画面分
     MyShip::lim_z_right_  = -harf_width  - PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //奥は、幅の2画面分
-    _TRACE_("MyShip 範囲 X("<<MyShip::lim_x_behaind_<<" ~ "<<MyShip::lim_x_front_<<") Y("<<MyShip::lim_y_bottom_<<" ~ "<<MyShip::lim_y_top_<<") Z("<<MyShip::lim_z_right_<<" ~ "<<MyShip::lim_z_left_<<")");
+    _TRACE_("MyShip 範囲 X("<<MyShip::lim_x_behaind_<<" ~ "<<MyShip::lim_x_infront_<<") Y("<<MyShip::lim_y_bottom_<<" ~ "<<MyShip::lim_y_top_<<") Z("<<MyShip::lim_z_right_<<" ~ "<<MyShip::lim_z_left_<<")");
 
 
     //CommonSceneがnewの場合設定
@@ -227,63 +227,63 @@ MyShip::MyShip(const char* prm_name) :
     ////////////// X  Y  Z
 
     funcMove_ = &(paFuncMove_[13]);
-    funcMove_[TN(-1,-1,-1)] = &MyShip::move_WAY_ZRIGHT_DOWN_BEHIND;   //TN(-1,-1,-1) =  WAY_ZRIGHT_DOWN_BEHIND  = 0
-    funcMove_[TN(-1,-1, 0)] = &MyShip::move_WAY_DOWN_BEHIND;          //TN(-1,-1, 0) =  WAY_DOWN_BEHIND         = 1
-    funcMove_[TN(-1,-1, 1)] = &MyShip::move_WAY_ZLEFT_DOWN_BEHIND;    //TN(-1,-1, 1) =  WAY_ZLEFT_DOWN_BEHIND   = 2
-    funcMove_[TN(-1, 0,-1)] = &MyShip::move_WAY_ZRIGHT_BEHIND;        //TN(-1, 0,-1) =  WAY_ZRIGHT_BEHIND       = 3
-    funcMove_[TN(-1, 0, 0)] = &MyShip::move_WAY_BEHIND;               //TN(-1, 0, 0) =  WAY_BEHIND              = 4
-    funcMove_[TN(-1, 0, 1)] = &MyShip::move_WAY_ZLEFT_BEHIND;         //TN(-1, 0, 1) =  WAY_ZLEFT_BEHIND        = 5
-    funcMove_[TN(-1, 1,-1)] = &MyShip::move_WAY_ZRIGHT_UP_BEHIND;     //TN(-1, 1,-1) =  WAY_ZRIGHT_UP_BEHIND    = 6
-    funcMove_[TN(-1, 1, 0)] = &MyShip::move_WAY_UP_BEHIND;            //TN(-1, 1, 0) =  WAY_UP_BEHIND           = 7
-    funcMove_[TN(-1, 1, 1)] = &MyShip::move_WAY_ZLEFT_UP_BEHIND;      //TN(-1, 1, 1) =  WAY_ZLEFT_UP_BEHIND     = 8
-    funcMove_[TN( 0,-1,-1)] = &MyShip::move_WAY_ZRIGHT_DOWN;          //TN( 0,-1,-1) =  WAY_ZRIGHT_DOWN         = 9
-    funcMove_[TN( 0,-1, 0)] = &MyShip::move_WAY_DOWN;                 //TN( 0,-1, 0) =  WAY_DOWN                = 10
-    funcMove_[TN( 0,-1, 1)] = &MyShip::move_WAY_ZLEFT_DOWN;           //TN( 0,-1, 1) =  WAY_ZLEFT_DOWN          = 11
-    funcMove_[TN( 0, 0,-1)] = &MyShip::move_WAY_ZRIGHT;               //TN( 0, 0,-1) =  WAY_ZRIGHT              = 12
-    funcMove_[TN( 0, 0, 0)] = &MyShip::move_WAY_NONE;                 //TN( 0, 0, 0) =  WAY_NONE                = 13
-    funcMove_[TN( 0, 0, 1)] = &MyShip::move_WAY_ZLEFT;                //TN( 0, 0, 1) =  WAY_ZLEFT               = 14
-    funcMove_[TN( 0, 1,-1)] = &MyShip::move_WAY_ZRIGHT_UP;            //TN( 0, 1,-1) =  WAY_ZRIGHT_UP           = 15
-    funcMove_[TN( 0, 1, 0)] = &MyShip::move_WAY_UP;                   //TN( 0, 1, 0) =  WAY_UP                  = 16
-    funcMove_[TN( 0, 1, 1)] = &MyShip::move_WAY_ZLEFT_UP;             //TN( 0, 1, 1) =  WAY_ZLEFT_UP            = 17
-    funcMove_[TN( 1,-1,-1)] = &MyShip::move_WAY_ZRIGHT_DOWN_FRONT;    //TN( 1,-1,-1) =  WAY_ZRIGHT_DOWN_FRONT   = 18
-    funcMove_[TN( 1,-1, 0)] = &MyShip::move_WAY_DOWN_FRONT;           //TN( 1,-1, 0) =  WAY_DOWN_FRONT          = 19
-    funcMove_[TN( 1,-1, 1)] = &MyShip::move_WAY_ZLEFT_DOWN_FRONT;     //TN( 1,-1, 1) =  WAY_ZLEFT_DOWN_FRONT    = 20
-    funcMove_[TN( 1, 0,-1)] = &MyShip::move_WAY_ZRIGHT_FRONT;         //TN( 1, 0,-1) =  WAY_ZRIGHT_FRONT        = 21
-    funcMove_[TN( 1, 0, 0)] = &MyShip::move_WAY_FRONT;                //TN( 1, 0, 0) =  WAY_FRONT               = 22
-    funcMove_[TN( 1, 0, 1)] = &MyShip::move_WAY_ZLEFT_FRONT;          //TN( 1, 0, 1) =  WAY_ZLEFT_FRONT         = 23
-    funcMove_[TN( 1, 1,-1)] = &MyShip::move_WAY_ZRIGHT_UP_FRONT;      //TN( 1, 1,-1) =  WAY_ZRIGHT_UP_FRONT     = 24
-    funcMove_[TN( 1, 1, 0)] = &MyShip::move_WAY_UP_FRONT;             //TN( 1, 1, 0) =  WAY_UP_FRONT            = 25
-    funcMove_[TN( 1, 1, 1)] = &MyShip::move_WAY_ZLEFT_UP_FRONT;       //TN( 1, 1, 1) =  WAY_ZLEFT_UP_FRONT      = 26
+    funcMove_[TN(-1,-1,-1)] = &MyShip::move_WAY_ZRIGHT_DOWN_BACKWARD;   //TN(-1,-1,-1) =  WAY_ZRIGHT_DOWN_BACKWARD  = 0
+    funcMove_[TN(-1,-1, 0)] = &MyShip::move_WAY_DOWN_BACKWARD;          //TN(-1,-1, 0) =  WAY_DOWN_BACKWARD         = 1
+    funcMove_[TN(-1,-1, 1)] = &MyShip::move_WAY_ZLEFT_DOWN_BACKWARD;    //TN(-1,-1, 1) =  WAY_ZLEFT_DOWN_BACKWARD   = 2
+    funcMove_[TN(-1, 0,-1)] = &MyShip::move_WAY_ZRIGHT_BACKWARD;        //TN(-1, 0,-1) =  WAY_ZRIGHT_BACKWARD       = 3
+    funcMove_[TN(-1, 0, 0)] = &MyShip::move_WAY_BACKWARD;               //TN(-1, 0, 0) =  WAY_BACKWARD              = 4
+    funcMove_[TN(-1, 0, 1)] = &MyShip::move_WAY_ZLEFT_BACKWARD;         //TN(-1, 0, 1) =  WAY_ZLEFT_BACKWARD        = 5
+    funcMove_[TN(-1, 1,-1)] = &MyShip::move_WAY_ZRIGHT_UP_BACKWARD;     //TN(-1, 1,-1) =  WAY_ZRIGHT_UP_BACKWARD    = 6
+    funcMove_[TN(-1, 1, 0)] = &MyShip::move_WAY_UP_BACKWARD;            //TN(-1, 1, 0) =  WAY_UP_BACKWARD           = 7
+    funcMove_[TN(-1, 1, 1)] = &MyShip::move_WAY_ZLEFT_UP_BACKWARD;      //TN(-1, 1, 1) =  WAY_ZLEFT_UP_BACKWARD     = 8
+    funcMove_[TN( 0,-1,-1)] = &MyShip::move_WAY_ZRIGHT_DOWN;            //TN( 0,-1,-1) =  WAY_ZRIGHT_DOWN           = 9
+    funcMove_[TN( 0,-1, 0)] = &MyShip::move_WAY_DOWN;                   //TN( 0,-1, 0) =  WAY_DOWN                  = 10
+    funcMove_[TN( 0,-1, 1)] = &MyShip::move_WAY_ZLEFT_DOWN;             //TN( 0,-1, 1) =  WAY_ZLEFT_DOWN            = 11
+    funcMove_[TN( 0, 0,-1)] = &MyShip::move_WAY_ZRIGHT;                 //TN( 0, 0,-1) =  WAY_ZRIGHT                = 12
+    funcMove_[TN( 0, 0, 0)] = &MyShip::move_WAY_NONE;                   //TN( 0, 0, 0) =  WAY_NONE                  = 13
+    funcMove_[TN( 0, 0, 1)] = &MyShip::move_WAY_ZLEFT;                  //TN( 0, 0, 1) =  WAY_ZLEFT                 = 14
+    funcMove_[TN( 0, 1,-1)] = &MyShip::move_WAY_ZRIGHT_UP;              //TN( 0, 1,-1) =  WAY_ZRIGHT_UP             = 15
+    funcMove_[TN( 0, 1, 0)] = &MyShip::move_WAY_UP;                     //TN( 0, 1, 0) =  WAY_UP                    = 16
+    funcMove_[TN( 0, 1, 1)] = &MyShip::move_WAY_ZLEFT_UP;               //TN( 0, 1, 1) =  WAY_ZLEFT_UP              = 17
+    funcMove_[TN( 1,-1,-1)] = &MyShip::move_WAY_ZRIGHT_DOWN_FORWARD;    //TN( 1,-1,-1) =  WAY_ZRIGHT_DOWN_FORWARD   = 18
+    funcMove_[TN( 1,-1, 0)] = &MyShip::move_WAY_DOWN_FORWARD;           //TN( 1,-1, 0) =  WAY_DOWN_FORWARD          = 19
+    funcMove_[TN( 1,-1, 1)] = &MyShip::move_WAY_ZLEFT_DOWN_FORWARD;     //TN( 1,-1, 1) =  WAY_ZLEFT_DOWN_FORWARD    = 20
+    funcMove_[TN( 1, 0,-1)] = &MyShip::move_WAY_ZRIGHT_FORWARD;         //TN( 1, 0,-1) =  WAY_ZRIGHT_FORWARD        = 21
+    funcMove_[TN( 1, 0, 0)] = &MyShip::move_WAY_FORWARD;                //TN( 1, 0, 0) =  WAY_FORWARD               = 22
+    funcMove_[TN( 1, 0, 1)] = &MyShip::move_WAY_ZLEFT_FORWARD;          //TN( 1, 0, 1) =  WAY_ZLEFT_FORWARD         = 23
+    funcMove_[TN( 1, 1,-1)] = &MyShip::move_WAY_ZRIGHT_UP_FORWARD;      //TN( 1, 1,-1) =  WAY_ZRIGHT_UP_FORWARD     = 24
+    funcMove_[TN( 1, 1, 0)] = &MyShip::move_WAY_UP_FORWARD;             //TN( 1, 1, 0) =  WAY_UP_FORWARD            = 25
+    funcMove_[TN( 1, 1, 1)] = &MyShip::move_WAY_ZLEFT_UP_FORWARD;       //TN( 1, 1, 1) =  WAY_ZLEFT_UP_FORWARD      = 26
 
 
     funcTurbo_ = &(paFuncTurbo_[13]);
-    funcTurbo_[TN(-1,-1,-1)] = &MyShip::turbo_WAY_ZRIGHT_DOWN_BEHIND;   //TN(-1,-1,-1) =  WAY_ZRIGHT_DOWN_BEHIND  = 0
-    funcTurbo_[TN(-1,-1, 0)] = &MyShip::turbo_WAY_DOWN_BEHIND;          //TN(-1,-1, 0) =  WAY_DOWN_BEHIND         = 1
-    funcTurbo_[TN(-1,-1, 1)] = &MyShip::turbo_WAY_ZLEFT_DOWN_BEHIND;    //TN(-1,-1, 1) =  WAY_ZLEFT_DOWN_BEHIND   = 2
-    funcTurbo_[TN(-1, 0,-1)] = &MyShip::turbo_WAY_ZRIGHT_BEHIND;        //TN(-1, 0,-1) =  WAY_ZRIGHT_BEHIND       = 3
-    funcTurbo_[TN(-1, 0, 0)] = &MyShip::turbo_WAY_BEHIND;               //TN(-1, 0, 0) =  WAY_BEHIND              = 4
-    funcTurbo_[TN(-1, 0, 1)] = &MyShip::turbo_WAY_ZLEFT_BEHIND;         //TN(-1, 0, 1) =  WAY_ZLEFT_BEHIND        = 5
-    funcTurbo_[TN(-1, 1,-1)] = &MyShip::turbo_WAY_ZRIGHT_UP_BEHIND;     //TN(-1, 1,-1) =  WAY_ZRIGHT_UP_BEHIND    = 6
-    funcTurbo_[TN(-1, 1, 0)] = &MyShip::turbo_WAY_UP_BEHIND;            //TN(-1, 1, 0) =  WAY_UP_BEHIND           = 7
-    funcTurbo_[TN(-1, 1, 1)] = &MyShip::turbo_WAY_ZLEFT_UP_BEHIND;      //TN(-1, 1, 1) =  WAY_ZLEFT_UP_BEHIND     = 8
-    funcTurbo_[TN( 0,-1,-1)] = &MyShip::turbo_WAY_ZRIGHT_DOWN;          //TN( 0,-1,-1) =  WAY_ZRIGHT_DOWN         = 9
-    funcTurbo_[TN( 0,-1, 0)] = &MyShip::turbo_WAY_DOWN;                 //TN( 0,-1, 0) =  WAY_DOWN                = 10
-    funcTurbo_[TN( 0,-1, 1)] = &MyShip::turbo_WAY_ZLEFT_DOWN;           //TN( 0,-1, 1) =  WAY_ZLEFT_DOWN          = 11
-    funcTurbo_[TN( 0, 0,-1)] = &MyShip::turbo_WAY_ZRIGHT;               //TN( 0, 0,-1) =  WAY_ZRIGHT              = 12
-    funcTurbo_[TN( 0, 0, 0)] = &MyShip::turbo_WAY_NONE;                 //TN( 0, 0, 0) =  WAY_NONE                = 13
-    funcTurbo_[TN( 0, 0, 1)] = &MyShip::turbo_WAY_ZLEFT;                //TN( 0, 0, 1) =  WAY_ZLEFT               = 14
-    funcTurbo_[TN( 0, 1,-1)] = &MyShip::turbo_WAY_ZRIGHT_UP;            //TN( 0, 1,-1) =  WAY_ZRIGHT_UP           = 15
-    funcTurbo_[TN( 0, 1, 0)] = &MyShip::turbo_WAY_UP;                   //TN( 0, 1, 0) =  WAY_UP                  = 16
-    funcTurbo_[TN( 0, 1, 1)] = &MyShip::turbo_WAY_ZLEFT_UP;             //TN( 0, 1, 1) =  WAY_ZLEFT_UP            = 17
-    funcTurbo_[TN( 1,-1,-1)] = &MyShip::turbo_WAY_ZRIGHT_DOWN_FRONT;    //TN( 1,-1,-1) =  WAY_ZRIGHT_DOWN_FRONT   = 18
-    funcTurbo_[TN( 1,-1, 0)] = &MyShip::turbo_WAY_DOWN_FRONT;           //TN( 1,-1, 0) =  WAY_DOWN_FRONT          = 19
-    funcTurbo_[TN( 1,-1, 1)] = &MyShip::turbo_WAY_ZLEFT_DOWN_FRONT;     //TN( 1,-1, 1) =  WAY_ZLEFT_DOWN_FRONT    = 20
-    funcTurbo_[TN( 1, 0,-1)] = &MyShip::turbo_WAY_ZRIGHT_FRONT;         //TN( 1, 0,-1) =  WAY_ZRIGHT_FRONT        = 21
-    funcTurbo_[TN( 1, 0, 0)] = &MyShip::turbo_WAY_FRONT;                //TN( 1, 0, 0) =  WAY_FRONT               = 22
-    funcTurbo_[TN( 1, 0, 1)] = &MyShip::turbo_WAY_ZLEFT_FRONT;          //TN( 1, 0, 1) =  WAY_ZLEFT_FRONT         = 23
-    funcTurbo_[TN( 1, 1,-1)] = &MyShip::turbo_WAY_ZRIGHT_UP_FRONT;      //TN( 1, 1,-1) =  WAY_ZRIGHT_UP_FRONT     = 24
-    funcTurbo_[TN( 1, 1, 0)] = &MyShip::turbo_WAY_UP_FRONT;             //TN( 1, 1, 0) =  WAY_UP_FRONT            = 25
-    funcTurbo_[TN( 1, 1, 1)] = &MyShip::turbo_WAY_ZLEFT_UP_FRONT;       //TN( 1, 1, 1) =  WAY_ZLEFT_UP_FRONT      = 26
+    funcTurbo_[TN(-1,-1,-1)] = &MyShip::turbo_WAY_ZRIGHT_DOWN_BACKWARD;   //TN(-1,-1,-1) =  WAY_ZRIGHT_DOWN_BACKWARD  = 0
+    funcTurbo_[TN(-1,-1, 0)] = &MyShip::turbo_WAY_DOWN_BACKWARD;          //TN(-1,-1, 0) =  WAY_DOWN_BACKWARD         = 1
+    funcTurbo_[TN(-1,-1, 1)] = &MyShip::turbo_WAY_ZLEFT_DOWN_BACKWARD;    //TN(-1,-1, 1) =  WAY_ZLEFT_DOWN_BACKWARD   = 2
+    funcTurbo_[TN(-1, 0,-1)] = &MyShip::turbo_WAY_ZRIGHT_BACKWARD;        //TN(-1, 0,-1) =  WAY_ZRIGHT_BACKWARD       = 3
+    funcTurbo_[TN(-1, 0, 0)] = &MyShip::turbo_WAY_BACKWARD;               //TN(-1, 0, 0) =  WAY_BACKWARD              = 4
+    funcTurbo_[TN(-1, 0, 1)] = &MyShip::turbo_WAY_ZLEFT_BACKWARD;         //TN(-1, 0, 1) =  WAY_ZLEFT_BACKWARD        = 5
+    funcTurbo_[TN(-1, 1,-1)] = &MyShip::turbo_WAY_ZRIGHT_UP_BACKWARD;     //TN(-1, 1,-1) =  WAY_ZRIGHT_UP_BACKWARD    = 6
+    funcTurbo_[TN(-1, 1, 0)] = &MyShip::turbo_WAY_UP_BACKWARD;            //TN(-1, 1, 0) =  WAY_UP_BACKWARD           = 7
+    funcTurbo_[TN(-1, 1, 1)] = &MyShip::turbo_WAY_ZLEFT_UP_BACKWARD;      //TN(-1, 1, 1) =  WAY_ZLEFT_UP_BACKWARD     = 8
+    funcTurbo_[TN( 0,-1,-1)] = &MyShip::turbo_WAY_ZRIGHT_DOWN;            //TN( 0,-1,-1) =  WAY_ZRIGHT_DOWN           = 9
+    funcTurbo_[TN( 0,-1, 0)] = &MyShip::turbo_WAY_DOWN;                   //TN( 0,-1, 0) =  WAY_DOWN                  = 10
+    funcTurbo_[TN( 0,-1, 1)] = &MyShip::turbo_WAY_ZLEFT_DOWN;             //TN( 0,-1, 1) =  WAY_ZLEFT_DOWN            = 11
+    funcTurbo_[TN( 0, 0,-1)] = &MyShip::turbo_WAY_ZRIGHT;                 //TN( 0, 0,-1) =  WAY_ZRIGHT                = 12
+    funcTurbo_[TN( 0, 0, 0)] = &MyShip::turbo_WAY_NONE;                   //TN( 0, 0, 0) =  WAY_NONE                  = 13
+    funcTurbo_[TN( 0, 0, 1)] = &MyShip::turbo_WAY_ZLEFT;                  //TN( 0, 0, 1) =  WAY_ZLEFT                 = 14
+    funcTurbo_[TN( 0, 1,-1)] = &MyShip::turbo_WAY_ZRIGHT_UP;              //TN( 0, 1,-1) =  WAY_ZRIGHT_UP             = 15
+    funcTurbo_[TN( 0, 1, 0)] = &MyShip::turbo_WAY_UP;                     //TN( 0, 1, 0) =  WAY_UP                    = 16
+    funcTurbo_[TN( 0, 1, 1)] = &MyShip::turbo_WAY_ZLEFT_UP;               //TN( 0, 1, 1) =  WAY_ZLEFT_UP              = 17
+    funcTurbo_[TN( 1,-1,-1)] = &MyShip::turbo_WAY_ZRIGHT_DOWN_FORWARD;    //TN( 1,-1,-1) =  WAY_ZRIGHT_DOWN_FORWARD   = 18
+    funcTurbo_[TN( 1,-1, 0)] = &MyShip::turbo_WAY_DOWN_FORWARD;           //TN( 1,-1, 0) =  WAY_DOWN_FORWARD          = 19
+    funcTurbo_[TN( 1,-1, 1)] = &MyShip::turbo_WAY_ZLEFT_DOWN_FORWARD;     //TN( 1,-1, 1) =  WAY_ZLEFT_DOWN_FORWARD    = 20
+    funcTurbo_[TN( 1, 0,-1)] = &MyShip::turbo_WAY_ZRIGHT_FORWARD;         //TN( 1, 0,-1) =  WAY_ZRIGHT_FORWARD        = 21
+    funcTurbo_[TN( 1, 0, 0)] = &MyShip::turbo_WAY_FORWARD;                //TN( 1, 0, 0) =  WAY_FORWARD               = 22
+    funcTurbo_[TN( 1, 0, 1)] = &MyShip::turbo_WAY_ZLEFT_FORWARD;          //TN( 1, 0, 1) =  WAY_ZLEFT_FORWARD         = 23
+    funcTurbo_[TN( 1, 1,-1)] = &MyShip::turbo_WAY_ZRIGHT_UP_FORWARD;      //TN( 1, 1,-1) =  WAY_ZRIGHT_UP_FORWARD     = 24
+    funcTurbo_[TN( 1, 1, 0)] = &MyShip::turbo_WAY_UP_FORWARD;             //TN( 1, 1, 0) =  WAY_UP_FORWARD            = 25
+    funcTurbo_[TN( 1, 1, 1)] = &MyShip::turbo_WAY_ZLEFT_UP_FORWARD;       //TN( 1, 1, 1) =  WAY_ZLEFT_UP_FORWARD      = 26
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(SE_DAMAGED     , "WAVE_MY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION   , "WAVE_MY_SE_EXPLOSION_001");
@@ -659,8 +659,8 @@ void MyShip::processBehavior() {
             _y = MyShip::lim_y_bottom_;
         }
 
-        if (_x > MyShip::lim_x_front_) {
-            _x = MyShip::lim_x_front_;
+        if (_x > MyShip::lim_x_infront_) {
+            _x = MyShip::lim_x_infront_;
         } else if (_x < MyShip::lim_x_behaind_) {
             _x = MyShip::lim_x_behaind_;
         }
@@ -699,7 +699,7 @@ void MyShip::processBehavior() {
         if (pVbPlay->isBeingPressed(VB_SHOT1)) {
             LaserChip* pLaserChip = pLaserChipDepo_->dispatch();
             if (pLaserChip) {
-                if (pLaserChip->getFrontChip() == nullptr) {
+                if (pLaserChip->getInfrontChip() == nullptr) {
                     getSeTx()->play3D(SE_FIRE_LASER);
                 }
             }
@@ -1152,7 +1152,7 @@ void MyShip::move_WAY_UP() {
     _y += mv_speed_;
 }
 
-void MyShip::move_WAY_UP_FRONT() {
+void MyShip::move_WAY_UP_FORWARD() {
     if (is_just_change_way_) {
         getKuroko()->setRzRyMvAng(D45ANG, 0);
     }
@@ -1160,7 +1160,7 @@ void MyShip::move_WAY_UP_FRONT() {
     _x += mv_speed_ * NANAME2D_RATE;
 }
 
-void MyShip::move_WAY_UP_BEHIND() {
+void MyShip::move_WAY_UP_BACKWARD() {
     if (is_just_change_way_) {
         getKuroko()->setRzRyMvAng(D135ANG, 0);
     }
@@ -1168,14 +1168,14 @@ void MyShip::move_WAY_UP_BEHIND() {
     _x -= mv_speed_ * NANAME2D_RATE;
 }
 
-void MyShip::move_WAY_FRONT() {
+void MyShip::move_WAY_FORWARD() {
     if (is_just_change_way_) {
         getKuroko()->setRzRyMvAng(0, 0);
     }
     _x += mv_speed_;
 }
 
-void MyShip::move_WAY_BEHIND() {
+void MyShip::move_WAY_BACKWARD() {
     if (is_just_change_way_) {
         getKuroko()->setRzRyMvAng(D180ANG, 0);
     }
@@ -1187,7 +1187,7 @@ void MyShip::move_WAY_DOWN() {
     _y -= mv_speed_;
 }
 
-void MyShip::move_WAY_DOWN_BEHIND() {
+void MyShip::move_WAY_DOWN_BACKWARD() {
     if (is_just_change_way_) {
         getKuroko()->setRzRyMvAng(D255ANG, 0);
     }
@@ -1195,7 +1195,7 @@ void MyShip::move_WAY_DOWN_BEHIND() {
     _x -= mv_speed_ * NANAME2D_RATE;
 }
 
-void MyShip::move_WAY_DOWN_FRONT() {
+void MyShip::move_WAY_DOWN_FORWARD() {
     if (is_just_change_way_) {
         getKuroko()->setRzRyMvAng(D315ANG, 0);
     }
@@ -1213,7 +1213,7 @@ void MyShip::move_WAY_ZLEFT() {
     _z += mv_speed_;
 }
 
-void MyShip::move_WAY_ZLEFT_FRONT() {
+void MyShip::move_WAY_ZLEFT_FORWARD() {
     if (is_just_change_way_) {
         getKuroko()->setRzRyMvAng(0, D315ANG);
         //旋廻
@@ -1224,7 +1224,7 @@ void MyShip::move_WAY_ZLEFT_FRONT() {
     _x += mv_speed_ * NANAME2D_RATE;
 }
 
-void MyShip::move_WAY_ZLEFT_BEHIND() {
+void MyShip::move_WAY_ZLEFT_BACKWARD() {
     if (is_just_change_way_) {
         getKuroko()->setRzRyMvAng(D180ANG, D45ANG);
         //旋廻
@@ -1235,7 +1235,7 @@ void MyShip::move_WAY_ZLEFT_BEHIND() {
     _x -= mv_speed_ * NANAME2D_RATE;
 }
 
-void MyShip::move_WAY_ZRIGHT_FRONT() {
+void MyShip::move_WAY_ZRIGHT_FORWARD() {
     if (is_just_change_way_) {
         getKuroko()->setRzRyMvAng(D180ANG, D135ANG);
         //旋廻
@@ -1256,7 +1256,7 @@ void MyShip::move_WAY_ZRIGHT() {
     _z -= mv_speed_;
 }
 
-void MyShip::move_WAY_ZRIGHT_BEHIND() {
+void MyShip::move_WAY_ZRIGHT_BACKWARD() {
     if (is_just_change_way_) {
         getKuroko()->setRzRyMvAng(0, D135ANG);
         //旋廻
@@ -1312,7 +1312,7 @@ void MyShip::move_WAY_ZRIGHT_DOWN() {
     _y -= mv_speed_ * NANAME2D_RATE;
 }
 
-void MyShip::move_WAY_ZLEFT_UP_FRONT() {
+void MyShip::move_WAY_ZLEFT_UP_FORWARD() {
     if (is_just_change_way_) {
         getKuroko()->setRzRyMvAng(D45ANG, D270ANG+D45ANG);
         //旋廻
@@ -1324,7 +1324,7 @@ void MyShip::move_WAY_ZLEFT_UP_FRONT() {
     _z += mv_speed_ * NANAME3D_RATE;
 }
 
-void MyShip::move_WAY_ZLEFT_UP_BEHIND() {
+void MyShip::move_WAY_ZLEFT_UP_BACKWARD() {
     if (is_just_change_way_) {
         getKuroko()->setRzRyMvAng(D45ANG, D270ANG-D45ANG);
         //旋廻
@@ -1336,7 +1336,7 @@ void MyShip::move_WAY_ZLEFT_UP_BEHIND() {
     _z += mv_speed_ * NANAME3D_RATE;
 }
 
-void MyShip::move_WAY_ZLEFT_DOWN_FRONT() {
+void MyShip::move_WAY_ZLEFT_DOWN_FORWARD() {
     if (is_just_change_way_) {
         getKuroko()->setRzRyMvAng(D315ANG, D270ANG+D45ANG);
         //旋廻
@@ -1350,7 +1350,7 @@ void MyShip::move_WAY_ZLEFT_DOWN_FRONT() {
 }
 
 
-void MyShip::move_WAY_ZLEFT_DOWN_BEHIND() {
+void MyShip::move_WAY_ZLEFT_DOWN_BACKWARD() {
     if (is_just_change_way_) {
         getKuroko()->setRzRyMvAng(D315ANG, D270ANG-D45ANG);
         //旋廻
@@ -1364,7 +1364,7 @@ void MyShip::move_WAY_ZLEFT_DOWN_BEHIND() {
 }
 
 
-void MyShip::move_WAY_ZRIGHT_UP_FRONT() {
+void MyShip::move_WAY_ZRIGHT_UP_FORWARD() {
     if (is_just_change_way_) {
         getKuroko()->setRzRyMvAng(D45ANG, D90ANG-D45ANG);
         //旋廻
@@ -1376,7 +1376,7 @@ void MyShip::move_WAY_ZRIGHT_UP_FRONT() {
     _z -= mv_speed_ * NANAME3D_RATE;
 }
 
-void MyShip::move_WAY_ZRIGHT_UP_BEHIND() {
+void MyShip::move_WAY_ZRIGHT_UP_BACKWARD() {
     if (is_just_change_way_) {
         getKuroko()->setRzRyMvAng(D45ANG, D90ANG+D45ANG);
         //旋廻
@@ -1388,7 +1388,7 @@ void MyShip::move_WAY_ZRIGHT_UP_BEHIND() {
     _z -= mv_speed_ * NANAME3D_RATE;
 }
 
-void MyShip::move_WAY_ZRIGHT_DOWN_FRONT() {
+void MyShip::move_WAY_ZRIGHT_DOWN_FORWARD() {
     if (is_just_change_way_) {
         getKuroko()->setRzRyMvAng(D315ANG, D90ANG-D45ANG);
         //旋廻
@@ -1400,7 +1400,7 @@ void MyShip::move_WAY_ZRIGHT_DOWN_FRONT() {
     _y -= mv_speed_ * NANAME3D_RATE;
 }
 
-void MyShip::move_WAY_ZRIGHT_DOWN_BEHIND() {
+void MyShip::move_WAY_ZRIGHT_DOWN_BACKWARD() {
     if (is_just_change_way_) {
         getKuroko()->setRzRyMvAng(D315ANG, D90ANG+D45ANG);
         //旋廻
@@ -1424,24 +1424,24 @@ void MyShip::turbo_WAY_UP() {
     pAxsMver_->addVyMvVelo(veloBeginMT_);
 }
 
-void MyShip::turbo_WAY_UP_FRONT() {
+void MyShip::turbo_WAY_UP_FORWARD() {
     getKuroko()->setRzRyMvAng(D45ANG, 0);
     pAxsMver_->addVyMvVelo(veloBeginMT_ * NANAME2D_RATE);
     pAxsMver_->addVxMvVelo(veloBeginMT_ * NANAME2D_RATE);
 }
 
-void MyShip::turbo_WAY_UP_BEHIND() {
+void MyShip::turbo_WAY_UP_BACKWARD() {
     getKuroko()->setRzRyMvAng(D135ANG, 0);
     pAxsMver_->addVyMvVelo(veloBeginMT_ * NANAME2D_RATE);
     pAxsMver_->addVxMvVelo(-veloBeginMT_ * NANAME2D_RATE);
 }
 
-void MyShip::turbo_WAY_FRONT() {
+void MyShip::turbo_WAY_FORWARD() {
     getKuroko()->setRzRyMvAng(0, 0);
     pAxsMver_->addVxMvVelo(veloBeginMT_);
 }
 
-void MyShip::turbo_WAY_BEHIND() {
+void MyShip::turbo_WAY_BACKWARD() {
     getKuroko()->setRzRyMvAng(D180ANG, 0);
     pAxsMver_->addVxMvVelo(-veloBeginMT_);
 }
@@ -1451,13 +1451,13 @@ void MyShip::turbo_WAY_DOWN() {
     pAxsMver_->addVyMvVelo(-veloBeginMT_);
 }
 
-void MyShip::turbo_WAY_DOWN_BEHIND() {
+void MyShip::turbo_WAY_DOWN_BACKWARD() {
     getKuroko()->setRzRyMvAng(D255ANG, 0);
     pAxsMver_->addVyMvVelo(-veloBeginMT_ * NANAME2D_RATE);
     pAxsMver_->addVxMvVelo(-veloBeginMT_ * NANAME2D_RATE);
 }
 
-void MyShip::turbo_WAY_DOWN_FRONT() {
+void MyShip::turbo_WAY_DOWN_FORWARD() {
     getKuroko()->setRzRyMvAng(D315ANG, 0);
     pAxsMver_->addVyMvVelo(-veloBeginMT_ * NANAME2D_RATE);
     pAxsMver_->addVxMvVelo(veloBeginMT_ * NANAME2D_RATE);
@@ -1469,7 +1469,7 @@ void MyShip::turbo_WAY_ZLEFT() {
     getKuroko()->setRollFaceAngVelo(angRxVelo_BeginMZT_); //勢いよく回転開始
 }
 
-void MyShip::turbo_WAY_ZLEFT_FRONT() {
+void MyShip::turbo_WAY_ZLEFT_FORWARD() {
     getKuroko()->setRzRyMvAng(0, D270ANG);
     pAxsMver_->addVzMvVelo(veloBeginMT_ * NANAME2D_RATE);
     pAxsMver_->addVxMvVelo(veloBeginMT_ * NANAME2D_RATE);
@@ -1477,7 +1477,7 @@ void MyShip::turbo_WAY_ZLEFT_FRONT() {
     getKuroko()->setRollFaceAngVelo(angRxVelo_BeginMZT_*NANAME2D_RATE); //勢いよく回転開始
 }
 
-void MyShip::turbo_WAY_ZLEFT_BEHIND() {
+void MyShip::turbo_WAY_ZLEFT_BACKWARD() {
     getKuroko()->setRzRyMvAng(D180ANG, D45ANG);
     pAxsMver_->addVzMvVelo(veloBeginMT_ * NANAME2D_RATE);
     pAxsMver_->addVxMvVelo(-veloBeginMT_ * NANAME2D_RATE);
@@ -1485,7 +1485,7 @@ void MyShip::turbo_WAY_ZLEFT_BEHIND() {
     getKuroko()->setRollFaceAngVelo(angRxVelo_BeginMZT_*NANAME2D_RATE); //勢いよく回転開始
 }
 
-void MyShip::turbo_WAY_ZRIGHT_FRONT() {
+void MyShip::turbo_WAY_ZRIGHT_FORWARD() {
     getKuroko()->setRzRyMvAng(D180ANG, D135ANG);
     pAxsMver_->addVzMvVelo(-veloBeginMT_ * NANAME2D_RATE);
     pAxsMver_->addVxMvVelo(veloBeginMT_ * NANAME2D_RATE);
@@ -1500,7 +1500,7 @@ void MyShip::turbo_WAY_ZRIGHT() {
     getKuroko()->setRollFaceAngVelo(-angRxVelo_BeginMZT_); //勢いよく回転開始
 }
 
-void MyShip::turbo_WAY_ZRIGHT_BEHIND() {
+void MyShip::turbo_WAY_ZRIGHT_BACKWARD() {
     getKuroko()->setRzRyMvAng(0, D135ANG);
     pAxsMver_->addVzMvVelo(-veloBeginMT_ * NANAME2D_RATE);
     pAxsMver_->addVxMvVelo(-veloBeginMT_ * NANAME2D_RATE);
@@ -1540,7 +1540,7 @@ void MyShip::turbo_WAY_ZRIGHT_DOWN() {
     getKuroko()->setRollFaceAngVelo(-angRxVelo_BeginMZT_*NANAME2D_RATE); //勢いよく回転開始
 }
 
-void MyShip::turbo_WAY_ZLEFT_UP_FRONT() {
+void MyShip::turbo_WAY_ZLEFT_UP_FORWARD() {
     getKuroko()->setRzRyMvAng(D45ANG, D270ANG+D45ANG);
     pAxsMver_->addVxMvVelo(veloBeginMT_ * NANAME3D_RATE);
     pAxsMver_->addVzMvVelo(veloBeginMT_ * NANAME3D_RATE);
@@ -1549,7 +1549,7 @@ void MyShip::turbo_WAY_ZLEFT_UP_FRONT() {
     getKuroko()->setRollFaceAngVelo(angRxVelo_BeginMZT_*NANAME3D_RATE); //勢いよく回転開始
 }
 
-void MyShip::turbo_WAY_ZLEFT_UP_BEHIND() {
+void MyShip::turbo_WAY_ZLEFT_UP_BACKWARD() {
     getKuroko()->setRzRyMvAng(D45ANG, D270ANG-D45ANG);
     pAxsMver_->addVxMvVelo(-veloBeginMT_ * NANAME3D_RATE);
     pAxsMver_->addVzMvVelo(veloBeginMT_ * NANAME3D_RATE);
@@ -1558,7 +1558,7 @@ void MyShip::turbo_WAY_ZLEFT_UP_BEHIND() {
     getKuroko()->setRollFaceAngVelo(angRxVelo_BeginMZT_*NANAME3D_RATE); //勢いよく回転開始
 }
 
-void MyShip::turbo_WAY_ZLEFT_DOWN_FRONT() {
+void MyShip::turbo_WAY_ZLEFT_DOWN_FORWARD() {
     getKuroko()->setRzRyMvAng(D315ANG, D270ANG+D45ANG);
     pAxsMver_->addVxMvVelo(veloBeginMT_ * NANAME3D_RATE);
     pAxsMver_->addVzMvVelo(veloBeginMT_ * NANAME3D_RATE);
@@ -1567,7 +1567,7 @@ void MyShip::turbo_WAY_ZLEFT_DOWN_FRONT() {
     getKuroko()->setRollFaceAngVelo(angRxVelo_BeginMZT_*NANAME3D_RATE); //勢いよく回転開始
 }
 
-void MyShip::turbo_WAY_ZLEFT_DOWN_BEHIND() {
+void MyShip::turbo_WAY_ZLEFT_DOWN_BACKWARD() {
     getKuroko()->setRzRyMvAng(D315ANG, D270ANG-D45ANG);
     pAxsMver_->addVxMvVelo(-veloBeginMT_ * NANAME3D_RATE);
     pAxsMver_->addVzMvVelo(veloBeginMT_ * NANAME3D_RATE);
@@ -1576,7 +1576,7 @@ void MyShip::turbo_WAY_ZLEFT_DOWN_BEHIND() {
     getKuroko()->setRollFaceAngVelo(angRxVelo_BeginMZT_*NANAME3D_RATE); //勢いよく回転開始
 }
 
-void MyShip::turbo_WAY_ZRIGHT_UP_FRONT() {
+void MyShip::turbo_WAY_ZRIGHT_UP_FORWARD() {
     getKuroko()->setRzRyMvAng(D45ANG, D90ANG-D45ANG);
     pAxsMver_->addVxMvVelo(veloBeginMT_ * NANAME3D_RATE);
     pAxsMver_->addVzMvVelo(-veloBeginMT_ * NANAME3D_RATE);
@@ -1585,7 +1585,7 @@ void MyShip::turbo_WAY_ZRIGHT_UP_FRONT() {
     getKuroko()->setRollFaceAngVelo(-angRxVelo_BeginMZT_*NANAME3D_RATE); //勢いよく回転開始
 }
 
-void MyShip::turbo_WAY_ZRIGHT_UP_BEHIND() {
+void MyShip::turbo_WAY_ZRIGHT_UP_BACKWARD() {
     getKuroko()->setRzRyMvAng(D45ANG, D90ANG+D45ANG);
     pAxsMver_->addVxMvVelo(-veloBeginMT_ * NANAME3D_RATE);
     pAxsMver_->addVzMvVelo(-veloBeginMT_ * NANAME3D_RATE);
@@ -1594,7 +1594,7 @@ void MyShip::turbo_WAY_ZRIGHT_UP_BEHIND() {
     getKuroko()->setRollFaceAngVelo(-angRxVelo_BeginMZT_*NANAME3D_RATE); //勢いよく回転開始
 }
 
-void MyShip::turbo_WAY_ZRIGHT_DOWN_FRONT() {
+void MyShip::turbo_WAY_ZRIGHT_DOWN_FORWARD() {
     getKuroko()->setRzRyMvAng(D315ANG, D90ANG-D45ANG);
     pAxsMver_->addVxMvVelo(veloBeginMT_ * NANAME3D_RATE);
     pAxsMver_->addVzMvVelo(-veloBeginMT_ * NANAME3D_RATE);
@@ -1603,7 +1603,7 @@ void MyShip::turbo_WAY_ZRIGHT_DOWN_FRONT() {
     getKuroko()->setRollFaceAngVelo(-angRxVelo_BeginMZT_*NANAME3D_RATE); //勢いよく回転開始
 }
 
-void MyShip::turbo_WAY_ZRIGHT_DOWN_BEHIND() {
+void MyShip::turbo_WAY_ZRIGHT_DOWN_BACKWARD() {
     getKuroko()->setRzRyMvAng(D315ANG, D90ANG+D45ANG);
     pAxsMver_->addVxMvVelo(-veloBeginMT_ * NANAME3D_RATE);
     pAxsMver_->addVzMvVelo(-veloBeginMT_ * NANAME3D_RATE);

@@ -71,21 +71,21 @@ void MyBunshinWateringLaserChip001::onActive() {
     //ロックオン情報の引き継ぎ
     GgafDxGeometricActor* pMainLockOnTarget = pOrg_pLockonCtrler_pRingTarget_->getCurrent();
     if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheTree()) {
-        if (getFrontChip() == nullptr) {
+        if (getInfrontChip() == nullptr) {
             //先端チップ
             lockon_st_ = 1;
         } else {
             //先端以外
-            MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*) getFrontChip();
+            MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*) getInfrontChip();
             lockon_st_ = pF->lockon_st_;//一つ前のロックオン情報を引き継ぐ
         }
     } else {
-        if (getFrontChip() == nullptr) {
+        if (getInfrontChip() == nullptr) {
             //先端チップ
             lockon_st_ = 0;
         } else {
             //先端以外
-            MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*) getFrontChip();
+            MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*) getInfrontChip();
             lockon_st_ = pF->lockon_st_;//一つ前のロックオン情報を引き継ぐ
         }
     }
@@ -236,9 +236,9 @@ void MyBunshinWateringLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
                 //オプションのロックオンに見事命中した場合
 
                 lockon_st_ = 2; //ロックオンをやめる。非ロックオン（ロックオン→非ロックオン）
-                if (getFrontChip() && getFrontChip()->getFrontChip() == nullptr) {
+                if (getInfrontChip() && getInfrontChip()->getInfrontChip() == nullptr) {
                     //中間先頭チップがヒットした場合、先端にも伝える(先端は当たり判定ないため中間先頭と同値にする)
-                    ((MyBunshinWateringLaserChip001*)getFrontChip())->lockon_st_ = 2;
+                    ((MyBunshinWateringLaserChip001*)getInfrontChip())->lockon_st_ = 2;
                 }
             } else {
                 //オプションのロックオン以外のアクターに命中した場合

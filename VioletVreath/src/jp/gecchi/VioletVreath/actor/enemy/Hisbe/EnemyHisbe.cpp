@@ -152,7 +152,7 @@ void EnemyHisbe::processBehavior() {
                 if (pLaser) {
                     pLaser->positionAs(this);
                     pLaser->setFaceAngAs(this); //レーザーのスプラインがRELATIVE_COORD_DIRECTIONのため向き設定が必要。
-                    if (pLaser->getFrontChip() == nullptr) {
+                    if (pLaser->getInfrontChip() == nullptr) {
                         getSeTx()->play3D(SE_FIRE);
                     }
                 } else {

@@ -13,7 +13,7 @@ FormationUnomia001a::FormationUnomia001a(const char* prm_name) : FormationUnomia
 }
 void FormationUnomia001a::onCallUpUnomia(EnemyUnomia* pEnemyUnomia, int col) {
 //    pEnemyUnomia->pKurokoLeader_->adjustAxisRate(
-//                                        MyShip::lim_x_front_, //X•ûŒü”{—¦
+//                                        MyShip::lim_x_infront_, //X•ûŒü”{—¦
 //                                        MyShip::lim_y_top_,   //Y•ûŒü”{—¦
 //                                        MyShip::lim_z_left_  //Z•ûŒü”{—¦
 //                                    );

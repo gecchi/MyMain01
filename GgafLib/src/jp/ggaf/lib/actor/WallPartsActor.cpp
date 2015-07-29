@@ -95,7 +95,7 @@ int WallPartsActor::isOutOfView() {
             if (_dest_from_vppln_bottom < bound) {
                 if (_dest_from_vppln_left < bound) {
                     if (_dest_from_vppln_right < bound) {
-                        if (_dest_from_vppln_front < bound) {
+                        if (_dest_from_vppln_infront < bound) {
                             //if (_dest_from_vppln_back < bound) {
                             //    //Viewport”ÍˆÍ“à
                             //    _offscreen_kind = 0;

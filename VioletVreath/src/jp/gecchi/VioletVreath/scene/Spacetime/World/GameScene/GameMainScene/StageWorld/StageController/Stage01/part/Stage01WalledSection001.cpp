@@ -27,13 +27,13 @@ void Stage01WalledSection001::processBehavior() {
     WalledSectionScene::processBehavior();
     MyShip* pMyShip = P_MYSHIP;
     if (pMyShip && pMyShip->isActiveInTheTree()) {
-        if (bound_alpha_ - (-(pMyShip->_dest_from_vppln_front)) < 0) {
-            enableFrontAlpha(pMyShip);
+        if (bound_alpha_ - (-(pMyShip->_dest_from_vppln_infront)) < 0) {
+            enableInfrontAlpha(pMyShip);
         } else {
-            enableFrontAlpha(nullptr); //背面カメラの近さならアルファ無し
+            enableInfrontAlpha(nullptr); //背面カメラの近さならアルファ無し
         }
     } else {
-        enableFrontAlpha(nullptr); //背面カメラの近さならアルファ無し
+        enableInfrontAlpha(nullptr); //背面カメラの近さならアルファ無し
     }
 
 

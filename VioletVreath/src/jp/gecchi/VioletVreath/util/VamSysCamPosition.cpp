@@ -22,10 +22,10 @@ VamSysCamPosition::VamSysCamPosition(MyShip* prm_pMyShip)  : GgafObject() {
 //    Pos* pPos_Left_SY = NEW Pos(VAM_POS_CAM_MYSHIP_LEFT, D0ANG, D90ANG);
 //    Pos* pPos_Left_UY = NEW Pos(VAM_POS_CAM_MYSHIP_LEFT, D0ANG, D90ANG);
 //
-//    Pos* pPos_Front_SY = NEW Pos(VAM_POS_CAM_MYSHIP_FRONT, D0ANG, D90ANG);
-//    Pos* pPos_Front_UY = NEW Pos(VAM_POS_CAM_MYSHIP_FRONT, D0ANG, D90ANG);
-//    Pos* pPos_Front_SZ = NEW Pos(VAM_POS_CAM_MYSHIP_FRONT, D0ANG, D90ANG);
-//    Pos* pPos_Front_UZ = NEW Pos(VAM_POS_CAM_MYSHIP_FRONT, D0ANG, D90ANG);
+//    Pos* pPos_Infront_SY = NEW Pos(VAM_POS_CAM_MYSHIP_FRONT, D0ANG, D90ANG);
+//    Pos* pPos_Infront_UY = NEW Pos(VAM_POS_CAM_MYSHIP_FRONT, D0ANG, D90ANG);
+//    Pos* pPos_Infront_SZ = NEW Pos(VAM_POS_CAM_MYSHIP_FRONT, D0ANG, D90ANG);
+//    Pos* pPos_Infront_UZ = NEW Pos(VAM_POS_CAM_MYSHIP_FRONT, D0ANG, D90ANG);
 //
 //
 //    Pos* pPos_Top_SX = NEW Pos(VAM_POS_CAM_MYSHIP_TOP, D0ANG, D90ANG);

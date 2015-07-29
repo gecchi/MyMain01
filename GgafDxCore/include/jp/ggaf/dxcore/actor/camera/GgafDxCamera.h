@@ -47,7 +47,7 @@ private:
     /** [r]視錐台面、右(読み込み専用、毎フレーム更新) */
     D3DXPLANE _plnRight;
     /** [r]視錐台面、手前(読み込み専用、毎フレーム更新) */
-    D3DXPLANE _plnFront;
+    D3DXPLANE _plnInfront;
     /** [r]視錐台面、奥(読み込み専用、毎フレーム更新) */
     D3DXPLANE _plnBack;
     /** [r]視錐台を左右に分割する垂直面、左右の効果音のパンに使用(読み込み専用、毎フレーム更新) */

@@ -174,7 +174,7 @@ public:
     /** 移動Y座標下限 */
     static coord lim_y_bottom_;
     /** 移動X座標上限 */
-    static coord lim_x_front_;
+    static coord lim_x_infront_;
     /** 移動X座標下限 */
     static coord lim_x_behaind_;
     /** 移動Z座標上限 */
@@ -369,19 +369,19 @@ public:
     /**
      * 前方斜め上移動
      */
-    void move_WAY_UP_FRONT();
+    void move_WAY_UP_FORWARD();
     /**
      * 後方斜め上移動
      */
-    void move_WAY_UP_BEHIND();
+    void move_WAY_UP_BACKWARD();
     /**
      * 前移動
      */
-    void move_WAY_FRONT();
+    void move_WAY_FORWARD();
     /**
      * 後ろ移動
      */
-    void move_WAY_BEHIND();
+    void move_WAY_BACKWARD();
     /**
      * 下移動
      */
@@ -389,11 +389,11 @@ public:
     /**
      * 後方斜め下移動
      */
-    void move_WAY_DOWN_BEHIND();
+    void move_WAY_DOWN_BACKWARD();
     /**
      * 前方斜め下移動
      */
-    void move_WAY_DOWN_FRONT();
+    void move_WAY_DOWN_FORWARD();
     /**
      * 左移動
      */
@@ -401,15 +401,15 @@ public:
     /**
      * 前方斜め左移動
      */
-    void move_WAY_ZLEFT_FRONT();
+    void move_WAY_ZLEFT_FORWARD();
     /**
      * 後方斜め左移動
      */
-    void move_WAY_ZLEFT_BEHIND();
+    void move_WAY_ZLEFT_BACKWARD();
     /**
      * 前方斜め右移動
      */
-    void move_WAY_ZRIGHT_FRONT();
+    void move_WAY_ZRIGHT_FORWARD();
     /**
      * 右移動
      */
@@ -417,7 +417,7 @@ public:
     /**
      * 後方斜め右
      */
-    void move_WAY_ZRIGHT_BEHIND();
+    void move_WAY_ZRIGHT_BACKWARD();
     /**
      * 左斜め上移動
      */
@@ -437,37 +437,37 @@ public:
     /**
      * 前方左斜め上移動
      */
-    void move_WAY_ZLEFT_UP_FRONT();
+    void move_WAY_ZLEFT_UP_FORWARD();
     /**
      * 後方左斜め上移動
      */
-    void move_WAY_ZLEFT_UP_BEHIND();
+    void move_WAY_ZLEFT_UP_BACKWARD();
     /**
      * 前方左斜め下移動
      */
-    void move_WAY_ZLEFT_DOWN_FRONT();
+    void move_WAY_ZLEFT_DOWN_FORWARD();
 
     /**
      * 後方左斜め下移動
      */
-    void move_WAY_ZLEFT_DOWN_BEHIND();
+    void move_WAY_ZLEFT_DOWN_BACKWARD();
 
     /**
      * 前方右斜め上移動
      */
-    void move_WAY_ZRIGHT_UP_FRONT();
+    void move_WAY_ZRIGHT_UP_FORWARD();
     /**
      * 後方右斜め上移動
      */
-    void move_WAY_ZRIGHT_UP_BEHIND();
+    void move_WAY_ZRIGHT_UP_BACKWARD();
     /**
      * 前方右斜め下移動
      */
-    void move_WAY_ZRIGHT_DOWN_FRONT();
+    void move_WAY_ZRIGHT_DOWN_FORWARD();
     /**
      * 後方右斜め下移動
      */
-    void move_WAY_ZRIGHT_DOWN_BEHIND();
+    void move_WAY_ZRIGHT_DOWN_BACKWARD();
 
     /////////////////TURBO_BEGIN
 
@@ -479,19 +479,19 @@ public:
     /**
      * 前方斜め上ターボ開始
      */
-    void turbo_WAY_UP_FRONT();
+    void turbo_WAY_UP_FORWARD();
     /**
      * 後方斜め上ターボ開始
      */
-    void turbo_WAY_UP_BEHIND();
+    void turbo_WAY_UP_BACKWARD();
     /**
      * 前ターボ開始
      */
-    void turbo_WAY_FRONT();
+    void turbo_WAY_FORWARD();
     /**
      * 後ろターボ開始
      */
-    void turbo_WAY_BEHIND();
+    void turbo_WAY_BACKWARD();
     /**
      * 下ターボ開始
      */
@@ -499,11 +499,11 @@ public:
     /**
      * 後方斜め下ターボ開始
      */
-    void turbo_WAY_DOWN_BEHIND();
+    void turbo_WAY_DOWN_BACKWARD();
     /**
      * 前方斜め下ターボ開始
      */
-    void turbo_WAY_DOWN_FRONT();
+    void turbo_WAY_DOWN_FORWARD();
     /**
      * 左ターボ開始
      */
@@ -511,15 +511,15 @@ public:
     /**
      * 前方斜め左ターボ開始
      */
-    void turbo_WAY_ZLEFT_FRONT();
+    void turbo_WAY_ZLEFT_FORWARD();
     /**
      * 後方斜め左ターボ開始
      */
-    void turbo_WAY_ZLEFT_BEHIND();
+    void turbo_WAY_ZLEFT_BACKWARD();
     /**
      * 前方斜め右ターボ開始
      */
-    void turbo_WAY_ZRIGHT_FRONT();
+    void turbo_WAY_ZRIGHT_FORWARD();
     /**
      * 右ターボ開始
      */
@@ -527,7 +527,7 @@ public:
     /**
      * 後方斜め右
      */
-    void turbo_WAY_ZRIGHT_BEHIND();
+    void turbo_WAY_ZRIGHT_BACKWARD();
     /**
      * 左斜め上ターボ開始
      */
@@ -547,35 +547,35 @@ public:
     /**
      * 前方左斜め上ターボ開始
      */
-    void turbo_WAY_ZLEFT_UP_FRONT();
+    void turbo_WAY_ZLEFT_UP_FORWARD();
     /**
      * 後方左斜め上ターボ開始
      */
-    void turbo_WAY_ZLEFT_UP_BEHIND();
+    void turbo_WAY_ZLEFT_UP_BACKWARD();
     /**
      * 前方左斜め下ターボ開始
      */
-    void turbo_WAY_ZLEFT_DOWN_FRONT();
+    void turbo_WAY_ZLEFT_DOWN_FORWARD();
     /**
      * 後方左斜め下ターボ開始
      */
-    void turbo_WAY_ZLEFT_DOWN_BEHIND();
+    void turbo_WAY_ZLEFT_DOWN_BACKWARD();
     /**
      * 前方右斜め上ターボ開始
      */
-    void turbo_WAY_ZRIGHT_UP_FRONT();
+    void turbo_WAY_ZRIGHT_UP_FORWARD();
     /**
      * 後方右斜め上ターボ開始
      */
-    void turbo_WAY_ZRIGHT_UP_BEHIND();
+    void turbo_WAY_ZRIGHT_UP_BACKWARD();
     /**
      * 前方右斜め下ターボ開始
      */
-    void turbo_WAY_ZRIGHT_DOWN_FRONT();
+    void turbo_WAY_ZRIGHT_DOWN_FORWARD();
     /**
      * 後方右斜め下ターボ開始
      */
-    void turbo_WAY_ZRIGHT_DOWN_BEHIND();
+    void turbo_WAY_ZRIGHT_DOWN_BACKWARD();
 
     void onChangeWay(int prev_way, int new_way) {
 

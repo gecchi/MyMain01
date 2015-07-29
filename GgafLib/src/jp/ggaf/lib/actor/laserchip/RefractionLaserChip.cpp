@@ -74,9 +74,9 @@ void RefractionLaserChip::onActive() {
     //その際 は、本クラスの onActive() メソッドも呼び出してください。
     LaserChip::onActive();
     GgafDxKuroko* pKuroko = getKuroko();
-    RefractionLaserChip* pChip_front =  (RefractionLaserChip*)_pChip_front;
+    RefractionLaserChip* pChip_infront =  (RefractionLaserChip*)_pChip_infront;
     //レーザーチップ出現時処理
-    if (pChip_front == nullptr) {
+    if (pChip_infront == nullptr) {
         _is_leader = true;
         //自身が先頭の場合
         _begining_x = _x;
@@ -95,15 +95,15 @@ void RefractionLaserChip::onActive() {
         onRefractionOutOf(_cnt_refraction);  //コールバック 0回目の屈折終了からスタートする
     } else {
         _is_leader = false;
-        _begining_x = pChip_front->_begining_x;
-        _begining_y = pChip_front->_begining_y;
-        _begining_z = pChip_front->_begining_z;
-        _begining_rx = pChip_front->_begining_rx;
-        _begining_ry = pChip_front->_begining_ry;
-        _begining_rz = pChip_front->_begining_rz;
-        _begining_ang_rz_mv = pChip_front->_begining_ang_rz_mv;
-        _begining_ang_ry_mv = pChip_front->_begining_ang_ry_mv;
-        _begining_velo_mv   = pChip_front->_begining_velo_mv;
+        _begining_x = pChip_infront->_begining_x;
+        _begining_y = pChip_infront->_begining_y;
+        _begining_z = pChip_infront->_begining_z;
+        _begining_rx = pChip_infront->_begining_rx;
+        _begining_ry = pChip_infront->_begining_ry;
+        _begining_rz = pChip_infront->_begining_rz;
+        _begining_ang_rz_mv = pChip_infront->_begining_ang_rz_mv;
+        _begining_ang_ry_mv = pChip_infront->_begining_ang_ry_mv;
+        _begining_velo_mv   = pChip_infront->_begining_velo_mv;
         if (_is_fix_begin_pos) {
             _x = _begining_x;
             _y = _begining_y;
@@ -117,7 +117,7 @@ void RefractionLaserChip::onActive() {
         _cnt_refraction = 0;
         _frame_refraction_enter = INT_MAX;
         _frame_refraction_out = INT_MAX;
-        _refraction_end_frames = pChip_front->_refraction_end_frames;
+        _refraction_end_frames = pChip_infront->_refraction_end_frames;
     }
 
     _is_refracting = false;
@@ -178,13 +178,13 @@ void RefractionLaserChip::processBehavior() {
     //その際 は、本クラスの processBehavior() メソッドも呼び出してください。
     //座標に反映
     GgafDxKuroko* const pKuroko = getKuroko();
-    RefractionLaserChip* pChip_front =  (RefractionLaserChip*)_pChip_front;
+    RefractionLaserChip* pChip_infront =  (RefractionLaserChip*)_pChip_infront;
     if (getActiveFrame() > 1) { //１フレーム目は、設定座標で表示させるため。移動させない
         //GgafActorDepository::dispatch() は
         //取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者のサブの一番後ろに移動される。
         //したがって、レーザーの先頭から順番にprocessBehavior() が呼ばれるため、以下のようにすると
         //数珠繋ぎになる。
-        if (pChip_front == nullptr) {
+        if (pChip_infront == nullptr) {
             //本当の先頭チップか、或いはにわか先頭チップの場合の共通処理
             _prev_x  = _x;
             _prev_y  = _y;
@@ -254,16 +254,16 @@ void RefractionLaserChip::processBehavior() {
             _prev_velo_mv   = pKuroko->_velo_mv;
             _prev_is_refracting = _is_refracting;
             _prev_pRefractionEffect = _pRefractionEffect;
-            _x  = pChip_front->_prev_x;
-            _y  = pChip_front->_prev_y;
-            _z  = pChip_front->_prev_z;
-            _rx = pChip_front->_prev_rx;
-            _ry = pChip_front->_prev_ry;
-            _rz = pChip_front->_prev_rz;
-            pKuroko->setRzRyMvAng(pChip_front->_prev_ang_rz_mv, pChip_front->_prev_ang_ry_mv);
-            pKuroko->setMvVelo(pChip_front->_prev_velo_mv);
-            _is_refracting =  pChip_front->_prev_is_refracting;
-            _pRefractionEffect = pChip_front->_prev_pRefractionEffect;
+            _x  = pChip_infront->_prev_x;
+            _y  = pChip_infront->_prev_y;
+            _z  = pChip_infront->_prev_z;
+            _rx = pChip_infront->_prev_rx;
+            _ry = pChip_infront->_prev_ry;
+            _rz = pChip_infront->_prev_rz;
+            pKuroko->setRzRyMvAng(pChip_infront->_prev_ang_rz_mv, pChip_infront->_prev_ang_ry_mv);
+            pKuroko->setMvVelo(pChip_infront->_prev_velo_mv);
+            _is_refracting =  pChip_infront->_prev_is_refracting;
+            _pRefractionEffect = pChip_infront->_prev_pRefractionEffect;
             if (_pChip_behind == nullptr) {
                 if (_pRefractionEffect) {
                     _pRefractionEffect->sayonara(_frame_standstill_refraction);

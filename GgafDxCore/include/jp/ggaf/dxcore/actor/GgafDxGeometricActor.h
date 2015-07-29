@@ -74,7 +74,7 @@ public:
     /** [r]視錐台右面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
     dxcoord _dest_from_vppln_right;
     /** [r]視錐台手前面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
-    dxcoord _dest_from_vppln_front;
+    dxcoord _dest_from_vppln_infront;
     /** [r]視錐台奥面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
     dxcoord _dest_from_vppln_back;
     /** [r/w]WORLD変換(回転×移動)行列計算関数 */
@@ -172,7 +172,7 @@ public:
      *     _dest_from_vppln_bottom <BR>
      *     _dest_from_vppln_left <BR>
      *     _dest_from_vppln_right <BR>
-     *     _dest_from_vppln_front <BR>
+     *     _dest_from_vppln_infront <BR>
      *     _dest_from_vppln_back <BR>
      * ② 自身の座標情報からワールド変換行列を作成し_matWorldに保持
      * ③ processJudgement() を呼び出すのため準備処理として、 <BR>

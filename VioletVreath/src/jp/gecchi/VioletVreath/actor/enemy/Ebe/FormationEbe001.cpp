@@ -17,7 +17,7 @@ FormationEbe001::FormationEbe001(const char* prm_name) :
 }
 void FormationEbe001::onCallUpEbe(EnemyEbe* pEnemyEbe) {
 //    pEnemyEbe->pKurokoLeader_->adjustAxisRate(
-//                                        MyShip::lim_x_front_, //X•ûŒü”{—¦
+//                                        MyShip::lim_x_infront_, //X•ûŒü”{—¦
 //                                       -1.0 * MyShip::lim_y_top_,   //Y•ûŒü”{—¦
 //                                        MyShip::lim_z_left_  //Z•ûŒü”{—¦
 //                                    );

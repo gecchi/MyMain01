@@ -27,7 +27,7 @@ class LaserChip : public GgafDxCore::GgafDxMeshSetActor {
 private:
     static D3DXHANDLE _ah_kind[11];
     static D3DXHANDLE _ah_force_alpha[11];
-    static D3DXHANDLE _ah_matWorld_front[11];
+    static D3DXHANDLE _ah_matWorld_infront[11];
 
     /** onAcive() でリセットされる振る舞い時フレーム数 */
     frame _frame_of_behaving_from_onActive;
@@ -41,7 +41,7 @@ private:
     int _harf_hitarea_edge_length;
 
     /** 一つ前方のレーザーチップ */
-    LaserChip* _pChip_front;
+    LaserChip* _pChip_infront;
     /** 一つ後方のレーザーチップ */
     LaserChip* _pChip_behind;
 
@@ -122,8 +122,8 @@ public:
      * 取得できない場合(戻り値=nullptr)、自身は先頭チップである。
      * @return 一つ前方のレーザーチップ、又は nullptr
      */
-    inline LaserChip* getFrontChip() {
-        return _pChip_front;
+    inline LaserChip* getInfrontChip() {
+        return _pChip_infront;
     }
 
     /**
