@@ -69,8 +69,7 @@ public:
      * スクロール関数を設定する。
      * 設定されたスクロール関数を配下ツリーシーンの全アクターに実行を行う。<BR>
      * 第１引数には、対象アクター、第２引数には、スクロールスピード(_scroll_speedへのポインタ)が渡される。<BR>
-     * 標準で DefaultScene::scroll_x(GgafObject*, void*, void*) が用意されているので、指定可能だが、<BR>
-     * 任意のユーザー定義スクロール関数に切り替えができる。<BR>
+     * シーンが WalledSceneの場合に限り、標準で WalledScene::scrollX(GgafObject*, void*, void*) が設定されている。<BR>
      * @param prm_pFuncScrolling 引数が(GgafObject*, void*, void*) となる関数ポインタ
      */
     void setScrollingFunction(void (*prm_pFuncScrolling)(GgafCore::GgafObject*, void*, void*)) {
