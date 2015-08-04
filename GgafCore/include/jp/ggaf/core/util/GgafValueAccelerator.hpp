@@ -450,7 +450,7 @@ public:
      * @return true:‰Á‘¬ˆ—’†/false:’â~’†
      */
     inline bool isAccelerating() const {
-        return _is_accelerating;
+        return _progress == ACCELERATE_DONE ? false : true;
     }
 
     /**
@@ -460,7 +460,7 @@ public:
      * @return true:’š“x‰Á‘¬ˆ—‚ªŠ®—¹/false:Œ»İ‰Á‘¬ˆ—’†‚©Aˆ½‚¢‚ÍˆÈ‘O‚©‚ç’â~’†
      */
     inline bool hasJustFinishedAccelerating() {
-        if (_is_accelerating == false && _progress != ACCELERATE_DONE) {
+        if (_progress != ACCELERATE_DONE && _is_accelerating == false) {
             return true;
         } else {
             return false;
