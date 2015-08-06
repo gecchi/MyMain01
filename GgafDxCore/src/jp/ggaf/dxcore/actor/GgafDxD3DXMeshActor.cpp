@@ -32,24 +32,6 @@ GgafDxD3DXMeshActor::GgafDxD3DXMeshActor(const char* prm_name,
     (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
 }
 
-void GgafDxD3DXMeshActor::setAlpha(float prm_alpha) {
-    _alpha = prm_alpha;
-    //GgafDxD3DXMeshActorはメッシュαも設定（シェーダーで参照するため）
-    for (DWORD i = 0; i < _pD3DXMeshModel->_num_materials; i++) {
-        _paMaterial[i].Ambient.a = _alpha;
-        _paMaterial[i].Diffuse.a = _alpha;
-    }
-}
-
-void GgafDxD3DXMeshActor::addAlpha(float prm_alpha) {
-    _alpha += prm_alpha;
-    //GgafDxD3DXMeshActorはメッシュαも設定（シェーダーで参照するため）
-    for (DWORD i = 0; i < _pD3DXMeshModel->_num_materials; i++) {
-        _paMaterial[i].Ambient.a = _alpha;
-        _paMaterial[i].Diffuse.a = _alpha;
-    }
-}
-
 void GgafDxD3DXMeshActor::processDraw() {
     ID3DXEffect* const pID3DXEffect = _pMeshEffect->_pID3DXEffect;
     HRESULT hr;

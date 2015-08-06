@@ -42,23 +42,5 @@ void GgafDxDynaD3DXMeshActor::processDraw() {
     _pD3DXMeshModel->draw(this);
 }
 
-void GgafDxDynaD3DXMeshActor::setAlpha(float prm_alpha) {
-    _alpha = prm_alpha;
-    //GgafDxDynaD3DXMeshActorはメッシュαも設定（シェーダーで参照するため）
-    for (DWORD i = 0; i < _pD3DXMeshModel->_num_materials; i++) {
-        _paMaterial[i].Ambient.a = _alpha;
-        _paMaterial[i].Diffuse.a = _alpha;
-    }
-}
-
-void GgafDxDynaD3DXMeshActor::addAlpha(float prm_alpha) {
-    _alpha += prm_alpha;
-    //GgafDxDynaD3DXMeshActorはメッシュαも設定（シェーダーで参照するため）
-    for (DWORD i = 0; i < _pD3DXMeshModel->_num_materials; i++) {
-        _paMaterial[i].Ambient.a = _alpha;
-        _paMaterial[i].Diffuse.a = _alpha;
-    }
-}
-
 GgafDxDynaD3DXMeshActor::~GgafDxDynaD3DXMeshActor() {
 }

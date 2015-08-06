@@ -32,24 +32,6 @@ GgafDxD3DXAniMeshActor::GgafDxD3DXAniMeshActor(const char* prm_name,
     _pPuppeteer = NEW GgafDxPuppeteer(this);
 }
 
-void GgafDxD3DXAniMeshActor::setAlpha(float prm_alpha) {
-    _alpha = prm_alpha;
-    //GgafDxD3DXAniMeshActorはメッシュαも設定（シェーダーで参照するため）
-//    for (DWORD i = 0; i < _pD3DXAniMeshModel->_num_materials; i++) {
-//        _paMaterial[i].Ambient.a = _alpha;
-//        _paMaterial[i].Diffuse.a = _alpha;
-//    }
-}
-
-void GgafDxD3DXAniMeshActor::addAlpha(float prm_alpha) {
-    _alpha += prm_alpha;
-    //GgafDxD3DXAniMeshActorはメッシュαも設定（シェーダーで参照するため）
-//    for (DWORD i = 0; i < _pD3DXAniMeshModel->_num_materials; i++) {
-//        _paMaterial[i].Ambient.a = _alpha;
-//        _paMaterial[i].Diffuse.a = _alpha;
-//    }
-}
-
 void GgafDxD3DXAniMeshActor::processDraw() {
     _pD3DXAniMeshModel->draw(this);
 }

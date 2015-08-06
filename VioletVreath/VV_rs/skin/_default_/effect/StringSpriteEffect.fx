@@ -13,24 +13,8 @@ float g_tex_blink_threshold;
 float g_alpha_master;
 float g_zf;
 
+float4 g_colMaterialDiffuse;
 float4x4 g_matWorld001;
-//float4x4 g_matWorld002;
-//float4x4 g_matWorld003;
-//float4x4 g_matWorld004;
-//float4x4 g_matWorld005;
-//float4x4 g_matWorld006;
-//float4x4 g_matWorld007;
-//float4x4 g_matWorld008;
-//float4x4 g_matWorld009;
-//float4x4 g_matWorld010;
-//float4x4 g_matWorld011;
-//float4x4 g_matWorld012;
-//float4x4 g_matWorld013;
-//float4x4 g_matWorld014;
-//float4x4 g_matWorld015;
-//float4x4 g_matWorld016;
-//float4x4 g_matWorld017;
-//float4x4 g_matWorld018;
 
 float g_offset_u001;
 float g_offset_u002;
@@ -108,24 +92,7 @@ float g_Y016;
 float g_Y017;
 float g_Y018;
 
-float g_alpha001;
-//float g_alpha002;
-//float g_alpha003;
-//float g_alpha004;
-//float g_alpha005;
-//float g_alpha006;
-//float g_alpha007;
-//float g_alpha008;
-//float g_alpha009;
-//float g_alpha010;
-//float g_alpha011;
-//float g_alpha012;
-//float g_alpha013;
-//float g_alpha014;
-//float g_alpha015;
-//float g_alpha016;
-//float g_alpha017;
-//float g_alpha018;
+//float g_alpha001;
 
 //soレジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);
@@ -249,7 +216,7 @@ OUT_VS GgafDxVS_StringSprite(
         offsetU  = g_offset_u018;
         offsetV  = g_offset_v018;
     }
-    alpha   = g_alpha001;
+    //alpha   = g_alpha001;
     matWorld = g_matWorld001;
     prm_posModel_Local.x += X;
     prm_posModel_Local.y += Y;
@@ -258,7 +225,8 @@ OUT_VS GgafDxVS_StringSprite(
     //UVのオフセット(パターン番号による増分)加算
     out_vs.uv.x = prm_uv.x + offsetU;
     out_vs.uv.y = prm_uv.y + offsetV;
-    out_vs.color.a  = alpha;
+    out_vs.color = g_colMaterialDiffuse;
+//    out_vs.color.a  = alpha;
 //    if (out_vs.posModel_Proj.z > g_zf*0.98) {
 //        out_vs.posModel_Proj.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
 //    }
@@ -274,22 +242,22 @@ float4 GgafDxPS_StringSprite(
     //テクスチャをサンプリングして色取得（原色を取得）
     const float4 colTex = tex2D( MyTextureSampler, prm_uv);
     //求める色
-    float4 colOut = colTex;
+    float4 colOut = colTex * prm_color;
     if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
         colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
     }
-    colOut.a = colOut.a * prm_color.a * g_alpha_master;
+    colOut.a *= g_alpha_master;
     return colOut;
 }
 
 float4 PS_Flush(
     float2 prm_uv	  : TEXCOORD0 ,
-    float4 prm_color    : COLOR0
+    float4 prm_color  : COLOR0
 ) : COLOR  {
     //テクスチャをサンプリングして色取得（原色を取得）
-    float4 colOut = tex2D( MyTextureSampler, prm_uv) * FLUSH_COLOR;
+    float4 colOut = tex2D( MyTextureSampler, prm_uv) * FLUSH_COLOR * prm_color;      
     //α計算、テクスチャαとオブジェクトαの合算
-    colOut.a = colOut.a * prm_color.a * g_alpha_master;
+    colOut.a *= g_alpha_master;
     return colOut;
 }
 

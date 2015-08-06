@@ -21,6 +21,7 @@ GgafDxSpriteSetEffect::GgafDxSpriteSetEffect(const char* prm_effect_name) : Ggaf
 
     //シェーダーハンドル
     _h_matView  = _pID3DXEffect->GetParameterByName( nullptr, "g_matView" );
+
     _ah_matWorld[0] = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld001" );
     _ah_matWorld[1] = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld002" );
     _ah_matWorld[2] = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld003" );
@@ -173,6 +174,7 @@ GgafDxSpriteSetEffect::GgafDxSpriteSetEffect(const char* prm_effect_name) : Ggaf
 
     _h_tex_blink_power = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_power" );
     _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_threshold" );
+    _h_colMaterialDiffuse = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse" );
 }
 
 void GgafDxSpriteSetEffect::setParamPerFrame() {

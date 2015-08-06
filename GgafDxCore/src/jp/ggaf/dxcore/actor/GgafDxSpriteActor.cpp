@@ -73,20 +73,6 @@ void GgafDxSpriteActor::processDraw() {
     _pSpriteModel->GgafDxSpriteModel::draw(this);
 }
 
-void GgafDxSpriteActor::setAlpha(float prm_alpha) {
-    _alpha = prm_alpha;
-    //α設定、現在マテリアルはDiffuse以外関係ない
-    _paMaterial[0].Ambient.a = _alpha;
-    _paMaterial[0].Diffuse.a = _alpha;
-}
-
-void GgafDxSpriteActor::addAlpha(float prm_alpha) {
-    _alpha += prm_alpha;
-    //α設定、現在マテリアルはDiffuse以外関係ない
-    _paMaterial[0].Ambient.a = _alpha;
-    _paMaterial[0].Diffuse.a = _alpha;
-}
-
 void GgafDxSpriteActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) {
     _align = prm_align;
     _valign = prm_valign;

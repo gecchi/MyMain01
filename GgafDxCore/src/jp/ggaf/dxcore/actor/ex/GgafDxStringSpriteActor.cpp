@@ -140,8 +140,8 @@ void GgafDxStringSpriteActor::processDraw() {
             dy = dy - (_chr_height_px*_nn) + (_chr_height_px/2);
         }
     }
-    hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_alpha[0], _alpha); //注意：アルファは文字ごとは不可
-    checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_alpha) に失敗しました。");
+    hr = pID3DXEffect->SetValue(pSpriteSetEffect->_h_colMaterialDiffuse, &(_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) ); //注意：色は文字ごとは不可
+    checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetValue(_h_colMaterialDiffuse) に失敗しました。");
     hr = pID3DXEffect->SetMatrix(pSpriteSetEffect->_ah_matWorld[0], &_matWorld);
     checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetMatrix(_ah_matWorld) に失敗しました。");
 

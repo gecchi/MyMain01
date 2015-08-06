@@ -241,6 +241,7 @@ int Magic::cast(int prm_new_level) {
             _TRACE_("Magic::cast("<<prm_new_level<<") ["<<getName()<<"] îªíËÅ®MAGIC_CAST_CANCEL!");
             new_level_nextframe_ = prm_new_level;
             pProg->change(STATE_NOTHING);
+            last_cast_ = last_cast;
             last_invoke_ = MAGIC_INVOKE_NOTHING;
             last_effect_ = MAGIC_EFFECT_NOTHING;
             break;
@@ -250,6 +251,7 @@ int Magic::cast(int prm_new_level) {
             _TRACE_("Magic::cast("<<prm_new_level<<") ["<<getName()<<"] îªíËÅ®MAGIC_CAST_OK_LEVELUP!");
             new_level_nextframe_ = prm_new_level;
             pProg->change(STATE_CASTING);
+            last_cast_ = last_cast;
             last_invoke_ = MAGIC_INVOKE_NOTHING;
             last_effect_ = MAGIC_EFFECT_NOTHING;
             break;
@@ -259,6 +261,7 @@ int Magic::cast(int prm_new_level) {
             _TRACE_("Magic::cast("<<prm_new_level<<") ["<<getName()<<"] îªíËÅ®MAGIC_CAST_LEVELDOWN!");
             new_level_nextframe_ = prm_new_level;
             pProg->change(STATE_CASTING);
+            last_cast_ = last_cast;
             last_invoke_ = MAGIC_INVOKE_NOTHING;
             last_effect_ = MAGIC_EFFECT_NOTHING;
             break;
@@ -269,6 +272,7 @@ int Magic::cast(int prm_new_level) {
             _TRACE_("Magic::cast("<<prm_new_level<<") ["<<getName()<<"] îªíËÅ®MAGIC_CAST_OK_CANCEL_AND_LEVELUP!");
             new_level_nextframe_ = prm_new_level;
             pProg->change(STATE_RE_CASTING);
+            last_cast_ = last_cast;
             last_invoke_ = MAGIC_INVOKE_NOTHING;
             last_effect_ = MAGIC_EFFECT_NOTHING;
             break;
@@ -279,13 +283,13 @@ int Magic::cast(int prm_new_level) {
             _TRACE_("Magic::cast("<<prm_new_level<<") ["<<getName()<<"] îªíËÅ®MAGIC_CAST_CANCEL_AND_LEVELDOWN!");
             new_level_nextframe_ = prm_new_level;
             pProg->change(STATE_RE_CASTING);
+            last_cast_ = last_cast;
             last_invoke_ = MAGIC_INVOKE_NOTHING;
             last_effect_ = MAGIC_EFFECT_NOTHING;
             break;
         }
     }
-    last_cast_ = last_cast;
-    return last_cast_;
+    return last_cast;
 }
 
 int Magic::chkInvokeAble(int prm_new_level) {
@@ -325,8 +329,6 @@ int Magic::chkEffectAble(int prm_level) {
 
 int Magic::invoke(int prm_new_level) {
     GgafProgress* const pProg = getProgress();
-
-
     int last_invoke = chkInvokeAble(prm_new_level);
     switch (last_invoke) {
         case MAGIC_INVOKE_NG_INVOKING_NOW: {
@@ -338,6 +340,7 @@ int Magic::invoke(int prm_new_level) {
             _TRACE_("Magic::invoke("<<prm_new_level<<") ["<<getName()<<"] îªíËÅ®MAGIC_INVOKE_NG_MP_IS_SHORT!");
             pProg->change(STATE_NOTHING);
             last_cast_ = MAGIC_CAST_NOTHING;
+            last_invoke_ = last_invoke;
             last_effect_ = MAGIC_EFFECT_NOTHING;
             break;
         }
@@ -346,6 +349,7 @@ int Magic::invoke(int prm_new_level) {
             new_level_nextframe_ = prm_new_level;
             pProg->change(STATE_INVOKING);
             last_cast_ = MAGIC_CAST_NOTHING;
+            last_invoke_ = last_invoke;
             last_effect_ = MAGIC_EFFECT_NOTHING;
             break;
         }
@@ -354,6 +358,7 @@ int Magic::invoke(int prm_new_level) {
             new_level_nextframe_ = prm_new_level;
             pProg->change(STATE_INVOKING);
             last_cast_ = MAGIC_CAST_NOTHING;
+            last_invoke_ = last_invoke;
             last_effect_ = MAGIC_EFFECT_NOTHING;
             break;
         }
@@ -363,8 +368,8 @@ int Magic::invoke(int prm_new_level) {
             break;
         }
     }
-    last_invoke_ = last_invoke;
-    return last_invoke_;
+
+    return last_invoke;
 }
 
 int Magic::effect(int prm_level) {
@@ -379,6 +384,7 @@ int Magic::effect(int prm_level) {
             pProg->change(STATE_NOTHING);
             last_cast_ = MAGIC_CAST_NOTHING;
             last_invoke_ = MAGIC_INVOKE_NOTHING;
+            last_effect_ = last_effect;
             break;
         }
         case MAGIC_EFFECT_NOTHING: {
@@ -397,6 +403,7 @@ int Magic::effect(int prm_level) {
             pProg->change(STATE_EFFECT_START);
             last_cast_ = MAGIC_CAST_NOTHING;
             last_invoke_ = MAGIC_INVOKE_NOTHING;
+            last_effect_ = last_effect;
             break;
         }
         case MAGIC_EFFECT_OK_LEVELDOWN: {
@@ -407,11 +414,12 @@ int Magic::effect(int prm_level) {
             pProg->change(STATE_RE_EFFECT); //åªç› STATE_EFFECT_START ÇÃÇΩÇﬂ
             last_cast_ = MAGIC_CAST_NOTHING;
             last_invoke_ = MAGIC_INVOKE_NOTHING;
+            last_effect_ = last_effect;
             break;
         }
 
     }
-    last_effect_ = last_effect;
+
     return last_effect_;
 }
 void Magic::nextFrame() {

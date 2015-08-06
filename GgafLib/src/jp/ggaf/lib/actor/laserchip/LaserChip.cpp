@@ -323,16 +323,6 @@ void LaserChip::registerHitAreaCube_AutoGenMidColli(int prm_edge_length) {
     setHitAble(true);
 }
 
-void LaserChip::setAlpha(float prm_alpha) {
-    _alpha = prm_alpha;
-    //α設定、レーザーチップは、現在_paMaterialは使用しない
-}
-
-void LaserChip::addAlpha(float prm_alpha) {
-    _alpha += prm_alpha;
-    //α設定、レーザーチップは、現在_paMaterialは使用しない
-}
-
 LaserChip::~LaserChip() {
     GGAF_DELETE(_pColliChecker);
 }

@@ -9,21 +9,12 @@ namespace GgafDxCore {
  * スプライトセットアクター.
  * GgafDxFigureActor を継承し、板ポリゴンにテクスチャを貼り付けた<BR>
  * 擬似スプライト機能を追加し、複数同時描画に最適化されたアクターです。<BR>
+ * setMaterialColor() による個別色指定はできません(セットしても効果がありません)<BR>
  * @version 1.00
  * @since 2009/07/14
  * @author Masatoshi Tsuge
  */
 class GgafDxSpriteSetActor : public GgafDxFigureActor {
-private:
-    void setMaterialColor(float r, float g, float b) override {
-        throwGgafCriticalException("GgafDxSpriteSetActor::setMaterialColor は使用不可です。(1)");
-    }
-    void setMaterialColor(const GgafCore::GgafRgb* prm_rgb) override {
-        throwGgafCriticalException("GgafDxSpriteSetActor::setMaterialColor は使用不可です。(2)");
-    }
-    void resetMaterialColor() override {
-        throwGgafCriticalException("GgafDxSpriteSetActor::resetMaterialColor は使用不可です。");
-    }
 
 public:
     /** [r]モデル資源 */

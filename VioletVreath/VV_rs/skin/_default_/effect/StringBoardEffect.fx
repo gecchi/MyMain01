@@ -11,8 +11,7 @@ float g_tex_blink_power;
 float g_tex_blink_threshold;
 float g_alpha_master;
 
-//float4 g_colMaterialDiffuse     TODO
-
+float4 g_colMaterialDiffuse;  //マテリアルの色
 
 //float g_offset_u; //テクスチャU座標増分
 //float g_offset_v; //テクスチャV座標増分
@@ -113,7 +112,6 @@ float g_transformed_Y001;
 
 float g_depth_Z001;
 
-float g_alpha001;
 
 
 //s0レジスタのサンプラを使う(＝固定パイプラインにセットされたテクスチャをシェーダーで使う)
@@ -263,7 +261,7 @@ OUT_VS GgafDxVS_StringBoard(
 	//UVのオフセットを加算
 	out_vs.uv.x = prm_uv.x + offsetU;
 	out_vs.uv.y = prm_uv.y + offsetV;
-	out_vs.color  = g_alpha001;
+	out_vs.color  = g_colMaterialDiffuse;
 	return out_vs;
 }
 
@@ -276,11 +274,11 @@ float4 GgafDxPS_StringBoard(
 	//テクスチャをサンプリングして色取得（原色を取得）
 	const float4 colTex = tex2D( MyTextureSampler, prm_uv); 
 	//求める色
-	float4 colOut = colTex; 
+	float4 colOut = colTex * prm_color; 
 	if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
 		colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
 	}        
-	colOut.a = colOut.a * prm_color.a * g_alpha_master; 
+	colOut.a *= g_alpha_master; 
 	return colOut;
 }
 
@@ -289,9 +287,9 @@ float4 PS_Flush(
 	float4 prm_color    : COLOR0 
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 colOut = tex2D( MyTextureSampler, prm_uv) * FLUSH_COLOR;                
+	float4 colOut = tex2D( MyTextureSampler, prm_uv) * FLUSH_COLOR * prm_color;                
 	//α考慮
-	colOut.a = colOut.a * prm_color.a * g_alpha_master; 
+	colOut.a *= g_alpha_master; 
 	return colOut;
 }
 

@@ -58,24 +58,6 @@ _pMeshSetEffect((GgafDxMeshSetEffect*)_pEffect) {
     (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
 }
 
-void GgafDxMeshSetActor::setAlpha(float prm_alpha) {
-    _alpha = prm_alpha;
-    //GgafDxMeshSetActorはメッシュαも設定（シェーダーで参照するため）
-    for (DWORD i = 0; i < _pMeshSetModel->_num_materials; i++) {
-        _paMaterial[i].Ambient.a = _alpha;
-        _paMaterial[i].Diffuse.a = _alpha;
-    }
-}
-
-void GgafDxMeshSetActor::addAlpha(float prm_alpha) {
-    _alpha += prm_alpha;
-    //GgafDxMeshSetActorはメッシュαも設定（シェーダーで参照するため）
-    for (DWORD i = 0; i < _pMeshSetModel->_num_materials; i++) {
-        _paMaterial[i].Ambient.a = _alpha;
-        _paMaterial[i].Diffuse.a = _alpha;
-    }
-}
-
 void GgafDxMeshSetActor::processDraw() {
     int draw_set_num = 0; //GgafDxMeshSetActorの同じモデルで同じテクニックが
                        //連続しているカウント数。同一描画深度は一度に描画する。

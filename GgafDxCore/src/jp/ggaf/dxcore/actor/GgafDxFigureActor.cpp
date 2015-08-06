@@ -244,7 +244,19 @@ void GgafDxFigureActor::resetMaterialColor() {
         _paMaterial[i].Diffuse.b = p->Diffuse.b;
     }
 }
+void GgafDxFigureActor::setAlpha(float prm_alpha) {
+    _alpha = prm_alpha;
+    //α設定、現在マテリアルはDiffuse以外関係ない
+    _paMaterial[0].Ambient.a = _alpha;
+    _paMaterial[0].Diffuse.a = _alpha;
+}
 
+void GgafDxFigureActor::addAlpha(float prm_alpha) {
+    _alpha += prm_alpha;
+    //α設定、現在マテリアルはDiffuse以外関係ない
+    _paMaterial[0].Ambient.a = _alpha;
+    _paMaterial[0].Diffuse.a = _alpha;
+}
 void GgafDxFigureActor::setSpecialRenderDepthIndex(int prm_drawdepth) {
     if (prm_drawdepth < 0) {
         _specal_render_depth_index = 0;

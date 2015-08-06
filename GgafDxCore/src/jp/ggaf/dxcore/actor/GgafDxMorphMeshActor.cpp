@@ -104,23 +104,6 @@ void GgafDxMorphMeshActor::addMorphWeight(int prm_target_mesh_no, float prm_add_
 #endif
     _weight[prm_target_mesh_no] += prm_add_weight;
 }
-void GgafDxMorphMeshActor::setAlpha(float prm_alpha) {
-    _alpha = prm_alpha;
-    //GgafDxMorphMeshActorはメッシュαも設定（シェーダーで参照するため）
-    for (DWORD i = 0; i < _pMorphMeshModel->_num_materials; i++) {
-        _paMaterial[i].Ambient.a = _alpha;
-        _paMaterial[i].Diffuse.a = _alpha;
-    }
-}
-
-void GgafDxMorphMeshActor::addAlpha(float prm_alpha) {
-    _alpha += prm_alpha;
-    //GgafDxMorphMeshActorはメッシュαも設定（シェーダーで参照するため）
-    for (DWORD i = 0; i < _pMorphMeshModel->_num_materials; i++) {
-        _paMaterial[i].Ambient.a = _alpha;
-        _paMaterial[i].Diffuse.a = _alpha;
-    }
-}
 
 void GgafDxMorphMeshActor::processDraw() {
     GgafDxCamera* const pCam = P_GOD->getSpacetime()->getCamera();

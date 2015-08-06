@@ -202,17 +202,13 @@ public:
      * という機能もあわせ持つ。<br>
      * @param prm_alpha アクターのマテリアルアルファ値
      */
-    virtual void setAlpha(float prm_alpha) {
-        _alpha = prm_alpha;
-    }
+    virtual void setAlpha(float prm_alpha);
 
     /**
      * 本アクターの描画時のマテリアルアルファ値を加算する .
      * @param prm_alpha 加算するマテリアルアルファ値
      */
-    virtual void addAlpha(float prm_alpha) {
-        _alpha += prm_alpha;
-    }
+    virtual void addAlpha(float prm_alpha);
 
     /**
      * 本アクターの描画時のマテリアルアルファ値を取得 .

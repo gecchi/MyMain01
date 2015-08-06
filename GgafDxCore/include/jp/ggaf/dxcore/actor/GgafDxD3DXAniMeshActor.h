@@ -38,18 +38,6 @@ public:
 
     virtual void processDraw() override;
 
-    /**
-     * α設定.
-     * @param prm_alpha
-     */
-    virtual void setAlpha(float prm_alpha) override;
-
-    /**
-     * α加算 .
-     * @param prm_alpha
-     */
-    virtual void addAlpha(float prm_alpha) override;
-
     virtual ~GgafDxD3DXAniMeshActor(); //デストラクタ
 };
 

@@ -42,20 +42,6 @@ _pUvFlipper(NEW GgafDxUvFlipper(_pPointSpriteModel->_papTextureConnection[0]->pe
     setZWriteEnable(false);
 }
 
-void GgafDxPointSpriteActor::setAlpha(float prm_alpha) {
-    _alpha = prm_alpha;
-    //GgafDxPointSpriteActorはメッシュαも設定（シェーダーで参照するため）
-    _paMaterial[0].Ambient.a = _alpha;
-    _paMaterial[0].Diffuse.a = _alpha;
-}
-
-void GgafDxPointSpriteActor::addAlpha(float prm_alpha) {
-    _alpha += prm_alpha;
-    //GgafDxPointSpriteActorはメッシュαも設定（シェーダーで参照するため）
-    _paMaterial[0].Ambient.a = _alpha;
-    _paMaterial[0].Diffuse.a = _alpha;
-}
-
 void GgafDxPointSpriteActor::processDraw() {
     ID3DXEffect* const pID3DXEffect = _pPointSpriteEffect->_pID3DXEffect;
     HRESULT hr;

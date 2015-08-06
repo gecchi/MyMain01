@@ -151,18 +151,6 @@ public:
 
     virtual void processDraw() override;
 
-    /**
-     * ƒ¿İ’è.
-     * @param prm_alpha
-     */
-    virtual void setAlpha(float prm_alpha) override;
-
-    /**
-     * ƒ¿‰ÁZ .
-     * @param prm_alpha
-     */
-    virtual void addAlpha(float prm_alpha) override;
-
     inline GgafDxUvFlipper* getUvFlipper() {
         return _pUvFlipper;
     }

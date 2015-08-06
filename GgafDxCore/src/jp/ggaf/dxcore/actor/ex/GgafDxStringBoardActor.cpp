@@ -138,8 +138,8 @@ void GgafDxStringBoardActor::processDraw() {
     checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_ah_transformed_y) に失敗しました。");
     hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_depth_z[0], float(C_PX(_z)));
     checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_ah_depth_z) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_alpha[0], _alpha); //注意：アルファは文字ごとは不可
-    checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_ah_alpha) に失敗しました。");
+    hr = pID3DXEffect->SetValue(pBoardSetEffect->_h_colMaterialDiffuse, &(_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) ); //注意：色は文字ごとは不可
+    checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetValue(_h_colMaterialDiffuse) に失敗しました。");
 
     pixcoord X = C_PX(_x);
     if (_align == ALIGN_LEFT || _align == ALIGN_CENTER) {

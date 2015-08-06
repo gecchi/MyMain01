@@ -93,18 +93,6 @@ public:
 
     void addMorphWeight(int prm_target_mesh_no, float prm_add_weight);
 
-    /**
-     * ƒ¿İ’è.
-     * @param prm_alpha
-     */
-    virtual void setAlpha(float prm_alpha) override;
-
-    /**
-     * ƒ¿‰ÁZ .
-     * @param prm_alpha
-     */
-    virtual void addAlpha(float prm_alpha) override;
-
     inline GgafDxMorpher* getMorpher() {
         return _pMorpher;
     }

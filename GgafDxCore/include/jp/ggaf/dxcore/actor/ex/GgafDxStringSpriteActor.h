@@ -31,6 +31,7 @@ namespace GgafDxCore {
  * </pre></code>
  * 文字パターンは半角スペースを0番として255番まで管理可能。
  * 文字表示と言ってもUVを切り替えて連続表示るだけ。
+ * setMaterialColor() による色変更をサポート。
  * TODO:GgafDxStringBoardActorと共通化したい・・・
  * @version 1.00
  * @since 2009/04/09

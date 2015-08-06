@@ -136,19 +136,6 @@ void GgafDxBoardActor::setScaleR(float prm_x_rate, float prm_y_rate, float prm_z
     _sy = R_SC(prm_y_rate);
     _sz = R_SC(prm_z_rate); //_szは2Dでは使用されないが、GgafDxScaler::behave() 内の判定で役に立つ。
 }
-void GgafDxBoardActor::setAlpha(float prm_alpha) {
-    _alpha = prm_alpha;
-    //α設定、現在マテリアルはDiffuse以外関係ない
-    _paMaterial[0].Ambient.a = _alpha;
-    _paMaterial[0].Diffuse.a = _alpha;
-}
-
-void GgafDxBoardActor::addAlpha(float prm_alpha) {
-    _alpha += prm_alpha;
-    //α設定、現在マテリアルはDiffuse以外関係ない
-    _paMaterial[0].Ambient.a = _alpha;
-    _paMaterial[0].Diffuse.a = _alpha;
-}
 
 float GgafDxBoardActor::getModelWidth() {
     return _pBoardModel->_model_width_px;

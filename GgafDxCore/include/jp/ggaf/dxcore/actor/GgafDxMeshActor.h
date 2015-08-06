@@ -76,18 +76,6 @@ public:
         }
     }
 
-    /**
-     * α設定.
-     * @param prm_alpha
-     */
-    virtual void setAlpha(float prm_alpha) override;
-
-    /**
-     * α加算 .
-     * @param prm_alpha
-     */
-    virtual void addAlpha(float prm_alpha) override;
-
     void effectBumpMapping(const char* prm_cubemap_tex, frame prm_frame = MAX_FRAME);
 
     virtual ~GgafDxMeshActor(); //デストラクタ
