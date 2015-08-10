@@ -346,6 +346,8 @@ public:
     static std::map<int, std::string> _mapVBK2Str;
     static std::map<int, std::string> _mapVBJ2Str;
 
+
+
     typedef bool (*funcVJBtn)(void);
     static std::map<int, funcVJBtn> _mapVBJ2Func;
 
@@ -354,6 +356,10 @@ public:
     KEYBOARDMAP _keyboardmap;
     /** ジョイスティック割り当て値 */
     JOYSTICKMAP _joystickmap;
+
+    std::map<vb_sta, int*> _mapVB2keyboardmap;
+    std::map<vb_sta, int*> _mapVB2joystickmap;
+
     /** オートリピート判定用カウンター */
     std::map<vb_sta, frame> _auto_repeat_counter;
     /** オートリピート中ならば true */
@@ -366,6 +372,7 @@ public:
     bool _is_replaying;
     /** 現在フレームの入力状態 */
     VirtualButton::VBRecord* _pVBRecord_active;
+
 
 public:
     /**
@@ -383,83 +390,26 @@ public:
     static int getPushedDownVirtualJoyButton();
 
     /**
-     * 仮想ボタン VB_BUTTON1 の割り当てを更新。
-     * @param prm_VBK VBK_... で始まる仮想キー定数
-     * @param prm_VBJ VBJ_... で始まる仮想JOYスティックボタン定数
+     * 仮想ボタンの割り当てを変更（キーボード＆ジョイスティック） .
+     * @param prm_VB VB_... で始まる仮想ボタン、割り当て対象の仮想ボタンを指定
+     * @param prm_VBK VBK_... で始まる仮想キー定数、仮想ボタンへ割り当てるキーボードを指定
+     * @param prm_VBJ VBJ_... で始まる仮想JOYスティックボタン定数、仮想ボタンへ割り当てるJOYスティックボタンを指定
      */
-    inline void remap_VB_BUTTON1   (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.BUTTON1=prm_VBK; _joystickmap.BUTTON1=prm_VBJ;  }
-    inline void remap_VB_BUTTON2   (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.BUTTON2=prm_VBK; _joystickmap.BUTTON2=prm_VBJ;  }
-    inline void remap_VB_BUTTON3   (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.BUTTON3=prm_VBK; _joystickmap.BUTTON3=prm_VBJ;  }
-    inline void remap_VB_BUTTON4   (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.BUTTON4=prm_VBK; _joystickmap.BUTTON4=prm_VBJ;  }
-    inline void remap_VB_BUTTON5   (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.BUTTON5=prm_VBK; _joystickmap.BUTTON5=prm_VBJ;  }
-    inline void remap_VB_BUTTON6   (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.BUTTON6=prm_VBK; _joystickmap.BUTTON6=prm_VBJ;  }
-    inline void remap_VB_BUTTON7   (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.BUTTON7=prm_VBK; _joystickmap.BUTTON7=prm_VBJ;  }
-    inline void remap_VB_BUTTON8   (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.BUTTON8=prm_VBK; _joystickmap.BUTTON8=prm_VBJ;  }
-    inline void remap_VB_BUTTON9   (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.BUTTON9=prm_VBK; _joystickmap.BUTTON9=prm_VBJ;  }
-    inline void remap_VB_BUTTON10  (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.BUTTON10=prm_VBK; _joystickmap.BUTTON10=prm_VBJ;  }
-    inline void remap_VB_BUTTON11  (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.BUTTON11=prm_VBK; _joystickmap.BUTTON11=prm_VBJ;  }
-    inline void remap_VB_BUTTON12  (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.BUTTON12=prm_VBK; _joystickmap.BUTTON12=prm_VBJ;  }
-    inline void remap_VB_BUTTON13  (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.BUTTON13=prm_VBK; _joystickmap.BUTTON13=prm_VBJ;  }
-    inline void remap_VB_BUTTON14  (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.BUTTON14=prm_VBK; _joystickmap.BUTTON14=prm_VBJ;  }
-    inline void remap_VB_BUTTON15  (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.BUTTON15=prm_VBK; _joystickmap.BUTTON15=prm_VBJ;  }
-    inline void remap_VB_BUTTON16  (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.BUTTON16=prm_VBK; _joystickmap.BUTTON16=prm_VBJ;  }
-    inline void remap_VB_PAUSE     (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.PAUSE=prm_VBK; _joystickmap.PAUSE=prm_VBJ;  }
-    inline void remap_VB_UP        (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.UP=prm_VBK; _joystickmap.UP=prm_VBJ;  }
-    inline void remap_VB_DOWN      (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.DOWN=prm_VBK; _joystickmap.DOWN=prm_VBJ;  }
-    inline void remap_VB_LEFT      (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.LEFT=prm_VBK; _joystickmap.LEFT=prm_VBJ;  }
-    inline void remap_VB_RIGHT     (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.RIGHT=prm_VBK; _joystickmap.RIGHT=prm_VBJ;  }
-    inline void remap_VB_S1_UP     (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.S1_UP=prm_VBK; _joystickmap.S1_UP=prm_VBJ;  }
-    inline void remap_VB_S1_DOWN   (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.S1_DOWN=prm_VBK; _joystickmap.S1_DOWN=prm_VBJ;  }
-    inline void remap_VB_S1_LEFT   (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.S1_LEFT=prm_VBK; _joystickmap.S1_LEFT=prm_VBJ;  }
-    inline void remap_VB_S1_RIGHT  (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.S1_RIGHT=prm_VBK; _joystickmap.S1_RIGHT=prm_VBJ;  }
-    inline void remap_VB_S2_UP     (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.S2_UP=prm_VBK; _joystickmap.S2_UP=prm_VBJ;  }
-    inline void remap_VB_S2_DOWN   (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.S2_DOWN=prm_VBK; _joystickmap.S2_DOWN=prm_VBJ;  }
-    inline void remap_VB_S2_LEFT   (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.S2_LEFT=prm_VBK; _joystickmap.S2_LEFT=prm_VBJ;  }
-    inline void remap_VB_S2_RIGHT  (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.S2_RIGHT=prm_VBK; _joystickmap.S2_RIGHT=prm_VBJ;  }
-    inline void remap_VB_UI_UP     (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.UI_UP=prm_VBK; _joystickmap.UI_UP=prm_VBJ;  }
-    inline void remap_VB_UI_DOWN   (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.UI_DOWN=prm_VBK; _joystickmap.UI_DOWN=prm_VBJ;  }
-    inline void remap_VB_UI_LEFT   (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.UI_LEFT=prm_VBK; _joystickmap.UI_LEFT=prm_VBJ;  }
-    inline void remap_VB_UI_RIGHT  (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.UI_RIGHT=prm_VBK; _joystickmap.UI_RIGHT=prm_VBJ;  }
-    inline void remap_VB_UI_EXECUTE(vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.UI_EXECUTE=prm_VBK; _joystickmap.UI_EXECUTE=prm_VBJ;  }
-    inline void remap_VB_UI_CANCEL (vbk prm_VBK, vbj prm_VBJ) {  _keyboardmap.UI_CANCEL=prm_VBK; _joystickmap.UI_CANCEL=prm_VBJ;  }
+    inline void remap(vb_sta prm_VB, vbk prm_VBK, vbj prm_VBJ) { *_mapVB2keyboardmap[prm_VB] = prm_VBK;   *_mapVB2joystickmap[prm_VB] = prm_VBJ;  }
 
-    inline void remap_VB_BUTTON1   (vbk prm_VBK) {  _keyboardmap.BUTTON1=prm_VBK;    }
-    inline void remap_VB_BUTTON2   (vbk prm_VBK) {  _keyboardmap.BUTTON2=prm_VBK;    }
-    inline void remap_VB_BUTTON3   (vbk prm_VBK) {  _keyboardmap.BUTTON3=prm_VBK;    }
-    inline void remap_VB_BUTTON4   (vbk prm_VBK) {  _keyboardmap.BUTTON4=prm_VBK;    }
-    inline void remap_VB_BUTTON5   (vbk prm_VBK) {  _keyboardmap.BUTTON5=prm_VBK;    }
-    inline void remap_VB_BUTTON6   (vbk prm_VBK) {  _keyboardmap.BUTTON6=prm_VBK;    }
-    inline void remap_VB_BUTTON7   (vbk prm_VBK) {  _keyboardmap.BUTTON7=prm_VBK;    }
-    inline void remap_VB_BUTTON8   (vbk prm_VBK) {  _keyboardmap.BUTTON8=prm_VBK;    }
-    inline void remap_VB_BUTTON9   (vbk prm_VBK) {  _keyboardmap.BUTTON9=prm_VBK;    }
-    inline void remap_VB_BUTTON10  (vbk prm_VBK) {  _keyboardmap.BUTTON10=prm_VBK;   }
-    inline void remap_VB_BUTTON11  (vbk prm_VBK) {  _keyboardmap.BUTTON11=prm_VBK;   }
-    inline void remap_VB_BUTTON12  (vbk prm_VBK) {  _keyboardmap.BUTTON12=prm_VBK;   }
-    inline void remap_VB_BUTTON13  (vbk prm_VBK) {  _keyboardmap.BUTTON13=prm_VBK;   }
-    inline void remap_VB_BUTTON14  (vbk prm_VBK) {  _keyboardmap.BUTTON14=prm_VBK;   }
-    inline void remap_VB_BUTTON15  (vbk prm_VBK) {  _keyboardmap.BUTTON15=prm_VBK;   }
-    inline void remap_VB_BUTTON16  (vbk prm_VBK) {  _keyboardmap.BUTTON16=prm_VBK;   }
-    inline void remap_VB_PAUSE     (vbk prm_VBK) {  _keyboardmap.PAUSE=prm_VBK;      }
-    inline void remap_VB_UP        (vbk prm_VBK) {  _keyboardmap.UP=prm_VBK;         }
-    inline void remap_VB_DOWN      (vbk prm_VBK) {  _keyboardmap.DOWN=prm_VBK;       }
-    inline void remap_VB_LEFT      (vbk prm_VBK) {  _keyboardmap.LEFT=prm_VBK;       }
-    inline void remap_VB_RIGHT     (vbk prm_VBK) {  _keyboardmap.RIGHT=prm_VBK;      }
-    inline void remap_VB_S1_UP     (vbk prm_VBK) {  _keyboardmap.S1_UP=prm_VBK;      }
-    inline void remap_VB_S1_DOWN   (vbk prm_VBK) {  _keyboardmap.S1_DOWN=prm_VBK;    }
-    inline void remap_VB_S1_LEFT   (vbk prm_VBK) {  _keyboardmap.S1_LEFT=prm_VBK;    }
-    inline void remap_VB_S1_RIGHT  (vbk prm_VBK) {  _keyboardmap.S1_RIGHT=prm_VBK;   }
-    inline void remap_VB_S2_UP     (vbk prm_VBK) {  _keyboardmap.S2_UP=prm_VBK;      }
-    inline void remap_VB_S2_DOWN   (vbk prm_VBK) {  _keyboardmap.S2_DOWN=prm_VBK;    }
-    inline void remap_VB_S2_LEFT   (vbk prm_VBK) {  _keyboardmap.S2_LEFT=prm_VBK;    }
-    inline void remap_VB_S2_RIGHT  (vbk prm_VBK) {  _keyboardmap.S2_RIGHT=prm_VBK;   }
-    inline void remap_VB_UI_UP     (vbk prm_VBK) {  _keyboardmap.UI_UP=prm_VBK;      }
-    inline void remap_VB_UI_DOWN   (vbk prm_VBK) {  _keyboardmap.UI_DOWN=prm_VBK;    }
-    inline void remap_VB_UI_LEFT   (vbk prm_VBK) {  _keyboardmap.UI_LEFT=prm_VBK;    }
-    inline void remap_VB_UI_RIGHT  (vbk prm_VBK) {  _keyboardmap.UI_RIGHT=prm_VBK;   }
-    inline void remap_VB_UI_EXECUTE(vbk prm_VBK) {  _keyboardmap.UI_EXECUTE=prm_VBK; }
-    inline void remap_VB_UI_CANCEL (vbk prm_VBK) {  _keyboardmap.UI_CANCEL=prm_VBK;  }
+    /**
+     * 仮想ボタンの割り当てを変更（キーボードのみ） .
+     * @param prm_VB VB_... で始まる仮想ボタン、割り当て対象の仮想ボタンを指定
+     * @param prm_VBK VBK_... で始まる仮想キー定数、仮想ボタンへ割り当てるキーボードを指定
+     */
+    inline void remapK(vb_sta prm_VB, vbk prm_VBK)  { *_mapVB2keyboardmap[prm_VB] = prm_VBK; }
 
-    inline void remap_VB_UI_DEBUG  (vbk prm_VBK) {  _keyboardmap.UI_DEBUG=prm_VBK; }
+    /**
+     * 仮想ボタンの割り当てを変更（ジョイスティックのみ） .
+     * @param prm_VB VB_... で始まる仮想ボタン、割り当て対象の仮想ボタンを指定
+     * @param prm_VBJ VBJ_... で始まる仮想JOYスティックボタン定数、仮想ボタンへ割り当てるJOYスティックボタンを指定
+     */
+    inline void remapJ(vb_sta prm_VB, vbj prm_VBJ)  { *_mapVB2joystickmap[prm_VB] = prm_VBJ; }
     /**     * 過去の入力状態を取得 .     * @param prm_frame_ago 現在より何フレーム過去かを指定     * @return 過去の入力状態     */    VirtualButton::VBRecord* getPastVBRecord(frame prm_frame_ago) const;
 
     /**

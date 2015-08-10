@@ -15,8 +15,8 @@ using namespace Mogera;
 
 MgrWorld::MgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     vb_ = NEW VirtualButton();
-    vb_->remap_VB_UI_DEBUG(VBK_Q);
-    vb_->remap_VB_PAUSE(VBK_ESCAPE);
+    vb_->remapK(VB_UI_DEBUG, VBK_Q     );
+    vb_->remapK(VB_PAUSE   , VBK_ESCAPE);
     pTrialAndErrScene_ = nullptr;
 }
 

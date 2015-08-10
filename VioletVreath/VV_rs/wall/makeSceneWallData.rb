@@ -3,9 +3,8 @@
 #                                    since 2010/10/19 by Gecchi
 #
 # 【書式】
-# $ ruby makeSceneWallData.rb <入力Xファイル> <Y軸方向AAB数> <Z軸方向AAB数> <当たり判定AABのX方向最大連結数> <FULLFULLモード> <プリズムモード>
+# $ ruby makeSceneWallData.rb <入力Xファイル> <Y軸方向AAB数> <Z軸方向AAB数> <当たり判定AABのX方向最大連結数> <FULLFULLモード>
 # FULLFULLモード "Yes":FULLFULLを行う（内部塗りつぶし） "Yes"以外:FULLFULLしない
-# プリズムモード "Yes":プリズム形のみを拾い上げる  "Yes"以外:通常のBOXのみ拾い上げる
 # (※AAB とは 軸並行直方体：Axis-Aligned Box の省略)
 #
 # 【使用例】

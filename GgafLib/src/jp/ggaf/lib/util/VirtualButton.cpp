@@ -83,6 +83,82 @@ VirtualButton::VirtualButton(const char* prm_replay_file) : GgafObject() {
     //_joystickmap.UI_DEBUG    = //; 0xFF
 
 
+    _mapVB2keyboardmap[VB_BUTTON1   ] = &(_keyboardmap.BUTTON1   );
+    _mapVB2keyboardmap[VB_BUTTON2   ] = &(_keyboardmap.BUTTON2   );
+    _mapVB2keyboardmap[VB_BUTTON3   ] = &(_keyboardmap.BUTTON3   );
+    _mapVB2keyboardmap[VB_BUTTON4   ] = &(_keyboardmap.BUTTON4   );
+    _mapVB2keyboardmap[VB_BUTTON5   ] = &(_keyboardmap.BUTTON5   );
+    _mapVB2keyboardmap[VB_BUTTON6   ] = &(_keyboardmap.BUTTON6   );
+    _mapVB2keyboardmap[VB_BUTTON7   ] = &(_keyboardmap.BUTTON7   );
+    _mapVB2keyboardmap[VB_BUTTON8   ] = &(_keyboardmap.BUTTON8   );
+    _mapVB2keyboardmap[VB_BUTTON9   ] = &(_keyboardmap.BUTTON9   );
+    _mapVB2keyboardmap[VB_BUTTON10  ] = &(_keyboardmap.BUTTON10  );
+    _mapVB2keyboardmap[VB_BUTTON11  ] = &(_keyboardmap.BUTTON11  );
+    _mapVB2keyboardmap[VB_BUTTON12  ] = &(_keyboardmap.BUTTON12  );
+    _mapVB2keyboardmap[VB_BUTTON13  ] = &(_keyboardmap.BUTTON13  );
+    _mapVB2keyboardmap[VB_BUTTON14  ] = &(_keyboardmap.BUTTON14  );
+    _mapVB2keyboardmap[VB_BUTTON15  ] = &(_keyboardmap.BUTTON15  );
+    _mapVB2keyboardmap[VB_BUTTON16  ] = &(_keyboardmap.BUTTON16  );
+    _mapVB2keyboardmap[VB_PAUSE     ] = &(_keyboardmap.PAUSE     );
+    _mapVB2keyboardmap[VB_UP        ] = &(_keyboardmap.UP        );
+    _mapVB2keyboardmap[VB_DOWN      ] = &(_keyboardmap.DOWN      );
+    _mapVB2keyboardmap[VB_LEFT      ] = &(_keyboardmap.LEFT      );
+    _mapVB2keyboardmap[VB_RIGHT     ] = &(_keyboardmap.RIGHT     );
+    _mapVB2keyboardmap[VB_S1_UP     ] = &(_keyboardmap.S1_UP     );
+    _mapVB2keyboardmap[VB_S1_DOWN   ] = &(_keyboardmap.S1_DOWN   );
+    _mapVB2keyboardmap[VB_S1_LEFT   ] = &(_keyboardmap.S1_LEFT   );
+    _mapVB2keyboardmap[VB_S1_RIGHT  ] = &(_keyboardmap.S1_RIGHT  );
+    _mapVB2keyboardmap[VB_S2_UP     ] = &(_keyboardmap.S2_UP     );
+    _mapVB2keyboardmap[VB_S2_DOWN   ] = &(_keyboardmap.S2_DOWN   );
+    _mapVB2keyboardmap[VB_S2_LEFT   ] = &(_keyboardmap.S2_LEFT   );
+    _mapVB2keyboardmap[VB_S2_RIGHT  ] = &(_keyboardmap.S2_RIGHT  );
+    _mapVB2keyboardmap[VB_UI_UP     ] = &(_keyboardmap.UI_UP     );
+    _mapVB2keyboardmap[VB_UI_DOWN   ] = &(_keyboardmap.UI_DOWN   );
+    _mapVB2keyboardmap[VB_UI_LEFT   ] = &(_keyboardmap.UI_LEFT   );
+    _mapVB2keyboardmap[VB_UI_RIGHT  ] = &(_keyboardmap.UI_RIGHT  );
+    _mapVB2keyboardmap[VB_UI_EXECUTE] = &(_keyboardmap.UI_EXECUTE);
+    _mapVB2keyboardmap[VB_UI_CANCEL ] = &(_keyboardmap.UI_CANCEL );
+    _mapVB2keyboardmap[VB_UI_DEBUG  ] = &(_keyboardmap.UI_DEBUG  );
+
+    _mapVB2joystickmap[VB_BUTTON1   ] = &(_joystickmap.BUTTON1   );
+    _mapVB2joystickmap[VB_BUTTON2   ] = &(_joystickmap.BUTTON2   );
+    _mapVB2joystickmap[VB_BUTTON3   ] = &(_joystickmap.BUTTON3   );
+    _mapVB2joystickmap[VB_BUTTON4   ] = &(_joystickmap.BUTTON4   );
+    _mapVB2joystickmap[VB_BUTTON5   ] = &(_joystickmap.BUTTON5   );
+    _mapVB2joystickmap[VB_BUTTON6   ] = &(_joystickmap.BUTTON6   );
+    _mapVB2joystickmap[VB_BUTTON7   ] = &(_joystickmap.BUTTON7   );
+    _mapVB2joystickmap[VB_BUTTON8   ] = &(_joystickmap.BUTTON8   );
+    _mapVB2joystickmap[VB_BUTTON9   ] = &(_joystickmap.BUTTON9   );
+    _mapVB2joystickmap[VB_BUTTON10  ] = &(_joystickmap.BUTTON10  );
+    _mapVB2joystickmap[VB_BUTTON11  ] = &(_joystickmap.BUTTON11  );
+    _mapVB2joystickmap[VB_BUTTON12  ] = &(_joystickmap.BUTTON12  );
+    _mapVB2joystickmap[VB_BUTTON13  ] = &(_joystickmap.BUTTON13  );
+    _mapVB2joystickmap[VB_BUTTON14  ] = &(_joystickmap.BUTTON14  );
+    _mapVB2joystickmap[VB_BUTTON15  ] = &(_joystickmap.BUTTON15  );
+    _mapVB2joystickmap[VB_BUTTON16  ] = &(_joystickmap.BUTTON16  );
+    _mapVB2joystickmap[VB_PAUSE     ] = &(_joystickmap.PAUSE     );
+    _mapVB2joystickmap[VB_UP        ] = &(_joystickmap.UP        );
+    _mapVB2joystickmap[VB_DOWN      ] = &(_joystickmap.DOWN      );
+    _mapVB2joystickmap[VB_LEFT      ] = &(_joystickmap.LEFT      );
+    _mapVB2joystickmap[VB_RIGHT     ] = &(_joystickmap.RIGHT     );
+    _mapVB2joystickmap[VB_S1_UP     ] = &(_joystickmap.S1_UP     );
+    _mapVB2joystickmap[VB_S1_DOWN   ] = &(_joystickmap.S1_DOWN   );
+    _mapVB2joystickmap[VB_S1_LEFT   ] = &(_joystickmap.S1_LEFT   );
+    _mapVB2joystickmap[VB_S1_RIGHT  ] = &(_joystickmap.S1_RIGHT  );
+    _mapVB2joystickmap[VB_S2_UP     ] = &(_joystickmap.S2_UP     );
+    _mapVB2joystickmap[VB_S2_DOWN   ] = &(_joystickmap.S2_DOWN   );
+    _mapVB2joystickmap[VB_S2_LEFT   ] = &(_joystickmap.S2_LEFT   );
+    _mapVB2joystickmap[VB_S2_RIGHT  ] = &(_joystickmap.S2_RIGHT  );
+    _mapVB2joystickmap[VB_UI_UP     ] = &(_joystickmap.UI_UP     );
+    _mapVB2joystickmap[VB_UI_DOWN   ] = &(_joystickmap.UI_DOWN   );
+    _mapVB2joystickmap[VB_UI_LEFT   ] = &(_joystickmap.UI_LEFT   );
+    _mapVB2joystickmap[VB_UI_RIGHT  ] = &(_joystickmap.UI_RIGHT  );
+    _mapVB2joystickmap[VB_UI_EXECUTE] = &(_joystickmap.UI_EXECUTE);
+    _mapVB2joystickmap[VB_UI_CANCEL ] = &(_joystickmap.UI_CANCEL );
+    //_mapVB2joystickmap[VB_UI_DEBUG  ] = &(_joystickmap.UI_DEBUG  );
+
+
+
     //ä¬èÛëoï˚å¸òAåãÉäÉXÉgç\íz
     _pVBRecord_active = NEW VBRecord();
     VirtualButton::VBRecord* pVBRecord_temp = _pVBRecord_active;

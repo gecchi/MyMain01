@@ -52,6 +52,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
 
     //シーンセクション生成
     WalledSectionScene* apSection[] = {
+        NEW Stage01WalledSection001("Stage01-001-X", this, "scene3_2_wall_0.dat"),
         NEW Stage01WalledSection001("Stage01-001-0", this, "scene4_wall_0.dat"),
         NEW Stage01WalledSection001("Stage01-001-1", this, "scene4_wall_1.dat"),
         NEW Stage01WalledSection001("Stage01-001-2", this, "scene4_wall_2.dat"),
@@ -62,7 +63,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     buildWalledScene(
         wall_dep*scale_r, wall_width*scale_r, wall_height*scale_r,
         P_GOD->getSpacetime()->_x_bound_right,
-        (WalledSectionScene**)&apSection, 4,
+        (WalledSectionScene**)&apSection, 5,
         pDepo_wall ,pDepo_prism
     );
 
@@ -72,10 +73,10 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {100};
-	_paFrame_NextEvent = new frame[1];
-	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 1;
+    frame f[] = {100};
+    _paFrame_NextEvent = new frame[1];
+    memcpy(_paFrame_NextEvent, f, sizeof(f));
+    _event_num = 1;
     // gen01 end
 }
 
@@ -97,17 +98,17 @@ void Stage01WalledScene::processBehavior() {
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
-	if (getBehaveingFrame() == _paFrame_NextEvent[_cnt_event]) {
-		switch (getBehaveingFrame()) {
-			case 100: {
-				//a
-				break;
-			}
-			default :
-				break;
-		}
-		_cnt_event = (_cnt_event < 1-1 ? _cnt_event+1 : _cnt_event);
-	}
+    if (getBehaveingFrame() == _paFrame_NextEvent[_cnt_event]) {
+        switch (getBehaveingFrame()) {
+            case 100: {
+                //a
+                break;
+            }
+            default :
+                break;
+        }
+        _cnt_event = (_cnt_event < 1-1 ? _cnt_event+1 : _cnt_event);
+    }
     // gen02 end
 
     //デバッグ

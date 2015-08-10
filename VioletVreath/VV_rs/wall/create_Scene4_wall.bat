@@ -1,2 +1,2 @@
-ruby makeSceneWallData.rb scene4_wall.X 34 36 4 Yes
+ruby makeSceneWallData.rb scene4_wall.X 40 40 2 Yes
 pause
