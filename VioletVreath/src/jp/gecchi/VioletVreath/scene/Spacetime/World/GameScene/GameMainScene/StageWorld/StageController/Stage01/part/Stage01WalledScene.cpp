@@ -25,7 +25,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     coord wall_dep    = DX_C(40);  //壁ブロックモデル１個のX軸方向の幅設定（Xファイルにより決まる）
     coord wall_width  = DX_C(10);  //壁ブロックモデル１個のZ軸方向の幅設定（Xファイルにより決まる）
     coord wall_height = DX_C(10);  //壁ブロックモデル１個のY軸方向の幅設定（Xファイルにより決まる）
-    float scale_r = 6.0f;        //今回壁ブロックの拡大率（ここで設定可能）
+    float scale_r = 1.0f;        //今回壁ブロックの拡大率（ここで設定可能）
     //****************************
 
     //壁ブロック(直方体)デポジトリ生成
@@ -42,7 +42,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     //壁ブロック(プリズム)デポジトリ生成
     WallAAPrismActor* pWallAAPrismActor;
     GgafActorDepository* pDepo_prism = NEW GgafActorDepository("Dp_WallAAPrism");
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 1000; i++) {
         std::string name = "Wall001Prism_"+XTOS(i);
         pWallAAPrismActor = NEW Wall001Prism(name.c_str());
         pWallAAPrismActor->setScaleR(scale_r);
@@ -52,18 +52,21 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
 
     //シーンセクション生成
     WalledSectionScene* apSection[] = {
-        NEW Stage01WalledSection001("Stage01-001-X", this, "scene3_2_wall_0.dat"),
-        NEW Stage01WalledSection001("Stage01-001-0", this, "scene4_wall_0.dat"),
-        NEW Stage01WalledSection001("Stage01-001-1", this, "scene4_wall_1.dat"),
-        NEW Stage01WalledSection001("Stage01-001-2", this, "scene4_wall_2.dat"),
-        NEW Stage01WalledSection001("Stage01-001-3", this, "scene4_wall_3.dat"),
+        NEW Stage01WalledSection001("Stage01-001-0", this, "scene5_wall_0.dat"),
+        NEW Stage01WalledSection001("Stage01-001-1", this, "scene5_wall_1.dat"),
+        NEW Stage01WalledSection001("Stage01-001-2", this, "scene5_wall_2.dat"),
+        NEW Stage01WalledSection001("Stage01-001-3", this, "scene5_wall_3.dat"),
+        NEW Stage01WalledSection001("Stage01-001-4", this, "scene4_wall_0.dat"),
+        NEW Stage01WalledSection001("Stage01-001-5", this, "scene4_wall_1.dat"),
+        NEW Stage01WalledSection001("Stage01-001-6", this, "scene4_wall_2.dat"),
+        NEW Stage01WalledSection001("Stage01-001-7", this, "scene4_wall_3.dat"),
     };
 
     //構築
     buildWalledScene(
         wall_dep*scale_r, wall_width*scale_r, wall_height*scale_r,
         P_GOD->getSpacetime()->_x_bound_right,
-        (WalledSectionScene**)&apSection, 5,
+        (WalledSectionScene**)&apSection, 8,
         pDepo_wall ,pDepo_prism
     );
 

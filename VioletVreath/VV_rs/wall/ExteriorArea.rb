@@ -46,6 +46,8 @@ class ExteriorArea
   KABE_BOX_VAL = 0   #Box.@pos_prismの値
   FULL_VAL = -2
 
+  SUMI_FLG = -3
+  
   FACE_A_BIT = 0b100000
   FACE_B_BIT = 0b010000
   FACE_C_BIT = 0b001000
@@ -410,6 +412,9 @@ class ExteriorArea
   def getAnalyze02(exArea)
     ret = ExteriorArea.new(@len, @height, @width)
 
+    nobashi_zumi = ExteriorArea.new(@len, @height, @width)
+
+    
     for x in 0..@len-1
       for y in 0..@height-1
         for z in 0..@width-1
@@ -421,6 +426,8 @@ class ExteriorArea
           elsif exArea.area[x][y][z] == KABE_BOX_VAL then
             #自身がBOXの場合
             ret.area[x][y][z] = [1,1,1,1,1,1]
+            nobashi_zumi.area[x][y][z] = SUMI_FLG
+
             #6面の開いている方向の当たり判定長さを設定
             #abcdef
 
@@ -435,7 +442,8 @@ class ExteriorArea
               hitarea_idx = 1
               hitarea_len = 1
               while true
-                if (y-hitarea_idx >= 0 &&  @area[x][y-hitarea_idx][z] == FULL_VAL) then
+                if (y-hitarea_idx >= 0 &&  @area[x][y-hitarea_idx][z] == FULL_VAL && nobashi_zumi.area[x][y-hitarea_idx][z] != SUMI_FLG) then
+                  nobashi_zumi.area[x][y-hitarea_idx][z] = SUMI_FLG
                   hitarea_len += 1
                 else
                   break;
@@ -452,7 +460,8 @@ class ExteriorArea
               hitarea_idx = 1
               hitarea_len = 1
               while true
-                if (y+hitarea_idx <= @height-1 &&  @area[x][y+hitarea_idx][z] == FULL_VAL) then
+                if (y+hitarea_idx <= @height-1 &&  @area[x][y+hitarea_idx][z] == FULL_VAL && nobashi_zumi.area[x][y+hitarea_idx][z] != SUMI_FLG) then
+                  nobashi_zumi.area[x][y+hitarea_idx][z] = SUMI_FLG
                   hitarea_len += 1
                 else
                   break;
@@ -469,7 +478,8 @@ class ExteriorArea
               hitarea_idx = 1
               hitarea_len = 1
               while true
-                if (z-hitarea_idx >= 0 &&  @area[x][y][z-hitarea_idx] == FULL_VAL) then
+                if (z-hitarea_idx >= 0 &&  @area[x][y][z-hitarea_idx] == FULL_VAL && nobashi_zumi.area[x][y][z-hitarea_idx] != SUMI_FLG) then
+                  nobashi_zumi.area[x][y][z-hitarea_idx] = SUMI_FLG
                   hitarea_len += 1
                 else
                   break;
@@ -486,7 +496,8 @@ class ExteriorArea
               hitarea_idx = 1
               hitarea_len = 1
               while true
-                if (z+hitarea_idx <= @width-1 &&  @area[x][y][z+hitarea_idx] == FULL_VAL) then
+                if (z+hitarea_idx <= @width-1 &&  @area[x][y][z+hitarea_idx] == FULL_VAL && nobashi_zumi.area[x][y][z+hitarea_idx] != SUMI_FLG) then
+                  nobashi_zumi.area[x][y][z+hitarea_idx] = SUMI_FLG
                   hitarea_len += 1
                 else
                   break;
@@ -519,6 +530,8 @@ class ExteriorArea
   #+Y -Y +Z -Z 方向に連結できるかどうか解析
   def getAnalyze03(exArea)
     ret = ExteriorArea.new(@len, @height, @width)
+    nobashi_zumi = ExteriorArea.new(@len, @height, @width)
+    
 
     for x in 0..@len-1
       for y in 0..@height-1
@@ -548,7 +561,9 @@ class ExteriorArea
             same_Y_inc = 0
             if (y+1 <= @height-1) then
               (y+1).upto(@height-1) do |iy|
-                if (ret.area[x][y][z] == @area[x][iy][z] &&
+                if nobashi_zumi.area[x][iy][z] == SUMI_FLG then
+                  break
+                elsif (ret.area[x][y][z] == @area[x][iy][z] &&
                     ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[x][iy][z])
                     ) then #同じ大きさならば連結
                   same_Y_inc += 1
@@ -569,8 +584,10 @@ class ExteriorArea
               #面a方向にも広がりを持たせる
               ret.area[x][y][z][FACE_A_IDX] += same_Y_inc
               #面a方向広がりによってまかなわれる残りの当たり判定は不要
+              nobashi_zumi.area[x][y][z] = SUMI_FLG
               (y+1).upto((y+1)+(same_Y_inc-1)) do |iy|
                 ret.area[x][iy][z] = [0,0,0,0,0,0]
+                nobashi_zumi.area[x][iy][z] = SUMI_FLG
               end
             end
 
@@ -578,7 +595,9 @@ class ExteriorArea
             same_Y_dec = 0
             if (y-1 >= 0) then
               (y-1).downto(0) do |iy|
-                if (ret.area[x][y][z] ==  @area[x][iy][z] &&
+                if nobashi_zumi.area[x][iy][z] == SUMI_FLG then
+                  break
+                elsif (ret.area[x][y][z] ==  @area[x][iy][z] &&
                     ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[x][iy][z]) ) then
                   same_Y_dec += 1
                 elsif (ret.area[x][y][z][FACE_A_IDX] == @area[x][iy][z][FACE_A_IDX] &&
@@ -597,9 +616,11 @@ class ExteriorArea
             if (same_Y_dec > 0) then
               #面d方向にも広がりを持たせる
               ret.area[x][y][z][FACE_D_IDX] += same_Y_dec
+              nobashi_zumi.area[x][y][z] = SUMI_FLG
               #面d方向広がりによってまかなわれる残りの当たり判定は不要
               (y-1).downto((y-1)-(same_Y_dec-1)) do |iy|
                 ret.area[x][iy][z] = [0,0,0,0,0,0]
+                nobashi_zumi.area[x][iy][z] = SUMI_FLG
               end
             end
 
@@ -612,7 +633,9 @@ class ExteriorArea
             same_Z_inc = 0
             if (z+1 <= @width-1) then
               (z+1).upto(@width-1) do |iz|
-                if (ret.area[x][y][z] ==  @area[x][y][iz] &&
+                if nobashi_zumi.area[x][y][iz] == SUMI_FLG then
+                  break
+                elsif (ret.area[x][y][z] ==  @area[x][y][iz] &&
                     ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[x][y][iz]) ) then
                   same_Z_inc += 1
                 elsif (ret.area[x][y][z][FACE_A_IDX] == @area[x][y][iz][FACE_A_IDX] &&
@@ -631,9 +654,11 @@ class ExteriorArea
             if (same_Z_inc > 0) then
               #面c方向にも広がりを持たせる
               ret.area[x][y][z][FACE_C_IDX] += same_Z_inc
+              nobashi_zumi.area[x][y][z] = SUMI_FLG
               #面c方向広がりによってまかなわれる残りの当たり判定は不要
               (z+1).upto((z+1)+(same_Z_inc-1)) do |iz|
                 ret.area[x][y][iz] = [0,0,0,0,0,0]
+                nobashi_zumi.area[x][y][iz] = SUMI_FLG
               end
             end
 
@@ -641,7 +666,9 @@ class ExteriorArea
             same_Z_dec = 0
             if (z-1 >= 0) then
               (z-1).downto(0) do |iz|
-                if (ret.area[x][y][z] ==  @area[x][y][iz] &&
+                if nobashi_zumi.area[x][y][iz] == SUMI_FLG then
+                  break
+                elsif (ret.area[x][y][z] ==  @area[x][y][iz] &&
                     ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[x][y][iz]) ) then
                   same_Z_dec += 1
                 elsif (ret.area[x][y][z][FACE_A_IDX] == @area[x][y][iz][FACE_A_IDX] &&
@@ -660,9 +687,11 @@ class ExteriorArea
             if (same_Z_dec > 0) then
               #面e方向にも広がりを持たせる
               ret.area[x][y][z][FACE_E_IDX] += same_Z_dec
+              nobashi_zumi.area[x][y][z] = SUMI_FLG
               #面e方向広がりによってまかなわれる残りの当たり判定は不要
               (z-1).downto((z-1)-(same_Z_dec-1)) do |iz|
                 ret.area[x][y][iz] = [0,0,0,0,0,0]
+                nobashi_zumi.area[x][y][iz] = SUMI_FLG
               end
             end
 
@@ -685,7 +714,9 @@ class ExteriorArea
 
     max_x_colliwall_num = prm_max_x_colliwall_num
     ret = ExteriorArea.new(@len, @height, @width)
-
+    nobashi_zumi = ExteriorArea.new(@len, @height, @width)
+    
+    
     (@len-1).downto(0) do |x| #お尻からループ
       for y in 0..@height-1
         for z in 0..@width-1
@@ -709,7 +740,9 @@ class ExteriorArea
             same_X_dec = 0
             if (x-1 >= 0) then
               (x-1).downto(0) do |ix|
-                if (ret.area[x][y][z] ==  @area[ix][y][z] &&
+                if nobashi_zumi.area[ix][y][z] == SUMI_FLG then
+                  break
+                elsif (ret.area[x][y][z] ==  @area[ix][y][z] &&
                     ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[ix][y][z]) ) then
                   same_X_dec += 1
                   if same_X_dec >= max_x_colliwall_num then
@@ -723,9 +756,11 @@ class ExteriorArea
             if (same_X_dec > 0) then
               #面b方向にも広がりを持たせる
               ret.area[x][y][z][FACE_B_IDX] += same_X_dec
+              nobashi_zumi.area[x][y][z] = SUMI_FLG
               #面b方向広がりによってまかなわれる残りの当たり判定は不要
               (x-1).downto((x-1)-(same_X_dec-1)) do |ix|
                 ret.area[ix][y][z] = [0,0,0,0,0,0]
+                nobashi_zumi.area[ix][y][z] = SUMI_FLG
               end
             end
 
@@ -733,7 +768,9 @@ class ExteriorArea
             same_X_inc = 0
             if (x+1 <= @len-1) then
               (x+1).upto(@len-1) do |ix|
-                if (ret.area[x][y][z] == @area[ix][y][z] &&
+                if nobashi_zumi.area[ix][y][z] == SUMI_FLG then
+                  break
+                elsif (ret.area[x][y][z] == @area[ix][y][z] &&
                     ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[ix][y][z])) then
                   same_X_inc += 1
                   if same_X_inc >= max_x_colliwall_num then
@@ -747,9 +784,11 @@ class ExteriorArea
             if (same_X_inc > 0) then
               #面f方向にも広がりを持たせる
               ret.area[x][y][z][FACE_F_IDX] += same_X_inc
+              nobashi_zumi.area[x][y][z] = SUMI_FLG
               #面f方向広がりによってまかなわれる残りの当たり判定は不要
               (x+1).upto((x+1)+(same_X_inc-1)) do |ix|
                 ret.area[ix][y][z] = [0,0,0,0,0,0]
+                nobashi_zumi.area[ix][y][z] = SUMI_FLG
               end
             end
 

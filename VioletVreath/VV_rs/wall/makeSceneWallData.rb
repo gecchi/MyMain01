@@ -44,6 +44,11 @@ while true
   seq_no = no_loop[0]
   loop_num = no_loop[1]
 
+  if loop_num.nil? then
+    loop_num = "1"
+    p "Warning: Force loop 1."
+  end
+
   while line = f.gets
     if line =~ /^\s*Mesh/ then   #Xファイルの 行頭"Mesh" という文字列を頼りにしている
       break;
@@ -296,10 +301,12 @@ while true
 
   r03_exArea = r02_exArea.getAnalyze03(exArea)
   r03_2_exArea = r03_exArea.getAnalyze03(exArea) #Z方向連結を行うためもう一回getAnalyze03
-  #r03_2_exArea.dump02
+
+  #  #r03_2_exArea.dump02
+  
   r04_exArea = r03_2_exArea.getAnalyze04(max_x_colliwall_num, exArea)
 
-
+  
   #データ出力開始
   outputfiles[outputfile_index] = seq_no.to_s + "." + xfile +".dat"
   fw = File.open(outputfiles[outputfile_index],'w')
