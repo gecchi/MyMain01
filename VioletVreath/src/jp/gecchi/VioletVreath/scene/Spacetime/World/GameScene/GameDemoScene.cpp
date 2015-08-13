@@ -131,7 +131,7 @@ void GameDemoScene::processBehavior() {
             if (pProg->hasJustChanged()) {
                 _TRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to PROG_FINISH)");
             }
-            if (pProg->hasArrivedAt(600)) {
+            if (pProg->hasArrivedAt(60*60*6)) {
                 _TRACE_("GameDemoScene::processBehavior() throwEventUpperTree(EVENT_GAMEDEMOSCENE_FINISH)");
                 throwEventUpperTree(EVENT_GAMEDEMOSCENE_FINISH); //終わったイベント発動
             }

@@ -333,7 +333,15 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
 
     if (prm_no == EVENT_ALL_MY_SHIP_WAS_DESTROYED) {
         _TRACE_("GameScene::onCatchEvent(EVENT_ALL_MY_SHIP_WAS_DESTROYED)");
-        pProg->changeWithSceneCrossfading(PROG_GAME_OVER); //ゲームオーバーへ
+        if (pProg->get() == PROG_DEMO) {
+            //もし万が一でもシーン中の前記消滅ならば
+            //デモシーン終了
+            _TRACE_("GameScene::onCatchEvent(EVENT_GAMEDEMOSCENE_FINISH)");
+            pProg->changeWithSceneFadeoutFadein(PROG_INIT,120,120); //最初へ
+            getBGMer()->fadeout_stop();
+        } else {
+            pProg->changeWithSceneCrossfading(PROG_GAME_OVER); //ゲームオーバーへ
+        }
     } else if (prm_no == EVENT_GAMEOVERSCENE_FINISH) {
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMEOVERSCENE_FINISH)");
         pProg->change(PROG_FINISH);
