@@ -334,8 +334,7 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_ALL_MY_SHIP_WAS_DESTROYED) {
         _TRACE_("GameScene::onCatchEvent(EVENT_ALL_MY_SHIP_WAS_DESTROYED)");
         if (pProg->get() == PROG_DEMO) {
-            //もし万が一でもシーン中の前記消滅ならば
-            //デモシーン終了
+            //もし万が一でもシーン中の全機消滅ならば、デモシーン終了
             _TRACE_("GameScene::onCatchEvent(EVENT_GAMEDEMOSCENE_FINISH)");
             pProg->changeWithSceneFadeoutFadein(PROG_INIT,120,120); //最初へ
             getBGMer()->fadeout_stop();
