@@ -173,37 +173,37 @@ void GgafDxGeometricActor::processSettlementBehavior() {
     const dxcoord fX = _fX;
     const dxcoord fY = _fY;
     const dxcoord fZ = _fZ;
-    const GgafDxCamera* const pCam = P_GOD->getSpacetime()->getCamera();
-    const D3DXPLANE& plnTop = pCam->_plnTop;
-    _dest_from_vppln_top    = plnTop.a * fX +
-                              plnTop.b * fY +
-                              plnTop.c * fZ +
-                              plnTop.d;
-    const D3DXPLANE& plnBottom = pCam->_plnBottom;
-    _dest_from_vppln_bottom = plnBottom.a * fX +
-                              plnBottom.b * fY +
-                              plnBottom.c * fZ +
-                              plnBottom.d;
-    const D3DXPLANE& plnLeft = pCam->_plnLeft;
-    _dest_from_vppln_left   = plnLeft.a * fX +
-                              plnLeft.b * fY +
-                              plnLeft.c * fZ +
-                              plnLeft.d;
-    const D3DXPLANE& plnRight = pCam->_plnRight;
-    _dest_from_vppln_right  = plnRight.a * fX +
-                              plnRight.b * fY +
-                              plnRight.c * fZ +
-                              plnRight.d;
-    const D3DXPLANE& plnInfront = pCam->_plnInfront;
-    _dest_from_vppln_infront  = plnInfront.a * fX +
-                              plnInfront.b * fY +
-                              plnInfront.c * fZ +
-                              plnInfront.d;
-   const D3DXPLANE& plnBack = pCam->_plnBack;
-    _dest_from_vppln_back   = plnBack.a * fX +
-                              plnBack.b * fY +
-                              plnBack.c * fZ +
-                              plnBack.d;
+    GgafDxCamera* pCam = P_GOD->getSpacetime()->getCamera();
+    D3DXPLANE& plnTop = pCam->_plnTop;
+    _dest_from_vppln_top     = plnTop.a * fX +
+                               plnTop.b * fY +
+                               plnTop.c * fZ +
+                               plnTop.d;
+    D3DXPLANE& plnBottom = pCam->_plnBottom;
+    _dest_from_vppln_bottom  = plnBottom.a * fX +
+                               plnBottom.b * fY +
+                               plnBottom.c * fZ +
+                               plnBottom.d;
+    D3DXPLANE& plnLeft = pCam->_plnLeft;
+    _dest_from_vppln_left    = plnLeft.a * fX +
+                               plnLeft.b * fY +
+                               plnLeft.c * fZ +
+                               plnLeft.d;
+    D3DXPLANE& plnRight = pCam->_plnRight;
+    _dest_from_vppln_right   = plnRight.a * fX +
+                               plnRight.b * fY +
+                               plnRight.c * fZ +
+                               plnRight.d;
+    D3DXPLANE& plnInfront = pCam->_plnInfront;
+    _dest_from_vppln_infront = plnInfront.a * fX +
+                               plnInfront.b * fY +
+                               plnInfront.c * fZ +
+                               plnInfront.d;
+   D3DXPLANE& plnBack = pCam->_plnBack;
+    _dest_from_vppln_back    = plnBack.a * fX +
+                               plnBack.b * fY +
+                               plnBack.c * fZ +
+                               plnBack.d;
     _offscreen_kind = -1;
 
     //”ª•ª–Ø“o˜^

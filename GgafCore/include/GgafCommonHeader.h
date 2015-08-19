@@ -310,7 +310,7 @@
 
 
 /** アクターの種類 */
-typedef unsigned int  actorkind;
+typedef uint32_t actorkind;
 /** フレーム(アプリケーション時間) */
 typedef uint32_t frame;
 #define MAX_FRAME (0xffffffff)
