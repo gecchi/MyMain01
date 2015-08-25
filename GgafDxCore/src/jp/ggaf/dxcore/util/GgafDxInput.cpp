@@ -2,6 +2,7 @@
 
 #include "jp/ggaf/dxcore/GgafDxGod.h"
 
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 

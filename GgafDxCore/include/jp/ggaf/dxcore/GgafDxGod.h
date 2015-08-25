@@ -193,10 +193,10 @@ public:
     RECT _aRect_ViewScreen[2];
     /** [r] Present領域、[0]:１画面目、[1]:２画面目 (ピクセル) */
     RECT _aRect_Present[2];
-    /** [r] １画面目の _aRect_HarfRenderTargetBuffer[] の序数 0 or 1 */
-    int _primary;
-    /** [r] ２画面目の _aRect_HarfRenderTargetBuffer[] の序数 0 or 1 */
-    int _secondary;
+    /** [r] １画面目アダプタ番号、 _aRect_HarfRenderTargetBuffer[] の序数 0 ～ */
+    int _primary_adapter_no;
+    /** [r] ２画面目アダプタ番号、 _aRect_HarfRenderTargetBuffer[] の序数 0 ～ */
+    int _secondary_adapter_no;
     /** [r] フルスクリーン時２画面目の左上X座標 */
     pixcoord _secondary_screen_x;
     /** [r] フルスクリーン時２画面目の左上Y座標 */

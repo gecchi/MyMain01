@@ -60,6 +60,10 @@ public:
     static bool VIEW_AS_RENDER_TARGET_BUFFER_SIZE;
     /** [r/w] 表示領域サイズ可変時、表示領域アスペクト比をゲームバッファの縦横比で固定にするかどうか(true=固定/false=固定にしない) */
     static bool FIXED_GAME_VIEW_ASPECT;
+    /** [r/w] ２画面フルスクリーンモード時、１画面目のデイスプレイ番号(0～) */
+    static int PRIMARY_ADAPTER_NO;
+    /** [r/w] ２画面フルスクリーンモード時、２画面目のデイスプレイ番号(0～) */
+    static int SECONDARY_ADAPTER_NO;
     /** [r/w] ２画面モード時、１画面目と２画面目を入れ替えるかどうか */
     static bool SWAP_GAME_VIEW;
     /** [r/w] １画面モード時かつゲーム表示領域アスペクト比を固定時、表示領域場所を指定(場所＝テンキーの数値) */

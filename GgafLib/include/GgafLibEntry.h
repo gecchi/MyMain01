@@ -65,41 +65,44 @@ void GgafLibWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLi
 void GgafLibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     switch (message) {
         case WM_SIZE:
-            if (!PROPERTY::FULL_SCREEN) {
-                GgafDxCore::GgafDxGod::_adjustGameScreen = true;
-                GgafDxCore::GgafDxGod::_pHWnd_adjustScreen = hWnd;
+            if (GgafDxCore::GgafDxGod::_pHWndPrimary) {
+                if (!PROPERTY::FULL_SCREEN) {
+                    GgafDxCore::GgafDxGod::_adjustGameScreen = true;
+                    GgafDxCore::GgafDxGod::_pHWnd_adjustScreen = hWnd;
+                }
             }
             break;
         case WM_SETFOCUS:
-            HRESULT hr;
-            // マウス強調レベル設定
-            if (GgafDxCore::GgafDxInput::_pMouseInputDevice) {
-                hr = GgafDxCore::GgafDxInput::_pMouseInputDevice->SetCooperativeLevel(hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
-                if (hr != D3D_OK) {
-                    _TRACE_("GgafLibWndProc() _pHWndSecondaryマウスのSetCooperativeLevelに失敗しました");
+            if (GgafDxCore::GgafDxGod::_pHWndPrimary) {
+                HRESULT hr;
+                // マウス強調レベル設定
+                if (GgafDxCore::GgafDxInput::_pMouseInputDevice) {
+                    hr = GgafDxCore::GgafDxInput::_pMouseInputDevice->SetCooperativeLevel(hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
+                    if (hr != D3D_OK) {
+                        _TRACE_("GgafLibWndProc() _pHWndSecondaryマウスのSetCooperativeLevelに失敗しました");
+                    }
                 }
-            }
-                // キーボード強調レベル設定
-            if (GgafDxCore::GgafDxInput::_pKeyboardInputDevice) {
-                hr = GgafDxCore::GgafDxInput::_pKeyboardInputDevice->SetCooperativeLevel(hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
-                if (hr != D3D_OK) {
-                    MessageBox(hWnd, "GgafLibWndProc() キーボードのSetCooperativeLevelに失敗しました",
-                               "ERROR", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST);
+                    // キーボード強調レベル設定
+                if (GgafDxCore::GgafDxInput::_pKeyboardInputDevice) {
+                    hr = GgafDxCore::GgafDxInput::_pKeyboardInputDevice->SetCooperativeLevel(hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
+                    if (hr != D3D_OK) {
+                        MessageBox(hWnd, "GgafLibWndProc() キーボードのSetCooperativeLevelに失敗しました",
+                                   "ERROR", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST);
+                    }
                 }
-            }
-            if (GgafDxCore::GgafDxInput::_pJoystickInputDevice) {
-                // ゲームスティック協調レベルを設定する
-                hr = GgafDxCore::GgafDxInput::_pJoystickInputDevice->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE );
-                if (hr != D3D_OK) {
-                    _TRACE_("GgafLibWndProc() ジョイスティックSetCooperativeLevelに失敗しました");
+                if (GgafDxCore::GgafDxInput::_pJoystickInputDevice) {
+                    // ゲームスティック協調レベルを設定する
+                    hr = GgafDxCore::GgafDxInput::_pJoystickInputDevice->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE );
+                    if (hr != D3D_OK) {
+                        _TRACE_("GgafLibWndProc() ジョイスティックSetCooperativeLevelに失敗しました");
+                        // ゲームスティックデバイスの初期化を試みる
+                        GgafDxCore::GgafDxInput::initJoyStick();
+                    }
+                } else {
                     // ゲームスティックデバイスの初期化を試みる
                     GgafDxCore::GgafDxInput::initJoyStick();
                 }
-            } else {
-                // ゲームスティックデバイスの初期化を試みる
-                GgafDxCore::GgafDxInput::initJoyStick();
             }
-
             break;
         case WM_SYSCOMMAND:
             if(wParam == SC_CLOSE){
