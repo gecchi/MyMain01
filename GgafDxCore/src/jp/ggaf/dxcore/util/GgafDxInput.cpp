@@ -93,15 +93,6 @@ HRESULT GgafDxInput::initMouse() {
         return hr;
     }
 
-//    if (GgafDxGod::_pHWndSecondary) {
-//        // マウス強調レベル設定
-//        hr = GgafDxInput::_pMouseInputDevice->SetCooperativeLevel(GgafDxGod::_pHWndSecondary, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
-//        if (hr != D3D_OK) {
-//            MessageBox(GgafDxGod::_pHWndPrimary, "GgafDxInput::initDx9Input() _pHWndSecondaryマウスのSetCooperativeLevelに失敗しました"),
-//                       "ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
-//            return hr;
-//        }
-//    }
     // マウス軸モードを設定
     DIPROPDWORD dipropword_m;
     dipropword_m.diph.dwSize = sizeof(dipropword_m);

@@ -83,8 +83,16 @@ GgafDxGod::GgafDxGod() : GgafGod() {
     _secondary_screen_y = 0;
 
     _can_wddm = true;//とりあえず
-    _primary_adapter_no = PROPERTY::PRIMARY_ADAPTER_NO;
-    _secondary_adapter_no = PROPERTY::SECONDARY_ADAPTER_NO;
+
+
+    if (PROPERTY::FULL_SCREEN && PROPERTY::DUAL_VIEW) {
+        _primary_adapter_no = PROPERTY::PRIMARY_ADAPTER_NO;
+        _secondary_adapter_no = PROPERTY::SECONDARY_ADAPTER_NO;
+    } else {
+        _primary_adapter_no = 0;
+        _secondary_adapter_no = 1;
+    }
+
     if (PROPERTY::SWAP_GAME_VIEW) {
         int wk = _primary_adapter_no;
         _primary_adapter_no = _secondary_adapter_no;
@@ -1216,13 +1224,12 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
         std::cout << "can't CreateWindow " << std::endl;
     }
     //Windowハンドルを個別指定
+    for (int adapter_no = 1; adapter_no < _num_adapter; adapter_no++) {
+        _paPresetPrm[adapter_no].hDeviceWindow = _pHWndSecondary;
+    }
     _paPresetPrm[_primary_adapter_no].hDeviceWindow = _pHWndPrimary;
     _paPresetPrm[_secondary_adapter_no].hDeviceWindow = _pHWndSecondary;
-    for (int adapter_no = 1; adapter_no < _num_adapter; adapter_no++) {
-        if (adapter_no != _primary_adapter_no && adapter_no != _secondary_adapter_no) {
-            _paPresetPrm[adapter_no].hDeviceWindow = _pHWndSecondary; //なんでも良い？
-        }
-    }
+
     //ウィンドウモード時、クライアント領域を所望の大きさにするため、
     //タイトルバー、リサイズボーダーの厚さを考慮し再設定。
     if (!PROPERTY::FULL_SCREEN) {
@@ -1314,26 +1321,54 @@ HRESULT GgafDxGod::initDevice() {
 //
 //#endif
     // <------------------------------------------------ NVIDIA PerfHUD 用 end
+
+    for (int n = 0; n < _num_adapter; n++) {
+        _TRACE_("_paPresetPrm["<<n<<"].BackBufferWidth            = "<<_paPresetPrm[n].BackBufferWidth            );
+        _TRACE_("_paPresetPrm["<<n<<"].BackBufferHeight           = "<<_paPresetPrm[n].BackBufferHeight           );
+        _TRACE_("_paPresetPrm["<<n<<"].BackBufferFormat           = "<<_paPresetPrm[n].BackBufferFormat           );
+        _TRACE_("_paPresetPrm["<<n<<"].BackBufferCount            = "<<_paPresetPrm[n].BackBufferCount            );
+        _TRACE_("_paPresetPrm["<<n<<"].MultiSampleType            = "<<_paPresetPrm[n].MultiSampleType            );
+        _TRACE_("_paPresetPrm["<<n<<"].MultiSampleQuality         = "<<_paPresetPrm[n].MultiSampleQuality         );
+        _TRACE_("_paPresetPrm["<<n<<"].SwapEffect                 = "<<_paPresetPrm[n].SwapEffect                 );
+        _TRACE_("_paPresetPrm["<<n<<"].hDeviceWindow              = "<<_paPresetPrm[n].hDeviceWindow              );
+        _TRACE_("_paPresetPrm["<<n<<"].Windowed                   = "<<_paPresetPrm[n].Windowed                   );
+        _TRACE_("_paPresetPrm["<<n<<"].EnableAutoDepthStencil     = "<<_paPresetPrm[n].EnableAutoDepthStencil     );
+        _TRACE_("_paPresetPrm["<<n<<"].AutoDepthStencilFormat     = "<<_paPresetPrm[n].AutoDepthStencilFormat     );
+        _TRACE_("_paPresetPrm["<<n<<"].Flags                      = "<<_paPresetPrm[n].Flags                      );
+        _TRACE_("_paPresetPrm["<<n<<"].FullScreen_RefreshRateInHz = "<<_paPresetPrm[n].FullScreen_RefreshRateInHz );
+        _TRACE_("_paPresetPrm["<<n<<"].PresentationInterval       = "<<_paPresetPrm[n].PresentationInterval       );
+
+        _TRACE_("_paDisplayMode["<<n<<"].Size             = "<<_paDisplayMode[n].Size            );
+        _TRACE_("_paDisplayMode["<<n<<"].Width            = "<<_paDisplayMode[n].Width           );
+        _TRACE_("_paDisplayMode["<<n<<"].Height           = "<<_paDisplayMode[n].Height          );
+        _TRACE_("_paDisplayMode["<<n<<"].RefreshRate      = "<<_paDisplayMode[n].RefreshRate     );
+        _TRACE_("_paDisplayMode["<<n<<"].Format           = "<<_paDisplayMode[n].Format          );
+        _TRACE_("_paDisplayMode["<<n<<"].ScanLineOrdering = "<<_paDisplayMode[n].ScanLineOrdering);
+    }
+    _TRACE_("GgafDxGod::_pHWndPrimary="<<GgafDxGod::_pHWndPrimary);
+    _TRACE_("GgafDxGod::_pHWndSecondary="<<GgafDxGod::_pHWndSecondary);
+    _TRACE_("_primary_adapter_no="<<_primary_adapter_no);
+    _TRACE_("_secondary_adapter_no="<<_secondary_adapter_no);
     HRESULT hr;
     if (PROPERTY::FULL_SCREEN && PROPERTY::DUAL_VIEW) {
         //＜フルスクリーン かつ デュアルビュー の場合＞
         //デバイス作成を試み GgafDxGod::_pID3DDevice9 へ設定する。
         //ハードウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。HAL(pure vp)
-        hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDxGod::_pHWndPrimary,
+        hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, _paPresetPrm[0].hDeviceWindow,
                              D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE | D3DCREATE_ADAPTERGROUP_DEVICE,
                              _paPresetPrm, _paDisplayMode);
         if (hr != D3D_OK) {
             _TRACE_("マルチヘッドD3DCREATE_HARDWARE_VERTEXPROCESSING : "<<GgafDxCriticalException::getHresultMsg(hr));
 
             //ソフトウェアによる頂点処理、ハードウェアによるラスタライズを行うデバイス作成を試みる。HAL(soft vp)
-            hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDxGod::_pHWndPrimary,
+            hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, _paPresetPrm[0].hDeviceWindow,
                                  D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE | D3DCREATE_ADAPTERGROUP_DEVICE,
                                  _paPresetPrm, _paDisplayMode);
             if (hr != D3D_OK) {
                 _TRACE_("マルチヘッドD3DCREATE_HARDWARE_VERTEXPROCESSING : "<<GgafDxCriticalException::getHresultMsg(hr));
 
                 //ソフトウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。REF
-                hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, GgafDxGod::_pHWndPrimary,
+                hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, _paPresetPrm[0].hDeviceWindow,
                                      D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE | D3DCREATE_ADAPTERGROUP_DEVICE,
                                      _paPresetPrm, _paDisplayMode);
                 if (hr != D3D_OK) {
@@ -1804,6 +1839,7 @@ HRESULT GgafDxGod::restoreFullScreenRenderTarget() {
                      HWND_TOPMOST,
                      _secondary_screen_x, _secondary_screen_y, 0, 0,
                      SWP_SHOWWINDOW | SWP_NOSIZE );
+
         //↑これを行なっておかないと、初回起動時、２画面目の領域をクリックした際、
         //再びフルスクリーンが解除されてしまう。
         //１画面目はフルスクリーンになっても、Windowの左上が(0,0)のためズレないので、
@@ -2023,7 +2059,7 @@ void GgafDxGod::presentSpacetimeVisualize() {
         //for(int i = 0; i < 300; i++) {
         while (true) {
             if (_can_wddm) {
-                hr = ((IDirect3DDevice9Ex*)GgafDxGod::_pID3DDevice9)->CheckDeviceState(_pHWndPrimary);
+                hr = ((IDirect3DDevice9Ex*)GgafDxGod::_pID3DDevice9)->CheckDeviceState(_paPresetPrm[_primary_adapter_no].hDeviceWindow);
                 if (hr == D3DERR_DEVICELOST || hr == S_PRESENT_OCCLUDED) {
                     return;
                 } else {
