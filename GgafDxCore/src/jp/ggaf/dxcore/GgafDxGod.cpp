@@ -79,11 +79,7 @@ GgafDxGod::GgafDxGod() : GgafGod() {
     _apSwapChain[SECONDARY_VIEW] = nullptr;
     _apBackBuffer[SECONDARY_VIEW] = nullptr;
 
-    _secondary_screen_x = 0;
-    _secondary_screen_y = 0;
-
     _can_wddm = true;//とりあえず
-
 
     if (PROPERTY::FULL_SCREEN && PROPERTY::DUAL_VIEW) {
         _primary_adapter_no = PROPERTY::PRIMARY_ADAPTER_NO;
@@ -93,7 +89,7 @@ GgafDxGod::GgafDxGod() : GgafGod() {
         _secondary_adapter_no = 1;
     }
 
-    if (PROPERTY::SWAP_GAME_VIEW) {
+    if (PROPERTY::SWAP_GAME_VIEW && PROPERTY::DUAL_VIEW) {
         int wk = _primary_adapter_no;
         _primary_adapter_no = _secondary_adapter_no;
         _secondary_adapter_no = wk;
@@ -173,7 +169,7 @@ void GgafDxGod::chengeViewAspect(bool prm_b) {
 }
 int GgafDxGod::checkAppropriateDisplaySize(GgafDxGod::RezoInfo* prm_paRezos, int prm_rezo_num,
                                            UINT prm_width, UINT prm_height) {
-    _TRACE_("checkAppropriateDisplaySize() 所望、"<<prm_width<<"x"<<prm_height);
+    _TRACE_("checkAppropriateDisplaySize() 所望解像度、"<<prm_width<<"x"<<prm_height);
 
     for (int n = 0; n < prm_rezo_num; n++) {
         if (prm_width == prm_paRezos[n].width && prm_height == prm_paRezos[n].height) {
@@ -271,13 +267,26 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
 
     _num_adapter = caps.NumberOfAdaptersInGroup;   //使えるアダプタの数取得
     _TRACE_("_num_adapter = "<< _num_adapter);
-    if (PROPERTY::FULL_SCREEN && PROPERTY::DUAL_VIEW && _num_adapter < 2) {
-        _TRACE_("＜警告＞２画面フルスクリーン設定ですが、マルチモニタを検出できません。強制的に１画面で起動します");
-        PROPERTY::DUAL_VIEW = false;
-        PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH_BK  = PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH;
-        PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT_BK = PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
-        PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH     = PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH;
-        PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT    = PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
+    if (PROPERTY::FULL_SCREEN && PROPERTY::DUAL_VIEW) {
+        if (_num_adapter < 2) {
+            _TRACE_("＜警告＞２画面フルスクリーン設定ですが、マルチモニタを検出できません。強制的に１画面フルスクリーンで起動します");
+            MessageBox(GgafDxGod::_pHWndPrimary,
+                       "＜警告＞２画面フルスクリーン設定ですが、マルチモニタを検出できません。\n強制的に１画面フルスクリーンで起動します", 
+                       "WARNING", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST);
+            _primary_adapter_no = 0;
+            _secondary_adapter_no = 1;
+            PROPERTY::DUAL_VIEW = false;
+            PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH_BK  = PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH;
+            PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT_BK = PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
+            PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH     = PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH;
+            PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT    = PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
+        } else {
+            if (_num_adapter < PROPERTY::PRIMARY_ADAPTER_NO+1 || _num_adapter < PROPERTY::SECONDARY_ADAPTER_NO+1) {
+                throwGgafCriticalException("範囲外のディスプレイアダプタ番号を指定しています。アダプタ番号は 0～"<<_num_adapter-1<<" が有効です。\n"<<
+                                           "PRIMARY_ADAPTER_NO="<<PROPERTY::PRIMARY_ADAPTER_NO<<", "
+                                           "SECONDARY_ADAPTER_NO="<<PROPERTY::SECONDARY_ADAPTER_NO );
+            }
+        }
     }
 
     _paPresetPrm = NEW D3DPRESENT_PARAMETERS[_num_adapter > 2 ? _num_adapter : 2];
@@ -326,7 +335,6 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
 
             _paPresetPrm[_primary_adapter_no].EnableAutoDepthStencil = TRUE; //Z バッファの自動作成
         }
-
 
 //        //デスプレイモードの取得
 //        D3DDISPLAYMODE structD3DDisplayMode0; //結果が格納される構造体
@@ -377,6 +385,7 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
 
     if(PROPERTY::DUAL_VIEW) {
         //マルチサンプルの数
+        _paPresetPrm[_primary_adapter_no].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
         //マルチサンプルの品質レベル
         _paPresetPrm[_primary_adapter_no].MultiSampleQuality = qualityLevels - (qualityLevels > 0 ? 1 : 0);
         //マルチサンプルの数
@@ -442,24 +451,27 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
     _paDisplayMode[_secondary_adapter_no].RefreshRate = _paPresetPrm[_secondary_adapter_no].FullScreen_RefreshRateInHz;
     _paDisplayMode[_secondary_adapter_no].ScanLineOrdering = D3DSCANLINEORDERING_PROGRESSIVE;
 
-    //フルスクリーン時３画面目以降のパラメータを２画面のパラメータのコピーで作成
+    //フルスクリーン時３画面目以降のパラメータを１画面のパラメータのコピーで作成
     for (int i = 0; i < _num_adapter; i++) {
         if (i != _primary_adapter_no && i != _secondary_adapter_no) {
-            _paPresetPrm[i] = _paPresetPrm[_secondary_adapter_no];
-            _paDisplayMode[i] = _paDisplayMode[_secondary_adapter_no];
+            _paPresetPrm[i] = _paPresetPrm[_primary_adapter_no];
+            _paDisplayMode[i] = _paDisplayMode[_primary_adapter_no];
         }
     }
 
+    //アダプタ情報格納
     _paAvailableAdapter = NEW Adapter[_num_adapter];
     for (int adapter_no = 0; adapter_no < _num_adapter; adapter_no++) {
+        _paAvailableAdapter[adapter_no].hMonitor = GgafDxGod::_pID3D9->GetAdapterMonitor(adapter_no);
         int mode_num = GgafDxGod::_pID3D9->GetAdapterModeCount(adapter_no, D3DFMT_X8R8G8B8);
-        _paAvailableAdapter[adapter_no].set(mode_num);
+        _paAvailableAdapter[adapter_no].setModeNum(mode_num);
         D3DDISPLAYMODE* paMode = _paAvailableAdapter[adapter_no].paModes;
         for (int n = 0; n < mode_num; n++) {
             GgafDxGod::_pID3D9->EnumAdapterModes(adapter_no, D3DFMT_X8R8G8B8, n, &(paMode[n]));
         }
     }
 
+    //解像度情報格納
     _paAdapterRezos = NEW AdapterRezos[_num_adapter];
     for (int adapter_no = 0; adapter_no < _num_adapter; adapter_no++) {
         std::vector<UINT> vecWidth;
@@ -512,7 +524,7 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
             if (PROPERTY::DUAL_VIEW) {
                 //２画面フルスクリーン時
                 if (adapter_no == _primary_adapter_no) {
-                    //１画面目
+                    //ゲーム画面１画面目
                     int n = checkAppropriateDisplaySize(
                                 paRezos, rezo_num,
                                 (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH,
@@ -522,8 +534,9 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                     PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT = (pixcoord)(paRezos[n].height);
                     _paPresetPrm[_primary_adapter_no].BackBufferWidth  = PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH;
                     _paPresetPrm[_primary_adapter_no].BackBufferHeight = PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
+                    _TRACE_("ゲーム画面１画面目(adapter_no="<<adapter_no<<")は、"<<paRezos[n].width<<"x"<<paRezos[n].height<<" に設定");
                 } else if (adapter_no == _secondary_adapter_no) {
-                    //２画面目
+                    //ゲーム画面２画面目
                     int n = checkAppropriateDisplaySize(
                                 paRezos, rezo_num,
                                 (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH,
@@ -533,23 +546,13 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                     PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT = (pixcoord)(paRezos[n].height);
                     _paPresetPrm[_secondary_adapter_no].BackBufferWidth  = PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH;
                     _paPresetPrm[_secondary_adapter_no].BackBufferHeight = PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT;
+                    _TRACE_("ゲーム画面２画面目(adapter_no="<<adapter_no<<")は、"<<paRezos[n].width<<"x"<<paRezos[n].height<<" に設定");
                 } else {
-                    //メモ：３画面目以降１画面目・２画面目の解像度以外の無難な解像度を探してそれに設定。
-                    //これは getSecondaryMoniterPixcoordCallback() において
-                    //２画面目の左上隅座標を取得（デバイスロスト時必要）するために、
-                    //プライマリでなく、かつ３画面目以降でない→２画面目だ。
-                    //という判定するために解像度で判定している箇所があるため。
-                    //TODO:スクリーン番号を正確に取得する方法が、色々調べて悩んだけどわからなかった。ので苦肉の策・・・。
-                    for (int n = 0; n < rezo_num; n++) {
-                        if ((paRezos[n].width == (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH && paRezos[n].height == (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT) ||
-                            (paRezos[n].width == (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH && paRezos[n].height == (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT)    ) {
-                            //１画面目か２画面目と同じなので避ける
-                        } else {
-                            _TRACE_(adapter_no+1 << "画面目は、適当に "<<paRezos[n].width<<"x"<<paRezos[n].height<<" に設定");
-                            _paPresetPrm[adapter_no].BackBufferWidth  = paRezos[n].width;
-                            _paPresetPrm[adapter_no].BackBufferHeight = paRezos[n].height;
-                            break;
-                        }
+                    //メモ：ゲーム画面３画面目以降１画面目・２画面目の解像度以外の無難な解像度を探してそれに設定。
+                    if (rezo_num > 0) {
+                        _paPresetPrm[adapter_no].BackBufferWidth  = paRezos[0].width;
+                        _paPresetPrm[adapter_no].BackBufferHeight = paRezos[0].height;
+                        _TRACE_("adapter_no="<<adapter_no << "の画面は、適当に "<<paRezos[0].width<<"x"<<paRezos[0].height<<" に設定");
                     }
                 }
 
@@ -1225,7 +1228,7 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
     }
     //Windowハンドルを個別指定
     for (int adapter_no = 1; adapter_no < _num_adapter; adapter_no++) {
-        _paPresetPrm[adapter_no].hDeviceWindow = _pHWndSecondary;
+        _paPresetPrm[adapter_no].hDeviceWindow = _pHWndPrimary;
     }
     _paPresetPrm[_primary_adapter_no].hDeviceWindow = _pHWndPrimary;
     _paPresetPrm[_secondary_adapter_no].hDeviceWindow = _pHWndSecondary;
@@ -1468,38 +1471,28 @@ HRESULT GgafDxGod::initDevice() {
     return D3D_OK;
 }
 
-
-//２画面目の左上座標を調べる
-BOOL CALLBACK GgafDxGod::getSecondaryMoniterPixcoordCallback(HMONITOR hMonitor,
-                                                             HDC hdcMonitor,
-                                                             LPRECT lprcMonitor,
-                                                             LPARAM dwData) {
+BOOL CALLBACK GgafDxGod::updateMoniterPixcoordCallback(HMONITOR hMonitor,
+                                                       HDC hdcMonitor,
+                                                       LPRECT lprcMonitor,
+                                                       LPARAM dwData) {
     //３画面目以降の解像度は、１画面目・２画面目の解像度以外の無難な解像度に設定されていることが前提
     GgafDxGod* pGod = (GgafDxGod*)dwData;
     MONITORINFOEX moniter_info;
     moniter_info.cbSize = sizeof(MONITORINFOEX);
     GetMonitorInfo(hMonitor, &moniter_info);
-    if (moniter_info.dwFlags != MONITORINFOF_PRIMARY) {
-        //プライマリモニタでは無い
-        if (moniter_info.rcMonitor.right - moniter_info.rcMonitor.left == PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH &&
-            moniter_info.rcMonitor.bottom - moniter_info.rcMonitor.top == PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT
-        ) {
-            //プライマリモニタでは無い、かつ２画面目の解像度に一致。
-            //よって２画面目と見なす(正攻法でないなぁ・・・)
 
-            //２画面目の左上座標を上書き保存
-            pGod->_secondary_screen_x = moniter_info.rcMonitor.left;
-            pGod->_secondary_screen_y = moniter_info.rcMonitor.top;
-            return FALSE; //列挙を中止
-        } else {
-            //プライマリモニタでは無い、かつ２画面目の解像度に不一致。
-            //多分ここには来ない
-            return TRUE; //列挙を続行
+    for (int adapter_no = 0; adapter_no < pGod->_num_adapter; adapter_no++) {
+        Adapter& adpt = pGod->_paAvailableAdapter[adapter_no];
+        if (adpt.hMonitor == hMonitor) {
+            adpt.full_screen_x = moniter_info.rcMonitor.left;
+            adpt.full_screen_y = moniter_info.rcMonitor.top;
+            _TRACE_("GgafDxGod::updateMoniterPixcoordCallback "<<
+                    " adapter_no="<<adapter_no<<
+                    " hMonitor="<<adpt.hMonitor<<
+                    " ("<<adpt.full_screen_x<<","<<adpt.full_screen_y<<")");
         }
-    } else {
-        //プライマリモニタだった
-        return TRUE; //列挙を続行
     }
+    return TRUE; //列挙を続行
 }
 
 HRESULT GgafDxGod::createDx9Device(UINT adapter,
@@ -1766,12 +1759,12 @@ HRESULT GgafDxGod::restoreFullScreenRenderTarget() {
     returnWhenFailed(hr, D3D_OK,  "クリア色(_color_border)の塗りつぶしよる、画面クリアに失敗しました。");
 
     //アダプタに関連付けられたスワップチェーンを取得してバックバッファ取得
-    hr = GgafDxGod::_pID3DDevice9->GetSwapChain( 0, &_apSwapChain[PRIMARY_VIEW] );
+    hr = GgafDxGod::_pID3DDevice9->GetSwapChain( _primary_adapter_no, &_apSwapChain[PRIMARY_VIEW] );
     returnWhenFailed(hr, D3D_OK, "スワップチェイン取得に失敗しました。");
     hr = _apSwapChain[PRIMARY_VIEW]->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_apBackBuffer[PRIMARY_VIEW] );
     returnWhenFailed(hr, D3D_OK, "スワップチェインから、ターゲットのバックバッファ取得に失敗しました。");
     if (PROPERTY::DUAL_VIEW) {
-        hr = GgafDxGod::_pID3DDevice9->GetSwapChain( 1, &_apSwapChain[SECONDARY_VIEW] );
+        hr = GgafDxGod::_pID3DDevice9->GetSwapChain( _secondary_adapter_no, &_apSwapChain[SECONDARY_VIEW] );
         returnWhenFailed(hr, D3D_OK, "２画面目のスワップチェイン取得に失敗しました。\nマルチディスプレイ環境に問題発生しました。");
         hr = _apSwapChain[SECONDARY_VIEW]->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_apBackBuffer[SECONDARY_VIEW] );
         returnWhenFailed(hr, D3D_OK, "２画面目のスワップチェインから、ターゲットのバックバッファ取得に失敗しました。");
@@ -1781,21 +1774,21 @@ HRESULT GgafDxGod::restoreFullScreenRenderTarget() {
     if (PROPERTY::DUAL_VIEW) {
         hr = GgafDxGod::_pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW],
-                _apBackBuffer[PRIMARY_VIEW]      , &_aRect_ViewScreen[PRIMARY_VIEW],
+                _apBackBuffer[PRIMARY_VIEW], &_aRect_ViewScreen[PRIMARY_VIEW],
                 D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目、背景色塗に失敗しました。(1)\n"<<
                                      "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[PRIMARY_VIEW]);
 
         hr = GgafDxGod::_pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW],
-                _apBackBuffer[SECONDARY_VIEW]      , &_aRect_ViewScreen[SECONDARY_VIEW],
+                _apBackBuffer[SECONDARY_VIEW], &_aRect_ViewScreen[SECONDARY_VIEW],
                 D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 2画面目、背景色塗に失敗しました。(1)\n"<<
-                                      "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[PRIMARY_VIEW]);
+                                     "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[PRIMARY_VIEW]);
     } else {
         hr = GgafDxGod::_pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_rectRenderTargetBuffer,
-                _apBackBuffer[PRIMARY_VIEW]      , &_aRect_ViewScreen[PRIMARY_VIEW],
+                _apBackBuffer[PRIMARY_VIEW], &_aRect_ViewScreen[PRIMARY_VIEW],
                 D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN 背景色塗に失敗しました。(1)");
     }
@@ -1806,21 +1799,21 @@ HRESULT GgafDxGod::restoreFullScreenRenderTarget() {
     if (PROPERTY::DUAL_VIEW) {
         hr = GgafDxGod::_pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW],
-                _apBackBuffer[PRIMARY_VIEW]      , &_aRect_ViewScreen[PRIMARY_VIEW],
+                _apBackBuffer[PRIMARY_VIEW], &_aRect_ViewScreen[PRIMARY_VIEW],
                 D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目、背景色塗に失敗しました。(2)\n"<<
                                      "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[PRIMARY_VIEW]);
 
         hr = GgafDxGod::_pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW],
-                _apBackBuffer[SECONDARY_VIEW]      , &_aRect_ViewScreen[SECONDARY_VIEW],
+                _apBackBuffer[SECONDARY_VIEW], &_aRect_ViewScreen[SECONDARY_VIEW],
                 D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 2画面目、背景色塗に失敗しました。(2)\n"<<
-                                      "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[PRIMARY_VIEW]);
+                                     "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[PRIMARY_VIEW]);
     } else {
         hr = GgafDxGod::_pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_rectRenderTargetBuffer,
-                _apBackBuffer[PRIMARY_VIEW]      , &_aRect_ViewScreen[PRIMARY_VIEW],
+                _apBackBuffer[PRIMARY_VIEW], &_aRect_ViewScreen[PRIMARY_VIEW],
                 D3DTEXF_NONE
                 );
         checkDxException(hr, D3D_OK, "FULL_SCREEN 背景色塗に失敗しました。(2)");
@@ -1828,40 +1821,32 @@ HRESULT GgafDxGod::restoreFullScreenRenderTarget() {
     //↑無駄な感じだが、VISTAとXPの２画面目フルスクリーンモード時
     //  両対応させるのはこのようなコードしかないという結論。
 
-
+    //フルスクリーンのウィンドウ位置を補正
+    EnumDisplayMonitors(nullptr, nullptr, GgafDxGod::updateMoniterPixcoordCallback, (LPARAM)this);
+    //１画面目
+    pixcoord primary_full_screen_x = _paAvailableAdapter[_primary_adapter_no].full_screen_x;
+    pixcoord primary_full_screen_y = _paAvailableAdapter[_primary_adapter_no].full_screen_y;
+    _TRACE_("ゲーム画面１画面目(adapter_no="<<_primary_adapter_no<<")の左上座標("<<primary_full_screen_x<<","<<primary_full_screen_y<<")");
+    ShowWindow(_pHWndPrimary, SW_SHOWNORMAL);
+    UpdateWindow(_pHWndPrimary);
+    SetWindowPos(_pHWndPrimary,
+                 HWND_TOPMOST,
+                 primary_full_screen_x, primary_full_screen_y, 0, 0,
+                 SWP_NOSIZE);
     if (PROPERTY::DUAL_VIEW) {
-        //２画面目のウィンドウ位置を補正
-        EnumDisplayMonitors(nullptr, nullptr, GgafDxGod::getSecondaryMoniterPixcoordCallback, (LPARAM)this);
-        _TRACE_("２画面目の座標("<<_secondary_screen_x<<","<<_secondary_screen_y<<")");
+        //２画面目
+        pixcoord secondary_full_screen_x = _paAvailableAdapter[_secondary_adapter_no].full_screen_x;
+        pixcoord secondary_full_screen_y = _paAvailableAdapter[_secondary_adapter_no].full_screen_y;
+        _TRACE_("ゲーム画面２画面目(adapter_no="<<_secondary_adapter_no<<")の左上座標("<<secondary_full_screen_x<<","<<secondary_full_screen_y<<")");
         ShowWindow(_pHWndSecondary, SW_SHOWNORMAL);
         UpdateWindow(_pHWndSecondary);
         SetWindowPos(_pHWndSecondary,
                      HWND_TOPMOST,
-                     _secondary_screen_x, _secondary_screen_y, 0, 0,
-                     SWP_SHOWWINDOW | SWP_NOSIZE );
-
-        //↑これを行なっておかないと、初回起動時、２画面目の領域をクリックした際、
-        //再びフルスクリーンが解除されてしまう。
-        //１画面目はフルスクリーンになっても、Windowの左上が(0,0)のためズレないので、
-        //SetWindowPosはたぶん不要。しかし念のために同様の処理を行う。
-        ShowWindow(_pHWndPrimary, SW_SHOWNORMAL);
-        UpdateWindow(_pHWndPrimary);
-        SetWindowPos(_pHWndPrimary,
-                     HWND_TOPMOST,
-                     0, 0, 0, 0,
-                     SWP_SHOWWINDOW | SWP_NOSIZE);
-    } else {
-        ShowWindow(_pHWndPrimary, SW_SHOWNORMAL);
-        UpdateWindow(_pHWndPrimary);
-        SetWindowPos(_pHWndPrimary,
-                     HWND_TOPMOST,
-                     0, 0, 0, 0,
-                     SWP_SHOWWINDOW | SWP_NOSIZE);
+                     secondary_full_screen_x, secondary_full_screen_y, 0, 0,
+                     SWP_NOSIZE );
     }
-
     return D3D_OK;
 }
-
 
 
 HRESULT GgafDxGod::releaseFullScreenRenderTarget() {
@@ -1947,13 +1932,13 @@ void GgafDxGod::presentSpacetimeVisualize() {
                 //画面０バックバッファを画面１バックバッファへコピーする
                 hr = GgafDxGod::_pID3DDevice9->StretchRect(
                         _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW],
-                        _apBackBuffer[PRIMARY_VIEW]      , &_aRect_Present[PRIMARY_VIEW],
+                        _apBackBuffer[PRIMARY_VIEW], &_aRect_Present[PRIMARY_VIEW],
                         D3DTEXF_LINEAR); //TODO:D3DTEXF_LINEARをオプション指定にするか？
                 checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目 StretchRect() に失敗しました。\n_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[PRIMARY_VIEW]);
 
                 hr = GgafDxGod::_pID3DDevice9->StretchRect(
                         _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW],
-                        _apBackBuffer[SECONDARY_VIEW]      , &_aRect_Present[SECONDARY_VIEW],
+                        _apBackBuffer[SECONDARY_VIEW], &_aRect_Present[SECONDARY_VIEW],
                         D3DTEXF_LINEAR);
                 checkDxException(hr, D3D_OK, "StretchRect() に失敗しました。");
 

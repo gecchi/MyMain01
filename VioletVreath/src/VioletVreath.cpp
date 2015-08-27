@@ -175,8 +175,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                                     0,       //DWORD dwCreationFlags,                     // 作成のフラグ
                                     NULL,    //LPVOID lpEnvironment,                      // 新しい環境ブロック
                                     NULL,    //LPCTSTR lpCurrentDirectory,                // カレントディレクトリの名前
-                                    &si, //LPSTARTUPINFO lpStartupInfo,               // スタートアップ情報
-                                    &pi  //LPPROCESS_INFORMATION lpProcessInformation // プロセス情報
+                                    &si,     //LPSTARTUPINFO lpStartupInfo,               // スタートアップ情報
+                                    &pi      //LPPROCESS_INFORMATION lpProcessInformation // プロセス情報
                         );
                         if (r == 0) {
                             MessageBox(nullptr, "Cannot Reboot! \n すみません、手動で再起動してください。","orz", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
@@ -188,7 +188,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                 DispatchMessage(&msg);
             } else {
                 god.be(); //be() で、この世が動く
-
             }
         }
     } catch (GgafCore::GgafException& e) {

@@ -85,27 +85,31 @@ private:
     void positionPresentRect(int prm_pos, RECT& inout_rectPresent, pixcoord prm_screen_width, pixcoord prm_screen_height);
 
     /**
-     * マルチディスプレイ、フルスクリーンモード時、
-     * GgafDxGodのメンバーの _secondary_screen_x, _secondary_screen_y に
-     * ２画面目の左上座標を保持させるためだけの、
+     * マルチディスプレイフルスクリーンモード時の左上座標を調べる。
      * EnumDisplayMonitorsによるコールバック関数。
      */
-    static BOOL CALLBACK getSecondaryMoniterPixcoordCallback(HMONITOR hMonitor,
-                                                             HDC      hdcMonitor,
-                                                             LPRECT   lprcMonitor,
-                                                             LPARAM   dwData    );
+    static BOOL CALLBACK updateMoniterPixcoordCallback(HMONITOR hMonitor,
+                                                       HDC      hdcMonitor,
+                                                       LPRECT   lprcMonitor,
+                                                       LPARAM   dwData    );
 public:
 
     ///////////////////////////////////////////////////////////
     class Adapter {
     public:
         int mode_num;
+        HMONITOR hMonitor;
+        pixcoord full_screen_x;
+        pixcoord full_screen_y;
         D3DDISPLAYMODE* paModes;
         Adapter() {
             mode_num = 0;
+            full_screen_x = 0;
+            full_screen_y = 0;
+            hMonitor = nullptr;
             paModes = nullptr;
         }
-        void set(int prm_mode_num) {
+        void setModeNum(int prm_mode_num) {
             mode_num = prm_mode_num;
             paModes = NEW D3DDISPLAYMODE[mode_num];
         }
@@ -197,10 +201,6 @@ public:
     int _primary_adapter_no;
     /** [r] ２画面目アダプタ番号、 _aRect_HarfRenderTargetBuffer[] の序数 0 ～ */
     int _secondary_adapter_no;
-    /** [r] フルスクリーン時２画面目の左上X座標 */
-    pixcoord _secondary_screen_x;
-    /** [r] フルスクリーン時２画面目の左上Y座標 */
-    pixcoord _secondary_screen_y;
 
 public:
     /**
