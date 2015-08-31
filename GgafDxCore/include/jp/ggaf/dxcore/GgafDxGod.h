@@ -44,6 +44,8 @@ private:
     /** 今回採用されているデバイス（WDDM使用時のみ必要） */
     D3DDISPLAYMODEEX* _paDisplayMode;
 
+    HWND* _paHWnd;
+
 private:
     /**
      * WDDMかどうか判定し、デバイスを作成 .
@@ -85,7 +87,8 @@ private:
     void positionPresentRect(int prm_pos, RECT& inout_rectPresent, pixcoord prm_screen_width, pixcoord prm_screen_height);
 
     /**
-     * マルチディスプレイフルスクリーンモード時の左上座標を調べる。
+     * マルチディスプレイフルスクリーンモード時、モニタ座標情報を取得する .
+     * 結果は _paAvailableAdapter[] メンバーに格納される。
      * EnumDisplayMonitorsによるコールバック関数。
      */
     static BOOL CALLBACK updateMoniterPixcoordCallback(HMONITOR hMonitor,
@@ -99,13 +102,10 @@ public:
     public:
         int mode_num;
         HMONITOR hMonitor;
-        pixcoord full_screen_x;
-        pixcoord full_screen_y;
+        RECT rcMonitor;
         D3DDISPLAYMODE* paModes;
         Adapter() {
             mode_num = 0;
-            full_screen_x = 0;
-            full_screen_y = 0;
             hMonitor = nullptr;
             paModes = nullptr;
         }
