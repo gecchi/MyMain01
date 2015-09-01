@@ -1856,8 +1856,8 @@ HRESULT GgafDxGod::restoreFullScreenRenderTarget() {
     EnumDisplayMonitors(nullptr, nullptr, GgafDxGod::updateMoniterPixcoordCallback, (LPARAM)this);
 
     for (int n = 0; n < _num_adapter; n++) {
-        pixcoord full_screen_x = _paAvailableAdapter[n].rcMonitor.top;
-        pixcoord full_screen_y = _paAvailableAdapter[n].rcMonitor.left;
+        pixcoord full_screen_x = _paAvailableAdapter[n].rcMonitor.left;
+        pixcoord full_screen_y = _paAvailableAdapter[n].rcMonitor.top;
         _TRACE_("‰æ–Ê adapter_no="<<n<<" ‚Ì¶ãÀ•W("<<full_screen_x<<","<<full_screen_y<<")");
         ShowWindow(_paHWnd[n], SW_SHOWNORMAL);
         UpdateWindow(_paHWnd[n]);
