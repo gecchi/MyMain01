@@ -17,6 +17,9 @@ bool GgafDxProperties::PRJ_2D_MODE = false;
 pixcoord GgafDxProperties::RENDER_TARGET_BUFFER_WIDTH = 1600;
 pixcoord GgafDxProperties::RENDER_TARGET_BUFFER_HEIGHT = 450;
 
+pixcoord GgafDxProperties::VIEW_SOURCE_BUFFER_WIDTH = GgafDxProperties::RENDER_TARGET_BUFFER_WIDTH;
+pixcoord GgafDxProperties::VIEW_SOURCE_BUFFER_HEIGHT = GgafDxProperties::RENDER_TARGET_BUFFER_HEIGHT;
+
 pixcoord GgafDxProperties::SINGLE_VIEW_WINDOW_WIDTH = 1600;
 pixcoord GgafDxProperties::SINGLE_VIEW_WINDOW_HEIGHT = 450;
 pixcoord GgafDxProperties::DUAL_VIEW_WINDOW1_WIDTH = 800;
@@ -142,6 +145,16 @@ void GgafDxProperties::load(std::string prm_properties_filename) {
     }
     if (GgafProperties::isExistKey("RENDER_TARGET_BUFFER_HEIGHT")) {
         GgafDxProperties::RENDER_TARGET_BUFFER_HEIGHT = getInt("RENDER_TARGET_BUFFER_HEIGHT");
+    }
+    if (GgafProperties::isExistKey("VIEW_SOURCE_BUFFER_WIDTH")) {
+        GgafDxProperties::VIEW_SOURCE_BUFFER_WIDTH = getInt("VIEW_SOURCE_BUFFER_WIDTH");
+    } else {
+        GgafDxProperties::VIEW_SOURCE_BUFFER_WIDTH = GgafDxProperties::RENDER_TARGET_BUFFER_WIDTH;
+    }
+    if (GgafProperties::isExistKey("VIEW_SOURCE_BUFFER_HEIGHT")) {
+        GgafDxProperties::VIEW_SOURCE_BUFFER_HEIGHT = getInt("VIEW_SOURCE_BUFFER_HEIGHT");
+    } else {
+        GgafDxProperties::VIEW_SOURCE_BUFFER_HEIGHT = GgafDxProperties::RENDER_TARGET_BUFFER_HEIGHT;
     }
     if (GgafProperties::isExistKey("SINGLE_VIEW_WINDOW_WIDTH")) {
         GgafDxProperties::SINGLE_VIEW_WINDOW_WIDTH = getInt("SINGLE_VIEW_WINDOW_WIDTH");
@@ -386,6 +399,8 @@ void GgafDxProperties::load(std::string prm_properties_filename) {
     _TRACE_("GgafDxProperties::PRJ_2D_MODE=" << GgafDxProperties::PRJ_2D_MODE);
     _TRACE_("GgafDxProperties::RENDER_TARGET_BUFFER_WIDTH=" << GgafDxProperties::RENDER_TARGET_BUFFER_WIDTH);
     _TRACE_("GgafDxProperties::RENDER_TARGET_BUFFER_HEIGHT=" << GgafDxProperties::RENDER_TARGET_BUFFER_HEIGHT);
+    _TRACE_("GgafDxProperties::VIEW_SOURCE_BUFFER_WIDTH=" << GgafDxProperties::VIEW_SOURCE_BUFFER_WIDTH);
+    _TRACE_("GgafDxProperties::VIEW_SOURCE_BUFFER_HEIGHT=" << GgafDxProperties::VIEW_SOURCE_BUFFER_HEIGHT);
     _TRACE_("GgafDxProperties::SINGLE_VIEW_WINDOW_WIDTH=" << GgafDxProperties::SINGLE_VIEW_WINDOW_WIDTH);
     _TRACE_("GgafDxProperties::SINGLE_VIEW_WINDOW_HEIGHT=" << GgafDxProperties::SINGLE_VIEW_WINDOW_HEIGHT);
     _TRACE_("GgafDxProperties::DUAL_VIEW_WINDOW1_WIDTH=" << GgafDxProperties::DUAL_VIEW_WINDOW1_WIDTH);

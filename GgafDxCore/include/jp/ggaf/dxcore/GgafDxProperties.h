@@ -32,6 +32,11 @@ public:
     static pixcoord RENDER_TARGET_BUFFER_WIDTH;
     /** [r] 描画先サーフェイス高さのピクセルサイズ */
     static pixcoord RENDER_TARGET_BUFFER_HEIGHT;
+    /** [r] 描画先サーフェイス（RENDER_TARGET_BUFFER）の中から、実際にゲームに表示する画面領域幅 */
+    static pixcoord VIEW_SOURCE_BUFFER_WIDTH;
+    /** [r] 描画先サーフェイス（RENDER_TARGET_BUFFER）の中から、実際にゲームに表示する画面領域高 */
+    static pixcoord VIEW_SOURCE_BUFFER_HEIGHT;
+
     /** [r] １画面ウィンドウモードだった場合のウィンドウの初期幅サイズ */
     static pixcoord SINGLE_VIEW_WINDOW_WIDTH;
     /** [r] １画面ウィンドウモードだった場合のウィンドウの初期高さサイズ */

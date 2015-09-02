@@ -606,10 +606,10 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
     _rectGameBuffer.right  = _rectGameBuffer.left + PROPERTY::GAME_BUFFER_WIDTH;
     _rectGameBuffer.bottom = _rectGameBuffer.top  + PROPERTY::GAME_BUFFER_HEIGHT;
 
-    _rectRenderTargetBuffer.left   = 0;
-    _rectRenderTargetBuffer.top    = 0;
-    _rectRenderTargetBuffer.right  = _rectRenderTargetBuffer.left + PROPERTY::RENDER_TARGET_BUFFER_WIDTH;
-    _rectRenderTargetBuffer.bottom = _rectRenderTargetBuffer.top  + PROPERTY::RENDER_TARGET_BUFFER_HEIGHT;
+    _rectRenderTargetBuffer.left   = (PROPERTY::RENDER_TARGET_BUFFER_WIDTH / 2.0) - (PROPERTY::VIEW_SOURCE_BUFFER_WIDTH / 2.0);
+    _rectRenderTargetBuffer.top    = (PROPERTY::RENDER_TARGET_BUFFER_HEIGHT / 2.0) - (PROPERTY::VIEW_SOURCE_BUFFER_HEIGHT / 2.0);
+    _rectRenderTargetBuffer.right  = _rectRenderTargetBuffer.left + PROPERTY::VIEW_SOURCE_BUFFER_WIDTH;
+    _rectRenderTargetBuffer.bottom = _rectRenderTargetBuffer.top  + PROPERTY::VIEW_SOURCE_BUFFER_HEIGHT;
 
     _aRect_HarfGameBuffer[PRIMARY_VIEW].left   = 0;
     _aRect_HarfGameBuffer[PRIMARY_VIEW].top    = 0;
@@ -621,15 +621,15 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
     _aRect_HarfGameBuffer[SECONDARY_VIEW].right  = _aRect_HarfGameBuffer[SECONDARY_VIEW].left + PROPERTY::GAME_BUFFER_WIDTH/2;
     _aRect_HarfGameBuffer[SECONDARY_VIEW].bottom = _aRect_HarfGameBuffer[SECONDARY_VIEW].top  + PROPERTY::GAME_BUFFER_HEIGHT;
 
-    _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].left   = 0;
-    _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].top    = 0;
-    _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].right  = _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].left  + PROPERTY::RENDER_TARGET_BUFFER_WIDTH/2;
-    _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].bottom = _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].top + PROPERTY::RENDER_TARGET_BUFFER_HEIGHT;
+    _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].left   = (PROPERTY::RENDER_TARGET_BUFFER_WIDTH - PROPERTY::VIEW_SOURCE_BUFFER_WIDTH) / 2;
+    _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].top    = (PROPERTY::RENDER_TARGET_BUFFER_HEIGHT / 2.0) - (PROPERTY::VIEW_SOURCE_BUFFER_HEIGHT / 2.0);
+    _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].right  = _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].left + PROPERTY::VIEW_SOURCE_BUFFER_WIDTH/2;
+    _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].bottom = _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].top  + PROPERTY::VIEW_SOURCE_BUFFER_HEIGHT;
 
     _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].left   = PROPERTY::RENDER_TARGET_BUFFER_WIDTH/2;
-    _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].top    = 0;
-    _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].right  = _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].left + PROPERTY::RENDER_TARGET_BUFFER_WIDTH/2;
-    _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].bottom = _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].top  + PROPERTY::RENDER_TARGET_BUFFER_HEIGHT;
+    _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].top    = (PROPERTY::RENDER_TARGET_BUFFER_HEIGHT / 2.0) - (PROPERTY::VIEW_SOURCE_BUFFER_HEIGHT / 2.0);
+    _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].right  = _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].left + PROPERTY::VIEW_SOURCE_BUFFER_WIDTH/2;
+    _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].bottom = _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].top  + PROPERTY::VIEW_SOURCE_BUFFER_HEIGHT;
 
     //表示領域設定
     if (PROPERTY::FULL_SCREEN) {
@@ -943,8 +943,8 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
             } else {
                 //「ウィンドウモード・２窓使用・RENDER_TARGET_BUFFERサイズ無視」
                 if (PROPERTY::FIXED_GAME_VIEW_ASPECT) {
-                    LONG fix_width = PROPERTY::GAME_BUFFER_WIDTH*PROPERTY::VIEW1_WIDTH_RATIO/2;
-                    LONG fix_height = PROPERTY::GAME_BUFFER_HEIGHT*PROPERTY::VIEW1_HEIGHT_RATIO;
+                    LONG fix_width = PROPERTY::VIEW_SOURCE_BUFFER_WIDTH*PROPERTY::VIEW1_WIDTH_RATIO/2;
+                    LONG fix_height = PROPERTY::VIEW_SOURCE_BUFFER_HEIGHT*PROPERTY::VIEW1_HEIGHT_RATIO;
                     //「ウィンドウモード・２窓使用・縦横比FIX・ピクセルストレッチ」の１窓目フロントバッファ描画領域
                     if (1.0f * PROPERTY::DUAL_VIEW_WINDOW1_WIDTH / PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT > 1.0f * fix_width / fix_height) {
                         //より横長になってしまっている
@@ -962,8 +962,8 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                         _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
                     }
 
-                    fix_width = PROPERTY::GAME_BUFFER_WIDTH*PROPERTY::VIEW2_WIDTH_RATIO/2;
-                    fix_height = PROPERTY::GAME_BUFFER_HEIGHT*PROPERTY::VIEW2_HEIGHT_RATIO;
+                    fix_width = PROPERTY::VIEW_SOURCE_BUFFER_WIDTH*PROPERTY::VIEW2_WIDTH_RATIO/2;
+                    fix_height = PROPERTY::VIEW_SOURCE_BUFFER_HEIGHT*PROPERTY::VIEW2_HEIGHT_RATIO;
                     //「ウィンドウモード・２窓使用・縦横比FIX」の２窓目フロントバッファ描画領域
                     if (1.0f * PROPERTY::DUAL_VIEW_WINDOW2_WIDTH / PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT > 1.0f * fix_width / fix_height) {
                         //より横長になってしまっている
@@ -1043,8 +1043,8 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
             } else {
                 //「ウィンドウモード・１窓使用・RENDER_TARGET_BUFFERサイズ無視」
                 if (PROPERTY::FIXED_GAME_VIEW_ASPECT) {
-                    LONG fix_width = PROPERTY::GAME_BUFFER_WIDTH*PROPERTY::VIEW2_WIDTH_RATIO;
-                    LONG fix_height = PROPERTY::GAME_BUFFER_HEIGHT*PROPERTY::VIEW2_HEIGHT_RATIO;
+                    LONG fix_width = PROPERTY::VIEW_SOURCE_BUFFER_WIDTH*PROPERTY::VIEW2_WIDTH_RATIO;
+                    LONG fix_height = PROPERTY::VIEW_SOURCE_BUFFER_HEIGHT*PROPERTY::VIEW2_HEIGHT_RATIO;
                     //「ウィンドウモード・１窓使用・縦横比FIX」のフロントバッファ描画領域
                     if (1.0f * PROPERTY::SINGLE_VIEW_WINDOW_WIDTH / PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT > 1.0f * fix_width / fix_height) {
                         //より横長になってしまっている
@@ -1121,7 +1121,7 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
         if (PROPERTY::DUAL_VIEW) {
             //フルスクリーンモード・２画面使用
             WNDCLASSEX wc = prm_wndclass2;
-            wc.lpszClassName = "dummy";
+            wc.lpszClassName = "dummy"; //TODO:４画面時に大丈夫か要確認
 
             for (int n = 0; n < _num_adapter; n++) {
                 if (n == _primary_adapter_no) {
@@ -1501,6 +1501,8 @@ HRESULT GgafDxGod::initDevice() {
     //フルスクリーンが解除されてしまうことが気になった。かなりの時間を費やしたが、解決方法は見つからなかった。
     //しかし、ここでウィンドウを再構築することで、なぜか問題は回避できた。
     //たぶん、正規の方法じゃない。苦肉の策・・・。
+    //2015/09/02 追記・要調査
+    //あぁ、ひょっとしたら、モニタ座標情報が、フルスクリーン前の物を取得してるからだろうか・・・
     if (_can_wddm && PROPERTY::FULL_SCREEN && PROPERTY::DUAL_VIEW) {
         hr = releaseFullScreenRenderTarget();
         hr = restoreFullScreenRenderTarget();
@@ -1702,11 +1704,11 @@ HRESULT GgafDxGod::initDx9Device() {
     // 射影変換（３Ｄ→平面）
     //D3DXMATRIX _matProj; // 射影変換行列
     //GgafDxGod::_pID3DDevice9->SetTransform(D3DTS_PROJECTION, &_matProj);
-    HRESULT hr;
+    //HRESULT hr;
     //バックバッファをウィンドウBG色でクリア
     //ここではRenderTargetはまだ、通常のバックバッファである
-    hr = GgafDxGod::_pID3DDevice9->Clear(0, nullptr, D3DCLEAR_TARGET, _color_border, 1.0f, 0);
-    returnWhenFailed(hr, D3D_OK, "背景色(_color_border)の塗りつぶしよる、画面クリアに失敗しました。");
+//    hr = GgafDxGod::_pID3DDevice9->Clear(0, nullptr, D3DCLEAR_TARGET, _color_border, 1.0f, 0);
+//    returnWhenFailed(hr, D3D_OK, "背景色(_color_border)の塗りつぶしよる、画面クリアに失敗しました。");
     return D3D_OK;
 }
 
@@ -1787,6 +1789,7 @@ HRESULT GgafDxGod::restoreFullScreenRenderTarget() {
     hr = GgafDxGod::_pID3DDevice9->Clear(0, nullptr, D3DCLEAR_TARGET, _color_border, 1.0f, 0);
     hr = GgafDxGod::_pID3DDevice9->Present(nullptr, nullptr, nullptr, nullptr);
     hr = GgafDxGod::_pID3DDevice9->Clear(0, nullptr, D3DCLEAR_TARGET, _color_border, 1.0f, 0);
+    hr = GgafDxGod::_pID3DDevice9->Present(nullptr, nullptr, nullptr, nullptr);
     returnWhenFailed(hr, D3D_OK,  "クリア色(_color_border)の塗りつぶしよる、画面クリアに失敗しました。");
 
     //アダプタに関連付けられたスワップチェーンを取得してバックバッファ取得
@@ -1849,6 +1852,8 @@ HRESULT GgafDxGod::restoreFullScreenRenderTarget() {
                 );
         checkDxException(hr, D3D_OK, "FULL_SCREEN 背景色塗に失敗しました。(2)");
     }
+    hr = GgafDxGod::_pID3DDevice9->Present(nullptr, nullptr, nullptr, nullptr);
+    returnWhenFailed(hr, D3D_OK, "Present(nullptr, nullptr, nullptr, nullptr)に失敗しました。(2)");
     //↑無駄な感じだが、VISTAとXPの２画面目フルスクリーンモード時
     //  両対応させるのはこのようなコードしかないという結論。
 
@@ -2006,10 +2011,10 @@ void GgafDxGod::presentSpacetimeVisualize() {
                     //１画面使用・ウィンドウモード
                     if (PROPERTY::FIXED_GAME_VIEW_ASPECT) {
                         //縦横比固定モード
-                        hr = GgafDxGod::_pID3DDevice9->Present(nullptr, &_aRect_Present[PRIMARY_VIEW], nullptr, nullptr);
+                        hr = GgafDxGod::_pID3DDevice9->Present(&_rectRenderTargetBuffer, &_aRect_Present[PRIMARY_VIEW], nullptr, nullptr);
                     } else {
                         //縦横ストレッチモード
-                        hr = GgafDxGod::_pID3DDevice9->Present(nullptr, nullptr, nullptr, nullptr);
+                        hr = GgafDxGod::_pID3DDevice9->Present(&_rectRenderTargetBuffer, nullptr, nullptr, nullptr);
                     }
                 }
             }
@@ -2283,15 +2288,15 @@ void GgafDxGod::adjustGameScreen(HWND prm_pHWnd) {
                     //ウィンドウモード時・アスペクト比固定
                     if (PROPERTY::DUAL_VIEW) {
                         if (prm_pHWnd == _pHWndPrimary) {
-                            fix_width  = PROPERTY::GAME_BUFFER_WIDTH * PROPERTY::VIEW1_WIDTH_RATIO / 2.0;
-                            fix_height = PROPERTY::GAME_BUFFER_HEIGHT * PROPERTY::VIEW1_HEIGHT_RATIO;
+                            fix_width  = PROPERTY::VIEW_SOURCE_BUFFER_WIDTH  * PROPERTY::VIEW1_WIDTH_RATIO / 2.0;
+                            fix_height = PROPERTY::VIEW_SOURCE_BUFFER_HEIGHT * PROPERTY::VIEW1_HEIGHT_RATIO;
                         } else {
-                            fix_width  = PROPERTY::GAME_BUFFER_WIDTH * PROPERTY::VIEW2_WIDTH_RATIO / 2.0;
-                            fix_height = PROPERTY::GAME_BUFFER_HEIGHT * PROPERTY::VIEW2_HEIGHT_RATIO;
+                            fix_width  = PROPERTY::VIEW_SOURCE_BUFFER_WIDTH  * PROPERTY::VIEW2_WIDTH_RATIO / 2.0;
+                            fix_height = PROPERTY::VIEW_SOURCE_BUFFER_HEIGHT * PROPERTY::VIEW2_HEIGHT_RATIO;
                         }
                     } else {
-                        fix_width  = PROPERTY::GAME_BUFFER_WIDTH*PROPERTY::VIEW1_WIDTH_RATIO;
-                        fix_height = PROPERTY::GAME_BUFFER_HEIGHT*PROPERTY::VIEW1_HEIGHT_RATIO;
+                        fix_width  = PROPERTY::VIEW_SOURCE_BUFFER_WIDTH  * PROPERTY::VIEW1_WIDTH_RATIO;
+                        fix_height = PROPERTY::VIEW_SOURCE_BUFFER_HEIGHT * PROPERTY::VIEW1_HEIGHT_RATIO;
                     }
 
                     if (1.0f * c_width / c_height > 1.0f * fix_width / fix_height) {
