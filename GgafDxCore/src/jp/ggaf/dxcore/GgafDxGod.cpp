@@ -101,12 +101,6 @@ GgafDxGod::GgafDxGod() : GgafGod() {
 }
 
 
-/**
- * ウィンドウのサイズを再設定 .
- * @param hWnd 再設定するウィンドウのHWND
- * @param client_width クライアント領域横幅（ピクセル）
- * @param client_height クライアント領域縦幅（ピクセル）
- */
 void GgafDxGod::resetWindowsize(HWND hWnd, pixcoord client_width, pixcoord client_height) {
     RECT wRect1, cRect1; // ウィンドウ全体の矩形、クライアント領域の矩形
     pixcoord ww1, wh1; // ウィンドウ全体の幅、高さ
@@ -644,138 +638,59 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
             _aRect_ViewScreen[SECONDARY_VIEW].right  = PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH;
             _aRect_ViewScreen[SECONDARY_VIEW].bottom = PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT;
 
-            //フルスクリーンモード・２画面使用
-            if (PROPERTY::VIEW_AS_RENDER_TARGET_BUFFER_SIZE) {
-                //「フルスクリーンモード・２画面使用・RENDER_TARGET_BUFFERサイズ表示」
-                LONG fix_width = PROPERTY::RENDER_TARGET_BUFFER_WIDTH * (1.0*PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH / PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH_BK) * PROPERTY::VIEW1_WIDTH_RATIO / 2;
-                LONG fix_height = PROPERTY::RENDER_TARGET_BUFFER_HEIGHT * (1.0*PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT / PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT_BK) * PROPERTY::VIEW1_HEIGHT_RATIO;
-                _aRect_Present[PRIMARY_VIEW].left   = (PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH / 2.0) - (fix_width / 2.0);
-                _aRect_Present[PRIMARY_VIEW].top    = (PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT / 2.0) - (fix_height / 2.0);
-                _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + fix_width ;
-                _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + fix_height;
-
-
-                //はみ出る場合_aRect_HarfRenderTargetBuffer 側を狭める
-                if (_aRect_Present[PRIMARY_VIEW].left < 0 || _aRect_Present[PRIMARY_VIEW].right > PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH) {
-                    LONG width_Present = _aRect_Present[PRIMARY_VIEW].right - _aRect_Present[PRIMARY_VIEW].left; //_aRect_
-                    double r = 1.0* PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH / width_Present;
-                    LONG width_RenderTargetBuffer = PROPERTY::RENDER_TARGET_BUFFER_WIDTH*r;
-                    _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].left = _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].right - (width_RenderTargetBuffer/2);
-                    if (_aRect_Present[PRIMARY_VIEW].left < 0) {
-                        _aRect_Present[PRIMARY_VIEW].left = 0;
-                    }
-                    if ( _aRect_Present[PRIMARY_VIEW].right > PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH) {
-                        _aRect_Present[PRIMARY_VIEW].right = PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH;
-                    }
+            //「フルスクリーンモード・２画面使用・RENDER_TARGET_BUFFERサイズ無視
+            if (PROPERTY::FIXED_GAME_VIEW_ASPECT) {
+                //「フルスクリーンモード・２画面使用・縦横比FIX」の１画面目フロントバッファ描画領域
+                LONG fix_width = PROPERTY::GAME_BUFFER_WIDTH*PROPERTY::VIEW1_WIDTH_RATIO/2;
+                LONG fix_height = PROPERTY::GAME_BUFFER_HEIGHT*PROPERTY::VIEW1_HEIGHT_RATIO;
+                if (1.0f * PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH / PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT > 1.0f * fix_width / fix_height) {
+                    //より横長になってしまっている
+                    double rate = 1.0 * PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT / fix_height; //縮小率=縦幅の比率
+                    _aRect_Present[PRIMARY_VIEW].left   = (PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH / 2.0) - (fix_width * rate / 2.0);
+                    _aRect_Present[PRIMARY_VIEW].top    = 0;
+                    _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
+                    _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
+                } else {
+                    //より縦長になってしまっている
+                    double rate = 1.0 * PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH / fix_width; //縮小率=横幅の比率
+                    _aRect_Present[PRIMARY_VIEW].left   = 0;
+                    _aRect_Present[PRIMARY_VIEW].top    = (PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT / 2.0) - (fix_height * rate / 2.0);
+                    _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
+                    _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
                 }
-                if (_aRect_Present[PRIMARY_VIEW].top < 0 || _aRect_Present[PRIMARY_VIEW].bottom > PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT) {
-                    LONG height_Present = _aRect_Present[PRIMARY_VIEW].bottom - _aRect_Present[PRIMARY_VIEW].top; //_aRect_
-                    double r = 1.0* PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT / height_Present;
-                    LONG height_RenderTargetBuffer = PROPERTY::RENDER_TARGET_BUFFER_HEIGHT*r;
-                    _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].top = (PROPERTY::RENDER_TARGET_BUFFER_HEIGHT - height_RenderTargetBuffer)/2;
-                    _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].bottom = _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].top + height_RenderTargetBuffer;
-                    if (_aRect_Present[PRIMARY_VIEW].top < 0) {
-                        _aRect_Present[PRIMARY_VIEW].top = 0;
-                    }
-                    if (_aRect_Present[PRIMARY_VIEW].bottom > PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT) {
-                        _aRect_Present[PRIMARY_VIEW].bottom = PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
-                    }
+                //「フルスクリーンモード・２画面使用・縦横比FIX」の２画面目フロントバッファ描画領域
+                fix_width = PROPERTY::GAME_BUFFER_WIDTH*PROPERTY::VIEW2_WIDTH_RATIO/2;
+                fix_height = PROPERTY::GAME_BUFFER_HEIGHT*PROPERTY::VIEW2_HEIGHT_RATIO;
+                if (1.0f * PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH / PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT > 1.0f * fix_width / fix_height) {
+                    //より横長になってしまっている
+                    double rate = 1.0 * PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT / fix_height; //縮小率=縦幅の比率
+                    _aRect_Present[SECONDARY_VIEW].left   = (PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH / 2.0) - (fix_width * rate / 2.0);
+                    _aRect_Present[SECONDARY_VIEW].top    = 0;
+                    _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + (fix_width * rate);
+                    _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + (fix_height * rate);
+                } else {
+                    //より縦長になってしまっている
+                    double rate = 1.0 * PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH / fix_width; //縮小率=横幅の比率
+                    _aRect_Present[SECONDARY_VIEW].left   = 0;
+                    _aRect_Present[SECONDARY_VIEW].top    = (PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT / 2.0) - (fix_height * rate / 2.0);
+                    _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + (fix_width * rate);
+                    _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + (fix_height * rate);
                 }
-
-
-                fix_width = PROPERTY::RENDER_TARGET_BUFFER_WIDTH * (1.0*PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH / PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH_BK) * PROPERTY::VIEW2_WIDTH_RATIO / 2;
-                fix_height = PROPERTY::RENDER_TARGET_BUFFER_HEIGHT * (1.0*PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT / PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT_BK) * PROPERTY::VIEW2_HEIGHT_RATIO;
-                _aRect_Present[SECONDARY_VIEW].left   = (PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH / 2.0) - (fix_width / 2.0);
-                _aRect_Present[SECONDARY_VIEW].top    = (PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT / 2.0) - (fix_height / 2.0);
-                _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + fix_width;
-                _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + fix_height;
-
-                //はみ出る場合_aRect_HarfRenderTargetBuffer 側を狭める
-                if (_aRect_Present[SECONDARY_VIEW].left < 0 || _aRect_Present[SECONDARY_VIEW].right > PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH) {
-                    LONG width_Present = _aRect_Present[SECONDARY_VIEW].right - _aRect_Present[SECONDARY_VIEW].left; //_aRect_
-                    double r = 1.0* PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH / width_Present;
-                    LONG width_RenderTargetBuffer = PROPERTY::RENDER_TARGET_BUFFER_WIDTH*r;
-                    _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].right = _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].left + (width_RenderTargetBuffer/2);
-                    if (_aRect_Present[SECONDARY_VIEW].left < 0) {
-                        _aRect_Present[SECONDARY_VIEW].left = 0;
-                    }
-                    if ( _aRect_Present[SECONDARY_VIEW].right > PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH) {
-                        _aRect_Present[SECONDARY_VIEW].right = PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH;
-                    }
-                }
-                if (_aRect_Present[SECONDARY_VIEW].top < 0 || _aRect_Present[SECONDARY_VIEW].bottom > PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT) {
-                    LONG height_Present = _aRect_Present[SECONDARY_VIEW].bottom - _aRect_Present[SECONDARY_VIEW].top; //_aRect_
-                    double r = 1.0* PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT / height_Present;
-                    LONG height_RenderTargetBuffer = PROPERTY::RENDER_TARGET_BUFFER_HEIGHT*r;
-                    _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].top = (PROPERTY::RENDER_TARGET_BUFFER_HEIGHT - height_RenderTargetBuffer)/2;
-                    _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].bottom = _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].top + height_RenderTargetBuffer;
-                    if (_aRect_Present[SECONDARY_VIEW].top < 0) {
-                        _aRect_Present[SECONDARY_VIEW].top = 0;
-                    }
-                    if (_aRect_Present[SECONDARY_VIEW].bottom > PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT) {
-                        _aRect_Present[SECONDARY_VIEW].bottom = PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT;
-                    }
-                }
-
                 positionPresentRect(PROPERTY::DUAL_VIEW_DRAW_POSITION1, _aRect_Present[PRIMARY_VIEW],
                                     PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH, PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT);
                 positionPresentRect(PROPERTY::DUAL_VIEW_DRAW_POSITION2, _aRect_Present[SECONDARY_VIEW],
                                     PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH, PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT);
             } else {
-                //「フルスクリーンモード・２画面使用・RENDER_TARGET_BUFFERサイズ無視
-                if (PROPERTY::FIXED_GAME_VIEW_ASPECT) {
-                    //「フルスクリーンモード・２画面使用・縦横比FIX」の１画面目フロントバッファ描画領域
-                    LONG fix_width = PROPERTY::GAME_BUFFER_WIDTH*PROPERTY::VIEW1_WIDTH_RATIO/2;
-                    LONG fix_height = PROPERTY::GAME_BUFFER_HEIGHT*PROPERTY::VIEW1_HEIGHT_RATIO;
-                    if (1.0f * PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH / PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT > 1.0f * fix_width / fix_height) {
-                        //より横長になってしまっている
-                        double rate = 1.0 * PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT / fix_height; //縮小率=縦幅の比率
-                        _aRect_Present[PRIMARY_VIEW].left   = (PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH / 2.0) - (fix_width * rate / 2.0);
-                        _aRect_Present[PRIMARY_VIEW].top    = 0;
-                        _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
-                        _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
-                    } else {
-                        //より縦長になってしまっている
-                        double rate = 1.0 * PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH / fix_width; //縮小率=横幅の比率
-                        _aRect_Present[PRIMARY_VIEW].left   = 0;
-                        _aRect_Present[PRIMARY_VIEW].top    = (PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT / 2.0) - (fix_height * rate / 2.0);
-                        _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
-                        _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
-                    }
-                    //「フルスクリーンモード・２画面使用・縦横比FIX」の２画面目フロントバッファ描画領域
-                    fix_width = PROPERTY::GAME_BUFFER_WIDTH*PROPERTY::VIEW2_WIDTH_RATIO/2;
-                    fix_height = PROPERTY::GAME_BUFFER_HEIGHT*PROPERTY::VIEW2_HEIGHT_RATIO;
-                    if (1.0f * PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH / PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT > 1.0f * fix_width / fix_height) {
-                        //より横長になってしまっている
-                        double rate = 1.0 * PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT / fix_height; //縮小率=縦幅の比率
-                        _aRect_Present[SECONDARY_VIEW].left   = (PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH / 2.0) - (fix_width * rate / 2.0);
-                        _aRect_Present[SECONDARY_VIEW].top    = 0;
-                        _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + (fix_width * rate);
-                        _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + (fix_height * rate);
-                    } else {
-                        //より縦長になってしまっている
-                        double rate = 1.0 * PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH / fix_width; //縮小率=横幅の比率
-                        _aRect_Present[SECONDARY_VIEW].left   = 0;
-                        _aRect_Present[SECONDARY_VIEW].top    = (PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT / 2.0) - (fix_height * rate / 2.0);
-                        _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + (fix_width * rate);
-                        _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + (fix_height * rate);
-                    }
-                    positionPresentRect(PROPERTY::DUAL_VIEW_DRAW_POSITION1, _aRect_Present[PRIMARY_VIEW],
-                                        PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH, PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT);
-                    positionPresentRect(PROPERTY::DUAL_VIEW_DRAW_POSITION2, _aRect_Present[SECONDARY_VIEW],
-                                        PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH, PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT);
-                } else {
-                    //「フルスクリーンモード・２画面使用・縦横比ストレッチ」の１画面目フロントバッファ描画領域
-                    _aRect_Present[PRIMARY_VIEW].left   = 0;
-                    _aRect_Present[PRIMARY_VIEW].top    = 0;
-                    _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH;
-                    _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
-                    //「フルスクリーンモード・２画面使用・縦横比ストレッチ」の２画面目フロントバッファ描画領域
-                    _aRect_Present[SECONDARY_VIEW].left   = 0;
-                    _aRect_Present[SECONDARY_VIEW].top    = 0;
-                    _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH;
-                    _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT;
-                }
+                //「フルスクリーンモード・２画面使用・縦横比ストレッチ」の１画面目フロントバッファ描画領域
+                _aRect_Present[PRIMARY_VIEW].left   = 0;
+                _aRect_Present[PRIMARY_VIEW].top    = 0;
+                _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH;
+                _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
+                //「フルスクリーンモード・２画面使用・縦横比ストレッチ」の２画面目フロントバッファ描画領域
+                _aRect_Present[SECONDARY_VIEW].left   = 0;
+                _aRect_Present[SECONDARY_VIEW].top    = 0;
+                _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH;
+                _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT;
             }
         } else {
             //フルスクリーンモード・１画面使用
@@ -785,40 +700,25 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
             _aRect_ViewScreen[PRIMARY_VIEW].bottom = PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT;
             _aRect_ViewScreen[SECONDARY_VIEW] = _aRect_ViewScreen[PRIMARY_VIEW];
 
-            if (PROPERTY::VIEW_AS_RENDER_TARGET_BUFFER_SIZE) {
-                //「フルスクリーンモード・１画面使用・RENDER_TARGET_BUFFERサイズ表示」のフロントバッファ描画領域
-                LONG fix_width = PROPERTY::RENDER_TARGET_BUFFER_WIDTH * (1.0*PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH / PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH_BK) * PROPERTY::VIEW1_WIDTH_RATIO;
-                LONG fix_height = PROPERTY::RENDER_TARGET_BUFFER_HEIGHT * (1.0*PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT / PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT_BK) * PROPERTY::VIEW1_HEIGHT_RATIO;
-                _aRect_Present[PRIMARY_VIEW].left   = (PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH / 2.0) - (fix_width / 2.0);
-                _aRect_Present[PRIMARY_VIEW].top    = (PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT / 2.0) - (fix_height / 2.0);
-                _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + fix_width ;
-                _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + fix_height;
-                //left top が負の場合は _rectRenderTargetBuffer 側を狭める。
-                if (_aRect_Present[PRIMARY_VIEW].left < 0 || _aRect_Present[PRIMARY_VIEW].right > PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH) {
-                    LONG width_Present = _aRect_Present[PRIMARY_VIEW].right - _aRect_Present[PRIMARY_VIEW].left; //_aRect_
-                    double r = 1.0* PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH / width_Present;
-                    LONG width_RenderTargetBuffer = PROPERTY::RENDER_TARGET_BUFFER_WIDTH*r;
-                    _rectRenderTargetBuffer.left = (PROPERTY::RENDER_TARGET_BUFFER_WIDTH - width_RenderTargetBuffer)/2;
-                    _rectRenderTargetBuffer.right = _rectRenderTargetBuffer.left + width_RenderTargetBuffer;
-                    if (_aRect_Present[PRIMARY_VIEW].left < 0) {
-                        _aRect_Present[PRIMARY_VIEW].left = 0;
-                    }
-                    if (_aRect_Present[PRIMARY_VIEW].right > PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH) {
-                        _aRect_Present[PRIMARY_VIEW].right = PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH;
-                    }
-                }
-                if (_aRect_Present[PRIMARY_VIEW].top < 0 || _aRect_Present[PRIMARY_VIEW].bottom > PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT) {
-                    LONG height_Present = _aRect_Present[PRIMARY_VIEW].bottom - _aRect_Present[PRIMARY_VIEW].top; //_aRect_
-                    double r = 1.0* PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT / height_Present;
-                    LONG bottom_RenderTargetBuffer = PROPERTY::RENDER_TARGET_BUFFER_HEIGHT*r;
-                    _rectRenderTargetBuffer.top = (PROPERTY::RENDER_TARGET_BUFFER_HEIGHT - bottom_RenderTargetBuffer)/2;
-                    _rectRenderTargetBuffer.bottom = _rectRenderTargetBuffer.top + bottom_RenderTargetBuffer;
-                    if (_aRect_Present[PRIMARY_VIEW].top < 0) {
-                        _aRect_Present[PRIMARY_VIEW].top = 0;
-                    }
-                    if (_aRect_Present[PRIMARY_VIEW].bottom > PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT) {
-                        _aRect_Present[PRIMARY_VIEW].bottom = PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT;
-                    }
+            //「フルスクリーンモード・１画面使用・RENDER_TARGET_BUFFERサイズ無視」
+            if (PROPERTY::FIXED_GAME_VIEW_ASPECT) {
+                //「フルスクリーンモード・１画面使用・縦横比FIX」のフロントバッファ描画領域
+                LONG fix_width = PROPERTY::GAME_BUFFER_WIDTH*PROPERTY::VIEW1_WIDTH_RATIO;
+                LONG fix_height = PROPERTY::GAME_BUFFER_HEIGHT*PROPERTY::VIEW1_HEIGHT_RATIO;
+                if (1.0f * PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH / PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT > 1.0f * fix_width / fix_height) {
+                    //より横長になってしまっている
+                    double rate = 1.0 * PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT / fix_height; //縮小率=縦幅の比率
+                    _aRect_Present[PRIMARY_VIEW].left   = (PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH / 2.0) - (fix_width * rate / 2.0);
+                    _aRect_Present[PRIMARY_VIEW].top    = 0;
+                    _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
+                    _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
+                } else {
+                    //より縦長になってしまっている
+                    double rate = 1.0 * PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH / fix_width; //縮小率=横幅の比率
+                    _aRect_Present[PRIMARY_VIEW].left   = 0;
+                    _aRect_Present[PRIMARY_VIEW].top    = (PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT / 2.0) - (fix_height * rate / 2.0);
+                    _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
+                    _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
                 }
                 _aRect_Present[SECONDARY_VIEW] = _aRect_Present[PRIMARY_VIEW];
                 positionPresentRect(PROPERTY::SINGLE_VIEW_DRAW_POSITION, _aRect_Present[PRIMARY_VIEW],
@@ -826,114 +726,56 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                 positionPresentRect(PROPERTY::SINGLE_VIEW_DRAW_POSITION, _aRect_Present[SECONDARY_VIEW],
                                     PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH, PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT);
             } else {
-                //「フルスクリーンモード・１画面使用・RENDER_TARGET_BUFFERサイズ無視」
-                if (PROPERTY::FIXED_GAME_VIEW_ASPECT) {
-                    //「フルスクリーンモード・１画面使用・縦横比FIX」のフロントバッファ描画領域
-                    LONG fix_width = PROPERTY::GAME_BUFFER_WIDTH*PROPERTY::VIEW1_WIDTH_RATIO;
-                    LONG fix_height = PROPERTY::GAME_BUFFER_HEIGHT*PROPERTY::VIEW1_HEIGHT_RATIO;
-                    if (1.0f * PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH / PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT > 1.0f * fix_width / fix_height) {
-                        //より横長になってしまっている
-                        double rate = 1.0 * PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT / fix_height; //縮小率=縦幅の比率
-                        _aRect_Present[PRIMARY_VIEW].left   = (PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH / 2.0) - (fix_width * rate / 2.0);
-                        _aRect_Present[PRIMARY_VIEW].top    = 0;
-                        _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
-                        _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
-                    } else {
-                        //より縦長になってしまっている
-                        double rate = 1.0 * PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH / fix_width; //縮小率=横幅の比率
-                        _aRect_Present[PRIMARY_VIEW].left   = 0;
-                        _aRect_Present[PRIMARY_VIEW].top    = (PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT / 2.0) - (fix_height * rate / 2.0);
-                        _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
-                        _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
-                    }
-                    _aRect_Present[SECONDARY_VIEW] = _aRect_Present[PRIMARY_VIEW];
-                    positionPresentRect(PROPERTY::SINGLE_VIEW_DRAW_POSITION, _aRect_Present[PRIMARY_VIEW],
-                                        PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH, PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT);
-                    positionPresentRect(PROPERTY::SINGLE_VIEW_DRAW_POSITION, _aRect_Present[SECONDARY_VIEW],
-                                        PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH, PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT);
-                } else {
-                    //「フルスクリーンモード・１画面使用・縦横比ストレッチ」のフロントバッファ描画領域
-                    _aRect_Present[PRIMARY_VIEW].left   = 0;
-                    _aRect_Present[PRIMARY_VIEW].top    = 0;
-                    _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH;
-                    _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT;
-                    _aRect_Present[SECONDARY_VIEW] = _aRect_Present[PRIMARY_VIEW];
-                }
-
+                //「フルスクリーンモード・１画面使用・縦横比ストレッチ」のフロントバッファ描画領域
+                _aRect_Present[PRIMARY_VIEW].left   = 0;
+                _aRect_Present[PRIMARY_VIEW].top    = 0;
+                _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH;
+                _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT;
+                _aRect_Present[SECONDARY_VIEW] = _aRect_Present[PRIMARY_VIEW];
             }
+
         }
     } else {
         //ウィンドウモード
         if (PROPERTY::DUAL_VIEW) {
             //ウィンドウモード・２窓使用
-            if (PROPERTY::VIEW_AS_RENDER_TARGET_BUFFER_SIZE) {
-                //「ウィンドウモード・２窓使用・RENDER_TARGET_BUFFERサイズ表示」の１窓目フロントバッファ描画領域
-                LONG fix_width = PROPERTY::RENDER_TARGET_BUFFER_WIDTH*PROPERTY::VIEW1_WIDTH_RATIO/2;
-                LONG fix_height = PROPERTY::RENDER_TARGET_BUFFER_HEIGHT*PROPERTY::VIEW1_HEIGHT_RATIO;
-                _aRect_Present[PRIMARY_VIEW].left   = (PROPERTY::DUAL_VIEW_WINDOW1_WIDTH / 2.0) - (fix_width  / 2.0);
-                _aRect_Present[PRIMARY_VIEW].top    = (PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT / 2.0) - (fix_height / 2.0);
-                _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + fix_width ;
-                _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + fix_height;
-
-                //はみ出る場合_aRect_HarfRenderTargetBuffer 側を狭める
-                if (_aRect_Present[PRIMARY_VIEW].left < 0 || _aRect_Present[PRIMARY_VIEW].right > PROPERTY::DUAL_VIEW_WINDOW1_WIDTH) {
-                    LONG width_Present = _aRect_Present[PRIMARY_VIEW].right - _aRect_Present[PRIMARY_VIEW].left; //_aRect_
-                    double r = 1.0* PROPERTY::DUAL_VIEW_WINDOW1_WIDTH / width_Present;
-                    LONG width_RenderTargetBuffer = PROPERTY::RENDER_TARGET_BUFFER_WIDTH*r;
-                    _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].left = _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].right - (width_RenderTargetBuffer/2);
-                    if (_aRect_Present[PRIMARY_VIEW].left < 0) {
-                        _aRect_Present[PRIMARY_VIEW].left = 0;
-                    }
-                    if ( _aRect_Present[PRIMARY_VIEW].right > PROPERTY::DUAL_VIEW_WINDOW1_WIDTH) {
-                        _aRect_Present[PRIMARY_VIEW].right = PROPERTY::DUAL_VIEW_WINDOW1_WIDTH;
-                    }
-                }
-                if (_aRect_Present[PRIMARY_VIEW].top < 0 || _aRect_Present[PRIMARY_VIEW].bottom > PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT) {
-                    LONG height_Present = _aRect_Present[PRIMARY_VIEW].bottom - _aRect_Present[PRIMARY_VIEW].top; //_aRect_
-                    double r = 1.0* PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT / height_Present;
-                    LONG height_RenderTargetBuffer = PROPERTY::RENDER_TARGET_BUFFER_HEIGHT*r;
-                    _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].top = (PROPERTY::RENDER_TARGET_BUFFER_HEIGHT - height_RenderTargetBuffer)/2;
-                    _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].bottom = _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].top + height_RenderTargetBuffer;
-                    if (_aRect_Present[PRIMARY_VIEW].top < 0) {
-                        _aRect_Present[PRIMARY_VIEW].top = 0;
-                    }
-                    if (_aRect_Present[PRIMARY_VIEW].bottom > PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT) {
-                        _aRect_Present[PRIMARY_VIEW].bottom = PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT;
-                    }
+            if (PROPERTY::FIXED_GAME_VIEW_ASPECT) {
+                LONG fix_width = PROPERTY::VIEW_SOURCE_BUFFER_WIDTH*PROPERTY::VIEW1_WIDTH_RATIO/2;
+                LONG fix_height = PROPERTY::VIEW_SOURCE_BUFFER_HEIGHT*PROPERTY::VIEW1_HEIGHT_RATIO;
+                //「ウィンドウモード・２窓使用・縦横比FIX・ピクセルストレッチ」の１窓目フロントバッファ描画領域
+                if (1.0f * PROPERTY::DUAL_VIEW_WINDOW1_WIDTH / PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT > 1.0f * fix_width / fix_height) {
+                    //より横長になってしまっている
+                    double rate = 1.0 * PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT / fix_height; //縮小率=縦幅の比率
+                    _aRect_Present[PRIMARY_VIEW].left   = (PROPERTY::DUAL_VIEW_WINDOW1_WIDTH / 2.0) - (fix_width * rate / 2.0);
+                    _aRect_Present[PRIMARY_VIEW].top    = 0;
+                    _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
+                    _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
+                } else {
+                    //より縦長になってしまっている
+                    double rate = 1.0 * PROPERTY::DUAL_VIEW_WINDOW1_WIDTH / fix_width; //縮小率=横幅の比率
+                    _aRect_Present[PRIMARY_VIEW].left   = 0;
+                    _aRect_Present[PRIMARY_VIEW].top    = (PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT / 2.0) - (fix_height * rate / 2.0);
+                    _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
+                    _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
                 }
 
-                fix_width = PROPERTY::RENDER_TARGET_BUFFER_WIDTH*PROPERTY::VIEW2_WIDTH_RATIO/2;
-                fix_height = PROPERTY::RENDER_TARGET_BUFFER_HEIGHT*PROPERTY::VIEW2_HEIGHT_RATIO;
-                _aRect_Present[SECONDARY_VIEW].left   = (PROPERTY::DUAL_VIEW_WINDOW2_WIDTH / 2.0) - (fix_width / 2.0);
-                _aRect_Present[SECONDARY_VIEW].top    = (PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT / 2.0) - (fix_height / 2.0);
-                _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + fix_width ;
-                _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + fix_height;
-
-                //はみ出る場合_aRect_HarfRenderTargetBuffer 側を狭める
-                if (_aRect_Present[SECONDARY_VIEW].left < 0 || _aRect_Present[SECONDARY_VIEW].right > PROPERTY::DUAL_VIEW_WINDOW2_WIDTH) {
-                    LONG width_Present = _aRect_Present[SECONDARY_VIEW].right - _aRect_Present[SECONDARY_VIEW].left; //_aRect_
-                    double r = 1.0* PROPERTY::DUAL_VIEW_WINDOW2_WIDTH / width_Present;
-                    LONG width_RenderTargetBuffer = PROPERTY::RENDER_TARGET_BUFFER_WIDTH*r;
-                    _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].right = _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].left + (width_RenderTargetBuffer/2);
-                    if (_aRect_Present[SECONDARY_VIEW].left < 0) {
-                        _aRect_Present[SECONDARY_VIEW].left = 0;
-                    }
-                    if ( _aRect_Present[SECONDARY_VIEW].right > PROPERTY::DUAL_VIEW_WINDOW2_WIDTH) {
-                        _aRect_Present[SECONDARY_VIEW].right = PROPERTY::DUAL_VIEW_WINDOW2_WIDTH;
-                    }
-                }
-                if (_aRect_Present[SECONDARY_VIEW].top < 0 || _aRect_Present[SECONDARY_VIEW].bottom > PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT) {
-                    LONG height_Present = _aRect_Present[SECONDARY_VIEW].bottom - _aRect_Present[SECONDARY_VIEW].top; //_aRect_
-                    double r = 1.0* PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT / height_Present;
-                    LONG height_RenderTargetBuffer = PROPERTY::RENDER_TARGET_BUFFER_HEIGHT*r;
-                    _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].top = (PROPERTY::RENDER_TARGET_BUFFER_HEIGHT - height_RenderTargetBuffer)/2;
-                    _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].bottom = _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].top + height_RenderTargetBuffer;
-                    if (_aRect_Present[SECONDARY_VIEW].top < 0) {
-                        _aRect_Present[SECONDARY_VIEW].top = 0;
-                    }
-                    if (_aRect_Present[SECONDARY_VIEW].bottom > PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT) {
-                        _aRect_Present[SECONDARY_VIEW].bottom = PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT;
-                    }
+                fix_width = PROPERTY::VIEW_SOURCE_BUFFER_WIDTH*PROPERTY::VIEW2_WIDTH_RATIO/2;
+                fix_height = PROPERTY::VIEW_SOURCE_BUFFER_HEIGHT*PROPERTY::VIEW2_HEIGHT_RATIO;
+                //「ウィンドウモード・２窓使用・縦横比FIX」の２窓目フロントバッファ描画領域
+                if (1.0f * PROPERTY::DUAL_VIEW_WINDOW2_WIDTH / PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT > 1.0f * fix_width / fix_height) {
+                    //より横長になってしまっている
+                    double rate = 1.0 * PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT / fix_height; //縮小率=縦幅の比率
+                    _aRect_Present[SECONDARY_VIEW].left   = (PROPERTY::DUAL_VIEW_WINDOW2_WIDTH / 2.0) - (fix_width * rate / 2.0);
+                    _aRect_Present[SECONDARY_VIEW].top    = 0;
+                    _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + (fix_width * rate);
+                    _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + (fix_height * rate);
+                } else {
+                    //より縦長になってしまっている
+                    double rate = 1.0 * PROPERTY::DUAL_VIEW_WINDOW2_WIDTH / fix_width; //縮小率=横幅の比率
+                    _aRect_Present[SECONDARY_VIEW].left   = 0;
+                    _aRect_Present[SECONDARY_VIEW].top    = (PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT / 2.0) - (fix_height * rate / 2.0);
+                    _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + (fix_width * rate);
+                    _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + (fix_height * rate);
                 }
 
                 positionPresentRect(PROPERTY::DUAL_VIEW_DRAW_POSITION1, _aRect_Present[PRIMARY_VIEW],
@@ -941,99 +783,37 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                 positionPresentRect(PROPERTY::DUAL_VIEW_DRAW_POSITION2, _aRect_Present[SECONDARY_VIEW],
                                     PROPERTY::DUAL_VIEW_WINDOW2_WIDTH, PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT);
             } else {
-                //「ウィンドウモード・２窓使用・RENDER_TARGET_BUFFERサイズ無視」
-                if (PROPERTY::FIXED_GAME_VIEW_ASPECT) {
-                    LONG fix_width = PROPERTY::VIEW_SOURCE_BUFFER_WIDTH*PROPERTY::VIEW1_WIDTH_RATIO/2;
-                    LONG fix_height = PROPERTY::VIEW_SOURCE_BUFFER_HEIGHT*PROPERTY::VIEW1_HEIGHT_RATIO;
-                    //「ウィンドウモード・２窓使用・縦横比FIX・ピクセルストレッチ」の１窓目フロントバッファ描画領域
-                    if (1.0f * PROPERTY::DUAL_VIEW_WINDOW1_WIDTH / PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT > 1.0f * fix_width / fix_height) {
-                        //より横長になってしまっている
-                        double rate = 1.0 * PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT / fix_height; //縮小率=縦幅の比率
-                        _aRect_Present[PRIMARY_VIEW].left   = (PROPERTY::DUAL_VIEW_WINDOW1_WIDTH / 2.0) - (fix_width * rate / 2.0);
-                        _aRect_Present[PRIMARY_VIEW].top    = 0;
-                        _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
-                        _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
-                    } else {
-                        //より縦長になってしまっている
-                        double rate = 1.0 * PROPERTY::DUAL_VIEW_WINDOW1_WIDTH / fix_width; //縮小率=横幅の比率
-                        _aRect_Present[PRIMARY_VIEW].left   = 0;
-                        _aRect_Present[PRIMARY_VIEW].top    = (PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT / 2.0) - (fix_height * rate / 2.0);
-                        _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
-                        _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
-                    }
-
-                    fix_width = PROPERTY::VIEW_SOURCE_BUFFER_WIDTH*PROPERTY::VIEW2_WIDTH_RATIO/2;
-                    fix_height = PROPERTY::VIEW_SOURCE_BUFFER_HEIGHT*PROPERTY::VIEW2_HEIGHT_RATIO;
-                    //「ウィンドウモード・２窓使用・縦横比FIX」の２窓目フロントバッファ描画領域
-                    if (1.0f * PROPERTY::DUAL_VIEW_WINDOW2_WIDTH / PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT > 1.0f * fix_width / fix_height) {
-                        //より横長になってしまっている
-                        double rate = 1.0 * PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT / fix_height; //縮小率=縦幅の比率
-                        _aRect_Present[SECONDARY_VIEW].left   = (PROPERTY::DUAL_VIEW_WINDOW2_WIDTH / 2.0) - (fix_width * rate / 2.0);
-                        _aRect_Present[SECONDARY_VIEW].top    = 0;
-                        _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + (fix_width * rate);
-                        _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + (fix_height * rate);
-                    } else {
-                        //より縦長になってしまっている
-                        double rate = 1.0 * PROPERTY::DUAL_VIEW_WINDOW2_WIDTH / fix_width; //縮小率=横幅の比率
-                        _aRect_Present[SECONDARY_VIEW].left   = 0;
-                        _aRect_Present[SECONDARY_VIEW].top    = (PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT / 2.0) - (fix_height * rate / 2.0);
-                        _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + (fix_width * rate);
-                        _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + (fix_height * rate);
-                    }
-
-                    positionPresentRect(PROPERTY::DUAL_VIEW_DRAW_POSITION1, _aRect_Present[PRIMARY_VIEW],
-                                        PROPERTY::DUAL_VIEW_WINDOW1_WIDTH, PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT);
-                    positionPresentRect(PROPERTY::DUAL_VIEW_DRAW_POSITION2, _aRect_Present[SECONDARY_VIEW],
-                                        PROPERTY::DUAL_VIEW_WINDOW2_WIDTH, PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT);
-                } else {
-                    //「ウィンドウモード・２窓使用・縦横比ストレッチ」の１窓目フロントバッファ描画領域
-                    _aRect_Present[PRIMARY_VIEW].left   = 0;
-                    _aRect_Present[PRIMARY_VIEW].top    = 0;
-                    _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + PROPERTY::DUAL_VIEW_WINDOW1_WIDTH;
-                    _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT;
-                    //「ウィンドウモード・２窓使用・縦横比ストレッチ」の２窓目フロントバッファ描画領域
-                    _aRect_Present[SECONDARY_VIEW].left   = 0;
-                    _aRect_Present[SECONDARY_VIEW].top    = 0;
-                    _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + PROPERTY::DUAL_VIEW_WINDOW2_WIDTH;
-                    _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT;
-                }
+                //「ウィンドウモード・２窓使用・縦横比ストレッチ」の１窓目フロントバッファ描画領域
+                _aRect_Present[PRIMARY_VIEW].left   = 0;
+                _aRect_Present[PRIMARY_VIEW].top    = 0;
+                _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + PROPERTY::DUAL_VIEW_WINDOW1_WIDTH;
+                _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT;
+                //「ウィンドウモード・２窓使用・縦横比ストレッチ」の２窓目フロントバッファ描画領域
+                _aRect_Present[SECONDARY_VIEW].left   = 0;
+                _aRect_Present[SECONDARY_VIEW].top    = 0;
+                _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + PROPERTY::DUAL_VIEW_WINDOW2_WIDTH;
+                _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT;
             }
         } else {
             //ウィンドウモード・１窓使用
-            if (PROPERTY::VIEW_AS_RENDER_TARGET_BUFFER_SIZE) {
-                //「ウィンドウモード・１窓使用・RENDER_TARGET_BUFFERサイズ表示」のフロントバッファ描画領域
-                LONG fix_width = PROPERTY::RENDER_TARGET_BUFFER_WIDTH*PROPERTY::VIEW2_WIDTH_RATIO;
-                LONG fix_height = PROPERTY::RENDER_TARGET_BUFFER_HEIGHT*PROPERTY::VIEW2_HEIGHT_RATIO;
-                _aRect_Present[PRIMARY_VIEW].left   = (PROPERTY::SINGLE_VIEW_WINDOW_WIDTH / 2.0) - (fix_width / 2.0);
-                _aRect_Present[PRIMARY_VIEW].top    = (PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT / 2.0) - (fix_height / 2.0);
-                _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + fix_width;
-                _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + fix_height;
-                //left top が負の場合は _rectRenderTargetBuffer 側を狭める。
-                if (_aRect_Present[PRIMARY_VIEW].left < 0 || _aRect_Present[PRIMARY_VIEW].right > PROPERTY::SINGLE_VIEW_WINDOW_WIDTH) {
-                    LONG width_Present = _aRect_Present[PRIMARY_VIEW].right - _aRect_Present[PRIMARY_VIEW].left; //_aRect_
-                    double r = 1.0* PROPERTY::SINGLE_VIEW_WINDOW_WIDTH / width_Present;
-                    LONG width_RenderTargetBuffer = PROPERTY::RENDER_TARGET_BUFFER_WIDTH*r;
-                    _rectRenderTargetBuffer.left = (PROPERTY::RENDER_TARGET_BUFFER_WIDTH - width_RenderTargetBuffer)/2;
-                    _rectRenderTargetBuffer.right = _rectRenderTargetBuffer.left + width_RenderTargetBuffer;
-                    if (_aRect_Present[PRIMARY_VIEW].left < 0) {
-                        _aRect_Present[PRIMARY_VIEW].left = 0;
-                    }
-                    if (_aRect_Present[PRIMARY_VIEW].right > PROPERTY::SINGLE_VIEW_WINDOW_WIDTH) {
-                        _aRect_Present[PRIMARY_VIEW].right = PROPERTY::SINGLE_VIEW_WINDOW_WIDTH;
-                    }
-                }
-                if (_aRect_Present[PRIMARY_VIEW].top < 0 || _aRect_Present[PRIMARY_VIEW].bottom > PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT) {
-                    LONG height_Present = _aRect_Present[PRIMARY_VIEW].bottom - _aRect_Present[PRIMARY_VIEW].top; //_aRect_
-                    double r = 1.0* PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT / height_Present;
-                    LONG bottom_RenderTargetBuffer = PROPERTY::RENDER_TARGET_BUFFER_HEIGHT*r;
-                    _rectRenderTargetBuffer.top = (PROPERTY::RENDER_TARGET_BUFFER_HEIGHT - bottom_RenderTargetBuffer)/2;
-                    _rectRenderTargetBuffer.bottom = _rectRenderTargetBuffer.top + bottom_RenderTargetBuffer;
-                    if (_aRect_Present[PRIMARY_VIEW].top < 0) {
-                        _aRect_Present[PRIMARY_VIEW].top = 0;
-                    }
-                    if (_aRect_Present[PRIMARY_VIEW].bottom > PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT) {
-                        _aRect_Present[PRIMARY_VIEW].bottom = PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT;
-                    }
+            if (PROPERTY::FIXED_GAME_VIEW_ASPECT) {
+                LONG fix_width = PROPERTY::VIEW_SOURCE_BUFFER_WIDTH*PROPERTY::VIEW2_WIDTH_RATIO;
+                LONG fix_height = PROPERTY::VIEW_SOURCE_BUFFER_HEIGHT*PROPERTY::VIEW2_HEIGHT_RATIO;
+                //「ウィンドウモード・１窓使用・縦横比FIX」のフロントバッファ描画領域
+                if (1.0f * PROPERTY::SINGLE_VIEW_WINDOW_WIDTH / PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT > 1.0f * fix_width / fix_height) {
+                    //より横長になってしまっている
+                    double rate = 1.0 * PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT / fix_height; //縮小率=縦幅の比率
+                    _aRect_Present[PRIMARY_VIEW].left   = (PROPERTY::SINGLE_VIEW_WINDOW_WIDTH / 2.0) - (fix_width * rate / 2.0);
+                    _aRect_Present[PRIMARY_VIEW].top    = 0;
+                    _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
+                    _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
+                } else {
+                    //より縦長になってしまっている
+                    double rate = 1.0 * PROPERTY::SINGLE_VIEW_WINDOW_WIDTH / fix_width; //縮小率=横幅の比率
+                    _aRect_Present[PRIMARY_VIEW].left   = 0;
+                    _aRect_Present[PRIMARY_VIEW].top    = (PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT / 2.0) - (fix_height * rate / 2.0);
+                    _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
+                    _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
                 }
                 _aRect_Present[SECONDARY_VIEW] = _aRect_Present[PRIMARY_VIEW];
                 positionPresentRect(PROPERTY::SINGLE_VIEW_DRAW_POSITION, _aRect_Present[PRIMARY_VIEW],
@@ -1041,39 +821,12 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                 positionPresentRect(PROPERTY::SINGLE_VIEW_DRAW_POSITION, _aRect_Present[SECONDARY_VIEW],
                                     PROPERTY::SINGLE_VIEW_WINDOW_WIDTH, PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT);
             } else {
-                //「ウィンドウモード・１窓使用・RENDER_TARGET_BUFFERサイズ無視」
-                if (PROPERTY::FIXED_GAME_VIEW_ASPECT) {
-                    LONG fix_width = PROPERTY::VIEW_SOURCE_BUFFER_WIDTH*PROPERTY::VIEW2_WIDTH_RATIO;
-                    LONG fix_height = PROPERTY::VIEW_SOURCE_BUFFER_HEIGHT*PROPERTY::VIEW2_HEIGHT_RATIO;
-                    //「ウィンドウモード・１窓使用・縦横比FIX」のフロントバッファ描画領域
-                    if (1.0f * PROPERTY::SINGLE_VIEW_WINDOW_WIDTH / PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT > 1.0f * fix_width / fix_height) {
-                        //より横長になってしまっている
-                        double rate = 1.0 * PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT / fix_height; //縮小率=縦幅の比率
-                        _aRect_Present[PRIMARY_VIEW].left   = (PROPERTY::SINGLE_VIEW_WINDOW_WIDTH / 2.0) - (fix_width * rate / 2.0);
-                        _aRect_Present[PRIMARY_VIEW].top    = 0;
-                        _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
-                        _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
-                    } else {
-                        //より縦長になってしまっている
-                        double rate = 1.0 * PROPERTY::SINGLE_VIEW_WINDOW_WIDTH / fix_width; //縮小率=横幅の比率
-                        _aRect_Present[PRIMARY_VIEW].left   = 0;
-                        _aRect_Present[PRIMARY_VIEW].top    = (PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT / 2.0) - (fix_height * rate / 2.0);
-                        _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
-                        _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
-                    }
-                    _aRect_Present[SECONDARY_VIEW] = _aRect_Present[PRIMARY_VIEW];
-                    positionPresentRect(PROPERTY::SINGLE_VIEW_DRAW_POSITION, _aRect_Present[PRIMARY_VIEW],
-                                        PROPERTY::SINGLE_VIEW_WINDOW_WIDTH, PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT);
-                    positionPresentRect(PROPERTY::SINGLE_VIEW_DRAW_POSITION, _aRect_Present[SECONDARY_VIEW],
-                                        PROPERTY::SINGLE_VIEW_WINDOW_WIDTH, PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT);
-                } else {
-                    //「ウィンドウモード・１窓使用・縦横比ストレッチ」のフロントバッファ描画領域
-                    _aRect_Present[PRIMARY_VIEW].left   = 0;
-                    _aRect_Present[PRIMARY_VIEW].top    = 0;
-                    _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + PROPERTY::SINGLE_VIEW_WINDOW_WIDTH;
-                    _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT;
-                    _aRect_Present[SECONDARY_VIEW] = _aRect_Present[PRIMARY_VIEW];
-                }
+                //「ウィンドウモード・１窓使用・縦横比ストレッチ」のフロントバッファ描画領域
+                _aRect_Present[PRIMARY_VIEW].left   = 0;
+                _aRect_Present[PRIMARY_VIEW].top    = 0;
+                _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + PROPERTY::SINGLE_VIEW_WINDOW_WIDTH;
+                _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT;
+                _aRect_Present[SECONDARY_VIEW] = _aRect_Present[PRIMARY_VIEW];
             }
         }
     }
@@ -1240,7 +993,7 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                     CreateWindow(
                         prm_wndclass1.lpszClassName,
                         prm_title1,
-                        prm_dwStyle1,
+                        prm_dwStyle1,  //枠なし WS_POPUP | WS_VISIBLE,
                         CW_USEDEFAULT,
                         CW_USEDEFAULT,
                         PROPERTY::SINGLE_VIEW_WINDOW_WIDTH,
@@ -1300,7 +1053,7 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                              HWND&       out_hWnd1    , HWND&       out_hWnd2) {
     createWindow( prm_wndclass1, prm_wndclass2,
                   prm_title1, prm_title2,
-                  WS_OVERLAPPEDWINDOW, WS_OVERLAPPEDWINDOW,
+                  WS_OVERLAPPEDWINDOW | WS_VISIBLE, WS_OVERLAPPEDWINDOW | WS_VISIBLE,
                   out_hWnd1, out_hWnd2   );
 }
 
@@ -1485,7 +1238,7 @@ HRESULT GgafDxGod::initDevice() {
     if (hr == E_FAIL) {
         return E_FAIL;
     }
-    Sleep(1000);
+    Sleep(100);
     //フルスクリーン時、レンダリングターゲットテクスチャー作成
     if (PROPERTY::FULL_SCREEN) {
         hr = restoreFullScreenRenderTarget();
@@ -1888,6 +1641,38 @@ HRESULT GgafDxGod::releaseFullScreenRenderTarget() {
     return D3D_OK;
 }
 
+void GgafDxGod::chengeToBorderlessFullWindow(HWND prm_pHWnd) {
+    LONG lStyle  = GetWindowLong( prm_pHWnd, GWL_STYLE );
+    lStyle &= ~WS_OVERLAPPEDWINDOW;
+    lStyle |= WS_POPUP;
+    lStyle  = SetWindowLong( prm_pHWnd, GWL_STYLE, lStyle );
+    SetWindowPos( prm_pHWnd, NULL, 0, 0, 0, 0, (SWP_NOMOVE|SWP_NOSIZE|SWP_NOZORDER|SWP_FRAMECHANGED) );
+    Sleep(1);
+    ShowWindow(prm_pHWnd, SW_SHOWMAXIMIZED );
+    UpdateWindow(prm_pHWnd);
+    Sleep(1);
+    ShowWindow(prm_pHWnd, SW_NORMAL );
+    UpdateWindow(prm_pHWnd);
+    Sleep(1);
+    ShowWindow(prm_pHWnd, SW_SHOWMAXIMIZED );
+    UpdateWindow(prm_pHWnd);
+    GgafDxCore::GgafDxGod::_adjustGameScreen = true;
+    GgafDxCore::GgafDxGod::_pHWnd_adjustScreen = prm_pHWnd;
+}
+
+void GgafDxGod::backToNomalWindow(HWND prm_pHWnd) {
+
+    LONG lStyle  = GetWindowLong( prm_pHWnd, GWL_STYLE );
+    lStyle &= ~WS_POPUP;
+    lStyle |= WS_OVERLAPPEDWINDOW;
+    lStyle  = SetWindowLong( prm_pHWnd, GWL_STYLE, lStyle );
+    SetWindowPos( prm_pHWnd, NULL, 0, 0, 0, 0, (SWP_NOMOVE|SWP_NOSIZE|SWP_NOZORDER|SWP_FRAMECHANGED) );
+    ShowWindow(prm_pHWnd, SW_NORMAL);
+    UpdateWindow(prm_pHWnd);
+    GgafDxCore::GgafDxGod::_adjustGameScreen = true;
+    GgafDxCore::GgafDxGod::_pHWnd_adjustScreen = prm_pHWnd;
+}
+
 void GgafDxGod::presentSpacetimeMoment() {
     if (_is_device_lost_flg) {
         return;
@@ -1984,38 +1769,27 @@ void GgafDxGod::presentSpacetimeVisualize() {
         } else {
             if (PROPERTY::DUAL_VIEW) {
                 //２画面使用・ウィンドウモード
-                if (PROPERTY::VIEW_AS_RENDER_TARGET_BUFFER_SIZE) {
+                if (PROPERTY::FIXED_GAME_VIEW_ASPECT) {
+                    //縦横比固定モード
                     hr = GgafDxGod::_pID3DDevice9->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], &_aRect_Present[PRIMARY_VIEW], nullptr, nullptr);
                     if (hr == D3D_OK) {
                         hr = GgafDxGod::_pID3DDevice9->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], &_aRect_Present[SECONDARY_VIEW], _pHWndSecondary, nullptr);
                     }
                 } else {
-                    if (PROPERTY::FIXED_GAME_VIEW_ASPECT) {
-                        //縦横比固定モード
-                        hr = GgafDxGod::_pID3DDevice9->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], &_aRect_Present[PRIMARY_VIEW], nullptr, nullptr);
-                        if (hr == D3D_OK) {
-                            hr = GgafDxGod::_pID3DDevice9->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], &_aRect_Present[SECONDARY_VIEW], _pHWndSecondary, nullptr);
-                        }
-                    } else {
-                        //縦横ストレッチモード
-                        hr = GgafDxGod::_pID3DDevice9->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], nullptr, nullptr, nullptr);
-                        if (hr == D3D_OK) {
-                            hr = GgafDxGod::_pID3DDevice9->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], nullptr, _pHWndSecondary, nullptr);
-                        }
+                    //縦横ストレッチモード
+                    hr = GgafDxGod::_pID3DDevice9->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], nullptr, nullptr, nullptr);
+                    if (hr == D3D_OK) {
+                        hr = GgafDxGod::_pID3DDevice9->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], nullptr, _pHWndSecondary, nullptr);
                     }
                 }
             } else {
-                if (PROPERTY::VIEW_AS_RENDER_TARGET_BUFFER_SIZE) {
+                //１画面使用・ウィンドウモード
+                if (PROPERTY::FIXED_GAME_VIEW_ASPECT) {
+                    //縦横比固定モード
                     hr = GgafDxGod::_pID3DDevice9->Present(&_rectRenderTargetBuffer, &_aRect_Present[PRIMARY_VIEW], nullptr, nullptr);
                 } else {
-                    //１画面使用・ウィンドウモード
-                    if (PROPERTY::FIXED_GAME_VIEW_ASPECT) {
-                        //縦横比固定モード
-                        hr = GgafDxGod::_pID3DDevice9->Present(&_rectRenderTargetBuffer, &_aRect_Present[PRIMARY_VIEW], nullptr, nullptr);
-                    } else {
-                        //縦横ストレッチモード
-                        hr = GgafDxGod::_pID3DDevice9->Present(&_rectRenderTargetBuffer, nullptr, nullptr, nullptr);
-                    }
+                    //縦横ストレッチモード
+                    hr = GgafDxGod::_pID3DDevice9->Present(&_rectRenderTargetBuffer, nullptr, nullptr, nullptr);
                 }
             }
         }
@@ -2028,7 +1802,7 @@ void GgafDxGod::presentSpacetimeVisualize() {
                 _TRACE_("通常の正常デバイスロスト！");
             }
 
-            Sleep(100); // 1秒待つ
+            Sleep(100);
             _TRACE_("【デバイスロスト処理】BEGIN ------>");
 
             //工場休止
@@ -2135,7 +1909,7 @@ void GgafDxGod::presentSpacetimeVisualize() {
         //モデル再設定
         GgafDxGod::_pModelManager->restoreAll();
         //全ノードに再設定しなさいイベント発令
-        getSpacetime()->throwEventLowerTree(GGAF_EVENT_ON_DEVICE_LOST, this);
+        getSpacetime()->throwEventLowerTree(GGAF_EVENT_ON_DEVICE_LOST_RESTORE);
         //前回描画モデル情報を無効にする
         GgafDxModelManager::_pModelLastDraw = nullptr;
         _is_device_lost_flg = false;
@@ -2148,7 +1922,7 @@ void GgafDxGod::presentSpacetimeVisualize() {
 
         _TRACE_("【デバイスロスト処理】<-------- END");
 
-        Sleep(500);
+        Sleep(100);
         hr = GgafDxGod::_pID3DDevice9->Clear(0,    // クリアする矩形領域の数
                                              nullptr, // 矩形領域
                                              D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
@@ -2213,173 +1987,101 @@ void GgafDxGod::adjustGameScreen(HWND prm_pHWnd) {
                 pos2 = PROPERTY::DUAL_VIEW_DRAW_POSITION2; //とりあえず
             }
 
-            if (PROPERTY::VIEW_AS_RENDER_TARGET_BUFFER_SIZE) {
-                //ウィンドウモード時・RENDER_TARGET_BUFFERサイズ表示
+            //ウィンドウモード時・RENDER_TARGET_BUFFERサイズ無視
+            if (PROPERTY::FIXED_GAME_VIEW_ASPECT) {
+                //ウィンドウモード時・アスペクト比固定
                 if (PROPERTY::DUAL_VIEW) {
                     if (prm_pHWnd == _pHWndPrimary) {
-                        fix_width  = PROPERTY::RENDER_TARGET_BUFFER_WIDTH  * (1.0*c_width / PROPERTY::DUAL_VIEW_WINDOW1_WIDTH) * PROPERTY::VIEW1_WIDTH_RATIO / 2.0;
-                        fix_height = PROPERTY::RENDER_TARGET_BUFFER_HEIGHT * (1.0*c_height / PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT) * PROPERTY::VIEW1_HEIGHT_RATIO;
-                        _aRect_Present[PRIMARY_VIEW].left   = (c_width / 2.0) - (fix_width / 2.0);
-                        _aRect_Present[PRIMARY_VIEW].top    = (c_height / 2.0) - (fix_height / 2.0);
-                        _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + fix_width ;
-                        _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + fix_height;
-                        if (_aRect_Present[PRIMARY_VIEW].left < 0) {
-                            _aRect_Present[PRIMARY_VIEW].left = 0;
-                        }
-                        if (_aRect_Present[PRIMARY_VIEW].right > c_width) {
-                            _aRect_Present[PRIMARY_VIEW].right = c_width;
-                        }
-                        if (_aRect_Present[PRIMARY_VIEW].top < 0) {
-                            _aRect_Present[PRIMARY_VIEW].top = 0;
-                        }
-                        if (_aRect_Present[PRIMARY_VIEW].bottom > c_height) {
-                            _aRect_Present[PRIMARY_VIEW].bottom = c_height;
-                        }
-                        positionPresentRect(pos1, _aRect_Present[PRIMARY_VIEW], c_width, c_height);
-
+                        fix_width  = PROPERTY::VIEW_SOURCE_BUFFER_WIDTH  * PROPERTY::VIEW1_WIDTH_RATIO / 2.0;
+                        fix_height = PROPERTY::VIEW_SOURCE_BUFFER_HEIGHT * PROPERTY::VIEW1_HEIGHT_RATIO;
                     } else {
-                        fix_width  = PROPERTY::RENDER_TARGET_BUFFER_WIDTH  * (1.0*c_width / PROPERTY::DUAL_VIEW_WINDOW2_WIDTH) * PROPERTY::VIEW2_WIDTH_RATIO / 2.0;
-                        fix_height = PROPERTY::RENDER_TARGET_BUFFER_HEIGHT * (1.0*c_height / PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT) * PROPERTY::VIEW2_HEIGHT_RATIO;
-                        _aRect_Present[SECONDARY_VIEW].left   = (c_width / 2.0) - (fix_width / 2.0);
-                        _aRect_Present[SECONDARY_VIEW].top    = (c_height / 2.0) - (fix_height / 2.0);
-                        _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + fix_width;
-                        _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + fix_height;
-                        if (_aRect_Present[SECONDARY_VIEW].left < 0) {
-                            _aRect_Present[SECONDARY_VIEW].left = 0;
-                        }
-                        if (_aRect_Present[SECONDARY_VIEW].right > c_width) {
-                            _aRect_Present[SECONDARY_VIEW].right = c_width;
-                        }
-                        if (_aRect_Present[SECONDARY_VIEW].top < 0) {
-                            _aRect_Present[SECONDARY_VIEW].top = 0;
-                        }
-                        if (_aRect_Present[SECONDARY_VIEW].bottom > c_height) {
-                            _aRect_Present[SECONDARY_VIEW].bottom = c_height;
-                        }
-                        positionPresentRect(pos2, _aRect_Present[SECONDARY_VIEW], c_width, c_height);
-
+                        fix_width  = PROPERTY::VIEW_SOURCE_BUFFER_WIDTH  * PROPERTY::VIEW2_WIDTH_RATIO / 2.0;
+                        fix_height = PROPERTY::VIEW_SOURCE_BUFFER_HEIGHT * PROPERTY::VIEW2_HEIGHT_RATIO;
                     }
                 } else {
-                    //1画面時
-                    fix_width  = PROPERTY::RENDER_TARGET_BUFFER_WIDTH  * (1.0*c_width / PROPERTY::SINGLE_VIEW_WINDOW_WIDTH) * PROPERTY::VIEW1_WIDTH_RATIO;
-                    fix_height = PROPERTY::RENDER_TARGET_BUFFER_HEIGHT * (1.0*c_height / PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT) * PROPERTY::VIEW1_HEIGHT_RATIO;
-                    _aRect_Present[PRIMARY_VIEW].left   = (c_width / 2.0) - (fix_width / 2.0);
-                    _aRect_Present[PRIMARY_VIEW].top    = (c_height / 2.0) - (fix_height / 2.0);
-                    _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + fix_width ;
-                    _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + fix_height;
-                    if (_aRect_Present[PRIMARY_VIEW].left < 0) {
-                        _aRect_Present[PRIMARY_VIEW].left = 0;
-                    }
-                    if (_aRect_Present[PRIMARY_VIEW].right > c_width) {
-                        _aRect_Present[PRIMARY_VIEW].right = c_width;
-                    }
-                    if (_aRect_Present[PRIMARY_VIEW].top < 0) {
-                        _aRect_Present[PRIMARY_VIEW].top = 0;
-                    }
-                    if (_aRect_Present[PRIMARY_VIEW].bottom > c_height) {
-                        _aRect_Present[PRIMARY_VIEW].bottom = c_height;
-                    }
-                    positionPresentRect(pos1, _aRect_Present[PRIMARY_VIEW], c_width, c_height);
+                    fix_width  = PROPERTY::VIEW_SOURCE_BUFFER_WIDTH  * PROPERTY::VIEW1_WIDTH_RATIO;
+                    fix_height = PROPERTY::VIEW_SOURCE_BUFFER_HEIGHT * PROPERTY::VIEW1_HEIGHT_RATIO;
                 }
 
-            } else {
-                //ウィンドウモード時・RENDER_TARGET_BUFFERサイズ無視
-                if (PROPERTY::FIXED_GAME_VIEW_ASPECT) {
-                    //ウィンドウモード時・アスペクト比固定
-                    if (PROPERTY::DUAL_VIEW) {
-                        if (prm_pHWnd == _pHWndPrimary) {
-                            fix_width  = PROPERTY::VIEW_SOURCE_BUFFER_WIDTH  * PROPERTY::VIEW1_WIDTH_RATIO / 2.0;
-                            fix_height = PROPERTY::VIEW_SOURCE_BUFFER_HEIGHT * PROPERTY::VIEW1_HEIGHT_RATIO;
-                        } else {
-                            fix_width  = PROPERTY::VIEW_SOURCE_BUFFER_WIDTH  * PROPERTY::VIEW2_WIDTH_RATIO / 2.0;
-                            fix_height = PROPERTY::VIEW_SOURCE_BUFFER_HEIGHT * PROPERTY::VIEW2_HEIGHT_RATIO;
-                        }
+                if (1.0f * c_width / c_height > 1.0f * fix_width / fix_height) {
+                    //より横長になってしまっている
+                    double rate = 1.0 * c_height / fix_height; //縮小率=縦幅の比率
+                    if (prm_pHWnd == _pHWndPrimary) {
+                        _aRect_Present[PRIMARY_VIEW].left   = (c_width / 2.0) - (fix_width * rate / 2.0);
+                        _aRect_Present[PRIMARY_VIEW].top    = 0;
+                        _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
+                        _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
+                        positionPresentRect(pos1, _aRect_Present[PRIMARY_VIEW], c_width, c_height);
                     } else {
-                        fix_width  = PROPERTY::VIEW_SOURCE_BUFFER_WIDTH  * PROPERTY::VIEW1_WIDTH_RATIO;
-                        fix_height = PROPERTY::VIEW_SOURCE_BUFFER_HEIGHT * PROPERTY::VIEW1_HEIGHT_RATIO;
+                        _aRect_Present[SECONDARY_VIEW].left   = (c_width / 2.0) - (fix_width * rate / 2.0);
+                        _aRect_Present[SECONDARY_VIEW].top    = 0;
+                        _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + (fix_width * rate);
+                        _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + (fix_height * rate);
+                        positionPresentRect(pos2, _aRect_Present[SECONDARY_VIEW], c_width, c_height);
                     }
 
-                    if (1.0f * c_width / c_height > 1.0f * fix_width / fix_height) {
-                        //より横長になってしまっている
-                        double rate = 1.0 * c_height / fix_height; //縮小率=縦幅の比率
-                        if (prm_pHWnd == _pHWndPrimary) {
-                            _aRect_Present[PRIMARY_VIEW].left   = (c_width / 2.0) - (fix_width * rate / 2.0);
-                            _aRect_Present[PRIMARY_VIEW].top    = 0;
-                            _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
-                            _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
-                            positionPresentRect(pos1, _aRect_Present[PRIMARY_VIEW], c_width, c_height);
-                        } else {
-                            _aRect_Present[SECONDARY_VIEW].left   = (c_width / 2.0) - (fix_width * rate / 2.0);
-                            _aRect_Present[SECONDARY_VIEW].top    = 0;
-                            _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + (fix_width * rate);
-                            _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + (fix_height * rate);
-                            positionPresentRect(pos2, _aRect_Present[SECONDARY_VIEW], c_width, c_height);
-                        }
-
-                    } else {
-                        //より縦長になってしまっている
-                        double rate = 1.0 * c_width / fix_width; //縮小率=横幅の比率
-                        if (prm_pHWnd == _pHWndPrimary) {
-                            _aRect_Present[PRIMARY_VIEW].left   = 0;
-                            _aRect_Present[PRIMARY_VIEW].top    = (c_height / 2.0) - (fix_height * rate / 2.0);
-                            _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
-                            _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
-                            positionPresentRect(pos1, _aRect_Present[PRIMARY_VIEW], c_width, c_height);
-                        } else {
-                            _aRect_Present[SECONDARY_VIEW].left   = 0;
-                            _aRect_Present[SECONDARY_VIEW].top    = (c_height / 2.0) - (fix_height * rate / 2.0);
-                            _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + (fix_width * rate);
-                            _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + (fix_height * rate);
-                            positionPresentRect(pos2, _aRect_Present[SECONDARY_VIEW], c_width, c_height);
-                        }
-                    }
                 } else {
-                    //ウィンドウモード時・縦横ストレッチ
-                    if (::GetClientRect(prm_pHWnd, &rect)) {
-                        if (prm_pHWnd == _pHWndPrimary) {
-                            _aRect_Present[PRIMARY_VIEW] = rect;
-                        } else {
-                            _aRect_Present[SECONDARY_VIEW] = rect;
-                        }
-
+                    //より縦長になってしまっている
+                    double rate = 1.0 * c_width / fix_width; //縮小率=横幅の比率
+                    if (prm_pHWnd == _pHWndPrimary) {
+                        _aRect_Present[PRIMARY_VIEW].left   = 0;
+                        _aRect_Present[PRIMARY_VIEW].top    = (c_height / 2.0) - (fix_height * rate / 2.0);
+                        _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
+                        _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
+                        positionPresentRect(pos1, _aRect_Present[PRIMARY_VIEW], c_width, c_height);
+                    } else {
+                        _aRect_Present[SECONDARY_VIEW].left   = 0;
+                        _aRect_Present[SECONDARY_VIEW].top    = (c_height / 2.0) - (fix_height * rate / 2.0);
+                        _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + (fix_width * rate);
+                        _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + (fix_height * rate);
+                        positionPresentRect(pos2, _aRect_Present[SECONDARY_VIEW], c_width, c_height);
                     }
+                }
+            } else {
+                //ウィンドウモード時・縦横ストレッチ
+                if (::GetClientRect(prm_pHWnd, &rect)) {
+                    if (prm_pHWnd == _pHWndPrimary) {
+                        _aRect_Present[PRIMARY_VIEW] = rect;
+                    } else {
+                        _aRect_Present[SECONDARY_VIEW] = rect;
+                    }
+
                 }
             }
         }
+#ifdef MY_DEBUG
+        _TRACE_("GgafDxGod::adjustGameScreen(" << (prm_pHWnd == _pHWndPrimary ? "Primary" : "Secondary") <<") コール");
+        if (PROPERTY::DUAL_VIEW) {
+            _TRACE_(" _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].left   = "<<_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].left  );
+            _TRACE_(" _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].top    = "<<_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].top   );
+            _TRACE_(" _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].right  = "<<_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].right );
+            _TRACE_(" _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].bottom = "<<_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].bottom);
+            _TRACE_(" _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].left   = "<<_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].left  );
+            _TRACE_(" _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].top    = "<<_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].top   );
+            _TRACE_(" _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].right  = "<<_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].right );
+            _TRACE_(" _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].bottom = "<<_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].bottom);
+            _TRACE_(" _aRect_Present[PRIMARY_VIEW].left   = "<<_aRect_Present[PRIMARY_VIEW].left  );
+            _TRACE_(" _aRect_Present[PRIMARY_VIEW].top    = "<<_aRect_Present[PRIMARY_VIEW].top   );
+            _TRACE_(" _aRect_Present[PRIMARY_VIEW].right  = "<<_aRect_Present[PRIMARY_VIEW].right );
+            _TRACE_(" _aRect_Present[PRIMARY_VIEW].bottom = "<<_aRect_Present[PRIMARY_VIEW].bottom);
+            _TRACE_(" _aRect_Present[SECONDARY_VIEW].left   = "<<_aRect_Present[SECONDARY_VIEW].left  );
+            _TRACE_(" _aRect_Present[SECONDARY_VIEW].top    = "<<_aRect_Present[SECONDARY_VIEW].top   );
+            _TRACE_(" _aRect_Present[SECONDARY_VIEW].right  = "<<_aRect_Present[SECONDARY_VIEW].right );
+            _TRACE_(" _aRect_Present[SECONDARY_VIEW].bottom = "<<_aRect_Present[SECONDARY_VIEW].bottom);
+        } else {
+            _TRACE_(" _rectRenderTargetBuffer.left   = "<<_rectRenderTargetBuffer.left  );
+            _TRACE_(" _rectRenderTargetBuffer.top    = "<<_rectRenderTargetBuffer.top   );
+            _TRACE_(" _rectRenderTargetBuffer.right  = "<<_rectRenderTargetBuffer.right );
+            _TRACE_(" _rectRenderTargetBuffer.bottom = "<<_rectRenderTargetBuffer.bottom);
+            _TRACE_(" _aRect_Present[PRIMARY_VIEW].left   = "<<_aRect_Present[PRIMARY_VIEW].left  );
+            _TRACE_(" _aRect_Present[PRIMARY_VIEW].top    = "<<_aRect_Present[PRIMARY_VIEW].top   );
+            _TRACE_(" _aRect_Present[PRIMARY_VIEW].right  = "<<_aRect_Present[PRIMARY_VIEW].right );
+            _TRACE_(" _aRect_Present[PRIMARY_VIEW].bottom = "<<_aRect_Present[PRIMARY_VIEW].bottom);
+        }
+#endif
     } else {
         //フルスクリーン時
     }
-
-#ifdef MY_DEBUG
-    _TRACE_("GgafDxGod::adjustGameScreen(" << (prm_pHWnd == _pHWndPrimary ? "Primary" : "Secondary") <<") コール");
-    if (PROPERTY::DUAL_VIEW) {
-        _TRACE_(" _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].left   = "<<_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].left  );
-        _TRACE_(" _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].top    = "<<_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].top   );
-        _TRACE_(" _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].right  = "<<_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].right );
-        _TRACE_(" _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].bottom = "<<_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].bottom);
-        _TRACE_(" _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].left   = "<<_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].left  );
-        _TRACE_(" _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].top    = "<<_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].top   );
-        _TRACE_(" _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].right  = "<<_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].right );
-        _TRACE_(" _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].bottom = "<<_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].bottom);
-        _TRACE_(" _aRect_Present[PRIMARY_VIEW].left   = "<<_aRect_Present[PRIMARY_VIEW].left  );
-        _TRACE_(" _aRect_Present[PRIMARY_VIEW].top    = "<<_aRect_Present[PRIMARY_VIEW].top   );
-        _TRACE_(" _aRect_Present[PRIMARY_VIEW].right  = "<<_aRect_Present[PRIMARY_VIEW].right );
-        _TRACE_(" _aRect_Present[PRIMARY_VIEW].bottom = "<<_aRect_Present[PRIMARY_VIEW].bottom);
-        _TRACE_(" _aRect_Present[SECONDARY_VIEW].left   = "<<_aRect_Present[SECONDARY_VIEW].left  );
-        _TRACE_(" _aRect_Present[SECONDARY_VIEW].top    = "<<_aRect_Present[SECONDARY_VIEW].top   );
-        _TRACE_(" _aRect_Present[SECONDARY_VIEW].right  = "<<_aRect_Present[SECONDARY_VIEW].right );
-        _TRACE_(" _aRect_Present[SECONDARY_VIEW].bottom = "<<_aRect_Present[SECONDARY_VIEW].bottom);
-    } else {
-        _TRACE_(" _rectRenderTargetBuffer.left   = "<<_rectRenderTargetBuffer.left  );
-        _TRACE_(" _rectRenderTargetBuffer.top    = "<<_rectRenderTargetBuffer.top   );
-        _TRACE_(" _rectRenderTargetBuffer.right  = "<<_rectRenderTargetBuffer.right );
-        _TRACE_(" _rectRenderTargetBuffer.bottom = "<<_rectRenderTargetBuffer.bottom);
-        _TRACE_(" _aRect_Present[PRIMARY_VIEW].left   = "<<_aRect_Present[PRIMARY_VIEW].left  );
-        _TRACE_(" _aRect_Present[PRIMARY_VIEW].top    = "<<_aRect_Present[PRIMARY_VIEW].top   );
-        _TRACE_(" _aRect_Present[PRIMARY_VIEW].right  = "<<_aRect_Present[PRIMARY_VIEW].right );
-        _TRACE_(" _aRect_Present[PRIMARY_VIEW].bottom = "<<_aRect_Present[PRIMARY_VIEW].bottom);
-    }
-#endif
     GgafDxCamera* pCam = getSpacetime()->getCamera();
     GgafDxGod::_pID3DDevice9->GetViewport(&(pCam->_viewport));
     _adjustGameScreen = false;

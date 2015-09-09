@@ -18,7 +18,7 @@ AliceShot::AliceShot(const char* prm_name, const char* prm_model_id) :
 void AliceShot::initialize() {
     setHitAble(false);
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(1);
+    pChecker->createCollisionArea(1);
     pChecker->setColliAAB_Cube(0, PX_C(16));
 }
 void AliceShot::onReset() {

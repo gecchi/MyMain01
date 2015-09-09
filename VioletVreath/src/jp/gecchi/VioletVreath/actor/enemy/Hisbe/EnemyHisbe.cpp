@@ -101,7 +101,7 @@ void EnemyHisbe::onCreateModel() {
 void EnemyHisbe::initialize() {
 //    getKuroko()->linkFaceAngByMvAng(true);
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(1);
+    pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, 40000);
 
 //    if (pConn_pDepoStore_laser_set->chkFirstConnectionIs(this)) {

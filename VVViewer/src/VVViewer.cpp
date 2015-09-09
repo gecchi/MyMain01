@@ -125,7 +125,7 @@ BOOL CustmizeSysMenu(HWND hWnd)
     HMENU hMenu = GetSystemMenu(hWnd, FALSE);
     int i;
     i=5; InsertMenu(hMenu, i, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR)0, "");
-    i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING , MY_IDM_RESET_WINDOW_SIZE, "Reset window size.");
+    i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING , MY_IDM_RESET_WINDOW_SIZE, "Reset window size.(&R)");
 
     //システムメニューを作成
     DrawMenuBar(hWnd);

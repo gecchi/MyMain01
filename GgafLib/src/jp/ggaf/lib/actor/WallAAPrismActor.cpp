@@ -25,7 +25,7 @@ WallAAPrismActor::WallAAPrismActor(const char* prm_name,
     _pMeshSetModel->_set_num = 11; //WallAAPrismActor最大セット数は11。
 
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(1); //0:BOX用当たり判定、1:プリズム用当たり判定
+    pChecker->createCollisionArea(1); //0:BOX用当たり判定、1:プリズム用当たり判定
     pChecker->setColliAAPrism(0, 0,0,0, 0,0,0, 0);
     setZEnable(true);       //Zバッファは考慮有り
     setZWriteEnable(true);  //Zバッファは書き込み有り

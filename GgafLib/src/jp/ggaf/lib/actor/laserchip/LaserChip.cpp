@@ -316,7 +316,7 @@ void LaserChip::registerHitAreaCube_AutoGenMidColli(int prm_edge_length) {
     _hitarea_edge_length_3 = _hitarea_edge_length*3;
     _harf_hitarea_edge_length = _hitarea_edge_length / 2;
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(2);
+    pChecker->createCollisionArea(2);
     pChecker->setColliAAB_Cube(0, prm_edge_length);
     pChecker->setColliAAB_Cube(1, prm_edge_length);
     pChecker->disable(1);

@@ -50,7 +50,7 @@ HRESULT GgafDxSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_dr
     if (GgafDxModelManager::_pModelLastDraw != this) {
         pDevice->SetStreamSource(0, _pVertexBuffer, 0, _size_vertex_unit);
         pDevice->SetFVF(GgafDxSpriteModel::FVF);
-        pDevice->SetTexture(0, _papTextureConnection[0]->peek()->_pIDirect3DBaseTexture9);
+        pDevice->SetTexture(0, getDefaultTextureConnection()->peek()->_pIDirect3DBaseTexture9);
 
         hr = pID3DXEffect->SetFloat(pSpriteEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "GgafDxSpriteActor::draw() SetFloat(_h_tex_blink_power) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
@@ -141,8 +141,10 @@ void GgafDxSpriteModel::release() {
     _TRACE3_("GgafDxSpriteModel::release() " << _model_name << " start");
     GGAF_RELEASE(_pVertexBuffer);
     if (_papTextureConnection) {
-        if (_papTextureConnection[0]) {
-            _papTextureConnection[0]->close();
+        for (int i = 0; i < (int)_num_materials; i++) {
+            if (_papTextureConnection[i]) {
+                _papTextureConnection[i]->close();
+            }
         }
     }
     GGAF_DELETEARR(_papTextureConnection);

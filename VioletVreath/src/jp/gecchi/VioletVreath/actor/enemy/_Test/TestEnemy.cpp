@@ -25,7 +25,7 @@ TestEnemy::TestEnemy(const char* prm_name,
 void TestEnemy::initialize() {
     setHitAble(true);
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(1);
+    pChecker->createCollisionArea(1);
 //    pChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
     pChecker->setColliSphere(0, 30000);
 }

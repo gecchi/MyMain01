@@ -43,7 +43,7 @@ void EnemyEresShot001::initialize() {
     pKuroko->forceMvVeloRange(veloTop_, veloBottom_);
     pKuroko->linkFaceAngByMvAng(true);
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(1);
+    pChecker->createCollisionArea(1);
     pChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
     setHitAble(true);
 }

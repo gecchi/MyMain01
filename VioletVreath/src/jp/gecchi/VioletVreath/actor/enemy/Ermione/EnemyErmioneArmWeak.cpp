@@ -22,7 +22,7 @@ void EnemyErmioneArmWeak::onCreateModel() {
 void EnemyErmioneArmWeak::initialize() {
     EnemyErmioneArm::initialize();
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(1);
+    pChecker->createCollisionArea(1);
     pChecker->setColliAAB_Cube(0, 40000);
 }
 

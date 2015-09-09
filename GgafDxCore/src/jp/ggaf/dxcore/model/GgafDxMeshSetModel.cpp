@@ -101,8 +101,12 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_d
         if (GgafDxModelManager::_pModelLastDraw  != this || material_list_grp_num != 1) {
             const UINT material_no = idxparam.MaterialNo;
             if (_papTextureConnection[material_no]) {
-                //テクスチャをs0レジスタにセット
-                pDevice->SetTexture(0, _papTextureConnection[material_no]->peek()->_pIDirect3DBaseTexture9);
+                if (material_no == 0) {
+                    //マテリアル0番は、特別に規定のテクスチャを設定する仕様
+                    pDevice->SetTexture(0, getDefaultTextureConnection()->peek()->_pIDirect3DBaseTexture9);
+                } else {
+                    pDevice->SetTexture(0, _papTextureConnection[material_no]->peek()->_pIDirect3DBaseTexture9);
+                }
             } else {
                 _TRACE_("GgafDxMeshSetModel::draw("<<prm_pActor_target->getName()<<") テクスチャがありません。"<<(PROPERTY::WHITE_TEXTURE)<<"が設定されるべきです。おかしいです");
                 //無ければテクスチャ無し

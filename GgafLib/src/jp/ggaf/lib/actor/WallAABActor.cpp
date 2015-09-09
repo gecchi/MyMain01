@@ -24,7 +24,7 @@ WallAABActor::WallAABActor(const char* prm_name,
     _class_name = "WallAABActor";
     _pMeshSetModel->_set_num = 16; //WallAABActor最大セット数は16。
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(1); //0:BOX用当たり判定、1:プリズム用当たり判定
+    pChecker->createCollisionArea(1); //0:BOX用当たり判定、1:プリズム用当たり判定
     pChecker->setColliAAB(0, 0,0,0, 0,0,0);
     setZEnable(true);       //Zバッファは考慮有り
     setZWriteEnable(true);  //Zバッファは書き込み有り

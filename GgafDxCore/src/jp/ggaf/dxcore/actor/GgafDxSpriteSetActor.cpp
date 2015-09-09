@@ -28,7 +28,7 @@ GgafDxSpriteSetActor::GgafDxSpriteSetActor(const char* prm_name,
                                                                    prm_pChecker) ,
 _pSpriteSetModel((GgafDxSpriteSetModel*)_pModel),
 _pSpriteSetEffect((GgafDxSpriteSetEffect*)_pEffect),
-_pUvFlipper(NEW GgafDxUvFlipper(_pSpriteSetModel->_papTextureConnection[0]->peek())) {
+_pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
 
     _obj_class |= Obj_GgafDxSpriteSetActor;
     _class_name = "GgafDxSpriteSetActor";

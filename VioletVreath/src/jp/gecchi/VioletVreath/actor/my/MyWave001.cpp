@@ -26,7 +26,7 @@ void MyWave001::initialize() {
     //setRzFaceAng(0);
     pKuroko->setMvVelo(20000);
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(7);
+    pChecker->createCollisionArea(7);
     pChecker->setColliAAB(0,  -10000,  -10000,  -10000,   10000,   10000,   10000, true, true, true);
     pChecker->setColliAAB(1,  -10000, -140000,  -10000,   10000, -120000,   10000, true, true, true);
     pChecker->setColliAAB(2,  -10000,  120000,  -10000,   10000,  140000,   10000, true, true, true);

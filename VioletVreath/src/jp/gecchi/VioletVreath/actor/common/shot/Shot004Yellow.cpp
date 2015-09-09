@@ -23,7 +23,7 @@ Shot004Yellow::Shot004Yellow(const char* prm_name) :
 void Shot004Yellow::initialize() {
     setHitAble(false);
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(1);
+    pChecker->createCollisionArea(1);
     pChecker->setColliAAB_Cube(0, PX_C(16));
 }
 void Shot004Yellow::onReset() {

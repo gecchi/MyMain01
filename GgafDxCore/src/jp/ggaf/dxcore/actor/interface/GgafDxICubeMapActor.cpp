@@ -34,7 +34,7 @@ IDirect3DBaseTexture9* GgafDxICubeMapActor::getCubeMapTexture() {
     if (!_pCubeMapTextureConnection) {
         _pCubeMapTextureConnection = (GgafDxTextureConnection*)(GgafDxGod::_pCubeMapTextureManager->connect("alpha_zero_cubemap.dds",this));
     }
-    return _pCubeMapTextureConnection->peek()->_pIDirect3DBaseTexture9;;
+    return _pCubeMapTextureConnection->peek()->_pIDirect3DBaseTexture9;
 }
 
 GgafDxICubeMapActor::~GgafDxICubeMapActor() {

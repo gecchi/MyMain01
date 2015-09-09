@@ -61,8 +61,6 @@ public:
     static pixcoord DUAL_VIEW_FULL_SCREEN2_WIDTH;
     /** [r] ２画面フルスクリーンモードだった場合の２画面目スクリーンの解像度(縦) */
     static pixcoord DUAL_VIEW_FULL_SCREEN2_HEIGHT;
-    /** [r/w] 表示領域で、RENDER_TARGET_BUFFERのサイズのまま表示するかどうか。(true=RENDER_TARGET_BUFFERサイズ表示/false=表示領域はサイズ可変) */
-    static bool VIEW_AS_RENDER_TARGET_BUFFER_SIZE;
     /** [r/w] 表示領域サイズ可変時、表示領域アスペクト比をゲームバッファの縦横比で固定にするかどうか(true=固定/false=固定にしない) */
     static bool FIXED_GAME_VIEW_ASPECT;
     /** [r/w] ２画面フルスクリーンモード時、１画面目のデイスプレイ番号(0～) */

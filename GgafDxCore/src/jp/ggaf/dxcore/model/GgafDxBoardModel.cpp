@@ -48,7 +48,7 @@ HRESULT GgafDxBoardModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_dra
     if (GgafDxModelManager::_pModelLastDraw != this) {
         pDevice->SetStreamSource(0, _pVertexBuffer, 0, _size_vertex_unit);
         pDevice->SetFVF(GgafDxBoardModel::FVF);
-        pDevice->SetTexture(0, _papTextureConnection[0]->peek()->_pIDirect3DBaseTexture9);
+        pDevice->SetTexture(0, getDefaultTextureConnection()->peek()->_pIDirect3DBaseTexture9);
 
         hr = pID3DXEffect->SetFloat(pBoardEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw() SetFloat(_h_tex_blink_power) に失敗しました。");
@@ -119,9 +119,12 @@ void GgafDxBoardModel::restore() {
 void GgafDxBoardModel::release() {
     _TRACE3_("GgafDxBoardModel::release() " << _model_name << " start");
     GGAF_RELEASE(_pVertexBuffer);
+    //テクスチャを解放
     if (_papTextureConnection) {
-        if (_papTextureConnection[0]) {
-            _papTextureConnection[0]->close();
+        for (int i = 0; i < (int)_num_materials; i++) {
+            if (_papTextureConnection[i]) {
+                _papTextureConnection[i]->close();
+            }
         }
     }
     GGAF_DELETEARR(_papTextureConnection);

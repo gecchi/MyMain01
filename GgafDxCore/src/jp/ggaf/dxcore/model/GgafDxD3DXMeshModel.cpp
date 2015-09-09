@@ -40,8 +40,12 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
     for (DWORD i = 0; i < _num_materials; i++) {
         if (GgafDxModelManager::_pModelLastDraw != this || _num_materials != 1) {
             if (_papTextureConnection[i]) {
-                //テクスチャのセット
-                pDevice->SetTexture(0, _papTextureConnection[i]->peek()->_pIDirect3DBaseTexture9);
+                if (i == 0) {
+                    //マテリアル0番は、特別に規定のテクスチャを設定する仕様
+                    pDevice->SetTexture(0, getDefaultTextureConnection()->peek()->_pIDirect3DBaseTexture9);
+                } else {
+                    pDevice->SetTexture(0, _papTextureConnection[i]->peek()->_pIDirect3DBaseTexture9);
+                }
             } else {
                 _TRACE_("GgafDxD3DXMeshModel::draw("<<prm_pActor_target->getName()<<") テクスチャがありません。"<<(PROPERTY::WHITE_TEXTURE)<<"が設定されるべきです。おかしいです");
                 //無ければテクスチャ無し

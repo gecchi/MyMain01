@@ -278,16 +278,29 @@ public:
      * @param client_height クライアント領域縦幅（ピクセル）
      */
     static void resetWindowsize(HWND hWnd, pixcoord client_width, pixcoord client_height);
+
     static void chengeViewPos1(int pos);
     static void chengeViewPos2(int pos);
     static void chengeViewPos(HWND prm_pHWnd, int pos);
     static void chengeViewAspect(bool prm_b);
+
+    /**
+     * ウィンドウを縁無しの最大化にする（ボーダーレス・フルスクリーン・ウィンドウ） .
+     * @param prm_pHWnd 対象のウィンドウハンドル
+     */
+    static void chengeToBorderlessFullWindow(HWND prm_pHWnd);
+
+    /**
+     * ボーダーレス・フルスクリーン・ウィンドウを元に戻す .
+     * @param prm_pHWnd 対象のウィンドウハンドル
+     */
+    static void backToNomalWindow(HWND prm_pHWnd);
+
     /**
      * DirectXのデバイスの初期設定を行う。
      * @return E_FAIL:失敗／D3D_OK:成功
      */
     virtual HRESULT initDevice();
-
     virtual void presentSpacetimeMoment() override;
     virtual void executeSpacetimeJudge() override;
     virtual void makeSpacetimeMaterialize() override;

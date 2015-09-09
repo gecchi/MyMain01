@@ -25,7 +25,7 @@ EnemyEsperiaLaserChip001::EnemyEsperiaLaserChip001(const char* prm_name) :
 
 void EnemyEsperiaLaserChip001::initialize() {
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(1);
+    pChecker->createCollisionArea(1);
     pChecker->setColliAAB_Cube(0, 20000);
     setHitAble(true, false);
     setScaleR(5.0);

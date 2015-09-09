@@ -30,7 +30,7 @@ ScoreItem::ScoreItem(const char* prm_name, const char* prm_model, GgafCore::Ggaf
     useProgress(PROG_BANPEI);
     setHitAble(true, false); //‰æ–ÊŠO“–‚½‚è”»’è‚Í–³Œø
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(1);
+    pChecker->createCollisionArea(1);
     pChecker->setColliAAB_Cube(0, 400000);
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(0, "WAVE_GET_ITEM_001");

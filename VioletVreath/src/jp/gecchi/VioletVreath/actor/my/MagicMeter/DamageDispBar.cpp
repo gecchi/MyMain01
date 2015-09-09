@@ -39,6 +39,9 @@ void DamageDispBar::onActive() {
 }
 
 void DamageDispBar::processBehavior() {
+}
+
+void DamageDispBar::processJudgement() {
     if (is_damege_disp_) {
         _x = pSourceBar_->_x + PX_C(pSourceBar_->getBarPx()); //pSourceBar_æ’[‚ÌÀ•W
         getUvFlipper()->behave();
@@ -55,9 +58,6 @@ void DamageDispBar::processBehavior() {
             }
         }
     }
-}
-
-void DamageDispBar::processJudgement() {
 }
 
 void DamageDispBar::onInactive() {

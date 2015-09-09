@@ -32,7 +32,7 @@ void Horizon001::initialize() {
     setAlpha(0.99);
     position(0, PX_C(-100), 0);
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(1);
+    pChecker->createCollisionArea(1);
     Spacetime* pSpacetime =  P_GOD->getSpacetime();
     pChecker->setColliAAB(0, pSpacetime->_x_bound_left  + (chip_width_*2),
                                   0,

@@ -29,7 +29,7 @@ EnemyGlajaLance001::EnemyGlajaLance001(const char* prm_name) :
 void EnemyGlajaLance001::initialize() {
     setHitAble(false);
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(3);
+    pChecker->createCollisionArea(3);
     pChecker->setColliAAB_Cube(0, PX_C(20));
     pChecker->setColliAAB_Cube(1, -PX_C(80), 0, 0,
                                         PX_C(10),

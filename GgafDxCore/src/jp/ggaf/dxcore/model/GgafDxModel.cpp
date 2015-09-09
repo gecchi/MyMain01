@@ -19,6 +19,7 @@ _pTexBlinker(new GgafDxTextureBlinker(this)) {
     _paMaterial_default = nullptr;
     _num_materials = 0;
     _papTextureConnection = nullptr;
+    _default_texture_index = 0;
     _bounding_sphere_radius = 0;
     _power_blink = 1.0f;
     _blink_threshold = 1.000001f;
@@ -48,29 +49,29 @@ _pTexBlinker(new GgafDxTextureBlinker(this)) {
 //        return r;
 //    }
 //}
-void GgafDxModel::swapTopTextureOrder(const char* prm_texture0) {
-    int idx = -1;
-    for (DWORD i = 0; i < _num_materials; i++) {
-        if (strcmp(_papTextureConnection[i]->peek()->getName(), prm_texture0) == 0) {
-            if (i == 0) {
-                return; //swap不要すでにTop
-            } else {
-                idx = i;
-                break;
-            }
-        }
-    }
-    if (idx < 0) {
-        throwGgafCriticalException("GgafDxModel::swapTextureOrder 指定テクスチャは見つかりません。prm_texture0="<<prm_texture0);
-    }
-    GgafDxTextureConnection* top = _papTextureConnection[idx];
-    for (int i = _num_materials-1; i >= 1; i--) {
-        if (i <= idx) {
-            _papTextureConnection[i] = _papTextureConnection[i-1];
-        }
-    }
-    _papTextureConnection[0] = top;
-}
+//void GgafDxModel::swapTopTextureOrder(const char* prm_texture0) {
+//    int idx = -1;
+//    for (DWORD i = 0; i < _num_materials; i++) {
+//        if (strcmp(_papTextureConnection[i]->peek()->getName(), prm_texture0) == 0) {
+//            if (i == 0) {
+//                return; //swap不要すでにTop
+//            } else {
+//                idx = i;
+//                break;
+//            }
+//        }
+//    }
+//    if (idx < 0) {
+//        throwGgafCriticalException("GgafDxModel::swapTextureOrder 指定テクスチャは見つかりません。prm_texture0="<<prm_texture0);
+//    }
+//    GgafDxTextureConnection* top = _papTextureConnection[idx];
+//    for (int i = _num_materials-1; i >= 1; i--) {
+//        if (i <= idx) {
+//            _papTextureConnection[i] = _papTextureConnection[i-1];
+//        }
+//    }
+//    _papTextureConnection[0] = top;
+//}
 
 GgafDxModel::~GgafDxModel() {
     _TRACE_("GgafDxModel::~GgafDxModel() " << _model_name << " ");

@@ -30,7 +30,7 @@ Shot001::Shot001(const char* prm_name) :
 
 void Shot001::initialize() {
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(1);
+    pChecker->createCollisionArea(1);
     pChecker->setColliAAB_Cube(0, PX_C(16));
     setScale(2000);
     pScaler_->setRange(2000, 3000);

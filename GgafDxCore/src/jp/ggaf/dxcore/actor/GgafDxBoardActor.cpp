@@ -24,7 +24,7 @@ GgafDxBoardActor::GgafDxBoardActor(const char* prm_name,
                                                            nullptr) ,
 _pBoardModel((GgafDxBoardModel*)_pModel),
 _pBoardEffect((GgafDxBoardEffect*)_pEffect) ,
-_pUvFlipper(NEW GgafDxUvFlipper(_pBoardModel->_papTextureConnection[0]->peek())) {
+_pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
 
     _obj_class |= Obj_GgafDxBoardActor;
     _class_name = "GgafDxBoardActor";

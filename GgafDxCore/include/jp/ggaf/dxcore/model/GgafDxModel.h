@@ -48,6 +48,8 @@ public:
 
     /** [r]テクスチャ資源コネクション配列 */
     GgafDxTextureConnection** _papTextureConnection;
+    /** [r]テクスチャ資源コネクション配列のデフォルトのインデックス。通常は0。 */
+    int _default_texture_index;
     /** [r]点滅操作支援オブジェクト */
     GgafDxTextureBlinker* const _pTexBlinker;
     /** [r]GgafDxTextureBlinker専用カウンター */
@@ -139,6 +141,22 @@ public:
     }
 
     /**
+     * 規定のテクスチャ（マテリアル番号0番のテクスチャ) を変更。
+     * @param prm_material_no マテリアル番号（のテクスチャに置き換わる）
+     */
+    inline void setDefaultTextureMaterialNo(int prm_material_no) {
+        _default_texture_index = prm_material_no;
+    }
+
+    /**
+     * 規定のテクスチャ資源へのコネクションを取得 .
+     * @return 規定のテクスチャ資源
+     */
+    inline GgafDxTextureConnection* getDefaultTextureConnection() {
+        return _papTextureConnection[_default_texture_index];
+    }
+
+    /**
      * モデルを描画 .
      * 下位クラスでモデル描画ロジックを実装して下さい。
      * @param prm_pActor_target 描画するモデルのアクター
@@ -154,7 +172,7 @@ public:
      * @param prm_texture0 予めモデルに複数のテクスチャの切り替える先のテクスチャID
      *                    （＝GgafDxTextureManager にエントリされている識別文字列）
      */
-    virtual void swapTopTextureOrder(const char* prm_texture0);
+    //virtual void swapTopTextureOrder(const char* prm_texture0);
 
     /**
      * モデルを再構築します.

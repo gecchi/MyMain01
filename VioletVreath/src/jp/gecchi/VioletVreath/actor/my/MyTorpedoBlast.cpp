@@ -23,7 +23,7 @@ MyTorpedoBlast::MyTorpedoBlast(const char* prm_name) :
 
 void MyTorpedoBlast::initialize() {
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(1);
+    pChecker->createCollisionArea(1);
     getKuroko()->setRollPitchYawFaceAngVelo(D_ANG(0), D_ANG(0), D_ANG(6));
     setHitAble(true);
 }

@@ -50,7 +50,7 @@ void EnemyDrastea::initialize() {
     //“–‚½‚è”»’èBOX¶¬
     int colli_areas = box_num_x * box_num_y * box_num_z;
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(colli_areas);
+    pChecker->createCollisionArea(colli_areas);
     int n = 0;
     coord bx = -((colli_box_x_len*box_num_x + colli_box_spc_dx*(box_num_x-1)) / 2);
     coord by = -((colli_box_y_len*box_num_y + colli_box_spc_dy*(box_num_y-1)) / 2);

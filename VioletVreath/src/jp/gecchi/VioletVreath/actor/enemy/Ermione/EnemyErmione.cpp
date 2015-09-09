@@ -127,7 +127,7 @@ void EnemyErmione::onCreateModel() {
 
 void EnemyErmione::initialize() {
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(1);
+    pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, 90000);
 }
 

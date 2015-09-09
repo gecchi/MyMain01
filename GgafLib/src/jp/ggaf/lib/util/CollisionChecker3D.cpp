@@ -28,7 +28,7 @@ CollisionChecker3D::CollisionChecker3D(GgafDxGeometricActor* prm_pActor) : GgafD
 void CollisionChecker3D::setColliSphere(int prm_index, coord x, coord y, coord z, coord r, bool rot_x, bool rot_y, bool rot_z) {
 #ifdef MY_DEBUG
     if (_pCollisionArea == nullptr) {
-        throwGgafCriticalException("CollisionChecker3D::setColli_AABB()["<<getTargetActor()->getName()<<"]  まず makeCollision を実行して、要素数を宣言してください。");
+        throwGgafCriticalException("CollisionChecker3D::setColli_AABB()["<<getTargetActor()->getName()<<"]  まず createCollisionArea を実行して、要素数を宣言してください。");
     }
     if (prm_index > _pCollisionArea->_colli_part_num) {
         throwGgafCriticalException("CollisionChecker3D::setColli_AABB()["<<getTargetActor()->getName()<<"]  要素インデックス"<<prm_index<<"は範囲外。");
@@ -67,7 +67,7 @@ void CollisionChecker3D::setColliAAB(int prm_index,
                                      bool rot_z) {
 #ifdef MY_DEBUG
     if (_pCollisionArea == nullptr) {
-        throwGgafCriticalException("CollisionChecker3D::setColliAAB()["<<getTargetActor()->getName()<<"]  まず makeCollision を実行して、要素数を宣言してください。");
+        throwGgafCriticalException("CollisionChecker3D::setColliAAB()["<<getTargetActor()->getName()<<"]  まず createCollisionArea を実行して、要素数を宣言してください。");
     }
     if (prm_index > _pCollisionArea->_colli_part_num) {
         throwGgafCriticalException("CollisionChecker3D::setColliAAB()["<<getTargetActor()->getName()<<"]  要素インデックス"<<prm_index<<"は範囲外。");
@@ -95,7 +95,7 @@ void CollisionChecker3D::setColliAAPrism(int prm_index,
                                          bool rot_x, bool rot_y, bool rot_z) {
 #ifdef MY_DEBUG
     if (_pCollisionArea == nullptr) {
-        throwGgafCriticalException("CollisionChecker3D::setColliAAPrism()["<<getTargetActor()->getName()<<"]  まず makeCollision を実行して、要素数を宣言してください。");
+        throwGgafCriticalException("CollisionChecker3D::setColliAAPrism()["<<getTargetActor()->getName()<<"]  まず createCollisionArea を実行して、要素数を宣言してください。");
     }
     if (prm_index > _pCollisionArea->_colli_part_num) {
         throwGgafCriticalException("CollisionChecker3D::setColliAAPrism()["<<getTargetActor()->getName()<<"]  要素インデックス"<<prm_index<<"は範囲外。");

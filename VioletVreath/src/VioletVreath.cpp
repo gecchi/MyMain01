@@ -7,12 +7,13 @@
 #include "jp/ggaf/lib/util/VBReplayRecorder.h"
 
 #define MY_IDM_RESET_WINDOW_SIZE  10
-#define MY_IDM_RESET_PIXEL_BY_DOT_WINDOW_SIZE  11
-#define MY_IDM_RESET_PIXEL_BY_2DOT_WINDOW_SIZE  12
-#define MY_IDM_RESET_PIXEL_BY_3DOT_WINDOW_SIZE  13
-#define MY_IDM_SAVE               14
-#define MY_IDM_REBOOT             15
-#define MY_IDM_ABOUT              16
+#define MY_IDM_CHANGE_TO_BORDERLESS_WINDOW 11
+#define MY_IDM_RESET_PIXEL_BY_DOT_WINDOW_SIZE  12
+#define MY_IDM_RESET_PIXEL_BY_2DOT_WINDOW_SIZE  13
+#define MY_IDM_RESET_PIXEL_BY_3DOT_WINDOW_SIZE  14
+#define MY_IDM_SAVE               15
+#define MY_IDM_REBOOT             16
+#define MY_IDM_ABOUT              17
 #define MY_IDM_VPOS_1             21
 #define MY_IDM_VPOS_2             22
 #define MY_IDM_VPOS_3             23
@@ -252,6 +253,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             CustmizeSysMenu(hWnd);
             break;
         }
+        case WM_SYSCHAR: {
+            if (LOWORD(wParam) == VK_RETURN) { //Alt + Enter
+                LONG lStyle  = GetWindowLong( hWnd, GWL_STYLE );
+                if (lStyle & WS_POPUP) {
+                    //現在ボーダレスフルスクリーンウィンドウであるので戻す。
+                    GgafDxCore::GgafDxGod::backToNomalWindow(hWnd);
+                } else {
+                    //現在通常ウィンドウであるので、ボーダレスフルスクリーンウィンドウに切り替える。
+                    GgafDxCore::GgafDxGod::chengeToBorderlessFullWindow(hWnd);
+                }
+            }
+            break;
+        }
+
         case WM_SYSCOMMAND: {
             if ( (wParam & 0xFFF0) == SC_SCREENSAVE ) {
                 return 1;
@@ -260,6 +275,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                 //バージョンダイアログ
 //                dhwnd  = CreateDialog(hInst, (LPCTSTR)IDD_ABOUTBOX, hWnd, (DLGPROC)About);
                 DialogBox(hInst, (LPCTSTR)IDD_ABOUTBOX, hWnd, (DLGPROC)About);
+            } else if(wParam == MY_IDM_CHANGE_TO_BORDERLESS_WINDOW) {
+                LONG lStyle  = GetWindowLong( hWnd, GWL_STYLE );
+                if (lStyle & WS_POPUP) {
+                    //現在ボーダレスフルスクリーンウィンドウであるので戻す。
+                    GgafDxCore::GgafDxGod::backToNomalWindow(hWnd);
+                } else {
+                    //現在通常ウィンドウであるので、ボーダレスフルスクリーンウィンドウに切り替える。
+                    GgafDxCore::GgafDxGod::chengeToBorderlessFullWindow(hWnd);
+                }
             } else if(wParam == MY_IDM_RESET_WINDOW_SIZE) {
                 //初期ウィンドウサイズにリセット
                 if (!PROPERTY::FULL_SCREEN) {
@@ -408,7 +432,7 @@ BOOL CustmizeSysMenu(HWND hWnd)
     InsertMenu(menu_aspect, 1, MF_STRING | MF_BYPOSITION, MY_IDM_ASPECT_STRETCH, "Stretch");
 
     HMENU reset_window_size = CreateMenu();
-    InsertMenu(reset_window_size, 0, MF_STRING | MF_BYPOSITION, MY_IDM_RESET_WINDOW_SIZE, "size of beginning.");
+    InsertMenu(reset_window_size, 0, MF_STRING | MF_BYPOSITION, MY_IDM_RESET_WINDOW_SIZE, "size of default.");
     InsertMenu(reset_window_size, 1, MF_STRING | MF_BYPOSITION, MY_IDM_RESET_PIXEL_BY_DOT_WINDOW_SIZE, "size of pixel = 1dot.");
     InsertMenu(reset_window_size, 2, MF_STRING | MF_BYPOSITION, MY_IDM_RESET_PIXEL_BY_2DOT_WINDOW_SIZE, "size of pixel = 2*2dot.");
     InsertMenu(reset_window_size, 3, MF_STRING | MF_BYPOSITION, MY_IDM_RESET_PIXEL_BY_3DOT_WINDOW_SIZE, "size of pixel = 3*3dot.");
@@ -416,6 +440,7 @@ BOOL CustmizeSysMenu(HWND hWnd)
     HMENU hMenu = GetSystemMenu(hWnd, FALSE);
     int i;
     i=5; InsertMenu(hMenu, i, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR)0, "");
+    i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING, MY_IDM_CHANGE_TO_BORDERLESS_WINDOW ,"Change to borderless windowed. (Alt + Enter)");
     i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR)reset_window_size, "Reset window size. >>");
     i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR)menu_aspect, "Game view aspect. >>");
     i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR)menu_vp    , "Game view position. >>");

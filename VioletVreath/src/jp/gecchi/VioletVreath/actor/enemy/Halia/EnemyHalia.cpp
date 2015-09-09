@@ -65,7 +65,7 @@ void EnemyHalia::initialize() {
     setHitAble(true);
     getKuroko()->linkFaceAngByMvAng(true);
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(1);
+    pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, 90000);
     setScaleR(0.3);
 }

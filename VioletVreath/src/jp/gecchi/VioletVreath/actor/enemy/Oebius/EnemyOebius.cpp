@@ -37,7 +37,7 @@ void EnemyOebius::onCreateModel() {
 
 void EnemyOebius::initialize() {
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(1);
+    pChecker->createCollisionArea(1);
     pChecker->setColliAAB_Cube(0, 40000);
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->linkFaceAngByMvAng(true);

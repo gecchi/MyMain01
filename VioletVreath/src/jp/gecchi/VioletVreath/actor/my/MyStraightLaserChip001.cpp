@@ -20,7 +20,6 @@ using namespace VioletVreath;
 
 
 GgafDxCore::GgafDxModel* MyStraightLaserChip001::pModel_  = nullptr;
-char MyStraightLaserChip001::aaTextureName[MAX_LASER_LEVEL][51];
 int MyStraightLaserChip001::tex_no_ = 0;
 
 
@@ -36,9 +35,6 @@ MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) :
         if (pModel->_num_materials != MAX_LASER_LEVEL) {
             throwGgafCriticalException("MyStraightLaserChip001::onCreateModel() MyStraightLaserChip001モデルは、テクスチャ（マテリアル）が"<<MAX_LASER_LEVEL<<"つ必要です。");
         }
-        for (DWORD i = 0; i < pModel->_num_materials; i ++) {
-            strcpy(MyStraightLaserChip001::aaTextureName[i], pModel->_papTextureConnection[i]->peek()->getName());
-        }
         MyStraightLaserChip001::pModel_ = pModel;
     }
 }
@@ -47,7 +43,7 @@ void MyStraightLaserChip001::initialize() {
     pOrg_ = P_MYSHIP;
     getKuroko()->setRzRyMvAng(0,0);
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(1);
+    pChecker->createCollisionArea(1);
     pChecker->setColliAAB_WHD(0,120000,60000,60000);
 
     setHitAble(true);
@@ -161,7 +157,7 @@ void MyStraightLaserChip001::onInactive() {
 void MyStraightLaserChip001::chengeTex(int prm_tex_no) {
     if (MyStraightLaserChip001::pModel_) {
         MyStraightLaserChip001::tex_no_ = prm_tex_no;
-        MyStraightLaserChip001::pModel_->swapTopTextureOrder(aaTextureName[prm_tex_no]);
+        MyStraightLaserChip001::pModel_->setDefaultTextureMaterialNo(prm_tex_no);
     }
 }
 

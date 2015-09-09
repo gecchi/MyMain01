@@ -12,11 +12,11 @@ _pActor(prm_pActor) {
     _pCollisionArea = nullptr;
 }
 
-void GgafDxChecker::makeCollision(int prm_colli_part_num) {
+void GgafDxChecker::createCollisionArea(int prm_colli_part_num) {
     if (_pCollisionArea == nullptr) {
         _pCollisionArea = NEW GgafDxCollisionArea(prm_colli_part_num);
     } else {
-        throwGgafCriticalException("CollisionChecker3D::makeCollision ä˘Ç… makeCollision Ç≥ÇÍÇƒÇ¢Ç‹Ç∑ÅB");
+        throwGgafCriticalException("CollisionChecker3D::createCollisionArea ä˘Ç… createCollisionArea Ç≥ÇÍÇƒÇ¢Ç‹Ç∑ÅB");
     }
 }
 

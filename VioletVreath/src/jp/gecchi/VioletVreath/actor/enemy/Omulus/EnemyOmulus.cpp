@@ -49,7 +49,7 @@ void EnemyOmulus::initialize() {
     getMorpher()->setRange(MORPHTARGET_HATCH_OPEN, 0.0f, 1.0f);
     setMorphWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(1);
+    pChecker->createCollisionArea(1);
     pChecker->setColliAAB_Cube(0, 200000);
     setScale(1000);
     pScaler_->setRange(1000, 1200);

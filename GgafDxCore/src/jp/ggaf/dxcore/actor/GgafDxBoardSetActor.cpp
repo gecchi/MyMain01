@@ -26,7 +26,7 @@ GgafDxBoardSetActor::GgafDxBoardSetActor(const char* prm_name,
                                                                  nullptr) ,
 _pBoardSetModel((GgafDxBoardSetModel*)_pModel),
 _pBoardSetEffect((GgafDxBoardSetEffect*)_pEffect),
-_pUvFlipper(NEW GgafDxUvFlipper(_pBoardSetModel->_papTextureConnection[0]->peek())) {
+_pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
 
     _obj_class |= Obj_GgafDxBoardSetActor;
     _class_name = "GgafDxBoardSetActor";

@@ -43,7 +43,7 @@ void EnemyGeria::onCreateModel() {
 void EnemyGeria::initialize() {
     setHitAble(false);
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(1);
+    pChecker->createCollisionArea(1);
     pChecker->setColliAAB_Cube(0, 45000);
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(AXIS_Z, -7000);

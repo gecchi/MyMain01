@@ -34,7 +34,7 @@ void MyMagicEnergyCore::onCreateModel() {
 void MyMagicEnergyCore::initialize() {
     setHitAble(true);
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(1);
+    pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, 1);
 }
 

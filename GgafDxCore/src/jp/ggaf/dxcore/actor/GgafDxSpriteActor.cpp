@@ -28,7 +28,7 @@ GgafDxSpriteActor::GgafDxSpriteActor(const char* prm_name,
                                                              prm_pChecker),
 _pSpriteModel( (GgafDxSpriteModel*)_pModel),
 _pSpriteEffect( (GgafDxSpriteEffect*)_pEffect),
-_pUvFlipper(NEW GgafDxUvFlipper(_pSpriteModel->_papTextureConnection[0]->peek())) {
+_pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
 
     _obj_class |= Obj_GgafDxSpriteActor;
     _class_name = "GgafDxSpriteActor";

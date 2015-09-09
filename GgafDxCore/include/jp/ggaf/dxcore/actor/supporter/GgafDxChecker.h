@@ -35,7 +35,7 @@ public:
      * 最初に必ず実行してください。
      * @param prm_colli_part_num 当たり判定領域の当たり判定領域要素数(1～n)
      */
-    virtual void makeCollision(int prm_colli_part_num);
+    virtual void createCollisionArea(int prm_colli_part_num);
 
     /**
      * ヒットシしているかどうか

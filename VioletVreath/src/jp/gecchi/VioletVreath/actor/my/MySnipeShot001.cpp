@@ -20,7 +20,7 @@ void MySnipeShot001::initialize() {
     setScaleR(4.0);
     setAlpha(0.99);
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(1);
+    pChecker->createCollisionArea(1);
     pChecker->setColliAAB(0, -PX_C(50), -PX_C(50), -PX_C(50),
                               PX_C(50),  PX_C(50),  PX_C(50));
     getKuroko()->setRollFaceAngVelo(D_ANG(12));

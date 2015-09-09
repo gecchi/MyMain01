@@ -97,6 +97,8 @@ void LaserMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
     } else {
         //レベル0へレベルダウン時
         P_MYSHIP->can_shoot_laser_ = false;
+        MyStraightLaserChip001::chengeTex(0);
+        MyBunshinWateringLaserChip001::chengeTex(0);
     }
 }
 

@@ -50,7 +50,7 @@ void EnemyHisbe002::initialize() {
     pKuroko->setFaceAngVelo(AXIS_Y, 500);
     pKuroko->linkFaceAngByMvAng(true);
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(1);
+    pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, 40000);
 }
 

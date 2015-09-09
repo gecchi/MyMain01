@@ -35,7 +35,7 @@ void EnemyUnomia::initialize() {
     pKuroko->linkFaceAngByMvAng(true);
     pKuroko->setRollFaceAngVelo(-4000);
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(1);
+    pChecker->createCollisionArea(1);
     pChecker->setColliAAB_Cube(0, 40000);
 }
 

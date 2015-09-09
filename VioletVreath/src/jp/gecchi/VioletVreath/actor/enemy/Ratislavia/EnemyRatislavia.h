@@ -69,7 +69,7 @@ protected:
      * ラティスラヴィアの当たり判定領域を作成し設定する .
      * @param prm_nSphere 当たり判定球の数
      */
-    void makeCollisionArea(int prm_nSphere);
+    void createCollisionAreaArea(int prm_nSphere);
 
     /**
      * ラティスラヴィアの表面にサブボーンを追加

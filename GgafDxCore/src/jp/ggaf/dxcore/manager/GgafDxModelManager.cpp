@@ -1822,8 +1822,8 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
     double dv = 1.0 / tex_height / 100000.0; //テクスチャの高さ1pxの10000分の1px
     double rev = 1.0;//0.99609308; //99609309で割れ
     //左上
-    paVertex[0].x = (xdata.width / -2.0 / PX_UNIT)*rev;
-    paVertex[0].y = (xdata.height / 2.0 / PX_UNIT)*rev;
+    paVertex[0].x = (PX_DX(xdata.width)  / -2.0)*rev;
+    paVertex[0].y = (PX_DX(xdata.height) /  2.0)*rev;
     paVertex[0].z = 0.0f;
     paVertex[0].nx = 0.0f;
     paVertex[0].ny = 0.0f;
@@ -1832,8 +1832,8 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
     paVertex[0].tu = du;
     paVertex[0].tv = dv;
     //右上
-    paVertex[1].x = (xdata.width / 2.0 / PX_UNIT)*rev;
-    paVertex[1].y = (xdata.height / 2.0 / PX_UNIT)*rev;
+    paVertex[1].x = (PX_DX(xdata.width)  /  2.0)*rev;
+    paVertex[1].y = (PX_DX(xdata.height) /  2.0)*rev;
     paVertex[1].z = 0.0f;
     paVertex[1].nx = 0.0f;
     paVertex[1].ny = 0.0f;
@@ -1842,8 +1842,8 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
     paVertex[1].tu = (1.0 / xdata.col_texture_split) - du;
     paVertex[1].tv = dv;
     //左下
-    paVertex[2].x = (xdata.width / -2.0 / PX_UNIT)*rev;
-    paVertex[2].y = (xdata.height / -2.0 / PX_UNIT)*rev;
+    paVertex[2].x = (PX_DX(xdata.width)  / -2.0)*rev;
+    paVertex[2].y = (PX_DX(xdata.height) / -2.0)*rev;
     paVertex[2].z = 0.0f;
     paVertex[2].nx = 0.0f;
     paVertex[2].ny = 0.0f;
@@ -1853,8 +1853,8 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
     paVertex[2].tv = (1.0 / xdata.row_texture_split) - dv;
 
     //右下
-    paVertex[3].x = (xdata.width / 2.0 / PX_UNIT)*rev;
-    paVertex[3].y = (xdata.height / -2.0 / PX_UNIT)*rev;
+    paVertex[3].x = (PX_DX(xdata.width)  / 2.0 )*rev;
+    paVertex[3].y = (PX_DX(xdata.height) / -2.0)*rev;
     paVertex[3].z = 0.0f;
     paVertex[3].nx = 0.0f;
     paVertex[3].ny = 0.0f;
@@ -1989,8 +1989,8 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
         //x,y の ÷2 とは、モデル中心をローカル座標の原点中心としたいため
         for (int i = 0; i < prm_pSpriteSetModel->_set_num; i++) {
             //左上
-            paVertex[i*4 + 0].x = (xdata.width / -2.0 / PX_UNIT)*rev;
-            paVertex[i*4 + 0].y = (xdata.height / 2.0 / PX_UNIT)*rev;
+            paVertex[i*4 + 0].x = (PX_DX(xdata.width)  / -2.0)*rev;
+            paVertex[i*4 + 0].y = (PX_DX(xdata.height) /  2.0)*rev;
             paVertex[i*4 + 0].z = 0.0f;
             paVertex[i*4 + 0].nx = 0.0f;
             paVertex[i*4 + 0].ny = 0.0f;
@@ -1999,8 +1999,8 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
             paVertex[i*4 + 0].tv = dv;
             paVertex[i*4 + 0].index = (float)i;
             //右上
-            paVertex[i*4 + 1].x = (xdata.width / 2.0 / PX_UNIT)*rev;
-            paVertex[i*4 + 1].y = (xdata.height / 2.0 / PX_UNIT)*rev;
+            paVertex[i*4 + 1].x = (PX_DX(xdata.width)  / 2.0)*rev;
+            paVertex[i*4 + 1].y = (PX_DX(xdata.height) / 2.0)*rev;
             paVertex[i*4 + 1].z = 0.0f;
             paVertex[i*4 + 1].nx = 0.0f;
             paVertex[i*4 + 1].ny = 0.0f;
@@ -2009,8 +2009,8 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
             paVertex[i*4 + 1].tv = dv;
             paVertex[i*4 + 1].index = (float)i;
             //左下
-            paVertex[i*4 + 2].x = (xdata.width / -2.0 / PX_UNIT)*rev;
-            paVertex[i*4 + 2].y = (xdata.height / -2.0 / PX_UNIT)*rev;
+            paVertex[i*4 + 2].x = (PX_DX(xdata.width)  / -2.0)*rev;
+            paVertex[i*4 + 2].y = (PX_DX(xdata.height) / -2.0)*rev;
             paVertex[i*4 + 2].z = 0.0f;
             paVertex[i*4 + 2].nx = 0.0f;
             paVertex[i*4 + 2].ny = 0.0f;
@@ -2019,8 +2019,8 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
             paVertex[i*4 + 2].tv = (1.0/xdata.row_texture_split) - dv;
             paVertex[i*4 + 2].index = (float)i;
             //右下
-            paVertex[i*4 + 3].x = (xdata.width / 2.0 / PX_UNIT)*rev;
-            paVertex[i*4 + 3].y = (xdata.height / -2.0 / PX_UNIT)*rev;
+            paVertex[i*4 + 3].x = (PX_DX(xdata.width)  /  2.0)*rev;
+            paVertex[i*4 + 3].y = (PX_DX(xdata.height) / -2.0)*rev;
             paVertex[i*4 + 3].z = 0.0f;
             paVertex[i*4 + 3].nx = 0.0f;
             paVertex[i*4 + 3].ny = 0.0f;

@@ -359,7 +359,7 @@ void MyShip::initialize() {
 
     setHitAble(true);
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(1);
+    pChecker->createCollisionArea(1);
 //    pChecker->setColliSphere(0, -100000, -50000, 20000, 100000);
 // pChecker->setColliAAB(0, -100000, -50000, 20000, 10000, 40000, 80000);
       pChecker->setColliAAB_Cube(0, 40000);

@@ -24,7 +24,6 @@ const double MyBunshinWateringLaserChip001::rr_max_acce_ = 1.0 / r_max_acce_; //
 const float MyBunshinWateringLaserChip001::max_acce_renge_ = max_velo_renge_/r_max_acce_;
 
 GgafDxCore::GgafDxModel* MyBunshinWateringLaserChip001::pModel_  = nullptr;
-char MyBunshinWateringLaserChip001::aaTextureName[MAX_LASER_LEVEL][51];
 int MyBunshinWateringLaserChip001::tex_no_ = 0;
 
 MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_name) :
@@ -40,9 +39,6 @@ MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_nam
     if (!MyBunshinWateringLaserChip001::pModel_) {
         if (pModel->_num_materials != MAX_LASER_LEVEL) {
             throwGgafCriticalException("MyBunshinWateringLaserChip001::onCreateModel() MyBunshinWateringLaserChip001モデルは、テクスチャ（マテリアル）が"<<MAX_LASER_LEVEL<<"つ必要です。");
-        }
-        for (DWORD i = 0; i < pModel->_num_materials; i ++) {
-            strcpy(MyBunshinWateringLaserChip001::aaTextureName[i], pModel->_papTextureConnection[i]->peek()->getName());
         }
         MyBunshinWateringLaserChip001::pModel_ = pModel;
     }
@@ -279,7 +275,7 @@ void MyBunshinWateringLaserChip001::onInactive() {
 void MyBunshinWateringLaserChip001::chengeTex(int prm_tex_no) {
     if (MyBunshinWateringLaserChip001::pModel_) {
         MyBunshinWateringLaserChip001::tex_no_ = prm_tex_no;
-        MyBunshinWateringLaserChip001::pModel_->swapTopTextureOrder(aaTextureName[prm_tex_no]);
+        MyBunshinWateringLaserChip001::pModel_->setDefaultTextureMaterialNo(prm_tex_no);
     }
 }
 

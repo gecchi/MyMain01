@@ -24,7 +24,7 @@ Shot002::Shot002(const char* prm_name) :
 
 void Shot002::initialize() {
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(1);
+    pChecker->createCollisionArea(1);
     pChecker->setColliAAB(0, -50000, -50000, -50000, 50000, 50000, 50000);
 }
 

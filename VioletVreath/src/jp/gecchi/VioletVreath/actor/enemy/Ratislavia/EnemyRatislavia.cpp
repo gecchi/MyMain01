@@ -57,11 +57,11 @@ void EnemyRatislavia::addSubGroupAsFkOnSurface(GgafDxGeometricActor* prm_pGeoAct
     this->addSubGroupAsFk(prm_pGeoActor, X, Y, Z, D0ANG, angRy, angRz);
 }
 
-void EnemyRatislavia::makeCollisionArea(int prm_nSphere){
+void EnemyRatislavia::createCollisionAreaArea(int prm_nSphere){
     angle* paAngRadial = NEW angle[prm_nSphere];
     UTIL::getRadialAngle2D(0, prm_nSphere, paAngRadial);
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(prm_nSphere);
+    pChecker->createCollisionArea(prm_nSphere);
     for (int i = 0; i < prm_nSphere; i++) {
         pChecker->setColliSphere(
                 i,
@@ -78,7 +78,7 @@ void EnemyRatislavia::onCreateModel() {
 }
 
 void EnemyRatislavia::initialize() {
-    makeCollisionArea(colli_part_num_);
+    createCollisionAreaArea(colli_part_num_);
     setHitAble(true);
     setAlpha(1.00);
 }

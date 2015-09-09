@@ -64,7 +64,7 @@ void EnemyEsperia::onCreateModel() {
 
 void EnemyEsperia::initialize() {
     CollisionChecker3D* pChecker = getCollisionChecker();
-    pChecker->makeCollision(1);
+    pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, PX_C(200));
 }
 

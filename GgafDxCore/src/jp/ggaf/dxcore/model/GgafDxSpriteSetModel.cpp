@@ -70,7 +70,7 @@ HRESULT GgafDxSpriteSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
     if (GgafDxModelManager::_pModelLastDraw  != this) {
         pDevice->SetStreamSource(0, _pVertexBuffer, 0, _size_vertex_unit);
         pDevice->SetFVF(GgafDxSpriteSetModel::FVF);
-        pDevice->SetTexture(0, _papTextureConnection[0]->peek()->_pIDirect3DBaseTexture9);
+        pDevice->SetTexture(0, getDefaultTextureConnection()->peek()->_pIDirect3DBaseTexture9);
         pDevice->SetIndices(_pIndexBuffer);
 
         hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_h_tex_blink_power, _power_blink);
@@ -172,8 +172,10 @@ void GgafDxSpriteSetModel::release() {
     GGAF_RELEASE(_pVertexBuffer);
     GGAF_RELEASE(_pIndexBuffer);
     if (_papTextureConnection) {
-        if (_papTextureConnection[0]) {
-            _papTextureConnection[0]->close();
+        for (int i = 0; i < (int)_num_materials; i++) {
+            if (_papTextureConnection[i]) {
+                _papTextureConnection[i]->close();
+            }
         }
     }
     GGAF_DELETEARR(_papTextureConnection);
