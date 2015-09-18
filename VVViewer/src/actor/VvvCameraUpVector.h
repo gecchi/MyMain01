@@ -18,7 +18,7 @@ public:
 
 public:
 
-    int up_face_;
+    int up_dir_;
 
     VvvCameraUpVector(const char* prm_name);
 

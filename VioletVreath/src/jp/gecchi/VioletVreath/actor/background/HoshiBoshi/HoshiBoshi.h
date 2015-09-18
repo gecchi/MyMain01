@@ -35,7 +35,7 @@ public:
 public:
     HoshiBoshi(const char* prm_name, const char* prm_model_id);
 
-    bool initStatic();
+    static bool initStatic(HoshiBoshi* prm_pHoshiBoshi);
 
     /**
      * ¯X‚ÌL‚ª‚è‚ÌŠg‘å”{—¦‚ğİ’è .

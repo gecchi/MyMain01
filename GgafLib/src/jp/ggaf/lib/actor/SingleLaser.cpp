@@ -30,12 +30,12 @@ SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id, GgafSta
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(false);  //Zバッファは書き込み無し
 
-    static volatile bool is_init = SingleLaser::initStatic(); //静的メンバ初期化
+    static volatile bool is_init = SingleLaser::initStatic(this); //静的メンバ初期化
 }
 
 D3DXHANDLE SingleLaser::_ah_matWorld[26];
-bool SingleLaser::initStatic() {
-    ID3DXEffect* const pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
+bool SingleLaser::initStatic(SingleLaser* prm_pSingleLaser) {
+    ID3DXEffect* const pID3DXEffect = prm_pSingleLaser->getEffect()->_pID3DXEffect;
     SingleLaser::_ah_matWorld[0]   = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld001" );
     SingleLaser::_ah_matWorld[1]   = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld002" );
     SingleLaser::_ah_matWorld[2]   = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld003" );

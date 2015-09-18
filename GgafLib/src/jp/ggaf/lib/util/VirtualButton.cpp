@@ -342,6 +342,23 @@ bool VirtualButton::initStatic() {
     VirtualButton::_mapStr2VBK["VBK_MAIL"]         = VBK_MAIL        ;
     VirtualButton::_mapStr2VBK["VBK_MEDIASELECT"]  = VBK_MEDIASELECT ;
 
+    VirtualButton::_mapStr2VBK["VBK_BACKSPACE"]    = VBK_BACKSPACE   ;
+    VirtualButton::_mapStr2VBK["VBK_NUMPADSTAR"]   = VBK_NUMPADSTAR  ;
+    VirtualButton::_mapStr2VBK["VBK_LALT"]         = VBK_LALT        ;
+    VirtualButton::_mapStr2VBK["VBK_CAPSLOCK"]     = VBK_CAPSLOCK    ;
+    VirtualButton::_mapStr2VBK["VBK_NUMPADMINUS"]  = VBK_NUMPADMINUS ;
+    VirtualButton::_mapStr2VBK["VBK_NUMPADPLUS"]   = VBK_NUMPADPLUS  ;
+    VirtualButton::_mapStr2VBK["VBK_NUMPADPERIOD"] = VBK_NUMPADPERIOD;
+    VirtualButton::_mapStr2VBK["VBK_NUMPADSLASH"]  = VBK_NUMPADSLASH ;
+    VirtualButton::_mapStr2VBK["VBK_RALT"]         = VBK_RALT        ;
+    VirtualButton::_mapStr2VBK["VBK_UPARROW"]      = VBK_UPARROW     ;
+    VirtualButton::_mapStr2VBK["VBK_PGUP"]         = VBK_PGUP        ;
+    VirtualButton::_mapStr2VBK["VBK_LEFTARROW"]    = VBK_LEFTARROW   ;
+    VirtualButton::_mapStr2VBK["VBK_RIGHTARROW"]   = VBK_RIGHTARROW  ;
+    VirtualButton::_mapStr2VBK["VBK_DOWNARROW"]    = VBK_DOWNARROW   ;
+    VirtualButton::_mapStr2VBK["VBK_PGDN"]         = VBK_PGDN        ;
+
+
     VirtualButton::_mapStr2VBJ["VBJ_BUTTON_01"]   = VBJ_BUTTON_01  ;
     VirtualButton::_mapStr2VBJ["VBJ_BUTTON_02"]   = VBJ_BUTTON_02  ;
     VirtualButton::_mapStr2VBJ["VBJ_BUTTON_03"]   = VBJ_BUTTON_03  ;
@@ -519,6 +536,22 @@ bool VirtualButton::initStatic() {
     VirtualButton::_mapVBK2Str[VBK_MYCOMPUTER  ] = "VBK_MYCOMPUTER";
     VirtualButton::_mapVBK2Str[VBK_MAIL        ] = "VBK_MAIL";
     VirtualButton::_mapVBK2Str[VBK_MEDIASELECT ] = "VBK_MEDIASELECT";
+
+    VirtualButton::_mapVBK2Str[VBK_BACKSPACE   ] = "VBK_BACKSPACE";
+    VirtualButton::_mapVBK2Str[VBK_NUMPADSTAR  ] = "VBK_NUMPADSTAR";
+    VirtualButton::_mapVBK2Str[VBK_LALT        ] = "VBK_LALT";
+    VirtualButton::_mapVBK2Str[VBK_CAPSLOCK    ] = "VBK_CAPSLOCK";
+    VirtualButton::_mapVBK2Str[VBK_NUMPADMINUS ] = "VBK_NUMPADMINUS";
+    VirtualButton::_mapVBK2Str[VBK_NUMPADPLUS  ] = "VBK_NUMPADPLUS";
+    VirtualButton::_mapVBK2Str[VBK_NUMPADPERIOD] = "VBK_NUMPADPERIOD";
+    VirtualButton::_mapVBK2Str[VBK_NUMPADSLASH ] = "VBK_NUMPADSLASH";
+    VirtualButton::_mapVBK2Str[VBK_RALT        ] = "VBK_RALT";
+    VirtualButton::_mapVBK2Str[VBK_UPARROW     ] = "VBK_UPARROW";
+    VirtualButton::_mapVBK2Str[VBK_PGUP        ] = "VBK_PGUP";
+    VirtualButton::_mapVBK2Str[VBK_LEFTARROW   ] = "VBK_LEFTARROW";
+    VirtualButton::_mapVBK2Str[VBK_RIGHTARROW  ] = "VBK_RIGHTARROW";
+    VirtualButton::_mapVBK2Str[VBK_DOWNARROW   ] = "VBK_DOWNARROW";
+    VirtualButton::_mapVBK2Str[VBK_PGDN        ] = "VBK_PGDN";
 
     VirtualButton::_mapVBJ2Str[VBJ_BUTTON_01  ] = "VBJ_BUTTON_01";
     VirtualButton::_mapVBJ2Str[VBJ_BUTTON_02  ] = "VBJ_BUTTON_02";

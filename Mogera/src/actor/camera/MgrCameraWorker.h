@@ -22,9 +22,9 @@ class MgrCameraWorker : public GgafCore::GgafMainActor {
 
 private:
     /** 現在のカメラ→視点の方向番号 */
-    face26 vcv_face_;
+    dir26 vcv_dir_;
     /** 前回カメラ→視点の方向番号 */
-    face26 vcv_face_prev_;
+    dir26 vcv_dir_prev_;
 
 public:
     /** [r]カメラへの参照 */
@@ -38,14 +38,14 @@ public:
     /** カメラマンのビューポイントの移動目標座標 */
     coord t_x_VP_, t_y_VP_, t_z_VP_;
     /** カメラマンの頭の方向目標番号 */
-    face26 t_cam_up_face_;
+    dir26 t_cam_up_dir_;
 
     frame frame_of_behaving_since_onSwitch_;
 
 public:
     MgrCameraWorker(const char* prm_name);
 
-    bool initStatic();
+    static bool initStatic();
 
     virtual void initialize() override;
     virtual void onActive() override;
@@ -80,7 +80,7 @@ public:
     void slideMvVpTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t);
     void slideMvVpTo(coord tx, coord ty, coord tz, frame t);
 
-    void slideMvUpTo(face26 prm_up_face_no, frame t);
+    void slideMvUpVecTo(dir26 prm_up_dir_no, frame t);
 //    void stopNaturallyCam(coord distance, frame t);
 //    void stopNaturallyVp(coord distance, frame t);
 

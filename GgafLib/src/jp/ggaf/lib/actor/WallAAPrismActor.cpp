@@ -30,7 +30,7 @@ WallAAPrismActor::WallAAPrismActor(const char* prm_name,
     setZEnable(true);       //Zバッファは考慮有り
     setZWriteEnable(true);  //Zバッファは書き込み有り
 
-    static volatile bool is_init = WallAAPrismActor::initStatic(); //静的メンバ初期化
+    static volatile bool is_init = WallAAPrismActor::initStatic(this); //静的メンバ初期化
 }
 
 D3DXHANDLE WallAAPrismActor::_h_distance_AlphaTarget;
@@ -38,8 +38,8 @@ D3DXHANDLE WallAAPrismActor::_h_wall_dep;
 D3DXHANDLE WallAAPrismActor::_h_wall_height;
 D3DXHANDLE WallAAPrismActor::_h_wall_width;
 std::map<int, UINT> WallAAPrismActor::_delface;
-bool WallAAPrismActor::initStatic() {
-    ID3DXEffect* pID3DXEffect = getEffect()->_pID3DXEffect;
+bool WallAAPrismActor::initStatic(WallAAPrismActor* prm_pWallAAPrismActor) {
+    ID3DXEffect* pID3DXEffect = prm_pWallAAPrismActor->getEffect()->_pID3DXEffect;
     WallAAPrismActor::_h_distance_AlphaTarget = pID3DXEffect->GetParameterByName( nullptr, "g_distance_AlphaTarget" );
     WallAAPrismActor::_h_wall_dep    = pID3DXEffect->GetParameterByName( nullptr, "g_wall_dep" );
     WallAAPrismActor::_h_wall_height = pID3DXEffect->GetParameterByName( nullptr, "g_wall_height" );

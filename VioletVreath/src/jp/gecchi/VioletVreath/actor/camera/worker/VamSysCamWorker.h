@@ -3,10 +3,17 @@
 #include "VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/camera/worker/CameraWorker.h"
 
-#define VAM_POS_RIGHT 1
-#define VAM_POS_LEFT 2
-#define VAM_POS_TOP 3
-#define VAM_POS_BOTTOM 4
+#include "jp/ggaf/dxcore/util/GgafDx26DirectionUtil.h"
+
+#define VAM_POS_ZRIGHT       DIR26( 0, 0,-1)
+#define VAM_POS_ZRIGHT_UP    DIR26( 0,+1,-1)
+#define VAM_POS_UP           DIR26( 0,+1, 0)
+#define VAM_POS_ZLEFT_UP     DIR26( 0,+1,+1)
+#define VAM_POS_ZLEFT        DIR26( 0, 0,+1)
+#define VAM_POS_ZLEFT_DOWN   DIR26( 0,-1,+1)
+#define VAM_POS_DOWN         DIR26( 0,-1, 0)
+#define VAM_POS_ZRIGHT_DOWN  DIR26( 0,-1,-1)
+
 #define VAM_POS_TO_BEHIND 10
 #define VAM_POS_BEHIND_RIGHT 11
 #define VAM_POS_BEHIND_LEFT 12
@@ -56,11 +63,16 @@ public:
     /** âÊñ îwå„éûópYé≤ï‚ê≥îÕàÕç∑ï™ */
     coord correction_height_;
 
+
+    angle pos_cam_around_;
+    bool cam_up_regular_;
+
+
     int pos_camera_;
     int pos_camera_prev_;
     int pos_camera_pressed_;
     coord dZ_camera_init_;
-
+    coord dZ_camera_init_sqrt2_;
     frame cam_mv_frame_;
     frame cam_mv_frame_base_;
     coord mv_t_x_CAM_prev_, mv_t_y_CAM_prev_, mv_t_z_CAM_prev_;

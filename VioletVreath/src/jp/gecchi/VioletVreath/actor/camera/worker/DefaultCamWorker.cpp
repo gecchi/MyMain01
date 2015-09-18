@@ -9,5 +9,9 @@ DefaultCamWorker::DefaultCamWorker(const char* prm_name) : CameraWorker(prm_name
     _class_name = "DefaultCamWorker";
 }
 
+void DefaultCamWorker::processBehavior()  {
+    targetAutoCamup();
+}
+
 DefaultCamWorker::~DefaultCamWorker() {
 }

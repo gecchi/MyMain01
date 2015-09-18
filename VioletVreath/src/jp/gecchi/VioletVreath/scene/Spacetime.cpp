@@ -14,52 +14,56 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-Spacetime::CameraWorkerConnectionStack::CameraWorkerConnectionStack() {
+Spacetime::CameraWorkerHistory::CameraWorkerHistory() {
     p_ = 0;
-    for (int i = 0; i < 30; i++) {
+    for (int i = 0; i < CAM_WORKER_STACK_NUM; i++) {
         apCamWorkerConnection_[i] = nullptr;
     }
 }
-CameraWorkerConnection* Spacetime::CameraWorkerConnectionStack::getLast() {
+CameraWorkerConnection* Spacetime::CameraWorkerHistory::getLast() {
     if (p_ == 0) {
-        return nullptr;
+        return apCamWorkerConnection_[CAM_WORKER_STACK_NUM-1];
     } else {
         return apCamWorkerConnection_[p_-1];
     }
 }
-void Spacetime::CameraWorkerConnectionStack::push(CameraWorkerConnection* prm_pCamWorkerCon) {
-    if (p_ > 30-1) {
-        throwGgafCriticalException("CameraWorkerConnectionStack::push("<<prm_pCamWorkerCon->getIdStr()<<") スタックを使い切りました。");
+void Spacetime::CameraWorkerHistory::push(CameraWorkerConnection* prm_pCamWorkerCon) {
+    if (p_ > CAM_WORKER_STACK_NUM-1) {
+        p_ = 0;
     }
     apCamWorkerConnection_[p_] = prm_pCamWorkerCon;
     p_++;
 }
-CameraWorkerConnection* Spacetime::CameraWorkerConnectionStack::pop() {
+CameraWorkerConnection* Spacetime::CameraWorkerHistory::pop() {
     if (p_ == 0) {
-        throwGgafCriticalException("CameraWorkerConnectionStack::pop() ポップしすぎです");
-    } else {
-        p_--;
-        CameraWorkerConnection* r = apCamWorkerConnection_[p_];
-        apCamWorkerConnection_[p_] = nullptr;
-        return r;
+        p_ = CAM_WORKER_STACK_NUM;
     }
+    p_--;
+    CameraWorkerConnection* r = apCamWorkerConnection_[p_];
+#ifdef MY_DEBUG
+    if (r == nullptr) {
+        throwGgafCriticalException("Spacetime::CameraWorkerHistory::pop() POPしすぎです");
+    }
+#endif
+    apCamWorkerConnection_[p_] = nullptr;
+    return r;
 }
-void Spacetime::CameraWorkerConnectionStack::clear() {
+void Spacetime::CameraWorkerHistory::clear() {
     p_ = 0;
-    for (int i = 0; i < 30; i++) {
+    for (int i = 0; i < CAM_WORKER_STACK_NUM; i++) {
         apCamWorkerConnection_[i] = nullptr;
     }
 }
 
-void Spacetime::CameraWorkerConnectionStack::dump() {
-    _TRACE_("CameraWorkerConnectionStack p_="<<p_);
-    for (int i = 0; i < 30; i++) {
+void Spacetime::CameraWorkerHistory::dump() {
+    _TRACE_("CameraWorkerHistory Active p_="<<p_);
+    for (int i = 0; i < CAM_WORKER_STACK_NUM; i++) {
         if (apCamWorkerConnection_[i]) {
             _TRACE_("apCamWorkerConnection_["<<i<<"]="<<(apCamWorkerConnection_[i]->getIdStr()));
         }
     }
 }
-Spacetime::CameraWorkerConnectionStack::~CameraWorkerConnectionStack() {
+Spacetime::CameraWorkerHistory::~CameraWorkerHistory() {
     clear();
 }
 
@@ -92,9 +96,11 @@ void Spacetime::processBehavior() {
     }
     if (pActiveCamWorker_->hasJustChangedToActive()) {
         if (pActiveCamWorker_->frame_of_behaving_since_onSwitch_== 0) {
+            //changeCameraWork で切り替わってきた場合
             pActiveCamWorker_->onSwitchCameraWork(); //コールバック
         } else {
-            pActiveCamWorker_->onCameBackFromOtherCameraWork(); //コールバック
+            //undoCameraWorkで切り替わってきた場合
+            pActiveCamWorker_->onSwitchCameraWork(); //コールバック
         }
     }
 
@@ -106,8 +112,8 @@ void Spacetime::processJudgement() {
     DefaultSpacetime::processJudgement();
 }
 
-CameraWorker* Spacetime::switchCameraWork(const char* prm_pID) {
-    _TRACE_("Spacetime::switchCameraWork("<<prm_pID<<") ");
+CameraWorker* Spacetime::changeCameraWork(const char* prm_pID) {
+    _TRACE_("Spacetime::changeCameraWork("<<prm_pID<<") ");
 //    stack_CamWorkerConnection_.dump();
     //    |      |                             |      |
     //    |      |                             +------+
@@ -123,12 +129,11 @@ CameraWorker* Spacetime::switchCameraWork(const char* prm_pID) {
     if (pCamWorker != pActiveCamWorker_) {
         _TRACE_("現pActiveCamWorker_="<<pActiveCamWorker_->getName()<<" は一時非活動で待機");
         //現在の CameraWork を非活動へ
-        pActiveCamWorker_->onSwitchToOtherCameraWork(); //コールバック
+        pActiveCamWorker_->onChangedToOtherCameraWork(); //コールバック
         pActiveCamWorker_->inactivate();
         //パラメータの CameraWork を活動へ
         pCamWorker->activate();
         pCamWorker->frame_of_behaving_since_onSwitch_ = 0; //switch後フレームカウンタリセット
-//        pCamWorker->onSwitchCameraWork(); //コールバック
         if (bringDirector()->getSubFirst()->getSub(pCamWorker)) {
             //２回目以降の
         } else {
@@ -141,7 +146,7 @@ CameraWorker* Spacetime::switchCameraWork(const char* prm_pID) {
     } else {
 #ifdef MY_DEBUG
         stack_CamWorkerConnection_.dump();
-        _TRACE_("＜警告＞Spacetime::switchCameraWork("<<prm_pID<<") 同じカメラワークを連続でpush()していますので無視します。pActiveCamWorker_="<<pActiveCamWorker_->getName());
+        _TRACE_("＜警告＞Spacetime::changeCameraWork("<<prm_pID<<") 同じカメラワークを連続でpush()していますので無視します。pActiveCamWorker_="<<pActiveCamWorker_->getName());
 #endif
     }
 //    stack_CamWorkerConnection_.dump();
@@ -169,13 +174,11 @@ CameraWorker* Spacetime::undoCameraWork() {
         if (pCamWorker != pActiveCamWorker_) {
             //現在の CameraWork を非活動へ
             _TRACE_("現pActiveCamWorker_="<<pActiveCamWorker_->getName()<<" はさいなら");
-
+            pActiveCamWorker_->onChangedToOtherCameraWork();  //コールバック
             pActiveCamWorker_->inactivate();
-            pActiveCamWorker_->onUndoCameraWork();  //コールバック
             pActiveCamWorker_ = pCamWorker;
             if (pActiveCamWorker_) {
                 //１つ前の CameraWork を活動へ
-//                pActiveCamWorker_->onCameBackFromOtherCameraWork();  //コールバック
                 pActiveCamWorker_->activate();
             } else {
                 stack_CamWorkerConnection_.dump();

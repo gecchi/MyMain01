@@ -17,8 +17,8 @@ class VvvCamera : public GgafLib::DefaultCamera {
     int relation_up_vec_[3*3*3][3*3*3];
 
 public:
-    int vcv_face_;
-    int vcv_face_prev_;
+    int vcv_dir_;
+    int vcv_dir_prev_;
 
     /** 自動UP制御機能を一時的にOFFにするフレーム */
     frame auto_up_wait_frames;

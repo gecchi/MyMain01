@@ -25,7 +25,7 @@ public:
 public:
     WallAAPrismActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
 
-    bool initStatic();
+    static bool initStatic(WallAAPrismActor* prm_pWallAAPrismActor);
 
     virtual void processDraw() override;
 

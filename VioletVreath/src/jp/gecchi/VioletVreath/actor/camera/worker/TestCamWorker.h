@@ -20,9 +20,6 @@ public:
 
     void onSwitchCameraWork() override;
 
-    void onUndoCameraWork() override {
-    }
-
     void onActive() override;
 
     void processBehavior() override;

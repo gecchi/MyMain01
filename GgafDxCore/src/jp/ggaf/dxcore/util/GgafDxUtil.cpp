@@ -603,6 +603,26 @@ void GgafDxUtil::convVectorToRzRy(coord vx,
 }
 
 
+void GgafDxUtil::getNormalizeVector(coord x,
+                                    coord y,
+                                    float& out_nvx,
+                                    float& out_nvy) {
+    const dxcoord vx = C_DX(x);
+    const dxcoord vy = C_DX(y);
+    const double t = 1.0 / sqrt(vx * vx + vy * vy);
+    out_nvx = t * vx;
+    out_nvy = t * vy;
+}
+
+void GgafDxUtil::getNormalizeVector(dxcoord x,
+                                    dxcoord y,
+                                    float& out_nvx,
+                                    float& out_nvy) {
+    const double t = 1.0 / sqrt(x * x + y * y);
+    out_nvx = t * x;
+    out_nvy = t * y;
+}
+
 
 void GgafDxUtil::getNormalizeVector(coord x,
                                     coord y,

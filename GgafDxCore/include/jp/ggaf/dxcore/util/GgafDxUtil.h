@@ -445,6 +445,31 @@ public:
      * ベクトル正規化 .
      * @param x
      * @param y
+     * @param out_nvx
+     * @param out_nvy
+     */
+    static void getNormalizeVector(dxcoord x,
+                                   dxcoord y,
+                                   float& out_nvx,
+                                   float& out_nvy);
+
+    /**
+     * ベクトル正規化 .
+     * @param x
+     * @param y
+     * @param out_nvx
+     * @param out_nvy
+     */
+    static void getNormalizeVector(coord x,
+                                   coord y,
+                                   float& out_nvx,
+                                   float& out_nvy);
+
+
+    /**
+     * ベクトル正規化 .
+     * @param x
+     * @param y
      * @param z
      * @param out_nvx
      * @param out_nvy

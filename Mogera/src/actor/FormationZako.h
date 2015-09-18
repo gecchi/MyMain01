@@ -33,7 +33,7 @@ public:
     /** [r]出現座標(シーンが設定) */
     GgafDxCore::GgafDxGeoElem entry_pos_;
 
-    void createMember(int prm_formation_col_num, int prm_formation_row_num, frame prm_call_up_interval);
+    void addMember(int prm_formation_col_num, int prm_formation_row_num, frame prm_call_up_interval);
 
 public:
     FormationZako(const char* prm_name);

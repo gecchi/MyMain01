@@ -7,7 +7,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
-#include "jp/ggaf/dxcore/util/GgafDxDirectionUtil.h"
+#include "jp/ggaf/dxcore/util/GgafDx26DirectionUtil.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 using namespace GgafCore;
@@ -68,7 +68,7 @@ void Camera::slideMvTo(GgafDxGeometricActor* pTarget, frame t,
               prm_x_p1, prm_y_p1, prm_z_p1);
 }
 
-face26 Camera::getVpFaceNo() {
+dir26 Camera::getVpDirNo() {
     float vcv_x, vcv_y, vcv_z;
     CameraViewPoint* pVp = (CameraViewPoint*)getCameraViewPoint();
     UTIL::getNormalizeVector (
@@ -76,7 +76,7 @@ face26 Camera::getVpFaceNo() {
             pVp->_y - _y,
             pVp->_z - _z,
             vcv_x, vcv_y, vcv_z  );
-    return GgafDxDirectionUtil::cnvVec2FaceNo(vcv_x, vcv_y, vcv_z);
+    return GgafDx26DirectionUtil::cnvVec2DirNo(vcv_x, vcv_y, vcv_z);
 }
 
 Camera::~Camera() {

@@ -38,14 +38,14 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
     setAlpha(0.99);
     _middle_colli_able = false;
 
-    static volatile bool is_init = LaserChip::initStatic(); //静的メンバ初期化
+    static volatile bool is_init = LaserChip::initStatic(this); //静的メンバ初期化
 }
 
 D3DXHANDLE LaserChip::_ah_kind[11];
 D3DXHANDLE LaserChip::_ah_force_alpha[11];
 D3DXHANDLE LaserChip::_ah_matWorld_infront[11];
-bool LaserChip::initStatic() {
-    ID3DXEffect* const pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
+bool LaserChip::initStatic(LaserChip* prm_pLaserChip) {
+    ID3DXEffect* const pID3DXEffect = prm_pLaserChip->getEffect()->_pID3DXEffect;
     LaserChip::_ah_kind[0]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind001" );
     LaserChip::_ah_kind[1]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind002" );
     LaserChip::_ah_kind[2]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind003" );

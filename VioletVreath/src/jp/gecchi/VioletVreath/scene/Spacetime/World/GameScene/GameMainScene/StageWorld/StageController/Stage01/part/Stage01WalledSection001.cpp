@@ -38,7 +38,7 @@ void Stage01WalledSection001::processBehavior() {
 
 
 //    if (getActiveFrame() == 300) {
-//        P_SPACETIME->switchCameraWork("TestCamWorker");
+//        P_SPACETIME->changeCameraWork("TestCamWorker");
 //    }
 //
 //    if (getActiveFrame() == 1200) {

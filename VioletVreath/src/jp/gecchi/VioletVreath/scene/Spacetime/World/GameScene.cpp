@@ -214,7 +214,7 @@ void GameScene::processBehavior() {
                     GgafDxInput::updateMouseState();
                     GgafDxInput::updateMouseState(); //マウス座標の相対座標を0にリセットするため
                                                      //連続２回呼び出す
-                    pSpacetime->switchCameraWork("PauseCamWorker");
+                    pSpacetime->changeCameraWork("PauseCamWorker");
                 }
 
                 //ポーズ進行時処理はココ

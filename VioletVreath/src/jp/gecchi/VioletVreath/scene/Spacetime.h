@@ -13,7 +13,7 @@
  * また、CameraWorkerManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) の prm_p には nullptr がセットされている。
  */
 #define getConnection_CameraWorkerManager(X) ((VioletVreath::CameraWorkerConnection*)P_GOD->getSpacetime()->pCamWorkerManager_->connect((X), this))
-
+#define CAM_WORKER_STACK_NUM (30)
 
 namespace VioletVreath {
 
@@ -28,17 +28,17 @@ namespace VioletVreath {
  */
 class Spacetime : public GgafLib::DefaultSpacetime {
 
-    class CameraWorkerConnectionStack {
+    class CameraWorkerHistory {
     public:
-        CameraWorkerConnection* apCamWorkerConnection_[30];
+        CameraWorkerConnection* apCamWorkerConnection_[CAM_WORKER_STACK_NUM];
         uint32_t p_;
-        CameraWorkerConnectionStack();
+        CameraWorkerHistory();
         CameraWorkerConnection* getLast();
         void push(CameraWorkerConnection* prm_pCamWorkerCon);
         CameraWorkerConnection* pop();
         void clear();
         void dump();
-        ~CameraWorkerConnectionStack();
+        ~CameraWorkerHistory();
     };
 
 
@@ -48,7 +48,7 @@ public:
     /** [r]カメラマンのマネージャー */
     CameraWorkerManager* pCamWorkerManager_;
     /** [r]カメラマンのスタック */
-    CameraWorkerConnectionStack stack_CamWorkerConnection_;
+    CameraWorkerHistory stack_CamWorkerConnection_;
     /** [r]世界 */
     World* pWorld_;
 
@@ -77,18 +77,18 @@ public:
      * @param prm_pID 新しいカメラマン識別ID（識別IDは CameraWorkerManager に事前登録要）
      * @return 新しいカメラマン
      */
-    CameraWorker* switchCameraWork(const char* prm_pID);
+    CameraWorker* changeCameraWork(const char* prm_pID);
 
     /**
      * 現在のカメラマンを排除し、一つ前のカメラマンに戻す。 .
-     * 事前に switchCameraWork() を１回以上実行しておく必要があります。
+     * 事前に changeCameraWork() を１回以上実行しておく必要があります。
      * @return 元々居た、戻った方のカメラマン
      */
     CameraWorker* undoCameraWork();
 
     /**
      * カメラマンをリセットする。
-     * 何回 switchCameraWork() を行っていようと、デフォルトカメラマン(DefaultCamWorker)が
+     * 何回 changeCameraWork() を行っていようと、デフォルトカメラマン(DefaultCamWorker)が
      * １人だけの状態に戻ります。
      */
     void resetCamWorker();

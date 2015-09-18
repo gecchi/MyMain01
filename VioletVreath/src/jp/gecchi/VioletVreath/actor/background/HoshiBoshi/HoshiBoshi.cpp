@@ -31,7 +31,7 @@ HoshiBoshi::HoshiBoshi(const char* prm_name, const char* prm_model_id) :
     pCriteria_ = P_GOD->getSpacetime()->getCamera();
     setFarRate(1.0);
 
-    static volatile bool is_init = HoshiBoshi::initStatic(); //静的メンバ初期化
+    static volatile bool is_init = HoshiBoshi::initStatic(this); //静的メンバ初期化
 }
 
 
@@ -40,8 +40,8 @@ D3DXHANDLE HoshiBoshi::h_fY_MyShip_;
 D3DXHANDLE HoshiBoshi::h_fZ_MyShip_;
 D3DXHANDLE HoshiBoshi::h_far_rate_;
 coord HoshiBoshi::CAM_ZF_;
-bool HoshiBoshi::initStatic() {
-    ID3DXEffect* pID3DXEffect = getEffect()->_pID3DXEffect;
+bool HoshiBoshi::initStatic(HoshiBoshi* prm_pHoshiBoshi) {
+    ID3DXEffect* pID3DXEffect = prm_pHoshiBoshi->getEffect()->_pID3DXEffect;
     HoshiBoshi::h_fX_MyShip_ = pID3DXEffect->GetParameterByName( nullptr, "g_fX_MyShip" );
     HoshiBoshi::h_fY_MyShip_ = pID3DXEffect->GetParameterByName( nullptr, "g_fY_MyShip" );
     HoshiBoshi::h_fZ_MyShip_ = pID3DXEffect->GetParameterByName( nullptr, "g_fZ_MyShip" );

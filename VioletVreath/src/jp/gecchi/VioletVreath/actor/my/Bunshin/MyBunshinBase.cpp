@@ -276,7 +276,7 @@ void MyBunshinBase::processBehavior() {
             //•ªgL‚ª‚è‚Æ”¼ŒaˆÊ’u§Œä
             trace_mode_ = TRACE_FREEZE;
             const int pos_camera = P_VAM->pos_camera_;
-            if (pos_camera == VAM_POS_RIGHT) {
+            if (pos_camera == VAM_POS_ZRIGHT) {
                 if (pVbPlay->isBeingPressed(VB_RIGHT)) {
                     pBunshin_->addExpanse(+MyBunshinBase::ANGVELO_EXPANSE);
                 } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
@@ -287,7 +287,7 @@ void MyBunshinBase::processBehavior() {
                 } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
                     pBunshin_->addRadiusPosition(-bunshin_velo_mv_radius_pos_);
                 }
-            } else if (pos_camera == VAM_POS_LEFT) {
+            } else if (pos_camera == VAM_POS_ZLEFT) {
                 if (pVbPlay->isBeingPressed(VB_RIGHT)) {
                     pBunshin_->addExpanse(-MyBunshinBase::ANGVELO_EXPANSE);
                 } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
@@ -298,7 +298,7 @@ void MyBunshinBase::processBehavior() {
                 } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
                     pBunshin_->addRadiusPosition(-bunshin_velo_mv_radius_pos_);
                 }
-            } else if (pos_camera == VAM_POS_TOP) {
+            } else if (pos_camera == VAM_POS_UP) {
                 if (pVbPlay->isBeingPressed(VB_RIGHT)) {
                     pBunshin_->addRadiusPosition(+bunshin_velo_mv_radius_pos_);
                 } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
@@ -309,7 +309,7 @@ void MyBunshinBase::processBehavior() {
                 } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
                     pBunshin_->addExpanse(-MyBunshinBase::ANGVELO_EXPANSE);
                 }
-            } else if (pos_camera == VAM_POS_BOTTOM) {
+            } else if (pos_camera == VAM_POS_DOWN) {
                 if (pVbPlay->isBeingPressed(VB_RIGHT)) {
                     pBunshin_->addRadiusPosition(-bunshin_velo_mv_radius_pos_);
                 } else if (pVbPlay->isBeingPressed(VB_LEFT)) {

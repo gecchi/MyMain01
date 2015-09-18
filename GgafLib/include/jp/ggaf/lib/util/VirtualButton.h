@@ -159,6 +159,24 @@ namespace GgafLib {
 #define VBK_MAIL            DIK_MAIL
 #define VBK_MEDIASELECT     DIK_MEDIASELECT
 
+#define VBK_BACKSPACE       DIK_BACKSPACE
+#define VBK_NUMPADSTAR      DIK_NUMPADSTAR
+#define VBK_LALT            DIK_LALT
+#define VBK_CAPSLOCK        DIK_CAPSLOCK
+#define VBK_NUMPADMINUS     DIK_NUMPADMINUS
+#define VBK_NUMPADPLUS      DIK_NUMPADPLUS
+#define VBK_NUMPADPERIOD    DIK_NUMPADPERIOD
+#define VBK_NUMPADSLASH     DIK_NUMPADSLASH
+#define VBK_RALT            DIK_RALT
+#define VBK_UPARROW         DIK_UPARROW
+#define VBK_PGUP            DIK_PGUP
+#define VBK_LEFTARROW       DIK_LEFTARROW
+#define VBK_RIGHTARROW      DIK_RIGHTARROW
+#define VBK_DOWNARROW       DIK_DOWNARROW
+#define VBK_PGDN            DIK_PGDN
+
+
+
 #define VBJ_BUTTON_01       (0x00)
 #define VBJ_BUTTON_02       (0x01)
 #define VBJ_BUTTON_03       (0x02)
@@ -383,7 +401,7 @@ public:
      */
     VirtualButton(const char* prm_replay_file = "VirtualButton.rep");
 
-    bool initStatic();
+    static bool initStatic();
 
     static bool isBeingPressedVirtualJoyButton(vbj prm_VBJ);
 

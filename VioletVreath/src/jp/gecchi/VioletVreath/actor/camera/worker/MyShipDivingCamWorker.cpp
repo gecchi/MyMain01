@@ -1,7 +1,7 @@
 #include "MyShipDivingCamWorker.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 
-#include "jp/ggaf/dxcore/util/GgafDxDirectionUtil.h"
+#include "jp/ggaf/dxcore/util/GgafDx26DirectionUtil.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -19,7 +19,7 @@ void MyShipDivingCamWorker::onActive() {
     MyShip* pMyShip = P_MYSHIP;
     slideMvCamTo(-PX_C(300), pMyShip->_y, pMyShip->_z , 60);
     slideMvVpTo(pMyShip, 60);
-    slideMvUpTo(GgafDxDirectionUtil::FACE_ZPZ, 120);
+    slideMvUpVecTo(DIR26( 0, 1, 0), 120);
 }
 void MyShipDivingCamWorker::processBehavior() {
     if (getActiveFrame() > 30) {

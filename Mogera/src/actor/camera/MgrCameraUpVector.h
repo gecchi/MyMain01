@@ -18,7 +18,7 @@ public:
 
 public:
 
-    face26 up_face_;
+    dir26 up_dir_;
 
     MgrCameraUpVector(const char* prm_name);
 
@@ -29,7 +29,7 @@ public:
      * カメラのUP面番号、引数の面番号にセットし、UPベクトルをスライド移動を開始させます。
      * @param prm_face_no カメラのUP面番号
      */
-    void moveTo(face26 prm_face_no, frame prm_spent);
+    void moveTo(dir26 prm_face_no, frame prm_spent);
 
 
     virtual ~MgrCameraUpVector(); //デストラクタ

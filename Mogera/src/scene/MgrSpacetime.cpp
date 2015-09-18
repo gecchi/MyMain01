@@ -37,6 +37,30 @@ void MgrSpacetime::initialize() {
     //世界シーン生成し、自シーンの配下に所属させる
     pWorld_ = createInFactory(Mogera::MgrWorld, "MOGERA_WORLD");
     addSubLast(pWorld_);
+
+
+//    angle rz,ry;
+//    UTIL::convVectorToRzRy(1.0,1.0,0.0,rz,ry);
+//    _TRACE_("(rz,ry)=("<<rz<<","<<ry<<")");
+//    UTIL::convVectorToRzRy(1.0,1.0,1.0,rz,ry);
+//    _TRACE_("(rz,ry)=("<<rz<<","<<ry<<")");
+//    UTIL::convVectorToRzRy(1.0,1.0,-1.0,rz,ry);
+//    _TRACE_("(rz,ry)=("<<rz<<","<<ry<<")");
+//    UTIL::convVectorToRzRy(1.0,-1.0,1.0,rz,ry);
+//    _TRACE_("(rz,ry)=("<<rz<<","<<ry<<")");
+//    UTIL::convVectorToRzRy(1.0,-1.0,-1.0,rz,ry);
+//    _TRACE_("(rz,ry)=("<<rz<<","<<ry<<")");
+//    UTIL::convVectorToRzRy(-1.0,1.0,1.0,rz,ry);
+//    _TRACE_("(rz,ry)=("<<rz<<","<<ry<<")");
+//    UTIL::convVectorToRzRy(-1.0,1.0,-1.0,rz,ry);
+//    _TRACE_("(rz,ry)=("<<rz<<","<<ry<<")");
+//    UTIL::convVectorToRzRy(-1.0,-1.0,1.0,rz,ry);
+//    _TRACE_("(rz,ry)=("<<rz<<","<<ry<<")");
+//    UTIL::convVectorToRzRy(-1.0,1.0,-1.0,rz,ry);
+//    _TRACE_("(rz,ry)=("<<rz<<","<<ry<<")");
+//    UTIL::convVectorToRzRy(-1.0,-1.0,-1.0,rz,ry);
+//    _TRACE_("(rz,ry)=("<<rz<<","<<ry<<")");
+
 }
 
 void MgrSpacetime::processBehavior() {

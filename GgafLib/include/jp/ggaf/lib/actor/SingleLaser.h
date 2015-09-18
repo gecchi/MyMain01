@@ -30,7 +30,7 @@ public:
      * スタティックイニシャライザもどき .
      * @return true
      */
-    bool initStatic();
+    static bool initStatic(SingleLaser* prm_pSingleLaser);
 
     virtual void onCreateModel() override {}
 

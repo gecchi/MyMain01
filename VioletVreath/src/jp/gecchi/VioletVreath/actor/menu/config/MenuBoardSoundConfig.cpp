@@ -105,7 +105,7 @@ void MenuBoardSoundConfig::processBehavior() {
 
     //OK時の確認メニュー判定
     if (getSelectedIndex() == ITEM_INDEX_OK_) {
-        MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
+        MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu();
         if (pSubConfirm->hasJustDecidedOk()) { //SAVE確認OK!
             //現プロパティへ書き込み
             PROPERTY::setValue("SE_VOLUME", GgafDxSound::_se_master_volume);
@@ -162,7 +162,7 @@ void MenuBoardSoundConfig::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, 
         GgafDxSound::setAppMasterVolume(PROPERTY::MASTER_VOLUME);
         sinkMe();
     } else if (prm_item_index == ITEM_INDEX_OK_) {
-        riseSubMenu(0, getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y - PX_C(50)); //確認メニュー起動
+        riseSubMenu(getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y - PX_C(50)); //確認メニュー起動
     } else {
 
     }

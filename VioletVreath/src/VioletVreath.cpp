@@ -265,6 +265,21 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                 }
             }
             break;
+
+
+//            --edit---
+//            at the winproc:
+//
+//            case WM_MENUCHAR://identify alt+enter, make it not beep since Im handling it:
+//
+//            if( LOWORD(wParam) & VK_RETURN )
+//            return MAKELRESULT(0, MNC_CLOSE);//MNC_CLOSE (close the menu), is going fullscreen anyway..
+//
+//            return MAKELRESULT(0, MNC_IGNORE);
+//            http://msdn.microsoft.com/en-us/library/ms646349(VS.85).aspx
+//
+//            ;D solved
+
         }
 
         case WM_SYSCOMMAND: {

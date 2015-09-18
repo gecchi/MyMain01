@@ -47,8 +47,8 @@ MenuBoardKeyConfig::MenuBoardKeyConfig(const char* prm_name) :
           "MOVE RIGHT",
           "VIEW UP",
           "VIEW DOWN",
-          "VIEW LEFT",
-          "VIEW RIGHT",
+          //"VIEW LEFT",
+          //"VIEW RIGHT",
           "MAIN SHOT BUTTON",
           "SUB SHOT BUTTON",
           "TURBO BUTTON",
@@ -59,7 +59,7 @@ MenuBoardKeyConfig::MenuBoardKeyConfig(const char* prm_name) :
     };
 
     int item_index;
-    for (item_index = ITEM_UP; item_index <= ITEM_PAUSE; item_index++) {
+    for (item_index = ITEM_UP; item_index < ITEM_BANPEI; item_index++) {
         LabelMenuItemFont01* pLabel = NEW LabelMenuItemFont01("item");
         pLabel->update(apItemStr[item_index], ALIGN_LEFT, VALIGN_MIDDLE);
         addItem(pLabel, PX_C(100), PX_C(100+(item_index*20)));
@@ -76,7 +76,7 @@ MenuBoardKeyConfig::MenuBoardKeyConfig(const char* prm_name) :
     ITEM_INDEX_CANCEL_ = item_index + 1;
 
     paVBProperties = NEW VBProperty[item_index+1];
-    for (int i = ITEM_UP; i <= ITEM_PAUSE; i++) {
+    for (int i = ITEM_UP; i < ITEM_BANPEI; i++) {
         paVBProperties[i].pKey = NEW LabelFix16Font01("DISP_KEY");
         paVBProperties[i].pKey->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
         addDisp(paVBProperties[i].pKey, PX_C(600), PX_C(100+(i*20)));
@@ -124,8 +124,8 @@ void MenuBoardKeyConfig::onRise() {
     paVBProperties[ITEM_RIGHT     ].pKey->update(PROPERTY::MY_KEY_RIGHT     .c_str());
     paVBProperties[ITEM_VIEW_UP   ].pKey->update(PROPERTY::MY_KEY_VIEW_UP   .c_str());
     paVBProperties[ITEM_VIEW_DOWN ].pKey->update(PROPERTY::MY_KEY_VIEW_DOWN .c_str());
-    paVBProperties[ITEM_VIEW_LEFT ].pKey->update(PROPERTY::MY_KEY_VIEW_LEFT .c_str());
-    paVBProperties[ITEM_VIEW_RIGHT].pKey->update(PROPERTY::MY_KEY_VIEW_RIGHT.c_str());
+    //paVBProperties[ITEM_VIEW_LEFT ].pKey->update(PROPERTY::MY_KEY_VIEW_LEFT .c_str());
+    //paVBProperties[ITEM_VIEW_RIGHT].pKey->update(PROPERTY::MY_KEY_VIEW_RIGHT.c_str());
     paVBProperties[ITEM_MAIN_SHOT ].pKey->update(PROPERTY::MY_KEY_SHOT1     .c_str());
     paVBProperties[ITEM_SUB_SHOT  ].pKey->update(PROPERTY::MY_KEY_SHOT2     .c_str());
     paVBProperties[ITEM_TURBO     ].pKey->update(PROPERTY::MY_KEY_TURBO     .c_str());
@@ -140,8 +140,8 @@ void MenuBoardKeyConfig::onRise() {
     paVBProperties[ITEM_RIGHT     ].pJoy->update(PROPERTY::MY_JOY_RIGHT     .c_str());
     paVBProperties[ITEM_VIEW_UP   ].pJoy->update(PROPERTY::MY_JOY_VIEW_UP   .c_str());
     paVBProperties[ITEM_VIEW_DOWN ].pJoy->update(PROPERTY::MY_JOY_VIEW_DOWN .c_str());
-    paVBProperties[ITEM_VIEW_LEFT ].pJoy->update(PROPERTY::MY_JOY_VIEW_LEFT .c_str());
-    paVBProperties[ITEM_VIEW_RIGHT].pJoy->update(PROPERTY::MY_JOY_VIEW_RIGHT.c_str());
+    //paVBProperties[ITEM_VIEW_LEFT ].pJoy->update(PROPERTY::MY_JOY_VIEW_LEFT .c_str());
+    //paVBProperties[ITEM_VIEW_RIGHT].pJoy->update(PROPERTY::MY_JOY_VIEW_RIGHT.c_str());
     paVBProperties[ITEM_MAIN_SHOT ].pJoy->update(PROPERTY::MY_JOY_SHOT1     .c_str());
     paVBProperties[ITEM_SUB_SHOT  ].pJoy->update(PROPERTY::MY_JOY_SHOT2     .c_str());
     paVBProperties[ITEM_TURBO     ].pJoy->update(PROPERTY::MY_JOY_TURBO     .c_str());
@@ -164,7 +164,7 @@ void MenuBoardKeyConfig::processBehavior() {
     MenuBoard::processBehavior();
 
     //サブメニュー判定
-    MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
+    MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu();
     if (pSubConfirm->hasJustDecidedOk()) {
         //現プロパティをファイルに保存
         PROPERTY::setValue("MY_KEY_UP"        , paVBProperties[ITEM_UP        ].pKey->getDrawString());
@@ -173,8 +173,8 @@ void MenuBoardKeyConfig::processBehavior() {
         PROPERTY::setValue("MY_KEY_RIGHT"     , paVBProperties[ITEM_RIGHT     ].pKey->getDrawString());
         PROPERTY::setValue("MY_KEY_VIEW_UP"   , paVBProperties[ITEM_VIEW_UP   ].pKey->getDrawString());
         PROPERTY::setValue("MY_KEY_VIEW_DOWN" , paVBProperties[ITEM_VIEW_DOWN ].pKey->getDrawString());
-        PROPERTY::setValue("MY_KEY_VIEW_LEFT" , paVBProperties[ITEM_VIEW_LEFT ].pKey->getDrawString());
-        PROPERTY::setValue("MY_KEY_VIEW_RIGHT", paVBProperties[ITEM_VIEW_RIGHT].pKey->getDrawString());
+        //PROPERTY::setValue("MY_KEY_VIEW_LEFT" , paVBProperties[ITEM_VIEW_LEFT ].pKey->getDrawString());
+        //PROPERTY::setValue("MY_KEY_VIEW_RIGHT", paVBProperties[ITEM_VIEW_RIGHT].pKey->getDrawString());
         PROPERTY::setValue("MY_KEY_SHOT1"     , paVBProperties[ITEM_MAIN_SHOT ].pKey->getDrawString());
         PROPERTY::setValue("MY_KEY_SHOT2"     , paVBProperties[ITEM_SUB_SHOT  ].pKey->getDrawString());
         PROPERTY::setValue("MY_KEY_TURBO"     , paVBProperties[ITEM_TURBO     ].pKey->getDrawString());
@@ -189,8 +189,8 @@ void MenuBoardKeyConfig::processBehavior() {
         PROPERTY::setValue("MY_JOY_RIGHT"     , paVBProperties[ITEM_RIGHT     ].pJoy->getDrawString());
         PROPERTY::setValue("MY_JOY_VIEW_UP"   , paVBProperties[ITEM_VIEW_UP   ].pJoy->getDrawString());
         PROPERTY::setValue("MY_JOY_VIEW_DOWN" , paVBProperties[ITEM_VIEW_DOWN ].pJoy->getDrawString());
-        PROPERTY::setValue("MY_JOY_VIEW_LEFT" , paVBProperties[ITEM_VIEW_LEFT ].pJoy->getDrawString());
-        PROPERTY::setValue("MY_JOY_VIEW_RIGHT", paVBProperties[ITEM_VIEW_RIGHT].pJoy->getDrawString());
+        //PROPERTY::setValue("MY_JOY_VIEW_LEFT" , paVBProperties[ITEM_VIEW_LEFT ].pJoy->getDrawString());
+        //PROPERTY::setValue("MY_JOY_VIEW_RIGHT", paVBProperties[ITEM_VIEW_RIGHT].pJoy->getDrawString());
         PROPERTY::setValue("MY_JOY_SHOT1"     , paVBProperties[ITEM_MAIN_SHOT ].pJoy->getDrawString());
         PROPERTY::setValue("MY_JOY_SHOT2"     , paVBProperties[ITEM_SUB_SHOT  ].pJoy->getDrawString());
         PROPERTY::setValue("MY_JOY_TURBO"     , paVBProperties[ITEM_TURBO     ].pJoy->getDrawString());
@@ -250,7 +250,7 @@ void MenuBoardKeyConfig::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, in
         sinkMe();
     } else if (prm_item_index == ITEM_INDEX_OK_) {
         input_mode_ = 0;
-        riseSubMenu(0, getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y - PX_C(50)); //確認メニュー起動
+        riseSubMenu(getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y - PX_C(50)); //確認メニュー起動
     } else if (input_mode_ == 0) {
         input_mode_ = 1;
         input_target_item_ = prm_item_index;

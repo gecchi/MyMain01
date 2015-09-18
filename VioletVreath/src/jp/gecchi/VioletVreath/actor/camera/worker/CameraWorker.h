@@ -22,9 +22,9 @@ class CameraWorker : public GgafCore::GgafMainActor {
 
 private:
     /** 現在のカメラ→視点の方向番号 */
-    face26 vcv_face_;
+    dir26 vcv_dir_;
     /** 前回カメラ→視点の方向番号 */
-    face26 vcv_face_prev_;
+    dir26 vcv_dir_prev_;
 
 public:
     /** [r]カメラへの参照 */
@@ -38,29 +38,38 @@ public:
     /** カメラマンのビューポイントの移動目標座標 */
     coord t_x_VP_, t_y_VP_, t_z_VP_;
     /** カメラマンの頭の方向目標番号 */
-    face26 t_cam_up_face_;
+    dir26 t_cam_up_dir_;
 
     frame frame_of_behaving_since_onSwitch_;
 
 public:
     CameraWorker(const char* prm_name);
 
-    bool initStatic();
+    static bool initStatic();
 
     virtual void initialize() override;
+
     virtual void onActive() override;
     /**
-     * スイッチされた場合に呼び出されるコールバック
+     * スイッチされた場合に呼び出されるコールバック .
+     * 今まで自身が非アクティブな CameraWorker だったが、
+     * Spacetime::changeCameraWork() によりご指名が入った、
+     * 又は Spacetime::undoCameraWork() 実行により復帰した、
+     * ことにより、アクティブに切り替わった最初のフレームの
+     * Spacetime::processBehavior() 内でコールバックされる。
      */
     virtual void onSwitchCameraWork();
 
-    virtual void onUndoCameraWork();
+    /**
+     * 他の CameraWorker に切り替わる際のコールバック .
+     * 今まで自身がアクティブな CameraWorker だったが、
+     * Spacetime::changeCameraWork() 又は Spacetime::undoCameraWork() 実行により、
+     * 他の CameraWorker に切り替わるので、次フレームから自身が非アクティブと
+     * なってしまうという inactivate() が実行される直前に呼び出されるコールバック。
+     */
+    virtual void onChangedToOtherCameraWork();
 
-    virtual void onSwitchToOtherCameraWork();
-
-    virtual void onCameBackFromOtherCameraWork();
-
-    virtual void processBehavior() override;
+    void targetAutoCamup();
 
     virtual void processJudgement() override {}
 
@@ -85,12 +94,15 @@ public:
     void slideMvCamTo(coord tx, coord ty, coord tz, frame t);
     void slideMvCamTo(coord tx, coord ty, coord tz, frame t,
                       float prm_x_p1, float prm_y_p1, float prm_z_p1);
-
+    void mvCamTo(coord tx, coord ty, coord tz);
 
     void slideMvVpTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t);
     void slideMvVpTo(coord tx, coord ty, coord tz, frame t);
 
-    void slideMvUpTo(face26 prm_up_face_no, frame t);
+    void slideMvUpVecTo(coord tx, coord ty, coord tz, frame t);
+    void slideMvUpVecTo(dir26 prm_up_dir_no, frame t);
+
+    void setUpVec(coord tx, coord ty, coord tz);
 //    void stopNaturallyCam(coord distance, frame t);
 //    void stopNaturallyVp(coord distance, frame t);
 

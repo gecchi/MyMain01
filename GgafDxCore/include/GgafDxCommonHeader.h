@@ -115,9 +115,8 @@ enum {
 };
 
 typedef int axis;
-
-typedef int face26;
-
+typedef int dir26;
+typedef int dir8;
 #define MAX_SCALE (2147483647)
 
 
@@ -356,7 +355,7 @@ class GgafDxScene;
 class GgafDxSpacetime;
 
 class GgafDxUtil;
-class GgafDxDirectionUtil;
+class GgafDx26DirectionUtil;
 
 class GgafDxSphereRadiusVectors;
 class GgafDxQuaternion;

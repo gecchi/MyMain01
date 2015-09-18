@@ -29,13 +29,13 @@ WallAABActor::WallAABActor(const char* prm_name,
     setZEnable(true);       //Zバッファは考慮有り
     setZWriteEnable(true);  //Zバッファは書き込み有り
 
-    static volatile bool is_init = WallAABActor::initStatic(); //静的メンバ初期化
+    static volatile bool is_init = WallAABActor::initStatic(this); //静的メンバ初期化
 }
 
 D3DXHANDLE WallAABActor::_h_distance_AlphaTarget;
 D3DXHANDLE WallAABActor::_ah_wall_draw_face[16];
-bool WallAABActor::initStatic() {
-    ID3DXEffect* const pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
+bool WallAABActor::initStatic(WallAABActor* prm_pWallAABActor) {
+    ID3DXEffect* const pID3DXEffect = prm_pWallAABActor->getEffect()->_pID3DXEffect;
     WallAABActor::_h_distance_AlphaTarget = pID3DXEffect->GetParameterByName( nullptr, "g_distance_AlphaTarget" );
     WallAABActor::_ah_wall_draw_face[0]   = pID3DXEffect->GetParameterByName( nullptr, "g_wall_draw_face001" );
     WallAABActor::_ah_wall_draw_face[1]   = pID3DXEffect->GetParameterByName( nullptr, "g_wall_draw_face002" );

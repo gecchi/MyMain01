@@ -117,7 +117,7 @@ void MenuBoardTitle::processBehavior() {
     int selected = getSelectedIndex();
     if (selected == ITEM_QUIT) { //自身のメニューが"ITEM_QUIT"を指している場合
         //確認メニューの結果の振る舞い実行
-        MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
+        MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu();
         if (pSubConfirm->hasJustDecidedOk()) {
             PostQuitMessage(0);
         } else if (pSubConfirm->hasJustDecidedCancel()) {
@@ -126,7 +126,7 @@ void MenuBoardTitle::processBehavior() {
 
         }
     } else if (selected == ITEM_REBOOT) { //自身のメニューが"ITEM_REBOOT"を指している場合
-        MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
+        MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu();
         if (pSubConfirm->hasJustDecidedOk()) {
             God::reboot(); //再起動！
         } else if (pSubConfirm->hasJustDecidedCancel()) {

@@ -21,8 +21,8 @@ public:
         ITEM_RIGHT,
         ITEM_VIEW_UP,
         ITEM_VIEW_DOWN,
-        ITEM_VIEW_LEFT,
-        ITEM_VIEW_RIGHT,
+        //ITEM_VIEW_LEFT,
+        //ITEM_VIEW_RIGHT,
         ITEM_MAIN_SHOT,
         ITEM_SUB_SHOT  ,
         ITEM_TURBO     ,
@@ -30,6 +30,7 @@ public:
         ITEM_MAGIC     ,
 //        ITEM_VAM       ,
         ITEM_PAUSE     ,
+        ITEM_BANPEI    ,
     };
 
     int ITEM_INDEX_OK_;

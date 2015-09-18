@@ -851,7 +851,7 @@ public:
      * @param prm_index サブメニューのインデックス
      * @return
      */
-    virtual MenuActor<T>* getSubMenu(int prm_index);
+    virtual MenuActor<T>* getSubMenu(int prm_index = 0);
 
     /**
      * 現在アクティブなサブメニューを取得 .
@@ -869,7 +869,7 @@ public:
      * 呼び出し元メニューは操作不可能になります。
      * @param prm_index アクティブにするサブメニューのインデックス
      */
-    virtual void riseSubMenu(int prm_index);
+    virtual void riseSubMenu(int prm_index = 0);
 
     /**
      * 現在アクティブなサブメニューを閉じて終了させる .

@@ -106,7 +106,7 @@ void MyShipScene::processBehavior() {
         case PROG_INIT: {
             pProg->change(PROG_BEGIN);
             if (pSpacetime->getActiveCamWorker() != pVamSysCamWorker_) {
-                pVamSysCamWorker_ = (VamSysCamWorker*)(pSpacetime->switchCameraWork("VamSysCamWorker"));
+                pVamSysCamWorker_ = (VamSysCamWorker*)(pSpacetime->changeCameraWork("VamSysCamWorker"));
                 pVamSysCamWorker_->pMyShip_ = pMyShip_;
             }
             break;
@@ -134,7 +134,7 @@ void MyShipScene::processBehavior() {
                 pMyShip_->is_diving_ = true;
                 pMyShip_->activate();
                 MyShipDivingCamWorker* pCamWorker =
-                        (MyShipDivingCamWorker*)(pSpacetime->switchCameraWork("MyShipDivingCamWorker"));
+                        (MyShipDivingCamWorker*)(pSpacetime->changeCameraWork("MyShipDivingCamWorker"));
             }
             pMyShip_->_x += PX_C(30); //30000;
             if (pMyShip_->_x > 0) {

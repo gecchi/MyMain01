@@ -195,7 +195,7 @@ void MenuBoardNameEntry::processBehavior() {
 #endif
     MenuBoard::processBehavior();
     if (getSelectedIndex() == ITEM_INDEX_OK_) {
-        StringBoardMenu* pMenuConfirm = getSubMenu(0);
+        StringBoardMenu* pMenuConfirm = getSubMenu();
         if (pMenuConfirm->hasJustDecided()) { //サブメニューで「決定（振る舞い）」の時
             if (pMenuConfirm->getSelectedIndex() == MenuBoardConfirm::ITEM_OK) {
                 //ネームエントリー完了OK
@@ -252,7 +252,7 @@ void MenuBoardNameEntry::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, in
     } else if (prm_item_index == ITEM_INDEX_OK_) {
         //[OK]で決定（振る舞い）の処理終了
         //確認サブメニュー起動
-        riseSubMenu(0, getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y);
+        riseSubMenu(getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y);
     } else {
         //その他アイテム（入力文字）で決定（振る舞い）の処理
         if (len >= RANKINGTABLE_NAME_LEN) {

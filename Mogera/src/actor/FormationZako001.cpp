@@ -1,13 +1,14 @@
-#include <actor/FormationZako001.h>
+#include "FormationZako001.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 #include "jp/ggaf/lib/util/spline/SplineManufacture.h"
-#include "MgrGod.h"
-#include "actor/Zako.h"
 #include "jp/ggaf/lib/util/spline/SplineLine.h"
-
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
+
+#include "MgrGod.h"
+#include "Zako.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -31,7 +32,7 @@ FormationZako001::FormationZako001(const char* prm_name) :
 //    papSplManufConn_[8] = getConnection_SplineManufactureManager("FormationZako001");
 
     int num = 1;//papSplManufConn_[0]->peek()->_pSplSrc->_pSp->_rnum;
-    createMember(col, num, 1);
+    addMember(col, num, 1);
 }
 
 void FormationZako001::processBehavior() {

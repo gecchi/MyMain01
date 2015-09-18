@@ -24,7 +24,7 @@
 #include "jp/gecchi/VioletVreath/Properties.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshinBase.h"
-#include "jp/ggaf/dxcore/util/GgafDxDirectionUtil.h"
+#include "jp/ggaf/dxcore/util/GgafDx26DirectionUtil.h"
 
 
 using namespace GgafCore;
@@ -32,8 +32,6 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-int MyShip::wk_dist = 0;
-angle MyShip::wk_angRx = 0;
 
 coord MyShip::lim_y_top_     =  0;
 coord MyShip::lim_y_bottom_  =  0;
@@ -213,77 +211,35 @@ MyShip::MyShip(const char* prm_name) :
     pMyMagicEnergyCore_ = NEW MyMagicEnergyCore("MyMagicEnergyCore");
     addSubGroup(pMyMagicEnergyCore_);
 
+    pSenakai_ = &(senakai_[13]);
+    pSenakai_[DIR26(-1,-1,-1)] = -D_ANG(120);
+    pSenakai_[DIR26(-1,-1, 0)] =  0;
+    pSenakai_[DIR26(-1,-1, 1)] =  D_ANG(120);
+    pSenakai_[DIR26(-1, 0,-1)] = -D90ANG;
+    pSenakai_[DIR26(-1, 0, 0)] =  0;
+    pSenakai_[DIR26(-1, 0, 1)] =  D90ANG;
+    pSenakai_[DIR26(-1, 1,-1)] = -D_ANG(30);
+    pSenakai_[DIR26(-1, 1, 0)] =  0;
+    pSenakai_[DIR26(-1, 1, 1)] =  D_ANG(30);
+    pSenakai_[DIR26( 0,-1,-1)] = -D135ANG;
+    pSenakai_[DIR26( 0,-1, 0)] =  0;
+    pSenakai_[DIR26( 0,-1, 1)] =  D135ANG;
+    pSenakai_[DIR26( 0, 0,-1)] = -D90ANG;
+    pSenakai_[DIR26( 0, 0, 0)] =  0;
+    pSenakai_[DIR26( 0, 0, 1)] =  D90ANG;
+    pSenakai_[DIR26( 0, 1,-1)] = -D45ANG;
+    pSenakai_[DIR26( 0, 1, 0)] =  0;
+    pSenakai_[DIR26( 0, 1, 1)] =  D45ANG;
+    pSenakai_[DIR26( 1,-1,-1)] = -D_ANG(120);
+    pSenakai_[DIR26( 1,-1, 0)] =  0;
+    pSenakai_[DIR26( 1,-1, 1)] =  D_ANG(120);
+    pSenakai_[DIR26( 1, 0,-1)] = -D90ANG;
+    pSenakai_[DIR26( 1, 0, 0)] =  0;
+    pSenakai_[DIR26( 1, 0, 1)] =  D90ANG;
+    pSenakai_[DIR26( 1, 1,-1)] = -D_ANG(30);
+    pSenakai_[DIR26( 1, 1, 0)] =  0;
+    pSenakai_[DIR26( 1, 1, 1)] =  D_ANG(30);
 
-    //X, Y    方向のスイッチで、普通の2次元の8方向レバー・・・で、
-    //X, Y, Z 方向のスイッチで、3次元の26方向レバーを考えた。
-    //
-    //     X   Y   Z
-    //    -----------
-    //    -1  -1  -1
-    //     0   0   0    の全体を+1して3進数で扱う
-    //    +1  +1  +1
-
-    //それぞれのスイッチの状態に応じた処理の関数テーブル配列。
-    ////////////// X  Y  Z
-
-    funcMove_ = &(paFuncMove_[13]);
-    funcMove_[TN(-1,-1,-1)] = &MyShip::move_WAY_ZRIGHT_DOWN_BACKWARD;   //TN(-1,-1,-1) =  WAY_ZRIGHT_DOWN_BACKWARD  = 0
-    funcMove_[TN(-1,-1, 0)] = &MyShip::move_WAY_DOWN_BACKWARD;          //TN(-1,-1, 0) =  WAY_DOWN_BACKWARD         = 1
-    funcMove_[TN(-1,-1, 1)] = &MyShip::move_WAY_ZLEFT_DOWN_BACKWARD;    //TN(-1,-1, 1) =  WAY_ZLEFT_DOWN_BACKWARD   = 2
-    funcMove_[TN(-1, 0,-1)] = &MyShip::move_WAY_ZRIGHT_BACKWARD;        //TN(-1, 0,-1) =  WAY_ZRIGHT_BACKWARD       = 3
-    funcMove_[TN(-1, 0, 0)] = &MyShip::move_WAY_BACKWARD;               //TN(-1, 0, 0) =  WAY_BACKWARD              = 4
-    funcMove_[TN(-1, 0, 1)] = &MyShip::move_WAY_ZLEFT_BACKWARD;         //TN(-1, 0, 1) =  WAY_ZLEFT_BACKWARD        = 5
-    funcMove_[TN(-1, 1,-1)] = &MyShip::move_WAY_ZRIGHT_UP_BACKWARD;     //TN(-1, 1,-1) =  WAY_ZRIGHT_UP_BACKWARD    = 6
-    funcMove_[TN(-1, 1, 0)] = &MyShip::move_WAY_UP_BACKWARD;            //TN(-1, 1, 0) =  WAY_UP_BACKWARD           = 7
-    funcMove_[TN(-1, 1, 1)] = &MyShip::move_WAY_ZLEFT_UP_BACKWARD;      //TN(-1, 1, 1) =  WAY_ZLEFT_UP_BACKWARD     = 8
-    funcMove_[TN( 0,-1,-1)] = &MyShip::move_WAY_ZRIGHT_DOWN;            //TN( 0,-1,-1) =  WAY_ZRIGHT_DOWN           = 9
-    funcMove_[TN( 0,-1, 0)] = &MyShip::move_WAY_DOWN;                   //TN( 0,-1, 0) =  WAY_DOWN                  = 10
-    funcMove_[TN( 0,-1, 1)] = &MyShip::move_WAY_ZLEFT_DOWN;             //TN( 0,-1, 1) =  WAY_ZLEFT_DOWN            = 11
-    funcMove_[TN( 0, 0,-1)] = &MyShip::move_WAY_ZRIGHT;                 //TN( 0, 0,-1) =  WAY_ZRIGHT                = 12
-    funcMove_[TN( 0, 0, 0)] = &MyShip::move_WAY_NONE;                   //TN( 0, 0, 0) =  WAY_NONE                  = 13
-    funcMove_[TN( 0, 0, 1)] = &MyShip::move_WAY_ZLEFT;                  //TN( 0, 0, 1) =  WAY_ZLEFT                 = 14
-    funcMove_[TN( 0, 1,-1)] = &MyShip::move_WAY_ZRIGHT_UP;              //TN( 0, 1,-1) =  WAY_ZRIGHT_UP             = 15
-    funcMove_[TN( 0, 1, 0)] = &MyShip::move_WAY_UP;                     //TN( 0, 1, 0) =  WAY_UP                    = 16
-    funcMove_[TN( 0, 1, 1)] = &MyShip::move_WAY_ZLEFT_UP;               //TN( 0, 1, 1) =  WAY_ZLEFT_UP              = 17
-    funcMove_[TN( 1,-1,-1)] = &MyShip::move_WAY_ZRIGHT_DOWN_FORWARD;    //TN( 1,-1,-1) =  WAY_ZRIGHT_DOWN_FORWARD   = 18
-    funcMove_[TN( 1,-1, 0)] = &MyShip::move_WAY_DOWN_FORWARD;           //TN( 1,-1, 0) =  WAY_DOWN_FORWARD          = 19
-    funcMove_[TN( 1,-1, 1)] = &MyShip::move_WAY_ZLEFT_DOWN_FORWARD;     //TN( 1,-1, 1) =  WAY_ZLEFT_DOWN_FORWARD    = 20
-    funcMove_[TN( 1, 0,-1)] = &MyShip::move_WAY_ZRIGHT_FORWARD;         //TN( 1, 0,-1) =  WAY_ZRIGHT_FORWARD        = 21
-    funcMove_[TN( 1, 0, 0)] = &MyShip::move_WAY_FORWARD;                //TN( 1, 0, 0) =  WAY_FORWARD               = 22
-    funcMove_[TN( 1, 0, 1)] = &MyShip::move_WAY_ZLEFT_FORWARD;          //TN( 1, 0, 1) =  WAY_ZLEFT_FORWARD         = 23
-    funcMove_[TN( 1, 1,-1)] = &MyShip::move_WAY_ZRIGHT_UP_FORWARD;      //TN( 1, 1,-1) =  WAY_ZRIGHT_UP_FORWARD     = 24
-    funcMove_[TN( 1, 1, 0)] = &MyShip::move_WAY_UP_FORWARD;             //TN( 1, 1, 0) =  WAY_UP_FORWARD            = 25
-    funcMove_[TN( 1, 1, 1)] = &MyShip::move_WAY_ZLEFT_UP_FORWARD;       //TN( 1, 1, 1) =  WAY_ZLEFT_UP_FORWARD      = 26
-
-
-    funcTurbo_ = &(paFuncTurbo_[13]);
-    funcTurbo_[TN(-1,-1,-1)] = &MyShip::turbo_WAY_ZRIGHT_DOWN_BACKWARD;   //TN(-1,-1,-1) =  WAY_ZRIGHT_DOWN_BACKWARD  = 0
-    funcTurbo_[TN(-1,-1, 0)] = &MyShip::turbo_WAY_DOWN_BACKWARD;          //TN(-1,-1, 0) =  WAY_DOWN_BACKWARD         = 1
-    funcTurbo_[TN(-1,-1, 1)] = &MyShip::turbo_WAY_ZLEFT_DOWN_BACKWARD;    //TN(-1,-1, 1) =  WAY_ZLEFT_DOWN_BACKWARD   = 2
-    funcTurbo_[TN(-1, 0,-1)] = &MyShip::turbo_WAY_ZRIGHT_BACKWARD;        //TN(-1, 0,-1) =  WAY_ZRIGHT_BACKWARD       = 3
-    funcTurbo_[TN(-1, 0, 0)] = &MyShip::turbo_WAY_BACKWARD;               //TN(-1, 0, 0) =  WAY_BACKWARD              = 4
-    funcTurbo_[TN(-1, 0, 1)] = &MyShip::turbo_WAY_ZLEFT_BACKWARD;         //TN(-1, 0, 1) =  WAY_ZLEFT_BACKWARD        = 5
-    funcTurbo_[TN(-1, 1,-1)] = &MyShip::turbo_WAY_ZRIGHT_UP_BACKWARD;     //TN(-1, 1,-1) =  WAY_ZRIGHT_UP_BACKWARD    = 6
-    funcTurbo_[TN(-1, 1, 0)] = &MyShip::turbo_WAY_UP_BACKWARD;            //TN(-1, 1, 0) =  WAY_UP_BACKWARD           = 7
-    funcTurbo_[TN(-1, 1, 1)] = &MyShip::turbo_WAY_ZLEFT_UP_BACKWARD;      //TN(-1, 1, 1) =  WAY_ZLEFT_UP_BACKWARD     = 8
-    funcTurbo_[TN( 0,-1,-1)] = &MyShip::turbo_WAY_ZRIGHT_DOWN;            //TN( 0,-1,-1) =  WAY_ZRIGHT_DOWN           = 9
-    funcTurbo_[TN( 0,-1, 0)] = &MyShip::turbo_WAY_DOWN;                   //TN( 0,-1, 0) =  WAY_DOWN                  = 10
-    funcTurbo_[TN( 0,-1, 1)] = &MyShip::turbo_WAY_ZLEFT_DOWN;             //TN( 0,-1, 1) =  WAY_ZLEFT_DOWN            = 11
-    funcTurbo_[TN( 0, 0,-1)] = &MyShip::turbo_WAY_ZRIGHT;                 //TN( 0, 0,-1) =  WAY_ZRIGHT                = 12
-    funcTurbo_[TN( 0, 0, 0)] = &MyShip::turbo_WAY_NONE;                   //TN( 0, 0, 0) =  WAY_NONE                  = 13
-    funcTurbo_[TN( 0, 0, 1)] = &MyShip::turbo_WAY_ZLEFT;                  //TN( 0, 0, 1) =  WAY_ZLEFT                 = 14
-    funcTurbo_[TN( 0, 1,-1)] = &MyShip::turbo_WAY_ZRIGHT_UP;              //TN( 0, 1,-1) =  WAY_ZRIGHT_UP             = 15
-    funcTurbo_[TN( 0, 1, 0)] = &MyShip::turbo_WAY_UP;                     //TN( 0, 1, 0) =  WAY_UP                    = 16
-    funcTurbo_[TN( 0, 1, 1)] = &MyShip::turbo_WAY_ZLEFT_UP;               //TN( 0, 1, 1) =  WAY_ZLEFT_UP              = 17
-    funcTurbo_[TN( 1,-1,-1)] = &MyShip::turbo_WAY_ZRIGHT_DOWN_FORWARD;    //TN( 1,-1,-1) =  WAY_ZRIGHT_DOWN_FORWARD   = 18
-    funcTurbo_[TN( 1,-1, 0)] = &MyShip::turbo_WAY_DOWN_FORWARD;           //TN( 1,-1, 0) =  WAY_DOWN_FORWARD          = 19
-    funcTurbo_[TN( 1,-1, 1)] = &MyShip::turbo_WAY_ZLEFT_DOWN_FORWARD;     //TN( 1,-1, 1) =  WAY_ZLEFT_DOWN_FORWARD    = 20
-    funcTurbo_[TN( 1, 0,-1)] = &MyShip::turbo_WAY_ZRIGHT_FORWARD;         //TN( 1, 0,-1) =  WAY_ZRIGHT_FORWARD        = 21
-    funcTurbo_[TN( 1, 0, 0)] = &MyShip::turbo_WAY_FORWARD;                //TN( 1, 0, 0) =  WAY_FORWARD               = 22
-    funcTurbo_[TN( 1, 0, 1)] = &MyShip::turbo_WAY_ZLEFT_FORWARD;          //TN( 1, 0, 1) =  WAY_ZLEFT_FORWARD         = 23
-    funcTurbo_[TN( 1, 1,-1)] = &MyShip::turbo_WAY_ZRIGHT_UP_FORWARD;      //TN( 1, 1,-1) =  WAY_ZRIGHT_UP_FORWARD     = 24
-    funcTurbo_[TN( 1, 1, 0)] = &MyShip::turbo_WAY_UP_FORWARD;             //TN( 1, 1, 0) =  WAY_UP_FORWARD            = 25
-    funcTurbo_[TN( 1, 1, 1)] = &MyShip::turbo_WAY_ZLEFT_UP_FORWARD;       //TN( 1, 1, 1) =  WAY_ZLEFT_UP_FORWARD      = 26
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(SE_DAMAGED     , "WAVE_MY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION   , "WAVE_MY_SE_EXPLOSION_001");
@@ -314,8 +270,8 @@ MyShip::MyShip(const char* prm_name) :
     blown_veloX_ = 0;
     blown_veloY_ = 0;
     blown_veloZ_ = 0;
-    way_ = GgafDxDirectionUtil::FACE_ZZZ;
-    prev_way_ = GgafDxDirectionUtil::FACE_ZZZ;
+    way_ = DIR26( 0, 0, 0);
+    prev_way_ = DIR26( 0, 0, 0);
     is_just_change_way_ = true;
 
     //MP初期値
@@ -376,9 +332,6 @@ void MyShip::initialize() {
 
     pAxsMver_->forceVxyzMvVeloRange(-veloTurboTop_, veloTurboTop_);
     pAxsMver_->setZeroVxyzMvAcce();
-    //        pKuroko->forceMvVeloRange(iMvBtmVelo_MT_, veloBeginMT_);
-    //        pKuroko->addMvVelo(veloBeginMT_);  //速度追加
-    //        pKuroko->setMvAcce(acce_MT_);
 
     getKuroko()->setRollFaceAngVelo(300);
 }
@@ -398,9 +351,9 @@ void MyShip::onReset() {
     can_shoot_laser_ = false;
     frame_shot_pressed_ = 0;
     _x = _y = _z = 0;
-    way_ = GgafDxDirectionUtil::FACE_ZZZ;
-    prev_way_ = GgafDxDirectionUtil::FACE_ZZZ;
-    way_switch_.reset();
+    way_ = DIR26( 0, 0, 0);
+    prev_way_ = DIR26( 0, 0, 0);
+//    way_switch_.reset();
 
     mp_ = MY_SHIP_START_MP;
     getStatus()->reset();
@@ -427,102 +380,16 @@ void MyShip::processBehavior() {
     VirtualButton* pVbPlay = VB_PLAY;
     int pos_camera = P_VAM->pos_camera_;
     GgafDxKuroko* const pKuroko = getKuroko();
-    //VAMSystemの実装
-    // (Viewpoint Adaptive Moving System 視点適応型移動システム)
-    if (pos_camera == VAM_POS_RIGHT) {
-        //右サイドビュー(右から左へスクロール)
-        if (pVbPlay->isPushedDown(VB_UP)) {     // ↑
-            way_switch_.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
-        }
-        if (pVbPlay->isPushedDown(VB_RIGHT)) {  // →
-            way_switch_.ON_RIGHT(SW_ADD, SW_NOP, SW_NOP); //前方
-        }
-        if (pVbPlay->isPushedDown(VB_LEFT)) {   // ←
-            way_switch_.ON_LEFT(SW_SUB, SW_NOP, SW_NOP);  //後方
-        }
-        if (pVbPlay->isPushedDown(VB_DOWN)) {   // ↓
-            way_switch_.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //下
-        }
-    } else if (pos_camera == VAM_POS_LEFT) {
-        //左サイドビュー(左から右へスクロール)
-        if (pVbPlay->isPushedDown(VB_UP)) {     // ↑
-            way_switch_.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
-        }
-        if (pVbPlay->isPushedDown(VB_RIGHT)) {  // →
-            way_switch_.ON_RIGHT(SW_SUB, SW_NOP, SW_NOP); //後方
-        }
-        if (pVbPlay->isPushedDown(VB_LEFT)) {   // ←
-            way_switch_.ON_LEFT(SW_ADD, SW_NOP, SW_NOP);  //前方
-        }
-        if (pVbPlay->isPushedDown(VB_DOWN)) {   // ↓
-            way_switch_.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //下
-        }
-    } else if (pos_camera == VAM_POS_TOP) {
-        //トップビュー(上から下へスクロール)
-        if (pVbPlay->isPushedDown(VB_UP)) {     // ↑
-            way_switch_.ON_UP(SW_ADD, SW_NOP, SW_NOP);    //前方
-        }
-        if (pVbPlay->isPushedDown(VB_RIGHT)) {  // →
-            way_switch_.ON_RIGHT(SW_NOP, SW_NOP, SW_SUB); //右
-        }
-        if (pVbPlay->isPushedDown(VB_LEFT)) {   // ←
-            way_switch_.ON_LEFT(SW_NOP, SW_NOP, SW_ADD);  //左
-        }
-        if (pVbPlay->isPushedDown(VB_DOWN)) {   // ↓
-            way_switch_.ON_DOWN(SW_SUB, SW_NOP, SW_NOP);  //後方
-        }
-    } else if (pos_camera == VAM_POS_BOTTOM) {
-        //ボトムビュー(下から上へスクロール)
-        if (pVbPlay->isPushedDown(VB_UP)) {     // ↑
-            way_switch_.ON_UP(SW_SUB, SW_NOP, SW_NOP);    //後方
-        }
-        if (pVbPlay->isPushedDown(VB_RIGHT)) {  // →
-            way_switch_.ON_RIGHT(SW_NOP, SW_NOP, SW_SUB); //右
-        }
-        if (pVbPlay->isPushedDown(VB_LEFT)) {   // ←
-            way_switch_.ON_LEFT(SW_NOP, SW_NOP, SW_ADD);  //左
-        }
-        if (pVbPlay->isPushedDown(VB_DOWN)) {   // ↓
-            way_switch_.ON_DOWN(SW_ADD, SW_NOP, SW_NOP);  //前方
-        }
-    } else if (pos_camera > VAM_POS_TO_BEHIND) {
-        //背後ビュー（奥から手前にスクロール）
-        if (pVbPlay->isPushedDown(VB_UP)) {     // ↑
-            way_switch_.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
-        }
-        if (pVbPlay->isPushedDown(VB_RIGHT)) {  // →
-            way_switch_.ON_RIGHT(SW_NOP, SW_NOP, SW_SUB); //右
-        }
-        if (pVbPlay->isPushedDown(VB_LEFT)) {   // ←
-            way_switch_.ON_LEFT(SW_NOP, SW_NOP, SW_ADD);  //左
-        }
-        if (pVbPlay->isPushedDown(VB_DOWN)) {   // ↓
-            way_switch_.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //下
-        }
-    }
-    if (pVbPlay->isReleasedUp(VB_UP)) {
-        way_switch_.OFF_UP();    // ↑ を離す
-    }
-    if (pVbPlay->isReleasedUp(VB_RIGHT)) {
-        way_switch_.OFF_RIGHT(); // → を離す
-    }
-    if (pVbPlay->isReleasedUp(VB_LEFT)) {
-        way_switch_.OFF_LEFT();  // ← を離す
-    }
-    if (pVbPlay->isReleasedUp(VB_DOWN)) {
-        way_switch_.OFF_DOWN();  // ↓ を離す
-    }
 
-    //way_switch_スイッチ制御をさせておかないと、pVbPlay(isPushedDown,isReleasedUp) 判定が
-    //ずれると困る
-    //なのでここでreturn
     //操作拒否
     if (!can_control_) {
         return;
     }
 
     int prev_way = way_;
-    way_ = way_switch_.getIndex(); //上記を考慮された方向値が入る
+
+    way_ = getMoveWay();
+
     if (prev_way != way_) {
         is_just_change_way_ = true;
     } else {
@@ -535,17 +402,18 @@ void MyShip::processBehavior() {
         if (pVbPlay->isBeingPressed(VB_OPTION)) {
             int tmp = mv_speed_;
             mv_speed_ /= 8; //オプション操作中移動は遅い
-            (this->*funcMove_[way_])();   //方向値に応じた移動処理メソッドを呼び出す
+            moveNomal(way_);
             mv_speed_ = tmp;
         } else {
-            (this->*funcMove_[way_])();   //方向値に応じた移動処理メソッドを呼び出す
+            moveNomal(way_);
         }
 
         if (pVbPlay->isPushedDown(VB_TURBO)) {
             if (pAxsMver_->_velo_vx_mv == 0 && pAxsMver_->_velo_vy_mv == 0 && pAxsMver_->_velo_vz_mv == 0) {
                 //ターボ移動完全に終了しないと次のターボは実行不可
+                moveTurbo(way_);
                 UTIL::activateProperEffect01Of(this); //ターボ開始のエフェクト
-                (this->*funcTurbo_[way_])(); //方向値に応じたターボ開始処理メソッドを呼び出す
+//                (this->*funcTurbo_[way_])(); //方向値に応じたターボ開始処理メソッドを呼び出す
                 getSeTx()->play3D(SE_TURBO);
             } else {
                 //ターボ移動中
@@ -592,8 +460,8 @@ void MyShip::processBehavior() {
         //_getKuroko()->setFaceAngAcce(AXIS_X, angRxAcce_MZ_*2);
     }
 
-    //Z軸方向に移動中でない場合、機体を水平にする（但し勢いよく回っていない場合に限る。setStopTargetFaceAngの第4引数より角速度がゆるい場合受け入れ）
-    if (way_switch_.way_.Z == 0) {
+    //旋回しない移動方向の場合、機体を水平にする（但し勢いよく回っていない場合に限る。setStopTargetFaceAngの第4引数より角速度がゆるい場合受け入れ）
+    if (pSenakai_[way_] == 0) {
         angle dist = pKuroko->getFaceAngDistance(AXIS_X, 0, TURN_CLOSE_TO);
         if (0 <= dist && dist < D180ANG) {
             getKuroko()->setFaceAngAcce(AXIS_X, angRxAcce_MZ_);
@@ -1115,9 +983,6 @@ void MyShip::onHit(const GgafActor* prm_pOtherActor) {
     }
 }
 
-void MyShip::doNotingMoveInput() {
-
-}
 
 void MyShip::setMoveSpeed(velo prm_speed_velo) {
     //lv_MoveSpeed_ = lv;
@@ -1140,476 +1005,243 @@ void MyShip::setInvincibleFrames(int prm_frames) {
     setHitAble(false);
     invincible_frames_ = prm_frames;
 }
-
-
-void MyShip::move_WAY_NONE() {
-}
-
-void MyShip::move_WAY_UP() {
-    if (is_just_change_way_) {
-        getKuroko()->setRzRyMvAng(D90ANG, 0);
+int MyShip::getMoveWay() {
+    VirtualButton* pVbPlay = VB_PLAY;
+    int pos_camera = P_VAM->pos_camera_;
+    int way = 0;
+    int sgn_x = 0;
+    int sgn_y = 0;
+    int sgn_z = 0;
+    bool cam_up_regular = true; //通常のUP方向
+    if (cam_up_regular) {
+        if (pVbPlay->isBeingPressed(VB_RIGHT)) {
+            sgn_x = 1;
+        }
+        if (pVbPlay->isBeingPressed(VB_LEFT)) {
+            sgn_x = -1;
+        }
+    } else {
+        if (pVbPlay->isBeingPressed(VB_RIGHT)) {
+            sgn_x = -1;
+        }
+        if (pVbPlay->isBeingPressed(VB_LEFT)) {
+            sgn_x = 1;
+        }
     }
-    _y += mv_speed_;
-}
 
-void MyShip::move_WAY_UP_FORWARD() {
-    if (is_just_change_way_) {
-        getKuroko()->setRzRyMvAng(D45ANG, 0);
+
+
+    if (cam_up_regular) {
+        switch (pos_camera) {
+            case VAM_POS_ZRIGHT: {
+                if (pVbPlay->isBeingPressed(VB_UP)) {
+                    sgn_y = 1;
+                }
+                if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                    sgn_y = -1;
+                }
+                break;
+            }
+            case VAM_POS_ZRIGHT_UP: {
+                if (pVbPlay->isBeingPressed(VB_UP)) {
+                    sgn_y = 1;
+                    sgn_z = 1;
+                }
+                if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                    sgn_y = -1;
+                    sgn_z = -1;
+                }
+                break;
+            }
+            case VAM_POS_UP: {
+                if (pVbPlay->isBeingPressed(VB_UP)) {
+                    sgn_z = 1;
+                }
+                if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                    sgn_z = -1;
+                }
+                break;
+            }
+            case VAM_POS_ZLEFT_UP: {
+                if (pVbPlay->isBeingPressed(VB_UP)) {
+                    sgn_y = -1;
+                    sgn_z = 1;
+                }
+                if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                    sgn_y = 1;
+                    sgn_z = -1;
+                }
+                break;
+            }
+            case VAM_POS_ZLEFT: {
+                if (pVbPlay->isBeingPressed(VB_UP)) {
+                    sgn_y = -1;
+                }
+                if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                    sgn_y = 1;
+                }
+                break;
+            }
+            case VAM_POS_ZLEFT_DOWN: {
+                if (pVbPlay->isBeingPressed(VB_UP)) {
+                    sgn_y = -1;
+                    sgn_z = -1;
+                }
+                if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                    sgn_y = 1;
+                    sgn_z = 1;
+                }
+                break;
+            }
+            case VAM_POS_DOWN: {
+                if (pVbPlay->isBeingPressed(VB_UP)) {
+                    sgn_z = -1;
+                }
+                if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                    sgn_z = 1;
+                }
+                break;
+            }
+            case VAM_POS_ZRIGHT_DOWN: {
+                if (pVbPlay->isBeingPressed(VB_UP)) {
+                    sgn_y = 1;
+                    sgn_z = -1;
+                }
+                if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                    sgn_y = -1;
+                    sgn_z = 1;
+                }
+                break;
+            }
+        }
+    } else {
+        //逆位置
+        switch (pos_camera) {
+            case VAM_POS_ZLEFT: {
+                if (pVbPlay->isBeingPressed(VB_UP)) {
+                    sgn_y = 1;
+                }
+                if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                    sgn_y = -1;
+                }
+                break;
+            }
+            case VAM_POS_ZLEFT_UP: {
+                if (pVbPlay->isBeingPressed(VB_UP)) {
+                    sgn_y = 1;
+                    sgn_z = -1;
+                }
+                if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                    sgn_y = -1;
+                    sgn_z = 1;
+                }
+                break;
+            }
+            case VAM_POS_UP: {
+                if (pVbPlay->isBeingPressed(VB_UP)) {
+                    sgn_z = -1;
+                }
+                if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                    sgn_z = 1;
+                }
+                break;
+            }
+            case VAM_POS_ZRIGHT_UP: {
+                if (pVbPlay->isBeingPressed(VB_UP)) {
+                    sgn_y = -1;
+                    sgn_z = -1;
+                }
+                if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                    sgn_y = 1;
+                    sgn_z = 1;
+                }
+                break;
+            }
+            case VAM_POS_ZRIGHT: {
+                if (pVbPlay->isBeingPressed(VB_UP)) {
+                    sgn_y = -1;
+                }
+                if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                    sgn_y = 1;
+                }
+                break;
+            }
+            case VAM_POS_ZRIGHT_DOWN: {
+                if (pVbPlay->isBeingPressed(VB_UP)) {
+                    sgn_y = -1;
+                    sgn_z = 1;
+                }
+                if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                    sgn_y = 1;
+                    sgn_z = -1;
+                }
+                break;
+            }
+            case VAM_POS_DOWN: {
+                if (pVbPlay->isBeingPressed(VB_UP)) {
+                    sgn_z = 1;
+                }
+                if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                    sgn_z = -1;
+                }
+                break;
+            }
+            case VAM_POS_ZLEFT_DOWN: {
+                if (pVbPlay->isBeingPressed(VB_UP)) {
+                    sgn_y = 1;
+                    sgn_z = 1;
+                }
+                if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                    sgn_y = -1;
+                    sgn_z = -1;
+                }
+                break;
+            }
+        }
     }
-    _y += mv_speed_ * NANAME2D_RATE;
-    _x += mv_speed_ * NANAME2D_RATE;
+    return DIR26(sgn_x, sgn_y, sgn_z);
 }
 
-void MyShip::move_WAY_UP_BACKWARD() {
+void MyShip::moveNomal(dir26 prm_way) {
+    float vx,vy,vz;
+    GgafDx26DirectionUtil::cnvDirNo2Vec(prm_way, vx, vy, vz);
+    _x += mv_speed_ * vx;
+    _y += mv_speed_ * vy;
+    _z += mv_speed_ * vz;
     if (is_just_change_way_) {
-        getKuroko()->setRzRyMvAng(D135ANG, 0);
-    }
-    _y += mv_speed_ * NANAME2D_RATE;
-    _x -= mv_speed_ * NANAME2D_RATE;
-}
-
-void MyShip::move_WAY_FORWARD() {
-    if (is_just_change_way_) {
-        getKuroko()->setRzRyMvAng(0, 0);
-    }
-    _x += mv_speed_;
-}
-
-void MyShip::move_WAY_BACKWARD() {
-    if (is_just_change_way_) {
-        getKuroko()->setRzRyMvAng(D180ANG, 0);
-    }
-    _x -= mv_speed_;
-}
-
-void MyShip::move_WAY_DOWN() {
-    getKuroko()->setRzRyMvAng(D270ANG, 0);
-    _y -= mv_speed_;
-}
-
-void MyShip::move_WAY_DOWN_BACKWARD() {
-    if (is_just_change_way_) {
-        getKuroko()->setRzRyMvAng(D255ANG, 0);
-    }
-    _y -= mv_speed_ * NANAME2D_RATE;
-    _x -= mv_speed_ * NANAME2D_RATE;
-}
-
-void MyShip::move_WAY_DOWN_FORWARD() {
-    if (is_just_change_way_) {
-        getKuroko()->setRzRyMvAng(D315ANG, 0);
-    }
-    _y -= mv_speed_ * NANAME2D_RATE;
-    _x += mv_speed_ * NANAME2D_RATE;
-}
-
-void MyShip::move_WAY_ZLEFT() {
-    if (is_just_change_way_) {
-        getKuroko()->setRzRyMvAng(0, D270ANG);
+        angle rz, ry;
+        GgafDx26DirectionUtil::cnvDirNo2RzRy(prm_way, rz, ry);
+        getKuroko()->setRzRyMvAng(rz, ry);
         //旋廻
-        getKuroko()->setFaceAngAcce(AXIS_X, angRxAcce_MZ_);
-        getKuroko()->setStopTargetFaceAng(AXIS_X, angRxStop_MZ_, TURN_COUNTERCLOCKWISE, angRxTopVelo_MZ_);
+
+        int sgn_turn = SGN(pSenakai_[prm_way]);
+        if (sgn_turn != 0) {
+            getKuroko()->setFaceAngAcce(AXIS_X, sgn_turn*angRxAcce_MZ_);
+            getKuroko()->setStopTargetFaceAng(AXIS_X, pSenakai_[prm_way],
+                                              //sgn_turn > 0 ? TURN_COUNTERCLOCKWISE : TURN_CLOCKWISE,
+                                              TURN_CLOSE_TO,
+                                              angRxTopVelo_MZ_);
+        }
     }
-    _z += mv_speed_;
 }
 
-void MyShip::move_WAY_ZLEFT_FORWARD() {
-    if (is_just_change_way_) {
-        getKuroko()->setRzRyMvAng(0, D315ANG);
-        //旋廻
-        getKuroko()->setFaceAngAcce(AXIS_X, (angRxAcce_MZ_/2)); //反時計回り
-        getKuroko()->setStopTargetFaceAng(AXIS_X, angRxStop_MZ_ - (angRxStop_MZ_/2), TURN_COUNTERCLOCKWISE, angRxTopVelo_MZ_);
+void MyShip::moveTurbo(dir26 prm_way) {
+    float vx,vy,vz;
+    GgafDx26DirectionUtil::cnvDirNo2Vec(prm_way, vx, vy, vz);
+    pAxsMver_->addVxMvVelo(veloBeginMT_ * vx);
+    pAxsMver_->addVyMvVelo(veloBeginMT_ * vy);
+    pAxsMver_->addVzMvVelo(veloBeginMT_ * vz);
+
+    angle rz, ry;
+    GgafDx26DirectionUtil::cnvDirNo2RzRy(prm_way, rz, ry);
+    getKuroko()->setRzRyMvAng(rz, ry);
+
+    //旋廻
+    angle senkai = pSenakai_[prm_way];
+    if (senkai != 0) {
+        double senkai_spin_speed_rate = (1.0 * D90ANG / senkai); //旋回時、90度-90度に傾く場合 1.0、1.0 となる。
+        getKuroko()->setRollFaceAngVelo(angRxVelo_BeginMZT_ * senkai_spin_speed_rate);
     }
-    _z += mv_speed_ * NANAME2D_RATE;
-    _x += mv_speed_ * NANAME2D_RATE;
-}
-
-void MyShip::move_WAY_ZLEFT_BACKWARD() {
-    if (is_just_change_way_) {
-        getKuroko()->setRzRyMvAng(D180ANG, D45ANG);
-        //旋廻
-        getKuroko()->setFaceAngAcce(AXIS_X, (angRxAcce_MZ_/2));
-        getKuroko()->setStopTargetFaceAng(AXIS_X, angRxStop_MZ_ + (angRxStop_MZ_/2), TURN_COUNTERCLOCKWISE, angRxTopVelo_MZ_);
-    }
-    _z += mv_speed_ * NANAME2D_RATE;
-    _x -= mv_speed_ * NANAME2D_RATE;
-}
-
-void MyShip::move_WAY_ZRIGHT_FORWARD() {
-    if (is_just_change_way_) {
-        getKuroko()->setRzRyMvAng(D180ANG, D135ANG);
-        //旋廻
-        getKuroko()->setFaceAngAcce(AXIS_X, -1*(angRxAcce_MZ_/2));
-        getKuroko()->setStopTargetFaceAng(AXIS_X, -1*(angRxStop_MZ_ - (angRxStop_MZ_/2)), TURN_CLOCKWISE, angRxTopVelo_MZ_);
-    }
-    _z -= mv_speed_ * NANAME2D_RATE;
-    _x += mv_speed_ * NANAME2D_RATE;
-}
-
-void MyShip::move_WAY_ZRIGHT() {
-    if (is_just_change_way_) {
-        getKuroko()->setRzRyMvAng(0, D90ANG);
-        //旋廻
-        getKuroko()->setFaceAngAcce(AXIS_X, -1*angRxAcce_MZ_);
-        getKuroko()->setStopTargetFaceAng(AXIS_X, -1*angRxStop_MZ_, TURN_CLOCKWISE, angRxTopVelo_MZ_);
-    }
-    _z -= mv_speed_;
-}
-
-void MyShip::move_WAY_ZRIGHT_BACKWARD() {
-    if (is_just_change_way_) {
-        getKuroko()->setRzRyMvAng(0, D135ANG);
-        //旋廻
-        getKuroko()->setFaceAngAcce(AXIS_X, -1*(angRxAcce_MZ_/2));
-        getKuroko()->setStopTargetFaceAng(AXIS_X, -1*(angRxStop_MZ_ + (angRxStop_MZ_/2)), TURN_CLOCKWISE, angRxTopVelo_MZ_);
-    }
-    _z -= mv_speed_ * NANAME2D_RATE;
-    _x -= mv_speed_ * NANAME2D_RATE;
-}
-
-void MyShip::move_WAY_ZLEFT_UP() {
-    if (is_just_change_way_) {
-        getKuroko()->setRzRyMvAng(D45ANG, D270ANG);
-        //旋廻
-        getKuroko()->setFaceAngAcce(AXIS_X, angRxAcce_MZ_/2);
-        getKuroko()->setStopTargetFaceAng(AXIS_X, angRxStop_MZ_ - (angRxStop_MZ_/2), TURN_COUNTERCLOCKWISE, angRxTopVelo_MZ_);
-    }
-    _z += mv_speed_ * NANAME2D_RATE;
-    _y += mv_speed_ * NANAME2D_RATE;
-}
-
-void MyShip::move_WAY_ZLEFT_DOWN() {
-    if (is_just_change_way_) {
-        getKuroko()->setRzRyMvAng(D315ANG, D270ANG);
-        //旋廻
-        getKuroko()->setFaceAngAcce(AXIS_X, angRxAcce_MZ_/2);
-        getKuroko()->setStopTargetFaceAng(AXIS_X, angRxStop_MZ_ + (angRxStop_MZ_/2), TURN_COUNTERCLOCKWISE, angRxTopVelo_MZ_);
-
-    }
-    _z += mv_speed_ * NANAME2D_RATE;
-    _y -= mv_speed_ * NANAME2D_RATE;
-}
-
-void MyShip::move_WAY_ZRIGHT_UP() {
-    if (is_just_change_way_) {
-        getKuroko()->setRzRyMvAng(D45ANG, D90ANG);
-        //旋廻
-        getKuroko()->setFaceAngAcce(AXIS_X, -1*(angRxAcce_MZ_/2));
-        getKuroko()->setStopTargetFaceAng(AXIS_X, -1*(angRxStop_MZ_ - (angRxStop_MZ_/2)), TURN_CLOCKWISE, angRxTopVelo_MZ_);
-    }
-    _z -= mv_speed_ * NANAME2D_RATE;
-    _y += mv_speed_ * NANAME2D_RATE;
-}
-
-void MyShip::move_WAY_ZRIGHT_DOWN() {
-    if (is_just_change_way_) {
-        getKuroko()->setRzRyMvAng(D315ANG, D90ANG);
-        //旋廻
-        getKuroko()->setFaceAngAcce(AXIS_X, -1*(angRxAcce_MZ_/2));
-        getKuroko()->setStopTargetFaceAng(AXIS_X, -1*(angRxStop_MZ_ + (angRxStop_MZ_/2)), TURN_CLOCKWISE, angRxTopVelo_MZ_);
-    }
-    _z -= mv_speed_ * NANAME2D_RATE;
-    _y -= mv_speed_ * NANAME2D_RATE;
-}
-
-void MyShip::move_WAY_ZLEFT_UP_FORWARD() {
-    if (is_just_change_way_) {
-        getKuroko()->setRzRyMvAng(D45ANG, D270ANG+D45ANG);
-        //旋廻
-        getKuroko()->setFaceAngAcce(AXIS_X, angRxAcce_MZ_/3);
-        getKuroko()->setStopTargetFaceAng(AXIS_X, angRxStop_MZ_ - (angRxStop_MZ_/3), TURN_COUNTERCLOCKWISE, angRxTopVelo_MZ_);
-    }
-    _x += mv_speed_ * NANAME3D_RATE;
-    _y += mv_speed_ * NANAME3D_RATE;
-    _z += mv_speed_ * NANAME3D_RATE;
-}
-
-void MyShip::move_WAY_ZLEFT_UP_BACKWARD() {
-    if (is_just_change_way_) {
-        getKuroko()->setRzRyMvAng(D45ANG, D270ANG-D45ANG);
-        //旋廻
-        getKuroko()->setFaceAngAcce(AXIS_X, angRxAcce_MZ_/3);
-        getKuroko()->setStopTargetFaceAng(AXIS_X, angRxStop_MZ_ - (angRxStop_MZ_/3), TURN_COUNTERCLOCKWISE, angRxTopVelo_MZ_);
-    }
-    _x -= mv_speed_ * NANAME3D_RATE;
-    _y += mv_speed_ * NANAME3D_RATE;
-    _z += mv_speed_ * NANAME3D_RATE;
-}
-
-void MyShip::move_WAY_ZLEFT_DOWN_FORWARD() {
-    if (is_just_change_way_) {
-        getKuroko()->setRzRyMvAng(D315ANG, D270ANG+D45ANG);
-        //旋廻
-        getKuroko()->setFaceAngAcce(AXIS_X, angRxAcce_MZ_/3);
-        getKuroko()->setStopTargetFaceAng(AXIS_X, angRxStop_MZ_ + (angRxStop_MZ_/3), TURN_COUNTERCLOCKWISE, angRxTopVelo_MZ_);
-
-    }
-    _x += mv_speed_ * NANAME3D_RATE;
-    _y -= mv_speed_ * NANAME3D_RATE;
-    _z += mv_speed_ * NANAME3D_RATE;
-}
-
-
-void MyShip::move_WAY_ZLEFT_DOWN_BACKWARD() {
-    if (is_just_change_way_) {
-        getKuroko()->setRzRyMvAng(D315ANG, D270ANG-D45ANG);
-        //旋廻
-        getKuroko()->setFaceAngAcce(AXIS_X, angRxAcce_MZ_/3);
-        getKuroko()->setStopTargetFaceAng(AXIS_X, angRxStop_MZ_ + (angRxStop_MZ_/3), TURN_COUNTERCLOCKWISE, angRxTopVelo_MZ_);
-
-    }
-    _x -= mv_speed_ * NANAME3D_RATE;
-    _y -= mv_speed_ * NANAME3D_RATE;
-    _z += mv_speed_ * NANAME3D_RATE;
-}
-
-
-void MyShip::move_WAY_ZRIGHT_UP_FORWARD() {
-    if (is_just_change_way_) {
-        getKuroko()->setRzRyMvAng(D45ANG, D90ANG-D45ANG);
-        //旋廻
-        getKuroko()->setFaceAngAcce(AXIS_X, -1*(angRxAcce_MZ_/3));
-        getKuroko()->setStopTargetFaceAng(AXIS_X, -1*(angRxStop_MZ_ - (angRxStop_MZ_/3)), TURN_CLOCKWISE, angRxTopVelo_MZ_);
-    }
-    _x += mv_speed_ * NANAME3D_RATE;
-    _y += mv_speed_ * NANAME3D_RATE;
-    _z -= mv_speed_ * NANAME3D_RATE;
-}
-
-void MyShip::move_WAY_ZRIGHT_UP_BACKWARD() {
-    if (is_just_change_way_) {
-        getKuroko()->setRzRyMvAng(D45ANG, D90ANG+D45ANG);
-        //旋廻
-        getKuroko()->setFaceAngAcce(AXIS_X, -1*(angRxAcce_MZ_/3));
-        getKuroko()->setStopTargetFaceAng(AXIS_X, -1*(angRxStop_MZ_ - (angRxStop_MZ_/3)), TURN_CLOCKWISE, angRxTopVelo_MZ_);
-    }
-    _x -= mv_speed_ * NANAME3D_RATE;
-    _y += mv_speed_ * NANAME3D_RATE;
-    _z -= mv_speed_ * NANAME3D_RATE;
-}
-
-void MyShip::move_WAY_ZRIGHT_DOWN_FORWARD() {
-    if (is_just_change_way_) {
-        getKuroko()->setRzRyMvAng(D315ANG, D90ANG-D45ANG);
-        //旋廻
-        getKuroko()->setFaceAngAcce(AXIS_X, -1*(angRxAcce_MZ_/3));
-        getKuroko()->setStopTargetFaceAng(AXIS_X, -1*(angRxStop_MZ_ + (angRxStop_MZ_/3)), TURN_CLOCKWISE, angRxTopVelo_MZ_);
-    }
-    _x += mv_speed_ * NANAME3D_RATE;
-    _z -= mv_speed_ * NANAME3D_RATE;
-    _y -= mv_speed_ * NANAME3D_RATE;
-}
-
-void MyShip::move_WAY_ZRIGHT_DOWN_BACKWARD() {
-    if (is_just_change_way_) {
-        getKuroko()->setRzRyMvAng(D315ANG, D90ANG+D45ANG);
-        //旋廻
-        getKuroko()->setFaceAngAcce(AXIS_X, -1*(angRxAcce_MZ_/3));
-        getKuroko()->setStopTargetFaceAng(AXIS_X, -1*(angRxStop_MZ_ + (angRxStop_MZ_/3)), TURN_CLOCKWISE, angRxTopVelo_MZ_);
-    }
-    _x -= mv_speed_ * NANAME3D_RATE;
-    _z -= mv_speed_ * NANAME3D_RATE;
-    _y -= mv_speed_ * NANAME3D_RATE;
-}
-
-
-/////////////////TURBO_BEGIN
-
-void MyShip::turbo_WAY_NONE() {
-}
-
-
-void MyShip::turbo_WAY_UP() {
-    getKuroko()->setRzRyMvAng(D90ANG, 0);
-    pAxsMver_->addVyMvVelo(veloBeginMT_);
-}
-
-void MyShip::turbo_WAY_UP_FORWARD() {
-    getKuroko()->setRzRyMvAng(D45ANG, 0);
-    pAxsMver_->addVyMvVelo(veloBeginMT_ * NANAME2D_RATE);
-    pAxsMver_->addVxMvVelo(veloBeginMT_ * NANAME2D_RATE);
-}
-
-void MyShip::turbo_WAY_UP_BACKWARD() {
-    getKuroko()->setRzRyMvAng(D135ANG, 0);
-    pAxsMver_->addVyMvVelo(veloBeginMT_ * NANAME2D_RATE);
-    pAxsMver_->addVxMvVelo(-veloBeginMT_ * NANAME2D_RATE);
-}
-
-void MyShip::turbo_WAY_FORWARD() {
-    getKuroko()->setRzRyMvAng(0, 0);
-    pAxsMver_->addVxMvVelo(veloBeginMT_);
-}
-
-void MyShip::turbo_WAY_BACKWARD() {
-    getKuroko()->setRzRyMvAng(D180ANG, 0);
-    pAxsMver_->addVxMvVelo(-veloBeginMT_);
-}
-
-void MyShip::turbo_WAY_DOWN() {
-    getKuroko()->setRzRyMvAng(D270ANG, 0);
-    pAxsMver_->addVyMvVelo(-veloBeginMT_);
-}
-
-void MyShip::turbo_WAY_DOWN_BACKWARD() {
-    getKuroko()->setRzRyMvAng(D255ANG, 0);
-    pAxsMver_->addVyMvVelo(-veloBeginMT_ * NANAME2D_RATE);
-    pAxsMver_->addVxMvVelo(-veloBeginMT_ * NANAME2D_RATE);
-}
-
-void MyShip::turbo_WAY_DOWN_FORWARD() {
-    getKuroko()->setRzRyMvAng(D315ANG, 0);
-    pAxsMver_->addVyMvVelo(-veloBeginMT_ * NANAME2D_RATE);
-    pAxsMver_->addVxMvVelo(veloBeginMT_ * NANAME2D_RATE);
-}
-
-void MyShip::turbo_WAY_ZLEFT() {
-    pAxsMver_->addVzMvVelo(veloBeginMT_);
-    //旋廻
-    getKuroko()->setRollFaceAngVelo(angRxVelo_BeginMZT_); //勢いよく回転開始
-}
-
-void MyShip::turbo_WAY_ZLEFT_FORWARD() {
-    getKuroko()->setRzRyMvAng(0, D270ANG);
-    pAxsMver_->addVzMvVelo(veloBeginMT_ * NANAME2D_RATE);
-    pAxsMver_->addVxMvVelo(veloBeginMT_ * NANAME2D_RATE);
-    //旋廻
-    getKuroko()->setRollFaceAngVelo(angRxVelo_BeginMZT_*NANAME2D_RATE); //勢いよく回転開始
-}
-
-void MyShip::turbo_WAY_ZLEFT_BACKWARD() {
-    getKuroko()->setRzRyMvAng(D180ANG, D45ANG);
-    pAxsMver_->addVzMvVelo(veloBeginMT_ * NANAME2D_RATE);
-    pAxsMver_->addVxMvVelo(-veloBeginMT_ * NANAME2D_RATE);
-    //旋廻
-    getKuroko()->setRollFaceAngVelo(angRxVelo_BeginMZT_*NANAME2D_RATE); //勢いよく回転開始
-}
-
-void MyShip::turbo_WAY_ZRIGHT_FORWARD() {
-    getKuroko()->setRzRyMvAng(D180ANG, D135ANG);
-    pAxsMver_->addVzMvVelo(-veloBeginMT_ * NANAME2D_RATE);
-    pAxsMver_->addVxMvVelo(veloBeginMT_ * NANAME2D_RATE);
-    //旋廻
-    getKuroko()->setRollFaceAngVelo(-angRxVelo_BeginMZT_*NANAME2D_RATE); //勢いよく回転開始
-}
-
-void MyShip::turbo_WAY_ZRIGHT() {
-    getKuroko()->setRzRyMvAng(0, D90ANG);
-    pAxsMver_->addVzMvVelo(-veloBeginMT_);
-    //旋廻
-    getKuroko()->setRollFaceAngVelo(-angRxVelo_BeginMZT_); //勢いよく回転開始
-}
-
-void MyShip::turbo_WAY_ZRIGHT_BACKWARD() {
-    getKuroko()->setRzRyMvAng(0, D135ANG);
-    pAxsMver_->addVzMvVelo(-veloBeginMT_ * NANAME2D_RATE);
-    pAxsMver_->addVxMvVelo(-veloBeginMT_ * NANAME2D_RATE);
-    //旋廻
-    getKuroko()->setRollFaceAngVelo(-angRxVelo_BeginMZT_*NANAME2D_RATE); //勢いよく回転開始
-}
-
-void MyShip::turbo_WAY_ZLEFT_UP() {
-    getKuroko()->setRzRyMvAng(D45ANG, D270ANG);
-    pAxsMver_->addVzMvVelo(veloBeginMT_ * NANAME2D_RATE);
-    pAxsMver_->addVyMvVelo(veloBeginMT_ * NANAME2D_RATE);
-    //旋廻
-    getKuroko()->setRollFaceAngVelo(angRxVelo_BeginMZT_*NANAME2D_RATE); //勢いよく回転開始
-}
-
-void MyShip::turbo_WAY_ZLEFT_DOWN() {
-    getKuroko()->setRzRyMvAng(D315ANG, D270ANG);
-    pAxsMver_->addVzMvVelo(veloBeginMT_ * NANAME2D_RATE);
-    pAxsMver_->addVyMvVelo(-veloBeginMT_ * NANAME2D_RATE);
-    //旋廻
-    getKuroko()->setRollFaceAngVelo(angRxVelo_BeginMZT_*NANAME2D_RATE); //勢いよく回転開始
-}
-
-void MyShip::turbo_WAY_ZRIGHT_UP() {
-    getKuroko()->setRzRyMvAng(D45ANG, D90ANG);
-    pAxsMver_->addVzMvVelo(-veloBeginMT_ * NANAME2D_RATE);
-    pAxsMver_->addVyMvVelo(veloBeginMT_ * NANAME2D_RATE);
-    //旋廻
-    getKuroko()->setRollFaceAngVelo(-angRxVelo_BeginMZT_*NANAME2D_RATE); //勢いよく回転開始
-}
-
-void MyShip::turbo_WAY_ZRIGHT_DOWN() {
-    getKuroko()->setRzRyMvAng(D315ANG, D90ANG);
-    pAxsMver_->addVzMvVelo(-veloBeginMT_ * NANAME2D_RATE);
-    pAxsMver_->addVyMvVelo(-veloBeginMT_ * NANAME2D_RATE);
-    //旋廻
-    getKuroko()->setRollFaceAngVelo(-angRxVelo_BeginMZT_*NANAME2D_RATE); //勢いよく回転開始
-}
-
-void MyShip::turbo_WAY_ZLEFT_UP_FORWARD() {
-    getKuroko()->setRzRyMvAng(D45ANG, D270ANG+D45ANG);
-    pAxsMver_->addVxMvVelo(veloBeginMT_ * NANAME3D_RATE);
-    pAxsMver_->addVzMvVelo(veloBeginMT_ * NANAME3D_RATE);
-    pAxsMver_->addVyMvVelo(veloBeginMT_ * NANAME3D_RATE);
-    //旋廻
-    getKuroko()->setRollFaceAngVelo(angRxVelo_BeginMZT_*NANAME3D_RATE); //勢いよく回転開始
-}
-
-void MyShip::turbo_WAY_ZLEFT_UP_BACKWARD() {
-    getKuroko()->setRzRyMvAng(D45ANG, D270ANG-D45ANG);
-    pAxsMver_->addVxMvVelo(-veloBeginMT_ * NANAME3D_RATE);
-    pAxsMver_->addVzMvVelo(veloBeginMT_ * NANAME3D_RATE);
-    pAxsMver_->addVyMvVelo(veloBeginMT_ * NANAME3D_RATE);
-    //旋廻
-    getKuroko()->setRollFaceAngVelo(angRxVelo_BeginMZT_*NANAME3D_RATE); //勢いよく回転開始
-}
-
-void MyShip::turbo_WAY_ZLEFT_DOWN_FORWARD() {
-    getKuroko()->setRzRyMvAng(D315ANG, D270ANG+D45ANG);
-    pAxsMver_->addVxMvVelo(veloBeginMT_ * NANAME3D_RATE);
-    pAxsMver_->addVzMvVelo(veloBeginMT_ * NANAME3D_RATE);
-    pAxsMver_->addVyMvVelo(-veloBeginMT_ * NANAME3D_RATE);
-    //旋廻
-    getKuroko()->setRollFaceAngVelo(angRxVelo_BeginMZT_*NANAME3D_RATE); //勢いよく回転開始
-}
-
-void MyShip::turbo_WAY_ZLEFT_DOWN_BACKWARD() {
-    getKuroko()->setRzRyMvAng(D315ANG, D270ANG-D45ANG);
-    pAxsMver_->addVxMvVelo(-veloBeginMT_ * NANAME3D_RATE);
-    pAxsMver_->addVzMvVelo(veloBeginMT_ * NANAME3D_RATE);
-    pAxsMver_->addVyMvVelo(-veloBeginMT_ * NANAME3D_RATE);
-    //旋廻
-    getKuroko()->setRollFaceAngVelo(angRxVelo_BeginMZT_*NANAME3D_RATE); //勢いよく回転開始
-}
-
-void MyShip::turbo_WAY_ZRIGHT_UP_FORWARD() {
-    getKuroko()->setRzRyMvAng(D45ANG, D90ANG-D45ANG);
-    pAxsMver_->addVxMvVelo(veloBeginMT_ * NANAME3D_RATE);
-    pAxsMver_->addVzMvVelo(-veloBeginMT_ * NANAME3D_RATE);
-    pAxsMver_->addVyMvVelo(veloBeginMT_ * NANAME3D_RATE);
-    //旋廻
-    getKuroko()->setRollFaceAngVelo(-angRxVelo_BeginMZT_*NANAME3D_RATE); //勢いよく回転開始
-}
-
-void MyShip::turbo_WAY_ZRIGHT_UP_BACKWARD() {
-    getKuroko()->setRzRyMvAng(D45ANG, D90ANG+D45ANG);
-    pAxsMver_->addVxMvVelo(-veloBeginMT_ * NANAME3D_RATE);
-    pAxsMver_->addVzMvVelo(-veloBeginMT_ * NANAME3D_RATE);
-    pAxsMver_->addVyMvVelo(veloBeginMT_ * NANAME3D_RATE);
-    //旋廻
-    getKuroko()->setRollFaceAngVelo(-angRxVelo_BeginMZT_*NANAME3D_RATE); //勢いよく回転開始
-}
-
-void MyShip::turbo_WAY_ZRIGHT_DOWN_FORWARD() {
-    getKuroko()->setRzRyMvAng(D315ANG, D90ANG-D45ANG);
-    pAxsMver_->addVxMvVelo(veloBeginMT_ * NANAME3D_RATE);
-    pAxsMver_->addVzMvVelo(-veloBeginMT_ * NANAME3D_RATE);
-    pAxsMver_->addVyMvVelo(-veloBeginMT_ * NANAME3D_RATE);
-    //旋廻
-    getKuroko()->setRollFaceAngVelo(-angRxVelo_BeginMZT_*NANAME3D_RATE); //勢いよく回転開始
-}
-
-void MyShip::turbo_WAY_ZRIGHT_DOWN_BACKWARD() {
-    getKuroko()->setRzRyMvAng(D315ANG, D90ANG+D45ANG);
-    pAxsMver_->addVxMvVelo(-veloBeginMT_ * NANAME3D_RATE);
-    pAxsMver_->addVzMvVelo(-veloBeginMT_ * NANAME3D_RATE);
-    pAxsMver_->addVyMvVelo(-veloBeginMT_ * NANAME3D_RATE);
-    //旋廻
-    getKuroko()->setRollFaceAngVelo(-angRxVelo_BeginMZT_*NANAME3D_RATE); //勢いよく回転開始
 }
 
 MyShip::~MyShip() {

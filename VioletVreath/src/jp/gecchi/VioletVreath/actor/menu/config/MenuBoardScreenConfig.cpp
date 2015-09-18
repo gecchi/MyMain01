@@ -375,7 +375,7 @@ void MenuBoardScreenConfig::processBehavior() {
 
     //OK時の確認メニュー判定
     if (selected_index == ITEM_OK || selected_index == ITEM_OK_REBOOT) {
-        MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
+        MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu();
         if (pSubConfirm->hasJustDecidedOk()) { //SAVE確認OK!
             //現プロパティへ書き込み
             if (getSelectedIndexOnSupCursor(SUPCUR_FULL_SCREEN) == ITEM_FULL_SCREEN) {
@@ -680,9 +680,9 @@ void MenuBoardScreenConfig::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem,
         }
         sinkMe();
     } else if (prm_item_index == ITEM_OK) { //保存のOK
-        riseSubMenu(0, getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y - PX_C(50)); //SAVE確認メニュー起動
+        riseSubMenu(getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y - PX_C(50)); //SAVE確認メニュー起動
     } else if (prm_item_index == ITEM_OK_REBOOT) { //OKで再起動
-        riseSubMenu(0, getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y - PX_C(50)); //SAVE確認メニュー起動
+        riseSubMenu(getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y - PX_C(50)); //SAVE確認メニュー起動
     } else {
 
     }

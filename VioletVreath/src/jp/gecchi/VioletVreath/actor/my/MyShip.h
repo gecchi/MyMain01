@@ -54,120 +54,6 @@ public:
         SE_FIRE_TORPEDO,
     };
 
-    class MyShipWaySwitch {
-    public :
-        class SW {
-            public:
-            int X, Y, Z;
-            SW() { X = Y = Z = SW_NOP; }
-        };
-        bool sw_UP_, sw_LEFT_, sw_RIGHT_, sw_DOWN_;
-        SW on_UP_, on_LEFT_, on_RIGHT_, on_DOWN_;
-
-        /** 現在の方向 */
-        SW way_;
-        MyShipWaySwitch() {
-            way_.X = way_.Y = way_.Z = SW_NOP;
-            sw_UP_ = sw_LEFT_ = sw_RIGHT_ = sw_DOWN_ = false;
-        }
-
-        void reset() {
-            way_.X = way_.Y = way_.Z = SW_NOP;
-            sw_UP_ = sw_LEFT_ = sw_RIGHT_ = sw_DOWN_ = false;
-        }
-        inline void ON_UP(Switch swX, Switch swY, Switch swZ) {
-            if (!sw_UP_) {
-                way_.X += swX;
-                way_.Y += swY;
-                way_.Z += swZ;
-                on_UP_.X = swX;
-                on_UP_.Y = swY;
-                on_UP_.Z = swZ;
-                sw_UP_ = true;
-            }
-        }
-        inline void ON_LEFT(Switch swX, Switch swY, Switch swZ) {
-            if (!sw_LEFT_) {
-                way_.X += swX;
-                way_.Y += swY;
-                way_.Z += swZ;
-                on_LEFT_.X = swX;
-                on_LEFT_.Y = swY;
-                on_LEFT_.Z = swZ;
-                sw_LEFT_ = true;
-            }
-        }
-        inline void ON_RIGHT(Switch swX, Switch swY, Switch swZ) {
-            if (!sw_RIGHT_) {
-                way_.X += swX;
-                way_.Y += swY;
-                way_.Z += swZ;
-                on_RIGHT_.X = swX;
-                on_RIGHT_.Y = swY;
-                on_RIGHT_.Z = swZ;
-                sw_RIGHT_ = true;
-            }
-        }
-        inline void ON_DOWN(Switch swX, Switch swY, Switch swZ) {
-            if (!sw_DOWN_) {
-                way_.X += swX;
-                way_.Y += swY;
-                way_.Z += swZ;
-                on_DOWN_.X = swX;
-                on_DOWN_.Y = swY;
-                on_DOWN_.Z = swZ;
-                sw_DOWN_ = true;
-            }
-        }
-        inline void OFF_UP() {
-            if (sw_UP_) {
-                way_.X -= on_UP_.X;
-                way_.Y -= on_UP_.Y;
-                way_.Z -= on_UP_.Z;
-                sw_UP_ = false;
-            }
-        }
-        inline void OFF_RIGHT() {
-            if (sw_RIGHT_) {
-                way_.X -= on_RIGHT_.X;
-                way_.Y -= on_RIGHT_.Y;
-                way_.Z -= on_RIGHT_.Z;
-                sw_RIGHT_ = false;
-            }
-        }
-        inline void OFF_LEFT() {
-            if (sw_LEFT_) {
-                way_.X -= on_LEFT_.X;
-                way_.Y -= on_LEFT_.Y;
-                way_.Z -= on_LEFT_.Z;
-                sw_LEFT_ = false;
-            }
-        }
-        inline void OFF_DOWN() {
-            if (sw_DOWN_) {
-                way_.X -= on_DOWN_.X;
-                way_.Y -= on_DOWN_.Y;
-                way_.Z -= on_DOWN_.Z;
-                sw_DOWN_ = false;
-            }
-        }
-
-        inline int getIndex() {
-            //3進数→10進数変換
-            //_TRACE_("way_.X, way_.Y, way_.Z="<<way_.X<<","<<way_.Y<<","<< way_.Z);
-            return (3*3*(SGN(way_.X))) + (3*(SGN(way_.Y))) + (SGN(way_.Z));
-        }
-
-        inline void dump() {
-            _TRACE_N_(way_.X<<way_.Y<<way_.Z<<","<<
-                   "["<<sw_UP_<<sw_LEFT_<<sw_RIGHT_<<sw_DOWN_<<"],"<<
-                   on_UP_.X<<on_UP_.Y<<on_UP_.Z<<","<<
-                   on_LEFT_.X<<on_LEFT_.Y<<on_LEFT_.Z<<","<<
-                   on_RIGHT_.X<<on_RIGHT_.Y<<on_RIGHT_.Z<<","<<
-                   on_DOWN_.X<<on_DOWN_.Y<<on_DOWN_.Z<<"");
-        }
-
-    };
 public:
     /** 移動Y座標上限 */
     static coord lim_y_top_;
@@ -187,14 +73,8 @@ public:
     /** 平行移動支援 */
     GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
-    MyShipWaySwitch way_switch_;
-
-    typedef void (MyShip::*FuncMove)();
-    FuncMove paFuncMove_[3*3*3];
-    FuncMove paFuncTurbo_[3*3*3];
-    FuncMove* funcMove_;
-    FuncMove* funcTurbo_;
-//    void (MyShip::*funcMove[3*3*3])();
+    angle senakai_[3*3*3];
+    angle* pSenakai_;
 
     /** [r]ロックオンコントローラー */
     MyLockonController* pLockonCtrler_;
@@ -214,21 +94,6 @@ public:
     /** Turbo移動開始時の移動速度の初速度 */
     velo veloBeginMT_; //Move Velo when I Begin To Move with Turbo
     //Z軸が絡む場合、うまくこの値から計算しよう（Z軸の移動速度は正負で管理してるため）
-
-    /** Turbo移動中の移動速度の加速度 */
-//    acce acce_MT_; //Move Acce while I Move with Turbo
-    //但し 値 < 0 であること。 ∵だんだん遅くなるようにしたいから
-    //これもZ軸が絡む場合、うまくこの値から計算しよう
-
-    /** Turbo移動中の移動速度の最低速度 */
-    //velo iMvBtmVelo_MT_; //Move Bottom Velo while I Move with Turbo
-    //但し 値 < 0 であること。
-    //これもZ軸が絡む場合、うまくこの値から計算しよう
-
-    /** Turbo移動が終了と判断される移動速度 */
-//    velo veloFMT_; //Rotation axisX angle Velo when I Finish Moveing with Turbo
-    //但し 値 < 0 であること。
-    //これもZ軸が絡む場合、うまくこの値から計算しよう
 
     /** 奥(+Z)又は手前(-Z)へ通常移動開始時のX軸回転角速度の初速度 */
     angvelo angRxVelo_BeginMZ_; //Rotation axisX angle Velo when I Begin To Move Z
@@ -282,11 +147,6 @@ public:
     /** ショットが先頭の一発目のスナイプショットか否か、スナイプショットの時のみ true になる */
     bool is_snipe_shot_;
 
-
-
-
-
-
     /** レーザー発射中かどうか */
     bool is_shooting_laser_;
     /** レーザー発射可能かどうか */
@@ -322,8 +182,6 @@ public:
     frame trace_delay_count_;
 
 
-
-
     int shot_level_;
 
     /** SHOT1+SHOT2同時押しの武器のカウンター */
@@ -356,240 +214,15 @@ public:
 
     void setMoveSpeed(velo prm_speed_velo);
 
-    //画面手前へ移動初めX軸回転処理
+    int getMoveWay();
 
-    void doNotingMoveInput();
+    void moveNomal(dir26 prm_way);
 
-    static angle wk_dist, wk_angRx;
-    void move_WAY_NONE();
-    /**
-     * 上移動
-     */
-    void move_WAY_UP();
-    /**
-     * 前方斜め上移動
-     */
-    void move_WAY_UP_FORWARD();
-    /**
-     * 後方斜め上移動
-     */
-    void move_WAY_UP_BACKWARD();
-    /**
-     * 前移動
-     */
-    void move_WAY_FORWARD();
-    /**
-     * 後ろ移動
-     */
-    void move_WAY_BACKWARD();
-    /**
-     * 下移動
-     */
-    void move_WAY_DOWN();
-    /**
-     * 後方斜め下移動
-     */
-    void move_WAY_DOWN_BACKWARD();
-    /**
-     * 前方斜め下移動
-     */
-    void move_WAY_DOWN_FORWARD();
-    /**
-     * 左移動
-     */
-    void move_WAY_ZLEFT();
-    /**
-     * 前方斜め左移動
-     */
-    void move_WAY_ZLEFT_FORWARD();
-    /**
-     * 後方斜め左移動
-     */
-    void move_WAY_ZLEFT_BACKWARD();
-    /**
-     * 前方斜め右移動
-     */
-    void move_WAY_ZRIGHT_FORWARD();
-    /**
-     * 右移動
-     */
-    void move_WAY_ZRIGHT();
-    /**
-     * 後方斜め右
-     */
-    void move_WAY_ZRIGHT_BACKWARD();
-    /**
-     * 左斜め上移動
-     */
-    void move_WAY_ZLEFT_UP();
-    /**
-     * 左斜め下移動
-     */
-    void move_WAY_ZLEFT_DOWN();
-    /**
-     * 右斜め上移動
-     */
-    void move_WAY_ZRIGHT_UP();
-    /**
-     * 右斜め下移動
-     */
-    void move_WAY_ZRIGHT_DOWN();
-    /**
-     * 前方左斜め上移動
-     */
-    void move_WAY_ZLEFT_UP_FORWARD();
-    /**
-     * 後方左斜め上移動
-     */
-    void move_WAY_ZLEFT_UP_BACKWARD();
-    /**
-     * 前方左斜め下移動
-     */
-    void move_WAY_ZLEFT_DOWN_FORWARD();
+    void moveTurbo(dir26 prm_way);
 
-    /**
-     * 後方左斜め下移動
-     */
-    void move_WAY_ZLEFT_DOWN_BACKWARD();
-
-    /**
-     * 前方右斜め上移動
-     */
-    void move_WAY_ZRIGHT_UP_FORWARD();
-    /**
-     * 後方右斜め上移動
-     */
-    void move_WAY_ZRIGHT_UP_BACKWARD();
-    /**
-     * 前方右斜め下移動
-     */
-    void move_WAY_ZRIGHT_DOWN_FORWARD();
-    /**
-     * 後方右斜め下移動
-     */
-    void move_WAY_ZRIGHT_DOWN_BACKWARD();
-
-    /////////////////TURBO_BEGIN
-
-    void turbo_WAY_NONE();
-    /**
-     * 上ターボ開始
-     */
-    void turbo_WAY_UP();
-    /**
-     * 前方斜め上ターボ開始
-     */
-    void turbo_WAY_UP_FORWARD();
-    /**
-     * 後方斜め上ターボ開始
-     */
-    void turbo_WAY_UP_BACKWARD();
-    /**
-     * 前ターボ開始
-     */
-    void turbo_WAY_FORWARD();
-    /**
-     * 後ろターボ開始
-     */
-    void turbo_WAY_BACKWARD();
-    /**
-     * 下ターボ開始
-     */
-    void turbo_WAY_DOWN();
-    /**
-     * 後方斜め下ターボ開始
-     */
-    void turbo_WAY_DOWN_BACKWARD();
-    /**
-     * 前方斜め下ターボ開始
-     */
-    void turbo_WAY_DOWN_FORWARD();
-    /**
-     * 左ターボ開始
-     */
-    void turbo_WAY_ZLEFT();
-    /**
-     * 前方斜め左ターボ開始
-     */
-    void turbo_WAY_ZLEFT_FORWARD();
-    /**
-     * 後方斜め左ターボ開始
-     */
-    void turbo_WAY_ZLEFT_BACKWARD();
-    /**
-     * 前方斜め右ターボ開始
-     */
-    void turbo_WAY_ZRIGHT_FORWARD();
-    /**
-     * 右ターボ開始
-     */
-    void turbo_WAY_ZRIGHT();
-    /**
-     * 後方斜め右
-     */
-    void turbo_WAY_ZRIGHT_BACKWARD();
-    /**
-     * 左斜め上ターボ開始
-     */
-    void turbo_WAY_ZLEFT_UP();
-    /**
-     * 左斜め下ターボ開始
-     */
-    void turbo_WAY_ZLEFT_DOWN();
-    /**
-     * 右斜め上ターボ開始
-     */
-    void turbo_WAY_ZRIGHT_UP();
-    /**
-     * 右斜め下ターボ開始
-     */
-    void turbo_WAY_ZRIGHT_DOWN();
-    /**
-     * 前方左斜め上ターボ開始
-     */
-    void turbo_WAY_ZLEFT_UP_FORWARD();
-    /**
-     * 後方左斜め上ターボ開始
-     */
-    void turbo_WAY_ZLEFT_UP_BACKWARD();
-    /**
-     * 前方左斜め下ターボ開始
-     */
-    void turbo_WAY_ZLEFT_DOWN_FORWARD();
-    /**
-     * 後方左斜め下ターボ開始
-     */
-    void turbo_WAY_ZLEFT_DOWN_BACKWARD();
-    /**
-     * 前方右斜め上ターボ開始
-     */
-    void turbo_WAY_ZRIGHT_UP_FORWARD();
-    /**
-     * 後方右斜め上ターボ開始
-     */
-    void turbo_WAY_ZRIGHT_UP_BACKWARD();
-    /**
-     * 前方右斜め下ターボ開始
-     */
-    void turbo_WAY_ZRIGHT_DOWN_FORWARD();
-    /**
-     * 後方右斜め下ターボ開始
-     */
-    void turbo_WAY_ZRIGHT_DOWN_BACKWARD();
-
-    void onChangeWay(int prev_way, int new_way) {
-
-        switch(new_way) {
-            case 0: {
-                break;
-            }
-            default:
-                break;
-        }
-
-    }
 
     void onCatchEvent(hashval prm_no, void* prm_pSource) override;
+
     /**
      * 自機吹っ飛び .
      * @param prm_blown_veloX X方向吹っ飛び速度
