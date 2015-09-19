@@ -1767,9 +1767,12 @@ MenuActor<T>* MenuActor<T>::getRisingSubMenu() {
     if (pSub) {
         if (pSub->isActiveInTheTree()) {
             return pSub;
+        } else {
+            return nullptr;
         }
+    } else {
+        return nullptr;
     }
-    return nullptr;
 }
 
 

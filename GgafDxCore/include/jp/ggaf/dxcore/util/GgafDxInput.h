@@ -275,8 +275,13 @@ public:
      * @return true：ハットスイッチの上方向はONである／false：そうでは無い
      */
     static inline bool isBeingPressedPovUp() {
-        DWORD n = _joy_state[_flip_js].rgdwPOV[0];
-        return (LOWORD(n) != 0xFFFF && (29750 <= n || n < 7250)) ? true : false;
+        if (GgafDxInput::_pJoystickInputDevice) { //JoyStickが無い場合、rgdwPOV[0]=0のため、上と判定されることを防ぐ
+            DWORD n = _joy_state[_flip_js].rgdwPOV[0];
+            return (LOWORD(n) != 0xFFFF && (29750 <= n || n < 7250)) ? true : false;
+        } else {
+            return false;
+        }
+
     }
 
     /**

@@ -558,41 +558,46 @@ int GgafDxInput::getBeingPressedJoyDirection() {
 
 
 int GgafDxInput::getBeingPressedPovDirection() {
-    DWORD n = GgafDxInput::_joy_state[GgafDxInput::_flip_js].rgdwPOV[0];
-    if (LOWORD(n) != 0xFFFF) {
-        if (n < 20750) {
-            if (n < 11750) {
-                if (n < 2750) {
-                    return 8;         //UP
-                } else if (n < 7250) {
-                    return 9;         //UP+RIGHT
-                } else { //n >= 7250
-                    return 6;         //RIGHT
+    if (GgafDxInput::_pJoystickInputDevice) { //JoyStickが無い場合、rgdwPOV[0]=0のため、上と判定されることを防ぐ
+        DWORD n = GgafDxInput::_joy_state[GgafDxInput::_flip_js].rgdwPOV[0];
+        if (LOWORD(n) != 0xFFFF) {
+            if (n < 20750) {
+                if (n < 11750) {
+                    if (n < 2750) {
+                        return 8;         //UP
+                    } else if (n < 7250) {
+                        return 9;         //UP+RIGHT
+                    } else { //n >= 7250
+                        return 6;         //RIGHT
+                    }
+                } else { //n >= 11750
+                    if (n < 15250) {
+                        return 3;         //DOWN+RIGHT
+                    } else { //n >= 15250
+                        return 2;         //DOWN
+                    }
                 }
-            } else { //n >= 11750
-                if (n < 15250) {
-                    return 3;         //DOWN+RIGHT
-                } else { //n >= 15250
-                    return 2;         //DOWN
+            } else { //n >= 20750
+                if (n < 29750) {
+                    if (n < 24250) {
+                        return 1;         //DOWN+LEFT
+                    } else { //n >= 24250
+                        return 4;         //LEFT
+                    }
+                } else { //n >= 29750
+                    if (n < 33250) {
+                        return 7;         //UP+LEFT
+                    } else { //n >= 33250
+                        return 8;         //UP
+                    }
                 }
             }
-        } else { //n >= 20750
-            if (n < 29750) {
-                if (n < 24250) {
-                    return 1;         //DOWN+LEFT
-                } else { //n >= 24250
-                    return 4;         //LEFT
-                }
-            } else { //n >= 29750
-                if (n < 33250) {
-                    return 7;         //UP+LEFT
-                } else { //n >= 33250
-                    return 8;         //UP
-                }
-            }
+        } else {
+            return 5;                     //NEUTRAL
         }
     } else {
-        return 5;                     //NEUTRAL
+        //ジョイスティックが刺さってない
+        return 5;
     }
 }
 

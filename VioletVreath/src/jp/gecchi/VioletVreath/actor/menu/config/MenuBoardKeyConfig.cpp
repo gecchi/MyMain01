@@ -239,7 +239,6 @@ void MenuBoardKeyConfig::processBehavior() {
                  input_mode_ = 2;
             }
         }
-
     }
 
 }
