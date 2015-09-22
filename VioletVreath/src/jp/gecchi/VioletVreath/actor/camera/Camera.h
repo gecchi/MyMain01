@@ -55,6 +55,8 @@ public:
     void slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t);
     void slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t,
             float prm_x_p1, float prm_y_p1, float prm_z_p1);
+
+    bool isSliding();
     virtual ~Camera(); //デストラクタ
 };
 

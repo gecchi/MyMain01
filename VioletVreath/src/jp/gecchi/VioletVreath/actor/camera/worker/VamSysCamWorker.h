@@ -65,6 +65,9 @@ public:
 
 
     angle pos_cam_around_;
+    angle pos_cam_around_base_;
+    bool returnning_cam_pos_;
+    frame returnning_cam_pos_frames_;
     bool cam_up_regular_;
 
 

@@ -580,6 +580,12 @@ void CameraWorker::mvCamTo(coord tx, coord ty, coord tz) {
     t_z_CAM_ = tz;
     pCam_->position(tx, ty, tz);
 }
+
+bool CameraWorker::isCamSliding() {
+    return pCam_->isSliding();
+}
+
+
 void CameraWorker::slideMvVpTo(coord tx, coord ty, coord tz, frame t) {
     t_x_VP_ = tx;
     t_y_VP_ = ty;

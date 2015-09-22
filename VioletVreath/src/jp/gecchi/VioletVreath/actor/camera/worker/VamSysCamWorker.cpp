@@ -48,8 +48,10 @@ VamSysCamWorker::VamSysCamWorker(const char* prm_name) : CameraWorker(prm_name) 
     mv_t_y_CAM_prev_ = 0;
     mv_t_z_CAM_prev_ = 0;
 
-
-    pos_cam_around_ = D180ANG;
+    pos_cam_around_base_ = D180ANG;
+    pos_cam_around_ = pos_cam_around_base_;
+    returnning_cam_pos_ = false;
+    returnning_cam_pos_frames_ = 0;
     cam_up_regular_ = true;
 
 }
@@ -69,9 +71,9 @@ void VamSysCamWorker::initialize() {
     mv_t_x_CAM_prev_ = 0;
     mv_t_y_CAM_prev_ = 0;
     mv_t_z_CAM_prev_ = 0;
-    pos_cam_around_ = D180ANG;
+    pos_cam_around_ = pos_cam_around_base_;
     cam_up_regular_ = true;
-
+    returnning_cam_pos_frames_ = 0;
     _TRACE_("VamSysCamWorker::initialize() this="<<NODE_INFO);
     dump();
 }
@@ -107,19 +109,39 @@ void VamSysCamWorker::processBehavior() {
     } else if (mv_t_x_CAM > Dx/2) {
         mv_t_x_CAM = Dx/2;
     }
-    if (pVbPlay->isBeingPressed(VB_VIEW_UP)) {
-        pos_cam_around_ = UTIL::simplifyAng(pos_cam_around_+D_ANG(2));
-        cam_mv_frame_ = 3;
-    } else if (pVbPlay->isBeingPressed(VB_VIEW_DOWN)) {
-        pos_cam_around_ = UTIL::simplifyAng(pos_cam_around_-D_ANG(2));
-        cam_mv_frame_ = 3;
-    } else {
-        cam_mv_frame_ = cam_mv_frame_base_;
+
+
+
+    if (returnning_cam_pos_) {
+        returnning_cam_pos_frames_--;
+        if (returnning_cam_pos_frames_ == 0) {
+            returnning_cam_pos_ = false;
+        }
     }
+
+    if (!returnning_cam_pos_) {
+        if (pVbPlay->isDoublePushedDown(VB_VIEW_UP) || pVbPlay->isDoublePushedDown(VB_VIEW_DOWN) ) {
+            angle d = UTIL::getAngDiff(pos_cam_around_, pos_cam_around_base_, TURN_CLOSE_TO);
+            pos_cam_around_ = pos_cam_around_base_;
+            returnning_cam_pos_frames_ = (frame)(ANG_D(ABS(d))/4);
+            returnning_cam_pos_ = true;
+        }
+    }
+    if (!returnning_cam_pos_) {
+        if (pVbPlay->isBeingPressed(VB_VIEW_UP)) {
+            pos_cam_around_ = UTIL::simplifyAng(pos_cam_around_+D_ANG(2));
+            cam_mv_frame_ = 2;
+        } else if (pVbPlay->isBeingPressed(VB_VIEW_DOWN)) {
+            pos_cam_around_ = UTIL::simplifyAng(pos_cam_around_-D_ANG(2));
+            cam_mv_frame_ = 2;
+        } else {
+            cam_mv_frame_ = cam_mv_frame_base_;
+        }
+    }
+
     mv_t_y_CAM = pMyShip_->_y + (ANG_SIN(pos_cam_around_) * dZ_camera_init_);
     mv_t_z_CAM = pMyShip_->_z + (ANG_COS(pos_cam_around_) * dZ_camera_init_);
     slideMvCamTo(mv_t_x_CAM, mv_t_y_CAM, mv_t_z_CAM, cam_mv_frame_);
-
 
     //VPÀ•W
     mv_t_x_VP = Dx - (-pMyShip_->_x-200000)*2;

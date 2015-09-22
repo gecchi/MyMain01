@@ -85,7 +85,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     GgafCore::GgafRgb rgb = GgafCore::GgafRgb(PROPERTY::BORDER_COLOR);
     WNDCLASSEX wcex1;
     wcex1.cbSize = sizeof(WNDCLASSEX);
-    wcex1.style = CS_HREDRAW | CS_VREDRAW | CS_CLASSDC; //水平・垂直方向にウインドウサイズが変更されたときウインドウを再作画する。
+    wcex1.style = CS_HREDRAW | CS_VREDRAW | CS_CLASSDC | CS_DBLCLKS ;
+    //水平・垂直方向にウインドウサイズが変更されたときウインドウを再作画する。ダブルクリックあり
     wcex1.lpfnWndProc =  (WNDPROC)WndProc; //ウィンドウプロシージャのアドレスを指定する。
     wcex1.cbClsExtra = 0;
     wcex1.cbWndExtra = 0;
@@ -253,34 +254,41 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             CustmizeSysMenu(hWnd);
             break;
         }
-        case WM_SYSCHAR: {
-            if (LOWORD(wParam) == VK_RETURN) { //Alt + Enter
-                LONG lStyle  = GetWindowLong( hWnd, GWL_STYLE );
-                if (lStyle & WS_POPUP) {
-                    //現在ボーダレスフルスクリーンウィンドウであるので戻す。
-                    GgafDxCore::GgafDxGod::backToNomalWindow(hWnd);
-                } else {
-                    //現在通常ウィンドウであるので、ボーダレスフルスクリーンウィンドウに切り替える。
-                    GgafDxCore::GgafDxGod::chengeToBorderlessFullWindow(hWnd);
-                }
+        case WM_SYSKEYDOWN: {
+            //システムのメニューフォーカスキーを無効
+            if (LOWORD(wParam) == VK_F10) {
+                return TRUE;
+            }
+            if (LOWORD(wParam) == VK_MENU) {
+                return TRUE;
             }
             break;
-
-
-//            --edit---
-//            at the winproc:
-//
-//            case WM_MENUCHAR://identify alt+enter, make it not beep since Im handling it:
-//
-//            if( LOWORD(wParam) & VK_RETURN )
-//            return MAKELRESULT(0, MNC_CLOSE);//MNC_CLOSE (close the menu), is going fullscreen anyway..
-//
-//            return MAKELRESULT(0, MNC_IGNORE);
-//            http://msdn.microsoft.com/en-us/library/ms646349(VS.85).aspx
-//
-//            ;D solved
-
         }
+//        case WM_SYSCHAR: {
+//            if (LOWORD(wParam) == VK_RETURN) { //Alt + Enter
+//                LONG lStyle  = GetWindowLong( hWnd, GWL_STYLE );
+//                if (lStyle & WS_POPUP) {
+//                    //現在ボーダレスフルスクリーンウィンドウであるので戻す。
+//                    GgafDxCore::GgafDxGod::backToNomalWindow(hWnd);
+//                } else {
+//                    //現在通常ウィンドウであるので、ボーダレスフルスクリーンウィンドウに切り替える。
+//                    GgafDxCore::GgafDxGod::chengeToBorderlessFullWindow(hWnd);
+//                }
+//            }
+//            break;
+//        }
+        case WM_LBUTTONDBLCLK: {
+            LONG lStyle  = GetWindowLong( hWnd, GWL_STYLE );
+            if (lStyle & WS_POPUP) {
+                //現在ボーダレスフルスクリーンウィンドウであるので戻す。
+                GgafDxCore::GgafDxGod::backToNomalWindow(hWnd);
+            } else {
+                //現在通常ウィンドウであるので、ボーダレスフルスクリーンウィンドウに切り替える。
+                GgafDxCore::GgafDxGod::chengeToBorderlessFullWindow(hWnd);
+            }
+            break;
+        }
+
 
         case WM_SYSCOMMAND: {
             if ( (wParam & 0xFFF0) == SC_SCREENSAVE ) {
@@ -448,14 +456,14 @@ BOOL CustmizeSysMenu(HWND hWnd)
 
     HMENU reset_window_size = CreateMenu();
     InsertMenu(reset_window_size, 0, MF_STRING | MF_BYPOSITION, MY_IDM_RESET_WINDOW_SIZE, "size of default.");
-    InsertMenu(reset_window_size, 1, MF_STRING | MF_BYPOSITION, MY_IDM_RESET_PIXEL_BY_DOT_WINDOW_SIZE, "size of pixel = 1dot.");
+    InsertMenu(reset_window_size, 1, MF_STRING | MF_BYPOSITION, MY_IDM_RESET_PIXEL_BY_DOT_WINDOW_SIZE,  "size of pixel = 1*1dot.");
     InsertMenu(reset_window_size, 2, MF_STRING | MF_BYPOSITION, MY_IDM_RESET_PIXEL_BY_2DOT_WINDOW_SIZE, "size of pixel = 2*2dot.");
     InsertMenu(reset_window_size, 3, MF_STRING | MF_BYPOSITION, MY_IDM_RESET_PIXEL_BY_3DOT_WINDOW_SIZE, "size of pixel = 3*3dot.");
 
     HMENU hMenu = GetSystemMenu(hWnd, FALSE);
     int i;
     i=5; InsertMenu(hMenu, i, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR)0, "");
-    i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING, MY_IDM_CHANGE_TO_BORDERLESS_WINDOW ,"Change to borderless windowed. (Alt + Enter)");
+    i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING, MY_IDM_CHANGE_TO_BORDERLESS_WINDOW ,"Change to borderless windowed.(Double Click)");
     i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR)reset_window_size, "Reset window size. >>");
     i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR)menu_aspect, "Game view aspect. >>");
     i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR)menu_vp    , "Game view position. >>");

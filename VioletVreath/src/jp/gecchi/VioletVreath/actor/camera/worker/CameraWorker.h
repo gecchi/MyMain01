@@ -96,6 +96,7 @@ public:
                       float prm_x_p1, float prm_y_p1, float prm_z_p1);
     void mvCamTo(coord tx, coord ty, coord tz);
 
+    bool isCamSliding();
     void slideMvVpTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t);
     void slideMvVpTo(coord tx, coord ty, coord tz, frame t);
 

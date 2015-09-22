@@ -270,6 +270,8 @@ public:
             _zero_acc_end_flg = prm_zero_acc_end_flg;
             _progress = ACCELERATE_acc_for_T1;
         }
+
+
         //_TRACE_("_is_accelerating ="<<_is_accelerating);
         //_TRACE_("_p0 ="<<_p0);
         //_TRACE_("_p1 ="<<_p1);

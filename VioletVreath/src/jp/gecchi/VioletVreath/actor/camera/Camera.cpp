@@ -79,6 +79,10 @@ dir26 Camera::getVpDirNo() {
     return GgafDx26DirectionUtil::cnvVec2DirNo(vcv_x, vcv_y, vcv_z);
 }
 
+bool Camera::isSliding() {
+    return pAxsMver_->asst()->isSliding();
+}
+
 Camera::~Camera() {
     GGAF_DELETE(pAxsMver_);
 }
