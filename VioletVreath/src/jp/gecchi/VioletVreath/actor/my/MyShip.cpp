@@ -1012,191 +1012,95 @@ int MyShip::getMoveWay() {
     int sgn_x = 0;
     int sgn_y = 0;
     int sgn_z = 0;
-    bool cam_up_regular = true; //’Êí‚ÌUP•ûŒü
-    if (cam_up_regular) {
-        if (pVbPlay->isBeingPressed(VB_RIGHT)) {
-            sgn_x = 1;
-        }
-        if (pVbPlay->isBeingPressed(VB_LEFT)) {
-            sgn_x = -1;
-        }
-    } else {
-        if (pVbPlay->isBeingPressed(VB_RIGHT)) {
-            sgn_x = -1;
-        }
-        if (pVbPlay->isBeingPressed(VB_LEFT)) {
-            sgn_x = 1;
-        }
+
+
+    if (pVbPlay->isBeingPressed(VB_RIGHT)) {
+        sgn_x = 1;
+    }
+    if (pVbPlay->isBeingPressed(VB_LEFT)) {
+        sgn_x = -1;
     }
 
-
-
-    if (cam_up_regular) {
-        switch (pos_camera) {
-            case VAM_POS_ZRIGHT: {
-                if (pVbPlay->isBeingPressed(VB_UP)) {
-                    sgn_y = 1;
-                }
-                if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    sgn_y = -1;
-                }
-                break;
+    switch (pos_camera) {
+        case VAM_POS_ZRIGHT: {
+            if (pVbPlay->isBeingPressed(VB_UP)) {
+                sgn_y = 1;
             }
-            case VAM_POS_ZRIGHT_UP: {
-                if (pVbPlay->isBeingPressed(VB_UP)) {
-                    sgn_y = 1;
-                    sgn_z = 1;
-                }
-                if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    sgn_y = -1;
-                    sgn_z = -1;
-                }
-                break;
+            if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                sgn_y = -1;
             }
-            case VAM_POS_UP: {
-                if (pVbPlay->isBeingPressed(VB_UP)) {
-                    sgn_z = 1;
-                }
-                if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    sgn_z = -1;
-                }
-                break;
-            }
-            case VAM_POS_ZLEFT_UP: {
-                if (pVbPlay->isBeingPressed(VB_UP)) {
-                    sgn_y = -1;
-                    sgn_z = 1;
-                }
-                if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    sgn_y = 1;
-                    sgn_z = -1;
-                }
-                break;
-            }
-            case VAM_POS_ZLEFT: {
-                if (pVbPlay->isBeingPressed(VB_UP)) {
-                    sgn_y = -1;
-                }
-                if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    sgn_y = 1;
-                }
-                break;
-            }
-            case VAM_POS_ZLEFT_DOWN: {
-                if (pVbPlay->isBeingPressed(VB_UP)) {
-                    sgn_y = -1;
-                    sgn_z = -1;
-                }
-                if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    sgn_y = 1;
-                    sgn_z = 1;
-                }
-                break;
-            }
-            case VAM_POS_DOWN: {
-                if (pVbPlay->isBeingPressed(VB_UP)) {
-                    sgn_z = -1;
-                }
-                if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    sgn_z = 1;
-                }
-                break;
-            }
-            case VAM_POS_ZRIGHT_DOWN: {
-                if (pVbPlay->isBeingPressed(VB_UP)) {
-                    sgn_y = 1;
-                    sgn_z = -1;
-                }
-                if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    sgn_y = -1;
-                    sgn_z = 1;
-                }
-                break;
-            }
+            break;
         }
-    } else {
-        //‹tˆÊ’u
-        switch (pos_camera) {
-            case VAM_POS_ZLEFT: {
-                if (pVbPlay->isBeingPressed(VB_UP)) {
-                    sgn_y = 1;
-                }
-                if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    sgn_y = -1;
-                }
-                break;
+        case VAM_POS_ZRIGHT_UP: {
+            if (pVbPlay->isBeingPressed(VB_UP)) {
+                sgn_y = 1;
+                sgn_z = 1;
             }
-            case VAM_POS_ZLEFT_UP: {
-                if (pVbPlay->isBeingPressed(VB_UP)) {
-                    sgn_y = 1;
-                    sgn_z = -1;
-                }
-                if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    sgn_y = -1;
-                    sgn_z = 1;
-                }
-                break;
+            if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                sgn_y = -1;
+                sgn_z = -1;
             }
-            case VAM_POS_UP: {
-                if (pVbPlay->isBeingPressed(VB_UP)) {
-                    sgn_z = -1;
-                }
-                if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    sgn_z = 1;
-                }
-                break;
+            break;
+        }
+        case VAM_POS_UP: {
+            if (pVbPlay->isBeingPressed(VB_UP)) {
+                sgn_z = 1;
             }
-            case VAM_POS_ZRIGHT_UP: {
-                if (pVbPlay->isBeingPressed(VB_UP)) {
-                    sgn_y = -1;
-                    sgn_z = -1;
-                }
-                if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    sgn_y = 1;
-                    sgn_z = 1;
-                }
-                break;
+            if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                sgn_z = -1;
             }
-            case VAM_POS_ZRIGHT: {
-                if (pVbPlay->isBeingPressed(VB_UP)) {
-                    sgn_y = -1;
-                }
-                if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    sgn_y = 1;
-                }
-                break;
+            break;
+        }
+        case VAM_POS_ZLEFT_UP: {
+            if (pVbPlay->isBeingPressed(VB_UP)) {
+                sgn_y = -1;
+                sgn_z = 1;
             }
-            case VAM_POS_ZRIGHT_DOWN: {
-                if (pVbPlay->isBeingPressed(VB_UP)) {
-                    sgn_y = -1;
-                    sgn_z = 1;
-                }
-                if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    sgn_y = 1;
-                    sgn_z = -1;
-                }
-                break;
+            if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                sgn_y = 1;
+                sgn_z = -1;
             }
-            case VAM_POS_DOWN: {
-                if (pVbPlay->isBeingPressed(VB_UP)) {
-                    sgn_z = 1;
-                }
-                if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    sgn_z = -1;
-                }
-                break;
+            break;
+        }
+        case VAM_POS_ZLEFT: {
+            if (pVbPlay->isBeingPressed(VB_UP)) {
+                sgn_y = -1;
             }
-            case VAM_POS_ZLEFT_DOWN: {
-                if (pVbPlay->isBeingPressed(VB_UP)) {
-                    sgn_y = 1;
-                    sgn_z = 1;
-                }
-                if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    sgn_y = -1;
-                    sgn_z = -1;
-                }
-                break;
+            if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                sgn_y = 1;
             }
+            break;
+        }
+        case VAM_POS_ZLEFT_DOWN: {
+            if (pVbPlay->isBeingPressed(VB_UP)) {
+                sgn_y = -1;
+                sgn_z = -1;
+            }
+            if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                sgn_y = 1;
+                sgn_z = 1;
+            }
+            break;
+        }
+        case VAM_POS_DOWN: {
+            if (pVbPlay->isBeingPressed(VB_UP)) {
+                sgn_z = -1;
+            }
+            if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                sgn_z = 1;
+            }
+            break;
+        }
+        case VAM_POS_ZRIGHT_DOWN: {
+            if (pVbPlay->isBeingPressed(VB_UP)) {
+                sgn_y = 1;
+                sgn_z = -1;
+            }
+            if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                sgn_y = -1;
+                sgn_z = 1;
+            }
+            break;
         }
     }
     return DIR26(sgn_x, sgn_y, sgn_z);

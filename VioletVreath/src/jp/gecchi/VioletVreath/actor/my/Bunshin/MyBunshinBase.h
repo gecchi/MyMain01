@@ -133,6 +133,8 @@ public:
     frame return_default_pos_frames_;
     bool is_free_mode_;
     bool is_isolate_mode_;
+
+    angle rx2_;
 public:
     /**
      * コンストラクタ .
@@ -170,6 +172,7 @@ public:
     void resetBunshin(int prm_mode);
 
     static void setBunshinNum(int prm_num);
+    static void setWorldMatrix_RxRzRyRx2Mv(const GgafDxGeometricActor* const prm_pActor, D3DXMATRIX& out_matWorld);
 };
 
 }

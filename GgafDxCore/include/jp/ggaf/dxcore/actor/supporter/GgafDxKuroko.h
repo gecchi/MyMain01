@@ -531,6 +531,9 @@ public:
      */
     void addRzMvAng(angle prm_angDistance);
 
+    angle getRzMvAng() {
+        return _ang_rz_mv;
+    }
     /**
      * Actorの目標の移動方角（Z軸回転）自動停止機能を有効(目標の移動方角（Z軸回転）設定)<BR>
      * 引数に設定された移動方角（Z軸回転）になるまで、移動方角（Z軸回転）を加算(減算)を毎フレーム行い続けます。<BR>
@@ -604,6 +607,10 @@ public:
      * @param   prm_angDistance 移動方角（Y軸回転）増分(範囲：_bottom_angvelo_ry_mv ～ _top_angvelo_ry_mv)
      */
     void addRyMvAng(angle prm_angDistance);
+
+    angle getRyMvAng() {
+        return _ang_ry_mv;
+    }
 
     /**
      * Actorの目標のY軸回転移動方角の自動停止機能を有効 .

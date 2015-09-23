@@ -28,8 +28,8 @@ int MyBunshinBase::now_bunshin_num_ = 0;
 
 MyBunshinBase::MyBunshinBase(const char* prm_name, unsigned int prm_no) :
         DefaultGeometricActor(prm_name) {
-
-    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //DefaultGeometricActorでFKベースになるために必要
+    rx2_ = D0ANG;
+    defineRotMvWorldMatrix(MyBunshinBase::setWorldMatrix_RxRzRyRx2Mv); //DefaultGeometricActorでFKベースになるために必要
 
     trace_offset_.set(0,0,0);
     no_ = prm_no; //１～
@@ -57,6 +57,7 @@ MyBunshinBase::MyBunshinBase(const char* prm_name, unsigned int prm_no) :
     bunshin_default_expanse_ = 0;
     bunshin_default_angvelo_mv_ = 0;
     bunshin_velo_mv_radius_pos_ = 0;
+
 
 }
 
@@ -104,6 +105,9 @@ void MyBunshinBase::onActive() {
 }
 
 void MyBunshinBase::processBehavior() {
+    rx2_ = P_VAM->pos_cam_around_;
+
+
     GgafDxKuroko* pKuroko = getKuroko();
     if (is_isolate_mode_) {
         pKuroko->behave();
@@ -271,81 +275,131 @@ void MyBunshinBase::processBehavior() {
             resetBunshin(1);
         }
     } else if (pVbPlay->isBeingPressed(VB_OPTION)) {
+        const int pos_camera = P_VAM->pos_camera_;
         //分身操作
         if (pVbPlay->isBeingPressed(VB_TURBO)) {
             //分身広がりと半径位置制御
             trace_mode_ = TRACE_FREEZE;
-            const int pos_camera = P_VAM->pos_camera_;
-            if (pos_camera == VAM_POS_ZRIGHT) {
-                if (pVbPlay->isBeingPressed(VB_RIGHT)) {
-                    pBunshin_->addExpanse(+MyBunshinBase::ANGVELO_EXPANSE);
-                } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
-                    pBunshin_->addExpanse(-MyBunshinBase::ANGVELO_EXPANSE);
-                }
-                if (pVbPlay->isBeingPressed(VB_UP)) {
-                    pBunshin_->addRadiusPosition(+bunshin_velo_mv_radius_pos_);
-                } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    pBunshin_->addRadiusPosition(-bunshin_velo_mv_radius_pos_);
-                }
-            } else if (pos_camera == VAM_POS_ZLEFT) {
-                if (pVbPlay->isBeingPressed(VB_RIGHT)) {
-                    pBunshin_->addExpanse(-MyBunshinBase::ANGVELO_EXPANSE);
-                } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
-                    pBunshin_->addExpanse(+MyBunshinBase::ANGVELO_EXPANSE);
-                }
-                if (pVbPlay->isBeingPressed(VB_UP)) {
-                    pBunshin_->addRadiusPosition(+bunshin_velo_mv_radius_pos_);
-                } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    pBunshin_->addRadiusPosition(-bunshin_velo_mv_radius_pos_);
-                }
-            } else if (pos_camera == VAM_POS_UP) {
-                if (pVbPlay->isBeingPressed(VB_RIGHT)) {
-                    pBunshin_->addRadiusPosition(+bunshin_velo_mv_radius_pos_);
-                } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
-                    pBunshin_->addRadiusPosition(-bunshin_velo_mv_radius_pos_);
-                }
-                if (pVbPlay->isBeingPressed(VB_UP)) {
-                    pBunshin_->addExpanse(+MyBunshinBase::ANGVELO_EXPANSE);
-                } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    pBunshin_->addExpanse(-MyBunshinBase::ANGVELO_EXPANSE);
-                }
-            } else if (pos_camera == VAM_POS_DOWN) {
-                if (pVbPlay->isBeingPressed(VB_RIGHT)) {
-                    pBunshin_->addRadiusPosition(-bunshin_velo_mv_radius_pos_);
-                } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
-                    pBunshin_->addRadiusPosition(+bunshin_velo_mv_radius_pos_);
-                }
-                if (pVbPlay->isBeingPressed(VB_UP)) {
-                    pBunshin_->addExpanse(-MyBunshinBase::ANGVELO_EXPANSE);
-                } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    pBunshin_->addExpanse(+MyBunshinBase::ANGVELO_EXPANSE);
-                }
-            } else if (pos_camera > VAM_POS_TO_BEHIND) {
-                if (pVbPlay->isBeingPressed(VB_RIGHT)) {
-                    pBunshin_->addExpanse(+MyBunshinBase::ANGVELO_EXPANSE);
-                } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
-                    pBunshin_->addExpanse(-MyBunshinBase::ANGVELO_EXPANSE);
-                }
-                if (pVbPlay->isBeingPressed(VB_UP)) {
-                    pBunshin_->addRadiusPosition(+bunshin_velo_mv_radius_pos_);
-                } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                    pBunshin_->addRadiusPosition(-bunshin_velo_mv_radius_pos_);
-                }
+
+            if (pVbPlay->isBeingPressed(VB_RIGHT)) {
+                pBunshin_->addExpanse(+MyBunshinBase::ANGVELO_EXPANSE);
+            } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
+                pBunshin_->addExpanse(-MyBunshinBase::ANGVELO_EXPANSE);
+            }
+            if (pVbPlay->isBeingPressed(VB_UP)) {
+                pBunshin_->addRadiusPosition(+bunshin_velo_mv_radius_pos_);
+            } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                pBunshin_->addRadiusPosition(-bunshin_velo_mv_radius_pos_);
             }
             bunshin_radius_pos_ = pBunshin_->getRadiusPosition(); //標準半径位置を更新
         } else {  //if ( pVbPlay->isBeingPressed(VB_TURBO) )  の else
             //分身の向き(this土台の向き)操作
             trace_mode_ = TRACE_FREEZE;
+
+            //こっから、カメラの位置によって変えること！！
+
+
+
+
             if (pVbPlay->isBeingPressed(VB_UP)) {
-                pKuroko->addRzMvAng(MyBunshinBase::ANGVELO_TURN);
-            } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
                 pKuroko->addRzMvAng(-MyBunshinBase::ANGVELO_TURN);
+            } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                pKuroko->addRzMvAng(MyBunshinBase::ANGVELO_TURN);
             }
             if (pVbPlay->isBeingPressed(VB_RIGHT)) {
-                pKuroko->addRyMvAng(MyBunshinBase::ANGVELO_TURN);
-            } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
                 pKuroko->addRyMvAng(-MyBunshinBase::ANGVELO_TURN);
+            } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
+                pKuroko->addRyMvAng(MyBunshinBase::ANGVELO_TURN);
             }
+
+
+//            switch (pos_camera) {
+//                case VAM_POS_ZRIGHT: {
+//                    if (pVbPlay->isBeingPressed(VB_UP)) {
+//                        pKuroko->addRzMvAng(MyBunshinBase::ANGVELO_TURN);
+//                    } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
+//                        pKuroko->addRzMvAng(-MyBunshinBase::ANGVELO_TURN);
+//                    }
+//                    if (pVbPlay->isBeingPressed(VB_RIGHT)) {
+//                        pKuroko->addRyMvAng(MyBunshinBase::ANGVELO_TURN);
+//                    } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
+//                        pKuroko->addRyMvAng(-MyBunshinBase::ANGVELO_TURN);
+//                    }
+//                    break;
+//                }
+//                case VAM_POS_ZRIGHT_UP: {
+////                    if (pVbPlay->isBeingPressed(VB_UP)) {
+////                        pKuroko->addRyMvAng(-MyBunshinBase::ANGVELO_TURN);
+////                        angle ry_mv = pKuroko->getRyMvAng();
+////                        pKuroko->setRzMvAng(-ANG_SIN(ry_mv)*D45ANG);
+////                    } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
+////                        pKuroko->addRyMvAng(MyBunshinBase::ANGVELO_TURN);
+////                        angle ry_mv = pKuroko->getRyMvAng();
+////                        pKuroko->setRzMvAng(-ANG_SIN(ry_mv)*D45ANG);
+////                    }
+////                    if (pVbPlay->isBeingPressed(VB_RIGHT)) {
+////                        pKuroko->addRyMvAng(MyBunshinBase::ANGVELO_TURN);
+////                        angle ry_mv = pKuroko->getRyMvAng();
+////                        pKuroko->setRzMvAng(ANG_SIN(ry_mv)*D45ANG);
+////                    } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
+////                        pKuroko->addRyMvAng(-MyBunshinBase::ANGVELO_TURN);
+////                        angle ry_mv = pKuroko->getRyMvAng();
+////                        pKuroko->setRzMvAng(ANG_SIN(ry_mv)*D45ANG);
+////                    }
+//
+//                    break;
+//                }
+//                case VAM_POS_UP: {
+//                    if (pVbPlay->isBeingPressed(VB_UP)) {
+//                        pKuroko->addRzMvAng(MyBunshinBase::ANGVELO_TURN);
+//                    } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
+//                        pKuroko->addRzMvAng(-MyBunshinBase::ANGVELO_TURN);
+//                    }
+//                    if (pVbPlay->isBeingPressed(VB_RIGHT)) {
+//                        pKuroko->addRyMvAng(MyBunshinBase::ANGVELO_TURN);
+//                    } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
+//                        pKuroko->addRyMvAng(-MyBunshinBase::ANGVELO_TURN);
+//                    }
+//                    break;
+//                }
+//                case VAM_POS_ZLEFT_UP: {
+//
+//                    break;
+//                }
+//                case VAM_POS_ZLEFT: {
+//                    if (pVbPlay->isBeingPressed(VB_UP)) {
+//                        pKuroko->addRzMvAng(-MyBunshinBase::ANGVELO_TURN);
+//                    } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
+//                        pKuroko->addRzMvAng(MyBunshinBase::ANGVELO_TURN);
+//                    }
+//                    if (pVbPlay->isBeingPressed(VB_RIGHT)) {
+//                        pKuroko->addRyMvAng(-MyBunshinBase::ANGVELO_TURN);
+//                    } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
+//                        pKuroko->addRyMvAng(MyBunshinBase::ANGVELO_TURN);
+//                    }
+//                    break;
+//                }
+//                case VAM_POS_ZLEFT_DOWN: {
+//                    break;
+//                }
+//                case VAM_POS_DOWN: {
+//                    if (pVbPlay->isBeingPressed(VB_UP)) {
+//                        pKuroko->addRyMvAng(MyBunshinBase::ANGVELO_TURN);
+//                    } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
+//                        pKuroko->addRyMvAng(-MyBunshinBase::ANGVELO_TURN);
+//                    }
+//                    if (pVbPlay->isBeingPressed(VB_RIGHT)) {
+//                        pKuroko->addRzMvAng(-MyBunshinBase::ANGVELO_TURN);
+//                    } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
+//                        pKuroko->addRzMvAng(MyBunshinBase::ANGVELO_TURN);
+//                    }
+//                    break;
+//                }
+//                case VAM_POS_ZRIGHT_DOWN: {
+//                    break;
+//                }
+//            }
+
         }
     }
 
@@ -392,6 +446,8 @@ void MyBunshinBase::processBehavior() {
             }
         }
     }
+
+
     pKuroko->behave();
     pAxsMver_->behave();
 }
@@ -547,5 +603,46 @@ void MyBunshinBase::setBunshinNum(int prm_num) {
         default :
             break;
     }
+}
+void MyBunshinBase::setWorldMatrix_RxRzRyRx2Mv(const GgafDxGeometricActor* const prm_pActor, D3DXMATRIX& out_matWorld) {
+    MyBunshinBase* pActor = (MyBunshinBase*)prm_pActor;
+
+    //X軸回転 × Z軸回転 × Y軸回転 × X軸回転その２ × 平行移動 の変換行列を設定<BR>
+    //    cosRz*cosRy (sinRz*cosRx2 + cosRz*-sinRy*-sinRx2)   (sinRz*sinRx2 + cosRz*-sinRy*cosRx2)    0
+    //    ((cosRx*-sinRz*cosRy + sinRx*sinRy))    (cosRx*cosRz*cosRx2 + (cosRx*-sinRz*-sinRy + sinRx*cosRy)*-sinRx2)  (cosRx*cosRz*sinRx2 + (cosRx*-sinRz*-sinRy + sinRx*cosRy)*cosRx2)   0
+    //    ((-sinRx*-sinRz*cosRy + cosRx*sinRy))   (-sinRx*cosRz*cosRx2 + (-sinRx*-sinRz*-sinRy + cosRx*cosRy)*-sinRx2)    (-sinRx*cosRz*sinRx2 + (-sinRx*-sinRz*-sinRy + cosRx*cosRy)*cosRx2) 0
+    //    dx  dy  dz  1
+
+    const float sinRx = ANG_SIN(pActor->_rx);
+    const float cosRx = ANG_COS(pActor->_rx);
+    const float sinRy = ANG_SIN(pActor->_ry);
+    const float cosRy = ANG_COS(pActor->_ry);
+    const float sinRz = ANG_SIN(pActor->_rz);
+    const float cosRz = ANG_COS(pActor->_rz);
+
+    const float sinRx2 = ANG_SIN(pActor->rx2_);
+    const float cosRx2 = ANG_COS(pActor->rx2_);
+
+
+    out_matWorld._11 = cosRz*cosRy;
+    out_matWorld._12 = sinRz*cosRx2 + cosRz*-sinRy*-sinRx2;
+    out_matWorld._13 = sinRz*sinRx2 + cosRz*-sinRy*cosRx2;
+    out_matWorld._14 = 0.0f;
+
+    out_matWorld._21 = cosRx*-sinRz*cosRy + sinRx*sinRy;
+    out_matWorld._22 = cosRx*cosRz*cosRx2 + (cosRx*-sinRz*-sinRy + sinRx*cosRy)*-sinRx2;
+    out_matWorld._23 = cosRx*cosRz*sinRx2 + (cosRx*-sinRz*-sinRy + sinRx*cosRy)*cosRx2;
+    out_matWorld._24 = 0.0f;
+
+    out_matWorld._31 = -sinRx*-sinRz*cosRy + cosRx*sinRy;
+    out_matWorld._32 = -sinRx*cosRz*cosRx2 + (-sinRx*-sinRz*-sinRy + cosRx*cosRy)*-sinRx2;
+    out_matWorld._33 = -sinRx*cosRz*sinRx2 + (-sinRx*-sinRz*-sinRy + cosRx*cosRy)*cosRx2;
+    out_matWorld._34 = 0.0f;
+
+    out_matWorld._41 = pActor->_fX;
+    out_matWorld._42 = pActor->_fY;
+    out_matWorld._43 = pActor->_fZ;
+    out_matWorld._44 = 1.0f;
+
 }
 
