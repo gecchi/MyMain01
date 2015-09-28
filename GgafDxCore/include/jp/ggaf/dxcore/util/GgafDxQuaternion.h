@@ -13,36 +13,36 @@ namespace GgafDxCore {
  */
 class GgafDxQuaternion : public GgafCore::GgafObject {
 public:
-    /** ƒXƒJƒ‰[•” */
-    float   _t;
+    /** À•” */
+    float   R;
     /** ‹••” i */
-    float   _x;
+    float   i;
     /** ‹••” j */
-    float   _y;
+    float   j;
     /** ‹••” k */
-    float   _z;
+    float   k;
 
 public:
     GgafDxQuaternion() : GgafObject() {
-        _t = 0;
-        _x = 0;
-        _y = 0;
-        _z = 0;
+        R = 0;
+        i = 0;
+        j = 0;
+        k = 0;
     }
 
-    GgafDxQuaternion(float prm_t, float prm_x, float prm_y, float prm_z) : GgafObject(),
-        _t(prm_t),
-        _x(prm_x),
-        _y(prm_y),
-        _z(prm_z) {
+    GgafDxQuaternion(float prm_R, float prm_i, float prm_j, float prm_k) : GgafObject(),
+        R(prm_R),
+        i(prm_i),
+        j(prm_j),
+        k(prm_k) {
     }
 
 
-    inline void set(float prm_t, float prm_x, float prm_y, float prm_z) {
-        _t = prm_t;
-        _x = prm_x;
-        _y = prm_y;
-        _z = prm_z;
+    inline void set(float prm_R, float prm_i, float prm_j, float prm_k) {
+        R = prm_R;
+        i = prm_i;
+        j = prm_j;
+        k = prm_k;
     }
 
     /**
@@ -52,16 +52,21 @@ public:
      * @param y2
      * @param z2
      */
-    inline void mul(float t2, float x2, float y2, float z2) {
-        float t1 = _t;
-        float x1 = _x;
-        float y1 = _y;
-        float z1 = _z;
-        _t = t1*t2 - x1*x2 - y1*y2 - z1*z2;
-        _x = t1*x2 + t2*x1 + y1*z2 - z1*y2;
-        _y = t1*y2 + t2*y1 + z1*x2 - x1*z2;
-        _z = t1*z2 + t2*z1 + x1*y2 - y1*x2;
+    inline void mul(float a2, float b2, float c2, float d2) {
+        float a1 = R;
+        float b1 = i;
+        float c1 = j;
+        float d1 = k;
+        R = a1*a2 - b1*b2 - c1*c2 - d1*d2;
+        i = a1*b2 + b1*a2 + c1*d2 - d1*c2;
+        j = a1*c2 - b1*d2 + c1*a2 + d1*b2;
+        k = a1*d2 + b1*c2 - c1*b2 + d1*a2;
     }
+
+    inline void mul(GgafDxQuaternion& H) {
+        mul(H.R, H.i, H.j, H.k);
+    }
+
     virtual ~GgafDxQuaternion();
 };
 

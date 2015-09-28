@@ -68,6 +68,7 @@ private:
     inline void positionAs(Pos *pPos) {
          position(pPos->x, pPos->y, pPos->z);
     }
+
 public:
     /** 最大分身数 */
     static const int MAX_BUNSHIN_NUM;
@@ -134,7 +135,6 @@ public:
     bool is_free_mode_;
     bool is_isolate_mode_;
 
-    angle rx2_;
 public:
     /**
      * コンストラクタ .
@@ -171,8 +171,12 @@ public:
 
     void resetBunshin(int prm_mode);
 
+    void addTurnAngleAroundAx(float prm_ax_x, float prm_ax_y, float prm_ax_z);
+
+
     static void setBunshinNum(int prm_num);
-    static void setWorldMatrix_RxRzRyRx2Mv(const GgafDxGeometricActor* const prm_pActor, D3DXMATRIX& out_matWorld);
+
+
 };
 
 }

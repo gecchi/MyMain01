@@ -133,7 +133,7 @@ void MgrMouseCamWorker::processBehavior() {
             GgafDxQuaternion Q(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
             Q.mul(0,x,y,z);//R*P
             Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
-            slideMvCamTo(Q._x + t_x_VP_, Q._y + t_y_VP_, Q._z + t_z_VP_, 60);
+            slideMvCamTo(Q.i + t_x_VP_, Q.j + t_y_VP_, Q.k + t_z_VP_, 60);
         }
         //カメラを中心に視点が回転移動
         if (GgafDxInput::isBeingPressedMouseButton(1) && (mdx != 0 || mdy != 0)) {
@@ -148,7 +148,7 @@ void MgrMouseCamWorker::processBehavior() {
             GgafDxQuaternion Q(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
             Q.mul(0,x,y,z);//R*P 回転軸が現在の進行方向ベクトルとなる
             Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
-            slideMvVpTo(Q._x + t_x_CAM_, Q._y + t_y_CAM_, Q._z + t_z_CAM_, 60);
+            slideMvVpTo(Q.i + t_x_CAM_, Q.j + t_y_CAM_, Q.k + t_z_CAM_, 60);
         }
         //カメラをと視点が平行移動
         if (GgafDxInput::isBeingPressedMouseButton(2) && (mdx != 0 || mdy != 0)) {
@@ -169,12 +169,12 @@ void MgrMouseCamWorker::processBehavior() {
             Q.mul(0,x,y,z);//R*P 回転軸が現在の進行方向ベクトルとなる
             Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
             double r = ((d/cd_) * PX_C(PROPERTY::GAME_BUFFER_WIDTH*2));
-            slideMvCamTo(t_x_CAM_ + (Q._x*r),
-                         t_y_CAM_ + (Q._y*r),
-                         t_z_CAM_ + (Q._z*r) , 60);
-            slideMvVpTo(t_x_VP_ + (Q._x*r),
-                        t_y_VP_ + (Q._y*r),
-                        t_z_VP_ + (Q._z*r) , 60);
+            slideMvCamTo(t_x_CAM_ + (Q.i*r),
+                         t_y_CAM_ + (Q.j*r),
+                         t_z_CAM_ + (Q.k*r) , 60);
+            slideMvVpTo(t_x_VP_ + (Q.i*r),
+                        t_y_VP_ + (Q.j*r),
+                        t_z_VP_ + (Q.k*r) , 60);
         }
 
     } else if (mdz != 0 || (GgafDxInput::isBeingPressedMouseButton(0) && GgafDxInput::isBeingPressedMouseButton(1))) {

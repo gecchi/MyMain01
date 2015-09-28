@@ -55,10 +55,22 @@ public:
 
     virtual ~MyBunshin();
 
+    /**
+     * フリーモードへ移行時の点火エフェクト .
+     */
     void effectFreeModeIgnited();
+    /**
+     * 点火エフェクト後の発射準備OKエフェクト .
+     */
     void effectFreeModeReady();
+    /**
+     * 発射エフェクト
+     */
     void effectFreeModeLaunch();
-
+    /**
+     * フリーモードへ一時停止時のエフェクト .
+     */
+    void effectFreeModePause();
 
     void setRadiusPosition(coord prm_radius_position);
     void addRadiusPosition(coord prm_radius_position);

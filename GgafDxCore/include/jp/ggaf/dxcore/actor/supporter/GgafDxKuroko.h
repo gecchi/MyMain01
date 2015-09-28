@@ -683,11 +683,20 @@ public:
     void getRzRyFaceAngDistanceTwd(angle prm_target_ang_rz, angle prm_target_ang_ry,int prm_way,
                                    angle& out_d_ang_rz, angle& out_d_ang_ry);
     /**
-     * 移動方向(RzRy)を設定。.
+     * 移動方向(RzRy)を設定 .
      * @param prm_ang_rz
      * @param prm_ang_ry
      */
     void setRzRyMvAng(angle prm_ang_rz, angle prm_ang_ry);
+
+    /**
+     * 移動方向(RzRy)を方向ベクトルにより設定 .
+     * @param prm_vx 方向ベクトルX軸要素
+     * @param prm_vy 方向ベクトルY軸要素
+     * @param prm_vz 方向ベクトルZ軸要素
+     * @param prm_opt 最適化フラグ（true:RzRyの差が最小になるように最適化する／false:普通のコンバート)
+     */
+    void setRzRyMvAng(dxcoord prm_vx, dxcoord prm_vy, dxcoord prm_vz, bool prm_opt);
 
     /**
      *  移動方向(RzRy)を、RyRzで設定。

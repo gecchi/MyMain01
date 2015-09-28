@@ -14,6 +14,8 @@
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 
 #include "jp/gecchi/VioletVreath/actor/camera/CameraUpVector.h"
+
+#include "jp/ggaf/dxcore/sound/GgafDxSeTransmitter.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -39,40 +41,30 @@ VamSysCamWorker::VamSysCamWorker(const char* prm_name) : CameraWorker(prm_name) 
     lim_VP_behaind_ = MyShip::lim_x_behaind_ + (PX_C(PROPERTY::GAME_BUFFER_WIDTH)/2)*revise;
     lim_VP_zleft_   = MyShip::lim_z_left_   - (PX_C(PROPERTY::GAME_BUFFER_WIDTH)/2)*revise;
     lim_VP_zright_  = MyShip::lim_z_right_  + (PX_C(PROPERTY::GAME_BUFFER_WIDTH)/2)*revise;
-    pos_camera_prev_ = -1;
     pos_camera_ = VAM_POS_ZRIGHT;
-    pos_camera_pressed_ = VAM_POS_ZRIGHT;
+    pos_camera_prev_ = VAM_POS_NON;
     cam_mv_frame_base_ = 20;
     cam_mv_frame_ = cam_mv_frame_base_;
-    mv_t_x_CAM_prev_ = 0;
-    mv_t_y_CAM_prev_ = 0;
-    mv_t_z_CAM_prev_ = 0;
-
-    pos_cam_around_base_ = D180ANG;
-    pos_cam_around_ = pos_cam_around_base_;
+    ang_cam_around_base_ = D180ANG;
+    ang_cam_around_ = ang_cam_around_base_;
     returnning_cam_pos_ = false;
     returnning_cam_pos_frames_ = 0;
-    cam_up_regular_ = true;
+    is_just_changed_pos_cam_ = false;
+
+    pSe_ = NEW GgafDxSeTransmitter();
+    pSe_->set(SE_RETURNNING_CAM_POS, "WAVE_MY_RETURNNING_CAM_POS" ,0);
 
 }
 void VamSysCamWorker::initialize() {
     CameraWorker::initialize();
-
-    //初期カメラZ位置
-    dZ_camera_init_ = -DX_C(pCam_->getZOrigin());
-    dZ_camera_init_sqrt2_ = dZ_camera_init_ * sqrt(2.0);
 
     //画面背後用範囲差分
     //背後のZ座標はdZ_camera_init_/2
     correction_width_ = PX_C(30); //(PROPERTY::GAME_BUFFER_WIDTH*LEN_UNIT/2)/4;
     correction_height_ = PX_C(30); //(PROPERTY::GAME_BUFFER_HEIGHT*LEN_UNIT/2)/4;
     pos_camera_ = VAM_POS_ZRIGHT;
-    pos_camera_prev_ = -100;
-    mv_t_x_CAM_prev_ = 0;
-    mv_t_y_CAM_prev_ = 0;
-    mv_t_z_CAM_prev_ = 0;
-    pos_cam_around_ = pos_cam_around_base_;
-    cam_up_regular_ = true;
+    pos_camera_prev_ = VAM_POS_NON;
+    ang_cam_around_ = ang_cam_around_base_;
     returnning_cam_pos_frames_ = 0;
     _TRACE_("VamSysCamWorker::initialize() this="<<NODE_INFO);
     dump();
@@ -98,7 +90,7 @@ void VamSysCamWorker::processBehavior() {
 
     //カメラの目標座標、ビューポイントの目標座標を設定
     static const coord Dx = PX_C(PROPERTY::GAME_BUFFER_WIDTH/4);
-    //カメラ座標
+    //カメラ目標座標
     mv_t_x_CAM = -Dx + (-pMyShip_->_x-200000)*2;
     //↑ -200000 はカメラ移動位置、
     //   *2 は自機が後ろに下がった時のカメラのパン具合。
@@ -110,40 +102,40 @@ void VamSysCamWorker::processBehavior() {
         mv_t_x_CAM = Dx/2;
     }
 
-
-
     if (returnning_cam_pos_) {
-        returnning_cam_pos_frames_--;
         if (returnning_cam_pos_frames_ == 0) {
             returnning_cam_pos_ = false;
+        } else {
+            returnning_cam_pos_frames_--;
         }
     }
 
     if (!returnning_cam_pos_) {
-        if (pVbPlay->isDoublePushedDown(VB_VIEW_UP) || pVbPlay->isDoublePushedDown(VB_VIEW_DOWN) ) {
-            angle d = UTIL::getAngDiff(pos_cam_around_, pos_cam_around_base_, TURN_CLOSE_TO);
-            pos_cam_around_ = pos_cam_around_base_;
-            returnning_cam_pos_frames_ = (frame)(ANG_D(ABS(d))/4);
+        if (pVbPlay->arePushedDownAtOnce(VB_VIEW_UP, VB_VIEW_DOWN) ) {
+            pSe_->play(SE_RETURNNING_CAM_POS);
+            angle d = UTIL::getAngDiff(ang_cam_around_, ang_cam_around_base_, TURN_CLOSE_TO);
+            ang_cam_around_ = ang_cam_around_base_;
+            cam_mv_frame_ = (frame)(ANG_D(ABS(d))/3);
+            returnning_cam_pos_frames_ = cam_mv_frame_;
             returnning_cam_pos_ = true;
         }
     }
     if (!returnning_cam_pos_) {
-        if (pVbPlay->isBeingPressed(VB_VIEW_UP)) {
-            pos_cam_around_ = UTIL::simplifyAng(pos_cam_around_+D_ANG(2));
+        if (pVbPlay->isBeingPressed(VB_VIEW_UP) && !pVbPlay->isBeingPressed(VB_VIEW_DOWN)) {
+            ang_cam_around_ = UTIL::simplifyAng(ang_cam_around_+D_ANG(2));
             cam_mv_frame_ = 2;
-        } else if (pVbPlay->isBeingPressed(VB_VIEW_DOWN)) {
-            pos_cam_around_ = UTIL::simplifyAng(pos_cam_around_-D_ANG(2));
+        } else if (pVbPlay->isBeingPressed(VB_VIEW_DOWN) && !pVbPlay->isBeingPressed(VB_VIEW_UP)) {
+            ang_cam_around_ = UTIL::simplifyAng(ang_cam_around_-D_ANG(2));
             cam_mv_frame_ = 2;
         } else {
             cam_mv_frame_ = cam_mv_frame_base_;
         }
     }
+    static const coord dZ_camera_init = -DX_C(pCam_->getZOrigin());        //計算用定数、カメラの初期Z軸距離
+    mv_t_y_CAM = pMyShip_->_y + (ANG_SIN(ang_cam_around_) * dZ_camera_init);
+    mv_t_z_CAM = pMyShip_->_z + (ANG_COS(ang_cam_around_) * dZ_camera_init);
 
-    mv_t_y_CAM = pMyShip_->_y + (ANG_SIN(pos_cam_around_) * dZ_camera_init_);
-    mv_t_z_CAM = pMyShip_->_z + (ANG_COS(pos_cam_around_) * dZ_camera_init_);
-    slideMvCamTo(mv_t_x_CAM, mv_t_y_CAM, mv_t_z_CAM, cam_mv_frame_);
-
-    //VP座標
+    //VP目標座標
     mv_t_x_VP = Dx - (-pMyShip_->_x-200000)*2;
     if (Dx < mv_t_x_VP) {
         mv_t_x_VP = Dx;
@@ -152,20 +144,6 @@ void VamSysCamWorker::processBehavior() {
     }
     mv_t_y_VP = pMyShip_->_y;
     mv_t_z_VP = pMyShip_->_z;
-    slideMvVpTo(mv_t_x_VP, mv_t_y_VP, mv_t_z_VP, cam_mv_frame_);
-
-    //カメラのUPを設定
-    angle up_ang = UTIL::simplifyAng(pos_cam_around_ - D45ANG);
-    coord up_y = pMyShip_->_y  + (ANG_SIN(up_ang) * dZ_camera_init_sqrt2_);
-    coord up_z = pMyShip_->_z  + (ANG_COS(up_ang) * dZ_camera_init_sqrt2_);
-    slideMvUpVecTo(0, up_y - mv_t_y_CAM, up_z - mv_t_z_CAM, cam_mv_frame_);
-
-
-    //カメラのpos_cam_around_からpos_camera_へ変換
-    int x_cam_sgn, y_cam_sgn;
-    GgafDx8DirectionUtil::cnvAng2Sgn(pos_cam_around_, x_cam_sgn, y_cam_sgn);
-    pos_camera_ = DIR26(0, y_cam_sgn, x_cam_sgn);
-
 
     //カメラ移動座標を制限。
     if (mv_t_y_CAM > lim_CAM_top_) {
@@ -194,12 +172,28 @@ void VamSysCamWorker::processBehavior() {
     if (mv_t_z_VP < lim_VP_zright_) {
         mv_t_z_VP = lim_VP_zright_;
     }
+    slideMvCamTo(mv_t_x_CAM, mv_t_y_CAM, mv_t_z_CAM, cam_mv_frame_);
+    slideMvVpTo(mv_t_x_VP, mv_t_y_VP, mv_t_z_VP, cam_mv_frame_);
 
 
+    //カメラのUPを設定
+    angle up_ang = UTIL::simplifyAng(ang_cam_around_ - D45ANG);
+    static const coord dZ_camera_init_sqrt2 = dZ_camera_init * sqrt(2.0);  //計算用定数、カメラが45度斜め上の初期Z軸距離
+    coord up_y = pMyShip_->_y  + (ANG_SIN(up_ang) * dZ_camera_init_sqrt2);
+    coord up_z = pMyShip_->_z  + (ANG_COS(up_ang) * dZ_camera_init_sqrt2);
+    slideMvUpVecTo(0, up_y - mv_t_y_CAM, up_z - mv_t_z_CAM, cam_mv_frame_);
+
+    //カメラの pos_camera_ 設定
+    int x_cam_sgn, y_cam_sgn;
+    GgafDx8DirectionUtil::cnvAng2Sgn(ang_cam_around_, x_cam_sgn, y_cam_sgn);
+    pos_camera_ = DIR26(0, y_cam_sgn, x_cam_sgn);
+    if (pos_camera_prev_ != pos_camera_) {
+        is_just_changed_pos_cam_ = true;
+    } else {
+        is_just_changed_pos_cam_ = false;
+    }
     pos_camera_prev_ = pos_camera_;
-    mv_t_x_CAM_prev_ = mv_t_x_CAM;
-    mv_t_y_CAM_prev_ = mv_t_y_CAM;
-    mv_t_z_CAM_prev_ = mv_t_z_CAM;
 }
 VamSysCamWorker::~VamSysCamWorker() {
+    GGAF_DELETE(pSe_);
 }

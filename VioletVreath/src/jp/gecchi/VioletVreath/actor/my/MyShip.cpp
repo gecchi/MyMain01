@@ -378,7 +378,7 @@ void MyShip::onInactive() {
 }
 void MyShip::processBehavior() {
     VirtualButton* pVbPlay = VB_PLAY;
-    int pos_camera = P_VAM->pos_camera_;
+    int pos_camera = P_VAM->getPosCam();
     GgafDxKuroko* const pKuroko = getKuroko();
 
     //‘€ì‹‘”Û
@@ -1007,7 +1007,7 @@ void MyShip::setInvincibleFrames(int prm_frames) {
 }
 int MyShip::getMoveWay() {
     VirtualButton* pVbPlay = VB_PLAY;
-    int pos_camera = P_VAM->pos_camera_;
+    int pos_camera = P_VAM->getPosCam();
     int way = 0;
     int sgn_x = 0;
     int sgn_y = 0;

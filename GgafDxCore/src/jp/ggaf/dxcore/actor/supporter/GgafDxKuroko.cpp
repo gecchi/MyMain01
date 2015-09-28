@@ -943,6 +943,42 @@ void GgafDxKuroko::setRzRyMvAng(angle prm_ang_rz, angle prm_ang_ry) {
     }
 }
 
+void GgafDxKuroko::setRzRyMvAng(dxcoord prm_vx, dxcoord prm_vy, dxcoord prm_vz, bool prm_opt) {
+    if (prm_opt) {
+        angle ang_rz_mv1, ang_ry_mv1;
+        UTIL::convVectorToRzRy(prm_vx, prm_vy, prm_vz,
+                               ang_rz_mv1, ang_ry_mv1 );
+        angle d1_angRz = getRzMvAngDistance(ang_rz_mv1, TURN_CLOSE_TO);
+        angle d1_angRy = getRyMvAngDistance(ang_ry_mv1, TURN_CLOSE_TO);
+        angle d1 = ABS(d1_angRz) + ABS(d1_angRy);
+
+        angle ang_rz_mv2 = ang_rz_mv1;
+        angle ang_ry_mv2 = ang_ry_mv1;
+        UTIL::anotherRzRy(ang_rz_mv2, ang_ry_mv2);
+        angle d2_angRz = getRzMvAngDistance(ang_rz_mv2, TURN_CLOSE_TO);
+        angle d2_angRy = getRyMvAngDistance(ang_ry_mv2, TURN_CLOSE_TO);
+        angle d2 = ABS(d2_angRz) + ABS(d2_angRy);
+        if (d1 <= d2) {
+            _ang_rz_mv = ang_rz_mv1;
+            _ang_ry_mv = ang_ry_mv1;
+        } else {
+            _ang_rz_mv = ang_rz_mv2;
+            _ang_ry_mv = ang_ry_mv2;
+        }
+    } else {
+        UTIL::convVectorToRzRy(prm_vx, prm_vy, prm_vz,
+                               _ang_rz_mv, _ang_ry_mv );
+    }
+    UTIL::getNormalizeVector(prm_vx, prm_vy, prm_vz,
+                             _vX, _vY, _vZ);
+    if (_relate_RzFaceAng_with_RzMvAng_flg) {
+        _pActor->_rz = _ang_rz_mv;
+    }
+    if (_relate_RyFaceAng_with_RyMvAng_flg) {
+        _pActor->_ry = _ang_ry_mv;
+    }
+}
+
 void GgafDxKuroko::setRzRyMvAng_by_RyRz(angle prm_ang_ryRz_Ry, angle prm_ang_ryRz_Rz) {
     angle RyRz_Ry = UTIL::simplifyAng(prm_ang_ryRz_Ry);
     angle RyRz_Rz = UTIL::simplifyAng(prm_ang_ryRz_Rz);

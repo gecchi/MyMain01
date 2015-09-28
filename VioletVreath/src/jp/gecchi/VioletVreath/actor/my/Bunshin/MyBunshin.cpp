@@ -90,7 +90,7 @@ void MyBunshin::initialize() {
     setScaleR(1.0);
     pScaler_->setRange(R_SC(1.0), R_SC(4.0));
     GgafDxKuroko* pKuroko = getKuroko();
-    pKuroko->setRollFaceAngVelo(PX_C(4)); //分身の時点
+    pKuroko->setRollFaceAngVelo(PX_C(2)); //分身のクルクル速度
 }
 
 void MyBunshin::onReset() {
@@ -211,6 +211,7 @@ void MyBunshin::onHit(const GgafActor* prm_pOtherActor) {
 }
 
 void MyBunshin::effectFreeModeIgnited() {
+    getKuroko()->setRollFaceAngVelo(PX_C(5)); //分身のクルクル速度
     pColorist_->flush(1.0, 5, 5, 3);
 }
 
@@ -231,6 +232,9 @@ void MyBunshin::effectFreeModeLaunch() {
             pTurbo002->setRzRyFaceAng(_rz, _ry+D90ANG);
         }
     }
+}
+void MyBunshin::effectFreeModePause() {
+    getKuroko()->setRollFaceAngVelo(PX_C(2)); //分身のクルクル速度
 }
 
 void MyBunshin::setRadiusPosition(coord prm_radius_position) {
