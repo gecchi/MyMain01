@@ -134,7 +134,7 @@ public:
     frame return_default_pos_frames_;
     bool is_free_mode_;
     bool is_isolate_mode_;
-
+    float c_ax_x_,c_ax_y_,c_ax_z_;
 public:
     /**
      * コンストラクタ .

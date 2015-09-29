@@ -20,8 +20,8 @@ using namespace VioletVreath;
 
 const int MyBunshinBase::MAX_BUNSHIN_NUM = 9;
 const frame MyBunshinBase::BUNSHIN_D = 16;
-const angvelo MyBunshinBase::ANGVELO_TURN = PX_C(3);        //•ªg‚ÌŒü‚«‚ÌŠp‘¬“x
-const angvelo MyBunshinBase::ANGVELO_EXPANSE = PX_C(3);     //•ªgL‚ª‚è‰ñ“]Šp‘¬“x
+const angvelo MyBunshinBase::ANGVELO_TURN = D_ANG(2.7);        //•ªg‚ÌŒü‚«‚ÌŠp‘¬“x
+const angvelo MyBunshinBase::ANGVELO_EXPANSE = D_ANG(2.7);     //•ªgL‚ª‚è‰ñ“]Šp‘¬“x
 const int MyBunshinBase::RENGE = PX_C(70);                  //•ªg‚ª–ß‚Á‚Ä‚­‚é‚ÌMAX‘¬‚³
 const velo MyBunshinBase::VELO_BUNSHIN_FREE_MV = PX_C(20);  //•ªgƒtƒŠ[ˆÚ“®‚Ì•ªg‚ÌˆÚ“®‘¬“x
 
@@ -293,10 +293,20 @@ void MyBunshinBase::processBehavior() {
             trace_mode_ = TRACE_FREEZE;
             //ƒJƒƒ‰ˆÊ’u‚É‚æ‚Á‚Äã‰º¶‰E‚Ì‘€ìŠ„“–‚ğ•Ï‚¦‚é
             const int pos_camera = P_VAM->getPosCam();
+
+            const float vX = ABS(pKuroko->_vX);
+            const float vY = ABS(pKuroko->_vY);
+            const float vZ = ABS(pKuroko->_vZ);
+            static const float root2 = sqrt(2.0);
             switch (pos_camera) {
-                case VAM_POS_ZRIGHT_UP:
-                case VAM_POS_ZRIGHT:
-                case VAM_POS_ZRIGHT_DOWN:
+                case VAM_POS_ZRIGHT: {
+                    // a = (0, 1, 0)        LEFT RIGHT ‰ñ“]²
+                    // b = (vX, vY, vZ)
+                    // a~b = (vZ, 0, -vX)
+//                    if (!(ZEROd_EQ(vZ) && ZEROd_EQ(vX))) {
+//                        UTIL::getNormalizeVector(vZ, 0.0 ,-vX,
+//                                                 c_ax_x_, c_ax_y_, c_ax_z_);
+//                    }
                     if (pVbPlay->isBeingPressed(VB_UP)) {
                         pKuroko->addRzMvAng(MyBunshinBase::ANGVELO_TURN);
                     } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
@@ -306,50 +316,150 @@ void MyBunshinBase::processBehavior() {
                         pKuroko->addRyMvAng(MyBunshinBase::ANGVELO_TURN);
                     } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
                         pKuroko->addRyMvAng(-MyBunshinBase::ANGVELO_TURN);
-                    }
-                    break;
-                case VAM_POS_ZLEFT_UP:
-                case VAM_POS_ZLEFT:
-                case VAM_POS_ZLEFT_DOWN:
-                    if (pVbPlay->isBeingPressed(VB_UP)) {
-                        pKuroko->addRzMvAng(-MyBunshinBase::ANGVELO_TURN);
-                    } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                        pKuroko->addRzMvAng(MyBunshinBase::ANGVELO_TURN);
-                    }
-                    if (pVbPlay->isBeingPressed(VB_RIGHT)) {
-                        pKuroko->addRyMvAng(-MyBunshinBase::ANGVELO_TURN);
-                    } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
-                        pKuroko->addRyMvAng(MyBunshinBase::ANGVELO_TURN);
-                    }
-                    break;
-                case VAM_POS_UP: {
-                    if (pVbPlay->isBeingPressed(VB_UP)) {
-                        pKuroko->addRyMvAng(-MyBunshinBase::ANGVELO_TURN);
-                    } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                        pKuroko->addRyMvAng(MyBunshinBase::ANGVELO_TURN);
-                    }
-                    if (pVbPlay->isBeingPressed(VB_RIGHT)) {
-                        pKuroko->addRzMvAng(MyBunshinBase::ANGVELO_TURN);
-                    } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
-                        pKuroko->addRzMvAng(-MyBunshinBase::ANGVELO_TURN);
                     }
                     break;
                 }
-                case VAM_POS_DOWN:
+                case VAM_POS_ZRIGHT_UP: {
+                    // a = (0, 1, 1)        LEFT RIGHT ‰ñ“]²
+                    // b = (vX, vY, vZ)
+                    // a~b = ( vZ - vY,  vX, -vX)
+                    if (!(ZEROd_EQ(vZ-vY) && ZEROd_EQ(vX))) {
+                        UTIL::getNormalizeVector(vZ-vY, vX, -vX,
+                                                 c_ax_x_, c_ax_y_, c_ax_z_);
+                    }
                     if (pVbPlay->isBeingPressed(VB_UP)) {
-                        pKuroko->addRyMvAng(MyBunshinBase::ANGVELO_TURN);
+                        addTurnAngleAroundAx(c_ax_x_, c_ax_y_, c_ax_z_);
                     } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
-                        pKuroko->addRyMvAng(-MyBunshinBase::ANGVELO_TURN);
+                        addTurnAngleAroundAx(-c_ax_x_, -c_ax_y_, -c_ax_z_);
                     }
                     if (pVbPlay->isBeingPressed(VB_RIGHT)) {
-                        pKuroko->addRzMvAng(-MyBunshinBase::ANGVELO_TURN);
+                        addTurnAngleAroundAx( 0, -root2,  -root2);
                     } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
-                        pKuroko->addRzMvAng(MyBunshinBase::ANGVELO_TURN);
+                        addTurnAngleAroundAx( 0, +root2,  +root2);
                     }
                     break;
-
+                }
+                case VAM_POS_UP: {
+                    // a = (0, 0, 1)        LEFT RIGHT ‰ñ“]²
+                    // b = (vX, vY, vZ)
+                    // a~b = (-vY, vX, 0)
+                    if (!(ZEROd_EQ(vY) && ZEROd_EQ(vX))) {
+                        UTIL::getNormalizeVector(-vY, vX, 0.0,
+                                                 c_ax_x_, c_ax_y_, c_ax_z_);
+                    }
+                    if (pVbPlay->isBeingPressed(VB_UP)) {
+                        addTurnAngleAroundAx(c_ax_x_, c_ax_y_, c_ax_z_);
+                    } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                        addTurnAngleAroundAx(-c_ax_x_, -c_ax_y_, -c_ax_z_);
+                    }
+                    if (pVbPlay->isBeingPressed(VB_RIGHT)) {
+                        addTurnAngleAroundAx( 0,  0, -1);
+                    } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
+                        addTurnAngleAroundAx( 0,  0, +1);
+                    }
+                    break;
+                }
+                case VAM_POS_ZLEFT_UP: {
+                    // a = (0, -1, 1)        LEFT RIGHT ‰ñ“]²
+                    // b = (vX, vY, vZ)
+                    // a~b = ((-1) vZ - vY, vX, - (-1) vX)
+                    if (!(ZEROd_EQ(-vZ-vY) && ZEROd_EQ(vX))) {
+                        UTIL::getNormalizeVector(-vZ-vY, vX, vX,
+                                                 c_ax_x_, c_ax_y_, c_ax_z_);
+                    }
+                    if (pVbPlay->isBeingPressed(VB_UP)) {
+                        addTurnAngleAroundAx(c_ax_x_, c_ax_y_, c_ax_z_);
+                    } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                        addTurnAngleAroundAx(-c_ax_x_, -c_ax_y_, -c_ax_z_);
+                    }
+                    if (pVbPlay->isBeingPressed(VB_RIGHT)) {
+                        addTurnAngleAroundAx( 0, +root2, -root2);
+                    } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
+                        addTurnAngleAroundAx( 0, -root2, +root2);
+                    }
+                    break;
+                }
+                case VAM_POS_ZLEFT: {
+                    // a = (0, -1, 0)        LEFT RIGHT ‰ñ“]²
+                    // b = (vX, vY, vZ)
+                    // a~b = ((-1) vZ , 0,  - (-1) vX)
+//                    if (!(ZEROd_EQ(vZ) && ZEROd_EQ(vX))) {
+//                        UTIL::getNormalizeVector(-vZ, 0.0, vX,
+//                                                 c_ax_x_, c_ax_y_, c_ax_z_);
+//                    }
+                    if (pVbPlay->isBeingPressed(VB_UP)) {
+                        pKuroko->addRzMvAng(-MyBunshinBase::ANGVELO_TURN);
+                    } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                        pKuroko->addRzMvAng(MyBunshinBase::ANGVELO_TURN);
+                    }
+                    if (pVbPlay->isBeingPressed(VB_RIGHT)) {
+                        pKuroko->addRyMvAng(-MyBunshinBase::ANGVELO_TURN);
+                    } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
+                        pKuroko->addRyMvAng(MyBunshinBase::ANGVELO_TURN);
+                    }
+                    break;
+                }
+                case VAM_POS_ZLEFT_DOWN: {
+                    // a = (0, -1, -1)        LEFT RIGHT ‰ñ“]²
+                    // b = (vX, vY, vZ)
+                    // a~b = ((-1) vZ - (-1) vY, (-1) vX,  - (-1) vX)
+                    if (!(ZEROd_EQ(-vZ+vY) && ZEROd_EQ(vX))) {
+                        UTIL::getNormalizeVector(-vZ+vY, -vX, vX,
+                                                 c_ax_x_, c_ax_y_, c_ax_z_);
+                    }
+                    if (pVbPlay->isBeingPressed(VB_UP)) {
+                        addTurnAngleAroundAx(c_ax_x_, c_ax_y_, c_ax_z_);
+                    } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                        addTurnAngleAroundAx(-c_ax_x_, -c_ax_y_, -c_ax_z_);
+                    }
+                    if (pVbPlay->isBeingPressed(VB_RIGHT)) {
+                        addTurnAngleAroundAx( 0, +root2, +root2);
+                    } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
+                        addTurnAngleAroundAx( 0, -root2, -root2);
+                    }
+                    break;
+                }
+                case VAM_POS_DOWN: {
+                    // a = (0, 0, -1)        LEFT RIGHT ‰ñ“]²
+                    // b = (vX, vY, vZ)
+                    // a~b = ( - (-1) vY, (-1) vX, 0)
+                    if (!(ZEROd_EQ(vY) && ZEROd_EQ(vX))) {
+                        UTIL::getNormalizeVector(vY, -vX, 0.0,
+                                                 c_ax_x_, c_ax_y_, c_ax_z_);
+                    }
+                    if (pVbPlay->isBeingPressed(VB_UP)) {
+                        addTurnAngleAroundAx(c_ax_x_, c_ax_y_, c_ax_z_);
+                    } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                        addTurnAngleAroundAx(-c_ax_x_, -c_ax_y_, -c_ax_z_);
+                    }
+                    if (pVbPlay->isBeingPressed(VB_RIGHT)) {
+                        addTurnAngleAroundAx( 0,  0, +1);
+                    } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
+                        addTurnAngleAroundAx( 0,  0, -1);
+                    }
+                    break;
+                }
+                case VAM_POS_ZRIGHT_DOWN: {
+                    // a = (0, 1, -1)        LEFT RIGHT ‰ñ“]²
+                    // b = (vX, vY, vZ)
+                    // a~b = (vZ - (-1) vY, (-1) vX,  - vX)
+                    if (!(ZEROd_EQ(vZ+vY) && ZEROd_EQ(vX))) {
+                        UTIL::getNormalizeVector(vZ+vY, -vX, -vX,
+                                                 c_ax_x_, c_ax_y_, c_ax_z_);
+                    }
+                    if (pVbPlay->isBeingPressed(VB_UP)) {
+                        addTurnAngleAroundAx(c_ax_x_, c_ax_y_, c_ax_z_);
+                    } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                        addTurnAngleAroundAx(-c_ax_x_, -c_ax_y_, -c_ax_z_);
+                    }
+                    if (pVbPlay->isBeingPressed(VB_RIGHT)) {
+                        addTurnAngleAroundAx( 0, -root2, +root2);
+                    } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
+                        addTurnAngleAroundAx( 0, +root2, -root2);
+                    }
+                    break;
+                }
             }
-
         }
     }
 
@@ -459,7 +569,7 @@ void MyBunshinBase::resetBunshin(int prm_mode) {
 
 void MyBunshinBase::addTurnAngleAroundAx(float prm_ax_x, float prm_ax_y, float prm_ax_z) {
     //Œ»İ–¢g—pI
-    //‚ ‚éÀ•W(x, y, z)‚É‚¨‚¢‚ÄA‰ñ“]‚Ì²‚ª(ƒ¿, ƒÀ, ƒÁ)‚ÅAƒÆ‰ñ‚·‰ñ“]
+    //‚ ‚éÀ•W(x, y, z)‚É‚¨‚¢‚ÄA‰ñ“]‚Ì²‚ª v=(ƒ¿, ƒÀ, ƒÁ) (’A‚µ|v|=1) ‚ÅAƒÆ‰ñ‚·‰ñ“]‚µ‚½‚¢ê‡B
     //P = (0; x, y, z)
     //Q = (cos(ƒÆ/2); ƒ¿ sin(ƒÆ/2), ƒÀ sin(ƒÆ/2), ƒÁ sin(ƒÆ/2))
     //R = (cos(ƒÆ/2); -ƒ¿ sin(ƒÆ/2), -ƒÀ sin(ƒÆ/2), -ƒÁ sin(ƒÆ/2))
