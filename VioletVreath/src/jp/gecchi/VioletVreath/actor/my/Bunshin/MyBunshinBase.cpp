@@ -297,7 +297,7 @@ void MyBunshinBase::processBehavior() {
             const float vX = ABS(pKuroko->_vX);
             const float vY = ABS(pKuroko->_vY);
             const float vZ = ABS(pKuroko->_vZ);
-            static const float root2 = sqrt(2.0);
+            static const float ONE_OVER_ROOT2 = 1.0 / sqrt(2.0);
             switch (pos_camera) {
                 case VAM_POS_ZRIGHT: {
                     // a = (0, 1, 0)        LEFT RIGHT ‰ñ“]Ž²
@@ -333,9 +333,9 @@ void MyBunshinBase::processBehavior() {
                         addTurnAngleAroundAx(-c_ax_x_, -c_ax_y_, -c_ax_z_);
                     }
                     if (pVbPlay->isBeingPressed(VB_RIGHT)) {
-                        addTurnAngleAroundAx( 0, -root2,  -root2);
+                        addTurnAngleAroundAx( 0, -ONE_OVER_ROOT2,  -ONE_OVER_ROOT2);
                     } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
-                        addTurnAngleAroundAx( 0, +root2,  +root2);
+                        addTurnAngleAroundAx( 0, +ONE_OVER_ROOT2,  +ONE_OVER_ROOT2);
                     }
                     break;
                 }
@@ -373,9 +373,9 @@ void MyBunshinBase::processBehavior() {
                         addTurnAngleAroundAx(-c_ax_x_, -c_ax_y_, -c_ax_z_);
                     }
                     if (pVbPlay->isBeingPressed(VB_RIGHT)) {
-                        addTurnAngleAroundAx( 0, +root2, -root2);
+                        addTurnAngleAroundAx( 0, +ONE_OVER_ROOT2, -ONE_OVER_ROOT2);
                     } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
-                        addTurnAngleAroundAx( 0, -root2, +root2);
+                        addTurnAngleAroundAx( 0, -ONE_OVER_ROOT2, +ONE_OVER_ROOT2);
                     }
                     break;
                 }
@@ -413,9 +413,9 @@ void MyBunshinBase::processBehavior() {
                         addTurnAngleAroundAx(-c_ax_x_, -c_ax_y_, -c_ax_z_);
                     }
                     if (pVbPlay->isBeingPressed(VB_RIGHT)) {
-                        addTurnAngleAroundAx( 0, +root2, +root2);
+                        addTurnAngleAroundAx( 0, +ONE_OVER_ROOT2, +ONE_OVER_ROOT2);
                     } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
-                        addTurnAngleAroundAx( 0, -root2, -root2);
+                        addTurnAngleAroundAx( 0, -ONE_OVER_ROOT2, -ONE_OVER_ROOT2);
                     }
                     break;
                 }
@@ -453,9 +453,9 @@ void MyBunshinBase::processBehavior() {
                         addTurnAngleAroundAx(-c_ax_x_, -c_ax_y_, -c_ax_z_);
                     }
                     if (pVbPlay->isBeingPressed(VB_RIGHT)) {
-                        addTurnAngleAroundAx( 0, -root2, +root2);
+                        addTurnAngleAroundAx( 0, -ONE_OVER_ROOT2, +ONE_OVER_ROOT2);
                     } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
-                        addTurnAngleAroundAx( 0, +root2, -root2);
+                        addTurnAngleAroundAx( 0, +ONE_OVER_ROOT2, -ONE_OVER_ROOT2);
                     }
                     break;
                 }
