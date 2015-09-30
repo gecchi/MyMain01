@@ -171,8 +171,8 @@ public:
 
     void resetBunshin(int prm_mode);
 
-    void addTurnAngleAroundAx(float prm_ax_x, float prm_ax_y, float prm_ax_z);
-
+    void addTurnAngleAroundAx1(float prm_ax_x, float prm_ax_y, float prm_ax_z);
+    void addTurnAngleAroundAx2(float prm_ax_x, float prm_ax_y, float prm_ax_z);
 
     static void setBunshinNum(int prm_num);
 
