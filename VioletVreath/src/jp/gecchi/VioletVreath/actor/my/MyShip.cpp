@@ -764,7 +764,7 @@ void MyShip::onHit(const GgafActor* prm_pOtherActor) {
         if (dX1 == 0 && dY1 == 0 && dZ1 == 0) {
             vx1 = vy1 = vz1 = 0;
         } else {
-            UTIL::getNormalizeVector(dX1, dY1, dZ1,
+            UTIL::getNormalizedVector(dX1, dY1, dZ1,
                                      vx1, vy1, vz1 );
         }
         float vx2, vy2, vz2;
@@ -965,12 +965,12 @@ void MyShip::onHit(const GgafActor* prm_pOtherActor) {
         if (dX2 == 0 && dY2 == 0 && dZ2 == 0) {
             vx2 = vy2 = vz2 = 0;
         } else {
-            UTIL::getNormalizeVector(dX2, dY2, dZ2,
+            UTIL::getNormalizedVector(dX2, dY2, dZ2,
                                      vx2, vy2, vz2 );
         }
 
         float vx3, vy3, vz3;
-        UTIL::getNormalizeVector(
+        UTIL::getNormalizedVector(
                     vx1+vx2, vy1+vy2, vz1+vz2,
                     vx3, vy3, vz3);
         setBlownVelo(vx3*PX_C(40), vy3*PX_C(40), vz3*PX_C(40), 0.8);

@@ -25,6 +25,8 @@ const angvelo MyBunshinBase::ANGVELO_EXPANSE = D_ANG(2.7);     //•ªgL‚ª‚è‰ñ“]Š
 const int MyBunshinBase::RENGE = PX_C(70);                  //•ªg‚ª–ß‚Á‚Ä‚­‚éŽž‚ÌMAX‘¬‚³
 const velo MyBunshinBase::VELO_BUNSHIN_FREE_MV = PX_C(20);  //•ªgƒtƒŠ[ˆÚ“®Žž‚Ì•ªg‚ÌˆÚ“®‘¬“x
 
+
+
 int MyBunshinBase::now_bunshin_num_ = 0;
 
 MyBunshinBase::MyBunshinBase(const char* prm_name, unsigned int prm_no) :
@@ -33,7 +35,7 @@ MyBunshinBase::MyBunshinBase(const char* prm_name, unsigned int prm_no) :
 
     trace_offset_.set(0,0,0);
     no_ = prm_no; //‚P`
-    delay_r_ = RCNV(1,MyBunshinBase::MAX_BUNSHIN_NUM,no_,0.5,1.0);
+    delay_r_ = RCNV(1,MyBunshinBase::MAX_BUNSHIN_NUM,no_,0.4,1.0);
     std::string bunshin_name = "Bunshin" + XTOS(no_);
     pBunshin_ = NEW MyBunshin(bunshin_name.c_str(), this);
     this->addSubGroupAsFk(pBunshin_,
@@ -67,11 +69,11 @@ void MyBunshinBase::config(
         angvelo prm_angvelo_mv)
 {
     bunshin_default_radius_position_ = prm_radius_position;
-    bunshin_default_ang_position_  = UTIL::simplifyAng(prm_ang_position);
-    bunshin_default_expanse_ =  UTIL::simplifyAng(prm_expanse);;
-    bunshin_default_angvelo_mv_ = prm_angvelo_mv;
-    bunshin_velo_mv_radius_pos_ = 3000 * (bunshin_default_radius_position_/60000);
-    bunshin_radius_pos_ = bunshin_default_radius_position_;
+    bunshin_default_ang_position_    = UTIL::simplifyAng(prm_ang_position);
+    bunshin_default_expanse_         = UTIL::simplifyAng(prm_expanse);
+    bunshin_default_angvelo_mv_      = prm_angvelo_mv;
+    bunshin_velo_mv_radius_pos_      = 3000 * (bunshin_default_radius_position_/60000);
+    bunshin_radius_pos_              = bunshin_default_radius_position_;
 }
 
 void MyBunshinBase::initialize() {
@@ -263,13 +265,13 @@ void MyBunshinBase::processBehavior() {
     if (pVbPlay->isDoublePushedDown(VB_OPTION,8,8)) {
         if (pVbPlay->isBeingPressed(VB_TURBO)) {
             //VB_OPTION ƒ_ƒuƒ‹ƒvƒbƒVƒ… + VB_TURBO‰Ÿ‚µ‚Á‚Ï‚È‚µ‚Ìê‡
-            //ƒI[ƒ‹ƒŠƒZƒbƒg
-            resetBunshin(0);
-        } else {
-            //VB_OPTION ƒ_ƒuƒ‹ƒvƒbƒVƒ…AVB_TURBO‚ð‰Ÿ‚µ‚Ä‚¢‚È‚¢‚ÆA
-            //ƒ`ƒ‡ƒbƒgƒŠƒZƒbƒg
+            //ƒn[ƒtƒZƒbƒg
             //ƒtƒŠ[ƒ‚[ƒhˆÛŽA”¼ŒaˆÊ’u‚àˆÛŽA
             resetBunshin(1);
+        } else {
+            //VB_OPTION ƒ_ƒuƒ‹ƒvƒbƒVƒ…AVB_TURBO‚ð‰Ÿ‚µ‚Ä‚¢‚È‚¢‚ÆA
+            //ƒI[ƒ‹ƒŠƒZƒbƒg
+            resetBunshin(0);
         }
     } else if (pVbPlay->isBeingPressed(VB_OPTION)) {
         //•ªg‘€ì
@@ -298,15 +300,12 @@ void MyBunshinBase::processBehavior() {
             const float vY = pKuroko->_vY;
             const float vZ = pKuroko->_vZ;
             static const float ONE_OVER_ROOT2 = 1.0 / sqrt(2.0);
+            bool update_updown_rot_axis_timing = (pKuroko->isTurningMvAng() || pVbPlay->isPushedDown(VB_OPTION) || P_VAM->isJustChangedPosCam());
             switch (pos_camera) {
                 case VAM_POS_ZRIGHT: {
                     // a = (0, 1, 0)        LEFT RIGHT ‰ñ“]Ž²
                     // b = (vX, vY, vZ)
                     // a~b = (vZ, 0, -vX)
-//                    if (!(ZEROf_EQ(vZ) && ZEROf_EQ(vX))) {
-//                        UTIL::getNormalizeVector(vZ, 0.0 ,-vX,
-//                                                 c_ax_x_, c_ax_y_, c_ax_z_);
-//                    }
                     if (pVbPlay->isBeingPressed(VB_UP)) {
                         pKuroko->addRzMvAng(MyBunshinBase::ANGVELO_TURN);
                     } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
@@ -323,12 +322,12 @@ void MyBunshinBase::processBehavior() {
                     // a = (0, 1, 1)        LEFT RIGHT ‰ñ“]Ž²
                     // b = (vX, vY, vZ)
                     // a~b = ( vZ - vY,  vX, -vX)
-                    if (pVbPlay->isPushedDown(VB_OPTION) && !(ZEROf_EQ(vZ-vY) && ZEROf_EQ(vX))) {
-                        UTIL::getNormalizeVector(vZ-vY, vX, -vX,
-                                                 c_ax_x_, c_ax_y_, c_ax_z_);
+                    if (update_updown_rot_axis_timing) {
+                        if ( !(ZEROf_EQ(vZ-vY) && ZEROf_EQ(vX)) ) {
+                            UTIL::getNormalizedVector(vZ-vY, vX, -vX,
+                                                      c_ax_x_, c_ax_y_, c_ax_z_);
+                        }
                     }
-//                    _TRACE_("vX,vY,vZ="<<vX<<","<<vY<<","<<vZ<<"");
-//                    _TRACE_("c_ax_x_,c_ax_y_,c_ax_z_="<<c_ax_x_<<","<<c_ax_y_<<","<<c_ax_z_<<"");
                     if (pVbPlay->isBeingPressed(VB_RIGHT)) {
                         addTurnAngleAroundAx2( 0, -ONE_OVER_ROOT2,  -ONE_OVER_ROOT2);
                     } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
@@ -346,9 +345,11 @@ void MyBunshinBase::processBehavior() {
                     // a = (0, 0, 1)        LEFT RIGHT ‰ñ“]Ž²
                     // b = (vX, vY, vZ)
                     // a~b = (-vY, vX, 0)
-                    if (pVbPlay->isPushedDown(VB_OPTION) && !(ZEROf_EQ(vY) && ZEROf_EQ(vX))) {
-                        UTIL::getNormalizeVector(-vY, vX, 0.0,
-                                                 c_ax_x_, c_ax_y_, c_ax_z_);
+                    if (update_updown_rot_axis_timing) {
+                        if ( !(ZEROf_EQ(vY) && ZEROf_EQ(vX)) ) {
+                            UTIL::getNormalizedVector(-vY, vX, 0.0,
+                                                      c_ax_x_, c_ax_y_, c_ax_z_);
+                        }
                     }
                     if (pVbPlay->isBeingPressed(VB_RIGHT)) {
                         addTurnAngleAroundAx2( 0,  0, -1);
@@ -367,9 +368,11 @@ void MyBunshinBase::processBehavior() {
                     // a = (0, -1, 1)        LEFT RIGHT ‰ñ“]Ž²
                     // b = (vX, vY, vZ)
                     // a~b = ((-1) vZ - vY, vX, - (-1) vX)
-                    if (pVbPlay->isPushedDown(VB_OPTION) && !(ZEROf_EQ(-vZ-vY) && ZEROf_EQ(vX))) {
-                        UTIL::getNormalizeVector(-vZ-vY, vX, vX,
-                                                 c_ax_x_, c_ax_y_, c_ax_z_);
+                    if (update_updown_rot_axis_timing) {
+                        if ( !(ZEROf_EQ(-vZ-vY) && ZEROf_EQ(vX)) ) {
+                            UTIL::getNormalizedVector(-vZ-vY, vX, vX,
+                                                      c_ax_x_, c_ax_y_, c_ax_z_);
+                        }
                     }
                     if (pVbPlay->isBeingPressed(VB_RIGHT)) {
                         addTurnAngleAroundAx2( 0, +ONE_OVER_ROOT2, -ONE_OVER_ROOT2);
@@ -388,10 +391,6 @@ void MyBunshinBase::processBehavior() {
                     // a = (0, -1, 0)        LEFT RIGHT ‰ñ“]Ž²
                     // b = (vX, vY, vZ)
                     // a~b = ((-1) vZ , 0,  - (-1) vX)
-//                    if (!(ZEROf_EQ(vZ) && ZEROf_EQ(vX))) {
-//                        UTIL::getNormalizeVector(-vZ, 0.0, vX,
-//                                                 c_ax_x_, c_ax_y_, c_ax_z_);
-//                    }
                     if (pVbPlay->isBeingPressed(VB_RIGHT)) {
                         pKuroko->addRyMvAng(-MyBunshinBase::ANGVELO_TURN);
                     } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
@@ -409,9 +408,11 @@ void MyBunshinBase::processBehavior() {
                     // a = (0, -1, -1)        LEFT RIGHT ‰ñ“]Ž²
                     // b = (vX, vY, vZ)
                     // a~b = ((-1) vZ - (-1) vY, (-1) vX,  - (-1) vX)
-                    if (pVbPlay->isPushedDown(VB_OPTION) && !(ZEROf_EQ(-vZ+vY) && ZEROf_EQ(vX))) {
-                        UTIL::getNormalizeVector(-vZ+vY, -vX, vX,
-                                                 c_ax_x_, c_ax_y_, c_ax_z_);
+                    if (update_updown_rot_axis_timing) {
+                        if ( !(ZEROf_EQ(-vZ+vY) && ZEROf_EQ(vX)) ) {
+                            UTIL::getNormalizedVector(-vZ+vY, -vX, vX,
+                                                      c_ax_x_, c_ax_y_, c_ax_z_);
+                        }
                     }
                     if (pVbPlay->isBeingPressed(VB_RIGHT)) {
                         addTurnAngleAroundAx2( 0, +ONE_OVER_ROOT2, +ONE_OVER_ROOT2);
@@ -430,9 +431,11 @@ void MyBunshinBase::processBehavior() {
                     // a = (0, 0, -1)        LEFT RIGHT ‰ñ“]Ž²
                     // b = (vX, vY, vZ)
                     // a~b = ( - (-1) vY, (-1) vX, 0)
-                    if (pVbPlay->isPushedDown(VB_OPTION) && !(ZEROf_EQ(vY) && ZEROf_EQ(vX))) {
-                        UTIL::getNormalizeVector(vY, -vX, 0.0,
-                                                 c_ax_x_, c_ax_y_, c_ax_z_);
+                    if (update_updown_rot_axis_timing) {
+                        if ( !(ZEROf_EQ(vY) && ZEROf_EQ(vX)) ) {
+                            UTIL::getNormalizedVector(vY, -vX, 0.0,
+                                                      c_ax_x_, c_ax_y_, c_ax_z_);
+                        }
                     }
                     if (pVbPlay->isBeingPressed(VB_RIGHT)) {
                         addTurnAngleAroundAx2( 0,  0, +1);
@@ -451,9 +454,11 @@ void MyBunshinBase::processBehavior() {
                     // a = (0, 1, -1)        LEFT RIGHT ‰ñ“]Ž²
                     // b = (vX, vY, vZ)
                     // a~b = (vZ - (-1) vY, (-1) vX,  - vX)
-                    if (pVbPlay->isPushedDown(VB_OPTION) && !(ZEROf_EQ(vZ+vY) && ZEROf_EQ(vX))) {
-                        UTIL::getNormalizeVector(vZ+vY, -vX, -vX,
-                                                 c_ax_x_, c_ax_y_, c_ax_z_);
+                    if (update_updown_rot_axis_timing) {
+                        if ( !(ZEROf_EQ(vZ+vY) && ZEROf_EQ(vX)) ) {
+                            UTIL::getNormalizedVector(vZ+vY, -vX, -vX,
+                                                      c_ax_x_, c_ax_y_, c_ax_z_);
+                        }
                     }
                     if (pVbPlay->isBeingPressed(VB_RIGHT)) {
                         addTurnAngleAroundAx2( 0, -ONE_OVER_ROOT2, +ONE_OVER_ROOT2);
@@ -576,11 +581,11 @@ void MyBunshinBase::resetBunshin(int prm_mode) {
     }
 }
 void MyBunshinBase::addTurnAngleAroundAx1(float prm_ax_x, float prm_ax_y, float prm_ax_z) {
-    //‚ ‚éÀ•W(x, y, z)‚É‚¨‚¢‚ÄA‰ñ“]‚ÌŽ²‚ª v=(ƒ¿, ƒÀ, ƒÁ) (’A‚µ|v|=1) ‚ÅAƒÆ‰ñ‚·‰ñ“]‚µ‚½‚¢ê‡B
+    //‚ ‚éÀ•W(x, y, z)‚É‚¨‚¢‚ÄA‰ñ“]‚ÌŽ²‚ª v=(ƒ¿, ƒÀ, ƒÁ) (’A‚µ|v|=1) ‚ÅAƒÆ‰ñ‚·‰ñ“]‚ð‚µ‚½‚¢ê‡B
     //P = (0; x, y, z)
     //Q = (cos(ƒÆ/2); ƒ¿ sin(ƒÆ/2), ƒÀ sin(ƒÆ/2), ƒÁ sin(ƒÆ/2))
     //R = (cos(ƒÆ/2); -ƒ¿ sin(ƒÆ/2), -ƒÀ sin(ƒÆ/2), -ƒÁ sin(ƒÆ/2))
-    //
+    //‚Æ‚µ‚ÄAŽŸ‚ðŒvŽZ‚·‚éB
     //R P Q = (0; x2, y2, z2)
     //ƒÆ‰ñ“]‚µ‚½Œã‚ÌÀ•W‚Í (x2, y2, z2)
     static const float p_sin_h = ANG_SIN(MyBunshinBase::ANGVELO_TURN/2);  //ANGVELO_TURN=‰ñ“]‚³‚¹‚½‚¢Šp“x
@@ -590,35 +595,25 @@ void MyBunshinBase::addTurnAngleAroundAx1(float prm_ax_x, float prm_ax_y, float 
     H.mul(0, pKuroko->_vX, pKuroko->_vY, pKuroko->_vZ);                                   //R*P
     H.mul(p_cos_h, prm_ax_x*p_sin_h, prm_ax_y*p_sin_h, prm_ax_z*p_sin_h);                 //R*P*Q
     pKuroko->setRzRyMvAng(H.i, H.j, H.k, true);
-
 }
+
 void MyBunshinBase::addTurnAngleAroundAx2(float prm_ax_x, float prm_ax_y, float prm_ax_z) {
-    //Œ»Ý–¢Žg—pI
-    //‚ ‚éÀ•W(x, y, z)‚É‚¨‚¢‚ÄA‰ñ“]‚ÌŽ²‚ª v=(ƒ¿, ƒÀ, ƒÁ) (’A‚µ|v|=1) ‚ÅAƒÆ‰ñ‚·‰ñ“]‚µ‚½‚¢ê‡B
-    //P = (0; x, y, z)
-    //Q = (cos(ƒÆ/2); ƒ¿ sin(ƒÆ/2), ƒÀ sin(ƒÆ/2), ƒÁ sin(ƒÆ/2))
-    //R = (cos(ƒÆ/2); -ƒ¿ sin(ƒÆ/2), -ƒÀ sin(ƒÆ/2), -ƒÁ sin(ƒÆ/2))
-    //
-    //R P Q = (0; x2, y2, z2)
-    //ƒÆ‰ñ“]‚µ‚½Œã‚ÌÀ•W‚Í (x2, y2, z2)
     static const float p_sin_h = ANG_SIN(MyBunshinBase::ANGVELO_TURN/2);  //ANGVELO_TURN=‰ñ“]‚³‚¹‚½‚¢Šp“x
     static const float p_cos_h = ANG_COS(MyBunshinBase::ANGVELO_TURN/2);
     GgafDxKuroko* pKuroko = getKuroko();
     GgafDxQuaternion H(p_cos_h, -prm_ax_x*p_sin_h, -prm_ax_y*p_sin_h, -prm_ax_z*p_sin_h); //R
+    GgafDxQuaternion H2 = H;
     H.mul(0, pKuroko->_vX, pKuroko->_vY, pKuroko->_vZ);                                   //R*P
     H.mul(p_cos_h, prm_ax_x*p_sin_h, prm_ax_y*p_sin_h, prm_ax_z*p_sin_h);                 //R*P*Q
-
-    GgafDxQuaternion H2(p_cos_h, -c_ax_x_*p_sin_h, -c_ax_y_*p_sin_h, -c_ax_z_*p_sin_h); //R
-    H2.mul(0, c_ax_x_, c_ax_y_, c_ax_z_);                                               //R*P
-    H2.mul(p_cos_h, c_ax_x_*p_sin_h, c_ax_y_*p_sin_h, c_ax_z_*p_sin_h);                 //R*P*Q
-
     pKuroko->setRzRyMvAng(H.i, H.j, H.k, true);
+
+    //ã‰º“ü—ÍŽž‚Ì‰ñ“]Ž²‚à‰ñ“]‚³‚¹‚é
+    H2.mul(0, c_ax_x_, c_ax_y_, c_ax_z_);                                                 //R*P
+    H2.mul(p_cos_h, prm_ax_x*p_sin_h, prm_ax_y*p_sin_h, prm_ax_z*p_sin_h);                //R*P*Q
     c_ax_x_ = H2.i;
     c_ax_y_ = H2.j;
     c_ax_z_ = H2.k;
 }
-
-
 
 MyBunshinBase::~MyBunshinBase() {
     GGAF_DELETE(pPosTrace_);
@@ -641,77 +636,80 @@ void MyBunshinBase::setBunshinNum(int prm_num) {
         }
     }
 
+    const angvelo ROT = D_ANG(2);
+    const coord INNER_RADIUS = PX_C(60);
+    const coord OUTER_RADIUS = PX_C(120);
     switch (MyBunshinBase::now_bunshin_num_) {
         case 1: {
-            papBase[0]->config(60000, D0ANG, 0, 1000);
+            papBase[0]->config(INNER_RADIUS, D0ANG, 0, ROT);
             break;
         }
         case 2: {
-            papBase[0]->config(60000, D0ANG  , 0, 1000);
-            papBase[1]->config(60000, D180ANG, 0, 1000);
+            papBase[0]->config(INNER_RADIUS, D0ANG  , 0, ROT);
+            papBase[1]->config(INNER_RADIUS, D180ANG, 0, ROT);
             break;
         }
         case 3: {
-            papBase[0]->config(60000, D_ANG(120*0), 0, 1000);
-            papBase[1]->config(60000, D_ANG(120*1), 0, 1000);
-            papBase[2]->config(60000, D_ANG(120*2), 0, 1000);
+            papBase[0]->config(INNER_RADIUS, D_ANG(120*0), 0, ROT);
+            papBase[1]->config(INNER_RADIUS, D_ANG(120*1), 0, ROT);
+            papBase[2]->config(INNER_RADIUS, D_ANG(120*2), 0, ROT);
             break;
         }
         case 4: {
-            papBase[0]->config(60000, D_ANG(90*0), 0, 1000);
-            papBase[1]->config(60000, D_ANG(90*1), 0, 1000);
-            papBase[2]->config(60000, D_ANG(90*2), 0, 1000);
-            papBase[3]->config(60000, D_ANG(90*3), 0, 1000);
+            papBase[0]->config(INNER_RADIUS, D_ANG(90*0), 0, ROT);
+            papBase[1]->config(INNER_RADIUS, D_ANG(90*1), 0, ROT);
+            papBase[2]->config(INNER_RADIUS, D_ANG(90*2), 0, ROT);
+            papBase[3]->config(INNER_RADIUS, D_ANG(90*3), 0, ROT);
             break;
         }
         case 5: {
-            papBase[0]->config(60000, D_ANG(90*0), 0, 1000);
-            papBase[1]->config(60000, D_ANG(90*1), 0, 1000);
-            papBase[2]->config(60000, D_ANG(90*2), 0, 1000);
-            papBase[3]->config(60000, D_ANG(90*3), 0, 1000);
-            papBase[4]->config(120000, D0ANG, 0, -1000);
+            papBase[0]->config(INNER_RADIUS, D_ANG(90*0), 0, ROT);
+            papBase[1]->config(INNER_RADIUS, D_ANG(90*1), 0, ROT);
+            papBase[2]->config(INNER_RADIUS, D_ANG(90*2), 0, ROT);
+            papBase[3]->config(INNER_RADIUS, D_ANG(90*3), 0, ROT);
+            papBase[4]->config(OUTER_RADIUS, D0ANG, 0, -ROT);
             break;
         }
         case 6: {
-            papBase[0]->config(60000, D_ANG(90*0), 0, 1000);
-            papBase[1]->config(60000, D_ANG(90*1), 0, 1000);
-            papBase[2]->config(60000, D_ANG(90*2), 0, 1000);
-            papBase[3]->config(60000, D_ANG(90*3), 0, 1000);
-            papBase[4]->config(120000, D0ANG  , 0, -1000);
-            papBase[5]->config(120000, D180ANG, 0, -1000);
+            papBase[0]->config(INNER_RADIUS, D_ANG(90*0), 0, ROT);
+            papBase[1]->config(INNER_RADIUS, D_ANG(90*1), 0, ROT);
+            papBase[2]->config(INNER_RADIUS, D_ANG(90*2), 0, ROT);
+            papBase[3]->config(INNER_RADIUS, D_ANG(90*3), 0, ROT);
+            papBase[4]->config(OUTER_RADIUS, D0ANG  , 0, -ROT);
+            papBase[5]->config(OUTER_RADIUS, D180ANG, 0, -ROT);
             break;
         }
         case 7: {
-            papBase[0]->config(60000, D_ANG(90*0), 0, 1000);
-            papBase[1]->config(60000, D_ANG(90*1), 0, 1000);
-            papBase[2]->config(60000, D_ANG(90*2), 0, 1000);
-            papBase[3]->config(60000, D_ANG(90*3), 0, 1000);
-            papBase[4]->config(120000, D_ANG(120* 0), 0, -1000);
-            papBase[5]->config(120000, D_ANG(120*-1), 0, -1000);
-            papBase[6]->config(120000, D_ANG(120*-2), 0, -1000);
+            papBase[0]->config(INNER_RADIUS, D_ANG(90*0), 0, ROT);
+            papBase[1]->config(INNER_RADIUS, D_ANG(90*1), 0, ROT);
+            papBase[2]->config(INNER_RADIUS, D_ANG(90*2), 0, ROT);
+            papBase[3]->config(INNER_RADIUS, D_ANG(90*3), 0, ROT);
+            papBase[4]->config(OUTER_RADIUS, D_ANG(120* 0), 0, -ROT);
+            papBase[5]->config(OUTER_RADIUS, D_ANG(120*-1), 0, -ROT);
+            papBase[6]->config(OUTER_RADIUS, D_ANG(120*-2), 0, -ROT);
             break;
         }
         case 8: {
-            papBase[0]->config(60000, D_ANG(90*0), 0, 1000);
-            papBase[1]->config(60000, D_ANG(90*1), 0, 1000);
-            papBase[2]->config(60000, D_ANG(90*2), 0, 1000);
-            papBase[3]->config(60000, D_ANG(90*3), 0, 1000);
-            papBase[4]->config(120000, D_ANG(90* 0), 0, -1000);
-            papBase[5]->config(120000, D_ANG(90*-1), 0, -1000);
-            papBase[6]->config(120000, D_ANG(90*-2), 0, -1000);
-            papBase[7]->config(120000, D_ANG(90*-3), 0, -1000);
+            papBase[0]->config(INNER_RADIUS, D_ANG(90*0), 0, ROT);
+            papBase[1]->config(INNER_RADIUS, D_ANG(90*1), 0, ROT);
+            papBase[2]->config(INNER_RADIUS, D_ANG(90*2), 0, ROT);
+            papBase[3]->config(INNER_RADIUS, D_ANG(90*3), 0, ROT);
+            papBase[4]->config(OUTER_RADIUS, D_ANG(90* 0), 0, -ROT);
+            papBase[5]->config(OUTER_RADIUS, D_ANG(90*-1), 0, -ROT);
+            papBase[6]->config(OUTER_RADIUS, D_ANG(90*-2), 0, -ROT);
+            papBase[7]->config(OUTER_RADIUS, D_ANG(90*-3), 0, -ROT);
             break;
         }
         case 9: {
-            papBase[0]->config(60000, D_ANG(90*0), 0, 1000);
-            papBase[1]->config(60000, D_ANG(90*1), 0, 1000);
-            papBase[2]->config(60000, D_ANG(90*2), 0, 1000);
-            papBase[3]->config(60000, D_ANG(90*3), 0, 1000);
-            papBase[4]->config(120000, D_ANG(72* 0), 0, -1000);
-            papBase[5]->config(120000, D_ANG(72*-1), 0, -1000);
-            papBase[6]->config(120000, D_ANG(72*-2), 0, -1000);
-            papBase[7]->config(120000, D_ANG(72*-3), 0, -1000);
-            papBase[8]->config(120000, D_ANG(72*-4), 0, -1000);
+            papBase[0]->config(INNER_RADIUS, D_ANG(90*0), 0, ROT);
+            papBase[1]->config(INNER_RADIUS, D_ANG(90*1), 0, ROT);
+            papBase[2]->config(INNER_RADIUS, D_ANG(90*2), 0, ROT);
+            papBase[3]->config(INNER_RADIUS, D_ANG(90*3), 0, ROT);
+            papBase[4]->config(OUTER_RADIUS, D_ANG(72* 0), 0, -ROT);
+            papBase[5]->config(OUTER_RADIUS, D_ANG(72*-1), 0, -ROT);
+            papBase[6]->config(OUTER_RADIUS, D_ANG(72*-2), 0, -ROT);
+            papBase[7]->config(OUTER_RADIUS, D_ANG(72*-3), 0, -ROT);
+            papBase[8]->config(OUTER_RADIUS, D_ANG(72*-4), 0, -ROT);
             break;
         }
         default :

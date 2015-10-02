@@ -93,7 +93,7 @@ void GgafDx8DirectionUtil::cnvVec2Sgn(float prm_vx, float prm_vy,
     static const float v = 0.92387953251129f;
 
     float nvx, nvy;
-    UTIL::getNormalizeVector(prm_vx, prm_vy,
+    UTIL::getNormalizedVector(prm_vx, prm_vy,
                              nvx, nvy);
 
     //

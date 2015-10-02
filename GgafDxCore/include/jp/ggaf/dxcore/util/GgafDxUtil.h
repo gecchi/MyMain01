@@ -448,7 +448,7 @@ public:
      * @param out_nvx
      * @param out_nvy
      */
-    static void getNormalizeVector(dxcoord x,
+    static void getNormalizedVector(dxcoord x,
                                    dxcoord y,
                                    float& out_nvx,
                                    float& out_nvy);
@@ -460,7 +460,7 @@ public:
      * @param out_nvx
      * @param out_nvy
      */
-    static void getNormalizeVector(coord x,
+    static void getNormalizedVector(coord x,
                                    coord y,
                                    float& out_nvx,
                                    float& out_nvy);
@@ -475,7 +475,7 @@ public:
      * @param out_nvy
      * @param out_nvz
      */
-    static void getNormalizeVector(dxcoord x,
+    static void getNormalizedVector(dxcoord x,
                                    dxcoord y,
                                    dxcoord z,
                                    float& out_nvx,
@@ -491,7 +491,7 @@ public:
      * @param out_nvy
      * @param out_nvz
      */
-    static void getNormalizeVector(coord x,
+    static void getNormalizedVector(coord x,
                                    coord y,
                                    coord z,
                                    float& out_nvx,

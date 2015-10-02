@@ -44,7 +44,7 @@ void FormationAntiope001::processBehavior() {
                                                 RND_ABOUT(entry_pos.z, renge) );
 
             float vX, vY, vZ;
-            UTIL::getNormalizeVector(RND_ABOUT(entry_pos.x, renge),
+            UTIL::getNormalizedVector(RND_ABOUT(entry_pos.x, renge),
                                      RND_ABOUT(entry_pos.y, renge),
                                      RND_ABOUT(entry_pos.z, renge),
                                      vX, vY, vZ);

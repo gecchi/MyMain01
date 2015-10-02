@@ -146,7 +146,7 @@ void GgafDx26DirectionUtil::cnvVec2Sgn(float prm_vx, float prm_vy, float prm_vz,
     static const float v = 0.92387953251129f;
 
     float nvx, nvy, nvz;
-    UTIL::getNormalizeVector(prm_vx, prm_vy, prm_vz,
+    UTIL::getNormalizedVector(prm_vx, prm_vy, prm_vz,
                              nvx, nvy, nvz);
 
     //

@@ -396,7 +396,7 @@ void GgafDxAxesMover::setVxyzMvVeloTwd(angle prm_rz, angle prm_ry, velo prm_velo
 
 void GgafDxAxesMover::setVxyzMvVeloTwd(coord prm_tx, coord prm_ty, coord prm_tz, velo prm_velo) {
     float vx, vy, vz;
-    UTIL::getNormalizeVector(prm_tx, prm_ty, prm_tz, vx, vy, vz);
+    UTIL::getNormalizedVector(prm_tx, prm_ty, prm_tz, vx, vy, vz);
     setVxyzMvVelo(vx*prm_velo, vy*prm_velo, vz*prm_velo);
 }
 

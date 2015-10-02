@@ -71,7 +71,7 @@ void Camera::slideMvTo(GgafDxGeometricActor* pTarget, frame t,
 dir26 Camera::getVpDirNo() {
     float vcv_x, vcv_y, vcv_z;
     CameraViewPoint* pVp = (CameraViewPoint*)getCameraViewPoint();
-    UTIL::getNormalizeVector (
+    UTIL::getNormalizedVector (
             pVp->_x - _x,
             pVp->_y - _y,
             pVp->_z - _z,

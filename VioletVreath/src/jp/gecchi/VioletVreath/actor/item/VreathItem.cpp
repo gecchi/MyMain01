@@ -57,7 +57,7 @@ void VreathItem::onActive() {
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->forceMvVeloRange(0, 20000);
     float vX, vY, vZ;
-    UTIL::getNormalizeVector(
+    UTIL::getNormalizedVector(
             pMyShip->_x - _x,
             pMyShip->_y - _y,
             pMyShip->_z - _z,

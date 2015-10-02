@@ -603,10 +603,10 @@ void GgafDxUtil::convVectorToRzRy(coord vx,
 }
 
 
-void GgafDxUtil::getNormalizeVector(coord x,
-                                    coord y,
-                                    float& out_nvx,
-                                    float& out_nvy) {
+void GgafDxUtil::getNormalizedVector(coord x,
+                                     coord y,
+                                     float& out_nvx,
+                                     float& out_nvy) {
     const dxcoord vx = C_DX(x);
     const dxcoord vy = C_DX(y);
     const double t = 1.0 / sqrt(vx * vx + vy * vy);
@@ -614,22 +614,22 @@ void GgafDxUtil::getNormalizeVector(coord x,
     out_nvy = t * vy;
 }
 
-void GgafDxUtil::getNormalizeVector(dxcoord x,
-                                    dxcoord y,
-                                    float& out_nvx,
-                                    float& out_nvy) {
+void GgafDxUtil::getNormalizedVector(dxcoord x,
+                                     dxcoord y,
+                                     float& out_nvx,
+                                     float& out_nvy) {
     const double t = 1.0 / sqrt(x * x + y * y);
     out_nvx = t * x;
     out_nvy = t * y;
 }
 
 
-void GgafDxUtil::getNormalizeVector(coord x,
-                                    coord y,
-                                    coord z,
-                                    float& out_nvx,
-                                    float& out_nvy,
-                                    float& out_nvz) {
+void GgafDxUtil::getNormalizedVector(coord x,
+                                     coord y,
+                                     coord z,
+                                     float& out_nvx,
+                                     float& out_nvy,
+                                     float& out_nvz) {
     const dxcoord vx = C_DX(x);
     const dxcoord vy = C_DX(y);
     const dxcoord vz = C_DX(z);
@@ -639,12 +639,12 @@ void GgafDxUtil::getNormalizeVector(coord x,
     out_nvz = t * vz;
 }
 
-void GgafDxUtil::getNormalizeVector(dxcoord x,
-                                    dxcoord y,
-                                    dxcoord z,
-                                    float& out_nvx,
-                                    float& out_nvy,
-                                    float& out_nvz) {
+void GgafDxUtil::getNormalizedVector(dxcoord x,
+                                     dxcoord y,
+                                     dxcoord z,
+                                     float& out_nvx,
+                                     float& out_nvy,
+                                     float& out_nvz) {
     const double t = 1.0 / sqrt(x * x + y * y + z * z);
     out_nvx = t * x;
     out_nvy = t * y;
@@ -685,7 +685,7 @@ void GgafDxUtil::convRzRyToVector(angle prm_ang_rz,
             ysign = 1;
             zsign = 1;
         } else {
-            throwGgafCriticalException("getNormalizeVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(1) prm_ang_rz="<<prm_ang_rz<<" prm_ang_ry="<<prm_ang_ry);
+            throwGgafCriticalException("getNormalizedVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(1) prm_ang_rz="<<prm_ang_rz<<" prm_ang_ry="<<prm_ang_ry);
         }
     } else if (D90ANG <= prm_ang_rz && prm_ang_rz < D180ANG) {
         rz = (D180ANG - prm_ang_rz) * (1.0 / SANG_RATE);
@@ -711,7 +711,7 @@ void GgafDxUtil::convRzRyToVector(angle prm_ang_rz,
             ysign = 1;
             zsign = -1;
         } else {
-            throwGgafCriticalException("getNormalizeVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(2) prm_ang_rz="<<prm_ang_rz<<" prm_ang_ry="<<prm_ang_ry);
+            throwGgafCriticalException("getNormalizedVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(2) prm_ang_rz="<<prm_ang_rz<<" prm_ang_ry="<<prm_ang_ry);
         }
 
     } else if (D180ANG <= prm_ang_rz && prm_ang_rz < D270ANG) {
@@ -737,7 +737,7 @@ void GgafDxUtil::convRzRyToVector(angle prm_ang_rz,
             ysign = -1;
             zsign = -1;
         } else {
-            throwGgafCriticalException("getNormalizeVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(3) prm_ang_rz="<<prm_ang_rz<<" prm_ang_ry="<<prm_ang_ry);
+            throwGgafCriticalException("getNormalizedVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(3) prm_ang_rz="<<prm_ang_rz<<" prm_ang_ry="<<prm_ang_ry);
         }
     } else if (D270ANG <= prm_ang_rz && prm_ang_rz <= D360ANG) {
         rz = (D360ANG - prm_ang_rz) * (1.0 / SANG_RATE);
@@ -762,10 +762,10 @@ void GgafDxUtil::convRzRyToVector(angle prm_ang_rz,
             ysign = -1;
             zsign = 1;
         } else {
-            throwGgafCriticalException("getNormalizeVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(4) prm_ang_rz="<<prm_ang_rz<<" prm_ang_ry="<<prm_ang_ry);
+            throwGgafCriticalException("getNormalizedVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(4) prm_ang_rz="<<prm_ang_rz<<" prm_ang_ry="<<prm_ang_ry);
         }
     } else {
-        throwGgafCriticalException("getNormalizeVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(5) prm_ang_rz="<<prm_ang_rz<<" prm_ang_ry="<<prm_ang_ry);
+        throwGgafCriticalException("getNormalizedVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(5) prm_ang_rz="<<prm_ang_rz<<" prm_ang_ry="<<prm_ang_ry);
     }
     uint32_t vx, vy, vz;
     GgafDxUtil::_srv.getVectorClosely(ry_rev, rz, vx, vy, vz);

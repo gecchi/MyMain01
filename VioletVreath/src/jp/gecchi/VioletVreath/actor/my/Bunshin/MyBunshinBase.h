@@ -69,7 +69,49 @@ private:
          position(pPos->x, pPos->y, pPos->z);
     }
 
+    /** [r]分身操作の上下入力時土台回転軸ベクトルX軸要素 */
+    float c_ax_x_;
+    /** [r]分身操作の上下入力時土台回転軸ベクトルY軸要素 */
+    float c_ax_y_;
+    /** [r]分身操作の上下入力時土台回転軸ベクトルZ軸要素 */
+    float c_ax_z_;
+    /**
+     * 本体の軸回転 .
+     * 回転角度は MyBunshinBase::ANGVELO_TURN
+     * @param prm_ax_x 回転軸ベクトルX軸要素
+     * @param prm_ax_y 回転軸ベクトルY軸要素
+     * @param prm_ax_z 回転軸ベクトルZ軸要素
+     */
+    void addTurnAngleAroundAx1(float prm_ax_x, float prm_ax_y, float prm_ax_z);
+
+    /**
+     * 本体の軸回転 .
+     * 回転角度は MyBunshinBase::ANGVELO_TURN
+     * VB_UP,VB_DOWN 時の分身の回転軸ベクトル(c_ax_x_, c_ax_y_, c_ax_z_) も、一緒に軸回転させる。
+     * @param prm_ax_x 回転軸ベクトルX軸要素
+     * @param prm_ax_y 回転軸ベクトルY軸要素
+     * @param prm_ax_z 回転軸ベクトルZ軸要素
+     */
+    void addTurnAngleAroundAx2(float prm_ax_x, float prm_ax_y, float prm_ax_z);
+
 public:
+    enum {
+        TRACE_TWINBEE,   //ツインビーの分身のようなトレース
+        TRACE_GRADIUS,   //グラディウスのオプションのようなトレース
+        TRACE_FREEZE,    //グラディウスVのType1のオプションフリーズのような動き
+    };
+
+    enum {
+        PROG_INIT,
+        PROG_BUNSHIN_NOMAL_TRACE,
+        PROG_BUNSHIN_FREE_MODE_IGNITED,
+        PROG_BUNSHIN_FREE_MODE_READY,
+        PROG_BUNSHIN_FREE_MODE_MOVE,
+        PROG_BUNSHIN_FREE_MODE_STOP,
+        PROG_BUNSHIN_FREE_MODE_BACK_TO_DEFAULT_POS,
+        PROG_BANPEI,
+    };
+
     /** 最大分身数 */
     static const int MAX_BUNSHIN_NUM;
     /** [r]分身と分身の間隔 */
@@ -112,29 +154,18 @@ public:
     /** [r]平行移動支援 */
     GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
-    /** */
+    /** [r]このフレーム以上連続で移動すると、TRACE_TWINBEE→TRACE_GRADIUS に移行する */
     frame moving_frames_since_default_pos_;
+    /** [r]現在のトレースモード */
     int trace_mode_;
-    enum {
-        TRACE_TWINBEE,
-        TRACE_GRADIUS,
-        TRACE_FREEZE,
-    };
-
-    enum {
-        PROG_INIT,
-        PROG_BUNSHIN_NOMAL_TRACE,
-        PROG_BUNSHIN_FREE_MODE_IGNITED,
-        PROG_BUNSHIN_FREE_MODE_READY,
-        PROG_BUNSHIN_FREE_MODE_MOVE,
-        PROG_BUNSHIN_FREE_MODE_STOP,
-        PROG_BUNSHIN_FREE_MODE_BACK_TO_DEFAULT_POS,
-        PROG_BANPEI,
-    };
+    /** 分身がリセット操作で元の位置に戻るときに費やす基準の時間(フレーム) */
     frame return_default_pos_frames_;
+
+    /** フリーモード時 true */
     bool is_free_mode_;
+    /** 分離モード（自機がやられて孤立）時 true */
     bool is_isolate_mode_;
-    float c_ax_x_,c_ax_y_,c_ax_z_;
+
 public:
     /**
      * コンストラクタ .
@@ -143,6 +174,14 @@ public:
      */
     MyBunshinBase(const char* prm_name, unsigned int prm_no);
 
+    /**
+     * 分身の設定 .
+     * new 直後に実行してください。
+     * @param prm_radius_position 分身の位置。中心からの距離（半径）を設定。
+     * @param prm_ang_position    分身の位置。どの角度の場所を初期位置とするかを設定。
+     * @param prm_expanse         分身の外に広がる角度。
+     * @param prm_angvelo_mv      分身の通常時の周回軌道の移動速度
+     */
     void config(
             coord prm_radius_position,
             angle prm_ang_position,
@@ -171,9 +210,12 @@ public:
 
     void resetBunshin(int prm_mode);
 
-    void addTurnAngleAroundAx1(float prm_ax_x, float prm_ax_y, float prm_ax_z);
-    void addTurnAngleAroundAx2(float prm_ax_x, float prm_ax_y, float prm_ax_z);
 
+
+    /**
+     * 分身数を設定 .
+     * @param prm_num 分身の数
+     */
     static void setBunshinNum(int prm_num);
 
 

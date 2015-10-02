@@ -969,7 +969,7 @@ void GgafDxKuroko::setRzRyMvAng(dxcoord prm_vx, dxcoord prm_vy, dxcoord prm_vz, 
         UTIL::convVectorToRzRy(prm_vx, prm_vy, prm_vz,
                                _ang_rz_mv, _ang_ry_mv );
     }
-    UTIL::getNormalizeVector(prm_vx, prm_vy, prm_vz,
+    UTIL::getNormalizedVector(prm_vx, prm_vy, prm_vz,
                              _vX, _vY, _vZ);
     if (_relate_RzFaceAng_with_RzMvAng_flg) {
         _pActor->_rz = _ang_rz_mv;
@@ -1040,10 +1040,8 @@ void GgafDxKuroko::setStopTargetMvAngTwd(coord prm_tx, coord prm_ty, coord prm_t
     if (vx == 0 && vy == 0 && vz == 0) {
         //アクターの座標に等しいので、何もしない。
     } else {
-        angle angRz_Target;
-        angle angRy_Target;
+        angle angRz_Target, angRy_Target;
         float dummy1, dummy2, dummy3;
-
         UTIL::convVectorToRzRy(
                        vx, vy, vz,
                        dummy1, dummy2, dummy3,
