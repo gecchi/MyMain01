@@ -17,6 +17,7 @@ class EnemyEmus : public GgafLib::DefaultMorphMeshActor {
 public:
     enum {
         PROG_INIT       ,
+        PROG_INI_WAIT       ,
         PROG_HATCH_CLOSE,
         PROG_HATCH_OPEN ,
         PROG_FIRE       ,
@@ -50,6 +51,7 @@ public:
 
     bool is_firing_;
 
+    frame ini_wait_;
 public:
     /**
      * コンストラクタ

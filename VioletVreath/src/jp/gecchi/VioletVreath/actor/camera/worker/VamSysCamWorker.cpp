@@ -122,10 +122,10 @@ void VamSysCamWorker::processBehavior() {
     }
     if (!returnning_cam_pos_) {
         if (pVbPlay->isBeingPressed(VB_VIEW_UP) && !pVbPlay->isBeingPressed(VB_VIEW_DOWN)) {
-            ang_cam_around_ = UTIL::simplifyAng(ang_cam_around_+D_ANG(2));
+            ang_cam_around_ = UTIL::simplifyAng(ang_cam_around_-D_ANG(2));
             cam_mv_frame_ = 2;
         } else if (pVbPlay->isBeingPressed(VB_VIEW_DOWN) && !pVbPlay->isBeingPressed(VB_VIEW_UP)) {
-            ang_cam_around_ = UTIL::simplifyAng(ang_cam_around_-D_ANG(2));
+            ang_cam_around_ = UTIL::simplifyAng(ang_cam_around_+D_ANG(2));
             cam_mv_frame_ = 2;
         } else {
             cam_mv_frame_ = cam_mv_frame_base_;

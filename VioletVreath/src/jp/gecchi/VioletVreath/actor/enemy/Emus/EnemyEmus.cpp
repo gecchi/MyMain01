@@ -38,6 +38,7 @@ EnemyEmus::EnemyEmus(const char* prm_name) :
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
+    ini_wait_ = 0;
 }
 
 void EnemyEmus::onCreateModel() {
@@ -65,7 +66,7 @@ void EnemyEmus::onActive() {
     getStatus()->reset();
     setMorphWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     is_open_hatch_ = false;
-    getProgress()->reset(PROG_HATCH_CLOSE);
+    getProgress()->reset(PROG_INIT);
 }
 
 void EnemyEmus::processBehavior() {
@@ -74,7 +75,13 @@ void EnemyEmus::processBehavior() {
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
-            pProg->change(PROG_HATCH_CLOSE);
+            pProg->change(PROG_INI_WAIT);
+            break;
+        }
+        case PROG_INI_WAIT: {
+            if (pProg->hasArrivedAt(ini_wait_+1)) {
+                pProg->change(PROG_HATCH_CLOSE);
+            }
             break;
         }
         case PROG_HATCH_CLOSE: {
@@ -163,6 +170,7 @@ void EnemyEmus::onHit(const GgafActor* prm_pOtherActor) {
     if (was_destroyed) {
         //”j‰óŽž
         getSeTx()->play3D(SE_EXPLOSION);
+        sayonara();
     } else {
         //”ñ”j‰óŽž
         getSeTx()->play3D(SE_DAMAGED);
