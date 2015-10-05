@@ -8,6 +8,10 @@
 #define	_INCLUDE_WAVEDECORDER_HPP
 #include "GgafDxCommonHeader.h"
 #include <windows.h>
+#ifdef __GNUG__
+    #undef __in
+    #undef __out
+#endif
 
 namespace GgafDxCore {
 /**

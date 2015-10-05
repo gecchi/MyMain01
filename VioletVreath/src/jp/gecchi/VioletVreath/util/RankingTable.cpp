@@ -1,5 +1,10 @@
 #include "RankingTable.h"
+
 #include <Shlwapi.h>
+#ifdef __GNUG__
+    #undef __in
+    #undef __out
+#endif
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafCore;

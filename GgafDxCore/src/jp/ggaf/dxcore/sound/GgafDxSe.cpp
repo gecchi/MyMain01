@@ -2,6 +2,11 @@
 
 #include <Shlwapi.h>
 #include <d3d9.h>
+#ifdef __GNUG__
+    #undef __in
+    #undef __out
+#endif
+
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/GgafDxProperties.h"
 #include "jp/ggaf/dxcore/sound/GgafDxSound.h"

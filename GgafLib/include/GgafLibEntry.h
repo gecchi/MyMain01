@@ -3,9 +3,15 @@
 #include "GgafLibCommonHeader.h"
 
 #include <windows.h>
+#ifdef __GNUG__
+    #undef __in
+    #undef __out
+#endif
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "jp/ggaf/lib/GgafLibProperties.h"
 #include "jp/ggaf/lib/DefaultGod.h"
+
+
 
 HINSTANCE WinMain_hInstance;
 HINSTANCE WinMain_hPrevInstance;

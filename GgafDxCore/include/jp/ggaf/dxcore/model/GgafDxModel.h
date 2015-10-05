@@ -5,6 +5,10 @@
 
 #include <d3d9.h>
 #include <d3dx9.h>
+#ifdef __GNUG__
+    #undef __in
+    #undef __out
+#endif
 
 namespace GgafDxCore {
 

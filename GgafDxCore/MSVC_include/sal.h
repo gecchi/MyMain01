@@ -62,6 +62,37 @@
 //TODO:しばらくこれでいいのじゃないかなぁ～！！ ＼(T_T)／
 //TODO:最近 mingw-w64 のライブラリヘッダに、独自の"sal.h"が加わった・・・。毎回消すか、どうしようか。
 
+//2015/10/06追記
+//GCC5.2 Mingw-w64 環境でコンパイルできるようにした。
+//その際、Windowsのヘッダ直後のいたるところに
+//
+//#ifdef __GNUG__
+//    #undef __in
+//    #undef __out
+//#endif
+//
+//を挿入する必要が生じてしまった。
+//dsound.h に関しては、かなり悩んだ挙句
+//
+//
+//#ifdef __GNUG__
+//    #define __null
+//    #define NULL    0
+//    #define __in
+//    #define __out
+//#endif
+//#include <dsound.h>  //←sal.h を include する
+//#ifdef __GNUG__
+//    #undef __null
+//    #undef __in
+//    #undef __out
+//#endif
+//
+//という対応を行わざるを得なかった。
+//強引でブサイクであるが、他にいい方法がおもいうかばなかった。
+//悲しいが、しばらくコレで行こう・・・。
+
+
 #ifndef MY_SAL_H_
 #define MY_SAL_H_
 //Mingw-GCC用にコンパイルが通るように空定義

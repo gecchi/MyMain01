@@ -4,6 +4,10 @@
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <windows.h>
+#ifdef __GNUG__
+    #undef __in
+    #undef __out
+#endif
 
 #undef P_GOD
 #define P_GOD (GgafCore::GgafGod::_pGod)

@@ -2,6 +2,11 @@
 #include "jp/ggaf/dxcore/util/XFile/ToolBox/IOModel_X.h"
 
 #include <windows.h>
+#ifdef __GNUG__
+    #undef __in
+    #undef __out
+#endif
+
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
 
 using namespace std; //add tsuge

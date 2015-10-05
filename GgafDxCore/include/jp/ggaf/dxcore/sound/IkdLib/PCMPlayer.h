@@ -5,6 +5,9 @@
 
 #ifdef __GNUG__
     #define __null
+    #define NULL    0
+    #define __in
+    #define __out
 #endif
 #include <dsound.h>  //©sal.h ‚ğ include ‚·‚é
 #ifdef __GNUG__

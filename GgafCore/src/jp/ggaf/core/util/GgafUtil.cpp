@@ -4,6 +4,10 @@
 #include <fstream>
 #include <time.h>
 #include <windows.h>
+#ifdef __GNUG__
+    #undef __in
+    #undef __out
+#endif
 
 using namespace GgafCore;
 

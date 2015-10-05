@@ -4,6 +4,10 @@
 #include "jp/ggaf/core/scene/GgafDisusedScene.h"
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
 #include <windows.h>
+#ifdef __GNUG__
+    #undef __in
+    #undef __out
+#endif
 
 using namespace GgafCore;
 

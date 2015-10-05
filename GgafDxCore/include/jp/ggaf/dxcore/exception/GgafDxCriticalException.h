@@ -4,6 +4,10 @@
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
 
 #include <windows.h>
+#ifdef __GNUG__
+    #undef __in
+    #undef __out
+#endif
 
 #ifdef MY_DEBUG
     #define checkDxException(HR, OKVAL, X) do { \
