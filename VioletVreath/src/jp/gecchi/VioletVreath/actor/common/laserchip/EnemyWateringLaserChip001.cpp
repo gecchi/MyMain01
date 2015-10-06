@@ -27,8 +27,8 @@ void EnemyWateringLaserChip001::onCreateModel() {
 
 void EnemyWateringLaserChip001::onActive() {
     WateringLaserChip::onActive();
-    getKuroko()->setMvVelo(PX_C(120));
-    getKuroko()->setMvAcce(PX_C(2));
+    getKuroko()->setMvVelo(PX_C(80));
+    getKuroko()->setMvAcce(PX_C(5));
     getStatus()->reset();
 }
 

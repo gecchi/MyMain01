@@ -446,10 +446,14 @@ public:
      * @param out_nvx
      * @param out_nvy
      */
-    static void getNormalizedVector(dxcoord x,
-                                   dxcoord y,
-                                   float& out_nvx,
-                                   float& out_nvy);
+    static void getNormalizedVector(double x,
+                                    double y,
+                                    float& out_nvx,
+                                    float& out_nvy) {
+        const double t = 1.0 / sqrt(x * x + y * y);
+        out_nvx = t * x;
+        out_nvy = t * y;
+    }
 
     /**
      * ベクトル正規化 .
@@ -459,9 +463,15 @@ public:
      * @param out_nvy
      */
     static void getNormalizedVector(coord x,
-                                   coord y,
-                                   float& out_nvx,
-                                   float& out_nvy);
+                                    coord y,
+                                    float& out_nvx,
+                                    float& out_nvy ) {
+        const double vx = (double)(x * (1.0 / (LEN_UNIT * PX_UNIT)));
+        const double vy = (double)(y * (1.0 / (LEN_UNIT * PX_UNIT)));
+        const double t = 1.0 / sqrt(vx * vx + vy * vy);
+        out_nvx = t * vx;
+        out_nvy = t * vy;
+    }
 
 
     /**
@@ -473,12 +483,17 @@ public:
      * @param out_nvy
      * @param out_nvz
      */
-    static void getNormalizedVector(dxcoord x,
-                                   dxcoord y,
-                                   dxcoord z,
-                                   float& out_nvx,
-                                   float& out_nvy,
-                                   float& out_nvz);
+    static void getNormalizedVector(double x,
+                                    double y,
+                                    double z,
+                                    float& out_nvx,
+                                    float& out_nvy,
+                                    float& out_nvz ) {
+        const double t = 1.0 / sqrt(x * x + y * y + z * z);
+        out_nvx = t * x;
+        out_nvy = t * y;
+        out_nvz = t * z;
+    }
 
     /**
      * ベクトル正規化 .
@@ -490,11 +505,19 @@ public:
      * @param out_nvz
      */
     static void getNormalizedVector(coord x,
-                                   coord y,
-                                   coord z,
-                                   float& out_nvx,
-                                   float& out_nvy,
-                                   float& out_nvz);
+                                    coord y,
+                                    coord z,
+                                    float& out_nvx,
+                                    float& out_nvy,
+                                    float& out_nvz ) {
+        const double vx = (double)(x * (1.0 / (LEN_UNIT * PX_UNIT)));
+        const double vy = (double)(y * (1.0 / (LEN_UNIT * PX_UNIT)));
+        const double vz = (double)(z * (1.0 / (LEN_UNIT * PX_UNIT)));
+        const double t = 1.0 / sqrt(vx * vx + vy * vy + vz * vz);
+        out_nvx = t * vx;
+        out_nvy = t * vy;
+        out_nvz = t * vz;
+    }
 
     /**
      * 方向を変えず、Z軸回転+Y軸回転もう一つの組み合わせを返す。

@@ -39,13 +39,13 @@ public:
     const GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeometricActor>* pOrg_pLockonCtrler_pRingTarget_;
 
     /** [r/w]速度範囲（この値を大きくすると、最高速度が早くなる。） */
-    static const int max_velo_renge_;
-    /** 加速度範囲( max_velo_renge_ / r_max_acce_ ) */
-    static const float max_acce_renge_;
+    static const int MAX_VELO_RENGE;
+    /** 加速度範囲(-MAX_ACCE_RENGE, MAX_ACCE_RENGE) */
+    static const float MAX_ACCE_RENGE;
 
     /** [r/w]速度に対する加速度の割合（この値を大きくすると、カーブが緩くなる） */
-    static const int r_max_acce_;
-    static const double rr_max_acce_;
+    static const int R_MAX_ACCE;
+    static const double RR_MAX_ACCE;
 
     static int tex_no_;
     static GgafDxCore::GgafDxModel* pModel_;

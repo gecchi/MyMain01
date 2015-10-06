@@ -2,13 +2,12 @@
 
 #include "MgrCameraUpVector.h"
 #include "MgrCameraViewPoint.h"
-#include "jp/ggaf/core/util/GgafUtil.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
 #include "jp/ggaf/dxcore/util/GgafDx26DirectionUtil.h"
-#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+#include "jp/ggaf/lib/util/StgUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -44,6 +43,17 @@ void MgrCamera::processBehavior() {
     DefaultCamera::processBehavior();
 }
 
+dir26 MgrCamera::getVpDirNo() {
+    float vcv_x, vcv_y, vcv_z;
+    MgrCameraViewPoint* pVp = (MgrCameraViewPoint*)getCameraViewPoint();
+    UTIL::getNormalizedVector (
+            pVp->_x - _x,
+            pVp->_y - _y,
+            pVp->_z - _z,
+            vcv_x, vcv_y, vcv_z  );
+    return GgafDx26DirectionUtil::cnvVec2DirNo(vcv_x, vcv_y, vcv_z);
+}
+
 void MgrCamera::slideMvTo(coord tx, coord ty, coord tz, frame t) {
     pAxsMver_->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
@@ -66,17 +76,6 @@ void MgrCamera::slideMvTo(GgafDxGeometricActor* pTarget, frame t,
                        float prm_x_p1, float prm_y_p1, float prm_z_p1) {
     slideMvTo(pTarget->_x, pTarget->_y, pTarget->_z, t,
               prm_x_p1, prm_y_p1, prm_z_p1);
-}
-
-dir26 MgrCamera::getVpDirNo() {
-    float vcv_x, vcv_y, vcv_z;
-    MgrCameraViewPoint* pVp = (MgrCameraViewPoint*)getCameraViewPoint();
-    UTIL::getNormalizedVector (
-            pVp->_x - _x,
-            pVp->_y - _y,
-            pVp->_z - _z,
-            vcv_x, vcv_y, vcv_z  );
-    return GgafDx26DirectionUtil::cnvVec2DirNo(vcv_x, vcv_y, vcv_z);
 }
 
 MgrCamera::~MgrCamera() {

@@ -122,9 +122,9 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Urydike/FormationUrydike001.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Urydike/FormationUrydike002.h"
 
-#include "jp/gecchi/VioletVreath/actor/Danmaku/Alice/DanmakuAlice.h";
-#include "jp/gecchi/VioletVreath/actor/Danmaku/Alice/DanmakuAlice001.h";
-#include "jp/gecchi/VioletVreath/actor/Danmaku/Alice/AliceShot.h";
+#include "jp/gecchi/VioletVreath/actor/Danmaku/Alice/DanmakuAlice.h"
+#include "jp/gecchi/VioletVreath/actor/Danmaku/Alice/DanmakuAlice001.h"
+#include "jp/gecchi/VioletVreath/actor/Danmaku/Alice/AliceShot.h"
 //"VioletVreath.h"Ç÷ÇÃëOï˚êÈåæí«ãLÇ‡ñYÇÍÇ∏Ç…
 
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"

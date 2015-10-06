@@ -603,55 +603,6 @@ void GgafDxUtil::convVectorToRzRy(coord vx,
 }
 
 
-void GgafDxUtil::getNormalizedVector(coord x,
-                                     coord y,
-                                     float& out_nvx,
-                                     float& out_nvy) {
-    const dxcoord vx = C_DX(x);
-    const dxcoord vy = C_DX(y);
-    const double t = 1.0 / sqrt(vx * vx + vy * vy);
-    out_nvx = t * vx;
-    out_nvy = t * vy;
-}
-
-void GgafDxUtil::getNormalizedVector(dxcoord x,
-                                     dxcoord y,
-                                     float& out_nvx,
-                                     float& out_nvy) {
-    const double t = 1.0 / sqrt(x * x + y * y);
-    out_nvx = t * x;
-    out_nvy = t * y;
-}
-
-
-void GgafDxUtil::getNormalizedVector(coord x,
-                                     coord y,
-                                     coord z,
-                                     float& out_nvx,
-                                     float& out_nvy,
-                                     float& out_nvz) {
-    const dxcoord vx = C_DX(x);
-    const dxcoord vy = C_DX(y);
-    const dxcoord vz = C_DX(z);
-    const double t = 1.0 / sqrt(vx * vx + vy * vy + vz * vz);
-    out_nvx = t * vx;
-    out_nvy = t * vy;
-    out_nvz = t * vz;
-}
-
-void GgafDxUtil::getNormalizedVector(dxcoord x,
-                                     dxcoord y,
-                                     dxcoord z,
-                                     float& out_nvx,
-                                     float& out_nvy,
-                                     float& out_nvz) {
-    const double t = 1.0 / sqrt(x * x + y * y + z * z);
-    out_nvx = t * x;
-    out_nvy = t * y;
-    out_nvz = t * z;
-}
-
-
 void GgafDxUtil::convRzRyToVector(angle prm_ang_rz,
                                   angle prm_ang_ry,
                                   float& out_nvx,

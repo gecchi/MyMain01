@@ -87,7 +87,7 @@
 									<listOptionValue builtIn="false" value="dsound"/>
 									<listOptionValue builtIn="false" value="winmm"/>
 								</option>
-								<option id="gnu.cpp.link.option.flags.2130822700" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value="-Wl,--enable-auto-import -mwindows --input-charset=cp932 --exec-charset=cp932  -std=c++11 -static-libgcc -static-libstdc++ " valueType="string"/>
+								<option id="gnu.cpp.link.option.flags.2130822700" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value="-Wl,--enable-auto-import -mwindows --input-charset=cp932 --exec-charset=cp932  -std=c++11 -static-libgcc -static-libstdc++ -static " valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1896414703" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -184,7 +184,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/DebugCdt}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Ogg/DebugCdt}&quot;"/>
 								</option>
-								<option id="gnu.cpp.link.option.flags.1444323009" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value="-Wl,--enable-auto-import -mwindows --input-charset=cp932 --exec-charset=cp932  -std=c++11 -static-libgcc -static-libstdc++ " valueType="string"/>
+								<option id="gnu.cpp.link.option.flags.1444323009" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value="-Wl,--enable-auto-import -mwindows --input-charset=cp932 --exec-charset=cp932  -std=c++11 -static-libgcc -static-libstdc++ -static " valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1069692048" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -394,7 +394,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/GprofCdt}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Ogg/GprofCdt}&quot;"/>
 								</option>
-								<option id="gnu.cpp.link.option.flags.1566645837" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value="-Wl,--enable-auto-import -mwindows --input-charset=cp932 --exec-charset=cp932 -std=c++11 -static-libgcc -static-libstdc++ -g -pg " valueType="string"/>
+								<option id="gnu.cpp.link.option.flags.1566645837" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value="-Wl,--enable-auto-import -mwindows --input-charset=cp932 --exec-charset=cp932 -std=c++11 -static-libgcc -static-libstdc++ -static -g -pg " valueType="string"/>
 								<option id="gnu.cpp.link.option.userobjs.1858842344" name="その他のオブジェクト" superClass="gnu.cpp.link.option.userobjs"/>
 								<option id="gnu.cpp.link.option.other.669081655" name="その他のオプション (-Xlinker [option])" superClass="gnu.cpp.link.option.other"/>
 								<option id="gnu.cpp.link.option.debugging.gprof.606802351" name="gprof 情報の生成 (-pg)" superClass="gnu.cpp.link.option.debugging.gprof" value="true" valueType="boolean"/>

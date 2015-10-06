@@ -18,10 +18,10 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-const int MyBunshinWateringLaserChip001::max_velo_renge_ = 160000; //この値を大きくすると、最高速度が早くなる。
-const int MyBunshinWateringLaserChip001::r_max_acce_ = 20; //この値を大きくすると、カーブが緩くなる
-const double MyBunshinWateringLaserChip001::rr_max_acce_ = 1.0 / r_max_acce_; //計算簡素化用
-const float MyBunshinWateringLaserChip001::max_acce_renge_ = max_velo_renge_/r_max_acce_;
+const int MyBunshinWateringLaserChip001::MAX_VELO_RENGE = PX_C(160); //この値を大きくすると、最高速度が早くなる。
+const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 20; //この値を大きくすると、カーブが緩くなる
+const double MyBunshinWateringLaserChip001::RR_MAX_ACCE = 1.0 / R_MAX_ACCE; //計算簡素化用
+const float MyBunshinWateringLaserChip001::MAX_ACCE_RENGE = MAX_VELO_RENGE/R_MAX_ACCE;
 
 GgafDxCore::GgafDxModel* MyBunshinWateringLaserChip001::pModel_  = nullptr;
 int MyBunshinWateringLaserChip001::tex_no_ = 0;
@@ -50,8 +50,8 @@ void MyBunshinWateringLaserChip001::initialize() {
     setHitAble(true);
     setScaleR(6.0);
     setAlpha(0.99);
-    pAxsMver_->forceVxyzMvVeloRange(-max_velo_renge_, max_velo_renge_);
-    pAxsMver_->forceVxyzMvAcceRange(-max_acce_renge_, max_acce_renge_);
+    pAxsMver_->forceVxyzMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
+    pAxsMver_->forceVxyzMvAcceRange(-MAX_ACCE_RENGE, MAX_ACCE_RENGE);
 }
 
 void MyBunshinWateringLaserChip001::onCreateModel() {
@@ -119,7 +119,7 @@ void MyBunshinWateringLaserChip001::processSettlementBehavior() {
         //活動開始初回フレーム、チップの速度と向きの初期設定
         setFaceAngAs(pOrg_);
         positionAs(pOrg_);
-        pAxsMver_->setVxyzMvVeloTwd(_rz, _ry, PX_C(100));
+        pAxsMver_->setVxyzMvVeloTwd(_rz, _ry, PX_C(100)); //初速はここで
         pAxsMver_->setZeroVxyzMvAcce();
     }
     WateringLaserChip::processSettlementBehavior();
@@ -171,9 +171,9 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     //|仮的| > |仮自| という関係を維持するためにかけた適当な割合
 
     //vVP 仮自→仮的 の加速度設定
-    const double accX = ((vTx * r) - vVMx) * rr_max_acce_;
-    const double accY = ((vTy * r) - vVMy) * rr_max_acce_;
-    const double accZ = ((vTz * r) - vVMz) * rr_max_acce_;
+    const double accX = ((vTx * r) - vVMx) * RR_MAX_ACCE;
+    const double accY = ((vTy * r) - vVMy) * RR_MAX_ACCE;
+    const double accZ = ((vTz * r) - vVMz) * RR_MAX_ACCE;
 
     if (_pLeader == this) {
         //先頭はやや速めに。SGN(accX)*5 を加算するのは、加速度を0にしないため
@@ -186,7 +186,7 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
                                  accZ + SGN(accZ)*3.0);
     }
     //ネジレ描画が汚くならないように回転を制限
-    if (lVM > max_velo_renge_/2) {
+    if (lVM > MAX_VELO_RENGE/2) {
         angle rz_temp, ry_temp;
         UTIL::convVectorToRzRy(vVMx, vVMy, vVMz, rz_temp, ry_temp);
         const angle angDRZ = UTIL::getAngDiff(rz_temp, _rz);
