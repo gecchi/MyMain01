@@ -2,14 +2,14 @@
 #define GGAFDXCORE_GGAFDX26DIRECTIONUTIL_H_
 #include "GgafDxCommonHeader.h"
 
-//Ternary numeral -1,0,1 の3数の3進法 を 配列要素のため正の10進数に変換するマクロ(-13～+13)
+//-1,0,1 の3数の3進法 を 配列要素のため正の10進数に変換するマクロ(-13～+13)
 #define DIR26(X,Y,Z) (((3*3)*(X)) + (3*(Y)) + (Z))
 #define DIR26_NULL (999)
 
 namespace GgafDxCore {
 
 /**
- * 斜方立方八面体２６方向ユーティリティ .
+ * 斜方立方八面体の面（２６方向）ユーティリティ .
  * @version 1.00
  * @since 2014/12/11
  * @author Masatoshi Tsuge

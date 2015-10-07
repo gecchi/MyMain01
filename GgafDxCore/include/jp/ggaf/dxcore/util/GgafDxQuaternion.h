@@ -6,7 +6,7 @@
 namespace GgafDxCore {
 
 /**
- * とりあえず四元数(クォータニオン)クラス .
+ * 四元数(クォータニオン)クラス .
  * @version 1.00
  * @since 2009/04/07
  * @author Masatoshi Tsuge

@@ -194,6 +194,8 @@ public:
 
     virtual void onActive() override;
 
+    virtual void onInactive() override;
+
     virtual void processBehavior() override;
 
     virtual void processJudgement() override {}

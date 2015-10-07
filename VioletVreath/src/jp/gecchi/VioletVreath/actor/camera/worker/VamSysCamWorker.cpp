@@ -197,3 +197,76 @@ void VamSysCamWorker::processBehavior() {
 VamSysCamWorker::~VamSysCamWorker() {
     GGAF_DELETE(pSe_);
 }
+//  z
+// ↑
+//                   (vp_x, 0, vp_y)
+//                   ^
+//                   |               →   ──→
+//                   |            ┐ X ＝ (tx,ty)
+//       ＼          |          ／
+//         ＼        |        ／
+//           ＼      |      ／
+//             ＼    |θ/2／
+//               ＼  |  ／
+//                 ＼|／
+//                    (cam_x, 0, cam_z)
+//                  ∀
+//                                          →x
+//視点：(cam_x, 0, cam_z)
+//注視点： (vp_x, 0, vp_y)
+//                      ───────→
+//注視ベクトルは、 (vp_x-cam_x, 0, vp_y-cam_z)
+
+//視野角をθとして、
+//ベクトル (vp_x-cam_x, 0, vp_y-cam_z) を -r/2 Y軸回転すると
+//((vp_x-cam_x)*cos(-r/2) + (vp_y-cam_z)*sin(-r/2), 0, (vp_x-cam_x)*-sin(-r/2) + (vp_y-cam_z)*cos(-r/2))
+//これが今(cam_x, 0, cam_z)に居るので
+//平行移動して
+
+//  ( (vp_x-cam_x)* cos(-r/2) + (vp_y-cam_z)*sin(-r/2) ) + cam_x  → X
+//    0
+// 	( (vp_x-cam_x)*-sin(-r/2) + (vp_y-cam_z)*cos(-r/2) ) + cam_z  → Z
+
+// XZ平面において 直線 Z = aX + b で表すと
+// (cam_x, 0, cam_z)にも通るので
+
+// cam_z = a*cam_x + b
+// ( (vp_x-cam_x)*-sin(-r/2) + (vp_y-cam_z)*cos(-r/2) ) + cam_z = a*(( (vp_x-cam_x)* cos(-r/2) + (vp_y-cam_z)*sin(-r/2) ) + cam_x) + b
+//の連立方程式を解くと
+
+//a=-(cos(r/2)*vp_y+sin(r/2)*vp_x-cam_x*sin(r/2)-cam_z*cos(r/2))/(sin(r/2)*vp_y-cos(r/2)*vp_x-cam_z*sin(r/2)+cam_x*cos(r/2))
+//b=(cam_z*(cos(r/2)*vp_x-sin(r/2)*vp_y)+cam_x*(-cos(r/2)*vp_y-sin(r/2)*vp_x)+cam_z^2*sin(r/2)+cam_x^2*sin(r/2))/(-sin(r/2)*vp_y+cos(r/2)*vp_x+cam_z*sin(r/2)-cam_x*cos(r/2))
+
+//Z=-((cos(r/2)*vp_y+sin(r/2)*vp_x-cam_x*sin(r/2)-cam_z*cos(r/2))*X+(-cam_z*sin(r/2)-cam_x*cos(r/2))*vp_y+(cam_z*cos(r/2)-cam_x*sin(r/2))*vp_x+(cam_z^2+cam_x^2)*sin(r/2))/(sin(r/2)*vp_y-cos(r/2)*vp_x-cam_z*sin(r/2)+cam_x*cos(r/2))
+
+
+
+
+
+
+//cosRy	0	-sinRy	0
+//0	1	0	0
+//sinRy	0	cosRy	0
+//dx*cosRy + dz*sinRy	0	dx*-sinRy + dz*cosRy	1
+
+//の時のベクトルXの方程式
+
+//ｘ’＝ｘcosθ-ysinθ
+//ｙ’＝ｘsinθ+ycosθ
+
+//| x'| = | cosθ -sinθ |
+//| y'|   | sinθ  cosθ |
+
+//Y軸回転＞平行移動
+
+//|cosRy	0	-sinRy	0 |  | 1	0	0	0|    |cosRy	0	-sinRy	0|
+//|    0	1	     0	0 |  | 0	1	0	0|    |    0	1	    0	0|
+//|sinRy	0	 cosRy	0 |  | 0	0	1	0| =  |sinRy	0	cosRy	0|
+//|    0	0	     0	1 |  | dx	0	dz	1|    |   dx	0	   dz	1|
+
+
+
+
+
+
+

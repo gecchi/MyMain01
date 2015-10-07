@@ -2,7 +2,7 @@
 #define GGAFDXCORE_GGAFDX8DIRECTIONUTIL_H_
 #include "GgafDxCommonHeader.h"
 
-//Ternary numeral -1,0,1 の3数の3進法 を 配列要素のため正の10進数に変換するマクロ(-13～+13)
+//-1,0,1 の3数の3進法 を 配列要素のため正の10進数に変換するマクロ(-4～+4)
 #define DIR8(X,Y) ((3*(X)) + (Y))
 #define DIR8_NULL (999)
 
@@ -10,9 +10,9 @@
 namespace GgafDxCore {
 
 /**
- * 八方向８方向ユーティリティ .
+ * 八方向ユーティリティ .
  * @version 1.00
- * @since 2014/12/11
+ * @since 2015/09/16
  * @author Masatoshi Tsuge
  */
 class GgafDx8DirectionUtil {

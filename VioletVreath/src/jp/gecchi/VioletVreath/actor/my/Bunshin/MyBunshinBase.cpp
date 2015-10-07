@@ -103,6 +103,15 @@ void MyBunshinBase::onActive() {
     }
     pBunshin_->setRadiusPosition(0);
     resetBunshin(0);
+    //MyBunshinBaseは、activateTree() ではなく、activate() されるため
+    //分身のonActive();を手動で呼び出す
+    pBunshin_->onActive();
+}
+
+void MyBunshinBase::onInactive() {
+    //MyBunshinBaseは、inactivateTree() ではなく、inactivate() されるため
+    //分身のonInactive();を手動で呼び出す
+    pBunshin_->onInactive();
 }
 
 void MyBunshinBase::processBehavior() {
