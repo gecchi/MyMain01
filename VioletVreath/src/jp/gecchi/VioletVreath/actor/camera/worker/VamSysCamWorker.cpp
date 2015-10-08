@@ -14,8 +14,9 @@
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 
 #include "jp/gecchi/VioletVreath/actor/camera/CameraUpVector.h"
-
 #include "jp/ggaf/dxcore/sound/GgafDxSeTransmitter.h"
+#include <math.h>
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -83,23 +84,26 @@ void VamSysCamWorker::processBehavior() {
     Camera* pCam = pCam_;
     CameraViewPoint* pVP = (CameraViewPoint*)(pCam->getCameraViewPoint());
 
-    //カメラの移動目標座標
-    coord mv_t_x_CAM, mv_t_y_CAM, mv_t_z_CAM;
-    //カメラのビューポイントの移動目標座標
-    coord mv_t_x_VP, mv_t_y_VP, mv_t_z_VP;
+    static const double r2 = pCam->_rad_half_fovX;
+    static const double Dz = ABS(pCam->_cameraZ_org);
+    static const double x_bound = pCam->_zf;
+    //視野右境界線と、X軸が、ゲーム領域右端で交わる場合のCAMとVPのスライド具合Dx（求め方はコード末尾のメモ）
+    static const double Dx =(sqrt((cos(r2)*cos(r2)-8*sin(r2)*sin(r2))*Dz*Dz+12*cos(r2)*sin(r2)*x_bound*Dz+4*sin(r2)*sin(r2)*x_bound*x_bound)-cos(r2)*Dz-2*sin(r2)*x_bound)/(4*sin(r2));
+    //視野左境界線と、X軸の交点P(px, 0, 0) 求め方はコード末尾のメモ）
+    static const double px = -((Dz*Dz+2*Dx*Dx)*sin(-r2)+Dx*Dz*cos(-r2))/(2*Dx*sin(-r2)-Dz*cos(-r2));
 
-    //カメラの目標座標、ビューポイントの目標座標を設定
-    static const coord Dx = PX_C(PROPERTY::GAME_BUFFER_WIDTH/4);
-    //カメラ目標座標
-    mv_t_x_CAM = -Dx + (-pMyShip_->_x-200000)*2;
-    //↑ -200000 はカメラ移動位置、
-    //   *2 は自機が後ろに下がった時のカメラのパン具合。
-    //   この辺りの数値は納得いくまで調整を繰した。
-    //   TODO:本当はゲーム領域の大きさから動的に計算できる。いつかそうしたい。
-    if (-Dx > mv_t_x_CAM) {
-        mv_t_x_CAM = -Dx;
-    } else if (mv_t_x_CAM > Dx/2) {
-        mv_t_x_CAM = Dx/2;
+    static const coord cDz = DX_C(Dz);
+    static const coord cDx = DX_C(Dx);
+    static const coord cpx = DX_C(px);
+
+    //カメラの移動目標座標設定( mv_t_x_CAM, mv_t_y_CAM, mv_t_z_CAM)
+    coord mv_t_x_CAM = -cDx + ((cpx*0.85) - pMyShip_->_x)*2;
+                             //↑ cpx はカメラ移動開始位置、*0.85 は自機キャラの横幅を考慮
+                             //   最後の *2 は自機が後ろに下がった時のカメラのパンの速さ具合。
+    if (-cDx > mv_t_x_CAM) {
+        mv_t_x_CAM = -cDx;
+    } else if (mv_t_x_CAM > cDx/2) {
+        mv_t_x_CAM = cDx/2;
     }
 
     if (returnning_cam_pos_) {
@@ -131,19 +135,19 @@ void VamSysCamWorker::processBehavior() {
             cam_mv_frame_ = cam_mv_frame_base_;
         }
     }
-    static const coord dZ_camera_init = -DX_C(pCam_->getZOrigin());        //計算用定数、カメラの初期Z軸距離
-    mv_t_y_CAM = pMyShip_->_y + (ANG_SIN(ang_cam_around_) * dZ_camera_init);
-    mv_t_z_CAM = pMyShip_->_z + (ANG_COS(ang_cam_around_) * dZ_camera_init);
+    coord mv_t_y_CAM = pMyShip_->_y + (ANG_SIN(ang_cam_around_) * cDz);
+    coord mv_t_z_CAM = pMyShip_->_z + (ANG_COS(ang_cam_around_) * cDz);
 
-    //VP目標座標
-    mv_t_x_VP = Dx - (-pMyShip_->_x-200000)*2;
-    if (Dx < mv_t_x_VP) {
-        mv_t_x_VP = Dx;
-    } else if ( mv_t_x_VP < -Dx/2) {
-        mv_t_x_VP = -Dx/2;
+    //カメラのビューポイントの移動目標座標設定(mv_t_x_VP, mv_t_y_VP, mv_t_z_VP, cam_mv_frame_)
+    coord mv_t_x_VP = cDx - ((cpx*0.85) - pMyShip_->_x)*2;
+    if (cDx < mv_t_x_VP) {
+        mv_t_x_VP = cDx;
+    } else if ( mv_t_x_VP < -cDx/2) {
+        mv_t_x_VP = -cDx/2;
     }
-    mv_t_y_VP = pMyShip_->_y;
-    mv_t_z_VP = pMyShip_->_z;
+
+    coord mv_t_y_VP = pMyShip_->_y;
+    coord mv_t_z_VP = pMyShip_->_z;
 
     //カメラ移動座標を制限。
     if (mv_t_y_CAM > lim_CAM_top_) {
@@ -175,12 +179,15 @@ void VamSysCamWorker::processBehavior() {
     slideMvCamTo(mv_t_x_CAM, mv_t_y_CAM, mv_t_z_CAM, cam_mv_frame_);
     slideMvVpTo(mv_t_x_VP, mv_t_y_VP, mv_t_z_VP, cam_mv_frame_);
 
+//_TRACE_("mv_t_CAM=("<<mv_t_x_CAM<<","<<mv_t_y_CAM<<","<<mv_t_z_CAM<<")");
+//_TRACE_("mv_t_VP=("<<mv_t_x_VP<<","<<mv_t_y_VP<<","<<mv_t_z_VP<<")");
+//_TRACE_("cpx="<<cpx);
 
     //カメラのUPを設定
     angle up_ang = UTIL::simplifyAng(ang_cam_around_ - D45ANG);
-    static const coord dZ_camera_init_sqrt2 = dZ_camera_init * sqrt(2.0);  //計算用定数、カメラが45度斜め上の初期Z軸距離
-    coord up_y = pMyShip_->_y  + (ANG_SIN(up_ang) * dZ_camera_init_sqrt2);
-    coord up_z = pMyShip_->_z  + (ANG_COS(up_ang) * dZ_camera_init_sqrt2);
+    static const coord cDz_sqrt2 = cDz * sqrt(2.0);  //計算用定数、カメラが45度斜め上の初期Z軸距離
+    coord up_y = pMyShip_->_y  + (ANG_SIN(up_ang) * cDz_sqrt2);
+    coord up_z = pMyShip_->_z  + (ANG_COS(up_ang) * cDz_sqrt2);
     slideMvUpVecTo(0, up_y - mv_t_y_CAM, up_z - mv_t_z_CAM, cam_mv_frame_);
 
     //カメラの pos_camera_ 設定
@@ -194,79 +201,83 @@ void VamSysCamWorker::processBehavior() {
     }
     pos_camera_prev_ = pos_camera_;
 }
+
 VamSysCamWorker::~VamSysCamWorker() {
     GGAF_DELETE(pSe_);
 }
-//  z
-// ↑
-//                   (vp_x, 0, vp_y)
-//                   ^
-//                   |               →   ──→
-//                   |            ┐ X ＝ (tx,ty)
-//       ＼          |          ／
-//         ＼        |        ／
-//           ＼      |      ／
-//             ＼    |θ/2／
-//               ＼  |  ／
-//                 ＼|／
-//                    (cam_x, 0, cam_z)
-//                  ∀
-//                                          →x
-//視点：(cam_x, 0, cam_z)
-//注視点： (vp_x, 0, vp_y)
-//                      ───────→
-//注視ベクトルは、 (vp_x-cam_x, 0, vp_y-cam_z)
 
-//視野角をθとして、
-//ベクトル (vp_x-cam_x, 0, vp_y-cam_z) を -r/2 Y軸回転すると
-//((vp_x-cam_x)*cos(-r/2) + (vp_y-cam_z)*sin(-r/2), 0, (vp_x-cam_x)*-sin(-r/2) + (vp_y-cam_z)*cos(-r/2))
-//これが今(cam_x, 0, cam_z)に居るので
-//平行移動して
-
-//  ( (vp_x-cam_x)* cos(-r/2) + (vp_y-cam_z)*sin(-r/2) ) + cam_x  → X
-//    0
-// 	( (vp_x-cam_x)*-sin(-r/2) + (vp_y-cam_z)*cos(-r/2) ) + cam_z  → Z
-
-// XZ平面において 直線 Z = aX + b で表すと
-// (cam_x, 0, cam_z)にも通るので
-
-// cam_z = a*cam_x + b
-// ( (vp_x-cam_x)*-sin(-r/2) + (vp_y-cam_z)*cos(-r/2) ) + cam_z = a*(( (vp_x-cam_x)* cos(-r/2) + (vp_y-cam_z)*sin(-r/2) ) + cam_x) + b
-//の連立方程式を解くと
-
-//a=-(cos(r/2)*vp_y+sin(r/2)*vp_x-cam_x*sin(r/2)-cam_z*cos(r/2))/(sin(r/2)*vp_y-cos(r/2)*vp_x-cam_z*sin(r/2)+cam_x*cos(r/2))
-//b=(cam_z*(cos(r/2)*vp_x-sin(r/2)*vp_y)+cam_x*(-cos(r/2)*vp_y-sin(r/2)*vp_x)+cam_z^2*sin(r/2)+cam_x^2*sin(r/2))/(-sin(r/2)*vp_y+cos(r/2)*vp_x+cam_z*sin(r/2)-cam_x*cos(r/2))
-
-//Z=-((cos(r/2)*vp_y+sin(r/2)*vp_x-cam_x*sin(r/2)-cam_z*cos(r/2))*X+(-cam_z*sin(r/2)-cam_x*cos(r/2))*vp_y+(cam_z*cos(r/2)-cam_x*sin(r/2))*vp_x+(cam_z^2+cam_x^2)*sin(r/2))/(sin(r/2)*vp_y-cos(r/2)*vp_x-cam_z*sin(r/2)+cam_x*cos(r/2))
-
-
-
-
-
-
-//cosRy	0	-sinRy	0
-//0	1	0	0
-//sinRy	0	cosRy	0
-//dx*cosRy + dz*sinRy	0	dx*-sinRy + dz*cosRy	1
-
-//の時のベクトルXの方程式
-
-//ｘ’＝ｘcosθ-ysinθ
-//ｙ’＝ｘsinθ+ycosθ
-
-//| x'| = | cosθ -sinθ |
-//| y'|   | sinθ  cosθ |
-
-//Y軸回転＞平行移動
-
-//|cosRy	0	-sinRy	0 |  | 1	0	0	0|    |cosRy	0	-sinRy	0|
-//|    0	1	     0	0 |  | 0	1	0	0|    |    0	1	    0	0|
-//|sinRy	0	 cosRy	0 |  | 0	0	1	0| =  |sinRy	0	cosRy	0|
-//|    0	0	     0	1 |  | dx	0	dz	1|    |   dx	0	   dz	1|
+//2015/10/08 メモ
+//＜Dxの求め方＞
+//                         z+
+//                        ^
+//                        |
+//                        |  /        ┐ 視線ベクトル
+//                    Dx  | /       ／
+//                   <--->|/ Dx   ／        →
+//                        /<--->／          Ａ = カメラの表示の右の境界線ベクトル
+// ----------------------/+---／--------＿─
+//              ^      P/ | ／ vp   ＿─    ↑
+//              :      /  ／    ＿─        画面の端っことX軸の交点
+//           Dz :     / ／| ＿─
+//              v    /／＿─
+//                 ∀cam  |  x_bound
+//                        |<-------------->
+//                        |
+//                        |z-
+//
+// cam = (-Dx, 0, -Dz)
+// vp  = (Dx, 0, 0)
+//                            | Dx - (-Dx) |   | 2*Dx |
+// 視線ベクトル = vp -  cam = | 0  -  0    | = |   0  |
+//                            | 0  - (-Dz) |   |  Dz  |
+//
+//ｙ軸で、r 回転（r = θ/2 回転（視野角はθ））
+// →    | 2*Dx*cos(r)  + Dz*sin(r) |
+// Ａ =  | 0                            |    ・・・①
+//       | 2*Dx*-sin(r) + Dz*cos(r) |
+//
+//
+//  →                                       | x_bound - (-Dx) |    | x_bound + Dx |
+//  Ａ =   画面の端っことX軸の交点 -  cam  = |  0      -  0    |  = |   0          |
+//                                           |  0      - (-Dz) |    |  Dz          |
+//
+//これが平行なので
+// (2*Dx*cos(r)  + Dz*sin(r)) / (x_bound + Dx) =  (2*Dx*-sin(r) + Dz*cos(r)) / Dz
+//or
+//  (x_bound + Dx) / Dz = ( 2*Dx*cos(r) + Dz*sin(r)) / (2*Dx*-sin(r) + Dz*cos(r))
+//これを解くと
+//
+//Dx=-(sqrt((cos(r)^2-8*sin(r)^2)*Dz^2+12*cos(r)*sin(r)*x_bound*Dz+4*sin(r)^2*x_bound^2)+cos(r)*Dz+2*sin(r)*x_bound)/(4*sin(r))
+//Dx=(sqrt((cos(r)^2-8*sin(r)^2)*Dz^2+12*cos(r)*sin(r)*x_bound*Dz+4*sin(r)^2*x_bound^2)-cos(r)*Dz-2*sin(r)*x_bound)/(4*sin(r))
+//下のほうが正解
 
 
-
-
-
-
+//＜pxの求め方＞
+//視野左境界線と、X軸の交点Pを求める
+// cam = (-Dx, 0, -Dz)
+// vp  = (Dx, 0, 0)
+//                            | Dx - (-Dx) |   | 2*Dx |
+// 視線ベクトル = vp -  cam = | 0  -  0    | = |   0  |
+//                            | 0  - (-Dz) |   |  Dz  |
+//ｙ軸で、r = -(θ/2) 回転（視野角はθ）
+// →    | 2*Dx*cos(r)  + Dz*sin(r) |
+// Ａ =  | 0                        |    ・・・①
+//       | 2*Dx*-sin(r) + Dz*cos(r) |
+//
+//XZ平面上の直線の方程式 Z = aX + b の傾き
+// a = (2*Dx*-sin(r) + Dz*cos(r)) / (2*Dx*cos(r)  + Dz*sin(r))
+//また、 cam = (-Dx, 0, -Dz) を通るので。
+//
+//Z = aX + b
+//-Dz = ((2*Dx*-sin(r) + Dz*cos(r)) / (2*Dx*cos(r)  + Dz*sin(r))) * -Dx + b
+//bについて解くと
+//b=-((Dz^2+2*Dx^2)*sin(r)+Dx*Dz*cos(r))/(Dz*sin(r)+2*Dx*cos(r))
+//
+//よって直線の方程式は
+//Z = ((2*Dx*-sin(r) + Dz*cos(r)) / (2*Dx*cos(r)  + Dz*sin(r)))*X + (-((Dz^2+2*Dx^2)*sin(r)+Dx*Dz*cos(r))/(Dz*sin(r)+2*Dx*cos(r)))
+//
+//これが、Z=0のときのXを求める
+//0 = ((2*Dx*-sin(r) + Dz*cos(r)) / (2*Dx*cos(r)  + Dz*sin(r)))*X + (-((Dz^2+2*Dx^2)*sin(r)+Dx*Dz*cos(r))/(Dz*sin(r)+2*Dx*cos(r)))
+//をXについて解くと
+//X=-((Dz^2+2*Dx^2)*sin(r)+Dx*Dz*cos(r))/(2*Dx*sin(r)-Dz*cos(r))
 

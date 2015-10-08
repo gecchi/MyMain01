@@ -26,7 +26,7 @@ class GgafDxCamera : public GgafDxGeometricActor {
     friend GgafDxGeometricActor;
     friend GgafDxSeTransmitterForActor;
 
-private:
+public:
     D3DVIEWPORT9 _viewport;
 
     // 視錐台の6つの面の頂点座標
@@ -94,15 +94,11 @@ private:
     const coord _y_buffer_top;
     const coord _y_buffer_bottom;
 
-
-
-
     /** [r/w]注視点（座標が _pVecCamLookatPoint と連動） **/
     GgafDxCameraViewPoint* _pCameraViewPoint;
     GgafDxCameraUpVector* _pCameraUpVector;
 
     coord _x_prev, _y_prev, _z_prev;
-
 
 public:
     /**
