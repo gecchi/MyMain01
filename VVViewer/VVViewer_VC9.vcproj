@@ -65,7 +65,7 @@
 				EnableEnhancedInstructionSet="0"
 				FloatingPointModel="0"
 				FloatingPointExceptions="false"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
@@ -159,7 +159,7 @@
 				RuntimeLibrary="2"
 				EnableEnhancedInstructionSet="2"
 				FloatingPointModel="0"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				WarningLevel="0"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
@@ -216,120 +216,94 @@
 	<References>
 	</References>
 	<Files>
-		<Filter
-			Name="ソース ファイル"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+		<File
+			RelativePath=".\src\actor\Font01.cpp"
 			>
-			<File
-				RelativePath=".\stdafx.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\src\actor\VvvCamera.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\actor\CamWorker\VvvCamWorker.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\actor\VvvCursor.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\VvvGod.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\actor\VvvGrid.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\VVViewer.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\scene\VvvUniverse.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\actor\VvvViewPoint.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\scene\VvvUniverse\VvvWorld.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="ヘッダー ファイル"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+		</File>
+		<File
+			RelativePath=".\src\actor\Font01.h"
 			>
-			<File
-				RelativePath=".\stdafx.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\actor\VvvCamera.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\actor\CamWorker\VvvCamWorker.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\actor\VvvCursor.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\VvvGod.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\actor\VvvGrid.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\VVViewer.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\scene\VvvUniverse.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\actor\VvvViewPoint.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\scene\VvvUniverse\VvvWorld.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="リソース ファイル"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
+		</File>
+		<File
+			RelativePath=".\src\actor\VvvCamera.cpp"
 			>
-		</Filter>
+		</File>
+		<File
+			RelativePath=".\src\actor\VvvCamera.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\actor\VvvCameraUpVector.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\actor\VvvCameraUpVector.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\actor\VvvCameraViewPoint.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\actor\VvvCameraViewPoint.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\actor\CamWorker\VvvCamWorker.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\actor\CamWorker\VvvCamWorker.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\actor\VvvCursor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\actor\VvvCursor.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\VvvGod.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\VvvGod.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\actor\VvvGrid.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\actor\VvvGrid.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\VVViewer.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\VVViewer.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\scene\VvvSpacetime.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\scene\VvvSpacetime.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\scene\VvvSpacetime\VvvWorld.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\scene\VvvSpacetime\VvvWorld.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

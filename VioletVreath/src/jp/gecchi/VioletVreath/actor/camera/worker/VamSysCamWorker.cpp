@@ -58,11 +58,6 @@ VamSysCamWorker::VamSysCamWorker(const char* prm_name) : CameraWorker(prm_name) 
 }
 void VamSysCamWorker::initialize() {
     CameraWorker::initialize();
-
-    //画面背後用範囲差分
-    //背後のZ座標はdZ_camera_init_/2
-    correction_width_ = PX_C(30); //(PROPERTY::GAME_BUFFER_WIDTH*LEN_UNIT/2)/4;
-    correction_height_ = PX_C(30); //(PROPERTY::GAME_BUFFER_HEIGHT*LEN_UNIT/2)/4;
     pos_camera_ = VAM_POS_ZRIGHT;
     pos_camera_prev_ = VAM_POS_NON;
     ang_cam_around_ = ang_cam_around_base_;
@@ -88,12 +83,17 @@ void VamSysCamWorker::processBehavior() {
     static const double Dz = ABS(pCam->_cameraZ_org);
     static const double x_bound = pCam->_zf;
     //視野右境界線と、X軸が、ゲーム領域右端で交わる場合のCAMとVPのスライド具合Dx（求め方はコード末尾のメモ）
-    static const double Dx =(sqrt((cos(r2)*cos(r2)-8*sin(r2)*sin(r2))*Dz*Dz+12*cos(r2)*sin(r2)*x_bound*Dz+4*sin(r2)*sin(r2)*x_bound*x_bound)-cos(r2)*Dz-2*sin(r2)*x_bound)/(4*sin(r2));
+    static const double Dx = (sqrt((cos(r2)*cos(r2)-8*sin(r2)*sin(r2))*Dz*Dz+12*cos(r2)*sin(r2)*x_bound*Dz+4*sin(r2)*sin(r2)*x_bound*x_bound)-cos(r2)*Dz-2*sin(r2)*x_bound)/(4*sin(r2));
     //視野左境界線と、X軸の交点P(px, 0, 0) 求め方はコード末尾のメモ）
     static const double px = -((Dz*Dz+2*Dx*Dx)*sin(-r2)+Dx*Dz*cos(-r2))/(2*Dx*sin(-r2)-Dz*cos(-r2));
 
+    static const double lim_x = C_DX(MyShip::lim_x_behaind_);
+    static const double Dx2 = (sqrt((4*lim_x*lim_x-8*Dz*Dz)*sin(-r2)*sin(-r2)+12*Dz*lim_x*cos(-r2)*sin(-r2)+Dz*Dz*cos(-r2)*cos(-r2))+2*lim_x*sin(-r2)+Dz*cos(-r2))/(4*sin(-r2));
+
+
     static const coord cDz = DX_C(Dz);
     static const coord cDx = DX_C(Dx);
+    static const coord cDx2 = DX_C(Dx2);
     static const coord cpx = DX_C(px);
 
     //カメラの移動目標座標設定( mv_t_x_CAM, mv_t_y_CAM, mv_t_z_CAM)
@@ -233,7 +233,7 @@ VamSysCamWorker::~VamSysCamWorker() {
 //
 //ｙ軸で、r 回転（r = θ/2 回転（視野角はθ））
 // →    | 2*Dx*cos(r)  + Dz*sin(r) |
-// Ａ =  | 0                            |    ・・・①
+// Ａ =  | 0                        |    ・・・①
 //       | 2*Dx*-sin(r) + Dz*cos(r) |
 //
 //
@@ -280,4 +280,14 @@ VamSysCamWorker::~VamSysCamWorker() {
 //0 = ((2*Dx*-sin(r) + Dz*cos(r)) / (2*Dx*cos(r)  + Dz*sin(r)))*X + (-((Dz^2+2*Dx^2)*sin(r)+Dx*Dz*cos(r))/(Dz*sin(r)+2*Dx*cos(r)))
 //をXについて解くと
 //X=-((Dz^2+2*Dx^2)*sin(r)+Dx*Dz*cos(r))/(2*Dx*sin(r)-Dz*cos(r))
+
+
+//＜Dx2の求め方＞
+//視野左境界線と、X軸の交点Pを求める
+// X=-((Dz^2+2*Dx^2)*sin(r)+Dx*Dz*cos(r))/(2*Dx*sin(r)-Dz*cos(r))
+// lim_x = MyShip::lim_x_behaind_ の
+// lim_x =-((Dz^2+2*Dx^2)*sin(r)+Dx*Dz*cos(r))/(2*Dx*sin(r)-Dz*cos(r))
+// のDxを求めると
+//Dx=-(sqrt((4*lim_x*lim_x-8*Dz*Dz)*sin(r)*sin(r)+12*Dz*lim_x*cos(r)*sin(r)+Dz*Dz*cos(r)*cos(r))+2*lim_x*sin(r)+Dz*cos(r))/(4*sin(r))
+//Dx= (sqrt((4*lim_x^2-8*Dz^2)*sin(r)^2+12*Dz*lim_x*cos(r)*sin(r)+Dz^2*cos(r)^2)-2*lim_x*sin(r)-Dz*cos(r))/(4*sin(r))
 

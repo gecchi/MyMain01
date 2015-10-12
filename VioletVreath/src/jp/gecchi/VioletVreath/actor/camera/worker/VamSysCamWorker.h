@@ -24,10 +24,6 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class VamSysCamWorker : public CameraWorker {
-    /** 画面背後時用Z軸補正範囲差分 */
-    coord correction_width_;
-    /** 画面背後時用Y軸補正範囲差分 */
-    coord correction_height_;
 
     /** [r/w]自機に対してYZ平面に平行で回っているカメラのアングル位置 */
     angle ang_cam_around_;

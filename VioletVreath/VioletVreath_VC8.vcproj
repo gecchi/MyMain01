@@ -2383,10 +2383,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\ReadMe.txt"
-			>
-		</File>
-		<File
 			RelativePath=".\resource.h"
 			>
 		</File>
@@ -2468,10 +2464,6 @@
 		</File>
 		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\SingleLaserTestActor.h"
-			>
-		</File>
-		<File
-			RelativePath=".\small.ico"
 			>
 		</File>
 		<File

@@ -25,13 +25,11 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,20,100,300,302,600,620,1000,1600,2300,2900,3600,4200,9100,10000,29100,30000,39100,40000};
-	_paFrame_NextEvent = new frame[19];
+	frame f[] = {1,20,600,620};
+	_paFrame_NextEvent = new frame[4];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 19;
-	orderActorToFactory(10000004, EnemyOebiusController001, "EnemyOebiusController001-1");
-	orderActorToFactory(10000006, FormationUrydike001, "FormationUrydike001-2");
-	orderActorToFactory(10000007, EnemyErmione, "EnemyErmione-3");
+	_event_num = 4;
+	orderActorToFactory(10000000, EnemyOebiusController001, "EnemyOebiusController001-1");
     // gen01 end
     useProgress(Stage01PartController::PROG_BANPEI-1);
 }
@@ -50,108 +48,25 @@ void Stage01PartController::processBehavior() {
 				break;
 			}
 			case 20: {
-				orderActorToFactory(10000005, EnemyOebiusController002, "EnemyOebiusController002-4");
-				break;
-			}
-			case 100: {
-				orderSceneToFactory(10000000, Stage01_01, "Stage01_01-5");
-				break;
-			}
-			case 300: {
-				EnemyErmione* pE = (EnemyErmione*)obtainActorFromFactory(10000007);
-				bringDirector()->addSubGroup(pE);
-				pE->_x = RND(1000000,4000000);
-				pE->_y = RND(-6000000,6000000);
-				pE->_z = RND(-6000000,6000000);
-				break;
-			}
-			case 302: {
-				FormationUrydike001* p3 = (FormationUrydike001*)obtainActorFromFactory(10000006);
-				bringDirector()->addSubGroup(p3);
-				p3->position(PX_C(1000), PX_C(-800), PX_C(3000) );
+				orderActorToFactory(10000001, EnemyOebiusController002, "EnemyOebiusController002-2");
 				break;
 			}
 			case 600: {
-				EnemyOebiusController001* p1 = (EnemyOebiusController001*)obtainActorFromFactory(10000004);
+				EnemyOebiusController001* p1 = (EnemyOebiusController001*)obtainActorFromFactory(10000000);
 				bringDirector()->addSubGroup(p1);
 				p1->position(PX_C(800), PX_C(100), PX_C(400) );
 				break;
 			}
 			case 620: {
-				EnemyOebiusController002* p2 = (EnemyOebiusController002*)obtainActorFromFactory(10000005);
+				EnemyOebiusController002* p2 = (EnemyOebiusController002*)obtainActorFromFactory(10000001);
 				bringDirector()->addSubGroup(p2);
 				p2->position(PX_C(800), PX_C(400), PX_C(100) );
-				break;
-			}
-			case 1000: {
-				Stage01_01* pScene = (Stage01_01*)obtainSceneFromFactory(10000000);
-				addSubLast(pScene);
-				orderActorToFactory(10000008, EnemyErmione, "EnemyErmione-6");
-				break;
-			}
-			case 1600: {
-				EnemyErmione* pE = (EnemyErmione*)obtainActorFromFactory(10000008);
-				bringDirector()->addSubGroup(pE);
-				pE->_x = RND(1000000,4000000);
-				pE->_y = RND(-6000000,6000000);
-				pE->_z = RND(-6000000,6000000);
-				break;
-			}
-			case 2300: {
-				orderActorToFactory(10000009, EnemyErmione, "EnemyErmione-7");
-				break;
-			}
-			case 2900: {
-				EnemyErmione* pE = (EnemyErmione*)obtainActorFromFactory(10000009);
-				bringDirector()->addSubGroup(pE);
-				pE->_x = RND(1000000,4000000);
-				pE->_y = RND(-6000000,6000000);
-				pE->_z = RND(-6000000,6000000);
-				break;
-			}
-			case 3600: {
-				orderActorToFactory(10000010, EnemyErmione, "EnemyErmione-8");
-				break;
-			}
-			case 4200: {
-				EnemyErmione* pE = (EnemyErmione*)obtainActorFromFactory(10000010);
-				bringDirector()->addSubGroup(pE);
-				pE->_x = RND(1000000,4000000);
-				pE->_y = RND(-6000000,6000000);
-				pE->_z = RND(-6000000,6000000);
-				break;
-			}
-			case 9100: {
-				orderSceneToFactory(10000001, Stage01_02, "Stage01_02-9");
-				break;
-			}
-			case 10000: {
-				Stage01_02* pScene = (Stage01_02*)obtainSceneFromFactory(10000001);
-				addSubLast(pScene);
-				break;
-			}
-			case 29100: {
-				orderSceneToFactory(10000002, Stage01_03, "Stage01_03-10");
-				break;
-			}
-			case 30000: {
-				Stage01_03* pScene = (Stage01_03*)obtainSceneFromFactory(10000002);
-				addSubLast(pScene);
-				break;
-			}
-			case 39100: {
-				orderSceneToFactory(10000003, Stage01_Climax, "Stage01_Climax-11");
-				break;
-			}
-			case 40000: {
-				Stage01_Climax* pScene = (Stage01_Climax*)obtainSceneFromFactory(10000003);
-				addSubLast(pScene);
 				break;
 			}
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 19-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 4-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
 

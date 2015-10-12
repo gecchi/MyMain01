@@ -35,10 +35,10 @@ using namespace VioletVreath;
 
 coord MyShip::lim_y_top_     =  0;
 coord MyShip::lim_y_bottom_  =  0;
-coord MyShip::lim_x_infront_   =  0;
+coord MyShip::lim_x_infront_ =  0;
 coord MyShip::lim_x_behaind_ =  0;
-coord MyShip::lim_z_left_   =  0;
-coord MyShip::lim_z_right_  =  0;
+coord MyShip::lim_z_left_    =  0;
+coord MyShip::lim_z_right_   =  0;
 
 
 uint32_t MyShip::shot2_matrix_[4][MYSHIP_SHOT_MATRIX] = {
@@ -124,10 +124,10 @@ MyShip::MyShip(const char* prm_name) :
 
     MyShip::lim_y_top_     =  harf_height + PX_C(PROPERTY::GAME_BUFFER_HEIGHT*4);  //上は、高さ4画面分
     MyShip::lim_y_bottom_  = -harf_height - PX_C(PROPERTY::GAME_BUFFER_HEIGHT*4);  //下は、高さ4画面分
-    MyShip::lim_x_infront_   =  harf_width  + PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //前は、幅の2画面分
+    MyShip::lim_x_infront_ =  harf_width  + PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //前は、幅の2画面分
     MyShip::lim_x_behaind_ = -harf_width  - PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //後ろは、幅の2画面分
-    MyShip::lim_z_left_   =  harf_width  + PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //手前は、幅の2画面分
-    MyShip::lim_z_right_  = -harf_width  - PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //奥は、幅の2画面分
+    MyShip::lim_z_left_    =  harf_width  + PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //手前は、幅の2画面分
+    MyShip::lim_z_right_   = -harf_width  - PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //奥は、幅の2画面分
     _TRACE_("MyShip 範囲 X("<<MyShip::lim_x_behaind_<<" ~ "<<MyShip::lim_x_infront_<<") Y("<<MyShip::lim_y_bottom_<<" ~ "<<MyShip::lim_y_top_<<") Z("<<MyShip::lim_z_right_<<" ~ "<<MyShip::lim_z_left_<<")");
 
 

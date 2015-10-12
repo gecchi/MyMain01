@@ -197,6 +197,22 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\ggaf\dxcore\util\GgafDx26DirectionUtil.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dxcore\util\GgafDx26DirectionUtil.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dxcore\util\GgafDx8DirectionUtil.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dxcore\util\GgafDx8DirectionUtil.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\ggaf\dxcore\actor\ex\GgafDxAABActor.cpp"
 			>
 		</File>
@@ -534,14 +550,6 @@
 		</File>
 		<File
 			RelativePath=".\include\jp\ggaf\dxcore\model\GgafDxD3DXMeshModel.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\dxcore\util\GgafDxDirectionUtil.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dxcore\util\GgafDxDirectionUtil.h"
 			>
 		</File>
 		<File
