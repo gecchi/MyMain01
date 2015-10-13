@@ -44,6 +44,12 @@ class VamSysCamWorker : public CameraWorker {
     /** [r]カメラがなめらか移動に費やすフレーム数の標準値 */
     frame cam_mv_frame_base_;
 
+    coord DZC_;
+    coord DXC_;
+    coord DX2_C_;
+    coord X_P_C_;
+
+
 public:
     enum {
         SE_RETURNNING_CAM_POS     ,

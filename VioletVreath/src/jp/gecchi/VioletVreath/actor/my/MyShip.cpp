@@ -119,24 +119,23 @@ MyShip::MyShip(const char* prm_name) :
 
     //画面の大きさに伴って、移動範囲を決定
     //このあたりはFovXに依存するので微調整。
-    coord harf_width  = PX_C(PROPERTY::GAME_BUFFER_WIDTH)/2;
-    coord harf_height = PX_C(PROPERTY::GAME_BUFFER_HEIGHT)/2;
-
-    MyShip::lim_y_top_     =  harf_height + PX_C(PROPERTY::GAME_BUFFER_HEIGHT*4);  //上は、高さ4画面分
-    MyShip::lim_y_bottom_  = -harf_height - PX_C(PROPERTY::GAME_BUFFER_HEIGHT*4);  //下は、高さ4画面分
-    MyShip::lim_x_infront_ =  harf_width  + PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //前は、幅の2画面分
-    MyShip::lim_x_behaind_ = -harf_width  - PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //後ろは、幅の2画面分
-    MyShip::lim_z_left_    =  harf_width  + PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //手前は、幅の2画面分
-    MyShip::lim_z_right_   = -harf_width  - PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //奥は、幅の2画面分
-    _TRACE_("MyShip 範囲 X("<<MyShip::lim_x_behaind_<<" ~ "<<MyShip::lim_x_infront_<<") Y("<<MyShip::lim_y_bottom_<<" ~ "<<MyShip::lim_y_top_<<") Z("<<MyShip::lim_z_right_<<" ~ "<<MyShip::lim_z_left_<<")");
+    static const coord game_buffer_width  = PX_C(PROPERTY::GAME_BUFFER_WIDTH);
+    static const coord game_buffer_height = PX_C(PROPERTY::GAME_BUFFER_HEIGHT);
+    MyShip::lim_y_top_     =  (game_buffer_height/2) + game_buffer_height*4;  //上は、高さ4画面分見えない領域まで移動可能
+    MyShip::lim_y_bottom_  = -(game_buffer_height/2) - game_buffer_height*4;  //下は、高さ4画面分見えない領域まで移動可能
+    MyShip::lim_x_infront_ =  (game_buffer_width/2)  + game_buffer_width*2;   //前は、幅の2画面分見えない領域まで移動可能
+    MyShip::lim_x_behaind_ = -(game_buffer_width/2)  - game_buffer_width*1;   //後ろは、幅の１画面分見えない領域まで移動可能
+    MyShip::lim_z_left_    =  (game_buffer_height/2) + game_buffer_height*4;   //手前は、高さ4画面分見えない領域まで移動可能
+    MyShip::lim_z_right_   = -(game_buffer_height/2) - game_buffer_height*4;   //奥は、高さ4画面分見えない領域まで移動可能
+    _TRACE_("MyShip 範囲 X("<<MyShip::lim_x_behaind_<<" ～ "<<MyShip::lim_x_infront_<<")  Y("<<MyShip::lim_y_bottom_<<" ～ "<<MyShip::lim_y_top_<<")  Z("<<MyShip::lim_z_right_<<" ～ "<<MyShip::lim_z_left_<<")");
 
 
     //CommonSceneがnewの場合設定
-    angRxVelo_BeginMZ_ = 1000; //奥又は手前へ通常Z通常移動開始時のX軸回転角速度の初速度
-    angRxAcce_MZ_ = 300; //奥又は手前へ通常Z移動中のX軸回転角速度の初角加速度
-    angRxTopVelo_MZ_ = 5000; //奥又は手前へ通常Z移動中のX軸回転角速度の上限角速度
-    angRxStop_MZ_ = 90000; //奥又は手前へ通常Z移動中のX軸回転角の目標停止角度
-    angRxVelo_BeginMZT_ = 20000;//奥又は手前へTurbo移動開始時のX軸回転角速度の初速度
+    angRxVelo_BeginMZ_ = 1000;   //奥又は手前へ通常Z通常移動開始時のX軸回転角速度の初速度
+    angRxAcce_MZ_ = 300;         //奥又は手前へ通常Z移動中のX軸回転角速度の初角加速度
+    angRxTopVelo_MZ_ = 5000;     //奥又は手前へ通常Z移動中のX軸回転角速度の上限角速度
+    angRxStop_MZ_ = 90000;       //奥又は手前へ通常Z移動中のX軸回転角の目標停止角度
+    angRxVelo_BeginMZT_ = 20000; //奥又は手前へTurbo移動開始時のX軸回転角速度の初速度
 
     mv_speed_ = 0;
     veloBeginMT_ = 0;
@@ -211,6 +210,7 @@ MyShip::MyShip(const char* prm_name) :
     pMyMagicEnergyCore_ = NEW MyMagicEnergyCore("MyMagicEnergyCore");
     addSubGroup(pMyMagicEnergyCore_);
 
+    //26方向に移動した場合の自機の傾き定義
     pSenakai_ = &(senakai_[13]);
     pSenakai_[DIR26(-1,-1,-1)] = -D_ANG(120);
     pSenakai_[DIR26(-1,-1, 0)] =  0;
@@ -300,6 +300,7 @@ MyShip::MyShip(const char* prm_name) :
     prev_y_ = _y;
     prev_z_ = _z;
 }
+
 void MyShip::onCreateModel() {
     GgafDxModel* pModel = getModel();
     pModel->setSpecular(5.0, 1.0);

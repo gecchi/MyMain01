@@ -1458,7 +1458,7 @@ void GgafElement<T>::throwEventUpperTree(hashval prm_no, void* prm_pSource) {
             T* pElementTemp = GgafNode<T>::_pParent;
             pElementTemp->throwEventUpperTree(prm_no, prm_pSource);
         } else {
-            //てっぺん
+            //ツリーの頂点なので、再帰終了
         }
     }
 }
