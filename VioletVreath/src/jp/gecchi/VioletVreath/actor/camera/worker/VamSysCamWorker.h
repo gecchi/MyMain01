@@ -57,35 +57,10 @@ public:
 
     MyShip* pMyShip_;
 
-    /** カメラY座標上限 */
-    coord lim_CAM_top_;
-    /** カメラY座標下限 */
-    coord lim_CAM_bottom_;
-    /** カメラX座標上限 */
-    coord lim_CAM_infront_;
-    /** カメラX座標下限 */
-    coord lim_CAM_behaind_;
-    /** カメラZ座標上限 */
-    coord lim_CAM_zleft_;
-    /** カメラZ座標下限 */
-    coord lim_CAM_zright_;
-    /** ビューポイントY座標上限 */
-    coord lim_VP_top_;
-    /** ビューポイントY座標下限 */
-    coord lim_VP_bottom_;
-    /** ビューポイントX座標上限 */
-    coord lim_VP_infront_;
-    /** ビューポイントX座標下限 */
-    coord lim_VP_behaind_;
-    /** ビューポイントZ座標上限 */
-    coord lim_VP_zleft_;
-    /** ビューポイントZ座標下限 */
-    coord lim_VP_zright_;
-
     GgafDxCore::GgafDxSeTransmitter* pSe_;
 
 public:
-    VamSysCamWorker(const char* prm_name);
+    VamSysCamWorker(const char* prm_name, Camera* prm_pCamera);
 
     virtual void initialize() override;
 

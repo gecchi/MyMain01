@@ -23,7 +23,6 @@ EffectTurbo001::EffectTurbo001(const char* prm_name) :
 
 void EffectTurbo001::initialize() {
     GgafDxUvFlipper* pUvFlipper = getUvFlipper();
-    pUvFlipper->setFlipPtnRange(0, 15);   //アニメ範囲を０～１５
     pUvFlipper->exec(FLIP_ORDER_LOOP, 1); //アニメ順序
     setAlpha(0.99);
 }

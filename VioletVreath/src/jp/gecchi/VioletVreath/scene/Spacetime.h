@@ -10,9 +10,9 @@
 /**
  * この世が保持する CameraWorkerManager に接続し、コネクションを取得。
  * X：識別文字列（CameraWorkerManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) の prm_idstr に渡る)
+ * pCAMERA：カメラを渡すこと
  * また、CameraWorkerManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) の prm_p には nullptr がセットされている。
  */
-#define getConnection_CameraWorkerManager(X) ((VioletVreath::CameraWorkerConnection*)P_GOD->getSpacetime()->pCamWorkerManager_->connect((X), this))
 #define CAM_WORKER_STACK_NUM (30)
 
 namespace VioletVreath {

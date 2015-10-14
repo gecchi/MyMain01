@@ -140,7 +140,7 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     //    |                           /       ^  (vVMx,vVMy,vVMz)     |       b
     //    |                          /      ^                         |       b
     //    |                         /     ^                           |       b
-    //    |                        /    ^ |‰¼Ž©| = 5*vM = lVM         |       b
+    //    |                        /    ^ |‰¼Ž©| = lVM * 5            |       b
     //    |                   vT “I   ^                               |       “I
     //    |             „¡       ^  ^                                 |       ª
     //    |               _    / „¢vM Œ»Ý‚ÌˆÚ“®•ûŒüƒxƒNƒgƒ‹          |       b
@@ -156,68 +156,111 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     const int vTy = tY - _y;
     const int vTz = tZ - _z;
 
-    //Ž©¨‰¼Ž©Bã}‚Ì |‰¼Ž©| = 5*vM
-    const int vVMx = pAxsMver_->_velo_vx_mv*5;
-    const int vVMy = pAxsMver_->_velo_vy_mv*5;
-    const int vVMz = pAxsMver_->_velo_vz_mv*5;
-
-    //|‰¼Ž©|
+    //Ž©¨‰¼Ž©B
+    const int vVMx = pAxsMver_->_velo_vx_mv;
+    const int vVMy = pAxsMver_->_velo_vy_mv;
+    const int vVMz = pAxsMver_->_velo_vz_mv;
+    //|‰¼Ž©| = lVM * 5
     const int lVM = MAX3(ABS(vVMx), ABS(vVMy), ABS(vVMz)); //‰¼Ž©ƒxƒNƒgƒ‹‘å‚«‚³ŠÈˆÕ”Å
     //|“I|
     const int lT =  MAX3(ABS(vTx), ABS(vTy), ABS(vTz)); //“IƒxƒNƒgƒ‹‘å‚«‚³ŠÈˆÕ”Å
     //|‰¼Ž©|/|“I|      vT ‚Ì‰½”{‚ª vVT ‰¼“I ‚É‚È‚é‚Ì‚©‚ð‹‚ß‚éB
-    const double r = (lVM*1.5) / lT;
+    const double r = (lVM*5 * 1.5) / lT;
     //* 1.5‚Í ‰Eã}‚Ì‚æ‚¤‚Éˆê’¼ü‚É•À‚ñ‚¾Û‚àAis•ûŒü‚ðˆÛŽ‚·‚é‚½‚ß‚ÉA
     //|‰¼“I| > |‰¼Ž©| ‚Æ‚¢‚¤ŠÖŒW‚ðˆÛŽ‚·‚é‚½‚ß‚É‚©‚¯‚½“K“–‚ÈŠ„‡
 
     //vVP ‰¼Ž©¨‰¼“I ‚Ì‰Á‘¬“xÝ’è
-    const double accX = ((vTx * r) - vVMx) * RR_MAX_ACCE;
-    const double accY = ((vTy * r) - vVMy) * RR_MAX_ACCE;
-    const double accZ = ((vTz * r) - vVMz) * RR_MAX_ACCE;
+    const double accX = ((vTx * r) - vVMx*5) * RR_MAX_ACCE;
+    const double accY = ((vTy * r) - vVMy*5) * RR_MAX_ACCE;
+    const double accZ = ((vTz * r) - vVMz*5) * RR_MAX_ACCE;
+
+
 
     if (_pLeader == this) {
         //æ“ª‚Í‚â‚â‘¬‚ß‚ÉBSGN(accX)*5 ‚ð‰ÁŽZ‚·‚é‚Ì‚ÍA‰Á‘¬“x‚ð0‚É‚µ‚È‚¢‚½‚ß
         pAxsMver_->setVxyzMvAcce(accX + SGN(accX)*5.0,
                                  accY + SGN(accY)*5.0,
                                  accZ + SGN(accZ)*5.0);
+
     } else {
         pAxsMver_->setVxyzMvAcce(accX + SGN(accX)*3.0,
                                  accY + SGN(accY)*3.0,
                                  accZ + SGN(accZ)*3.0);
     }
-    //ƒlƒWƒŒ•`‰æ‚ª‰˜‚­‚È‚ç‚È‚¢‚æ‚¤‚É‰ñ“]‚ð§ŒÀ
-    if (lVM > MAX_VELO_RENGE/2) {
-        angle rz_temp, ry_temp;
-        UTIL::convVectorToRzRy(vVMx, vVMy, vVMz, rz_temp, ry_temp);
-        const angle angDRZ = UTIL::getAngDiff(rz_temp, _rz);
-        const angle angDRY = UTIL::getAngDiff(ry_temp, _ry);
-        if (-4000 <= angDRZ) {
-            _rz -= 4000;
-        } else if (angDRZ <= 4000) {
-            _rz += 4000;
-        } else {
-            _rz += angDRZ;
+        static const coord min_velo = MyBunshinWateringLaserChip001::MAX_VELO_RENGE/2;
+        if (lVM < min_velo) {
+            double vx = (double)(pAxsMver_->_velo_vx_mv);
+            double vy = (double)(pAxsMver_->_velo_vy_mv);
+            double vz = (double)(pAxsMver_->_velo_vz_mv);
+            double t = (1.0 / sqrt(vx*vx + vy*vy + vz*vz)) * min_velo;
+            pAxsMver_->setVxyzMvVelo(vx*t, vy*t, vz*t);
+
+//        angle rz_temp, ry_temp;
+//        UTIL::convVectorToRzRy(vVMx, vVMy, vVMz, rz_temp, ry_temp);
+//        const angle angDRZ = UTIL::getAngDiff(rz_temp, _rz);
+//        const angle angDRY = UTIL::getAngDiff(ry_temp, _ry);
+//        if (-4000 <= angDRZ) {
+//            _rz -= 4000;
+//        } else if (angDRZ <= 4000) {
+//            _rz += 4000;
+//        } else {
+//            _rz += angDRZ;
+//        }
+//        if (-4000 <= angDRY) {
+//            _ry -= 4000;
+//        } else if (angDRY <= 4000) {
+//            _ry += 4000;
+//        } else {
+//            _ry += angDRY;
+//        }
+//        if (_rz >= D360ANG) {
+//            _rz -= D360ANG;
+//        }
+//        if (_rz < 0) {
+//            _rz += D360ANG;
+//        }
+//        if (_ry >= D360ANG) {
+//            _ry -= D360ANG;
+//        }
+//        if (_ry < 0) {
+//            _ry += D360ANG;
+//        }
+
         }
-        if (-4000 <= angDRY) {
-            _ry -= 4000;
-        } else if (angDRY <= 4000) {
-            _ry += 4000;
-        } else {
-            _ry += angDRY;
-        }
-        if (_rz >= D360ANG) {
-            _rz -= D360ANG;
-        }
-        if (_rz < 0) {
-            _rz += D360ANG;
-        }
-        if (_ry >= D360ANG) {
-            _ry -= D360ANG;
-        }
-        if (_ry < 0) {
-            _ry += D360ANG;
-        }
-    }
+
+//    //ƒlƒWƒŒ•`‰æ‚ª‰˜‚­‚È‚ç‚È‚¢‚æ‚¤‚É‰ñ“]‚ð§ŒÀ
+//    if (lVM > MAX_VELO_RENGE/2) {
+//        angle rz_temp, ry_temp;
+//        UTIL::convVectorToRzRy(vVMx, vVMy, vVMz, rz_temp, ry_temp);
+//        const angle angDRZ = UTIL::getAngDiff(rz_temp, _rz);
+//        const angle angDRY = UTIL::getAngDiff(ry_temp, _ry);
+//        if (-4000 <= angDRZ) {
+//            _rz -= 4000;
+//        } else if (angDRZ <= 4000) {
+//            _rz += 4000;
+//        } else {
+//            _rz += angDRZ;
+//        }
+//        if (-4000 <= angDRY) {
+//            _ry -= 4000;
+//        } else if (angDRY <= 4000) {
+//            _ry += 4000;
+//        } else {
+//            _ry += angDRY;
+//        }
+//        if (_rz >= D360ANG) {
+//            _rz -= D360ANG;
+//        }
+//        if (_rz < 0) {
+//            _rz += D360ANG;
+//        }
+//        if (_ry >= D360ANG) {
+//            _ry -= D360ANG;
+//        }
+//        if (_ry < 0) {
+//            _ry += D360ANG;
+//        }
+//    }
 }
 
 void MyBunshinWateringLaserChip001::onHit(const GgafActor* prm_pOtherActor) {

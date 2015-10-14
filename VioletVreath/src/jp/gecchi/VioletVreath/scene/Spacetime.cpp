@@ -75,7 +75,7 @@ Spacetime::Spacetime(const char* prm_name, Camera* prm_pCamera) : DefaultSpaceti
     _TRACE_("Spacetime::Spacetime()");
     pCamWorkerManager_ = NEW CameraWorkerManager("CameraWorkerManager");
 
-    CameraWorkerConnection* pCamWorkerCon = (CameraWorkerConnection*)pCamWorkerManager_->connect("DefaultCamWorker", this);
+    CameraWorkerConnection* pCamWorkerCon = (CameraWorkerConnection*)pCamWorkerManager_->connect("DefaultCamWorker", prm_pCamera);
     stack_CamWorkerConnection_.push(pCamWorkerCon);
     pActiveCamWorker_ = pCamWorkerCon->peek();
     bringDirector()->addSubGroup(pActiveCamWorker_); //基底デフォルトカメラワーク
@@ -123,8 +123,7 @@ CameraWorker* Spacetime::changeCameraWork(const char* prm_pID) {
     //    +------+                             +------+
     //    | ConA |                             | ConA |
     //    +------+                             +------+
-
-    CameraWorkerConnection* pCon = getConnection_CameraWorkerManager(prm_pID);
+    CameraWorkerConnection* pCon = (CameraWorkerConnection*)pCamWorkerManager_->connect(prm_pID, getCamera());
     CameraWorker* pCamWorker = pCon->peek();
     if (pCamWorker != pActiveCamWorker_) {
         _TRACE_("現pActiveCamWorker_="<<pActiveCamWorker_->getName()<<" は一時非活動で待機");

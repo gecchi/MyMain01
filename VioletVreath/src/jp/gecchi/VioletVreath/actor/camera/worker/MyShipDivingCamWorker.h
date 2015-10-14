@@ -14,7 +14,7 @@ namespace VioletVreath {
 class MyShipDivingCamWorker : public CameraWorker {
 
 public:
-    MyShipDivingCamWorker(const char* prm_name);
+    MyShipDivingCamWorker(const char* prm_name, Camera* prm_pCamera);
 
     virtual void initialize() override;
     virtual void onActive() override;

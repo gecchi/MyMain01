@@ -18,7 +18,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-CameraWorker::CameraWorker(const char* prm_name) : GgafMainActor(prm_name, nullptr) {
+CameraWorker::CameraWorker(const char* prm_name, Camera* prm_pCamera) : GgafMainActor(prm_name, nullptr) {
     _class_name = "CameraWorker";
     t_x_VP_ =  0;
     t_y_VP_ =  0;
@@ -27,9 +27,9 @@ CameraWorker::CameraWorker(const char* prm_name) : GgafMainActor(prm_name, nullp
     t_y_CAM_ =  0;
     t_z_CAM_ =  0;
     frame_of_behaving_since_onSwitch_ = 0;
-    pCam_ = nullptr;
-    pVp_ = nullptr;
-    pUp_ = nullptr;
+    pCam_ = prm_pCamera;
+    pVp_ = (CameraViewPoint*)(pCam_->getCameraViewPoint());
+    pUp_ = (CameraUpVector*)(pCam_->getCameraUpVector());
     t_cam_up_dir_ = DIR26( 0, 1, 0);
     vcv_dir_ = 0;
     vcv_dir_prev_ = vcv_dir_;
@@ -481,9 +481,6 @@ bool CameraWorker::initStatic() {
 }
 
 void CameraWorker::initialize() {
-    pCam_ = P_GOD->getSpacetime()->getCamera();
-    pVp_ = (CameraViewPoint*)(pCam_->getCameraViewPoint());
-    pUp_ = (CameraUpVector*)(pCam_->getCameraUpVector());
     t_x_VP_ = pVp_->_x;
     t_y_VP_ = pVp_->_y;
     t_z_VP_ = pVp_->_z;

@@ -43,7 +43,7 @@ public:
     frame frame_of_behaving_since_onSwitch_;
 
 public:
-    CameraWorker(const char* prm_name);
+    CameraWorker(const char* prm_name, Camera* prm_pCamera);
 
     static bool initStatic();
 

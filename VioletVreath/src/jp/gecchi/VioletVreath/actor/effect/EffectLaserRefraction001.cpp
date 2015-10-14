@@ -18,7 +18,6 @@ EffectLaserRefraction001::EffectLaserRefraction001(const char* prm_name)
 }
 
 void EffectLaserRefraction001::initialize() {
-//    getUvFlipper()->setFlipPtnRange(0, 63);
     setHitAble(false);
 }
 

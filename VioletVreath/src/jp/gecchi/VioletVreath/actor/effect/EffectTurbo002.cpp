@@ -22,7 +22,6 @@ void EffectTurbo002::initialize() {
     GgafDxUvFlipper* pUvFlipper = getUvFlipper();
     pUvFlipper->setFlipPtnRange(0, 0);   //アニメ範囲を０～１５
     pUvFlipper->exec(FLIP_ORDER_LOOP, 2); //アニメ順序
-
 }
 
 void EffectTurbo002::onActive() {

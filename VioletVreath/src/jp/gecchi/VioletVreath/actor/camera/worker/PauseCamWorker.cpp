@@ -18,7 +18,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-PauseCamWorker::PauseCamWorker(const char* prm_name) : CameraWorker(prm_name) {
+PauseCamWorker::PauseCamWorker(const char* prm_name, Camera* prm_pCamera) : CameraWorker(prm_name, prm_pCamera) {
     _class_name = "PauseCamWorker";
     cd_ = 0;
     mdz_flg_ = false;

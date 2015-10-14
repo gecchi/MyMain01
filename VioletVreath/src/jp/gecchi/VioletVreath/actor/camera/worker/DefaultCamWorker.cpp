@@ -5,7 +5,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-DefaultCamWorker::DefaultCamWorker(const char* prm_name) : CameraWorker(prm_name) {
+DefaultCamWorker::DefaultCamWorker(const char* prm_name, Camera* prm_pCamera) : CameraWorker(prm_name, prm_pCamera) {
     _class_name = "DefaultCamWorker";
 }
 

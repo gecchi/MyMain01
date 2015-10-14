@@ -21,7 +21,7 @@ public:
     int mdz_total_;
 
 public:
-    PauseCamWorker(const char* prm_name);
+    PauseCamWorker(const char* prm_name, Camera* prm_pCamera);
 
     virtual void initialize() override;
 
