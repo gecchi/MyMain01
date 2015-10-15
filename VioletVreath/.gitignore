@@ -19,4 +19,4 @@
 *.tbl
 /back.properties
 *.log
-
+*.tmp
