@@ -1,8 +1,8 @@
 #ifndef GGAFLIB_VBREPLAYRECORDER_H_
 #define GGAFLIB_VBREPLAYRECORDER_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/core/GgafObject.h"
 
+#include "jp/ggaf/core/GgafObject.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include <fstream>
 

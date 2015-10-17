@@ -19,7 +19,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-const int MyBunshinWateringLaserChip001::MAX_VELO_RENGE = PX_C(160); //この値を大きくすると、最高速度が早くなる。
+const int MyBunshinWateringLaserChip001::MAX_VELO_RENGE = PX_C(180); //この値を大きくすると、最高速度が早くなる。
 const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 20; //この値を大きくすると、カーブが緩くなる
 const double MyBunshinWateringLaserChip001::RR_MAX_ACCE = 1.0 / R_MAX_ACCE; //計算簡素化用
 const float MyBunshinWateringLaserChip001::MAX_ACCE_RENGE = MAX_VELO_RENGE/R_MAX_ACCE;
@@ -92,7 +92,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
     GgafDxGeometricActor* pMainLockOnTarget = pOrg_pLockonCtrler_pRingTarget_->getCurrent();
     if (getActiveFrame() > 7) {
         if (lockon_st_ == 1) {
-            if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheTree() && getActiveFrame() < 30)  {
+            if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheTree() && getActiveFrame() < 90)  {
                 aimChip(pMainLockOnTarget->_x,
                         pMainLockOnTarget->_y,
                         pMainLockOnTarget->_z );

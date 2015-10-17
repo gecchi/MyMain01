@@ -3,6 +3,10 @@
 #include "GgafDxCommonHeader.h"
 
 #include <dinput.h>
+#ifdef __GNUG__
+    #undef __in
+    #undef __out
+#endif
 
 //Pキーを押したときだけ_TRACE_(デバッグ用)
 #define _PTRACE_(M) {if (GgafDxCore::GgafDxInput::isBeingPressedKey(DIK_P)) { _TRACE_(M); }}

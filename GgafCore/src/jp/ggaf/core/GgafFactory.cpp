@@ -258,9 +258,15 @@ void GgafFactory::clean() {
         _TRACE2_("GgafFactory::clean ＜神＞ しかし工場に何も無い！！");
         return;
     }
+    uint64_t cnt = 0;
     while (GgafFactory::_is_working_flg || GgafFactory::_was_finished_flg == false) {
         Sleep(10);
         _TRACE_("GgafFactory::clean ＜神＞ 工場がまだ動いています・・・");
+        cnt++;
+        if (cnt > 100*60*5) {
+            _TRACE_("GgafFactory::clean ＜神＞ 工場がまだ動いていますが・・・もう待ってられません。強制だ");
+            break;
+        }
     }
 
     GgafFactory::debuginfo();
