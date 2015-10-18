@@ -645,7 +645,7 @@ void MyBunshinBase::setBunshinNum(int prm_num) {
         }
     }
 
-    const angvelo ROT = D_ANG(2);
+    const angvelo ROT = D_ANG(0.5);
     const coord INNER_RADIUS = PX_C(60);
     const coord OUTER_RADIUS = PX_C(120);
     switch (MyBunshinBase::now_bunshin_num_) {

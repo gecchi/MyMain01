@@ -33,6 +33,8 @@ public:
     bool is_lockon_;
     /** [r]0:非ロックオン（はじめから） 1:ロックオン 2:非ロックオン（ロックオン→非ロックオン） */
     int lockon_st_;
+
+    coord etx_,ety_,etz_;
     /** [r]レーザー発射元 */
     const MyBunshin* pOrg_;
     /** ロックオンターゲットリストリング */

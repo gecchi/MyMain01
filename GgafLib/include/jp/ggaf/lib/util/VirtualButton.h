@@ -7,7 +7,6 @@
 #include <map>
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 
-#include "GgafLibCommonHeader.h"
 typedef int vbk;
 typedef int vbj;
 typedef uint64_t vb_sta;

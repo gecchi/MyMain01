@@ -19,7 +19,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-const int MyBunshinWateringLaserChip001::MAX_VELO_RENGE = PX_C(180); //この値を大きくすると、最高速度が早くなる。
+const int MyBunshinWateringLaserChip001::MAX_VELO_RENGE = PX_C(160); //この値を大きくすると、最高速度が早くなる。
 const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 20; //この値を大きくすると、カーブが緩くなる
 const double MyBunshinWateringLaserChip001::RR_MAX_ACCE = 1.0 / R_MAX_ACCE; //計算簡素化用
 const float MyBunshinWateringLaserChip001::MAX_ACCE_RENGE = MAX_VELO_RENGE/R_MAX_ACCE;
@@ -90,9 +90,30 @@ void MyBunshinWateringLaserChip001::onActive() {
 
 void MyBunshinWateringLaserChip001::processBehavior() {
     GgafDxGeometricActor* pMainLockOnTarget = pOrg_pLockonCtrler_pRingTarget_->getCurrent();
+
     if (getActiveFrame() > 7) {
+        if (lockon_st_ == 2) {
+            if (_pLeader) {
+                if (_pLeader == this) {
+                    etx_ = _x + pAxsMver_->_velo_vx_mv*10+1;
+                    ety_ = _y + pAxsMver_->_velo_vy_mv*10+1;
+                    etz_ = _z + pAxsMver_->_velo_vz_mv*10+1;
+                    aimChip(etx_, ety_, etz_);
+                } else {
+                    aimChip(_pLeader->_x, _pLeader->_y, _pLeader->_z);
+                }
+            }
+
+//            LaserChip* pBehindChip = getBehindChip();
+//            if (pBehindChip) {
+//                if (getActiveFrame() % 2 == 0) {
+//                    ((MyBunshinWateringLaserChip001*)pBehindChip)->lockon_st_ = 2;
+//                }
+//            }
+        }
+
         if (lockon_st_ == 1) {
-            if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheTree() && getActiveFrame() < 90)  {
+            if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheTree() && getActiveFrame() < 99999)  {
                 aimChip(pMainLockOnTarget->_x,
                         pMainLockOnTarget->_y,
                         pMainLockOnTarget->_z );
@@ -100,16 +121,8 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                 lockon_st_ = 2;
             }
         }
-        if (lockon_st_ == 2) {
-            if (_pLeader == this) {
-                aimChip(_x + pAxsMver_->_velo_vx_mv*11+1,
-                        _y + pAxsMver_->_velo_vy_mv*10+1,
-                        _z + pAxsMver_->_velo_vz_mv*10+1 );
-            } else {
-                aimChip(_pLeader->_x, _pLeader->_y, _pLeader->_z);
-            }
-        }
     }
+
     pAxsMver_->behave();
     WateringLaserChip::processBehavior();//座標を移動させてから呼び出すこと
 }
@@ -212,11 +225,18 @@ void MyBunshinWateringLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
         if (pMainLockOnTarget) { //既にオプションはロックオン中
             if (pOther == pMainLockOnTarget) {
                 //オプションのロックオンに見事命中した場合
-
-                lockon_st_ = 2; //ロックオンをやめる。非ロックオン（ロックオン→非ロックオン）
-                if (getInfrontChip() && getInfrontChip()->getInfrontChip() == nullptr) {
-                    //中間先頭チップがヒットした場合、先端にも伝える(先端は当たり判定ないため中間先頭と同値にする)
-                    ((MyBunshinWateringLaserChip001*)getInfrontChip())->lockon_st_ = 2;
+                MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*)getInfrontChip();
+                if (pF) {
+                    MyBunshinWateringLaserChip001* pFF = (MyBunshinWateringLaserChip001*)(pF->getInfrontChip());
+                    if (pFF == nullptr) { //先端の次チップならば(先端は当たり判定ない)
+                        lockon_st_ = 2;
+                        pF->lockon_st_ = 2; //先端チップ
+                    }
+                    if (pF->lockon_st_ == 2) { //前のチップもそうならば
+                        lockon_st_ = 2; //ロックオンをやめる。非ロックオン（ロックオン→非ロックオン）
+                    }
+                } else {
+                    lockon_st_ = 2;
                 }
             } else {
                 //オプションのロックオン以外のアクターに命中した場合
@@ -232,7 +252,7 @@ void MyBunshinWateringLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
             if (pOther->getStatus()->get(STAT_LockonAble) == 1) {
                 pOrg_->pLockonCtrler_->lockon(pOther);
             }
-            sayonara();
+            //sayonara();
         } else {
             //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
             getStatus()->set(STAT_Stamina, default_stamina_);
