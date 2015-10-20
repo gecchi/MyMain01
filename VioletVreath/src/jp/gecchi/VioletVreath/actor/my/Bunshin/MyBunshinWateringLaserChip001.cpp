@@ -69,6 +69,7 @@ void MyBunshinWateringLaserChip001::onActive() {
     //ロックオン情報の引き継ぎ
     GgafDxGeometricActor* pAimTarget = pOrg_pLockonCtrler_pRingTarget_->getCurrent();
     if (pAimTarget && pAimTarget->isActiveInTheTree()) {
+        //ロックオン中
         if (getInfrontChip() == nullptr) {
             //先端チップ
             lockon_st_ = 1;
@@ -80,6 +81,7 @@ void MyBunshinWateringLaserChip001::onActive() {
             pAimTarget_ = pF->pAimTarget_;
         }
     } else {
+        //ロックオンしていない
         if (getInfrontChip() == nullptr) {
             //先端チップ
             lockon_st_ = 0;
@@ -99,18 +101,23 @@ void MyBunshinWateringLaserChip001::processBehavior() {
     if (getActiveFrame() > 7) {
 
         if (lockon_st_ == 1) {
-
+            //ロックオンの的に移動中
             if (_pLeader == this) {
-                //ヒットするまでは更新、ヒットすると lockon_st_=2になるので、更新されない
+                //リーダーはヒットするまではロックオン対象更新可能、
+                //リーダーがヒットすると onHit() でlockon_st_=2になるので、
+                //その場合はココに処理は来ないので、pAimTarget_更新ず維持される
                 pAimTarget_ = pOrg_pLockonCtrler_pRingTarget_->getCurrent();
             } else {
-                //リーダーがヒットした敵をずっと狙う。ヒットするまで。
+                //リーダーに準ずる。或いは
+                //リーダーがヒットしたターゲットをずっと狙う。自身がヒットするか、消滅するまで。
                 pAimTarget_ = ((MyBunshinWateringLaserChip001*)_pLeader)->pAimTarget_;
             }
             GgafDxGeometricActor* pT = pAimTarget_;
-            if (pT && pT->isActiveInTheTree() && getActiveFrame() < 90)  {
+            if (pT && pT->isActiveInTheTree() && getActiveFrame() < 120)  {
                 aimChip(pT->_x, pT->_y, pT->_z );
             } else {
+                //ロックオンの的が無くなってしまった
+                pAimTarget_ = nullptr;
                 lockon_st_ = 2;
             }
         }
@@ -121,11 +128,11 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                     coord dx = _x - pB->_x;
                     coord dy = _y - pB->_y;
                     coord dz = _z - pB->_z;
-                    aimChip(_x + dx*11+1,
+                    aimChip(_x + dx*10+1,
                             _y + dy*10+1,
                             _z + dz*10+1 );
                 } else {
-                    aimChip(_x + pAxsMver_->_velo_vx_mv*11+1,
+                    aimChip(_x + pAxsMver_->_velo_vx_mv*10+1,
                             _y + pAxsMver_->_velo_vy_mv*10+1,
                             _z + pAxsMver_->_velo_vz_mv*10+1 );
                 }
@@ -230,28 +237,22 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
 
 void MyBunshinWateringLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*) prm_pOtherActor;
-    GgafDxGeometricActor* pAimTarget = pOrg_pLockonCtrler_pRingTarget_->getCurrent();
     //ヒットエフェクト
     UTIL::activateExplosionEffectOf(this); //爆発エフェクト出現
 
     if ((pOther->getKind() & KIND_ENEMY_BODY) ) {
-        if (pAimTarget) { //既にオプションはロックオン中
-            if (pOther == pAimTarget) {
-                //オプションのロックオンに見事命中した場合
+        if (pAimTarget_) { //既にオプションはロックオン中
+            if (pOther == pAimTarget_) {
+                //目標に見事命中した場合
+                lockon_st_ = 2; //これにより
                 MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*)getInfrontChip();
                 if (pF) {
                     MyBunshinWateringLaserChip001* pFF = (MyBunshinWateringLaserChip001*)(pF->getInfrontChip());
-                    if (pFF == nullptr) { //先端の次チップならば(先端は当たり判定ない)
-                        lockon_st_ = 2;
-                        pF->lockon_st_ = 2; //先端チップ
-                        pF->pAimTarget_ = pAimTarget;
+                    if (pFF == nullptr) {
+                        //先端チップ（先端の次チップが無い）ならば、先端に情報コピー（先端は当たり判定ないので)
+                        pF->lockon_st_ = 2;
+                        pF->pAimTarget_ = pAimTarget_;
                     }
-                } else {
-                    lockon_st_ = 2;
-                }
-
-                if (pF->lockon_st_ == 2) { //前のチップもそうならば
-                    lockon_st_ = 2; //ロックオンをやめる。非ロックオン（ロックオン→非ロックオン）
                 }
 
             } else {
@@ -268,6 +269,8 @@ void MyBunshinWateringLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
             if (pOther->getStatus()->get(STAT_LockonAble) == 1) {
                 pOrg_->pLockonCtrler_->lockon(pOther);
             }
+
+getStatus()->set(STAT_Stamina, default_stamina_);
 //sayonara();
         } else {
             //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）

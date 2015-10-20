@@ -81,8 +81,8 @@ void EnemyDrastea::onActive() {
     pKuroko->setMvVelo(0);
     pKuroko->setRollPitchYawFaceAngVelo(700, 1100, 300);
     pAxsMver_->setVxMvVelo(-3000);
-    const coord appearances_renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 3;
-    const coord appearances_renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 3;
+    const coord appearances_renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 4;
+    const coord appearances_renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 4;
     Spacetime* pSpacetime =  P_GOD->getSpacetime();
     _x = pSpacetime->_x_bound_right;
     _y = RND(-(appearances_renge_y/2) , +(appearances_renge_y/2));

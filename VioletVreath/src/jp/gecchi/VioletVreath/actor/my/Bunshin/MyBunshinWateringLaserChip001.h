@@ -31,7 +31,11 @@ public:
 
     /** [r]ロックオンしている場合 true */
     bool is_lockon_;
-    /** [r]0:非ロックオン（はじめから） 1:ロックオン 2:非ロックオン（ロックオン→非ロックオン） */
+    /**
+     * 0:非ロックオン（はじめから） なので、ただの水巻レーザー状態
+     * 1:ロックオンがあり、目標に向かって移動するモード。
+     * 2:目標に到達したか、或いはロックオンが外れて、余命の移動モード。
+     */
     int lockon_st_;
 
     /** [r]レーザー発射元 */
@@ -50,7 +54,10 @@ public:
 
     static int tex_no_;
     static GgafDxCore::GgafDxModel* pModel_;
+
+
     GgafDxCore::GgafDxGeometricActor* pAimTarget_;
+
 public:
     MyBunshinWateringLaserChip001(const char* prm_name);
 
