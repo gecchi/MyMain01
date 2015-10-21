@@ -13,6 +13,7 @@
 #include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
 #include "jp/ggaf/lib/actor/laserchip/WateringLaserChip.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/LaserMagic.h"
+#include "jp/gecchi/VioletVreath/actor/my/EffectLockon001_Main.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -33,7 +34,6 @@ MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_nam
     pAxsMver_ = NEW GgafDxAxesMover(this);
     default_stamina_ = getStatus()->get(STAT_Stamina);
     pOrg_ = nullptr;
-    pOrg_pLockonCtrler_pRingTarget_ = nullptr;
     lockon_st_ = 0;
     is_lockon_ = false;
     GgafDxModel* pModel = getModel();
@@ -67,7 +67,8 @@ void MyBunshinWateringLaserChip001::onActive() {
     WateringLaserChip::onActive();
 
     //ロックオン情報の引き継ぎ
-    GgafDxGeometricActor* pAimTarget = pOrg_pLockonCtrler_pRingTarget_->getCurrent();
+//    GgafDxGeometricActor* pAimTarget = pOrg_pLockonCtrler_pRingTarget_->getCurrent();
+    GgafDxGeometricActor* pAimTarget = pLockon_->pTarget_;
     if (pAimTarget && pAimTarget->isActiveInTheTree()) {
         //ロックオン中
         if (getInfrontChip() == nullptr) {
@@ -106,7 +107,8 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                 //リーダーはヒットするまではロックオン対象更新可能、
                 //リーダーがヒットすると onHit() でlockon_st_=2になるので、
                 //その場合はココに処理は来ないので、pAimTarget_更新ず維持される
-                pAimTarget_ = pOrg_pLockonCtrler_pRingTarget_->getCurrent();
+//                pAimTarget_ = pOrg_pLockonCtrler_pRingTarget_->getCurrent();
+                pAimTarget_ = pLockon_->pTarget_;
             } else {
                 //リーダーに準ずる。或いは
                 //リーダーがヒットしたターゲットをずっと狙う。自身がヒットするか、消滅するまで。
@@ -161,7 +163,7 @@ void MyBunshinWateringLaserChip001::processSettlementBehavior() {
 
 void MyBunshinWateringLaserChip001::setOrg(MyBunshin* prm_pOrg) {
     pOrg_ = prm_pOrg;
-    pOrg_pLockonCtrler_pRingTarget_ = pOrg_->pLockonCtrler_->pRingTarget_;
+    pLockon_ = pOrg_->pLockonCtrler_->pMainLockonEffect_;
 }
 
 void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
@@ -185,15 +187,17 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     //
     // vVP が動きたい方向。vVPを求める！
 
+    GgafDxAxesMover* pAxsMver = pAxsMver_;
+
     //自→的
     const int vTx = tX - _x;
     const int vTy = tY - _y;
     const int vTz = tZ - _z;
 
     //自→仮自。
-    const int vVMx = pAxsMver_->_velo_vx_mv;
-    const int vVMy = pAxsMver_->_velo_vy_mv;
-    const int vVMz = pAxsMver_->_velo_vz_mv;
+    const int vVMx = pAxsMver->_velo_vx_mv;
+    const int vVMy = pAxsMver->_velo_vy_mv;
+    const int vVMz = pAxsMver->_velo_vz_mv;
     //|仮自| = lVM * 5
     const int lVM = MAX3(ABS(vVMx), ABS(vVMy), ABS(vVMz)); //仮自ベクトル大きさ簡易版
     //|的|
@@ -210,27 +214,24 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
 
     if (_pLeader == this) {
         //先頭はやや速めに。SGN(accX)*5 を加算するのは、加速度を0にしないため
-        pAxsMver_->setVxyzMvAcce(accX + SGN(accX)*5.0,
-                                 accY + SGN(accY)*5.0,
-                                 accZ + SGN(accZ)*5.0);
+        pAxsMver->setVxyzMvAcce(accX + SGN(accX)*5.0,
+                                accY + SGN(accY)*5.0,
+                                accZ + SGN(accZ)*5.0);
     } else {
-        pAxsMver_->setVxyzMvAcce(accX + SGN(accX)*3.0,
-                                 accY + SGN(accY)*3.0,
-                                 accZ + SGN(accZ)*3.0);
+        pAxsMver->setVxyzMvAcce(accX + SGN(accX)*3.0,
+                                accY + SGN(accY)*3.0,
+                                accZ + SGN(accZ)*3.0);
     }
     static const coord min_velo = MyBunshinWateringLaserChip001::MAX_VELO_RENGE/3;
     if (lVM < min_velo) {
-        if (pAxsMver_->_velo_vx_mv == 0 && pAxsMver_->_velo_vy_mv == 0 && pAxsMver_->_velo_vz_mv == 0) {
+        if (vVMx == 0 && vVMy == 0 && vVMz == 0) {
             GgafDxKuroko* pOrg_Kuroko = pOrg_->getKuroko();
-            pAxsMver_->setVxyzMvVelo(pOrg_Kuroko->_vX*min_velo,
-                                     pOrg_Kuroko->_vY*min_velo,
-                                     pOrg_Kuroko->_vZ*min_velo );
+            pAxsMver->setVxyzMvVelo(pOrg_Kuroko->_vX*min_velo,
+                                    pOrg_Kuroko->_vY*min_velo,
+                                    pOrg_Kuroko->_vZ*min_velo );
         } else {
-            double vx = (double)(pAxsMver_->_velo_vx_mv);
-            double vy = (double)(pAxsMver_->_velo_vy_mv);
-            double vz = (double)(pAxsMver_->_velo_vz_mv);
-            double t = (1.0 / sqrt(vx*vx + vy*vy + vz*vz)) * min_velo;
-            pAxsMver_->setVxyzMvVelo(vx*t, vy*t, vz*t);
+            double t = (1.0 / sqrt(1.0*vVMx*vVMx + 1.0*vVMy*vVMy + 1.0*vVMz*vVMz)) * min_velo;
+            pAxsMver->setVxyzMvVelo(vVMx*t, vVMy*t, vVMz*t);
         }
     }
 }
@@ -290,7 +291,8 @@ void MyBunshinWateringLaserChip001::onInactive() {
     WateringLaserChip::onInactive();
     lockon_st_ = 0;
     pOrg_ = nullptr;
-    pOrg_pLockonCtrler_pRingTarget_ = nullptr;
+    pLockon_ = nullptr;
+//    pOrg_pLockonCtrler_pRingTarget_ = nullptr;
 }
 
 void MyBunshinWateringLaserChip001::chengeTex(int prm_tex_no) {

@@ -41,7 +41,11 @@ public:
     /** [r]レーザー発射元 */
     const MyBunshin* pOrg_;
     /** ロックオンターゲットリストリング */
-    const GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeometricActor>* pOrg_pLockonCtrler_pRingTarget_;
+//    const GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeometricActor>* pOrg_pLockonCtrler_pRingTarget_;
+
+
+    const EffectLockon001_Main* pLockon_;
+
 
     /** [r/w]速度範囲（この値を大きくすると、最高速度が早くなる。） */
     static const int MAX_VELO_RENGE;
