@@ -33,6 +33,29 @@ public:
     /** [r]カラーリストさん */
     GgafDxCore::GgafDxColorist* pColorist_;
 public:
+    struct AimPoint {
+        /** 目標1 */
+        coord target01_x;
+        coord target01_y;
+        coord target01_z;
+        /** 目標2 */
+        coord target02_x;
+        coord target02_y;
+        coord target02_z;
+        bool is_enable_target02;
+    };
+    AimPoint pass_p_[10];
+    int pass_p_seq_;
+    AimPoint* getAimPoint() {
+        pass_p_seq_++;
+        if (pass_p_seq_ >= 10) {
+            pass_p_seq_ = 0;
+        }
+        pass_p_[pass_p_seq_].is_enable_target02 = false;
+        return &(pass_p_[pass_p_seq_]);
+    }
+
+public:
     MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase);
 
     void onCreateModel() override;

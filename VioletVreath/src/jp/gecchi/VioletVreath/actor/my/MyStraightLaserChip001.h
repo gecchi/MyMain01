@@ -9,7 +9,7 @@ namespace VioletVreath {
 class MyStraightLaserChip001 : public GgafLib::StraightLaserChip {
 
 public:
-    int lockon_st_;
+    int aim_status_;
     MyShip* pOrg_;
     int default_stamina_;
 

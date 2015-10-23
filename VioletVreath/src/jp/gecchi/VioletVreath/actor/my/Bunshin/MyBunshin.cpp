@@ -81,6 +81,8 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) :
     pSeTx->set(SE_FIRE_LASER,   "WAVE_MY_FIRE_LASER_002");
     pSeTx->set(SE_FIRE_SHOT,    "WAVE_MY_FIRE_SHOT_002");
     pSeTx->set(SE_FIRE_TORPEDO, "WAVE_MY_FIRE_TORPEDO_002");
+
+    pass_p_seq_ = 0;
 }
 
 void MyBunshin::onCreateModel() {

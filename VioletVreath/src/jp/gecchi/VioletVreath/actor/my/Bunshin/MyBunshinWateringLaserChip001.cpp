@@ -34,7 +34,6 @@ MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_nam
     pAxsMver_ = NEW GgafDxAxesMover(this);
     default_stamina_ = getStatus()->get(STAT_Stamina);
     pOrg_ = nullptr;
-    lockon_st_ = 0;
     is_lockon_ = false;
     GgafDxModel* pModel = getModel();
     if (!MyBunshinWateringLaserChip001::pModel_) {
@@ -43,7 +42,7 @@ MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_nam
         }
         MyBunshinWateringLaserChip001::pModel_ = pModel;
     }
-    pAimTarget_ = nullptr;
+    aim_status_ = PROG_BANPEI;
 }
 
 void MyBunshinWateringLaserChip001::initialize() {
@@ -63,67 +62,108 @@ void MyBunshinWateringLaserChip001::onCreateModel() {
 void MyBunshinWateringLaserChip001::onActive() {
     getStatus()->reset();
     default_stamina_ = getStatus()->get(STAT_Stamina);
+    aim_status_ = PROG_AIM_AT_NOTHING;
 
     WateringLaserChip::onActive();
 
     //ロックオン情報の引き継ぎ
-//    GgafDxGeometricActor* pAimTarget = pOrg_pLockonCtrler_pRingTarget_->getCurrent();
-    GgafDxGeometricActor* pAimTarget = pLockon_->pTarget_;
-    if (pAimTarget && pAimTarget->isActiveInTheTree()) {
-        //ロックオン中
-        if (getInfrontChip() == nullptr) {
-            //先端チップ
-            lockon_st_ = 1;
-            pAimTarget_ = pAimTarget;
+//    GgafDxGeometricActor* pLockonTarget = pOrg_pLockonCtrler_pRingTarget_->getCurrent();
+
+    if (getInfrontChip() == nullptr) {
+        //先端チップ
+        GgafDxGeometricActor* pLockonTarget = pLockon_->pTarget_;
+        if (pLockonTarget && pLockonTarget->isActiveInTheTree()) {
+            //ロックオン中
+            pAimPoint_ = pOrg_->getAimPoint();
+            pAimPoint_->target01_x = pLockonTarget->_x;
+            pAimPoint_->target01_y = pLockonTarget->_y;
+            pAimPoint_->target01_z = pLockonTarget->_z;
+            aim_status_ = PROG_AIM_AT_LOCK_ON_TARGET01;
         } else {
-            //先端以外
-            MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*) getInfrontChip();
-            lockon_st_ = pF->lockon_st_;//一つ前のロックオン情報を引き継ぐ
-            pAimTarget_ = pF->pAimTarget_;
+            //ロックオンしていない
+            pAimPoint_ = pOrg_->getAimPoint();
+            aim_status_ = PROG_AIM_AT_NOTHING;
         }
     } else {
-        //ロックオンしていない
-        if (getInfrontChip() == nullptr) {
-            //先端チップ
-            lockon_st_ = 0;
-            pAimTarget_ = nullptr;
-        } else {
-            //先端以外
-            MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*) getInfrontChip();
-            lockon_st_ = pF->lockon_st_;//一つ前のロックオン情報を引き継ぐ
-            pAimTarget_ = pF->pAimTarget_;
-        }
+        //先端以外
+        MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*) getInfrontChip();
+        pAimPoint_ = pF->pAimPoint_; //受け継ぐ
+        aim_status_ = pF->aim_status_;
     }
+
 }
 
 void MyBunshinWateringLaserChip001::processBehavior() {
 
+    GgafProgress* pProg = getProgress();
 
-    if (getActiveFrame() > 7) {
-
-        if (lockon_st_ == 1) {
-            //ロックオンの的に移動中
+    if (aim_status_ == PROG_AIM_AT_LOCK_ON_TARGET01) {
+        GgafDxGeometricActor* pT01 = pLockon_->pTarget_;
+        if (pT01 && pT01->isActiveInTheTree() && getActiveFrame() < 120)  {
             if (_pLeader == this) {
-                //リーダーはヒットするまではロックオン対象更新可能、
-                //リーダーがヒットすると onHit() でlockon_st_=2になるので、
-                //その場合はココに処理は来ないので、pAimTarget_更新ず維持される
-//                pAimTarget_ = pOrg_pLockonCtrler_pRingTarget_->getCurrent();
-                pAimTarget_ = pLockon_->pTarget_;
-            } else {
-                //リーダーに準ずる。或いは
-                //リーダーがヒットしたターゲットをずっと狙う。自身がヒットするか、消滅するまで。
-                pAimTarget_ = ((MyBunshinWateringLaserChip001*)_pLeader)->pAimTarget_;
+                pAimPoint_->target01_x = pT01->_x;
+                pAimPoint_->target01_y = pT01->_y;
+                pAimPoint_->target01_z = pT01->_z;
             }
-            GgafDxGeometricActor* pT = pAimTarget_;
-            if (pT && pT->isActiveInTheTree() && getActiveFrame() < 120)  {
-                aimChip(pT->_x, pT->_y, pT->_z );
-            } else {
-                //ロックオンの的が無くなってしまった
-                pAimTarget_ = nullptr;
-                lockon_st_ = 2;
+            if (getActiveFrame() > 7 ) {
+                aimChip(pAimPoint_->target01_x,
+                        pAimPoint_->target01_y,
+                        pAimPoint_->target01_z );
+            }
+
+            static const coord renge = MyBunshinWateringLaserChip001::MAX_VELO_RENGE;
+            if (_x >= pAimPoint_->target01_x - renge) {
+                if (_x <= pAimPoint_->target01_x + renge) {
+                    if (_y >= pAimPoint_->target01_y - renge) {
+                        if (_y <= pAimPoint_->target01_y + renge) {
+                            if (_z >= pAimPoint_->target01_z - renge) {
+                                if (_z <= pAimPoint_->target01_z + renge) {
+                                    aim_status_ = PROG_AIM_AT_NOTHING_TARGET01_AFTER;
+                                    goto AIM_AT_NOTHING_TARGET01_AFTER;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            aim_status_ = PROG_AIM_AT_TARGET01;
+            goto AIM_AT_TARGET01;
+        }
+    }
+
+    AIM_AT_TARGET01:
+
+    if (aim_status_ == PROG_AIM_AT_TARGET01) {
+        static const coord renge = MyBunshinWateringLaserChip001::MAX_VELO_RENGE;
+        if (_x >= pAimPoint_->target01_x - renge) {
+            if (_x <= pAimPoint_->target01_x + renge) {
+                if (_y >= pAimPoint_->target01_y - renge) {
+                    if (_y <= pAimPoint_->target01_y + renge) {
+                        if (_z >= pAimPoint_->target01_z - renge) {
+                            if (_z <= pAimPoint_->target01_z + renge) {
+                                aim_status_ = PROG_AIM_AT_NOTHING_TARGET01_AFTER;
+                                goto AIM_AT_NOTHING_TARGET01_AFTER;
+                            }
+                        }
+                    }
+                }
             }
         }
-        if (lockon_st_ == 2) {
+        if (getActiveFrame() > 7 ) {
+            aimChip(pAimPoint_->target01_x,
+                    pAimPoint_->target01_y,
+                    pAimPoint_->target01_z );
+        }
+    }
+
+    AIM_AT_NOTHING_TARGET01_AFTER:
+
+    if (aim_status_ == PROG_AIM_AT_NOTHING_TARGET01_AFTER) {
+        if (pAimPoint_->is_enable_target02) {
+            aim_status_ = PROG_AIM_AT_TARGET02;
+            goto AIM_AT_TARGET02;
+        } else {
             if (_pLeader == this) {
                 MyBunshinWateringLaserChip001* pB = (MyBunshinWateringLaserChip001*)getBehindChip();
                 if (pB) {
@@ -139,10 +179,48 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                             _z + pAxsMver_->_velo_vz_mv*10+1 );
                 }
             } else {
-                aimChip(_pLeader->_x, _pLeader->_y, _pLeader->_z);
+				if (_pLeader) {
+					aimChip(_pLeader->_x,
+							_pLeader->_y,
+							_pLeader->_z);
+				}
             }
         }
+    }
 
+    AIM_AT_TARGET02:
+
+    if (aim_status_ == PROG_AIM_AT_TARGET02) {
+        if (pAimPoint_->is_enable_target02) {
+            static const coord renge = MyBunshinWateringLaserChip001::MAX_VELO_RENGE;
+            if (_x >= pAimPoint_->target02_x - renge) {
+                if (_x <= pAimPoint_->target02_x + renge) {
+                    if (_y >= pAimPoint_->target02_y - renge) {
+                        if (_y <= pAimPoint_->target02_y + renge) {
+                            if (_z >= pAimPoint_->target02_z - renge) {
+                                if (_z <= pAimPoint_->target02_z + renge) {
+                                    aim_status_ = PROG_AIM_AT_NOTHING_TARGET02_AFTER;
+                                    goto AIM_AT_NOTHING_TARGET02_AFTER;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            aimChip(pAimPoint_->target02_x,
+                    pAimPoint_->target02_y,
+                    pAimPoint_->target02_z );
+
+        }
+    }
+
+    AIM_AT_NOTHING_TARGET02_AFTER:
+
+    if (aim_status_ == PROG_AIM_AT_NOTHING_TARGET02_AFTER) {
+        aimChip(_x + pAxsMver_->_velo_vx_mv*10+1,
+                _y + pAxsMver_->_velo_vy_mv*10+1,
+                _z + pAxsMver_->_velo_vz_mv*10+1 );
     }
 
     pAxsMver_->behave();
@@ -242,26 +320,26 @@ void MyBunshinWateringLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
     UTIL::activateExplosionEffectOf(this); //爆発エフェクト出現
 
     if ((pOther->getKind() & KIND_ENEMY_BODY) ) {
-        if (pAimTarget_) { //既にオプションはロックオン中
-            if (pOther == pAimTarget_) {
-                //目標に見事命中した場合
-                lockon_st_ = 2; //これにより
-                MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*)getInfrontChip();
-                if (pF) {
-                    MyBunshinWateringLaserChip001* pFF = (MyBunshinWateringLaserChip001*)(pF->getInfrontChip());
-                    if (pFF == nullptr) {
-                        //先端チップ（先端の次チップが無い）ならば、先端に情報コピー（先端は当たり判定ないので)
-                        pF->lockon_st_ = 2;
-                        pF->pAimTarget_ = pAimTarget_;
-                    }
-                }
-
-            } else {
-                //オプションのロックオン以外のアクターに命中した場合
-            }
-        } else {
-            //オプション非ロックオン中に命中した場合
-        }
+//        GgafDxCore::GgafDxGeometricActor* pLockonTarget = pLockon_->pTarget_;
+//        if (pLockonTarget) { //既にオプションはロックオン中
+//            if (pOther == pLockonTarget) {
+//                //目標に見事命中した場合
+//                MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*)getInfrontChip();
+//                if (pF) {
+//                    MyBunshinWateringLaserChip001* pFF = (MyBunshinWateringLaserChip001*)(pF->getInfrontChip());
+//                    if (pFF == nullptr) {
+//                        //先端チップ（先端の次チップが無い）ならば、先端に情報コピー（先端は当たり判定ないので)
+//                        if (pF == _pLeader) {
+//                        }
+//                    }
+//                }
+//
+//            } else {
+//                //オプションのロックオン以外のアクターに命中した場合
+//            }
+//        } else {
+//            //オプション非ロックオン中に命中した場合
+//        }
 
         int stamina = UTIL::calcMyStamina(this, pOther);
         if (stamina <= 0) {
@@ -288,10 +366,17 @@ getStatus()->set(STAT_Stamina, default_stamina_);
 }
 
 void MyBunshinWateringLaserChip001::onInactive() {
-    WateringLaserChip::onInactive();
-    lockon_st_ = 0;
+
+    if (_pLeader == this) {
+        pAimPoint_->target02_x = _x;
+        pAimPoint_->target02_y = _y;
+        pAimPoint_->target02_z = _z;
+        pAimPoint_->is_enable_target02 = true;
+    }
     pOrg_ = nullptr;
     pLockon_ = nullptr;
+    WateringLaserChip::onInactive();
+
 //    pOrg_pLockonCtrler_pRingTarget_ = nullptr;
 }
 

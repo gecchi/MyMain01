@@ -2,6 +2,7 @@
 #define MYBUNSHINCURVELASERCHIP001_H_
 #include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/laserchip/WateringLaserChip.h"
+#include "MyBunshin.h"
 
 namespace VioletVreath {
 
@@ -26,20 +27,25 @@ class MyBunshinWateringLaserChip001 : public GgafLib::WateringLaserChip {
     void aimChip(int vTx, int vTy, int vTz);
 
 public:
+    enum {
+        PROG_AIM_AT_NOTHING,                 /** 何も狙うものが無い */
+        PROG_AIM_AT_LOCK_ON_TARGET01,        /** 移動中のメインロックオンを狙って移動 */
+        PROG_AIM_AT_TARGET01,                /** 固定の目標1を狙って移動 */
+        PROG_AIM_AT_NOTHING_TARGET01_AFTER,  /** 目標1を狙って移動し、到達後の目標2が無い時の移動 */
+        PROG_AIM_AT_TARGET02,                /** 固定の目標2を狙って移動 */
+        PROG_AIM_AT_NOTHING_TARGET02_AFTER,  /** 目標2を狙って移動し、到達後の目標が無い時の移動 */
+        PROG_BANPEI,
+    };
+    int aim_status_;
+
     /** 平行移動支援 */
     GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
     /** [r]ロックオンしている場合 true */
     bool is_lockon_;
-    /**
-     * 0:非ロックオン（はじめから） なので、ただの水巻レーザー状態
-     * 1:ロックオンがあり、目標に向かって移動するモード。
-     * 2:目標に到達したか、或いはロックオンが外れて、余命の移動モード。
-     */
-    int lockon_st_;
 
     /** [r]レーザー発射元 */
-    const MyBunshin* pOrg_;
+    MyBunshin* pOrg_;
     /** ロックオンターゲットリストリング */
 //    const GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeometricActor>* pOrg_pLockonCtrler_pRingTarget_;
 
@@ -59,8 +65,7 @@ public:
     static int tex_no_;
     static GgafDxCore::GgafDxModel* pModel_;
 
-
-    GgafDxCore::GgafDxGeometricActor* pAimTarget_;
+    MyBunshin::AimPoint* pAimPoint_;
 
 public:
     MyBunshinWateringLaserChip001(const char* prm_name);
