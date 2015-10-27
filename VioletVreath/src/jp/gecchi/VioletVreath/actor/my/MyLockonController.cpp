@@ -80,7 +80,7 @@ void MyLockonController::processBehavior() {
                     pMainLockonTarget = pTarget;          //メインロックオンのターゲットを更新
                     //メインロックオンエフェクトを直近ロックオンへ戻すし
                     //メインロックオンエフェクトの次のエフェクトを解放するという動作をしたい
-                    ((EffectLockon001*)pLockonEffect_Active->getNext())->releaseLockon(); //次のロックオンエフェクトをリリース実行
+                    ((EffectLockon001*)pLockonEffect_Active->getNext())->releaseLockon(); //「次」のロックオンエフェクトをリリース実行
                     pLockonEffect_Active->getNext()->moveLast();               //次のロックオンエフェクトを末尾へ
                     //「次回処理ロックオンエフェクトアクター次へ」の処理対象移動は不要。次に処理したいロックオンエフェクトアクターそのままであるため。
                 }

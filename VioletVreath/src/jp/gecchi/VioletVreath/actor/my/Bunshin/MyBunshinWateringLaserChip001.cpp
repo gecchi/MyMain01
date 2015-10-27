@@ -75,6 +75,7 @@ void MyBunshinWateringLaserChip001::onActive() {
         if (pLockonTarget && pLockonTarget->isActiveInTheTree()) {
             //ロックオン中
             pAimPoint_ = pOrg_->getAimPoint();
+            pAimPoint_->pTarget = pLockonTarget;
             pAimPoint_->target01_x = pLockonTarget->_x;
             pAimPoint_->target01_y = pLockonTarget->_y;
             pAimPoint_->target01_z = pLockonTarget->_z;
@@ -82,6 +83,9 @@ void MyBunshinWateringLaserChip001::onActive() {
         } else {
             //ロックオンしていない
             pAimPoint_ = pOrg_->getAimPoint();
+            pAimPoint_->target01_x = pOrg_->_x;
+            pAimPoint_->target01_y = pOrg_->_y;
+            pAimPoint_->target01_z = pOrg_->_z;
             aim_status_ = PROG_AIM_AT_NOTHING;
         }
     } else {
@@ -98,37 +102,32 @@ void MyBunshinWateringLaserChip001::processBehavior() {
     GgafProgress* pProg = getProgress();
 
     if (aim_status_ == PROG_AIM_AT_LOCK_ON_TARGET01) {
-        GgafDxGeometricActor* pT01 = pLockon_->pTarget_;
-        if (pT01 && pT01->isActiveInTheTree() && getActiveFrame() < 120)  {
+        if (pAimPoint_->is_enable_target01) { //ロックオンに命中した場合。
             if (_pLeader == this) {
-                pAimPoint_->target01_x = pT01->_x;
-                pAimPoint_->target01_y = pT01->_y;
-                pAimPoint_->target01_z = pT01->_z;
-            }
-            if (getActiveFrame() > 7 ) {
-                aimChip(pAimPoint_->target01_x,
-                        pAimPoint_->target01_y,
-                        pAimPoint_->target01_z );
-            }
-
-            static const coord renge = MyBunshinWateringLaserChip001::MAX_VELO_RENGE;
-            if (_x >= pAimPoint_->target01_x - renge) {
-                if (_x <= pAimPoint_->target01_x + renge) {
-                    if (_y >= pAimPoint_->target01_y - renge) {
-                        if (_y <= pAimPoint_->target01_y + renge) {
-                            if (_z >= pAimPoint_->target01_z - renge) {
-                                if (_z <= pAimPoint_->target01_z + renge) {
-                                    aim_status_ = PROG_AIM_AT_NOTHING_TARGET01_AFTER;
-                                    goto AIM_AT_NOTHING_TARGET01_AFTER;
-                                }
-                            }
-                        }
-                    }
-                }
+                aim_status_ = PROG_AIM_AT_NOTHING_TARGET01_AFTER;
+                goto AIM_AT_NOTHING_TARGET01_AFTER;
+            } else {
+                aim_status_ = PROG_AIM_AT_TARGET01;
+                goto AIM_AT_TARGET01;
             }
         } else {
-            aim_status_ = PROG_AIM_AT_TARGET01;
-            goto AIM_AT_TARGET01;
+            GgafDxGeometricActor* pTarget = pAimPoint_->pTarget;
+            if (pTarget && pTarget->isActiveInTheTree() && getActiveFrame() < 120)  {
+                if (getActiveFrame() > 7 ) {
+                    aimChip(pTarget->_x,
+                            pTarget->_y,
+                            pTarget->_z );
+                }
+                if (_pLeader == this) {
+                      pAimPoint_->target01_x = pTarget->_x;
+                      pAimPoint_->target01_y = pTarget->_y;
+                      pAimPoint_->target01_z = pTarget->_z;
+                      //未だ有効にはしてない。座標更新のみ
+                }
+            } else {
+                aim_status_ = PROG_AIM_AT_TARGET01;
+                goto AIM_AT_TARGET01;
+            }
         }
     }
 
@@ -179,11 +178,11 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                             _z + pAxsMver_->_velo_vz_mv*10+1 );
                 }
             } else {
-				if (_pLeader) {
-					aimChip(_pLeader->_x,
-							_pLeader->_y,
-							_pLeader->_z);
-				}
+                if (_pLeader) {
+                    aimChip(_pLeader->_x,
+                            _pLeader->_y,
+                            _pLeader->_z);
+                }
             }
         }
     }
@@ -320,26 +319,24 @@ void MyBunshinWateringLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
     UTIL::activateExplosionEffectOf(this); //爆発エフェクト出現
 
     if ((pOther->getKind() & KIND_ENEMY_BODY) ) {
-//        GgafDxCore::GgafDxGeometricActor* pLockonTarget = pLockon_->pTarget_;
-//        if (pLockonTarget) { //既にオプションはロックオン中
-//            if (pOther == pLockonTarget) {
-//                //目標に見事命中した場合
-//                MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*)getInfrontChip();
-//                if (pF) {
-//                    MyBunshinWateringLaserChip001* pFF = (MyBunshinWateringLaserChip001*)(pF->getInfrontChip());
-//                    if (pFF == nullptr) {
-//                        //先端チップ（先端の次チップが無い）ならば、先端に情報コピー（先端は当たり判定ないので)
-//                        if (pF == _pLeader) {
-//                        }
-//                    }
-//                }
-//
-//            } else {
-//                //オプションのロックオン以外のアクターに命中した場合
-//            }
-//        } else {
-//            //オプション非ロックオン中に命中した場合
-//        }
+        MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*)getInfrontChip();
+        if (pF) {
+            MyBunshinWateringLaserChip001* pFF = (MyBunshinWateringLaserChip001*)(pF->getInfrontChip());
+            if (pFF == nullptr) {
+                //先端チップ（先端の次チップが無い）ならば、先端に情報コピー（先端は当たり判定ないので)
+                if (pF == _pLeader) {
+                    MyBunshin::AimPoint* pF_pAimPoint = pF->pAimPoint_;
+                    if (pF_pAimPoint->pTarget == prm_pOtherActor && pF->aim_status_ == PROG_AIM_AT_LOCK_ON_TARGET01) {
+                        //目標に見事命中した場合
+                        pF_pAimPoint->target01_x = pF_pAimPoint->pTarget->_x;
+                        pF_pAimPoint->target01_y = pF_pAimPoint->pTarget->_y;
+                        pF_pAimPoint->target01_z = pF_pAimPoint->pTarget->_z;
+                        pF_pAimPoint->is_enable_target01 = true;
+                        pF->aim_status_ = PROG_AIM_AT_NOTHING_TARGET01_AFTER;
+                    }
+                }
+            }
+        }
 
         int stamina = UTIL::calcMyStamina(this, pOther);
         if (stamina <= 0) {

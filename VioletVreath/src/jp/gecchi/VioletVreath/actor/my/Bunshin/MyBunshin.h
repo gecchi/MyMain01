@@ -34,10 +34,12 @@ public:
     GgafDxCore::GgafDxColorist* pColorist_;
 public:
     struct AimPoint {
+        GgafDxCore::GgafDxGeometricActor* pTarget;
         /** –Ú•W1 */
         coord target01_x;
         coord target01_y;
         coord target01_z;
+        bool is_enable_target01;
         /** –Ú•W2 */
         coord target02_x;
         coord target02_y;
@@ -51,6 +53,8 @@ public:
         if (pass_p_seq_ >= 10) {
             pass_p_seq_ = 0;
         }
+        pass_p_[pass_p_seq_].pTarget = nullptr;
+        pass_p_[pass_p_seq_].is_enable_target01 = false;
         pass_p_[pass_p_seq_].is_enable_target02 = false;
         return &(pass_p_[pass_p_seq_]);
     }
