@@ -84,7 +84,6 @@ public:
 
     void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
 
-    /** ”­ŽË‚·‚é */
     void setOrg(MyBunshin* prm_pOrg);
 
     /**

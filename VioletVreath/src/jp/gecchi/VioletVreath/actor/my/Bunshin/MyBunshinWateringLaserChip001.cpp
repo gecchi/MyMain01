@@ -34,6 +34,7 @@ MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_nam
     pAxsMver_ = NEW GgafDxAxesMover(this);
     default_stamina_ = getStatus()->get(STAT_Stamina);
     pOrg_ = nullptr;
+    pLockon_ = nullptr;
     is_lockon_ = false;
     GgafDxModel* pModel = getModel();
     if (!MyBunshinWateringLaserChip001::pModel_) {
@@ -43,6 +44,7 @@ MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_nam
         MyBunshinWateringLaserChip001::pModel_ = pModel;
     }
     aim_status_ = PROG_BANPEI;
+    pAimPoint_ = nullptr;
 }
 
 void MyBunshinWateringLaserChip001::initialize() {
@@ -57,6 +59,11 @@ void MyBunshinWateringLaserChip001::initialize() {
 
 void MyBunshinWateringLaserChip001::onCreateModel() {
 
+}
+
+void MyBunshinWateringLaserChip001::setOrg(MyBunshin* prm_pOrg) {
+    pOrg_ = prm_pOrg;
+    pLockon_ = pOrg_->pLockonCtrler_->pMainLockonEffect_;
 }
 
 void MyBunshinWateringLaserChip001::onActive() {
@@ -83,6 +90,7 @@ void MyBunshinWateringLaserChip001::onActive() {
         } else {
             //ロックオンしていない
             pAimPoint_ = pOrg_->getAimPoint();
+            pAimPoint_->pTarget = nullptr;
             pAimPoint_->target01_x = pOrg_->_x;
             pAimPoint_->target01_y = pOrg_->_y;
             pAimPoint_->target01_z = pOrg_->_z;
@@ -98,11 +106,14 @@ void MyBunshinWateringLaserChip001::onActive() {
 }
 
 void MyBunshinWateringLaserChip001::processBehavior() {
-
+    //if (_pLeader == this) {
+    //    _TRACE_("_pLeader="<<_pLeader);
+    //}
     GgafProgress* pProg = getProgress();
-
+    frame active_frame = getActiveFrame();
+    MyBunshin::AimPoint* pAimPoint = pAimPoint_;
     if (aim_status_ == PROG_AIM_AT_LOCK_ON_TARGET01) {
-        if (pAimPoint_->is_enable_target01) { //ロックオンに命中した場合。
+        if (pAimPoint->is_enable_target01) { //ロックオンに命中した場合。
             if (_pLeader == this) {
                 aim_status_ = PROG_AIM_AT_NOTHING_TARGET01_AFTER;
                 goto AIM_AT_NOTHING_TARGET01_AFTER;
@@ -111,17 +122,17 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                 goto AIM_AT_TARGET01;
             }
         } else {
-            GgafDxGeometricActor* pTarget = pAimPoint_->pTarget;
-            if (pTarget && pTarget->isActiveInTheTree() && getActiveFrame() < 120)  {
-                if (getActiveFrame() > 7 ) {
-                    aimChip(pTarget->_x,
-                            pTarget->_y,
-                            pTarget->_z );
+            GgafDxGeometricActor* pAimTarget = pAimPoint->pTarget;
+            if (pAimTarget && pAimTarget->isActiveInTheTree() && getActiveFrame() < 120)  {
+                if (active_frame > 7 ) {
+                    aimChip(pAimTarget->_x,
+                            pAimTarget->_y,
+                            pAimTarget->_z );
                 }
                 if (_pLeader == this) {
-                      pAimPoint_->target01_x = pTarget->_x;
-                      pAimPoint_->target01_y = pTarget->_y;
-                      pAimPoint_->target01_z = pTarget->_z;
+                    pAimPoint->target01_x = pAimTarget->_x;
+                    pAimPoint->target01_y = pAimTarget->_y;
+                    pAimPoint->target01_z = pAimTarget->_z;
                       //未だ有効にはしてない。座標更新のみ
                 }
             } else {
@@ -135,12 +146,12 @@ void MyBunshinWateringLaserChip001::processBehavior() {
 
     if (aim_status_ == PROG_AIM_AT_TARGET01) {
         static const coord renge = MyBunshinWateringLaserChip001::MAX_VELO_RENGE;
-        if (_x >= pAimPoint_->target01_x - renge) {
-            if (_x <= pAimPoint_->target01_x + renge) {
-                if (_y >= pAimPoint_->target01_y - renge) {
-                    if (_y <= pAimPoint_->target01_y + renge) {
-                        if (_z >= pAimPoint_->target01_z - renge) {
-                            if (_z <= pAimPoint_->target01_z + renge) {
+        if (_x >= pAimPoint->target01_x - renge) {
+            if (_x <= pAimPoint->target01_x + renge) {
+                if (_y >= pAimPoint->target01_y - renge) {
+                    if (_y <= pAimPoint->target01_y + renge) {
+                        if (_z >= pAimPoint->target01_z - renge) {
+                            if (_z <= pAimPoint->target01_z + renge) {
                                 aim_status_ = PROG_AIM_AT_NOTHING_TARGET01_AFTER;
                                 goto AIM_AT_NOTHING_TARGET01_AFTER;
                             }
@@ -149,17 +160,22 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                 }
             }
         }
-        if (getActiveFrame() > 7 ) {
-            aimChip(pAimPoint_->target01_x,
-                    pAimPoint_->target01_y,
-                    pAimPoint_->target01_z );
+        if (active_frame < 120) {
+            if (active_frame > 7 ) {
+                aimChip(pAimPoint->target01_x,
+                        pAimPoint->target01_y,
+                        pAimPoint->target01_z );
+            }
+        } else {
+            aim_status_ = PROG_AIM_AT_NOTHING_TARGET01_AFTER;
+            goto AIM_AT_NOTHING_TARGET01_AFTER;
         }
     }
 
     AIM_AT_NOTHING_TARGET01_AFTER:
 
     if (aim_status_ == PROG_AIM_AT_NOTHING_TARGET01_AFTER) {
-        if (pAimPoint_->is_enable_target02) {
+        if (pAimPoint->is_enable_target02) {
             aim_status_ = PROG_AIM_AT_TARGET02;
             goto AIM_AT_TARGET02;
         } else {
@@ -169,13 +185,13 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                     coord dx = _x - pB->_x;
                     coord dy = _y - pB->_y;
                     coord dz = _z - pB->_z;
-                    aimChip(_x + dx*10+1,
-                            _y + dy*10+1,
-                            _z + dz*10+1 );
+                    aimChip(_x + dx*20+1,
+                            _y + dy*20+1,
+                            _z + dz*20+1 );
                 } else {
-                    aimChip(_x + pAxsMver_->_velo_vx_mv*10+1,
-                            _y + pAxsMver_->_velo_vy_mv*10+1,
-                            _z + pAxsMver_->_velo_vz_mv*10+1 );
+                    aimChip(_x + pAxsMver_->_velo_vx_mv*20+1,
+                            _y + pAxsMver_->_velo_vy_mv*20+1,
+                            _z + pAxsMver_->_velo_vz_mv*20+1 );
                 }
             } else {
                 if (_pLeader) {
@@ -190,14 +206,14 @@ void MyBunshinWateringLaserChip001::processBehavior() {
     AIM_AT_TARGET02:
 
     if (aim_status_ == PROG_AIM_AT_TARGET02) {
-        if (pAimPoint_->is_enable_target02) {
+        if (pAimPoint->is_enable_target02) {
             static const coord renge = MyBunshinWateringLaserChip001::MAX_VELO_RENGE;
-            if (_x >= pAimPoint_->target02_x - renge) {
-                if (_x <= pAimPoint_->target02_x + renge) {
-                    if (_y >= pAimPoint_->target02_y - renge) {
-                        if (_y <= pAimPoint_->target02_y + renge) {
-                            if (_z >= pAimPoint_->target02_z - renge) {
-                                if (_z <= pAimPoint_->target02_z + renge) {
+            if (_x >= pAimPoint->target02_x - renge) {
+                if (_x <= pAimPoint->target02_x + renge) {
+                    if (_y >= pAimPoint->target02_y - renge) {
+                        if (_y <= pAimPoint->target02_y + renge) {
+                            if (_z >= pAimPoint->target02_z - renge) {
+                                if (_z <= pAimPoint->target02_z + renge) {
                                     aim_status_ = PROG_AIM_AT_NOTHING_TARGET02_AFTER;
                                     goto AIM_AT_NOTHING_TARGET02_AFTER;
                                 }
@@ -207,9 +223,9 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                 }
             }
 
-            aimChip(pAimPoint_->target02_x,
-                    pAimPoint_->target02_y,
-                    pAimPoint_->target02_z );
+            aimChip(pAimPoint->target02_x,
+                    pAimPoint->target02_y,
+                    pAimPoint->target02_z );
 
         }
     }
@@ -217,9 +233,9 @@ void MyBunshinWateringLaserChip001::processBehavior() {
     AIM_AT_NOTHING_TARGET02_AFTER:
 
     if (aim_status_ == PROG_AIM_AT_NOTHING_TARGET02_AFTER) {
-        aimChip(_x + pAxsMver_->_velo_vx_mv*10+1,
-                _y + pAxsMver_->_velo_vy_mv*10+1,
-                _z + pAxsMver_->_velo_vz_mv*10+1 );
+        aimChip(_x + pAxsMver_->_velo_vx_mv*20+1,
+                _y + pAxsMver_->_velo_vy_mv*20+1,
+                _z + pAxsMver_->_velo_vz_mv*20+1 );
     }
 
     pAxsMver_->behave();
@@ -238,10 +254,7 @@ void MyBunshinWateringLaserChip001::processSettlementBehavior() {
     WateringLaserChip::processSettlementBehavior();
 }
 
-void MyBunshinWateringLaserChip001::setOrg(MyBunshin* prm_pOrg) {
-    pOrg_ = prm_pOrg;
-    pLockon_ = pOrg_->pLockonCtrler_->pMainLockonEffect_;
-}
+
 
 void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     //    |                            vVT 仮的                        |
@@ -291,9 +304,9 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
 
     if (_pLeader == this) {
         //先頭はやや速めに。SGN(accX)*5 を加算するのは、加速度を0にしないため
-        pAxsMver->setVxyzMvAcce(accX + SGN(accX)*5.0,
-                                accY + SGN(accY)*5.0,
-                                accZ + SGN(accZ)*5.0);
+        pAxsMver->setVxyzMvAcce(accX*1.5 + SGN(accX)*5.0,
+                                accY*1.5 + SGN(accY)*5.0,
+                                accZ*1.5 + SGN(accZ)*5.0);
     } else {
         pAxsMver->setVxyzMvAcce(accX + SGN(accX)*3.0,
                                 accY + SGN(accY)*3.0,

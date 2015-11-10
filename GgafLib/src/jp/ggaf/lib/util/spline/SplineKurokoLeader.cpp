@@ -44,9 +44,11 @@ SplineKurokoLeader::SplineKurokoLeader(SplineManufacture* prm_pManufacture, Ggaf
     _is_fix_start_pos = false;
 
     _is_fix_start_ang = false;
+    _is_loop_ang_by_face_ang = true;
     _ang_rx_mv_start = _pActor_target->_rx;
     _ang_rz_mv_start = _pActor_target->_rz;
     _ang_ry_mv_start = _pActor_target->_ry;
+
 }
 
 void SplineKurokoLeader::getPointCoord(int prm_point_index, coord& out_x, coord& out_y, coord& out_z) {
@@ -164,7 +166,8 @@ void SplineKurokoLeader::restart() {
 
     if (_is_fix_start_ang) {
         //_rz_mv_start, _ry_mv_start、は
-        //別途 fixStartAngle() により設定済み
+        //別途 fixStartAngle() により設定済みの場合は、
+        //アクターの今の向きに関係なく、設定済みの向きとなる
         _sinRx_begin = ANG_SIN(_ang_rx_mv_start);
         _cosRx_begin = ANG_COS(_ang_rx_mv_start);
         _sinRz_begin = ANG_SIN(_ang_rz_mv_start);
@@ -173,16 +176,32 @@ void SplineKurokoLeader::restart() {
         _cosRy_begin = ANG_COS(_ang_ry_mv_start);
     } else {
         if (_cnt_loop == 1) {
-            //１週目は正に今の移動方向が開始移動方向
-            _ang_rx_mv_start = _pActor_target->_rx;
-            _ang_rz_mv_start = _pActor_target->_rz;
-            _ang_ry_mv_start = _pActor_target->_ry;
-            _sinRx_begin = ANG_SIN(_ang_rx_mv_start);
-            _cosRx_begin = ANG_COS(_ang_rx_mv_start);
-            _sinRz_begin = ANG_SIN(_ang_rz_mv_start);
-            _cosRz_begin = ANG_COS(_ang_rz_mv_start);
-            _sinRy_begin = ANG_SIN(_ang_ry_mv_start);
-            _cosRy_begin = ANG_COS(_ang_ry_mv_start);
+            if (_is_loop_ang_by_face_ang) {
+                //setLoopAngleByFaceAng() 設定済みの場合（デフォルト)
+                //１週目はアクターが正に今向いている方向が開始移動方向
+                _ang_rx_mv_start = _pActor_target->_rx;
+                _ang_rz_mv_start = _pActor_target->_rz;
+                _ang_ry_mv_start = _pActor_target->_ry;
+                _sinRx_begin = ANG_SIN(_ang_rx_mv_start);
+                _cosRx_begin = ANG_COS(_ang_rx_mv_start);
+                _sinRz_begin = ANG_SIN(_ang_rz_mv_start);
+                _cosRz_begin = ANG_COS(_ang_rz_mv_start);
+                _sinRy_begin = ANG_SIN(_ang_ry_mv_start);
+                _cosRy_begin = ANG_COS(_ang_ry_mv_start);
+            } else {
+                //setLoopAngleByMvAng() 設定済みの場合
+                //１週目はアクターの移動方向が開始移動方向
+                GgafDxKuroko* _pActorKuroko = _pActor_target->getKuroko();
+                _ang_rx_mv_start = D0ANG;
+                _ang_rz_mv_start = _pActorKuroko->_ang_rz_mv;
+                _ang_ry_mv_start = _pActorKuroko->_ang_ry_mv;
+                _sinRx_begin = ANG_SIN(_ang_rx_mv_start);
+                _cosRx_begin = ANG_COS(_ang_rx_mv_start);
+                _sinRz_begin = ANG_SIN(_ang_rz_mv_start);
+                _cosRz_begin = ANG_COS(_ang_rz_mv_start);
+                _sinRy_begin = ANG_SIN(_ang_ry_mv_start);
+                _cosRy_begin = ANG_COS(_ang_ry_mv_start);
+            }
         } else {
             //２週目以降は、そのまま;
         }

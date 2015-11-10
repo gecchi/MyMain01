@@ -63,6 +63,7 @@ public:
     bool _is_fix_start_pos;
 
     bool _is_fix_start_ang;
+    bool _is_loop_ang_by_face_ang;
     angle _ang_rx_mv_start;
     angle _ang_rz_mv_start;
     angle _ang_ry_mv_start;
@@ -272,18 +273,21 @@ public:
     /**
      * スプラインの開始移動方向を固定（start()時に影響しない）。
      * もし、本メソッドを実行しなかった場合、スプライン開始時のスプライン方向は、<BR>
-     * 「スプライン開始方向 ＝ start()時の対象アクターの黒子Aの移動方向(_ang_rz_mv, _ang_ry_mv）となる。<BR>
+     * 「スプライン開始方向 ＝ start()時の対象アクターの黒子Aの向きの方向(_rz, _ry）となる。<BR>
      * これを避けて、スプライン開始時、任意のスプライン方向に上書き設定を行う。<BR>
+     * 但し、start()時、スプライン移動繰り返し設定(２週以上)を行った場合、２周目以降には適用されない。<BR>
      * ※スプライン方向の設定は、RELATIVE_COORD_DIRECTION の場合のみ意味がある。
+     * 注意：rx > rz > ry の引数順！
+     * @param prm_rx
      * @param prm_rz
      * @param prm_ry
      */
-    void fixStartAngle(angle prm_rz, angle prm_ry) {
+    void fixStartAngle(angle prm_rx, angle prm_rz, angle prm_ry) {
         _is_fix_start_ang = true;
+        _ang_rx_mv_start = prm_rx;
         _ang_rz_mv_start = prm_rz;
         _ang_ry_mv_start = prm_ry;
     }
-
     /**
      * スプラインの開始座標固定を解除する。
      */
@@ -294,6 +298,24 @@ public:
     void unfixStartAngle() {
         _is_fix_start_ang = false;
     }
+    /**
+     * スプライン移動の開始方向を、自分が向いている方向に対して開始する (デフォルト).
+     * start()時の対象アクターの向きの方向(_rz, _ry)に座標変換されて、スプラインの軌跡が構築される。
+     */
+    void setLoopAngleByFaceAng() {
+        _is_loop_ang_by_face_ang = true;
+    }
+
+    /**
+     * スプライン移動の開始方向を、自分が移動している方向に対して開始する .
+     * start()時の対象アクター黒子Aの移動方向(getKuroko()->_ang_rz_mv, getKuroko()->_ang_ry_mv）
+     * に座標変換されて、スプラインの軌跡が構築される。
+     */
+    void setLoopAngleByMvAng() {
+        _is_loop_ang_by_face_ang = false;
+    }
+
+
 
 //    void linkedStartPosition() {
 //        unfixStartPosition();

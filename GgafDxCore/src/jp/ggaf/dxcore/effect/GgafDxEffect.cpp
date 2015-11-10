@@ -24,13 +24,13 @@ GgafDxEffect::GgafDxEffect(const char* prm_effect_name) : GgafObject() {
     std::string effect_file_name;
     if (PROPERTY::REALTIME_EFFECT_COMPILE) {
         //fx ファイルからコンパイル
-        effect_file_name = getEffectFileName(std::string(prm_effect_name) + ".fx");
+        effect_file_name = GgafDxEffect::getEffectFileName(std::string(prm_effect_name) + ".fx");
     } else {
         //コンパイル済み fxo ファイルを読み込み
         if ( GgafDxGod::_ps_v >= D3DPS_VERSION(3, 0)) {
-            effect_file_name = getEffectFileName("3_0_" + std::string(prm_effect_name) + ".fxo");
+            effect_file_name = GgafDxEffect::getEffectFileName("3_0_" + std::string(prm_effect_name) + ".fxo");
         } else {
-            effect_file_name = getEffectFileName("2_0_" + std::string(prm_effect_name) + ".fxo");
+            effect_file_name = GgafDxEffect::getEffectFileName("2_0_" + std::string(prm_effect_name) + ".fxo");
         }
     }
 
@@ -47,7 +47,7 @@ GgafDxEffect::GgafDxEffect(const char* prm_effect_name) : GgafObject() {
         hr = D3DXCreateEffectFromFile(
                  GgafDxGod::_pID3DDevice9,  // [in] LPDIRECT3DDEVICE9 pDevice
                  effect_file_name.c_str(),  // [in] LPCTSTR pSrcFile
-                 _aD3DXMacro_Defines,       // [in] CONST D3DXMACRO* pDefines
+                 GgafDxEffect::_aD3DXMacro_Defines, // [in] CONST D3DXMACRO* pDefines
                  0,                         // [in] LPD3DXINCLUDE pInclude
                  dwFlags,                   // [in] DWORD Flags
                  0,                         // [in] LPD3DXEFFECTPOOL pPool
