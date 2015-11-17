@@ -282,12 +282,8 @@ public:
      * @param prm_rz
      * @param prm_ry
      */
-    void fixStartAngle(angle prm_rx, angle prm_rz, angle prm_ry) {
-        _is_fix_start_ang = true;
-        _ang_rx_mv_start = prm_rx;
-        _ang_rz_mv_start = prm_rz;
-        _ang_ry_mv_start = prm_ry;
-    }
+    void fixStartAngle(angle prm_rx, angle prm_rz, angle prm_ry);
+
     /**
      * スプラインの開始座標固定を解除する。
      */

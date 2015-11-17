@@ -32,12 +32,6 @@ void EnemyEmilia::onActive() {
     //ステータスリセット
     UTIL::resetEnemyEmiliaStatus(getStatus());
     setHitAble(true);
-    const coord appearances_renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 3;
-    const coord appearances_renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 3;
-    Spacetime* pSpacetime =  P_GOD->getSpacetime();
-    _x = pSpacetime->_x_bound_right;
-    _y = RND(-(appearances_renge_y/2) , +(appearances_renge_y/2));
-    _z = RND(-(appearances_renge_z/2) , +(appearances_renge_z/2));
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvAngTwd(0, D180ANG);
     pKuroko->addRyMvAng(RND(D_ANG(-5), D_ANG(+5)));
@@ -48,7 +42,7 @@ void EnemyEmilia::onInactive() {
     sayonara();
 }
 
-void EnemyEmilia::processStaminaEnd(GgafDxGeometricActor* prm_pOther) {
+void EnemyEmilia::processStaminaEnd(const GgafDxGeometricActor* prm_pOther) {
     appearFragment("EmiliaFragment"); //断片出現
 }
 

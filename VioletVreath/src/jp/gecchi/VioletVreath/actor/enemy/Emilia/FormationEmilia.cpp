@@ -4,6 +4,7 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Emilia/EnemyEmilia.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -11,13 +12,9 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationEmilia::FormationEmilia(const char* prm_name)
-   : DepositoryFormation(prm_name, 20*60) {
+   : DefaultGeometricActor(prm_name) {
     _class_name = "FormationEmilia";
     pConn_depo_Emilia_ = getConnection_DepositoryManager("Emilia");
-    pConn_depo_Fragment_ = getConnection_DepositoryManager("EmiliaFragment");
-    pConn_depo_Fragment_2_ = getConnection_DepositoryManager("EmiliaFragment2");
-    pConn_depo_Fragment_3_ = getConnection_DepositoryManager("EmiliaFragment3");
-    setFormationMember(pConn_depo_Emilia_->peek());
 }
 
 void FormationEmilia::updateRankParameter() {
@@ -33,18 +30,20 @@ void FormationEmilia::onActive() {
     updateRankParameter();
 }
 
-void FormationEmilia::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
-    UTIL::transactFormationDestroyAll((GgafDxFigureActor*)prm_pActor_last_destroyed);
-}
-
 void FormationEmilia::processBehavior() {
     updateRankParameter();
-    if (getActiveFrame() >= RF_FormationEmilia_DurationFrames(G_RANK)) {
+    if (getActiveFrame() >= RF_FormationEmilia_DurationFrames(G_RANK)) { //oŒ»‚µ‘±‚¯‚éŽžŠÔ
         sayonara(20*60);
     } else {
-        if (canCallUp() && (getActiveFrame() % R_interval_frames_ == 0)) {
-            EnemyEmilia* pEmilia = (EnemyEmilia*)callUpMember();
+        if (getActiveFrame() % R_interval_frames_ == 0) {
+            EnemyEmilia* pEmilia = (EnemyEmilia*)(pConn_depo_Emilia_->peek()->dispatch());
             if (pEmilia) {
+                const coord appearances_renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 3;
+                const coord appearances_renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 3;
+                Spacetime* pSpacetime =  P_GOD->getSpacetime();
+                pEmilia->position(pSpacetime->_x_bound_right,
+                                  RND(-(appearances_renge_y/2) , +(appearances_renge_y/2)),
+                                  RND(-(appearances_renge_z/2) , +(appearances_renge_z/2)) );
                 pEmilia->getKuroko()->setMvVelo(R_mv_velo_);
             }
         }
@@ -53,7 +52,4 @@ void FormationEmilia::processBehavior() {
 
 FormationEmilia::~FormationEmilia() {
     pConn_depo_Emilia_->close();
-    pConn_depo_Fragment_->close();
-    pConn_depo_Fragment_2_->close();
-    pConn_depo_Fragment_3_->close();
 }

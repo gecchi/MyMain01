@@ -46,11 +46,11 @@ public:
         coord target02_z;
         bool is_enable_target02;
     };
-    AimPoint pass_p_[10];
+    AimPoint pass_p_[20];
     int pass_p_seq_;
     AimPoint* getAimPoint() {
         pass_p_seq_++;
-        if (pass_p_seq_ >= 10) {
+        if (pass_p_seq_ >= 20) {
             pass_p_seq_ = 0;
         }
         pass_p_[pass_p_seq_].pTarget = nullptr;

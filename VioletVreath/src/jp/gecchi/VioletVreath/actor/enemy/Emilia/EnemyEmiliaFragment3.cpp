@@ -36,7 +36,7 @@ void EnemyEmiliaFragment3::onInactive() {
     sayonara();
 }
 
-void EnemyEmiliaFragment3::processStaminaEnd(GgafDxGeometricActor* prm_pOther) {
+void EnemyEmiliaFragment3::processStaminaEnd(const GgafDxGeometricActor* prm_pOther) {
     //‚¨‚µ‚Ü‚µ
 }
 

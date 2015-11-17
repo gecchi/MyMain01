@@ -1,7 +1,7 @@
 #ifndef FORMATIONASSALIA_H_
 #define FORMATIONASSALIA_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/DepositoryFormation.h"
+#include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 
 namespace VioletVreath {
 
@@ -11,17 +11,11 @@ namespace VioletVreath {
  * @since 2012/01/12
  * @author Masatoshi Tsuge
  */
-class FormationEmilia : public GgafLib::DepositoryFormation {
+class FormationEmilia : public GgafLib::DefaultGeometricActor {
 
 public:
     /** エミリア借り入れ元Depository資源への接続 */
     DepositoryConnection* pConn_depo_Emilia_;
-    /** エミリア断片借り入れ元Depository資源への接続 */
-    DepositoryConnection* pConn_depo_Fragment_;
-    /** エミリア断片の断片借り入れ元Depository資源への接続 */
-    DepositoryConnection* pConn_depo_Fragment_2_;
-    /** エミリア断片の断片借り入れ元Depository資源への接続 */
-    DepositoryConnection* pConn_depo_Fragment_3_;
 
     /** 編隊メンバーの出現間隔フレーム(RANK変動) */
     frame R_interval_frames_;
@@ -42,8 +36,6 @@ public:
     virtual void onActive() override;
 
 //    virtual void processOnActiveEmilia(EnemyEmilia* pEnemyEmilia, int col) = 0;
-
-    virtual void onDestroyAll(GgafCore::GgafActor* prm_pActor_last_destroyed) override;
 
     virtual void processBehavior() override;
 

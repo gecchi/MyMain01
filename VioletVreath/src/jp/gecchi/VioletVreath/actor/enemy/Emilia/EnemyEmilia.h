@@ -15,7 +15,7 @@ namespace VioletVreath {
 class EnemyEmilia : public EnemyEmiliaBase {
 
 protected:
-    void processStaminaEnd(GgafDxCore::GgafDxGeometricActor* prm_pOther) override;
+    void processStaminaEnd(const GgafDxCore::GgafDxGeometricActor* prm_pOther) override;
 
 public:
     EnemyEmilia(const char* prm_name);

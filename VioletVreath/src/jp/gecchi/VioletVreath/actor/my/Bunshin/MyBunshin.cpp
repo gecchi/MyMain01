@@ -59,7 +59,7 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) :
 
     //レーザーストック
     pLaserChipDepo_ = NEW LaserChipDepository("DepoBunshinLaser");
-    for (int i = 0; i < 60; i++) {
+    for (int i = 0; i < 80; i++) {
         std::string name = std::string(getName()) + "'s LaserChip(" + XTOS(i) + ")";
         pLaserChipDepo_->put(NEW MyBunshinWateringLaserChip001(name.c_str()));
     }

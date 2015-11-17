@@ -16,7 +16,7 @@ class EnemyEmiliaBase : public GgafLib::DefaultMeshSetActor {
 
 protected:
     void appearFragment(const char* prm_dp_name);
-    virtual void processStaminaEnd(GgafDxCore::GgafDxGeometricActor* prm_pOther) = 0;
+    virtual void processStaminaEnd(const GgafDxCore::GgafDxGeometricActor* prm_pOther) = 0;
 
 public:
     enum {

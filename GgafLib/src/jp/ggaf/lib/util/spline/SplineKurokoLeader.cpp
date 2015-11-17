@@ -285,6 +285,13 @@ int SplineKurokoLeader::getPointNum() {
     return _pManufacture->_sp->_rnum;
 }
 
+void SplineKurokoLeader::fixStartAngle(angle prm_rx, angle prm_rz, angle prm_ry) {
+    _is_fix_start_ang = true;
+    _ang_rx_mv_start = UTIL::simplifyAng(prm_rx);
+    _ang_rz_mv_start = UTIL::simplifyAng(prm_rz);
+    _ang_ry_mv_start = UTIL::simplifyAng(prm_ry);
+}
+
 SplineKurokoLeader::~SplineKurokoLeader() {
     if (_is_created_pManufacture) {
         SplineSource* pSplSrc = _pManufacture->_pSplSrc;

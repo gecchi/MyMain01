@@ -31,11 +31,17 @@ void EnemyEmiliaBase::processJudgement() {
 }
 
 void EnemyEmiliaBase::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+//	if (getActiveFrame() < 5) {
+//		return;
+//	}
+    const GgafDxGeometricActor* pOtherActor = (const GgafDxGeometricActor*)prm_pOtherActor;
+    bool was_destroyed = UTIL::transactEnemyHit(this, pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);
         sayonara();
+        //下位クラスの個々の処理
+//        processStaminaEnd(pOtherActor);
     } else {
         //破壊されなかった時(スタミナ > 0)
         getSeTx()->play3D(SE_DAMAGED);
@@ -52,8 +58,8 @@ void EnemyEmiliaBase::appearFragment(const char* prm_dp_name) {
             GgafDxKuroko* pFragment_pKuroko = pFragment->getKuroko();
             pFragment_pKuroko->takeoverMvFrom(this->getKuroko());
             pFragment_pKuroko->setMvVelo(pFragment_pKuroko->_velo_mv/2); //半分のスピードへ
-            pFragment_pKuroko->addRyMvAng(RND(D_ANG(-45), D_ANG(+45)));
-            pFragment_pKuroko->addRzMvAng(RND(D_ANG(-45), D_ANG(+45)));
+            pFragment_pKuroko->addRyMvAng(RND(D_ANG(-90), D_ANG(+90)));
+            pFragment_pKuroko->addRzMvAng(RND(D_ANG(-90), D_ANG(+90)));
         }
     }
     pConn_depo->close();
