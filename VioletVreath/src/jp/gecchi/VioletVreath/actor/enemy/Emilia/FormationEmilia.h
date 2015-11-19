@@ -14,14 +14,19 @@ namespace VioletVreath {
 class FormationEmilia : public GgafLib::DefaultGeometricActor {
 
 public:
+    /** プリロード用 */
+    DepositoryConnection* pConn_depo_Fragment3_;
+    /** プリロード用 */
+    DepositoryConnection* pConn_depo_Fragment2_;
+    /** プリロード用 */
+    DepositoryConnection* pConn_depo_Fragment_;
     /** エミリア借り入れ元Depository資源への接続 */
     DepositoryConnection* pConn_depo_Emilia_;
 
     /** 編隊メンバーの出現間隔フレーム(RANK変動) */
     frame R_interval_frames_;
-    /** 編隊メンバーの初期移動速度(RANK変動) */
-    velo R_mv_velo_;
-
+    /** 分裂数(RANK変動) */
+    int R_num_;
 public:
     /**
      * コンストラクタ .
@@ -38,6 +43,10 @@ public:
 //    virtual void processOnActiveEmilia(EnemyEmilia* pEnemyEmilia, int col) = 0;
 
     virtual void processBehavior() override;
+
+    void appearFragment(EnemyEmiliaBase* prm_pOrg);
+    void appearFragment2(EnemyEmiliaBase* prm_pOrg);
+    void appearFragment3(EnemyEmiliaBase* prm_pOrg);
 
     virtual ~FormationEmilia();
 };

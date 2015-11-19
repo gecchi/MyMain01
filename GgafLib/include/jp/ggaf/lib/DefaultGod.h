@@ -16,7 +16,7 @@
  * 神が保持する SplineManufactureManager に接続し、コネクションを取得。
  * @param X：スプライン定義識別文字列。プロパティ DIR_SPLINE 配下の「X + ".spl"」というファイル名を使用する
  */
-#define getConnection_SplineManufactureManager(X) ((GgafLib::SplineManufactureConnection*)((P_GOD)->_pSplManufManager->connect((X), this)))
+#define connectToSplineManufactureManager(X) ((GgafLib::SplineManufactureConnection*)((P_GOD)->_pSplManufManager->connect((X), this)))
 
 namespace GgafLib {
 class DefaultGod : public GgafDxCore::GgafDxGod {

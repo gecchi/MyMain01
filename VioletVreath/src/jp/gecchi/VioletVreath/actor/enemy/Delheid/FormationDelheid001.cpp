@@ -13,7 +13,7 @@ using namespace VioletVreath;
 FormationDelheid001::FormationDelheid001(const char* prm_name) :
         FormationDelheid(prm_name) {
     _class_name = "FormationDelheid001";
-    pConn_pSplManuf_ = getConnection_SplineManufactureManager("FormationDelheid001");
+    pConn_pSplManuf_ = connectToSplineManufactureManager("FormationDelheid001");
 }
 
 void FormationDelheid001::onCallUpDelheid(EnemyDelheid* pEnemyDelheid) {

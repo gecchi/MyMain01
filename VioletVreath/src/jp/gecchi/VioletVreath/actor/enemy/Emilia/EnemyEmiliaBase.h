@@ -15,7 +15,6 @@ namespace VioletVreath {
 class EnemyEmiliaBase : public GgafLib::DefaultMeshSetActor {
 
 protected:
-    void appearFragment(const char* prm_dp_name);
     virtual void processStaminaEnd(const GgafDxCore::GgafDxGeometricActor* prm_pOther) = 0;
 
 public:
@@ -24,8 +23,22 @@ public:
         SE_EXPLOSION ,
     };
 
+    /** 編隊メンバーの初期移動速度(RANK変動) */
+    velo R_mv_velo_;
+    EnemyEmiliaBase* pOrg_;
+    FormationEmilia* pFormationEmilia_;
 public:
     EnemyEmiliaBase(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
+
+    /**
+     * エミリアがでポジトリから取得された際に呼び出されるコールバック .
+     * @param prm_pFormationEmilia でポジトリから取得を行ったフォーメーション（グループ）への参照
+     * @param prm_pOrg 分裂元になったエミリア(nullptr:大元)
+     */
+    virtual void onDispatched(EnemyEmiliaBase* prm_pOrg, FormationEmilia* prm_pFormationEmilia);
+
+
+    void updateRankParameter();
 
     virtual void onCreateModel() override;
 

@@ -7,6 +7,14 @@
 #include "jp/ggaf/core/util/GgafResourceConnection.hpp"
 
 #include "windows.h"
+#ifdef __GNUG__
+    #undef __in
+    #undef __out
+#endif
+#ifndef _MSC_VER
+    #include <atomic>
+#endif
+
 namespace GgafCore {
 
 /**
@@ -61,10 +69,21 @@ private:
     GgafResourceConnection<T>* createResourceConnection(const char* prm_idstr, T* prm_pResource);
 
 protected:
+#ifdef _MSC_VER
+    //TODO:VC++2005以降(x86) の volatile は、メモリバリア効果がある（と思う）。
+    //gcc(x86)は、アトミック保証は無いが std::atomic が使える。VC++に atomic が実装されるまではとりあえず・・・。
     /** connect中はtrueの排他フラグ */
     static volatile bool _is_connecting_resource;
     /** connectするために待っているフラグ */
     static volatile bool _is_waiting_to_connect;
+#else
+    /** connect中はtrueの排他フラグ */
+    static volatile std::atomic<bool> _is_connecting_resource;
+    /** connectするために待っているフラグ */
+    static volatile std::atomic<bool> _is_waiting_to_connect;
+#endif
+
+
     /** [r]マネージャ名称 */
     char* _manager_name;
     /** [r]GgafResourceConnectionオブジェクトのリストの先頭のポインタ。終端はnullptr */
@@ -129,11 +148,26 @@ public:
 // ---------------------------------------------------------------------//
 
 
+
+#ifdef _MSC_VER
+
 template<class T>
 volatile bool GgafResourceManager<T>::_is_connecting_resource = false;
 
 template<class T>
 volatile bool GgafResourceManager<T>::_is_waiting_to_connect = false;
+
+#else
+
+template<class T>
+volatile std::atomic<bool> GgafResourceManager<T>::_is_connecting_resource(false);
+
+template<class T>
+volatile std::atomic<bool> GgafResourceManager<T>::_is_waiting_to_connect(false);
+
+#endif
+
+
 
 template<class T>
 GgafResourceManager<T>::GgafResourceManager(const char* prm_manager_name) : GgafObject() {
@@ -142,10 +176,7 @@ GgafResourceManager<T>::GgafResourceManager(const char* prm_manager_name) : Ggaf
     int len = strlen(prm_manager_name);
     _manager_name = NEW char[len+1];
     strcpy(_manager_name, prm_manager_name);
-
     _pConn_first = nullptr;
-    _is_connecting_resource = false;
-    _is_waiting_to_connect = false;
 }
 
 template<class T>
@@ -183,7 +214,7 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(const char* prm_idstr
         _TRACE3_("警告 GgafResourceManager<T>::connect(nullptr) [" << _manager_name << "]");
     }
     if (_is_waiting_to_connect || _is_connecting_resource) {
-        _TRACE_("GgafResourceManager<T>::connect() "<<_manager_name<<"は、コネクト処理中です。待機が発生しました・・ 待機中("<<prm_idstr<<")");
+        _TRACE_("＜警告＞ GgafResourceManager<T>::connect() "<<_manager_name<<"は、コネクト処理中にもかかわらず、更にconnect() 要求が来たため待機が発生しました・・ 待機中("<<prm_idstr<<")");
     }
     for(int i = 0; _is_waiting_to_connect || _is_connecting_resource; i++) {
         Sleep(10);
@@ -191,6 +222,9 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(const char* prm_idstr
             //10分以上無応答時
             _TRACE_("GgafResourceManager<T>::connect() "<<_manager_name<<"へ、prm_idstr="<<prm_idstr<<" が connect()しようとして、既存のコネクト処理を10分待機・・・");
             throwGgafCriticalException("GgafResourceManager<T>::connect()  "<<_manager_name<<"へ、prm_idstr="<<prm_idstr<<" が connect()しようとして、既存のコネクト処理を10分待機。connect() 中に、connect()しているか、処理が遅すぎます。(1)");
+        }
+        if (i % 100 == 0) {
+            _TRACE_("＜警告＞ GgafResourceManager<T>::connect() "<<_manager_name<<"は、コネクト処理中にもかかわらず、更にconnect() 要求が来たため待機が発生しました・・ 待機中("<<prm_idstr<<") 待ち時間="<<i);
         }
     }
     _is_waiting_to_connect = false;
@@ -205,6 +239,9 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(const char* prm_idstr
             //１分以上無応答時
             _TRACE_("GgafResourceManager<T>::connect()  "<<_manager_name<<"へ、prm_idstr="<<prm_idstr<<" が connect()しようとして、既存のクローズ処理を10分待機・・・");
             throwGgafCriticalException("GgafResourceManager<T>::connect()  "<<_manager_name<<"へ、prm_idstr="<<prm_idstr<<" が  connect()しようとして、既存のクローズ処理を10分待機。connect() 中に、connect()しているか、処理が遅すぎます。(2)");
+        }
+        if (i % 100 == 0) {
+            _TRACE_("＜警告＞ GgafResourceManager<T>::connect() "<<_manager_name<<"は、既存のクローズ処理中に、connect() 要求が来たため待機が発生しました・・ 待機中("<<prm_idstr<<") 待ち時間="<<i);
         }
     }
     //TODO:メモ

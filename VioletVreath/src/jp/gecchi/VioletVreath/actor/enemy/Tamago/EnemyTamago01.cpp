@@ -30,7 +30,7 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) :
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
 
-    pConn_depo_ = getConnection_DepositoryManager("Shot001");
+    pConn_depo_ = connectToDepositoryManager("Shot001");
     //pDepo_shot_ = pConn_depo_->peek();
     pDepo_shot_ = nullptr;
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();

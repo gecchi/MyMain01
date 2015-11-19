@@ -33,7 +33,7 @@ FormationUrydike::FormationUrydike(const char* prm_name, int prm_formation_col_n
 FormationUrydike::FormationUrydike(const char* prm_name, const char* prm_xpm_id, frame prm_call_up_interval)  :
             TreeFormation(prm_name) {
     _class_name = "FormationUrydike";
-    pXpmConnection_ = getConnection_XpmManager(prm_xpm_id);
+    pXpmConnection_ = connectToXpmManager(prm_xpm_id);
     GgafXpm* pXpM = pXpmConnection_->peek();
     formation_col_num_ = pXpM->getWidth();
     formation_row_num_ = pXpM->getHeight();

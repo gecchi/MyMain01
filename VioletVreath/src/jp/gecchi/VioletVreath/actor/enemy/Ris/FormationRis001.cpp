@@ -19,8 +19,8 @@ FormationRis001::FormationRis001(const char* prm_name) : TreeFormation(prm_name)
     interval_frames_ = RF_FormationRis001_LaunchInterval(G_RANK);   //リスの間隔(frame)
     velo_mv_         = RF_FormationRis001_MvVelo(G_RANK); //速度
     //リス編隊作成
-    pSplLineConnection_ = getConnection_SplineLineManager("Spl_00201_"); //スプライン定義
-    pConn_depo_ = getConnection_DepositoryManager("Shot001");
+    pSplLineConnection_ = connectToSplineLineManager("Spl_00201_"); //スプライン定義
+    pConn_depo_ = connectToDepositoryManager("Shot001");
     for (int i = 0; i < num_Ris_; i++) {
         EnemyRis* pRis = NEW EnemyRis("Ris01");
         //スプライン移動プログラム設定

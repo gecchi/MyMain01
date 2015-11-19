@@ -49,7 +49,7 @@ MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_nam
 
 void MyBunshinWateringLaserChip001::initialize() {
     getKuroko()->linkFaceAngByMvAng(true);
-    registerHitAreaCube_AutoGenMidColli(80000);
+    registerHitAreaCube_AutoGenMidColli(20000);
     setHitAble(true);
     setScaleR(6.0);
     setAlpha(0.99);
@@ -81,6 +81,8 @@ void MyBunshinWateringLaserChip001::onActive() {
         GgafDxGeometricActor* pLockonTarget = pLockon_->pTarget_;
         if (pLockonTarget && pLockonTarget->isActiveInTheTree()) {
             //ロックオン中
+            pAxsMver_->forceVxyzMvVeloRange(-MAX_VELO_RENGE*2, MAX_VELO_RENGE*2);
+            pAxsMver_->forceVxyzMvAcceRange(-MAX_ACCE_RENGE*2, MAX_ACCE_RENGE*2);
             pAimPoint_ = pOrg_->getAimPoint();
             pAimPoint_->pTarget = pLockonTarget;
             pAimPoint_->target01_x = pLockonTarget->_x;
@@ -89,6 +91,8 @@ void MyBunshinWateringLaserChip001::onActive() {
             aim_status_ = PROG_AIM_AT_LOCK_ON_TARGET01;
         } else {
             //ロックオンしていない
+            pAxsMver_->forceVxyzMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
+            pAxsMver_->forceVxyzMvAcceRange(-MAX_ACCE_RENGE, MAX_ACCE_RENGE);
             pAimPoint_ = pOrg_->getAimPoint();
             pAimPoint_->pTarget = nullptr;
             pAimPoint_->target01_x = pOrg_->_x;
@@ -98,7 +102,8 @@ void MyBunshinWateringLaserChip001::onActive() {
         }
     } else {
         //先端以外
-
+        pAxsMver_->forceVxyzMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
+        pAxsMver_->forceVxyzMvAcceRange(-MAX_ACCE_RENGE, MAX_ACCE_RENGE);
         pAimPoint_ = pF->pAimPoint_; //受け継ぐ
         aim_status_ = pF->aim_status_;
     }
@@ -120,7 +125,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
             }
         } else {
             GgafDxGeometricActor* pAimTarget = pAimPoint->pTarget;
-            if (pAimTarget && pAimTarget->isActiveInTheTree() && getActiveFrame() < 120)  {
+            if (pAimTarget && pAimTarget->isActiveInTheTree() && getActiveFrame() < 600)  {
                 if (active_frame > 7 ) {
                     aimChip(pAimTarget->_x,
                             pAimTarget->_y,
@@ -157,7 +162,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                 }
             }
         }
-        if (active_frame < 120) {
+        if (active_frame < 600) {
             if (active_frame > 7 ) {
                 aimChip(pAimPoint->target01_x,
                         pAimPoint->target01_y,
@@ -179,16 +184,27 @@ void MyBunshinWateringLaserChip001::processBehavior() {
             if (_pLeader == this) {
                 MyBunshinWateringLaserChip001* pB = (MyBunshinWateringLaserChip001*)getBehindChip();
                 if (pB) {
-                    coord dx = _x - pB->_x;
-                    coord dy = _y - pB->_y;
-                    coord dz = _z - pB->_z;
-                    aimChip(_x + dx*2+1,
-                            _y + dy*2+1,
-                            _z + dz*2+1 );
+                    MyBunshinWateringLaserChip001* pBB = (MyBunshinWateringLaserChip001*)(pB->getBehindChip());
+                    if (pBB) {
+                        coord dx = _x - pBB->_x;
+                        coord dy = _y - pBB->_y;
+                        coord dz = _z - pBB->_z;
+                        aimChip(_x + dx*2+1,
+                                _y + dy*2+1,
+                                _z + dz*2+1 );
+
+                    } else {
+                        coord dx = _x - pB->_x;
+                        coord dy = _y - pB->_y;
+                        coord dz = _z - pB->_z;
+                        aimChip(_x + dx*4+1,
+                                _y + dy*4+1,
+                                _z + dz*4+1 );
+                    }
                 } else {
-                    aimChip(_x + pAxsMver_->_velo_vx_mv*2+1,
-                            _y + pAxsMver_->_velo_vy_mv*2+1,
-                            _z + pAxsMver_->_velo_vz_mv*2+1 );
+                    aimChip(_x + pAxsMver_->_velo_vx_mv*4+1,
+                            _y + pAxsMver_->_velo_vy_mv*4+1,
+                            _z + pAxsMver_->_velo_vz_mv*4+1 );
                 }
             } else {
                 if (_pLeader) {

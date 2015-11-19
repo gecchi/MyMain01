@@ -16,7 +16,7 @@ using namespace VioletVreath;
 EnemyHisbeLaserChip003::EnemyHisbeLaserChip003(const char* prm_name) :
         WateringLaserChip(prm_name, "HisbeLaserChip003", STATUS(EnemyHisbeLaserChip003)) {
     _class_name = "EnemyHisbeLaserChip003";
-    pConn_pSplManuf_ = getConnection_SplineManufactureManager("EnemyHisbeLaserChip003"); //ゴスパー曲線
+    pConn_pSplManuf_ = connectToSplineManufactureManager("EnemyHisbeLaserChip003"); //ゴスパー曲線
     pKurokoLeader_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
     pKurokoLeader_->adjustCoordOffset(PX_C(100), 0, 0);
     pScrollingScene_ = nullptr;

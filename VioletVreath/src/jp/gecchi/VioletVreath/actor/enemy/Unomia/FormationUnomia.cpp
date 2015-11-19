@@ -19,7 +19,7 @@ FormationUnomia::FormationUnomia(const char* prm_name, const char* prm_spl_id)
     _class_name = "FormationUnomia";
 
     //スプライン定義ファイルを読み込む
-    pConn_pSplManuf_ = getConnection_SplineManufactureManager(prm_spl_id);
+    pConn_pSplManuf_ = connectToSplineManufactureManager(prm_spl_id);
     pDepo_shot_ = getCommonDepository(Shot004);
     updateRankParameter();
     useProgress(PROG_BANPEI);

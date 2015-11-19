@@ -15,10 +15,16 @@ namespace VioletVreath {
 class EnemyEmiliaFragment : public EnemyEmiliaBase {
 
 protected:
+    /**
+     * 破壊された時の処理コールバック .
+     * @param prm_pOther 破壊された相手のアクター
+     */
     void processStaminaEnd(const GgafDxCore::GgafDxGeometricActor* prm_pOther) override;
 
 public:
     EnemyEmiliaFragment(const char* prm_name);
+
+    void onDispatched(EnemyEmiliaBase* prm_pOrg, FormationEmilia* prm_pFormationEmilia) override;
 
     void onCreateModel() override;
 

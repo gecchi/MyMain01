@@ -19,8 +19,8 @@ FormationRis002::FormationRis002(const char* prm_name) :
     interval_frames_ = RF_FormationRis002_LaunchInterval(G_RANK);   //リスの間隔(frame)
     velo_mv_         = RF_FormationRis002_MvVelo(G_RANK); //速度
     //スプライン移動の定義
-    pSplLineConnection_ = getConnection_SplineLineManager("Spl_00202_");
-    pConn_depo_ = getConnection_DepositoryManager("Shot002");
+    pSplLineConnection_ = connectToSplineLineManager("Spl_00202_");
+    pConn_depo_ = connectToDepositoryManager("Shot002");
     //リス編隊作成
     for (int i = 0; i < num_Ris_; i++) {
         EnemyRis* pRis = NEW EnemyRis("Ris01");

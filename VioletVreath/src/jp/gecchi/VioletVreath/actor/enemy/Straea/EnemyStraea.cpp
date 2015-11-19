@@ -44,8 +44,8 @@ EnemyStraea::EnemyStraea(const char* prm_name) :
         }
     }
 
-    pConn_pRefractionEffectDepository_ = getConnection_DepositoryManager("EffRefraction001");
-    pConn_pDepoStore_laser_set = getConnection_DepositoryManager(
+    pConn_pRefractionEffectDepository_ = connectToDepositoryManager("EffRefraction001");
+    pConn_pDepoStore_laser_set = connectToDepositoryManager(
             "EnemyStraeaLaserChip004DepoStore"//,
          //"EnemyStraeaLaserChip003DepoStore",
          //"EnemyStraeaLaserChip001DepoStore",
@@ -75,8 +75,8 @@ EnemyStraea::EnemyStraea(const char* prm_name) :
     pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
     useProgress(PROG_BANPEI);
-    pConn_pShotDepo2_ = getConnection_DepositoryManager("Shot004Yellow");
-    pConn_pShotDepo3_ = getConnection_DepositoryManager("Shot004Blue");
+    pConn_pShotDepo2_ = connectToDepositoryManager("Shot004Yellow");
+    pConn_pShotDepo3_ = connectToDepositoryManager("Shot004Blue");
 }
 
 void EnemyStraea::onCreateModel() {

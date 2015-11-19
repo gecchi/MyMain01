@@ -40,16 +40,16 @@ namespace VioletVreath {
  * 神が保持する DepositoryManager に接続し、コネクションを取得。
  * X：識別文字列（DepositoryManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) の prm_idstr に渡る)
  */
-#define getConnection_DepositoryManager(X) ((VioletVreath::DepositoryConnection*)(P_GOD->pDepoManager_->connect((X), this)))
+#define connectToDepositoryManager(X) ((VioletVreath::DepositoryConnection*)(P_GOD->pDepoManager_->connect((X), this)))
 
 /**
  * 神が保持する SplineLineManager に接続し、コネクションを取得。
  * X：識別文字列（SplineLineManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) の prm_idstr に渡る)
  */
-#define getConnection_SplineLineManager(X)   ((VioletVreath::SplineLineConnection*)(P_GOD->pSpl3DManager_->connect((X), this)))
+#define connectToSplineLineManager(X)   ((VioletVreath::SplineLineConnection*)(P_GOD->pSpl3DManager_->connect((X), this)))
 
 
-#define getConnection_XpmManager(X) ((VioletVreath::XpmConnection*)(P_GOD->pXpmManager_->connect((X), this)))
+#define connectToXpmManager(X) ((VioletVreath::XpmConnection*)(P_GOD->pXpmManager_->connect((X), this)))
 
 
 /**

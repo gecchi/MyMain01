@@ -13,7 +13,7 @@ FormationEbe001::FormationEbe001(const char* prm_name) :
         FormationEbe(prm_name, "FormationEbe001") {
     _class_name = "FormationEbe001";
     //スプライン定義ファイルを読み込む
-    pConn_pSplManuf_ = getConnection_SplineManufactureManager("FormationEbe001");
+    pConn_pSplManuf_ = connectToSplineManufactureManager("FormationEbe001");
 }
 void FormationEbe001::onCallUpEbe(EnemyEbe* pEnemyEbe) {
 //    pEnemyEbe->pKurokoLeader_->adjustAxisRate(

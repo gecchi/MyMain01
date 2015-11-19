@@ -20,7 +20,7 @@ FormationOebius002::FormationOebius002(const char* prm_name, EnemyOebiusControll
 
     papSplManufConn_ = NEW SplineManufactureConnection*[getFormationColNum()];
     for (int col = 0; col < getFormationColNum(); col++) {
-        papSplManufConn_[col] = getConnection_SplineManufactureManager(("FormationOebius002/"+XTOS(col)).c_str());
+        papSplManufConn_[col] = connectToSplineManufactureManager(("FormationOebius002/"+XTOS(col)).c_str());
     }
 }
 

@@ -20,6 +20,8 @@ protected:
 public:
     EnemyEmiliaFragment3(const char* prm_name);
 
+    void onDispatched(EnemyEmiliaBase* prm_pOrg, FormationEmilia* prm_pFormationEmilia) override;
+
     void onCreateModel() override;
 
     void initialize() override;

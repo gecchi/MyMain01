@@ -35,7 +35,7 @@ EnemyEsperia::EnemyEsperia(const char* prm_name) :
         papLaserChipDepo_[i] = nullptr;
     }
 
-    pConn_pDepoStore_laser_set = getConnection_DepositoryManager("EnemyEsperiaLaserChip001DepoStore");
+    pConn_pDepoStore_laser_set = connectToDepositoryManager("EnemyEsperiaLaserChip001DepoStore");
     pDepoStore_laser_set = (GgafActorDepositoryStore*)(pConn_pDepoStore_laser_set->peek());
 
     paLocalPos_laser_ = NEW GgafDxGeoElem[max_laser_way_];

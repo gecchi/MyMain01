@@ -171,16 +171,6 @@ int GgafDxAxesMover::dot(int prm_vX, int prm_vY, int prm_vZ) {
     return (prm_vX * _velo_vx_mv) + (prm_vY *_velo_vy_mv) + (prm_vZ*_velo_vz_mv);
 }
 
-void GgafDxAxesMover::forceVxMvVeloRange(velo prm_velo_vx_mv01, velo prm_velo_vx_mv02) {
-    if (prm_velo_vx_mv01 < prm_velo_vx_mv02) {
-        _top_velo_vx_mv = prm_velo_vx_mv02;
-        _bottom_velo_vx_mv = prm_velo_vx_mv01;
-    } else {
-        _top_velo_vx_mv = prm_velo_vx_mv01;
-        _bottom_velo_vx_mv = prm_velo_vx_mv02;
-    }
-    setVxMvVelo(_velo_vx_mv); //�Đݒ肵�Ĕ͈͓��ɕ␳
-}
 
 void GgafDxAxesMover::setVxMvVelo(velo prm_velo_vx_mv) {
     if (prm_velo_vx_mv > _top_velo_vx_mv) {
@@ -199,6 +189,17 @@ void GgafDxAxesMover::addVxMvVelo(velo prm_velo_vx_mv) {
     } else if (_velo_vx_mv < _bottom_velo_vx_mv) {
         _velo_vx_mv = _bottom_velo_vx_mv;
     }
+}
+
+void GgafDxAxesMover::forceVxMvVeloRange(velo prm_velo_vx_mv01, velo prm_velo_vx_mv02) {
+    if (prm_velo_vx_mv01 < prm_velo_vx_mv02) {
+        _top_velo_vx_mv = prm_velo_vx_mv02;
+        _bottom_velo_vx_mv = prm_velo_vx_mv01;
+    } else {
+        _top_velo_vx_mv = prm_velo_vx_mv01;
+        _bottom_velo_vx_mv = prm_velo_vx_mv02;
+    }
+    setVxMvVelo(_velo_vx_mv); //�Đݒ肵�Ĕ͈͓��ɕ␳
 }
 
 void GgafDxAxesMover::setVxMvAcce(acce prm_acce_vx_mv) {
@@ -226,16 +227,6 @@ void GgafDxAxesMover::forceVxMvAcceRange(acce prm_acce_vx_mv01, acce prm_acce_vx
     setVxMvAcce(_acce_vx_mv); //�Đݒ肵�Ĕ͈͓��ɕ␳
 }
 
-void GgafDxAxesMover::forceVyMvVeloRange(velo prm_velo_vy_mv01, velo prm_velo_vy_mv02) {
-    if (prm_velo_vy_mv01 < prm_velo_vy_mv02) {
-        _top_velo_vy_mv = prm_velo_vy_mv02;
-        _bottom_velo_vy_mv = prm_velo_vy_mv01;
-    } else {
-        _top_velo_vy_mv = prm_velo_vy_mv01;
-        _bottom_velo_vy_mv = prm_velo_vy_mv02;
-    }
-    setVyMvVelo(_velo_vy_mv); //�Đݒ肵�Ĕ͈͓��ɕ␳
-}
 
 void GgafDxAxesMover::setVyMvVelo(velo prm_velo_vy_mv) {
     if (prm_velo_vy_mv > _top_velo_vy_mv) {
@@ -256,6 +247,16 @@ void GgafDxAxesMover::addVyMvVelo(velo prm_velo_vy_mv) {
     }
 }
 
+void GgafDxAxesMover::forceVyMvVeloRange(velo prm_velo_vy_mv01, velo prm_velo_vy_mv02) {
+    if (prm_velo_vy_mv01 < prm_velo_vy_mv02) {
+        _top_velo_vy_mv = prm_velo_vy_mv02;
+        _bottom_velo_vy_mv = prm_velo_vy_mv01;
+    } else {
+        _top_velo_vy_mv = prm_velo_vy_mv01;
+        _bottom_velo_vy_mv = prm_velo_vy_mv02;
+    }
+    setVyMvVelo(_velo_vy_mv); //�Đݒ肵�Ĕ͈͓��ɕ␳
+}
 void GgafDxAxesMover::setVyMvAcce(acce prm_acce_vy_mv) {
     if (prm_acce_vy_mv > _top_acce_vy_mv) {
         _acce_vy_mv = _top_acce_vy_mv;
@@ -281,16 +282,6 @@ void GgafDxAxesMover::forceVyMvAcceRange(acce prm_acce_vy_mv01, acce prm_acce_vy
     setVyMvAcce(_acce_vy_mv); //�Đݒ肵�Ĕ͈͓��ɕ␳
 }
 
-void GgafDxAxesMover::forceVzMvVeloRange(velo prm_velo_vz_mv01, velo prm_velo_vz_mv02) {
-    if (prm_velo_vz_mv01 < prm_velo_vz_mv02) {
-        _top_velo_vz_mv = prm_velo_vz_mv02;
-        _bottom_velo_vz_mv = prm_velo_vz_mv01;
-    } else {
-        _top_velo_vz_mv = prm_velo_vz_mv01;
-        _bottom_velo_vz_mv = prm_velo_vz_mv02;
-    }
-    setVzMvVelo(_velo_vz_mv); //�Đݒ肵�Ĕ͈͓��ɕ␳
-}
 
 void GgafDxAxesMover::setVzMvVelo(velo prm_velo_vz_mv) {
     if (prm_velo_vz_mv > _top_velo_vz_mv) {
@@ -309,6 +300,17 @@ void GgafDxAxesMover::addVzMvVelo(velo prm_velo_vz_mv) {
     } else if (_velo_vz_mv < _bottom_velo_vz_mv) {
         _velo_vz_mv = _bottom_velo_vz_mv;
     }
+}
+
+void GgafDxAxesMover::forceVzMvVeloRange(velo prm_velo_vz_mv01, velo prm_velo_vz_mv02) {
+    if (prm_velo_vz_mv01 < prm_velo_vz_mv02) {
+        _top_velo_vz_mv = prm_velo_vz_mv02;
+        _bottom_velo_vz_mv = prm_velo_vz_mv01;
+    } else {
+        _top_velo_vz_mv = prm_velo_vz_mv01;
+        _bottom_velo_vz_mv = prm_velo_vz_mv02;
+    }
+    setVzMvVelo(_velo_vz_mv); //�Đݒ肵�Ĕ͈͓��ɕ␳
 }
 
 void GgafDxAxesMover::setVzMvAcce(acce prm_acce_vz_mv) {
@@ -338,19 +340,11 @@ void GgafDxAxesMover::forceVzMvAcceRange(acce prm_acce_vz_mv01, acce prm_acce_vz
 
 void GgafDxAxesMover::forceVxyzMvVeloRange(velo prm_velo_vxyz_mv01, velo prm_velo_vxyz_mv02) {
     if (prm_velo_vxyz_mv01 < prm_velo_vxyz_mv02) {
-        _top_velo_vx_mv = prm_velo_vxyz_mv02;
-        _bottom_velo_vx_mv = prm_velo_vxyz_mv01;
-        _top_velo_vy_mv = prm_velo_vxyz_mv02;
-        _bottom_velo_vy_mv = prm_velo_vxyz_mv01;
-        _top_velo_vz_mv = prm_velo_vxyz_mv02;
-        _bottom_velo_vz_mv = prm_velo_vxyz_mv01;
+        _top_velo_vx_mv    = _top_velo_vy_mv    = _top_velo_vz_mv    = prm_velo_vxyz_mv02;
+        _bottom_velo_vx_mv = _bottom_velo_vy_mv = _bottom_velo_vz_mv = prm_velo_vxyz_mv01;
     } else {
-        _top_velo_vx_mv = prm_velo_vxyz_mv01;
-        _bottom_velo_vx_mv = prm_velo_vxyz_mv02;
-        _top_velo_vy_mv = prm_velo_vxyz_mv01;
-        _bottom_velo_vy_mv = prm_velo_vxyz_mv02;
-        _top_velo_vz_mv = prm_velo_vxyz_mv01;
-        _bottom_velo_vz_mv = prm_velo_vxyz_mv02;
+        _top_velo_vx_mv    = _top_velo_vy_mv    = _top_velo_vz_mv    = prm_velo_vxyz_mv01;
+        _bottom_velo_vx_mv = _bottom_velo_vy_mv = _bottom_velo_vz_mv = prm_velo_vxyz_mv02;
     }
     //�Đݒ肵�Ĕ͈͓��ɕ␳
     setVxMvVelo(_velo_vx_mv);
@@ -359,9 +353,17 @@ void GgafDxAxesMover::forceVxyzMvVeloRange(velo prm_velo_vxyz_mv01, velo prm_vel
 }
 
 void GgafDxAxesMover::forceVxyzMvAcceRange(acce prm_acce_vxyz_mv01, acce prm_acce_vxyz_mv02) {
-    forceVxMvAcceRange(prm_acce_vxyz_mv01, prm_acce_vxyz_mv02);
-    forceVyMvAcceRange(prm_acce_vxyz_mv01, prm_acce_vxyz_mv02);
-    forceVzMvAcceRange(prm_acce_vxyz_mv01, prm_acce_vxyz_mv02);
+    if (prm_acce_vxyz_mv01 < prm_acce_vxyz_mv02) {
+        _top_acce_vx_mv    = _top_acce_vy_mv    = _top_acce_vz_mv    = prm_acce_vxyz_mv02;
+        _bottom_acce_vx_mv = _bottom_acce_vy_mv = _bottom_acce_vz_mv = prm_acce_vxyz_mv01;
+    } else {
+        _top_acce_vx_mv    = _top_acce_vy_mv     = _top_acce_vz_mv   = prm_acce_vxyz_mv01;
+        _bottom_acce_vx_mv =  _bottom_acce_vy_mv =_bottom_acce_vz_mv = prm_acce_vxyz_mv02;
+    }
+    //�Đݒ肵�Ĕ͈͓��ɕ␳
+    setVxMvAcce(_acce_vx_mv);
+    setVyMvAcce(_acce_vy_mv);
+    setVzMvAcce(_acce_vz_mv);
 }
 
 void GgafDxAxesMover::setVxyzMvVelo(velo prm_velo_vx_mv, velo prm_velo_vy_mv, velo prm_velo_vz_mv) {

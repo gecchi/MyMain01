@@ -20,9 +20,9 @@ FormationAllas002::FormationAllas002(const char* prm_name) :
     interval_frames_ = RF_FormationAllas002_LaunchInterval(G_RANK);  //アラスの間隔(frame)
     velo_mv_         = RF_FormationAllas002_MvVelo(G_RANK); //速度
     //アラス編隊作成
-    pConn_pSplManuf_ = getConnection_SplineManufactureManager("Allas02");
-//    pSplLineConnection_     = getConnection_SplineLineManager("Spl_Allas01"); //スプライン定義
-    //pConn_depo_ = getConnection_DepositoryManager("Shot002");
+    pConn_pSplManuf_ = connectToSplineManufactureManager("Allas02");
+//    pSplLineConnection_     = connectToSplineLineManager("Spl_Allas01"); //スプライン定義
+    //pConn_depo_ = connectToDepositoryManager("Shot002");
     pConn_depo_ = nullptr;
     papAllas_ = NEW EnemyAllas*[num_Allas_];
     for (int i = 0; i < num_Allas_; i++) {

@@ -19,7 +19,7 @@ using namespace VioletVreath;
 EnemyHisbeLaserChip002::EnemyHisbeLaserChip002(const char* prm_name) :
         RefractionLaserChip(prm_name, "HisbeLaserChip002", STATUS(EnemyHisbeLaserChip002)) {
     _class_name = "EnemyHisbeLaserChip002";
-    pConn_pSplManuf_ = getConnection_SplineManufactureManager("EnemyHisbeLaserChip002"); //ƒqƒ‹ƒxƒ‹ƒg‹Èü
+    pConn_pSplManuf_ = connectToSplineManufactureManager("EnemyHisbeLaserChip002"); //ƒqƒ‹ƒxƒ‹ƒg‹Èü
     pKurokoLeader_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
     pKurokoLeader_->adjustCoordOffset(PX_C(100), 0, 0);
     pScrollingScene_ = nullptr;

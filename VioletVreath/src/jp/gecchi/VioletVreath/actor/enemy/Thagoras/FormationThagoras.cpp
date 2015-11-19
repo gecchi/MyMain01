@@ -21,7 +21,7 @@ FormationThagoras::FormationThagoras(const char* prm_name,
         TreeFormation(prm_name) {
     _class_name = "FormationThagoras";
 
-    pXpmConnection_ = getConnection_XpmManager(prm_xpm_id);
+    pXpmConnection_ = connectToXpmManager(prm_xpm_id);
     for (int i = 0; i < getXpm()->getPixelNum(); i++) {
         std::string name = "Thagoras("+XTOS(i)+")";
         addFormationMember(NEW EnemyThagoras(name.c_str()));

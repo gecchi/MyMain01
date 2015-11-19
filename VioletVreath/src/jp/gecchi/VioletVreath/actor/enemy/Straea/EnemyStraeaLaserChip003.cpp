@@ -14,7 +14,7 @@ using namespace VioletVreath;
 EnemyStraeaLaserChip003::EnemyStraeaLaserChip003(const char* prm_name) :
         WateringLaserChip(prm_name, "StraeaLaserChip001", STATUS(EnemyStraeaLaserChip003)) {
     _class_name = "EnemyStraeaLaserChip003";
-    pConn_pSplManuf_ = getConnection_SplineManufactureManager("GURUGURU");
+    pConn_pSplManuf_ = connectToSplineManufactureManager("GURUGURU");
     pKurokoLeader_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
 }
 

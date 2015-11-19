@@ -18,7 +18,7 @@ FormationThagoras002::FormationThagoras002(const char* prm_name) :
     int col_num = getXpm()->getWidth();
     papSplManufConn_ = NEW SplineManufactureConnection*[col_num];
     for (int i = 0; i < col_num; i++) {
-        papSplManufConn_[i] = getConnection_SplineManufactureManager("FormationThagoras001");
+        papSplManufConn_[i] = connectToSplineManufactureManager("FormationThagoras001");
     }
 }
 

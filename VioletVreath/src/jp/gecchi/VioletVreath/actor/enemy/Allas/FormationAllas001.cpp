@@ -21,7 +21,7 @@ FormationAllas001::FormationAllas001(const char* prm_name) :
     interval_frames_ = 0;
     velo_mv_         = 0;
     //ÉAÉâÉXï“ë‡çÏê¨
-    pConn_pSplManuf_ = getConnection_SplineManufactureManager("Allas01");
+    pConn_pSplManuf_ = connectToSplineManufactureManager("Allas01");
     pConn_depo_ = nullptr;
     useProgress(PROG_BANPEI);
 }

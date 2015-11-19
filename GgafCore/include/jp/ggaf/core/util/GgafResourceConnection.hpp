@@ -9,6 +9,13 @@
 #include "jp/ggaf/core/util/GgafResourceManager.hpp"
 
 #include "windows.h"
+#ifdef __GNUG__
+    #undef __in
+    #undef __out
+#endif
+#ifndef _MSC_VER
+    #include <atomic>
+#endif
 
 namespace GgafCore {
 
@@ -46,8 +53,16 @@ private:
     /** 初めての接続元 */
     void* _p_first_connector;
 
+
+#ifdef _MSC_VER
+    //TODO:VC++2005以降(x86) の volatile は、メモリバリア効果がある（と思う）。
+    //gcc(x86)は、アトミック保証は無いが std::atomic が使える。VC++に atomic が実装されるまではとりあえず・・・。
     /** close中はtrueの排他フラグ */
     static volatile bool _is_closing_resource;
+#else
+    /** close中はtrueの排他フラグ */
+    static volatile std::atomic<bool> _is_closing_resource;
+#endif
 
 protected:
     /** [r]資源マネジャー */
@@ -122,11 +137,17 @@ public:
      * @return 資源接続を解除した後の、接続カウンタ
      */
     int close();
+
 };
 
 /////////////////////////////////// 実装部 /////
+#ifdef _MSC_VER
 template<class T>
 volatile bool GgafResourceConnection<T>::_is_closing_resource = false;
+#else
+template<class T>
+volatile std::atomic<bool> GgafResourceConnection<T>::_is_closing_resource(false);
+#endif
 
 template<class T>
 char* GgafResourceConnection<T>::getIdStr() const {
@@ -141,7 +162,7 @@ GgafResourceConnection<T>* GgafResourceConnection<T>::getNext() const {
 template<class T>
 GgafResourceConnection<T>::GgafResourceConnection(const char* prm_idstr, T* prm_pResource) : GgafObject() {
     _TRACE3_("GgafResourceConnection::GgafResourceConnection(prm_idstr = " <<  prm_idstr << ")");
-    _is_closing_resource = false;
+
     _pResource = prm_pResource;
     _pNext = nullptr;
     _pManager = nullptr;
@@ -151,6 +172,7 @@ GgafResourceConnection<T>::GgafResourceConnection(const char* prm_idstr, T* prm_
     int len = strlen(prm_idstr);
     _idstr = NEW char[len+1];
     strcpy(_idstr, prm_idstr);
+
 }
 
 template<class T>
@@ -172,7 +194,7 @@ template<class T>
 int GgafResourceConnection<T>::close() {
     //close() は複数スレッドから受付を許容する。
     if ( _is_closing_resource || GgafResourceManager<T>::_is_connecting_resource) {
-        _TRACE_("GgafResourceConnection<T>::close() 別のスレッドがconnect() 或いは close() 。待機が発生しました・・・・意図的ならば良いです。[" << _pManager->_manager_name << "(" << _idstr << ")" << "]。");
+        _TRACE_("＜警告＞ GgafResourceConnection<T>::close() 別のスレッドがconnect() 或いは close() 。待機が発生しました・・・・意図的ならば良いです。[" << _pManager->_manager_name << "(" << _idstr << ")" << "]。");
     }
 
     for(int i = 0; _is_closing_resource || GgafResourceManager<T>::_is_connecting_resource; i++) {
@@ -180,6 +202,9 @@ int GgafResourceConnection<T>::close() {
         if (i > 100*60) {
             throwGgafCriticalException("GgafResourceConnection<T>::close() [" << _pManager->_manager_name << "(" << _idstr << ")" << "]<-" << _num_connection << " \n"<<
                                        "現在 connect() 或いは close() 中にもかかわらず、close()しようとしてタイムアウトになりました。connect～colse のスレッドを１本にして下さい。");
+        }
+        if (i % 100 == 0) {
+            _TRACE_("＜警告＞ GgafResourceConnection<T>::close() 別のスレッドがconnect() 或いは close() 中に、さらにclose()要求がきたため待機。[" << _pManager->_manager_name << "(" << _idstr << ")" << "]。待ち時間="<<i);
         }
     }
     _is_closing_resource = true;

@@ -33,10 +33,10 @@ FormationDelheid::FormationDelheid(const char* prm_name)
     addSubGroup(pDummy_);
 
     //編隊隊員デポジトリセット
-    pConn_pDelheidDepo_ = getConnection_DepositoryManager("EnemyDelheid4Formation");
+    pConn_pDelheidDepo_ = connectToDepositoryManager("EnemyDelheid4Formation");
     setFormationMember(pConn_pDelheidDepo_->peek());
     //編隊隊員のショットデポジトリ
-    pConn_pShotDepo_ = getConnection_DepositoryManager("EnemyDelheidShot");
+    pConn_pShotDepo_ = connectToDepositoryManager("EnemyDelheidShot");
 
     updateRankParameter();
     useProgress(PROG_BANPEI);

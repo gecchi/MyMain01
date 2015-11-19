@@ -53,7 +53,7 @@ void GgafDxBgmPerformer::ready(int prm_channel, const char* prm_bgm_name) {
         _TRACE_("【警告】GgafDxBgmPerformer::set() IDが使用済みです、上書きしますが意図してますか？？。prm_channel="<<prm_channel<<" prm_bgm_name="<<prm_bgm_name);
         _papBgmConnection[prm_channel]->close();
     }
-    _papBgmConnection[prm_channel] = getConnection_BgmManager(prm_bgm_name);
+    _papBgmConnection[prm_channel] = connectToBgmManager(prm_bgm_name);
     _papBgmConnection[prm_channel]->peek()->stop(); //どこかのシーンで演奏中だったかももしれないので頭出しする・・・
 }
 

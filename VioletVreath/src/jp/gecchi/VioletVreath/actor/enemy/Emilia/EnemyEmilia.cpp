@@ -8,6 +8,7 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
 
+#include "jp/gecchi/VioletVreath/actor/enemy/Emilia/FormationEmilia.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -15,6 +16,18 @@ using namespace VioletVreath;
 
 EnemyEmilia::EnemyEmilia(const char* prm_name) :
         EnemyEmiliaBase(prm_name, "Emilia", STATUS(EnemyEmilia)) {
+}
+
+void EnemyEmilia::onDispatched(EnemyEmiliaBase* prm_pOrg, FormationEmilia* prm_pFormationEmilia) {
+    EnemyEmiliaBase::onDispatched(prm_pOrg, prm_pFormationEmilia);
+    //prm_pOrg ‚Í–³‚¢(nullptr)
+    const coord appearances_renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 3;
+    const coord appearances_renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 3;
+    Spacetime* pSpacetime =  P_GOD->getSpacetime();
+    position(pSpacetime->_x_bound_right,
+                      RND(-(appearances_renge_y/2) , +(appearances_renge_y/2)),
+                      RND(-(appearances_renge_z/2) , +(appearances_renge_z/2)) );
+    getKuroko()->setMvVelo(RF_FormationEmilia_MvVelo(G_RANK) );
 }
 
 void EnemyEmilia::onCreateModel() {
@@ -43,8 +56,10 @@ void EnemyEmilia::onInactive() {
 }
 
 void EnemyEmilia::processStaminaEnd(const GgafDxGeometricActor* prm_pOther) {
-    appearFragment("EmiliaFragment"); //’f•ĞoŒ»
+    pFormationEmilia_->appearFragment(this);
 }
 
 EnemyEmilia::~EnemyEmilia() {
 }
+
+

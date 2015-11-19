@@ -16,7 +16,7 @@ FormationEbe::FormationEbe(const char* prm_name, const char* prm_spl_id)
    : DepositoryFormation(prm_name, 20*60) {
     _class_name = "FormationEbe";
 
-    pConn_pEbeDepo_ = getConnection_DepositoryManager("EnemyEbe4Formation");
+    pConn_pEbeDepo_ = connectToDepositoryManager("EnemyEbe4Formation");
     setFormationMember(pConn_pEbeDepo_->peek());
 
     pConn_pShotDepo_ = nullptr;

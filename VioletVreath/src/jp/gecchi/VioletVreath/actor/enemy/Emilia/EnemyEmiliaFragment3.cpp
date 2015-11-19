@@ -14,6 +14,16 @@ EnemyEmiliaFragment3::EnemyEmiliaFragment3(const char* prm_name) :
         EnemyEmiliaBase(prm_name, "Emilia", STATUS(EnemyEmiliaFragment3)) {
 }
 
+void EnemyEmiliaFragment3::onDispatched(EnemyEmiliaBase* prm_pOrg, FormationEmilia* prm_pFormationEmilia) {
+    EnemyEmiliaBase::onDispatched(prm_pOrg, prm_pFormationEmilia);
+    positionAs(prm_pOrg);
+    GgafDxKuroko* pKuroko = getKuroko();
+    pKuroko->takeoverMvFrom(prm_pOrg->getKuroko());
+    pKuroko->setMvVelo(pKuroko->_velo_mv/2); //半分のスピードへ
+    pKuroko->addRyMvAng(RND(D_ANG(-90), D_ANG(+90)));
+    pKuroko->addRzMvAng(RND(D_ANG(-90), D_ANG(+90)));
+}
+
 void EnemyEmiliaFragment3::onCreateModel() {
 }
 
@@ -23,7 +33,7 @@ void EnemyEmiliaFragment3::initialize() {
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, PX_C(20));
-    getKuroko()->setRollPitchYawFaceAngVelo(D_ANG(0), D_ANG(0), D_ANG(10));
+    getKuroko()->setRollPitchYawFaceAngVelo(D_ANG(0), D_ANG(0), D_ANG(12));
 }
 
 void EnemyEmiliaFragment3::onActive() {

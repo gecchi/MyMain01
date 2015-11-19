@@ -14,7 +14,7 @@ using namespace VioletVreath;
 EnemyIdaBase001::EnemyIdaBase001(const char* prm_name) :
         EnemyIdaBase(prm_name) {
 
-    pConn_pSplManuf_ = getConnection_SplineManufactureManager("EnemyIdaBase001");
+    pConn_pSplManuf_ = connectToSplineManufactureManager("EnemyIdaBase001");
     pKurokoLeader_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
     useProgress(PROG_BANPEI);
 }

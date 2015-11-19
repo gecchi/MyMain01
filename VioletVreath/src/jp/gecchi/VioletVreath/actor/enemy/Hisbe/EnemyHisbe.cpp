@@ -75,12 +75,12 @@ EnemyHisbe::EnemyHisbe(const char* prm_name) :
 
 
     //ホーミング(リポジトリ)------>
-    pConn_pDepoStore_laser_set = getConnection_DepositoryManager("EnemyHisbeLaserChip001DepoStore");
+    pConn_pDepoStore_laser_set = connectToDepositoryManager("EnemyHisbeLaserChip001DepoStore");
     pLaserChipDepo_ = nullptr;
     //<---------------------
 
     //リフレクション(リポジトリ)------>
-//    pConn_pDepoStore_laser_set = getConnection_DepositoryManager("EnemyHisbeLaserChip002DepoStore");
+//    pConn_pDepoStore_laser_set = connectToDepositoryManager("EnemyHisbeLaserChip002DepoStore");
 //    pLaserChipDepo_ = nullptr;
     //<---------------------
 

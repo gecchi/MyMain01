@@ -24,7 +24,7 @@ Shot001::Shot001(const char* prm_name) :
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(0, "WAVE_EXPLOSION_002");
 
-    pSplLineConnection_ = getConnection_SplineLineManager("Spl_HAN"); //スプライン定義
+    pSplLineConnection_ = connectToSplineLineManager("Spl_HAN"); //スプライン定義
     pKurokoLeader_ = NEW FixedVelocitySplineKurokoLeader(getKuroko(), pSplLineConnection_->peek(), 10000); //移動速度固定
 }
 

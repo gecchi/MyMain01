@@ -39,7 +39,7 @@ FormationOebius::FormationOebius(const char* prm_name, const char* prm_xpm_id, f
             TreeFormation(prm_name) {
     _class_name = "FormationOebius";
     pController_ = prm_pController;
-    pXpmConnection_ = getConnection_XpmManager(prm_xpm_id);
+    pXpmConnection_ = connectToXpmManager(prm_xpm_id);
     GgafXpm* pXpM = pXpmConnection_->peek();
     formation_col_num_ = pXpM->getWidth();
     formation_row_num_ = pXpM->getHeight();

@@ -28,7 +28,7 @@ EnemyOmulus::EnemyOmulus(const char* prm_name) :
     frame_of_morph_interval_ = 120;
 
     pDepo_Fired_ = nullptr;
-    pConn_depo_ = getConnection_DepositoryManager("Talante");
+    pConn_depo_ = connectToDepositoryManager("Talante");
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
