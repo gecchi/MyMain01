@@ -56,15 +56,17 @@ LaserChip* LaserChipDepository::dispatch(int prm_offset_frames) {
         if (pChip) {
             if (_pChip_prev_dispatch) {
                 //以前のdispatch()したチップ
-                if (_frame_of_behaving_prev_dispatch+1 == _pChip_prev_dispatch->getBehaveingFrame()) {
-                    //2フレーム連続でdispatchの場合連結とみなす
+                if (_frame_of_behaving_prev_dispatch+1 == _pChip_prev_dispatch->getBehaveingFrame() ||
+                    _frame_of_behaving_prev_dispatch   == _pChip_prev_dispatch->getBehaveingFrame()
+                ) {
+                    //同フレームでdispatch() 或いは１フレーム差で連続でdispatch() の場合連結とみなす
                     _num_continual_dispatch_count++;
                     pChip->_pChip_infront = _pChip_prev_dispatch;
                     _pChip_prev_dispatch->_pChip_behind = pChip;
                     pChip->_pChip_behind = nullptr;
                     _is_tear_laser = false;
                 } else {
-                    //2フレーム連続でdispatch出来てない場合連結は切れてる
+                    //連結は切れてる
                     _num_continual_dispatch_count = 0;
                     pChip->_pChip_infront = nullptr;
                     pChip->_pChip_behind = nullptr;

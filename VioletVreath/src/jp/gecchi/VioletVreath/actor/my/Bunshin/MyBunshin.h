@@ -53,7 +53,10 @@ public:
         if (pass_p_seq_ >= 20) {
             pass_p_seq_ = 0;
         }
+
         pass_p_[pass_p_seq_].pTarget = nullptr;
+        pass_p_[pass_p_seq_].target01_x = INT_MAX;
+        pass_p_[pass_p_seq_].target02_x = INT_MAX;
         pass_p_[pass_p_seq_].is_enable_target01 = false;
         pass_p_[pass_p_seq_].is_enable_target02 = false;
         return &(pass_p_[pass_p_seq_]);
