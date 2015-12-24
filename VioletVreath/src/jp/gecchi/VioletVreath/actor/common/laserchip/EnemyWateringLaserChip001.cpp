@@ -44,6 +44,11 @@ void EnemyWateringLaserChip001::processBehavior() {
     WateringLaserChip::processBehavior();//À•W‚ğˆÚ“®‚³‚¹‚Ä‚©‚çŒÄ‚Ño‚·‚±‚Æ
 }
 
+void EnemyWateringLaserChip001::processJudgement() {
+    if (isOutOfSpacetime()) {
+        sayonara();
+    }
+}
 
 void EnemyWateringLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;

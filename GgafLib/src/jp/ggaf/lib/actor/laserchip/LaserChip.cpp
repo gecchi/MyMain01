@@ -10,6 +10,9 @@
 #include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
 #include "jp/ggaf/lib/actor/ColliSphereActor.h"
 
+#include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
+#include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxChecker.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -28,9 +31,10 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
     _pChip_infront = nullptr;
     _pChip_behind = nullptr;
     _pDepo = nullptr; //LaserChipDepositoryに追加される時に設定される。通常LaserChipとLaserChipDepositoryはセット。
-    _chip_kind = 1;
+    _chip_kind = 0;
     _hitarea_edge_length = 0;
-    _harf_hitarea_edge_length = 0;
+//    _harf_hitarea_edge_length = 0;
+    _hdx = _hdy = _hdz = 0;
     _can_chikei_hit = false;
 
     setZEnable(true);        //Zバッファは考慮有り
@@ -96,7 +100,7 @@ void LaserChip::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
 
 void LaserChip::onActive() {
     //出現時
-    _chip_kind = 1;
+    _chip_kind = 0; //未だ不明
     if (_pDepo) {
         _pDepo->_num_chip_active++;
     }
@@ -104,12 +108,19 @@ void LaserChip::onActive() {
     if (_middle_colli_able) {
         getCollisionChecker()->disable(1);
     }
+    GgafDxCollisionArea* pArea = getCollisionChecker()->getArea();
+    if (pArea) {
+        GgafDxCollisionPart* p = pArea->_papColliPart[0];
+        _hdx = p->_hdx;
+        _hdy = p->_hdy;
+        _hdz = p->_hdz;
+    }
 }
 
 void LaserChip::processSettlementBehavior() {
     CollisionChecker3D* pChecker = getCollisionChecker();
     const LaserChip* pChip_infront = _pChip_infront;
-
+    const LaserChip* pChip_behind = _pChip_behind;
 
     //レーザーチップ種別 設定。
     //シェーダーのパラメータとなります。
@@ -134,45 +145,62 @@ void LaserChip::processSettlementBehavior() {
     setHitAble(true);
     if (pChip_infront) {
         if (pChip_infront->isActive()) {
-            if (_pChip_behind) {
-                if (_pChip_behind->isActiveInTheTree()) {
+            if (pChip_behind) {
+                if (pChip_behind->isActive()) {
                     if (pChip_infront->_pChip_infront) {
                         _chip_kind = 2; //中間テクスチャチップ
-                        _pLeader = pChip_infront->_pLeader;
                     } else {
                         _chip_kind = 3; //中間先頭テクスチャチップ
-                        _pLeader = pChip_infront->_pLeader;
                     }
                 } else {
                     _chip_kind = 1; //発射元の末端テクスチャチップ
-                    _pLeader = pChip_infront->_pLeader;
                 }
             } else {
                 _chip_kind = 1; //普通の末端テクスチャ
-                _pLeader = pChip_infront->_pLeader;
             }
         } else {
             _chip_kind = 4; //先端チップ。何も描画したくない
-            _pLeader = this;
             _pChip_infront->_pChip_behind = nullptr; //前後のつながりを
             _pChip_infront = nullptr;                //切断
-            if (getActiveFrame() > 1 && _pChip_behind == nullptr) {
+            if (getActiveFrame() > 1 && pChip_behind == nullptr) {
                 sayonara();
             }
-            setHitAble(false);
         }
     } else {
         _chip_kind = 4; //先端チップ。何も描画したくない
-        _pLeader = this;
-        if (getActiveFrame() > 1 && _pChip_behind == nullptr) {
+        if (getActiveFrame() > 1 && pChip_behind == nullptr) {
             sayonara();
         }
-        setHitAble(false);
     }
+
+
+    if (_chip_kind == 4) {
+        if (pChip_behind) {
+            coord dX =  pChip_behind->_x - _x;
+            coord dY =  pChip_behind->_y - _y;
+            coord dZ =  pChip_behind->_z - _z;
+            int cX = dX / 2;
+            int cY = dY / 2;
+            int cZ = dZ / 2;
+            pChecker->setColliAAB(
+                      0,
+                      cX - _hdx,
+                      cY - _hdy,
+                      cZ - _hdz,
+                      cX + _hdx,
+                      cY + _hdy,
+                      cZ + _hdz
+                      );
+            setHitAble(true);
+        } else {
+            setHitAble(false);
+        }
+    }
+
 
     //この処理はprocessBehavior()で行えない。なぜならば、_pChip_infront が座標移動済みの保証がないため。
     if (_middle_colli_able) { //おそらく水撒きレーザーチップの場合
-        if (_chip_kind != 4) {
+        if (_chip_kind == 1 || _chip_kind == 2) {
             coord dX = pChip_infront->_x - _x;
             coord dY = pChip_infront->_y - _y;
             coord dZ = pChip_infront->_z - _z;
@@ -197,12 +225,12 @@ void LaserChip::processSettlementBehavior() {
                     int cZ = dZ / 2;
                     pChecker->setColliAAB(
                                   1,
-                                  cX - _harf_hitarea_edge_length,
-                                  cY - _harf_hitarea_edge_length,
-                                  cZ - _harf_hitarea_edge_length,
-                                  cX + _harf_hitarea_edge_length,
-                                  cY + _harf_hitarea_edge_length,
-                                  cZ + _harf_hitarea_edge_length
+                                  cX - _hdx,
+                                  cY - _hdy,
+                                  cZ - _hdz,
+                                  cX + _hdx,
+                                  cY + _hdy,
+                                  cZ + _hdz
                                   );
                     pChecker->enable(1);
                 } else {
@@ -212,11 +240,6 @@ void LaserChip::processSettlementBehavior() {
         } else {
             pChecker->disable(1);
         }
-    }
-
-
-    if (isOutOfSpacetime()) {
-        sayonara();
     }
 
     //最初は奥でもハッキリ映る。が
@@ -306,7 +329,6 @@ void LaserChip::onInactive() {
         _pChip_behind->_pChip_infront = nullptr;
     }
     _pChip_behind = nullptr;
-    _pLeader = nullptr;
 }
 
 void LaserChip::registerHitAreaCube_AutoGenMidColli(int prm_edge_length) {
@@ -314,7 +336,6 @@ void LaserChip::registerHitAreaCube_AutoGenMidColli(int prm_edge_length) {
     _middle_colli_able = true;
     _hitarea_edge_length = prm_edge_length;
     _hitarea_edge_length_3 = _hitarea_edge_length*3;
-    _harf_hitarea_edge_length = _hitarea_edge_length / 2;
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(2);
     pChecker->setColliAAB_Cube(0, prm_edge_length);

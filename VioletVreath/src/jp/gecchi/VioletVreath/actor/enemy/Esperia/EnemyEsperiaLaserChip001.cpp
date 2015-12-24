@@ -127,6 +127,13 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
     getSeTx()->behave();
 }
 
+void EnemyEsperiaLaserChip001::processJudgement() {
+    HomingLaserChip::processBehavior();
+    if (isOutOfSpacetime()) {
+        sayonara();
+    }
+}
+
 void EnemyEsperiaLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {

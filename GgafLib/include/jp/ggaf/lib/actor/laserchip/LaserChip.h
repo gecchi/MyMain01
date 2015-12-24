@@ -38,7 +38,10 @@ private:
     int _hitarea_edge_length;
     int _hitarea_edge_length_3;
     /** registerHitAreaCube_AutoGenMidColli() メソッドにより登録時の当たり判定立方体の１辺の長さの半分 */
-    int _harf_hitarea_edge_length;
+//    int _harf_hitarea_edge_length;
+
+    int _hdx,_hdy,_hdz;
+
 
     /** 一つ前方のレーザーチップ */
     LaserChip* _pChip_infront;
@@ -48,12 +51,10 @@ private:
 public:
     CollisionChecker3D* _pColliChecker;
 
-    /** レーザーテクスチャ種別  1:末尾 2:中間 3:先頭から２番目で先頭のテクスチャ （末尾かつ先頭は末尾が優先） 4:本当の先頭(但し描画できない) */
+    /** レーザーテクスチャ種別  0:不明 1:末尾 2:中間 3:先頭から２番目で先頭のテクスチャ （末尾かつ先頭は末尾が優先） 4:本当の先頭(但し描画できない) */
     int _chip_kind;
     /** [r]地形ヒットありチップ(10回に1回) */
     bool _can_chikei_hit;
-    /** [r]自身が所属する先端チップ */
-    LaserChip* _pLeader;
     /** [r]強制上書きアルファ値。（出現時は遠方であっても表示させるため) */
     float _force_alpha;
     /** [r]trueならば、前方チップと離れすぎた場合に中間当たり判定自動生成 */

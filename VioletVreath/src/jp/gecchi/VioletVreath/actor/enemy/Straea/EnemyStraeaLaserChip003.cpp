@@ -38,7 +38,12 @@ void EnemyStraeaLaserChip003::onActive() {
 void EnemyStraeaLaserChip003::processBehavior() {
     pKurokoLeader_->behave();
     getKuroko()->behave();
-    WateringLaserChip::processBehavior();
+}
+
+void EnemyStraeaLaserChip003::processJudgement() {
+    if (isOutOfSpacetime()) {
+        sayonara();
+    }
 }
 
 void EnemyStraeaLaserChip003::onHit(const GgafActor* prm_pOtherActor) {

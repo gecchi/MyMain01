@@ -16,8 +16,9 @@ public:
 public:
     EnemyStraeaLaserChip004(const char* prm_name);
 
-    void initialize() override;
     void onCreateModel() override;
+
+    void initialize() override;
 
     void onActive() override;
 
@@ -25,6 +26,8 @@ public:
      * 先頭チップの動きを定義
      */
     void processBehaviorHeadChip() override;
+
+    void processJudgement() override;
 
     void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
 

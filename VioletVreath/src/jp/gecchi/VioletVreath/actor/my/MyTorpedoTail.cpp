@@ -32,6 +32,12 @@ void MyTorpedoTail::processBehaviorHeadChip() {
     setFaceAngAs(pTorpedo_);
 }
 
+void MyTorpedoTail::processJudgement() {
+    if (isOutOfSpacetime()) {
+        sayonara();
+    }
+}
+
 MyTorpedoTail::~MyTorpedoTail() {
 }
 

@@ -33,7 +33,12 @@ void EnemyEmusLaserChip001::onActive() {
 
 void EnemyEmusLaserChip001::processBehavior() {
     getKuroko()->behave();
-    WateringLaserChip::processBehavior();
+}
+
+void EnemyEmusLaserChip001::processJudgement() {
+    if (isOutOfSpacetime()) {
+        sayonara();
+    }
 }
 
 void EnemyEmusLaserChip001::onHit(const GgafActor* prm_pOtherActor) {

@@ -72,6 +72,10 @@ void EnemyHisbeLaserChip003::processJudgement() {
     if (pKurokoLeader_->isFinished()) {
         sayonara();
     }
+
+    if (isOutOfSpacetime()) {
+        sayonara();
+    }
 }
 
 void EnemyHisbeLaserChip003::onHit(const GgafActor* prm_pOtherActor) {

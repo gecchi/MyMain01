@@ -55,6 +55,12 @@ void EnemyStraeaLaserChip001::processBehaviorHeadChip() {
     pKuroko->behave();
 }
 
+void EnemyStraeaLaserChip001::processJudgement() {
+    if (isOutOfSpacetime()) {
+        sayonara();
+    }
+}
+
 void EnemyStraeaLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {

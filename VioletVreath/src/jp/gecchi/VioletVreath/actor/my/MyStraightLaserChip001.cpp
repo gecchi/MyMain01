@@ -105,6 +105,12 @@ void MyStraightLaserChip001::processBehavior() {
     }
 }
 
+void MyStraightLaserChip001::processJudgement() {
+    if (isOutOfSpacetime()) {
+        sayonara();
+    }
+}
+
 void MyStraightLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*) prm_pOtherActor;
     GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();

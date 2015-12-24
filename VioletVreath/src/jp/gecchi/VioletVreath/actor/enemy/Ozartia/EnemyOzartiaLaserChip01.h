@@ -15,6 +15,8 @@ public:
 
     void onActive() override;
 
+    void processJudgement() override;
+
     void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
 
     virtual ~EnemyOzartiaLaserChip01();

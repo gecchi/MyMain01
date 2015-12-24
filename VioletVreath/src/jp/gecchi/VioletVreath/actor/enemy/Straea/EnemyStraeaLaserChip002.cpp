@@ -66,6 +66,12 @@ void EnemyStraeaLaserChip002::onRefractionOutOf(int prm_num_refraction)  {
     }
 }
 
+void EnemyStraeaLaserChip002::processJudgement() {
+    if (isOutOfSpacetime()) {
+        sayonara();
+    }
+}
+
 void EnemyStraeaLaserChip002::onHit(const GgafActor* prm_pOtherActor) {
 //    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 //    //ƒqƒbƒgŽž

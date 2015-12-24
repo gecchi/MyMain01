@@ -313,7 +313,7 @@ public:
      * @param prm_pOppChecker ‘¼‚Ì“–‚½‚è”»’è—Ìˆæ
      * @return true:“–‚½‚Á‚Ä‚¢‚é / false:“–‚½‚Á‚Ä‚¢‚È‚¢
      */
-    virtual bool isHit(const GgafDxCore::GgafDxChecker* const prm_pOppChecker) override;
+    bool isHit(const GgafDxCore::GgafDxChecker* const prm_pOppChecker) override;
 
     virtual ~CollisionChecker3D();
 };

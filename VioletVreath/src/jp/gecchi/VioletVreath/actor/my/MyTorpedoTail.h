@@ -37,6 +37,8 @@ public:
      */
     void processBehaviorHeadChip() override;
 
+    void processJudgement() override;
+
     virtual ~MyTorpedoTail();
 
 };

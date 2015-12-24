@@ -27,8 +27,11 @@ void EnemyStraightLaserChip001::onActive() {
     StraightLaserChip::onActive();
     getStatus()->reset();
 }
-void EnemyStraightLaserChip001::processBehavior() {
-    StraightLaserChip::processBehavior();
+
+void EnemyStraightLaserChip001::processJudgement() {
+    if (isOutOfSpacetime()) {
+        sayonara();
+    }
 }
 
 void EnemyStraightLaserChip001::onHit(const GgafActor* prm_pOtherActor) {

@@ -31,6 +31,12 @@ void EnemyOzartiaLaserChip01::onActive() {
     getStatus()->reset();
 }
 
+void EnemyOzartiaLaserChip01::processJudgement() {
+    if (isOutOfSpacetime()) {
+        sayonara();
+    }
+}
+
 void EnemyOzartiaLaserChip01::onHit(const GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {

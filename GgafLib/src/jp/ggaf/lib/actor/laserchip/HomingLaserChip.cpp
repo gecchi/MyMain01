@@ -78,70 +78,25 @@ void HomingLaserChip::onActive() {
 }
 
 void HomingLaserChip::onInactive() {
-    //レーザーチップ消失時処理
-    //      -==========<>            レーザーは
-    //
-    //      -= === === === <>        こんなふうに分断されています。
-    //
-    //    | -=|===|===|===|<> |      左図はレーザーをオブジェクトで区切ったつもりの図
-    //
-    //    <--><--><--><--><-->^
-    //    ^   ^   ^   ^   ^   |
-    //    |   |   |   |   |   |
-    //    |   |   |   |   |    `----- 4:先端チップ(非表示で、中間先頭チップを表示するためだけに存在)
-    //    |   |   |   |    `----- 3:中間先頭チップ(表示される実質の先頭)
-    //    |   |   |    `----- 2:中間チップ
-    //    |   |    `----- 2:中間チップ
-    //    |    `----- 2:中間チップ
-    //     `----- 1:末尾チップ
-    //
-
     //_TRACE_("A HomingLaserChip::onInactive() _chip_kind ="<<_chip_kind <<")");
+    LaserChip* pChip_infront = _pChip_infront;
     LaserChip* pChip_behind = _pChip_behind;
     GgafDxKuroko* pKuroko = getKuroko();
-    if (_chip_kind == 1) {
 
-    } else if (_chip_kind == 2) {
-        //中間チップ消失時の場合
-        if (pChip_behind) {
-            GgafDxKuroko* pChip_behind_pKuroko = pChip_behind->getKuroko();
-            pChip_behind->_rx = _rx;
-            pChip_behind->_ry = _ry;
-            pChip_behind->_rz = _rz;
-            pChip_behind_pKuroko->setRzRyMvAng(pKuroko->_ang_rz_mv, pKuroko->_ang_ry_mv);
-            pChip_behind_pKuroko->setMvVelo(pKuroko->_velo_mv);
-        } else {
-            //throwGgafCriticalException("HomingLaserChip::onInactive() _chip_kind == 2 であるにも関わらず、_pChip_behindが存在しません");
-        }
-    } else if (_chip_kind == 3) {
-        //中間先頭チップ消失時の場合
-        //殆どの場合、先頭から順に消えていくはずである。
-        //行いたいことは中間チップ消失時の場合と同じで、その場で停止しなように
-        //後方チップへ移動のための情報を伝達する必要がある。
+
+    if (pChip_infront && pChip_behind) {
+        //先頭しか動かしていないので、
+        //何も考慮しないと、後方チップがその場で停止してしまう。
+        //後方チップへ移動のための情報を無理やり設定して移動を継続させる。
         //先端チップ Mover 内部パラメータの移動方向と移動速度の情報をコピーすることでOK
-        //計算速度を稼ぐ
-        if (pChip_behind) {
-            GgafDxKuroko* pChip_behind_pKuroko = pChip_behind->getKuroko();
-            pChip_behind->_rx = _rx;
-            pChip_behind->_ry = _ry;
-            pChip_behind->_rz = _rz;
-            pChip_behind_pKuroko->setRzRyMvAng(pKuroko->_ang_rz_mv, pKuroko->_ang_ry_mv);
-            pChip_behind_pKuroko->setMvVelo(pKuroko->_velo_mv);
-        } else {
-            //throwGgafCriticalException("HomingLaserChip::onInactive() _chip_kind == 2 であるにも関わらず、_pChip_infront と _pChip_behind が両方存在しません");
-        }
-    } else if (_chip_kind == 4) {
-        if (_pChip_behind) {
-            GgafDxKuroko* pChip_behind_pKuroko = pChip_behind->getKuroko();
-            pChip_behind->_rx = _rx;
-            pChip_behind->_ry = _ry;
-            pChip_behind->_rz = _rz;
-            pChip_behind_pKuroko->setRzRyMvAng(pKuroko->_ang_rz_mv, pKuroko->_ang_ry_mv);
-            pChip_behind_pKuroko->setMvVelo(pKuroko->_velo_mv);
-        } else {
-            //throwGgafCriticalException("HomingLaserChip::onInactive() _chip_kind == 4 であるにも関わらず、_pChip_behind が存在しません");
-        }
+        GgafDxKuroko* pChip_behind_pKuroko = pChip_behind->getKuroko();
+        pChip_behind->_rx = _rx;
+        pChip_behind->_ry = _ry;
+        pChip_behind->_rz = _rz;
+        pChip_behind_pKuroko->setRzRyMvAng(pKuroko->_ang_rz_mv, pKuroko->_ang_ry_mv);
+        pChip_behind_pKuroko->setMvVelo(pKuroko->_velo_mv);
     }
+
     LaserChip::onInactive(); //つながりを切断処理
 }
 
