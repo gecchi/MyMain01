@@ -107,11 +107,13 @@ void LaserChip::onActive() {
         _pDepo->_num_chip_active++;
     }
     _force_alpha = 1.00; //最初は奥でもハッキリ映る。
-    if (_middle_colli_able) {
-        pChecker->disable(1);
-    }
-    GgafDxCollisionArea* pArea = getCollisionChecker()->getArea();
+
+    GgafDxCollisionArea* pArea = pChecker->getArea();
     if (pArea) {
+        if (_middle_colli_able) {
+            pChecker->disable(1);
+        }
+
         GgafDxCollisionPart* p = pArea->_papColliPart[0];
         _hdx = p->_hdx;
         _hdy = p->_hdy;
