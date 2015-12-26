@@ -36,7 +36,7 @@ void EnemyEmilia::onCreateModel() {
 void EnemyEmilia::initialize() {
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    pChecker->setColliSphere(0, PX_C(100));
+    pChecker->setColliSphere(0, PX_C(170));
     getKuroko()->setRollPitchYawFaceAngVelo(D_ANG(1), D_ANG(2), D_ANG(3));
     setScaleR(0.5);
 }

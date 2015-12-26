@@ -85,7 +85,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
     frame active_frame = getActiveFrame();
     MyBunshin::AimInfo* pAimInfo = pAimInfo_;
     if (active_frame >= AIM_TIME_OUT*2) {
-        sayonara();
+        sayonara(); //保険のタイムアウト
     } else if (active_frame < 6 || pAimInfo->pTarget == nullptr) {
         //なにもしない
     } else {
@@ -93,7 +93,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
         if (pAimTarget) {
 
             //先端チップ時（消える可能性のあるLeaderChipにあらず！）、T1が相変わらずロックオンターゲットならば更新
-            if (getInfrontChip() == nullptr && pAimTarget == pLockon_->pTarget_) {
+            if (getInfrontChip() == nullptr && pAimTarget == pLockon_->pTarget_ && pAimInfo_->_spent_frames_to_t1 < AIM_TIME_OUT) {
                 pAimInfo->t1_x = pAimTarget->_x; //t1更新
                 pAimInfo->t1_y = pAimTarget->_y;
                 pAimInfo->t1_z = pAimTarget->_z;
@@ -106,9 +106,9 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                     //●Leader が t1 へ Aim
                     if (pAimTarget->isActiveInTheTree() && getActiveFrame() < AIM_TIME_OUT)  {
                         //pAimTarget が存命
-                        aimChip(pAimTarget->_x,
-                                pAimTarget->_y,
-                                pAimTarget->_z );
+                        aimChip(pAimInfo->t1_x,
+                                pAimInfo->t1_y,
+                                pAimInfo->t1_z );
                         static const coord renge = MyBunshinWateringLaserChip001::MAX_VELO_RENGE;
                         if (_x >= pAimInfo->t1_x - renge) {
                             if (_x <= pAimInfo->t1_x + renge) {
@@ -233,6 +233,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
     _tmp_acc_vx =  pAxsMver_->_acce_vx_mv;
     _tmp_acc_vy =  pAxsMver_->_acce_vy_mv;
     _tmp_acc_vz =  pAxsMver_->_acce_vz_mv;
+
 }
 
 void MyBunshinWateringLaserChip001::processSettlementBehavior() {
@@ -311,7 +312,7 @@ void MyBunshinWateringLaserChip001::processJudgement() {
                 pAimInfo_->t1_x = pAimInfo_->t2_x;
                 pAimInfo_->t1_y = pAimInfo_->t2_y;
                 pAimInfo_->t1_z = pAimInfo_->t2_z;
-                pAimInfo_->_spent_frames_to_t1 = getActiveFrame()-60;
+                pAimInfo_->_spent_frames_to_t1 = getActiveFrame();
             }
         }
         sayonara();
@@ -390,7 +391,7 @@ void MyBunshinWateringLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
             }
 
 getStatus()->set(STAT_Stamina, default_stamina_);
-sayonara();
+//sayonara();
         } else {
             //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
             getStatus()->set(STAT_Stamina, default_stamina_);
@@ -417,6 +418,7 @@ sayonara();
 
 void MyBunshinWateringLaserChip001::onInactive() {
     MyBunshin::AimInfo* pAimInfo = pAimInfo_;
+
     if (pAimInfo->pLeaderChip_ == this) {
         if (pAimInfo->_spent_frames_to_t2 == 0) {
             static const Spacetime* pSpaceTime =  P_GOD->getSpacetime();
@@ -440,7 +442,7 @@ void MyBunshinWateringLaserChip001::onInactive() {
                 pAimInfo->t1_x = pAimInfo->t2_x;
                 pAimInfo->t1_y = pAimInfo->t2_y;
                 pAimInfo->t1_z = pAimInfo->t2_z;
-                pAimInfo->_spent_frames_to_t1 = getActiveFrame()+AIM_TIME_OUT-120;
+                pAimInfo->_spent_frames_to_t1 = getActiveFrame()+AIM_TIME_OUT;
             }
 
         }
@@ -452,7 +454,6 @@ void MyBunshinWateringLaserChip001::onInactive() {
     pAimInfo_ = nullptr;
 
     WateringLaserChip::onInactive();
-
 }
 
 void MyBunshinWateringLaserChip001::chengeTex(int prm_tex_no) {

@@ -28,17 +28,6 @@ class MyBunshinWateringLaserChip001 : public GgafLib::WateringLaserChip {
     void aimChip(int vTx, int vTy, int vTz);
 
 public:
-//    enum {
-//        PROG_AIM_AT_NOTHING,                 /** 何も狙うものが無い */
-//        PROG_AIM_AT_LOCK_ON_TARGET01,        /** 移動中のメインロックオンを狙って移動 */
-//        PROG_AIM_AT_TARGET01,                /** 固定の目標1を狙って移動 */
-//        PROG_AIM_AT_NOTHING_TARGET01_AFTER,  /** 目標1を狙って移動し、到達後の目標2が無い時の移動 */
-//        PROG_AIM_AT_TARGET02,                /** 固定の目標2を狙って移動 */
-//        PROG_AIM_AT_NOTHING_TARGET02_AFTER,  /** 目標2を狙って移動し、到達後の目標が無い時の移動 */
-//        PROG_BANPEI,
-//    };
-//    int aim_status_;
-
     /** 平行移動支援 */
     GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
@@ -47,9 +36,6 @@ public:
 
     /** [r]レーザー発射元 */
     MyBunshin* pOrg_;
-    /** ロックオンターゲットリストリング */
-//    const GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeometricActor>* pOrg_pLockonCtrler_pRingTarget_;
-
 
     const EffectLockon001_Main* pLockon_;
 
@@ -70,7 +56,6 @@ public:
 
     coord _tmp_x, _tmp_y, _tmp_z;
     acce _tmp_acc_vx, _tmp_acc_vy, _tmp_acc_vz;
-
 
 public:
     MyBunshinWateringLaserChip001(const char* prm_name);

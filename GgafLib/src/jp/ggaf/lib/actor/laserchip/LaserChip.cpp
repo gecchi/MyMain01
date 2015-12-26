@@ -99,6 +99,8 @@ void LaserChip::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
 }
 
 void LaserChip::onActive() {
+    CollisionChecker3D* pChecker = getCollisionChecker();
+
     //出現時
     _chip_kind = 0; //未だ不明
     if (_pDepo) {
@@ -106,7 +108,7 @@ void LaserChip::onActive() {
     }
     _force_alpha = 1.00; //最初は奥でもハッキリ映る。
     if (_middle_colli_able) {
-        getCollisionChecker()->disable(1);
+        pChecker->disable(1);
     }
     GgafDxCollisionArea* pArea = getCollisionChecker()->getArea();
     if (pArea) {
@@ -114,6 +116,15 @@ void LaserChip::onActive() {
         _hdx = p->_hdx;
         _hdy = p->_hdy;
         _hdz = p->_hdz;
+        pChecker->setColliAAB(
+                0,
+                -_hdx,
+                -_hdy,
+                -_hdz,
+                +_hdx,
+                +_hdy,
+                +_hdz
+                );
     }
 }
 

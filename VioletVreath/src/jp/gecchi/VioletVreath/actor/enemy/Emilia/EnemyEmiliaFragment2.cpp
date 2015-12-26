@@ -35,7 +35,7 @@ void EnemyEmiliaFragment2::initialize() {
     setScaleR(0.1);
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    pChecker->setColliSphere(0, PX_C(30));
+    pChecker->setColliSphere(0, PX_C(50));
     getKuroko()->setRollPitchYawFaceAngVelo(D_ANG(3), D_ANG(6), D_ANG(9));
 }
 
