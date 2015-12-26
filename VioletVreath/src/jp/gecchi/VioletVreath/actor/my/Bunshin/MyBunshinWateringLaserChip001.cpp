@@ -104,7 +104,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
 
                 if (pAimInfo->_spent_frames_to_t1 == 0) {
                     //●Leader が t1 へ Aim
-                    if (pAimTarget->isActiveInTheTree() && getActiveFrame() < AIM_TIME_OUT)  {
+                    if (pAimTarget->isActiveInTheTree() && active_frame < AIM_TIME_OUT)  {
                         //pAimTarget が存命
                         aimChip(pAimInfo->t1_x,
                                 pAimInfo->t1_y,
@@ -155,7 +155,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                 } else {
                     //●Leader が t2 を設定したあと。
 
-                    if (getActiveFrame() < AIM_TIME_OUT)  {
+                    if (active_frame < AIM_TIME_OUT)  {
                         MyBunshinWateringLaserChip001* pB = (MyBunshinWateringLaserChip001*)getBehindChip();
                         if (pB) {
                             coord dx = _x - pB->_x;
@@ -400,13 +400,13 @@ getStatus()->set(STAT_Stamina, default_stamina_);
                 pOrg_->pLockonCtrler_->lockon(pOther);
             }
         }
-
-        if (this == pAimInfo_->pLeaderChip_ && pAimInfo_->pTarget == prm_pOtherActor) {
+        MyBunshin::AimInfo* pAimInfo = pAimInfo_;
+        if (this == pAimInfo->pLeaderChip_ && pAimInfo->pTarget == prm_pOtherActor) {
             //先端が目標に見事命中した場合もT1終了
-            pAimInfo_->t1_x = _x;
-            pAimInfo_->t1_y = _y;
-            pAimInfo_->t1_z = _z;
-            pAimInfo_->_spent_frames_to_t1 = getActiveFrame();
+            pAimInfo->t1_x = _x;
+            pAimInfo->t1_y = _y;
+            pAimInfo->t1_z = _z;
+            pAimInfo->_spent_frames_to_t1 = getActiveFrame();
         }
 
 
