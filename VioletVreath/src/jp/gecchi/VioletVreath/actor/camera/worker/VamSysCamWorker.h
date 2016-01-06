@@ -49,14 +49,11 @@ class VamSysCamWorker : public CameraWorker {
     coord DX2_C_;
     coord X_P_C_;
 
-
 public:
     enum {
         SE_RETURNNING_CAM_POS     ,
     };
-
     MyShip* pMyShip_;
-
     GgafDxCore::GgafDxSeTransmitter* pSe_;
 
 public:
@@ -80,4 +77,5 @@ public:
 };
 
 }
-#endif /*CAMERA_H_*/
+#endif /*VAMSYSCAMWORKER_H_*/
+

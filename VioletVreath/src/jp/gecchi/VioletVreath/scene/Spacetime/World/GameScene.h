@@ -62,6 +62,8 @@ public:
 
     void onCatchEvent(hashval prm_no, void* prm_pSource) override;
 
+    void pauseGame();
+
     virtual ~GameScene();
 
 };

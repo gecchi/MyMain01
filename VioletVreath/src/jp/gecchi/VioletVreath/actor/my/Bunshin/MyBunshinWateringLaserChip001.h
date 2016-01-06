@@ -41,9 +41,11 @@ public:
 
 
     /** [r/w]速度範囲（この値を大きくすると、最高速度が早くなる。） */
-    static const int MAX_VELO_RENGE;
+    static const velo MAX_VELO_RENGE;
     /** 加速度範囲(-MAX_ACCE_RENGE, MAX_ACCE_RENGE) */
     static const float MAX_ACCE_RENGE;
+
+    static const velo INITIAL_VELO;
 
     /** [r/w]速度に対する加速度の割合（この値を大きくすると、カーブが緩くなる） */
     static const int R_MAX_ACCE;

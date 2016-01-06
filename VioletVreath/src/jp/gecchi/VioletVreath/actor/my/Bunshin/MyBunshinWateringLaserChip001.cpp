@@ -22,8 +22,9 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-const int MyBunshinWateringLaserChip001::MAX_VELO_RENGE = PX_C(180); //この値を大きくすると、最高速度が早くなる。
+const velo MyBunshinWateringLaserChip001::MAX_VELO_RENGE = PX_C(190); //この値を大きくすると、最高速度が早くなる。
 const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 16; //この値を大きくすると、カーブが緩くなる
+const velo MyBunshinWateringLaserChip001::INITIAL_VELO = MAX_VELO_RENGE*0.7; //レーザー発射時の初期速度
 const double MyBunshinWateringLaserChip001::RR_MAX_ACCE = 1.0 / R_MAX_ACCE; //計算簡素化用
 const float MyBunshinWateringLaserChip001::MAX_ACCE_RENGE = MAX_VELO_RENGE/R_MAX_ACCE;
 
@@ -31,7 +32,7 @@ GgafDxCore::GgafDxModel* MyBunshinWateringLaserChip001::pModel_  = nullptr;
 int MyBunshinWateringLaserChip001::tex_no_ = 0;
 
 
-#define AIM_TIME_OUT (900)
+#define AIM_TIME_OUT (600)
 
 MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_name) :
         WateringLaserChip(prm_name, "MyBunshinWateringLaserChip001", STATUS(MyBunshinWateringLaserChip001)) {
@@ -86,6 +87,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
     MyBunshin::AimInfo* pAimInfo = pAimInfo_;
     if (active_frame >= AIM_TIME_OUT*2) {
         sayonara(); //保険のタイムアウト
+//        P_GAME_SCENE->pauseGame();
     } else if (active_frame < 6 || pAimInfo->pTarget == nullptr) {
         //なにもしない
     } else {
@@ -131,44 +133,31 @@ void MyBunshinWateringLaserChip001::processBehavior() {
 
                 } else if (pAimInfo->_spent_frames_to_t2 == 0) {
                     //●Leader が t1 へ Aim し終わったあと
-                    //t2を決める旅、onInactive消滅か、或いは、タイムアウト待ち
-                    if (getActiveFrame() < AIM_TIME_OUT)  {
-                        MyBunshinWateringLaserChip001* pB = (MyBunshinWateringLaserChip001*)getBehindChip();
-                        if (pB) {
-                            coord dx = _x - pB->_x;
-                            coord dy = _y - pB->_y;
-                            coord dz = _z - pB->_z;
-                            aimChip(_x + dx*4+1,
-                                    _y + dy*4+1,
-                                    _z + dz*4+1 );
-                        } else {
-                            aimChip(_x + pAxsMver_->_velo_vx_mv*4+1,
-                                    _y + pAxsMver_->_velo_vy_mv*4+1,
-                                    _z + pAxsMver_->_velo_vz_mv*4+1 );
-                        }
+                    //t2を決める
+                    static const Spacetime* pSpaceTime =  P_GOD->getSpacetime();
+                    static const double zf_r = UTIL::getDistance(
+                                                      0.0, 0.0, 0.0,
+                                                      (double)(pSpaceTime->_x_bound_right),
+                                                      (double)(pSpaceTime->_y_bound_top),
+                                                      (double)(pSpaceTime->_z_bound_far)
+                                                     ) * 1.2;
+                    MyBunshinWateringLaserChip001* pB = (MyBunshinWateringLaserChip001*)getBehindChip();
+                    if (pB) {
+                        pAimInfo->setT2(zf_r, pB->_x, pB->_y, pB->_z, _x, _y, _z);
+                        pAimInfo->_spent_frames_to_t2 = getActiveFrame()+AIM_TIME_OUT;
                     } else {
-                        pAimInfo_->_spent_frames_to_t2 = getActiveFrame(); //Aim t2 終了
+                        pAimInfo->setT2(zf_r, pOrg_->_x, pOrg_->_y, pOrg_->_z, _x, _y, _z);
+                        pAimInfo->_spent_frames_to_t2 = getActiveFrame()+AIM_TIME_OUT;
                     }
-                    pAimInfo->t2_x = pAimLeaderChip->_x;
-                    pAimInfo->t2_y = pAimLeaderChip->_y;
-                    pAimInfo->t2_z = pAimLeaderChip->_z;
+                    aimChip(pAimInfo->t2_x,
+                            pAimInfo->t2_y,
+                            pAimInfo->t2_z );
                 } else {
                     //●Leader が t2 を設定したあと。
-
                     if (active_frame < AIM_TIME_OUT)  {
-                        MyBunshinWateringLaserChip001* pB = (MyBunshinWateringLaserChip001*)getBehindChip();
-                        if (pB) {
-                            coord dx = _x - pB->_x;
-                            coord dy = _y - pB->_y;
-                            coord dz = _z - pB->_z;
-                            aimChip(_x + dx*4+1,
-                                    _y + dy*4+1,
-                                    _z + dz*4+1 );
-                        } else {
-                            aimChip(_x + pAxsMver_->_velo_vx_mv*4+1,
-                                    _y + pAxsMver_->_velo_vy_mv*4+1,
-                                    _z + pAxsMver_->_velo_vz_mv*4+1 );
-                        }
+                        aimChip(pAimInfo->t2_x,
+                                pAimInfo->t2_y,
+                                pAimInfo->t2_z );
                     } else {
                         aimChip(_x + pAxsMver_->_velo_vx_mv*4+1,
                                 _y + pAxsMver_->_velo_vy_mv*4+1,
@@ -177,7 +166,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                 }
 
             } else {
-
+                //●Leader以外
                 if (pAimInfo->_spent_frames_to_t1 == 0) {
                     //●Leader以外が t1 が定まるまでの動き
                     aimChip(pAimInfo->t1_x,
@@ -233,7 +222,6 @@ void MyBunshinWateringLaserChip001::processBehavior() {
     _tmp_acc_vx =  pAxsMver_->_acce_vx_mv;
     _tmp_acc_vy =  pAxsMver_->_acce_vy_mv;
     _tmp_acc_vz =  pAxsMver_->_acce_vz_mv;
-
 }
 
 void MyBunshinWateringLaserChip001::processSettlementBehavior() {
@@ -267,12 +255,18 @@ void MyBunshinWateringLaserChip001::processSettlementBehavior() {
             pAimInfo_ = pF->pAimInfo_; //受け継ぐ
             coord velo = pF->pAxsMver_->_top_velo_vx_mv - PX_C(0.5);
             pAxsMver_->forceVxyzMvVeloRange(-velo, velo);
+#ifdef MY_DEBUG
+if (pAimInfo_ == nullptr) {
+throwGgafCriticalException("MyBunshinWateringLaserChip001::processSettlementBehavior() pAimInfo_ が引き継がれていません！"<<this<<
+                           " _frame_of_life_when_activation="<<_frame_of_life_when_activation);
+}
+#endif
         }
 
         //活動開始初回フレーム、チップの速度と向きの初期設定
         setFaceAngAs(pOrg_);
         positionAs(pOrg_);
-        pAxsMver_->setVxyzMvVeloTwd(_rz, _ry, PX_C(100)); //初速はここで
+        pAxsMver_->setVxyzMvVeloTwd(_rz, _ry, INITIAL_VELO); //初速はここで
         pAxsMver_->setZeroVxyzMvAcce();
     }
 

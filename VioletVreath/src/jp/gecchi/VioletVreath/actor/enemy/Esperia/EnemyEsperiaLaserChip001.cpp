@@ -128,7 +128,7 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
 }
 
 void EnemyEsperiaLaserChip001::processJudgement() {
-    HomingLaserChip::processBehavior();
+    HomingLaserChip::processJudgement();
     if (isOutOfSpacetime()) {
         sayonara();
     }

@@ -170,6 +170,10 @@ void LaserChip::processSettlementBehavior() {
                 }
             } else {
                 _chip_kind = 1; //普通の末端テクスチャ
+                if (pChip_infront->_chip_kind == 4) {
+                    _chip_kind = 4;
+                    sayonara();
+                }
             }
         } else {
             _chip_kind = 4; //先端チップ。何も描画したくない

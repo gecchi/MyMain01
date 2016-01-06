@@ -199,11 +199,7 @@ void GameScene::processBehavior() {
                 if (VB->isPushedDown(VB_PAUSE) || is_frame_advance_) {
                     //ポーズではないときに、ポーズキーを押して離した場合の処理
                     //ポーズ発生時直後の初期処理はココへ
-                    is_frame_advance_ = false;
-                    _TRACE_("PAUSE!");
-                    P_GOD->setVB(VB_UI);  //入力はＵＩに切り替え
-                    pProg->getGazedScene()->pauseTree(); //ポーズ！！
-                    pMenuBoardPause_->rise(PX_C(100), PX_C(20));
+                    pauseGame();
                 }
             }
             //今ポーズ時
@@ -388,6 +384,13 @@ void GameScene::processJudgement() {
 
 
     }
+}
+void GameScene::pauseGame() {
+    is_frame_advance_ = false;
+    _TRACE_("PAUSE!");
+    P_GOD->setVB(VB_UI);  //入力はＵＩに切り替え
+    getProgress()->getGazedScene()->pauseTree(); //ポーズ！！
+    pMenuBoardPause_->rise(PX_C(100), PX_C(20));
 }
 
 GameScene::~GameScene() {

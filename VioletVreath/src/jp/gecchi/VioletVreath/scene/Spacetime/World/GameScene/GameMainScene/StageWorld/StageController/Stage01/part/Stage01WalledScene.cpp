@@ -25,7 +25,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     coord wall_dep    = DX_C(40);  //壁ブロックモデル１個のX軸方向の幅設定（Xファイルにより決まる）
     coord wall_width  = DX_C(10);  //壁ブロックモデル１個のZ軸方向の幅設定（Xファイルにより決まる）
     coord wall_height = DX_C(10);  //壁ブロックモデル１個のY軸方向の幅設定（Xファイルにより決まる）
-    float scale_r = 1.0f;        //今回壁ブロックの拡大率（ここで設定可能）
+    float scale_r = 6.0f;        //今回壁ブロックの拡大率（ここで設定可能）
     //****************************
 
     //壁ブロック(直方体)デポジトリ生成
@@ -50,25 +50,39 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     }
     bringDirector()->addSubGroup(pDepo_prism);
 
+//    //シーンセクション生成
+//    WalledSectionScene* apSection[] = {
+//        NEW Stage01WalledSection001("Stage01-001-0", this, "scene5_wall_0.dat"),
+//        NEW Stage01WalledSection001("Stage01-001-1", this, "scene5_wall_1.dat"),
+//        NEW Stage01WalledSection001("Stage01-001-2", this, "scene5_wall_2.dat"),
+//        NEW Stage01WalledSection001("Stage01-001-3", this, "scene5_wall_3.dat"),
+//        NEW Stage01WalledSection001("Stage01-001-4", this, "scene4_wall_0.dat"),
+//        NEW Stage01WalledSection001("Stage01-001-5", this, "scene4_wall_1.dat"),
+//        NEW Stage01WalledSection001("Stage01-001-6", this, "scene4_wall_2.dat"),
+//        NEW Stage01WalledSection001("Stage01-001-7", this, "scene4_wall_3.dat"),
+//    };
+//    //構築
+//    buildWalledScene(
+//        wall_dep*scale_r, wall_width*scale_r, wall_height*scale_r,
+//        P_GOD->getSpacetime()->_x_bound_right,
+//        (WalledSectionScene**)&apSection, 8,
+//        pDepo_wall ,pDepo_prism
+//    );
     //シーンセクション生成
     WalledSectionScene* apSection[] = {
-        NEW Stage01WalledSection001("Stage01-001-0", this, "scene5_wall_0.dat"),
-        NEW Stage01WalledSection001("Stage01-001-1", this, "scene5_wall_1.dat"),
-        NEW Stage01WalledSection001("Stage01-001-2", this, "scene5_wall_2.dat"),
-        NEW Stage01WalledSection001("Stage01-001-3", this, "scene5_wall_3.dat"),
-        NEW Stage01WalledSection001("Stage01-001-4", this, "scene4_wall_0.dat"),
-        NEW Stage01WalledSection001("Stage01-001-5", this, "scene4_wall_1.dat"),
-        NEW Stage01WalledSection001("Stage01-001-6", this, "scene4_wall_2.dat"),
-        NEW Stage01WalledSection001("Stage01-001-7", this, "scene4_wall_3.dat"),
+        NEW Stage01WalledSection001("Stage01-001-0", this, "scene4_wall_0.dat"),
+        NEW Stage01WalledSection001("Stage01-001-1", this, "scene4_wall_1.dat"),
+        NEW Stage01WalledSection001("Stage01-001-2", this, "scene4_wall_2.dat"),
+        NEW Stage01WalledSection001("Stage01-001-3", this, "scene4_wall_3.dat"),
     };
-
     //構築
     buildWalledScene(
         wall_dep*scale_r, wall_width*scale_r, wall_height*scale_r,
         P_GOD->getSpacetime()->_x_bound_right,
-        (WalledSectionScene**)&apSection, 8,
+        (WalledSectionScene**)&apSection, 4,
         pDepo_wall ,pDepo_prism
     );
+
 
     //初期スクロールスピード
     setScrollSpeed(PX_C(5));
@@ -76,10 +90,10 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {100};
-	_paFrame_NextEvent = new frame[1];
-	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 1;
+    frame f[] = {100};
+    _paFrame_NextEvent = new frame[1];
+    memcpy(_paFrame_NextEvent, f, sizeof(f));
+    _event_num = 1;
     // gen01 end
 }
 
@@ -101,20 +115,20 @@ void Stage01WalledScene::processBehavior() {
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
-	if (getBehaveingFrame() == _paFrame_NextEvent[_cnt_event]) {
-		switch (getBehaveingFrame()) {
-			case 100: {
-				//a
-				break;
-			}
-			default :
-				break;
-		}
-		_cnt_event = (_cnt_event < 1-1 ? _cnt_event+1 : _cnt_event);
-	}
+    if (getBehaveingFrame() == _paFrame_NextEvent[_cnt_event]) {
+        switch (getBehaveingFrame()) {
+            case 100: {
+                //a
+                break;
+            }
+            default :
+                break;
+        }
+        _cnt_event = (_cnt_event < 1-1 ? _cnt_event+1 : _cnt_event);
+    }
     // gen02 end
 
-    //デバッグ
+///////////////デバッグ///////////////////////////////
     if (GgafDxInput::isBeingPressedKey(DIK_PGUP)) {
         addScrollSpeed(PX_C(1));
         P_COMMON_SCENE->addScrollSpeed(PX_C(1));
@@ -123,7 +137,7 @@ void Stage01WalledScene::processBehavior() {
         addScrollSpeed(PX_C(-1));
         P_COMMON_SCENE->addScrollSpeed(PX_C(-1));
     }
-
+//////////////////////////////////////////////////////
 }
 
 void Stage01WalledScene::onFinishedAllSection() {

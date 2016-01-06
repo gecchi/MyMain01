@@ -56,8 +56,8 @@ LaserChip* LaserChipDepository::dispatch(int prm_offset_frames) {
         if (pChip) {
             if (_pChip_prev_dispatch) {
                 //以前のdispatch()したチップ
-                if (_frame_of_behaving_prev_dispatch+1 == _pChip_prev_dispatch->getBehaveingFrame() ||
-                    _frame_of_behaving_prev_dispatch   == _pChip_prev_dispatch->getBehaveingFrame()
+                if ( ( _frame_of_behaving_prev_dispatch+1 == _pChip_prev_dispatch->getBehaveingFrame()  &&  _pChip_prev_dispatch->isActive() ) || 
+                       _frame_of_behaving_prev_dispatch   == _pChip_prev_dispatch->getBehaveingFrame()
                 ) {
                     //同フレームでdispatch() 或いは１フレーム差で連続でdispatch() の場合連結とみなす
                     _num_continual_dispatch_count++;

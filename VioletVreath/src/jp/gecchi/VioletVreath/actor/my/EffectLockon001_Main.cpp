@@ -27,6 +27,7 @@ void EffectLockon001_Main::initialize() {
 
 void EffectLockon001_Main::onActive() {
     EffectLockon001::onActive();
+    _TRACE_("EffectLockon001_Main::onActive() "<<getActiveFrame()<<", this="<<NODE_INFO<<" pTarget_="<<pTarget_);
     if (pTarget_ == nullptr) {
         inactivateImmed();
         return;
@@ -64,16 +65,16 @@ void EffectLockon001_Main::processBehavior() {
         }
         if (pTarget_) {
             if (pTarget_->isActiveInTheTree() || pTarget_->willActivateAfter()) {
-                if (ABS(pTarget_->_x-_x) <= PX_C(200) &&
-                    ABS(pTarget_->_y-_y) <= PX_C(200) &&
-                    ABS(pTarget_->_z-_z) <= PX_C(200)) {
+                if (ABS(pTarget_->_x-_x) <= PX_C(250) &&
+                    ABS(pTarget_->_y-_y) <= PX_C(250) &&
+                    ABS(pTarget_->_z-_z) <= PX_C(250)) {
                     positionAs(pTarget_);
                     pKuroko->setMvVelo(0);
                     pKuroko->_angvelo_face[AXIS_Z] = 1000;
                 } else {
                     pKuroko->_angvelo_face[AXIS_Z] = 3000; //‘¬Žü‚è
                     pKuroko->setMvAngTwd(pTarget_);
-                    pKuroko->setMvVelo(PX_C(200));
+                    pKuroko->setMvVelo(PX_C(250));
                 }
             } else {
                 pProg->change(LOCKON001_PROG_RELEASE);
