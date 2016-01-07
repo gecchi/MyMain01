@@ -56,8 +56,8 @@ public:
 
     MyBunshin::AimInfo* pAimInfo_;
 
-    coord _tmp_x, _tmp_y, _tmp_z;
-    acce _tmp_acc_vx, _tmp_acc_vy, _tmp_acc_vz;
+    coord tmp_x_, tmp_y_, tmp_z_;
+    acce tmp_acc_vx_, tmp_acc_vy_, tmp_acc_vz_;
 
 public:
     MyBunshinWateringLaserChip001(const char* prm_name);

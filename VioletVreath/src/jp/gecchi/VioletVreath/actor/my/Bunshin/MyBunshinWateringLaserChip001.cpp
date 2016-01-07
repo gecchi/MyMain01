@@ -49,10 +49,10 @@ MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_nam
         }
         MyBunshinWateringLaserChip001::pModel_ = pModel;
     }
-    _tmp_x = _x;
-    _tmp_y = _y;
-    _tmp_z = _z;
-    _tmp_acc_vx = _tmp_acc_vy = _tmp_acc_vz = 0;
+    tmp_x_ = _x;
+    tmp_y_ = _y;
+    tmp_z_ = _z;
+    tmp_acc_vx_ = tmp_acc_vy_ = tmp_acc_vz_ = 0;
     pAimInfo_ = nullptr;
 }
 
@@ -216,12 +216,12 @@ void MyBunshinWateringLaserChip001::processBehavior() {
 
     pAxsMver_->behave();
     WateringLaserChip::processBehavior();
-    _tmp_x = _x;
-    _tmp_y = _y;
-    _tmp_z = _z;
-    _tmp_acc_vx =  pAxsMver_->_acce_vx_mv;
-    _tmp_acc_vy =  pAxsMver_->_acce_vy_mv;
-    _tmp_acc_vz =  pAxsMver_->_acce_vz_mv;
+    tmp_x_ = _x;
+    tmp_y_ = _y;
+    tmp_z_ = _z;
+    tmp_acc_vx_ =  pAxsMver_->_acce_vx_mv;
+    tmp_acc_vy_ =  pAxsMver_->_acce_vy_mv;
+    tmp_acc_vz_ =  pAxsMver_->_acce_vz_mv;
 }
 
 void MyBunshinWateringLaserChip001::processSettlementBehavior() {
@@ -283,12 +283,12 @@ throwGgafCriticalException("MyBunshinWateringLaserChip001::processSettlementBeha
             //なぜなら dispatch の瞬間に_pChip_behind != nullptr となるが、active()により有効になるのは次フレームだから
             //_x,_y,_z にはまだ変な値が入っている。
             //中間座標に再設定
-            _x = ((pF->_tmp_x + pB->_tmp_x)/2 + _tmp_x)/2;
-            _y = ((pF->_tmp_y + pB->_tmp_y)/2 + _tmp_y)/2;
-            _z = ((pF->_tmp_z + pB->_tmp_z)/2 + _tmp_z)/2;
-            pAxsMver_->setVxyzMvAcce( ( ((pF->_tmp_acc_vx + pB->_tmp_acc_vx)/2) + _tmp_acc_vx)/2,
-                                      ( ((pF->_tmp_acc_vy + pB->_tmp_acc_vy)/2) + _tmp_acc_vy)/2,
-                                      ( ((pF->_tmp_acc_vz + pB->_tmp_acc_vz)/2) + _tmp_acc_vz)/2 );
+            _x = ((pF->tmp_x_ + pB->tmp_x_)/2 + tmp_x_)/2;
+            _y = ((pF->tmp_y_ + pB->tmp_y_)/2 + tmp_y_)/2;
+            _z = ((pF->tmp_z_ + pB->tmp_z_)/2 + tmp_z_)/2;
+            pAxsMver_->setVxyzMvAcce( ( ((pF->tmp_acc_vx_ + pB->tmp_acc_vx_)/2) + tmp_acc_vx_)/2,
+                                      ( ((pF->tmp_acc_vy_ + pB->tmp_acc_vy_)/2) + tmp_acc_vy_)/2,
+                                      ( ((pF->tmp_acc_vz_ + pB->tmp_acc_vz_)/2) + tmp_acc_vz_)/2 );
         }
     }
     WateringLaserChip::processSettlementBehavior();
@@ -375,24 +375,19 @@ void MyBunshinWateringLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
     UTIL::activateExplosionEffectOf(this); //爆発エフェクト出現
 
     if ((pOther->getKind() & KIND_ENEMY_BODY) ) {
+        //ロックオン可能アクターならロックオン
+        if (pOther->getStatus()->get(STAT_LockonAble) == 1) {
+            pOrg_->pLockonCtrler_->lockon(pOther);
+        }
 
         int stamina = UTIL::calcMyStamina(this, pOther);
         if (stamina <= 0) {
             //一撃でチップ消滅の攻撃力
-            //ロックオン可能アクターならロックオン
-            if (pOther->getStatus()->get(STAT_LockonAble) == 1) {
-                pOrg_->pLockonCtrler_->lockon(pOther);
-            }
-
-getStatus()->set(STAT_Stamina, default_stamina_);
-//sayonara();
+            //getStatus()->set(STAT_Stamina, default_stamina_);
+            sayonara();
         } else {
             //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
             getStatus()->set(STAT_Stamina, default_stamina_);
-            //ロックオン可能アクターならロックオン
-            if (pOther->getStatus()->get(STAT_LockonAble) == 1) {
-                pOrg_->pLockonCtrler_->lockon(pOther);
-            }
         }
         MyBunshin::AimInfo* pAimInfo = pAimInfo_;
         if (this == pAimInfo->pLeaderChip_ && pAimInfo->pTarget == prm_pOtherActor) {

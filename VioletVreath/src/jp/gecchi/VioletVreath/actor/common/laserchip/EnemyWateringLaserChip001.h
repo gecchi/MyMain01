@@ -16,6 +16,9 @@ namespace VioletVreath {
 class EnemyWateringLaserChip001 : public GgafLib::WateringLaserChip {
 
 public:
+    coord tmp_x_, tmp_y_, tmp_z_;
+
+public:
     EnemyWateringLaserChip001(const char* prm_name);
 
     void initialize() override;
@@ -27,6 +30,8 @@ public:
     void onInactive() override;
 
     void processBehavior() override;
+
+    void processSettlementBehavior() override;
 
     void processJudgement() override;
 

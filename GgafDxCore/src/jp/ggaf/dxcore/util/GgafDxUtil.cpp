@@ -725,7 +725,6 @@ void GgafDxUtil::convRzRyToVector(angle prm_ang_rz,
     out_nvz = zsign * (int)vz * (1.0 / 1000000.0);
 }
 
-
 void GgafDxUtil::setWorldMatrix_ScRxRzRyMv(const GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //World•ÏŠ·
     //Šg‘åk¬ ~ X²‰ñ“] ~ Z²‰ñ“] ~ Y²‰ñ“] ~ •½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ğİ’è<BR>

@@ -155,43 +155,53 @@ void LaserChip::processSettlementBehavior() {
     //     `----- 1:末尾チップ
     //
     //先頭と先端という言葉で区別しています。
-    setHitAble(true);
     if (pChip_infront) {
         if (pChip_infront->isActive()) {
             if (pChip_behind) {
                 if (pChip_behind->isActive()) {
                     if (pChip_infront->_pChip_infront) {
                         _chip_kind = 2; //中間テクスチャチップ
+                        setHitAble(true);
                     } else {
                         _chip_kind = 3; //中間先頭テクスチャチップ
+                        setHitAble(true);
                     }
                 } else {
                     _chip_kind = 1; //発射元の末端テクスチャチップ
+                    setHitAble(true);
                 }
             } else {
                 _chip_kind = 1; //普通の末端テクスチャ
-                if (pChip_infront->_chip_kind == 4) {
-                    _chip_kind = 4;
+                if (getActiveFrame() > 2 && pChip_infront->_pChip_infront == nullptr) {
+                    _chip_kind = 0;
                     sayonara();
+                    setHitAble(false);
+                } else {
+                    setHitAble(true);
                 }
             }
         } else {
             _chip_kind = 4; //先端チップ。何も描画したくない
-            _pChip_infront->_pChip_behind = nullptr; //前後のつながりを
-            _pChip_infront = nullptr;                //切断
             if (getActiveFrame() > 1 && pChip_behind == nullptr) {
                 sayonara();
+                setHitAble(false);
+            } else {
+                setHitAble(true);
             }
         }
     } else {
         _chip_kind = 4; //先端チップ。何も描画したくない
         if (getActiveFrame() > 1 && pChip_behind == nullptr) {
             sayonara();
+            setHitAble(false);
+        } else {
+            setHitAble(true);
         }
     }
 
     if (pChecker->getArea()) {
         if (_chip_kind == 4) {
+            //先端チップの当たり判定を、後ろチップとの中間の位置に凹ませる。
             if (pChip_behind) {
                 coord dX =  pChip_behind->_x - _x;
                 coord dY =  pChip_behind->_y - _y;
@@ -271,8 +281,8 @@ void LaserChip::processSettlementBehavior() {
 }
 
 void LaserChip::processPreDraw() {
-    if (_chip_kind < 4) {
-        //4以外を表示対象にする
+    if (0 < _chip_kind && _chip_kind < 4) {
+        //1~3を表示対象にする
         GgafDxFigureActor::processPreDraw();
     }
 }

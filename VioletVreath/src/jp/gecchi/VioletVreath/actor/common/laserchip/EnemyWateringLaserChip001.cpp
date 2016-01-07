@@ -11,6 +11,9 @@ using namespace VioletVreath;
 EnemyWateringLaserChip001::EnemyWateringLaserChip001(const char* prm_name) :
         WateringLaserChip(prm_name, "EnemyWateringLaserChip001", STATUS(EnemyWateringLaserChip001)) {
     _class_name = "EnemyWateringLaserChip001";
+    tmp_x_ = _x;
+    tmp_y_ = _y;
+    tmp_z_ = _z;
 }
 
 void EnemyWateringLaserChip001::initialize() {
@@ -27,7 +30,7 @@ void EnemyWateringLaserChip001::onCreateModel() {
 
 void EnemyWateringLaserChip001::onActive() {
     WateringLaserChip::onActive();
-    getKuroko()->setMvVelo(PX_C(80));
+    getKuroko()->setMvVelo(PX_C(100));
     getKuroko()->setMvAcce(PX_C(5));
     getStatus()->reset();
 }
@@ -37,11 +40,37 @@ void EnemyWateringLaserChip001::processBehavior() {
         //アクティブになった瞬間は、
         //利用元アクターが指定した最初の座標で表示したい。
         //黒衣の活動を行うと、ずれるので、最初だけはそのままの座標で表示。
+        //とはいうものの、発射元は１フレーム分移動してるので、ピッタリには見えないかもしれない。
     } else {
         GgafDxKuroko* const pKuroko = getKuroko();
         pKuroko->behave();
     }
     WateringLaserChip::processBehavior();//座標を移動させてから呼び出すこと
+
+    tmp_x_ = _x;
+    tmp_y_ = _y;
+    tmp_z_ = _z;
+}
+
+void EnemyWateringLaserChip001::processSettlementBehavior() {
+    //平均曲線座標設定。(レーザーを滑らかにするノーマライズ）
+    //processSettlementBehavior() のメソッドの意義とは離れて座標をいじり移動している。
+    //本来は processBehaviorAfter() 的な意味の処理であるが、全レーザーチップが移動後でないと意味がないので
+    //仕方ないのでprocessSettlementBehavior()に食い込んでいます。
+    if (getActiveFrame() > 3) {
+        EnemyWateringLaserChip001* pF = (EnemyWateringLaserChip001*)getInfrontChip();
+        EnemyWateringLaserChip001* pB = (EnemyWateringLaserChip001*)getBehindChip();
+        if (pF && pB && pF->isActive() && pB->isActive()) {
+            //_pChip_behind == nullptr の判定だけではだめ。_pChip_behind->_is_active_flg と判定すること
+            //なぜなら dispatch の瞬間に_pChip_behind != nullptr となるが、active()により有効になるのは次フレームだから
+            //_x,_y,_z にはまだ変な値が入っている。
+            //中間座標に再設定
+            _x = ((pF->tmp_x_ + pB->tmp_x_)/2 + tmp_x_)/2;
+            _y = ((pF->tmp_y_ + pB->tmp_y_)/2 + tmp_y_)/2;
+            _z = ((pF->tmp_z_ + pB->tmp_z_)/2 + tmp_z_)/2;
+        }
+    }
+    WateringLaserChip::processSettlementBehavior();
 }
 
 void EnemyWateringLaserChip001::processJudgement() {

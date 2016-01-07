@@ -29,7 +29,6 @@ MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) :
     default_stamina_ = getStatus()->get(STAT_Stamina);
     _velo_mv = 100000;
     pOrg_ = nullptr;
-    aim_status_ = 0;
     GgafDxModel* pModel = getModel();
     if (!MyStraightLaserChip001::pModel_) {
         if (pModel->_num_materials != MAX_LASER_LEVEL) {
@@ -61,40 +60,13 @@ void MyStraightLaserChip001::onActive() {
     StraightLaserChip::onActive();
 
     GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
-    getKuroko()->setMvVelo(80000);
+    getKuroko()->setMvVelo(100000);
     getKuroko()->setMvAcce(1000);
-    if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheTree()) {
-        if (getInfrontChip() == nullptr) {
-            //先端チップ
-            aim_status_ = 1;
-        } else {
-            //先端以外
-            aim_status_ = ((MyStraightLaserChip001*)getInfrontChip())->aim_status_;//一つ前のロックオン情報を引き継ぐ
-        }
-    } else {
-        if (getInfrontChip() == nullptr) {
-            //先端チップ
-            aim_status_ = 0;
-        } else {
-            //先端以外
-            aim_status_ = ((MyStraightLaserChip001*)getInfrontChip())->aim_status_;//一つ前のロックオン情報を引き継ぐ
-        }
-    }
 }
 
 void MyStraightLaserChip001::processBehavior() {
     const GgafDxGeometricActor* const pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
 
-    if (aim_status_ == 1) {
-        if (getActiveFrame() < 120) {
-            if (pMainLockOnTarget) {
-            } else {
-                aim_status_ = 2;
-            }
-        } else {
-            aim_status_ = 2;
-        }
-    }
     if (getInfrontChip() == nullptr) {
         getSeTx()->behave();
     }
@@ -115,22 +87,11 @@ void MyStraightLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*) prm_pOtherActor;
     GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
     //ヒットエフェクト
+    UTIL::activateExplosionEffectOf(this); //爆発エフェクト出現
+
+
     //無し
     if ((pOther->getKind() & KIND_ENEMY_BODY) ) {
-        if (pMainLockOnTarget) { //既にオプションはロックオン中
-            if (pOther == pMainLockOnTarget) {
-                //オプションのロックオンに見事命中した場合
-                aim_status_ = 2; //ロックオンをやめる。非ロックオン（ロックオン→非ロックオン）
-                if (getInfrontChip() && getInfrontChip()->getInfrontChip() == nullptr) {
-                    //中間先頭チップがヒットした場合、先端にも伝える
-                    ((MyStraightLaserChip001*)getInfrontChip())->aim_status_ = 2;
-                }
-            } else {
-                //オプションのロックオン以外のアクターに命中した場合
-            }
-        } else {
-            //オプション非ロックオン中に命中した場合
-        }
         //ロックオン可能アクターならロックオンを試みる
         if (pOther->getStatus()->get(STAT_LockonAble) == 1) {
             pOrg_->pLockonCtrler_->lockon(pOther);
@@ -139,9 +100,8 @@ void MyStraightLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
         const int stamina = UTIL::calcMyStamina(this, pOther);
         if (stamina <= 0) {
             //一撃でチップ消滅の攻撃力
-            setHitAble(false);
-            UTIL::activateExplosionEffectOf(this); //破壊されたエフェクト
-            sayonara();
+            getStatus()->set(STAT_Stamina, default_stamina_);
+            //sayonara();
         } else {
             //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
             getStatus()->set(STAT_Stamina, default_stamina_);
@@ -157,7 +117,6 @@ void MyStraightLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
 
 void MyStraightLaserChip001::onInactive() {
     StraightLaserChip::onInactive();
-    aim_status_ = 0;
 }
 
 void MyStraightLaserChip001::chengeTex(int prm_tex_no) {

@@ -186,12 +186,13 @@ MyShip::MyShip(const char* prm_name) :
 
     pLaserChipDepo_ = NEW LaserChipDepository("MyRotLaser");
     MyStraightLaserChip001* pChip;
-    for (int i = 0; i < 70; i++) { //レーザーストック
+    for (int i = 0; i < 80; i++) { //レーザーストック
         std::string name = "MyStraightLaserChip001("+XTOS(i)+")";
         pChip = NEW MyStraightLaserChip001(name.c_str());
         pChip->setPositionSource(this); //位置だけ同期
         pLaserChipDepo_->put(pChip);
     }
+    pLaserChipDepo_->config(80, 25, nullptr);
     addSubGroup(pLaserChipDepo_);
 
     //ロックオンコントローラー

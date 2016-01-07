@@ -591,6 +591,54 @@ public:
 
 
     /**
+     * 原点中心の球面とベクトルの交点を求める
+     * @param in_r  原点中心の球面の半径
+     * @param in_x1   ベクトルFrom X要素
+     * @param in_y1   ベクトルFrom Y要素
+     * @param in_z1   ベクトルFrom Z要素
+     * @param in_x2   ベクトルTo X要素
+     * @param in_y2   ベクトルTo Y要素
+     * @param in_z2   ベクトルTo Z要素
+     * @param out_x   結果の交点X要素
+     * @param out_y   結果の交点Y要素
+     * @param out_z   結果の交点Z要素
+     */
+    template<typename T>
+    static void getIntersectionSphereAndVec(double in_r,
+                                            double in_x1, double in_y1, double in_z1,
+                                            double in_x2, double in_y2, double in_z2,
+                                            T& out_x, T& out_y, T& out_z) {
+        double vx = in_x2 - in_x1;
+        double vy = in_y2 - in_y1;
+        double vz = in_z2 - in_z1;
+        // 直線の座標(X,Y,Z)は
+        //   X = x2 + t*vx;
+        //   Y = y2 + t*vy;
+        //   Z = z2 + t*vz;
+        //である
+        //これを球面の式
+        //x^2 + y^2 + z^2 = r^2
+        //に代入する
+        //(x2 + t*vx)^2 + (y2 + t*vy)^2 + (z2 + t*vz)^2 = r^2
+        //    t=-(sqrt((-vy^2-vx^2)*z2^2+(2*vy*vz*y2+2*vx*vz*x2)*z2+(-vz^2-vx^2)*y2^2+2*vx*vy*x2*y2+(-vz^2-vy^2)*
+        //    x2^2+r^2*vz^2+r^2*vy^2+r^2*vx^2)+vz*z2+vy*y2+vx*x2)/(vz^2+vy^2+vx^2),
+        //    t= (sqrt((-vy^2-vx^2)*z2^2+(2*vy*vz*y2+2*vx*vz*x2)*z2+(-vz^2-vx^2)*y2^2+2*vx*vy*x2*y2+(-vz^2-vy^2)*
+        //    x2^2+r^2*vz^2+r^2*vy^2+r^2*vx^2)-vz*z2-vy*y2-vx*x2)/(vz^2+vy^2+vx^2)
+        double vxvx = vx * vx;
+        double vyvy = vy * vy;
+        double vzvz = vz * vz;
+        double x2x2 = in_x2 * in_x2;
+        double y2y2 = in_y2 * in_y2;
+        double z2z2 = in_z2 * in_z2;
+        double rr = in_r * in_r;
+        double t = (sqrt((-vyvy-vxvx)*z2z2+(2*vy*vz*in_y2+2*vx*vz*in_x2)*in_z2+(-vzvz-vxvx)*y2y2+2*vx*vy*in_x2*in_y2+(-vzvz-vyvy)*
+                    x2x2+rr*vzvz+rr*vyvy+rr*vxvx)-vz*in_z2-vy*in_y2-vx*in_x2)/(vzvz+vyvy+vxvx);
+
+        out_x = in_x2 + t*vx;
+        out_y = in_y2 + t*vy;
+        out_z = in_z2 + t*vz;
+    }
+    /**
      * world変換行列設定 .
      * 拡大縮小 × X軸回転 × Z軸回転 × Y軸回転 × 平行移動 の変換行列を設定<BR>
      * ※XYZの順でないことに注意<BR>

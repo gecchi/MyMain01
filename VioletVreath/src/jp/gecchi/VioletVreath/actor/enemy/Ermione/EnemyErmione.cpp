@@ -24,6 +24,7 @@ EnemyErmione::EnemyErmione(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Ermione", STATUS(EnemyErmione)) {
     _class_name = "EnemyErmione";
     pAFader_ = NEW GgafDxAlphaFader(this);
+
 //    num_arm_ = 6; //腕の合計本数
 //    num_arm_part_ = 11;  //各腕の節数（3以上）
 //    angle pos_rz[] = {D_ANG(0),   D_ANG(90),   D_ANG(180),  D_ANG(270), D_ANG(0) , D_ANG(0)   }; //生やす場所
@@ -53,6 +54,13 @@ EnemyErmione::EnemyErmione(const char* prm_name) :
     UTIL::convVectorToRzRy( -(sqrt6*a)/12.0,  (sqrt3*a)/2.0,    0.0,   pos_rz[1], pos_ry[1]);
     UTIL::convVectorToRzRy( -(sqrt6*a)/12.0, -(sqrt3*a)/6.0,  a/2.0,   pos_rz[2], pos_ry[2]);
     UTIL::convVectorToRzRy( -(sqrt6*a)/12.0, -(sqrt3*a)/6.0, -a/2.0,   pos_rz[3], pos_ry[3]);
+
+//////////////TEST
+//    num_arm_ = 1; //腕の合計本数
+//    num_arm_part_ = 11;  //各腕の節数（3以上）
+//    angle pos_rz[] = {D_ANG(0)}; //生やす場所
+//    angle pos_ry[] = {D_ANG(0)};
+///////////////
 
 
     static coord R = PX_C(130);     //本体Ermioneの半径
@@ -165,7 +173,7 @@ void EnemyErmione::processBehavior() {
                 setHitAble(true);
                 throwEventLowerTree(EVENT_ERMIONE_ENTRY_DONE);
                 pKuroko->setMvAngTwd(P_MYSHIP);
-                pKuroko->setMvVelo(1000);
+                pKuroko->setMvVelo(1);
                 pKuroko->asstFaceAng()->turnFaceAngByDtTwd(
                         P_MYSHIP, TURN_CLOSE_TO, true, 60*30,
                         0.4, 0.6, 0, true);
