@@ -383,7 +383,7 @@ void MyBunshinWateringLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
         int stamina = UTIL::calcMyStamina(this, pOther);
         if (stamina <= 0) {
             //一撃でチップ消滅の攻撃力
-            //getStatus()->set(STAT_Stamina, default_stamina_);
+            getStatus()->set(STAT_Stamina, default_stamina_);
             sayonara();
         } else {
             //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
@@ -397,7 +397,6 @@ void MyBunshinWateringLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
             pAimInfo->t1_z = _z;
             pAimInfo->_spent_frames_to_t1 = getActiveFrame();
         }
-
 
     } else if (pOther->getKind() & KIND_CHIKEI) {
         //地形相手は無条件さようなら

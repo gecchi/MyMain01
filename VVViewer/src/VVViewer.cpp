@@ -86,8 +86,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             break;
         }
         case WM_DROPFILES: {/* ファイルがドロップされた時の処理 */
-            HDROP  hDrop = (HDROP)wParam;
-            UINT  uFileNo = DragQueryFile((HDROP)wParam, 0xFFFFFFFF, nullptr, 0);
+            HDROP hDrop = (HDROP)wParam;
+            UINT uFileNo = DragQueryFile((HDROP)wParam, 0xFFFFFFFF, nullptr, 0);
             for(int i = 0; i < (int)uFileNo; i++) {
                 DragQueryFile(hDrop, i, VvvGod::dropfiles_, sizeof(VvvGod::dropfiles_));
                 _TRACE_("VvvGod::dropfiles_="<<VvvGod::dropfiles_);
@@ -107,6 +107,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                         GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, PROPERTY::SINGLE_VIEW_WINDOW_WIDTH, PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT);
                     }
                 }
+            }
+            break;
+        }
+        case WM_SYSKEYDOWN: {
+            if (LOWORD(wParam) == VK_F10) {
+                return TRUE;
+            }
+            if (LOWORD(wParam) == VK_MENU) {
+                return TRUE;
             }
             break;
         }

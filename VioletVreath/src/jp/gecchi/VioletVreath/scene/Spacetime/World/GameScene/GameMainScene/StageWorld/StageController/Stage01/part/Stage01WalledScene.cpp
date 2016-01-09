@@ -90,10 +90,10 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-    frame f[] = {100};
-    _paFrame_NextEvent = new frame[1];
-    memcpy(_paFrame_NextEvent, f, sizeof(f));
-    _event_num = 1;
+	frame f[] = {100};
+	_paFrame_NextEvent = new frame[1];
+	memcpy(_paFrame_NextEvent, f, sizeof(f));
+	_event_num = 1;
     // gen01 end
 }
 
@@ -115,17 +115,17 @@ void Stage01WalledScene::processBehavior() {
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
-    if (getBehaveingFrame() == _paFrame_NextEvent[_cnt_event]) {
-        switch (getBehaveingFrame()) {
-            case 100: {
-                //a
-                break;
-            }
-            default :
-                break;
-        }
-        _cnt_event = (_cnt_event < 1-1 ? _cnt_event+1 : _cnt_event);
-    }
+	if (getBehaveingFrame() == _paFrame_NextEvent[_cnt_event]) {
+		switch (getBehaveingFrame()) {
+			case 100: {
+				//a
+				break;
+			}
+			default :
+				break;
+		}
+		_cnt_event = (_cnt_event < 1-1 ? _cnt_event+1 : _cnt_event);
+	}
     // gen02 end
 
 ///////////////デバッグ///////////////////////////////

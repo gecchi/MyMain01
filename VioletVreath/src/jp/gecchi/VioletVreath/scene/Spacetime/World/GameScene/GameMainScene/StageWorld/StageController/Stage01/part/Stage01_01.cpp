@@ -27,18 +27,18 @@ Stage01_01::Stage01_01(const char* prm_name) : DefaultScene(prm_name) {
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 43;
 	
-	orderActorToFactory(20000001, FormationAllas001a, "FormationAllas001a-1");
-	orderActorToFactory(20000002, FormationAllas001b, "FormationAllas001b-2");
-	orderActorToFactory(20000003, FormationAllas001c, "FormationAllas001c-3");
-	orderActorToFactory(20000004, FormationAllas001d, "FormationAllas001d-4");
-	orderActorToFactory(20000005, FormationAllas001a, "FormationAllas001a-5");
-	orderActorToFactory(20000006, FormationAllas001d, "FormationAllas001d-6");
-	orderActorToFactory(20000007, FormationAllas001b, "FormationAllas001b-7");
-	orderActorToFactory(20000008, FormationAllas001c, "FormationAllas001c-8");
-	orderActorToFactory(20000009, FormationAllas001a, "FormationAllas001a-9");
-	orderActorToFactory(20000010, FormationAllas001d, "FormationAllas001d-10");
-	orderActorToFactory(20000011, FormationAllas001b, "FormationAllas001b-11");
-	orderActorToFactory(20000012, FormationAllas001c, "FormationAllas001c-12");
+	orderActorToFactory(20000001, FormationAllas001a, "FormationAllas001a-20000001");
+	orderActorToFactory(20000002, FormationAllas001b, "FormationAllas001b-20000002");
+	orderActorToFactory(20000003, FormationAllas001c, "FormationAllas001c-20000003");
+	orderActorToFactory(20000004, FormationAllas001d, "FormationAllas001d-20000004");
+	orderActorToFactory(20000005, FormationAllas001a, "FormationAllas001a-20000005");
+	orderActorToFactory(20000006, FormationAllas001d, "FormationAllas001d-20000006");
+	orderActorToFactory(20000007, FormationAllas001b, "FormationAllas001b-20000007");
+	orderActorToFactory(20000008, FormationAllas001c, "FormationAllas001c-20000008");
+	orderActorToFactory(20000009, FormationAllas001a, "FormationAllas001a-20000009");
+	orderActorToFactory(20000010, FormationAllas001d, "FormationAllas001d-20000010");
+	orderActorToFactory(20000011, FormationAllas001b, "FormationAllas001b-20000011");
+	orderActorToFactory(20000012, FormationAllas001c, "FormationAllas001c-20000012");
     // gen01 end
 
     getBGMer()->ready(0, "OGG_BGM_01_01");
@@ -60,7 +60,7 @@ void Stage01_01::processBehavior() {
 			}
 			case 500: {
 				{
-				FormationTableScene* ta = NEW FormationTableScene("FormationTableScene-13");
+				FormationTableScene* ta = NEW FormationTableScene("FormationTableScene-1");
 				ta->setMaxPerformFrame(2000);
 				addSubLast(ta);
 				ta->addToTable(((FormationAllas001a*)obtainActorFromFactory(20000001)), 400);
@@ -79,106 +79,98 @@ void Stage01_01::processBehavior() {
 				break;
 			}
 			case 1900: {
-				orderActorToFactory(20000013, FormationUnomia001a, "FormationUnomia001a-14");
-				orderActorToFactory(20000017, VarietyRatislavia001, "VarietyRatislavia001-15");
-				orderActorToFactory(20000019, FormationAppho001a, "FormationAppho001a-16");
+				orderActorToFactory(20000013, FormationUnomia001a, "FormationUnomia001a-20000013");
+				orderActorToFactory(20000017, VarietyRatislavia001, "VarietyRatislavia001-20000017");
+				orderActorToFactory(20000019, FormationAppho001a, "FormationAppho001a-20000019");
 				break;
 			}
 			case 2400: {
-				orderActorToFactory(20000015, FormationUnomia001b, "FormationUnomia001b-17");
-				orderActorToFactory(20000018, VarietyRatislavia002, "VarietyRatislavia002-18");
-				orderActorToFactory(20000027, FormationAppho001b, "FormationAppho001b-19");
+				orderActorToFactory(20000015, FormationUnomia001b, "FormationUnomia001b-20000015");
+				orderActorToFactory(20000018, VarietyRatislavia002, "VarietyRatislavia002-20000018");
+				orderActorToFactory(20000027, FormationAppho001b, "FormationAppho001b-20000027");
 				break;
 			}
 			case 2500: {
-				FormationUnomia001a* pFormationUnomia = (FormationUnomia001a*)obtainActorFromFactory(20000013);
-				bringDirector()->addSubGroup(pFormationUnomia);
+				bringDirector()->addSubGroup(obtainActorFromFactory(20000013));
 				VarietyRatislavia001* pRatislavia = (VarietyRatislavia001*)obtainActorFromFactory(20000017);
 				bringDirector()->addSubGroup(pRatislavia);
-				FormationAppho001a* pFA = (FormationAppho001a*)obtainActorFromFactory(20000019);
-				bringDirector()->addSubGroup(pFA);
+				bringDirector()->addSubGroup(obtainActorFromFactory(20000019));
 				break;
 			}
 			case 2900: {
-				orderActorToFactory(20000020, FormationAppho001a, "FormationAppho001a-20");
+				orderActorToFactory(20000020, FormationAppho001a, "FormationAppho001a-20000020");
 				break;
 			}
 			case 3000: {
-				FormationUnomia001b* pFormationUnomia = (FormationUnomia001b*)obtainActorFromFactory(20000015);
-				bringDirector()->addSubGroup(pFormationUnomia);
+				bringDirector()->addSubGroup(obtainActorFromFactory(20000015));
 				VarietyRatislavia002* pRatislavia = (VarietyRatislavia002*)obtainActorFromFactory(20000018);
 				bringDirector()->addSubGroup(pRatislavia);
-				FormationAppho001b* pFA = (FormationAppho001b*)obtainActorFromFactory(20000027);
-				bringDirector()->addSubGroup(pFA);
+				bringDirector()->addSubGroup(obtainActorFromFactory(20000027));
 				break;
 			}
 			case 3400: {
-				orderActorToFactory(20000028, FormationAppho001b, "FormationAppho001b-21");
+				orderActorToFactory(20000028, FormationAppho001b, "FormationAppho001b-20000028");
 				break;
 			}
 			case 3500: {
-				FormationAppho001a* pFA = (FormationAppho001a*)obtainActorFromFactory(20000020);
-				bringDirector()->addSubGroup(pFA);
+				bringDirector()->addSubGroup(obtainActorFromFactory(20000020));
 				break;
 			}
 			case 3900: {
-				orderActorToFactory(20000021, FormationAppho001a, "FormationAppho001a-22");
+				orderActorToFactory(20000021, FormationAppho001a, "FormationAppho001a-20000021");
 				break;
 			}
 			case 4000: {
-				FormationAppho001b* pFA = (FormationAppho001b*)obtainActorFromFactory(20000028);
-				bringDirector()->addSubGroup(pFA);
+				bringDirector()->addSubGroup(obtainActorFromFactory(20000028));
 				break;
 			}
 			case 4400: {
-				orderActorToFactory(20000029, FormationAppho001b, "FormationAppho001b-23");
-				orderActorToFactory(20000035, FormationDelheid001, "FormationDelheid001-24");
+				orderActorToFactory(20000029, FormationAppho001b, "FormationAppho001b-20000029");
+				orderActorToFactory(20000035, FormationDelheid001, "FormationDelheid001-20000035");
 				break;
 			}
 			case 4500: {
-				FormationAppho001a* pFA = (FormationAppho001a*)obtainActorFromFactory(20000021);
-				bringDirector()->addSubGroup(pFA);
-				orderActorToFactory(20000036, FormationDelheid001, "FormationDelheid001-25");
+				bringDirector()->addSubGroup(obtainActorFromFactory(20000021));
+				orderActorToFactory(20000036, FormationDelheid001, "FormationDelheid001-20000036");
 				break;
 			}
 			case 4600: {
-				orderActorToFactory(20000037, FormationDelheid001, "FormationDelheid001-26");
+				orderActorToFactory(20000037, FormationDelheid001, "FormationDelheid001-20000037");
 				break;
 			}
 			case 4700: {
-				orderActorToFactory(20000038, FormationDelheid001, "FormationDelheid001-27");
+				orderActorToFactory(20000038, FormationDelheid001, "FormationDelheid001-20000038");
 				break;
 			}
 			case 4800: {
-				orderActorToFactory(20000039, FormationDelheid001, "FormationDelheid001-28");
+				orderActorToFactory(20000039, FormationDelheid001, "FormationDelheid001-20000039");
 				break;
 			}
 			case 4900: {
-				orderActorToFactory(20000022, FormationAppho001a, "FormationAppho001a-29");
-				orderActorToFactory(20000040, FormationDelheid001, "FormationDelheid001-30");
+				orderActorToFactory(20000022, FormationAppho001a, "FormationAppho001a-20000022");
+				orderActorToFactory(20000040, FormationDelheid001, "FormationDelheid001-20000040");
 				break;
 			}
 			case 5000: {
-				FormationAppho001b* pFA = (FormationAppho001b*)obtainActorFromFactory(20000029);
-				bringDirector()->addSubGroup(pFA);
+				bringDirector()->addSubGroup(obtainActorFromFactory(20000029));
 				FormationDelheid001* pF = (FormationDelheid001*)obtainActorFromFactory(20000035);
 				bringDirector()->addSubGroup(pF);
 				pF->position(PX_C(-200), PX_C(-400), PX_C(500), D_ANG(0), D_ANG(-40), D_ANG(0));
-				orderActorToFactory(20000041, FormationDelheid001, "FormationDelheid001-31");
+				orderActorToFactory(20000041, FormationDelheid001, "FormationDelheid001-20000041");
 				break;
 			}
 			case 5100: {
 				FormationDelheid001* pF = (FormationDelheid001*)obtainActorFromFactory(20000036);
 				bringDirector()->addSubGroup(pF);
 				pF->position(PX_C(-200), PX_C(-300), PX_C(500), D_ANG(0), D_ANG(-30), D_ANG(0));
-				orderActorToFactory(20000042, FormationDelheid001, "FormationDelheid001-32");
+				orderActorToFactory(20000042, FormationDelheid001, "FormationDelheid001-20000042");
 				break;
 			}
 			case 5200: {
 				FormationDelheid001* pF = (FormationDelheid001*)obtainActorFromFactory(20000037);
 				bringDirector()->addSubGroup(pF);
 				pF->position(PX_C(-200), PX_C(-200), PX_C(500), D_ANG(0), D_ANG(-20), D_ANG(0));
-				orderActorToFactory(20000043, FormationDelheid001, "FormationDelheid001-33");
+				orderActorToFactory(20000043, FormationDelheid001, "FormationDelheid001-20000043");
 				break;
 			}
 			case 5300: {
@@ -188,15 +180,14 @@ void Stage01_01::processBehavior() {
 				break;
 			}
 			case 5400: {
-				orderActorToFactory(20000030, FormationAppho001b, "FormationAppho001b-34");
+				orderActorToFactory(20000030, FormationAppho001b, "FormationAppho001b-20000030");
 				FormationDelheid001* pF = (FormationDelheid001*)obtainActorFromFactory(20000039);
 				bringDirector()->addSubGroup(pF);
 				pF->position(PX_C(-200), PX_C(   0), PX_C(500), D_ANG(0), D_ANG(  0), D_ANG(0));
 				break;
 			}
 			case 5500: {
-				FormationAppho001a* pFA = (FormationAppho001a*)obtainActorFromFactory(20000022);
-				bringDirector()->addSubGroup(pFA);
+				bringDirector()->addSubGroup(obtainActorFromFactory(20000022));
 				FormationDelheid001* pF = (FormationDelheid001*)obtainActorFromFactory(20000040);
 				bringDirector()->addSubGroup(pF);
 				pF->position(PX_C(-200), PX_C( 100), PX_C(500), D_ANG(0), D_ANG( 10), D_ANG(0));
@@ -221,86 +212,75 @@ void Stage01_01::processBehavior() {
 				break;
 			}
 			case 5900: {
-				orderActorToFactory(20000014, FormationUnomia001a, "FormationUnomia001a-35");
-				orderActorToFactory(20000023, FormationAppho001a, "FormationAppho001a-36");
+				orderActorToFactory(20000014, FormationUnomia001a, "FormationUnomia001a-20000014");
+				orderActorToFactory(20000023, FormationAppho001a, "FormationAppho001a-20000023");
 				break;
 			}
 			case 6000: {
-				FormationAppho001b* pFA = (FormationAppho001b*)obtainActorFromFactory(20000030);
-				bringDirector()->addSubGroup(pFA);
+				bringDirector()->addSubGroup(obtainActorFromFactory(20000030));
 				break;
 			}
 			case 6400: {
-				orderActorToFactory(20000016, FormationUnomia001b, "FormationUnomia001b-37");
-				orderActorToFactory(20000031, FormationAppho001b, "FormationAppho001b-38");
+				orderActorToFactory(20000016, FormationUnomia001b, "FormationUnomia001b-20000016");
+				orderActorToFactory(20000031, FormationAppho001b, "FormationAppho001b-20000031");
 				break;
 			}
 			case 6500: {
-				FormationUnomia001a* pFormationUnomia = (FormationUnomia001a*)obtainActorFromFactory(20000014);
-				bringDirector()->addSubGroup(pFormationUnomia);
-				FormationAppho001a* pFA = (FormationAppho001a*)obtainActorFromFactory(20000023);
-				bringDirector()->addSubGroup(pFA);
+				bringDirector()->addSubGroup(obtainActorFromFactory(20000014));
+				bringDirector()->addSubGroup(obtainActorFromFactory(20000023));
 				break;
 			}
 			case 6900: {
-				orderActorToFactory(20000024, FormationAppho001a, "FormationAppho001a-39");
+				orderActorToFactory(20000024, FormationAppho001a, "FormationAppho001a-20000024");
 				break;
 			}
 			case 7000: {
-				FormationUnomia001b* pFormationUnomia = (FormationUnomia001b*)obtainActorFromFactory(20000016);
-				bringDirector()->addSubGroup(pFormationUnomia);
-				FormationAppho001b* pFA = (FormationAppho001b*)obtainActorFromFactory(20000031);
-				bringDirector()->addSubGroup(pFA);
+				bringDirector()->addSubGroup(obtainActorFromFactory(20000016));
+				bringDirector()->addSubGroup(obtainActorFromFactory(20000031));
 				break;
 			}
 			case 7400: {
-				orderActorToFactory(20000032, FormationAppho001b, "FormationAppho001b-40");
+				orderActorToFactory(20000032, FormationAppho001b, "FormationAppho001b-20000032");
 				break;
 			}
 			case 7500: {
-				FormationAppho001a* pFA = (FormationAppho001a*)obtainActorFromFactory(20000024);
-				bringDirector()->addSubGroup(pFA);
+				bringDirector()->addSubGroup(obtainActorFromFactory(20000024));
 				break;
 			}
 			case 7900: {
-				orderActorToFactory(20000025, FormationAppho001a, "FormationAppho001a-41");
+				orderActorToFactory(20000025, FormationAppho001a, "FormationAppho001a-20000025");
 				break;
 			}
 			case 8000: {
-				FormationAppho001b* pFA = (FormationAppho001b*)obtainActorFromFactory(20000032);
-				bringDirector()->addSubGroup(pFA);
+				bringDirector()->addSubGroup(obtainActorFromFactory(20000032));
 				break;
 			}
 			case 8400: {
-				orderActorToFactory(20000033, FormationAppho001b, "FormationAppho001b-42");
+				orderActorToFactory(20000033, FormationAppho001b, "FormationAppho001b-20000033");
 				break;
 			}
 			case 8500: {
-				FormationAppho001a* pFA = (FormationAppho001a*)obtainActorFromFactory(20000025);
-				bringDirector()->addSubGroup(pFA);
+				bringDirector()->addSubGroup(obtainActorFromFactory(20000025));
 				break;
 			}
 			case 8900: {
-				orderActorToFactory(20000026, FormationAppho001a, "FormationAppho001a-43");
+				orderActorToFactory(20000026, FormationAppho001a, "FormationAppho001a-20000026");
 				break;
 			}
 			case 9000: {
-				FormationAppho001b* pFA = (FormationAppho001b*)obtainActorFromFactory(20000033);
-				bringDirector()->addSubGroup(pFA);
+				bringDirector()->addSubGroup(obtainActorFromFactory(20000033));
 				break;
 			}
 			case 9400: {
-				orderActorToFactory(20000034, FormationAppho001b, "FormationAppho001b-44");
+				orderActorToFactory(20000034, FormationAppho001b, "FormationAppho001b-20000034");
 				break;
 			}
 			case 9500: {
-				FormationAppho001a* pFA = (FormationAppho001a*)obtainActorFromFactory(20000026);
-				bringDirector()->addSubGroup(pFA);
+				bringDirector()->addSubGroup(obtainActorFromFactory(20000026));
 				break;
 			}
 			case 10000: {
-				FormationAppho001b* pFA = (FormationAppho001b*)obtainActorFromFactory(20000034);
-				bringDirector()->addSubGroup(pFA);
+				bringDirector()->addSubGroup(obtainActorFromFactory(20000034));
 				break;
 			}
 			default :

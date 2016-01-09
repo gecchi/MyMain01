@@ -21,34 +21,34 @@ RankUp001::RankUp001(const char* prm_name) : RankUpStage(prm_name) {
 	_paFrame_NextEvent = new frame[35];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 35;
-	orderActorToFactory(80000000, EnemyIrce, "EnemyIrce-1");
-	orderActorToFactory(80000001, EnemyIrce, "EnemyIrce-2");
-	orderActorToFactory(80000002, EnemyIrce, "EnemyIrce-3");
-	orderActorToFactory(80000003, EnemyIrce, "EnemyIrce-4");
-	orderActorToFactory(80000004, EnemyIrce, "EnemyIrce-5");
-	orderActorToFactory(80000005, EnemyIrce, "EnemyIrce-6");
-	orderActorToFactory(80000006, EnemyIrce, "EnemyIrce-7");
-	orderActorToFactory(80000007, EnemyIrce, "EnemyIrce-8");
-	orderActorToFactory(80000008, EnemyIrce, "EnemyIrce-9");
-	orderActorToFactory(80000009, EnemyIrce, "EnemyIrce-10");
-	orderActorToFactory(80000010, EnemyIrce, "EnemyIrce-11");
-	orderActorToFactory(80000011, EnemyIrce, "EnemyIrce-12");
-	orderActorToFactory(80000012, EnemyIrce, "EnemyIrce-13");
-	orderActorToFactory(80000013, EnemyIrce, "EnemyIrce-14");
-	orderActorToFactory(80000014, EnemyIrce, "EnemyIrce-15");
-	orderActorToFactory(80000015, EnemyIrce, "EnemyIrce-16");
-	orderActorToFactory(80000016, EnemyIrce, "EnemyIrce-17");
-	orderActorToFactory(80000017, EnemyIrce, "EnemyIrce-18");
-	orderActorToFactory(80000018, EnemyIrce, "EnemyIrce-19");
-	orderActorToFactory(80000019, EnemyIrce, "EnemyIrce-20");
-	orderActorToFactory(80000020, EnemyIrce, "EnemyIrce-21");
-	orderActorToFactory(80000021, EnemyIrce, "EnemyIrce-22");
-	orderActorToFactory(80000022, EnemyIrce, "EnemyIrce-23");
-	orderActorToFactory(80000023, EnemyIrce, "EnemyIrce-24");
-	orderActorToFactory(80000024, EnemyIrce, "EnemyIrce-25");
-	orderActorToFactory(80000025, EnemyIrce, "EnemyIrce-26");
-	orderActorToFactory(80000026, EnemyIrce, "EnemyIrce-27");
-	orderActorToFactory(80000031, FormationThagoras001, "FormationThagoras001-28");
+	orderActorToFactory(80000000, EnemyIrce, "EnemyIrce-80000000");
+	orderActorToFactory(80000001, EnemyIrce, "EnemyIrce-80000001");
+	orderActorToFactory(80000002, EnemyIrce, "EnemyIrce-80000002");
+	orderActorToFactory(80000003, EnemyIrce, "EnemyIrce-80000003");
+	orderActorToFactory(80000004, EnemyIrce, "EnemyIrce-80000004");
+	orderActorToFactory(80000005, EnemyIrce, "EnemyIrce-80000005");
+	orderActorToFactory(80000006, EnemyIrce, "EnemyIrce-80000006");
+	orderActorToFactory(80000007, EnemyIrce, "EnemyIrce-80000007");
+	orderActorToFactory(80000008, EnemyIrce, "EnemyIrce-80000008");
+	orderActorToFactory(80000009, EnemyIrce, "EnemyIrce-80000009");
+	orderActorToFactory(80000010, EnemyIrce, "EnemyIrce-80000010");
+	orderActorToFactory(80000011, EnemyIrce, "EnemyIrce-80000011");
+	orderActorToFactory(80000012, EnemyIrce, "EnemyIrce-80000012");
+	orderActorToFactory(80000013, EnemyIrce, "EnemyIrce-80000013");
+	orderActorToFactory(80000014, EnemyIrce, "EnemyIrce-80000014");
+	orderActorToFactory(80000015, EnemyIrce, "EnemyIrce-80000015");
+	orderActorToFactory(80000016, EnemyIrce, "EnemyIrce-80000016");
+	orderActorToFactory(80000017, EnemyIrce, "EnemyIrce-80000017");
+	orderActorToFactory(80000018, EnemyIrce, "EnemyIrce-80000018");
+	orderActorToFactory(80000019, EnemyIrce, "EnemyIrce-80000019");
+	orderActorToFactory(80000020, EnemyIrce, "EnemyIrce-80000020");
+	orderActorToFactory(80000021, EnemyIrce, "EnemyIrce-80000021");
+	orderActorToFactory(80000022, EnemyIrce, "EnemyIrce-80000022");
+	orderActorToFactory(80000023, EnemyIrce, "EnemyIrce-80000023");
+	orderActorToFactory(80000024, EnemyIrce, "EnemyIrce-80000024");
+	orderActorToFactory(80000025, EnemyIrce, "EnemyIrce-80000025");
+	orderActorToFactory(80000026, EnemyIrce, "EnemyIrce-80000026");
+	orderActorToFactory(80000031, FormationThagoras001, "FormationThagoras001-80000031");
     // gen01 end
 
     getBGMer()->ready(0, "OGG_RANKUP001_THEMA");
@@ -70,22 +70,22 @@ void RankUp001::processBehavior() {
 				break;
 			}
 			case 20: {
-				orderActorToFactory(80000027, EnemyIrce, "EnemyIrce-29");
+				orderActorToFactory(80000027, EnemyIrce, "EnemyIrce-80000027");
 				break;
 			}
 			case 80: {
-				orderActorToFactory(80000028, EnemyIrce, "EnemyIrce-30");
+				orderActorToFactory(80000028, EnemyIrce, "EnemyIrce-80000028");
 				break;
 			}
 			case 140: {
-				orderActorToFactory(80000029, EnemyIrce, "EnemyIrce-31");
+				orderActorToFactory(80000029, EnemyIrce, "EnemyIrce-80000029");
 				break;
 			}
 			case 200: {
 				EnemyIrce* p = (EnemyIrce*)obtainActorFromFactory(80000000);
 				bringDirector()->addSubGroup(p);
 				all_hit_num_ ++;
-				orderActorToFactory(80000030, EnemyIrce, "EnemyIrce-32");
+				orderActorToFactory(80000030, EnemyIrce, "EnemyIrce-80000030");
 				FormationThagoras001* pF1 = (FormationThagoras001*)obtainActorFromFactory(80000031);
 				bringDirector()->addSubGroup(pF1);
 				pF1->position(PX_C(-200), PX_C(  0), PX_C(500));

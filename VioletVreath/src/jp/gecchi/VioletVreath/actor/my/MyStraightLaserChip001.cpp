@@ -89,8 +89,6 @@ void MyStraightLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
     //ヒットエフェクト
     UTIL::activateExplosionEffectOf(this); //爆発エフェクト出現
 
-
-    //無し
     if ((pOther->getKind() & KIND_ENEMY_BODY) ) {
         //ロックオン可能アクターならロックオンを試みる
         if (pOther->getStatus()->get(STAT_LockonAble) == 1) {
@@ -101,15 +99,13 @@ void MyStraightLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
         if (stamina <= 0) {
             //一撃でチップ消滅の攻撃力
             getStatus()->set(STAT_Stamina, default_stamina_);
-            //sayonara();
+            sayonara();
         } else {
             //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
             getStatus()->set(STAT_Stamina, default_stamina_);
         }
     } else if (pOther->getKind() & KIND_CHIKEI) {
         //地形相手は無条件さようなら
-        setHitAble(false);
-        UTIL::activateExplosionEffectOf(this); //破壊されたエフェクト
         sayonara();
     }
 

@@ -20,33 +20,33 @@ RankUp003::RankUp003(const char* prm_name) : RankUpStage(prm_name) {
 	_paFrame_NextEvent = new frame[35];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 35;
-	orderActorToFactory(100000000, EnemyTamago01, "EnemyTamago01-1");
-	orderActorToFactory(100000001, EnemyTamago01, "EnemyTamago01-2");
-	orderActorToFactory(100000002, EnemyTamago01, "EnemyTamago01-3");
-	orderActorToFactory(100000003, EnemyTamago01, "EnemyTamago01-4");
-	orderActorToFactory(100000004, EnemyTamago01, "EnemyTamago01-5");
-	orderActorToFactory(100000005, EnemyTamago01, "EnemyTamago01-6");
-	orderActorToFactory(100000006, EnemyTamago01, "EnemyTamago01-7");
-	orderActorToFactory(100000007, EnemyTamago01, "EnemyTamago01-8");
-	orderActorToFactory(100000008, EnemyTamago01, "EnemyTamago01-9");
-	orderActorToFactory(100000009, EnemyTamago01, "EnemyTamago01-10");
-	orderActorToFactory(100000010, EnemyTamago01, "EnemyTamago01-11");
-	orderActorToFactory(100000011, EnemyTamago01, "EnemyTamago01-12");
-	orderActorToFactory(100000012, EnemyTamago01, "EnemyTamago01-13");
-	orderActorToFactory(100000013, EnemyTamago01, "EnemyTamago01-14");
-	orderActorToFactory(100000014, EnemyTamago01, "EnemyTamago01-15");
-	orderActorToFactory(100000015, EnemyTamago01, "EnemyTamago01-16");
-	orderActorToFactory(100000016, EnemyTamago01, "EnemyTamago01-17");
-	orderActorToFactory(100000017, EnemyTamago01, "EnemyTamago01-18");
-	orderActorToFactory(100000018, EnemyTamago01, "EnemyTamago01-19");
-	orderActorToFactory(100000019, EnemyTamago01, "EnemyTamago01-20");
-	orderActorToFactory(100000020, EnemyTamago01, "EnemyTamago01-21");
-	orderActorToFactory(100000021, EnemyTamago01, "EnemyTamago01-22");
-	orderActorToFactory(100000022, EnemyTamago01, "EnemyTamago01-23");
-	orderActorToFactory(100000023, EnemyTamago01, "EnemyTamago01-24");
-	orderActorToFactory(100000024, EnemyTamago01, "EnemyTamago01-25");
-	orderActorToFactory(100000025, EnemyTamago01, "EnemyTamago01-26");
-	orderActorToFactory(100000026, EnemyTamago01, "EnemyTamago01-27");
+	orderActorToFactory(100000000, EnemyTamago01, "EnemyTamago01-100000000");
+	orderActorToFactory(100000001, EnemyTamago01, "EnemyTamago01-100000001");
+	orderActorToFactory(100000002, EnemyTamago01, "EnemyTamago01-100000002");
+	orderActorToFactory(100000003, EnemyTamago01, "EnemyTamago01-100000003");
+	orderActorToFactory(100000004, EnemyTamago01, "EnemyTamago01-100000004");
+	orderActorToFactory(100000005, EnemyTamago01, "EnemyTamago01-100000005");
+	orderActorToFactory(100000006, EnemyTamago01, "EnemyTamago01-100000006");
+	orderActorToFactory(100000007, EnemyTamago01, "EnemyTamago01-100000007");
+	orderActorToFactory(100000008, EnemyTamago01, "EnemyTamago01-100000008");
+	orderActorToFactory(100000009, EnemyTamago01, "EnemyTamago01-100000009");
+	orderActorToFactory(100000010, EnemyTamago01, "EnemyTamago01-100000010");
+	orderActorToFactory(100000011, EnemyTamago01, "EnemyTamago01-100000011");
+	orderActorToFactory(100000012, EnemyTamago01, "EnemyTamago01-100000012");
+	orderActorToFactory(100000013, EnemyTamago01, "EnemyTamago01-100000013");
+	orderActorToFactory(100000014, EnemyTamago01, "EnemyTamago01-100000014");
+	orderActorToFactory(100000015, EnemyTamago01, "EnemyTamago01-100000015");
+	orderActorToFactory(100000016, EnemyTamago01, "EnemyTamago01-100000016");
+	orderActorToFactory(100000017, EnemyTamago01, "EnemyTamago01-100000017");
+	orderActorToFactory(100000018, EnemyTamago01, "EnemyTamago01-100000018");
+	orderActorToFactory(100000019, EnemyTamago01, "EnemyTamago01-100000019");
+	orderActorToFactory(100000020, EnemyTamago01, "EnemyTamago01-100000020");
+	orderActorToFactory(100000021, EnemyTamago01, "EnemyTamago01-100000021");
+	orderActorToFactory(100000022, EnemyTamago01, "EnemyTamago01-100000022");
+	orderActorToFactory(100000023, EnemyTamago01, "EnemyTamago01-100000023");
+	orderActorToFactory(100000024, EnemyTamago01, "EnemyTamago01-100000024");
+	orderActorToFactory(100000025, EnemyTamago01, "EnemyTamago01-100000025");
+	orderActorToFactory(100000026, EnemyTamago01, "EnemyTamago01-100000026");
     // gen01 end
 
     getBGMer()->ready(0, "OGG_RANKUP003_THEMA");
@@ -68,22 +68,22 @@ void RankUp003::processBehavior() {
 				break;
 			}
 			case 20: {
-				orderActorToFactory(100000027, EnemyTamago01, "EnemyTamago01-28");
+				orderActorToFactory(100000027, EnemyTamago01, "EnemyTamago01-100000027");
 				break;
 			}
 			case 80: {
-				orderActorToFactory(100000028, EnemyTamago01, "EnemyTamago01-29");
+				orderActorToFactory(100000028, EnemyTamago01, "EnemyTamago01-100000028");
 				break;
 			}
 			case 140: {
-				orderActorToFactory(100000029, EnemyTamago01, "EnemyTamago01-30");
+				orderActorToFactory(100000029, EnemyTamago01, "EnemyTamago01-100000029");
 				break;
 			}
 			case 200: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(100000000);
 				bringDirector()->addSubGroup(pActor);
 				all_hit_num_ ++;
-				orderActorToFactory(100000030, EnemyTamago01, "EnemyTamago01-31");
+				orderActorToFactory(100000030, EnemyTamago01, "EnemyTamago01-100000030");
 				break;
 			}
 			case 260: {

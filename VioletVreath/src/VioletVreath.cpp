@@ -31,8 +31,7 @@ HINSTANCE hInst; // 現在のインターフェイス
 TCHAR szTitle[MAX_LOADSTRING]; // タイトル バーのテキスト
 TCHAR szWindowClass[MAX_LOADSTRING]; // メイン ウィンドウ クラス名
 HWND hWnd1, hWnd2;
-/** 起動コマンドライン */
-LPTSTR cmdline;
+
 // このコード モジュールに含まれる関数の宣言を転送します:
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -54,8 +53,12 @@ int main(int argc, char *argv[]) {
  */
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
     GgafLibWinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
-    cmdline = GetCommandLine();
+    TCHAR current_dir[_MAX_PATH];
+    GetCurrentDirectory(_MAX_PATH, current_dir);
+    LPTSTR command_line = GetCommandLine();
 
+    _TRACE_("current_dir="<<current_dir);
+    _TRACE_("command_line="<<command_line);
     std::set_unexpected(myUnexpectedHandler);
     std::set_terminate(myTerminateHandler);
 
@@ -166,19 +169,19 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                         Sleep(2000);
                         PROCESS_INFORMATION pi;
                         STARTUPINFO si;
-                        ZeroMemory(&si,sizeof(si));
-                        si.cb=sizeof(si);
+                        ZeroMemory(&si, sizeof(si));
+                        si.cb = sizeof(si);
                         BOOL r = CreateProcess(
-                                    NULL,    //LPCTSTR lpApplicationName,                 // 実行可能モジュールの名前
-                                    cmdline, //LPTSTR lpCommandLine,                      // コマンドラインの文字列
-                                    NULL,    //LPSECURITY_ATTRIBUTES lpProcessAttributes, // セキュリティ記述子
-                                    NULL,    //LPSECURITY_ATTRIBUTES lpThreadAttributes,  // セキュリティ記述子
-                                    FALSE,   //BOOL bInheritHandles,                      // ハンドルの継承オプション
-                                    0,       //DWORD dwCreationFlags,                     // 作成のフラグ
-                                    NULL,    //LPVOID lpEnvironment,                      // 新しい環境ブロック
-                                    NULL,    //LPCTSTR lpCurrentDirectory,                // カレントディレクトリの名前
-                                    &si,     //LPSTARTUPINFO lpStartupInfo,               // スタートアップ情報
-                                    &pi      //LPPROCESS_INFORMATION lpProcessInformation // プロセス情報
+                                    NULL,         //LPCTSTR lpApplicationName,                 // 実行可能モジュールの名前
+                                    command_line, //LPTSTR lpCommandLine,                      // コマンドラインの文字列
+                                    NULL,         //LPSECURITY_ATTRIBUTES lpProcessAttributes, // セキュリティ記述子
+                                    NULL,         //LPSECURITY_ATTRIBUTES lpThreadAttributes,  // セキュリティ記述子
+                                    FALSE,        //BOOL bInheritHandles,                      // ハンドルの継承オプション
+                                    0,            //DWORD dwCreationFlags,                     // 作成のフラグ
+                                    NULL,         //LPVOID lpEnvironment,                      // 新しい環境ブロック
+                                    current_dir,  //LPCTSTR lpCurrentDirectory,                // カレントディレクトリの名前
+                                    &si,          //LPSTARTUPINFO lpStartupInfo,               // スタートアップ情報
+                                    &pi           //LPPROCESS_INFORMATION lpProcessInformation // プロセス情報
                         );
                         if (r == 0) {
                             MessageBox(nullptr, "Cannot Reboot! \n すみません、手動で再起動してください。","orz", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
@@ -255,7 +258,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             break;
         }
         case WM_SYSKEYDOWN: {
-            //システムのメニューフォーカスキーを無効
+            //システムのメニューフォーカスキーを無効にする。
+            //これを行っておかないと、F10を押してしまった際に、
+            //フォーカスが見えないメニューへ移ってしまい、
+            //キーやマウス入力を受け付けなくなってしまう。
+            //ゲームでは致命的。
             if (LOWORD(wParam) == VK_F10) {
                 return TRUE;
             }
