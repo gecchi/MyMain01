@@ -55,7 +55,7 @@ void GgafUtil::readProperties(std::string filename, GgafStrMap& mapStr) {
     if (!file) {
         throwGgafCriticalException("GgafUtil::readProperties() ファイルが見つかりません。 filename="<<filename);
     }
-    _TRACE_("GgafUtil::readProperties..."<<filename);
+    _TRACE_("GgafUtil::readProperties filename="<<filename);
     GgafUtil::readProperties(file, mapStr);
     file.close();
 }

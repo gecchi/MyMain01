@@ -43,7 +43,7 @@ WallPartsActor::WallPartsActor(const char* prm_name,
 void WallPartsActor::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
     if (prm_pOtherActor->instanceOf(Obj_LaserChip)) { //相手がレーザー
         LaserChip* pLaserChip = (LaserChip*)prm_pOtherActor;
-        if (pLaserChip->_chip_kind == 3 || pLaserChip->_can_chikei_hit) {
+        if (pLaserChip->getInfrontChip() == nullptr || pLaserChip->_can_chikei_hit) {
             //相手が 3:中間先頭チップ か、1/16 の地形当たり判定有りチップ
             GgafDxFigureActor::executeHitChk_MeAnd(prm_pOtherActor);
         } else {

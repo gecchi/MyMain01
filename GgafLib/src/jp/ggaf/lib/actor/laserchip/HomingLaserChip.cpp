@@ -79,12 +79,11 @@ void HomingLaserChip::onActive() {
 
 void HomingLaserChip::onInactive() {
     //_TRACE_("A HomingLaserChip::onInactive() _chip_kind ="<<_chip_kind <<")");
-    LaserChip* pChip_infront = _pChip_infront;
     LaserChip* pChip_behind = _pChip_behind;
     GgafDxKuroko* pKuroko = getKuroko();
 
 
-    if (pChip_infront && pChip_behind) {
+    if (pChip_behind) {
         //先頭しか動かしていないので、
         //何も考慮しないと、後方チップがその場で停止してしまう。
         //後方チップへ移動のための情報を無理やり設定して移動を継続させる。

@@ -25,6 +25,7 @@ public:
 
     void onActive() override;
 
+    void onInactive() override;
     /**
      * 先頭チップの動きを定義
      */

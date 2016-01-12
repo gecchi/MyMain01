@@ -125,6 +125,8 @@ void WalledSectionScene::processBehavior() {
             }
             WallPartsActor* pWallParts = nullptr;
             const int len = _paWallInfoLen[_cnt_area_len];
+            const int harf_area_height = _area_height/2;
+            const int harf_area_width = _area_width/2;
             for (int n = 0; n < len; n++) {
                 WallInfo* const pWallInfo = &(_papaWallInfo[_cnt_area_len][n]);
                 if (pWallInfo->_pos_prism == 0) {
@@ -146,8 +148,8 @@ void WalledSectionScene::processBehavior() {
                                          pWallInfo->_wall_draw_face,
                                          pWallInfo->_aColliBoxStretch);
                 pWallParts->position( _pWallPartsLast==nullptr ? _wall_start_x : _pWallPartsLast->_x + _wall_dep,
-                                    ((-_area_height/2) + pWallInfo->_y) * _wall_height,
-                                    ((-_area_width/2)  + pWallInfo->_z) * _wall_width   );
+                                    (-harf_area_height + pWallInfo->_y) * _wall_height,
+                                    (-harf_area_width  + pWallInfo->_z) * _wall_width   );
                 pWallParts->activateImmed();
                 pWallParts->onActive();
                 pWallParts->_frame_of_behaving_since_onActive = 1; //ƒŠƒZƒbƒg

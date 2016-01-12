@@ -38,6 +38,11 @@ void EnemyHisbeLaserChip001::onActive() {
     pScrollingScene_ = ((DefaultScene*)getPlatformScene())->getNearestScrollingScene();
 }
 
+void EnemyHisbeLaserChip001::onInactive() {
+    HomingLaserChip::onInactive();
+    pKurokoLeader_->stop();
+}
+
 void EnemyHisbeLaserChip001::processBehaviorHeadChip() {
     if (getActiveFrame() == 1) {
         return;

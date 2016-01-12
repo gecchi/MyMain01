@@ -164,7 +164,7 @@ void* GgafFactory::obtain(uint64_t prm_order_no, GgafObject* prm_pReceiver) {
                     } else if (pOrder->_progress == 2) {
                         //完成
                         pOrder = GgafFactory::ROOT_ORDER; //もう一度最初から探させる。
-                        _TRACE_N_("完成、");
+                        _TRACE_N_("完成！");
                         break;
                     }
                 } else {
