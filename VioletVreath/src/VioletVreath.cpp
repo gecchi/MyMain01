@@ -53,8 +53,8 @@ int main(int argc, char *argv[]) {
  */
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
     GgafLibWinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
-    TCHAR current_dir[1024];
-    GetCurrentDirectory(1024, current_dir);
+    TCHAR current_dir[MAX_PATH];
+    GetCurrentDirectory(MAX_PATH, current_dir);
     LPTSTR command_line = GetCommandLine();
 
     _TRACE_("current_dir="<<current_dir);

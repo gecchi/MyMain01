@@ -16,7 +16,7 @@ DefaultSpacetime::DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCam
     _TRACE_("”ª•ª–Øì¬ŠJn");
     _pLinearOctree = NEW LinearOctreeForActor(PROPERTY::OCTREE_LEVEL);
     _pLinearOctree->setRootOctant(_x_bound_left  ,_y_bound_bottom, _z_bound_near ,
-                                 _x_bound_right ,_y_bound_top   , _z_bound_far   );
+                                  _x_bound_right ,_y_bound_top   , _z_bound_far   );
     _TRACE_("”ª•ª–Øì¬I—¹");
 }
 

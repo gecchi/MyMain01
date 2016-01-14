@@ -1269,39 +1269,41 @@ T* GgafLinkedListRing<T>::set(const T* prm_pVal, bool prm_is_delete_value) {
 
 template<class T>
 T* GgafLinkedListRing<T>::remove() {
-
-    if (_papLinerVal) {
-        //要素数が変更されるのでインデックスは無効にする
-        GGAF_DELETEARR(_papLinerVal);
-    }
-
     Elem* pMy = _pElemActive;
-    _num_elem--;
-    if (pMy->_is_first_flg && pMy->_is_last_flg) {
-        //要素が１つの場合
-        _pElemActive = nullptr;
-        _pElem_first = nullptr;
-        const T* r = pMy->_pValue;
-        GGAF_DELETE(pMy);
-        return (T*)r;
+    if (pMy) {
+        if (_papLinerVal) {
+            //要素数が変更されるのでインデックスは無効化にする
+            GGAF_DELETEARR(_papLinerVal);
+        }
+        _num_elem--;
+        if (pMy->_is_first_flg && pMy->_is_last_flg) {
+            //要素が１つの場合
+            _pElemActive = nullptr;
+            _pElem_first = nullptr;
+            const T* r = pMy->_pValue;
+            GGAF_DELETE(pMy);
+            return (T*)r;
+        } else {
+            //連結から外す
+            Elem* pMyNext = _pElemActive->_pNext;
+            Elem* pMyPrev = _pElemActive->_pPrev;
+            //両隣のノード同士を繋ぎ、自分を指さなくする。
+            pMyPrev->_pNext = pMyNext;
+            pMyNext->_pPrev = pMyPrev;
+            if (pMy->_is_last_flg) { //抜き取られる要素が末尾だったなら
+                pMyPrev->_is_last_flg = true; //一つ前の要素が新しい末尾になる
+            }
+            if (pMy->_is_first_flg) { //抜き取られる要素が先頭だったなら
+                _pElem_first = pMyNext;
+                pMyNext->_is_first_flg = true; //次の要素が新しい先頭になる
+            }
+            _pElemActive = pMyNext; //カレント要素は next に更新。
+            const T* r = pMy->_pValue;
+            GGAF_DELETE(pMy);
+            return (T*)r;
+        }
     } else {
-        //連結から外す
-        Elem* pMyNext = _pElemActive->_pNext;
-        Elem* pMyPrev = _pElemActive->_pPrev;
-        //両隣のノード同士を繋ぎ、自分を指さなくする。
-        pMyPrev->_pNext = pMyNext;
-        pMyNext->_pPrev = pMyPrev;
-        if (pMy->_is_last_flg) { //抜き取られる要素が末尾だったなら
-            pMyPrev->_is_last_flg = true; //一つ前の要素が新しい末尾になる
-        }
-        if (pMy->_is_first_flg) { //抜き取られる要素が先頭だったなら
-            _pElem_first = pMyNext;
-            pMyNext->_is_first_flg = true; //次の要素が新しい先頭になる
-        }
-        _pElemActive = pMyNext; //カレント要素は next に更新。
-        const T* r = pMy->_pValue;
-        GGAF_DELETE(pMy);
-        return (T*)r;
+        return nullptr;
     }
 }
 

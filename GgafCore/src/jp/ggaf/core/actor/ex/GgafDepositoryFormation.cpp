@@ -50,29 +50,19 @@ void GgafDepositoryFormation::processFinal() {
 //        _TRACE_("processFinal() _listFollower["<<i<<"]="<<_listFollower.getFromFirst(i)->getName()<<"("<<_listFollower.getFromFirst(i)<<")");
 //    }
 //    _TRACE_("processFinal() "<<getActiveFrame()<<"<-----");
-    if (_listFollower.length() > 0) {
-        //編隊メンバー状況チェック
-        GgafActor* pFollower;
-        for (int i = 0; i < _listFollower.length(); i++) { //ループで _listFollower.remove() するので、ローカルに落とせない
-            pFollower = _listFollower.getCurrent();
-            if (_can_live_flg) {
-                if (pFollower->_is_active_flg) {
-                    _listFollower.next();
-                } else if (pFollower->willActivateAfter() && (pFollower->_frame_of_life <= pFollower->_frame_of_life_when_activation)) {
-                    //未来に活動予定でも残す
-                    _listFollower.next();
-                } else {
-                    //編隊メンバーから外す
-//                    _TRACE_("i="<<i<<" 今メンバー数"<<_listFollower.length()<<" そしてこれから"<<_listFollower.getCurrent()->getName()<<"をメンバーから外します！(X)");
-                    _listFollower.getCurrent()->_pFormation = nullptr;
-                    _listFollower.remove(); //remove() 時、新たなカレント要素は next の要素になる。
-                }
-            } else {
-                //編隊メンバーから外す
-//                 _TRACE_("i="<<i<<" 今メンバー数"<<_listFollower.length()<<" そして"<<_listFollower.getCurrent()->getName()<<"をメンバーから外します！(A)");
-                _listFollower.getCurrent()->_pFormation = nullptr;
-                _listFollower.remove();//remove() 時、新たなカレント要素は next の要素になる。
-            }
+
+
+
+
+    int n = _listFollower.length();
+    GgafActor* pFollower;
+    for (int i = 0; i < n; i++) {
+        pFollower = _listFollower.getCurrent();
+        if (pFollower->isActive() || pFollower->willActivateAfter()) {
+            _listFollower.next();
+        } else {
+            //編隊メンバーから外す
+            _listFollower.remove()->_pFormation = nullptr; //remove() 時、新たなカレント要素は next の要素になる。
         }
     }
 
@@ -85,6 +75,51 @@ void GgafDepositoryFormation::processFinal() {
             _was_all_sayonara = true;
         }
     }
+
+
+
+
+
+
+
+
+
+
+//    if (_listFollower.length() > 0) {
+//        //編隊メンバー状況チェック
+//        GgafActor* pFollower;
+//        for (int i = 0; i < _listFollower.length(); i++) { //ループで _listFollower.remove() するので、ローカルに落とせない
+//            pFollower = _listFollower.getCurrent();
+//            if (_can_live_flg) {
+//                if (pFollower->_is_active_flg) {
+//                    _listFollower.next();
+//                } else if (pFollower->willActivateAfter()) {
+//                    //未来に活動予定でも残す
+//                    _listFollower.next();
+//                } else {
+//                    //編隊メンバーから外す
+////                    _TRACE_("i="<<i<<" 今メンバー数"<<_listFollower.length()<<" そしてこれから"<<_listFollower.getCurrent()->getName()<<"をメンバーから外します！(X)");
+//                    _listFollower.getCurrent()->_pFormation = nullptr;
+//                    _listFollower.remove(); //remove() 時、新たなカレント要素は next の要素になる。
+//                }
+//            } else {
+//                //編隊メンバーから外す
+////                 _TRACE_("i="<<i<<" 今メンバー数"<<_listFollower.length()<<" そして"<<_listFollower.getCurrent()->getName()<<"をメンバーから外します！(A)");
+//                _listFollower.getCurrent()->_pFormation = nullptr;
+//                _listFollower.remove();//remove() 時、新たなカレント要素は next の要素になる。
+//            }
+//        }
+//    }
+
+//    if (_listFollower.length() == 0) {
+//        if (_can_call_up == false && _was_all_sayonara == false) {
+//            //編隊メンバーが0かつ、
+//            //もうこれ以上 callUp 不可で、onSayonaraAll()コールバック未実行の場合
+//            onSayonaraAll(); //コールバック
+//            sayonara(_offset_frames_end); //編隊自体がさよなら。
+//            _was_all_sayonara = true;
+//        }
+//    }
 }
 
 GgafActor* GgafDepositoryFormation::callUpMember(int prm_formation_sub_num) {
@@ -125,22 +160,42 @@ void GgafDepositoryFormation::onEnd() {
     GgafFormation::onEnd();
     sayonaraFollwer();
 }
+
 void GgafDepositoryFormation::sayonaraFollwer() {
-    if (_listFollower.length() == 0) {
-        return;
-    }
-    while (_listFollower.length() > 0) {
-        if (_listFollower.getCurrent()->_pFormation == this) {
-            _listFollower.getCurrent()->sayonara();
-            _listFollower.getCurrent()->_pFormation = nullptr;
-        } else {
-            throwGgafCriticalException("GgafDepositoryFormation::sayonaraFollwer() _listFollowerに自身のformation管理ではないメンバーがいました！\n"<<
+    int n = _listFollower.length();
+    GgafActor* pFollower;
+    for (int i = 0; i < n; i++) {
+#ifdef MY_DEBUG
+        if (_listFollower.getCurrent()->_pFormation != this) {
+            throwGgafCriticalException("GgafDepositoryFormation::sayonaraFollwer() _listFollowerに自身のformation管理ではないメンバーがいました。なんか壊れてます。\n"<<
                                        " this="<<NODE_INFO<<" \n"<<
                                        " _listFollower.getCurrent()="<<(_listFollower.getCurrent()->getName())<<"("<<(_listFollower.getCurrent())<<") \n"<<
                                        " _listFollower.getCurrent()->_pFormation="<<(_listFollower.getCurrent()->_pFormation->getName())<<"("<<(_listFollower.getCurrent()->_pFormation)<<") ");
+
         }
-        _listFollower.remove();
+#endif
+        pFollower = _listFollower.remove();
+        pFollower->_pFormation = nullptr;
+        pFollower->sayonara();
+
     }
+
+
+//    if (_listFollower.length() == 0) {
+//        return;
+//    }
+//    while (_listFollower.length() > 0) {
+//        if (_listFollower.getCurrent()->_pFormation == this) {
+//            _listFollower.getCurrent()->sayonara();
+//            _listFollower.getCurrent()->_pFormation = nullptr;
+//        } else {
+//            throwGgafCriticalException("GgafDepositoryFormation::sayonaraFollwer() _listFollowerに自身のformation管理ではないメンバーがいました！\n"<<
+//                                       " this="<<NODE_INFO<<" \n"<<
+//                                       " _listFollower.getCurrent()="<<(_listFollower.getCurrent()->getName())<<"("<<(_listFollower.getCurrent())<<") \n"<<
+//                                       " _listFollower.getCurrent()->_pFormation="<<(_listFollower.getCurrent()->_pFormation->getName())<<"("<<(_listFollower.getCurrent()->_pFormation)<<") ");
+//        }
+//        _listFollower.remove();
+//    }
 
 }
 
