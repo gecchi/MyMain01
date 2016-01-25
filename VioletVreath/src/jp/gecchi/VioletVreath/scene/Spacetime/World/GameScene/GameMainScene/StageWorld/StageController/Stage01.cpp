@@ -39,8 +39,8 @@ Stage01::Stage01(const char* prm_name) : Stage(prm_name) {
 
     pPlanet_ = NEW Planet001("Planet001");
     bringDirector()->addSubGroup(KIND_EFFECT, pPlanet_);
-    pHorizon_ = NEW Horizon001("Horizon001");
-    bringDirector()->addSubGroup(KIND_CHIKEI, pHorizon_);
+//    pHorizon_ = NEW Horizon001("Horizon001");
+//    bringDirector()->addSubGroup(KIND_CHIKEI, pHorizon_);
 
     //debug ---->
 //    EnemyHisbe* pTest = NEW EnemyHisbe("tst");

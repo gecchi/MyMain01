@@ -41,7 +41,7 @@ void EnemyRis::initialize() {
     pKuroko->setRollFaceAngVelo(5000);
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    pChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
+    pChecker->setColliAABox(0, -30000, -30000, -30000, 30000, 30000, 30000);
 }
 
 void EnemyRis::onActive() {

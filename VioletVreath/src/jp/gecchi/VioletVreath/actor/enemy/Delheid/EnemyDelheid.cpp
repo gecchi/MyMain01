@@ -53,7 +53,7 @@ void EnemyDelheid::config(GgafLib::SplineKurokoLeader* prm_pKurokoLeader,
 void EnemyDelheid::initialize() {
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    pChecker->setColliAAB_Cube(0, 40000);
+    pChecker->setColliAABox_Cube(0, 40000);
     setScaleR(0.3);
 }
 

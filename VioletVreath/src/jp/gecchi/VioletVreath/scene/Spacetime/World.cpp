@@ -5,9 +5,6 @@
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "jp/ggaf/dxcore/sound/GgafDxSound.h"
-#include "jp/ggaf/lib/actor/ColliAABActor.h"
-#include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
-#include "jp/ggaf/lib/actor/ColliSphereActor.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
@@ -17,6 +14,12 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene.h"
 #include "jp/gecchi/VioletVreath/actor/InnerTitleBar.h"
 #include "Version.h"
+#ifdef MY_DEBUG
+#include "jp/ggaf/lib/actor/ColliAABoxActor.h"
+#include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
+#include "jp/ggaf/lib/actor/ColliAAPyramidActor.h"
+#include "jp/ggaf/lib/actor/ColliSphereActor.h"
+#endif
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -64,9 +67,10 @@ void World::initialize() {
                           ALIGN_CENTER, VALIGN_MIDDLE);
 
 #ifdef MY_DEBUG
-    ColliAABActor::get();     //当たり判定領域表示用直方体、プリロード
-    ColliAAPrismActor::get(); //当たり判定領域表示用プリズム、プリロード
-    ColliSphereActor::get();  //当たり判定領域表示用球、プリロード
+    ColliAABoxActor::get();     //当たり判定領域表示用直方体、プリロード
+    ColliAAPrismActor::get();   //当たり判定領域表示用プリズム、プリロード
+    ColliAAPyramidActor::get(); //当たり判定領域表示用三角錐、プリロード
+    ColliSphereActor::get();    //当たり判定領域表示用球、プリロード
 #endif
     pLabel_debug_ = createInFactory(LabelGecchi16Font, "DebugStr");
     pLabel_debug_->update(PX_C(1), PX_C(1), "");

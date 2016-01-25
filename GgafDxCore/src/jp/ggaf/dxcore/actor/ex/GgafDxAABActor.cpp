@@ -11,7 +11,7 @@ GgafDxAABActor::GgafDxAABActor(const char* prm_name,
                                GgafDxChecker* prm_pChecker) :
 
                                    GgafDxMeshActor(prm_name,
-                                                   PROPERTY::COLI_AAB_MODEL.c_str(),
+                                                   PROPERTY::COLI_AABOX_MODEL.c_str(),
                                                    "DefaultMeshEffect",
                                                    "DefaultMeshTechnique",
                                                    prm_pStat,

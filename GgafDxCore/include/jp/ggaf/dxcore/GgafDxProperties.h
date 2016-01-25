@@ -122,9 +122,11 @@ public:
     /** [r] 何も無かった場合に貼り付けられる白無地のテクスチャ */
     static std::string WHITE_TEXTURE;
     /** [r] AABox当たり判定要素表示用のモデル */
-    static std::string COLI_AAB_MODEL;
+    static std::string COLI_AABOX_MODEL;
     /** [r] AAPrism当たり判定要素表示用のモデル */
     static std::string COLI_AAPRISM_MODEL;
+    /** [r] AAPyramid当たり判定要素表示用のモデル */
+    static std::string COLI_AAPYRAMID_MODEL;
     /** [r] 球の当たり判定要素表示用のモデル */
     static std::string COLI_SPHERE_MODEL;
 

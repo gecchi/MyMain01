@@ -1,22 +1,22 @@
-#ifndef GGAFLIB_COLLIAAPOS_PRISM_H_
-#define GGAFLIB_COLLIAAPOS_PRISM_H_
+#ifndef GGAFLIB_COLLIAAPRISM_H_
+#define GGAFLIB_COLLIAAPRISM_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/lib/util/ColliAAB.h"
+#include "jp/ggaf/lib/util/ColliAABox.h"
 
 namespace GgafLib {
 
 /**
- * AAPrism(軸平行の直方三角柱：Axis-Aligned Prism)当たり判定要素クラス
+ * 軸平行の直方三角柱 (Axis-Aligned Prism)当たり判定要素クラス
  * 軸平行の直方三角柱とは、AAB(軸平行直方体)のある面を、対角線でスライスを１回行った立体の事。
  * @version 1.00
  * @since 2010/12/28
  * @author Masatoshi Tsuge
  */
-class ColliAAPrism : public ColliAAB {
+class ColliAAPrism : public ColliAABox {
 
 public:
     /** プリズム位置 */
-    int _pos_prism;
+    int _pos_info;
     /** プリズム斜辺の境界線傾き */
     double _a;
     /** プリズム斜辺の境界線の切片 */
@@ -35,4 +35,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_COLIAAB_H_*/
+#endif /*GGAFLIB_COLLIAAPRISM_H_*/

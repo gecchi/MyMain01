@@ -63,12 +63,12 @@ void EnemyTamago01::initialize() {
 //      pChecker->setColliAAPrism_WHD(1,-20000,-30000,-50000,
 //                                                 60000,90000,140000,POS_PRISM_ZX_pp);
 
-//    pChecker->setColliAAB_WHD(0,20000,-30000,50000,
+//    pChecker->setColliAABox_WHD(0,20000,-30000,50000,
 //                                              90000,140000,60000);
-    pChecker->setColliAAB_Cube(0, 50000);
+    pChecker->setColliAABox_Cube(0, 50000);
 
 
-    //pChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
+    //pChecker->setColliAABox(0, -30000, -30000, -30000, 30000, 30000, 30000);
     _x = -50000;
     _y = 200000;
     _z = 100000;

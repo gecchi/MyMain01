@@ -25,7 +25,7 @@ WallAABActor::WallAABActor(const char* prm_name,
     _pMeshSetModel->_set_num = 16; //WallAABActor最大セット数は16。
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1); //0:BOX用当たり判定、1:プリズム用当たり判定
-    pChecker->setColliAAB(0, 0,0,0, 0,0,0);
+    pChecker->setColliAABox(0, 0,0,0, 0,0,0);
     setZEnable(true);       //Zバッファは考慮有り
     setZWriteEnable(true);  //Zバッファは書き込み有り
 
@@ -58,13 +58,13 @@ bool WallAABActor::initStatic(WallAABActor* prm_pWallAABActor) {
 //    WallAABActor::_ah_wall_draw_face[18]  = pID3DXEffect->GetParameterByName( nullptr, "g_wall_draw_face019" );
     return true;
 }
-void WallAABActor::config(WalledSectionScene* prm_pWalledSectionScene, int prm_pos_prism, int prm_wall_draw_face, int* prm_aColliBoxStretch) {
-    WallPartsActor::config(prm_pWalledSectionScene, prm_pos_prism,  prm_wall_draw_face,  prm_aColliBoxStretch);
+void WallAABActor::config(WalledSectionScene* prm_pWalledSectionScene, int prm_pos_info, int prm_wall_draw_face, int* prm_aColliBoxStretch) {
+    WallPartsActor::config(prm_pWalledSectionScene, prm_pos_info,  prm_wall_draw_face,  prm_aColliBoxStretch);
     CollisionChecker3D* pChecker = getCollisionChecker();
     if (prm_aColliBoxStretch[0] == 0) {
         pChecker->disable(0);
     } else {
-        pChecker->setColliAAB(0, -(_wall_dep/2)    - (_wall_dep    * (prm_aColliBoxStretch[FACE_B_IDX]-1)),
+        pChecker->setColliAABox(0, -(_wall_dep/2)    - (_wall_dep    * (prm_aColliBoxStretch[FACE_B_IDX]-1)),
                                  -(_wall_height/2) - (_wall_height * (prm_aColliBoxStretch[FACE_D_IDX]-1)),
                                  -(_wall_width/2)  - (_wall_width  * (prm_aColliBoxStretch[FACE_E_IDX]-1)),
                                   (_wall_dep/2)    + (_wall_dep    * (prm_aColliBoxStretch[FACE_F_IDX]-1)),

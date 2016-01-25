@@ -58,6 +58,11 @@ bool WallAAPrismActor::initStatic(WallAAPrismActor* prm_pWallAAPrismActor) {
     //    FACE_D_BIT = 4  = 0b000100
     //    FACE_E_BIT = 2  = 0b000010
     //    FACE_F_BIT = 1  = 0b000001
+    //
+    //無条件で不要な面ビットを 0
+    //特に条件がない場合、描画する面ビットを 1
+    //に設定
+
     //XYプリズムの場合は +X -X面をつぶす
     WallAAPrismActor::_delface[POS_PRISM_XY_nn] = ~FACE_F_BIT;
     WallAAPrismActor::_delface[POS_PRISM_XY_np] = ~FACE_F_BIT;
@@ -78,9 +83,9 @@ bool WallAAPrismActor::initStatic(WallAAPrismActor* prm_pWallAAPrismActor) {
     return true;
 }
 
-void WallAAPrismActor::config(WalledSectionScene* prm_pWalledSectionScene, int prm_pos_prism, int prm_wall_draw_face, int* prm_aColliBoxStretch) {
-    prm_wall_draw_face &= WallAAPrismActor::_delface[prm_pos_prism]; //プリズム無条件描画不要面
-    WallPartsActor::config(prm_pWalledSectionScene, prm_pos_prism,  prm_wall_draw_face,  prm_aColliBoxStretch);
+void WallAAPrismActor::config(WalledSectionScene* prm_pWalledSectionScene, int prm_pos_info, int prm_wall_draw_face, int* prm_aColliBoxStretch) {
+    prm_wall_draw_face &= WallAAPrismActor::_delface[prm_pos_info]; //プリズム無条件描画不要面
+    WallPartsActor::config(prm_pWalledSectionScene, prm_pos_info,  prm_wall_draw_face,  prm_aColliBoxStretch);
     CollisionChecker3D* pChecker = getCollisionChecker();
     if (prm_aColliBoxStretch[0] == 0) {
         pChecker->disable(0);
@@ -91,7 +96,7 @@ void WallAAPrismActor::config(WalledSectionScene* prm_pWalledSectionScene, int p
                                       (_wall_dep/2)    + (_wall_dep    * (prm_aColliBoxStretch[FACE_F_IDX]-1)),
                                       (_wall_height/2) + (_wall_height * (prm_aColliBoxStretch[FACE_A_IDX]-1)),
                                       (_wall_width/2)  + (_wall_width  * (prm_aColliBoxStretch[FACE_C_IDX]-1)),
-                                      _pos_prism   );
+                                      _pos_info   );
          pChecker->enable(0);
     }
     HRESULT hr;
@@ -124,7 +129,7 @@ void WallAAPrismActor::processDraw() {
         if (pDrawActor->getModel() == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
             pWallPartsActor = (WallPartsActor*)pDrawActor;
             pWallPartsActor->_matWorld._14 = pWallPartsActor->_wall_draw_face;  //描画面番号をワールド変換行列のmatWorld._14 に埋め込む
-            pWallPartsActor->_matWorld._24 = pWallPartsActor->_pos_prism;  //プリズム位置情報ををワールド変換行列のmatWorld._24 に埋め込む
+            pWallPartsActor->_matWorld._24 = pWallPartsActor->_pos_info;  //プリズム位置情報ををワールド変換行列のmatWorld._24 に埋め込む
             hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[draw_set_num], &(pWallPartsActor->_matWorld));
             checkDxException(hr, D3D_OK, "WallAAPrismActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
             draw_set_num++;

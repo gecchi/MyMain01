@@ -42,7 +42,7 @@ void EnemyDuna::onCreateModel() {
 void EnemyDuna::initialize() {
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    pChecker->setColliAAB_Cube(0, 40000);
+    pChecker->setColliAABox_Cube(0, 40000);
 }
 
 void EnemyDuna::onActive() {

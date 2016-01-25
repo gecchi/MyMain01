@@ -6,13 +6,17 @@
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
-#include "jp/ggaf/lib/actor/ColliAABActor.h"
-#include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
-#include "jp/ggaf/lib/actor/ColliSphereActor.h"
-
 #include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
 #include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxChecker.h"
+
+#ifdef MY_DEBUG
+#include "jp/ggaf/lib/actor/ColliAABoxActor.h"
+#include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
+#include "jp/ggaf/lib/actor/ColliAAPyramidActor.h"
+#include "jp/ggaf/lib/actor/ColliSphereActor.h"
+#endif
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -118,7 +122,7 @@ void LaserChip::onActive() {
         _hdx = p->_hdx;
         _hdy = p->_hdy;
         _hdz = p->_hdz;
-        pChecker->setColliAAB(
+        pChecker->setColliAABox(
                 0,
                 -_hdx,
                 -_hdy,
@@ -209,7 +213,7 @@ void LaserChip::processSettlementBehavior() {
                 int cX = dX / 2;
                 int cY = dY / 2;
                 int cZ = dZ / 2;
-                pChecker->setColliAAB(
+                pChecker->setColliAABox(
                           0,
                           cX - _hdx,
                           cY - _hdy,
@@ -250,7 +254,7 @@ void LaserChip::processSettlementBehavior() {
                         int cX = dX / 2;
                         int cY = dY / 2;
                         int cZ = dZ / 2;
-                        pChecker->setColliAAB(
+                        pChecker->setColliAABox(
                                       1,
                                       cX - _hdx,
                                       cY - _hdy,
@@ -336,7 +340,9 @@ void LaserChip::processDraw() {
 }
 
 void LaserChip::drawHitArea() {
-    ColliAABActor::get()->drawHitarea(_pColliChecker); ColliAAPrismActor::get()->drawHitarea(_pColliChecker); ColliSphereActor::get()->drawHitarea(_pColliChecker);
+#ifdef MY_DEBUG
+    ColliAABoxActor::get()->drawHitarea(_pColliChecker); ColliAAPrismActor::get()->drawHitarea(_pColliChecker); ColliAAPyramidActor::get()->drawHitarea(_pColliChecker); ColliSphereActor::get()->drawHitarea(_pColliChecker);
+#endif
 }
 
 void LaserChip::onInactive() {
@@ -366,8 +372,8 @@ void LaserChip::registerHitAreaCube_AutoGenMidColli(int prm_edge_length) {
     _hitarea_edge_length_3 = _hitarea_edge_length*3;
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(2);
-    pChecker->setColliAAB_Cube(0, prm_edge_length);
-    pChecker->setColliAAB_Cube(1, prm_edge_length);
+    pChecker->setColliAABox_Cube(0, prm_edge_length);
+    pChecker->setColliAABox_Cube(1, prm_edge_length);
     pChecker->disable(1);
     setHitAble(true);
 }

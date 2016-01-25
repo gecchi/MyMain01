@@ -98,10 +98,10 @@ public:
      * @param rot_y 当たり判定の直方体を、向きに伴ってローカルY軸での回転平行移動を行う場合 true
      * @param rot_z 当たり判定の直方体を、向きに伴ってローカルZ軸での回転平行移動を行う場合 true
      */
-    void setColliAAB(int prm_index,
-                     coord x1, coord y1, coord z1,
-                     coord x2, coord y2, coord z2,
-                     bool rot_x, bool rot_y, bool rot_z);
+    void setColliAABox(int prm_index,
+                       coord x1, coord y1, coord z1,
+                       coord x2, coord y2, coord z2,
+                       bool rot_x, bool rot_y, bool rot_z);
 
     /**
      * 当たり判定領域要素を軸平行直方体として定義 .
@@ -114,10 +114,10 @@ public:
      * @param y2 右下奥Y座標
      * @param z2 右下奥Z座標
      */
-    void setColliAAB(int prm_index,
-                     coord x1, coord y1, coord z1,
-                     coord x2, coord y2, coord z2) {
-        setColliAAB(prm_index, x1, y1, z1, x2, y2, z2, false, false, false);
+    void setColliAABox(int prm_index,
+                       coord x1, coord y1, coord z1,
+                       coord x2, coord y2, coord z2) {
+        setColliAABox(prm_index, x1, y1, z1, x2, y2, z2, false, false, false);
     }
 
     /**
@@ -129,8 +129,8 @@ public:
      * @param x2 右下奥X座標
      * @param y2 右下奥Y座標
      */
-    void setColliAAB(int prm_index, coord x1, coord y1, coord x2, coord y2) {
-        setColliAAB(prm_index, x1, y1, -1 * PX_C(1) / 2, x2, y2, PX_C(1) / 2, false, false, false);
+    void setColliAABox(int prm_index, coord x1, coord y1, coord x2, coord y2) {
+        setColliAABox(prm_index, x1, y1, -1 * PX_C(1) / 2, x2, y2, PX_C(1) / 2, false, false, false);
     }
 
     /**
@@ -144,12 +144,12 @@ public:
      * @param prm_height 高さ(Y軸方向)
      * @param prm_depth 深さ（奥行・Y軸方向）
      */
-    void setColliAAB_WHD(int prm_index, coord x, coord y, coord z, coord prm_width, coord prm_height, coord prm_depth) {
+    void setColliAABox_WHD(int prm_index, coord x, coord y, coord z, coord prm_width, coord prm_height, coord prm_depth) {
         int hw = prm_width  / 2;
         int hh = prm_height / 2;
         int hd = prm_depth  / 2;
 
-        setColliAAB(prm_index, x-hw, y-hh, z-hd, x+hw, y+hh, z+hd);
+        setColliAABox(prm_index, x-hw, y-hh, z-hd, x+hw, y+hh, z+hd);
     }
 
     /**
@@ -160,8 +160,8 @@ public:
      * @param prm_height 高さ(Y軸方向)
      * @param prm_depth 深さ（奥行・Y軸方向）
      */
-    void setColliAAB_WHD(int prm_index, coord prm_width, coord prm_height, coord prm_depth) {
-        setColliAAB_WHD(prm_index, 0, 0, 0, prm_width, prm_height, prm_depth);
+    void setColliAABox_WHD(int prm_index, coord prm_width, coord prm_height, coord prm_depth) {
+        setColliAABox_WHD(prm_index, 0, 0, 0, prm_width, prm_height, prm_depth);
     }
 
 
@@ -174,9 +174,9 @@ public:
      * @param z 当たり判定の立方体の中心ローカルZ座標
      * @param prm_edge １辺の長さ
      */
-    void setColliAAB_Cube(int prm_index, coord x, coord y, coord z, coord prm_edge) {
+    void setColliAABox_Cube(int prm_index, coord x, coord y, coord z, coord prm_edge) {
         coord h = prm_edge / 2;
-        setColliAAB(prm_index, x-h, y-h, z-h, x+h, y+h, z+h);
+        setColliAABox(prm_index, x-h, y-h, z-h, x+h, y+h, z+h);
     }
 
 
@@ -186,8 +186,8 @@ public:
      * @param prm_index 当たり判定領域の要素番号
      * @param prm_edge １辺の長さ
      */
-    void setColliAAB_Cube(int prm_index, coord prm_edge) {
-        setColliAAB_Cube(prm_index, 0, 0, 0, prm_edge);
+    void setColliAABox_Cube(int prm_index, coord prm_edge) {
+        setColliAABox_Cube(prm_index, 0, 0, 0, prm_edge);
     }
 
     /**
@@ -202,12 +202,10 @@ public:
      * @param rot_y 当たり判定の立方体を、向きに伴ってローカルY軸での回転平行移動を行う場合 true
      * @param rot_z 当たり判定の立方体を、向きに伴ってローカルZ軸での回転平行移動を行う場合 true
      */
-    void setColliAAB_Cube(int prm_index, coord x, coord y, coord z, coord prm_edge, bool rot_x, bool rot_y, bool rot_z) {
+    void setColliAABox_Cube(int prm_index, coord x, coord y, coord z, coord prm_edge, bool rot_x, bool rot_y, bool rot_z) {
         int h = prm_edge / 2;
-        setColliAAB(prm_index, x-h, y-h, z-h, x+h, y+h, z+h, rot_x, rot_y, rot_z);
+        setColliAABox(prm_index, x-h, y-h, z-h, x+h, y+h, z+h, rot_x, rot_y, rot_z);
     }
-
-
 
     /**
      * 当たり判定領域要素を軸平行プリズム型として定義 .
@@ -307,6 +305,104 @@ public:
         setColliAAPrism_Cube(prm_index, 0, 0, 0, prm_edge, pos_prism);
     }
 
+
+    /**
+     * 当たり判定領域要素を軸平行直角三角錐として定義 .
+     * @param prm_index 当たり判定領域の要素番号
+     * @param x1 左上手前X座標
+     * @param y1 左上手前Y座標
+     * @param z1 左上手前Z座標
+     * @param x2 右下奥X座標
+     * @param y2 右下奥Y座標
+     * @param z2 右下奥Z座標
+     * @param pos_pyramid ピラミッド位置（POS_PYRAMID_***)
+     * @param rot_x 当たり判定の直方体を、向きに伴ってローカルX軸での回転平行移動を行う場合 true
+     * @param rot_y 当たり判定の直方体を、向きに伴ってローカルY軸での回転平行移動を行う場合 true
+     * @param rot_z 当たり判定の直方体を、向きに伴ってローカルZ軸での回転平行移動を行う場合 true
+     */
+    void setColliAAPyramid(int prm_index, coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, int pos_pyramid, bool rot_x, bool rot_y, bool rot_z);
+
+    /**
+     * 当たり判定領域要素を軸平行の三直角三角錐として定義 .
+     * 向きに伴っての当たり判定の球の回転平行移動機能は無し
+     * @param prm_index 当たり判定領域の要素番号
+     * @param x1 左上手前X座標
+     * @param y1 左上手前Y座標
+     * @param z1 左上手前Z座標
+     * @param x2 右下奥X座標
+     * @param y2 右下奥Y座標
+     * @param z2 右下奥Z座標
+     * @param pos_pyramid ピラミッド位置（GgafDxAAPyramidActor の #define 定義参照)
+     */
+    void setColliAAPyramid(int prm_index, coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, int pos_pyramid) {
+        setColliAAPyramid(prm_index, x1, y1, z1, x2, y2, z2, pos_pyramid, false, false, false);
+    }
+
+
+
+    void setColliAAPyramid_WHD(int prm_index, coord x, coord y, coord z, coord prm_width, coord prm_height, coord prm_depth, int pos_pyramid) {
+        int hw = prm_width  / 2;
+        int hh = prm_height / 2;
+        int hd = prm_depth  / 2;
+        setColliAAPyramid(prm_index, x-hw, y-hh, z-hd, x+hw, y+hh, z+hd, pos_pyramid);
+    }
+
+    /**
+     * 当たり判定領域要素を軸平行の三直角三角錐として定義 .
+     * オブジェクトの基点を中心として、幅、高さ、奥行で指定
+     * @param prm_index 当たり判定領域の要素番号
+     * @param prm_width 幅(X軸方向幅)
+     * @param prm_height 高さ(Y軸方向幅)
+     * @param prm_depth 深さ(Z軸方向幅)
+     * @param pos_pyramid ピラミッド位置（GgafDxAAPyramidActor の #define 定義参照)
+     */
+    void setColliAAPyramid_WHD(int prm_index, coord prm_width, coord prm_height, coord prm_depth, int pos_pyramid) {
+        setColliAAPyramid_WHD(prm_index, 0, 0, 0, prm_width, prm_height, prm_depth, pos_pyramid);
+    }
+
+    /**
+     * 当たり判定領域要素を軸平行立方体として定義 .
+     * 引数座標を中心として、１辺の長さで指定
+     * @param prm_index 当たり判定領域の要素番号
+     * @param x 当たり判定の立方体の中心ローカルX座標
+     * @param y 当たり判定の立方体の中心ローカルY座標
+     * @param z 当たり判定の立方体の中心ローカルZ座標
+     * @param prm_edge １辺の長さ
+     * @param pos_pyramid ピラミッド位置（GgafDxAAPyramidActor の #define 定義参照)
+     */
+    void setColliAAPyramid_Cube(int prm_index, coord x, coord y, coord z, coord prm_edge, int pos_pyramid) {
+        int h = prm_edge / 2;
+        setColliAAPyramid(prm_index, x-h, y-h, z-h, x+h, y+h, z+h, pos_pyramid);
+    }
+
+    /**
+     * 当たり判定領域要素を軸平行立方体として定義 .
+     * 引数座標を中心として、１辺の長さで指定
+     * @param prm_index 当たり判定領域の要素番号
+     * @param x 当たり判定の立方体の中心ローカルX座標
+     * @param y 当たり判定の立方体の中心ローカルY座標
+     * @param z 当たり判定の立方体の中心ローカルZ座標
+     * @param prm_edge １辺の長さ
+     * @param rot_x 当たり判定の立方体を、向きに伴ってローカルX軸での回転平行移動を行う場合 true
+     * @param rot_y 当たり判定の立方体を、向きに伴ってローカルY軸での回転平行移動を行う場合 true
+     * @param rot_z 当たり判定の立方体を、向きに伴ってローカルZ軸での回転平行移動を行う場合 true
+     * @param pos_pyramid ピラミッド位置（GgafDxAAPyramidActor の #define 定義参照)
+     */
+    void setColliAAPyramid_Cube(int prm_index, coord x, coord y, coord z, coord prm_edge, int pos_pyramid, bool rot_x, bool rot_y, bool rot_z) {
+        int h = prm_edge / 2;
+        setColliAAPyramid(prm_index, x-h, y-h, z-h, x+h, y+h, z+h, pos_pyramid, rot_x, rot_y, rot_z);
+    }
+
+    /**
+     * 当たり判定領域要素を軸平行立方体として定義 .
+     * オブジェクトの基点を中心として、１辺の長さで指定
+     * @param prm_index 当たり判定領域の要素番号
+     * @param prm_edge １辺の長さ
+     * @param pos_pyramid ピラミッド位置（GgafDxAAPyramidActor.h の、捕捉コメント参照)
+     */
+    void setColliAAPyramid_Cube(int prm_index, coord prm_edge, int pos_pyramid) {
+        setColliAAPyramid_Cube(prm_index, 0, 0, 0, prm_edge, pos_pyramid);
+    }
 
     /**
      * 自身の判定領域と他の当たり判定領域と接触しているか調べる

@@ -39,7 +39,7 @@ void EnemyIrce::initialize() {
     pKuroko->setMvVelo(3000);
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    pChecker->setColliAAB(0, -10000, -10000, -10000, 10000, 10000, 10000);
+    pChecker->setColliAABox(0, -10000, -10000, -10000, 10000, 10000, 10000);
     _x = PX_C(200);
 }
 

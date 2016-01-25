@@ -7,18 +7,12 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 
 ColliSphere::ColliSphere() : GgafDxCollisionPart() {
-    _x = 0;
-    _y = 0;
-    _z = 0;
     _r = 0;
     _rr = 0.0;
     _shape_kind = COLLI_SPHERE;
 }
 
 void ColliSphere::set(coord x, coord y, coord z, coord r, bool rot_x, bool rot_y, bool rot_z) {
-    _x = x;
-    _y = y;
-    _z = z;
     _r = r;
     _rr = 1.0*r*r;
     //基底クラスメンバの更新
@@ -28,9 +22,9 @@ void ColliSphere::set(coord x, coord y, coord z, coord r, bool rot_x, bool rot_y
     _hdx = _dx / 2;
     _hdy = _dy / 2;
     _hdz = _dz / 2;
-    _base_cx = _x;
-    _base_cy = _y;
-    _base_cz = _z;
+    _base_cx = x;
+    _base_cy = y;
+    _base_cz = z;
     _cx = _base_cx;
     _cy = _base_cy;
     _cz = _base_cz;
@@ -43,12 +37,12 @@ void ColliSphere::set(coord x, coord y, coord z, coord r, bool rot_x, bool rot_y
         _rot = false;
     }
     //境界領域
-    _aab_x1 = _x - _r;
-    _aab_y1 = _y - _r;
-    _aab_z1 = _z - _r;
-    _aab_x2 = _x + _r;
-    _aab_y2 = _y + _r;
-    _aab_z2 = _z + _r;
+    _x1 = _cx - _r;
+    _y1 = _cy - _r;
+    _z1 = _cz - _r;
+    _x2 = _cx + _r;
+    _y2 = _cy + _r;
+    _z2 = _cz + _r;
 
     _is_valid_flg = true;
 }
@@ -87,16 +81,13 @@ void ColliSphere::rotateRxRzRy(angle rx, angle ry, angle rz) {
         wk_cx = _cx;
     }
 
-    _x = wk_cx;
-    _y = wk_cy;
-    _z = wk_cz;
     //境界領域も更新
-    _aab_x1 = _x - _r;
-    _aab_y1 = _y - _r;
-    _aab_z1 = _z - _r;
-    _aab_x2 = _x + _r;
-    _aab_y2 = _y + _r;
-    _aab_z2 = _z + _r;
+    _x1 = wk_cx - _r;
+    _y1 = wk_cy - _r;
+    _z1 = wk_cz - _r;
+    _x2 = wk_cx + _r;
+    _y2 = wk_cy + _r;
+    _z2 = wk_cz + _r;
 }
 
 ColliSphere::~ColliSphere() {

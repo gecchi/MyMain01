@@ -30,8 +30,8 @@ class WallPartsActor : public GgafDxCore::GgafDxMeshSetActor {
     friend class GgafDxEffectManager;
 
 public:
-    /** [r]壁ブロックプリズム位置情報(> 0の場合はプリズム、0の場合はBOX) */
-    int _pos_prism;
+    /** [r]壁ブロックプリズム位置情報(> 0の場合はプリズム又はピラミッド、0の場合はBOX) */
+    int _pos_info;
     /** [r]壁ブロック表示面情報 */
     int _wall_draw_face;
     /** [r]壁ブロックの長さ（X座標軸長さ）*/
@@ -85,12 +85,12 @@ public:
     /**
      * 壁ブロックを設定する .
      * @param prm_pWalledSectionScene WalledSectionSceneオブジェクト
-     * @param prm_pos_prism プリズム位置番号（プリズム型ブロックの場合のみ）
+     * @param prm_pos_info プリズム位置番号（プリズム型ブロックの場合のみ）
      * @param prm_wall_draw_face 壁ブロック表示面情報
      * @param prm_aColliBoxStretch 壁ブロック当たり判定情報
      */
     virtual void config(WalledSectionScene* prm_pWalledSectionScene,
-                        int prm_pos_prism, int prm_wall_draw_face, int* prm_aColliBoxStretch);
+                        int prm_pos_info, int prm_wall_draw_face, int* prm_aColliBoxStretch);
 
     inline CollisionChecker3D* getCollisionChecker() {
         return _pColliChecker;

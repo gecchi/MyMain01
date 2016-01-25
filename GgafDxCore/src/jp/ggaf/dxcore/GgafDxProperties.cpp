@@ -107,8 +107,9 @@ bool GgafDxProperties::REALTIME_EFFECT_COMPILE = false;
 std::string GgafDxProperties::ILLIGAL_TEXTURE = "GgafDxIlligalTexture.dds";
 std::string GgafDxProperties::ILLIGAL_CUBEMAP_TEXTURE = "GgafDxIlligalCubeMapTexture.dds";
 std::string GgafDxProperties::WHITE_TEXTURE = "GgafDxWhite.dds";
-std::string GgafDxProperties::COLI_AAB_MODEL = "GgafDxAAB";
+std::string GgafDxProperties::COLI_AABOX_MODEL = "GgafDxAAB";
 std::string GgafDxProperties::COLI_AAPRISM_MODEL = "GgafDxAAPrism";
+std::string GgafDxProperties::COLI_AAPYRAMID_MODEL = "GgafDxAAPyramid";
 std::string GgafDxProperties::COLI_SPHERE_MODEL = "GgafDxSphere";
 
 
@@ -289,11 +290,14 @@ void GgafDxProperties::load(std::string prm_properties_filename) {
     if (GgafProperties::isExistKey("WHITE_TEXTURE")) {
         GgafDxProperties::WHITE_TEXTURE = getStr("WHITE_TEXTURE");
     }
-    if (GgafProperties::isExistKey("COLI_AAB_MODEL")) {
-        GgafDxProperties::COLI_AAB_MODEL = getStr("COLI_AAB_MODEL");
+    if (GgafProperties::isExistKey("COLI_AABOX_MODEL")) {
+        GgafDxProperties::COLI_AABOX_MODEL = getStr("COLI_AABOX_MODEL");
     }
     if (GgafProperties::isExistKey("COLI_AAPRISM_MODEL")) {
         GgafDxProperties::COLI_AAPRISM_MODEL = getStr("COLI_AAPRISM_MODEL");
+    }
+    if (GgafProperties::isExistKey("COLI_AAPYRAMID_MODEL")) {
+        GgafDxProperties::COLI_AAPYRAMID_MODEL = getStr("COLI_AAPYRAMID_MODEL");
     }
     if (GgafProperties::isExistKey("COLI_SPHERE_MODEL")) {
         GgafDxProperties::COLI_SPHERE_MODEL = getStr("COLI_SPHERE_MODEL");

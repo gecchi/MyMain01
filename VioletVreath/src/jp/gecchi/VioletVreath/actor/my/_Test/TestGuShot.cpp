@@ -20,7 +20,7 @@ void TestGuShot::initialize() {
     setAlpha(0.99);
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    pChecker->setColliAAB(0, -PX_C(30), -PX_C(30), -PX_C(30),
+    pChecker->setColliAABox(0, -PX_C(30), -PX_C(30), -PX_C(30),
                                     PX_C(30),  PX_C(30),  PX_C(30));
 }
 

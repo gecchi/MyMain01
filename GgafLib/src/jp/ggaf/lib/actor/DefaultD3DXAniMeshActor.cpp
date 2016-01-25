@@ -2,9 +2,13 @@
 
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/lib/actor/ColliAABActor.h"
+
+#ifdef MY_DEBUG
+#include "jp/ggaf/lib/actor/ColliAABoxActor.h"
 #include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
+#include "jp/ggaf/lib/actor/ColliAAPyramidActor.h"
 #include "jp/ggaf/lib/actor/ColliSphereActor.h"
+#endif
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -22,7 +26,9 @@ DefaultD3DXAniMeshActor::DefaultD3DXAniMeshActor(const char* prm_name, const cha
 }
 
 void DefaultD3DXAniMeshActor::drawHitArea() {
-    ColliAABActor::get()->drawHitarea(_pColliChecker); ColliAAPrismActor::get()->drawHitarea(_pColliChecker); ColliSphereActor::get()->drawHitarea(_pColliChecker);
+#ifdef MY_DEBUG
+    ColliAABoxActor::get()->drawHitarea(_pColliChecker); ColliAAPrismActor::get()->drawHitarea(_pColliChecker); ColliAAPyramidActor::get()->drawHitarea(_pColliChecker); ColliSphereActor::get()->drawHitarea(_pColliChecker);
+#endif
 }
 
 DefaultD3DXAniMeshActor::~DefaultD3DXAniMeshActor() {

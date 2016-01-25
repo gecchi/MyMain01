@@ -6,8 +6,8 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-ColliAAPrism::ColliAAPrism() : ColliAAB() {
-    _pos_prism = 0;
+ColliAAPrism::ColliAAPrism() : ColliAABox() {
+    _pos_info = 0;
     _shape_kind = COLLI_AAPRISM;
     _a = 0;
     _b = 0;
@@ -16,7 +16,14 @@ ColliAAPrism::ColliAAPrism() : ColliAAB() {
 }
 
 void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_prism, bool rot_x, bool rot_y, bool rot_z) {
-    ColliAAB::set(x1, y1, z1, x2, y2, z2, rot_x, rot_y, rot_z);
+#ifdef MY_DEBUG
+    if (rot_x || rot_y || rot_z) {
+        //TODO:ひまならプリズム要素は回転平行移動実装
+        throwGgafCriticalException("ColliAAPrism::set 当たり判定のプリズム要素は回転平行移動は未対応です。");
+    }
+#endif
+
+    ColliAABox::set(x1, y1, z1, x2, y2, z2, rot_x, rot_y, rot_z);
 
     //   y  = ax + b
     //   a  = (y2-y1)/(x2-x1)
@@ -25,9 +32,9 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
     //   y  = {(y2-y1)/(x2-x1)} (x-x1) + y1
     //+90度で法線で行こう
     int x1_s=0, y1_s=0, x2_e=0, y2_e=0;
-    _pos_prism = pos_prism;
-    if (_pos_prism & POS_PRISM_XY) {
-        if (_pos_prism & POS_PRISM_pp) {
+    _pos_info = pos_prism;
+    if (_pos_info & POS_PRISM_XY) {
+        if (_pos_info & POS_PRISM_pp) {
             //            ↑ y+
             // (_x1,_y2)      (_x2,_y2)
             //        ┌───┐
@@ -41,7 +48,7 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
             y1_s = _y1;
             x2_e = _x1;
             y2_e = _y2;
-        } else if (_pos_prism & POS_PRISM_np) {
+        } else if (_pos_info & POS_PRISM_np) {
             //            ↑ y+
             // (_x1,_y2)      (_x2,_y2)
             //        ┌───┐
@@ -55,7 +62,7 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
             y1_s = _y2;
             x2_e = _x1;
             y2_e = _y1;
-        } else if (_pos_prism & POS_PRISM_pn) {
+        } else if (_pos_info & POS_PRISM_pn) {
             //            ↑ y+
             // (_x1,_y2)      (_x2,_y2)
             //        ┌───┐
@@ -86,9 +93,9 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
         }
 
 
-    } else if (_pos_prism & POS_PRISM_YZ) {
+    } else if (_pos_info & POS_PRISM_YZ) {
 
-        if (_pos_prism & POS_PRISM_pp) {
+        if (_pos_info & POS_PRISM_pp) {
             //            ↑ z+
             // (_y1,_z2)      (_y2,_z2)
             //        ┌───┐
@@ -102,7 +109,7 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
             y1_s = _z1;
             x2_e = _y1;
             y2_e = _z2;
-        } else if (_pos_prism & POS_PRISM_np) {
+        } else if (_pos_info & POS_PRISM_np) {
             //            ↑ z+
             // (_y1,_z2)      (_y2,_z2)
             //        ┌───┐
@@ -116,7 +123,7 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
             y1_s = _z2;
             x2_e = _y1;
             y2_e = _z1;
-        } else if (_pos_prism & POS_PRISM_pn) {
+        } else if (_pos_info & POS_PRISM_pn) {
             //            ↑ z+
             // (_y1,_z2)      (_y2,_z2)
             //        ┌───┐
@@ -146,8 +153,8 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
             y2_e = _z1;
         }
 
-    } else if (_pos_prism & POS_PRISM_ZX) {
-        if (_pos_prism & POS_PRISM_pp) {
+    } else if (_pos_info & POS_PRISM_ZX) {
+        if (_pos_info & POS_PRISM_pp) {
             //            ↑ x+
             // (_z1,_x2)      (_z2,_x2)
             //        ┌───┐
@@ -161,7 +168,7 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
             y1_s = _x1;
             x2_e = _z1;
             y2_e = _x2;
-        } else if (_pos_prism & POS_PRISM_np) {
+        } else if (_pos_info & POS_PRISM_np) {
             //            ↑ x+
             // (_z1,_x2)      (_z2,_x2)
             //        ┌───┐
@@ -175,7 +182,7 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
             y1_s = _x2;
             x2_e = _z1;
             y2_e = _x1;
-        } else if (_pos_prism & POS_PRISM_pn) {
+        } else if (_pos_info & POS_PRISM_pn) {
             //            ↑ x+
             // (_z1,_x2)      (_z2,_x2)
             //        ┌───┐
@@ -208,7 +215,7 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
         //memo WallAAPrismActor の 空new時はプリズム位置 0 にすることとしたので、
         //以下のエラーはスルーするように変更した。
 
-        //throwGgafCriticalException("ColliAAPrism::set おかしなプリズム位置 _pos_prism="<<_pos_prism)
+        //throwGgafCriticalException("ColliAAPrism::set おかしなプリズム位置 _pos_info="<<_pos_info)
     }
 
     //当たり判定時に使用する計算用の値を予め求めておく。

@@ -638,6 +638,27 @@ public:
         out_y = in_y2 + t*vy;
         out_z = in_z2 + t*vz;
     }
+
+    /**
+     * ‚R’¸“_‚ÉÚ‚·‚é–Ê‚Ì–@üƒxƒNƒgƒ‹‚ğ‹‚ß‚é .
+     * ˆø”‚Ì’¸“_‚ÍŒv‰ñ‚è‚Éw’è‚·‚é‚ÆA‚»‚Ì–Ê‚Ìã‚ª–@ü‚Æ‚È‚éB
+     * @param p1x
+     * @param p1y
+     * @param p1z
+     * @param p2x
+     * @param p2y
+     * @param p2z
+     * @param p3x
+     * @param p3y
+     * @param p3z
+     * @param out_nvx
+     * @param out_nvy
+     * @param out_nvz
+     */
+    static void getPlaneNomalVec(float p1x, float p1y, float p1z,
+                                 float p2x, float p2y, float p2z,
+                                 float p3x, float p3y, float p3z,
+                                 float& out_nvx, float& out_nvy, float& out_nvz, float& out_d);
     /**
      * world•ÏŠ·s—ñİ’è .
      * Šg‘åk¬ ~ X²‰ñ“] ~ Z²‰ñ“] ~ Y²‰ñ“] ~ •½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ğİ’è<BR>

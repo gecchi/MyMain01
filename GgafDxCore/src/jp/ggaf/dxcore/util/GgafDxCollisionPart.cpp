@@ -10,7 +10,7 @@ GgafDxCollisionPart::GgafDxCollisionPart() : GgafObject() {
     _cx = _cy = _cz = 0;
     _base_cx = _base_cy = _base_cz = 0;
     _hdx = _hdy = _hdz = 0;
-    _aab_x1 = _aab_y1 = _aab_z1 = _aab_x2 = _aab_y2 = _aab_z2 = 0;
+    _x1 = _y1 = _z1 = _x2 = _y2 = _z2 = 0;
     _rot_x = _rot_y = _rot_z = _rot = false;
 }
 

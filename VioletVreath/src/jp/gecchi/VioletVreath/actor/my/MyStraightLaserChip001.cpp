@@ -43,7 +43,7 @@ void MyStraightLaserChip001::initialize() {
     getKuroko()->setRzRyMvAng(0,0);
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    pChecker->setColliAAB_WHD(0,120000,60000,60000);
+    pChecker->setColliAABox_WHD(0,120000,60000,60000);
 
     setHitAble(true);
     setScaleR(5.0);

@@ -30,7 +30,7 @@ public:
     virtual void processDraw() override;
 
     virtual void config(WalledSectionScene* prm_pWalledSectionScene,
-                        int prm_pos_prism, int prm_wall_draw_face, int* prm_aColliBoxStretch) override;
+                        int prm_pos_info, int prm_wall_draw_face, int* prm_aColliBoxStretch) override;
 
 
     virtual ~WallAAPrismActor();

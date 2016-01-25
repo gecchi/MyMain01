@@ -137,20 +137,27 @@ void VamSysCamWorker::processBehavior() {
 
     coord mv_t_y_VP = pMyShip_y;
     coord mv_t_z_VP = pMyShip_z;
-    //カメラ、VPの目標座標が変わったらスライド移動指示
-    if (t_x_CAM_ != mv_t_x_CAM || t_y_CAM_ != mv_t_y_CAM || t_z_CAM_ != mv_t_z_CAM ||
-        t_x_VP_  != mv_t_x_VP  || t_y_VP_  != mv_t_y_VP  || t_z_VP_ != mv_t_z_VP
-    ) {
-        slideMvCamTo(mv_t_x_CAM, mv_t_y_CAM, mv_t_z_CAM, cam_mv_frame_);
-        slideMvVpTo(mv_t_x_VP, mv_t_y_VP, mv_t_z_VP, cam_mv_frame_);
-        //カメラのUPを設定
-        angle up_ang = UTIL::simplifyAng(ang_cam_around_ - D45ANG);
-        static const coord cDz_sqrt2 = DZC_ * sqrt(2.0);  //計算用定数、カメラが45度斜め上の初期Z軸距離
-        coord up_y = pMyShip_y  + (ANG_SIN(up_ang) * cDz_sqrt2);
-        coord up_z = pMyShip_z  + (ANG_COS(up_ang) * cDz_sqrt2);
-        slideMvUpVecTo(0, up_y - mv_t_y_CAM, up_z - mv_t_z_CAM, cam_mv_frame_);
-    }
 
+
+    //カメラ、VPの目標座標が変わったらスライド移動指示
+/////////////TEST
+    if (GgafDxInput::isBeingPressedKey(DIK_H)) {
+/////////////////
+        if (t_x_CAM_ != mv_t_x_CAM || t_y_CAM_ != mv_t_y_CAM || t_z_CAM_ != mv_t_z_CAM ||
+            t_x_VP_  != mv_t_x_VP  || t_y_VP_  != mv_t_y_VP  || t_z_VP_ != mv_t_z_VP
+        ) {
+            slideMvCamTo(mv_t_x_CAM, mv_t_y_CAM, mv_t_z_CAM, cam_mv_frame_);
+            slideMvVpTo(mv_t_x_VP, mv_t_y_VP, mv_t_z_VP, cam_mv_frame_);
+            //カメラのUPを設定
+            angle up_ang = UTIL::simplifyAng(ang_cam_around_ - D45ANG);
+            static const coord cDz_sqrt2 = DZC_ * sqrt(2.0);  //計算用定数、カメラが45度斜め上の初期Z軸距離
+            coord up_y = pMyShip_y  + (ANG_SIN(up_ang) * cDz_sqrt2);
+            coord up_z = pMyShip_z  + (ANG_COS(up_ang) * cDz_sqrt2);
+            slideMvUpVecTo(0, up_y - mv_t_y_CAM, up_z - mv_t_z_CAM, cam_mv_frame_);
+        }
+///////////TEST
+    }
+/////////
     //カメラの pos_camera_ 設定
     int x_cam_sgn, y_cam_sgn;
     GgafDx8DirectionUtil::cnvAng2Sgn(ang_cam_around_, x_cam_sgn, y_cam_sgn);
@@ -162,6 +169,14 @@ void VamSysCamWorker::processBehavior() {
     }
     pos_camera_prev_ = pos_camera_;
 }
+
+///////////TEST
+void VamSysCamWorker::onSwitchCameraWork() {
+    ///////////TEST
+    //CameraWorker::onSwitchCameraWork();
+    /////////
+}
+/////////
 
 VamSysCamWorker::~VamSysCamWorker() {
     GGAF_DELETE(pSe_);

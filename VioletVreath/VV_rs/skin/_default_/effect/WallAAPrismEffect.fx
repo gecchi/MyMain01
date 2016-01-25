@@ -19,7 +19,7 @@ float g_distance_AlphaTarget;
 float g_wall_dep;    //壁ブロックの長さ（X座標軸長さ）
 float g_wall_height; //壁ブロックの高さ（Y座標軸長さ）
 float g_wall_width;  //壁ブロックの幅（Z座標軸長さ)
-int g_pos_prism;
+int g_pos_info;
 
 
 float g_zf;

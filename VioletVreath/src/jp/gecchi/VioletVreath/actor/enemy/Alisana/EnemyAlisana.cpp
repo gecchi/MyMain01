@@ -35,7 +35,7 @@ void EnemyAlisana::onCreateModel() {
 void EnemyAlisana::initialize() {
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    pChecker->setColliAAB_Cube(0, 200000);
+    pChecker->setColliAABox_Cube(0, 200000);
 
     setHitAble(true);
     setScaleR(1.0);

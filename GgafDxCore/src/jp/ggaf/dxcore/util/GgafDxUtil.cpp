@@ -725,6 +725,26 @@ void GgafDxUtil::convRzRyToVector(angle prm_ang_rz,
     out_nvz = zsign * (int)vz * (1.0 / 1000000.0);
 }
 
+void GgafDxUtil::getPlaneNomalVec(float p1x, float p1y, float p1z,
+                                  float p2x, float p2y, float p2z,
+                                  float p3x, float p3y, float p3z,
+                                  float& out_nvx, float& out_nvy, float& out_nvz, float& out_d) {
+    //–Ê‚Ì’¸“_‚R‚Â
+    D3DXVECTOR3 v1 = D3DXVECTOR3(p1x, p1y, p1z);
+    D3DXVECTOR3 v2 = D3DXVECTOR3(p2x, p2y, p2z);
+    D3DXVECTOR3 v3 = D3DXVECTOR3(p3x, p3y, p3z);
+    D3DXPLANE plane;
+    // 3 ‚Â‚Ì“_‚©‚ç•½–Ê‚ğì¬
+    D3DXPlaneFromPoints(&plane, &v1, &v2, &v3);
+    //³‹K‰»‚µ‚½•½–Ê(–@ü)‚ğZo
+    D3DXPlaneNormalize(&plane, &plane);
+    //a x + b y + c z + d w = 0 ‚Æ‚È‚é‚æ‚¤‚É“K—p‚³‚ê‚éB
+    out_nvx = plane.a;
+    out_nvy = plane.b;
+    out_nvz = plane.c;
+    out_d = plane.d;
+}
+
 void GgafDxUtil::setWorldMatrix_ScRxRzRyMv(const GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //World•ÏŠ·
     //Šg‘åk¬ ~ X²‰ñ“] ~ Z²‰ñ“] ~ Y²‰ñ“] ~ •½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ğİ’è<BR>

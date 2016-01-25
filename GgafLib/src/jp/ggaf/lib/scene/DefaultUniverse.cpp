@@ -2,9 +2,12 @@
 
 #include "jp/ggaf/lib/GgafLibProperties.h"
 #include "jp/ggaf/lib/util/LinearOctreeForActor.h"
-#include "jp/ggaf/lib/actor/ColliAABActor.h"
+#ifdef MY_DEBUG
+#include "jp/ggaf/lib/actor/ColliAABoxActor.h"
 #include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
+#include "jp/ggaf/lib/actor/ColliAAPyramidActor.h"
 #include "jp/ggaf/lib/actor/ColliSphereActor.h"
+#endif
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -30,8 +33,9 @@ void DefaultSpacetime::processFinal() {
 DefaultSpacetime::~DefaultSpacetime() {
 #ifdef MY_DEBUG
     _pLinearOctree->putTree();
-    ColliAABActor::release();
+    ColliAABoxActor::release();
     ColliAAPrismActor::release();
+    ColliAAPyramidActor::release();
     ColliSphereActor::release();
 #endif
     GGAF_DELETE(_pLinearOctree);

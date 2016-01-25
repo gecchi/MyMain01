@@ -25,11 +25,11 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,100};
+	frame f[] = {1,200};
 	_paFrame_NextEvent = new frame[2];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 2;
-	orderSceneToFactory(10000000, Stage01WalledScene, "Stage01WalledScene-10000000");
+	orderActorToFactory(10000000, TestNomal, "TestNomal-10000000");
     // gen01 end
     useProgress(Stage01PartController::PROG_BANPEI-1);
 }
@@ -47,8 +47,10 @@ void Stage01PartController::processBehavior() {
 			case 1: {
 				break;
 			}
-			case 100: {
-				addSubLast(obtainSceneFromFactory(10000000));
+			case 200: {
+				TestNomal* p = (TestNomal*)obtainActorFromFactory(10000000);
+				bringDirector()->addSubGroup(p);
+				p->position(PX_C(800), PX_C(100), PX_C(100));
 				break;
 			}
 			default :

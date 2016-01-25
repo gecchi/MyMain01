@@ -23,8 +23,9 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\camera\DefaultCameraUpVector.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\camera\DefaultCameraViewPoint.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\CappedGraphBarActor.cpp" />
-    <ClCompile Include="src\jp\ggaf\lib\actor\ColliAABActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\ColliAABoxActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\ColliAAPrismActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\ColliAAPyramidActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\ColliSphereActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\CubeMapMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\CubeMapMeshSetActor.cpp" />
@@ -60,6 +61,7 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\TreeFormation.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\WallAABActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\WallAAPrismActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\WallAAPyramidActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\WallPartsActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\WorldBoundActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\DefaultGod.cpp" />
@@ -73,8 +75,9 @@
     <ClCompile Include="src\jp\ggaf\lib\scene\FormationTableScene.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\scene\WalledScene.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\scene\WalledSectionScene.cpp" />
-    <ClCompile Include="src\jp\ggaf\lib\util\ColliAAB.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\ColliAABox.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\ColliAAPrism.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\ColliAAPyramid.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\CollisionChecker3D.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\ColliSphere.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\LinearOctreeForActor.cpp" />
@@ -101,8 +104,9 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\camera\defaultcameraupvector.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\camera\defaultcameraviewpoint.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\cappedgraphbaractor.h" />
-    <ClInclude Include="include\jp\ggaf\lib\actor\ColliAABActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\ColliAABoxActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\ColliAAPrismActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\ColliAAPyramidActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\ColliSphereActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\CubeMapMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\CubeMapMeshSetActor.h" />
@@ -139,6 +143,7 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\TreeFormation.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\WallAABActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\WallAAPrismActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\WallAAPyramidActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\WallPartsActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\WorldBoundActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\DefaultGod.h" />
@@ -152,8 +157,9 @@
     <ClInclude Include="include\jp\ggaf\lib\scene\FormationTableScene.h" />
     <ClInclude Include="include\jp\ggaf\lib\scene\WalledScene.h" />
     <ClInclude Include="include\jp\ggaf\lib\scene\WalledSectionScene.h" />
-    <ClInclude Include="include\jp\ggaf\lib\util\ColliAAB.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\ColliAABox.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\ColliAAPrism.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\ColliAAPyramid.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\collisionchecker3d.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\ColliSphere.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\LinearOctreeActorElem.h" />

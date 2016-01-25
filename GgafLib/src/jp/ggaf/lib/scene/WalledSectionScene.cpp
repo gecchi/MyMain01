@@ -56,7 +56,7 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
         _TRACE_("WalledSectionScene read..."<<i);
         _papaWallInfo[i] = NEW WallInfo[_paWallInfoLen[i]];
         for (int j = 0; j < _paWallInfoLen[i]; j++) {
-            ifs >> _papaWallInfo[i][j]._pos_prism >>
+            ifs >> _papaWallInfo[i][j]._pos_info >>
                    _papaWallInfo[i][j]._y >>
                    _papaWallInfo[i][j]._z >>
                    _papaWallInfo[i][j]._wall_draw_face >>
@@ -129,7 +129,7 @@ void WalledSectionScene::processBehavior() {
             const int harf_area_width = _area_width/2;
             for (int n = 0; n < len; n++) {
                 WallInfo* const pWallInfo = &(_papaWallInfo[_cnt_area_len][n]);
-                if (pWallInfo->_pos_prism == 0) {
+                if (pWallInfo->_pos_info == 0) {
                     pWallParts = (WallPartsActor*)_pDepo_wall->dispatchForce();
                 } else {
                     if (_pDepo_prism) {
@@ -144,7 +144,7 @@ void WalledSectionScene::processBehavior() {
                     pWallParts->onInactive();
                 }
 
-                pWallParts->config(this, pWallInfo->_pos_prism,
+                pWallParts->config(this, pWallInfo->_pos_info,
                                          pWallInfo->_wall_draw_face,
                                          pWallInfo->_aColliBoxStretch);
                 pWallParts->position( _pWallPartsLast==nullptr ? _wall_start_x : _pWallPartsLast->_x + _wall_dep,

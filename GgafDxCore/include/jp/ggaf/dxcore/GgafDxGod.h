@@ -75,7 +75,7 @@ private:
      * ウィンドウモード時、ウィンドウサイズに応じた描画範囲を再設定する。
      * @param prm_pHWnd
      */
-    void adjustGameScreen(HWND prm_pHWnd);
+    void adjustGameWindow(HWND prm_pHWnd);
 
     /**
      * 表示位置番号に対応する矩形座標範囲(ピクセル)を取得する。
@@ -175,7 +175,7 @@ public:
     /** [r] デバイスロストフラグ (true=ロスト中) */
     static bool _is_device_lost_flg;
     /** [r] 画面アスペクト比調整フラグ (true=ウィンドウがリサイズされ、表示領域を再計算) */
-    static bool _adjustGameScreen;
+    static bool _adjustGameWindow;
     /** [r] 表示領域を再計算が必要なウィンドウ(のハンドル) */
     static HWND _pHWnd_adjustScreen;
 

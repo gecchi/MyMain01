@@ -3,13 +3,16 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
-#include "jp/ggaf/lib/actor/ColliAABActor.h"
-#include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
-#include "jp/ggaf/lib/actor/ColliSphereActor.h"
 #include "jp/ggaf/lib/scene/WalledSectionScene.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/lib/DefaultGod.h"
+#ifdef MY_DEBUG
+#include "jp/ggaf/lib/actor/ColliAABoxActor.h"
+#include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
+#include "jp/ggaf/lib/actor/ColliAAPyramidActor.h"
+#include "jp/ggaf/lib/actor/ColliSphereActor.h"
+#endif
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -31,7 +34,7 @@ WallPartsActor::WallPartsActor(const char* prm_name,
     _obj_class |= Obj_WallPartsActor;
     _pColliChecker = (CollisionChecker3D*)_pChecker;
     _wall_draw_face = 0;
-    _pos_prism = 0;
+    _pos_info = 0;
     _pWalledSectionScene = nullptr;
 
     _wall_dep = 0;
@@ -131,17 +134,19 @@ int WallPartsActor::isOutOfView() {
 }
 
 
-void WallPartsActor::config(WalledSectionScene* prm_pWalledSectionScene, int prm_pos_prism, int prm_wall_draw_face, int* prm_aColliBoxStretch) {
+void WallPartsActor::config(WalledSectionScene* prm_pWalledSectionScene, int prm_pos_info, int prm_wall_draw_face, int* prm_aColliBoxStretch) {
     _pWalledSectionScene =prm_pWalledSectionScene;
     _wall_dep = _pWalledSectionScene->_wall_dep;
     _wall_width = _pWalledSectionScene->_wall_width;
     _wall_height = _pWalledSectionScene->_wall_height;
     _wall_draw_face = prm_wall_draw_face;
-    _pos_prism = prm_pos_prism;
+    _pos_info = prm_pos_info;
 }
 
 void WallPartsActor::drawHitArea() {
-    ColliAABActor::get()->drawHitarea(_pColliChecker); ColliAAPrismActor::get()->drawHitarea(_pColliChecker); ColliSphereActor::get()->drawHitarea(_pColliChecker);
+#ifdef MY_DEBUG
+    ColliAABoxActor::get()->drawHitarea(_pColliChecker); ColliAAPrismActor::get()->drawHitarea(_pColliChecker); ColliAAPyramidActor::get()->drawHitarea(_pColliChecker); ColliSphereActor::get()->drawHitarea(_pColliChecker);
+#endif
 }
 
 WallPartsActor::~WallPartsActor() {

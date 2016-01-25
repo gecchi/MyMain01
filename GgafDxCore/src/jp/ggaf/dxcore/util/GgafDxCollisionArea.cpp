@@ -32,12 +32,12 @@ void GgafDxCollisionArea::updateAABB() {
     }
 #endif
     if (pColliPart0->_is_valid_flg) {
-        _aabb_x1 = pColliPart0->_aab_x1;
-        _aabb_y1 = pColliPart0->_aab_y1;
-        _aabb_z1 = pColliPart0->_aab_z1;
-        _aabb_x2 = pColliPart0->_aab_x2;
-        _aabb_y2 = pColliPart0->_aab_y2;
-        _aabb_z2 = pColliPart0->_aab_z2;
+        _aabb_x1 = pColliPart0->_x1;
+        _aabb_y1 = pColliPart0->_y1;
+        _aabb_z1 = pColliPart0->_z1;
+        _aabb_x2 = pColliPart0->_x2;
+        _aabb_y2 = pColliPart0->_y2;
+        _aabb_z2 = pColliPart0->_z2;
     } else {
         _aabb_x1=_aabb_y1=_aabb_z1=_aabb_x2=_aabb_y2=_aabb_z2 = 0;
     }
@@ -47,24 +47,24 @@ void GgafDxCollisionArea::updateAABB() {
         for (int i = 1; i < _colli_part_num; i++) {
             const GgafDxCollisionPart* const  pColliPart = _papColliPart[i];
             if (pColliPart->_is_valid_flg) {
-                if (pColliPart->_aab_x1 < _aabb_x1) {
-                    _aabb_x1 = pColliPart->_aab_x1;
+                if (pColliPart->_x1 < _aabb_x1) {
+                    _aabb_x1 = pColliPart->_x1;
                 }
-                if (pColliPart->_aab_y1 < _aabb_y1) {
-                    _aabb_y1 = pColliPart->_aab_y1;
+                if (pColliPart->_y1 < _aabb_y1) {
+                    _aabb_y1 = pColliPart->_y1;
                 }
-                if (pColliPart->_aab_z1 < _aabb_z1) {
-                    _aabb_z1 = pColliPart->_aab_z1;
+                if (pColliPart->_z1 < _aabb_z1) {
+                    _aabb_z1 = pColliPart->_z1;
                 }
 
-                if (pColliPart->_aab_x2 > _aabb_x2) {
-                    _aabb_x2 = pColliPart->_aab_x2;
+                if (pColliPart->_x2 > _aabb_x2) {
+                    _aabb_x2 = pColliPart->_x2;
                 }
-                if (pColliPart->_aab_y2 > _aabb_y2) {
-                    _aabb_y2 = pColliPart->_aab_y2;
+                if (pColliPart->_y2 > _aabb_y2) {
+                    _aabb_y2 = pColliPart->_y2;
                 }
-                if (pColliPart->_aab_z2 > _aabb_z2) {
-                    _aabb_z2 = pColliPart->_aab_z2;
+                if (pColliPart->_z2 > _aabb_z2) {
+                    _aabb_z2 = pColliPart->_z2;
                 }
             }
         }

@@ -35,15 +35,19 @@ void TestNomal::processJudgement() {
 }
 
 void TestNomal::onHit(const GgafActor* prm_pOtherActor) {
+_TRACE_("TestNomal::onHit !");
+
     bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);
-        sayonara();
+        //sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)
         getSeTx()->play3D(SE_DAMAGED);
     }
+
+    getStatus()->reset();
 }
 
 TestNomal::~TestNomal() {

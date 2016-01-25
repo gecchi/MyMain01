@@ -6,10 +6,10 @@
 
 #define DISP_HITAREA 1
 
-#define COLLI_AAB     (0x1)  //0b 00000000 00000000 00000000 00000001
-#define COLLI_SPHERE  (0x2)  //0b 00000000 00000000 00000000 00000010
-#define COLLI_AAPRISM (0x4)  //0b 00000000 00000000 00000000 00000100
-
+#define COLLI_AABOX     (0x1)  //0b 00000000 00000000 00000000 00000001
+#define COLLI_SPHERE    (0x2)  //0b 00000000 00000000 00000000 00000010
+#define COLLI_AAPRISM   (0x4)  //0b 00000000 00000000 00000000 00000100
+#define COLLI_AAPYRAMID (0x8)  //0b 00000000 00000000 00000000 00001000
 
 #define Obj_DefaultScene         (0x80000040U)     //0b 10000000 00000000 00000000 01000000
 #define Obj_WalledScene          (0x80000080U)     //0b 10000000 00000000 00000000 10000000
@@ -57,8 +57,9 @@ class DefaultSpriteSetActor;
 class DefaultBoardActor;
 class DefaultBoardSetActor;
 class DefaultPointSpriteActor;
-class ColliAABActor;
+class ColliAABoxActor;
 class ColliAAPrismActor;
+class ColliAAPyramidActor;
 class ColliSphereActor;
 class SpriteMeshActor;
 class SpriteMeshSetActor;
@@ -67,14 +68,16 @@ class StringSpriteActor;
 class WallPartsActor;
 class WallAABctor;
 class WallAAPrismActor;
+class WallAAPyramidActor;
 class GraphBarActor;
 class CappedGraphBarActor;
 
 class SpriteMeshWorldBoundActor;
 class WorldBoundActor;
-class ColliAAB;
+class ColliAABox;
 class ColliSphere;
 class ColliAAPrism;
+class ColliAAPyramid;
 class LinearOctreeForActor;
 class LinearOctreeActorElem;
 class CollisionChecker3D;

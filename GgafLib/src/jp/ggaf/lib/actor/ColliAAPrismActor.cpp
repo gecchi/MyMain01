@@ -44,7 +44,7 @@ void ColliAAPrismActor::drawHitarea(CollisionChecker3D* prm_pColliChecker) {
                     ColliAAPrism* prism = (ColliAAPrism*)pCollisionArea->_papColliPart[i];
                     //_TRACE_("drawHitarea name="<<prm_pColliChecker->getTargetActor()->getName()<<" index="<<i);
 
-                    if (prism->_pos_prism == 0) {
+                    if (prism->_pos_info == 0) {
                         _TRACE_("【警告】ColliAAPrismActor::drawHitarea BADPOS i="<<i<<" Target="<<pActor->getName()<<" 要調査");
                     } else {
                         drawPrism(pActor->_x + prism->_x1,
@@ -53,7 +53,7 @@ void ColliAAPrismActor::drawHitarea(CollisionChecker3D* prm_pColliChecker) {
                                   pActor->_x + prism->_x2,
                                   pActor->_y + prism->_y2,
                                   pActor->_z + prism->_z2,
-                                  prism->_pos_prism); //TODO:prism->_pos_prism が 0 で pos2r[pos_prism]._ry がおかしな値で落ちる
+                                  prism->_pos_info); //TODO:prism->_pos_info が 0 で pos2r[pos_prism]._ry がおかしな値で落ちる
                     }
                     GgafGod::_num_actor_drawing--; //当たり判定表示は表示オブジェクト数にカウントしない
                 }

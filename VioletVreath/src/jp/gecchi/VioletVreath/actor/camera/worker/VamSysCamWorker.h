@@ -73,6 +73,9 @@ public:
     inline bool isJustChangedPosCam() {
         return is_just_changed_pos_cam_;
     }
+    virtual void onSwitchCameraWork() override;
+
+
     virtual ~VamSysCamWorker(); //デストラクタ
 };
 

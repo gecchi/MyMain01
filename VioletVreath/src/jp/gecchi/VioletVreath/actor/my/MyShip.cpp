@@ -26,6 +26,7 @@
 #include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshinBase.h"
 #include "jp/ggaf/dxcore/util/GgafDx26DirectionUtil.h"
 
+#include "jp/ggaf/lib/util/ColliAAPrism.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -319,12 +320,15 @@ void MyShip::initialize() {
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
 //    pChecker->setColliSphere(0, -100000, -50000, 20000, 100000);
-// pChecker->setColliAAB(0, -100000, -50000, 20000, 10000, 40000, 80000);
-      pChecker->setColliAAB_Cube(0, 40000);
+// pChecker->setColliAABox(0, -100000, -50000, 20000, 10000, 40000, 80000);
 //    pChecker->setColliSphere(1, 0,-100000,0, 30000, true, true, true);
 //    pChecker->setColliSphere(2, 0,100000,0, 30000, true, true, true);
 //    pChecker->setColliSphere(3, 0,0,-100000, 30000, true, true, true);
 //    pChecker->setColliSphere(4, 0,0,100000, 30000, true, true, true);
+
+//    pChecker->setColliAABox_Cube(0, 40000);
+/////////////TEST
+      pChecker->setColliAABox_Cube(0, PX_C(120));
 
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvVelo(0);
@@ -775,7 +779,7 @@ void MyShip::onHit(const GgafActor* prm_pOtherActor) {
             if ((pOther->_pChecker->_pCollisionArea->_papColliPart[0]->_shape_kind) & COLLI_AAPRISM) {
                 //ÉvÉäÉYÉÄï«
                 ColliAAPrism* pPrism = (ColliAAPrism*)(pOther->_pChecker->_pCollisionArea->_papColliPart[0]);
-                int pos_prism = pPrism->_pos_prism;
+                int pos_prism = pPrism->_pos_info;
                 if (pos_prism & POS_PRISM_XY) {
                     if (pos_prism & POS_PRISM_pp) {
                         //            Å™ y+

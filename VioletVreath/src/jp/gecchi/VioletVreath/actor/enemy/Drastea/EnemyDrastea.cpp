@@ -62,7 +62,7 @@ void EnemyDrastea::initialize() {
             for (int nz = 0; nz < box_num_z; nz++) {
                 coord colli_bz = (colli_box_z_len*nz) + (colli_box_spc_dz*nz);
 
-                pChecker->setColliAAB(n, bx + colli_bx,
+                pChecker->setColliAABox(n, bx + colli_bx,
                                          by + colli_by,
                                          bz + colli_bz,
                                          bx + colli_bx + colli_box_x_len,

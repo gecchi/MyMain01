@@ -12,15 +12,15 @@ namespace GgafLib {
  * @since 2009/08/25
  * @author Masatoshi Tsuge
  */
-class ColliAABActor : public GgafDxCore::GgafDxAABActor {
-    static ColliAABActor* _pObj;
+class ColliAABoxActor : public GgafDxCore::GgafDxAABActor {
+    static ColliAABoxActor* _pObj;
 
 public:
-    static ColliAABActor* get();
+    static ColliAABoxActor* get();
     static void release();
 
 public:
-    ColliAABActor(const char* prm_name, GgafCore::GgafStatus* prm_pStat = nullptr);
+    ColliAABoxActor(const char* prm_name, GgafCore::GgafStatus* prm_pStat = nullptr);
 
     virtual void onCreateModel() override {
     }
@@ -46,7 +46,7 @@ public:
 
     void drawHitarea(CollisionChecker3D* prm_pChecker);
 
-    virtual ~ColliAABActor();
+    virtual ~ColliAABoxActor();
 
 };
 

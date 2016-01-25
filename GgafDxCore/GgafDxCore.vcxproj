@@ -24,6 +24,7 @@
     <ClCompile Include="src\jp\ggaf\dxcore\actor\camera\GgafDxCameraViewPoint.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxAABActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxAAPrismActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxAAPyramidActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxCubeMapMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxCubeMapMeshSetActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxCubeMapMorphMeshActor.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="include\jp\ggaf\dxcore\actor\camera\ggafdxcameraviewpoint.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ex\ggafdxaabactor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ex\ggafdxaaprismactor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\ex\GgafDxAAPyramidActor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ex\ggafdxcubemapmeshactor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ex\ggafdxcubemapmeshsetactor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ex\ggafdxcubemapmorphmeshactor.h" />

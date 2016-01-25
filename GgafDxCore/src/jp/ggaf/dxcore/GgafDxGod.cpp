@@ -49,7 +49,7 @@ GgafDxEffectManager* GgafDxGod::_pEffectManager = nullptr;
 GgafDxTextureManager* GgafDxGod::_pCubeMapTextureManager = nullptr;
 GgafDxTextureManager* GgafDxGod::_pBumpMapTextureManager = nullptr;
 bool GgafDxGod::_is_device_lost_flg = false;
-bool GgafDxGod::_adjustGameScreen = false;
+bool GgafDxGod::_adjustGameWindow = false;
 HWND GgafDxGod::_pHWnd_adjustScreen = nullptr;
 
 uint32_t GgafDxGod::_vs_v = 0;
@@ -57,7 +57,7 @@ uint32_t GgafDxGod::_ps_v = 0;
 
 GgafDxGod::GgafDxGod() : GgafGod() {
     _is_device_lost_flg = false;
-    _adjustGameScreen = false;
+    _adjustGameWindow = false;
     _pHWnd_adjustScreen = nullptr;
 
     GgafDxGod::_hInstance = GetModuleHandle(0);
@@ -143,7 +143,7 @@ void GgafDxGod::chengeViewPos(HWND prm_pHWnd, int pos) {
             }
         }
         if (!PROPERTY::FULL_SCREEN && prm_pHWnd) {
-            GgafDxCore::GgafDxGod::_adjustGameScreen = true;
+            GgafDxCore::GgafDxGod::_adjustGameWindow = true;
             GgafDxCore::GgafDxGod::_pHWnd_adjustScreen = prm_pHWnd;
         }
     }
@@ -157,7 +157,7 @@ void GgafDxGod::chengeViewPos2(int pos) {
 void GgafDxGod::chengeViewAspect(bool prm_b) {
     if (!PROPERTY::FULL_SCREEN) {
         PROPERTY::FIXED_GAME_VIEW_ASPECT = prm_b;
-        GgafDxCore::GgafDxGod::_adjustGameScreen = true;
+        GgafDxCore::GgafDxGod::_adjustGameWindow = true;
         GgafDxCore::GgafDxGod::_pHWnd_adjustScreen = GgafDxGod::_pHWndPrimary;
     }
 }
@@ -1656,7 +1656,7 @@ void GgafDxGod::chengeToBorderlessFullWindow(HWND prm_pHWnd) {
     Sleep(1);
     ShowWindow(prm_pHWnd, SW_SHOWMAXIMIZED );
     UpdateWindow(prm_pHWnd);
-    GgafDxCore::GgafDxGod::_adjustGameScreen = true;
+    GgafDxCore::GgafDxGod::_adjustGameWindow = true;
     GgafDxCore::GgafDxGod::_pHWnd_adjustScreen = prm_pHWnd;
 }
 
@@ -1669,7 +1669,7 @@ void GgafDxGod::backToNomalWindow(HWND prm_pHWnd) {
     SetWindowPos( prm_pHWnd, NULL, 0, 0, 0, 0, (SWP_NOMOVE|SWP_NOSIZE|SWP_NOZORDER|SWP_FRAMECHANGED) );
     ShowWindow(prm_pHWnd, SW_NORMAL);
     UpdateWindow(prm_pHWnd);
-    GgafDxCore::GgafDxGod::_adjustGameScreen = true;
+    GgafDxCore::GgafDxGod::_adjustGameWindow = true;
     GgafDxCore::GgafDxGod::_pHWnd_adjustScreen = prm_pHWnd;
 }
 
@@ -1731,9 +1731,9 @@ void GgafDxGod::presentSpacetimeVisualize() {
     //        }
     HRESULT hr;
     if (_is_device_lost_flg == false) {
-        if (_adjustGameScreen && _pHWnd_adjustScreen) {
-            adjustGameScreen(_pHWndPrimary);
-            adjustGameScreen(_pHWndSecondary);
+        if (_adjustGameWindow && _pHWnd_adjustScreen) {
+            adjustGameWindow(_pHWndPrimary);
+            adjustGameWindow(_pHWndSecondary);
         }
 
         //Present
@@ -1963,7 +1963,7 @@ void GgafDxGod::clean() {
     }
 }
 
-void GgafDxGod::adjustGameScreen(HWND prm_pHWnd) {
+void GgafDxGod::adjustGameWindow(HWND prm_pHWnd) {
     RECT rect;
     if (prm_pHWnd && !PROPERTY::FULL_SCREEN ) {
         //ウィンドウモード時
@@ -2050,7 +2050,7 @@ void GgafDxGod::adjustGameScreen(HWND prm_pHWnd) {
             }
         }
 #ifdef MY_DEBUG
-        _TRACE_("GgafDxGod::adjustGameScreen(" << (prm_pHWnd == _pHWndPrimary ? "Primary" : "Secondary") <<") コール");
+        _TRACE_("GgafDxGod::adjustGameWindow(" << (prm_pHWnd == _pHWndPrimary ? "Primary" : "Secondary") <<") コール");
         if (PROPERTY::DUAL_VIEW) {
             _TRACE_(" _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].left   = "<<_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].left  );
             _TRACE_(" _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].top    = "<<_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].top   );
@@ -2084,7 +2084,7 @@ void GgafDxGod::adjustGameScreen(HWND prm_pHWnd) {
     }
     GgafDxCamera* pCam = getSpacetime()->getCamera();
     GgafDxGod::_pID3DDevice9->GetViewport(&(pCam->_viewport));
-    _adjustGameScreen = false;
+    _adjustGameWindow = false;
     _pHWnd_adjustScreen = nullptr;
 }
 

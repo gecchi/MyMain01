@@ -21,7 +21,7 @@ void MyBunshinSnipeShot001::initialize() {
     setAlpha(0.99);
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    pChecker->setColliAAB(0, -PX_C(50), -PX_C(50), -PX_C(50),
+    pChecker->setColliAABox(0, -PX_C(50), -PX_C(50), -PX_C(50),
                               PX_C(50),  PX_C(50),  PX_C(50));
     getKuroko()->setRollFaceAngVelo(D_ANG(12));
     getKuroko()->linkFaceAngByMvAng(true);
@@ -51,7 +51,7 @@ void MyBunshinSnipeShot001::onHit(const GgafActor* prm_pOtherActor) {
 
 
 //void MyBunshinSnipeShot001::drawHitArea() {
-//    ColliAABActor::get()->drawHitarea(_pColliChecker); ColliAAPrismActor::get()->drawHitarea(_pColliChecker); ColliSphereActor::get()->drawHitarea(_pColliChecker);
+//    ColliAABoxActor::get()->drawHitarea(_pColliChecker); ColliAAPrismActor::get()->drawHitarea(_pColliChecker); ColliAAPyramidActor::get()->drawHitarea(_pColliChecker); ColliSphereActor::get()->drawHitarea(_pColliChecker);
 //}
 MyBunshinSnipeShot001::~MyBunshinSnipeShot001() {
 }

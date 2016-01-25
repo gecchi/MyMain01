@@ -28,13 +28,14 @@ public:
         }
     };
 
-    static bool init;
     static std::map<int, GgafDxAAPrismActor::RotPosPrism> pos2r;
 
 public:
     GgafDxAAPrismActor(const char* prm_name,
                         GgafCore::GgafStatus* prm_pStat,
                         GgafDxChecker* prm_pChecker);
+
+    static bool initStatic();
 
     void drawPrism(coord prm_x1, coord prm_y1, coord prm_z1,
                    coord prm_x2, coord prm_y2, coord prm_z2, int pos_prism);

@@ -27,13 +27,13 @@ void MyWave001::initialize() {
     pKuroko->setMvVelo(20000);
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(7);
-    pChecker->setColliAAB(0,  -10000,  -10000,  -10000,   10000,   10000,   10000, true, true, true);
-    pChecker->setColliAAB(1,  -10000, -140000,  -10000,   10000, -120000,   10000, true, true, true);
-    pChecker->setColliAAB(2,  -10000,  120000,  -10000,   10000,  140000,   10000, true, true, true);
-    pChecker->setColliAAB(3, -140000,  -10000,  -10000, -120000,   10000,   10000, true, true, true);
-    pChecker->setColliAAB(4,  120000,  -10000,  -10000,  140000,   10000,   10000, true, true, true);
-    pChecker->setColliAAB(5,  -10000,  -10000, -140000,   10000,   10000, -120000, true, true, true);
-    pChecker->setColliAAB(6,  -10000,  -10000,  120000,   10000,   10000,  140000, true, true, true);
+    pChecker->setColliAABox(0,  -10000,  -10000,  -10000,   10000,   10000,   10000, true, true, true);
+    pChecker->setColliAABox(1,  -10000, -140000,  -10000,   10000, -120000,   10000, true, true, true);
+    pChecker->setColliAABox(2,  -10000,  120000,  -10000,   10000,  140000,   10000, true, true, true);
+    pChecker->setColliAABox(3, -140000,  -10000,  -10000, -120000,   10000,   10000, true, true, true);
+    pChecker->setColliAABox(4,  120000,  -10000,  -10000,  140000,   10000,   10000, true, true, true);
+    pChecker->setColliAABox(5,  -10000,  -10000, -140000,   10000,   10000, -120000, true, true, true);
+    pChecker->setColliAABox(6,  -10000,  -10000,  120000,   10000,   10000,  140000, true, true, true);
 
 
     //	pChecker->pHitAreaBoxs_->setLine(0, -20000, 20000, 20000, 20000, true);

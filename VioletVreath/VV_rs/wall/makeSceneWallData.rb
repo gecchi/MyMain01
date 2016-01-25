@@ -185,6 +185,12 @@ while true
           counter[7] = counter[7] + 1
         end
       end
+
+      #BOXの中心座標から見て８方向の各頂点座標に向かって全て伸びているかをチェック
+      #８個全ての頂点に伸びている場合は、BOX
+      #伸びてない頂点が２個の場合、プリズム
+      #伸びてない頂点が４の場合、ピラミッド（実装予定）
+
       if counter[0] > 0 &&
          counter[1] > 0 &&
          counter[2] > 0 &&
@@ -303,10 +309,10 @@ while true
   r03_2_exArea = r03_exArea.getAnalyze03(exArea) #Z方向連結を行うためもう一回getAnalyze03
 
   #  #r03_2_exArea.dump02
-  
+
   r04_exArea = r03_2_exArea.getAnalyze04(max_x_colliwall_num, exArea)
 
-  
+
   #データ出力開始
   outputfiles[outputfile_index] = seq_no.to_s + "." + xfile +".dat"
   fw = File.open(outputfiles[outputfile_index],'w')

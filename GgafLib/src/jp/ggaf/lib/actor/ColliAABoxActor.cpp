@@ -1,35 +1,35 @@
-#include "jp/ggaf/lib/actor/ColliAABActor.h"
+#include "jp/ggaf/lib/actor/ColliAABoxActor.h"
 
 #include "jp/ggaf/core/GgafGod.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
 #include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
-#include "jp/ggaf/lib/util/ColliAAB.h"
+#include "jp/ggaf/lib/util/ColliAABox.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-ColliAABActor* ColliAABActor::_pObj = nullptr;
+ColliAABoxActor* ColliAABoxActor::_pObj = nullptr;
 
-ColliAABActor::ColliAABActor(const char* prm_name, GgafStatus* prm_pStat) : GgafDxAABActor(prm_name, prm_pStat, nullptr) {
-    _class_name = "ColliAABActor";
+ColliAABoxActor::ColliAABoxActor(const char* prm_name, GgafStatus* prm_pStat) : GgafDxAABActor(prm_name, prm_pStat, nullptr) {
+    _class_name = "ColliAABoxActor";
     setAlpha(0.8);
 }
 
-ColliAABActor* ColliAABActor::get() {
-    if (ColliAABActor::_pObj == nullptr) {
-        ColliAABActor::_pObj = NEW ColliAABActor("HITAREA", nullptr);
+ColliAABoxActor* ColliAABoxActor::get() {
+    if (ColliAABoxActor::_pObj == nullptr) {
+        ColliAABoxActor::_pObj = NEW ColliAABoxActor("HITAREA", nullptr);
     }
-    return (ColliAABActor::_pObj);
+    return (ColliAABoxActor::_pObj);
 }
 
-void ColliAABActor::release() {
+void ColliAABoxActor::release() {
     //あたり判定を持つオブジェクトが一度も使用されないとnullptrかもしれない
-    GGAF_DELETE_NULLABLE(ColliAABActor::_pObj);
+    GGAF_DELETE_NULLABLE(ColliAABoxActor::_pObj);
 }
 
-void ColliAABActor::drawHitarea(CollisionChecker3D* prm_pColliChecker) {
+void ColliAABoxActor::drawHitarea(CollisionChecker3D* prm_pColliChecker) {
     if (prm_pColliChecker != nullptr &&
         prm_pColliChecker->_pCollisionArea != nullptr &&
         prm_pColliChecker->getTargetActor()->canHit() &&
@@ -41,8 +41,8 @@ void ColliAABActor::drawHitarea(CollisionChecker3D* prm_pColliChecker) {
         if (iAreaNum > 0) {
             GgafDxCollisionPart** papColliPart = pCollisionArea->_papColliPart;
             for (int i = 0; i < iAreaNum; i++) {
-                if (papColliPart[i]->_is_valid_flg && papColliPart[i]->_shape_kind == COLLI_AAB) {
-                    ColliAAB* box = (ColliAAB*)papColliPart[i];
+                if (papColliPart[i]->_is_valid_flg && papColliPart[i]->_shape_kind == COLLI_AABOX) {
+                    ColliAABox* box = (ColliAABox*)papColliPart[i];
                     //_TRACE_("drawHitarea name="<<prm_pColliChecker->getTargetActor()->getName()<<" index="<<i);
 
                     drawBox(pActor->_x + box->_x1,
@@ -59,5 +59,5 @@ void ColliAABActor::drawHitarea(CollisionChecker3D* prm_pColliChecker) {
     }
 }
 
-ColliAABActor::~ColliAABActor() {
+ColliAABoxActor::~ColliAABoxActor() {
 }

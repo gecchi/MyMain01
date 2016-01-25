@@ -54,7 +54,7 @@ EnemyEres::EnemyEres(const char* prm_name, GgafActorDepository* prm_pDepo_EnemyE
 void EnemyEres::initialize() {
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    pChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
+    pChecker->setColliAABox(0, -30000, -30000, 30000, 30000);
 }
 
 void EnemyEres::onActive() {
