@@ -70,7 +70,7 @@ public:
 
     /** 描画アクターのカーソル */
     static GgafDxFigureActor* _pActor_draw_active;
-
+    static int render_depth_index_active;
     /** [r]アプリケーション領域、X座標の最小値 */
     const coord _x_bound_left;
     /** [r]アプリケーション領域、X座標の最大値 */

@@ -52,29 +52,30 @@ HRESULT GgafDxWorldBoundModel::draw(GgafDxFigureActor* prm_pActor_target, int pr
         material_no = _paIndexParam[i].MaterialNo;
         hr = pID3DXEffect->SetValue(pWorldBoundEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
         checkDxException(hr, D3D_OK, "GgafDxWorldBoundModel::draw()SetValue(g_colMaterialDiffuse) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-
-        if ((GgafDxEffectManager::_pEffect_active != pWorldBoundEffect || GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) &&
+        GgafDxEffect* pEffect_active = GgafDxEffectManager::_pEffect_active;
+        if ((pEffect_active != pWorldBoundEffect || GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) &&
                 i == 0) {
-            if (GgafDxEffectManager::_pEffect_active) {
-               _TRACE4_("EndPass("<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
-                hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->EndPass();
-                checkDxException(hr, D3D_OK, "GgafDxWorldBoundModel::draw() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB"<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
-                hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->End();
+            if (pEffect_active) {
+               _TRACE4_("EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
+                hr = pEffect_active->_pID3DXEffect->EndPass();
+                checkDxException(hr, D3D_OK, "GgafDxWorldBoundModel::draw() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB"<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
+                hr = pEffect_active->_pID3DXEffect->End();
                 checkDxException(hr, D3D_OK, "GgafDxWorldBoundModel::draw() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-
+                if (pEffect_active->_obj_effect & Obj_GgafDxMassMeshEffect) {
+                    pDevice->SetStreamSourceFreq( 0, 1 );
+                    pDevice->SetStreamSourceFreq( 1, 1 );
+                }
 #ifdef MY_DEBUG
-                if (GgafDxEffectManager::_pEffect_active->_begin == false) {
-                    throwGgafCriticalException("begin ÇµÇƒÇ¢Ç‹ÇπÇÒ "<<(GgafDxEffectManager::_pEffect_active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_active->_effect_name)<<"");
+                if (pEffect_active->_begin == false) {
+                    throwGgafCriticalException("begin ÇµÇƒÇ¢Ç‹ÇπÇÒ "<<(pEffect_active==nullptr?"nullptr":pEffect_active->_effect_name)<<"");
                 } else {
-                    GgafDxEffectManager::_pEffect_active->_begin = false;
+                    pEffect_active->_begin = false;
                 }
 #endif
-
             }
             _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pWorldBoundEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
             checkDxException(hr, S_OK, "GgafDxWorldBoundModel::draw() SetTechnique("<<pTargetActor->_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-
 
             _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pWorldBoundEffect->_effect_name<<"("<<pWorldBoundEffect<<")");
             UINT numPass;
@@ -108,7 +109,7 @@ HRESULT GgafDxWorldBoundModel::draw(GgafDxFigureActor* prm_pActor_target, int pr
                                       _paIndexParam[i].NumVertices,
                                       _paIndexParam[i].StartIndex,
                                       _paIndexParam[i].PrimitiveCount);
-        GgafGod::_num_actor_drawing++;
+        GgafGod::_num_drawing++;
     }
     GgafDxModelManager::_pModelLastDraw = this;
     GgafDxEffectManager::_pEffect_active = pWorldBoundEffect;

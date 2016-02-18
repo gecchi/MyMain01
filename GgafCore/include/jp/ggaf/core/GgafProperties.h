@@ -29,9 +29,9 @@ public:
     /** [r/w] 最高フレームスキップ数。つまりどんなに重くも最低描画するフレーム間隔。*/
     static uint32_t MAX_SKIP_FRAME;
     /** [r/w] 60fps→40fpsの処理落ち演出を行うかどうかの境界。1フレームあたり内部描画回数で設定 */
-    static int DRAWNUM_TO_SLOWDOWN1;
+    static int OBJNUM_TO_SLOWDOWN1;
     /** [r/w] 40fps→30fpsの処理落ち演出を行うかどうかの境界。1フレームあたり内部描画回数で設定 */
-    static int DRAWNUM_TO_SLOWDOWN2;
+    static int OBJNUM_TO_SLOWDOWN2;
     /** [r/w] ゴミ箱を掃除(インスタンス解放)を行うことが出来るFPS */
     static float FPS_TO_CLEAN_GARBAGE_BOX;
     /** [r] アプリケーションのリソースディレクトリ */

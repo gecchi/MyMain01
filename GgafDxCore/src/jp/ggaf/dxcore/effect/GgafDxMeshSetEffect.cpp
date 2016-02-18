@@ -8,6 +8,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxMeshSetEffect::GgafDxMeshSetEffect(const char* prm_effect_name) : GgafDxEffect(prm_effect_name) {
+    _obj_effect |= Obj_GgafDxMeshSetEffect;
     GgafDxCamera* const pCam = P_GOD->getSpacetime()->getCamera();
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
@@ -48,8 +49,19 @@ GgafDxMeshSetEffect::GgafDxMeshSetEffect(const char* prm_effect_name) : GgafDxEf
     _ah_matWorld[16]  = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld017" );
     _ah_matWorld[17]  = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld018" );
     _ah_matWorld[18]  = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld019" );
-//    _ah_matWorld[19]  = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld020" );
-
+    _ah_matWorld[19]  = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld020" );
+    _ah_matWorld[20]  = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld021" );
+    _ah_matWorld[21]  = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld022" );
+    _ah_matWorld[22]  = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld023" );
+    _ah_matWorld[23]  = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld024" );
+    _ah_matWorld[24]  = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld025" );
+    _ah_matWorld[25]  = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld026" );
+    _ah_matWorld[26]  = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld027" );
+    _ah_matWorld[27]  = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld028" );
+    _ah_matWorld[28]  = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld029" );
+    _ah_matWorld[29]  = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld030" );
+    _ah_matWorld[30]  = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld031" );
+    _ah_matWorld[31]  = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld032" );
 
 
     _ah_materialDiffuse[0] = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse001" );
@@ -71,7 +83,19 @@ GgafDxMeshSetEffect::GgafDxMeshSetEffect(const char* prm_effect_name) : GgafDxEf
     _ah_materialDiffuse[16] = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse017" );
     _ah_materialDiffuse[17] = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse018" );
     _ah_materialDiffuse[18] = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse019" );
-//    _ah_materialDiffuse[19] = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse020" );
+    _ah_materialDiffuse[19] = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse020" );
+    _ah_materialDiffuse[20] = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse021" );
+    _ah_materialDiffuse[21] = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse022" );
+    _ah_materialDiffuse[22] = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse023" );
+    _ah_materialDiffuse[23] = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse024" );
+    _ah_materialDiffuse[24] = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse025" );
+    _ah_materialDiffuse[25] = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse026" );
+    _ah_materialDiffuse[26] = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse027" );
+    _ah_materialDiffuse[27] = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse028" );
+    _ah_materialDiffuse[28] = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse029" );
+    _ah_materialDiffuse[29] = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse030" );
+    _ah_materialDiffuse[30] = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse031" );
+    _ah_materialDiffuse[31] = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse032" );
 
 
     _ah_offset_u[0] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u001" );
@@ -93,8 +117,19 @@ GgafDxMeshSetEffect::GgafDxMeshSetEffect(const char* prm_effect_name) : GgafDxEf
     _ah_offset_u[16] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u017" );
     _ah_offset_u[17] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u018" );
     _ah_offset_u[18] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u019" );
-//    _ah_offset_u[19] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u020" );
-
+    _ah_offset_u[19] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u020" );
+    _ah_offset_u[20] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u021" );
+    _ah_offset_u[21] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u022" );
+    _ah_offset_u[22] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u023" );
+    _ah_offset_u[23] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u024" );
+    _ah_offset_u[24] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u025" );
+    _ah_offset_u[25] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u026" );
+    _ah_offset_u[26] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u027" );
+    _ah_offset_u[27] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u028" );
+    _ah_offset_u[28] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u029" );
+    _ah_offset_u[29] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u030" );
+    _ah_offset_u[30] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u031" );
+    _ah_offset_u[31] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u032" );
 
     _ah_offset_v[0] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v001" );
     _ah_offset_v[1] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v002" );
@@ -115,8 +150,19 @@ GgafDxMeshSetEffect::GgafDxMeshSetEffect(const char* prm_effect_name) : GgafDxEf
     _ah_offset_v[16] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v017" );
     _ah_offset_v[17] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v018" );
     _ah_offset_v[18] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v019" );
-//    _ah_offset_v[19] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v020" );
-
+    _ah_offset_v[19] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v020" );
+    _ah_offset_v[20] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v021" );
+    _ah_offset_v[21] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v022" );
+    _ah_offset_v[22] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v023" );
+    _ah_offset_v[23] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v024" );
+    _ah_offset_v[24] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v025" );
+    _ah_offset_v[25] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v026" );
+    _ah_offset_v[26] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v027" );
+    _ah_offset_v[27] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v028" );
+    _ah_offset_v[28] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v029" );
+    _ah_offset_v[29] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v030" );
+    _ah_offset_v[30] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v031" );
+    _ah_offset_v[31] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v032" );
 
     _h_tex_blink_power = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_power" );
     _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_threshold" );

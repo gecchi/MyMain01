@@ -891,9 +891,9 @@ bool StgUtil::isHit(const GgafDxCore::GgafDxGeometricActor* const pActor01, cons
                 }
             }
 
-            if (o_r < pAAPyramid01->_d_c2vtx && sgn_x_spos == 1 && sgn_y_spos == 1 && sgn_x_spos == 1) {
-                return false;
-            }
+//            if (o_r < pAAPyramid01->_d_c2vtx && sgn_x_spos == 1 && sgn_y_spos == 1 && sgn_x_spos == 1) {
+//                return false;
+//            }
 //                //ŒvŽZ‚ðŠy‚É‚·‚é‚½‚ß’¼ŠpŽOŠp‚Ì‚R’¼Šp‚ðŒ´“_‚É•½sˆÚ“®‚µ‚Äl‚¦‚é
 ////                const coord b0_x1 = 0;
 //                const coord b0_x2 = pAAPyramid01->_dx;

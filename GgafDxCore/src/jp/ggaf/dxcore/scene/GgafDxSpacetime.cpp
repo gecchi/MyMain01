@@ -20,6 +20,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxFigureActor* GgafDxSpacetime::_pActor_draw_active = nullptr;
+int GgafDxSpacetime::render_depth_index_active = 0;
 std::string GgafDxSpacetime::_seqkey_se_delay = "_SE_D_";
 
 GgafDxSpacetime::SeArray::SeArray() {
@@ -181,8 +182,8 @@ void GgafDxSpacetime::draw() {
     //段階レンダリング描画
     IDirect3DDevice9* const pDevice = GgafDxGod::_pID3DDevice9;
     GgafDxFigureActor* pDrawActor;
-    for (int i = ALL_RENDER_DEPTH_INDEXS_NUM - 1; i >= 0; i--) { //奥から
-        pDrawActor = _papFirstActor_in_render_depth[i];
+    for (GgafDxSpacetime::render_depth_index_active = ALL_RENDER_DEPTH_INDEXS_NUM - 1; GgafDxSpacetime::render_depth_index_active >= 0; GgafDxSpacetime::render_depth_index_active--) { //奥から
+        pDrawActor = _papFirstActor_in_render_depth[GgafDxSpacetime::render_depth_index_active];
         if (pDrawActor) {
             while (pDrawActor) {
                 GgafDxSpacetime::_pActor_draw_active = pDrawActor;
@@ -199,7 +200,6 @@ void GgafDxSpacetime::draw() {
                 pDrawActor->getEffect()->setAlphaMaster(
                                             ((GgafDxScene*)pDrawActor->getPlatformScene())->_master_alpha
                                          );
-
 
                 if (pDrawActor->_alpha < 1.0f) {
                     //半透明要素ありの場合カリングを一時OFF
@@ -264,25 +264,29 @@ void GgafDxSpacetime::draw() {
                 //GgafDxSpacetime::_pActor_draw_active が、set系の最終描画アクターに更新されている。
                 //_pNextActor_in_render_depth で表示が飛ばされることはない。
             }
-            _papFirstActor_in_render_depth[i] = nullptr; //次回のためにリセット
-            _papLastActor_in_render_depth[i] = nullptr;
+            _papFirstActor_in_render_depth[GgafDxSpacetime::render_depth_index_active] = nullptr; //次回のためにリセット
+            _papLastActor_in_render_depth[GgafDxSpacetime::render_depth_index_active] = nullptr;
         }
     }
 
     //最後のEndPass
     HRESULT hr;
-    if (GgafDxEffectManager::_pEffect_active) {
-
-        _TRACE4_("EndPass("<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
-        hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->EndPass();
+    GgafDxEffect* pEffect_active = GgafDxEffectManager::_pEffect_active;
+    if (pEffect_active) {
+        _TRACE4_("EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
+        hr = pEffect_active->_pID3DXEffect->EndPass();
         checkDxException(hr, D3D_OK, "GgafDxSpacetime::processDraw() EndPass() に失敗しました。");
-        hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->End();
+        hr = pEffect_active->_pID3DXEffect->End();
         checkDxException(hr, D3D_OK, "GgafDxSpacetime::processDraw() End() に失敗しました。");
+        if (pEffect_active->_obj_effect & Obj_GgafDxMassMeshEffect) {
+            pDevice->SetStreamSourceFreq( 0, 1 );
+            pDevice->SetStreamSourceFreq( 1, 1 );
+        }
 #ifdef MY_DEBUG
-        if (GgafDxEffectManager::_pEffect_active->_begin == false) {
-            throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_active->_effect_name)<<"");
+        if (pEffect_active->_begin == false) {
+            throwGgafCriticalException("begin していません "<<(pEffect_active==nullptr?"nullptr":pEffect_active->_effect_name)<<"");
         } else {
-            GgafDxEffectManager::_pEffect_active->_begin = false;
+            pEffect_active->_begin = false;
         }
 #endif
         GgafDxEffectManager::_pEffect_active = nullptr;

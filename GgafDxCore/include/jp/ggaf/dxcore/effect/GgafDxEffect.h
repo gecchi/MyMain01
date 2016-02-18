@@ -10,6 +10,22 @@
 #endif
 #include <string>
 
+#define Obj_GgafDxEffect                    (0x2U)            //0b 00000000 00000000 00000000 00000010
+#define Obj_GgafDxMeshEffect                (0x4U)            //0b 00000000 00000000 00000000 00000100
+#define Obj_GgafDxD3DXAniMeshEffect         (0x8U)            //0b 00000000 00000000 00000000 00001000
+#define Obj_GgafDxMeshSetEffect             (0x10U)           //0b 00000000 00000000 00000000 00010000
+#define Obj_GgafDxMassMeshEffect            (0x20U)           //0b 00000000 00000000 00000000 00100000
+#define Obj_GgafDxMorphMeshEffect           (0x40U)           //0b 00000000 00000000 00000000 01000000
+#define Obj_GgafDxCubeMapMeshEffect         (0x80U)           //0b 00000000 00000000 00000000 10000000
+#define Obj_GgafDxCubeMapMeshSetEffect      (0x100U)          //0b 00000000 00000000 00000001 00000000
+#define Obj_GgafDxCubeMapMorphMeshEffect    (0x200U)          //0b 00000000 00000000 00000010 00000000
+#define Obj_GgafDxWorldBoundEffect          (0x400U)          //0b 00000000 00000000 00000100 00000000
+#define Obj_GgafDxSpriteEffect              (0x800U)          //0b 00000000 00000000 00001000 00000000
+#define Obj_GgafDxSpriteSetEffect           (0x1000U)         //0b 00000000 00000000 00010000 00000000
+#define Obj_GgafDxBoardEffect               (0x2000U)         //0b 00000000 00000000 00100000 00000000
+#define Obj_GgafDxBoardSetEffect            (0x4000U)         //0b 00000000 00000000 01000000 00000000
+#define Obj_GgafDxPointSpriteEffect         (0x8000U)         //0b 00000000 00000000 10000000 00000000
+
 namespace GgafDxCore {
 
 /**
@@ -24,8 +40,8 @@ class GgafDxEffect : public GgafCore::GgafObject {
 
     static std::string getEffectFileName(std::string prm_file);
 
-protected:
-    static D3DXMACRO _aD3DXMacro_Defines[3];
+//protected:
+//    static D3DXMACRO _aD3DXMacro_Defines[3];
 
 public:
     D3DXHANDLE _h_alpha_master;
@@ -33,6 +49,8 @@ public:
     char* _effect_name;
     /** [r]エフェクト */
     ID3DXEffect* _pID3DXEffect;
+    /** [r]エフェクトインスタンス種類 */
+    uint32_t _obj_effect;
 #ifdef MY_DEBUG
     bool _begin;
 #endif

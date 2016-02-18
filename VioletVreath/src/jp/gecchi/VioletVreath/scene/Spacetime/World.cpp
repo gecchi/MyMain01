@@ -279,12 +279,12 @@ void World::processBehavior() {
 
             VB->update(); //入力情報更新
 
-            //F5キーが音量下げ
-            if (GgafDxInput::isBeingPressedKey(DIK_F5)) {
+            //1キーが音量下げ
+            if (GgafDxInput::isBeingPressedKey(DIK_1)) {
                 GgafDxSound::addAppMasterVolume(-10);
             }
-            //F6キーが音量上げ
-            if (GgafDxInput::isBeingPressedKey(DIK_F6)) {
+            //2キーが音量上げ
+            if (GgafDxInput::isBeingPressedKey(DIK_2)) {
                 GgafDxSound::addAppMasterVolume(10);
             }
 
@@ -309,10 +309,11 @@ void World::processBehavior() {
 
 
 #ifdef MY_DEBUG
-    sprintf(aBufDebug_, "%05uDRAW / %06uCHK / %07uF / %03.1fFPS / V%03d",
-                            GgafGod::_num_actor_drawing,
-                            CollisionChecker3D::_num_check,
+    sprintf(aBufDebug_, "%07uF / %05uOBJ / %05uDRAW / %06uCHK / %03.1fFPS / V%03d",
                             (unsigned int)askGod()->_frame_of_God,
+                            GgafGod::_num_active_actor,
+                            GgafGod::_num_drawing,
+                            CollisionChecker3D::_num_check,
                             askGod()->_fps,
                             (GgafDxSound::_app_master_volume)
                             );

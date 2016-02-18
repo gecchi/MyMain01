@@ -10,8 +10,8 @@ using namespace GgafCore;
 GgafStrMap GgafProperties::_mapProperties;
 
 uint32_t GgafProperties::MAX_SKIP_FRAME = 20;
-int GgafProperties::DRAWNUM_TO_SLOWDOWN1 = 350;
-int GgafProperties::DRAWNUM_TO_SLOWDOWN2 = 500;
+int GgafProperties::OBJNUM_TO_SLOWDOWN1 = 1000;
+int GgafProperties::OBJNUM_TO_SLOWDOWN2 = 1500;
 float GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX = 30.0f;
 std::string GgafProperties::DIR_RESOURCE = "./";
 std::string GgafProperties::DIRNAME_RESOURCE_SKIN = ".";
@@ -49,11 +49,11 @@ void GgafProperties::load(std::string prm_properties_filename) {
     if (GgafProperties::isExistKey("MAX_SKIP_FRAME")) {
         GgafProperties::MAX_SKIP_FRAME = getUInt("MAX_SKIP_FRAME");
     }
-    if (GgafProperties::isExistKey("DRAWNUM_TO_SLOWDOWN1")) {
-        GgafProperties::DRAWNUM_TO_SLOWDOWN1 = getInt("DRAWNUM_TO_SLOWDOWN1");
+    if (GgafProperties::isExistKey("OBJNUM_TO_SLOWDOWN1")) {
+        GgafProperties::OBJNUM_TO_SLOWDOWN1 = getInt("OBJNUM_TO_SLOWDOWN1");
     }
-    if (GgafProperties::isExistKey("DRAWNUM_TO_SLOWDOWN2")) {
-        GgafProperties::DRAWNUM_TO_SLOWDOWN2 = getInt("DRAWNUM_TO_SLOWDOWN2");
+    if (GgafProperties::isExistKey("OBJNUM_TO_SLOWDOWN2")) {
+        GgafProperties::OBJNUM_TO_SLOWDOWN2 = getInt("OBJNUM_TO_SLOWDOWN2");
     }
     if (GgafProperties::isExistKey("FPS_TO_CLEAN_GARBAGE_BOX")) {
         GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX = getFloat("FPS_TO_CLEAN_GARBAGE_BOX");
@@ -104,8 +104,8 @@ void GgafProperties::load(std::string prm_properties_filename) {
     }
     GgafProperties::_is_lock = false;
     _TRACE_("GgafProperties::MAX_SKIP_FRAME="<<GgafProperties::MAX_SKIP_FRAME);
-    _TRACE_("GgafProperties::DRAWNUM_TO_SLOWDOWN1="<<GgafProperties::DRAWNUM_TO_SLOWDOWN1);
-    _TRACE_("GgafProperties::DRAWNUM_TO_SLOWDOWN2="<<GgafProperties::DRAWNUM_TO_SLOWDOWN2);
+    _TRACE_("GgafProperties::OBJNUM_TO_SLOWDOWN1="<<GgafProperties::OBJNUM_TO_SLOWDOWN1);
+    _TRACE_("GgafProperties::OBJNUM_TO_SLOWDOWN2="<<GgafProperties::OBJNUM_TO_SLOWDOWN2);
     _TRACE_("GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX="<<GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX);
     _TRACE_("GgafProperties::DIR_RESOURCE="<<GgafProperties::DIR_RESOURCE);
     _TRACE_("GgafProperties::DIRNAME_RESOURCE_SKIN="<<GgafProperties::DIRNAME_RESOURCE_SKIN);

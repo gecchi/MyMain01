@@ -8,6 +8,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxMorphMeshEffect::GgafDxMorphMeshEffect(const char* prm_effect_name) : GgafDxEffect(prm_effect_name) {
+    _obj_effect |= Obj_GgafDxMorphMeshEffect;
     GgafDxCamera* const pCam = P_GOD->getSpacetime()->getCamera();
     //シェーダー共通のグローバル変数設定
     HRESULT hr;

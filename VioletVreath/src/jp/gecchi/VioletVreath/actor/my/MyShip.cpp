@@ -719,8 +719,8 @@ void MyShip::processBehavior() {
         }
     }
 
-    //Ž©”š
-    if (GgafDxInput::isPushedDownKey(DIK_1)) {
+    //TODO:Ž©”š TEST
+    if (GgafDxInput::isPushedDownKey(DIK_0)) {
         //Ž©‹@”š”­ŠJÃ
         setHitAble(false);
         getSeTx()->play3D(SE_EXPLOSION);

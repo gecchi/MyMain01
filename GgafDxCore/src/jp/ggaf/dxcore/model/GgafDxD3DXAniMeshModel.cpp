@@ -48,39 +48,42 @@ HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int p
     pTargetActor->_pPuppeteer->work(); //アニメーション反映
     std::list< D3DXFRAME_WORLD* > *pDrawList = _stackWorldMat.GetDrawList(); // 描画リストを取得
     std::list<D3DXFRAME_WORLD*>::iterator it = pDrawList->begin();
-
+    IDirect3DDevice9* const pDevice = GgafDxGod::_pID3DDevice9;
     int n = 0;
     //マテリアル・テクスチャの一発目をセット、
     LPDIRECT3DBASETEXTURE9 pTex = nullptr;
     LPDIRECT3DBASETEXTURE9 pLastTex = nullptr;
     if (_papTextureConnection[n]) {
         pLastTex = _papTextureConnection[n]->peek()->_pIDirect3DBaseTexture9;
-        GgafDxGod::_pID3DDevice9->SetTexture(0, pLastTex);
+        pDevice->SetTexture(0, pLastTex);
     } else {
         //無ければテクスチャ無し
-        GgafDxGod::_pID3DDevice9->SetTexture(0, nullptr);
+        pDevice->SetTexture(0, nullptr);
     }
     hr = pID3DXEffect->SetValue(pD3DXAniMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[n].Diffuse), sizeof(D3DCOLORVALUE) );
     checkDxException(hr, D3D_OK, "GgafDxD3DXAniMeshModel::draw() SetValue(g_colMaterialDiffuse) に失敗しました。");
 
     for (int i = 0; it != pDrawList->end(); i++, it++) {
-        //描画
-        if ((GgafDxEffectManager::_pEffect_active != pD3DXAniMeshEffect || GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) && i == 0) {
-            if (GgafDxEffectManager::_pEffect_active) {
-                _TRACE4_("["<<i<<"],EndPass: /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name);
-                hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->EndPass();
+        //描画(TODO:なんか無駄なループ）
+        GgafDxEffect* pEffect_active = GgafDxEffectManager::_pEffect_active;
+        if ((pEffect_active != pD3DXAniMeshEffect || GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) && i == 0) {
+            if (pEffect_active) {
+                _TRACE4_("["<<i<<"],EndPass: /_pEffect_active="<<pEffect_active->_effect_name);
+                hr = pEffect_active->_pID3DXEffect->EndPass();
                 checkDxException(hr, D3D_OK, "["<<i<<"],GgafDxD3DXAniMeshModel::draw() EndPass() に失敗しました。");
-                hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->End();
+                hr = pEffect_active->_pID3DXEffect->End();
                 checkDxException(hr, D3D_OK, "["<<i<<"],GgafDxD3DXAniMeshModel::draw() End() に失敗しました。");
-
+                if (pEffect_active->_obj_effect & Obj_GgafDxMassMeshEffect) {
+                    pDevice->SetStreamSourceFreq( 0, 1 );
+                    pDevice->SetStreamSourceFreq( 1, 1 );
+                }
 #ifdef MY_DEBUG
-                if (GgafDxEffectManager::_pEffect_active->_begin == false) {
-                    throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_active->_effect_name)<<"");
+                if (pEffect_active->_begin == false) {
+                    throwGgafCriticalException("begin していません "<<(pEffect_active==nullptr?"nullptr":pEffect_active->_effect_name)<<"");
                 } else {
-                    GgafDxEffectManager::_pEffect_active->_begin = false;
+                    pEffect_active->_begin = false;
                 }
 #endif
-
             }
             _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pD3DXAniMeshEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
@@ -112,7 +115,7 @@ HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int p
                     pTex = _papTextureConnection[n]->peek()->_pIDirect3DBaseTexture9;
                     if (pTex != pLastTex) {
                         //テクスチャが異なれば設定
-                        GgafDxGod::_pID3DDevice9->SetTexture(0, pTex);
+                        pDevice->SetTexture(0, pTex);
                         pLastTex = pTex;
                     }
                     hr = pID3DXEffect->SetValue(pD3DXAniMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[n].Diffuse), sizeof(D3DCOLORVALUE) );
@@ -123,7 +126,7 @@ HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int p
                 checkDxException(hr, D3D_OK, "["<<i<<"],GgafDxD3DXAniMeshModel::draw() CommitChanges() に失敗しました。");
                 (*it)->pMeshContainer->MeshData.pMesh->DrawSubset(j);
                 n++;
-                GgafGod::_num_actor_drawing++;
+                GgafGod::_num_drawing++;
             }
         }
     }
@@ -131,7 +134,6 @@ HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int p
     GgafDxModelManager::_pModelLastDraw = this;
     GgafDxEffectManager::_pEffect_active = pD3DXAniMeshEffect;
     GgafDxFigureActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
-    GgafGod::_num_actor_drawing++;
     return D3D_OK;
 }
 

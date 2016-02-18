@@ -923,18 +923,19 @@ void GgafElement<T>::nextFrame() {
         if (_frame_of_life == _frame_of_life_when_end) {
             _can_live_flg = false; //終了の時だ
         } else {
-            _on_change_to = 0;
+            int on_change_to = 0;
             if (_is_active_flg) {  //現在activate
                 if (_frame_of_life == _frame_of_life_when_inactivation) { //現在 activate だが、今inactivateになる時が来た
                     _is_active_flg = false; //活動フラグOFF
-                    _on_change_to = 1;       //onInactive確定
+                    on_change_to = 1;       //onInactive確定
                 }
             } else { //現在inactivate
                 if(_frame_of_life == _frame_of_life_when_activation) { //現在inactivate だが、今activateになる時が来た
                     _is_active_flg = true;  //活動フラグON
-                    _on_change_to = 2;       //onActive処理
+                    on_change_to = 2;       //onActive処理
                 }
             }
+            _on_change_to = on_change_to;
             _is_already_reset = false;
 
             updateActiveInTheTree();     //_is_active_in_the_tree_flg を更新
@@ -948,11 +949,11 @@ void GgafElement<T>::nextFrame() {
                 _frame_of_behaving_since_onActive++;
             }
 
-            if (_on_change_to == 0) {
+            if (on_change_to == 0) {
                 //コールバック特になし
-            } else if (_on_change_to == 1) { //onInactive処理
+            } else if (on_change_to == 1) { //onInactive処理
                 onInactive(); //コールバック
-            } else if (_on_change_to == 2) { //onActive処理
+            } else if (on_change_to == 2) { //onActive処理
                 if (!_was_initialize_flg) {
                     initialize();       //初期化
                     _was_initialize_flg = true;

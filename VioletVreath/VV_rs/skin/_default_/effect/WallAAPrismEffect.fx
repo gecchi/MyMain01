@@ -336,7 +336,7 @@ float4 GgafDxPS_WallAAPrism(
 	float4 prm_color    : COLOR0
 ) : COLOR  {
     if (prm_color.a == 0) {
-        return 0;
+        discard;
     }
 	//テクスチャをサンプリングして色取得（原色を取得）
 	const float4 colTex = tex2D( MyTextureSampler, prm_uv);        

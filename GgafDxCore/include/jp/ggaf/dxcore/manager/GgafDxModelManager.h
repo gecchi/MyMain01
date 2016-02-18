@@ -8,22 +8,6 @@
 #include "jp/ggaf/dxcore/util/XFile/framework/Frm_Mesh.h"
 #include "jp/ggaf/dxcore/util/XFile/ToolBox/IOModel_X.h"
 
-//#define Obj_GgafDxDynaD3DXMeshModel      (0x1U)            //0b 00000000 00000000 00000000 00000001
-#define Obj_GgafDxD3DXAniMeshModel       (0x2U)            //0b 00000000 00000000 00000000 00000010
-#define Obj_GgafDxD3DXMeshModel          (0x4U)            //0b 00000000 00000000 00000000 00000100
-#define Obj_GgafDxSpriteModel            (0x8U)            //0b 00000000 00000000 00000000 00001000
-#define Obj_GgafDxSpriteSetModel         (0x10U)           //0b 00000000 00000000 00000000 00010000
-#define Obj_GgafDxBoardModel             (0x20U)           //0b 00000000 00000000 00000000 00100000
-#define Obj_GgafDxBoardSetModel          (0x40U)           //0b 00000000 00000000 00000000 01000000
-#define Obj_GgafDxMeshModel              (0x80U)           //0b 00000000 00000000 00000000 10000000
-#define Obj_GgafDxMeshSetModel           (0x100U)          //0b 00000000 00000000 00000001 00000000
-#define Obj_GgafDxCubeMapMeshModel       (0x200U)          //0b 00000000 00000000 00000010 00000000
-#define Obj_GgafDxCubeMapMeshSetModel    (0x400U)          //0b 00000000 00000000 00000100 00000000
-#define Obj_GgafDxMorphMeshModel         (0x800U)          //0b 00000000 00000000 00001000 00000000
-#define Obj_GgafDxCubeMapMorphMeshModel  (0x1000U)         //0b 00000000 00000000 00010000 00000000
-#define Obj_GgafDxWorldBoundModel        (0x2000U)         //0b 00000000 00000000 00100000 00000000
-#define Obj_GgafDxPointSpriteModel       (0x4000U)         //0b 00000000 00000000 01000000 00000000
-
 #define connectToModelTextureManager(X) ((GgafDxCore::GgafDxTextureConnection*)P_GOD->_pModelManager->_pModelTextureManager->connect((X), this))
 
 namespace GgafDxCore {
@@ -61,6 +45,7 @@ private:
     GgafDxBoardSetModel*         createBoardSetModel(const char* prm_model_name);
     GgafDxMeshModel*             createMeshModel(const char* prm_model_name);
     GgafDxMeshSetModel*          createMeshSetModel(const char* prm_model_name);
+    GgafDxMassMeshModel*         createMassMeshModel(const char* prm_model_name);
     GgafDxCubeMapMeshModel*      createCubeMapMeshModel(const char* prm_model_name);
     GgafDxCubeMapMeshSetModel*   createCubeMapMeshSetModel(const char* prm_model_name);
     GgafDxMorphMeshModel*        createMorphMeshModel(const char* prm_model_name);
@@ -133,6 +118,8 @@ public:
      *  "X/Enemy"    --> GgafDxMeshModel のモデル。読み込むファイルは "Enemy.x"
      *  "x/12/Enemy"- -> GgafDxMeshSetModel のモデル。読み込むファイルは "Enemy.x"。同時描画オブジェクト数は 12 セット
      *  "x/Enemy"    --> GgafDxMeshSetModel のモデル(セット数省略表記)。読み込むファイルは "Enemy.x"。セット数省略時は最大の 15 セット
+     *  "t/12/Enemy"- -> GgafDxMassMeshModel のモデル。読み込むファイルは "Enemy.x"。同時描画オブジェクト数は 12 セット
+     *  "t/Enemy"    --> GgafDxMassMeshModel のモデル(セット数省略表記)。読み込むファイルは "Enemy.x"。セット数省略時は最大の 15 セット
      *  "M/3/MyShip" --> GgafDxMorphMeshModel のモデル。読み込むファイルは "MyShip_0.x", "MyShip_1.x", "MyShip_2.x", "MyShip_3.x"。数値部分省略不可。
      *                   プライマリモデルは"MyShip_0.x"、モーフターゲット1～3が"MyShip_1.x", "MyShip_2.x", "MyShip_3.x"
      *  "S/Bomb"     --> GgafDxSpriteModel のモデル。読み込むファイルは "Bomb.sprx"。
@@ -178,6 +165,8 @@ public:
     void restoreMeshModel(GgafDxMeshModel* prm_pD3DXMeshModel);
 
     void restoreMeshSetModel(GgafDxMeshSetModel* prm_pD3DXMeshSetModel);
+
+    void restoreMassMeshModel(GgafDxMassMeshModel* prm_pD3DXMassMeshModel);
 
     void restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pModel);
 

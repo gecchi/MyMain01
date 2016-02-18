@@ -47,49 +47,49 @@ void Planet001::initialize() {
 void Planet001::processBehavior() {
     GgafDxKuroko* const pKuroko = getKuroko();
 
-    //巨大オブジェクト移動テスト
-    if (GgafDxInput::isBeingPressedKey(DIK_I)) {
-        _x += PX_C(100);
-    }
-    if (GgafDxInput::isBeingPressedKey(DIK_O)) {
-        _x += PX_C(1000);
-    }
-    if (GgafDxInput::isBeingPressedKey(DIK_U)) {
-        _x -= PX_C(100);
-    }
-    if (GgafDxInput::isBeingPressedKey(DIK_Y)) {
-        _x -= PX_C(1000);
-    }
-
-    if (GgafDxInput::isBeingPressedKey(DIK_8)) {
-        _y += PX_C(100);
-    }
-    if (GgafDxInput::isBeingPressedKey(DIK_J)) {
-        _y -= PX_C(100);
-    }
-
-    if (GgafDxInput::isBeingPressedKey(DIK_M)) {
-        _y -= PX_C(1000);
-    }
-
-
-    if (GgafDxInput::isBeingPressedKey(DIK_9)) {
-        _z += PX_C(100);
-    }
-    if (GgafDxInput::isBeingPressedKey(DIK_K)) {
-        _z -= PX_C(100);
-    }
-
-    if (GgafDxInput::isBeingPressedKey(DIK_0)) {
-        addScale(10000);
-    }
-    if (GgafDxInput::isBeingPressedKey(DIK_L)) {
-        addScale(-10000);
-    }
-
-    if (GgafDxInput::isPushedDownKey(DIK_O)) {
-        _TRACE_("Planet001  "<<_x<<","<<_y<<","<<_z<<" scale="<<_rx);
-    }
+//    //巨大オブジェクト移動テスト
+//    if (GgafDxInput::isBeingPressedKey(DIK_I)) {
+//        _x += PX_C(100);
+//    }
+//    if (GgafDxInput::isBeingPressedKey(DIK_O)) {
+//        _x += PX_C(1000);
+//    }
+//    if (GgafDxInput::isBeingPressedKey(DIK_U)) {
+//        _x -= PX_C(100);
+//    }
+//    if (GgafDxInput::isBeingPressedKey(DIK_Y)) {
+//        _x -= PX_C(1000);
+//    }
+//
+//    if (GgafDxInput::isBeingPressedKey(DIK_8)) {
+//        _y += PX_C(100);
+//    }
+//    if (GgafDxInput::isBeingPressedKey(DIK_J)) {
+//        _y -= PX_C(100);
+//    }
+//
+//    if (GgafDxInput::isBeingPressedKey(DIK_M)) {
+//        _y -= PX_C(1000);
+//    }
+//
+//
+//    if (GgafDxInput::isBeingPressedKey(DIK_9)) {
+//        _z += PX_C(100);
+//    }
+//    if (GgafDxInput::isBeingPressedKey(DIK_K)) {
+//        _z -= PX_C(100);
+//    }
+//
+//    if (GgafDxInput::isBeingPressedKey(DIK_0)) {
+//        addScale(10000);
+//    }
+//    if (GgafDxInput::isBeingPressedKey(DIK_L)) {
+//        addScale(-10000);
+//    }
+//
+//    if (GgafDxInput::isPushedDownKey(DIK_O)) {
+//        _TRACE_("Planet001  "<<_x<<","<<_y<<","<<_z<<" scale="<<_rx);
+//    }
     //_x = _x - PX_C(1);
     pKuroko->behave();
 

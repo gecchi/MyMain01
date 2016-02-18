@@ -48,7 +48,7 @@ void ColliSphereActor::drawHitarea(CollisionChecker3D* prm_pColliChecker) {
                                pActor->_y + sphere->_cy,
                                pActor->_z + sphere->_cz,
                                sphere->_r);
-                    GgafGod::_num_actor_drawing--; //当たり判定表示は表示オブジェクト数にカウントしない
+                    GgafGod::_num_drawing--; //当たり判定表示は表示オブジェクト数にカウントしない
                 }
             }
         }

@@ -81,23 +81,25 @@ HRESULT GgafDxBoardSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
         hr = pID3DXEffect->SetFloat(pBoardSetEffect->_h_tex_blink_threshold, _blink_threshold);
         checkDxException(hr, D3D_OK, "GgafDxBoardSetActor::draw() SetFloat(_h_tex_blink_threshold) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     }
-
-    if (GgafDxEffectManager::_pEffect_active != pBoardSetEffect || GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique)  {
-        if (GgafDxEffectManager::_pEffect_active) {
-           _TRACE4_("EndPass("<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
-            hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->EndPass();
+    GgafDxEffect* pEffect_active = GgafDxEffectManager::_pEffect_active;
+    if (pEffect_active != pBoardSetEffect || GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique)  {
+        if (pEffect_active) {
+           _TRACE4_("EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
+            hr = pEffect_active->_pID3DXEffect->EndPass();
             checkDxException(hr, D3D_OK, "GgafDxBoardSetActor::draw() EndPass() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-            hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->End();
+            hr = pEffect_active->_pID3DXEffect->End();
             checkDxException(hr, D3D_OK, "GgafDxBoardSetActor::draw() End() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-
+            if (pEffect_active->_obj_effect & Obj_GgafDxMassMeshEffect) {
+                pDevice->SetStreamSourceFreq( 0, 1 );
+                pDevice->SetStreamSourceFreq( 1, 1 );
+            }
 #ifdef MY_DEBUG
-            if (GgafDxEffectManager::_pEffect_active->_begin == false) {
-                throwGgafCriticalException("begin ‚µ‚Ä‚¢‚Ü‚¹‚ñ "<<(GgafDxEffectManager::_pEffect_active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_active->_effect_name)<<"");
+            if (pEffect_active->_begin == false) {
+                throwGgafCriticalException("begin ‚µ‚Ä‚¢‚Ü‚¹‚ñ "<<(pEffect_active==nullptr?"nullptr":pEffect_active->_effect_name)<<"");
             } else {
-                GgafDxEffectManager::_pEffect_active->_begin = false;
+                pEffect_active->_begin = false;
             }
 #endif
-
         }
         _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardSetEffect->_effect_name);
         hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
@@ -135,7 +137,7 @@ HRESULT GgafDxBoardSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
     GgafDxModelManager::_pModelLastDraw = this;
     GgafDxEffectManager::_pEffect_active = pBoardSetEffect;
     GgafDxFigureActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
-    GgafGod::_num_actor_drawing++;
+    GgafGod::_num_drawing++;
     return D3D_OK;
 }
 

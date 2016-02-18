@@ -65,18 +65,23 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
         }
 
         //描画
-        if ((GgafDxEffectManager::_pEffect_active != pMeshEffect || GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) && i == 0) {
-            if (GgafDxEffectManager::_pEffect_active) {
-                _TRACE4_("EndPass("<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
-                hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->EndPass();
+        GgafDxEffect* pEffect_active = GgafDxEffectManager::_pEffect_active;
+        if ((pEffect_active != pMeshEffect || GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) && i == 0) {
+            if (pEffect_active) {
+                _TRACE4_("EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
+                hr = pEffect_active->_pID3DXEffect->EndPass();
                 checkDxException(hr, D3D_OK, "GgafDxD3DXMeshModel::draw() EndPass() に失敗しました。");
-                hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->End();
+                hr = pEffect_active->_pID3DXEffect->End();
                 checkDxException(hr, D3D_OK, "GgafDxD3DXMeshModel::draw() End() に失敗しました。");
+                if (pEffect_active->_obj_effect & Obj_GgafDxMassMeshEffect) {
+                    pDevice->SetStreamSourceFreq( 0, 1 );
+                    pDevice->SetStreamSourceFreq( 1, 1 );
+                }
 #ifdef MY_DEBUG
-                if (GgafDxEffectManager::_pEffect_active->_begin == false) {
-                    throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_active->_effect_name)<<"");
+                if (pEffect_active->_begin == false) {
+                    throwGgafCriticalException("begin していません "<<(pEffect_active==nullptr?"nullptr":pEffect_active->_effect_name)<<"");
                 } else {
-                    GgafDxEffectManager::_pEffect_active->_begin = false;
+                    pEffect_active->_begin = false;
                 }
 #endif
             }
@@ -105,7 +110,7 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
         }
         _TRACE4_("DrawSubset: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
         hr = _pID3DXMesh->DrawSubset(i);  //なんて便利なメソッド。
-        GgafGod::_num_actor_drawing++;
+        GgafGod::_num_drawing++;
     }
     //前回描画モデル名反映
     GgafDxModelManager::_pModelLastDraw = this;

@@ -77,8 +77,10 @@ public:
     frame _visualize_frames;
     /** [r] 前回fps計算時の描画フレームカウント値 */
     frame _prev_visualize_frames;
-    /** [r] 元フレームの描画回数 */
-    static int _num_actor_drawing;
+    /** [r] 1フレームの描画回数 */
+    static int _num_drawing;
+    /** [r] 1フレームの活動中アクター */
+    static int _num_active_actor;
     /** [r] 描画処理、最高スキップフレーム数 */
     int _max_skip_frames;
     /** [r] 現在の処理落ちモード 0:60fps 1:40fps 2:30fps。_aaTime_offset_of_next_viewの一つ目の要素 */

@@ -36,6 +36,7 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultD3DXMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultDynaD3DXMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultGeometricActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultMassMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultMeshSetActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultMorphMeshActor.cpp" />
@@ -117,6 +118,7 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultD3DXMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultDynaD3DXMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultGeometricActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultMassMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultMeshSetActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultMorphMeshActor.h" />

@@ -8,15 +8,16 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-D3DXMACRO GgafDxEffect::_aD3DXMacro_Defines[3] =
-{
-    { "VS_VERSION", "vs_3_0" },
-    { "PS_VERSION", "ps_3_0" },
-    { nullptr, nullptr }
-};
+//D3DXMACRO GgafDxEffect::_aD3DXMacro_Defines[3] =
+//{
+//    { "VS_VERSION", "vs_3_0" },
+//    { "PS_VERSION", "ps_3_0" },
+//    { nullptr, nullptr }
+//};
 
 GgafDxEffect::GgafDxEffect(const char* prm_effect_name) : GgafObject() {
     _TRACE4_("GgafDxEffect::GgafDxEffect(" << prm_effect_name << ")");
+    _obj_effect = Obj_GgafDxEffect;
     int len = strlen(prm_effect_name);
     _effect_name = NEW char[len+1];
     strcpy(_effect_name, prm_effect_name);
@@ -27,11 +28,12 @@ GgafDxEffect::GgafDxEffect(const char* prm_effect_name) : GgafObject() {
         effect_file_name = GgafDxEffect::getEffectFileName(std::string(prm_effect_name) + ".fx");
     } else {
         //コンパイル済み fxo ファイルを読み込み
-        if ( GgafDxGod::_ps_v >= D3DPS_VERSION(3, 0)) {
-            effect_file_name = GgafDxEffect::getEffectFileName("3_0_" + std::string(prm_effect_name) + ".fxo");
-        } else {
-            effect_file_name = GgafDxEffect::getEffectFileName("2_0_" + std::string(prm_effect_name) + ".fxo");
-        }
+        effect_file_name = GgafDxEffect::getEffectFileName("3_0_" + std::string(prm_effect_name) + ".fxo");
+//        if ( GgafDxGod::_ps_v >= D3DPS_VERSION(3, 0)) {
+//            effect_file_name = GgafDxEffect::getEffectFileName("3_0_" + std::string(prm_effect_name) + ".fxo");
+//        } else {
+//            effect_file_name = GgafDxEffect::getEffectFileName("2_0_" + std::string(prm_effect_name) + ".fxo");
+//        }
     }
 
     ID3DXBuffer* pError = nullptr;
@@ -42,31 +44,44 @@ GgafDxEffect::GgafDxEffect(const char* prm_effect_name) : GgafObject() {
 #else
     DWORD dwFlags = D3DXSHADER_SKIPVALIDATION;
 #endif
-    if ( GgafDxGod::_ps_v >= D3DPS_VERSION(3, 0)) {
-        //ピクセルシェーダーが 3.0 以上の場合
-        hr = D3DXCreateEffectFromFile(
-                 GgafDxGod::_pID3DDevice9,  // [in] LPDIRECT3DDEVICE9 pDevice
-                 effect_file_name.c_str(),  // [in] LPCTSTR pSrcFile
-                 GgafDxEffect::_aD3DXMacro_Defines, // [in] CONST D3DXMACRO* pDefines
-                 0,                         // [in] LPD3DXINCLUDE pInclude
-                 dwFlags,                   // [in] DWORD Flags
-                 0,                         // [in] LPD3DXEFFECTPOOL pPool
-                 &_pID3DXEffect,            // [out] LPD3DXEFFECT* ppEffect
-                 &pError                    // [out] LPD3DXBUFFER *ppCompilationxErrors
-            );
-    } else {
-        //ピクセルシェーダーが 3.0 未満の場合(2.0と想定する)
-        hr = D3DXCreateEffectFromFile(
-                 GgafDxGod::_pID3DDevice9,  // [in] LPDIRECT3DDEVICE9 pDevice
-                 effect_file_name.c_str(),  // [in] LPCTSTR pSrcFile
-                 0,                         // [in] CONST D3DXMACRO* pDefines
-                 0,                         // [in] LPD3DXINCLUDE pInclude
-                 dwFlags,                   // [in] DWORD Flags
-                 0,                         // [in] LPD3DXEFFECTPOOL pPool
-                 &_pID3DXEffect,            // [out] LPD3DXEFFECT* ppEffect
-                 &pError                    // [out] LPD3DXBUFFER *ppCompilationxErrors
-            );
-    }
+
+    hr = D3DXCreateEffectFromFile(
+             GgafDxGod::_pID3DDevice9,  // [in] LPDIRECT3DDEVICE9 pDevice
+             effect_file_name.c_str(),  // [in] LPCTSTR pSrcFile
+             0,                         // [in] CONST D3DXMACRO* pDefines
+             0,                         // [in] LPD3DXINCLUDE pInclude
+             dwFlags,                   // [in] DWORD Flags
+             0,                         // [in] LPD3DXEFFECTPOOL pPool
+             &_pID3DXEffect,            // [out] LPD3DXEFFECT* ppEffect
+             &pError                    // [out] LPD3DXBUFFER *ppCompilationxErrors
+        );
+
+
+//    if ( GgafDxGod::_ps_v >= D3DPS_VERSION(3, 0)) {
+//        //ピクセルシェーダーが 3.0 以上の場合
+//        hr = D3DXCreateEffectFromFile(
+//                 GgafDxGod::_pID3DDevice9,  // [in] LPDIRECT3DDEVICE9 pDevice
+//                 effect_file_name.c_str(),  // [in] LPCTSTR pSrcFile
+//                 GgafDxEffect::_aD3DXMacro_Defines, // [in] CONST D3DXMACRO* pDefines
+//                 0,                         // [in] LPD3DXINCLUDE pInclude
+//                 dwFlags,                   // [in] DWORD Flags
+//                 0,                         // [in] LPD3DXEFFECTPOOL pPool
+//                 &_pID3DXEffect,            // [out] LPD3DXEFFECT* ppEffect
+//                 &pError                    // [out] LPD3DXBUFFER *ppCompilationxErrors
+//            );
+//    } else {
+//        //ピクセルシェーダーが 3.0 未満の場合(2.0と想定する)
+//        hr = D3DXCreateEffectFromFile(
+//                 GgafDxGod::_pID3DDevice9,  // [in] LPDIRECT3DDEVICE9 pDevice
+//                 effect_file_name.c_str(),  // [in] LPCTSTR pSrcFile
+//                 0,                         // [in] CONST D3DXMACRO* pDefines
+//                 0,                         // [in] LPD3DXINCLUDE pInclude
+//                 dwFlags,                   // [in] DWORD Flags
+//                 0,                         // [in] LPD3DXEFFECTPOOL pPool
+//                 &_pID3DXEffect,            // [out] LPD3DXEFFECT* ppEffect
+//                 &pError                    // [out] LPD3DXBUFFER *ppCompilationxErrors
+//            );
+//    }
     if (hr != D3D_OK && pError == nullptr) {
         throwGgafCriticalException("GgafDxEffect::GgafDxEffect "<<effect_file_name<<" が存在しないのではないだろうか・・・");
     }

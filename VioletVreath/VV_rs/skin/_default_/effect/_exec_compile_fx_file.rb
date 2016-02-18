@@ -17,8 +17,8 @@ work_dir = File.expand_path(File.dirname(__FILE__)) #実行中のスクリプト
 effect_file = ARGV[0]
 out_file = change_ext(effect_file, ".#{ARGV[1]}")
 fx_timestamp = File::stat(effect_file).mtime.strftime("%Y%m%d%H%M%S").to_i
-if File.exist?("2_0_#{out_file}") then
-  fxo_timestamp = File::stat("2_0_#{out_file}").mtime.strftime("%Y%m%d%H%M%S").to_i
+if File.exist?("3_0_#{out_file}") then
+  fxo_timestamp = File::stat("3_0_#{out_file}").mtime.strftime("%Y%m%d%H%M%S").to_i
 else
   fxo_timestamp = 0
 end

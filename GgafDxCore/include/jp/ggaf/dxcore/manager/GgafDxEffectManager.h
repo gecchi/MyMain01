@@ -5,6 +5,7 @@
 
 #include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
 
+
 namespace GgafDxCore {
 
 /**
@@ -37,6 +38,7 @@ public:
      * 'd': GgafDxMeshEffect オブジェクト
      * 'X': GgafDxMeshEffect オブジェクト
      * 'x': GgafDxMeshSetEffect オブジェクト
+     * 't': GgafDxMassMeshEffect オブジェクト
      * 'A': GgafDxD3DXAniMeshEffect オブジェクト
      * 'M': GgafDxMorphMeshEffect オブジェクト
      * 'S': GgafDxSpriteEffect オブジェクト

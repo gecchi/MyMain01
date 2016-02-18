@@ -25,7 +25,7 @@ public:
     };
 
     bool is_create_GameScene_;
-    char aBufDebug_[80];
+    char aBufDebug_[128];
     LabelGecchi16Font* pLabel_aster_;
     LabelGecchi16Font* pLabel_title_;
     LabelGecchi16Font* pLabel_debug_;

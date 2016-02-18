@@ -90,25 +90,27 @@ HRESULT GgafDxMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw
         }
         hr = pID3DXEffect->SetValue(pMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
         checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() SetValue(g_colMaterialDiffuse) に失敗しました。");
-
-        if ((GgafDxEffectManager::_pEffect_active != pMeshEffect || GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) && i == 0) {
+        GgafDxEffect* pEffect_active = GgafDxEffectManager::_pEffect_active;
+        if ((pEffect_active != pMeshEffect || GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) && i == 0) {
             //本モデル描画初回
-            if (GgafDxEffectManager::_pEffect_active) {
-                _TRACE4_("前回_pEffect_active != pMeshEffect (" <<(GgafDxEffectManager::_pEffect_active->_effect_name)<<"!="<<(pMeshEffect->_effect_name)<<")");
-                _TRACE4_("EndPass("<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
-                hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->EndPass();
+            if (pEffect_active) {
+                _TRACE4_("前回_pEffect_active != pMeshEffect (" <<(pEffect_active->_effect_name)<<"!="<<(pMeshEffect->_effect_name)<<")");
+                _TRACE4_("EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
+                hr = pEffect_active->_pID3DXEffect->EndPass();
                 checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() EndPass() に失敗しました。");
-                hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->End();
+                hr = pEffect_active->_pID3DXEffect->End();
                 checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() End() に失敗しました。");
-
+                if (pEffect_active->_obj_effect & Obj_GgafDxMassMeshEffect) {
+                    pDevice->SetStreamSourceFreq( 0, 1 );
+                    pDevice->SetStreamSourceFreq( 1, 1 );
+                }
 #ifdef MY_DEBUG
-                if (GgafDxEffectManager::_pEffect_active->_begin == false) {
-                    throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_active->_effect_name)<<"");
+                if (pEffect_active->_begin == false) {
+                    throwGgafCriticalException("begin していません "<<(pEffect_active==nullptr?"nullptr":pEffect_active->_effect_name)<<"");
                 } else {
-                    GgafDxEffectManager::_pEffect_active->_begin = false;
+                    pEffect_active->_begin = false;
                 }
 #endif
-
             }
             _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
@@ -119,7 +121,6 @@ HRESULT GgafDxMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw
             checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() Begin() に失敗しました。");
             hr = pID3DXEffect->BeginPass(0);
             checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() BeginPass(0) に失敗しました。");
-
 #ifdef MY_DEBUG
             if (pMeshEffect->_begin) {
                 throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_active->_effect_name)<<"");
@@ -158,7 +159,7 @@ HRESULT GgafDxMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw
             hr = pID3DXEffect->BeginPass(0);
             checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() １パス目 BeginPass(0) に失敗しました。");
         }
-        GgafGod::_num_actor_drawing++;
+        GgafGod::_num_drawing++;
     }
     GgafDxModelManager::_pModelLastDraw = this;
     GgafDxEffectManager::_pEffect_active = pMeshEffect;

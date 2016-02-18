@@ -62,18 +62,23 @@ HRESULT GgafDxPointSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, int p
         hr = pID3DXEffect->SetValue(pPointSpriteEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
         checkDxException(hr, D3D_OK, "GgafDxPointSpriteActor::draw() SetValue(g_colMaterialDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     }
-    if (GgafDxEffectManager::_pEffect_active != pPointSpriteEffect || GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique)  {
-        if (GgafDxEffectManager::_pEffect_active) {
-            _TRACE4_("EndPass("<<GgafDxEffectManager::_pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<GgafDxEffectManager::_pEffect_active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_active<<")");
-            hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->EndPass();
+    GgafDxEffect* pEffect_active = GgafDxEffectManager::_pEffect_active;
+    if (pEffect_active != pPointSpriteEffect || GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique)  {
+        if (pEffect_active) {
+            _TRACE4_("EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
+            hr = pEffect_active->_pID3DXEffect->EndPass();
             checkDxException(hr, D3D_OK, "GgafDxPointSpriteActor::draw() EndPass() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-            hr = GgafDxEffectManager::_pEffect_active->_pID3DXEffect->End();
+            hr = pEffect_active->_pID3DXEffect->End();
             checkDxException(hr, D3D_OK, "GgafDxPointSpriteActor::draw() End() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+            if (pEffect_active->_obj_effect & Obj_GgafDxMassMeshEffect) {
+                pDevice->SetStreamSourceFreq( 0, 1 );
+                pDevice->SetStreamSourceFreq( 1, 1 );
+            }
 #ifdef MY_DEBUG
-            if (GgafDxEffectManager::_pEffect_active->_begin == false) {
-                throwGgafCriticalException("begin ‚µ‚Ä‚¢‚Ü‚¹‚ñ "<<(GgafDxEffectManager::_pEffect_active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_active->_effect_name)<<"");
+            if (pEffect_active->_begin == false) {
+                throwGgafCriticalException("begin ‚µ‚Ä‚¢‚Ü‚¹‚ñ "<<(pEffect_active==nullptr?"nullptr":pEffect_active->_effect_name)<<"");
             } else {
-                GgafDxEffectManager::_pEffect_active->_begin = false;
+                pEffect_active->_begin = false;
             }
 #endif
         }
@@ -107,7 +112,7 @@ HRESULT GgafDxPointSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, int p
     GgafDxModelManager::_pModelLastDraw = this;
     GgafDxEffectManager::_pEffect_active = pPointSpriteEffect;
     GgafDxFigureActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
-    GgafGod::_num_actor_drawing++;
+    GgafGod::_num_drawing++;
     return D3D_OK;
 }
 

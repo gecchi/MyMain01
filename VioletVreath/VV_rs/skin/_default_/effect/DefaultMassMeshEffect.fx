@@ -1,16 +1,9 @@
 #include "GgafEffectConst.fxh" 
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDxMeshSetModel用シェーダー
-// 【概要】
-// 頂点バッファに、同じモデルキャラの頂点情報が、複数個分繰り返し詰め込んである。
-// ステートやレジスタの更新を行わず、１回の 描画で、最大
-// 16オブジェクトまで描画。高速化を狙う。
-// 大量の同じ敵や弾には、このシェーダーで描画することとする。
-// 但し、１オブジェクトにつきマテリアル設定は１つだけという制限がある。
+// Ggafライブラリ、GgafDxMassMeshModel用シェーダー
 // author : Masatoshi Tsuge
-// date:2009/03/06 
+// date:2016/02/17 
 ////////////////////////////////////////////////////////////////////////////////
-
 
 float g_zf;
 float g_tex_blink_power;   
@@ -26,40 +19,6 @@ float4 g_colLightDiffuse;
 float4x4 g_matView; 
 //射影変換行列  
 float4x4 g_matProj;  
-//ワールド変換行列
-float4x4 g_matWorld001;
-float4x4 g_matWorld002;
-float4x4 g_matWorld003;
-float4x4 g_matWorld004;
-float4x4 g_matWorld005;
-float4x4 g_matWorld006;
-float4x4 g_matWorld007;
-float4x4 g_matWorld008;
-float4x4 g_matWorld009;
-float4x4 g_matWorld010;
-float4x4 g_matWorld011;
-float4x4 g_matWorld012;
-float4x4 g_matWorld013;
-float4x4 g_matWorld014;
-float4x4 g_matWorld015;
-//float4x4 g_matWorld016;
-//オブジェクトのマテリアル色（Diffuse反射色と、Ambien反射色共通）
-float4 g_colMaterialDiffuse001;
-float4 g_colMaterialDiffuse002;
-float4 g_colMaterialDiffuse003;
-float4 g_colMaterialDiffuse004;
-float4 g_colMaterialDiffuse005;
-float4 g_colMaterialDiffuse006;
-float4 g_colMaterialDiffuse007;
-float4 g_colMaterialDiffuse008;
-float4 g_colMaterialDiffuse009;
-float4 g_colMaterialDiffuse010;
-float4 g_colMaterialDiffuse011;
-float4 g_colMaterialDiffuse012;
-float4 g_colMaterialDiffuse013;
-float4 g_colMaterialDiffuse014;
-float4 g_colMaterialDiffuse015;
-//float4 g_colMaterialDiffuse016;
 
 /** スペキュラーの範囲（ハーフベクトル・法線内積のg_specular乗） */
 float g_specular;
@@ -78,74 +37,30 @@ struct OUT_VS
     float4 posModel_Proj   : POSITION;
 	float2 uv              : TEXCOORD0;
 	float4 color           : COLOR0;
-    float3 vecNormal_World : TEXCOORD1;   //オブジェクトの法線ベクトル
-    float3 vecEye_World    : TEXCOORD2;   //頂点 -> 視点 ベクトル
+    float3 vecNormal_World : TEXCOORD6;   //オブジェクトの法線ベクトル
+    float3 vecEye_World    : TEXCOORD7;   //頂点 -> 視点 ベクトル
 };
 
 
 ///////////////////////////////////////////////////////////////////////////
 
 //頂点シェーダー
-OUT_VS GgafDxVS_DefaultMeshSet(
-      float4 prm_posModel_Local  : POSITION,      // モデルの頂点
-      float  prm_index           : PSIZE ,        // モデルのインデックス（何個目のオブジェクトか？）
-      float3 prm_vecNormal_Local : NORMAL,        // モデルの頂点の法線
-      float2 prm_uv              : TEXCOORD0      // モデルの頂点のUV
-
+OUT_VS GgafDxVS_DefaultMassMesh(
+      float4 prm_posModel_Local   : POSITION,      // モデルの頂点
+      float3 prm_vecNormal_Local  : NORMAL,        // モデルの頂点の法線
+      float2 prm_uv               : TEXCOORD0,      // モデルの頂点のUV
+      float4 prm_world0           : TEXCOORD1,
+      float4 prm_world1           : TEXCOORD2,
+      float4 prm_world2           : TEXCOORD3,
+      float4 prm_world3           : TEXCOORD4,
+      float4 prm_color            : TEXCOORD5
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
-	const int index = (int)prm_index;
-
-	//頂点計算
-	float4x4 matWorld;
-	float4 colMaterialDiffuse;
-
-	if (index == 0) {
-		matWorld = g_matWorld001;
-		colMaterialDiffuse = g_colMaterialDiffuse001;
-	} else if (index == 1) {
-		matWorld = g_matWorld002;
-		colMaterialDiffuse = g_colMaterialDiffuse002;
-	} else if (index == 2) {
-		matWorld = g_matWorld003;
-		colMaterialDiffuse = g_colMaterialDiffuse003;
-	} else if (index == 3) {
-		matWorld = g_matWorld004;
-		colMaterialDiffuse = g_colMaterialDiffuse004;
-	} else if (index == 4) {
-		matWorld = g_matWorld005;
-		colMaterialDiffuse = g_colMaterialDiffuse005;
-	} else if (index == 5) {
-		matWorld = g_matWorld006;
-		colMaterialDiffuse = g_colMaterialDiffuse006;
-	} else if (index == 6) {
-		matWorld = g_matWorld007;
-		colMaterialDiffuse = g_colMaterialDiffuse007;
-	} else if (index == 7) {
-		matWorld = g_matWorld008;
-		colMaterialDiffuse = g_colMaterialDiffuse008;
-	} else if (index == 8) {
-		matWorld = g_matWorld009;
-		colMaterialDiffuse = g_colMaterialDiffuse009;
-	} else if (index == 9) {
-		matWorld = g_matWorld010;
-		colMaterialDiffuse = g_colMaterialDiffuse010;
-	} else if (index == 10) {
-		matWorld = g_matWorld011;
-		colMaterialDiffuse = g_colMaterialDiffuse011;
-	} else if (index == 11) {
-		matWorld = g_matWorld012;
-		colMaterialDiffuse = g_colMaterialDiffuse012;
-	} else if (index == 12) {
-		matWorld = g_matWorld013;
-		colMaterialDiffuse = g_colMaterialDiffuse013;
-	} else if (index == 13) {
-		matWorld = g_matWorld014;
-		colMaterialDiffuse = g_colMaterialDiffuse014;
-	} else { //if (index == 14) {
-		matWorld = g_matWorld015;
-		colMaterialDiffuse = g_colMaterialDiffuse015;
-	}
+    float4x4 matWorld;
+    matWorld._11_12_13_14 = prm_world0; 
+    matWorld._21_22_23_24 = prm_world1;
+    matWorld._31_32_33_34 = prm_world2;
+    matWorld._41_42_43_44 = prm_world3; 
 
     //頂点計算
     const float4 posModel_World = mul(prm_posModel_Local, matWorld);
@@ -159,11 +74,11 @@ OUT_VS GgafDxVS_DefaultMeshSet(
     //法線と、拡散光方向の内積からライト入射角を求め、面に対する拡散光の減衰率を求める。
     float power = max(dot(out_vs.vecNormal_World, -g_vecLightFrom_World ), 0);      
     //拡散光色に減衰率を乗じ、環境光色を加算し、全体をマテリアル色を掛ける。
-    out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power)) * colMaterialDiffuse;
+    out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power)) * prm_color;
     //「頂点→カメラ視点」方向ベクトル                                                        
     out_vs.vecEye_World = normalize(g_posCam_World.xyz - posModel_World.xyz);
     //αはマテリアルαを最優先とする（上書きする）
-    out_vs.color.a = colMaterialDiffuse.a;
+    out_vs.color.a = prm_color.a;
     //αフォグ
     if (out_vs.posModel_Proj.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
         out_vs.color.a *= (-3.0*(out_vs.posModel_Proj.z/g_zf) + 3.0);
@@ -175,11 +90,11 @@ OUT_VS GgafDxVS_DefaultMeshSet(
 }
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
-float4 GgafDxPS_DefaultMeshSet(
+float4 GgafDxPS_DefaultMassMesh(
 	float2 prm_uv              : TEXCOORD0,
 	float4 prm_color           : COLOR0,
-    float3 prm_vecNormal_World : TEXCOORD1,
-    float3 prm_vecEye_World    : TEXCOORD2   //頂点 -> 視点 ベクトル
+    float3 prm_vecNormal_World : TEXCOORD6,
+    float3 prm_vecEye_World    : TEXCOORD7   //頂点 -> 視点 ベクトル
 ) : COLOR  {
     float s = 0.0f; //スペキュラ成分
     if (g_specular_power != 0.0f) {
@@ -213,7 +128,7 @@ float4 PS_Flush(
 	return colOut;
 }
 
-technique DefaultMeshSetTechnique
+technique DefaultMassMeshTechnique
 {
 	pass P0 {
 		AlphaBlendEnable = true;
@@ -223,8 +138,8 @@ technique DefaultMeshSetTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultMeshSet();
-		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMeshSet();
+		VertexShader = compile VS_VERSION GgafDxVS_DefaultMassMesh();
+		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassMesh();
 	}
 }
 
@@ -238,8 +153,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultMeshSet();
-		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMeshSet();
+		VertexShader = compile VS_VERSION GgafDxVS_DefaultMassMesh();
+		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassMesh();
 	}
 }
 
@@ -253,7 +168,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultMeshSet();
+		VertexShader = compile VS_VERSION GgafDxVS_DefaultMassMesh();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }

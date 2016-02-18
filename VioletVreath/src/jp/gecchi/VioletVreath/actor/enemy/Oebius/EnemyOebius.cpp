@@ -20,7 +20,7 @@ using namespace VioletVreath;
 
 
 EnemyOebius::EnemyOebius(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "Oebius", STATUS(EnemyOebius)) {
+        DefaultMassMeshActor(prm_name, "Oebius", STATUS(EnemyOebius)) {
     _class_name = "EnemyOebius";
     pAFader_ = NEW GgafDxAlphaFader(this);
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();

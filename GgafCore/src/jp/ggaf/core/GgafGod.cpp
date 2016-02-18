@@ -17,7 +17,9 @@ GgafCriticalException* GgafGod::_pException_factory = nullptr;
 CRITICAL_SECTION GgafGod::CS1;
 CRITICAL_SECTION GgafGod::CS2;
 
-int GgafGod::_num_actor_drawing = 0;
+int GgafGod::_num_drawing = 0;
+int GgafGod::_num_active_actor = 0;
+
 GgafGod* GgafGod::_pGod = nullptr;
 DWORD GgafGod::_aaTime_offset_of_next_view[3][60] = {
         {17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16},
@@ -193,24 +195,26 @@ void GgafGod::be() {
 }
 
 void GgafGod::presentSpacetimeMoment() {
-    _pSpacetime->nextFrame();
-    _pSpacetime->behave();
+    GgafSpacetime* pSpacetime = _pSpacetime;
+    pSpacetime->nextFrame();
+    pSpacetime->behave();
+    pSpacetime->settleBehavior();
 }
 
 void GgafGod::executeSpacetimeJudge() {
-    _pSpacetime->settleBehavior();
     _pSpacetime->judge();
 }
 
 void GgafGod::makeSpacetimeMaterialize() {
-    if (_num_actor_drawing > PROPERTY::DRAWNUM_TO_SLOWDOWN2) {
+    if (GgafGod::_num_active_actor > PROPERTY::OBJNUM_TO_SLOWDOWN2) {
         _slowdown_mode = SLOWDOWN_MODE_30FPS;
-    } else if (_num_actor_drawing > PROPERTY::DRAWNUM_TO_SLOWDOWN1) {
+    } else if (GgafGod::_num_active_actor > PROPERTY::OBJNUM_TO_SLOWDOWN1) {
         _slowdown_mode = SLOWDOWN_MODE_40FPS;
     } else {
         _slowdown_mode = SLOWDOWN_MODE_DEFAULT;
     }
-    _num_actor_drawing = 0;
+    GgafGod::_num_drawing = 0;
+    GgafGod::_num_active_actor = 0;
     GgafSpacetime* pSpacetime = _pSpacetime;
     pSpacetime->preDraw();
     pSpacetime->draw();

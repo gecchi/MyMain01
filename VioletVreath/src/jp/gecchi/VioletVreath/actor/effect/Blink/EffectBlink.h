@@ -1,7 +1,7 @@
 #ifndef EFFECTENTRY_H_
 #define EFFECTENTRY_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
+#include "jp/ggaf/lib/actor/DefaultMassMeshActor.h"
 
 namespace VioletVreath {
 
@@ -12,7 +12,7 @@ namespace VioletVreath {
  * @since 2013/06/28
  * @author Masatoshi Tsuge
  */
-class EffectBlink : public GgafLib::DefaultMeshSetActor {
+class EffectBlink : public GgafLib::DefaultMassMeshActor {
 
 public:
     enum {

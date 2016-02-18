@@ -9,7 +9,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EffectBlink::EffectBlink(const char* prm_name, const char* prm_model) :
-        DefaultMeshSetActor(prm_name, prm_model, nullptr) {
+        DefaultMassMeshActor(prm_name, prm_model, nullptr) {
     _class_name = "EffectBlink";
     setHitAble(false);
     pScaler_ = NEW GgafDxScaler(this);

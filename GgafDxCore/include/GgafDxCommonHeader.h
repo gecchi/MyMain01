@@ -80,9 +80,9 @@
 #define POS_PYRAMID_ppn   (0x86) //0b  10000110
 #define POS_PYRAMID_ppp   (0x87) //0b  10000111
 
-#define POS_PYRAMID_p__ (0x4)   //0b  00000100
-#define POS_PYRAMID__p_ (0x2)   //0b  00000010
-#define POS_PYRAMID___p (0x1)   //0b  00000001
+#define POS_PYRAMID_p__   (0x4)  //0b  00000100
+#define POS_PYRAMID__p_   (0x2)  //0b  00000010
+#define POS_PYRAMID___p   (0x1)  //0b  00000001
 
 //DirectXの3D空間の座標単位１に対しての原点付近の画面px相当数（画面高さ(px)などを、PX_UNITで割ると3D空間の座標単位１になる）
 #define PX_UNIT (10)
@@ -238,11 +238,11 @@ enum GgafDxValign {
 
 
 #define Obj_GgafDxScene                 (0x80000010U)     //0b 10000000 00000000 00000000 00010000
-#define Obj_GgafDxSpacetime              (0x80000020U)     //0b 10000000 00000000 00000000 00100000
+#define Obj_GgafDxSpacetime             (0x80000020U)     //0b 10000000 00000000 00000000 00100000
 
 #define Obj_GgafDxBaseActor             (0x100U)          //0b 00000000 00000000 00000001 00000000
 #define Obj_GgafDxGeometricActor        (0x200U)          //0b 00000000 00000000 00000010 00000000
-#define Obj_GgafDxFigureActor         (0x400U)          //0b 00000000 00000000 00000100 00000000
+#define Obj_GgafDxFigureActor           (0x400U)          //0b 00000000 00000000 00000100 00000000
 #define Obj_GgafDxMeshActor             (0x800U)          //0b 00000000 00000000 00001000 00000000
 #define Obj_GgafDxMeshSetActor          (0x1000U)         //0b 00000000 00000000 00010000 00000000
 #define Obj_GgafDxMorphMeshActor        (0x2000U)         //0b 00000000 00000000 00100000 00000000
@@ -261,6 +261,7 @@ enum GgafDxValign {
 #define Obj_GgafDxBoardSetActor         (0x4000000U)      //0b 00000100 00000000 00000000 00000000
 #define Obj_GgafDxPointSpriteActor      (0x8000000U)      //0b 00001000 00000000 00000000 00000000
 
+#define Obj_GgafDxMassMeshActor         (0x10000000U)     //0b 00010000 00000000 00000000 00000000
 
 //前方宣言(forward declaration)
 namespace IkdLib {
@@ -308,6 +309,7 @@ class GgafDxGeometricActor;
 class GgafDxFigureActor;
 class GgafDxMeshActor;
 class GgafDxMeshSetActor;
+class GgafDxMassMeshActor;
 class GgafDxMorphMeshActor;
 class GgafDxD3DXMeshActor;
 class GgafDxDynaD3DXMeshActor;
@@ -341,6 +343,7 @@ class GgafDxSpriteModel;
 class GgafDxSpriteSetModel;
 class GgafDxMeshModel;
 class GgafDxMeshSetModel;
+class GgafDxMassMeshModel;
 class GgafDxMorphMeshModel;
 class GgafDxCubeMapMeshModel;
 class GgafDxCubeMapMeshSetModel;
@@ -354,6 +357,7 @@ class GgafDxEffect;
 class GgafDxMeshEffect;
 class GgafDxD3DXAniMeshEffect;
 class GgafDxMeshSetEffect;
+class GgafDxMassMeshEffect;
 class GgafDxMorphMeshEffect;
 class GgafDxCubeMapMeshEffect;
 class GgafDxCubeMapMeshSetEffect;

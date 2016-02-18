@@ -582,8 +582,8 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
     _ps_v = caps.PixelShaderVersion;
     _TRACE_("Hardware Vertex Shader Version = "<<D3DSHADER_VERSION_MAJOR(_vs_v)<<"_"<<D3DSHADER_VERSION_MINOR(_vs_v));
     _TRACE_("Hardware Pixel Shader Version  = "<<D3DSHADER_VERSION_MAJOR(_ps_v)<<"_"<<D3DSHADER_VERSION_MINOR(_ps_v));
-    if (_vs_v < D3DVS_VERSION(2, 0) || _ps_v < D3DPS_VERSION(2, 0)) {
-        _TRACE_("ビデオカードハードの頂点シェーダーとピンクセルシェーダーは、共にバージョン 2_0 以上が推奨です。");
+    if (_vs_v < D3DVS_VERSION(3, 0) || _ps_v < D3DPS_VERSION(3, 0)) {
+        _TRACE_("ビデオカードハードの頂点シェーダーとピンクセルシェーダーは、共にバージョン 3_0 以上が推奨です。");
         _TRACE_("ご使用のビデオカードでは、正しく動作しない恐れがあります。");
     }
 
@@ -1225,10 +1225,10 @@ HRESULT GgafDxGod::initDevice() {
     }
 
     //その他必要な初期化
-    _pCubeMapTextureManager = NEW GgafDxTextureManager("CubeMapTexManager");
-    _pBumpMapTextureManager = NEW GgafDxTextureManager("BumpMapTexManager");
-    _pModelManager = NEW GgafDxModelManager("ModelManager");
-    _pEffectManager = NEW GgafDxEffectManager("EffectManager");
+    GgafDxGod::_pCubeMapTextureManager = NEW GgafDxTextureManager("CubeMapTexManager");
+    GgafDxGod::_pBumpMapTextureManager = NEW GgafDxTextureManager("BumpMapTexManager");
+    GgafDxGod::_pModelManager = NEW GgafDxModelManager("ModelManager");
+    GgafDxGod::_pEffectManager = NEW GgafDxEffectManager("EffectManager");
     GgafDxUtil::init();  //ユーティリティ準備
     GgafDxInput::init(); //DirectInput準備
     GgafDxSound::init(); //DirectSound準備
@@ -1674,7 +1674,7 @@ void GgafDxGod::backToNomalWindow(HWND prm_pHWnd) {
 }
 
 void GgafDxGod::presentSpacetimeMoment() {
-    if (_is_device_lost_flg) {
+    if (GgafDxGod::_is_device_lost_flg) {
         return;
     } else {
         GgafGod::presentSpacetimeMoment();
@@ -1682,43 +1682,45 @@ void GgafDxGod::presentSpacetimeMoment() {
 }
 
 void GgafDxGod::executeSpacetimeJudge() {
-    if (_is_device_lost_flg) {
+    if (GgafDxGod::_is_device_lost_flg) {
         return;
     } else {
         GgafGod::executeSpacetimeJudge();
     }
 }
 void GgafDxGod::makeSpacetimeMaterialize() {
-    if (_is_device_lost_flg) {
+    if (GgafDxGod::_is_device_lost_flg) {
         return;
     }
+    IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
     HRESULT hr;
     //通常時処理
     //バッファクリア
-    hr = GgafDxGod::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
-                                         nullptr, // 矩形領域
-                                         D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
-                                         _color_clear, //クリア色（not 背景色）
-                                         1.0f,         // Zバッファのクリア値
-                                         0             // ステンシルバッファのクリア値
-                                        );
-    checkDxException(hr, D3D_OK, "GgafDxGod::_pID3DDevice9->Clear() に失敗しました。");
+    hr = pDevice->Clear(0, // クリアする矩形領域の数
+                        nullptr, // 矩形領域
+                        D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
+                        _color_clear, //クリア色（not 背景色）
+                        1.0f,         // Zバッファのクリア値
+                        0             // ステンシルバッファのクリア値
+                       );
+    checkDxException(hr, D3D_OK, "pDevice->Clear() に失敗しました。");
 
     //描画事前処理
-    hr = GgafDxGod::_pID3DDevice9->BeginScene();
-    checkDxException(hr, D3D_OK, "GgafDxGod::_pID3DDevice9->BeginScene() に失敗しました。");
+    hr = pDevice->BeginScene();
+    checkDxException(hr, D3D_OK, "pDevice->BeginScene() に失敗しました。");
     //全て具現化！（描画）
 #ifdef MY_DEBUG
-    GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDxGod::_d3dfillmode);
+    pDevice->SetRenderState(D3DRS_FILLMODE, GgafDxGod::_d3dfillmode);
 #endif
     GgafGod::makeSpacetimeMaterialize(); //スーパーのmaterialize実行
     //描画事後処理
-    hr = GgafDxGod::_pID3DDevice9->EndScene();
-    checkDxException(hr, D3D_OK, "GgafDxGod::_pID3DDevice9->EndScene() に失敗しました。");
+    hr = pDevice->EndScene();
+    checkDxException(hr, D3D_OK, "pDevice->EndScene() に失敗しました。");
 
 }
 
 void GgafDxGod::presentSpacetimeVisualize() {
+    IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
     //垂直帰線期間
     //if (GgafDxGod::_pID3DDevice9->Present(nullptr,&_aRect_Present[PRIMARY_VIEW],nullptr,nullptr) == D3DERR_DEVICELOST) {
     //        static D3DRASTER_STATUS rs;
@@ -1730,7 +1732,7 @@ void GgafDxGod::presentSpacetimeVisualize() {
     //            }
     //        }
     HRESULT hr;
-    if (_is_device_lost_flg == false) {
+    if (GgafDxGod::_is_device_lost_flg == false) {
         if (_adjustGameWindow && _pHWnd_adjustScreen) {
             adjustGameWindow(_pHWndPrimary);
             adjustGameWindow(_pHWndSecondary);
@@ -1741,22 +1743,22 @@ void GgafDxGod::presentSpacetimeVisualize() {
             if (PROPERTY::DUAL_VIEW) {
                 //２画面使用・フルスクリーン
                 //画面０バックバッファを画面１バックバッファへコピーする
-                hr = GgafDxGod::_pID3DDevice9->StretchRect(
+                hr = pDevice->StretchRect(
                         _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW],
                         _apBackBuffer[PRIMARY_VIEW], &_aRect_Present[PRIMARY_VIEW],
                         D3DTEXF_LINEAR); //TODO:D3DTEXF_LINEARをオプション指定にするか？
                 checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目 StretchRect() に失敗しました。\n_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[PRIMARY_VIEW]);
 
-                hr = GgafDxGod::_pID3DDevice9->StretchRect(
+                hr = pDevice->StretchRect(
                         _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW],
                         _apBackBuffer[SECONDARY_VIEW], &_aRect_Present[SECONDARY_VIEW],
                         D3DTEXF_LINEAR);
                 checkDxException(hr, D3D_OK, "StretchRect() に失敗しました。");
 
-                hr = GgafDxGod::_pID3DDevice9->Present(nullptr, nullptr, nullptr, nullptr);
+                hr = pDevice->Present(nullptr, nullptr, nullptr, nullptr);
             } else {
                 //１画面使用・フルスクリーン
-                hr = GgafDxGod::_pID3DDevice9->StretchRect(
+                hr = pDevice->StretchRect(
                         _pRenderTextureSurface,
                         &_rectRenderTargetBuffer,
                         _apBackBuffer[PRIMARY_VIEW],
@@ -1764,32 +1766,32 @@ void GgafDxGod::presentSpacetimeVisualize() {
                         D3DTEXF_LINEAR);
                 checkDxException(hr, D3D_OK, "FULL 1gamen StretchRect() に失敗しました。");
 
-                hr = GgafDxGod::_pID3DDevice9->Present(nullptr, nullptr, nullptr, nullptr);
+                hr = pDevice->Present(nullptr, nullptr, nullptr, nullptr);
             }
         } else {
             if (PROPERTY::DUAL_VIEW) {
                 //２画面使用・ウィンドウモード
                 if (PROPERTY::FIXED_GAME_VIEW_ASPECT) {
                     //縦横比固定モード
-                    hr = GgafDxGod::_pID3DDevice9->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], &_aRect_Present[PRIMARY_VIEW], nullptr, nullptr);
+                    hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], &_aRect_Present[PRIMARY_VIEW], nullptr, nullptr);
                     if (hr == D3D_OK) {
-                        hr = GgafDxGod::_pID3DDevice9->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], &_aRect_Present[SECONDARY_VIEW], _pHWndSecondary, nullptr);
+                        hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], &_aRect_Present[SECONDARY_VIEW], _pHWndSecondary, nullptr);
                     }
                 } else {
                     //縦横ストレッチモード
-                    hr = GgafDxGod::_pID3DDevice9->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], nullptr, nullptr, nullptr);
+                    hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], nullptr, nullptr, nullptr);
                     if (hr == D3D_OK) {
-                        hr = GgafDxGod::_pID3DDevice9->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], nullptr, _pHWndSecondary, nullptr);
+                        hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], nullptr, _pHWndSecondary, nullptr);
                     }
                 }
             } else {
                 //１画面使用・ウィンドウモード
                 if (PROPERTY::FIXED_GAME_VIEW_ASPECT) {
                     //縦横比固定モード
-                    hr = GgafDxGod::_pID3DDevice9->Present(&_rectRenderTargetBuffer, &_aRect_Present[PRIMARY_VIEW], nullptr, nullptr);
+                    hr = pDevice->Present(&_rectRenderTargetBuffer, &_aRect_Present[PRIMARY_VIEW], nullptr, nullptr);
                 } else {
                     //縦横ストレッチモード
-                    hr = GgafDxGod::_pID3DDevice9->Present(&_rectRenderTargetBuffer, nullptr, nullptr, nullptr);
+                    hr = pDevice->Present(&_rectRenderTargetBuffer, nullptr, nullptr, nullptr);
                 }
             }
         }
@@ -1835,23 +1837,23 @@ void GgafDxGod::presentSpacetimeVisualize() {
             //全ノードに解放しなさいイベント発令
             getSpacetime()->throwEventLowerTree(GGAF_EVENT_ON_DEVICE_LOST);
             _TRACE_("【デバイスロスト処理】リソース解放 <-------- END");
-            _is_device_lost_flg = true;
+            GgafDxGod::_is_device_lost_flg = true;
         }
     }
 
-    if (_is_device_lost_flg) {
+    if (GgafDxGod::_is_device_lost_flg) {
         _TRACE_("【デバイスロスト処理/リソース解放】協調性レベルチェック BEGIN ------>");
         //for(int i = 0; i < 300; i++) {
         while (true) {
             if (_can_wddm) {
-                hr = ((IDirect3DDevice9Ex*)GgafDxGod::_pID3DDevice9)->CheckDeviceState(_paPresetPrm[_primary_adapter_no].hDeviceWindow);
+                hr = ((IDirect3DDevice9Ex*)pDevice)->CheckDeviceState(_paPresetPrm[_primary_adapter_no].hDeviceWindow);
                 if (hr == D3DERR_DEVICELOST || hr == S_PRESENT_OCCLUDED) {
                     return;
                 } else {
                     break;
                 }
             } else {
-                hr = GgafDxGod::_pID3DDevice9->TestCooperativeLevel();
+                hr = pDevice->TestCooperativeLevel();
                 if (hr == D3DERR_DEVICELOST) {
                     return;
                 } else {
@@ -1865,9 +1867,9 @@ void GgafDxGod::presentSpacetimeVisualize() {
         _TRACE_("【デバイスロスト処理】デバイスリセット BEGIN ------>");
         for(int i = 0; i < 100*60*10; i++) {
             if (PROPERTY::FULL_SCREEN && PROPERTY::DUAL_VIEW) {
-                hr = GgafDxGod::_pID3DDevice9->Reset(_paPresetPrm);
+                hr = pDevice->Reset(_paPresetPrm);
             } else {
-                hr = GgafDxGod::_pID3DDevice9->Reset(&(_paPresetPrm[_primary_adapter_no]));
+                hr = pDevice->Reset(&(_paPresetPrm[_primary_adapter_no]));
             }
             if (hr != D3D_OK) {
                 if (hr == D3DERR_DRIVERINTERNALERROR) {
@@ -1912,7 +1914,7 @@ void GgafDxGod::presentSpacetimeVisualize() {
         getSpacetime()->throwEventLowerTree(GGAF_EVENT_ON_DEVICE_LOST_RESTORE);
         //前回描画モデル情報を無効にする
         GgafDxModelManager::_pModelLastDraw = nullptr;
-        _is_device_lost_flg = false;
+        GgafDxGod::_is_device_lost_flg = false;
         _TRACE_("【デバイスロスト処理】リソース再構築 <-------- END");
 
         //工場再開
@@ -1923,18 +1925,18 @@ void GgafDxGod::presentSpacetimeVisualize() {
         _TRACE_("【デバイスロスト処理】<-------- END");
 
         Sleep(100);
-        hr = GgafDxGod::_pID3DDevice9->Clear(0,    // クリアする矩形領域の数
-                                             nullptr, // 矩形領域
-                                             D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
-                                             _color_border, //背景色      //D3DCOLOR_XRGB( 0, 0, 0 )
-                                             1.0f, // Zバッファのクリア値
-                                             0     // ステンシルバッファのクリア値
-                                            );
+        hr = pDevice->Clear(0,    // クリアする矩形領域の数
+                            nullptr, // 矩形領域
+                            D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
+                            _color_border, //背景色      //D3DCOLOR_XRGB( 0, 0, 0 )
+                            1.0f, // Zバッファのクリア値
+                            0     // ステンシルバッファのクリア値
+                           );
     }
 }
 
 void GgafDxGod::finalizeSpacetime() {
-    if (_is_device_lost_flg) {
+    if (GgafDxGod::_is_device_lost_flg) {
         return;
     } else {
         GgafGod::finalizeSpacetime();
@@ -1944,21 +1946,22 @@ void GgafDxGod::finalizeSpacetime() {
 void GgafDxGod::clean() {
     if (!_was_cleaned) {
         _TRACE_("GgafDxGod::clean() begin");
-        for(int i = 0; i < 8; ++i) { GgafDxGod::_pID3DDevice9->SetTexture( i, nullptr ); }
-        for(int i = 0; i < 8; ++i) { GgafDxGod::_pID3DDevice9->SetStreamSource( i, nullptr, 0, 0 ); }
-        GgafDxGod::_pID3DDevice9->SetIndices( nullptr );
-        GgafDxGod::_pID3DDevice9->SetPixelShader( nullptr );
-        GgafDxGod::_pID3DDevice9->SetVertexShader( nullptr );
-        GgafDxGod::_pID3DDevice9->SetVertexDeclaration( nullptr );
+        IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
+        for(int i = 0; i < 8; ++i) { pDevice->SetTexture( i, nullptr ); }
+        for(int i = 0; i < 8; ++i) { pDevice->SetStreamSource( i, nullptr, 0, 0 ); }
+        pDevice->SetIndices( nullptr );
+        pDevice->SetPixelShader( nullptr );
+        pDevice->SetVertexShader( nullptr );
+        pDevice->SetVertexDeclaration( nullptr );
 
         GgafGod::clean();
 
         CmRandomNumberGenerator::getInstance()->release();
         //保持モデル解放
-        GGAF_DELETE(_pCubeMapTextureManager);
-        GGAF_DELETE(_pBumpMapTextureManager);
-        GGAF_DELETE(_pModelManager);
-        GGAF_DELETE(_pEffectManager);
+        GGAF_DELETE(GgafDxGod::_pCubeMapTextureManager);
+        GGAF_DELETE(GgafDxGod::_pBumpMapTextureManager);
+        GGAF_DELETE(GgafDxGod::_pModelManager);
+        GGAF_DELETE(GgafDxGod::_pEffectManager);
         _TRACE_("GgafDxGod::clean() end");
     }
 }

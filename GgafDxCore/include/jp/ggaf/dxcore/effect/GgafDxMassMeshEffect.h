@@ -1,17 +1,17 @@
-#ifndef GGAFDXCORE_GGAFDXMESHSETEFFECT_H_
-#define GGAFDXCORE_GGAFDXMESHSETEFFECT_H_
+#ifndef GGAFDXCORE_GGAFDXMASSMESHEFFECT_H_
+#define GGAFDXCORE_GGAFDXMASSMESHEFFECT_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
 
 namespace GgafDxCore {
 
 /**
- * GgafDxMeshSet用エフェクトクラス .
+ * GgafDxMassMesh用エフェクトクラス .
  * @version 1.00
- * @since 2009/06/15
+ * @since 2016/02/09
  * @author Masatoshi Tsuge
  */
-class GgafDxMeshSetEffect : public GgafDxEffect {
+class GgafDxMassMeshEffect : public GgafDxEffect {
     friend class GgafDxEffectManager;
 
 public:
@@ -19,10 +19,6 @@ public:
     D3DXHANDLE _h_tex_blink_threshold;
     D3DXHANDLE _h_matView;
     //D3DXHANDLE _h_matWorld;
-    D3DXHANDLE _ah_matWorld[32];
-    D3DXHANDLE _ah_materialDiffuse[32];
-    D3DXHANDLE _ah_offset_u[32];
-    D3DXHANDLE _ah_offset_v[32];
     D3DXHANDLE _h_specular;
     D3DXHANDLE _h_specular_power;
     D3DXHANDLE _h_posCam;
@@ -33,17 +29,17 @@ public:
      * @param prm_effect_name エフェクト識別名。".fx"を追加するとエフェクトファイル名になる。
      * @return
      */
-    GgafDxMeshSetEffect(const char* prm_effect_name);
+    GgafDxMassMeshEffect(const char* prm_effect_name);
 
     virtual void setParamPerFrame() override;
 
     /**
      * デストラクタ<BR>
-     * deleteするのはGgafDxMeshSetEffectManagerである<BR>
+     * deleteするのはGgafDxMassMeshEffectManagerである<BR>
      */
-    virtual ~GgafDxMeshSetEffect(); //デストラクタ
+    virtual ~GgafDxMassMeshEffect(); //デストラクタ
 
 };
 
 }
-#endif /*GGAFDXCORE_GGAFDXMESHSETEFFECT_H_*/
+#endif /*GGAFDXCORE_GGAFDXMASSMESHEFFECT_H_*/
