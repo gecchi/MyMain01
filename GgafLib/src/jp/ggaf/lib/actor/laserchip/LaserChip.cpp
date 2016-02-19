@@ -328,7 +328,7 @@ void LaserChip::processDraw() {
             } else {
                 //先端チップは描画不要
             }
-            pDrawActor = pDrawActor->_pNextActor_in_render_depth;
+            pDrawActor = pDrawActor->_pNextRenderActor;
         } else {
             break;
         }

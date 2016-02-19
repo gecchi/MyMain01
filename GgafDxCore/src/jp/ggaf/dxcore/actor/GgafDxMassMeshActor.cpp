@@ -62,65 +62,31 @@ _pMassMeshEffect((GgafDxMassMeshEffect*)_pEffect) {
 void GgafDxMassMeshActor::processDraw() {
     int draw_set_num = 0; //GgafDxMassMeshActorの同じモデルで同じテクニックが
                        //連続しているカウント数。同一描画深度は一度に描画する。
-    GgafDxFigureActor* pDrawActor = this;
-    GgafDxMassMeshActor* pMassMeshActor = nullptr;
     GgafDxMassMeshModel* pMassMeshModel = _pMassMeshModel;
-    const int model_set_num = pMassMeshModel->_set_num;
+    const int model_max_set_num = pMassMeshModel->_set_num;
+    const hashval hash_technique = _hash_technique;
     GgafDxMassMeshModel::VERTEX_instancedata* paInstancedata = pMassMeshModel->_aInstancedata;
-    static const size_t size_D3DXMATRIX = sizeof(D3DXMATRIX);
-    static const size_t size_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
+
+    static const size_t SIZE_D3DXMATRIX = sizeof(D3DXMATRIX);
+    static const size_t SIZE_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
+    GgafDxFigureActor* pDrawActor = this;
     while (pDrawActor) {
-        if (pDrawActor->getModel() == pMassMeshModel && pDrawActor->_hash_technique == _hash_technique) {
-            pMassMeshActor = (GgafDxMassMeshActor*)pDrawActor;
-            memcpy(paInstancedata, &(pMassMeshActor->_matWorld), size_D3DXMATRIX);
-            memcpy(&(paInstancedata->r), &(pMassMeshActor->_paMaterial[0].Diffuse), size_D3DCOLORVALUE);
-//            (*(D3DXMATRIX*)(&(paInstancedata[draw_set_num]))) = pMassMeshActor->_matWorld;
-//            (*(D3DCOLORVALUE *)(&(paInstancedata[draw_set_num].r))) = pMassMeshActor->_paMaterial[0].Diffuse;
+        if (pDrawActor->getModel() == pMassMeshModel && pDrawActor->_hash_technique == hash_technique) {
+            memcpy(paInstancedata, &(pDrawActor->_matWorld), SIZE_D3DXMATRIX);
+            memcpy(&(paInstancedata->r), &(pDrawActor->_paMaterial[0].Diffuse), SIZE_D3DCOLORVALUE);
+//            (*(D3DXMATRIX*)(&(paInstancedata[draw_set_num]))) = pDrawActor->_matWorld;
+//            (*(D3DCOLORVALUE *)(&(paInstancedata[draw_set_num].r))) = pDrawActor->_paMaterial[0].Diffuse;
             paInstancedata++;
             draw_set_num++;
-            if (draw_set_num >= model_set_num) {
+            if (draw_set_num >= model_max_set_num) {
                 break;
             }
-            pDrawActor = pDrawActor->_pNextActor_in_render_depth;
-            if (pDrawActor == nullptr) {
-                GgafDxSpacetime* pSpacetime =  P_GOD->getSpacetime();
-
-                /////////////////////////////////
-                //TODO:もっとスマートに！↓
-                if (GgafDxSpacetime::render_depth_index_active > 0) {
-                    GgafDxFigureActor* pNextDrawActor = pSpacetime->_papFirstActor_in_render_depth[GgafDxSpacetime::render_depth_index_active-1];
-                    if (pNextDrawActor) {
-                        if (pNextDrawActor->getModel() == pMassMeshModel && pNextDrawActor->_hash_technique == _hash_technique) {
-                            pSpacetime->_papFirstActor_in_render_depth[GgafDxSpacetime::render_depth_index_active] = nullptr; //次回のためにリセット
-                            pSpacetime->_papLastActor_in_render_depth[GgafDxSpacetime::render_depth_index_active] = nullptr;
-                            GgafDxSpacetime::render_depth_index_active--;
-                            pDrawActor = pNextDrawActor;
-                        }
-                    } else {
-                        if (GgafDxSpacetime::render_depth_index_active > 1) {
-                            GgafDxFigureActor* pNextNextDrawActor = pSpacetime->_papFirstActor_in_render_depth[GgafDxSpacetime::render_depth_index_active-2];
-                            if (pNextNextDrawActor) {
-                                if (pNextNextDrawActor->getModel() == pMassMeshModel && pNextNextDrawActor->_hash_technique == _hash_technique) {
-                                    pSpacetime->_papFirstActor_in_render_depth[GgafDxSpacetime::render_depth_index_active] = nullptr; //次回のためにリセット
-                                    pSpacetime->_papLastActor_in_render_depth[GgafDxSpacetime::render_depth_index_active] = nullptr;
-                                    GgafDxSpacetime::render_depth_index_active--;
-                                    pSpacetime->_papFirstActor_in_render_depth[GgafDxSpacetime::render_depth_index_active] = nullptr; //次回のためにリセット
-                                    pSpacetime->_papLastActor_in_render_depth[GgafDxSpacetime::render_depth_index_active] = nullptr;
-                                    GgafDxSpacetime::render_depth_index_active--;
-                                    pDrawActor = pNextNextDrawActor;
-                                }
-                            }
-                        }
-                    }
-                }
-                /////////////////////////////////////
-
-            }
+            GgafDxSpacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
+            pDrawActor = pDrawActor->_pNextRenderActor;
         } else {
             break;
         }
     }
-    GgafDxSpacetime::_pActor_draw_active = pMassMeshActor; //描画セットの最後アクターをセット
     ((GgafDxMassMeshModel*)_pMassMeshModel)->GgafDxMassMeshModel::draw(this, draw_set_num);
 }
 

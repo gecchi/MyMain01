@@ -47,7 +47,7 @@ _pEffect((GgafDxEffect*)_pEffectCon->peek()) {
 
     _frame_of_behaving_temp_technique_end = 0;
     _is_temp_technique = false;
-    _pNextActor_in_render_depth = nullptr;
+    _pNextRenderActor = nullptr;
 //    //モデル取得connectModelManager
 //    _pModelCon = (GgafDxModelConnection*)GgafDxGod::_pModelManager->connect(prm_model, this);
 //    _pModel = (GgafDxModel*)_pModelCon->peek();
@@ -121,7 +121,7 @@ _pEffect((GgafDxEffect*)_pEffectCon->peek())
 //    // effelct_name     = "X/DefaultMeshEffect"
 //    // という文字列を作成。
 
-    _pNextActor_in_render_depth = nullptr;
+    _pNextRenderActor = nullptr;
 
     //マテリアルをコピー
     _paMaterial = NEW D3DMATERIAL9[_pModel->_num_materials];
@@ -155,7 +155,7 @@ void GgafDxFigureActor::processPreDraw() {
         onCreateModel(); //モデル作成時の初期処理
         _pModel->_is_init_model = true;
     }
-    _pNextActor_in_render_depth = nullptr;
+    _pNextRenderActor = nullptr;
     if (isActiveInTheTree()) {
         GgafGod::_num_active_actor++;
         if (_alpha > 0.0f &&  ((GgafDxScene*)getPlatformScene())->_master_alpha > 0.0f) { //isActiveInTheTree() で判定すると、

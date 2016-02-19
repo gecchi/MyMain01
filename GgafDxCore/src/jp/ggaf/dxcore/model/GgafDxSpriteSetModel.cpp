@@ -10,6 +10,7 @@
 #include "jp/ggaf/dxcore/manager/GgafDxEffectManager.h"
 #include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
 
+#include "jp/ggaf/dxcore/manager/GgafDxTextureManager.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -159,7 +160,231 @@ HRESULT GgafDxSpriteSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
 
 void GgafDxSpriteSetModel::restore() {
     _TRACE3_("GgafDxSpriteSetModel::restore() " << _model_name << " start");
-    GgafDxGod::_pModelManager->restoreSpriteSetModel(this);
+    _TRACE3_("GgafDxModelManager::restoreSpriteSetModel(" << _model_name << ")");
+
+    if (4*_set_num > 65535) {
+        throwGgafCriticalException("X[GgafDxModelManager::restoreSpriteSetModel] 頂点が 65535を超えたかもしれません。\n対象Model："<<getName()<<"  nVertices:4  セット数:"<<(_set_num));
+    }
+    if ( 2 * 3 * _set_num > 65535) {
+        throwGgafCriticalException("[GgafDxModelManager::restoreSpriteSetModel] 頂点インデックスが 65535を超えたかもしれません。\n対象Model："<<getName()<<"  nFaces:2(*3)  セット数:"<<(_set_num));
+    }
+
+    _papTextureConnection = nullptr;
+
+    HRESULT hr;
+    //スプライト情報読込みテンプレートの登録(初回実行時のみ)
+    ID3DXFileEnumObject* pID3DXFileEnumObject;
+    ID3DXFileData* pID3DXFileData;
+    std::string xfile_name; //読み込むスプライト定義ファイル名（Xファイル形式）
+    //"12/Bomb" or "8/Bomb" or "Bomb" から "Bomb" だけ取とりだしてフルパス名取得
+    if (*(_model_name + 1) == '/') {
+        xfile_name = GgafDxModelManager::getSpriteFileName(std::string(_model_name + 2));
+    } else if (*(_model_name + 2) == '/') {
+        xfile_name = GgafDxModelManager::getSpriteFileName(std::string(_model_name + 3));
+    } else {
+        xfile_name = GgafDxModelManager::getSpriteFileName(std::string(_model_name));
+    }
+    hr = GgafDxGod::_pModelManager->_pID3DXFile_sprx->CreateEnumObject((void*)xfile_name.c_str(), D3DXF_FILELOAD_FROMFILE, &pID3DXFileEnumObject);
+    checkDxException(hr, S_OK, "[GgafDxModelManager::restoreSpriteSetModel] '"<<xfile_name<<"' のCreateEnumObjectに失敗しました。ファイルの存在を確認して下さい。");
+
+    //TODO:GUIDなんとかする。今は完全無視。
+    //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
+
+    SIZE_T nChildren;
+    pID3DXFileEnumObject->GetChildren(&nChildren);
+    for(SIZE_T childCount = 0; childCount < nChildren; ++childCount) {
+        pID3DXFileEnumObject->GetChild(childCount, &pID3DXFileData);
+    }
+
+    SIZE_T xsize = 0;
+    char* pXData = nullptr;
+    pID3DXFileData->Lock(&xsize, (const void**)&pXData);
+    if (pXData == nullptr) {
+        throwGgafCriticalException("[GgafDxModelManager::restoreSpriteSetModel] "<<xfile_name<<" のフォーマットエラー。");
+    }
+//    GUID* pGuid;
+//    pID3DXFileData->GetType(pGuid);
+
+    SpriteXFileFmt xdata;
+    pXData = obtainSpriteFmtX(&xdata, pXData);
+    _model_width_px  = xdata.width;
+    _model_height_px = xdata.height;
+    _row_texture_split = xdata.row_texture_split;
+    _col_texture_split = xdata.col_texture_split;
+
+    //テクスチャ取得しモデルに保持させる
+    GgafDxTextureConnection* model_pTextureConnection = (GgafDxTextureConnection*)(GgafDxGod::_pModelManager->_pModelTextureManager->connect(xdata.texture_file, this));
+    //テクスチャの参照を保持させる。
+    _papTextureConnection = NEW GgafDxTextureConnection*[1];
+    _papTextureConnection[0] = model_pTextureConnection;
+    //バッファ作成
+    if (_pVertexBuffer == nullptr) {
+        _size_vertices = sizeof(GgafDxSpriteSetModel::VERTEX)*4;
+        _size_vertex_unit = sizeof(GgafDxSpriteSetModel::VERTEX);
+
+        GgafDxSpriteSetModel::VERTEX* paVertex = NEW GgafDxSpriteSetModel::VERTEX[4 * _set_num];
+
+        float tex_width  = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
+        float tex_height = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
+        double du = 1.0 / tex_width  / 100000.0; //テクスチャの幅1pxの100000分の1px
+        double dv = 1.0 / tex_height / 100000.0; //テクスチャの高さ1pxの100000分の1px
+        double rev = 1.0;//0.99609308; //99609309で割れ
+        //頂点配列情報をモデルに保持させる
+        //UVは左上の１つ分（アニメパターン０）をデフォルトで設定する。
+        //シェーダーが描画時にアニメパターン番号をみてUV座標をずらす仕様としよっと。
+        //x,y の ÷2 とは、モデル中心をローカル座標の原点中心としたいため
+        for (int i = 0; i < _set_num; i++) {
+            //左上
+            paVertex[i*4 + 0].x = (PX_DX(xdata.width)  / -2.0)*rev;
+            paVertex[i*4 + 0].y = (PX_DX(xdata.height) /  2.0)*rev;
+            paVertex[i*4 + 0].z = 0.0f;
+            paVertex[i*4 + 0].nx = 0.0f;
+            paVertex[i*4 + 0].ny = 0.0f;
+            paVertex[i*4 + 0].nz = -1.0f;
+            paVertex[i*4 + 0].tu = du;
+            paVertex[i*4 + 0].tv = dv;
+            paVertex[i*4 + 0].index = (float)i;
+            //右上
+            paVertex[i*4 + 1].x = (PX_DX(xdata.width)  / 2.0)*rev;
+            paVertex[i*4 + 1].y = (PX_DX(xdata.height) / 2.0)*rev;
+            paVertex[i*4 + 1].z = 0.0f;
+            paVertex[i*4 + 1].nx = 0.0f;
+            paVertex[i*4 + 1].ny = 0.0f;
+            paVertex[i*4 + 1].nz = -1.0f;
+            paVertex[i*4 + 1].tu = (1.0/xdata.col_texture_split) - du;
+            paVertex[i*4 + 1].tv = dv;
+            paVertex[i*4 + 1].index = (float)i;
+            //左下
+            paVertex[i*4 + 2].x = (PX_DX(xdata.width)  / -2.0)*rev;
+            paVertex[i*4 + 2].y = (PX_DX(xdata.height) / -2.0)*rev;
+            paVertex[i*4 + 2].z = 0.0f;
+            paVertex[i*4 + 2].nx = 0.0f;
+            paVertex[i*4 + 2].ny = 0.0f;
+            paVertex[i*4 + 2].nz = -1.0f;
+            paVertex[i*4 + 2].tu = du;
+            paVertex[i*4 + 2].tv = (1.0/xdata.row_texture_split) - dv;
+            paVertex[i*4 + 2].index = (float)i;
+            //右下
+            paVertex[i*4 + 3].x = (PX_DX(xdata.width)  /  2.0)*rev;
+            paVertex[i*4 + 3].y = (PX_DX(xdata.height) / -2.0)*rev;
+            paVertex[i*4 + 3].z = 0.0f;
+            paVertex[i*4 + 3].nx = 0.0f;
+            paVertex[i*4 + 3].ny = 0.0f;
+            paVertex[i*4 + 3].nz = -1.0f;
+            paVertex[i*4 + 3].tu = (1.0/xdata.col_texture_split) - du;
+            paVertex[i*4 + 3].tv = (1.0/xdata.row_texture_split) - dv;
+            paVertex[i*4 + 3].index = (float)i;
+
+        }
+
+        //距離
+        FLOAT model_bounding_sphere_radius = (FLOAT)(sqrt(paVertex[0].x * paVertex[0].x +
+                                                          paVertex[0].y * paVertex[0].y +
+                                                          paVertex[0].z * paVertex[0].z));
+        _bounding_sphere_radius = model_bounding_sphere_radius;
+
+
+        hr = GgafDxGod::_pID3DDevice9->CreateVertexBuffer(
+                _size_vertices * _set_num,
+                D3DUSAGE_WRITEONLY,
+                GgafDxSpriteSetModel::FVF,
+                D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
+                &(_pVertexBuffer),
+                nullptr);
+        checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreSpriteSetModel] _p1ID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_name));
+        //頂点バッファ作成
+        //頂点情報をビデオカード頂点バッファへロード
+        void *pVertexBuffer;
+        hr = _pVertexBuffer->Lock(
+                                       0,
+                                       _size_vertices * _set_num,
+                                       (void**)&pVertexBuffer,
+                                       0
+                                   );
+        checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreSpriteSetModel] 頂点バッファのロック取得に失敗 model="<<_model_name);
+
+        memcpy(
+            pVertexBuffer,
+            paVertex,
+            _size_vertices* _set_num
+        ); //pVertexBuffer ← paVertex
+        _pVertexBuffer->Unlock();
+        GGAF_DELETEARR(paVertex);
+    }
+
+    //インデックスバッファ作成
+    if (_pIndexBuffer == nullptr) {
+        int nVertices = 4;
+        int nFaces = 2;
+        WORD* unit_paIdxBuffer = NEW WORD[(nFaces*3)];
+        unit_paIdxBuffer[0] = 0;
+        unit_paIdxBuffer[1] = 1;
+        unit_paIdxBuffer[2] = 2;
+
+        unit_paIdxBuffer[3] = 1;
+        unit_paIdxBuffer[4] = 3;
+        unit_paIdxBuffer[5] = 2;
+
+        WORD* paIdxBufferSet = NEW WORD[(nFaces*3) * _set_num];
+        for (int i = 0; i < _set_num; i++) {
+            for (int j = 0; j < nFaces; j++) {
+                paIdxBufferSet[((i*nFaces*3)+(j*3)) + 0] = unit_paIdxBuffer[j*3 + 0] + (nVertices*i);
+                paIdxBufferSet[((i*nFaces*3)+(j*3)) + 1] = unit_paIdxBuffer[j*3 + 1] + (nVertices*i);
+                paIdxBufferSet[((i*nFaces*3)+(j*3)) + 2] = unit_paIdxBuffer[j*3 + 2] + (nVertices*i);
+            }
+        }
+
+        hr = GgafDxGod::_pID3DDevice9->CreateIndexBuffer(
+                               sizeof(WORD) * nFaces * 3 * _set_num,
+                                D3DUSAGE_WRITEONLY,
+                                D3DFMT_INDEX16,
+                                D3DPOOL_DEFAULT,
+                                &(_pIndexBuffer),
+                                nullptr);
+        checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreSpriteSetModel] _pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_name));
+
+        void* pIndexBuffer;
+        _pIndexBuffer->Lock(0,0,(void**)&pIndexBuffer,0);
+        memcpy(
+          pIndexBuffer ,
+          paIdxBufferSet,
+          sizeof(WORD) * nFaces * 3 * _set_num
+        );
+        _pIndexBuffer->Unlock();
+        GGAF_DELETEARR(unit_paIdxBuffer);
+        GGAF_DELETEARR(paIdxBufferSet);
+
+        //描画時パラメーター
+        GgafDxSpriteSetModel::INDEXPARAM* paIndexParam = NEW GgafDxSpriteSetModel::INDEXPARAM[_set_num];
+        for (int i = 0; i < _set_num; i++) {
+            paIndexParam[i].MaterialNo = 0;
+            paIndexParam[i].BaseVertexIndex = 0;
+            paIndexParam[i].MinIndex = 0;
+            paIndexParam[i].NumVertices = nVertices*(i+1);
+            paIndexParam[i].StartIndex = 0;
+            paIndexParam[i].PrimitiveCount = nFaces*(i+1);
+        }
+        _paIndexParam = paIndexParam;
+    }
+
+    _num_materials = 1;
+    D3DMATERIAL9* model_paMaterial = NEW D3DMATERIAL9[_num_materials];
+    for( DWORD i = 0; i < _num_materials; i++){
+        //model_paMaterial[i] = paD3DMaterial9_tmp[i].MatD3D;
+        model_paMaterial[i].Diffuse.r = 1.0f;
+        model_paMaterial[i].Diffuse.g = 1.0f;
+        model_paMaterial[i].Diffuse.b = 1.0f;
+        model_paMaterial[i].Diffuse.a = 1.0f;
+        model_paMaterial[i].Ambient.r = 1.0f;
+        model_paMaterial[i].Ambient.g = 1.0f;
+        model_paMaterial[i].Ambient.b = 1.0f;
+        model_paMaterial[i].Ambient.a = 1.0f;
+    }
+    _paMaterial_default = model_paMaterial;
+    //後始末
+    pID3DXFileData->Unlock();
+    GGAF_RELEASE_BY_FROCE(pID3DXFileData);
+    GGAF_RELEASE(pID3DXFileEnumObject);
     _TRACE3_("GgafDxSpriteSetModel::restore() " << _model_name << " end");
 }
 

@@ -3,6 +3,9 @@
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 
+#include "jp/ggaf/dxcore/util/XFile/framework/Frm_Mesh.h"
+#include "jp/ggaf/dxcore/util/XFile/ToolBox/IOModel_X.h"
+
 #include <d3d9.h>
 #include <d3dx9.h>
 #ifdef __GNUG__
@@ -85,6 +88,15 @@ public:
     bool _is_init_model;
 
     UINT _num_pass;
+
+    struct SpriteXFileFmt {
+        float width;
+        float height;
+        char texture_file[256];
+        int row_texture_split;
+        int col_texture_split;
+    };
+
 
 public:
     /**
@@ -195,6 +207,40 @@ public:
      */
     //virtual void swapTopTextureOrder(const char* prm_texture0);
 
+
+
+    char* obtainSpriteFmtX(SpriteXFileFmt* pSpriteFmt_out, char* pLockedData);
+
+
+    /**
+     * 3D頂点バッファにFrameTransformMatrix変換と法線を設定。
+     * @param prm_paVtxBuffer
+     * @param prm_size_of_vtx_unit
+     * @param model_pModel3D
+     * @param paNumVertices 頂点連結前の頂点サブセット数の配列
+     *        （モデルがサブセット単位で個別基準（位置、回転、拡大）を保持してる場合）
+     */
+//    void prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
+//                    Frm::Model3D* model_pModel3D,
+//                    uint16_t* paNumVertices,
+//                    GgafDxModel* prm_pModel = nullptr);
+    void prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
+                    Frm::Model3D* model_pModel3D,
+                    uint16_t* paNumVertices);
+    /**
+     * 空間の3点v0 v1 v2 より、直線 v0v1 と v1v2 の成す角(角v1)を求める
+     * @param v0
+     * @param v1
+     * @param v2
+     * @return 成す角(ラディアン)
+     */
+    static float getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm::Vertex& v2);
+
+    void setMaterial(Frm::Mesh* in_pMeshesFront,
+                     int* pOut_material_num,
+                     D3DMATERIAL9**                pOut_paMaterial,
+                     GgafDxTextureConnection***    pOut_papTextureConnection);
+    void setDefaultMaterial(D3DMATERIAL9* out_pD3DMATERIAL9);
     /**
      * モデルを再構築します.
      */

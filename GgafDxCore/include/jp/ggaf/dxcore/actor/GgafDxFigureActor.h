@@ -49,7 +49,7 @@ public:
     static hashval _hash_technique_last_draw;
 
     /** [r]同一描画レベルの次のアクター */
-    GgafDxFigureActor* _pNextActor_in_render_depth;
+    GgafDxFigureActor* _pNextRenderActor;
     /** [r/w]現在のマテリアルのα値 (0.0 <= _alpha <= 1.0) */
     float _alpha;
     /** [r]現在描画に使用しているシェーダーテクニック名 */

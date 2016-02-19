@@ -64,9 +64,6 @@ public:
     /** モデル面の数 */
     UINT _nFaces;
 
-    /** マテリアルリストの連続で同一のマテリアル番号の塊（グループ）が幾つあるか */
-    UINT* _paUint_material_list_grp_num;
-
     VERTEX_model* _paVtxBuffer_org_model;
 
     VERTEX_instancedata _aInstancedata[MAX_INSTACE];

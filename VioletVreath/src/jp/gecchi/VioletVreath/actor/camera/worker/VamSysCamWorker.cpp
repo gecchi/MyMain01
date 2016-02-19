@@ -140,8 +140,8 @@ void VamSysCamWorker::processBehavior() {
 
 
     //カメラ、VPの目標座標が変わったらスライド移動指示
-/////////////TEST
-    if (GgafDxInput::isBeingPressedKey(DIK_H)) {
+/////////////4TEST
+//    if (GgafDxInput::isBeingPressedKey(DIK_H)) {
 /////////////////
         if (t_x_CAM_ != mv_t_x_CAM || t_y_CAM_ != mv_t_y_CAM || t_z_CAM_ != mv_t_z_CAM ||
             t_x_VP_  != mv_t_x_VP  || t_y_VP_  != mv_t_y_VP  || t_z_VP_ != mv_t_z_VP
@@ -155,8 +155,8 @@ void VamSysCamWorker::processBehavior() {
             coord up_z = pMyShip_z  + (ANG_COS(up_ang) * cDz_sqrt2);
             slideMvUpVecTo(0, up_y - mv_t_y_CAM, up_z - mv_t_z_CAM, cam_mv_frame_);
         }
-///////////TEST
-    }
+///////////4TEST
+//    }
 /////////
     //カメラの pos_camera_ 設定
     int x_cam_sgn, y_cam_sgn;
@@ -170,10 +170,10 @@ void VamSysCamWorker::processBehavior() {
     pos_camera_prev_ = pos_camera_;
 }
 
-///////////TEST
+///////////4TEST
 void VamSysCamWorker::onSwitchCameraWork() {
-    ///////////TEST
-    //CameraWorker::onSwitchCameraWork();
+    ///////////4TEST
+    CameraWorker::onSwitchCameraWork();
     /////////
 }
 /////////

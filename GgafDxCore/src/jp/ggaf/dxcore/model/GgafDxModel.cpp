@@ -1,10 +1,13 @@
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 
+#include "jp/ggaf/dxcore/GgafDxProperties.h"
 #include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
 #include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
 #include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
 #include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
-
+#include "jp/ggaf/dxcore/model/GgafDxMeshModel.h"
+#include "jp/ggaf/dxcore/GgafDxGod.h"
+#include "jp/ggaf/dxcore/manager/GgafDxTextureManager.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -30,6 +33,12 @@ _pTexBlinker(new GgafDxTextureBlinker(this)) {
     _specular_power = 0.0f;
     _num_pass = 1;
     _obj_model = 0;
+
+
+
+
+
+
     _TRACE3_("GgafDxModel::GgafDxModel(" << prm_model_name << ") _id="<<_id);
 }
 
@@ -73,6 +82,433 @@ _pTexBlinker(new GgafDxTextureBlinker(this)) {
 //    _papTextureConnection[0] = top;
 //}
 
+
+char* GgafDxModel::obtainSpriteFmtX(SpriteXFileFmt* pSpriteFmt_out, char* pLockedData) {
+   memcpy(&(pSpriteFmt_out->width), pLockedData, sizeof(float));           pLockedData += sizeof(float);
+   memcpy(&(pSpriteFmt_out->height), pLockedData, sizeof(float));          pLockedData += sizeof(float);
+   strcpy(pSpriteFmt_out->texture_file, pLockedData);                      pLockedData += (sizeof(char) * (strlen(pSpriteFmt_out->texture_file)+1));
+   memcpy(&(pSpriteFmt_out->row_texture_split), pLockedData, sizeof(int)); pLockedData += sizeof(int);
+   memcpy(&(pSpriteFmt_out->col_texture_split), pLockedData, sizeof(int)); pLockedData += sizeof(int);
+   return pLockedData;
+}
+
+
+void GgafDxModel::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
+                            Frm::Model3D* model_pModel3D,
+                            uint16_t* paNumVertices) {
+    //＜前提＞
+    //prm_paVtxBuffer には x,y,z,tu,tv は設定済み
+
+    Frm::Mesh* model_pMeshesFront = model_pModel3D->_Meshes.front();
+    int nVertices = model_pMeshesFront->_nVertices; //メッシュ連結後の総頂点数
+    int nFaces = model_pMeshesFront->_nFaces;       //メッシュ連結後の総面数
+    int nFaceNormals = model_pMeshesFront->_nFaceNormals; //メッシュ連結後の総法線数
+    //法線設定。
+    //共有頂点の法線は平均化を試みる！
+    //【2009/03/04の脳みそによるアイディア】
+    //共有頂点に、面が同じような方面に集中した場合、単純に加算して面数で割る平均化をすると法線は偏ってしまう。
+    //そこで、共有頂点法線への影響度割合（率）を、その面法線が所属する面の頂点角の大きさで決めるようにした。
+    //法線の影響度割合 ＝ その法線が所属する頂点の成す角 ／ その頂点にぶら下がる全faceの成す角合計
+    //とした。最後に正規化する。
+    byte* paVtxBuffer = (byte*)prm_paVtxBuffer;
+    float* paRad = NEW float[nFaces*3];
+    float* paRadSum_Vtx = NEW float[nVertices];
+    for (int v = 0; v < nVertices; v++) {
+        paRadSum_Vtx[v] = 0;
+    }
+    std::fill_n(paRadSum_Vtx, nVertices, 0);
+    unsigned short indexVertices_per_Face[3];
+    unsigned short indexNormals_per_Face[3];
+    for (int face_index = 0; face_index < nFaces; face_index++) {
+        for (int v = 0; v < 3; v++) {
+            //面に対する頂点インデックス３つ(A,B,Cとする)
+            indexVertices_per_Face[v] = model_pMeshesFront->_Faces[face_index].data[v];
+            //面に対する法線インデックス３つ
+            if (nFaceNormals > face_index) {
+                indexNormals_per_Face[v] = model_pMeshesFront->_FaceNormals[face_index].data[v];
+            } else {
+                //法線が無い場合
+                indexNormals_per_Face[v] = (unsigned short)0;
+            }
+        }
+
+        //頂点インデックス A の角(∠CAB)を求めて、配列に保持
+        paRad[face_index*3+0] = GgafDxModel::getRadv1_v0v1v2(
+                         model_pMeshesFront->_Vertices[indexVertices_per_Face[2]],
+                         model_pMeshesFront->_Vertices[indexVertices_per_Face[0]],
+                         model_pMeshesFront->_Vertices[indexVertices_per_Face[1]]
+                       );
+        //A の頂点インデックス番号に紐つけて、角を加算
+        paRadSum_Vtx[indexVertices_per_Face[0]] += paRad[face_index*3+0];
+
+        //頂点インデックス B の角(∠ABC)を求めて、配列に保持
+        paRad[face_index*3+1] = GgafDxModel::getRadv1_v0v1v2(
+                         model_pMeshesFront->_Vertices[indexVertices_per_Face[0]],
+                         model_pMeshesFront->_Vertices[indexVertices_per_Face[1]],
+                         model_pMeshesFront->_Vertices[indexVertices_per_Face[2]]
+                       );
+        //B の頂点インデックス番号に紐つけて、角を加算
+        paRadSum_Vtx[indexVertices_per_Face[1]] += paRad[face_index*3+1];
+
+        //頂点インデックス C の角(∠ACB)を求めて、配列に保持
+        paRad[face_index*3+2] = (float)(2*PI - (paRad[face_index*3+0] + paRad[face_index*3+1]));
+        //C の頂点インデックス番号に紐つけて、角を加算
+        paRadSum_Vtx[indexVertices_per_Face[2]] += paRad[face_index*3+2];
+    }
+
+    float rate; //その法線の出ている頂点の成す角の率。つまり法線ベクトルに掛ける率。その法線ベクトルの影響の強さ。
+    GgafDxModel::VERTEX_3D_BASE* pVtx;
+    D3DXVECTOR3 p[3];
+    D3DXVECTOR2 uv[3];
+    D3DXVECTOR3 outTangent;
+    D3DXVECTOR3 outBinormal;
+    for (int face_index = 0; face_index < nFaces; face_index++) { //全ポリゴン数ループ
+        //ポリゴン（三角面）の頂点インデックスを３つ格納
+        for (int v = 0; v < 3; v++) {
+            indexVertices_per_Face[v] = model_pMeshesFront->_Faces[face_index].data[v];
+            if (nFaceNormals > face_index) {
+                indexNormals_per_Face[v] = model_pMeshesFront->_FaceNormals[face_index].data[v];
+            } else {
+                //法線が無い場合
+                indexNormals_per_Face[v] = (unsigned short)0;
+            }
+        }
+        if (nFaceNormals > face_index) {
+            for (int v = 0; v < 3; v++) {
+                rate = (paRad[face_index*3+v] / paRadSum_Vtx[indexVertices_per_Face[v]]);
+                pVtx = (GgafDxModel::VERTEX_3D_BASE*)(paVtxBuffer + (prm_size_of_vtx_unit*indexVertices_per_Face[v]));
+                pVtx->nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[v]].x * rate);
+                pVtx->ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[v]].y * rate);
+                pVtx->nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[v]].z * rate);
+            }
+        } else {
+            //法線が無い場合、法線を計算して作りだす。
+
+            //面に対する頂点インデックス３つ
+            int indexVertices1 = model_pMeshesFront->_Faces[face_index].data[0];
+            int indexVertices2 = model_pMeshesFront->_Faces[face_index].data[1];
+            int indexVertices3 = model_pMeshesFront->_Faces[face_index].data[2];
+            //面の頂点３つ
+            D3DXVECTOR3 v1 = D3DXVECTOR3(
+                model_pMeshesFront->_Vertices[indexVertices1].data[0],
+                model_pMeshesFront->_Vertices[indexVertices1].data[1],
+                model_pMeshesFront->_Vertices[indexVertices1].data[2]
+            );
+            D3DXVECTOR3 v2 = D3DXVECTOR3(
+                model_pMeshesFront->_Vertices[indexVertices2].data[0],
+                model_pMeshesFront->_Vertices[indexVertices2].data[1],
+                model_pMeshesFront->_Vertices[indexVertices2].data[2]
+            );
+            D3DXVECTOR3 v3 = D3DXVECTOR3(
+                model_pMeshesFront->_Vertices[indexVertices3].data[0],
+                model_pMeshesFront->_Vertices[indexVertices3].data[1],
+                model_pMeshesFront->_Vertices[indexVertices3].data[2]
+            );
+
+            D3DXPLANE Plane;
+            // 3 つの点から平面を作成
+            D3DXPlaneFromPoints(&Plane, &v1, &v2, &v3);
+            //正規化した平面(法線)を算出
+            D3DXPlaneNormalize(&Plane, &Plane);
+            for (int v = 0; v < 3; v++) {
+                rate = (paRad[face_index*3+v] / paRadSum_Vtx[indexVertices_per_Face[v]]);
+                pVtx = (GgafDxModel::VERTEX_3D_BASE*)(paVtxBuffer + (prm_size_of_vtx_unit*indexVertices_per_Face[v]));
+                pVtx->nx += (Plane.a * rate);
+                pVtx->ny += (Plane.b * rate);
+                pVtx->nz += (Plane.c * rate);
+            }
+        }
+
+        ///Obj_GgafDxMeshModelの場合だけ//////////////////////////////////////////
+        if (_obj_model & Obj_GgafDxMeshModel) {
+            //何を血迷ったか、バンプマップの為U軸 接ベクトル（Tangent）及び V軸 従法線（Binormal）の平均を計算
+            //頂点バッファに、Tangent Binormal 埋め込み有りの場合
+            for (int v = 0; v < 3; v++) { //p[3] と uv[3] にパラメータセット
+                pVtx = (GgafDxModel::VERTEX_3D_BASE*)(paVtxBuffer + (prm_size_of_vtx_unit*indexVertices_per_Face[v]));
+                p[v].x = pVtx->x;
+                p[v].y = pVtx->y;
+                p[v].z = pVtx->z;
+                GgafDxMeshModel::VERTEX* pVtx_ex = (GgafDxMeshModel::VERTEX*)pVtx;
+                uv[v].x = pVtx_ex->tu;
+                uv[v].y = pVtx_ex->tv;
+            }
+            //計算
+            GgafDxModelManager::calcTangentAndBinormal(
+                    &p[0], &uv[0],
+                    &p[1], &uv[1],
+                    &p[2], &uv[2],
+                    &outTangent, &outBinormal); //面に対する U軸（Tangent）及びV軸（Binormal）
+            //結果を頂点バッファに書き込み（平均も考慮）
+            for (int v = 0; v < 3; v++) {
+                //GgafDxMeshModelの場合
+                GgafDxMeshModel::VERTEX* pVtx_ex = (GgafDxMeshModel::VERTEX*)(paVtxBuffer + (prm_size_of_vtx_unit*indexVertices_per_Face[v]));
+                rate = (paRad[face_index*3+v] / paRadSum_Vtx[indexVertices_per_Face[v]]);
+                pVtx_ex->tan_x += (outTangent.x  * rate);
+                pVtx_ex->tan_y += (outTangent.y  * rate);
+                pVtx_ex->tan_z += (outTangent.z  * rate);
+                pVtx_ex->bin_x += (outBinormal.x * rate);
+                pVtx_ex->bin_y += (outBinormal.y * rate);
+                pVtx_ex->bin_z += (outBinormal.z * rate);
+            }
+        }
+    }
+
+    //XファイルのFrameTransformMatrix(0フレーム目の初期化アニメーション)を考慮
+    int n = 0;
+    int nVertices_begin = 0;
+    int nVertices_end = 0;
+    for (std::list<Frm::Bone*>::iterator iteBone = model_pModel3D->_toplevel_Skelettons.begin() ;
+            iteBone != model_pModel3D->_toplevel_Skelettons.end(); iteBone++) {
+
+        _TRACE_("GgafDxModelManager : (*iteBone)->_Name="<<((*iteBone)->_Name));
+
+        if ((*iteBone)) {
+            Frm::Matrix* pMatPos = &((*iteBone)->_MatrixPos);
+            if (pMatPos == 0 || pMatPos== nullptr || pMatPos->isIdentity()) {
+                //FrameTransformMatrix は単位行列
+                _TRACE_("GgafDxModelManager : FrameTransformMatrix is Identity");
+            } else {
+                _TRACE_("GgafDxModelManager : Execute FrameTransform!");
+                D3DXMATRIX FrameTransformMatrix;
+                FrameTransformMatrix._11 = pMatPos->data[0];
+                FrameTransformMatrix._12 = pMatPos->data[1];
+                FrameTransformMatrix._13 = pMatPos->data[2];
+                FrameTransformMatrix._14 = pMatPos->data[3];
+                FrameTransformMatrix._21 = pMatPos->data[4];
+                FrameTransformMatrix._22 = pMatPos->data[5];
+                FrameTransformMatrix._23 = pMatPos->data[6];
+                FrameTransformMatrix._24 = pMatPos->data[7];
+                FrameTransformMatrix._31 = pMatPos->data[8];
+                FrameTransformMatrix._32 = pMatPos->data[9];
+                FrameTransformMatrix._33 = pMatPos->data[10];
+                FrameTransformMatrix._34 = pMatPos->data[11];
+                FrameTransformMatrix._41 = pMatPos->data[12];
+                FrameTransformMatrix._42 = pMatPos->data[13];
+                FrameTransformMatrix._43 = pMatPos->data[14];
+                FrameTransformMatrix._44 = pMatPos->data[15];
+
+                if (n == 0) {
+                    nVertices_begin = 0;
+                    nVertices_end = paNumVertices[n];
+                } else {
+                    nVertices_begin += paNumVertices[n-1];
+                    nVertices_end += paNumVertices[n];
+                }
+
+                D3DXVECTOR3 vecVertex;
+                D3DXVECTOR3 vecNormal;
+                D3DXVECTOR3 vecTangent;
+                D3DXVECTOR3 vecBinormal;
+                for (int i = nVertices_begin; i < nVertices_end; i++) {
+                    pVtx = (GgafDxModel::VERTEX_3D_BASE*)(paVtxBuffer + (prm_size_of_vtx_unit*i));
+                    vecVertex.x = pVtx->x;
+                    vecVertex.y = pVtx->y;
+                    vecVertex.z = pVtx->z;
+                    D3DXVec3TransformCoord(&vecVertex, &vecVertex, &FrameTransformMatrix);
+                    vecNormal.x = pVtx->nx;
+                    vecNormal.y = pVtx->ny;
+                    vecNormal.z = pVtx->nz;
+                    D3DXVec3TransformNormal(&vecNormal, &vecNormal, &FrameTransformMatrix);
+                    pVtx->x = vecVertex.x;
+                    pVtx->y = vecVertex.y;
+                    pVtx->z = vecVertex.z;
+                    pVtx->nx = vecNormal.x;
+                    pVtx->ny = vecNormal.y;
+                    pVtx->nz = vecNormal.z;
+
+                    ///GgafDxMeshModelの場合だけ///////////////////
+                    if (_obj_model & Obj_GgafDxMeshModel) {
+                        //GgafDxMeshModelの場合
+                        GgafDxMeshModel::VERTEX* pVtx_ex = (GgafDxMeshModel::VERTEX*)pVtx;
+                        vecTangent.x = pVtx_ex->tan_x;
+                        vecTangent.y = pVtx_ex->tan_y;
+                        vecTangent.z = pVtx_ex->tan_z;
+                        D3DXVec3TransformNormal(&vecTangent, &vecTangent, &FrameTransformMatrix);
+                        vecBinormal.x = pVtx_ex->bin_x;
+                        vecBinormal.y = pVtx_ex->bin_y;
+                        vecBinormal.z = pVtx_ex->bin_z;
+                        D3DXVec3TransformNormal(&vecBinormal, &vecBinormal, &FrameTransformMatrix);
+
+                        pVtx_ex->tan_x = vecTangent.x;
+                        pVtx_ex->tan_y = vecTangent.y;
+                        pVtx_ex->tan_z = vecTangent.z;
+                        pVtx_ex->bin_x = vecBinormal.x;
+                        pVtx_ex->bin_y = vecBinormal.y;
+                        pVtx_ex->bin_z = vecBinormal.z;
+                    }
+                    /////////////////////////////////////////////
+                }
+            }
+        }
+        n++;
+    }
+    //最後に法線正規化して設定
+    D3DXVECTOR3 vec;
+    for (int i = 0; i < nVertices; i++) {
+        pVtx = (GgafDxModel::VERTEX_3D_BASE*)(paVtxBuffer + (prm_size_of_vtx_unit*i));
+        vec.x = pVtx->nx;
+        vec.y = pVtx->ny;
+        vec.z = pVtx->nz;
+        if (ZEROf_EQ(vec.x) && ZEROf_EQ(vec.y) && ZEROf_EQ(vec.z)) {
+            pVtx->nx = 0;
+            pVtx->ny = 0;
+            pVtx->nz = 0;
+        } else {
+            D3DXVec3Normalize( &vec, &vec);
+            pVtx->nx = vec.x;
+            pVtx->ny = vec.y;
+            pVtx->nz = vec.z;
+        }
+
+        ///GgafDxMeshModelの場合だけ///////////////////
+        if (_obj_model & Obj_GgafDxMeshModel) {
+            GgafDxMeshModel::VERTEX* pVtx_ex = (GgafDxMeshModel::VERTEX*)pVtx;
+            vec.x = pVtx_ex->tan_x;
+            vec.y = pVtx_ex->tan_y;
+            vec.z = pVtx_ex->tan_z;
+            if (ZEROf_EQ(vec.x) && ZEROf_EQ(vec.y) && ZEROf_EQ(vec.z)) {
+                pVtx_ex->tan_x = 0;
+                pVtx_ex->tan_y = 0;
+                pVtx_ex->tan_z = 0;
+            } else {
+                D3DXVec3Normalize( &vec, &vec);
+                pVtx_ex->tan_x = vec.x;
+                pVtx_ex->tan_y = vec.y;
+                pVtx_ex->tan_z = vec.z;
+            }
+            vec.x = pVtx_ex->bin_x;
+            vec.y = pVtx_ex->bin_y;
+            vec.z = pVtx_ex->bin_z;
+            if (ZEROf_EQ(vec.x) && ZEROf_EQ(vec.y) && ZEROf_EQ(vec.z)) {
+                pVtx_ex->bin_x = 0;
+                pVtx_ex->bin_y = 0;
+                pVtx_ex->bin_z = 0;
+            } else {
+                D3DXVec3Normalize( &vec, &vec);
+                pVtx_ex->bin_x = vec.x;
+                pVtx_ex->bin_y = vec.y;
+                pVtx_ex->bin_z = vec.z;
+            }
+        }
+    }
+    delete[] paRad;
+    delete[] paRadSum_Vtx;
+}
+
+
+float GgafDxModel::getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm::Vertex& v2) {
+    Frm::Vector V0;
+    Frm::Vector V1;
+    Frm::Vector V2;
+    V0.x = v0.data[0]; V0.y = v0.data[1]; V0.z = v0.data[2];
+    V1.x = v1.data[0]; V1.y = v1.data[1]; V1.z = v1.data[2];
+    V2.x = v2.data[0]; V2.y = v2.data[1]; V2.z = v2.data[2];
+    Frm::Vector V;
+    V = V2 - V1;
+    Frm::Vector W;
+    W = V0 - V1;
+    //ベクトル V W の成す角を求める
+    //    V=(vx,vy,vz)=(bx-ax,by-ay,bz-az)
+    //    W=(wx,wy,wz)=(cx-ax,cy-ay,cz-az)
+    //    とするとV、Wベクトルがなす角は
+    //    cosα=(V、Wベクトルの内積）÷（Vの大きさ）÷（Wの大きさ）
+    //        =(vx*wx+vy*wy+vz*wz)
+    //         ÷ルート(vx^2+vy^2+vz^2)÷ルート(wx^2+wy^2+wz^2)
+    float DOT, LV, LW, cosV1;
+    //_TRACE3_("V=("<<V.x<<"."<<V.y<<","<<V.z<<")");
+    //_TRACE3_("W=("<<W.x<<"."<<W.y<<","<<W.z<<")");
+    DOT = V.Dot(W);
+    LV = V.Abs();
+    LW = W.Abs();
+    cosV1 = DOT / LV / LW;
+    if (ZEROf_EQ(cosV1)) {
+        return (float)PI/2;
+    } else {
+        return cosV1;
+    }
+}
+
+
+void GgafDxModel::setMaterial(Frm::Mesh* in_pMeshesFront,
+                             int* pOut_material_num,
+                             D3DMATERIAL9**                pOut_paMaterial,
+                             GgafDxTextureConnection***    pOut_papTextureConnection) {
+
+    for (std::list<Frm::Material*>::iterator material = in_pMeshesFront->_Materials.begin();
+            material != in_pMeshesFront->_Materials.end(); material++) {
+        (*pOut_material_num)++;
+    }
+
+    if ((*pOut_material_num) > 0) {
+        (*pOut_paMaterial) = NEW D3DMATERIAL9[(*pOut_material_num)];
+        (*pOut_papTextureConnection) = NEW GgafDxTextureConnection*[(*pOut_material_num)];
+
+        char* texture_filename;
+        int n = 0;
+        for (std::list<Frm::Material*>::iterator material = in_pMeshesFront->_Materials.begin();
+                material != in_pMeshesFront->_Materials.end(); material++) {
+            (*pOut_paMaterial)[n].Diffuse.r = (*material)->_FaceColor.data[0];
+            (*pOut_paMaterial)[n].Diffuse.g = (*material)->_FaceColor.data[1];
+            (*pOut_paMaterial)[n].Diffuse.b = (*material)->_FaceColor.data[2];
+            (*pOut_paMaterial)[n].Diffuse.a = (*material)->_FaceColor.data[3];
+
+            (*pOut_paMaterial)[n].Ambient.r = (*material)->_FaceColor.data[0];
+            (*pOut_paMaterial)[n].Ambient.g = (*material)->_FaceColor.data[1];
+            (*pOut_paMaterial)[n].Ambient.b = (*material)->_FaceColor.data[2];
+            (*pOut_paMaterial)[n].Ambient.a = (*material)->_FaceColor.data[3];
+
+            (*pOut_paMaterial)[n].Specular.r = (*material)->_SpecularColor.data[0];
+            (*pOut_paMaterial)[n].Specular.g = (*material)->_SpecularColor.data[1];
+            (*pOut_paMaterial)[n].Specular.b = (*material)->_SpecularColor.data[2];
+            (*pOut_paMaterial)[n].Specular.a = 1.000000f;
+            (*pOut_paMaterial)[n].Power =  (*material)->_power;
+
+            (*pOut_paMaterial)[n].Emissive.r = (*material)->_EmissiveColor.data[0];
+            (*pOut_paMaterial)[n].Emissive.g = (*material)->_EmissiveColor.data[1];
+            (*pOut_paMaterial)[n].Emissive.b = (*material)->_EmissiveColor.data[2];
+            (*pOut_paMaterial)[n].Emissive.a = 1.000000f;
+
+            texture_filename = (char*)((*material)->_TextureName.c_str());
+            if (texture_filename != nullptr && lstrlen(texture_filename) > 0 ) {
+                (*pOut_papTextureConnection)[n] = (GgafDxTextureConnection*)(GgafDxGod::_pModelManager->_pModelTextureManager->connect(texture_filename, this));
+            } else {
+                //テクスチャ無し時は真っ白なテクスチャに置き換え
+                (*pOut_papTextureConnection)[n] = (GgafDxTextureConnection*)(GgafDxGod::_pModelManager->_pModelTextureManager->connect(PROPERTY::WHITE_TEXTURE.c_str(), this));
+            }
+            n++;
+        }
+    } else {
+        //マテリアル定義が１つも無いので、描画のために無理やり１つマテリアルを作成。
+        (*pOut_paMaterial)  = NEW D3DMATERIAL9[1];
+        (*pOut_papTextureConnection) = NEW GgafDxTextureConnection*[1];
+        setDefaultMaterial(&((*pOut_paMaterial)[0]));
+        (*pOut_papTextureConnection)[0] = (GgafDxTextureConnection*)GgafDxGod::_pModelManager->_pModelTextureManager->connect(PROPERTY::WHITE_TEXTURE.c_str(), this);
+        (*pOut_material_num) = 1;
+    }
+}
+
+void GgafDxModel::setDefaultMaterial(D3DMATERIAL9* out_pD3DMATERIAL9) {
+    out_pD3DMATERIAL9->Diffuse.r = 1.0f;
+    out_pD3DMATERIAL9->Diffuse.g = 1.0f;
+    out_pD3DMATERIAL9->Diffuse.b = 1.0f;
+    out_pD3DMATERIAL9->Diffuse.a = 1.0f;
+
+    out_pD3DMATERIAL9->Ambient.r = 1.0f;
+    out_pD3DMATERIAL9->Ambient.g = 1.0f;
+    out_pD3DMATERIAL9->Ambient.b = 1.0f;
+    out_pD3DMATERIAL9->Ambient.a = 1.0f;
+
+    out_pD3DMATERIAL9->Specular.r = 1.0f;
+    out_pD3DMATERIAL9->Specular.g = 1.0f;
+    out_pD3DMATERIAL9->Specular.b = 1.0f;
+    out_pD3DMATERIAL9->Specular.a = 1.0f;
+    out_pD3DMATERIAL9->Power = 0.0f;
+
+    out_pD3DMATERIAL9->Emissive.r = 1.0f;
+    out_pD3DMATERIAL9->Emissive.g = 1.0f;
+    out_pD3DMATERIAL9->Emissive.b = 1.0f;
+    out_pD3DMATERIAL9->Emissive.a = 1.0f;
+}
 GgafDxModel::~GgafDxModel() {
     _TRACE_("GgafDxModel::~GgafDxModel() " << _model_name << " ");
     GGAF_DELETEARR_NULLABLE(_model_name);

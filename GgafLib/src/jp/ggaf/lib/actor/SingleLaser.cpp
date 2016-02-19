@@ -92,7 +92,7 @@ void SingleLaser::processDraw() {
             if (draw_set_num >= model_Set_num) {
                 break;
             }
-            pDrawActor = pDrawActor->_pNextActor_in_render_depth;
+            pDrawActor = pDrawActor->_pNextRenderActor;
         } else {
             break;
         }

@@ -23,17 +23,7 @@ namespace GgafDxCore {
  */
 class GgafDxModelManager : public GgafCore::GgafResourceManager<GgafDxModel> {
 
-private:
-    /** カスタムテンプレートXファイル読み込み用の ID3DXFile のポインタ */
-    ID3DXFile* _pID3DXFile_sprx;
-    ID3DXFile* _pID3DXFile_psprx;
-    struct XFILE_SPRITE_FMT {
-        float width;
-        float height;
-        char texture_file[256];
-        int row_texture_split;
-        int col_texture_split;
-    };
+
 
 private:
     GgafDxD3DXMeshModel*         createD3DXMeshModel(const char* prm_model_name, DWORD prm_dwOptions);
@@ -52,6 +42,21 @@ private:
     GgafDxCubeMapMorphMeshModel* createCubeMapMorphMeshModel(const char* prm_model_name);
     GgafDxWorldBoundModel*       createWorldBoundModel(const char* prm_model_name);
     GgafDxPointSpriteModel*      createPointSpriteModel(const char* prm_model_name);
+
+public:
+
+    /** カスタムテンプレートXファイル読み込み用の ID3DXFile のポインタ */
+    ID3DXFile* _pID3DXFile_sprx;
+    ID3DXFile* _pID3DXFile_psprx;
+    struct XFILE_SPRITE_FMT {
+        float width;
+        float height;
+        char texture_file[256];
+        int row_texture_split;
+        int col_texture_split;
+    };
+
+
     void setMaterial(Frm::Mesh* in_pMeshesFront,
                      int* pOut_material_num,
                      D3DMATERIAL9**                pOut_paMaterial,
@@ -97,7 +102,7 @@ private:
             D3DXVECTOR3* p1, D3DXVECTOR2* uv1,
             D3DXVECTOR3* p2, D3DXVECTOR2* uv2,
             D3DXVECTOR3* outTangent, D3DXVECTOR3* outBinormal);
-public:
+
     GgafDxTextureManager* _pModelTextureManager;
 
 public:
@@ -149,28 +154,28 @@ public:
      * GgafDxSpriteModel オブジェクトを再構築する。 .
      * @param prm_pSpriteModel 再構築するGgafDxSpriteModel
      */
-    void restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel);
+//    void restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel);
 
-    void restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSpriteSetModel);
+//    void restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSpriteSetModel);
 
 
     /**
      * GgafDxBoardModel オブジェクトを再構築する。 .
      * @param prm_pBoardModel 再構築するGgafDxBoardModel
      */
-    void restoreBoardModel(GgafDxBoardModel* prm_pBoardModel);
+//    void restoreBoardModel(GgafDxBoardModel* prm_pBoardModel);
 
-    void restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSetModel);
+//    void restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSetModel);
 
-    void restoreMeshModel(GgafDxMeshModel* prm_pD3DXMeshModel);
+//    void restoreMeshModel(GgafDxMeshModel* prm_pD3DXMeshModel);
 
     void restoreMeshSetModel(GgafDxMeshSetModel* prm_pD3DXMeshSetModel);
 
-    void restoreMassMeshModel(GgafDxMassMeshModel* prm_pD3DXMassMeshModel);
+//    void restoreMassMeshModel(GgafDxMassMeshModel* prm_pD3DXMassMeshModel);
 
     void restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pModel);
 
-    void restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPointSpriteModel);
+//    void restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPointSpriteModel);
 
     /**
      * オーバーライド

@@ -7,6 +7,8 @@
 #ifndef FRM_MATH_H
 #define FRM_MATH_H
 #include "GgafDxCommonHeader.h"
+#include "jp/ggaf/core/util/GgafUtil.h"
+
 //#include <mem.h>
 #include <math.h>
 #include <string.h>
