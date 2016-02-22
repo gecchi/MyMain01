@@ -63,7 +63,7 @@ HRESULT GgafDxBoardModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_dra
     GgafDxEffect* pEffect_active = GgafDxEffectManager::_pEffect_active;
     if (pEffect_active != pBoardEffect || GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) {
         if (pEffect_active) {
-            _TRACE4_("EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
+            _TRACE4_("GgafDxBoardModel::draw() EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
             hr = pEffect_active->_pID3DXEffect->EndPass();
             checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw() EndPass() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
             hr = pEffect_active->_pID3DXEffect->End();
@@ -80,11 +80,11 @@ HRESULT GgafDxBoardModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_dra
             }
 #endif
         }
-        _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardEffect->_effect_name);
+        _TRACE4_("GgafDxBoardModel::draw() SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardEffect->_effect_name);
         hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
         checkDxException(hr, S_OK, "GgafDxBoardModel::draw() SetTechnique("<<pTargetActor->_technique<<") ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
-        _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardEffect->_effect_name);
+        _TRACE4_("GgafDxBoardModel::draw() BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardEffect->_effect_name);
         UINT numPass;
         hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
         checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw() Begin() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
@@ -210,19 +210,19 @@ void GgafDxBoardModel::restore() {
     memcpy(pVertexBuffer, paVertex, _size_vertices); //pVertexBuffer © paVertex
     _pVertexBuffer->Unlock();
     _num_materials = 1;
-    D3DMATERIAL9* model_paMaterial;
-    model_paMaterial = NEW D3DMATERIAL9[_num_materials];
+    D3DMATERIAL9* paMaterial;
+    paMaterial = NEW D3DMATERIAL9[_num_materials];
     for( DWORD i = 0; i < _num_materials; i++){
-        model_paMaterial[i].Diffuse.r = 1.0f;
-        model_paMaterial[i].Diffuse.g = 1.0f;
-        model_paMaterial[i].Diffuse.b = 1.0f;
-        model_paMaterial[i].Diffuse.a = 1.0f;
-        model_paMaterial[i].Ambient.r = 1.0f;
-        model_paMaterial[i].Ambient.g = 1.0f;
-        model_paMaterial[i].Ambient.b = 1.0f;
-        model_paMaterial[i].Ambient.a = 1.0f;
+        paMaterial[i].Diffuse.r = 1.0f;
+        paMaterial[i].Diffuse.g = 1.0f;
+        paMaterial[i].Diffuse.b = 1.0f;
+        paMaterial[i].Diffuse.a = 1.0f;
+        paMaterial[i].Ambient.r = 1.0f;
+        paMaterial[i].Ambient.g = 1.0f;
+        paMaterial[i].Ambient.b = 1.0f;
+        paMaterial[i].Ambient.a = 1.0f;
     }
-    _paMaterial_default = model_paMaterial;
+    _paMaterial_default = paMaterial;
 
     //ŒãŽn––
     pID3DXFileData->Unlock();

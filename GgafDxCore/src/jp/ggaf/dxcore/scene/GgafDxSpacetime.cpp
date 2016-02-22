@@ -208,6 +208,7 @@ void GgafDxSpacetime::draw() {
 
     while (pDrawActor) {
         GgafDxSpacetime::_pActor_draw_active = pDrawActor;
+
 #ifdef MY_DEBUG
         if (pDrawActor->getPlatformScene()->instanceOf(Obj_GgafDxScene)) {
             //OK
@@ -290,7 +291,7 @@ void GgafDxSpacetime::draw() {
     HRESULT hr;
     GgafDxEffect* pEffect_active = GgafDxEffectManager::_pEffect_active;
     if (pEffect_active) {
-        _TRACE4_("EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
+        _TRACE4_("GgafDxSpacetime::draw() ÅŒã‚Ì EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
         hr = pEffect_active->_pID3DXEffect->EndPass();
         checkDxException(hr, D3D_OK, "GgafDxSpacetime::processDraw() EndPass() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
         hr = pEffect_active->_pID3DXEffect->End();
@@ -309,6 +310,9 @@ void GgafDxSpacetime::draw() {
         GgafDxEffectManager::_pEffect_active = nullptr;
         GgafDxModelManager::_pModelLastDraw = nullptr;
         GgafDxFigureActor::_hash_technique_last_draw = 0;
+        _TRACE4_("GgafDxSpacetime::draw() GgafDxEffectManager::_pEffect_active = "<<GgafDxEffectManager::_pEffect_active);
+        _TRACE4_("GgafDxSpacetime::draw() GgafDxModelManager::_pModelLastDraw = "<<GgafDxModelManager::_pModelLastDraw);
+        _TRACE4_("GgafDxSpacetime::draw() GgafDxFigureActor::_hash_technique_last_draw = "<<GgafDxFigureActor::_hash_technique_last_draw);
     }
 }
 

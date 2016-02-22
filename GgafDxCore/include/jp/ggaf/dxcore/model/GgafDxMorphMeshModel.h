@@ -59,6 +59,7 @@ public:
         UINT PrimitiveCount;
     };
 
+
     /** プライマリメッシュの頂点フォーマット定義 */
     class VERTEX_PRIMARY : public GgafDxModel::VERTEX_3D_BASE {
     public:

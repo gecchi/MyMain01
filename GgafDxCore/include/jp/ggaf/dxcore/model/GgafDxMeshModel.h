@@ -77,10 +77,10 @@ public:
     VERTEX* _paVtxBuffer_org;
     WORD* _paIdxBuffer_org;
 
-    /** Paulさんモデル */
-    Frm::Model3D* _pModel3D;
-    /** Paulさんメッシュ */
-    Frm::Mesh* _pMeshesFront;
+//    /** Paulさんモデル */
+//    Frm::Model3D* _pModel3D;
+//    /** Paulさんメッシュ */
+//    Frm::Mesh* _pMeshesFront;
 
 public:
     /**

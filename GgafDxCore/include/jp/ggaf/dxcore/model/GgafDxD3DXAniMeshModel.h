@@ -42,6 +42,8 @@ public:
 
     virtual void restore() override;
 
+    void getDrawFrameList(std::list<D3DXFRAME_WORLD*>* pList, D3DXFRAME_WORLD* frame);
+
     virtual void onDeviceLost() override;
 
     void release() override;

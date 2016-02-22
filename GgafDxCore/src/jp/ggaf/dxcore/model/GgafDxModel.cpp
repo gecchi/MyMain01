@@ -34,11 +34,6 @@ _pTexBlinker(new GgafDxTextureBlinker(this)) {
     _num_pass = 1;
     _obj_model = 0;
 
-
-
-
-
-
     _TRACE3_("GgafDxModel::GgafDxModel(" << prm_model_name << ") _id="<<_id);
 }
 
@@ -233,7 +228,7 @@ void GgafDxModel::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
                 uv[v].y = pVtx_ex->tv;
             }
             //計算
-            GgafDxModelManager::calcTangentAndBinormal(
+            GgafDxModel::calcTangentAndBinormal(
                     &p[0], &uv[0],
                     &p[1], &uv[1],
                     &p[2], &uv[2],
@@ -394,6 +389,57 @@ void GgafDxModel::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
     delete[] paRad;
     delete[] paRadSum_Vtx;
 }
+
+void GgafDxModel::calcTangentAndBinormal(
+        D3DXVECTOR3* p0, D3DXVECTOR2* uv0,
+        D3DXVECTOR3* p1, D3DXVECTOR2* uv1,
+        D3DXVECTOR3* p2, D3DXVECTOR2* uv2,
+        D3DXVECTOR3* outTangent, D3DXVECTOR3* outBinormal) {
+    // 5次元→3次元頂点に
+    D3DXVECTOR3 CP0[3] =
+            { D3DXVECTOR3(p0->x, uv0->x, uv0->y), D3DXVECTOR3(p0->y, uv0->x, uv0->y), D3DXVECTOR3(p0->z, uv0->x, uv0->y), };
+    D3DXVECTOR3 CP1[3] =
+            { D3DXVECTOR3(p1->x, uv1->x, uv1->y), D3DXVECTOR3(p1->y, uv1->x, uv1->y), D3DXVECTOR3(p1->z, uv1->x, uv1->y), };
+    D3DXVECTOR3 CP2[3] =
+            { D3DXVECTOR3(p2->x, uv2->x, uv2->y), D3DXVECTOR3(p2->y, uv2->x, uv2->y), D3DXVECTOR3(p2->z, uv2->x, uv2->y), };
+
+    // 平面パラメータからUV軸座標算出
+    float U[3], V[3];
+    static double lim = FLT_MAX/100.0;
+    for (int i = 0; i < 3; ++i) {
+        D3DXVECTOR3 V1 = CP1[i] - CP0[i];
+        D3DXVECTOR3 V2 = CP2[i] - CP1[i];
+        D3DXVECTOR3 VABC;
+        D3DXVec3Cross(&VABC, &V1, &V2);
+
+        if (ZEROf_EQ(VABC.x)) {
+            // やばいす！
+            // ポリゴンかUV上のポリゴンが縮退してます！
+            //_TRACE_("＜警告＞ GgafDxModel::calcTangentAndBinormal ポリゴンかUV上のポリゴンが縮退してます！");
+            U[i] = -SGN(VABC.y) * lim;
+            V[i] = -SGN(VABC.z) * lim;
+        } else {
+            U[i] = -VABC.y / VABC.x;
+            V[i] = -VABC.z / VABC.x;
+        }
+    }
+
+    memcpy(outTangent, U, sizeof(float) * 3);
+    memcpy(outBinormal, V, sizeof(float) * 3);
+
+    // 正規化します
+    D3DXVec3Normalize(outTangent, outTangent);
+    D3DXVec3Normalize(outBinormal, outBinormal);
+}
+
+//マルペケ
+//http://marupeke296.com/DXPS_No12_CalcTangentVectorSpace.html
+//U軸とV軸を求める関数
+// 3頂点とUV値から指定座標でのU軸（Tangent）及びV軸（Binormal）を算出
+// p0, p1, p2    : ローカル空間での頂点座標（ポリゴン描画順にすること）
+// uv0, uv1, uv2 : 各頂点のUV座標
+// outTangent    : U軸（Tangent）出力
+// outBinormal   : V軸（Binormal）出力
 
 
 float GgafDxModel::getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm::Vertex& v2) {

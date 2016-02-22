@@ -21,16 +21,16 @@ DWORD GgafDxMeshModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DF
                                     );
 GgafDxMeshModel::GgafDxMeshModel(const char* prm_model_name) : GgafDxModel(prm_model_name) {
     _TRACE3_("GgafDxMeshModel::GgafDxMeshModel(" << _model_name << ")");
-    _pModel3D = nullptr;
-    _pMeshesFront = nullptr;
+//    _pModel3D = nullptr;
+//    _pMeshesFront = nullptr;
 
     _pVertexBuffer = nullptr;
     _pIndexBuffer = nullptr;
     _paVtxBuffer_org = nullptr;
     _paIdxBuffer_org = nullptr;
     _paIndexParam = nullptr;
-    _pModel3D = nullptr;
-    _pMeshesFront = nullptr;
+//    _pModel3D = nullptr;
+//    _pMeshesFront = nullptr;
     _material_list_grp_num = 0;
     _size_vertices = 0;
     _size_vertex_unit = 0;
@@ -94,8 +94,9 @@ HRESULT GgafDxMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw
         if ((pEffect_active != pMeshEffect || GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) && i == 0) {
             //本モデル描画初回
             if (pEffect_active) {
-                _TRACE4_("前回_pEffect_active != pMeshEffect (" <<(pEffect_active->_effect_name)<<"!="<<(pMeshEffect->_effect_name)<<")");
-                _TRACE4_("EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
+                _TRACE4_("前回 _pEffect_active != pMeshEffect ?? " <<pEffect_active<<"!="<<pMeshEffect<<"?? (" <<(pEffect_active->_effect_name)<<"!="<<(pMeshEffect->_effect_name)<<")");
+                _TRACE4_("前回 ::_hash_technique_last_draw != prm_pActor_target->_hash_technique ?? " <<GgafDxFigureActor::_hash_technique_last_draw<<"!="<<prm_pActor_target->_hash_technique<<"?? (prm_pActor_target=" <<prm_pActor_target<<" "<<(prm_pActor_target->getName())<<")");
+                _TRACE4_("GgafDxMeshModel::draw() EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
                 hr = pEffect_active->_pID3DXEffect->EndPass();
                 checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() EndPass() に失敗しました。");
                 hr = pEffect_active->_pID3DXEffect->End();
@@ -112,11 +113,11 @@ HRESULT GgafDxMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw
                 }
 #endif
             }
-            _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
+            _TRACE4_("GgafDxMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
             checkDxException(hr, S_OK, "GgafDxMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
-            _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name<<"("<<pMeshEffect<<")");
+            _TRACE4_("GgafDxMeshModel::draw() BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name<<"("<<pMeshEffect<<")");
             hr = pID3DXEffect->Begin( &_num_pass, D3DXFX_DONOTSAVESTATE );
             checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() Begin() に失敗しました。");
             hr = pID3DXEffect->BeginPass(0);
@@ -189,45 +190,41 @@ void GgafDxMeshModel::restore() {
     //流し込む頂点バッファデータ作成
     ToolBox::IO_Model_X iox;
 
-    Frm::Model3D* model_pModel3D = nullptr;
-    Frm::Mesh*    model_pMeshesFront = nullptr;
 
-    GgafDxMeshModel::INDEXPARAM* model_paIndexParam = nullptr;
-    GgafDxMeshModel::VERTEX*     model_paVtxBuffer_org = nullptr;
-    WORD*                        model_paIdxBuffer_org = nullptr;
-    D3DMATERIAL9*                model_paMaterial = nullptr;
-    GgafDxTextureConnection**    model_papTextureConnection = nullptr;
+
+    GgafDxMeshModel::INDEXPARAM* paIndexParam = nullptr;
+    GgafDxMeshModel::VERTEX*     paVtxBuffer_org = nullptr;
+    WORD*                        paIdxBuffer_org = nullptr;
+    GgafDxTextureConnection**    papTextureConnection = nullptr;
     int nVertices = 0;
     int nFaces = 0;
 //    int nFaceNormals = 0;
-
-    if (_pModel3D == nullptr) {
-        model_pModel3D = NEW Frm::Model3D();
-
-        bool r = iox.Load(xfile_name, model_pModel3D);
+    if (_paVtxBuffer_org == nullptr) {
+        Frm::Model3D* pModel3D = NEW Frm::Model3D();
+        bool r = iox.Load(xfile_name, pModel3D);
         if (r == false) {
             throwGgafCriticalException("[GgafDxModelManager::restoreMeshModel] Xファイルの読込み失敗。対象="<<xfile_name);
         }
         //メッシュを結合する前に、情報を確保しておく
-        int nMesh = (int)model_pModel3D->_Meshes.size();
+        int nMesh = (int)pModel3D->_Meshes.size();
         uint16_t* paNumVertices = NEW uint16_t[nMesh];
         int index_Mesh = 0;
-        for (std::list<Frm::Mesh*>::iterator iteMeshes = model_pModel3D->_Meshes.begin();
-                iteMeshes != model_pModel3D->_Meshes.end(); iteMeshes++) {
+        for (std::list<Frm::Mesh*>::iterator iteMeshes = pModel3D->_Meshes.begin();
+                iteMeshes != pModel3D->_Meshes.end(); iteMeshes++) {
             paNumVertices[index_Mesh] = ((*iteMeshes)->_nVertices);
             index_Mesh++;
         }
 
-        model_pModel3D->ConcatenateMeshes(); //メッシュを繋げる
+        pModel3D->ConcatenateMeshes(); //メッシュを繋げる
 
-        model_pMeshesFront = model_pModel3D->_Meshes.front();
-        nVertices = model_pMeshesFront->_nVertices; //メッシュ連結後の総頂点数
-        nFaces = model_pMeshesFront->_nFaces;       //メッシュ連結後の総面数
-//        nFaceNormals = model_pMeshesFront->_nFaceNormals; //メッシュ連結後の総法線数
-        model_paVtxBuffer_org = NEW GgafDxMeshModel::VERTEX[nVertices];
+        Frm::Mesh* pMeshesFront = pModel3D->_Meshes.front();
+        nVertices = pMeshesFront->_nVertices; //メッシュ連結後の総頂点数
+        nFaces = pMeshesFront->_nFaces;       //メッシュ連結後の総面数
+//        nFaceNormals = pMeshesFront->_nFaceNormals; //メッシュ連結後の総法線数
+        paVtxBuffer_org = NEW GgafDxMeshModel::VERTEX[nVertices];
         _size_vertices = sizeof(GgafDxMeshModel::VERTEX) * nVertices;
         _size_vertex_unit = sizeof(GgafDxMeshModel::VERTEX);
-        int nTextureCoords = model_pMeshesFront->_nTextureCoords;
+        int nTextureCoords = pMeshesFront->_nTextureCoords;
         if (nVertices < nTextureCoords) {
             _TRACE3_("nTextureCoords="<<nTextureCoords<<"/nVertices="<<nVertices);
             _TRACE3_("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<<xfile_name);
@@ -237,49 +234,49 @@ void GgafDxMeshModel::restore() {
         //法線以外設定
         FLOAT model_bounding_sphere_radius;
         for (int i = 0; i < nVertices; i++) {
-            model_paVtxBuffer_org[i].x = model_pMeshesFront->_Vertices[i].data[0];
-            model_paVtxBuffer_org[i].y = model_pMeshesFront->_Vertices[i].data[1];
-            model_paVtxBuffer_org[i].z = model_pMeshesFront->_Vertices[i].data[2];
-            model_paVtxBuffer_org[i].nx = 0.0f;
-            model_paVtxBuffer_org[i].ny = 0.0f;
-            model_paVtxBuffer_org[i].nz = 0.0f;
-            model_paVtxBuffer_org[i].color = D3DCOLOR_ARGB(255,255,255,255); //頂点カラーは今の所使っていない
+            paVtxBuffer_org[i].x = pMeshesFront->_Vertices[i].data[0];
+            paVtxBuffer_org[i].y = pMeshesFront->_Vertices[i].data[1];
+            paVtxBuffer_org[i].z = pMeshesFront->_Vertices[i].data[2];
+            paVtxBuffer_org[i].nx = 0.0f;
+            paVtxBuffer_org[i].ny = 0.0f;
+            paVtxBuffer_org[i].nz = 0.0f;
+            paVtxBuffer_org[i].color = D3DCOLOR_ARGB(255,255,255,255); //頂点カラーは今の所使っていない
             if (i < nTextureCoords) {
-                model_paVtxBuffer_org[i].tu = model_pMeshesFront->_TextureCoords[i].data[0];  //出来る限りUV座標設定
-                model_paVtxBuffer_org[i].tv = model_pMeshesFront->_TextureCoords[i].data[1];
+                paVtxBuffer_org[i].tu = pMeshesFront->_TextureCoords[i].data[0];  //出来る限りUV座標設定
+                paVtxBuffer_org[i].tv = pMeshesFront->_TextureCoords[i].data[1];
             } else {
-                model_paVtxBuffer_org[i].tu = 0.0f;
-                model_paVtxBuffer_org[i].tv = 0.0f;
+                paVtxBuffer_org[i].tu = 0.0f;
+                paVtxBuffer_org[i].tv = 0.0f;
             }
-            model_paVtxBuffer_org[i].tan_x = 0.0f;
-            model_paVtxBuffer_org[i].tan_y = 0.0f;
-            model_paVtxBuffer_org[i].tan_z = 0.0f;
-            model_paVtxBuffer_org[i].bin_x = 0.0f;
-            model_paVtxBuffer_org[i].bin_y = 0.0f;
-            model_paVtxBuffer_org[i].bin_z = 0.0f;
+            paVtxBuffer_org[i].tan_x = 0.0f;
+            paVtxBuffer_org[i].tan_y = 0.0f;
+            paVtxBuffer_org[i].tan_z = 0.0f;
+            paVtxBuffer_org[i].bin_x = 0.0f;
+            paVtxBuffer_org[i].bin_y = 0.0f;
+            paVtxBuffer_org[i].bin_z = 0.0f;
 
 
             //距離
-            model_bounding_sphere_radius = (FLOAT)(sqrt(model_paVtxBuffer_org[i].x * model_paVtxBuffer_org[i].x +
-                                                        model_paVtxBuffer_org[i].y * model_paVtxBuffer_org[i].y +
-                                                        model_paVtxBuffer_org[i].z * model_paVtxBuffer_org[i].z));
+            model_bounding_sphere_radius = (FLOAT)(sqrt(paVtxBuffer_org[i].x * paVtxBuffer_org[i].x +
+                                                        paVtxBuffer_org[i].y * paVtxBuffer_org[i].y +
+                                                        paVtxBuffer_org[i].z * paVtxBuffer_org[i].z));
             if (_bounding_sphere_radius < model_bounding_sphere_radius) {
                 _bounding_sphere_radius = model_bounding_sphere_radius;
             }
         }
 
         //頂点バッファ作成
-        prepareVtx((void*)model_paVtxBuffer_org, _size_vertex_unit,
-                    model_pModel3D, paNumVertices);
+        prepareVtx((void*)paVtxBuffer_org, _size_vertex_unit,
+                    pModel3D, paNumVertices);
 
         GGAF_DELETE(paNumVertices);
 
         //インデックスバッファ登録
-        model_paIdxBuffer_org = NEW WORD[nFaces*3];
+        paIdxBuffer_org = NEW WORD[nFaces*3];
         for (int i = 0; i < nFaces; i++) {
-            model_paIdxBuffer_org[i*3 + 0] = model_pMeshesFront->_Faces[i].data[0];
-            model_paIdxBuffer_org[i*3 + 1] = model_pMeshesFront->_Faces[i].data[1];
-            model_paIdxBuffer_org[i*3 + 2] = model_pMeshesFront->_Faces[i].data[2];
+            paIdxBuffer_org[i*3 + 0] = pMeshesFront->_Faces[i].data[0];
+            paIdxBuffer_org[i*3 + 1] = pMeshesFront->_Faces[i].data[1];
+            paIdxBuffer_org[i*3 + 2] = pMeshesFront->_Faces[i].data[2];
         }
 
         //描画時（DrawIndexedPrimitive）のパラメータリスト作成
@@ -295,7 +292,7 @@ void GgafDxMeshModel::restore() {
 
         int faceNoCnt;
         for (faceNoCnt = 0; faceNoCnt < nFaces; faceNoCnt++) {
-            materialno = model_pMeshesFront->_FaceMaterials[faceNoCnt];
+            materialno = pMeshesFront->_FaceMaterials[faceNoCnt];
             if (prev_materialno != materialno) {
                 //_TRACE3_("BREAK! paramno="<<paramno);
                 prev_faceNoCnt_break = faceNoCnt_break;
@@ -319,23 +316,23 @@ void GgafDxMeshModel::restore() {
                 paramno++;
             }
 
-            if (max_num_vertices <  model_paIdxBuffer_org[faceNoCnt*3 + 0]) {
-                max_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 0];
+            if (max_num_vertices <  paIdxBuffer_org[faceNoCnt*3 + 0]) {
+                max_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 0];
             }
-            if (max_num_vertices <  model_paIdxBuffer_org[faceNoCnt*3 + 1]) {
-                max_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 1];
+            if (max_num_vertices <  paIdxBuffer_org[faceNoCnt*3 + 1]) {
+                max_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 1];
             }
-            if (max_num_vertices <  model_paIdxBuffer_org[faceNoCnt*3 + 2]) {
-                max_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 2];
+            if (max_num_vertices <  paIdxBuffer_org[faceNoCnt*3 + 2]) {
+                max_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 2];
             }
-            if (min_num_vertices >  model_paIdxBuffer_org[faceNoCnt*3 + 0]) {
-                min_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 0];
+            if (min_num_vertices >  paIdxBuffer_org[faceNoCnt*3 + 0]) {
+                min_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 0];
             }
-            if (min_num_vertices >  model_paIdxBuffer_org[faceNoCnt*3 + 1]) {
-                min_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 1];
+            if (min_num_vertices >  paIdxBuffer_org[faceNoCnt*3 + 1]) {
+                min_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 1];
             }
-            if (min_num_vertices >  model_paIdxBuffer_org[faceNoCnt*3 + 2]) {
-                min_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 2];
+            if (min_num_vertices >  paIdxBuffer_org[faceNoCnt*3 + 2]) {
+                min_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 2];
             }
             prev_materialno = materialno;
         }
@@ -345,22 +342,41 @@ void GgafDxMeshModel::restore() {
             paParam[paramno-1].PrimitiveCount = (UINT)(faceNoCnt - faceNoCnt_break);
         }
 
-        model_paIndexParam = NEW GgafDxMeshModel::INDEXPARAM[paramno];
+        paIndexParam = NEW GgafDxMeshModel::INDEXPARAM[paramno];
         for (int i = 0; i < paramno; i++) {
-            model_paIndexParam[i].MaterialNo = paParam[i].MaterialNo;
-            model_paIndexParam[i].BaseVertexIndex = paParam[i].BaseVertexIndex;
-            model_paIndexParam[i].MinIndex = paParam[i].MinIndex;
-            model_paIndexParam[i].NumVertices = paParam[i].NumVertices;
-            model_paIndexParam[i].StartIndex = paParam[i].StartIndex;
-            model_paIndexParam[i].PrimitiveCount = paParam[i].PrimitiveCount;
+            paIndexParam[i].MaterialNo = paParam[i].MaterialNo;
+            paIndexParam[i].BaseVertexIndex = paParam[i].BaseVertexIndex;
+            paIndexParam[i].MinIndex = paParam[i].MinIndex;
+            paIndexParam[i].NumVertices = paParam[i].NumVertices;
+            paIndexParam[i].StartIndex = paParam[i].StartIndex;
+            paIndexParam[i].PrimitiveCount = paParam[i].PrimitiveCount;
         }
         _material_list_grp_num = paramno;
 
         delete[] paParam;
+
+        _paVtxBuffer_org = paVtxBuffer_org;
+        _paIdxBuffer_org = paIdxBuffer_org;
+        _paIndexParam = paIndexParam;
+
+
+        //マテリアル設定
+        if (_paMaterial_default == nullptr) {
+            D3DMATERIAL9* paMaterial = nullptr;
+            int num_materials = 0;
+            setMaterial(pMeshesFront,
+                        &num_materials, &paMaterial, &papTextureConnection);
+            _paMaterial_default = paMaterial;
+            _num_materials = num_materials;
+            _papTextureConnection = papTextureConnection;
+        }
+
+        GGAF_DELETE(pModel3D);
+        //pMeshesFront は _pModel3D をDELETEしているのでする必要は無い
+        pMeshesFront = nullptr;
     }
 
     if (_pVertexBuffer == nullptr) {
-
         //頂点バッファ作成
         hr = GgafDxGod::_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices,
@@ -375,7 +391,7 @@ void GgafDxMeshModel::restore() {
         void *pVertexBuffer;
         hr = _pVertexBuffer->Lock(0, _size_vertices, (void**)&pVertexBuffer, 0);
         checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreMeshModel] 頂点バッファのロック取得に失敗 model="<<_model_name);
-        memcpy(pVertexBuffer, model_paVtxBuffer_org, _size_vertices); //pVertexBuffer ← paVertex
+        memcpy(pVertexBuffer, paVtxBuffer_org, _size_vertices); //pVertexBuffer ← paVertex
         _pVertexBuffer->Unlock();
     }
 
@@ -392,45 +408,40 @@ void GgafDxMeshModel::restore() {
         checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreMeshModel] _pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_name));
         void* pIndexBuffer;
         _pIndexBuffer->Lock(0,0,(void**)&pIndexBuffer,0);
-        memcpy(pIndexBuffer , model_paIdxBuffer_org , sizeof(WORD) * nFaces * 3);
+        memcpy(pIndexBuffer , paIdxBuffer_org , sizeof(WORD) * nFaces * 3);
         _pIndexBuffer->Unlock();
     }
 
-    //マテリアル設定
-    int model_nMaterials = 0;
-    setMaterial(model_pMeshesFront,
-                &model_nMaterials, &model_paMaterial, &model_papTextureConnection);
+
+
 
     //モデルに保持させる
-    _pModel3D = model_pModel3D;
-    _pMeshesFront = model_pMeshesFront;
+//    _pModel3D = pModel3D;
+//    _pMeshesFront = pMeshesFront;
 
-    _paIdxBuffer_org = model_paIdxBuffer_org;
-    _paVtxBuffer_org = model_paVtxBuffer_org;
-    _paIndexParam = model_paIndexParam;
-    _paMaterial_default = model_paMaterial;
-    _papTextureConnection = model_papTextureConnection;
-    _num_materials = model_nMaterials;
+
+
+
 
 
 //        //デバッグ
 //        _TRACE_("#頂点バッファ nVertices="<<nVertices);
 //        float x,y,z,nx,ny,nz,tu,tv,tan_x,tan_y,tan_z,bin_x,bin_y,bin_z;
 //        for (int i = 0; i < nVertices; i++) {
-//            x = model_paVtxBuffer_org[i].x;
-//            y = model_paVtxBuffer_org[i].y;
-//            z = model_paVtxBuffer_org[i].z;
-//            nx = model_paVtxBuffer_org[i].nx;
-//            ny = model_paVtxBuffer_org[i].ny;
-//            nz = model_paVtxBuffer_org[i].nz;
-//            tu = model_paVtxBuffer_org[i].tu;
-//            tv = model_paVtxBuffer_org[i].tv;
-//            tan_x = model_paVtxBuffer_org[i].tan_x;
-//            tan_y = model_paVtxBuffer_org[i].tan_y;
-//            tan_z = model_paVtxBuffer_org[i].tan_z;
-//            bin_x = model_paVtxBuffer_org[i].bin_x;
-//            bin_y = model_paVtxBuffer_org[i].bin_y;
-//            bin_z = model_paVtxBuffer_org[i].bin_z;
+//            x = paVtxBuffer_org[i].x;
+//            y = paVtxBuffer_org[i].y;
+//            z = paVtxBuffer_org[i].z;
+//            nx = paVtxBuffer_org[i].nx;
+//            ny = paVtxBuffer_org[i].ny;
+//            nz = paVtxBuffer_org[i].nz;
+//            tu = paVtxBuffer_org[i].tu;
+//            tv = paVtxBuffer_org[i].tv;
+//            tan_x = paVtxBuffer_org[i].tan_x;
+//            tan_y = paVtxBuffer_org[i].tan_y;
+//            tan_z = paVtxBuffer_org[i].tan_z;
+//            bin_x = paVtxBuffer_org[i].bin_x;
+//            bin_y = paVtxBuffer_org[i].bin_y;
+//            bin_z = paVtxBuffer_org[i].bin_z;
 //            //デバッグ
 //            //_TRACE_("頂点["<<i<<"] pos("<<x<<","<<y<<","<<z<<")\tuv("<<tu<<","<<tv<<")\tn("<<nx<<","<<ny<<","<<nz<<")\tt("<<tan_x<<","<<tan_y<<","<<tan_z<<")\tb("<<bin_x<<","<<bin_y<<","<<bin_z<<")");
 //        }
@@ -441,14 +452,14 @@ void GgafDxMeshModel::restore() {
 //        _TRACE_("#頂点バッファ nVertices="<<nVertices);
 //        float x,y,z,nx,ny,nz,tu,tv;
 //        for (int i = 0; i < nVertices; i++) {
-//            x = model_paVtxBuffer_org[i].x;
-//            y = model_paVtxBuffer_org[i].y;
-//            z = model_paVtxBuffer_org[i].z;
-//            nx = model_paVtxBuffer_org[i].nx;
-//            ny = model_paVtxBuffer_org[i].ny;
-//            nz = model_paVtxBuffer_org[i].nz;
-//            tu = model_paVtxBuffer_org[i].tu;
-//            tv = model_paVtxBuffer_org[i].tv;
+//            x = paVtxBuffer_org[i].x;
+//            y = paVtxBuffer_org[i].y;
+//            z = paVtxBuffer_org[i].z;
+//            nx = paVtxBuffer_org[i].nx;
+//            ny = paVtxBuffer_org[i].ny;
+//            nz = paVtxBuffer_org[i].nz;
+//            tu = paVtxBuffer_org[i].tu;
+//            tv = paVtxBuffer_org[i].tv;
 //
 //            _TRACE_("頂点["<<i<<"] "<<x<<";"<<y<<";"<<z<<";,\t"<<nx<<";"<<ny<<";"<<nz<<";,\t"<<tu<<";"<<tv<<";,");
 //        }
@@ -457,24 +468,24 @@ void GgafDxMeshModel::restore() {
 //        _TRACE_("#インデックスバッファ nFaces="<<nFaces);
 //        WORD vtx1,vtx2,vtx3;
 //        for (int face = 0; face < nFaces; face++) {
-//            vtx1 = model_paIdxBuffer_org[face*3 + 0];
-//            vtx2 = model_paIdxBuffer_org[face*3 + 1];
-//            vtx3 = model_paIdxBuffer_org[face*3 + 2];
+//            vtx1 = paIdxBuffer_org[face*3 + 0];
+//            vtx2 = paIdxBuffer_org[face*3 + 1];
+//            vtx3 = paIdxBuffer_org[face*3 + 2];
 //            _TRACE_("面["<<face<<"] 3;"<<vtx1<<","<<vtx2<<","<<vtx3<<";,");
 //        }
 //
-//        _TRACE_("マテリアル  model_nMaterials="<<model_nMaterials);
+//        _TRACE_("マテリアル  num_materials="<<num_materials);
 //        float a,r,g,b;
-//        for (int i = 0; i < model_nMaterials; i++) {
-//            a = model_paMaterial[i].Diffuse.a;
-//            r = model_paMaterial[i].Diffuse.r;
-//            g = model_paMaterial[i].Diffuse.g;
-//            b = model_paMaterial[i].Diffuse.b;
+//        for (int i = 0; i < num_materials; i++) {
+//            a = paMaterial[i].Diffuse.a;
+//            r = paMaterial[i].Diffuse.r;
+//            g = paMaterial[i].Diffuse.g;
+//            b = paMaterial[i].Diffuse.b;
 //            _TRACE_("nMaterial["<<i<<"] Diffuse(rgba)=("<<r<<","<<g<<","<<b<<","<<a<<")");
-//            a = model_paMaterial[i].Ambient.a;
-//            r = model_paMaterial[i].Ambient.r;
-//            g = model_paMaterial[i].Ambient.g;
-//            b = model_paMaterial[i].Ambient.b;
+//            a = paMaterial[i].Ambient.a;
+//            r = paMaterial[i].Ambient.r;
+//            g = paMaterial[i].Ambient.g;
+//            b = paMaterial[i].Ambient.b;
 //            _TRACE_("nMaterial["<<i<<"] Ambient(rgba)=("<<r<<","<<g<<","<<b<<","<<a<<")");
 //        }
 //
@@ -492,12 +503,12 @@ void GgafDxMeshModel::restore() {
 //        UINT StartIndex;
 //        UINT PrimitiveCount;
 //        for (UINT i = 0; i < _material_list_grp_num; i++) {
-//            MaterialNo = model_paIndexParam[i].MaterialNo;
-//            BaseVertexIndex = model_paIndexParam[i].BaseVertexIndex;
-//            MinIndex = model_paIndexParam[i].MinIndex;
-//            NumVertices = model_paIndexParam[i].NumVertices;
-//            StartIndex = model_paIndexParam[i].StartIndex;
-//            PrimitiveCount = model_paIndexParam[i].PrimitiveCount;
+//            MaterialNo = paIndexParam[i].MaterialNo;
+//            BaseVertexIndex = paIndexParam[i].BaseVertexIndex;
+//            MinIndex = paIndexParam[i].MinIndex;
+//            NumVertices = paIndexParam[i].NumVertices;
+//            StartIndex = paIndexParam[i].StartIndex;
+//            PrimitiveCount = paIndexParam[i].PrimitiveCount;
 //            _TRACE_("MaterialGrp["<<i<<"] MaterialNo="<<MaterialNo);
 //            _TRACE_("MaterialGrp["<<i<<"] BaseVertexIndex="<<BaseVertexIndex);
 //            _TRACE_("MaterialGrp["<<i<<"] MinIndex="<<MinIndex);
@@ -517,7 +528,6 @@ void GgafDxMeshModel::onDeviceLost() {
 
 void GgafDxMeshModel::release() {
     _TRACE3_("GgafDxMeshModel::release() " << _model_name << " start");
-
     //テクスチャを解放
     if (_papTextureConnection) {
         for (int i = 0; i < (int)_num_materials; i++) {
@@ -528,24 +538,15 @@ void GgafDxMeshModel::release() {
         }
     }
     GGAF_DELETEARR(_papTextureConnection); //テクスチャの配列
-
     GGAF_RELEASE(_pVertexBuffer);
     GGAF_RELEASE(_pIndexBuffer);
-
     GGAF_DELETEARR(_paVtxBuffer_org);
     GGAF_DELETEARR(_paIdxBuffer_org);
-    GGAF_DELETE(_pModel3D);
-    //_pMeshesFront は _pModel3D をDELETEしているのでする必要は無い
-    _pMeshesFront = nullptr;
     GGAF_DELETEARR(_paIndexParam);
-
-    //TODO:親クラスメンバをDELETEするのはややきたないか
     GGAF_DELETEARR(_paMaterial_default);
-
-
     _TRACE3_("GgafDxMeshModel::release() " << _model_name << " end");
-
 }
+
 GgafDxMeshModel::~GgafDxMeshModel() {
     //release();
     //はGgafDxModelConnection::processReleaseResource(GgafDxModel* prm_pResource) で呼び出される

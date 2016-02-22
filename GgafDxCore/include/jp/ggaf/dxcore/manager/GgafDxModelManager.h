@@ -48,60 +48,10 @@ public:
     /** カスタムテンプレートXファイル読み込み用の ID3DXFile のポインタ */
     ID3DXFile* _pID3DXFile_sprx;
     ID3DXFile* _pID3DXFile_psprx;
-    struct XFILE_SPRITE_FMT {
-        float width;
-        float height;
-        char texture_file[256];
-        int row_texture_split;
-        int col_texture_split;
-    };
-
-
-    void setMaterial(Frm::Mesh* in_pMeshesFront,
-                     int* pOut_material_num,
-                     D3DMATERIAL9**                pOut_paMaterial,
-                     GgafDxTextureConnection***    pOut_papTextureConnection);
-    void setDefaultMaterial(D3DMATERIAL9* out_pD3DMATERIAL9);
-
-    /**
-     * 空間の3点v0 v1 v2 より、直線 v0v1 と v1v2 の成す角(角v1)を求める
-     * @param v0
-     * @param v1
-     * @param v2
-     * @return 成す角(ラディアン)
-     */
-    float getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm::Vertex& v2);
-
-    /**
-     * 3D頂点バッファにFrameTransformMatrix変換と法線を設定。
-     * @param prm_paVtxBuffer
-     * @param prm_size_of_vtx_unit
-     * @param model_pModel3D
-     * @param paNumVertices 頂点連結前の頂点サブセット数の配列
-     *        （モデルがサブセット単位で個別基準（位置、回転、拡大）を保持してる場合）
-     */
-    void prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
-                    Frm::Model3D* model_pModel3D,
-                    uint16_t* paNumVertices,
-                    GgafDxModel* prm_pModel = nullptr);
-
-    /**
-     * ID3DXFileDataのデータポインタから、（Xファイルフォーマット通りに）スプライト情報を取り出す。
-     * @param pSpriteFmt_out
-     * @param pLockedData ID3DXFileData->lock() のデータポインタ
-     * @return
-     */
-    char* obtainSpriteFmtX(XFILE_SPRITE_FMT* pSpriteFmt_out, char* pLockedData);
 
     static std::string getMeshFileName(std::string prm_model_name);
     static std::string getSpriteFileName(std::string prm_model_name);
     static std::string getPointSpriteFileName(std::string prm_model_name);
-
-    static void calcTangentAndBinormal(
-            D3DXVECTOR3* p0, D3DXVECTOR2* uv0,
-            D3DXVECTOR3* p1, D3DXVECTOR2* uv1,
-            D3DXVECTOR3* p2, D3DXVECTOR2* uv2,
-            D3DXVECTOR3* outTangent, D3DXVECTOR3* outBinormal);
 
     GgafDxTextureManager* _pModelTextureManager;
 
@@ -141,41 +91,6 @@ public:
      * @return モデルオブジェクト
      */
     GgafDxModel* processCreateResource(const char* prm_idstr, void* prm_pConnector) override;
-
-    /**
-     * GgafDxD3DXMeshModel オブジェクトを再構築する。 .
-     * @param prm_pD3DXMeshModel 再構築するGgafDxD3DXMeshModel
-     */
-    void restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMeshModel);
-
-    void restoreD3DXAniMeshModel(GgafDxD3DXAniMeshModel* prm_pD3DXAniMeshModel);
-    void getDrawFrameList(std::list<D3DXFRAME_WORLD*>* pList, D3DXFRAME_WORLD* frame);
-    /**
-     * GgafDxSpriteModel オブジェクトを再構築する。 .
-     * @param prm_pSpriteModel 再構築するGgafDxSpriteModel
-     */
-//    void restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel);
-
-//    void restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSpriteSetModel);
-
-
-    /**
-     * GgafDxBoardModel オブジェクトを再構築する。 .
-     * @param prm_pBoardModel 再構築するGgafDxBoardModel
-     */
-//    void restoreBoardModel(GgafDxBoardModel* prm_pBoardModel);
-
-//    void restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSetModel);
-
-//    void restoreMeshModel(GgafDxMeshModel* prm_pD3DXMeshModel);
-
-    void restoreMeshSetModel(GgafDxMeshSetModel* prm_pD3DXMeshSetModel);
-
-//    void restoreMassMeshModel(GgafDxMassMeshModel* prm_pD3DXMassMeshModel);
-
-    void restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pModel);
-
-//    void restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPointSpriteModel);
 
     /**
      * オーバーライド

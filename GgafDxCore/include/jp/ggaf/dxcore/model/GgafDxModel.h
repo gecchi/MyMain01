@@ -227,6 +227,14 @@ public:
     void prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
                     Frm::Model3D* model_pModel3D,
                     uint16_t* paNumVertices);
+
+    static void calcTangentAndBinormal(
+            D3DXVECTOR3* p0, D3DXVECTOR2* uv0,
+            D3DXVECTOR3* p1, D3DXVECTOR2* uv1,
+            D3DXVECTOR3* p2, D3DXVECTOR2* uv2,
+            D3DXVECTOR3* outTangent, D3DXVECTOR3* outBinormal);
+
+
     /**
      * ãÛä‘ÇÃ3ì_v0 v1 v2 ÇÊÇËÅAíºê¸ v0v1 Ç∆ v1v2 ÇÃê¨Ç∑äp(äpv1)ÇãÅÇﬂÇÈ
      * @param v0

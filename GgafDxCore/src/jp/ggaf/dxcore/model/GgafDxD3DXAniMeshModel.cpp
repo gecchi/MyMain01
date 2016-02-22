@@ -1,13 +1,16 @@
 #include "jp/ggaf/dxcore/model/GgafDxD3DXAniMeshModel.h"
 
-#include "jp/ggaf/dxcore/GgafDxGod.h"
-#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
-#include "jp/ggaf/dxcore/effect/GgafDxD3DXAniMeshEffect.h"
 #include "jp/ggaf/dxcore/actor/GgafDxD3DXAniMeshActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxPuppeteer.h"
-#include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
+#include "jp/ggaf/dxcore/effect/GgafDxD3DXAniMeshEffect.h"
+#include "jp/ggaf/dxcore/effect/GgafDxMeshEffect.h"
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/GgafDxGod.h"
+#include "jp/ggaf/dxcore/GgafDxProperties.h"
 #include "jp/ggaf/dxcore/manager/GgafDxEffectManager.h"
+#include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
+#include "jp/ggaf/dxcore/manager/GgafDxTextureManager.h"
+#include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
 #include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
 #include "jp/ggaf/dxcore/util/GgafDxAllocHierarchyWorldFrame.h"
 
@@ -68,7 +71,7 @@ HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int p
         GgafDxEffect* pEffect_active = GgafDxEffectManager::_pEffect_active;
         if ((pEffect_active != pD3DXAniMeshEffect || GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) && i == 0) {
             if (pEffect_active) {
-                _TRACE4_("["<<i<<"],EndPass: /_pEffect_active="<<pEffect_active->_effect_name);
+                _TRACE4_("GgafDxD3DXAniMeshModel::draw() ["<<i<<"],EndPass: /_pEffect_active="<<pEffect_active->_effect_name);
                 hr = pEffect_active->_pID3DXEffect->EndPass();
                 checkDxException(hr, D3D_OK, "["<<i<<"],GgafDxD3DXAniMeshModel::draw() EndPass() に失敗しました。");
                 hr = pEffect_active->_pID3DXEffect->End();
@@ -85,10 +88,10 @@ HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int p
                 }
 #endif
             }
-            _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pD3DXAniMeshEffect->_effect_name);
+            _TRACE4_("GgafDxD3DXAniMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pD3DXAniMeshEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
 
-            _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pD3DXAniMeshEffect->_effect_name<<"("<<pD3DXAniMeshEffect<<")");
+            _TRACE4_("GgafDxD3DXAniMeshModel::draw() BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pD3DXAniMeshEffect->_effect_name<<"("<<pD3DXAniMeshEffect<<")");
             UINT numPass;
             hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
             checkDxException(hr, D3D_OK, "["<<i<<"],GgafDxD3DXAniMeshModel::draw() Begin() に失敗しました。");
@@ -139,9 +142,145 @@ HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int p
 
 void GgafDxD3DXAniMeshModel::restore() {
     _TRACE3_("GgafDxD3DXAniMeshModel::restore() " << _model_name << " start");
-    GgafDxGod::_pModelManager->restoreD3DXAniMeshModel(this);
+    //TODO:作成中？！！！！！！！！
+
+    //【restoreD3DXAniMeshModel再構築（＝初期化）処理概要】
+    //1)D3DXLoadMeshFromXを使用してXファイルを読み込む
+    //2)GgafDxD3DXAniMeshModelのメンバにセット
+    //Xファイルのロードして必要な内容をGgafDxD3DXAniMeshModelメンバに設定しインスタンスとして完成させたい
+//    LPD3DXMESH pID3DXAniMesh; //メッシュ(ID3DXAniMeshインターフェイスへのポインタ）
+    D3DMATERIAL9* model_paMaterial = nullptr; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
+    GgafDxTextureConnection** model_papTextureConnection = nullptr; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
+//    DWORD _num_materials;
+    std::string xfile_name = GgafDxModelManager::getMeshFileName(_model_name);
+    if (xfile_name == "") {
+         throwGgafCriticalException("GgafDxModelManager::restoreD3DXAniMeshModel メッシュファイル(*.x)が見つかりません。model_name="<<(_model_name));
+    }
+    //AnimTicksPerSecondの値を独自に取り出す
+    std::ifstream ifs(xfile_name.c_str());
+    if (ifs.fail()) {
+        throwGgafCriticalException(" GgafDxModelManager::restoreD3DXAniMeshModel ["<<xfile_name<<"] が開けません");
+    }
+    std::string buf;
+    bool isdone = false;
+    int anim_ticks_per_second = 4800;
+    std::string data;
+    while (isdone == false && !ifs.eof()) {
+        ifs >> data;
+        if (data == "AnimTicksPerSecond" || data == "AnimTicksPerSecond{") {
+            while (isdone == false) {
+                ifs >> data;
+                if (data == "{") {
+                    continue;
+                } else if (data == "}") {
+                    isdone = true;
+                    break;
+                } else {
+                    anim_ticks_per_second = atoi(data.c_str()); //"60;" → 60を得る
+                    isdone = true;
+                    break;
+                }
+            }
+        }
+    }
+    ifs.close();
+
+//    LPD3DXBUFFER pID3DXBuffer; //受け取り用バッファ（マテリアル用）
+    HRESULT hr;
+    //Xファイルのファイルロード
+    GgafDxAllocHierarchyWorldFrame* pAH = NEW GgafDxAllocHierarchyWorldFrame(); // CAllocHierarchyBaseの派生クラス
+    D3DXFRAME_WORLD* pFR; // ワールド変換行列付きフレーム構造体
+    ID3DXAnimationController* pAC; // アニメーションコントローラ
+    hr = D3DXLoadMeshHierarchyFromX(
+            xfile_name.c_str(),
+            D3DXMESH_SYSTEMMEM, //D3DXMESH_MANAGED,
+            GgafDxGod::_pID3DDevice9,
+            pAH,
+            nullptr,
+            (D3DXFRAME**)(&pFR),
+            &pAC
+         );
+    _TRACE_("pAH="<<pAH<<" pFR="<<pFR<<" pAC="<<pAC<<" xfile_name.c_str()="<<xfile_name.c_str());
+    checkDxException(hr, D3D_OK, "GgafDxModelManager::restoreD3DXAniMeshModel "<<xfile_name<<" 読み込みに失敗しました。対象="<<xfile_name);
+    if (pFR == nullptr) {
+        throwGgafCriticalException("GgafDxModelManager::restoreD3DXAniMeshModel "<<xfile_name<<" のフレーム情報が取得できません！");
+    }
+    //マテリアル配列を作成
+    std::list<D3DXFRAME_WORLD*> listFrame;
+    getDrawFrameList(&listFrame, pFR); //マテリアル総数を知りたいがため、フレームを廻り、リスト化
+    std::list<D3DXFRAME_WORLD*>::iterator it = listFrame.begin();
+    int model_nMaterials = 0;
+    //フレームリストを廻って、マテリアル総数取得
+    for (int i = 0; it != listFrame.end(); i++, it++) {
+        if ((*it)->pMeshContainer == nullptr) {
+            continue;
+        } else {
+            model_nMaterials += (int)((*it)->pMeshContainer->NumMaterials);
+        }
+    }
+    //配列数がやっと解ったので作成
+    model_paMaterial = NEW D3DMATERIAL9[model_nMaterials];
+    model_papTextureConnection  = NEW GgafDxTextureConnection*[model_nMaterials];
+    //モデル保持用マテリアル、テクスチャ作成のため、もう一度回す
+    it = listFrame.begin();
+    int n = 0;
+    char* texture_filename;
+    for (int i = 0; it != listFrame.end(); i++, it++) {
+        if ((*it)->pMeshContainer == nullptr) {
+            continue;
+        } else {
+            for (int j = 0; j < (int)((*it)->pMeshContainer->NumMaterials); j++) {
+//                (*it)->pMeshContainer->pMaterials[j].MatD3D.Diffuse
+                model_paMaterial[n] = (*it)->pMeshContainer->pMaterials[j].MatD3D; //マテリアル情報コピー
+
+                texture_filename = (*it)->pMeshContainer->pMaterials[j].pTextureFilename;
+                if (texture_filename != nullptr && lstrlen(texture_filename) > 0 ) {
+                    model_papTextureConnection[n] = (GgafDxTextureConnection*)(GgafDxGod::_pModelManager->_pModelTextureManager->connect(texture_filename, this));
+                } else {
+                    //テクスチャ無し時は真っ白なテクスチャに置き換え
+                    model_papTextureConnection[n] = (GgafDxTextureConnection*)(GgafDxGod::_pModelManager->_pModelTextureManager->connect(PROPERTY::WHITE_TEXTURE.c_str(), this));
+                }
+                n ++;
+            }
+        }
+    }
+    //境界球
+    D3DXVECTOR3 vecCenter;
+    FLOAT model_bounding_sphere_radius;
+    D3DXFrameCalculateBoundingSphere(pFR, &vecCenter, &model_bounding_sphere_radius);
+    //メッシュ、マテリアル、テクスチャの参照、マテリアル数をモデルオブジェクトに保持させる
+
+    _pAH = pAH;
+    _pFR = pFR;
+    _pAcBase = pAC;
+    _bounding_sphere_radius = model_bounding_sphere_radius;
+    _TRACE_("境界球半径="<<model_bounding_sphere_radius);
+//    _advance_time_per_frame0 =  advanceTimePerFrame0; //トラック0番１ループの時間
+//    _TRACE_("アニメーションセット0番_advance_time_per_frame");
+
+//    _pID3DXAniMesh = pID3DXAniMesh;
+    _paMaterial_default = model_paMaterial;
+    _papTextureConnection = model_papTextureConnection;
+    _num_materials = model_nMaterials;
+    _anim_ticks_per_second = anim_ticks_per_second;
     _TRACE3_("GgafDxD3DXAniMeshModel::restore() " << _model_name << " end");
 }
+
+void GgafDxD3DXAniMeshModel::getDrawFrameList(std::list<D3DXFRAME_WORLD*>* pList, D3DXFRAME_WORLD* pFrame) {
+    if (pFrame->pMeshContainer) {
+        //メッシュコンテナ有り
+        pList->push_back(pFrame); //リストに追加
+    }
+    if (pFrame->pFrameFirstChild) {
+        // 子フレーム有り
+        getDrawFrameList(pList, (D3DXFRAME_WORLD*)pFrame->pFrameFirstChild);
+    }
+    if (pFrame->pFrameSibling) {
+        //兄弟フレーム有り
+        getDrawFrameList(pList, (D3DXFRAME_WORLD*)pFrame->pFrameSibling);
+    }
+}
+
 
 void GgafDxD3DXAniMeshModel::onDeviceLost() {
     _TRACE3_("GgafDxD3DXAniMeshModel::onDeviceLost() " << _model_name << " start");
