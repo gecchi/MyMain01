@@ -1,7 +1,7 @@
 #ifndef ENEMYASSALIABASE_H_
 #define ENEMYASSALIABASE_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
+#include "jp/ggaf/lib/actor/DefaultMassMeshActor.h"
 
 namespace VioletVreath {
 
@@ -12,7 +12,7 @@ namespace VioletVreath {
  * @since 2011/10/15
  * @author Masatoshi Tsuge
  */
-class EnemyEmiliaBase : public GgafLib::DefaultMeshSetActor {
+class EnemyEmiliaBase : public GgafLib::DefaultMassMeshActor {
 
 protected:
     virtual void processStaminaEnd(const GgafDxCore::GgafDxGeometricActor* prm_pOther) = 0;

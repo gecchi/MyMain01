@@ -1,7 +1,7 @@
 #ifndef ITEM_H_
 #define ITEM_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
+#include "jp/ggaf/lib/actor/DefaultMassMeshActor.h"
 
 namespace VioletVreath {
 
@@ -11,7 +11,7 @@ namespace VioletVreath {
  * @since 2011/02/04
  * @author Masatoshi Tsuge
  */
-class Item : public GgafLib::DefaultMeshSetActor {
+class Item : public GgafLib::DefaultMassMeshActor {
 
 public:
     TractorMagic* pTractorMagic_;

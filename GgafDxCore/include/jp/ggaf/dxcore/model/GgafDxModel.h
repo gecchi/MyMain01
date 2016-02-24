@@ -55,10 +55,16 @@ public:
     char* _model_name;
     /** [r]モデルインスタンス種類 */
     uint32_t _obj_model;
+
     /** [r]マテリアル配列 */
     D3DMATERIAL9* _paMaterial_default;
     /** [r]マテリアル数 */
     DWORD _num_materials;
+    /** [r]テクスチャファイル名の配列 */
+    std::string* _pa_texture_filenames;
+    /** [r]テクスチャ資源コネクション配列 */
+    GgafDxTextureConnection** _papTextureConnection;
+
 
     /** [rw]モデルの境界球半径。画面外判定に利用される */
     FLOAT _bounding_sphere_radius;
@@ -70,8 +76,7 @@ public:
     //r,g,b 何れか >= 1.0 の の場合、_power_blink倍数の色(rgb)を加算
     //ゼビウスのキャラの赤い点滅のようなことをしたかったため作成。
 
-    /** [r]テクスチャ資源コネクション配列 */
-    GgafDxTextureConnection** _papTextureConnection;
+
     /** [r]テクスチャ資源コネクション配列のデフォルトのインデックス。通常は0。 */
     int _default_texture_index;
     /** [r]点滅操作支援オブジェクト */
@@ -88,15 +93,6 @@ public:
     bool _is_init_model;
 
     UINT _num_pass;
-
-    struct SpriteXFileFmt {
-        float width;
-        float height;
-        char texture_file[256];
-        int row_texture_split;
-        int col_texture_split;
-    };
-
 
 public:
     /**
@@ -208,22 +204,17 @@ public:
     //virtual void swapTopTextureOrder(const char* prm_texture0);
 
 
-
-    char* obtainSpriteFmtX(SpriteXFileFmt* pSpriteFmt_out, char* pLockedData);
-
-
     /**
-     * 3D頂点バッファにFrameTransformMatrix変換と法線を設定。
-     * @param prm_paVtxBuffer
-     * @param prm_size_of_vtx_unit
+     * 頂点バッファ情報に共通事前処理を施す。
+     * ・Xファイルの法線情報を設定。（※法線情報無い場合は生成して設定）
+     * ・法線情報から、接ベクトル（Tangent）及び従法線（Binormal）を計算して設定。
+     * ・Xファイルの FrameTransformMatrix変換を適用
+     * @param prm_paVtxBuffer 更新したい頂点バッファデータ（x,y,z,tu,tv は設定済みの前提）
+     * @param prm_size_of_vtx_unit モデルの１頂点データのサイズ
      * @param model_pModel3D
      * @param paNumVertices 頂点連結前の頂点サブセット数の配列
      *        （モデルがサブセット単位で個別基準（位置、回転、拡大）を保持してる場合）
      */
-//    void prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
-//                    Frm::Model3D* model_pModel3D,
-//                    uint16_t* paNumVertices,
-//                    GgafDxModel* prm_pModel = nullptr);
     void prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
                     Frm::Model3D* model_pModel3D,
                     uint16_t* paNumVertices);
@@ -244,11 +235,8 @@ public:
      */
     static float getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm::Vertex& v2);
 
-    void setMaterial(Frm::Mesh* in_pMeshesFront,
-                     int* pOut_material_num,
-                     D3DMATERIAL9**                pOut_paMaterial,
-                     GgafDxTextureConnection***    pOut_papTextureConnection);
-    void setDefaultMaterial(D3DMATERIAL9* out_pD3DMATERIAL9);
+    void setMaterial(Frm::Mesh* in_pMeshesFront = nullptr);
+
     /**
      * モデルを再構築します.
      */

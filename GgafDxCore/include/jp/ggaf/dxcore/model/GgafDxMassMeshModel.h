@@ -3,8 +3,6 @@
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 
-
-#define MAX_INSTACE 256
 namespace GgafDxCore {
 
 /**
@@ -17,33 +15,12 @@ class GgafDxMassMeshModel : public GgafDxModel {
     friend class GgafDxModelManager;
 
 public:
-
-    struct INDEXPARAM {
-        UINT MaterialNo;
-        INT BaseVertexIndex;
-        UINT MinIndex;
-        UINT NumVertices;
-        UINT StartIndex;
-        UINT PrimitiveCount;
-    };
-
     class VERTEX_model : public GgafDxModel::VERTEX_3D_BASE {
     public:
         DWORD color;      // 頂点の色（オブジェクトのマテリアルカラーとして使用）
         float tu, tv;     // テクスチャ座標
     };
 
-    class VERTEX_instancedata {
-    public:
-        float _11, _12, _13, _14;   // : TEXCOORD1  World変換行列、１行目
-        float _21, _22, _23, _24;   // : TEXCOORD2  World変換行列、２行目
-        float _31, _32, _33, _34;   // : TEXCOORD3  World変換行列、３行目
-        float _41, _42, _43, _44;   // : TEXCOORD4  World変換行列、４行目
-        float r, g, b, a;           // : TEXCOORD5  マテリアルカラー
-    };
-
-    /** 頂点のFVF */
-//    static DWORD FVF;
     /** 頂点バッファ（モデル） */
     LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer_model;
     /** 頂点バッファ（インスタンス：ワールド変換行列情報、マテリアルカラー情報） */
@@ -51,7 +28,7 @@ public:
     /** インデックスバッファ */
     LPDIRECT3DINDEXBUFFER9 _pIndexBuffer;
     /** シェーダー入力頂点フォーマット */
-    LPDIRECT3DVERTEXDECLARATION9 _pIDirect3DVertexDeclaration9;
+    LPDIRECT3DVERTEXDECLARATION9 _pVertexDeclaration;
 
     /** １頂点のサイズ（モデル） */
     UINT _size_vertex_unit_model;
@@ -64,17 +41,15 @@ public:
     /** モデル面の数 */
     UINT _nFaces;
 
-    VERTEX_model* _paVtxBuffer_org_model;
+    VERTEX_model* _paVtxBuffer_data_model;
 
-    VERTEX_instancedata _aInstancedata[MAX_INSTACE];
+    WORD* _paIndexBuffer_data;
 
-    WORD* _paIdxBuffer_org;
-
-    /** Paulさんモデル */
-    Frm::Model3D* _pModel3D;
-    /** Paulさんメッシュ */
-    Frm::Mesh* _pMeshesFront;
-
+    void (*_pFunc_CreateVertexInstaceData)(D3DVERTEXELEMENT9** out_paVtxInstaceDataElement,
+                                           int* out_elem_num,
+                                           UINT* out_size_vertex_unit_instacedata,
+                                           void** out_pInstancedata);
+    void* _pInstancedata;
 public:
     /**
      * コンストラクタ<BR>

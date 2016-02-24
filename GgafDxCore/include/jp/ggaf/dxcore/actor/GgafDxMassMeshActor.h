@@ -5,6 +5,7 @@
 
 namespace GgafDxCore {
 
+#define MAX_INSTACE 256
 /**
  * メッシュアクター.
  * GgafDxFigureActor を継承し、Xファイル定義のメッシュ表示機能を<BR>
@@ -20,6 +21,17 @@ public:
     GgafDxMassMeshModel* const _pMassMeshModel;
     /** [r]エフェクト資源 */
     GgafDxMassMeshEffect* const _pMassMeshEffect;
+
+    class VERTEX_instancedata {
+    public:
+        float _11, _12, _13, _14;   // : TEXCOORD1  World変換行列、１行目
+        float _21, _22, _23, _24;   // : TEXCOORD2  World変換行列、２行目
+        float _31, _32, _33, _34;   // : TEXCOORD3  World変換行列、３行目
+        float _41, _42, _43, _44;   // : TEXCOORD4  World変換行列、４行目
+        float r, g, b, a;           // : TEXCOORD5  マテリアルカラー
+    };
+
+    static VERTEX_instancedata _aInstancedata[MAX_INSTACE];
 
 public:
     /**
@@ -62,6 +74,11 @@ public:
                         GgafDxChecker* prm_pChecker);
 
     virtual void processDraw() override;
+
+    static void createVertexInstaceData(D3DVERTEXELEMENT9** out_paVtxInstaceDataElement,
+                                        int* out_elem_num,
+                                        UINT* out_size_vertex_unit_instacedata,
+                                        void** out_pInstancedata);
 
     virtual ~GgafDxMassMeshActor(); //デストラクタ
 };

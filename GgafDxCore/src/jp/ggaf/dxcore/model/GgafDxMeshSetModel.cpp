@@ -9,6 +9,7 @@
 #include "jp/ggaf/dxcore/manager/GgafDxEffectManager.h"
 #include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
 #include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/manager/GgafDxTextureManager.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -43,8 +44,8 @@ GgafDxMeshSetModel::GgafDxMeshSetModel(const char* prm_model_name) : GgafDxModel
     _pVertexBuffer = nullptr;
     _pIndexBuffer = nullptr;
     _paUint_material_list_grp_num = nullptr;
-    _paVtxBuffer_org = nullptr;
-    _paIdxBuffer_org = nullptr;
+    _paVtxBuffer_data = nullptr;
+    _paIndexBuffer_data = nullptr;
     _papaIndexParam = nullptr;
     _size_vertex_unit= 0;
     _size_vertices = 0;
@@ -215,12 +216,11 @@ void GgafDxMeshSetModel::restore() {
     Frm::Mesh* pMeshesFront = nullptr;
 
     GgafDxMeshSetModel::INDEXPARAM** papaIndexParam = nullptr;
-    GgafDxMeshSetModel::VERTEX* unit_paVtxBuffer_org = nullptr;
-    GgafDxMeshSetModel::VERTEX* paVtxBuffer_org = nullptr;
-    WORD* unit_paIdxBuffer_org = nullptr;
-    WORD* paIdxBuffer_org = nullptr;
+    GgafDxMeshSetModel::VERTEX* unit_paVtxBuffer_data = nullptr;
+    GgafDxMeshSetModel::VERTEX* paVtxBuffer_data = nullptr;
+    WORD* unit_paIndexBuffer_data = nullptr;
+    WORD* paIdxBuffer_data = nullptr;
     D3DMATERIAL9* paMaterial = nullptr;
-    GgafDxTextureConnection** papTextureConnection = nullptr;
 
     int nVertices = 0;
     int nTextureCoords = 0;
@@ -251,7 +251,7 @@ void GgafDxMeshSetModel::restore() {
         nTextureCoords = pMeshesFront->_nTextureCoords;
         nFaces = pMeshesFront->_nFaces;
 //        nFaceNormals = pMeshesFront->_nFaceNormals;
-        unit_paVtxBuffer_org = NEW GgafDxMeshSetModel::VERTEX[nVertices];
+        unit_paVtxBuffer_data = NEW GgafDxMeshSetModel::VERTEX[nVertices];
 
         if (nVertices*_set_num > 65535) {
             throwGgafCriticalException("[GgafDxModelManager::restoreMeshSetModel] 頂点が 65535を超えたかもしれません。\n対象Model："<<getName()<<"  nVertices:"<<nVertices<<"  セット数:"<<(_set_num));
@@ -265,26 +265,26 @@ void GgafDxMeshSetModel::restore() {
         //法線以外設定
         FLOAT model_bounding_sphere_radius;
         for (int i = 0; i < nVertices; i++) {
-            unit_paVtxBuffer_org[i].x = pMeshesFront->_Vertices[i].data[0];
-            unit_paVtxBuffer_org[i].y = pMeshesFront->_Vertices[i].data[1];
-            unit_paVtxBuffer_org[i].z = pMeshesFront->_Vertices[i].data[2];
-            unit_paVtxBuffer_org[i].nx = 0.0f;
-            unit_paVtxBuffer_org[i].ny = 0.0f;
-            unit_paVtxBuffer_org[i].nz = 0.0f;
-            unit_paVtxBuffer_org[i].color = D3DCOLOR_ARGB(255,255,255,255); //頂点カラーは今の所使っていない
+            unit_paVtxBuffer_data[i].x = pMeshesFront->_Vertices[i].data[0];
+            unit_paVtxBuffer_data[i].y = pMeshesFront->_Vertices[i].data[1];
+            unit_paVtxBuffer_data[i].z = pMeshesFront->_Vertices[i].data[2];
+            unit_paVtxBuffer_data[i].nx = 0.0f;
+            unit_paVtxBuffer_data[i].ny = 0.0f;
+            unit_paVtxBuffer_data[i].nz = 0.0f;
+            unit_paVtxBuffer_data[i].color = D3DCOLOR_ARGB(255,255,255,255); //頂点カラーは今の所使っていない
             if (i < nTextureCoords) {
-                unit_paVtxBuffer_org[i].tu = pMeshesFront->_TextureCoords[i].data[0];  //出来る限りUV座標設定
-                unit_paVtxBuffer_org[i].tv = pMeshesFront->_TextureCoords[i].data[1];
+                unit_paVtxBuffer_data[i].tu = pMeshesFront->_TextureCoords[i].data[0];  //出来る限りUV座標設定
+                unit_paVtxBuffer_data[i].tv = pMeshesFront->_TextureCoords[i].data[1];
             } else {
-                unit_paVtxBuffer_org[i].tu = 0;
-                unit_paVtxBuffer_org[i].tv = 0;
+                unit_paVtxBuffer_data[i].tu = 0;
+                unit_paVtxBuffer_data[i].tv = 0;
             }
-            unit_paVtxBuffer_org[i].index = 0; //頂点番号（むりやり埋め込み）
+            unit_paVtxBuffer_data[i].index = 0; //頂点番号（むりやり埋め込み）
 
             //距離
-            model_bounding_sphere_radius = (FLOAT)(sqrt(unit_paVtxBuffer_org[i].x * unit_paVtxBuffer_org[i].x +
-                                                        unit_paVtxBuffer_org[i].y * unit_paVtxBuffer_org[i].y +
-                                                        unit_paVtxBuffer_org[i].z * unit_paVtxBuffer_org[i].z));
+            model_bounding_sphere_radius = (FLOAT)(sqrt(unit_paVtxBuffer_data[i].x * unit_paVtxBuffer_data[i].x +
+                                                        unit_paVtxBuffer_data[i].y * unit_paVtxBuffer_data[i].y +
+                                                        unit_paVtxBuffer_data[i].z * unit_paVtxBuffer_data[i].z));
             if (_bounding_sphere_radius < model_bounding_sphere_radius) {
                 _bounding_sphere_radius = model_bounding_sphere_radius;
             }
@@ -295,38 +295,38 @@ void GgafDxMeshSetModel::restore() {
             _TRACE_("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<<xfile_name);
         }
         //法線設定とFrameTransformMatrix適用
-        prepareVtx((void*)unit_paVtxBuffer_org, _size_vertex_unit,
+        prepareVtx((void*)unit_paVtxBuffer_data, _size_vertex_unit,
                    pModel3D, paNumVertices);
         GGAF_DELETE(paNumVertices);
 
         //インデックスバッファ登録
-        unit_paIdxBuffer_org = NEW WORD[nFaces*3];
+        unit_paIndexBuffer_data = NEW WORD[nFaces*3];
         for (int i = 0; i < nFaces; i++) {
-            unit_paIdxBuffer_org[i*3 + 0] = pMeshesFront->_Faces[i].data[0];
-            unit_paIdxBuffer_org[i*3 + 1] = pMeshesFront->_Faces[i].data[1];
-            unit_paIdxBuffer_org[i*3 + 2] = pMeshesFront->_Faces[i].data[2];
+            unit_paIndexBuffer_data[i*3 + 0] = pMeshesFront->_Faces[i].data[0];
+            unit_paIndexBuffer_data[i*3 + 1] = pMeshesFront->_Faces[i].data[1];
+            unit_paIndexBuffer_data[i*3 + 2] = pMeshesFront->_Faces[i].data[2];
         }
 
         //頂点バッファをセット数分繰り返しコピーで作成
-        paVtxBuffer_org = NEW GgafDxMeshSetModel::VERTEX[nVertices * _set_num];
+        paVtxBuffer_data = NEW GgafDxMeshSetModel::VERTEX[nVertices * _set_num];
         for (int i = 0; i < _set_num; i++) {
             for (int j = 0; j < nVertices; j++) {
-                paVtxBuffer_org[(i*nVertices) + j] = unit_paVtxBuffer_org[j];
-                paVtxBuffer_org[(i*nVertices) + j].index = (float)i; //+= (nVertices*i);
+                paVtxBuffer_data[(i*nVertices) + j] = unit_paVtxBuffer_data[j];
+                paVtxBuffer_data[(i*nVertices) + j].index = (float)i; //+= (nVertices*i);
             }
         }
-        GGAF_DELETEARR(unit_paVtxBuffer_org);
+        GGAF_DELETEARR(unit_paVtxBuffer_data);
 
         //インデックスバッファをセット数分繰り返しコピーで作成
-        paIdxBuffer_org = NEW WORD[(nFaces*3) * _set_num];
+        paIdxBuffer_data = NEW WORD[(nFaces*3) * _set_num];
         for (int i = 0; i < _set_num; i++) {
             for (int j = 0; j < nFaces; j++) {
-                paIdxBuffer_org[((i*nFaces*3)+(j*3)) + 0] = unit_paIdxBuffer_org[j*3 + 0] + (nVertices*i);
-                paIdxBuffer_org[((i*nFaces*3)+(j*3)) + 1] = unit_paIdxBuffer_org[j*3 + 1] + (nVertices*i);
-                paIdxBuffer_org[((i*nFaces*3)+(j*3)) + 2] = unit_paIdxBuffer_org[j*3 + 2] + (nVertices*i);
+                paIdxBuffer_data[((i*nFaces*3)+(j*3)) + 0] = unit_paIndexBuffer_data[j*3 + 0] + (nVertices*i);
+                paIdxBuffer_data[((i*nFaces*3)+(j*3)) + 1] = unit_paIndexBuffer_data[j*3 + 1] + (nVertices*i);
+                paIdxBuffer_data[((i*nFaces*3)+(j*3)) + 2] = unit_paIndexBuffer_data[j*3 + 2] + (nVertices*i);
             }
         }
-        GGAF_DELETEARR(unit_paIdxBuffer_org);
+        GGAF_DELETEARR(unit_paIndexBuffer_data);
 
         //マテリアルリストをセット数分繰り返しコピーで作成
         uint16_t* paFaceMaterials = NEW uint16_t[nFaces * _set_num];
@@ -375,23 +375,23 @@ void GgafDxMeshSetModel::restore() {
                     paramno++;
                 }
 
-                if (max_num_vertices <  paIdxBuffer_org[faceNoCnt*3 + 0]) {
-                    max_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 0];
+                if (max_num_vertices <  paIdxBuffer_data[faceNoCnt*3 + 0]) {
+                    max_num_vertices = paIdxBuffer_data[faceNoCnt*3 + 0];
                 }
-                if (max_num_vertices <  paIdxBuffer_org[faceNoCnt*3 + 1]) {
-                    max_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 1];
+                if (max_num_vertices <  paIdxBuffer_data[faceNoCnt*3 + 1]) {
+                    max_num_vertices = paIdxBuffer_data[faceNoCnt*3 + 1];
                 }
-                if (max_num_vertices <  paIdxBuffer_org[faceNoCnt*3 + 2]) {
-                    max_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 2];
+                if (max_num_vertices <  paIdxBuffer_data[faceNoCnt*3 + 2]) {
+                    max_num_vertices = paIdxBuffer_data[faceNoCnt*3 + 2];
                 }
-                if (min_num_vertices >  paIdxBuffer_org[faceNoCnt*3 + 0]) {
-                    min_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 0];
+                if (min_num_vertices >  paIdxBuffer_data[faceNoCnt*3 + 0]) {
+                    min_num_vertices = paIdxBuffer_data[faceNoCnt*3 + 0];
                 }
-                if (min_num_vertices >  paIdxBuffer_org[faceNoCnt*3 + 1]) {
-                    min_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 1];
+                if (min_num_vertices >  paIdxBuffer_data[faceNoCnt*3 + 1]) {
+                    min_num_vertices = paIdxBuffer_data[faceNoCnt*3 + 1];
                 }
-                if (min_num_vertices >  paIdxBuffer_org[faceNoCnt*3 + 2]) {
-                    min_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 2];
+                if (min_num_vertices >  paIdxBuffer_data[faceNoCnt*3 + 2]) {
+                    min_num_vertices = paIdxBuffer_data[faceNoCnt*3 + 2];
                 }
                 prev_materialno = materialno;
             }
@@ -440,7 +440,7 @@ void GgafDxMeshSetModel::restore() {
 
         memcpy(
           pVertexBuffer,
-          paVtxBuffer_org,
+          paVtxBuffer_data,
           _size_vertices * _set_num
         ); //pVertexBuffer ← paVertex
         _pVertexBuffer->Unlock();
@@ -465,7 +465,7 @@ void GgafDxMeshSetModel::restore() {
         _pIndexBuffer->Lock(0,0,(void**)&pIndexBuffer,0);
         memcpy(
           pIndexBuffer ,
-          paIdxBuffer_org,
+          paIdxBuffer_data,
           sizeof(WORD) * nFaces * 3 * _set_num
         );
         _pIndexBuffer->Unlock();
@@ -473,20 +473,23 @@ void GgafDxMeshSetModel::restore() {
 
 
     //マテリアル設定
-    int num_materials = 0;
-    setMaterial(pMeshesFront,
-                &num_materials, &paMaterial, &papTextureConnection);
+    setMaterial(pMeshesFront);
+
+    if (!_papTextureConnection) {
+        _papTextureConnection = NEW GgafDxTextureConnection*[_num_materials];
+        for (int n = 0; n < _num_materials; n++) {
+            _papTextureConnection[n] =
+                    (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
+        }
+    }
 
     //モデルに保持させる
     _pModel3D = pModel3D;
     _pMeshesFront = pMeshesFront;
 
-    _paIdxBuffer_org = paIdxBuffer_org;
-    _paVtxBuffer_org = paVtxBuffer_org;
+    _paIndexBuffer_data = paIdxBuffer_data;
+    _paVtxBuffer_data = paVtxBuffer_data;
     _papaIndexParam = papaIndexParam;
-    _paMaterial_default = paMaterial;
-    _papTextureConnection = papTextureConnection;
-    _num_materials = num_materials;
     _TRACE3_("GgafDxMeshSetModel::restore() " << _model_name << " end");
 }
 
@@ -512,8 +515,8 @@ void GgafDxMeshSetModel::release() {
     GGAF_RELEASE(_pVertexBuffer);
     GGAF_RELEASE(_pIndexBuffer);
 
-    GGAF_DELETEARR(_paVtxBuffer_org);
-    GGAF_DELETEARR(_paIdxBuffer_org);
+    GGAF_DELETEARR(_paVtxBuffer_data);
+    GGAF_DELETEARR(_paIndexBuffer_data);
 
     GGAF_DELETE(_pModel3D);
     //_pMeshesFront は _pModel3D をDELETEしているのでする必要は無い
@@ -528,7 +531,7 @@ void GgafDxMeshSetModel::release() {
 
     //TODO:親クラスメンバをDELETEするのはややきたないか
     GGAF_DELETEARR(_paMaterial_default);
-
+    GGAF_DELETEARR(_pa_texture_filenames);
     _TRACE3_("GgafDxMeshSetModel::release() " << _model_name << " end");
 
 }

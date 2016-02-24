@@ -45,16 +45,48 @@ private:
 
 public:
 
-    /** カスタムテンプレートXファイル読み込み用の ID3DXFile のポインタ */
-    ID3DXFile* _pID3DXFile_sprx;
-    ID3DXFile* _pID3DXFile_psprx;
+    struct SpriteXFileFmt {
+        float width;
+        float height;
+        char texture_file[256];
+        int row_texture_split;
+        int col_texture_split;
+    };
 
+    class PointSpriteXFileFmt {
+    public:
+        float SquareSize;
+        char TextureFile[256];
+        int TextureSplitRowCol;
+        int VerticesNum;
+        D3DVECTOR* paD3DVECTOR_Vertices;
+        D3DCOLORVALUE* paD3DVECTOR_VertexColors;
+        int* paInt_InitUvPtnNo;
+        float* paFLOAT_InitScale;
+        PointSpriteXFileFmt() {
+            paD3DVECTOR_Vertices = nullptr;
+            paD3DVECTOR_VertexColors = nullptr;
+            paInt_InitUvPtnNo = nullptr;
+            paFLOAT_InitScale = nullptr;
+        }
+        ~PointSpriteXFileFmt() {
+            GGAF_DELETE_NULLABLE(paD3DVECTOR_Vertices);
+            GGAF_DELETE_NULLABLE(paD3DVECTOR_VertexColors);
+            GGAF_DELETE_NULLABLE(paInt_InitUvPtnNo);
+            GGAF_DELETE_NULLABLE(paFLOAT_InitScale);
+        }
+    };
+
+    static GgafDxTextureManager* _pModelTextureManager;
+    /** カスタムテンプレートXファイル読み込み用の ID3DXFile のポインタ */
+    static ID3DXFile* _pID3DXFile_sprx;
+    static ID3DXFile* _pID3DXFile_psprx;
     static std::string getMeshFileName(std::string prm_model_name);
     static std::string getSpriteFileName(std::string prm_model_name);
     static std::string getPointSpriteFileName(std::string prm_model_name);
 
-    GgafDxTextureManager* _pModelTextureManager;
-
+    static void obtainSpriteInfo(SpriteXFileFmt* pSpriteFmt_out, std::string prm_sprite_x_filename);
+    static void obtainPointSpriteInfo(PointSpriteXFileFmt* pPointSpriteFmt_out, std::string prm_point_sprite_x_filename);
 public:
     /**
      * コンストラクタ

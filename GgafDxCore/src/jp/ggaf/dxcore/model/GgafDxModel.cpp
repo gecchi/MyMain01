@@ -21,6 +21,7 @@ _pTexBlinker(new GgafDxTextureBlinker(this)) {
 
     _paMaterial_default = nullptr;
     _num_materials = 0;
+    _pa_texture_filenames = nullptr;
     _papTextureConnection = nullptr;
     _default_texture_index = 0;
     _bounding_sphere_radius = 0;
@@ -38,7 +39,7 @@ _pTexBlinker(new GgafDxTextureBlinker(this)) {
 }
 
 //void GgafDxModel::setMaterialTexture(int prm_material_no, const char* prm_texture) {
-//    GgafDxTextureManager* pModelTextureManager = P_GOD->_pModelManager->_pModelTextureManager;
+//    GgafDxTextureManager* pModelTextureManager = GgafDxModelManager::_pModelTextureManager;
 //    GgafDxTextureConnection* pTexCon = (GgafDxTextureConnection*)pModelTextureManager->connect(prm_texture, this);
 //    _papTextureConnection[prm_material_no]->close();
 //    _papTextureConnection[prm_material_no] = pTexCon;
@@ -78,22 +79,11 @@ _pTexBlinker(new GgafDxTextureBlinker(this)) {
 //}
 
 
-char* GgafDxModel::obtainSpriteFmtX(SpriteXFileFmt* pSpriteFmt_out, char* pLockedData) {
-   memcpy(&(pSpriteFmt_out->width), pLockedData, sizeof(float));           pLockedData += sizeof(float);
-   memcpy(&(pSpriteFmt_out->height), pLockedData, sizeof(float));          pLockedData += sizeof(float);
-   strcpy(pSpriteFmt_out->texture_file, pLockedData);                      pLockedData += (sizeof(char) * (strlen(pSpriteFmt_out->texture_file)+1));
-   memcpy(&(pSpriteFmt_out->row_texture_split), pLockedData, sizeof(int)); pLockedData += sizeof(int);
-   memcpy(&(pSpriteFmt_out->col_texture_split), pLockedData, sizeof(int)); pLockedData += sizeof(int);
-   return pLockedData;
-}
-
-
 void GgafDxModel::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
                             Frm::Model3D* model_pModel3D,
                             uint16_t* paNumVertices) {
     //＜前提＞
     //prm_paVtxBuffer には x,y,z,tu,tv は設定済み
-
     Frm::Mesh* model_pMeshesFront = model_pModel3D->_Meshes.front();
     int nVertices = model_pMeshesFront->_nVertices; //メッシュ連結後の総頂点数
     int nFaces = model_pMeshesFront->_nFaces;       //メッシュ連結後の総面数
@@ -475,90 +465,85 @@ float GgafDxModel::getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm::Vertex
 }
 
 
-void GgafDxModel::setMaterial(Frm::Mesh* in_pMeshesFront,
-                             int* pOut_material_num,
-                             D3DMATERIAL9**                pOut_paMaterial,
-                             GgafDxTextureConnection***    pOut_papTextureConnection) {
-
-    for (std::list<Frm::Material*>::iterator material = in_pMeshesFront->_Materials.begin();
-            material != in_pMeshesFront->_Materials.end(); material++) {
-        (*pOut_material_num)++;
-    }
-
-    if ((*pOut_material_num) > 0) {
-        (*pOut_paMaterial) = NEW D3DMATERIAL9[(*pOut_material_num)];
-        (*pOut_papTextureConnection) = NEW GgafDxTextureConnection*[(*pOut_material_num)];
-
-        char* texture_filename;
-        int n = 0;
-        for (std::list<Frm::Material*>::iterator material = in_pMeshesFront->_Materials.begin();
-                material != in_pMeshesFront->_Materials.end(); material++) {
-            (*pOut_paMaterial)[n].Diffuse.r = (*material)->_FaceColor.data[0];
-            (*pOut_paMaterial)[n].Diffuse.g = (*material)->_FaceColor.data[1];
-            (*pOut_paMaterial)[n].Diffuse.b = (*material)->_FaceColor.data[2];
-            (*pOut_paMaterial)[n].Diffuse.a = (*material)->_FaceColor.data[3];
-
-            (*pOut_paMaterial)[n].Ambient.r = (*material)->_FaceColor.data[0];
-            (*pOut_paMaterial)[n].Ambient.g = (*material)->_FaceColor.data[1];
-            (*pOut_paMaterial)[n].Ambient.b = (*material)->_FaceColor.data[2];
-            (*pOut_paMaterial)[n].Ambient.a = (*material)->_FaceColor.data[3];
-
-            (*pOut_paMaterial)[n].Specular.r = (*material)->_SpecularColor.data[0];
-            (*pOut_paMaterial)[n].Specular.g = (*material)->_SpecularColor.data[1];
-            (*pOut_paMaterial)[n].Specular.b = (*material)->_SpecularColor.data[2];
-            (*pOut_paMaterial)[n].Specular.a = 1.000000f;
-            (*pOut_paMaterial)[n].Power =  (*material)->_power;
-
-            (*pOut_paMaterial)[n].Emissive.r = (*material)->_EmissiveColor.data[0];
-            (*pOut_paMaterial)[n].Emissive.g = (*material)->_EmissiveColor.data[1];
-            (*pOut_paMaterial)[n].Emissive.b = (*material)->_EmissiveColor.data[2];
-            (*pOut_paMaterial)[n].Emissive.a = 1.000000f;
-
-            texture_filename = (char*)((*material)->_TextureName.c_str());
-            if (texture_filename != nullptr && lstrlen(texture_filename) > 0 ) {
-                (*pOut_papTextureConnection)[n] = (GgafDxTextureConnection*)(GgafDxGod::_pModelManager->_pModelTextureManager->connect(texture_filename, this));
-            } else {
-                //テクスチャ無し時は真っ白なテクスチャに置き換え
-                (*pOut_papTextureConnection)[n] = (GgafDxTextureConnection*)(GgafDxGod::_pModelManager->_pModelTextureManager->connect(PROPERTY::WHITE_TEXTURE.c_str(), this));
+void GgafDxModel::setMaterial(Frm::Mesh* in_pMeshesFront) {
+    if (!_paMaterial_default) {
+        _num_materials = 0;
+        if (in_pMeshesFront) {
+            for (std::list<Frm::Material*>::iterator material = in_pMeshesFront->_Materials.begin();
+                    material != in_pMeshesFront->_Materials.end(); material++) {
+                _num_materials++;
             }
-            n++;
         }
-    } else {
-        //マテリアル定義が１つも無いので、描画のために無理やり１つマテリアルを作成。
-        (*pOut_paMaterial)  = NEW D3DMATERIAL9[1];
-        (*pOut_papTextureConnection) = NEW GgafDxTextureConnection*[1];
-        setDefaultMaterial(&((*pOut_paMaterial)[0]));
-        (*pOut_papTextureConnection)[0] = (GgafDxTextureConnection*)GgafDxGod::_pModelManager->_pModelTextureManager->connect(PROPERTY::WHITE_TEXTURE.c_str(), this);
-        (*pOut_material_num) = 1;
+
+        if (_num_materials > 0) {
+            _paMaterial_default = NEW D3DMATERIAL9[_num_materials];
+            _pa_texture_filenames = NEW std::string[_num_materials];
+            int n = 0;
+            for (std::list<Frm::Material*>::iterator material = in_pMeshesFront->_Materials.begin();
+                    material != in_pMeshesFront->_Materials.end(); material++) {
+                _paMaterial_default[n].Diffuse.r = (*material)->_FaceColor.data[0];
+                _paMaterial_default[n].Diffuse.g = (*material)->_FaceColor.data[1];
+                _paMaterial_default[n].Diffuse.b = (*material)->_FaceColor.data[2];
+                _paMaterial_default[n].Diffuse.a = (*material)->_FaceColor.data[3];
+
+                _paMaterial_default[n].Ambient.r = (*material)->_FaceColor.data[0];
+                _paMaterial_default[n].Ambient.g = (*material)->_FaceColor.data[1];
+                _paMaterial_default[n].Ambient.b = (*material)->_FaceColor.data[2];
+                _paMaterial_default[n].Ambient.a = (*material)->_FaceColor.data[3];
+
+                _paMaterial_default[n].Specular.r = (*material)->_SpecularColor.data[0];
+                _paMaterial_default[n].Specular.g = (*material)->_SpecularColor.data[1];
+                _paMaterial_default[n].Specular.b = (*material)->_SpecularColor.data[2];
+                _paMaterial_default[n].Specular.a = 1.000000f;
+                _paMaterial_default[n].Power =  (*material)->_power;
+
+                _paMaterial_default[n].Emissive.r = (*material)->_EmissiveColor.data[0];
+                _paMaterial_default[n].Emissive.g = (*material)->_EmissiveColor.data[1];
+                _paMaterial_default[n].Emissive.b = (*material)->_EmissiveColor.data[2];
+                _paMaterial_default[n].Emissive.a = 1.000000f;
+                _pa_texture_filenames[n] = (*material)->_TextureName;
+                if (_pa_texture_filenames[n].size() == 0) {
+                   _pa_texture_filenames[n] = PROPERTY::WHITE_TEXTURE;
+                }
+                n++;
+            }
+        } else {
+            //マテリアル定義が１つも無いので、描画のために無理やり１つマテリアルを作成。
+            _num_materials = 1;
+            _paMaterial_default  = NEW D3DMATERIAL9[1];
+            _pa_texture_filenames = NEW std::string[1];
+
+            _paMaterial_default[0].Diffuse.r = 1.0f;
+            _paMaterial_default[0].Diffuse.g = 1.0f;
+            _paMaterial_default[0].Diffuse.b = 1.0f;
+            _paMaterial_default[0].Diffuse.a = 1.0f;
+
+            _paMaterial_default[0].Ambient.r = 1.0f;
+            _paMaterial_default[0].Ambient.g = 1.0f;
+            _paMaterial_default[0].Ambient.b = 1.0f;
+            _paMaterial_default[0].Ambient.a = 1.0f;
+
+            _paMaterial_default[0].Specular.r = 1.0f;
+            _paMaterial_default[0].Specular.g = 1.0f;
+            _paMaterial_default[0].Specular.b = 1.0f;
+            _paMaterial_default[0].Specular.a = 1.0f;
+            _paMaterial_default[0].Power = 0.0f;
+
+            _paMaterial_default[0].Emissive.r = 1.0f;
+            _paMaterial_default[0].Emissive.g = 1.0f;
+            _paMaterial_default[0].Emissive.b = 1.0f;
+            _paMaterial_default[0].Emissive.a = 1.0f;
+            _pa_texture_filenames[0] = PROPERTY::WHITE_TEXTURE;
+        }
     }
+
 }
 
-void GgafDxModel::setDefaultMaterial(D3DMATERIAL9* out_pD3DMATERIAL9) {
-    out_pD3DMATERIAL9->Diffuse.r = 1.0f;
-    out_pD3DMATERIAL9->Diffuse.g = 1.0f;
-    out_pD3DMATERIAL9->Diffuse.b = 1.0f;
-    out_pD3DMATERIAL9->Diffuse.a = 1.0f;
-
-    out_pD3DMATERIAL9->Ambient.r = 1.0f;
-    out_pD3DMATERIAL9->Ambient.g = 1.0f;
-    out_pD3DMATERIAL9->Ambient.b = 1.0f;
-    out_pD3DMATERIAL9->Ambient.a = 1.0f;
-
-    out_pD3DMATERIAL9->Specular.r = 1.0f;
-    out_pD3DMATERIAL9->Specular.g = 1.0f;
-    out_pD3DMATERIAL9->Specular.b = 1.0f;
-    out_pD3DMATERIAL9->Specular.a = 1.0f;
-    out_pD3DMATERIAL9->Power = 0.0f;
-
-    out_pD3DMATERIAL9->Emissive.r = 1.0f;
-    out_pD3DMATERIAL9->Emissive.g = 1.0f;
-    out_pD3DMATERIAL9->Emissive.b = 1.0f;
-    out_pD3DMATERIAL9->Emissive.a = 1.0f;
-}
 GgafDxModel::~GgafDxModel() {
     _TRACE_("GgafDxModel::~GgafDxModel() " << _model_name << " ");
     GGAF_DELETEARR_NULLABLE(_model_name);
     GGAF_DELETEARR_NULLABLE(_paMaterial_default);
+    GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
     delete _pTexBlinker;
 }
 

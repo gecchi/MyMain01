@@ -135,40 +135,15 @@ void GgafDxSpriteModel::restore() {
     _papTextureConnection = nullptr;
     HRESULT hr;
     std::string xfile_name = GgafDxModelManager::getSpriteFileName(_model_name);
-    //スプライト情報読込みテンプレートの登録(初回実行時のみ)
-    ID3DXFileEnumObject* pID3DXFileEnumObject;
-    ID3DXFileData* pID3DXFileData;
-    hr = GgafDxGod::_pModelManager->_pID3DXFile_sprx->CreateEnumObject((void*)xfile_name.c_str(), D3DXF_FILELOAD_FROMFILE, &pID3DXFileEnumObject);
-    checkDxException(hr, S_OK, "[GgafDxModelManager::restoreSpriteModel] '"<<xfile_name<<"' のCreateEnumObjectに失敗しました。ファイルの存在を確認して下さい。");
-
-    //TODO:GUIDなんとかする。今は完全無視。
-    //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
-
-    SIZE_T nChildren;
-    pID3DXFileEnumObject->GetChildren(&nChildren);
-    for(SIZE_T childCount = 0; childCount < nChildren; ++childCount) {
-        pID3DXFileEnumObject->GetChild(childCount, &pID3DXFileData);
-    }
-
-    SIZE_T xsize = 0;
-    char* pXData = nullptr;
-    pID3DXFileData->Lock(&xsize, (const void**)&pXData);
-    if (pXData == nullptr) {
-        throwGgafCriticalException("[GgafDxModelManager::restoreSpriteModel] "<<xfile_name<<" のフォーマットエラー。");
-    }
-//    GUID* pGuid;
-//    pID3DXFileData->GetType( pGuid );
-
-    SpriteXFileFmt xdata;
-    pXData = obtainSpriteFmtX(&xdata, pXData);
-
+    GgafDxModelManager::SpriteXFileFmt xdata;
+    GgafDxModelManager::obtainSpriteInfo(&xdata, xfile_name);
     _model_width_px = xdata.width;
     _model_height_px =  xdata.height;
     _row_texture_split = xdata.row_texture_split;
     _col_texture_split = xdata.col_texture_split;
 
     //テクスチャ取得しモデルに保持させる
-    GgafDxTextureConnection* model_pTextureConnection = (GgafDxTextureConnection*)(GgafDxGod::_pModelManager->_pModelTextureManager->connect(xdata.texture_file, this));
+    GgafDxTextureConnection* model_pTextureConnection = (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(xdata.texture_file, this));
 
     //テクスチャの参照を保持させる。
     _papTextureConnection = NEW GgafDxTextureConnection*[1];
@@ -273,11 +248,7 @@ void GgafDxSpriteModel::restore() {
     }
     _paMaterial_default = paMaterial;
     //後始末
-    pID3DXFileData->Unlock();
     GGAF_DELETEARR(paVertex);
-    GGAF_RELEASE_BY_FROCE(pID3DXFileData);
-    GGAF_RELEASE(pID3DXFileEnumObject);
-
     _TRACE3_("GgafDxSpriteModel::restore() " << _model_name << " end");
 }
 
@@ -300,6 +271,7 @@ void GgafDxSpriteModel::release() {
     GGAF_DELETEARR(_papTextureConnection);
     //TODO:親クラスメンバをDELETEするのはややきたないか
     GGAF_DELETEARR(_paMaterial_default);
+    GGAF_DELETEARR(_pa_texture_filenames);
     _TRACE3_("GgafDxSpriteModel::release() " << _model_name << " end");
 }
 

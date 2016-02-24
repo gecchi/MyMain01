@@ -19,7 +19,7 @@ DWORD GgafDxPointSpriteModel::FVF = (D3DFVF_XYZ | D3DFVF_PSIZE | D3DFVF_DIFFUSE 
 GgafDxPointSpriteModel::GgafDxPointSpriteModel(const char* prm_model_name) : GgafDxModel(prm_model_name) {
     _TRACE3_("GgafDxPointSpriteModel::GgafDxPointSpriteModel(" << _model_name << ")");
     _pVertexBuffer = nullptr;
-    _paVtxBuffer_org = nullptr;
+    _paVtxBuffer_data = nullptr;
     _vertices_num = 0;
     _size_vertices = 0;
     _size_vertex_unit = 0;
@@ -126,87 +126,88 @@ void GgafDxPointSpriteModel::restore() {
     HRESULT hr;
 //    std::string xfile_name = PROPERTY::DIR_SPRITE_MODEL[0] + std::string(_model_name) + ".psprx";
     std::string xfile_name = GgafDxModelManager::getPointSpriteFileName(_model_name);
-    //スプライト情報読込みテンプレートの登録(初回実行時のみ)
-    ID3DXFileEnumObject* pID3DXFileEnumObject;
-    ID3DXFileData* pID3DXFileData;
-    hr = GgafDxGod::_pModelManager->_pID3DXFile_psprx->CreateEnumObject((void*)xfile_name.c_str(), D3DXF_FILELOAD_FROMFILE, &pID3DXFileEnumObject);
-    checkDxException(hr, S_OK, "[GgafDxModelManager::restorePointSpriteModel] '"<<xfile_name<<"' のCreateEnumObjectに失敗しました。ファイルの存在を確認して下さい。");
-
-    //TODO:GUIDなんとかする。今は完全無視。
-    //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
-    SIZE_T nChildren;
-    pID3DXFileEnumObject->GetChildren(&nChildren);
-    for(SIZE_T childCount = 0; childCount < nChildren; ++childCount) {
-        pID3DXFileEnumObject->GetChild(childCount, &pID3DXFileData);
-    }
-
-//    "template PointSpriteDef { "
-//    "  <E4EECE4C-E106-11DC-9B62-346D55D89593> "
-//    "  FLOAT  SquareSize; "
-//    "  STRING TextureFile; "
-//    "  DWORD  TextureSplitRowCol; "
-//    "  DWORD  VerticesNum; "
-//    "  array  Vector    Vertices[VerticesNum]; "
-//    "  array  ColorRGBA VertexColors[VerticesNum]; "
-//    "  array  DWORD     InitUvPtnNo[VerticesNum]; "
-//    "  array  FLOAT     InitScale[VerticesNum]; "
-//    "} "
+//    //スプライト情報読込みテンプレートの登録(初回実行時のみ)
+//    ID3DXFileEnumObject* pID3DXFileEnumObject;
+//    ID3DXFileData* pID3DXFileData;
+//    hr = GgafDxModelManager::_pID3DXFile_psprx->CreateEnumObject((void*)xfile_name.c_str(), D3DXF_FILELOAD_FROMFILE, &pID3DXFileEnumObject);
+//    checkDxException(hr, S_OK, "[GgafDxModelManager::restorePointSpriteModel] '"<<xfile_name<<"' のCreateEnumObjectに失敗しました。ファイルの存在を確認して下さい。");
 //
-    struct XFILE_FMT_HD {
-        float SquareSize;
-        char TextureFile[256];
-        int TextureSplitRowCol;
-        int VerticesNum;
-    };
-    SIZE_T xsize = 0;
-    char* pXData = nullptr;
-    pID3DXFileData->Lock(&xsize, (const void**)&pXData);
-    if (pXData == nullptr) {
-        throwGgafCriticalException("[GgafDxModelManager::restorePointSpriteModel] "<<xfile_name<<" のフォーマットエラー。");
-    }
-    //    GUID* pGuid;
-    //    pID3DXFileData->GetType(pGuid);
-    XFILE_FMT_HD xDataHd;
-    //"  FLOAT  SquareSize;\n"
-    memcpy(&(xDataHd.SquareSize), pXData, sizeof(float));
-    pXData += sizeof(float);
-    //"  STRING TextureFile;\n"
-    strcpy(xDataHd.TextureFile, pXData);
-    pXData += (sizeof(char) * (strlen(xDataHd.TextureFile)+1));
-    //"  DWORD  TextureSplitRowCol;\n"
-    memcpy(&(xDataHd.TextureSplitRowCol), pXData, sizeof(int));
-    pXData += sizeof(int);
-    //"  DWORD  VerticesNum;\n"
-    memcpy(&(xDataHd.VerticesNum), pXData, sizeof(int));
-    pXData += sizeof(int);
-    //"  array  Vector    Vertices[VerticesNum];\n"
-    D3DVECTOR* paD3DVECTOR_Vertices = NEW D3DVECTOR[xDataHd.VerticesNum];
-    memcpy(paD3DVECTOR_Vertices, pXData, sizeof(D3DVECTOR)*xDataHd.VerticesNum);
-    pXData += sizeof(D3DVECTOR)*xDataHd.VerticesNum;
-    //"  array  ColorRGBA VertexColors[VerticesNum];\n"
-    D3DCOLORVALUE* paD3DVECTOR_VertexColors = NEW D3DCOLORVALUE[xDataHd.VerticesNum];
-    memcpy(paD3DVECTOR_VertexColors, pXData, sizeof(D3DCOLORVALUE)*xDataHd.VerticesNum);
-    pXData += sizeof(D3DCOLORVALUE)*xDataHd.VerticesNum;
-    //"  array  DWORD     InitUvPtnNo[VerticesNum];\n"
-    int* paInt_InitUvPtnNo = NEW int[xDataHd.VerticesNum];
-    memcpy(paInt_InitUvPtnNo, pXData, sizeof(int)*xDataHd.VerticesNum);
-    pXData += sizeof(int)*xDataHd.VerticesNum;
-    //"  array  FLOAT     InitScale[VerticesNum];\n"
-    float* paFLOAT_InitScale = NEW float[xDataHd.VerticesNum];
-    memcpy(paFLOAT_InitScale, pXData, sizeof(float)*xDataHd.VerticesNum);
-    pXData += sizeof(float)*xDataHd.VerticesNum;
-
+//    //TODO:GUIDなんとかする。今は完全無視。
+//    //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
+//    SIZE_T nChildren;
+//    pID3DXFileEnumObject->GetChildren(&nChildren);
+//    for(SIZE_T childCount = 0; childCount < nChildren; ++childCount) {
+//        pID3DXFileEnumObject->GetChild(childCount, &pID3DXFileData);
+//    }
+//
+////    "template PointSpriteDef { "
+////    "  <E4EECE4C-E106-11DC-9B62-346D55D89593> "
+////    "  FLOAT  SquareSize; "
+////    "  STRING TextureFile; "
+////    "  DWORD  TextureSplitRowCol; "
+////    "  DWORD  VerticesNum; "
+////    "  array  Vector    Vertices[VerticesNum]; "
+////    "  array  ColorRGBA VertexColors[VerticesNum]; "
+////    "  array  DWORD     InitUvPtnNo[VerticesNum]; "
+////    "  array  FLOAT     InitScale[VerticesNum]; "
+////    "} "
+////
+//    struct XFILE_FMT_HD {
+//        float SquareSize;
+//        char TextureFile[256];
+//        int TextureSplitRowCol;
+//        int VerticesNum;
+//    };
+//    SIZE_T xsize = 0;
+//    char* pXData = nullptr;
+//    pID3DXFileData->Lock(&xsize, (const void**)&pXData);
+//    if (pXData == nullptr) {
+//        throwGgafCriticalException("[GgafDxModelManager::restorePointSpriteModel] "<<xfile_name<<" のフォーマットエラー。");
+//    }
+//    //    GUID* pGuid;
+//    //    pID3DXFileData->GetType(pGuid);
+//    XFILE_FMT_HD xDataHd;
+//    //"  FLOAT  SquareSize;\n"
+//    memcpy(&(xDataHd.SquareSize), pXData, sizeof(float));
+//    pXData += sizeof(float);
+//    //"  STRING TextureFile;\n"
+//    strcpy(xDataHd.TextureFile, pXData);
+//    pXData += (sizeof(char) * (strlen(xDataHd.TextureFile)+1));
+//    //"  DWORD  TextureSplitRowCol;\n"
+//    memcpy(&(xDataHd.TextureSplitRowCol), pXData, sizeof(int));
+//    pXData += sizeof(int);
+//    //"  DWORD  VerticesNum;\n"
+//    memcpy(&(xDataHd.VerticesNum), pXData, sizeof(int));
+//    pXData += sizeof(int);
+//    //"  array  Vector    Vertices[VerticesNum];\n"
+//    D3DVECTOR* paD3DVECTOR_Vertices = NEW D3DVECTOR[xDataHd.VerticesNum];
+//    memcpy(paD3DVECTOR_Vertices, pXData, sizeof(D3DVECTOR)*xDataHd.VerticesNum);
+//    pXData += sizeof(D3DVECTOR)*xDataHd.VerticesNum;
+//    //"  array  ColorRGBA VertexColors[VerticesNum];\n"
+//    D3DCOLORVALUE* paD3DVECTOR_VertexColors = NEW D3DCOLORVALUE[xDataHd.VerticesNum];
+//    memcpy(paD3DVECTOR_VertexColors, pXData, sizeof(D3DCOLORVALUE)*xDataHd.VerticesNum);
+//    pXData += sizeof(D3DCOLORVALUE)*xDataHd.VerticesNum;
+//    //"  array  DWORD     InitUvPtnNo[VerticesNum];\n"
+//    int* paInt_InitUvPtnNo = NEW int[xDataHd.VerticesNum];
+//    memcpy(paInt_InitUvPtnNo, pXData, sizeof(int)*xDataHd.VerticesNum);
+//    pXData += sizeof(int)*xDataHd.VerticesNum;
+//    //"  array  FLOAT     InitScale[VerticesNum];\n"
+//    float* paFLOAT_InitScale = NEW float[xDataHd.VerticesNum];
+//    memcpy(paFLOAT_InitScale, pXData, sizeof(float)*xDataHd.VerticesNum);
+//    pXData += sizeof(float)*xDataHd.VerticesNum;
+    GgafDxModelManager::PointSpriteXFileFmt pointsprite_info;
+    GgafDxModelManager::obtainPointSpriteInfo(&pointsprite_info, xfile_name);
     //退避
-    float square_size_px = xDataHd.SquareSize;
-    int texture_split_rowcol = xDataHd.TextureSplitRowCol;
-    int vertices_num = xDataHd.VerticesNum;
+    float square_size_px = pointsprite_info.SquareSize;
+    int texture_split_rowcol = pointsprite_info.TextureSplitRowCol;
+    int vertices_num = pointsprite_info.VerticesNum;
     _TRACE3_("GgafDxModelManager::restorePointSpriteModel vertices_num="<<vertices_num);
     UINT size_vertices = sizeof(GgafDxPointSpriteModel::VERTEX)*vertices_num;
     UINT size_vertex_unit = sizeof(GgafDxPointSpriteModel::VERTEX);
 
     //テクスチャ取得しモデルに保持させる
     GgafDxTextureConnection** papTextureConnection = NEW GgafDxTextureConnection*[1];
-    papTextureConnection[0] = (GgafDxTextureConnection*)(GgafDxGod::_pModelManager->_pModelTextureManager->connect(xDataHd.TextureFile , this));
+    papTextureConnection[0] = (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(pointsprite_info.TextureFile , this));
     GgafDxTexture* pTex = papTextureConnection[0]->peek();
 
     float tex_width  = (float)(pTex->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
@@ -217,25 +218,25 @@ void GgafDxPointSpriteModel::restore() {
     FLOAT bounding_sphere_radius = 0;
 
     //頂点バッファ作成
-    GgafDxPointSpriteModel::VERTEX* paVtxBuffer_org = NEW GgafDxPointSpriteModel::VERTEX[vertices_num];
+    GgafDxPointSpriteModel::VERTEX* paVtxBuffer_data = NEW GgafDxPointSpriteModel::VERTEX[vertices_num];
 
     float dis;
     for (int i = 0; i < vertices_num; i++) {
-        paVtxBuffer_org[i].x = paD3DVECTOR_Vertices[i].x;
-        paVtxBuffer_org[i].y = paD3DVECTOR_Vertices[i].y;
-        paVtxBuffer_org[i].z = paD3DVECTOR_Vertices[i].z;
-        paVtxBuffer_org[i].psize = (square_size_px*texture_split_rowcol / tex_width) * paFLOAT_InitScale[i]; //PSIZEにはピクセルサイズではなく倍率を埋め込む。
+        paVtxBuffer_data[i].x = pointsprite_info.paD3DVECTOR_Vertices[i].x;
+        paVtxBuffer_data[i].y = pointsprite_info.paD3DVECTOR_Vertices[i].y;
+        paVtxBuffer_data[i].z = pointsprite_info.paD3DVECTOR_Vertices[i].z;
+        paVtxBuffer_data[i].psize = (square_size_px*texture_split_rowcol / tex_width) * pointsprite_info.paFLOAT_InitScale[i]; //PSIZEにはピクセルサイズではなく倍率を埋め込む。
                                                                                                 //シェーダーで拡大縮小ピクセルを計算
-        paVtxBuffer_org[i].color = D3DCOLOR_COLORVALUE(paD3DVECTOR_VertexColors[i].r,
-                                                             paD3DVECTOR_VertexColors[i].g,
-                                                             paD3DVECTOR_VertexColors[i].b,
-                                                             paD3DVECTOR_VertexColors[i].a );
-        paVtxBuffer_org[i].tu = (float)(paInt_InitUvPtnNo[i]);
-        paVtxBuffer_org[i].tv = 0;
+        paVtxBuffer_data[i].color = D3DCOLOR_COLORVALUE(pointsprite_info.paD3DVECTOR_VertexColors[i].r,
+                                                        pointsprite_info.paD3DVECTOR_VertexColors[i].g,
+                                                        pointsprite_info.paD3DVECTOR_VertexColors[i].b,
+                                                        pointsprite_info.paD3DVECTOR_VertexColors[i].a );
+        paVtxBuffer_data[i].tu = (float)(pointsprite_info.paInt_InitUvPtnNo[i]);
+        paVtxBuffer_data[i].tv = 0;
 
-        dis = (FLOAT)(sqrt(paVtxBuffer_org[i].x * paVtxBuffer_org[i].x +
-                           paVtxBuffer_org[i].y * paVtxBuffer_org[i].y +
-                           paVtxBuffer_org[i].z * paVtxBuffer_org[i].z  )
+        dis = (FLOAT)(sqrt(paVtxBuffer_data[i].x * paVtxBuffer_data[i].x +
+                           paVtxBuffer_data[i].y * paVtxBuffer_data[i].y +
+                           paVtxBuffer_data[i].z * paVtxBuffer_data[i].z  )
                        + (((square_size_px/PX_UNIT) * 1.41421356 ) / 2.0)
                      );
 
@@ -261,7 +262,7 @@ void GgafDxPointSpriteModel::restore() {
         void *pVertexBuffer;
         hr = _pVertexBuffer->Lock(0, size_vertices, (void**)&pVertexBuffer, 0);
         checkDxException(hr, D3D_OK, "[GgafDxModelManager::restorePointSpriteModel] 頂点バッファのロック取得に失敗 model="<<_model_name);
-        memcpy(pVertexBuffer, paVtxBuffer_org, size_vertices); //pVertexBuffer ← paVertex
+        memcpy(pVertexBuffer, paVtxBuffer_data, size_vertices); //pVertexBuffer ← paVertex
         _pVertexBuffer->Unlock();
     }
 
@@ -281,16 +282,16 @@ void GgafDxPointSpriteModel::restore() {
     _vertices_num           = vertices_num;
     _size_vertices          = size_vertices;
     _size_vertex_unit       = size_vertex_unit;
-    _paVtxBuffer_org        = paVtxBuffer_org;
+    _paVtxBuffer_data        = paVtxBuffer_data;
     _bounding_sphere_radius = bounding_sphere_radius;
-    pID3DXFileData->Unlock();
-    GGAF_DELETEARR(paD3DVECTOR_Vertices);
-    GGAF_DELETEARR(paD3DVECTOR_VertexColors);
-    GGAF_DELETEARR(paInt_InitUvPtnNo);
-    GGAF_DELETEARR(paFLOAT_InitScale);
-
-    GGAF_RELEASE_BY_FROCE(pID3DXFileData);
-    GGAF_RELEASE(pID3DXFileEnumObject);
+//    pID3DXFileData->Unlock();
+//    GGAF_DELETEARR(paD3DVECTOR_Vertices);
+//    GGAF_DELETEARR(paD3DVECTOR_VertexColors);
+//    GGAF_DELETEARR(paInt_InitUvPtnNo);
+//    GGAF_DELETEARR(paFLOAT_InitScale);
+//
+//    GGAF_RELEASE_BY_FROCE(pID3DXFileData);
+//    GGAF_RELEASE(pID3DXFileEnumObject);
     _TRACE3_("GgafDxPointSpriteModel::restore() " << _model_name << " end");
 }
 
@@ -303,7 +304,7 @@ void GgafDxPointSpriteModel::onDeviceLost() {
 void GgafDxPointSpriteModel::release() {
     _TRACE3_("GgafDxPointSpriteModel::release() " << _model_name << " start");
     GGAF_RELEASE(_pVertexBuffer);
-    GGAF_DELETEARR(_paVtxBuffer_org);
+    GGAF_DELETEARR(_paVtxBuffer_data);
     if (_papTextureConnection) {
         for (int i = 0; i < (int)_num_materials; i++) {
             if (_papTextureConnection[i]) {
@@ -314,6 +315,7 @@ void GgafDxPointSpriteModel::release() {
     GGAF_DELETEARR(_papTextureConnection);
     //TODO:親クラスメンバをDELETEするのはややきたないか
     GGAF_DELETEARR(_paMaterial_default);
+    GGAF_DELETEARR(_pa_texture_filenames);
     _TRACE3_("GgafDxPointSpriteModel::release() " << _model_name << " end");
 }
 

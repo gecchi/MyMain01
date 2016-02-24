@@ -235,10 +235,10 @@ void GgafDxD3DXAniMeshModel::restore() {
 
                 texture_filename = (*it)->pMeshContainer->pMaterials[j].pTextureFilename;
                 if (texture_filename != nullptr && lstrlen(texture_filename) > 0 ) {
-                    model_papTextureConnection[n] = (GgafDxTextureConnection*)(GgafDxGod::_pModelManager->_pModelTextureManager->connect(texture_filename, this));
+                    model_papTextureConnection[n] = (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(texture_filename, this));
                 } else {
                     //テクスチャ無し時は真っ白なテクスチャに置き換え
-                    model_papTextureConnection[n] = (GgafDxTextureConnection*)(GgafDxGod::_pModelManager->_pModelTextureManager->connect(PROPERTY::WHITE_TEXTURE.c_str(), this));
+                    model_papTextureConnection[n] = (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(PROPERTY::WHITE_TEXTURE.c_str(), this));
                 }
                 n ++;
             }
@@ -307,6 +307,7 @@ void GgafDxD3DXAniMeshModel::release() {
 
     //TODO:親クラスメンバをDELETEするのはややきたないか
     GGAF_DELETEARR(_paMaterial_default);
+    GGAF_DELETEARR(_pa_texture_filenames);
     GGAF_RELEASE(_pAcBase);
     GGAF_DELETE(_pAH);
     //TODO:いつ消すの？

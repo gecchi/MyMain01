@@ -14,7 +14,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EnemyTalante::EnemyTalante(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "Talante", STATUS(EnemyTalante)) {
+        DefaultMassMeshActor(prm_name, "Talante", STATUS(EnemyTalante)) {
     _class_name = "EnemyTalante";
     pDepo_shot_ = nullptr;
     GgafDxSeTransmitterForActor* pSeTx = getSeTx();

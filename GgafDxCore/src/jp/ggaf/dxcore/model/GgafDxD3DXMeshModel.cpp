@@ -205,10 +205,10 @@ void GgafDxD3DXMeshModel::restore() {
     for( DWORD i = 0; i < num_materials; i++) {
         texture_filename = paD3DMaterial9_tmp[i].pTextureFilename;
         if (texture_filename != nullptr && lstrlen(texture_filename) > 0 ) {
-            papTextureConnection[i] = (GgafDxTextureConnection*)(GgafDxGod::_pModelManager->_pModelTextureManager->connect(texture_filename, this));
+            papTextureConnection[i] = (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(texture_filename, this));
         } else {
             //テクスチャ無し
-            papTextureConnection[i] = (GgafDxTextureConnection*)(GgafDxGod::_pModelManager->_pModelTextureManager->connect(PROPERTY::WHITE_TEXTURE.c_str(), this));
+            papTextureConnection[i] = (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(PROPERTY::WHITE_TEXTURE.c_str(), this));
         }
     }
     GGAF_RELEASE(pID3DXBuffer);//テクスチャファイル名はもういらないのでバッファ解放
@@ -263,7 +263,7 @@ void GgafDxD3DXMeshModel::release() {
 
     //TODO:親クラスメンバをDELETEするのはややきたないか
     GGAF_DELETEARR(_paMaterial_default);
-
+    GGAF_DELETEARR(_pa_texture_filenames);
     _TRACE3_("GgafDxD3DXMeshModel::release() " << _model_name << " end");
 }
 

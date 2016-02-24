@@ -11,7 +11,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 Item::Item(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat)
-               : DefaultMeshSetActor(prm_name, prm_model, prm_pStat) {
+               : DefaultMassMeshActor(prm_name, prm_model, prm_pStat) {
     _class_name = "Item";
     pTractorMagic_ = nullptr;
 }

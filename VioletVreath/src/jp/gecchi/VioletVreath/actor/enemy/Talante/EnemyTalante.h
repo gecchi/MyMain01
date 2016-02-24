@@ -1,7 +1,7 @@
 #ifndef ENEMYTALANTE_H_
 #define ENEMYTALANTE_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
+#include "jp/ggaf/lib/actor/DefaultMassMeshActor.h"
 
 namespace VioletVreath {
 
@@ -12,7 +12,7 @@ namespace VioletVreath {
  * @since 2011/10/15
  * @author Masatoshi Tsuge
  */
-class EnemyTalante : public GgafLib::DefaultMeshSetActor {
+class EnemyTalante : public GgafLib::DefaultMassMeshActor {
 
 public:
     enum {

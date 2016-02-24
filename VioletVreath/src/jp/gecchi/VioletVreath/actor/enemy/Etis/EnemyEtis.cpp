@@ -16,7 +16,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EnemyEtis::EnemyEtis(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "Etis", STATUS(EnemyEtis)) {
+        DefaultMassMeshActor(prm_name, "Etis", STATUS(EnemyEtis)) {
     _class_name = "EnemyEtis";
     width_x_ = 220*2*LEN_UNIT;
     height_z_ = 220*2*LEN_UNIT;

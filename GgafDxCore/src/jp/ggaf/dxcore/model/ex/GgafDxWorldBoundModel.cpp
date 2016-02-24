@@ -33,7 +33,7 @@ HRESULT GgafDxWorldBoundModel::draw(GgafDxFigureActor* prm_pActor_target, int pr
     UINT material_no;
     //頂点バッファ設定
     if (GgafDxModelManager::_pModelLastDraw != this) {
-        pDevice->SetVertexDeclaration( _pIDirect3DVertexDeclaration9); //頂点フォーマット
+        pDevice->SetVertexDeclaration( _pVertexDeclaration); //頂点フォーマット
         pDevice->SetStreamSource(0, _pVertexBuffer_primary, 0, _size_vertex_unit_primary);
         for (int i = 1; i <= _morph_target_num; i++) {
             pDevice->SetStreamSource(i, _paIDirect3DVertexBuffer9_morph[i-1], 0, _size_vertex_unit_morph);

@@ -75,7 +75,7 @@ public:
     /** モーフターゲット数 */
     int _morph_target_num;
     /** シェーダー入力頂点フォーマット */
-    LPDIRECT3DVERTEXDECLARATION9 _pIDirect3DVertexDeclaration9;
+    LPDIRECT3DVERTEXDECLARATION9 _pVertexDeclaration;
     /** 頂点バッファ（プライマリ） */
     LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer_primary;
     /** 頂点バッファの配列（要素数＝モーフターゲット数） */
@@ -100,11 +100,11 @@ public:
     UINT _material_list_grp_num;
 
     /** 頂点バッファの写しコピーの頂点配列（プライマリ） */
-    VERTEX_PRIMARY* _paVtxBuffer_org_primary;
+    VERTEX_PRIMARY* _paVtxBuffer_data_primary;
     /** 頂点バッファの写しコピーの頂点配列のモーフターゲット数配列 */
-    VERTEX_MORPH**  _papaVtxBuffer_org_morph;
+    VERTEX_MORPH**  _papaVtxBuffer_data_morph;
     /** インデックスバッファの写しコピー（プライマリのみ） */
-    WORD* _paIdxBuffer_org;
+    WORD* _paIndexBuffer_data;
 
     /** Paulさんモデル（要素数＝プライマリ＋モーフターゲット数） */
     Frm::Model3D** _papModel3D;

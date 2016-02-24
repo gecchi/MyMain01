@@ -70,8 +70,8 @@ public:
     /** マテリアルリストの連続で同一のマテリアル番号の塊（グループ）が幾つあるか */
     UINT* _paUint_material_list_grp_num;
 
-    VERTEX* _paVtxBuffer_org;
-    WORD* _paIdxBuffer_org;
+    VERTEX* _paVtxBuffer_data;
+    WORD* _paIndexBuffer_data;
 
     /** Paulさんモデル */
     Frm::Model3D* _pModel3D;

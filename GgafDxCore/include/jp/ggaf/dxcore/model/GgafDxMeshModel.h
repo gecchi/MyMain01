@@ -67,20 +67,23 @@ public:
     /** インデックスバッファ */
     LPDIRECT3DINDEXBUFFER9 _pIndexBuffer;
 
-    UINT _size_vertices;
+    /** モデル頂点数 */
+    UINT _nVertices;
+    /** モデル面の数 */
+    UINT _nFaces;
     /** 1頂点のサイズ */
     UINT _size_vertex_unit;
+    /** モデル頂点サイズ計 */
+    UINT _size_vertices;
+
+
     INDEXPARAM* _paIndexParam;
 
     UINT _material_list_grp_num;
 
-    VERTEX* _paVtxBuffer_org;
-    WORD* _paIdxBuffer_org;
+    VERTEX* _paVtxBuffer_data;
 
-//    /** Paulさんモデル */
-//    Frm::Model3D* _pModel3D;
-//    /** Paulさんメッシュ */
-//    Frm::Mesh* _pMeshesFront;
+    WORD* _paIndexBuffer_data;
 
 public:
     /**

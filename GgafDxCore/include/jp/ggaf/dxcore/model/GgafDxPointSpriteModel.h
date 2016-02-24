@@ -25,7 +25,7 @@ public:
     /** 頂点バッファ */
     LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer;
     /** 頂点情報配列 */
-    VERTEX* _paVtxBuffer_org;
+    VERTEX* _paVtxBuffer_data;
     /** 頂点数(=スプライト数) */
     int _vertices_num;
     /** 頂点のFVF */

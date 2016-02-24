@@ -10,6 +10,9 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
+
+GgafDxMassMeshActor::VERTEX_instancedata GgafDxMassMeshActor::_aInstancedata[MAX_INSTACE];
+
 GgafDxMassMeshActor::GgafDxMassMeshActor(const char* prm_name,
                                          const char* prm_model_id,
                                          const char* prm_effect_id,
@@ -31,6 +34,7 @@ _pMassMeshEffect((GgafDxMassMeshEffect*)_pEffect) {
     _class_name = "GgafDxMassMeshActor";
     _pFunc_calc_rot_mv_world_matrix = UTIL::setWorldMatrix_RxRzRyMv;
     (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
+    _pMassMeshModel->_pFunc_CreateVertexInstaceData = GgafDxMassMeshActor::createVertexInstaceData;
 }
 
 GgafDxMassMeshActor::GgafDxMassMeshActor(const char* prm_name,
@@ -57,6 +61,8 @@ _pMassMeshEffect((GgafDxMassMeshEffect*)_pEffect) {
     _class_name = "GgafDxMassMeshActor";
     _pFunc_calc_rot_mv_world_matrix = UTIL::setWorldMatrix_RxRzRyMv;
     (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
+
+    _pMassMeshModel->_pFunc_CreateVertexInstaceData = GgafDxMassMeshActor::createVertexInstaceData;
 }
 
 void GgafDxMassMeshActor::processDraw() {
@@ -65,8 +71,7 @@ void GgafDxMassMeshActor::processDraw() {
     GgafDxMassMeshModel* pMassMeshModel = _pMassMeshModel;
     const int model_max_set_num = pMassMeshModel->_set_num;
     const hashval hash_technique = _hash_technique;
-    GgafDxMassMeshModel::VERTEX_instancedata* paInstancedata = pMassMeshModel->_aInstancedata;
-
+    VERTEX_instancedata* paInstancedata = GgafDxMassMeshActor::_aInstancedata;
     static const size_t SIZE_D3DXMATRIX = sizeof(D3DXMATRIX);
     static const size_t SIZE_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
     GgafDxFigureActor* pDrawActor = this;
@@ -88,6 +93,61 @@ void GgafDxMassMeshActor::processDraw() {
         }
     }
     ((GgafDxMassMeshModel*)_pMassMeshModel)->GgafDxMassMeshModel::draw(this, draw_set_num);
+}
+
+void GgafDxMassMeshActor::createVertexInstaceData(D3DVERTEXELEMENT9** out_paVtxInstaceDataElement,
+                                                    int* out_elem_num,
+                                                    UINT* out_size_vertex_unit_instacedata,
+                                                    void** out_pInstancedata) {
+    *out_paVtxInstaceDataElement = NEW D3DVERTEXELEMENT9[5];
+    *out_elem_num = 5;
+    *out_size_vertex_unit_instacedata = sizeof(VERTEX_instancedata);
+    *out_pInstancedata = GgafDxMassMeshActor::_aInstancedata;
+
+    // Stream = 1 ---->
+    WORD st1_offset_next = 0;
+    //float _11, _12, _13, _14;   // : TEXCOORD1  World変換行列、１行目
+    (*out_paVtxInstaceDataElement)[0].Stream = 1;
+    (*out_paVtxInstaceDataElement)[0].Offset = st1_offset_next;
+    (*out_paVtxInstaceDataElement)[0].Type   = D3DDECLTYPE_FLOAT4;
+    (*out_paVtxInstaceDataElement)[0].Method = D3DDECLMETHOD_DEFAULT;
+    (*out_paVtxInstaceDataElement)[0].Usage  = D3DDECLUSAGE_TEXCOORD;
+    (*out_paVtxInstaceDataElement)[0].UsageIndex = 1;
+    st1_offset_next += sizeof(float)*4;
+    //float _21, _22, _23, _24;  // : TEXCOORD2  World変換行列、２行目
+    (*out_paVtxInstaceDataElement)[1].Stream = 1;
+    (*out_paVtxInstaceDataElement)[1].Offset = st1_offset_next;
+    (*out_paVtxInstaceDataElement)[1].Type   = D3DDECLTYPE_FLOAT4;
+    (*out_paVtxInstaceDataElement)[1].Method = D3DDECLMETHOD_DEFAULT;
+    (*out_paVtxInstaceDataElement)[1].Usage  = D3DDECLUSAGE_TEXCOORD;
+    (*out_paVtxInstaceDataElement)[1].UsageIndex = 2;
+    st1_offset_next += sizeof(float)*4;
+    //float _31, _32, _33, _34;  // : TEXCOORD3  World変換行列、３行目
+    (*out_paVtxInstaceDataElement)[2].Stream = 1;
+    (*out_paVtxInstaceDataElement)[2].Offset = st1_offset_next;
+    (*out_paVtxInstaceDataElement)[2].Type   = D3DDECLTYPE_FLOAT4;
+    (*out_paVtxInstaceDataElement)[2].Method = D3DDECLMETHOD_DEFAULT;
+    (*out_paVtxInstaceDataElement)[2].Usage  = D3DDECLUSAGE_TEXCOORD;
+    (*out_paVtxInstaceDataElement)[2].UsageIndex = 3;
+    st1_offset_next += sizeof(float)*4;
+    //float _41, _42, _43, _44;  // : TEXCOORD4  World変換行列、４行目
+    (*out_paVtxInstaceDataElement)[3].Stream = 1;
+    (*out_paVtxInstaceDataElement)[3].Offset = st1_offset_next;
+    (*out_paVtxInstaceDataElement)[3].Type   = D3DDECLTYPE_FLOAT4;
+    (*out_paVtxInstaceDataElement)[3].Method = D3DDECLMETHOD_DEFAULT;
+    (*out_paVtxInstaceDataElement)[3].Usage  = D3DDECLUSAGE_TEXCOORD;
+    (*out_paVtxInstaceDataElement)[3].UsageIndex = 4;
+    st1_offset_next += sizeof(float)*4;
+    //float r, g, b, a;        // : TEXCOORD5  マテリアルカラー
+    (*out_paVtxInstaceDataElement)[4].Stream = 1;
+    (*out_paVtxInstaceDataElement)[4].Offset = st1_offset_next;
+    (*out_paVtxInstaceDataElement)[4].Type   = D3DDECLTYPE_FLOAT4;
+    (*out_paVtxInstaceDataElement)[4].Method = D3DDECLMETHOD_DEFAULT;
+    (*out_paVtxInstaceDataElement)[4].Usage  = D3DDECLUSAGE_TEXCOORD;
+    (*out_paVtxInstaceDataElement)[4].UsageIndex = 5;
+    st1_offset_next += sizeof(float)*4;
+    // <---- Stream = 1
+
 }
 
 GgafDxMassMeshActor::~GgafDxMassMeshActor() {
