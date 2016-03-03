@@ -61,7 +61,7 @@ HRESULT GgafDxWorldBoundModel::draw(GgafDxFigureActor* prm_pActor_target, int pr
                 checkDxException(hr, D3D_OK, "GgafDxWorldBoundModel::draw() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB"<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
                 hr = pEffect_active->_pID3DXEffect->End();
                 checkDxException(hr, D3D_OK, "GgafDxWorldBoundModel::draw() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-                if (pEffect_active->_obj_effect & Obj_GgafDxMassMeshEffect) {
+                if (pEffect_active->_obj_effect & Obj_GgafDxMassEffect) {
                     pDevice->SetStreamSourceFreq( 0, 1 );
                     pDevice->SetStreamSourceFreq( 1, 1 );
                 }

@@ -1,7 +1,7 @@
 #ifndef GGAFDXCORE_GGAFDXMASSMESHEFFECT_H_
 #define GGAFDXCORE_GGAFDXMASSMESHEFFECT_H_
 #include "GgafDxCommonHeader.h"
-#include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
+#include "jp/ggaf/dxcore/effect/GgafDxMassEffect.h"
 
 namespace GgafDxCore {
 
@@ -11,7 +11,7 @@ namespace GgafDxCore {
  * @since 2016/02/09
  * @author Masatoshi Tsuge
  */
-class GgafDxMassMeshEffect : public GgafDxEffect {
+class GgafDxMassMeshEffect : public GgafDxMassEffect {
     friend class GgafDxEffectManager;
 
 public:

@@ -1,7 +1,7 @@
 #ifndef GGAFLIB_LASERCHIP_H_
 #define GGAFLIB_LASERCHIP_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/GgafDxMeshSetActor.h"
+#include "jp/ggaf/dxcore/actor/GgafDxMassMeshActor.h"
 
 namespace GgafLib {
 
@@ -16,7 +16,7 @@ namespace GgafLib {
  * @since 2008/11/24
  * @author Masatoshi Tsuge
  */
-class LaserChip : public GgafDxCore::GgafDxMeshSetActor {
+class LaserChip : public GgafDxCore::GgafDxMassMeshActor {
     friend class WateringLaserChip;
     friend class HomingLaserChip;
     friend class RefractionLaserChip;
@@ -25,9 +25,6 @@ class LaserChip : public GgafDxCore::GgafDxMeshSetActor {
     friend class LaserChipDepository;
 
 private:
-    static D3DXHANDLE _ah_kind[11];
-    static D3DXHANDLE _ah_force_alpha[11];
-    static D3DXHANDLE _ah_matWorld_infront[11];
 
     /** onAcive() でリセットされる振る舞い時フレーム数 */
     frame _frame_of_behaving_from_onActive;
@@ -49,6 +46,23 @@ private:
     LaserChip* _pChip_behind;
 
 public:
+
+    class VERTEX_instancedata {
+    public:
+        float _11, _12, _13, _14;   // : TEXCOORD1  World変換行列、１行目
+        float _21, _22, _23, _24;   // : TEXCOORD2  World変換行列、２行目
+        float _31, _32, _33, _34;   // : TEXCOORD3  World変換行列、３行目
+        float _41, _42, _43, _44;   // : TEXCOORD4  World変換行列、４行目
+
+        float _f_11, _f_12, _f_13, _f_14;   // : TEXCOORD5  前方チップWorld変換行列、１行目
+        float _f_21, _f_22, _f_23, _f_24;   // : TEXCOORD6  前方チップWorld変換行列、２行目
+        float _f_31, _f_32, _f_33, _f_34;   // : TEXCOORD7  前方チップWorld変換行列、３行目
+        float _f_41, _f_42, _f_43, _f_44;   // : TEXCOORD8  前方チップWorld変換行列、４行目
+
+        float _chip_kind, _force_alpha;   // : TEXCOORD9  チップ種別、強制α
+    };
+
+    static VERTEX_instancedata _aInstancedata[GGAFDXMASS_MAX_INSTACE];
     CollisionChecker3D* _pColliChecker;
 
     /** レーザーテクスチャ種別  0:不明 1:末尾 2:中間 3:先頭から２番目で先頭のテクスチャ （末尾かつ先頭は末尾が優先） 4:本当の先頭(但し描画できない) */
@@ -79,7 +93,6 @@ public:
     virtual void processSettlementBehavior() override;
 
     virtual void processPreDraw() override;
-
     virtual void processDraw() override;
 
     virtual void onInactive() override;
@@ -123,6 +136,8 @@ public:
     inline LaserChip* getBehindChip() {
         return _pChip_behind;
     }
+
+    static void createVertexInstaceData(GgafDxCore::GgafDxMassMeshModel::VertexInstaceDataInfo* out_info);
 
     virtual ~LaserChip();
 

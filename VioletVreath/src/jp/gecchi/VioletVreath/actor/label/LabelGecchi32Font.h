@@ -1,7 +1,7 @@
 #ifndef LABELGECCHI32FONT_H_
 #define LABELGECCHI32FONT_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/StringBoardActor.h"
+#include "jp/ggaf/lib/actor/FontBoardActor.h"
 
 namespace VioletVreath {
 
@@ -11,7 +11,7 @@ namespace VioletVreath {
  * @since 2012/10/12
  * @author Masatoshi Tsuge
  */
-class LabelGecchi32Font : public GgafLib::StringBoardActor {
+class LabelGecchi32Font : public GgafLib::FontBoardActor {
 
 public:
     LabelGecchi32Font(const char* prm_name);

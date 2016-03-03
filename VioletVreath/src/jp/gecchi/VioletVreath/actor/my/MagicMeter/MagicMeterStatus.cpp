@@ -11,7 +11,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 MagicMeterStatus::MagicMeterStatus(const char* prm_name, MagicMeter* prm_pMagicMeter) :
-        StringBoardActor(prm_name, "Gecchi_8Font")
+        FontBoardActor(prm_name, "Gecchi_8Font")
 {
     _class_name = "MagicMeterStatus";
     pMagicMeter_ = prm_pMagicMeter;
@@ -44,7 +44,7 @@ void MagicMeterStatus::processDraw() {
             _y = mm_y + mm_h;
             sprintf(aBuf_, "%06d", (int)((pMagic->lvinfo_[pMagic->level_].remained_frame_of_effecting)*(1.0/60.0)));
             update(aBuf_);
-            StringBoardActor::processDraw();
+            FontBoardActor::processDraw();
         }
 
         _x = mm_x + mm_w*(i+1); //i+1 ‚Í‰E—×‚É•\Ž¦
@@ -56,7 +56,7 @@ void MagicMeterStatus::processDraw() {
                 _y = mm_y - (mm_h*(j+1)*rr); //j+1 ‚Ì +1 ‚ÍÅ‰º’i‚ª nothing ‚Ìˆ×
                 sprintf(aBuf_, "%06d", (int)((pMagic->lvinfo_[j].remained_frame_of_effecting)*(1.0/60.0)));
                 update(aBuf_);
-                StringBoardActor::processDraw();
+                FontBoardActor::processDraw();
             }
         }
         pElem = pElem->_pNext;

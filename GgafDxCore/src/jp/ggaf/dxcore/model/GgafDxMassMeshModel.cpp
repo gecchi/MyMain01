@@ -17,27 +17,54 @@ using namespace GgafDxCore;
 //DWORD GgafDxMassMeshModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DFVF_TEX1  );
 //LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer = nullptr;
 
-GgafDxMassMeshModel::GgafDxMassMeshModel(const char* prm_model_name) : GgafDxModel(prm_model_name) {
+GgafDxMassMeshModel::GgafDxMassMeshModel(const char* prm_model_name) : GgafDxMassModel(prm_model_name) {
     _TRACE3_("GgafDxMassMeshModel::GgafDxMassMeshModel(" << _model_name << ")");
-    _set_num = 0;
-    _pVertexBuffer_model = nullptr;
-    _pVertexBuffer_instacedata = nullptr;
-    _pIndexBuffer = nullptr;
-    _pVertexDeclaration = nullptr;
+    _obj_model |= Obj_GgafDxMassMeshModel;
+
     _paVtxBuffer_data_model = nullptr;
     _paIndexBuffer_data = nullptr;
-    _size_vertex_unit_instacedata = 0;
-    _size_vertex_unit_model = 0;
-    _size_vertices_model = 0;
-    _nVertices = 0;
-    _nFaces= 0;
-    _pFunc_CreateVertexInstaceData = GgafDxMassMeshActor::createVertexInstaceData; //TEST
-    _pInstancedata = nullptr;
-    _obj_model |= Obj_GgafDxMassMeshModel;
-    //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどのメンバー初期化は
-    //void GgafDxMassMeshModel::restore(GgafDxMassMeshModel*)
-    //で行うようにした。要参照。
+    registerCallback_VertexModelInfo(GgafDxMassMeshModel::createVertexModel); //頂点レイアウト情報作成コールバック関数
     _TRACE_("GgafDxMassMeshModel::GgafDxMassMeshModel(" << _model_name << ") End");
+}
+
+void GgafDxMassMeshModel::createVertexModel(GgafDxMassModel::VertexModelInfo* out_info) {
+    int element_num = 4;
+    out_info->paElement = NEW D3DVERTEXELEMENT9[element_num];
+    WORD  st0_offset_next = 0;
+    //float x, y, z;    // :POSITION0 頂点座標
+    out_info->paElement[0].Stream = 0;
+    out_info->paElement[0].Offset = st0_offset_next;
+    out_info->paElement[0].Type   = D3DDECLTYPE_FLOAT3;
+    out_info->paElement[0].Method = D3DDECLMETHOD_DEFAULT;
+    out_info->paElement[0].Usage  = D3DDECLUSAGE_POSITION;
+    out_info->paElement[0].UsageIndex = 0;
+    st0_offset_next += sizeof(float)*3;
+    //float nx, ny, nz; // :NORMAL0 法線
+    out_info->paElement[1].Stream = 0;
+    out_info->paElement[1].Offset = st0_offset_next;
+    out_info->paElement[1].Type   = D3DDECLTYPE_FLOAT3;
+    out_info->paElement[1].Method = D3DDECLMETHOD_DEFAULT;
+    out_info->paElement[1].Usage  = D3DDECLUSAGE_NORMAL;
+    out_info->paElement[1].UsageIndex = 0;
+    st0_offset_next += sizeof(float)*3;
+    //DWORD color;     // : COLOR0  頂点カラー
+    out_info->paElement[2].Stream = 0;
+    out_info->paElement[2].Offset = st0_offset_next;
+    out_info->paElement[2].Type   = D3DDECLTYPE_D3DCOLOR;
+    out_info->paElement[2].Method = D3DDECLMETHOD_DEFAULT;
+    out_info->paElement[2].Usage  = D3DDECLUSAGE_COLOR;
+    out_info->paElement[2].UsageIndex = 0;
+    st0_offset_next += sizeof(DWORD);
+    //float tu, tv;    // : TEXCOORD0  テクスチャ座標
+    out_info->paElement[3].Stream = 0;
+    out_info->paElement[3].Offset = st0_offset_next;
+    out_info->paElement[3].Type   = D3DDECLTYPE_FLOAT2;
+    out_info->paElement[3].Method = D3DDECLMETHOD_DEFAULT;
+    out_info->paElement[3].Usage  = D3DDECLUSAGE_TEXCOORD;
+    out_info->paElement[3].UsageIndex = 0;
+    //st0_offset_next += sizeof(float)*2;
+
+    out_info->element_num = element_num;
 }
 
 void GgafDxMassMeshModel::restore() {
@@ -50,8 +77,8 @@ void GgafDxMassMeshModel::restore() {
         std::vector<std::string> names = UTIL::split(std::string(_model_name), "/");
         std::string xfile_name = ""; //読み込むXファイル名
         if (names.size() == 1) {
-            _TRACE_("GgafDxMassMeshModel::restore() "<<_model_name<<" の最大同時描画オブジェクト数は、デフォルトの"<<MAX_INSTACE<<" が設定されました。");
-            _set_num = MAX_INSTACE;
+            _TRACE_("GgafDxMassMeshModel::restore() "<<_model_name<<" の最大同時描画オブジェクト数は、デフォルトの"<<GGAFDXMASS_MAX_INSTACE<<" が設定されました。");
+            _set_num = GGAFDXMASS_MAX_INSTACE;
             xfile_name = GgafDxModelManager::getMeshFileName(names[0]);
         } else if (names.size() == 2) {
             _set_num = STOI(names[0]);
@@ -61,8 +88,8 @@ void GgafDxMassMeshModel::restore() {
                     "_model_name には \"xxxxxx\" or \"8/xxxxx\" 形式を指定してください。 \n"<<
                     "実際は、_model_name="<<_model_name<<" でした。");
         }
-        if (_set_num < 1 || _set_num > MAX_INSTACE) {
-            throwGgafCriticalException("GgafDxMassMeshModel::restore() "<<_model_name<<"の最大同時描画オブジェクト数が不正。範囲は 1～"<<MAX_INSTACE<<"セットです。_set_num="<<_set_num);
+        if (_set_num < 1 || _set_num > GGAFDXMASS_MAX_INSTACE) {
+            throwGgafCriticalException("GgafDxMassMeshModel::restore() "<<_model_name<<"の最大同時描画オブジェクト数が不正。範囲は 1～"<<GGAFDXMASS_MAX_INSTACE<<"セットです。_set_num="<<_set_num);
         }
         if (xfile_name == "") {
             throwGgafCriticalException("GgafDxModelManager::restoreMassMeshModel メッシュファイル(*.x)が見つかりません。model_name="<<(_model_name));
@@ -95,9 +122,9 @@ void GgafDxMassMeshModel::restore() {
         }
         int nTextureCoords = pMeshesFront->_nTextureCoords;
 //        nFaceNormals = pMeshesFront->_nFaceNormals;
-        _paVtxBuffer_data_model = NEW GgafDxMassMeshModel::VERTEX_model[_nVertices];
-        _size_vertex_unit_model = sizeof(GgafDxMassMeshModel::VERTEX_model);
-        _size_vertices_model = sizeof(GgafDxMassMeshModel::VERTEX_model) * _nVertices;
+        _paVtxBuffer_data_model = NEW VERTEX_model[_nVertices];
+        _size_vertex_unit_model = sizeof(VERTEX_model);
+        _size_vertices_model = sizeof(VERTEX_model) * _nVertices;
         //法線以外設定
         FLOAT model_bounding_sphere_radius;
         for (int i = 0; i < _nVertices; i++) {
@@ -146,75 +173,6 @@ void GgafDxMassMeshModel::restore() {
         GGAF_DELETE(pModel3D);
     }
 
-
-    //デバイスに頂点フォーマット登録
-    if (_pVertexDeclaration == nullptr) {
-
-        D3DVERTEXELEMENT9* paVtxInstaceData;
-        int instace_data_elem_num;
-        _pFunc_CreateVertexInstaceData(&paVtxInstaceData,
-                                       &instace_data_elem_num,
-                                       &_size_vertex_unit_instacedata,
-                                       &_pInstancedata);
-        int elem_num = 4+instace_data_elem_num+1;
-        D3DVERTEXELEMENT9* paVtxelem = NEW D3DVERTEXELEMENT9[elem_num];
-        // Stream = 0 ---->
-        WORD  st0_offset_next = 0;
-        //float x, y, z;    // :POSITION0 頂点座標
-        paVtxelem[0].Stream = 0;
-        paVtxelem[0].Offset = st0_offset_next;
-        paVtxelem[0].Type   = D3DDECLTYPE_FLOAT3;
-        paVtxelem[0].Method = D3DDECLMETHOD_DEFAULT;
-        paVtxelem[0].Usage  = D3DDECLUSAGE_POSITION;
-        paVtxelem[0].UsageIndex = 0;
-        st0_offset_next += sizeof(float)*3;
-        //float nx, ny, nz; // :NORMAL0 法線
-        paVtxelem[1].Stream = 0;
-        paVtxelem[1].Offset = st0_offset_next;
-        paVtxelem[1].Type   = D3DDECLTYPE_FLOAT3;
-        paVtxelem[1].Method = D3DDECLMETHOD_DEFAULT;
-        paVtxelem[1].Usage  = D3DDECLUSAGE_NORMAL;
-        paVtxelem[1].UsageIndex = 0;
-        st0_offset_next += sizeof(float)*3;
-        //DWORD color;     // : COLOR0  頂点カラー
-        paVtxelem[2].Stream = 0;
-        paVtxelem[2].Offset = st0_offset_next;
-        paVtxelem[2].Type   = D3DDECLTYPE_D3DCOLOR;
-        paVtxelem[2].Method = D3DDECLMETHOD_DEFAULT;
-        paVtxelem[2].Usage  = D3DDECLUSAGE_COLOR;
-        paVtxelem[2].UsageIndex = 0;
-        st0_offset_next += sizeof(DWORD);
-        //float tu, tv;    // : TEXCOORD0  テクスチャ座標
-        paVtxelem[3].Stream = 0;
-        paVtxelem[3].Offset = st0_offset_next;
-        paVtxelem[3].Type   = D3DDECLTYPE_FLOAT2;
-        paVtxelem[3].Method = D3DDECLMETHOD_DEFAULT;
-        paVtxelem[3].Usage  = D3DDECLUSAGE_TEXCOORD;
-        paVtxelem[3].UsageIndex = 0;
-        //st0_offset_next += sizeof(float)*2;
-        for (int i = 0; i < instace_data_elem_num; i++) {
-            paVtxelem[4+i].Stream = paVtxInstaceData[i].Stream;
-            paVtxelem[4+i].Offset = paVtxInstaceData[i].Offset;
-            paVtxelem[4+i].Type   = paVtxInstaceData[i].Type;
-            paVtxelem[4+i].Method = paVtxInstaceData[i].Method;
-            paVtxelem[4+i].Usage  = paVtxInstaceData[i].Usage;
-            paVtxelem[4+i].UsageIndex = paVtxInstaceData[i].UsageIndex;
-        }
-        //D3DDECL_END()
-        paVtxelem[elem_num-1].Stream = 0xFF;
-        paVtxelem[elem_num-1].Offset = 0;
-        paVtxelem[elem_num-1].Type = D3DDECLTYPE_UNUSED;
-        paVtxelem[elem_num-1].Method = 0;
-        paVtxelem[elem_num-1].Usage = 0;
-        paVtxelem[elem_num-1].UsageIndex = 0;
-
-
-        hr = GgafDxGod::_pID3DDevice9->CreateVertexDeclaration( paVtxelem, &(_pVertexDeclaration) );
-        checkDxException(hr, D3D_OK, "GgafDxMassMeshModel::restore() GgafDxGod::_pID3DDevice9->CreateVertexDeclaration 失敗 model="<<(_model_name));
-        GGAF_DELETEARR(paVtxInstaceData);
-        GGAF_DELETEARR(paVtxelem);
-    }
-
     //デバイスに頂点バッファ作成(モデル)
     if (_pVertexBuffer_model == nullptr) {
         hr = GgafDxGod::_pID3DDevice9->CreateVertexBuffer(
@@ -232,25 +190,6 @@ void GgafDxMassMeshModel::restore() {
         memcpy(pDeviceMemory, _paVtxBuffer_data_model, _size_vertices_model);
         hr = _pVertexBuffer_model->Unlock();
         checkDxException(hr, D3D_OK, "GgafDxMassMeshModel::restore() 頂点バッファのアンロック取得に失敗 model="<<_model_name);
-    }
-
-    //デバイスに頂点バッファ作成(インスタンスデータ)
-    if (_pVertexBuffer_instacedata == nullptr) {
-        int size_instancedata = _size_vertex_unit_instacedata * _set_num;//最大同時描画数確保
-        hr = GgafDxGod::_pID3DDevice9->CreateVertexBuffer(
-                size_instancedata,
-                D3DUSAGE_WRITEONLY | D3DUSAGE_DYNAMIC,  //毎回書き換える為D3DUSAGE_DYNAMIC
-                0,
-                D3DPOOL_DEFAULT,
-                &(_pVertexBuffer_instacedata),
-                nullptr);
-        checkDxException(hr, D3D_OK, "GgafDxMassMeshModel::restore() _pID3DDevice9->CreateVertexBuffer2 失敗 model="<<_model_name);
-        void *pDeviceMemory;
-        hr = _pVertexBuffer_instacedata->Lock(0, size_instancedata, (void**)&pDeviceMemory, 0);
-        checkDxException(hr, D3D_OK, "GgafDxMassMeshModel::restore() 頂点バッファのロック取得に失敗2 model="<<_model_name);
-        ZeroMemory(pDeviceMemory, size_instancedata);
-        hr = _pVertexBuffer_instacedata->Unlock();
-        checkDxException(hr, D3D_OK, "GgafDxMassMeshModel::restore() 頂点バッファのアンロック取得に失敗2 model="<<_model_name);
     }
 
     //デバイスにインデックスバッファデータ作成
@@ -283,9 +222,11 @@ void GgafDxMassMeshModel::restore() {
     _TRACE3_("GgafDxMassMeshModel::restore() " << _model_name << " end");
 }
 
-//描画
 HRESULT GgafDxMassMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num) {
     _TRACE4_("GgafDxMassMeshModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
+    if (_pVertexBuffer_instacedata == nullptr) {
+        createVertexElements(); //デバイスロスト復帰時に呼び出される
+    }
 #ifdef MY_DEBUG
     if (prm_draw_set_num > _set_num) {
         _TRACE_("GgafDxMassMeshModel::draw() "<<_model_name<<" の描画セット数オーバー。_set_num="<<_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
@@ -300,7 +241,6 @@ HRESULT GgafDxMassMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
     ID3DXEffect* const pID3DXEffect = pMassMeshEffect->_pID3DXEffect;
 
     HRESULT hr;
-
     //頂点バッファ(インスタンスデータ)書き換え
     UINT update_vertex_instacedata_size = _size_vertex_unit_instacedata * prm_draw_set_num;
     void* pDeviceMemory;
@@ -331,6 +271,7 @@ HRESULT GgafDxMassMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
         checkDxException(hr, D3D_OK, "GgafDxMassMeshModel::draw() SetStreamSource 1 に失敗しました。");
         hr = pDevice->SetIndices(_pIndexBuffer);
         checkDxException(hr, D3D_OK, "GgafDxMassMeshModel::draw() SetIndices に失敗しました。");
+
         hr = pID3DXEffect->SetFloat(pMassMeshEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "GgafDxMassMeshModel::draw() SetFloat(_h_tex_blink_power) に失敗しました。");
         hr = pID3DXEffect->SetFloat(pMassMeshEffect->_h_tex_blink_threshold, _blink_threshold);
@@ -420,37 +361,8 @@ HRESULT GgafDxMassMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
     return D3D_OK;
 }
 
-void GgafDxMassMeshModel::onDeviceLost() {
-    _TRACE3_("GgafDxMassMeshModel::onDeviceLost() " << _model_name << " start");
-    release();
-    _TRACE3_("GgafDxMassMeshModel::onDeviceLost() " << _model_name << " end");
-}
-
-void GgafDxMassMeshModel::release() {
-    _TRACE3_("GgafDxMassMeshModel::release() " << _model_name << " start");
-    //テクスチャを解放
-    if (_papTextureConnection) {
-        for (int i = 0; i < (int)_num_materials; i++) {
-            if (_papTextureConnection[i]) {
-                _TRACE3_("close() _papTextureConnection["<<i<<"]->"<<(_papTextureConnection[i]->getIdStr()));
-                _papTextureConnection[i]->close();
-            }
-        }
-    }
-    GGAF_DELETEARR(_papTextureConnection); //テクスチャの配列
-    GGAF_RELEASE(_pVertexBuffer_instacedata);
-    GGAF_RELEASE(_pVertexBuffer_model);
-    GGAF_RELEASE(_pIndexBuffer);
-    GGAF_RELEASE(_pVertexDeclaration);
+GgafDxMassMeshModel::~GgafDxMassMeshModel() {
     GGAF_DELETEARR(_paVtxBuffer_data_model);
     GGAF_DELETEARR(_paIndexBuffer_data);
-    GGAF_DELETEARR(_paMaterial_default);
-    GGAF_DELETEARR(_pa_texture_filenames);
-    _TRACE3_("GgafDxMassMeshModel::release() " << _model_name << " end");
-}
-
-GgafDxMassMeshModel::~GgafDxMassMeshModel() {
-    //release();
-    //はGgafDxModelConnection::processReleaseResource(GgafDxModel* prm_pResource) で呼び出される
 }
 

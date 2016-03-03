@@ -11,7 +11,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 Shot003::Shot003(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "laser_single", STATUS(Shot003)) {
+        DefaultMassMeshActor(prm_name, "laser_single", STATUS(Shot003)) {
     _class_name = "Shot003";
 }
 

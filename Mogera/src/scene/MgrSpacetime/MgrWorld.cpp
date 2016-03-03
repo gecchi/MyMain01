@@ -23,6 +23,7 @@ MgrWorld::MgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
 void MgrWorld::initialize() {
     pTrialAndErrScene_ = createInFactory(TrialAndErrScene, "TrialAndErrScene");
     addSubLast(pTrialAndErrScene_);
+
 }
 
 void MgrWorld::processBehavior() {

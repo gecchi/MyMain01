@@ -6,7 +6,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 LabelGecchi32Font::LabelGecchi32Font(const char* prm_name) :
-        StringBoardActor(prm_name, "Gecchi_32Font")
+        FontBoardActor(prm_name, "Gecchi_32Font")
 {
     _class_name = "LabelGecchi32Font";
 }

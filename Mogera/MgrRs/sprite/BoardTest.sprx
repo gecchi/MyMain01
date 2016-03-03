@@ -1,0 +1,9 @@
+xof 0303txt 0032
+
+SpriteDef Mogera-to {
+   64.0;
+   64.0;
+   "Gecchi_16Font.png";
+   8;
+   8;
+} 

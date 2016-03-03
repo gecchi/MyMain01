@@ -28,8 +28,11 @@
 #define Obj_GgafDxCubeMapMorphMeshModel  (0x1000U)         //0b 00000000 00000000 00010000 00000000
 #define Obj_GgafDxWorldBoundModel        (0x2000U)         //0b 00000000 00000000 00100000 00000000
 #define Obj_GgafDxPointSpriteModel       (0x4000U)         //0b 00000000 00000000 01000000 00000000
-#define Obj_GgafDxMassMeshModel          (0x8000U)         //0b 00000000 00000000 10000000 00000000
 
+#define Obj_GgafDxMassModel              (0x8000U)         //0b 00000000 00000000 10000000 00000000
+#define Obj_GgafDxMassMeshModel          (0x10000U)        //0b 00000000 00000001 00000000 00000000
+#define Obj_GgafDxMassBoardModel         (0x20000U)        //0b 00000000 00000010 00000000 00000000
+#define Obj_GgafDxMassSpriteModel        (0x40000U)        //0b 00000000 00000100 00000000 00000000
 namespace GgafDxCore {
 
 /**

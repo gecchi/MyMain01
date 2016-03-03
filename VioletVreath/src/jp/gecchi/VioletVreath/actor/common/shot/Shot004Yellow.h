@@ -1,7 +1,7 @@
 #ifndef SHOT004YELLOW_H_
 #define SHOT004YELLOW_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/SingleLaser.h"
+#include "jp/ggaf/lib/actor/DefaultMassMeshActor.h"
 
 namespace VioletVreath {
 
@@ -12,7 +12,7 @@ namespace VioletVreath {
  * @since 2009/12/28
  * @author Masatoshi Tsuge
  */
-class Shot004Yellow : public GgafLib::SingleLaser {
+class Shot004Yellow : public GgafLib::DefaultMassMeshActor {
 
 public:
     bool view_in_;

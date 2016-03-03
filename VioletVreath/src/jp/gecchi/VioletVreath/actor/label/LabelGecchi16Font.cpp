@@ -7,7 +7,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 LabelGecchi16Font::LabelGecchi16Font(const char* prm_name) :
-        StringBoardActor(prm_name, "Gecchi_16Font")
+        FontBoardActor(prm_name, "Gecchi_16Font")
 {
     _class_name = "LabelGecchi16Font";
     pAFader_ = NEW GgafDxAlphaFader(this);

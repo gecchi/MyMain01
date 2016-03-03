@@ -1,7 +1,7 @@
 #ifndef MAGICMETERSTATUS_H_
 #define MAGICMETERSTATUS_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/StringBoardActor.h"
+#include "jp/ggaf/lib/actor/FontBoardActor.h"
 
 namespace VioletVreath {
 
@@ -11,7 +11,7 @@ namespace VioletVreath {
  * @since 2011/11/16
  * @author Masatoshi Tsuge
  */
-class MagicMeterStatus : public GgafLib::StringBoardActor {
+class MagicMeterStatus : public GgafLib::FontBoardActor {
 
 public:
     MagicMeter* pMagicMeter_;

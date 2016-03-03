@@ -296,7 +296,7 @@ void GgafDxSpacetime::draw() {
         checkDxException(hr, D3D_OK, "GgafDxSpacetime::processDraw() EndPass() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
         hr = pEffect_active->_pID3DXEffect->End();
         checkDxException(hr, D3D_OK, "GgafDxSpacetime::processDraw() End() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-        if (pEffect_active->_obj_effect & Obj_GgafDxMassMeshEffect) {
+        if (pEffect_active->_obj_effect & Obj_GgafDxMassEffect) {
             pDevice->SetStreamSourceFreq( 0, 1 );
             pDevice->SetStreamSourceFreq( 1, 1 );
         }

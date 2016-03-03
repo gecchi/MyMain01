@@ -1,7 +1,7 @@
 #ifndef LABELMENUTITLEFONT01_H_
 #define LABELMENUTITLEFONT01_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/StringBoardActor.h"
+#include "jp/ggaf/lib/actor/FontBoardActor.h"
 
 namespace VioletVreath {
 
@@ -11,7 +11,7 @@ namespace VioletVreath {
  * @since 2013/03/26
  * @author Masatoshi Tsuge
  */
-class LabelMenuTitleFont01 : public GgafLib::StringBoardActor {
+class LabelMenuTitleFont01 : public GgafLib::FontBoardActor {
 
 public:
     LabelMenuTitleFont01(const char* prm_name);

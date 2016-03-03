@@ -7,7 +7,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 LabelRankingFont::LabelRankingFont(const char* prm_name) :
-        StringBoardActor(prm_name, "Ranking_16Font")
+        FontBoardActor(prm_name, "Ranking_16Font")
 {
     _class_name = "LabelRankingFont";
     pAFader_ = NEW GgafDxAlphaFader(this);

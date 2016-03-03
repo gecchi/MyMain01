@@ -24,8 +24,10 @@
 #define Obj_GgafDxSpriteSetEffect           (0x1000U)         //0b 00000000 00000000 00010000 00000000
 #define Obj_GgafDxBoardEffect               (0x2000U)         //0b 00000000 00000000 00100000 00000000
 #define Obj_GgafDxBoardSetEffect            (0x4000U)         //0b 00000000 00000000 01000000 00000000
-#define Obj_GgafDxPointSpriteEffect         (0x8000U)         //0b 00000000 00000000 10000000 00000000
-
+#define Obj_GgafDxMassEffect                (0x8000U)         //0b 00000000 00000000 10000000 00000000
+#define Obj_GgafDxMassBoardEffect           (0x10000U)        //0b 00000000 00000001 00000000 00000000
+#define Obj_GgafDxPointSpriteEffect         (0x20000U)        //0b 00000000 00000010 00000000 00000000
+#define Obj_GgafDxMassSpriteEffect          (0x40000U)        //0b 00000000 00000100 00000000 00000000
 namespace GgafDxCore {
 
 /**

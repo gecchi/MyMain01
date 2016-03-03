@@ -30,6 +30,8 @@ class Zakoko;
 class FormationZako;
 class FormationZako001;
 class MgrUtil;
+
+class BoardTest;
 }
 
 #endif /*SIMPLEMOGERA_H_*/

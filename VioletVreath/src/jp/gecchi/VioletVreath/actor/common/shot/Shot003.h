@@ -1,7 +1,7 @@
 #ifndef SHOT003_H_
 #define SHOT003_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
+#include "jp/ggaf/lib/actor/DefaultMassMeshActor.h"
 
 namespace VioletVreath {
 
@@ -12,7 +12,7 @@ namespace VioletVreath {
  * @since 2009/12/28
  * @author Masatoshi Tsuge
  */
-class Shot003 : public GgafLib::DefaultMeshSetActor {
+class Shot003 : public GgafLib::DefaultMassMeshActor {
 
 public:
     Shot003(const char* prm_name);

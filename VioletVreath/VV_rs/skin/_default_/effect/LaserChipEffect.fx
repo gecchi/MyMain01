@@ -81,52 +81,52 @@ float g_alpha_master;
 float g_zf;
 
 //int g_kind; //チップ種類 1:末尾 2:中間 3:先頭 （末尾かつ先頭は末尾が優先）
-int g_kind001;
-int g_kind002;
-int g_kind003;
-int g_kind004;
-int g_kind005;
-int g_kind006;
-int g_kind007;
-int g_kind008;
-int g_kind009;
-int g_kind010;
-int g_kind011;
-
-float g_force_alpha001;
-float g_force_alpha002;
-float g_force_alpha003;
-float g_force_alpha004;
-float g_force_alpha005;
-float g_force_alpha006;
-float g_force_alpha007;
-float g_force_alpha008;
-float g_force_alpha009;
-float g_force_alpha010;
-float g_force_alpha011;
-
-float4x4 g_matWorld001;
-float4x4 g_matWorld002;
-float4x4 g_matWorld003;
-float4x4 g_matWorld004;
-float4x4 g_matWorld005;
-float4x4 g_matWorld006;
-float4x4 g_matWorld007;
-float4x4 g_matWorld008;
-float4x4 g_matWorld009;
-float4x4 g_matWorld010;
-float4x4 g_matWorld011;
-float4x4 g_matWorld_infront001;
-float4x4 g_matWorld_infront002;
-float4x4 g_matWorld_infront003;
-float4x4 g_matWorld_infront004;
-float4x4 g_matWorld_infront005;
-float4x4 g_matWorld_infront006;
-float4x4 g_matWorld_infront007;
-float4x4 g_matWorld_infront008;
-float4x4 g_matWorld_infront009;
-float4x4 g_matWorld_infront010;
-float4x4 g_matWorld_infront011;
+//int g_kind001;
+//int g_kind002;
+//int g_kind003;
+//int g_kind004;
+//int g_kind005;
+//int g_kind006;
+//int g_kind007;
+//int g_kind008;
+//int g_kind009;
+//int g_kind010;
+//int g_kind011;
+//
+//float g_force_alpha001;
+//float g_force_alpha002;
+//float g_force_alpha003;
+//float g_force_alpha004;
+//float g_force_alpha005;
+//float g_force_alpha006;
+//float g_force_alpha007;
+//float g_force_alpha008;
+//float g_force_alpha009;
+//float g_force_alpha010;
+//float g_force_alpha011;
+//
+//float4x4 g_matWorld001;
+//float4x4 g_matWorld002;
+//float4x4 g_matWorld003;
+//float4x4 g_matWorld004;
+//float4x4 g_matWorld005;
+//float4x4 g_matWorld006;
+//float4x4 g_matWorld007;
+//float4x4 g_matWorld008;
+//float4x4 g_matWorld009;
+//float4x4 g_matWorld010;
+//float4x4 g_matWorld011;
+//float4x4 g_matWorld_infront001;
+//float4x4 g_matWorld_infront002;
+//float4x4 g_matWorld_infront003;
+//float4x4 g_matWorld_infront004;
+//float4x4 g_matWorld_infront005;
+//float4x4 g_matWorld_infront006;
+//float4x4 g_matWorld_infront007;
+//float4x4 g_matWorld_infront008;
+//float4x4 g_matWorld_infront009;
+//float4x4 g_matWorld_infront010;
+//float4x4 g_matWorld_infront011;
 
 float4x4 g_matView;   //View変換行列
 float4x4 g_matProj;   //射影変換行列
@@ -156,73 +156,98 @@ OUT_VS GgafDxVS_LaserChip(
       float4 prm_posModel_Local  : POSITION,  // モデルの頂点
       float  prm_index           : PSIZE ,    // PSIZEではなくてなんとモデルの頂点番号
       float3 prm_vecNormal_Local : NORMAL,        
-      float2 prm_uv              : TEXCOORD0  // モデルの頂点のUV
+      float2 prm_uv              : TEXCOORD0,  // モデルの頂点のUV
+
+      float4 prm_world0           : TEXCOORD1,
+      float4 prm_world1           : TEXCOORD2,
+      float4 prm_world2           : TEXCOORD3,
+      float4 prm_world3           : TEXCOORD4,
+      float4 prm_infront_world0   : TEXCOORD5,
+      float4 prm_infront_world1   : TEXCOORD6,
+      float4 prm_infront_world2   : TEXCOORD7,
+      float4 prm_infront_world3   : TEXCOORD8,
+      float2 prm_info             : TEXCOORD9
+
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 
-	const int index = (int)prm_index;
+    float4x4 matWorld;
+    matWorld._11_12_13_14 = prm_world0; 
+    matWorld._21_22_23_24 = prm_world1;
+    matWorld._31_32_33_34 = prm_world2;
+    matWorld._41_42_43_44 = prm_world3; 
 
-	//頂点計算
-	float4x4 matWorld;
-	float4x4 matWorld_infront;
-	int kind;
-    float force_alpha;
-	if (index == 0) {
-		matWorld = g_matWorld001;
-		matWorld_infront = g_matWorld_infront001;
-		kind = g_kind001;
-        force_alpha = g_force_alpha001;
-	} else if (index == 1) {
-		matWorld = g_matWorld002;
-		matWorld_infront = g_matWorld_infront002;
-		kind = g_kind002;
-        force_alpha = g_force_alpha002;
-	} else if (index == 2) {
-		matWorld = g_matWorld003;
-		matWorld_infront = g_matWorld_infront003;
-		kind = g_kind003;
-        force_alpha = g_force_alpha003;
-	} else if (index == 3) {
-		matWorld = g_matWorld004;
-		matWorld_infront = g_matWorld_infront004;
-		kind = g_kind004;
-        force_alpha = g_force_alpha004;
-	} else if (index == 4) {
-		matWorld = g_matWorld005;
-		matWorld_infront = g_matWorld_infront005;
-		kind = g_kind005;
-        force_alpha = g_force_alpha005;
-	} else if (index == 5) {
-		matWorld = g_matWorld006;
-		matWorld_infront = g_matWorld_infront006;
-		kind = g_kind006;
-        force_alpha = g_force_alpha006;
-	} else if (index == 6) {
-		matWorld = g_matWorld007;
-		matWorld_infront = g_matWorld_infront007;
-		kind = g_kind007;
-        force_alpha = g_force_alpha007;
-	} else if (index == 7) {
-		matWorld = g_matWorld008;
-		matWorld_infront = g_matWorld_infront008;
-		kind = g_kind008;
-        force_alpha = g_force_alpha008;
-	} else if (index == 8) {
-		matWorld = g_matWorld009;
-		matWorld_infront = g_matWorld_infront009;
-		kind = g_kind009;
-        force_alpha = g_force_alpha009;
-	} else if (index == 9) {
-		matWorld = g_matWorld010;
-		matWorld_infront = g_matWorld_infront010;
-		kind = g_kind010;
-        force_alpha = g_force_alpha010;
-	} else {
-		matWorld = g_matWorld011;
-		matWorld_infront = g_matWorld_infront011;
-		kind = g_kind011;
-        force_alpha = g_force_alpha011;
-	} 
+    float4x4 matWorld_infront;
+    matWorld_infront._11_12_13_14 = prm_infront_world0; 
+    matWorld_infront._21_22_23_24 = prm_infront_world1;
+    matWorld_infront._31_32_33_34 = prm_infront_world2;
+    matWorld_infront._41_42_43_44 = prm_infront_world3; 
+   
+    int kind = (int)(prm_info.x);
+    float force_alpha = prm_info.y;
+//	const int index = (int)prm_index;
+//
+//	//頂点計算
+//	float4x4 matWorld;
+//	float4x4 matWorld_infront;
+//	int kind;
+//    float force_alpha;
+//	if (index == 0) {
+//		matWorld = g_matWorld001;
+//		matWorld_infront = g_matWorld_infront001;
+//		kind = g_kind001;
+//        force_alpha = g_force_alpha001;
+//	} else if (index == 1) {
+//		matWorld = g_matWorld002;
+//		matWorld_infront = g_matWorld_infront002;
+//		kind = g_kind002;
+//        force_alpha = g_force_alpha002;
+//	} else if (index == 2) {
+//		matWorld = g_matWorld003;
+//		matWorld_infront = g_matWorld_infront003;
+//		kind = g_kind003;
+//        force_alpha = g_force_alpha003;
+//	} else if (index == 3) {
+//		matWorld = g_matWorld004;
+//		matWorld_infront = g_matWorld_infront004;
+//		kind = g_kind004;
+//        force_alpha = g_force_alpha004;
+//	} else if (index == 4) {
+//		matWorld = g_matWorld005;
+//		matWorld_infront = g_matWorld_infront005;
+//		kind = g_kind005;
+//        force_alpha = g_force_alpha005;
+//	} else if (index == 5) {
+//		matWorld = g_matWorld006;
+//		matWorld_infront = g_matWorld_infront006;
+//		kind = g_kind006;
+//        force_alpha = g_force_alpha006;
+//	} else if (index == 6) {
+//		matWorld = g_matWorld007;
+//		matWorld_infront = g_matWorld_infront007;
+//		kind = g_kind007;
+//        force_alpha = g_force_alpha007;
+//	} else if (index == 7) {
+//		matWorld = g_matWorld008;
+//		matWorld_infront = g_matWorld_infront008;
+//		kind = g_kind008;
+//        force_alpha = g_force_alpha008;
+//	} else if (index == 8) {
+//		matWorld = g_matWorld009;
+//		matWorld_infront = g_matWorld_infront009;
+//		kind = g_kind009;
+//        force_alpha = g_force_alpha009;
+//	} else if (index == 9) {
+//		matWorld = g_matWorld010;
+//		matWorld_infront = g_matWorld_infront010;
+//		kind = g_kind010;
+//        force_alpha = g_force_alpha010;
+//	} else {
+//		matWorld = g_matWorld011;
+//		matWorld_infront = g_matWorld_infront011;
+//		kind = g_kind011;
+//        force_alpha = g_force_alpha011;
+//	} 
 	float4 posModel_World;
 	if (prm_posModel_Local.x > 0.0) {    
 //TODO:20090806アイディア

@@ -8,8 +8,10 @@
 #include "jp/ggaf/dxcore/effect/GgafDxMorphMeshEffect.h"
 #include "jp/ggaf/dxcore/effect/GgafDxSpriteEffect.h"
 #include "jp/ggaf/dxcore/effect/GgafDxSpriteSetEffect.h"
+#include "jp/ggaf/dxcore/effect/GgafDxMassSpriteEffect.h"
 #include "jp/ggaf/dxcore/effect/GgafDxBoardEffect.h"
 #include "jp/ggaf/dxcore/effect/GgafDxBoardSetEffect.h"
+#include "jp/ggaf/dxcore/effect/GgafDxMassBoardEffect.h"
 #include "jp/ggaf/dxcore/effect/GgafDxPointSpriteEffect.h"
 #include "jp/ggaf/dxcore/effect/ex/GgafDxCubeMapMeshEffect.h"
 #include "jp/ggaf/dxcore/effect/ex/GgafDxCubeMapMeshSetEffect.h"
@@ -72,11 +74,17 @@ GgafDxEffect* GgafDxEffectManager::processCreateResource(const char* prm_idstr, 
         case 's':
             pResourceEffect = NEW GgafDxSpriteSetEffect(effect_name);
             break;
+        case 'z':
+            pResourceEffect = NEW GgafDxMassSpriteEffect(effect_name);
+            break;
         case 'B':
             pResourceEffect = NEW GgafDxBoardEffect(effect_name);
             break;
         case 'b':
             pResourceEffect = NEW GgafDxBoardSetEffect(effect_name);
+            break;
+        case 'w':
+            pResourceEffect = NEW GgafDxMassBoardEffect(effect_name);
             break;
         case 'P':
             pResourceEffect = NEW GgafDxPointSpriteEffect(effect_name);

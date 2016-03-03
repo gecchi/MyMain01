@@ -1,7 +1,7 @@
 #ifndef EFFECTLOCKON001_H_
 #define EFFECTLOCKON001_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/DefaultSpriteSetActor.h"
+#include "jp/ggaf/lib/actor/DefaultMassSpriteActor.h"
 
 namespace VioletVreath {
 
@@ -13,7 +13,7 @@ namespace VioletVreath {
  * @since 2010/01/28
  * @author Masatoshi Tsuge
  */
-class EffectLockon001 : public GgafLib::DefaultSpriteSetActor {
+class EffectLockon001 : public GgafLib::DefaultMassSpriteActor {
 
 public:
     enum {

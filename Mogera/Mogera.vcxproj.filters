@@ -16,6 +16,7 @@
     <ClCompile Include="src\util\MgrUtil.cpp" />
     <ClCompile Include="src\MgrGod.cpp" />
     <ClCompile Include="src\Mogera.cpp" />
+    <ClCompile Include="src\actor\BoardTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\actor\camera\MgrCamera.h" />
@@ -33,5 +34,6 @@
     <ClInclude Include="src\util\MgrUtil.h" />
     <ClInclude Include="src\MgrGod.h" />
     <ClInclude Include="src\Mogera.h" />
+    <ClInclude Include="src\actor\boardtest.h" />
   </ItemGroup>
 </Project>

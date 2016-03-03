@@ -19,15 +19,15 @@ public:
     static int input_item_num_;
     int ITEM_INDEX_OK_;
     int ITEM_INDEX_BS_;
-//    GgafLib::StringBoardActor* pLabelInputedName_;
-//    GgafLib::StringBoardActor* pLabelSelectedChar_;
+//    GgafLib::FontBoardActor* pLabelInputedName_;
+//    GgafLib::FontBoardActor* pLabelSelectedChar_;
     GgafLib::StringSpriteActor* pLabelInputedName_;
     GgafLib::StringSpriteActor* pLabelSelectedChar_;
 
 public:
     MenuBoardNameEntry(const char* prm_name);
 
-    void setNameStringBoard(GgafLib::StringSpriteActor* prm_pInputedName,
+    void setNameFontBoard(GgafLib::StringSpriteActor* prm_pInputedName,
                             GgafLib::StringSpriteActor* prm_pSelectedChar);
 
     bool condSelectNext() override;

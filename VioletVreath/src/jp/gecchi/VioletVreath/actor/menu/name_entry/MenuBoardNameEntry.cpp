@@ -61,7 +61,7 @@ MenuBoardNameEntry::MenuBoardNameEntry(const char* prm_name) :
     }
     relateItemToExNext(ITEM_INDEX_BS_, ITEM_INDEX_OK_); //[BS]から↓もOKへ行く
 
-    //setNameStringBoard()してください
+    //setNameFontBoard()してください
     pLabelInputedName_ = nullptr;
     pLabelSelectedChar_ = nullptr;
 
@@ -76,7 +76,7 @@ MenuBoardNameEntry::MenuBoardNameEntry(const char* prm_name) :
     addSubMenu(NEW MenuBoardConfirm("confirm")); //Yes No 問い合わせメニューを生成
 }
 
-void MenuBoardNameEntry::setNameStringBoard(StringSpriteActor* prm_pInputedName,
+void MenuBoardNameEntry::setNameFontBoard(StringSpriteActor* prm_pInputedName,
                                             StringSpriteActor* prm_pSelectedChar) {
     pLabelInputedName_ = prm_pInputedName;
     pLabelSelectedChar_ = prm_pSelectedChar;
@@ -190,12 +190,12 @@ void MenuBoardNameEntry::selectExPrev() { //上の時
 void MenuBoardNameEntry::processBehavior() {
 #ifdef MY_DEBUG
     if (pLabelInputedName_ == nullptr || pLabelSelectedChar_ == nullptr) {
-        throwGgafCriticalException("MenuBoardNameEntry::processBehavior() 事前に setNameStringBoard() してください。");
+        throwGgafCriticalException("MenuBoardNameEntry::processBehavior() 事前に setNameFontBoard() してください。");
     }
 #endif
     MenuBoard::processBehavior();
     if (getSelectedIndex() == ITEM_INDEX_OK_) {
-        StringBoardMenu* pMenuConfirm = getSubMenu();
+        FontBoardMenu* pMenuConfirm = getSubMenu();
         if (pMenuConfirm->hasJustDecided()) { //サブメニューで「決定（振る舞い）」の時
             if (pMenuConfirm->getSelectedIndex() == MenuBoardConfirm::ITEM_OK) {
                 //ネームエントリー完了OK

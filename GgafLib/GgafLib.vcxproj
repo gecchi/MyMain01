@@ -36,7 +36,9 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultD3DXMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultDynaD3DXMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultGeometricActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultMassBoardActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultMassMeshActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultMassSpriteActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultMeshSetActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultMorphMeshActor.cpp" />
@@ -45,6 +47,7 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultSpriteSetActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DepositoryFormation.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\FkFormation.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\FontBoardActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\GraphBarActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\HomingLaserChip.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\LaserChip.cpp" />
@@ -118,7 +121,9 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultD3DXMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultDynaD3DXMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultGeometricActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultMassBoardActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultMassMeshActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultMassSpriteActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultMeshSetActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultMorphMeshActor.h" />
@@ -127,6 +132,7 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultSpriteSetActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DepositoryFormation.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\fkformation.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\FontBoardActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\graphbaractor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\HomingLaserChip.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\LaserChip.h" />

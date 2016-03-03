@@ -11,7 +11,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EffectExplosion001::EffectExplosion001(const char* prm_name) :
-        DefaultSpriteSetActor(prm_name, "EffectExplosion001", nullptr) {
+        DefaultMassSpriteActor(prm_name, "EffectExplosion001", nullptr) {
     _class_name = "EffectExplosion001";
     pScaler_ = NEW GgafDxScaler(this);
     effectBlendOne(); //â¡éZçáê¨TechniqueéwíË

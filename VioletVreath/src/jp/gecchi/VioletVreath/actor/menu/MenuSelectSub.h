@@ -11,7 +11,7 @@ namespace VioletVreath {
  * @since 2013/06/06
  * @author Masatoshi Tsuge
  */
-class MenuSelectSub : public GgafLib::StringBoardMenu {
+class MenuSelectSub : public GgafLib::FontBoardMenu {
 
 public:
     enum {

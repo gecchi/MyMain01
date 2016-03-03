@@ -28,12 +28,14 @@
 #include "jp/ggaf/dxcore/model/GgafDxD3DXAniMeshModel.h"
 #include "jp/ggaf/dxcore/model/GgafDxSpriteModel.h"
 #include "jp/ggaf/dxcore/model/GgafDxSpriteSetModel.h"
+#include "jp/ggaf/dxcore/model/GgafDxMassSpriteModel.h"
 #include "jp/ggaf/dxcore/model/GgafDxMeshModel.h"
 #include "jp/ggaf/dxcore/model/GgafDxMeshSetModel.h"
 #include "jp/ggaf/dxcore/model/GgafDxMassMeshModel.h"
 #include "jp/ggaf/dxcore/model/GgafDxMorphMeshModel.h"
 #include "jp/ggaf/dxcore/model/GgafDxBoardModel.h"
 #include "jp/ggaf/dxcore/model/GgafDxBoardSetModel.h"
+#include "jp/ggaf/dxcore/model/GgafDxMassBoardModel.h"
 #include "jp/ggaf/dxcore/model/GgafDxPointSpriteModel.h"
 #include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMeshModel.h"
 #include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMeshSetModel.h"
@@ -180,6 +182,10 @@ GgafDxModel* GgafDxModelManager::processCreateResource(const char* prm_idstr, vo
             //SpriteSetModel
             pResourceModel = createSpriteSetModel(model_name);
             break;
+        case 'z':
+            //MeshSpriteModel
+            pResourceModel = createMassSpriteModel(model_name);
+            break;
         case 'B':
             //BoardModel
             pResourceModel = createBoardModel(model_name);
@@ -187,6 +193,10 @@ GgafDxModel* GgafDxModelManager::processCreateResource(const char* prm_idstr, vo
         case 'b':
             //BoardSetModel
             pResourceModel = createBoardSetModel(model_name);
+            break;
+        case 'w':
+            //MassBoardModel
+            pResourceModel = createMassBoardModel(model_name);
             break;
         case 'C':
             //cubeModel
@@ -229,6 +239,12 @@ GgafDxSpriteSetModel* GgafDxModelManager::createSpriteSetModel(const char* prm_m
     return pSpriteSetModel_new;
 }
 
+GgafDxMassSpriteModel* GgafDxModelManager::createMassSpriteModel(const char* prm_model_name) {
+    GgafDxMassSpriteModel* pMassSpriteModel_new = NEW GgafDxMassSpriteModel(prm_model_name);
+    pMassSpriteModel_new->restore();
+    return pMassSpriteModel_new;
+}
+
 GgafDxBoardModel* GgafDxModelManager::createBoardModel(const char* prm_model_name) {
     GgafDxBoardModel* pBoardModel_new = NEW GgafDxBoardModel(prm_model_name);
     pBoardModel_new->restore();
@@ -239,6 +255,12 @@ GgafDxBoardSetModel* GgafDxModelManager::createBoardSetModel(const char* prm_mod
     GgafDxBoardSetModel* pBoardSetModel_new = NEW GgafDxBoardSetModel(prm_model_name);
     pBoardSetModel_new->restore();
     return pBoardSetModel_new;
+}
+
+GgafDxMassBoardModel* GgafDxModelManager::createMassBoardModel(const char* prm_model_name) {
+    GgafDxMassBoardModel* pMassBoardModel_new = NEW GgafDxMassBoardModel(prm_model_name);
+    pMassBoardModel_new->restore();
+    return pMassBoardModel_new;
 }
 
 GgafDxMeshModel* GgafDxModelManager::createMeshModel(const char* prm_model_name) {

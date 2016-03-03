@@ -31,8 +31,10 @@ private:
     GgafDxD3DXMeshModel*         createDynaMeshModel(const char* prm_model_name);
     GgafDxSpriteModel*           createSpriteModel(const char* prm_model_name);
     GgafDxSpriteSetModel*        createSpriteSetModel(const char* prm_model_name);
+    GgafDxMassSpriteModel*       createMassSpriteModel(const char* prm_model_name);
     GgafDxBoardModel*            createBoardModel(const char* prm_model_name);
     GgafDxBoardSetModel*         createBoardSetModel(const char* prm_model_name);
+    GgafDxMassBoardModel*        createMassBoardModel(const char* prm_model_name);
     GgafDxMeshModel*             createMeshModel(const char* prm_model_name);
     GgafDxMeshSetModel*          createMeshSetModel(const char* prm_model_name);
     GgafDxMassMeshModel*         createMassMeshModel(const char* prm_model_name);

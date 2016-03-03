@@ -288,15 +288,15 @@ void MenuBoardScreenConfig::relocateItem() {
         selectItemBySupCursor(SUPCUR_SINGLE_VIEW_DRAW_POSITION, VALUE_POS_1+(pos-1), false);
     }
 
-    StringBoardActor* pLabelRezo  = (StringBoardActor*) getItem(VALUE_SINGLE_VIEW_FULL_SCREEN_RESOLUTION);
+    FontBoardActor* pLabelRezo  = (FontBoardActor*) getItem(VALUE_SINGLE_VIEW_FULL_SCREEN_RESOLUTION);
     std::string rezo = XTOS(PROPERTY::getInt("SINGLE_VIEW_FULL_SCREEN_WIDTH")) + "X" + XTOS(PROPERTY::getInt("SINGLE_VIEW_FULL_SCREEN_HEIGHT"));
     pLabelRezo->update(rezo.c_str());
 
-    StringBoardActor* pLabelRezo1 = (StringBoardActor*) getItem(VALUE_DUAL_VIEW_FULL_SCREEN1_RESOLUTION);
+    FontBoardActor* pLabelRezo1 = (FontBoardActor*) getItem(VALUE_DUAL_VIEW_FULL_SCREEN1_RESOLUTION);
     std::string rezo1 = XTOS(PROPERTY::getInt("DUAL_VIEW_FULL_SCREEN1_WIDTH")) + "X" + XTOS(PROPERTY::getInt("DUAL_VIEW_FULL_SCREEN1_HEIGHT"));
     pLabelRezo1->update(rezo1.c_str());
 
-    StringBoardActor* pLabelRezo2 = (StringBoardActor*) getItem(VALUE_DUAL_VIEW_FULL_SCREEN2_RESOLUTION);
+    FontBoardActor* pLabelRezo2 = (FontBoardActor*) getItem(VALUE_DUAL_VIEW_FULL_SCREEN2_RESOLUTION);
     std::string rezo2 = XTOS(PROPERTY::getInt("DUAL_VIEW_FULL_SCREEN2_WIDTH")) + "X" + XTOS(PROPERTY::getInt("DUAL_VIEW_FULL_SCREEN2_HEIGHT"));
     pLabelRezo2->update(rezo2.c_str());
 }
@@ -598,7 +598,7 @@ void MenuBoardScreenConfig::processBehavior() {
             }
             if (rezo_num_ > 0) {
                 GgafDxGod::AdapterRezos* paAdapterRezos = P_GOD->_paAdapterRezos;
-                StringBoardActor* pLabelRezo  = (StringBoardActor*) getItem(VALUE_SINGLE_VIEW_FULL_SCREEN_RESOLUTION);
+                FontBoardActor* pLabelRezo  = (FontBoardActor*) getItem(VALUE_SINGLE_VIEW_FULL_SCREEN_RESOLUTION);
                 pLabelRezo->update(paAdapterRezos[0].paRezoInfo[rezo_index_].item_str.c_str());
                 PROPERTY::setValue("SINGLE_VIEW_FULL_SCREEN_WIDTH" , paAdapterRezos[0].paRezoInfo[rezo_index_].width);
                 PROPERTY::setValue("SINGLE_VIEW_FULL_SCREEN_HEIGHT", paAdapterRezos[0].paRezoInfo[rezo_index_].height);
@@ -623,7 +623,7 @@ void MenuBoardScreenConfig::processBehavior() {
             }
             if (rezo1_num_ > 0) {
                 GgafDxGod::AdapterRezos* paAdapterRezos = P_GOD->_paAdapterRezos;
-                StringBoardActor* pLabelRezo1  = (StringBoardActor*) getItem(VALUE_DUAL_VIEW_FULL_SCREEN1_RESOLUTION);
+                FontBoardActor* pLabelRezo1  = (FontBoardActor*) getItem(VALUE_DUAL_VIEW_FULL_SCREEN1_RESOLUTION);
                 pLabelRezo1->update(paAdapterRezos[0].paRezoInfo[rezo1_index_].item_str.c_str());
                 PROPERTY::setValue("DUAL_VIEW_FULL_SCREEN1_WIDTH" , paAdapterRezos[0].paRezoInfo[rezo1_index_].width);
                 PROPERTY::setValue("DUAL_VIEW_FULL_SCREEN1_HEIGHT", paAdapterRezos[0].paRezoInfo[rezo1_index_].height);
@@ -648,7 +648,7 @@ void MenuBoardScreenConfig::processBehavior() {
                     }
                 }
                 GgafDxGod::AdapterRezos* paAdapterRezos = P_GOD->_paAdapterRezos;
-                StringBoardActor* pLabelRezo2 = (StringBoardActor*) getItem(VALUE_DUAL_VIEW_FULL_SCREEN2_RESOLUTION);
+                FontBoardActor* pLabelRezo2 = (FontBoardActor*) getItem(VALUE_DUAL_VIEW_FULL_SCREEN2_RESOLUTION);
                 pLabelRezo2->update(paAdapterRezos[1].paRezoInfo[rezo2_index_].item_str.c_str());
                 PROPERTY::setValue("DUAL_VIEW_FULL_SCREEN2_WIDTH" , paAdapterRezos[1].paRezoInfo[rezo2_index_].width);
                 PROPERTY::setValue("DUAL_VIEW_FULL_SCREEN2_HEIGHT", paAdapterRezos[1].paRezoInfo[rezo2_index_].height);

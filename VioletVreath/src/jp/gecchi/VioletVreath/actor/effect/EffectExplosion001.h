@@ -1,7 +1,7 @@
 #ifndef EFFECTEXPLOSION001_H_
 #define EFFECTEXPLOSION001_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/DefaultSpriteSetActor.h"
+#include "jp/ggaf/lib/actor/DefaultMassSpriteActor.h"
 
 namespace VioletVreath {
 
@@ -11,7 +11,7 @@ namespace VioletVreath {
  * @since 2006/01/10
  * @author Masatoshi Tsuge
  */
-class EffectExplosion001 : public GgafLib::DefaultSpriteSetActor {
+class EffectExplosion001 : public GgafLib::DefaultMassSpriteActor {
 
 public:
     /** 拡大縮小支援オブジェクト */

@@ -14,7 +14,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 Shot002::Shot002(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "Flora", STATUS(Shot002)) {
+        DefaultMassMeshActor(prm_name, "Flora", STATUS(Shot002)) {
     _class_name = "Shot002";
     pScaler_ = NEW GgafDxScaler(this);
 

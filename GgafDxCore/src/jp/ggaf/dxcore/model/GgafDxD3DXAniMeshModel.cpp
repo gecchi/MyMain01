@@ -76,7 +76,7 @@ HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int p
                 checkDxException(hr, D3D_OK, "["<<i<<"],GgafDxD3DXAniMeshModel::draw() EndPass() に失敗しました。");
                 hr = pEffect_active->_pID3DXEffect->End();
                 checkDxException(hr, D3D_OK, "["<<i<<"],GgafDxD3DXAniMeshModel::draw() End() に失敗しました。");
-                if (pEffect_active->_obj_effect & Obj_GgafDxMassMeshEffect) {
+                if (pEffect_active->_obj_effect & Obj_GgafDxMassEffect) {
                     pDevice->SetStreamSourceFreq( 0, 1 );
                     pDevice->SetStreamSourceFreq( 1, 1 );
                 }
@@ -307,7 +307,7 @@ void GgafDxD3DXAniMeshModel::release() {
 
     //TODO:親クラスメンバをDELETEするのはややきたないか
     GGAF_DELETEARR(_paMaterial_default);
-    GGAF_DELETEARR(_pa_texture_filenames);
+    GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
     GGAF_RELEASE(_pAcBase);
     GGAF_DELETE(_pAH);
     //TODO:いつ消すの？

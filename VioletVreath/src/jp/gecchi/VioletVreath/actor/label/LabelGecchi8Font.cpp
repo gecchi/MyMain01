@@ -6,7 +6,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 LabelGecchi8Font::LabelGecchi8Font(const char* prm_name) :
-        StringBoardActor(prm_name, "Gecchi_8Font")
+        FontBoardActor(prm_name, "Gecchi_8Font")
 {
     _class_name = "LabelGecchi8Font";
 }

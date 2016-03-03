@@ -32,7 +32,7 @@ NameEntryScene::NameEntryScene(const char* prm_name) : DefaultScene(prm_name) {
     bringDirector()->addSubGroup(pLabelSelectedChar_);
 
     pNameEntryBoard_ = NEW MenuBoardNameEntry("pNameEntryBoard_");
-    pNameEntryBoard_->setNameStringBoard(pLabelInputedName_, pLabelSelectedChar_);
+    pNameEntryBoard_->setNameFontBoard(pLabelInputedName_, pLabelSelectedChar_);
     bringDirector()->addSubGroup(pNameEntryBoard_);
 
     inputed_name_ = "";

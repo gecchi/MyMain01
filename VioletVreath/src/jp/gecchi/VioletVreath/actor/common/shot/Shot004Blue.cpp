@@ -14,7 +14,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 Shot004Blue::Shot004Blue(const char* prm_name) :
-        SingleLaser(prm_name, "Shot004Blue", STATUS(Shot004)) { //SingleLaserは最大27セットである
+        DefaultMassMeshActor(prm_name, "Shot004Blue", STATUS(Shot004)) { //SingleLaserは最大27セットである
         //SingleLaser(prm_name, "27/laser_single") { //SingleLaserは最大27セットである
     _class_name = "Shot004Blue";
     view_in_ = false;

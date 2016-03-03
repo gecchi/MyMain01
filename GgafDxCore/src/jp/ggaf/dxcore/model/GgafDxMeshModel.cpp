@@ -99,7 +99,7 @@ HRESULT GgafDxMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw
                 checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() EndPass() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
                 hr = pEffect_active->_pID3DXEffect->End();
                 checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() End() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-                if (pEffect_active->_obj_effect & Obj_GgafDxMassMeshEffect) {
+                if (pEffect_active->_obj_effect & Obj_GgafDxMassEffect) {
                     pDevice->SetStreamSourceFreq( 0, 1 );
                     pDevice->SetStreamSourceFreq( 1, 1 );
                 }
@@ -422,7 +422,7 @@ void GgafDxMeshModel::release() {
     GGAF_DELETEARR(_paIndexBuffer_data);
     GGAF_DELETEARR(_paIndexParam);
     GGAF_DELETEARR(_paMaterial_default);
-    GGAF_DELETEARR(_pa_texture_filenames);
+    GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
     _TRACE3_("GgafDxMeshModel::release() " << _model_name << " end");
 }
 

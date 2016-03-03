@@ -1,7 +1,7 @@
 #ifndef LABELRANKINGFONT_H_
 #define LABELRANKINGFONT_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/StringBoardActor.h"
+#include "jp/ggaf/lib/actor/FontBoardActor.h"
 
 namespace VioletVreath {
 
@@ -11,7 +11,7 @@ namespace VioletVreath {
  * @since 2011/08/02
  * @author Masatoshi Tsuge
  */
-class LabelRankingFont : public GgafLib::StringBoardActor {
+class LabelRankingFont : public GgafLib::FontBoardActor {
 
 public:
     /** フィードイン・フェードアウト支援 */

@@ -131,7 +131,7 @@ void LabelRankFont::cnvRankStr(int prm_rank, char* out) {
 
 
 LabelRankFont::LabelRankFont(const char* prm_name) :
-        StringBoardActor(prm_name, "RankFont")
+        FontBoardActor(prm_name, "RankFont")
 {
     _class_name = "LabelRankFont";
     tmp_rank_ = 0;

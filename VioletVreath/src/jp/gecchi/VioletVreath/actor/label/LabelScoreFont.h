@@ -1,7 +1,7 @@
 #ifndef LABELSCOREFONT_H_
 #define LABELSCOREFONT_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/StringBoardActor.h"
+#include "jp/ggaf/lib/actor/FontBoardActor.h"
 
 namespace VioletVreath {
 
@@ -11,7 +11,7 @@ namespace VioletVreath {
  * @since 2010/06/23
  * @author Masatoshi Tsuge
  */
-class LabelScoreFont : public GgafLib::StringBoardActor {
+class LabelScoreFont : public GgafLib::FontBoardActor {
 public:
     static int blur_no_[600];
     static int bn_;

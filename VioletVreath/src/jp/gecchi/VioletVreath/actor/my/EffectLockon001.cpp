@@ -9,7 +9,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EffectLockon001::EffectLockon001(const char* prm_name, const char* prm_model_id) :
-        DefaultSpriteSetActor(prm_name, prm_model_id, nullptr) {
+        DefaultMassSpriteActor(prm_name, prm_model_id, nullptr) {
     _class_name = "EffectLockon001";
     pTarget_ = nullptr;
     inactivate();

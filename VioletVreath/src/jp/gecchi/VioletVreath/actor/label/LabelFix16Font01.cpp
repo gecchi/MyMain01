@@ -8,7 +8,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 LabelFix16Font01::LabelFix16Font01(const char* prm_name) :
-        StringBoardActor(prm_name, "MSX_16Font")
+        FontBoardActor(prm_name, "MSX_16Font")
 {
     _class_name = "LabelFix16Font01";
     _pAFader = NEW GgafDxAlphaFader(this);

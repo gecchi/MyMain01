@@ -261,8 +261,10 @@ enum GgafDxValign {
 #define Obj_GgafDxBoardSetActor         (0x4000000U)      //0b 00000100 00000000 00000000 00000000
 #define Obj_GgafDxPointSpriteActor      (0x8000000U)      //0b 00001000 00000000 00000000 00000000
 
-#define Obj_GgafDxMassMeshActor         (0x10000000U)     //0b 00010000 00000000 00000000 00000000
-
+#define Obj_GgafDxMassActor             (0x10000000U)     //0b 00010000 00000000 00000000 00000000
+#define Obj_GgafDxMassMeshActor         (0x20000000U)     //0b 00100000 00000000 00000000 00000000
+#define Obj_GgafDxMassBoardActor        (0x40000000U)     //0b 01000000 00000000 00000000 00000000
+#define Obj_GgafDxMassSpriteActor       (0x80000000U)     //0b 10000000 00000000 00000000 00000000
 //前方宣言(forward declaration)
 namespace IkdLib {
 //「○×（まるぺけ）つくろーどっとコム」 http://marupeke296.com/index.html
@@ -307,6 +309,7 @@ class GgafDxIBumpMapActor;
 class GgafDxBaseActor;
 class GgafDxGeometricActor;
 class GgafDxFigureActor;
+class GgafDxMassActor;
 class GgafDxMeshActor;
 class GgafDxMeshSetActor;
 class GgafDxMassMeshActor;
@@ -314,33 +317,34 @@ class GgafDxMorphMeshActor;
 class GgafDxD3DXMeshActor;
 class GgafDxDynaD3DXMeshActor;
 class GgafDxD3DXAniMeshActor;
-
 class GgafDxSpriteMeshActor;
 class GgafDxSpriteMeshSetActor;
 class GgafDxCubeMapMeshActor;
 class GgafDxCubeMapMeshSetActor;
 class GgafDxCubeMapMorphMeshActor;
 class GgafDxWorldBoundActor;
-
 class GgafDxAABActor;
 class GgafDxAAPrismActor;
 class GgafDxAAPyramidActor;
 class GgafDxSphereActor;
-
 class GgafDxSpriteActor;
 class GgafDxSpriteSetActor;
+class GgafDxMassSpriteActor;
 class GgafDxCamera;
 class GgafDxCameraViewPoint;
 class GgafDxCameraUpVector;
 class GgafDxBoardActor;
 class GgafDxBoardSetActor;
+class GgafDxMassBoardActor;
 class GgafDxPointSpriteActor;
 
 class GgafDxModel;
+class GgafDxMassModel;
 class GgafDxD3DXMeshModel;
 class GgafDxD3DXAniMeshModel;
 class GgafDxSpriteModel;
 class GgafDxSpriteSetModel;
+class GgafDxMassSpriteModel;
 class GgafDxMeshModel;
 class GgafDxMeshSetModel;
 class GgafDxMassMeshModel;
@@ -351,9 +355,11 @@ class GgafDxCubeMapMorphMeshModel;
 class GgafDxWorldBoundModel;
 class GgafDxBoardModel;
 class GgafDxBoardSetModel;
+class GgafDxMassBoardModel;
 class GgafDxPointSpriteModel;
 
 class GgafDxEffect;
+class GgafDxMassEffect;
 class GgafDxMeshEffect;
 class GgafDxD3DXAniMeshEffect;
 class GgafDxMeshSetEffect;
@@ -365,8 +371,10 @@ class GgafDxCubeMapMorphMeshEffect;
 class GgafDxWorldBoundEffect;
 class GgafDxSpriteEffect;
 class GgafDxSpriteSetEffect;
+class GgafDxMassSpriteEffect;
 class GgafDxBoardEffect;
 class GgafDxBoardSetEffect;
+class GgafDxMassBoardEffect;
 class GgafDxStringBoardActor;
 class GgafDxStringSpriteActor;
 class GgafDxPointSpriteEffect;

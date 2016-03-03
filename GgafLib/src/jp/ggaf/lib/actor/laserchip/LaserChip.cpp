@@ -21,14 +21,16 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
+LaserChip::VERTEX_instancedata LaserChip::_aInstancedata[GGAFDXMASS_MAX_INSTACE];
+
 LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
-      GgafDxMeshSetActor(prm_name,
-                         std::string("11/" + std::string(prm_model)).c_str(),
+        GgafDxMassMeshActor(prm_name,
+                         std::string(prm_model).c_str(),
                          "LaserChipEffect",
                          "LaserChipTechnique",
                          prm_pStat,
                          NEW CollisionChecker3D(this) ) {
-    _pMeshSetModel->_set_num = 11; //現在のレーザーの最大セット数は11。
+//    _pMeshSetModel->_set_num = 11; //現在のレーザーの最大セット数は11。
     _obj_class |= Obj_LaserChip;
     _pColliChecker = (CollisionChecker3D*)_pChecker;
     _class_name = "LaserChip";
@@ -46,47 +48,14 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
     setAlpha(0.99);
     _middle_colli_able = false;
 
+    _pMassMeshModel->registerCallback_VertexInstaceDataInfo(LaserChip::createVertexInstaceData);
+    //モデル単位でセットすれば事足りるのだが、めんどうなので、アクター毎にセット
     static volatile bool is_init = LaserChip::initStatic(this); //静的メンバ初期化
 }
 
-D3DXHANDLE LaserChip::_ah_kind[11];
-D3DXHANDLE LaserChip::_ah_force_alpha[11];
-D3DXHANDLE LaserChip::_ah_matWorld_infront[11];
 bool LaserChip::initStatic(LaserChip* prm_pLaserChip) {
     ID3DXEffect* const pID3DXEffect = prm_pLaserChip->getEffect()->_pID3DXEffect;
-    LaserChip::_ah_kind[0]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind001" );
-    LaserChip::_ah_kind[1]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind002" );
-    LaserChip::_ah_kind[2]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind003" );
-    LaserChip::_ah_kind[3]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind004" );
-    LaserChip::_ah_kind[4]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind005" );
-    LaserChip::_ah_kind[5]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind006" );
-    LaserChip::_ah_kind[6]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind007" );
-    LaserChip::_ah_kind[7]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind008" );
-    LaserChip::_ah_kind[8]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind009" );
-    LaserChip::_ah_kind[9]  = pID3DXEffect->GetParameterByName( nullptr, "g_kind010" );
-    LaserChip::_ah_kind[10] = pID3DXEffect->GetParameterByName( nullptr, "g_kind011" );
-    LaserChip::_ah_force_alpha[0]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha001" );
-    LaserChip::_ah_force_alpha[1]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha002" );
-    LaserChip::_ah_force_alpha[2]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha003" );
-    LaserChip::_ah_force_alpha[3]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha004" );
-    LaserChip::_ah_force_alpha[4]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha005" );
-    LaserChip::_ah_force_alpha[5]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha006" );
-    LaserChip::_ah_force_alpha[6]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha007" );
-    LaserChip::_ah_force_alpha[7]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha008" );
-    LaserChip::_ah_force_alpha[8]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha009" );
-    LaserChip::_ah_force_alpha[9]  = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha010" );
-    LaserChip::_ah_force_alpha[10] = pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha011" );
-    LaserChip::_ah_matWorld_infront[0]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_infront001" );
-    LaserChip::_ah_matWorld_infront[1]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_infront002" );
-    LaserChip::_ah_matWorld_infront[2]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_infront003" );
-    LaserChip::_ah_matWorld_infront[3]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_infront004" );
-    LaserChip::_ah_matWorld_infront[4]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_infront005" );
-    LaserChip::_ah_matWorld_infront[5]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_infront006" );
-    LaserChip::_ah_matWorld_infront[6]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_infront007" );
-    LaserChip::_ah_matWorld_infront[7]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_infront008" );
-    LaserChip::_ah_matWorld_infront[8]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_infront009" );
-    LaserChip::_ah_matWorld_infront[9]  = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_infront010" );
-    LaserChip::_ah_matWorld_infront[10] = pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_infront011" );
+
     return true;
 }
 
@@ -279,7 +248,7 @@ void LaserChip::processSettlementBehavior() {
     if (getActiveFrame() > 60 && _force_alpha > 0) {
         _force_alpha -= 0.01;
     }
-    GgafDxMeshSetActor::processSettlementBehavior(); //八分木登録
+    GgafDxMassMeshActor::processSettlementBehavior(); //八分木登録
     //TODO:八分木登録だけならprocessSettlementBehavior()を呼び出すのは少し効率が悪かもしれない。
     //当たり判定領域を更新してからprocessSettlementBehaviorで八分木登録すること。
 }
@@ -288,54 +257,6 @@ void LaserChip::processPreDraw() {
     if (0 < _chip_kind && _chip_kind < 4) {
         //1~3を表示対象にする
         GgafDxFigureActor::processPreDraw();
-    }
-}
-
-void LaserChip::processDraw() {
-    int draw_set_num = 0; //GgafDxMeshSetActorの同じモデルで同じテクニックが
-                       //連続しているカウント数。同一描画深度は一度に描画する。
-    ID3DXEffect* const pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
-    HRESULT hr;
-    //基本モデル頂点数
-    GgafDxFigureActor* pDrawActor = this;
-    LaserChip* pLaserChip = nullptr;
-    int model_set_num = _pMeshSetModel->_set_num;
-
-    while (pDrawActor) {
-        if (pDrawActor->getModel() == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
-            pLaserChip = (LaserChip*)pDrawActor;
-            //もしここらへんで意味不明なエラーになったら、
-            //GgafDxSpriteLaserChipActorの[MEMO]を読み直せ！
-            if (pLaserChip->_pChip_infront) {
-                //自身ワールド変換行列
-                hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[draw_set_num], &(pLaserChip->_matWorld));
-                checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_ah_matWorld) に失敗しました。");
-                //一つ前方のワールド変換行列
-                hr = pID3DXEffect->SetMatrix(LaserChip::_ah_matWorld_infront[draw_set_num], &(pLaserChip->_pChip_infront->_matWorld));
-                checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_ah_matWorld_infront) に失敗しました。1");
-                //チップ種別
-                hr = pID3DXEffect->SetInt(LaserChip::_ah_kind[draw_set_num], pLaserChip->_chip_kind);
-                checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetInt(LaserChip::_ah_kind) に失敗しました。2");
-
-                hr = pID3DXEffect->SetFloat(LaserChip::_ah_force_alpha[draw_set_num], pLaserChip->_force_alpha);
-                checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetFloat(LaserChip::_ah_force_alpha) に失敗しました。2");
-
-                draw_set_num++;
-                if (draw_set_num >= model_set_num) {
-                    break;
-                }
-
-            } else {
-                //先端チップは描画不要
-            }
-            pDrawActor = pDrawActor->_pNextRenderActor;
-        } else {
-            break;
-        }
-    }
-    GgafDxSpacetime::_pActor_draw_active = pLaserChip; //描画セットの最後アクターをセット
-    if (draw_set_num > 0) { //描画されない可能性があるためこの判定が必要
-        _pMeshSetModel->GgafDxMeshSetModel::draw(this, draw_set_num);
     }
 }
 
@@ -377,6 +298,124 @@ void LaserChip::registerHitAreaCube_AutoGenMidColli(int prm_edge_length) {
     pChecker->disable(1);
     setHitAble(true);
 }
+
+
+void LaserChip::createVertexInstaceData(GgafDxMassMeshModel::VertexInstaceDataInfo* out_info) {
+    out_info->paElement = NEW D3DVERTEXELEMENT9[9];
+    // Stream = 1 ---->
+    WORD st1_offset_next = 0;
+    //float _11, _12, _13, _14;   // : TEXCOORD1  World変換行列、１行目
+    out_info->paElement[0].Stream = 1;
+    out_info->paElement[0].Offset = st1_offset_next;
+    out_info->paElement[0].Type   = D3DDECLTYPE_FLOAT4;
+    out_info->paElement[0].Method = D3DDECLMETHOD_DEFAULT;
+    out_info->paElement[0].Usage  = D3DDECLUSAGE_TEXCOORD;
+    out_info->paElement[0].UsageIndex = 1;
+    st1_offset_next += sizeof(float)*4;
+    //float _21, _22, _23, _24;  // : TEXCOORD2  World変換行列、２行目
+    out_info->paElement[1].Stream = 1;
+    out_info->paElement[1].Offset = st1_offset_next;
+    out_info->paElement[1].Type   = D3DDECLTYPE_FLOAT4;
+    out_info->paElement[1].Method = D3DDECLMETHOD_DEFAULT;
+    out_info->paElement[1].Usage  = D3DDECLUSAGE_TEXCOORD;
+    out_info->paElement[1].UsageIndex = 2;
+    st1_offset_next += sizeof(float)*4;
+    //float _31, _32, _33, _34;  // : TEXCOORD3  World変換行列、３行目
+    out_info->paElement[2].Stream = 1;
+    out_info->paElement[2].Offset = st1_offset_next;
+    out_info->paElement[2].Type   = D3DDECLTYPE_FLOAT4;
+    out_info->paElement[2].Method = D3DDECLMETHOD_DEFAULT;
+    out_info->paElement[2].Usage  = D3DDECLUSAGE_TEXCOORD;
+    out_info->paElement[2].UsageIndex = 3;
+    st1_offset_next += sizeof(float)*4;
+    //float _41, _42, _43, _44;  // : TEXCOORD4  World変換行列、４行目
+    out_info->paElement[3].Stream = 1;
+    out_info->paElement[3].Offset = st1_offset_next;
+    out_info->paElement[3].Type   = D3DDECLTYPE_FLOAT4;
+    out_info->paElement[3].Method = D3DDECLMETHOD_DEFAULT;
+    out_info->paElement[3].Usage  = D3DDECLUSAGE_TEXCOORD;
+    out_info->paElement[3].UsageIndex = 4;
+    st1_offset_next += sizeof(float)*4;
+
+    //float _f_11, _f_12, _f_13, _14;   // : TEXCOORD5  前方チップWorld変換行列、１行目
+    out_info->paElement[4].Stream = 1;
+    out_info->paElement[4].Offset = st1_offset_next;
+    out_info->paElement[4].Type   = D3DDECLTYPE_FLOAT4;
+    out_info->paElement[4].Method = D3DDECLMETHOD_DEFAULT;
+    out_info->paElement[4].Usage  = D3DDECLUSAGE_TEXCOORD;
+    out_info->paElement[4].UsageIndex = 5;
+    st1_offset_next += sizeof(float)*4;
+    //float _f_21, _f_22, _f_23, _24;   // : TEXCOORD6  前方チップWorld変換行列、２行目
+    out_info->paElement[5].Stream = 1;
+    out_info->paElement[5].Offset = st1_offset_next;
+    out_info->paElement[5].Type   = D3DDECLTYPE_FLOAT4;
+    out_info->paElement[5].Method = D3DDECLMETHOD_DEFAULT;
+    out_info->paElement[5].Usage  = D3DDECLUSAGE_TEXCOORD;
+    out_info->paElement[5].UsageIndex = 6;
+    st1_offset_next += sizeof(float)*4;
+    //float _f_31, _f_32, _f_33, _34;   // : TEXCOORD7  前方チップWorld変換行列、３行目
+    out_info->paElement[6].Stream = 1;
+    out_info->paElement[6].Offset = st1_offset_next;
+    out_info->paElement[6].Type   = D3DDECLTYPE_FLOAT4;
+    out_info->paElement[6].Method = D3DDECLMETHOD_DEFAULT;
+    out_info->paElement[6].Usage  = D3DDECLUSAGE_TEXCOORD;
+    out_info->paElement[6].UsageIndex = 7;
+    st1_offset_next += sizeof(float)*4;
+    //float _f_41, _f_42, _f_43, _44;   // : TEXCOORD8  前方チップWorld変換行列、４行目
+    out_info->paElement[7].Stream = 1;
+    out_info->paElement[7].Offset = st1_offset_next;
+    out_info->paElement[7].Type   = D3DDECLTYPE_FLOAT4;
+    out_info->paElement[7].Method = D3DDECLMETHOD_DEFAULT;
+    out_info->paElement[7].Usage  = D3DDECLUSAGE_TEXCOORD;
+    out_info->paElement[7].UsageIndex = 8;
+    st1_offset_next += sizeof(float)*4;
+
+    //float _chip_kind, _force_alpha;   // : TEXCOORD9  チップ種別、強制α
+    out_info->paElement[8].Stream = 1;
+    out_info->paElement[8].Offset = st1_offset_next;
+    out_info->paElement[8].Type   = D3DDECLTYPE_FLOAT2;
+    out_info->paElement[8].Method = D3DDECLMETHOD_DEFAULT;
+    out_info->paElement[8].Usage  = D3DDECLUSAGE_TEXCOORD;
+    out_info->paElement[8].UsageIndex = 9;
+    st1_offset_next += sizeof(float)*2;
+    // <---- Stream = 1
+
+    out_info->element_num = 9;
+    out_info->size_vertex_unit_instacedata = sizeof(LaserChip::VERTEX_instancedata);
+    out_info->pInstancedata = LaserChip::_aInstancedata;
+}
+
+void LaserChip::processDraw() {
+    int draw_set_num = 0; //GgafDxMassMeshActorの同じモデルで同じテクニックが
+                       //連続しているカウント数。同一描画深度は一度に描画する。
+    GgafDxMassMeshModel* pMassMeshModel = _pMassMeshModel;
+    const int model_max_set_num = pMassMeshModel->_set_num;
+    const hashval hash_technique = _hash_technique;
+    VERTEX_instancedata* paInstancedata = LaserChip::_aInstancedata;
+    static const size_t SIZE_D3DXMATRIX = sizeof(D3DXMATRIX);
+    static const size_t SIZE_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
+    GgafDxFigureActor* pDrawActor = this;
+    while (pDrawActor) {
+        if (pDrawActor->getModel() == pMassMeshModel && pDrawActor->_hash_technique == hash_technique) {
+            LaserChip* pChip = (LaserChip*)pDrawActor;
+            memcpy(paInstancedata, &(pChip->_matWorld), SIZE_D3DXMATRIX);
+            memcpy(&(paInstancedata->_f_11), &(pChip->_pChip_infront->_matWorld), SIZE_D3DXMATRIX);
+            paInstancedata->_chip_kind = pChip->_chip_kind;
+            paInstancedata->_force_alpha =  pChip->_force_alpha;
+            paInstancedata++;
+            draw_set_num++;
+            if (draw_set_num >= model_max_set_num) {
+                break;
+            }
+            GgafDxSpacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
+            pDrawActor = pDrawActor->_pNextRenderActor;
+        } else {
+            break;
+        }
+    }
+    ((GgafDxMassMeshModel*)_pMassMeshModel)->GgafDxMassMeshModel::draw(this, draw_set_num);
+}
+
 
 LaserChip::~LaserChip() {
     GGAF_DELETE(_pColliChecker);

@@ -70,7 +70,7 @@ HRESULT GgafDxSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_dr
             checkDxException(hr, D3D_OK, "GgafDxSpriteActor::draw() EndPass() に失敗しました。");
             hr = pEffect_active->_pID3DXEffect->End();
             checkDxException(hr, D3D_OK, "GgafDxSpriteActor::draw() End() に失敗しました。");
-            if (pEffect_active->_obj_effect & Obj_GgafDxMassMeshEffect) {
+            if (pEffect_active->_obj_effect & Obj_GgafDxMassEffect) {
                 pDevice->SetStreamSourceFreq( 0, 1 );
                 pDevice->SetStreamSourceFreq( 1, 1 );
             }
@@ -271,7 +271,7 @@ void GgafDxSpriteModel::release() {
     GGAF_DELETEARR(_papTextureConnection);
     //TODO:親クラスメンバをDELETEするのはややきたないか
     GGAF_DELETEARR(_paMaterial_default);
-    GGAF_DELETEARR(_pa_texture_filenames);
+    GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
     _TRACE3_("GgafDxSpriteModel::release() " << _model_name << " end");
 }
 

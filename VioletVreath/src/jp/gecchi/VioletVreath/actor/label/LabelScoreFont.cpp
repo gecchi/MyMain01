@@ -23,7 +23,7 @@ int LabelScoreFont::blur_no_[600] = {
 };
 int LabelScoreFont::bn_ = 0;
 LabelScoreFont::LabelScoreFont(const char* prm_name) :
-        StringBoardActor(prm_name, "ScoreFont")
+        FontBoardActor(prm_name, "ScoreFont")
 {
     _class_name = "LabelScoreFont";
     _chr_ptn_zero = (int)('+');
@@ -58,7 +58,7 @@ void LabelScoreFont::processBehavior() {
 }
 
 void LabelScoreFont::processPreDraw() {
-    StringBoardActor::processPreDraw();
+    FontBoardActor::processPreDraw();
 
     _draw_string = bk_draw_string_;
     for (int p = 0; p < _len; p++) {
@@ -70,10 +70,12 @@ void LabelScoreFont::processPreDraw() {
         }
     }
     _draw_string[_len] = (int)('\0');
+
+    updateOffset();
 }
 
 void LabelScoreFont::processAfterDraw()  {
-    StringBoardActor::processAfterDraw();
+    FontBoardActor::processAfterDraw();
     _draw_string = _buf;
 }
 

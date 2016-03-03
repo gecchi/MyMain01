@@ -7,11 +7,11 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxMassMeshEffect::GgafDxMassMeshEffect(const char* prm_effect_name) : GgafDxEffect(prm_effect_name) {
+GgafDxMassMeshEffect::GgafDxMassMeshEffect(const char* prm_effect_name) : GgafDxMassEffect(prm_effect_name) {
     _obj_effect |= Obj_GgafDxMassMeshEffect;
     GgafDxCamera* const pCam = P_GOD->getSpacetime()->getCamera();
     //シェーダー共通のグローバル変数設定
-    HRESULT hr;
+   HRESULT hr;
     //射影変換行列
     hr = _pID3DXEffect->SetMatrix("g_matProj", pCam->getProjectionMatrix() );
     checkDxException(hr, D3D_OK, "GgafDxMeshActor::GgafDxMassMeshEffect SetMatrix() に失敗しました。");
