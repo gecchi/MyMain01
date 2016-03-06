@@ -35,7 +35,7 @@ int MyBunshinWateringLaserChip001::tex_no_ = 0;
 #define AIM_TIME_OUT (600)
 
 MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_name) :
-        WateringLaserChip(prm_name, "MyBunshinWateringLaserChip001", STATUS(MyBunshinWateringLaserChip001)) {
+        WateringLaserChip(prm_name, "MyLaserChip001", STATUS(MyBunshinWateringLaserChip001)) {
     _class_name = "MyBunshinWateringLaserChip001";
     pAxsMver_ = NEW GgafDxAxesMover(this);
     default_stamina_ = getStatus()->get(STAT_Stamina);

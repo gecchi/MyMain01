@@ -277,7 +277,7 @@ void FontBoardActor::processDraw() {
                        //連続しているカウント数。同一描画深度は一度に描画する。
     GgafDxMassBoardEffect* pMassBoardEffect = _pMassBoardEffect;
     ID3DXEffect* pID3DXEffect = pMassBoardEffect->_pID3DXEffect;
-    HRESULT hr;
+    VERTEX_instancedata* paInstancedata = FontBoardActor::_aInstancedata;
     GgafDxFigureActor* pDrawActor = this;
     FontBoardActor* pFontBoardActor = nullptr;
     int model_set_num = _pMassBoardModel->_set_num;
@@ -292,21 +292,19 @@ void FontBoardActor::processDraw() {
             float* paOffset_y = pFontBoardActor->_paOffset_y;
             float* paOffset_u = pFontBoardActor->_paOffset_u;
             float* paOffset_v = pFontBoardActor->_paOffset_v;
-
             float alpha = pFontBoardActor->_alpha;
-            VERTEX_instancedata* p;
             for (int i = 0; i < len; i++) {
+                paInstancedata->transformed_x = (float)(x + paOffset_x[i]);
+                paInstancedata->transformed_y = (float)(y + paOffset_y[i]);
+                paInstancedata->depth_z = (float)(z);
+                paInstancedata->offset_u = paOffset_u[i];
+                paInstancedata->offset_v = paOffset_v[i];
+                paInstancedata->alpha    = alpha;                paInstancedata++;
 
-                p = &(FontBoardActor::_aInstancedata[draw_set_num]);
-                p->transformed_x = (float)(x + paOffset_x[i]);
-                p->transformed_y = (float)(y + paOffset_y[i]);
-                p->depth_z = (float)(z);
-                p->offset_u = paOffset_u[i];
-                p->offset_v = paOffset_v[i];
-                p->alpha    = alpha;
                 draw_set_num++;
                 if (draw_set_num >= model_set_num) {
                    _pMassBoardModel->GgafDxMassBoardModel::draw(this, draw_set_num);
+                   paInstancedata = FontBoardActor::_aInstancedata;
                    draw_set_num = 0;
                 }
             }

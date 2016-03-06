@@ -24,7 +24,7 @@ int MyStraightLaserChip001::tex_no_ = 0;
 
 
 MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) :
-        StraightLaserChip(prm_name, "MyStraightLaserChip001", STATUS(MyStraightLaserChip001)) {
+        StraightLaserChip(prm_name, "MyLaserChip001", STATUS(MyStraightLaserChip001)) {
     _class_name = "MyStraightLaserChip001";
     default_stamina_ = getStatus()->get(STAT_Stamina);
     _velo_mv = 100000;
