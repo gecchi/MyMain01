@@ -232,6 +232,10 @@ HRESULT GgafDxMassMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
         _TRACE_("GgafDxMassMeshModel::draw() "<<_model_name<<" の描画セット数オーバー。_set_num="<<_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
     }
 #endif
+
+    if (strcmp("Shot004",prm_pActor_target->getClassName()) == 0) {
+        _TRACE_("kita-");
+    }
     IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
     //対象アクター
     const GgafDxMassMeshActor* pTargetActor = (GgafDxMassMeshActor*)prm_pActor_target;

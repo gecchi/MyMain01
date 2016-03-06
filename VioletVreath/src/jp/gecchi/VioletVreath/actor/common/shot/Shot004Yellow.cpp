@@ -22,6 +22,7 @@ Shot004Yellow::Shot004Yellow(const char* prm_name) :
 
 void Shot004Yellow::initialize() {
     setHitAble(false);
+    effectBlendOne(); //‰ÁŽZ‡¬
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAABox_Cube(0, PX_C(16));

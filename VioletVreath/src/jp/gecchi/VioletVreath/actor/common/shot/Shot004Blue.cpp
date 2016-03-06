@@ -22,6 +22,7 @@ Shot004Blue::Shot004Blue(const char* prm_name) :
 
 void Shot004Blue::initialize() {
     setHitAble(false);
+    effectBlendOne(); //‰ÁŽZ‡¬
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAABox_Cube(0, PX_C(16));

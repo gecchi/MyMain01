@@ -404,11 +404,12 @@ void LaserChip::processDraw() {
             paInstancedata->_force_alpha =  pChip->_force_alpha;
             paInstancedata++;
             draw_set_num++;
+            GgafDxSpacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
             if (draw_set_num >= model_max_set_num) {
                 break;
+            } else {
+                pDrawActor = pDrawActor->_pNextRenderActor;
             }
-            GgafDxSpacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
-            pDrawActor = pDrawActor->_pNextRenderActor;
         } else {
             break;
         }

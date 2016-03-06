@@ -293,6 +293,8 @@ void FontBoardActor::processDraw() {
             float* paOffset_u = pFontBoardActor->_paOffset_u;
             float* paOffset_v = pFontBoardActor->_paOffset_v;
             float alpha = pFontBoardActor->_alpha;
+            GgafDxSpacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
+
             for (int i = 0; i < len; i++) {
                 paInstancedata->transformed_x = (float)(x + paOffset_x[i]);
                 paInstancedata->transformed_y = (float)(y + paOffset_y[i]);
@@ -308,7 +310,6 @@ void FontBoardActor::processDraw() {
                    draw_set_num = 0;
                 }
             }
-            GgafDxSpacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
             pDrawActor = pDrawActor->_pNextRenderActor;
         } else {
             break;
