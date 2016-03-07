@@ -14,10 +14,10 @@ GgafDxSpriteSetEffect::GgafDxSpriteSetEffect(const char* prm_effect_name) : Ggaf
     HRESULT hr;
     //射影変換行列
     hr = _pID3DXEffect->SetMatrix("g_matProj", pCam->getProjectionMatrix() );
-    checkDxException(hr, D3D_OK, "GgafDxSpriteSetEffect::GgafDxSpriteSetEffect SetMatrix() に失敗しました。");
+    checkDxException(hr, D3D_OK, "に失敗しました。");
 
     hr = _pID3DXEffect->SetFloat("g_zf", pCam->getZFar());
-    checkDxException(hr, D3D_OK, "GgafDxSpriteEffect::GgafDxSpriteEffect SetFloat(g_zf) に失敗しました。");
+    checkDxException(hr, D3D_OK, "SetFloat(g_zf) に失敗しました。");
 
 
     //シェーダーハンドル

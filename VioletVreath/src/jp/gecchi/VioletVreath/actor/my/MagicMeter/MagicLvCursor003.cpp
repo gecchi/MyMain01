@@ -20,7 +20,7 @@ MagicLvCursor003::MagicLvCursor003(const char* prm_name, MagicMeter* prm_pMagicM
     pMagic_ = prm_pMagic;
     magic_index_ = pMagicMeter_->lstMagic_.indexOf(pMagic_);
     if (magic_index_ < 0) {
-        throwGgafCriticalException("MagicLvCursor003::MagicLvCursor003 prm_pMagic("<<prm_pMagic->getName()<<")‚Í"<<
+        throwGgafCriticalException("prm_pMagic("<<prm_pMagic->getName()<<")‚Í"<<
                                    "MagicMeter‚É“o˜^‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB");
     }
 }

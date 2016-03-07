@@ -64,7 +64,7 @@ void VamSysCamWorker::initialize() {
     ang_cam_around_ = ang_cam_around_base_;
     returnning_cam_pos_frames_ = 0;
 
-    _TRACE_("VamSysCamWorker::initialize() this="<<NODE_INFO);
+    _TRACE_(FUNC_NAME<<" this="<<NODE_INFO);
     dump();
 }
 void VamSysCamWorker::onActive() {

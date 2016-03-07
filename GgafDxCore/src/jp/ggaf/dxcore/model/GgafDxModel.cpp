@@ -13,8 +13,7 @@ using namespace GgafDxCore;
 
 GgafDxModel::GgafDxModel(const char* prm_model_name) : GgafObject(),
 _pTexBlinker(new GgafDxTextureBlinker(this)) {
-    _TRACE3_("GgafDxModel::GgafDxModel(" << prm_model_name << ")");
-
+    _TRACE3_("_model_name="<<_model_name<<" _id="<<_id);
     int len = strlen(prm_model_name);
     _model_name = NEW char[len+1];
     strcpy(_model_name, prm_model_name);
@@ -35,7 +34,7 @@ _pTexBlinker(new GgafDxTextureBlinker(this)) {
     _num_pass = 1;
     _obj_model = 0;
 
-    _TRACE3_("GgafDxModel::GgafDxModel(" << prm_model_name << ") _id="<<_id);
+    _TRACE3_("_model_name="<<_model_name<<" _id="<<_id);
 }
 
 //void GgafDxModel::setMaterialTexture(int prm_material_no, const char* prm_texture) {
@@ -47,7 +46,7 @@ _pTexBlinker(new GgafDxTextureBlinker(this)) {
 
 //GgafDxTextureConnection* GgafDxModel::setMaterialTexture(int prm_material_no, GgafDxTextureConnection* prm_pTexCon) {
 //    if (prm_material_no > _num_materials) {
-//        throwGgafCriticalException("GgafDxModel::setMaterialTexture マテリアルINDEXが範囲外です。_model_name="<<_model_name<<" _num_materials="<<_num_materials<<" prm_material_no="<<prm_material_no)
+//        throwGgafCriticalException("マテリアルINDEXが範囲外です。_model_name="<<_model_name<<" _num_materials="<<_num_materials<<" prm_material_no="<<prm_material_no)
 //    } else {
 //        GgafDxTextureConnection* r = _papTextureConnection[prm_material_no];
 //        _papTextureConnection[prm_material_no] = prm_pTexCon;
@@ -67,7 +66,7 @@ _pTexBlinker(new GgafDxTextureBlinker(this)) {
 //        }
 //    }
 //    if (idx < 0) {
-//        throwGgafCriticalException("GgafDxModel::swapTextureOrder 指定テクスチャは見つかりません。prm_texture0="<<prm_texture0);
+//        throwGgafCriticalException("指定テクスチャは見つかりません。prm_texture0="<<prm_texture0);
 //    }
 //    GgafDxTextureConnection* top = _papTextureConnection[idx];
 //    for (int i = _num_materials-1; i >= 1; i--) {
@@ -540,7 +539,7 @@ void GgafDxModel::setMaterial(Frm::Mesh* in_pMeshesFront) {
 }
 
 GgafDxModel::~GgafDxModel() {
-    _TRACE_("GgafDxModel::~GgafDxModel() " << _model_name << " ");
+    _TRACE_("" << _model_name << " ");
     GGAF_DELETEARR_NULLABLE(_model_name);
     GGAF_DELETEARR_NULLABLE(_paMaterial_default);
     GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);

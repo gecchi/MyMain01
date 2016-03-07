@@ -38,7 +38,7 @@ void FormationOrtuna001::processBehavior() {
 }
 
 void FormationOrtuna001::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
-    UTIL::transactFormationDestroyAll((GgafDxFigureActor*)prm_pActor_last_destroyed);
+    UTIL::performFormationDestroyAll((GgafDxFigureActor*)prm_pActor_last_destroyed);
 }
 
 FormationOrtuna001::~FormationOrtuna001() {

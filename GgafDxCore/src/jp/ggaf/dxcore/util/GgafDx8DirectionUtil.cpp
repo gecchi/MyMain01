@@ -57,7 +57,7 @@ void GgafDx8DirectionUtil::init() {
     if (GgafDx8DirectionUtil::is_init) {
         return;
     }
-    _TRACE_("GgafDx8DirectionUtil::init()");
+    _TRACE_(FUNC_NAME<<"");
 
 
     GgafDx8DirectionUtil::is_init = true;

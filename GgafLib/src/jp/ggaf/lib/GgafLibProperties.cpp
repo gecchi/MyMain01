@@ -33,12 +33,12 @@ void GgafLibProperties::load(std::string prm_properties_filename) {
     //指定があるのならば、ディレクトリ存在チェック
     if (GgafProperties::isExistKey("DIRNAME_RESOURCE_WALL")) {
         if (!PathFileExists(GgafLibProperties::DIR_WALL.c_str()) ) {
-            throwGgafCriticalException("GgafLibProperties::load("<<prm_properties_filename<<") DIR_WALL("<<GgafLibProperties::DIR_WALL<<") のディレクトリが見つかりません。");
+            throwGgafCriticalException("prm_properties_filename="<<prm_properties_filename<<" DIR_WALL("<<GgafLibProperties::DIR_WALL<<") のディレクトリが見つかりません。");
         }
     }
     if (GgafProperties::isExistKey("DIRNAME_RESOURCE_SPLINE")) {
         if (!PathFileExists(GgafLibProperties::DIR_SPLINE.c_str()) ) {
-            throwGgafCriticalException("GgafLibProperties::load("<<prm_properties_filename<<") DIR_WALL("<<GgafLibProperties::DIR_SPLINE<<") のディレクトリが見つかりません。");
+            throwGgafCriticalException("prm_properties_filename="<<prm_properties_filename<<" DIR_WALL("<<GgafLibProperties::DIR_SPLINE<<") のディレクトリが見つかりません。");
         }
     }
 

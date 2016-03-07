@@ -17,7 +17,7 @@ using namespace GgafDxCore;
 DWORD GgafDxSpriteModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);
 
 GgafDxSpriteModel::GgafDxSpriteModel(const char* prm_model_name) : GgafDxModel(prm_model_name) {
-    _TRACE3_("GgafDxSpriteModel::GgafDxSpriteModel(" << _model_name << ")");
+    _TRACE3_("_model_name="<<_model_name);
 
     _model_width_px = 32.0f;
     _model_height_px = 32.0f;
@@ -54,22 +54,22 @@ HRESULT GgafDxSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_dr
         pDevice->SetTexture(0, getDefaultTextureConnection()->peek()->_pIDirect3DBaseTexture9);
 
         hr = pID3DXEffect->SetFloat(pSpriteEffect->_h_tex_blink_power, _power_blink);
-        checkDxException(hr, D3D_OK, "GgafDxSpriteActor::draw() SetFloat(_h_tex_blink_power) に失敗しました。");
+        checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_power) に失敗しました。");
         hr = pID3DXEffect->SetFloat(pSpriteEffect->_h_tex_blink_threshold, _blink_threshold);
-        checkDxException(hr, D3D_OK, "GgafDxSpriteActor::draw() SetFloat(_h_tex_blink_threshold) に失敗しました。");
+        checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_threshold) に失敗しました。");
     }
     hr = pID3DXEffect->SetFloat(pSpriteEffect->_h_offset_u, u);
-    checkDxException(hr, D3D_OK, "GgafDxSpriteModel::draw() SetFloat(_h_offset_u) に失敗しました。");
+    checkDxException(hr, D3D_OK, "SetFloat(_h_offset_u) に失敗しました。");
     hr = pID3DXEffect->SetFloat(pSpriteEffect->_h_offset_v, v);
-    checkDxException(hr, D3D_OK, "GgafDxSpriteModel::draw() SetFloat(_h_offset_v) に失敗しました。");
+    checkDxException(hr, D3D_OK, "SetFloat(_h_offset_v) に失敗しました。");
     GgafDxEffect* pEffect_active = GgafDxEffectManager::_pEffect_active;
     if (pEffect_active != pSpriteEffect || GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique)  {
         if (pEffect_active) {
-            _TRACE4_("GgafDxSpriteModel::draw() EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
+            _TRACE4_("EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
             hr = pEffect_active->_pID3DXEffect->EndPass();
-            checkDxException(hr, D3D_OK, "GgafDxSpriteActor::draw() EndPass() に失敗しました。");
+            checkDxException(hr, D3D_OK, "に失敗しました。");
             hr = pEffect_active->_pID3DXEffect->End();
-            checkDxException(hr, D3D_OK, "GgafDxSpriteActor::draw() End() に失敗しました。");
+            checkDxException(hr, D3D_OK, "に失敗しました。");
             if (pEffect_active->_obj_effect & Obj_GgafDxMassEffect) {
                 pDevice->SetStreamSourceFreq( 0, 1 );
                 pDevice->SetStreamSourceFreq( 1, 1 );
@@ -82,15 +82,15 @@ HRESULT GgafDxSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_dr
             }
 #endif
         }
-        _TRACE4_("GgafDxSpriteModel::draw() SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteEffect->_effect_name);
+        _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteEffect->_effect_name);
         hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
-        checkDxException(hr, S_OK, "GgafDxSpriteActor::draw() SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
+        checkDxException(hr, S_OK, "SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
-        _TRACE4_("GgafDxSpriteModel::draw() BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteEffect->_effect_name<<"("<<pSpriteEffect<<")");
+        _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteEffect->_effect_name<<"("<<pSpriteEffect<<")");
         hr = pID3DXEffect->Begin(&_num_pass, D3DXFX_DONOTSAVESTATE );
-        checkDxException(hr, D3D_OK, "GgafDxSpriteActor::draw() Begin() に失敗しました。");
+        checkDxException(hr, D3D_OK, "に失敗しました。");
         hr = pID3DXEffect->BeginPass(0);
-        checkDxException(hr, D3D_OK, "GgafDxSpriteActor::draw() BeginPass(0) に失敗しました。");
+        checkDxException(hr, D3D_OK, "BeginPass(0) に失敗しました。");
 
 #ifdef MY_DEBUG
         if (pSpriteEffect->_begin) {
@@ -102,24 +102,24 @@ HRESULT GgafDxSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_dr
 
     } else {
         hr = pID3DXEffect->CommitChanges();
-        checkDxException(hr, D3D_OK, "GgafDxSpriteModel::draw() CommitChanges() に失敗しました。");
+        checkDxException(hr, D3D_OK, "に失敗しました。");
     }
     _TRACE4_("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteEffect->_effect_name);
     pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
     if (_num_pass >= 2) { //２パス目以降が存在
         hr = pID3DXEffect->EndPass();
-        checkDxException(hr, D3D_OK, "GgafDxSpriteModel::draw() １パス目 EndPass() に失敗しました。");
+        checkDxException(hr, D3D_OK, "に失敗しました。");
 
         for (UINT pass = 1; pass < _num_pass; pass++) {
             hr = pID3DXEffect->BeginPass(pass);
-            checkDxException(hr, D3D_OK, "GgafDxSpriteModel::draw() "<<pass+1<<"パス目 BeginPass("<<pass<<") に失敗しました。");
+            checkDxException(hr, D3D_OK, pass+1<<"パス目 BeginPass("<<pass<<") に失敗しました。");
             pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
             hr = pID3DXEffect->EndPass();
-            checkDxException(hr, D3D_OK, "GgafDxSpriteModel::draw() "<<pass+1<<"パス目 EndPass() に失敗しました。");
+            checkDxException(hr, D3D_OK, "に失敗しました。");
         }
 
         hr = pID3DXEffect->BeginPass(0);
-        checkDxException(hr, D3D_OK, "GgafDxSpriteModel::draw() １パス目 BeginPass(0) に失敗しました。");
+        checkDxException(hr, D3D_OK, "１パス目 BeginPass(0) に失敗しました。");
     }
 
     //前回描画モデル保持
@@ -131,7 +131,7 @@ HRESULT GgafDxSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_dr
 }
 
 void GgafDxSpriteModel::restore() {
-    _TRACE3_("GgafDxSpriteModel::restore() " << _model_name << " start");
+    _TRACE3_("_model_name=" << _model_name << " start");
     _papTextureConnection = nullptr;
     HRESULT hr;
     std::string xfile_name = GgafDxModelManager::getSpriteFileName(_model_name);
@@ -221,13 +221,13 @@ void GgafDxSpriteModel::restore() {
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                 &(_pVertexBuffer),
                 nullptr);
-        checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreSpriteModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_name));
+        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_name));
     }
     //頂点バッファ作成
     //頂点情報をビデオカード頂点バッファへロード
     void *pVertexBuffer;
     hr = _pVertexBuffer->Lock(0, _size_vertices, (void**)&pVertexBuffer, 0);
-    checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreSpriteModel] 頂点バッファのロック取得に失敗 model="<<_model_name);
+    checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
 
     memcpy(pVertexBuffer, paVertex, _size_vertices); //pVertexBuffer ← paVertex
     _pVertexBuffer->Unlock();
@@ -249,17 +249,17 @@ void GgafDxSpriteModel::restore() {
     _paMaterial_default = paMaterial;
     //後始末
     GGAF_DELETEARR(paVertex);
-    _TRACE3_("GgafDxSpriteModel::restore() " << _model_name << " end");
+    _TRACE3_("_model_name=" << _model_name << " end");
 }
 
 void GgafDxSpriteModel::onDeviceLost() {
-    _TRACE3_("GgafDxSpriteModel::onDeviceLost() " << _model_name << " start");
+    _TRACE3_("_model_name=" << _model_name << " start");
     release();
-    _TRACE3_("GgafDxSpriteModel::onDeviceLost() " << _model_name << " end");
+    _TRACE3_("_model_name=" << _model_name << " end");
 }
 
 void GgafDxSpriteModel::release() {
-    _TRACE3_("GgafDxSpriteModel::release() " << _model_name << " start");
+    _TRACE3_("_model_name=" << _model_name << " start");
     GGAF_RELEASE(_pVertexBuffer);
     if (_papTextureConnection) {
         for (int i = 0; i < (int)_num_materials; i++) {
@@ -272,7 +272,7 @@ void GgafDxSpriteModel::release() {
     //TODO:親クラスメンバをDELETEするのはややきたないか
     GGAF_DELETEARR(_paMaterial_default);
     GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
-    _TRACE3_("GgafDxSpriteModel::release() " << _model_name << " end");
+    _TRACE3_("_model_name=" << _model_name << " end");
 }
 
 GgafDxSpriteModel::~GgafDxSpriteModel() {

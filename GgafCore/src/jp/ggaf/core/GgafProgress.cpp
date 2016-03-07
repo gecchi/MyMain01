@@ -29,7 +29,7 @@ void GgafProgress::reset() {
 void GgafProgress::reset(progress prm_progress) {
 #ifdef MY_DEBUG
     if (prm_progress < 0 || prm_progress > _num_progress) {
-        throwGgafCriticalException("GgafProgress::reset 進捗番号が範囲外です。reset(0～"<<_num_progress<<")です。引数：prm_progress="<<prm_progress<<"");
+        throwGgafCriticalException("進捗番号が範囲外です。reset(0～"<<_num_progress<<")です。引数：prm_progress="<<prm_progress<<"");
     }
 #endif
     _progress_prev = PROGRESS_NULL;
@@ -48,7 +48,7 @@ void GgafProgress::setNothing() {
 frame GgafProgress::getFrameWhenChanged(progress prm_progress) const {
 #ifdef MY_DEBUG
     if (prm_progress < 0 || prm_progress > _num_progress) {
-        throwGgafCriticalException("GgafProgress::getFrameWhenChanged 進捗番号が範囲外です。進捗番号範囲は(0～"<<_num_progress<<")です。引数：prm_progress="<<prm_progress<<"");
+        throwGgafCriticalException("進捗番号が範囲外です。進捗番号範囲は(0～"<<_num_progress<<")です。引数：prm_progress="<<prm_progress<<"");
     }
 #endif
     return (_pa_frame_of_progress_changed[prm_progress+1]);
@@ -57,7 +57,7 @@ frame GgafProgress::getFrameWhenChanged(progress prm_progress) const {
 void GgafProgress::change(progress prm_progress) {
 #ifdef MY_DEBUG
     if (prm_progress < 0 || prm_progress > _num_progress) {
-        throwGgafCriticalException("GgafProgress::change 進捗番号が範囲外です。使用可能な進捗番号は(0～"<<_num_progress<<")です。引数：prm_progress="<<prm_progress<<"");
+        throwGgafCriticalException("進捗番号が範囲外です。使用可能な進捗番号は(0～"<<_num_progress<<")です。引数：prm_progress="<<prm_progress<<"");
     }
 #endif
     _progress_next = prm_progress;
@@ -76,7 +76,7 @@ void GgafProgress::changeProbab(uint32_t prm_p1, progress prm_progress1, ...) {
         p_sum += va_arg(args, uint32_t);
 #ifdef MY_DEBUG
         if (p_sum > 100) {
-            throwGgafCriticalException("GgafProgress::changeProbab p_sum="<<p_sum<<" 確率の合計がぴったり100になりません。（va_argで変な場所を読み込んだかも）");
+            throwGgafCriticalException("p_sum="<<p_sum<<" 確率の合計がぴったり100になりません。（va_argで変な場所を読み込んだかも）");
             return;
          }
 #endif
@@ -89,7 +89,7 @@ void GgafProgress::changeProbab(uint32_t prm_p1, progress prm_progress1, ...) {
     va_end(args);
 #ifdef MY_DEBUG
     if (p_sum != 100) {
-        throwGgafCriticalException("GgafProgress::changeProbab p_sum="<<p_sum<<" 確率の合計がぴったり100になりません。");
+        throwGgafCriticalException("p_sum="<<p_sum<<" 確率の合計がぴったり100になりません。");
     }
 #endif
 }
@@ -115,7 +115,7 @@ void GgafProgress::changeProbab(uint32_t prm_p1, progress prm_progress1, ...) {
 //    va_end(args);
 //#ifdef MY_DEBUG
 //    if (p_sum != 100) {
-//        throwGgafCriticalException("GgafProgress::changeProbab 合計が100%になってない。");
+//        throwGgafCriticalException("合計が100%になってない。");
 //    }
 //#endif
 //}
@@ -127,13 +127,13 @@ void GgafProgress::changeNothing() {
 void GgafProgress::changeNext() {
 #ifdef MY_DEBUG
     if (_progress_next == _progress+1) {
-        throwGgafCriticalException("GgafProgress::changeNext 既に _progress="<<_progress<<" _progress_next="<<_progress_next<<" です。連続で changeNext() していませんか？");
+        throwGgafCriticalException("していませんか？");
     }
 #endif
     _progress_next = _progress+1;
 #ifdef MY_DEBUG
     if (_progress_next < 0 || _progress_next > _num_progress) {
-        throwGgafCriticalException("GgafProgress::changeNext 進捗番号が＋１で範囲外になりました。使用可能な進捗番号は(1～"<<_num_progress<<")です。_progress="<<_progress<<"");
+        throwGgafCriticalException("進捗番号が＋１で範囲外になりました。使用可能な進捗番号は(1～"<<_num_progress<<")です。_progress="<<_progress<<"");
     }
 #endif
 }
@@ -142,7 +142,7 @@ void GgafProgress::changeNext() {
 bool GgafProgress::hasJustChangedTo(progress prm_progress) const {
 #ifdef MY_DEBUG
     if (prm_progress < 0 || prm_progress > _num_progress) {
-        throwGgafCriticalException("GgafProgress::hasJustChangedTo 進捗番号が範囲外です。\nhasJustChangedTo 引数の使用可能な進捗番号は(0～"<<_num_progress<<")です。引数：prm_progress="<<prm_progress<<"");
+        throwGgafCriticalException("進捗番号が範囲外です。\nhasJustChangedTo 引数の使用可能な進捗番号は(0～"<<_num_progress<<")です。引数：prm_progress="<<prm_progress<<"");
     }
 #endif
     if (_progress != _progress_prev && _progress_prev >= PROGRESS_NOTHING) {
@@ -159,7 +159,7 @@ bool GgafProgress::hasJustChangedTo(progress prm_progress) const {
 bool GgafProgress::hasJustChangedFrom(progress prm_progress) const {
 #ifdef MY_DEBUG
     if (prm_progress < 0 || prm_progress > _num_progress) {
-        throwGgafCriticalException("GgafProgress::hasJustChangedFrom 進捗番号が範囲外です。\nhasJustChangedFrom 引数の使用可能な進捗番号は(0～"<<_num_progress<<")です。引数：prm_progress="<<prm_progress<<"");
+        throwGgafCriticalException("進捗番号が範囲外です。\nhasJustChangedFrom 引数の使用可能な進捗番号は(0～"<<_num_progress<<")です。引数：prm_progress="<<prm_progress<<"");
     }
 #endif
     if (_progress != _progress_prev && _progress_prev >= PROGRESS_NOTHING) {

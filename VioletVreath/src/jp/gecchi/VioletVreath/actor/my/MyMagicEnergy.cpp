@@ -16,8 +16,8 @@ MyMagicEnergy::MyMagicEnergy(const char* prm_name, MyMagicEnergyCore* prm_pCore)
     _class_name = "MyMagicEnergy";
     effectBlendOne(); //加算合成するTechnique指定
     pCore_ = prm_pCore;
-    setZEnable(true);        //Zバッファは考慮して描画
-    setZWriteEnable(false);  //Zバッファは書き込み無し
+    setZEnableDraw(true);        //Zバッファは考慮して描画
+    setZWriteEnable(false);  //自身のZバッファを書き込みしない
     setHitAble(false);
     setAlpha(0.9);
 }

@@ -15,7 +15,7 @@ GgafDxCollisionArea::GgafDxCollisionArea(int prm_colli_part_num) : GgafObject() 
             _papColliPart[i] = nullptr;
         }
     } else {
-        throwGgafCriticalException("GgafDxCollisionArea::GgafDxCollisionArea 要素数が不正。prm_colli_part_num="<<prm_colli_part_num);
+        throwGgafCriticalException("要素数が不正。prm_colli_part_num="<<prm_colli_part_num);
     }
     _aabb_x1=_aabb_y1=_aabb_z1=_aabb_x2=_aabb_y2=_aabb_z2 = 0;
 
@@ -28,7 +28,7 @@ void GgafDxCollisionArea::updateAABB() {
     if (pColliPart0) {
 
     } else {
-        throwGgafCriticalException("GgafDxCollisionArea::updateAABB() _papColliPart[0]=nullptrです");
+        throwGgafCriticalException("_papColliPart[0]=nullptrです");
     }
 #endif
     if (pColliPart0->_is_valid_flg) {

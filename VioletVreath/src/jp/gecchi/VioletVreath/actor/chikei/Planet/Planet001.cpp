@@ -20,8 +20,8 @@ Planet001::Planet001(const char* prm_name) :
         DefaultMeshActor(prm_name, "Planet001", nullptr) {
     _class_name = "Planet001";
     setHitAble(false);
-    setZEnable(true);        //Zバッファは考慮
-    setZWriteEnable(false);  //Zバッファは書き込み無し
+    setZEnableDraw(true);        //Zバッファは考慮
+    setZWriteEnable(false);  //自身のZバッファを書き込みしない
     setSpecialRenderDepthIndex(RENDER_DEPTH_INDEX_HOSHIBOSHI-2);
     drawAnyFar(true);//遠くても表示
     //大気圏エフェクトスプライト

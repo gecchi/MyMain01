@@ -60,10 +60,10 @@ void GgafDxBgmPerformer::ready(int prm_channel, const char* prm_bgm_name) {
 void GgafDxBgmPerformer::play(int prm_channel, int prm_volume, bool prm_is_loop) {
 #ifdef MY_DEBUG
     if (prm_channel < 0 || prm_channel >= _bgm_num) {
-        throwGgafCriticalException("GgafDxBgmPerformer::play() IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_channel="<<prm_channel<<"");
+        throwGgafCriticalException("IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_channel="<<prm_channel<<"");
     }
     if (_papBgmConnection[prm_channel] == nullptr) {
-        throwGgafCriticalException("GgafDxBgmPerformer::play() 曲がセットされてません。prm_channel="<<prm_channel<<"");
+        throwGgafCriticalException("曲がセットされてません。prm_channel="<<prm_channel<<"");
     }
 #endif
     _pa_volume[prm_channel] = (double)prm_volume;
@@ -74,10 +74,10 @@ void GgafDxBgmPerformer::play(int prm_channel, int prm_volume, bool prm_is_loop)
 void GgafDxBgmPerformer::stop(int prm_channel) {
 #ifdef MY_DEBUG
     if (prm_channel < 0 || prm_channel >= _bgm_num) {
-        throwGgafCriticalException("GgafDxBgmPerformer::stop() IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_channel="<<prm_channel);
+        throwGgafCriticalException("IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_channel="<<prm_channel);
     }
     if (_papBgmConnection[prm_channel] == nullptr) {
-        throwGgafCriticalException("GgafDxBgmPerformer::stop() 曲がセットされてません。prm_channel="<<prm_channel<<"");
+        throwGgafCriticalException("曲がセットされてません。prm_channel="<<prm_channel<<"");
     }
 #endif
     _papBgmConnection[prm_channel]->peek()->stop();
@@ -86,10 +86,10 @@ void GgafDxBgmPerformer::stop(int prm_channel) {
 void GgafDxBgmPerformer::pause(int prm_channel) {
 #ifdef MY_DEBUG
     if (prm_channel < 0 || prm_channel >= _bgm_num) {
-        throwGgafCriticalException("GgafDxBgmPerformer::pause() IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_channel="<<prm_channel);
+        throwGgafCriticalException("IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_channel="<<prm_channel);
     }
     if (_papBgmConnection[prm_channel] == nullptr) {
-        throwGgafCriticalException("GgafDxBgmPerformer::pause() 曲がセットされてません。prm_channel="<<prm_channel<<"");
+        throwGgafCriticalException("曲がセットされてません。prm_channel="<<prm_channel<<"");
     }
 #endif
     _papBgmConnection[prm_channel]->peek()->pause();
@@ -104,10 +104,10 @@ void GgafDxBgmPerformer::pause() {
 void GgafDxBgmPerformer::unpause(int prm_channel) {
 #ifdef MY_DEBUG
     if (prm_channel < 0 || prm_channel >= _bgm_num) {
-        throwGgafCriticalException("GgafDxBgmPerformer::unpause() IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_channel="<<prm_channel);
+        throwGgafCriticalException("IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_channel="<<prm_channel);
     }
     if (_papBgmConnection[prm_channel] == nullptr) {
-        throwGgafCriticalException("GgafDxBgmPerformer::unpause() 曲がセットされてません。prm_channel="<<prm_channel<<"");
+        throwGgafCriticalException("曲がセットされてません。prm_channel="<<prm_channel<<"");
     }
 #endif
     _papBgmConnection[prm_channel]->peek()->unpause();

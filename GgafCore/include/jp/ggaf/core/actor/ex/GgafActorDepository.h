@@ -84,7 +84,7 @@ public:
     virtual GgafCore::GgafMainActor* dispatch(int prm_offset_frames = 1) {
 #ifdef MY_DEBUG
         if (_pSubFirst == nullptr) {
-            throwGgafCriticalException("GgafActorDepository::dispatch() this="<<NODE_INFO<<" の子がありません");
+            throwGgafCriticalException("this="<<NODE_INFO<<" の子がありません");
         }
         if (_is_active_flg || _frame_of_life+1 == _frame_of_life_when_activation) {
             //活動フラグが立っている→問題無し
@@ -94,7 +94,7 @@ public:
             //① レーザーチップのセット借り入れで、GgafActorDepositoryStore::dispatch() を行い、チップのセットのデポジトリを得たが、直ぐに使用せず１フレーム以上ほっといた後、
             //   得たデポジトリから、チップdispatch()しようとした場合。
             //     → この場合、以下の警告メッセージが連続で表示されることになるので修正しなければならない。
-            throwGgafCriticalException("GgafActorDepository::dispatch() this="<<NODE_INFO<<" が非活動なデポジトリにdispatch()した雰囲気です。");
+            throwGgafCriticalException("this="<<NODE_INFO<<" が非活動なデポジトリにdispatch()した雰囲気です。");
         }
 #endif
         frame offset_frames = (prm_offset_frames < 1 ? 1 : prm_offset_frames);

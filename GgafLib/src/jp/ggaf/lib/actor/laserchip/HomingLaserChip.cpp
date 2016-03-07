@@ -40,7 +40,7 @@ void HomingLaserChip::onActive() {
     HomingLaserChip* pChip_infront =  (HomingLaserChip*)_pChip_infront;
     //レーザーチップ出現時処理
     if (pChip_infront == nullptr) {
-        //_TRACE_("HomingLaserChip::onActive() "<<getName()<<" pChip_infront == nullptr");
+        //_TRACE_(FUNC_NAME<<" "<<getName()<<" pChip_infront == nullptr");
         _is_leader = true;
         //自身が先頭の場合
         _begining_x = _x;
@@ -54,7 +54,7 @@ void HomingLaserChip::onActive() {
         _begining_velo_mv   = pKuroko->_velo_mv;
     } else {
         _is_leader = false;
-        //_TRACE_("HomingLaserChip::onActive() "<<getName()<<" pChip_infront =="<<(pChip_infront->getName()));
+        //_TRACE_(FUNC_NAME<<" "<<getName()<<" pChip_infront =="<<(pChip_infront->getName()));
         _begining_x = pChip_infront->_begining_x;
         _begining_y = pChip_infront->_begining_y;
         _begining_z = pChip_infront->_begining_z;

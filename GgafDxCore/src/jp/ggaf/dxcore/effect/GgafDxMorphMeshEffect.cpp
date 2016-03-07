@@ -14,19 +14,19 @@ GgafDxMorphMeshEffect::GgafDxMorphMeshEffect(const char* prm_effect_name) : Ggaf
     HRESULT hr;
     //éÀâeïœä∑çsóÒ
     hr = _pID3DXEffect->SetMatrix("g_matProj", pCam->getProjectionMatrix() );
-    checkDxException(hr, D3D_OK, "GgafDxMeshActor::GgafDxMorphMeshEffect SetMatrix() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     //ÉâÉCÉgï˚å¸
     hr = _pID3DXEffect->SetValue("g_vecLightFrom_World", &(GgafDxGod::_d3dlight9_default.Direction), sizeof(D3DVECTOR) );
-    checkDxException(hr, D3D_OK, "GgafDxMorphMeshEffect::GgafDxMorphMeshEffect SetValue(g_vecLightFrom_World) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    checkDxException(hr, D3D_OK, "SetValue(g_vecLightFrom_World) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     //DiffuseîΩéÀ
     hr = _pID3DXEffect->SetValue("g_colLightDiffuse", &(GgafDxGod::_d3dlight9_default.Diffuse), sizeof(D3DCOLORVALUE));
-    checkDxException(hr, D3D_OK, "GgafDxMorphMeshEffect::GgafDxMorphMeshEffect SetValue(g_colLightDiffuse) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    checkDxException(hr, D3D_OK, "SetValue(g_colLightDiffuse) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     //AmbientîΩéÀ
     hr = _pID3DXEffect->SetValue("g_colLightAmbient", &(GgafDxGod::_d3dlight9_default.Ambient), sizeof(D3DCOLORVALUE));
-    checkDxException(hr, D3D_OK, "GgafDxMorphMeshEffect::GgafDxMorphMeshEffect SetValue(g_colLightAmbient) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    checkDxException(hr, D3D_OK, "SetValue(g_colLightAmbient) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
     hr = _pID3DXEffect->SetFloat("g_zf", pCam->getZFar());
-    checkDxException(hr, D3D_OK, "GgafDxMorphMeshEffect::GgafDxSpriteEffect SetFloat(g_zf) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    checkDxException(hr, D3D_OK, "SetFloat(g_zf) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 
     //ÉVÉFÅ[É_Å[ÉnÉìÉhÉã
@@ -40,7 +40,7 @@ GgafDxMorphMeshEffect::GgafDxMorphMeshEffect(const char* prm_effect_name) : Ggaf
 
     for (int i = 1; i <= MAX_MORPH_TARGET; i++) {
         hr = _pID3DXEffect->SetFloat(_ah_weight[i], 0.0f);
-        checkDxException(hr, D3D_OK, "GgafDxMorphMeshEffect::GgafDxMorphMeshEffect() SetFloat(_ah_weight["<<i<<"]) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "SetFloat(_ah_weight["<<i<<"]) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
     _h_matView = _pID3DXEffect->GetParameterByName(nullptr, "g_matView");
     _h_matWorld = _pID3DXEffect->GetParameterByName(nullptr, "g_matWorld");
@@ -55,9 +55,9 @@ GgafDxMorphMeshEffect::GgafDxMorphMeshEffect(const char* prm_effect_name) : Ggaf
 void GgafDxMorphMeshEffect::setParamPerFrame() {
     GgafDxCamera* const pCam = P_GOD->getSpacetime()->getCamera();
     HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, pCam->getViewMatrix() );
-    checkDxException(hr, D3D_OK, "GgafDxMorphMeshEffect::setParamPerFrame SetMatrix(_h_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    checkDxException(hr, D3D_OK, "SetMatrix(_h_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = _pID3DXEffect->SetValue(_h_posCam, pCam->getVecCamFromPoint(), sizeof(D3DXVECTOR3) );
-    checkDxException(hr, D3D_OK, "GgafDxMorphMeshEffect::setParamPerFrame SetValue(_h_posCam) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    checkDxException(hr, D3D_OK, "SetValue(_h_posCam) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 }
 
 GgafDxMorphMeshEffect::~GgafDxMorphMeshEffect() {

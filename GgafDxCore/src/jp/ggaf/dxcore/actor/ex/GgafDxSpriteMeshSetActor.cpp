@@ -51,14 +51,14 @@ void GgafDxSpriteMeshSetActor::processDraw() {
             pSpriteMeshSetActor = (GgafDxSpriteMeshSetActor*)pDrawActor;
 
             hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[draw_set_num], &(pSpriteMeshSetActor->_matWorld));
-            checkDxException(hr, D3D_OK, "GgafDxSpriteMeshSetActor::processDraw() SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, D3D_OK, "SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             hr = pID3DXEffect->SetValue(_pMeshSetEffect->_ah_materialDiffuse[draw_set_num], &(pSpriteMeshSetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
-            checkDxException(hr, D3D_OK, "GgafDxSpriteMeshSetActor::processDraw() SetValue(g_colMaterialDiffuse) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, D3D_OK, "SetValue(g_colMaterialDiffuse) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 #ifdef MY_DEBUG
             if (pDrawActor->instanceOf(Obj_GgafDxSpriteMeshSetActor)) {
                 //OK
             } else {
-                throwGgafCriticalException("GgafDxSpriteMeshSetActor::processDraw() pDrawActor["<<pDrawActor->getName()<<"] ÇÕGgafDxSpriteMeshSetActorÇ≈ÇÕÇ†ÇËÇ‹ÇπÇÒÅB");
+                throwGgafCriticalException("pDrawActor["<<pDrawActor->getName()<<"] ÇÕGgafDxSpriteMeshSetActorÇ≈ÇÕÇ†ÇËÇ‹ÇπÇÒÅB");
             }
 #endif
             //[MEMO]
@@ -80,9 +80,9 @@ void GgafDxSpriteMeshSetActor::processDraw() {
             //UVÉIÉtÉZÉbÉgê›íË
             pSpriteMeshSetActor->_pUvFlipper->getUV(u, v);
             hr = pID3DXEffect->SetFloat(_pMeshSetEffect->_ah_offset_u[draw_set_num], u);
-            checkDxException(hr, D3D_OK, "GgafDxSpriteMeshSetActor::processDraw() SetMatrix(_h_offset_u) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, D3D_OK, "SetMatrix(_h_offset_u) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             hr = pID3DXEffect->SetFloat(_pMeshSetEffect->_ah_offset_v[draw_set_num], v);
-            checkDxException(hr, D3D_OK, "GgafDxSpriteMeshSetActor::processDraw() SetMatrix(_h_offset_v) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, D3D_OK, "SetMatrix(_h_offset_v) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 
             draw_set_num++;

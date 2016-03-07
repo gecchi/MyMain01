@@ -43,7 +43,7 @@ void EnemyEmiliaBase::onHit(const GgafActor* prm_pOtherActor) {
 //		return;
 //	}
     const GgafDxGeometricActor* pOtherActor = (const GgafDxGeometricActor*)prm_pOtherActor;
-    bool was_destroyed = UTIL::transactEnemyHit(this, pOtherActor);
+    bool was_destroyed = UTIL::performEnemyHit(this, pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);

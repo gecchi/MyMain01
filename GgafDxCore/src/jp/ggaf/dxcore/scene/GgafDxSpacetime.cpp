@@ -47,7 +47,7 @@ void GgafDxSpacetime::SeArray::add(GgafDxSe* prm_pSe, int prm_volume, float prm_
     }
 #ifdef MY_DEBUG
     else {
-        _TRACE_("GgafDxSpacetime::SeArray::add() SEがあぶれて無視されました。"<<
+        _TRACE_("SEがあぶれて無視されました。"<<
                 "発声元="<<prm_pActor->getName()<<"("<<prm_pActor<<") SE="<<prm_pSe->_wave_key<<"("<<prm_pSe->_wave_file_name<<")");
     }
 #endif
@@ -213,7 +213,7 @@ void GgafDxSpacetime::draw() {
         if (pDrawActor->getPlatformScene()->instanceOf(Obj_GgafDxScene)) {
             //OK
         } else {
-            throwGgafCriticalException("GgafDxSpacetime::draw() err2. 描画アクターの所属シーン _pActor_draw_active["<<(pDrawActor->getName())<<"->getPlatformScene()["<<(pDrawActor->getPlatformScene()->getName())<<"]が、GgafDxScene に変換不可です。this="<<getName()<<" \n"<<
+            throwGgafCriticalException("err2. 描画アクターの所属シーン _pActor_draw_active["<<(pDrawActor->getName())<<"->getPlatformScene()["<<(pDrawActor->getPlatformScene()->getName())<<"]が、GgafDxScene に変換不可です。this="<<getName()<<" \n"<<
                     "pDrawActor->getPlatformScene()->_obj_class="<<pDrawActor->getPlatformScene()->_obj_class<< " Obj_GgafDxScene="<<Obj_GgafDxScene<<" \n"<<
                     "(pDrawActor->getPlatformScene()->_obj_class & Obj_GgafDxScene)="<<((pDrawActor->getPlatformScene()->_obj_class) & Obj_GgafDxScene) <<" ==?? Obj_GgafDxScene("<<Obj_GgafDxScene<<")");
         }
@@ -291,11 +291,11 @@ void GgafDxSpacetime::draw() {
     HRESULT hr;
     GgafDxEffect* pEffect_active = GgafDxEffectManager::_pEffect_active;
     if (pEffect_active) {
-        _TRACE4_("GgafDxSpacetime::draw() 最後の EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
+        _TRACE4_("最後の EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
         hr = pEffect_active->_pID3DXEffect->EndPass();
-        checkDxException(hr, D3D_OK, "GgafDxSpacetime::processDraw() EndPass() に失敗しました。");
+        checkDxException(hr, D3D_OK, "に失敗しました。");
         hr = pEffect_active->_pID3DXEffect->End();
-        checkDxException(hr, D3D_OK, "GgafDxSpacetime::processDraw() End() に失敗しました。");
+        checkDxException(hr, D3D_OK, "に失敗しました。");
         if (pEffect_active->_obj_effect & Obj_GgafDxMassEffect) {
             pDevice->SetStreamSourceFreq( 0, 1 );
             pDevice->SetStreamSourceFreq( 1, 1 );
@@ -310,9 +310,6 @@ void GgafDxSpacetime::draw() {
         GgafDxEffectManager::_pEffect_active = nullptr;
         GgafDxModelManager::_pModelLastDraw = nullptr;
         GgafDxFigureActor::_hash_technique_last_draw = 0;
-        _TRACE4_("GgafDxSpacetime::draw() GgafDxEffectManager::_pEffect_active = "<<GgafDxEffectManager::_pEffect_active);
-        _TRACE4_("GgafDxSpacetime::draw() GgafDxModelManager::_pModelLastDraw = "<<GgafDxModelManager::_pModelLastDraw);
-        _TRACE4_("GgafDxSpacetime::draw() GgafDxFigureActor::_hash_technique_last_draw = "<<GgafDxFigureActor::_hash_technique_last_draw);
     }
 }
 

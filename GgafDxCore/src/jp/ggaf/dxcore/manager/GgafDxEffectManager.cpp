@@ -31,8 +31,7 @@ GgafDxEffect* GgafDxEffectManager::processCreateResource(const char* prm_idstr, 
     std::string idstr = std::string(prm_idstr);
     std::vector<std::string> names = UTIL::split(idstr, "/", 1);
     if (names.size() != 2) {
-        throwGgafCriticalException("GgafDxEffectManager::processCreateResource "<<
-                "引数は、次の形式で与えてください。『エフェクトタイプ1文字  + \"/\" + fxファイル名(拡張子 .fx を除いたもの)』\n"<<
+        throwGgafCriticalException("引数は、次の形式で与えてください。『エフェクトタイプ1文字  + \"/\" + fxファイル名(拡張子 .fx を除いたもの)』\n"<<
                 "実際の引数は、prm_idstr="<<prm_idstr);
     }
     char effect_type = (names[0])[0];
@@ -90,38 +89,38 @@ GgafDxEffect* GgafDxEffectManager::processCreateResource(const char* prm_idstr, 
             pResourceEffect = NEW GgafDxPointSpriteEffect(effect_name);
             break;
         default:
-            throwGgafCriticalException("GgafDxEffectManager::processCreateResource("<<prm_idstr<<") そんなエッフェクト種別は知りません");
+            throwGgafCriticalException("prm_idstr="<<prm_idstr<<" そんなエッフェクト種別は知りません");
             pResourceEffect = nullptr;
             break;
     }
-    _TRACE3_("GgafDxEffectManager::processCreateResource("<<prm_idstr<<")");
+    _TRACE3_("prm_idstr="<<prm_idstr);
     return  pResourceEffect;
 }
 
 void GgafDxEffectManager::onDeviceLostAll() {
-    _TRACE3_("GgafDxEffectManager::onDeviceLostAll() start-->");
+    _TRACE3_("start-->");
     GgafResourceConnection<GgafDxEffect>* pCurrent = _pConn_first;
     HRESULT hr;
     while (pCurrent) {
         hr = pCurrent->peek()->_pID3DXEffect->OnLostDevice();
-        checkDxException(hr, D3D_OK, "GgafDxEffectManager::onDeviceLostAll エフェクト["<<pCurrent->getIdStr()<<"]の OnLostDevice() に失敗しました。");
+        checkDxException(hr, D3D_OK, "に失敗しました。");
         _TRACE3_("onDeviceLostAll pCurrent="<<pCurrent->getIdStr() << " OnLostDevice() execute");
         pCurrent = pCurrent->getNext();
     }
-    _TRACE3_("GgafDxEffectManager::onDeviceLostAll() end<--");
+    _TRACE3_("end<--");
 }
 
 void GgafDxEffectManager::restoreAll() {
-    _TRACE3_("GgafDxEffectManager::restoreAll() start-->");
+    _TRACE3_("start-->");
     GgafResourceConnection<GgafDxEffect>* pCurrent = _pConn_first;
     HRESULT hr;
     while (pCurrent) {
         hr = pCurrent->peek()->_pID3DXEffect->OnResetDevice();
-        checkDxException(hr, D3D_OK, "GgafDxEffectManager::restoreAll() エフェクト["<<pCurrent->getIdStr()<<"]の OnResetDevice() に失敗しました。");
+        checkDxException(hr, D3D_OK, "に失敗しました。");
         _TRACE3_("restoreAll pCurrent="<<pCurrent->getIdStr() << " restoreAll() execute");
         pCurrent = pCurrent->getNext();
     }
-    _TRACE3_("GgafDxEffectManager::restoreAll() end<--");
+    _TRACE3_("end<--");
 }
 void GgafDxEffectManager::setParamPerFrameAll() {
     //通常描画時１フレームに１回、GgafDxSpacetime::draw()で描画前に呼ばれる。
@@ -133,9 +132,9 @@ void GgafDxEffectManager::setParamPerFrameAll() {
 }
 GgafResourceConnection<GgafDxEffect>* GgafDxEffectManager::processCreateConnection(const char* prm_idstr,
                                                                                      GgafDxEffect* prm_pResource) {
-    _TRACE3_(" GgafDxEffectManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
+    _TRACE3_("prm_idstr="<<prm_idstr<<" を生成開始。");
     GgafDxEffectConnection* pConne = NEW GgafDxEffectConnection(prm_idstr, prm_pResource);
-    _TRACE3_(" GgafDxEffectManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
+    _TRACE3_("prm_idstr="<<prm_idstr<<" を生成終了。");
     return pConne;
 }
 

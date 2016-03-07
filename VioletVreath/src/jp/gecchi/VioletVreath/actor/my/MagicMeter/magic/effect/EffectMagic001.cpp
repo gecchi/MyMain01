@@ -12,8 +12,8 @@ EffectMagic001::EffectMagic001(const char* prm_name)
     _class_name = "EffectMagic001";
     pAxsMver_ = NEW GgafDxAxesMover(this);
     effectBlendOne(); //加算合成するTechnique指定
-    setZEnable(true);        //Zバッファは考慮有り
-    setZWriteEnable(false);  //Zバッファは書き込み無し
+    setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
+    setZWriteEnable(false);  //自身のZバッファを書き込みしない
 }
 
 void EffectMagic001::initialize() {

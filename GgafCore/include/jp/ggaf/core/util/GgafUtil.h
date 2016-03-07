@@ -164,7 +164,7 @@ public:
     static inline double getAcceToStop(double D, double V0) {
 #ifdef MY_DEBUG
         if (ZEROd_EQ(D)) {
-            throwGgafCriticalException("GgafDxUtil::getAcceToStop() DがZEROです。D="<<D);
+            throwGgafCriticalException("DがZEROです。D="<<D);
         }
 #endif
         // D = (1/2) V0 Te  ・・・①
@@ -207,7 +207,7 @@ public:
     static inline double getAcceByVd(double V0, double Vt, double D) {
 #ifdef MY_DEBUG
         if (ZEROd_EQ(D)) {
-            throwGgafCriticalException("GgafDxUtil::getAcceByVd() DがZEROです。D="<<D);
+            throwGgafCriticalException("DがZEROです。D="<<D);
         }
 #endif
         //D = (1/2) (V0 + Vt) Te   ・・・①
@@ -253,7 +253,7 @@ public:
     static inline double getAcceByTv(double Te, double V0, double Vt) {
 #ifdef MY_DEBUG
         if (ZEROd_EQ(Te)) {
-            throwGgafCriticalException("GgafDxUtil::getAcceByTv() TeがZEROです。Te="<<Te);
+            throwGgafCriticalException("TeがZEROです。Te="<<Te);
         }
 #endif
         //a = (Vt-V0) / Te

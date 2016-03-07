@@ -27,7 +27,7 @@ void EffectLockon001_Main::initialize() {
 
 void EffectLockon001_Main::onActive() {
     EffectLockon001::onActive();
-//    _TRACE_("EffectLockon001_Main::onActive() "<<getActiveFrame()<<", this="<<NODE_INFO<<" pTarget_="<<pTarget_);
+//    _TRACE_(FUNC_NAME<<" "<<getActiveFrame()<<", this="<<NODE_INFO<<" pTarget_="<<pTarget_);
     if (pTarget_ == nullptr) {
         inactivateImmed();
         return;

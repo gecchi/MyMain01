@@ -29,7 +29,7 @@ void GgafDxSeTransmitterForActor::declareSeNum(int prm_se_num) {
 
 void GgafDxSeTransmitterForActor::set(int prm_id, const char* prm_se_key, int prm_cannel) {
     if (prm_id < 0) {
-        throwGgafCriticalException("GgafDxSeTransmitter::set() IDが範囲外です。正の数でお願いします。 prm_id="<<prm_id);
+        throwGgafCriticalException("IDが範囲外です。正の数でお願いします。 prm_id="<<prm_id);
     } else if (prm_id >= _se_num) {
         GGAF_DELETEARR_NULLABLE(_paBool_is_playing_3d);
         //declareSeNum が再呼び出しされるため、_paBool_is_playing_3d は再確保される。
@@ -60,7 +60,7 @@ void GgafDxSeTransmitterForActor::play3D(int prm_id) {
     GgafDxSpacetime* const pSpacetime = P_GOD->getSpacetime();
 #ifdef MY_DEBUG
     if (prm_id < 0 || prm_id >= _se_num) {
-        throwGgafCriticalException("GgafDxSeTransmitterForActor::play3D() IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
+        throwGgafCriticalException("IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
     }
 #endif
     static const int VOLUME_RANGE_3D = GGAF_MAX_VOLUME - GGAF_MIN_VOLUME;

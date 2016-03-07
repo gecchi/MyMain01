@@ -35,8 +35,8 @@ MyTorpedo::MyTorpedo(const char* prm_name, MyTorpedoController* prm_pTorpedoCont
     move_section_ = 0;
     addSubGroup(pTailEffectDepository_);
     effectBlendOne(); //加算合成するTechnique指定
-    setZEnable(true);        //Zバッファは考慮有り
-    setZWriteEnable(false);  //Zバッファは書き込み無し
+    setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
+    setZWriteEnable(false);  //自身のZバッファを書き込みしない
     pTarget_ = nullptr;
     useProgress(10);
     trz_ = try_ = 0;

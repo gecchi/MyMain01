@@ -96,10 +96,10 @@ void FontBoardActor::update(const char* prm_str) {
         }
 #ifdef MY_DEBUG
         if (nn > 1024) {
-            throwGgafCriticalException("FontBoardActor::update 文字列の改行数が1024個を超えました。name="<<getName()<<" prm_str="<<prm_str);
+            throwGgafCriticalException("文字列の改行数が1024個を超えました。name="<<getName()<<" prm_str="<<prm_str);
         }
         if (0 > _draw_string[i] || _draw_string[i] > 256) {
-            throwGgafCriticalException("FontBoardActor::update 範囲外の扱えない文字種がありました _draw_string["<<i<<"]="<<_draw_string[i]<<"。 0～255の範囲にして下さい。name="<<getName()<<" prm_str="<<prm_str);
+            throwGgafCriticalException("範囲外の扱えない文字種がありました _draw_string["<<i<<"]="<<_draw_string[i]<<"。 0～255の範囲にして下さい。name="<<getName()<<" prm_str="<<prm_str);
         }
 #endif
         _aWidth_line_px[nn] += _aWidthPx[c];

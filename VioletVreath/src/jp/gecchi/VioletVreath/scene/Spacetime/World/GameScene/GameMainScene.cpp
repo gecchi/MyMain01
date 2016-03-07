@@ -57,7 +57,7 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
 }
 
 void GameMainScene::onReset() {
-    _TRACE_("GameMainScene::onReset() "<<NODE_INFO<<"");
+    _TRACE_(FUNC_NAME<<" "<<NODE_INFO<<"");
     getProgress()->reset(PROG_INIT);
 }
 
@@ -85,7 +85,7 @@ void GameMainScene::processBehavior() {
     SceneProgress* pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
-            _TRACE_("GameMainScene::processBehavior() Prog is PROG_INIT");
+            _TRACE_(FUNC_NAME<<" Prog is PROG_INIT");
             addSubLast(P_STAGE_WORLD->extract());
             P_STAGE_WORLD->resetTree();
             P_STAGE_WORLD->inactivateImmed();
@@ -96,7 +96,7 @@ void GameMainScene::processBehavior() {
 
         case PROG_BEGIN: {
             if (pProg->hasJustChanged()) {
-                _TRACE_("GameMainScene::processBehavior() Prog has Just Changed (to PROG_BEGIN)");
+                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PROG_BEGIN)");
                 pProg->change(PROG_PLAY);
             }
             break;
@@ -104,14 +104,14 @@ void GameMainScene::processBehavior() {
 
         case PROG_PLAY: {
             if (pProg->hasJustChanged()) {
-                _TRACE_("GameMainScene::processBehavior() Prog has Just Changed (to PROG_PLAY)");
+                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PROG_PLAY)");
             }
             break;
         }
 
         case PROG_FINISH: {
             if (pProg->hasJustChanged()) {
-                _TRACE_("GameMainScene::processBehavior() Prog has Just Changed (to PROG_FINISH)");
+                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PROG_FINISH)");
             }
             break;
         }
@@ -125,13 +125,13 @@ void GameMainScene::processBehavior() {
 
 void GameMainScene::onInactive() {
     if (P_STAGE_CTRLER->pStageMainCannel_) {
-        _TRACE_("GameMainScene::onInactive() P_STAGE_CTRLER->pStageMainCannel_("<<
+        _TRACE_(FUNC_NAME<<" P_STAGE_CTRLER->pStageMainCannel_("<<
                 P_STAGE_CTRLER->pStageMainCannel_->getName()<<") sayonara()");
         P_STAGE_CTRLER->pStageMainCannel_->sayonara();
         P_STAGE_CTRLER->pStageMainCannel_ = nullptr;
     }
     if (P_RANKUP_CONTROLLER->pNowRankUpStage_) {
-        _TRACE_("GameMainScene::onInactive() P_RANKUP_CONTROLLER->sayonaraRankUpStages()");
+        _TRACE_(FUNC_NAME<<" P_RANKUP_CONTROLLER->sayonaraRankUpStages()");
         P_RANKUP_CONTROLLER->sayonaraRankUpStages();
         P_RANKUP_CONTROLLER->pNowRankUpStage_ = nullptr;
     }

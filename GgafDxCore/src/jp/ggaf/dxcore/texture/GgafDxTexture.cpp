@@ -68,7 +68,7 @@ void GgafDxTexture::restore() {
                          &pIDirect3DTexture9        // [out] LPDIRECT3DTEXTURE9* ppTexture
                     );
         if (hr != D3D_OK) {
-            _TRACE_("GgafDxTextureManager::restore() D3DXCreateTextureFromFileEx失敗。対象="<<texture_file_name);
+            _TRACE_("D3DXCreateTextureFromFileEx失敗。対象="<<texture_file_name);
             //失敗用テクスチャ"GgafDxIlligalTexture.dds"を設定
             std::string texture_file_name2 = getTextureFileName(PROPERTY::ILLIGAL_TEXTURE);
             HRESULT hr2 = D3DXCreateTextureFromFileEx(
@@ -132,7 +132,7 @@ void GgafDxTexture::restore() {
                                     nullptr,                    // [out] PALETTEENTRY * pPalette,
                                     &pIDirect3DCubeTexture9     // [out] LPDIRECT3DCUBETEXTURE9 * ppCubeTexture
                             );
-            checkDxException(hr2, D3D_OK, "GgafDxTextureManager::restore() D3DXCreateTextureFromFileEx失敗。対象="<<texture_name);
+            checkDxException(hr2, D3D_OK, "D3DXCreateTextureFromFileEx失敗。対象="<<texture_name);
         }
 
         D3DSURFACE_DESC d3dsurface_desc;
@@ -148,7 +148,7 @@ void GgafDxTexture::restore() {
     //     float pxU = 1.0 / d3dsurface_desc.Width; //テクスチャの幅(px)で割る
     //     float pxV = 1.0 / d3dsurface_desc.Height; //テクスチャの高さ(px)で割る
 
-    _TRACE_("GgafDxTextureManager::restore() "<<texture_name<<" のテクスチャ生成しました。this="<<this);
+    _TRACE_(""<<texture_name<<" のテクスチャ生成しました。this="<<this);
 }
 void GgafDxTexture::release() {
     GGAF_DELETE(_pD3DXIMAGE_INFO);
@@ -156,7 +156,7 @@ void GgafDxTexture::release() {
 }
 
 GgafDxTexture::~GgafDxTexture() {
-    _TRACE_("GgafDxTexture::~GgafDxTexture() " << _texture_name );
+    _TRACE_("" << _texture_name );
     GgafDxTexture::release();
     GGAF_DELETEARR(_texture_name);
 }

@@ -143,14 +143,14 @@ void God::clean() {
         } else {
             VB_UI->_pRpy->outputFile(FILE_OUTPUT_UI_REPLAY);
         }
-        _TRACE_("God::clean() begin");
+        _TRACE_(FUNC_NAME<<" begin");
         DefaultGod::clean();
         GGAF_DELETE(pVbtn_PLAY_);
         GGAF_DELETE(pVbtn_UI_);
         GGAF_DELETE(pDepoManager_);
         GGAF_DELETE(pSpl3DManager_);
         GGAF_DELETE(pXpmManager_);
-        _TRACE_("God::clean() end");
+        _TRACE_(FUNC_NAME<<" end");
     }
 }
 

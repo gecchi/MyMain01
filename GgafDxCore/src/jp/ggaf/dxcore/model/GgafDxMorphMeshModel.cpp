@@ -15,7 +15,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxMorphMeshModel::GgafDxMorphMeshModel(const char* prm_model_name) : GgafDxModel(prm_model_name) {
-    _TRACE3_("GgafDxMorphMeshModel::GgafDxMorphMeshModel(" << _model_name << ")");
+    _TRACE3_("_model_name="<<_model_name);
     _TRACE_("GgafDxMorphMeshModel::GgafDxMorphMeshModel(" << _model_name << ") Begin");
     // 下位実装クラスが指定するモデル名は"M/4/xxxxx"という形式で、GgafDxModelManagerは
     // "M"からGgafDxMorphMeshModelと判断し、"M"を取り除いた"4/XXXX"をモデル名として扱う。
@@ -28,12 +28,12 @@ GgafDxMorphMeshModel::GgafDxMorphMeshModel(const char* prm_model_name) : GgafDxM
     std::string model_name = std::string(prm_model_name);
     std::vector<std::string> names = UTIL::split(model_name, "/", 1);
     if (names.size() != 2) {
-        throwGgafCriticalException("GgafDxMorphMeshModel::GgafDxMorphMeshModel モデルIDにモーフターゲット数が指定されてません。prm_model_name="<<prm_model_name);
+        throwGgafCriticalException("モデルIDにモーフターゲット数が指定されてません。prm_model_name="<<prm_model_name);
     } else {
         _morph_target_num = STOI(names[0]);
         _TRACE_("GgafDxMorphMeshModel モーフターゲット数は指定あり、_morph_target_num="<<_morph_target_num);
         if (_morph_target_num > 6) {
-            _TRACE_("GgafDxMorphMeshModel::GgafDxMorphMeshModel モーフターゲット数が最大6個以上指定されてます。意図していますか？ _morph_target_num="<<_morph_target_num<<"/_model_name="<<_model_name);
+            _TRACE_(FUNC_NAME<<" モーフターゲット数が最大6個以上指定されてます。意図していますか？ _morph_target_num="<<_morph_target_num<<"/_model_name="<<_model_name);
         }
     }
 
@@ -85,13 +85,13 @@ HRESULT GgafDxMorphMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
         pDevice->SetIndices(_pIndexBuffer);
 
         hr = pID3DXEffect->SetFloat(pMorphMeshEffect->_h_tex_blink_power, _power_blink);
-        checkDxException(hr, D3D_OK, "GgafDxMorphMeshModel::draw() SetFloat(_h_tex_blink_power) に失敗しました。");
+        checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_power) に失敗しました。");
         hr = pID3DXEffect->SetFloat(pMorphMeshEffect->_h_tex_blink_threshold, _blink_threshold);
-        checkDxException(hr, D3D_OK, "GgafDxMorphMeshModel::draw() SetFloat(_h_tex_blink_threshold) に失敗しました。");
+        checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_threshold) に失敗しました。");
         hr = pID3DXEffect->SetFloat(pMorphMeshEffect->_h_specular, _specular);
-        checkDxException(hr, D3D_OK, "GgafDxMorphMeshModel::draw() SetFloat(_h_specular) に失敗しました。");
+        checkDxException(hr, D3D_OK, "SetFloat(_h_specular) に失敗しました。");
         hr = pID3DXEffect->SetFloat(pMorphMeshEffect->_h_specular_power, _specular_power);
-        checkDxException(hr, D3D_OK, "GgafDxMorphMeshModel::draw() SetFloat(_h_specular_power) に失敗しました。");
+        checkDxException(hr, D3D_OK, "SetFloat(_h_specular_power) に失敗しました。");
     }
 
     //描画
@@ -112,15 +112,15 @@ HRESULT GgafDxMorphMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
             }
         }
         hr = pID3DXEffect->SetValue(pMorphMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
-        checkDxException(hr, D3D_OK, "GgafDxMorphMeshModel::draw()SetValue(g_colMaterialDiffuse) に失敗しました。");
+        checkDxException(hr, D3D_OK, "SetValue(g_colMaterialDiffuse) に失敗しました。");
         GgafDxEffect* pEffect_active = GgafDxEffectManager::_pEffect_active;
         if ((pEffect_active != pMorphMeshEffect || GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) && i == 0) {
             if (pEffect_active) {
-               _TRACE4_("GgafDxMorphMeshModel::draw() EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
+               _TRACE4_("EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
                 hr = pEffect_active->_pID3DXEffect->EndPass();
-                checkDxException(hr, D3D_OK, "GgafDxMorphMeshModel::draw() EndPass() に失敗しました。");
+                checkDxException(hr, D3D_OK, "に失敗しました。");
                 hr = pEffect_active->_pID3DXEffect->End();
-                checkDxException(hr, D3D_OK, "GgafDxMorphMeshModel::draw() End() に失敗しました。");
+                checkDxException(hr, D3D_OK, "に失敗しました。");
                 if (pEffect_active->_obj_effect & Obj_GgafDxMassEffect) {
                     pDevice->SetStreamSourceFreq( 0, 1 );
                     pDevice->SetStreamSourceFreq( 1, 1 );
@@ -133,22 +133,22 @@ HRESULT GgafDxMorphMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
                 }
 #endif
              }
-            _TRACE4_("GgafDxMorphMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMorphMeshEffect->_effect_name);
+            _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMorphMeshEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
-            checkDxException(hr, S_OK, "GgafDxMorphMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
+            checkDxException(hr, S_OK, "SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
 
-            _TRACE4_("GgafDxMorphMeshModel::draw() BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMorphMeshEffect->_effect_name<<"("<<pMorphMeshEffect<<")");
+            _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMorphMeshEffect->_effect_name<<"("<<pMorphMeshEffect<<")");
             UINT numPass;
             hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
-            checkDxException(hr, D3D_OK, "GgafDxMorphMeshModel::draw() Begin() に失敗しました。");
+            checkDxException(hr, D3D_OK, "に失敗しました。");
             //モーフターゲットの数により pass を切り替えている
             //プリマリメッシュのみ                             = pass0
             //プライマリメッシュ＋モーフターゲットメッシュ１つ = pass1
             //プライマリメッシュ＋モーフターゲットメッシュ２つ = pass2
             //以下最大９まで
             hr = pID3DXEffect->BeginPass(_morph_target_num);
-            checkDxException(hr, D3D_OK, "GgafDxMorphMeshModel::draw() BeginPass("<<_morph_target_num<<") に失敗しました。");
+            checkDxException(hr, D3D_OK, "BeginPass("<<_morph_target_num<<") に失敗しました。");
 
 #ifdef MY_DEBUG
             if (pMorphMeshEffect->_begin) {
@@ -160,7 +160,7 @@ HRESULT GgafDxMorphMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
 
         } else {
             hr = pID3DXEffect->CommitChanges();
-            checkDxException(hr, D3D_OK, "GgafDxMorphMeshModel::draw()CommitChanges() に失敗しました。");
+            checkDxException(hr, D3D_OK, "に失敗しました。");
         }
 
         _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMorphMeshEffect->_effect_name);
@@ -180,7 +180,7 @@ HRESULT GgafDxMorphMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
 }
 
 void GgafDxMorphMeshModel::restore() {
-    _TRACE3_("GgafDxMorphMeshModel::restore() " << _model_name << " start");
+    _TRACE3_("_model_name=" << _model_name << " start");
     //【GgafDxMorphMeshModel再構築（＝初期化）処理概要】
     //基本的にはrestoreMeshModelの処理を一つ次元（配列）を増やしたようなもの
     //１）プライマリ＋モーフターゲットｘN の、頂点バッファ、頂点インデックスバッファ を作成
@@ -200,7 +200,7 @@ void GgafDxMorphMeshModel::restore() {
         char* xfilename_base = _model_name + 2; //２文字目以降  "2/ceres" → "ceres"
         paXfileName[i] = GgafDxModelManager::getMeshFileName(std::string(xfilename_base) + "_" + (char)('0'+i));
         if (paXfileName[i] == "") {
-             throwGgafCriticalException("GgafDxModelManager::restoreMorphMeshModel メッシュファイル(*.x)が見つかりません。model_name="<<(std::string(xfilename_base) + "_" + (char)('0'+i)));
+             throwGgafCriticalException("メッシュファイル(*.x)が見つかりません。model_name="<<(std::string(xfilename_base) + "_" + (char)('0'+i)));
         }
     }
     HRESULT hr;
@@ -231,7 +231,7 @@ void GgafDxMorphMeshModel::restore() {
             papModel3D[pattern] = NEW Frm::Model3D();
             bool r = paIOX[pattern].Load(paXfileName[pattern], papModel3D[pattern]);
             if (r == false) {
-                throwGgafCriticalException("[GgafDxModelManager::restoreMorphMeshModel] Xファイルの読込み失敗。2/ とか忘れてませんか？ 対象="<<paXfileName[pattern]);
+                throwGgafCriticalException("Xファイルの読込み失敗。2/ とか忘れてませんか？ 対象="<<paXfileName[pattern]);
             }
             //メッシュを結合する前に、情報を確保しておく
             int nMesh = (int)papModel3D[pattern]->_Meshes.size();
@@ -250,7 +250,7 @@ void GgafDxMorphMeshModel::restore() {
 //            nFaceNormals = papMeshesFront[pattern]->_nFaceNormals;
 
             if (nVertices*(morph_target_num+1) > 65535) {
-                throwGgafCriticalException("[GgafDxModelManager::restoreMorphMeshModel] 頂点が 65535を超えたかもしれません。\n対象Model："<<getName()<<"  nVertices:"<<nVertices<<"  セット数:"<<(morph_target_num+1));
+                throwGgafCriticalException("頂点が 65535を超えたかもしれません。\n対象Model："<<getName()<<"  nVertices:"<<nVertices<<"  セット数:"<<(morph_target_num+1));
             }
 
             if (pattern == 0) {
@@ -466,7 +466,7 @@ void GgafDxMorphMeshModel::restore() {
         paVtxelem[elemnum-1].UsageIndex = 0;
 
         hr = GgafDxGod::_pID3DDevice9->CreateVertexDeclaration( paVtxelem, &(_pVertexDeclaration) );
-        checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreMorphMeshModel] GgafDxGod::_pID3DDevice9->CreateVertexDeclaration 失敗 model="<<(_model_name));
+        checkDxException(hr, D3D_OK, "GgafDxGod::_pID3DDevice9->CreateVertexDeclaration 失敗 model="<<(_model_name));
         //ストリーム数取得        hr = m_pDecl->GetDeclaration( m_pElement, &m_numElements);
 
         GGAF_DELETEARR(paVtxelem);
@@ -486,10 +486,10 @@ void GgafDxMorphMeshModel::restore() {
                         D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                         &(_pVertexBuffer_primary),
                         nullptr);
-                checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreMorphMeshModel] _pID3DDevice9->CreateVertexBuffer 失敗（プライマリ） model="<<(_model_name));
+                checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗（プライマリ） model="<<(_model_name));
                 void *pVertexBuffer;
                 hr = _pVertexBuffer_primary->Lock(0, _size_vertices_primary, (void**)&pVertexBuffer, 0);
-                checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreMorphMeshModel] 頂点バッファのロック取得に失敗（プライマリ） model="<<_model_name);
+                checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗（プライマリ） model="<<_model_name);
                 memcpy(pVertexBuffer, paVtxBuffer_data_primary, _size_vertices_primary); //pVertexBuffer ← paVertex
                 _pVertexBuffer_primary->Unlock();
             } else {
@@ -501,10 +501,10 @@ void GgafDxMorphMeshModel::restore() {
                         D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                         &(_paIDirect3DVertexBuffer9_morph[pattern-1]),
                         nullptr);
-                checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreMorphMeshModel] _pID3DDevice9->CreateVertexBuffer 失敗（モーフ:"<<pattern-1<<"） model="<<(_model_name));
+                checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗（モーフ:"<<pattern-1<<"） model="<<(_model_name));
                 void *pVertexBuffer;
                 hr = _paIDirect3DVertexBuffer9_morph[pattern-1]->Lock(0, _size_vertices_morph, (void**)&pVertexBuffer, 0);
-                checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreMorphMeshModel] 頂点バッファのロック取得に失敗（モーフ:"<<pattern-1<<"） model="<<_model_name);
+                checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗（モーフ:"<<pattern-1<<"） model="<<_model_name);
                 memcpy(pVertexBuffer, papaVtxBuffer_data_morph[pattern-1], _size_vertices_morph); //pVertexBuffer ← paVertex
                 _paIDirect3DVertexBuffer9_morph[pattern-1]->Unlock();
             }
@@ -523,7 +523,7 @@ void GgafDxMorphMeshModel::restore() {
                                 D3DPOOL_DEFAULT,
                                 &(_pIndexBuffer),
                                 nullptr);
-        checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreMorphMeshModel] _pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_name));
+        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_name));
         void* pIndexBuffer;
         _pIndexBuffer->Lock(0,0,(void**)&pIndexBuffer,0);
         memcpy(pIndexBuffer , paIdxBuffer_data , sizeof(WORD) * nFaces * 3);
@@ -559,17 +559,17 @@ void GgafDxMorphMeshModel::restore() {
     _papaVtxBuffer_data_morph = papaVtxBuffer_data_morph;
     _paIndexParam            = paIndexParam;
 
-    _TRACE3_("GgafDxMorphMeshModel::restore() " << _model_name << " end");
+    _TRACE3_("_model_name=" << _model_name << " end");
 }
 
 void GgafDxMorphMeshModel::onDeviceLost() {
-    _TRACE3_("GgafDxMorphMeshModel::onDeviceLost() " << _model_name << " start");
+    _TRACE3_("_model_name=" << _model_name << " start");
     release();
-    _TRACE3_("GgafDxMorphMeshModel::onDeviceLost() " << _model_name << " end");
+    _TRACE3_("_model_name=" << _model_name << " end");
 }
 
 void GgafDxMorphMeshModel::release() {
-    _TRACE3_("GgafDxMorphMeshModel::release() " << _model_name << " start");
+    _TRACE3_("_model_name=" << _model_name << " start");
 
     //テクスチャを解放
     if (_papTextureConnection) {
@@ -610,7 +610,7 @@ void GgafDxMorphMeshModel::release() {
     //TODO:親クラスメンバをDELETEするのはややきたないか
     GGAF_DELETEARR(_paMaterial_default);
     GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
-    _TRACE3_("GgafDxMorphMeshModel::release() " << _model_name << " end");
+    _TRACE3_("_model_name=" << _model_name << " end");
 
 }
 GgafDxMorphMeshModel::~GgafDxMorphMeshModel() {

@@ -105,7 +105,7 @@ void Stage01WalledScene::initialize() {
 void Stage01WalledScene::onActive() {
     P_COMMON_SCENE->setScrollingFunction(_pFuncScrolling);
     P_COMMON_SCENE->setScrollSpeed(getScrollSpeed());
-    _TRACE_("Stage01WalledScene::onActive()  CommonScene にもスクロールを設定します。");
+    _TRACE_(FUNC_NAME<<"  CommonScene にもスクロールを設定します。");
     //P_COMMON_SCENE->dump();
     WalledScene::onActive();
 }

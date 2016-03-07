@@ -193,7 +193,7 @@ void EnemyHalia::processJudgement() {
 
 void EnemyHalia::onHit(const GgafActor* prm_pOtherActor) {
     if (getMorphWeight(1) > 0.3) { //口が空いてたら
-        bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+        bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
         if (was_destroyed) {
             //破壊された時(スタミナ <= 0)
             getSeTx()->play3D(SE_EXPLOSION);

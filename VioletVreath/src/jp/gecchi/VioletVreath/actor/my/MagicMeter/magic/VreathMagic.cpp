@@ -199,7 +199,7 @@ void VreathMagic::processEffectingBehavior(int prm_last_level, int prm_now_level
         frame f = getActiveFrame() % beat_time_[prm_now_level];
 #ifdef MY_DEBUG
         if (f > beat_time_[prm_now_level]) {
-            throwGgafCriticalException("VreathMagic::processEffectingBehavior 範囲外です。 f="<<f<<" beat_time_["<<prm_now_level<<"]");
+            throwGgafCriticalException("範囲外です。 f="<<f<<" beat_time_["<<prm_now_level<<"]");
         }
 #endif
         int add_vreath = apaInt_vreath_per_frame_[prm_now_level][f] * r_add_vreath_[prm_now_level];

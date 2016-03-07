@@ -54,8 +54,8 @@ void GgafLinearOctree::setRootOctant(int x1, int y1, int z1, int x2, int y2, int
     _r_top_level_dy = 1.0 / _top_level_dy;
     _r_top_level_dz = 1.0 / _top_level_dz;
 
-    _TRACE_("GgafLinearOctree::setRootOctant 八分木ルートレベル(level=0)の空間の広さ=" << _root_x2-_root_x1 << "x" << _root_y2-_root_y1 << "x" << _root_z2-_root_z1);
-    _TRACE_("GgafLinearOctree::setRootOctant 八分木末端レベル(level="<<_top_space_level<<")の空間の広さ=" << _top_level_dx << "x" << _top_level_dy << "x" << _top_level_dz);
+    _TRACE_(FUNC_NAME<<" 八分木ルートレベル(level=0)の空間の広さ=" << _root_x2-_root_x1 << "x" << _root_y2-_root_y1 << "x" << _root_z2-_root_z1);
+    _TRACE_(FUNC_NAME<<" 八分木末端レベル(level="<<_top_space_level<<")の空間の広さ=" << _top_level_dx << "x" << _top_level_dy << "x" << _top_level_dz);
 }
 
 void GgafLinearOctree::registerElem(GgafLinearOctreeElem* const prm_pElem,
@@ -224,7 +224,7 @@ void GgafLinearOctree::registerElem(GgafLinearOctreeElem* const prm_pElem,
         }
     } else {
 #ifdef MY_DEBUG
-        throwGgafCriticalException("GgafLinearOctree::registerElem() 登録しようとした引数要素は、他の空間に所属状態です。"<<
+        throwGgafCriticalException("登録しようとした引数要素は、他の空間に所属状態です。"<<
                                    "クリアがなされていないか、２重登録しています。現所属空間インデックス="<<(prm_pElem->_pOctant_current->_my_index)<<"  要素対象オブジェクト="<<(prm_pElem->_pObject));
 #endif
     }

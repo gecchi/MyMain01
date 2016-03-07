@@ -33,7 +33,7 @@ void GgafDxUvFlipper::setRotation(float prm_base_u, float prm_base_v,
                                   int prm_ptn_col_num, int prm_num_of_max_patterns) {
 #ifdef MY_DEBUG
     if (prm_ptn_col_num < 0) {
-        throwGgafCriticalException("GgafDxUvFlipper::setRotation prm_ptn_col_numは0より大きい数で設定して下さい。Texture="<<_pTexture->_texture_name);
+        throwGgafCriticalException("prm_ptn_col_numは0より大きい数で設定して下さい。Texture="<<_pTexture->_texture_name);
     }
 #endif
     _base_u = prm_base_v;
@@ -86,10 +86,10 @@ void GgafDxUvFlipper::setActivePtn(int prm_pattno_uvflip) {
 void GgafDxUvFlipper::setFlipPtnRange(int prm_top, int prm_bottom) {
 #ifdef MY_DEBUG
     if (prm_top < 0) {
-        _TRACE_("GgafDxUvFlipper::setFlipPtnRange prm_top="<<prm_top<<" TOPが負です。意図してますか？");
+        _TRACE_(FUNC_NAME<<" prm_top="<<prm_top<<" TOPが負です。意図してますか？");
     }
     if (prm_top > prm_bottom) {
-        throwGgafCriticalException("GgafDxUvFlipper::setFlipPtnRange prm_top="<<prm_top<<",prm_bottom="<<prm_bottom<<" 大小がおかしいです。Texture="<<_pTexture->_texture_name);
+        throwGgafCriticalException("prm_top="<<prm_top<<",prm_bottom="<<prm_bottom<<" 大小がおかしいです。Texture="<<_pTexture->_texture_name);
     }
 #endif
     _pattno_uvflip_top = prm_top;
@@ -106,7 +106,7 @@ void GgafDxUvFlipper::behave() {
 //    _TRACE_(getName()<<":_pattno_uvflip_now="<<_pattno_uvflip_now<<"/_pattno_uvflip_bottom="<<_pattno_uvflip_bottom<<"/_pattno_uvflip_top="<<_pattno_uvflip_top<<"/_is_reverse_order_in_oscillate_animation_flg="<<_is_reverse_order_in_oscillate_animation_flg<<"");
 #ifdef MY_DEBUG
     if (_paUV == nullptr) {
-        throwGgafCriticalException("GgafDxUvFlipper::behave 事前にsetRotation()でパターンしてください。_pTexture="<<_pTexture->getName());
+        throwGgafCriticalException("事前にsetRotation()でパターンしてください。_pTexture="<<_pTexture->getName());
     }
 #endif
     _frame_counter_uvflip++;
@@ -201,7 +201,7 @@ void GgafDxUvFlipper::getUV(float& out_u, float& out_v) {
 void GgafDxUvFlipper::getUV(int prm_pattno_uvflip, float& out_u, float& out_v) {
 #ifdef MY_DEBUG
     if (prm_pattno_uvflip > _pattno_uvflip_max) {
-        throwGgafCriticalException("GgafDxUvFlipper::getUV 引数のパターン番号="<<prm_pattno_uvflip<<"は、範囲外です。_pattno_uvflip_max="<<_pattno_uvflip_max<<" Texture="<<_pTexture->_texture_name);
+        throwGgafCriticalException("引数のパターン番号="<<prm_pattno_uvflip<<"は、範囲外です。_pattno_uvflip_max="<<_pattno_uvflip_max<<" Texture="<<_pTexture->_texture_name);
     }
 #endif
     out_u = _base_u + _paUV[prm_pattno_uvflip]._u;

@@ -50,7 +50,7 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
 }
 
 void GameTitleScene::onReset() {
-    _TRACE_("GameTitleScene::onReset() "<<NODE_INFO<<"");
+    _TRACE_(FUNC_NAME<<" "<<NODE_INFO<<"");
     pLabel01_->update("");
     pLabel02_->update("");
     pTitleBoard_->position(PX_C(100), PX_C(90));
@@ -68,7 +68,7 @@ void GameTitleScene::onActive() {
 }
 
 void GameTitleScene::initialize() {
-    _TRACE_("GameTitleScene::initialize()");
+    _TRACE_(FUNC_NAME<<"");
 }
 
 void GameTitleScene::processBehavior() {

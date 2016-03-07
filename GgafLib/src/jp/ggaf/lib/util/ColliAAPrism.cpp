@@ -19,7 +19,7 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
 #ifdef MY_DEBUG
     if (rot_x || rot_y || rot_z) {
         //TODO:ひまならプリズム要素は回転平行移動実装
-        throwGgafCriticalException("ColliAAPrism::set 当たり判定のプリズム要素は回転平行移動は未対応です。");
+        throwGgafCriticalException("当たり判定のプリズム要素は回転平行移動は未対応です。");
     }
 #endif
 
@@ -215,7 +215,7 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
         //memo WallAAPrismActor の 空new時はプリズム位置 0 にすることとしたので、
         //以下のエラーはスルーするように変更した。
 
-        //throwGgafCriticalException("ColliAAPrism::set おかしなプリズム位置 _pos_info="<<_pos_info)
+        //throwGgafCriticalException("おかしなプリズム位置 _pos_info="<<_pos_info)
     }
 
     //当たり判定時に使用する計算用の値を予め求めておく。

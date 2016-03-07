@@ -47,7 +47,7 @@ _pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek(
     _is_2D = true;
     _pFunc_calc_rot_mv_world_matrix = nullptr;
 
-    setZEnable(false);
+    setZEnableDraw(false);
     setZWriteEnable(false);
 
     _z = 0;

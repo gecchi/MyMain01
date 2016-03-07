@@ -30,8 +30,8 @@ SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id, GgafSta
     _class_name = "SingleLaser";
     _pColliChecker = (CollisionChecker3D*)_pChecker;
 
-    setZEnable(true);        //Zバッファは考慮有り
-    setZWriteEnable(false);  //Zバッファは書き込み無し
+    setZEnableDraw(true);    //描画時、Zバッファ値は考慮される
+    setZWriteEnable(false);  //自身のZバッファを書き込みしない
 
     static volatile bool is_init = SingleLaser::initStatic(this); //静的メンバ初期化
 }
@@ -87,7 +87,7 @@ void SingleLaser::processDraw() {
         if (pDrawActor->getModel() == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
             pSingleLaserChip = (SingleLaser*)pDrawActor;
             hr = pID3DXEffect->SetMatrix(SingleLaser::_ah_matWorld[draw_set_num], &(pSingleLaserChip->_matWorld));
-            checkDxException(hr, D3D_OK, "GgafDxMeshSetActor::processDraw() SetMatrix(g_matWorld) _pMeshSetEffect="<<_pMeshSetEffect->getName() << " pDrawActor->_matWorld="<<pDrawActor->_matWorld<<" pDrawActor="<<pDrawActor->getName()<<" draw_set_num="<<draw_set_num<<" に失敗しました。");
+            checkDxException(hr, D3D_OK, "pDrawActor->_matWorld="<<pDrawActor->_matWorld<<" pDrawActor="<<pDrawActor->getName()<<" draw_set_num="<<draw_set_num<<" に失敗しました。");
             draw_set_num++;
             if (draw_set_num >= model_Set_num) {
                 break;

@@ -13,7 +13,7 @@
     #define checkDxException(HR, OKVAL, X) do { \
         if (HR != OKVAL) { \
             std::stringstream ss; \
-            ss <<__FILE__<<"("<<__LINE__<<") : " << X; \
+            ss <<__FILE__<<"("<<__LINE__<<") : " << FUNC_NAME << " " << X; \
             throw GgafDxCore::GgafDxCriticalException(ss.str(),HR); \
         } \
     }while(0)
@@ -23,7 +23,7 @@
 
 #define throwGgafDxCriticalException(HR, X) do { \
     std::stringstream ss; \
-    ss <<__FILE__<<"("<<__LINE__<<") : " << X; \
+    ss <<__FILE__<<"("<<__LINE__<<") : " << FUNC_NAME << " " << X; \
     throw GgafDxCore::GgafDxCriticalException(ss.str(),HR); \
 }while(0)
 

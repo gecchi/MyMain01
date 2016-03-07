@@ -13,8 +13,8 @@ SpriteLabelBonus001::SpriteLabelBonus001(const char* prm_name) :
         StringSpriteActor(prm_name, "Ranking_16Font")
 {
     _class_name = "SpriteLabelBonus001";
-    setZEnable(false);      //Zバッファは考慮無しに強制
-    setZWriteEnable(false); //Zバッファは書き込み無しに強制
+    setZEnableDraw(false);      //Zバッファは考慮無しに強制
+    setZWriteEnable(false); //自身のZバッファを書き込みしないに強制
     setSpecialRenderDepthIndex(1); //描画順序を最前面描画に強制。
     setHitAble(false);
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_BxyzMv); //XYZ軸ビルボード

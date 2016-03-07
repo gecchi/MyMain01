@@ -57,7 +57,7 @@ void RankUpStage::processBehavior() {
     pMessage3_->update(buff);
     switch (pProg->get()) {
         case PROG_INIT: {
-            _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] PROG_BEGIN !");
+            _TRACE_(FUNC_NAME<<" ["<<getName()<<"] PROG_BEGIN !");
             pMessage1_->update("RANKUPSTAGE::PROG_BEGIN");
             std::string m = "RUNKUP LEVEL:" + XTOS(G_RANKUP_LEVEL) ;
             pMessage2_->update(m.c_str());
@@ -75,19 +75,19 @@ void RankUpStage::processBehavior() {
         case PROG_PLAYING: {
             if (pProg->hasJustChanged()) {
                 pMessage1_->update("RANKUPSTAGE::PROG_PLAYING");
-                _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] PROG_BEGIN !");
+                _TRACE_(FUNC_NAME<<" ["<<getName()<<"] PROG_BEGIN !");
             }
 
             if (pProg->getFrame() > _paFrame_NextEvent[_event_num-1]) { //最後の敵機が出現以降
                 if (all_hit_num_ == hit_enemy_num_) {
                     //全滅させた！即効結果画面へ
-                    _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] 全滅させた！");
+                    _TRACE_(FUNC_NAME<<" ["<<getName()<<"] 全滅させた！");
                     pSeConnection_all_hit_->peek()->play(); //全滅時SE!
                     pProg->change(PROG_RESULT);
                 }
 #ifdef MY_DEBUG
                 if (pProg->hasArrivedAt(_paFrame_NextEvent[_event_num-1]+(10*60*60))) { //最終のアクター出現から10分。
-                    throwGgafCriticalException("RankUpStage::processBehavior() "<<NODE_INFO<<" ランクアップシーンが終わらないのではないだろうか？？");
+                    throwGgafCriticalException(NODE_INFO<<" ランクアップシーンが終わらないのではないだろうか？？");
                 }
 #endif
                 //その他の終了は、下位実装の各RankUpクラスに任せる。
@@ -102,8 +102,8 @@ void RankUpStage::processBehavior() {
             if (pProg->hasJustChanged()) {
                 pMessage1_->update("RANKUPSTAGE::PROG_RESULT");
                 pMessage2_->update("KEKKA HAPYOU!!!");
-                _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] PROG_RESULT !");
-                _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] 結果 hit_enemy_num_="<<hit_enemy_num_<<" all_hit_num_="<<all_hit_num_);
+                _TRACE_(FUNC_NAME<<" ["<<getName()<<"] PROG_RESULT !");
+                _TRACE_(FUNC_NAME<<" ["<<getName()<<"] 結果 hit_enemy_num_="<<hit_enemy_num_<<" all_hit_num_="<<all_hit_num_);
             }
 
             //結果表示？
@@ -125,7 +125,7 @@ void RankUpStage::processBehavior() {
             break;
         }
         case PROG_END: {
-            _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] PROG_ENDになりますた！");
+            _TRACE_(FUNC_NAME<<" ["<<getName()<<"] PROG_ENDになりますた！");
             pMessage1_->update("RANKUPSTAGE::PROG_END");
             pMessage2_->update("BYEBYE!");
             throwEventUpperTree(EVENT_RANKUP_WAS_END); //RankUpStageControllerに処理を任せる
@@ -143,7 +143,7 @@ void RankUpStage::onCatchEvent(hashval prm_no, void* prm_pSource) {
 }
 
 void RankUpStage::onEnd() {
-    _TRACE_("RankUpStage::onEnd() ["<<getName()<<"] ");
+    _TRACE_(FUNC_NAME<<" ["<<getName()<<"] ");
 }
 
 RankUpStage::~RankUpStage() {

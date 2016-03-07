@@ -129,19 +129,19 @@ void Stage01PartController::processBehavior() {
 void Stage01PartController::onCatchEvent(hashval prm_no, void* prm_pSource) {
     SceneProgress* pProg = getProgress();
     if (prm_no == EVENT_STG01_01_WAS_BROKEN) {
-        _TRACE_("Stage01PartController::onCatchEvent() EVENT_STG01_01_WAS_BROKEN");
+        _TRACE_(FUNC_NAME<<" EVENT_STG01_01_WAS_BROKEN");
         ((DefaultScene*)prm_pSource)->sayonara(60*60);
     } else if (prm_no == EVENT_STG01_02_WAS_BROKEN) {
-        _TRACE_("Stage01PartController::onCatchEvent() EVENT_STG01_02_WAS_BROKEN");
+        _TRACE_(FUNC_NAME<<" EVENT_STG01_02_WAS_BROKEN");
         ((DefaultScene*)prm_pSource)->sayonara(60*60);
     } else if (prm_no == EVENT_STG01_03_WAS_BROKEN) {
-        _TRACE_("Stage01PartController::onCatchEvent() EVENT_STG01_03_WAS_BROKEN");
+        _TRACE_(FUNC_NAME<<" EVENT_STG01_03_WAS_BROKEN");
         ((DefaultScene*)prm_pSource)->sayonara(60*60);
     } else if (prm_no == EVENT_STG01_WALLED_WAS_BROKEN) {
-        _TRACE_("Stage01PartController::onCatchEvent() EVENT_STG01_WALLED_WAS_BROKEN");
+        _TRACE_(FUNC_NAME<<" EVENT_STG01_WALLED_WAS_BROKEN");
         ((DefaultScene*)prm_pSource)->sayonara(60*60);
     } else if (prm_no == EVENT_STG01_CLIMAX_WAS_BROKEN) {
-        _TRACE_("Stage01PartController::onCatchEvent() EVENT_STG01_CLIMAX_WAS_BROKENキャッチした。STAGE01PARTCONTROLLER_ENDINGを投げる");
+        _TRACE_(FUNC_NAME<<" EVENT_STG01_CLIMAX_WAS_BROKENキャッチした。STAGE01PARTCONTROLLER_ENDINGを投げる");
         ((DefaultScene*)prm_pSource)->sayonara(60*60);
         pProg->change(PROG_FAINAL); //進捗をStage01PartController::PROG_FAINALに切り替える
     } else {

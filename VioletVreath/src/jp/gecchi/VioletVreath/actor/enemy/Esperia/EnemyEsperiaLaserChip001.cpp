@@ -135,7 +135,7 @@ void EnemyEsperiaLaserChip001::processJudgement() {
 }
 
 void EnemyEsperiaLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         sayonara();

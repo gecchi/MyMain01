@@ -62,7 +62,7 @@ public:
         float _chip_kind, _force_alpha;   // : TEXCOORD9  チップ種別、強制α
     };
 
-    static VERTEX_instancedata _aInstancedata[GGAFDXMASS_MAX_INSTACE];
+    static VERTEX_instancedata _aInstancedata[];
     CollisionChecker3D* _pColliChecker;
 
     /** レーザーテクスチャ種別  0:不明 1:末尾 2:中間 3:先頭から２番目で先頭のテクスチャ （末尾かつ先頭は末尾が優先） 4:本当の先頭(但し描画できない) */

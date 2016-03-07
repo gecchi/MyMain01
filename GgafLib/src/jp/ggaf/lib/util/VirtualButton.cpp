@@ -915,7 +915,7 @@ bool VirtualButton::isScrewPushDown(vb_sta prm_VB, frame prm_frame_delay) const 
 void VirtualButton::update() {
 #ifdef MY_DEBUG
     if (_pVBRecord_active == nullptr) {
-        throwGgafCriticalException("VirtualButton::update() 利用前に一度 init() を呼び出して下さい。");
+        throwGgafCriticalException("利用前に一度 init() を呼び出して下さい。");
     }
 #endif
     GgafDxInput::updateKeyboardState();

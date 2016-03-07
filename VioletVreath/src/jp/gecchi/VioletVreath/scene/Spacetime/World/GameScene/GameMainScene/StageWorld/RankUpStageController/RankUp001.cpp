@@ -283,11 +283,11 @@ void RankUp001::processBehavior() {
     switch (pProg->get()) {
         case RankUpStage::PROG_PLAYING: {
             if (pProg->hasJustChanged()) {
-                _TRACE_("RankUp001::processBehavior() RankUpStage::PROG_PLAYING になりますた！ getBehaveingFrame()="<<getBehaveingFrame());
+                _TRACE_(FUNC_NAME<<" RankUpStage::PROG_PLAYING になりますた！ getBehaveingFrame()="<<getBehaveingFrame());
             }
 
             if (pProg->hasArrivedAt(_paFrame_NextEvent[_event_num-1]+600)) { //最終のアクター出現から10秒後、強制終了。
-                _TRACE_("RankUp001::processBehavior() RankUpStage::PROG_PLAYING おわった。 pProg->getFrame()="<<pProg->getFrame());
+                _TRACE_(FUNC_NAME<<" RankUpStage::PROG_PLAYING おわった。 pProg->getFrame()="<<pProg->getFrame());
                 pProg->change(RankUpStage::PROG_RESULT); //RankUpStageの共通処理へ
             }
             break;

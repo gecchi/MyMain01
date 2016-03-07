@@ -33,7 +33,7 @@ private:
         float _41, _42, _43, _44;   // : TEXCOORD4  World変換行列、４行目
         float offset_u, offset_v, alpha;   // : TEXCOORD5  テクスチャオフセット、α
     };
-    static VERTEX_instancedata _aInstancedata[GGAFDXMASS_MAX_INSTACE];
+    static VERTEX_instancedata _aInstancedata[];
     static void createVertexInstaceData(GgafDxCore::GgafDxMassModel::VertexInstaceDataInfo* out_info);
 public:
     /** 衝突判定支援オブジェクト */

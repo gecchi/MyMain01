@@ -32,13 +32,13 @@ void HoshiBoshiTestActor::processDraw() {
     ID3DXEffect* const pID3DXEffect = _pPointSpriteEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetFloat(HoshiBoshi::h_fX_MyShip_, 0);
-    checkDxException(hr, D3D_OK, "GgafDxPointSpriteActor::processDraw() SetFloat(h_fX_MyShip_) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    checkDxException(hr, D3D_OK, "SetFloat(h_fX_MyShip_) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = pID3DXEffect->SetFloat(HoshiBoshi::h_fY_MyShip_, 0);
-    checkDxException(hr, D3D_OK, "GgafDxPointSpriteActor::processDraw() SetFloat(h_fY_MyShip_) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    checkDxException(hr, D3D_OK, "SetFloat(h_fY_MyShip_) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = pID3DXEffect->SetFloat(HoshiBoshi::h_fZ_MyShip_, 0);
-    checkDxException(hr, D3D_OK, "GgafDxPointSpriteActor::processDraw() SetFloat(h_fZ_MyShip_) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    checkDxException(hr, D3D_OK, "SetFloat(h_fZ_MyShip_) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = pID3DXEffect->SetFloat(HoshiBoshi::h_far_rate_, far_rate_);
-    checkDxException(hr, D3D_OK, "GgafDxPointSpriteActor::processDraw() SetFloat(h_far_rate_) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    checkDxException(hr, D3D_OK, "SetFloat(h_far_rate_) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     GgafDxPointSpriteActor::processDraw();
 }
 

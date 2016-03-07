@@ -309,7 +309,7 @@ void MyShip::onCreateModel() {
 }
 
 void MyShip::initialize() {
-    _TRACE_("MyShip::initialize()");
+    _TRACE_(FUNC_NAME<<"");
 
     //種別に振り分け
 //    bringDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, pDepo_MyShots001_->extract());
@@ -344,7 +344,7 @@ void MyShip::initialize() {
 
 
 void MyShip::onReset() {
-    _TRACE_("MyShip::onReset() "<<NODE_INFO<<"");
+    _TRACE_(FUNC_NAME<<" "<<NODE_INFO<<"");
     is_being_soft_rapidshot_ = false;
     soft_rapidshot_shot_count_ = 0;
     soft_rapidshot_push_cnt_ = 0;
@@ -368,14 +368,14 @@ void MyShip::onReset() {
 }
 
 void MyShip::onActive() {
-    _TRACE_("MyShip::onActive()");
+    _TRACE_(FUNC_NAME<<"");
     //レーザーやロックンターゲットや魚雷がサブにいるため
     //個別に呼び出す
     pLockonCtrler_->onActive();
     pTorpedoCtrler_->onActive();
 }
 void MyShip::onInactive() {
-    _TRACE_("MyShip::onInactive()");
+    _TRACE_(FUNC_NAME<<"");
     //レーザーやロックンターゲットや魚雷がサブにいるため
     //個別に呼び出す
     pLockonCtrler_->onInactive();

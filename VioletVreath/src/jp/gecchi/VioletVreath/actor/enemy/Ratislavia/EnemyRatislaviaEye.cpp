@@ -165,12 +165,12 @@ void EnemyRatislaviaEye::processJudgement() {
 }
 
 void EnemyRatislaviaEye::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTx()->play3D(SE_EXPLOSION);
         sayonara();
-        _TRACE_("EnemyRatislaviaEye::onHit() 上位になげるthrowEventUpperTree(RATISLAVIA_EXPLOSION)");
+        _TRACE_(FUNC_NAME<<" 上位になげるthrowEventUpperTree(RATISLAVIA_EXPLOSION)");
         throwEventUpperTree(RATISLAVIA_EXPLOSION); //親のEnemyRatislaviaを破壊するイベントを投げる
     } else {
         //破壊されなかった時(スタミナ > 0)

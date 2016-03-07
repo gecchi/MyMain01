@@ -17,8 +17,8 @@ EffectShotMagic::EffectShotMagic(const char* prm_name) :
     pScaler_ = NEW GgafDxScaler(this);
     pColorist_ = NEW GgafDxColorist(this);
     effectBlendOne(); //加算合成Technique
-    setZEnable(true);       //Zバッファは考慮有り
-    setZWriteEnable(false); //Zバッファは書き込み無し
+    setZEnableDraw(true);       //描画時、Zバッファ値は考慮される
+    setZWriteEnable(false); //自身のZバッファを書き込みしない
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //変換行列をビルボードに
     setHitAble(false);
 }

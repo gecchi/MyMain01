@@ -56,7 +56,7 @@ void GraphBarActor::processDraw() {
     HRESULT hr;
 #ifdef MY_DEBUG
     if (_align != ALIGN_LEFT) {
-        throwGgafCriticalException("GraphBarActor::processDraw() X座標アライメントは ALIGN_LEFT 以外出来ません。this="<<NODE_INFO);
+        throwGgafCriticalException("X座標アライメントは ALIGN_LEFT 以外出来ません。this="<<NODE_INFO);
     }
 #endif
     if (_valign == VALIGN_BOTTOM) {
@@ -66,24 +66,24 @@ void GraphBarActor::processDraw() {
     } else { //VALIGN_TOP
         hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_y, 0.0f);
     }
-    checkDxException(hr, D3D_OK, "GraphBarActor::processDraw() SetFloat(_h_local_left_top_y) に失敗しました。");
+    checkDxException(hr, D3D_OK, "SetFloat(_h_local_left_top_y) に失敗しました。");
 
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_rz, ANG_RAD(_rz));
-    checkDxException(hr, D3D_OK, "GraphBarActor::processDraw() SetFloat(_h_rz) に失敗しました。");
+    checkDxException(hr, D3D_OK, "SetFloat(_h_rz) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_transformed_x, (float)(C_PX(_x)));
-    checkDxException(hr, D3D_OK, "GraphBarActor::processDraw() SetFloat(_h_transformed_x) に失敗しました。3");
+    checkDxException(hr, D3D_OK, "SetFloat(_h_transformed_x) に失敗しました。3");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_transformed_y, (float)(C_PX(_y)));
-    checkDxException(hr, D3D_OK, "GraphBarActor::processDraw() SetFloat(_h_transformed_y) に失敗しました。3");
+    checkDxException(hr, D3D_OK, "SetFloat(_h_transformed_y) に失敗しました。3");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_x, 0.0f);
-    checkDxException(hr, D3D_OK, "GraphBarActor::processDraw() SetFloat(_h_local_left_top_x) に失敗しました。");
+    checkDxException(hr, D3D_OK, "SetFloat(_h_local_left_top_x) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_depth_z, (float)(C_PX(_z)));
-    checkDxException(hr, D3D_OK, "GraphBarActor::processDraw() SetFloat(_h_depth_z) に失敗しました。");
+    checkDxException(hr, D3D_OK, "SetFloat(_h_depth_z) に失敗しました。");
     hr = pID3DXEffect->SetValue(_pBoardEffect->_h_colMaterialDiffuse, &(_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
-    checkDxException(hr, D3D_OK, "GraphBarActor::processDraw() SetValue(_h_colMaterialDiffuse) に失敗しました。");
+    checkDxException(hr, D3D_OK, "SetValue(_h_colMaterialDiffuse) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_sx, bar_width * _rate_org_chip_width * SC_R(_sx));
-    checkDxException(hr, D3D_OK, "GraphBarActor::processDraw() SetFloat(_sx) に失敗しました。");
+    checkDxException(hr, D3D_OK, "SetFloat(_sx) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_sy, SC_R(_sy));
-    checkDxException(hr, D3D_OK, "GraphBarActor::processDraw() SetFloat(_sy) に失敗しました。");
+    checkDxException(hr, D3D_OK, "SetFloat(_sy) に失敗しました。");
     _pBoardModel->GgafDxBoardModel::draw(this);
 }
 

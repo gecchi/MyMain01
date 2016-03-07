@@ -77,7 +77,7 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
     hr = GgafDxModelManager::_pID3DXFile_sprx->RegisterTemplates(sprite_model_xfile_template, (DWORD)(strlen(sprite_model_xfile_template)));
 #ifdef MY_DEBUG
     if(hr != S_OK) {
-        throwGgafCriticalException("[GgafDxModelManager::GgafDxModelManager] RegisterTemplatesに失敗しました。sprite_model_xfile_template を確認して下さい。");
+        throwGgafCriticalException("RegisterTemplatesに失敗しました。sprite_model_xfile_template を確認して下さい。");
     }
 #endif
 
@@ -113,7 +113,7 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
     hr = GgafDxModelManager::_pID3DXFile_psprx->RegisterTemplates(pointsprite_model_xfile_template, (DWORD)(strlen(pointsprite_model_xfile_template)));
 #ifdef MY_DEBUG
     if(hr != S_OK) {
-        throwGgafCriticalException("[GgafDxModelManager::GgafDxModelManager] RegisterTemplatesに失敗しました。\""<<PROPERTY::DIR_SPRITE_MODEL[0]<<"ggaf_pointspritemodel_define.x\"を確認して下さい。");
+        throwGgafCriticalException("RegisterTemplatesに失敗しました。\""<<PROPERTY::DIR_SPRITE_MODEL[0]<<"ggaf_pointspritemodel_define.x\"を確認して下さい。");
     }
 #endif
 }
@@ -122,8 +122,7 @@ GgafDxModel* GgafDxModelManager::processCreateResource(const char* prm_idstr, vo
     std::string idstr = std::string(prm_idstr);
     std::vector<std::string> names = UTIL::split(idstr, "/", 1); //最初のスラッシュで分割
     if (names.size() != 2) {
-        throwGgafCriticalException("GgafDxModelManager::processCreateResource "<<
-                "引数は、主に次の形式で与えてください。『モデルタイプ1文字  + \"/\" + モデル定義名(拡張子 .x を除いたもの)』\n"<<
+        throwGgafCriticalException("引数は、主に次の形式で与えてください。『モデルタイプ1文字  + \"/\" + モデル定義名(拡張子 .x を除いたもの)』\n"<<
                 "実際の引数は、prm_idstr="<<prm_idstr);
     }
     char model_type = (names[0])[0];
@@ -207,8 +206,8 @@ GgafDxModel* GgafDxModelManager::processCreateResource(const char* prm_idstr, vo
             pResourceModel = createPointSpriteModel(model_name);
             break;
         default:
-            _TRACE3_("GgafDxModelManager::processCreateResource("<<prm_idstr<<") そんな種別はありません");
-            throwGgafCriticalException("GgafDxModelManager::processCreateResource("<<prm_idstr<<") そんなモデル種別は知りません");
+            _TRACE3_("prm_idstr="<<prm_idstr<<" そんな種別はありません");
+            throwGgafCriticalException("prm_idstr="<<prm_idstr<<" そんなモデル種別は知りません");
             pResourceModel = nullptr;
             break;
     }
@@ -360,7 +359,7 @@ std::string GgafDxModelManager::getSpriteFileName(std::string prm_model_name) {
             if (PathFileExists(xfile_name.c_str()) ) {
                 return xfile_name;
             } else {
-                throwGgafCriticalException("GgafDxModelManager::getSpriteFileName スプライトファイル(*.sprx)が見つかりません。xfile_name="<<xfile_name);
+                throwGgafCriticalException("スプライトファイル(*.sprx)が見つかりません。xfile_name="<<xfile_name);
             }
         }
     }
@@ -382,7 +381,7 @@ std::string GgafDxModelManager::getPointSpriteFileName(std::string prm_model_nam
             if (PathFileExists(xfile_name.c_str()) ) {
                 return xfile_name;
             } else {
-                throwGgafCriticalException("GgafDxModelManager::getSpriteFileName ポイントスプライトファイル(*.psprx)が見つかりません。xfile_name="<<xfile_name);
+                throwGgafCriticalException("ポイントスプライトファイル(*.psprx)が見つかりません。xfile_name="<<xfile_name);
             }
         }
     }
@@ -404,7 +403,7 @@ void GgafDxModelManager::obtainSpriteInfo(SpriteXFileFmt* pSpriteFmt_out, std::s
                                                          (void*)prm_sprite_x_filename.c_str(),
                                                          D3DXF_FILELOAD_FROMFILE,
                                                          &pID3DXFileEnumObject);
-    checkDxException(hr, S_OK, "GgafDxModelManager::obtainSpriteInfo() '"<<prm_sprite_x_filename<<"' のCreateEnumObjectに失敗しました。ファイルの存在を確認して下さい。");
+    checkDxException(hr, S_OK, "'"<<prm_sprite_x_filename<<"' のCreateEnumObjectに失敗しました。ファイルの存在を確認して下さい。");
     //TODO:GUIDなんとかする。今は完全無視。
     //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
     ID3DXFileData* pID3DXFileData;
@@ -417,7 +416,7 @@ void GgafDxModelManager::obtainSpriteInfo(SpriteXFileFmt* pSpriteFmt_out, std::s
     char* pXData = nullptr;
     pID3DXFileData->Lock(&xsize, (const void**)&pXData);
     if (pXData == nullptr) {
-        throwGgafCriticalException("GgafDxModelManager::obtainSpriteInfo()  "<<prm_sprite_x_filename<<" のフォーマットエラー。");
+        throwGgafCriticalException(prm_sprite_x_filename<<" のフォーマットエラー。");
     }
     //    GUID* pGuid;
     //    pID3DXFileData->GetType(pGuid);
@@ -435,7 +434,7 @@ void GgafDxModelManager::obtainPointSpriteInfo(PointSpriteXFileFmt* pPointSprite
     ID3DXFileEnumObject* pID3DXFileEnumObject;
     ID3DXFileData* pID3DXFileData;
     HRESULT hr = GgafDxModelManager::_pID3DXFile_psprx->CreateEnumObject((void*)prm_point_sprite_x_filename.c_str(), D3DXF_FILELOAD_FROMFILE, &pID3DXFileEnumObject);
-    checkDxException(hr, S_OK, "GgafDxModelManager::obtainPointSpriteInfo() '"<<prm_point_sprite_x_filename<<"' のCreateEnumObjectに失敗しました。ファイルの存在を確認して下さい。");
+    checkDxException(hr, S_OK, "'"<<prm_point_sprite_x_filename<<"' のCreateEnumObjectに失敗しました。ファイルの存在を確認して下さい。");
 
     //TODO:GUIDなんとかする。今は完全無視。
     //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
@@ -460,7 +459,7 @@ void GgafDxModelManager::obtainPointSpriteInfo(PointSpriteXFileFmt* pPointSprite
     char* pXData = nullptr;
     pID3DXFileData->Lock(&xsize, (const void**)&pXData);
     if (pXData == nullptr) {
-        throwGgafCriticalException("GgafDxModelManager::obtainPointSpriteInfo() "<<prm_point_sprite_x_filename<<" のフォーマットエラー。");
+        throwGgafCriticalException(prm_point_sprite_x_filename<<" のフォーマットエラー。");
     }
     //    GUID* pGuid;
     //    pID3DXFileData->GetType(pGuid);
@@ -503,53 +502,53 @@ void GgafDxModelManager::obtainPointSpriteInfo(PointSpriteXFileFmt* pPointSprite
 }
 
 GgafResourceConnection<GgafDxModel>* GgafDxModelManager::processCreateConnection(const char* prm_idstr, GgafDxModel* prm_pResource) {
-    _TRACE3_(" GgafDxModelManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
+    _TRACE3_("prm_idstr="<<prm_idstr<<" を生成開始。");
     GgafDxModelConnection* p = NEW GgafDxModelConnection(prm_idstr, prm_pResource);
-    _TRACE3_(" GgafDxModelManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
+    _TRACE3_("prm_idstr="<<prm_idstr<<" を生成終了。");
     return p;
 }
 
 GgafDxModelManager::~GgafDxModelManager() {
-    _TRACE3_("GgafDxModelManager::~GgafDxModelManager() start-->");
+    _TRACE3_("start-->");
     GGAF_RELEASE(GgafDxModelManager::_pID3DXFile_sprx);
     GGAF_RELEASE(GgafDxModelManager::_pID3DXFile_psprx);
     GGAF_DELETE(GgafDxModelManager::_pModelTextureManager);
-    _TRACE3_("GgafDxModelManager::releaseAll() するけども、ここでは既に何も解放するものがないはずです");
+    _TRACE3_("するけども、ここでは既に何も解放するものがないはずです");
     releaseAll();
 }
 
 void GgafDxModelManager::restoreAll() {
-    _TRACE3_("GgafDxModelManager::restoreAll() start-->");
+    _TRACE3_("start-->");
     GgafResourceConnection<GgafDxModel>* pCurrent = _pConn_first;
     _TRACE3_("restoreAll pCurrent="<<pCurrent);
     while (pCurrent) {
         pCurrent->peek()->restore();
         pCurrent = pCurrent->getNext();
     }
-    _TRACE3_("GgafDxModelManager::restoreAll() end<--");
+    _TRACE3_("end<--");
 }
 
 void GgafDxModelManager::onDeviceLostAll() {
-    _TRACE3_("GgafDxModelManager::onDeviceLostAll() start-->");
+    _TRACE3_("start-->");
     GgafResourceConnection<GgafDxModel>* pCurrent = _pConn_first;
     _TRACE3_("onDeviceLostAll pCurrent="<<pCurrent);
     while (pCurrent) {
-        _TRACE_("GgafDxModelManager::onDeviceLostAll ["<<pCurrent->peek()->_model_name<<"] onDeviceLost begin");
+        _TRACE_(FUNC_NAME<<" ["<<pCurrent->peek()->_model_name<<"] onDeviceLost begin");
         pCurrent->peek()->onDeviceLost();
-        _TRACE_("GgafDxModelManager::onDeviceLostAll ["<<pCurrent->peek()->_model_name<<"] onDeviceLost end");
+        _TRACE_(FUNC_NAME<<" ["<<pCurrent->peek()->_model_name<<"] onDeviceLost end");
         pCurrent = pCurrent->getNext();
     }
-    _TRACE3_("GgafDxModelManager::onDeviceLostAll() end<--");
+    _TRACE3_("end<--");
 }
 
 void GgafDxModelManager::releaseAll() {
-    _TRACE3_("GgafDxModelManager::releaseAll() start-->");
+    _TRACE3_("start-->");
     GgafResourceConnection<GgafDxModel>* pCurrent = _pConn_first;
     while (pCurrent) {
         pCurrent->peek()->release();
         pCurrent = pCurrent->getNext();
     }
-    _TRACE3_("GgafDxModelManager::releaseAll() end<--");
+    _TRACE3_("end<--");
 }
 
 

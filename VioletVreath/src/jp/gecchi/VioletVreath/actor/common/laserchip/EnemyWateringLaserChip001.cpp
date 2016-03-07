@@ -86,7 +86,7 @@ void EnemyWateringLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
         return;
     }
 
-    bool was_destroyed = UTIL::transactEnemyHit(this, pOther);
+    bool was_destroyed = UTIL::performEnemyHit(this, pOther);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         sayonara();

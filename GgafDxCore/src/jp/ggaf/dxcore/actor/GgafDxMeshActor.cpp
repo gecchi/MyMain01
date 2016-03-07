@@ -67,14 +67,14 @@ void GgafDxMeshActor::processDraw() {
     ID3DXEffect* const pID3DXEffect = _pMeshEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_h_matWorld, &_matWorld );
-    checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetMatrix(_h_matWorld) に失敗しました。");
+    checkDxException(hr, D3D_OK, "SetMatrix(_h_matWorld) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pMeshEffect->_h_far_rate, _far_rate );
-    checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetFloat(_h_far_rate) に失敗しました。");
+    checkDxException(hr, D3D_OK, "SetFloat(_h_far_rate) に失敗しました。");
     if (_pBumpMapTextureConnection) {
         hr = GgafDxGod::_pID3DDevice9->SetTexture(2, getBumpMapTexture());
-        checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetTexture() に失敗しました。");
+        checkDxException(hr, D3D_OK, "に失敗しました。");
         hr = pID3DXEffect->SetMatrix(_pMeshEffect->_h_matInvWorld, getInvMatWorldRotMv() );
-        checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetMatrix(_h_matInvWorld) に失敗しました。");
+        checkDxException(hr, D3D_OK, "SetMatrix(_h_matInvWorld) に失敗しました。");
         //TODO:毎回逆行列をここで計算すれば良い、が、少しでもはやくするためにgetInvMatWorldRotMv()で代用。
         //getInvMatWorldRotMv() なので、拡大縮小が考慮されてない。軸ごとに拡大率が違う場合、バンプマップはちょっとおかしくなる。
     }

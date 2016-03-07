@@ -310,14 +310,14 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
     }
 
     if (pResource == nullptr) {
-        throwGgafCriticalException("DepositoryManager::processCreateResource("<<prm_idstr<<") 想定外のIDです。Depositoryが作成できません。");
+        throwGgafCriticalException("想定外のIDです。Depositoryが作成できません。");
     }
     return pResource;
 }
 
 GgafResourceConnection<GgafActorDepository>* DepositoryManager::processCreateConnection(const char* prm_idstr, GgafActorDepository* prm_pResource) {
-    _TRACE3_(" DepositoryManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
+    _TRACE3_("prm_idstr="<<prm_idstr<<" を生成開始。");
     DepositoryConnection* pConne = NEW DepositoryConnection(prm_idstr, prm_pResource);
-    _TRACE3_(" DepositoryManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
+    _TRACE3_("prm_idstr="<<prm_idstr<<" を生成終了。");
     return pConne;
 }

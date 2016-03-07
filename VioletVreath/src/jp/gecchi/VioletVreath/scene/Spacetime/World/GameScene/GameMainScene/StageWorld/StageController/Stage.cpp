@@ -28,7 +28,7 @@ void Stage::processBehavior() {
             if (pProg->hasJustChanged()) {
                 //乱数シード更新
                 uint32_t seed = (uint32_t)G_RANK_DISP;
-                _TRACE_("Stage::processBehavior() 乱数シード更新 changeSeed("+XTOS(seed)+")");
+                _TRACE_(FUNC_NAME<<" 乱数シード更新 changeSeed("+XTOS(seed)+")");
                 CmRandomNumberGenerator::getInstance()->changeSeed(seed);
             }
             break;

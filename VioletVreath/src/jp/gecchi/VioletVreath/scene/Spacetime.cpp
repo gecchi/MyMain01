@@ -72,7 +72,7 @@ Spacetime::CameraWorkerHistory::~CameraWorkerHistory() {
 Spacetime::Spacetime(const char* prm_name, Camera* prm_pCamera) : DefaultSpacetime(prm_name, prm_pCamera) {
     _class_name = "Spacetime";
     pWorld_ = nullptr;
-    _TRACE_("Spacetime::Spacetime()");
+    _TRACE_(FUNC_NAME<<"");
     pCamWorkerManager_ = NEW CameraWorkerManager("CameraWorkerManager");
 
     CameraWorkerConnection* pCamWorkerCon = (CameraWorkerConnection*)pCamWorkerManager_->connect("DefaultCamWorker", prm_pCamera);
@@ -87,7 +87,7 @@ Spacetime::Spacetime(const char* prm_name, Camera* prm_pCamera) : DefaultSpaceti
 void Spacetime::initialize() {
     pWorld_ = createInFactory(VioletVreath::World, "WORLD");
     addSubLast(pWorld_);
-    _TRACE_("Spacetime::initialize()");
+    _TRACE_(FUNC_NAME<<"");
 }
 
 void Spacetime::processBehavior() {
@@ -154,7 +154,7 @@ CameraWorker* Spacetime::changeCameraWork(const char* prm_pID) {
 }
 
 CameraWorker* Spacetime::undoCameraWork() {
-    _TRACE_("Spacetime::undoCameraWork()");
+    _TRACE_(FUNC_NAME<<"");
 //    stack_CamWorkerConnection_.dump();
     //    |      |                       |      |
     //    +------+                       |      |
@@ -181,7 +181,7 @@ CameraWorker* Spacetime::undoCameraWork() {
                 pActiveCamWorker_->activate();
             } else {
                 stack_CamWorkerConnection_.dump();
-                throwGgafCriticalException("Spacetime::undoCameraWork()  stack_CameraWorker_ から pop() しすぎ。");
+                throwGgafCriticalException("stack_CameraWorker_ から pop() しすぎ。");
             }
             pConn_now->close();
 //            _TRACE_("undoCameraWork end---");
@@ -197,13 +197,13 @@ CameraWorker* Spacetime::undoCameraWork() {
         }
     } else {
         stack_CamWorkerConnection_.dump();
-        throwGgafCriticalException("Spacetime::undoCameraWork()  stack_CameraWorker_ から pop() しすぎにも程がある");
+        throwGgafCriticalException("stack_CameraWorker_ から pop() しすぎにも程がある");
     }
 }
 
 void Spacetime::resetCamWorker() {
     //DefaultCamWorkerまでキレイにする
-   _TRACE_("Spacetime::resetCamWorker()");
+   _TRACE_(FUNC_NAME<<"");
 //    stack_CamWorkerConnection_.dump();
     for (int i = 0; i < 30; i++) {
         if (stack_CamWorkerConnection_.p_ == 1) {

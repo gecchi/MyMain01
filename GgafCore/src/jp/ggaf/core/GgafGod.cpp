@@ -35,7 +35,7 @@ GgafGod::GgafGod() : GgafObject(),
     _handleFactory01 = (HANDLE)_beginthreadex(nullptr, 0, GgafCore::GgafFactory::work, nullptr, CREATE_SUSPENDED, &_thID01);
 
     if (_handleFactory01 == 0) {
-        throwGgafCriticalException("GgafGod::GgafGod() Error! スレッド作成失敗！");
+        throwGgafCriticalException("Error! スレッド作成失敗！");
     }
     ::InitializeCriticalSection(&(GgafGod::CS1));
     ::InitializeCriticalSection(&(GgafGod::CS2));
@@ -108,7 +108,7 @@ void GgafGod::be() {
         _pSpacetime = createSpacetime();
 #ifdef MY_DEBUG
         if (_pSpacetime == nullptr) {
-            throwGgafCriticalException("GgafGod::be() Error! この世を実装して下さい！");
+            throwGgafCriticalException("Error! この世を実装して下さい！");
         }
 #endif
         _pSpacetime->_pGod = this;
@@ -231,7 +231,7 @@ void GgafGod::finalizeSpacetime() {
 
 void GgafGod::clean() {
     if (!_was_cleaned) {
-        _TRACE_("GgafGod::clean() start");
+        _TRACE_(FUNC_NAME<<" start");
         if (_pSpacetime) {
             _TRACE_("_pSpacetime != nullptr");
             //工場を止める
@@ -250,7 +250,7 @@ void GgafGod::clean() {
             _TRACE_("GgafGod::~GgafGod()  WaitForSingleObject(_handleFactory01, 120*1000) .....");
             DWORD r = WaitForSingleObject(_handleFactory01, 120*1000);  //DeleteCriticalSectionを行うために必要
             if (r == WAIT_TIMEOUT) {
-                throwGgafCriticalException("GgafGod::~GgafGod() 工場が落ち着いたにもかかわらず、２分たってもスレッドが残っています。");
+                throwGgafCriticalException("工場が落ち着いたにもかかわらず、２分たってもスレッドが残っています。");
             }
             _TRACE_("GgafGod::~GgafGod()  CloseHandle(_handleFactory01) .....");
             CloseHandle(_handleFactory01);
@@ -266,7 +266,7 @@ void GgafGod::clean() {
 #endif
 
             //工場掃除
-            _TRACE_("GgafFactory::clean()");
+            _TRACE_(FUNC_NAME<<"");
             GgafFactory::clean();
             //ゴミ箱
 #ifdef MY_DEBUG
@@ -288,7 +288,7 @@ void GgafGod::clean() {
         //工場例外 _pException_factory が起こっているかもしれない。
         _TRACE_("GGAF_DELETE_NULLABLE(_pException_factory);");
         GGAF_DELETE_NULLABLE(_pException_factory);
-        _TRACE_("GgafGod::clean() end");
+        _TRACE_(FUNC_NAME<<" end");
     }
 }
 

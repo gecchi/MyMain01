@@ -16,7 +16,7 @@ using namespace GgafDxCore;
 
 
 GgafDxMassModel::GgafDxMassModel(const char* prm_model_name) : GgafDxModel(prm_model_name) {
-    _TRACE3_("GgafDxMassModel::GgafDxMassModel(" << _model_name << ")");
+    _TRACE3_("_model_name="<<_model_name);
     _set_num = 0;
     _pVertexBuffer_model = nullptr;
     _pVertexBuffer_instacedata = nullptr;
@@ -46,10 +46,10 @@ void GgafDxMassModel::createVertexElements() {
     if (_pVertexDeclaration == nullptr) {
 #ifdef MY_DEBUG
         if (!_pFunc_getVertexModel) {
-            throwGgafCriticalException("GgafDxMassModel::createVertexElements() _pFunc_getVertexModel を定義してください。モデル頂点情報が必要です。");
+            throwGgafCriticalException("_pFunc_getVertexModel を定義してください。モデル頂点情報が必要です。");
         }
         if (!_pFunc_getVertexInstaceData) {
-            throwGgafCriticalException("GgafDxMassModel::createVertexElements() _pFunc_getVertexInstaceData を定義してください。インスタンスデータ情報が必要です。");
+            throwGgafCriticalException("_pFunc_getVertexInstaceData を定義してください。インスタンスデータ情報が必要です。");
         }
 #endif
         VertexModelInfo model_info;
@@ -94,7 +94,7 @@ void GgafDxMassModel::createVertexElements() {
         paVtxelem[elem_num-1].UsageIndex = 0;
 
         hr = GgafDxGod::_pID3DDevice9->CreateVertexDeclaration( paVtxelem, &(_pVertexDeclaration) );
-        checkDxException(hr, D3D_OK, "GgafDxMassModel::restore() GgafDxGod::_pID3DDevice9->CreateVertexDeclaration 失敗 model="<<(_model_name));
+        checkDxException(hr, D3D_OK, "GgafDxGod::_pID3DDevice9->CreateVertexDeclaration 失敗 model="<<(_model_name));
         GGAF_DELETEARR(paVtxelem);
     }
     //デバイスに頂点バッファ作成(インスタンスデータ)
@@ -106,23 +106,23 @@ void GgafDxMassModel::createVertexElements() {
             D3DPOOL_DEFAULT,
             &(_pVertexBuffer_instacedata),
             nullptr);
-    checkDxException(hr, D3D_OK, "GgafDxMassModel::restore() _pID3DDevice9->CreateVertexBuffer2 失敗 model="<<_model_name);
+    checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer2 失敗 model="<<_model_name);
     void *pDeviceMemory;
     hr = _pVertexBuffer_instacedata->Lock(0, size_instancedata, (void**)&pDeviceMemory, 0);
-    checkDxException(hr, D3D_OK, "GgafDxMassModel::restore() 頂点バッファのロック取得に失敗2 model="<<_model_name);
+    checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗2 model="<<_model_name);
     ZeroMemory(pDeviceMemory, size_instancedata);
     hr = _pVertexBuffer_instacedata->Unlock();
-    checkDxException(hr, D3D_OK, "GgafDxMassModel::restore() 頂点バッファのアンロック取得に失敗2 model="<<_model_name);
+    checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗2 model="<<_model_name);
 }
 
 void GgafDxMassModel::onDeviceLost() {
-    _TRACE3_("GgafDxMassModel::onDeviceLost() " << _model_name << " start");
+    _TRACE3_("_model_name=" << _model_name << " start");
     release();
-    _TRACE3_("GgafDxMassModel::onDeviceLost() " << _model_name << " end");
+    _TRACE3_("_model_name=" << _model_name << " end");
 }
 
 void GgafDxMassModel::release() {
-    _TRACE3_("GgafDxMassModel::release() " << _model_name << " start");
+    _TRACE3_("_model_name=" << _model_name << " start");
     //テクスチャを解放
     if (_papTextureConnection) {
         for (int i = 0; i < (int)_num_materials; i++) {
@@ -137,7 +137,7 @@ void GgafDxMassModel::release() {
     GGAF_RELEASE(_pVertexBuffer_model);
     GGAF_RELEASE(_pIndexBuffer);
     GGAF_RELEASE(_pVertexDeclaration);
-    _TRACE3_("GgafDxMassModel::release() " << _model_name << " end");
+    _TRACE3_("_model_name=" << _model_name << " end");
 }
 
 GgafDxMassModel::~GgafDxMassModel() {

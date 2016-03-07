@@ -30,16 +30,16 @@ void GgafDxSound::init() {
     HRESULT hr;
     hr = DirectSoundCreate8(nullptr, &GgafDxSound::_pIDirectSound8, nullptr);
     if (hr != D3D_OK) {
-        throwGgafCriticalException("GgafDxSound::init() GgafDxSoundが初期化できません。サウンドカードデバイスに問題ないか確認してください。");
+        throwGgafCriticalException("GgafDxSoundが初期化できません。サウンドカードデバイスに問題ないか確認してください。");
     }
     hr = GgafDxSound::_pIDirectSound8->SetCooperativeLevel(GgafDxGod::_pHWndPrimary, DSSCL_PRIORITY );
     if (hr != D3D_OK) {
-        throwGgafCriticalException("GgafDxSound::init() SetCooperativeLevel失敗。");
+        throwGgafCriticalException("SetCooperativeLevel失敗。");
     }
     GgafDxSound::_dsCaps.dwSize = sizeof(GgafDxSound::_dsCaps);
     hr = GgafDxSound::_pIDirectSound8->GetCaps(&GgafDxSound::_dsCaps);
     if (hr != D3D_OK) {
-        throwGgafCriticalException("GgafDxSound::init() GetCaps失敗。");
+        throwGgafCriticalException("GetCaps失敗。");
     }
     GgafDxSound::_pBgmManager = NEW GgafDxBgmManager("OggBgmManager");
     GgafDxSound::_pSeManager = NEW GgafDxSeManager("SoundEffectManager");
@@ -115,12 +115,12 @@ void GgafDxSound::addSeMasterVolume(int prm_se_master_volume_offset) {
 }
 
 void GgafDxSound::release() {
-    _TRACE_("GgafDxSound::release() begin");
+    _TRACE_("begin");
     _TRACE_("GGAF_DELETE(GgafDxSound::_pBgmManager);");
     GGAF_DELETE(GgafDxSound::_pBgmManager);
     _TRACE_("GGAF_DELETE(GgafDxSound::_pSeManager);");
     GGAF_DELETE(GgafDxSound::_pSeManager);
     _TRACE_("GGAF_RELEASE(GgafDxSound::_pIDirectSound8);");
     GGAF_RELEASE(GgafDxSound::_pIDirectSound8);
-    _TRACE_("GgafDxSound::release() end");
+    _TRACE_("end");
 }

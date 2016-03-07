@@ -63,7 +63,7 @@ MenuBoardConfig::MenuBoardConfig(const char* prm_name) :
 }
 
 void MenuBoardConfig::onActive() {
-    _TRACE_("MenuBoardConfig::onActive()!");
+    _TRACE_(FUNC_NAME<<"!");
 }
 
 bool MenuBoardConfig::condSelectNext() {
@@ -80,7 +80,7 @@ void MenuBoardConfig::onRise() {
 }
 
 void MenuBoardConfig::onRiseDone() {
-    _TRACE_("MenuBoardConfig::onRiseDone()!");
+    _TRACE_(FUNC_NAME<<"!");
 }
 
 void MenuBoardConfig::processBehavior() {
@@ -103,7 +103,7 @@ void MenuBoardConfig::onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm
 }
 
 void MenuBoardConfig::onSinkDone() {
-    _TRACE_("MenuBoardConfig::onSinkDone()!");
+    _TRACE_(FUNC_NAME<<"!");
 }
 
 MenuBoardConfig::~MenuBoardConfig() {

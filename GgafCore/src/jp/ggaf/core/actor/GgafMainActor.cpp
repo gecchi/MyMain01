@@ -28,7 +28,7 @@ void GgafMainActor::updateActiveInTheTree() {
 #ifdef MY_DEBUG
     if (_pParent) {
     } else {
-        throwGgafCriticalException("GgafMainActor::updateActiveInTheTree() _is_active_in_the_tree_flg 更新できません。this="<<NODE_INFO);
+        throwGgafCriticalException("_is_active_in_the_tree_flg 更新できません。this="<<NODE_INFO);
     }
 #endif
     if (_pParent->_is_active_in_the_tree_flg) {
@@ -186,7 +186,7 @@ GgafGroupHead* GgafMainActor::searchSubGroupHead(actorkind prm_kind) {
 GgafGod* GgafMainActor::askGod() {
     if (_pGod == nullptr) {
         if (_pParent == nullptr) {
-            throwGgafCriticalException("GgafMainActor::askGod 神はこの世に存在する物からのみ謁見できます。まずはこの世に属しなさい！！("<<getName()<<")");
+            throwGgafCriticalException("神はこの世に存在する物からのみ謁見できます。まずはこの世に属しなさい！！("<<getName()<<")");
         }
         _pGod = getParent()->askGod();
     }

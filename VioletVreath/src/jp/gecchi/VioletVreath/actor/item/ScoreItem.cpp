@@ -18,8 +18,8 @@ ScoreItem::ScoreItem(const char* prm_name, const char* prm_model, GgafCore::Ggaf
     _class_name = "ScoreItem";
     pAxsMver_ = NEW GgafDxAxesMover(this);
     effectBlendOne(); //加算合成するTechnique指定
-    setZEnable(true);        //Zバッファは考慮有り
-    setZWriteEnable(false);  //Zバッファは書き込み無し
+    setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
+    setZWriteEnable(false);  //自身のZバッファを書き込みしない
     setAlpha(0.9);
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(AXIS_X, D_ANG(3));

@@ -21,7 +21,7 @@ class GgafDxBoardActor : public GgafDxFigureActor {
      * @return
      */
     int isOutOfView() override {
-        throwGgafCriticalException("GgafDxBoardActor::isOutOfView() は使用不可です。");
+        throwGgafCriticalException("は使用不可です。");
         return 0;
     }
 
@@ -30,7 +30,7 @@ class GgafDxBoardActor : public GgafDxFigureActor {
      * @return
      */
     bool isOutOfSpacetime() const override {
-        throwGgafCriticalException("GgafDxBoardActor::isOutOfSpacetime() は使用不可です。");
+        throwGgafCriticalException("は使用不可です。");
         return false;
     }
 
@@ -46,7 +46,7 @@ class GgafDxBoardActor : public GgafDxFigureActor {
                                              int prm_rx_init_local,
                                              int prm_ry_init_local,
                                              int prm_rz_init_local) override {
-        throwGgafCriticalException("GgafDxBoardActor::addSubGroupAsFk() は使用不可です。");
+        throwGgafCriticalException("は使用不可です。");
         return nullptr;
     }
 
@@ -61,7 +61,7 @@ class GgafDxBoardActor : public GgafDxFigureActor {
                                              int prm_rx_init_local,
                                              int prm_ry_init_local,
                                              int prm_rz_init_local) override {
-        throwGgafCriticalException("GgafDxBoardActor::addSubGroupAsFk() は使用不可です。");
+        throwGgafCriticalException("は使用不可です。");
         return nullptr;
     }
 

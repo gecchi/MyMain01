@@ -856,7 +856,7 @@ void GgafDxKuroko::getRzRyMvAngDistanceTwd(angle prm_target_ang_rz, angle prm_ta
         }
     } else {
         //おかしい
-        throwGgafCriticalException("GgafDxKuroko::getRzRyMvAngDistanceTwd() prm_way="<<prm_way<<" は想定外です。_pActor="<<_pActor->getName());
+        throwGgafCriticalException("prm_way="<<prm_way<<" は想定外です。_pActor="<<_pActor->getName());
     }
 }
 
@@ -925,7 +925,7 @@ void GgafDxKuroko::getRzRyFaceAngDistanceTwd(angle prm_target_ang_rz, angle prm_
         }
     } else {
         //おかしい
-        throwGgafCriticalException("GgafDxKuroko::getRzRyMvAngDistanceTwd() prm_way="<<prm_way<<" は想定外です。_pActor="<<_pActor->getName());
+        throwGgafCriticalException("prm_way="<<prm_way<<" は想定外です。_pActor="<<_pActor->getName());
     }
 }
 

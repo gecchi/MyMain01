@@ -74,14 +74,14 @@ void GgafDxSpriteSetActor::processDraw() {
                 pSpriteSetActor->_matWorld._42 += PX_C(_pSpriteSetModel->_model_height_px/2);
             }
             hr = pID3DXEffect->SetMatrix(pSpriteSetEffect->_ah_matWorld[draw_set_num], &(pSpriteSetActor->_matWorld) );
-            checkDxException(hr, D3D_OK, "GgafDxSpriteSetActor::processDraw SetMatrix(_h_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+            checkDxException(hr, D3D_OK, "SetMatrix(_h_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
             pSpriteSetActor->_pUvFlipper->getUV(u,v);
             hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_offset_u[draw_set_num], u);
-            checkDxException(hr, D3D_OK, "GgafDxSpriteSetActor::processDraw() SetFloat(_h_offset_u) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+            checkDxException(hr, D3D_OK, "SetFloat(_h_offset_u) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
             hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_offset_v[draw_set_num], v);
-            checkDxException(hr, D3D_OK, "GgafDxSpriteSetActor::processDraw() SetFloat(_h_offset_v) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+            checkDxException(hr, D3D_OK, "SetFloat(_h_offset_v) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
             hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_alpha[draw_set_num], pSpriteSetActor->_alpha);
-            checkDxException(hr, D3D_OK, "GgafDxSpriteSetActor::processDraw SetFloat(_alpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+            checkDxException(hr, D3D_OK, "SetFloat(_alpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
             draw_set_num++;
             if (draw_set_num >= model_set_num) {

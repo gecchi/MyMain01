@@ -16,25 +16,25 @@ GgafDepositoryFormation::GgafDepositoryFormation(const char* prm_name, frame prm
 void GgafDepositoryFormation::setFormationMember(GgafActorDepository* prm_pDepo) {
 #ifdef MY_DEBUG
     if (_pDepo) {
-        throwGgafCriticalException("GgafDepositoryFormation::setFormationMember 既にデポジトリは登録済み("<<_pDepo->getName()<<")です。\n"<<
+        throwGgafCriticalException("既にデポジトリは登録済み("<<_pDepo->getName()<<")です。\n"<<
                                    "this="<<NODE_INFO<<" prm_pDepo="<<NODE_INFO_P(prm_pDepo)<<"");
     }
     if (prm_pDepo) {
         //OK
     } else {
-        throwGgafCriticalException("GgafDepositoryFormation::setFormationMember 不正なデポジトリです。\n"<<
+        throwGgafCriticalException("不正なデポジトリです。\n"<<
                                    "this="<<NODE_INFO<<" prm_pDepo="<<NODE_INFO_P(prm_pDepo)<<"");
     }
     if (prm_pDepo->getSubFirst()) {
         //OK
     } else {
-        throwGgafCriticalException("GgafDepositoryFormation::setFormationMember("<<prm_pDepo->getName()<<") 引数デポジトリのサブが存在しません。\n"<<
+        throwGgafCriticalException("引数デポジトリのサブが存在しません。\n"<<
                                    "this="<<NODE_INFO<<" prm_pDepo="<<NODE_INFO_P(prm_pDepo)<<"");
     }
     if (prm_pDepo->getPlatformScene()) {
         //OK
     } else {
-        throwGgafCriticalException("GgafDepositoryFormation::setFormationMember("<<prm_pDepo->getName()<<") 引数デポジトリがシーンに未所属です。\n"<<
+        throwGgafCriticalException("引数デポジトリがシーンに未所属です。\n"<<
                                    "this="<<NODE_INFO<<" prm_pDepo="<<NODE_INFO_P(prm_pDepo)<<"");
     }
 #endif
@@ -129,7 +129,7 @@ GgafActor* GgafDepositoryFormation::callUpMember(int prm_formation_sub_num) {
     }
 #ifdef MY_DEBUG
     if (!_pDepo) {
-        throwGgafCriticalException("GgafDepositoryFormation::callUpUntil "<<getName()<<"は、Depositoryが指定されてません。setFormationMemberが必要です。"<<
+        throwGgafCriticalException(getName()<<"は、Depositoryが指定されてません。setFormationMemberが必要です。"<<
                                    "this="<<getName()<<" _num_formation_member="<<_num_formation_member);
     }
 #endif
@@ -167,7 +167,7 @@ void GgafDepositoryFormation::sayonaraFollwer() {
     for (int i = 0; i < n; i++) {
 #ifdef MY_DEBUG
         if (_listFollower.getCurrent()->_pFormation != this) {
-            throwGgafCriticalException("GgafDepositoryFormation::sayonaraFollwer() _listFollowerに自身のformation管理ではないメンバーがいました。なんか壊れてます。\n"<<
+            throwGgafCriticalException("_listFollowerに自身のformation管理ではないメンバーがいました。なんか壊れてます。\n"<<
                                        " this="<<NODE_INFO<<" \n"<<
                                        " _listFollower.getCurrent()="<<(_listFollower.getCurrent()->getName())<<"("<<(_listFollower.getCurrent())<<") \n"<<
                                        " _listFollower.getCurrent()->_pFormation="<<(_listFollower.getCurrent()->_pFormation->getName())<<"("<<(_listFollower.getCurrent()->_pFormation)<<") ");
@@ -189,7 +189,7 @@ void GgafDepositoryFormation::sayonaraFollwer() {
 //            _listFollower.getCurrent()->sayonara();
 //            _listFollower.getCurrent()->_pFormation = nullptr;
 //        } else {
-//            throwGgafCriticalException("GgafDepositoryFormation::sayonaraFollwer() _listFollowerに自身のformation管理ではないメンバーがいました！\n"<<
+//            throwGgafCriticalException("_listFollowerに自身のformation管理ではないメンバーがいました！\n"<<
 //                                       " this="<<NODE_INFO<<" \n"<<
 //                                       " _listFollower.getCurrent()="<<(_listFollower.getCurrent()->getName())<<"("<<(_listFollower.getCurrent())<<") \n"<<
 //                                       " _listFollower.getCurrent()->_pFormation="<<(_listFollower.getCurrent()->_pFormation->getName())<<"("<<(_listFollower.getCurrent()->_pFormation)<<") ");

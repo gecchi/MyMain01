@@ -32,7 +32,7 @@ void CappedGraphBarActor::processDraw() {
     HRESULT hr;
 #ifdef MY_DEBUG
     if (_align != ALIGN_LEFT) {
-        throwGgafCriticalException("CappedGraphBarActor::processDraw() X座標アライメントは ALIGN_LEFT 以外出来ません。this="<<NODE_INFO);
+        throwGgafCriticalException("X座標アライメントは ALIGN_LEFT 以外出来ません。this="<<NODE_INFO);
     }
 #endif
     if (_valign == VALIGN_BOTTOM) {
@@ -42,14 +42,14 @@ void CappedGraphBarActor::processDraw() {
     } else { //VALIGN_TOP
         hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_y, 0.0f);
     }
-    checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_h_local_left_top_y) に失敗しました。");
+    checkDxException(hr, D3D_OK, "SetFloat(_h_local_left_top_y) に失敗しました。");
 
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_rz, ANG_RAD(_rz));
-    checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_h_rz) に失敗しました。");
+    checkDxException(hr, D3D_OK, "SetFloat(_h_rz) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_depth_z, (float)(C_PX(_z)));
-    checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_h_depth_z) に失敗しました。");
+    checkDxException(hr, D3D_OK, "SetFloat(_h_depth_z) に失敗しました。");
     hr = pID3DXEffect->SetValue(_pBoardEffect->_h_colMaterialDiffuse, &(_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
-    checkDxException(hr, D3D_OK, "CappedGraphBarActor::draw() SetValue(_h_colMaterialDiffuse) に失敗しました。");
+    checkDxException(hr, D3D_OK, "SetValue(_h_colMaterialDiffuse) に失敗しました。");
 
     if (bar_width > 0.0f) {
         //_pUvFlipper->_pattno_uvflip_now は <=> の "<" の番号に合わせること！
@@ -57,32 +57,32 @@ void CappedGraphBarActor::processDraw() {
             // <=> の真ん中 = を表示
             _pUvFlipper->_pattno_uvflip_now++;
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_transformed_x, left_x + (_chip_width * SC_R(_sx)) );
-            checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_h_transformed_x) に失敗しました。3");
+            checkDxException(hr, D3D_OK, "SetFloat(_h_transformed_x) に失敗しました。3");
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_transformed_y, top_y);
-            checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_h_transformed_y) に失敗しました。3");
+            checkDxException(hr, D3D_OK, "SetFloat(_h_transformed_y) に失敗しました。3");
 
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_x, 0.0f);
-            checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_h_local_left_top_x) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetFloat(_h_local_left_top_x) に失敗しました。");
 
             float sx = (bar_width * _rate_org_chip_width) -  2.0f;
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_sx, sx * SC_R(_sx));
-            checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_sx) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetFloat(_sx) に失敗しました。");
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_sy, SC_R(_sy));
-            checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_sy) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetFloat(_sy) に失敗しました。");
             _pBoardModel->GgafDxBoardModel::draw(this);
 
             // <=> の左部品 < を表示
             _pUvFlipper->_pattno_uvflip_now--;
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_transformed_x, left_x);
-            checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_h_transformed_x) に失敗しました。3");
+            checkDxException(hr, D3D_OK, "SetFloat(_h_transformed_x) に失敗しました。3");
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_sx, 1.0f * SC_R(_sx));
-            checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_sx) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetFloat(_sx) に失敗しました。");
             _pBoardModel->GgafDxBoardModel::draw(this);
 
             // <=> の右部品 > を表示
             _pUvFlipper->_pattno_uvflip_now += 2;
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_transformed_x, left_x + ((bar_width - _chip_width)*SC_R(_sx)) );
-            checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_h_transformed_x) に失敗しました。3");
+            checkDxException(hr, D3D_OK, "SetFloat(_h_transformed_x) に失敗しました。3");
             _pBoardModel->GgafDxBoardModel::draw(this);
 
             _pUvFlipper->_pattno_uvflip_now -=2 ; //もとに戻す
@@ -90,24 +90,24 @@ void CappedGraphBarActor::processDraw() {
 
             // <=> の左部品 < を表示
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_transformed_x, left_x);
-            checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_h_transformed_x) に失敗しました。3");
+            checkDxException(hr, D3D_OK, "SetFloat(_h_transformed_x) に失敗しました。3");
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_transformed_y, top_y);
-            checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_h_transformed_y) に失敗しました。3");
+            checkDxException(hr, D3D_OK, "SetFloat(_h_transformed_y) に失敗しました。3");
 
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_x, 0.0f);
-            checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_h_local_left_top_x) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetFloat(_h_local_left_top_x) に失敗しました。");
 
             float sx = (bar_width * _rate_org_chip_width) * 0.5f;
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_sx, sx * SC_R(_sx));
-            checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_sx) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetFloat(_sx) に失敗しました。");
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_sy, SC_R(_sy));
-            checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_sy) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetFloat(_sy) に失敗しました。");
             _pBoardModel->GgafDxBoardModel::draw(this);
 
             // <=> の右部品 > を表示
             _pUvFlipper->_pattno_uvflip_now += 2;
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_transformed_x, left_x + ((_chip_width*sx)*SC_R(_sx)) );
-            checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_h_transformed_x) に失敗しました。3");
+            checkDxException(hr, D3D_OK, "SetFloat(_h_transformed_x) に失敗しました。3");
             _pBoardModel->GgafDxBoardModel::draw(this);
 
             _pUvFlipper->_pattno_uvflip_now -=2; //もとに戻す
@@ -118,32 +118,32 @@ void CappedGraphBarActor::processDraw() {
             // <=> の真ん中 = を反転表示
             _pUvFlipper->_pattno_uvflip_now++;
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_transformed_x, left_x - (_chip_width * SC_R(_sx)) );
-            checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_h_transformed_x) に失敗しました。3");
+            checkDxException(hr, D3D_OK, "SetFloat(_h_transformed_x) に失敗しました。3");
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_transformed_y, top_y);
-            checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_h_transformed_y) に失敗しました。3");
+            checkDxException(hr, D3D_OK, "SetFloat(_h_transformed_y) に失敗しました。3");
 
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_x, 0.0f);
-            checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_h_local_left_top_x) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetFloat(_h_local_left_top_x) に失敗しました。");
 
             float sx = (-bar_width * _rate_org_chip_width) - 2.0f;
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_sx, -sx * SC_R(_sx));
-            checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_sx) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetFloat(_sx) に失敗しました。");
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_sy, SC_R(_sy));
-            checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_sy) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetFloat(_sy) に失敗しました。");
             _pBoardModel->GgafDxBoardModel::draw(this);
 
             // <=> の左部品 < を反転表示して右部品 > を表示
             _pUvFlipper->_pattno_uvflip_now--;
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_transformed_x, left_x);
-            checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_h_transformed_x) に失敗しました。3");
+            checkDxException(hr, D3D_OK, "SetFloat(_h_transformed_x) に失敗しました。3");
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_sx, -1.0f * SC_R(_sx));
-            checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_sx) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetFloat(_sx) に失敗しました。");
             _pBoardModel->GgafDxBoardModel::draw(this);
 
             // <=> の右部品 > を反転表示して左部品 < を表示
             _pUvFlipper->_pattno_uvflip_now += 2;
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_transformed_x, left_x - (((-bar_width) - _chip_width)*SC_R(_sx)) );
-            checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_h_transformed_x) に失敗しました。3");
+            checkDxException(hr, D3D_OK, "SetFloat(_h_transformed_x) に失敗しました。3");
             _pBoardModel->GgafDxBoardModel::draw(this);
 
             _pUvFlipper->_pattno_uvflip_now -=2; //もとに戻す
@@ -153,23 +153,23 @@ void CappedGraphBarActor::processDraw() {
 
             // <=> の左部品 < を反転表示して右部品 > を表示
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_transformed_x, left_x);
-            checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_h_transformed_x) に失敗しました。3");
+            checkDxException(hr, D3D_OK, "SetFloat(_h_transformed_x) に失敗しました。3");
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_transformed_y, top_y);
-            checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_h_transformed_y) に失敗しました。3");
+            checkDxException(hr, D3D_OK, "SetFloat(_h_transformed_y) に失敗しました。3");
 
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_x, 0.0f);
-            checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_h_local_left_top_x) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetFloat(_h_local_left_top_x) に失敗しました。");
 
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_sx, -sx * SC_R(_sx));
-            checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_sx) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetFloat(_sx) に失敗しました。");
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_sy, SC_R(_sy));
-            checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_sy) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetFloat(_sy) に失敗しました。");
             _pBoardModel->GgafDxBoardModel::draw(this);
 
             // <=> の右部品 > を反転表示して左部品 < を表示
             _pUvFlipper->_pattno_uvflip_now += 2;
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_transformed_x, left_x - ((_chip_width*sx)*SC_R(_sx)) );
-            checkDxException(hr, D3D_OK, "CappedGraphBarActor::processDraw() SetFloat(_h_transformed_x) に失敗しました。3");
+            checkDxException(hr, D3D_OK, "SetFloat(_h_transformed_x) に失敗しました。3");
             _pBoardModel->GgafDxBoardModel::draw(this);
             _pUvFlipper->_pattno_uvflip_now -= 2; //もとに戻す
         }

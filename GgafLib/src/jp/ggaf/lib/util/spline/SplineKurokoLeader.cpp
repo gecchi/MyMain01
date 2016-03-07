@@ -54,7 +54,7 @@ SplineKurokoLeader::SplineKurokoLeader(SplineManufacture* prm_pManufacture, Ggaf
 void SplineKurokoLeader::getPointCoord(int prm_point_index, coord& out_x, coord& out_y, coord& out_z) {
 #ifdef MY_DEBUG
     if (prm_point_index >= _pManufacture->_sp->_rnum) {
-        throwGgafCriticalException("SplineKurokoLeader::getPointCoord ポイントのインデックスオーバー。"<<
+        throwGgafCriticalException("ポイントのインデックスオーバー。"<<
                                    "補完点数="<<(_pManufacture->_sp->_rnum)<<" prm_point_index="<<prm_point_index);
     }
 #endif
@@ -252,7 +252,7 @@ void SplineKurokoLeader::start(SplinTraceOption prm_option, int prm_max_loop) {
         _cnt_loop = 1;
         restart();
     } else {
-        throwGgafCriticalException("SplineKurokoLeader::start Manufactureがありません。_pActor_target="<<_pActor_target->getName());
+        throwGgafCriticalException("Manufactureがありません。_pActor_target="<<_pActor_target->getName());
     }
 }
 
@@ -267,7 +267,7 @@ void SplineKurokoLeader::setAbsoluteBeginCoord() {
 coord SplineKurokoLeader::getSegmentDistance(int prm_index) {
 #ifdef MY_DEBUG
     if (prm_index < 0 || prm_index > (_pManufacture->_sp->_rnum -1)) {
-        throwGgafCriticalException("SplineKurokoLeader::getSegmentDistance("<<prm_index<<") は、範囲外です._pActor_target="<< _pActor_target <<"["<< _pActor_target->getName() <<"]");
+        throwGgafCriticalException("prm_index="<<prm_index<<" は、範囲外です._pActor_target="<< _pActor_target <<"["<< _pActor_target->getName() <<"]");
     }
 #endif
     if (prm_index == 0) {

@@ -240,13 +240,13 @@ void FormationDelheid::order3(GgafCore::GgafActor* prm_pDelheid, void* prm1, voi
 
 void FormationDelheid::onSayonaraAll() {
     //このコールバックが呼び出された時点で、余命は FORMATION_END_DELAY フレームのはず
-    _TRACE_("FormationDelheid::onSayonaraAll() です");
+    _TRACE_(FUNC_NAME<<" です");
     getProgress()->change(PROG_LEAVE);
     //解放を待つ
 }
 
 void FormationDelheid::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
-    UTIL::transactFormationDestroyAll((GgafDxFigureActor*)prm_pActor_last_destroyed);
+    UTIL::performFormationDestroyAll((GgafDxFigureActor*)prm_pActor_last_destroyed);
 }
 
 FormationDelheid::~FormationDelheid() {

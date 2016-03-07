@@ -121,7 +121,7 @@ void MenuBoardPause::processBehavior() {
         if (pSubConfirm->hasJustDecidedOk()) {
             sinkCurrentSubMenu();
             sinkMe();
-            _TRACE_("MenuBoardPause::processBehavior() throwEventUpperTree(EVENT_GO_TO_TITLE)");
+            _TRACE_(FUNC_NAME<<" throwEventUpperTree(EVENT_GO_TO_TITLE)");
             throwEventUpperTree(EVENT_GO_TO_TITLE);
         } else if (pSubConfirm->hasJustDecidedCancel()) {
             sinkCurrentSubMenu();

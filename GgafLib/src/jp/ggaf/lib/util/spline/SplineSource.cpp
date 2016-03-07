@@ -30,7 +30,7 @@ SplineSource::SplineSource(const char* prm_idstr)  : GgafObject() {
     std::string data_filename = PROPERTY::DIR_SPLINE + _idstr;// + ".spls";
     std::ifstream ifs(data_filename.c_str());
     if (ifs.fail()) {
-        throwGgafCriticalException("SplineSource::SplineSource "<<data_filename<<" が開けません");
+        throwGgafCriticalException(data_filename<<" が開けません");
     }
     double p[MaxSplineSize][3];
     std::string line;
@@ -54,11 +54,11 @@ SplineSource::SplineSource(const char* prm_idstr)  : GgafObject() {
                 iss >> p[n][1];
                 iss >> p[n][2];
                 if (iss.fail()) {
-                    throwGgafCriticalException("SplineSource::SplineSource "<<_idstr<<" [BASEPOINT]不正な数値データです line=["<<line<<"]");
+                    throwGgafCriticalException(_idstr<<" [BASEPOINT]不正な数値データです line=["<<line<<"]");
                 }
                 n++;
                 if (n >= MaxSplineSize) {
-                    throwGgafCriticalException("SplineSource::SplineSource "<<_idstr<<" ポイントが"<<MaxSplineSize<<"を超えました。");
+                    throwGgafCriticalException(_idstr<<" ポイントが"<<MaxSplineSize<<"を超えました。");
                 }
             }
         }
@@ -70,7 +70,7 @@ SplineSource::SplineSource(const char* prm_idstr)  : GgafObject() {
                 std::istringstream iss(line);
                 iss >> accuracy;
                 if (iss.fail()) {
-                    throwGgafCriticalException("SplineSource::SplineSource "<<_idstr<<" [ACCURACY]不正な数値データです line=["<<line<<"]");
+                    throwGgafCriticalException(_idstr<<" [ACCURACY]不正な数値データです line=["<<line<<"]");
                 }
             }
         }
@@ -89,23 +89,23 @@ SplineSource::SplineSource(const char* prm_idstr)  : GgafObject() {
                 } else if (d == 3) {
                     iss >> rotmat._41; iss >> rotmat._42; iss >> rotmat._43; iss >> rotmat._44;
                 } else {
-                    throwGgafCriticalException("SplineSource::SplineSource "<<_idstr<<" [ADJUST_MAT] のデータ数が多いです。４列４行の行列を設定してください。");
+                    throwGgafCriticalException(_idstr<<" [ADJUST_MAT] のデータ数が多いです。４列４行の行列を設定してください。");
                 }
                 if (iss.fail()) {
-                    throwGgafCriticalException("SplineSource::SplineSource "<<_idstr<<" [ADJUST_MAT] 不正な数値データです line=["<<line<<"]");
+                    throwGgafCriticalException(_idstr<<" [ADJUST_MAT] 不正な数値データです line=["<<line<<"]");
                 }
                 d++;
             }
         }
     }
     if (int(accuracy*100000000) == 0) {
-        throwGgafCriticalException("SplineSource::SplineSource "<<_idstr<<" [ACCURACY] が指定されてません。");
+        throwGgafCriticalException(_idstr<<" [ACCURACY] が指定されてません。");
     }
     if (n == 0) {
-        throwGgafCriticalException("SplineSource::SplineSource "<<_idstr<<" [BASEPOINT] に座標がありません。");
+        throwGgafCriticalException(_idstr<<" [BASEPOINT] に座標がありません。");
     }
     if (d != 0 && d != 4) {
-        throwGgafCriticalException("SplineSource::SplineSource "<<_idstr<<" [ADJUST_MAT] のデータ数が中途半端です。４列４行の行列を設定してください。");
+        throwGgafCriticalException(_idstr<<" [ADJUST_MAT] のデータ数が中途半端です。４列４行の行列を設定してください。");
     }
 //    DefaultSpacetime* pSpacetime =  P_GOD->getSpacetime();
 //    for (int i = 0; i < n; i++) {

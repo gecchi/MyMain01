@@ -14,7 +14,7 @@ using namespace GgafDxCore;
 #include "jp/ggaf/dxcore/GgafDxProperties.h"
 
 GgafDxWorldBoundModel::GgafDxWorldBoundModel(const char* prm_model_name) : GgafDxMorphMeshModel(prm_model_name) {
-    _TRACE3_("GgafDxWorldBoundModel::GgafDxWorldBoundModel(" << _model_name << ")");
+    _TRACE3_("_model_name="<<_model_name);
     _obj_model |= Obj_GgafDxWorldBoundModel;
 }
 
@@ -42,25 +42,25 @@ HRESULT GgafDxWorldBoundModel::draw(GgafDxFigureActor* prm_pActor_target, int pr
         pDevice->SetIndices(_pIndexBuffer);
 
         hr = pID3DXEffect->SetFloat(pWorldBoundEffect->_h_tex_blink_power, _power_blink);
-        checkDxException(hr, D3D_OK, "GgafDxWorldBoundModel::draw() SetFloat(_h_tex_blink_power) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_power) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         hr = pID3DXEffect->SetFloat(pWorldBoundEffect->_h_tex_blink_threshold, _blink_threshold);
-        checkDxException(hr, D3D_OK, "GgafDxWorldBoundModel::draw() SetFloat(_h_tex_blink_threshold) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_threshold) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
 
     //ï`âÊ
     for (UINT i = 0; i < _material_list_grp_num; i++) {
         material_no = _paIndexParam[i].MaterialNo;
         hr = pID3DXEffect->SetValue(pWorldBoundEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
-        checkDxException(hr, D3D_OK, "GgafDxWorldBoundModel::draw()SetValue(g_colMaterialDiffuse) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "SetValue(g_colMaterialDiffuse) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         GgafDxEffect* pEffect_active = GgafDxEffectManager::_pEffect_active;
         if ((pEffect_active != pWorldBoundEffect || GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) &&
                 i == 0) {
             if (pEffect_active) {
-               _TRACE4_("GgafDxWorldBoundModel::draw() EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
+               _TRACE4_("EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
                 hr = pEffect_active->_pID3DXEffect->EndPass();
-                checkDxException(hr, D3D_OK, "GgafDxWorldBoundModel::draw() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB"<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
+                checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB"<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
                 hr = pEffect_active->_pID3DXEffect->End();
-                checkDxException(hr, D3D_OK, "GgafDxWorldBoundModel::draw() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+                checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
                 if (pEffect_active->_obj_effect & Obj_GgafDxMassEffect) {
                     pDevice->SetStreamSourceFreq( 0, 1 );
                     pDevice->SetStreamSourceFreq( 1, 1 );
@@ -73,21 +73,21 @@ HRESULT GgafDxWorldBoundModel::draw(GgafDxFigureActor* prm_pActor_target, int pr
                 }
 #endif
             }
-            _TRACE4_("GgafDxWorldBoundModel::draw() SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pWorldBoundEffect->_effect_name);
+            _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pWorldBoundEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
-            checkDxException(hr, S_OK, "GgafDxWorldBoundModel::draw() SetTechnique("<<pTargetActor->_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, S_OK, "SetTechnique("<<pTargetActor->_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
-            _TRACE4_("GgafDxWorldBoundModel::draw() BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pWorldBoundEffect->_effect_name<<"("<<pWorldBoundEffect<<")");
+            _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pWorldBoundEffect->_effect_name<<"("<<pWorldBoundEffect<<")");
             UINT numPass;
             hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
-            checkDxException(hr, D3D_OK, "GgafDxWorldBoundModel::draw() Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             //ÉÇÅ[ÉtÉ^Å[ÉQÉbÉgÇÃêîÇ…ÇÊÇË pass ÇêÿÇËë÷Ç¶ÇƒÇ¢ÇÈ
             //ÉvÉäÉ}ÉäÉÅÉbÉVÉÖÇÃÇ›                             = pass0
             //ÉvÉâÉCÉ}ÉäÉÅÉbÉVÉÖÅ{ÉÇÅ[ÉtÉ^Å[ÉQÉbÉgÉÅÉbÉVÉÖÇPÇ¬ = pass1
             //ÉvÉâÉCÉ}ÉäÉÅÉbÉVÉÖÅ{ÉÇÅ[ÉtÉ^Å[ÉQÉbÉgÉÅÉbÉVÉÖÇQÇ¬ = pass2
             //à»â∫ç≈ëÂÇXÇ‹Ç≈
             hr = pID3DXEffect->BeginPass(_morph_target_num);
-            checkDxException(hr, D3D_OK, "GgafDxWorldBoundModel::draw() BeginPass("<<_morph_target_num<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, D3D_OK, "BeginPass("<<_morph_target_num<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 #ifdef MY_DEBUG
             if (pWorldBoundEffect->_begin) {
@@ -99,7 +99,7 @@ HRESULT GgafDxWorldBoundModel::draw(GgafDxFigureActor* prm_pActor_target, int pr
 
         } else {
             hr = pID3DXEffect->CommitChanges();
-            checkDxException(hr, D3D_OK, "GgafDxWorldBoundModel::draw() CommitChanges() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         }
 
         _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pWorldBoundEffect->_effect_name);

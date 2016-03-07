@@ -223,7 +223,7 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
 
     DIRECT3DCREATE9EXFUNCTION pFunc_Direct3DCreate9Ex = (DIRECT3DCREATE9EXFUNCTION)GetProcAddress(hD3D, "Direct3DCreate9Ex");
     if (pFunc_Direct3DCreate9Ex) {
-        _TRACE_("GgafDxGod::createWindow() d3d9.dllに、Direct3DCreate9Exは存在しました。");
+        _TRACE_("d3d9.dllに、Direct3DCreate9Exは存在しました。");
         //d3d9.dll に Direct3DCreate9Ex は存在する。
         hr = ((*pFunc_Direct3DCreate9Ex)(D3D_SDK_VERSION, &pID3D9Ex)); //Direct3DCreate9Ex 実行
         if (FAILED(hr)) {
@@ -238,9 +238,9 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
 //        }
         GgafDxGod::_pID3D9 = (IDirect3D9*)pID3D9Ex;
         _can_wddm = true;
-        _TRACE_("GgafDxGod::createWindow() WDDM モード");
+        _TRACE_("WDDM モード");
     } else {
-        _TRACE_("GgafDxGod::createWindow() d3d9.dllに、Direct3DCreate9Exは存在しませんでした。");
+        _TRACE_("d3d9.dllに、Direct3DCreate9Exは存在しませんでした。");
         //d3d9.dll に Direct3DCreate9Ex は存在しない。
         pID3D9 = Direct3DCreate9(D3D_SDK_VERSION);
         if (!pID3D9) {
@@ -249,7 +249,7 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
         }
         GgafDxGod::_pID3D9 = pID3D9;
         _can_wddm = false;
-        _TRACE_("GgafDxGod::createWindow() XPDM モード");
+        _TRACE_("XPDM モード");
     }
     FreeLibrary(hD3D);
 
@@ -496,7 +496,7 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
         }
     }
 
-    _TRACE_("GgafDxGod::createWindow() 利用可能画面解像度一覧");
+    _TRACE_("利用可能画面解像度一覧");
 
     for (int adapter_no = 0; adapter_no < _num_adapter; adapter_no++) {
         for (int n = 0; n < _paAdapterRezos[adapter_no].rezo_num; n++) {
@@ -1018,7 +1018,7 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
     out_hWnd2 = GgafDxGod::_pHWndSecondary;
 
     if (!GgafDxGod::_pHWndPrimary) {
-        throwGgafCriticalException("GgafDxGod::createWindow() ウィンドウが作成出来ませんでした。");
+        throwGgafCriticalException("ウィンドウが作成出来ませんでした。");
     }
 
 
@@ -1166,19 +1166,19 @@ HRESULT GgafDxGod::initDevice() {
                                      _paPresetPrm, _paDisplayMode);
                 if (hr != D3D_OK) {
                     //どのデバイスの作成も失敗した場合
-                    _TRACE_("GgafDxGod::init DirectXの初期化に失敗しました。マルチヘッドD3DCREATE_SOFTWARE_VERTEXPROCESSING : "<<GgafDxCriticalException::getHresultMsg(hr));
+                    _TRACE_(FUNC_NAME<<" DirectXの初期化に失敗しました。マルチヘッドD3DCREATE_SOFTWARE_VERTEXPROCESSING : "<<GgafDxCriticalException::getHresultMsg(hr));
                     MessageBox(GgafDxGod::_pHWndPrimary, "DirectXの初期化に失敗しました。\nマルチヘッドディスプレイ環境が存在していません。", "ERROR", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST);
                     return E_FAIL;
                 } else {
-                    _TRACE_("GgafDxGod::init デバイスは MULTI FULLSCRREEN REF で初期化できました。");
+                    _TRACE_(FUNC_NAME<<" デバイスは MULTI FULLSCRREEN REF で初期化できました。");
                 }
 
             } else {
-                _TRACE_("GgafDxGod::init デバイスは MULTI FULLSCRREEN HAL(soft vp) で初期化できました。");
+                _TRACE_(FUNC_NAME<<" デバイスは MULTI FULLSCRREEN HAL(soft vp) で初期化できました。");
             }
 
         } else {
-            _TRACE_("GgafDxGod::init デバイスは MULTI FULLSCRREEN HAL(pure vp) で初期化できました。");
+            _TRACE_(FUNC_NAME<<" デバイスは MULTI FULLSCRREEN HAL(pure vp) で初期化できました。");
         }
 
     } else {
@@ -1202,19 +1202,19 @@ HRESULT GgafDxGod::initDevice() {
                                      &_paPresetPrm[_primary_adapter_no], &_paDisplayMode[_primary_adapter_no]);
                 if (hr != D3D_OK) {
                     //どのデバイスの作成も失敗した場合
-                    _TRACE_("GgafDxGod::init DirectXの初期化に失敗しました。 "<<GgafDxCriticalException::getHresultMsg(hr));
+                    _TRACE_(FUNC_NAME<<" DirectXの初期化に失敗しました。 "<<GgafDxCriticalException::getHresultMsg(hr));
                     MessageBox(GgafDxGod::_pHWndPrimary, "DirectXの初期化に失敗しました。", "ERROR", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST);
                     return E_FAIL;
                 } else {
-                    _TRACE_("GgafDxGod::init デバイスは REF で初期化できました。");
+                    _TRACE_(FUNC_NAME<<" デバイスは REF で初期化できました。");
                 }
 
             } else {
-                _TRACE_("GgafDxGod::init デバイスは HAL(soft vp) で初期化できました。");
+                _TRACE_(FUNC_NAME<<" デバイスは HAL(soft vp) で初期化できました。");
             }
 
         } else {
-            _TRACE_("GgafDxGod::init デバイスは HAL(pure vp) で初期化できました。");
+            _TRACE_(FUNC_NAME<<" デバイスは HAL(pure vp) で初期化できました。");
         }
     }
 
@@ -1468,7 +1468,7 @@ HRESULT GgafDxGod::initDx9Device() {
 
 HRESULT GgafDxGod::restoreFullScreenRenderTarget() {
     if (!PROPERTY::FULL_SCREEN) {
-        _TRACE_("GgafDxGod::restoreFullScreenRenderTarget() ＜警告＞フルスクリーン時意外、呼び出し不要です。");
+        _TRACE_("＜警告＞フルスクリーン時意外、呼び出し不要です。");
         return D3D_OK;
     }
     HRESULT hr;
@@ -1945,7 +1945,7 @@ void GgafDxGod::finalizeSpacetime() {
 
 void GgafDxGod::clean() {
     if (!_was_cleaned) {
-        _TRACE_("GgafDxGod::clean() begin");
+        _TRACE_("begin");
         IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
         for(int i = 0; i < 8; ++i) { pDevice->SetTexture( i, nullptr ); }
         for(int i = 0; i < 8; ++i) { pDevice->SetStreamSource( i, nullptr, 0, 0 ); }
@@ -1962,7 +1962,7 @@ void GgafDxGod::clean() {
         GGAF_DELETE(GgafDxGod::_pBumpMapTextureManager);
         GGAF_DELETE(GgafDxGod::_pModelManager);
         GGAF_DELETE(GgafDxGod::_pEffectManager);
-        _TRACE_("GgafDxGod::clean() end");
+        _TRACE_("end");
     }
 }
 
@@ -2119,7 +2119,7 @@ void GgafDxGod::positionPresentRect(int prm_pos, RECT& inout_rectPresent, pixcoo
 }
 
 GgafDxGod::~GgafDxGod() {
-    _TRACE_("GgafDxGod::~GgafDxGod() 解放開始");
+    _TRACE_("解放開始");
     clean();
     _was_cleaned = true;
     //DirectSound解放
@@ -2140,7 +2140,7 @@ GgafDxGod::~GgafDxGod() {
     GGAF_DELETEARR(_paHWnd);
     GGAF_RELEASE(_pID3DDevice9);
     GGAF_RELEASE(_pID3D9);
-    _TRACE_("GgafDxGod::~GgafDxGod() 解放終了");
+    _TRACE_("解放終了");
 }
 
 

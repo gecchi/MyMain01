@@ -22,7 +22,7 @@ GgafDxPuppeteer::GgafDxPuppeteer(GgafDxD3DXAniMeshActor* prm_pPuppet) : GgafObje
     _aStick[GgafDxPuppeteerStick::RIGHT_HAND]._pPerformance = nullptr;
 #ifdef MY_DEBUG
     if (!_pModel->_pAcBase) {
-        throwGgafCriticalException("GgafDxPuppeteer::GgafDxPuppeteer アニメーションコントローラーが存在しません");
+        throwGgafCriticalException("アニメーションコントローラーが存在しません");
     }
 #endif
     HRESULT hr = _pModel->_pAcBase->CloneAnimationController(
@@ -31,11 +31,11 @@ GgafDxPuppeteer::GgafDxPuppeteer(GgafDxD3DXAniMeshActor* prm_pPuppet) : GgafObje
                                         _pModel->_pAcBase->GetMaxNumTracks(),
                                         _pModel->_pAcBase->GetMaxNumEvents(),
                                         &_pAc);
-    checkDxException(hr, D3D_OK, "GgafDxPuppeteer::GgafDxPuppeteer() アニメーションコントローラーのクローンに失敗しました。name="<<_pPuppet->getName());
+    checkDxException(hr, D3D_OK, "アニメーションコントローラーのクローンに失敗しました。name="<<_pPuppet->getName());
     _num_perform = _pAc->GetMaxNumAnimationSets();
 #ifdef MY_DEBUG
     if (_pAc->GetMaxNumTracks() < 2) {
-        throwGgafCriticalException("GgafDxPuppeteer::GgafDxPuppeteer()  アニメーショントラックが少なくとも2つ必要です。ご使用のビデオカードではトラック機能がありません。");
+        throwGgafCriticalException("アニメーショントラックが少なくとも2つ必要です。ご使用のビデオカードではトラック機能がありません。");
         _paPerformances = nullptr;
         return;
     }

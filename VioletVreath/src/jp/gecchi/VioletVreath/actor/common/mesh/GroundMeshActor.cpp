@@ -51,7 +51,7 @@ void GroundMeshActor::processDraw() {
     HRESULT hr;
     UTIL::setWorldMatrix_RxRzRyMv(this, _matWorld);
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_h_matWorld, &_matWorld );
-    checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
     _pMeshModel->GgafDxMeshModel::draw(this);
 }

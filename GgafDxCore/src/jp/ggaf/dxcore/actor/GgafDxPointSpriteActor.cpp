@@ -38,7 +38,7 @@ _pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek(
                              _pPointSpriteModel->_texture_split_rowcol );
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->exec(NOT_ANIMATED, 1);
-    setZEnable(false);
+    setZEnableDraw(false);
     setZWriteEnable(false);
 }
 
@@ -46,11 +46,11 @@ void GgafDxPointSpriteActor::processDraw() {
     ID3DXEffect* const pID3DXEffect = _pPointSpriteEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pPointSpriteEffect->_h_matWorld, &_matWorld );
-    checkDxException(hr, D3D_OK, "GgafDxPointSpriteActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
+    checkDxException(hr, D3D_OK, "SetMatrix(g_matWorld) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pPointSpriteEffect->_h_dist_VpInfrontPlane, -_dest_from_vppln_infront);
-    checkDxException(hr, D3D_OK, "GgafDxPointSpriteActor::processDraw() SetFloat(g_h_dist_VpInfrontPlane) に失敗しました。");
+    checkDxException(hr, D3D_OK, "SetFloat(g_h_dist_VpInfrontPlane) に失敗しました。");
     hr = pID3DXEffect->SetInt(_pPointSpriteEffect->_hUvFlipPtnNo, _pUvFlipper->_pattno_uvflip_now);
-    checkDxException(hr, D3D_OK, "GgafDxPointSpriteActor::processDraw() SetInt(_hUvFlipPtnNo) に失敗しました。");
+    checkDxException(hr, D3D_OK, "SetInt(_hUvFlipPtnNo) に失敗しました。");
     //ポイントスプライトON
     GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE);
     //スケールはシェーダー内で独自計算

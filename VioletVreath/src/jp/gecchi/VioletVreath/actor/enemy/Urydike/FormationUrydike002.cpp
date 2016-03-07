@@ -35,7 +35,7 @@ void FormationUrydike002::processBehavior() {
 void FormationUrydike002::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyUrydike* pUrydike = (EnemyUrydike*)prm_pActor;
     if (pUrydike->pKurokoLeader_) {
-        throwGgafCriticalException("FormationUrydike002::onCallUp pUrydike->pKurokoLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpUrydike="<<pUrydike<<"("<<pUrydike->getName()<<")");
+        throwGgafCriticalException("pUrydike->pKurokoLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpUrydike="<<pUrydike<<"("<<pUrydike->getName()<<")");
     } else {
         pUrydike->pKurokoLeader_ = papSplManufConn_[prm_col]->peek()->
                                      createKurokoLeader(pUrydike->getKuroko());

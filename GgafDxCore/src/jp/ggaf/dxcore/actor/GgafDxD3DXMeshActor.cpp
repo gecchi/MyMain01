@@ -36,7 +36,7 @@ void GgafDxD3DXMeshActor::processDraw() {
     ID3DXEffect* const pID3DXEffect = _pMeshEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_h_matWorld, &_matWorld );
-    checkDxException(hr, D3D_OK, "GgafDxD3DXMeshActor::processDraw() SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     _pD3DXMeshModel->draw(this);
 }
 

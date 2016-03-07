@@ -30,7 +30,7 @@ private:
         float transformed_x, transformed_y, depth_z;   // : TEXCOORD1
         float offset_u, offset_v, alpha;               // : TEXCOORD2
     };
-    static VERTEX_instancedata _aInstancedata[GGAFDXMASS_MAX_INSTACE];
+    static VERTEX_instancedata _aInstancedata[];
     static void createVertexInstaceData(GgafDxCore::GgafDxMassModel::VertexInstaceDataInfo* out_info);
 
 public:

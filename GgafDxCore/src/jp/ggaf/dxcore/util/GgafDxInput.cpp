@@ -35,7 +35,7 @@ HRESULT GgafDxInput::init() {
                  nullptr
              );
         if (hr != D3D_OK) {
-            MessageBox(GgafDxGod::_pHWndPrimary, "GgafDxInput::initDx9Input() いきなりDirectInput8の作成に失敗しました。",
+            MessageBox(GgafDxGod::_pHWndPrimary, "いきなりDirectInput8の作成に失敗しました。",
                        "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
             return hr;
         }
@@ -45,7 +45,7 @@ HRESULT GgafDxInput::init() {
             hr = GgafDxInput::initMouse();
             hr = GgafDxInput::initJoyStick();
         } else {
-            MessageBox(GgafDxGod::_pHWndPrimary, "GgafDxInput::init() キーボードデバイスの初期化に失敗しました。",
+            MessageBox(GgafDxGod::_pHWndPrimary, "キーボードデバイスの初期化に失敗しました。",
                        "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
             return hr;
         }
@@ -71,14 +71,14 @@ HRESULT GgafDxInput::initMouse() {
                                            nullptr
                                        );
     if (hr != D3D_OK) {
-        MessageBox(GgafDxGod::_pHWndPrimary, "GgafDxInput::initMouse() マウスデバイス作成に失敗しました",
+        MessageBox(GgafDxGod::_pHWndPrimary, "マウスデバイス作成に失敗しました",
                 "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         return hr;
     }
     // マウス取得データフォーマットの設定
     hr = GgafDxInput::_pMouseInputDevice->SetDataFormat(&c_dfDIMouse2);
     if (hr != D3D_OK) {
-        MessageBox(GgafDxGod::_pHWndPrimary, "GgafDxInput::initMouse() マウスのSetDataFormat に失敗しました",
+        MessageBox(GgafDxGod::_pHWndPrimary, "マウスのSetDataFormat に失敗しました",
                    "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         return hr;
     }
@@ -88,7 +88,7 @@ HRESULT GgafDxInput::initMouse() {
                                               DISCL_NONEXCLUSIVE | DISCL_FOREGROUND
                                           );
     if (hr != D3D_OK) {
-        MessageBox(GgafDxGod::_pHWndPrimary, "GgafDxInput::initMouse() マウスのSetCooperativeLevelに失敗しました",
+        MessageBox(GgafDxGod::_pHWndPrimary, "マウスのSetCooperativeLevelに失敗しました",
                  "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         return hr;
     }
@@ -103,7 +103,7 @@ HRESULT GgafDxInput::initMouse() {
     //  dipropword.dwData       = DIPROPAXISMODE_REL;   // 相対値モード
     hr = GgafDxInput::_pMouseInputDevice->SetProperty(DIPROP_AXISMODE, &dipropword_m.diph);
     if (hr != D3D_OK) {
-        _TRACE_("GgafDxInput::initMouse() ＜警告＞軸モードの設定に失敗");
+        _TRACE_("＜警告＞軸モードの設定に失敗");
         return FALSE;
     }
 
@@ -111,7 +111,7 @@ HRESULT GgafDxInput::initMouse() {
     if (GgafDxInput::_pMouseInputDevice) {
         GgafDxInput::_pMouseInputDevice->Acquire();
     }
-    _TRACE_("GgafDxInput::initMouse() マウスデバイス取得OK");
+    _TRACE_("マウスデバイス取得OK");
     return D3D_OK;
 }
 
@@ -133,7 +133,7 @@ HRESULT GgafDxInput::initKeybord() {
                                            nullptr
                                        );
     if (hr != D3D_OK) {
-        MessageBox(GgafDxGod::_pHWndPrimary, "GgafDxInput::initKeybord() キーボードデバイス作成に失敗しました",
+        MessageBox(GgafDxGod::_pHWndPrimary, "キーボードデバイス作成に失敗しました",
                    "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         return hr;
     }
@@ -141,7 +141,7 @@ HRESULT GgafDxInput::initKeybord() {
     // キーボード取得データフォーマットの設定
     hr = GgafDxInput::_pKeyboardInputDevice->SetDataFormat(&c_dfDIKeyboard);
     if (hr != D3D_OK) {
-        MessageBox(GgafDxGod::_pHWndPrimary, "GgafDxInput::initKeybord() キーボードのSetDataFormat に失敗しました",
+        MessageBox(GgafDxGod::_pHWndPrimary, "キーボードのSetDataFormat に失敗しました",
                    "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         return hr;
     }
@@ -152,7 +152,7 @@ HRESULT GgafDxInput::initKeybord() {
                                                  DISCL_NONEXCLUSIVE | DISCL_FOREGROUND
                                              );
     if (hr != D3D_OK) {
-        MessageBox(GgafDxGod::_pHWndPrimary, "GgafDxInput::initKeybord() キーボードのSetCooperativeLevelに失敗しました",
+        MessageBox(GgafDxGod::_pHWndPrimary, "キーボードのSetCooperativeLevelに失敗しました",
                    "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         return hr;
     }
@@ -168,7 +168,7 @@ HRESULT GgafDxInput::initKeybord() {
 
      hr = GgafDxInput::_pKeyboardInputDevice->SetProperty(DIPROP_BUFFERSIZE, &dipropdword.diph);
      if(hr != D3D_OK) {
-     MessageBox(GgafDxGod::_pHWndPrimary,"GgafDxInput::initDx9Input() キーボードのSetPropertyに失敗しました", "ERROR", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND |MB_TOPMOST);
+     MessageBox(GgafDxGod::_pHWndPrimary,"キーボードのSetPropertyに失敗しました", "ERROR", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND |MB_TOPMOST);
      return hr;
      }
      */
@@ -176,7 +176,7 @@ HRESULT GgafDxInput::initKeybord() {
     if (GgafDxInput::_pKeyboardInputDevice) {
         GgafDxInput::_pKeyboardInputDevice->Acquire();
     }
-    _TRACE_("GgafDxInput::initKeybord() キーボードデバイス取得OK");
+    _TRACE_("キーボードデバイス取得OK");
     return D3D_OK;
 }
 HRESULT GgafDxInput::initJoyStick() {
@@ -197,16 +197,16 @@ HRESULT GgafDxInput::initJoyStick() {
                                            DIEDFL_ATTACHEDONLY
                                        );
     if (hr != D3D_OK || GgafDxInput::_pJoystickInputDevice == nullptr) {
-        _TRACE_("GgafDxInput::initJoyStick() ジョイスティックが見つかりません");
+        _TRACE_("ジョイスティックが見つかりません");
         GgafDxInput::_pJoystickInputDevice = nullptr;
         return FALSE;
     } else {
-        _TRACE_("GgafDxInput::initJoyStick() ジョイスティックデバイス取得");
+        _TRACE_("ジョイスティックデバイス取得");
 
         // ゲームスティックのデータ形式を設定する
         hr = GgafDxInput::_pJoystickInputDevice->SetDataFormat(&c_dfDIJoystick);
         if (hr != D3D_OK) {
-            _TRACE_("GgafDxInput::initJoyStick() ジョイスティックSetDataFormatに失敗しました");
+            _TRACE_("ジョイスティックSetDataFormatに失敗しました");
             return FALSE;
         }
 
@@ -216,7 +216,7 @@ HRESULT GgafDxInput::initJoyStick() {
                                                      DISCL_FOREGROUND | DISCL_NONEXCLUSIVE
                                                  );
         if (hr != D3D_OK) {
-            _TRACE_("GgafDxInput::initJoyStick() ジョイスティックSetCooperativeLevelに失敗しました");
+            _TRACE_("ジョイスティックSetCooperativeLevelに失敗しました");
             return FALSE;
         }
 
@@ -227,7 +227,7 @@ HRESULT GgafDxInput::initJoyStick() {
                                                      DIDFT_AXIS
                                                  );
         if (hr != D3D_OK) {
-            _TRACE_("GgafDxInput::initJoyStick() ジョイスティックEnumObjectsに失敗しました");
+            _TRACE_("ジョイスティックEnumObjectsに失敗しました");
             return FALSE;
         }
 
@@ -241,7 +241,7 @@ HRESULT GgafDxInput::initJoyStick() {
         //  dipropword.dwData       = DIPROPAXISMODE_REL;   // 相対値モード
         hr = GgafDxInput::_pJoystickInputDevice->SetProperty(DIPROP_AXISMODE, &dipropword_j.diph);
         if (hr != D3D_OK) {
-            _TRACE_( "GgafDxInput::initJoyStick() 軸モードの設定に失敗");
+            _TRACE_( "軸モードの設定に失敗");
             return FALSE;
         }
 
@@ -257,7 +257,7 @@ HRESULT GgafDxInput::initJoyStick() {
 }
 
 BOOL CALLBACK GgafDxInput::enumGameCtrlCallback(const DIDEVICEINSTANCE *pDIDeviceInstance, VOID *pContext) {
-    _TRACE_("GgafDxInput::enumGameCtrlCallback() call back");
+    _TRACE_("call back");
     HRESULT hr;
     // ゲームスティックデバイスを探す
     hr = GgafDxInput::_pIDirectInput8->CreateDevice(
@@ -286,7 +286,7 @@ BOOL CALLBACK GgafDxInput::enumGameCtrlCallback(const DIDEVICEINSTANCE *pDIDevic
 }
 
 BOOL CALLBACK GgafDxInput::enumPadAxisCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef) {
-    _TRACE_("GgafDxInput::enumPadAxisCallback() call back");
+    _TRACE_("call back");
     DIPROPRANGE diproprange;
     ZeroMemory( &diproprange, sizeof(diproprange) );
     diproprange.diph.dwSize = sizeof(diproprange);
@@ -391,7 +391,7 @@ void GgafDxInput::getMousePointer_REL(long* dx, long* dy, long* dz) {
 void GgafDxInput::updateKeyboardState() {
 #ifdef MY_DEBUG
     if (GgafDxInput::_pKeyboardInputDevice == nullptr) {
-        _TRACE_("GgafDxInput::updateKeyboardState() GgafDxInput::_pKeyboardInputDevice == nullptr !!!!");
+        _TRACE_("GgafDxInput::_pKeyboardInputDevice==nullptr !!!!");
         return;
     }
 #endif

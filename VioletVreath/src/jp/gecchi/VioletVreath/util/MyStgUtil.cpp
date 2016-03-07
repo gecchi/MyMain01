@@ -605,7 +605,7 @@ EffectBlink* MyStgUtil::activateEntryEffectOf(const GgafDxGeometricActor* const 
         }
     }
     if (!pRet) {
-        throwGgafCriticalException("MyStgUtil::activateEntryEffectOf() エフェクトが取得できていない。prm_pActor="<<prm_pActor->getName()<<"("<<prm_pActor<<")");
+        throwGgafCriticalException("エフェクトが取得できていない。prm_pActor="<<prm_pActor->getName()<<"("<<prm_pActor<<")");
     }
     return pRet;
 }
@@ -660,7 +660,7 @@ EffectBlink* MyStgUtil::activateLeaveEffectOf(const GgafDxGeometricActor* const 
         }
     }
     if (!pRet) {
-        throwGgafCriticalException("MyStgUtil::activateLeaveEffectOf() エフェクトが取得できていない。prm_pActor="<<prm_pActor->getName()<<"("<<prm_pActor<<")");
+        throwGgafCriticalException("エフェクトが取得できていない。prm_pActor="<<prm_pActor->getName()<<"("<<prm_pActor<<")");
     }
     return pRet;
 }
@@ -770,7 +770,7 @@ GgafDxFigureActor* MyStgUtil::activateProperEffect01Of(const GgafDxCore::GgafDxG
 
 }
 
-bool MyStgUtil::transactEnemyHit(GgafDxFigureActor* prm_this, const GgafDxGeometricActor* const prm_pOther) {
+bool MyStgUtil::performEnemyHit(GgafDxFigureActor* prm_this, const GgafDxGeometricActor* const prm_pOther) {
     GgafStatus* pThisStatus  = prm_this->getStatus();
     if (UTIL::calcEnemyStamina(prm_this, prm_pOther) <= 0) { //体力が無くなったら
         //＜破壊された場合＞
@@ -817,7 +817,7 @@ bool MyStgUtil::transactEnemyHit(GgafDxFigureActor* prm_this, const GgafDxGeomet
     }
 }
 
-GgafDxFigureActor* MyStgUtil::transactFormationDestroyAll(const GgafDxFigureActor* const prm_pActor_last_destroyed) {
+GgafDxFigureActor* MyStgUtil::performFormationDestroyAll(const GgafDxFigureActor* const prm_pActor_last_destroyed) {
     //編隊全滅時ボーナス加算
     G_SCORE += prm_pActor_last_destroyed->getStatus()->get(STAT_FormationDestroyedAddScorePoint);
     //編隊全滅時エフェクト出現

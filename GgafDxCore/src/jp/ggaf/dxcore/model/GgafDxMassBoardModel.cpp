@@ -15,7 +15,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxMassBoardModel::GgafDxMassBoardModel(const char* prm_model_name) : GgafDxMassModel(prm_model_name) {
-    _TRACE3_("GgafDxMassBoardModel::GgafDxMassBoardModel(" << _model_name << ")");
+    _TRACE3_("_model_name="<<_model_name);
     _paVtxBuffer_data_model = nullptr;
     _paIndexBuffer_data = nullptr;
 
@@ -72,7 +72,7 @@ HRESULT GgafDxMassBoardModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
     }
 #ifdef MY_DEBUG
     if (prm_draw_set_num > _set_num) {
-        _TRACE_("GgafDxMassBoardModel::draw() "<<_model_name<<" の描画セット数オーバー。_set_num="<<_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
+        _TRACE_(FUNC_NAME<<" "<<_model_name<<" の描画セット数オーバー。_set_num="<<_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
     }
 #endif
     IDirect3DDevice9* const pDevice = GgafDxGod::_pID3DDevice9;
@@ -93,33 +93,33 @@ HRESULT GgafDxMassBoardModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
                                   (void**)&pDeviceMemory,
                                   D3DLOCK_DISCARD
                                 );
-    checkDxException(hr, D3D_OK, "[GgafDxMassBoardModel::draw] 頂点バッファのロック取得に失敗 model="<<_model_name);
+    checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
     memcpy(pDeviceMemory, _pInstancedata, update_vertex_instacedata_size);
     _pVertexBuffer_instacedata->Unlock();
 
     //モデルが同じでかつ、セット数も同じならば頂点バッファ、インデックスバッファの設定はスキップできる
     hr = pDevice->SetStreamSourceFreq( 0, D3DSTREAMSOURCE_INDEXEDDATA | prm_draw_set_num);
-    checkDxException(hr, D3D_OK, "GgafDxMassBoardModel::draw() SetStreamSourceFreq 0 に失敗しました。prm_draw_set_num="<<prm_draw_set_num);
+    checkDxException(hr, D3D_OK, "SetStreamSourceFreq 0 に失敗しました。prm_draw_set_num="<<prm_draw_set_num);
 
     GgafDxModel* pModelLastDraw = GgafDxModelManager::_pModelLastDraw;
     //モデルが同じならば頂点バッファ等、の設定はスキップできる
     if (pModelLastDraw != this) {
         hr = pDevice->SetStreamSourceFreq( 1, D3DSTREAMSOURCE_INSTANCEDATA | 1 );
-        checkDxException(hr, D3D_OK, "GgafDxMassBoardActor::draw() SetStreamSourceFreq 1 に失敗しました。");
+        checkDxException(hr, D3D_OK, "SetStreamSourceFreq 1 に失敗しました。");
         //頂点バッファとインデックスバッファを設定
         hr = pDevice->SetVertexDeclaration(_pVertexDeclaration); //頂点フォーマット
-        checkDxException(hr, D3D_OK, "GgafDxMassBoardActor::draw() SetVertexDeclaration に失敗しました。");
+        checkDxException(hr, D3D_OK, "SetVertexDeclaration に失敗しました。");
         hr = pDevice->SetStreamSource(0, _pVertexBuffer_model      , 0, _size_vertex_unit_model);
-        checkDxException(hr, D3D_OK, "GgafDxMassBoardActor::draw() SetStreamSource 0 に失敗しました。");
+        checkDxException(hr, D3D_OK, "SetStreamSource 0 に失敗しました。");
         hr = pDevice->SetStreamSource(1, _pVertexBuffer_instacedata, 0, _size_vertex_unit_instacedata);
-        checkDxException(hr, D3D_OK, "GgafDxMassBoardActor::draw() SetStreamSource 1 に失敗しました。");
+        checkDxException(hr, D3D_OK, "SetStreamSource 1 に失敗しました。");
         hr = pDevice->SetIndices(_pIndexBuffer);
-        checkDxException(hr, D3D_OK, "GgafDxMassBoardActor::draw() SetIndices に失敗しました。");
+        checkDxException(hr, D3D_OK, "SetIndices に失敗しました。");
 
         hr = pID3DXEffect->SetFloat(pMassBoardEffect->_h_tex_blink_power, _power_blink);
-        checkDxException(hr, D3D_OK, "GgafDxMassBoardActor::draw() SetFloat(_h_tex_blink_power) に失敗しました。");
+        checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_power) に失敗しました。");
         hr = pID3DXEffect->SetFloat(pMassBoardEffect->_h_tex_blink_threshold, _blink_threshold);
-        checkDxException(hr, D3D_OK, "GgafDxMassBoardActor::draw() SetFloat(_h_tex_blink_threshold) に失敗しました。");
+        checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_threshold) に失敗しました。");
 
         if (_papTextureConnection[0]) {
             pDevice->SetTexture(0, getDefaultTextureConnection()->peek()->_pIDirect3DBaseTexture9);
@@ -132,11 +132,11 @@ HRESULT GgafDxMassBoardModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
     GgafDxEffect* pEffect_active = GgafDxEffectManager::_pEffect_active;
     if (pEffect_active != pMassBoardEffect || GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique)  {
         if (pEffect_active) {
-           _TRACE4_("GgafDxMassBoardModel::draw() EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
+           _TRACE4_("EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
             hr = pEffect_active->_pID3DXEffect->EndPass();
-            checkDxException(hr, D3D_OK, "GgafDxMassBoardActor::draw() EndPass() に失敗しました。");
+            checkDxException(hr, D3D_OK, "に失敗しました。");
             hr = pEffect_active->_pID3DXEffect->End();
-            checkDxException(hr, D3D_OK, "GgafDxMassBoardActor::draw() End() に失敗しました。");
+            checkDxException(hr, D3D_OK, "に失敗しました。");
 #ifdef MY_DEBUG
             if (pEffect_active->_begin == false) {
                 throwGgafCriticalException("begin していません "<<(pEffect_active==nullptr?"nullptr":pEffect_active->_effect_name)<<"");
@@ -145,16 +145,16 @@ HRESULT GgafDxMassBoardModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
             }
 #endif
         }
-        _TRACE4_("GgafDxMassBoardModel::draw() SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMassBoardEffect->_effect_name);
+        _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMassBoardEffect->_effect_name);
         hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
-        checkDxException(hr, S_OK, "GgafDxMassBoardActor::draw() SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
+        checkDxException(hr, S_OK, "SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
-        _TRACE4_("GgafDxMassBoardModel::draw() BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMassBoardEffect->_effect_name<<"("<<pMassBoardEffect<<")");
+        _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMassBoardEffect->_effect_name<<"("<<pMassBoardEffect<<")");
         UINT numPass;
         hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
-        checkDxException(hr, D3D_OK, "GgafDxMassBoardActor::draw() Begin() に失敗しました。");
+        checkDxException(hr, D3D_OK, "に失敗しました。");
         hr = pID3DXEffect->BeginPass(0);
-        checkDxException(hr, D3D_OK, "GgafDxMassBoardActor::draw() BeginPass(0) に失敗しました。");
+        checkDxException(hr, D3D_OK, "BeginPass(0) に失敗しました。");
 
 #ifdef MY_DEBUG
         if (pMassBoardEffect->_begin) {
@@ -166,7 +166,7 @@ HRESULT GgafDxMassBoardModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
 
     } else {
         hr = pID3DXEffect->CommitChanges();
-        checkDxException(hr, D3D_OK, "GgafDxMassBoardModel::draw() CommitChanges() に失敗しました。");
+        checkDxException(hr, D3D_OK, "に失敗しました。");
     }
     _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMassBoardEffect->_effect_name);
     hr = pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
@@ -177,11 +177,11 @@ HRESULT GgafDxMassBoardModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
                                        _nFaces);
     if (_num_pass >= 2) { //２パス目以降が存在
         hr = pID3DXEffect->EndPass();
-        checkDxException(hr, D3D_OK, "GgafDxMassBoardModel::draw() １パス目 EndPass() に失敗しました。");
+        checkDxException(hr, D3D_OK, "に失敗しました。");
 
         for (UINT pass = 1; pass < _num_pass; pass++) {
             hr = pID3DXEffect->BeginPass(pass);
-            checkDxException(hr, D3D_OK, "GgafDxMassBoardModel::draw() "<<pass+1<<"パス目 BeginPass("<<pass<<") に失敗しました。");
+            checkDxException(hr, D3D_OK, pass+1<<"パス目 BeginPass("<<pass<<") に失敗しました。");
             hr = pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                                0,
                                                0,
@@ -189,11 +189,11 @@ HRESULT GgafDxMassBoardModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
                                                0,
                                                _nFaces);
             hr = pID3DXEffect->EndPass();
-            checkDxException(hr, D3D_OK, "GgafDxMassBoardModel::draw() "<<pass+1<<"パス目 EndPass() に失敗しました。");
+            checkDxException(hr, D3D_OK, "に失敗しました。");
         }
 
         hr = pID3DXEffect->BeginPass(0);
-        checkDxException(hr, D3D_OK, "GgafDxMassBoardModel::draw() １パス目 BeginPass(0) に失敗しました。");
+        checkDxException(hr, D3D_OK, "１パス目 BeginPass(0) に失敗しました。");
     }
     //前回描画モデル保持
     GgafDxModelManager::_pModelLastDraw = this;
@@ -204,29 +204,28 @@ HRESULT GgafDxMassBoardModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
 }
 
 void GgafDxMassBoardModel::restore() {
-    _TRACE3_("GgafDxMassBoardModel::restore() " << _model_name << " start");
+    _TRACE3_("_model_name=" << _model_name << " start");
     HRESULT hr;
     if (!_paVtxBuffer_data_model) {
         //静的な情報設定
         std::vector<std::string> names = UTIL::split(std::string(_model_name), "/");
         std::string xfile_name = ""; //読み込むXファイル名
         if (names.size() == 1) {
-            _TRACE_("GgafDxMassBoardModel::restore() "<<_model_name<<" の最大同時描画オブジェクト数は、デフォルトの"<<GGAFDXMASS_MAX_INSTACE<<" が設定されました。");
+            _TRACE_(FUNC_NAME<<" "<<_model_name<<" の最大同時描画オブジェクト数は、デフォルトの"<<GGAFDXMASS_MAX_INSTACE<<" が設定されました。");
             _set_num = GGAFDXMASS_MAX_INSTACE;
             xfile_name = GgafDxModelManager::getSpriteFileName(names[0]);
         } else if (names.size() == 2) {
             _set_num = STOI(names[0]);
             xfile_name = GgafDxModelManager::getSpriteFileName(names[1]);
         } else {
-            throwGgafCriticalException("GgafDxMassBoardModel::restore() "<<
-                    "_model_name には \"xxxxxx\" or \"8/xxxxx\" 形式を指定してください。 \n"<<
+            throwGgafCriticalException("_model_name には \"xxxxxx\" or \"8/xxxxx\" 形式を指定してください。 \n"<<
                     "実際は、_model_name="<<_model_name<<" でした。");
         }
         if (_set_num < 1 || _set_num > GGAFDXMASS_MAX_INSTACE) {
-            throwGgafCriticalException("GgafDxMassBoardModel::restore() "<<_model_name<<"の最大同時描画オブジェクト数が不正。範囲は 1～"<<GGAFDXMASS_MAX_INSTACE<<"セットです。_set_num="<<_set_num);
+            throwGgafCriticalException(_model_name<<"の最大同時描画オブジェクト数が不正。範囲は 1～"<<GGAFDXMASS_MAX_INSTACE<<"セットです。_set_num="<<_set_num);
         }
         if (xfile_name == "") {
-            throwGgafCriticalException("GgafDxModelManager::restoreMassMeshModel スプライト定義ファイル(*.sprx)が見つかりません。model_name="<<(_model_name));
+            throwGgafCriticalException("スプライト定義ファイル(*.sprx)が見つかりません。model_name="<<(_model_name));
         }
         GgafDxModelManager::SpriteXFileFmt xdata;
         GgafDxModelManager::obtainSpriteInfo(&xdata, xfile_name);
@@ -306,14 +305,14 @@ void GgafDxMassBoardModel::restore() {
                 D3DPOOL_DEFAULT,
                 &(_pVertexBuffer_model),
                 nullptr);
-        checkDxException(hr, D3D_OK, "GgafDxMassBoardModel::restore() _pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_name));
+        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_name));
         //バッファへ作成済み頂点データを流し込む
         void *pDeviceMemory;
         hr = _pVertexBuffer_model->Lock(0, _size_vertices_model, (void**)&pDeviceMemory, 0);
-        checkDxException(hr, D3D_OK, "GgafDxMassBoardModel::restore() 頂点バッファのロック取得に失敗 model="<<_model_name);
+        checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
         memcpy(pDeviceMemory, _paVtxBuffer_data_model, _size_vertices_model);
         hr = _pVertexBuffer_model->Unlock();
-        checkDxException(hr, D3D_OK, "GgafDxMassBoardModel::restore() 頂点バッファのアンロック取得に失敗 model="<<_model_name);
+        checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗 model="<<_model_name);
     }
     //デバイスにインデックスバッファデータ作成
     if (_pIndexBuffer == nullptr) {
@@ -324,13 +323,13 @@ void GgafDxMassBoardModel::restore() {
                                 D3DPOOL_DEFAULT,
                                 &(_pIndexBuffer),
                                 nullptr);
-        checkDxException(hr, D3D_OK, "GgafDxMassBoardModel::restore() _pID3DDevice9->CreateIndexBuffer 失敗 model="<<_model_name);
+        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<_model_name);
         void* pDeviceMemory;
         hr = _pIndexBuffer->Lock(0, 0, (void**)&pDeviceMemory,0);
-        checkDxException(hr, D3D_OK, "GgafDxMassBoardModel::restore() インデックスバッファのロック取得に失敗 model="<<_model_name);
+        checkDxException(hr, D3D_OK, "インデックスバッファのロック取得に失敗 model="<<_model_name);
         memcpy(pDeviceMemory, _paIndexBuffer_data, sizeof(WORD)*_nFaces*3);
         hr = _pIndexBuffer->Unlock();
-        checkDxException(hr, D3D_OK, "GgafDxMassBoardModel::restore() インデックスバッファのアンロック取得に失敗 model="<<_model_name);
+        checkDxException(hr, D3D_OK, "インデックスバッファのアンロック取得に失敗 model="<<_model_name);
     }
     //デバイスにテクスチャ作成
     if (!_papTextureConnection) {

@@ -47,8 +47,11 @@
     typedef unsigned __int32  uint16_t;
     typedef unsigned __int32  uint32_t;
     typedef unsigned __int64  uint64_t;
+
+    #define FUNC_NAME __FUNCSIG__
 #else
     #include <cstdint>
+    #define FUNC_NAME __PRETTY_FUNCTION__
 #endif
 
 
@@ -234,27 +237,27 @@
     //#define _TRACE_N_(X)
 
     /** 工場関連関連ログ */
-    //#define _TRACE2_(X) {std::stringstream ss; ss << "[製造工場]" << X; GgafCore::GgafLogger::writeln(ss); }
+    //#define _TRACE2_(X) {std::stringstream ss; ss << "[製造工場]" << FUNC_NAME << " " << X; GgafCore::GgafLogger::writeln(ss); }
     #define _TRACE2_(X)
 
     /** 資源マネージャ、コネクション関連ログ */
-    //#define _TRACE3_(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
+    //#define _TRACE3_(X) {std::stringstream ss; ss << FUNC_NAME << " " << X; GgafCore::GgafLogger::writeln(ss); }
     #define _TRACE3_(X)
 
     /** エフェクト、パス、Draw関連ログ */
-    //#define _TRACE4_(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
+    //#define _TRACE4_(X) {std::stringstream ss; ss << FUNC_NAME << " " << X; GgafCore::GgafLogger::writeln(ss); }
     #define _TRACE4_(X)
 
     /** 八分木、あたり判定関連ログ */
-    //#define _TRACE5_(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
+    //#define _TRACE5_(X) {std::stringstream ss; ss << FUNC_NAME << " " << X; GgafCore::GgafLogger::writeln(ss); }
     #define _TRACE5_(X)
-    //#define _TRACE5_N_(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss); }
+    //#define _TRACE5_N_(X) {std::stringstream ss; ss << FUNC_NAME << " " << X; GgafCore::GgafLogger::write(ss); }
     #define _TRACE5_N_(X)
 
 # else
-    //#define _TRACE_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
+    //#define _TRACE_(X) { std::stringstream ss; ss << FUNC_NAME << " " << X; GgafCore::GgafLogger::writeln(ss); }
     #define _TRACE_(X)
-    //#define _TRACE_N_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss); }
+    //#define _TRACE_N_(X) { std::stringstream ss; ss << FUNC_NAME << " " << X; GgafCore::GgafLogger::write(ss); }
     #define _TRACE_N_(X)
 
     #define _TRACE2_(X)

@@ -83,9 +83,9 @@ GgafDxEffect::GgafDxEffect(const char* prm_effect_name) : GgafObject() {
 //            );
 //    }
     if (hr != D3D_OK && pError == nullptr) {
-        throwGgafCriticalException("GgafDxEffect::GgafDxEffect "<<effect_file_name<<" が存在しないのではないだろうか・・・");
+        throwGgafCriticalException(effect_file_name<<" が存在しないのではないだろうか・・・");
     }
-    checkDxException(hr, D3D_OK, "GgafDxEffect::GgafDxEffect ["<<effect_file_name<<"]\n"<<(const char*)(pError->GetBufferPointer()));
+    checkDxException(hr, D3D_OK, "["<<effect_file_name<<"]\n"<<(const char*)(pError->GetBufferPointer()));
     _TRACE_(" GgafDxEffect::GgafDxEffect "<<prm_effect_name<<" のエフェクトを生成しました。ADD:"<<this);
     _h_alpha_master = _pID3DXEffect->GetParameterByName( nullptr, "g_alpha_master" ); //マスターα
 }
@@ -106,7 +106,7 @@ std::string GgafDxEffect::getEffectFileName(std::string prm_file) {
             if (PathFileExists(effect_file.c_str()) ) {
                 return effect_file;
             } else {
-                throwGgafCriticalException("GgafDxEffect::getEffectFileName エフェクトファイルが見つかりません。effect_file="<<effect_file);
+                throwGgafCriticalException("エフェクトファイルが見つかりません。effect_file="<<effect_file);
             }
         }
     }

@@ -158,7 +158,7 @@ public:
         if (_pFunc_reset) {
             return (*_pFunc_reset)(this);
         } else {
-            throwGgafCriticalException("GgafStatus::reset() リセット用メソッドがnullptrです。");
+            throwGgafCriticalException("リセット用メソッドがnullptrです。");
         }
     }
 

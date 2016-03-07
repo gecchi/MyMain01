@@ -14,7 +14,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxCubeMapMorphMeshModel::GgafDxCubeMapMorphMeshModel(const char* prm_model_name) : GgafDxMorphMeshModel(prm_model_name) {
-    _TRACE3_("GgafDxCubeMapMorphMeshModel::GgafDxCubeMapMorphMeshModel(" << _model_name << ")");
+    _TRACE3_("_model_name="<<_model_name);
     _obj_model |= Obj_GgafDxCubeMapMorphMeshModel;
 }
 
@@ -42,13 +42,13 @@ HRESULT GgafDxCubeMapMorphMeshModel::draw(GgafDxFigureActor* prm_pActor_target, 
         pDevice->SetIndices(_pIndexBuffer);
 
         hr = pID3DXEffect->SetFloat(pCubeMapMorphMeshEffect->_h_tex_blink_power, _power_blink);
-        checkDxException(hr, D3D_OK, "GgafDxCubeMapMorphMeshModel::draw() SetFloat(_h_tex_blink_power) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_power) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         hr = pID3DXEffect->SetFloat(pCubeMapMorphMeshEffect->_h_tex_blink_threshold, _blink_threshold);
-        checkDxException(hr, D3D_OK, "GgafDxCubeMapMorphMeshModel::draw() SetFloat(_h_tex_blink_threshold) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_threshold) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         hr = pID3DXEffect->SetFloat(pCubeMapMorphMeshEffect->_h_specular, _specular);
-        checkDxException(hr, D3D_OK, "GgafDxCubeMapMorphMeshModel::draw() SetFloat(_h_specular) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "SetFloat(_h_specular) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         hr = pID3DXEffect->SetFloat(pCubeMapMorphMeshEffect->_h_specular_power, _specular_power);
-        checkDxException(hr, D3D_OK, "GgafDxCubeMapMorphMeshModel::draw() SetFloat(_h_specular_power) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "SetFloat(_h_specular_power) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
 
     //ï`âÊ
@@ -69,16 +69,16 @@ HRESULT GgafDxCubeMapMorphMeshModel::draw(GgafDxFigureActor* prm_pActor_target, 
             }
         }
         hr = pID3DXEffect->SetValue(pCubeMapMorphMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
-        checkDxException(hr, D3D_OK, "GgafDxCubeMapMorphMeshModel::draw()SetValue(g_colMaterialDiffuse) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "SetValue(g_colMaterialDiffuse) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
         GgafDxEffect* pEffect_active = GgafDxEffectManager::_pEffect_active;
         if ((pEffect_active != pCubeMapMorphMeshEffect || GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) && i == 0) {
             if (pEffect_active) {
-               _TRACE4_("GgafDxCubeMapMorphMeshModel::draw() EndPass("<< pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
+               _TRACE4_("EndPass("<< pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
                 hr = pEffect_active->_pID3DXEffect->EndPass();
-                checkDxException(hr, D3D_OK, "GgafDxCubeMapMorphMeshModel::draw() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB"<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
+                checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB"<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
                 hr = pEffect_active->_pID3DXEffect->End();
-                checkDxException(hr, D3D_OK, "GgafDxCubeMapMorphMeshModel::draw() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+                checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
                 if (pEffect_active->_obj_effect & Obj_GgafDxMassEffect) {
                     pDevice->SetStreamSourceFreq( 0, 1 );
                     pDevice->SetStreamSourceFreq( 1, 1 );
@@ -91,22 +91,22 @@ HRESULT GgafDxCubeMapMorphMeshModel::draw(GgafDxFigureActor* prm_pActor_target, 
                 }
 #endif
             }
-            _TRACE4_("GgafDxCubeMapMorphMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pCubeMapMorphMeshEffect->_effect_name);
+            _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pCubeMapMorphMeshEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
-            checkDxException(hr, S_OK, "GgafDxCubeMapMorphMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, S_OK, "SetTechnique("<<pTargetActor->_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 
-            _TRACE4_("GgafDxCubeMapMorphMeshModel::draw BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pCubeMapMorphMeshEffect->_effect_name<<"("<<pCubeMapMorphMeshEffect<<")");
+            _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pCubeMapMorphMeshEffect->_effect_name<<"("<<pCubeMapMorphMeshEffect<<")");
             UINT numPass;
             hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
-            checkDxException(hr, D3D_OK, "GgafDxCubeMapMorphMeshModel::draw() Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             //ÉÇÅ[ÉtÉ^Å[ÉQÉbÉgÇÃêîÇ…ÇÊÇË pass ÇêÿÇËë÷Ç¶ÇƒÇ¢ÇÈ
             //ÉvÉäÉ}ÉäÉÅÉbÉVÉÖÇÃÇ›                             = pass0
             //ÉvÉâÉCÉ}ÉäÉÅÉbÉVÉÖÅ{ÉÇÅ[ÉtÉ^Å[ÉQÉbÉgÉÅÉbÉVÉÖÇPÇ¬ = pass1
             //ÉvÉâÉCÉ}ÉäÉÅÉbÉVÉÖÅ{ÉÇÅ[ÉtÉ^Å[ÉQÉbÉgÉÅÉbÉVÉÖÇQÇ¬ = pass2
             //à»â∫ç≈ëÂÇXÇ‹Ç≈
             hr = pID3DXEffect->BeginPass(_morph_target_num);
-            checkDxException(hr, D3D_OK, "GgafDxCubeMapMorphMeshModel::draw() BeginPass("<<_morph_target_num<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, D3D_OK, "BeginPass("<<_morph_target_num<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 #ifdef MY_DEBUG
             if (pCubeMapMorphMeshEffect->_begin) {
                 throwGgafCriticalException("End ÇµÇƒÇ¢Ç‹ÇπÇÒ "<<(GgafDxEffectManager::_pEffect_active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_active->_effect_name)<<"");
@@ -116,7 +116,7 @@ HRESULT GgafDxCubeMapMorphMeshModel::draw(GgafDxFigureActor* prm_pActor_target, 
 #endif
         } else {
             hr = pID3DXEffect->CommitChanges();
-            checkDxException(hr, D3D_OK, "GgafDxCubeMapMorphMeshModel::draw() CommitChanges() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         }
 
         _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pCubeMapMorphMeshEffect->_effect_name);

@@ -1745,7 +1745,7 @@ MenuActor<T>* MenuActor<T>::getParentMenu() {
 #ifdef MY_DEBUG
     MenuActor<T>* pMenuActor = dynamic_cast<MenuActor<T>*>(pActor);
     if (pMenuActor == nullptr) {
-        throwGgafCriticalException(" MenuActor<T>::getParentMenu 親ノードは同じメニューではありませんでした。name="<<T::getName()<<" this="<<this);
+        throwGgafCriticalException("MenuActor<T>::getParentMenu 親ノードは同じメニューではありませんでした。name="<<T::getName()<<" this="<<this);
     }
 #endif
     return (MenuActor<T>*)pActor;

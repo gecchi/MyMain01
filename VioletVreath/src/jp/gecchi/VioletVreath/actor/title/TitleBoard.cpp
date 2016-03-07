@@ -10,7 +10,7 @@ using namespace VioletVreath;
 
 TitleBoard::TitleBoard(const char* prm_name) : DefaultBoardActor(prm_name, "Title") {
     _class_name = "TitleBoard";
-    setZEnable(false);
+    setZEnableDraw(false);
     setZWriteEnable(false);
 }
 

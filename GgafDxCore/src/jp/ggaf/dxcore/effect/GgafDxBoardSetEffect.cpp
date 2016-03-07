@@ -14,9 +14,9 @@ GgafDxBoardSetEffect::GgafDxBoardSetEffect(const char* prm_effect_name) : GgafDx
     static float game_buffer_width = (float)(PROPERTY::GAME_BUFFER_WIDTH);
     static float game_buffer_height = (float)(PROPERTY::GAME_BUFFER_HEIGHT);
     hr = _pID3DXEffect->SetFloat("g_game_buffer_width", game_buffer_width);
-    checkDxException(hr, D3D_OK, "GgafDxBoardEffect::GgafDxBoardEffect SetFloat(g_game_buffer_width) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "SetFloat(g_game_buffer_width) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = _pID3DXEffect->SetFloat("g_game_buffer_height", game_buffer_height);
-    checkDxException(hr, D3D_OK, "GgafDxBoardEffect::GgafDxBoardEffect SetFloat(g_game_buffer_height) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "SetFloat(g_game_buffer_height) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
     //ƒnƒ“ƒhƒ‹
     _ah_alpha[0] = _pID3DXEffect->GetParameterByName( nullptr, "g_alpha001" );

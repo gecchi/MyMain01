@@ -27,8 +27,8 @@ WallAAPyramidActor::WallAAPyramidActor(const char* prm_name,
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1); //0:BOX用当たり判定、1:ピラミッド用当たり判定
     pChecker->setColliAAPyramid(0, 0,0,0, 0,0,0, 0);
-    setZEnable(true);       //Zバッファは考慮有り
-    setZWriteEnable(true);  //Zバッファは書き込み有り
+    setZEnableDraw(true);       //描画時、Zバッファ値は考慮される
+    setZWriteEnable(true);  //自身のZバッファを書き込みする
 
     static volatile bool is_init = WallAAPyramidActor::initStatic(this); //静的メンバ初期化
 }
@@ -94,11 +94,11 @@ void WallAAPyramidActor::config(WalledSectionScene* prm_pWalledSectionScene, int
     HRESULT hr;
     ID3DXEffect* pID3DXEffect = getEffect()->_pID3DXEffect;
     hr = pID3DXEffect->SetFloat(WallAAPyramidActor::_h_wall_dep, C_DX(_wall_dep)/_rate_of_bounding_sphere_radius);
-    checkDxException(hr, D3D_OK, "WallAAPyramidActor::WallAAPyramidActor() SetInt(_h_wall_dep) に失敗しました。");
+    checkDxException(hr, D3D_OK, "SetInt(_h_wall_dep) に失敗しました。");
     hr = pID3DXEffect->SetFloat(WallAAPyramidActor::_h_wall_height, C_DX(_wall_height)/_rate_of_bounding_sphere_radius);
-    checkDxException(hr, D3D_OK, "WallAAPyramidActor::WallAAPyramidActor() SetInt(_h_wall_height) に失敗しました。");
+    checkDxException(hr, D3D_OK, "SetInt(_h_wall_height) に失敗しました。");
     hr = pID3DXEffect->SetFloat(WallAAPyramidActor::_h_wall_width, C_DX(_wall_width)/_rate_of_bounding_sphere_radius);
-    checkDxException(hr, D3D_OK, "WallAAPyramidActor::WallAAPyramidActor() SetInt(_h_wall_width) に失敗しました。");
+    checkDxException(hr, D3D_OK, "SetInt(_h_wall_width) に失敗しました。");
 
 }
 
@@ -109,10 +109,10 @@ void WallAAPyramidActor::processDraw() {
     HRESULT hr;
     if (_pWalledSectionScene->_pActor_infront_alpha_target) {
         hr = pID3DXEffect->SetFloat(WallAAPyramidActor::_h_distance_AlphaTarget, -(_pWalledSectionScene->_pActor_infront_alpha_target->_dest_from_vppln_infront));
-        checkDxException(hr, D3D_OK, "WallAAPyramidActor::processDraw() SetMatrix(_h_distance_AlphaTarget) に失敗しました。");
+        checkDxException(hr, D3D_OK, "SetMatrix(_h_distance_AlphaTarget) に失敗しました。");
     } else {
         hr = pID3DXEffect->SetFloat(WallAAPyramidActor::_h_distance_AlphaTarget, -100.0f);
-        checkDxException(hr, D3D_OK, "WallAAPyramidActor::processDraw() SetMatrix(_h_distance_AlphaTarget) に失敗しました。");
+        checkDxException(hr, D3D_OK, "SetMatrix(_h_distance_AlphaTarget) に失敗しました。");
     }
     GgafDxFigureActor* pDrawActor = this;
     WallPartsActor* pWallPartsActor = nullptr;
@@ -123,7 +123,7 @@ void WallAAPyramidActor::processDraw() {
             pWallPartsActor->_matWorld._14 = pWallPartsActor->_wall_draw_face;  //描画面番号をワールド変換行列のmatWorld._14 に埋め込む
             pWallPartsActor->_matWorld._24 = pWallPartsActor->_pos_info;  //ピラミッド位置情報ををワールド変換行列のmatWorld._24 に埋め込む
             hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[draw_set_num], &(pWallPartsActor->_matWorld));
-            checkDxException(hr, D3D_OK, "WallAAPyramidActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetMatrix(g_matWorld) に失敗しました。");
             draw_set_num++;
             if (draw_set_num >= model_set_num) {
                 break;

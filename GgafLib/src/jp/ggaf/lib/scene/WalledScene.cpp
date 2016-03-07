@@ -25,7 +25,7 @@ void WalledScene::buildWalledScene(
         WalledSectionScene** prm_papSection, int prm_section_num,
         GgafActorDepository* prm_pDepo_wall,
         GgafActorDepository* prm_pDepo_prism) {
-    _TRACE_("WalledScene::buildWalledScene ["<<getName()<<"] build...");
+    _TRACE_(FUNC_NAME<<" ["<<getName()<<"] build...");
     setScrollingFunction(WalledScene::scrollX); //X軸方向スクロール関数
 
     _pDepo_wall = prm_pDepo_wall;
@@ -87,7 +87,7 @@ void WalledScene::buildWalledScene(
     _ringHoldSection.first();
     _is_all_active_section_scenes = false;
     _pLastSectionScene = prm_papSection[prm_section_num-1];
-    _TRACE_("WalledScene::buildWalledScene ["<<getName()<<"] done");
+    _TRACE_(FUNC_NAME<<" ["<<getName()<<"] done");
 }
 
 void WalledScene::initialize() {
@@ -142,13 +142,13 @@ void WalledScene::processBehavior() {
                 //つまり、他のセクションシーンに dispatchForce() されたからOK、と考えた。
                 //また、!pSection->_pWallPartsLast->isActive() は
                 //他のセクションシーンに dispatchForce() されずに、活動範囲外に消えたからOK、と考えた。
-                _TRACE_("WalledScene::processBehavior() ["<<getName()<<"] シーンのセクション["<<pSection->getName()<<"]inactivate!!");
+                _TRACE_(FUNC_NAME<<" ["<<getName()<<"] シーンのセクション["<<pSection->getName()<<"]inactivate!!");
                 pSection->inactivateDelay(60*60);
                 _ringLoopEndSection.remove();
                 if (pSection == _pLastSectionScene) {
                     //最終セクションならば一度コールバックを行い、処理を任せる。
                     //（以前はここでsayonara()をしていた）
-                    _TRACE_("WalledScene::processBehavior() ["<<getName()<<"] 最終セクションシーンだったためonFinishedAllSection() コールバック");
+                    _TRACE_(FUNC_NAME<<" ["<<getName()<<"] 最終セクションシーンだったためonFinishedAllSection() コールバック");
                     _is_finished = true;
                     onFinishedAllSection(); //コールバック
                 }

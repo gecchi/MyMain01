@@ -17,7 +17,7 @@ void GgafActorDepository::put(GgafActor* prm_pSub) {
     } else {
 #ifdef MY_DEBUG
         if (getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND) != prm_pSub->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND)) {
-            throwGgafCriticalException("GgafActorDepository::addSubLast 異なる種別のアクターを登録しようとしています。 \n"<<
+            throwGgafCriticalException("異なる種別のアクターを登録しようとしています。 \n"<<
                                        "想定="<<getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND)<<"[_pSubFirst="<<_pSubFirst->getName()<<"] \n"<<
                                        "引数="<<prm_pSub->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND)<<"["<<prm_pSub->getName()<<"]");
         }
@@ -29,7 +29,7 @@ void GgafActorDepository::put(GgafActor* prm_pSub) {
 }
 
 void GgafActorDepository::onReset() {
-    _TRACE_("GgafActorDepository::onReset() "<<NODE_INFO<<"");
+    _TRACE_(FUNC_NAME<<" "<<NODE_INFO<<"");
     if (_pSubFirst == nullptr) {
         return;
     }

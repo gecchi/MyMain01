@@ -53,9 +53,9 @@ int32_t GgafUtil::_rnd_int32_(int32_t prm_from, int32_t prm_to) {
 void GgafUtil::readProperties(std::string filename, GgafStrMap& mapStr) {
     std::ifstream file(filename.c_str());
     if (!file) {
-        throwGgafCriticalException("GgafUtil::readProperties() ファイルが見つかりません。 filename="<<filename);
+        throwGgafCriticalException("ファイルが見つかりません。 filename="<<filename);
     }
-    _TRACE_("GgafUtil::readProperties filename="<<filename);
+    _TRACE_(FUNC_NAME<<" filename="<<filename);
     GgafUtil::readProperties(file, mapStr);
     file.close();
 }

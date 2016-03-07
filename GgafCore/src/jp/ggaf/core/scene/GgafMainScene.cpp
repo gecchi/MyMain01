@@ -20,7 +20,7 @@ void GgafMainScene::updateActiveInTheTree() {
         } else {
             //自身が GgafSpacetime以外でかつ _pParent=nullptr で、
             //updateActiveInTheTree() がコールされることはありえないはず。
-            throwGgafCriticalException("GgafScene::updateActiveInTheTree() _is_active_in_the_tree_flg 更新できません。 this="<<NODE_INFO);
+            throwGgafCriticalException("_is_active_in_the_tree_flg 更新できません。 this="<<NODE_INFO);
         }
     }
 }

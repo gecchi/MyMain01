@@ -45,7 +45,7 @@ MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_nam
     GgafDxModel* pModel = getModel();
     if (!MyBunshinWateringLaserChip001::pModel_) {
         if (pModel->_num_materials != MAX_LASER_LEVEL) {
-            throwGgafCriticalException("MyBunshinWateringLaserChip001::onCreateModel() MyBunshinWateringLaserChip001モデルは、テクスチャ（マテリアル）が"<<MAX_LASER_LEVEL<<"つ必要です。");
+            throwGgafCriticalException("MyBunshinWateringLaserChip001モデルは、テクスチャ（マテリアル）が"<<MAX_LASER_LEVEL<<"つ必要です。");
         }
         MyBunshinWateringLaserChip001::pModel_ = pModel;
     }
@@ -257,7 +257,7 @@ void MyBunshinWateringLaserChip001::processSettlementBehavior() {
             pAxsMver_->forceVxyzMvVeloRange(-velo, velo);
 #ifdef MY_DEBUG
 if (pAimInfo_ == nullptr) {
-throwGgafCriticalException("MyBunshinWateringLaserChip001::processSettlementBehavior() pAimInfo_ が引き継がれていません！"<<this<<
+throwGgafCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
                            " _frame_of_life_when_activation="<<_frame_of_life_when_activation);
 }
 #endif

@@ -54,26 +54,26 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
             }
             //マテリアルのセット
             hr = pID3DXEffect->SetValue(pMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[i].Diffuse), sizeof(D3DCOLORVALUE) );
-            checkDxException(hr, D3D_OK, "GgafDxD3DXMeshModel::draw() SetValue(g_colMaterialDiffuse) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetValue(g_colMaterialDiffuse) に失敗しました。");
             hr = pID3DXEffect->SetFloat(pMeshEffect->_h_tex_blink_power, _power_blink);
-            checkDxException(hr, D3D_OK, "GgafDxD3DXMeshModel::draw() SetFloat(_h_tex_blink_power) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_power) に失敗しました。");
             hr = pID3DXEffect->SetFloat(pMeshEffect->_h_tex_blink_threshold, _blink_threshold);
-            checkDxException(hr, D3D_OK, "GgafDxD3DXMeshModel::draw() SetFloat(_h_tex_blink_threshold) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_threshold) に失敗しました。");
             hr = pID3DXEffect->SetFloat(pMeshEffect->_h_specular, _specular);
-            checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() SetFloat(_h_specular) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetFloat(_h_specular) に失敗しました。");
             hr = pID3DXEffect->SetFloat(pMeshEffect->_h_specular_power, _specular_power);
-            checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() SetFloat(_h_specular_power) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetFloat(_h_specular_power) に失敗しました。");
         }
 
         //描画
         GgafDxEffect* pEffect_active = GgafDxEffectManager::_pEffect_active;
         if ((pEffect_active != pMeshEffect || GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) && i == 0) {
             if (pEffect_active) {
-                _TRACE4_("GgafDxD3DXMeshModel::draw() EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
+                _TRACE4_("EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
                 hr = pEffect_active->_pID3DXEffect->EndPass();
-                checkDxException(hr, D3D_OK, "GgafDxD3DXMeshModel::draw() EndPass() に失敗しました。");
+                checkDxException(hr, D3D_OK, "に失敗しました。");
                 hr = pEffect_active->_pID3DXEffect->End();
-                checkDxException(hr, D3D_OK, "GgafDxD3DXMeshModel::draw() End() に失敗しました。");
+                checkDxException(hr, D3D_OK, "に失敗しました。");
                 if (pEffect_active->_obj_effect & Obj_GgafDxMassEffect) {
                     pDevice->SetStreamSourceFreq( 0, 1 );
                     pDevice->SetStreamSourceFreq( 1, 1 );
@@ -86,16 +86,16 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
                 }
 #endif
             }
-            _TRACE4_("GgafDxD3DXMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
+            _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
-            checkDxException(hr, S_OK, "GgafDxD3DXMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
+            checkDxException(hr, S_OK, "SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
-            _TRACE4_("GgafDxD3DXMeshModel::draw() BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name<<"("<<pMeshEffect<<")");
+            _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name<<"("<<pMeshEffect<<")");
             UINT numPass;
             hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
-            checkDxException(hr, D3D_OK, "GgafDxD3DXMeshModel::draw() Begin() に失敗しました。");
+            checkDxException(hr, D3D_OK, "に失敗しました。");
             hr = pID3DXEffect->BeginPass(0);
-            checkDxException(hr, D3D_OK, "GgafDxD3DXMeshModel::draw() BeginPass(0) に失敗しました。");
+            checkDxException(hr, D3D_OK, "BeginPass(0) に失敗しました。");
 
 #ifdef MY_DEBUG
             if (pMeshEffect->_begin) {
@@ -107,7 +107,7 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
 
         } else {
             hr = pID3DXEffect->CommitChanges();
-            checkDxException(hr, D3D_OK, "GgafDxD3DXMeshModel::draw() CommitChanges() に失敗しました。");
+            checkDxException(hr, D3D_OK, "に失敗しました。");
         }
         _TRACE4_("DrawSubset: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
         hr = _pID3DXMesh->DrawSubset(i);  //なんて便利なメソッド。
@@ -136,7 +136,7 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
 
 
 void GgafDxD3DXMeshModel::restore() {
-    _TRACE3_("GgafDxD3DXMeshModel::restore() " << _model_name << " start");
+    _TRACE3_("_model_name=" << _model_name << " start");
     //【restoreD3DXMeshModel再構築（＝初期化）処理概要】
     //1)D3DXLoadMeshFromXを使用してXファイルを読み込む
     //2)GgafDxD3DXMeshModelのメンバにセット
@@ -148,7 +148,7 @@ void GgafDxD3DXMeshModel::restore() {
     DWORD num_materials;
     std::string xfile_name = GgafDxModelManager::getMeshFileName(_model_name);
     if (xfile_name == "") {
-         throwGgafCriticalException("GgafDxModelManager::restoreD3DXMeshModel メッシュファイル(*.x)が見つかりません。model_name="<<(_model_name));
+         throwGgafCriticalException("メッシュファイル(*.x)が見つかりません。model_name="<<(_model_name));
     }
 
     LPD3DXBUFFER pID3DXBuffer; //受け取り用バッファ（マテリアル用）
@@ -164,16 +164,16 @@ void GgafDxD3DXMeshModel::restore() {
             &num_materials,                //[out] DWORD* pNumMaterials
             &pID3DXMesh                     //[out] LPD3DXMESH* pMesh
          );
-    checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreD3DXMeshModel] D3DXLoadMeshFromXによるロードが失敗。対象="<<xfile_name);
+    checkDxException(hr, D3D_OK, "D3DXLoadMeshFromXによるロードが失敗。対象="<<xfile_name);
 
     //最適化
     DWORD *pAdjacency = NEW DWORD [ pID3DXMesh->GetNumFaces() * 3 ];
     hr = pID3DXMesh->GenerateAdjacency( 1e-6f, pAdjacency );
-    checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreD3DXMeshModel] GenerateAdjacencyがつくれません。対象="<<xfile_name);
+    checkDxException(hr, D3D_OK, "GenerateAdjacencyがつくれません。対象="<<xfile_name);
     hr = pID3DXMesh->OptimizeInplace( D3DXMESHOPT_ATTRSORT, pAdjacency, nullptr, nullptr, nullptr );
-    checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreD3DXMeshModel] D3DXMESHOPT_ATTRSORTできません。対象="<<xfile_name);
+    checkDxException(hr, D3D_OK, "D3DXMESHOPT_ATTRSORTできません。対象="<<xfile_name);
     hr = pID3DXMesh->OptimizeInplace( D3DXMESHOPT_VERTEXCACHE, pAdjacency, nullptr, nullptr, nullptr );
-    checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreD3DXMeshModel] D3DXMESHOPT_VERTEXCACHEできません。対象="<<xfile_name);
+    checkDxException(hr, D3D_OK, "D3DXMESHOPT_VERTEXCACHEできません。対象="<<xfile_name);
     GGAF_DELETEARR(pAdjacency);
 
     //マテリアルを取り出す
@@ -222,7 +222,7 @@ void GgafDxD3DXMeshModel::restore() {
                            GgafDxGod::_pID3DDevice9,             // [in]  LPDIRECT3DDEVICE9 pDevice,
                            &pID3DXMesh_tmp                       // [out] LPD3DXMESH *ppCloneMesh
                          );
-        checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreD3DXMeshModel]  pID3DXMesh->CloneMeshFVF()失敗。対象="<<xfile_name);
+        checkDxException(hr, D3D_OK, " pID3DXMesh->CloneMeshFVF()失敗。対象="<<xfile_name);
         D3DXComputeNormals(pID3DXMesh_tmp, nullptr); //法線計算（Faceの表裏どっちに法線向けるか、どうやって判定しているのだろうか・・・）
         GGAF_RELEASE(pID3DXMesh);
         pID3DXMesh = pID3DXMesh_tmp;
@@ -234,18 +234,18 @@ void GgafDxD3DXMeshModel::restore() {
     _papTextureConnection   = papTextureConnection;
     _num_materials          = num_materials;
     _bounding_sphere_radius = 10.0f; //TODO:境界球半径大きさとりあえず100px
-    _TRACE3_("GgafDxD3DXMeshModel::restore() " << _model_name << " end");
+    _TRACE3_("_model_name=" << _model_name << " end");
 }
 
 void GgafDxD3DXMeshModel::onDeviceLost() {
-    _TRACE3_("GgafDxD3DXMeshModel::onDeviceLost() " << _model_name << " start");
+    _TRACE3_("_model_name=" << _model_name << " start");
     //デバイスロスト時は解放します。
     release();
-    _TRACE3_("GgafDxD3DXMeshModel::onDeviceLost() " << _model_name << " end");
+    _TRACE3_("_model_name=" << _model_name << " end");
 }
 
 void GgafDxD3DXMeshModel::release() {
-    _TRACE3_("GgafDxD3DXMeshModel::release() " << _model_name << " start");
+    _TRACE3_("_model_name=" << _model_name << " start");
     if (_pID3DXMesh == nullptr) {
         _TRACE_("＜警告＞ [GgafDxD3DXMeshModel::release()]  "<<_model_name<<" の _pID3DXMeshが オブジェクトになっていないため release できません！");
     }
@@ -264,7 +264,7 @@ void GgafDxD3DXMeshModel::release() {
     //TODO:親クラスメンバをDELETEするのはややきたないか
     GGAF_DELETEARR(_paMaterial_default);
     GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
-    _TRACE3_("GgafDxD3DXMeshModel::release() " << _model_name << " end");
+    _TRACE3_("_model_name=" << _model_name << " end");
 }
 
 GgafDxD3DXMeshModel::~GgafDxD3DXMeshModel() {

@@ -38,7 +38,7 @@ void RankUpStageController::startRunkUpStage(int prm_rank_up_level) {
     ready(prm_rank_up_level);     //これはパスされるはずであるが、念のため。
     ready(prm_rank_up_level + 1); //次のシーンを先行予約
     pNowRankUpStage_ = (RankUpStage*)obtainSceneFromFactory(ORDER_ID_RANKUP+prm_rank_up_level);
-    _TRACE_("RankUpStageController::execute() pNowRankUpStage_="<<pNowRankUpStage_);
+    _TRACE_(FUNC_NAME<<" pNowRankUpStage_="<<pNowRankUpStage_);
     GgafScene* pRankUpStage = getSubFirst();
     if (pRankUpStage) {
         //他のランクアップ中
@@ -114,7 +114,7 @@ void RankUpStageController::processBehavior() {
 }
 void RankUpStageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_RANKUP_WAS_END) {
-        _TRACE_("RankUpStageController::onCatchEvent() EVENT_RANKUP_WAS_END prm_pSource="<<prm_pSource);
+        _TRACE_(FUNC_NAME<<" EVENT_RANKUP_WAS_END prm_pSource="<<prm_pSource);
         RankUpStage* pScene = (RankUpStage*)prm_pSource; //終了宣言したRankUpStage
         pScene->fadeoutSceneWithBgm(240);
         pScene->sayonara(240);
@@ -134,7 +134,7 @@ void RankUpStageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
                 }
             }
         } else {
-            throwGgafCriticalException("RankUpStageController::onCatchEvent EVENT_RANKUP_WAS_END サブがnullptr"<<
+            throwGgafCriticalException("EVENT_RANKUP_WAS_END サブがnullptr"<<
                                        "this="<<NODE_INFO<<" prm_pSource="<<prm_pSource);
         }
     }

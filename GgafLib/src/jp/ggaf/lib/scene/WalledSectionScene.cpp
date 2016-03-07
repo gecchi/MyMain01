@@ -13,7 +13,7 @@ using namespace GgafLib;
 WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_data_filename,  WalledScene* prm_pWalledScene) : DefaultScene(prm_name) {
 //ruby tool/script/make_stage_data.rb > scene/stage_data.txt
 
-    _TRACE_("WalledSectionScene::WalledSectionScene "<<prm_data_filename<<" begin");
+    _TRACE_(FUNC_NAME<<" "<<prm_data_filename<<" begin");
     _class_name = "WalledSectionScene";
     _pActor_infront_alpha_target = nullptr;
     _pWalledScene = prm_pWalledScene;
@@ -31,7 +31,7 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
     std::string data_filename = PROPERTY::DIR_WALL + std::string(prm_data_filename);
     std::ifstream ifs(data_filename.c_str());
     if (ifs.fail()) {
-        throwGgafCriticalException("WalledSectionScene::WalledSectionScene "<<prm_data_filename<<" が開けません");
+        throwGgafCriticalException(prm_data_filename<<" が開けません");
     }
     ifs >> _loop_num;
 
@@ -39,7 +39,7 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
            _area_height >>
            _area_width;
     if (ifs.fail()) {
-        throwGgafCriticalException("WalledSectionScene::WalledSectionScene "<<prm_data_filename<<" フォーマットエラーその１");
+        throwGgafCriticalException(prm_data_filename<<" フォーマットエラーその１");
     }
     int r_data;
     _paWallInfoLen = NEW int[_area_len];
@@ -47,7 +47,7 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
         ifs >> r_data;
         _paWallInfoLen[i] = r_data;
         if (ifs.fail()) {
-            throwGgafCriticalException("WalledSectionScene::WalledSectionScene "<<prm_data_filename<<" フォーマットエラーその２ i="<<i<<" _area_len="<<_area_len);
+            throwGgafCriticalException(prm_data_filename<<" フォーマットエラーその２ i="<<i<<" _area_len="<<_area_len);
         }
     }
 
@@ -67,7 +67,7 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
                    _papaWallInfo[i][j]._aColliBoxStretch[4] >>
                    _papaWallInfo[i][j]._aColliBoxStretch[5];
             if (ifs.fail()) {
-                throwGgafCriticalException("WalledSectionScene::WalledSectionScene "<<prm_data_filename<<" フォーマットエラーその３ i="<<i<<"/j="<<j<<"/_area_len="<<_area_len<<"/_paWallInfoLen[i]="<<_paWallInfoLen[i]);
+                throwGgafCriticalException(prm_data_filename<<" フォーマットエラーその３ i="<<i<<"/j="<<j<<"/_area_len="<<_area_len<<"/_paWallInfoLen[i]="<<_paWallInfoLen[i]);
             }
         }
     }
@@ -76,7 +76,7 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
     _wall_start_x = 0;
     _pDepo_wall = nullptr;
     _pDepo_prism = nullptr;
-    _TRACE_("WalledSectionScene::WalledSectionScene "<<prm_data_filename<<" done");
+    _TRACE_(FUNC_NAME<<" "<<prm_data_filename<<" done");
 }
 
 void WalledSectionScene::config(
@@ -94,7 +94,7 @@ void WalledSectionScene::config(
 
 void WalledSectionScene::initialize() {
     if (_pDepo_wall == nullptr) {
-        throwGgafCriticalException("WalledSectionScene::initialize()   GgafActorDepository* _pDepo_wall をセットして下さい。");
+        throwGgafCriticalException("GgafActorDepository* _pDepo_wall をセットして下さい。");
     }
 }
 

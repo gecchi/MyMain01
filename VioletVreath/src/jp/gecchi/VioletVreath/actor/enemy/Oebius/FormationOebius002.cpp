@@ -31,7 +31,7 @@ void FormationOebius002::processBehavior() {
 void FormationOebius002::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyOebius* pOebius = (EnemyOebius*)prm_pActor;
     if (pOebius->pKurokoLeader_) {
-        throwGgafCriticalException("FormationOebius002::onCallUp pOebius->pKurokoLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpOebius="<<pOebius<<"("<<pOebius->getName()<<")");
+        throwGgafCriticalException("pOebius->pKurokoLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpOebius="<<pOebius<<"("<<pOebius->getName()<<")");
     } else {
         pOebius->pKurokoLeader_ = papSplManufConn_[prm_col]->peek()->
                                       createKurokoLeader(pOebius->getKuroko());

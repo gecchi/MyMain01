@@ -19,11 +19,11 @@ void SceneProgress::relateSubScene(progress prm_FirstProgress, progress prm_EndP
 void SceneProgress::relateSubScene(progress prm_FirstProgress, progress prm_EndProgress, DefaultScene* prm_pFirstSubScene) {
     DefaultScene* pSub = prm_pFirstSubScene;
     int num = 1;
-    _TRACE_("SceneProgress::relateSubScene() シーン("<<_pScene->getName()<<")は、SceneProgressの進捗番号とサブシーンを関連付けて操作します。対応は以下の通り。");
+    _TRACE_(FUNC_NAME<<" シーン("<<_pScene->getName()<<")は、SceneProgressの進捗番号とサブシーンを関連付けて操作します。対応は以下の通り。");
     for (progress prog = prm_FirstProgress; prog <= prm_EndProgress; prog++, num++) {
         _mapProg2Scene[prog] = pSub;
         if (pSub->isLast() && prog < prm_EndProgress) {
-            throwGgafCriticalException("SceneProgress::SceneProgress _pScene("<<_pScene->getName()<<")の"<<
+            throwGgafCriticalException("_pScene("<<_pScene->getName()<<")の"<<
                                        "サブシーン("<<prm_pFirstSubScene->getName()<<")から数えてのサブシーンの数が足りません(サブシーンが一周しました)。\n"<<
                                        "進捗番号数は "<<prm_FirstProgress<<"～"<<prm_EndProgress<<" の "<<(prm_EndProgress-prm_FirstProgress)<<" 個に対し、\n"<<
                                        "サブシーン数は "<<prm_pFirstSubScene->getName()<<"～"<<pSub->getName()<<" の "<<num<<"個でした。");

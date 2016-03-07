@@ -158,13 +158,13 @@ void VvvWorld::processBehavior() {
             }
         }
     } else if (GgafDxInput::isPushedDownKey(DIK_Z)) {
-        //Zバッファは書き込み有り無し
+        //自身のZバッファを書き込みする無し
         if (listActorInfo_.length() > 0) {
             GgafDxFigureActor* pA = listActorInfo_.getCurrent()->pActor_;
             if (pA->_zwriteenable) {
-                pA->setZWriteEnable(false); //Zバッファは書き込み無し
+                pA->setZWriteEnable(false); //自身のZバッファを書き込みしない
             } else {
-                pA->setZWriteEnable(true);  //Zバッファは書き込み有り
+                pA->setZWriteEnable(true);  //自身のZバッファを書き込みする
             }
         }
     }
@@ -619,7 +619,7 @@ void VvvWorld::processBehavior() {
                 oss << "_reflectance = "<< (p2->_reflectance)<<"\n";
                 oss << "_cubemap_tex = \""<<(p2->_cubemap_tex)<<"\"\n";
             }
-            oss << "Model::_specular renge,power = "<<(p->getModel()->_specular)<<", "<<(p->getModel()->_specular_power)<<"";
+            oss << "renge,power = "<<(p->getModel()->_specular)<<", "<<(p->getModel()->_specular_power)<<"";
 
             pFont01_info_->update(oss.str().c_str());
         } else {

@@ -190,7 +190,7 @@ void MenuBoardNameEntry::selectExPrev() { //上の時
 void MenuBoardNameEntry::processBehavior() {
 #ifdef MY_DEBUG
     if (pLabelInputedName_ == nullptr || pLabelSelectedChar_ == nullptr) {
-        throwGgafCriticalException("MenuBoardNameEntry::processBehavior() 事前に setNameFontBoard() してください。");
+        throwGgafCriticalException("事前に setNameFontBoard() してください。");
     }
 #endif
     MenuBoard::processBehavior();
@@ -200,7 +200,7 @@ void MenuBoardNameEntry::processBehavior() {
             if (pMenuConfirm->getSelectedIndex() == MenuBoardConfirm::ITEM_OK) {
                 //ネームエントリー完了OK
                 throwEventUpperTree(EVENT_MENU_NAMEENTRY_DONE);
-                _TRACE_("MenuBoardNameEntry::processBehavior() おしまい。イベントを投げた throwEventUpperTree(EVENT_MENU_NAMEENTRY_DONE);");
+                _TRACE_(FUNC_NAME<<" おしまい。イベントを投げた throwEventUpperTree(EVENT_MENU_NAMEENTRY_DONE);");
                 sinkCurrentSubMenu();
             } else if (pMenuConfirm->getSelectedIndex() == MenuBoardConfirm::ITEM_CANCEL) {
                 sinkCurrentSubMenu();

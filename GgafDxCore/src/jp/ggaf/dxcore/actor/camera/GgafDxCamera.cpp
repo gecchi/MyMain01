@@ -29,13 +29,13 @@ _y_buffer_bottom(PX_C(PROPERTY::GAME_BUFFER_HEIGHT) / -2)
 {
     _class_name = "GgafDxCamera";
     //fovXとアスペクト比からfovYを計算して求める
-    _TRACE_("GgafDxCamera::GgafDxCamera 画面アスペクト："<<_screen_aspect);
-    _TRACE_("GgafDxCamera::GgafDxCamera FovX="<<prm_rad_fovX<<" FovY="<<_rad_fovY);
+    _TRACE_(FUNC_NAME<<" 画面アスペクト："<<_screen_aspect);
+    _TRACE_(FUNC_NAME<<" FovX="<<prm_rad_fovX<<" FovY="<<_rad_fovY);
 
 
     //初期カメラ位置は視点(0,0,Z)、注視点(0,0,0)
     //Zは、キャラがZ=0のXY平面で丁度キャラが値ピクセル幅と一致するような所にカメラを引く
-    _TRACE_("GgafDxCamera::GgafDxCamera カメラの位置(0,0,"<<_cameraZ_org<<")");
+    _TRACE_(FUNC_NAME<<" カメラの位置(0,0,"<<_cameraZ_org<<")");
     _pVecCamFromPoint   = NEW D3DXVECTOR3( 0.0f, 0.0f, (FLOAT)_cameraZ_org); //位置
     _pVecCamLookatPoint = NEW D3DXVECTOR3( 0.0f, 0.0f, 0.0f ); //注視する方向
     _pVecCamUp          = NEW D3DXVECTOR3( 0.0f, 1.0f, 0.0f ); //上方向
@@ -51,7 +51,7 @@ _y_buffer_bottom(PX_C(PROPERTY::GAME_BUFFER_HEIGHT) / -2)
     // 射影変換行列作成
 
 
-    _TRACE_("GgafDxCamera::GgafDxCamera 範囲 ["<<_zn<<" ~ "<<_zf<<"]");
+    _TRACE_(FUNC_NAME<<" 範囲 ["<<_zn<<" ~ "<<_zf<<"]");
     if (PROPERTY::PRJ_2D_MODE) {
         //2Dモード正射影
         D3DXMatrixOrthoLH(

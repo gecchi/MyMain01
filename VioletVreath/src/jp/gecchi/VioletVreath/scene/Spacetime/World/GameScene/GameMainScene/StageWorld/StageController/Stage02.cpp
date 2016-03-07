@@ -58,7 +58,7 @@ void Stage02::processBehavior() {
 
     if (pProg->get() == Stage::PROG_END) {
         if (pProg->hasJustChanged()) {
-            _TRACE_("Stage01::processBehavior()  Stage::PROG_ENDになりますた！");
+            _TRACE_(FUNC_NAME<<"  Stage::PROG_ENDになりますた！");
             throwEventUpperTree(EVENT_PREPARE_TRANSIT_STAGE); //通過ステージ準備へ
         }
 
@@ -80,7 +80,7 @@ void Stage02::processJudgement() {
 void Stage02::onCatchEvent(hashval prm_no, void* prm_pSource) {
     SceneProgress* pProg = getProgress();
     if (prm_no == EVENT_STG02_CTRLER_WAS_END ) {
-        _TRACE_("Stage02::onCatchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをStage::PROG_ENDへ");
+        _TRACE_(FUNC_NAME<<" STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをStage::PROG_ENDへ");
         pScene_StagePartCtrler_->sayonara(60*60);
         pProg->change(Stage::PROG_END);
     } else {

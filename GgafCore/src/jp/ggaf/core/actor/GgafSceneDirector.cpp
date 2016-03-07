@@ -22,7 +22,7 @@ void GgafSceneDirector::throwEventUpperTree(hashval prm_no, void* prm_pSource) {
 }
 
 void GgafSceneDirector::remove() {
-    throwGgafCriticalException("[GgafSceneDirector::remove] Error! GgafSceneDirectorはremove()によって削除は行えません！");
+    throwGgafCriticalException("Error! GgafSceneDirectorはremove()によって削除は行えません！");
 }
 
 GgafGroupHead* GgafSceneDirector::addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor) {
@@ -86,7 +86,7 @@ void GgafSceneDirector::updateActiveInTheTree() {
             _is_active_in_the_tree_flg = false;
         }
     } else {
-        throwGgafCriticalException("GgafSceneDirector::updateActiveInTheTree() _is_active_in_the_tree_flg 更新できません。 this="<<NODE_INFO);
+        throwGgafCriticalException("_is_active_in_the_tree_flg 更新できません。 this="<<NODE_INFO);
     }
 }
 
@@ -94,7 +94,7 @@ GgafGod* GgafSceneDirector::askGod() {
     if (_pGod == nullptr) {
 #ifdef MY_DEBUG
         if (getPlatformScene() == nullptr) {
-            throwGgafCriticalException("GgafSceneDirector::askGod 神はこの世に存在する物からのみ謁見できます。まずはこの世に属しなさい！！("<<getName()<<")");
+            throwGgafCriticalException("神はこの世に存在する物からのみ謁見できます。まずはこの世に属しなさい！！("<<getName()<<")");
         }
 #endif
         _pGod = getPlatformScene()->askGod();

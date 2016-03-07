@@ -22,7 +22,7 @@ private:
         float _41, _42, _43, _44;   // : TEXCOORD4  World変換行列、４行目
         float r, g, b, a;           // : TEXCOORD5  マテリアルカラー
     };
-    static VERTEX_instancedata _aInstancedata[GGAFDXMASS_MAX_INSTACE];
+    static VERTEX_instancedata _aInstancedata[];
     static void createVertexInstaceData(GgafDxCore::GgafDxMassModel::VertexInstaceDataInfo* out_info);
 
 public:

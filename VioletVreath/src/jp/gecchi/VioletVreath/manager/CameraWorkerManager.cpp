@@ -42,7 +42,7 @@ CameraWorker* CameraWorkerManager::processCreateResource(const char* prm_idstr, 
     }
 
     if (pResource == nullptr) {
-        throwGgafCriticalException("CameraWorkerManager::processCreateResource("<<prm_idstr<<") 想定外のIDです。CameraWorkerが作成できません。");
+        throwGgafCriticalException("想定外のIDです。CameraWorkerが作成できません。");
     }
 
     pResource->inactivate();
@@ -50,8 +50,8 @@ CameraWorker* CameraWorkerManager::processCreateResource(const char* prm_idstr, 
 }
 
 GgafResourceConnection<CameraWorker>* CameraWorkerManager::processCreateConnection(const char* prm_idstr, CameraWorker* prm_pResource) {
-    _TRACE3_(" CameraWorkerManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
+    _TRACE3_("prm_idstr="<<prm_idstr<<" を生成開始。");
     CameraWorkerConnection* pConne = NEW CameraWorkerConnection(prm_idstr, prm_pResource);
-    _TRACE3_(" CameraWorkerManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
+    _TRACE3_("prm_idstr="<<prm_idstr<<" を生成終了。");
     return pConne;
 }

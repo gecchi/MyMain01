@@ -42,7 +42,7 @@ void FormationZako001::processBehavior() {
 void FormationZako001::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int prm_row, int prm_col) {
     Zako* pZako = (Zako*)prm_pActor;
     if (pZako->pKurokoLeader_) {
-        throwGgafCriticalException("FormationZako001::onCallUp pZako->pKurokoLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpZako="<<pZako<<"("<<pZako->getName()<<")");
+        throwGgafCriticalException("pZako->pKurokoLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpZako="<<pZako<<"("<<pZako->getName()<<")");
     } else {
         pZako->pKurokoLeader_ = papSplManufConn_[prm_col]->peek()->
                                      createKurokoLeader(pZako->getKuroko());

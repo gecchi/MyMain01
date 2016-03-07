@@ -350,8 +350,8 @@ angle GgafDxUtil::getAngDiff(angle prm_ang_from, angle prm_ang_to, int prm_way) 
                 return -1 * (ang_from + (D360ANG - ang_to));
             } else {
                 //おかしい
-                _TRACE_("GgafDxUtil::getAngDiff bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
-                throwGgafCriticalException("GgafDxUtil::getDiffAngle アングル値が範囲外です(1)。\n"<<
+                _TRACE_(FUNC_NAME<<" bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
+                throwGgafCriticalException("アングル値が範囲外です(1)。\n"<<
                                            "ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
             }
         } else if (D180ANG <= ang_from && ang_from <= D360ANG) {
@@ -370,8 +370,8 @@ angle GgafDxUtil::getAngDiff(angle prm_ang_from, angle prm_ang_to, int prm_way) 
                 return ang_to - ang_from;
             } else {
                 //おかしい
-                _TRACE_("GgafDxUtil::getAngDiff bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
-                throwGgafCriticalException("GgafDxUtil::getDiffAngle アングル値が範囲外です(2)。\n"<<
+                _TRACE_(FUNC_NAME<<" bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
+                throwGgafCriticalException("アングル値が範囲外です(2)。\n"<<
                                            "ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
             }
         }
@@ -392,8 +392,8 @@ angle GgafDxUtil::getAngDiff(angle prm_ang_from, angle prm_ang_to, int prm_way) 
                 return ang_to - ang_from;
             } else {
                 //おかしい
-                _TRACE_("GgafDxUtil::getAngDiff bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
-                throwGgafCriticalException("GgafDxUtil::getDiffAngle アングル値が範囲外です(3)。\n"<<
+                _TRACE_(FUNC_NAME<<" bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
+                throwGgafCriticalException("アングル値が範囲外です(3)。\n"<<
                                            "ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
             }
         } else if (D180ANG <= ang_from && ang_from <= D360ANG) {
@@ -412,8 +412,8 @@ angle GgafDxUtil::getAngDiff(angle prm_ang_from, angle prm_ang_to, int prm_way) 
                 return -1 * (ang_from + (D360ANG - ang_to));
             } else {
                 //おかしい
-                _TRACE_("GgafDxUtil::getAngDiff bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
-                throwGgafCriticalException("GgafDxUtil::getDiffAngle アングル値が範囲外です(4)。\n"<<
+                _TRACE_(FUNC_NAME<<" bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
+                throwGgafCriticalException("アングル値が範囲外です(4)。\n"<<
                                            "ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
             }
         }
@@ -430,12 +430,12 @@ angle GgafDxUtil::getAngDiff(angle prm_ang_from, angle prm_ang_to, int prm_way) 
             return -(ang_from + (D360ANG - ang_to));
         }
     } else {
-        _TRACE_("GgafDxUtil::getAngDiff bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
-        throwGgafCriticalException("GgafDxUtil::getDiffAngle  prm_way = TURN_CLOSE_TO/TURN_ANTICLOSE_TO/TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE 以外が指定されています。");
+        _TRACE_(FUNC_NAME<<" bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
+        throwGgafCriticalException("prm_way = TURN_CLOSE_TO/TURN_ANTICLOSE_TO/TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE 以外が指定されています。");
     }
 
     _TRACE_("bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
-    throwGgafCriticalException("GgafDxUtil::getDiffAngle  何故かしら角の距離が求めれません。(1) \n"<<
+    throwGgafCriticalException("何故かしら角の距離が求めれません。(1) \n"<<
                                "ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
 }
 
@@ -517,7 +517,7 @@ void GgafDxUtil::convVectorToRzRy(coord vx,
         rot_z = GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_x_REV[(int)(prj_rZY*0.01)][(int)(prj_rZX*0.01)];
         rot_y_rev = D90ANG - GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_y[(int)(prj_rZY*0.01)][(int)(prj_rZX*0.01)];
     } else {
-        throwGgafCriticalException("GgafDxUtil::getRzRyAng 範囲が破綻してます。prj_rXZ="<<prj_rXZ<<" 引数:"<<vx<<","<<vy<<","<<vz);
+        throwGgafCriticalException("範囲が破綻してます。prj_rXZ="<<prj_rXZ<<" 引数:"<<vx<<","<<vy<<","<<vz);
     }
 #if MY_DEBUG
     if (0 <= prj_rXY && prj_rXY < D45ANG) {
@@ -525,7 +525,7 @@ void GgafDxUtil::convVectorToRzRy(coord vx,
     } else if (D45ANG <= prj_rXY && prj_rXY <= D90ANG) {
         //OK
     } else {
-        throwGgafCriticalException("GgafDxUtil::getRzRyAng 範囲が破綻してます。prj_rXY="<<prj_rXY<<" 引数:"<<vx<<","<<vy<<","<<vz);
+        throwGgafCriticalException("範囲が破綻してます。prj_rXY="<<prj_rXY<<" 引数:"<<vx<<","<<vy<<","<<vz);
     }
 #endif
     //象限によって回転角を補正
@@ -577,7 +577,7 @@ void GgafDxUtil::convVectorToRzRy(coord vx,
 
 #if MY_DEBUG
     if (D360ANG < out_angRz || 0 > out_angRz || D360ANG < out_angRy || 0 > out_angRy) {
-        throwGgafCriticalException("GgafDxUtil::getRzRyAng 範囲外です要調査。\n out_angRz,out_angRy="<<out_angRz<<","<<out_angRy<<" vx,vy,vz="<<vx<<","<<vy<<","<<vz);
+        throwGgafCriticalException("範囲外です要調査。\n out_angRz,out_angRy="<<out_angRz<<","<<out_angRy<<" vx,vy,vz="<<vx<<","<<vy<<","<<vz);
     }
 #endif
 //    out_angRz = simplifyAng(out_angRz);

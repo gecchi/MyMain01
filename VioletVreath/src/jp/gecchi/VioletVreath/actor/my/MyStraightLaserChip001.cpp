@@ -32,7 +32,7 @@ MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) :
     GgafDxModel* pModel = getModel();
     if (!MyStraightLaserChip001::pModel_) {
         if (pModel->_num_materials != MAX_LASER_LEVEL) {
-            throwGgafCriticalException("MyStraightLaserChip001::onCreateModel() MyStraightLaserChip001モデルは、テクスチャ（マテリアル）が"<<MAX_LASER_LEVEL<<"つ必要です。");
+            throwGgafCriticalException("MyStraightLaserChip001モデルは、テクスチャ（マテリアル）が"<<MAX_LASER_LEVEL<<"つ必要です。");
         }
         MyStraightLaserChip001::pModel_ = pModel;
     }

@@ -107,7 +107,7 @@ void SmileMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
 
 void SmileMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {
     if (prm_now_level > 0) {
-        _TRACE_("SmileMagic::processEffectingBehavior ‚P‰ñ‚¾‚¯‚Ì‚Í‚¸");
+        _TRACE_(FUNC_NAME<<" ‚P‰ñ‚¾‚¯‚Ì‚Í‚¸");
     }
 }
 

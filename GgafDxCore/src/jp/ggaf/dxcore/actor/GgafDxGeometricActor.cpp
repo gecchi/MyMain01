@@ -281,7 +281,7 @@ GgafGroupHead* GgafDxGeometricActor::addSubGroupAsFk(actorkind prm_kind,
     if (_pFunc_calc_rot_mv_world_matrix) {
         //OK
     } else {
-        throwGgafCriticalException("GgafDxGeometricActor::addSubGroupAsFk() : "<<
+        throwGgafCriticalException(": "<<
                                    "this="<<NODE_INFO<<" は、_pFunc_calc_rot_mv_world_matrix が nullptrの為、FKベースとなる資格がありません");
     }
 #endif

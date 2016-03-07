@@ -121,15 +121,15 @@ SplineLine* SplineLineManager::processCreateResource(const char* prm_idstr, void
         pResource = NEW SplineLine(p, 17, 0.2); //粒度 0.2
     }
     if (pResource == nullptr) {
-        throwGgafCriticalException("SplineLineManager::processCreateResource("<<prm_idstr<<") 想定外のIDです。SplineLineが作成できません。");
+        throwGgafCriticalException("想定外のIDです。SplineLineが作成できません。");
     }
     return pResource;
 }
 
 GgafResourceConnection<GgafLib::SplineLine>* SplineLineManager::processCreateConnection(const char* prm_idstr, SplineLine* prm_pResource) {
-    _TRACE3_(" SplineLineManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
+    _TRACE3_("prm_idstr="<<prm_idstr<<" を生成開始。");
     SplineLineConnection* pConne = NEW SplineLineConnection(prm_idstr, prm_pResource);
-    _TRACE3_(" SplineLineManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
+    _TRACE3_("prm_idstr="<<prm_idstr<<" を生成終了。");
     return pConne;
 }
 

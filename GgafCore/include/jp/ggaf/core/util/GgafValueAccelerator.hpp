@@ -122,7 +122,7 @@ public:
             _progress = ACCELERATE_ZERO_END; //‚¢‚«‚È‚èI—¹
             return;
         }
-        //_TRACE_("GgafValueAccelerator::accelerateByDt COME!");
+        //_TRACE_(FUNC_NAME<<" COME!");
         //_TRACE_("prm_target_value_distance="<<prm_target_value_distance);
         //_TRACE_("prm_frame_of_target="<<prm_frame_of_target);
         //_TRACE_("prm_p1="<<prm_p1);
@@ -754,7 +754,7 @@ public:
         }
 #ifdef MY_DEBUG
         if (_spent_frames > 60*60*10) {
-            throwGgafCriticalException("GgafValueAccelerator::behave() 10•ªˆÈãŠŠ‚è‚Á‚Ï‚È‚µ‚È‚ñ‚Å‚·‚ªI");
+            throwGgafCriticalException("10•ªˆÈãŠŠ‚è‚Á‚Ï‚È‚µ‚È‚ñ‚Å‚·‚ªI");
         }
 #endif
     }

@@ -54,10 +54,10 @@ void RefractionLaserChip::config(int prm_num_refraction,
                                  GgafActorDepository* prm_pDepo_refraction_effect) {
 #ifdef MY_DEBUG
     if (prm_frame_between_refraction == 0) {
-        throwGgafCriticalException("RefractionLaserChip::config 直進間隔フレーム数が0は設定不可です。name="<<getName());
+        throwGgafCriticalException("直進間隔フレーム数が0は設定不可です。name="<<getName());
     }
     if (prm_frame_standstill_refraction == 0) {
-        throwGgafCriticalException("RefractionLaserChip::config 屈折溜フレーム数が0は設定不可です。name="<<getName());
+        throwGgafCriticalException("屈折溜フレーム数が0は設定不可です。name="<<getName());
     }
 #endif
     _num_refraction = prm_num_refraction;

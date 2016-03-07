@@ -55,7 +55,7 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
 }
 
 void World::initialize() {
-    _TRACE_("World::initialize()");
+    _TRACE_(FUNC_NAME<<"");
     pixcoord cx = PROPERTY::GAME_BUFFER_WIDTH/2;
     pixcoord cy = PROPERTY::GAME_BUFFER_HEIGHT/2;
     std::ostringstream os;

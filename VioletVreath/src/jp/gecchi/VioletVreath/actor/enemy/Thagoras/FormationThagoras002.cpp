@@ -29,7 +29,7 @@ void FormationThagoras002::processBehavior() {
 void FormationThagoras002::onCallUp(GgafDxFigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyThagoras* pThagoras = (EnemyThagoras*)prm_pActor;
     if (pThagoras->pKurokoLeader_) {
-        throwGgafCriticalException("FormationThagoras002::onCallUp pThagoras->pKurokoLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpThagoras="<<pThagoras<<"("<<pThagoras->getName()<<")");
+        throwGgafCriticalException("pThagoras->pKurokoLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpThagoras="<<pThagoras<<"("<<pThagoras->getName()<<")");
     } else {
         pThagoras->pKurokoLeader_ = papSplManufConn_[prm_col]->peek()->
                                       createKurokoLeader(pThagoras->getKuroko());

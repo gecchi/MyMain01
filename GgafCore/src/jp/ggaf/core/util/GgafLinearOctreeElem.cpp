@@ -18,7 +18,7 @@ GgafLinearOctreeElem::GgafLinearOctreeElem(GgafLinearOctree* prm_pLinearOctree, 
 
 void GgafLinearOctreeElem::clear() {
     if(_pOctant_current == nullptr) {
-        //_TRACE_("GgafLinearOctreeElem::extract() できません。意図してますか？");
+        //_TRACE_(FUNC_NAME<<" できません。意図してますか？");
         return;
     }
     //情報リセット

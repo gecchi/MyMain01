@@ -76,7 +76,7 @@ _pMorphMeshEffect((GgafDxMorphMeshEffect*)_pEffect)
 void GgafDxMorphMeshActor::setMorphWeight(int prm_target_mesh_no, float prm_weight) {
 #ifdef MY_DEBUG
     if (prm_target_mesh_no < 1 || _morph_target_num < prm_target_mesh_no) {
-        throwGgafCriticalException("GgafDxMorphMeshActor::setMorphWeight() prm_target_mesh_no(="<<prm_target_mesh_no<<") が、範囲外です。(有効範囲は 1～"<<_morph_target_num<<") ");
+        throwGgafCriticalException("prm_target_mesh_no(="<<prm_target_mesh_no<<") が、範囲外です。(有効範囲は 1～"<<_morph_target_num<<") ");
     }
 #endif
      _weight[prm_target_mesh_no] = prm_weight;
@@ -90,7 +90,7 @@ void GgafDxMorphMeshActor::setMorphWeight(float prm_weight) {
 float GgafDxMorphMeshActor::getMorphWeight(int prm_target_mesh_no) {
 #ifdef MY_DEBUG
     if (prm_target_mesh_no < 1 || _morph_target_num < prm_target_mesh_no) {
-        throwGgafCriticalException("GgafDxMorphMeshActor::setMorphWeight() prm_target_mesh_no(="<<prm_target_mesh_no<<") が、範囲外です。(有効範囲は 1～"<<_morph_target_num<<") ");
+        throwGgafCriticalException("prm_target_mesh_no(="<<prm_target_mesh_no<<") が、範囲外です。(有効範囲は 1～"<<_morph_target_num<<") ");
     }
 #endif
     return _weight[prm_target_mesh_no];
@@ -99,7 +99,7 @@ float GgafDxMorphMeshActor::getMorphWeight(int prm_target_mesh_no) {
 void GgafDxMorphMeshActor::addMorphWeight(int prm_target_mesh_no, float prm_add_weight) {
 #ifdef MY_DEBUG
     if (prm_target_mesh_no < 1 || _morph_target_num < prm_target_mesh_no) {
-        throwGgafCriticalException("GgafDxMorphMeshActor::setMorphWeight() prm_target_mesh_no(="<<prm_target_mesh_no<<") が、範囲外です。(有効範囲は 1～"<<_morph_target_num<<") ");
+        throwGgafCriticalException("prm_target_mesh_no(="<<prm_target_mesh_no<<") が、範囲外です。(有効範囲は 1～"<<_morph_target_num<<") ");
     }
 #endif
     _weight[prm_target_mesh_no] += prm_add_weight;
@@ -111,15 +111,15 @@ void GgafDxMorphMeshActor::processDraw() {
     ID3DXEffect* const pID3DXEffect = pMorphMeshEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(pMorphMeshEffect->_h_matView, pCam->getViewMatrix() );
-    checkDxException(hr, D3D_OK, "GgafDxMorphMeshActor::processDraw() SetMatrix(g_matView) に失敗しました。");
+    checkDxException(hr, D3D_OK, "SetMatrix(g_matView) に失敗しました。");
     hr = pID3DXEffect->SetInt(pMorphMeshEffect->_h_morph_target_num, _pMorphMeshModel->_morph_target_num);
-    checkDxException(hr, D3D_OK, "GgafDxMorphMeshActor::processDraw() SetInt(_h_morph_target_num) に失敗しました。");
+    checkDxException(hr, D3D_OK, "SetInt(_h_morph_target_num) に失敗しました。");
     for (int pattern = 1; pattern <= _pMorphMeshModel->_morph_target_num; pattern++) {
         hr = pID3DXEffect->SetFloat(pMorphMeshEffect->_ah_weight[pattern], _weight[pattern]);
-        checkDxException(hr, D3D_OK, "GgafDxMorphMeshActor::processDraw() SetFloat(_ah_weight["<<pattern<<"]) に失敗しました。");
+        checkDxException(hr, D3D_OK, "SetFloat(_ah_weight["<<pattern<<"]) に失敗しました。");
     }
     hr = pID3DXEffect->SetMatrix(pMorphMeshEffect->_h_matWorld, &_matWorld );
-    checkDxException(hr, D3D_OK, "GgafDxMorphMeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
+    checkDxException(hr, D3D_OK, "SetMatrix(g_matWorld) に失敗しました。");
     _pMorphMeshModel->draw(this);
 }
 

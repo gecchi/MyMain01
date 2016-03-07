@@ -17,10 +17,10 @@ GgafXpm::GgafXpm(const char** prm_xpm) : GgafObject() {
     std::istringstream line0(_xpm_hd[0]); //"16 491 5 1 "  <width/cols> <height/rows> <colors> <char on pixel>
     line0 >> _width >> _height >> _colors >> _char_on_pixel;  //char on pixel は 1 しか対応していない・・・
     if (line0.fail()) {
-        throwGgafCriticalException("GgafXpm::GgafXpm 不正なヘッダデータです line0=["<<line0.str()<<"]");
+        throwGgafCriticalException("不正なヘッダデータです line0=["<<line0.str()<<"]");
     }
     if (_char_on_pixel != 1) {
-        throwGgafCriticalException("GgafXpm::GgafXpm _char_on_pixel は1文字しか対応していません。 line0=["<<line0.str()<<"]");
+        throwGgafCriticalException("_char_on_pixel は1文字しか対応していません。 line0=["<<line0.str()<<"]");
     }
     for (int i = 0; i < _colors; i++) {
         char c = _xpm_hd[i + 1][0]; //１文字だけ対応

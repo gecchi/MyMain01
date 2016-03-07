@@ -803,7 +803,7 @@ void GgafRgb::set(std::string prm_str_color) {
         _b = _blue / 255.0f;
     } else {
         if (GgafRgb::_cname.find(prm_str_color) == GgafRgb::_cname.end()) {
-            throwGgafCriticalException("GgafRgb::set HEX値(色名)からRGBに変換出来ません。prm_str_color="<<prm_str_color);
+            throwGgafCriticalException("HEX値(色名)からRGBに変換出来ません。prm_str_color="<<prm_str_color);
         } else {
             _hex = GgafRgb::_cname[prm_str_color];
             if (_hex[0] == '#') {

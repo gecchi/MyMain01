@@ -36,14 +36,14 @@ void GgafDxSpriteMeshActor::processDraw() {
     ID3DXEffect* const pID3DXEffect = _pMeshEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_h_matWorld, &_matWorld );
-    checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     float u = 0;
     float v = 0;
     _pUvFlipper->getUV(u, v);
     hr = pID3DXEffect->SetFloat(_pMeshEffect->_h_offset_u, u);
-    checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetMatrix(_h_offset_u) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "SetMatrix(_h_offset_u) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pMeshEffect->_h_offset_v, v);
-    checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetMatrix(_h_offset_v) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "SetMatrix(_h_offset_v) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     _pMeshModel->GgafDxMeshModel::draw(this);
 }
 

@@ -29,7 +29,7 @@ void GameOverScene::onReset() {
     getProgress()->reset(PROG_INIT);
 }
 void GameOverScene::initialize() {
-    _TRACE_("GameOverScene::initialize()");
+    _TRACE_(FUNC_NAME<<"");
 }
 
 void GameOverScene::processBehavior() {

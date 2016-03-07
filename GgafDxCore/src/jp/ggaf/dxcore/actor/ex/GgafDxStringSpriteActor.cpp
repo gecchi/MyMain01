@@ -83,10 +83,10 @@ void GgafDxStringSpriteActor::update(const char* prm_str) {
         }
 #ifdef MY_DEBUG
         if (nn > _max_len) {
-            throwGgafCriticalException("GgafDxStringBoardActor::update 文字列の改行数が"<<_max_len<<"個を超えました。name="<<getName()<<" prm_str="<<prm_str);
+            throwGgafCriticalException("文字列の改行数が"<<_max_len<<"個を超えました。name="<<getName()<<" prm_str="<<prm_str);
         }
         if (0 > _draw_string[i] || _draw_string[i] > 256) {
-            throwGgafCriticalException("GgafDxStringBoardActor::update 範囲外の扱えない文字種がありました _draw_string["<<i<<"]="<<_draw_string[i]<<"。 0～255の範囲にして下さい。name="<<getName()<<" prm_str="<<prm_str);
+            throwGgafCriticalException("範囲外の扱えない文字種がありました _draw_string["<<i<<"]="<<_draw_string[i]<<"。 0～255の範囲にして下さい。name="<<getName()<<" prm_str="<<prm_str);
         }
 #endif
         _aWidth_line_px[nn] += _aWidthPx[_draw_string[i]];
@@ -141,9 +141,9 @@ void GgafDxStringSpriteActor::processDraw() {
         }
     }
     hr = pID3DXEffect->SetValue(pSpriteSetEffect->_h_colMaterialDiffuse, &(_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) ); //注意：色は文字ごとは不可
-    checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetValue(_h_colMaterialDiffuse) に失敗しました。");
+    checkDxException(hr, D3D_OK, "SetValue(_h_colMaterialDiffuse) に失敗しました。");
     hr = pID3DXEffect->SetMatrix(pSpriteSetEffect->_ah_matWorld[0], &_matWorld);
-    checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetMatrix(_ah_matWorld) に失敗しました。");
+    checkDxException(hr, D3D_OK, "SetMatrix(_ah_matWorld) に失敗しました。");
 
     if (_align == ALIGN_LEFT || _align == ALIGN_CENTER) {
         int nnn = 0; // num of \n now
@@ -179,14 +179,14 @@ void GgafDxStringSpriteActor::processDraw() {
             dx_tmp = dx + _chr_width_px - w;
 
             hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_x[draw_set_cnt], PX_DX(dx));
-            checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_x) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetFloat(_ah_x) に失敗しました。");
             hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_y[draw_set_cnt], PX_DX(dy));
-            checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_y) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetFloat(_ah_y) に失敗しました。");
             _pUvFlipper->getUV(pattno, u, v);
             hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_offset_u[draw_set_cnt], u);
-            checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_offset_u) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetFloat(_ah_offset_u) に失敗しました。");
             hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_offset_v[draw_set_cnt], v);
-            checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_offset_v) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetFloat(_ah_offset_v) に失敗しました。");
 
             draw_set_cnt++;
             if (draw_set_cnt == pSpriteSetModel->_set_num) {
@@ -225,14 +225,14 @@ void GgafDxStringSpriteActor::processDraw() {
             dx = dx_tmp - (w + _aWidthPx[_draw_string[pos]]);
             dx_tmp = dx + w;
             hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_x[draw_set_cnt], PX_DX(dx));
-            checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_x) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetFloat(_ah_x) に失敗しました。");
             hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_y[draw_set_cnt], PX_DX(dy));
-            checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_y) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetFloat(_ah_y) に失敗しました。");
             _pUvFlipper->getUV(pattno, u, v);
             hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_offset_u[draw_set_cnt], u);
-            checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_offset_u) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetFloat(_ah_offset_u) に失敗しました。");
             hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_offset_v[draw_set_cnt], v);
-            checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_offset_v) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetFloat(_ah_offset_v) に失敗しました。");
 
             draw_set_cnt++;
             if (draw_set_cnt == pSpriteSetModel->_set_num) {

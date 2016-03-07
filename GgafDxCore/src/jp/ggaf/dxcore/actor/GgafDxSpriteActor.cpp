@@ -65,11 +65,11 @@ void GgafDxSpriteActor::processDraw() {
         _matWorld._42 += PX_C(_pSpriteModel->_model_height_px*0.5f);
     }
     hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_h_matWorld, &_matWorld );
-    checkDxException(hr, D3D_OK, "GgafDxSpriteActor::processDraw SetMatrix(_h_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "SetMatrix(_h_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetValue(_pSpriteEffect->_h_colMaterialDiffuse, &(_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
-    checkDxException(hr, D3D_OK, "GgafDxSpriteActor::draw() SetValue(_h_colMaterialDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "SetValue(_h_colMaterialDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pSpriteEffect->_h_far_rate, _far_rate );
-    checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetFloat(_h_far_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "SetFloat(_h_far_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     _pSpriteModel->GgafDxSpriteModel::draw(this);
 }
 

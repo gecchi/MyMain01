@@ -87,22 +87,22 @@ void PCMPlayer::terminateThread() {
                 case WAIT_OBJECT_0:
                     // スレッドが終わった
                     end = true;
-                    _TRACE_("PCMPlayer::terminateThread() WaitForSingleObject=WAIT_OBJECT_0 OK!Done! flag="<<flag<<" wait="<<wait<<"");
+                    _TRACE_(FUNC_NAME<<" WaitForSingleObject=WAIT_OBJECT_0 OK!Done! flag="<<flag<<" wait="<<wait<<"");
                     break;
                 case WAIT_TIMEOUT:
                     wait++;
                     _is_terminate = true;
                     // まだ終了していないので待機
-                    _TRACE_("PCMPlayer::terminateThread() WaitForSingleObject=WAIT_TIMEOUT... flag="<<flag<<" wait="<<wait<<"");
+                    _TRACE_(FUNC_NAME<<" WaitForSingleObject=WAIT_TIMEOUT... flag="<<flag<<" wait="<<wait<<"");
                     break;
                 case WAIT_FAILED:
                     // 失敗しているようです
                     end = true;
-                    _TRACE_("PCMPlayer::terminateThread() WaitForSingleObject=WAIT_FAILED... flag="<<flag<<" wait="<<wait<<"");
+                    _TRACE_(FUNC_NAME<<" WaitForSingleObject=WAIT_FAILED... flag="<<flag<<" wait="<<wait<<"");
                     break;
                 default:
                     wait++;
-                    _TRACE_("PCMPlayer::terminateThread() WaitForSingleObject=?  flag="<<flag<<" wait="<<wait<<"");
+                    _TRACE_(FUNC_NAME<<" WaitForSingleObject=?  flag="<<flag<<" wait="<<wait<<"");
                     break;
             }
             if (!end) {
@@ -113,7 +113,7 @@ void PCMPlayer::terminateThread() {
         CloseHandle(_hnd_thread);
         _hnd_thread = 0;
     } else {
-        _TRACE_("PCMPlayer::terminateThread() 以前に既に実行済み。多分。this=" << this << "/_is_terminate=" << _is_terminate);
+        _TRACE_(FUNC_NAME<<" 以前に既に実行済み。多分。this=" << this << "/_is_terminate=" << _is_terminate);
     }
 }
 
@@ -184,7 +184,7 @@ bool PCMPlayer::initializeBuffer() {
     BEGIN_SYNCHRONIZED2; //これが効いてる
     _pPCMDecoder->setHead(); // 頭出し
     HRESULT hr = _pDSBuffer->SetCurrentPosition(0);
-    checkDxException(hr, DS_OK , "PCMPlayer::initializeBuffer()  SetCurrentPosition( 0 ) に失敗しました。");
+    checkDxException(hr, DS_OK, " SetCurrentPosition( 0 ) に失敗しました。");
     // バッファをロックして初期データ書き込み
     for (int i = 0; i < 10; i++) { //最大１０回試行してみる。苦肉の策。
                                    //これは DSBLOCK_ENTIREBUFFER （全体ロック)が
@@ -195,7 +195,7 @@ bool PCMPlayer::initializeBuffer() {
         void* AP1 = 0, *AP2 = 0;
         DWORD AB1 = 0, AB2 = 0;
         hr = _pDSBuffer->Lock(0, 0, &AP1, &AB1, &AP2, &AB2, DSBLOCK_ENTIREBUFFER);
-        //checkDxException(hr, DS_OK , "PCMPlayer::initializeBuffer() Lock に失敗しました。");
+        //checkDxException(hr, DS_OK, "Lock に失敗しました。");
         //↑TODO:ロック失敗している場合がある。仕方ないのでエラーチェックはコメントにする。
         //  起こった場合、メモリリークしているっぽい。長い期間悩んだが放置・・。
         //クリティカルセクション   BEGIN_SYNCHRONIZED2 ～    END_SYNCHRONIZED2 で挟むようにしてみた。
@@ -204,12 +204,12 @@ bool PCMPlayer::initializeBuffer() {
         if (SUCCEEDED(hr)) {
             _pPCMDecoder->getSegment((char*)AP1, AB1, 0, 0); //← ココでも極稀に落ちる！昔は。（今は長い期間安定している）
             hr = _pDSBuffer->Unlock(AP1, AB1, AP2, AB2);
-            checkDxException(hr, DS_OK , "PCMPlayer::initializeBuffer() Unlock に失敗しました。");
+            checkDxException(hr, DS_OK, "Unlock に失敗しました。");
             break;
         } else {
             //ロック失敗時
             if (i < 10) {
-                _TRACE_("PCMPlayer::initializeBuffer() Lockに失敗 i=" << i << " ");
+                _TRACE_(FUNC_NAME<<" Lockに失敗 i=" << i << " ");
 //                _TRACE_("hr=" << hr << " " << DXGetErrorString(hr) << " " << DXGetErrorDescription(hr));
                 _TRACE_("HRESULT="<<hr);
                 hr = _pDSBuffer->Unlock(AP1, AB1, AP2, AB2);
@@ -217,7 +217,7 @@ bool PCMPlayer::initializeBuffer() {
                 continue; //もう一回頑張る
             } else {
                 //あきらめる
-                _TRACE_("PCMPlayer::initializeBuffer() もうLockをあきらめて解放します。いいんかそれで");
+                _TRACE_(FUNC_NAME<<" もうLockをあきらめて解放します。いいんかそれで");
                 clear();
                 END_SYNCHRONIZED2;
                 return false;
@@ -301,7 +301,7 @@ unsigned __stdcall PCMPlayer::streamThread(void* playerPtr) {
         if (isEnd) {
             DWORD curPlayPos;
             HRESULT hr = player->_pDSBuffer->GetCurrentPosition(&curPlayPos, 0);
-            checkDxException(hr, DS_OK , "PCMPlayer::streamThread()  GetCurrentPosition に失敗しました。");
+            checkDxException(hr, DS_OK, "GetCurrentPosition に失敗しました。");
             if (curPlayPos < prePlayPos) {
                 // バッファをループした瞬間
                 //if ( prePlayPos <= finishPos ) {
@@ -332,7 +332,7 @@ bool PCMPlayer::play(bool prm_is_looping) {
     _is_looping = prm_is_looping;
     _pPCMDecoder->setLooping(_is_looping);
     HRESULT hr = _pDSBuffer->Play(0, 0, DSBPLAY_LOOPING);
-    checkDxException(hr, DS_OK , "PCMPlayer::play("<<prm_is_looping<<")  に失敗しました。");
+    checkDxException(hr, DS_OK, "失敗しました。 prm_is_looping="<<prm_is_looping);
     _state = STATE_PLAY;
     return true;
 }
@@ -342,7 +342,7 @@ void PCMPlayer::pause() {
     if (_state == STATE_PLAY) {
         // 動いていたら止める
         HRESULT hr = _pDSBuffer->Stop();
-        checkDxException(hr, DS_OK , "PCMPlayer::pause() に失敗しました。");
+        checkDxException(hr, DS_OK, "失敗しました。");
         _state = STATE_PAUSE;
     } else if (_state == STATE_PAUSE) {
         //PAUSE中にpause()しても無視
@@ -369,17 +369,17 @@ void PCMPlayer::stop() {
     }
     _state = STATE_STOP;
     HRESULT hr = _pDSBuffer->Stop();
-    checkDxException(hr, DS_OK , "PCMPlayer::stop() に失敗しました。");
+    checkDxException(hr, DS_OK, "失敗しました。");
     // バッファの頭出し
     bool r = initializeBuffer();
-    _TRACE_("PCMPlayer::stop() initializeBuffer() = " << r);
+    _TRACE_(FUNC_NAME<<" initializeBuffer() = " << r);
 }
 
 //! 音量を変える
 void PCMPlayer::setVolume(int db) {
     if (isReady()) {
         HRESULT hr = _pDSBuffer->SetVolume(db);
-        checkDxException(hr, DS_OK , "PCMPlayer::setVolume("<<db<<") に失敗しました。");
+        checkDxException(hr, DS_OK, "失敗しました。 db="<<db);
     }
 }
 
@@ -387,7 +387,7 @@ void PCMPlayer::setVolume(int db) {
 void PCMPlayer::setPan(int pan) {
     if (isReady()) {
         HRESULT hr = _pDSBuffer->SetPan(pan);
-        checkDxException(hr, DS_OK , "PCMPlayer::setPan("<<pan<<") に失敗しました。");
+        checkDxException(hr, DS_OK, "失敗しました。pan="<<pan);
     }
 }
 

@@ -260,7 +260,7 @@ public:
      * 描画時Zバッファを考慮するか .
      * @param prm_bool true:考慮する(default) / false:無視する
      */
-    inline void setZEnable(bool prm_bool) {
+    inline void setZEnableDraw(bool prm_bool) {
         _zenable = prm_bool;
     }
 

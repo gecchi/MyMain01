@@ -110,7 +110,7 @@ void GgafDx26DirectionUtil::init() {
     if (GgafDx26DirectionUtil::is_init) {
         return;
     }
-    _TRACE_("GgafDx26DirectionUtil::init()");
+    _TRACE_(FUNC_NAME<<"");
 
 
     GgafDx26DirectionUtil::is_init = true;

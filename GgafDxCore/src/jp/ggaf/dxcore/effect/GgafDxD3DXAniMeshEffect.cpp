@@ -15,18 +15,18 @@ GgafDxD3DXAniMeshEffect::GgafDxD3DXAniMeshEffect(const char* prm_effect_name) : 
     HRESULT hr;
     //ŽË‰e•ÏŠ·s—ñ
     hr = _pID3DXEffect->SetMatrix("g_matProj", pCam->getProjectionMatrix() );
-    checkDxException(hr, D3D_OK, "GgafDxD3DXAniMeshActor::GgafDxD3DXAniMeshEffect SetMatrix() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     //ƒ‰ƒCƒg•ûŒü
     hr = _pID3DXEffect->SetValue("g_vecLightFrom_World", &(GgafDxGod::_d3dlight9_default.Direction), sizeof(D3DVECTOR) );
-    checkDxException(hr, D3D_OK, "GgafDxD3DXAniMeshEffect::GgafDxD3DXAniMeshEffect SetValue(g_vecLightFrom_World) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "SetValue(g_vecLightFrom_World) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     //Diffuse”½ŽË
     hr = _pID3DXEffect->SetValue("g_colLightDiffuse", &(GgafDxGod::_d3dlight9_default.Diffuse), sizeof(D3DCOLORVALUE));
-    checkDxException(hr, D3D_OK, "GgafDxD3DXAniMeshEffect::GgafDxD3DXAniMeshEffect SetValue(g_colLightDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "SetValue(g_colLightDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     //Ambient”½ŽË
     hr = _pID3DXEffect->SetValue("g_colLightAmbient", &(GgafDxGod::_d3dlight9_default.Ambient), sizeof(D3DCOLORVALUE));
-    checkDxException(hr, D3D_OK, "GgafDxD3DXAniMeshEffect::GgafDxD3DXAniMeshEffect SetValue(g_colLightAmbient) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "SetValue(g_colLightAmbient) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = _pID3DXEffect->SetFloat("g_zf", pCam->getZFar());
-    checkDxException(hr, D3D_OK, "GgafDxD3DXAniMeshEffect::GgafDxSpriteEffect SetFloat(g_zf) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "SetFloat(g_zf) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     //ƒVƒF[ƒ_[ƒnƒ“ƒhƒ‹
     _h_matView = _pID3DXEffect->GetParameterByName( nullptr, "g_matView" );
     _h_matWorld = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld" );

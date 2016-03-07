@@ -19,8 +19,8 @@ VreathItem::VreathItem(const char* prm_name, const char* prm_model, GgafCore::Gg
     _class_name = "VreathItem";
     pAxsMver_ = NEW GgafDxAxesMover(this);
     effectBlendOne(); //加算合成するTechnique指定
-    setZEnable(true);        //Zバッファは考慮有り
-    setZWriteEnable(false);  //Zバッファは書き込み無し
+    setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
+    setZWriteEnable(false);  //自身のZバッファを書き込みしない
     setAlpha(0.9);
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setRollPitchYawFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));

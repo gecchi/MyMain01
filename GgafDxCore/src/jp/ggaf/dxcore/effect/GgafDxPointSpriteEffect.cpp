@@ -14,16 +14,16 @@ GgafDxPointSpriteEffect::GgafDxPointSpriteEffect(const char* prm_effect_name) : 
     HRESULT hr;
 //    //VIEW•ÏŠ·s—ñ
 //    hr = _pID3DXEffect->SetMatrix( "g_matView", &GgafDxGod::_matView );
-//    checkDxException(hr, D3D_OK, "GgafDxPointSpriteEffect::GgafDxPointSpriteEffect SetMatrix(g_matView) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+//    checkDxException(hr, D3D_OK, "SetMatrix(g_matView) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     //ŽË‰e•ÏŠ·s—ñ
     hr = _pID3DXEffect->SetMatrix("g_matProj", pCam->getProjectionMatrix() );
-    checkDxException(hr, D3D_OK, "GgafDxPointSpriteEffect::GgafDxPointSpriteEffect SetMatrix(g_matProj) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "SetMatrix(g_matProj) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = _pID3DXEffect->SetFloat("g_dist_CamZ_default", -(pCam->getZOrigin()));
-    checkDxException(hr, D3D_OK, "GgafDxPointSpriteEffect::GgafDxPointSpriteEffect SetFloat(g_dist_CamZ_default) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "SetFloat(g_dist_CamZ_default) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = _pID3DXEffect->SetFloat("g_zn", pCam->getZNear());
-    checkDxException(hr, D3D_OK, "GgafDxPointSpriteEffect::GgafDxPointSpriteEffect SetFloat(g_zn) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "SetFloat(g_zn) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = _pID3DXEffect->SetFloat("g_zf", pCam->getZFar());
-    checkDxException(hr, D3D_OK, "GgafDxPointSpriteEffect::GgafDxSpriteEffect SetFloat(g_zf) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "SetFloat(g_zf) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
     //ƒVƒF[ƒ_[ƒnƒ“ƒhƒ‹
     _h_matView  = _pID3DXEffect->GetParameterByName( nullptr, "g_matView" );

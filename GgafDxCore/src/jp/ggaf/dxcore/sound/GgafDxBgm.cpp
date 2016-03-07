@@ -16,7 +16,7 @@ using namespace GgafDxCore;
 using namespace IkdLib;
 
 //GgafDxBgm::GgafDxBgm(char* prm_ogg_name) : GgafObject() {
-//    _TRACE_("GgafDxBgm::GgafDxBgm "<<prm_ogg_name);
+//    _TRACE_(FUNC_NAME<<" "<<prm_ogg_name);
 //    if (GgafDxSound::_pIDirectSound8 == nullptr) {
 //        throwGgafCriticalException("GgafDxBgm::GgafDxBgm("<<prm_ogg_name<<") DirectSound が、まだ初期化されていません。");
 //    }
@@ -29,7 +29,7 @@ using namespace IkdLib;
 
 GgafDxBgm::GgafDxBgm(const char* prm_bgm_key) : GgafObject() {
     if (GgafDxSound::_pIDirectSound8 == nullptr) {
-        throwGgafCriticalException("GgafDxBgm::GgafDxBgm("<<prm_bgm_key<<") DirectSound が、まだ初期化されていません。");
+        throwGgafCriticalException("prm_bgm_key="<<prm_bgm_key<<" DirectSound が、まだ初期化されていません。");
     }
 
     int len = strlen(prm_bgm_key);
@@ -38,11 +38,11 @@ GgafDxBgm::GgafDxBgm(const char* prm_bgm_key) : GgafObject() {
 
     _ogg_file_name = GgafProperties::_mapProperties[std::string(_bgm_key)];
     if (_ogg_file_name == "") {
-        throwGgafCriticalException("GgafDxBgm::GgafDxBgm("<<prm_bgm_key<<") プロパティファイルにキーがありません");
+        throwGgafCriticalException("prm_bgm_key="<<prm_bgm_key<<" プロパティファイルにキーがありません");
     }
 //    _bpm = atoi(GgafProperties::_mapProperties[bgm_key+"_BPM"].c_str());
 //    _title = GgafProperties::_mapProperties[bgm_key+"_TITLE"];
-//    _TRACE_("GgafDxBgm::GgafDxBgm KEY="<<prm_bgm_key<<" _file_name="<<_ogg_file_name<<" _bpm="<<_bpm<<" _title="<<_title);
+//    _TRACE_(FUNC_NAME<<" KEY="<<prm_bgm_key<<" _file_name="<<_ogg_file_name<<" _bpm="<<_bpm<<" _title="<<_title);
     std::string full_ogg_file_name = getOggFileName(_ogg_file_name);
     _pOggResource = NEW OggVorbisFile( full_ogg_file_name.c_str() );
     _pOggDecoder =  NEW OggDecoder( _pOggResource );
@@ -65,7 +65,7 @@ std::string GgafDxBgm::getOggFileName(std::string prm_file) {
             if (PathFileExists(ogg_file.c_str()) ) {
                 return ogg_file;
             } else {
-                throwGgafCriticalException("GgafDxBgm::getOggFileName oggファイルが見つかりません。ogg_file="<<ogg_file);
+                throwGgafCriticalException("oggファイルが見つかりません。ogg_file="<<ogg_file);
             }
         }
     }
@@ -114,7 +114,7 @@ bool GgafDxBgm::isPlaying() {
 }
 
 GgafDxBgm::~GgafDxBgm() {
-    _TRACE_("GgafDxBgm::~GgafDxBgm() begin");
+    _TRACE_("begin");
     _TRACE_("_pPcmPlayer->setVolume(DSBVOLUME_MIN);");
     _pPcmPlayer->setVolume(DSBVOLUME_MIN);
     _TRACE_("_pPcmPlayer->terminateThread();");
@@ -126,6 +126,6 @@ GgafDxBgm::~GgafDxBgm() {
     _TRACE_("GGAF_DELETE(_pOggResource);");
     GGAF_DELETE(_pOggResource);
     GGAF_DELETEARR(_bgm_key);
-    _TRACE_("GgafDxBgm::~GgafDxBgm() end");
+    _TRACE_("end");
 }
 

@@ -28,7 +28,7 @@ void MgrMouseCamWorker::initialize() {
 }
 
 void MgrMouseCamWorker::onActive() {
-    _TRACE_("MgrMouseCamWorker::onActive()");
+    _TRACE_(FUNC_NAME<<"");
     MgrCameraWorker::onActive();
     //MgrCameraWorker::onActive(); を上書きして、
     //その場座標をターゲット座標に上書き

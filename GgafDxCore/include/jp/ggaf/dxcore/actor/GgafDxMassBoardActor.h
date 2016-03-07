@@ -23,7 +23,7 @@ private:
      * @return
      */
     int isOutOfView() override {
-        throwGgafCriticalException("GgafDxMassBoardActor::isOutOfView() は使用不可です。");
+        throwGgafCriticalException("は使用不可です。");
         return 0;
     }
 
@@ -32,7 +32,7 @@ private:
      * @return
      */
     bool isOutOfSpacetime() const override {
-        throwGgafCriticalException("GgafDxMassBoardActor::isOutOfSpacetime() は使用不可です。");
+        throwGgafCriticalException("は使用不可です。");
         return false;
     }
 
@@ -48,7 +48,7 @@ private:
                                              int prm_rx_init_local,
                                              int prm_ry_init_local,
                                              int prm_rz_init_local) override {
-        throwGgafCriticalException("GgafDxMassBoardActor::addSubGroupAsFk() は使用不可です。");
+        throwGgafCriticalException("は使用不可です。");
         return nullptr;
     }
 
@@ -63,45 +63,45 @@ private:
                                              int prm_rx_init_local,
                                              int prm_ry_init_local,
                                              int prm_rz_init_local) override {
-        throwGgafCriticalException("GgafDxMassBoardActor::addSubGroupAsFk() は使用不可です。");
+        throwGgafCriticalException("は使用不可です。");
         return nullptr;
     }
 
     void setFaceAngAs(const GgafDxGeoElem* prm_pActor) override {
-        throwGgafCriticalException("GgafDxMassBoardActor::setFaceAngAs() は使用不可です。");
+        throwGgafCriticalException("は使用不可です。");
     }
     void setFaceAngAs(const GgafDxGeometricActor* prm_pActor) override {
-        throwGgafCriticalException("GgafDxMassBoardActor::setFaceAngAs() は使用不可です。");
+        throwGgafCriticalException("は使用不可です。");
     }
     void setScale(scale S) override {
-        throwGgafCriticalException("GgafDxMassBoardActor::setScale() は使用不可です。");
+        throwGgafCriticalException("は使用不可です。");
     }
     void setScale(scale SX, scale SY) override {
-        throwGgafCriticalException("GgafDxMassBoardActor::setScale() は使用不可です。");
+        throwGgafCriticalException("は使用不可です。");
     }
     void setScale(scale SX, scale SY, scale SZ) override {
-        throwGgafCriticalException("GgafDxMassBoardActor::setScale() は使用不可です。");
+        throwGgafCriticalException("は使用不可です。");
     }
     void setScaleR(float prm_rate) override {
-        throwGgafCriticalException("GgafDxMassBoardActor::setScaleR() は使用不可です。");
+        throwGgafCriticalException("は使用不可です。");
     }
     void setScaleR(float prm_x_rate, float prm_y_rate, float prm_z_rate) override {
-        throwGgafCriticalException("GgafDxMassBoardActor::setScaleR() は使用不可です。");
+        throwGgafCriticalException("は使用不可です。");
     }
     void setScaleR(float prm_x_rate, float prm_y_rate) override {
-        throwGgafCriticalException("GgafDxMassBoardActor::setScaleR() は使用不可です。");
+        throwGgafCriticalException("は使用不可です。");
     }
     void addScale(scale dS) override {
-        throwGgafCriticalException("GgafDxMassBoardActor::addScale() は使用不可です。");
+        throwGgafCriticalException("は使用不可です。");
     }
     void addScaleX(scale dsx) override {
-        throwGgafCriticalException("GgafDxMassBoardActor::addScaleX() は使用不可です。");
+        throwGgafCriticalException("は使用不可です。");
     }
     void addScaleY(scale dsy) override {
-        throwGgafCriticalException("GgafDxMassBoardActor::addScaleY() は使用不可です。");
+        throwGgafCriticalException("は使用不可です。");
     }
     void addScaleZ(scale dsz) override {
-        throwGgafCriticalException("GgafDxMassBoardActor::addScaleZ() は使用不可です。");
+        throwGgafCriticalException("は使用不可です。");
     }
 
 public:

@@ -21,7 +21,7 @@ EnemyGlajaLance001::EnemyGlajaLance001(const char* prm_name) :
     _class_name = "EnemyGlajaLance001";
     pScaler_ = NEW GgafDxScaler(this);
     effectBlendOne(); //加算合成
-    setZEnable(true);
+    setZEnableDraw(true);
     setZWriteEnable(false);
     useProgress(PROG_BANPEI);
 }
@@ -158,7 +158,7 @@ void EnemyGlajaLance001::processJudgement() {
 }
 
 void EnemyGlajaLance001::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getKuroko()->stopMv();

@@ -221,7 +221,7 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(const char* prm_idstr
         if (i > 10*100*60) {
             //10分以上無応答時
             _TRACE_("GgafResourceManager<T>::connect() "<<_manager_name<<"へ、prm_idstr="<<prm_idstr<<" が connect()しようとして、既存のコネクト処理を10分待機・・・");
-            throwGgafCriticalException("GgafResourceManager<T>::connect()  "<<_manager_name<<"へ、prm_idstr="<<prm_idstr<<" が connect()しようとして、既存のコネクト処理を10分待機。connect() 中に、connect()しているか、処理が遅すぎます。(1)");
+            throwGgafCriticalException("中に、connect()しているか、処理が遅すぎます。(1)");
         }
         if (i % 100 == 0) {
             _TRACE_("＜警告＞ GgafResourceManager<T>::connect() "<<_manager_name<<"は、コネクト処理中にもかかわらず、更にconnect() 要求が来たため待機が発生しました・・ 待機中("<<prm_idstr<<") 待ち時間="<<i);
@@ -238,7 +238,7 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(const char* prm_idstr
         if (i > 10*100*60) {
             //１分以上無応答時
             _TRACE_("GgafResourceManager<T>::connect()  "<<_manager_name<<"へ、prm_idstr="<<prm_idstr<<" が connect()しようとして、既存のクローズ処理を10分待機・・・");
-            throwGgafCriticalException("GgafResourceManager<T>::connect()  "<<_manager_name<<"へ、prm_idstr="<<prm_idstr<<" が  connect()しようとして、既存のクローズ処理を10分待機。connect() 中に、connect()しているか、処理が遅すぎます。(2)");
+            throwGgafCriticalException("中に、connect()しているか、処理が遅すぎます。(2)");
         }
         if (i % 100 == 0) {
             _TRACE_("＜警告＞ GgafResourceManager<T>::connect() "<<_manager_name<<"は、既存のクローズ処理中に、connect() 要求が来たため待機が発生しました・・ 待機中("<<prm_idstr<<") 待ち時間="<<i);

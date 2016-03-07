@@ -16,7 +16,7 @@ void GgafDxChecker::createCollisionArea(int prm_colli_part_num) {
     if (_pCollisionArea == nullptr) {
         _pCollisionArea = NEW GgafDxCollisionArea(prm_colli_part_num);
     } else {
-        throwGgafCriticalException("CollisionChecker3D::createCollisionArea Šù‚É createCollisionArea ‚³‚ê‚Ä‚¢‚Ü‚·B");
+        throwGgafCriticalException("Šù‚É createCollisionArea ‚³‚ê‚Ä‚¢‚Ü‚·B");
     }
 }
 

@@ -22,7 +22,9 @@ Shot004::Shot004(const char* prm_name) :
 
 void Shot004::initialize() {
     setHitAble(false);
-    effectBlendOne(); //加算合成
+    setZEnableDraw(true);   //描画時、Zバッファ値は考慮される
+    setZWriteEnable(false); //自身のZバッファを書き込みしない
+    effectBlendOne();       //加算合成
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAABox_Cube(0, PX_C(16));
@@ -66,7 +68,7 @@ void Shot004::processJudgement() {
 }
 
 void Shot004::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::transactEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         sayonara();

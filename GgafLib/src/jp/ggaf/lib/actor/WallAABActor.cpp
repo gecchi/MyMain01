@@ -26,8 +26,8 @@ WallAABActor::WallAABActor(const char* prm_name,
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1); //0:BOX用当たり判定、1:プリズム用当たり判定
     pChecker->setColliAABox(0, 0,0,0, 0,0,0);
-    setZEnable(true);       //Zバッファは考慮有り
-    setZWriteEnable(true);  //Zバッファは書き込み有り
+    setZEnableDraw(true);   //描画時、Zバッファ値は考慮される
+    setZWriteEnable(true);  //自身のZバッファを書き込みする
 
     static volatile bool is_init = WallAABActor::initStatic(this); //静的メンバ初期化
 }
@@ -82,10 +82,10 @@ void WallAABActor::processDraw() {
     HRESULT hr;
     if (_pWalledSectionScene->_pActor_infront_alpha_target) {
         hr = pID3DXEffect->SetFloat(WallAABActor::_h_distance_AlphaTarget, -(_pWalledSectionScene->_pActor_infront_alpha_target->_dest_from_vppln_infront));
-        checkDxException(hr, D3D_OK, "GgafDxMeshSetActor::processDraw() SetMatrix(_h_distance_AlphaTarget) に失敗しました。");
+        checkDxException(hr, D3D_OK, "SetMatrix(_h_distance_AlphaTarget) に失敗しました。");
     } else {
         hr = pID3DXEffect->SetFloat(WallAABActor::_h_distance_AlphaTarget, -100.0f);
-        checkDxException(hr, D3D_OK, "GgafDxMeshSetActor::processDraw() SetMatrix(_h_distance_AlphaTarget) に失敗しました。");
+        checkDxException(hr, D3D_OK, "SetMatrix(_h_distance_AlphaTarget) に失敗しました。");
     }
     GgafDxFigureActor* pDrawActor = this;
     WallPartsActor* pWallPartsActor = nullptr;
@@ -94,10 +94,10 @@ void WallAABActor::processDraw() {
         if (pDrawActor->getModel() == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
             pWallPartsActor = (WallPartsActor*)pDrawActor;
             hr = pID3DXEffect->SetInt(WallAABActor::_ah_wall_draw_face[draw_set_num], pWallPartsActor->_wall_draw_face);
-            checkDxException(hr, D3D_OK, "WallPartsActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetMatrix(g_matWorld) に失敗しました。");
 
             hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[draw_set_num], &(pWallPartsActor->_matWorld));
-            checkDxException(hr, D3D_OK, "WallPartsActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SetMatrix(g_matWorld) に失敗しました。");
 
             //_set_num 19を18に、あるいは２とか３に減らしてみたはどうか
             //FXをVS_2_0 に変えてみてはどうか

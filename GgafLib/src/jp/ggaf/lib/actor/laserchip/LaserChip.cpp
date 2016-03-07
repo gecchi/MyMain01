@@ -43,8 +43,8 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
     _hdx = _hdy = _hdz = 0;
     _can_chikei_hit = false;
 
-    setZEnable(true);        //Zバッファは考慮有り
-    setZWriteEnable(false);  //Zバッファは書き込み無し
+    setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
+    setZWriteEnable(false);  //自身のZバッファを書き込みしない
     setAlpha(0.99);
     _middle_colli_able = false;
 

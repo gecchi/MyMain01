@@ -311,15 +311,15 @@ GgafXpm* XpmManager::processCreateResource(const char* prm_idstr, void* prm_pCon
         pResource = NEW GgafXpm(xpm_FormationUrydike002);
     }
     if (pResource == nullptr) {
-        throwGgafCriticalException("XpmManager::processCreateResource("<<prm_idstr<<") 想定外のIDです。GgafXpmが作成できません。");
+        throwGgafCriticalException("想定外のIDです。GgafXpmが作成できません。");
     }
     return pResource;
 }
 
 GgafResourceConnection<GgafCore::GgafXpm>* XpmManager::processCreateConnection(const char* prm_idstr, GgafXpm* prm_pResource) {
-    _TRACE3_(" XpmManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
+    _TRACE3_("prm_idstr="<<prm_idstr<<" を生成開始。");
     XpmConnection* pConne = NEW XpmConnection(prm_idstr, prm_pResource);
-    _TRACE3_(" XpmManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
+    _TRACE3_("prm_idstr="<<prm_idstr<<" を生成終了。");
     return pConne;
 }
 
