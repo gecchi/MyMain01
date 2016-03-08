@@ -14,7 +14,7 @@ GgafDxSpriteEffect::GgafDxSpriteEffect(const char* prm_effect_name) : GgafDxEffe
     HRESULT hr;
     //éÀâeïœä∑çsóÒ
     hr = _pID3DXEffect->SetMatrix("g_matProj", pCam->getProjectionMatrix() );
-    checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    checkDxException(hr, D3D_OK, "SetMatrix(g_matProj) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
     hr = _pID3DXEffect->SetFloat("g_zf", pCam->getZFar());
     checkDxException(hr, D3D_OK, "SetFloat(g_zf) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

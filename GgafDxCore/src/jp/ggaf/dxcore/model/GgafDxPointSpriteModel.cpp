@@ -68,9 +68,9 @@ HRESULT GgafDxPointSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, int p
         if (pEffect_active) {
             _TRACE4_("EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
             hr = pEffect_active->_pID3DXEffect->EndPass();
-            checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, D3D_OK, "EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             hr = pEffect_active->_pID3DXEffect->End();
-            checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, D3D_OK, "End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             if (pEffect_active->_obj_effect & Obj_GgafDxMassEffect) {
                 pDevice->SetStreamSourceFreq( 0, 1 );
                 pDevice->SetStreamSourceFreq( 1, 1 );
@@ -90,7 +90,7 @@ HRESULT GgafDxPointSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, int p
         _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pPointSpriteEffect->_effect_name<<"("<<pPointSpriteEffect<<")");
         UINT numPass;
         hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
-        checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         hr = pID3DXEffect->BeginPass(0);
         checkDxException(hr, D3D_OK, "BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
@@ -104,7 +104,7 @@ HRESULT GgafDxPointSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, int p
 
     } else {
         hr = pID3DXEffect->CommitChanges();
-        checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "CommitChanges() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
     _TRACE4_("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pPointSpriteEffect->_effect_name);
     pDevice->DrawPrimitive(D3DPT_POINTLIST, 0, _vertices_num);

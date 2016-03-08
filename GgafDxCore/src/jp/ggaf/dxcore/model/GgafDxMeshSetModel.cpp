@@ -120,9 +120,9 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_d
             if (pEffect_active) {
                 _TRACE4_("EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
                 hr = pEffect_active->_pID3DXEffect->EndPass();
-                checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+                checkDxException(hr, D3D_OK, "EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
                 hr = pEffect_active->_pID3DXEffect->End();
-                checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+                checkDxException(hr, D3D_OK, "End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
                 if (pEffect_active->_obj_effect & Obj_GgafDxMassEffect) {
                     pDevice->SetStreamSourceFreq( 0, 1 );
                     pDevice->SetStreamSourceFreq( 1, 1 );
@@ -142,7 +142,7 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_d
             _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshSetEffect->_effect_name<<"("<<pMeshSetEffect<<")");
             //UINT numPass;
             hr = pID3DXEffect->Begin(&_num_pass, D3DXFX_DONOTSAVESTATE );
-            checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, D3D_OK, "Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             hr = pID3DXEffect->BeginPass(0);
             checkDxException(hr, D3D_OK, "BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
@@ -155,7 +155,7 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_d
 #endif
         } else {
             hr = pID3DXEffect->CommitChanges();
-            checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, D3D_OK, "CommitChanges() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         }
         _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshSetEffect->_effect_name);
 
@@ -167,7 +167,7 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_d
                                       idxparam.PrimitiveCount);
         if (_num_pass >= 2) { //ÇQÉpÉXñ⁄à»ç~Ç™ë∂ç›
             hr = pID3DXEffect->EndPass();
-            checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, D3D_OK, "EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             for (UINT i = 1; i < _num_pass; i++) {
                 hr = pID3DXEffect->BeginPass(i);
                 checkDxException(hr, D3D_OK, i+1<<"ÉpÉXñ⁄ BeginPass("<<i<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
@@ -178,7 +178,7 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_d
                                               idxparam.StartIndex,
                                               idxparam.PrimitiveCount);
                 hr = pID3DXEffect->EndPass();
-                checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+                checkDxException(hr, D3D_OK, "EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             }
             hr = pID3DXEffect->BeginPass(0);
             checkDxException(hr, D3D_OK, "ÇPÉpÉXñ⁄ BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

@@ -41,8 +41,7 @@ public:
         UINT PrimitiveCount;
     };
 
-    class VERTEX : public GgafDxModel::VERTEX_3D_BASE {
-    public:
+    struct VERTEX : public GgafDxModel::VERTEX_3D_BASE {
         float index;      // psizeではなくてはなくて頂点番号として使用。シェーダー側で何セット目かを判断するために使用。
         DWORD color;      // 頂点の色（オブジェクトのマテリアルカラーとして使用）
         float tu, tv;     // テクスチャ座標

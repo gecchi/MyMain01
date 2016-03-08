@@ -1945,7 +1945,7 @@ void GgafDxGod::finalizeSpacetime() {
 
 void GgafDxGod::clean() {
     if (!_was_cleaned) {
-        _TRACE_("begin");
+        _TRACE_(FUNC_NAME<<" begin");
         IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
         for(int i = 0; i < 8; ++i) { pDevice->SetTexture( i, nullptr ); }
         for(int i = 0; i < 8; ++i) { pDevice->SetStreamSource( i, nullptr, 0, 0 ); }
@@ -1962,7 +1962,7 @@ void GgafDxGod::clean() {
         GGAF_DELETE(GgafDxGod::_pBumpMapTextureManager);
         GGAF_DELETE(GgafDxGod::_pModelManager);
         GGAF_DELETE(GgafDxGod::_pEffectManager);
-        _TRACE_("end");
+        _TRACE_(FUNC_NAME<<" end");
     }
 }
 
@@ -2119,7 +2119,7 @@ void GgafDxGod::positionPresentRect(int prm_pos, RECT& inout_rectPresent, pixcoo
 }
 
 GgafDxGod::~GgafDxGod() {
-    _TRACE_("解放開始");
+    _TRACE_(FUNC_NAME<<" 解放開始");
     clean();
     _was_cleaned = true;
     //DirectSound解放
@@ -2140,7 +2140,7 @@ GgafDxGod::~GgafDxGod() {
     GGAF_DELETEARR(_paHWnd);
     GGAF_RELEASE(_pID3DDevice9);
     GGAF_RELEASE(_pID3D9);
-    _TRACE_("解放終了");
+    _TRACE_(FUNC_NAME<<" 解放終了");
 }
 
 

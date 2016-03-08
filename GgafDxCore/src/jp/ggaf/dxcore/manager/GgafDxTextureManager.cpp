@@ -17,23 +17,23 @@ GgafDxTexture* GgafDxTextureManager::processCreateResource(const char* prm_idstr
 }
 
 void GgafDxTextureManager::releaseAll() {
-    _TRACE_("start-->");
+    _TRACE_(FUNC_NAME<<" start-->");
     GgafResourceConnection<GgafDxTexture>* pCurrent = _pConn_first;
     while (pCurrent) {
         pCurrent->peek()->release();
         pCurrent = pCurrent->getNext();
     }
-    _TRACE_("end<--");
+    _TRACE_(FUNC_NAME<<" end<--");
 }
 
 void GgafDxTextureManager::restoreAll() {
-    _TRACE_("start-->");
+    _TRACE_(FUNC_NAME<<" start-->");
     GgafResourceConnection<GgafDxTexture>* pCurrent = _pConn_first;
     while (pCurrent) {
         pCurrent->peek()->restore();
         pCurrent = pCurrent->getNext();
     }
-    _TRACE_("end<--");
+    _TRACE_(FUNC_NAME<<" end<--");
 }
 
 GgafResourceConnection<GgafDxTexture>* GgafDxTextureManager::processCreateConnection(const char* prm_idstr, GgafDxTexture* prm_pResource) {

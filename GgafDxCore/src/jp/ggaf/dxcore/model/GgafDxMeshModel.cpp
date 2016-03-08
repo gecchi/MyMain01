@@ -96,9 +96,9 @@ HRESULT GgafDxMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw
                 _TRACE4_("前回 ::_hash_technique_last_draw != prm_pActor_target->_hash_technique ?? " <<GgafDxFigureActor::_hash_technique_last_draw<<"!="<<prm_pActor_target->_hash_technique<<"?? (prm_pActor_target=" <<prm_pActor_target<<" "<<(prm_pActor_target->getName())<<")");
                 _TRACE4_("EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
                 hr = pEffect_active->_pID3DXEffect->EndPass();
-                checkDxException(hr, D3D_OK, "に失敗しました。");
+                checkDxException(hr, D3D_OK, "EndPass() に失敗しました。");
                 hr = pEffect_active->_pID3DXEffect->End();
-                checkDxException(hr, D3D_OK, "に失敗しました。");
+                checkDxException(hr, D3D_OK, "End() に失敗しました。");
                 if (pEffect_active->_obj_effect & Obj_GgafDxMassEffect) {
                     pDevice->SetStreamSourceFreq( 0, 1 );
                     pDevice->SetStreamSourceFreq( 1, 1 );
@@ -117,7 +117,7 @@ HRESULT GgafDxMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw
 
             _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name<<"("<<pMeshEffect<<")");
             hr = pID3DXEffect->Begin( &_num_pass, D3DXFX_DONOTSAVESTATE );
-            checkDxException(hr, D3D_OK, "に失敗しました。");
+            checkDxException(hr, D3D_OK, "Begin() に失敗しました。");
             hr = pID3DXEffect->BeginPass(0);
             checkDxException(hr, D3D_OK, "BeginPass(0) に失敗しました。");
 #ifdef MY_DEBUG
@@ -131,7 +131,7 @@ HRESULT GgafDxMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw
         } else {
             //前回描画と同じモデル
             hr = pID3DXEffect->CommitChanges(); //マテリアルをコミットしなければいけない。
-            checkDxException(hr, D3D_OK, "に失敗しました。");
+            checkDxException(hr, D3D_OK, "CommitChanges() に失敗しました。");
         }
         _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
         pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
@@ -142,7 +142,7 @@ HRESULT GgafDxMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw
                                       idxparam.PrimitiveCount);
         if (_num_pass >= 2) { //２パス目以降が存在
             hr = pID3DXEffect->EndPass();
-            checkDxException(hr, D3D_OK, "に失敗しました。");
+            checkDxException(hr, D3D_OK, "EndPass() に失敗しました。");
             for (UINT pass = 1; pass < _num_pass; pass++) {
                 hr = pID3DXEffect->BeginPass(pass);
                 checkDxException(hr, D3D_OK, pass+1<<"パス目 BeginPass("<<pass<<") に失敗しました。");
@@ -153,7 +153,7 @@ HRESULT GgafDxMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw
                                               idxparam.StartIndex,
                                               idxparam.PrimitiveCount);
                 hr = pID3DXEffect->EndPass();
-                checkDxException(hr, D3D_OK, "に失敗しました。");
+                checkDxException(hr, D3D_OK, "EndPass() に失敗しました。");
             }
             hr = pID3DXEffect->BeginPass(0);
             checkDxException(hr, D3D_OK, "１パス目 BeginPass(0) に失敗しました。");

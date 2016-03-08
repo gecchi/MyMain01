@@ -15,8 +15,7 @@ class GgafDxMassSpriteModel : public GgafDxMassModel {
     friend class GgafDxModelManager;
 
 public:
-    class VERTEX_model : public GgafDxModel::VERTEX_3D_BASE {
-    public:
+    struct VERTEX_model : public GgafDxModel::VERTEX_3D_BASE {
         float tu, tv;     // テクスチャ座標
     };
     VERTEX_model* _paVtxBuffer_data_model;

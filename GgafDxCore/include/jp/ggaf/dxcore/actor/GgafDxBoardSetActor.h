@@ -22,7 +22,7 @@ private:
      * @return
      */
     int isOutOfView() override {
-        throwGgafCriticalException("は使用不可です。");
+        throwGgafCriticalException("使用不可です。");
         return 0;
     }
 
@@ -31,7 +31,7 @@ private:
      * @return
      */
     bool isOutOfSpacetime() const override {
-        throwGgafCriticalException("は使用不可です。");
+        throwGgafCriticalException("使用不可です。");
         return false;
     }
 
@@ -47,7 +47,7 @@ private:
                                              int prm_rx_init_local,
                                              int prm_ry_init_local,
                                              int prm_rz_init_local) override {
-        throwGgafCriticalException("は使用不可です。");
+        throwGgafCriticalException("使用不可です。");
         return nullptr;
     }
 
@@ -62,45 +62,45 @@ private:
                                              int prm_rx_init_local,
                                              int prm_ry_init_local,
                                              int prm_rz_init_local) override {
-        throwGgafCriticalException("は使用不可です。");
+        throwGgafCriticalException("使用不可です。");
         return nullptr;
     }
 
     void setFaceAngAs(const GgafDxGeoElem* prm_pActor) override {
-        throwGgafCriticalException("は使用不可です。");
+        throwGgafCriticalException("使用不可です。");
     }
     void setFaceAngAs(const GgafDxGeometricActor* prm_pActor) override {
-        throwGgafCriticalException("は使用不可です。");
+        throwGgafCriticalException("使用不可です。");
     }
     void setScale(scale S) override {
-        throwGgafCriticalException("は使用不可です。");
+        throwGgafCriticalException("使用不可です。");
     }
     void setScale(scale SX, scale SY) override {
-        throwGgafCriticalException("は使用不可です。");
+        throwGgafCriticalException("使用不可です。");
     }
     void setScale(scale SX, scale SY, scale SZ) override {
-        throwGgafCriticalException("は使用不可です。");
+        throwGgafCriticalException("使用不可です。");
     }
     void setScaleR(float prm_rate) override {
-        throwGgafCriticalException("は使用不可です。");
+        throwGgafCriticalException("使用不可です。");
     }
     void setScaleR(float prm_x_rate, float prm_y_rate, float prm_z_rate) override {
-        throwGgafCriticalException("は使用不可です。");
+        throwGgafCriticalException("使用不可です。");
     }
     void setScaleR(float prm_x_rate, float prm_y_rate) override {
-        throwGgafCriticalException("は使用不可です。");
+        throwGgafCriticalException("使用不可です。");
     }
     void addScale(scale dS) override {
-        throwGgafCriticalException("は使用不可です。");
+        throwGgafCriticalException("使用不可です。");
     }
     void addScaleX(scale dsx) override {
-        throwGgafCriticalException("は使用不可です。");
+        throwGgafCriticalException("使用不可です。");
     }
     void addScaleY(scale dsy) override {
-        throwGgafCriticalException("は使用不可です。");
+        throwGgafCriticalException("使用不可です。");
     }
     void addScaleZ(scale dsz) override {
-        throwGgafCriticalException("は使用不可です。");
+        throwGgafCriticalException("使用不可です。");
     }
 
 public:

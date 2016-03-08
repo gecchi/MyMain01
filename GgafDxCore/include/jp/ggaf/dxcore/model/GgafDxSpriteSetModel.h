@@ -25,8 +25,7 @@ public:
     };
 
     /** 頂点構造体 */
-    class VERTEX : public GgafDxModel::VERTEX_3D_BASE {
-    public:
+    struct VERTEX : public GgafDxModel::VERTEX_3D_BASE {
         float index;      // psizeではなくてはなくて頂点番号を埋め込む。シェーダー側で何セット目かを判断するために使用。
         float tu, tv;     // 頂点のテクスチャ座標
     };

@@ -114,7 +114,7 @@ bool GgafDxBgm::isPlaying() {
 }
 
 GgafDxBgm::~GgafDxBgm() {
-    _TRACE_("begin");
+    _TRACE_(FUNC_NAME<<" begin");
     _TRACE_("_pPcmPlayer->setVolume(DSBVOLUME_MIN);");
     _pPcmPlayer->setVolume(DSBVOLUME_MIN);
     _TRACE_("_pPcmPlayer->terminateThread();");
@@ -126,6 +126,6 @@ GgafDxBgm::~GgafDxBgm() {
     _TRACE_("GGAF_DELETE(_pOggResource);");
     GGAF_DELETE(_pOggResource);
     GGAF_DELETEARR(_bgm_key);
-    _TRACE_("end");
+    _TRACE_(FUNC_NAME<<" end");
 }
 

@@ -67,9 +67,9 @@ HRESULT GgafDxSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_dr
         if (pEffect_active) {
             _TRACE4_("EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
             hr = pEffect_active->_pID3DXEffect->EndPass();
-            checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, D3D_OK, "EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             hr = pEffect_active->_pID3DXEffect->End();
-            checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, D3D_OK, "End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             if (pEffect_active->_obj_effect & Obj_GgafDxMassEffect) {
                 pDevice->SetStreamSourceFreq( 0, 1 );
                 pDevice->SetStreamSourceFreq( 1, 1 );
@@ -88,7 +88,7 @@ HRESULT GgafDxSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_dr
 
         _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteEffect->_effect_name<<"("<<pSpriteEffect<<")");
         hr = pID3DXEffect->Begin(&_num_pass, D3DXFX_DONOTSAVESTATE );
-        checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         hr = pID3DXEffect->BeginPass(0);
         checkDxException(hr, D3D_OK, "BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
@@ -102,20 +102,20 @@ HRESULT GgafDxSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_dr
 
     } else {
         hr = pID3DXEffect->CommitChanges();
-        checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "CommitChanges() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
     _TRACE4_("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteEffect->_effect_name);
     pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
     if (_num_pass >= 2) { //ÇQÉpÉXñ⁄à»ç~Ç™ë∂ç›
         hr = pID3DXEffect->EndPass();
-        checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
         for (UINT pass = 1; pass < _num_pass; pass++) {
             hr = pID3DXEffect->BeginPass(pass);
             checkDxException(hr, D3D_OK, pass+1<<"ÉpÉXñ⁄ BeginPass("<<pass<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
             hr = pID3DXEffect->EndPass();
-            checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, D3D_OK, "EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         }
 
         hr = pID3DXEffect->BeginPass(0);

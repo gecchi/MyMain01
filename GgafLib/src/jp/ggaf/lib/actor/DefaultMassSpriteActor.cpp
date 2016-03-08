@@ -98,8 +98,8 @@ void DefaultMassSpriteActor::processDraw() {
     const hashval hash_technique = _hash_technique;
     VERTEX_instancedata* paInstancedata = DefaultMassSpriteActor::_aInstancedata;
     GgafDxFigureActor* pDrawActor = this;
-    static const size_t SIZE_D3DXMATRIX = sizeof(D3DXMATRIX);
-    static const size_t SIZE_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
+    static const size_t size_of_D3DXMATRIX = sizeof(D3DXMATRIX);
+    static const size_t size_of_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
 
     float u,v;
     while (pDrawActor) {
@@ -121,7 +121,7 @@ void DefaultMassSpriteActor::processDraw() {
                 pDrawActor->_matWorld._42 += PX_C(_pMassSpriteModel->_model_height_px/2);
             }
 
-            memcpy(paInstancedata, &(pDrawActor->_matWorld), SIZE_D3DXMATRIX);
+            memcpy(paInstancedata, &(pDrawActor->_matWorld), size_of_D3DXMATRIX);
             ((DefaultMassSpriteActor*)pDrawActor)->getUvFlipper()->getUV(u,v);
             paInstancedata->offset_u = u;
             paInstancedata->offset_v = v;

@@ -46,8 +46,7 @@ class GgafDxModel : public GgafCore::GgafObject {
     friend class GgafDxModelManager;
 
 public:
-    class VERTEX_3D_BASE {
-    public:
+    struct VERTEX_3D_BASE {
         float x, y, z;    // í∏ì_ç¿ïW
         float nx, ny, nz; // ñ@ê¸
     };

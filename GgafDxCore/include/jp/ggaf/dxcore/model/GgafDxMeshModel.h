@@ -52,8 +52,7 @@ public:
         UINT PrimitiveCount;
     };
 
-    class VERTEX : public GgafDxModel::VERTEX_3D_BASE {
-    public:
+    struct VERTEX : public GgafDxModel::VERTEX_3D_BASE {
         DWORD color; // 頂点の色（現在未使用）
         float tu, tv; // テクスチャ座標
         float tan_x, tan_y, tan_z; //

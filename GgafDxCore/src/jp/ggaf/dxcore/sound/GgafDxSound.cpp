@@ -115,12 +115,12 @@ void GgafDxSound::addSeMasterVolume(int prm_se_master_volume_offset) {
 }
 
 void GgafDxSound::release() {
-    _TRACE_("begin");
+    _TRACE_(FUNC_NAME<<" begin");
     _TRACE_("GGAF_DELETE(GgafDxSound::_pBgmManager);");
     GGAF_DELETE(GgafDxSound::_pBgmManager);
     _TRACE_("GGAF_DELETE(GgafDxSound::_pSeManager);");
     GGAF_DELETE(GgafDxSound::_pSeManager);
     _TRACE_("GGAF_RELEASE(GgafDxSound::_pIDirectSound8);");
     GGAF_RELEASE(GgafDxSound::_pIDirectSound8);
-    _TRACE_("end");
+    _TRACE_(FUNC_NAME<<" end");
 }

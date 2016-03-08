@@ -318,21 +318,21 @@ typedef uint32_t actorkind;
 typedef uint32_t frame;
 #define MAX_FRAME (0xffffffff)
 
-#define Obj_SceneBit              (0x80000000U)       //0b 10000000 00000000 00000000 00000000
+#define Obj_SceneBit              (0x8000000000000000U)       //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
 
-#define Obj_GgafScene             (0x80000001U)       //0b 10000000 00000000 00000000 00000001
-#define Obj_GgafMainScene         (0x80000002U)       //0b 10000000 00000000 00000000 00000010
-#define Obj_GgafDisusedScene      (0x80000004U)       //0b 10000000 00000000 00000000 00000100
-#define Obj_GgafSpacetime         (0x80000008U)       //0b 10000000 00000000 00000000 00001000
+#define Obj_GgafScene             ((0x1U) | Obj_SceneBit)     //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00000001
+#define Obj_GgafMainScene         ((0x2U) | Obj_SceneBit)     //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00000010
+#define Obj_GgafDisusedScene      ((0x4U) | Obj_SceneBit)     //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00000100
+#define Obj_GgafSpacetime         ((0x8U) | Obj_SceneBit)     //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00001000
 
-#define Obj_GgafActor             (0x1U)              //0b 00000000 00000000 00000000 00000001
-#define Obj_GgafMainActor         (0x2U)              //0b 00000000 00000000 00000000 00000010
-#define Obj_GgafDestructActor     (0x4U)              //0b 00000000 00000000 00000000 00000100
-#define Obj_GgafSceneDirector     (0x8U)              //0b 00000000 00000000 00000000 00001000
-#define Obj_GgafGroupHead         (0x10U)             //0b 00000000 00000000 00000000 00010000
-#define Obj_GgafDisusedActor      (0x20U)             //0b 00000000 00000000 00000000 00100000
-#define Obj_GgafActorDepository   (0x40U)             //0b 00000000 00000000 00000000 01000000
-#define Obj_GgafFormation         (0x80U)             //0b 00000000 00000000 00000000 10000000
+#define Obj_GgafActor             (0x1U)                      //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000001
+#define Obj_GgafMainActor         (0x2U)                      //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000010
+#define Obj_GgafDestructActor     (0x4U)                      //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000100
+#define Obj_GgafSceneDirector     (0x8U)                      //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00001000
+#define Obj_GgafGroupHead         (0x10U)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00010000
+#define Obj_GgafDisusedActor      (0x20U)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00100000
+#define Obj_GgafActorDepository   (0x40U)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 01000000
+#define Obj_GgafFormation         (0x80U)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 10000000
 
 
 //ëOï˚êÈåæ(forward declaration)

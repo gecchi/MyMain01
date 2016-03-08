@@ -16,8 +16,7 @@ class GgafDxMassMeshModel : public GgafDxMassModel {
     friend class GgafDxModelManager;
 
 public:
-    class VERTEX_model : public GgafDxModel::VERTEX_3D_BASE {
-    public:
+    struct VERTEX_model : public GgafDxModel::VERTEX_3D_BASE {
         D3DCOLOR color;   // 頂点の色（オブジェクトのマテリアルカラーとして使用予定）
         float tu, tv;     // テクスチャ座標
     };

@@ -127,7 +127,7 @@ void GgafProgress::changeNothing() {
 void GgafProgress::changeNext() {
 #ifdef MY_DEBUG
     if (_progress_next == _progress+1) {
-        throwGgafCriticalException("していませんか？");
+        throwGgafCriticalException("既に _progress="<<_progress<<" _progress_next="<<_progress_next<<" です。連続で changeNext() していませんか？");
     }
 #endif
     _progress_next = _progress+1;

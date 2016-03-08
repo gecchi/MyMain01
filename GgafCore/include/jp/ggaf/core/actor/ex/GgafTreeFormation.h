@@ -24,7 +24,7 @@ private:
      * @param prm_pSub
      */
     virtual void addSubLast(GgafCore::GgafActor* prm_pSub) override {
-        throwGgafCriticalException("は使用不可です。");
+        throwGgafCriticalException("使用不可です。");
     }
 
     /** [r]callUpMember()用のカーソル */

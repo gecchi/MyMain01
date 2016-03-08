@@ -97,15 +97,15 @@ void DefaultMassMeshActor::processDraw() {
     const int model_max_set_num = pMassMeshModel->_set_num;
     const hashval hash_technique = _hash_technique;
 
-    static const size_t SIZE_D3DXMATRIX = sizeof(D3DXMATRIX);
-    static const size_t SIZE_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
+    static const size_t size_of_D3DXMATRIX = sizeof(D3DXMATRIX);
+    static const size_t size_of_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
     VERTEX_instancedata* paInstancedata = DefaultMassMeshActor::_aInstancedata;
 
     GgafDxFigureActor* pDrawActor = this;
     while (pDrawActor) {
         if (pDrawActor->getModel() == pMassMeshModel && pDrawActor->_hash_technique == hash_technique) {
-            memcpy(paInstancedata, &(pDrawActor->_matWorld), SIZE_D3DXMATRIX);
-            memcpy(&(paInstancedata->r), &(pDrawActor->_paMaterial[0].Diffuse), SIZE_D3DCOLORVALUE);
+            memcpy(paInstancedata, &(pDrawActor->_matWorld), size_of_D3DXMATRIX);
+            memcpy(&(paInstancedata->r), &(pDrawActor->_paMaterial[0].Diffuse), size_of_D3DCOLORVALUE);
             paInstancedata++;
             draw_set_num++;
             GgafDxSpacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット

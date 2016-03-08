@@ -292,9 +292,9 @@ HRESULT GgafDxMassMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
         if (pEffect_active) {
             _TRACE4_("EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
             hr = pEffect_active->_pID3DXEffect->EndPass();
-            checkDxException(hr, D3D_OK, "В…ОЄФsВµВ№ВµВљБB");
+            checkDxException(hr, D3D_OK, "EndPass() В…ОЄФsВµВ№ВµВљБB");
             hr = pEffect_active->_pID3DXEffect->End();
-            checkDxException(hr, D3D_OK, "В…ОЄФsВµВ№ВµВљБB");
+            checkDxException(hr, D3D_OK, "End() В…ОЄФsВµВ№ВµВљБB");
 #ifdef MY_DEBUG
             if (pEffect_active->_begin == false) {
                 throwGgafCriticalException("begin ВµВƒВҐВ№ВєВс "<<(pEffect_active==nullptr?"nullptr":pEffect_active->_effect_name)<<"");
@@ -310,7 +310,7 @@ HRESULT GgafDxMassMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
         _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMassMeshEffect->_effect_name<<"("<<pMassMeshEffect<<")");
         //UINT numPass;
         hr = pID3DXEffect->Begin(&_num_pass, D3DXFX_DONOTSAVESTATE );
-        checkDxException(hr, D3D_OK, "В…ОЄФsВµВ№ВµВљБB");
+        checkDxException(hr, D3D_OK, "Begin() В…ОЄФsВµВ№ВµВљБB");
         hr = pID3DXEffect->BeginPass(0);
         checkDxException(hr, D3D_OK, "BeginPass(0) В…ОЄФsВµВ№ВµВљБB");
 
@@ -323,7 +323,7 @@ HRESULT GgafDxMassMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
 #endif
     } else {
         hr = pID3DXEffect->CommitChanges();
-        checkDxException(hr, D3D_OK, "В…ОЄФsВµВ№ВµВљБB");
+        checkDxException(hr, D3D_OK, "CommitChanges() В…ОЄФsВµВ№ВµВљБB");
     }
     _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMassMeshEffect->_effect_name);
 
@@ -336,7 +336,7 @@ HRESULT GgafDxMassMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
     //checkDxException(hr, D3D_OK, " pass=1 В…ОЄФsВµВ№ВµВљБB");
     if (_num_pass >= 2) { //ВQГpГXЦЏИ»Н~В™СґНЁ
         hr = pID3DXEffect->EndPass();
-        checkDxException(hr, D3D_OK, "В…ОЄФsВµВ№ВµВљБB");
+        checkDxException(hr, D3D_OK, "EndPass() В…ОЄФsВµВ№ВµВљБB");
         for (UINT i = 1; i < _num_pass; i++) {
             hr = pID3DXEffect->BeginPass(i);
             checkDxException(hr, D3D_OK, i+1<<"ГpГXЦЏ BeginPass("<<i<<") В…ОЄФsВµВ№ВµВљБB");
@@ -348,7 +348,7 @@ HRESULT GgafDxMassMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
                                                _nFaces);
             checkDxException(hr, D3D_OK, " pass="<<(i+1)<<" В…ОЄФsВµВ№ВµВљБB");
             hr = pID3DXEffect->EndPass();
-            checkDxException(hr, D3D_OK, "В…ОЄФsВµВ№ВµВљБB");
+            checkDxException(hr, D3D_OK, "EndPass() В…ОЄФsВµВ№ВµВљБB");
         }
         hr = pID3DXEffect->BeginPass(0);
         checkDxException(hr, D3D_OK, "ВPГpГXЦЏ BeginPass(0) В…ОЄФsВµВ№ВµВљБB");

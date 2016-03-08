@@ -14,7 +14,7 @@ GgafDxMassMeshEffect::GgafDxMassMeshEffect(const char* prm_effect_name) : GgafDx
    HRESULT hr;
     //éÀâeïœä∑çsóÒ
     hr = _pID3DXEffect->SetMatrix("g_matProj", pCam->getProjectionMatrix() );
-    checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    checkDxException(hr, D3D_OK, "SetMatrix(g_matProj) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     //ÉâÉCÉgï˚å¸
     hr = _pID3DXEffect->SetValue("g_vecLightFrom_World", &(GgafDxGod::_d3dlight9_default.Direction), sizeof(D3DVECTOR) );
     checkDxException(hr, D3D_OK, "SetValue(g_vecLightFrom_World) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

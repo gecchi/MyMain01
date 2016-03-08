@@ -292,11 +292,11 @@ template<class T>
 void GgafResourceManager<T>::dump() {
     GgafResourceConnection<T>* pCurrent = _pConn_first;
     if (_pConn_first == nullptr) {
-        _TRACE_("GgafResourceManager::dump[" << _manager_name << "] 保持リストにはなにもありません。");
+        _TRACE_(FUNC_NAME << " [" << _manager_name << "] 保持リストにはなにもありません。");
     } else {
         GgafResourceConnection<T>* pCurrent_next;
         while (pCurrent) {
-            _TRACE_("GgafResourceManager::dump[" << _manager_name << "] [" << pCurrent->_idstr << "←" << pCurrent->_num_connection << "Connection]");
+            _TRACE_(FUNC_NAME << " [" << _manager_name << "] [" << pCurrent->_idstr << "←" << pCurrent->_num_connection << "Connection]");
             pCurrent_next = pCurrent->_pNext;
             if (pCurrent_next == nullptr) {
                 pCurrent = nullptr;
@@ -323,7 +323,7 @@ void GgafResourceManager<T>::dump() {
 template<class T>
 GgafResourceManager<T>::~GgafResourceManager() {
 #ifdef MY_DEBUG
-    _TRACE_("GgafResourceManager<T>::~GgafResourceManager() ["<<_manager_name<<"] begin --->");
+    _TRACE_(FUNC_NAME << " ["<<_manager_name<<"] begin --->");
     dump();
 #endif
     GgafResourceConnection<T>* pCurrent = _pConn_first;
@@ -354,7 +354,7 @@ GgafResourceManager<T>::~GgafResourceManager() {
         }
     }
 #ifdef MY_DEBUG
-    _TRACE_("GgafResourceManager<T>::~GgafResourceManager() ["<<_manager_name<<"] end   <---");
+    _TRACE_(FUNC_NAME << " ["<<_manager_name<<"] end   <---");
 #endif
     GGAF_DELETEARR_NULLABLE(_manager_name);
 }

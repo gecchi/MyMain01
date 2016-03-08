@@ -25,8 +25,7 @@ namespace GgafLib {
 class DefaultMassBoardActor : public GgafDxCore::GgafDxMassBoardActor {
 
 private:
-    class VERTEX_instancedata {
-    public:
+    struct VERTEX_instancedata {
         float transformed_x, transformed_y, depth_z;   // : TEXCOORD1
         float offset_u, offset_v, alpha;               // : TEXCOORD2
     };

@@ -134,9 +134,9 @@ HRESULT GgafDxMassBoardModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
         if (pEffect_active) {
            _TRACE4_("EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
             hr = pEffect_active->_pID3DXEffect->EndPass();
-            checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, D3D_OK, "EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             hr = pEffect_active->_pID3DXEffect->End();
-            checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, D3D_OK, "End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 #ifdef MY_DEBUG
             if (pEffect_active->_begin == false) {
                 throwGgafCriticalException("begin ÇµÇƒÇ¢Ç‹ÇπÇÒ "<<(pEffect_active==nullptr?"nullptr":pEffect_active->_effect_name)<<"");
@@ -152,7 +152,7 @@ HRESULT GgafDxMassBoardModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
         _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMassBoardEffect->_effect_name<<"("<<pMassBoardEffect<<")");
         UINT numPass;
         hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
-        checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         hr = pID3DXEffect->BeginPass(0);
         checkDxException(hr, D3D_OK, "BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
@@ -166,7 +166,7 @@ HRESULT GgafDxMassBoardModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
 
     } else {
         hr = pID3DXEffect->CommitChanges();
-        checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "CommitChanges() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
     _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMassBoardEffect->_effect_name);
     hr = pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
@@ -177,7 +177,7 @@ HRESULT GgafDxMassBoardModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
                                        _nFaces);
     if (_num_pass >= 2) { //ÇQÉpÉXñ⁄à»ç~Ç™ë∂ç›
         hr = pID3DXEffect->EndPass();
-        checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
         for (UINT pass = 1; pass < _num_pass; pass++) {
             hr = pID3DXEffect->BeginPass(pass);
@@ -189,7 +189,7 @@ HRESULT GgafDxMassBoardModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
                                                0,
                                                _nFaces);
             hr = pID3DXEffect->EndPass();
-            checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, D3D_OK, "EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         }
 
         hr = pID3DXEffect->BeginPass(0);

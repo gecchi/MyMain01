@@ -103,7 +103,7 @@ void GgafDxEffectManager::onDeviceLostAll() {
     HRESULT hr;
     while (pCurrent) {
         hr = pCurrent->peek()->_pID3DXEffect->OnLostDevice();
-        checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "OnLostDevice() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         _TRACE3_("onDeviceLostAll pCurrent="<<pCurrent->getIdStr() << " OnLostDevice() execute");
         pCurrent = pCurrent->getNext();
     }
@@ -116,7 +116,7 @@ void GgafDxEffectManager::restoreAll() {
     HRESULT hr;
     while (pCurrent) {
         hr = pCurrent->peek()->_pID3DXEffect->OnResetDevice();
-        checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "OnResetDevice() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         _TRACE3_("restoreAll pCurrent="<<pCurrent->getIdStr() << " restoreAll() execute");
         pCurrent = pCurrent->getNext();
     }

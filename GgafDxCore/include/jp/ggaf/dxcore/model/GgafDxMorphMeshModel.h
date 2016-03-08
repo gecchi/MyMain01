@@ -61,15 +61,13 @@ public:
 
 
     /** プライマリメッシュの頂点フォーマット定義 */
-    class VERTEX_PRIMARY : public GgafDxModel::VERTEX_3D_BASE {
-    public:
+    struct VERTEX_PRIMARY : public GgafDxModel::VERTEX_3D_BASE {
         DWORD color;      // 頂点の色（現在未使用）
         float tu, tv;     // テクスチャ座標
     };
 
     /** モーフターゲットメッシュの頂点フォーマット定義 */
-    class VERTEX_MORPH : public GgafDxModel::VERTEX_3D_BASE {
-    public:
+    struct VERTEX_MORPH : public GgafDxModel::VERTEX_3D_BASE {
     };
 
     /** モーフターゲット数 */

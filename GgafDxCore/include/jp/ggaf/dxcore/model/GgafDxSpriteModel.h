@@ -16,8 +16,7 @@ class GgafDxSpriteModel : public GgafDxModel {
 
 public:
     /** 頂点構造体 */
-    class VERTEX : public VERTEX_3D_BASE {
-    public:
+    struct VERTEX : public VERTEX_3D_BASE {
         DWORD color;      // 頂点色（現在未使用）
         float tu, tv;     // 頂点のテクスチャ座標
     };

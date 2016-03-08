@@ -293,9 +293,9 @@ void GgafDxSpacetime::draw() {
     if (pEffect_active) {
         _TRACE4_("ç≈å„ÇÃ EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
         hr = pEffect_active->_pID3DXEffect->EndPass();
-        checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         hr = pEffect_active->_pID3DXEffect->End();
-        checkDxException(hr, D3D_OK, "Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "End()Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         if (pEffect_active->_obj_effect & Obj_GgafDxMassEffect) {
             pDevice->SetStreamSourceFreq( 0, 1 );
             pDevice->SetStreamSourceFreq( 1, 1 );

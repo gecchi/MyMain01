@@ -14,8 +14,7 @@ namespace GgafLib {
 class DefaultMassMeshActor : public GgafDxCore::GgafDxMassMeshActor {
 
 private:
-    class VERTEX_instancedata {
-    public:
+    struct VERTEX_instancedata {
         float _11, _12, _13, _14;   // : TEXCOORD1  World変換行列、１行目
         float _21, _22, _23, _24;   // : TEXCOORD2  World変換行列、２行目
         float _31, _32, _33, _34;   // : TEXCOORD3  World変換行列、３行目

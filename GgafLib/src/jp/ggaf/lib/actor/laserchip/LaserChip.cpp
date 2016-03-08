@@ -392,14 +392,14 @@ void LaserChip::processDraw() {
     const int model_max_set_num = pMassMeshModel->_set_num;
     const hashval hash_technique = _hash_technique;
     VERTEX_instancedata* paInstancedata = LaserChip::_aInstancedata;
-    static const size_t SIZE_D3DXMATRIX = sizeof(D3DXMATRIX);
-    static const size_t SIZE_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
+    static const size_t size_of_D3DXMATRIX = sizeof(D3DXMATRIX);
     GgafDxFigureActor* pDrawActor = this;
+    LaserChip* pChip = nullptr;
     while (pDrawActor) {
         if (pDrawActor->getModel() == pMassMeshModel && pDrawActor->_hash_technique == hash_technique) {
-            LaserChip* pChip = (LaserChip*)pDrawActor;
-            memcpy(paInstancedata, &(pChip->_matWorld), SIZE_D3DXMATRIX);
-            memcpy(&(paInstancedata->_f_11), &(pChip->_pChip_infront->_matWorld), SIZE_D3DXMATRIX);
+            pChip = (LaserChip*)pDrawActor;
+            memcpy(paInstancedata, &(pChip->_matWorld), size_of_D3DXMATRIX);
+            memcpy(&(paInstancedata->_f_11), &(pChip->_pChip_infront->_matWorld), size_of_D3DXMATRIX);
             paInstancedata->_chip_kind = pChip->_chip_kind;
             paInstancedata->_force_alpha =  pChip->_force_alpha;
             paInstancedata++;
