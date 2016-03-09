@@ -8,8 +8,8 @@
 
 namespace GgafCore {
 
-/** クラス種別 */
-typedef uint64_t classkind;
+/** ノード種別 */
+typedef uint64_t nodekind;
 
 /**
  * 基底クラス
@@ -30,7 +30,7 @@ class GgafObject {
 
 public:
     /** [r]インスタンス種類 */
-    classkind _obj_class;
+    nodekind _obj_class;
 
 public:
     GgafObject();
@@ -50,7 +50,7 @@ public:
      * @param prm_Obj_xxxx 調べるクラスのマクロ定数
      * @return
      */
-    inline virtual bool instanceOf(classkind prm_Obj_xxxx) const {
+    inline virtual bool instanceOf(nodekind prm_Obj_xxxx) const {
         if ((_obj_class & prm_Obj_xxxx) == prm_Obj_xxxx) {
             return true;
         } else {

@@ -110,7 +110,7 @@ void CappedGraphBarActor::processDraw() {
             checkDxException(hr, D3D_OK, "SetFloat(_h_transformed_x) ‚É¸”s‚µ‚Ü‚µ‚½B3");
             _pBoardModel->GgafDxBoardModel::draw(this);
 
-            _pUvFlipper->_pattno_uvflip_now -=2; //‚à‚Æ‚É–ß‚·
+            _pUvFlipper->_pattno_uvflip_now -= 2; //‚à‚Æ‚É–ß‚·
         }
     } else {
         //•‰‚Ì’·‚³‚Ìê‡

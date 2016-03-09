@@ -230,7 +230,7 @@ public:
      * @param prm_Obj_xxxx 調べるクラスのマクロ定数
      * @return
      */
-    virtual bool instanceOf(classkind prm_Obj_xxxx) const override {
+    virtual bool instanceOf(nodekind prm_Obj_xxxx) const override {
         if ((Obj_SceneBit & prm_Obj_xxxx) == Obj_SceneBit) {
             //シーンを示すビットが立っていたら
             return false;
