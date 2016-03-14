@@ -267,8 +267,11 @@ class Stage01_03;
 class Stage01_Climax;
 class Stage01WalledSection001;
 class Stage01WalledScene;
+class Stage01WallSection001;
+class Stage01WallScene;
 class Wall001;
 class Wall001Prism;
+class Wall01;
 
 class Stage02PartController;
 class Stage02_01;

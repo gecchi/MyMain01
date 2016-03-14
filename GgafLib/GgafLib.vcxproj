@@ -67,8 +67,6 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\WallAAPrismActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\WallAAPyramidActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\WallPartsActor.cpp" />
-    <ClCompile Include="src\jp\ggaf\lib\actor\wall\MassWallAABActor.cpp" />
-    <ClCompile Include="src\jp\ggaf\lib\actor\wall\MassWallAAPrismActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\wall\MassWallActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\WorldBoundActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\DefaultGod.cpp" />
@@ -82,6 +80,8 @@
     <ClCompile Include="src\jp\ggaf\lib\scene\FormationTableScene.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\scene\WalledScene.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\scene\WalledSectionScene.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\scene\WallScene.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\scene\WallSectionScene.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\ColliAABox.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\ColliAAPrism.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\ColliAAPyramid.cpp" />
@@ -156,8 +156,6 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\WallAAPrismActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\WallAAPyramidActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\WallPartsActor.h" />
-    <ClInclude Include="include\jp\ggaf\lib\actor\wall\MassWallAABActor.h" />
-    <ClInclude Include="include\jp\ggaf\lib\actor\wall\MassWallAAPrismActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\wall\MassWallActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\WorldBoundActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\DefaultGod.h" />
@@ -171,6 +169,8 @@
     <ClInclude Include="include\jp\ggaf\lib\scene\FormationTableScene.h" />
     <ClInclude Include="include\jp\ggaf\lib\scene\WalledScene.h" />
     <ClInclude Include="include\jp\ggaf\lib\scene\WalledSectionScene.h" />
+    <ClInclude Include="include\jp\ggaf\lib\scene\WallScene.h" />
+    <ClInclude Include="include\jp\ggaf\lib\scene\WallSectionScene.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\ColliAABox.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\ColliAAPrism.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\ColliAAPyramid.h" />

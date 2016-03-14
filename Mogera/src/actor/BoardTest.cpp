@@ -16,7 +16,7 @@ using namespace Mogera;
 
 
 BoardTest::BoardTest(const char* prm_name) :
-        FontBoardActor(prm_name, "BoardTest") {
+        DefaultMassBoardActor(prm_name, "BoardTest") {
     _class_name = "BoardTest";
 
     pAFader_ = NEW GgafDxAlphaFader(this);
@@ -32,6 +32,7 @@ void BoardTest::onActive() {
 }
 
 void BoardTest::processBehavior() {
+    addRzFaceAng(1000);
     pAFader_->behave();
 }
 

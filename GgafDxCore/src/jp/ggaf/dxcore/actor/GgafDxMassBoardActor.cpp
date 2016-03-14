@@ -76,6 +76,38 @@ void GgafDxMassBoardActor::setValign(GgafDxValign prm_valign) {
     _valign = prm_valign;
 }
 
+void GgafDxMassBoardActor::setScale(scale s) {
+    _sx = s;
+    _sy = s;
+}
+
+void GgafDxMassBoardActor::setScale(scale sx, scale sy) {
+    _sx = sx;
+    _sy = sy;
+}
+
+void GgafDxMassBoardActor::setScale(scale sx, scale sy, scale sz) {
+    _sx = sx;
+    _sy = sy;
+    _sz = sz; //_szは2Dでは使用されないが、GgafDxScaler::behave() 内の判定で役に立つ。
+}
+
+void GgafDxMassBoardActor::setScaleR(float prm_rate) {
+    _sx = R_SC(prm_rate);
+    _sy = R_SC(prm_rate);
+}
+
+void GgafDxMassBoardActor::setScaleR(float prm_x_rate, float prm_y_rate) {
+    _sx = R_SC(prm_x_rate);
+    _sy = R_SC(prm_y_rate);
+}
+
+void GgafDxMassBoardActor::setScaleR(float prm_x_rate, float prm_y_rate, float prm_z_rate) {
+    _sx = R_SC(prm_x_rate);
+    _sy = R_SC(prm_y_rate);
+    _sz = R_SC(prm_z_rate); //_szは2Dでは使用されないが、GgafDxScaler::behave() 内の判定で役に立つ。
+}
+
 float GgafDxMassBoardActor::getModelWidth() {
     return _pMassBoardModel->_model_width_px;
 }

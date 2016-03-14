@@ -10,6 +10,7 @@
 #include "part/Stage01_03.h"
 #include "part/Stage01_Climax.h"
 #include "part/Stage01WalledScene.h"
+#include "part/Stage01WallScene.h"
 
 #include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultMeshTestActor.h"
 
@@ -25,13 +26,12 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,100,300,500,600,1000,9100,10000,29100,30000,39100,40000};
+	frame f[] = {1,2,100,500,600,1000,9100,10000,29100,30000,39100,40000};
 	_paFrame_NextEvent = new frame[12];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 12;
 	orderActorToFactory(10000004, EnemyOebiusController001, "EnemyOebiusController001-10000004");
 	orderActorToFactory(10000005, EnemyOebiusController002, "EnemyOebiusController002-10000005");
-	orderActorToFactory(10000006, EnemyErmione, "EnemyErmione-10000006");
     // gen01 end
     useProgress(Stage01PartController::PROG_BANPEI-1);
 }
@@ -49,14 +49,12 @@ void Stage01PartController::processBehavior() {
 			case 1: {
 				break;
 			}
-			case 100: {
-				orderSceneToFactory(10000000, Stage01_01, "Stage01_01-10000000");
+			case 2: {
+				//////
 				break;
 			}
-			case 300: {
-				EnemyErmione* pE = (EnemyErmione*)obtainActorFromFactory(10000006);
-				bringDirector()->addSubGroup(pE);
-				pE->position(PX_C(1000),0,0);
+			case 100: {
+				orderSceneToFactory(10000000, Stage01_01, "Stage01_01-10000000");
 				break;
 			}
 			case 500: {

@@ -1,7 +1,7 @@
 #ifndef TITLEBOARD_H_
 #define TITLEBOARD_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/DefaultBoardActor.h"
+#include "jp/ggaf/lib/actor/DefaultMassBoardActor.h"
 
 
 namespace VioletVreath {
@@ -12,10 +12,15 @@ namespace VioletVreath {
  * @since 2010/11/15
  * @author Masatoshi Tsuge
  */
-class TitleBoard : public GgafLib::DefaultBoardActor {
+class TitleBoard : public GgafLib::DefaultMassBoardActor {
+
+protected:
+    static VERTEX_instancedata _aInstancedata_title[];
 
 public:
     TitleBoard(const char* prm_name);
+
+    void onCreateModel() override;
 
     void initialize() override;
 

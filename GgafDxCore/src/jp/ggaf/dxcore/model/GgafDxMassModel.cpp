@@ -59,7 +59,7 @@ void GgafDxMassModel::createVertexElements() {
         VertexInstaceDataInfo instace_info;
         (*_pFunc_getVertexInstaceData)(&instace_info); //コールバック
         _size_vertex_unit_instacedata = instace_info.size_vertex_unit_instacedata;
-        _pInstancedata =  instace_info.pInstancedata;
+        _pInstancedata = instace_info.pInstancedata;
         int instace_data_element_num = instace_info.element_num;
 
         int elem_num = model_element_num + instace_data_element_num + 1; //+1 = D3DDECL_END()

@@ -520,6 +520,8 @@ public:
 	static GgafCore::GgafStatus* resetEnemyUrydikeStatus(GgafCore::GgafStatus* p);
 	//弾幕アリス用ショット
 	static GgafCore::GgafStatus* resetAliceShotStatus(GgafCore::GgafStatus* p);
+	//地形ボックス01
+	static GgafCore::GgafStatus* resetWall01Status(GgafCore::GgafStatus* p);
     // gen01 end
 };
 

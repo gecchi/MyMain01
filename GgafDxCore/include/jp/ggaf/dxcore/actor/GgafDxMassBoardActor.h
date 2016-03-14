@@ -66,44 +66,6 @@ private:
         throwGgafCriticalException("使用不可です。");
         return nullptr;
     }
-
-    void setFaceAngAs(const GgafDxGeoElem* prm_pActor) override {
-        throwGgafCriticalException("使用不可です。");
-    }
-    void setFaceAngAs(const GgafDxGeometricActor* prm_pActor) override {
-        throwGgafCriticalException("使用不可です。");
-    }
-    void setScale(scale S) override {
-        throwGgafCriticalException("使用不可です。");
-    }
-    void setScale(scale SX, scale SY) override {
-        throwGgafCriticalException("使用不可です。");
-    }
-    void setScale(scale SX, scale SY, scale SZ) override {
-        throwGgafCriticalException("使用不可です。");
-    }
-    void setScaleR(float prm_rate) override {
-        throwGgafCriticalException("使用不可です。");
-    }
-    void setScaleR(float prm_x_rate, float prm_y_rate, float prm_z_rate) override {
-        throwGgafCriticalException("使用不可です。");
-    }
-    void setScaleR(float prm_x_rate, float prm_y_rate) override {
-        throwGgafCriticalException("使用不可です。");
-    }
-    void addScale(scale dS) override {
-        throwGgafCriticalException("使用不可です。");
-    }
-    void addScaleX(scale dsx) override {
-        throwGgafCriticalException("使用不可です。");
-    }
-    void addScaleY(scale dsy) override {
-        throwGgafCriticalException("使用不可です。");
-    }
-    void addScaleZ(scale dsz) override {
-        throwGgafCriticalException("使用不可です。");
-    }
-
 public:
     /** [r]モデルオブジェクトへのポインタ */
     GgafDxMassBoardModel* const _pMassBoardModel;
@@ -139,6 +101,22 @@ public:
     virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign);
     virtual void setAlign(GgafDxAlign prm_align);
     virtual void setValign(GgafDxValign prm_valign);
+    virtual void setScale(scale s) override;
+    virtual void setScale(scale sx, scale sy) override;
+    virtual void setScale(scale sx, scale sy, scale sz) override;
+    virtual void setScaleR(float prm_rate) override;
+    virtual void setScaleR(float prm_x_rate, float prm_y_rate) override;
+    virtual void setScaleR(float prm_x_rate, float prm_y_rate, float prm_z_rate) override;
+    virtual void addScaleX(scale dsx) override {
+        _sx += dsx;
+    }
+    virtual void addScaleY(scale dsy) override {
+        _sy += dsy;
+    }
+    virtual void addScaleZ(scale dsz) override {
+        _sz += dsz;
+    }
+
 
     inline GgafDxUvFlipper* getUvFlipper() {
         return _pUvFlipper;

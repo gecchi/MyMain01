@@ -11,8 +11,9 @@
 #define COLLI_AAPRISM   (0x4)  //0b 00000000 00000000 00000000 00000100
 #define COLLI_AAPYRAMID (0x8)  //0b 00000000 00000000 00000000 00001000
 
-#define Obj_DefaultScene    ((0x80000040U) | Obj_SceneBit) //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 01000000
-#define Obj_WalledScene     ((0x80000080U) | Obj_SceneBit) //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 10000000
+#define Obj_DefaultScene    ((0x40U) | Obj_SceneBit)  //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 01000000
+#define Obj_WalledScene     ((0x80U) | Obj_SceneBit)  //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 10000000
+#define Obj_WallScene       ((0x100U) | Obj_SceneBit) //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000001 00000000
 
 #define Obj_LaserChip        (0x100000000U)    //0b 00000000 00000000 00000000 00000001 00000000 00000000 00000000 00000000
 #define Obj_WallPartsActor   (0x200000000U)    //0b 00000000 00000000 00000000 00000010 00000000 00000000 00000000 00000000
@@ -37,6 +38,8 @@ class SceneProgress;
 class FormationTableScene;
 class WalledScene;
 class WalledSectionScene;
+class WallScene;
+class WallSectionScene;
 
 class GgafLibProperties;
 class TreeFormation;
@@ -74,6 +77,7 @@ class WallAAPrismActor;
 class WallAAPyramidActor;
 class GraphBarActor;
 class CappedGraphBarActor;
+class MassWallActor;
 
 class SpriteMeshWorldBoundActor;
 class WorldBoundActor;

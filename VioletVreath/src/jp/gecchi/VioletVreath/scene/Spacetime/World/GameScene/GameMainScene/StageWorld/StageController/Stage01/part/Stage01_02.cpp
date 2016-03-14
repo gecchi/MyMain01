@@ -136,8 +136,8 @@ void Stage01_02::processBehavior() {
 				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000030, EnemyEtis, "EnemyEtis-30000030");
 				orderActorToFactory(30000997, VarietyRatislavia001, "VarietyRatislavia001-30000997");
-				orderActorToFactory(30001019, FormationHalia, "FormationHalia-30001019");
-				orderActorToFactory(30001030, FormationEbe001, "FormationEbe001-30001030");
+				orderActorToFactory(30001018, FormationHalia, "FormationHalia-30001018");
+				orderActorToFactory(30001029, FormationEbe001, "FormationEbe001-30001029");
 				break;
 			}
 			case 430: {
@@ -260,9 +260,9 @@ void Stage01_02::processBehavior() {
 				orderActorToFactory(30000050, EnemyEtis, "EnemyEtis-30000050");
 				VarietyRatislavia001* pRatislavia = (VarietyRatislavia001*)obtainActorFromFactory(30000997);
 				bringDirector()->addSubGroup(pRatislavia);
-				FormationHalia* pF = (FormationHalia*)obtainActorFromFactory(30001019);
+				FormationHalia* pF = (FormationHalia*)obtainActorFromFactory(30001018);
 				bringDirector()->addSubGroup(pF);
-				FormationEbe001* pF1 = (FormationEbe001*)obtainActorFromFactory(30001030);
+				FormationEbe001* pF1 = (FormationEbe001*)obtainActorFromFactory(30001029);
 				bringDirector()->addSubGroup(pF1);
 				break;
 			}
@@ -1007,8 +1007,8 @@ void Stage01_02::processBehavior() {
 			}
 			case 4400: {
 				orderActorToFactory(30001015, VarietyRatislavia002, "VarietyRatislavia002-30001015");
-				orderActorToFactory(30001020, FormationHalia, "FormationHalia-30001020");
-				orderActorToFactory(30001031, EnemyEsperia, "EnemyEsperia-30001031");
+				orderActorToFactory(30001019, FormationHalia, "FormationHalia-30001019");
+				orderActorToFactory(30001030, EnemyEsperia, "EnemyEsperia-30001030");
 				break;
 			}
 			case 4420: {
@@ -1134,9 +1134,9 @@ void Stage01_02::processBehavior() {
 			case 5000: {
 				VarietyRatislavia002* pRatislaviaA = (VarietyRatislavia002*)obtainActorFromFactory(30001015);
 				bringDirector()->addSubGroup(pRatislaviaA);
-				FormationHalia* pF = (FormationHalia*)obtainActorFromFactory(30001020);
+				FormationHalia* pF = (FormationHalia*)obtainActorFromFactory(30001019);
 				bringDirector()->addSubGroup(pF);
-				EnemyEsperia* p4 = (EnemyEsperia*)obtainActorFromFactory(30001031);
+				EnemyEsperia* p4 = (EnemyEsperia*)obtainActorFromFactory(30001030);
 				bringDirector()->addSubGroup(p4);
 				break;
 			}
@@ -1220,7 +1220,7 @@ void Stage01_02::processBehavior() {
 			}
 			case 5400: {
 				orderActorToFactory(30001016, VarietyRatislavia003, "VarietyRatislavia003-30001016");
-				orderActorToFactory(30001032, EnemyEsperia, "EnemyEsperia-30001032");
+				orderActorToFactory(30001031, EnemyEsperia, "EnemyEsperia-30001031");
 				break;
 			}
 			case 5410: {
@@ -1346,7 +1346,7 @@ void Stage01_02::processBehavior() {
 			case 6000: {
 				VarietyRatislavia003* pRatislaviaB = (VarietyRatislavia003*)obtainActorFromFactory(30001016);
 				bringDirector()->addSubGroup(pRatislaviaB);
-				EnemyEsperia* p5 = (EnemyEsperia*)obtainActorFromFactory(30001032);
+				EnemyEsperia* p5 = (EnemyEsperia*)obtainActorFromFactory(30001031);
 				bringDirector()->addSubGroup(p5);
 				break;
 			}
@@ -1433,7 +1433,7 @@ void Stage01_02::processBehavior() {
 				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000230, EnemyEtis, "EnemyEtis-30000230");
 				orderActorToFactory(30001017, VarietyRatislavia004, "VarietyRatislavia004-30001017");
-				orderActorToFactory(30001033, EnemyEsperia, "EnemyEsperia-30001033");
+				orderActorToFactory(30001032, EnemyEsperia, "EnemyEsperia-30001032");
 				break;
 			}
 			case 6430: {
@@ -1556,7 +1556,7 @@ void Stage01_02::processBehavior() {
 				orderActorToFactory(30000250, EnemyEtis, "EnemyEtis-30000250");
 				VarietyRatislavia004* pRatislavia = (VarietyRatislavia004*)obtainActorFromFactory(30001017);
 				bringDirector()->addSubGroup(pRatislavia);
-				EnemyEsperia* p6 = (EnemyEsperia*)obtainActorFromFactory(30001033);
+				EnemyEsperia* p6 = (EnemyEsperia*)obtainActorFromFactory(30001032);
 				bringDirector()->addSubGroup(p6);
 				break;
 			}
@@ -1639,8 +1639,7 @@ void Stage01_02::processBehavior() {
 				break;
 			}
 			case 7400: {
-				orderActorToFactory(30001018, VarietyRatislavia004, "VarietyRatislavia004-30001018");
-				orderActorToFactory(30001034, EnemyEsperia, "EnemyEsperia-30001034");
+				orderActorToFactory(30001033, EnemyEsperia, "EnemyEsperia-30001033");
 				break;
 			}
 			case 7420: {
@@ -1764,9 +1763,7 @@ void Stage01_02::processBehavior() {
 				break;
 			}
 			case 8000: {
-				VarietyRatislavia004* pRatislavia = (VarietyRatislavia004*)obtainActorFromFactory(30001018);
-				bringDirector()->addSubGroup(pRatislavia);
-				EnemyEsperia* p7 = (EnemyEsperia*)obtainActorFromFactory(30001034);
+				EnemyEsperia* p7 = (EnemyEsperia*)obtainActorFromFactory(30001033);
 				bringDirector()->addSubGroup(p7);
 				break;
 			}
@@ -1849,8 +1846,8 @@ void Stage01_02::processBehavior() {
 				break;
 			}
 			case 8400: {
-				orderActorToFactory(30001021, FormationHalia, "FormationHalia-30001021");
-				orderActorToFactory(30001035, EnemyEsperia, "EnemyEsperia-30001035");
+				orderActorToFactory(30001020, FormationHalia, "FormationHalia-30001020");
+				orderActorToFactory(30001034, EnemyEsperia, "EnemyEsperia-30001034");
 				break;
 			}
 			case 8410: {
@@ -1896,12 +1893,12 @@ void Stage01_02::processBehavior() {
 				break;
 			}
 			case 8600: {
-				orderActorToFactory(30001023, FormationRis002, "FormationRis002-30001023");
+				orderActorToFactory(30001022, FormationRis002, "FormationRis002-30001022");
+				orderActorToFactory(30001023, FormationRis001, "FormationRis001-30001023");
 				orderActorToFactory(30001024, FormationRis001, "FormationRis001-30001024");
-				orderActorToFactory(30001025, FormationRis001, "FormationRis001-30001025");
-				orderActorToFactory(30001026, FormationRis002, "FormationRis002-30001026");
-				orderActorToFactory(30001027, FormationRis001, "FormationRis001-30001027");
-				orderActorToFactory(30001028, FormationRis002, "FormationRis002-30001028");
+				orderActorToFactory(30001025, FormationRis002, "FormationRis002-30001025");
+				orderActorToFactory(30001026, FormationRis001, "FormationRis001-30001026");
+				orderActorToFactory(30001027, FormationRis002, "FormationRis002-30001027");
 				break;
 			}
 			case 8620: {
@@ -1965,7 +1962,7 @@ void Stage01_02::processBehavior() {
 				break;
 			}
 			case 8900: {
-				orderActorToFactory(30001029, EnemyIrce, "EnemyIrce-30001029");
+				orderActorToFactory(30001028, EnemyIrce, "EnemyIrce-30001028");
 				break;
 			}
 			case 8920: {
@@ -1987,9 +1984,9 @@ void Stage01_02::processBehavior() {
 				break;
 			}
 			case 9000: {
-				FormationHalia* pF = (FormationHalia*)obtainActorFromFactory(30001021);
+				FormationHalia* pF = (FormationHalia*)obtainActorFromFactory(30001020);
 				bringDirector()->addSubGroup(pF);
-				EnemyEsperia* p8 = (EnemyEsperia*)obtainActorFromFactory(30001035);
+				EnemyEsperia* p8 = (EnemyEsperia*)obtainActorFromFactory(30001034);
 				bringDirector()->addSubGroup(p8);
 				break;
 			}
@@ -2040,12 +2037,12 @@ void Stage01_02::processBehavior() {
 				FormationTableScene* ta = NEW FormationTableScene("FormationTableScene-9");
 				ta->setMaxPerformFrame(2000);
 				addSubLast(ta);
-				ta->addToTable(((FormationRis002*)obtainActorFromFactory(30001023)), 400);
+				ta->addToTable(((FormationRis002*)obtainActorFromFactory(30001022)), 400);
+				ta->addToTable(((FormationRis001*)obtainActorFromFactory(30001023)), 400);
 				ta->addToTable(((FormationRis001*)obtainActorFromFactory(30001024)), 400);
-				ta->addToTable(((FormationRis001*)obtainActorFromFactory(30001025)), 400);
-				ta->addToTable(((FormationRis002*)obtainActorFromFactory(30001026)), 400);
-				ta->addToTable(((FormationRis001*)obtainActorFromFactory(30001027)), 400);
-				ta->addToTable(((FormationRis002*)obtainActorFromFactory(30001028)), 400);
+				ta->addToTable(((FormationRis002*)obtainActorFromFactory(30001025)), 400);
+				ta->addToTable(((FormationRis001*)obtainActorFromFactory(30001026)), 400);
+				ta->addToTable(((FormationRis002*)obtainActorFromFactory(30001027)), 400);
 				}
 				break;
 			}
@@ -2089,7 +2086,7 @@ void Stage01_02::processBehavior() {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000310);
 				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000330, EnemyEtis, "EnemyEtis-30000330");
-				orderActorToFactory(30001036, EnemyEsperia, "EnemyEsperia-30001036");
+				orderActorToFactory(30001035, EnemyEsperia, "EnemyEsperia-30001035");
 				break;
 			}
 			case 9430: {
@@ -2111,7 +2108,7 @@ void Stage01_02::processBehavior() {
 				break;
 			}
 			case 9500: {
-				EnemyIrce* p10 = (EnemyIrce*)obtainActorFromFactory(30001029);
+				EnemyIrce* p10 = (EnemyIrce*)obtainActorFromFactory(30001028);
 				bringDirector()->addSubGroup(p10);
 				break;
 			}
@@ -2215,7 +2212,7 @@ void Stage01_02::processBehavior() {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(30000330);
 				bringDirector()->addSubGroup(pEtis);
 				orderActorToFactory(30000350, EnemyEtis, "EnemyEtis-30000350");
-				EnemyEsperia* p11 = (EnemyEsperia*)obtainActorFromFactory(30001036);
+				EnemyEsperia* p11 = (EnemyEsperia*)obtainActorFromFactory(30001035);
 				bringDirector()->addSubGroup(p11);
 				break;
 			}

@@ -310,6 +310,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001Atmosphere.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\wall\Wall001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\wall\Wall001Prism.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\wall\Wall01.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\common\laserchip\EnemyStraightLaserChip001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\common\laserchip\EnemyWateringLaserChip001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\common\mesh\GroundMeshActor.cpp" />
@@ -614,6 +615,8 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01WalledScene.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01WalledSection001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01WallScene.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01WallSection001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01_01.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01_02.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01_03.cpp" />
@@ -667,6 +670,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001Atmosphere.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\wall\Wall001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\wall\Wall001Prism.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\wall\Wall01.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\common\laserchip\EnemyStraightLaserChip001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\common\laserchip\EnemyWateringLaserChip001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\common\mesh\GroundMeshActor.h" />
@@ -974,6 +978,8 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01WalledScene.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01WalledSection001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01WallScene.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01WallSection001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01_01.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01_02.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01_03.h" />

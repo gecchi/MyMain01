@@ -1,5 +1,5 @@
-#ifndef GGAFLIB_DEFAULTMASSBOARDACTOR_H_
-#define GGAFLIB_DEFAULTMASSBOARDACTOR_H_
+#ifndef GGAFLIB_FONTBOARDACTOR_H_
+#define GGAFLIB_FONTBOARDACTOR_H_
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/GgafDxMassBoardActor.h"
 
@@ -190,4 +190,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_DEFAULTMASSBOARDACTOR_H_*/
+#endif /*GGAFLIB_FONTBOARDACTOR_H_*/

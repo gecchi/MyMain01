@@ -1,7 +1,7 @@
 #ifndef MAGICMETER_H_
 #define MAGICMETER_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/DefaultBoardSetActor.h"
+#include "jp/ggaf/lib/actor/DefaultMassBoardActor.h"
 
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/Magic.h"
@@ -24,7 +24,11 @@ typedef GgafCore::GgafLinkedListRing<Magic> MagicList;
  * @since 2011/01/11
  * @author Masatoshi Tsuge
  */
-class MagicMeter : public GgafLib::DefaultBoardSetActor {
+class MagicMeter : public GgafLib::DefaultMassBoardActor {
+protected:
+    VERTEX_instancedata* paInstancedata_MM_;
+    int max_draw_num_;
+public:
     enum {
         SE_CURSOR_MOVE_METER       ,
         SE_CURSOR_MOVE_LEVEL       ,

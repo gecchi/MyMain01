@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh" 
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDxMassBoardModel用シェーダー
+// Ggafライブラリ、FontBoardActor用シェーダー
 //
 // author : Masatoshi Tsuge
 // date:2009/03/06 
@@ -26,66 +26,47 @@ struct OUT_VS
 
 ///////////////////////////////////////////////////////////////////////////
 
-//GgafDxMassBoardModel標準頂点シェーダー
-OUT_VS GgafDxVS_DefaultMassBoard(
+//FontBoardActor標準頂点シェーダー
+OUT_VS GgafDxVS_FontBoard(
       float4 prm_posModel_Local   : POSITION,      // モデルの頂点
       float3 prm_vecNormal_Local  : NORMAL,        // モデルの頂点の法線(未使用)
       float2 prm_uv               : TEXCOORD0,     // モデルの頂点のUV
 
       float3 prm_pos              : TEXCOORD1,     // transformed_x, transformed_y, depth_z   
-      float3 prm_loc              : TEXCOORD2,     // local_left_top_x, local_left_top_y;
-      float3 prm_sc               : TEXCOORD3,     // r_sx, r_sy, rad_rz;
-      float3 prm_uva              : TEXCOORD4,     // offset_u, offset_v;   
-      float4 prm_color            : TEXCOORD5
+      float3 prm_info             : TEXCOORD2      // offset_u, offset_v, alpha               
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 	float transformed_x = prm_pos.x; //変換済みX座標(px)
 	float transformed_y = prm_pos.y; //変換済みY座標(px)
-	float depthZ = prm_pos.z;  //深度Z (0 ～ +1)
-    float local_left_top_x = prm_loc.x; //ローカルX座標（X座標のオフセット）
-    float local_left_top_y = prm_loc.y; //ローカルY座標（Y座標のオフセット）
-    float r_sx = prm_sc.x;     //X軸方向拡大率
-    float r_sy = prm_sc.y;     //Y軸方向拡大率
-    float rad_rz = prm_sc.z;   //Z回転角度
-	float offsetU = prm_uva.x; //テクスチャU座標増分
-	float offsetV = prm_uva.y; //テクスチャV座標増分
+	float depthZ = prm_pos.z; //深度Z (0 ～ +1)
 
-    if (rad_rz == 0.0f) {
-        //X座標Y座標をを -1 ～ +1 に押し込める。
-        out_vs.posModel_Proj.x = - 1 + ( (2*( ((prm_posModel_Local.x + local_left_top_x)*r_sx) + transformed_x) - 1) / g_game_buffer_width);
-        out_vs.posModel_Proj.y =   1 - ( (2*( ((prm_posModel_Local.y + local_left_top_y)*r_sy) + transformed_y) - 1) / g_game_buffer_height);
-    } else {
-        //拡大縮小
-        const float lx = (prm_posModel_Local.x + local_left_top_x) * r_sx;
-        const float ly = (prm_posModel_Local.y + local_left_top_y) * r_sy;
-        //回転 ＆ X座標Y座標をを -1 ～ +1 に押し込める。
-        out_vs.posModel_Proj.x = - 1 + ( (2*( (lx * cos(rad_rz) - ly * sin(rad_rz))            + transformed_x) - 1) / g_game_buffer_width);
-        out_vs.posModel_Proj.y =   1 - ( (2*( (lx * sin(rad_rz) + ly * cos(rad_rz))            + transformed_y) - 1) / g_game_buffer_height);
-    }
+	float offset_u = prm_info.x; //テクスチャU座標増分
+	float offset_v = prm_info.y; //テクスチャV座標増分
+	float alpha = prm_info.z; //α
 
 	//X座標Y座標をを -1 ～ +1 に押し込める。
-	//out_vs.posModel_Proj.x = - 1 + ((2*prm_posModel_Local.x + 2*transformed_x - 1) / g_game_buffer_width);
-	//out_vs.posModel_Proj.y =   1 - ((2*prm_posModel_Local.y + 2*transformed_y - 1) / g_game_buffer_height);
+	out_vs.posModel_Proj.x = - 1 + ((2*prm_posModel_Local.x + 2*transformed_x - 1) / g_game_buffer_width);
+	out_vs.posModel_Proj.y =   1 - ((2*prm_posModel_Local.y + 2*transformed_y - 1) / g_game_buffer_height);
 	out_vs.posModel_Proj.z = depthZ;
 	out_vs.posModel_Proj.w = 1.0;
-
 	//UVのオフセットを加算
-	out_vs.uv.x = prm_uv.x + offsetU;
-	out_vs.uv.y = prm_uv.y + offsetV;
-	out_vs.color = prm_color;
+	out_vs.uv.x = prm_uv.x + offset_u;
+	out_vs.uv.y = prm_uv.y + offset_v;
+	out_vs.color.a = alpha;
 	return out_vs;
 }
 
 
-//GgafDxMassBoardModel標準ピクセルシェーダー
-float4 GgafDxPS_DefaultMassBoard(
+//FontBoardActor標準ピクセルシェーダー
+float4 GgafDxPS_FontBoard(
 	float2 prm_uv	  : TEXCOORD0,
 	float4 prm_color  : COLOR0 
 ) : COLOR  {
-	float4 colOut = tex2D( MyTextureSampler, prm_uv) * prm_color;
+	float4 colOut = tex2D( MyTextureSampler, prm_uv);
 //	if (colOut.r >= g_tex_blink_threshold || colOut.g >= g_tex_blink_threshold || colOut.b >= g_tex_blink_threshold) {
 //		colOut *= g_tex_blink_power; //+ (colTex * g_tex_blink_power);
 //	}          
+	//α考慮
 	colOut.a = colOut.a * prm_color.a * g_alpha_master; 
 	return colOut;
 }
@@ -102,9 +83,9 @@ float4 PS_Flush(
 
 }
 
-//＜テクニック：DefaultMassBoardTechnique＞
+//＜テクニック：FontBoardTechnique＞
 //【機能】
-//GgafDxMassBoardModel用標準シェーダー
+//FontBoardActor用標準シェーダー
 //【概要】
 //D3DFVF_XYZRHW で描画したような仕様で２Ｄ表示します。
 //画面左上隅が(0,0)で画面右下隅が（画面幅(px), 画面高さ(px))となる座標系で
@@ -115,7 +96,17 @@ float4 PS_Flush(
 //・オブジェクトのテクスチャ
 //・半透明α
 //
-technique DefaultMassBoardTechnique
+//【設定グローバル】
+// float g_alpha			:	α値
+// float g_transformed_x		: 	変換済みX座標(px)
+// float g_transformed_y		:	変換済みY座標(px)
+// float g_depth_z			:	深度Z (0 ～ +1)
+// float g_game_buffer_width		:	画面幅(px)
+// float g_game_buffer_height		:	画面高さ(px)
+// float g_offset_u			:	テクスチャU座標増分
+// float g_offset_v			:	テクスチャV座標増分
+// s0レジスタ				:	2Dテクスチャ
+technique FontBoardTechnique
 {
 	pass P0 {
 		AlphaBlendEnable = true;
@@ -125,8 +116,8 @@ technique DefaultMassBoardTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultMassBoard();
-		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassBoard();
+		VertexShader = compile VS_VERSION GgafDxVS_FontBoard();
+		PixelShader  = compile PS_VERSION GgafDxPS_FontBoard();
 	}
 }
 
@@ -140,8 +131,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultMassBoard();
-		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassBoard();
+		VertexShader = compile VS_VERSION GgafDxVS_FontBoard();
+		PixelShader  = compile PS_VERSION GgafDxPS_FontBoard();
 	}
 }
 
@@ -155,7 +146,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultMassBoard();
+		VertexShader = compile VS_VERSION GgafDxVS_FontBoard();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }

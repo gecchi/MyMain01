@@ -227,6 +227,12 @@ public:
      */
     virtual void getUV(float& out_u, float& out_v);
 
+    /**
+     * 引数のアニメーションパターン番号に対応する左上のUV座標を取得する。 .
+     * @param prm_pattno_uvflip アニメーションパターン番号
+     * @param out_u[out] アニメーションパターン番号の座標U
+     * @param out_v[out] アニメーションパターン番号座標V
+     */
     virtual void getUV(int prm_pattno_uvflip, float& out_u, float& out_v);
 
     /**

@@ -355,6 +355,9 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\danmaku\Alice\AliceShot.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\danmaku\Alice\DanmakuAlice.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\danmaku\Alice\DanmakuAlice001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\wall\Wall01.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01WallScene.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01WallSection001.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\CubeMapMeshSetTestActor.h" />
@@ -716,6 +719,9 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\danmaku\Alice\AliceShot.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\danmaku\Alice\DanmakuAlice.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\danmaku\Alice\DanmakuAlice001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\wall\Wall01.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01WallScene.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01WallSection001.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="VioletVreath.rc" />

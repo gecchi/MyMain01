@@ -24,10 +24,13 @@ namespace GgafLib {
  */
 class DefaultMassBoardActor : public GgafDxCore::GgafDxMassBoardActor {
 
-private:
+protected:
     struct VERTEX_instancedata {
         float transformed_x, transformed_y, depth_z;   // : TEXCOORD1
-        float offset_u, offset_v, alpha;               // : TEXCOORD2
+        float local_left_top_x, local_left_top_y;      // : TEXCOORD2
+        float r_sx, r_sy, rad_rz;                      // : TEXCOORD3
+        float offset_u, offset_v;                      // : TEXCOORD4
+        float r, g, b, a;                              // : TEXCOORD5  マテリアルカラー
     };
     static VERTEX_instancedata _aInstancedata[];
 
