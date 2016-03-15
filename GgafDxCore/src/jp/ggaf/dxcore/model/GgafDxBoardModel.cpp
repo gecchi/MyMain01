@@ -33,7 +33,7 @@ GgafDxBoardModel::GgafDxBoardModel(const char* prm_model_name) :
     //Ç≈çsÇ¡ÇƒÇ¢ÇÈÅB
 }
 
-HRESULT GgafDxBoardModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num) {
+HRESULT GgafDxBoardModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("GgafDxBoardModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
     IDirect3DDevice9* const pDevice = GgafDxGod::_pID3DDevice9;
     //ëŒè€Actor

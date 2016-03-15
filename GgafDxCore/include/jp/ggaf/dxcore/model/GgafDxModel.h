@@ -192,9 +192,10 @@ public:
      * 下位クラスでモデル描画ロジックを実装して下さい。
      * @param prm_pActor_target 描画するモデルのアクター
      * @param prm_draw_set_num 描画するモデルのセット数
+     * @param prm_pPrm 汎用パラメータ
      * @return
      */
-    virtual HRESULT draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num = 1) = 0;
+    virtual HRESULT draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num = 1, void* prm_pPrm = nullptr) = 0;
 
     /**
      * マテリアルのテクスチャを入れ替えて切り替える。 .

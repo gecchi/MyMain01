@@ -34,7 +34,7 @@ GgafDxPointSpriteModel::GgafDxPointSpriteModel(const char* prm_model_name) : Gga
 }
 
 //•`‰æ
-HRESULT GgafDxPointSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num) {
+HRESULT GgafDxPointSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     IDirect3DDevice9* const pDevice = GgafDxGod::_pID3DDevice9;
     _TRACE4_("GgafDxPointSpriteModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
 

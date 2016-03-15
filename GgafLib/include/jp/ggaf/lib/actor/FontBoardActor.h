@@ -6,18 +6,7 @@
 namespace GgafLib {
 
 /**
- * 座標変換済みスプライトアクターの具象クラス.
- * GgafDxCore::GgafDxMassBoardActor を空実装した具象アクターです。
- * 本クラスを継承して色々画面表示を作成しましょう。<BR>
- * 以下に使用可能な支援オブジェクトを記す。<BR>
- * <TABLE border=1>
- * <TR bgcolor="#AABBCC"><TH>オブジェクトへのアクセス</TH><TH>概要</TH><TH>CLASS名</TH></TR>
- * <TR><TD>getProgress()</TD><TD>進捗管理</TD><TD>GgafCore::GgafProgress</TD></TR>
- * <TR><TD>getKuroko()</TD><TD>黒衣。移動回転支援</TD><TD>GgafDxCore::GgafDxKuroko</TD></TR>
- * <TR><TD>getUvFlipper()</TD><TD>パラパラアニメーション支援</TD><TD>GgafDxCore::GgafDxUvFlipper</TD></TR>
- * <TR><TD>getSeTx()</TD><TD>効果音発生管理</TD><TD>GgafDxCore::GgafDxSeTransmitter</TD></TR>
- * </TABLE>
- * <B>【注意】</B>拡大縮小支援(GgafDxCore::GgafDxScaler)は使用出来ません。
+ * 座標変換済み板ポリ文字表示 .
  * @version 1.00
  * @since 2016/02/25
  * @author Masatoshi Tsuge
@@ -26,7 +15,7 @@ class FontBoardActor : public GgafDxCore::GgafDxMassBoardActor {
 
 private:
     struct VERTEX_instancedata {
-        float transformed_x, transformed_y, depth_z;   // : TEXCOORD1
+        float px_x, px_y, depth_z;   // : TEXCOORD1
         float offset_u, offset_v, alpha;               // : TEXCOORD2
     };
     static VERTEX_instancedata _aInstancedata[];
@@ -41,13 +30,17 @@ public:
     int _max_len;
     /** [r]文字バッファ */
     int* _buf;
-
-    float* _paOffset_x;
-    float* _paOffset_y;
-    float* _paOffset_u;
-    float* _paOffset_v;
+    struct InstacePart {
+        float px_x;
+        float px_y;
+        float offset_u;
+        float offset_v;
+    };
+    InstacePart* _paInstacePart;
     /** [r]文字列長 */
     int _len;
+    /** [r]描画文字数（改行除く）*/
+    int _draw_chr_num;
     /** [r/w]ベースの１文字幅(px) */
     pixcoord _chr_width_px;
     /** [r/w]ベースの１文字高さ(px) */
@@ -56,7 +49,7 @@ public:
     pixcoord _aWidthPx[256];
     /** [r]文字バッファの文字列の行単位の幅(px) */
     pixcoord _aWidth_line_px[1024];
-    /** [r]文字バッファの文字列の改行数 */
+    /** [r]文字バッファの文字列の行数 */
     int _nn;
 
     /**

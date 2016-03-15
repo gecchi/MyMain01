@@ -42,7 +42,7 @@ public:
      */
     GgafDxBoardModel(const char* prm_model_name);
 
-    virtual HRESULT draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num = 1) override;
+    virtual HRESULT draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num = 1, void* prm_pPrm = nullptr) override;
 
     virtual void restore() override;
 

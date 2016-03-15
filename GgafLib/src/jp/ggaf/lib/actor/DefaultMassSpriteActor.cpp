@@ -39,7 +39,7 @@ void DefaultMassSpriteActor::drawHitArea() {
 }
 
 void DefaultMassSpriteActor::createVertexInstaceData(GgafDxMassModel::VertexInstaceDataInfo* out_info) {
-    int element_num = 5;
+    int element_num = 7;
     out_info->paElement = NEW D3DVERTEXELEMENT9[element_num];
     // Stream = 1 ---->
     WORD st1_offset_next = 0;
@@ -75,14 +75,30 @@ void DefaultMassSpriteActor::createVertexInstaceData(GgafDxMassModel::VertexInst
     out_info->paElement[3].Usage  = D3DDECLUSAGE_TEXCOORD;
     out_info->paElement[3].UsageIndex = 4;
     st1_offset_next += sizeof(float)*4;
-    //float offset_u, offset_v, force_alpha;   // : TEXCOORD5  テクスチャオフセット、強制α
+    //float local_x, local_y;     // : TEXCOORD5  ローカル座標オフセット
     out_info->paElement[4].Stream = 1;
     out_info->paElement[4].Offset = st1_offset_next;
-    out_info->paElement[4].Type   = D3DDECLTYPE_FLOAT3;
+    out_info->paElement[4].Type   = D3DDECLTYPE_FLOAT2;
     out_info->paElement[4].Method = D3DDECLMETHOD_DEFAULT;
     out_info->paElement[4].Usage  = D3DDECLUSAGE_TEXCOORD;
     out_info->paElement[4].UsageIndex = 5;
-    st1_offset_next += sizeof(float)*3;
+    st1_offset_next += sizeof(float)*2;
+    //float offset_u, offset_v;   // : TEXCOORD6  テクスチャオフセット
+    out_info->paElement[5].Stream = 1;
+    out_info->paElement[5].Offset = st1_offset_next;
+    out_info->paElement[5].Type   = D3DDECLTYPE_FLOAT2;
+    out_info->paElement[5].Method = D3DDECLMETHOD_DEFAULT;
+    out_info->paElement[5].Usage  = D3DDECLUSAGE_TEXCOORD;
+    out_info->paElement[5].UsageIndex = 6;
+    st1_offset_next += sizeof(float)*2;
+    //float r, g, b, a;           // : TEXCOORD7  マテリアルカラー
+    out_info->paElement[6].Stream = 1;
+    out_info->paElement[6].Offset = st1_offset_next;
+    out_info->paElement[6].Type   = D3DDECLTYPE_FLOAT4;
+    out_info->paElement[6].Method = D3DDECLMETHOD_DEFAULT;
+    out_info->paElement[6].Usage  = D3DDECLUSAGE_TEXCOORD;
+    out_info->paElement[6].UsageIndex = 7;
+    st1_offset_next += sizeof(float)*4;
     // <---- Stream = 1
 
     out_info->element_num = element_num;
@@ -100,32 +116,34 @@ void DefaultMassSpriteActor::processDraw() {
     GgafDxFigureActor* pDrawActor = this;
     static const size_t size_of_D3DXMATRIX = sizeof(D3DXMATRIX);
     static const size_t size_of_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
-
     float u,v;
+    DefaultMassSpriteActor* pDefaultMassSpriteActor = nullptr;
+
     while (pDrawActor) {
         if (pDrawActor->getModel() == _pMassSpriteModel && pDrawActor->_hash_technique == hash_technique) {
-            if (_align == ALIGN_CENTER) {
-                //do nothing
-            } else if (_align == ALIGN_LEFT) {
-                pDrawActor->_matWorld._41 += PX_C(_pMassSpriteModel->_model_width_px/2);
-            } else {
-                //ALIGN_RIGHT
-                pDrawActor->_matWorld._41 -= PX_C(_pMassSpriteModel->_model_width_px/2);
-            }
-            if (_valign == VALIGN_MIDDLE) {
-                //do nothing
-            } else if (_valign == VALIGN_TOP) {
-                pDrawActor->_matWorld._42 -= PX_C(_pMassSpriteModel->_model_height_px/2);
-            } else {
-                //VALIGN_BOTTOM
-                pDrawActor->_matWorld._42 += PX_C(_pMassSpriteModel->_model_height_px/2);
-            }
+            pDefaultMassSpriteActor = (DefaultMassSpriteActor*)pDrawActor;
+            GgafDxAlign align = pDefaultMassSpriteActor->_align;
+            GgafDxValign valign = pDefaultMassSpriteActor->_valign;
 
             memcpy(paInstancedata, &(pDrawActor->_matWorld), size_of_D3DXMATRIX);
+            if (align == ALIGN_CENTER) {
+                paInstancedata->local_x = 0;
+            } else if (align == ALIGN_LEFT) {
+                paInstancedata->local_x = PX_DX(_pMassSpriteModel->_model_half_width_px);
+            } else { //ALIGN_RIGHT
+                paInstancedata->local_x = -PX_DX(_pMassSpriteModel->_model_half_width_px);
+            }
+            if (valign == VALIGN_MIDDLE) {
+                paInstancedata->local_y = 0;
+            } else if (valign == VALIGN_TOP) {
+                paInstancedata->local_y = -PX_DX(_pMassSpriteModel->_model_half_height_px);
+            } else {  //VALIGN_BOTTOM
+                paInstancedata->local_y = PX_DX(_pMassSpriteModel->_model_half_height_px);
+            }
             ((DefaultMassSpriteActor*)pDrawActor)->getUvFlipper()->getUV(u,v);
             paInstancedata->offset_u = u;
             paInstancedata->offset_v = v;
-            paInstancedata->alpha = pDrawActor->_alpha;
+            memcpy(&(paInstancedata->r), &(pDefaultMassSpriteActor->_paMaterial[0].Diffuse), size_of_D3DCOLORVALUE);
             paInstancedata++;
 
             draw_set_num++;

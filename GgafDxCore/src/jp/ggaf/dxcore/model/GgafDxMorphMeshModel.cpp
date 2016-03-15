@@ -62,7 +62,7 @@ GgafDxMorphMeshModel::GgafDxMorphMeshModel(const char* prm_model_name) : GgafDxM
     _TRACE_("GgafDxMorphMeshModel::GgafDxMorphMeshModel(" << _model_name << ") End");
 }
 
-HRESULT GgafDxMorphMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num) {
+HRESULT GgafDxMorphMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
     _TRACE4_("GgafDxMorphMeshModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
 

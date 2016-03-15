@@ -160,7 +160,7 @@ height_(PX_C(height_px_)) {
 
 
 
-    ///////////////
+    //インスタンスデータ初期化
     max_draw_num_ = 0;
     int len_magics = lstMagic_.length();
     MagicList::Elem* pElem = lstMagic_.getElemFirst();
@@ -174,22 +174,19 @@ height_(PX_C(height_px_)) {
         }
         pElem = pElem->_pNext;
     }
-
     static const size_t size_of_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
     paInstancedata_MM_ = NEW VERTEX_instancedata[max_draw_num_];
-    _pMassBoardModel->_pInstancedata = paInstancedata_MM_;
-    paInstancedata_MM_[0].transformed_x = C_PX(_x);
-    paInstancedata_MM_[0].transformed_y = C_PX(_y);
+    paInstancedata_MM_[0].px_x = C_PX(_x);
+    paInstancedata_MM_[0].px_y = C_PX(_y);
     paInstancedata_MM_[0].depth_z = C_PX(_z);
-    paInstancedata_MM_[0].local_left_top_x = 0.0f;
-    paInstancedata_MM_[0].local_left_top_y = 0.0f;
+    paInstancedata_MM_[0].local_px_x = 0.0f;
+    paInstancedata_MM_[0].local_px_y = 0.0f;
     paInstancedata_MM_[0].r_sx = SC_R(_sx);
     paInstancedata_MM_[0].r_sy = SC_R(_sy);
     paInstancedata_MM_[0].rad_rz = ANG_RAD(_rz);
     paInstancedata_MM_[0].offset_u = 0;
     paInstancedata_MM_[0].offset_v = 0;
     memcpy(&(paInstancedata_MM_[0].r), &(_paMaterial[0].Diffuse), size_of_D3DCOLORVALUE);
-
     for (int i = 1; i < max_draw_num_; i++) {
         paInstancedata_MM_[i] = paInstancedata_MM_[0]; //コピーして初期化
     }
@@ -682,8 +679,8 @@ void MagicMeter::processDraw() {
         float wx = width_px_*i;
 
         //マジックメーター背景
-        p->transformed_x = x + wx;
-        p->transformed_y = y;
+        p->px_x = x + wx;
+        p->px_y = y;
         p->depth_z = z;
 
         if (pMagic_level > 0 && pMagic->lvinfo_[pMagic_level].remained_frame_of_effecting <= fraeme_of_notice_remaind_) {
@@ -700,8 +697,8 @@ void MagicMeter::processDraw() {
         p++; n++;
 
         //マジックメーター上の現在のマジックレベル表示
-        p->transformed_x = x + wx;
-        p->transformed_y = y;
+        p->px_x = x + wx;
+        p->px_y = y;
         p->depth_z = z;
         p->r = 1.0;   p->g = 1.0;   p->b = 1.0;
         p->a = alpha;
@@ -717,8 +714,8 @@ void MagicMeter::processDraw() {
             for (int j = 0; j < lv_slecter_num; j++) {
 
                 //魔法名
-                p->transformed_x = x + wx;
-                p->transformed_y = y - (height_px_*(j+1)*rr);
+                p->px_x = x + wx;
+                p->px_y = y - (height_px_*(j+1)*rr);
                 p->depth_z = z;
                 p->a = alpha*rr;
                 if (pMagic->chkCastAble(j) <= MAGIC_CAST_NG_MP_IS_SHORT) {
@@ -738,7 +735,7 @@ void MagicMeter::processDraw() {
         }
         pElem = pElem->_pNext;
     }
-    _pMassBoardModel->GgafDxMassBoardModel::draw(this, n);
+    _pMassBoardModel->GgafDxMassBoardModel::draw(this, n, paInstancedata_MM_);
 }
 
 void MagicMeter::rollOpen(int prm_meter_index) {

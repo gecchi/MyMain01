@@ -29,20 +29,24 @@ void TrialAndErrScene::processBehavior() {
     if (getActiveFrame() == 10) {
         BoardTest* p1 = createInFactory(BoardTest, "BoardTest1");
         bringDirector()->addSubGroup(p1);
-        p1->position( PX_C(10), PX_C(30));
+        p1->position( PX_C(10), PX_C(30), 0);
         p1->setMaterialColor(0.2,1.0,1.2);
         BoardTest* p2 = createInFactory(BoardTest, "BoardTest1");
         bringDirector()->addSubGroup(p2);
-        p2->position(PX_C(100), PX_C(100));
+        p2->position(PX_C(100), PX_C(100), 0);
         p2->setScaleR(2.0);
-        p2->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
+        p2->setAlign(ALIGN_LEFT, VALIGN_TOP);
         p2->pAFader_->beat(300, 100,20,100,-1);
         p2->setAlpha(0.5);
         BoardTest* p3 = createInFactory(BoardTest, "BoardTest1");
         bringDirector()->addSubGroup(p3);
-        p3->position(PX_C(200), PX_C(200));
+        p3->position(PX_C(200), PX_C(200), 0);
         p3->setAlign(ALIGN_RIGHT, VALIGN_BOTTOM);
         p3->setMaterialColor(1.0,0.5,0.2);
+//        BoardTest* p1 = createInFactory(BoardTest, "BoardTest1");
+//        bringDirector()->addSubGroup(p1);
+//        p1->position( PX_C(10), PX_C(30), 0);
+//        p1->setMaterialColor(0.2,1.0,1.2);
     }
 
     if (getActiveFrame() == 120) {

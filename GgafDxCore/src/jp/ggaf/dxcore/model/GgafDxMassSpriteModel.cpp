@@ -21,6 +21,8 @@ GgafDxMassSpriteModel::GgafDxMassSpriteModel(const char* prm_model_name) : GgafD
 
     _model_width_px = 32.0f;
     _model_height_px = 32.0f;
+    _model_half_width_px = _model_width_px/2;
+    _model_half_height_px = _model_height_px/2;
     _row_texture_split = 1;
     _col_texture_split = 1;
     _papTextureConnection = nullptr;
@@ -63,7 +65,7 @@ void GgafDxMassSpriteModel::createVertexModel(GgafDxMassModel::VertexModelInfo* 
     out_info->element_num = element_num;
 }
 
-HRESULT GgafDxMassSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num) {
+HRESULT GgafDxMassSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("GgafDxMassSpriteModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
     if (_pVertexBuffer_instacedata == nullptr) {
         createVertexElements(); //デバイスロスト復帰時に呼び出される
@@ -84,16 +86,13 @@ HRESULT GgafDxMassSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, int pr
     HRESULT hr;
     //頂点バッファ(インスタンスデータ)書き換え
     UINT update_vertex_instacedata_size = _size_vertex_unit_instacedata * prm_draw_set_num;
+    void* pInstancedata = prm_pPrm ? prm_pPrm : this->_pInstancedata; //prm_pPrm は臨時のテンポラリインスタンスデータ
     void* pDeviceMemory;
-    hr = _pVertexBuffer_instacedata->Lock(
-                                  0,
-                                  update_vertex_instacedata_size,
-                                  (void**)&pDeviceMemory,
-                                  D3DLOCK_DISCARD
-                                );
+    hr = _pVertexBuffer_instacedata->Lock(0, update_vertex_instacedata_size, (void**)&pDeviceMemory, D3DLOCK_DISCARD);
     checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
-    memcpy(pDeviceMemory, _pInstancedata, update_vertex_instacedata_size);
-    _pVertexBuffer_instacedata->Unlock();
+    memcpy(pDeviceMemory, pInstancedata, update_vertex_instacedata_size);
+    hr = _pVertexBuffer_instacedata->Unlock();
+    checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗 model="<<_model_name);
 
     //モデルが同じでかつ、セット数も同じならば頂点バッファ、インデックスバッファの設定はスキップできる
     hr = pDevice->SetStreamSourceFreq( 0, D3DSTREAMSOURCE_INDEXEDDATA | prm_draw_set_num);
@@ -229,6 +228,8 @@ void GgafDxMassSpriteModel::restore() {
         GgafDxModelManager::obtainSpriteInfo(&xdata, xfile_name);
         _model_width_px  = xdata.width;
         _model_height_px = xdata.height;
+        _model_half_width_px = _model_width_px/2;
+        _model_half_height_px = _model_height_px/2;
         _row_texture_split = xdata.row_texture_split;
         _col_texture_split = xdata.col_texture_split;
         _nVertices = 4;

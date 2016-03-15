@@ -32,12 +32,12 @@ OUT_VS GgafDxVS_FontBoard(
       float3 prm_vecNormal_Local  : NORMAL,        // モデルの頂点の法線(未使用)
       float2 prm_uv               : TEXCOORD0,     // モデルの頂点のUV
 
-      float3 prm_pos              : TEXCOORD1,     // transformed_x, transformed_y, depth_z   
+      float3 prm_pos              : TEXCOORD1,     // px_x, px_y, depth_z   
       float3 prm_info             : TEXCOORD2      // offset_u, offset_v, alpha               
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
-	float transformed_x = prm_pos.x; //変換済みX座標(px)
-	float transformed_y = prm_pos.y; //変換済みY座標(px)
+	float px_x = prm_pos.x; //変換済みX座標(px)
+	float px_y = prm_pos.y; //変換済みY座標(px)
 	float depthZ = prm_pos.z; //深度Z (0 ～ +1)
 
 	float offset_u = prm_info.x; //テクスチャU座標増分
@@ -45,8 +45,8 @@ OUT_VS GgafDxVS_FontBoard(
 	float alpha = prm_info.z; //α
 
 	//X座標Y座標をを -1 ～ +1 に押し込める。
-	out_vs.posModel_Proj.x = - 1 + ((2*prm_posModel_Local.x + 2*transformed_x - 1) / g_game_buffer_width);
-	out_vs.posModel_Proj.y =   1 - ((2*prm_posModel_Local.y + 2*transformed_y - 1) / g_game_buffer_height);
+	out_vs.posModel_Proj.x = - 1 + ((2*prm_posModel_Local.x + 2*px_x - 1) / g_game_buffer_width);
+	out_vs.posModel_Proj.y =   1 - ((2*prm_posModel_Local.y + 2*px_y - 1) / g_game_buffer_height);
 	out_vs.posModel_Proj.z = depthZ;
 	out_vs.posModel_Proj.w = 1.0;
 	//UVのオフセットを加算
@@ -98,8 +98,8 @@ float4 PS_Flush(
 //
 //【設定グローバル】
 // float g_alpha			:	α値
-// float g_transformed_x		: 	変換済みX座標(px)
-// float g_transformed_y		:	変換済みY座標(px)
+// float g_px_x		: 	変換済みX座標(px)
+// float g_px_y		:	変換済みY座標(px)
 // float g_depth_z			:	深度Z (0 ～ +1)
 // float g_game_buffer_width		:	画面幅(px)
 // float g_game_buffer_height		:	画面高さ(px)

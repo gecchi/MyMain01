@@ -19,7 +19,7 @@ GgafDxCubeMapMorphMeshModel::GgafDxCubeMapMorphMeshModel(const char* prm_model_n
 }
 
 
-HRESULT GgafDxCubeMapMorphMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num) {
+HRESULT GgafDxCubeMapMorphMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("GgafDxCubeMapMorphMeshModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
     IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
     //対象アクター

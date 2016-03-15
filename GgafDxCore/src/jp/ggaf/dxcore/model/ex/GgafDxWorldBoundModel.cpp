@@ -19,7 +19,7 @@ GgafDxWorldBoundModel::GgafDxWorldBoundModel(const char* prm_model_name) : GgafD
 }
 
 
-HRESULT GgafDxWorldBoundModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num) {
+HRESULT GgafDxWorldBoundModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("GgafDxWorldBoundModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
     IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
     //対象アクター

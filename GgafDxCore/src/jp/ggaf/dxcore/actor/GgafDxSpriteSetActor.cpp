@@ -60,18 +60,18 @@ void GgafDxSpriteSetActor::processDraw() {
             if (_align == ALIGN_CENTER) {
                 //do nothing
             } else if (_align == ALIGN_LEFT) {
-                pSpriteSetActor->_matWorld._41 += PX_C(_pSpriteSetModel->_model_width_px/2);
+                pSpriteSetActor->_matWorld._41 += PX_DX(_pSpriteSetModel->_model_width_px/2);
             } else {
                 //ALIGN_RIGHT
-                pSpriteSetActor->_matWorld._41 -= PX_C(_pSpriteSetModel->_model_width_px/2);
+                pSpriteSetActor->_matWorld._41 -= PX_DX(_pSpriteSetModel->_model_width_px/2);
             }
             if (_valign == VALIGN_MIDDLE) {
                 //do nothing
             } else if (_valign == VALIGN_TOP) {
-                pSpriteSetActor->_matWorld._42 -= PX_C(_pSpriteSetModel->_model_height_px/2);
+                pSpriteSetActor->_matWorld._42 -= PX_DX(_pSpriteSetModel->_model_height_px/2);
             } else {
                 //VALIGN_BOTTOM
-                pSpriteSetActor->_matWorld._42 += PX_C(_pSpriteSetModel->_model_height_px/2);
+                pSpriteSetActor->_matWorld._42 += (_pSpriteSetModel->_model_height_px/2);
             }
             hr = pID3DXEffect->SetMatrix(pSpriteSetEffect->_ah_matWorld[draw_set_num], &(pSpriteSetActor->_matWorld) );
             checkDxException(hr, D3D_OK, "SetMatrix(_h_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

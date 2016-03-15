@@ -22,7 +22,7 @@ void DefaultMassBoardActor::createVertexInstaceData(GgafDxMassModel::VertexInsta
     out_info->paElement = NEW D3DVERTEXELEMENT9[element_num];
     // Stream = 1 ---->
     WORD st1_offset_next = 0;
-    //float transformed_x, transformed_y, depth_z;   // : TEXCOORD1
+    //float px_x, px_y, depth_z;   // : TEXCOORD1
     out_info->paElement[0].Stream = 1;
     out_info->paElement[0].Offset = st1_offset_next;
     out_info->paElement[0].Type   = D3DDECLTYPE_FLOAT3;
@@ -30,7 +30,7 @@ void DefaultMassBoardActor::createVertexInstaceData(GgafDxMassModel::VertexInsta
     out_info->paElement[0].Usage  = D3DDECLUSAGE_TEXCOORD;
     out_info->paElement[0].UsageIndex = 1;
     st1_offset_next += sizeof(float)*3;
-    //float local_left_top_x, local_left_top_y;     // : TEXCOORD2
+    //float local_px_x, local_px_y;     // : TEXCOORD2
     out_info->paElement[1].Stream = 1;
     out_info->paElement[1].Offset = st1_offset_next;
     out_info->paElement[1].Type   = D3DDECLTYPE_FLOAT2;
@@ -86,22 +86,22 @@ void DefaultMassBoardActor::processDraw() {
             GgafDxAlign align = pDefaultMassBoardActor->_align;
             GgafDxValign valign = pDefaultMassBoardActor->_valign;
 
-            paInstancedata->transformed_x = C_PX(pDefaultMassBoardActor->_x);
-            paInstancedata->transformed_y = C_PX(pDefaultMassBoardActor->_y);
+            paInstancedata->px_x = C_PX(pDefaultMassBoardActor->_x);
+            paInstancedata->px_y = C_PX(pDefaultMassBoardActor->_y);
             paInstancedata->depth_z = C_PX(pDefaultMassBoardActor->_z);
             if (align == ALIGN_RIGHT) {
-                paInstancedata->local_left_top_x = (float)(-pDefaultMassBoardActor->_width_px);
+                paInstancedata->local_px_x = -_pMassBoardModel->_model_width_px;
             } else if (align == ALIGN_CENTER) {
-                paInstancedata->local_left_top_x = (float)(-pDefaultMassBoardActor->_harf_width_px);
+                paInstancedata->local_px_x = -_pMassBoardModel->_model_half_width_px;
             } else { //ALIGN_LEFT
-                paInstancedata->local_left_top_x = 0.0f;
+                paInstancedata->local_px_x = 0.0f;
             }
             if (valign == VALIGN_BOTTOM) {
-                paInstancedata->local_left_top_y = (float)(-pDefaultMassBoardActor->_height_px);
+                paInstancedata->local_px_y = -_pMassBoardModel->_model_height_px;
             } else if (valign == VALIGN_MIDDLE) {
-                paInstancedata->local_left_top_y = (float)(-pDefaultMassBoardActor->_harf_height_px);
+                paInstancedata->local_px_y = -_pMassBoardModel->_model_half_height_px;
             } else { //VALIGN_TOP
-                paInstancedata->local_left_top_y = 0.0f;
+                paInstancedata->local_px_y = 0.0f;
             }
             paInstancedata->r_sx = SC_R(pDrawActor->_sx);
             paInstancedata->r_sy = SC_R(pDrawActor->_sy);

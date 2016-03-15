@@ -32,7 +32,7 @@ GgafDxD3DXAniMeshModel::GgafDxD3DXAniMeshModel(const char* prm_model_name) : Gga
     //で行うようにした。要参照。
 }
 
-HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num) {
+HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("GgafDxD3DXAniMeshModel::draw("<<prm_pActor_target->getName()<<")");
     HRESULT hr;
     //対象アクター

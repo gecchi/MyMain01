@@ -112,7 +112,7 @@
     <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxMassBoardModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxMassMeshModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxMassModel.cpp" />
-    <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxMassSpritetModel.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxMassSpriteModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxMeshModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxMeshSetModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxModel.cpp" />

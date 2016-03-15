@@ -50,7 +50,7 @@ GgafDxSpriteSetModel::GgafDxSpriteSetModel(const char* prm_model_name) : GgafDxM
 }
 
 //•`‰æ
-HRESULT GgafDxSpriteSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num) {
+HRESULT GgafDxSpriteSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("GgafDxSpriteSetModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
 #ifdef MY_DEBUG
     if (prm_draw_set_num > _set_num) {

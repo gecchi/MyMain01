@@ -32,46 +32,44 @@ OUT_VS GgafDxVS_DefaultMassBoard(
       float3 prm_vecNormal_Local  : NORMAL,        // モデルの頂点の法線(未使用)
       float2 prm_uv               : TEXCOORD0,     // モデルの頂点のUV
 
-      float3 prm_pos              : TEXCOORD1,     // transformed_x, transformed_y, depth_z   
-      float3 prm_loc              : TEXCOORD2,     // local_left_top_x, local_left_top_y;
-      float3 prm_sc               : TEXCOORD3,     // r_sx, r_sy, rad_rz;
-      float3 prm_uva              : TEXCOORD4,     // offset_u, offset_v;   
-      float4 prm_color            : TEXCOORD5
+      float3 prm_pos              : TEXCOORD1,     // px_x, px_y, depth_z   
+      float2 prm_loc              : TEXCOORD2,     // local_px_x, local_px_y
+      float3 prm_sc               : TEXCOORD3,     // r_sx, r_sy, rad_rz
+      float2 prm_offset_uv        : TEXCOORD4,     // offset_u, offset_v   
+      float4 prm_color            : TEXCOORD5      // r, g, b, a 
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
-	float transformed_x = prm_pos.x; //変換済みX座標(px)
-	float transformed_y = prm_pos.y; //変換済みY座標(px)
+	float px_x = prm_pos.x; //変換済みX座標(px)
+	float px_y = prm_pos.y; //変換済みY座標(px)
 	float depthZ = prm_pos.z;  //深度Z (0 ～ +1)
-    float local_left_top_x = prm_loc.x; //ローカルX座標（X座標のオフセット）
-    float local_left_top_y = prm_loc.y; //ローカルY座標（Y座標のオフセット）
+    float local_px_x = prm_loc.x; //ローカルX座標（X座標のオフセット）
+    float local_px_y = prm_loc.y; //ローカルY座標（Y座標のオフセット）
     float r_sx = prm_sc.x;     //X軸方向拡大率
     float r_sy = prm_sc.y;     //Y軸方向拡大率
     float rad_rz = prm_sc.z;   //Z回転角度
-	float offsetU = prm_uva.x; //テクスチャU座標増分
-	float offsetV = prm_uva.y; //テクスチャV座標増分
 
     if (rad_rz == 0.0f) {
         //X座標Y座標をを -1 ～ +1 に押し込める。
-        out_vs.posModel_Proj.x = - 1 + ( (2*( ((prm_posModel_Local.x + local_left_top_x)*r_sx) + transformed_x) - 1) / g_game_buffer_width);
-        out_vs.posModel_Proj.y =   1 - ( (2*( ((prm_posModel_Local.y + local_left_top_y)*r_sy) + transformed_y) - 1) / g_game_buffer_height);
+        out_vs.posModel_Proj.x = - 1 + ( (2*( ((prm_posModel_Local.x + local_px_x)*r_sx) + px_x) - 1) / g_game_buffer_width);
+        out_vs.posModel_Proj.y =   1 - ( (2*( ((prm_posModel_Local.y + local_px_y)*r_sy) + px_y) - 1) / g_game_buffer_height);
     } else {
         //拡大縮小
-        const float lx = (prm_posModel_Local.x + local_left_top_x) * r_sx;
-        const float ly = (prm_posModel_Local.y + local_left_top_y) * r_sy;
+        const float lx = (prm_posModel_Local.x + local_px_x) * r_sx;
+        const float ly = (prm_posModel_Local.y + local_px_y) * r_sy;
         //回転 ＆ X座標Y座標をを -1 ～ +1 に押し込める。
-        out_vs.posModel_Proj.x = - 1 + ( (2*( (lx * cos(rad_rz) - ly * sin(rad_rz))            + transformed_x) - 1) / g_game_buffer_width);
-        out_vs.posModel_Proj.y =   1 - ( (2*( (lx * sin(rad_rz) + ly * cos(rad_rz))            + transformed_y) - 1) / g_game_buffer_height);
+        out_vs.posModel_Proj.x = - 1 + ( (2*( (lx * cos(rad_rz) - ly * sin(rad_rz))            + px_x) - 1) / g_game_buffer_width);
+        out_vs.posModel_Proj.y =   1 - ( (2*( (lx * sin(rad_rz) + ly * cos(rad_rz))            + px_y) - 1) / g_game_buffer_height);
     }
 
 	//X座標Y座標をを -1 ～ +1 に押し込める。
-	//out_vs.posModel_Proj.x = - 1 + ((2*prm_posModel_Local.x + 2*transformed_x - 1) / g_game_buffer_width);
-	//out_vs.posModel_Proj.y =   1 - ((2*prm_posModel_Local.y + 2*transformed_y - 1) / g_game_buffer_height);
+	//out_vs.posModel_Proj.x = - 1 + ((2*prm_posModel_Local.x + 2*px_x - 1) / g_game_buffer_width);
+	//out_vs.posModel_Proj.y =   1 - ((2*prm_posModel_Local.y + 2*px_y - 1) / g_game_buffer_height);
 	out_vs.posModel_Proj.z = depthZ;
 	out_vs.posModel_Proj.w = 1.0;
 
 	//UVのオフセットを加算
-	out_vs.uv.x = prm_uv.x + offsetU;
-	out_vs.uv.y = prm_uv.y + offsetV;
+	out_vs.uv.x = prm_uv.x + prm_offset_uv.x;
+	out_vs.uv.y = prm_uv.y + prm_offset_uv.y;
 	out_vs.color = prm_color;
 	return out_vs;
 }

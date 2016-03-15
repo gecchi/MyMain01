@@ -36,10 +36,6 @@ _pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek(
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->exec(NOT_ANIMATED, 1);
 
-    _width_px = (int)(_pMassBoardModel->_model_width_px); //ïù(px)
-    _height_px = (int)(_pMassBoardModel->_model_height_px); //çÇÇ≥(px)
-    _harf_width_px = _width_px/2;
-    _harf_height_px = _height_px/2;
     _align = ALIGN_LEFT;
     _valign = VALIGN_TOP;
     _alpha = 1.0f;

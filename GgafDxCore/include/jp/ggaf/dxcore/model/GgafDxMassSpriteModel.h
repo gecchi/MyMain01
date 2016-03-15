@@ -23,6 +23,8 @@ public:
 
     float _model_width_px;
     float _model_height_px;
+    float _model_half_width_px;
+    float _model_half_height_px;
     int _row_texture_split;
     int _col_texture_split;
 
@@ -35,7 +37,7 @@ public:
 
     static void createVertexModel(GgafDxMassModel::VertexModelInfo* out_info);
 
-    virtual HRESULT draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num = 1) override;
+    virtual HRESULT draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num = 1, void* prm_pPrm = nullptr) override;
 
     virtual void restore() override;
 

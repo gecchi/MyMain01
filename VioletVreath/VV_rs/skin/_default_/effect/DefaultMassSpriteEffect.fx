@@ -37,7 +37,9 @@ OUT_VS GgafDxVS_DefaultMassSprite(
       float4 prm_world1           : TEXCOORD2,
       float4 prm_world2           : TEXCOORD3,
       float4 prm_world3           : TEXCOORD4,
-      float3 prm_info             : TEXCOORD5
+      float2 prm_local            : TEXCOORD5,     // local_x, local_y 
+      float2 prm_offset_uv        : TEXCOORD6,     // offset_u, offset_v 
+      float4 prm_color            : TEXCOORD7      // r, g, b, a 
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 	//頂点計算
@@ -47,16 +49,15 @@ OUT_VS GgafDxVS_DefaultMassSprite(
     matWorld._31_32_33_34 = prm_world2;
     matWorld._41_42_43_44 = prm_world3; 
 
-	float offsetU = prm_info.x;
-	float offsetV = prm_info.y;
-	float alpha   = prm_info.z;
+    prm_posModel_Local.x += prm_local.x;
+    prm_posModel_Local.y += prm_local.y;
 
 	//World*View*射影変換
 	out_vs.posModel_Proj = mul(mul(mul( prm_posModel_Local, matWorld ), g_matView ), g_matProj);  // 出力に設定
 	//UVのオフセット(パターン番号による増分)加算
-	out_vs.uv.x = prm_uv.x + offsetU;
-	out_vs.uv.y = prm_uv.y + offsetV;
-	out_vs.color.a  = alpha;
+	out_vs.uv.x = prm_uv.x + prm_offset_uv.x;
+	out_vs.uv.y = prm_uv.y + prm_offset_uv.y;
+	out_vs.color = prm_color;
 //    if (out_vs.posModel_Proj.z > g_zf*0.98) {   
 //        out_vs.posModel_Proj.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
 //    }
@@ -70,7 +71,7 @@ float4 GgafDxPS_DefaultMassSprite(
 ) : COLOR  {
 
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 colOut = tex2D( MyTextureSampler, prm_uv); 
+	float4 colOut = tex2D( MyTextureSampler, prm_uv) * prm_color; 
 	if (colOut.r >= g_tex_blink_threshold || colOut.g >= g_tex_blink_threshold || colOut.b >= g_tex_blink_threshold) {
 		colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
 	}           
@@ -83,7 +84,7 @@ float4 PS_Flush(
 	float4 prm_color  : COLOR0 
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 colOut = tex2D( MyTextureSampler, prm_uv) * FLUSH_COLOR;
+	float4 colOut = tex2D( MyTextureSampler, prm_uv) * FLUSH_COLOR * prm_color;
 	//α計算、テクスチャαとオブジェクトαの合算
 	colOut.a = colOut.a * prm_color.a * g_alpha_master; 
 	return colOut;

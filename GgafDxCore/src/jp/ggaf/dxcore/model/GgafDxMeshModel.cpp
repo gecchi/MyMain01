@@ -40,7 +40,7 @@ GgafDxMeshModel::GgafDxMeshModel(const char* prm_model_name) : GgafDxModel(prm_m
 }
 
 //描画
-HRESULT GgafDxMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num) {
+HRESULT GgafDxMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     IDirect3DDevice9* const pDevice = GgafDxGod::_pID3DDevice9;
     //対象アクター
     //GgafDxMeshActor* pTargetActor = (GgafDxMeshActor*)prm_pActor_target;

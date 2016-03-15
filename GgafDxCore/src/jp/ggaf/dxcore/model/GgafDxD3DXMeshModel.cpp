@@ -25,7 +25,7 @@ GgafDxD3DXMeshModel::GgafDxD3DXMeshModel(const char* prm_model_name, DWORD prm_d
     //で行うようにした。要参照。
 }
 
-HRESULT GgafDxD3DXMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num) {
+HRESULT GgafDxD3DXMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("GgafDxD3DXMeshModel::draw("<<prm_pActor_target->getName()<<")");
     IDirect3DDevice9* const pDevice = GgafDxGod::_pID3DDevice9;
     //対象アクター

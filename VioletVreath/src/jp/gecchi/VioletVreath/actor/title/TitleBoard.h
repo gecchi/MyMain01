@@ -15,7 +15,7 @@ namespace VioletVreath {
 class TitleBoard : public GgafLib::DefaultMassBoardActor {
 
 protected:
-    static VERTEX_instancedata _aInstancedata_title[];
+    VERTEX_instancedata aInstancedata_title_[2];
 
 public:
     TitleBoard(const char* prm_name);
