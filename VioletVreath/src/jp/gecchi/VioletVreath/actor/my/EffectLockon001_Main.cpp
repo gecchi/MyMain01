@@ -12,7 +12,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EffectLockon001_Main::EffectLockon001_Main(const char* prm_name) :
-        EffectLockon001(prm_name, "8/Lockon001") {
+        EffectLockon001(prm_name, "10/Lockon001") {
     _class_name = "EffectLockon001_Main";
     pScaler_ = NEW GgafDxScaler(this);
 }

@@ -77,8 +77,8 @@ void GgafDxMassMeshModel::restore() {
         std::vector<std::string> names = UTIL::split(std::string(_model_name), "/");
         std::string xfile_name = ""; //読み込むXファイル名
         if (names.size() == 1) {
-            _TRACE_(FUNC_NAME<<" "<<_model_name<<" の最大同時描画オブジェクト数は、デフォルトの"<<GGAFDXMASS_MAX_INSTACE<<" が設定されました。");
-            _set_num = GGAFDXMASS_MAX_INSTACE;
+            _TRACE_(FUNC_NAME<<" "<<_model_name<<" の最大同時描画オブジェクト数は、デフォルトの"<<GGAFDXMASS_MAX_INSTACE_NUM<<" が設定されました。");
+            _set_num = GGAFDXMASS_MAX_INSTACE_NUM;
             xfile_name = GgafDxModelManager::getMeshFileName(names[0]);
         } else if (names.size() == 2) {
             _set_num = STOI(names[0]);
@@ -87,8 +87,8 @@ void GgafDxMassMeshModel::restore() {
             throwGgafCriticalException("_model_name には \"xxxxxx\" or \"8/xxxxx\" 形式を指定してください。 \n"<<
                     "実際は、_model_name="<<_model_name<<" でした。");
         }
-        if (_set_num < 1 || _set_num > GGAFDXMASS_MAX_INSTACE) {
-            throwGgafCriticalException(_model_name<<"の最大同時描画オブジェクト数が不正。範囲は 1～"<<GGAFDXMASS_MAX_INSTACE<<"セットです。_set_num="<<_set_num);
+        if (_set_num < 1 || _set_num > GGAFDXMASS_MAX_INSTACE_NUM) {
+            throwGgafCriticalException(_model_name<<"の最大同時描画オブジェクト数が不正。範囲は 1～"<<GGAFDXMASS_MAX_INSTACE_NUM<<"セットです。_set_num="<<_set_num);
         }
         if (xfile_name == "") {
             throwGgafCriticalException("メッシュファイル(*.x)が見つかりません。model_name="<<(_model_name));

@@ -16,16 +16,16 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 
 
-DefaultMassMeshActor::VERTEX_instancedata DefaultMassMeshActor::_aInstancedata[GGAFDXMASS_MAX_INSTACE];
+DefaultMassMeshActor::VERTEX_instancedata DefaultMassMeshActor::_aInstancedata[GGAFDXMASS_MAX_INSTACE_NUM];
 
 
 DefaultMassMeshActor::DefaultMassMeshActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
     GgafDxMassMeshActor(prm_name,
-                       prm_model,
-                       "DefaultMassMeshEffect",
-                       "DefaultMassMeshTechnique",
-                       prm_pStat,
-                       NEW CollisionChecker3D(this) ) {
+                        prm_model,
+                        "DefaultMassMeshEffect",
+                        "DefaultMassMeshTechnique",
+                        prm_pStat,
+                        NEW CollisionChecker3D(this) ) {
     _class_name = "DefaultMassMeshActor";
     _pColliChecker = (CollisionChecker3D*)_pChecker;
     _pMassMeshModel->registerCallback_VertexInstaceDataInfo(DefaultMassMeshActor::createVertexInstaceData);
@@ -92,7 +92,7 @@ void DefaultMassMeshActor::createVertexInstaceData(GgafDxMassModel::VertexInstac
 
 void DefaultMassMeshActor::processDraw() {
     int draw_set_num = 0; //GgafDxMassMeshActorの同じモデルで同じテクニックが
-                       //連続しているカウント数。同一描画深度は一度に描画する。
+                          //連続しているカウント数。同一描画深度は一度に描画する。
     GgafDxMassMeshModel* pMassMeshModel = _pMassMeshModel;
     const int model_max_set_num = pMassMeshModel->_set_num;
     const hashval hash_technique = _hash_technique;

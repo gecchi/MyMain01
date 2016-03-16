@@ -46,6 +46,7 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultSpriteActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultSpriteSetActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DepositoryFormation.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\FixFontBoardActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\FkFormation.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\FontBoardActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\GraphBarActor.cpp" />
@@ -134,6 +135,7 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultSpriteActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultSpriteSetActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DepositoryFormation.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\FixFontBoardActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\fkformation.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\FontBoardActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\graphbaractor.h" />

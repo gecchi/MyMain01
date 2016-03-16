@@ -13,7 +13,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EffectLockon001_Sub::EffectLockon001_Sub(const char* prm_name) :
-        EffectLockon001(prm_name, "8/Lockon001_Sub") {
+        EffectLockon001(prm_name, "10/Lockon001_Sub") {
     _class_name = "EffectLockon001_Sub";
     pEffectLockon001_Main_ = nullptr;
 }

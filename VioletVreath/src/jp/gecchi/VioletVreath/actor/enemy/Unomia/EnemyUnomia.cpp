@@ -15,7 +15,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EnemyUnomia::EnemyUnomia(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "Unomia", STATUS(EnemyUnomia)) {
+        DefaultMassMeshActor(prm_name, "Unomia", STATUS(EnemyUnomia)) {
     _class_name = "EnemyUnomia";
     pKurokoLeader_ = nullptr;
     pDepo_shot_ = nullptr;

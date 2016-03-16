@@ -71,7 +71,7 @@ void LabelScoreFont::processPreDraw() {
     }
     _draw_string[_len] = (int)('\0');
 
-    updateOffset();
+    prepare2();
 }
 
 void LabelScoreFont::processAfterDraw()  {

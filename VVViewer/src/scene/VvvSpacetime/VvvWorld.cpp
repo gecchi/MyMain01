@@ -48,7 +48,7 @@ VvvWorld::VvvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
 
 void VvvWorld::initialize() {
      pFont01_help_->setAlign(ALIGN_LEFT, VALIGN_TOP);
-     pFont01_help_->update(0, 0,
+     pFont01_help_->update(PX_C(0), PX_C(0),
              "[F1]:Move to the initial position the camera.\n"
              "[F2]:Target to next model, and directed camera.\n"
              "[F3]:Target to next model.\n"
@@ -74,7 +74,7 @@ void VvvWorld::initialize() {
              "...+[SPACE or Ctrl]:Accretion inc or dec.\n"
              "...+[ESC]:Reset init.\n"
              "[I]:Toggle display active model properties infomation.\n"
-             "[H]:Toggle display this help.\n"
+             "[H]:Toggle display this help."
              );
 
      pFont01_info_->setAlign(ALIGN_LEFT, VALIGN_BOTTOM);

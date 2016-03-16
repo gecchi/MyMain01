@@ -8,7 +8,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-TitleBoard::TitleBoard(const char* prm_name) : DefaultMassBoardActor(prm_name, "Title") {
+TitleBoard::TitleBoard(const char* prm_name) : DefaultMassBoardActor(prm_name, "2/Title") {
     _class_name = "TitleBoard";
     setZEnableDraw(false);
     setZWriteEnable(false);

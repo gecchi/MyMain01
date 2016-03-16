@@ -80,21 +80,20 @@ void MenuBoardPause::onRise() {
     MenuBoard::onRise();
 }
 bool MenuBoardPause::condSelectNext() {
-    return VB->isAutoRepeat(VB_UI_DOWN) ? true : false;
+    return VB->isAutoRepeat(VB_UI_DOWN);
 }
 bool MenuBoardPause::condSelectPrev() {
-    return VB->isAutoRepeat(VB_UI_UP) ? true : false;
+    return VB->isAutoRepeat(VB_UI_UP);
 }
 bool MenuBoardPause::condSelectExNext() {
-    return VB->isAutoRepeat(VB_UI_RIGHT) ? true : false;
+    return VB->isAutoRepeat(VB_UI_RIGHT);
 }
 bool MenuBoardPause::condSelectExPrev() {
-    return VB->isAutoRepeat(VB_UI_LEFT) ? true : false;
+    return VB->isAutoRepeat(VB_UI_LEFT);
 }
 
 void MenuBoardPause::processBehavior() {
     MenuBoard::processBehavior();
-
     //サブメニュー判定
 
     int selected = getSelectedIndex();

@@ -32,7 +32,7 @@ D3DXHANDLE MassWallActor::_h_ah_POS_PRISM_XY;
 D3DXHANDLE MassWallActor::_h_fh_POS_PRISM_XY;
 
 std::map<int, UINT> MassWallActor::_delface;
-MassWallActor::VERTEX_instancedata MassWallActor::_aInstancedata[GGAFDXMASS_MAX_INSTACE];
+MassWallActor::VERTEX_instancedata MassWallActor::_aInstancedata[GGAFDXMASS_MAX_INSTACE_NUM];
 
 MassWallActor::MassWallActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
         GgafDxMassMeshActor(prm_name,

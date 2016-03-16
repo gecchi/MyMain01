@@ -1,15 +1,14 @@
 #include "jp/ggaf/lib/actor/FontBoardActor.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-
 #include "jp/ggaf/dxcore/effect/GgafDxMassBoardEffect.h"
-
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-FontBoardActor::VERTEX_instancedata FontBoardActor::_aInstancedata[GGAFDXMASS_MAX_INSTACE];
+FontBoardActor::VERTEX_instancedata FontBoardActor::_aInstancedata[GGAFDXMASS_MAX_INSTACE_NUM];
 
 FontBoardActor::FontBoardActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
           GgafDxMassBoardActor(prm_name, prm_model, "FontBoardEffect", "FontBoardTechnique")
@@ -17,6 +16,7 @@ FontBoardActor::FontBoardActor(const char* prm_name, const char* prm_model, Ggaf
     _class_name = "FontBoardActor";
     _max_len = 8;  //最初はバッファは8文字
     _chr_ptn_zero = (int)(' '); //GgafDxUvFlipper の パターン0番の文字。
+    _chr_blank = (int)(' ');
     _len = 0;
     _draw_chr_num = 0;
     _buf = NEW int[_max_len];
@@ -42,7 +42,6 @@ void FontBoardActor::chengeBufferLen(int prm_max_len) {
     _buf = NEW int[_max_len];
     _buf[0] = (int)('\0');
     _paInstacePart = NEW InstacePart[_max_len];
-
 }
 
 void FontBoardActor::update(coord X, coord Y, const char* prm_str) {
@@ -54,86 +53,91 @@ void FontBoardActor::update(coord X, coord Y, coord Z, const char* prm_str) {
     update(prm_str);
     position(X, Y, Z);
 }
-
 void FontBoardActor::update(const char* prm_str) {
+    prepare1(prm_str);
+}
+void FontBoardActor::prepare1(const char* prm_str) {
     _len = strlen(prm_str);
     if (_len+1 > _max_len) {
         chengeBufferLen(_len+1); //バッファ拡張
     }
     onUpdate(); //コールバック
     _draw_string = _buf;
-    _aWidth_line_px[0] = 0;
-    int nn = 0;
-    int len = _len;
-    _draw_chr_num = 0;
     //保持(_draw_string)する、しながら改行数(_nn)を求める、
     //ついでに各行単位の幅も(_aWidth_line_px)も求めておく
     bool is_different = false;
+    const char* p_prm_str = prm_str;
+    int* p_draw_string = _draw_string;
+    pixcoord* p_width_line_px = _aWidth_line_px;  *p_width_line_px = 0;
+    _nn = 0;
+    _draw_chr_num = 0;
     int c;
-    for (int i = 0; i < len+1; i++) { //+1は最後の'\0'を判定するため
-        c = (int)(prm_str[i]);
-        if (_draw_string[i] != c) {
-            is_different = true;
-        }
-        _draw_string[i] = c; //保持
-        if (c == '\n') {
-            nn++;
-            _aWidth_line_px[nn] = 0;
-            continue;
-        } else if (c == '\0') {
-            nn++; //最後を行数１としてカウント
-            _aWidth_line_px[nn] = 0;
-            break;
-        } else {
-            _draw_chr_num++;
-        }
+    while (true) {
+        c = (int)(*p_prm_str);
 #ifdef MY_DEBUG
-        if (0 > _draw_string[i] || _draw_string[i] > 256) {
-            throwGgafCriticalException("範囲外の扱えない文字種がありました _draw_string["<<i<<"]="<<_draw_string[i]<<"。 0～255の範囲にして下さい。name="<<getName()<<" prm_str="<<prm_str);
+        if (0 > c || c > 255) {
+            throwGgafCriticalException("範囲外の扱えない文字種がありました prm_str=["<<prm_str<<"] の中の値:"<<c<<"。 0～255の範囲にして下さい。this="<<this);
         }
 #endif
-        _aWidth_line_px[nn] += _aWidthPx[c];
+        if (c != (*p_draw_string)) {
+            is_different = true;
+            *p_draw_string = c; //保存
+        }
+        if (c == '\n') {
+            _nn++; //行数カウント
+            p_width_line_px++;  *p_width_line_px = 0; //行の幅保持配列を次へ ＆ 0にリセット
+        } else if (c == '\0') {
+            _nn++; //文字列最後を行数１としてカウント。文字列は改行で終わる必要がない。
+            break;
+        } else {
+            *p_width_line_px += _aWidthPx[c]; //行の幅(px)を加算
+        }
+        if (c != _chr_blank) { //ブランク
+            _draw_chr_num++; //描画文字数カウント
+        }
+        p_prm_str++;  p_draw_string++;
+    }
+    if (is_different) {
+        prepare2();
     }
 #ifdef MY_DEBUG
-    if (nn > 1024) {
+    if (_nn > 1024) {
         throwGgafCriticalException("文字列の行数が1024個を超えました。name="<<getName()<<" prm_str="<<prm_str);
     }
 #endif
-    _nn = nn;
-    if (is_different) {
-        updateOffset();
-    }
 }
 
 void FontBoardActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) {
     if (_align != prm_align || _valign != prm_valign) {
         _align = prm_align;
         _valign = prm_valign;
-        updateOffset();
+        prepare2();
     }
 }
 
 void FontBoardActor::setAlign(GgafDxAlign prm_align) {
     if (_align != prm_align) {
         _align = prm_align;
-        updateOffset();
+        prepare2();
     }
 }
 
 void FontBoardActor::setValign(GgafDxValign prm_valign) {
     if (_valign != prm_valign) {
         _valign = prm_valign;
-        updateOffset();
+        prepare2();
     }
 }
 
-void FontBoardActor::updateOffset() {
+void FontBoardActor::prepare2() {
+    //ALIGN_RIGHT やVALIGN_BOTTOM の為に
+    //どうしても２回全文字をループでなめる必要がある。
+    //update() は１回目のループ、 prepare2() は２回目のループに相当
     if (_len == 0) {
         return;
     }
     //初期Y位置を決める
     pixcoord px_y = 0;
-
     if (_align == ALIGN_LEFT || _align == ALIGN_CENTER) {
         if (_valign == VALIGN_BOTTOM) {
             px_y = -(_chr_height_px*_nn);
@@ -142,12 +146,10 @@ void FontBoardActor::updateOffset() {
         } else {
             //VALIGN_TOP
         }
-
         int nnn = 0; // num of \n now
         pixcoord px_x =  -(_align == ALIGN_CENTER ? _aWidth_line_px[nnn]/2 : 0);
         pixcoord x_tmp = px_x;
         float u, v;
-        int pattno = 0;
         int* p_chr  = _draw_string;
         InstacePart* pInstacePart = _paInstacePart;
         while(true) { //各文字単位のループ
@@ -161,8 +163,6 @@ void FontBoardActor::updateOffset() {
                 px_y += _chr_height_px;
                 p_chr++;
                 continue; //表示文字はない
-            } else {
-                pattno = draw_chr - _chr_ptn_zero; //通常文字列
             }
             //プロポーショナルな幅計算
             int w = ((_chr_width_px - _aWidthPx[draw_chr]) / 2);
@@ -170,13 +170,15 @@ void FontBoardActor::updateOffset() {
             x_tmp = px_x + _chr_width_px - w;
 
             //情報更新
-            pInstacePart->px_x = px_x;
-            pInstacePart->px_y = px_y;
-            getUvFlipper()->getUV(pattno, u,v);
-            pInstacePart->offset_u = u;
-            pInstacePart->offset_v = v;
+            if (draw_chr != _chr_blank) {
+                pInstacePart->px_x = px_x;
+                pInstacePart->px_y = px_y;
+                getUvFlipper()->getUV(draw_chr-_chr_ptn_zero, u, v);
+                pInstacePart->offset_u = u;
+                pInstacePart->offset_v = v;
+                pInstacePart++;
+            }
             p_chr++;
-            pInstacePart++;
         }
     } else if (_align == ALIGN_RIGHT) {
         if (_valign == VALIGN_BOTTOM) {
@@ -192,7 +194,6 @@ void FontBoardActor::updateOffset() {
         pixcoord px_x = 0;
         pixcoord x_tmp = px_x;
         float u, v;
-        int pattno = 0;
         int w;
         int* p_chr = &(_draw_string[_len-1]); //末尾から回す。_len は strlen の値
         InstacePart* pInstacePart = &(_paInstacePart[_draw_chr_num - 1]);
@@ -204,25 +205,24 @@ void FontBoardActor::updateOffset() {
                 px_y -= _chr_height_px;
                 p_chr--;
                 continue;
-            } else {
-                pattno = draw_chr - _chr_ptn_zero; //通常文字列
             }
             //プロポーショナルな幅計算
             w = ((_chr_width_px - _aWidthPx[draw_chr]) / 2);
             px_x = x_tmp - (w + _aWidthPx[draw_chr]);
             x_tmp = px_x + w;
-
             //情報更新
-            pInstacePart->px_x = px_x;
-            pInstacePart->px_y = px_y;
-            getUvFlipper()->getUV(pattno, u,v);
-            pInstacePart->offset_u = u;
-            pInstacePart->offset_v = v;
+            if (draw_chr != _chr_blank) {
+                pInstacePart->px_x = px_x;
+                pInstacePart->px_y = px_y;
+                getUvFlipper()->getUV(draw_chr-_chr_ptn_zero, u, v);
+                pInstacePart->offset_u = u;
+                pInstacePart->offset_v = v;
+                pInstacePart--;
+            }
             if (p_chr == _draw_string) { //一番左に到達
-                break; //おしまい
+                 break; //おしまい
             }
             p_chr--;
-            pInstacePart--;
         }
     }
 
@@ -258,7 +258,7 @@ void FontBoardActor::createVertexInstaceData(GgafDxMassModel::VertexInstaceDataI
     out_info->paElement[0].Usage  = D3DDECLUSAGE_TEXCOORD;
     out_info->paElement[0].UsageIndex = 1;
     st1_offset_next += sizeof(float)*3;
-    //float offset_u, offset_v, alpha;                    // : TEXCOORD2
+    //float offset_u, offset_v, alpha;   // : TEXCOORD2
     out_info->paElement[1].Stream = 1;
     out_info->paElement[1].Offset = st1_offset_next;
     out_info->paElement[1].Type   = D3DDECLTYPE_FLOAT3;

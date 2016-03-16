@@ -5,7 +5,7 @@
 
 namespace GgafDxCore {
 
-#define GGAFDXMASS_MAX_INSTACE 1024
+#define GGAFDXMASS_MAX_INSTACE_NUM 512
 
 /**
  * Massメッシュモデルクラス(GgafDxMeshActor用) .

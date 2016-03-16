@@ -13,10 +13,10 @@ namespace GgafLib {
  */
 class FontBoardActor : public GgafDxCore::GgafDxMassBoardActor {
 
-private:
+protected:
     struct VERTEX_instancedata {
-        float px_x, px_y, depth_z;   // : TEXCOORD1
-        float offset_u, offset_v, alpha;               // : TEXCOORD2
+        float px_x, px_y, depth_z;         // : TEXCOORD1
+        float offset_u, offset_v, alpha;   // : TEXCOORD2
     };
     static VERTEX_instancedata _aInstancedata[];
     static void createVertexInstaceData(GgafDxCore::GgafDxMassModel::VertexInstaceDataInfo* out_info);
@@ -24,6 +24,8 @@ private:
 public:
     /** [r/w]パターン番号0とする文字 */
     int _chr_ptn_zero;
+    /** [r/w]表示不要空白とする文字(指定すると描画文字が減る) */
+    int _chr_blank;
     /** [r]描画文字列 */
     int* _draw_string;
     /** [r]受け入れ可能な文字数(文字バッファの長さ) */
@@ -39,7 +41,7 @@ public:
     InstacePart* _paInstacePart;
     /** [r]文字列長 */
     int _len;
-    /** [r]描画文字数（改行除く）*/
+    /** [r]描画文字数（改行と空白を除いた値）*/
     int _draw_chr_num;
     /** [r/w]ベースの１文字幅(px) */
     pixcoord _chr_width_px;
@@ -119,7 +121,8 @@ public:
     virtual void setAlign(GgafDxAlign prm_align) override;
     virtual void setValign(GgafDxValign prm_valign) override;
 
-    void updateOffset();
+    virtual void prepare1(const char* prm_str);
+    virtual void prepare2();
     /**
      * 描画文字が更新された時に呼び出されるコールバック .
      * 下位で実装してください。

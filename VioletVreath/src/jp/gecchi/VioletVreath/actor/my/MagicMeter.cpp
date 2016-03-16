@@ -36,7 +36,7 @@ using namespace VioletVreath;
 
 
 MagicMeter::MagicMeter(const char* prm_name, int* prm_pMP_MyShip, int* prm_pVreath_MyShip)
-      : DefaultMassBoardActor(prm_name, "MagicMeter"),
+      : DefaultMassBoardActor(prm_name, "128/MagicMeter"),
 width_px_(_pMassBoardModel->_model_width_px),
 height_px_(_pMassBoardModel->_model_height_px),
 width_(PX_C(width_px_)),
@@ -158,8 +158,6 @@ height_(PX_C(height_px_)) {
     fraeme_of_notice_remaind_ = 60*5;//残り僅か警告発生の残り時間
     alpha_velo_ = -0.01f;
 
-
-
     //インスタンスデータ初期化
     max_draw_num_ = 0;
     int len_magics = lstMagic_.length();
@@ -191,7 +189,6 @@ height_(PX_C(height_px_)) {
         paInstancedata_MM_[i] = paInstancedata_MM_[0]; //コピーして初期化
     }
 }
-
 
 void MagicMeter::loadStatus(int prm_saveno) {
     st_[prm_saveno].seekg(std::stringstream::beg); //頭出し
@@ -643,8 +640,8 @@ void MagicMeter::processJudgement() {
     }
 
     addAlpha(alpha_velo_);
-    if (getAlpha() < 0.2f) {
-        setAlpha(0.2f); //非アクティブ時のうっすら表示
+    if (getAlpha() < 0.3f) {
+        setAlpha(0.3f); //非アクティブ時のうっすら表示
     } else if (getAlpha() > 1.0f) {
         setAlpha(1.0f); //アクティブ時のハッキリ表示
     }
@@ -701,7 +698,7 @@ void MagicMeter::processDraw() {
         p->px_y = y;
         p->depth_z = z;
         p->r = 1.0;   p->g = 1.0;   p->b = 1.0;
-        p->a = alpha;
+        p->a = alpha*3; //強調表示
         pUvFlipper->getUV(pMagic->lvinfo_[pMagic_level].pno_, u, v);
         p->offset_u = u;
         p->offset_v = v;
@@ -717,7 +714,7 @@ void MagicMeter::processDraw() {
                 p->px_x = x + wx;
                 p->px_y = y - (height_px_*(j+1)*rr);
                 p->depth_z = z;
-                p->a = alpha*rr;
+                p->a = alpha*rr; //アクティブな列は表示
                 if (pMagic->chkCastAble(j) <= MAGIC_CAST_NG_MP_IS_SHORT) {
                     //詠唱不可表示 (MAGIC_CAST_NG_MP_IS_SHORT か MAGIC_CAST_NG_INVOKING_NOW)
 //                    pUvFlipper->getUV(pMagic->lvinfo_[j].pno_ + 1, u, v); //右隣のテクスチャパターンが DISABLE なパターン前提

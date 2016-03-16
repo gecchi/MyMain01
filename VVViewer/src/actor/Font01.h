@@ -1,7 +1,7 @@
 #ifndef FONT01_H_
 #define FONT01_H_
 #include "VVViewer.h"
-#include "jp/ggaf/lib/actor/FontBoardActor.h"
+#include "jp/ggaf/lib/actor/FixFontBoardActor.h"
 
 namespace VVViewer {
 
@@ -11,7 +11,7 @@ namespace VVViewer {
  * @since 2014/10/16
  * @author Masatoshi Tsuge
  */
-class Font01 : public GgafLib::FontBoardActor {
+class Font01 : public GgafLib::FixFontBoardActor {
 
 public:
     Font01(const char* prm_name);
