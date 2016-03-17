@@ -55,9 +55,9 @@ public:
     /** [r/w]ベースの１文字高さ(px) */
     pixcoord _chr_height_px;
     /** [r/w]各文字間隔(px) */
-    pixcoord _aWidthPx[256];
+    pixcoord _px_chr_width[256];
     /** [r]文字バッファの文字列の行単位の幅(px) */
-    pixcoord _aWidth_line_px[256];
+    pixcoord _px_row_width[256];
     /** [r]文字バッファの文字列の改行数 */
     int _nn;
 

@@ -61,7 +61,7 @@ class DefaultMassSpriteActor;
 class DefaultBoardActor;
 class DefaultBoardSetActor;
 class FontBoardActor;
-class FixFontBoardActor;
+class FixedFontBoardActor;
 class DefaultMassBoardActor;
 class DefaultPointSpriteActor;
 class ColliAABoxActor;

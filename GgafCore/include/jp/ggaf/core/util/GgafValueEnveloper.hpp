@@ -24,6 +24,7 @@ class GgafValueEnveloper : public GgafObject {
         TARGET_LINER_STEP,
         BEAT_LINER,
         BEAT_TRIANGLEWAVE,
+        R_BEAT_TRIANGLEWAVE,
         BEAT_TRIGONOMETRIC,
         TARGET_ACCELERATION_STEP,
     };
@@ -476,6 +477,101 @@ public:
         }
     }
 
+
+
+    /**
+     * 台形波の波形で値を遷移する。（全対象インデックス指定）.
+     * <PRE>
+     * ⑤  ＿＿ _ _ _ _ _ _ _ _ _ _ _  ＿＿＿ _ _ _ _ _ _ _ _ _ _ _  ＿＿＿
+     *        :＼                     /:    :＼                     /:
+     *        :  ＼                  / :    :  ＼                  / :
+     *        :    ＼               /  :    :    ＼               /  :
+     *        :      ＼            /   :    :      ＼            /   :
+     *        :        ＼         /    :    :        ＼         /    :
+     * ⑥  _ _:_ _ _ _ _ ＼＿＿＿/  _ _:_ _ :_ _ _ _ _ ＼＿＿＿/  _ _:_ _
+     *         ←──①──────────→
+     *         ←──②─→←③→←②→
+     * </PRE>
+     * ＜必要な設定値＞<BR>
+     * ① １周期(変化して元に戻るまで)に費やすフレーム数<BR>
+     * ② アタック(減衰)までのフレーム数<BR>
+     * ③ 下限維持フレーム数<BR>
+     * ④ 復帰フレーム数<BR>
+     * ⑤ 遷移上限(_top[対象インデックス] 配列が保持)<BR>
+     * ⑥ 遷移下限(_bottom[対象インデックス] 配列が保持)<BR>
+     * この内 ①～④を引数で設定、⑤⑥はsetRange()の設定値が使用される。<BR>
+     * @param prm_cycle_frames 上図で①のフレーム数
+     * @param prm_attack_frames 上図で②のフレーム数
+     * @param prm_sustain_frames 上図で③のフレーム数
+     * @param prm_release_frames 上図で④のフレーム数
+     * @param prm_beat_num ループ数(-1で無限)
+     */
+    virtual void rbeat(frame prm_cycle_frames,
+                       frame prm_attack_frames,
+                       frame prm_sustain_frames,
+                       frame prm_release_frames,
+                       double prm_beat_num) {
+        for (int i = 0; i < N; i++) {
+            rbeat(i, prm_cycle_frames, prm_attack_frames, prm_sustain_frames, prm_release_frames, prm_beat_num);
+        }
+    }
+
+
+    /**
+     * 台形波の波形で値を遷移する。（対象インデックス別指定）.
+     * <PRE>
+     * ⑤  ＿＿ _ _ _ _ _ _ _ _ _ _ _  ＿＿＿ _ _ _ _ _ _ _ _ _ _ _  ＿＿＿
+     *        :＼                     /:    :＼                     /:
+     *        :  ＼                  / :    :  ＼                  / :
+     *        :    ＼               /  :    :    ＼               /  :
+     *        :      ＼            /   :    :      ＼            /   :
+     *        :        ＼         /    :    :        ＼         /    :
+     * ⑥  _ _:_ _ _ _ _ ＼＿＿＿/  _ _:_ _ :_ _ _ _ _ ＼＿＿＿/  _ _:_ _
+     *         ←──①──────────→
+     *         ←──②─→←③→←②→
+     * </PRE>
+     * ＜必要な設定値＞<BR>
+     * ① １周期(変化して元に戻るまで)に費やすフレーム数<BR>
+     * ② アタック(減衰)までのフレーム数<BR>
+     * ③ 下限維持フレーム数<BR>
+     * ④ 復帰フレーム数<BR>
+     * ⑤ 遷移上限(_top[対象インデックス] 配列が保持)<BR>
+     * ⑥ 遷移下限(_bottom[対象インデックス] 配列が保持)<BR>
+     * この内 ①～④を引数で設定、⑤⑥はsetRange()の設定値が使用される。<BR>
+     * @param prm_idx 対象インデックス
+     * @param prm_cycle_frames 上図で①のフレーム数
+     * @param prm_attack_frames 上図で②のフレーム数
+     * @param prm_sustain_frames 上図で③のフレーム数
+     * @param prm_release_frames 上図で④のフレーム数
+     * @param prm_beat_num ループ数(-1で無限)
+     */
+    virtual void rbeat(int prm_idx,
+                       frame prm_cycle_frames,
+                       frame prm_attack_frames,
+                       frame prm_sustain_frames,
+                       frame prm_release_frames,
+                       double prm_beat_num) {
+        _method[prm_idx] = R_BEAT_TRIANGLEWAVE;
+        _beat_frame_count[prm_idx] = 0;
+        _beat_frame_count_in_roop[prm_idx] = 0;
+        _beat_frame_of_attack_finish[prm_idx] = prm_attack_frames;
+        _beat_frame_of_sustain_finish[prm_idx] = _beat_frame_of_attack_finish[prm_idx] + prm_sustain_frames;
+        _beat_frame_of_release_finish[prm_idx] = _beat_frame_of_sustain_finish[prm_idx] + prm_release_frames;
+        _beat_cycle_frames[prm_idx] = prm_cycle_frames; //同じ
+        if (prm_beat_num < 0) {
+            _beat_target_frames[prm_idx] = MAX_FRAME;
+        } else {
+            _beat_target_frames[prm_idx] = _beat_cycle_frames[prm_idx] * prm_beat_num;
+        }
+        //最初のアタックまでの速度
+        const VAL_TYPE val = getValue(prm_idx);
+        if (_beat_frame_of_attack_finish[prm_idx] > 0 ) {
+            _velo[prm_idx] = (VAL_TYPE)( ((double)(_bottom[prm_idx] - val)) / ((double)(_beat_frame_of_attack_finish[prm_idx])) );
+        } else if (_beat_frame_of_attack_finish[prm_idx] == 0 ) {
+            _velo[prm_idx] = _bottom[prm_idx] - val;
+        }
+    }
+
     /**
      * 値遷移中かどうか調べる .
      * @param prm_idx 対象インデックス
@@ -607,7 +703,42 @@ public:
                         if (_beat_frame_of_attack_finish[i] > 0 ) {
                             _velo[i] = (VAL_TYPE)( ((double)(top - val)) / ((double)_beat_frame_of_attack_finish[i]) );
                         } else if (_beat_frame_of_attack_finish[i] == 0 ) {
-                            _velo[i] = _top[i] - val;
+                            _velo[i] = top - val;
+                        }
+                    }
+                } else if (method == R_BEAT_TRIANGLEWAVE) { //逆ビート
+                    _beat_frame_count_in_roop[i]++;
+                    frame cnt = _beat_frame_count_in_roop[i];
+                    //アタック終了時
+                    if (cnt == _beat_frame_of_attack_finish[i]) {
+                        val = bottom;
+                        _velo[i] = 0;
+                    }
+                    //維持(下限)終時
+                    if (cnt == _beat_frame_of_sustain_finish[i]) {
+                        val = bottom;
+                        frame attenuate_frames = _beat_frame_of_release_finish[i] - _beat_frame_of_sustain_finish[i]; //復帰時間
+                        //上限までの復帰速度設定
+                        if (attenuate_frames > 0)  {
+                            _velo[i] = (VAL_TYPE)( (double)(top - bottom) / ((double)attenuate_frames) );
+                        } else {
+                            _velo[i] = top - bottom;
+                        }
+                    }
+                    //復帰終了
+                    if (cnt == _beat_frame_of_release_finish[i]) {
+                        val = top;
+                        _velo[i] = 0;
+                    }
+                    //休憩終了
+                    if (cnt == _beat_cycle_frames[i]) {
+                        val = top;
+                        _beat_frame_count_in_roop[i] = 0;
+                        //次のアタックへの速度設定
+                        if (_beat_frame_of_attack_finish[i] > 0 ) {
+                            _velo[i] = (VAL_TYPE)( ((double)(bottom - val)) / ((double)_beat_frame_of_attack_finish[i]) );
+                        } else if (_beat_frame_of_attack_finish[i] == 0 ) {
+                            _velo[i] = bottom - val;
                         }
                     }
                 }

@@ -18,9 +18,9 @@ sampler MyTextureSampler : register(s0);
 //頂点シェーダー、出力構造体
 struct OUT_VS
 {
-    float4 posModel_Proj    : POSITION;
-	float4 color            : COLOR0;
-	float2 uv               : TEXCOORD0;
+    float4 posModel_Proj : POSITION;
+	float4 color         : COLOR0;
+	float2 uv            : TEXCOORD0;
 };
 
 
@@ -39,7 +39,6 @@ OUT_VS GgafDxVS_FontBoard(
 	float px_x = prm_pos.x; //変換済みX座標(px)
 	float px_y = prm_pos.y; //変換済みY座標(px)
 	float depthZ = prm_pos.z; //深度Z (0 ～ +1)
-
 	float offset_u = prm_info.x; //テクスチャU座標増分
 	float offset_v = prm_info.y; //テクスチャV座標増分
 	float alpha = prm_info.z; //α
@@ -63,9 +62,9 @@ float4 GgafDxPS_FontBoard(
 	float4 prm_color  : COLOR0 
 ) : COLOR  {
 	float4 colOut = tex2D( MyTextureSampler, prm_uv);
-//	if (colOut.r >= g_tex_blink_threshold || colOut.g >= g_tex_blink_threshold || colOut.b >= g_tex_blink_threshold) {
-//		colOut *= g_tex_blink_power; //+ (colTex * g_tex_blink_power);
-//	}          
+	if (colOut.r >= g_tex_blink_threshold || colOut.g >= g_tex_blink_threshold || colOut.b >= g_tex_blink_threshold) {
+		colOut *= g_tex_blink_power; 
+	}          
 	//α考慮
 	colOut.a = colOut.a * prm_color.a * g_alpha_master; 
 	return colOut;

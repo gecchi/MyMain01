@@ -1,7 +1,7 @@
 #ifndef LABELFIX16FONT01_H_
 #define LABELFIX16FONT01_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/FontBoardActor.h"
+#include "jp/ggaf/lib/actor/FixedFontBoardActor.h"
 
 namespace VioletVreath {
 
@@ -11,7 +11,7 @@ namespace VioletVreath {
  * @since 2013/03/21
  * @author Masatoshi Tsuge
  */
-class LabelFix16Font01 : public GgafLib::FontBoardActor {
+class LabelFix16Font01 : public GgafLib::FixedFontBoardActor {
 
 public:
     GgafDxCore::GgafDxAlphaFader* _pAFader;

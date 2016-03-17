@@ -29,19 +29,7 @@ LabelScoreFont::LabelScoreFont(const char* prm_name) :
     _chr_ptn_zero = (int)('+');
     num_pno_ = 16;
 
-    for (int i = 0; i < 4; i++) {
-        _aWidthPx['0'+(i*num_pno_)] = 18;
-        _aWidthPx['1'+(i*num_pno_)] = 18;
-        _aWidthPx['2'+(i*num_pno_)] = 18;
-        _aWidthPx['3'+(i*num_pno_)] = 18;
-        _aWidthPx['4'+(i*num_pno_)] = 18;
-        _aWidthPx['5'+(i*num_pno_)] = 18;
-        _aWidthPx['6'+(i*num_pno_)] = 18;
-        _aWidthPx['7'+(i*num_pno_)] = 18;
-        _aWidthPx['8'+(i*num_pno_)] = 18;
-        _aWidthPx['9'+(i*num_pno_)] = 18;
-    }
-//    _chr_width_px = _chr_width_px * 0.6;
+    setAllChrWidthRatio(0.6);
 //    +   ,   -   .   /   0   1   2
 //    3   4   5   6   7   8   9   :
 //    +   ,   -   .   /   0   1   2

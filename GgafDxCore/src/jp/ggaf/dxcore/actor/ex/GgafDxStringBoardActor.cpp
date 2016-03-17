@@ -22,8 +22,8 @@ GgafDxStringBoardActor::GgafDxStringBoardActor(const char* prm_name, const char*
     _draw_string = _buf;
     //デフォルトの１文字の幅(px)設定
     for (int i = 0; i < 256; i++) {
-        _aWidthPx[i] = (int)(_pBoardSetModel->_model_width_px);
-        _aWidth_line_px[i] = 0;
+        _px_chr_width[i] = (int)(_pBoardSetModel->_model_width_px);
+        _px_row_width[i] = 0;
     }
     _chr_width_px = (int)(_pBoardSetModel->_model_width_px); //１文字の幅(px)
     _chr_height_px = (int)(_pBoardSetModel->_model_height_px); //１文字の高さ(px)
@@ -58,19 +58,19 @@ void GgafDxStringBoardActor::update(const char* prm_str) {
     }
     onUpdate(); //コールバック
     _draw_string = _buf;
-    _aWidth_line_px[0] = 0;
+    _px_row_width[0] = 0;
     int nn = 0;
     int len = _len;
     for (int i = 0; i < len+1; i++) {
         _draw_string[i] = (int)(prm_str[i]); //保持
         if (prm_str[i] == '\n') {
             nn++;
-            _aWidth_line_px[nn] = 0;
+            _px_row_width[nn] = 0;
             continue;
         }
         if (prm_str[i] == '\0') {
             nn++;
-            _aWidth_line_px[nn] = 0;
+            _px_row_width[nn] = 0;
             break;
         }
 #ifdef MY_DEBUG
@@ -81,7 +81,7 @@ void GgafDxStringBoardActor::update(const char* prm_str) {
             throwGgafCriticalException("範囲外の扱えない文字種がありました _draw_string["<<i<<"]="<<_draw_string[i]<<"。 0～255の範囲にして下さい。name="<<getName()<<" prm_str="<<prm_str);
         }
 #endif
-        _aWidth_line_px[nn] += _aWidthPx[_draw_string[i]];
+        _px_row_width[nn] += _px_chr_width[_draw_string[i]];
     }
     _nn = nn;
 }
@@ -144,7 +144,7 @@ void GgafDxStringBoardActor::processDraw() {
     pixcoord X = C_PX(_x);
     if (_align == ALIGN_LEFT || _align == ALIGN_CENTER) {
         int nnn = 0; // num of \n now
-        pixcoord x = X - (_align == ALIGN_CENTER ? _aWidth_line_px[nnn]/2 : 0);
+        pixcoord x = X - (_align == ALIGN_CENTER ? _px_row_width[nnn]/2 : 0);
         pixcoord x_tmp = x;
         float u, v;
         int pos = 0;
@@ -163,7 +163,7 @@ void GgafDxStringBoardActor::processDraw() {
                 draw_set_cnt = 0;
 
                 nnn++;
-                x = X - (_align == ALIGN_CENTER ? _aWidth_line_px[nnn]/2 : 0);
+                x = X - (_align == ALIGN_CENTER ? _px_row_width[nnn]/2 : 0);
                 x_tmp = x;
                 y += _chr_height_px;
                 hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_y[0], y);
@@ -175,7 +175,7 @@ void GgafDxStringBoardActor::processDraw() {
                 pattno = _draw_string[pos] - _chr_ptn_zero; //通常文字列
             }
             //プロポーショナルな幅計算
-            int w = ((_chr_width_px - _aWidthPx[_draw_string[pos]]) / 2);
+            int w = ((_chr_width_px - _px_chr_width[_draw_string[pos]]) / 2);
             x = x_tmp - w;
             x_tmp = x + _chr_width_px - w;
             hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_x[draw_set_cnt], float(x));
@@ -224,8 +224,8 @@ void GgafDxStringBoardActor::processDraw() {
                 pattno = _draw_string[pos] - _chr_ptn_zero; //通常文字列
             }
             //プロポーショナルな幅計算
-            w = ((_chr_width_px - _aWidthPx[_draw_string[pos]]) / 2);
-            x = x_tmp - (w + _aWidthPx[_draw_string[pos]]);
+            w = ((_chr_width_px - _px_chr_width[_draw_string[pos]]) / 2);
+            x = x_tmp - (w + _px_chr_width[_draw_string[pos]]);
             x_tmp = x + w;
             hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_x[draw_set_cnt], float(x));
             checkDxException(hr, D3D_OK, "SetFloat(_ah_transformed_x) に失敗しました。");
