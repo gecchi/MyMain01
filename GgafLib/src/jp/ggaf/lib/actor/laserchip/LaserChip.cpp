@@ -300,7 +300,7 @@ void LaserChip::registerHitAreaCube_AutoGenMidColli(int prm_edge_length) {
 }
 
 
-void LaserChip::createVertexInstaceData(GgafDxMassMeshModel::VertexInstaceDataInfo* out_info) {
+void LaserChip::createVertexInstaceData(void* prm, GgafDxMassMeshModel::VertexInstaceDataInfo* out_info) {
     out_info->paElement = NEW D3DVERTEXELEMENT9[9];
     // Stream = 1 ---->
     WORD st1_offset_next = 0;

@@ -1,7 +1,7 @@
 #ifndef ENEMYHALIA_H_
 #define ENEMYHALIA_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
+#include "jp/ggaf/lib/actor/DefaultMassMorphMeshActor.h"
 
 namespace VioletVreath {
 
@@ -12,7 +12,7 @@ namespace VioletVreath {
  * @since 2010/08/03
  * @author Masatoshi Tsuge
  */
-class EnemyHalia : public GgafLib::DefaultMorphMeshActor {
+class EnemyHalia : public GgafLib::DefaultMassMorphMeshActor {
 //class EnemyHalia : public GgafLib::CubeMapMorphMeshActor {
 public:
 

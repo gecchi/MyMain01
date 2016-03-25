@@ -35,22 +35,22 @@ _pMassEffect((GgafDxMassEffect*)_pEffect) {
 }
 
 GgafDxMassActor::GgafDxMassActor(const char* prm_name,
-                                         const char* prm_model_id,
-                                         const char* prm_model_type,
-                                         const char* prm_effect_id,
-                                         const char* prm_effect_type,
-                                         const char* prm_technique,
-                                         GgafStatus* prm_pStat,
-                                         GgafDxChecker* prm_pChecker) :
+                                 const char* prm_model_id,
+                                 const char* prm_model_type,
+                                 const char* prm_effect_id,
+                                 const char* prm_effect_type,
+                                 const char* prm_technique,
+                                 GgafStatus* prm_pStat,
+                                 GgafDxChecker* prm_pChecker) :
 
-                                           GgafDxFigureActor(prm_name,
-                                                             prm_model_id,
-                                                             prm_model_type,
-                                                             prm_effect_id,
-                                                             prm_effect_type,
-                                                             prm_technique,
-                                                             prm_pStat,
-                                                             prm_pChecker),
+                                   GgafDxFigureActor(prm_name,
+                                                     prm_model_id,
+                                                     prm_model_type,
+                                                     prm_effect_id,
+                                                     prm_effect_type,
+                                                     prm_technique,
+                                                     prm_pStat,
+                                                     prm_pChecker),
 _pMassModel((GgafDxMassModel*)_pModel),
 _pMassEffect((GgafDxMassEffect*)_pEffect) {
 

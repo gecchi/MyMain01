@@ -6,6 +6,7 @@
 #include "jp/ggaf/dxcore/effect/GgafDxMeshSetEffect.h"
 #include "jp/ggaf/dxcore/effect/GgafDxMassMeshEffect.h"
 #include "jp/ggaf/dxcore/effect/GgafDxMorphMeshEffect.h"
+#include "jp/ggaf/dxcore/effect/GgafDxMassMorphMeshEffect.h"
 #include "jp/ggaf/dxcore/effect/GgafDxSpriteEffect.h"
 #include "jp/ggaf/dxcore/effect/GgafDxSpriteSetEffect.h"
 #include "jp/ggaf/dxcore/effect/GgafDxMassSpriteEffect.h"
@@ -60,6 +61,9 @@ GgafDxEffect* GgafDxEffectManager::processCreateResource(const char* prm_idstr, 
             break;
         case 'M':
             pResourceEffect = NEW GgafDxMorphMeshEffect(effect_name);
+            break;
+        case 'm':
+            pResourceEffect = NEW GgafDxMassMorphMeshEffect(effect_name);
             break;
         case 'H':
             pResourceEffect = NEW GgafDxCubeMapMorphMeshEffect(effect_name);

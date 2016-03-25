@@ -23,8 +23,8 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EnemyHalia::EnemyHalia(const char* prm_name) :
-        DefaultMorphMeshActor(prm_name, "1/Halia", STATUS(EnemyHalia)) {
-        //CubeMapMorphMeshActor(prm_name, "1/HaliaCM", STATUS(EnemyHalia)) {
+        DefaultMassMorphMeshActor(prm_name, "20/Halia_1", STATUS(EnemyHalia)) {
+        //CubeMapMassMorphMeshActor(prm_name, "1/HaliaCM", STATUS(EnemyHalia)) {
 
     _class_name = "EnemyHalia";
     veloTopMv_ = 20000;

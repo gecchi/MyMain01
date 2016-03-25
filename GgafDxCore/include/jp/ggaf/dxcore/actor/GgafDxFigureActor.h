@@ -121,7 +121,7 @@ public:
      * 随時可能。
      * @param prm_technique テクニック名
      */
-    void changeEffectTechnique(const char* prm_technique);
+    virtual void changeEffectTechnique(const char* prm_technique);
 
     /**
      * シェーダーのテクニックを一時的に変更する .
@@ -135,7 +135,7 @@ public:
      * @param prm_technique テクニック名
      * @param prm_frame 変更テクニックの継続フレーム数
      */
-    void changeEffectTechniqueInterim(const char* prm_technique, frame prm_frame);
+    virtual void changeEffectTechniqueInterim(const char* prm_technique, frame prm_frame);
 
     /**
      * ピカっと光る。

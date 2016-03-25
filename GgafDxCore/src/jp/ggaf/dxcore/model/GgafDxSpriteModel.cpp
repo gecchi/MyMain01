@@ -11,6 +11,8 @@
 #include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
 
 #include "jp/ggaf/dxcore/manager/GgafDxTextureManager.h"
+
+#include "jp/ggaf/dxcore/model/GgafDxMassModel.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -48,7 +50,11 @@ HRESULT GgafDxSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_dr
     float u,v;
     pTargetActor->_pUvFlipper->getUV(u,v);
     HRESULT hr;
-    if (GgafDxModelManager::_pModelLastDraw != this) {
+    GgafDxModel* pModelLastDraw = GgafDxModelManager::_pModelLastDraw;
+    if (pModelLastDraw != this) {
+        if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDxMassModel)) {
+            ((GgafDxMassModel*)pModelLastDraw)->resetStreamSourceFreq();
+        }
         pDevice->SetStreamSource(0, _pVertexBuffer, 0, _size_vertex_unit);
         pDevice->SetFVF(GgafDxSpriteModel::FVF);
         pDevice->SetTexture(0, getDefaultTextureConnection()->peek()->_pIDirect3DBaseTexture9);
@@ -70,10 +76,6 @@ HRESULT GgafDxSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_dr
             checkDxException(hr, D3D_OK, "EndPass() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
             hr = pEffect_active->_pID3DXEffect->End();
             checkDxException(hr, D3D_OK, "End() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-            if (pEffect_active->_obj_effect & Obj_GgafDxMassEffect) {
-                pDevice->SetStreamSourceFreq( 0, 1 );
-                pDevice->SetStreamSourceFreq( 1, 1 );
-            }
 #ifdef MY_DEBUG
             if (pEffect_active->_begin == false) {
                 throwGgafCriticalException("begin ‚µ‚Ä‚¢‚Ü‚¹‚ñ "<<(pEffect_active==nullptr?"nullptr":pEffect_active->_effect_name)<<"");

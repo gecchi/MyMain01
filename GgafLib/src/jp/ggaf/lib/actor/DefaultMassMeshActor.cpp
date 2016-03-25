@@ -37,7 +37,7 @@ void DefaultMassMeshActor::drawHitArea() {
 #endif
 }
 
-void DefaultMassMeshActor::createVertexInstaceData(GgafDxMassModel::VertexInstaceDataInfo* out_info) {
+void DefaultMassMeshActor::createVertexInstaceData(void* prm, GgafDxMassModel::VertexInstaceDataInfo* out_info) {
     int element_num = 5;
     out_info->paElement = NEW D3DVERTEXELEMENT9[element_num];
     // Stream = 1 ---->

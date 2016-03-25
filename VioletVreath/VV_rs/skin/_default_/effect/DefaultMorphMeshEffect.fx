@@ -105,8 +105,8 @@ OUT_VS GgafDxVS_DefaultMorphMesh1(
     float4 posModel_Local = prm_posPrimary_Local;
     float3 vecNormal_Local = prm_vecNormalPrimary_Local;
     if (g_weight1 != 0 ) {
-        posModel_Local += ((prm_posMorphTarget1_Local - prm_posPrimary_Local) * g_weight1);
-        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal1_Local, g_weight1);
+        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget1_Local, g_weight1);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal1_Local     , g_weight1);
     }
 
     return GgafDxVS_DefaultMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
@@ -129,12 +129,12 @@ OUT_VS GgafDxVS_DefaultMorphMesh2(
     float4 posModel_Local = prm_posPrimary_Local;
     float3 vecNormal_Local = prm_vecNormalPrimary_Local;
     if (g_weight1 != 0 ) {
-        posModel_Local += ((prm_posMorphTarget1_Local - prm_posPrimary_Local) * g_weight1);
-        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal1_Local, g_weight1);
+        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget1_Local, g_weight1);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal1_Local     , g_weight1);
     }
     if (g_weight2 != 0 ) {
-        posModel_Local += ((prm_posMorphTarget2_Local - prm_posPrimary_Local) * g_weight2);
-        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal2_Local, g_weight2);
+        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget2_Local, g_weight2);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal2_Local     , g_weight2);
     }
     return GgafDxVS_DefaultMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
 }
@@ -155,16 +155,16 @@ OUT_VS GgafDxVS_DefaultMorphMesh3(
     float4 posModel_Local = prm_posPrimary_Local;
     float3 vecNormal_Local = prm_vecNormalPrimary_Local;
     if (g_weight1 != 0 ) {
-        posModel_Local += ((prm_posMorphTarget1_Local - prm_posPrimary_Local) * g_weight1);
-        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal1_Local, g_weight1);
+        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget1_Local, g_weight1);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal1_Local     , g_weight1);
     }
     if (g_weight2 != 0 ) {
-        posModel_Local += ((prm_posMorphTarget2_Local - prm_posPrimary_Local) * g_weight2);
-        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal2_Local, g_weight2);
+        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget2_Local, g_weight2);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal2_Local     , g_weight2);
     }
     if (g_weight3 != 0 ) {
-        posModel_Local += ((prm_posMorphTarget3_Local - prm_posPrimary_Local) * g_weight3);
-        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal3_Local, g_weight3);
+        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget3_Local, g_weight3);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal3_Local     , g_weight3);
     }
 
     return GgafDxVS_DefaultMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
@@ -182,26 +182,26 @@ OUT_VS GgafDxVS_DefaultMorphMesh4(
     float4 prm_posMorphTarget3_Local  : POSITION3,  // モデルのモーフターゲット3頂点
     float3 prm_vecNormal3_Local       : NORMAL3,    // モデルのモーフターゲット3頂点の法線
     float4 prm_posMorphTarget4_Local  : POSITION4,  // モデルのモーフターゲット4頂点
-    float3 prm_vecvecNormal4_Local    : NORMAL4     // モデルのモーフターゲット4頂点の法線
+    float3 prm_vecNormal4_Local    : NORMAL4     // モデルのモーフターゲット4頂点の法線
 ) {
     //頂点＆法線ブレンド
     float4 posModel_Local = prm_posPrimary_Local;
     float3 vecNormal_Local = prm_vecNormalPrimary_Local;
     if (g_weight1 != 0 ) {
-        posModel_Local += ((prm_posMorphTarget1_Local - prm_posPrimary_Local) * g_weight1);
-        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal1_Local, g_weight1);
+        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget1_Local, g_weight1);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal1_Local     , g_weight1);
     }
     if (g_weight2 != 0 ) {
-        posModel_Local += ((prm_posMorphTarget2_Local - prm_posPrimary_Local) * g_weight2);
-        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal2_Local, g_weight2);
+        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget2_Local, g_weight2);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal2_Local     , g_weight2);
     }
     if (g_weight3 != 0 ) {
-        posModel_Local += ((prm_posMorphTarget3_Local - prm_posPrimary_Local) * g_weight3);
-        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal3_Local, g_weight3);
+        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget3_Local, g_weight3);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal3_Local     , g_weight3);
     }
     if (g_weight4 != 0 ) {
-        posModel_Local += ((prm_posMorphTarget4_Local - prm_posPrimary_Local) * g_weight4);
-        vecNormal_Local = lerp(vecNormal_Local, prm_vecvecNormal4_Local, g_weight4);
+        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget4_Local, g_weight4);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal4_Local     , g_weight4);
     }
     return GgafDxVS_DefaultMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
 }
@@ -218,7 +218,7 @@ OUT_VS GgafDxVS_DefaultMorphMesh5(
     float4 prm_posMorphTarget3_Local  : POSITION3,  // モデルのモーフターゲット3頂点
     float3 prm_vecNormal3_Local       : NORMAL3,    // モデルのモーフターゲット3頂点の法線
     float4 prm_posMorphTarget4_Local  : POSITION4,  // モデルのモーフターゲット4頂点
-    float3 prm_vecvecNormal4_Local    : NORMAL4,    // モデルのモーフターゲット4頂点の法線
+    float3 prm_vecNormal4_Local    : NORMAL4,    // モデルのモーフターゲット4頂点の法線
     float4 prm_posMorphTarget5_Local  : POSITION5,  // モデルのモーフターゲット5頂点
     float3 prm_vecNormal5_Local       : NORMAL5     // モデルのモーフターゲット5頂点の法線
 ) {
@@ -226,24 +226,24 @@ OUT_VS GgafDxVS_DefaultMorphMesh5(
     float4 posModel_Local = prm_posPrimary_Local;
     float3 vecNormal_Local = prm_vecNormalPrimary_Local;
     if (g_weight1 != 0 ) {
-        posModel_Local += ((prm_posMorphTarget1_Local - prm_posPrimary_Local) * g_weight1);
-        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal1_Local, g_weight1);
+        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget1_Local, g_weight1);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal1_Local     , g_weight1);
     }
     if (g_weight2 != 0 ) {
-        posModel_Local += ((prm_posMorphTarget2_Local - prm_posPrimary_Local) * g_weight2);
-        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal2_Local, g_weight2);
+        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget2_Local, g_weight2);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal2_Local     , g_weight2);
     }
     if (g_weight3 != 0 ) {
-        posModel_Local += ((prm_posMorphTarget3_Local - prm_posPrimary_Local) * g_weight3);
-        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal3_Local, g_weight3);
+        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget3_Local, g_weight3);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal3_Local     , g_weight3);
     }
     if (g_weight4 != 0 ) {
-        posModel_Local += ((prm_posMorphTarget4_Local - prm_posPrimary_Local) * g_weight4);
-        vecNormal_Local = lerp(vecNormal_Local, prm_vecvecNormal4_Local, g_weight4);
+        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget4_Local, g_weight4);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal4_Local     , g_weight4);
     }
     if (g_weight5 != 0 ) {
-        posModel_Local += ((prm_posMorphTarget5_Local - prm_posPrimary_Local) * g_weight5);
-        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal5_Local, g_weight5);
+        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget5_Local, g_weight5);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal5_Local     , g_weight5);
     }
     return GgafDxVS_DefaultMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
 }
@@ -260,7 +260,7 @@ OUT_VS GgafDxVS_DefaultMorphMesh6(
     float4 prm_posMorphTarget3_Local  : POSITION3,  // モデルのモーフターゲット3頂点
     float3 prm_vecNormal3_Local       : NORMAL3,    // モデルのモーフターゲット3頂点の法線
     float4 prm_posMorphTarget4_Local  : POSITION4,  // モデルのモーフターゲット4頂点
-    float3 prm_vecvecNormal4_Local    : NORMAL4,    // モデルのモーフターゲット4頂点の法線
+    float3 prm_vecNormal4_Local    : NORMAL4,    // モデルのモーフターゲット4頂点の法線
     float4 prm_posMorphTarget5_Local  : POSITION5,  // モデルのモーフターゲット5頂点
     float3 prm_vecNormal5_Local       : NORMAL5,    // モデルのモーフターゲット5頂点の法線
     float4 prm_posMorphTarget6_Local  : POSITION6,  // モデルのモーフターゲット6頂点
@@ -270,28 +270,28 @@ OUT_VS GgafDxVS_DefaultMorphMesh6(
     float4 posModel_Local = prm_posPrimary_Local;
     float3 vecNormal_Local = prm_vecNormalPrimary_Local;
     if (g_weight1 != 0 ) {
-        posModel_Local += ((prm_posMorphTarget1_Local - prm_posPrimary_Local) * g_weight1);
-        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal1_Local, g_weight1);
+        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget1_Local, g_weight1);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal1_Local     , g_weight1);
     }
     if (g_weight2 != 0 ) {
-        posModel_Local += ((prm_posMorphTarget2_Local - prm_posPrimary_Local) * g_weight2);
-        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal2_Local, g_weight2);
+        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget2_Local, g_weight2);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal2_Local     , g_weight2);
     }
     if (g_weight3 != 0 ) {
-        posModel_Local += ((prm_posMorphTarget3_Local - prm_posPrimary_Local) * g_weight3);
-        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal3_Local, g_weight3);
+        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget3_Local, g_weight3);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal3_Local     , g_weight3);
     }
     if (g_weight4 != 0 ) {
-        posModel_Local += ((prm_posMorphTarget4_Local - prm_posPrimary_Local) * g_weight4);
-        vecNormal_Local = lerp(vecNormal_Local, prm_vecvecNormal4_Local, g_weight4);
+        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget4_Local, g_weight4);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal4_Local     , g_weight4);
     }
     if (g_weight5 != 0 ) {
-        posModel_Local += ((prm_posMorphTarget5_Local - prm_posPrimary_Local) * g_weight5);
-        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal5_Local, g_weight5);
+        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget5_Local, g_weight5);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal5_Local     , g_weight5);
     }
     if (g_weight6 != 0 ) {
-        posModel_Local += ((prm_posMorphTarget6_Local - prm_posPrimary_Local) * g_weight6);
-        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal6_Local, g_weight6);
+        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget6_Local, g_weight6);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal6_Local     , g_weight6);
     }
     return GgafDxVS_DefaultMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
 }

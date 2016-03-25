@@ -11,6 +11,7 @@
 #include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
 #include "jp/ggaf/dxcore/GgafDxProperties.h"
 
+#include "jp/ggaf/dxcore/model/GgafDxMassModel.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -37,7 +38,12 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
 
     pDevice->SetFVF(GgafDxD3DXMeshActor::FVF);
     HRESULT hr;
-
+    GgafDxModel* pModelLastDraw = GgafDxModelManager::_pModelLastDraw;
+    if (pModelLastDraw != this) {
+        if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDxMassModel)) {
+            ((GgafDxMassModel*)pModelLastDraw)->resetStreamSourceFreq();
+        }
+    }
     for (DWORD i = 0; i < _num_materials; i++) {
         if (GgafDxModelManager::_pModelLastDraw != this || _num_materials != 1) {
             if (_papTextureConnection[i]) {
@@ -74,10 +80,6 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
                 checkDxException(hr, D3D_OK, "EndPass() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
                 hr = pEffect_active->_pID3DXEffect->End();
                 checkDxException(hr, D3D_OK, "End() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-                if (pEffect_active->_obj_effect & Obj_GgafDxMassEffect) {
-                    pDevice->SetStreamSourceFreq( 0, 1 );
-                    pDevice->SetStreamSourceFreq( 1, 1 );
-                }
 #ifdef MY_DEBUG
                 if (pEffect_active->_begin == false) {
                     throwGgafCriticalException("begin ‚µ‚Ä‚¢‚Ü‚¹‚ñ "<<(pEffect_active==nullptr?"nullptr":pEffect_active->_effect_name)<<"");

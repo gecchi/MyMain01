@@ -39,8 +39,7 @@ _pEffect((GgafDxEffect*)_pEffectCon->peek()) {
     _class_name = "GgafDxFigureActor";
 
     _technique = NEW char[51];
-    strcpy(_technique, prm_technique);
-    _hash_technique = 0;
+    GgafDxFigureActor::changeEffectTechnique(prm_technique);
 
     _temp_technique = NEW char[51];
     _hash_temp_technique = 0;
@@ -90,8 +89,7 @@ _pEffect((GgafDxEffect*)_pEffectCon->peek())
     _class_name = "GgafDxFigureActor";
 
     _technique = NEW char[51];
-    strcpy(_technique, prm_technique);
-    _hash_technique = 0;
+    GgafDxFigureActor::changeEffectTechnique(prm_technique);
 
     _temp_technique = NEW char[51];
     _hash_temp_technique = 0;
@@ -272,8 +270,10 @@ void GgafDxFigureActor::setSpecialRenderDepthIndex(int prm_drawdepth) {
 void GgafDxFigureActor::resetSpecialRenderDepthIndex() {
     _specal_render_depth_index = -1;
 }
+
 void GgafDxFigureActor::changeEffectTechnique(const char* prm_technique) {
-    _hash_technique = UTIL::easy_hash(prm_technique) + UTIL::easy_hash(_pModel->getName());
+    std::string technique = std::string(_pEffect->getName()) + "_" + std::string(prm_technique);
+    _hash_technique = UTIL::easy_hash(technique.c_str());
     strcpy(_technique, prm_technique);
 }
 
@@ -288,8 +288,7 @@ void GgafDxFigureActor::changeEffectTechniqueInterim(const char* prm_technique, 
         } else {
             _frame_of_behaving_temp_technique_end = _frame_of_behaving + prm_frame; //•ÏX–žŠúƒtƒŒ[ƒ€
         }
-        _hash_technique = UTIL::easy_hash(prm_technique) + UTIL::easy_hash(_pModel->getName());
-        strcpy(_technique, prm_technique);
+        changeEffectTechnique(prm_technique);
         _is_temp_technique = true;
     }
 }

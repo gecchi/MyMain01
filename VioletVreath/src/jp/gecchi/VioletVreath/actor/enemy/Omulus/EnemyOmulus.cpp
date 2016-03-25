@@ -19,7 +19,7 @@ using namespace VioletVreath;
 #define MORPHTARGET_HATCH_OPEN 1
 
 EnemyOmulus::EnemyOmulus(const char* prm_name) :
-        DefaultMorphMeshActor(prm_name, "1/Omulus", STATUS(EnemyOmulus)) {
+        DefaultMassMorphMeshActor(prm_name, "Omulus_1", STATUS(EnemyOmulus)) {
     _class_name = "EnemyOmulus";
     pScaler_ = NEW GgafDxScaler(this);
     is_open_hatch_ = false;

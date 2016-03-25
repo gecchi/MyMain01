@@ -14,6 +14,7 @@
 #include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
 #include "jp/ggaf/dxcore/util/GgafDxAllocHierarchyWorldFrame.h"
 
+#include "jp/ggaf/dxcore/model/GgafDxMassModel.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -41,7 +42,11 @@ HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int p
     GgafDxD3DXAniMeshEffect* pD3DXAniMeshEffect = (GgafDxD3DXAniMeshEffect*)(prm_pActor_target->getEffect());
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pD3DXAniMeshEffect->_pID3DXEffect;
-    if (GgafDxModelManager::_pModelLastDraw != this) {
+    GgafDxModel* pModelLastDraw = GgafDxModelManager::_pModelLastDraw;
+    if (pModelLastDraw != this) {
+        if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDxMassModel)) {
+            ((GgafDxMassModel*)pModelLastDraw)->resetStreamSourceFreq();
+        }
         GgafDxGod::_pID3DDevice9->SetFVF(GgafDxD3DXAniMeshActor::FVF);
         hr = pID3DXEffect->SetFloat(pD3DXAniMeshEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_power) に失敗しました。");
@@ -76,10 +81,6 @@ HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int p
                 checkDxException(hr, D3D_OK, "["<<i<<"],GgafDxD3DXAniMeshModel::draw() EndPass() に失敗しました。");
                 hr = pEffect_active->_pID3DXEffect->End();
                 checkDxException(hr, D3D_OK, "["<<i<<"],GgafDxD3DXAniMeshModel::draw() End() に失敗しました。");
-                if (pEffect_active->_obj_effect & Obj_GgafDxMassEffect) {
-                    pDevice->SetStreamSourceFreq( 0, 1 );
-                    pDevice->SetStreamSourceFreq( 1, 1 );
-                }
 #ifdef MY_DEBUG
                 if (pEffect_active->_begin == false) {
                     throwGgafCriticalException("begin していません "<<(pEffect_active==nullptr?"nullptr":pEffect_active->_effect_name)<<"");

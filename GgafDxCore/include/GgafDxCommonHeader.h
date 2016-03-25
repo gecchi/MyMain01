@@ -263,6 +263,10 @@ enum GgafDxValign {
 #define Obj_GgafDxMassMeshActor         (0x20000000U)            //0b 00000000 00000000 00000000 00000000 00100000 00000000 00000000 00000000
 #define Obj_GgafDxMassBoardActor        (0x40000000U)            //0b 00000000 00000000 00000000 00000000 01000000 00000000 00000000 00000000
 #define Obj_GgafDxMassSpriteActor       (0x80000000U)            //0b 00000000 00000000 00000000 00000000 10000000 00000000 00000000 00000000
+#define Obj_GgafDxMassMorphMeshActor    (0x100000000U)           //0b 00000000 00000000 00000000 00000001 00000000 00000000 00000000 00000000
+
+
+
 //前方宣言(forward declaration)
 namespace IkdLib {
 //「○×（まるぺけ）つくろーどっとコム」 http://marupeke296.com/index.html
@@ -312,6 +316,7 @@ class GgafDxMeshActor;
 class GgafDxMeshSetActor;
 class GgafDxMassMeshActor;
 class GgafDxMorphMeshActor;
+class GgafDxMassMorphMeshActor;
 class GgafDxD3DXMeshActor;
 class GgafDxDynaD3DXMeshActor;
 class GgafDxD3DXAniMeshActor;
@@ -347,6 +352,7 @@ class GgafDxMeshModel;
 class GgafDxMeshSetModel;
 class GgafDxMassMeshModel;
 class GgafDxMorphMeshModel;
+class GgafDxMassMorphMeshModel;
 class GgafDxCubeMapMeshModel;
 class GgafDxCubeMapMeshSetModel;
 class GgafDxCubeMapMorphMeshModel;
@@ -363,6 +369,7 @@ class GgafDxD3DXAniMeshEffect;
 class GgafDxMeshSetEffect;
 class GgafDxMassMeshEffect;
 class GgafDxMorphMeshEffect;
+class GgafDxMassMorphMeshEffect;
 class GgafDxCubeMapMeshEffect;
 class GgafDxCubeMapMeshSetEffect;
 class GgafDxCubeMapMorphMeshEffect;

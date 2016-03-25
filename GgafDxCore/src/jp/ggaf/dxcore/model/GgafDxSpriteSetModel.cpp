@@ -11,6 +11,8 @@
 #include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
 
 #include "jp/ggaf/dxcore/manager/GgafDxTextureManager.h"
+
+#include "jp/ggaf/dxcore/model/GgafDxMassModel.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -67,7 +69,11 @@ HRESULT GgafDxSpriteSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
 
     HRESULT hr;
     //モデルが同じならば頂点バッファ等、の設定はスキップできる
-    if (GgafDxModelManager::_pModelLastDraw  != this) {
+    GgafDxModel* pModelLastDraw = GgafDxModelManager::_pModelLastDraw;
+    if (pModelLastDraw != this) {
+        if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDxMassModel)) {
+            ((GgafDxMassModel*)pModelLastDraw)->resetStreamSourceFreq();
+        }
         pDevice->SetStreamSource(0, _pVertexBuffer, 0, _size_vertex_unit);
         pDevice->SetFVF(GgafDxSpriteSetModel::FVF);
         pDevice->SetTexture(0, getDefaultTextureConnection()->peek()->_pIDirect3DBaseTexture9);
@@ -86,10 +92,6 @@ HRESULT GgafDxSpriteSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
             checkDxException(hr, D3D_OK, "EndPass() に失敗しました。");
             hr = pEffect_active->_pID3DXEffect->End();
             checkDxException(hr, D3D_OK, "End() に失敗しました。");
-            if (pEffect_active->_obj_effect & Obj_GgafDxMassEffect) {
-                pDevice->SetStreamSourceFreq( 0, 1 );
-                pDevice->SetStreamSourceFreq( 1, 1 );
-            }
 #ifdef MY_DEBUG
             if (pEffect_active->_begin == false) {
                 throwGgafCriticalException("begin していません "<<(pEffect_active==nullptr?"nullptr":pEffect_active->_effect_name)<<"");

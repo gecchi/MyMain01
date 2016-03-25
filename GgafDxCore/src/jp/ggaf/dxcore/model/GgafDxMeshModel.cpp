@@ -11,6 +11,7 @@
 #include "jp/ggaf/dxcore/GgafDxProperties.h"
 #include "jp/ggaf/dxcore/manager/GgafDxTextureManager.h"
 
+#include "jp/ggaf/dxcore/model/GgafDxMassModel.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -52,7 +53,11 @@ HRESULT GgafDxMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw
 
     HRESULT hr;
     UINT material_no;
-    if (GgafDxModelManager::_pModelLastDraw != this) {
+    GgafDxModel* pModelLastDraw = GgafDxModelManager::_pModelLastDraw;
+    if (pModelLastDraw != this) {
+        if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDxMassModel)) {
+            ((GgafDxMassModel*)pModelLastDraw)->resetStreamSourceFreq();
+        }
         //頂点バッファとインデックスバッファを設定
         pDevice->SetStreamSource(0, _pVertexBuffer,  0, _size_vertex_unit);
         pDevice->SetFVF(GgafDxMeshModel::FVF);
@@ -99,10 +104,6 @@ HRESULT GgafDxMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw
                 checkDxException(hr, D3D_OK, "EndPass() に失敗しました。");
                 hr = pEffect_active->_pID3DXEffect->End();
                 checkDxException(hr, D3D_OK, "End() に失敗しました。");
-                if (pEffect_active->_obj_effect & Obj_GgafDxMassEffect) {
-                    pDevice->SetStreamSourceFreq( 0, 1 );
-                    pDevice->SetStreamSourceFreq( 1, 1 );
-                }
 #ifdef MY_DEBUG
                 if (pEffect_active->_begin == false) {
                     throwGgafCriticalException("begin していません "<<(pEffect_active==nullptr?"nullptr":pEffect_active->_effect_name)<<"");

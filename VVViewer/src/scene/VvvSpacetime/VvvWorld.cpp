@@ -47,8 +47,8 @@ VvvWorld::VvvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
 }
 
 void VvvWorld::initialize() {
-     pFont01_help_->setAlign(ALIGN_RIGHT, VALIGN_BOTTOM);
-     pFont01_help_->update(PX_C(1024), PX_C(256),
+     pFont01_help_->setAlign(ALIGN_LEFT, VALIGN_TOP);
+     pFont01_help_->update(PX_C(0), PX_C(0),
              "[F1]:Move to the initial position the camera.\n"
              "[F2]:Target to next model, and directed camera.\n"
              "[F3]:Target to next model.\n"
@@ -59,8 +59,9 @@ void VvvWorld::initialize() {
              "[ESC]:Move to position (0, 0, 0).\n"
              "[R]+[CursorKey]:Z or Y Axial rotation model.\n"
              "[R]+[PgUp/PgDown]:X Axial rotation model.\n"
-             "[S]+[CursorKey]:X or Y Axial Scale inc or dec.\n"
-             "[S]+[PgUp/PgDown]:Z Axial Scale inc or dec.\n"
+             "[S]+[PgUp/PgDown]:Scale inc or dec.\n"
+             "[S]+[X]+[CursorKey]:X or Y Axial Scale inc or dec.\n"
+             "[S]+[X]+[PgUp/PgDown]:Z Axial Scale inc or dec.\n"
              "[W]:Toggle effect Wireframe.\n"
              "[G]:Toggle display grid.\n"
              "[O]:Toggle effect \"DestBlend = One/InvSrcAlpha\".\n"
@@ -238,24 +239,34 @@ void VvvWorld::processBehavior() {
                 pActor->getModel()->_specular_power = 0.00f;
             }
         } else if (GgafDxInput::isBeingPressedKey(DIK_S)) {
-            //Šg‘åk¬
-            if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
-                pActor->addScaleX(d*10);
-            }
-            if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
-                pActor->addScaleX(-d*10);
-            }
-            if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
-                pActor->addScaleY(d*10);
-            }
-            if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
-                pActor->addScaleY(-d*10);
-            }
-            if (GgafDxInput::isBeingPressedKey(DIK_PGUP)) {
-                pActor->addScaleZ(d*10);
-            }
-            if (GgafDxInput::isBeingPressedKey(DIK_PGDN)) {
-                pActor->addScaleZ(-d*10);
+            if (GgafDxInput::isBeingPressedKey(DIK_X)) {
+                //ŠeŽ²Šg‘åk¬
+                if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
+                    pActor->addScaleX(d*10);
+                }
+                if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
+                    pActor->addScaleX(-d*10);
+                }
+                if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
+                    pActor->addScaleY(d*10);
+                }
+                if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
+                    pActor->addScaleY(-d*10);
+                }
+                if (GgafDxInput::isBeingPressedKey(DIK_PGUP)) {
+                    pActor->addScaleZ(d*10);
+                }
+                if (GgafDxInput::isBeingPressedKey(DIK_PGDN)) {
+                    pActor->addScaleZ(-d*10);
+                }
+            } else {
+                //‘SŽ²Šg‘åk¬
+                if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
+                    pActor->addScale(d*10);
+                }
+                if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
+                    pActor->addScale(-d*10);
+                }
             }
             if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
                 pActor->setScaleR(1.0);

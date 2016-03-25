@@ -16,6 +16,7 @@
 #include "jp/ggaf/dxcore/sound/GgafDxSe.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
+#include "jp/ggaf/dxcore/model/GgafDxMassModel.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -296,10 +297,6 @@ void GgafDxSpacetime::draw() {
         checkDxException(hr, D3D_OK, "EndPass() に失敗しました。");
         hr = pEffect_active->_pID3DXEffect->End();
         checkDxException(hr, D3D_OK, "End()に失敗しました。");
-        if (pEffect_active->_obj_effect & Obj_GgafDxMassEffect) {
-            pDevice->SetStreamSourceFreq( 0, 1 );
-            pDevice->SetStreamSourceFreq( 1, 1 );
-        }
 #ifdef MY_DEBUG
         if (pEffect_active->_begin == false) {
             throwGgafCriticalException("begin していません "<<(pEffect_active==nullptr?"nullptr":pEffect_active->_effect_name)<<"");
@@ -307,6 +304,10 @@ void GgafDxSpacetime::draw() {
             pEffect_active->_begin = false;
         }
 #endif
+        GgafDxModel* pModelLastDraw = GgafDxModelManager::_pModelLastDraw;
+        if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDxMassModel)) {
+            ((GgafDxMassModel*)pModelLastDraw)->resetStreamSourceFreq();
+        }
         GgafDxEffectManager::_pEffect_active = nullptr;
         GgafDxModelManager::_pModelLastDraw = nullptr;
         GgafDxFigureActor::_hash_technique_last_draw = 0;
@@ -381,22 +382,36 @@ int GgafDxSpacetime::registerFigureActor3D(GgafDxFigureActor* prm_pActor) {
                 _papFirstActor_in_render_depth[render_depth_index] = prm_pActor;
                 _papLastActor_in_render_depth[render_depth_index] = prm_pActor;
             } else {
-                //同一深度で3Dの場合、前に追加と、お尻に追加を交互に行う。
-                //何故そんなことをするかというと、Zバッファ有りのテクスチャに透明があるオブジェクトや、半透明オブジェクトが交差した場合、
-                //同一深度なので、プライオリティ（描画順）によって透けない部分が生じてしまう。
-                //これを描画順を毎フレーム変化させることで、交互表示でちらつかせ若干のごまかしを行う。
-                //TODO:(課題)２、３のオブジェクトの交差は場合は見た目にも許容できるが、たくさん固まると本当にチラチラする。
-                if ((_frame_of_behaving & 1) == 1) { //奇数
-                    //前に追加
-                    GgafDxFigureActor* pActorTmp = _papFirstActor_in_render_depth[render_depth_index];
-                    prm_pActor->_pNextRenderActor = pActorTmp;
-                    _papFirstActor_in_render_depth[render_depth_index] = prm_pActor;
-                } else {
-                    //お尻に追加
+                if (!prm_pActor->_zwriteenable) {
+                    //Z値を書き込ま無いオブジェクトはお尻に追加。
+                    //深度の深い順に表示は行われるが。
+                    //同一の深度の「前」に追加   ＝ その深度で始めに描画される
+                    //同一の深度の「お尻」に追加 ＝ その深度で後に描画される
+                    //となっていることに注意。
+                    //Z値を書き込むのアクターは始めの方に描画するほうがいいかなぁ～と思って。
+                    //レーザー等が綺麗に描画される可能性が高い。
                     GgafDxFigureActor* pActorTmp = _papLastActor_in_render_depth[render_depth_index];
                     pActorTmp->_pNextRenderActor = prm_pActor;
                     prm_pActor->_pNextRenderActor = nullptr;
                     _papLastActor_in_render_depth[render_depth_index] = prm_pActor;
+                } else {
+                    //同一深度で3Dの場合、前に追加と、お尻に追加を交互に行う。
+                    //何故そんなことをするかというと、Zバッファ有りのオブジェクトに半透明オブジェクトと交差した場合、
+                    //同一深度なので、プライオリティ（描画順）によって透けない部分が生じてしまう。
+                    //これを描画順を毎フレーム変化させることで、交互表示でちらつかせ若干のごまかしを行う。
+                    //TODO:(課題)２、３のオブジェクトの交差は場合は見た目にも許容できるが、たくさん固まると本当にチラチラする。
+                    if ((_frame_of_behaving & 1) == 1) { //奇数
+                        //前に追加
+                        GgafDxFigureActor* pActorTmp = _papFirstActor_in_render_depth[render_depth_index];
+                        prm_pActor->_pNextRenderActor = pActorTmp;
+                        _papFirstActor_in_render_depth[render_depth_index] = prm_pActor;
+                    } else {
+                        //お尻に追加
+                        GgafDxFigureActor* pActorTmp = _papLastActor_in_render_depth[render_depth_index];
+                        pActorTmp->_pNextRenderActor = prm_pActor;
+                        prm_pActor->_pNextRenderActor = nullptr;
+                        _papLastActor_in_render_depth[render_depth_index] = prm_pActor;
+                    }
                 }
             }
 
@@ -418,7 +433,6 @@ int GgafDxSpacetime::registerFigureActor3D(GgafDxFigureActor* prm_pActor) {
     }
     return render_depth_index;
 }
-
 
 GgafDxSpacetime::~GgafDxSpacetime() {
     GGAF_DELETE(_pRing_pSeArray);

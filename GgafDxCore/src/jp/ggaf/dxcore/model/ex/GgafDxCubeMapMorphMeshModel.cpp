@@ -10,6 +10,7 @@
 #include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
 #include "jp/ggaf/dxcore/GgafDxProperties.h"
 
+#include "jp/ggaf/dxcore/model/GgafDxMassModel.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -32,7 +33,11 @@ HRESULT GgafDxCubeMapMorphMeshModel::draw(GgafDxFigureActor* prm_pActor_target, 
     HRESULT hr;
     UINT material_no;
     //頂点バッファ設定
-    if (GgafDxModelManager::_pModelLastDraw != this) {
+    GgafDxModel* pModelLastDraw = GgafDxModelManager::_pModelLastDraw;
+    if (pModelLastDraw != this) {
+        if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDxMassModel)) {
+            ((GgafDxMassModel*)pModelLastDraw)->resetStreamSourceFreq();
+        }
         pDevice->SetVertexDeclaration( _pVertexDeclaration); //頂点フォーマット
         pDevice->SetStreamSource(0, _pVertexBuffer_primary, 0, _size_vertex_unit_primary);
         for (int i = 1; i <= _morph_target_num; i++) {
@@ -79,10 +84,6 @@ HRESULT GgafDxCubeMapMorphMeshModel::draw(GgafDxFigureActor* prm_pActor_target, 
                 checkDxException(hr, D3D_OK, "EndPass() に失敗しました。"<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
                 hr = pEffect_active->_pID3DXEffect->End();
                 checkDxException(hr, D3D_OK, "End() に失敗しました。");
-                if (pEffect_active->_obj_effect & Obj_GgafDxMassEffect) {
-                    pDevice->SetStreamSourceFreq( 0, 1 );
-                    pDevice->SetStreamSourceFreq( 1, 1 );
-                }
 #ifdef MY_DEBUG
                 if (pEffect_active->_begin == false) {
                     throwGgafCriticalException("begin していません "<<(pEffect_active==nullptr?"nullptr":pEffect_active->_effect_name)<<"");

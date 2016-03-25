@@ -36,7 +36,7 @@ public:
      */
     GgafDxMassBoardModel(const char* prm_model_name);
 
-    static void createVertexModel(GgafDxMassModel::VertexModelInfo* out_info);
+    static void createVertexModel(void* prm, GgafDxMassModel::VertexModelInfo* out_info);
 
     /**
      * ƒ‚ƒfƒ‹‚Ì•`‰æ‚ğs‚¤ .

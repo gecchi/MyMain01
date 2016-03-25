@@ -111,7 +111,7 @@ bool MassWallActor::initStatic(MassWallActor* prm_pMassWallActor) {
     MassWallActor::_delface[POS_PRISM_ZX_pp] = ~FACE_B_BIT;
     return true;
 }
-void MassWallActor::createVertexInstaceData(GgafDxMassModel::VertexInstaceDataInfo* out_info) {
+void MassWallActor::createVertexInstaceData(void* prm, GgafDxMassModel::VertexInstaceDataInfo* out_info) {
     int element_num = 5;
     out_info->paElement = NEW D3DVERTEXELEMENT9[element_num];
     // Stream = 1 ---->

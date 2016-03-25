@@ -30,10 +30,6 @@ GgafDxMassModel::GgafDxMassModel(const char* prm_model_name) : GgafDxModel(prm_m
     _pFunc_getVertexInstaceData = nullptr;
     _pInstancedata = nullptr;
     _obj_model |= Obj_GgafDxMassModel;
-    //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどのメンバー初期化は
-    //void GgafDxMassModel::restore(GgafDxMassModel*)
-    //で行うようにした。要参照。
-    _TRACE_("GgafDxMassModel::GgafDxMassModel(" << _model_name << ") End");
 }
 
 void GgafDxMassModel::createVertexElements() {
@@ -53,11 +49,11 @@ void GgafDxMassModel::createVertexElements() {
         }
 #endif
         VertexModelInfo model_info;
-        (*_pFunc_getVertexModel)(&model_info); //コールバック
+        (*_pFunc_getVertexModel)(this, &model_info); //コールバック
         int model_element_num = model_info.element_num;
 
         VertexInstaceDataInfo instace_info;
-        (*_pFunc_getVertexInstaceData)(&instace_info); //コールバック
+        (*_pFunc_getVertexInstaceData)(this, &instace_info); //コールバック
         _size_vertex_unit_instacedata = instace_info.size_vertex_unit_instacedata;
         _pInstancedata = instace_info.pInstancedata;
         int instace_data_element_num = instace_info.element_num;
@@ -113,6 +109,11 @@ void GgafDxMassModel::createVertexElements() {
     ZeroMemory(pDeviceMemory, size_instancedata);
     hr = _pVertexBuffer_instacedata->Unlock();
     checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗2 model="<<_model_name);
+}
+
+void GgafDxMassModel::resetStreamSourceFreq() {
+    GgafDxGod::_pID3DDevice9->SetStreamSourceFreq( 0, 1 );
+    GgafDxGod::_pID3DDevice9->SetStreamSourceFreq( 1, 1 );
 }
 
 void GgafDxMassModel::onDeviceLost() {

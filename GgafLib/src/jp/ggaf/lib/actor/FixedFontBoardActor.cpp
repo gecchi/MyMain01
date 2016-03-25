@@ -209,7 +209,7 @@ void FixedFontBoardActor::update(const char* prm_str, GgafDxAlign prm_align, Gga
     setAlign(prm_align, prm_valign);
 }
 
-void FixedFontBoardActor::createVertexInstaceData(GgafDxMassModel::VertexInstaceDataInfo* out_info) {
+void FixedFontBoardActor::createVertexInstaceData(void* prm, GgafDxMassModel::VertexInstaceDataInfo* out_info) {
     int element_num = 2;
     out_info->paElement = NEW D3DVERTEXELEMENT9[element_num];
     // Stream = 1 ---->

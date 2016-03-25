@@ -33,6 +33,7 @@
 #include "jp/ggaf/dxcore/model/GgafDxMeshSetModel.h"
 #include "jp/ggaf/dxcore/model/GgafDxMassMeshModel.h"
 #include "jp/ggaf/dxcore/model/GgafDxMorphMeshModel.h"
+#include "jp/ggaf/dxcore/model/GgafDxMassMorphMeshModel.h"
 #include "jp/ggaf/dxcore/model/GgafDxBoardModel.h"
 #include "jp/ggaf/dxcore/model/GgafDxBoardSetModel.h"
 #include "jp/ggaf/dxcore/model/GgafDxMassBoardModel.h"
@@ -164,6 +165,10 @@ GgafDxModel* GgafDxModelManager::processCreateResource(const char* prm_idstr, vo
         case 'M':
             //MorphMeshModel "M/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
             pResourceModel = createMorphMeshModel(model_name);
+            break;
+        case 'm':
+            //MassMorphMeshModel "m/4/xxxxx_2" の場合、セットが４プライマリのメッシュが1、モーフターゲットのメッシュが2つという意味
+            pResourceModel = createMassMorphMeshModel(model_name);
             break;
         case 'H':
             //CubeMapMorphMeshModel "H/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
@@ -299,6 +304,12 @@ GgafDxMorphMeshModel* GgafDxModelManager::createMorphMeshModel(const char* prm_m
     GgafDxMorphMeshModel* pMorphMeshModel_new = NEW GgafDxMorphMeshModel(prm_model_name);
     pMorphMeshModel_new->restore();
     return pMorphMeshModel_new;
+}
+
+GgafDxMassMorphMeshModel* GgafDxModelManager::createMassMorphMeshModel(const char* prm_model_name) {
+    GgafDxMassMorphMeshModel* pMassMorphMeshModel_new = NEW GgafDxMassMorphMeshModel(prm_model_name);
+    pMassMorphMeshModel_new->restore();
+    return pMassMorphMeshModel_new;
 }
 
 GgafDxCubeMapMorphMeshModel* GgafDxModelManager::createCubeMapMorphMeshModel(const char* prm_model_name) {

@@ -20,7 +20,7 @@ protected:
         float offset_u, offset_v, alpha;   // : TEXCOORD2
     };
     static VERTEX_instancedata _aInstancedata[];
-    static void createVertexInstaceData(GgafDxCore::GgafDxMassModel::VertexInstaceDataInfo* out_info);
+    static void createVertexInstaceData(void* prm, GgafDxCore::GgafDxMassModel::VertexInstaceDataInfo* out_info);
 
 public:
     /** [r/w]ÉxÅ[ÉXÇÃÇPï∂éöïù(px) */

@@ -33,6 +33,7 @@
 #define Obj_GgafDxMassMeshModel          (0x10000U)        //0b 00000000 00000001 00000000 00000000
 #define Obj_GgafDxMassBoardModel         (0x20000U)        //0b 00000000 00000010 00000000 00000000
 #define Obj_GgafDxMassSpriteModel        (0x40000U)        //0b 00000000 00000100 00000000 00000000
+#define Obj_GgafDxMassMorphMeshModel     (0x80000U)        //0b 00000000 00001000 00000000 00000000
 namespace GgafDxCore {
 
 /**

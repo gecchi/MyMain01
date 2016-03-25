@@ -14,9 +14,6 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-//DWORD GgafDxMassMeshModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DFVF_TEX1  );
-//LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer = nullptr;
-
 GgafDxMassMeshModel::GgafDxMassMeshModel(const char* prm_model_name) : GgafDxMassModel(prm_model_name) {
     _TRACE3_("_model_name="<<_model_name);
     _obj_model |= Obj_GgafDxMassMeshModel;
@@ -27,7 +24,7 @@ GgafDxMassMeshModel::GgafDxMassMeshModel(const char* prm_model_name) : GgafDxMas
     _TRACE_("GgafDxMassMeshModel::GgafDxMassMeshModel(" << _model_name << ") End");
 }
 
-void GgafDxMassMeshModel::createVertexModel(GgafDxMassModel::VertexModelInfo* out_info) {
+void GgafDxMassMeshModel::createVertexModel(void* prm, GgafDxMassModel::VertexModelInfo* out_info) {
     int element_num = 4;
     out_info->paElement = NEW D3DVERTEXELEMENT9[element_num];
     WORD  st0_offset_next = 0;
@@ -250,10 +247,7 @@ HRESULT GgafDxMassMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
     hr = _pVertexBuffer_instacedata->Unlock();
     checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗 model="<<_model_name);
 
-    //モデルが同じでかつ、セット数も同じならば頂点バッファ、インデックスバッファの設定はスキップできる
-    hr = pDevice->SetStreamSourceFreq( 0, D3DSTREAMSOURCE_INDEXEDDATA | prm_draw_set_num);
-    checkDxException(hr, D3D_OK, "SetStreamSourceFreq 0 に失敗しました。prm_draw_set_num="<<prm_draw_set_num);
-
+    //モデルが同じならば頂点バッファ、インデックスバッファの設定はスキップできる
     GgafDxModel* pModelLastDraw = GgafDxModelManager::_pModelLastDraw;
     if (pModelLastDraw != this) {
         hr = pDevice->SetStreamSourceFreq( 1, D3DSTREAMSOURCE_INSTANCEDATA | 1 );
@@ -284,6 +278,9 @@ HRESULT GgafDxMassMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
             pDevice->SetTexture(0, nullptr);
         }
     }
+    hr = pDevice->SetStreamSourceFreq( 0, D3DSTREAMSOURCE_INDEXEDDATA | prm_draw_set_num);
+    checkDxException(hr, D3D_OK, "SetStreamSourceFreq 0 に失敗しました。prm_draw_set_num="<<prm_draw_set_num);
+
     GgafDxEffect* pEffect_active = GgafDxEffectManager::_pEffect_active;
     if (pEffect_active != pMassMeshEffect || GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) {
         if (pEffect_active) {

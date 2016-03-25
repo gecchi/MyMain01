@@ -82,14 +82,16 @@ public:
     void* _pInstancedata;
     /**
      * 頂点レイアウト（モデル）情報取得コールバック関数 .
+     * @param prm なにかしらのパラメータ
      * @param out_info 頂点レイアウト（モデル）情報が設定される
      */
-    void (*_pFunc_getVertexModel)(VertexModelInfo* out_info);
+    void (*_pFunc_getVertexModel)(void* prm, VertexModelInfo* out_info);
     /**
      * 頂点レイアウト（インスタンスデータ）情報取得コールバック関数 .
+     * @param prm なにかしらのパラメータ
      * @param out_info 頂点レイアウト（インスタンス）情報が設定される
      */
-    void (*_pFunc_getVertexInstaceData)(VertexInstaceDataInfo* out_info);
+    void (*_pFunc_getVertexInstaceData)(void* prm, VertexInstaceDataInfo* out_info);
 
 public:
     /**
@@ -105,7 +107,7 @@ public:
      * Modelクラスのコンストラクタ等で呼び出し、登録してください。
      * @param prm_pFunc_getVertexInstaceData 頂点レイアウト（モデル）情報取得コールバック関数
      */
-    inline void registerCallback_VertexInstaceDataInfo(void (*prm_pFunc_getVertexInstaceData)(VertexInstaceDataInfo*)) {
+    inline void registerCallback_VertexInstaceDataInfo(void (*prm_pFunc_getVertexInstaceData)(void*, VertexInstaceDataInfo*)) {
         _pFunc_getVertexInstaceData = prm_pFunc_getVertexInstaceData;
         if (_pFunc_getVertexInstaceData && _pFunc_getVertexModel) {
             if (_pVertexBuffer_instacedata == nullptr) {
@@ -118,7 +120,7 @@ public:
      * Actorクラスのコンストラクタ等で呼び出し、登録してください。
      * @param prm_pFunc_getVertexModel  頂点レイアウト（インスタンスデータ）情報取得コールバック関数
      */
-    inline void registerCallback_VertexModelInfo(void (*prm_pFunc_getVertexModel)(VertexModelInfo*)) {
+    inline void registerCallback_VertexModelInfo(void (*prm_pFunc_getVertexModel)(void*, VertexModelInfo*)) {
         _pFunc_getVertexModel = prm_pFunc_getVertexModel;
         if (_pFunc_getVertexInstaceData && _pFunc_getVertexModel) {
             if (_pVertexBuffer_instacedata == nullptr) {
@@ -132,9 +134,12 @@ public:
      */
     void createVertexElements();
 
+    virtual void resetStreamSourceFreq();
+
     virtual void onDeviceLost() override;
 
     virtual void release() override;
+
 
     /**
      * デストラクタ<BR>

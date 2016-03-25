@@ -41,6 +41,7 @@ private:
     GgafDxCubeMapMeshModel*      createCubeMapMeshModel(const char* prm_model_name);
     GgafDxCubeMapMeshSetModel*   createCubeMapMeshSetModel(const char* prm_model_name);
     GgafDxMorphMeshModel*        createMorphMeshModel(const char* prm_model_name);
+    GgafDxMassMorphMeshModel*    createMassMorphMeshModel(const char* prm_model_name);
     GgafDxCubeMapMorphMeshModel* createCubeMapMorphMeshModel(const char* prm_model_name);
     GgafDxWorldBoundModel*       createWorldBoundModel(const char* prm_model_name);
     GgafDxPointSpriteModel*      createPointSpriteModel(const char* prm_model_name);
