@@ -103,9 +103,9 @@ public:
     void changeVertexAlpha(int prm_vertex_alpha);
 
     /**
-     * 頂点レイアウト（モデル）情報取得コールバック関数を登録する .
+     * 頂点レイアウト（インスタンスデータ）情報取得コールバック関数を登録する .
      * Modelクラスのコンストラクタ等で呼び出し、登録してください。
-     * @param prm_pFunc_getVertexInstaceData 頂点レイアウト（モデル）情報取得コールバック関数
+     * @param prm_pFunc_getVertexInstaceData 頂点レイアウト（インスタンスデータ）情報取得コールバック関数
      */
     inline void registerCallback_VertexInstaceDataInfo(void (*prm_pFunc_getVertexInstaceData)(void*, VertexInstaceDataInfo*)) {
         _pFunc_getVertexInstaceData = prm_pFunc_getVertexInstaceData;
@@ -116,9 +116,9 @@ public:
         }
     }
     /**
-     * 頂点レイアウト（インスタンスデータ）情報取得コールバック関数を登録する .
+     * 頂点レイアウト（モデル）情報取得コールバック関数を登録する .
      * Actorクラスのコンストラクタ等で呼び出し、登録してください。
-     * @param prm_pFunc_getVertexModel  頂点レイアウト（インスタンスデータ）情報取得コールバック関数
+     * @param prm_pFunc_getVertexModel  頂点レイアウト（モデルデータ）情報取得コールバック関数
      */
     inline void registerCallback_VertexModelInfo(void (*prm_pFunc_getVertexModel)(void*, VertexModelInfo*)) {
         _pFunc_getVertexModel = prm_pFunc_getVertexModel;

@@ -1,7 +1,6 @@
 #include "jp/ggaf/dxcore/actor/GgafDxMassMorphMeshActor.h"
 
 #include "jp/ggaf/dxcore/GgafDxGod.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
 #include "jp/ggaf/dxcore/effect/GgafDxMassMorphMeshEffect.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/model/GgafDxMassMorphMeshModel.h"
@@ -26,7 +25,7 @@ GgafDxMassMorphMeshActor::GgafDxMassMorphMeshActor(const char* prm_name,
                                                                        prm_technique,
                                                                        prm_pStat,
                                                                        prm_pChecker),
-_pMorpher(new GgafDxMorpher2<GgafDxMassMorphMeshActor>(this)),
+_pMorpher(new GgafDxMorpher<GgafDxMassMorphMeshActor>(this)),
 _pMassMorphMeshModel((GgafDxMassMorphMeshModel*)_pModel),
 _pMassMorphMeshEffect((GgafDxMassMorphMeshEffect*)_pEffect)
 {
@@ -35,7 +34,7 @@ _pMassMorphMeshEffect((GgafDxMassMorphMeshEffect*)_pEffect)
     _pFunc_calc_rot_mv_world_matrix = UTIL::setWorldMatrix_RxRzRyMv;
     (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
     //èdÇ›èâä˙âª
-    for (int i = 1; i <= MAX_MASS_MORPH_TARGET_NUM; i++) {
+    for (int i = 0; i <= MAX_MASS_MORPH_TARGET_NUM; i++) {
         _weight[i] = 0.0f;
     }
     _morph_target_num = _pMassMorphMeshModel->_morph_target_num;
@@ -60,7 +59,7 @@ GgafDxMassMorphMeshActor::GgafDxMassMorphMeshActor(const char* prm_name,
                                                                    prm_technique,
                                                                    prm_pStat,
                                                                    prm_pChecker),
-_pMorpher(new GgafDxMorpher2<GgafDxMassMorphMeshActor>(this)),
+_pMorpher(new GgafDxMorpher<GgafDxMassMorphMeshActor>(this)),
 _pMassMorphMeshModel((GgafDxMassMorphMeshModel*)_pModel),
 _pMassMorphMeshEffect((GgafDxMassMorphMeshEffect*)_pEffect)
 {
@@ -69,7 +68,7 @@ _pMassMorphMeshEffect((GgafDxMassMorphMeshEffect*)_pEffect)
     _pFunc_calc_rot_mv_world_matrix = UTIL::setWorldMatrix_RxRzRyMv;
     (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
     //èdÇ›èâä˙âª
-    for (int i = 1; i <= MAX_MASS_MORPH_TARGET_NUM; i++) {
+    for (int i = 0; i <= MAX_MASS_MORPH_TARGET_NUM; i++) {
         _weight[i] = 0.0f;
     }
     _morph_target_num = _pMassMorphMeshModel->_morph_target_num;
@@ -106,24 +105,6 @@ void GgafDxMassMorphMeshActor::addMorphWeight(int prm_target_mesh_no, float prm_
 #endif
     _weight[prm_target_mesh_no] += prm_add_weight;
 }
-
-//void GgafDxMassMorphMeshActor::processDraw() {
-//    GgafDxCamera* const pCam = P_GOD->getSpacetime()->getCamera();
-//    const GgafDxMassMorphMeshEffect* const pMassMorphMeshEffect = _pMassMorphMeshEffect;
-//    ID3DXEffect* const pID3DXEffect = pMassMorphMeshEffect->_pID3DXEffect;
-//    HRESULT hr;
-//    hr = pID3DXEffect->SetMatrix(pMassMorphMeshEffect->_h_matView, pCam->getViewMatrix() );
-//    checkDxException(hr, D3D_OK, "SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-//    hr = pID3DXEffect->SetInt(pMassMorphMeshEffect->_h_morph_target_num, _pMassMorphMeshModel->_morph_target_num);
-//    checkDxException(hr, D3D_OK, "SetInt(_h_morph_target_num) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-//    for (int pattern = 1; pattern <= _pMassMorphMeshModel->_morph_target_num; pattern++) {
-//        hr = pID3DXEffect->SetFloat(pMassMorphMeshEffect->_ah_weight[pattern], _weight[pattern]);
-//        checkDxException(hr, D3D_OK, "SetFloat(_ah_weight["<<pattern<<"]) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-//    }
-//    hr = pID3DXEffect->SetMatrix(pMassMorphMeshEffect->_h_matWorld, &_matWorld );
-//    checkDxException(hr, D3D_OK, "SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-//    _pMassMorphMeshModel->draw(this);
-//}
 
 int GgafDxMassMorphMeshActor::getMorphTergetNum() {
     return _pMassMorphMeshModel->_morph_target_num;

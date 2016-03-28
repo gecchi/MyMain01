@@ -74,7 +74,7 @@ HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int p
     for (int i = 0; it != pDrawList->end(); i++, it++) {
         //•`‰æ(TODO:‚È‚ñ‚©–³‘Ê‚Èƒ‹[ƒvj
         GgafDxEffect* pEffect_active = GgafDxEffectManager::_pEffect_active;
-        if ((pEffect_active != pD3DXAniMeshEffect || GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) && i == 0) {
+        if ((GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) && i == 0) {
             if (pEffect_active) {
                 _TRACE4_("["<<i<<"],EndPass: /_pEffect_active="<<pEffect_active->_effect_name);
                 hr = pEffect_active->_pID3DXEffect->EndPass();

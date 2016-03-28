@@ -65,8 +65,6 @@
     <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoFaceAngAssistant.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoMvAngAssistant.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoMvAssistant.cpp" />
-    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxMorpher.cpp" />
-    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxMorpherAssistantA.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxPuppeteer.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxScaler.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxSeTransmitterForActor.cpp" />
@@ -203,8 +201,8 @@
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxkurokofaceangassistant.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxkurokomvangassistant.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxkurokomvassistant.h" />
-    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxmorpher.h" />
-    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\GgafDxMorpherAssistantA.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxmorpher.hpp" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxmorpherassistanta.hpp" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxpuppeteer.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxscaler.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxsetransmitterforactor.h" />

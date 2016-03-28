@@ -151,7 +151,6 @@ OUT_VS GgafDxVS_DefaultMassMorphMesh1(
 }
 
 
-
 //モーフターゲット２つ
 OUT_VS GgafDxVS_DefaultMassMorphMesh2(
     //vertex model
@@ -243,6 +242,7 @@ OUT_VS GgafDxVS_DefaultMassMorphMesh3(
                                          prm_color  );
 }
 
+
 //モーフターゲット４つ
 OUT_VS GgafDxVS_DefaultMassMorphMesh4(
     //vertex model
@@ -300,134 +300,6 @@ OUT_VS GgafDxVS_DefaultMassMorphMesh4(
                                          prm_color  );
 }
 
-////モーフターゲット５つ
-//OUT_VS GgafDxVS_DefaultMassMorphMesh5(
-//    //vertex model
-//    float4 prm_posPrimary_Local       : POSITION0,  // モデルの頂点
-//    float3 prm_vecNormalPrimary_Local : NORMAL0,    // モデルの頂点の法線
-//    float2 prm_uv0                    : TEXCOORD0,  // モデルの頂点のUV
-//    float4 prm_posMorphTarget1_Local  : POSITION1,  // モデルのモーフターゲット1頂点
-//    float3 prm_vecNormal1_Local       : NORMAL1,    // モデルのモーフターゲット1頂点の法線
-//    float4 prm_posMorphTarget2_Local  : POSITION2,  // モデルのモーフターゲット2頂点
-//    float3 prm_vecNormal2_Local       : NORMAL2,    // モデルのモーフターゲット2頂点の法線
-//    float4 prm_posMorphTarget3_Local  : POSITION3,  // モデルのモーフターゲット3頂点
-//    float3 prm_vecNormal3_Local       : NORMAL3,    // モデルのモーフターゲット3頂点の法線
-//    float4 prm_posMorphTarget4_Local  : POSITION4,  // モデルのモーフターゲット4頂点
-//    float3 prm_vecNormal4_Local       : NORMAL4,    // モデルのモーフターゲット4頂点の法線
-//    float4 prm_posMorphTarget5_Local  : POSITION5,  // モデルのモーフターゲット5頂点
-//    float3 prm_vecNormal5_Local       : NORMAL5,    // モデルのモーフターゲット5頂点の法線
-//    //vertex instace data
-//    float4 prm_world0                 : TEXCOORD1,  // World行列要素
-//    float4 prm_world1                 : TEXCOORD2,  // World行列要素
-//    float4 prm_world2                 : TEXCOORD3,  // World行列要素
-//    float4 prm_world3                 : TEXCOORD4,  // World行列要素
-//    float4 prm_color                  : TEXCOORD5,  // マテリアルカラー
-//    float  prm_weight0                : TEXCOORD6,  // モデル(プライマリ)の重み(現在未使用)
-//    float  prm_weight1                : TEXCOORD7,  // モデルのモーフターゲット1の重み
-//    float  prm_weight2                : TEXCOORD8,  // モデルのモーフターゲット2の重み
-//    float  prm_weight3                : TEXCOORD9,  // モデルのモーフターゲット3の重み
-//    float  prm_weight4                : TEXCOORD10, // モデルのモーフターゲット4の重み
-//    float  prm_weight5                : TEXCOORD11  // モデルのモーフターゲット5の重み
-//) {                                                 
-//    //頂点＆法線ブレンド
-//    float4 posModel_Local = prm_posPrimary_Local;
-//    float3 vecNormal_Local = prm_vecNormalPrimary_Local;
-//    if (prm_weight1 != 0) {
-//        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget1_Local, prm_weight1);
-//        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal1_Local     , prm_weight1);
-//    }
-//    if (prm_weight2 != 0) {
-//        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget2_Local, prm_weight2);
-//        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal2_Local     , prm_weight2);
-//    }
-//    if (prm_weight3 != 0) {
-//        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget3_Local, prm_weight3);
-//        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal3_Local     , prm_weight3);
-//    }
-//    if (prm_weight4 != 0) {
-//        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget4_Local, prm_weight4);
-//        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal4_Local     , prm_weight4);
-//    }
-//    if (prm_weight5 != 0) {
-//        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget5_Local, prm_weight5);
-//        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal5_Local     , prm_weight5);
-//    }
-//
-//    return GgafDxVS_DefaultMassMorphMesh(posModel_Local, vecNormal_Local, prm_uv0,
-//                                         prm_world0,
-//                                         prm_world1,
-//                                         prm_world2,
-//                                         prm_world3,
-//                                         prm_color  );
-//}
-//
-////モーフターゲット６つ
-//OUT_VS GgafDxVS_DefaultMassMorphMesh6(
-//    //vertex model
-//    float4 prm_posPrimary_Local       : POSITION0,  // モデルの頂点
-//    float3 prm_vecNormalPrimary_Local : NORMAL0,    // モデルの頂点の法線
-//    float2 prm_uv0                    : TEXCOORD0,  // モデルの頂点のUV
-//    float4 prm_posMorphTarget1_Local  : POSITION1,  // モデルのモーフターゲット1頂点
-//    float3 prm_vecNormal1_Local       : NORMAL1,    // モデルのモーフターゲット1頂点の法線
-//    float4 prm_posMorphTarget2_Local  : POSITION2,  // モデルのモーフターゲット2頂点
-//    float3 prm_vecNormal2_Local       : NORMAL2,    // モデルのモーフターゲット2頂点の法線
-//    float4 prm_posMorphTarget3_Local  : POSITION3,  // モデルのモーフターゲット3頂点
-//    float3 prm_vecNormal3_Local       : NORMAL3,    // モデルのモーフターゲット3頂点の法線
-//    float4 prm_posMorphTarget4_Local  : POSITION4,  // モデルのモーフターゲット4頂点
-//    float3 prm_vecNormal4_Local       : NORMAL4,    // モデルのモーフターゲット4頂点の法線
-//    float4 prm_posMorphTarget5_Local  : POSITION5,  // モデルのモーフターゲット5頂点
-//    float3 prm_vecNormal5_Local       : NORMAL5,    // モデルのモーフターゲット5頂点の法線
-//    float4 prm_posMorphTarget6_Local  : POSITION6,  // モデルのモーフターゲット6頂点
-//    float3 prm_vecNormal6_Local       : NORMAL6,    // モデルのモーフターゲット6頂点の法線
-//    //vertex instace data
-//    float4 prm_world0                 : TEXCOORD1,  // World行列要素
-//    float4 prm_world1                 : TEXCOORD2,  // World行列要素
-//    float4 prm_world2                 : TEXCOORD3,  // World行列要素
-//    float4 prm_world3                 : TEXCOORD4,  // World行列要素
-//    float4 prm_color                  : TEXCOORD5,  // マテリアルカラー
-//    float  prm_weight0                : TEXCOORD6,  // モデル(プライマリ)の重み(現在未使用)
-//    float  prm_weight1                : TEXCOORD7,  // モデルのモーフターゲット1の重み
-//    float  prm_weight2                : TEXCOORD8,  // モデルのモーフターゲット2の重み
-//    float  prm_weight3                : TEXCOORD9,  // モデルのモーフターゲット3の重み
-//    float  prm_weight4                : TEXCOORD10, // モデルのモーフターゲット4の重み
-//    float  prm_weight5                : TEXCOORD11, // モデルのモーフターゲット5の重み
-//    float  prm_weight6                : TEXCOORD12  // モデルのモーフターゲット6の重み
-//) {
-//    //頂点＆法線ブレンド
-//    float4 posModel_Local = prm_posPrimary_Local;
-//    float3 vecNormal_Local = prm_vecNormalPrimary_Local;
-//    if (prm_weight1 != 0) {
-//        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget1_Local, prm_weight1);
-//        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal1_Local     , prm_weight1);
-//    }
-//    if (prm_weight2 != 0) {
-//        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget2_Local, prm_weight2);
-//        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal2_Local     , prm_weight2);
-//    }
-//    if (prm_weight3 != 0) {
-//        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget3_Local, prm_weight3);
-//        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal3_Local     , prm_weight3);
-//    }
-//    if (prm_weight4 != 0) {
-//        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget4_Local, prm_weight4);
-//        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal4_Local     , prm_weight4);
-//    }
-//    if (prm_weight5 != 0) {
-//        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget5_Local, prm_weight5);
-//        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal5_Local     , prm_weight5);
-//    }
-//    if (prm_weight6 != 0) {
-//        posModel_Local  = lerp(posModel_Local , prm_posMorphTarget6_Local, prm_weight6);
-//        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal6_Local     , prm_weight6);
-//    }
-//    return GgafDxVS_DefaultMassMorphMesh(posModel_Local, vecNormal_Local, prm_uv0,
-//                                         prm_world0,
-//                                         prm_world1,
-//                                         prm_world2,
-//                                         prm_world3,
-//                                         prm_color  );
-//}
-//
 
 float4 GgafDxPS_DefaultMassMorphMesh(
     float2 prm_uv	           : TEXCOORD0,
@@ -453,6 +325,7 @@ float4 GgafDxPS_DefaultMassMorphMesh(
     return colOut;
 }
 
+
 float4 PS_Flush(
     float2 prm_uv	  : TEXCOORD0,
     float4 prm_color  : COLOR0
@@ -463,6 +336,7 @@ float4 PS_Flush(
     return 	colOut;
 }
 
+//////////////////////////////////////////////////////////////////////////////
 technique DefaultMassMorphMeshTechnique0
 {
     //モーフターゲット無し
@@ -522,32 +396,8 @@ technique DefaultMassMorphMeshTechnique4
         PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassMorphMesh();
     }
 }
-//
-//technique DefaultMassMorphMeshTechnique5
-//{
-//    //モーフターゲット5つ
-//    pass P0 {
-//        AlphaBlendEnable = true;
-//        SrcBlend  = SrcAlpha;
-//        DestBlend = InvSrcAlpha;
-//        VertexShader = compile VS_VERSION GgafDxVS_DefaultMassMorphMesh5();
-//        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassMorphMesh();
-//    }
-//}
-//
-//technique DefaultMassMorphMeshTechnique6
-//{
-//    //モーフターゲット6つ
-//    pass P0 {
-//        AlphaBlendEnable = true;
-//        SrcBlend  = SrcAlpha;
-//        DestBlend = InvSrcAlpha;
-//        VertexShader = compile VS_VERSION GgafDxVS_DefaultMassMorphMesh6();
-//        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassMorphMesh();
-//    }
-//}
 
-////////////////////////////////////////////////DestBlendOne
+//////////////////////////////////////////////////////////////////////////////
 technique DestBlendOne0
 {
     //モーフターゲット無し
@@ -608,32 +458,7 @@ technique DestBlendOne4
     }
 }
 
-//technique DestBlendOne5
-//{
-//    //モーフターゲット5つ
-//    pass P0 {
-//        AlphaBlendEnable = true;
-//        SrcBlend  = SrcAlpha;
-//        DestBlend = One; //加算合成
-//        VertexShader = compile VS_VERSION GgafDxVS_DefaultMassMorphMesh5();
-//        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassMorphMesh();
-//    }
-//}
-//
-//technique DestBlendOne6
-//{
-//    //モーフターゲット6つ
-//    pass P0 {
-//        AlphaBlendEnable = true;
-//        SrcBlend  = SrcAlpha;
-//        DestBlend = One; //加算合成
-//        VertexShader = compile VS_VERSION GgafDxVS_DefaultMassMorphMesh6();
-//        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassMorphMesh();
-//    }
-//}
-
-////////////////////////////////////////////////Flush
-
+//////////////////////////////////////////////////////////////////////////////
 technique Flush0
 {
     //モーフターゲット無し
@@ -694,26 +519,3 @@ technique Flush4
     }
 }
 
-//technique Flush5
-//{
-//    //モーフターゲット3つ
-//    pass P0 {
-//        AlphaBlendEnable = true;
-//        SrcBlend  = SrcAlpha;
-//        DestBlend = One; //加算合成
-//        VertexShader = compile VS_VERSION GgafDxVS_DefaultMassMorphMesh5();
-//        PixelShader  = compile PS_VERSION PS_Flush();
-//    }
-//}
-//
-//technique Flush6
-//{
-//    //モーフターゲット3つ
-//    pass P0 {
-//        AlphaBlendEnable = true;
-//        SrcBlend  = SrcAlpha;
-//        DestBlend = One; //加算合成
-//        VertexShader = compile VS_VERSION GgafDxVS_DefaultMassMorphMesh6();
-//        PixelShader  = compile PS_VERSION PS_Flush();
-//    }
-//}

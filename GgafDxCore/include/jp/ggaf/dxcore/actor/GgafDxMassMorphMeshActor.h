@@ -2,8 +2,8 @@
 #define GGAFDXCORE_GGAFDXMASSMORPHMESHACTOR_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher2.hpp"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher2AssistantA.hpp"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.hpp"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpherAssistantA.hpp"
 #include "jp/ggaf/dxcore/model/GgafDxMassMeshModel.h"
 
 #define MAX_MASS_MORPH_TARGET_NUM 4
@@ -22,7 +22,7 @@ class GgafDxMassMorphMeshActor : public GgafDxFigureActor {
 
 private:
     /** モーフィング支援オブジェクト */
-    GgafDxMorpher2<GgafDxMassMorphMeshActor>* const _pMorpher;
+    GgafDxMorpher<GgafDxMassMorphMeshActor>* const _pMorpher;
 
 public:
     /** [r]モーフターゲット数(モデルのコピーした値) */
@@ -73,8 +73,6 @@ public:
                          GgafCore::GgafStatus* prm_pStat,
                          GgafDxChecker* prm_pChecker);
 
-//    virtual void processDraw() override;
-
     /**
      * モーフターゲットメッシュ数取得
      * @return モーフターゲットメッシュ数
@@ -98,7 +96,7 @@ public:
 
     void addMorphWeight(int prm_target_mesh_no, float prm_add_weight);
 
-    inline GgafDxMorpher2<GgafDxMassMorphMeshActor>* getMorpher() {
+    inline GgafDxMorpher<GgafDxMassMorphMeshActor>* getMorpher() {
         return _pMorpher;
     }
     virtual void changeEffectTechnique(const char* prm_technique) override;

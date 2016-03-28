@@ -64,7 +64,6 @@ _pEffect((GgafDxEffect*)_pEffectCon->peek()) {
     _specal_render_depth_index = -1;
     _zenable = true;
     _zwriteenable = true;
-    _hash_technique = UTIL::easy_hash(prm_technique) + UTIL::easy_hash(_pModel->getName());
 }
 
 GgafDxFigureActor::GgafDxFigureActor(const char* prm_name,
@@ -97,28 +96,6 @@ _pEffect((GgafDxEffect*)_pEffectCon->peek())
     _frame_of_behaving_temp_technique_end = 0;
     _is_temp_technique = false;
 
-//    char* model_name = NEW char[51];
-//    model_name[0] = '\0';
-//    strcat(model_name, prm_model_type);
-//    strcat(model_name, "/");
-//    strcat(model_name, prm_model_id);
-//    // prm_model_id   = "Eres"
-//    // prm_model_type = "X"
-//    // の場合、model_name として
-//    // model_name     = "X/Eres"
-//    // という文字列を作成。
-//
-//    char* effelct_name = NEW char[51];
-//    effelct_name[0] = '\0';
-//    strcat(effelct_name, prm_effect_type);
-//    strcat(effelct_name, "/");
-//    strcat(effelct_name, prm_effect_id);
-//    // prm_effect_id   = "DefaultMeshEffect"
-//    // prm_effect_type = "X"
-//    // の場合、effelct_name として
-//    // effelct_name     = "X/DefaultMeshEffect"
-//    // という文字列を作成。
-
     _pNextRenderActor = nullptr;
 
     //マテリアルをコピー
@@ -128,14 +105,10 @@ _pEffect((GgafDxEffect*)_pEffectCon->peek())
     }
     _alpha = 1.0f;
 
-//    GGAF_DELETEARR(model_name);
-//    GGAF_DELETEARR(effelct_name);
-
     _now_drawdepth = 0;
     _specal_render_depth_index = -1;
     _zenable = true;
     _zwriteenable = true;
-    _hash_technique = UTIL::easy_hash(prm_technique) + UTIL::easy_hash(_pModel->getName());
 }
 
 void GgafDxFigureActor::processPreDraw() {

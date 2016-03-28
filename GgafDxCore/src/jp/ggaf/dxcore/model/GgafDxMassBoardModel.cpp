@@ -127,7 +127,7 @@ HRESULT GgafDxMassBoardModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
     hr = pDevice->SetStreamSourceFreq( 0, D3DSTREAMSOURCE_INDEXEDDATA | prm_draw_set_num);
     checkDxException(hr, D3D_OK, "SetStreamSourceFreq 0 に失敗しました。prm_draw_set_num="<<prm_draw_set_num);
     GgafDxEffect* pEffect_active = GgafDxEffectManager::_pEffect_active;
-    if (pEffect_active != pMassBoardEffect || GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique)  {
+    if (GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique)  {
         if (pEffect_active) {
            _TRACE4_("EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
             hr = pEffect_active->_pID3DXEffect->EndPass();
@@ -245,7 +245,7 @@ void GgafDxMassBoardModel::restore() {
         _paVtxBuffer_data_model[0].x = 0.0f;
         _paVtxBuffer_data_model[0].y = 0.0f;
         _paVtxBuffer_data_model[0].z = 0.0f;
-        _paVtxBuffer_data_model[0].nx = 0.0f;
+        _paVtxBuffer_data_model[0].nx = 0.0f;   //現在法線はシェーダーで未使用
         _paVtxBuffer_data_model[0].ny = 0.0f;
         _paVtxBuffer_data_model[0].nz = -1.0f;
         _paVtxBuffer_data_model[0].tu = du;
@@ -313,7 +313,7 @@ void GgafDxMassBoardModel::restore() {
         hr = _pVertexBuffer_model->Unlock();
         checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗 model="<<_model_name);
     }
-    //デバイスにインデックスバッファデータ作成
+    //デバイスにインデックスバッファ作成
     if (_pIndexBuffer == nullptr) {
         hr = GgafDxGod::_pID3DDevice9->CreateIndexBuffer(
                                 sizeof(WORD) * _nFaces * 3,

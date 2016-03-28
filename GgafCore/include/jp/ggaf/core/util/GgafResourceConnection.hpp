@@ -2,17 +2,14 @@
 #define GGAFCORE_GGAFRESOURCECONNECTION_H_
 #include "GgafCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
-
-#include <cstring>
-#include "GgafCommonHeader.h"
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
 #include "jp/ggaf/core/util/GgafResourceManager.hpp"
-
 #include "windows.h"
 #ifdef __GNUG__
     #undef __in
     #undef __out
 #endif
+
 #ifndef _MSC_VER
     #include <atomic>
 #endif

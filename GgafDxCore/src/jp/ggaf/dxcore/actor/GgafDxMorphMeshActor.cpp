@@ -1,7 +1,6 @@
 #include "jp/ggaf/dxcore/actor/GgafDxMorphMeshActor.h"
 
 #include "jp/ggaf/dxcore/GgafDxGod.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
 #include "jp/ggaf/dxcore/effect/GgafDxMorphMeshEffect.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/model/GgafDxMorphMeshModel.h"
@@ -26,7 +25,7 @@ GgafDxMorphMeshActor::GgafDxMorphMeshActor(const char* prm_name,
                                                                    prm_technique,
                                                                    prm_pStat,
                                                                    prm_pChecker),
-_pMorpher(new GgafDxMorpher(this)),
+_pMorpher(new GgafDxMorpher<GgafDxMorphMeshActor>(this)),
 _pMorphMeshModel((GgafDxMorphMeshModel*)_pModel),
 _pMorphMeshEffect((GgafDxMorphMeshEffect*)_pEffect)
 {
@@ -59,7 +58,7 @@ GgafDxMorphMeshActor::GgafDxMorphMeshActor(const char* prm_name,
                                                                    prm_technique,
                                                                    prm_pStat,
                                                                    prm_pChecker),
-_pMorpher(new GgafDxMorpher(this)),
+_pMorpher(new GgafDxMorpher<GgafDxMorphMeshActor>(this)),
 _pMorphMeshModel((GgafDxMorphMeshModel*)_pModel),
 _pMorphMeshEffect((GgafDxMorphMeshEffect*)_pEffect)
 {

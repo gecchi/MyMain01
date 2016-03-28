@@ -6,17 +6,21 @@
 
 namespace GgafDxCore {
 
+template<class T>
+class GgafDxMorpher;
+
 /**
  * モーファーの助手A .
  * @version 1.00
  * @since 2013/12/06
  * @author Masatoshi Tsuge
  */
+template<class T>
 class GgafDxMorpherAssistantA : public GgafCore::GgafObject {
 
 public:
     /** [r]師匠 */
-    GgafDxMorpher* _pMaster;
+    GgafDxMorpher<T>* _pMaster;
     /** [r]重み加速器 */
     GgafCore::GgafValueAccelerator<float>* _pa_smthMph;
     /** [r]モーフターゲット数(利用頻度が高いので、モデルからコピーして保持) */
@@ -27,7 +31,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pMaster  師匠
      */
-    explicit GgafDxMorpherAssistantA(GgafDxMorpher* prm_pMaster);
+    explicit GgafDxMorpherAssistantA(GgafDxMorpher<T>* prm_pMaster);
 
 
     /**
@@ -119,6 +123,60 @@ public:
     virtual ~GgafDxMorpherAssistantA();
 };
 
+template<class T>
+GgafDxMorpherAssistantA<T>::GgafDxMorpherAssistantA(GgafDxMorpher<T>* prm_pMaster) : GgafCore::GgafObject(),
+        _pMaster(prm_pMaster) {
+    _target_num = prm_pMaster->_pActor->_pMorphMeshModel->_morph_target_num;
+
+    _pa_smthMph = NEW GgafCore::GgafValueAccelerator<float>[_target_num+1];
+    for (int i = 1; i <= _target_num; i++) {
+        _pa_smthMph[i]._t_velo = _pMaster->_velo[i];
+        _pa_smthMph[i]._t_acce = _pMaster->_acce[i];
+    }
 }
-#endif /*GGAFDXCORE_GGAFDXMORPHERASSISTANT_H_*/
+
+template<class T>
+void GgafDxMorpherAssistantA<T>::behave() {
+    for (int i = 1; i <= _target_num; i++) {
+        if (_pa_smthMph[i].isAccelerating()) {
+            _pa_smthMph[i].behave();
+            _pMaster->_velo[i] = _pa_smthMph[i]._t_velo - _pa_smthMph[i]._t_acce;
+            _pMaster->_acce[i] = _pa_smthMph[i]._t_acce;
+        }
+    }
+}
+
+template<class T>
+void GgafDxMorpherAssistantA<T>::morphByDt(int prm_target_mesh_no,
+                                        float prm_target_distance, int prm_target_frames,
+                                        float prm_p1, float prm_p2, float prm_end_velo,
+                                        bool prm_zero_acc_end_flg) {
+    _pa_smthMph[prm_target_mesh_no]._t_value = 0;
+    _pa_smthMph[prm_target_mesh_no]._t_velo = _pMaster->_velo[prm_target_mesh_no];
+    _pa_smthMph[prm_target_mesh_no]._t_acce = _pMaster->_acce[prm_target_mesh_no];
+    _pa_smthMph[prm_target_mesh_no].accelerateByDt(prm_target_distance, prm_target_frames,
+                                                   prm_p1,prm_p2,prm_end_velo,
+                                                   prm_zero_acc_end_flg);
+}
+
+template<class T>
+void GgafDxMorpherAssistantA<T>::morphByVd(int prm_target_mesh_no,
+                                        float prm_top_velo, float prm_target_distance,
+                                        float prm_p1, float prm_p2, float prm_end_velo,
+                                        bool prm_zero_acc_end_flg) {
+    _pa_smthMph[prm_target_mesh_no]._t_value = 0;
+    _pa_smthMph[prm_target_mesh_no]._t_velo = _pMaster->_velo[prm_target_mesh_no];
+    _pa_smthMph[prm_target_mesh_no]._t_acce = _pMaster->_acce[prm_target_mesh_no];
+    _pa_smthMph[prm_target_mesh_no].accelerateByVd(prm_top_velo, prm_target_distance,
+                                                   prm_p1,prm_p2,prm_end_velo,
+                                                   prm_zero_acc_end_flg);
+}
+
+template<class T>
+GgafDxMorpherAssistantA<T>::~GgafDxMorpherAssistantA() {
+    GGAF_DELETEARR(_pa_smthMph);
+}
+
+}
+#endif /*GGAFDXCORE_GGAFDXMORPHE2RASSISTANT_H_*/
 

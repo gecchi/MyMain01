@@ -1,6 +1,8 @@
 #ifndef GGAFDXCORE_GGAFDXMORPHMESHACTOR_H_
 #define GGAFDXCORE_GGAFDXMORPHMESHACTOR_H_
 #include "GgafDxCommonHeader.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.hpp"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpherAssistantA.hpp"
 #include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
 
 namespace GgafDxCore {
@@ -17,7 +19,7 @@ class GgafDxMorphMeshActor : public GgafDxFigureActor {
 
 private:
     /** モーフィング支援オブジェクト */
-    GgafDxMorpher* const _pMorpher;
+    GgafDxMorpher<GgafDxMorphMeshActor>* const _pMorpher;
 
 public:
     /** [r]モーフターゲット数(モデルのコピーした値) */
@@ -93,7 +95,7 @@ public:
 
     void addMorphWeight(int prm_target_mesh_no, float prm_add_weight);
 
-    inline GgafDxMorpher* getMorpher() {
+    inline GgafDxMorpher<GgafDxMorphMeshActor>* getMorpher() {
         return _pMorpher;
     }
 

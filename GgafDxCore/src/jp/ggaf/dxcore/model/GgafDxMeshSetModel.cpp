@@ -121,7 +121,7 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_d
             //理由はGgafDxMeshSetActorのメモ【GgafDxMeshSetActorのマテリアルカラーについて】を参照
         }
         GgafDxEffect* pEffect_active = GgafDxEffectManager::_pEffect_active;
-        if (material_grp_index == 0 && (pEffect_active != pMeshSetEffect || GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique)) {
+        if (material_grp_index == 0 && (GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique)) {
             if (pEffect_active) {
                 _TRACE4_("EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
                 hr = pEffect_active->_pID3DXEffect->EndPass();

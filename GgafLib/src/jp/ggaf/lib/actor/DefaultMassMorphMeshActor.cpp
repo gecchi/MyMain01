@@ -103,19 +103,20 @@ void DefaultMassMorphMeshActor::processDraw() {
             //_hash_techniqueが同じだと、モーフターゲット数も同じである
             DefaultMassMorphMeshActor* p = (DefaultMassMorphMeshActor*)pDrawActor;
             memcpy(paInstancedata, &(pDrawActor->_matWorld), size_of_D3DXMATRIX);
-            //インスタンスデータのワールド変換行列に重みを埋め込んでシェーダー渡す
+            //インスタンスデータのワールド変換行列の要素(_14 _24 _34 _44)に、
+            //重みの値(_weight[1] ～_weight [4]) を埋め込んでシェーダー渡す。
             //入力レジスタ数が最大16である都合で、MAXモーフターゲットは4が限界
             if (morph_target_num >= 1) {
                 memcpy(&(paInstancedata->_14), &(p->_weight[1]), size_of_float);
-            }
-            if (morph_target_num >= 2) {
-                memcpy(&(paInstancedata->_24), &(p->_weight[2]), size_of_float);
-            }
-            if (morph_target_num >= 3) {
-                memcpy(&(paInstancedata->_34), &(p->_weight[3]), size_of_float);
-            }
-            if (morph_target_num >= 4) {
-                memcpy(&(paInstancedata->_44), &(p->_weight[4]), size_of_float);
+                if (morph_target_num >= 2) {
+                    memcpy(&(paInstancedata->_24), &(p->_weight[2]), size_of_float);
+                    if (morph_target_num >= 3) {
+                        memcpy(&(paInstancedata->_34), &(p->_weight[3]), size_of_float);
+                        if (morph_target_num >= 4) {
+                            memcpy(&(paInstancedata->_44), &(p->_weight[4]), size_of_float);
+                        }
+                    }
+                }
             }
             memcpy(&(paInstancedata->r), &(pDrawActor->_paMaterial[0].Diffuse), size_of_D3DCOLORVALUE);
 

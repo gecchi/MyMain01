@@ -407,8 +407,6 @@ class GgafDxChecker;
 class GgafDxScaler;
 class GgafDxAlphaFader;
 class GgafDxColorist;
-class GgafDxMorpher;
-class GgafDxMorpherAssistantA;
 class GgafDxSeTransmitter;
 class GgafDxSeTransmitterForActor;
 class GgafDxBgmPerformer;
