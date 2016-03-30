@@ -12,19 +12,9 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class CameraViewPoint : public GgafLib::DefaultCameraViewPoint {
-public:
-    /** 平行移動支援 */
-    GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
 public:
     CameraViewPoint(const char* prm_name);
-
-    virtual void initialize() override;
-
-    virtual void processBehavior() override;
-
-    void slideMvTo(coord tx, coord ty, coord tz, frame t);
-    void slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t);
 
     virtual ~CameraViewPoint(); //デストラクタ
 };

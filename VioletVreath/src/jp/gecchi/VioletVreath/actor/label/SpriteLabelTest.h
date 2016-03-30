@@ -1,7 +1,7 @@
 #ifndef SPRITELABELTEST_H_
 #define SPRITELABELTEST_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/StringSpriteActor.h"
+#include "jp/ggaf/lib/actor/FixedFontSpriteActor.h"
 
 namespace VioletVreath {
 
@@ -11,7 +11,7 @@ namespace VioletVreath {
  * @since 2012/05/16
  * @author Masatoshi Tsuge
  */
-class SpriteLabelTest : public GgafLib::StringSpriteActor {
+class SpriteLabelTest : public GgafLib::FixedFontSpriteActor {
 
 public:
     SpriteLabelTest(const char* prm_name);

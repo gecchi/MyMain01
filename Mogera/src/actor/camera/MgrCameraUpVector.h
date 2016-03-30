@@ -12,25 +12,9 @@ namespace Mogera {
  * @author Masatoshi Tsuge
  */
 class MgrCameraUpVector : public GgafLib::DefaultCameraUpVector {
-public:
-    /** 平行移動支援 */
-    GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
 public:
-
-    dir26 up_dir_;
-
     MgrCameraUpVector(const char* prm_name);
-
-    virtual void processBehavior() override;
-
-
-    /**
-     * カメラのUP面番号、引数の面番号にセットし、UPベクトルをスライド移動を開始させます。
-     * @param prm_face_no カメラのUP面番号
-     */
-    void moveTo(dir26 prm_face_no, frame prm_spent);
-
 
     virtual ~MgrCameraUpVector(); //デストラクタ
 };

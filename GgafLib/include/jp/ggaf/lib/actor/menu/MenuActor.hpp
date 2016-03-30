@@ -16,8 +16,6 @@
 #include "jp/ggaf/lib/actor/StringSpriteActor.h"
 #include "jp/ggaf/lib/actor/FixedFontBoardActor.h"
 
-using GgafDxCore::GgafDxUtil;
-
 
 namespace GgafLib {
 

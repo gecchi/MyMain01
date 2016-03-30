@@ -13,17 +13,9 @@ namespace VVViewer {
  * @author Masatoshi Tsuge
  */
 class VvvCameraViewPoint : public GgafLib::DefaultCameraViewPoint {
-public:
-    /** 平行移動支援 */
-    GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
 public:
     VvvCameraViewPoint(const char* prm_name);
-
-    virtual void processBehavior() override;
-
-    void slideMvTo(coord tx, coord ty, coord tz, frame t);
-    void slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t);
 
     virtual ~VvvCameraViewPoint(); //デストラクタ
 };

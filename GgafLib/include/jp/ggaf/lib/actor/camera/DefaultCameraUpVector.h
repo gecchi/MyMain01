@@ -15,13 +15,18 @@ namespace GgafLib {
 class DefaultCameraUpVector : public GgafDxCore::GgafDxCameraUpVector {
 
 public:
+    /** 平行移動支援 */
+    GgafDxCore::GgafDxAxesMover* pAxsMver_;
+
+    dir26 up_dir_;
+
+public:
     DefaultCameraUpVector(const char* prm_name);
 
     virtual void initialize() override {
     }
 
-    virtual void processBehavior() override {
-    }
+    virtual void processBehavior() override;
 
     virtual void processJudgement() override {
     }
@@ -43,6 +48,13 @@ public:
 
     virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {
     }
+
+    /**
+     * カメラのUP面番号、引数の面番号にセットし、UPベクトルをスライド移動を開始させます。
+     * @param prm_face_no カメラのUP面番号
+     */
+    void moveTo(dir26 prm_dir_no, frame prm_spent);
+    void moveTo(coord tx, coord ty, coord tz, frame prm_spent);
 
     virtual ~DefaultCameraUpVector();
 };

@@ -20,7 +20,6 @@
 #include "actor/VvvGrid.h"
 #include "actor/VvvCamera.h"
 #include "actor/Font01.h"
-
 #include "jp/ggaf/dxcore/util/GgafDx26DirectionUtil.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -29,7 +28,7 @@ using namespace VVViewer;
 using namespace std;
 
 VvvWorld::VvvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
-    pCamWorker_ = NEW VvvCamWorker("VvvCamWorker");
+    pCamWorker_ = NEW VvvCamWorker("VvvCamWorker", P_GOD->getSpacetime()->getCamera());
     bringDirector()->addSubGroup(pCamWorker_);
     pCursor_ = NEW VvvCursor("Cursor");
     bringDirector()->addSubGroup(pCursor_);
@@ -42,12 +41,12 @@ VvvWorld::VvvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     bringDirector()->addSubGroup(pFont01_help_);
     view_help_ = true;
     view_info_ = true;
-
 }
 
 void VvvWorld::initialize() {
-     pFont01_help_->setAlign(ALIGN_LEFT, VALIGN_TOP);
-     pFont01_help_->update(PX_C(0), PX_C(0),
+     pFont01_help_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
+     pFont01_help_->setMaterialColor(1.0,0.5,0.2);
+     pFont01_help_->update(PX_C(-8), PX_C(8), PX_C(0),
              "[F1]:Move to the initial position the camera.\n"
              "[F2]:Target to next model, and directed camera.\n"
              "[F3]:Target to next model.\n"
@@ -89,7 +88,7 @@ void VvvWorld::processBehavior() {
         VvvCamera* const pCam = P_GOD->getSpacetime()->getCamera();;
         pCamWorker_->slideMvCamTo(0,0,DX_C(pCam->getZOrigin()),60);
         pCamWorker_->slideMvVpTo(0,0,0,60);
-        pCam->auto_up_wait_frames = 65;
+       // pCam->auto_up_wait_frames = 65;
 
     } else if (GgafDxInput::isPushedDownKey(DIK_F2)) {
         //ターゲット変更＋カメラ向く

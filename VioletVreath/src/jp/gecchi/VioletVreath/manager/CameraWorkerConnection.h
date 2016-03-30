@@ -2,8 +2,7 @@
 #define CAMERAWORKERCONNECTION_H_
 #include "VioletVreath.h"
 #include "jp/ggaf/core/util/GgafResourceConnection.hpp"
-
-#include "jp/gecchi/VioletVreath/actor/camera/worker/CameraWorker.h"
+#include "jp/ggaf/lib/actor/camera/worker/CameraWorker.h"
 
 namespace VioletVreath {
 
@@ -13,7 +12,7 @@ namespace VioletVreath {
  * @since 2009/01/30
  * @author Masatoshi Tsuge
  */
-class CameraWorkerConnection : public GgafCore::GgafResourceConnection<CameraWorker> {
+class CameraWorkerConnection : public GgafCore::GgafResourceConnection<GgafLib::CameraWorker> {
 
 public:
     /**
@@ -21,9 +20,9 @@ public:
      * @param prm_idstr 識別名
      * @param prm_pCamWorker デポジトリ
      */
-    CameraWorkerConnection(const char* prm_idstr, CameraWorker* prm_pCamWorker);
+    CameraWorkerConnection(const char* prm_idstr, GgafLib::CameraWorker* prm_pCamWorker);
 
-    void processReleaseResource(CameraWorker* prm_pResource);
+    void processReleaseResource(GgafLib::CameraWorker* prm_pResource);
 
     virtual ~CameraWorkerConnection() {
     }

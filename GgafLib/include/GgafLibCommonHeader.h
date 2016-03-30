@@ -25,6 +25,8 @@ namespace GgafLib {
 
 class DefaultGod;
 class DefaultSpacetime;
+class CameraWorker;
+class AroundViewCamWorker;
 class DefaultCamera;
 class DefaultCameraViewPoint;
 class DefaultCameraUpVector;

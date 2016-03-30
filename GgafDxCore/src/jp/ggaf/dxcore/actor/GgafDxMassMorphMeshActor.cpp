@@ -17,22 +17,21 @@ GgafDxMassMorphMeshActor::GgafDxMassMorphMeshActor(const char* prm_name,
                                                    GgafStatus* prm_pStat,
                                                    GgafDxChecker* prm_pChecker) :
 
-                                                   GgafDxFigureActor(prm_name,
-                                                                       prm_model_id,
-                                                                       "m",
-                                                                       prm_effect_id,
-                                                                       "m",
-                                                                       prm_technique,
-                                                                       prm_pStat,
-                                                                       prm_pChecker),
+                                                       GgafDxFigureActor(prm_name,
+                                                                         prm_model_id,
+                                                                         "m",
+                                                                         prm_effect_id,
+                                                                         "m",
+                                                                         prm_technique,
+                                                                         prm_pStat,
+                                                                         prm_pChecker),
 _pMorpher(new GgafDxMorpher<GgafDxMassMorphMeshActor>(this)),
 _pMassMorphMeshModel((GgafDxMassMorphMeshModel*)_pModel),
 _pMassMorphMeshEffect((GgafDxMassMorphMeshEffect*)_pEffect)
 {
     _obj_class |= Obj_GgafDxMassMorphMeshActor;
     _class_name = "GgafDxMassMorphMeshActor";
-    _pFunc_calc_rot_mv_world_matrix = UTIL::setWorldMatrix_RxRzRyMv;
-    (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
+    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
     //重み初期化
     for (int i = 0; i <= MAX_MASS_MORPH_TARGET_NUM; i++) {
         _weight[i] = 0.0f;
@@ -41,32 +40,30 @@ _pMassMorphMeshEffect((GgafDxMassMorphMeshEffect*)_pEffect)
     GgafDxMassMorphMeshActor::changeEffectTechnique(prm_technique); //テクニック名末尾にターゲット数を付与
 }
 
-
 GgafDxMassMorphMeshActor::GgafDxMassMorphMeshActor(const char* prm_name,
-                                           const char* prm_model_id,
-                                           const char* prm_model_type,
-                                           const char* prm_effect_id,
-                                           const char* prm_effect_type,
-                                           const char* prm_technique,
-                                           GgafStatus* prm_pStat,
-                                           GgafDxChecker* prm_pChecker) :
+                                                   const char* prm_model_id,
+                                                   const char* prm_model_type,
+                                                   const char* prm_effect_id,
+                                                   const char* prm_effect_type,
+                                                   const char* prm_technique,
+                                                   GgafStatus* prm_pStat,
+                                                   GgafDxChecker* prm_pChecker) :
 
-                                               GgafDxFigureActor(prm_name,
-                                                                   prm_model_id,
-                                                                   prm_model_type,
-                                                                   prm_effect_id,
-                                                                   prm_effect_type,
-                                                                   prm_technique,
-                                                                   prm_pStat,
-                                                                   prm_pChecker),
+                                                       GgafDxFigureActor(prm_name,
+                                                                         prm_model_id,
+                                                                         prm_model_type,
+                                                                         prm_effect_id,
+                                                                         prm_effect_type,
+                                                                         prm_technique,
+                                                                         prm_pStat,
+                                                                         prm_pChecker),
 _pMorpher(new GgafDxMorpher<GgafDxMassMorphMeshActor>(this)),
 _pMassMorphMeshModel((GgafDxMassMorphMeshModel*)_pModel),
 _pMassMorphMeshEffect((GgafDxMassMorphMeshEffect*)_pEffect)
 {
     _obj_class |= Obj_GgafDxMassMorphMeshActor;
     _class_name = "GgafDxMassMorphMeshActor";
-    _pFunc_calc_rot_mv_world_matrix = UTIL::setWorldMatrix_RxRzRyMv;
-    (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
+    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
     //重み初期化
     for (int i = 0; i <= MAX_MASS_MORPH_TARGET_NUM; i++) {
         _weight[i] = 0.0f;
@@ -113,6 +110,11 @@ int GgafDxMassMorphMeshActor::getMorphTergetNum() {
 void GgafDxMassMorphMeshActor::changeEffectTechnique(const char* prm_technique) {
     std::string technique = std::string(_pEffect->getName()) + "_" + std::string(prm_technique) + XTOS(_morph_target_num);
     std::string technique2 = std::string(prm_technique) + XTOS(_morph_target_num);   //テクニック名末尾にターゲット数を付与
+#ifdef MY_DEBUG
+    if (technique2.length() > 255) {
+        throwGgafCriticalException("テクニック名が長すぎます。prm_technique="<<prm_technique<<" technique2="<<technique);
+    }
+#endif
     _hash_technique = UTIL::easy_hash(technique.c_str());
     strcpy(_technique, technique2.c_str());
 }

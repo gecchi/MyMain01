@@ -29,8 +29,7 @@ _pMassMeshModel((GgafDxMassMeshModel*)_pModel),
 _pMassMeshEffect((GgafDxMassMeshEffect*)_pEffect) {
     _obj_class |= Obj_GgafDxMassMeshActor;
     _class_name = "GgafDxMassMeshActor";
-    _pFunc_calc_rot_mv_world_matrix = UTIL::setWorldMatrix_RxRzRyMv;
-    (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
+    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
 }
 
 GgafDxMassMeshActor::GgafDxMassMeshActor(const char* prm_name,
@@ -55,10 +54,8 @@ _pMassMeshEffect((GgafDxMassMeshEffect*)_pEffect) {
 
     _obj_class |= Obj_GgafDxMassMeshActor;
     _class_name = "GgafDxMassMeshActor";
-    _pFunc_calc_rot_mv_world_matrix = UTIL::setWorldMatrix_RxRzRyMv;
-    (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
+    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
 }
-
 
 GgafDxMassMeshActor::~GgafDxMassMeshActor() {
 }

@@ -25,34 +25,36 @@ GgafDxFigureActor::GgafDxFigureActor(const char* prm_name,
                                      const char* prm_technique,
                                      GgafStatus* prm_pStat,
                                      GgafDxChecker* prm_pChecker) :
-  GgafDxGeometricActor(prm_name, prm_pStat, prm_pChecker),
-_pModelCon((GgafDxModelConnection*)GgafDxGod::_pModelManager->connect(
-                  std::string(prm_model).c_str(),
-                  this)),
-_pModel((GgafDxModel*)_pModelCon->peek()),
-_pEffectCon((GgafDxEffectConnection*)GgafDxGod::_pEffectManager->connect(
-                  std::string(prm_effect).c_str(),
-                  this)),
-_pEffect((GgafDxEffect*)_pEffectCon->peek()) {
 
+                                         GgafDxGeometricActor(prm_name,
+                                                              prm_pStat,
+                                                              prm_pChecker),
+_pModelCon(
+    (GgafDxModelConnection*)(
+        GgafDxGod::_pModelManager->connect(
+            std::string(prm_model).c_str(), this
+        )
+    )
+),
+_pModel((GgafDxModel*)_pModelCon->peek()),
+_pEffectCon(
+    (GgafDxEffectConnection*)(
+        GgafDxGod::_pEffectManager->connect(
+            std::string(prm_effect).c_str(), this
+        )
+    )
+),
+_pEffect((GgafDxEffect*)_pEffectCon->peek())
+{
     _obj_class |= Obj_GgafDxFigureActor;
     _class_name = "GgafDxFigureActor";
-
-    _technique = NEW char[51];
+    _technique = NEW char[256];
     GgafDxFigureActor::changeEffectTechnique(prm_technique);
-
-    _temp_technique = NEW char[51];
+    _temp_technique = NEW char[256];
     _hash_temp_technique = 0;
-
     _frame_of_behaving_temp_technique_end = 0;
     _is_temp_technique = false;
     _pNextRenderActor = nullptr;
-//    //モデル取得connectModelManager
-//    _pModelCon = (GgafDxModelConnection*)GgafDxGod::_pModelManager->connect(prm_model, this);
-//    _pModel = (GgafDxModel*)_pModelCon->peek();
-//    //エフェクト取得
-//    _pEffectCon = (GgafDxEffectConnection*)GgafDxGod::_pEffectManager->connect(prm_effect, this);
-//    _pEffect = (GgafDxEffect*)_pEffectCon->peek();
     //マテリアルをコピー
     _paMaterial = NEW D3DMATERIAL9[_pModel->_num_materials];
     for (DWORD i = 0; i < _pModel->_num_materials; i++){
@@ -74,28 +76,35 @@ GgafDxFigureActor::GgafDxFigureActor(const char* prm_name,
                                      const char* prm_technique,
                                      GgafStatus* prm_pStat,
                                      GgafDxChecker* prm_pChecker) :
-  GgafDxGeometricActor(prm_name, prm_pStat, prm_pChecker),
-_pModelCon((GgafDxModelConnection*)GgafDxGod::_pModelManager->connect(
-                    (std::string(prm_model_type) + std::string("/") + std::string(prm_model_id)).c_str(),
-                    this)),
-_pModel((GgafDxModel*)_pModelCon->peek()),
-_pEffectCon((GgafDxEffectConnection*)GgafDxGod::_pEffectManager->connect(
-                    (std::string(prm_effect_type) + std::string("/") + std::string(prm_effect_id)).c_str(),
-                    this)),
-_pEffect((GgafDxEffect*)_pEffectCon->peek())
-          {
 
+                                         GgafDxGeometricActor(prm_name,
+                                                              prm_pStat,
+                                                              prm_pChecker),
+_pModelCon(
+    (GgafDxModelConnection*)(
+        GgafDxGod::_pModelManager->connect(
+            (std::string(prm_model_type) + "/" + std::string(prm_model_id)).c_str(), this
+        )
+    )
+),
+_pModel((GgafDxModel*)_pModelCon->peek()),
+_pEffectCon(
+    (GgafDxEffectConnection*)(
+        GgafDxGod::_pEffectManager->connect(
+            (std::string(prm_effect_type) + "/" + std::string(prm_effect_id)).c_str(), this
+        )
+    )
+),
+_pEffect((GgafDxEffect*)_pEffectCon->peek())
+{
     _class_name = "GgafDxFigureActor";
 
-    _technique = NEW char[51];
+    _technique = NEW char[256];
     GgafDxFigureActor::changeEffectTechnique(prm_technique);
-
-    _temp_technique = NEW char[51];
+    _temp_technique = NEW char[256];
     _hash_temp_technique = 0;
-
     _frame_of_behaving_temp_technique_end = 0;
     _is_temp_technique = false;
-
     _pNextRenderActor = nullptr;
 
     //マテリアルをコピー
@@ -104,7 +113,6 @@ _pEffect((GgafDxEffect*)_pEffectCon->peek())
         _paMaterial[i] = _pModel->_paMaterial_default[i];
     }
     _alpha = 1.0f;
-
     _now_drawdepth = 0;
     _specal_render_depth_index = -1;
     _zenable = true;
@@ -246,6 +254,11 @@ void GgafDxFigureActor::resetSpecialRenderDepthIndex() {
 
 void GgafDxFigureActor::changeEffectTechnique(const char* prm_technique) {
     std::string technique = std::string(_pEffect->getName()) + "_" + std::string(prm_technique);
+#ifdef MY_DEBUG
+    if (technique.length() > 255) {
+        throwGgafCriticalException("テクニック名が長すぎます。prm_technique="<<prm_technique<<" technique="<<technique);
+    }
+#endif
     _hash_technique = UTIL::easy_hash(technique.c_str());
     strcpy(_technique, prm_technique);
 }
@@ -320,6 +333,7 @@ int GgafDxFigureActor::isOutOfView() {
     }
     return _offscreen_kind;
 }
+
 GgafDxFigureActor::~GgafDxFigureActor() {
     GGAF_DELETEARR(_technique);
     GGAF_DELETEARR(_temp_technique);

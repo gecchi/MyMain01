@@ -31,8 +31,7 @@ _pMorphMeshEffect((GgafDxMorphMeshEffect*)_pEffect)
 {
     _obj_class |= Obj_GgafDxMorphMeshActor;
     _class_name = "GgafDxMorphMeshActor";
-    _pFunc_calc_rot_mv_world_matrix = UTIL::setWorldMatrix_RxRzRyMv;
-    (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
+    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
     //重み初期化
     for (int i = 1; i <= MAX_MORPH_TARGET; i++) {
         _weight[i] = 0.0f;
@@ -64,8 +63,7 @@ _pMorphMeshEffect((GgafDxMorphMeshEffect*)_pEffect)
 {
     _obj_class |= Obj_GgafDxMorphMeshActor;
     _class_name = "GgafDxMorphMeshActor";
-    _pFunc_calc_rot_mv_world_matrix = UTIL::setWorldMatrix_RxRzRyMv;
-    (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
+    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
     //重み初期化
     for (int i = 1; i <= MAX_MORPH_TARGET; i++) {
         _weight[i] = 0.0f;

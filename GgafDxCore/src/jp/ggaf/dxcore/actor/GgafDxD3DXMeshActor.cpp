@@ -28,8 +28,7 @@ GgafDxD3DXMeshActor::GgafDxD3DXMeshActor(const char* prm_name,
     _class_name = "GgafDxD3DXMeshActor";
     _pD3DXMeshModel = (GgafDxD3DXMeshModel*)_pModel;
     _pMeshEffect = (GgafDxMeshEffect*)_pEffect;
-    _pFunc_calc_rot_mv_world_matrix = UTIL::setWorldMatrix_RxRzRyMv;
-    (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
+    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
 }
 
 void GgafDxD3DXMeshActor::processDraw() {

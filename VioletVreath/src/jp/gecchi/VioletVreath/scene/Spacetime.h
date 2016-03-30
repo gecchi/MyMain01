@@ -44,7 +44,7 @@ class Spacetime : public GgafLib::DefaultSpacetime {
 
 public:
     /** [r]現在のカメラマン */
-    CameraWorker* pActiveCamWorker_;
+    GgafLib::CameraWorker* pActiveCamWorker_;
     /** [r]カメラマンのマネージャー */
     CameraWorkerManager* pCamWorkerManager_;
     /** [r]カメラマンのスタック */
@@ -66,7 +66,7 @@ public:
      * 初期状態は、デフォルトカメラマン(DefaultCamWorker)が一人います。
      * @return 現在のカメラマン
      */
-    CameraWorker* getActiveCamWorker() {
+    GgafLib::CameraWorker* getActiveCamWorker() {
         return pActiveCamWorker_;
     }
 
@@ -77,14 +77,14 @@ public:
      * @param prm_pID 新しいカメラマン識別ID（識別IDは CameraWorkerManager に事前登録要）
      * @return 新しいカメラマン
      */
-    CameraWorker* changeCameraWork(const char* prm_pID);
+    GgafLib::CameraWorker* changeCameraWork(const char* prm_pID);
 
     /**
      * 現在のカメラマンを排除し、一つ前のカメラマンに戻す。 .
      * 事前に changeCameraWork() を１回以上実行しておく必要があります。
      * @return 元々居た、戻った方のカメラマン
      */
-    CameraWorker* undoCameraWork();
+    GgafLib::CameraWorker* undoCameraWork();
 
     /**
      * カメラマンをリセットする。

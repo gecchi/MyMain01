@@ -46,11 +46,11 @@ public:
      * @return
      */
     GgafDxMassMorphMeshActor(const char* prm_name,
-                         const char* prm_model_id,
-                         const char* prm_effect_id,
-                         const char* prm_technique,
-                         GgafCore::GgafStatus* prm_pStat,
-                         GgafDxChecker* prm_pChecker );
+                             const char* prm_model_id,
+                             const char* prm_effect_id,
+                             const char* prm_technique,
+                             GgafCore::GgafStatus* prm_pStat,
+                             GgafDxChecker* prm_pChecker );
 
     /**
      * 下位継承用コンストラクタ
@@ -65,13 +65,13 @@ public:
      * @return
      */
     GgafDxMassMorphMeshActor(const char* prm_name,
-                         const char* prm_model_id,
-                         const char* prm_model_type,
-                         const char* prm_effect_id,
-                         const char* prm_effect_type,
-                         const char* prm_technique,
-                         GgafCore::GgafStatus* prm_pStat,
-                         GgafDxChecker* prm_pChecker);
+                             const char* prm_model_id,
+                             const char* prm_model_type,
+                             const char* prm_effect_id,
+                             const char* prm_effect_type,
+                             const char* prm_technique,
+                             GgafCore::GgafStatus* prm_pStat,
+                             GgafDxChecker* prm_pChecker);
 
     /**
      * モーフターゲットメッシュ数取得
@@ -99,6 +99,12 @@ public:
     inline GgafDxMorpher<GgafDxMassMorphMeshActor>* getMorpher() {
         return _pMorpher;
     }
+
+    /**
+     * エフェクトのテクニックの変更 .
+     * 引数のテクニック名末尾にターゲット数を付与して設定します。
+     * @param prm_technique テクニック名
+     */
     virtual void changeEffectTechnique(const char* prm_technique) override;
 
     virtual ~GgafDxMassMorphMeshActor (); //デストラクタ

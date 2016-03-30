@@ -281,7 +281,6 @@ class Camera;
 class CameraUpVector;
 class CameraViewPoint;
 class ViewPointGuide;
-class CameraWorker;
 class DefaultCamWorker;
 class TestCamWorker;
 

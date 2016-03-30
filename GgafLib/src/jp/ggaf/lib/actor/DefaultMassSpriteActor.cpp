@@ -3,7 +3,6 @@
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #ifdef MY_DEBUG
 #include "jp/ggaf/lib/actor/ColliAABoxActor.h"
@@ -116,6 +115,8 @@ void DefaultMassSpriteActor::processDraw() {
     GgafDxFigureActor* pDrawActor = this;
     static const size_t size_of_D3DXMATRIX = sizeof(D3DXMATRIX);
     static const size_t size_of_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
+    static const dxcoord model_half_width = PX_DX(_pMassSpriteModel->_model_half_width_px);
+    static const dxcoord model_half_height = PX_DX(_pMassSpriteModel->_model_half_height_px);
     float u,v;
     DefaultMassSpriteActor* pDefaultMassSpriteActor = nullptr;
 
@@ -129,16 +130,16 @@ void DefaultMassSpriteActor::processDraw() {
             if (align == ALIGN_CENTER) {
                 paInstancedata->local_x = 0;
             } else if (align == ALIGN_LEFT) {
-                paInstancedata->local_x = PX_DX(_pMassSpriteModel->_model_half_width_px);
+                paInstancedata->local_x = model_half_width;
             } else { //ALIGN_RIGHT
-                paInstancedata->local_x = -PX_DX(_pMassSpriteModel->_model_half_width_px);
+                paInstancedata->local_x = -model_half_width;
             }
             if (valign == VALIGN_MIDDLE) {
                 paInstancedata->local_y = 0;
             } else if (valign == VALIGN_TOP) {
-                paInstancedata->local_y = -PX_DX(_pMassSpriteModel->_model_half_height_px);
+                paInstancedata->local_y = -model_half_height;
             } else {  //VALIGN_BOTTOM
-                paInstancedata->local_y = PX_DX(_pMassSpriteModel->_model_half_height_px);
+                paInstancedata->local_y = model_half_height;
             }
             ((DefaultMassSpriteActor*)pDrawActor)->getUvFlipper()->getUV(u,v);
             paInstancedata->offset_u = u;

@@ -3,7 +3,7 @@
 #include "VioletVreath.h"
 #include "jp/ggaf/core/util/GgafResourceManager.hpp"
 
-#include "jp/gecchi/VioletVreath/actor/camera/worker/CameraWorker.h"
+#include "jp/ggaf/lib/actor/camera/worker/CameraWorker.h"
 
 namespace VioletVreath {
 
@@ -14,14 +14,14 @@ namespace VioletVreath {
  * @since 2008/09/08
  * @author Masatoshi Tsuge
  */
-class CameraWorkerManager : public GgafCore::GgafResourceManager<CameraWorker> {
+class CameraWorkerManager : public GgafCore::GgafResourceManager<GgafLib::CameraWorker> {
 
 public:
     CameraWorkerManager(const char* prm_manager_name);
 
-    CameraWorker* processCreateResource(const char* prm_idstr, void* prm_pConnector) override;
+    GgafLib::CameraWorker* processCreateResource(const char* prm_idstr, void* prm_pConnector) override;
 
-    GgafCore::GgafResourceConnection<CameraWorker>* processCreateConnection(const char* prm_idstr, CameraWorker* prm_pResource) override;
+    GgafCore::GgafResourceConnection<GgafLib::CameraWorker>* processCreateConnection(const char* prm_idstr, GgafLib::CameraWorker* prm_pResource) override;
 
     virtual ~CameraWorkerManager() {
     }

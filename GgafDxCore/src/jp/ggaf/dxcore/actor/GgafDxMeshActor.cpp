@@ -30,8 +30,7 @@ _pMeshEffect((GgafDxMeshEffect*)_pEffect) {
     _obj_class |= Obj_GgafDxMeshActor;
     _class_name = "GgafDxMeshActor";
     _far_rate = -1.0f;
-    _pFunc_calc_rot_mv_world_matrix = UTIL::setWorldMatrix_RxRzRyMv;
-    (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
+    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
 }
 
 GgafDxMeshActor::GgafDxMeshActor(const char* prm_name,
@@ -58,8 +57,7 @@ _pMeshEffect((GgafDxMeshEffect*)_pEffect) {
     _obj_class |= Obj_GgafDxMeshActor;
     _class_name = "GgafDxMeshActor";
     _far_rate = -1.0f;
-    _pFunc_calc_rot_mv_world_matrix = UTIL::setWorldMatrix_RxRzRyMv;
-    (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
+    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
 }
 
 

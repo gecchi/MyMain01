@@ -1,42 +1,41 @@
-#include "MgrMouseCamWorker.h"
+#include "jp/ggaf/lib/actor/camera/worker/AroundViewCamWorker.h"
 
 #include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "jp/ggaf/dxcore/util/GgafDxQuaternion.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
+#include "jp/ggaf/lib/DefaultGod.h"
 #include "jp/ggaf/lib/GgafLibProperties.h"
-#include "actor/camera/MgrCamera.h"
-#include "actor/camera/MgrCameraViewPoint.h"
-#include "MgrGod.h"
+#include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
+#include "jp/ggaf/lib/actor/camera/DefaultCameraViewPoint.h"
+#include "jp/ggaf/lib/actor/camera/DefaultCameraUpVector.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
-using namespace Mogera;
 
-MgrMouseCamWorker::MgrMouseCamWorker(const char* prm_name) : MgrCameraWorker(prm_name) {
-    _class_name = "MgrMouseCamWorker";
+AroundViewCamWorker::AroundViewCamWorker(const char* prm_name, DefaultCamera* prm_pCamera) : CameraWorker(prm_name, prm_pCamera) {
+    _class_name = "AroundViewCamWorker";
     cd_ = 0;
     mdz_flg_ = false;
     mdz_vx_ = mdz_vy_ = mdz_vz_ = mdz_t_ = 0.0;
 }
 
-void MgrMouseCamWorker::initialize() {
-    MgrCameraWorker::initialize();
+void AroundViewCamWorker::initialize() {
+    CameraWorker::initialize();
 }
 
-void MgrMouseCamWorker::onActive() {
-    _TRACE_(FUNC_NAME<<"");
-    MgrCameraWorker::onActive();
-    //MgrCameraWorker::onActive(); を上書きして、
+void AroundViewCamWorker::onActive() {
+    CameraWorker::onActive();
+    //CameraWorker::onActive(); を上書きして、
     //その場座標をターゲット座標に上書き
     slideMvCamTo(pCam_->_x, pCam_->_y, pCam_->_z, 60);
     slideMvVpTo(pVp_->_x, pVp_->_y, pVp_->_z, 60);
 }
 
-void MgrMouseCamWorker::processBehavior() {
+void AroundViewCamWorker::processBehavior() {
     //TODO:精度を上げるアイディア
     //マウスポイントの履歴を取り、mdx,mdy,mdzは、３フレームほど過去との差にすると回転軸が安定するだろう
 
@@ -209,8 +208,8 @@ void MgrMouseCamWorker::processBehavior() {
         mdz_flg_ = false;
     }
 
-    MgrCameraWorker::processBehavior();
+    targetAutoCamup();
 }
 
-MgrMouseCamWorker::~MgrMouseCamWorker() {
+AroundViewCamWorker::~AroundViewCamWorker() {
 }

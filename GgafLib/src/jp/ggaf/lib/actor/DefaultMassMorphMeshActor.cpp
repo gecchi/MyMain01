@@ -95,7 +95,6 @@ void DefaultMassMorphMeshActor::processDraw() {
     int morph_target_num = pMassMorphMeshModel->_morph_target_num;
     static const size_t size_of_D3DXMATRIX = sizeof(D3DXMATRIX);
     static const size_t size_of_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
-    static const size_t size_of_float = sizeof(float);
     VERTEX_instancedata* paInstancedata = DefaultMassMorphMeshActor::_aInstancedata;
     GgafDxFigureActor* pDrawActor = this;
     while (pDrawActor) {
@@ -107,13 +106,13 @@ void DefaultMassMorphMeshActor::processDraw() {
             //重みの値(_weight[1] ～_weight [4]) を埋め込んでシェーダー渡す。
             //入力レジスタ数が最大16である都合で、MAXモーフターゲットは4が限界
             if (morph_target_num >= 1) {
-                memcpy(&(paInstancedata->_14), &(p->_weight[1]), size_of_float);
+                paInstancedata->_14 = p->_weight[1];
                 if (morph_target_num >= 2) {
-                    memcpy(&(paInstancedata->_24), &(p->_weight[2]), size_of_float);
+                    paInstancedata->_24 = p->_weight[2];
                     if (morph_target_num >= 3) {
-                        memcpy(&(paInstancedata->_34), &(p->_weight[3]), size_of_float);
+                        paInstancedata->_34 = p->_weight[3];
                         if (morph_target_num >= 4) {
-                            memcpy(&(paInstancedata->_44), &(p->_weight[4]), size_of_float);
+                            paInstancedata->_44 = p->_weight[4];
                         }
                     }
                 }

@@ -27,8 +27,7 @@ GgafDxD3DXAniMeshActor::GgafDxD3DXAniMeshActor(const char* prm_name,
     _class_name = "GgafDxD3DXAniMeshActor";
     _pD3DXAniMeshModel = (GgafDxD3DXAniMeshModel*)_pModel;
     _pD3DXAniMeshEffect = (GgafDxD3DXAniMeshEffect*)_pEffect;
-    _pFunc_calc_rot_mv_world_matrix = UTIL::setWorldMatrix_RxRzRyMv;
-    (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
+    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
     _pPuppeteer = NEW GgafDxPuppeteer(this);
 }
 

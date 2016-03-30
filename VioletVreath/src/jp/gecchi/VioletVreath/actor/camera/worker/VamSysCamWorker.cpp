@@ -22,7 +22,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-VamSysCamWorker::VamSysCamWorker(const char* prm_name, Camera* prm_pCamera) : CameraWorker(prm_name, prm_pCamera) {
+VamSysCamWorker::VamSysCamWorker(const char* prm_name, Camera* prm_pCamera) : CameraWorker(prm_name, (DefaultCamera*)prm_pCamera) {
     _class_name = "VamSysCamWorker";
     pMyShip_ = nullptr; //MyShipSceneÇ…ê›íËÇµÇƒÇ‡ÇÁÇ§
 

@@ -169,7 +169,7 @@ God::~God() {
     if (getSpacetime()) {
         World* pWorld = getSpacetime()->getWorld();
         if (pWorld) {
-            pWorld->throwEventLowerTree(EVENT_GOD_WILL_DIE); //全シーンに通知
+            pWorld->throwEventLowerTree(EVENT_GOD_WILL_DEMISE); //全シーンに通知
         }
     }
     clean();

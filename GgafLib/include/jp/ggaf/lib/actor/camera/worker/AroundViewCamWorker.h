@@ -1,9 +1,9 @@
-#ifndef PAUSECAMWORKER_H_
-#define PAUSECAMWORKER_H_
-#include "Mogera.h"
-#include "MgrCameraWorker.h"
+#ifndef GGAFLIB_AROUNDVIEWCAMWORKER_H_
+#define GGAFLIB_AROUNDVIEWCAMWORKER_H_
+#include "GgafLibCommonHeader.h"
+#include "CameraWorker.h"
 
-namespace Mogera {
+namespace GgafLib {
 
 /**
  * 一時停止時のカメラマン .
@@ -11,7 +11,7 @@ namespace Mogera {
  * @since 2010/10/25
  * @author Masatoshi Tsuge
  */
-class MgrMouseCamWorker : public MgrCameraWorker {
+class AroundViewCamWorker : public CameraWorker {
 
 public:
     int cd_;
@@ -20,7 +20,7 @@ public:
     int mdz_total_;
 
 public:
-    MgrMouseCamWorker(const char* prm_name);
+    AroundViewCamWorker(const char* prm_name, DefaultCamera* prm_pCamera);
 
     virtual void initialize() override;
 
@@ -31,8 +31,8 @@ public:
     }
 
 
-    virtual ~MgrMouseCamWorker(); //デストラクタ
+    virtual ~AroundViewCamWorker(); //デストラクタ
 };
 
 }
-#endif /*MGRCAMERA_H_*/
+#endif /*GGAFLIB_AROUNDVIEWCAMWORKER_H_*/

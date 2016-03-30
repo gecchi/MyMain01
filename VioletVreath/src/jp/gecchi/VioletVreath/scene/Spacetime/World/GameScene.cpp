@@ -170,8 +170,8 @@ void GameScene::processBehavior() {
         case PROG_BEGINNING: {
             //##########  ゲーム開始（モード選択等）  ##########
             if (pProg->hasJustChanged()) {
-                getBGMer()->fadeout_stop();
                 _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PROG_BEGINNING)");
+                getBGMer()->fadeout_stop();
             }
             //イベント待ち EVENT_GAMEMODE_DECIDE
             break;
@@ -277,15 +277,15 @@ void GameScene::processBehavior() {
 
 void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
 //    switch (prm_no) {
-//        case EVENT_GOD_WILL_DIE:
+//        case EVENT_GOD_WILL_DEMISE:
 //
 //            break;
 //        default:
 //            break;
 //    }
     SceneProgress* pProg = getProgress();
-    if (prm_no == EVENT_GOD_WILL_DIE) {
-        _TRACE_("GameScene::onCatchEvent(EVENT_GOD_WILL_DIE) CommonSceneを拾い上げて後に解放されるようにします。");
+    if (prm_no == EVENT_GOD_WILL_DEMISE) {
+        _TRACE_("GameScene::onCatchEvent(EVENT_GOD_WILL_DEMISE) CommonSceneを拾い上げて後に解放されるようにします。");
         //神が死んでしまう前に
         //CommonSceneを拾い上げ、解放順序が後になるように操作する。(共有デポジトリとかあるし)
         addSubLast(P_MYSHIP_SCENE->extract());

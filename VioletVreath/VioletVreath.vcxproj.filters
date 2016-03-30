@@ -33,7 +33,6 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundRankUp.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundTitle.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundTransit.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\worker\CameraWorker.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\worker\DefaultCamWorker.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\worker\MyShipDivingCamWorker.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\worker\PauseCamWorker.cpp" />
@@ -392,7 +391,6 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundRankUp.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundTitle.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundTransit.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\worker\CameraWorker.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\worker\DefaultCamWorker.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\worker\MyShipDivingCamWorker.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\worker\PauseCamWorker.h" />

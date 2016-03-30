@@ -14,13 +14,15 @@ namespace GgafLib {
 class DefaultCameraViewPoint : public GgafDxCore::GgafDxCameraViewPoint {
 
 public:
+    /** 平行移動支援 */
+    GgafDxCore::GgafDxAxesMover* pAxsMver_;
+
+public:
     DefaultCameraViewPoint(const char* prm_name);
 
-    virtual void initialize() override {
-    }
+    virtual void initialize() override;
 
-    virtual void processBehavior() override {
-    }
+    virtual void processBehavior() override;
 
     virtual void processJudgement() override {
     }
@@ -42,6 +44,9 @@ public:
 
     virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {
     }
+
+    void slideMvTo(coord tx, coord ty, coord tz, frame t);
+    void slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t);
 
     virtual ~DefaultCameraViewPoint(); //デストラクタ
 };

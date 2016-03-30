@@ -1,4 +1,4 @@
-#include "CameraWorker.h"
+#include "jp/ggaf/lib/actor/camera/worker/CameraWorker.h"
 
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
@@ -9,16 +9,15 @@
 #include "jp/ggaf/dxcore/util/GgafDx26DirectionUtil.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
-#include "jp/gecchi/VioletVreath/God.h"
-#include "jp/gecchi/VioletVreath/actor/camera/CameraUpVector.h"
-#include "jp/gecchi/VioletVreath/actor/camera/CameraViewPoint.h"
+#include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
+#include "jp/ggaf/lib/actor/camera/DefaultCameraUpVector.h"
+#include "jp/ggaf/lib/actor/camera/DefaultCameraViewPoint.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
-using namespace VioletVreath;
 
-CameraWorker::CameraWorker(const char* prm_name, Camera* prm_pCamera) : GgafMainActor(prm_name, nullptr) {
+CameraWorker::CameraWorker(const char* prm_name, DefaultCamera* prm_pCamera) : GgafMainActor(prm_name, nullptr) {
     _class_name = "CameraWorker";
     t_x_VP_ =  0;
     t_y_VP_ =  0;
@@ -28,8 +27,8 @@ CameraWorker::CameraWorker(const char* prm_name, Camera* prm_pCamera) : GgafMain
     t_z_CAM_ =  0;
     frame_of_behaving_since_onSwitch_ = 0;
     pCam_ = prm_pCamera;
-    pVp_ = (CameraViewPoint*)(pCam_->getCameraViewPoint());
-    pUp_ = (CameraUpVector*)(pCam_->getCameraUpVector());
+    pVp_ = (DefaultCameraViewPoint*)(pCam_->getCameraViewPoint());
+    pUp_ = (DefaultCameraUpVector*)(pCam_->getCameraUpVector());
     t_cam_up_dir_ = DIR26( 0, 1, 0);
     vcv_dir_ = 0;
     vcv_dir_prev_ = vcv_dir_;

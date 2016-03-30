@@ -12,19 +12,9 @@ namespace Mogera {
  * @author Masatoshi Tsuge
  */
 class MgrCameraViewPoint : public GgafLib::DefaultCameraViewPoint {
-public:
-    /** 平行移動支援 */
-    GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
 public:
     MgrCameraViewPoint(const char* prm_name);
-
-    virtual void initialize() override;
-
-    virtual void processBehavior() override;
-
-    void slideMvTo(coord tx, coord ty, coord tz, frame t);
-    void slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t);
 
     virtual ~MgrCameraViewPoint(); //デストラクタ
 };

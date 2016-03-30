@@ -1,7 +1,7 @@
 #ifndef VAMSYSCAMWORKER_H_
 #define VAMSYSCAMWORKER_H_
 #include "VioletVreath.h"
-#include "jp/gecchi/VioletVreath/actor/camera/worker/CameraWorker.h"
+#include "jp/ggaf/lib/actor/camera/worker/CameraWorker.h"
 
 #include "jp/ggaf/dxcore/util/GgafDx26DirectionUtil.h"
 
@@ -23,7 +23,7 @@ namespace VioletVreath {
  * @since 2010/10/25
  * @author Masatoshi Tsuge
  */
-class VamSysCamWorker : public CameraWorker {
+class VamSysCamWorker : public GgafLib::CameraWorker {
 
     /** [r/w]自機に対してYZ平面に平行で回っているカメラのアングル位置 */
     angle ang_cam_around_;

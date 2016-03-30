@@ -22,6 +22,8 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\camera\DefaultCamera.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\camera\DefaultCameraUpVector.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\camera\DefaultCameraViewPoint.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\camera\worker\AroundViewCamWorker.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\camera\worker\CameraWorker.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\CappedGraphBarActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\ColliAABoxActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\ColliAAPrismActor.cpp" />
@@ -48,6 +50,7 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultSpriteSetActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DepositoryFormation.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\FixedFontBoardActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\FixedFontSpriteActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\FkFormation.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\FontBoardActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\GraphBarActor.cpp" />
@@ -112,6 +115,8 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\camera\defaultcamera.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\camera\defaultcameraupvector.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\camera\defaultcameraviewpoint.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\camera\worker\aroundviewcamworker.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\camera\worker\cameraworker.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\cappedgraphbaractor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\ColliAABoxActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\ColliAAPrismActor.h" />
@@ -138,9 +143,11 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultSpriteSetActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DepositoryFormation.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\FixedFontBoardActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\fixedfontspriteactor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\fkformation.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\FontBoardActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\graphbaractor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\interface\IFixedFont.hpp" />
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\HomingLaserChip.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\LaserChip.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\LaserChipDepository.h" />

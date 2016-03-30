@@ -87,7 +87,7 @@ class GgafNode : public GgafObject {
 public:
     /** [r]ノード識別名(50文字まで) */
     char* _name;
-    /** [r]クラス名 */
+    /** [r]クラス名（デバッグで使用します） */
     const char* _class_name;
     /** [r]親ノード */
     T* _pParent;

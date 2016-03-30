@@ -12,25 +12,9 @@ namespace VVViewer {
  * @author Masatoshi Tsuge
  */
 class VvvCameraUpVector : public GgafLib::DefaultCameraUpVector {
-public:
-    /** 平行移動支援 */
-    GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
 public:
-
-    int up_dir_;
-
     VvvCameraUpVector(const char* prm_name);
-
-    virtual void processBehavior() override;
-
-
-    /**
-     * カメラのUP面番号、引数の面番号にセットし、UPベクトルをスライド移動を開始させます。
-     * @param prm_face_no カメラのUP面番号
-     */
-    void setFaceNo(int prm_face_no);
-
 
     virtual ~VvvCameraUpVector(); //デストラクタ
 };

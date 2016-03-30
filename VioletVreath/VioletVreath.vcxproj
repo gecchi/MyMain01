@@ -299,7 +299,6 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\Camera.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\CameraUpVector.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\CameraViewPoint.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\worker\CameraWorker.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\worker\DefaultCamWorker.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\worker\MyShipDivingCamWorker.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\worker\PauseCamWorker.cpp" />
@@ -659,7 +658,6 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\Camera.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\CameraUpVector.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\CameraViewPoint.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\worker\CameraWorker.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\worker\DefaultCamWorker.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\worker\MyShipDivingCamWorker.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\worker\PauseCamWorker.h" />

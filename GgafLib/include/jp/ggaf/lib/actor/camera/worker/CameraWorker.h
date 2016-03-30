@@ -1,9 +1,9 @@
-#ifndef CAMERAWORKER_H_
-#define CAMERAWORKER_H_
-#include "VioletVreath.h"
+#ifndef GGAFLIB_CAMERAWORKER_H_
+#define GGAFLIB_CAMERAWORKER_H_
+#include "GgafLibCommonHeader.h"
 #include "jp/ggaf/core/actor/GgafMainActor.h"
 
-namespace VioletVreath {
+namespace GgafLib {
 
 /**
  * カメラマン .
@@ -28,11 +28,11 @@ private:
 
 public:
     /** [r]カメラへの参照 */
-    Camera* pCam_;
+    DefaultCamera* pCam_;
     /** [r]視点への参照 */
-    CameraViewPoint* pVp_;
+    DefaultCameraViewPoint* pVp_;
     /** [r]カメラの上方向の位置ベクトル */
-    CameraUpVector*  pUp_;
+    DefaultCameraUpVector*  pUp_;
     /** カメラマンの移動目標座標 */
     coord t_x_CAM_, t_y_CAM_, t_z_CAM_;
     /** カメラマンのビューポイントの移動目標座標 */
@@ -43,7 +43,7 @@ public:
     frame frame_of_behaving_since_onSwitch_;
 
 public:
-    CameraWorker(const char* prm_name, Camera* prm_pCamera);
+    CameraWorker(const char* prm_name, DefaultCamera* prm_pCamera);
 
     static bool initStatic();
 
