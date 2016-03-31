@@ -1,4 +1,4 @@
-#include "jp/ggaf/lib/actor/FixedFontSpriteActor.h"
+#include "jp/ggaf/lib/actor/FontSpriteActor.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 #include "jp/ggaf/dxcore/effect/GgafDxMassSpriteEffect.h"
@@ -9,24 +9,24 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-FixedFontSpriteActor::VERTEX_instancedata FixedFontSpriteActor::_aInstancedata[GGAFDXMASS_MAX_INSTACE_NUM];
+FontSpriteActor::VERTEX_instancedata FontSpriteActor::_aInstancedata[GGAFDXMASS_MAX_INSTACE_NUM];
 
-FixedFontSpriteActor::FixedFontSpriteActor(const char* prm_name, const char* prm_model_id, GgafStatus* prm_pStat) :
+FontSpriteActor::FontSpriteActor(const char* prm_name, const char* prm_model_id, GgafStatus* prm_pStat) :
             GgafDxMassSpriteActor(prm_name,
                                   prm_model_id,
                                   "FontSpriteEffect",
                                   "FontSpriteTechnique",
                                   prm_pStat,
                                   NEW CollisionChecker3D(this) ) ,
-            IFixedFont<FixedFontSpriteActor>(this, (int)(_pMassSpriteModel->_model_width_px), (int)(_pMassSpriteModel->_model_height_px))
+            ICharacterChip<FontSpriteActor>(this, (int)(_pMassSpriteModel->_model_width_px), (int)(_pMassSpriteModel->_model_height_px))
 {
-    _class_name = "FixedFontSpriteActor";
+    _class_name = "FontSpriteActor";
     _pColliChecker = (CollisionChecker3D*)_pChecker;
-    _pMassSpriteModel->registerCallback_VertexInstaceDataInfo(FixedFontSpriteActor::createVertexInstaceData);
+    _pMassSpriteModel->registerCallback_VertexInstaceDataInfo(FontSpriteActor::createVertexInstaceData);
 }
 
 
-void FixedFontSpriteActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) {
+void FontSpriteActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) {
     if (_align != prm_align || _valign != prm_valign) {
         _align = prm_align;
         _valign = prm_valign;
@@ -34,14 +34,14 @@ void FixedFontSpriteActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_vali
     }
 }
 
-void FixedFontSpriteActor::setAlign(GgafDxAlign prm_align) {
+void FontSpriteActor::setAlign(GgafDxAlign prm_align) {
     if (_align != prm_align) {
         _align = prm_align;
         prepare2();
     }
 }
 
-void FixedFontSpriteActor::setValign(GgafDxValign prm_valign) {
+void FontSpriteActor::setValign(GgafDxValign prm_valign) {
     if (_valign != prm_valign) {
         _valign = prm_valign;
         prepare2();
@@ -49,7 +49,7 @@ void FixedFontSpriteActor::setValign(GgafDxValign prm_valign) {
 }
 
 
-void FixedFontSpriteActor::createVertexInstaceData(void* prm, GgafDxMassModel::VertexInstaceDataInfo* out_info) {
+void FontSpriteActor::createVertexInstaceData(void* prm, GgafDxMassModel::VertexInstaceDataInfo* out_info) {
     int element_num = 7;
     out_info->paElement = NEW D3DVERTEXELEMENT9[element_num];
     // Stream = 1 ---->
@@ -113,44 +113,44 @@ void FixedFontSpriteActor::createVertexInstaceData(void* prm, GgafDxMassModel::V
     // <---- Stream = 1
 
     out_info->element_num = element_num;
-    out_info->size_vertex_unit_instacedata = sizeof(FixedFontSpriteActor::VERTEX_instancedata);
-    out_info->pInstancedata = FixedFontSpriteActor::_aInstancedata;
+    out_info->size_vertex_unit_instacedata = sizeof(FontSpriteActor::VERTEX_instancedata);
+    out_info->pInstancedata = FontSpriteActor::_aInstancedata;
 
 }
 
-void FixedFontSpriteActor::processDraw() {
+void FontSpriteActor::processDraw() {
     int draw_set_num = 0; //GgafDxMassSpriteActorの同じモデルで同じテクニックが
                        //連続しているカウント数。同一描画深度は一度に描画する。
     static const size_t size_of_D3DXMATRIX = sizeof(D3DXMATRIX);
     static const size_t size_of_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
     GgafDxMassSpriteEffect* pMassSpriteEffect = _pMassSpriteEffect;
     GgafDxFigureActor* pDrawActor = this;
-    FixedFontSpriteActor* pFixedFontSpriteActor = nullptr;
+    FontSpriteActor* pFontSpriteActor = nullptr;
     int model_set_num = _pMassSpriteModel->_set_num;
     float u,v;
-    VERTEX_instancedata* paInstancedata = FixedFontSpriteActor::_aInstancedata;
+    VERTEX_instancedata* paInstancedata = FontSpriteActor::_aInstancedata;
     while (pDrawActor) {
         if (pDrawActor->getModel() == this->getModel() && pDrawActor->_hash_technique == this->_hash_technique) {
-            pFixedFontSpriteActor = (FixedFontSpriteActor*)pDrawActor;
-            int n = pFixedFontSpriteActor->_draw_chr_num;
-            InstacePart* pInstacePart = pFixedFontSpriteActor->_paInstacePart;
+            pFontSpriteActor = (FontSpriteActor*)pDrawActor;
+            int n = pFontSpriteActor->_draw_chr_num;
+            InstacePart* pInstacePart = pFontSpriteActor->_paInstacePart;
             GgafDxSpacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
 
             for (int i = 0; i < n; i++) {
-                memcpy(paInstancedata, &(pFixedFontSpriteActor->_matWorld), size_of_D3DXMATRIX);
-                paInstancedata->local_x = PX_DX(  (pInstacePart->px_local_x ) + (pFixedFontSpriteActor->_chr_width_px/2)           );
-                paInstancedata->local_y = PX_DX( ((pInstacePart->px_local_y ) + (pFixedFontSpriteActor->_chr_height_px/2) ) * (-1) ) ;
-                ((FixedFontSpriteActor*)pDrawActor)->getUvFlipper()->getUV(u,v);
+                memcpy(paInstancedata, &(pFontSpriteActor->_matWorld), size_of_D3DXMATRIX);
+                paInstancedata->local_x = PX_DX(  (pInstacePart->px_local_x ) + (pFontSpriteActor->_chr_base_width_px/2)           );
+                paInstancedata->local_y = PX_DX( ((pInstacePart->px_local_y ) + (pFontSpriteActor->_chr_base_height_px/2) ) * (-1) ) ;
+                ((FontSpriteActor*)pDrawActor)->getUvFlipper()->getUV(u,v);
                 paInstancedata->offset_u = pInstacePart->offset_u;
                 paInstancedata->offset_v = pInstacePart->offset_v;
-                memcpy(&(paInstancedata->r), &(pFixedFontSpriteActor->_paMaterial[0].Diffuse), size_of_D3DCOLORVALUE);
+                memcpy(&(paInstancedata->r), &(pFontSpriteActor->_paMaterial[0].Diffuse), size_of_D3DCOLORVALUE);
                 pInstacePart++;
                 paInstancedata++;
 
                 draw_set_num++;
                 if (draw_set_num >= model_set_num) {
                    _pMassSpriteModel->GgafDxMassSpriteModel::draw(this, draw_set_num);
-                   paInstancedata = FixedFontSpriteActor::_aInstancedata;
+                   paInstancedata = FontSpriteActor::_aInstancedata;
                    draw_set_num = 0;
                 }
             }
@@ -164,7 +164,7 @@ void FixedFontSpriteActor::processDraw() {
     }
 }
 
-FixedFontSpriteActor::~FixedFontSpriteActor() {
+FontSpriteActor::~FontSpriteActor() {
     GGAF_DELETE(_pColliChecker);
     GGAF_DELETEARR(_buf);
     GGAF_DELETEARR(_paInstacePart);

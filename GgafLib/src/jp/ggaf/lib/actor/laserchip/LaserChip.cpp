@@ -398,12 +398,14 @@ void LaserChip::processDraw() {
     while (pDrawActor) {
         if (pDrawActor->getModel() == pMassMeshModel && pDrawActor->_hash_technique == hash_technique) {
             pChip = (LaserChip*)pDrawActor;
-            memcpy(paInstancedata, &(pChip->_matWorld), size_of_D3DXMATRIX);
-            memcpy(&(paInstancedata->_f_11), &(pChip->_pChip_infront->_matWorld), size_of_D3DXMATRIX);
-            paInstancedata->_chip_kind = pChip->_chip_kind;
-            paInstancedata->_force_alpha =  pChip->_force_alpha;
-            paInstancedata++;
-            draw_set_num++;
+            if (pChip->_pChip_infront) {
+                memcpy(paInstancedata, &(pChip->_matWorld), size_of_D3DXMATRIX);
+                memcpy(&(paInstancedata->_f_11), &(pChip->_pChip_infront->_matWorld), size_of_D3DXMATRIX);
+                paInstancedata->_chip_kind = pChip->_chip_kind;
+                paInstancedata->_force_alpha =  pChip->_force_alpha;
+                paInstancedata++;
+                draw_set_num++;
+            }
             GgafDxSpacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
             if (draw_set_num >= model_max_set_num) {
                 break;

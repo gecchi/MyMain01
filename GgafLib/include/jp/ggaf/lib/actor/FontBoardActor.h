@@ -2,48 +2,65 @@
 #define GGAFLIB_FONTBOARDACTOR_H_
 #include "GgafLibCommonHeader.h"
 
-#include "FixedFontBoardActor.h"
+#include "jp/ggaf/dxcore/actor/GgafDxMassBoardActor.h"
+#include "interface/ICharacterChip.hpp"
 
 namespace GgafLib {
 
 /**
- * 可変幅文字表示 .
+ * 固定幅文字表示 .
  * @version 1.00
  * @since 2016/02/25
  * @author Masatoshi Tsuge
  */
-class FontBoardActor : public FixedFontBoardActor {
+class FontBoardActor : public GgafDxCore::GgafDxMassBoardActor , public ICharacterChip<FontBoardActor> {
+
+protected:
+    struct VERTEX_instancedata {
+        float px_x, px_y, depth_z;         // : TEXCOORD1
+        float offset_u, offset_v, alpha;   // : TEXCOORD2
+    };
+    static VERTEX_instancedata _aInstancedata[];
+    static void createVertexInstaceData(void* prm, GgafDxCore::GgafDxMassModel::VertexInstaceDataInfo* out_info);
 public:
-    /** [r/w]各文字間隔(px) */
-    pixcoord _px_chr_width[256];
-
+    virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) override;
+    virtual void setAlign(GgafDxAlign prm_align) override;
+    virtual void setValign(GgafDxValign prm_valign) override;
+public:
     FontBoardActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat = nullptr);
-    virtual void prepare1(const char* prm_str) override;
-    virtual void prepare2() override;
 
-    /**
-     * 全ての文字の幅の比率を設定
-     * @param prm_width_ratio 幅の率(初期値の幅に乗じる値、初期値は1.0)
-     */
-    inline void setAllChrWidthRatio(double prm_width_ratio) {
-        pixcoord* p = _px_chr_width;
-        for (int i = 0; i < 256; i++) {
-            *p = _chr_width_px * prm_width_ratio;
-            p++;
-        }
+    virtual void onCreateModel() override {
     }
 
-    /**
-     * 文字の幅の比率を個々に設定 .
-     * @param c 文字
-     * @param prm_width_ratio 幅の率(初期値の幅に乗じる値、初期値は1.0)
-     */
-    inline void setChrWidthRatio(const char c, double prm_width_ratio) {
-        _px_chr_width[c] = _chr_width_px * prm_width_ratio;
+    virtual void initialize() override {
     }
 
+    virtual void onActive() override {
+    }
+
+    virtual void processBehavior() override {
+    }
+
+    virtual void processJudgement() override {
+    }
+
+    virtual void processDraw() override;
+
+    virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
+    }
+
+    virtual void onInactive() override {
+    }
+
+    virtual bool processHitChkLogic(GgafCore::GgafActor* prm_pOtherActor) override {
+        return false;
+    }
+
+    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {
+    }
 
     virtual ~FontBoardActor();
+
 };
 
 }

@@ -6,7 +6,7 @@ using namespace GgafLib;
 using namespace VVViewer;
 
 Font01::Font01(const char* prm_name) :
-        FixedFontSpriteActor(prm_name, "Font01")
+        FontSpriteActor(prm_name, "Font01")
 {
     _class_name = "Font01";
 }

@@ -14,7 +14,8 @@
 #include "jp/ggaf/lib/actor/menu/MenuActor.hpp"
 #include "jp/ggaf/lib/actor/StringBoardActor.h"
 #include "jp/ggaf/lib/actor/StringSpriteActor.h"
-#include "jp/ggaf/lib/actor/FixedFontBoardActor.h"
+#include "jp/ggaf/lib/actor/FontBoardActor.h"
+#include "jp/ggaf/lib/actor/FontSpriteActor.h"
 
 
 namespace GgafLib {
@@ -1807,6 +1808,8 @@ typedef GgafLib::MenuActor<GgafLib::StringBoardActor> StringBoardMenu;
 typedef GgafLib::MenuActor<GgafLib::StringSpriteActor> StringSpriteMenu;
 
 /** メニューの母体を GgafLib::FontBoardActor とするメニュー */
-typedef GgafLib::MenuActor<GgafLib::FixedFontBoardActor> FixedFontBoardMenu;
+typedef GgafLib::MenuActor<GgafLib::FontBoardActor> FontBoardMenu;
+/** メニューの母体を GgafLib::FontSpriteActor とするメニュー */
+typedef GgafLib::MenuActor<GgafLib::FontSpriteActor> FontSpriteMenu;
 }
 #endif /*GGAFLIB_MENUACTOR_H_*/

@@ -1,7 +1,7 @@
 #ifndef SPRITELABELGECCHI32FONT_H_
 #define SPRITELABELGECCHI32FONT_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/StringSpriteActor.h"
+#include "jp/ggaf/lib/actor/FontSpriteActor.h"
 
 namespace VioletVreath {
 
@@ -11,7 +11,7 @@ namespace VioletVreath {
  * @since 2012/05/16
  * @author Masatoshi Tsuge
  */
-class SpriteLabelGecchi32Font : public GgafLib::StringSpriteActor {
+class SpriteLabelGecchi32Font : public GgafLib::FontSpriteActor {
 
 public:
     /** フィードイン・フェードアウト支援 */

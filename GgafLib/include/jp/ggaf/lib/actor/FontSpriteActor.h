@@ -1,9 +1,9 @@
-#ifndef GGAFLIB_FIXEDFONTSPRITEACTOR_H_
-#define GGAFLIB_FIXEDFONTSPRITEACTOR_H_
+#ifndef GGAFLIB_FONTSPRITEACTOR_H_
+#define GGAFLIB_FONTSPRITEACTOR_H_
 #include "GgafLibCommonHeader.h"
 
 #include "jp/ggaf/dxcore/actor/GgafDxMassSpriteActor.h"
-#include "interface/IFixedFont.hpp"
+#include "interface/ICharacterChip.hpp"
 
 namespace GgafLib {
 
@@ -13,7 +13,7 @@ namespace GgafLib {
  * @since 2016/02/25
  * @author Masatoshi Tsuge
  */
-class FixedFontSpriteActor : public GgafDxCore::GgafDxMassSpriteActor , public IFixedFont<FixedFontSpriteActor> {
+class FontSpriteActor : public GgafDxCore::GgafDxMassSpriteActor , public ICharacterChip<FontSpriteActor> {
 
 protected:
     struct VERTEX_instancedata {
@@ -34,7 +34,7 @@ public:
     virtual void setAlign(GgafDxAlign prm_align) override;
     virtual void setValign(GgafDxValign prm_valign) override;
 public:
-    FixedFontSpriteActor(const char* prm_name, const char* prm_model_id, GgafCore::GgafStatus* prm_pStat = nullptr);
+    FontSpriteActor(const char* prm_name, const char* prm_model_id, GgafCore::GgafStatus* prm_pStat = nullptr);
 
     virtual void onCreateModel() override {
     }
@@ -66,7 +66,7 @@ public:
     virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {
     }
 
-    virtual ~FixedFontSpriteActor();
+    virtual ~FontSpriteActor();
 
 };
 

@@ -7,7 +7,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 SpriteLabelGecchi32Font::SpriteLabelGecchi32Font(const char* prm_name) :
-        StringSpriteActor(prm_name, "Gecchi_32Font")
+        FontSpriteActor(prm_name, "Gecchi_32Font")
 {
     _class_name = "SpriteLabelGecchi32Font";
     pAFader_ = NEW GgafDxAlphaFader(this);

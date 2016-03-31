@@ -1,14 +1,14 @@
 #ifndef GGAFLIB_IPROPORTIONALFONT_H_
 #define GGAFLIB_IPROPORTIONALFONT_H_
 #include "GgafLibCommonHeader.h"
-#include "IFixedFont.hpp"
+#include "ICharacterChip.hpp"
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 
 namespace GgafLib {
 
 template<class T>
-class IProportionalFont : public IFixedFont<T> {
+class IProportionalFont : public ICharacterChip<T> {
 
 public:
     /** [r/w]Še•¶ŽšŠÔŠu(px) */
@@ -57,7 +57,7 @@ public:
 
 template<class T>
 IProportionalFont<T>::IProportionalFont(T* prm_pBaseActor, int prm_chr_width_px, int prm_chr_height_px) :
-    IFixedFont<T>(prm_pBaseActor,prm_chr_width_px,prm_chr_height_px)
+    ICharacterChip<T>(prm_pBaseActor,prm_chr_width_px,prm_chr_height_px)
 {
 
 }

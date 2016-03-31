@@ -1,11 +1,11 @@
 #ifndef BOARDTEST_H_
 #define BOARDTEST_H_
 #include "Mogera.h"
-#include "jp/ggaf/lib/actor/FixedFontSpriteActor.h"
+#include "jp/ggaf/lib/actor/FontSpriteActor.h"
 
 namespace Mogera {
 
-class BoardTest : public GgafLib::FixedFontSpriteActor {
+class BoardTest : public GgafLib::FontSpriteActor {
 
 public:
     GgafDxCore::GgafDxAlphaFader* pAFader_;

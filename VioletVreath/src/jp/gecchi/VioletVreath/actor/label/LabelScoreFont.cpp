@@ -29,7 +29,7 @@ LabelScoreFont::LabelScoreFont(const char* prm_name) :
     _chr_ptn_zero = (int)('+');
     num_pno_ = 16;
 
-    setAllChrWidthRatio(0.6);
+    setBaseChrWidth(_chr_base_width_px*0.6);
 //    +   ,   -   .   /   0   1   2
 //    3   4   5   6   7   8   9   :
 //    +   ,   -   .   /   0   1   2

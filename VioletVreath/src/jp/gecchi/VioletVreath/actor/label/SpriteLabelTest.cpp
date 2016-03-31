@@ -6,7 +6,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 SpriteLabelTest::SpriteLabelTest(const char* prm_name) :
-        FixedFontSpriteActor(prm_name, "Gecchi_16Font")
+        FontSpriteActor(prm_name, "Gecchi_16Font")
 {
     _class_name = "SpriteLabelTest";
 //    _px_chr_width[' '] = 8;

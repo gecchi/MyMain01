@@ -16,7 +16,7 @@ using namespace Mogera;
 
 
 BoardTest::BoardTest(const char* prm_name) :
-        FixedFontSpriteActor(prm_name, "BoardTest") {
+        FontSpriteActor(prm_name, "BoardTest") {
     _class_name = "BoardTest";
 
     pAFader_ = NEW GgafDxAlphaFader(this);

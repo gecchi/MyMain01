@@ -21,14 +21,14 @@ public:
     int ITEM_INDEX_BS_;
 //    GgafLib::FontBoardActor* pLabelInputedName_;
 //    GgafLib::FontBoardActor* pLabelSelectedChar_;
-    GgafLib::StringSpriteActor* pLabelInputedName_;
-    GgafLib::StringSpriteActor* pLabelSelectedChar_;
+    GgafLib::FontSpriteActor* pLabelInputedName_;
+    GgafLib::FontSpriteActor* pLabelSelectedChar_;
 
 public:
     MenuBoardNameEntry(const char* prm_name);
 
-    void setNameFontBoard(GgafLib::StringSpriteActor* prm_pInputedName,
-                            GgafLib::StringSpriteActor* prm_pSelectedChar);
+    void setNameFontBoard(GgafLib::FontSpriteActor* prm_pInputedName,
+                          GgafLib::FontSpriteActor* prm_pSelectedChar);
 
     bool condSelectNext() override;
     bool condSelectPrev() override;

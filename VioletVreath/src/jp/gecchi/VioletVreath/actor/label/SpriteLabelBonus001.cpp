@@ -10,7 +10,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 SpriteLabelBonus001::SpriteLabelBonus001(const char* prm_name) :
-        StringSpriteActor(prm_name, "Ranking_16Font")
+        FontSpriteActor(prm_name, "Ranking_16Font")
 {
     _class_name = "SpriteLabelBonus001";
     setZEnableDraw(false);      //Zバッファは考慮無しに強制

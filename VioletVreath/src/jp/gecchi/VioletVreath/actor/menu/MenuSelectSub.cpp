@@ -10,7 +10,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 MenuSelectSub::MenuSelectSub(const char* prm_name, const char* prm_model) :
-        FixedFontBoardMenu(prm_name, prm_model) {
+        FontBoardMenu(prm_name, prm_model) {
     _class_name = "MenuSelectSub";
     target_x_ = _x;
     target_y_ = _y;
@@ -65,22 +65,22 @@ bool MenuSelectSub::condSelectCancel() {
 void MenuSelectSub::riseMe() {
     target_x_ = _x;
     target_y_ = _y;
-    FixedFontBoardMenu::riseMe();
+    FontBoardMenu::riseMe();
 }
 
 void MenuSelectSub::rise(coord prm_target_x, coord prm_target_y) {
     target_x_ = prm_target_x;
     target_y_ = prm_target_y;
-    FixedFontBoardMenu::riseMe();
+    FontBoardMenu::riseMe();
 }
 
 void MenuSelectSub::riseSubMenu(int prm_index, coord prm_target_x, coord prm_target_y) {
-    FixedFontBoardMenu::getSubMenu(prm_index)->position(prm_target_x, prm_target_y); //←によりvoid MenuSelectSub::riseMe() に来た時にターゲット設定される
-    FixedFontBoardMenu::riseSubMenu(prm_index);
+    FontBoardMenu::getSubMenu(prm_index)->position(prm_target_x, prm_target_y); //←によりvoid MenuSelectSub::riseMe() に来た時にターゲット設定される
+    FontBoardMenu::riseSubMenu(prm_index);
 }
 
 void MenuSelectSub::moveCursor(bool prm_smooth) {
-    FixedFontBoardMenu::moveCursor(prm_smooth);
+    FontBoardMenu::moveCursor(prm_smooth);
     if (prm_smooth) { //スムーズ移動trueすなわち、活動状態。
         getSeTx()->play(SE_MOVE_CURSOR);
     }
@@ -102,7 +102,7 @@ void MenuSelectSub::onRise() {
 void MenuSelectSub::processBehavior() {
     position(target_x_, target_y_);
     getKuroko()->behave();
-    FixedFontBoardMenu::processBehavior();
+    FontBoardMenu::processBehavior();
     //メニュー選択アイテム、表示アイテム、カーソルは、
     //ボード座標を基にしているため、自身の座標確定後に
     //上位 processBehavior() をコールしたほうが良い。

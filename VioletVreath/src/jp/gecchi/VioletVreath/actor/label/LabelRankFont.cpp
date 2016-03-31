@@ -84,7 +84,7 @@ char LabelRankFont::RANK_INF[] = "UVWXYZ";
 
 
 LabelRankFont::LabelRankFont(const char* prm_name) :
-        FixedFontBoardActor(prm_name, "70/RankFont")
+        FontBoardActor(prm_name, "70/RankFont")
 {
     _class_name = "LabelRankFont";
     tmp_rank_ = 0;

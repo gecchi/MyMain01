@@ -41,13 +41,13 @@ MenuBoardNameEntry::MenuBoardNameEntry(const char* prm_name) :
     for (int i = 0; i < input_item_num_; i++) {
         LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("item");
         pLabel->update(apInputItemStr_[i], ALIGN_CENTER, VALIGN_MIDDLE);
-        addItem(pLabel, PX_C(10  + ((i%16)*(pLabel->_chr_width_px )*2)),
-                        PX_C(100 + ((i/16)*(pLabel->_chr_height_px)*2))  );
+        addItem(pLabel, PX_C(10  + ((i%16)*(pLabel->_chr_base_width_px )*2)),
+                        PX_C(100 + ((i/16)*(pLabel->_chr_base_height_px)*2))  );
     }
 
     LabelGecchi16Font* pBS = NEW LabelGecchi16Font("[BS]"); //バックスペース(キャンセル扱い)
     pBS->update("[BS]", ALIGN_CENTER, VALIGN_MIDDLE);
-    addItem(pBS, PX_C(650), PX_C(100 + (pBS->_chr_height_px * 3 * 2)));
+    addItem(pBS, PX_C(650), PX_C(100 + (pBS->_chr_base_height_px * 3 * 2)));
     ITEM_INDEX_BS_ = (input_item_num_+1) - 1; //indexなので-1
 
     LabelGecchi16Font* pOK = NEW LabelGecchi16Font("[OK]"); //OK
@@ -76,8 +76,8 @@ MenuBoardNameEntry::MenuBoardNameEntry(const char* prm_name) :
     addSubMenu(NEW MenuBoardConfirm("confirm")); //Yes No 問い合わせメニューを生成
 }
 
-void MenuBoardNameEntry::setNameFontBoard(StringSpriteActor* prm_pInputedName,
-                                            StringSpriteActor* prm_pSelectedChar) {
+void MenuBoardNameEntry::setNameFontBoard(FontSpriteActor* prm_pInputedName,
+                                          FontSpriteActor* prm_pSelectedChar) {
     pLabelInputedName_ = prm_pInputedName;
     pLabelSelectedChar_ = prm_pSelectedChar;
 }
@@ -195,7 +195,7 @@ void MenuBoardNameEntry::processBehavior() {
 #endif
     MenuBoard::processBehavior();
     if (getSelectedIndex() == ITEM_INDEX_OK_) {
-        FixedFontBoardMenu* pMenuConfirm = getSubMenu();
+        FontBoardMenu* pMenuConfirm = getSubMenu();
         if (pMenuConfirm->hasJustDecided()) { //サブメニューで「決定（振る舞い）」の時
             if (pMenuConfirm->getSelectedIndex() == MenuBoardConfirm::ITEM_OK) {
                 //ネームエントリー完了OK
@@ -231,7 +231,7 @@ void MenuBoardNameEntry::processBehavior() {
         std::string s = "      " + std::string(len, ' ') + " [OK]?";
         pLabelSelectedChar_->update(s.c_str());
     }
-    //pLabelSelectedChar_->_x = pLabelInputedName_->_x + PX_C(pLabelInputedName_->_chr_width_px * len);
+    //pLabelSelectedChar_->_x = pLabelInputedName_->_x + PX_C(pLabelInputedName_->_chr_base_width_px * len);
 }
 
 void MenuBoardNameEntry::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {

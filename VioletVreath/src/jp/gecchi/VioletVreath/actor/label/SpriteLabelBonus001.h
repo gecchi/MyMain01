@@ -1,7 +1,7 @@
 #ifndef SPRITELABELBONUS001_H_
 #define SPRITELABELBONUS001_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/StringSpriteActor.h"
+#include "jp/ggaf/lib/actor/FontSpriteActor.h"
 
 namespace VioletVreath {
 
@@ -11,7 +11,7 @@ namespace VioletVreath {
  * @since 2012/11/02
  * @author Masatoshi Tsuge
  */
-class SpriteLabelBonus001 : public GgafLib::StringSpriteActor {
+class SpriteLabelBonus001 : public GgafLib::FontSpriteActor {
 public:
     enum {
         PROG_INIT   ,
