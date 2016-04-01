@@ -621,7 +621,6 @@ class LaserChipTestActor;
 class SingleLaserTestActor;
 class SpriteMeshTestActor;
 class SpriteMeshSetTestActor;
-class StringBoardTestActor;
 class WallAABTestActor;
 class WallAAPrismTestActor;
 

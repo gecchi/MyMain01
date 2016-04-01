@@ -1,7 +1,7 @@
 #ifndef LABELSCENESYMBOL_H_
 #define LABELSCENESYMBOL_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/StringBoardActor.h"
+#include "jp/ggaf/lib/actor/FontBoardActor.h"
 
 namespace VioletVreath {
 
@@ -11,7 +11,7 @@ namespace VioletVreath {
  * @since 2012/10/30
  * @author Masatoshi Tsuge
  */
-class LabelSceneSymbol : public GgafLib::StringBoardActor {
+class LabelSceneSymbol : public GgafLib::FontBoardActor {
 
 public:
     LabelSceneSymbol(const char* prm_name);

@@ -8,7 +8,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 LabelSceneSymbol::LabelSceneSymbol(const char* prm_name) :
-        StringBoardActor(prm_name, "SceneSymbol")
+        FontBoardActor(prm_name, "SceneSymbol")
 {
     _class_name = "LabelSceneSymbol";
     setAlign(ALIGN_CENTER, VALIGN_TOP);

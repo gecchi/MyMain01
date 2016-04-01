@@ -71,8 +71,6 @@ class ColliAAPyramidActor;
 class ColliSphereActor;
 class SpriteMeshActor;
 class SpriteMeshSetActor;
-class StringBoardActor;
-class StringSpriteActor;
 class FontSpriteActor;
 class FontBoardActor;
 class WallPartsActor;

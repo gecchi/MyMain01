@@ -19,7 +19,6 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\SingleLaserTestActor.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\SpriteMeshSetTestActor.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\SpriteMeshTestActor.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\StringBoardTestActor.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\WallAABTestActor.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\WallAAPrismTestActor.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi.cpp" />
@@ -377,7 +376,6 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\SingleLaserTestActor.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\SpriteMeshSetTestActor.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\SpriteMeshTestActor.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\StringBoardTestActor.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\WallAABTestActor.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\WallAAPrismTestActor.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi.h" />

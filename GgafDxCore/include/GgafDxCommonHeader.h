@@ -380,8 +380,6 @@ class GgafDxMassSpriteEffect;
 class GgafDxBoardEffect;
 class GgafDxBoardSetEffect;
 class GgafDxMassBoardEffect;
-class GgafDxStringBoardActor;
-class GgafDxStringSpriteActor;
 class GgafDxPointSpriteEffect;
 
 class GgafDxTexture;

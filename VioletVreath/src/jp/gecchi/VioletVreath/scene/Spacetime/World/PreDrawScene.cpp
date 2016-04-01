@@ -23,7 +23,6 @@
 #include "jp/gecchi/VioletVreath/actor/_predrawer/SingleLaserTestActor.h"
 #include "jp/gecchi/VioletVreath/actor/_predrawer/SpriteMeshTestActor.h"
 #include "jp/gecchi/VioletVreath/actor/_predrawer/SpriteMeshSetTestActor.h"
-#include "jp/gecchi/VioletVreath/actor/_predrawer/StringBoardTestActor.h"
 #include "jp/gecchi/VioletVreath/actor/_predrawer/WallAABTestActor.h"
 #include "jp/gecchi/VioletVreath/actor/_predrawer/WallAAPrismTestActor.h"
 
@@ -55,7 +54,6 @@ PreDrawScene::PreDrawScene(const char* prm_name) : DefaultScene(prm_name) {
     orderActorToFactory(id, SingleLaserTestActor       , "SingleLaserTestActor");           id++;
     orderActorToFactory(id, SpriteMeshTestActor        , "SpriteMeshTestActor");            id++;
     orderActorToFactory(id, SpriteMeshSetTestActor     , "SpriteMeshSetTestActor");         id++;
-//    orderActorToFactory(id, StringBoardTestActor       , "StringBoardTestActor");           id++;
     orderActorToFactory(id, WallAABTestActor           , "WallAABTestActor");               id++;
     orderActorToFactory(id, WallAAPrismTestActor       , "WallAAPrismTestActor");           id++;
     order_id_end_ = id - 1;
@@ -89,7 +87,6 @@ void PreDrawScene::initialize() {
 //    x = (GgafDxFigureActor*)(new MenuActor<DefaultSpriteSetActor  >("aaa","bbb"));
 //    x = (GgafDxFigureActor*)(new MenuActor<SpriteMeshActor        >("aaa","bbb"));
 //    x = (GgafDxFigureActor*)(new MenuActor<SpriteMeshSetActor     >("aaa","bbb"));
-//    x = (GgafDxFigureActor*)(new MenuActor<StringBoardActor       >("aaa","bbb"));
 //    x = (GgafDxFigureActor*)(new MenuActor<WallAABActor           >("aaa","bbb"));
 //    x = (GgafDxFigureActor*)(new MenuActor<WallAAPrismActor       >("aaa","bbb"));
 
@@ -148,7 +145,6 @@ void PreDrawScene::processBehavior() {
 ////        bringDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //SingleLaserTestActor
 ////        bringDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //SpriteMeshTestActor
 ////        bringDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //SpriteMeshSetTestActor
-//////        bringDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //StringBoardTestActor
 ////        bringDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //WallAABTestActor
 ////        bringDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //WallAAPrismTestActor
 //    }

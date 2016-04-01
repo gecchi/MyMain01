@@ -12,8 +12,6 @@
 #include "jp/ggaf/lib/actor/DefaultSpriteActor.h"
 #include "jp/ggaf/lib/actor/DefaultSpriteSetActor.h"
 #include "jp/ggaf/lib/actor/menu/MenuActor.hpp"
-#include "jp/ggaf/lib/actor/StringBoardActor.h"
-#include "jp/ggaf/lib/actor/StringSpriteActor.h"
 #include "jp/ggaf/lib/actor/FontBoardActor.h"
 #include "jp/ggaf/lib/actor/FontSpriteActor.h"
 
@@ -1802,11 +1800,6 @@ typedef GgafLib::MenuActor<GgafLib::DefaultBoardSetActor> DefaultBoardSetMenu;
 typedef GgafLib::MenuActor<GgafLib::DefaultSpriteActor> DefaultSpriteMenu;
 /** メニューの母体を GgafLib::DefaultSpriteSetActor とするメニュー */
 typedef GgafLib::MenuActor<GgafLib::DefaultSpriteSetActor> DefaultSpriteSetMenu;
-/** メニューの母体を GgafLib::StringBoardActor とするメニュー */
-typedef GgafLib::MenuActor<GgafLib::StringBoardActor> StringBoardMenu;
-/** メニューの母体を GgafLib::StringSpriteActor とするメニュー */
-typedef GgafLib::MenuActor<GgafLib::StringSpriteActor> StringSpriteMenu;
-
 /** メニューの母体を GgafLib::FontBoardActor とするメニュー */
 typedef GgafLib::MenuActor<GgafLib::FontBoardActor> FontBoardMenu;
 /** メニューの母体を GgafLib::FontSpriteActor とするメニュー */

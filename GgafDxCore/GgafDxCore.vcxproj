@@ -32,8 +32,6 @@
     <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxSphereActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxSpriteMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxSpriteMeshSetActor.cpp" />
-    <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxStringBoardActor.cpp" />
-    <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxStringSpriteActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxWorldBoundActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxBaseActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxBoardActor.cpp" />
@@ -168,8 +166,6 @@
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ex\ggafdxsphereactor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ex\ggafdxspritemeshactor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ex\ggafdxspritemeshsetactor.h" />
-    <ClInclude Include="include\jp\ggaf\dxcore\actor\ex\ggafdxstringboardactor.h" />
-    <ClInclude Include="include\jp\ggaf\dxcore\actor\ex\ggafdxstringspriteactor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ex\ggafdxworldboundactor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ggafdxbaseactor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ggafdxboardactor.h" />
