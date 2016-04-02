@@ -33,6 +33,10 @@ TitleBoard::TitleBoard(const char* prm_name) : DefaultMassBoardActor(prm_name, "
     memcpy(&(aInstancedata_title_[0].r), &(_paMaterial[0].Diffuse), size_of_D3DCOLORVALUE);
 
     aInstancedata_title_[1] = aInstancedata_title_[0];
+
+    pUvFlipper->getUV(1, u, v);
+    aInstancedata_title_[1].offset_u = u;
+    aInstancedata_title_[1].offset_v = v;
 }
 
 void TitleBoard::onCreateModel() {
