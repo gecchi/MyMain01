@@ -271,12 +271,13 @@ HRESULT GgafDxMassMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
         hr = pID3DXEffect->SetFloat(pMassMeshEffect->_h_specular_power, _specular_power);
         checkDxException(hr, D3D_OK, "SetFloat(_h_specular_power) に失敗しました。");
         if (_papTextureConnection[0]) {
-            pDevice->SetTexture(0, getDefaultTextureConnection()->peek()->_pIDirect3DBaseTexture9);
+            hr = pDevice->SetTexture(0, getDefaultTextureConnection()->peek()->_pIDirect3DBaseTexture9);
         } else {
             _TRACE_("GgafDxMassMeshModel::draw("<<prm_pActor_target->getName()<<") テクスチャがありません。"<<(PROPERTY::WHITE_TEXTURE)<<"が設定されるべきです。おかしいです");
             //無ければテクスチャ無し
-            pDevice->SetTexture(0, nullptr);
+            hr = pDevice->SetTexture(0, nullptr);
         }
+        checkDxException(hr, D3D_OK, "SetTexture に失敗しました");
     }
     hr = pDevice->SetStreamSourceFreq( 0, D3DSTREAMSOURCE_INDEXEDDATA | prm_draw_set_num);
     checkDxException(hr, D3D_OK, "SetStreamSourceFreq 0 に失敗しました。prm_draw_set_num="<<prm_draw_set_num);

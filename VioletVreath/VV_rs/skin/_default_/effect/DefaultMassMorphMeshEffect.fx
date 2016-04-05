@@ -2,7 +2,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Ggafライブラリ、GgafDxMassMorphMeshModel用シェーダー
 // author : Masatoshi Tsuge
-// date:2009/05/12
+// date:2016/03/18
 ////////////////////////////////////////////////////////////////////////////////
 
 /** スペキュラーの範囲（ハーフベクトル・法線内積のg_specular乗） */
@@ -55,15 +55,15 @@ OUT_VS GgafDxVS_DefaultMassMorphMesh(
     float4 prm_world1,
     float4 prm_world2,
     float4 prm_world3,
-    float4 prm_color 
+    float4 prm_color
 ) {
     OUT_VS out_vs = (OUT_VS)0;
 
     float4x4 matWorld;
-    matWorld._11_12_13_14 = prm_world0; 
+    matWorld._11_12_13_14 = prm_world0;
     matWorld._21_22_23_24 = prm_world1;
     matWorld._31_32_33_34 = prm_world2;
-    matWorld._41_42_43_44 = prm_world3; 
+    matWorld._41_42_43_44 = prm_world3;
 
     //頂点計算
     const float4 posModel_World = mul(prm_posPrimary_Local, matWorld);
@@ -263,7 +263,7 @@ OUT_VS GgafDxVS_DefaultMassMorphMesh4(
     float4 prm_world2                 : TEXCOORD3,  // World行列要素
     float4 prm_world3                 : TEXCOORD4,  // World行列要素
     float4 prm_color                  : TEXCOORD5   // マテリアルカラー
-) {                                               
+) {
     //重みを取り出して、元に戻す
     float weight1 = prm_world0[3];
     float weight2 = prm_world1[3];

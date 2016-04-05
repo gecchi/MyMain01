@@ -30,17 +30,42 @@ D3DXHANDLE MassWallActor::_h_ah_POS_PRISM_YZ;
 D3DXHANDLE MassWallActor::_h_fh_POS_PRISM_YZ;
 D3DXHANDLE MassWallActor::_h_ah_POS_PRISM_XY;
 D3DXHANDLE MassWallActor::_h_fh_POS_PRISM_XY;
+D3DXHANDLE MassWallActor::_h_reflectance;
 
 std::map<int, UINT> MassWallActor::_delface;
 MassWallActor::VERTEX_instancedata MassWallActor::_aInstancedata[GGAFDXMASS_MAX_INSTACE_NUM];
 
-MassWallActor::MassWallActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
-        GgafDxMassMeshActor(prm_name,
-                         std::string(prm_model).c_str(),
-                         "MassWallEffect",
-                         "MassWallTechnique",
-                         prm_pStat,
-                         NEW CollisionChecker3D(this) ) {
+MassWallActor::MassWallActor(const char* prm_name,
+                             const char* prm_model,
+                             GgafStatus* prm_pStat) :
+
+                                 GgafDxMassMeshActor(prm_name,
+                                                     prm_model,
+                                                    "MassWallEffect",
+                                                    "MassWallTechnique",
+                                                     prm_pStat,
+                                                     NEW CollisionChecker3D(this) )
+{
+    init();
+}
+
+MassWallActor::MassWallActor(const char* prm_name,
+                             const char* prm_model,
+                             const char* prm_effect,
+                             const char* prm_technique,
+                             GgafStatus* prm_pStat) :
+
+                                 GgafDxMassMeshActor(prm_name,
+                                                     prm_model,
+                                                     prm_effect,
+                                                     prm_technique,
+                                                     prm_pStat,
+                                                     NEW CollisionChecker3D(this) )
+{
+    init();
+}
+
+void MassWallActor::init() {
     _class_name = "MassWallActor";
     _obj_class |= Obj_MassWallActor;
     _pColliChecker = (CollisionChecker3D*)_pChecker;
@@ -60,6 +85,7 @@ MassWallActor::MassWallActor(const char* prm_name, const char* prm_model, GgafSt
     _pMassMeshModel->registerCallback_VertexInstaceDataInfo(MassWallActor::createVertexInstaceData);
     static volatile bool is_init = MassWallActor::initStatic(this); //静的メンバ初期化
 }
+
 bool MassWallActor::initStatic(MassWallActor* prm_pMassWallActor) {
     ID3DXEffect* pID3DXEffect = prm_pMassWallActor->getEffect()->_pID3DXEffect;
     MassWallActor::_h_distance_AlphaTarget = pID3DXEffect->GetParameterByName( nullptr, "g_distance_AlphaTarget" );
@@ -72,7 +98,7 @@ bool MassWallActor::initStatic(MassWallActor* prm_pMassWallActor) {
     MassWallActor::_h_fh_POS_PRISM_YZ = pID3DXEffect->GetParameterByName( nullptr, "g_fh_POS_PRISM_YZ" );
     MassWallActor::_h_ah_POS_PRISM_XY = pID3DXEffect->GetParameterByName( nullptr, "g_ah_POS_PRISM_XY" );
     MassWallActor::_h_fh_POS_PRISM_XY = pID3DXEffect->GetParameterByName( nullptr, "g_fh_POS_PRISM_XY" );
-
+    MassWallActor::_h_reflectance = pID3DXEffect->GetParameterByName(nullptr, "g_reflectance");
 
     //プリズム壁であるならば、形状により無条件で描画不要面がある、
     //    c
@@ -111,6 +137,7 @@ bool MassWallActor::initStatic(MassWallActor* prm_pMassWallActor) {
     MassWallActor::_delface[POS_PRISM_ZX_pp] = ~FACE_B_BIT;
     return true;
 }
+
 void MassWallActor::createVertexInstaceData(void* prm, GgafDxMassModel::VertexInstaceDataInfo* out_info) {
     int element_num = 5;
     out_info->paElement = NEW D3DVERTEXELEMENT9[element_num];

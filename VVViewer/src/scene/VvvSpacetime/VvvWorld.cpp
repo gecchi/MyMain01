@@ -44,9 +44,9 @@ VvvWorld::VvvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
 }
 
 void VvvWorld::initialize() {
-     pFont01_help_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
+     pFont01_help_->setAlign(ALIGN_LEFT, VALIGN_TOP);
      pFont01_help_->setMaterialColor(1.0,0.5,0.2);
-     pFont01_help_->update(PX_C(-8), PX_C(8), PX_C(0),
+     pFont01_help_->update(PX_C(0), PX_C(0),
              "[F1]:Move to the initial position the camera.\n"
              "[F2]:Target to next model, and directed camera.\n"
              "[F3]:Target to next model.\n"

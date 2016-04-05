@@ -782,8 +782,7 @@ void GgafDxKuroko::setStopTargetRyMvAng(angle prm_target_ang_ry_mv,
 }
 
 angle GgafDxKuroko::getRyMvAngDistanceTwd(coord prm_tx, coord prm_ty, int prm_way) {
-    return getRyMvAngDistance(UTIL::getAngle2D(prm_tx - (_pActor->_x), prm_ty - (_pActor->_y)),
-                                        prm_way);
+    return getRyMvAngDistance(UTIL::getAngle2D(prm_tx - (_pActor->_x), prm_ty - (_pActor->_y)), prm_way);
 }
 
 angle GgafDxKuroko::getRyMvAngDistance(angle prm_target_ang_ry_mv, int prm_way) {
@@ -861,7 +860,7 @@ void GgafDxKuroko::getRzRyMvAngDistanceTwd(angle prm_target_ang_rz, angle prm_ta
 }
 
 void GgafDxKuroko::getRzRyFaceAngDistanceTwd(angle prm_target_ang_rz, angle prm_target_ang_ry,int prm_way,
-                                               angle& out_d_ang_rz, angle& out_d_ang_ry) {
+                                             angle& out_d_ang_rz, angle& out_d_ang_ry) {
     if (prm_way == TURN_CLOSE_TO) { //‹ß‚¢‚Ù‚¤‰ñ“]
         angle d1_angRz = getFaceAngDistance(AXIS_Z, prm_target_ang_rz, TURN_CLOSE_TO);
         angle d1_angRy = getFaceAngDistance(AXIS_Y, prm_target_ang_ry, TURN_CLOSE_TO);

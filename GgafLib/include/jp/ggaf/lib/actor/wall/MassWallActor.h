@@ -29,7 +29,7 @@ namespace GgafLib {
 class MassWallActor : public GgafDxCore::GgafDxMassMeshActor {
     friend class GgafDxEffectManager;
 
-private:
+protected:
     struct VERTEX_instancedata {
         float _11, _12, _13, _14;   // : TEXCOORD1  World変換行列、１行目
         float _21, _22, _23, _24;   // : TEXCOORD2  World変換行列、２行目
@@ -51,6 +51,8 @@ public:
     static D3DXHANDLE _h_fh_POS_PRISM_YZ;
     static D3DXHANDLE _h_ah_POS_PRISM_XY;
     static D3DXHANDLE _h_fh_POS_PRISM_XY;
+    static D3DXHANDLE _h_reflectance;
+
     /** プリズム無条件追加描画不要面テーブル */
     static std::map<int, UINT> _delface;
 
@@ -72,6 +74,19 @@ public:
 
 public:
     MassWallActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
+    MassWallActor(const char* prm_name,
+                  const char* prm_model,
+                  const char* prm_effect,
+                  const char* prm_technique,
+                  GgafCore::GgafStatus* prm_pStat=nullptr);
+//    MassWallActor(const char* prm_name,
+//                  const char* prm_model_id,
+//                  const char* prm_effect_id,
+//                  const char* prm_technique,
+//                  GgafCore::GgafStatus* prm_pStat,
+//                  GgafDxCore::GgafDxChecker* prm_pChecker);
+
+    void init();
 
     static bool initStatic(MassWallActor* prm_pMassWallActor);
 

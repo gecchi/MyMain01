@@ -28,6 +28,7 @@ GgafDxMassModel::GgafDxMassModel(const char* prm_model_name) : GgafDxModel(prm_m
     _nVertices = 0;
     _nFaces= 0;
     _pFunc_getVertexInstaceData = nullptr;
+    _pFunc_getVertexModel = nullptr;
     _pInstancedata = nullptr;
     _obj_model |= Obj_GgafDxMassModel;
 }

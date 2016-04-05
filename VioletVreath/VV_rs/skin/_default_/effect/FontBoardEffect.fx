@@ -1,13 +1,13 @@
-#include "GgafEffectConst.fxh" 
+#include "GgafEffectConst.fxh"
 ////////////////////////////////////////////////////////////////////////////////
 // Ggafライブラリ、FontBoardActor用シェーダー
 //
 // author : Masatoshi Tsuge
-// date:2009/03/06 
+// date:2016/03/14
 ////////////////////////////////////////////////////////////////////////////////
 float g_game_buffer_width; //画面幅(px)
 float g_game_buffer_height; //画面高さ(px)
-float g_tex_blink_power;   
+float g_tex_blink_power;
 float g_tex_blink_threshold;
 float g_alpha_master;
 
@@ -19,8 +19,8 @@ sampler MyTextureSampler : register(s0);
 struct OUT_VS
 {
     float4 posModel_Proj : POSITION;
-	float4 color         : COLOR0;
-	float2 uv            : TEXCOORD0;
+    float4 color         : COLOR0;
+    float2 uv            : TEXCOORD0;
 };
 
 
@@ -32,53 +32,53 @@ OUT_VS GgafDxVS_FontBoard(
       float3 prm_vecNormal_Local  : NORMAL,        // モデルの頂点の法線(未使用)
       float2 prm_uv               : TEXCOORD0,     // モデルの頂点のUV
 
-      float3 prm_pos              : TEXCOORD1,     // px_x, px_y, depth_z   
-      float3 prm_info             : TEXCOORD2      // offset_u, offset_v, alpha               
+      float3 prm_pos              : TEXCOORD1,     // px_x, px_y, depth_z
+      float3 prm_info             : TEXCOORD2      // offset_u, offset_v, alpha
 ) {
-	OUT_VS out_vs = (OUT_VS)0;
-	float px_x = prm_pos.x; //変換済みX座標(px)
-	float px_y = prm_pos.y; //変換済みY座標(px)
-	float depthZ = prm_pos.z; //深度Z (0 ～ +1)
-	float offset_u = prm_info.x; //テクスチャU座標増分
-	float offset_v = prm_info.y; //テクスチャV座標増分
-	float alpha = prm_info.z; //α
+    OUT_VS out_vs = (OUT_VS)0;
+    float px_x = prm_pos.x; //変換済みX座標(px)
+    float px_y = prm_pos.y; //変換済みY座標(px)
+    float depthZ = prm_pos.z; //深度Z (0 ～ +1)
+    float offset_u = prm_info.x; //テクスチャU座標増分
+    float offset_v = prm_info.y; //テクスチャV座標増分
+    float alpha = prm_info.z; //α
 
-	//X座標Y座標をを -1 ～ +1 に押し込める。
-	out_vs.posModel_Proj.x = - 1 + ((2*prm_posModel_Local.x + 2*px_x - 1) / g_game_buffer_width);
-	out_vs.posModel_Proj.y =   1 - ((2*prm_posModel_Local.y + 2*px_y - 1) / g_game_buffer_height);
-	out_vs.posModel_Proj.z = depthZ;
-	out_vs.posModel_Proj.w = 1.0;
-	//UVのオフセットを加算
-	out_vs.uv.x = prm_uv.x + offset_u;
-	out_vs.uv.y = prm_uv.y + offset_v;
-	out_vs.color.a = alpha;
-	return out_vs;
+    //X座標Y座標をを -1 ～ +1 に押し込める。
+    out_vs.posModel_Proj.x = - 1 + ((2*prm_posModel_Local.x + 2*px_x - 1) / g_game_buffer_width);
+    out_vs.posModel_Proj.y =   1 - ((2*prm_posModel_Local.y + 2*px_y - 1) / g_game_buffer_height);
+    out_vs.posModel_Proj.z = depthZ;
+    out_vs.posModel_Proj.w = 1.0;
+    //UVのオフセットを加算
+    out_vs.uv.x = prm_uv.x + offset_u;
+    out_vs.uv.y = prm_uv.y + offset_v;
+    out_vs.color.a = alpha;
+    return out_vs;
 }
 
 
 //FontBoardActor標準ピクセルシェーダー
 float4 GgafDxPS_FontBoard(
-	float2 prm_uv	  : TEXCOORD0,
-	float4 prm_color  : COLOR0 
+    float2 prm_uv	  : TEXCOORD0,
+    float4 prm_color  : COLOR0
 ) : COLOR  {
-	float4 colOut = tex2D( MyTextureSampler, prm_uv);
-	if (colOut.r >= g_tex_blink_threshold || colOut.g >= g_tex_blink_threshold || colOut.b >= g_tex_blink_threshold) {
-		colOut *= g_tex_blink_power; 
-	}          
-	//α考慮
-	colOut.a = colOut.a * prm_color.a * g_alpha_master; 
-	return colOut;
+    float4 colOut = tex2D( MyTextureSampler, prm_uv);
+    if (colOut.r >= g_tex_blink_threshold || colOut.g >= g_tex_blink_threshold || colOut.b >= g_tex_blink_threshold) {
+        colOut *= g_tex_blink_power;
+    }
+    //α考慮
+    colOut.a = colOut.a * prm_color.a * g_alpha_master;
+    return colOut;
 }
 
 float4 PS_Flush(
-	float2 prm_uv	  : TEXCOORD0,
-	float4 prm_color    : COLOR0 
+    float2 prm_uv	  : TEXCOORD0,
+    float4 prm_color    : COLOR0
 ) : COLOR  {
-	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 colOut = tex2D( MyTextureSampler, prm_uv) * FLUSH_COLOR * prm_color;                
-	//α考慮
-	colOut.a = colOut.a * prm_color.a * g_alpha_master; 
-	return colOut;
+    //テクスチャをサンプリングして色取得（原色を取得）
+    float4 colOut = tex2D( MyTextureSampler, prm_uv) * FLUSH_COLOR * prm_color;
+    //α考慮
+    colOut.a = colOut.a * prm_color.a * g_alpha_master;
+    return colOut;
 
 }
 
@@ -107,45 +107,45 @@ float4 PS_Flush(
 // s0レジスタ				:	2Dテクスチャ
 technique FontBoardTechnique
 {
-	pass P0 {
-		AlphaBlendEnable = true;
+    pass P0 {
+        AlphaBlendEnable = true;
         //SeparateAlphaBlendEnable = true;
-		SrcBlend = SrcAlpha;
-		DestBlend = InvSrcAlpha;
+        SrcBlend = SrcAlpha;
+        DestBlend = InvSrcAlpha;
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_FontBoard();
-		PixelShader  = compile PS_VERSION GgafDxPS_FontBoard();
-	}
+        //BlendOpAlpha = Add;       //default
+        VertexShader = compile VS_VERSION GgafDxVS_FontBoard();
+        PixelShader  = compile PS_VERSION GgafDxPS_FontBoard();
+    }
 }
 
 technique DestBlendOne
 {
-	pass P0 {
-		AlphaBlendEnable = true;
+    pass P0 {
+        AlphaBlendEnable = true;
         //SeparateAlphaBlendEnable = true;
-		SrcBlend  = SrcAlpha;   
-		DestBlend = One; //加算合成
+        SrcBlend  = SrcAlpha;
+        DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_FontBoard();
-		PixelShader  = compile PS_VERSION GgafDxPS_FontBoard();
-	}
+        //BlendOpAlpha = Add;       //default
+        VertexShader = compile VS_VERSION GgafDxVS_FontBoard();
+        PixelShader  = compile PS_VERSION GgafDxPS_FontBoard();
+    }
 }
 
 technique Flush
 {
-	pass P0 {
-		AlphaBlendEnable = true;
+    pass P0 {
+        AlphaBlendEnable = true;
         //SeparateAlphaBlendEnable = true;
-		SrcBlend = SrcAlpha;
-		DestBlend = InvSrcAlpha;
+        SrcBlend = SrcAlpha;
+        DestBlend = InvSrcAlpha;
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_FontBoard();
-		PixelShader  = compile PS_VERSION PS_Flush();
-	}
+        //BlendOpAlpha = Add;       //default
+        VertexShader = compile VS_VERSION GgafDxVS_FontBoard();
+        PixelShader  = compile PS_VERSION PS_Flush();
+    }
 }

@@ -69,6 +69,7 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\WallAAPrismActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\WallAAPyramidActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\WallPartsActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\wall\CubeMapMassWallActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\wall\MassWallActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\WorldBoundActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\DefaultGod.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\WallAAPrismActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\WallAAPyramidActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\WallPartsActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\wall\CubeMapMassWallActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\wall\MassWallActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\WorldBoundActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\DefaultGod.h" />

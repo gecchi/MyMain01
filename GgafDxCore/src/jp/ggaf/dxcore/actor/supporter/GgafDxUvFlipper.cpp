@@ -36,8 +36,8 @@ void GgafDxUvFlipper::setRotation(float prm_base_u, float prm_base_v,
         throwGgafCriticalException("prm_ptn_col_num‚Í0‚æ‚è‘å‚«‚¢”‚Åİ’è‚µ‚Ä‰º‚³‚¢BTexture="<<_pTexture->_texture_name);
     }
 #endif
-    _base_u = prm_base_v;
-    _base_v = prm_base_u;
+    _base_u = prm_base_u;
+    _base_v = prm_base_v;
     _one_ptn_tex_width = prm_one_ptn_tex_width;
     _one_ptn_tex_height = prm_one_ptn_tex_height;
     _ptn_col_num = prm_ptn_col_num;
@@ -195,7 +195,7 @@ void GgafDxUvFlipper::customizePtnOrder(int prm_aPtnOffset[], int prm_num) {
 
 void GgafDxUvFlipper::getUV(float& out_u, float& out_v) {
     out_u = _base_u + _paUV[_pattno_uvflip_now]._u;
-    out_v = _base_u + _paUV[_pattno_uvflip_now]._v;
+    out_v = _base_v + _paUV[_pattno_uvflip_now]._v;
 }
 
 void GgafDxUvFlipper::getUV(int prm_pattno_uvflip, float& out_u, float& out_v) {
@@ -205,7 +205,7 @@ void GgafDxUvFlipper::getUV(int prm_pattno_uvflip, float& out_u, float& out_v) {
     }
 #endif
     out_u = _base_u + _paUV[prm_pattno_uvflip]._u;
-    out_v = _base_u + _paUV[prm_pattno_uvflip]._v;
+    out_v = _base_v + _paUV[prm_pattno_uvflip]._v;
 }
 
 GgafDxUvFlipper::~GgafDxUvFlipper() {

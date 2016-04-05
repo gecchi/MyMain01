@@ -19,7 +19,6 @@ private:
     /** 内部アニメフレーム用カウンタ */
     frame _frame_counter_uvflip;
 
-
 public:
 
     struct UV {
@@ -207,8 +206,8 @@ public:
     virtual void setRotation(int prm_ptn_col_num, int prm_ptn_row_num);
 
     virtual void setBaseUv(float prm_base_u, float prm_base_v) {
-        _base_u = prm_base_v;
-        _base_v = prm_base_u;
+        _base_u = prm_base_u;
+        _base_v = prm_base_v;
     }
 
     /**

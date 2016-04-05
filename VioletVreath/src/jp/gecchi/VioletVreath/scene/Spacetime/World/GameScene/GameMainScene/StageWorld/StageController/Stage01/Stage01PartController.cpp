@@ -26,10 +26,11 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {100,1000,9100,10000,29100,30000,39100,40000};
-	_paFrame_NextEvent = new frame[8];
+	frame f[] = {1,300};
+	_paFrame_NextEvent = new frame[2];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 8;
+	_event_num = 2;
+	orderSceneToFactory(10000000, Stage01WallScene, "Stage01WallScene-10000000");
     // gen01 end
     useProgress(Stage01PartController::PROG_BANPEI-1);
 }
@@ -44,42 +45,17 @@ void Stage01PartController::processBehavior() {
     // gen02 start
 	if (getBehaveingFrame() == _paFrame_NextEvent[_cnt_event]) {
 		switch (getBehaveingFrame()) {
-			case 100: {
-				orderSceneToFactory(10000000, Stage01_01, "Stage01_01-10000000");
+			case 1: {
 				break;
 			}
-			case 1000: {
+			case 300: {
 				addSubLast(obtainSceneFromFactory(10000000));
-				break;
-			}
-			case 9100: {
-				orderSceneToFactory(10000001, Stage01_02, "Stage01_02-10000001");
-				break;
-			}
-			case 10000: {
-				addSubLast(obtainSceneFromFactory(10000001));
-				break;
-			}
-			case 29100: {
-				orderSceneToFactory(10000002, Stage01_03, "Stage01_03-10000002");
-				break;
-			}
-			case 30000: {
-				addSubLast(obtainSceneFromFactory(10000002));
-				break;
-			}
-			case 39100: {
-				orderSceneToFactory(10000003, Stage01_Climax, "Stage01_Climax-10000003");
-				break;
-			}
-			case 40000: {
-				addSubLast(obtainSceneFromFactory(10000003));
 				break;
 			}
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 8-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 2-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
 
