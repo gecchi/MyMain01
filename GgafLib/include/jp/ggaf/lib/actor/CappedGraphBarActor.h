@@ -20,7 +20,7 @@ public:
      * @param prm_model
      * @param prm_pPxQty
      */
-    CappedGraphBarActor(const char* prm_name, const char* prm_model, PxQuantity* prm_pPxQty);
+    CappedGraphBarActor(const char* prm_name, const char* prm_model, Quantity<int, pixcoord>* prm_pPxQty);
 
     /**
      * コンストラクタ

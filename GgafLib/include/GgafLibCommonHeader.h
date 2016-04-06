@@ -32,7 +32,6 @@ class DefaultCameraUpVector;
 class StgUtil;
 class VirtualButton;
 class VBReplayRecorder;
-class PxQuantity;
 
 class DefaultScene;
 class SceneProgress;

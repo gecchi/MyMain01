@@ -4,7 +4,7 @@
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 #include "scene/MgrSpacetime.h"
-#include "jp/ggaf/lib/util/PxQuantity.h"
+#include "jp/ggaf/lib/util/Quantity.hpp"
 
 namespace Mogera {
 

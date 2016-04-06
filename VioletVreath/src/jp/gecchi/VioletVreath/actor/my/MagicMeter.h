@@ -55,11 +55,11 @@ public:
     SmileMagic*   pSmileMagic_;
 
 //    /** 自機のMP */
-//    GgafLib::PxQuantity* pMP_MyShip_;
+//    GgafLib::Quantity* pMP_MyShip_;
 //    /** 自機のVreath */
-//    GgafLib::PxQuantity* pVreath_MyShip_;
+//    GgafLib::Quantity* pVreath_MyShip_;
 //    /** Vreathのダメージ分表示用 */
-//    GgafLib::PxQuantity damage_disp_vreath;
+//    GgafLib::Quantity damage_disp_vreath;
 
     /** 残魔法効果持続時間表示 */
     MagicMeterStatus* pMagicMeterStatus_;

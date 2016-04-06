@@ -15,9 +15,11 @@ namespace GgafCore {
  * @author Masatoshi Tsuge
  */
 class GgafGarbageBox : public GgafObject {
-
-    static bool _wait;
-
+#ifdef _MSC_VER
+    static volatile bool _wait;
+#else
+    static volatile std::atomic<bool> _wait;
+#endif
 public:
     /** [r]ゴミ箱(不要なアクター置き場) */
     static GgafGarbageBox* _pGarbageBox;

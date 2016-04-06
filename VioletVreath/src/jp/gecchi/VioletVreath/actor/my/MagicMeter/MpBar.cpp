@@ -1,7 +1,7 @@
 #include "MpBar.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-#include "jp/ggaf/lib/util/PxQuantity.h"
+#include "jp/ggaf/lib/util/Quantity.hpp"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

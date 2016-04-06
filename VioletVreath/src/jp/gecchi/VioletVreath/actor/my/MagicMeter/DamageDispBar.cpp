@@ -1,7 +1,7 @@
 #include "DamageDispBar.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-#include "jp/ggaf/lib/util/PxQuantity.h"
+#include "jp/ggaf/lib/util/Quantity.hpp"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 
@@ -27,14 +27,14 @@ void DamageDispBar::initialize() {
 void DamageDispBar::onReset() {
     positionAs(pSourceBar_);
     _sx = pSourceBar_->_sx;
-    setQty(0);
+    setVal(0);
     getUvFlipper()->setActivePtn(0);//赤
 }
 
 void DamageDispBar::onActive() {
     positionAs(pSourceBar_);
     _sx = pSourceBar_->_sx;
-    setQty(0);
+    setVal(0);
     getUvFlipper()->setActivePtn(0);//赤
 }
 
@@ -51,10 +51,10 @@ void DamageDispBar::processJudgement() {
         }
     } else {
         //0へ向かう
-        if (getQty() > 0) {
-            incQty(velo_clear_damege_);
-            if (getQty() < 0) {
-                setQty(0);
+        if (getVal() > 0) {
+            incVal(velo_clear_damege_);
+            if (getVal() < 0) {
+                setVal(0);
             }
         }
     }
@@ -72,8 +72,8 @@ void DamageDispBar::addDamage(int prm_val) {
         damege_disp_timer_ = 60; //赤表示時間(間隔が開いてから)
     }
     is_damege_disp_ = true;
-    incQty(prm_val);
-    velo_clear_damege_ = -1* ((getQty() / 20) + 1); //20フレームでするするっと赤が消える
+    incVal(prm_val);
+    velo_clear_damege_ = -1* ((getVal() / 20) + 1); //20フレームでするするっと赤が消える
 }
 
 DamageDispBar::~DamageDispBar() {

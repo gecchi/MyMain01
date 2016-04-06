@@ -1,6 +1,6 @@
 #include "Magic.h"
 
-#include "jp/ggaf/lib/util/PxQuantity.h"
+#include "jp/ggaf/lib/util/Quantity.hpp"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 
 using namespace GgafCore;

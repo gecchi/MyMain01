@@ -1,7 +1,7 @@
 #include "InnerTitleBar.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-#include "jp/ggaf/lib/util/PxQuantity.h"
+#include "jp/ggaf/lib/util/Quantity.hpp"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 
 using namespace GgafCore;

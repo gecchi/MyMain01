@@ -12,11 +12,14 @@
 using namespace GgafCore;
 
 #define GgafGarbage_MAX_WAIT 2000
-//CRITICAL_SECTION GgafGarbageBox::CS;
-bool GgafGarbageBox::_wait = false;
+
+#ifdef _MSC_VER
+volatile bool GgafGarbageBox::_wait = false;
+#else
+volatile std::atomic<bool> GgafGarbageBox::_wait = false;
+#endif
 GgafGarbageBox* GgafGarbageBox::_pGarbageBox = nullptr;
 int GgafGarbageBox::_cnt_cleaned = 0;
-
 
 GgafGarbageBox::GgafGarbageBox() : GgafObject() {
     GgafGarbageBox::_wait = false;
@@ -25,7 +28,6 @@ GgafGarbageBox::GgafGarbageBox() : GgafObject() {
 }
 
 void GgafGarbageBox::add(GgafActor* prm_pActor) {
-    prm_pActor->_can_live_flg = false;
     for (int i = 0; i < GgafGarbage_MAX_WAIT; i++) {
         if (GgafGarbageBox::_wait) {
             Sleep(1);
@@ -45,7 +47,6 @@ void GgafGarbageBox::add(GgafActor* prm_pActor) {
 }
 
 void GgafGarbageBox::add(GgafScene* prm_pScene) {
-    prm_pScene->_can_live_flg = false;
     for (int i = 0; i < GgafGarbage_MAX_WAIT; i++) {
         if (GgafGarbageBox::_wait) {
             Sleep(1);

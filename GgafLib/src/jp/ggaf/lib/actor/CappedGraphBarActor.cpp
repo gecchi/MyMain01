@@ -5,13 +5,12 @@
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/model/GgafDxBoardModel.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
-#include "jp/ggaf/lib/util/PxQuantity.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-CappedGraphBarActor::CappedGraphBarActor(const char* prm_name, const char* prm_model, PxQuantity* prm_pPxQty)
+CappedGraphBarActor::CappedGraphBarActor(const char* prm_name, const char* prm_model, Quantity<int, pixcoord>* prm_pPxQty)
       : GraphBarActor(prm_name, prm_model, prm_pPxQty) {
     _class_name = "CappedGraphBarActor";
 }
@@ -22,7 +21,7 @@ CappedGraphBarActor::CappedGraphBarActor(const char* prm_name, const char* prm_m
 }
 
 void CappedGraphBarActor::processDraw() {
-    float bar_width = (float)(_pPxQty->getPx());
+    float bar_width = (float)(_pPxQty->getQty());
     if (bar_width == 0.0f) { //I know float ==
         return;
     }

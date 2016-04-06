@@ -143,7 +143,7 @@ public:
      * その後、配下ノード全てに nextFrame() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
      * 神(GgafGod)は、この世(GgafSpacetime)に対して nextFrame() 実行後、次は behave() を実行することになる。<BR>
-     * 次のような構造の場合、実行順は①～⑬の順序となる。<BR>
+     * 次のような構造の場合、実行順は①～⑬の順序となる。いわゆる pre-order 順。<BR>
      * ノード間で参照関係がある場合は、注意が必要。<BR>
      * <pre>
      * (Ｐ)⇔①Ｐ⇔(Ｐ)
@@ -157,7 +157,80 @@ public:
      * </pre>
      * メソッド説明に『(実行対象：自ツリー全て)』と記述されている場合は、全て上記の順序で実行される。
      */
-    virtual void nextFrame();
+    virtual void nextFrame() {
+        _was_paused_flg = _was_paused_flg_in_next_frame;
+        if (!_was_paused_flg) {
+            _frame_of_life++;
+            _is_already_reset = false;
+            if (_frame_of_life == _frame_of_life_when_end) {
+                _can_live_flg = false; //終了の時だ
+            } else {
+                if (_is_active_flg) {  //現在activate
+                    if (_frame_of_life == _frame_of_life_when_inactivation) { //現在 activate だが、今inactivateになる時が来た
+                        _on_change_to = 1;
+                        _is_active_flg = false; //活動フラグOFF
+                        _is_active_in_the_tree_flg = false;
+                        onInactive(); //コールバック
+                    } else {
+                        _on_change_to = 0;
+                        updateActiveInTheTree();     //_is_active_in_the_tree_flg を更新
+                        if (_is_active_in_the_tree_flg) {
+                            _frame_of_behaving++;
+                            if (_pProg) {  _pProg->update();  } // 進捗を反映
+                            _frame_of_behaving_since_onActive++;
+                        }
+                    }
+
+                } else { //現在inactivate
+                    if(_frame_of_life == _frame_of_life_when_activation) { //現在inactivate だが、今activateになる時が来た
+                        _on_change_to = 2;       //onActive処理
+                        _is_active_flg = true;  //活動フラグON
+                        updateActiveInTheTree();     //_is_active_in_the_tree_flg を更新
+                        if (_is_active_in_the_tree_flg) {
+                            _frame_of_behaving++;
+                            if (_pProg) {  _pProg->update();  } // 進捗を反映
+                            _frame_of_behaving_since_onActive++;
+                        }
+                        if (!_was_initialize_flg) {
+                            initialize();       //初期化
+                            _was_initialize_flg = true;
+                            reset(); //リセット
+                        }
+                        _frame_of_behaving_since_onActive = 0; //リセット
+                        onActive();   //コールバック
+                        _frame_of_behaving_since_onActive = 1;
+                    } else {
+                        _on_change_to = 0;
+                        _is_active_in_the_tree_flg = false;
+                    }
+                }
+            }
+        }
+
+        //配下の全ノードに再帰的にnextFrame()実行
+        T* pElement = GgafNode<T>::_pSubFirst; //一つ配下の先頭ノード。潜れる場合は先に潜る。
+        if (pElement) {
+            while (!pElement->_is_last_flg) {
+                //配下の先頭 ～ 末尾-1 ノードに nextFrame()
+                pElement->nextFrame();  //再帰
+                if (pElement->_can_live_flg) {
+                    pElement = pElement->_pNext;
+                } else {
+                    pElement->onEnd();
+                    pElement = pElement->_pNext; //先に一個進ませて退避させてから
+                    GgafGarbageBox::_pGarbageBox->add(pElement->_pPrev); //一個前をゴミ箱へ(連結が切れる)
+                }
+            }
+            //配下の最後の末尾ノードに nextFrame()
+            pElement->nextFrame(); //再帰
+            if (pElement->_can_live_flg) {
+                //OK 次は無し→親ノードの処理へ
+            } else {
+                pElement->onEnd();
+                GgafGarbageBox::_pGarbageBox->add(pElement); //ゴミ箱へ
+            }
+        }
+    }
 
     /**
      * ノードのフレーム毎の振る舞い処理(実行対象：自ツリー全て) .
@@ -913,82 +986,6 @@ GgafElement<T>::GgafElement(const char* prm_name) :
     _pProg(nullptr)
 {
 
-}
-
-template<class T>
-void GgafElement<T>::nextFrame() {
-    _was_paused_flg = _was_paused_flg_in_next_frame;
-    if (!_was_paused_flg) {
-        _frame_of_life++;
-        if (_frame_of_life == _frame_of_life_when_end) {
-            _can_live_flg = false; //終了の時だ
-        } else {
-            int on_change_to = 0;
-            if (_is_active_flg) {  //現在activate
-                if (_frame_of_life == _frame_of_life_when_inactivation) { //現在 activate だが、今inactivateになる時が来た
-                    _is_active_flg = false; //活動フラグOFF
-                    on_change_to = 1;       //onInactive確定
-                }
-            } else { //現在inactivate
-                if(_frame_of_life == _frame_of_life_when_activation) { //現在inactivate だが、今activateになる時が来た
-                    _is_active_flg = true;  //活動フラグON
-                    on_change_to = 2;       //onActive処理
-                }
-            }
-            _on_change_to = on_change_to;
-            _is_already_reset = false;
-
-            updateActiveInTheTree();     //_is_active_in_the_tree_flg を更新
-
-            if (_is_active_in_the_tree_flg) {
-                _frame_of_behaving++;
-                // 進捗を反映
-                if (_pProg) {
-                    _pProg->update();
-                }
-                _frame_of_behaving_since_onActive++;
-            }
-
-            if (on_change_to == 0) {
-                //コールバック特になし
-            } else if (on_change_to == 1) { //onInactive処理
-                onInactive(); //コールバック
-            } else if (on_change_to == 2) { //onActive処理
-                if (!_was_initialize_flg) {
-                    initialize();       //初期化
-                    _was_initialize_flg = true;
-                    reset(); //リセット
-                }
-                _frame_of_behaving_since_onActive = 0; //リセット
-                onActive();   //コールバック
-                _frame_of_behaving_since_onActive = 1;
-            }
-        }
-    }
-
-    //配下の全ノードに再帰的にnextFrame()実行
-    T* pElement = GgafNode<T>::_pSubFirst; //一つ配下の先頭ノード。潜れる場合は先に潜る。
-    if (pElement) {
-        while (!pElement->_is_last_flg) {
-            //配下の先頭 ～ 末尾-1 ノードに nextFrame()
-            pElement->nextFrame();  //再帰
-            if (pElement->_can_live_flg) {
-                pElement = pElement->_pNext;
-            } else {
-                pElement->onEnd();
-                pElement = pElement->_pNext; //先に一個進ませて退避させてから
-                GgafGarbageBox::_pGarbageBox->add(pElement->_pPrev); //一個前をゴミ箱へ(連結が切れる)
-            }
-        }
-        //配下の最後の末尾ノードに nextFrame()
-        pElement->nextFrame(); //再帰
-        if (pElement->_can_live_flg) {
-            //OK 次は無し→親ノードの処理へ
-        } else {
-            pElement->onEnd();
-            GgafGarbageBox::_pGarbageBox->add(pElement); //ゴミ箱へ
-        }
-    }
 }
 
 template<class T>

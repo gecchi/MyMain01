@@ -200,7 +200,7 @@ void MagicMeter::saveStatus(int prm_saveno) {
 }
 
 void MagicMeter::save(std::stringstream& sts) {
-    sts << pMpBar_->getQty() << " ";
+    sts << pMpBar_->getVal() << " ";
     Magic* pOrgMagic = lstMagic_.getCurrent();
     int len_magics = lstMagic_.length();
     for (int i = 0; i < len_magics; i++) {
@@ -212,7 +212,7 @@ void MagicMeter::save(std::stringstream& sts) {
 void MagicMeter::load(std::stringstream& sts) {
     int mp;
     sts >> mp;
-    pMpBar_->setQty(mp);
+    pMpBar_->setVal(mp);
 
     Magic* pOrgMagic = lstMagic_.getCurrent();
     int len_magics = lstMagic_.length();
@@ -253,9 +253,9 @@ void MagicMeter::onReset() {
         pSeTx4Cast_->stop(i);
         pSeTx4Invoke_->stop(i);
     }
-    pMpCostDispBar_->setQty(0);
-    pVreathCostDispBar_->setQty(0);
-    pDamageDispBar_->setQty(0);
+    pMpCostDispBar_->setVal(0);
+    pVreathCostDispBar_->setVal(0);
+    pDamageDispBar_->setVal(0);
 }
 
 void MagicMeter::onActive() {
@@ -569,11 +569,11 @@ void MagicMeter::processJudgement() {
         if (r_roll_[active_idx] > 0.01f) {
             if (papLvTgtMvCur_[active_idx]->point_lv_ == pActiveMagic->level_) {
                 //カーソルがより現在と同じレベルを指している場合
-                pMpCostDispBar_->setQty(0);
+                pMpCostDispBar_->setVal(0);
             } else if (papLvTgtMvCur_[active_idx]->point_lv_ > pActiveMagic->level_) {
                 //カーソルが現在より高いレベルを指している場合
                 //MPコストを負の赤の表示
-                pMpCostDispBar_->setQty(
+                pMpCostDispBar_->setVal(
                   -1*pActiveMagic->level_up_cost_[pActiveMagic->level_][papLvTgtMvCur_[active_idx]->point_lv_]
                 );
             } else {
@@ -581,7 +581,7 @@ void MagicMeter::processJudgement() {
                 //正の青の表示
                 if (pActiveMagic->keep_cost_base_ <= 0) {
                     //維持コスト無しの場合のみMP還元バー表示
-                    pMpCostDispBar_->setQty(
+                    pMpCostDispBar_->setVal(
                       pActiveMagic->calcReduceMp(pActiveMagic->level_,  papLvTgtMvCur_[active_idx]->point_lv_)
                     );
                 } else {
@@ -589,7 +589,7 @@ void MagicMeter::processJudgement() {
                 }
             }
         } else {
-            pMpCostDispBar_->setQty(0);
+            pMpCostDispBar_->setVal(0);
         }
 
         //Vreathバーがアクティブだった場合、Vreath増分表示
@@ -598,22 +598,22 @@ void MagicMeter::processJudgement() {
             if (r_roll_[active_idx] > 0.01f) {
                 if (papLvTgtMvCur_[active_idx]->point_lv_ == pVM->level_) {
                     //カーソルがより現在と同じレベルを指している場合
-                    pVreathCostDispBar_->setQty(0);
+                    pVreathCostDispBar_->setVal(0);
                 } else if (papLvTgtMvCur_[active_idx]->point_lv_ > pVM->level_) {
                     //カーソルが現在より高いレベルを指している場合
                     //正の青の表示
-                    pVreathCostDispBar_->setQty(
+                    pVreathCostDispBar_->setVal(
                             (int)(pVM->calcTotalVreath(pActiveMagic->level_,  papLvTgtMvCur_[active_idx]->point_lv_))
                     );
                 } else {
                     //カーソルが現在より低いレベルを指している場合
-                    pVreathCostDispBar_->setQty(0);
+                    pVreathCostDispBar_->setVal(0);
                 }
             } else {
-                pVreathCostDispBar_->setQty(0);
+                pVreathCostDispBar_->setVal(0);
             }
         } else {
-            pVreathCostDispBar_->setQty(0);
+            pVreathCostDispBar_->setVal(0);
         }
 
         //「決定」時
@@ -635,8 +635,8 @@ void MagicMeter::processJudgement() {
         if (!pMyShip->canControl() || pVbPlay->isReleasedUp(VB_POWERUP)) {
             rollClose(lstMagic_.getCurrentIndex());
         }
-        pMpCostDispBar_->setQty(0);
-        pVreathCostDispBar_->setQty(0);
+        pMpCostDispBar_->setVal(0);
+        pVreathCostDispBar_->setVal(0);
     }
 
     addAlpha(alpha_velo_);

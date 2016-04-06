@@ -115,8 +115,6 @@ void FontBoardActor::processDraw() {
 }
 
 FontBoardActor::~FontBoardActor() {
-     GGAF_DELETEARR(_buf);
-     GGAF_DELETEARR(_paInstacePart);
 }
 
 

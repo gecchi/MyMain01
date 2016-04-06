@@ -3,7 +3,7 @@
 #include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultD3DXMeshActor.h"
 
-#include "jp/ggaf/lib/util/PxQuantity.h"
+#include "jp/ggaf/lib/util/Quantity.hpp"
 #include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
 #include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
 
