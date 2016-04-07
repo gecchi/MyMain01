@@ -16,7 +16,7 @@ using namespace GgafCore;
 #ifdef _MSC_VER
 volatile bool GgafGarbageBox::_wait = false;
 #else
-volatile std::atomic<bool> GgafGarbageBox::_wait = false;
+volatile std::atomic<bool> GgafGarbageBox::_wait(false);
 #endif
 GgafGarbageBox* GgafGarbageBox::_pGarbageBox = nullptr;
 int GgafGarbageBox::_cnt_cleaned = 0;

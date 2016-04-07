@@ -3,6 +3,10 @@
 #include "GgafCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 
+#ifndef _MSC_VER
+    #include <atomic>
+#endif
+
 namespace GgafCore {
 
 /**
