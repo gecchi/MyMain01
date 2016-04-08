@@ -132,7 +132,7 @@ void WallAAPrismActor::processDraw() {
             pWallPartsActor->_matWorld._24 = pWallPartsActor->_pos_info;  //プリズム位置情報ををワールド変換行列のmatWorld._24 に埋め込む
             hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[draw_set_num], &(pWallPartsActor->_matWorld));
             checkDxException(hr, D3D_OK, "SetMatrix(g_matWorld) に失敗しました。");
-            draw_set_num++;
+            ++draw_set_num;
             if (draw_set_num >= model_set_num) {
                 break;
             }

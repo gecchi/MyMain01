@@ -95,7 +95,7 @@ void GgafDxBoardSetActor::processDraw() {
             hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_offset_v[draw_set_num], v);
             checkDxException(hr, D3D_OK, "SetFloat(_h_offset_v) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
-            draw_set_num++;
+            ++draw_set_num;
             if (draw_set_num >= model_set_num) {
                 break;
             }

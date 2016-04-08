@@ -144,7 +144,6 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\fontspriteactor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\graphbaractor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\interface\icharacterchip.hpp" />
-    <ClInclude Include="include\jp\ggaf\lib\actor\interface\IProportionalFont.hpp" />
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\HomingLaserChip.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\LaserChip.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\LaserChipDepository.h" />

@@ -46,7 +46,7 @@ public:
                 return;
             }
             _apActor[_p] = prm_pActor;
-            _p++;
+            ++_p;
         }
 
         /**
@@ -73,7 +73,7 @@ public:
                 return;
             }
             while (_apActor[_p] = prm_pCollisionStack->pop()) { //  I know "=" , not "=="
-                _p++;
+                ++_p;
                 if (_p == MAX_COLLISIONSTACK_ACTOR_NUM) {
                     _TRACE_("＜警告＞ LinearOctreeForActor::pop_push("<<prm_pCollisionStack<<") スタックを使い切りました。無視します。一箇所に当たり判定が塊過ぎです。");
                     prm_pCollisionStack->_p = 0;

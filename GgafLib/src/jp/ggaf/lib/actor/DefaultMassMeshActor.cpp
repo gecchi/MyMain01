@@ -106,8 +106,8 @@ void DefaultMassMeshActor::processDraw() {
         if (pDrawActor->getModel() == pMassMeshModel && pDrawActor->_hash_technique == hash_technique) {
             memcpy(paInstancedata, &(pDrawActor->_matWorld), size_of_D3DXMATRIX);
             memcpy(&(paInstancedata->r), &(pDrawActor->_paMaterial[0].Diffuse), size_of_D3DCOLORVALUE);
-            paInstancedata++;
-            draw_set_num++;
+            ++paInstancedata;
+            ++draw_set_num;
             GgafDxSpacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
             if (draw_set_num >= model_max_set_num) {
                 break;

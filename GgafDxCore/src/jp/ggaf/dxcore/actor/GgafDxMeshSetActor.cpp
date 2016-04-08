@@ -78,7 +78,7 @@ void GgafDxMeshSetActor::processDraw() {
             //もともと本クラスは、同一モデル複数オブジェクトを、同時に一回で描画しスピードアップを図ることを目的としたクラスで、たくさんマテリアルグループがあるオブジェクトには不向というか無意味である。
             //１枚テクスチャで頑張れば問題ない・・・という方針。マテリアル色で色分けしたい場合は GgafDxMeshActor を使うしかない。
             checkDxException(hr, D3D_OK, "SetValue(g_colMaterialDiffuse) に失敗しました。");
-            draw_set_num++;
+            ++draw_set_num;
             if (draw_set_num >= model_set_num) {
                 break;
             }

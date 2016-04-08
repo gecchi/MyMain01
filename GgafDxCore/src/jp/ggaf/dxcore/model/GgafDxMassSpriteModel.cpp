@@ -195,7 +195,7 @@ HRESULT GgafDxMassSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, int pr
     }
 
     //‘O‰ñ•`‰æƒ‚ƒfƒ‹•ÛŽ
-    GgafGod::_num_drawing++;
+    ++GgafGod::_num_drawing;
     GgafDxModelManager::_pModelLastDraw = this;
     GgafDxEffectManager::_pEffect_active = pMassSpriteEffect;
     GgafDxFigureActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;

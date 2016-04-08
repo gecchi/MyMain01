@@ -88,7 +88,7 @@ void SingleLaser::processDraw() {
             pSingleLaserChip = (SingleLaser*)pDrawActor;
             hr = pID3DXEffect->SetMatrix(SingleLaser::_ah_matWorld[draw_set_num], &(pSingleLaserChip->_matWorld));
             checkDxException(hr, D3D_OK, "pDrawActor->_matWorld="<<pDrawActor->_matWorld<<" pDrawActor="<<pDrawActor->getName()<<" draw_set_num="<<draw_set_num<<" ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-            draw_set_num++;
+            ++draw_set_num;
             if (draw_set_num >= model_Set_num) {
                 break;
             }

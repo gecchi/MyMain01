@@ -53,7 +53,7 @@ void GgafDxCubeMapMeshSetActor::processDraw() {
                 checkDxException(hr, D3D_OK, "SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
                 hr = pID3DXEffect->SetValue(_pCubeMapMeshSetEffect->_ah_materialDiffuse[draw_set_num], &(pCubeMapMeshSetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
                 checkDxException(hr, D3D_OK, "SetValue(g_colMaterialDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-                draw_set_num++;
+                ++draw_set_num;
                 if (draw_set_num >= model_set_num) {
                     break;
                 }

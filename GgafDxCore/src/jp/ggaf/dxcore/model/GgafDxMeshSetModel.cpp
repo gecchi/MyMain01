@@ -184,7 +184,7 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_d
             hr = pID3DXEffect->BeginPass(0);
             checkDxException(hr, D3D_OK, "ÇPÉpÉXñ⁄ BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         }
-        GgafGod::_num_drawing++;
+        ++GgafGod::_num_drawing;
     }
     GgafDxModelManager::_pModelLastDraw = this;
     GgafDxEffectManager::_pEffect_active = pMeshSetEffect;

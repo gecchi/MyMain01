@@ -94,10 +94,10 @@ void FontBoardActor::processDraw() {
                 paInstancedata->offset_u = pInstacePart->offset_u;
                 paInstancedata->offset_v = pInstacePart->offset_v;
                 paInstancedata->alpha    = alpha;
-                pInstacePart++;
-                paInstancedata++;
+                ++pInstacePart;
+                ++paInstancedata;
 
-                draw_set_num++;
+                ++draw_set_num;
                 if (draw_set_num >= model_set_num) {
                    _pMassBoardModel->GgafDxMassBoardModel::draw(this, draw_set_num);
                    paInstancedata = FontBoardActor::_aInstancedata;

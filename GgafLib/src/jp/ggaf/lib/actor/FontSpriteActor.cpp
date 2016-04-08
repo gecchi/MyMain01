@@ -144,10 +144,10 @@ void FontSpriteActor::processDraw() {
                 paInstancedata->offset_u = pInstacePart->offset_u;
                 paInstancedata->offset_v = pInstacePart->offset_v;
                 memcpy(&(paInstancedata->r), &(pFontSpriteActor->_paMaterial[0].Diffuse), size_of_D3DCOLORVALUE);
-                pInstacePart++;
-                paInstancedata++;
+                ++pInstacePart;
+                ++paInstancedata;
 
-                draw_set_num++;
+                ++draw_set_num;
                 if (draw_set_num >= model_set_num) {
                    _pMassSpriteModel->GgafDxMassSpriteModel::draw(this, draw_set_num);
                    paInstancedata = FontSpriteActor::_aInstancedata;

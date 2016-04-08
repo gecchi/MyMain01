@@ -49,7 +49,7 @@ void GgafDxFkFormation::addFormationMember(GgafDxGeometricActor* prm_pMember,
     }
 #endif
     GgafDxGeometricActor* pFkBase = (GgafDxGeometricActor*)(getSubFirst());
-    _num_formation_member++;
+    ++_num_formation_member;
     prm_pMember->_pFormation = this; //メンバーへフォーメーションを設定
     pFkBase->addSubGroupAsFk(prm_pMember,
                              prm_x_init_local,

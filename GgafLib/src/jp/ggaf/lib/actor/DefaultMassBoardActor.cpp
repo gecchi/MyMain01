@@ -110,9 +110,9 @@ void DefaultMassBoardActor::processDraw() {
             paInstancedata->offset_u = u;
             paInstancedata->offset_v = v;
             memcpy(&(paInstancedata->r), &(pDefaultMassBoardActor->_paMaterial[0].Diffuse), size_of_D3DCOLORVALUE);
-            paInstancedata++;
+            ++paInstancedata;
 
-            draw_set_num++;
+            ++draw_set_num;
             GgafDxSpacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
             if (draw_set_num >= model_set_num) {
                 break;

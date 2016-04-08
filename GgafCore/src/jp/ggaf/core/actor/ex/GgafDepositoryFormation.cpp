@@ -140,7 +140,7 @@ GgafActor* GgafDepositoryFormation::callUpMember(int prm_formation_sub_num) {
     } else {
         GgafMainActor* pActor = _pDepo->dispatch();
         if (pActor) {
-            _num_formation_member++;
+            ++_num_formation_member;
             _can_call_up = true;
             pActor->_pFormation = this;
             _listFollower.addLast(pActor, false);

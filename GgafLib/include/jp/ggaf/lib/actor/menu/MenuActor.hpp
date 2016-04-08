@@ -920,42 +920,43 @@ MenuActor<T>::MenuActor(const char* prm_name, const char* prm_model) :
 template<class T>
 void MenuActor<T>::nextFrame() {
     T::nextFrame();
-    _is_just_risen = false;
-    if (_will_be_rising_next_frame) {
-        _with_rising = true;
-        _is_just_risen = true;
-        _will_be_rising_next_frame = false;
-        onRise();
+    if (T::_can_live_flg) {
+        _is_just_risen = false;
+        if (_will_be_rising_next_frame) {
+            _with_rising = true;
+            _is_just_risen = true;
+            _will_be_rising_next_frame = false;
+            onRise();
+        }
+
+        _is_just_sunk = false;
+        if (_will_be_sinking_next_frame) {
+            _with_sinking = true;
+            _is_just_sunk = true;
+            _will_be_sinking_next_frame = false;
+            onSink();
+        }
+
+        if (_will_be_just_decided_next_frame && _can_controll) {
+            _is_just_decided = true;
+            _will_be_just_decided_next_frame = false;
+            onDecision(_lstItems.getCurrent(), _lstItems.getCurrentIndex());
+        } else {
+            _is_just_decided = false;
+            _will_be_just_decided_next_frame = false;
+        }
+
+        if (_will_be_just_cancelled_next_frame && _can_controll) {
+            _is_just_cancelled = true;
+            _will_be_just_cancelled_next_frame = false;
+            onCancel(_lstItems.getCurrent(), _lstItems.getCurrentIndex());
+        } else {
+            _is_just_cancelled = false;
+            _will_be_just_cancelled_next_frame = false;
+        }
+
+        _can_controll = _will_be_able_to_controll;
     }
-
-    _is_just_sunk = false;
-    if (_will_be_sinking_next_frame) {
-        _with_sinking = true;
-        _is_just_sunk = true;
-        _will_be_sinking_next_frame = false;
-        onSink();
-    }
-
-    if (_will_be_just_decided_next_frame && _can_controll) {
-        _is_just_decided = true;
-        _will_be_just_decided_next_frame = false;
-        onDecision(_lstItems.getCurrent(), _lstItems.getCurrentIndex());
-    } else {
-        _is_just_decided = false;
-        _will_be_just_decided_next_frame = false;
-    }
-
-    if (_will_be_just_cancelled_next_frame && _can_controll) {
-        _is_just_cancelled = true;
-        _will_be_just_cancelled_next_frame = false;
-        onCancel(_lstItems.getCurrent(), _lstItems.getCurrentIndex());
-    } else {
-        _is_just_cancelled = false;
-        _will_be_just_cancelled_next_frame = false;
-    }
-
-    _can_controll = _will_be_able_to_controll;
-
 }
 
 template<class T>

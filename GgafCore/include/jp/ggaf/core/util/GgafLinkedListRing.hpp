@@ -925,7 +925,7 @@ void GgafLinkedListRing<T>::addNext(const T* prm_pNew, bool prm_is_delete_value)
         pElem->_pNext = pMyNext;
         pMyNext->_pPrev = pElem;
     }
-    _num_elem++;
+    ++_num_elem;
     if (_papLinerVal) {
         GGAF_DELETEARR(_papLinerVal);
     }
@@ -961,7 +961,7 @@ void GgafLinkedListRing<T>::addPrev(const T* prm_pNew, bool prm_is_delete_value)
         pElem->_pNext = pMy;
         pMy->_pPrev = pElem;
     }
-    _num_elem++;
+    ++_num_elem;
     if (_papLinerVal) {
         GGAF_DELETEARR(_papLinerVal);
     }
@@ -995,7 +995,7 @@ void GgafLinkedListRing<T>::addLast(const T* prm_pNew, bool prm_is_delete_value)
         pElem->_pNext = _pElem_first;
         _pElem_first->_pPrev = pElem;
     }
-    _num_elem++;
+    ++_num_elem;
     if (_papLinerVal) {
         GGAF_DELETEARR(_papLinerVal);
     }
@@ -1030,7 +1030,7 @@ void GgafLinkedListRing<T>::addFirst(const T* prm_pNew, bool prm_is_delete_value
         pElem->_is_last_flg = false;
         _pElem_first = pElem;
     }
-    _num_elem++;
+    ++_num_elem;
     if (_papLinerVal) {
         GGAF_DELETEARR(_papLinerVal);
     }
@@ -1347,7 +1347,7 @@ int GgafLinkedListRing<T>::indexOf(const T* prm_pVal) const {
                 break;
             } else {
                 pElem = pElem -> _pNext;
-                r++;
+                ++r;
             }
         }
     }

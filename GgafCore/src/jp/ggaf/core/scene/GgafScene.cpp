@@ -56,7 +56,9 @@ void GgafScene::addSubLast(GgafScene* prm_pScene) {
 void GgafScene::nextFrame() {
     if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
         GgafElement<GgafScene>::nextFrame();
-        _pSceneDirector->nextFrame();
+        if(_pSceneDirector) {
+            _pSceneDirector->nextFrame();
+        }
     }
 //    } else {
 //		isActive()?
