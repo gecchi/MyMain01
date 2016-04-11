@@ -691,7 +691,7 @@ void MagicMeter::processDraw() {
         pUvFlipper->getUV(0, u, v);
         p->offset_u = u;
         p->offset_v = v;
-        p++; n++;
+        ++p; n++;
 
         //マジックメーター上の現在のマジックレベル表示
         p->px_x = x + wx;
@@ -702,7 +702,7 @@ void MagicMeter::processDraw() {
         pUvFlipper->getUV(pMagic->lvinfo_[pMagic_level].pno_, u, v);
         p->offset_u = u;
         p->offset_v = v;
-        p++; n++;
+        ++p; n++;
 
         float rr = r_roll_[i];
         if (rr > 0.1f) {

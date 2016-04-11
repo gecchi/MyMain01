@@ -109,7 +109,7 @@ void WallAABActor::processDraw() {
 //                _TRACE_(mat._41<<","<<mat._42<<","<<mat._43<<","<<mat._44);
 //                _TRACE_("------------");
 
-            ++draw_set_num;
+            draw_set_num++;
             if (draw_set_num >= model_set_num) {
                 break;
             }

@@ -126,11 +126,11 @@ void GgafGod::be() {
     if (_is_behaved_flg == false) {
         _is_behaved_flg = true;
         BEGIN_SYNCHRONIZED1; // ----->”r‘¼ŠJŽn
-        ++_frame_of_God;
+        _frame_of_God++;
         presentSpacetimeMoment(); //‡@
         executeSpacetimeJudge();  //‡A
         _time_of_next_view += _aaTime_offset_of_next_view[_slowdown_mode][_cnt_frame];
-        ++_cnt_frame;
+        _cnt_frame++;
         if (_cnt_frame == 60) { _cnt_frame = 0; }
         if (timeGetTime() >= _time_of_next_view) { //•`‰æƒ^ƒCƒ~ƒ“ƒOƒtƒŒ[ƒ€‚É‚È‚Á‚½Aˆ½‚¢‚Í‰ß‚¬‚Ä‚¢‚éê‡
             //makeSpacetimeMaterialize ‚ÍƒpƒX
@@ -151,7 +151,7 @@ void GgafGod::be() {
         BEGIN_SYNCHRONIZED1;  // ----->”r‘¼ŠJŽn
         if (_is_materialized_flg) { // ‡B makeSpacetimeMaterialize() ŽÀsÏ‚Ý‚Ìê‡
             //•`‰æ—L‚èiƒXƒLƒbƒv‚È‚µj
-            presentSpacetimeVisualize();  ++_visualize_frames; //‡C
+            presentSpacetimeVisualize();  _visualize_frames++; //‡C
             finalizeSpacetime(); //‡D
         } else {                   // ‡B makeSpacetimeMaterialize() ŽÀs‚µ‚Ä‚¢‚È‚¢ê‡
             //•`‰æ–³‚µiƒXƒLƒbƒvŽžj
@@ -159,11 +159,11 @@ void GgafGod::be() {
                 //–³ðŒ‚Å•`‰æ‚È‚µB
                 finalizeSpacetime(); //‡D
             } else {   //“¯Šú’²®ƒ‚[ƒh‚Å‚Í‚È‚¢ê‡‚Í’ÊíƒXƒLƒbƒv
-                ++_skip_count_of_frame;
+                _skip_count_of_frame++;
                 //’A‚µAƒXƒLƒbƒv‚·‚é‚Æ‚¢‚Á‚Ä‚à MAX_SKIP_FRAME ƒtƒŒ[ƒ€‚É‚P‰ñ‚Í•`‰æ‚Í‚·‚éB
                 if (_skip_count_of_frame >= _max_skip_frames) {
                     makeSpacetimeMaterialize(); //‡B
-                    presentSpacetimeVisualize();  ++_visualize_frames; //‡C
+                    presentSpacetimeVisualize();  _visualize_frames++; //‡C
                     finalizeSpacetime();        //‡D
                     _skip_count_of_frame = 0;
                 } else {

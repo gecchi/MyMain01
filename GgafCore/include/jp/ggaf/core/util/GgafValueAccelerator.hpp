@@ -748,7 +748,7 @@ public:
             _moved2 += _t_velo;
 
             //_TRACE_(_frame_of_target<<":after _t_value="<<_t_value<<" _t_velo="<<_t_velo<<" _t_acce="<<_t_acce<<" _moved="<<_moved<<" _moved2="<<_moved2<<"");
-            _spent_frames++;
+            ++_spent_frames;
         } else {
             _progress = ACCELERATE_DONE;
         }

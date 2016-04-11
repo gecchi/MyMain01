@@ -38,8 +38,8 @@ int GgafLibMain(int argc, char *argv[]) {
     nCmdShow = (StatUpInfo.dwFlags & STARTF_USESHOWWINDOW) ? StatUpInfo.wShowWindow : SW_SHOWNORMAL;
 
     //PGñºèúãé
-    while (*lpCmdLine != ' ' && *lpCmdLine != '\0') { lpCmdLine++; }
-    while (*lpCmdLine == ' ') { lpCmdLine++; }
+    while (*lpCmdLine != ' ' && *lpCmdLine != '\0') { ++lpCmdLine; }
+    while (*lpCmdLine == ' ') { ++lpCmdLine; }
 
     //ñ{óàÇÃWinMainÇ÷
     return WinMain((HINSTANCE)hInstance, (HINSTANCE)hPrevInstance, lpCmdLine, nCmdShow);

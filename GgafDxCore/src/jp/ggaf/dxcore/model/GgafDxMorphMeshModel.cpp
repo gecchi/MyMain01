@@ -171,7 +171,7 @@ HRESULT GgafDxMorphMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
                                       _paIndexParam[i].NumVertices,
                                       _paIndexParam[i].StartIndex,
                                       _paIndexParam[i].PrimitiveCount);
-        ++GgafGod::_num_drawing;
+        GgafGod::_num_drawing++;
     }
     GgafDxModelManager::_pModelLastDraw = this;
     GgafDxEffectManager::_pEffect_active = pMorphMeshEffect;

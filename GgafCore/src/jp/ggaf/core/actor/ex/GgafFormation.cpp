@@ -16,7 +16,7 @@ GgafFormation::GgafFormation(const char* prm_name, frame prm_offset_frames_end) 
 }
 
 void GgafFormation::destroyedFollower(GgafActor* prm_pActor_destroyed) {
-    ++_num_destory;
+    _num_destory++;
     if (_num_formation_member == _num_destory) {
         _was_all_destroyed = true;
         onDestroyAll(prm_pActor_destroyed);

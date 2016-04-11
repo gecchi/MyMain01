@@ -243,14 +243,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\camera\worker\CameraWorker.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\camera\worker\CameraWorker.h"
-			>
-		</File>
-		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\manager\CameraWorkerConnection.cpp"
 			>
 		</File>
@@ -2619,6 +2611,22 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01WallScene.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01WallScene.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01WallSection001.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01WallSection001.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage02.cpp"
 			>
 		</File>
@@ -2696,14 +2704,6 @@
 		</File>
 		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\StringBoardTestActor.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\StringBoardTestActor.h"
 			>
 		</File>
 		<File
@@ -2891,10 +2891,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\Version.h"
-			>
-		</File>
-		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\ViewPointGuide.cpp"
 			>
 		</File>
@@ -2968,6 +2964,14 @@
 		</File>
 		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\wall\Wall001Prism.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\wall\Wall01.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\wall\Wall01.h"
 			>
 		</File>
 		<File

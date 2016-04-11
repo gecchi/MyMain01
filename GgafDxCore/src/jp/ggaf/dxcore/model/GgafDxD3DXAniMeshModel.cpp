@@ -130,7 +130,7 @@ HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int p
                 checkDxException(hr, D3D_OK, "["<<i<<"],GgafDxD3DXAniMeshModel::draw() CommitChanges() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
                 (*it)->pMeshContainer->MeshData.pMesh->DrawSubset(j);
                 n++;
-                ++GgafGod::_num_drawing;
+                GgafGod::_num_drawing++;
             }
         }
     }

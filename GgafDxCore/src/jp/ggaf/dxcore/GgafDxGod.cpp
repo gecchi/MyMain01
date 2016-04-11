@@ -577,16 +577,6 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
         }
     }
 
-    //ピクセルシェーダー、頂点シェーダーバージョンチェック
-    _vs_v = caps.VertexShaderVersion;
-    _ps_v = caps.PixelShaderVersion;
-    _TRACE_("Hardware Vertex Shader Version = "<<D3DSHADER_VERSION_MAJOR(_vs_v)<<"_"<<D3DSHADER_VERSION_MINOR(_vs_v));
-    _TRACE_("Hardware Pixel Shader Version  = "<<D3DSHADER_VERSION_MAJOR(_ps_v)<<"_"<<D3DSHADER_VERSION_MINOR(_ps_v));
-    if (_vs_v < D3DVS_VERSION(3, 0) || _ps_v < D3DPS_VERSION(3, 0)) {
-        _TRACE_("ビデオカードハードの頂点シェーダーとピンクセルシェーダーは、共にバージョン 3_0 以上が推奨です。");
-        _TRACE_("ご使用のビデオカードでは、正しく動作しない恐れがあります。");
-    }
-
     //[メモ：RECT構造体]
     //引数に使用するRECT構造体のメンバ right, bottom は「右下座標」となっているが表現が正確ではない。
     //実際の定義は
@@ -1143,40 +1133,67 @@ HRESULT GgafDxGod::initDevice() {
     _TRACE_("_primary_adapter_no="<<_primary_adapter_no);
     _TRACE_("_secondary_adapter_no="<<_secondary_adapter_no);
     HRESULT hr;
+    //ピクセルシェーダー、頂点シェーダーバージョンチェック
+    D3DCAPS9 caps;
+    GgafDxGod::_pID3D9->GetDeviceCaps(D3DADAPTER_DEFAULT, // [in] ディスプレイ アダプタを示す序数。
+                                      D3DDEVTYPE_HAL,     // [in] デバイスの種類。 D3DDEVTYPE列挙型のメンバ
+                                      &caps);             // [out] デバイスの能力が格納される
+    _vs_v = caps.VertexShaderVersion;
+    _ps_v = caps.PixelShaderVersion;
+    _TRACE_("Hardware Vertex Shader Version = "<<D3DSHADER_VERSION_MAJOR(_vs_v)<<"_"<<D3DSHADER_VERSION_MINOR(_vs_v));
+    _TRACE_("Hardware Pixel Shader Version  = "<<D3DSHADER_VERSION_MAJOR(_ps_v)<<"_"<<D3DSHADER_VERSION_MINOR(_ps_v));
+    if (_vs_v < D3DVS_VERSION(3, 0) || _ps_v < D3DPS_VERSION(3, 0)) {
+        _TRACE_("ビデオカードハードの頂点シェーダー 3_0 、ピンクセルシェーダー 3_0 以上が推奨です。");
+        _TRACE_("ご使用のビデオカードでは、正しく動作しない恐れがあります。");
+    }
+
     if (PROPERTY::FULL_SCREEN && PROPERTY::DUAL_VIEW) {
         //＜フルスクリーン かつ デュアルビュー の場合＞
         //デバイス作成を試み GgafDxGod::_pID3DDevice9 へ設定する。
         //ハードウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。HAL(pure vp)
-        hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, _paPresetPrm[0].hDeviceWindow,
-                             D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE | D3DCREATE_ADAPTERGROUP_DEVICE,
-                             _paPresetPrm, _paDisplayMode);
-        if (hr != D3D_OK) {
-            _TRACE_("マルチヘッドD3DCREATE_HARDWARE_VERTEXPROCESSING : "<<GgafDxCriticalException::getHresultMsg(hr));
-
-            //ソフトウェアによる頂点処理、ハードウェアによるラスタライズを行うデバイス作成を試みる。HAL(soft vp)
+        if (_vs_v < D3DVS_VERSION(3, 0) || _ps_v < D3DPS_VERSION(3, 0)) {
+            hr = D3DERR_NOTAVAILABLE;
+        } else {
             hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, _paPresetPrm[0].hDeviceWindow,
-                                 D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE | D3DCREATE_ADAPTERGROUP_DEVICE,
+                                 D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE | D3DCREATE_ADAPTERGROUP_DEVICE,
                                  _paPresetPrm, _paDisplayMode);
-            if (hr != D3D_OK) {
-                _TRACE_("マルチヘッドD3DCREATE_HARDWARE_VERTEXPROCESSING : "<<GgafDxCriticalException::getHresultMsg(hr));
-
-                //ソフトウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。REF
-                hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, _paPresetPrm[0].hDeviceWindow,
-                                     D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE | D3DCREATE_ADAPTERGROUP_DEVICE,
-                                     _paPresetPrm, _paDisplayMode);
-                if (hr != D3D_OK) {
-                    //どのデバイスの作成も失敗した場合
-                    _TRACE_(FUNC_NAME<<" DirectXの初期化に失敗しました。マルチヘッドD3DCREATE_SOFTWARE_VERTEXPROCESSING : "<<GgafDxCriticalException::getHresultMsg(hr));
-                    MessageBox(GgafDxGod::_pHWndPrimary, "DirectXの初期化に失敗しました。\nマルチヘッドディスプレイ環境が存在していません。", "ERROR", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST);
-                    return E_FAIL;
-                } else {
-                    _TRACE_(FUNC_NAME<<" デバイスは MULTI FULLSCRREEN REF で初期化できました。");
-                }
-
+        }
+        if (hr != D3D_OK) {
+            if (_vs_v < D3DVS_VERSION(3, 0) || _ps_v < D3DPS_VERSION(3, 0)) {
+                hr = D3DERR_NOTAVAILABLE;
             } else {
-                _TRACE_(FUNC_NAME<<" デバイスは MULTI FULLSCRREEN HAL(soft vp) で初期化できました。");
+                hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, _paPresetPrm[0].hDeviceWindow,
+                                     D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE | D3DCREATE_ADAPTERGROUP_DEVICE,
+                                     _paPresetPrm, _paDisplayMode);
             }
-
+            if (hr != D3D_OK) {
+                if (_ps_v < D3DPS_VERSION(3, 0)) {
+                    hr = D3DERR_NOTAVAILABLE;
+                } else {
+                    //ソフトウェアによる頂点処理、ハードウェアによるラスタライズを行うデバイス作成を試みる。HAL(soft vp)
+                    hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, _paPresetPrm[0].hDeviceWindow,
+                                         D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE | D3DCREATE_ADAPTERGROUP_DEVICE,
+                                         _paPresetPrm, _paDisplayMode);
+                }
+                if (hr != D3D_OK) {
+                    //ソフトウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。REF
+                    hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, _paPresetPrm[0].hDeviceWindow,
+                                         D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE | D3DCREATE_ADAPTERGROUP_DEVICE,
+                                         _paPresetPrm, _paDisplayMode);
+                    if (hr != D3D_OK) {
+                        //どのデバイスの作成も失敗した場合
+                        _TRACE_(FUNC_NAME<<" DirectXの初期化に失敗しました。マルチヘッドD3DCREATE_SOFTWARE_VERTEXPROCESSING : "<<GgafDxCriticalException::getHresultMsg(hr));
+                        MessageBox(GgafDxGod::_pHWndPrimary, "DirectXの初期化に失敗しました。\nマルチヘッドディスプレイ環境が存在していません。", "ERROR", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST);
+                        return E_FAIL;
+                    } else {
+                        _TRACE_(FUNC_NAME<<" デバイスは MULTI FULLSCRREEN REF で初期化できました。");
+                    }
+                } else {
+                    _TRACE_(FUNC_NAME<<" デバイスは MULTI FULLSCRREEN HAL(soft vp) で初期化できました。");
+                }
+            } else {
+                _TRACE_(FUNC_NAME<<" デバイスは MULTI FULLSCRREEN HAL(hard vp) で初期化できました。");
+            }
         } else {
             _TRACE_(FUNC_NAME<<" デバイスは MULTI FULLSCRREEN HAL(pure vp) で初期化できました。");
         }
@@ -1185,34 +1202,52 @@ HRESULT GgafDxGod::initDevice() {
         //＜(フルスクリーン かつ デュアルビュー) 以外の場合＞
         //デバイス作成を試み GgafDxGod::_pID3DDevice9 へ設定する。
         //ハードウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。HAL(pure vp)
-        hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDxGod::_pHWndPrimary,
-                             D3DCREATE_PUREDEVICE | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE,
-                             &_paPresetPrm[_primary_adapter_no], &_paDisplayMode[_primary_adapter_no]);
-//                                           D3DCREATE_MIXED_VERTEXPROCESSING|D3DCREATE_MULTITHREADED,
-//                                           D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
-        if (hr != D3D_OK) {
-            //ソフトウェアによる頂点処理、ハードウェアによるラスタライズを行うデバイス作成を試みる。HAL(soft vp)
+        if (_vs_v < D3DVS_VERSION(3, 0) || _ps_v < D3DPS_VERSION(3, 0)) {
+            hr = D3DERR_NOTAVAILABLE;
+        } else {
             hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDxGod::_pHWndPrimary,
-                                 D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE,
+                                 D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE,
                                  &_paPresetPrm[_primary_adapter_no], &_paDisplayMode[_primary_adapter_no]);
-            if (hr != D3D_OK) {
-                //ソフトウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。REF
-                hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, GgafDxGod::_pHWndPrimary,
-                                     D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE,
-                                     &_paPresetPrm[_primary_adapter_no], &_paDisplayMode[_primary_adapter_no]);
-                if (hr != D3D_OK) {
-                    //どのデバイスの作成も失敗した場合
-                    _TRACE_(FUNC_NAME<<" DirectXの初期化に失敗しました。 "<<GgafDxCriticalException::getHresultMsg(hr));
-                    MessageBox(GgafDxGod::_pHWndPrimary, "DirectXの初期化に失敗しました。", "ERROR", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST);
-                    return E_FAIL;
-                } else {
-                    _TRACE_(FUNC_NAME<<" デバイスは REF で初期化できました。");
-                }
-
+    //                                           D3DCREATE_MIXED_VERTEXPROCESSING|D3DCREATE_MULTITHREADED,
+    //                                           D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
+        }
+        if (hr != D3D_OK) {
+            if (_vs_v < D3DVS_VERSION(3, 0) || _ps_v < D3DPS_VERSION(3, 0)) {
+                hr = D3DERR_NOTAVAILABLE;
             } else {
-                _TRACE_(FUNC_NAME<<" デバイスは HAL(soft vp) で初期化できました。");
+                hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDxGod::_pHWndPrimary,
+                                     D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE,
+                                     &_paPresetPrm[_primary_adapter_no], &_paDisplayMode[_primary_adapter_no]);
             }
 
+            if (hr != D3D_OK) {
+                if (_ps_v < D3DPS_VERSION(3, 0)) {
+                    hr = D3DERR_NOTAVAILABLE;
+                } else {
+                    //ソフトウェアによる頂点処理、ハードウェアによるラスタライズを行うデバイス作成を試みる。HAL(soft vp)
+                    hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDxGod::_pHWndPrimary,
+                                         D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE,
+                                         &_paPresetPrm[_primary_adapter_no], &_paDisplayMode[_primary_adapter_no]);
+                }
+                if (hr != D3D_OK) {
+                    //ソフトウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。REF
+                    hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, GgafDxGod::_pHWndPrimary,
+                                         D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE,
+                                         &_paPresetPrm[_primary_adapter_no], &_paDisplayMode[_primary_adapter_no]);
+                    if (hr != D3D_OK) {
+                        //どのデバイスの作成も失敗した場合
+                        _TRACE_(FUNC_NAME<<" DirectXの初期化に失敗しました。 "<<GgafDxCriticalException::getHresultMsg(hr));
+                        MessageBox(GgafDxGod::_pHWndPrimary, "DirectXの初期化に失敗しました。", "ERROR", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST);
+                        return E_FAIL;
+                    } else {
+                        _TRACE_(FUNC_NAME<<" デバイスは REF で初期化できました。");
+                    }
+                } else {
+                    _TRACE_(FUNC_NAME<<" デバイスは HAL(soft vp) で初期化できました。");
+                }
+            } else {
+                _TRACE_(FUNC_NAME<<" デバイスは HAL(hard vp) で初期化できました。");
+            }
         } else {
             _TRACE_(FUNC_NAME<<" デバイスは HAL(pure vp) で初期化できました。");
         }

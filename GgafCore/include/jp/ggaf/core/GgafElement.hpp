@@ -918,7 +918,7 @@ template<class T>
 void GgafElement<T>::nextFrame() {
     _was_paused_flg = _was_paused_flg_in_next_frame;
     if (!_was_paused_flg) {
-        ++_frame_of_life;
+        _frame_of_life++;
         _is_already_reset = false;
         if (_frame_of_life == _frame_of_life_when_end) {
             _can_live_flg = false; //終了の時だ
@@ -933,9 +933,9 @@ void GgafElement<T>::nextFrame() {
                     _on_change_to = 0;
                     updateActiveInTheTree();     //_is_active_in_the_tree_flg を更新
                     if (_is_active_in_the_tree_flg) {
-                        ++_frame_of_behaving;
+                        _frame_of_behaving++;
                         if (_pProg) {  _pProg->update();  } // 進捗を反映
-                        ++_frame_of_behaving_since_onActive;
+                        _frame_of_behaving_since_onActive++;
                     }
                 }
 
@@ -945,9 +945,9 @@ void GgafElement<T>::nextFrame() {
                     _is_active_flg = true;  //活動フラグON
                     updateActiveInTheTree();     //_is_active_in_the_tree_flg を更新
                     if (_is_active_in_the_tree_flg) {
-                        ++_frame_of_behaving;
+                        _frame_of_behaving++;
                         if (_pProg) {  _pProg->update();  } // 進捗を反映
-                        ++_frame_of_behaving_since_onActive;
+                        _frame_of_behaving_since_onActive++;
                     }
                     if (!_was_initialize_flg) {
                         initialize();       //初期化
@@ -965,12 +965,16 @@ void GgafElement<T>::nextFrame() {
         }
     }
     //再帰
-    if (GgafNode<T>::_pSubFirst) {
-        GgafNode<T>::_pSubFirst->nextFrame();  //配下に潜れる場合は先に潜る。
+    T* pElement = GgafNode<T>::_pSubFirst;
+    while (pElement) {
+        pElement->nextFrame();
+        if (pElement->_is_last_flg) {
+            break;
+        } else {
+            pElement = pElement->_pNext;
+        }
     }
-    if (!GgafNode<T>::_is_last_flg) {
-        GgafNode<T>::_pNext->nextFrame();
-    }
+
     if (!_can_live_flg) {
         onEnd();
         GgafGarbageBox::_pGarbageBox->add((T*)this);
@@ -1374,7 +1378,7 @@ void GgafElement<T>::clean(int prm_num_cleaning) {
                 }
             }
             GGAF_DELETE(pElementTemp);
-            ++GgafGarbageBox::_cnt_cleaned;
+            GgafGarbageBox::_cnt_cleaned++;
             if (GgafGarbageBox::_cnt_cleaned >= prm_num_cleaning) {
                 break;
             }
@@ -1390,7 +1394,7 @@ void GgafElement<T>::clean(int prm_num_cleaning) {
             }
             pElementTemp = pElementTemp->_pPrev;
             GGAF_DELETE(pWk);
-            ++GgafGarbageBox::_cnt_cleaned;
+            GgafGarbageBox::_cnt_cleaned++;
             if (GgafGarbageBox::_cnt_cleaned >= prm_num_cleaning) {
                 break;
             }

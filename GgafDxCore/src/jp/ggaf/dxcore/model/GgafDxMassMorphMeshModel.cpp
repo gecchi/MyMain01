@@ -478,7 +478,7 @@ HRESULT GgafDxMassMorphMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int
         hr = pID3DXEffect->BeginPass(0);
         checkDxException(hr, D3D_OK, "‚PƒpƒX–Ú BeginPass(0) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     }
-    ++GgafGod::_num_drawing;
+    GgafGod::_num_drawing++;
     GgafDxModelManager::_pModelLastDraw = this;
     GgafDxEffectManager::_pEffect_active = pMassMorphMeshEffect;
     GgafDxFigureActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;

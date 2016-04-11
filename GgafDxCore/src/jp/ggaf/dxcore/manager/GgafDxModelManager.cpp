@@ -420,7 +420,7 @@ void GgafDxModelManager::obtainSpriteInfo(SpriteXFileFmt* pSpriteFmt_out, std::s
     ID3DXFileData* pID3DXFileData;
     SIZE_T nChildren;
     pID3DXFileEnumObject->GetChildren(&nChildren);
-    for(SIZE_T childCount = 0; childCount < nChildren; ++childCount) {
+    for(SIZE_T childCount = 0; childCount < nChildren; childCount++) {
         pID3DXFileEnumObject->GetChild(childCount, &pID3DXFileData);
     } //ループしているが、child は一つだけです。
     SIZE_T xsize = 0;
@@ -451,7 +451,7 @@ void GgafDxModelManager::obtainPointSpriteInfo(PointSpriteXFileFmt* pPointSprite
     //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
     SIZE_T nChildren;
     pID3DXFileEnumObject->GetChildren(&nChildren);
-    for(SIZE_T childCount = 0; childCount < nChildren; ++childCount) {
+    for(SIZE_T childCount = 0; childCount < nChildren; childCount++) {
         pID3DXFileEnumObject->GetChild(childCount, &pID3DXFileData);
     }
 

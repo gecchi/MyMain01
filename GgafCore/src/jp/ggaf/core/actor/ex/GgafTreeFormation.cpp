@@ -22,7 +22,7 @@ void GgafTreeFormation::addFormationMember(GgafActor* prm_pSub) {
         _TRACE_("＜警告＞ GgafTreeFormation::addSubLast("<<NODE_INFO_P(prm_pSub)<<") 既に死にゆく定めのFormationです。サブに追加することはおかしいのではないか？いいのか？。this="<<NODE_INFO);
     }
 #endif
-    ++_num_formation_member;
+    _num_formation_member++;
     if (_pSubFirst == nullptr) {
         //団長に種別を正しく伝えるために、初回追加の種別を、自身の種別に上書（GgafTreeFormation）きする
         actorkind kind = prm_pSub->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND);

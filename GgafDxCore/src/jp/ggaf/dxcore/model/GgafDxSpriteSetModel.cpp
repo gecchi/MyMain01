@@ -155,7 +155,7 @@ HRESULT GgafDxSpriteSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
     GgafDxModelManager::_pModelLastDraw = this;
     GgafDxEffectManager::_pEffect_active = pSpriteSetEffect;
     GgafDxFigureActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
-    ++GgafGod::_num_drawing;
+    GgafGod::_num_drawing++;
     return D3D_OK;
 }
 

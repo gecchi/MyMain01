@@ -233,16 +233,16 @@ void ICharacterChip<T>::prepare1(const char* prm_str) {
             *p_draw_string = c; //保存
         }
         if (c == '\n') {
-            ++_nn; //行数カウント
+            _nn++; //行数カウント
             ++p_width_line_px;  *p_width_line_px = 0; //行の幅保持配列を次へ ＆ 0にリセット
         } else if (c == '\0') {
-            ++_nn; //文字列最後を行数１としてカウント。文字列は改行で終わる必要がない。
+            _nn++; //文字列最後を行数１としてカウント。文字列は改行で終わる必要がない。
             break;
         } else {
             *p_width_line_px += (_is_fixed_width ? _chr_base_width_px : _px_chr_width[c]); //行の幅(px)を加算
         }
         if (c != chr_blank) { //ブランク
-            ++_draw_chr_num; //描画文字数カウント
+            _draw_chr_num++; //描画文字数カウント
         }
         ++p_prm_str;  ++p_draw_string;
     }
@@ -296,7 +296,7 @@ void ICharacterChip<T>::prepare2() {
             if (draw_chr == (int)('\0')) {
                 break; //おしまい
             } else if (draw_chr == (int)('\n')) {
-                ++nnn;
+                nnn++;
                 if (align == ALIGN_CENTER) {
                     px_x = -(_px_row_width[nnn]/2);
                 } else if (align == ALIGN_RIGHT) {
@@ -345,7 +345,7 @@ void ICharacterChip<T>::prepare2() {
                 if (draw_chr == (int)('\0')) {
                     break; //おしまい
                 } else if (draw_chr == (int)('\n')) {
-                    ++nnn;
+                    nnn++;
                     px_x = -(align == ALIGN_CENTER ? _px_row_width[nnn]/2 : 0);
                     x_tmp = px_x;
                     px_y += _chr_base_height_px;

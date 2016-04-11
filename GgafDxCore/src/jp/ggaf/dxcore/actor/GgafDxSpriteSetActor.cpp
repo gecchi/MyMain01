@@ -82,7 +82,7 @@ void GgafDxSpriteSetActor::processDraw() {
             hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_alpha[draw_set_num], pSpriteSetActor->_alpha);
             checkDxException(hr, D3D_OK, "SetFloat(_alpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
-            ++draw_set_num;
+            draw_set_num++;
             if (draw_set_num >= model_set_num) {
                 break;
             }

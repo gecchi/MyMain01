@@ -57,6 +57,7 @@ void RankUpStage::processBehavior() {
     pMessage3_->update(buff);
     switch (pProg->get()) {
         case PROG_INIT: {
+            _TRACE_("RankUpStage::processBehavior()  "<<this<<" š"<<NODE_INFO<<DUMP_FLGS);
             _TRACE_(FUNC_NAME<<" ["<<getName()<<"] PROG_BEGIN !");
             pMessage1_->update("RANKUPSTAGE::PROG_BEGIN");
             std::string m = "RUNKUP LEVEL:" + XTOS(G_RANKUP_LEVEL) ;

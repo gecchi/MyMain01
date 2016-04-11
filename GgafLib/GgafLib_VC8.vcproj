@@ -165,6 +165,22 @@
 	</References>
 	<Files>
 		<File
+			RelativePath=".\src\jp\ggaf\lib\actor\camera\worker\AroundViewCamWorker.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\actor\camera\worker\AroundViewCamWorker.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\lib\actor\camera\worker\CameraWorker.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\actor\camera\worker\CameraWorker.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\ggaf\lib\actor\CappedGraphBarActor.cpp"
 			>
 		</File>
@@ -173,19 +189,19 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\lib\util\ColliAAB.cpp"
+			RelativePath=".\src\jp\ggaf\lib\util\ColliAABox.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\lib\util\ColliAAB.h"
+			RelativePath=".\include\jp\ggaf\lib\util\ColliAABox.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\lib\actor\ColliAABActor.cpp"
+			RelativePath=".\src\jp\ggaf\lib\actor\ColliAABoxActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\lib\actor\ColliAABActor.h"
+			RelativePath=".\include\jp\ggaf\lib\actor\ColliAABoxActor.h"
 			>
 		</File>
 		<File
@@ -202,6 +218,22 @@
 		</File>
 		<File
 			RelativePath=".\include\jp\ggaf\lib\actor\ColliAAPrismActor.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\lib\util\ColliAAPyramid.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\util\ColliAAPyramid.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\lib\actor\ColliAAPyramidActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\actor\ColliAAPyramidActor.h"
 			>
 		</File>
 		<File
@@ -226,6 +258,14 @@
 		</File>
 		<File
 			RelativePath=".\include\jp\ggaf\lib\actor\ColliSphereActor.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\lib\actor\wall\CubeMapMassWallActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\actor\wall\CubeMapMassWallActor.h"
 			>
 		</File>
 		<File
@@ -330,6 +370,38 @@
 		</File>
 		<File
 			RelativePath=".\include\jp\ggaf\lib\DefaultGod.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\lib\actor\DefaultMassBoardActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\actor\DefaultMassBoardActor.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\lib\actor\DefaultMassMeshActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\actor\DefaultMassMeshActor.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\lib\actor\DefaultMassMorphMeshActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\actor\DefaultMassMorphMeshActor.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\lib\actor\DefaultMassSpriteActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\actor\DefaultMassSpriteActor.h"
 			>
 		</File>
 		<File
@@ -445,6 +517,22 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\ggaf\lib\actor\FontBoardActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\actor\FontBoardActor.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\lib\actor\FontSpriteActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\actor\FontSpriteActor.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\ggaf\lib\scene\FormationTableScene.cpp"
 			>
 		</File>
@@ -485,6 +573,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\include\jp\ggaf\lib\actor\interface\ICharacterChip.hpp"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\ggaf\lib\actor\laserchip\LaserChip.cpp"
 			>
 		</File>
@@ -513,6 +605,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\ggaf\lib\actor\wall\MassWallActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\actor\wall\MassWallActor.h"
+			>
+		</File>
+		<File
 			RelativePath=".\include\jp\ggaf\lib\actor\menu\MenuActor.hpp"
 			>
 		</File>
@@ -525,11 +625,7 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\lib\util\PxQuantity.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\lib\util\PxQuantity.h"
+			RelativePath=".\include\jp\ggaf\lib\util\Quantity.hpp"
 			>
 		</File>
 		<File
@@ -677,22 +773,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\lib\actor\StringBoardActor.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\lib\actor\StringBoardActor.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\lib\actor\StringSpriteActor.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\lib\actor\StringSpriteActor.h"
-			>
-		</File>
-		<File
 			RelativePath=".\src\jp\ggaf\lib\actor\TreeFormation.cpp"
 			>
 		</File>
@@ -733,6 +813,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\ggaf\lib\actor\WallAAPyramidActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\actor\WallAAPyramidActor.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\ggaf\lib\scene\WalledScene.cpp"
 			>
 		</File>
@@ -754,6 +842,22 @@
 		</File>
 		<File
 			RelativePath=".\include\jp\ggaf\lib\actor\WallPartsActor.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\lib\scene\WallScene.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\scene\WallScene.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\lib\scene\WallSectionScene.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\scene\WallSectionScene.h"
 			>
 		</File>
 		<File

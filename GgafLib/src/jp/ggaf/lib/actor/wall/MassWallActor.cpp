@@ -282,7 +282,7 @@ void MassWallActor::processDraw() {
             paInstancedata->_wall_draw_face = pMassWallActor->_wall_draw_face;
             paInstancedata->_pos_info =  pMassWallActor->_pos_info;
             ++paInstancedata;
-            ++draw_set_num;
+            draw_set_num++;
             GgafDxSpacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
             if (draw_set_num >= model_max_set_num) {
                 break;

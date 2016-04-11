@@ -584,7 +584,7 @@ void GgafNode<T>::addSubLast(T* prm_pSub) {
         prm_pSub->_pNext = _pSubFirst;
         _pSubFirst->_pPrev = prm_pSub;
     }
-    ++_sub_num;
+    _sub_num++;
 }
 
 template<class T>
@@ -612,7 +612,7 @@ void GgafNode<T>::addSubFirst(T* prm_pSub) {
     }
     _pSubFirst = prm_pSub;
 
-    ++_sub_num;
+    _sub_num++;
 }
 
 /*

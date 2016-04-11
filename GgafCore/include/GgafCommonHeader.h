@@ -48,10 +48,10 @@
     typedef unsigned __int32  uint32_t;
     typedef unsigned __int64  uint64_t;
 
-    #define FUNC_NAME __FUNCSIG__
+    #define FUNC_NAME __FUNCSIG__ << " " << __LINE__
 #else
     #include <cstdint>
-    #define FUNC_NAME __PRETTY_FUNCTION__
+    #define FUNC_NAME __PRETTY_FUNCTION__ << " " << __LINE__
 #endif
 
 
