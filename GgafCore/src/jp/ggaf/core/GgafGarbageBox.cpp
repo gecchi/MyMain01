@@ -39,14 +39,17 @@ void GgafGarbageBox::add(GgafActor* prm_pActor) {
         }
     }
     GgafGarbageBox::_wait = true;
-    prm_pActor->_can_live_flg = false;
     prm_pActor->inactivateTreeImmed();
+    prm_pActor->_can_live_flg = false;
     _pDisusedActor->addSubFirst(prm_pActor->extract()); //addSubFirstです！addSubLastに非ず
     _TRACE_("ゴミ箱(Actor) GgafGarbageBox::add("<<NODE_INFO_P(prm_pActor)<<")");
     GgafGarbageBox::_wait = false;
 }
 
 void GgafGarbageBox::add(GgafScene* prm_pScene) {
+    if (strcmp(prm_pScene->_class_name, "Stage01") == 0) {
+        _TRACE_("kita---");
+    }
     for (int i = 0; i < GgafGarbage_MAX_WAIT; i++) {
         if (GgafGarbageBox::_wait) {
             Sleep(1);
@@ -58,14 +61,14 @@ void GgafGarbageBox::add(GgafScene* prm_pScene) {
         }
     }
     GgafGarbageBox::_wait = true;
-    prm_pScene->_can_live_flg = false;
     prm_pScene->inactivateTreeImmed();
+    prm_pScene->_can_live_flg = false;
     if (prm_pScene->_pSceneDirector) { //監督がいる場合は、監督はGgafGarbageBox::add(GgafActor* prm_pActor)へ
         GgafSceneDirector* pSceneDirector = prm_pScene->_pSceneDirector;
         prm_pScene->_pSceneDirector = nullptr;
         //GgafGarbageBox::add(GgafActor* prm_pActor) と同じ処理を記述すること
-        pSceneDirector->_can_live_flg = false;
         pSceneDirector->inactivateTreeImmed();
+        pSceneDirector->_can_live_flg = false;
         _pDisusedActor->addSubFirst(pSceneDirector); //addSubFirstです！addSubLastに非ず
         _TRACE_("ゴミ箱(Actor) GgafGarbageBox::add( "<<NODE_INFO_P(prm_pScene)<<"の監督の"<<NODE_INFO_P(pSceneDirector)<<")");
     }

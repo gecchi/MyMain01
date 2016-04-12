@@ -965,19 +965,28 @@ void GgafElement<T>::nextFrame() {
         }
     }
     //再帰
-    T* pElement = GgafNode<T>::_pSubFirst;
-    while (pElement) {
-        pElement->nextFrame();
-        if (pElement->_is_last_flg) {
-            break;
-        } else {
-            pElement = pElement->_pNext;
+    //配下の全ノードに再帰的にnextFrame()実行
+    T* pElement = GgafNode<T>::_pSubFirst; //一つ配下の先頭ノード。潜れる場合は先に潜る。
+    if (pElement) {
+        while (!pElement->_is_last_flg) {
+            //配下の先頭 ～ 末尾-1 ノードに nextFrame()
+            pElement->nextFrame();  //再帰
+            if (pElement->_can_live_flg) {
+                pElement = pElement->_pNext;
+            } else {
+                pElement->onEnd();
+                pElement = pElement->_pNext; //先に一個進ませて退避させてから
+                GgafGarbageBox::_pGarbageBox->add(pElement->_pPrev); //一個前をゴミ箱へ(連結が切れる)
+            }
         }
-    }
-
-    if (!_can_live_flg) {
-        onEnd();
-        GgafGarbageBox::_pGarbageBox->add((T*)this);
+        //配下の最後の末尾ノードに nextFrame()
+        pElement->nextFrame(); //再帰
+        if (pElement->_can_live_flg) {
+            //OK 次は無し→親ノードの処理へ
+        } else {
+            pElement->onEnd();
+            GgafGarbageBox::_pGarbageBox->add(pElement); //ゴミ箱へ
+        }
     }
 }
 
