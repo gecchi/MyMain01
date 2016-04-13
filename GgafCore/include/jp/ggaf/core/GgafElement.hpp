@@ -616,7 +616,7 @@ public:
     // どこに実装しても良いが、initialize() で実装を統一したほうが、他のオブジェクトから操作しやすい。
     //
     // ・onActive() を使用すべき場合
-    // 生成されたノードに、「表示」「非表示」という状態が存在し、使いまわす場合。
+    // 生成されたノードに、「表示(活動)」「非表示(非活動)」という状態が存在し、何度も使いまわす場合。
     // 表示(活動) ～ 非表示(非活動) が、ノードの１サイクルのと一致する場合。
     // initialize() ・・・ 初期化処理、
     // onActive()   ・・・ 状態リセット処理
@@ -631,8 +631,8 @@ public:
     // 主に敵弾など汎用的なアクターは、これに該当すると予想する。
     //
     // ・onReset() を使用すべき場合
-    // 生成されたノードに、「表示」「非表示」という概念が無い（或いは表示しっぱなし）で、
-    // なおかつ、処理サイクル（リセット）の概念があるノード場合
+    // 生成されたノードに、「表示(活動)」「非表示(非活動)」という概念が無い。表示(活動)しっぱなし。
+    // だがしかし、処理サイクル（リセット）の概念があるノード場合
     // initialize() ・・・ 初期化処理、
     // onReset()    ・・・ 状態リセット処理
     // と使い分けて記述し。 reset() で状態リセットを行う。
@@ -836,8 +836,8 @@ public:
     virtual void executeFuncLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2);
 
     /**
-     * 進捗管理オブジェクト(GgafProgress) が管理する進捗の場合数を設定する。
-     * 本メソッド実行後、_pProg メンバーが使用可能になる。
+     * 本オブジェクトの _frame_of_behaving に関連性を持った、進捗管理オブジェクト(GgafProgress) の利用宣言をする .
+     * 本メソッド実行後、getProgress() メンバーが使用可能になり、自動で(nextFrame()内)進捗の更新が行われる。
      * @param prm_num 進捗の場合の数
      */
     virtual void useProgress(int prm_num = 10) {
@@ -851,10 +851,21 @@ public:
         }
     }
 
+    /**
+     * 進捗管理オブジェクト(GgafProgress) を取得する。
+     * 事前に useProgress(n) で、進捗管理オブジェクトを使用宣言する必要がある。
+     * @return 進捗管理オブジェクト or nullptr
+     */
     inline virtual GgafProgress* getProgress() const {
         return _pProg;
     }
 
+    /**
+     * 本オブジェクトの _frame_of_behaving に関連性を持った、進捗管理オブジェクト(GgafProgress) を生成し取得 .
+     * 自動で進捗の更新は行われないので、呼び出し元で updateを行ってください。
+     * @param prm_num 進捗の場合の数
+     * @return 新しい進捗管理オブジェクト
+     */
     virtual GgafProgress* createProgress(int prm_num = 10) {
         return NEW GgafProgress(&_frame_of_behaving, prm_num);
     }

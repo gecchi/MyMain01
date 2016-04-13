@@ -24,29 +24,35 @@ public:
      */
     class CollisionStack {
     public:
-        /** [r]一つの空間にスタックするアクターの配列 */
-        GgafCore::GgafActor* _apActor[MAX_COLLISIONSTACK_ACTOR_NUM]; //１空間に 3000 もキャラが集まらないだろうという安易で浅はかな見積もり
+        /** [r]一つの空間にスタックするアクターの配列。使用するのは[0]～[MAX_COLLISIONSTACK_ACTOR_NUM-1]。+1は、最後の要素を番兵にしている */
+        GgafCore::GgafActor* _apActor[MAX_COLLISIONSTACK_ACTOR_NUM+1]; //最後の要素(+1)は番兵
         /** [r]カーソルポインタ(次にPUSH出来る要素を指している)  */
-        uint32_t _p;
+        GgafCore::GgafActor** _papCur;
+        /** [r]常にスタックの先頭要素を指している */
+        GgafCore::GgafActor** _papFirst;
+        /** [r]常にスタックの最後の要素の次を指している */
+        GgafCore::GgafActor** _papBanpei;
     public:
         /**
          * コンストラクタ
          * @return
          */
         CollisionStack() {
-            _p = 0;
+            _papFirst = &_apActor[0];
+            _papBanpei = &_apActor[MAX_COLLISIONSTACK_ACTOR_NUM];
+            _papCur = _papFirst;
         }
         /**
          * スタックに積む .
          * @param prm_pActor 積むアクター
          */
         inline void push(GgafCore::GgafActor* prm_pActor) {
-            if (_p == MAX_COLLISIONSTACK_ACTOR_NUM) {
+            if (_papCur == _papBanpei) {
                 _TRACE_("＜警告＞ LinearOctreeForActor::push("<<prm_pActor<<") スタックを使い切りました。無視します。一箇所に当たり判定が塊過ぎです。");
                 return;
             }
-            _apActor[_p] = prm_pActor;
-            _p++;
+            (*_papCur) = prm_pActor;
+            ++_papCur;
         }
 
         /**
@@ -54,11 +60,11 @@ public:
          * @return 取り出されたアクター
          */
         inline GgafCore::GgafActor* pop() {
-            if (_p == 0) {
+            if (_papCur == _papFirst) {
                 return nullptr;
             } else {
-                _p--;
-                return (_apActor[_p]);
+                --_papCur;
+                return (*_papCur);
             }
         }
 
@@ -67,16 +73,16 @@ public:
          * @param prm_pCollisionStack
          */
         inline void pop_push(CollisionStack* prm_pCollisionStack) {
-            if (_p == MAX_COLLISIONSTACK_ACTOR_NUM) {
+            if (_papCur == _papBanpei) {
                 _TRACE_("＜警告＞ LinearOctreeForActor::pop_push("<<prm_pCollisionStack<<") スタックを使い切ってます。無視します。一箇所に当たり判定が塊過ぎです。");
-                prm_pCollisionStack->_p = 0;
+                prm_pCollisionStack->clear();
                 return;
             }
-            while (_apActor[_p] = prm_pCollisionStack->pop()) { //  I know "=" , not "=="
-                _p++;
-                if (_p == MAX_COLLISIONSTACK_ACTOR_NUM) {
+            while ((*_papCur) = prm_pCollisionStack->pop()) { //  I know "=" , not "=="
+                 ++_papCur;
+                 if (_papCur == _papBanpei) {
                     _TRACE_("＜警告＞ LinearOctreeForActor::pop_push("<<prm_pCollisionStack<<") スタックを使い切りました。無視します。一箇所に当たり判定が塊過ぎです。");
-                    prm_pCollisionStack->_p = 0;
+                    prm_pCollisionStack->clear();
                     break;
                 }
             }
@@ -85,17 +91,10 @@ public:
          * 積んだスタックをなかった事にする。 .
          */
         inline void clear() {
-            _p = 0;
+            _papCur = _papFirst;
         }
         ~CollisionStack() {
             clear();
-        }
-        void dump() {
-            _TRACE5_N_("CollisionStack.dump=");
-            for (uint32_t i = 0; i < _p; i++) {
-                _TRACE5_N_((_apActor[i]->getName())<<"->");
-            }
-            _TRACE5_N_("END");
         }
     };
 

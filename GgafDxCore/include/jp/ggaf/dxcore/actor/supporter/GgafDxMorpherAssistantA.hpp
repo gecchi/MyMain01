@@ -137,12 +137,16 @@ GgafDxMorpherAssistantA<T>::GgafDxMorpherAssistantA(GgafDxMorpher<T>* prm_pMaste
 
 template<class T>
 void GgafDxMorpherAssistantA<T>::behave() {
+    GgafCore::GgafValueAccelerator<float>* pSmthMph = _pa_smthMph;
+    GgafCore::GgafValueEnveloper<float, (MAX_MORPH_TARGET+1)>::Parameter* p = _pMaster->_parameter;
     for (int i = 1; i <= _target_num; i++) {
-        if (_pa_smthMph[i].isAccelerating()) {
-            _pa_smthMph[i].behave();
-            _pMaster->_velo[i] = _pa_smthMph[i]._t_velo - _pa_smthMph[i]._t_acce;
-            _pMaster->_acce[i] = _pa_smthMph[i]._t_acce;
+        if (pSmthMph->isAccelerating()) {
+            pSmthMph->behave();
+            p->_velo = pSmthMph->_t_velo - pSmthMph->_t_acce;
+            p->_acce = pSmthMph->_t_acce;
         }
+        ++pSmthMph;
+        ++p;
     }
 }
 

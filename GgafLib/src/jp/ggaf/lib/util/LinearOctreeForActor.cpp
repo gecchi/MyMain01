@@ -60,39 +60,43 @@ void LinearOctreeForActor::executeHitChk(uint32_t prm_index) {
         //もぐる。が、その前に現空間アクターを親空間アクターのスタックへ追加。
         //もぐった空間から見た場合の親空間アクター累計を作っておいてやる。
         //(現空間スタックも開放)
-        const int stackParentOctantActor_GroupA_p = _stackParentOctantActor_GroupA._p; //スタックポインタ保存
-        const int stackParentOctantActor_GroupB_p = _stackParentOctantActor_GroupB._p;
+        GgafCore::GgafActor** stackParentOctantActor_GroupA_papCur = _stackParentOctantActor_GroupA._papCur; //スタックポインタ保存
+        GgafCore::GgafActor** stackParentOctantActor_GroupB_papCur = _stackParentOctantActor_GroupB._papCur; //スタックポインタ保存
         _stackParentOctantActor_GroupA.pop_push(&_stackCurrentOctantActor_GroupA);
         _stackParentOctantActor_GroupB.pop_push(&_stackCurrentOctantActor_GroupB);
 
         //子空間へもぐるが良い
-        for(uint32_t i = next_level_index; i < next_level_index+8; i++) {
-            if ((_paOctant[i]._kindinfobit & _kind_groupA) || (_paOctant[i]._kindinfobit & _kind_groupB) ) {
+        GgafLinearOctreeOctant* pOctant = &(_paOctant[next_level_index]);
+        const uint32_t next_level_index_end = next_level_index+8;
+        for(uint32_t i = next_level_index; i < next_level_index_end; i++) {
+            if ((pOctant->_kindinfobit & _kind_groupA) || (pOctant->_kindinfobit & _kind_groupB) ) {
                 executeHitChk(i);
             }
+            ++pOctant;
         }
 
         //お帰りなさい
         //スタックの解放（pushした分、元に戻す）
-        _stackParentOctantActor_GroupA._p = stackParentOctantActor_GroupA_p;
-        _stackParentOctantActor_GroupB._p = stackParentOctantActor_GroupB_p;
+        _stackParentOctantActor_GroupA._papCur = stackParentOctantActor_GroupA_papCur;
+        _stackParentOctantActor_GroupB._papCur = stackParentOctantActor_GroupB_papCur;
         return; //親空間へ戻る
     }
 }
 
 void LinearOctreeForActor::executeHitChk_RoundRobin(CollisionStack* prm_pStackA, CollisionStack* prm_pStackB) {
     //どちらか無ければ終了
-    const uint32_t num_stackA = prm_pStackA->_p;
-    const uint32_t num_stackB = prm_pStackB->_p;
-    GgafActor** papStackActor_A = prm_pStackA->_apActor;
-    GgafActor** papStackActor_B = prm_pStackB->_apActor;
-    GgafActor* pActor_A;
-    for (uint32_t i = 0; i < num_stackA; i++) {
-        pActor_A = papStackActor_A[i];
-        for (uint32_t j = 0; j < num_stackB; j++) {
-            pActor_A->executeHitChk_MeAnd(papStackActor_B[j]);
+    GgafActor** papStackActor_A_Cur = prm_pStackA->_papCur;
+    GgafActor** papStackActor_B_Cur = prm_pStackB->_papCur;
+    GgafActor** papStackActor_A = prm_pStackA->_papFirst;
+    while (papStackActor_A != papStackActor_A_Cur) {
+        GgafActor** papStackActor_B = prm_pStackB->_papFirst;
+        while (papStackActor_B != papStackActor_B_Cur) {
+            (*papStackActor_A)->executeHitChk_MeAnd(*papStackActor_B);
+            ++papStackActor_B;
         }
+        ++papStackActor_A;
     }
+
 }
 
 LinearOctreeForActor::~LinearOctreeForActor() {

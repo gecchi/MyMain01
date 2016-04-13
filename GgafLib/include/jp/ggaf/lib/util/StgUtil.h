@@ -38,8 +38,6 @@ public:
 
     static uint32_t BITNUM[];
 
-
-
     static inline bool isHit(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAABox* const pAABox01,
                              const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox* const pAABox02 ) {
         //ÅÉAAB Ç∆ AABÅÑ

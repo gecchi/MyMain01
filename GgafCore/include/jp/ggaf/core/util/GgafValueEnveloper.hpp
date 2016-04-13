@@ -18,6 +18,8 @@ namespace GgafCore {
  */
 template<class VAL_TYPE, int N>
 class GgafValueEnveloper : public GgafObject {
+
+public:
     enum TransitionMethod {
         NO_TRANSITION,
         TARGET_LINER_TO,
@@ -28,35 +30,38 @@ class GgafValueEnveloper : public GgafObject {
         BEAT_TRIGONOMETRIC,
         TARGET_ACCELERATION_STEP,
     };
-public:
-    /** [r/w]各対象インデックスの目標の遷移 */
-    VAL_TYPE _target[N];
-    /** [r/w]各対象インデックスの遷移上限 */
-    VAL_TYPE _top[N];
-    /** [r/w]各対象インデックスの遷移下限 */
-    VAL_TYPE _bottom[N];
-    /** [r/w]各対象インデックスの毎フレームの遷移の増分 */
-    VAL_TYPE _velo[N];
-    /** [r/w]各対象インデックスの毎フレームの遷移の増分の増分 */
-    VAL_TYPE _acce[N];
-    /** [r]各対象インデックスの値遷移方法 */
-    TransitionMethod _method[N];
-    /** [r]ビート時、各対象インデックスの台形波のアタック終了時のフレーム */
-    frame _beat_frame_of_attack_finish[N];
-    /** [r]ビート時、各対象インデックスの台形波の維持終了時のフレーム */
-    frame _beat_frame_of_sustain_finish[N];
-    /** [r]ビート時、各対象インデックスの台形波の減衰(余韻)終了時のフレーム */
-    frame _beat_frame_of_release_finish[N];
-    /** [r]ビート時、各対象インデックスの台形波の波形での１周期のフレーム数 */
-    frame _beat_cycle_frames[N];
-    /** [r]ビート時、各対象インデックスの値遷移に費やすフレーム数 */
-    frame _beat_target_frames[N];
-    /** [r]ビート時、内部カウンター */
-    frame _beat_frame_count_in_roop[N];
-    /** [r]ビート時、内部カウンター */
-    frame _beat_frame_count[N];
 
-protected:
+    struct Parameter {
+        /** [r/w]各対象インデックスの目標の遷移 */
+        VAL_TYPE _target;
+        /** [r/w]各対象インデックスの遷移上限 */
+        VAL_TYPE _top;
+        /** [r/w]各対象インデックスの遷移下限 */
+        VAL_TYPE _bottom;
+        /** [r/w]各対象インデックスの毎フレームの遷移の増分 */
+        VAL_TYPE _velo;
+        /** [r/w]各対象インデックスの毎フレームの遷移の増分の増分 */
+        VAL_TYPE _acce;
+        /** [r]各対象インデックスの値遷移方法 */
+        TransitionMethod _method;
+        /** [r]ビート時、各対象インデックスの台形波のアタック終了時のフレーム */
+        frame _beat_frame_of_attack_finish;
+        /** [r]ビート時、各対象インデックスの台形波の維持終了時のフレーム */
+        frame _beat_frame_of_sustain_finish;
+        /** [r]ビート時、各対象インデックスの台形波の減衰(余韻)終了時のフレーム */
+        frame _beat_frame_of_release_finish;
+        /** [r]ビート時、各対象インデックスの台形波の波形での１周期のフレーム数 */
+        frame _beat_cycle_frames;
+        /** [r]ビート時、各対象インデックスの値遷移に費やすフレーム数 */
+        frame _beat_target_frames;
+        /** [r]ビート時、内部カウンター */
+        frame _beat_frame_count_in_roop;
+        /** [r]ビート時、内部カウンター */
+        frame _beat_frame_count;
+    };
+    Parameter _parameter[N];
+
+public:
     /**
      * 値を取得する（要実装） .
      * @param idx インデックス
@@ -76,20 +81,22 @@ public:
      * コンストラクタ<BR>
      */
     GgafValueEnveloper() : GgafObject() {
+        Parameter* p = _parameter;
         for (int i = 0; i < N; i++) {
-            _velo[i] = 0;
-            _acce[i] = 0;
-            _target[i] = 0;
-            _top[i] = 0;
-            _bottom[i] = 0;
-            _beat_frame_of_attack_finish[i] = 0;
-            _beat_frame_of_sustain_finish[i] = 0;
-            _beat_frame_of_release_finish[i] = 0;
-            _beat_cycle_frames[i] = 0;
-            _beat_target_frames[i] = 0;
-            _beat_frame_count_in_roop[i] = 0;
-            _beat_frame_count[i] = 0;
-            _method[i] = NO_TRANSITION;
+            p->_velo = 0;
+            p->_acce = 0;
+            p->_target = 0;
+            p->_top = 0;
+            p->_bottom = 0;
+            p->_beat_frame_of_attack_finish = 0;
+            p->_beat_frame_of_sustain_finish = 0;
+            p->_beat_frame_of_release_finish = 0;
+            p->_beat_cycle_frames = 0;
+            p->_beat_target_frames = 0;
+            p->_beat_frame_count_in_roop = 0;
+            p->_beat_frame_count = 0;
+            p->_method = NO_TRANSITION;
+            ++p;
         }
     }
 
@@ -127,7 +134,7 @@ public:
      * @param prm_top 上限値
      */
     virtual void setTop(int prm_idx, VAL_TYPE prm_top) {
-        _top[prm_idx] = prm_top;
+        _parameter[prm_idx]._top = prm_top;
     }
 
     /**
@@ -135,7 +142,7 @@ public:
      * @param prm_bottom 下限値
      */
     virtual void setBottom(int prm_idx, VAL_TYPE prm_bottom) {
-        _bottom[prm_idx] = prm_bottom;
+        _parameter[prm_idx]._bottom = prm_bottom;
     }
 
     /**
@@ -164,7 +171,7 @@ public:
      * @return 上限値
      */
     virtual VAL_TYPE getTop(int prm_idx) const {
-        return _top[prm_idx];
+        return _parameter[prm_idx]._top;
     }
 
     /**
@@ -173,7 +180,7 @@ public:
      * @return
      */
     virtual VAL_TYPE getBottom(int prm_idx) const {
-        return _bottom[prm_idx];
+        return _parameter[prm_idx]._bottom;
     }
 
     /**
@@ -183,13 +190,19 @@ public:
      */
     virtual VAL_TYPE getTop() const {
         //_topの最小値を返す
-        VAL_TYPE minv = _top[0];
-        for (int i = 1; i < N; i++) {
-            if (minv > _top[i]) {
-                minv = _top[i];
+        if (N == 1) {
+            return _parameter[0]._top;
+        } else {
+            VAL_TYPE minv = _parameter[0]._top;
+            const Parameter* p = &_parameter[1];
+            for (int i = 1; i < N; i++) {
+                if (minv > p->_top) {
+                    minv = p->_top;
+                }
+                ++p;
             }
+            return minv;
         }
-        return minv;
     }
 
     /**
@@ -199,13 +212,19 @@ public:
      */
     virtual VAL_TYPE getBottom() const {
         //_bottomの最大値を返す
-        VAL_TYPE maxv = _bottom[0];
-        for (int i = 1; i < N; i++) {
-            if (maxv > _bottom[i]) {
-                maxv = _bottom[i];
+        if (N == 1) {
+            return _parameter[0]._bottom;
+        } else {
+            VAL_TYPE maxv = _parameter[0]._bottom;
+            const Parameter* p = &_parameter[1];
+            for (int i = 1; i < N; i++) {
+                if (maxv > p->_bottom) {
+                    maxv = p->_bottom;
+                }
+                ++p;
             }
+            return maxv;
         }
-        return maxv;
     }
 
     /**
@@ -222,9 +241,10 @@ public:
      * @param prm_idx インデックス
      */
     virtual void stop(int prm_idx) {
-        _velo[prm_idx] = 0;
-        _acce[prm_idx] = 0;
-        _method[prm_idx] = NO_TRANSITION;
+        Parameter* p = &_parameter[prm_idx];
+        p->_velo = 0;
+        p->_acce = 0;
+        p->_method = NO_TRANSITION;
     }
 
     /**
@@ -247,16 +267,17 @@ public:
      * @param prm_spend_frame 費やすフレーム数
      */
     virtual void transitionLinerUntil(int prm_idx, VAL_TYPE prm_target, frame prm_spend_frame) {
-        _beat_frame_count[prm_idx] = 0;
-        _beat_target_frames[prm_idx] = prm_spend_frame;
-        _target[prm_idx] = prm_target;
-        _method[prm_idx] = TARGET_LINER_TO;
+        Parameter* p = &_parameter[prm_idx];
+        p->_beat_frame_count = 0;
+        p->_beat_target_frames = prm_spend_frame;
+        p->_target = prm_target;
+        p->_method = TARGET_LINER_TO;
         //最初のアタックまでの速度
         const VAL_TYPE val = getValue(prm_idx);
-        if (_beat_target_frames[prm_idx] > 0 ) {
-            _velo[prm_idx] = (VAL_TYPE)( ((double)(_target[prm_idx] - val)) / ((double)(_beat_target_frames[prm_idx])) );
-        } else if (_beat_target_frames[prm_idx] == 0 ) {
-            _velo[prm_idx] = _target[prm_idx] - val;
+        if (p->_beat_target_frames > 0 ) {
+            p->_velo = (VAL_TYPE)( ((double)(p->_target - val)) / ((double)(p->_beat_target_frames)) );
+        } else if (p->_beat_target_frames == 0 ) {
+            p->_velo = p->_target - val;
         }
     }
 
@@ -296,11 +317,12 @@ public:
      * @param prm_velo_T 毎フレーム加算する遷移差分(>0.0)。正の遷移を指定する事。加算か減算かは自動判断する。
      */
     virtual void transitionLinerStep(int prm_idx, VAL_TYPE prm_target, VAL_TYPE prm_velo) {
-        _method[prm_idx] = TARGET_LINER_STEP;
-        _velo[prm_idx] = prm_velo;
-        _target[prm_idx] = prm_target;
-        _beat_frame_count[prm_idx] = 0;
-        _beat_target_frames[prm_idx] = MAX_FRAME;
+        Parameter* p = &_parameter[prm_idx];
+        p->_method = TARGET_LINER_STEP;
+        p->_velo = prm_velo;
+        p->_target = prm_target;
+        p->_beat_frame_count = 0;
+        p->_beat_target_frames = MAX_FRAME;
     }
 
     /**
@@ -331,12 +353,13 @@ public:
      * @param prm_acce_T 遷移加速度
      */
     virtual void transitionAcceStep(int prm_idx, VAL_TYPE prm_target, VAL_TYPE prm_velo, VAL_TYPE prm_acce) {
-        _method[prm_idx] = TARGET_ACCELERATION_STEP;
-        _target[prm_idx] = prm_target;
-        _velo[prm_idx] = prm_velo;
-        _acce[prm_idx] = prm_acce;
-        _beat_frame_count[prm_idx] = 0;
-        _beat_target_frames[prm_idx] = MAX_FRAME;
+        Parameter* p = &_parameter[prm_idx];
+        p->_method = TARGET_ACCELERATION_STEP;
+        p->_target = prm_target;
+        p->_velo = prm_velo;
+        p->_acce = prm_acce;
+        p->_beat_frame_count = 0;
+        p->_beat_target_frames = MAX_FRAME;
     }
 
     /**
@@ -362,25 +385,26 @@ public:
      * @param prm_is_to_top true:初めはTOPに遷移する／false:初めはBOTTOMに遷移
      */
     virtual void transitionLinerLoop(int prm_idx, frame prm_cycle_frames, double prm_beat_num, bool prm_is_to_top) {
+        Parameter* p = &_parameter[prm_idx];
         const VAL_TYPE val = getValue(prm_idx);
-        _method[prm_idx] = BEAT_LINER;
-        _beat_frame_count[prm_idx] = 0;
-        _beat_frame_count_in_roop[prm_idx] = 0;
-        _beat_cycle_frames[prm_idx] = prm_cycle_frames;
+        p->_method = BEAT_LINER;
+        p->_beat_frame_count = 0;
+        p->_beat_frame_count_in_roop = 0;
+        p->_beat_cycle_frames = prm_cycle_frames;
         if (prm_beat_num < 0) {
-            _beat_target_frames[prm_idx] = MAX_FRAME;
+            p->_beat_target_frames = MAX_FRAME;
         } else {
-            _beat_target_frames[prm_idx] = prm_cycle_frames * prm_beat_num;
+            p->_beat_target_frames = prm_cycle_frames * prm_beat_num;
         }
         if (prm_is_to_top) {
-            _velo[prm_idx] = 1.0*(_top[prm_idx] - val) / ((int)prm_cycle_frames / 2.0);
-            if (ZEROd_EQ(_velo[prm_idx])) {
-                _velo[prm_idx] = 1; //正であればよい
+            p->_velo = 1.0*(p->_top - val) / ((int)prm_cycle_frames / 2.0);
+            if (ZEROd_EQ(p->_velo)) {
+                p->_velo = 1; //正であればよい
             }
         } else {
-            _velo[prm_idx] = 1.0*(_bottom[prm_idx] - val) / ((int)prm_cycle_frames / 2.0);
-            if (ZEROd_EQ(_velo[prm_idx])) {
-                _velo[prm_idx] = -1; //負であればよい
+            p->_velo = 1.0*(p->_bottom - val) / ((int)prm_cycle_frames / 2.0);
+            if (ZEROd_EQ(p->_velo)) {
+                p->_velo = -1; //負であればよい
             }
         }
     }
@@ -456,24 +480,25 @@ public:
                       frame prm_sustain_frames,
                       frame prm_release_frames,
                       double prm_beat_num) {
-        _method[prm_idx] = BEAT_TRIANGLEWAVE;
-        _beat_frame_count[prm_idx] = 0;
-        _beat_frame_count_in_roop[prm_idx] = 0;
-        _beat_frame_of_attack_finish[prm_idx] = prm_attack_frames;
-        _beat_frame_of_sustain_finish[prm_idx] = _beat_frame_of_attack_finish[prm_idx] + prm_sustain_frames;
-        _beat_frame_of_release_finish[prm_idx] = _beat_frame_of_sustain_finish[prm_idx] + prm_release_frames;
-        _beat_cycle_frames[prm_idx] = prm_cycle_frames; //同じ
+        Parameter* p = &_parameter[prm_idx];
+        p->_method = BEAT_TRIANGLEWAVE;
+        p->_beat_frame_count = 0;
+        p->_beat_frame_count_in_roop = 0;
+        p->_beat_frame_of_attack_finish = prm_attack_frames;
+        p->_beat_frame_of_sustain_finish = p->_beat_frame_of_attack_finish + prm_sustain_frames;
+        p->_beat_frame_of_release_finish = p->_beat_frame_of_sustain_finish + prm_release_frames;
+        p->_beat_cycle_frames = prm_cycle_frames; //同じ
         if (prm_beat_num < 0) {
-            _beat_target_frames[prm_idx] = MAX_FRAME;
+            p->_beat_target_frames = MAX_FRAME;
         } else {
-            _beat_target_frames[prm_idx] = _beat_cycle_frames[prm_idx] * prm_beat_num;
+            p->_beat_target_frames = p->_beat_cycle_frames * prm_beat_num;
         }
         //最初のアタックまでの速度
         const VAL_TYPE val = getValue(prm_idx);
-        if (_beat_frame_of_attack_finish[prm_idx] > 0 ) {
-            _velo[prm_idx] = (VAL_TYPE)( ((double)(_top[prm_idx] - val)) / ((double)(_beat_frame_of_attack_finish[prm_idx])) );
-        } else if (_beat_frame_of_attack_finish[prm_idx] == 0 ) {
-            _velo[prm_idx] = _top[prm_idx] - val;
+        if (p->_beat_frame_of_attack_finish > 0 ) {
+            p->_velo = (VAL_TYPE)( ((double)(p->_top - val)) / ((double)(p->_beat_frame_of_attack_finish)) );
+        } else if (p->_beat_frame_of_attack_finish == 0 ) {
+            p->_velo = p->_top - val;
         }
     }
 
@@ -551,24 +576,25 @@ public:
                        frame prm_sustain_frames,
                        frame prm_release_frames,
                        double prm_beat_num) {
-        _method[prm_idx] = R_BEAT_TRIANGLEWAVE;
-        _beat_frame_count[prm_idx] = 0;
-        _beat_frame_count_in_roop[prm_idx] = 0;
-        _beat_frame_of_attack_finish[prm_idx] = prm_attack_frames;
-        _beat_frame_of_sustain_finish[prm_idx] = _beat_frame_of_attack_finish[prm_idx] + prm_sustain_frames;
-        _beat_frame_of_release_finish[prm_idx] = _beat_frame_of_sustain_finish[prm_idx] + prm_release_frames;
-        _beat_cycle_frames[prm_idx] = prm_cycle_frames; //同じ
+        Parameter* p = &_parameter[prm_idx];
+        p->_method = R_BEAT_TRIANGLEWAVE;
+        p->_beat_frame_count = 0;
+        p->_beat_frame_count_in_roop = 0;
+        p->_beat_frame_of_attack_finish = prm_attack_frames;
+        p->_beat_frame_of_sustain_finish = p->_beat_frame_of_attack_finish + prm_sustain_frames;
+        p->_beat_frame_of_release_finish = p->_beat_frame_of_sustain_finish + prm_release_frames;
+        p->_beat_cycle_frames = prm_cycle_frames; //同じ
         if (prm_beat_num < 0) {
-            _beat_target_frames[prm_idx] = MAX_FRAME;
+            p->_beat_target_frames = MAX_FRAME;
         } else {
-            _beat_target_frames[prm_idx] = _beat_cycle_frames[prm_idx] * prm_beat_num;
+            p->_beat_target_frames = p->_beat_cycle_frames * prm_beat_num;
         }
         //最初のアタックまでの速度
         const VAL_TYPE val = getValue(prm_idx);
-        if (_beat_frame_of_attack_finish[prm_idx] > 0 ) {
-            _velo[prm_idx] = (VAL_TYPE)( ((double)(_bottom[prm_idx] - val)) / ((double)(_beat_frame_of_attack_finish[prm_idx])) );
-        } else if (_beat_frame_of_attack_finish[prm_idx] == 0 ) {
-            _velo[prm_idx] = _bottom[prm_idx] - val;
+        if (p->_beat_frame_of_attack_finish > 0 ) {
+            p->_velo = (VAL_TYPE)( ((double)(p->_bottom - val)) / ((double)(p->_beat_frame_of_attack_finish)) );
+        } else if (p->_beat_frame_of_attack_finish == 0 ) {
+            p->_velo = p->_bottom - val;
         }
     }
 
@@ -578,7 +604,7 @@ public:
      * @return true/false
      */
     virtual bool isTransitioning(int prm_idx) const {
-        if (_method[prm_idx] == NO_TRANSITION) {
+        if (_parameter[prm_idx]._method == NO_TRANSITION) {
             return false;
         } else {
             return true;
@@ -599,20 +625,22 @@ public:
     }
 
     virtual void reset() {
+        Parameter* p = _parameter;
         for (int i = 0; i < N; i++) {
-            _velo[i] = 0;
-            _acce[i] = 0;
-            _target[i] = 0;
-            _top[i] = 0;
-            _bottom[i] = 1;
-            _beat_frame_of_attack_finish[i] = 0;
-            _beat_frame_of_sustain_finish[i] = 0;
-            _beat_frame_of_release_finish[i] = 0;
-            _beat_cycle_frames[i] = 0;
-            _beat_target_frames[i] = 0;
-            _beat_frame_count_in_roop[i] = 0;
-            _beat_frame_count[i] = 0;
-            _method[i] = NO_TRANSITION;
+            p->_velo = 0;
+            p->_acce = 0;
+            p->_target = 0;
+            p->_top = 0;
+            p->_bottom = 1;
+            p->_beat_frame_of_attack_finish = 0;
+            p->_beat_frame_of_sustain_finish = 0;
+            p->_beat_frame_of_release_finish = 0;
+            p->_beat_cycle_frames = 0;
+            p->_beat_target_frames = 0;
+            p->_beat_frame_count_in_roop = 0;
+            p->_beat_frame_count = 0;
+            p->_method = NO_TRANSITION;
+            ++p;
         }
     }
 
@@ -624,125 +652,129 @@ public:
      * @param n 適用インデックス数
      */
     virtual void behave(int s = 0, int n = N) {
-
+        Parameter* p = &_parameter[s];
         for (int i = s; i < s+n; i++) {
-            const TransitionMethod method = _method[i];
+            const TransitionMethod method = p->_method;
             VAL_TYPE val = getValue(i);
-            const VAL_TYPE top = _top[i];
-            const VAL_TYPE bottom = _bottom[i];
-            _beat_frame_count[i]++;
-            _velo[i] += _acce[i];
-            val += _velo[i];
+            const VAL_TYPE top = p->_top;
+            const VAL_TYPE bottom = p->_bottom;
+            p->_beat_frame_count++;
+            p->_velo += p->_acce;
+            val += p->_velo;
 
             if (method == NO_TRANSITION) {
                 //何もしない
             } else {
                 if (method == TARGET_LINER_TO) {
-                    if (_beat_frame_count[i] >= _beat_target_frames[i]) {
-                        val = _target[i];
+                    if (p->_beat_frame_count >= p->_beat_target_frames) {
+                        val = p->_target;
                         stop(i);//終了
                     }
                 } else if (method == TARGET_LINER_STEP || method == TARGET_ACCELERATION_STEP) {
-                    if ((_velo[i] > 0  && val >= _target[i]) || (_velo[i] < 0  && val <= _target[i])) {
-                        val = _target[i];
+                    if ((p->_velo > 0  && val >= p->_target) || (p->_velo < 0  && val <= p->_target)) {
+                        val = p->_target;
                         stop(i);//終了
                     }
                 } else if (method == BEAT_LINER) {
-                    _beat_frame_count_in_roop[i]++;
-                    frame cnt = _beat_frame_count_in_roop[i];
-                    if (cnt == _beat_cycle_frames[i]/2) {
+                    p->_beat_frame_count_in_roop++;
+                    const frame cnt = p->_beat_frame_count_in_roop;
+                    const frame beat_cycle_frames = p->_beat_cycle_frames;
+                    if (cnt == beat_cycle_frames/2) {
                         //折り返し
-                        if (_velo[i] > 0) { //山
+                        if (p->_velo > 0) { //山
                             val = top;
-                            _velo[i] = (VAL_TYPE)( (2.0*(bottom-top)) / ((double)_beat_cycle_frames[i]) ); //下りの速度
-                        } else if (_velo[i] < 0) { //谷
+                            p->_velo = (VAL_TYPE)( (2.0*(bottom-top)) / ((double)beat_cycle_frames) ); //下りの速度
+                        } else if (p->_velo < 0) { //谷
                             val = bottom;
-                            _velo[i] = (VAL_TYPE)( (2.0*(top-bottom)) / ((double)_beat_cycle_frames[i]) ); //上りの速度
+                            p->_velo = (VAL_TYPE)( (2.0*(top-bottom)) / ((double)beat_cycle_frames) ); //上りの速度
                         }
                     }
-                    if (cnt == _beat_cycle_frames[i]) {
+                    if (cnt == beat_cycle_frames) {
                         //１ループ終了
-                        if (_velo[i] > 0) { //山
+                        if (p->_velo > 0) { //山
                             val = top;
-                            _velo[i] = (VAL_TYPE)( (2.0*(bottom-top)) / ((double)_beat_cycle_frames[i]) ); //下りの速度
-                        } else if (_velo[i] < 0) { //谷
+                            p->_velo = (VAL_TYPE)( (2.0*(bottom-top)) / ((double)beat_cycle_frames) ); //下りの速度
+                        } else if (p->_velo < 0) { //谷
                             val = bottom;
-                            _velo[i] = (VAL_TYPE)( (2.0*(top-bottom)) / ((double)_beat_cycle_frames[i]) ); //上りの速度
+                            p->_velo = (VAL_TYPE)( (2.0*(top-bottom)) / ((double)beat_cycle_frames) ); //上りの速度
                         }
-                        _beat_frame_count_in_roop[i] = 0;
+                        p->_beat_frame_count_in_roop = 0;
                     }
                 } else if (method == BEAT_TRIANGLEWAVE) {
-                    _beat_frame_count_in_roop[i]++;
-                    frame cnt = _beat_frame_count_in_roop[i];
+                    p->_beat_frame_count_in_roop++;
+                    const frame cnt = p->_beat_frame_count_in_roop;
+                    const frame beat_frame_of_attack_finish = p->_beat_frame_of_attack_finish;
                     //アタック終了時
-                    if (cnt == _beat_frame_of_attack_finish[i]) {
+                    if (cnt == beat_frame_of_attack_finish) {
                         val = top;
-                        _velo[i] = 0;
+                        p->_velo = 0;
                     }
                     //維持終時
-                    if (cnt == _beat_frame_of_sustain_finish[i]) {
+                    if (cnt == p->_beat_frame_of_sustain_finish) {
                         val = top;
-                        frame attenuate_frames = _beat_frame_of_release_finish[i] - _beat_frame_of_sustain_finish[i]; //減衰(余韻)時間
+                        frame attenuate_frames = p->_beat_frame_of_release_finish - p->_beat_frame_of_sustain_finish; //減衰(余韻)時間
                         //下限までの減衰(余韻)速度設定
                         if (attenuate_frames > 0)  {
-                            _velo[i] = (VAL_TYPE)( (double)(bottom-top) / ((double)attenuate_frames) );
+                            p->_velo = (VAL_TYPE)( (double)(bottom-top) / ((double)attenuate_frames) );
                         } else {
-                            _velo[i] = bottom-top;
+                            p->_velo = bottom-top;
                         }
                     }
                     //減衰(余韻)終了
-                    if (cnt == _beat_frame_of_release_finish[i]) {
+                    if (cnt == p->_beat_frame_of_release_finish) {
                         val = bottom;
-                        _velo[i] = 0;
+                        p->_velo = 0;
                     }
                     //休憩終了
-                    if (cnt == _beat_cycle_frames[i]) {
+                    if (cnt == p->_beat_cycle_frames) {
                         val = bottom;
-                        _beat_frame_count_in_roop[i] = 0;
+                        p->_beat_frame_count_in_roop = 0;
                         //次のアタックへの速度設定
-                        if (_beat_frame_of_attack_finish[i] > 0 ) {
-                            _velo[i] = (VAL_TYPE)( ((double)(top - val)) / ((double)_beat_frame_of_attack_finish[i]) );
-                        } else if (_beat_frame_of_attack_finish[i] == 0 ) {
-                            _velo[i] = top - val;
+                        if (beat_frame_of_attack_finish > 0 ) {
+                            p->_velo = (VAL_TYPE)( ((double)(top - val)) / ((double)beat_frame_of_attack_finish) );
+                        } else if (beat_frame_of_attack_finish == 0 ) {
+                            p->_velo = top - val;
                         }
                     }
                 } else if (method == R_BEAT_TRIANGLEWAVE) { //逆ビート
-                    _beat_frame_count_in_roop[i]++;
-                    frame cnt = _beat_frame_count_in_roop[i];
+                    p->_beat_frame_count_in_roop++;
+                    const frame cnt = p->_beat_frame_count_in_roop;
+                    const frame beat_frame_of_attack_finish = p->_beat_frame_of_attack_finish;
                     //アタック終了時
-                    if (cnt == _beat_frame_of_attack_finish[i]) {
+                    if (cnt == beat_frame_of_attack_finish) {
                         val = bottom;
-                        _velo[i] = 0;
+                        p->_velo = 0;
                     }
                     //維持(下限)終時
-                    if (cnt == _beat_frame_of_sustain_finish[i]) {
+                    if (cnt == p->_beat_frame_of_sustain_finish) {
                         val = bottom;
-                        frame attenuate_frames = _beat_frame_of_release_finish[i] - _beat_frame_of_sustain_finish[i]; //復帰時間
+                        frame attenuate_frames = p->_beat_frame_of_release_finish - p->_beat_frame_of_sustain_finish; //復帰時間
                         //上限までの復帰速度設定
                         if (attenuate_frames > 0)  {
-                            _velo[i] = (VAL_TYPE)( (double)(top - bottom) / ((double)attenuate_frames) );
+                            p->_velo = (VAL_TYPE)( (double)(top - bottom) / ((double)attenuate_frames) );
                         } else {
-                            _velo[i] = top - bottom;
+                            p->_velo = top - bottom;
                         }
                     }
                     //復帰終了
-                    if (cnt == _beat_frame_of_release_finish[i]) {
+                    if (cnt == p->_beat_frame_of_release_finish) {
                         val = top;
-                        _velo[i] = 0;
+                        p->_velo = 0;
                     }
                     //休憩終了
-                    if (cnt == _beat_cycle_frames[i]) {
+                    if (cnt == p->_beat_cycle_frames) {
                         val = top;
-                        _beat_frame_count_in_roop[i] = 0;
+                        p->_beat_frame_count_in_roop = 0;
                         //次のアタックへの速度設定
-                        if (_beat_frame_of_attack_finish[i] > 0 ) {
-                            _velo[i] = (VAL_TYPE)( ((double)(bottom - val)) / ((double)_beat_frame_of_attack_finish[i]) );
-                        } else if (_beat_frame_of_attack_finish[i] == 0 ) {
-                            _velo[i] = bottom - val;
+                        if (beat_frame_of_attack_finish > 0 ) {
+                            p->_velo = (VAL_TYPE)( ((double)(bottom - val)) / ((double)beat_frame_of_attack_finish) );
+                        } else if (beat_frame_of_attack_finish == 0 ) {
+                            p->_velo = bottom - val;
                         }
                     }
                 }
             }
+
 
             if (top < val) {
                 val = top;
@@ -752,9 +784,11 @@ public:
 
             setValue(i, val); //反映
 
-            if (_beat_frame_count[i] >= _beat_target_frames[i]) {
+            if (p->_beat_frame_count >= p->_beat_target_frames) {
                 stop(i);//終了
             }
+
+            ++p;
         }
     }
 
