@@ -16,9 +16,10 @@ GgafCriticalException* GgafGod::_pException_factory = nullptr;
 
 CRITICAL_SECTION GgafGod::CS1;
 CRITICAL_SECTION GgafGod::CS2;
-
-int GgafGod::_num_drawing = 0;
-int GgafGod::_num_active_actor = 0;
+#ifdef MY_DEBUG
+unsigned int GgafGod::_num_drawing = 0;
+#endif
+unsigned int GgafGod::_num_active_actor = 0;
 
 GgafGod* GgafGod::_pGod = nullptr;
 DWORD GgafGod::_aaTime_offset_of_next_view[3][60] = {
@@ -213,7 +214,9 @@ void GgafGod::makeSpacetimeMaterialize() {
     } else {
         _slowdown_mode = SLOWDOWN_MODE_DEFAULT;
     }
+#ifdef MY_DEBUG
     GgafGod::_num_drawing = 0;
+#endif;
     GgafGod::_num_active_actor = 0;
     GgafSpacetime* pSpacetime = _pSpacetime;
     pSpacetime->preDraw();

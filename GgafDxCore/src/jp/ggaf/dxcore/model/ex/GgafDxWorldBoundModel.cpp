@@ -110,7 +110,10 @@ HRESULT GgafDxWorldBoundModel::draw(GgafDxFigureActor* prm_pActor_target, int pr
                                       _paIndexParam[i].NumVertices,
                                       _paIndexParam[i].StartIndex,
                                       _paIndexParam[i].PrimitiveCount);
+#ifdef MY_DEBUG
         GgafGod::_num_drawing++;
+#endif
+
     }
     GgafDxModelManager::_pModelLastDraw = this;
     GgafDxEffectManager::_pEffect_active = pWorldBoundEffect;

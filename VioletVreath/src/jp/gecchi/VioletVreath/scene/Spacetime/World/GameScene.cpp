@@ -352,8 +352,9 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
 void GameScene::processJudgement() {
 
     if (getBehaveingFrame() >= 120) {
+#ifdef MY_DEBUG
         CollisionChecker3D::_num_check = 0;
-
+#endif
 //        if (GgafDxInput::isBeingPressedKey(DIK_I)) {
 //            CollisionChecker3D::_pLinearOctree->putTree();
 //        }

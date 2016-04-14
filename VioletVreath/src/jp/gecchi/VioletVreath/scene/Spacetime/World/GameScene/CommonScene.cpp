@@ -142,7 +142,7 @@ pStore_EnemyStraightLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_Enem
 
     //汎用ショット
     {
-        for (int i = 0; i < 800; i++) {
+        for (int i = 0; i < 500; i++) {
             std::string name = "Shot004("+XTOS(i)+")";
             P_COMMON_DEPO(Shot004)->put(NEW Shot004(name.c_str()));
         }
@@ -152,7 +152,7 @@ pStore_EnemyStraightLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_Enem
     //汎用Wateringレーザー
     {
         LaserChipDepository* pLaserChipDepo;
-        for (int laser_no = 0; laser_no < 200; laser_no++) { //セット本数
+        for (int laser_no = 0; laser_no < 30; laser_no++) { //セット本数
             std::string name_depo = "LaserChipDepo["+XTOS(laser_no)+"]";
             pLaserChipDepo = NEW LaserChipDepository(name_depo.c_str());
             for (int chip_no = 0; chip_no < 40; chip_no++) { //１本の長さ
@@ -169,7 +169,7 @@ pStore_EnemyStraightLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_Enem
         for (int laser_no = 0; laser_no < 8; laser_no++) { //セット本数
             std::string name_depo = "LaserChipDepo["+XTOS(laser_no)+"]";
             pLaserChipDepo = NEW LaserChipDepository(name_depo.c_str());
-            for (int chip_no = 0; chip_no < 80; chip_no++) { //１本の長さ
+            for (int chip_no = 0; chip_no < 40; chip_no++) { //１本の長さ
                 std::string name_chip = "EnemyStraightLaserChip001["+XTOS(laser_no)+"]["+XTOS(chip_no)+"]";
                 pLaserChipDepo->put(NEW EnemyStraightLaserChip001(name_chip.c_str()));
             }

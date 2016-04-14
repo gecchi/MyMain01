@@ -56,6 +56,9 @@ private:
     void setPlatformScene(GgafScene* prm_pScene_platform);
 
 public:
+#ifdef MY_DEBUG
+    static unsigned int _num_actors;
+#endif
     /** [r]所属デポジトリ(nullptrは未所属) */
     GgafActorDepository* _pDependenceDepository;
     /** [r]所属フォーメーション(nullptrは未所属) */

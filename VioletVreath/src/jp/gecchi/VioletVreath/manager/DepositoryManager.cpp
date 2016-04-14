@@ -46,7 +46,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
         P_COMMON_SCENE->bringDirector()->addSubGroup(pResource);
     } else if (strcmp("Shot004Blue", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("MgrDepo_Shot004BlueStock");
-        for (int i = 0; i < 300; i++) {
+        for (int i = 0; i < 100; i++) {
             pResource->put(NEW Shot004Blue("Shot004Blue"));
             Sleep(1);
         }
@@ -54,7 +54,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
 
     } else if (strcmp("Shot004Yellow", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("MgrDepo_Shot004YellowStock");
-        for (int i = 0; i < 300; i++) {
+        for (int i = 0; i < 100; i++) {
             pResource->put(NEW Shot004Yellow("Shot004Yellow"));
             Sleep(1);
         }
@@ -120,10 +120,10 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
     } else if (strcmp("EnemyStraeaLaserChip004DepoStore", prm_idstr) == 0) {
         pResource = NEW GgafActorDepositoryStore("EnemyStraeaLaserChip004DepoStore");
         LaserChipDepository* pLaserChipDepo;
-        for (int nLaser = 0; nLaser < 30; nLaser++) {
+        for (int nLaser = 0; nLaser < 10; nLaser++) {
             std::string name1 = "LaserChipDepository["+XTOS(nLaser)+"]";
             pLaserChipDepo = NEW LaserChipDepository(name1.c_str());
-            for (int nChip = 0; nChip < 50; nChip++) {
+            for (int nChip = 0; nChip < 40; nChip++) {
                 std::string name2 = "EnemyStraeaLaserChip004["+XTOS(nLaser)+"]["+XTOS(nChip)+"]";
                 pLaserChipDepo->put(NEW EnemyStraeaLaserChip004(name2.c_str()));
                 Sleep(1);
@@ -175,7 +175,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
     } else if (strcmp("EnemyEsperiaLaserChip001DepoStore", prm_idstr) == 0) {
         pResource = NEW GgafActorDepositoryStore("EnemyEsperiaLaserChip0014DepoStore");
         LaserChipDepository* pLaserChipDepo;
-        for (int nLaser = 0; nLaser < RF_EnemyEsperia_ShotWay(1.0)*8; nLaser++) {
+        for (int nLaser = 0; nLaser < RF_EnemyEsperia_ShotWay(1.0)*5; nLaser++) {
             std::string name1 = "LaserChipDepo["+XTOS(nLaser)+"]";
             pLaserChipDepo = NEW LaserChipDepository(name1.c_str());
             for (int nChip = 0; nChip < 50; nChip++) {

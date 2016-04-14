@@ -138,7 +138,10 @@ HRESULT GgafDxBoardSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
     GgafDxModelManager::_pModelLastDraw = this;
     GgafDxEffectManager::_pEffect_active = pBoardSetEffect;
     GgafDxFigureActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
-    GgafGod::_num_drawing++;
+#ifdef MY_DEBUG
+        GgafGod::_num_drawing++;
+#endif
+
     return D3D_OK;
 }
 

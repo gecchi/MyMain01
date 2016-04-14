@@ -309,9 +309,10 @@ void World::processBehavior() {
 
 
 #ifdef MY_DEBUG
-    sprintf(aBufDebug_, "%07uF / %05uOBJ / %05uDRAW / %06uCHK / %03.1fFPS / V%03d",
-                            (unsigned int)askGod()->_frame_of_God,
+    sprintf(aBufDebug_, "%07uF, %06u/%06uACT, %06uDRAW, %06uCHK, %03.1fFPS, V%03d",
+                            askGod()->_frame_of_God,
                             GgafGod::_num_active_actor,
+                            GgafActor::_num_actors,
                             GgafGod::_num_drawing,
                             CollisionChecker3D::_num_check,
                             askGod()->_fps,

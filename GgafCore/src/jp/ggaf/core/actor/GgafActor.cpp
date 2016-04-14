@@ -1,10 +1,12 @@
 #include "jp/ggaf/core/actor/GgafActor.h"
 
 #include "jp/ggaf/core/actor/ex/GgafFormation.h"
-
 #include "jp/ggaf/core/GgafFactory.h"
 using namespace GgafCore;
 
+#ifdef MY_DEBUG
+unsigned int GgafActor::_num_actors = 0;
+#endif
 GgafActor::GgafActor(const char* prm_name, GgafStatus* prm_pStat) :
     GgafElement<GgafActor>(prm_name),
     _pScene_platform(nullptr),
@@ -20,6 +22,9 @@ GgafActor::GgafActor(const char* prm_name, GgafStatus* prm_pStat) :
         _pStatus = NEW GgafStatus(12, nullptr);
         getStatus()->set(0, 0);
     }
+#ifdef MY_DEBUG
+    GgafActor::_num_actors++;
+#endif
     _TRACE_("new "<<NODE_INFO<<" _id="<<getId());
 }
 
@@ -31,6 +36,9 @@ GgafActor::~GgafActor() {
     } else {
         //アプリ終了処理時のため、工場ももれなく掃除されるため考慮不要
     }
+#ifdef MY_DEBUG
+    GgafActor::_num_actors--;
+#endif
     _TRACE_("delete "<<NODE_INFO<<" _id="<<getId());
     //OutputDebugStringA("*");
 }

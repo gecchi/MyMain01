@@ -23,9 +23,10 @@ class CollisionChecker3D : public GgafDxCore::GgafDxChecker {
     LinearOctreeForActor* const _pLinearOctree; //TODO:どこに持たせようか悩むがとりあえずココに
 
 public:
-
+#ifdef MY_DEBUG
     /** １フレームの当たり判定要素同士の判定回数 */
-    static int _num_check;
+    static unsigned int _num_check;
+#endif
     /** 当たり判定領域の境界領域(AABB)を再計算するかどうかのフラグ */
     bool _need_update_aabb;
     /** 線形八分木登録用要素 */

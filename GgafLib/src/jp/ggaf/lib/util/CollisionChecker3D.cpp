@@ -17,8 +17,9 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
-
-int CollisionChecker3D::_num_check = 0;
+#ifdef MY_DEBUG
+unsigned int CollisionChecker3D::_num_check = 0;
+#endif
 CollisionChecker3D::CollisionChecker3D(GgafDxGeometricActor* prm_pActor) : GgafDxChecker(prm_pActor) ,
         _pLinearOctree(P_GOD->getSpacetime()->getLinearOctree()),
         _pElem(NEW LinearOctreeActorElem(_pLinearOctree, prm_pActor, 0))

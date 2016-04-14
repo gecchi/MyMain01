@@ -55,7 +55,9 @@ void ColliAAPyramidActor::drawHitarea(CollisionChecker3D* prm_pColliChecker) {
                                     pActor->_z + pyramid->_z2,
                                     pyramid->_pos_pyramid);
                     }
+#ifdef MY_DEBUG
                     GgafGod::_num_drawing--; //当たり判定表示は表示オブジェクト数にカウントしない
+#endif
                 }
             }
         }

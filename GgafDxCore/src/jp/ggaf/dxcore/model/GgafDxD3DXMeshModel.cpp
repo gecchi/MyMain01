@@ -113,7 +113,9 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
         }
         _TRACE4_("DrawSubset: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
         hr = _pID3DXMesh->DrawSubset(i);  //なんて便利なメソッド。
+#ifdef MY_DEBUG
         GgafGod::_num_drawing++;
+#endif
     }
     //前回描画モデル名反映
     GgafDxModelManager::_pModelLastDraw = this;

@@ -51,7 +51,9 @@ void ColliAABoxActor::drawHitarea(CollisionChecker3D* prm_pColliChecker) {
                             pActor->_x + box->_x2,
                             pActor->_y + box->_y2,
                             pActor->_z + box->_z2);
+#ifdef MY_DEBUG
                     GgafGod::_num_drawing--; //当たり判定表示は表示オブジェクト数にカウントしない
+#endif
                 }
             }
         }
