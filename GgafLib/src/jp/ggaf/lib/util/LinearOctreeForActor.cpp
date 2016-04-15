@@ -28,13 +28,15 @@ void LinearOctreeForActor::executeAllHitChk(actorkind prm_groupA, actorkind prm_
 
 void LinearOctreeForActor::executeHitChk(uint32_t prm_index) {
     LinearOctreeActorElem* pElem = ((LinearOctreeActorElem*)(_paOctant[prm_index]._pElem_first));
+    const uint32_t kind_groupA = _kind_groupA;
+    const uint32_t kind_groupB = _kind_groupB;
     if (pElem) {
         GgafLinearOctreeElem* pElem_last = _paOctant[prm_index]._pElem_last;
         while (true) {
-            if (pElem->_kindbit & _kind_groupA) {
+            if (pElem->_kindbit & kind_groupA) {
                 _stackCurrentOctantActor_GroupA.push(pElem->_pActor);
             }
-            if (pElem->_kindbit & _kind_groupB) {
+            if (pElem->_kindbit & kind_groupB) {
                 _stackCurrentOctantActor_GroupB.push(pElem->_pActor);
             }
             if (pElem == pElem_last) {
@@ -65,14 +67,51 @@ void LinearOctreeForActor::executeHitChk(uint32_t prm_index) {
         _stackParentOctantActor_GroupA.pop_push(&_stackCurrentOctantActor_GroupA);
         _stackParentOctantActor_GroupB.pop_push(&_stackCurrentOctantActor_GroupB);
 
-        //子空間へもぐるが良い
+//        //子空間へもぐるが良い
+//        GgafLinearOctreeOctant* pOctant = &(_paOctant[next_level_index]);
+//        const uint32_t next_level_index_end = next_level_index+8;
+//        for(uint32_t i = next_level_index; i < next_level_index_end; i++) {
+//            //if ((pOctant->_kindinfobit & _kind_groupA) || (pOctant->_kindinfobit & _kind_groupB) ) {
+//            if ((pOctant->_kindinfobit & _kind_groupA) && (pOctant->_kindinfobit & _kind_groupB) ) {  // || じゃなくて && と最近思った
+//                executeHitChk(i);
+//            }
+//            ++pOctant;
+//        }
+
+// ↑を↓に展開した。しばらくこれで様子を見る。
+
         GgafLinearOctreeOctant* pOctant = &(_paOctant[next_level_index]);
-        const uint32_t next_level_index_end = next_level_index+8;
-        for(uint32_t i = next_level_index; i < next_level_index_end; i++) {
-            if ((pOctant->_kindinfobit & _kind_groupA) || (pOctant->_kindinfobit & _kind_groupB) ) {
-                executeHitChk(i);
-            }
-            ++pOctant;
+        uint32_t octant_kindinfobit = pOctant->_kindinfobit;
+        if ((octant_kindinfobit & kind_groupA) && (octant_kindinfobit & kind_groupB)) {
+            executeHitChk(next_level_index);
+        }
+        octant_kindinfobit = (++pOctant)->_kindinfobit;
+        if ((octant_kindinfobit & kind_groupA) && (octant_kindinfobit & kind_groupB)) {
+            executeHitChk(next_level_index+1);
+        }
+        octant_kindinfobit = (++pOctant)->_kindinfobit;
+        if ((octant_kindinfobit & kind_groupA) && (octant_kindinfobit & kind_groupB)) {
+            executeHitChk(next_level_index+2);
+        }
+        octant_kindinfobit = (++pOctant)->_kindinfobit;
+        if ((octant_kindinfobit & kind_groupA) && (octant_kindinfobit & kind_groupB)) {
+            executeHitChk(next_level_index+3);
+        }
+        octant_kindinfobit = (++pOctant)->_kindinfobit;
+        if ((octant_kindinfobit & kind_groupA) && (octant_kindinfobit & kind_groupB)) {
+            executeHitChk(next_level_index+4);
+        }
+        octant_kindinfobit = (++pOctant)->_kindinfobit;
+        if ((octant_kindinfobit & kind_groupA) && (octant_kindinfobit & kind_groupB)) {
+            executeHitChk(next_level_index+5);
+        }
+        octant_kindinfobit = (++pOctant)->_kindinfobit;
+        if ((octant_kindinfobit & kind_groupA) && (octant_kindinfobit & kind_groupB)) {
+            executeHitChk(next_level_index+6);
+        }
+        octant_kindinfobit = (++pOctant)->_kindinfobit;
+        if ((octant_kindinfobit & kind_groupA) && (octant_kindinfobit & kind_groupB)) {
+            executeHitChk(next_level_index+7);
         }
 
         //お帰りなさい

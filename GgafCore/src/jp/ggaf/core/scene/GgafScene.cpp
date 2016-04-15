@@ -54,33 +54,34 @@ void GgafScene::addSubLast(GgafScene* prm_pScene) {
 }
 
 void GgafScene::nextFrame() {
-//    _TRACE_("GgafScene::nextFrame() "<<this<<" ★"<<NODE_INFO<<DUMP_FLGS);
+    bool b = _is_active_in_the_tree_flg;
     if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
-//        _TRACE_("nextFrame OK _once_in_n_time="<<_once_in_n_time<<" P_GOD->_frame_of_God="<<P_GOD->_frame_of_God);
         GgafElement<GgafScene>::nextFrame();
-        if(_pSceneDirector) {
+        frame f = _pSceneDirector->_frame_of_life;
+        if (b || _is_active_in_the_tree_flg ||
+                f <= _pSceneDirector->_frame_of_life_when_activation ||
+                f <= _pSceneDirector->_frame_of_life_when_inactivation ||
+                f <= _pSceneDirector->_frame_of_life_when_end) {
             _pSceneDirector->nextFrame();
         }
+
+        //_is_active_in_the_tree_flg == false でも
+        //GgafElement<GgafScene>::nextFrame(); が実行時は
+        //必ず _pSceneDirector->nextFrame(); を実行する。
+        //理由は onInactive() 等のイベントを発生させる為
     }
-//    } else {
-//		isActive()?
-//        //isActiveInTheTree() を成立させるため、配下の全てのシーンと、
-//        //それぞれのシーン所属アクター全てに
-//        //_last_frame_of_god = P_GOD->_frame_of_God;
-//        //のみを実行する。
-//        update_last_frame_of_god();
+
+
+//    if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
+//        GgafElement<GgafScene>::nextFrame();
+//        if(_pSceneDirector) {
+//            _pSceneDirector->nextFrame();
+//        }
 //    }
 }
-//void GgafScene::update_last_frame_of_god() {
-//    GgafElement<GgafScene>::update_last_frame_of_god();
-//    _pSceneDirector->update_last_frame_of_god();
-//}
-
 
 void GgafScene::behave() {
-//    _TRACE_("GgafScene::behave() "<<this<<" ★"<<NODE_INFO<<DUMP_FLGS);
     if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
-//        _TRACE_("behave OK _once_in_n_time="<<_once_in_n_time<<" P_GOD->_frame_of_God="<<P_GOD->_frame_of_God);
         GgafElement<GgafScene>::behave();
         _pSceneDirector->behave();
     }
