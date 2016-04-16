@@ -80,37 +80,37 @@ void LinearOctreeForActor::executeHitChk(uint32_t prm_index) {
 
 // ↑を↓に展開した。しばらくこれで様子を見る。
 
-        GgafLinearOctreeOctant* pOctant = &(_paOctant[next_level_index]);
-        uint32_t octant_kindinfobit = pOctant->_kindinfobit;
-        if ((octant_kindinfobit & kind_groupA) && (octant_kindinfobit & kind_groupB)) {
+        GgafLinearOctreeOctant* pOctant_next_level = &(_paOctant[next_level_index]);
+        uint32_t octant_kindinfobit_next_level = pOctant_next_level->_kindinfobit;
+        if ((octant_kindinfobit_next_level & kind_groupA) || (octant_kindinfobit_next_level & kind_groupB)) {
             executeHitChk(next_level_index);
         }
-        octant_kindinfobit = (++pOctant)->_kindinfobit;
-        if ((octant_kindinfobit & kind_groupA) && (octant_kindinfobit & kind_groupB)) {
+        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
+        if ((octant_kindinfobit_next_level & kind_groupA) || (octant_kindinfobit_next_level & kind_groupB)) {
             executeHitChk(next_level_index+1);
         }
-        octant_kindinfobit = (++pOctant)->_kindinfobit;
-        if ((octant_kindinfobit & kind_groupA) && (octant_kindinfobit & kind_groupB)) {
+        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
+        if ((octant_kindinfobit_next_level & kind_groupA) || (octant_kindinfobit_next_level & kind_groupB)) {
             executeHitChk(next_level_index+2);
         }
-        octant_kindinfobit = (++pOctant)->_kindinfobit;
-        if ((octant_kindinfobit & kind_groupA) && (octant_kindinfobit & kind_groupB)) {
+        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
+        if ((octant_kindinfobit_next_level & kind_groupA) || (octant_kindinfobit_next_level & kind_groupB)) {
             executeHitChk(next_level_index+3);
         }
-        octant_kindinfobit = (++pOctant)->_kindinfobit;
-        if ((octant_kindinfobit & kind_groupA) && (octant_kindinfobit & kind_groupB)) {
+        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
+        if ((octant_kindinfobit_next_level & kind_groupA) || (octant_kindinfobit_next_level & kind_groupB)) {
             executeHitChk(next_level_index+4);
         }
-        octant_kindinfobit = (++pOctant)->_kindinfobit;
-        if ((octant_kindinfobit & kind_groupA) && (octant_kindinfobit & kind_groupB)) {
+        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
+        if ((octant_kindinfobit_next_level & kind_groupA) || (octant_kindinfobit_next_level & kind_groupB)) {
             executeHitChk(next_level_index+5);
         }
-        octant_kindinfobit = (++pOctant)->_kindinfobit;
-        if ((octant_kindinfobit & kind_groupA) && (octant_kindinfobit & kind_groupB)) {
+        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
+        if ((octant_kindinfobit_next_level & kind_groupA) || (octant_kindinfobit_next_level & kind_groupB)) {
             executeHitChk(next_level_index+6);
         }
-        octant_kindinfobit = (++pOctant)->_kindinfobit;
-        if ((octant_kindinfobit & kind_groupA) && (octant_kindinfobit & kind_groupB)) {
+        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
+        if ((octant_kindinfobit_next_level & kind_groupA) || (octant_kindinfobit_next_level & kind_groupB)) {
             executeHitChk(next_level_index+7);
         }
 
