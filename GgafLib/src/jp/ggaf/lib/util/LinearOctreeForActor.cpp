@@ -27,11 +27,12 @@ void LinearOctreeForActor::executeAllHitChk(actorkind prm_groupA, actorkind prm_
 }
 
 void LinearOctreeForActor::executeHitChk(uint32_t prm_index) {
-    LinearOctreeActorElem* pElem = ((LinearOctreeActorElem*)(_paOctant[prm_index]._pElem_first));
+    GgafLinearOctreeOctant* pOctant_this_level = &(_paOctant[prm_index]);
+    LinearOctreeActorElem* pElem = ((LinearOctreeActorElem*)(pOctant_this_level->_pElem_first));
     const uint32_t kind_groupA = _kind_groupA;
     const uint32_t kind_groupB = _kind_groupB;
     if (pElem) {
-        GgafLinearOctreeElem* pElem_last = _paOctant[prm_index]._pElem_last;
+        GgafLinearOctreeElem* pElem_last = pOctant_this_level->_pElem_last;
         while (true) {
             if (pElem->_kindbit & kind_groupA) {
                 _stackCurrentOctantActor_GroupA.push(pElem->_pActor);
@@ -114,6 +115,82 @@ void LinearOctreeForActor::executeHitChk(uint32_t prm_index) {
             executeHitChk(next_level_index+7);
         }
 
+
+
+//
+//        GgafLinearOctreeOctant* pOctant_next_level = &(_paOctant[next_level_index]);
+//        uint32_t octant_kindinfobit_next_level = pOctant_next_level->_kindinfobit;
+//        uint32_t octant_kindinfobit_this_level = pOctant_this_level->_kindinfobit;
+//        if (
+//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
+//          ((octant_kindinfobit_this_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
+//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_this_level & kind_groupB))
+//        ) {
+//            executeHitChk(next_level_index);
+//        }
+//
+//        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
+//        if (
+//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
+//          ((octant_kindinfobit_this_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
+//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_this_level & kind_groupB))
+//        ) {
+//            executeHitChk(next_level_index+1);
+//        }
+//
+//        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
+//        if (
+//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
+//          ((octant_kindinfobit_this_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
+//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_this_level & kind_groupB))
+//        ) {
+//            executeHitChk(next_level_index+2);
+//        }
+//        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
+//
+//        if (
+//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
+//          ((octant_kindinfobit_this_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
+//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_this_level & kind_groupB))
+//        ) {
+//            executeHitChk(next_level_index+3);
+//        }
+//
+//        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
+//        if (
+//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
+//          ((octant_kindinfobit_this_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
+//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_this_level & kind_groupB))
+//        ) {
+//            executeHitChk(next_level_index+4);
+//        }
+//
+//        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
+//        if (
+//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
+//          ((octant_kindinfobit_this_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
+//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_this_level & kind_groupB))
+//        ) {
+//            executeHitChk(next_level_index+5);
+//        }
+//
+//        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
+//        if (
+//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
+//          ((octant_kindinfobit_this_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
+//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_this_level & kind_groupB))
+//        ) {
+//            executeHitChk(next_level_index+6);
+//        }
+//
+//        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
+//        if (
+//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
+//          ((octant_kindinfobit_this_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
+//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_this_level & kind_groupB))
+//        ) {
+//            executeHitChk(next_level_index+7);
+//        }
         //お帰りなさい
         //スタックの解放（pushした分、元に戻す）
         _stackParentOctantActor_GroupA._papCur = stackParentOctantActor_GroupA_papCur;
