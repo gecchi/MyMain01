@@ -60,137 +60,127 @@ void LinearOctreeForActor::executeHitChk(uint32_t prm_index) {
         _stackCurrentOctantActor_GroupB.clear();
         return; //親空間へ戻る
     } else {
+
+//        bool isExist_ParentGroupA = _stackParentOctantActor_GroupA.isExist();
+//        bool isExist_ParentGroupB = _stackParentOctantActor_GroupB.isExist();
+
         //もぐる。が、その前に現空間アクターを親空間アクターのスタックへ追加。
         //もぐった空間から見た場合の親空間アクター累計を作っておいてやる。
         //(現空間スタックも開放)
         GgafCore::GgafActor** stackParentOctantActor_GroupA_papCur = _stackParentOctantActor_GroupA._papCur; //スタックポインタ保存
         GgafCore::GgafActor** stackParentOctantActor_GroupB_papCur = _stackParentOctantActor_GroupB._papCur; //スタックポインタ保存
-        _stackParentOctantActor_GroupA.pop_push(&_stackCurrentOctantActor_GroupA);
-        _stackParentOctantActor_GroupB.pop_push(&_stackCurrentOctantActor_GroupB);
-
+        _stackParentOctantActor_GroupA.pop_push(&_stackCurrentOctantActor_GroupA); //_stackCurrentOctantActor_GroupAも、クリアされる。
+        _stackParentOctantActor_GroupB.pop_push(&_stackCurrentOctantActor_GroupB); //_stackCurrentOctantActor_GroupBも、クリアされる。
 //        //子空間へもぐるが良い
-//        GgafLinearOctreeOctant* pOctant = &(_paOctant[next_level_index]);
-//        const uint32_t next_level_index_end = next_level_index+8;
-//        for(uint32_t i = next_level_index; i < next_level_index_end; i++) {
-//            //if ((pOctant->_kindinfobit & _kind_groupA) || (pOctant->_kindinfobit & _kind_groupB) ) {
-//            if ((pOctant->_kindinfobit & _kind_groupA) && (pOctant->_kindinfobit & _kind_groupB) ) {  // || じゃなくて && と最近思った
-//                executeHitChk(i);
-//            }
-//            ++pOctant;
-//        }
-
-// ↑を↓に展開した。しばらくこれで様子を見る。
-
-        GgafLinearOctreeOctant* pOctant_next_level = &(_paOctant[next_level_index]);
-        uint32_t octant_kindinfobit_next_level = pOctant_next_level->_kindinfobit;
-        if ((octant_kindinfobit_next_level & kind_groupA) || (octant_kindinfobit_next_level & kind_groupB)) {
-            executeHitChk(next_level_index);
+        GgafLinearOctreeOctant* pOctant = &(_paOctant[next_level_index]);
+        const uint32_t next_level_index_end = next_level_index+8;
+        for(uint32_t i = next_level_index; i < next_level_index_end; i++) {
+            if ((pOctant->_kindinfobit & _kind_groupA) || (pOctant->_kindinfobit & _kind_groupB) ) {
+                executeHitChk(i);
+            }
+            ++pOctant;
         }
-        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
-        if ((octant_kindinfobit_next_level & kind_groupA) || (octant_kindinfobit_next_level & kind_groupB)) {
-            executeHitChk(next_level_index+1);
-        }
-        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
-        if ((octant_kindinfobit_next_level & kind_groupA) || (octant_kindinfobit_next_level & kind_groupB)) {
-            executeHitChk(next_level_index+2);
-        }
-        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
-        if ((octant_kindinfobit_next_level & kind_groupA) || (octant_kindinfobit_next_level & kind_groupB)) {
-            executeHitChk(next_level_index+3);
-        }
-        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
-        if ((octant_kindinfobit_next_level & kind_groupA) || (octant_kindinfobit_next_level & kind_groupB)) {
-            executeHitChk(next_level_index+4);
-        }
-        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
-        if ((octant_kindinfobit_next_level & kind_groupA) || (octant_kindinfobit_next_level & kind_groupB)) {
-            executeHitChk(next_level_index+5);
-        }
-        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
-        if ((octant_kindinfobit_next_level & kind_groupA) || (octant_kindinfobit_next_level & kind_groupB)) {
-            executeHitChk(next_level_index+6);
-        }
-        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
-        if ((octant_kindinfobit_next_level & kind_groupA) || (octant_kindinfobit_next_level & kind_groupB)) {
-            executeHitChk(next_level_index+7);
-        }
-
-
-
-//
+// ↑を↓に見なおした。
 //        GgafLinearOctreeOctant* pOctant_next_level = &(_paOctant[next_level_index]);
 //        uint32_t octant_kindinfobit_next_level = pOctant_next_level->_kindinfobit;
-//        uint32_t octant_kindinfobit_this_level = pOctant_this_level->_kindinfobit;
-//        if (
-//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
-//          ((octant_kindinfobit_this_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
-//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_this_level & kind_groupB))
-//        ) {
-//            executeHitChk(next_level_index);
+        //次のレベルの空間に種別AとBが登録されていれば潜る。
+        //又は、次のレベルの空間に種別Aがあり、かつ親ストックに種別Bがあれば潜る。
+        //又は、次のレベルの空間に種別Bがあり、かつ親ストックに種別Aがあれば潜る。
+        //それ以外は潜らない
+        //if (( (octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB) ) ||
+        //    ( (octant_kindinfobit_next_level & kind_groupA) && (isExist_ParentGroupB)                        ) ||
+        //    (                        (isExist_ParentGroupA) && (octant_kindinfobit_next_level & kind_groupB) )
+        //) {
+        //    executeHitChk(next_level_index);
+        //}
+        //↑を↓に書き直した
+//        if (octant_kindinfobit_next_level & kind_groupA) {
+//            if (isExist_ParentGroupB || (octant_kindinfobit_next_level & kind_groupB)) {
+//                executeHitChk(next_level_index);
+//            }
+//        } else if (octant_kindinfobit_next_level & kind_groupB) {
+//            if (isExist_ParentGroupA) {
+//                executeHitChk(next_level_index);
+//            }
 //        }
 //
 //        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
-//        if (
-//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
-//          ((octant_kindinfobit_this_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
-//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_this_level & kind_groupB))
-//        ) {
-//            executeHitChk(next_level_index+1);
+//        if (octant_kindinfobit_next_level & kind_groupA) {
+//            if (isExist_ParentGroupB || (octant_kindinfobit_next_level & kind_groupB)) {
+//                executeHitChk(next_level_index+1);
+//            }
+//        } else if (octant_kindinfobit_next_level & kind_groupB) {
+//            if (isExist_ParentGroupA) {
+//                executeHitChk(next_level_index+1);
+//            }
 //        }
 //
 //        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
-//        if (
-//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
-//          ((octant_kindinfobit_this_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
-//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_this_level & kind_groupB))
-//        ) {
-//            executeHitChk(next_level_index+2);
-//        }
-//        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
-//
-//        if (
-//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
-//          ((octant_kindinfobit_this_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
-//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_this_level & kind_groupB))
-//        ) {
-//            executeHitChk(next_level_index+3);
+//        if (octant_kindinfobit_next_level & kind_groupA) {
+//            if (isExist_ParentGroupB || (octant_kindinfobit_next_level & kind_groupB)) {
+//                executeHitChk(next_level_index+2);
+//            }
+//        } else if (octant_kindinfobit_next_level & kind_groupB) {
+//            if (isExist_ParentGroupA) {
+//                executeHitChk(next_level_index+2);
+//            }
 //        }
 //
 //        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
-//        if (
-//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
-//          ((octant_kindinfobit_this_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
-//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_this_level & kind_groupB))
-//        ) {
-//            executeHitChk(next_level_index+4);
+//        if (octant_kindinfobit_next_level & kind_groupA) {
+//            if (isExist_ParentGroupB || (octant_kindinfobit_next_level & kind_groupB)) {
+//                executeHitChk(next_level_index+3);
+//            }
+//        } else if (octant_kindinfobit_next_level & kind_groupB) {
+//            if (isExist_ParentGroupA) {
+//                executeHitChk(next_level_index+3);
+//            }
 //        }
 //
 //        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
-//        if (
-//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
-//          ((octant_kindinfobit_this_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
-//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_this_level & kind_groupB))
-//        ) {
-//            executeHitChk(next_level_index+5);
+//        if (octant_kindinfobit_next_level & kind_groupA) {
+//            if (isExist_ParentGroupB || (octant_kindinfobit_next_level & kind_groupB)) {
+//                executeHitChk(next_level_index+4);
+//            }
+//        } else if (octant_kindinfobit_next_level & kind_groupB) {
+//            if (isExist_ParentGroupA) {
+//                executeHitChk(next_level_index+4);
+//            }
 //        }
 //
 //        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
-//        if (
-//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
-//          ((octant_kindinfobit_this_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
-//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_this_level & kind_groupB))
-//        ) {
-//            executeHitChk(next_level_index+6);
+//        if (octant_kindinfobit_next_level & kind_groupA) {
+//            if (isExist_ParentGroupB || (octant_kindinfobit_next_level & kind_groupB)) {
+//                executeHitChk(next_level_index+5);
+//            }
+//        } else if (octant_kindinfobit_next_level & kind_groupB) {
+//            if (isExist_ParentGroupA) {
+//                executeHitChk(next_level_index+5);
+//            }
 //        }
 //
 //        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
-//        if (
-//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
-//          ((octant_kindinfobit_this_level & kind_groupA) && (octant_kindinfobit_next_level & kind_groupB))  ||
-//          ((octant_kindinfobit_next_level & kind_groupA) && (octant_kindinfobit_this_level & kind_groupB))
-//        ) {
-//            executeHitChk(next_level_index+7);
+//        if (octant_kindinfobit_next_level & kind_groupA) {
+//            if (isExist_ParentGroupB || (octant_kindinfobit_next_level & kind_groupB)) {
+//                executeHitChk(next_level_index+6);
+//            }
+//        } else if (octant_kindinfobit_next_level & kind_groupB) {
+//            if (isExist_ParentGroupA) {
+//                executeHitChk(next_level_index+6);
+//            }
 //        }
+//
+//        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
+//        if (octant_kindinfobit_next_level & kind_groupA) {
+//            if (isExist_ParentGroupB || (octant_kindinfobit_next_level & kind_groupB)) {
+//                executeHitChk(next_level_index+7);
+//            }
+//        } else if (octant_kindinfobit_next_level & kind_groupB) {
+//            if (isExist_ParentGroupA) {
+//                executeHitChk(next_level_index+7);
+//            }
+//        }
+
         //お帰りなさい
         //スタックの解放（pushした分、元に戻す）
         _stackParentOctantActor_GroupA._papCur = stackParentOctantActor_GroupA_papCur;

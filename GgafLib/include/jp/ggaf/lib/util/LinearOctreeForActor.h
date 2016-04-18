@@ -68,6 +68,10 @@ public:
             }
         }
 
+        inline bool isExist() {
+            return _papCur == _papFirst ? false : true;
+        }
+
         /**
          * 引数のスタックから全て取り出し、出来る限り自身のスタックに積む .
          * @param prm_pCollisionStack

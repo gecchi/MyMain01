@@ -24,7 +24,7 @@ DefaultSpacetime::DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCam
 }
 
 void DefaultSpacetime::processFinal() {
-    _pLinearOctree->clearElem();
+    _pLinearOctree->clearAllElem();
     //ルート空間更新
 //    _pLinearOctree->setRootOctant(_x_bound_left  ,_y_bound_bottom, _z_bound_near ,
 //                                     _x_bound_right ,_y_bound_top   , _z_bound_far   );

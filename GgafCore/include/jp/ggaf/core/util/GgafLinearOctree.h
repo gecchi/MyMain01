@@ -265,7 +265,7 @@ public:
      * registerElem() <BR>
      * により八分木へ再度要素登録が可能となる。
      */
-    void clearElem();
+    void clearAllElem();
 
 
     virtual ~GgafLinearOctree();

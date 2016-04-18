@@ -213,7 +213,9 @@ void GgafLinearOctree::registerElem(GgafLinearOctreeElem* const prm_pElem,
     }
 #endif
 
-    //登録Elemリストに追加（後でクリアしたいが為）
+    //登録Elemリストに追加（後で clearAllElem() クリアしたいが為）
+    //ここの仕組みは最適化の余地がある。
+    //例えば登録済みの空間Indexのみを配列で保持して後でclearAllElem() する。連結リストより速いのでは。
     if (prm_pElem->_pOctant_current == nullptr) {
         if (_pRegElemFirst == nullptr) {
             prm_pElem->_pRegLinkNext = nullptr;
@@ -232,7 +234,7 @@ void GgafLinearOctree::registerElem(GgafLinearOctreeElem* const prm_pElem,
     prm_pElem->belongTo(&(_paOctant[index]));
 }
 
-void GgafLinearOctree::clearElem() {
+void GgafLinearOctree::clearAllElem() {
     GgafLinearOctreeElem* pElem = _pRegElemFirst;
     while (pElem) {
         pElem->clear();
