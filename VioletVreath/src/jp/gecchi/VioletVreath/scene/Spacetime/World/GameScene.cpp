@@ -92,7 +92,7 @@ void GameScene::processBehavior() {
     Spacetime* pSpacetime = P_GOD->getSpacetime();
 #ifdef MY_DEBUG
     //ワイヤフレーム表示切替
-    if (VB->isPushedDown(VB_UI_DEBUG)) {
+    if (VB->isPushedDown(VB_UI_DEBUG) || GgafDxInput::isPushedDownKey(DIK_Q)) {
         if (GgafDxGod::_d3dfillmode == D3DFILL_WIREFRAME) {
             GgafDxGod::_d3dfillmode = D3DFILL_SOLID;
         } else {
@@ -195,12 +195,19 @@ void GameScene::processBehavior() {
 
                 //通常進行時処理はココ
                 //
-
+#ifdef MY_DEBUG
+                if (VB->isPushedDown(VB_PAUSE) || GgafDxInput::isPushedDownKey(DIK_ESCAPE) || is_frame_advance_) {
+                    //ポーズではないときに、ポーズキーを押して離した場合の処理
+                    //ポーズ発生時直後の初期処理はココへ
+                    pauseGame();
+                }
+#else
                 if (VB->isPushedDown(VB_PAUSE) || is_frame_advance_) {
                     //ポーズではないときに、ポーズキーを押して離した場合の処理
                     //ポーズ発生時直後の初期処理はココへ
                     pauseGame();
                 }
+#endif
             }
             //今ポーズ時
             if (pProg->getGazedScene()->wasPaused()) {

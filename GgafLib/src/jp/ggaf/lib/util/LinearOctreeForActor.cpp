@@ -61,28 +61,28 @@ void LinearOctreeForActor::executeHitChk(uint32_t prm_index) {
         return; //親空間へ戻る
     } else {
 
-//        bool isExist_ParentGroupA = _stackParentOctantActor_GroupA.isExist();
-//        bool isExist_ParentGroupB = _stackParentOctantActor_GroupB.isExist();
-
         //もぐる。が、その前に現空間アクターを親空間アクターのスタックへ追加。
         //もぐった空間から見た場合の親空間アクター累計を作っておいてやる。
-        //(現空間スタックも開放)
-        GgafCore::GgafActor** stackParentOctantActor_GroupA_papCur = _stackParentOctantActor_GroupA._papCur; //スタックポインタ保存
-        GgafCore::GgafActor** stackParentOctantActor_GroupB_papCur = _stackParentOctantActor_GroupB._papCur; //スタックポインタ保存
-        _stackParentOctantActor_GroupA.pop_push(&_stackCurrentOctantActor_GroupA); //_stackCurrentOctantActor_GroupAも、クリアされる。
-        _stackParentOctantActor_GroupB.pop_push(&_stackCurrentOctantActor_GroupB); //_stackCurrentOctantActor_GroupBも、クリアされる。
+        //(同時に現空間スタックも開放)
+        GgafCore::GgafActor** stackParentOctantActor_GroupA_papCur = _stackParentOctantActor_GroupA._papCur; //スタックポインタ保存(潜った後のリセットに使用)
+        GgafCore::GgafActor** stackParentOctantActor_GroupB_papCur = _stackParentOctantActor_GroupB._papCur; //スタックポインタ保存(潜った後のリセットに使用)
+        _stackParentOctantActor_GroupA.pop_push(&_stackCurrentOctantActor_GroupA); //Current を Parent に追加。同時にCurrentはクリアされる。
+        _stackParentOctantActor_GroupB.pop_push(&_stackCurrentOctantActor_GroupB); //Current を Parent に追加。同時にCurrentはクリアされる。
+        bool isExist_ParentGroupA = _stackParentOctantActor_GroupA.isExist();
+        bool isExist_ParentGroupB = _stackParentOctantActor_GroupB.isExist();
+
 //        //子空間へもぐるが良い
-        GgafLinearOctreeOctant* pOctant = &(_paOctant[next_level_index]);
-        const uint32_t next_level_index_end = next_level_index+8;
-        for(uint32_t i = next_level_index; i < next_level_index_end; i++) {
-            if ((pOctant->_kindinfobit & _kind_groupA) || (pOctant->_kindinfobit & _kind_groupB) ) {
-                executeHitChk(i);
-            }
-            ++pOctant;
-        }
+//        GgafLinearOctreeOctant* pOctant = &(_paOctant[next_level_index]);
+//        const uint32_t next_level_index_end = next_level_index+8;
+//        for(uint32_t i = next_level_index; i < next_level_index_end; i++) {
+//            if ((pOctant->_kindinfobit & _kind_groupA) || (pOctant->_kindinfobit & _kind_groupB) ) {
+//                executeHitChk(i);
+//            }
+//            ++pOctant;
+//        }
 // ↑を↓に見なおした。
-//        GgafLinearOctreeOctant* pOctant_next_level = &(_paOctant[next_level_index]);
-//        uint32_t octant_kindinfobit_next_level = pOctant_next_level->_kindinfobit;
+        GgafLinearOctreeOctant* pOctant_next_level = &(_paOctant[next_level_index]);
+        uint32_t octant_kindinfobit_next_level = pOctant_next_level->_kindinfobit;
         //次のレベルの空間に種別AとBが登録されていれば潜る。
         //又は、次のレベルの空間に種別Aがあり、かつ親ストックに種別Bがあれば潜る。
         //又は、次のレベルの空間に種別Bがあり、かつ親ストックに種別Aがあれば潜る。
@@ -94,92 +94,92 @@ void LinearOctreeForActor::executeHitChk(uint32_t prm_index) {
         //    executeHitChk(next_level_index);
         //}
         //↑を↓に書き直した
-//        if (octant_kindinfobit_next_level & kind_groupA) {
-//            if (isExist_ParentGroupB || (octant_kindinfobit_next_level & kind_groupB)) {
-//                executeHitChk(next_level_index);
-//            }
-//        } else if (octant_kindinfobit_next_level & kind_groupB) {
-//            if (isExist_ParentGroupA) {
-//                executeHitChk(next_level_index);
-//            }
-//        }
-//
-//        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
-//        if (octant_kindinfobit_next_level & kind_groupA) {
-//            if (isExist_ParentGroupB || (octant_kindinfobit_next_level & kind_groupB)) {
-//                executeHitChk(next_level_index+1);
-//            }
-//        } else if (octant_kindinfobit_next_level & kind_groupB) {
-//            if (isExist_ParentGroupA) {
-//                executeHitChk(next_level_index+1);
-//            }
-//        }
-//
-//        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
-//        if (octant_kindinfobit_next_level & kind_groupA) {
-//            if (isExist_ParentGroupB || (octant_kindinfobit_next_level & kind_groupB)) {
-//                executeHitChk(next_level_index+2);
-//            }
-//        } else if (octant_kindinfobit_next_level & kind_groupB) {
-//            if (isExist_ParentGroupA) {
-//                executeHitChk(next_level_index+2);
-//            }
-//        }
-//
-//        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
-//        if (octant_kindinfobit_next_level & kind_groupA) {
-//            if (isExist_ParentGroupB || (octant_kindinfobit_next_level & kind_groupB)) {
-//                executeHitChk(next_level_index+3);
-//            }
-//        } else if (octant_kindinfobit_next_level & kind_groupB) {
-//            if (isExist_ParentGroupA) {
-//                executeHitChk(next_level_index+3);
-//            }
-//        }
-//
-//        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
-//        if (octant_kindinfobit_next_level & kind_groupA) {
-//            if (isExist_ParentGroupB || (octant_kindinfobit_next_level & kind_groupB)) {
-//                executeHitChk(next_level_index+4);
-//            }
-//        } else if (octant_kindinfobit_next_level & kind_groupB) {
-//            if (isExist_ParentGroupA) {
-//                executeHitChk(next_level_index+4);
-//            }
-//        }
-//
-//        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
-//        if (octant_kindinfobit_next_level & kind_groupA) {
-//            if (isExist_ParentGroupB || (octant_kindinfobit_next_level & kind_groupB)) {
-//                executeHitChk(next_level_index+5);
-//            }
-//        } else if (octant_kindinfobit_next_level & kind_groupB) {
-//            if (isExist_ParentGroupA) {
-//                executeHitChk(next_level_index+5);
-//            }
-//        }
-//
-//        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
-//        if (octant_kindinfobit_next_level & kind_groupA) {
-//            if (isExist_ParentGroupB || (octant_kindinfobit_next_level & kind_groupB)) {
-//                executeHitChk(next_level_index+6);
-//            }
-//        } else if (octant_kindinfobit_next_level & kind_groupB) {
-//            if (isExist_ParentGroupA) {
-//                executeHitChk(next_level_index+6);
-//            }
-//        }
-//
-//        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
-//        if (octant_kindinfobit_next_level & kind_groupA) {
-//            if (isExist_ParentGroupB || (octant_kindinfobit_next_level & kind_groupB)) {
-//                executeHitChk(next_level_index+7);
-//            }
-//        } else if (octant_kindinfobit_next_level & kind_groupB) {
-//            if (isExist_ParentGroupA) {
-//                executeHitChk(next_level_index+7);
-//            }
-//        }
+        if (octant_kindinfobit_next_level & kind_groupA) {
+            if (isExist_ParentGroupB || (octant_kindinfobit_next_level & kind_groupB)) {
+                executeHitChk(next_level_index);
+            }
+        } else if (octant_kindinfobit_next_level & kind_groupB) {
+            if (isExist_ParentGroupA) {
+                executeHitChk(next_level_index);
+            }
+        }
+
+        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
+        if (octant_kindinfobit_next_level & kind_groupA) {
+            if (isExist_ParentGroupB || (octant_kindinfobit_next_level & kind_groupB)) {
+                executeHitChk(next_level_index+1);
+            }
+        } else if (octant_kindinfobit_next_level & kind_groupB) {
+            if (isExist_ParentGroupA) {
+                executeHitChk(next_level_index+1);
+            }
+        }
+
+        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
+        if (octant_kindinfobit_next_level & kind_groupA) {
+            if (isExist_ParentGroupB || (octant_kindinfobit_next_level & kind_groupB)) {
+                executeHitChk(next_level_index+2);
+            }
+        } else if (octant_kindinfobit_next_level & kind_groupB) {
+            if (isExist_ParentGroupA) {
+                executeHitChk(next_level_index+2);
+            }
+        }
+
+        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
+        if (octant_kindinfobit_next_level & kind_groupA) {
+            if (isExist_ParentGroupB || (octant_kindinfobit_next_level & kind_groupB)) {
+                executeHitChk(next_level_index+3);
+            }
+        } else if (octant_kindinfobit_next_level & kind_groupB) {
+            if (isExist_ParentGroupA) {
+                executeHitChk(next_level_index+3);
+            }
+        }
+
+        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
+        if (octant_kindinfobit_next_level & kind_groupA) {
+            if (isExist_ParentGroupB || (octant_kindinfobit_next_level & kind_groupB)) {
+                executeHitChk(next_level_index+4);
+            }
+        } else if (octant_kindinfobit_next_level & kind_groupB) {
+            if (isExist_ParentGroupA) {
+                executeHitChk(next_level_index+4);
+            }
+        }
+
+        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
+        if (octant_kindinfobit_next_level & kind_groupA) {
+            if (isExist_ParentGroupB || (octant_kindinfobit_next_level & kind_groupB)) {
+                executeHitChk(next_level_index+5);
+            }
+        } else if (octant_kindinfobit_next_level & kind_groupB) {
+            if (isExist_ParentGroupA) {
+                executeHitChk(next_level_index+5);
+            }
+        }
+
+        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
+        if (octant_kindinfobit_next_level & kind_groupA) {
+            if (isExist_ParentGroupB || (octant_kindinfobit_next_level & kind_groupB)) {
+                executeHitChk(next_level_index+6);
+            }
+        } else if (octant_kindinfobit_next_level & kind_groupB) {
+            if (isExist_ParentGroupA) {
+                executeHitChk(next_level_index+6);
+            }
+        }
+
+        octant_kindinfobit_next_level = (++pOctant_next_level)->_kindinfobit;
+        if (octant_kindinfobit_next_level & kind_groupA) {
+            if (isExist_ParentGroupB || (octant_kindinfobit_next_level & kind_groupB)) {
+                executeHitChk(next_level_index+7);
+            }
+        } else if (octant_kindinfobit_next_level & kind_groupB) {
+            if (isExist_ParentGroupA) {
+                executeHitChk(next_level_index+7);
+            }
+        }
 
         //お帰りなさい
         //スタックの解放（pushした分、元に戻す）
@@ -190,19 +190,19 @@ void LinearOctreeForActor::executeHitChk(uint32_t prm_index) {
 }
 
 void LinearOctreeForActor::executeHitChk_RoundRobin(CollisionStack* prm_pStackA, CollisionStack* prm_pStackB) {
-    //どちらか無ければ終了
-    GgafActor** papStackActor_A_Cur = prm_pStackA->_papCur;
-    GgafActor** papStackActor_B_Cur = prm_pStackB->_papCur;
-    GgafActor** papStackActor_A = prm_pStackA->_papFirst;
-    while (papStackActor_A != papStackActor_A_Cur) {
-        GgafActor** papStackActor_B = prm_pStackB->_papFirst;
-        while (papStackActor_B != papStackActor_B_Cur) {
-            (*papStackActor_A)->executeHitChk_MeAnd(*papStackActor_B);
-            ++papStackActor_B;
+    if (prm_pStackA->isExist() && prm_pStackB->isExist()) {
+        GgafActor** papStackActor_A_Cur = prm_pStackA->_papCur;
+        GgafActor** papStackActor_B_Cur = prm_pStackB->_papCur;
+        GgafActor** papStackActor_A = prm_pStackA->_papFirst;
+        while (papStackActor_A != papStackActor_A_Cur) {
+            GgafActor** papStackActor_B = prm_pStackB->_papFirst;
+            while (papStackActor_B != papStackActor_B_Cur) {
+                (*papStackActor_A)->executeHitChk_MeAnd(*papStackActor_B);
+                ++papStackActor_B;
+            }
+            ++papStackActor_A;
         }
-        ++papStackActor_A;
     }
-
 }
 
 LinearOctreeForActor::~LinearOctreeForActor() {

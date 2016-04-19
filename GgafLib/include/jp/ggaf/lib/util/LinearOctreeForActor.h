@@ -82,7 +82,7 @@ public:
                 prm_pCollisionStack->clear();
                 return;
             }
-            while ((*_papCur) = prm_pCollisionStack->pop()) { //  I know "=" , not "=="
+            while ((*_papCur) = prm_pCollisionStack->pop()) { //代入。pop出来なければ nullptr。 I know "=" , not "=="
                  ++_papCur;
                  if (_papCur == _papBanpei) {
                     _TRACE_("＜警告＞ LinearOctreeForActor::pop_push("<<prm_pCollisionStack<<") スタックを使い切りました。無視します。一箇所に当たり判定が塊過ぎです。");
