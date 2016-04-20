@@ -1,6 +1,7 @@
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 
 #include "jp/ggaf/core/actor/GgafGroupHead.h"
+#include "jp/ggaf/core/util/GgafLinearOctreeElem.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
 #include "jp/ggaf/lib/DefaultGod.h"
@@ -11,7 +12,6 @@
 #include "jp/ggaf/lib/util/ColliAAPrism.h"
 #include "jp/ggaf/lib/util/ColliAAPyramid.h"
 #include "jp/ggaf/lib/util/LinearOctreeForActor.h"
-#include "jp/ggaf/lib/util/LinearOctreeActorElem.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 
 using namespace GgafCore;
@@ -22,7 +22,7 @@ unsigned int CollisionChecker3D::_num_check = 0;
 #endif
 CollisionChecker3D::CollisionChecker3D(GgafDxGeometricActor* prm_pActor) : GgafDxChecker(prm_pActor) ,
         _pLinearOctree(P_GOD->getSpacetime()->getLinearOctree()),
-        _pElem(NEW LinearOctreeActorElem(_pLinearOctree, prm_pActor, 0))
+        _pElem(NEW GgafLinearOctreeElem(_pLinearOctree, prm_pActor, 0))
 {
     _need_update_aabb = true;
 }

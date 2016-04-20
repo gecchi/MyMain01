@@ -182,7 +182,6 @@
     <ClInclude Include="include\jp\ggaf\lib\util\ColliAAPyramid.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\collisionchecker3d.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\ColliSphere.h" />
-    <ClInclude Include="include\jp\ggaf\lib\util\LinearOctreeActorElem.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\LinearOctreeForActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\quantity.hpp" />
     <ClInclude Include="include\jp\ggaf\lib\util\SceneProgress.h" />

@@ -25,33 +25,33 @@ public:
     class CollisionStack {
     public:
         /** [r]一つの空間にスタックするアクターの配列。使用するのは[0]～[MAX_COLLISIONSTACK_ACTOR_NUM-1]。+1は、最後の要素を番兵にしている */
-        GgafCore::GgafActor* _apActor[MAX_COLLISIONSTACK_ACTOR_NUM+1]; //最後の要素(+1)は番兵
+        GgafCore::GgafObject* _apObject[MAX_COLLISIONSTACK_ACTOR_NUM+1]; //最後の要素(+1)は番兵
         /** [r]カーソルポインタ(次にPUSH出来る要素を指している)  */
-        GgafCore::GgafActor** _papCur;
+        GgafCore::GgafObject** _papCur;
         /** [r]常にスタックの先頭要素を指している */
-        GgafCore::GgafActor** _papFirst;
+        GgafCore::GgafObject** _papFirst;
         /** [r]常にスタックの最後の要素の次を指している */
-        GgafCore::GgafActor** _papBanpei;
+        GgafCore::GgafObject** _papBanpei;
     public:
         /**
          * コンストラクタ
          * @return
          */
         CollisionStack() {
-            _papFirst = &_apActor[0];
-            _papBanpei = &_apActor[MAX_COLLISIONSTACK_ACTOR_NUM];
+            _papFirst = &_apObject[0];
+            _papBanpei = &_apObject[MAX_COLLISIONSTACK_ACTOR_NUM];
             _papCur = _papFirst;
         }
         /**
          * スタックに積む .
          * @param prm_pActor 積むアクター
          */
-        inline void push(GgafCore::GgafActor* prm_pActor) {
+        inline void push(GgafCore::GgafObject* prm_pObject) {
             if (_papCur == _papBanpei) {
-                _TRACE_("＜警告＞ LinearOctreeForActor::push("<<prm_pActor<<") スタックを使い切りました。無視します。一箇所に当たり判定が塊過ぎです。");
+                _TRACE_("＜警告＞ LinearOctreeForActor::push("<<prm_pObject<<") スタックを使い切りました。無視します。一箇所に当たり判定が塊過ぎです。");
                 return;
             }
-            (*_papCur) = prm_pActor;
+            (*_papCur) = prm_pObject;
             ++_papCur;
         }
 
@@ -59,7 +59,7 @@ public:
          * スタックから取り出す .
          * @return 取り出されたアクター
          */
-        inline GgafCore::GgafActor* pop() {
+        inline GgafCore::GgafObject* pop() {
             if (_papCur == _papFirst) {
                 return nullptr;
             } else {
@@ -103,13 +103,13 @@ public:
     };
 
     /** [r]全空間の当たり判定時、現在の空間に所属するアクター種別Aグループのスタック */
-    CollisionStack _stackCurrentOctantActor_GroupA;
+    CollisionStack _stackGroupA_Current;
     /** [r]全空間の当たり判定時、現在の空間に所属するアクター種別Bグループのスタック */
-    CollisionStack _stackCurrentOctantActor_GroupB;
+    CollisionStack _stackGroupB_Current;
     /** [r]ある空間の当たり判定時、それよりも親空間に所属した全アクター種別Aグループのスタック */
-    CollisionStack _stackParentOctantActor_GroupA;
+    CollisionStack _stackGroupA;
     /** [r]ある空間の当たり判定時、それよりも親空間に所属した全アクター種別Bグループのスタック */
-    CollisionStack _stackParentOctantActor_GroupB;
+    CollisionStack _stackGroupB;
 
     /** [r]今回当たり判定を行うアクター種別A */
     actorkind _kind_groupA;

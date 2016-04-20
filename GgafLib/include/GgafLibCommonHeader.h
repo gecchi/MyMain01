@@ -86,7 +86,6 @@ class ColliSphere;
 class ColliAAPrism;
 class ColliAAPyramid;
 class LinearOctreeForActor;
-class LinearOctreeActorElem;
 class CollisionChecker3D;
 
 class SplineLine;

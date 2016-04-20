@@ -30,7 +30,7 @@ public:
     /** 当たり判定領域の境界領域(AABB)を再計算するかどうかのフラグ */
     bool _need_update_aabb;
     /** 線形八分木登録用要素 */
-    LinearOctreeActorElem* const _pElem;
+    GgafCore::GgafLinearOctreeElem* const _pElem;
 
 public:
     /**

@@ -362,16 +362,18 @@ void GameScene::processJudgement() {
 #ifdef MY_DEBUG
         CollisionChecker3D::_num_check = 0;
 #endif
-//        if (GgafDxInput::isBeingPressedKey(DIK_I)) {
-//            CollisionChecker3D::_pLinearOctree->putTree();
-//        }
+
 
         //本シーンの所属シーンの所属アクター全てについて当たり判定チェックを行う。
         //空間分割(八分木)アルゴリズムにより、チェック回数の最適化を行っています。
         //詳細は 「種別相関定義コピペツール.xls」 の 「種別相関」 シート参照
 
         LinearOctreeForActor* pLinearOctree = P_GOD->getSpacetime()->getLinearOctree();
-
+#ifdef MY_DEBUG
+        if (GgafDxInput::isPushedDownKey(DIK_I)) {
+            pLinearOctree->putTree();
+        }
+#endif
         //八分木アルゴリズムでヒットチェック
         pLinearOctree->executeAllHitChk(
             KIND_CHIKEI,

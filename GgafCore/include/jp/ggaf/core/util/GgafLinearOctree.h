@@ -147,7 +147,7 @@ private:
      *         八分木モートン順序の通し空間番号(最大Level8で、0～23068671)
      */
     static inline uint32_t getMortonOrderNumFromXYZindex( uint32_t x_space_index, uint32_t y_space_index, uint32_t z_space_index ) {
-        return GgafLinearOctree::separateEveryThirdBit(x_space_index) |
+        return GgafLinearOctree::separateEveryThirdBit(x_space_index)    |
                GgafLinearOctree::separateEveryThirdBit(y_space_index)<<1 |
                GgafLinearOctree::separateEveryThirdBit(z_space_index)<<2;
     }
@@ -242,7 +242,7 @@ public:
      * @param z2 〃
      */
     virtual void setRootOctant(int x1, int y1, int z1,
-                              int x2, int y2, int z2);
+                               int x2, int y2, int z2);
 
     /**
      * 要素を八分木空間に登録する
@@ -267,12 +267,12 @@ public:
      */
     void clearAllElem();
 
-
-    virtual ~GgafLinearOctree();
     /**
-     * デバッグ用ツリー状況出力 .
+     * デバッグ用。八分木登録状況出力（レベル８までしか対応していない） .
      */
     void putTree();
+
+    virtual ~GgafLinearOctree();
 };
 
 }

@@ -213,9 +213,10 @@ void GgafLinearOctree::registerElem(GgafLinearOctreeElem* const prm_pElem,
     }
 #endif
 
-    //登録Elemリストに追加（後で clearAllElem() クリアしたいが為）
-    //ここの仕組みは最適化の余地がある。
+    //登録したElemをリストに追加して保持しておく。
+    //理由は、後で clearAllElem() 一斉にクリアしたいが為。ここの仕組みは最適化の余地がある。
     //例えば登録済みの空間Indexのみを配列で保持して後でclearAllElem() する。連結リストより速いのでは。
+    //TODO:最後に全要素を八分木からクリアするより良い方法があるまでは、この方法で一旦保持する・・・なんかない
     if (prm_pElem->_pOctant_current == nullptr) {
         if (_pRegElemFirst == nullptr) {
             prm_pElem->_pRegLinkNext = nullptr;
@@ -235,6 +236,7 @@ void GgafLinearOctree::registerElem(GgafLinearOctreeElem* const prm_pElem,
 }
 
 void GgafLinearOctree::clearAllElem() {
+    //登録済みの要素リストを使用して、八分木をクリア
     GgafLinearOctreeElem* pElem = _pRegElemFirst;
     while (pElem) {
         pElem->clear();
@@ -289,7 +291,7 @@ void GgafLinearOctree::putTree() {
 
         for (uint32_t LV2 = index_lv2_begin, lv2_order_pos = 0; LV2 < index_lv2_begin+8; LV2++, lv2_order_num++, lv2_order_pos++) {
             if (_paOctant[LV2]._kindinfobit == 0) { continue; }  //何も無いので下位表示を飛ばし
-            UTIL::strbin(_paOctant[LV1]._kindinfobit, aChar_strbit);
+            UTIL::strbin(_paOctant[LV2]._kindinfobit, aChar_strbit);
             _TRACE_N_("    LV2-"<<lv2_order_num<<"(POS:"<<lv2_order_pos<<")["<<LV2<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
             _paOctant[LV2].dump();
             _TRACE_N_("\n");
@@ -298,7 +300,7 @@ void GgafLinearOctree::putTree() {
             if (index_lv3_begin > _num_space-1) { continue; } //次の階層にもぐれるかLvチェック
             for (uint32_t LV3 = index_lv3_begin, lv3_order_pos = 0; LV3 < index_lv3_begin+8; LV3++, lv3_order_num++, lv3_order_pos++) {
                 if (_paOctant[LV3]._kindinfobit == 0) { continue; }  //何も無いので下位表示を飛ばし
-                UTIL::strbin(_paOctant[LV1]._kindinfobit, aChar_strbit);
+                UTIL::strbin(_paOctant[LV3]._kindinfobit, aChar_strbit);
                 _TRACE_N_("      LV3-"<<lv3_order_num<<"(POS:"<<lv3_order_pos<<")["<<LV3<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
                 _paOctant[LV3].dump();
                 _TRACE_N_("\n");
@@ -307,7 +309,7 @@ void GgafLinearOctree::putTree() {
                 if (index_lv4_begin > _num_space-1) { continue; } //次の階層にもぐれるかLvチェック
                 for (uint32_t LV4 = index_lv4_begin, lv4_order_pos = 0; LV4 < index_lv4_begin+8; LV4++, lv4_order_num++, lv4_order_pos++) {
                     if (_paOctant[LV4]._kindinfobit == 0) { continue; }  //何も無いので下位表示を飛ばし
-                    UTIL::strbin(_paOctant[LV1]._kindinfobit, aChar_strbit);
+                    UTIL::strbin(_paOctant[LV4]._kindinfobit, aChar_strbit);
                     _TRACE_N_("        LV4-"<<lv4_order_num<<"(POS:"<<lv4_order_pos<<")["<<LV4<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
                     _paOctant[LV4].dump();
                     _TRACE_N_("\n");
@@ -316,7 +318,7 @@ void GgafLinearOctree::putTree() {
                     if (index_lv5_begin > _num_space-1) { continue; } //次の階層にもぐれるかLvチェック
                     for (uint32_t LV5 = index_lv5_begin, lv5_order_pos = 0; LV5 < index_lv5_begin+8; LV5++, lv5_order_num++, lv5_order_pos++) {
                         if (_paOctant[LV5]._kindinfobit == 0) { continue; }  //何も無いので下位表示を飛ばし
-                        UTIL::strbin(_paOctant[LV1]._kindinfobit, aChar_strbit);
+                        UTIL::strbin(_paOctant[LV5]._kindinfobit, aChar_strbit);
                         _TRACE_N_("          LV5-"<<lv5_order_num<<"(POS:"<<lv5_order_pos<<")["<<LV5<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
                         _paOctant[LV5].dump();
                         _TRACE_N_("\n");
@@ -325,7 +327,7 @@ void GgafLinearOctree::putTree() {
                         if (index_lv6_begin > _num_space-1) { continue; } //次の階層にもぐれるかLvチェック
                         for (uint32_t LV6 = index_lv6_begin, lv6_order_pos = 0; LV6 < index_lv6_begin+8; LV6++, lv6_order_num++, lv6_order_pos++) {
                             if (_paOctant[LV6]._kindinfobit == 0) { continue; }  //何も無いので下位表示を飛ばし
-                            UTIL::strbin(_paOctant[LV1]._kindinfobit, aChar_strbit);
+                            UTIL::strbin(_paOctant[LV6]._kindinfobit, aChar_strbit);
                             _TRACE_N_("            LV6-"<<lv6_order_num<<"(POS:"<<lv6_order_pos<<")["<<LV6<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
                             _paOctant[LV6].dump();
                             _TRACE_N_("\n");
@@ -334,7 +336,7 @@ void GgafLinearOctree::putTree() {
                             if (index_lv7_begin > _num_space-1) { continue; } //次の階層にもぐれるかLvチェック
                             for (uint32_t LV7 = index_lv7_begin, lv7_order_pos = 0; LV7 < index_lv7_begin+8; LV7++, lv7_order_num++, lv7_order_pos++) {
                                 if (_paOctant[LV7]._kindinfobit == 0) { continue; }  //何も無いので下位表示を飛ばし
-                                UTIL::strbin(_paOctant[LV1]._kindinfobit, aChar_strbit);
+                                UTIL::strbin(_paOctant[LV7]._kindinfobit, aChar_strbit);
                                 _TRACE_N_("              LV7-"<<lv7_order_num<<"(POS:"<<lv7_order_pos<<")["<<LV7<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
                                 _paOctant[LV7].dump();
                                 _TRACE_N_("\n");
@@ -343,7 +345,7 @@ void GgafLinearOctree::putTree() {
                                 if (index_lv8_begin > _num_space-1) { continue; } //次の階層にもぐれるかLvチェック
                                 for (uint32_t LV8 = index_lv8_begin, lv8_order_pos = 0; LV8 < index_lv8_begin+8; LV8++, lv8_order_num++, lv8_order_pos++) {
                                     if (_paOctant[LV8]._kindinfobit == 0) { continue; }  //何も無いので下位表示を飛ばし
-                                    UTIL::strbin(_paOctant[LV1]._kindinfobit, aChar_strbit);
+                                    UTIL::strbin(_paOctant[LV8]._kindinfobit, aChar_strbit);
                                     _TRACE_N_("                LV8-"<<lv8_order_num<<"(POS:"<<lv8_order_pos<<")["<<LV8<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
                                     _paOctant[LV8].dump();
                                     _TRACE_N_("\n");
