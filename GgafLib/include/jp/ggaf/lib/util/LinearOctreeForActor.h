@@ -73,19 +73,20 @@ public:
         }
 
         /**
-         * 引数のスタックから全て取り出し、出来る限り自身のスタックに積む .
+         * 引数のスタックから全て取り出し(pop)、出来る限り自身のスタックに積む(push) .
+         * 引数のスタックは、必ず空になる。
          * @param prm_pCollisionStack
          */
-        inline void pop_push(CollisionStack* prm_pCollisionStack) {
+        inline void popush(CollisionStack* prm_pCollisionStack) {
             if (_papCur == _papBanpei) {
-                _TRACE_("＜警告＞ LinearOctreeForActor::pop_push("<<prm_pCollisionStack<<") スタックを使い切ってます。無視します。一箇所に当たり判定が塊過ぎです。");
+                _TRACE_("＜警告＞ LinearOctreeForActor::popush("<<prm_pCollisionStack<<") スタックを使い切ってます。無視します。一箇所に当たり判定が塊過ぎです。");
                 prm_pCollisionStack->clear();
                 return;
             }
             while ((*_papCur) = prm_pCollisionStack->pop()) { //代入。pop出来なければ nullptr。 I know "=" , not "=="
                  ++_papCur;
                  if (_papCur == _papBanpei) {
-                    _TRACE_("＜警告＞ LinearOctreeForActor::pop_push("<<prm_pCollisionStack<<") スタックを使い切りました。無視します。一箇所に当たり判定が塊過ぎです。");
+                    _TRACE_("＜警告＞ LinearOctreeForActor::popush("<<prm_pCollisionStack<<") スタックを使い切りました。無視します。一箇所に当たり判定が塊過ぎです。");
                     prm_pCollisionStack->clear();
                     break;
                 }

@@ -66,8 +66,8 @@ void LinearOctreeForActor::executeHitChk(uint32_t prm_index) {
         //(同時に現空間スタックも開放)
         GgafObject** temp_stackGroupA = _stackGroupA._papCur; //スタックポインタ保存(潜った後のリセットに使用)
         GgafObject** temp_stackGroupB = _stackGroupB._papCur; //スタックポインタ保存(潜った後のリセットに使用)
-        _stackGroupA.pop_push(&_stackGroupA_Current); //Current を Parent に追加。同時にCurrentはクリアされる。
-        _stackGroupB.pop_push(&_stackGroupB_Current); //Current を Parent に追加。同時にCurrentはクリアされる。
+        _stackGroupA.popush(&_stackGroupA_Current); //Current を Parent に追加。同時にCurrentはクリアされる。
+        _stackGroupB.popush(&_stackGroupB_Current); //Current を Parent に追加。同時にCurrentはクリアされる。
         bool isExistGroupA = _stackGroupA.isExist();
         bool isExistGroupB = _stackGroupB.isExist();
 
@@ -165,8 +165,8 @@ void LinearOctreeForActor::executeHitChk(uint32_t prm_index) {
             }
         }
 
-        //お帰りなさい
-        //スタックの解放（pushした分、元に戻す）
+//        //お帰りなさい
+//        //スタックの解放（pushした分、元に戻す）
         _stackGroupA._papCur = temp_stackGroupA;
         _stackGroupB._papCur = temp_stackGroupB;
         return; //親空間へ戻る

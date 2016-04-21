@@ -70,7 +70,7 @@ void GameScene::onReset() {
     P_GOD->setVB(VB_UI);
     DefaultScene* pSubScene;
     SceneProgress* pProg = getProgress();
-    for (ProgSceneMap::const_iterator it = pProg->_mapProg2Scene.begin(); it != pProg->_mapProg2Scene.end(); it++) {
+    for (ProgSceneMap::const_iterator it = pProg->_mapProg2Scene.begin(); it != pProg->_mapProg2Scene.end(); ++it) {
         pSubScene = it->second;
         if (pSubScene) {
             pSubScene->resetTree();
@@ -256,7 +256,7 @@ void GameScene::processBehavior() {
             if (pProg->hasJustChanged()) {
                 _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PROG_FINISH)");
                 DefaultScene* pSubScene;
-                for (ProgSceneMap::const_iterator it = pProg->_mapProg2Scene.begin(); it != pProg->_mapProg2Scene.end(); it++) {
+                for (ProgSceneMap::const_iterator it = pProg->_mapProg2Scene.begin(); it != pProg->_mapProg2Scene.end(); ++it) {
                     pSubScene = it->second;
                     if (pSubScene) {
                         pSubScene->fadeoutSceneWithBgmTree(FADE_FRAMES);

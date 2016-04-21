@@ -71,7 +71,7 @@ HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int p
     hr = pID3DXEffect->SetValue(pD3DXAniMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[n].Diffuse), sizeof(D3DCOLORVALUE) );
     checkDxException(hr, D3D_OK, "SetValue(g_colMaterialDiffuse) に失敗しました。");
 
-    for (int i = 0; it != pDrawList->end(); i++, it++) {
+    for (int i = 0; it != pDrawList->end(); i++, ++it) {
         //描画(TODO:なんか無駄なループ）
         GgafDxEffect* pEffect_active = GgafDxEffectManager::_pEffect_active;
         if ((GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) && i == 0) {
@@ -214,7 +214,7 @@ void GgafDxD3DXAniMeshModel::restore() {
     std::list<D3DXFRAME_WORLD*>::iterator it = listFrame.begin();
     int model_nMaterials = 0;
     //フレームリストを廻って、マテリアル総数取得
-    for (int i = 0; it != listFrame.end(); i++, it++) {
+    for (int i = 0; it != listFrame.end(); i++, ++it) {
         if ((*it)->pMeshContainer == nullptr) {
             continue;
         } else {
@@ -228,7 +228,7 @@ void GgafDxD3DXAniMeshModel::restore() {
     it = listFrame.begin();
     int n = 0;
     char* texture_filename;
-    for (int i = 0; it != listFrame.end(); i++, it++) {
+    for (int i = 0; it != listFrame.end(); i++, ++it) {
         if ((*it)->pMeshContainer == nullptr) {
             continue;
         } else {

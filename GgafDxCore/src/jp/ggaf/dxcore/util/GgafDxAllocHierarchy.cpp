@@ -10,13 +10,13 @@ GgafDxAllocHierarchy::GgafDxAllocHierarchy() {
 GgafDxAllocHierarchy::~GgafDxAllocHierarchy() {
     // 登録されたオブジェクトを全て削除する
     std::list<DeleterBase*>::iterator it = m_DelList.begin();
-    for (; it != m_DelList.end(); it++) {
+    for (; it != m_DelList.end(); ++it) {
         DeleterBase* p = (*it);
         delete p;
     }
 
     std::list<IUnknown*>::iterator comit = m_ReleaseList.begin();
-    for (; comit != m_ReleaseList.end(); comit++) {
+    for (; comit != m_ReleaseList.end(); ++comit) {
         if (*comit) {
             (*comit)->Release();
         }
