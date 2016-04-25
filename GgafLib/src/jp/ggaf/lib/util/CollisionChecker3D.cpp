@@ -147,12 +147,12 @@ void CollisionChecker3D::setColliAAPyramid(int prm_index,
 }
 
 void CollisionChecker3D::updateHitArea() {
-    GgafDxGeometricActor* const pActor = _pActor;
     GgafDxCollisionArea* const pCollisionArea = _pCollisionArea;
-    if (pActor == nullptr || pCollisionArea == nullptr) {
+    if (pCollisionArea == nullptr) {
         return;
     }
-    if (pActor->isActiveInTheTree() && pActor->isActive()) {
+    GgafDxGeometricActor* const pActor = _pActor;
+    if (pActor->isActiveInTheTree()) {
         GgafDxCollisionPart* pColliPart;
         for (int i = 0; i < pCollisionArea->_colli_part_num; i++) {
 #ifdef MY_DEBUG
@@ -169,10 +169,10 @@ void CollisionChecker3D::updateHitArea() {
         if (_need_update_aabb) {
             pCollisionArea->updateAABB(); //ç≈äOàÊÇÃã´äEAABBçXêV
             _need_update_aabb = false;
+            _pElem->_kindbit = pActor->getMyGroupHead()->_kind;
         }
 
         //î™ï™ñÿÇ…ìoò^ÅI
-        _pElem->_kindbit = pActor->getMyGroupHead()->_kind;
 #ifdef MY_DEBUG
         if (_pElem->_kindbit == 0) {
             _TRACE_("ÅÉåxçêÅÑ CollisionChecker3D::updateHitArea() pActor="<<pActor->getName()<<"("<<pActor<<")ÇÃéÌï Ç™0Ç…Ç‡Ç©Ç©ÇÌÇÁÇ∏ÅAî™ï™ñÿÇ…ìoò^ÇµÇÊÇ§Ç∆ÇµÇƒÇ¢Ç‹Ç∑ÅBÇ»Ç∫Ç≈Ç∑Ç©ÅHÅB");

@@ -320,7 +320,7 @@ void World::processBehavior() {
                             );
     pLabel_debug_->update(aBufDebug_);
     if (getActiveFrame() % 60U == 0) {
-        _TRACE_("aBufDebug_="<<aBufDebug_);
+        _TRACE_("***** "<<aBufDebug_);
     }
     if (P_GOD->_sync_frame_time) {
         _TRACE_N_("z");

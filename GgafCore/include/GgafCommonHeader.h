@@ -48,10 +48,10 @@
     typedef unsigned __int32  uint32_t;
     typedef unsigned __int64  uint64_t;
 
-    #define FUNC_NAME __FUNCSIG__ << " " << __LINE__
+    #define FUNC_NAME __FUNCSIG__
 #else
     #include <cstdint>
-    #define FUNC_NAME __PRETTY_FUNCTION__ << " " << __LINE__
+    #define FUNC_NAME __PRETTY_FUNCTION__
 #endif
 
 
@@ -318,21 +318,21 @@ typedef uint32_t actorkind;
 typedef uint32_t frame;
 #define MAX_FRAME (0xffffffff)
 
-#define Obj_SceneBit              (0x8000000000000000U)       //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+#define Obj_SceneBit              (0x8000000000000000ULL)       //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
 
-#define Obj_GgafScene             ((0x1U) | Obj_SceneBit)     //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00000001
-#define Obj_GgafMainScene         ((0x2U) | Obj_SceneBit)     //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00000010
-#define Obj_GgafDisusedScene      ((0x4U) | Obj_SceneBit)     //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00000100
-#define Obj_GgafSpacetime         ((0x8U) | Obj_SceneBit)     //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00001000
+#define Obj_GgafScene             ((0x1ULL) | Obj_SceneBit)     //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00000001
+#define Obj_GgafMainScene         ((0x2ULL) | Obj_SceneBit)     //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00000010
+#define Obj_GgafDisusedScene      ((0x4ULL) | Obj_SceneBit)     //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00000100
+#define Obj_GgafSpacetime         ((0x8ULL) | Obj_SceneBit)     //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00001000
 
-#define Obj_GgafActor             (0x1U)                      //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000001
-#define Obj_GgafMainActor         (0x2U)                      //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000010
-#define Obj_GgafDestructActor     (0x4U)                      //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000100
-#define Obj_GgafSceneDirector     (0x8U)                      //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00001000
-#define Obj_GgafGroupHead         (0x10U)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00010000
-#define Obj_GgafDisusedActor      (0x20U)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00100000
-#define Obj_GgafActorDepository   (0x40U)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 01000000
-#define Obj_GgafFormation         (0x80U)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 10000000
+#define Obj_GgafActor              (0x1ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000001
+#define Obj_GgafMainActor          (0x2ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000010
+#define Obj_GgafDestructActor      (0x4ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000100
+#define Obj_GgafSceneDirector      (0x8ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00001000
+#define Obj_GgafGroupHead         (0x10ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00010000
+#define Obj_GgafDisusedActor      (0x20ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00100000
+#define Obj_GgafActorDepository   (0x40ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 01000000
+#define Obj_GgafFormation         (0x80ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 10000000
 
 
 //‘O•ûéŒ¾(forward declaration)
