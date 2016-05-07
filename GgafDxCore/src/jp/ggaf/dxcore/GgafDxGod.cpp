@@ -481,7 +481,7 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
             std::ostringstream oss;
             oss << width << "X" << height;
             std::string rezo = oss.str();
-            if (find(vecRezo.begin(), vecRezo.end(), rezo) == vecRezo.end()) {
+            if (std::find(vecRezo.begin(), vecRezo.end(), rezo) == vecRezo.end()) {
                 vecRezo.push_back(rezo);
                 vecWidth.push_back(width);
                 vecHeight.push_back(height);
