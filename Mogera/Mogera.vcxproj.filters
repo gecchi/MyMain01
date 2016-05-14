@@ -16,6 +16,7 @@
     <ClCompile Include="src\Mogera.cpp" />
     <ClCompile Include="src\actor\BoardTest.cpp" />
     <ClCompile Include="src\actor\camera\MgrCameraWorker.cpp" />
+    <ClCompile Include="src\actor\PointSpriteTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\actor\camera\MgrCamera.h" />
@@ -33,5 +34,6 @@
     <ClInclude Include="src\Mogera.h" />
     <ClInclude Include="src\actor\boardtest.h" />
     <ClInclude Include="src\actor\camera\mgrcameraworker.h" />
+    <ClInclude Include="src\actor\PointSpriteTest.h" />
   </ItemGroup>
 </Project>

@@ -414,7 +414,7 @@ void GgafDxModelManager::obtainSpriteInfo(SpriteXFileFmt* pSpriteFmt_out, std::s
                                                          (void*)prm_sprite_x_filename.c_str(),
                                                          D3DXF_FILELOAD_FROMFILE,
                                                          &pID3DXFileEnumObject);
-    checkDxException(hr, S_OK, "'"<<prm_sprite_x_filename<<"' のCreateEnumObjectに失敗しました。ファイルの存在を確認して下さい。");
+    checkDxException(hr, S_OK, "'"<<prm_sprite_x_filename<<"' のCreateEnumObjectに失敗しました。sprxファイルのフォーマットを確認して下さい。");
     //TODO:GUIDなんとかする。今は完全無視。
     //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
     ID3DXFileData* pID3DXFileData;
@@ -445,7 +445,7 @@ void GgafDxModelManager::obtainPointSpriteInfo(PointSpriteXFileFmt* pPointSprite
     ID3DXFileEnumObject* pID3DXFileEnumObject;
     ID3DXFileData* pID3DXFileData;
     HRESULT hr = GgafDxModelManager::_pID3DXFile_psprx->CreateEnumObject((void*)prm_point_sprite_x_filename.c_str(), D3DXF_FILELOAD_FROMFILE, &pID3DXFileEnumObject);
-    checkDxException(hr, S_OK, "'"<<prm_point_sprite_x_filename<<"' のCreateEnumObjectに失敗しました。ファイルの存在を確認して下さい。");
+    checkDxException(hr, S_OK, "'"<<prm_point_sprite_x_filename<<"' のCreateEnumObjectに失敗しました。psprx ファイルのフォーマットを確認して下さい。");
 
     //TODO:GUIDなんとかする。今は完全無視。
     //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};

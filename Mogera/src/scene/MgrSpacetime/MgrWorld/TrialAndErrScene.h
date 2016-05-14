@@ -14,7 +14,7 @@ public:
         PROG_WAIT ,
         PROG_BANPEI,
     };
-    Zako* pZako_;
+    PointSpriteTest* pTest_;
 
 public:
     TrialAndErrScene(const char* prm_name);

@@ -32,6 +32,7 @@ class FormationZako001;
 class MgrUtil;
 
 class BoardTest;
+class PointSpriteTest;
 }
 
 #endif /*SIMPLEMOGERA_H_*/
