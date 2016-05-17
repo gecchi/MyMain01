@@ -45,6 +45,7 @@
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxMassBoardActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxMassMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxMassMorphMeshActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxMassPointSpriteActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxMassSpriteActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxMeshSetActor.cpp" />
@@ -79,6 +80,7 @@
     <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxMassEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxMassMeshEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxMassMorphMeshEffect.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxMassPointSpriteEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxMassSpriteEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxMeshEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxMeshSetEffect.cpp" />
@@ -111,6 +113,7 @@
     <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxMassMeshModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxMassModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxMassMorphMeshModel.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxMassPointSpriteModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxMassSpriteModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxMeshModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxMeshSetModel.cpp" />
@@ -179,6 +182,7 @@
     <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxMassBoardActor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxMassMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxMassMorphMeshActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxMassPointSpriteActor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxMassSpriteActor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ggafdxmeshactor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ggafdxmeshsetactor.h" />
@@ -215,6 +219,7 @@
     <ClInclude Include="include\jp\ggaf\dxcore\effect\ggafdxmasseffect.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\effect\ggafdxmassmesheffect.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\effect\GgafDxMassMorphMeshEffect.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\effect\GgafDxMassPointSpriteEffect.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\effect\GgafDxMassSpriteEffect.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\effect\ggafdxmesheffect.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\effect\ggafdxmeshseteffect.h" />
@@ -247,6 +252,7 @@
     <ClInclude Include="include\jp\ggaf\dxcore\model\ggafdxmassmeshmodel.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\model\ggafdxmassmodel.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\model\GgafDxMassMorphMeshModel.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\model\GgafDxMassPointSpriteModel.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\model\GgafDxMassSpriteModel.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\model\ggafdxmeshmodel.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\model\ggafdxmeshsetmodel.h" />

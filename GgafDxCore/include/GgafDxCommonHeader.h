@@ -264,6 +264,7 @@ enum GgafDxValign {
 #define Obj_GgafDxMassBoardActor         (0x40000000ULL)   //0b 00000000 00000000 00000000 00000000 01000000 00000000 00000000 00000000
 #define Obj_GgafDxMassSpriteActor        (0x80000000ULL)   //0b 00000000 00000000 00000000 00000000 10000000 00000000 00000000 00000000
 #define Obj_GgafDxMassMorphMeshActor    (0x100000000ULL)   //0b 00000000 00000000 00000000 00000001 00000000 00000000 00000000 00000000
+#define Obj_GgafDxMassPointSpriteActor  (0x200000000ULL)   //0b 00000000 00000000 00000000 00000010 00000000 00000000 00000000 00000000
 
 
 
@@ -340,6 +341,7 @@ class GgafDxBoardActor;
 class GgafDxBoardSetActor;
 class GgafDxMassBoardActor;
 class GgafDxPointSpriteActor;
+class GgafDxMassPointSpriteActor;
 
 class GgafDxModel;
 class GgafDxMassModel;
@@ -361,6 +363,7 @@ class GgafDxBoardModel;
 class GgafDxBoardSetModel;
 class GgafDxMassBoardModel;
 class GgafDxPointSpriteModel;
+class GgafDxMassPointSpriteModel;
 
 class GgafDxEffect;
 class GgafDxMassEffect;
@@ -381,6 +384,7 @@ class GgafDxBoardEffect;
 class GgafDxBoardSetEffect;
 class GgafDxMassBoardEffect;
 class GgafDxPointSpriteEffect;
+class GgafDxMassPointSpriteEffect;
 
 class GgafDxTexture;
 

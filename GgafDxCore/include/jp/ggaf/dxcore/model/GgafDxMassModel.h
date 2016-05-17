@@ -100,8 +100,6 @@ public:
      */
     GgafDxMassModel(const char* prm_model_name);
 
-    void changeVertexAlpha(int prm_vertex_alpha);
-
     /**
      * 頂点レイアウト（インスタンスデータ）情報取得コールバック関数を登録する .
      * Modelクラスのコンストラクタ等で呼び出し、登録してください。

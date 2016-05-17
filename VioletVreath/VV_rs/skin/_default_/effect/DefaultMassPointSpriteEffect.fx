@@ -6,7 +6,6 @@
 // date:2009/03/06 
 ////////////////////////////////////////////////////////////////////////////////
 
-float4x4 g_matWorld;  //World変換行列
 float4x4 g_matView;   //View変換行列
 float4x4 g_matProj;   //射影変換行列
 
@@ -18,15 +17,11 @@ int g_TextureSplitRowcol; //テクスチャの縦横分割数。
                             //1：縦横１分割＝分割無し。
                             //2：縦横２分割＝４個のアニメパターン
                             //3：縦横３分割＝９個のアニメパターン
-float g_offset_u;        //テクスチャU座標増分
-float g_offset_v;         //テクスチャV座標増分
-float g_UvFlipPtnNo;
 
 float3 g_vecLightFrom_World; // ライトの方向
 float4 g_colLightAmbient;   // Ambienライト色（入射色）
 float4 g_colLightDiffuse;   // Diffuseライト色（入射色）
 
-float4 g_colMaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
 float g_tex_blink_power;   
 float g_tex_blink_threshold;
 float g_alpha_master;
@@ -72,14 +67,29 @@ struct OUT_VS
 
 
 //メッシュ標準頂点シェーダー
-OUT_VS GgafDxVS_DefaultPointSprite(
+OUT_VS GgafDxVS_DefaultMassPointSprite(
     float4 prm_posModel_Local : POSITION,  //ポイントスプライトのポイント群
     float  prm_psize_rate     : PSIZE,     //PSIZEでは無くて、スケールの率(0.0～N (1.0=等倍)) が入ってくる
-    float4 prm_color          : COLOR0,     //オブジェクトのカラー
-    float2 prm_ptn_no         : TEXCOORD0 //UVでは無くて、prm_ptn_no.xには、表示したいアニメーションパターン番号が埋め込んである
+    float4 prm_p_color          : COLOR0,     //オブジェクトのカラー
+    float2 prm_ptn_no         : TEXCOORD0 , //UVでは無くて、prm_ptn_no.xには、表示したいアニメーションパターン番号が埋め込んである
+
+    float4 prm_world0           : TEXCOORD1,
+    float4 prm_world1           : TEXCOORD2,
+    float4 prm_world2           : TEXCOORD3,
+    float4 prm_world3           : TEXCOORD4,
+    float4 prm_color            : TEXCOORD5,
+    float4 prm_pattno_uvflip_now    : TEXCOORD6
+
+
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
-    const float4 posModel_View = mul(mul(prm_posModel_Local, g_matWorld), g_matView); 
+    float4x4 matWorld;
+    matWorld._11_12_13_14 = prm_world0; 
+    matWorld._21_22_23_24 = prm_world1;
+    matWorld._31_32_33_34 = prm_world2;
+    matWorld._41_42_43_44 = prm_world3; 
+
+    const float4 posModel_View = mul(mul(prm_posModel_Local, matWorld), g_matView); 
 	const float dep = posModel_View.z + 1.0; //+1.0の意味は
                                     //VIEW変換は(0.0, 0.0, -1.0) から (0.0, 0.0, 0.0) を見ているため、
                                     //距離に加える。
@@ -88,19 +98,20 @@ OUT_VS GgafDxVS_DefaultPointSprite(
     //psizeは画面上のポイント スプライトの幅 (ピクセル単位) 
 
 	//スペキュラセマンテックス(COLOR1)を潰して表示したいUV座標左上の情報をPSに渡す
-	int ptnno = prm_ptn_no.x + g_UvFlipPtnNo;
+	int ptnno = prm_ptn_no.x + prm_pattno_uvflip_now;
     if (ptnno >= g_TextureSplitRowcol*g_TextureSplitRowcol) {
         ptnno -= (g_TextureSplitRowcol*g_TextureSplitRowcol);
     }
 	out_vs.uv_ps.x = fmod(ptnno, g_TextureSplitRowcol) / g_TextureSplitRowcol;
 	out_vs.uv_ps.y = trunc(ptnno / g_TextureSplitRowcol) / g_TextureSplitRowcol;
 
-//    int ptnno = ((int)(prm_ptn_no.x + g_UvFlipPtnNo)) % (g_TextureSplitRowcol*g_TextureSplitRowcol);
+//    int ptnno = ((int)(prm_ptn_no.x + prm_pattno_uvflip_now)) % (g_TextureSplitRowcol*g_TextureSplitRowcol);
 //	//スペキュラ(COLOR1)を潰して表示したいUV座標左上の情報をPSに渡す
 //	out_vs.uv_ps.x = ((int)(ptnno % g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
 //	out_vs.uv_ps.y = ((int)(ptnno / g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
 
-	out_vs.color = prm_color;
+	out_vs.color = prm_p_color * prm_color;
+	out_vs.color.a = prm_p_color.a * prm_color.a;
     if (out_vs.posModel_Proj.z > g_zf*0.98) {   
         out_vs.posModel_Proj.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
     }
@@ -108,7 +119,7 @@ OUT_VS GgafDxVS_DefaultPointSprite(
 }
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
-float4 GgafDxPS_DefaultPointSprite(
+float4 GgafDxPS_DefaultMassPointSprite(
 	float2 prm_uv_pointsprite	  : TEXCOORD0,   //(0.F, 0.F), (0.F, 1.F), (1.F, 0.F), (1.F, 1.F)が来る   
 	float4 prm_color                : COLOR0,
 	float4 prm_uv_ps              : COLOR1  //スペキュラでは無くて、表示したいUV座標左上の情報が入っている
@@ -116,7 +127,7 @@ float4 GgafDxPS_DefaultPointSprite(
 	float2 uv = (float2)0;
 	uv.x = prm_uv_pointsprite.x * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.x;
 	uv.y = prm_uv_pointsprite.y * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.y;
-	float4 colOut = tex2D( MyTextureSampler, uv) * prm_color * g_colMaterialDiffuse;
+	float4 colOut = tex2D( MyTextureSampler, uv) * prm_color;
 	colOut.a *= g_alpha_master; 
 	return colOut;
 }
@@ -129,12 +140,12 @@ float4 PS_Flush(
 ) : COLOR  {
 	const float2 uv = { prm_uv_pointsprite.x * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.x,
 	                    prm_uv_pointsprite.y * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.y };
-	float4 colOut = tex2D( MyTextureSampler, uv) * prm_color * FLUSH_COLOR * g_colMaterialDiffuse;
+	float4 colOut = tex2D( MyTextureSampler, uv) * prm_color * FLUSH_COLOR;
 	colOut.a *= g_alpha_master; 
 	return colOut;
 }
 
-technique DefaultPointSpriteTechnique
+technique DefaultMassPointSpriteTechnique
 {
 	pass P0 {
 		AlphaBlendEnable = true;
@@ -144,8 +155,8 @@ technique DefaultPointSpriteTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultPointSprite();
-		PixelShader  = compile PS_VERSION GgafDxPS_DefaultPointSprite();
+		VertexShader = compile VS_VERSION GgafDxVS_DefaultMassPointSprite();
+		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassPointSprite();
 	}
 }
 
@@ -159,8 +170,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultPointSprite();
-		PixelShader  = compile PS_VERSION GgafDxPS_DefaultPointSprite();
+		VertexShader = compile VS_VERSION GgafDxVS_DefaultMassPointSprite();
+		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassPointSprite();
 	}
 }
 
@@ -174,7 +185,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultPointSprite();
+		VertexShader = compile VS_VERSION GgafDxVS_DefaultMassPointSprite();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }

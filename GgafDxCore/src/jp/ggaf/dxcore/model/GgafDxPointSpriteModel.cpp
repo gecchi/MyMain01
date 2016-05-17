@@ -125,77 +125,7 @@ void GgafDxPointSpriteModel::restore() {
     _TRACE3_("_model_name="<<_model_name);
     _papTextureConnection = nullptr;
     HRESULT hr;
-//    std::string xfile_name = PROPERTY::DIR_SPRITE_MODEL[0] + std::string(_model_name) + ".psprx";
     std::string xfile_name = GgafDxModelManager::getPointSpriteFileName(_model_name);
-//    //スプライト情報読込みテンプレートの登録(初回実行時のみ)
-//    ID3DXFileEnumObject* pID3DXFileEnumObject;
-//    ID3DXFileData* pID3DXFileData;
-//    hr = GgafDxModelManager::_pID3DXFile_psprx->CreateEnumObject((void*)xfile_name.c_str(), D3DXF_FILELOAD_FROMFILE, &pID3DXFileEnumObject);
-//    checkDxException(hr, S_OK, "'"<<xfile_name<<"' のCreateEnumObjectに失敗しました。ファイルの存在を確認して下さい。");
-//
-//    //TODO:GUIDなんとかする。今は完全無視。
-//    //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
-//    SIZE_T nChildren;
-//    pID3DXFileEnumObject->GetChildren(&nChildren);
-//    for(SIZE_T childCount = 0; childCount < nChildren; ++childCount) {
-//        pID3DXFileEnumObject->GetChild(childCount, &pID3DXFileData);
-//    }
-//
-////    "template PointSpriteDef { "
-////    "  <E4EECE4C-E106-11DC-9B62-346D55D89593> "
-////    "  FLOAT  SquareSize; "
-////    "  STRING TextureFile; "
-////    "  DWORD  TextureSplitRowCol; "
-////    "  DWORD  VerticesNum; "
-////    "  array  Vector    Vertices[VerticesNum]; "
-////    "  array  ColorRGBA VertexColors[VerticesNum]; "
-////    "  array  DWORD     InitUvPtnNo[VerticesNum]; "
-////    "  array  FLOAT     InitScale[VerticesNum]; "
-////    "} "
-////
-//    struct XFILE_FMT_HD {
-//        float SquareSize;
-//        char TextureFile[256];
-//        int TextureSplitRowCol;
-//        int VerticesNum;
-//    };
-//    SIZE_T xsize = 0;
-//    char* pXData = nullptr;
-//    pID3DXFileData->Lock(&xsize, (const void**)&pXData);
-//    if (pXData == nullptr) {
-//        throwGgafCriticalException(xfile_name<<" のフォーマットエラー。");
-//    }
-//    //    GUID* pGuid;
-//    //    pID3DXFileData->GetType(pGuid);
-//    XFILE_FMT_HD xDataHd;
-//    //"  FLOAT  SquareSize;\n"
-//    memcpy(&(xDataHd.SquareSize), pXData, sizeof(float));
-//    pXData += sizeof(float);
-//    //"  STRING TextureFile;\n"
-//    strcpy(xDataHd.TextureFile, pXData);
-//    pXData += (sizeof(char) * (strlen(xDataHd.TextureFile)+1));
-//    //"  DWORD  TextureSplitRowCol;\n"
-//    memcpy(&(xDataHd.TextureSplitRowCol), pXData, sizeof(int));
-//    pXData += sizeof(int);
-//    //"  DWORD  VerticesNum;\n"
-//    memcpy(&(xDataHd.VerticesNum), pXData, sizeof(int));
-//    pXData += sizeof(int);
-//    //"  array  Vector    Vertices[VerticesNum];\n"
-//    D3DVECTOR* paD3DVECTOR_Vertices = NEW D3DVECTOR[xDataHd.VerticesNum];
-//    memcpy(paD3DVECTOR_Vertices, pXData, sizeof(D3DVECTOR)*xDataHd.VerticesNum);
-//    pXData += sizeof(D3DVECTOR)*xDataHd.VerticesNum;
-//    //"  array  ColorRGBA VertexColors[VerticesNum];\n"
-//    D3DCOLORVALUE* paD3DVECTOR_VertexColors = NEW D3DCOLORVALUE[xDataHd.VerticesNum];
-//    memcpy(paD3DVECTOR_VertexColors, pXData, sizeof(D3DCOLORVALUE)*xDataHd.VerticesNum);
-//    pXData += sizeof(D3DCOLORVALUE)*xDataHd.VerticesNum;
-//    //"  array  DWORD     InitUvPtnNo[VerticesNum];\n"
-//    int* paInt_InitUvPtnNo = NEW int[xDataHd.VerticesNum];
-//    memcpy(paInt_InitUvPtnNo, pXData, sizeof(int)*xDataHd.VerticesNum);
-//    pXData += sizeof(int)*xDataHd.VerticesNum;
-//    //"  array  FLOAT     InitScale[VerticesNum];\n"
-//    float* paFLOAT_InitScale = NEW float[xDataHd.VerticesNum];
-//    memcpy(paFLOAT_InitScale, pXData, sizeof(float)*xDataHd.VerticesNum);
-//    pXData += sizeof(float)*xDataHd.VerticesNum;
     GgafDxModelManager::PointSpriteXFileFmt pointsprite_info;
     GgafDxModelManager::obtainPointSpriteInfo(&pointsprite_info, xfile_name);
     //退避
@@ -285,14 +215,6 @@ void GgafDxPointSpriteModel::restore() {
     _size_vertex_unit       = size_vertex_unit;
     _paVtxBuffer_data        = paVtxBuffer_data;
     _bounding_sphere_radius = bounding_sphere_radius;
-//    pID3DXFileData->Unlock();
-//    GGAF_DELETEARR(paD3DVECTOR_Vertices);
-//    GGAF_DELETEARR(paD3DVECTOR_VertexColors);
-//    GGAF_DELETEARR(paInt_InitUvPtnNo);
-//    GGAF_DELETEARR(paFLOAT_InitScale);
-//
-//    GGAF_RELEASE_BY_FROCE(pID3DXFileData);
-//    GGAF_RELEASE(pID3DXFileEnumObject);
     _TRACE3_("_model_name=" << _model_name << " end");
 }
 

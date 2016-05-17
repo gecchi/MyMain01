@@ -41,6 +41,7 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultMassBoardActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultMassMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultMassMorphMeshActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultMassPointSpriteActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultMassSpriteActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultMeshSetActor.cpp" />
@@ -131,6 +132,7 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultMassBoardActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultMassMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\defaultmassmorphmeshactor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultMassPointSpriteActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultMassSpriteActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultMeshSetActor.h" />

@@ -29,6 +29,7 @@
 #define Obj_GgafDxPointSpriteEffect         (0x20000U)        //0b 00000000 00000010 00000000 00000000
 #define Obj_GgafDxMassSpriteEffect          (0x40000U)        //0b 00000000 00000100 00000000 00000000
 #define Obj_GgafDxMassMorphMeshEffect       (0x80000U)        //0b 00000000 00001000 00000000 00000000
+#define Obj_GgafDxMassPointSpriteEffect     (0x100000U)       //0b 00000000 00010000 00000000 00000000
 
 namespace GgafDxCore {
 

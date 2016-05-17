@@ -46,8 +46,8 @@ void GgafDxPointSpriteActor::processDraw() {
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pPointSpriteEffect->_h_matWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "SetMatrix(g_matWorld) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(_pPointSpriteEffect->_h_dist_VpInfrontPlane, -_dest_from_vppln_infront);
-    checkDxException(hr, D3D_OK, "SetFloat(g_h_dist_VpInfrontPlane) に失敗しました。");
+    //hr = pID3DXEffect->SetFloat(_pPointSpriteEffect->_h_dist_VpInfrontPlane, -_dest_from_vppln_infront);
+    //checkDxException(hr, D3D_OK, "SetFloat(g_h_dist_VpInfrontPlane) に失敗しました。");
     hr = pID3DXEffect->SetInt(_pPointSpriteEffect->_hUvFlipPtnNo, _pUvFlipper->_pattno_uvflip_now);
     checkDxException(hr, D3D_OK, "SetInt(_hUvFlipPtnNo) に失敗しました。");
     //ポイントスプライトON

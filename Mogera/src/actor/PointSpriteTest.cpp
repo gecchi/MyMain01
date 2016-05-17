@@ -15,7 +15,7 @@ using namespace GgafLib;
 using namespace Mogera;
 
 PointSpriteTest::PointSpriteTest(const char* prm_name) :
-        DefaultPointSpriteActor(prm_name, "PTEST", nullptr) {
+        DefaultMassPointSpriteActor(prm_name, "3/PTEST", nullptr) {
     _class_name = "PointSpriteTest";
     pScaler_ = NEW GgafDxScaler(this);
     //effectBlendOne(); //â¡éZçáê¨

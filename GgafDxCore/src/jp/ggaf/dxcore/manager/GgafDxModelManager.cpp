@@ -38,6 +38,7 @@
 #include "jp/ggaf/dxcore/model/GgafDxBoardSetModel.h"
 #include "jp/ggaf/dxcore/model/GgafDxMassBoardModel.h"
 #include "jp/ggaf/dxcore/model/GgafDxPointSpriteModel.h"
+#include "jp/ggaf/dxcore/model/GgafDxMassPointSpriteModel.h"
 #include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMeshModel.h"
 #include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMeshSetModel.h"
 #include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMorphMeshModel.h"
@@ -210,9 +211,12 @@ GgafDxModel* GgafDxModelManager::processCreateResource(const char* prm_idstr, vo
             //PointSpriteModel
             pResourceModel = createPointSpriteModel(model_name);
             break;
+        case 'p':
+            //MassPointSpriteModel
+            pResourceModel = createMassPointSpriteModel(model_name);
+            break;
         default:
-            _TRACE3_("prm_idstr="<<prm_idstr<<" そんな種別はありません");
-            throwGgafCriticalException("prm_idstr="<<prm_idstr<<" そんなモデル種別は知りません");
+            throwGgafCriticalException("prm_idstr="<<prm_idstr<<" の '"<<model_type<<"' ・・・そんなモデル種別は知りません");
             pResourceModel = nullptr;
             break;
     }
@@ -328,6 +332,12 @@ GgafDxPointSpriteModel* GgafDxModelManager::createPointSpriteModel(const char* p
     GgafDxPointSpriteModel* pPointSpriteModel_new = NEW GgafDxPointSpriteModel(prm_model_name);
     pPointSpriteModel_new->restore();
     return pPointSpriteModel_new;
+}
+
+GgafDxMassPointSpriteModel* GgafDxModelManager::createMassPointSpriteModel(const char* prm_model_name) {
+    GgafDxMassPointSpriteModel* pMassPointSpriteModel_new = NEW GgafDxMassPointSpriteModel(prm_model_name);
+    pMassPointSpriteModel_new->restore();
+    return pMassPointSpriteModel_new;
 }
 
 std::string GgafDxModelManager::getMeshFileName(std::string prm_model_name) {

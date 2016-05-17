@@ -56,8 +56,6 @@ public:
 
     void release() override;
 
-    void changeVertexAlpha(int prm_vertex_alpha);
-
     /**
      * デストラクタ<BR>
      */

@@ -15,7 +15,6 @@ GgafDxMassSpriteEffect::GgafDxMassSpriteEffect(const char* prm_effect_name) : Gg
     //ŽË‰e•ÏŠ·s—ñ
     hr = _pID3DXEffect->SetMatrix("g_matProj", pCam->getProjectionMatrix() );
     checkDxException(hr, D3D_OK, "SetMatrix(g_matProj) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-
     hr = _pID3DXEffect->SetFloat("g_zf", pCam->getZFar());
     checkDxException(hr, D3D_OK, "SetFloat(g_zf) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
@@ -23,7 +22,6 @@ GgafDxMassSpriteEffect::GgafDxMassSpriteEffect(const char* prm_effect_name) : Gg
     _h_matView  = _pID3DXEffect->GetParameterByName( nullptr, "g_matView" );
     _h_tex_blink_power = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_power" );
     _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_threshold" );
-    _h_colMaterialDiffuse = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse" );
 }
 
 void GgafDxMassSpriteEffect::setParamPerFrame() {
