@@ -48,7 +48,7 @@ struct OUT_VS
 OUT_VS GgafDxVS_DefaultMassMesh(
       float4 prm_posModel_Local   : POSITION,      // モデルの頂点
       float3 prm_vecNormal_Local  : NORMAL,        // モデルの頂点の法線
-      float2 prm_uv               : TEXCOORD0,      // モデルの頂点のUV
+      float2 prm_uv               : TEXCOORD0,     // モデルの頂点のUV
 
       float4 prm_world0           : TEXCOORD1,
       float4 prm_world1           : TEXCOORD2,

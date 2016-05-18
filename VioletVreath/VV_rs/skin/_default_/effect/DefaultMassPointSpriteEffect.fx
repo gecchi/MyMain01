@@ -1,10 +1,6 @@
 #include "GgafEffectConst.fxh" 
-////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDxMeshModel用シェーダー
-//
 // author : Masatoshi Tsuge
-// date:2009/03/06 
-////////////////////////////////////////////////////////////////////////////////
+// date:2016/05/17
 
 float4x4 g_matView;   //View変換行列
 float4x4 g_matProj;   //射影変換行列
@@ -34,14 +30,7 @@ sampler MyTextureSampler : register(s0);
 //	texture = <g_diffuseMap>;
 //};
 
-//頂点シェーダー、出力構造体
-struct OUT_VS
-{
-    float4 posModel_Proj : POSITION;
-	float  psize         : PSIZE;
-	float4 color         : COLOR0;
-	float4 uv_ps         : COLOR1;  //スペキュラを潰して表示したいUV座標左上の情報をPSに渡す
-};
+
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -65,22 +54,28 @@ struct OUT_VS
 //    return  asfloat( (bcol.z << 16) + (bcol.y << 8) + bcol.x );
 //}
 
+//頂点シェーダー、出力構造体
+struct OUT_VS
+{
+    float4 posModel_Proj : POSITION;
+	float  psize         : PSIZE;
+	float4 color         : COLOR0;
+	float4 uv_pos        : COLOR1;  //スペキュラを潰して表示したいUV座標左上の情報をPSに渡す
+};
 
 //メッシュ標準頂点シェーダー
 OUT_VS GgafDxVS_DefaultMassPointSprite(
     float4 prm_posModel_Local : POSITION,  //ポイントスプライトのポイント群
     float  prm_psize_rate     : PSIZE,     //PSIZEでは無くて、スケールの率(0.0～N (1.0=等倍)) が入ってくる
-    float4 prm_p_color          : COLOR0,     //オブジェクトのカラー
+    float4 prm_p_color        : COLOR0,     //オブジェクトのカラー
     float2 prm_ptn_no         : TEXCOORD0 , //UVでは無くて、prm_ptn_no.xには、表示したいアニメーションパターン番号が埋め込んである
 
-    float4 prm_world0           : TEXCOORD1,
-    float4 prm_world1           : TEXCOORD2,
-    float4 prm_world2           : TEXCOORD3,
-    float4 prm_world3           : TEXCOORD4,
-    float4 prm_color            : TEXCOORD5,
-    float4 prm_pattno_uvflip_now    : TEXCOORD6
-
-
+    float4 prm_world0         : TEXCOORD1,
+    float4 prm_world1         : TEXCOORD2,
+    float4 prm_world2         : TEXCOORD3,
+    float4 prm_world3         : TEXCOORD4,
+    float4 prm_color          : TEXCOORD5,
+    float4 prm_pattno_uvflip_now  : TEXCOORD6
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
     float4x4 matWorld;
@@ -102,13 +97,8 @@ OUT_VS GgafDxVS_DefaultMassPointSprite(
     if (ptnno >= g_TextureSplitRowcol*g_TextureSplitRowcol) {
         ptnno -= (g_TextureSplitRowcol*g_TextureSplitRowcol);
     }
-	out_vs.uv_ps.x = fmod(ptnno, g_TextureSplitRowcol) / g_TextureSplitRowcol;
-	out_vs.uv_ps.y = trunc(ptnno / g_TextureSplitRowcol) / g_TextureSplitRowcol;
-
-//    int ptnno = ((int)(prm_ptn_no.x + prm_pattno_uvflip_now)) % (g_TextureSplitRowcol*g_TextureSplitRowcol);
-//	//スペキュラ(COLOR1)を潰して表示したいUV座標左上の情報をPSに渡す
-//	out_vs.uv_ps.x = ((int)(ptnno % g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
-//	out_vs.uv_ps.y = ((int)(ptnno / g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
+	out_vs.uv_pos.x = fmod(ptnno, g_TextureSplitRowcol) / g_TextureSplitRowcol;
+	out_vs.uv_pos.y = trunc(ptnno / g_TextureSplitRowcol) / g_TextureSplitRowcol;
 
 	out_vs.color = prm_p_color * prm_color;
 	out_vs.color.a = prm_p_color.a * prm_color.a;
@@ -119,14 +109,13 @@ OUT_VS GgafDxVS_DefaultMassPointSprite(
 }
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
-float4 GgafDxPS_DefaultMassPointSprite(
-	float2 prm_uv_pointsprite	  : TEXCOORD0,   //(0.F, 0.F), (0.F, 1.F), (1.F, 0.F), (1.F, 1.F)が来る   
-	float4 prm_color                : COLOR0,
-	float4 prm_uv_ps              : COLOR1  //スペキュラでは無くて、表示したいUV座標左上の情報が入っている
+float4 GgafDxPS_DefaultMassPointSprite (
+	float2 prm_uv_pointsprite	  : TEXCOORD0,  //(0.0, 0.0), (0.0, 1.0), (1.0, 0.0), (1.0, 1.0) の範囲で来る   
+	float4 prm_color              : COLOR0,
+	float4 prm_uv_pos             : COLOR1      //スペキュラでは無くて、表示したいUV座標左上の情報が入っている
 ) : COLOR  {
-	float2 uv = (float2)0;
-	uv.x = prm_uv_pointsprite.x * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.x;
-	uv.y = prm_uv_pointsprite.y * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.y;
+	const float2 uv = { prm_uv_pointsprite.x * (1.0 / g_TextureSplitRowcol) + prm_uv_pos.x,
+	                    prm_uv_pointsprite.y * (1.0 / g_TextureSplitRowcol) + prm_uv_pos.y };
 	float4 colOut = tex2D( MyTextureSampler, uv) * prm_color;
 	colOut.a *= g_alpha_master; 
 	return colOut;
@@ -134,12 +123,12 @@ float4 GgafDxPS_DefaultMassPointSprite(
 
 
 float4 PS_Flush(
-	float2 prm_uv_pointsprite	  : TEXCOORD0,     
-	float4 prm_color                : COLOR0,
-	float4 prm_uv_ps              : COLOR1
+	float2 prm_uv_pointsprite : TEXCOORD0,     
+	float4 prm_color          : COLOR0,
+	float4 prm_uv_pos         : COLOR1
 ) : COLOR  {
-	const float2 uv = { prm_uv_pointsprite.x * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.x,
-	                    prm_uv_pointsprite.y * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.y };
+	const float2 uv = { prm_uv_pointsprite.x * (1.0 / g_TextureSplitRowcol) + prm_uv_pos.x,
+	                    prm_uv_pointsprite.y * (1.0 / g_TextureSplitRowcol) + prm_uv_pos.y };
 	float4 colOut = tex2D( MyTextureSampler, uv) * prm_color * FLUSH_COLOR;
 	colOut.a *= g_alpha_master; 
 	return colOut;

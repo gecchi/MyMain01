@@ -87,9 +87,9 @@ void EnemyGlajaLance001::processBehavior() {
                 //シャキーンと槍になる！（伸びる！）
                 pKuroko->stopMv();
                 pKuroko->setRollPitchYawFaceAngVelo(0, 0, 0);
-                pScaler_->transitionAcceStep(AXIS_X, R_SC(30), R_SC(1), R_SC(0.1));
-                pScaler_->transitionAcceStep(AXIS_Y, R_SC(2), R_SC(1), R_SC(0.1));
-                pScaler_->transitionAcceStep(AXIS_Z, R_SC(2), R_SC(1), R_SC(0.1));
+                pScaler_->transitionAcceUntil(AXIS_X, R_SC(30), R_SC(1), R_SC(0.1));
+                pScaler_->transitionAcceUntil(AXIS_Y, R_SC(2), R_SC(1), R_SC(0.1));
+                pScaler_->transitionAcceUntil(AXIS_Z, R_SC(2), R_SC(1), R_SC(0.1));
             }
             if (!pScaler_->isTransitioning()) {
                 //槍の両端当たり判定出現

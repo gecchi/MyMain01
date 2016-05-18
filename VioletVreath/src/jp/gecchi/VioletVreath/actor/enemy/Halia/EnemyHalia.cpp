@@ -138,7 +138,7 @@ void EnemyHalia::processBehavior() {
                 pKuroko->turnMvAngTwd(P_MYSHIP,
                                       D_ANG(1), 0,
                                       TURN_CLOSE_TO, false);
-                getMorpher()->transitionAcceStep(1, 1.0, 0.0, 0.0004); //開く 0.0004 開く速さ
+                getMorpher()->transitionAcceUntil(1, 1.0, 0.0, 0.0004); //開く 0.0004 開く速さ
                 pProg->changeNext();
             }
             break;

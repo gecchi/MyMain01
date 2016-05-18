@@ -58,44 +58,44 @@ void Zako::onActive() {
 
 void Zako::processBehavior() {
     GgafDxKuroko* const pKuroko = getKuroko();
-    GgafProgress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
-            pProg->changeNext();
-            break;
-        }
-
-        case PROG_SPLINE: {
-            if (pProg->hasJustChanged()) {
-                getKuroko()->setMvAcce(0); //加速度がある場合は切っておく
-                pKurokoLeader_->start(RELATIVE_COORD_DIRECTION, 1);
-            }
-            pKurokoLeader_->behave(); //スプライン移動を振る舞い
-
-            if (pKurokoLeader_->isFinished()) {
-                pProg->changeNext();
-            }
-            break;
-        }
-
-        case PROG_LEAVE: {
-            if (pProg->hasJustChanged()) {
-                sayonara();
-            }
-            break;
-        }
-        default :
-            break;
-    }
-
-    pAFader_->behave();
+//    GgafProgress* const pProg = getProgress();
+//    switch (pProg->get()) {
+//        case PROG_INIT: {
+//            pProg->changeNext();
+//            break;
+//        }
+//
+//        case PROG_SPLINE: {
+//            if (pProg->hasJustChanged()) {
+//                getKuroko()->setMvAcce(0); //加速度がある場合は切っておく
+//                pKurokoLeader_->start(RELATIVE_COORD_DIRECTION, 1);
+//            }
+//            pKurokoLeader_->behave(); //スプライン移動を振る舞い
+//
+//            if (pKurokoLeader_->isFinished()) {
+//                pProg->changeNext();
+//            }
+//            break;
+//        }
+//
+//        case PROG_LEAVE: {
+//            if (pProg->hasJustChanged()) {
+//                sayonara();
+//            }
+//            break;
+//        }
+//        default :
+//            break;
+//    }
+//
+//    pAFader_->behave();
     pKuroko->behave();
 }
 
 void Zako::processJudgement() {
-    if (pOs_) {
-        (*pOs_) << _x << "  " << _y << "  " << _z << std::endl;
-    }
+//    if (pOs_) {
+//        (*pOs_) << _x << "  " << _y << "  " << _z << std::endl;
+//    }
 }
 
 void Zako::onHit(const GgafActor* prm_pOtherActor) {

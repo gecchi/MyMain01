@@ -7,8 +7,8 @@
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
-
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -19,6 +19,7 @@ PointSpriteTest::PointSpriteTest(const char* prm_name) :
     _class_name = "PointSpriteTest";
     pScaler_ = NEW GgafDxScaler(this);
     //effectBlendOne(); //‰ÁZ‡¬
+    setAlpha(0.8);
     setHitAble(false);
 }
 
@@ -33,8 +34,8 @@ bool PointSpriteTest::isOutOfSpacetime() const {
 }
 void PointSpriteTest::initialize() {
     getKuroko()->setRollPitchYawFaceAngVelo(30, 50, 70);
-    pScaler_->setRange(R_SC(0.1), R_SC(1.0));
-    pScaler_->beat(220,100,10,100,-1);
+    setScale(0);
+    pScaler_->transitionAcceUntilVelo(-R_SC(0.01) , R_SC(0.1), -R_SC(0.001));
 }
 
 void PointSpriteTest::onActive() {
@@ -42,6 +43,9 @@ void PointSpriteTest::onActive() {
 }
 
 void PointSpriteTest::processBehavior() {
+//    if (!pScaler_->isTransitioning()) {
+//        sayonara();
+//    }
     getUvFlipper()->behave();
     getKuroko()->behave();
     pScaler_->behave();

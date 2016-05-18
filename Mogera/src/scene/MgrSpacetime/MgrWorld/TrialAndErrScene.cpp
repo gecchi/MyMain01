@@ -4,6 +4,7 @@
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
 #include "actor/PointSpriteTest.h"
+#include "actor/Zako.h"
 #include "scene/MgrSpacetime/MgrWorld.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 
@@ -17,8 +18,11 @@ TrialAndErrScene::TrialAndErrScene(const char* prm_name) : DefaultScene(prm_name
     pTest_ = nullptr;
     orderActorToFactory(990, PointSpriteTest, "PointSpriteTest1");
     orderActorToFactory(991, PointSpriteTest, "PointSpriteTest2");
-    orderActorToFactory(992, PointSpriteTest, "PointSpriteTest3");
+    orderActorToFactory(992, Zako, "Zako");
     orderActorToFactory(993, PointSpriteTest, "PointSpriteTest4");
+    orderActorToFactory(994, PointSpriteTest, "PointSpriteTest5");
+    orderActorToFactory(995, PointSpriteTest, "PointSpriteTest6");
+    orderActorToFactory(996, PointSpriteTest, "PointSpriteTest7");
 }
 
 void TrialAndErrScene::initialize() {
@@ -39,16 +43,30 @@ void TrialAndErrScene::processBehavior() {
         pTest2->position(PX_C(200), PX_C(200), PX_C(200));
     }
     if (getActiveFrame() == 160) {
-        PointSpriteTest* pTest3 = (PointSpriteTest*)obtainActorFromFactory(992);
-        bringDirector()->addSubGroup(pTest3);
-        pTest3->position(PX_C(400), PX_C(400), PX_C(400));
+        Zako* pZako = (Zako*)obtainActorFromFactory(992);
+        bringDirector()->addSubGroup(pZako);
+        pZako->position(PX_C(400), PX_C(400), PX_C(400));
     }
     if (getActiveFrame() == 180) {
         PointSpriteTest* pTest4 = (PointSpriteTest*)obtainActorFromFactory(993);
         bringDirector()->addSubGroup(pTest4);
         pTest4->position(PX_C(600), PX_C(600), PX_C(600));
     }
-
+    if (getActiveFrame() == 200) {
+        PointSpriteTest* pTest5 = (PointSpriteTest*)obtainActorFromFactory(994);
+        bringDirector()->addSubGroup(pTest5);
+        pTest5->position(PX_C(800), PX_C(800), PX_C(800));
+    }
+    if (getActiveFrame() == 220) {
+        PointSpriteTest* pTest6 = (PointSpriteTest*)obtainActorFromFactory(995);
+        bringDirector()->addSubGroup(pTest6);
+        pTest6->position(PX_C(1000), PX_C(1000), PX_C(1000));
+    }
+    if (getActiveFrame() == 240) {
+        PointSpriteTest* pTest7 = (PointSpriteTest*)obtainActorFromFactory(996);
+        bringDirector()->addSubGroup(pTest7);
+        pTest7->position(PX_C(1200), PX_C(1200), PX_C(1200));
+    }
 }
 
 TrialAndErrScene::~TrialAndErrScene() {

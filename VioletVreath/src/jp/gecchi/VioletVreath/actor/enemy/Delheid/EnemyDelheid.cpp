@@ -112,7 +112,7 @@ void EnemyDelheid::processBehavior() {
         }
         case PROG2_OPEN: {
             if (pProg2_->hasJustChanged()) {
-                getMorpher()->transitionAcceStep(MPH_OPEN, 1.1, 0, 0.001);
+                getMorpher()->transitionAcceUntil(MPH_OPEN, 1.1, 0, 0.001);
             }
             if (!getMorpher()->isTransitioning()) {
                 setMorphWeight(MPH_OPEN, 1.0);
@@ -147,7 +147,7 @@ void EnemyDelheid::processBehavior() {
         }
         case PROG2_CLOSE: {
             if (pProg2_->hasJustChanged()) {
-                getMorpher()->transitionAcceStep(MPH_OPEN, 0.0, 0, -0.01);
+                getMorpher()->transitionAcceUntil(MPH_OPEN, 0.0, 0, -0.01);
             }
             if (!getMorpher()->isTransitioning()) {
                 pProg2_->changeNothing();

@@ -22,13 +22,14 @@ class GgafValueEnveloper : public GgafObject {
 public:
     enum TransitionMethod {
         NO_TRANSITION,
-        TARGET_LINER_TO,
+        TARGET_LINER_UNTIL,
         TARGET_LINER_STEP,
         BEAT_LINER,
         BEAT_TRIANGLEWAVE,
         R_BEAT_TRIANGLEWAVE,
         BEAT_TRIGONOMETRIC,
-        TARGET_ACCELERATION_STEP,
+        TARGET_ACCELERATION_UNTIL,
+        TARGET_ACCELERATION_UNTIL_VELO,
     };
 
     struct Parameter {
@@ -248,7 +249,7 @@ public:
     }
 
     /**
-     * 片道等速値遷移（全対象インデックス・持続フレーム数指定） .
+     * 片道等速値遷移（全インデックス対象・持続フレーム数指定） .
      * 目標の遷移へ一定速度で値遷移する
      * @param prm_target_T 遷移目標値
      * @param prm_spend_frame 費やすフレーム数
@@ -271,7 +272,7 @@ public:
         p->_beat_frame_count = 0;
         p->_beat_target_frames = prm_spend_frame;
         p->_target = prm_target;
-        p->_method = TARGET_LINER_TO;
+        p->_method = TARGET_LINER_UNTIL;
         //最初のアタックまでの速度
         const VAL_TYPE val = getValue(prm_idx);
         if (p->_beat_target_frames > 0 ) {
@@ -282,7 +283,7 @@ public:
     }
 
     /**
-     * 上限遷移へ片道等速値遷移（全対象インデックス・持続フレーム数指定） .
+     * 上限遷移へ片道等速値遷移（全インデックス対象・持続フレーム数指定） .
      * @param prm_spend_frame 費やすフレーム数
      */
     virtual void transitionLinerToTop(frame prm_spend_frame) {
@@ -290,7 +291,7 @@ public:
     }
 
     /**
-     * 下限遷移へ片道等速値遷移（全対象インデックス・持続フレーム数指定） .
+     * 下限遷移へ片道等速値遷移（全インデックス対象・持続フレーム数指定） .
      * @param prm_spend_frame 費やすフレーム数
      */
     virtual void transitionLinerToBottom(frame prm_spend_frame) {
@@ -298,10 +299,10 @@ public:
     }
 
     /**
-     * 片道等速値遷移（全対象インデックス・遷移速度指定） .
+     * 片道等速値遷移（全インデックス対象・遷移速度指定） .
      * 目標の遷移へ一定速度で値遷移する
-     * @param prm_target_T 遷移目標値
-     * @param prm_velo_T 毎フレーム加算する遷移差分(>0.0)。正の遷移を指定する事。加算か減算かは自動判断する。
+     * @param prm_target 遷移目標値
+     * @param prm_velo 毎フレーム加算する遷移差分(>0.0)。正の遷移を指定する事。加算か減算かは自動判断する。
      */
     virtual void transitionLinerStep(VAL_TYPE prm_target, VAL_TYPE prm_velo) {
         for (int i = 0; i < N; i++) {
@@ -313,8 +314,8 @@ public:
      * 片道等速値遷移（対象インデックス単位・遷移速度指定） .
      * 目標の遷移へ一定速度で値遷移する（遷移差分指定） .
      * @param prm_idx 対象インデックス
-     * @param prm_target_T 遷移目標値
-     * @param prm_velo_T 毎フレーム加算する遷移差分(>0.0)。正の遷移を指定する事。加算か減算かは自動判断する。
+     * @param prm_target 遷移目標値
+     * @param prm_velo 毎フレーム加算する遷移差分(>0.0)。正の遷移を指定する事。加算か減算かは自動判断する。
      */
     virtual void transitionLinerStep(int prm_idx, VAL_TYPE prm_target, VAL_TYPE prm_velo) {
         Parameter* p = &_parameter[prm_idx];
@@ -326,44 +327,87 @@ public:
     }
 
     /**
-     * 片道加速値遷移（全対象インデックス・遷移速度・遷移加速度指定） .
-     * 目標の遷移へ加速指定で値遷移する
+     * 片道加速値遷移（全インデックス対象・遷移目標値指定） .
+     * 目標の遷移へ加速指定で値遷移する。
      * 遷移加速度を0に指定すると transitionLinerStep とほぼ同じ意味になる。
      * transitionLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（できない）。
-     * 遷移加速度が正の場合、遷移目標値を超えると値遷移終了。
-     * 遷移加速度が負の場合、遷移目標値を下回ると値遷移終了。
+     * 遷移速度が正の場合、遷移目標値を超えると値遷移終了。
+     * 遷移速度が負の場合、遷移目標値を下回ると値遷移終了。
+     * 遷移目標値に到達する前に、速度の正負が逆転すると、たぶん永遠に到達できないので注意。
      * @param prm_target_T 遷移目標値
-     * @param prm_velo_T 初期遷移速度
+     * @param prm_init_velo 初期遷移速度
      * @param prm_acce_T 遷移加速度
      */
-    virtual void transitionAcceStep(VAL_TYPE prm_target, VAL_TYPE prm_velo, VAL_TYPE prm_acce) {
+    virtual void transitionAcceUntil(VAL_TYPE prm_target, VAL_TYPE prm_init_velo, VAL_TYPE prm_acce) {
         for (int i = 0; i < N; i++) {
-            transitionAcceStep(i, prm_target, prm_velo, prm_acce);
+            transitionAcceUntil(i, prm_target, prm_init_velo, prm_acce);
         }
     }
 
     /**
-     * 片道加速値遷移（対象インデックス単位・遷移速度・遷移加速度指定） .
-     * 目標の遷移へ加速指定で値遷移する（遷移速度、遷移加速度差指定） .
+     * 片道加速値遷移（対象インデックス単位・遷移目標値指定） .
+     * 目標の遷移へ加速指定で値遷移する。
      * 遷移加速度を0に指定すると transitionLinerStep とほぼ同じ意味になる。
      * transitionLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（できない）。
+     * 遷移速度が正の場合、遷移目標値を超えると値遷移終了。
+     * 遷移速度が負の場合、遷移目標値を下回ると値遷移終了。
+     * 遷移目標値に到達する前に、速度の正負が逆転すると、たぶん永遠に到達できないので注意。
      * @param prm_idx 対象インデックス
-     * @param prm_target_T 遷移目標値
-     * @param prm_velo_T 初期遷移速度
-     * @param prm_acce_T 遷移加速度
+     * @param prm_target 遷移目標値
+     * @param prm_init_velo 初期遷移速度
+     * @param prm_acce 遷移加速度
      */
-    virtual void transitionAcceStep(int prm_idx, VAL_TYPE prm_target, VAL_TYPE prm_velo, VAL_TYPE prm_acce) {
+    virtual void transitionAcceUntil(int prm_idx, VAL_TYPE prm_target, VAL_TYPE prm_init_velo, VAL_TYPE prm_acce) {
         Parameter* p = &_parameter[prm_idx];
-        p->_method = TARGET_ACCELERATION_STEP;
+        p->_method = TARGET_ACCELERATION_UNTIL;
         p->_target = prm_target;
-        p->_velo = prm_velo;
+        p->_velo = prm_init_velo;
         p->_acce = prm_acce;
         p->_beat_frame_count = 0;
         p->_beat_target_frames = MAX_FRAME;
     }
 
     /**
-     * 反復等速値遷移（全対象インデックス・フレーム数指定） .
+     * 片道加速値遷移（全インデックス対象・目標速度値指定） .
+     * 目標速度になるまでへ加速指定で値遷移します。
+     * 目標速度に到達すると、速度加算は行われません。（ですが速度が０ではない場合は動き続けるでしょう）
+     * 加速度が正の場合、速度がターゲット速度より大きくなれば終了
+     * 加速度が負の場合、速度がターゲット速度より小さくなれば終了
+     * 遷移加速度を0に指定すると 永遠に終わらないので注意。
+     * @param prm_idx  対象インデックス
+     * @param prm_target_velo  目標速度
+     * @param prm_init_velo  初期速度
+     * @param prm_acce   加速度
+     */
+    virtual void transitionAcceUntilVelo(int prm_idx, VAL_TYPE prm_target_velo, VAL_TYPE prm_init_velo, VAL_TYPE prm_acce) {
+        Parameter* p = &_parameter[prm_idx];
+        p->_method = TARGET_ACCELERATION_UNTIL_VELO;
+        p->_target = prm_target_velo;
+        p->_velo = prm_init_velo;
+        p->_acce = prm_acce;
+        p->_beat_frame_count = 0;
+        p->_beat_target_frames = MAX_FRAME;
+    }
+
+    /**
+     * 片道加速値遷移（対象インデックス単位・目標速度値指定） .
+     * 目標速度になるまでへ加速指定で値遷移します。
+     * 目標速度に到達すると、速度加算は行われません。
+     * 加速度が正の場合、速度がターゲット速度より大きくなれば終了
+     * 加速度が負の場合、速度がターゲット速度より小さくなれば終了
+     * 遷移加速度を0に指定すると 永遠に終わらないので注意。
+     * @param prm_target_velo  目標速度
+     * @param prm_init_velo  初期速度
+     * @param prm_acce   加速度
+     */
+    virtual void transitionAcceUntilVelo(VAL_TYPE prm_target_velo, VAL_TYPE prm_init_velo, VAL_TYPE prm_acce) {
+        for (int i = 0; i < N; i++) {
+            transitionAcceUntilVelo(i, prm_target_velo, prm_init_velo, prm_acce);
+        }
+    }
+
+    /**
+     * 反復等速値遷移（全インデックス対象・フレーム数指定） .
      * 上限遷移へ一定速度で値遷移し、一定速度で下遷移へ戻る。これをループ指定する。（１ループのフレーム数指定） .
      * @param prm_cycle_frames １ループ(変化して元に戻るまで)に費やすフレーム
      * @param prm_beat_num ループする回数(1.2回など少数で指定可能、-1 でほぼ無限ループ)
@@ -665,14 +709,23 @@ public:
             if (method == NO_TRANSITION) {
                 //何もしない
             } else {
-                if (method == TARGET_LINER_TO) {
+                if (method == TARGET_LINER_UNTIL) {
                     if (p->_beat_frame_count >= p->_beat_target_frames) {
                         val = p->_target;
                         stop(i);//終了
                     }
-                } else if (method == TARGET_LINER_STEP || method == TARGET_ACCELERATION_STEP) {
+                } else if (method == TARGET_LINER_STEP || method == TARGET_ACCELERATION_UNTIL) {
                     if ((p->_velo > 0  && val >= p->_target) || (p->_velo < 0  && val <= p->_target)) {
                         val = p->_target;
+                        stop(i);//終了
+                    }
+                } else if (method == TARGET_ACCELERATION_UNTIL_VELO ) {
+                    if ((p->_acce > 0  && p->_velo >= p->_target) || (p->_acce < 0  && p->_velo <= p->_target)) {
+                        //加速度が正の場合、速度がターゲット速度より大きくなれば終了
+                        //加速度が負の場合、速度がターゲット速度より小さくなれば終了
+                        val -= p->_velo;
+                        p->_velo = p->_target;
+                        val += p->_velo;
                         stop(i);//終了
                     }
                 } else if (method == BEAT_LINER) {

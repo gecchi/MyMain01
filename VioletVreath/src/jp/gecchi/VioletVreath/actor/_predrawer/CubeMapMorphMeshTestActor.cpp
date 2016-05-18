@@ -47,9 +47,9 @@ void CubeMapMorphMeshTestActor::processBehavior() {
 //        getMorpher()->stop(1);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_2)) {
-//        getMorpher()->transitionAcceStep(2, 1.0f, 0, 0.002f);
+//        getMorpher()->transitionAcceUntil(2, 1.0f, 0, 0.002f);
 //    } else if (GgafDxInput::isBeingPressedKey(DIK_8)) {
-//        getMorpher()->transitionAcceStep(2, 0, 0, -0.004f);
+//        getMorpher()->transitionAcceUntil(2, 0, 0, -0.004f);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_3)) {
 //        getMorpher()->beat(3, 20, 13, 2);
