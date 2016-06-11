@@ -178,9 +178,9 @@ void GgafDxMassMorphMeshModel::restore() {
 
             if (pattern == 0) {
                 //プライマリメッシュ
-                _paVtxBuffer_data_model = NEW VERTEX_model_primary[_nVertices];
-                _size_vertex_unit_model = sizeof(VERTEX_model_primary);
-                _size_vertices_model = sizeof(VERTEX_model_primary) * _nVertices;
+                _paVtxBuffer_data_model = NEW GgafDxMassMorphMeshModel::VERTEX_model_primary[_nVertices];
+                _size_vertex_unit_model = sizeof(GgafDxMassMorphMeshModel::VERTEX_model_primary);
+                _size_vertices_model = sizeof(GgafDxMassMorphMeshModel::VERTEX_model_primary) * _nVertices;
                 //法線以外設定
                 FLOAT model_bounding_sphere_radius;
                 for (int i = 0; i < _nVertices; i++) {
@@ -209,9 +209,9 @@ void GgafDxMassMorphMeshModel::restore() {
                 }
             } else {
                 //モーフターゲットメッシュ
-                _papaVtxBuffer_data_morph_model[pattern-1] = NEW VERTEX_model_morph[_nVertices];
-                _size_vertex_unit_morph_model = sizeof(VERTEX_model_morph);
-                _size_vertices_morph_model = sizeof(VERTEX_model_morph) * _nVertices;
+                _papaVtxBuffer_data_morph_model[pattern-1] = NEW GgafDxMassMorphMeshModel::VERTEX_model_morph[_nVertices];
+                _size_vertex_unit_morph_model = sizeof(GgafDxMassMorphMeshModel::VERTEX_model_morph);
+                _size_vertices_morph_model = sizeof(GgafDxMassMorphMeshModel::VERTEX_model_morph) * _nVertices;
                 //法線以外設定
                 for (int i = 0; i < _nVertices; i++) {
                     _papaVtxBuffer_data_morph_model[pattern-1][i].x = papMeshesFront[pattern]->_Vertices[i].data[0];
@@ -280,7 +280,7 @@ void GgafDxMassMorphMeshModel::restore() {
                         nullptr);
                 checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_name));
                 //バッファへ作成済み頂点データを流し込む
-                void *pDeviceMemory;
+                void* pDeviceMemory = 0;
                 hr = _pVertexBuffer_model->Lock(0, _size_vertices_model, (void**)&pDeviceMemory, 0);
                 checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
                 memcpy(pDeviceMemory, _paVtxBuffer_data_model, _size_vertices_model);
@@ -297,7 +297,7 @@ void GgafDxMassMorphMeshModel::restore() {
                         nullptr);
                 checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗（モーフ:"<<pattern-1<<"） model="<<(_model_name));
                 //バッファへ作成済み頂点データを流し込む
-                void *pDeviceMemory;
+                void* pDeviceMemory = 0;
                 hr = _pVertexBuffer_model_morph[pattern-1]->Lock(0, _size_vertices_morph_model, (void**)&pDeviceMemory, 0);
                 checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗（モーフ:"<<pattern-1<<"） model="<<_model_name);
                 memcpy(pDeviceMemory, _papaVtxBuffer_data_morph_model[pattern-1], _size_vertices_morph_model); //pVertexBuffer ← paVertex
@@ -318,7 +318,7 @@ void GgafDxMassMorphMeshModel::restore() {
                                 &(_pIndexBuffer),
                                 nullptr);
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_name));
-        void* pDeviceMemory;
+        void* pDeviceMemory = 0;
         _pIndexBuffer->Lock(0,0,(void**)&pDeviceMemory,0);
         memcpy(pDeviceMemory , _paIndexBuffer_data , sizeof(WORD) * _nFaces * 3);
         _pIndexBuffer->Unlock();
@@ -356,7 +356,7 @@ HRESULT GgafDxMassMorphMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int
     //頂点バッファ(インスタンスデータ)書き換え
     UINT update_vertex_instacedata_size = _size_vertex_unit_instacedata * prm_draw_set_num;
     void* pInstancedata = prm_pPrm ? prm_pPrm : this->_pInstancedata; //prm_pPrm は臨時のテンポラリインスタンスデータ
-    void* pDeviceMemory;
+    void* pDeviceMemory = 0;
     hr = _pVertexBuffer_instacedata->Lock(0, update_vertex_instacedata_size, (void**)&pDeviceMemory, D3DLOCK_DISCARD);
     checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
     memcpy(pDeviceMemory, pInstancedata, update_vertex_instacedata_size);

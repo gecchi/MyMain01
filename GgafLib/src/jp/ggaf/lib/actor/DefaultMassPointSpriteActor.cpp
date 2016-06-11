@@ -6,6 +6,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #ifdef MY_DEBUG
 #include "jp/ggaf/lib/actor/ColliAABoxActor.h"
 #include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
@@ -19,7 +20,6 @@ using namespace GgafLib;
 
 
 DefaultMassPointSpriteActor::VERTEX_instancedata DefaultMassPointSpriteActor::_aInstancedata[GGAFDXMASS_MAX_INSTACE_NUM];
-
 
 DefaultMassPointSpriteActor::DefaultMassPointSpriteActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
     GgafDxMassPointSpriteActor(prm_name,
@@ -101,6 +101,12 @@ void DefaultMassPointSpriteActor::createVertexInstaceData(void* prm, GgafDxMassM
 
 
 void DefaultMassPointSpriteActor::processDraw() {
+
+
+    HRESULT hr = GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE); //ポイントスプライトON！
+    checkDxException(hr, D3D_OK, " D3DRS_POINTSPRITEENABLE TRUE に失敗しました。");
+
+
     int draw_set_num = 0; //GgafDxMassPointSpriteActorの同じモデルで同じテクニックが
                           //連続しているカウント数。同一描画深度は一度に描画する。
     GgafDxMassPointSpriteModel* pMassPointSpriteModel = _pMassPointSpriteModel;
@@ -109,7 +115,7 @@ void DefaultMassPointSpriteActor::processDraw() {
 
     static const size_t size_of_D3DXMATRIX = sizeof(D3DXMATRIX);
     static const size_t size_of_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
-    VERTEX_instancedata* paInstancedata = DefaultMassPointSpriteActor::_aInstancedata;
+    DefaultMassPointSpriteActor::VERTEX_instancedata* paInstancedata = DefaultMassPointSpriteActor::_aInstancedata;
 
     GgafDxFigureActor* pDrawActor = this;
     while (pDrawActor) {
@@ -131,6 +137,9 @@ void DefaultMassPointSpriteActor::processDraw() {
     }
 
     ((GgafDxMassPointSpriteModel*)_pMassPointSpriteModel)->GgafDxMassPointSpriteModel::draw(this, draw_set_num);
+
+    hr = GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, FALSE); //ポイントスプライトOFF
+    checkDxException(hr, D3D_OK, " D3DRS_POINTSPRITEENABLE FALSE に失敗しました。");
 }
 
 DefaultMassPointSpriteActor::~DefaultMassPointSpriteActor() {

@@ -64,7 +64,7 @@ void GgafDxMassPointSpriteModel::createVertexModel(void* prm, GgafDxMassModel::V
     out_info->paElement[3].Method = D3DDECLMETHOD_DEFAULT;
     out_info->paElement[3].Usage  = D3DDECLUSAGE_TEXCOORD;
     out_info->paElement[3].UsageIndex = 0;
-    //st0_offset_next += sizeof(float)*2;
+    st0_offset_next += sizeof(float)*2;
 
     out_info->element_num = element_num;
 }
@@ -73,11 +73,6 @@ void GgafDxMassPointSpriteModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
     HRESULT hr;
     if (!_paVtxBuffer_data_model) {
-
-
-
-
-
 
         //静的な情報設定
         std::vector<std::string> names = UTIL::split(std::string(_model_name), "/");
@@ -102,31 +97,12 @@ void GgafDxMassPointSpriteModel::restore() {
         GgafDxModelManager::PointSpriteXFileFmt xdata;
         GgafDxModelManager::obtainPointSpriteInfo(&xdata, xfile_name);
 
-
         //マテリアル定義が１つも無いので、描画のために無理やり１つマテリアルを作成。
-        _num_materials = 1;
-        _paMaterial_default  = NEW D3DMATERIAL9[1];
-        _pa_texture_filenames = NEW std::string[1];
-        _paMaterial_default[0].Diffuse.r = 1.0f;
-        _paMaterial_default[0].Diffuse.g = 1.0f;
-        _paMaterial_default[0].Diffuse.b = 1.0f;
-        _paMaterial_default[0].Diffuse.a = 1.0f;
-        _paMaterial_default[0].Ambient.r = 1.0f;
-        _paMaterial_default[0].Ambient.g = 1.0f;
-        _paMaterial_default[0].Ambient.b = 1.0f;
-        _paMaterial_default[0].Ambient.a = 1.0f;
-        _paMaterial_default[0].Specular.r = 1.0f;
-        _paMaterial_default[0].Specular.g = 1.0f;
-        _paMaterial_default[0].Specular.b = 1.0f;
-        _paMaterial_default[0].Specular.a = 1.0f;
-        _paMaterial_default[0].Power = 0.0f;
-        _paMaterial_default[0].Emissive.r = 1.0f;
-        _paMaterial_default[0].Emissive.g = 1.0f;
-        _paMaterial_default[0].Emissive.b = 1.0f;
-        _paMaterial_default[0].Emissive.a = 1.0f;
+        setMaterial();
         _pa_texture_filenames[0] = std::string(xdata.TextureFile);
 
         //デバイスにテクスチャ作成 (下にも同じ処理があるが、下はデバイスロスト時実行)
+        //頂点バッファのpsizeの算出に、テクスチャの長さが必要なため、ここで一旦求めている
         if (!_papTextureConnection) {
             _papTextureConnection = NEW GgafDxTextureConnection*[1];
             _papTextureConnection[0] =
@@ -139,24 +115,19 @@ void GgafDxMassPointSpriteModel::restore() {
             }
             _texture_size_px = tex_width;
         }
-
-
-
-        //退避
         _square_size_px = xdata.SquareSize;
         _texture_split_rowcol = xdata.TextureSplitRowCol;
 
         _nVertices = xdata.VerticesNum;
-        if (_nVertices > 65535) {
-            throwGgafCriticalException("頂点が 65535を超えたかもしれません。\n対象Model："<<getName()<<"  _nVertices:"<<_nVertices);
+        if (_nVertices*_set_num > 65535) {
+            throwGgafCriticalException("頂点が 65535を超えたかもしれません。\n対象Model："<<getName()<<"  _nVertices*_set_num:"<<_nVertices*_set_num);
         }
         _nFaces = 0; //_nFacesは使用しない
-        _paVtxBuffer_data_model = NEW VERTEX_model[_nVertices];
-        _size_vertex_unit_model = sizeof(VERTEX_model);
-        _size_vertices_model = sizeof(VERTEX_model) * _nVertices;
+        _paVtxBuffer_data_model = NEW GgafDxMassPointSpriteModel::VERTEX_model[_nVertices*_set_num];
+        _size_vertex_unit_model = sizeof(GgafDxMassPointSpriteModel::VERTEX_model);
+        _size_vertices_model = sizeof(GgafDxMassPointSpriteModel::VERTEX_model) * _nVertices*_set_num;
 
         FLOAT model_bounding_sphere_radius;
-        float dis;
         for (int i = 0; i < _nVertices; i++) {
             _paVtxBuffer_data_model[i].x = xdata.paD3DVECTOR_Vertices[i].x;
             _paVtxBuffer_data_model[i].y = xdata.paD3DVECTOR_Vertices[i].y;
@@ -164,9 +135,9 @@ void GgafDxMassPointSpriteModel::restore() {
             _paVtxBuffer_data_model[i].psize = (_square_size_px*_texture_split_rowcol / _texture_size_px) * xdata.paFLOAT_InitScale[i]; //PSIZEにはピクセルサイズではなく倍率を埋め込む。
                                                                                                     //シェーダーで拡大縮小ピクセルを計算
             _paVtxBuffer_data_model[i].color = D3DCOLOR_COLORVALUE(xdata.paD3DVECTOR_VertexColors[i].r,
-                                                            xdata.paD3DVECTOR_VertexColors[i].g,
-                                                            xdata.paD3DVECTOR_VertexColors[i].b,
-                                                            xdata.paD3DVECTOR_VertexColors[i].a );
+                                                                   xdata.paD3DVECTOR_VertexColors[i].g,
+                                                                   xdata.paD3DVECTOR_VertexColors[i].b,
+                                                                   xdata.paD3DVECTOR_VertexColors[i].a );
             _paVtxBuffer_data_model[i].tu = (float)(xdata.paInt_InitUvPtnNo[i]);
             _paVtxBuffer_data_model[i].tv = 0;
 
@@ -181,6 +152,17 @@ void GgafDxMassPointSpriteModel::restore() {
             }
         }
 
+        for (int n = 1; n < _set_num; n++) {
+            int os = n*_nVertices;
+            for (int i = 0; i < _nVertices; i++) {
+                _paVtxBuffer_data_model[os+i].x = _paVtxBuffer_data_model[i].x;
+                _paVtxBuffer_data_model[os+i].y = _paVtxBuffer_data_model[i].y;
+                _paVtxBuffer_data_model[os+i].z = _paVtxBuffer_data_model[i].z;
+                _paVtxBuffer_data_model[os+i].color = _paVtxBuffer_data_model[i].color;
+                _paVtxBuffer_data_model[os+i].tu = _paVtxBuffer_data_model[i].tu;
+                _paVtxBuffer_data_model[os+i].tv = _paVtxBuffer_data_model[i].tv;
+            }
+        }
 
     }
 
@@ -188,14 +170,14 @@ void GgafDxMassPointSpriteModel::restore() {
     if (_pVertexBuffer_model == nullptr) {
         hr = GgafDxGod::_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices_model,
-                D3DUSAGE_WRITEONLY,
+                D3DUSAGE_WRITEONLY | D3DUSAGE_POINTS,
                 0,
                 D3DPOOL_DEFAULT,
                 &(_pVertexBuffer_model),
                 nullptr);
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_name));
         //バッファへ作成済み頂点データを流し込む
-        void *pDeviceMemory;
+        void* pDeviceMemory = 0;
         hr = _pVertexBuffer_model->Lock(0, _size_vertices_model, (void**)&pDeviceMemory, 0);
         checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
         memcpy(pDeviceMemory, _paVtxBuffer_data_model, _size_vertices_model);
@@ -234,9 +216,8 @@ HRESULT GgafDxMassPointSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, i
         throwGgafCriticalException(FUNC_NAME<<" "<<_model_name<<" の描画セット数オーバー。_set_num="<<_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
     }
 #endif
-    IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
 
-    pDevice->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE); //ポイントスプライトON！
+    IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
 
     //対象アクター
     const GgafDxMassPointSpriteActor* pTargetActor = (GgafDxMassPointSpriteActor*)prm_pActor_target;
@@ -249,7 +230,7 @@ HRESULT GgafDxMassPointSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, i
     //頂点バッファ(インスタンスデータ)書き換え
     UINT update_vertex_instacedata_size = _size_vertex_unit_instacedata * prm_draw_set_num;
     void* pInstancedata = prm_pPrm ? prm_pPrm : this->_pInstancedata; //prm_pPrm は臨時のテンポラリインスタンスデータ
-    void* pDeviceMemory;
+    void* pDeviceMemory = 0;
     hr = _pVertexBuffer_instacedata->Lock(0, update_vertex_instacedata_size, (void**)&pDeviceMemory, D3DLOCK_DISCARD);
     checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
     memcpy(pDeviceMemory, pInstancedata, update_vertex_instacedata_size);
@@ -259,7 +240,11 @@ HRESULT GgafDxMassPointSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, i
     //モデルが同じならば頂点バッファ、インデックスバッファの設定はスキップできる
     GgafDxModel* pModelLastDraw = GgafDxModelManager::_pModelLastDraw;
     if (pModelLastDraw != this) {
-        hr = pDevice->SetStreamSourceFreq( 1, D3DSTREAMSOURCE_INSTANCEDATA | 1 );
+//        hr = pDevice->SetStreamSourceFreq( 1, D3DSTREAMSOURCE_INSTANCEDATA | 1 );
+//        hr = pDevice->SetStreamSourceFreq( 1, prm_draw_set_num );
+// hr = pDevice->SetStreamSourceFreq( 1, D3DSTREAMSOURCE_INSTANCEDATA | 1);
+        hr = pDevice->SetStreamSourceFreq( 1, _nVertices );
+//        hr = pDevice->SetStreamSourceFreq( 1, 1 );
         checkDxException(hr, D3D_OK, "SetStreamSourceFreq 1 に失敗しました。");
         //頂点バッファとインデックスバッファを設定
         hr = pDevice->SetVertexDeclaration(_pVertexDeclaration); //頂点フォーマット
@@ -268,18 +253,16 @@ HRESULT GgafDxMassPointSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, i
         checkDxException(hr, D3D_OK, "SetStreamSource 0 に失敗しました。");
         hr = pDevice->SetStreamSource(1, _pVertexBuffer_instacedata, 0, _size_vertex_unit_instacedata);
         checkDxException(hr, D3D_OK, "SetStreamSource 1 に失敗しました。");
-        hr = pDevice->SetIndices(_pIndexBuffer);
+        hr = pDevice->SetIndices(nullptr);
         checkDxException(hr, D3D_OK, "SetIndices に失敗しました。");
-
-        hr = pID3DXEffect->SetFloat(pMassPointSpriteEffect->_h_tex_blink_power, _power_blink);
-        checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_power) に失敗しました。");
-        hr = pID3DXEffect->SetFloat(pMassPointSpriteEffect->_h_tex_blink_threshold, _blink_threshold);
-        checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_threshold) に失敗しました。");
+//        hr = pID3DXEffect->SetFloat(pMassPointSpriteEffect->_h_tex_blink_power, _power_blink);
+//        checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_power) に失敗しました。");
+//        hr = pID3DXEffect->SetFloat(pMassPointSpriteEffect->_h_tex_blink_threshold, _blink_threshold);
+//        checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_threshold) に失敗しました。");
         hr = pID3DXEffect->SetFloat(pMassPointSpriteEffect->_hTexSize, _texture_size_px);
         checkDxException(hr, D3D_OK, "SetFloat(_hTexSize) に失敗しました。");
         hr = pID3DXEffect->SetInt(pMassPointSpriteEffect->_hTextureSplitRowcol, _texture_split_rowcol);
         checkDxException(hr, D3D_OK, "SetInt(_hTextureSplitRowcol) に失敗しました。");
-
 
         if (_papTextureConnection[0]) {
             hr = pDevice->SetTexture(0, getDefaultTextureConnection()->peek()->_pIDirect3DBaseTexture9);
@@ -290,7 +273,8 @@ HRESULT GgafDxMassPointSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, i
         }
         checkDxException(hr, D3D_OK, "SetTexture に失敗しました");
     }
-    hr = pDevice->SetStreamSourceFreq( 0, D3DSTREAMSOURCE_INDEXEDDATA | prm_draw_set_num);
+//    hr = pDevice->SetStreamSourceFreq( 0, D3DSTREAMSOURCE_INDEXEDDATA | prm_draw_set_num);
+    hr = pDevice->SetStreamSourceFreq(0, 1);
     checkDxException(hr, D3D_OK, "SetStreamSourceFreq 0 に失敗しました。prm_draw_set_num="<<prm_draw_set_num);
 
     GgafDxEffect* pEffect_active = GgafDxEffectManager::_pEffect_active;
@@ -332,8 +316,7 @@ HRESULT GgafDxMassPointSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, i
         checkDxException(hr, D3D_OK, "CommitChanges() に失敗しました。");
     }
     _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMassPointSpriteEffect->_effect_name);
-
-    hr = pDevice->DrawPrimitive(D3DPT_POINTLIST, 0, _nVertices);
+    hr = pDevice->DrawPrimitive(D3DPT_POINTLIST, 0, _nVertices*prm_draw_set_num);
     checkDxException(hr, D3D_OK, " pass=1 に失敗しました。");
     if (_num_pass >= 2) { //２パス目以降が存在
         hr = pID3DXEffect->EndPass();
@@ -341,7 +324,7 @@ HRESULT GgafDxMassPointSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, i
         for (UINT i = 1; i < _num_pass; i++) {
             hr = pID3DXEffect->BeginPass(i);
             checkDxException(hr, D3D_OK, i+1<<"パス目 BeginPass("<<i<<") に失敗しました。");
-            hr = pDevice->DrawPrimitive(D3DPT_POINTLIST, 0, _nVertices);
+            hr = pDevice->DrawPrimitive(D3DPT_POINTLIST, 0, _nVertices*prm_draw_set_num);
             checkDxException(hr, D3D_OK, " pass="<<(i+1)<<" に失敗しました。");
             hr = pID3DXEffect->EndPass();
             checkDxException(hr, D3D_OK, "EndPass() に失敗しました。");
@@ -352,8 +335,6 @@ HRESULT GgafDxMassPointSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, i
 #ifdef MY_DEBUG
         GgafGod::_num_drawing++;
 #endif
-
-    pDevice->SetRenderState(D3DRS_POINTSCALEENABLE, FALSE); //ポイントスプライトOFF
 
     GgafDxModelManager::_pModelLastDraw = this;
     GgafDxEffectManager::_pEffect_active = pMassPointSpriteEffect;

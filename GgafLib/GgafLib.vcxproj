@@ -47,6 +47,7 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultMeshSetActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultMorphMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultPointSpriteActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultPointSpriteSetActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultSpriteActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultSpriteSetActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DepositoryFormation.cpp" />
@@ -138,6 +139,7 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultMeshSetActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultMorphMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultPointSpriteActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultPointSpriteSetActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultSpriteActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultSpriteSetActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DepositoryFormation.h" />

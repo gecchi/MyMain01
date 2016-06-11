@@ -109,19 +109,20 @@ void DefaultMassSpriteActor::processDraw() {
     int draw_set_num = 0; //GgafDxMassSpriteActorの同じモデルで同じテクニックが
                        //連続しているカウント数。同一描画深度は一度に描画する。
     HRESULT hr;
-    const int model_max_set_num = _pMassSpriteModel->_set_num;
+    GgafDxMassSpriteModel* pMassSpriteModel = _pMassSpriteModel;
+    const int model_max_set_num = pMassSpriteModel->_set_num;
     const hashval hash_technique = _hash_technique;
     VERTEX_instancedata* paInstancedata = DefaultMassSpriteActor::_aInstancedata;
     GgafDxFigureActor* pDrawActor = this;
     static const size_t size_of_D3DXMATRIX = sizeof(D3DXMATRIX);
     static const size_t size_of_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
-    static const dxcoord model_half_width = PX_DX(_pMassSpriteModel->_model_half_width_px);
-    static const dxcoord model_half_height = PX_DX(_pMassSpriteModel->_model_half_height_px);
+    static const dxcoord model_half_width = PX_DX(pMassSpriteModel->_model_half_width_px);
+    static const dxcoord model_half_height = PX_DX(pMassSpriteModel->_model_half_height_px);
     float u,v;
     DefaultMassSpriteActor* pDefaultMassSpriteActor = nullptr;
 
     while (pDrawActor) {
-        if (pDrawActor->getModel() == _pMassSpriteModel && pDrawActor->_hash_technique == hash_technique) {
+        if (pDrawActor->getModel() == pMassSpriteModel && pDrawActor->_hash_technique == hash_technique) {
             pDefaultMassSpriteActor = (DefaultMassSpriteActor*)pDrawActor;
             GgafDxAlign align = pDefaultMassSpriteActor->_align;
             GgafDxValign valign = pDefaultMassSpriteActor->_valign;
@@ -141,7 +142,7 @@ void DefaultMassSpriteActor::processDraw() {
             } else {  //VALIGN_BOTTOM
                 paInstancedata->local_y = model_half_height;
             }
-            ((DefaultMassSpriteActor*)pDrawActor)->getUvFlipper()->getUV(u,v);
+            pDefaultMassSpriteActor->getUvFlipper()->getUV(u,v);
             paInstancedata->offset_u = u;
             paInstancedata->offset_v = v;
             memcpy(&(paInstancedata->r), &(pDefaultMassSpriteActor->_paMaterial[0].Diffuse), size_of_D3DCOLORVALUE);
@@ -158,7 +159,7 @@ void DefaultMassSpriteActor::processDraw() {
             break;
         }
     }
-    _pMassSpriteModel->GgafDxMassSpriteModel::draw(this, draw_set_num);
+    pMassSpriteModel->GgafDxMassSpriteModel::draw(this, draw_set_num);
 }
 
 DefaultMassSpriteActor::~DefaultMassSpriteActor() {

@@ -18,41 +18,12 @@ float3 g_vecLightFrom_World; // ライトの方向
 float4 g_colLightAmbient;   // Ambienライト色（入射色）
 float4 g_colLightDiffuse;   // Diffuseライト色（入射色）
 
-float g_tex_blink_power;   
-float g_tex_blink_threshold;
+//float g_tex_blink_power;   
+//float g_tex_blink_threshold;
 float g_alpha_master;
 
 //s0レジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);
-
-//texture g_diffuseMap;
-//sampler MyTextureSampler = sampler_state {
-//	texture = <g_diffuseMap>;
-//};
-
-
-
-
-///////////////////////////////////////////////////////////////////////////
-////http://wlog.flatlib.jp/?blogid=1&query=dxgi
-//// パックされたカラーを展開する
-//float3 pf_to_float3( float pf )
-//{
-//    uint    data= asint( pf );
-//    float3  rcol;
-//    const float tof= 1.0f/255.0f;
-//    rcol.x= ( data      & 255) * tof;
-//    rcol.y= ((data>> 8) & 255) * tof;
-//    rcol.z= ((data>>16) & 255) * tof;
-//    return  rcol;
-//}
-//
-//// カラーを float1 に圧縮する
-//float float3_to_pf( float3 color )
-//{
-//    uint3   bcol= (uint3)( color * 255.0f ) & 255;
-//    return  asfloat( (bcol.z << 16) + (bcol.y << 8) + bcol.x );
-//}
 
 //頂点シェーダー、出力構造体
 struct OUT_VS
@@ -63,7 +34,6 @@ struct OUT_VS
 	float4 uv_pos        : COLOR1;  //スペキュラを潰して表示したいUV座標左上の情報をPSに渡す
 };
 
-//メッシュ標準頂点シェーダー
 OUT_VS GgafDxVS_DefaultMassPointSprite(
     float4 prm_posModel_Local : POSITION,  //ポイントスプライトのポイント群
     float  prm_psize_rate     : PSIZE,     //PSIZEでは無くて、スケールの率(0.0～N (1.0=等倍)) が入ってくる
@@ -75,7 +45,7 @@ OUT_VS GgafDxVS_DefaultMassPointSprite(
     float4 prm_world2         : TEXCOORD3,
     float4 prm_world3         : TEXCOORD4,
     float4 prm_color          : TEXCOORD5,
-    float4 prm_pattno_uvflip_now  : TEXCOORD6
+    float prm_pattno_uvflip_now  : TEXCOORD6
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
     float4x4 matWorld;
@@ -90,8 +60,8 @@ OUT_VS GgafDxVS_DefaultMassPointSprite(
                                     //距離に加える。
 	out_vs.posModel_Proj = mul(posModel_View, g_matProj);  //射影変換
 	out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_dist_CamZ_default / dep) * prm_psize_rate;
-    //psizeは画面上のポイント スプライトの幅 (ピクセル単位) 
 
+    //psizeは画面上のポイント スプライトの幅 (ピクセル単位) 
 	//スペキュラセマンテックス(COLOR1)を潰して表示したいUV座標左上の情報をPSに渡す
 	int ptnno = prm_ptn_no.x + prm_pattno_uvflip_now;
     if (ptnno >= g_TextureSplitRowcol*g_TextureSplitRowcol) {
@@ -108,7 +78,6 @@ OUT_VS GgafDxVS_DefaultMassPointSprite(
 	return out_vs;
 }
 
-//メッシュ標準ピクセルシェーダー（テクスチャ有り）
 float4 GgafDxPS_DefaultMassPointSprite (
 	float2 prm_uv_pointsprite	  : TEXCOORD0,  //(0.0, 0.0), (0.0, 1.0), (1.0, 0.0), (1.0, 1.0) の範囲で来る   
 	float4 prm_color              : COLOR0,
@@ -137,6 +106,7 @@ float4 PS_Flush(
 technique DefaultMassPointSpriteTechnique
 {
 	pass P0 {
+        PointSpriteEnable = true;
 		AlphaBlendEnable = true;
         //SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;

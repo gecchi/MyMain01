@@ -39,6 +39,7 @@
 #include "jp/ggaf/dxcore/model/GgafDxMassBoardModel.h"
 #include "jp/ggaf/dxcore/model/GgafDxPointSpriteModel.h"
 #include "jp/ggaf/dxcore/model/GgafDxMassPointSpriteModel.h"
+#include "jp/ggaf/dxcore/model/GgafDxPointSpriteSetModel.h"
 #include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMeshModel.h"
 #include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMeshSetModel.h"
 #include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMorphMeshModel.h"
@@ -215,6 +216,10 @@ GgafDxModel* GgafDxModelManager::processCreateResource(const char* prm_idstr, vo
             //MassPointSpriteModel
             pResourceModel = createMassPointSpriteModel(model_name);
             break;
+        case 'o':
+            //PointSpriteSetModel
+            pResourceModel = createPointSpriteSetModel(model_name);
+            break;
         default:
             throwGgafCriticalException("prm_idstr="<<prm_idstr<<" の '"<<model_type<<"' ・・・そんなモデル種別は知りません");
             pResourceModel = nullptr;
@@ -338,6 +343,12 @@ GgafDxMassPointSpriteModel* GgafDxModelManager::createMassPointSpriteModel(const
     GgafDxMassPointSpriteModel* pMassPointSpriteModel_new = NEW GgafDxMassPointSpriteModel(prm_model_name);
     pMassPointSpriteModel_new->restore();
     return pMassPointSpriteModel_new;
+}
+
+GgafDxPointSpriteSetModel* GgafDxModelManager::createPointSpriteSetModel(const char* prm_model_name) {
+    GgafDxPointSpriteSetModel* pPointSpriteSetModel_new = NEW GgafDxPointSpriteSetModel(prm_model_name);
+    pPointSpriteSetModel_new->restore();
+    return pPointSpriteSetModel_new;
 }
 
 std::string GgafDxModelManager::getMeshFileName(std::string prm_model_name) {
@@ -476,6 +487,19 @@ void GgafDxModelManager::obtainPointSpriteInfo(PointSpriteXFileFmt* pPointSprite
 //    "  array  DWORD     InitUvPtnNo[VerticesNum]; "
 //    "  array  FLOAT     InitScale[VerticesNum]; "
 //    "} "
+
+//    class PointSpriteXFileFmt {
+//    public:
+//        float SquareSize;
+//        char TextureFile[256];
+//        int TextureSplitRowCol;
+//        int VerticesNum;
+//        D3DVECTOR* paD3DVECTOR_Vertices;
+//        D3DCOLORVALUE* paD3DVECTOR_VertexColors;
+//        int* paInt_InitUvPtnNo;
+//        float* paFLOAT_InitScale;
+//    };
+
     SIZE_T xsize = 0;
     char* pXData = nullptr;
     pID3DXFileData->Lock(&xsize, (const void**)&pXData);
@@ -484,7 +508,7 @@ void GgafDxModelManager::obtainPointSpriteInfo(PointSpriteXFileFmt* pPointSprite
     }
     //    GUID* pGuid;
     //    pID3DXFileData->GetType(pGuid);
-//    XFILE_FMT_HD xDataHd;
+    //    XFILE_FMT_HD xDataHd;
     //"  FLOAT  SquareSize;\n"
     memcpy(&(pPointSpriteFmt_out->SquareSize), pXData, sizeof(float));
     pXData += sizeof(float);

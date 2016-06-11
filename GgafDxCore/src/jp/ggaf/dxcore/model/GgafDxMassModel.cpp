@@ -104,12 +104,12 @@ void GgafDxMassModel::createVertexElements() {
             &(_pVertexBuffer_instacedata),
             nullptr);
     checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer2 失敗 model="<<_model_name);
-    void *pDeviceMemory;
-    hr = _pVertexBuffer_instacedata->Lock(0, size_instancedata, (void**)&pDeviceMemory, 0);
-    checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗2 model="<<_model_name);
-    ZeroMemory(pDeviceMemory, size_instancedata);
-    hr = _pVertexBuffer_instacedata->Unlock();
-    checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗2 model="<<_model_name);
+//    void* pDeviceMemory = 0;
+//    hr = _pVertexBuffer_instacedata->Lock(0, size_instancedata, (void**)&pDeviceMemory, 0);
+//    checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗2 model="<<_model_name);
+//    ZeroMemory(pDeviceMemory, size_instancedata);
+//    hr = _pVertexBuffer_instacedata->Unlock();
+//    checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗2 model="<<_model_name);
 }
 
 void GgafDxMassModel::resetStreamSourceFreq() {

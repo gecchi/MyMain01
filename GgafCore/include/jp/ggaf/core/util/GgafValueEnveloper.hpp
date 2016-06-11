@@ -370,7 +370,7 @@ public:
     /**
      * 片道加速値遷移（全インデックス対象・目標速度値指定） .
      * 目標速度になるまでへ加速指定で値遷移します。
-     * 目標速度に到達すると、速度加算は行われません。（ですが速度が０ではない場合は動き続けるでしょう）
+     * 目標速度に到達すると停止します。
      * 加速度が正の場合、速度がターゲット速度より大きくなれば終了
      * 加速度が負の場合、速度がターゲット速度より小さくなれば終了
      * 遷移加速度を0に指定すると 永遠に終わらないので注意。
@@ -392,7 +392,7 @@ public:
     /**
      * 片道加速値遷移（対象インデックス単位・目標速度値指定） .
      * 目標速度になるまでへ加速指定で値遷移します。
-     * 目標速度に到達すると、速度加算は行われません。
+     * 目標速度に到達すると停止します。
      * 加速度が正の場合、速度がターゲット速度より大きくなれば終了
      * 加速度が負の場合、速度がターゲット速度より小さくなれば終了
      * 遷移加速度を0に指定すると 永遠に終わらないので注意。
@@ -706,29 +706,44 @@ public:
             p->_velo += p->_acce;
             val += p->_velo;
 
-            if (method == NO_TRANSITION) {
-                //何もしない
-            } else {
-                if (method == TARGET_LINER_UNTIL) {
+            switch (method) {
+                case NO_TRANSITION: {
+                    //何もしない
+                    break;
+                }
+                case TARGET_LINER_UNTIL: {
                     if (p->_beat_frame_count >= p->_beat_target_frames) {
                         val = p->_target;
                         stop(i);//終了
                     }
-                } else if (method == TARGET_LINER_STEP || method == TARGET_ACCELERATION_UNTIL) {
+                    break;
+                }
+                case TARGET_LINER_STEP: {
                     if ((p->_velo > 0  && val >= p->_target) || (p->_velo < 0  && val <= p->_target)) {
                         val = p->_target;
                         stop(i);//終了
                     }
-                } else if (method == TARGET_ACCELERATION_UNTIL_VELO ) {
-                    if ((p->_acce > 0  && p->_velo >= p->_target) || (p->_acce < 0  && p->_velo <= p->_target)) {
-                        //加速度が正の場合、速度がターゲット速度より大きくなれば終了
-                        //加速度が負の場合、速度がターゲット速度より小さくなれば終了
-                        val -= p->_velo;
-                        p->_velo = p->_target;
-                        val += p->_velo;
+                    break;
+                }
+                case TARGET_ACCELERATION_UNTIL: {
+                    if ((p->_velo > 0  && val >= p->_target) || (p->_velo < 0  && val <= p->_target)) {
+                        val = p->_target;
                         stop(i);//終了
                     }
-                } else if (method == BEAT_LINER) {
+                    break;
+                }
+                case TARGET_ACCELERATION_UNTIL_VELO: {
+                    if ((p->_acce > 0  && p->_velo >= p->_target) || (p->_acce < 0  && p->_velo <= p->_target)) {
+                       //加速度が正の場合、速度がターゲット速度より大きくなれば終了
+                       //加速度が負の場合、速度がターゲット速度より小さくなれば終了
+                       val -= p->_velo;
+                       p->_velo = p->_target;
+                       val += p->_velo;
+                       stop(i);//終了
+                    }
+                    break;
+                }
+                case BEAT_LINER: {
                     p->_beat_frame_count_in_roop++;
                     const frame cnt = p->_beat_frame_count_in_roop;
                     const frame beat_cycle_frames = p->_beat_cycle_frames;
@@ -753,7 +768,9 @@ public:
                         }
                         p->_beat_frame_count_in_roop = 0;
                     }
-                } else if (method == BEAT_TRIANGLEWAVE) {
+                    break;
+                }
+                case BEAT_TRIANGLEWAVE: {
                     p->_beat_frame_count_in_roop++;
                     const frame cnt = p->_beat_frame_count_in_roop;
                     const frame beat_frame_of_attack_finish = p->_beat_frame_of_attack_finish;
@@ -789,7 +806,9 @@ public:
                             p->_velo = top - val;
                         }
                     }
-                } else if (method == R_BEAT_TRIANGLEWAVE) { //逆ビート
+                    break;
+                }
+                case R_BEAT_TRIANGLEWAVE: {
                     p->_beat_frame_count_in_roop++;
                     const frame cnt = p->_beat_frame_count_in_roop;
                     const frame beat_frame_of_attack_finish = p->_beat_frame_of_attack_finish;
@@ -825,9 +844,12 @@ public:
                             p->_velo = bottom - val;
                         }
                     }
+                    break;
                 }
-            }
 
+                default:
+                    break;
+            }
 
             if (top < val) {
                 val = top;

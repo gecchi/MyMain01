@@ -18,7 +18,7 @@ TrialAndErrScene::TrialAndErrScene(const char* prm_name) : DefaultScene(prm_name
     pTest_ = nullptr;
     orderActorToFactory(990, PointSpriteTest, "PointSpriteTest1");
     orderActorToFactory(991, PointSpriteTest, "PointSpriteTest2");
-    orderActorToFactory(992, Zako, "Zako");
+////    orderActorToFactory(992, Zako, "Zako");
     orderActorToFactory(993, PointSpriteTest, "PointSpriteTest4");
     orderActorToFactory(994, PointSpriteTest, "PointSpriteTest5");
     orderActorToFactory(995, PointSpriteTest, "PointSpriteTest6");
@@ -42,11 +42,11 @@ void TrialAndErrScene::processBehavior() {
         bringDirector()->addSubGroup(pTest2);
         pTest2->position(PX_C(200), PX_C(200), PX_C(200));
     }
-    if (getActiveFrame() == 160) {
-        Zako* pZako = (Zako*)obtainActorFromFactory(992);
-        bringDirector()->addSubGroup(pZako);
-        pZako->position(PX_C(400), PX_C(400), PX_C(400));
-    }
+////    if (getActiveFrame() == 160) {
+////        Zako* pZako = (Zako*)obtainActorFromFactory(992);
+////        bringDirector()->addSubGroup(pZako);
+////        pZako->position(PX_C(400), PX_C(400), PX_C(400));
+////    }
     if (getActiveFrame() == 180) {
         PointSpriteTest* pTest4 = (PointSpriteTest*)obtainActorFromFactory(993);
         bringDirector()->addSubGroup(pTest4);

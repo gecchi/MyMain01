@@ -1140,6 +1140,7 @@ HRESULT GgafDxGod::initDevice() {
                                       &caps);             // [out] デバイスの能力が格納される
     _vs_v = caps.VertexShaderVersion;
     _ps_v = caps.PixelShaderVersion;
+
     _TRACE_("Hardware Vertex Shader Version = "<<D3DSHADER_VERSION_MAJOR(_vs_v)<<"_"<<D3DSHADER_VERSION_MINOR(_vs_v));
     _TRACE_("Hardware Pixel Shader Version  = "<<D3DSHADER_VERSION_MAJOR(_ps_v)<<"_"<<D3DSHADER_VERSION_MINOR(_ps_v));
     if (_vs_v < D3DVS_VERSION(3, 0) || _ps_v < D3DPS_VERSION(3, 0)) {

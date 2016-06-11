@@ -87,7 +87,7 @@ HRESULT GgafDxMassSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, int pr
     //頂点バッファ(インスタンスデータ)書き換え
     UINT update_vertex_instacedata_size = _size_vertex_unit_instacedata * prm_draw_set_num;
     void* pInstancedata = prm_pPrm ? prm_pPrm : this->_pInstancedata; //prm_pPrm は臨時のテンポラリインスタンスデータ
-    void* pDeviceMemory;
+    void* pDeviceMemory = 0;
     hr = _pVertexBuffer_instacedata->Lock(0, update_vertex_instacedata_size, (void**)&pDeviceMemory, D3DLOCK_DISCARD);
     checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
     memcpy(pDeviceMemory, pInstancedata, update_vertex_instacedata_size);
@@ -313,7 +313,7 @@ void GgafDxMassSpriteModel::restore() {
                 nullptr);
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_name));
         //バッファへ作成済み頂点データを流し込む
-        void *pDeviceMemory;
+        void* pDeviceMemory = 0;
         hr = _pVertexBuffer_model->Lock(0, _size_vertices_model, (void**)&pDeviceMemory, 0);
         checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
         memcpy(pDeviceMemory, _paVtxBuffer_data_model, _size_vertices_model);
@@ -330,7 +330,7 @@ void GgafDxMassSpriteModel::restore() {
                                 &(_pIndexBuffer),
                                 nullptr);
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<_model_name);
-        void* pDeviceMemory;
+        void* pDeviceMemory = 0;
         hr = _pIndexBuffer->Lock(0, 0, (void**)&pDeviceMemory,0);
         checkDxException(hr, D3D_OK, "インデックスバッファのロック取得に失敗 model="<<_model_name);
         memcpy(pDeviceMemory, _paIndexBuffer_data, sizeof(WORD)*_nFaces*3);

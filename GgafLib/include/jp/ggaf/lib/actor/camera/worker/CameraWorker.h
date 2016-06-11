@@ -15,7 +15,7 @@ namespace GgafLib {
  */
 class CameraWorker : public GgafCore::GgafMainActor {
 
-    /** カメラのUP要素ベクトルの面番号と、視線の反対ベクトルの面番号との関連テーブル */
+    /** [現カメラのUP要素ベクトルの面番号][視線の反対ベクトルの面番号] = 次の妥当なUP要素ベクトルの面番号(但しDIR26_NULLは移動不要を意味する)  関連テーブル */
     static int relation_up_vec_[3*3*3][3*3*3];
     /** relation_up_vec_アクセス用 */
     static int (*relation_up_by_vec_)[3*3*3];

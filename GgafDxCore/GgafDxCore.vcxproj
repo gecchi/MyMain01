@@ -51,6 +51,7 @@
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxMeshSetActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxMorphMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxPointSpriteActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxPointSpriteSetActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxSpriteActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxSpriteSetActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\interface\GgafDxIBumpMapActor.cpp" />
@@ -86,6 +87,7 @@
     <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxMeshSetEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxMorphMeshEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxPointSpriteEffect.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxPointSpriteSetEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxSpriteEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxSpriteSetEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\exception\GgafDxCriticalException.cpp" />
@@ -120,6 +122,7 @@
     <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxMorphMeshModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxPointSpriteModel.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxPointSpriteSetModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxSpriteModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxSpriteSetModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\model\supporter\GgafDxTextureBlinker.cpp" />
@@ -188,6 +191,7 @@
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ggafdxmeshsetactor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ggafdxmorphmeshactor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ggafdxpointspriteactor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxPointSpriteSetActor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ggafdxspriteactor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ggafdxspritesetactor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\interface\ggafdxibumpmapactor.h" />
@@ -225,6 +229,7 @@
     <ClInclude Include="include\jp\ggaf\dxcore\effect\ggafdxmeshseteffect.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\effect\GgafDxMorphMeshEffect.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\effect\ggafdxpointspriteeffect.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\effect\ggafdxpointspriteseteffect.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\effect\GgafDxSpriteEffect.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\effect\GgafDxSpriteSetEffect.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\exception\ggafdxcriticalexception.h" />
@@ -259,6 +264,7 @@
     <ClInclude Include="include\jp\ggaf\dxcore\model\ggafdxmodel.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\model\ggafdxmorphmeshmodel.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\model\GgafDxPointSpriteModel.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\model\GgafDxPointSpriteSetModel.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\model\GgafDxSpriteModel.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\model\GgafDxSpriteSetModel.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\model\supporter\ggafdxtextureblinker.h" />

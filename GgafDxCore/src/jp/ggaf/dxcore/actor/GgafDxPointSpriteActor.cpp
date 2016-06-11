@@ -55,7 +55,7 @@ void GgafDxPointSpriteActor::processDraw() {
     //スケールはシェーダー内で独自計算
     _pPointSpriteModel->GgafDxPointSpriteModel::draw(this);
     //ポイントスプライトOFF
-    GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_POINTSCALEENABLE, FALSE);
+    GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, FALSE);
 }
 
 GgafDxPointSpriteActor::~GgafDxPointSpriteActor() {

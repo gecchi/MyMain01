@@ -23,8 +23,6 @@ namespace GgafDxCore {
  */
 class GgafDxModelManager : public GgafCore::GgafResourceManager<GgafDxModel> {
 
-
-
 private:
     GgafDxD3DXMeshModel*         createD3DXMeshModel(const char* prm_model_name, DWORD prm_dwOptions);
     GgafDxD3DXAniMeshModel*      createD3DXAniMeshModel(const char* prm_model_name);
@@ -46,6 +44,7 @@ private:
     GgafDxWorldBoundModel*       createWorldBoundModel(const char* prm_model_name);
     GgafDxPointSpriteModel*      createPointSpriteModel(const char* prm_model_name);
     GgafDxMassPointSpriteModel*  createMassPointSpriteModel(const char* prm_model_name);
+    GgafDxPointSpriteSetModel*   createPointSpriteSetModel(const char* prm_model_name);
 
 public:
 

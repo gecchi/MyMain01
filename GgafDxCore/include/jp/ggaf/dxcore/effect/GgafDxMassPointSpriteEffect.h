@@ -16,16 +16,9 @@ class GgafDxMassPointSpriteEffect : public GgafDxMassEffect {
     friend class GgafDxEffectManager;
 
 public:
-    D3DXHANDLE _h_tex_blink_power;
-    D3DXHANDLE _h_tex_blink_threshold;
     D3DXHANDLE _h_matView;
-//    D3DXHANDLE _h_matWorld;
-//    D3DXHANDLE _h_colMaterialDiffuse;
-//    D3DXHANDLE _h_alpha;
-//    D3DXHANDLE _h_dist_VpInfrontPlane;
     D3DXHANDLE _hTexSize;
     D3DXHANDLE _hTextureSplitRowcol;
-    D3DXHANDLE _hUvFlipPtnNo;
 
 public:
     /**

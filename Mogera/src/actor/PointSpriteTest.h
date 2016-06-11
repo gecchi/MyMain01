@@ -1,13 +1,13 @@
 #ifndef POINTSPRITETEST_H_
 #define POINTSPRITETEST_H_
 #include "Mogera.h"
-#include "jp/ggaf/lib/actor/DefaultMassPointSpriteActor.h"
+#include "jp/ggaf/lib/actor/DefaultPointSpriteSetActor.h"
 
 namespace Mogera {
 
 /**
  */
-class PointSpriteTest : public GgafLib::DefaultMassPointSpriteActor {
+class PointSpriteTest : public GgafLib::DefaultPointSpriteSetActor {
 
 public:
     GgafDxCore::GgafDxScaler* pScaler_;

@@ -17,13 +17,13 @@ GgafDxMeshSetActor::GgafDxMeshSetActor(const char* prm_name,
                                        GgafDxChecker* prm_pChecker) :
 
                                            GgafDxFigureActor(prm_name,
-                                                               prm_model_id,
-                                                               "x",
-                                                               prm_effect_id,
-                                                               "x",
-                                                               prm_technique,
-                                                               prm_pStat,
-                                                               prm_pChecker),
+                                                             prm_model_id,
+                                                             "x",
+                                                             prm_effect_id,
+                                                             "x",
+                                                             prm_technique,
+                                                             prm_pStat,
+                                                             prm_pChecker),
 _pMeshSetModel((GgafDxMeshSetModel*)_pModel),
 _pMeshSetEffect((GgafDxMeshSetEffect*)_pEffect) {
     _obj_class |= Obj_GgafDxMeshSetActor;
@@ -41,13 +41,13 @@ GgafDxMeshSetActor::GgafDxMeshSetActor(const char* prm_name,
                                        GgafDxChecker* prm_pChecker) :
 
                                            GgafDxFigureActor(prm_name,
-                                                               prm_model_id,
-                                                               prm_model_type,
-                                                               prm_effect_id,
-                                                               prm_effect_type,
-                                                               prm_technique,
-                                                               prm_pStat,
-                                                               prm_pChecker),
+                                                             prm_model_id,
+                                                             prm_model_type,
+                                                             prm_effect_id,
+                                                             prm_effect_type,
+                                                             prm_technique,
+                                                             prm_pStat,
+                                                             prm_pChecker),
 _pMeshSetModel((GgafDxMeshSetModel*)_pModel),
 _pMeshSetEffect((GgafDxMeshSetEffect*)_pEffect) {
 
