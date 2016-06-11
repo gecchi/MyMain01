@@ -20,42 +20,14 @@ DWORD GgafDxPointSpriteSetModel::FVF = (D3DFVF_XYZ | D3DFVF_PSIZE | D3DFVF_DIFFU
 
 GgafDxPointSpriteSetModel::GgafDxPointSpriteSetModel(const char* prm_model_name) : GgafDxModel(prm_model_name) {
     _TRACE3_("_model_name="<<_model_name);
-    // prm_model_name には "xxxxxx" or "8/xxxxx" が、渡ってくる。
-    // 同時描画セット数が8という意味です。
-    // モーフターゲット数が違うモデルは、別モデルという扱いにするため、モデル名に数値を残そうかな。
-    // モデル名から同時描画セット数指定があれば取り出す。無ければ8
-    std::string model_name = std::string(prm_model_name);
-    std::vector<std::string> names = UTIL::split(model_name, "/", 1);
-    if (names.size() > 2) {
-        throwGgafCriticalException("prm_model_name には \"xxxxxx\" or \"8/xxxxx\" 形式を指定してください。 \n"<<
-                "実際の引数は、prm_idstr="<<prm_model_name);
-    }
-    if (names.size() == 2) {
-        _set_num = STOI(names[0]);
-        if (_set_num > 15) {
-            _TRACE_("GgafDxPointSpriteSetModel("<<prm_model_name<<") の同時描画セット数オーバー。最大は15セットがですがそれ以上が設定されています。意図していますか？ _set_num="<<_set_num<<"。");
-        }
-    } else {
-        _TRACE_("GgafDxPointSpriteSetModel("<<prm_model_name<<") のセット数省略のため、標準の最大の15セットが設定されます。");
-        _set_num = 15;
-    }
+    _set_num = 0;
     _pVertexBuffer = nullptr;
     _paVtxBuffer_data = nullptr;
     _square_size_px = 0.0f;
     _texture_size_px = 0.0f;
     _texture_split_rowcol = 1;
-
-
-//    _pIndexBuffer = nullptr;
-//    _paUint_material_list_grp_num = nullptr;
-//    _paVtxBuffer_data = nullptr;
-//    _paIndexBuffer_data = nullptr;
-//    _papaIndexParam = nullptr;
     _size_vertex_unit= 0;
-//    _size_vertices = 0;
     _nVertices = 0;
-//    _nFaces= 0;
-
     _obj_model |= Obj_GgafDxPointSpriteSetModel;
 
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどのメンバー初期化は
@@ -165,8 +137,8 @@ void GgafDxPointSpriteSetModel::restore() {
         std::vector<std::string> names = UTIL::split(std::string(_model_name), "/");
         std::string xfile_name = ""; //読み込むXファイル名
         if (names.size() == 1) {
-            _TRACE_(FUNC_NAME<<" "<<_model_name<<" の最大同時描画オブジェクト数は、デフォルトの"<<GGAFDXMASS_MAX_INSTACE_NUM<<" が設定されました。");
-            _set_num = GGAFDXMASS_MAX_INSTACE_NUM;
+            _TRACE_(FUNC_NAME<<" "<<_model_name<<" の最大同時描画オブジェクト数は、デフォルトの15が設定されました。");
+            _set_num = 15;
             xfile_name = GgafDxModelManager::getPointSpriteFileName(names[0]);
         } else if (names.size() == 2) {
             _set_num = STOI(names[0]);
@@ -175,12 +147,12 @@ void GgafDxPointSpriteSetModel::restore() {
             throwGgafCriticalException("_model_name には \"xxxxxx\" or \"8/xxxxx\" 形式を指定してください。 \n"<<
                     "実際は、_model_name="<<_model_name<<" でした。");
         }
-        if (_set_num < 1 || _set_num > GGAFDXMASS_MAX_INSTACE_NUM) {
-            throwGgafCriticalException(_model_name<<"の最大同時描画オブジェクト数が不正。範囲は 1～"<<GGAFDXMASS_MAX_INSTACE_NUM<<"セットです。_set_num="<<_set_num);
-        }
-        if (xfile_name == "") {
-            throwGgafCriticalException("ポイントスプライト定義ファイル(*.psprx)が見つかりません。model_name="<<(_model_name));
-        }
+//        if (_set_num < 1 || _set_num > GGAFDXMASS_MAX_INSTACE_NUM) {
+//            throwGgafCriticalException(_model_name<<"の最大同時描画オブジェクト数が不正。範囲は 1～"<<GGAFDXMASS_MAX_INSTACE_NUM<<"セットです。_set_num="<<_set_num);
+//        }
+//        if (xfile_name == "") {
+//            throwGgafCriticalException("ポイントスプライト定義ファイル(*.psprx)が見つかりません。model_name="<<(_model_name));
+//        }
         GgafDxModelManager::PointSpriteXFileFmt xdata;
         GgafDxModelManager::obtainPointSpriteInfo(&xdata, xfile_name);
 
@@ -223,8 +195,6 @@ void GgafDxPointSpriteSetModel::restore() {
             _paVtxBuffer_data[i].z = xdata.paD3DVECTOR_Vertices[i].z;
 
             _paVtxBuffer_data[i].psize = (_square_size_px*_texture_split_rowcol / _texture_size_px) * xdata.paFLOAT_InitScale[i]; //PSIZEにはピクセルサイズではなく倍率を埋め込む。
-            _TRACE_("_paVtxBuffer_data[i].psize="<<_paVtxBuffer_data[i].psize);
-            _TRACE_("xdata.paFLOAT_InitScale[i]="<<xdata.paFLOAT_InitScale[i]);
             //シェーダーで拡大縮小ピクセルを計算
             _paVtxBuffer_data[i].color = D3DCOLOR_COLORVALUE(xdata.paD3DVECTOR_VertexColors[i].r,
                                                                    xdata.paD3DVECTOR_VertexColors[i].g,

@@ -14,22 +14,6 @@ class GgafDxPointSpriteSetModel : public GgafDxModel {
     friend class GgafDxModelManager;
 
 public:
-
-//    struct INDEXPARAM {
-//        UINT MaterialNo;
-//        INT BaseVertexIndex;
-//        UINT MinIndex;
-//        UINT NumVertices;
-//        UINT StartIndex;
-//        UINT PrimitiveCount;
-//    };
-
-//    struct VERTEX : public GgafDxModel::VERTEX_3D_BASE {
-//        float index;      // psizeではなくてはなくて頂点番号として使用。シェーダー側で何セット目かを判断するために使用。
-//        DWORD color;      // 頂点の色（オブジェクトのマテリアルカラーとして使用）
-//        float tu, tv;     // テクスチャ座標
-//    };
-
     struct VERTEX {
         float x, y, z;    // 頂点座標
         float psize;      // ポイントサイズ
@@ -54,19 +38,8 @@ public:
     UINT _size_vertices;
     /** 基本モデル（１キャラ分）頂点数 */
     UINT _nVertices;
-//    /** 基本モデル（１キャラ分）の面の数 */
-//    UINT _nFaces;
-
-//    INDEXPARAM** _papaIndexParam;
-
-//    /** マテリアルリストの連続で同一のマテリアル番号の塊（グループ）が幾つあるか */
-//    UINT* _paUint_material_list_grp_num;
 
     VERTEX* _paVtxBuffer_data;
-//    WORD* _paIndexBuffer_data;
-
-
-
 
 public:
     /**
