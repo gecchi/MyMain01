@@ -571,6 +571,12 @@ public:
     void defineRotMvWorldMatrix(void (*prm_pFunc)(const GgafDxGeometricActor*, D3DXMATRIX&));
 
     /**
+     * ワールド変換行列を Billboard に設定する .
+     * 但し _rz 変化の回転が有効。
+     */
+    void defineRotMvWorldMatrix_Billboard();
+
+    /**
      * モデルの境界球半径の倍率設定 .
      * 境界球半径とは、ローカル座標の原点から全頂点の距離で最大の長さで、
      * この値は、画面外判定に利用されてるため、モデル表示時に独自に拡大を行った場合。

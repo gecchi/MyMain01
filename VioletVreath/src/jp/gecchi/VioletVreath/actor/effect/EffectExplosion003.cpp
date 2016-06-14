@@ -11,38 +11,35 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EffectExplosion003::EffectExplosion003(const char* prm_name) :
-        DefaultMassSpriteActor(prm_name, "EffectExplosion003", nullptr) {
+        DefaultPointSpriteSetActor(prm_name, "EffectExplosion003", nullptr) {
     _class_name = "EffectExplosion003";
     pScaler_ = NEW GgafDxScaler(this);
-    //加算合成Technique指定
-    effectBlendOne();
-    //ワールド変換行列はビルボード指定
-    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv);
-}
-
-void EffectExplosion003::initialize() {
-    pScaler_->setRange(500, 2000);
     setHitAble(false);
 }
 
+int EffectExplosion003::isOutOfView() {
+    //画面外判定無し
+    return 0;
+}
+
+void EffectExplosion003::initialize() {
+    setScale(0);
+    pScaler_->transitionAcceUntilVelo(-R_SC(0.01) , R_SC(0.1), -R_SC(0.001));
+}
+
 void EffectExplosion003::onActive() {
-    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
-    pUvFlipper->setActivePtnToTop();
-    pUvFlipper->exec(FLIP_ORDER_NOLOOP, 1);
-    setScale(500);
-    pScaler_->transitionLinerUntil(2000, 64);
-    setAlpha(0.99);
+    getUvFlipper()->exec(FLIP_ORDER_LOOP, 1);
+    setRzRyFaceAng(getKuroko()->getRzMvAng(), getKuroko()->getRyMvAng());
 }
 
 void EffectExplosion003::processBehavior() {
-    _alpha -= 0.01;
     getUvFlipper()->behave();
     getKuroko()->behave();
     pScaler_->behave();
 }
 
 void EffectExplosion003::processJudgement() {
-    if (_alpha < 0) {
+    if (!pScaler_->isTransitioning()) {
         sayonara();
     }
 }

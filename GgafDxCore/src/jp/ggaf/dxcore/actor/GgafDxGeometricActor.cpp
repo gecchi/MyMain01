@@ -375,6 +375,10 @@ void GgafDxGeometricActor::defineRotMvWorldMatrix(void (*prm_pFunc)(const GgafDx
     (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
 }
 
+void GgafDxGeometricActor::defineRotMvWorldMatrix_Billboard() {
+    defineRotMvWorldMatrix(GgafDxUtil::setWorldMatrix_RzBxyzMv);
+}
+
 void GgafDxGeometricActor::positionAs(const GgafDxGeoElem* prm_pGeoElem) {
     _x = prm_pGeoElem->x;
     _y = prm_pGeoElem->y;
