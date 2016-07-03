@@ -108,4 +108,5 @@ void GgafDxPointSpriteSetActor::processDraw() {
 }
 
 GgafDxPointSpriteSetActor::~GgafDxPointSpriteSetActor() {
+    delete _pUvFlipper;
 }
