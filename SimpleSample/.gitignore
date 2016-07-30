@@ -16,3 +16,5 @@ back.properties
 /gprofp_result.txt
 /gprofdot_result.png
 /gmon.out
+/Release_XP/
+/Debug_XP/

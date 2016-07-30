@@ -11,3 +11,5 @@ VVViewer.exe
 /VVViewer.aps
 *.rep
 back.properties
+/Release_XP/
+/Debug_XP/

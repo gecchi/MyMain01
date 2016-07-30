@@ -6,3 +6,5 @@
 /Release
 /*.user
 /.vs/
+/Release_XP/
+/Debug_XP/

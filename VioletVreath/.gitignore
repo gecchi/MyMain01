@@ -20,3 +20,5 @@
 /back.properties
 *.log
 *.tmp
+/Debug_XP/
+/Release_XP/

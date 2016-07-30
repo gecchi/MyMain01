@@ -5,3 +5,5 @@
 /GprofCdt*
 /Debug
 /*.user
+/Release_XP/
+/Debug_XP/

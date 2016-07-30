@@ -17,3 +17,5 @@ back.properties
 /DebugCdt
 /DebugCdt
 *.dat
+/Debug_XP/
+/Release_XP/
