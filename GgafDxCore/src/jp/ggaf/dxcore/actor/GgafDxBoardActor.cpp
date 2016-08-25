@@ -1,4 +1,3 @@
-#include <jp/ggaf/dxcore/util/GgafDxUtil.h>
 #include "jp/ggaf/dxcore/actor/GgafDxBoardActor.h"
 
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
@@ -6,6 +5,7 @@
 #include "jp/ggaf/dxcore/model/GgafDxBoardModel.h"
 #include "jp/ggaf/dxcore/effect/GgafDxBoardEffect.h"
 #include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

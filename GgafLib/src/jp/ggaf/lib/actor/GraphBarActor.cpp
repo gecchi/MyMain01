@@ -1,10 +1,10 @@
-#include <jp/ggaf/dxcore/util/GgafDxUtil.h>
 #include "jp/ggaf/lib/actor/GraphBarActor.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 #include "jp/ggaf/dxcore/effect/GgafDxBoardEffect.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/model/GgafDxBoardModel.h"
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

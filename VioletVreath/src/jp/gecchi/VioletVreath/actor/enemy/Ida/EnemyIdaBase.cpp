@@ -1,5 +1,6 @@
-#include <jp/ggaf/dxcore/util/GgafDxUtil.h>
 #include "EnemyIdaBase.h"
+
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

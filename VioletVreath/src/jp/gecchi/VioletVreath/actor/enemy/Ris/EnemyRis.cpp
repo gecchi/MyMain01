@@ -1,4 +1,3 @@
-#include <jp/ggaf/dxcore/util/GgafDxUtil.h>
 #include "EnemyRis.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"

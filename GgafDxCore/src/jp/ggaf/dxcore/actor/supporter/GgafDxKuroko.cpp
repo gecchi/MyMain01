@@ -1,4 +1,3 @@
-#include <jp/ggaf/dxcore/util/GgafDxUtil.h>
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 
 #include <math.h>
@@ -6,6 +5,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoFaceAngAssistant.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAngAssistant.h"
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

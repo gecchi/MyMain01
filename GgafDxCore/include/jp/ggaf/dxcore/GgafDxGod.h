@@ -1,9 +1,9 @@
 #ifndef GGAFDXCORE_GGAFDXGOD_H_
 #define GGAFDXCORE_GGAFDXGOD_H_
-#include <jp/ggaf/dxcore/util/GgafDxUtil.h>
 #include "GgafDxCommonHeader.h"
-#include "jp/ggaf/core/GgafGod.h"
 
+#include "jp/ggaf/core/GgafGod.h"
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 
 
