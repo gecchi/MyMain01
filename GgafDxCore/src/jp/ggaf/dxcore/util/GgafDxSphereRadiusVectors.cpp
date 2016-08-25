@@ -10,18 +10,18 @@ GgafDxSphereRadiusVectors::GgafDxSphereRadiusVectors() : GgafObject() {
     static double s_angRad = ((PI * 2.0) / (D90SANG * 4));
     uint32_t xXY, yXY, xXZ, zXZ;
     double radRotAxisZ, radRotAxisY;
-    for (s_ang angFaceAxisZ = 0; angFaceAxisZ <= D90SANG; angFaceAxisZ++) {
+    for (s_ang ang_faceAxisZ = 0; ang_faceAxisZ <= D90SANG; ang_faceAxisZ++) {
         //XY•½–Êã‚Ì‹…•\–Ê‚Ì“_‚ð‹‚ß‚éB
-        radRotAxisZ = s_angRad * angFaceAxisZ;
+        radRotAxisZ = s_angRad * ang_faceAxisZ;
         xXY = cos(radRotAxisZ) * 1000000.0;
         yXY = sin(radRotAxisZ) * 1000000.0;
-        for (s_ang angFaceAxisY = 0; angFaceAxisY <= D90SANG; angFaceAxisY++) {
+        for (s_ang ang_faceAxisY = 0; ang_faceAxisY <= D90SANG; ang_faceAxisY++) {
             //XY•½–Êã‚Ì‹…•\–Ê‚Ì“_‚ðAYŽ²‰ñ“]‚·‚éB
             //’ˆÓF‚±‚ÌYŽ²‰ñ“]‚Æ‚ÍAŒvŽZ‚Ì“s‡ãA¶ŽèŒnYŽ²‰ñ“]‚Ì‹t‰ñ“]‚É‚È‚è‚Ü‚·B
-            radRotAxisY = s_angRad * angFaceAxisY;
+            radRotAxisY = s_angRad * ang_faceAxisY;
             xXZ = xXY * cos(radRotAxisY);
             zXZ = xXY * sin(radRotAxisY);
-            index = angFaceAxisZ * (D90SANG + 1) + angFaceAxisY;
+            index = ang_faceAxisZ * (D90SANG + 1) + ang_faceAxisY;
             _sr[index].set(xXZ, yXY, zXZ);
         }
     }
@@ -30,8 +30,8 @@ GgafDxSphereRadiusVectors::GgafDxSphereRadiusVectors() : GgafObject() {
 void GgafDxSphereRadiusVectors::getFaceAngClosely(uint32_t prm_x,
                                                   uint32_t prm_y,
                                                   uint32_t prm_z,
-                                                  s_ang& out_angFaceZ,
-                                                  s_ang& out_angFaceY_rev,
+                                                  s_ang& out_ang_faceZ,
+                                                  s_ang& out_ang_faceY_rev,
                                                   int s) {
     static class COMPARE_ABLE_SR_VECTOR target;
     target.set(0, prm_y, 0);
@@ -77,8 +77,8 @@ void GgafDxSphereRadiusVectors::getFaceAngClosely(uint32_t prm_x,
         }
     }
 
-    out_angFaceZ = top / (D90SANG+1);
-    out_angFaceY_rev = top % ((unsigned int)(D90SANG+1));
+    out_ang_faceZ = top / (D90SANG+1);
+    out_ang_faceY_rev = top % ((unsigned int)(D90SANG+1));
 
 }
 

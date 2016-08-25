@@ -1,7 +1,7 @@
+#include <jp/ggaf/dxcore/util/GgafDxUtil.h>
 #include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
 
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
-#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

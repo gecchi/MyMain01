@@ -23,8 +23,8 @@ EnemyAllas::EnemyAllas(const char* prm_name) :
     pKurokoLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
-    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
+    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
+    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
     useProgress(10);
 }
 
@@ -129,7 +129,7 @@ void EnemyAllas::processBehavior() {
         pKurokoLeader_->behave(); //スプライン移動を振る舞い
     }
     pKuroko->behave();
-    //getSeTx()->behave();
+    //getSeTransmitter()->behave();
 }
 
 void EnemyAllas::processJudgement() {
@@ -142,7 +142,7 @@ void EnemyAllas::onHit(const GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTx()->play3D(SE_EXPLOSION);
+        getSeTransmitter()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)

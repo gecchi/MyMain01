@@ -17,12 +17,12 @@ MenuBoard::MenuBoard(const char* prm_name, const char* prm_model) :
     slide_from_offset_y_ = 0;
     target_x_ = _x;
     target_y_ = _y;
-    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
-    pSeTx->set(SE_ON_RISEN      , "WAVE_MENU_ON_RISEN");
-    pSeTx->set(SE_MOVE_CURSOR   , "WAVE_MENU_MOVE_CURSOR");
-    pSeTx->set(SE_DECIDED_OK    , "WAVE_MENU_DECIDED_OK");
-    pSeTx->set(SE_DECIDED_CANCEL, "WAVE_MENU_DECIDED_CANCEL");
-    pSeTx->set(SE_WRONG         , "WAVE_MENU_SE_WRONG");
+    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
+    pSe->set(SE_ON_RISEN      , "WAVE_MENU_ON_RISEN");
+    pSe->set(SE_MOVE_CURSOR   , "WAVE_MENU_MOVE_CURSOR");
+    pSe->set(SE_DECIDED_OK    , "WAVE_MENU_DECIDED_OK");
+    pSe->set(SE_DECIDED_CANCEL, "WAVE_MENU_DECIDED_CANCEL");
+    pSe->set(SE_WRONG         , "WAVE_MENU_SE_WRONG");
 }
 
 void MenuBoard::setTransition(frame prm_menu_fade_frames,
@@ -44,7 +44,7 @@ bool MenuBoard::condDecision() {
         //「メニューアイテム：キャンセル」を「決定」したことにする。
         //現カーソルが「メニューアイテム：キャンセル」にあるかどうかの判断は、
         //relateAllItemToCancel() で定義されたアイテムのインデックスかどうかで判断。
-        getSeTx()->play(SE_DECIDED_CANCEL);
+        getSeTransmitter()->play(SE_DECIDED_CANCEL);
         return true;
     } else {
         return false;
@@ -55,7 +55,7 @@ bool MenuBoard::condCancel() {
     if (VB->isPushedDown(VB_UI_CANCEL)) {
         //「メニューアイテム：任意」で、VB_UI_CANCEL ボタンの場合は
         //そのアイテムを「キャンセル」した事とする。(当たり前だが)
-        getSeTx()->play(SE_DECIDED_CANCEL);
+        getSeTransmitter()->play(SE_DECIDED_CANCEL);
         return true;
     } else {
         return false;
@@ -105,7 +105,7 @@ void MenuBoard::riseSubMenu(coord prm_target_x, coord prm_target_y) {
 void MenuBoard::moveCursor(bool prm_smooth) {
     FontBoardMenu::moveCursor(prm_smooth);
     if (prm_smooth) { //スムーズ移動trueすなわち、活動状態。
-        getSeTx()->play(SE_MOVE_CURSOR);
+        getSeTransmitter()->play(SE_MOVE_CURSOR);
     }
 }
 
@@ -129,7 +129,7 @@ void MenuBoard::onRise() {
     pKuroko->setMvAngTwd(target_x_, target_y_);
     pKuroko->asstMv()->slideByDt(UTIL::getDistance(_x, _y, target_x_, target_y_), _fade_frames,
                                   0.2, 0.3, 0, true);
-    getSeTx()->play(SE_ON_RISEN);
+    getSeTransmitter()->play(SE_ON_RISEN);
 }
 
 void MenuBoard::processBehavior() {

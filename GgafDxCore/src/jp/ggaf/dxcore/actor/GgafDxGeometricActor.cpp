@@ -16,7 +16,7 @@ GgafDxGeometricActor::GgafDxGeometricActor(const char* prm_name,
                                            GgafStatus* prm_pStat,
                                            GgafDxChecker* prm_pChecker) : GgafDxBaseActor(prm_name, prm_pStat),
     _pKuroko(new GgafDxKuroko(this)),
-    _pSeTx(new GgafDxSeTransmitterForActor(this)),
+    _pSeTransmitter(new GgafDxSeTransmitterForActor(this)),
     _is_2D(false),
     _offscreen_kind(-1),
     _x(0), _y(0), _z(0),
@@ -400,23 +400,23 @@ void GgafDxGeometricActor::setFaceAngAs(const GgafDxGeoElem* prm_pGeoElem) {
     setRzFaceAng(prm_pGeoElem->rz);
 }
 
-//void GgafDxGeometricActor::setFaceAng(axis prm_axis, angle prm_angFace) {
-//    _angFace[prm_axis] = UTIL::simplifyAng(prm_angFace);
+//void GgafDxGeometricActor::setFaceAng(axis prm_axis, angle prm_ang_face) {
+//    _ang_face[prm_axis] = UTIL::simplifyAng(prm_ang_face);
 //}
 
-void GgafDxGeometricActor::setRzFaceAng(angle prm_angFace) {
-    _rz = UTIL::simplifyAng(prm_angFace);
+void GgafDxGeometricActor::setRzFaceAng(angle prm_ang_face) {
+    _rz = UTIL::simplifyAng(prm_ang_face);
 }
-void GgafDxGeometricActor::setRyFaceAng(angle prm_angFace) {
-    _ry = UTIL::simplifyAng(prm_angFace);
+void GgafDxGeometricActor::setRyFaceAng(angle prm_ang_face) {
+    _ry = UTIL::simplifyAng(prm_ang_face);
 }
-void GgafDxGeometricActor::setRxFaceAng(angle prm_angFace) {
-    _rx = UTIL::simplifyAng(prm_angFace);
+void GgafDxGeometricActor::setRxFaceAng(angle prm_ang_face) {
+    _rx = UTIL::simplifyAng(prm_ang_face);
 }
 
-void GgafDxGeometricActor::setRzRyFaceAng(angle prm_angRzFace, angle prm_angRyFace) {
-    setRzFaceAng(prm_angRzFace);
-    setRyFaceAng(prm_angRyFace);
+void GgafDxGeometricActor::setRzRyFaceAng(angle prm_ang_rz_face, angle prm_ang_ry_face) {
+    setRzFaceAng(prm_ang_rz_face);
+    setRyFaceAng(prm_ang_ry_face);
 }
 
 void GgafDxGeometricActor::setFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz) {
@@ -444,7 +444,7 @@ void GgafDxGeometricActor::onEnd() {
 
 GgafDxGeometricActor::~GgafDxGeometricActor() {
     delete _pKuroko;
-    delete _pSeTx;
+    delete _pSeTransmitter;
 }
 
 void GgafDxGeometricActor::dump() {

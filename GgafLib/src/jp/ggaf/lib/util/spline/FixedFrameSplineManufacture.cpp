@@ -9,11 +9,11 @@ using namespace GgafLib;
 
 FixedFrameSplineManufacture::FixedFrameSplineManufacture(const char* prm_source_file,
                                                          frame prm_spent_frame,
-                                                         angvelo prm_angveloRzRyMv,
+                                                         angvelo prm_angvelo_rzry_mv,
                                                          int prm_turn_way,
                                                          bool prm_turn_optimaize) : SplineManufacture(prm_source_file) {
     _spent_frame = prm_spent_frame;
-    _angveloRzRyMv = prm_angveloRzRyMv;
+    _angvelo_rzry_mv = prm_angvelo_rzry_mv;
     _turn_way = prm_turn_way;
     _turn_optimize = prm_turn_optimaize;
 
@@ -30,11 +30,11 @@ FixedFrameSplineManufacture::FixedFrameSplineManufacture(const char* prm_source_
 
 FixedFrameSplineManufacture::FixedFrameSplineManufacture(SplineSource* prm_pSplSrc,
                                                          frame prm_spent_frame,
-                                                         angvelo prm_angveloRzRyMv,
+                                                         angvelo prm_angvelo_rzry_mv,
                                                          int prm_turn_way,
                                                          bool prm_turn_optimaize) : SplineManufacture(prm_pSplSrc) {
     _spent_frame = prm_spent_frame;
-    _angveloRzRyMv = prm_angveloRzRyMv;
+    _angvelo_rzry_mv = prm_angvelo_rzry_mv;
     _turn_way = prm_turn_way;
     _turn_optimize = prm_turn_optimaize;
 

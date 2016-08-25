@@ -27,8 +27,8 @@ EnemyOzartia::EnemyOzartia(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Ozartia", STATUS(EnemyOzartia)) {
     _class_name = "EnemyOzartia";
     pAFader_ = NEW GgafDxAlphaFader(this);
-    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
+    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI1_-1);
     pProg2_ = createProgress(PROG2_BANPEI-1);
     is_hit_ = false;
@@ -283,7 +283,7 @@ void EnemyOzartia::onHit(const GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTx()->play3D(SE_EXPLOSION);
+        getSeTransmitter()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)

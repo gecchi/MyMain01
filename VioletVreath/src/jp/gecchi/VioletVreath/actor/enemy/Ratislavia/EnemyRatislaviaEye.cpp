@@ -41,10 +41,10 @@ EnemyRatislaviaEye::EnemyRatislaviaEye(const char* prm_name, EnemyRatislavia* pr
     pEffect_ = NEW EffectRatislaviaEye001("EffectRatislaviaEye001");
     pEffect_->inactivate();
     addSubGroup(pEffect_);
-    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
-    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
-    pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
+    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
+    pSe->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
+    pSe->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
     useProgress(PROG_BANPEI);
 
     is_wake_ = false;
@@ -127,7 +127,7 @@ void EnemyRatislaviaEye::processBehavior() {
             LaserChip* pChip = pLaserChipDepo_->dispatch();
             if (pChip) {
                 if (pChip->getInfrontChip() == nullptr) {
-                    getSeTx()->play3D(SE_FIRE);
+                    getSeTransmitter()->play3D(SE_FIRE);
                 }
             } else {
                 pProg->changeNext();
@@ -154,7 +154,7 @@ void EnemyRatislaviaEye::processBehavior() {
 
     pKuroko->behave();
     getMorpher()->behave();
-    getSeTx()->behave();
+    getSeTransmitter()->behave();
 }
 
 void EnemyRatislaviaEye::processJudgement() {
@@ -167,13 +167,13 @@ void EnemyRatislaviaEye::onHit(const GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTx()->play3D(SE_EXPLOSION);
+        getSeTransmitter()->play3D(SE_EXPLOSION);
         sayonara();
         _TRACE_(FUNC_NAME<<" 上位になげるthrowEventUpperTree(RATISLAVIA_EXPLOSION)");
         throwEventUpperTree(RATISLAVIA_EXPLOSION); //親のEnemyRatislaviaを破壊するイベントを投げる
     } else {
         //破壊されなかった時(スタミナ > 0)
-        getSeTx()->play3D(SE_DAMAGED);
+        getSeTransmitter()->play3D(SE_DAMAGED);
     }
 }
 

@@ -19,8 +19,8 @@ EnemyEsperiaLaserChip001::EnemyEsperiaLaserChip001(const char* prm_name) :
     tx2_ = ty2_ = tz2_ = 0;
     begin_y_ = 0;
     turn_dy_ = 0;
-    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
-    pSeTx->set(SE_FIRE , "WAVE_ENEMY_FIRE_LASER_001");
+    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
+    pSe->set(SE_FIRE , "WAVE_ENEMY_FIRE_LASER_001");
 }
 
 void EnemyEsperiaLaserChip001::initialize() {
@@ -105,7 +105,7 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
 
         case PROG_INTO_MYSHIP: {
             if (pProg->hasJustChanged()) {
-                getSeTx()->play3D(SE_FIRE);
+                getSeTransmitter()->play3D(SE_FIRE);
             }
             if (pProg->getFrame() % 16U == 0) {
                 pKuroko->turnMvAngTwd(tx2_, ty2_, tz2_,
@@ -124,7 +124,7 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
         }
     }
     pKuroko->behave();
-    getSeTx()->behave();
+    getSeTransmitter()->behave();
 }
 
 void EnemyEsperiaLaserChip001::processJudgement() {

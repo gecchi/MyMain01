@@ -1,3 +1,4 @@
+#include <jp/ggaf/dxcore/util/GgafDxUtil.h>
 #include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
@@ -5,7 +6,6 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
 #include "jp/ggaf/dxcore/util/GgafDx26DirectionUtil.h"
-#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCameraViewPoint.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCameraUpVector.h"
 #include "jp/ggaf/lib/GgafLibProperties.h"

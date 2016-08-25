@@ -1,7 +1,7 @@
+#include <jp/ggaf/dxcore/util/GgafDxUtil.h>
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
-#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

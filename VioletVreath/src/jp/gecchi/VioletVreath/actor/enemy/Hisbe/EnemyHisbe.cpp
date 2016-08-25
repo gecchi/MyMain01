@@ -86,10 +86,10 @@ EnemyHisbe::EnemyHisbe(const char* prm_name) :
     //普通のレーザー
 
 
-    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
-    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
+    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
+    pSe->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    pSe->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
     useProgress(PROG_BANPEI);
 }
@@ -152,7 +152,7 @@ void EnemyHisbe::processBehavior() {
                     pLaser->positionAs(this);
                     pLaser->setFaceAngAs(this); //レーザーのスプラインがRELATIVE_COORD_DIRECTIONのため向き設定が必要。
                     if (pLaser->getInfrontChip() == nullptr) {
-                        getSeTx()->play3D(SE_FIRE);
+                        getSeTransmitter()->play3D(SE_FIRE);
                     }
                 } else {
                     pProg->changeNext();
@@ -181,7 +181,7 @@ void EnemyHisbe::processBehavior() {
     }
     getKuroko()->behave();
     getMorpher()->behave();
-    getSeTx()->behave();
+    getSeTransmitter()->behave();
 }
 
 void EnemyHisbe::processJudgement() {
@@ -194,11 +194,11 @@ void EnemyHisbe::onHit(const GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTx()->play3D(SE_EXPLOSION);
+        getSeTransmitter()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)
-        getSeTx()->play3D(SE_DAMAGED);
+        getSeTransmitter()->play3D(SE_DAMAGED);
     }
 }
 

@@ -33,7 +33,7 @@ void EffectLockon001_Sub::onActive() {
     setAlpha(0.01);
     _sx = _sy = _sz = pEffectLockon001_Main_->_sx;
     getKuroko()->setFaceAngVelo(AXIS_Z, 1000);        //右回転
-    //getSeTx()->play3D(0); //ロックオンSE
+    //getSeTransmitter()->play3D(0); //ロックオンSE
     if (pTarget_) {
         positionAs(pTarget_);
         getProgress()->reset(LOCKON001_PROG_LOCK);

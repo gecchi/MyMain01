@@ -1,8 +1,8 @@
+#include <jp/ggaf/dxcore/util/GgafDxUtil.h>
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 
 #include "jp/ggaf/core/util/GgafValueEnveloper.hpp"
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
-#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 
 using namespace GgafCore;

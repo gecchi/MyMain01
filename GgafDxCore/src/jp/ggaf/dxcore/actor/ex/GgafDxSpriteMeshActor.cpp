@@ -1,8 +1,8 @@
+#include <jp/ggaf/dxcore/util/GgafDxUtil.h>
 #include "jp/ggaf/dxcore/actor/ex/GgafDxSpriteMeshActor.h"
 
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/GgafDxProperties.h"
-#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/dxcore/model/GgafDxMeshModel.h"
 #include "jp/ggaf/dxcore/effect/GgafDxMeshEffect.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"

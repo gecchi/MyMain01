@@ -1,3 +1,4 @@
+#include <jp/ggaf/dxcore/util/GgafDxUtil.h>
 #include "jp/ggaf/dxcore/actor/ex/GgafDxSpriteMeshSetActor.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
@@ -7,7 +8,6 @@
 #include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
 #include "jp/ggaf/dxcore/model/GgafDxMeshSetModel.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
-#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

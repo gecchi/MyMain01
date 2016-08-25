@@ -38,11 +38,11 @@ EnemyHalia::EnemyHalia(const char* prm_name) :
         pLaserChipDepo_->put(pChip);
     }
     addSubGroup(pLaserChipDepo_);
-    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
-    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    pSeTx->set(SE_UNDAMAGED, "WAVE_ENEMY_UNDAMAGED_001");
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
+    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
+    pSe->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    pSe->set(SE_UNDAMAGED, "WAVE_ENEMY_UNDAMAGED_001");
+    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    pSe->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
     pAFader_ = NEW GgafDxAlphaFader(this);
 
@@ -160,7 +160,7 @@ void EnemyHalia::processBehavior() {
             LaserChip* pLaser = pLaserChipDepo_->dispatch();
             if (pLaser) {
                 if (pLaser->getInfrontChip() == nullptr) {
-                    getSeTx()->play3D(SE_FIRE);
+                    getSeTransmitter()->play3D(SE_FIRE);
                 }
             } else {
                 pProg->change(PROG_CLOSE);
@@ -180,7 +180,7 @@ void EnemyHalia::processBehavior() {
     }
     pKuroko->behave();
     getMorpher()->behave();
-    getSeTx()->behave();
+    getSeTransmitter()->behave();
     pAFader_->behave();
 }
 
@@ -195,14 +195,14 @@ void EnemyHalia::onHit(const GgafActor* prm_pOtherActor) {
         bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
         if (was_destroyed) {
             //破壊された時(スタミナ <= 0)
-            getSeTx()->play3D(SE_EXPLOSION);
+            getSeTransmitter()->play3D(SE_EXPLOSION);
             sayonara();
         } else {
             //破壊されなかった時(スタミナ > 0)
-            getSeTx()->play3D(SE_DAMAGED);
+            getSeTransmitter()->play3D(SE_DAMAGED);
         }
     } else {
-        getSeTx()->play3D(SE_UNDAMAGED);
+        getSeTransmitter()->play3D(SE_UNDAMAGED);
     }
 }
 

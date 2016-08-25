@@ -1,6 +1,6 @@
+#include <jp/ggaf/dxcore/util/GgafDxUtil.h>
 #include "jp/ggaf/dxcore/util/GgafDx26DirectionUtil.h"
 
-#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

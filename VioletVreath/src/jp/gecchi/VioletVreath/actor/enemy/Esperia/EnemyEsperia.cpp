@@ -44,7 +44,7 @@ EnemyEsperia::EnemyEsperia(const char* prm_name) :
         paLocalPos_laser_[i].set(PX_C(-40) + (i*dX),  PX_C(10), 0); //レーザー発射元のローカル座標
     }
 
-    GgafDxSeTransmitterForActor* pSetx = getSeTx();
+    GgafDxSeTransmitterForActor* pSetx = getSeTransmitter();
     pSetx->set(SE_EXPLOSION  , "WAVE_EXPLOSION_MIDDLE_001");
     pSetx->set(SE_DAMAGED    , "WAVE_ENEMY_DAMAGED_001");
     pSetx->set(SE_HATCH_OPEN , "WAVE_HATCH_OPEN_001");
@@ -130,7 +130,7 @@ void EnemyEsperia::processBehavior() {
 
         case PROG_HATCH_OPEN: {
             if (pProg->hasJustChanged()) {
-                getSeTx()->play3D(SE_HATCH_OPEN);
+                getSeTransmitter()->play3D(SE_HATCH_OPEN);
                 getMorpher()->transitionLinerUntil(1, 1.0, 120);
             }
             if (pProg->hasArrivedAt(120)) {
@@ -256,7 +256,7 @@ void EnemyEsperia::processBehavior() {
                         }
                     }
 
-                    getSeTx()->play3D(SE_FIRE); //発射音
+                    getSeTransmitter()->play3D(SE_FIRE); //発射音
                     effectFlush(2); //フラッシュ
                     cnt_laserchip_ = 0;
                 }
@@ -318,7 +318,7 @@ void EnemyEsperia::processBehavior() {
 
         case PROG_HATCH_CLOSE: {
             if (pProg->hasJustChanged()) {
-                getSeTx()->play3D(SE_HATCH_CLOSE);
+                getSeTransmitter()->play3D(SE_HATCH_CLOSE);
                 getMorpher()->transitionLinerUntil(1, 0.0, 120);
             }
             if (pProg->hasArrivedAt(120)) {
@@ -348,11 +348,11 @@ void EnemyEsperia::onHit(const GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTx()->play3D(SE_EXPLOSION);
+        getSeTransmitter()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)
-        getSeTx()->play3D(SE_DAMAGED);
+        getSeTransmitter()->play3D(SE_DAMAGED);
     }
 }
 

@@ -31,8 +31,8 @@ VreathItem::VreathItem(const char* prm_name, const char* prm_model, GgafCore::Gg
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAABox_Cube(0, 400000);
-    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
-    pSeTx->set(0, "WAVE_GET_ITEM_001");
+    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
+    pSe->set(0, "WAVE_GET_ITEM_001");
 }
 
 void VreathItem::initialize() {
@@ -128,7 +128,7 @@ void VreathItem::processBehavior() {
         _sy -= 100;
         _sz -= 100;
         if (_sx < 5) {
-            getSeTx()->play(0);
+            getSeTransmitter()->play(0);
             pProg->changeNothing();
             sayonara(); //èIóπ
         }

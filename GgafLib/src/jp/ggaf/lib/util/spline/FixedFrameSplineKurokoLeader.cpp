@@ -22,10 +22,10 @@ FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(SplineManufacture* pr
 FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(GgafDxKuroko* prm_pKuroko_target,
                                                            SplineLine* prm_pSpl,
                                                            frame prm_spent_frame,
-                                                           angvelo prm_angveloRzRyMv):
+                                                           angvelo prm_angvelo_rzry_mv):
         SplineKurokoLeader(nullptr, prm_pKuroko_target) {  //nullptrで渡す事により、_is_created_pManufacture が falseになる
 
-    _pFixedFrameSplManuf = NEW FixedFrameSplineManufacture(NEW SplineSource(prm_pSpl), prm_spent_frame, prm_angveloRzRyMv);
+    _pFixedFrameSplManuf = NEW FixedFrameSplineManufacture(NEW SplineSource(prm_pSpl), prm_spent_frame, prm_angvelo_rzry_mv);
     _pFixedFrameSplManuf->calculate();//これも忘れないように。いずれこのタイプは消す
     _pManufacture = _pFixedFrameSplManuf;
     _leading_frames = 0;
@@ -93,7 +93,7 @@ void FixedFrameSplineKurokoLeader::behave() {
             coord x, y, z;
             getPointCoord(_point_index, x, y, z);
             pKuroko_target->turnMvAngTwd(x, y, z,
-                                         _pFixedFrameSplManuf->_angveloRzRyMv, 0,
+                                         _pFixedFrameSplManuf->_angvelo_rzry_mv, 0,
                                          _pFixedFrameSplManuf->_turn_way, _pFixedFrameSplManuf->_turn_optimize);
 
             if (_point_index == 0) {

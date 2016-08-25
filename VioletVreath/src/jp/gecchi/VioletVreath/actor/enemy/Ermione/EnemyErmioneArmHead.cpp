@@ -68,7 +68,7 @@ void EnemyErmioneArmHead::onHit(const GgafActor* prm_pOtherActor) {
 //        setHitAble(false);
 //        //爆発効果
 //        UTIL::activateExplosionEffectOf(this);
-//        getSeTx()->play3D(SE_EXPLOSION);
+//        getSeTransmitter()->play3D(SE_EXPLOSION);
 //
 //        //自機側に撃たれて消滅の場合、
 //        if (pOther->getKind() & KIND_MY) {
@@ -79,7 +79,7 @@ void EnemyErmioneArmHead::onHit(const GgafActor* prm_pOtherActor) {
 //    } else {
 //        //非破壊時
 //        effectFlush(2); //フラッシュ
-//        getSeTx()->play3D(SE_DAMAGED);
+//        getSeTransmitter()->play3D(SE_DAMAGED);
 //    }
 }
 

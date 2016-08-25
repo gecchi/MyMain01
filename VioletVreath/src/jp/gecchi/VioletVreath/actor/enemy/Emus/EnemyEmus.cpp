@@ -33,9 +33,9 @@ EnemyEmus::EnemyEmus(const char* prm_name) :
 //         );
 //    pDepoStore_laser_set = (GgafActorDepositoryStore*)(pConn_pDepoStore_laser_set->peek());
     pDepo_ = nullptr;
-    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
-    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
+    pSe->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
     ini_wait_ = 0;
 }
@@ -168,11 +168,11 @@ void EnemyEmus::onHit(const GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //”j‰óŽž
-        getSeTx()->play3D(SE_EXPLOSION);
+        getSeTransmitter()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //”ñ”j‰óŽž
-        getSeTx()->play3D(SE_DAMAGED);
+        getSeTransmitter()->play3D(SE_DAMAGED);
     }
 }
 

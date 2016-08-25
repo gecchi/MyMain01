@@ -17,9 +17,9 @@ EnemyTalante::EnemyTalante(const char* prm_name) :
         DefaultMassMeshActor(prm_name, "Talante", STATUS(EnemyTalante)) {
     _class_name = "EnemyTalante";
     pDepo_shot_ = nullptr;
-    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
-    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
+    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
+    pSe->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
     Z_ok_ = Y_ok_ = false;
     useProgress(PROG_BANPEI);
 }
@@ -149,7 +149,7 @@ void EnemyTalante::processBehavior() {
     }
     pKuroko->behave();
 
-    //getSeTx()->behave();
+    //getSeTransmitter()->behave();
 }
 
 void EnemyTalante::processJudgement() {
@@ -168,11 +168,11 @@ void EnemyTalante::onHit(const GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, pOther);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTx()->play3D(SE_EXPLOSION);
+        getSeTransmitter()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)
-        getSeTx()->play3D(SE_DAMAGED);
+        getSeTransmitter()->play3D(SE_DAMAGED);
     }
 }
 

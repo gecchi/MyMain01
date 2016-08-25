@@ -14,8 +14,8 @@ MenuSelectSub::MenuSelectSub(const char* prm_name, const char* prm_model) :
     _class_name = "MenuSelectSub";
     target_x_ = _x;
     target_y_ = _y;
-    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
-    pSeTx->set(SE_MOVE_CURSOR   , "WAVE_MENU_MOVE_CURSOR"   );
+    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
+    pSe->set(SE_MOVE_CURSOR   , "WAVE_MENU_MOVE_CURSOR"   );
     setFadeFrames(0);
     activateImmed(); //選択メニューなので、初期状態は活動状態をデフォルトとする
 }
@@ -82,7 +82,7 @@ void MenuSelectSub::riseSubMenu(int prm_index, coord prm_target_x, coord prm_tar
 void MenuSelectSub::moveCursor(bool prm_smooth) {
     FontBoardMenu::moveCursor(prm_smooth);
     if (prm_smooth) { //スムーズ移動trueすなわち、活動状態。
-        getSeTx()->play(SE_MOVE_CURSOR);
+        getSeTransmitter()->play(SE_MOVE_CURSOR);
     }
 }
 

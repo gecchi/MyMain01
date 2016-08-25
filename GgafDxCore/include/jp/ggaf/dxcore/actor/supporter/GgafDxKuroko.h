@@ -305,8 +305,8 @@ public: //_x, _y, _z 操作関連 //////////////////////////////////////////////
     coord _taget_face_ang_alltime_tx;
     coord _taget_face_ang_alltime_ty;
     coord _taget_face_ang_alltime_tz;
-    angvelo  _taget_face_ang_alltime_angVelo;
-    angacce _taget_face_ang_alltime_angAcce;
+    angvelo _taget_face_ang_alltime_angvelo;
+    angacce _taget_face_ang_alltime_angacce;
     int _taget_face_ang_alltime_way;
     bool _taget_face_ang_alltime_optimize_ang;
 
@@ -527,9 +527,9 @@ public:
      * デフォルトのZ軸移動加速度の上限と下限（_bottom_angvelo_rz_mv、_top_angvelo_rz_mv) は  -360000 , 360000<BR>
      * となっています。これは瞬時に（1フレームで）どんな移動方角（Z軸回転）にも向きを変えれることを意味します。<BR>
      *
-     * @param   prm_angDistance 移動方角（Z軸回転）増分(範囲：_bottom_angvelo_rz_mv ～ _top_angvelo_rz_mv)
+     * @param   prm_ang_distance 移動方角（Z軸回転）増分(範囲：_bottom_angvelo_rz_mv ～ _top_angvelo_rz_mv)
      */
-    void addRzMvAng(angle prm_angDistance);
+    void addRzMvAng(angle prm_ang_distance);
 
     angle getRzMvAng() {
         return _ang_rz_mv;
@@ -604,9 +604,9 @@ public:
      *
      * となっています。これは瞬時に（1フレームで）どんな移動方角（Y軸回転）にも向きを変えれることを意味します。<BR>
      *
-     * @param   prm_angDistance 移動方角（Y軸回転）増分(範囲：_bottom_angvelo_ry_mv ～ _top_angvelo_ry_mv)
+     * @param   prm_ang_distance 移動方角（Y軸回転）増分(範囲：_bottom_angvelo_ry_mv ～ _top_angvelo_ry_mv)
      */
-    void addRyMvAng(angle prm_angDistance);
+    void addRyMvAng(angle prm_ang_distance);
 
     angle getRyMvAng() {
         return _ang_ry_mv;
@@ -652,7 +652,7 @@ public:
      * 同じ方向を意味するもう一組の RzRy までの距離を割り出し、<BR>
      * 到達アングル数の少ない方の RzRy の組み合わせを自動採用する。<BR>
      * (注意：極地Y軸回転があるため、最小アングル差は必ずしも最短距離にあらず)<BR>
-     * 所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は<BR>
+     * 所望の方向に最短フレームでターゲットするが、内部の _ang_rz_mv, _ang_ry_mv は<BR>
      * 引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
      * 一致しないことが困る場合は、Z軸Y軸個別に距離を求めて下さい。<BR>
      * @param prm_target_ang_rz
@@ -666,11 +666,11 @@ public:
                                  angle& out_d_ang_rz, angle& out_d_ang_ry);
 
     /**
-     * 自身の軸回転方角のZ軸Y軸回転角(_angFace[AXIS_Z], _angFace[AXIS_Y])と、ターゲットの回転角との最適な差分を取得 .
+     * 自身の軸回転方角のZ軸Y軸回転角(_ang_face[AXIS_Z], _ang_face[AXIS_Y])と、ターゲットの回転角との最適な差分を取得 .
      * 同じ方向を意味するもう一組の RzRy までの距離を割り出し、<BR>
      * 到達アングル数の少ない方の RzRy の組み合わせを自動採用する。<BR>
      * (注意：極地Y軸回転があるため、最小アングル差は必ずしも最短距離にあらず)<BR>
-     * 所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は<BR>
+     * 所望の方向に最短フレームでターゲットするが、内部の _ang_rz_mv, _ang_ry_mv は<BR>
      * 引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
      * 一致しないことが困る場合は、Z軸Y軸個別に距離を求めて下さい。<BR>
      * @param prm_target_ang_rz
@@ -765,7 +765,7 @@ public:
      *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、<BR>
      *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。<BR>
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
-     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は<BR>
+     *                               所望の方向に最短フレームでターゲットするが、内部の _ang_rz_mv, _ang_ry_mv は<BR>
      *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
      *                         false:引数の prm_ang_rz_target, prm_ang_ry_target をそのままターゲートとする。<BR>
      */
@@ -786,7 +786,7 @@ public:
      *                         true: 引数の prm_ang_rz_target, prm_ang_ry_target までの距離と、<BR>
      *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、<BR>
      *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。<BR>
-     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は<BR>
+     *                               所望の方向に最短フレームでターゲットするが、内部の _ang_rz_mv, _ang_ry_mv は<BR>
      *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_ang_rz_target, prm_ang_ry_target をそのままターゲートとする。<BR>
@@ -807,7 +807,7 @@ public:
      *                         true: 引数の prm_ang_rz_target, prm_ang_ry_target までの距離と、<BR>
      *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、<BR>
      *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。<BR>
-     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は<BR>
+     *                               所望の方向に最短フレームでターゲットするが、内部の _ang_rz_mv, _ang_ry_mv は<BR>
      *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_ang_rz_target, prm_ang_ry_target をそのままターゲートとする。<BR>
@@ -898,7 +898,7 @@ public:
      *                         true: 引数の prm_ang_rz_target, prm_ang_ry_target までの距離と、<BR>
      *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、<BR>
      *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。<BR>
-     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は<BR>
+     *                               所望の方向に最短フレームでターゲットするが、内部の _ang_rz_mv, _ang_ry_mv は<BR>
      *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_ang_rz_target, prm_ang_ry_target をそのままターゲートとする。<BR>
@@ -921,7 +921,7 @@ public:
      *                         true: 引数の prm_ang_rz_target, prm_ang_ry_target までの距離と、<BR>
      *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、<BR>
      *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。<BR>
-     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は<BR>
+     *                               所望の方向に最短フレームでターゲットするが、内部の _ang_rz_mv, _ang_ry_mv は<BR>
      *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_ang_rz_target, prm_ang_ry_target をそのままターゲートとする。<BR>
@@ -943,7 +943,7 @@ public:
      *                         true: 引数の prm_ang_rz_target, prm_ang_ry_target までの距離と、<BR>
      *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、<BR>
      *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。<BR>
-     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は<BR>
+     *                               所望の方向に最短フレームでターゲットするが、内部の _ang_rz_mv, _ang_ry_mv は<BR>
      *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_ang_rz_target, prm_ang_ry_target をそのままターゲートとする。<BR>
@@ -959,8 +959,8 @@ public:
         _taget_face_ang_alltime_tx = prm_tx;
         _taget_face_ang_alltime_ty = prm_ty;
         _taget_face_ang_alltime_tz = prm_tz;
-        _taget_face_ang_alltime_angVelo = prm_angvelo;
-        _taget_face_ang_alltime_angAcce = prm_angacce;
+        _taget_face_ang_alltime_angvelo = prm_angvelo;
+        _taget_face_ang_alltime_angacce = prm_angacce;
         _taget_face_ang_alltime_way = prm_way;
         _taget_face_ang_alltime_optimize_ang = prm_optimize_ang;
     }
@@ -976,7 +976,7 @@ public:
      *                         true: 引数の prm_ang_rz_target, prm_ang_ry_target までの距離と、<BR>
      *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、<BR>
      *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。<BR>
-     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は<BR>
+     *                               所望の方向に最短フレームでターゲットするが、内部の _ang_rz_mv, _ang_ry_mv は<BR>
      *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_ang_rz_target, prm_ang_ry_target をそのままターゲートとする。<BR>
@@ -1004,7 +1004,7 @@ public:
      *                         true: 引数の prm_ang_rz_target, prm_ang_ry_target までの距離と、<BR>
      *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、<BR>
      *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。<BR>
-     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は<BR>
+     *                               所望の方向に最短フレームでターゲットするが、内部の _ang_rz_mv, _ang_ry_mv は<BR>
      *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_ang_rz_target, prm_ang_ry_target をそのままターゲートとする。<BR>

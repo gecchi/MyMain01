@@ -23,8 +23,8 @@ EnemyOebius::EnemyOebius(const char* prm_name) :
         DefaultMassMeshActor(prm_name, "Oebius", STATUS(EnemyOebius)) {
     _class_name = "EnemyOebius";
     pAFader_ = NEW GgafDxAlphaFader(this);
-    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
+    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
     pKurokoLeader_ = nullptr; //フォーメーションオブジェクトが設定する
     scatter_flg_ = false;
@@ -148,7 +148,7 @@ void EnemyOebius::onHit(const GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTx()->play3D(SE_EXPLOSION);
+        getSeTransmitter()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)

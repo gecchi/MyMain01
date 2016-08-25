@@ -1,5 +1,4 @@
-#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
-
+#include <jp/ggaf/dxcore/util/GgafDxUtil.h>
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 
 using namespace GgafCore;
@@ -309,7 +308,7 @@ void GgafDxUtil::convRzRyToRyRz(angle prm_Rz, angle prm_Ry, angle& out_Ry, angle
 //}
 
 //void GgafDxUtil::getMoveRzRyWayShot3D_XZ(int prm_nWay, angle prm_angClearance, coord prm_tx, coord prm_ty, coord prm_tz,
-//                                          angle& out_angFaceZ, angle* out_paAngRotY) {
+//                                          angle& out_ang_faceZ, angle* out_paAngRotY) {
 //    angle tRz, tRy;
 //    convVectorToRzRy(prm_tx, prm_ty, prm_tz, tRy, tRy);
 //
@@ -608,7 +607,7 @@ void GgafDxUtil::convRzRyToVector(angle prm_ang_rz,
                                   float& out_nvx,
                                   float& out_nvy,
                                   float& out_nvz) {
-    //void GgafDxSphereRadiusVectors::getVectorClosely(int out_angFaceY, int prm_angZ, uint16_t& out_x, uint16_t& out_y, uint16_t& out_z) {
+    //void GgafDxSphereRadiusVectors::getVectorClosely(int out_ang_faceY, int prm_angZ, uint16_t& out_x, uint16_t& out_y, uint16_t& out_z) {
     //回転角によって象限を考慮し、getVectorCloselyのパラメータ角(< 900)を出す
     int xsign, ysign, zsign;
     s_ang rz, ry_rev;

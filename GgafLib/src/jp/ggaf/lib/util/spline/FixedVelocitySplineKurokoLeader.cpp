@@ -21,9 +21,9 @@ FixedVelocitySplineKurokoLeader::FixedVelocitySplineKurokoLeader(SplineManufactu
 
 FixedVelocitySplineKurokoLeader::FixedVelocitySplineKurokoLeader(GgafDxKuroko* prm_pKuroko_target,
                                                                  SplineLine* prm_pSpl,
-                                                                 angvelo prm_angveloRzRyMv):
+                                                                 angvelo prm_angvelo_rzry_mv):
         SplineKurokoLeader(nullptr, prm_pKuroko_target) { //nullptrで渡す事により、_is_created_pManufacture が falseになる
-    _pFixedVeloSplManuf = NEW FixedVelocitySplineManufacture(NEW SplineSource(prm_pSpl), prm_angveloRzRyMv);
+    _pFixedVeloSplManuf = NEW FixedVelocitySplineManufacture(NEW SplineSource(prm_pSpl), prm_angvelo_rzry_mv);
     _pFixedVeloSplManuf->calculate(); //忘れないように。いずれこのタイプは消す
     _pManufacture = _pFixedVeloSplManuf; //基底メンバーセット。忘れないように。いずれこのタイプは消す
     _leadning_float_frames = 0.0f;
@@ -75,7 +75,7 @@ again:
         coord x, y, z;
         getPointCoord(_point_index, x, y, z);
         pKuroko_target->turnMvAngTwd(x, y, z,
-                                     _pFixedVeloSplManuf->_angveloRzRyMv, 0,
+                                     _pFixedVeloSplManuf->_angvelo_rzry_mv, 0,
                                      _pFixedVeloSplManuf->_turn_way,
                                      _pFixedVeloSplManuf->_turn_optimize);
         //キャラの速度が1000ならば、_leadning_float_frames ++;

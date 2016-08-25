@@ -1,7 +1,7 @@
+#include <jp/ggaf/dxcore/util/GgafDxUtil.h>
 #include "jp/ggaf/dxcore/actor/GgafDxMassPointSpriteActor.h"
 
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/dxcore/effect/GgafDxMassPointSpriteEffect.h"
 #include "jp/ggaf/dxcore/model/GgafDxMassPointSpriteModel.h"
 #include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"

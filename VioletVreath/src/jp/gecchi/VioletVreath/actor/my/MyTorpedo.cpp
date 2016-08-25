@@ -40,8 +40,8 @@ MyTorpedo::MyTorpedo(const char* prm_name, MyTorpedoController* prm_pTorpedoCont
     pTarget_ = nullptr;
     useProgress(10);
     trz_ = try_ = 0;
-    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_TORPEDO");
+    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
+    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_TORPEDO");
 }
 
 void MyTorpedo::initialize() {
@@ -247,7 +247,7 @@ void MyTorpedo::onHit(const GgafActor* prm_pOtherActor) {
 
     //”š•—”­¶
     MyTorpedoBlast* pBlast = (MyTorpedoBlast*)(pTorpedoCtrler_->pDepo_TorpedoBlast_->dispatchForce());
-    getSeTx()->play3D(SE_EXPLOSION);
+    getSeTransmitter()->play3D(SE_EXPLOSION);
     pBlast->reset();
     pBlast->positionAs(this);
 }

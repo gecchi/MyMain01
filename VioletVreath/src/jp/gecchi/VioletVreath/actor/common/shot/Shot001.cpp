@@ -21,8 +21,8 @@ Shot001::Shot001(const char* prm_name) :
     _class_name = "Shot001";
     pScaler_ = NEW GgafDxScaler(this);
 
-    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
-    pSeTx->set(0, "WAVE_EXPLOSION_002");
+    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
+    pSe->set(0, "WAVE_EXPLOSION_002");
 
     pSplLineConnection_ = connectToSplineLineManager("Spl_HAN"); //スプライン定義
     pKurokoLeader_ = NEW FixedVelocitySplineKurokoLeader(getKuroko(), pSplLineConnection_->peek(), 10000); //移動速度固定
@@ -68,7 +68,7 @@ void Shot001::onHit(const GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTx()->play3D(0);
+        getSeTransmitter()->play3D(0);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)

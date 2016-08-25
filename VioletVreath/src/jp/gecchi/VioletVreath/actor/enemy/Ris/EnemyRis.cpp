@@ -1,10 +1,10 @@
+#include <jp/ggaf/dxcore/util/GgafDxUtil.h>
 #include "EnemyRis.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
-#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -23,8 +23,8 @@ EnemyRis::EnemyRis(const char* prm_name)
     pKurokoLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
-    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
+    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
+    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
 }
 
 void EnemyRis::onCreateModel() {
@@ -118,7 +118,7 @@ void EnemyRis::processBehavior() {
         pKurokoLeader_->behave(); //スプライン移動を振る舞い
     }
     pKuroko->behave();
-    //getSeTx()->behave();
+    //getSeTransmitter()->behave();
 }
 
 void EnemyRis::processJudgement() {
@@ -131,7 +131,7 @@ void EnemyRis::onHit(const GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTx()->play3D(SE_EXPLOSION);
+        getSeTransmitter()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)

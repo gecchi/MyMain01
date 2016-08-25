@@ -1,7 +1,7 @@
+#include <jp/ggaf/dxcore/util/GgafDxUtil.h>
 #include "jp/ggaf/dxcore/actor/GgafDxPointSpriteSetActor.h"
 
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/dxcore/effect/GgafDxPointSpriteSetEffect.h"
 #include "jp/ggaf/dxcore/model/GgafDxPointSpriteSetModel.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"

@@ -38,7 +38,7 @@ void EffectLockon001_Main::onActive() {
     setScale(60000); //(6000%)
     pScaler_->transitionLinerUntil(2000, 25);//スケーリング・25F費やして2000(200%)に縮小
     getKuroko()->setFaceAngVelo(AXIS_Z, 1000);        //回転
-    getSeTx()->play3D(0); //ロックオンSE
+    getSeTransmitter()->play3D(0); //ロックオンSE
 
     if (pTarget_) {
         positionAs(pTarget_);
@@ -121,7 +121,7 @@ void EffectLockon001_Main::lockon(GgafDxGeometricActor* prm_pTarget) {
         pScaler_->setRange(60000, 2000); //スケーリング・範囲
         pScaler_->transitionLinerUntil(2000, 25);//スケーリング・20F費やして2000(200%)に縮小
         pKuroko->setFaceAngVelo(AXIS_Z, 1000);   //回転
-        getSeTx()->play3D(0); //ロックオンSE
+        getSeTransmitter()->play3D(0); //ロックオンSE
         pProg->change(LOCKON001_PROG_FIRST_LOCK);
     }
 

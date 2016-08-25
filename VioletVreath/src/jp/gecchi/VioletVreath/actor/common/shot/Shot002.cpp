@@ -18,8 +18,8 @@ Shot002::Shot002(const char* prm_name) :
     _class_name = "Shot002";
     pScaler_ = NEW GgafDxScaler(this);
 
-    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
-    pSeTx->set(0, "WAVE_EXPLOSION_002");
+    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
+    pSe->set(0, "WAVE_EXPLOSION_002");
 }
 
 void Shot002::initialize() {
@@ -54,7 +54,7 @@ void Shot002::processBehavior() {
     //座標に反映
     pKuroko->behave();
     pScaler_->behave();
-    getSeTx()->behave();
+    getSeTransmitter()->behave();
 }
 
 void Shot002::processJudgement() {
@@ -67,7 +67,7 @@ void Shot002::onHit(const GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTx()->play3D(0);
+        getSeTransmitter()->play3D(0);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)

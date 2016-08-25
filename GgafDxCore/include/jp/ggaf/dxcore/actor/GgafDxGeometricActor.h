@@ -28,7 +28,7 @@ private:
     /** [r]黒衣 */
     GgafDxKuroko* const _pKuroko;
     /** [r]効果音発生管理オブジェクト */
-    GgafDxSeTransmitterForActor* const _pSeTx;
+    GgafDxSeTransmitterForActor* const _pSeTransmitter;
 
 public:
     /** [r] 変換済み座標であるか(true:本アクターは変換済み座標/false:本アクターはワールド座標) */
@@ -408,27 +408,27 @@ public:
 
     /**
      * X軸方角のアングル値を設定 .
-     * @param prm_angFace アングル値(-360,000～360,000)
+     * @param prm_ang_face アングル値(-360,000～360,000)
      */
-    virtual void setRzFaceAng(angle prm_angFace);
+    virtual void setRzFaceAng(angle prm_ang_face);
 
     /**
      * Y軸方角のアングル値を設定 .
-     * @param prm_angFace アングル値(-360,000～360,000)
+     * @param prm_ang_face アングル値(-360,000～360,000)
      */
-    virtual void setRyFaceAng(angle prm_angFace);
+    virtual void setRyFaceAng(angle prm_ang_face);
 
     /**
      * Z軸方角のアングル値を設定 .
-     * @param prm_angFace アングル値(-360,000～360,000)
+     * @param prm_ang_face アングル値(-360,000～360,000)
      */
-    virtual void setRxFaceAng(angle prm_angFace);
+    virtual void setRxFaceAng(angle prm_ang_face);
 
-    virtual void setRollFaceAng(angle prm_angFace) {
-        setRxFaceAng(prm_angFace);
+    virtual void setRollFaceAng(angle prm_ang_face) {
+        setRxFaceAng(prm_ang_face);
     }
 
-    virtual void setRzRyFaceAng(angle prm_angRzFace, angle prm_angRyFace);
+    virtual void setRzRyFaceAng(angle prm_ang_rz_face, angle prm_ang_ry_face);
 
     virtual void addRzFaceAng(angle prm_ang_rz) {
         setRzFaceAng(_rz + prm_ang_rz);
@@ -448,16 +448,16 @@ public:
 
     /**
      * Actorの正面方角を設定 .
-     * @param prm_axis_x_angFace X軸方角のアングル値(-360,000～360,000)
-     * @param prm_axis_z_angFace Z軸方角のアングル値(-360,000～360,000)
-     * @param prm_axis_y_angFace Y軸方角のアングル値(-360,000～360,000)
+     * @param prm_axis_x_ang_face X軸方角のアングル値(-360,000～360,000)
+     * @param prm_axis_z_ang_face Z軸方角のアングル値(-360,000～360,000)
+     * @param prm_axis_y_ang_face Y軸方角のアングル値(-360,000～360,000)
      */
-    virtual void setRollPitchYawFaceAng(angle prm_axis_x_angFace,
-                                        angle prm_axis_z_angFace,
-                                        angle prm_axis_y_angFace) {
-        setRxFaceAng(prm_axis_x_angFace);
-        setRzFaceAng(prm_axis_z_angFace);
-        setRyFaceAng(prm_axis_y_angFace);
+    virtual void setRollPitchYawFaceAng(angle prm_axis_x_ang_face,
+                                        angle prm_axis_z_ang_face,
+                                        angle prm_axis_y_ang_face) {
+        setRxFaceAng(prm_axis_x_ang_face);
+        setRzFaceAng(prm_axis_z_ang_face);
+        setRyFaceAng(prm_axis_y_ang_face);
     }
 
     inline void setFaceAngZero() {
@@ -606,8 +606,8 @@ public:
      * 本アクターのサウンドエフェクト出力支援オブジェクトを取得 .
      * @return サウンドエフェクト出力支援オブジェクト
      */
-    inline GgafDxSeTransmitterForActor* getSeTx() const {
-        return _pSeTx;
+    inline GgafDxSeTransmitterForActor* getSeTransmitter() const {
+        return _pSeTransmitter;
     }
 
     virtual void onEnd() override;

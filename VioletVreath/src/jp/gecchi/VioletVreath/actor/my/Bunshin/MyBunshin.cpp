@@ -77,10 +77,10 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) :
     pScaler_ = NEW GgafDxScaler(this);
     pAFader_ = NEW GgafDxAlphaFader(this);
     pColorist_ = NEW GgafDxColorist(this);
-    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
-    pSeTx->set(SE_FIRE_LASER,   "WAVE_MY_FIRE_LASER_002");
-    pSeTx->set(SE_FIRE_SHOT,    "WAVE_MY_FIRE_SHOT_002");
-    pSeTx->set(SE_FIRE_TORPEDO, "WAVE_MY_FIRE_TORPEDO_002");
+    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
+    pSe->set(SE_FIRE_LASER,   "WAVE_MY_FIRE_LASER_002");
+    pSe->set(SE_FIRE_SHOT,    "WAVE_MY_FIRE_SHOT_002");
+    pSe->set(SE_FIRE_TORPEDO, "WAVE_MY_FIRE_TORPEDO_002");
 
     pass_p_seq_ = 0;
 }
@@ -136,7 +136,7 @@ void MyBunshin::processChangeGeoFinal() {
         if (pMyShip->is_snipe_shot_) {
             MyBunshinSnipeShot001* const pSnipeShot = (MyBunshinSnipeShot001*)pDepo_MySnipeBunshinShot_->dispatch();
             if (pSnipeShot) {
-                getSeTx()->play3D(SE_FIRE_SHOT);
+                getSeTransmitter()->play3D(SE_FIRE_SHOT);
                 pSnipeShot->positionAs(this);
                 pSnipeShot->getKuroko()->setRzRyMvAng(_rz, _ry);
                 pSnipeShot->getKuroko()->setMvVelo(PX_C(70));
@@ -146,7 +146,7 @@ void MyBunshin::processChangeGeoFinal() {
             if (pMyShip->shot_level_ >= 1) {
                 MyBunshinShot001* const  pShot = (MyBunshinShot001*)pDepo_MyBunshinShot_->dispatch();
                 if (pShot) {
-                    getSeTx()->play3D(SE_FIRE_SHOT);
+                    getSeTransmitter()->play3D(SE_FIRE_SHOT);
                     pShot->positionAs(this);
                     pShot->getKuroko()->setRzRyMvAng(_rz, _ry);
                     pShot->getKuroko()->setMvVelo(PX_C(70));
@@ -185,7 +185,7 @@ void MyBunshin::processChangeGeoFinal() {
         if (pLaserChip) {
             pLaserChip->setOrg(this);
             if (pLaserChip->getInfrontChip() == nullptr) {
-                getSeTx()->play3D(SE_FIRE_LASER);
+                getSeTransmitter()->play3D(SE_FIRE_LASER);
             }
         }
     } else {
@@ -194,7 +194,7 @@ void MyBunshin::processChangeGeoFinal() {
     //ŒõŽq‹›—‹”­ŽË
     if (pVbPlay->isPushedDown(VB_SHOT2)) {
         if (pTorpedoCtrler_->fire()) {
-            getSeTx()->play3D(SE_FIRE_TORPEDO);
+            getSeTransmitter()->play3D(SE_FIRE_TORPEDO);
         }
     }
 }

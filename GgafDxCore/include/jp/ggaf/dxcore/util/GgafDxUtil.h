@@ -224,7 +224,7 @@ public:
                               int prm_vy_Center,
                               int prm_nWay,
                               angle prm_angClearance,
-                              int* out_paAngle);
+                              angle* out_paAngle);
 
     /**
      * 平面上において、'N'way弾(N=整数)の射出アングル値をセット(配列)で取得 .
@@ -252,7 +252,7 @@ public:
 //                                           angle* out_paAngleRz, angle* out_paAngleRy);
 
 //    static void getMoveRzRyWayShot3D_XZ(int prm_nWay, angle prm_angClearance, coord prm_tx, coord prm_ty, coord prm_tz,
-//                                        angle& out_angFaceZ, angle* out_paAngRotY);
+//                                        angle& out_ang_faceZ, angle* out_paAngRotY);
 
 
     /**

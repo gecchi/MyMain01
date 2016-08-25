@@ -47,8 +47,8 @@ EnemyEres::EnemyEres(const char* prm_name, GgafActorDepository* prm_pDepo_EnemyE
     pKurokoLeader_ = NEW FixedVelocitySplineKurokoLeader(getKuroko(), pSplLineConnection_->peek(), 5000); //移動速度固定
 
 //    pKurokoLeader_ = NEW FixedFrameSplineKurokoLeader(getKuroko(), pSplLineConnection_->peek(), 600, 5000); //移動フレーム数固定
-    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
+    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
 }
 
 void EnemyEres::initialize() {
@@ -97,7 +97,7 @@ void EnemyEres::processBehavior() {
     }
     pKurokoLeader_->behave(); //スプライン移動を進める
     getKuroko()->behave(); //次の座標へ移動
-    //getSeTx()->behave();
+    //getSeTransmitter()->behave();
     frame_Active_++;
 }
 
@@ -111,7 +111,7 @@ void EnemyEres::onHit(const GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTx()->play3D(SE_EXPLOSION);
+        getSeTransmitter()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)

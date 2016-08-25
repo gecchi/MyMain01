@@ -1,12 +1,12 @@
 #ifndef GGAFLIB_MENUACTOR_H_
 #define GGAFLIB_MENUACTOR_H_
+#include <jp/ggaf/dxcore/util/GgafDxUtil.h>
 #include "GgafLibCommonHeader.h"
 
 #include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
 #include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
-#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/lib/actor/DefaultBoardActor.h"
 #include "jp/ggaf/lib/actor/DefaultBoardSetActor.h"
 #include "jp/ggaf/lib/actor/DefaultSpriteActor.h"

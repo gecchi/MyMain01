@@ -68,7 +68,7 @@ void MyStraightLaserChip001::processBehavior() {
     const GgafDxGeometricActor* const pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
 
     if (getInfrontChip() == nullptr) {
-        getSeTx()->behave();
+        getSeTransmitter()->behave();
     }
     StraightLaserChip::processBehavior();//座標を移動させてから呼び出すこと
     //根元からレーザー表示のため強制的に座標補正

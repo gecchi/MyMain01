@@ -656,7 +656,7 @@ void MenuBoardScreenConfig::processBehavior() {
         } else {
             //1‰æ–Ê‚È‚Ì‚ÅAÝ’èo—ˆ‚È‚¢B
             if (is_right || is_left) {
-                getSeTx()->play(SE_WRONG);
+                getSeTransmitter()->play(SE_WRONG);
             }
         }
     }

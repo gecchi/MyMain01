@@ -1,6 +1,6 @@
+#include <jp/ggaf/dxcore/util/GgafDxUtil.h>
 #include "jp/ggaf/dxcore/actor/GgafDxBoardActor.h"
 
-#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 #include "jp/ggaf/dxcore/model/GgafDxBoardModel.h"

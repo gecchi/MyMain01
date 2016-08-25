@@ -72,33 +72,33 @@ public:
      * @param prm_x 単位方向ベクトルX要素（長さ1 が 1000000) > 0
      * @param prm_y 単位方向ベクトルY要素（長さ1 が 1000000) > 0
      * @param prm_z 単位方向ベクトルZ要素（長さ1 が 1000000) > 0
-     * @param out_angFaceZ Z軸回転値（ 回転値0は、方向ベクトル(1,0,0)。方向ベクトル(0,0,1)を向いて反時計回り。）（単位s_ang）
-     * @param out_angFaceY_rev 時計周りY軸回転値（回転値0は、同じく方向ベクトル(1,0,0)。方向ベクトル(0,1,0)を向いて時計回り）（単位s_ang）
+     * @param out_ang_faceZ Z軸回転値（ 回転値0は、方向ベクトル(1,0,0)。方向ベクトル(0,0,1)を向いて反時計回り。）（単位s_ang）
+     * @param out_ang_faceY_rev 時計周りY軸回転値（回転値0は、同じく方向ベクトル(1,0,0)。方向ベクトル(0,1,0)を向いて時計回り）（単位s_ang）
      * @param s 計算回数（精度）。回数が多いほど正確になる。
      */
     void getFaceAngClosely(uint32_t prm_x,
                            uint32_t prm_y,
                            uint32_t prm_z,
-                           s_ang& out_angFaceZ,
-                           s_ang& out_angFaceY_rev,
+                           s_ang& out_ang_faceZ,
+                           s_ang& out_ang_faceY_rev,
                            int s = 25);
 
     /**
      * 引数のZ軸回転とY軸回転の値から、相当する単位方向ベクトルの近時を求める .
      * 但し、結果の方向ベクトルの各要素(X,Y,Z)が正の値になるような引数しか受け付けない。<BR>
      * 戻り値はuint32_tで符号無しのため、intと演算する時は気をつけよ<BR>
-     * @param prm_angFaceY_rev Z軸回転値（ 回転値0は、方向ベクトル(1,0,0)。方向ベクトル(0,0,1)を向いて反時計回り。）（単位s_ang）
-     * @param prm_angFaceZ 時計周りY軸回転値（回転値0は、同じく方向ベクトル(1,0,0)。方向ベクトル(0,1,0)を向いて時計回り）（単位s_ang）
+     * @param prm_ang_faceY_rev Z軸回転値（ 回転値0は、方向ベクトル(1,0,0)。方向ベクトル(0,0,1)を向いて反時計回り。）（単位s_ang）
+     * @param prm_ang_faceZ 時計周りY軸回転値（回転値0は、同じく方向ベクトル(1,0,0)。方向ベクトル(0,1,0)を向いて時計回り）（単位s_ang）
      * @param out_x 単位方向ベクトルX要素（長さ1 が 1000000) > 0
      * @param out_y 単位方向ベクトルY要素（長さ1 が 1000000) > 0
      * @param out_z 単位方向ベクトルZ要素（長さ1 が 1000000) > 0
      */
-    inline void getVectorClosely(s_ang prm_angFaceY_rev,
-                                 s_ang prm_angFaceZ,
+    inline void getVectorClosely(s_ang prm_ang_faceY_rev,
+                                 s_ang prm_ang_faceZ,
                                  uint32_t& out_x,
                                  uint32_t& out_y,
                                  uint32_t& out_z ) {
-        COMPARE_ABLE_SR_VECTOR::SR_VECTOR& V = _sr[(int)(prm_angFaceZ*(D90SANG+1)+prm_angFaceY_rev)].vec;
+        COMPARE_ABLE_SR_VECTOR::SR_VECTOR& V = _sr[(int)(prm_ang_faceZ*(D90SANG+1)+prm_ang_faceY_rev)].vec;
         out_x = V.x;
         out_y = V.y;
         out_z = V.z;

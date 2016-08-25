@@ -13,9 +13,9 @@ TestGu::TestGu(const char* prm_name)
       : TestEnemy(prm_name, "TestGu", STATUS(TestGu)) {
     _class_name = "TestGu";
 
-    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
-    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
+    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
+    pSe->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
 }
 
 void TestGu::onActive() {
@@ -24,7 +24,7 @@ void TestGu::onActive() {
 
 void TestGu::processBehavior() {
     getKuroko()->behave();
-    //getSeTx()->behave();
+    //getSeTransmitter()->behave();
     dispStamina();
 }
 
@@ -38,11 +38,11 @@ void TestGu::onHit(const GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTx()->play3D(SE_EXPLOSION);
+        getSeTransmitter()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)
-        getSeTx()->play3D(SE_DAMAGED);
+        getSeTransmitter()->play3D(SE_DAMAGED);
     }
 }
 

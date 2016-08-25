@@ -121,7 +121,7 @@ public:
      *                         true: 引数の prm_ang_rz_target, prm_ang_ry_target までの距離と、<BR>
      *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、<BR>
      *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。<BR>
-     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は<BR>
+     *                               所望の方向に最短フレームでターゲットするが、内部の _ang_rz_mv, _ang_ry_mv は<BR>
      *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_ang_rz_target, prm_ang_ry_target をそのままターゲートとする。<BR>

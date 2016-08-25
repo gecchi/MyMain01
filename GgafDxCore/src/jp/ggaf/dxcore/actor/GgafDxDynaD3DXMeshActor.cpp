@@ -1,7 +1,7 @@
+#include <jp/ggaf/dxcore/util/GgafDxUtil.h>
 #include "jp/ggaf/dxcore/actor/GgafDxDynaD3DXMeshActor.h"
 
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/dxcore/effect/GgafDxMeshEffect.h"
 #include "jp/ggaf/dxcore/model/GgafDxD3DXMeshModel.h"
 

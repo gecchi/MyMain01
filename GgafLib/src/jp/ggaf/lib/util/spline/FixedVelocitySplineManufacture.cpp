@@ -8,11 +8,11 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 
 FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(const char* prm_source_file,
-                                                               angvelo prm_angveloRzRyMv,
+                                                               angvelo prm_angvelo_rzry_mv,
                                                                int prm_turn_way,
                                                                bool prm_turn_optimaize) :
         SplineManufacture(prm_source_file) {
-    _angveloRzRyMv = prm_angveloRzRyMv;
+    _angvelo_rzry_mv = prm_angvelo_rzry_mv;
     _turn_way = prm_turn_way;
     _turn_optimize = prm_turn_optimaize;
     _velo_mvUnit = PX_C(1); //速度 PX_C(1) とした場合の各区間のフレーム数を基本とする
@@ -20,11 +20,11 @@ FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(const char* prm_s
 }
 
 FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(SplineSource* prm_pSplSrc,
-                                                               angvelo prm_angveloRzRyMv,
+                                                               angvelo prm_angvelo_rzry_mv,
                                                                int prm_turn_way,
                                                                bool prm_turn_optimaize) :
         SplineManufacture(prm_pSplSrc) {
-    _angveloRzRyMv = prm_angveloRzRyMv;
+    _angvelo_rzry_mv = prm_angvelo_rzry_mv;
     _turn_way = prm_turn_way;
     _turn_optimize = prm_turn_optimaize;
     _velo_mvUnit = PX_C(1); //速度 PX_C(1) とした場合の各区間のフレーム数を基本とする

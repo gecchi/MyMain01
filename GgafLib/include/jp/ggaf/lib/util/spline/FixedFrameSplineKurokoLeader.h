@@ -41,7 +41,7 @@ public:
     FixedFrameSplineKurokoLeader(GgafDxCore::GgafDxKuroko* prm_pKuroko,
                                  SplineLine* prm_pSpl,
                                  frame prm_spent_frame,
-                                 angvelo prm_angveloRzRyMv);
+                                 angvelo prm_angvelo_rzry_mv);
 
     virtual void restart() override;
 

@@ -18,7 +18,7 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
     _TRACE_(FUNC_NAME<<" idstr="<<prm_idstr<<"");
 
     frame spent_frame = 0;
-    angvelo angveloRzRyMv = 0;
+    angvelo angvelo_rzry_mv = 0;
     std::string classname = "";
     int turn_way = -1;
     bool turn_optimize = true;
@@ -138,8 +138,8 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
     //ANGLE_VELOCITY
     if (UTIL::isExistKey("ANGLE_VELOCITY", mapSplPropperties)) {
         if (leader == CLASS_FixedFrameSpline || leader == CLASS_FixedVelocitySpline) {
-            angveloRzRyMv = (angvelo)atoi(mapSplPropperties["ANGLE_VELOCITY"].c_str());
-            if (angveloRzRyMv == 0) {
+            angvelo_rzry_mv = (angvelo)atoi(mapSplPropperties["ANGLE_VELOCITY"].c_str());
+            if (angvelo_rzry_mv == 0) {
                 _TRACE_("ƒŒx„ SplineManufactureManager::processCreateResource "<<prm_idstr<<" : "<<
                         "[ANGLE_VELOCITY] ‚ª 0 ‚Å‚·BˆÓ}‚µ‚Ä‚Ü‚·‚©H");
             }
@@ -201,12 +201,12 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
     if (leader == CLASS_FixedFrameSpline) {
         pSplManuf = NEW FixedFrameSplineManufacture(spl_data_file.c_str(),
                                                     spent_frame,
-                                                    angveloRzRyMv,
+                                                    angvelo_rzry_mv,
                                                     turn_way,
                                                     turn_optimize);
     } else if (leader == CLASS_FixedVelocitySpline) {
         pSplManuf = NEW FixedVelocitySplineManufacture(spl_data_file.c_str(),
-                                                       angveloRzRyMv,
+                                                       angvelo_rzry_mv,
                                                        turn_way,
                                                        turn_optimize);
     } else if (leader == CLASS_SteppedCoordSpline) {

@@ -1,7 +1,7 @@
+#include <jp/ggaf/dxcore/util/GgafDxUtil.h>
 #include "jp/ggaf/dxcore/actor/GgafDxSpriteSetActor.h"
 
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/dxcore/effect/GgafDxSpriteSetEffect.h"
 #include "jp/ggaf/dxcore/model/GgafDxSpriteSetModel.h"
 #include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"

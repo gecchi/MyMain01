@@ -30,7 +30,7 @@ void EnemyErmioneArmWeak::onHit(const GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTx()->play3D(SE_EXPLOSION);
+        getSeTransmitter()->play3D(SE_EXPLOSION);
         sayonara();
         //腕のみ爆発
         if (getParent()) {
@@ -43,7 +43,7 @@ void EnemyErmioneArmWeak::onHit(const GgafActor* prm_pOtherActor) {
         //この処理で、腕のみ爆発となる。
     } else {
         //破壊されなかった時(スタミナ > 0)
-        getSeTx()->play3D(SE_DAMAGED);
+        getSeTransmitter()->play3D(SE_DAMAGED);
     }
 }
 

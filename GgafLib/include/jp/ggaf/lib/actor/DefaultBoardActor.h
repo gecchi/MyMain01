@@ -15,7 +15,7 @@ namespace GgafLib {
  * <TR><TD>getProgress()</TD><TD>進捗管理</TD><TD>GgafCore::GgafProgress</TD></TR>
  * <TR><TD>getKuroko()</TD><TD>黒衣。移動支援(※正面方角回転機能はZ軸回転のみ有効)</TD><TD>GgafDxCore::GgafDxKuroko</TD></TR>
  * <TR><TD>getUvFlipper()</TD><TD>パラパラアニメーション支援</TD><TD>GgafDxCore::GgafDxUvFlipper</TD></TR>
- * <TR><TD>getSeTx()</TD><TD>効果音発生管理</TD><TD>GgafDxCore::GgafDxSeTransmitter</TD></TR>
+ * <TR><TD>getSeTransmitter()</TD><TD>効果音発生管理</TD><TD>GgafDxCore::GgafDxSeTransmitter</TD></TR>
  * </TABLE>
  * @version 1.00
  * @since 2009/03/11

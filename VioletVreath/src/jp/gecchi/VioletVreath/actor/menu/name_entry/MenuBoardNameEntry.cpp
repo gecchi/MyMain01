@@ -88,7 +88,7 @@ bool MenuBoardNameEntry::condDecision() {
     } else if (VB->isPushedDown(VB_UI_CANCEL) &&
                getSelectedIndex() == ITEM_INDEX_BS_) {
         //特別に[BS]でキャンセルボタン押した場合は。[BS]を「決定（振る舞い）」したことにする
-        getSeTx()->play(SE_DECIDED_CANCEL);
+        getSeTransmitter()->play(SE_DECIDED_CANCEL);
         return true;
     } else {
         return false;
@@ -99,7 +99,7 @@ bool MenuBoardNameEntry::condCancel() {
     if (VB->isPushedDown(VB_UI_CANCEL)) {
         //「メニューアイテム：任意」で、VB_UI_CANCEL ボタンの場合は
         //そのアイテムを「キャンセル」した事とする。(当たり前だが)
-        getSeTx()->play(SE_DECIDED_CANCEL);
+        getSeTransmitter()->play(SE_DECIDED_CANCEL);
         return true;
     } else {
         return false;

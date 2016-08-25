@@ -19,9 +19,9 @@ EnemyDrastea::EnemyDrastea(const char* prm_name) :
         CubeMapMeshSetActor(prm_name, "Drastea", STATUS(EnemyDrastea)) {
     _class_name = "EnemyDrastea";
     pAxsMver_ = NEW GgafDxAxesMover(this);
-    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
-    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
+    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
+    pSe->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
 }
 
 void EnemyDrastea::onCreateModel() {
@@ -94,7 +94,7 @@ void EnemyDrastea::processBehavior() {
     //座標に反映
     getKuroko()->behave();
     pAxsMver_->behave();
-    getSeTx()->behave();
+    getSeTransmitter()->behave();
 }
 
 void EnemyDrastea::processJudgement() {
@@ -107,11 +107,11 @@ void EnemyDrastea::onHit(const GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTx()->play3D(SE_EXPLOSION);
+        getSeTransmitter()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)
-        getSeTx()->play3D(SE_DAMAGED);
+        getSeTransmitter()->play3D(SE_DAMAGED);
     }
 }
 

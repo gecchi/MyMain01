@@ -105,9 +105,9 @@ public:
     std::stringstream st_[10];
 
     /** [r]‰r¥’†Œø‰Ê‰¹”­¶ŠÇ— */
-    GgafDxCore::GgafDxSeTransmitterForActor* pSeTx4Cast_;
+    GgafDxCore::GgafDxSeTransmitterForActor* pSe4Cast_;
     /** [r]”­“®’†Œø‰Ê‰¹”­¶ŠÇ— */
-    GgafDxCore::GgafDxSeTransmitterForActor* pSeTx4Invoke_;
+    GgafDxCore::GgafDxSeTransmitterForActor* pSe4Invoke_;
     /** —\”­¶‚Ìc‚èŠÔ‚ğİ’è */
     frame fraeme_of_notice_remaind_;
 

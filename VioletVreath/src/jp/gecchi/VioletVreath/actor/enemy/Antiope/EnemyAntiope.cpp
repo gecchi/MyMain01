@@ -19,8 +19,8 @@ EnemyAntiope::EnemyAntiope(const char* prm_name, const char* prm_model, GgafStat
     _class_name = "EnemyAntiope";
     pAFader_ = NEW GgafDxAlphaFader(this);
     pAxsMver_ = NEW GgafDxAxesMover(this);
-    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
+    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
     pP_ = nullptr;
 }
@@ -140,7 +140,7 @@ void EnemyAntiope::onHit(const GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTx()->play3D(SE_EXPLOSION);
+        getSeTransmitter()->play3D(SE_EXPLOSION);
         if (pP_) {
             if (pP_->pP_) {
                 pP_->pP_ = nullptr;

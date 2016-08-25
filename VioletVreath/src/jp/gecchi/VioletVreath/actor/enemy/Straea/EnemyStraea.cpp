@@ -70,9 +70,9 @@ EnemyStraea::EnemyStraea(const char* prm_name) :
         }
     }
     GGAF_DELETEARR(paAng_way);
-    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
-    pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
+    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
+    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
+    pSe->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
     useProgress(PROG_BANPEI);
     pConn_pShotDepo2_ = connectToDepositoryManager("Shot004Yellow");
@@ -176,7 +176,7 @@ void EnemyStraea::processBehavior() {
                     }
                 }
                 if (can_fire) {
-                    getSeTx()->play3D(SE_FIRE); //発射音
+                    getSeTransmitter()->play3D(SE_FIRE); //発射音
                     effectFlush(2); //フラッシュ
                 }
             }
@@ -224,7 +224,7 @@ void EnemyStraea::processBehavior() {
             break;
         }
     }
-    getSeTx()->behave();
+    getSeTransmitter()->behave();
     pKuroko->behave();
 }
 
@@ -307,7 +307,7 @@ void EnemyStraea::onHit(const GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTx()->play3D(SE_EXPLOSION);
+        getSeTransmitter()->play3D(SE_EXPLOSION);
         sayonara();
         //固有打ち返し
         UTIL::shotWay003(this,

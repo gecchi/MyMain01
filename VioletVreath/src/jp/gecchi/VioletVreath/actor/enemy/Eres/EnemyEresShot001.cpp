@@ -34,8 +34,8 @@ EnemyEresShot001::EnemyEresShot001(const char* prm_name) :
     /** 方向転換を開始（frame_TurnBegin_）から再設定される加速度 */
     iMoveAcce_2nd_ = 100;
 
-    GgafDxSeTransmitterForActor* pSeTx = getSeTx();
-    pSeTx->set(ERESSHOT001_SE_EXPLOSION, "WAVE_EXPLOSION_002");
+    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
+    pSe->set(ERESSHOT001_SE_EXPLOSION, "WAVE_EXPLOSION_002");
 }
 
 void EnemyEresShot001::initialize() {
@@ -79,7 +79,7 @@ void EnemyEresShot001::processBehavior() {
     //behaveUvFlip();
     //座標に反映
     pKuroko->behave();
-    //getSeTx()->behave();
+    //getSeTransmitter()->behave();
 }
 
 void EnemyEresShot001::processJudgement() {
@@ -92,7 +92,7 @@ void EnemyEresShot001::onHit(const GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTx()->play3D(ERESSHOT001_SE_EXPLOSION);
+        getSeTransmitter()->play3D(ERESSHOT001_SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)
