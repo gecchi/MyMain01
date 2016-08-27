@@ -104,7 +104,7 @@ void EnemyUrydike::processBehavior() {
             if (pProg->hasArrivedAt(delay_)) {
                 //ŽU‚èŽU‚è‚É‚È‚é
                 pKurokoLeader_->stop();
-                pKuroko->turnRzRyMvAngTo(RND_ABOUT(pKuroko->_ang_rz_mv, D_ANG(90)), RND_ABOUT(pKuroko->_ang_ry_mv, D_ANG(90)),
+                pKuroko->turnRzRyMvAngTo(RND_ABOUT(pKuroko->_rz_mv, D_ANG(90)), RND_ABOUT(pKuroko->_ry_mv, D_ANG(90)),
                                          D_ANG(2), 0, TURN_CLOSE_TO,false);
                 pKuroko->setMvAcce(100);
             }

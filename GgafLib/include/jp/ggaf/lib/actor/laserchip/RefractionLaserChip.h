@@ -38,8 +38,8 @@ private:
     angle _begining_rx;
     angle _begining_ry;
     angle _begining_rz;
-    angle _begining_ang_rz_mv;
-    angle _begining_ang_ry_mv;
+    angle _begining_rz_mv;
+    angle _begining_ry_mv;
     velo _begining_velo_mv;
     int _prev_x;
     int _prev_y;
@@ -47,8 +47,8 @@ private:
     angle _prev_rx;
     angle _prev_ry;
     angle _prev_rz;
-    angle _prev_ang_rz_mv;
-    angle _prev_ang_ry_mv;
+    angle _prev_rz_mv;
+    angle _prev_ry_mv;
     velo _prev_velo_mv;
 
     bool _prev_is_refracting;

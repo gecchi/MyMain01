@@ -408,34 +408,34 @@ public:
 
     /**
      * X軸方角のアングル値を設定 .
-     * @param prm_ang_face アングル値(-360,000～360,000)
+     * @param prm_face アングル値(-360,000～360,000)
      */
-    virtual void setRzFaceAng(angle prm_ang_face);
+    virtual void setRzFaceAng(angle prm_face);
 
     /**
      * Y軸方角のアングル値を設定 .
-     * @param prm_ang_face アングル値(-360,000～360,000)
+     * @param prm_face アングル値(-360,000～360,000)
      */
-    virtual void setRyFaceAng(angle prm_ang_face);
+    virtual void setRyFaceAng(angle prm_face);
 
     /**
      * Z軸方角のアングル値を設定 .
-     * @param prm_ang_face アングル値(-360,000～360,000)
+     * @param prm_face アングル値(-360,000～360,000)
      */
-    virtual void setRxFaceAng(angle prm_ang_face);
+    virtual void setRxFaceAng(angle prm_face);
 
-    virtual void setRollFaceAng(angle prm_ang_face) {
-        setRxFaceAng(prm_ang_face);
+    virtual void setRollFaceAng(angle prm_face) {
+        setRxFaceAng(prm_face);
     }
 
-    virtual void setRzRyFaceAng(angle prm_ang_rz_face, angle prm_ang_ry_face);
+    virtual void setRzRyFaceAng(angle prm_rz_face, angle prm_ry_face);
 
-    virtual void addRzFaceAng(angle prm_ang_rz) {
-        setRzFaceAng(_rz + prm_ang_rz);
+    virtual void addRzFaceAng(angle prm_rz) {
+        setRzFaceAng(_rz + prm_rz);
     }
 
-    virtual void addRyFaceAng(angle prm_ang_ry) {
-        setRyFaceAng(_ry + prm_ang_ry);
+    virtual void addRyFaceAng(angle prm_ry) {
+        setRyFaceAng(_ry + prm_ry);
     }
 
     virtual void addRxFaceAng(angle prm_ang_rx) {
@@ -448,16 +448,16 @@ public:
 
     /**
      * Actorの正面方角を設定 .
-     * @param prm_axis_x_ang_face X軸方角のアングル値(-360,000～360,000)
-     * @param prm_axis_z_ang_face Z軸方角のアングル値(-360,000～360,000)
-     * @param prm_axis_y_ang_face Y軸方角のアングル値(-360,000～360,000)
+     * @param prm_axis_x_face X軸方角のアングル値(-360,000～360,000)
+     * @param prm_axis_z_face Z軸方角のアングル値(-360,000～360,000)
+     * @param prm_axis_y_face Y軸方角のアングル値(-360,000～360,000)
      */
-    virtual void setRollPitchYawFaceAng(angle prm_axis_x_ang_face,
-                                        angle prm_axis_z_ang_face,
-                                        angle prm_axis_y_ang_face) {
-        setRxFaceAng(prm_axis_x_ang_face);
-        setRzFaceAng(prm_axis_z_ang_face);
-        setRyFaceAng(prm_axis_y_ang_face);
+    virtual void setRollPitchYawFaceAng(angle prm_axis_x_face,
+                                        angle prm_axis_z_face,
+                                        angle prm_axis_y_face) {
+        setRxFaceAng(prm_axis_x_face);
+        setRzFaceAng(prm_axis_z_face);
+        setRyFaceAng(prm_axis_y_face);
     }
 
     inline void setFaceAngZero() {

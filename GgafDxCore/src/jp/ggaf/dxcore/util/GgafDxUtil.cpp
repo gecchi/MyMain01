@@ -21,8 +21,8 @@ using namespace GgafDxCore;
 //軸回転は rot または r で書くようにする。 angRx とか、とにかく "R" か "r" が変数名に入ってる
 //＜例＞
 //angRx rot_x rx Rx rx radRx ・・・ X軸回転に関連している変数名
-//angRy rot_y ry Ry ry radRy ・・・ Y軸回転に関連している変数名
-//angRz rot_z rx Rz rz radRz ・・・ Z軸回転に関連している変数名
+//ry rot_y ry Ry ry radRy ・・・ Y軸回転に関連している変数名
+//rz rot_z rx Rz rz radRz ・・・ Z軸回転に関連している変数名
 //これらもその時々により精度が変わっているかもしれない。
 //また左手系(X軸は右へ行くと正、Y軸は上に行くと正、Z軸は奥へ行くと正）を前提としているため、
 //これらの軸回転angle値の正の値とは通常は、軸を向いて反時計回りの方向を表す。
@@ -42,19 +42,19 @@ using namespace GgafDxCore;
 //と読み替えれるが、angXZはY軸回転値の正負が逆になること、どのように「平面と見る」か姿勢が違うため。
 //
 //＜平面の中心角、または直線の成す角度を、軸回転とみなして計算する場合の変数名表現＞
-//angXY は ３次元空間の Z=0 のXY平面上に限り、angRz とみなすことが出来ます。
+//angXY は ３次元空間の Z=0 のXY平面上に限り、rz とみなすことが出来ます。
 //このようにして計算を行っている箇所があり、
 //「平面の中心角、または直線の成す角度 として値を求めたけども、軸回転として読み替えた、或いは、使いたかった」
 //という場合は rotxy という変数にしています。
-//つまり rotxy = angXY or angRz
-//angXY -> angRz は角度0°の位置(方向ベクトル(x,y,z)=(1,0,0))、正の回転方向が一致するのでわかりやすいです。
+//つまり rotxy = angXY or rz
+//angXY -> rz は角度0°の位置(方向ベクトル(x,y,z)=(1,0,0))、正の回転方向が一致するのでわかりやすいです。
 
 //「めも」
-//angXZ -> angRy の読み替えは正の回転方向が angXZ と angRy で逆になってしまいます。
-//angZX -> angRy の場合は正の回転方向は一致しますが、角度0°の位置が(x,y,z)=(1,0,0) ではなくなってしまうため、キャラの軸回転には向きません
+//angXZ -> ry の読み替えは正の回転方向が angXZ と ry で逆になってしまいます。
+//angZX -> ry の場合は正の回転方向は一致しますが、角度0°の位置が(x,y,z)=(1,0,0) ではなくなってしまうため、キャラの軸回転には向きません
 //
 //そこで
-//rot_xZ = angXZ or angRy_rev
+//rot_xZ = angXZ or ry_rev
 //のように "rev" 「逆周りですよ」と書くようにした。角度0°の位置を優先した結果、こんなややこしいことになっている！
 
 
@@ -264,63 +264,63 @@ void GgafDxUtil::init() {
 
 void GgafDxUtil::getWayAngle2D(int prm_vx_Center,
                                int prm_vy_Center,
-                               int prm_nWay,
-                               angle prm_angClearance,
+                               int prm_ways,
+                               angle prm_clearance,
                                angle* out_paAngle) {
-    return getWayAngle2D(getAngle2D(prm_vx_Center, prm_vy_Center), prm_nWay, prm_angClearance, out_paAngle);
+    return getWayAngle2D(getAngle2D(prm_vx_Center, prm_vy_Center), prm_ways, prm_clearance, out_paAngle);
 }
 
-void GgafDxUtil::getWayAngle2D(angle prm_angCenter, int prm_nWay, angle prm_angClearance, angle* out_paAngle) {
-    int angstart = GgafDxUtil::addAng(prm_angCenter, ((prm_nWay - 1) * prm_angClearance) / -2);
+void GgafDxUtil::getWayAngle2D(angle prm_center, int prm_ways, angle prm_clearance, angle* out_paAngle) {
+    int angstart = GgafDxUtil::addAng(prm_center, ((prm_ways - 1) * prm_clearance) / -2);
 
-    for (int i = 0; i < prm_nWay; i++) {
-        out_paAngle[i] = GgafDxUtil::addAng(angstart, prm_angClearance * i);
+    for (int i = 0; i < prm_ways; i++) {
+        out_paAngle[i] = GgafDxUtil::addAng(angstart, prm_clearance * i);
     }
 }
 
-void GgafDxUtil::getRadialAngle2D(angle prm_angStart, int prm_nWay, angle* out_paAngle) {
-    for (int i = 0; i < prm_nWay; i++) {
-        out_paAngle[i] = GgafDxUtil::addAng(prm_angStart, (angle)(1.0 * D360ANG / prm_nWay * i));
+void GgafDxUtil::getRadialAngle2D(angle prm_start, int prm_ways, angle* out_paAngle) {
+    for (int i = 0; i < prm_ways; i++) {
+        out_paAngle[i] = GgafDxUtil::addAng(prm_start, (angle)(1.0 * D360ANG / prm_ways * i));
     }
 }
 
-void GgafDxUtil::convRzRyToRyRz(angle prm_Rz, angle prm_Ry, angle& out_Ry, angle& out_Rz) {
+void GgafDxUtil::convRzRyToRyRz(angle prm_rz, angle prm_ry, angle& out_ry, angle& out_rz) {
     float vx,vy,vz;
-    GgafDxUtil::convRzRyToVector(prm_Rz, prm_Ry , vx, vy, vz);
-    GgafDxUtil::convVectorToRzRy(vx, vz, -1.0f*vy, out_Ry, out_Rz ); //-９０度X軸回転RzRy入れ替え
-    out_Rz = D360ANG-out_Rz; //Y軸をZ軸考えるため、正負が変わる＝逆回転＝360から引く
+    GgafDxUtil::convRzRyToVector(prm_rz, prm_ry , vx, vy, vz);
+    GgafDxUtil::convVectorToRzRy(vx, vz, -1.0f*vy, out_ry, out_rz ); //-９０度X軸回転RzRy入れ替え
+    out_rz = D360ANG-out_rz; //Y軸をZ軸考えるため、正負が変わる＝逆回転＝360から引く
 }
 
 
 
-//void GgafDxUtil::getWayAngle_LinedRzLongitude(angle prm_angCenterRz, angle prm_angCenterRy,
-//                                              int prm_nWay, angle prm_angClearance,
+//void GgafDxUtil::getWayAngle_LinedRzLongitude(angle prm_ang_center_rz, angle prm_ang_center_ry,
+//                                              int prm_ways, angle prm_clearance,
 //                                              angle* out_paAngleRz, angle* out_paAngleRy) {
 //    float vx,vy,vz;
-//    convRzRyToVector(prm_angCenterRz, prm_angCenterRy, vx, vy, vz);
+//    convRzRyToVector(prm_ang_center_rz, prm_ang_center_ry, vx, vy, vz);
 //    float vx2,vy2,vz2;
 //    //X軸９０度回転
 //    vx2 = vx;
 //    vy2 = -vz;
 //    vz2 = vy;
 //
-//    getWayAngle2D(prm_angCenterRz, prm_nWay, prm_angClearance, out_paAngleRz);
+//    getWayAngle2D(prm_ang_center_rz, prm_ways, prm_clearance, out_paAngleRz);
 //
 //}
 
-//void GgafDxUtil::getMoveRzRyWayShot3D_XZ(int prm_nWay, angle prm_angClearance, coord prm_tx, coord prm_ty, coord prm_tz,
-//                                          angle& out_ang_faceZ, angle* out_paAngRotY) {
+//void GgafDxUtil::getMoveRzRyWayShot3D_XZ(int prm_ways, angle prm_clearance, coord prm_tx, coord prm_ty, coord prm_tz,
+//                                          angle& out_faceZ, angle* out_paAngRotY) {
 //    angle tRz, tRy;
 //    convVectorToRzRy(prm_tx, prm_ty, prm_tz, tRy, tRy);
 //
-//    angle angStart = addAng(tRy, ((prm_nWay - 1) * prm_angClearance) / -2);
-//    for (int i = 0; i < prm_nWay; i++) {
-//        out_paAngRotY[i] = addAng(angstart, prm_angClearance * i);
+//    angle angStart = addAng(tRy, ((prm_ways - 1) * prm_clearance) / -2);
+//    for (int i = 0; i < prm_ways; i++) {
+//        out_paAngRotY[i] = addAng(angstart, prm_clearance * i);
 //    }
 //}
 
-angle GgafDxUtil::addAng(angle prm_angNow, angle prm_angOffset) {
-    angle angAdd = prm_angNow + prm_angOffset;
+angle GgafDxUtil::addAng(angle prm_ang, angle prm_offset) {
+    angle angAdd = prm_ang + prm_offset;
     while (angAdd >= D360ANG) {
         angAdd -= D360ANG;
     }
@@ -330,113 +330,113 @@ angle GgafDxUtil::addAng(angle prm_angNow, angle prm_angOffset) {
     return angAdd;
 }
 
-angle GgafDxUtil::getAngDiff(angle prm_ang_from, angle prm_ang_to, int prm_way) {
-    const angle ang_from = UTIL::simplifyAng(prm_ang_from);
-    const angle ang_to = UTIL::simplifyAng(prm_ang_to);
+angle GgafDxUtil::getAngDiff(angle prm_from, angle prm_to, int prm_way) {
+    const angle from = UTIL::simplifyAng(prm_from);
+    const angle to = UTIL::simplifyAng(prm_to);
     if (prm_way == TURN_CLOSE_TO) {
-        if (0 <= ang_from && ang_from < D180ANG) {
-            if (0 <= ang_to && ang_to < ang_from) {
-                return -1 * (ang_from - ang_to);
-            } else if (ang_to == ang_from) {
+        if (0 <= from && from < D180ANG) {
+            if (0 <= to && to < from) {
+                return -1 * (from - to);
+            } else if (to == from) {
                 //重なってる場合
                 return 0;
-            } else if (ang_from < ang_to && ang_to < ang_from + D180ANG) {
-                return ang_to - ang_from;
-            } else if (ang_to == ang_from + D180ANG) {
+            } else if (from < to && to < from + D180ANG) {
+                return to - from;
+            } else if (to == from + D180ANG) {
                 //正反対を向いている（＝距離は等しい）
                 //仕方ないので正の値とする。(正確には -D180ANG or D180ANG)
                 return D180ANG;
-            } else if (ang_from + D180ANG < ang_to && ang_to <= D360ANG) {
-                return -1 * (ang_from + (D360ANG - ang_to));
+            } else if (from + D180ANG < to && to <= D360ANG) {
+                return -1 * (from + (D360ANG - to));
             } else {
                 //おかしい
-                _TRACE_(FUNC_NAME<<" bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
+                _TRACE_(FUNC_NAME<<" bad from=" << from << "/to=" << to<<"/prm_way="<<prm_way);
                 throwGgafCriticalException("アングル値が範囲外です(1)。\n"<<
-                                           "ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
+                                           "from=" << from << "/to=" << to<<"/prm_way="<<prm_way);
             }
-        } else if (D180ANG <= ang_from && ang_from <= D360ANG) {
-            if (0 <= ang_to && ang_to < ang_from - D180ANG) {
-                return D360ANG - ang_from + ang_to;
-            } else if (ang_to == ang_from - D180ANG) {
+        } else if (D180ANG <= from && from <= D360ANG) {
+            if (0 <= to && to < from - D180ANG) {
+                return D360ANG - from + to;
+            } else if (to == from - D180ANG) {
                 //正反対を向いている（＝距離は等しい）
                 //仕方ないので負の値とする。(正確には -D180ANG or D180ANG)
                 return D180ANG;
-            } else if (ang_from - D180ANG < ang_to && ang_to < ang_from) {
-                return -1 * (ang_from - ang_to);
-            } else if (ang_from == ang_to) {
+            } else if (from - D180ANG < to && to < from) {
+                return -1 * (from - to);
+            } else if (from == to) {
                 //重なってる場合
                 return 0;
-            } else if (ang_from < ang_to && ang_to <= D360ANG) {
-                return ang_to - ang_from;
+            } else if (from < to && to <= D360ANG) {
+                return to - from;
             } else {
                 //おかしい
-                _TRACE_(FUNC_NAME<<" bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
+                _TRACE_(FUNC_NAME<<" bad from=" << from << "/to=" << to<<"/prm_way="<<prm_way);
                 throwGgafCriticalException("アングル値が範囲外です(2)。\n"<<
-                                           "ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
+                                           "from=" << from << "/to=" << to<<"/prm_way="<<prm_way);
             }
         }
     } else if (prm_way == TURN_ANTICLOSE_TO) {
-        if (0 <= ang_from && ang_from < D180ANG) {
-            if (0 <= ang_to && ang_to < ang_from) {
-                return (D360ANG - ang_from) + ang_to;
-            } else if (ang_to == ang_from) {
+        if (0 <= from && from < D180ANG) {
+            if (0 <= to && to < from) {
+                return (D360ANG - from) + to;
+            } else if (to == from) {
                 //重なってる場合
                 return -1 * D360ANG;
-            } else if (ang_from < ang_to && ang_to < ang_from + D180ANG) {
-                return -1 * (ang_from + (D360ANG - ang_to));
-            } else if (ang_to == ang_from + D180ANG) {
+            } else if (from < to && to < from + D180ANG) {
+                return -1 * (from + (D360ANG - to));
+            } else if (to == from + D180ANG) {
                 //正反対を向いている（＝距離は等しい）
                 //仕方ないので負の値とする。(正確には -D180ANG or D180ANG)
                 return -1 * D180ANG;
-            } else if (ang_from + D180ANG < ang_to && ang_to <= D360ANG) {
-                return ang_to - ang_from;
+            } else if (from + D180ANG < to && to <= D360ANG) {
+                return to - from;
             } else {
                 //おかしい
-                _TRACE_(FUNC_NAME<<" bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
+                _TRACE_(FUNC_NAME<<" bad from=" << from << "/to=" << to<<"/prm_way="<<prm_way);
                 throwGgafCriticalException("アングル値が範囲外です(3)。\n"<<
-                                           "ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
+                                           "from=" << from << "/to=" << to<<"/prm_way="<<prm_way);
             }
-        } else if (D180ANG <= ang_from && ang_from <= D360ANG) {
-            if (0 <= ang_to && ang_to < ang_from - D180ANG) {
-                return -1 * (ang_from - ang_to);
-            } else if (ang_to == ang_from - D180ANG) {
+        } else if (D180ANG <= from && from <= D360ANG) {
+            if (0 <= to && to < from - D180ANG) {
+                return -1 * (from - to);
+            } else if (to == from - D180ANG) {
                 //正反対を向いている（＝距離は等しい）
                 //仕方ないので負の値とする。(正確には -D180ANG or D180ANG)
                 return -1 * D180ANG;
-            } else if (ang_from - D180ANG < ang_to && ang_to < ang_from) {
-                return (D360ANG - ang_from) + ang_to;
-            } else if (ang_from == ang_to) {
+            } else if (from - D180ANG < to && to < from) {
+                return (D360ANG - from) + to;
+            } else if (from == to) {
                 //重なってる場合
                 return -1 * D360ANG;
-            } else if (ang_from < ang_to && ang_to <= D360ANG) {
-                return -1 * (ang_from + (D360ANG - ang_to));
+            } else if (from < to && to <= D360ANG) {
+                return -1 * (from + (D360ANG - to));
             } else {
                 //おかしい
-                _TRACE_(FUNC_NAME<<" bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
+                _TRACE_(FUNC_NAME<<" bad from=" << from << "/to=" << to<<"/prm_way="<<prm_way);
                 throwGgafCriticalException("アングル値が範囲外です(4)。\n"<<
-                                           "ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
+                                           "from=" << from << "/to=" << to<<"/prm_way="<<prm_way);
             }
         }
     } else if (prm_way == TURN_COUNTERCLOCKWISE) {
-        if (ang_from <= ang_to) {
-            return ang_to - ang_from;
+        if (from <= to) {
+            return to - from;
         } else {
-            return (D360ANG - ang_from) + ang_to;
+            return (D360ANG - from) + to;
         }
     } else if (prm_way == TURN_CLOCKWISE) {
-        if (ang_from >= ang_to) {
-            return -(ang_from - ang_to);
+        if (from >= to) {
+            return -(from - to);
         } else {
-            return -(ang_from + (D360ANG - ang_to));
+            return -(from + (D360ANG - to));
         }
     } else {
-        _TRACE_(FUNC_NAME<<" bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
+        _TRACE_(FUNC_NAME<<" bad from=" << from << "/to=" << to<<"/prm_way="<<prm_way);
         throwGgafCriticalException("prm_way = TURN_CLOSE_TO/TURN_ANTICLOSE_TO/TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE 以外が指定されています。");
     }
 
-    _TRACE_("bad ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
+    _TRACE_("bad from=" << from << "/to=" << to<<"/prm_way="<<prm_way);
     throwGgafCriticalException("何故かしら角の距離が求めれません。(1) \n"<<
-                               "ang_from=" << ang_from << "/ang_to=" << ang_to<<"/prm_way="<<prm_way);
+                               "from=" << from << "/to=" << to<<"/prm_way="<<prm_way);
 }
 
 void GgafDxUtil::rotxy(int prm_x, int prm_y, angle prm_ang, int& out_x, int& out_y) {
@@ -489,11 +489,11 @@ coord GgafDxUtil::getDistance(coord x1, coord y1, coord x2, coord y2) {
 void GgafDxUtil::convVectorToRzRy(coord vx,
                                   coord vy,
                                   coord vz,
-                                  angle& out_angRz,
-                                  angle& out_angRy ) {
+                                  angle& out_rz,
+                                  angle& out_ry ) {
     if (vz == 0) {
-        out_angRz = GgafDxUtil::getAngle2D(vx, vy);
-        out_angRy = 0;
+        out_rz = GgafDxUtil::getAngle2D(vx, vy);
+        out_ry = 0;
         return;
     }
 
@@ -533,55 +533,55 @@ void GgafDxUtil::convVectorToRzRy(coord vx,
         if (vy >= 0) {
             if (vz >= 0) {
                 //第一象限
-                out_angRz = rot_z;
-                out_angRy = (D360ANG - rot_y_rev);
+                out_rz = rot_z;
+                out_ry = (D360ANG - rot_y_rev);
             } else { //vz < 0
                 //第五象限
-                out_angRz = rot_z;
-                out_angRy = rot_y_rev;
+                out_rz = rot_z;
+                out_ry = rot_y_rev;
             }
         } else { //vy < 0
             if (vz >= 0) {
                 //第四象限
-                out_angRz = (D360ANG - rot_z);
-                out_angRy = (D360ANG - rot_y_rev);
+                out_rz = (D360ANG - rot_z);
+                out_ry = (D360ANG - rot_y_rev);
             } else { //vz < 0
                 //第八象限
-                out_angRz = (D360ANG - rot_z);
-                out_angRy = rot_y_rev;
+                out_rz = (D360ANG - rot_z);
+                out_ry = rot_y_rev;
             }
         }
     } else { //vx < 0
         if (vy >= 0) {
             if (vz >= 0) {
                 //第二象限
-                out_angRz = rot_z;
-                out_angRy = (D180ANG + rot_y_rev);
+                out_rz = rot_z;
+                out_ry = (D180ANG + rot_y_rev);
             } else { //vz < 0
                 //第六象限
-                out_angRz = rot_z;
-                out_angRy = (D180ANG - rot_y_rev);
+                out_rz = rot_z;
+                out_ry = (D180ANG - rot_y_rev);
             }
         } else { //vy < 0
             if (vz >= 0) {
                 //第三象限
-                out_angRz = (D360ANG - rot_z);
-                out_angRy = (D180ANG + rot_y_rev);
+                out_rz = (D360ANG - rot_z);
+                out_ry = (D180ANG + rot_y_rev);
             } else { //vz < 0
                 //第七象限
-                out_angRz = (D360ANG - rot_z);
-                out_angRy = (D180ANG - rot_y_rev);
+                out_rz = (D360ANG - rot_z);
+                out_ry = (D180ANG - rot_y_rev);
             }
         }
     }
 
 #if MY_DEBUG
-    if (D360ANG < out_angRz || 0 > out_angRz || D360ANG < out_angRy || 0 > out_angRy) {
-        throwGgafCriticalException("範囲外です要調査。\n out_angRz,out_angRy="<<out_angRz<<","<<out_angRy<<" vx,vy,vz="<<vx<<","<<vy<<","<<vz);
+    if (D360ANG < out_rz || 0 > out_rz || D360ANG < out_ry || 0 > out_ry) {
+        throwGgafCriticalException("範囲外です要調査。\n out_rz,out_ry="<<out_rz<<","<<out_ry<<" vx,vy,vz="<<vx<<","<<vy<<","<<vz);
     }
 #endif
-//    out_angRz = simplifyAng(out_angRz);
-//    out_angRy = simplifyAng(out_angRy);
+//    out_rz = simplifyAng(out_rz);
+//    out_ry = simplifyAng(out_ry);
 }
 
 
@@ -591,132 +591,132 @@ void GgafDxUtil::convVectorToRzRy(coord vx,
                                   float& out_nvx,
                                   float& out_nvy,
                                   float& out_nvz,
-                                  angle& out_angRz,
-                                  angle& out_angRy) {
+                                  angle& out_rz,
+                                  angle& out_ry) {
 
     GgafDxUtil::convVectorToRzRy(vx, vy, vz,
-                                 out_angRz, out_angRy );
+                                 out_rz, out_ry );
 
-    GgafDxUtil::convRzRyToVector(out_angRz, out_angRy,
+    GgafDxUtil::convRzRyToVector(out_rz, out_ry,
                                  out_nvx, out_nvy, out_nvz);
 
 }
 
 
-void GgafDxUtil::convRzRyToVector(angle prm_ang_rz,
-                                  angle prm_ang_ry,
+void GgafDxUtil::convRzRyToVector(angle prm_rz,
+                                  angle prm_ry,
                                   float& out_nvx,
                                   float& out_nvy,
                                   float& out_nvz) {
-    //void GgafDxSphereRadiusVectors::getVectorClosely(int out_ang_faceY, int prm_angZ, uint16_t& out_x, uint16_t& out_y, uint16_t& out_z) {
+    //void GgafDxSphereRadiusVectors::getVectorClosely(int out_faceY, int prm_angZ, uint16_t& out_x, uint16_t& out_y, uint16_t& out_z) {
     //回転角によって象限を考慮し、getVectorCloselyのパラメータ角(< 900)を出す
     int xsign, ysign, zsign;
     s_ang rz, ry_rev;
 
-    if (0 <= prm_ang_rz && prm_ang_rz < D90ANG) {
-        rz = (prm_ang_rz - D0ANG) * (1.0 / SANG_RATE);
-        if (0 <= prm_ang_ry && prm_ang_ry < D90ANG) { //第五象限
-            ry_rev = prm_ang_ry * (1.0 / SANG_RATE);
+    if (0 <= prm_rz && prm_rz < D90ANG) {
+        rz = (prm_rz - D0ANG) * (1.0 / SANG_RATE);
+        if (0 <= prm_ry && prm_ry < D90ANG) { //第五象限
+            ry_rev = prm_ry * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = 1;
             zsign = -1;
-        } else if (D90ANG <= prm_ang_ry && prm_ang_ry < D180ANG) { //第六象限
-            ry_rev = (D180ANG - prm_ang_ry) * (1.0 / SANG_RATE);
+        } else if (D90ANG <= prm_ry && prm_ry < D180ANG) { //第六象限
+            ry_rev = (D180ANG - prm_ry) * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = 1;
             zsign = -1;
-        } else if (D180ANG <= prm_ang_ry && prm_ang_ry < D270ANG) { //第二象限
-            ry_rev = (prm_ang_ry - D180ANG) * (1.0 / SANG_RATE);
+        } else if (D180ANG <= prm_ry && prm_ry < D270ANG) { //第二象限
+            ry_rev = (prm_ry - D180ANG) * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = 1;
             zsign = 1;
-        } else if (D270ANG <= prm_ang_ry && prm_ang_ry <= D360ANG) { //第一象限
-            ry_rev = (D360ANG - prm_ang_ry) * (1.0 / SANG_RATE);
+        } else if (D270ANG <= prm_ry && prm_ry <= D360ANG) { //第一象限
+            ry_rev = (D360ANG - prm_ry) * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = 1;
             zsign = 1;
         } else {
-            throwGgafCriticalException("getNormalizedVectorZY: なんかおかしいですぜ(1) prm_ang_rz="<<prm_ang_rz<<" prm_ang_ry="<<prm_ang_ry);
+            throwGgafCriticalException("getNormalizedVectorZY: なんかおかしいですぜ(1) prm_rz="<<prm_rz<<" prm_ry="<<prm_ry);
         }
-    } else if (D90ANG <= prm_ang_rz && prm_ang_rz < D180ANG) {
-        rz = (D180ANG - prm_ang_rz) * (1.0 / SANG_RATE);
+    } else if (D90ANG <= prm_rz && prm_rz < D180ANG) {
+        rz = (D180ANG - prm_rz) * (1.0 / SANG_RATE);
 
-        if (0 <= prm_ang_ry && prm_ang_ry < D90ANG) { //第二象限
-            ry_rev = prm_ang_ry * (1.0 / SANG_RATE);
+        if (0 <= prm_ry && prm_ry < D90ANG) { //第二象限
+            ry_rev = prm_ry * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = 1;
             zsign = 1;
-        } else if (D90ANG <= prm_ang_ry && prm_ang_ry < D180ANG) { //第一象限
-            ry_rev = (D180ANG - prm_ang_ry) * (1.0 / SANG_RATE);
+        } else if (D90ANG <= prm_ry && prm_ry < D180ANG) { //第一象限
+            ry_rev = (D180ANG - prm_ry) * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = 1;
             zsign = 1;
-        } else if (D180ANG <= prm_ang_ry && prm_ang_ry < D270ANG) { //第五象限
-            ry_rev = (prm_ang_ry - D180ANG) * (1.0 / SANG_RATE);
+        } else if (D180ANG <= prm_ry && prm_ry < D270ANG) { //第五象限
+            ry_rev = (prm_ry - D180ANG) * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = 1;
             zsign = -1;
-        } else if (D270ANG <= prm_ang_ry && prm_ang_ry <= D360ANG) { //第六象限
-            ry_rev = (D360ANG - prm_ang_ry) * (1.0 / SANG_RATE);
+        } else if (D270ANG <= prm_ry && prm_ry <= D360ANG) { //第六象限
+            ry_rev = (D360ANG - prm_ry) * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = 1;
             zsign = -1;
         } else {
-            throwGgafCriticalException("getNormalizedVectorZY: なんかおかしいですぜ(2) prm_ang_rz="<<prm_ang_rz<<" prm_ang_ry="<<prm_ang_ry);
+            throwGgafCriticalException("getNormalizedVectorZY: なんかおかしいですぜ(2) prm_rz="<<prm_rz<<" prm_ry="<<prm_ry);
         }
 
-    } else if (D180ANG <= prm_ang_rz && prm_ang_rz < D270ANG) {
-        rz = (prm_ang_rz - D180ANG) * (1.0 / SANG_RATE);
-        if (0 <= prm_ang_ry && prm_ang_ry < D90ANG) { //第三象限
-            ry_rev = prm_ang_ry * (1.0 / SANG_RATE);
+    } else if (D180ANG <= prm_rz && prm_rz < D270ANG) {
+        rz = (prm_rz - D180ANG) * (1.0 / SANG_RATE);
+        if (0 <= prm_ry && prm_ry < D90ANG) { //第三象限
+            ry_rev = prm_ry * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = -1;
             zsign = 1;
-        } else if (D90ANG <= prm_ang_ry && prm_ang_ry < D180ANG) { //第四象限
-            ry_rev = (D180ANG - prm_ang_ry) * (1.0 / SANG_RATE);
+        } else if (D90ANG <= prm_ry && prm_ry < D180ANG) { //第四象限
+            ry_rev = (D180ANG - prm_ry) * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = -1;
             zsign = 1;
-        } else if (D180ANG <= prm_ang_ry && prm_ang_ry < D270ANG) { //第八象限
-            ry_rev = (prm_ang_ry - D180ANG) * (1.0 / SANG_RATE);
+        } else if (D180ANG <= prm_ry && prm_ry < D270ANG) { //第八象限
+            ry_rev = (prm_ry - D180ANG) * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = -1;
             zsign = -1;
-        } else if (D270ANG <= prm_ang_ry && prm_ang_ry <= D360ANG) { //第七象限
-            ry_rev = (D360ANG - prm_ang_ry) * (1.0 / SANG_RATE);
+        } else if (D270ANG <= prm_ry && prm_ry <= D360ANG) { //第七象限
+            ry_rev = (D360ANG - prm_ry) * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = -1;
             zsign = -1;
         } else {
-            throwGgafCriticalException("getNormalizedVectorZY: なんかおかしいですぜ(3) prm_ang_rz="<<prm_ang_rz<<" prm_ang_ry="<<prm_ang_ry);
+            throwGgafCriticalException("getNormalizedVectorZY: なんかおかしいですぜ(3) prm_rz="<<prm_rz<<" prm_ry="<<prm_ry);
         }
-    } else if (D270ANG <= prm_ang_rz && prm_ang_rz <= D360ANG) {
-        rz = (D360ANG - prm_ang_rz) * (1.0 / SANG_RATE);
-        if (0 <= prm_ang_ry && prm_ang_ry < D90ANG) { //第八象限
-            ry_rev = prm_ang_ry * (1.0 / SANG_RATE);
+    } else if (D270ANG <= prm_rz && prm_rz <= D360ANG) {
+        rz = (D360ANG - prm_rz) * (1.0 / SANG_RATE);
+        if (0 <= prm_ry && prm_ry < D90ANG) { //第八象限
+            ry_rev = prm_ry * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = -1;
             zsign = -1;
-        } else if (D90ANG <= prm_ang_ry && prm_ang_ry < D180ANG) { //第七象限
-            ry_rev = (D180ANG - prm_ang_ry) * (1.0 / SANG_RATE);
+        } else if (D90ANG <= prm_ry && prm_ry < D180ANG) { //第七象限
+            ry_rev = (D180ANG - prm_ry) * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = -1;
             zsign = -1;
-        } else if (D180ANG <= prm_ang_ry && prm_ang_ry < D270ANG) { //第三象限
-            ry_rev = (prm_ang_ry - D180ANG) * (1.0 / SANG_RATE);
+        } else if (D180ANG <= prm_ry && prm_ry < D270ANG) { //第三象限
+            ry_rev = (prm_ry - D180ANG) * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = -1;
             zsign = 1;
-        } else if (D270ANG <= prm_ang_ry && prm_ang_ry <= D360ANG) { //第四象限
-            ry_rev = (D360ANG - prm_ang_ry) * (1.0 / SANG_RATE);
+        } else if (D270ANG <= prm_ry && prm_ry <= D360ANG) { //第四象限
+            ry_rev = (D360ANG - prm_ry) * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = -1;
             zsign = 1;
         } else {
-            throwGgafCriticalException("getNormalizedVectorZY: なんかおかしいですぜ(4) prm_ang_rz="<<prm_ang_rz<<" prm_ang_ry="<<prm_ang_ry);
+            throwGgafCriticalException("getNormalizedVectorZY: なんかおかしいですぜ(4) prm_rz="<<prm_rz<<" prm_ry="<<prm_ry);
         }
     } else {
-        throwGgafCriticalException("getNormalizedVectorZY: なんかおかしいですぜ(5) prm_ang_rz="<<prm_ang_rz<<" prm_ang_ry="<<prm_ang_ry);
+        throwGgafCriticalException("getNormalizedVectorZY: なんかおかしいですぜ(5) prm_rz="<<prm_rz<<" prm_ry="<<prm_ry);
     }
     uint32_t vx, vy, vz;
     GgafDxUtil::_srv.getVectorClosely(ry_rev, rz, vx, vy, vz);
@@ -828,7 +828,7 @@ void GgafDxUtil::setWorldMatrix_RzRy(const GgafDxGeometricActor* prm_pActor, D3D
 }
 
 
-void GgafDxUtil::setWorldMatrix_RzRy(angle prm_Rz, angle prm_Ry, D3DXMATRIX& out_matWorld) {
+void GgafDxUtil::setWorldMatrix_RzRy(angle prm_rz, angle prm_ry, D3DXMATRIX& out_matWorld) {
     //World変換
     //単位行列 × Z軸回転 × Y軸回転 の変換行列を作成
     //※XYZの順でないことに注意
@@ -836,10 +836,10 @@ void GgafDxUtil::setWorldMatrix_RzRy(angle prm_Rz, angle prm_Ry, D3DXMATRIX& out
     // | -sinRz*cosRy, cosRz, -sinRz*-sinRy,   0  |
     // |        sinRy,     0,         cosRy,   0  |
     // |            0,     0,             0,   1  |
-    const float sinRy = ANG_SIN(prm_Ry);
-    const float cosRy = ANG_COS(prm_Ry);
-    const float sinRz = ANG_SIN(prm_Rz);
-    const float cosRz = ANG_COS(prm_Rz);
+    const float sinRy = ANG_SIN(prm_ry);
+    const float cosRy = ANG_COS(prm_ry);
+    const float sinRz = ANG_SIN(prm_rz);
+    const float cosRz = ANG_COS(prm_rz);
 
     out_matWorld._11 = cosRz*cosRy;
     out_matWorld._12 = sinRz;

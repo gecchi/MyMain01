@@ -205,54 +205,54 @@ public:
      * TURN_ANTICLOSE_TO     ・・・ ターゲットの回転角と距離が遠回りの方の回転方向で取得、左回りで正、又は、右回りの負の値になる。<BR>
      * TURN_COUNTERCLOCKWISE ・・・ 回転方向が左回りで差異角取得、正の値で返る。<BR>
      * TURN_CLOCKWISE        ・・・ 回転方向が右回りで差異角取得、負の値で返る。<BR>
-     * @param prm_ang_from
-     * @param prm_ang_to
+     * @param prm_from
+     * @param prm_to
      * @param prm_way TURN_CLOSE_TO/TURN_ANTICLOSE_TO/TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE
      * @return アングル値の差（結果が 反時計周りは正、時計回りは負)
      */
-    static angle getAngDiff(angle prm_ang_from, angle prm_ang_to, int prm_way=TURN_CLOSE_TO);
+    static angle getAngDiff(angle prm_from, angle prm_to, int prm_way=TURN_CLOSE_TO);
 
     /**
      * 平面上において、'N'way弾(N=整数)の射出アングル値をセット(配列)で取得 .
      * @param prm_vx_Center     [in] 'N'way弾の全体として向いている方向の、方向ベクトルX要素
      * @param prm_vy_Center     [in] 'N'way弾の全体として向いている方向の、方向ベクトルY要素
-     * @param prm_nWay          [in] 'N'way弾の N
-     * @param prm_angClearance  [in] 'N'way弾の弾と弾との成す角をアングル値で指定
+     * @param prm_ways          [in] 'N'way弾の N
+     * @param prm_clearance  [in] 'N'way弾の弾と弾との成す角をアングル値で指定
      * @param out_paAngle       [out] 得られる'N'way弾 のアングル値配列のポインタ
      */
     static void getWayAngle2D(int prm_vx_Center,
                               int prm_vy_Center,
-                              int prm_nWay,
-                              angle prm_angClearance,
+                              int prm_ways,
+                              angle prm_clearance,
                               angle* out_paAngle);
 
     /**
      * 平面上において、'N'way弾(N=整数)の射出アングル値をセット(配列)で取得 .
-     * @param prm_angCenter     [in] 'N'way弾の全体として向いている方向のアングル値
-     * @param prm_nWay          [in] 'N'way弾の N
-     * @param prm_angClearance  [in] 'N'way弾の弾と弾との成す角をアングル値で指定
+     * @param prm_center     [in] 'N'way弾の全体として向いている方向のアングル値
+     * @param prm_ways          [in] 'N'way弾の N
+     * @param prm_clearance  [in] 'N'way弾の弾と弾との成す角をアングル値で指定
      * @param out_paAngle       [out] 得られる'N'way弾 のアングル値配列のポインタ
      */
-    static void getWayAngle2D(angle prm_angCenter, int prm_nWay, angle prm_angClearance, angle* out_paAngle);
+    static void getWayAngle2D(angle prm_center, int prm_ways, angle prm_clearance, angle* out_paAngle);
 
     /**
      * 平面上において、放射状全方向の'N'way弾(N=整数)のアングル値を配列で取得 .
      * 弾と弾との成す角は 均等になることとする。
      * 例えば全方向4way弾の場合、弾と弾との成す角は直角(90000)になる。
-     * @param prm_angStart  放射状の全方向'N'way弾の１つ目の弾のアングル値
-     * @param prm_nWay  [in] 'N'way弾の N。
+     * @param prm_start  放射状の全方向'N'way弾の１つ目の弾のアングル値
+     * @param prm_ways  [in] 'N'way弾の N。
      * @param out_paAngle   [out] 得られる'N'way弾 のアングル値配列のポインタ
      */
-    static void getRadialAngle2D(angle prm_angStart, int prm_nWay, angle* out_paAngle);
+    static void getRadialAngle2D(angle prm_start, int prm_ways, angle* out_paAngle);
 
-    static void convRzRyToRyRz(angle prm_Rz, angle prm_Ry, angle& out_Ry, angle& out_Rz);
+    static void convRzRyToRyRz(angle prm_rz, angle prm_ry, angle& out_ry, angle& out_rz);
 
-//    static void getWayAngle_LinedRzLongitude(angle prm_angCenterRz, angle prm_angCenterRy,
-//                                           int prm_nWay, angle prm_angClearance,
+//    static void getWayAngle_LinedRzLongitude(angle prm_ang_center_rz, angle prm_ang_center_ry,
+//                                           int prm_ways, angle prm_clearance,
 //                                           angle* out_paAngleRz, angle* out_paAngleRy);
 
-//    static void getMoveRzRyWayShot3D_XZ(int prm_nWay, angle prm_angClearance, coord prm_tx, coord prm_ty, coord prm_tz,
-//                                        angle& out_ang_faceZ, angle* out_paAngRotY);
+//    static void getMoveRzRyWayShot3D_XZ(int prm_ways, angle prm_clearance, coord prm_tx, coord prm_ty, coord prm_tz,
+//                                        angle& out_faceZ, angle* out_paAngRotY);
 
 
     /**
@@ -260,10 +260,10 @@ public:
      * D360ANG を超えた場合、或いは 0 を下回った場合でも、
      * 0～D360ANG に標準化される。
      * @param prm_angNow アングル値１
-     * @param prm_angOffset アングル値２
+     * @param prm_ang_offset アングル値２
      * @return 標準化された アングル値１ + アングル値２ のアングル値
      */
-    static angle addAng(angle prm_angNow, angle prm_angOffset);
+    static angle addAng(angle prm_ang, angle prm_offset);
 
     /**
      *
@@ -368,8 +368,8 @@ public:
      * @param out_nvx [out]単位ベクトルX要素
      * @param out_nvy [out]単位ベクトルY要素
      * @param out_nvz [out]単位ベクトルZ要素
-     * @param out_angRz [out]Z軸回転アングル値
-     * @param out_angRy [out]Y軸回転アングル値
+     * @param out_rz [out]Z軸回転アングル値
+     * @param out_ry [out]Y軸回転アングル値
      */
     static void convVectorToRzRy(coord x,
                                  coord y,
@@ -377,8 +377,8 @@ public:
                                  float& out_nvx,
                                  float& out_nvy,
                                  float& out_nvz,
-                                 angle& out_angRz,
-                                 angle& out_angRy);
+                                 angle& out_rz,
+                                 angle& out_ry);
 
     /**
      * 原点(0,0,0) からパラメータ座標(vx,vy,vz) を向く方向ベクトルに対応する「Z軸回転のアングル値」と「Y軸回転のアングル値」を取得 .
@@ -387,10 +387,10 @@ public:
      * @param vx [in]X座標
      * @param vy [in]Y座標
      * @param vz [in]Z座標
-     * @param out_angRz [out]Z軸回転アングル値
-     * @param out_angRy [out]Y軸回転アングル値
+     * @param out_rz [out]Z軸回転アングル値
+     * @param out_ry [out]Y軸回転アングル値
      */
-    static void convVectorToRzRy(coord vx, coord vy, coord vz, angle& out_angRz, angle& out_angRy);
+    static void convVectorToRzRy(coord vx, coord vy, coord vz, angle& out_rz, angle& out_ry);
 
     /**
      * 原点(0,0,0) からパラメータ座標を向く方向ベクトル(単位ベクトル)に対応する「Z軸回転のアングル値」と「Y軸回転のアングル値」を取得 .
@@ -403,23 +403,23 @@ public:
      * @param nvx [in]単位ベクトルX要素
      * @param nvy [in]単位ベクトルY要素
      * @param nvz [in]単位ベクトルZ要素
-     * @param out_angRz [out]Z軸回転アングル値
-     * @param out_angRy [out]Y軸回転アングル値
+     * @param out_rz [out]Z軸回転アングル値
+     * @param out_ry [out]Y軸回転アングル値
      */
-    static void convVectorToRzRy(double nvx, double nvy, double nvz, angle& out_angRz, angle& out_angRy) {
+    static void convVectorToRzRy(double nvx, double nvy, double nvz, angle& out_rz, angle& out_ry) {
         convVectorToRzRy((int)(nvx*100000),
                          (int)(nvy*100000),
                          (int)(nvz*100000),
-                         out_angRz,
-                         out_angRy );
+                         out_rz,
+                         out_ry );
     }
 
-    static void convVectorToRzRy(float nvx, float nvy, float nvz, angle& out_angRz, angle& out_angRy) {
+    static void convVectorToRzRy(float nvx, float nvy, float nvz, angle& out_rz, angle& out_ry) {
         convVectorToRzRy((int)(nvx*100000),
                          (int)(nvy*100000),
                          (int)(nvz*100000),
-                         out_angRz,
-                         out_angRy );
+                         out_rz,
+                         out_ry );
     }
 
     /**
@@ -427,14 +427,14 @@ public:
      * 本クラスの中核とも言うべきメソッドその2<BR>
      * Z軸Y軸回転方角 -> 方向ベクトル の変換<BR>
      * 計算せずにテーブル参照で高速に行う。<BR>
-     * @param prm_ang_rz [in]Z軸回転アングル値
-     * @param prm_ang_ry [in]Y軸回転アングル値
+     * @param prm_rz [in]Z軸回転アングル値
+     * @param prm_ry [in]Y軸回転アングル値
      * @param out_nvx [out]単位ベクトルX要素
      * @param out_nvy [out]単位ベクトルY要素
      * @param out_nvz [out]単位ベクトルZ要素
      */
-    static void convRzRyToVector(angle prm_ang_rz,
-                                 angle prm_ang_ry,
+    static void convRzRyToVector(angle prm_rz,
+                                 angle prm_ry,
                                  float& out_nvx,
                                  float& out_nvy,
                                  float& out_nvz);
@@ -676,7 +676,7 @@ public:
     static void setWorldMatrix_RxRzRy(const GgafDxGeometricActor* const prm_pActor, D3DXMATRIX& out_matWorld);
 
     static void setWorldMatrix_RxRzRy(angle prm_rx, angle prm_rz, angle prm_ry, D3DXMATRIX& out_matWorld);
-    static void setWorldMatrix_RzRy(angle prm_Rz, angle prm_Ry, D3DXMATRIX& out_matWorld);
+    static void setWorldMatrix_RzRy(angle prm_rz, angle prm_ry, D3DXMATRIX& out_matWorld);
 
 
     /**

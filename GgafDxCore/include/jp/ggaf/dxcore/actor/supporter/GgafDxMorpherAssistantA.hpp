@@ -45,7 +45,7 @@ public:
      *
      *    角速度(ω)
      *     ^
-     *     |                         θ:目標移動角（距離）    ・・・引数 prm_angular_distance
+     *     |                         θ:目標移動角（距離）    ・・・引数 prm_distance
      *     |                        ω0:現時点の角速度        ・・・_angvelo_face[prm_axis]
      *     |                        ωt:トップ角速度          ・・・変動、計算される
      *     |                        ωe:最終速度              ・・・引数 prm_end_angvelo
@@ -61,11 +61,11 @@ public:
      *
      * </pre>
      * @param prm_axis 回転方角軸(AXIS_X or AXIS_Y or AXIS_Z)
-     * @param prm_angular_distance 目標角距離(θ)（正負により回転方向有り。正：TURN_COUNTERCLOCKWISE、負：TURN_CLOCKWISE）
+     * @param prm_distance 目標角距離(θ)（正負により回転方向有り。正：TURN_COUNTERCLOCKWISE、負：TURN_CLOCKWISE）
      * @param prm_target_frames 費やす時間(Te)(フレーム数を指定、負の数は不可)
      * @param prm_p1 トップスピードに達する時刻となるような、Teに対する割合(p1)
      * @param prm_p2 減速を開始時刻となるような、Teに対する割合(p2)
-     * @param prm_end_angvelo 目標到達時の最終角速度(ωe) （内部で正負がprm_angular_distanceの正負に合わせられる）
+     * @param prm_end_angvelo 目標到達時の最終角速度(ωe) （内部で正負がprm_distanceの正負に合わせられる）
      * @param prm_zero_acc_end_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
     void morphByDt(int prm_target_mesh_no,
@@ -102,7 +102,7 @@ public:
      * <BR>
      * @param prm_axis 回転方角軸(AXIS_X or AXIS_Y or AXIS_Z)
      * @param prm_top_angvelo トップ角速度(ωt)
-     * @param prm_angular_distance 目標角距離(θ)（正負により回転方向有り。正：TURN_COUNTERCLOCKWISE、負：TURN_CLOCKWISE）
+     * @param prm_distance 目標角距離(θ)（正負により回転方向有り。正：TURN_COUNTERCLOCKWISE、負：TURN_CLOCKWISE）
      * @param prm_p1 トップスピードに達する距離となるような、回転距離角(θ)に対する割合。(θ1 = θ*prm_p1)
      * @param prm_p2 角回転の減速を開始角となるような、回転距離角(θ)に対する割合 (θ1+θ2 = θ*p2)
      * @param prm_end_angvelo 最終角速度(ωe)

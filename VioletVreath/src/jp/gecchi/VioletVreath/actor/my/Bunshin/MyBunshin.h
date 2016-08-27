@@ -46,17 +46,12 @@ public:
         MyBunshinWateringLaserChip001* pLeaderChip_;
         GgafDxCore::GgafDxGeometricActor* pTarget;
         /** –Ú•W1 */
-        coord t1_x;
-        coord t1_y;
-        coord t1_z;
+        coord t1_x, t1_y, t1_z;
         frame _spent_frames_to_t1;
         /** –Ú•W2 */
-        coord t2_x;
-        coord t2_y;
-        coord t2_z;
+        coord t2_x, t2_y, t2_z;
         frame _spent_frames_to_t2;
         void setT2(double r, double x1, double y1, double z1, double x2, double y2, double z2) {
-            double out_x, out_y, out_z;
             UTIL::getIntersectionSphereAndVec(r, x1, y1, z1, x2, y2, z2,
                                               t2_x,t2_y,t2_z);
         }

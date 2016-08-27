@@ -77,7 +77,7 @@ public:
 
     GgafDxCore::GgafDxGeoElem posMvTarget_;
 
-    bool faceang_to_ship_;
+    bool faceto_ship_;
 
     GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
     GgafLib::SplineKurokoLeader* pKurokoLeader01_;

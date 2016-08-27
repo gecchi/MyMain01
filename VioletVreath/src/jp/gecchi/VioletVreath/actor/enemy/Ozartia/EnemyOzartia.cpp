@@ -53,7 +53,7 @@ EnemyOzartia::EnemyOzartia(const char* prm_name) :
 //        pDepo_shot02_->put(pChip);
 //    }
 //    addSubGroup(pDepo_shot02_);
-    faceang_to_ship_ = false;
+    faceto_ship_ = false;
     effectBlendOne(); //加算合成
 }
 
@@ -76,7 +76,7 @@ void EnemyOzartia::onActive() {
     getStatus()->reset();
     getProgress()->reset(PROG1_INIT);
     pProg2_->reset(PROG2_WAIT);
-    faceang_to_ship_ = false;
+    faceto_ship_ = false;
 }
 
 void EnemyOzartia::processBehavior() {
@@ -110,7 +110,7 @@ void EnemyOzartia::processBehavior() {
         }
         case PROG1_STAY: {
             if (pProg->hasJustChanged()) {
-                faceang_to_ship_ = true;
+                faceto_ship_ = true;
                 pKuroko->setMvAcce(0);
                 pKuroko->turnMvAngTwd(pMyShip, D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
@@ -178,7 +178,7 @@ void EnemyOzartia::processBehavior() {
         case PROG1_MOVE_START: {
             if (pProg->hasJustChanged()) {
                 //ターン
-                faceang_to_ship_ = false;
+                faceto_ship_ = false;
                 pKuroko->setMvVeloBottom();
                 pKuroko->setMvAcce(10); //微妙に加速
                 pKuroko->turnMvAngTwd(&posMvTarget_, D_ANG(2), 0, TURN_CLOSE_TO, false);
@@ -240,7 +240,7 @@ void EnemyOzartia::processBehavior() {
         }
         case PROG2_SHOT01_01: {
             if (pProg->hasJustChanged()) {
-                faceang_to_ship_ = true;
+                faceto_ship_ = true;
                 getMorpher()->transitionLinerUntil(MPH_SHOT01, 1.0, 120);
             }
             if (pProg->hasArrivedAt(120)) {
@@ -254,7 +254,7 @@ void EnemyOzartia::processBehavior() {
     pProg2_->update();
     //<-- ショット発射系処理 ここまで
 
-    if (faceang_to_ship_) {
+    if (faceto_ship_) {
         //自機向きモード
         if (!pKuroko->isTurningFaceAng()) {
             pKuroko->turnFaceAngTwd(pMyShip, D_ANG(5), 0, TURN_CLOSE_TO, false);
@@ -262,7 +262,7 @@ void EnemyOzartia::processBehavior() {
     } else {
         //進行方向向きモード
         if (!pKuroko->isTurningFaceAng()) {
-            pKuroko->turnRzRyFaceAngTo(pKuroko->_ang_rz_mv,pKuroko->_ang_ry_mv,
+            pKuroko->turnRzRyFaceAngTo(pKuroko->_rz_mv,pKuroko->_ry_mv,
                                           D_ANG(2), 0, TURN_CLOSE_TO, false);
         }
     }

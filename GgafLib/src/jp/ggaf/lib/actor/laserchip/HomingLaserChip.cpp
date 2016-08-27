@@ -17,8 +17,8 @@ HomingLaserChip::HomingLaserChip(const char* prm_name, const char* prm_model, Gg
     _begining_rx = _rx;
     _begining_ry = _ry;
     _begining_rz = _rz;
-    _begining_ang_rz_mv = getKuroko()->_ang_rz_mv;
-    _begining_ang_ry_mv = getKuroko()->_ang_ry_mv;
+    _begining_rz_mv = getKuroko()->_rz_mv;
+    _begining_ry_mv = getKuroko()->_ry_mv;
     _begining_velo_mv   = getKuroko()->_velo_mv;
     _prev_x = _x;
     _prev_y = _y;
@@ -26,8 +26,8 @@ HomingLaserChip::HomingLaserChip(const char* prm_name, const char* prm_model, Gg
     _prev_rx = _rx;
     _prev_ry = _ry;
     _prev_rz = _rz;
-    _prev_ang_rz_mv = getKuroko()->_ang_rz_mv;
-    _prev_ang_ry_mv = getKuroko()->_ang_ry_mv;
+    _prev_rz_mv = getKuroko()->_rz_mv;
+    _prev_ry_mv = getKuroko()->_ry_mv;
     _prev_velo_mv   = getKuroko()->_velo_mv;
     _is_fix_begin_pos = true;
 }
@@ -49,8 +49,8 @@ void HomingLaserChip::onActive() {
         _begining_rx = _rx;
         _begining_ry = _ry;
         _begining_rz = _rz;
-        _begining_ang_rz_mv = pKuroko->_ang_rz_mv;
-        _begining_ang_ry_mv = pKuroko->_ang_ry_mv;
+        _begining_rz_mv = pKuroko->_rz_mv;
+        _begining_ry_mv = pKuroko->_ry_mv;
         _begining_velo_mv   = pKuroko->_velo_mv;
     } else {
         _is_leader = false;
@@ -61,8 +61,8 @@ void HomingLaserChip::onActive() {
         _begining_rx = pChip_infront->_begining_rx;
         _begining_ry = pChip_infront->_begining_ry;
         _begining_rz = pChip_infront->_begining_rz;
-        _begining_ang_rz_mv = pChip_infront->_begining_ang_rz_mv;
-        _begining_ang_ry_mv = pChip_infront->_begining_ang_ry_mv;
+        _begining_rz_mv = pChip_infront->_begining_rz_mv;
+        _begining_ry_mv = pChip_infront->_begining_ry_mv;
         _begining_velo_mv   = pChip_infront->_begining_velo_mv;
         if (_is_fix_begin_pos) {
             _x = _begining_x;
@@ -71,7 +71,7 @@ void HomingLaserChip::onActive() {
             _rx = _begining_rx;
             _ry = _begining_ry;
             _rz = _begining_rz;
-            pKuroko->setRzRyMvAng(_begining_ang_rz_mv, _begining_ang_ry_mv);
+            pKuroko->setRzRyMvAng(_begining_rz_mv, _begining_ry_mv);
             pKuroko->setMvVelo(_begining_velo_mv);
         }
     }
@@ -92,7 +92,7 @@ void HomingLaserChip::onInactive() {
         pChip_behind->_rx = _rx;
         pChip_behind->_ry = _ry;
         pChip_behind->_rz = _rz;
-        pChip_behind_pKuroko->setRzRyMvAng(pKuroko->_ang_rz_mv, pKuroko->_ang_ry_mv);
+        pChip_behind_pKuroko->setRzRyMvAng(pKuroko->_rz_mv, pKuroko->_ry_mv);
         pChip_behind_pKuroko->setMvVelo(pKuroko->_velo_mv);
     }
 
@@ -118,8 +118,8 @@ void HomingLaserChip::processBehavior() {
             _prev_rx = _rx;
             _prev_ry = _ry;
             _prev_rz = _rz;
-            _prev_ang_rz_mv = pKuroko->_ang_rz_mv;
-            _prev_ang_ry_mv = pKuroko->_ang_ry_mv;
+            _prev_rz_mv = pKuroko->_rz_mv;
+            _prev_ry_mv = pKuroko->_ry_mv;
             _prev_velo_mv   = pKuroko->_velo_mv;
             processBehaviorHeadChip(); //æ“ªƒ`ƒbƒv‚Ì‚ÝˆÚ“®ŽÀ‘•
         } else {
@@ -130,8 +130,8 @@ void HomingLaserChip::processBehavior() {
             _prev_rx = _rx;
             _prev_ry = _ry;
             _prev_rz = _rz;
-            _prev_ang_rz_mv = pKuroko->_ang_rz_mv;
-            _prev_ang_ry_mv = pKuroko->_ang_ry_mv;
+            _prev_rz_mv = pKuroko->_rz_mv;
+            _prev_ry_mv = pKuroko->_ry_mv;
             _prev_velo_mv   = pKuroko->_velo_mv;
             _x  = pChip_infront->_prev_x;
             _y  = pChip_infront->_prev_y;
@@ -139,7 +139,7 @@ void HomingLaserChip::processBehavior() {
             _rx = pChip_infront->_prev_rx;
             _ry = pChip_infront->_prev_ry;
             _rz = pChip_infront->_prev_rz;
-            pKuroko->setRzRyMvAng(pChip_infront->_prev_ang_rz_mv, pChip_infront->_prev_ang_ry_mv);
+            pKuroko->setRzRyMvAng(pChip_infront->_prev_rz_mv, pChip_infront->_prev_ry_mv);
             pKuroko->setMvVelo(pChip_infront->_prev_velo_mv);
         }
     }

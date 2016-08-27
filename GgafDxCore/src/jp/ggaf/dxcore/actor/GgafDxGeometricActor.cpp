@@ -273,8 +273,8 @@ GgafGroupHead* GgafDxGeometricActor::addSubGroupAsFk(actorkind prm_kind,
     prm_pGeoActor->_rx = prm_rx_init_local;
     prm_pGeoActor->_ry = prm_ry_init_local;
     prm_pGeoActor->_rz = prm_rz_init_local;
-//    prm_pGeoActor->getKuroko()->_ang_rz_mv = prm_rz_init_local;
-//    prm_pGeoActor->getKuroko()->_ang_ry_mv = prm_ry_init_local;
+//    prm_pGeoActor->getKuroko()->_rz_mv = prm_rz_init_local;
+//    prm_pGeoActor->getKuroko()->_ry_mv = prm_ry_init_local;
 
     prm_pGeoActor->changeGeoFinal();
     return pGroupHead;
@@ -400,23 +400,23 @@ void GgafDxGeometricActor::setFaceAngAs(const GgafDxGeoElem* prm_pGeoElem) {
     setRzFaceAng(prm_pGeoElem->rz);
 }
 
-//void GgafDxGeometricActor::setFaceAng(axis prm_axis, angle prm_ang_face) {
-//    _ang_face[prm_axis] = UTIL::simplifyAng(prm_ang_face);
+//void GgafDxGeometricActor::setFaceAng(axis prm_axis, angle prm_face) {
+//    _face[prm_axis] = UTIL::simplifyAng(prm_face);
 //}
 
-void GgafDxGeometricActor::setRzFaceAng(angle prm_ang_face) {
-    _rz = UTIL::simplifyAng(prm_ang_face);
+void GgafDxGeometricActor::setRzFaceAng(angle prm_face) {
+    _rz = UTIL::simplifyAng(prm_face);
 }
-void GgafDxGeometricActor::setRyFaceAng(angle prm_ang_face) {
-    _ry = UTIL::simplifyAng(prm_ang_face);
+void GgafDxGeometricActor::setRyFaceAng(angle prm_face) {
+    _ry = UTIL::simplifyAng(prm_face);
 }
-void GgafDxGeometricActor::setRxFaceAng(angle prm_ang_face) {
-    _rx = UTIL::simplifyAng(prm_ang_face);
+void GgafDxGeometricActor::setRxFaceAng(angle prm_face) {
+    _rx = UTIL::simplifyAng(prm_face);
 }
 
-void GgafDxGeometricActor::setRzRyFaceAng(angle prm_ang_rz_face, angle prm_ang_ry_face) {
-    setRzFaceAng(prm_ang_rz_face);
-    setRyFaceAng(prm_ang_ry_face);
+void GgafDxGeometricActor::setRzRyFaceAng(angle prm_rz_face, angle prm_ry_face) {
+    setRzFaceAng(prm_rz_face);
+    setRyFaceAng(prm_ry_face);
 }
 
 void GgafDxGeometricActor::setFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz) {

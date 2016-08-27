@@ -23,11 +23,12 @@ int EffectExplosion003::isOutOfView() {
 }
 
 void EffectExplosion003::initialize() {
-    setScale(0);
-    pScaler_->transitionAcceUntilVelo(-R_SC(0.01) , R_SC(0.1), -R_SC(0.001));
+
 }
 
 void EffectExplosion003::onActive() {
+    setScale(0);
+    pScaler_->transitionAcceUntilVelo(R_SC(0.01) , R_SC(0.1), -R_SC(0.001));
     getUvFlipper()->exec(FLIP_ORDER_LOOP, 1);
     setRzRyFaceAng(getKuroko()->getRzMvAng(), getKuroko()->getRyMvAng());
 }

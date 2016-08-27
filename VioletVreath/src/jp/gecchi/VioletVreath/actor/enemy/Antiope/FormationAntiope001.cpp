@@ -59,16 +59,16 @@ void FormationAntiope001::processBehavior() {
             if (pP && pN) {
                 pP->positionAs(&entry_pos);
                 pP->getKuroko()->setMvAngTwd(&twd_pos_p);
-                pP->setRzFaceAng(pP->getKuroko()->_ang_rz_mv);
-                pP->setRyFaceAng(pP->getKuroko()->_ang_ry_mv);
+                pP->setRzFaceAng(pP->getKuroko()->_rz_mv);
+                pP->setRyFaceAng(pP->getKuroko()->_ry_mv);
                 pP->getKuroko()->stopMv();
                 pP->mv_velo_twd_.set(vX*veloMv, vY*veloMv, vZ*veloMv);
 
                 pN->positionAs(&entry_pos);
                 pN->getKuroko()->setMvAngTwd(&twd_pos_p);
                 pN->getKuroko()->reverseMvAng(); //”½“]
-                pN->setRzFaceAng(pN->getKuroko()->_ang_rz_mv);
-                pN->setRyFaceAng(pN->getKuroko()->_ang_ry_mv);
+                pN->setRzFaceAng(pN->getKuroko()->_rz_mv);
+                pN->setRyFaceAng(pN->getKuroko()->_ry_mv);
                 pN->getKuroko()->stopMv();
                 pN->mv_velo_twd_.set(vX*veloMv, vY*veloMv, vZ*veloMv);
 

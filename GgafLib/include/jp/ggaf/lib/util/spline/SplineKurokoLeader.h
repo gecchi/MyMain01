@@ -35,7 +35,7 @@ public:
      * [r]オプション
      * ABSOLUTE_COORD     : 絶対座標移動。
      * RELATIVE_COORD     : 始点を現座標とし、スプライン座標群は相対移動で計算。
-     * RELATIVE_COORD_DIRECTION : 始点を現座標とし、さらに現在の向き（_pKuroko の _ang_rz_mv, _ang_ry_mv)でスプライン座標群をワールド変換。
+     * RELATIVE_COORD_DIRECTION : 始点を現座標とし、さらに現在の向き（_pKuroko の _rz_mv, _ry_mv)でスプライン座標群をワールド変換。
      */
     SplinTraceOption _option;
     /** [r] ループカウンタ */
@@ -63,10 +63,10 @@ public:
     bool _is_fix_start_pos;
 
     bool _is_fix_start_ang;
-    bool _is_loop_ang_by_face_ang;
+    bool _is_loop_ang_by_face;
     angle _ang_rx_mv_start;
-    angle _ang_rz_mv_start;
-    angle _ang_ry_mv_start;
+    angle _rz_mv_start;
+    angle _ry_mv_start;
 
 //    bool _is_linked_start_pos;
 //    bool _is_linked_start_ang;
@@ -299,16 +299,16 @@ public:
      * start()時の対象アクターの向きの方向(_rz, _ry)に座標変換されて、スプラインの軌跡が構築される。
      */
     void setLoopAngleByFaceAng() {
-        _is_loop_ang_by_face_ang = true;
+        _is_loop_ang_by_face = true;
     }
 
     /**
      * スプライン移動の開始方向を、自分が移動している方向に対して開始する .
-     * start()時の対象アクター黒子Aの移動方向(getKuroko()->_ang_rz_mv, getKuroko()->_ang_ry_mv）
+     * start()時の対象アクター黒子Aの移動方向(getKuroko()->_rz_mv, getKuroko()->_ry_mv）
      * に座標変換されて、スプラインの軌跡が構築される。
      */
     void setLoopAngleByMvAng() {
-        _is_loop_ang_by_face_ang = false;
+        _is_loop_ang_by_face = false;
     }
 
 

@@ -30,11 +30,11 @@ public:
         Pos* pRight_;
         Pos* pDown_;
 
-        Pos(int prm_pos_cam, angle prm_Rz_up, angle prm_Ry_up) {
+        Pos(int prm_pos_cam, angle prm_rz_up, angle prm_ry_up) {
             pLeft_ = pUp_ = pRight_ = pDown_ = nullptr;
             pos_cam_ = prm_pos_cam;
-            Rz_up_ = prm_Rz_up;
-            Ry_up_ = prm_Ry_up;
+            Rz_up_ = prm_rz_up;
+            Ry_up_ = prm_ry_up;
         }
         void set(Pos* prm_pLeft, Pos* prm_pUp, Pos* prm_pRight, Pos* prm_pDown) {
             pLeft_  = prm_pLeft;

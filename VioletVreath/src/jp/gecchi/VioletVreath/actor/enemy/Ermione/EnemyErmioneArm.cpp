@@ -112,24 +112,24 @@ void EnemyErmioneArm::processBehavior() {
                     int tvy = mvx*pBaseInvMatRM->_12 + mvy*pBaseInvMatRM->_22 + mvz*pBaseInvMatRM->_32;
                     int tvz = mvx*pBaseInvMatRM->_13 + mvy*pBaseInvMatRM->_23 + mvz*pBaseInvMatRM->_33;
                     //自動方向向きシークエンス開始
-                    angle angRz_Target, angRy_Target;
-                    UTIL::convVectorToRzRy(tvx, tvy, tvz, angRz_Target, angRy_Target);
-                    //計算の結果、angRz_Target angRy_Target に向けば、自機に向ける
+                    angle rz_target, ry_target;
+                    UTIL::convVectorToRzRy(tvx, tvy, tvz, rz_target, ry_target);
+                    //計算の結果、rz_target ry_target に向けば、自機に向ける
 
-                    //angRz_Target、angRy_Target 可動範囲内に制限する
-                    if (aiming_movable_limit_ang_ <= angRz_Target && angRz_Target <= D180ANG) {
-                        angRz_Target = aiming_movable_limit_ang_;
-                    } else if (D180ANG <= angRz_Target && angRz_Target <= D360ANG - aiming_movable_limit_ang_) {
-                        angRz_Target = D360ANG - aiming_movable_limit_ang_;
+                    //rz_target、ry_target 可動範囲内に制限する
+                    if (aiming_movable_limit_ang_ <= rz_target && rz_target <= D180ANG) {
+                        rz_target = aiming_movable_limit_ang_;
+                    } else if (D180ANG <= rz_target && rz_target <= D360ANG - aiming_movable_limit_ang_) {
+                        rz_target = D360ANG - aiming_movable_limit_ang_;
                     }
-                    if (aiming_movable_limit_ang_ <= angRy_Target && angRy_Target <= D180ANG) {
-                        angRy_Target = aiming_movable_limit_ang_;
-                    } else if (D180ANG <= angRy_Target && angRy_Target <= D360ANG - aiming_movable_limit_ang_) {
-                        angRy_Target = D360ANG - aiming_movable_limit_ang_;
+                    if (aiming_movable_limit_ang_ <= ry_target && ry_target <= D180ANG) {
+                        ry_target = aiming_movable_limit_ang_;
+                    } else if (D180ANG <= ry_target && ry_target <= D360ANG - aiming_movable_limit_ang_) {
+                        ry_target = D360ANG - aiming_movable_limit_ang_;
                     }
 
                     pKuroko->turnRzRyFaceAngTo(
-                                    angRz_Target, angRy_Target,
+                                    rz_target, ry_target,
                                     aiming_ang_velo_, aiming_ang_velo_*0.01,
                                     TURN_CLOSE_TO, false);
                 }

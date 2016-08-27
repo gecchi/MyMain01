@@ -89,9 +89,9 @@ void EnemyIda::processBehavior() {
             coord tvy = mvx*pBaseInvMat->_12 + mvy*pBaseInvMat->_22 + mvz*pBaseInvMat->_32;
             coord tvz = mvx*pBaseInvMat->_13 + mvy*pBaseInvMat->_23 + mvz*pBaseInvMat->_33;
 
-            angle angRz_Target, angRy_Target;
-            UTIL::convVectorToRzRy(tvx, tvy, tvz, angRz_Target, angRy_Target); //RzRy‚É’u‚«Š·‚¦‚é
-            pKuroko->setRzRyMvAng(angRz_Target, angRy_Target);
+            angle rz_target, ry_target;
+            UTIL::convVectorToRzRy(tvx, tvy, tvz, rz_target, ry_target); //RzRy‚É’u‚«Š·‚¦‚é
+            pKuroko->setRzRyMvAng(rz_target, ry_target);
             break;
         }
     }

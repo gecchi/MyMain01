@@ -182,9 +182,9 @@ void EnemyOmulus::processBehavior() {
 //        int tvy = mvx*pBaseInvMatRM->_12 + mvy*pBaseInvMatRM->_22 + mvz * pBaseInvMatRM->_32;
 //        int tvz = mvx*pBaseInvMatRM->_13 + mvy*pBaseInvMatRM->_23 + mvz * pBaseInvMatRM->_33;
 //        //自動方向向きシークエンス開始
-//        angle angRz_Target, angRy_Target;
-//        UTIL::convVectorToRzRy(tvx, tvy, tvz, angRz_Target, angRy_Target);
-//        pKuroko->turnRzRyMvAngTo(angRz_Target, angRy_Target,
+//        angle rz_target, ry_target;
+//        UTIL::convVectorToRzRy(tvx, tvy, tvz, rz_target, ry_target);
+//        pKuroko->turnRzRyMvAngTo(rz_target, ry_target,
 //                                   1000, 0,
 //                                   TURN_CLOSE_TO, false);
 //    }

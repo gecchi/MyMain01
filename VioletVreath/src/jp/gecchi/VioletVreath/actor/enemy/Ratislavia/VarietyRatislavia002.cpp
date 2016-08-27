@@ -15,12 +15,12 @@ using namespace VioletVreath;
 VarietyRatislavia002::VarietyRatislavia002(const char* prm_name) :
         EnemyRatislavia(prm_name, "Ratislavia", PX_C(2000), PX_C(800)) {
     _class_name = "VarietyRatislavia002";
-    for (angle angPos1 = 0; angPos1 < D360ANG;  angPos1 += (D_ANG(20))) {
-        for (angle angPos2 = 0; angPos2 < D360ANG;  angPos2 += (D_ANG(20))) {
-            std::string name = "Emus(" + XTOS(angPos1) + "," + XTOS(angPos2) + ")";
+    for (angle ang1 = 0; ang1 < D360ANG;  ang1 += (D_ANG(20))) {
+        for (angle ang2 = 0; ang2 < D360ANG;  ang2 += (D_ANG(20))) {
+            std::string name = "Emus(" + XTOS(ang1) + "," + XTOS(ang2) + ")";
             EnemyEmus* p = NEW EnemyEmus(name.c_str());
-            addSubGroupAsFkOnSurface(p, angPos1, angPos2);
-            p->ini_wait_ = ( ((angPos2/D_ANG(20)) * (D360ANG/D_ANG(20))) + (angPos1/D_ANG(20)) ) * 3;
+            addSubGroupAsFkOnSurface(p, ang1, ang2);
+            p->ini_wait_ = ( ((ang2/D_ANG(20)) * (D360ANG/D_ANG(20))) + (ang1/D_ANG(20)) ) * 3;
             Sleep(1);
         }
     }

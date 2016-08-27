@@ -39,7 +39,7 @@ public:
      *
      *    角速度(ω)
      *     ^
-     *     |                         θ:目標移動角（距離）    ・・・引数：prm_angular_distance
+     *     |                         θ:目標移動角（距離）    ・・・引数：prm_distance
      *     |                        ω0:現時点の角速度        ・・・メンバー：_angvelo_face[prm_axis]
      *     |                        ωt:トップ角速度          ・・・変動、計算される
      *     |                        ωe:最終速度              ・・・引数：prm_end_angvelo
@@ -55,30 +55,30 @@ public:
      *
      * </pre>
      * @param prm_axis 回転方角軸(AXIS_X or AXIS_Y or AXIS_Z)
-     * @param prm_angular_distance 目標角距離(θ)（正負により回転方向有り。正：TURN_COUNTERCLOCKWISE、負：TURN_CLOCKWISE）
+     * @param prm_distance 目標角距離(θ)（正負により回転方向有り。正：TURN_COUNTERCLOCKWISE、負：TURN_CLOCKWISE）
      * @param prm_target_frames 費やす時間(Te)(フレーム数を指定、負の数は不可)
      * @param prm_p1 トップスピードに達する時刻となるような、Teに対する割合(p1)
      * @param prm_p2 減速を開始時刻となるような、Teに対する割合(p2)
-     * @param prm_end_angvelo 目標到達時の最終角速度(ωe) （内部で正負がprm_angular_distanceの正負に合わせられる）
+     * @param prm_end_angvelo 目標到達時の最終角速度(ωe) （内部で正負がprm_distanceの正負に合わせられる）
      * @param prm_zero_acc_end_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
     void turnFaceAngByDt(axis prm_axis,
-                         angle prm_angular_distance, int prm_target_frames,
+                         angle prm_distance, int prm_target_frames,
                          float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                          bool prm_zero_acc_end_flg);
 
     /**
      * 目標の軸回転方角(Z軸)へ滑らかに回転するシークエンスを実行(時間指定、角速度変動) .
-     * @param prm_ang_rz_target 到達目標のZ軸回転方角
+     * @param prm_rz_target 到達目標のZ軸回転方角
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      * @param prm_target_frames 費やす時間(Te)(フレーム数を指定、負の数は不可)
      * @param prm_p1 トップスピードに達する時刻となるような、Teに対する割合(p1)
      * @param prm_p2 減速を開始時刻となるような、Teに対する割合(p2)
-     * @param prm_end_angvelo 目標到達時の最終角速度(ωe) （内部で正負がprm_angular_distanceの正負に合わせられる）
+     * @param prm_end_angvelo 目標到達時の最終角速度(ωe) （内部で正負がprm_distanceの正負に合わせられる）
      * @param prm_zero_acc_end_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
-    void turnRzFaceAngByDtTo(angle prm_ang_rz_target, int prm_way, int prm_target_frames,
+    void turnRzFaceAngByDtTo(angle prm_rz_target, int prm_way, int prm_target_frames,
                              float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                              bool prm_zero_acc_end_flg);
 
@@ -90,7 +90,7 @@ public:
      * @param prm_target_frames 費やす時間(Te)(フレーム数を指定、負の数は不可)
      * @param prm_p1 トップスピードに達する時刻となるような、Teに対する割合(p1)
      * @param prm_p2 減速を開始時刻となるような、Teに対する割合(p2)
-     * @param prm_end_angvelo 目標到達時の最終角速度(ωe) （内部で正負がprm_angular_distanceの正負に合わせられる）
+     * @param prm_end_angvelo 目標到達時の最終角速度(ωe) （内部で正負がprm_distanceの正負に合わせられる）
      * @param prm_zero_acc_end_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
     void turnRyFaceAngByDtTo(angle prm_ang_rt_target, int prm_way, int prm_target_frames,
@@ -104,7 +104,7 @@ public:
      * @param prm_target_frames 費やす時間(Te)(フレーム数を指定、負の数は不可)
      * @param prm_p1 トップスピードに達する時刻となるような、Teに対する割合(p1)
      * @param prm_p2 減速を開始時刻となるような、Teに対する割合(p2)
-     * @param prm_end_angvelo 目標到達時の最終角速度(ωe) （内部で正負がprm_angular_distanceの正負に合わせられる）
+     * @param prm_end_angvelo 目標到達時の最終角速度(ωe) （内部で正負がprm_distanceの正負に合わせられる）
      * @param prm_zero_acc_end_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
     void rollFaceAngByDtTo(angle prm_ang_rx_target, int prm_way, int prm_target_frames,
@@ -113,18 +113,18 @@ public:
 
     /**
      * 目標の軸回転方角へ滑らかに回転するシークエンスを実行(時間指定、角速度変動) .
-     * @param prm_ang_rz_target 目標Z軸回転方角
-     * @param prm_ang_ry_target 目標Y軸回転方角
+     * @param prm_rz_target 目標Z軸回転方角
+     * @param prm_ry_target 目標Y軸回転方角
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。<BR>
-     *                         true: 引数の prm_ang_rz_target, prm_ang_ry_target までの距離と、<BR>
+     *                         true: 引数の prm_rz_target, prm_ry_target までの距離と、<BR>
      *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、<BR>
      *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。<BR>
-     *                               所望の方向に最短フレームでターゲットするが、内部の _ang_rz_mv, _ang_ry_mv は<BR>
+     *                               所望の方向に最短フレームでターゲットするが、内部の _rz_mv, _ry_mv は<BR>
      *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
-     *                         false:引数の prm_ang_rz_target, prm_ang_ry_target をそのままターゲートとする。<BR>
+     *                         false:引数の prm_rz_target, prm_ry_target をそのままターゲートとする。<BR>
      * @param prm_target_frames 費やす時間(Te)(フレーム数を指定、負の数は不可)
      * @param prm_p1 トップスピードに達する時刻となるような、Teに対する割合(p1)
      * @param prm_p2 減速を開始時刻となるような、Teに対する割合(p2)
@@ -132,7 +132,7 @@ public:
      * @param prm_zero_acc_end_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
     void turnRzRyFaceAngByDtTo(
-            angle prm_ang_rz_target, angle prm_ang_ry_target, int prm_way, bool prm_optimize_ang,
+            angle prm_rz_target, angle prm_ry_target, int prm_way, bool prm_optimize_ang,
             int prm_target_frames,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_zero_acc_end_flg);
@@ -188,7 +188,7 @@ public:
      *     |                        ω0:現時点の角速度        ・・・メンバー：_angvelo_face[prm_axis]
      *     |                        ωt:トップ角速度          ・・・引数：prm_top_angvelo
      *     |                        ωe:最終角速度            ・・・引数：prm_end_angvelo
-     *     |       θ=θ1+θ2+θ3    θ:目標移動角（距離）    ・・・引数：prm_angular_distance
+     *     |       θ=θ1+θ2+θ3    θ:目標移動角（距離）    ・・・引数：prm_distance
      *  ωt|....___________          p1:トップ角速度に達する角距離となるような、θに対する割合
      *     |   /|         |＼            つまり     θ1 = θ*p1 となるような p1 (0.0～1.0)    ・・・引数 prm_p1
      *  ωe|../.|.........|..＼      p2:減速を開始距離となるような、θ対する割合
@@ -205,7 +205,7 @@ public:
      * <BR>
      * @param prm_axis 回転方角軸(AXIS_X or AXIS_Y or AXIS_Z)
      * @param prm_top_angvelo トップ角速度(ωt)
-     * @param prm_angular_distance 目標角距離(θ)（正負により回転方向有り。正：TURN_COUNTERCLOCKWISE、負：TURN_CLOCKWISE）
+     * @param prm_distance 目標角距離(θ)（正負により回転方向有り。正：TURN_COUNTERCLOCKWISE、負：TURN_CLOCKWISE）
      * @param prm_p1 トップスピードに達する距離となるような、回転距離角(θ)に対する割合。(θ1 = θ*prm_p1)
      * @param prm_p2 角回転の減速を開始角となるような、回転距離角(θ)に対する割合 (θ1+θ2 = θ*p2)
      * @param prm_end_angvelo 最終角速度(ωe)
@@ -213,17 +213,17 @@ public:
      */
     void turnByVd(
             axis prm_axis,
-            angvelo prm_top_angvelo, angle prm_angular_distance,
+            angvelo prm_top_angvelo, angle prm_distance,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_zero_acc_end_flg);
 
     void turnRzByVdTo(
-            angvelo prm_top_angvelo, angle prm_ang_rz_target, int prm_way,
+            angvelo prm_top_angvelo, angle prm_rz_target, int prm_way,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_zero_acc_end_flg);
 
     void turnRyByVdTo(
-            angvelo prm_top_angvelo, angle prm_ang_ry_target, int prm_way,
+            angvelo prm_top_angvelo, angle prm_ry_target, int prm_way,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_zero_acc_end_flg);
 
@@ -235,7 +235,7 @@ public:
 
     void turnRzRyByVdTo(
             angvelo prm_top_angvelo,
-            angle prm_ang_rz_target, angle prm_ang_ry_target, int prm_way, bool prm_optimize_ang,
+            angle prm_rz_target, angle prm_ry_target, int prm_way, bool prm_optimize_ang,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_zero_acc_end_flg);
 
