@@ -137,7 +137,7 @@ void MyBunshin::processChangeGeoFinal() {
             MyBunshinSnipeShot001* const pSnipeShot = (MyBunshinSnipeShot001*)pDepo_MySnipeBunshinShot_->dispatch();
             if (pSnipeShot) {
                 getSeTransmitter()->play3D(SE_FIRE_SHOT);
-                pSnipeShot->positionAs(this);
+                pSnipeShot->placeAs(this);
                 pSnipeShot->getKuroko()->setRzRyMvAng(_rz, _ry);
                 pSnipeShot->getKuroko()->setMvVelo(PX_C(70));
                 pSnipeShot->getKuroko()->setMvAcce(100);
@@ -147,7 +147,7 @@ void MyBunshin::processChangeGeoFinal() {
                 MyBunshinShot001* const  pShot = (MyBunshinShot001*)pDepo_MyBunshinShot_->dispatch();
                 if (pShot) {
                     getSeTransmitter()->play3D(SE_FIRE_SHOT);
-                    pShot->positionAs(this);
+                    pShot->placeAs(this);
                     pShot->getKuroko()->setRzRyMvAng(_rz, _ry);
                     pShot->getKuroko()->setMvVelo(PX_C(70));
                     pShot->getKuroko()->setMvAcce(100);
@@ -225,11 +225,11 @@ void MyBunshin::effectFreeModeLaunch() {
     EffectTurbo002* const pTurbo002 = dispatchFromCommon(EffectTurbo002);
     if (pTurbo002) {
         if (_is_local) {
-            pTurbo002->position(_x_final,_y_final,_z_final);
+            pTurbo002->place(_x_final,_y_final,_z_final);
             pTurbo002->setRollFaceAng(_rx_final);
             pTurbo002->setRzRyFaceAng(_rz_final, _ry_final+D90ANG);
         } else {
-            pTurbo002->positionAs(this);
+            pTurbo002->placeAs(this);
             pTurbo002->setRollFaceAng(_rx);
             pTurbo002->setRzRyFaceAng(_rz, _ry+D90ANG);
         }
@@ -239,27 +239,27 @@ void MyBunshin::effectFreeModePause() {
     getKuroko()->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_);
 }
 
-void MyBunshin::setRadiusPosition(coord prm_radius_position) {
+void MyBunshin::setRadiusPosition(coord prm_radius_place) {
     if (_is_local) {
-        _y = prm_radius_position;
+        _y = prm_radius_place;
         if (_y < 1) {
             _y = 1;
         }
     } else {
-        _y_local = prm_radius_position;
+        _y_local = prm_radius_place;
         if (_y_local < 1) {
             _y_local = 1;
         }
     }
 }
-void MyBunshin::addRadiusPosition(coord prm_radius_position) {
+void MyBunshin::addRadiusPosition(coord prm_radius_place) {
     if (_is_local) {
-        _y += prm_radius_position;
+        _y += prm_radius_place;
         if (_y < 1) {
             _y = 1;
         }
     } else {
-        _y_local += prm_radius_position;
+        _y_local += prm_radius_place;
         if (_y_local < 1) {
             _y_local = 1;
         }
@@ -270,10 +270,10 @@ coord MyBunshin::getRadiusPosition() {
     return _is_local ? _y : _y_local;
 }
 
-void MyBunshin::slideMvRadiusPosition(coord prm_target_radius_position, frame prm_spent_frames) {
+void MyBunshin::slideMvRadiusPosition(coord prm_target_radius_place, frame prm_spent_frames) {
     bool is_local = _is_local;
     if (!is_local) { changeGeoLocal(); }  //ローカル座標の操作とする。
-    coord d = prm_target_radius_position - _y;
+    coord d = prm_target_radius_place - _y;
     getKuroko()->setRzRyMvAng(D90ANG, D0ANG); //Y軸方向
     getKuroko()->asstMv()->slideByDt(d, prm_spent_frames, 0.2, 0.8, 0, true);
     if (!is_local) { changeGeoFinal(); }  //座標系を戻す

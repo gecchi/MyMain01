@@ -8,16 +8,16 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-DefaultMassBoardActor::VERTEX_instancedata DefaultMassBoardActor::_aInstancedata[GGAFDXMASS_MAX_INSTACE_NUM];
+DefaultMassBoardActor::VERTEX_instancedata DefaultMassBoardActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
 DefaultMassBoardActor::DefaultMassBoardActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
     GgafDxMassBoardActor(prm_name, prm_model, "DefaultMassBoardEffect", "DefaultMassBoardTechnique")
 {
     _class_name = "DefaultMassBoardActor";
-    _pMassBoardModel->registerCallback_VertexInstaceDataInfo(DefaultMassBoardActor::createVertexInstaceData);
+    _pMassBoardModel->registerCallback_VertexInstanceDataInfo(DefaultMassBoardActor::createVertexInstanceData);
 }
 
-void DefaultMassBoardActor::createVertexInstaceData(void* prm, GgafDxMassModel::VertexInstaceDataInfo* out_info) {
+void DefaultMassBoardActor::createVertexInstanceData(void* prm, GgafDxMassModel::VertexInstanceDataInfo* out_info) {
     int element_num = 5;
     out_info->paElement = NEW D3DVERTEXELEMENT9[element_num];
     // Stream = 1 ---->
@@ -65,7 +65,7 @@ void DefaultMassBoardActor::createVertexInstaceData(void* prm, GgafDxMassModel::
     // <---- Stream = 1
 
     out_info->element_num = element_num;
-    out_info->size_vertex_unit_instacedata = sizeof(DefaultMassBoardActor::VERTEX_instancedata);
+    out_info->size_vertex_unit_instancedata = sizeof(DefaultMassBoardActor::VERTEX_instancedata);
     out_info->pInstancedata = DefaultMassBoardActor::_aInstancedata;
 }
 void DefaultMassBoardActor::processDraw() {

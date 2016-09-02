@@ -25,7 +25,7 @@ void ViewPointGuide::onActive() {
 
 void ViewPointGuide::processBehavior() {
     Camera* pCam = P_GOD->getSpacetime()->getCamera();
-    positionAs(pCam->getCameraViewPoint());
+    placeAs(pCam->getCameraViewPoint());
 }
 
 void ViewPointGuide::processJudgement() {

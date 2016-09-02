@@ -26,7 +26,7 @@ protected:
         float r, g, b, a;           // : TEXCOORD7  マテリアルカラー
     };
     static VERTEX_instancedata _aInstancedata[];
-    static void createVertexInstaceData(void* prm, GgafDxCore::GgafDxMassModel::VertexInstaceDataInfo* out_info);
+    static void createVertexInstanceData(void* prm, GgafDxCore::GgafDxMassModel::VertexInstanceDataInfo* out_info);
 public:
     /** 衝突判定支援オブジェクト */
     CollisionChecker3D* _pColliChecker;

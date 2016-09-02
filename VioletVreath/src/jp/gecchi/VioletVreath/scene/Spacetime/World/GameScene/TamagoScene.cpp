@@ -68,7 +68,7 @@ void TamagoScene::processBehavior() {
 //        EnemyOmulus* p6 = (EnemyOmulus*)obtainActorFromFactory(100000006);
 //
 //        EnemyIrce* p9 = (EnemyIrce*)obtainActorFromFactory(100000009);
-//        p9->position(80000,50000,50000);
+//        p9->place(80000,50000,50000);
 //        p9->addSubGroupAsFk(p1,       0,       0,  300000, D0ANG, D270ANG,  D0ANG);
 //        p9->addSubGroupAsFk(p2,  300000,       0,       0, D0ANG, D0ANG,  D0ANG);
 //        p9->addSubGroupAsFk(p3,       0,       0, -300000, D0ANG, D90ANG,  D0ANG);
@@ -82,7 +82,7 @@ void TamagoScene::processBehavior() {
 //    for (int i = 1; i <= 1; i++) {
 //        if (getBehaveingFrame() == (i*8)) {
 //            HoshiBoshi001* p = (HoshiBoshi001*)(obtainActorFromFactory(100000000+i));
-//            p->position(0,0,0);
+//            p->place(0,0,0);
 //            bringDirector()->addSubGroup(p);
 //        }
 //    }

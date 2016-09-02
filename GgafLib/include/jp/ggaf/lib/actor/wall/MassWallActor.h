@@ -38,7 +38,7 @@ protected:
         float _wall_draw_face, _pos_info;  // : TEXCOORD5 壁ブロックプリズム位置情報, 壁ブロック表示面
     };
     static VERTEX_instancedata _aInstancedata[];
-    static void createVertexInstaceData(void* prm, GgafDxCore::GgafDxMassModel::VertexInstaceDataInfo* out_info);
+    static void createVertexInstanceData(void* prm, GgafDxCore::GgafDxMassModel::VertexInstanceDataInfo* out_info);
 
 public:
     static D3DXHANDLE _h_distance_AlphaTarget;

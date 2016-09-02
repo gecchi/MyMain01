@@ -53,7 +53,7 @@ void GameTitleScene::onReset() {
     _TRACE_(FUNC_NAME<<" "<<NODE_INFO<<"");
     pLabel01_->update("");
     pLabel02_->update("");
-    pTitleBoard_->position(PX_C(100), PX_C(90));
+    pTitleBoard_->place(PX_C(100), PX_C(90));
     getProgress()->reset(PROG_INIT);
 }
 

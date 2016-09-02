@@ -41,7 +41,7 @@ void EffectLockon001_Main::onActive() {
     getSeTransmitter()->play3D(0); //ƒƒbƒNƒIƒ“SE
 
     if (pTarget_) {
-        positionAs(pTarget_);
+        placeAs(pTarget_);
         getProgress()->reset(LOCKON001_PROG_FIRST_LOCK);
     } else {
         setAlpha(0.00);
@@ -68,7 +68,7 @@ void EffectLockon001_Main::processBehavior() {
                 if (ABS(pTarget_->_x-_x) <= PX_C(250) &&
                     ABS(pTarget_->_y-_y) <= PX_C(250) &&
                     ABS(pTarget_->_z-_z) <= PX_C(250)) {
-                    positionAs(pTarget_);
+                    placeAs(pTarget_);
                     pKuroko->setMvVelo(0);
                     pKuroko->_angvelo_face[AXIS_Z] = 1000;
                 } else {

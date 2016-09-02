@@ -83,7 +83,7 @@ void EnemyHisbe002::processBehavior() {
         case PROG_FIRE: {
             LaserChip* pLaser = pLaserChipDepo_->dispatch();
             if (pLaser) {
-                pLaser->positionAs(this);
+                pLaser->placeAs(this);
                 pLaser->getKuroko()->setRzRyMvAng(_rz, _ry);
                                    //レーザーのスプラインがRELATIVE_COORD_DIRECTIONのためMvAngの設定が必要。
                 if (pLaser->getInfrontChip() == nullptr) {

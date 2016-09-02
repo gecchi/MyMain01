@@ -5,7 +5,7 @@
 
 namespace GgafDxCore {
 
-#define GGAFDXMASS_MAX_INSTACE_NUM 512
+#define GGAFDXMASS_MAX_INSTANCE_NUM 512
 
 /**
  * Massメッシュモデルクラス(GgafDxMeshActor用) .
@@ -20,23 +20,23 @@ public:
     /**
      * 頂点レイアウト（インスタンス）情報
      */
-    class VertexInstaceDataInfo {
+    class VertexInstanceDataInfo {
     public:
         /** インスタンスデータの頂点レイアウト配列 */
         D3DVERTEXELEMENT9* paElement;
         /** インスタンスデータの頂点レイアウトの要素数 */
         int element_num;
         /** インスタンスデータの１頂点のサイズ */
-        UINT size_vertex_unit_instacedata;
+        UINT size_vertex_unit_instancedata;
         /** デバイスに流し込むインスタンスデータが存在する先頭アドレス */
         void* pInstancedata;
-        VertexInstaceDataInfo() {
+        VertexInstanceDataInfo() {
             paElement = nullptr;
             element_num = 0;
-            size_vertex_unit_instacedata = 0;
+            size_vertex_unit_instancedata = 0;
             pInstancedata = nullptr;
         }
-        ~VertexInstaceDataInfo() {
+        ~VertexInstanceDataInfo() {
             GGAF_DELETEARR_NULLABLE(paElement);
         }
     };
@@ -62,7 +62,7 @@ public:
     /** デバイスの頂点バッファ（モデル） */
     LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer_model;
     /** デバイスの頂点バッファ（インスタンス：ワールド変換行列情報、マテリアルカラー情報） */
-    LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer_instacedata;
+    LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer_instancedata;
     /** デバイスのインデックスバッファ */
     LPDIRECT3DINDEXBUFFER9 _pIndexBuffer;
     /** デバイスのシェーダー入力頂点フォーマット */
@@ -71,7 +71,7 @@ public:
     /** １頂点のサイズ（モデル） */
     UINT _size_vertex_unit_model;
     /** １頂点のサイズ（インスタンス） */
-    UINT _size_vertex_unit_instacedata;
+    UINT _size_vertex_unit_instancedata;
     /** １モデル頂点サイズ計 */
     UINT _size_vertices_model;
     /** モデル頂点数 */
@@ -91,7 +91,7 @@ public:
      * @param prm なにかしらのパラメータ
      * @param out_info 頂点レイアウト（インスタンス）情報が設定される
      */
-    void (*_pFunc_getVertexInstaceData)(void* prm, VertexInstaceDataInfo* out_info);
+    void (*_pFunc_getVertexInstanceData)(void* prm, VertexInstanceDataInfo* out_info);
 
 public:
     /**
@@ -103,17 +103,17 @@ public:
     /**
      * 頂点レイアウト（インスタンスデータ）情報取得コールバック関数を登録する .
      * Modelクラスのコンストラクタ等で呼び出し、登録してください。
-     * @param prm_pFunc_getVertexInstaceData 頂点レイアウト（インスタンスデータ）情報取得コールバック関数
+     * @param prm_pFunc_getVertexInstanceData 頂点レイアウト（インスタンスデータ）情報取得コールバック関数
      */
-    inline void registerCallback_VertexInstaceDataInfo(void (*prm_pFunc_getVertexInstaceData)(void*, VertexInstaceDataInfo*)) {
+    inline void registerCallback_VertexInstanceDataInfo(void (*prm_pFunc_getVertexInstanceData)(void*, VertexInstanceDataInfo*)) {
 #ifdef MY_DEBUG
-        if (_pFunc_getVertexInstaceData && _pFunc_getVertexInstaceData != prm_pFunc_getVertexInstaceData) {
+        if (_pFunc_getVertexInstanceData && _pFunc_getVertexInstanceData != prm_pFunc_getVertexInstanceData) {
             throwGgafCriticalException("既に頂点レイアウトは作成済みにもかかわらず、別の定義関数を設定しようとしました。(1)");
         }
 #endif
-        _pFunc_getVertexInstaceData = prm_pFunc_getVertexInstaceData;
-        if (_pFunc_getVertexInstaceData && _pFunc_getVertexModel) {
-            if (_pVertexBuffer_instacedata == nullptr) {
+        _pFunc_getVertexInstanceData = prm_pFunc_getVertexInstanceData;
+        if (_pFunc_getVertexInstanceData && _pFunc_getVertexModel) {
+            if (_pVertexBuffer_instancedata == nullptr) {
                 createVertexElements();
             }
         }
@@ -130,8 +130,8 @@ public:
         }
 #endif
         _pFunc_getVertexModel = prm_pFunc_getVertexModel;
-        if (_pFunc_getVertexInstaceData && _pFunc_getVertexModel) {
-            if (_pVertexBuffer_instacedata == nullptr) {
+        if (_pFunc_getVertexInstanceData && _pFunc_getVertexModel) {
+            if (_pVertexBuffer_instancedata == nullptr) {
                 createVertexElements();
             }
         }

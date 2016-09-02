@@ -28,7 +28,7 @@ public:
     LabelFix16Font01* pLabel_BgmVol_;
     LabelFix16Font01* pLabel_MasterVol_;
 
-    LabelGecchi16Font* pLabel_Msg_;
+    LabelGecchi16Font* pLabel_msg_;
 public:
     MenuBoardSoundConfig(const char* prm_name);
 

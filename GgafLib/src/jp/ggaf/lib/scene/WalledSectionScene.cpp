@@ -147,7 +147,7 @@ void WalledSectionScene::processBehavior() {
                 pWallParts->config(this, pWallInfo->_pos_info,
                                          pWallInfo->_wall_draw_face,
                                          pWallInfo->_aColliBoxStretch);
-                pWallParts->position( _pWallPartsLast==nullptr ? _wall_start_x : _pWallPartsLast->_x + _wall_dep,
+                pWallParts->place( _pWallPartsLast==nullptr ? _wall_start_x : _pWallPartsLast->_x + _wall_dep,
                                     (-harf_area_height + pWallInfo->_y) * _wall_height,
                                     (-harf_area_width  + pWallInfo->_z) * _wall_width   );
                 pWallParts->activateImmed();

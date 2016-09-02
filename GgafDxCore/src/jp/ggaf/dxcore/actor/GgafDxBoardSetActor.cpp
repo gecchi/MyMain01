@@ -108,12 +108,12 @@ void GgafDxBoardSetActor::processDraw() {
     _pBoardSetModel->GgafDxBoardSetModel::draw(this, draw_set_num);
 }
 
-void GgafDxBoardSetActor::positionAs(const GgafDxGeometricActor* prm_pActor) {
+void GgafDxBoardSetActor::placeAs(const GgafDxGeometricActor* prm_pActor) {
     _x = prm_pActor->_x;
     _y = prm_pActor->_y;
 }
 
-void GgafDxBoardSetActor::positionAs(const GgafDxGeoElem* prm_pGeoElem) {
+void GgafDxBoardSetActor::placeAs(const GgafDxGeoElem* prm_pGeoElem) {
     _x = prm_pGeoElem->x;
     _y = prm_pGeoElem->y;
 }

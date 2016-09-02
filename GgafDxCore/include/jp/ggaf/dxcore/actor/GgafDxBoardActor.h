@@ -100,8 +100,8 @@ public:
     virtual void setAlign(GgafDxAlign prm_align);
     virtual void setValign(GgafDxValign prm_valign);
 
-    virtual void positionAs(const GgafDxGeometricActor* prm_pActor) override;
-    virtual void positionAs(const GgafDxGeoElem* prm_pGeoElem) override;
+    virtual void placeAs(const GgafDxGeometricActor* prm_pActor) override;
+    virtual void placeAs(const GgafDxGeoElem* prm_pGeoElem) override;
     virtual void setScale(scale s) override;
     virtual void setScale(scale sx, scale sy) override;
     virtual void setScale(scale sx, scale sy, scale sz) override;

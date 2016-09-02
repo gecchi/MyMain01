@@ -51,7 +51,7 @@ void  EnemyErmioneArmHead::processChangeGeoFinal() {
             //DEPO_LASER001‚Ìê‡
             pChip->setRollPitchYawFaceAng(_rx, _rz, _ry);
             pChip->getKuroko()->setRzRyMvAng(_rz, _ry); //â‘ÎÀ•WŒn
-            pChip->positionAs(this);
+            pChip->placeAs(this);
 
             //DEPO_LASER002‚Ìê‡
             //((StraightLaserChip*)pChip)->setSource(this);

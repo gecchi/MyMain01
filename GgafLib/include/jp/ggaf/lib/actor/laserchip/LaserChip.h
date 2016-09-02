@@ -136,7 +136,7 @@ public:
         return _pChip_behind;
     }
 
-    static void createVertexInstaceData(void* prm, GgafDxCore::GgafDxMassMeshModel::VertexInstaceDataInfo* out_info);
+    static void createVertexInstanceData(void* prm, GgafDxCore::GgafDxMassMeshModel::VertexInstanceDataInfo* out_info);
 
     virtual ~LaserChip();
 

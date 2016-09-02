@@ -147,8 +147,8 @@ void GgafDxPointSpriteSetModel::restore() {
             throwGgafCriticalException("_model_name には \"xxxxxx\" or \"8/xxxxx\" 形式を指定してください。 \n"<<
                     "実際は、_model_name="<<_model_name<<" でした。");
         }
-//        if (_set_num < 1 || _set_num > GGAFDXMASS_MAX_INSTACE_NUM) {
-//            throwGgafCriticalException(_model_name<<"の最大同時描画オブジェクト数が不正。範囲は 1～"<<GGAFDXMASS_MAX_INSTACE_NUM<<"セットです。_set_num="<<_set_num);
+//        if (_set_num < 1 || _set_num > GGAFDXMASS_MAX_INSTANCE_NUM) {
+//            throwGgafCriticalException(_model_name<<"の最大同時描画オブジェクト数が不正。範囲は 1～"<<GGAFDXMASS_MAX_INSTANCE_NUM<<"セットです。_set_num="<<_set_num);
 //        }
 //        if (xfile_name == "") {
 //            throwGgafCriticalException("ポイントスプライト定義ファイル(*.psprx)が見つかりません。model_name="<<(_model_name));

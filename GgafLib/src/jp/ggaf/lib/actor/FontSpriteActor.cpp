@@ -9,7 +9,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-FontSpriteActor::VERTEX_instancedata FontSpriteActor::_aInstancedata[GGAFDXMASS_MAX_INSTACE_NUM];
+FontSpriteActor::VERTEX_instancedata FontSpriteActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
 FontSpriteActor::FontSpriteActor(const char* prm_name, const char* prm_model_id, GgafStatus* prm_pStat) :
             GgafDxMassSpriteActor(prm_name,
@@ -22,7 +22,7 @@ FontSpriteActor::FontSpriteActor(const char* prm_name, const char* prm_model_id,
 {
     _class_name = "FontSpriteActor";
     _pColliChecker = (CollisionChecker3D*)_pChecker;
-    _pMassSpriteModel->registerCallback_VertexInstaceDataInfo(FontSpriteActor::createVertexInstaceData);
+    _pMassSpriteModel->registerCallback_VertexInstanceDataInfo(FontSpriteActor::createVertexInstanceData);
 }
 
 
@@ -49,7 +49,7 @@ void FontSpriteActor::setValign(GgafDxValign prm_valign) {
 }
 
 
-void FontSpriteActor::createVertexInstaceData(void* prm, GgafDxMassModel::VertexInstaceDataInfo* out_info) {
+void FontSpriteActor::createVertexInstanceData(void* prm, GgafDxMassModel::VertexInstanceDataInfo* out_info) {
     int element_num = 7;
     out_info->paElement = NEW D3DVERTEXELEMENT9[element_num];
     // Stream = 1 ---->
@@ -113,7 +113,7 @@ void FontSpriteActor::createVertexInstaceData(void* prm, GgafDxMassModel::Vertex
     // <---- Stream = 1
 
     out_info->element_num = element_num;
-    out_info->size_vertex_unit_instacedata = sizeof(FontSpriteActor::VERTEX_instancedata);
+    out_info->size_vertex_unit_instancedata = sizeof(FontSpriteActor::VERTEX_instancedata);
     out_info->pInstancedata = FontSpriteActor::_aInstancedata;
 
 }
@@ -133,18 +133,18 @@ void FontSpriteActor::processDraw() {
         if (pDrawActor->getModel() == this->getModel() && pDrawActor->_hash_technique == this->_hash_technique) {
             pFontSpriteActor = (FontSpriteActor*)pDrawActor;
             int n = pFontSpriteActor->_draw_chr_num;
-            InstacePart* pInstacePart = pFontSpriteActor->_paInstacePart;
+            InstancePart* pInstancePart = pFontSpriteActor->_paInstancePart;
             GgafDxSpacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
 
             for (int i = 0; i < n; i++) {
                 memcpy(paInstancedata, &(pFontSpriteActor->_matWorld), size_of_D3DXMATRIX);
-                paInstancedata->local_x = PX_DX(  (pInstacePart->px_local_x ) + (pFontSpriteActor->_chr_base_width_px/2) );
-                paInstancedata->local_y = PX_DX( ((pInstacePart->px_local_y ) + (pFontSpriteActor->_chr_base_height_px/2) ) * (-1) ) ; //-1は座標系の正の向きが逆の為
+                paInstancedata->local_x = PX_DX(  (pInstancePart->px_local_x ) + (pFontSpriteActor->_chr_base_width_px/2) );
+                paInstancedata->local_y = PX_DX( ((pInstancePart->px_local_y ) + (pFontSpriteActor->_chr_base_height_px/2) ) * (-1) ) ; //-1は座標系の正の向きが逆の為
                 ((FontSpriteActor*)pDrawActor)->getUvFlipper()->getUV(u,v);
-                paInstancedata->offset_u = pInstacePart->offset_u;
-                paInstancedata->offset_v = pInstacePart->offset_v;
+                paInstancedata->offset_u = pInstancePart->offset_u;
+                paInstancedata->offset_v = pInstancePart->offset_v;
                 memcpy(&(paInstancedata->r), &(pFontSpriteActor->_paMaterial[0].Diffuse), size_of_D3DCOLORVALUE);
-                ++pInstacePart;
+                ++pInstancePart;
                 ++paInstancedata;
 
                 draw_set_num++;

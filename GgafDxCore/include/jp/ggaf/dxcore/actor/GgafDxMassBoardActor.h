@@ -86,9 +86,9 @@ public:
     virtual void processSettlementBehavior() override {
     }
 
-    virtual void positionAs(const GgafDxGeometricActor* prm_pActor) override;
+    virtual void placeAs(const GgafDxGeometricActor* prm_pActor) override;
 
-    virtual void positionAs(const GgafDxGeoElem* prm_pGeoElem) override;
+    virtual void placeAs(const GgafDxGeoElem* prm_pGeoElem) override;
 
     virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign);
     virtual void setAlign(GgafDxAlign prm_align);

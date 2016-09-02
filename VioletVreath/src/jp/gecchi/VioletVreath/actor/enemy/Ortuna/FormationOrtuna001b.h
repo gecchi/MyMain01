@@ -28,7 +28,7 @@ public:
      * @param Y
      * @param Z
      */
-    void position(coord x, coord y, coord z) {
+    void place(coord x, coord y, coord z) {
         pos_.x = x;
         pos_.y = y;
         pos_.z = z;

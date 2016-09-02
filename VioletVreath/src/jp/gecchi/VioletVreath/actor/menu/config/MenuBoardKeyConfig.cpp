@@ -79,15 +79,15 @@ MenuBoardKeyConfig::MenuBoardKeyConfig(const char* prm_name) :
     for (int i = ITEM_UP; i < ITEM_BANPEI; i++) {
         paVBProperties[i].pKey = NEW LabelFix16Font01("DISP_KEY");
         paVBProperties[i].pKey->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
-        addDisp(paVBProperties[i].pKey, PX_C(600), PX_C(100+(i*20)));
+        addLabel(paVBProperties[i].pKey, PX_C(600), PX_C(100+(i*20)));
         paVBProperties[i].pJoy = NEW LabelFix16Font01("DISP_JOY");
         paVBProperties[i].pJoy->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
-        addDisp(paVBProperties[i].pJoy, PX_C(800), PX_C(100+(i*20)));
+        addLabel(paVBProperties[i].pJoy, PX_C(800), PX_C(100+(i*20)));
     }
 
     LabelMenuTitleFont01* pLabel_title = NEW LabelMenuTitleFont01("LABEL_TITLE");
     pLabel_title->update("SELECT AND PUSH UI_EXCUTE, THEN, PUSH KEY/JOY ASSIGNMENT!!", ALIGN_CENTER, VALIGN_MIDDLE);
-    addDisp(pLabel_title, PX_C(100), PX_C(40));
+    addLabel(pLabel_title, PX_C(100), PX_C(40));
 
     //メニューカーソルを設定
     CursorConfig002* pCursor = NEW CursorConfig002("CursorConfig002");

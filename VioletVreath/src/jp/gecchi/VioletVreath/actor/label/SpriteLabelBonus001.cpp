@@ -29,7 +29,7 @@ void SpriteLabelBonus001::initialize() {
 }
 
 void SpriteLabelBonus001::onDispatched(const GgafDxGeometricActor* prm_pOrgActor) {
-    positionAs(prm_pOrgActor);
+    placeAs(prm_pOrgActor);
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->takeoverMvFrom(prm_pOrgActor->getKuroko());
     pKuroko->setMvAcce(300);

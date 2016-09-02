@@ -95,7 +95,7 @@ void MenuBoard::rise(coord prm_target_x, coord prm_target_y) {
 }
 
 void MenuBoard::riseSubMenu(int prm_index, coord prm_target_x, coord prm_target_y) {
-    FontBoardMenu::getSubMenu(prm_index)->position(prm_target_x, prm_target_y); //←によりvoid MenuBoard::riseMe() に来た時にターゲット設定される
+    FontBoardMenu::getSubMenu(prm_index)->place(prm_target_x, prm_target_y); //←によりvoid MenuBoard::riseMe() に来た時にターゲット設定される
     FontBoardMenu::riseSubMenu(prm_index);
 }
 void MenuBoard::riseSubMenu(coord prm_target_x, coord prm_target_y) {
@@ -118,12 +118,12 @@ void MenuBoard::onSelect(int prm_from, int prm_to) {
 void MenuBoard::initialize() {
     //インデックス作成
     _lstItems.indexedValue();
-    _lstDispActors.indexedValue();
+    _lstLabelActors.indexedValue();
 }
 
 void MenuBoard::onRise() {
     //スライドイントランジション
-    position(target_x_ + slide_from_offset_x_,
+    place(target_x_ + slide_from_offset_x_,
              target_y_ + slide_from_offset_y_);
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvAngTwd(target_x_, target_y_);
@@ -136,7 +136,7 @@ void MenuBoard::processBehavior() {
     GgafDxKuroko* const pKuroko = getKuroko();
     if (pKuroko->asstMv()->hasJustFinishedSliding()) {
         //スライド終了時、目的の座標へ補正
-        position(target_x_, target_y_);
+        place(target_x_, target_y_);
     }
     pKuroko->behave();
     FontBoardMenu::processBehavior();

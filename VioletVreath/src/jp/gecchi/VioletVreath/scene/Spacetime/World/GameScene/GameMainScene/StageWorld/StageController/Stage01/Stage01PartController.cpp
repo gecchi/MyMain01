@@ -56,13 +56,13 @@ void Stage01PartController::processBehavior() {
 			case 500: {
 				EnemyOebiusController001* p1 = (EnemyOebiusController001*)obtainActorFromFactory(10000004);
 				bringDirector()->addSubGroup(p1);
-				p1->position(PX_C(800), PX_C(100), PX_C(400) );
+				p1->place(PX_C(800), PX_C(100), PX_C(400) );
 				break;
 			}
 			case 600: {
 				EnemyOebiusController002* p2 = (EnemyOebiusController002*)obtainActorFromFactory(10000005);
 				bringDirector()->addSubGroup(p2);
-				p2->position(PX_C(800), PX_C(400), PX_C(100) );
+				p2->place(PX_C(800), PX_C(400), PX_C(100) );
 				break;
 			}
 			case 1000: {

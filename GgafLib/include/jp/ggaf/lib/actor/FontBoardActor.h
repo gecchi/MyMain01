@@ -21,7 +21,7 @@ protected:
         float offset_u, offset_v, alpha;   // : TEXCOORD2
     };
     static VERTEX_instancedata _aInstancedata[];
-    static void createVertexInstaceData(void* prm, GgafDxCore::GgafDxMassModel::VertexInstaceDataInfo* out_info);
+    static void createVertexInstanceData(void* prm, GgafDxCore::GgafDxMassModel::VertexInstanceDataInfo* out_info);
 public:
     virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) override;
     virtual void setAlign(GgafDxAlign prm_align) override;

@@ -19,13 +19,13 @@ void CostDispBar::initialize() {
 }
 
 void CostDispBar::onReset() {
-    positionAs(pSourceBar_);
+    placeAs(pSourceBar_);
     _sx = pSourceBar_->_sx;
     setVal(0);
 }
 
 void CostDispBar::onActive() {
-    positionAs(pSourceBar_);
+    placeAs(pSourceBar_);
     _sx = pSourceBar_->_sx;
     setVal(0);
 }

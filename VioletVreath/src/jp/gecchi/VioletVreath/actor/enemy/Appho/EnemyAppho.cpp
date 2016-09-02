@@ -49,7 +49,7 @@ void EnemyAppho::processBehavior() {
 
          case PROG_INIT: {
              setHitAble(false);
-             positionAs(&entry_pos_);
+             placeAs(&entry_pos_);
              setFaceAngTwd(stagnating_pos_.x, stagnating_pos_.y, stagnating_pos_.z);
              setAlpha(0);
              pKuroko->linkFaceAngByMvAng(false);

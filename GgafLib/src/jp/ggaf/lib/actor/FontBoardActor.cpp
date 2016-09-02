@@ -8,14 +8,14 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-FontBoardActor::VERTEX_instancedata FontBoardActor::_aInstancedata[GGAFDXMASS_MAX_INSTACE_NUM];
+FontBoardActor::VERTEX_instancedata FontBoardActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
 FontBoardActor::FontBoardActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
           GgafDxMassBoardActor(prm_name, prm_model, "FontBoardEffect", "FontBoardTechnique"),
           ICharacterChip<FontBoardActor>(this, (int)(_pMassBoardModel->_model_width_px), (int)(_pMassBoardModel->_model_height_px))
 {
     _class_name = "FontBoardActor";
-    _pMassBoardModel->registerCallback_VertexInstaceDataInfo(FontBoardActor::createVertexInstaceData);
+    _pMassBoardModel->registerCallback_VertexInstanceDataInfo(FontBoardActor::createVertexInstanceData);
 }
 
 void FontBoardActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) {
@@ -40,7 +40,7 @@ void FontBoardActor::setValign(GgafDxValign prm_valign) {
     }
 }
 
-void FontBoardActor::createVertexInstaceData(void* prm, GgafDxMassModel::VertexInstaceDataInfo* out_info) {
+void FontBoardActor::createVertexInstanceData(void* prm, GgafDxMassModel::VertexInstanceDataInfo* out_info) {
     int element_num = 2;
     out_info->paElement = NEW D3DVERTEXELEMENT9[element_num];
     // Stream = 1 ---->
@@ -64,7 +64,7 @@ void FontBoardActor::createVertexInstaceData(void* prm, GgafDxMassModel::VertexI
     // <---- Stream = 1
 
     out_info->element_num = element_num;
-    out_info->size_vertex_unit_instacedata = sizeof(FontBoardActor::VERTEX_instancedata);
+    out_info->size_vertex_unit_instancedata = sizeof(FontBoardActor::VERTEX_instancedata);
     out_info->pInstancedata = FontBoardActor::_aInstancedata;
 }
 
@@ -83,18 +83,18 @@ void FontBoardActor::processDraw() {
             pixcoord x = C_PX(pFontBoardActor->_x);
             pixcoord y = C_PX(pFontBoardActor->_y);
             pixcoord z = C_PX(pFontBoardActor->_z);
-            InstacePart* pInstacePart = pFontBoardActor->_paInstacePart;
+            InstancePart* pInstancePart = pFontBoardActor->_paInstancePart;
             float alpha = pFontBoardActor->_alpha;
             GgafDxSpacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
 
             for (int i = 0; i < n; i++) {
-                paInstancedata->px_x = (float)(x + pInstacePart->px_local_x);
-                paInstancedata->px_y = (float)(y + pInstacePart->px_local_y);
+                paInstancedata->px_x = (float)(x + pInstancePart->px_local_x);
+                paInstancedata->px_y = (float)(y + pInstancePart->px_local_y);
                 paInstancedata->depth_z = (float)(z);
-                paInstancedata->offset_u = pInstacePart->offset_u;
-                paInstancedata->offset_v = pInstacePart->offset_v;
+                paInstancedata->offset_u = pInstancePart->offset_u;
+                paInstancedata->offset_v = pInstancePart->offset_v;
                 paInstancedata->alpha    = alpha;
-                ++pInstacePart;
+                ++pInstancePart;
                 ++paInstancedata;
 
                 draw_set_num++;

@@ -16,7 +16,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 
 
-DefaultMassMeshActor::VERTEX_instancedata DefaultMassMeshActor::_aInstancedata[GGAFDXMASS_MAX_INSTACE_NUM];
+DefaultMassMeshActor::VERTEX_instancedata DefaultMassMeshActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
 
 DefaultMassMeshActor::DefaultMassMeshActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
@@ -28,7 +28,7 @@ DefaultMassMeshActor::DefaultMassMeshActor(const char* prm_name, const char* prm
                         NEW CollisionChecker3D(this) ) {
     _class_name = "DefaultMassMeshActor";
     _pColliChecker = (CollisionChecker3D*)_pChecker;
-    _pMassMeshModel->registerCallback_VertexInstaceDataInfo(DefaultMassMeshActor::createVertexInstaceData);
+    _pMassMeshModel->registerCallback_VertexInstanceDataInfo(DefaultMassMeshActor::createVertexInstanceData);
 }
 
 void DefaultMassMeshActor::drawHitArea() {
@@ -37,7 +37,7 @@ void DefaultMassMeshActor::drawHitArea() {
 #endif
 }
 
-void DefaultMassMeshActor::createVertexInstaceData(void* prm, GgafDxMassModel::VertexInstaceDataInfo* out_info) {
+void DefaultMassMeshActor::createVertexInstanceData(void* prm, GgafDxMassModel::VertexInstanceDataInfo* out_info) {
     int element_num = 5;
     out_info->paElement = NEW D3DVERTEXELEMENT9[element_num];
     // Stream = 1 ---->
@@ -85,7 +85,7 @@ void DefaultMassMeshActor::createVertexInstaceData(void* prm, GgafDxMassModel::V
     // <---- Stream = 1
 
     out_info->element_num = element_num;
-    out_info->size_vertex_unit_instacedata = sizeof(DefaultMassMeshActor::VERTEX_instancedata);
+    out_info->size_vertex_unit_instancedata = sizeof(DefaultMassMeshActor::VERTEX_instancedata);
     out_info->pInstancedata = DefaultMassMeshActor::_aInstancedata;
 }
 

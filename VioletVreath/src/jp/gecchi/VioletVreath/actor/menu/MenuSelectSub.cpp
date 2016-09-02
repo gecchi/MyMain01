@@ -75,7 +75,7 @@ void MenuSelectSub::rise(coord prm_target_x, coord prm_target_y) {
 }
 
 void MenuSelectSub::riseSubMenu(int prm_index, coord prm_target_x, coord prm_target_y) {
-    FontBoardMenu::getSubMenu(prm_index)->position(prm_target_x, prm_target_y); //←によりvoid MenuSelectSub::riseMe() に来た時にターゲット設定される
+    FontBoardMenu::getSubMenu(prm_index)->place(prm_target_x, prm_target_y); //←によりvoid MenuSelectSub::riseMe() に来た時にターゲット設定される
     FontBoardMenu::riseSubMenu(prm_index);
 }
 
@@ -100,7 +100,7 @@ void MenuSelectSub::onRise() {
 }
 
 void MenuSelectSub::processBehavior() {
-    position(target_x_, target_y_);
+    place(target_x_, target_y_);
     getKuroko()->behave();
     FontBoardMenu::processBehavior();
     //メニュー選択アイテム、表示アイテム、カーソルは、

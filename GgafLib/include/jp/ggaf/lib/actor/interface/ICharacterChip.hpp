@@ -26,13 +26,13 @@ public:
     int _max_len;
     /** [r]文字バッファ */
     int* _buf;
-    struct InstacePart {
+    struct InstancePart {
         float px_local_x;
         float px_local_y;
         float offset_u;
         float offset_v;
     };
-    InstacePart* _paInstacePart;
+    InstancePart* _paInstancePart;
     /** [r]文字列長 */
     int _len;
     /** [r]描画文字数（文字列長から改行と空白を除いた値）*/
@@ -179,7 +179,7 @@ _chr_base_height_px(prm_chr_base_height_px)
     _draw_chr_num = 0;
     _buf = NEW int[_max_len];
     _buf[0] = (int)('\0');
-    _paInstacePart = NEW InstacePart[_max_len];
+    _paInstancePart = NEW InstancePart[_max_len];
     _draw_string = _buf;
     for (int i = 0; i < 1024; i++) {
         _px_row_width[i] = 0;
@@ -196,10 +196,10 @@ template<class T>
 void ICharacterChip<T>::chengeBufferLen(int prm_max_len) {
     _max_len = 8*((prm_max_len+8)/8); //直近８の倍数に切り上げ
     GGAF_DELETEARR(_buf);
-    GGAF_DELETEARR(_paInstacePart);
+    GGAF_DELETEARR(_paInstancePart);
     _buf = NEW int[_max_len];
     _buf[0] = (int)('\0');
-    _paInstacePart = NEW InstacePart[_max_len];
+    _paInstancePart = NEW InstancePart[_max_len];
 }
 
 template<class T>
@@ -290,7 +290,7 @@ void ICharacterChip<T>::prepare2() {
         int chr_ptn_zero = _chr_ptn_zero;
         float u, v;
         int* p_chr  = _draw_string;
-        InstacePart* pInstacePart = _paInstacePart;
+        InstancePart* pInstancePart = _paInstancePart;
         while(true) { //各文字単位のループ
             int draw_chr = *p_chr;
             if (draw_chr == (int)('\0')) {
@@ -310,12 +310,12 @@ void ICharacterChip<T>::prepare2() {
             }
             //情報更新
             if (draw_chr != chr_blank) {
-                pInstacePart->px_local_x = px_x;
-                pInstacePart->px_local_y = px_y;
+                pInstancePart->px_local_x = px_x;
+                pInstancePart->px_local_y = px_y;
                 pUvFlipper->getUV(draw_chr-chr_ptn_zero, u, v);
-                pInstacePart->offset_u = u;
-                pInstacePart->offset_v = v;
-                ++pInstacePart;
+                pInstancePart->offset_u = u;
+                pInstancePart->offset_v = v;
+                ++pInstancePart;
             }
             px_x += _chr_base_width_px;
             ++p_chr;
@@ -339,7 +339,7 @@ void ICharacterChip<T>::prepare2() {
             pixcoord x_tmp = px_x;
             float u, v;
             int* p_chr  = _draw_string;
-            InstacePart* pInstacePart = _paInstacePart;
+            InstancePart* pInstancePart = _paInstancePart;
             while(true) { //各文字単位のループ
                 int draw_chr = *p_chr;
                 if (draw_chr == (int)('\0')) {
@@ -359,12 +359,12 @@ void ICharacterChip<T>::prepare2() {
 
                 //情報更新
                 if (draw_chr != chr_blank) {
-                    pInstacePart->px_local_x = px_x;
-                    pInstacePart->px_local_y = px_y;
+                    pInstancePart->px_local_x = px_x;
+                    pInstancePart->px_local_y = px_y;
                     pUvFlipper->getUV(draw_chr-chr_ptn_zero, u, v);
-                    pInstacePart->offset_u = u;
-                    pInstacePart->offset_v = v;
-                    ++pInstacePart;
+                    pInstancePart->offset_u = u;
+                    pInstancePart->offset_v = v;
+                    ++pInstancePart;
                 }
                 ++p_chr;
             }
@@ -385,7 +385,7 @@ void ICharacterChip<T>::prepare2() {
             float u, v;
             int w;
             int* p_chr = &(_draw_string[_len-1]); //末尾から回す。_len は strlen の値
-            InstacePart* pInstacePart = &(_paInstacePart[_draw_chr_num - 1]);
+            InstancePart* pInstancePart = &(_paInstancePart[_draw_chr_num - 1]);
             while (true) {
                 int draw_chr = *p_chr;
                 if (draw_chr == (int)('\n')) {
@@ -401,12 +401,12 @@ void ICharacterChip<T>::prepare2() {
                 x_tmp = px_x + w;
                 //情報更新
                 if (draw_chr != chr_blank) {
-                    pInstacePart->px_local_x = px_x;
-                    pInstacePart->px_local_y = px_y;
+                    pInstancePart->px_local_x = px_x;
+                    pInstancePart->px_local_y = px_y;
                     pUvFlipper->getUV(draw_chr-chr_ptn_zero, u, v);
-                    pInstacePart->offset_u = u;
-                    pInstacePart->offset_v = v;
-                    pInstacePart--;
+                    pInstancePart->offset_u = u;
+                    pInstancePart->offset_v = v;
+                    pInstancePart--;
                 }
                 if (p_chr == _draw_string) { //一番左に到達
                      break; //おしまい
@@ -420,13 +420,13 @@ void ICharacterChip<T>::prepare2() {
 template<class T>
 void ICharacterChip<T>::update(coord X, coord Y, const char* prm_str) {
     update(prm_str);
-    _pBaseActor->position(X, Y);
+    _pBaseActor->place(X, Y);
 }
 
 template<class T>
 void ICharacterChip<T>::update(coord X, coord Y, coord Z, const char* prm_str) {
     update(prm_str);
-    _pBaseActor->position(X, Y, Z);
+    _pBaseActor->place(X, Y, Z);
 }
 template<class T>
 void ICharacterChip<T>::update(const char* prm_str) {
@@ -436,13 +436,13 @@ void ICharacterChip<T>::update(const char* prm_str) {
 template<class T>
 void ICharacterChip<T>::update(coord X, coord Y, const char* prm_str, GgafDxAlign prm_align, GgafDxValign prm_valign) {
     update(prm_str, prm_align, prm_valign);
-    _pBaseActor->position(X, Y);
+    _pBaseActor->place(X, Y);
 }
 
 template<class T>
 void ICharacterChip<T>::update(coord X, coord Y, coord Z, const char* prm_str, GgafDxAlign prm_align, GgafDxValign prm_valign) {
     update(prm_str, prm_align, prm_valign);
-    _pBaseActor->position(X, Y, Z);
+    _pBaseActor->place(X, Y, Z);
 }
 
 template<class T>
@@ -454,7 +454,7 @@ void ICharacterChip<T>::update(const char* prm_str, GgafDxAlign prm_align, GgafD
 template<class T>
 ICharacterChip<T>::~ICharacterChip() {
      GGAF_DELETEARR(_buf);
-     GGAF_DELETEARR(_paInstacePart);
+     GGAF_DELETEARR(_paInstancePart);
 }
 
 }

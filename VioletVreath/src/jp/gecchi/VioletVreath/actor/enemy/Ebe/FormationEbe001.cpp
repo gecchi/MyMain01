@@ -24,7 +24,7 @@ void FormationEbe001::onCallUpEbe(EnemyEbe* pEnemyEbe) {
 //    pEnemyEbe->pKurokoLeader_->adjustCoordOffset(PX_C(col*50), PX_C(col*50), PX_C(col*50));
 //    pEnemyEbe->pKurokoLeader_->adjustAxisYFlip();
 //    pEnemyEbe->pKurokoLeader_->setAbsoluteBeginCoord();
-    pEnemyEbe->position(PX_C(300), PX_C(-300), PX_C(0));
+    pEnemyEbe->place(PX_C(300), PX_C(-300), PX_C(0));
     pEnemyEbe->getKuroko()->setMvAngTwd(PX_C(300), PX_C(0), PX_C(0));
 }
 

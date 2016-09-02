@@ -223,9 +223,9 @@ void MagicMeter::load(std::stringstream& sts) {
 }
 
 void MagicMeter::initialize() {
-    pMpBar_->position(_x, _y + height_ + PX_C(16));
-    pVreathBar_->position(_x, _y + height_ + PX_C(16) + PX_C(16) );
-    pMagicMeterStatus_->positionAs(this);
+    pMpBar_->place(_x, _y + height_ + PX_C(16));
+    pVreathBar_->place(_x, _y + height_ + PX_C(16) + PX_C(16) );
+    pMagicMeterStatus_->placeAs(this);
 
     getUvFlipper()->exec(FLIP_ORDER_LOOP, 10); //ƒAƒjƒ‡˜
     Magic* pMagic;

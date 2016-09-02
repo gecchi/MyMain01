@@ -265,7 +265,7 @@ throwGgafCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
 
         //活動開始初回フレーム、チップの速度と向きの初期設定
         setFaceAngAs(pOrg_);
-        positionAs(pOrg_);
+        placeAs(pOrg_);
         pAxsMver_->setVxyzMvVeloTwd(_rz, _ry, INITIAL_VELO); //初速はここで
         pAxsMver_->setZeroVxyzMvAcce();
     }

@@ -993,7 +993,7 @@ GgafDxFigureActor* StgUtil::shotWay001(coord prm_x, coord prm_y, coord prm_z,
         pActor_shot = (GgafDxFigureActor*)prm_pDepo_shot->dispatch(n*prm_interval_frames+1);
         if (pActor_shot) {
             dispatch_num++;
-            pActor_shot->position(prm_x + x,
+            pActor_shot->place(prm_x + x,
                                   prm_y + y,
                                   prm_z + z);
             pActor_shot->getKuroko()->setRzRyMvAng(prm_rz, prm_ry);
@@ -1084,7 +1084,7 @@ GgafDxFigureActor* StgUtil::shotWay002(coord prm_x, coord prm_y, coord prm_z,
             pActor_shot = (GgafDxFigureActor*)prm_pDepo_shot->dispatch(n*prm_interval_frames+1);
             if (pActor_shot) {
                 dispatch_num++;
-                pActor_shot->position(prm_x + paGeo[i].x,
+                pActor_shot->place(prm_x + paGeo[i].x,
                                       prm_y + paGeo[i].y,
                                       prm_z + paGeo[i].z);
                 pActor_shot->getKuroko()->setRzRyMvAng(paGeo[i].rz, paGeo[i].ry);
@@ -1202,7 +1202,7 @@ GgafDxFigureActor* StgUtil::shotWay003(coord prm_x, coord prm_y, coord prm_z,
                 }
                 if (pActor_shot) {
                     dispatch_num++;
-                    pActor_shot->position(prm_x + papaGeo[i][j].x,
+                    pActor_shot->place(prm_x + papaGeo[i][j].x,
                                           prm_y + papaGeo[i][j].y,
                                           prm_z + papaGeo[i][j].z);
                     pActor_shot->getKuroko()->setRzRyMvAng(papaGeo[i][j].rz, papaGeo[i][j].ry);
@@ -1294,7 +1294,7 @@ GgafDxFigureActor* StgUtil::shotWay004(coord prm_x, coord prm_y, coord prm_z,
             pActor_shot = (GgafDxFigureActor*)prm_pDepo_shot->dispatch(n*prm_interval_frames+1);
             if (pActor_shot) {
                 dispatch_num++;
-                pActor_shot->position(prm_x + paGeo[i].x,
+                pActor_shot->place(prm_x + paGeo[i].x,
                                       prm_y + paGeo[i].y,
                                       prm_z + paGeo[i].z);
                 pActor_shot->getKuroko()->setRzRyMvAng(paGeo[i].rz, paGeo[i].ry);

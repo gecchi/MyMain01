@@ -67,7 +67,7 @@ void BunshinMagic::processCastBegin(int prm_now_level, int prm_new_level) {
         EffectBunshinMagic001* pEffect;
         for (int lv = prm_now_level+1, n = 0; lv <= prm_new_level; lv++, n++) {
             pEffect = papEffect_[lv-1];
-            pEffect->positionAs(pCore);
+            pEffect->placeAs(pCore);
             pEffect->pAxsMver_->resetMv();
             pEffect->pAxsMver_->setVxyzMvVelo(veloVxMv*0.8,
                                               veloVyMv + (ANG_SIN(paAng_way[n]) * PX_C(3)),

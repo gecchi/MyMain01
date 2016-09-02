@@ -19,15 +19,15 @@ GgafDxMassModel::GgafDxMassModel(const char* prm_model_name) : GgafDxModel(prm_m
     _TRACE3_("_model_name="<<_model_name);
     _set_num = 0;
     _pVertexBuffer_model = nullptr;
-    _pVertexBuffer_instacedata = nullptr;
+    _pVertexBuffer_instancedata = nullptr;
     _pIndexBuffer = nullptr;
     _pVertexDeclaration = nullptr;
-    _size_vertex_unit_instacedata = 0;
+    _size_vertex_unit_instancedata = 0;
     _size_vertex_unit_model = 0;
     _size_vertices_model = 0;
     _nVertices = 0;
     _nFaces= 0;
-    _pFunc_getVertexInstaceData = nullptr;
+    _pFunc_getVertexInstanceData = nullptr;
     _pFunc_getVertexModel = nullptr;
     _pInstancedata = nullptr;
     _obj_model |= Obj_GgafDxMassModel;
@@ -37,7 +37,7 @@ void GgafDxMassModel::createVertexElements() {
     HRESULT hr;
     //デバイスに頂点フォーマット登録
     //次のメンバも設定する
-    //_size_vertex_unit_instacedata
+    //_size_vertex_unit_instancedata
     //_pInstancedata
     //_pVertexDeclaration
     if (_pVertexDeclaration == nullptr) {
@@ -45,21 +45,21 @@ void GgafDxMassModel::createVertexElements() {
         if (!_pFunc_getVertexModel) {
             throwGgafCriticalException("_pFunc_getVertexModel を定義してください。モデル頂点情報が必要です。");
         }
-        if (!_pFunc_getVertexInstaceData) {
-            throwGgafCriticalException("_pFunc_getVertexInstaceData を定義してください。インスタンスデータ情報が必要です。");
+        if (!_pFunc_getVertexInstanceData) {
+            throwGgafCriticalException("_pFunc_getVertexInstanceData を定義してください。インスタンスデータ情報が必要です。");
         }
 #endif
         VertexModelInfo model_info;
         (*_pFunc_getVertexModel)(this, &model_info); //コールバック
         int model_element_num = model_info.element_num;
 
-        VertexInstaceDataInfo instace_info;
-        (*_pFunc_getVertexInstaceData)(this, &instace_info); //コールバック
-        _size_vertex_unit_instacedata = instace_info.size_vertex_unit_instacedata;
-        _pInstancedata = instace_info.pInstancedata;
-        int instace_data_element_num = instace_info.element_num;
+        VertexInstanceDataInfo instance_info;
+        (*_pFunc_getVertexInstanceData)(this, &instance_info); //コールバック
+        _size_vertex_unit_instancedata = instance_info.size_vertex_unit_instancedata;
+        _pInstancedata = instance_info.pInstancedata;
+        int instance_data_element_num = instance_info.element_num;
 
-        int elem_num = model_element_num + instace_data_element_num + 1; //+1 = D3DDECL_END()
+        int elem_num = model_element_num + instance_data_element_num + 1; //+1 = D3DDECL_END()
         D3DVERTEXELEMENT9* paVtxelem = NEW D3DVERTEXELEMENT9[elem_num];
 
         D3DVERTEXELEMENT9* paVtxModel = model_info.paElement;
@@ -72,14 +72,14 @@ void GgafDxMassModel::createVertexElements() {
             paVtxelem[i].UsageIndex = paVtxModel[i].UsageIndex;
         }
 
-        D3DVERTEXELEMENT9* paVtxInstaceDataElem = instace_info.paElement;
-        for (int j = 0; j < instace_data_element_num; j++) {
-            paVtxelem[model_element_num+j].Stream = paVtxInstaceDataElem[j].Stream;
-            paVtxelem[model_element_num+j].Offset = paVtxInstaceDataElem[j].Offset;
-            paVtxelem[model_element_num+j].Type   = paVtxInstaceDataElem[j].Type;
-            paVtxelem[model_element_num+j].Method = paVtxInstaceDataElem[j].Method;
-            paVtxelem[model_element_num+j].Usage  = paVtxInstaceDataElem[j].Usage;
-            paVtxelem[model_element_num+j].UsageIndex = paVtxInstaceDataElem[j].UsageIndex;
+        D3DVERTEXELEMENT9* paVtxInstanceDataElem = instance_info.paElement;
+        for (int j = 0; j < instance_data_element_num; j++) {
+            paVtxelem[model_element_num+j].Stream = paVtxInstanceDataElem[j].Stream;
+            paVtxelem[model_element_num+j].Offset = paVtxInstanceDataElem[j].Offset;
+            paVtxelem[model_element_num+j].Type   = paVtxInstanceDataElem[j].Type;
+            paVtxelem[model_element_num+j].Method = paVtxInstanceDataElem[j].Method;
+            paVtxelem[model_element_num+j].Usage  = paVtxInstanceDataElem[j].Usage;
+            paVtxelem[model_element_num+j].UsageIndex = paVtxInstanceDataElem[j].UsageIndex;
         }
 
         //D3DDECL_END()
@@ -95,20 +95,20 @@ void GgafDxMassModel::createVertexElements() {
         GGAF_DELETEARR(paVtxelem);
     }
     //デバイスに頂点バッファ作成(インスタンスデータ)
-    int size_instancedata = _size_vertex_unit_instacedata * _set_num;//最大同時描画数確保
+    int size_instancedata = _size_vertex_unit_instancedata * _set_num;//最大同時描画数確保
     hr = GgafDxGod::_pID3DDevice9->CreateVertexBuffer(
             size_instancedata,
             D3DUSAGE_WRITEONLY | D3DUSAGE_DYNAMIC,  //毎回書き換える為D3DUSAGE_DYNAMIC
             0,
             D3DPOOL_DEFAULT,
-            &(_pVertexBuffer_instacedata),
+            &(_pVertexBuffer_instancedata),
             nullptr);
     checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer2 失敗 model="<<_model_name);
 //    void* pDeviceMemory = 0;
-//    hr = _pVertexBuffer_instacedata->Lock(0, size_instancedata, (void**)&pDeviceMemory, 0);
+//    hr = _pVertexBuffer_instancedata->Lock(0, size_instancedata, (void**)&pDeviceMemory, 0);
 //    checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗2 model="<<_model_name);
 //    ZeroMemory(pDeviceMemory, size_instancedata);
-//    hr = _pVertexBuffer_instacedata->Unlock();
+//    hr = _pVertexBuffer_instancedata->Unlock();
 //    checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗2 model="<<_model_name);
 }
 
@@ -135,7 +135,7 @@ void GgafDxMassModel::release() {
         }
     }
     GGAF_DELETEARR(_papTextureConnection);
-    GGAF_RELEASE(_pVertexBuffer_instacedata);
+    GGAF_RELEASE(_pVertexBuffer_instancedata);
     GGAF_RELEASE(_pVertexBuffer_model);
     GGAF_RELEASE(_pIndexBuffer);
     GGAF_RELEASE(_pVertexDeclaration);

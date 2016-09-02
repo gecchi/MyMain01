@@ -88,7 +88,7 @@ void RankUp001::processBehavior() {
                 orderActorToFactory(80000030, EnemyIrce, "EnemyIrce-80000030");
                 FormationThagoras001* pF1 = (FormationThagoras001*)obtainActorFromFactory(80000031);
                 bringDirector()->addSubGroup(pF1);
-                pF1->position(PX_C(-200), PX_C(  0), PX_C(500));
+                pF1->place(PX_C(-200), PX_C(  0), PX_C(500));
                 all_hit_num_ += pF1->getMemberNum();
                 break;
             }

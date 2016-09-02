@@ -37,7 +37,7 @@ class DefaultMassMorphMeshActor : public GgafDxCore::GgafDxMassMorphMeshActor {
     };
 
     static VERTEX_instancedata _aInstancedata[];
-    static void createVertexInstaceData(void* prm, GgafDxCore::GgafDxMassModel::VertexInstaceDataInfo* out_info);
+    static void createVertexInstanceData(void* prm, GgafDxCore::GgafDxMassModel::VertexInstanceDataInfo* out_info);
 
 public:
     /** 衝突判定支援オブジェクト */

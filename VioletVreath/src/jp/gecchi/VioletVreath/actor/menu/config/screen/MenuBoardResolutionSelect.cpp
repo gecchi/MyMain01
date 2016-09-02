@@ -31,7 +31,7 @@ MenuBoardResolutionSelect::MenuBoardResolutionSelect(const char* prm_name) :
 
     LabelGecchi16Font* pLabel_msg = NEW LabelGecchi16Font("message");
     pLabel_msg->update("ARE YOU SURE ?", ALIGN_CENTER, VALIGN_MIDDLE);
-    addDisp(pLabel_msg, PX_C(150), PX_C(20));
+    addLabel(pLabel_msg, PX_C(150), PX_C(20));
     relateAllItemToCancel(ITEM_CANCEL);
     CursorResolutionSelect* pCursor = NEW CursorResolutionSelect("CursorResolutionSelect");
     pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);

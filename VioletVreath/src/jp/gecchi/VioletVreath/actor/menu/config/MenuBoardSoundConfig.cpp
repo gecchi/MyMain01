@@ -58,21 +58,21 @@ MenuBoardSoundConfig::MenuBoardSoundConfig(const char* prm_name) :
 
     pLabel_SeVol_ = NEW LabelFix16Font01("LABEL_SE_VOL");
     pLabel_SeVol_->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
-    addDisp(pLabel_SeVol_, PX_C(600), PX_C(100+(0*20)));
+    addLabel(pLabel_SeVol_, PX_C(600), PX_C(100+(0*20)));
     pLabel_BgmVol_ = NEW LabelFix16Font01("LABEL_BGM_VOL");
     pLabel_BgmVol_->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
-    addDisp(pLabel_BgmVol_, PX_C(600), PX_C(100+(1*20)));
+    addLabel(pLabel_BgmVol_, PX_C(600), PX_C(100+(1*20)));
     pLabel_MasterVol_ = NEW LabelFix16Font01("LABEL_MASTER_VOL");
     pLabel_MasterVol_->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
-    addDisp(pLabel_MasterVol_, PX_C(600), PX_C(100+(2*20)));
+    addLabel(pLabel_MasterVol_, PX_C(600), PX_C(100+(2*20)));
 
     LabelMenuTitleFont01* pLabel_title = NEW LabelMenuTitleFont01("LABEL_TITLE");
     pLabel_title->update("[SOUND CONFIG]", ALIGN_CENTER, VALIGN_MIDDLE);
-    addDisp(pLabel_title, PX_C(300), PX_C(40));
+    addLabel(pLabel_title, PX_C(300), PX_C(40));
 
-    pLabel_Msg_ = NEW LabelGecchi16Font("LABEL_MSG");
-    pLabel_Msg_->update("PRESS <- OR -> TO ADJUST THE VOLUME.", ALIGN_LEFT, VALIGN_MIDDLE);
-    addDisp(pLabel_Msg_, PX_C(300), PX_C(60));
+    pLabel_msg_ = NEW LabelGecchi16Font("LABEL_MSG");
+    pLabel_msg_->update("PRESS <- OR -> TO ADJUST THE VOLUME.", ALIGN_LEFT, VALIGN_MIDDLE);
+    addLabel(pLabel_msg_, PX_C(300), PX_C(60));
 
 
     //メニューカーソルを設定

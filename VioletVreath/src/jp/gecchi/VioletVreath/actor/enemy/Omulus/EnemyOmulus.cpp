@@ -208,7 +208,7 @@ void EnemyOmulus::processChangeGeoFinal() {
                         GgafDxFigureActor* pActor = (GgafDxFigureActor*)pDepo_Fired_->dispatch();
                         if (pActor) {
                             pActor->getKuroko()->setRzRyMvAng(_rz, _ry); //â‘ÎÀ•WŒn‚Å‚ÌŒü‚«
-                            pActor->position(_x, _y, _z);
+                            pActor->place(_x, _y, _z);
                             pActor->reset();
                         }
                     }

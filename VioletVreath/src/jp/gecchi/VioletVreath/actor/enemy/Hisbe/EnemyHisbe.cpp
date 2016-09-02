@@ -149,7 +149,7 @@ void EnemyHisbe::processBehavior() {
             if (pLaserChipDepo_) {
                 LaserChip* pLaser = pLaserChipDepo_->dispatch();
                 if (pLaser) {
-                    pLaser->positionAs(this);
+                    pLaser->placeAs(this);
                     pLaser->setFaceAngAs(this); //レーザーのスプラインがRELATIVE_COORD_DIRECTIONのため向き設定が必要。
                     if (pLaser->getInfrontChip() == nullptr) {
                         getSeTransmitter()->play3D(SE_FIRE);

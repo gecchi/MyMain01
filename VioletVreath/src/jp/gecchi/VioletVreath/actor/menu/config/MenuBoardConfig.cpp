@@ -45,7 +45,7 @@ MenuBoardConfig::MenuBoardConfig(const char* prm_name) :
     //表示ラベル設定
     LabelMenuTitleFont01* pLabel_title = NEW LabelMenuTitleFont01("LABEL_TITLE");
     pLabel_title->update("[CONFIG MENU]", ALIGN_CENTER, VALIGN_MIDDLE);
-    addDisp(pLabel_title, PX_C(100), PX_C(40));
+    addLabel(pLabel_title, PX_C(100), PX_C(40));
     //キャンセルアイテム設定
     relateAllItemToCancel(ITEM_BACK);
 

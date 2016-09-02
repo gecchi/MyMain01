@@ -17,7 +17,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-DefaultMassMorphMeshActor::VERTEX_instancedata DefaultMassMorphMeshActor::_aInstancedata[GGAFDXMASS_MAX_INSTACE_NUM];
+DefaultMassMorphMeshActor::VERTEX_instancedata DefaultMassMorphMeshActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
 DefaultMassMorphMeshActor::DefaultMassMorphMeshActor(const char* prm_name, const char* prm_model_id, GgafStatus* prm_pStat) :
     GgafDxMassMorphMeshActor(prm_name,
@@ -28,10 +28,10 @@ DefaultMassMorphMeshActor::DefaultMassMorphMeshActor(const char* prm_name, const
                          NEW CollisionChecker3D(this) ) {
     _class_name = "DefaultMassMorphMeshActor";
     _pColliChecker = (CollisionChecker3D*)_pChecker;
-    _pMassMorphMeshModel->registerCallback_VertexInstaceDataInfo(DefaultMassMorphMeshActor::createVertexInstaceData);
+    _pMassMorphMeshModel->registerCallback_VertexInstanceDataInfo(DefaultMassMorphMeshActor::createVertexInstanceData);
 }
 
-void DefaultMassMorphMeshActor::createVertexInstaceData(void* prm, GgafDxMassModel::VertexInstaceDataInfo* out_info) {
+void DefaultMassMorphMeshActor::createVertexInstanceData(void* prm, GgafDxMassModel::VertexInstanceDataInfo* out_info) {
     GgafDxMassMorphMeshModel* pModel = (GgafDxMassMorphMeshModel*)prm;
     int morph_target_num = pModel->_morph_target_num;
     int s = morph_target_num + 1;
@@ -83,7 +83,7 @@ void DefaultMassMorphMeshActor::createVertexInstaceData(void* prm, GgafDxMassMod
 
     out_info->element_num = element_num;
     out_info->pInstancedata = DefaultMassMorphMeshActor::_aInstancedata;
-    out_info->size_vertex_unit_instacedata = sizeof(DefaultMassMorphMeshActor::VERTEX_instancedata);
+    out_info->size_vertex_unit_instancedata = sizeof(DefaultMassMorphMeshActor::VERTEX_instancedata);
 }
 
 void DefaultMassMorphMeshActor::processDraw() {

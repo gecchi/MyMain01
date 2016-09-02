@@ -72,7 +72,7 @@ _y_buffer_bottom(PX_C(PROPERTY::GAME_BUFFER_HEIGHT) / -2)
         );
     }
 
-    position(0, 0, DX_C(_cameraZ_org));
+    place(0, 0, DX_C(_cameraZ_org));
     setFaceAngTwd(0,0,0);
     getKuroko()->setMvAngTwd(0,0,0);
     setHitAble(false);
@@ -239,7 +239,7 @@ GgafDxCameraViewPoint* GgafDxCamera::getCameraViewPoint() {
         return _pCameraViewPoint;
     } else {
         _pCameraViewPoint = createCameraViewPoint();
-        _pCameraViewPoint->position(0, 0, 0);
+        _pCameraViewPoint->place(0, 0, 0);
         addSubGroup(_pCameraViewPoint);
         return _pCameraViewPoint;
     }
@@ -250,7 +250,7 @@ GgafDxCameraUpVector* GgafDxCamera::getCameraUpVector() {
         return _pCameraUpVector;
     } else {
         _pCameraUpVector = createCameraUpVector();
-        _pCameraUpVector->position(0, PX_C(1), 0);
+        _pCameraUpVector->place(0, PX_C(1), 0);
         addSubGroup(_pCameraUpVector);
         return _pCameraUpVector;
     }
@@ -261,9 +261,9 @@ void GgafDxCamera::setDefaultPosition() {
     _y = 0;
     _z = DX_C(_cameraZ_org);
     GgafDxCameraViewPoint* pVp = getCameraViewPoint();
-    pVp->position(0, 0, 0);
+    pVp->place(0, 0, 0);
     GgafDxCameraUpVector* pUpv = getCameraUpVector();
-    pUpv->position(0, PX_C(1), 0);
+    pUpv->place(0, PX_C(1), 0);
 }
 
 bool GgafDxCamera::isMoving() {
@@ -276,7 +276,7 @@ bool GgafDxCamera::isMoving() {
 
 void GgafDxCamera::setCamUpVecByFaceNo(dir26 prm_face_no) {
     GgafDxCameraUpVector* pUpv = getCameraUpVector();
-    pUpv->positionByFaceNo(prm_face_no);
+    pUpv->placeByFaceNo(prm_face_no);
 }
 
 GgafDxCamera::~GgafDxCamera() {

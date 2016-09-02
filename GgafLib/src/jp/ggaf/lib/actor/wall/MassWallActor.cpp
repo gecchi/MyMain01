@@ -33,7 +33,7 @@ D3DXHANDLE MassWallActor::_h_fh_POS_PRISM_XY;
 D3DXHANDLE MassWallActor::_h_reflectance;
 
 std::map<int, UINT> MassWallActor::_delface;
-MassWallActor::VERTEX_instancedata MassWallActor::_aInstancedata[GGAFDXMASS_MAX_INSTACE_NUM];
+MassWallActor::VERTEX_instancedata MassWallActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
 MassWallActor::MassWallActor(const char* prm_name,
                              const char* prm_model,
@@ -82,7 +82,7 @@ void MassWallActor::init() {
     pChecker->createCollisionArea(2);
     pChecker->setColliAABox(0, 0,0,0, 0,0,0);
     pChecker->setColliAAPrism(1, 0,0,0, 0,0,0, 0);
-    _pMassMeshModel->registerCallback_VertexInstaceDataInfo(MassWallActor::createVertexInstaceData);
+    _pMassMeshModel->registerCallback_VertexInstanceDataInfo(MassWallActor::createVertexInstanceData);
     static volatile bool is_init = MassWallActor::initStatic(this); //Ã“Iƒƒ“ƒo‰Šú‰»
 }
 
@@ -138,7 +138,7 @@ bool MassWallActor::initStatic(MassWallActor* prm_pMassWallActor) {
     return true;
 }
 
-void MassWallActor::createVertexInstaceData(void* prm, GgafDxMassModel::VertexInstaceDataInfo* out_info) {
+void MassWallActor::createVertexInstanceData(void* prm, GgafDxMassModel::VertexInstanceDataInfo* out_info) {
     int element_num = 5;
     out_info->paElement = NEW D3DVERTEXELEMENT9[element_num];
     // Stream = 1 ---->
@@ -186,7 +186,7 @@ void MassWallActor::createVertexInstaceData(void* prm, GgafDxMassModel::VertexIn
     // <---- Stream = 1
 
     out_info->element_num = element_num;
-    out_info->size_vertex_unit_instacedata = sizeof(MassWallActor::VERTEX_instancedata);
+    out_info->size_vertex_unit_instancedata = sizeof(MassWallActor::VERTEX_instancedata);
     out_info->pInstancedata = MassWallActor::_aInstancedata;
 }
 

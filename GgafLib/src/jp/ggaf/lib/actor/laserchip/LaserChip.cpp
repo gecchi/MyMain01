@@ -21,7 +21,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-LaserChip::VERTEX_instancedata LaserChip::_aInstancedata[GGAFDXMASS_MAX_INSTACE_NUM];
+LaserChip::VERTEX_instancedata LaserChip::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
 LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
         GgafDxMassMeshActor(prm_name,
@@ -48,7 +48,7 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
     setAlpha(0.99);
     _middle_colli_able = false;
 
-    _pMassMeshModel->registerCallback_VertexInstaceDataInfo(LaserChip::createVertexInstaceData);
+    _pMassMeshModel->registerCallback_VertexInstanceDataInfo(LaserChip::createVertexInstanceData);
     //モデル単位でセットすれば事足りるのだが、めんどうなので、アクター毎にセット
     static volatile bool is_init = LaserChip::initStatic(this); //静的メンバ初期化
 }
@@ -300,7 +300,7 @@ void LaserChip::registerHitAreaCube_AutoGenMidColli(int prm_edge_length) {
 }
 
 
-void LaserChip::createVertexInstaceData(void* prm, GgafDxMassMeshModel::VertexInstaceDataInfo* out_info) {
+void LaserChip::createVertexInstanceData(void* prm, GgafDxMassMeshModel::VertexInstanceDataInfo* out_info) {
     out_info->paElement = NEW D3DVERTEXELEMENT9[9];
     // Stream = 1 ---->
     WORD st1_offset_next = 0;
@@ -381,7 +381,7 @@ void LaserChip::createVertexInstaceData(void* prm, GgafDxMassMeshModel::VertexIn
     // <---- Stream = 1
 
     out_info->element_num = 9;
-    out_info->size_vertex_unit_instacedata = sizeof(LaserChip::VERTEX_instancedata);
+    out_info->size_vertex_unit_instancedata = sizeof(LaserChip::VERTEX_instancedata);
     out_info->pInstancedata = LaserChip::_aInstancedata;
 }
 

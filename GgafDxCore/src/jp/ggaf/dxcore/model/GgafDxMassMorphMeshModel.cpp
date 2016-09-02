@@ -105,14 +105,14 @@ void GgafDxMassMorphMeshModel::restore() {
 
     if (!_paVtxBuffer_data_model) {
         // _model_name には "8/xxx_4" or "xxx_4" という文字列が渡ってくる。 (/と_は区切り文字)
-        // 8   ：同時描画セット数(省略時 GGAFDXMASS_MAX_INSTACE_NUM)
+        // 8   ：同時描画セット数(省略時 GGAFDXMASS_MAX_INSTANCE_NUM)
         // xxx ：モデル名
         // 4   ：モーフターゲット数
         std::vector<std::string> names = UTIL::split(std::string(_model_name), "/");
         std::string xname = "";
         if (names.size() == 1) {
-            _TRACE_(FUNC_NAME<<" "<<_model_name<<" の最大同時描画オブジェクト数は、デフォルトの"<<GGAFDXMASS_MAX_INSTACE_NUM<<" が設定されました。");
-            _set_num = GGAFDXMASS_MAX_INSTACE_NUM;
+            _TRACE_(FUNC_NAME<<" "<<_model_name<<" の最大同時描画オブジェクト数は、デフォルトの"<<GGAFDXMASS_MAX_INSTANCE_NUM<<" が設定されました。");
+            _set_num = GGAFDXMASS_MAX_INSTANCE_NUM;
             xname = names[0];
         } else if (names.size() == 2) {
             _set_num = STOI(names[0]);  // "8/xxx_4" の 8 が入る
@@ -121,8 +121,8 @@ void GgafDxMassMorphMeshModel::restore() {
             throwGgafCriticalException("_model_name には \"8/xxx_4\" or \"xxx_4\" 形式を指定してください。 \n"<<
                     "実際は、_model_name="<<_model_name<<" でした。");
         }
-        if (_set_num < 1 || _set_num > GGAFDXMASS_MAX_INSTACE_NUM) {
-            throwGgafCriticalException(_model_name<<"の最大同時描画オブジェクト数が不正。範囲は 1～"<<GGAFDXMASS_MAX_INSTACE_NUM<<"セットです。_set_num="<<_set_num);
+        if (_set_num < 1 || _set_num > GGAFDXMASS_MAX_INSTANCE_NUM) {
+            throwGgafCriticalException(_model_name<<"の最大同時描画オブジェクト数が不正。範囲は 1～"<<GGAFDXMASS_MAX_INSTANCE_NUM<<"セットです。_set_num="<<_set_num);
         }
 
         std::string::size_type pos = xname.find_last_of('_');
@@ -335,7 +335,7 @@ void GgafDxMassMorphMeshModel::restore() {
 }
 
 HRESULT GgafDxMassMorphMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
-    if (_pVertexBuffer_instacedata == nullptr) {
+    if (_pVertexBuffer_instancedata == nullptr) {
         createVertexElements(); //デバイスロスト復帰時に呼び出される
     }
 #ifdef MY_DEBUG
@@ -354,13 +354,13 @@ HRESULT GgafDxMassMorphMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int
     HRESULT hr;
 
     //頂点バッファ(インスタンスデータ)書き換え
-    UINT update_vertex_instacedata_size = _size_vertex_unit_instacedata * prm_draw_set_num;
+    UINT update_vertex_instancedata_size = _size_vertex_unit_instancedata * prm_draw_set_num;
     void* pInstancedata = prm_pPrm ? prm_pPrm : this->_pInstancedata; //prm_pPrm は臨時のテンポラリインスタンスデータ
     void* pDeviceMemory = 0;
-    hr = _pVertexBuffer_instacedata->Lock(0, update_vertex_instacedata_size, (void**)&pDeviceMemory, D3DLOCK_DISCARD);
+    hr = _pVertexBuffer_instancedata->Lock(0, update_vertex_instancedata_size, (void**)&pDeviceMemory, D3DLOCK_DISCARD);
     checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
-    memcpy(pDeviceMemory, pInstancedata, update_vertex_instacedata_size);
-    hr = _pVertexBuffer_instacedata->Unlock();
+    memcpy(pDeviceMemory, pInstancedata, update_vertex_instancedata_size);
+    hr = _pVertexBuffer_instancedata->Unlock();
     checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗 model="<<_model_name);
 
     //モデルが同じならば頂点バッファ、インデックスバッファの設定はスキップできる
@@ -377,7 +377,7 @@ HRESULT GgafDxMassMorphMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int
             hr = pDevice->SetStreamSource(i, _pVertexBuffer_model_morph[i-1], 0, _size_vertex_unit_morph_model);
             checkDxException(hr, D3D_OK, "SetStreamSource "<<i<<" に失敗しました。");
         }
-        hr = pDevice->SetStreamSource(_morph_target_num+1, _pVertexBuffer_instacedata, 0, _size_vertex_unit_instacedata);
+        hr = pDevice->SetStreamSource(_morph_target_num+1, _pVertexBuffer_instancedata, 0, _size_vertex_unit_instancedata);
         checkDxException(hr, D3D_OK, "SetStreamSource "<<_morph_target_num+1<<" に失敗しました。");
         //インデックスバッファ設定
         pDevice->SetIndices(_pIndexBuffer);

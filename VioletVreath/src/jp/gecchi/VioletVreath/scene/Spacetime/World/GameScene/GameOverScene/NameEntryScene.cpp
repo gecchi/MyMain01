@@ -23,12 +23,12 @@ NameEntryScene::NameEntryScene(const char* prm_name) : DefaultScene(prm_name) {
     bringDirector()->addSubGroup(pWorldBound_);
 
     pLabelInputedName_ = NEW SpriteLabelGecchi32Font("InputedName");
-    pLabelInputedName_->position(PX_C(100), PX_C(0), -2);
+    pLabelInputedName_->place(PX_C(100), PX_C(0), -2);
     bringDirector()->addSubGroup(pLabelInputedName_);
 
     pLabelSelectedChar_ = NEW SpriteLabelGecchi32Font("SelectedChar");
     pLabelSelectedChar_->pAFader_->beat(60, 10, 0, 50, -1); //チカチカ点滅
-    pLabelSelectedChar_->positionAs(pLabelInputedName_);
+    pLabelSelectedChar_->placeAs(pLabelInputedName_);
     bringDirector()->addSubGroup(pLabelSelectedChar_);
 
     pNameEntryBoard_ = NEW MenuBoardNameEntry("pNameEntryBoard_");

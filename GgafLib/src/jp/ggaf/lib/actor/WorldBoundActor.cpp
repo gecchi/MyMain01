@@ -29,7 +29,7 @@ WorldBoundActor::WorldBoundActor(const char* prm_name, const char* prm_model) :
 void WorldBoundActor::initialize() {
     DefaultCamera* pCam = P_GOD->getSpacetime()->getCamera();
     setHitAble(false);
-    positionAs(pCam);
+    placeAs(pCam);
     setFaceAngZero();
     dxcoord world_r = pCam->getZFar(); //¢ŠE‹«ŠE‹…”¼Œa
     dxcoord world_bound_model_r = 1.0f; //WorldBound001‚Ìƒ‚ƒfƒ‹‚Í”¼ŒaDIRECTX‹——£1‚Ì‹…‚Å‚ ‚é
@@ -45,7 +45,7 @@ void WorldBoundActor::processSettlementBehavior() {
     //E”ª•ª–Ø“o˜^
     //E‹‘ä‚©‚ç‚Ì‹——£ŒvZ
     //GgafDxGeometricActor::processSettlementBehavior() ‚Æ“¯Šú‚ğæ‚é–I
-    positionAs(pCam);
+    placeAs(pCam);
     _fX = C_DX(_x);
     _fY = C_DX(_y);
     _fZ = C_DX(_z);
