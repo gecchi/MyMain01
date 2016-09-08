@@ -114,73 +114,93 @@ void GgafDxUvFlipper::behave() {
         return;
     }
     if (_uvflip_interval_frames < _frame_counter_uvflip) {
-        if (_uvflip_method == FLIP_ORDER_LOOP) { //例：0,1,2,3,4,5,0,1,2,3,4,5,...
-            if (_pattno_uvflip_bottom > _pattno_uvflip_now) {
-                _pattno_uvflip_now++;
-            } else {
-                _pattno_uvflip_now = _pattno_uvflip_top;
-            }
-        } else if (_uvflip_method == FLIP_REVERSE_LOOP) { //例：5,4,3,2,1,0,5,4,3,2,1,0,5,4...
-            if (_pattno_uvflip_top < _pattno_uvflip_now) {
-                _pattno_uvflip_now--;
-            } else {
-                _pattno_uvflip_now = _pattno_uvflip_bottom;
-            }
-        } else if (_uvflip_method == FLIP_ORDER_NOLOOP) { //例：0,1,2,3,4,5,5,5,5,5,5,5...
-            if (_pattno_uvflip_bottom > _pattno_uvflip_now) {
-                _pattno_uvflip_now++;
-            } else {
-                _pattno_uvflip_now = _pattno_uvflip_bottom;
-//                _pTexture->onCatchEvent(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED, this); //もうアニメーションは進まないことを通知
-                _uvflip_method = NOT_ANIMATED;
-            }
-        } else if (_uvflip_method == FLIP_REVERSE_NOLOOP) { //例：5,4,3,2,1,0,0,0,0,0,0...
-            if (_pattno_uvflip_top < _pattno_uvflip_now) {
-                _pattno_uvflip_now--;
-            } else {
-                _pattno_uvflip_now = _pattno_uvflip_top;
-//                _pTexture->onCatchEvent(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED, this); //もうアニメーションは進まないことを通知
-                _uvflip_method = NOT_ANIMATED;
-            }
-        } else if (_uvflip_method == FLIP_OSCILLATE_LOOP) { //例：0,1,2,3,4,5,4,3,2,1,0,1,2,3,4,5,...
-            if (_is_reverse_order_in_oscillate_animation_flg) { //逆順序時
-                if (_pattno_uvflip_top < _pattno_uvflip_now) {
-                    _pattno_uvflip_now--;
-                } else {
-                    _pattno_uvflip_now++;
-                    _is_reverse_order_in_oscillate_animation_flg = false;
-                }
-            } else {                                            //正順序時
+        switch (_uvflip_method) {
+            case FLIP_ORDER_LOOP: {  //例：0,1,2,3,4,5,0,1,2,3,4,5,...
                 if (_pattno_uvflip_bottom > _pattno_uvflip_now) {
                     _pattno_uvflip_now++;
                 } else {
+                    _pattno_uvflip_now = _pattno_uvflip_top;
+                }
+                break;
+            }
+            case FLIP_REVERSE_LOOP: {  //例：5,4,3,2,1,0,5,4,3,2,1,0,5,4...
+                if (_pattno_uvflip_top < _pattno_uvflip_now) {
                     _pattno_uvflip_now--;
-                    _is_reverse_order_in_oscillate_animation_flg = true;
+                } else {
+                    _pattno_uvflip_now = _pattno_uvflip_bottom;
                 }
+                break;
             }
-        } else if (_uvflip_method == FLIP_CUSTOMIZED_LOOP) {
-            //TODO: 未検証（使う機会があればする）
-            if (_pa_ptn_offset_customized) {
-                _pattno_uvflip_now = _pa_ptn_offset_customized[_cnt_customized];
-                _cnt_customized ++;
-                if (_cnt_customized == _ptn_customized) {
-                    _cnt_customized = 0;
-                }
-            }
-        } else if (_uvflip_method == FLIP_CUSTOMIZED_NOLOOP) {
-            //TODO: 未検証（使う機会があればする）
-            if (_pa_ptn_offset_customized) {
-                _pattno_uvflip_now = _pa_ptn_offset_customized[_cnt_customized];
-                _cnt_customized ++;
-                if (_cnt_customized == _ptn_customized) {
-//                    _pTexture->onCatchEvent(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED, this); //もうアニメーションは進まないことを通知
-                    _cnt_customized = 0;
+            case FLIP_ORDER_NOLOOP: {  //例：0,1,2,3,4,5,5,5,5,5,5,5...
+                if (_pattno_uvflip_bottom > _pattno_uvflip_now) {
+                    _pattno_uvflip_now++;
+                } else {
+                    _pattno_uvflip_now = _pattno_uvflip_bottom;
+                    //_pTexture->onCatchEvent(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED, this); //もうアニメーションは進まないことを通知
                     _uvflip_method = NOT_ANIMATED;
                 }
+                break;
             }
-        } else if (_uvflip_method == NOT_ANIMATED) {
-            //何もしない
+            case FLIP_REVERSE_NOLOOP: { //例：5,4,3,2,1,0,0,0,0,0,0...
+                if (_pattno_uvflip_top < _pattno_uvflip_now) {
+                    _pattno_uvflip_now--;
+                } else {
+                    _pattno_uvflip_now = _pattno_uvflip_top;
+                    //_pTexture->onCatchEvent(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED, this); //もうアニメーションは進まないことを通知
+                    _uvflip_method = NOT_ANIMATED;
+                }
+                break;
+            }
+            case FLIP_OSCILLATE_LOOP: { //例：0,1,2,3,4,5,4,3,2,1,0,1,2,3,4,5,...
+                if (_is_reverse_order_in_oscillate_animation_flg) { //逆順序時
+                    if (_pattno_uvflip_top < _pattno_uvflip_now) {
+                        _pattno_uvflip_now--;
+                    } else {
+                        _pattno_uvflip_now++;
+                        _is_reverse_order_in_oscillate_animation_flg = false;
+                    }
+                } else {                                            //正順序時
+                    if (_pattno_uvflip_bottom > _pattno_uvflip_now) {
+                        _pattno_uvflip_now++;
+                    } else {
+                        _pattno_uvflip_now--;
+                        _is_reverse_order_in_oscillate_animation_flg = true;
+                    }
+                }
+                break;
+            }
+            case FLIP_CUSTOMIZED_LOOP: {
+                //TODO: 未検証（使う機会があればする）
+                if (_pa_ptn_offset_customized) {
+                    _pattno_uvflip_now = _pa_ptn_offset_customized[_cnt_customized];
+                    _cnt_customized ++;
+                    if (_cnt_customized == _ptn_customized) {
+                        _cnt_customized = 0;
+                    }
+                }
+                break;
+            }
+            case FLIP_CUSTOMIZED_NOLOOP: {
+                //TODO: 未検証（使う機会があればする）
+                if (_pa_ptn_offset_customized) {
+                    _pattno_uvflip_now = _pa_ptn_offset_customized[_cnt_customized];
+                    _cnt_customized ++;
+                    if (_cnt_customized == _ptn_customized) {
+                        //_pTexture->onCatchEvent(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED, this); //もうアニメーションは進まないことを通知
+                        _cnt_customized = 0;
+                        _uvflip_method = NOT_ANIMATED;
+                    }
+                }
+                break;
+            }
+            case NOT_ANIMATED: {
+                //何もしない
+                break;
+            }
+            default:
+                break;
         }
+
         _frame_counter_uvflip = 0;
     }
 }
