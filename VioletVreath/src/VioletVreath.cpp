@@ -271,21 +271,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             }
             break;
         }
-//        case WM_SYSCHAR: {
-//            if (LOWORD(wParam) == VK_RETURN) { //Alt + Enter
-//                LONG lStyle  = GetWindowLong( hWnd, GWL_STYLE );
-//                if (lStyle & WS_POPUP) {
-//                    //現在ボーダレスフルスクリーンウィンドウであるので戻す。
-//                    GgafDxCore::GgafDxGod::backToNomalWindow(hWnd);
-//                } else {
-//                    //現在通常ウィンドウであるので、ボーダレスフルスクリーンウィンドウに切り替える。
-//                    GgafDxCore::GgafDxGod::chengeToBorderlessFullWindow(hWnd);
-//                }
-//            }
-//            break;
-//        }
         case WM_LBUTTONDBLCLK: {
-            LONG lStyle  = GetWindowLong( hWnd, GWL_STYLE );
+            //擬似フルスクリーンの切り替え
+            LONG lStyle = GetWindowLong( hWnd, GWL_STYLE );
             if (lStyle & WS_POPUP) {
                 //現在ボーダレスフルスクリーンウィンドウであるので戻す。
                 GgafDxCore::GgafDxGod::backToNomalWindow(hWnd);
@@ -295,8 +283,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             }
             break;
         }
-
-
+        case WM_KEYDOWN: {
+            if (wParam == VK_F11) {
+                //擬似フルスクリーンの切り替え
+                LONG lStyle = GetWindowLong( hWnd, GWL_STYLE );
+                if (lStyle & WS_POPUP) {
+                    //現在ボーダレスフルスクリーンウィンドウであるので戻す。
+                    GgafDxCore::GgafDxGod::backToNomalWindow(hWnd);
+                } else {
+                    //現在通常ウィンドウであるので、ボーダレスフルスクリーンウィンドウに切り替える。
+                    GgafDxCore::GgafDxGod::chengeToBorderlessFullWindow(hWnd);
+                }
+            }
+            break;
+        }
         case WM_SYSCOMMAND: {
             if ( (wParam & 0xFFF0) == SC_SCREENSAVE ) {
                 return 1;
