@@ -1809,15 +1809,33 @@ void GgafDxGod::presentSpacetimeVisualize() {
                 //２画面使用・ウィンドウモード
                 if (PROPERTY::FIXED_GAME_VIEW_ASPECT) {
                     //縦横比固定モード
-                    hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], &_aRect_Present[PRIMARY_VIEW], nullptr, nullptr);
-                    if (hr == D3D_OK) {
-                        hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], &_aRect_Present[SECONDARY_VIEW], _pHWndSecondary, nullptr);
+                    if (PROPERTY::SWAP_GAME_VIEW) {
+                        //画面入れ替えあり
+                        hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], &_aRect_Present[PRIMARY_VIEW], nullptr, nullptr);
+                        if (hr == D3D_OK) {
+                            hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], &_aRect_Present[SECONDARY_VIEW], _pHWndSecondary, nullptr);
+                        }
+                    } else {
+                        //画面入れ替えなし
+                        hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], &_aRect_Present[PRIMARY_VIEW], nullptr, nullptr);
+                        if (hr == D3D_OK) {
+                            hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], &_aRect_Present[SECONDARY_VIEW], _pHWndSecondary, nullptr);
+                        }
                     }
                 } else {
                     //縦横ストレッチモード
-                    hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], nullptr, nullptr, nullptr);
-                    if (hr == D3D_OK) {
-                        hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], nullptr, _pHWndSecondary, nullptr);
+                    if (PROPERTY::SWAP_GAME_VIEW) {
+                        //画面入れ替えあり
+                        hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], nullptr, nullptr, nullptr);
+                        if (hr == D3D_OK) {
+                            hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], nullptr, _pHWndSecondary, nullptr);
+                        }
+                    } else {
+                        //画面入れ替えなし
+                        hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], nullptr, nullptr, nullptr);
+                        if (hr == D3D_OK) {
+                            hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], nullptr, _pHWndSecondary, nullptr);
+                        }
                     }
                 }
             } else {
