@@ -33,3 +33,4 @@
 /.vs/
 /Release_XP/
 /Debug_XP/
+*.opendb

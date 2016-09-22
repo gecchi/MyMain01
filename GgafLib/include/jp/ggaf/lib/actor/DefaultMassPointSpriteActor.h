@@ -6,10 +6,7 @@
 namespace GgafLib {
 
 /**
- * メッシュアクターの具象クラス.
- * @version 1.00
- * @since 2016/02/09
- * @author Masatoshi Tsuge
+ * TODO: 使えません、環境依存すぎる.
  */
 class DefaultMassPointSpriteActor : public GgafDxCore::GgafDxMassPointSpriteActor {
 
