@@ -84,7 +84,7 @@ private:
      * @param prm_screen_width 画面幅(ピクセル)
      * @param prm_screen_height 画面高さ(ピクセル)
      */
-    void placePresentRect(int prm_pos, RECT& inout_rectPresent, pixcoord prm_screen_width, pixcoord prm_screen_height);
+    void locatePresentRect(int prm_pos, RECT& inout_rectPresent, pixcoord prm_screen_width, pixcoord prm_screen_height);
 
     /**
      * マルチディスプレイフルスクリーンモード時、モニタ座標情報を取得する .

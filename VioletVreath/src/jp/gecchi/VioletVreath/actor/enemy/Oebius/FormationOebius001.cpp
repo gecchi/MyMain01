@@ -53,7 +53,7 @@ void FormationOebius001::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int
     pOebius->pKurokoLeader_->fixStartAngle(entry_pos_.rx, entry_pos_.rz, entry_pos_.ry);
 
 
-    pOebius->place( RND_ABOUT(entry_pos_.x + dx, PX_C(700)),
+    pOebius->locate( RND_ABOUT(entry_pos_.x + dx, PX_C(700)),
                        RND_ABOUT(entry_pos_.y + dy, PX_C(700)),
                        RND_ABOUT(entry_pos_.z + dz, PX_C(700)) );
     pOebius->setFaceAngTwd(entry_pos_.x + dx,

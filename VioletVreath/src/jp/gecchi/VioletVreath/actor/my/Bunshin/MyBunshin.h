@@ -118,11 +118,11 @@ public:
      */
     void effectFreeModePause();
 
-    void setRadiusPosition(coord prm_radius_place);
-    void addRadiusPosition(coord prm_radius_place);
+    void setRadiusPosition(coord prm_radius_pos);
+    void addRadiusPosition(coord prm_radius_pos);
     coord getRadiusPosition();
 
-    void slideMvRadiusPosition(coord prm_target_radius_place, frame prm_spent_frames);
+    void slideMvRadiusPosition(coord prm_target_radius_pos, frame prm_spent_frames);
 
     void setExpanse(angvelo prm_ang_expanse);
     void addExpanse(angvelo prm_ang_expanse);

@@ -10,7 +10,7 @@ SmpActor::SmpActor(const char* prm_name) :
 
 void SmpActor::initialize() {
     //座標設定
-    place(0, 0, 0);
+    locate(0, 0, 0);
     //黒衣にキャラのZ軸回転の角速度を設定(毎フレーム2度)
     getKuroko()->setFaceAngVelo(AXIS_Z, D_ANG(2));
 }

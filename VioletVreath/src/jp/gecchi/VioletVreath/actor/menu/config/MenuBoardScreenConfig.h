@@ -95,7 +95,7 @@ public:
 
     void processBehavior() override;
 
-    void relocateItem();
+    void replaceItem();
 
     virtual ~MenuBoardScreenConfig();
 };

@@ -98,7 +98,7 @@ void TestEnemy::dispStamina() {
     static char aBuf[20];
     sprintf(aBuf, "%d", getStatus()->get(STAT_Stamina));
     pMoji_->update(aBuf);
-    pMoji_->place(_x,_y+PX_C(30),_z);
+    pMoji_->locate(_x,_y+PX_C(30),_z);
 }
 
 TestEnemy::~TestEnemy() {

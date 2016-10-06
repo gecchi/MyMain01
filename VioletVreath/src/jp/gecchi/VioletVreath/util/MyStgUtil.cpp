@@ -100,7 +100,7 @@ GgafDxFigureActor* MyStgUtil::shotWayGoldenAng(coord prm_x, coord prm_y, coord p
             pActor_shot = (GgafDxFigureActor*)prm_pDepo_shot->dispatch(n*prm_interval_frames+1);
             if (pActor_shot) {
                 dispatch_num++;
-                pActor_shot->place(prm_x + paGeo[i].x,
+                pActor_shot->locate(prm_x + paGeo[i].x,
                                       prm_y + paGeo[i].y,
                                       prm_z + paGeo[i].z);
                 pActor_shot->getKuroko()->setRzRyMvAng(paGeo[i].rz, paGeo[i].ry);
@@ -263,7 +263,7 @@ GgafDxFigureActor* MyStgUtil::activateExplosionEffectOf(const GgafDxGeometricAct
         case EF_EXPLOSION001: {
             pE = dispatchForceFromCommon(EffectExplosion001);
             if (pE) {
-                pE->placeAs(prm_pActor);
+                pE->locateAs(prm_pActor);
                 pE->getKuroko()->takeoverMvFrom(prm_pActor->getKuroko());
             }
             break;
@@ -271,7 +271,7 @@ GgafDxFigureActor* MyStgUtil::activateExplosionEffectOf(const GgafDxGeometricAct
         case EF_EXPLOSION002: {
             pE = dispatchForceFromCommon(EffectExplosion002);
             if (pE) {
-                pE->placeAs(prm_pActor);
+                pE->locateAs(prm_pActor);
                 pE->getKuroko()->takeoverMvFrom(prm_pActor->getKuroko());
             }
             break;
@@ -279,7 +279,7 @@ GgafDxFigureActor* MyStgUtil::activateExplosionEffectOf(const GgafDxGeometricAct
         case EF_EXPLOSION003: {
             pE = dispatchForceFromCommon(EffectExplosion003);
             if (pE) {
-                pE->placeAs(prm_pActor);
+                pE->locateAs(prm_pActor);
                 pE->getKuroko()->takeoverMvFrom(prm_pActor->getKuroko());
             }
             break;
@@ -287,7 +287,7 @@ GgafDxFigureActor* MyStgUtil::activateExplosionEffectOf(const GgafDxGeometricAct
         case EF_EXPLOSION001_STAY: {
             pE = dispatchForceFromCommon(EffectExplosion001);
             if (pE) {
-                pE->placeAs(prm_pActor);
+                pE->locateAs(prm_pActor);
                 pE->getKuroko()->setMvVelo(0);
                 pE->getKuroko()->setMvAcce(0);
             }
@@ -327,7 +327,7 @@ GgafDxFigureActor* MyStgUtil::activateDamagedEffectOf(const GgafDxGeometricActor
 
     if (pE) {
         //出現座標を設定
-        pE->placeAs(prm_pActor);
+        pE->locateAs(prm_pActor);
         pE->getKuroko()->takeoverMvFrom(prm_pActor->getKuroko());
     }
     return pE;
@@ -351,7 +351,7 @@ GgafDxFigureActor* MyStgUtil::activateAttackShotOf(const GgafDxGeometricActor* c
     }
     if (pI) {
         //出現座標を設定
-        pI->placeAs(prm_pActor);
+        pI->locateAs(prm_pActor);
     }
     return pI;
 }
@@ -483,7 +483,7 @@ GgafDxFigureActor* MyStgUtil::activateItemOf(const GgafDxGeometricActor* const p
     }
     if (pI) {
         //出現座標を設定
-        pI->placeAs(prm_pActor);
+        pI->locateAs(prm_pActor);
     }
     return pI;
 }
@@ -513,7 +513,7 @@ GgafDxFigureActor* MyStgUtil::activateDestroyedEffectOf(const GgafDxGeometricAct
 
     if (pE) {
         //出現座標を設定
-        pE->placeAs(prm_pActor);
+        pE->locateAs(prm_pActor);
         pE->getKuroko()->takeoverMvFrom(prm_pActor->getKuroko());
     }
     return pE;
@@ -558,7 +558,7 @@ EffectBlink* MyStgUtil::activateEntryEffectOf(const GgafDxGeometricActor* const 
         case EF_ENTRY_SMALL001_STAY_F30: { //EffectBlink001で60F。その場にとどまる、アクター追従無し。
             EffectBlink001* pE = dispatchForceFromCommon(EffectBlink001);
             if (pE) {
-                pE->placeAs(prm_pActor);
+                pE->locateAs(prm_pActor);
                 pE->blink(12, 6, 12, nullptr);
             }
             pRet = pE;
@@ -567,7 +567,7 @@ EffectBlink* MyStgUtil::activateEntryEffectOf(const GgafDxGeometricActor* const 
         case EF_ENTRY_SMALL001_STAY_F60: {  //EffectBlink001で60F。その場にとどまる、アクター追従無し。
             EffectBlink001* pE = dispatchForceFromCommon(EffectBlink001);
             if (pE) {
-                pE->placeAs(prm_pActor);
+                pE->locateAs(prm_pActor);
                 pE->blink(25, 10, 25, nullptr);
             }
             pRet = pE;
@@ -576,7 +576,7 @@ EffectBlink* MyStgUtil::activateEntryEffectOf(const GgafDxGeometricActor* const 
         case EF_ENTRY_SMALL001_STAY_F90: {  //EffectBlink001で60F。その場にとどまる、アクター追従無し。
             EffectBlink001* pE = dispatchForceFromCommon(EffectBlink001);
             if (pE) {
-                pE->placeAs(prm_pActor);
+                pE->locateAs(prm_pActor);
                 pE->blink(35, 20, 35, nullptr);
             }
             pRet = pE;
@@ -677,7 +677,7 @@ GgafDxFigureActor* MyStgUtil::activateFormationDestroyedEffectOf(const GgafDxGeo
             //1は通常のフォーメーションボーナススコア表示エフェクト
             SpriteLabelBonus001* pLabel = dispatchForceFromCommon(SpriteLabelBonus001);
             pLabel->onDispatched(prm_pActor); //初期設定が行われる
-            pLabel->placeAs(prm_pActor);
+            pLabel->locateAs(prm_pActor);
             pLabel->getKuroko()->takeoverMvFrom(prm_pActor->getKuroko());
             int addscore = prm_pActor->getStatus()->get(STAT_FormationDestroyedAddScorePoint); //フォーメーション全滅得点
             std::string s = XTOS(addscore);
@@ -685,7 +685,7 @@ GgafDxFigureActor* MyStgUtil::activateFormationDestroyedEffectOf(const GgafDxGeo
             pE = pLabel;
 
             EffectTurbo002* pTurbo002 = dispatchForceFromCommon(EffectTurbo002);
-            pTurbo002->placeAs(prm_pActor);
+            pTurbo002->locateAs(prm_pActor);
             pTurbo002->getKuroko()->takeoverMvFrom(prm_pActor->getKuroko());
             break;
         }
@@ -706,7 +706,7 @@ GgafDxFigureActor* MyStgUtil::activateFormationDestroyedEffectOf(const GgafDxGeo
 
 //        if (pE) {
 //            //出現座標を設定
-//            pE->placeAs(prm_pActor);
+//            pE->locateAs(prm_pActor);
 //            pE->getKuroko()->takeoverMvFrom(prm_pActor->getKuroko());
 //        }
     return pE;
@@ -739,7 +739,7 @@ GgafDxFigureActor* MyStgUtil::activateFormationDestroyedItemOf(const GgafDxGeome
     }
     if (pI) {
         //出現座標を設定
-        pI->placeAs(prm_pActor);
+        pI->locateAs(prm_pActor);
     }
     return pI;
 }
@@ -764,7 +764,7 @@ GgafDxFigureActor* MyStgUtil::activateProperEffect01Of(const GgafDxCore::GgafDxG
     }
     if (pE) {
         //出現座標を設定
-        pE->placeAs(prm_pActor);
+        pE->locateAs(prm_pActor);
     }
     return pE;
 

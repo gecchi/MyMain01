@@ -210,7 +210,7 @@ void RefractionLaserChip::processBehavior() {
                         if (_pDepo_refraction_effect) {
                             _pRefractionEffect = (GgafDxFigureActor*)_pDepo_refraction_effect->dispatch();
                             if (_pRefractionEffect) {
-                                _pRefractionEffect->placeAs(this);
+                                _pRefractionEffect->locateAs(this);
                                 //最長時間の解除予約。
                                 //何かの拍子？（TODO:要調査）でレーザーチップが消滅した場合、正しくsayonara()出来ない場合がある。その場合の保険。
                                 _pRefractionEffect->inactivateDelay(_pDepo->_num_chip_max +_frame_standstill_refraction);

@@ -46,7 +46,7 @@ void EnemyOrtuna::processBehavior() {
     switch (pProg->get()) {
          case PROG_INIT: {
              setHitAble(false);
-             placeAs(&entry_pos_);
+             locateAs(&entry_pos_);
              setAlpha(0);
              pKuroko->setMvVelo(0);
              pKuroko->linkFaceAngByMvAng(true);

@@ -135,9 +135,9 @@ public:
 
     virtual ~GgafDxBoardSetActor(); //デストラクタ
 
-    virtual void placeAs(const GgafDxGeometricActor* prm_pActor) override;
+    virtual void locateAs(const GgafDxGeometricActor* prm_pActor) override;
 
-    virtual void placeAs(const GgafDxGeoElem* prm_pGeoElem) override;
+    virtual void locateAs(const GgafDxGeoElem* prm_pGeoElem) override;
 
     virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign);
     virtual void setAlign(GgafDxAlign prm_align);

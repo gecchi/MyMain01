@@ -29,7 +29,7 @@ void EffectMyShipExplosion::onActive() {
     GgafDxUvFlipper* pUvFlipper = getUvFlipper();
     pUvFlipper->setActivePtnToTop();
     pUvFlipper->exec(FLIP_ORDER_NOLOOP, 20);
-    placeAs(P_MYSHIP);
+    locateAs(P_MYSHIP);
     setAlpha(0.99);
     setScale(8000);
     getKuroko()->setFaceAngVelo(AXIS_Z, 2000);
@@ -37,7 +37,7 @@ void EffectMyShipExplosion::onActive() {
 
 void EffectMyShipExplosion::processBehavior() {
     _alpha -= 0.01;
-    placeAs(P_MYSHIP);
+    locateAs(P_MYSHIP);
     getUvFlipper()->behave();
     getKuroko()->behave();
     pScaler_->behave();

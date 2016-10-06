@@ -54,8 +54,8 @@ MyBunshinBase::MyBunshinBase(const char* prm_name, unsigned int prm_no) :
     is_isolate_mode_ = true;
     moving_frames_since_default_pos_ = 0;
 
-    bunshin_default_radius_place_ = 0;
-    bunshin_default_ang_place_  = 0;
+    bunshin_default_radius_pos_ = 0;
+    bunshin_default_ang_pos_  = 0;
     bunshin_default_expanse_ = 0;
     bunshin_default_angvelo_mv_ = 0;
     bunshin_velo_mv_radius_pos_ = 0;
@@ -63,17 +63,17 @@ MyBunshinBase::MyBunshinBase(const char* prm_name, unsigned int prm_no) :
 }
 
 void MyBunshinBase::config(
-        coord prm_radius_place,
-        angle prm_ang_place,
+        coord prm_radius_pos,
+        angle prm_ang_pos,
         angle prm_expanse,
         angvelo prm_angvelo_mv)
 {
-    bunshin_default_radius_place_ = prm_radius_place;
-    bunshin_default_ang_place_    = UTIL::simplifyAng(prm_ang_place);
+    bunshin_default_radius_pos_ = prm_radius_pos;
+    bunshin_default_ang_pos_    = UTIL::simplifyAng(prm_ang_pos);
     bunshin_default_expanse_         = UTIL::simplifyAng(prm_expanse);
     bunshin_default_angvelo_mv_      = prm_angvelo_mv;
-    bunshin_velo_mv_radius_pos_      = 3000 * (bunshin_default_radius_place_/60000);
-    bunshin_radius_pos_              = bunshin_default_radius_place_;
+    bunshin_velo_mv_radius_pos_      = 3000 * (bunshin_default_radius_pos_/60000);
+    bunshin_radius_pos_              = bunshin_default_radius_pos_;
 }
 
 void MyBunshinBase::initialize() {
@@ -83,10 +83,10 @@ void MyBunshinBase::initialize() {
 }
 
 void MyBunshinBase::onReset() {
-    pBunshin_->setRadiusPosition(bunshin_default_radius_place_);
-    bunshin_radius_pos_ = bunshin_default_radius_place_;
+    pBunshin_->setRadiusPosition(bunshin_default_radius_pos_);
+    bunshin_radius_pos_ = bunshin_default_radius_pos_;
 
-    setRollFaceAng(bunshin_default_ang_place_);
+    setRollFaceAng(bunshin_default_ang_pos_);
     getKuroko()->setRollFaceAngVelo(bunshin_default_angvelo_mv_);
     getProgress()->reset(PROG_INIT);
     trace_mode_ = TRACE_GRADIUS;
@@ -94,7 +94,7 @@ void MyBunshinBase::onReset() {
 
 void MyBunshinBase::onActive() {
     is_free_mode_ = true;
-    place(P_MYSHIP->_x,P_MYSHIP->_y,P_MYSHIP->_z);
+    locate(P_MYSHIP->_x,P_MYSHIP->_y,P_MYSHIP->_z);
 
     int len = pPosTrace_->_num;
     Pos* p = pPosTrace_->_paPos;
@@ -252,7 +252,7 @@ void MyBunshinBase::processBehavior() {
                 //もどった！
                 pAxsMver_->setZeroVxyzMvVelo();
                 pAxsMver_->setZeroVxyzMvAcce();
-                place(tx, ty, tz);
+                locate(tx, ty, tz);
                 moving_frames_since_default_pos_ = 0;
                 pProg->change(PROG_BUNSHIN_NOMAL_TRACE);
             }
@@ -514,13 +514,13 @@ void MyBunshinBase::processBehavior() {
     if (is_free_mode_) {
         //フリーモード中はフリーズの動き
         if (pMyShip->is_move_) {
-            place(_x + pMyShip->mv_offset_x_,
+            locate(_x + pMyShip->mv_offset_x_,
                      _y + pMyShip->mv_offset_y_,
                      _z + pMyShip->mv_offset_z_ );
         }
     } else {
         //通常時は trace_mode_ の動き
-        placeAs(pPosTrace_->getNext()); //環状なのでgetNext()が末尾座標情報。
+        locateAs(pPosTrace_->getNext()); //環状なのでgetNext()が末尾座標情報。
         if (trace_mode_ == TRACE_GRADIUS) {
             //TRACE_GRADIUS で 土台が移動するならば、半径位置を土台の中心に寄せる
             Pos* p = pPosTrace_->get2Next();
@@ -540,7 +540,7 @@ void MyBunshinBase::resetBunshin(int prm_mode) {
 
     EffectTurbo002* pTurbo002 = dispatchFromCommon(EffectTurbo002);
     if (pTurbo002) {
-        pTurbo002->placeAs(pBunshin_);
+        pTurbo002->locateAs(pBunshin_);
     }
 
     is_isolate_mode_ = false;
@@ -565,7 +565,7 @@ void MyBunshinBase::resetBunshin(int prm_mode) {
                );
     //分身の角度位置が元に戻る指示
     pKuroko->asstFaceAng()->rollFaceAngByDtTo(
-                          bunshin_default_ang_place_,
+                          bunshin_default_ang_pos_,
                           SGN(bunshin_default_angvelo_mv_) > 0 ? TURN_COUNTERCLOCKWISE : TURN_CLOCKWISE,
                           return_default_pos_frames_/2, //ばらつかせるとズレるので  * delay_r_ しません
                           0.3, 0.5,
@@ -576,7 +576,7 @@ void MyBunshinBase::resetBunshin(int prm_mode) {
         //VB_OPTION ダブルプッシュ + VB_TURBO押しっぱなしの場合
         //オールリセット
         //分身の半径位置が元に戻る指示
-        bunshin_radius_pos_ = bunshin_default_radius_place_;
+        bunshin_radius_pos_ = bunshin_default_radius_pos_;
         pBunshin_->slideMvRadiusPosition(bunshin_radius_pos_, return_default_pos_frames_ * delay_r_ );
         //後はreturn_default_pos_frames_ が0になるまで
         //trace_mode_ = TRACE_TWINBEE;

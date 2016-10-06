@@ -65,8 +65,8 @@ private:
             GGAF_DELETEARR(_paPos);
         }
     };
-    inline void placeAs(Pos *pPos) {
-         place(pPos->x, pPos->y, pPos->z);
+    inline void locateAs(Pos *pPos) {
+         locate(pPos->x, pPos->y, pPos->z);
     }
 
     /** [r]分身操作の上下入力時土台回転軸ベクトルX軸要素 */
@@ -139,9 +139,9 @@ public:
     /** 分身番号1～MAXによって、バラける演出のための乗ずる割合が入る */
     double delay_r_;
     /** [r]自身を中心とした、分身の半径距離の位置(初期値) */
-    coord bunshin_default_radius_place_;
+    coord bunshin_default_radius_pos_;
     /** [r]自身を中心とした、分身の公転軌道上の位置(初期値) */
-    angle bunshin_default_ang_place_;
+    angle bunshin_default_ang_pos_;
     /** [r]分身の広がり角度(初期値) */
     angle bunshin_default_expanse_;
     /** [r]自身を中心とした、分身の公転の角速度(初期値) */
@@ -177,14 +177,14 @@ public:
     /**
      * 分身の設定 .
      * new 直後に実行してください。
-     * @param prm_radius_place 分身の位置。中心からの距離（半径）を設定。
-     * @param prm_ang_place    分身の位置。どの角度の場所を初期位置とするかを設定。
+     * @param prm_radius_pos 分身の位置。中心からの距離（半径）を設定。
+     * @param prm_ang_pos    分身の位置。どの角度の場所を初期位置とするかを設定。
      * @param prm_expanse         分身の外に広がる角度。
      * @param prm_angvelo_mv      分身の通常時の周回軌道の移動速度
      */
     void config(
-            coord prm_radius_place,
-            angle prm_ang_place,
+            coord prm_radius_pos,
+            angle prm_ang_pos,
             angle prm_expanse,
             angvelo prm_angvelo_mv);
 

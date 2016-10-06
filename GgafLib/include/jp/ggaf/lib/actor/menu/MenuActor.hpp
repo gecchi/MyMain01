@@ -268,12 +268,12 @@ public:
         addItem(prm_pItem, 0, 0, 0);
     }
 
-    virtual void placeItem(int prm_index_of_item,
+    virtual void locateItem(int prm_index_of_item,
                            coord prm_x_local, coord prm_y_local, coord prm_z_local);
 
-    virtual void placeItem(int prm_index_of_item,
+    virtual void locateItem(int prm_index_of_item,
                            coord prm_x_local, coord prm_y_local) {
-        placeItem(prm_index_of_item, prm_x_local, prm_y_local, 0);
+        locateItem(prm_index_of_item, prm_x_local, prm_y_local, 0);
     }
 
     /**
@@ -308,12 +308,12 @@ public:
         addLabel(prm_pLabel, 0, 0, 0);
     }
 
-    virtual void placeLabel(int prm_index_of_label,
+    virtual void locateLabel(int prm_index_of_label,
                             coord prm_x_local, coord prm_y_local, coord prm_z_local);
 
-    virtual void placeLabel(int prm_index_of_label,
+    virtual void locateLabel(int prm_index_of_label,
                             coord prm_x_local, coord prm_y_local) {
-        placeLabel(prm_index_of_label, prm_x_local, prm_y_local, 0);
+        locateLabel(prm_index_of_label, prm_x_local, prm_y_local, 0);
     }
 
     /**
@@ -972,7 +972,7 @@ void MenuActor<T>::addItem(GgafDxCore::GgafDxFigureActor* prm_pItem,
 }
 
 template<class T>
-void MenuActor<T>::placeItem(int prm_index_of_item,
+void MenuActor<T>::locateItem(int prm_index_of_item,
                              coord prm_x_local, coord prm_y_local, coord prm_z_local) {
     GgafDxCore::GgafDxFigureActor* p = getItem(prm_index_of_item);
     p->_x_local = prm_x_local;
@@ -993,7 +993,7 @@ void MenuActor<T>::addLabel(GgafDxCore::GgafDxFigureActor* prm_pLabel,
 }
 
 template<class T>
-void MenuActor<T>::placeLabel(int prm_index_of_label,
+void MenuActor<T>::locateLabel(int prm_index_of_label,
                               coord prm_x_local, coord prm_y_local, coord prm_z_local) {
     GgafDxCore::GgafDxFigureActor* p = getLabel(prm_index_of_label);
     p->_x_local = prm_x_local;
@@ -1293,7 +1293,7 @@ template<class T>
 void MenuActor<T>::selectNext() {
     GgafDxCore::GgafDxFigureActor* pCurrent = _lstItems.getCurrent();
     if (_pCursorActor) {
-        _pCursorActor->placeAs(pCurrent);
+        _pCursorActor->locateAs(pCurrent);
     }
     GgafDxCore::GgafDxFigureActor* pNext;
     while(true) {
@@ -1315,7 +1315,7 @@ template<class T>
 void MenuActor<T>::selectPrev() {
     GgafDxCore::GgafDxFigureActor* pCurrent = _lstItems.getCurrent();
     if (_pCursorActor) {
-        _pCursorActor->placeAs(pCurrent);
+        _pCursorActor->locateAs(pCurrent);
     }
     GgafDxCore::GgafDxFigureActor* pPrev;
     while(true) {
@@ -1338,7 +1338,7 @@ void MenuActor<T>::selectExNext() {
     if (_lstItems.getRelation(ITEM_RELATION_EX_NEXT)) {
         GgafDxCore::GgafDxFigureActor* pCurrent = _lstItems.getCurrent();
         if (_pCursorActor) {
-            _pCursorActor->placeAs(pCurrent);
+            _pCursorActor->locateAs(pCurrent);
         }
         GgafDxCore::GgafDxFigureActor* pRelation;
         while(true) {
@@ -1362,7 +1362,7 @@ void MenuActor<T>::selectExPrev() {
     if (_lstItems.getRelation(ITEM_RELATION_EX_PREV)) {
         GgafDxCore::GgafDxFigureActor* pCurrent = _lstItems.getCurrent();
         if (_pCursorActor) {
-            _pCursorActor->placeAs(pCurrent);
+            _pCursorActor->locateAs(pCurrent);
         }
         GgafDxCore::GgafDxFigureActor* pRelation;
         while(true) {
@@ -1387,7 +1387,7 @@ template<class T>
 void MenuActor<T>::selectCancel() {
     if (_lstItems.getRelation(ITEM_RELATION_TO_CANCEL)) {
         if (_pCursorActor) {
-            _pCursorActor->placeAs(_lstItems.getCurrent());
+            _pCursorActor->locateAs(_lstItems.getCurrent());
         }
         _lstItems.gotoRelation(ITEM_RELATION_TO_CANCEL);
         moveCursor();
@@ -1494,7 +1494,7 @@ void MenuActor<T>::riseMe() {
     int n_i = _lstItems.length();
     for (int i = 0; i < n_i; i++) {
         p = pElem->getValue();
-        p->place(T::_x + p->_x_local,
+        p->locate(T::_x + p->_x_local,
                     T::_y + p->_y_local,
                     T::_z + p->_z_local);
         p->setAlpha(T::getAlpha());
@@ -1506,7 +1506,7 @@ void MenuActor<T>::riseMe() {
     int n_da = _lstLabelActors.length();
     for (int i = 0; i < n_da; i++) {
         p = pElem->getValue();
-        p->place(T::_x + p->_x_local,
+        p->locate(T::_x + p->_x_local,
                     T::_y + p->_y_local,
                     T::_z + p->_z_local);
         p->setAlpha(T::getAlpha());
@@ -1587,7 +1587,7 @@ void MenuActor<T>::processBehavior() {
     int n_i = _lstItems.length();
     for (int i = 0; i < n_i; i++) {
         p = pElem->getValue();
-        p->place(T::_x + p->_x_local,
+        p->locate(T::_x + p->_x_local,
                     T::_y + p->_y_local,
                     T::_z + p->_z_local);
         if (_with_sinking) {
@@ -1607,7 +1607,7 @@ void MenuActor<T>::processBehavior() {
     int n_da = _lstLabelActors.length();
     for (int i = 0; i < n_da; i++) {
         p = pElem->getValue();
-        p->place(T::_x + p->_x_local,
+        p->locate(T::_x + p->_x_local,
                     T::_y + p->_y_local,
                     T::_z + p->_z_local);
         if (_with_sinking) {
@@ -1633,7 +1633,7 @@ void MenuActor<T>::processBehavior() {
             _y_cursor_target_prev = pTargetItem->_y;
             _z_cursor_target_prev = pTargetItem->_z;
         } else {
-            _pCursorActor->place(pTargetItem->_x + _x_cursor_adjust,
+            _pCursorActor->locate(pTargetItem->_x + _x_cursor_adjust,
                                     pTargetItem->_y + _y_cursor_adjust,
                                     pTargetItem->_z + _z_cursor_adjust );
         }
@@ -1661,7 +1661,7 @@ void MenuActor<T>::processBehavior() {
             pSubCursor->_y_target_prev = pTargetItem->_y;
             pSubCursor->_z_target_prev = pTargetItem->_z;
         } else {
-            pSubCursorActor->place(pTargetItem->_x + pSubCursor->_x_adjust,
+            pSubCursorActor->locate(pTargetItem->_x + pSubCursor->_x_adjust,
                                       pTargetItem->_y + pSubCursor->_y_adjust,
                                       pTargetItem->_z + pSubCursor->_z_adjust );
         }

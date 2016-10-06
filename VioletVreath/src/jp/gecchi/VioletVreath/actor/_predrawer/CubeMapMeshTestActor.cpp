@@ -27,7 +27,7 @@ void CubeMapMeshTestActor::onCreateModel() {
 void CubeMapMeshTestActor::initialize() {
     setHitAble(false);
 
-    place(0,0,0);
+    locate(0,0,0);
     setScaleR(0.2);
 }
 

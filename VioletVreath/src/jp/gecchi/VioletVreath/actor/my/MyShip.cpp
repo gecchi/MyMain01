@@ -286,7 +286,7 @@ MyShip::MyShip(const char* prm_name) :
 
     //魔法メーター設置
     pMagicMeter_ = NEW MagicMeter("MagicMeter", &mp_, &(getStatus()->_paValue[STAT_Stamina]._int_val) );
-    pMagicMeter_->place(PX_C(100), PX_C(PROPERTY::GAME_BUFFER_HEIGHT) - (pMagicMeter_->height_) - PX_C(16+16+16));
+    pMagicMeter_->locate(PX_C(100), PX_C(PROPERTY::GAME_BUFFER_HEIGHT) - (pMagicMeter_->height_) - PX_C(16+16+16));
     addSubGroup(pMagicMeter_);
 
     r_blown_velo_decay_ = 0.8;
@@ -667,7 +667,7 @@ void MyShip::processBehavior() {
             MySnipeShot001* const pSnipeShot = (MySnipeShot001*)pDepo_MySnipeShots001_->dispatch();
             if (pSnipeShot) {
                 getSeTransmitter()->play3D(SE_FIRE_SHOT);
-                pSnipeShot->placeAs(this);
+                pSnipeShot->locateAs(this);
                 pSnipeShot->getKuroko()->setRzRyMvAng(_rz, _ry);
                 pSnipeShot->getKuroko()->setMvVelo(PX_C(100));
                 pSnipeShot->getKuroko()->setMvAcce(100);
@@ -678,7 +678,7 @@ void MyShip::processBehavior() {
                 MyShot001* const pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
                 if (pShot) {
                     getSeTransmitter()->play3D(SE_FIRE_SHOT);
-                    pShot->placeAs(this);
+                    pShot->locateAs(this);
                     pShot->getKuroko()->setRzRyMvAng(_rz, _ry);
                     pShot->getKuroko()->setMvVelo(PX_C(70));
                     pShot->getKuroko()->setMvAcce(100);

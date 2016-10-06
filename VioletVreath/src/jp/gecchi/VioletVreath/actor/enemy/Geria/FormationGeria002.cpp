@@ -16,7 +16,7 @@ FormationGeria002::FormationGeria002(const char* prm_name) :
         FormationGeria(prm_name, 500) {
     _class_name = "FormationGeria002";
 
-    place(PX_C(8000), 0, PX_C(8000));
+    locate(PX_C(8000), 0, PX_C(8000));
     setFaceAngTwd(PX_C(-8000), 0, PX_C(8000));
     pAxsMver_->setVxyzMvVelo(0, 0, -2000);
 }
@@ -25,7 +25,7 @@ void FormationGeria002::processBehavior() {
     if (getActiveFrame() % 6 == 0) {
         EnemyGeria* pGeria = summonGeria();
         if (pGeria) {
-            pGeria->placeAboutAs(this, PX_C(800));
+            pGeria->locateAboutAs(this, PX_C(800));
             pGeria->getKuroko()->setRzRyMvAng(_rz, _ry); //Œü‚¢‚Ä‚é•ûŒü‚É”ò‚Î‚·
             pGeria->getKuroko()->setMvVelo(PX_C(20));
             pGeria->setMigrationLength(PX_C(15000));

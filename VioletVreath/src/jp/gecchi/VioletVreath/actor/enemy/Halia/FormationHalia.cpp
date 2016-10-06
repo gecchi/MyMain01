@@ -35,7 +35,7 @@ void FormationHalia::initialize() {
 
 void FormationHalia::onActive() {
     for (int i = 0; i < num_Halia_; i++) {
-        papHalia_[i]->place(1000000, -1000000 + (i * 200000), 0);
+        papHalia_[i]->locate(1000000, -1000000 + (i * 200000), 0);
         papHalia_[i]->activateDelay(i*interval_frames_ + 1);//interval_frames_ä‘äuÇ≈ActiveÇ…Ç∑ÇÈÅB
     }
 }

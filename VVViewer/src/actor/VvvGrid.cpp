@@ -11,7 +11,7 @@ VvvGrid::VvvGrid(const char* prm_name) :
 
 void VvvGrid::initialize() {
     setAlpha(0.6);
-    place(0,0,0);
+    locate(0,0,0);
 }
 
 void VvvGrid::processBehavior() {

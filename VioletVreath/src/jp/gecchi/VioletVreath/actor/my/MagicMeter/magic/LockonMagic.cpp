@@ -45,7 +45,7 @@ void LockonMagic::onReset() {
 
 void LockonMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
-        pEffect_->placeAs(P_MYSHIP->pMyMagicEnergyCore_);
+        pEffect_->locateAs(P_MYSHIP->pMyMagicEnergyCore_);
         pEffect_->setAlpha(0.9);
         pEffect_->getKuroko()->setFaceAngVelo(AXIS_Z, 100);
         pEffect_->setScale(1000);
@@ -55,7 +55,7 @@ void LockonMagic::processCastBegin(int prm_now_level, int prm_new_level) {
 
 void LockonMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
-        pEffect_->placeAs(P_MYSHIP->pMyMagicEnergyCore_);
+        pEffect_->locateAs(P_MYSHIP->pMyMagicEnergyCore_);
         pEffect_->addScale(10);
     }
 }

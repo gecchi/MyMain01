@@ -38,7 +38,7 @@ void FormationThagoras002::onCallUp(GgafDxFigureActor* prm_pActor, int prm_row, 
                                                 entry_pos_.y + (prm_col*PX_C(30)) ,
                                                 entry_pos_.z                       );
 
-    pThagoras->place( RND(PX_C(-2600), PX_C(2600)),
+    pThagoras->locate( RND(PX_C(-2600), PX_C(2600)),
                          RND(PX_C(-2600), PX_C(2600)),
                          RND(PX_C(-2600), PX_C(2600)) );
 }

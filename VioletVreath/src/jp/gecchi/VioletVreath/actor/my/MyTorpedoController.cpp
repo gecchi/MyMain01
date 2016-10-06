@@ -85,7 +85,7 @@ bool MyTorpedoController::fire() {
             //魚雷発射可能数 が 1の場合のみ、特別に前方（レーザー発射方向）に発射
             float vx, vy, vz;
             UTIL::convRzRyToVector(pOrg_->_rz, pOrg_->_ry, vx, vy, vz);
-            papTorpedo_[0]->place(pOrg_->_x + (vx * r),
+            papTorpedo_[0]->locate(pOrg_->_x + (vx * r),
                                      pOrg_->_y + (vy * r),
                                      pOrg_->_z + (vz * r));
             if (target_num == 0) {
@@ -131,7 +131,7 @@ bool MyTorpedoController::fire() {
                 x2 = x1*matRotZ._11 + y1*matRotZ._21 + z1*matRotZ._31;
                 y2 = x1*matRotZ._12 + y1*matRotZ._22 + z1*matRotZ._32;
                 z2 = x1*matRotZ._13 + y1*matRotZ._23 + z1*matRotZ._33;
-                papTorpedo_[i]->place(pOrg_->_x + x2,
+                papTorpedo_[i]->locate(pOrg_->_x + x2,
                                          pOrg_->_y + y2,
                                          pOrg_->_z + z2);
                 if (target_num == 0) {

@@ -43,7 +43,7 @@ void SmileMagic::onReset() {
 void SmileMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     _TRACE_("SmileMagic::processCastBegin(prm_now_level="<<prm_now_level<<",prm_new_level="<<prm_new_level<<")");
     if (prm_new_level > prm_now_level) {
-        pMoji_->placeAs(P_MYSHIP);
+        pMoji_->locateAs(P_MYSHIP);
         pMoji_->setAlpha(0.9);
         //ニコニコビーム発射
         std::string s = "";

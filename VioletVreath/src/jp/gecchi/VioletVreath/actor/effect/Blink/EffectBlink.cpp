@@ -32,7 +32,7 @@ void EffectBlink::processBehavior() {
         if (pTarget_->hasJustChangedToInactive()) {
             pTarget_ = nullptr;
         } else {
-            placeAs(pTarget_);
+            locateAs(pTarget_);
         }
     }
     if (getActiveFrame() >= GGAF_END_DELAY) {

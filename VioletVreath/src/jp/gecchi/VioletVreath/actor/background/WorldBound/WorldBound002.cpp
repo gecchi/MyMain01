@@ -21,7 +21,7 @@ void WorldBound002::initialize() {
     //    getUvFlipper()->setFlipPtnRange(0, 16*16-1);
     //    getUvFlipper()->setActivePtn(0);
     setHitAble(false);
-    placeAs(pCam);
+    locateAs(pCam);
     setFaceAngZero();
     dxcoord world_r = pCam->getZFar(); //¢ŠE‹«ŠE‹…”¼Œa
     dxcoord world_bound_model_r = 1.0f; //WorldBound001‚Ìƒ‚ƒfƒ‹‚Í”¼ŒaDIRECTX‹——£1‚Ì‹…‚Å‚ ‚é

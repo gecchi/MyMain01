@@ -28,7 +28,7 @@ void MyTorpedoTail::onInactive() {
 }
 
 void MyTorpedoTail::processBehaviorHeadChip() {
-    placeAs(pTorpedo_);
+    locateAs(pTorpedo_);
     setFaceAngAs(pTorpedo_);
 }
 

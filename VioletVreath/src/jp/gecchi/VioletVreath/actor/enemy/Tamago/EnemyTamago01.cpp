@@ -164,7 +164,7 @@ void EnemyTamago01::processBehavior() {
                 if (pActor) {
                     pActor->getKuroko()->linkFaceAngByMvAng(true);
                     pActor->getKuroko()->setRzRyMvAng_by_RyRz(paAng_way[i], target_RyRz_Rz);
-                    pActor->placeAs(this);
+                    pActor->locateAs(this);
                 }
             }
             GGAF_DELETEARR(paAng_way);
@@ -172,7 +172,7 @@ void EnemyTamago01::processBehavior() {
             if (pDepo_effect_) {
                 pActor = (GgafDxFigureActor*)pDepo_shot_->dispatch();
                 if (pActor) {
-                    pActor->placeAs(this);
+                    pActor->locateAs(this);
                 }
             }
         }

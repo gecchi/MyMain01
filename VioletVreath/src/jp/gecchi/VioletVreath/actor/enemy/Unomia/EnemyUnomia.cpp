@@ -99,7 +99,7 @@ void EnemyUnomia::processBehavior() {
 //                for (int i = 0; i < way; i++) {
 //                    pActor_shot = (GgafDxFigureActor*)pDepo_shot_->dispatch();
 //                    if (pActor_shot) {
-//                        pActor_shot->placeAs(this);
+//                        pActor_shot->locateAs(this);
 //                        pActor_shot->getKuroko()->setRzRyMvAng(paAng_way[i], D90ANG);
 //                    }
 //                }
@@ -108,7 +108,7 @@ void EnemyUnomia::processBehavior() {
 //                if (pDepo_effect_) {
 //                    GgafDxFigureActor* pTestActor_Shot = (GgafDxFigureActor*)pDepo_effect_->dispatch();
 //                    if (pTestActor_Shot) {
-//                        pTestActor_Shot->placeAs(this);
+//                        pTestActor_Shot->locateAs(this);
 //                    }
 //                }
 //            }

@@ -64,7 +64,7 @@ namespace GgafCore {
  * @author Masatoshi Tsuge
  */
 template<class T>
-class GgafLinkedListRing : public GgafObject {
+class GgafLinkedListRing: public GgafObject {
 
 public:
     /**
@@ -98,7 +98,8 @@ public:
          * @param prm_is_delete_value true  : GgafLinkedListRingインスタンスdelete時に、要素(_pValue)もdeleteする。<BR>
          *                            false : 要素(_pValue)をdeleteしない。
          */
-        Elem(const T* prm_pValue, int prm_relation_num, bool prm_is_delete_value = true) {
+        Elem(const T* prm_pValue, int prm_relation_num,
+                bool prm_is_delete_value = true) {
             _pValue = prm_pValue;
             _pNext = _pPrev = nullptr;
             if (prm_relation_num == 0) {
@@ -119,7 +120,7 @@ public:
          * @return 値
          */
         inline T* getValue() const {
-            return (T*)_pValue;
+            return (T*) _pValue;
         }
         /**
          * 要素を互いに関連付ける .
@@ -229,12 +230,13 @@ public:
      * ([X])⇔[A]⇔[B]⇔[C]⇔[D]⇔[E]!⇔[X]⇔([A])
      * -------------------------------------------
      * </pre>
+     * indexedValue() によって作成された内部インデックスは破棄されます。
+     *
      * @param prm_pNew インスタンス生成済み要素のポインタ
      * @param prm_is_delete_value true  : リストのdelete時に、引数の追加要素値についてもdeleteを発行する。(Tのヘッダincludeを忘れずに！)<BR>
      *                            false : リストのdelete時に、引数の追加要素値について何も行わない。
      */
     virtual void addNext(const T* prm_pNew, bool prm_is_delete_value = true);
-
 
     /**
      * 引数の値を、カレント要素の「前」に追加する。カレント要素は変化しない .
@@ -281,6 +283,8 @@ public:
      * ([E])⇔[X]⇔[A]!⇔[B]⇔[C]⇔[D]⇔[E]⇔([X])
      * -------------------------------------------
      * </pre>
+     * indexedValue() によって作成された内部インデックスは破棄されます。
+     *
      * @param prm_pNew 新しい要素の値
      * @param prm_is_delete_value true  : リストのdelete時に、引数の追加要素値についてもdeleteを発行する。(Tのヘッダincludeを忘れずに！)<BR>
      *                            false : リストのdelete時に、引数の追加要素について何も行わない。
@@ -320,6 +324,8 @@ public:
      * ([C])⇔[A]!⇔[B]⇔[C]⇔([A]!)
      * -------------------------------------------
      * </pre>
+     * indexedValue() によって作成された内部インデックスは破棄されます。
+     *
      * @param prm_pNew 新しい要素の値
      * @param prm_is_delete_value true  : リストのインスタンスdelete時に、引数の追加要素値についてもdeleteを発行する。(Tのヘッダincludeを忘れずに！)<BR>
      *                            false : リストのインスタンスdelete時に、引数の追加要素値について何も行わない。
@@ -359,6 +365,8 @@ public:
      * ([A]!)⇔[C]⇔[B]⇔[A]!⇔([C])
      * -------------------------------------------
      * </pre>
+     * indexedValue() によって作成された内部インデックスは破棄されます。
+     *
      * @param prm_pNew 新しい要素の値
      * @param prm_is_delete_value true  : リストのdelete時に、引数の追加要素値についてもdeleteを発行する。(Tのヘッダincludeを忘れずに！)<BR>
      *                            false : リストのdelete時に、引数の追加要素値について何も行わない。
@@ -514,7 +522,7 @@ public:
      * -------------------------------------------
      * </pre>
      * @param n インデックス
-     * @return カレント要素からｎ番目の要素の値
+     * @return カレント要素からｎ番目の要素の値 (但し n >= 0)
      */
     virtual T* getNext(int n) const;
 
@@ -548,10 +556,9 @@ public:
      * -------------------------------------------
      * </pre>
      * @param n インデックス
-     * @return カレント要素からｎ番目前の要素の値
+     * @return カレント要素からｎ番目前の要素の値 (但し n >= 0)
      */
     virtual T* getPrev(int n) const;
-
 
     /**
      * 先頭の要素の値を取得する。カレント要素は変化しない .
@@ -583,7 +590,7 @@ public:
      * -------------------------------------------
      * </pre>
      * @param n インデックス
-     * @return 先頭要素からｎ番目の要素の値
+     * @return 先頭要素からｎ番目の要素の値 (但し n >= 0)
      */
     virtual T* getFromFirst(int n) const;
 
@@ -701,7 +708,7 @@ public:
      * ([D])⇔[A]!⇔[B]⇔[C]⇔[D]⇔([A]!)
      * -------------------------------------------
      * </pre>
-     *
+     * indexedValue() によって作成された内部インデックスは破棄されます。（必要であれば再作成してください）
      * 抜き取った値の解放等が必要な場合は、戻り値を使用して呼び元で行って下さい。
      * @return 抜き取る前にカレント要素だった要素の値
      */
@@ -738,7 +745,6 @@ public:
      * @return 存在する場合、そのインデックス(0～)を返す、存在しない場合 -1 を返す。
      */
     virtual int indexOf(const T* prm_pVal) const;
-
 
     /**
      * 要素数を返す .
@@ -791,23 +797,24 @@ public:
      * -------------------------------------------
      * </pre>
      * 上図の場合、getElemFromFirst(3) は要素 [D] を返す（値 D では無い）。
-     * @param n 先頭からのインデックス
-     * @return
+     * @param n 先頭からのインデックス(但し n >= 0)
+     * @return 先頭からｎ番目の要素
      */
     Elem* getElemFromFirst(int n) const {
         if (_pElem_first == nullptr) {
             return nullptr;
         }
-        Elem* pElem_return = _pElem_first;
-        for (int i = 0; i < n; i++) {
-            pElem_return = pElem_return->_pNext;
+        Elem* pElem = _pElem_first;
+        int x = n % _num_elem;
+        for (int i = 0; i < x; i++) {
+            pElem = pElem->_pNext;
         }
-        return pElem_return;
+        return pElem;
     }
 
     /**
      * インデックスを作成 .
-     * 要素値への参照を、配列に別途内部保持します。
+     * 要素値への参照を、配列に別途内部保持し参照時に利用します。
      * インデックスが引数で値を取得するメソッドのパフォーマンスが上がります。
      * 但し要素数を変更すると、再構築の必要があります。
      * 要素値を追加後、要素数が変化しないリストならば、本メソッドを実行しましょう。
@@ -847,7 +854,7 @@ public:
      * }
      *
      * </pre></code>
-     * @param pFunc 要素値に実行させたい関数。パラメータは(T*, void*, void*) 固定。
+     * @param pFunc 要素値に実行させたい関数。パラメータは(T*, void*, void*) 固定。T* 要素の値が渡される。
      * @param prm1 渡したい引数その１
      * @param prm2 渡したい引数その２
      */
@@ -858,8 +865,8 @@ public:
             Elem* pElem = _pElem_first;
             int n = _num_elem;
             for (int i = 0; i < n; i++) {
-                pFunc((T*)pElem->_pValue, prm1, prm2);
-                pElem = pElem -> _pNext;
+                pFunc((T*) pElem->_pValue, prm1, prm2);
+                pElem = pElem->_pNext;
             }
             return;
         }
@@ -874,7 +881,7 @@ public:
 
 template<class T>
 GgafLinkedListRing<T>::GgafLinkedListRing(int prm_extend_relation_num) :
-    GgafObject() {
+        GgafObject() {
     _num_elem = 0;
     _pElemActive = nullptr;
     _pElem_first = nullptr;
@@ -882,22 +889,10 @@ GgafLinkedListRing<T>::GgafLinkedListRing(int prm_extend_relation_num) :
     _papLinerVal = nullptr;
 }
 
-//template<class T>
-//T* GgafLinkedListRing<T>::getFromFirst(int n) {
-//    if (_pElem_first == nullptr) {
-//        return nullptr;
-//    }
-//    Elem* pElem_return = _pElem_first;
-//    for (int i = 0; i < n; i++) {
-//        pElem_return = pElem_return->_pNext;
-//    }
-//    return pElem_return->_pValue;
-//}
-
-
 
 template<class T>
-void GgafLinkedListRing<T>::addNext(const T* prm_pNew, bool prm_is_delete_value) {
+void GgafLinkedListRing<T>::addNext(const T* prm_pNew,
+        bool prm_is_delete_value) {
 //#ifdef MY_DEBUG
 //    if (prm_pNew == nullptr) {
 //        throwGgafCriticalException("[GgafLinkedListRing::addNext()] Error! 引数がnullptrです");
@@ -932,7 +927,8 @@ void GgafLinkedListRing<T>::addNext(const T* prm_pNew, bool prm_is_delete_value)
 }
 
 template<class T>
-void GgafLinkedListRing<T>::addPrev(const T* prm_pNew, bool prm_is_delete_value) {
+void GgafLinkedListRing<T>::addPrev(const T* prm_pNew,
+        bool prm_is_delete_value) {
 //#ifdef MY_DEBUG
 //    if (prm_pNew == nullptr) {
 //        throwGgafCriticalException("[GgafLinkedListRing::addPrev()] Error! 引数がnullptrです");
@@ -968,7 +964,8 @@ void GgafLinkedListRing<T>::addPrev(const T* prm_pNew, bool prm_is_delete_value)
 }
 
 template<class T>
-void GgafLinkedListRing<T>::addLast(const T* prm_pNew, bool prm_is_delete_value) {
+void GgafLinkedListRing<T>::addLast(const T* prm_pNew,
+        bool prm_is_delete_value) {
 //#ifdef MY_DEBUG
 //    if (prm_pNew == nullptr) {
 //        throwGgafCriticalException("[GgafLinkedListRing::addLast()] Error! 引数がnullptrです");
@@ -1002,7 +999,8 @@ void GgafLinkedListRing<T>::addLast(const T* prm_pNew, bool prm_is_delete_value)
 }
 
 template<class T>
-void GgafLinkedListRing<T>::addFirst(const T* prm_pNew, bool prm_is_delete_value) {
+void GgafLinkedListRing<T>::addFirst(const T* prm_pNew,
+        bool prm_is_delete_value) {
 //#ifdef MY_DEBUG
 //    if (prm_pNew == nullptr) {
 //        throwGgafCriticalException("[GgafLinkedListRing::addFirst()] Error! 引数がnullptrです");
@@ -1039,25 +1037,25 @@ void GgafLinkedListRing<T>::addFirst(const T* prm_pNew, bool prm_is_delete_value
 template<class T>
 T* GgafLinkedListRing<T>::next() {
     _pElemActive = _pElemActive->_pNext;
-    return (T*)_pElemActive->_pValue;
+    return (T*) _pElemActive->_pValue;
 }
 
 template<class T>
 T* GgafLinkedListRing<T>::prev() {
     _pElemActive = _pElemActive->_pPrev;
-    return (T*)_pElemActive->_pValue;
+    return (T*) _pElemActive->_pValue;
 }
 
 template<class T>
 T* GgafLinkedListRing<T>::first() {
     _pElemActive = _pElem_first;
-    return (T*)_pElemActive->_pValue;
+    return (T*) _pElemActive->_pValue;
 }
 
 template<class T>
 T* GgafLinkedListRing<T>::last() {
     _pElemActive = _pElem_first->_pPrev; //環状なので、先頭の一つ前は末尾
-    return (T*)_pElemActive->_pValue;
+    return (T*) _pElemActive->_pValue;
 }
 
 template<class T>
@@ -1067,7 +1065,7 @@ T* GgafLinkedListRing<T>::current(int n) {
         pElem = pElem->_pNext;
     }
     _pElemActive = pElem;
-    return (T*)_pElemActive->_pValue;
+    return (T*) _pElemActive->_pValue;
 }
 
 template<class T>
@@ -1083,116 +1081,141 @@ T* GgafLinkedListRing<T>::gotoRelation(int prm_connection_index) {
         throwGgafCriticalException("GgafLinkedListRing<T>::gotoRelation 接続要素番号の要素が未設定です。prm_connection_index="<<prm_connection_index);
     }
 #endif
-    return (T*)_pElemActive->_pValue;
+    return (T*) _pElemActive->_pValue;
 }
 
 template<class T>
 T* GgafLinkedListRing<T>::getNext() const {
-    return (T*)_pElemActive->_pNext->_pValue;
+    return (T*) _pElemActive->_pNext->_pValue;
 }
 
 template<class T>
 T* GgafLinkedListRing<T>::getNext(int n) const {
-    Elem* pElem = _pElemActive;
-    if (_papLinerVal) {
-        //インデックス利用
-        int i = pElem->_idx + n;
-        if (i > (_num_elem-1)) {
-            while (i > (_num_elem-1)) {
-                i -= _num_elem;
-            }
-        } else if (i < 0) {
-            while (i < 0) {
-                i += _num_elem;
-            }
+#ifdef MY_DEBUG
+    if (n < 0) {
+        throwGgafCriticalException("GgafLinkedListRing<T>::getNext 引数には正の整数を設定する必要があります n="<<n);
+    }
+#endif
+    if (_papLinerVal) { //インデックスあり
+        int i = _pElemActive->_idx + n;
+        if (i >= _num_elem) {
+            return (T*) _papLinerVal[(i % _num_elem)];
+        } else {
+            return (T*) _papLinerVal[i];
         }
-        return (T*)_papLinerVal[i];
-    } else {
-        //従来の方法
-        for (int i = 0; i < n; i++) {
+    } else { //インデックスなし
+        Elem* pElem = _pElemActive;
+        int x = n % _num_elem;
+        for (int i = 0; i < x; i++) {
             pElem = pElem->_pNext;
         }
-        return (T*)pElem->_pValue;
+        return (T*) pElem->_pValue;
     }
 }
 
+//template<class T>
+//T* GgafLinkedListRing<T>::getFromCurrent(int n) const {
+//    if (_papLinerVal) { //インデックスあり
+//      int i = _pElemActive->_idx + n;
+//      if (i >= _num_elem) {
+//          return (T*)_papLinerVal[(i % _num_elem)];
+//      } else if (i < 0) {
+//          int x = (-i) % _num_elem;
+//          if (x == 0) {
+//              return (T*)_papLinerVal[0];
+//          } else {
+//              return (T*)_papLinerVal[_num_elem - x];
+//          }
+//
+//      } else {
+//          return (T*)_papLinerVal[i];
+//      }
+//    } else { //インデックスなし
+//      Elem* pElem = _pElemActive;
+//      if (n > 0) {
+//          for (int i = 0; i < n; i++) {
+//              pElem = pElem->_pNext;
+//          }
+//      } else if (n < 0) {
+//          for (int i = 0; i > n; i--) {
+//              pElem = pElem->_pPrev;
+//          }
+//      }
+//        return (T*)pElem->_pValue;
+//    }
+//}
+
 template<class T>
 T* GgafLinkedListRing<T>::getFromFirst(int n) const {
+#ifdef MY_DEBUG
+    if (n < 0) {
+        throwGgafCriticalException("GgafLinkedListRing<T>::getFromFirst 引数には正の整数を設定する必要があります n="<<n);
+    }
+#endif
     Elem* pElem = _pElem_first;
     if (pElem == nullptr) {
         return nullptr;
     }
-    if (_papLinerVal) {
-        //インデックス利用
-        int i = pElem->_idx + n;
-        if (i > (_num_elem-1)) {
-            while (i > (_num_elem-1)) {
-                i -= _num_elem;
-            }
-        } else if (i < 0) {
-            while (i < 0) {
-                i += _num_elem;
-            }
+    if (_papLinerVal) { //インデックスあり
+        if (n >= _num_elem) {
+            return (T*) _papLinerVal[(n % _num_elem)];
+        } else {
+            return (T*) _papLinerVal[n];
         }
-        return (T*)_papLinerVal[i];
-    } else {
-        //従来の方法
-        for (int i = 0; i < n; i++) {
+    } else { //インデックスなし
+        int x = n % _num_elem;
+        for (int i = 0; i < x; i++) {
             pElem = pElem->_pNext;
         }
-        return (T*)pElem->_pValue;
+        return (T*) pElem->_pValue;
     }
 }
 
-
 template<class T>
 T* GgafLinkedListRing<T>::getPrev() const {
-    return (T*)_pElemActive->_pPrev->_pValue;
+    return (T*) _pElemActive->_pPrev->_pValue;
 }
 
 template<class T>
 T* GgafLinkedListRing<T>::getPrev(int n) const {
-    Elem* pElem = _pElemActive;
-    if (_papLinerVal) {
-        //インデックス利用
-        int i = pElem->_idx - n;
-        if (i > (_num_elem-1)) {
-            while (i > (_num_elem-1)) {
-                i -= _num_elem;
-            }
-        } else if (i < 0) {
-            while (i < 0) {
-                i += _num_elem;
-            }
+#ifdef MY_DEBUG
+    if (n < 0) {
+        throwGgafCriticalException("GgafLinkedListRing<T>::getPrev 引数には正の整数を設定する必要があります n="<<n);
+    }
+#endif
+    if (_papLinerVal) { //インデックスあり
+        int i = _pElemActive->_idx - (n % _num_elem);
+        if (i >= 0) {
+            return (T*) _papLinerVal[i];
+        } else {
+            return (T*) _papLinerVal[_num_elem + i];
         }
-        return (T*)_papLinerVal[i];
-
-    } else {
-        //従来の方法
-        for (int i = 0; i < n; i++) {
+    } else { //インデックスなし
+        Elem* pElem = _pElemActive;
+        int x = n % _num_elem;
+        for (int i = 0; i < x; i++) {
             pElem = pElem->_pPrev;
         }
-        return (T*)pElem->_pValue;
+        return (T*) pElem->_pValue;
     }
 }
 
 template<class T>
 T* GgafLinkedListRing<T>::getFirst() const {
-    return (T*)_pElem_first->_pValue;
+    return (T*) _pElem_first->_pValue;
 }
 
 template<class T>
 T* GgafLinkedListRing<T>::getLast() const {
-    return (T*)_pElem_first->_pPrev->_pValue; //環状なので、先頭の一つ前は末尾
+    return (T*) _pElem_first->_pPrev->_pValue; //環状なので、先頭の一つ前は末尾
 }
-
 
 template<class T>
 T* GgafLinkedListRing<T>::getCurrent() const {
     if (_pElemActive == nullptr) {
         return nullptr;
     } else {
-        return (T*)_pElemActive->_pValue;
+        return (T*) _pElemActive->_pValue;
     }
 }
 
@@ -1205,12 +1228,11 @@ T* GgafLinkedListRing<T>::getRelation(int prm_connection_index) const {
 #endif
     Elem* pE = _pElemActive->_papRelation[prm_connection_index];
     if (pE) {
-        return (T*)pE->_pValue;
+        return (T*) pE->_pValue;
     } else {
         return nullptr;
     }
 }
-
 
 template<class T>
 int GgafLinkedListRing<T>::getCurrentIndex() const {
@@ -1227,14 +1249,13 @@ int GgafLinkedListRing<T>::getCurrentIndex() const {
                 if (pElem == _pElemActive) {
                     return i;
                 } else {
-                    pElem = pElem -> _pNext;
+                    pElem = pElem->_pNext;
                 }
             }
             return -1;
         }
     }
 }
-
 
 template<class T>
 bool GgafLinkedListRing<T>::isLast() const {
@@ -1261,9 +1282,8 @@ T* GgafLinkedListRing<T>::set(const T* prm_pVal, bool prm_is_delete_value) {
         GGAF_DELETE(pValue);
         return nullptr;
     } else {
-        return (T*)pValue;
+        return (T*) pValue;
     }
-
 
 }
 
@@ -1282,7 +1302,7 @@ T* GgafLinkedListRing<T>::remove() {
             _pElem_first = nullptr;
             const T* r = pMy->_pValue;
             GGAF_DELETE(pMy);
-            return (T*)r;
+            return (T*) r;
         } else {
             //連結から外す
             Elem* pMyNext = _pElemActive->_pNext;
@@ -1300,7 +1320,7 @@ T* GgafLinkedListRing<T>::remove() {
             _pElemActive = pMyNext; //カレント要素は next に更新。
             const T* r = pMy->_pValue;
             GGAF_DELETE(pMy);
-            return (T*)r;
+            return (T*) r;
         }
     } else {
         return nullptr;
@@ -1321,7 +1341,7 @@ int GgafLinkedListRing<T>::removeAll() {
             GGAF_DELETE(pElem);
             break;
         } else {
-            Elem* pTmp = pElem -> _pNext;
+            Elem* pTmp = pElem->_pNext;
             GGAF_DELETE(pElem);
             pElem = pTmp;
         }
@@ -1346,14 +1366,13 @@ int GgafLinkedListRing<T>::indexOf(const T* prm_pVal) const {
             if (pElem->_is_last_flg) {
                 break;
             } else {
-                pElem = pElem -> _pNext;
+                pElem = pElem->_pNext;
                 r++;
             }
         }
     }
     return -1;
 }
-
 
 template<class T>
 int GgafLinkedListRing<T>::length() const {
@@ -1362,16 +1381,17 @@ int GgafLinkedListRing<T>::length() const {
 
 template<class T>
 void GgafLinkedListRing<T>::indexedValue() {
-   if (_papLinerVal) {
-       GGAF_DELETEARR(_papLinerVal);
-   }
-   Elem* p = _pElem_first;
-   _papLinerVal = NEW const T*[length()];
-   for (int i = 0; i < length(); i++) {
-       p->_idx = i;
-       _papLinerVal[i] = p->_pValue;
-       p = p->_pNext;
-   }
+    if (_papLinerVal) {
+        GGAF_DELETEARR(_papLinerVal);
+    }
+    Elem* p = _pElem_first;
+    int len = length();
+    _papLinerVal = NEW const T*[len];
+    for (int i = 0; i < len; i++) {
+        p->_idx = i;
+        _papLinerVal[i] = p->_pValue;
+        p = p->_pNext;
+    }
 }
 
 template<class T>

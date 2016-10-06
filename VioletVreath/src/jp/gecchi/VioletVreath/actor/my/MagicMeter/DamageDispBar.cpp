@@ -25,14 +25,14 @@ void DamageDispBar::initialize() {
 }
 
 void DamageDispBar::onReset() {
-    placeAs(pSourceBar_);
+    locateAs(pSourceBar_);
     _sx = pSourceBar_->_sx;
     setVal(0);
     getUvFlipper()->setActivePtn(0);//ê‘
 }
 
 void DamageDispBar::onActive() {
-    placeAs(pSourceBar_);
+    locateAs(pSourceBar_);
     _sx = pSourceBar_->_sx;
     setVal(0);
     getUvFlipper()->setActivePtn(0);//ê‘

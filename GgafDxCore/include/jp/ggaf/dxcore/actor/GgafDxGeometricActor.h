@@ -236,7 +236,7 @@ public:
      * @param y
      * @param z
      */
-    virtual void place(coord x, coord y, coord z) {
+    virtual void locate(coord x, coord y, coord z) {
         _x = x;
         _y = y;
         _z = z;
@@ -248,7 +248,7 @@ public:
      * @param x
      * @param y
      */
-    virtual void place(coord x, coord y) {
+    virtual void locate(coord x, coord y) {
         _x = x;
         _y = y;
     }
@@ -260,7 +260,7 @@ public:
      * @param z
      * @param margin 遊び、指定値の±の値をランダムに加算
      */
-    virtual void placeAbout(coord x, coord y, coord z, coord margin) {
+    virtual void locateAbout(coord x, coord y, coord z, coord margin) {
         _x = RND_ABOUT(x, margin);
         _y = RND_ABOUT(y, margin);
         _z = RND_ABOUT(z, margin);
@@ -380,7 +380,7 @@ public:
      * 座標(_x, _y, _z)をコピーして設定 .
      * @param prm_pActor 座標コピー元アクター
      */
-    virtual void placeAs(const GgafDxGeometricActor* prm_pActor) {
+    virtual void locateAs(const GgafDxGeometricActor* prm_pActor) {
         _x = prm_pActor->_x;
         _y = prm_pActor->_y;
         _z = prm_pActor->_z;
@@ -390,14 +390,14 @@ public:
      * 指定のアクターと同じ座標(_x, _y, _z)をコピーして設定 .
      * @param prm_pGeoElem 座標オブジェクト
      */
-    virtual void placeAs(const GgafDxGeoElem* prm_pGeoElem);
+    virtual void locateAs(const GgafDxGeoElem* prm_pGeoElem);
 
     /**
      * 指定のアクターと同じ座標(_x, _y, _z)にランダムな遊びを加算して設定 .
      * @param prm_pActor 座標コピー元アクター
      * @param margin 遊び。指定値の±の値をランダムに加算
      */
-    virtual void placeAboutAs(const GgafDxGeometricActor* prm_pActor, coord margin) {
+    virtual void locateAboutAs(const GgafDxGeometricActor* prm_pActor, coord margin) {
         _x = RND_ABOUT(prm_pActor->_x, margin);
         _y = RND_ABOUT(prm_pActor->_y, margin);
         _z = RND_ABOUT(prm_pActor->_z, margin);
@@ -408,7 +408,7 @@ public:
      * @param prm_pGeoElem  座標オブジェクト
      * @param margin 遊び。指定値の±の値をランダムに加算
      */
-    virtual void placeAboutAs(const GgafDxGeoElem* prm_pGeoElem, coord margin);
+    virtual void locateAboutAs(const GgafDxGeoElem* prm_pGeoElem, coord margin);
 
     /**
      * 回転角度 _rx, _ry, _rz をコピーして設定 .
