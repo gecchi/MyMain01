@@ -66,9 +66,9 @@ void FormationZako001::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int p
                                             entry_pos_.z + dz);
     pZako->pKurokoLeader_->fixStartAngle(0, entry_pos_.rz, entry_pos_.ry);
 
-    pZako->locate(entry_pos_.x + dx,
-                    entry_pos_.y + dy,
-                    entry_pos_.z + dz );
+    pZako->setPosition(entry_pos_.x + dx,
+                       entry_pos_.y + dy,
+                       entry_pos_.z + dz );
     pZako->setFaceAngTwd(entry_pos_.rz,
                          entry_pos_.ry,
                          0);

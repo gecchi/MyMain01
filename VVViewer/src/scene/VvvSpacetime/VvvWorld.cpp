@@ -47,7 +47,7 @@ void VvvWorld::initialize() {
      pFont01_help_->setAlign(ALIGN_LEFT, VALIGN_TOP);
      pFont01_help_->setMaterialColor(1.0,0.5,0.2);
      pFont01_help_->update(PX_C(0), PX_C(0),
-             "[F1]:Move to the initial locate the camera.\n"
+             "[F1]:Move to the initial position the camera.\n"
              "[F2]:Target to next model, and directed camera.\n"
              "[F3]:Target to next model.\n"
              "[F4]:Directed camera toward active model.\n"
@@ -519,7 +519,7 @@ void VvvWorld::processBehavior() {
             VvvCamera* pCam = P_GOD->getSpacetime()->getCamera();;
 
             GgafDxGeometricActor* p = pCam->getCameraViewPoint();
-            pActor->locateAs(p);
+            pActor->setPositionAt(p);
         }
 
         if (!(file_name.find("cubemap") == std::string::npos &&
@@ -554,7 +554,7 @@ void VvvWorld::processBehavior() {
                     PROPERTY::DIR_TEXTURE[2]      = dropfile_dir;
                     ((CubeMapMorphMeshActor*)pNewActor)->setCubeMap(file_name.c_str(), 0.5);
                 }
-                pNewActor->locateAs(pCurrentActor);
+                pNewActor->setPositionAt(pCurrentActor);
                 pNewActor->setFaceAngAs(pCurrentActor);
                 pNewActor->scaleAs(pCurrentActor);
                 bringDirector()->addSubGroup(pNewActor);

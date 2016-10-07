@@ -38,44 +38,44 @@ void TrialAndErrScene::processBehavior() {
     if (getActiveFrame() == 100) {
         for (int id = 0; id < 17; id++) {
             PointSpriteTest* pTest = (PointSpriteTest*)obtainActorFromFactory(900+id);
-            pTest->locate(PX_C(100*id), PX_C(100*id), PX_C(100*id));
+            pTest->setPosition(PX_C(100*id), PX_C(100*id), PX_C(100*id));
             bringDirector()->addSubGroup(pTest);
         }
     }
 //    if (getActiveFrame() == 120) {
 //        PointSpriteTest* pTest1 = (PointSpriteTest*)obtainActorFromFactory(990);
 //        bringDirector()->addSubGroup(pTest1);
-//        pTest1->locate(0,0,0);
+//        pTest1->setPosition(0,0,0);
 //    }
 //    if (getActiveFrame() == 140) {
 //        PointSpriteTest* pTest2 = (PointSpriteTest*)obtainActorFromFactory(991);
 //        bringDirector()->addSubGroup(pTest2);
-//        pTest2->locate(PX_C(200), PX_C(200), PX_C(200));
+//        pTest2->setPosition(PX_C(200), PX_C(200), PX_C(200));
 //    }
     if (getActiveFrame() == 160) {
         Zako* pZako = (Zako*)obtainActorFromFactory(10000);
         bringDirector()->addSubGroup(pZako);
-        pZako->locate(PX_C(400), PX_C(400), PX_C(400));
+        pZako->setPosition(PX_C(400), PX_C(400), PX_C(400));
     }
 //    if (getActiveFrame() == 180) {
 //        PointSpriteTest* pTest4 = (PointSpriteTest*)obtainActorFromFactory(993);
 //        bringDirector()->addSubGroup(pTest4);
-//        pTest4->locate(PX_C(600), PX_C(600), PX_C(600));
+//        pTest4->setPosition(PX_C(600), PX_C(600), PX_C(600));
 //    }
 //    if (getActiveFrame() == 200) {
 //        PointSpriteTest* pTest5 = (PointSpriteTest*)obtainActorFromFactory(994);
 //        bringDirector()->addSubGroup(pTest5);
-//        pTest5->locate(PX_C(800), PX_C(800), PX_C(800));
+//        pTest5->setPosition(PX_C(800), PX_C(800), PX_C(800));
 //    }
 //    if (getActiveFrame() == 220) {
 //        PointSpriteTest* pTest6 = (PointSpriteTest*)obtainActorFromFactory(995);
 //        bringDirector()->addSubGroup(pTest6);
-//        pTest6->locate(PX_C(1000), PX_C(1000), PX_C(1000));
+//        pTest6->setPosition(PX_C(1000), PX_C(1000), PX_C(1000));
 //    }
 //    if (getActiveFrame() == 240) {
 //        PointSpriteTest* pTest7 = (PointSpriteTest*)obtainActorFromFactory(996);
 //        bringDirector()->addSubGroup(pTest7);
-//        pTest7->locate(PX_C(1200), PX_C(1200), PX_C(1200));
+//        pTest7->setPosition(PX_C(1200), PX_C(1200), PX_C(1200));
 //    }
 }
 

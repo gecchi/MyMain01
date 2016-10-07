@@ -37,7 +37,7 @@ void SpriteMeshWorldBoundActor::processSettlementBehavior() {
     //・八分木登録
     //・視錐台からの距離計算
     //GgafDxGeometricActor::processSettlementBehavior() と同期を取る事！
-    locateAs(pCam);
+    setPositionAt(pCam);
     _fX = C_DX(_x);
     _fY = C_DX(_y);
     _fZ = C_DX(_z);

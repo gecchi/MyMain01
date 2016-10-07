@@ -101,7 +101,7 @@ void PreDrawScene::processBehavior() {
                     pProg->changeNext();
                 } else {
                     GgafDxGeometricActor* pActor = (GgafDxGeometricActor*)obtainActorFromFactory(_id_+order_id_begin_);
-                    pActor->locate(PX_C(_id_*70 - 700), PX_C(-100), 0);
+                    pActor->setPosition(PX_C(_id_*70 - 700), PX_C(-100), 0);
                     bringDirector()->addSubGroup(pActor);  _id_++;
                 }
             }

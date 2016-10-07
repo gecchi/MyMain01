@@ -77,7 +77,7 @@ void FormationDelheid::processBehavior() {
              //ダミー(pDummy_)を使ってメンバーのスプライン移動の開始位置と方向、終了位置と方向を予め求める
              pDummy_->config(getSplManuf()->createKurokoLeader(pDummy_->getKuroko()), nullptr);
              pDummy_->getKuroko()->setMvVelo(RV_MvVelo_);
-             pDummy_->locateAs(&geoLocate_);
+             pDummy_->setPositionAt(&geoLocate_);
              pDummy_->setFaceAngAs(&geoLocate_);
              pDummy_->getKuroko()->setRzRyMvAng(geoLocate_.rz, geoLocate_.ry);
              onCallUpDelheid(pDummy_);
@@ -90,11 +90,11 @@ void FormationDelheid::processBehavior() {
              pDummy_->pKurokoLeader_->getPointCoord(spl_point_num-1, end_x, end_y, end_z);
              pDummy_->pKurokoLeader_->getPointCoord(spl_point_num-2, end_prev_x, end_prev_y, end_prev_z);
              //出現開始位置アリサナを配備
-             pAlisana_start->locateAs(pDummy_);
+             pAlisana_start->setPositionAt(pDummy_);
              pAlisana_start->setFaceAngTwd(next_x, next_y, next_z); //向きセット
              pAlisana_start->acitve_open(); //ハッチオープン
              //終了位置にアリサナを配備
-             pAlisana_goal->locate(end_x, end_y, end_z);
+             pAlisana_goal->setPosition(end_x, end_y, end_z);
              pAlisana_goal->setFaceAngTwd(end_prev_x, end_prev_y, end_prev_z);
              pAlisana_goal->acitve_open((frame)(pDummy_->pKurokoLeader_->getTotalDistance() / RV_MvVelo_)); //ハッチオープン予約
 
@@ -134,7 +134,7 @@ void FormationDelheid::processBehavior() {
                              pDelheid->getKuroko()->setMvVelo(RV_MvVelo_);
 
                              pDelheid->getKuroko()->setMvAcce(0);
-                             pDelheid->locateAs(&geoLocate_);
+                             pDelheid->setPositionAt(&geoLocate_);
                              pDelheid->setFaceAngAs(&geoLocate_);
                              pDelheid->getKuroko()->setRzRyMvAng(geoLocate_.rz, geoLocate_.ry);
                              pDelheid->pKurokoLeader_->fixStartAngle(geoLocate_.rx, geoLocate_.rz, geoLocate_.ry);

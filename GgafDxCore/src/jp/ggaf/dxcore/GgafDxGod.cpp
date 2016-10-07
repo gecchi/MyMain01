@@ -666,10 +666,10 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                     _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + (fix_width * rate);
                     _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + (fix_height * rate);
                 }
-                locatePresentRect(PROPERTY::DUAL_VIEW_DRAW_POSITION1, _aRect_Present[PRIMARY_VIEW],
-                                    PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH, PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT);
-                locatePresentRect(PROPERTY::DUAL_VIEW_DRAW_POSITION2, _aRect_Present[SECONDARY_VIEW],
-                                    PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH, PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT);
+                setPositionPresentRect(PROPERTY::DUAL_VIEW_DRAW_POSITION1, _aRect_Present[PRIMARY_VIEW],
+                                       PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH, PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT);
+                setPositionPresentRect(PROPERTY::DUAL_VIEW_DRAW_POSITION2, _aRect_Present[SECONDARY_VIEW],
+                                       PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH, PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT);
             } else {
                 //「フルスクリーンモード・２画面使用・縦横比ストレッチ」の１画面目フロントバッファ描画領域
                 _aRect_Present[PRIMARY_VIEW].left   = 0;
@@ -711,10 +711,10 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                     _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
                 }
                 _aRect_Present[SECONDARY_VIEW] = _aRect_Present[PRIMARY_VIEW];
-                locatePresentRect(PROPERTY::SINGLE_VIEW_DRAW_POSITION, _aRect_Present[PRIMARY_VIEW],
-                                    PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH, PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT);
-                locatePresentRect(PROPERTY::SINGLE_VIEW_DRAW_POSITION, _aRect_Present[SECONDARY_VIEW],
-                                    PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH, PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT);
+                setPositionPresentRect(PROPERTY::SINGLE_VIEW_DRAW_POSITION, _aRect_Present[PRIMARY_VIEW],
+                                       PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH, PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT);
+                setPositionPresentRect(PROPERTY::SINGLE_VIEW_DRAW_POSITION, _aRect_Present[SECONDARY_VIEW],
+                                       PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH, PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT);
             } else {
                 //「フルスクリーンモード・１画面使用・縦横比ストレッチ」のフロントバッファ描画領域
                 _aRect_Present[PRIMARY_VIEW].left   = 0;
@@ -768,10 +768,10 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                     _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + (fix_height * rate);
                 }
 
-                locatePresentRect(PROPERTY::DUAL_VIEW_DRAW_POSITION1, _aRect_Present[PRIMARY_VIEW],
-                                    PROPERTY::DUAL_VIEW_WINDOW1_WIDTH, PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT);
-                locatePresentRect(PROPERTY::DUAL_VIEW_DRAW_POSITION2, _aRect_Present[SECONDARY_VIEW],
-                                    PROPERTY::DUAL_VIEW_WINDOW2_WIDTH, PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT);
+                setPositionPresentRect(PROPERTY::DUAL_VIEW_DRAW_POSITION1, _aRect_Present[PRIMARY_VIEW],
+                                       PROPERTY::DUAL_VIEW_WINDOW1_WIDTH, PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT);
+                setPositionPresentRect(PROPERTY::DUAL_VIEW_DRAW_POSITION2, _aRect_Present[SECONDARY_VIEW],
+                                       PROPERTY::DUAL_VIEW_WINDOW2_WIDTH, PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT);
             } else {
                 //「ウィンドウモード・２窓使用・縦横比ストレッチ」の１窓目フロントバッファ描画領域
                 _aRect_Present[PRIMARY_VIEW].left   = 0;
@@ -806,10 +806,10 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                     _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
                 }
                 _aRect_Present[SECONDARY_VIEW] = _aRect_Present[PRIMARY_VIEW];
-                locatePresentRect(PROPERTY::SINGLE_VIEW_DRAW_POSITION, _aRect_Present[PRIMARY_VIEW],
-                                    PROPERTY::SINGLE_VIEW_WINDOW_WIDTH, PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT);
-                locatePresentRect(PROPERTY::SINGLE_VIEW_DRAW_POSITION, _aRect_Present[SECONDARY_VIEW],
-                                    PROPERTY::SINGLE_VIEW_WINDOW_WIDTH, PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT);
+                setPositionPresentRect(PROPERTY::SINGLE_VIEW_DRAW_POSITION, _aRect_Present[PRIMARY_VIEW],
+                                       PROPERTY::SINGLE_VIEW_WINDOW_WIDTH, PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT);
+                setPositionPresentRect(PROPERTY::SINGLE_VIEW_DRAW_POSITION, _aRect_Present[SECONDARY_VIEW],
+                                       PROPERTY::SINGLE_VIEW_WINDOW_WIDTH, PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT);
             } else {
                 //「ウィンドウモード・１窓使用・縦横比ストレッチ」のフロントバッファ描画領域
                 _aRect_Present[PRIMARY_VIEW].left   = 0;
@@ -2068,13 +2068,13 @@ void GgafDxGod::adjustGameWindow(HWND prm_pHWnd) {
                         _aRect_Present[PRIMARY_VIEW].top    = 0;
                         _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
                         _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
-                        locatePresentRect(pos1, _aRect_Present[PRIMARY_VIEW], c_width, c_height);
+                        setPositionPresentRect(pos1, _aRect_Present[PRIMARY_VIEW], c_width, c_height);
                     } else {
                         _aRect_Present[SECONDARY_VIEW].left   = (c_width / 2.0) - (fix_width * rate / 2.0);
                         _aRect_Present[SECONDARY_VIEW].top    = 0;
                         _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + (fix_width * rate);
                         _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + (fix_height * rate);
-                        locatePresentRect(pos2, _aRect_Present[SECONDARY_VIEW], c_width, c_height);
+                        setPositionPresentRect(pos2, _aRect_Present[SECONDARY_VIEW], c_width, c_height);
                     }
 
                 } else {
@@ -2085,13 +2085,13 @@ void GgafDxGod::adjustGameWindow(HWND prm_pHWnd) {
                         _aRect_Present[PRIMARY_VIEW].top    = (c_height / 2.0) - (fix_height * rate / 2.0);
                         _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
                         _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
-                        locatePresentRect(pos1, _aRect_Present[PRIMARY_VIEW], c_width, c_height);
+                        setPositionPresentRect(pos1, _aRect_Present[PRIMARY_VIEW], c_width, c_height);
                     } else {
                         _aRect_Present[SECONDARY_VIEW].left   = 0;
                         _aRect_Present[SECONDARY_VIEW].top    = (c_height / 2.0) - (fix_height * rate / 2.0);
                         _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + (fix_width * rate);
                         _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + (fix_height * rate);
-                        locatePresentRect(pos2, _aRect_Present[SECONDARY_VIEW], c_width, c_height);
+                        setPositionPresentRect(pos2, _aRect_Present[SECONDARY_VIEW], c_width, c_height);
                     }
                 }
             } else {
@@ -2145,7 +2145,7 @@ void GgafDxGod::adjustGameWindow(HWND prm_pHWnd) {
     _pHWnd_adjustScreen = nullptr;
 }
 
-void GgafDxGod::locatePresentRect(int prm_pos, RECT& inout_rectPresent, pixcoord prm_screen_width, pixcoord prm_screen_height) {
+void GgafDxGod::setPositionPresentRect(int prm_pos, RECT& inout_rectPresent, pixcoord prm_screen_width, pixcoord prm_screen_height) {
     // ７　８　９
     // 　＼｜／
     // ４―５―６

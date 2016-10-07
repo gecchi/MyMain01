@@ -104,7 +104,7 @@ void MyTorpedo::processBehavior() {
         if (pTailEffectDepository_->_num_chip_active < length_TailEffect_) {
             MyTorpedoTail* pTailEffect = (MyTorpedoTail*)pTailEffectDepository_->dispatch();
             if (pTailEffect) {
-                pTailEffect->locate(begin_x_,begin_y_,begin_z_);
+                pTailEffect->setPosition(begin_x_,begin_y_,begin_z_);
             }
         }
         //‹›—‹‚Ìƒ€[ƒu
@@ -249,7 +249,7 @@ void MyTorpedo::onHit(const GgafActor* prm_pOtherActor) {
     MyTorpedoBlast* pBlast = (MyTorpedoBlast*)(pTorpedoCtrler_->pDepo_TorpedoBlast_->dispatchForce());
     getSeTransmitter()->play3D(SE_EXPLOSION);
     pBlast->reset();
-    pBlast->locateAs(this);
+    pBlast->setPositionAt(this);
 }
 
 MyTorpedo::~MyTorpedo() {

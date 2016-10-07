@@ -136,7 +136,7 @@ void EnemyEmus::processChangeGeoFinal() {
             if(pDepo_) {
                 GgafDxFigureActor* pChip = (GgafDxFigureActor*)pDepo_->dispatch();
                 if (pChip) {
-                    pChip->locateAs(this);
+                    pChip->setPositionAt(this);
                     pChip->getKuroko()->setRzRyMvAng(_rz, _ry); //â‘ÎÀ•WŒn‚Å‚ÌŒü‚«
                 } else {
                     pDepo_ = nullptr;

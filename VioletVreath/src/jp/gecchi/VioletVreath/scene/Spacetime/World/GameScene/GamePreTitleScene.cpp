@@ -29,7 +29,7 @@ GamePreTitleScene::GamePreTitleScene(const char* prm_name) : DefaultScene(prm_na
 }
 void GamePreTitleScene::onReset() {
     _TRACE_(FUNC_NAME<<" "<<NODE_INFO<<"");
-    pTitleBoard_->locate(PX_C(100), PX_C(600));
+    pTitleBoard_->setPosition(PX_C(100), PX_C(600));
     pLabel01_->update(PX_C(100), PX_C(50), "");
     pLabel02_->update("");
     getProgress()->reset(PROG_INIT);

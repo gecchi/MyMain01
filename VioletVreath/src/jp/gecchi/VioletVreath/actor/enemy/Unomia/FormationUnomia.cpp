@@ -101,7 +101,7 @@ void FormationUnomia::processBehavior() {
                 if (pUnomia->isActive()) {
                     GgafDxGeometricActor* pShot = (GgafDxGeometricActor*)pDepo_shot_->dispatch();
                     if (pShot) {
-                        pShot->locateAs(pUnomia);
+                        pShot->setPositionAt(pUnomia);
                         GgafDxKuroko* pShot_pKuroko = pShot->getKuroko();
                         pShot_pKuroko->setMvAngTwd(pMy);
                         pShot_pKuroko->setMvVelo(PX_C(10));

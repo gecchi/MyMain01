@@ -420,13 +420,13 @@ void ICharacterChip<T>::prepare2() {
 template<class T>
 void ICharacterChip<T>::update(coord X, coord Y, const char* prm_str) {
     update(prm_str);
-    _pBaseActor->locate(X, Y);
+    _pBaseActor->setPosition(X, Y);
 }
 
 template<class T>
 void ICharacterChip<T>::update(coord X, coord Y, coord Z, const char* prm_str) {
     update(prm_str);
-    _pBaseActor->locate(X, Y, Z);
+    _pBaseActor->setPosition(X, Y, Z);
 }
 template<class T>
 void ICharacterChip<T>::update(const char* prm_str) {
@@ -436,13 +436,13 @@ void ICharacterChip<T>::update(const char* prm_str) {
 template<class T>
 void ICharacterChip<T>::update(coord X, coord Y, const char* prm_str, GgafDxAlign prm_align, GgafDxValign prm_valign) {
     update(prm_str, prm_align, prm_valign);
-    _pBaseActor->locate(X, Y);
+    _pBaseActor->setPosition(X, Y);
 }
 
 template<class T>
 void ICharacterChip<T>::update(coord X, coord Y, coord Z, const char* prm_str, GgafDxAlign prm_align, GgafDxValign prm_valign) {
     update(prm_str, prm_align, prm_valign);
-    _pBaseActor->locate(X, Y, Z);
+    _pBaseActor->setPosition(X, Y, Z);
 }
 
 template<class T>

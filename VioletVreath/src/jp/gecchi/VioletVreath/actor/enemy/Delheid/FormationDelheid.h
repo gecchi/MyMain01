@@ -91,7 +91,7 @@ public:
     /**
      * 設置座標と向きをセット .
      */
-    void locate(coord x, coord y, coord z,
+    void setPosition(coord x, coord y, coord z,
                   angle rx, angle rz, angle ry) {
         geoLocate_.x = x;
         geoLocate_.y = y;

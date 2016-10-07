@@ -137,7 +137,7 @@ void MyBunshin::processChangeGeoFinal() {
             MyBunshinSnipeShot001* const pSnipeShot = (MyBunshinSnipeShot001*)pDepo_MySnipeBunshinShot_->dispatch();
             if (pSnipeShot) {
                 getSeTransmitter()->play3D(SE_FIRE_SHOT);
-                pSnipeShot->locateAs(this);
+                pSnipeShot->setPositionAt(this);
                 pSnipeShot->getKuroko()->setRzRyMvAng(_rz, _ry);
                 pSnipeShot->getKuroko()->setMvVelo(PX_C(70));
                 pSnipeShot->getKuroko()->setMvAcce(100);
@@ -147,7 +147,7 @@ void MyBunshin::processChangeGeoFinal() {
                 MyBunshinShot001* const  pShot = (MyBunshinShot001*)pDepo_MyBunshinShot_->dispatch();
                 if (pShot) {
                     getSeTransmitter()->play3D(SE_FIRE_SHOT);
-                    pShot->locateAs(this);
+                    pShot->setPositionAt(this);
                     pShot->getKuroko()->setRzRyMvAng(_rz, _ry);
                     pShot->getKuroko()->setMvVelo(PX_C(70));
                     pShot->getKuroko()->setMvAcce(100);
@@ -225,11 +225,11 @@ void MyBunshin::effectFreeModeLaunch() {
     EffectTurbo002* const pTurbo002 = dispatchFromCommon(EffectTurbo002);
     if (pTurbo002) {
         if (_is_local) {
-            pTurbo002->locate(_x_final,_y_final,_z_final);
+            pTurbo002->setPosition(_x_final,_y_final,_z_final);
             pTurbo002->setRollFaceAng(_rx_final);
             pTurbo002->setRzRyFaceAng(_rz_final, _ry_final+D90ANG);
         } else {
-            pTurbo002->locateAs(this);
+            pTurbo002->setPositionAt(this);
             pTurbo002->setRollFaceAng(_rx);
             pTurbo002->setRzRyFaceAng(_rz, _ry+D90ANG);
         }

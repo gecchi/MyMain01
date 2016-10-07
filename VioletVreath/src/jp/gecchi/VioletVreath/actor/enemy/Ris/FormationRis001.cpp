@@ -41,7 +41,7 @@ void FormationRis001::processBehavior() {
     if (canCallUp() && (getActiveFrame()-1) % interval_frames_ == 0) {
         EnemyRis* pRis = (EnemyRis*)callUpMember();
         if (pRis) {
-            pRis->locate(MyShip::lim_x_behaind_ - 500000, 0, MyShip::lim_z_left_ * 0.8);
+            pRis->setPosition(MyShip::lim_x_behaind_ - 500000, 0, MyShip::lim_z_left_ * 0.8);
             pRis->getKuroko()->setMvVelo(velo_mv_);
         }
     }

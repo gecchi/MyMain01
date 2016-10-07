@@ -37,7 +37,7 @@ void MyMagicEnergy::onActive() {
 void MyMagicEnergy::processBehavior() {
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->behave();
-    locateAs(pCore_);
+    setPositionAt(pCore_);
     setScale(pCore_->_sx);
 }
 

@@ -124,20 +124,20 @@ void MenuBoardScreenConfig::replaceItem() {
     coord lh = PX_C(32);
 
     //設定項目アイテム配置
-    locateItem(ITEM_FULL_SCREEN, x1, y1);  y1 += lh;
-    locateItem(ITEM_DUAL_VIEW  , x1, y1);  y1 += lh;
+    setPositionItem(ITEM_FULL_SCREEN, x1, y1);  y1 += lh;
+    setPositionItem(ITEM_DUAL_VIEW  , x1, y1);  y1 += lh;
     if (PROPERTY::getBool("FULL_SCREEN")) {
         if (PROPERTY::getBool("DUAL_VIEW")) {
             getItem(ITEM_SINGLE_VIEW_FULL_SCREEN_RESOLUTION)->inactivate();
             getItem(ITEM_DUAL_VIEW_FULL_SCREEN1_RESOLUTION)->activate();
             getItem(ITEM_DUAL_VIEW_FULL_SCREEN2_RESOLUTION)->activate();
-            locateItem(ITEM_DUAL_VIEW_FULL_SCREEN1_RESOLUTION  , x1, y1);  y1 += lh;
-            locateItem(ITEM_DUAL_VIEW_FULL_SCREEN2_RESOLUTION  , x1, y1);  y1 += lh;
+            setPositionItem(ITEM_DUAL_VIEW_FULL_SCREEN1_RESOLUTION  , x1, y1);  y1 += lh;
+            setPositionItem(ITEM_DUAL_VIEW_FULL_SCREEN2_RESOLUTION  , x1, y1);  y1 += lh;
         } else {
             getItem(ITEM_SINGLE_VIEW_FULL_SCREEN_RESOLUTION)->activate();
             getItem(ITEM_DUAL_VIEW_FULL_SCREEN1_RESOLUTION)->inactivate();
             getItem(ITEM_DUAL_VIEW_FULL_SCREEN2_RESOLUTION)->inactivate();
-            locateItem(ITEM_SINGLE_VIEW_FULL_SCREEN_RESOLUTION , x1, y1);  y1 += lh;
+            setPositionItem(ITEM_SINGLE_VIEW_FULL_SCREEN_RESOLUTION , x1, y1);  y1 += lh;
         }
     } else {
         getItem(ITEM_SINGLE_VIEW_FULL_SCREEN_RESOLUTION)->inactivate();
@@ -146,45 +146,45 @@ void MenuBoardScreenConfig::replaceItem() {
     }
     if (PROPERTY::getBool("DUAL_VIEW")) {
         getItem(ITEM_SWAP_GAME_VIEW)->activate();
-        locateItem(ITEM_SWAP_GAME_VIEW, x1, y1);  y1 += lh;
+        setPositionItem(ITEM_SWAP_GAME_VIEW, x1, y1);  y1 += lh;
     } else {
         getItem(ITEM_SWAP_GAME_VIEW)->inactivate();
     }
-    locateItem(ITEM_FIXED_GAME_VIEW_ASPECT, x1, y1);  y1 += lh;
+    setPositionItem(ITEM_FIXED_GAME_VIEW_ASPECT, x1, y1);  y1 += lh;
     if (PROPERTY::getBool("DUAL_VIEW")) {
         getItem(ITEM_SINGLE_VIEW_DRAW_POSITION)->inactivate();
         getItem(ITEM_DUAL_VIEW_DRAW_POSITION1)->activate();
         getItem(ITEM_DUAL_VIEW_DRAW_POSITION2)->activate();
-        locateItem(ITEM_DUAL_VIEW_DRAW_POSITION1, x1, y1);  y1 += lh;
-        locateItem(ITEM_DUAL_VIEW_DRAW_POSITION2, x1, y1);  y1 += lh;
+        setPositionItem(ITEM_DUAL_VIEW_DRAW_POSITION1, x1, y1);  y1 += lh;
+        setPositionItem(ITEM_DUAL_VIEW_DRAW_POSITION2, x1, y1);  y1 += lh;
     } else {
         getItem(ITEM_SINGLE_VIEW_DRAW_POSITION)->activate();
         getItem(ITEM_DUAL_VIEW_DRAW_POSITION1)->inactivate();
         getItem(ITEM_DUAL_VIEW_DRAW_POSITION2)->inactivate();
-        locateItem(ITEM_SINGLE_VIEW_DRAW_POSITION, x1, y1);  y1 += lh;
+        setPositionItem(ITEM_SINGLE_VIEW_DRAW_POSITION, x1, y1);  y1 += lh;
     }
-    locateItem(ITEM_OK        , PX_C(50) , PX_C(320));
-    locateItem(ITEM_OK_REBOOT , PX_C(250), PX_C(320));
-    locateItem(ITEM_CANCEL    , PX_C(450), PX_C(320));
+    setPositionItem(ITEM_OK        , PX_C(50) , PX_C(320));
+    setPositionItem(ITEM_OK_REBOOT , PX_C(250), PX_C(320));
+    setPositionItem(ITEM_CANCEL    , PX_C(450), PX_C(320));
 
     //設定項目の選択値アイテム配置
     coord x2 = PX_C(700);  //選択値アイテムX座標
     coord y2 = PX_C(100);  //選択値アイテムY座標
-    locateItem(VALUE_FULL_SCREEN_TRUE, x2, y2);  locateItem(VALUE_FULL_SCREEN_FALSE, x2+PX_C(200), y2);  y2 += lh;
-    locateItem(VALUE_DUAL_VIEW_TRUE  , x2, y2);  locateItem(VALUE_DUAL_VIEW_FALSE  , x2+PX_C(200), y2);  y2 += lh;
+    setPositionItem(VALUE_FULL_SCREEN_TRUE, x2, y2);  setPositionItem(VALUE_FULL_SCREEN_FALSE, x2+PX_C(200), y2);  y2 += lh;
+    setPositionItem(VALUE_DUAL_VIEW_TRUE  , x2, y2);  setPositionItem(VALUE_DUAL_VIEW_FALSE  , x2+PX_C(200), y2);  y2 += lh;
 
     if (PROPERTY::getBool("FULL_SCREEN")) {
         if (PROPERTY::getBool("DUAL_VIEW")) {
             getItem(VALUE_SINGLE_VIEW_FULL_SCREEN_RESOLUTION)->inactivate();
             getItem(VALUE_DUAL_VIEW_FULL_SCREEN1_RESOLUTION)->activate();
             getItem(VALUE_DUAL_VIEW_FULL_SCREEN2_RESOLUTION)->activate();
-            locateItem(VALUE_DUAL_VIEW_FULL_SCREEN1_RESOLUTION , x2, y2);  y2 += lh;
-            locateItem(VALUE_DUAL_VIEW_FULL_SCREEN2_RESOLUTION , x2, y2);  y2 += lh;
+            setPositionItem(VALUE_DUAL_VIEW_FULL_SCREEN1_RESOLUTION , x2, y2);  y2 += lh;
+            setPositionItem(VALUE_DUAL_VIEW_FULL_SCREEN2_RESOLUTION , x2, y2);  y2 += lh;
         } else {
             getItem(VALUE_SINGLE_VIEW_FULL_SCREEN_RESOLUTION)->activate();
             getItem(VALUE_DUAL_VIEW_FULL_SCREEN1_RESOLUTION)->inactivate();
             getItem(VALUE_DUAL_VIEW_FULL_SCREEN2_RESOLUTION)->inactivate();
-            locateItem(VALUE_SINGLE_VIEW_FULL_SCREEN_RESOLUTION, x2, y2);  y2 += lh;
+            setPositionItem(VALUE_SINGLE_VIEW_FULL_SCREEN_RESOLUTION, x2, y2);  y2 += lh;
         }
     } else {
         getItem(VALUE_SINGLE_VIEW_FULL_SCREEN_RESOLUTION)->inactivate();
@@ -194,11 +194,11 @@ void MenuBoardScreenConfig::replaceItem() {
 
     if (PROPERTY::getBool("DUAL_VIEW")) {
         getItem(VALUE_SWAP_GAME_VIEW_FALSE)->activate();  getItem(VALUE_SWAP_GAME_VIEW_TRUE)->activate();
-        locateItem(VALUE_SWAP_GAME_VIEW_FALSE, x2, y2);   locateItem(VALUE_SWAP_GAME_VIEW_TRUE, x2+PX_C(200), y2);  y2 += lh;
+        setPositionItem(VALUE_SWAP_GAME_VIEW_FALSE, x2, y2);   setPositionItem(VALUE_SWAP_GAME_VIEW_TRUE, x2+PX_C(200), y2);  y2 += lh;
     } else {
         getItem(VALUE_SWAP_GAME_VIEW_FALSE)->inactivate();    getItem(VALUE_SWAP_GAME_VIEW_TRUE)->inactivate();
     }
-    locateItem(VALUE_FIXED_GAME_VIEW_TRUE  , x2, y2);  locateItem(VALUE_FIXED_GAME_VIEW_FALSE, x2+PX_C(200), y2);  y2 += lh;
+    setPositionItem(VALUE_FIXED_GAME_VIEW_TRUE  , x2, y2);  setPositionItem(VALUE_FIXED_GAME_VIEW_FALSE, x2+PX_C(200), y2);  y2 += lh;
 
     if (PROPERTY::getBool("DUAL_VIEW")) {
         for (int i = 0; i < 9; i++) {
@@ -206,11 +206,11 @@ void MenuBoardScreenConfig::replaceItem() {
         }
         for (int i = 0; i < 9; i++) {
             getItem(VALUE_POS1_1 + i)->activate();
-            locateItem(VALUE_POS1_1 + i, x2+PX_C(i*20), y2);
+            setPositionItem(VALUE_POS1_1 + i, x2+PX_C(i*20), y2);
         }   y2 += lh;
         for (int i = 0; i < 9; i++) {
             getItem(VALUE_POS2_1 + i)->activate();
-            locateItem(VALUE_POS2_1 + i , x2+PX_C(i*20), y2);
+            setPositionItem(VALUE_POS2_1 + i , x2+PX_C(i*20), y2);
         }   y2 += lh;
     } else {
         for (int i = 0; i < 9; i++) {
@@ -221,7 +221,7 @@ void MenuBoardScreenConfig::replaceItem() {
         }
         for (int i = 0; i < 9; i++) {
             getItem(VALUE_POS_1 + i)->activate();
-            locateItem(VALUE_POS_1 + i , x2+PX_C(i*20), y2);
+            setPositionItem(VALUE_POS_1 + i , x2+PX_C(i*20), y2);
         }   y2 += lh;
     }
 

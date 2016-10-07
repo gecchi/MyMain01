@@ -42,7 +42,7 @@ void Planet001::initialize() {
     getKuroko()->setRollFaceAngVelo(500); //Ž©“]‚Ì‘¬‚³
 
     pAtmosphere_->setScale(_sx);
-    pAtmosphere_->locateAs(this);
+    pAtmosphere_->setPositionAt(this);
 }
 void Planet001::processBehavior() {
     GgafDxKuroko* const pKuroko = getKuroko();
@@ -94,7 +94,7 @@ void Planet001::processBehavior() {
     pKuroko->behave();
 
     pAtmosphere_->setScale(_sx);
-    pAtmosphere_->locateAs(this);
+    pAtmosphere_->setPositionAt(this);
 }
 
 Planet001::~Planet001() {

@@ -49,12 +49,12 @@ _pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek(
     _z = 0;
 }
 
-void GgafDxMassBoardActor::locateAs(const GgafDxGeometricActor* prm_pActor) {
+void GgafDxMassBoardActor::setPositionAt(const GgafDxGeometricActor* prm_pActor) {
     _x = prm_pActor->_x;
     _y = prm_pActor->_y;
 }
 
-void GgafDxMassBoardActor::locateAs(const GgafDxGeoElem* prm_pGeoElem) {
+void GgafDxMassBoardActor::setPositionAt(const GgafDxGeoElem* prm_pGeoElem) {
     _x = prm_pGeoElem->x;
     _y = prm_pGeoElem->y;
 }

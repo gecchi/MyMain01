@@ -57,14 +57,14 @@ void FormationAntiope001::processBehavior() {
             }
 
             if (pP && pN) {
-                pP->locateAs(&entry_pos);
+                pP->setPositionAt(&entry_pos);
                 pP->getKuroko()->setMvAngTwd(&twd_pos_p);
                 pP->setRzFaceAng(pP->getKuroko()->_rz_mv);
                 pP->setRyFaceAng(pP->getKuroko()->_ry_mv);
                 pP->getKuroko()->stopMv();
                 pP->mv_velo_twd_.set(vX*veloMv, vY*veloMv, vZ*veloMv);
 
-                pN->locateAs(&entry_pos);
+                pN->setPositionAt(&entry_pos);
                 pN->getKuroko()->setMvAngTwd(&twd_pos_p);
                 pN->getKuroko()->reverseMvAng(); //”½“]
                 pN->setRzFaceAng(pN->getKuroko()->_rz_mv);

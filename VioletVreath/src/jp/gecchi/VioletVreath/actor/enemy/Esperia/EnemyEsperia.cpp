@@ -84,7 +84,7 @@ void EnemyEsperia::onActive() {
     _z = RND(-(appearances_renge_z/2) , +(appearances_renge_z/2));
 
 
-   // locateAboutAs(P_MYSHIP, PX_C(400));
+   // setPositionAroundAt(P_MYSHIP, PX_C(400));
 
 
     getProgress()->reset(PROG_INIT);
@@ -275,7 +275,7 @@ void EnemyEsperia::processBehavior() {
                         if (pLaserChip) {
                             p = &(paLocalPos_laser_[i]);
                             //発射元座標に設定
-                            pLaserChip->locate(_x+p->x, _y+p->y, _z+p->z);
+                            pLaserChip->setPosition(_x+p->x, _y+p->y, _z+p->z);
                             //最初の目標地点(折り返す地点)を設定
                             //シンバルロック付近を避けるためすこしズラス
                             if (dX_ < dZ_)  {

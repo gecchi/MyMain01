@@ -41,7 +41,7 @@ void LaserMagic::onReset() {
 
 void LaserMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
-        pEffect_->locateAs(P_MYSHIP->pMyMagicEnergyCore_);
+        pEffect_->setPositionAt(P_MYSHIP->pMyMagicEnergyCore_);
         pEffect_->setAlpha(0.9);
         pEffect_->getKuroko()->setFaceAngVelo(AXIS_Z, 100);
         pEffect_->setScale(1000);
@@ -53,7 +53,7 @@ void LaserMagic::processCastBegin(int prm_now_level, int prm_new_level) {
 
 void LaserMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
-        pEffect_->locateAs(P_MYSHIP->pMyMagicEnergyCore_);
+        pEffect_->setPositionAt(P_MYSHIP->pMyMagicEnergyCore_);
         pEffect_->addScale(10);
     }
 }

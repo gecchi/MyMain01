@@ -23,7 +23,7 @@ public:
         _fZ = C_DX(_z);
     }
 
-    void locateByFaceNo(dir26 prm_face_no);
+    void setPositionByFaceNo(dir26 prm_face_no);
 
     virtual ~GgafDxCameraUpVector();
 };

@@ -94,7 +94,7 @@ void MyBunshinBase::onReset() {
 
 void MyBunshinBase::onActive() {
     is_free_mode_ = true;
-    locate(P_MYSHIP->_x,P_MYSHIP->_y,P_MYSHIP->_z);
+    setPosition(P_MYSHIP->_x,P_MYSHIP->_y,P_MYSHIP->_z);
 
     int len = pPosTrace_->_num;
     Pos* p = pPosTrace_->_paPos;
@@ -252,7 +252,7 @@ void MyBunshinBase::processBehavior() {
                 //もどった！
                 pAxsMver_->setZeroVxyzMvVelo();
                 pAxsMver_->setZeroVxyzMvAcce();
-                locate(tx, ty, tz);
+                setPosition(tx, ty, tz);
                 moving_frames_since_default_pos_ = 0;
                 pProg->change(PROG_BUNSHIN_NOMAL_TRACE);
             }
@@ -514,13 +514,13 @@ void MyBunshinBase::processBehavior() {
     if (is_free_mode_) {
         //フリーモード中はフリーズの動き
         if (pMyShip->is_move_) {
-            locate(_x + pMyShip->mv_offset_x_,
+            setPosition(_x + pMyShip->mv_offset_x_,
                      _y + pMyShip->mv_offset_y_,
                      _z + pMyShip->mv_offset_z_ );
         }
     } else {
         //通常時は trace_mode_ の動き
-        locateAs(pPosTrace_->getNext()); //環状なのでgetNext()が末尾座標情報。
+        setPositionAt(pPosTrace_->getNext()); //環状なのでgetNext()が末尾座標情報。
         if (trace_mode_ == TRACE_GRADIUS) {
             //TRACE_GRADIUS で 土台が移動するならば、半径位置を土台の中心に寄せる
             Pos* p = pPosTrace_->get2Next();
@@ -540,7 +540,7 @@ void MyBunshinBase::resetBunshin(int prm_mode) {
 
     EffectTurbo002* pTurbo002 = dispatchFromCommon(EffectTurbo002);
     if (pTurbo002) {
-        pTurbo002->locateAs(pBunshin_);
+        pTurbo002->setPositionAt(pBunshin_);
     }
 
     is_isolate_mode_ = false;

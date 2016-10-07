@@ -30,7 +30,7 @@ void Horizon001::onCreateModel() {
 
 void Horizon001::initialize() {
     setAlpha(0.99);
-    locate(0, PX_C(-100), 0);
+    setPosition(0, PX_C(-100), 0);
     CollisionChecker3D* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     Spacetime* pSpacetime =  P_GOD->getSpacetime();

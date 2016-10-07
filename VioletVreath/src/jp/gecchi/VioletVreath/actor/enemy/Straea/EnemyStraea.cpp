@@ -210,7 +210,7 @@ void EnemyStraea::processBehavior() {
                                 vY = p->x*matWorldRot._12 + p->y*matWorldRot._22 + p->z*matWorldRot._32;
                                 vZ = p->x*matWorldRot._13 + p->y*matWorldRot._23 + p->z*matWorldRot._33;
                                 UTIL::convVectorToRzRy(vX, vY, vZ, Rz, Ry); //Œ»Ý‚ÌÅI“I‚ÈŒü‚«‚ðARzRy‚ÅŽæ“¾
-                                pLaserChip->locate(_x+vX, _y+vY, _z+vZ);
+                                pLaserChip->setPosition(_x+vX, _y+vY, _z+vZ);
                                 pLaserChip->getKuroko()->setRzRyMvAng(Rz, Ry);
                                 pLaserChip->_rz = Rz;
                                 pLaserChip->_ry = Ry;

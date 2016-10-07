@@ -116,7 +116,7 @@ void EnemyRatislavia::processBehavior() {
                     pPart = pChecker->getArea()->getPart(j);
                     pE = dispatchDelayFromCommon(EffectExplosion004, RND(1,10));
                     if (pE) {
-                        pE->locate(_x + pPart->_cx + RND(-r2_, +r2_),
+                        pE->setPosition(_x + pPart->_cx + RND(-r2_, +r2_),
                                      _y + pPart->_cy + RND(-r2_, +r2_),
                                      _z + pPart->_cz + RND(-r2_, +r2_));
                     }
@@ -134,7 +134,7 @@ void EnemyRatislavia::processBehavior() {
                     pPart = pChecker->getArea()->getPart(j);
                     pE = dispatchFromCommon(EffectExplosion004);
                     if (pE) {
-                        pE->locate(_x + pPart->_cx,
+                        pE->setPosition(_x + pPart->_cx,
                                      _y + pPart->_cy,
                                      _z + pPart->_cz);
                     }

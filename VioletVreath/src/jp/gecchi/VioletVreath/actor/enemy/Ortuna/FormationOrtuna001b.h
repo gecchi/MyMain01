@@ -28,7 +28,7 @@ public:
      * @param Y
      * @param Z
      */
-    void locate(coord x, coord y, coord z) {
+    void setPosition(coord x, coord y, coord z) {
         pos_.x = x;
         pos_.y = y;
         pos_.z = z;

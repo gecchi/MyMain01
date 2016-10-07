@@ -574,7 +574,7 @@ void CameraWorker::mvCamTo(coord tx, coord ty, coord tz) {
     t_x_CAM_ = tx;
     t_y_CAM_ = ty;
     t_z_CAM_ = tz;
-    pCam_->locate(tx, ty, tz);
+    pCam_->setPosition(tx, ty, tz);
 }
 
 bool CameraWorker::isCamSliding() {
@@ -597,7 +597,7 @@ void CameraWorker::slideMvUpVecTo(dir26 prm_up_dir_no, frame t) {
     pUp_->moveTo(prm_up_dir_no, t);
 }
 void CameraWorker::setUpVec(coord tx, coord ty, coord tz) {
-    pUp_->locate(tx,ty,tz);
+    pUp_->setPosition(tx,ty,tz);
 }
 void CameraWorker::stopMvCam() {
     pCam_->pAxsMver_->stopMv();

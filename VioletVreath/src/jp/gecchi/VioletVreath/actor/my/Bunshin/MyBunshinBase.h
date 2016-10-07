@@ -65,8 +65,8 @@ private:
             GGAF_DELETEARR(_paPos);
         }
     };
-    inline void locateAs(Pos *pPos) {
-         locate(pPos->x, pPos->y, pPos->z);
+    inline void setPositionAt(Pos *pPos) {
+         setPosition(pPos->x, pPos->y, pPos->z);
     }
 
     /** [r]分身操作の上下入力時土台回転軸ベクトルX軸要素 */

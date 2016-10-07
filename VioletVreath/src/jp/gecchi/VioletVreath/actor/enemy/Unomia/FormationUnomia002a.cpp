@@ -15,7 +15,7 @@ void FormationUnomia002a::onCallUpUnomia(EnemyUnomia* pEnemyUnomia, int col) {
 //                                        MyShip::lim_z_left_  //Z•ûŒü”{—¦
 //                                    );
 //    pEnemyUnomia->pKurokoLeader_->adjustCoordOffset(0, col*50*1000, col*50*1000);
-//    pEnemyUnomia->locate(papSplLineConnection_[col]->peek()->pSp_->_Xbasepoint_[0], 0, 0);
+//    pEnemyUnomia->setPosition(papSplLineConnection_[col]->peek()->pSp_->_Xbasepoint_[0], 0, 0);
 }
 
 FormationUnomia002a::~FormationUnomia002a() {

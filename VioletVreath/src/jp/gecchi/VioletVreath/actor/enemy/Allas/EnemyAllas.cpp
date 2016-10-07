@@ -97,7 +97,7 @@ void EnemyAllas::processBehavior() {
                 for (int i = 0; i < way; i++) {
                     pActor_shot = (GgafDxFigureActor*)pDepo_shot_->dispatch();
                     if (pActor_shot) {
-                        pActor_shot->locateAs(this);
+                        pActor_shot->setPositionAt(this);
                         pActor_shot->getKuroko()->setRzRyMvAng(paAng_way[i], D90ANG);
                         pActor_shot->activate();
                     }
@@ -107,7 +107,7 @@ void EnemyAllas::processBehavior() {
                 if (pDepo_effect_) {
                     GgafDxFigureActor* pTestActor_Shot = (GgafDxFigureActor*)pDepo_effect_->dispatch();
                     if (pTestActor_Shot) {
-                        pTestActor_Shot->locateAs(this);
+                        pTestActor_Shot->setPositionAt(this);
                     }
                 }
             }

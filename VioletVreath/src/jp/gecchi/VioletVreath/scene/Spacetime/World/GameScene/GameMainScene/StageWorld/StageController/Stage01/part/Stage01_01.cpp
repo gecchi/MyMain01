@@ -155,60 +155,60 @@ void Stage01_01::processBehavior() {
 				bringDirector()->addSubGroup(obtainActorFromFactory(20000029));
 				FormationDelheid001* pF = (FormationDelheid001*)obtainActorFromFactory(20000035);
 				bringDirector()->addSubGroup(pF);
-				pF->locate(PX_C(-200), PX_C(-400), PX_C(500), D_ANG(0), D_ANG(-40), D_ANG(0));
+				pF->setPosition(PX_C(-200), PX_C(-400), PX_C(500), D_ANG(0), D_ANG(-40), D_ANG(0));
 				orderActorToFactory(20000041, FormationDelheid001, "FormationDelheid001-20000041");
 				break;
 			}
 			case 5100: {
 				FormationDelheid001* pF = (FormationDelheid001*)obtainActorFromFactory(20000036);
 				bringDirector()->addSubGroup(pF);
-				pF->locate(PX_C(-200), PX_C(-300), PX_C(500), D_ANG(0), D_ANG(-30), D_ANG(0));
+				pF->setPosition(PX_C(-200), PX_C(-300), PX_C(500), D_ANG(0), D_ANG(-30), D_ANG(0));
 				orderActorToFactory(20000042, FormationDelheid001, "FormationDelheid001-20000042");
 				break;
 			}
 			case 5200: {
 				FormationDelheid001* pF = (FormationDelheid001*)obtainActorFromFactory(20000037);
 				bringDirector()->addSubGroup(pF);
-				pF->locate(PX_C(-200), PX_C(-200), PX_C(500), D_ANG(0), D_ANG(-20), D_ANG(0));
+				pF->setPosition(PX_C(-200), PX_C(-200), PX_C(500), D_ANG(0), D_ANG(-20), D_ANG(0));
 				orderActorToFactory(20000043, FormationDelheid001, "FormationDelheid001-20000043");
 				break;
 			}
 			case 5300: {
 				FormationDelheid001* pF = (FormationDelheid001*)obtainActorFromFactory(20000038);
 				bringDirector()->addSubGroup(pF);
-				pF->locate(PX_C(-200), PX_C(-100), PX_C(500), D_ANG(0), D_ANG(-10), D_ANG(0));
+				pF->setPosition(PX_C(-200), PX_C(-100), PX_C(500), D_ANG(0), D_ANG(-10), D_ANG(0));
 				break;
 			}
 			case 5400: {
 				orderActorToFactory(20000030, FormationAppho001b, "FormationAppho001b-20000030");
 				FormationDelheid001* pF = (FormationDelheid001*)obtainActorFromFactory(20000039);
 				bringDirector()->addSubGroup(pF);
-				pF->locate(PX_C(-200), PX_C(   0), PX_C(500), D_ANG(0), D_ANG(  0), D_ANG(0));
+				pF->setPosition(PX_C(-200), PX_C(   0), PX_C(500), D_ANG(0), D_ANG(  0), D_ANG(0));
 				break;
 			}
 			case 5500: {
 				bringDirector()->addSubGroup(obtainActorFromFactory(20000022));
 				FormationDelheid001* pF = (FormationDelheid001*)obtainActorFromFactory(20000040);
 				bringDirector()->addSubGroup(pF);
-				pF->locate(PX_C(-200), PX_C( 100), PX_C(500), D_ANG(0), D_ANG( 10), D_ANG(0));
+				pF->setPosition(PX_C(-200), PX_C( 100), PX_C(500), D_ANG(0), D_ANG( 10), D_ANG(0));
 				break;
 			}
 			case 5600: {
 				FormationDelheid001* pF = (FormationDelheid001*)obtainActorFromFactory(20000041);
 				bringDirector()->addSubGroup(pF);
-				pF->locate(PX_C(-200), PX_C( 200), PX_C(500), D_ANG(0), D_ANG( 20), D_ANG(0));
+				pF->setPosition(PX_C(-200), PX_C( 200), PX_C(500), D_ANG(0), D_ANG( 20), D_ANG(0));
 				break;
 			}
 			case 5700: {
 				FormationDelheid001* pF = (FormationDelheid001*)obtainActorFromFactory(20000042);
 				bringDirector()->addSubGroup(pF);
-				pF->locate(PX_C(-200), PX_C( 300), PX_C(500), D_ANG(0), D_ANG( 30), D_ANG(0));
+				pF->setPosition(PX_C(-200), PX_C( 300), PX_C(500), D_ANG(0), D_ANG( 30), D_ANG(0));
 				break;
 			}
 			case 5800: {
 				FormationDelheid001* pF = (FormationDelheid001*)obtainActorFromFactory(20000043);
 				bringDirector()->addSubGroup(pF);
-				pF->locate(PX_C(-200), PX_C( 400), PX_C(500), D_ANG(0), D_ANG( 40), D_ANG(0));
+				pF->setPosition(PX_C(-200), PX_C( 400), PX_C(500), D_ANG(0), D_ANG( 40), D_ANG(0));
 				break;
 			}
 			case 5900: {

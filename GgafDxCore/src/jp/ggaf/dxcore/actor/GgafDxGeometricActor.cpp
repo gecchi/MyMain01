@@ -379,12 +379,12 @@ void GgafDxGeometricActor::defineRotMvWorldMatrix_Billboard() {
     defineRotMvWorldMatrix(GgafDxUtil::setWorldMatrix_RzBxyzMv);
 }
 
-void GgafDxGeometricActor::locateAs(const GgafDxGeoElem* prm_pGeoElem) {
+void GgafDxGeometricActor::setPositionAt(const GgafDxGeoElem* prm_pGeoElem) {
     _x = prm_pGeoElem->x;
     _y = prm_pGeoElem->y;
     _z = prm_pGeoElem->z;
 }
-void GgafDxGeometricActor::locateAboutAs(const GgafDxGeoElem* prm_pGeoElem, coord margin) {
+void GgafDxGeometricActor::setPositionAroundAt(const GgafDxGeoElem* prm_pGeoElem, coord margin) {
     _x = RND_ABOUT(prm_pGeoElem->x, margin);
     _y = RND_ABOUT(prm_pGeoElem->y, margin);
     _z = RND_ABOUT(prm_pGeoElem->z, margin);

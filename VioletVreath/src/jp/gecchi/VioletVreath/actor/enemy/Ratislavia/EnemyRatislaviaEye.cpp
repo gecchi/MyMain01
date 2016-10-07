@@ -25,7 +25,7 @@ EnemyRatislaviaEye::EnemyRatislaviaEye(const char* prm_name, EnemyRatislavia* pr
     _class_name = "EnemyRatislaviaEye";
     setScaleR(0.3*10);
     pRatislavia_ = prm_pRatislavia;
-    locateAs(pRatislavia_);
+    setPositionAt(pRatislavia_);
 
     pLaserChipDepo_ = NEW LaserChipDepository("DepoLaserChip");
     pLaserChipDepo_->config(60, 1, nullptr); //Haliaは弾切れフレームを1にしないとパクパクしちゃいます。
@@ -70,14 +70,14 @@ void EnemyRatislaviaEye::onActive() {
     getStatus()->reset();
     setMorphWeight(1, 0.0);
     getProgress()->reset(PROG_MOVE);
-    locateAs(pRatislavia_);
+    setPositionAt(pRatislavia_);
     setFaceAngAs(pRatislavia_);
     getKuroko()->setRzRyMvAngVelo(pRatislavia_->getKuroko()->_angvelo_face[AXIS_Z],
                                   pRatislavia_->getKuroko()->_angvelo_face[AXIS_Y]);
 }
 
 void EnemyRatislaviaEye::processBehavior() {
-    locateAs(pRatislavia_);
+    setPositionAt(pRatislavia_);
     GgafDxKuroko* const pKuroko = getKuroko();
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
@@ -113,7 +113,7 @@ void EnemyRatislaviaEye::processBehavior() {
                 //_pKuroko->turnMvAngTwd(P_MYSHIP, D_ANG(1), 0, TURN_ANTICLOSE_TO, false);
                 pEffect_->activate();
             }
-            pEffect_->locateAs(this);
+            pEffect_->setPositionAt(this);
             if (pEffect_->hasJustChangedToInactive()) {
                 pProg->changeNext();
             }

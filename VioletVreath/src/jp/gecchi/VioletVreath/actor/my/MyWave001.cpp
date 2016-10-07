@@ -58,7 +58,7 @@ void MyWave001::processBehavior() {
         pScaler_->transitionLinerStep(100000,100);
         pScaler_->behave();
         setHitAble(true);
-        locateAs(P_MYSHIP);
+        setPositionAt(P_MYSHIP);
         setRzFaceAng(P_MYSHIP->_rz);
         setRyFaceAng(P_MYSHIP->_ry);
         pKuroko->setRzRyMvAng(P_MYSHIP->_rz, P_MYSHIP->_ry);

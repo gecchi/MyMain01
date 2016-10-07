@@ -81,14 +81,14 @@ void EnemyEres::processBehavior() {
         for (int i = 0; i < 16; i++) {
             pTama = (GgafDxFigureActor*)pDepo_shot001_->dispatch();
             if (pTama) {
-                pTama->locate(_x, _y, _z);
+                pTama->setPosition(_x, _y, _z);
                 pTama->getKuroko()->setRzRyMvAng(-D90ANG + way[i], D90ANG);
             }
         }
         for (int i = 16; i < 32; i++) {
             pTama = (GgafDxFigureActor*)pDepo_shot001_->dispatch();
             if (pTama) {
-                pTama->locate(_x, _y, _z);
+                pTama->setPosition(_x, _y, _z);
                 pTama->getKuroko()->setRzRyMvAng(-D90ANG - way[i], -D90ANG);
             }
         }

@@ -64,7 +64,7 @@ papBunshinBase_(nullptr) {
 }
 
 void MyShipScene::initialize() {
-    pLabelZanki_->locate(0, PX_C(20));
+    pLabelZanki_->setPosition(0, PX_C(20));
     pLabelZanki_->update("");
     _TRACE_("MyShipScene initialize()");
 }

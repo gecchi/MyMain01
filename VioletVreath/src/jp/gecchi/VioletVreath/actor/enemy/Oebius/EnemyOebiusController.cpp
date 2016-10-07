@@ -44,7 +44,7 @@ void EnemyOebiusController::processBehavior() {
         }
         case PROG_ENTRY_CORE: {
             if (pProg->hasJustChanged()) {
-                pOebiusCore_->locateAs(&entry_pos_);
+                pOebiusCore_->setPositionAt(&entry_pos_);
                 pOebiusCore_->activate();
             }
             pProg->changeNext();
@@ -63,7 +63,7 @@ void EnemyOebiusController::processBehavior() {
         case PROG_ENTRY_FORMATION: {
             if (pProg->hasJustChanged()) {
                 if (pOebiusCore_) {
-                    pFormationOebius_->locate(pOebiusCore_->_x,
+                    pFormationOebius_->setPosition(pOebiusCore_->_x,
                                                 pOebiusCore_->_y,
                                                 pOebiusCore_->_z  );
                     pFormationOebius_->setRzRyAng(pOebiusCore_->_rz, pOebiusCore_->_ry);

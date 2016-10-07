@@ -17,7 +17,7 @@ EnemyEmiliaFragment::EnemyEmiliaFragment(const char* prm_name) :
 
 void EnemyEmiliaFragment::onDispatched(EnemyEmiliaBase* prm_pOrg, FormationEmilia* prm_pFormationEmilia) {
     EnemyEmiliaBase::onDispatched(prm_pOrg, prm_pFormationEmilia);
-    locateAs(prm_pOrg);
+    setPositionAt(prm_pOrg);
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->takeoverMvFrom(prm_pOrg->getKuroko());
     pKuroko->setMvVelo(pKuroko->_velo_mv/2); //半分のスピードへ

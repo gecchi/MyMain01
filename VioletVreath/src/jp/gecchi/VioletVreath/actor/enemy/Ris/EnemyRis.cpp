@@ -85,7 +85,7 @@ void EnemyRis::processBehavior() {
                 if (pDepo_effect_) {
                     GgafDxFigureActor* pTestActor_Shot = (GgafDxFigureActor*)pDepo_effect_->dispatch();
                     if (pTestActor_Shot) {
-                        pTestActor_Shot->locateAs(this);
+                        pTestActor_Shot->setPositionAt(this);
                     }
                 }
             }
