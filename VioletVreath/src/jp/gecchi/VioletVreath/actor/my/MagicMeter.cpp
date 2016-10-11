@@ -61,6 +61,7 @@ height_(PX_C(height_px_)) {
     lstMagic_.addLast(pBunshinMagic_);
     lstMagic_.addLast(pVreathMagic_ );
     lstMagic_.addLast(pSmileMagic_  );
+    lstMagic_.createIndex();
 
     int magic_num = lstMagic_.length();
     for (int i = 0; i < magic_num; i++) {

@@ -117,8 +117,8 @@ void MenuBoard::onSelect(int prm_from, int prm_to) {
 
 void MenuBoard::initialize() {
     //インデックス作成
-    _lstItems.indexedValue();
-    _lstLabelActors.indexedValue();
+    _lstItems.createIndex();
+    _lstLabelActors.createIndex();
 }
 
 void MenuBoard::onRise() {

@@ -87,7 +87,7 @@ public:
         bool _is_last_flg;
         /** [r/w]delete時に_pValueもdeleteするかどうかのフラグ */
         bool _is_delete_value;
-        /** [r]先頭要素からのインデックス(0～)。indexedValue()実行で作成される */
+        /** [r]先頭要素からのインデックス(0～)。createIndex()実行で作成される */
         int _idx;
 
     public:
@@ -167,7 +167,7 @@ public:
     int _num_elem;
     /** [r]関連要素数 */
     int _relation_num;
-    /** [r]インデックスに対する要素値の配列、indexedValue()実行で作成される */
+    /** [r]インデックスに対する要素値の配列、createIndex()実行で作成される */
     const T** _papLinerVal;
 
 public:
@@ -230,7 +230,7 @@ public:
      * ([X])⇔[A]⇔[B]⇔[C]⇔[D]⇔[E]!⇔[X]⇔([A])
      * -------------------------------------------
      * </pre>
-     * indexedValue() によって作成された内部インデックスは破棄されます。
+     * createIndex() によって作成された内部インデックスは破棄されます。
      *
      * @param prm_pNew インスタンス生成済み要素のポインタ
      * @param prm_is_delete_value true  : リストのdelete時に、引数の追加要素値についてもdeleteを発行する。(Tのヘッダincludeを忘れずに！)<BR>
@@ -283,7 +283,7 @@ public:
      * ([E])⇔[X]⇔[A]!⇔[B]⇔[C]⇔[D]⇔[E]⇔([X])
      * -------------------------------------------
      * </pre>
-     * indexedValue() によって作成された内部インデックスは破棄されます。
+     * createIndex() によって作成された内部インデックスは破棄されます。
      *
      * @param prm_pNew 新しい要素の値
      * @param prm_is_delete_value true  : リストのdelete時に、引数の追加要素値についてもdeleteを発行する。(Tのヘッダincludeを忘れずに！)<BR>
@@ -324,7 +324,7 @@ public:
      * ([C])⇔[A]!⇔[B]⇔[C]⇔([A]!)
      * -------------------------------------------
      * </pre>
-     * indexedValue() によって作成された内部インデックスは破棄されます。
+     * createIndex() によって作成された内部インデックスは破棄されます。
      *
      * @param prm_pNew 新しい要素の値
      * @param prm_is_delete_value true  : リストのインスタンスdelete時に、引数の追加要素値についてもdeleteを発行する。(Tのヘッダincludeを忘れずに！)<BR>
@@ -365,7 +365,7 @@ public:
      * ([A]!)⇔[C]⇔[B]⇔[A]!⇔([C])
      * -------------------------------------------
      * </pre>
-     * indexedValue() によって作成された内部インデックスは破棄されます。
+     * createIndex() によって作成された内部インデックスは破棄されます。
      *
      * @param prm_pNew 新しい要素の値
      * @param prm_is_delete_value true  : リストのdelete時に、引数の追加要素値についてもdeleteを発行する。(Tのヘッダincludeを忘れずに！)<BR>
@@ -708,7 +708,7 @@ public:
      * ([D])⇔[A]!⇔[B]⇔[C]⇔[D]⇔([A]!)
      * -------------------------------------------
      * </pre>
-     * indexedValue() によって作成された内部インデックスは破棄されます。（必要であれば再作成してください）
+     * createIndex() によって作成された内部インデックスは破棄されます。（必要であれば再作成してください）
      * 抜き取った値の解放等が必要な場合は、戻り値を使用して呼び元で行って下さい。
      * @return 抜き取る前にカレント要素だった要素の値
      */
@@ -819,7 +819,7 @@ public:
      * 但し要素数を変更すると、再構築の必要があります。
      * 要素値を追加後、要素数が変化しないリストならば、本メソッドを実行しましょう。
      */
-    void indexedValue();
+    void createIndex();
 
     /**
      * 全ての要素値に対して指定の関数を実行させる .
@@ -1380,7 +1380,7 @@ int GgafLinkedListRing<T>::length() const {
 }
 
 template<class T>
-void GgafLinkedListRing<T>::indexedValue() {
+void GgafLinkedListRing<T>::createIndex() {
     if (_papLinerVal) {
         GGAF_DELETEARR(_papLinerVal);
     }

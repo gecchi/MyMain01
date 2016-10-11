@@ -95,7 +95,7 @@ _z_bound_far   (+DX_C(prm_pCamera->getZFar()))
     for (int i = 0; i < PROPERTY::MAX_SE_DELAY; i++) { //GGAF_END_DELAYは最大解放遅れフレームだが、遠方SEの遅延の最高フレーム数としても使う
         _pRing_pSeArray->addLast(NEW SeArray(), true);
     }
-    _pRing_pSeArray->indexedValue();
+    _pRing_pSeArray->createIndex();
 
     GgafRepeatSeq::create(_seqkey_se_delay, 0, 8); //ズレSE再生フレーム
 
