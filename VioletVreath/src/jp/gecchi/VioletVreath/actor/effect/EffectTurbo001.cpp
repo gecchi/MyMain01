@@ -39,7 +39,7 @@ void EffectTurbo001::processBehavior() {
 }
 
 void EffectTurbo001::processJudgement() {
-    if (VB_PLAY->isBeingPressed(VB_TURBO)) { //ターボ
+    if (VB_PLAY->isPressed(VB_TURBO)) { //ターボ
 
     } else {
         inactivate();

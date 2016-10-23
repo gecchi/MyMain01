@@ -180,7 +180,7 @@ void MyBunshin::processChangeGeoFinal() {
     }
 
     //レーザー発射。
-    if (pMyShip->is_shooting_laser_ && pVbPlay->isBeingPressed(VB_SHOT1)) {
+    if (pMyShip->is_shooting_laser_ && pVbPlay->isPressed(VB_SHOT1)) {
         MyBunshinWateringLaserChip001* pLaserChip = (MyBunshinWateringLaserChip001*)pLaserChipDepo_->dispatch();
         if (pLaserChip) {
             pLaserChip->setOrg(this);

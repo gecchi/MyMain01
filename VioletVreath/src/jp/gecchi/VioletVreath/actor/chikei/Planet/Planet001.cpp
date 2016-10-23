@@ -48,42 +48,42 @@ void Planet001::processBehavior() {
     GgafDxKuroko* const pKuroko = getKuroko();
 
 //    //巨大オブジェクト移動テスト
-//    if (GgafDxInput::isBeingPressedKey(DIK_I)) {
+//    if (GgafDxInput::isPressedKey(DIK_I)) {
 //        _x += PX_C(100);
 //    }
-//    if (GgafDxInput::isBeingPressedKey(DIK_O)) {
+//    if (GgafDxInput::isPressedKey(DIK_O)) {
 //        _x += PX_C(1000);
 //    }
-//    if (GgafDxInput::isBeingPressedKey(DIK_U)) {
+//    if (GgafDxInput::isPressedKey(DIK_U)) {
 //        _x -= PX_C(100);
 //    }
-//    if (GgafDxInput::isBeingPressedKey(DIK_Y)) {
+//    if (GgafDxInput::isPressedKey(DIK_Y)) {
 //        _x -= PX_C(1000);
 //    }
 //
-//    if (GgafDxInput::isBeingPressedKey(DIK_8)) {
+//    if (GgafDxInput::isPressedKey(DIK_8)) {
 //        _y += PX_C(100);
 //    }
-//    if (GgafDxInput::isBeingPressedKey(DIK_J)) {
+//    if (GgafDxInput::isPressedKey(DIK_J)) {
 //        _y -= PX_C(100);
 //    }
 //
-//    if (GgafDxInput::isBeingPressedKey(DIK_M)) {
+//    if (GgafDxInput::isPressedKey(DIK_M)) {
 //        _y -= PX_C(1000);
 //    }
 //
 //
-//    if (GgafDxInput::isBeingPressedKey(DIK_9)) {
+//    if (GgafDxInput::isPressedKey(DIK_9)) {
 //        _z += PX_C(100);
 //    }
-//    if (GgafDxInput::isBeingPressedKey(DIK_K)) {
+//    if (GgafDxInput::isPressedKey(DIK_K)) {
 //        _z -= PX_C(100);
 //    }
 //
-//    if (GgafDxInput::isBeingPressedKey(DIK_0)) {
+//    if (GgafDxInput::isPressedKey(DIK_0)) {
 //        addScale(10000);
 //    }
-//    if (GgafDxInput::isBeingPressedKey(DIK_L)) {
+//    if (GgafDxInput::isPressedKey(DIK_L)) {
 //        addScale(-10000);
 //    }
 //

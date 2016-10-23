@@ -90,34 +90,34 @@ void EnemyTamago01::onActive() {
 
 void EnemyTamago01::processBehavior() {
 
-//    if (GgafDxInput::isBeingPressedKey(DIK_Q)) {
+//    if (GgafDxInput::isPressedKey(DIK_Q)) {
 //        addScale(500);
 //    }
-//    if (GgafDxInput::isBeingPressedKey(DIK_W)) {
+//    if (GgafDxInput::isPressedKey(DIK_W)) {
 //        addScale(-500);
 //    }
-//    if (GgafDxInput::isBeingPressedKey(DIK_1)) {
+//    if (GgafDxInput::isPressedKey(DIK_1)) {
 //        pModel->getTexBlinker()->->addScale(2000);
 //    }
-//    if (GgafDxInput::isBeingPressedKey(DIK_2)) {
+//    if (GgafDxInput::isPressedKey(DIK_2)) {
 //        pModel->getTexBlinker()->->addScale(-2000);
 //    }
-//    if (GgafDxInput::isBeingPressedKey(DIK_3)) {
+//    if (GgafDxInput::isPressedKey(DIK_3)) {
 //        pModel->getTexBlinker()->->transitionAcceUntil(3000, 0, 3);
 //    }
-//    if (GgafDxInput::isBeingPressedKey(DIK_4)) {
+//    if (GgafDxInput::isPressedKey(DIK_4)) {
 //        pModel->getTexBlinker()->->transitionLinerLoop(20, -1);
 //    }
-//    if (GgafDxInput::isBeingPressedKey(DIK_5)) {
+//    if (GgafDxInput::isPressedKey(DIK_5)) {
 //        pModel->getTexBlinker()->->transitionLinerLoop(10, 5);
 //    }
-//    if (GgafDxInput::isBeingPressedKey(DIK_6)) {
+//    if (GgafDxInput::isPressedKey(DIK_6)) {
 //        pModel->getTexBlinker()->->beat(20, 2 ,5, -1);
 //    }
-//    if (GgafDxInput::isBeingPressedKey(DIK_7)) {
+//    if (GgafDxInput::isPressedKey(DIK_7)) {
 //        pModel->getTexBlinker()->->stopImmed();
 //    }
-//    if (GgafDxInput::isBeingPressedKey(DIK_0)) {
+//    if (GgafDxInput::isPressedKey(DIK_0)) {
 //        pModel->getTexBlinker()->->setScaleToBottom();
 //    }
     GgafDxKuroko* const pKuroko = getKuroko();

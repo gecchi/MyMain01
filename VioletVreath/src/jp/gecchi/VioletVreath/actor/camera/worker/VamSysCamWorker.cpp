@@ -112,12 +112,12 @@ void VamSysCamWorker::processBehavior() {
     }
 
     if (!returnning_cam_pos_) {
-        bool isBeingPressed_VB_VIEW_UP   = pVbPlay->isBeingPressed(VB_VIEW_UP);
-        bool isBeingPressed_VB_VIEW_DOWN = pVbPlay->isBeingPressed(VB_VIEW_DOWN);
-        if (isBeingPressed_VB_VIEW_UP && !isBeingPressed_VB_VIEW_DOWN) {
+        bool isPressed_VB_VIEW_UP   = pVbPlay->isPressed(VB_VIEW_UP);
+        bool isPressed_VB_VIEW_DOWN = pVbPlay->isPressed(VB_VIEW_DOWN);
+        if (isPressed_VB_VIEW_UP && !isPressed_VB_VIEW_DOWN) {
             ang_cam_around_ = UTIL::simplifyAng(ang_cam_around_-D_ANG(2));
             cam_mv_frame_ = 2;
-        } else if (isBeingPressed_VB_VIEW_DOWN && !isBeingPressed_VB_VIEW_UP) {
+        } else if (isPressed_VB_VIEW_DOWN && !isPressed_VB_VIEW_UP) {
             ang_cam_around_ = UTIL::simplifyAng(ang_cam_around_+D_ANG(2));
             cam_mv_frame_ = 2;
         } else {
@@ -141,7 +141,7 @@ void VamSysCamWorker::processBehavior() {
 
     //カメラ、VPの目標座標が変わったらスライド移動指示
 /////////////4TEST
-//    if (GgafDxInput::isBeingPressedKey(DIK_H)) {
+//    if (GgafDxInput::isPressedKey(DIK_H)) {
 /////////////////
         if (t_x_CAM_ != mv_t_x_CAM || t_y_CAM_ != mv_t_y_CAM || t_z_CAM_ != mv_t_z_CAM ||
             t_x_VP_  != mv_t_x_VP  || t_y_VP_  != mv_t_y_VP  || t_z_VP_ != mv_t_z_VP

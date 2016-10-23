@@ -31,7 +31,7 @@ namespace GgafLib {
  *
  * ----- 発射処理（Zキー押しっぱなしで発射例） --------------
  *
- * if (GgafDxInput::isBeingPressedKey(DIK_Z)) {   //Zキー判定
+ * if (GgafDxInput::isPressedKey(DIK_Z)) {   //Zキー判定
  *     pLaserDepo->dispatch();                    //dispatch()することで、登録されたMyStraightLaserChip達が活動する。
  * }
  *

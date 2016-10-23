@@ -54,13 +54,13 @@ void EnemyStraeaLaserChip004::onActive() {
 
 void EnemyStraeaLaserChip004::processBehaviorHeadChip() {
 //    //--->debug
-//    if (GgafDxInput::isBeingPressedKey(DIK_N)) {
+//    if (GgafDxInput::isPressedKey(DIK_N)) {
 //        GgafDxTextureConnection* a = pModel->_papTextureConnection[0];
 //        GgafDxTextureConnection* b = pModel->_papTextureConnection[1];
 //        pModel->_papTextureConnection[0] = b;
 //        pModel->_papTextureConnection[1] = a;
 //    }
-//    if (GgafDxInput::isBeingPressedKey(DIK_M)) {
+//    if (GgafDxInput::isPressedKey(DIK_M)) {
 //        pModel->setMaterialTexture(0, pTexCon2_);
 //    }
 //    //<--debug

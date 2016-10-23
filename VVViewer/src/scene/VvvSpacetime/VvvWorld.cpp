@@ -172,26 +172,26 @@ void VvvWorld::processBehavior() {
         GgafDxFigureActor* pActor =  listActorInfo_.getCurrent()->pActor_;
         _TRACE_("pActor->isOutOfView()="<<pActor->isOutOfView());
         int d = 1;
-        if (GgafDxInput::isBeingPressedKey(DIK_SPACE) || GgafDxInput::isBeingPressedKey(DIK_LCONTROL) || GgafDxInput::isBeingPressedKey(DIK_RCONTROL)) {
+        if (GgafDxInput::isPressedKey(DIK_SPACE) || GgafDxInput::isPressedKey(DIK_LCONTROL) || GgafDxInput::isPressedKey(DIK_RCONTROL)) {
             d = 10;
         } else {
             d = 1;
         }
-        if (GgafDxInput::isBeingPressedKey(DIK_A)) {
+        if (GgafDxInput::isPressedKey(DIK_A)) {
             //α増減
-            if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
+            if (GgafDxInput::isPressedKey(DIK_RIGHT)) {
                 pActor->addAlpha(0.01*d);
             }
-            if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
+            if (GgafDxInput::isPressedKey(DIK_LEFT)) {
                 pActor->addAlpha(-0.01*d);
             }
-            if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
+            if (GgafDxInput::isPressedKey(DIK_UP)) {
                 pActor->addAlpha(0.01*d);
             }
-            if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
+            if (GgafDxInput::isPressedKey(DIK_DOWN)) {
                 pActor->addAlpha(-0.01*d);
             }
-            if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
+            if (GgafDxInput::isPressedKey(DIK_ESCAPE)) {
                 pActor->addAlpha(1.00); //αリセット
             }
             if (pActor->getAlpha() < 0.00) {
@@ -200,115 +200,115 @@ void VvvWorld::processBehavior() {
             if (pActor->getAlpha() > 1.00) {
                 pActor->setAlpha(1.00);
             }
-        } else if (GgafDxInput::isBeingPressedKey(DIK_P)) {
+        } else if (GgafDxInput::isPressedKey(DIK_P)) {
             //スペキュラー
-            if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
+            if (GgafDxInput::isPressedKey(DIK_RIGHT)) {
                 pActor->getModel()->_specular += 0.05*d;
             }
-            if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
+            if (GgafDxInput::isPressedKey(DIK_LEFT)) {
                 pActor->getModel()->_specular -= 0.05*d;
             }
-            if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
+            if (GgafDxInput::isPressedKey(DIK_UP)) {
                 pActor->getModel()->_specular_power += 0.01*d;
             }
-            if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
+            if (GgafDxInput::isPressedKey(DIK_DOWN)) {
                 pActor->getModel()->_specular_power -= 0.01*d;
             }
-            if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
+            if (GgafDxInput::isPressedKey(DIK_ESCAPE)) {
                 pActor->getModel()->_specular = 0.00f;
                 pActor->getModel()->_specular_power = 0.00f;
             }
-        } else if (GgafDxInput::isBeingPressedKey(DIK_P)) {
+        } else if (GgafDxInput::isPressedKey(DIK_P)) {
             //スペキュラー
-            if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
+            if (GgafDxInput::isPressedKey(DIK_RIGHT)) {
                 pActor->getModel()->_specular += 0.05*d;
             }
-            if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
+            if (GgafDxInput::isPressedKey(DIK_LEFT)) {
                 pActor->getModel()->_specular -= 0.05*d;
             }
-            if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
+            if (GgafDxInput::isPressedKey(DIK_UP)) {
                 pActor->getModel()->_specular_power += 0.01*d;
             }
-            if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
+            if (GgafDxInput::isPressedKey(DIK_DOWN)) {
                 pActor->getModel()->_specular_power -= 0.01*d;
             }
-            if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
+            if (GgafDxInput::isPressedKey(DIK_ESCAPE)) {
                 pActor->getModel()->_specular = 0.00f;
                 pActor->getModel()->_specular_power = 0.00f;
             }
-        } else if (GgafDxInput::isBeingPressedKey(DIK_S)) {
-            if (GgafDxInput::isBeingPressedKey(DIK_X)) {
+        } else if (GgafDxInput::isPressedKey(DIK_S)) {
+            if (GgafDxInput::isPressedKey(DIK_X)) {
                 //各軸拡大縮小
-                if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
+                if (GgafDxInput::isPressedKey(DIK_RIGHT)) {
                     pActor->addScaleX(d*10);
                 }
-                if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
+                if (GgafDxInput::isPressedKey(DIK_LEFT)) {
                     pActor->addScaleX(-d*10);
                 }
-                if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
+                if (GgafDxInput::isPressedKey(DIK_UP)) {
                     pActor->addScaleY(d*10);
                 }
-                if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
+                if (GgafDxInput::isPressedKey(DIK_DOWN)) {
                     pActor->addScaleY(-d*10);
                 }
-                if (GgafDxInput::isBeingPressedKey(DIK_PGUP)) {
+                if (GgafDxInput::isPressedKey(DIK_PGUP)) {
                     pActor->addScaleZ(d*10);
                 }
-                if (GgafDxInput::isBeingPressedKey(DIK_PGDN)) {
+                if (GgafDxInput::isPressedKey(DIK_PGDN)) {
                     pActor->addScaleZ(-d*10);
                 }
             } else {
                 //全軸拡大縮小
-                if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
+                if (GgafDxInput::isPressedKey(DIK_UP)) {
                     pActor->addScale(d*10);
                 }
-                if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
+                if (GgafDxInput::isPressedKey(DIK_DOWN)) {
                     pActor->addScale(-d*10);
                 }
             }
-            if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
+            if (GgafDxInput::isPressedKey(DIK_ESCAPE)) {
                 pActor->setScaleR(1.0);
             }
-        } else if (GgafDxInput::isBeingPressedKey(DIK_R)) {
+        } else if (GgafDxInput::isPressedKey(DIK_R)) {
             //軸回転
-            if (GgafDxInput::isBeingPressedKey(DIK_PGUP)) {
+            if (GgafDxInput::isPressedKey(DIK_PGUP)) {
                 pActor->addRxFaceAng(D_ANG(d));
             }
-            if (GgafDxInput::isBeingPressedKey(DIK_PGDN)) {
+            if (GgafDxInput::isPressedKey(DIK_PGDN)) {
                 pActor->addRxFaceAng(-D_ANG(d));
             }
-            if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
+            if (GgafDxInput::isPressedKey(DIK_RIGHT)) {
                 pActor->addRyFaceAng(D_ANG(d));
             }
-            if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
+            if (GgafDxInput::isPressedKey(DIK_LEFT)) {
                 pActor->addRyFaceAng(-D_ANG(d));
             }
-            if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
+            if (GgafDxInput::isPressedKey(DIK_UP)) {
                 pActor->addRzFaceAng(D_ANG(d));
             }
-            if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
+            if (GgafDxInput::isPressedKey(DIK_DOWN)) {
                 pActor->addRzFaceAng(-D_ANG(d));
             }
-            if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
+            if (GgafDxInput::isPressedKey(DIK_ESCAPE)) {
                 pActor->setFaceAngZero();
             }
-        } else if (GgafDxInput::isBeingPressedKey(DIK_C)) {
+        } else if (GgafDxInput::isPressedKey(DIK_C)) {
             //環境マップテクスチャ映りこみ率
             if (pActor->instanceOf(Obj_GgafDxCubeMapMeshActor)) {
                 CubeMapMeshActor* pCubeMapActor = (CubeMapMeshActor*)pActor;
-                if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
+                if (GgafDxInput::isPressedKey(DIK_RIGHT)) {
                     pCubeMapActor->_reflectance += 0.01*d;
                 }
-                if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
+                if (GgafDxInput::isPressedKey(DIK_LEFT)) {
                     pCubeMapActor->_reflectance -= 0.01*d;
                 }
-                if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
+                if (GgafDxInput::isPressedKey(DIK_UP)) {
                     pCubeMapActor->_reflectance += 0.01*d;
                 }
-                if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
+                if (GgafDxInput::isPressedKey(DIK_DOWN)) {
                     pCubeMapActor->_reflectance -= 0.01*d;
                 }
-                if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
+                if (GgafDxInput::isPressedKey(DIK_ESCAPE)) {
                     pCubeMapActor->_reflectance = 0.00;
                 }
                 if (pCubeMapActor->_reflectance < 0.0) {
@@ -317,19 +317,19 @@ void VvvWorld::processBehavior() {
             }
             if (pActor->instanceOf(Obj_GgafDxCubeMapMorphMeshActor)) {
                 CubeMapMorphMeshActor* pCubeMapActor = (CubeMapMorphMeshActor*)pActor;
-                if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
+                if (GgafDxInput::isPressedKey(DIK_RIGHT)) {
                     pCubeMapActor->_reflectance += 0.01*d;
                 }
-                if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
+                if (GgafDxInput::isPressedKey(DIK_LEFT)) {
                     pCubeMapActor->_reflectance -= 0.01*d;
                 }
-                if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
+                if (GgafDxInput::isPressedKey(DIK_UP)) {
                     pCubeMapActor->_reflectance += 0.01*d;
                 }
-                if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
+                if (GgafDxInput::isPressedKey(DIK_DOWN)) {
                     pCubeMapActor->_reflectance -= 0.01*d;
                 }
-                if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
+                if (GgafDxInput::isPressedKey(DIK_ESCAPE)) {
                     pCubeMapActor->_reflectance = 0.00;
                 }
                 if (pCubeMapActor->_reflectance < 0.0) {
@@ -339,44 +339,44 @@ void VvvWorld::processBehavior() {
                     pCubeMapActor->_reflectance = 1.0;
                 }
             }
-        } else if (GgafDxInput::isBeingPressedKey(DIK_1) ||
-                   GgafDxInput::isBeingPressedKey(DIK_2) ||
-                   GgafDxInput::isBeingPressedKey(DIK_3) ||
-                   GgafDxInput::isBeingPressedKey(DIK_4) ||
-                   GgafDxInput::isBeingPressedKey(DIK_5) ||
-                   GgafDxInput::isBeingPressedKey(DIK_6) ||
-                   GgafDxInput::isBeingPressedKey(DIK_7)   )
+        } else if (GgafDxInput::isPressedKey(DIK_1) ||
+                   GgafDxInput::isPressedKey(DIK_2) ||
+                   GgafDxInput::isPressedKey(DIK_3) ||
+                   GgafDxInput::isPressedKey(DIK_4) ||
+                   GgafDxInput::isPressedKey(DIK_5) ||
+                   GgafDxInput::isPressedKey(DIK_6) ||
+                   GgafDxInput::isPressedKey(DIK_7)   )
         {
             if(pActor->instanceOf(Obj_GgafDxMorphMeshActor) ) {
                 GgafDxMorphMeshActor* pMorphMeshActor = dynamic_cast<GgafDxMorphMeshActor*>(pActor);
                 if (pMorphMeshActor) {
                     for (int i = 1; i <= pMorphMeshActor->_morph_target_num; i++) {
-                        if (GgafDxInput::isBeingPressedKey(DIK_1 + (i-1))) {
-                            if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
+                        if (GgafDxInput::isPressedKey(DIK_1 + (i-1))) {
+                            if (GgafDxInput::isPressedKey(DIK_RIGHT)) {
                                 pMorphMeshActor->addMorphWeight(i, 0.01*d);
                                 if (pMorphMeshActor->getMorphWeight(i) > 1.0) {
                                     pMorphMeshActor->setMorphWeight(i, 1.0);
                                 }
                             }
-                            if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
+                            if (GgafDxInput::isPressedKey(DIK_LEFT)) {
                                 pMorphMeshActor->addMorphWeight(i, -0.01*d);
                                 if (pMorphMeshActor->getMorphWeight(i) < 0) {
                                     pMorphMeshActor->setMorphWeight(i, 0);
                                 }
                             }
-                            if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
+                            if (GgafDxInput::isPressedKey(DIK_UP)) {
                                 pMorphMeshActor->addMorphWeight(i, 0.01*d);
                                 if (pMorphMeshActor->getMorphWeight(i) > 1.0) {
                                     pMorphMeshActor->setMorphWeight(i, 1.0);
                                 }
                             }
-                            if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
+                            if (GgafDxInput::isPressedKey(DIK_DOWN)) {
                                 pMorphMeshActor->addMorphWeight(i, -0.01*d);
                                 if (pMorphMeshActor->getMorphWeight(i) < 0) {
                                     pMorphMeshActor->setMorphWeight(i, 0);
                                 }
                             }
-                            if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
+                            if (GgafDxInput::isPressedKey(DIK_ESCAPE)) {
                                 pMorphMeshActor->setMorphWeight(i, 0);
                             }
 
@@ -386,60 +386,60 @@ void VvvWorld::processBehavior() {
                     }
                 }
             }
-        } else if (GgafDxInput::isBeingPressedKey(DIK_J) ||
-                   GgafDxInput::isBeingPressedKey(DIK_K) ||
-                   GgafDxInput::isBeingPressedKey(DIK_L)   )
+        } else if (GgafDxInput::isPressedKey(DIK_J) ||
+                   GgafDxInput::isPressedKey(DIK_K) ||
+                   GgafDxInput::isPressedKey(DIK_L)   )
         {
             float r = pActor->_paMaterial[0].Ambient.r;
             float g = pActor->_paMaterial[0].Ambient.g;
             float b = pActor->_paMaterial[0].Ambient.b;
             //マテリアル赤色
-            if (GgafDxInput::isBeingPressedKey(DIK_RIGHT) || GgafDxInput::isBeingPressedKey(DIK_UP)) {
-                if (GgafDxInput::isBeingPressedKey(DIK_J)) {
+            if (GgafDxInput::isPressedKey(DIK_RIGHT) || GgafDxInput::isPressedKey(DIK_UP)) {
+                if (GgafDxInput::isPressedKey(DIK_J)) {
                     pActor->setMaterialRed(r+(0.01*d));
                 }
-                if (GgafDxInput::isBeingPressedKey(DIK_K)) {
+                if (GgafDxInput::isPressedKey(DIK_K)) {
                     pActor->setMaterialGreen(g+(0.01*d));
                 }
-                if (GgafDxInput::isBeingPressedKey(DIK_L)) {
+                if (GgafDxInput::isPressedKey(DIK_L)) {
                     pActor->setMaterialBlue(b+(0.01*d));
                 }
             }
-            if (GgafDxInput::isBeingPressedKey(DIK_LEFT) || GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
-                if (GgafDxInput::isBeingPressedKey(DIK_J)) {
+            if (GgafDxInput::isPressedKey(DIK_LEFT) || GgafDxInput::isPressedKey(DIK_DOWN)) {
+                if (GgafDxInput::isPressedKey(DIK_J)) {
                     pActor->setMaterialRed(r-(0.01*d));
                 }
-                if (GgafDxInput::isBeingPressedKey(DIK_K)) {
+                if (GgafDxInput::isPressedKey(DIK_K)) {
                     pActor->setMaterialGreen(g-(0.01*d));
                 }
-                if (GgafDxInput::isBeingPressedKey(DIK_L)) {
+                if (GgafDxInput::isPressedKey(DIK_L)) {
                     pActor->setMaterialBlue(b-(0.01*d));
                 }
             }
-            if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
+            if (GgafDxInput::isPressedKey(DIK_ESCAPE)) {
                 pActor->resetMaterialColor();
             }
 
         } else {       //平行移動
-            if (GgafDxInput::isBeingPressedKey(DIK_PGUP)) {
+            if (GgafDxInput::isPressedKey(DIK_PGUP)) {
                 pActor->_z += PX_C(d); //奥
             }
-            if (GgafDxInput::isBeingPressedKey(DIK_PGDN)) {
+            if (GgafDxInput::isPressedKey(DIK_PGDN)) {
                 pActor->_z -= PX_C(d); //手前
             }
-            if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
+            if (GgafDxInput::isPressedKey(DIK_RIGHT)) {
                 pActor->_x += PX_C(d); //右
             }
-            if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
+            if (GgafDxInput::isPressedKey(DIK_LEFT)) {
                 pActor->_x -= PX_C(d); //左
             }
-            if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
+            if (GgafDxInput::isPressedKey(DIK_UP)) {
                 pActor->_y += PX_C(d); //上
             }
-            if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
+            if (GgafDxInput::isPressedKey(DIK_DOWN)) {
                 pActor->_y -= PX_C(d); //下
             }
-            if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
+            if (GgafDxInput::isPressedKey(DIK_ESCAPE)) {
                 pActor->_x = 0;
                 pActor->_y = 0;
                 pActor->_z = 0;

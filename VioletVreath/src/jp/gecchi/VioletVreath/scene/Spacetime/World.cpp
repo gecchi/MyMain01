@@ -280,11 +280,11 @@ void World::processBehavior() {
             VB->update(); //入力情報更新
 
             //1キーが音量下げ
-            if (GgafDxInput::isBeingPressedKey(DIK_1)) {
+            if (GgafDxInput::isPressedKey(DIK_1)) {
                 GgafDxSound::addAppMasterVolume(-10);
             }
             //2キーが音量上げ
-            if (GgafDxInput::isBeingPressedKey(DIK_2)) {
+            if (GgafDxInput::isPressedKey(DIK_2)) {
                 GgafDxSound::addAppMasterVolume(10);
             }
 

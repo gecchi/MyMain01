@@ -586,22 +586,22 @@ bool VirtualButton::initStatic() {
     VirtualButton::_mapVBJ2Str[VBJ_POV_LEFT   ] = "VBJ_POV_LEFT";
     VirtualButton::_mapVBJ2Str[VBJ_POV_RIGHT  ] = "VBJ_POV_RIGHT";
 
-    VirtualButton::_mapVBJ2Func[VBJ_X_POS_MINUS] = GgafDxCore::GgafDxInput::isBeingPressedJoyXAxisMinus;
-    VirtualButton::_mapVBJ2Func[VBJ_X_POS_PLUS ] = GgafDxCore::GgafDxInput::isBeingPressedJoyXAxisPlus;
-    VirtualButton::_mapVBJ2Func[VBJ_Y_POS_MINUS] = GgafDxCore::GgafDxInput::isBeingPressedJoyYAxisMinus;
-    VirtualButton::_mapVBJ2Func[VBJ_Y_POS_PLUS ] = GgafDxCore::GgafDxInput::isBeingPressedJoyYAxisPlus;
-    VirtualButton::_mapVBJ2Func[VBJ_Z_POS_MINUS] = GgafDxCore::GgafDxInput::isBeingPressedJoyZAxisMinus;
-    VirtualButton::_mapVBJ2Func[VBJ_Z_POS_PLUS ] = GgafDxCore::GgafDxInput::isBeingPressedJoyZAxisPlus;
-    VirtualButton::_mapVBJ2Func[VBJ_X_ROT_MINUS] = GgafDxCore::GgafDxInput::isBeingPressedJoyRxMinus;
-    VirtualButton::_mapVBJ2Func[VBJ_X_ROT_PLUS ] = GgafDxCore::GgafDxInput::isBeingPressedJoyRxPlus;
-    VirtualButton::_mapVBJ2Func[VBJ_Y_ROT_MINUS] = GgafDxCore::GgafDxInput::isBeingPressedJoyRyMinus;
-    VirtualButton::_mapVBJ2Func[VBJ_Y_ROT_PLUS ] = GgafDxCore::GgafDxInput::isBeingPressedJoyRyPlus;
-    VirtualButton::_mapVBJ2Func[VBJ_Z_ROT_MINUS] = GgafDxCore::GgafDxInput::isBeingPressedJoyRzMinus;
-    VirtualButton::_mapVBJ2Func[VBJ_Z_ROT_PLUS ] = GgafDxCore::GgafDxInput::isBeingPressedJoyRzPlus;
-    VirtualButton::_mapVBJ2Func[VBJ_POV_UP     ] = GgafDxCore::GgafDxInput::isBeingPressedPovUp;
-    VirtualButton::_mapVBJ2Func[VBJ_POV_DOWN   ] = GgafDxCore::GgafDxInput::isBeingPressedPovDown;
-    VirtualButton::_mapVBJ2Func[VBJ_POV_LEFT   ] = GgafDxCore::GgafDxInput::isBeingPressedPovLeft;
-    VirtualButton::_mapVBJ2Func[VBJ_POV_RIGHT  ] = GgafDxCore::GgafDxInput::isBeingPressedPovRight;
+    VirtualButton::_mapVBJ2Func[VBJ_X_POS_MINUS] = GgafDxCore::GgafDxInput::isPressedJoyXAxisMinus;
+    VirtualButton::_mapVBJ2Func[VBJ_X_POS_PLUS ] = GgafDxCore::GgafDxInput::isPressedJoyXAxisPlus;
+    VirtualButton::_mapVBJ2Func[VBJ_Y_POS_MINUS] = GgafDxCore::GgafDxInput::isPressedJoyYAxisMinus;
+    VirtualButton::_mapVBJ2Func[VBJ_Y_POS_PLUS ] = GgafDxCore::GgafDxInput::isPressedJoyYAxisPlus;
+    VirtualButton::_mapVBJ2Func[VBJ_Z_POS_MINUS] = GgafDxCore::GgafDxInput::isPressedJoyZAxisMinus;
+    VirtualButton::_mapVBJ2Func[VBJ_Z_POS_PLUS ] = GgafDxCore::GgafDxInput::isPressedJoyZAxisPlus;
+    VirtualButton::_mapVBJ2Func[VBJ_X_ROT_MINUS] = GgafDxCore::GgafDxInput::isPressedJoyRxMinus;
+    VirtualButton::_mapVBJ2Func[VBJ_X_ROT_PLUS ] = GgafDxCore::GgafDxInput::isPressedJoyRxPlus;
+    VirtualButton::_mapVBJ2Func[VBJ_Y_ROT_MINUS] = GgafDxCore::GgafDxInput::isPressedJoyRyMinus;
+    VirtualButton::_mapVBJ2Func[VBJ_Y_ROT_PLUS ] = GgafDxCore::GgafDxInput::isPressedJoyRyPlus;
+    VirtualButton::_mapVBJ2Func[VBJ_Z_ROT_MINUS] = GgafDxCore::GgafDxInput::isPressedJoyRzMinus;
+    VirtualButton::_mapVBJ2Func[VBJ_Z_ROT_PLUS ] = GgafDxCore::GgafDxInput::isPressedJoyRzPlus;
+    VirtualButton::_mapVBJ2Func[VBJ_POV_UP     ] = GgafDxCore::GgafDxInput::isPressedPovUp;
+    VirtualButton::_mapVBJ2Func[VBJ_POV_DOWN   ] = GgafDxCore::GgafDxInput::isPressedPovDown;
+    VirtualButton::_mapVBJ2Func[VBJ_POV_LEFT   ] = GgafDxCore::GgafDxInput::isPressedPovLeft;
+    VirtualButton::_mapVBJ2Func[VBJ_POV_RIGHT  ] = GgafDxCore::GgafDxInput::isPressedPovRight;
     return true;
 }
 
@@ -639,7 +639,7 @@ bool VirtualButton::isAutoRepeat(vb_sta prm_VB, frame prm_begin_repeat, frame pr
     return false;
 }
 
-vb_sta VirtualButton::wasBeingPressed(vb_sta prm_VB, frame prm_frame_ago) const {
+vb_sta VirtualButton::wasPressed(vb_sta prm_VB, frame prm_frame_ago) const {
     VirtualButton::VBRecord* pVBRecord_temp = getPastVBRecord(prm_frame_ago);
     return (pVBRecord_temp->_state & prm_VB);
 }
@@ -715,7 +715,7 @@ bool VirtualButton::arePushedDownAtOnce(vb_sta prm_aVB[], int prm_num_button) co
 
     //現在は全て押されていなければならない
     for (int i = 0; i < prm_num_button; i++) {
-        if (isBeingPressed(prm_aVB[i]) == false) {
+        if (isPressed(prm_aVB[i]) == false) {
             return false;
         }
     }
@@ -729,9 +729,9 @@ bool VirtualButton::arePushedDownAtOnce(vb_sta prm_aVB[], int prm_num_button) co
     // ？ > ？ > ↑ > ↓
     bool prev1Flg, prev2Flg, prev3Flg;
     for (int i = 0; i < prm_num_button; i++) {
-        prev1Flg = wasNotBeingPressed(prm_aVB[i], 1);
-        prev2Flg = wasNotBeingPressed(prm_aVB[i], 2);
-        prev3Flg = wasNotBeingPressed(prm_aVB[i], 3);
+        prev1Flg = wasNotPressed(prm_aVB[i], 1);
+        prev2Flg = wasNotPressed(prm_aVB[i], 2);
+        prev3Flg = wasNotPressed(prm_aVB[i], 3);
         if (prev1Flg) { //＊ > ＊ > ↑ >
             continue;
         } else if (prev2Flg) { //＊ > ↑ > ＊ >
@@ -746,7 +746,7 @@ bool VirtualButton::arePushedDownAtOnce(vb_sta prm_aVB[], int prm_num_button) co
     //但し1つ前のフレームで、全て押されていては成立しない。
     //この条件入れないと、「同時押し→押しっぱなし」の場合、最大３フレーム連続で成立してしまう場合がある。
     for (int i = 0; i < prm_num_button; i++) {
-        if (wasNotBeingPressed(prm_aVB[i], 1)) {
+        if (wasNotPressed(prm_aVB[i], 1)) {
             return true;
         }
     }
@@ -754,7 +754,7 @@ bool VirtualButton::arePushedDownAtOnce(vb_sta prm_aVB[], int prm_num_button) co
 }
 
 bool VirtualButton::wasPushedDown(vb_sta prm_VB, frame prm_frame_ago) const {
-    if (wasBeingPressed(prm_VB, prm_frame_ago) && wasNotBeingPressed(prm_VB, prm_frame_ago + 1)) {
+    if (wasPressed(prm_VB, prm_frame_ago) && wasNotPressed(prm_VB, prm_frame_ago + 1)) {
         return true;
     } else {
         return false;
@@ -814,7 +814,7 @@ bool VirtualButton::isPushedUp(vb_sta prm_VB, frame prm_frame_push) const {
 }
 
 bool VirtualButton::wasReleasedUp(vb_sta prm_VB, frame prm_frame_ago) const {
-    if (wasNotBeingPressed(prm_VB, prm_frame_ago) && wasBeingPressed(prm_VB, prm_frame_ago + 1)) {
+    if (wasNotPressed(prm_VB, prm_frame_ago) && wasPressed(prm_VB, prm_frame_ago + 1)) {
         return true;
     } else {
         return false;
@@ -856,12 +856,12 @@ bool VirtualButton::isScrewPushDown(vb_sta prm_VB, frame prm_frame_delay) const 
 
 
 //vb_sta VirtualButton::getPushedDownStickWith(vb_sta prm_VB) {
-//    if (isBeingPressed(prm_VB)) {
+//    if (isPressed(prm_VB)) {
 //        static bool prev1Flg, prev2Flg, prev3Flg;
 //        //ボタンに押されていない期間が直前にあったか
-//        prev1Flg = wasNotBeingPressed(prm_VB, 1);
-//        prev2Flg = wasNotBeingPressed(prm_VB, 2);
-//        prev3Flg = wasNotBeingPressed(prm_VB, 3);
+//        prev1Flg = wasNotPressed(prm_VB, 1);
+//        prev2Flg = wasNotPressed(prm_VB, 2);
+//        prev3Flg = wasNotPressed(prm_VB, 3);
 //        if (prev1Flg) { //＊ > ＊ > ↑ >
 //            //OK
 //        } else if (prev2Flg) { //＊ > ↑ > ＊ >
@@ -875,9 +875,9 @@ bool VirtualButton::isScrewPushDown(vb_sta prm_VB, frame prm_frame_delay) const 
 //
 //        //スティックに押されていない期間が直前にあったか
 //        static bool prev1N_Flg, prev2N_Flg, prev3N_Flg;
-//        prev1N_Flg = wasBeingPressed(VB_NEUTRAL_STC, 1);
-//        prev2N_Flg = wasBeingPressed(VB_NEUTRAL_STC, 2);
-//        prev3N_Flg = wasBeingPressed(VB_NEUTRAL_STC, 3);
+//        prev1N_Flg = wasPressed(VB_NEUTRAL_STC, 1);
+//        prev2N_Flg = wasPressed(VB_NEUTRAL_STC, 2);
+//        prev3N_Flg = wasPressed(VB_NEUTRAL_STC, 3);
 //        if (prev1N_Flg) { //＊ > ＊ > Ｎ >
 //            //OK
 //        } else if (prev2N_Flg) { //＊ > Ｎ > ＊ >
@@ -891,11 +891,11 @@ bool VirtualButton::isScrewPushDown(vb_sta prm_VB, frame prm_frame_delay) const 
 //
 //        for (int i = VB_UP_RIGHT_STC; i <= VB_LEFT_STC; i++) {
 //            //今は押している
-//            if (isBeingPressed(i)) {
+//            if (isPressed(i)) {
 //
 //                //但し1つ前のフレームで、両方押されていては成立しない。
 //                //（この条件入れないと、「同時押し→押しっぱなし」の場合、数フレーム連続で成立してしまう）
-//                if (wasBeingPressed(prm_VB, 1) && wasBeingPressed(i, 1)) {
+//                if (wasPressed(prm_VB, 1) && wasPressed(i, 1)) {
 //                    //NG
 //                    continue;
 //                } else {
@@ -978,49 +978,49 @@ void VirtualButton::update() {
 
     if (GgafDxInput::_pJoystickInputDevice) {
 
-        state |= (VB_BUTTON1  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON1));
-        state |= (VB_BUTTON2  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON2));
-        state |= (VB_BUTTON3  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON3));
-        state |= (VB_BUTTON4  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON4));
-        state |= (VB_BUTTON5  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON5));
-        state |= (VB_BUTTON6  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON6));
-        state |= (VB_BUTTON7  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON7));
-        state |= (VB_BUTTON8  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON8));
-        state |= (VB_BUTTON9  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON9));
-        state |= (VB_BUTTON10 * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON10));
-        state |= (VB_BUTTON11 * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON11));
-        state |= (VB_BUTTON12 * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON12));
-        state |= (VB_BUTTON13 * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON13));
-        state |= (VB_BUTTON14 * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON14));
-        state |= (VB_BUTTON15 * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON15));
-        state |= (VB_BUTTON16 * VirtualButton::isBeingPressedVirtualJoyButton(jmap.BUTTON16));
-        state |= (VB_PAUSE    * VirtualButton::isBeingPressedVirtualJoyButton(jmap.PAUSE));
-        state |= (VB_UP       * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UP));
-        state |= (VB_DOWN     * VirtualButton::isBeingPressedVirtualJoyButton(jmap.DOWN));
-        state |= (VB_LEFT     * VirtualButton::isBeingPressedVirtualJoyButton(jmap.LEFT));
-        state |= (VB_RIGHT    * VirtualButton::isBeingPressedVirtualJoyButton(jmap.RIGHT));
-        state |= (VB_S1_UP    * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S1_UP));
-        state |= (VB_S1_DOWN  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S1_DOWN));
-        state |= (VB_S1_LEFT  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S1_LEFT));
-        state |= (VB_S1_RIGHT * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S1_RIGHT));
-        state |= (VB_S2_UP    * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S2_UP));
-        state |= (VB_S2_DOWN  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S2_DOWN));
-        state |= (VB_S2_LEFT  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S2_LEFT));
-        state |= (VB_S2_RIGHT * VirtualButton::isBeingPressedVirtualJoyButton(jmap.S2_RIGHT));
+        state |= (VB_BUTTON1  * VirtualButton::isPressedVirtualJoyButton(jmap.BUTTON1));
+        state |= (VB_BUTTON2  * VirtualButton::isPressedVirtualJoyButton(jmap.BUTTON2));
+        state |= (VB_BUTTON3  * VirtualButton::isPressedVirtualJoyButton(jmap.BUTTON3));
+        state |= (VB_BUTTON4  * VirtualButton::isPressedVirtualJoyButton(jmap.BUTTON4));
+        state |= (VB_BUTTON5  * VirtualButton::isPressedVirtualJoyButton(jmap.BUTTON5));
+        state |= (VB_BUTTON6  * VirtualButton::isPressedVirtualJoyButton(jmap.BUTTON6));
+        state |= (VB_BUTTON7  * VirtualButton::isPressedVirtualJoyButton(jmap.BUTTON7));
+        state |= (VB_BUTTON8  * VirtualButton::isPressedVirtualJoyButton(jmap.BUTTON8));
+        state |= (VB_BUTTON9  * VirtualButton::isPressedVirtualJoyButton(jmap.BUTTON9));
+        state |= (VB_BUTTON10 * VirtualButton::isPressedVirtualJoyButton(jmap.BUTTON10));
+        state |= (VB_BUTTON11 * VirtualButton::isPressedVirtualJoyButton(jmap.BUTTON11));
+        state |= (VB_BUTTON12 * VirtualButton::isPressedVirtualJoyButton(jmap.BUTTON12));
+        state |= (VB_BUTTON13 * VirtualButton::isPressedVirtualJoyButton(jmap.BUTTON13));
+        state |= (VB_BUTTON14 * VirtualButton::isPressedVirtualJoyButton(jmap.BUTTON14));
+        state |= (VB_BUTTON15 * VirtualButton::isPressedVirtualJoyButton(jmap.BUTTON15));
+        state |= (VB_BUTTON16 * VirtualButton::isPressedVirtualJoyButton(jmap.BUTTON16));
+        state |= (VB_PAUSE    * VirtualButton::isPressedVirtualJoyButton(jmap.PAUSE));
+        state |= (VB_UP       * VirtualButton::isPressedVirtualJoyButton(jmap.UP));
+        state |= (VB_DOWN     * VirtualButton::isPressedVirtualJoyButton(jmap.DOWN));
+        state |= (VB_LEFT     * VirtualButton::isPressedVirtualJoyButton(jmap.LEFT));
+        state |= (VB_RIGHT    * VirtualButton::isPressedVirtualJoyButton(jmap.RIGHT));
+        state |= (VB_S1_UP    * VirtualButton::isPressedVirtualJoyButton(jmap.S1_UP));
+        state |= (VB_S1_DOWN  * VirtualButton::isPressedVirtualJoyButton(jmap.S1_DOWN));
+        state |= (VB_S1_LEFT  * VirtualButton::isPressedVirtualJoyButton(jmap.S1_LEFT));
+        state |= (VB_S1_RIGHT * VirtualButton::isPressedVirtualJoyButton(jmap.S1_RIGHT));
+        state |= (VB_S2_UP    * VirtualButton::isPressedVirtualJoyButton(jmap.S2_UP));
+        state |= (VB_S2_DOWN  * VirtualButton::isPressedVirtualJoyButton(jmap.S2_DOWN));
+        state |= (VB_S2_LEFT  * VirtualButton::isPressedVirtualJoyButton(jmap.S2_LEFT));
+        state |= (VB_S2_RIGHT * VirtualButton::isPressedVirtualJoyButton(jmap.S2_RIGHT));
         if (_with_pov) {
-            state |= (VB_UI_UP    * (VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_UP)    ||  GgafDxInput::isBeingPressedPovUp()    ));
-            state |= (VB_UI_DOWN  * (VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_DOWN)  ||  GgafDxInput::isBeingPressedPovDown()  ));
-            state |= (VB_UI_LEFT  * (VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_LEFT)  ||  GgafDxInput::isBeingPressedPovLeft()  ));
-            state |= (VB_UI_RIGHT * (VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_RIGHT) ||  GgafDxInput::isBeingPressedPovRight() ));
+            state |= (VB_UI_UP    * (VirtualButton::isPressedVirtualJoyButton(jmap.UI_UP)    ||  GgafDxInput::isPressedPovUp()    ));
+            state |= (VB_UI_DOWN  * (VirtualButton::isPressedVirtualJoyButton(jmap.UI_DOWN)  ||  GgafDxInput::isPressedPovDown()  ));
+            state |= (VB_UI_LEFT  * (VirtualButton::isPressedVirtualJoyButton(jmap.UI_LEFT)  ||  GgafDxInput::isPressedPovLeft()  ));
+            state |= (VB_UI_RIGHT * (VirtualButton::isPressedVirtualJoyButton(jmap.UI_RIGHT) ||  GgafDxInput::isPressedPovRight() ));
         } else {
-            state |= (VB_UI_UP    * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_UP)   );
-            state |= (VB_UI_DOWN  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_DOWN) );
-            state |= (VB_UI_LEFT  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_LEFT) );
-            state |= (VB_UI_RIGHT * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_RIGHT));
+            state |= (VB_UI_UP    * VirtualButton::isPressedVirtualJoyButton(jmap.UI_UP)   );
+            state |= (VB_UI_DOWN  * VirtualButton::isPressedVirtualJoyButton(jmap.UI_DOWN) );
+            state |= (VB_UI_LEFT  * VirtualButton::isPressedVirtualJoyButton(jmap.UI_LEFT) );
+            state |= (VB_UI_RIGHT * VirtualButton::isPressedVirtualJoyButton(jmap.UI_RIGHT));
         }
-        state |= (VB_UI_EXECUTE * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_EXECUTE));
-        state |= (VB_UI_CANCEL  * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_CANCEL));
-        //state |= (VB_UI_DEBUG * VirtualButton::isBeingPressedVirtualJoyButton(jmap.UI_DEBUG)); //JoyStickにはDEBUGボタンは無い仕様
+        state |= (VB_UI_EXECUTE * VirtualButton::isPressedVirtualJoyButton(jmap.UI_EXECUTE));
+        state |= (VB_UI_CANCEL  * VirtualButton::isPressedVirtualJoyButton(jmap.UI_CANCEL));
+        //state |= (VB_UI_DEBUG * VirtualButton::isPressedVirtualJoyButton(jmap.UI_DEBUG)); //JoyStickにはDEBUGボタンは無い仕様
     }
     _pVBRecord_active->_state = state;
     _pRpy->write(_pVBRecord_active->_state); //リプレイ情報記録
@@ -1035,9 +1035,9 @@ void VirtualButton::clear() {
     }
 }
 
- bool VirtualButton::isBeingPressedVirtualJoyButton(vbj prm_VBJ) {
+ bool VirtualButton::isPressedVirtualJoyButton(vbj prm_VBJ) {
     if (VBJ_BUTTON_01 <= prm_VBJ && prm_VBJ <= VBJ_BUTTON_MAX) {
-        return GgafDxCore::GgafDxInput::isBeingPressedJoyButton(prm_VBJ); //rgb_buttonの場合
+        return GgafDxCore::GgafDxInput::isPressedJoyButton(prm_VBJ); //rgb_buttonの場合
     } else if ( VBJ_X_POS_MINUS <= prm_VBJ && prm_VBJ <= VBJ_POV_RIGHT ) {
         return (VirtualButton::_mapVBJ2Func[prm_VBJ])(); //XYZ軸上下か、XYZ軸回転＋ーか、POVの方向の場合
     } else {
@@ -1048,37 +1048,37 @@ void VirtualButton::clear() {
 int VirtualButton::getPushedDownVirtualJoyButton() {
     int VBJ_pushed = GgafDxInput::getPushedDownJoyRgbButton();
     if (VBJ_pushed == -1) {
-        if (GgafDxInput::isBeingPressedJoyXAxisMinus()) {
+        if (GgafDxInput::isPressedJoyXAxisMinus()) {
             return VBJ_X_POS_MINUS;
-        } else if (GgafDxInput::isBeingPressedJoyXAxisPlus()) {
+        } else if (GgafDxInput::isPressedJoyXAxisPlus()) {
             return VBJ_X_POS_PLUS;
-        } else if (GgafDxInput::isBeingPressedJoyYAxisMinus()) {
+        } else if (GgafDxInput::isPressedJoyYAxisMinus()) {
             return VBJ_Y_POS_MINUS;
-        } else if (GgafDxInput::isBeingPressedJoyYAxisPlus()) {
+        } else if (GgafDxInput::isPressedJoyYAxisPlus()) {
             return VBJ_Y_POS_PLUS;
-        } else if (GgafDxInput::isBeingPressedJoyZAxisMinus()) {
+        } else if (GgafDxInput::isPressedJoyZAxisMinus()) {
             return VBJ_Z_POS_MINUS;
-        } else if (GgafDxInput::isBeingPressedJoyZAxisPlus()) {
+        } else if (GgafDxInput::isPressedJoyZAxisPlus()) {
             return VBJ_Z_POS_PLUS;
-        } else if (GgafDxInput::isBeingPressedJoyRxMinus()) {
+        } else if (GgafDxInput::isPressedJoyRxMinus()) {
             return VBJ_X_ROT_MINUS;
-        } else if (GgafDxInput::isBeingPressedJoyRxPlus()) {
+        } else if (GgafDxInput::isPressedJoyRxPlus()) {
             return VBJ_X_ROT_PLUS;
-        } else if (GgafDxInput::isBeingPressedJoyRyMinus()) {
+        } else if (GgafDxInput::isPressedJoyRyMinus()) {
             return VBJ_Y_ROT_MINUS;
-        } else if (GgafDxInput::isBeingPressedJoyRyPlus()) {
+        } else if (GgafDxInput::isPressedJoyRyPlus()) {
             return VBJ_Y_ROT_PLUS;
-        } else if (GgafDxInput::isBeingPressedJoyRzMinus()) {
+        } else if (GgafDxInput::isPressedJoyRzMinus()) {
             return VBJ_Z_ROT_MINUS;
-        } else if (GgafDxInput::isBeingPressedJoyRzPlus()) {
+        } else if (GgafDxInput::isPressedJoyRzPlus()) {
             return VBJ_Z_ROT_PLUS;
-        } else if (GgafDxInput::isBeingPressedPovUp()) {
+        } else if (GgafDxInput::isPressedPovUp()) {
             return VBJ_POV_UP;
-        } else if (GgafDxInput::isBeingPressedPovDown()) {
+        } else if (GgafDxInput::isPressedPovDown()) {
             return VBJ_POV_DOWN;
-        } else if (GgafDxInput::isBeingPressedPovLeft()) {
+        } else if (GgafDxInput::isPressedPovLeft()) {
             return VBJ_POV_LEFT;
-        } else if (GgafDxInput::isBeingPressedPovRight()) {
+        } else if (GgafDxInput::isPressedPovRight()) {
             return VBJ_POV_RIGHT;
         } else {
             return -1;

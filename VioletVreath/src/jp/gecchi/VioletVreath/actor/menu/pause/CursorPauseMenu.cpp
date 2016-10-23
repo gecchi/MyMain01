@@ -20,7 +20,7 @@ void CursorPauseMenu::onActive() {
 }
 
 void CursorPauseMenu::processBehavior() {
-    if (GgafDxCore::GgafDxInput::isBeingPressedKey(DIK_P)) {
+    if (GgafDxCore::GgafDxInput::isPressedKey(DIK_P)) {
         _TRACE_("Cursor:"<<getBehaveingFrame()<<":_x,_y,_z="<<_x<<","<<_y<<","<<_z<<"");
     }
     getUvFlipper()->behave();

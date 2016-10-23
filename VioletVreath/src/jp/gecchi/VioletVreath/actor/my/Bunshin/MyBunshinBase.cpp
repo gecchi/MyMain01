@@ -149,7 +149,7 @@ void MyBunshinBase::processBehavior() {
             if (pProg->hasJustChanged()) {
                 pBunshin_->effectFreeModeIgnited(); //点火エフェクト
             }
-            if (pVbPlay->isBeingPressed(VB_OPTION | VB_TURBO) == (VB_OPTION | VB_TURBO)) {
+            if (pVbPlay->isPressed(VB_OPTION | VB_TURBO) == (VB_OPTION | VB_TURBO)) {
                 if (pProg->getFrame() >= (((MyBunshinBase::now_bunshin_num_ - (no_-1) )*5) + 10) ) { //おしりのオプションから
                     pProg->change(PROG_BUNSHIN_FREE_MODE_READY);
                 }
@@ -171,7 +171,7 @@ void MyBunshinBase::processBehavior() {
                 //強制発射
                 pProg->change(PROG_BUNSHIN_FREE_MODE_MOVE);
             } else {
-                if (pVbPlay->isBeingPressed(VB_OPTION)) {
+                if (pVbPlay->isPressed(VB_OPTION)) {
                     if(pVbPlay->isReleasedUp(VB_TURBO)) { //VB_TURBOだけ離すと即発射。
                         //ハーフ発射！！
                         pProg->change(PROG_BUNSHIN_FREE_MODE_MOVE);
@@ -198,7 +198,7 @@ void MyBunshinBase::processBehavior() {
                 pAxsMver_->setZeroVxyzMvVelo();
                 pAxsMver_->setZeroVxyzMvAcce();
             }
-            if (pVbPlay->isBeingPressed(VB_OPTION)) {
+            if (pVbPlay->isPressed(VB_OPTION)) {
                 //分身フリーモードで移動中
                 //オプションの広がり角より、MyBunshinBaseの移動速度と、MyBunshin旋回半径増加速度にベクトル分解。
                 angvelo bunshin_angvelo_expance = pBunshin_->getExpanse();
@@ -264,7 +264,7 @@ void MyBunshinBase::processBehavior() {
     }
 
     //オプションフリーモードへの判断
-    if (pVbPlay->isBeingPressed(VB_OPTION)) {
+    if (pVbPlay->isPressed(VB_OPTION)) {
         if (pVbPlay->isDoublePushedDown(VB_TURBO)) { //VB_OPTION + VB_TURBOダブルプッシュ
             //分身フリーモード、点火！
             pProg->change(PROG_BUNSHIN_FREE_MODE_IGNITED);
@@ -272,7 +272,7 @@ void MyBunshinBase::processBehavior() {
     }
 
     if (pVbPlay->isDoublePushedDown(VB_OPTION,8,8)) {
-        if (pVbPlay->isBeingPressed(VB_TURBO)) {
+        if (pVbPlay->isPressed(VB_TURBO)) {
             //VB_OPTION ダブルプッシュ + VB_TURBO押しっぱなしの場合
             //ハーフセット
             //フリーモード維持、半径位置も維持、
@@ -282,24 +282,24 @@ void MyBunshinBase::processBehavior() {
             //オールリセット
             resetBunshin(0);
         }
-    } else if (pVbPlay->isBeingPressed(VB_OPTION)) {
+    } else if (pVbPlay->isPressed(VB_OPTION)) {
         //分身操作
-        if (pVbPlay->isBeingPressed(VB_TURBO)) {
+        if (pVbPlay->isPressed(VB_TURBO)) {
             //分身広がりと半径位置制御
             trace_mode_ = TRACE_FREEZE;
 
-            if (pVbPlay->isBeingPressed(VB_RIGHT)) {
+            if (pVbPlay->isPressed(VB_RIGHT)) {
                 pBunshin_->addExpanse(+MyBunshinBase::ANGVELO_EXPANSE);
-            } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
+            } else if (pVbPlay->isPressed(VB_LEFT)) {
                 pBunshin_->addExpanse(-MyBunshinBase::ANGVELO_EXPANSE);
             }
-            if (pVbPlay->isBeingPressed(VB_UP)) {
+            if (pVbPlay->isPressed(VB_UP)) {
                 pBunshin_->addRadiusPosition(+bunshin_velo_mv_radius_pos_);
-            } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
+            } else if (pVbPlay->isPressed(VB_DOWN)) {
                 pBunshin_->addRadiusPosition(-bunshin_velo_mv_radius_pos_);
             }
             bunshin_radius_pos_ = pBunshin_->getRadiusPosition(); //標準半径位置を更新
-        } else {  //if ( pVbPlay->isBeingPressed(VB_TURBO) )  の else
+        } else {  //if ( pVbPlay->isPressed(VB_TURBO) )  の else
             //分身の向き(this土台の向き)操作
             trace_mode_ = TRACE_FREEZE;
             //カメラ位置によって上下左右の操作割当を変える
@@ -315,14 +315,14 @@ void MyBunshinBase::processBehavior() {
                     // a = (0, 1, 0)        LEFT RIGHT 回転軸
                     // b = (vX, vY, vZ)
                     // a×b = (vZ, 0, -vX)
-                    if (pVbPlay->isBeingPressed(VB_UP)) {
+                    if (pVbPlay->isPressed(VB_UP)) {
                         pKuroko->addRzMvAng(MyBunshinBase::ANGVELO_TURN);
-                    } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                    } else if (pVbPlay->isPressed(VB_DOWN)) {
                         pKuroko->addRzMvAng(-MyBunshinBase::ANGVELO_TURN);
                     }
-                    if (pVbPlay->isBeingPressed(VB_RIGHT)) {
+                    if (pVbPlay->isPressed(VB_RIGHT)) {
                         pKuroko->addRyMvAng(MyBunshinBase::ANGVELO_TURN);
-                    } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
+                    } else if (pVbPlay->isPressed(VB_LEFT)) {
                         pKuroko->addRyMvAng(-MyBunshinBase::ANGVELO_TURN);
                     }
                     break;
@@ -337,14 +337,14 @@ void MyBunshinBase::processBehavior() {
                                                       c_ax_x_, c_ax_y_, c_ax_z_);
                         }
                     }
-                    if (pVbPlay->isBeingPressed(VB_RIGHT)) {
+                    if (pVbPlay->isPressed(VB_RIGHT)) {
                         addTurnAngleAroundAx2( 0, -ONE_OVER_ROOT2,  -ONE_OVER_ROOT2);
-                    } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
+                    } else if (pVbPlay->isPressed(VB_LEFT)) {
                         addTurnAngleAroundAx2( 0, +ONE_OVER_ROOT2,  +ONE_OVER_ROOT2);
                     }
-                    if (pVbPlay->isBeingPressed(VB_UP)) {
+                    if (pVbPlay->isPressed(VB_UP)) {
                         addTurnAngleAroundAx1(c_ax_x_, c_ax_y_, c_ax_z_);
-                    } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                    } else if (pVbPlay->isPressed(VB_DOWN)) {
                         addTurnAngleAroundAx1(-c_ax_x_, -c_ax_y_, -c_ax_z_);
                     }
 
@@ -360,14 +360,14 @@ void MyBunshinBase::processBehavior() {
                                                       c_ax_x_, c_ax_y_, c_ax_z_);
                         }
                     }
-                    if (pVbPlay->isBeingPressed(VB_RIGHT)) {
+                    if (pVbPlay->isPressed(VB_RIGHT)) {
                         addTurnAngleAroundAx2( 0,  0, -1);
-                    } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
+                    } else if (pVbPlay->isPressed(VB_LEFT)) {
                         addTurnAngleAroundAx2( 0,  0, +1);
                     }
-                    if (pVbPlay->isBeingPressed(VB_UP)) {
+                    if (pVbPlay->isPressed(VB_UP)) {
                         addTurnAngleAroundAx1(c_ax_x_, c_ax_y_, c_ax_z_);
-                    } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                    } else if (pVbPlay->isPressed(VB_DOWN)) {
                         addTurnAngleAroundAx1(-c_ax_x_, -c_ax_y_, -c_ax_z_);
                     }
 
@@ -383,14 +383,14 @@ void MyBunshinBase::processBehavior() {
                                                       c_ax_x_, c_ax_y_, c_ax_z_);
                         }
                     }
-                    if (pVbPlay->isBeingPressed(VB_RIGHT)) {
+                    if (pVbPlay->isPressed(VB_RIGHT)) {
                         addTurnAngleAroundAx2( 0, +ONE_OVER_ROOT2, -ONE_OVER_ROOT2);
-                    } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
+                    } else if (pVbPlay->isPressed(VB_LEFT)) {
                         addTurnAngleAroundAx2( 0, -ONE_OVER_ROOT2, +ONE_OVER_ROOT2);
                     }
-                    if (pVbPlay->isBeingPressed(VB_UP)) {
+                    if (pVbPlay->isPressed(VB_UP)) {
                         addTurnAngleAroundAx1(c_ax_x_, c_ax_y_, c_ax_z_);
-                    } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                    } else if (pVbPlay->isPressed(VB_DOWN)) {
                         addTurnAngleAroundAx1(-c_ax_x_, -c_ax_y_, -c_ax_z_);
                     }
 
@@ -400,14 +400,14 @@ void MyBunshinBase::processBehavior() {
                     // a = (0, -1, 0)        LEFT RIGHT 回転軸
                     // b = (vX, vY, vZ)
                     // a×b = ((-1) vZ , 0,  - (-1) vX)
-                    if (pVbPlay->isBeingPressed(VB_RIGHT)) {
+                    if (pVbPlay->isPressed(VB_RIGHT)) {
                         pKuroko->addRyMvAng(-MyBunshinBase::ANGVELO_TURN);
-                    } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
+                    } else if (pVbPlay->isPressed(VB_LEFT)) {
                         pKuroko->addRyMvAng(MyBunshinBase::ANGVELO_TURN);
                     }
-                    if (pVbPlay->isBeingPressed(VB_UP)) {
+                    if (pVbPlay->isPressed(VB_UP)) {
                         pKuroko->addRzMvAng(-MyBunshinBase::ANGVELO_TURN);
-                    } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                    } else if (pVbPlay->isPressed(VB_DOWN)) {
                         pKuroko->addRzMvAng(MyBunshinBase::ANGVELO_TURN);
                     }
 
@@ -423,14 +423,14 @@ void MyBunshinBase::processBehavior() {
                                                       c_ax_x_, c_ax_y_, c_ax_z_);
                         }
                     }
-                    if (pVbPlay->isBeingPressed(VB_RIGHT)) {
+                    if (pVbPlay->isPressed(VB_RIGHT)) {
                         addTurnAngleAroundAx2( 0, +ONE_OVER_ROOT2, +ONE_OVER_ROOT2);
-                    } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
+                    } else if (pVbPlay->isPressed(VB_LEFT)) {
                         addTurnAngleAroundAx2( 0, -ONE_OVER_ROOT2, -ONE_OVER_ROOT2);
                     }
-                    if (pVbPlay->isBeingPressed(VB_UP)) {
+                    if (pVbPlay->isPressed(VB_UP)) {
                         addTurnAngleAroundAx1(c_ax_x_, c_ax_y_, c_ax_z_);
-                    } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                    } else if (pVbPlay->isPressed(VB_DOWN)) {
                         addTurnAngleAroundAx1(-c_ax_x_, -c_ax_y_, -c_ax_z_);
                     }
 
@@ -446,14 +446,14 @@ void MyBunshinBase::processBehavior() {
                                                       c_ax_x_, c_ax_y_, c_ax_z_);
                         }
                     }
-                    if (pVbPlay->isBeingPressed(VB_RIGHT)) {
+                    if (pVbPlay->isPressed(VB_RIGHT)) {
                         addTurnAngleAroundAx2( 0,  0, +1);
-                    } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
+                    } else if (pVbPlay->isPressed(VB_LEFT)) {
                         addTurnAngleAroundAx2( 0,  0, -1);
                     }
-                    if (pVbPlay->isBeingPressed(VB_UP)) {
+                    if (pVbPlay->isPressed(VB_UP)) {
                         addTurnAngleAroundAx1(c_ax_x_, c_ax_y_, c_ax_z_);
-                    } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                    } else if (pVbPlay->isPressed(VB_DOWN)) {
                         addTurnAngleAroundAx1(-c_ax_x_, -c_ax_y_, -c_ax_z_);
                     }
 
@@ -469,14 +469,14 @@ void MyBunshinBase::processBehavior() {
                                                       c_ax_x_, c_ax_y_, c_ax_z_);
                         }
                     }
-                    if (pVbPlay->isBeingPressed(VB_RIGHT)) {
+                    if (pVbPlay->isPressed(VB_RIGHT)) {
                         addTurnAngleAroundAx2( 0, -ONE_OVER_ROOT2, +ONE_OVER_ROOT2);
-                    } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
+                    } else if (pVbPlay->isPressed(VB_LEFT)) {
                         addTurnAngleAroundAx2( 0, +ONE_OVER_ROOT2, -ONE_OVER_ROOT2);
                     }
-                    if (pVbPlay->isBeingPressed(VB_UP)) {
+                    if (pVbPlay->isPressed(VB_UP)) {
                         addTurnAngleAroundAx1(c_ax_x_, c_ax_y_, c_ax_z_);
-                    } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
+                    } else if (pVbPlay->isPressed(VB_DOWN)) {
                         addTurnAngleAroundAx1(-c_ax_x_, -c_ax_y_, -c_ax_z_);
                     }
 

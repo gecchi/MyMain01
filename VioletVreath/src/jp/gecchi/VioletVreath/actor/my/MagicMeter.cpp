@@ -495,7 +495,7 @@ void MagicMeter::processJudgement() {
     ////////////////////////魔法メーターについての処理//////////////////////////
     VirtualButton* pVbPlay = VB_PLAY;
     MyShip* pMyShip = P_MYSHIP;
-    if (pMyShip->canControl() && pVbPlay->isBeingPressed(VB_POWERUP)) {
+    if (pMyShip->canControl() && pVbPlay->isPressed(VB_POWERUP)) {
         alpha_velo_ = 0.05f;
         Magic* pActiveMagic = lstMagic_.getCurrent();     //アクティブな魔法
         int active_idx = lstMagic_.getCurrentIndex();     //アクティブな魔法のインデックス

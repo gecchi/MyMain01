@@ -405,7 +405,7 @@ void MyShip::processBehavior() {
     if (getStatus()->get(STAT_Stamina) < 0) {
         //息切れ
     } else {
-        if (pVbPlay->isBeingPressed(VB_OPTION)) {
+        if (pVbPlay->isPressed(VB_OPTION)) {
             int tmp = mv_speed_;
             mv_speed_ /= 8; //オプション操作中移動は遅い
             moveNomal(way_);
@@ -427,7 +427,7 @@ void MyShip::processBehavior() {
             }
         } else {
             //Notターボ開始時
-            if (pVbPlay->isBeingPressed(VB_TURBO)) {
+            if (pVbPlay->isPressed(VB_TURBO)) {
                 //ターボボタンを押し続けることで、速度減衰がゆるやかになり、
                 //移動距離を伸ばす
                 pAxsMver_->_velo_vx_mv *= 0.96;
@@ -556,7 +556,7 @@ void MyShip::processBehavior() {
 
     //ショット関連処理
     is_shooting_laser_ = false;
-    if (pVbPlay->isBeingPressed(VB_SHOT1)) {
+    if (pVbPlay->isPressed(VB_SHOT1)) {
         frame_shot_pressed_ ++;
         if (can_shoot_laser_) {
             if (frame_shot_pressed_ > 30) { //30フレーム押しっぱなしでレーザーへ
@@ -570,7 +570,7 @@ void MyShip::processBehavior() {
 
     //レーザー発射
     if (is_shooting_laser_) {
-        if (pVbPlay->isBeingPressed(VB_SHOT1)) {
+        if (pVbPlay->isPressed(VB_SHOT1)) {
             LaserChip* pLaserChip = pLaserChipDepo_->dispatch();
             if (pLaserChip) {
                 if (pLaserChip->getInfrontChip() == nullptr) {
@@ -585,7 +585,7 @@ void MyShip::processBehavior() {
     //ソフト連射
     //１プッシュ目の初弾のみ１発のみ発射のスナイプショット。
     //２プッシュ目以降ソフト連射、１プッシュで4F毎に最大3発
-    if (pVbPlay->isPushedDown(VB_SHOT1) && !pVbPlay->isBeingPressed(VB_POWERUP)) {
+    if (pVbPlay->isPushedDown(VB_SHOT1) && !pVbPlay->isPressed(VB_POWERUP)) {
         if (is_being_soft_rapidshot_) {
             if (soft_rapidshot_frames_in_one_push >= SOFT_RAPIDSHOT_INTERVAL) {
                 //プッシュ後のソフト連射による２発目の SOFT_RAPIDSHOT_INTERVAL フレームより次のプッシュが遅い場合
@@ -1020,89 +1020,89 @@ int MyShip::getMoveWay() {
     int sgn_z = 0;
 
 
-    if (pVbPlay->isBeingPressed(VB_RIGHT)) {
+    if (pVbPlay->isPressed(VB_RIGHT)) {
         sgn_x = 1;
     }
-    if (pVbPlay->isBeingPressed(VB_LEFT)) {
+    if (pVbPlay->isPressed(VB_LEFT)) {
         sgn_x = -1;
     }
 
     switch (pos_camera) {
         case VAM_POS_ZRIGHT: {
-            if (pVbPlay->isBeingPressed(VB_UP)) {
+            if (pVbPlay->isPressed(VB_UP)) {
                 sgn_y = 1;
             }
-            if (pVbPlay->isBeingPressed(VB_DOWN)) {
+            if (pVbPlay->isPressed(VB_DOWN)) {
                 sgn_y = -1;
             }
             break;
         }
         case VAM_POS_ZRIGHT_UP: {
-            if (pVbPlay->isBeingPressed(VB_UP)) {
+            if (pVbPlay->isPressed(VB_UP)) {
                 sgn_y = 1;
                 sgn_z = 1;
             }
-            if (pVbPlay->isBeingPressed(VB_DOWN)) {
+            if (pVbPlay->isPressed(VB_DOWN)) {
                 sgn_y = -1;
                 sgn_z = -1;
             }
             break;
         }
         case VAM_POS_UP: {
-            if (pVbPlay->isBeingPressed(VB_UP)) {
+            if (pVbPlay->isPressed(VB_UP)) {
                 sgn_z = 1;
             }
-            if (pVbPlay->isBeingPressed(VB_DOWN)) {
+            if (pVbPlay->isPressed(VB_DOWN)) {
                 sgn_z = -1;
             }
             break;
         }
         case VAM_POS_ZLEFT_UP: {
-            if (pVbPlay->isBeingPressed(VB_UP)) {
+            if (pVbPlay->isPressed(VB_UP)) {
                 sgn_y = -1;
                 sgn_z = 1;
             }
-            if (pVbPlay->isBeingPressed(VB_DOWN)) {
+            if (pVbPlay->isPressed(VB_DOWN)) {
                 sgn_y = 1;
                 sgn_z = -1;
             }
             break;
         }
         case VAM_POS_ZLEFT: {
-            if (pVbPlay->isBeingPressed(VB_UP)) {
+            if (pVbPlay->isPressed(VB_UP)) {
                 sgn_y = -1;
             }
-            if (pVbPlay->isBeingPressed(VB_DOWN)) {
+            if (pVbPlay->isPressed(VB_DOWN)) {
                 sgn_y = 1;
             }
             break;
         }
         case VAM_POS_ZLEFT_DOWN: {
-            if (pVbPlay->isBeingPressed(VB_UP)) {
+            if (pVbPlay->isPressed(VB_UP)) {
                 sgn_y = -1;
                 sgn_z = -1;
             }
-            if (pVbPlay->isBeingPressed(VB_DOWN)) {
+            if (pVbPlay->isPressed(VB_DOWN)) {
                 sgn_y = 1;
                 sgn_z = 1;
             }
             break;
         }
         case VAM_POS_DOWN: {
-            if (pVbPlay->isBeingPressed(VB_UP)) {
+            if (pVbPlay->isPressed(VB_UP)) {
                 sgn_z = -1;
             }
-            if (pVbPlay->isBeingPressed(VB_DOWN)) {
+            if (pVbPlay->isPressed(VB_DOWN)) {
                 sgn_z = 1;
             }
             break;
         }
         case VAM_POS_ZRIGHT_DOWN: {
-            if (pVbPlay->isBeingPressed(VB_UP)) {
+            if (pVbPlay->isPressed(VB_UP)) {
                 sgn_y = 1;
                 sgn_z = -1;
             }
-            if (pVbPlay->isBeingPressed(VB_DOWN)) {
+            if (pVbPlay->isPressed(VB_DOWN)) {
                 sgn_y = -1;
                 sgn_z = 1;
             }

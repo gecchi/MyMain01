@@ -116,7 +116,7 @@ void GameTitleScene::processBehavior() {
                 }
             }
 
-            if (GgafDxInput::getBeingPressedJoyRgbButton() != -1) {
+            if (GgafDxInput::getPressedJoyRgbButton() != -1) {
                 frame_of_noinput_ = pProg->getFrame();
             }
             if (GgafDxInput::getPushedDownKey() != -1) {

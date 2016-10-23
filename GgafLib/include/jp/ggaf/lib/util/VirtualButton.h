@@ -402,7 +402,7 @@ public:
 
     static bool initStatic();
 
-    static bool isBeingPressedVirtualJoyButton(vbj prm_VBJ);
+    static bool isPressedVirtualJoyButton(vbj prm_VBJ);
 
     static int getPushedDownVirtualJoyButton();
 
@@ -438,20 +438,20 @@ public:
      * VirtualButton vb_play = VirtualButton();
      * vb_play.update();
      *
-     * if (vb_play.isBeingPressed(VB_BUTTON1)) {
+     * if (vb_play.isPressed(VB_BUTTON1)) {
      *     //VB_BUTTON1 が押されている場合の処理
      * }
      *
-     * if (vb_play.isBeingPressed(VB_BUTTON1|VB_BUTTON3)) {
+     * if (vb_play.isPressed(VB_BUTTON1|VB_BUTTON3)) {
      *     //VB_BUTTON1 又は VB_BUTTON3 が押されている場合の処理
      * }
      *
-     * if (vb_play.isBeingPressed(VB_BUTTON1|VB_BUTTON3) == (VB_BUTTON1|VB_BUTTON3)) {
+     * if (vb_play.isPressed(VB_BUTTON1|VB_BUTTON3) == (VB_BUTTON1|VB_BUTTON3)) {
      *     //VB_BUTTON1 と VB_BUTTON3 が両方押されている場合の処理
      * }
      * @endcode
      */
-    inline vb_sta isBeingPressed(vb_sta prm_VB) const {
+    inline vb_sta isPressed(vb_sta prm_VB) const {
         return (_pVBRecord_active->_state & prm_VB);
     }
 
@@ -459,24 +459,24 @@ public:
      * 過去にボタンが押されていたかどうか判定 .
      * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
      * @param prm_frame_ago 何フレーム前(>0)を判定するのか指定。
-     * 1 で 1フレーム前、2 で 2フレーム前、0 は isBeingPressed(vb_sta) と同じ意味になる。
+     * 1 で 1フレーム前、2 で 2フレーム前、0 は isPressed(vb_sta) と同じ意味になる。
      * 最大 (VB_MAP_BUFFER-1) フレーム前まで可
      * @retval 0   過去に、引数のボタンはいずれも押されていなかった(=false)
      * @retval >0  引数のボタンの内、過去に押されていたボタンの VB_ で始まる定数(の論理和)
      */
-    vb_sta wasBeingPressed(vb_sta prm_VB, frame prm_frame_ago) const;
+    vb_sta wasPressed(vb_sta prm_VB, frame prm_frame_ago) const;
 
     /**
      * 過去にボタンが押されていなかったのかどうか判定 .
-     * wasBeingPressed(vb_sta, frame) の否定の結果が返る。
+     * wasPressed(vb_sta, frame) の否定の結果が返る。
      * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
      * @param prm_frame_ago 何フレーム前(>0)を判定するのか指定。
-     *                      1 で 1フレーム前、2 で 2フレーム前、0 は isBeingPressed(vb_sta) と同じ意味になる。
+     *                      1 で 1フレーム前、2 で 2フレーム前、0 は isPressed(vb_sta) と同じ意味になる。
      *                      最大 (VB_MAP_BUFFER-1) フレーム前まで可
      * @return true / false
      */
-    inline bool wasNotBeingPressed(vb_sta prm_VB, frame prm_frame_ago) const {
-        return wasBeingPressed(prm_VB, prm_frame_ago) ? false : true;
+    inline bool wasNotPressed(vb_sta prm_VB, frame prm_frame_ago) const {
+        return wasPressed(prm_VB, prm_frame_ago) ? false : true;
     }
 
     /**

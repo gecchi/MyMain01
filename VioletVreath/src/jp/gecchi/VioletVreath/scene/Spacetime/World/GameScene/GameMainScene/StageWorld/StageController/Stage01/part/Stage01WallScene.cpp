@@ -143,11 +143,11 @@ void Stage01WallScene::processBehavior() {
     // gen02 end
 
 ///////////////デバッグ///////////////////////////////
-    if (GgafDxInput::isBeingPressedKey(DIK_PGUP)) {
+    if (GgafDxInput::isPressedKey(DIK_PGUP)) {
         addScrollSpeed(PX_C(1));
         P_COMMON_SCENE->addScrollSpeed(PX_C(1));
     }
-    if (GgafDxInput::isBeingPressedKey(DIK_PGDN)) {
+    if (GgafDxInput::isPressedKey(DIK_PGDN)) {
         addScrollSpeed(PX_C(-1));
         P_COMMON_SCENE->addScrollSpeed(PX_C(-1));
     }

@@ -21,26 +21,26 @@ void SmpWorld::initialize() {
 void SmpWorld::processBehavior() {
     //キャラをボタン入力で移動
     vb_.update(); //入力状況更新
-    if (vb_.isBeingPressed(VB_BUTTON1)) {
+    if (vb_.isPressed(VB_BUTTON1)) {
         //ボタン１（スペースキー）を押しながらの場合
-        if (vb_.isBeingPressed(VB_UP)) {
+        if (vb_.isPressed(VB_UP)) {
             pActor_->_z += PX_C(2); //奥
         }
-        if (vb_.isBeingPressed(VB_DOWN)) {
+        if (vb_.isPressed(VB_DOWN)) {
             pActor_->_z -= PX_C(2); //手前
         }
     } else {
         //ボタン１（スペースキー）を離している場合
-        if (vb_.isBeingPressed(VB_RIGHT)) {
+        if (vb_.isPressed(VB_RIGHT)) {
             pActor_->_x += PX_C(2); //右
         }
-        if (vb_.isBeingPressed(VB_LEFT)) {
+        if (vb_.isPressed(VB_LEFT)) {
             pActor_->_x -= PX_C(2); //左
         }
-        if (vb_.isBeingPressed(VB_UP)) {
+        if (vb_.isPressed(VB_UP)) {
             pActor_->_y += PX_C(2); //上
         }
-        if (vb_.isBeingPressed(VB_DOWN)) {
+        if (vb_.isPressed(VB_DOWN)) {
             pActor_->_y -= PX_C(2); //下
         }
     }

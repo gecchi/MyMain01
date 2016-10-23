@@ -331,9 +331,9 @@ again:
 }
 
 
-bool GgafDxInput::isBeingPressedMouseButton(int prm_button_no) {
+bool GgafDxInput::isPressedMouseButton(int prm_button_no) {
     if (prm_button_no < 0 || 8 < prm_button_no) {
-        _TRACE_("isBeingPressedMouseButton:範囲外");
+        _TRACE_("isPressedMouseButton:範囲外");
         return false;
     } else {
         if (GgafDxInput::_mouse_state[GgafDxInput::_flip_ms].rgbButtons[prm_button_no] & 0x80) {
@@ -345,7 +345,7 @@ bool GgafDxInput::isBeingPressedMouseButton(int prm_button_no) {
 }
 
 bool GgafDxInput::isPushedDownMouseButton(int prm_button_no) {
-    if (GgafDxInput::isBeingPressedMouseButton(prm_button_no)) { //今は押している
+    if (GgafDxInput::isPressedMouseButton(prm_button_no)) { //今は押している
         if (GgafDxInput::_mouse_state[!GgafDxInput::_flip_ms].rgbButtons[prm_button_no] & 0x80) {
             //前回セット[!GgafDxInput::_flip_ms]も押されている。押しっぱなし
             return false;
@@ -359,7 +359,7 @@ bool GgafDxInput::isPushedDownMouseButton(int prm_button_no) {
 }
 
 bool GgafDxInput::isReleasedUpMouseButton(int prm_button_no) {
-    if (!GgafDxInput::isBeingPressedMouseButton(prm_button_no)) { //今は離している
+    if (!GgafDxInput::isPressedMouseButton(prm_button_no)) { //今は離している
         if (GgafDxInput::_mouse_state[!GgafDxInput::_flip_ms].rgbButtons[prm_button_no] & 0x80) {
             //前回セット[!GgafDxInput::_flip_ms]も押されていた。成立。
             return true;
@@ -419,7 +419,7 @@ again:
 }
 
 bool GgafDxInput::isPushedDownKey(int prm_DIK) {
-    if (GgafDxInput::isBeingPressedKey(prm_DIK)) { //今は押している
+    if (GgafDxInput::isPressedKey(prm_DIK)) { //今は押している
         if (GgafDxInput::_keyboard_state[!GgafDxInput::_flip_ks][prm_DIK] & 0x80) {
             //前回セット[!GgafDxInput::_flip_ks]も押されている。押しっぱなし
             return false;
@@ -432,7 +432,7 @@ bool GgafDxInput::isPushedDownKey(int prm_DIK) {
     }
 }
 int GgafDxInput::getPushedDownKey() {
-    int DIK_pressed = GgafDxInput::getBeingPressedKey();
+    int DIK_pressed = GgafDxInput::getPressedKey();
     if (DIK_pressed >= 0 ) { //今は押している
         if (GgafDxInput::_keyboard_state[!GgafDxInput::_flip_ks][DIK_pressed] & 0x80) {
             //前回セット[!GgafDxInput::_flip_ks]も押されている。押しっぱなし
@@ -448,7 +448,7 @@ int GgafDxInput::getPushedDownKey() {
 
 
 bool GgafDxInput::isReleasedUpKey(int prm_DIK) {
-    if (!GgafDxInput::isBeingPressedKey(prm_DIK)) { //今は離している
+    if (!GgafDxInput::isPressedKey(prm_DIK)) { //今は離している
         if (GgafDxInput::_keyboard_state[!GgafDxInput::_flip_ks][prm_DIK] & 0x80) {
             //前回セット[!GgafDxInput::_flip_ks]は押されていた。成立
             return true;
@@ -501,7 +501,7 @@ again2:
 }
 
 bool GgafDxInput::isPushedDownJoyRgbButton(int prm_joy_button_no) {
-    if (GgafDxInput::isBeingPressedJoyButton(prm_joy_button_no)) { //今は押している
+    if (GgafDxInput::isPressedJoyButton(prm_joy_button_no)) { //今は押している
         if (GgafDxInput::_joy_state[!GgafDxInput::_flip_js].rgbButtons[prm_joy_button_no] & 0x80) {
             //前回セット[!GgafDxInput::_flip_js]も押されている。押しっぱなし
             return false;
@@ -515,7 +515,7 @@ bool GgafDxInput::isPushedDownJoyRgbButton(int prm_joy_button_no) {
 }
 
 int GgafDxInput::getPushedDownJoyRgbButton() {
-    int JOY_pressed = GgafDxInput::getBeingPressedJoyRgbButton();
+    int JOY_pressed = GgafDxInput::getPressedJoyRgbButton();
     if (JOY_pressed >= 0 ) { //今は押している
         if (GgafDxInput::_joy_state[!GgafDxInput::_flip_js].rgbButtons[JOY_pressed] & 0x80) {
             //前回セット[!GgafDxInput::_flip_js]も押されている。押しっぱなし
@@ -530,7 +530,7 @@ int GgafDxInput::getPushedDownJoyRgbButton() {
 }
 
 
-int GgafDxInput::getBeingPressedJoyDirection() {
+int GgafDxInput::getPressedJoyDirection() {
     if (GgafDxInput::_joy_state[GgafDxInput::_flip_js].lY < -127) {
         if (GgafDxInput::_joy_state[GgafDxInput::_flip_js].lX > 127) {
             return 9;
@@ -557,7 +557,7 @@ int GgafDxInput::getBeingPressedJoyDirection() {
 }
 
 
-int GgafDxInput::getBeingPressedPovDirection() {
+int GgafDxInput::getPressedPovDirection() {
     if (GgafDxInput::_pJoystickInputDevice) { //JoyStickが無い場合、rgdwPOV[0]=0のため、上と判定されることを防ぐ
         DWORD n = GgafDxInput::_joy_state[GgafDxInput::_flip_js].rgdwPOV[0];
         if (LOWORD(n) != 0xFFFF) {

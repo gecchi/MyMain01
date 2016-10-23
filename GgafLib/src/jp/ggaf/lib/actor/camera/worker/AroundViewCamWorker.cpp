@@ -64,8 +64,8 @@ void AroundViewCamWorker::processBehavior() {
         }
     }
 
-    if ( !(GgafDxInput::isBeingPressedMouseButton(0) && GgafDxInput::isBeingPressedMouseButton(1)) &&
-         (GgafDxInput::isBeingPressedMouseButton(0) || GgafDxInput::isBeingPressedMouseButton(1) || GgafDxInput::isBeingPressedMouseButton(2))
+    if ( !(GgafDxInput::isPressedMouseButton(0) && GgafDxInput::isPressedMouseButton(1)) &&
+         (GgafDxInput::isPressedMouseButton(0) || GgafDxInput::isPressedMouseButton(1) || GgafDxInput::isPressedMouseButton(2))
     ) {
         //視点を中心にカメラが回転移動
         //カメラを中心に視点が回転移動
@@ -118,7 +118,7 @@ void AroundViewCamWorker::processBehavior() {
         //(x, y, z) は CAM か VP
 
         //視点を中心にカメラが回転移動
-        if (GgafDxInput::isBeingPressedMouseButton(0) && (mdx != 0 || mdy != 0)) {
+        if (GgafDxInput::isPressedMouseButton(0) && (mdx != 0 || mdy != 0)) {
             //視点→カメラ の方向ベクトル(x,y,z)
             double x = t_x_CAM_ - t_x_VP_;
             double y = t_y_CAM_ - t_y_VP_;
@@ -135,7 +135,7 @@ void AroundViewCamWorker::processBehavior() {
             slideMvCamTo(Q.i + t_x_VP_, Q.j + t_y_VP_, Q.k + t_z_VP_, 60);
         }
         //カメラを中心に視点が回転移動
-        if (GgafDxInput::isBeingPressedMouseButton(1) && (mdx != 0 || mdy != 0)) {
+        if (GgafDxInput::isPressedMouseButton(1) && (mdx != 0 || mdy != 0)) {
             //カメラ→視点 の方向ベクトル(x,y,z)
             double x = t_x_VP_ - t_x_CAM_;
             double y = t_y_VP_ - t_y_CAM_;
@@ -150,7 +150,7 @@ void AroundViewCamWorker::processBehavior() {
             slideMvVpTo(Q.i + t_x_CAM_, Q.j + t_y_CAM_, Q.k + t_z_CAM_, 60);
         }
         //カメラをと視点が平行移動
-        if (GgafDxInput::isBeingPressedMouseButton(2) && (mdx != 0 || mdy != 0)) {
+        if (GgafDxInput::isPressedMouseButton(2) && (mdx != 0 || mdy != 0)) {
             double ang = -PI/2.0;
             double sinHalf = sin(ang/2); //回転させたい角度
             double cosHalf = cos(ang/2);
@@ -176,7 +176,7 @@ void AroundViewCamWorker::processBehavior() {
                         t_z_VP_ + (Q.k*r) , 60);
         }
 
-    } else if (mdz != 0 || (GgafDxInput::isBeingPressedMouseButton(0) && GgafDxInput::isBeingPressedMouseButton(1))) {
+    } else if (mdz != 0 || (GgafDxInput::isPressedMouseButton(0) && GgafDxInput::isPressedMouseButton(1))) {
         if (mdz_flg_ == false) {
             //ホイールした（両方押し）最初のフレーム
             mdz_total_ = 0;
@@ -192,7 +192,7 @@ void AroundViewCamWorker::processBehavior() {
         double r = 0.0;
         if (mdz != 0) {
             r = (mdz*PX_UNIT*LEN_UNIT/10.0);
-        } else if ((GgafDxInput::isBeingPressedMouseButton(0) && GgafDxInput::isBeingPressedMouseButton(1))) {
+        } else if ((GgafDxInput::isPressedMouseButton(0) && GgafDxInput::isPressedMouseButton(1))) {
             r = ((1.0*mdy/cd_) * PROPERTY::GAME_BUFFER_WIDTH*2)*LEN_UNIT;
         }
         if (mdx != 0 || mdy != 0 || mdz != 0) {
