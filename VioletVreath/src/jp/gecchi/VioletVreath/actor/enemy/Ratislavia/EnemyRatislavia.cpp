@@ -1,6 +1,7 @@
 #include "EnemyRatislavia.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
@@ -23,6 +24,7 @@ EnemyRatislavia::EnemyRatislavia(const char* prm_name, const char* prm_model, co
     r1_ = prm_r1;
     r2_ = prm_r2;
     colli_part_num_ = 16; //“–‚½‚è”»’è‹…‚Ì”
+    pAFader_ = NEW GgafDxAlphaFader(this);
     useProgress(PROG_BANPEI);
 }
 
@@ -80,7 +82,6 @@ void EnemyRatislavia::onCreateModel() {
 void EnemyRatislavia::initialize() {
     createCollisionAreaArea(colli_part_num_);
     setHitAble(true);
-    setAlpha(1.00);
 }
 
 void EnemyRatislavia::onActive() {
@@ -93,6 +94,8 @@ void EnemyRatislavia::processBehavior() {
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
+            setAlpha(0);
+            pAFader_->transitionLinerUntil(1.0, 30*60);
             pProg->change(PROG_FLOAT_MOVE);
             break;
         }
@@ -151,6 +154,7 @@ void EnemyRatislavia::processBehavior() {
     }
 
     pKuroko->behave();
+    pAFader_->behave();
 }
 
 void EnemyRatislavia::processJudgement() {

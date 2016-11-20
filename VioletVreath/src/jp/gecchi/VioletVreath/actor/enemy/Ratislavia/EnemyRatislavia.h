@@ -32,7 +32,8 @@ public:
     /** トーラスの半径2(太さの半径) */
     coord r2_;
     int colli_part_num_;
-
+    /** フィードイン・フェードアウト支援 */
+    GgafDxCore::GgafDxAlphaFader* pAFader_;
 public:
     /**
      * コンストラクタ .
