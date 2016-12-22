@@ -190,4 +190,5 @@ bool EnemyRatislavia::isOutOfSpacetime() const {
 }
 
 EnemyRatislavia::~EnemyRatislavia() {
+    GGAF_DELETE(pAFader_);
 }
