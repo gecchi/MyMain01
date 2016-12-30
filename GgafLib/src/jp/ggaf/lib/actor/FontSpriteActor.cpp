@@ -123,7 +123,6 @@ void FontSpriteActor::processDraw() {
                        //˜A‘±‚µ‚Ä‚¢‚éƒJƒEƒ“ƒg”B“¯ˆê•`‰æ[“x‚Íˆê“x‚É•`‰æ‚·‚éB
     static const size_t size_of_D3DXMATRIX = sizeof(D3DXMATRIX);
     static const size_t size_of_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
-    GgafDxMassSpriteEffect* pMassSpriteEffect = _pMassSpriteEffect;
     GgafDxFigureActor* pDrawActor = this;
     FontSpriteActor* pFontSpriteActor = nullptr;
     int model_set_num = _pMassSpriteModel->_set_num;

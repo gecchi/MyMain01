@@ -1,15 +1,14 @@
 #include "jp/ggaf/dxcore/model/GgafDxMassBoardModel.h"
 
-#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/GgafDxGod.h"
-#include "jp/ggaf/dxcore/effect/GgafDxMassBoardEffect.h"
 #include "jp/ggaf/dxcore/actor/GgafDxMassBoardActor.h"
-#include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
-#include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
+#include "jp/ggaf/dxcore/effect/GgafDxMassBoardEffect.h"
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/manager/GgafDxEffectManager.h"
-#include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
-
+#include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
+#include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
 #include "jp/ggaf/dxcore/manager/GgafDxTextureManager.h"
+#include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -240,8 +239,8 @@ void GgafDxMassBoardModel::restore() {
         _size_vertex_unit_model = sizeof(GgafDxMassBoardModel::VERTEX_model);
         _size_vertices_model = sizeof(GgafDxMassBoardModel::VERTEX_model) * _nVertices;
 
-        double du = 0.0; //1.0 / tex_width  / 100000.0; //テクスチャの幅1pxの10000分の1px
-        double dv = 0.0; //1.0 / tex_height / 100000.0; //テクスチャの高さ1pxの10000分の1px
+        float du = 0.0f; //1.0 / tex_width  / 100000.0; //テクスチャの幅1pxの10000分の1px
+        float dv = 0.0f; //1.0 / tex_height / 100000.0; //テクスチャの高さ1pxの10000分の1px
 
         //左上
         _paVtxBuffer_data_model[0].x = 0.0f;

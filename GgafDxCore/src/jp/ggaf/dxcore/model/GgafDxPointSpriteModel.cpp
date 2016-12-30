@@ -1,18 +1,17 @@
 #include "jp/ggaf/dxcore/model/GgafDxPointSpriteModel.h"
 
-#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/GgafDxGod.h"
-#include "jp/ggaf/dxcore/effect/GgafDxPointSpriteEffect.h"
 #include "jp/ggaf/dxcore/actor/GgafDxPointSpriteActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-#include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
-#include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
+#include "jp/ggaf/dxcore/effect/GgafDxPointSpriteEffect.h"
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/manager/GgafDxEffectManager.h"
+#include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
+#include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
+#include "jp/ggaf/dxcore/manager/GgafDxTextureManager.h"
+#include "jp/ggaf/dxcore/model/GgafDxMassModel.h"
 #include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
 
-#include "jp/ggaf/dxcore/manager/GgafDxTextureManager.h"
-
-#include "jp/ggaf/dxcore/model/GgafDxMassModel.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 

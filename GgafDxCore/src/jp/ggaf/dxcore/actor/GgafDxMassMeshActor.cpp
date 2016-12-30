@@ -26,7 +26,8 @@ GgafDxMassMeshActor::GgafDxMassMeshActor(const char* prm_name,
                                                              prm_pStat,
                                                              prm_pChecker),
 _pMassMeshModel((GgafDxMassMeshModel*)_pModel),
-_pMassMeshEffect((GgafDxMassMeshEffect*)_pEffect) {
+_pMassMeshEffect((GgafDxMassMeshEffect*)_pEffect)
+{
     _obj_class |= Obj_GgafDxMassMeshActor;
     _class_name = "GgafDxMassMeshActor";
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列

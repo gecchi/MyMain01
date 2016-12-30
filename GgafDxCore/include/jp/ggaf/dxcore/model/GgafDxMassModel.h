@@ -8,7 +8,7 @@ namespace GgafDxCore {
 #define GGAFDXMASS_MAX_INSTANCE_NUM 512
 
 /**
- * Massメッシュモデルクラス(GgafDxMeshActor用) .
+ * Massモデル基底クラス .
  * @version 1.00
  * @since 2016/02/26
  * @author Masatoshi Tsuge

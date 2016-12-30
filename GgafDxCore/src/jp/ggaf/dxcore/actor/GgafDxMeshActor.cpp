@@ -17,16 +17,17 @@ GgafDxMeshActor::GgafDxMeshActor(const char* prm_name,
                                  GgafDxChecker* prm_pChecker) :
 
                                      GgafDxFigureActor(prm_name,
-                                                         prm_model_id,
-                                                         "X",
-                                                         prm_effect_id,
-                                                         "X",
-                                                         prm_technique,
-                                                         prm_pStat,
-                                                         prm_pChecker) ,
+                                                       prm_model_id,
+                                                       "X",
+                                                       prm_effect_id,
+                                                       "X",
+                                                       prm_technique,
+                                                       prm_pStat,
+                                                       prm_pChecker) ,
                                      GgafDxIBumpMapActor(),
 _pMeshModel((GgafDxMeshModel*)_pModel),
-_pMeshEffect((GgafDxMeshEffect*)_pEffect) {
+_pMeshEffect((GgafDxMeshEffect*)_pEffect)
+{
     _obj_class |= Obj_GgafDxMeshActor;
     _class_name = "GgafDxMeshActor";
     _far_rate = -1.0f;
@@ -42,7 +43,7 @@ GgafDxMeshActor::GgafDxMeshActor(const char* prm_name,
                                  GgafStatus* prm_pStat,
                                  GgafDxChecker* prm_pChecker) :
 
-                                   GgafDxFigureActor(prm_name,
+                                     GgafDxFigureActor(prm_name,
                                                        prm_model_id,
                                                        prm_model_type,
                                                        prm_effect_id,
@@ -50,10 +51,10 @@ GgafDxMeshActor::GgafDxMeshActor(const char* prm_name,
                                                        prm_technique,
                                                        prm_pStat,
                                                        prm_pChecker) ,
-                                   GgafDxIBumpMapActor(),
+                                     GgafDxIBumpMapActor(),
 _pMeshModel((GgafDxMeshModel*)_pModel),
-_pMeshEffect((GgafDxMeshEffect*)_pEffect) {
-
+_pMeshEffect((GgafDxMeshEffect*)_pEffect)
+{
     _obj_class |= Obj_GgafDxMeshActor;
     _class_name = "GgafDxMeshActor";
     _far_rate = -1.0f;

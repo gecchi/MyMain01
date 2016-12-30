@@ -1,18 +1,17 @@
 #include "jp/ggaf/dxcore/model/GgafDxSpriteSetModel.h"
 
-#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/GgafDxGod.h"
-#include "jp/ggaf/dxcore/effect/GgafDxSpriteSetEffect.h"
 #include "jp/ggaf/dxcore/actor/GgafDxSpriteSetActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-#include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
-#include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
+#include "jp/ggaf/dxcore/effect/GgafDxSpriteSetEffect.h"
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/manager/GgafDxEffectManager.h"
+#include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
+#include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
+#include "jp/ggaf/dxcore/manager/GgafDxTextureManager.h"
+#include "jp/ggaf/dxcore/model/GgafDxMassModel.h"
 #include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
 
-#include "jp/ggaf/dxcore/manager/GgafDxTextureManager.h"
-
-#include "jp/ggaf/dxcore/model/GgafDxMassModel.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -206,9 +205,9 @@ void GgafDxSpriteSetModel::restore() {
 
         float tex_width  = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
         float tex_height = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
-        double du = 1.0 / tex_width  / 100000.0; //テクスチャの幅1pxの100000分の1px
-        double dv = 1.0 / tex_height / 100000.0; //テクスチャの高さ1pxの100000分の1px
-        double rev = 1.0;//0.99609308; //99609309で割れ
+        float du = 1.0f / tex_width  / 100000.0f; //テクスチャの幅1pxの100000分の1px
+        float dv = 1.0f / tex_height / 100000.0f; //テクスチャの高さ1pxの100000分の1px
+        float rev = 1.0f;//0.99609308; //99609309で割れ
         //頂点配列情報をモデルに保持させる
         //UVは左上の１つ分（アニメパターン０）をデフォルトで設定する。
         //シェーダーが描画時にアニメパターン番号をみてUV座標をずらす仕様としよっと。

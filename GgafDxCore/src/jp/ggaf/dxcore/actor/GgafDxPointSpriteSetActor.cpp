@@ -29,7 +29,8 @@ GgafDxPointSpriteSetActor::GgafDxPointSpriteSetActor(const char* prm_name,
                                                                            prm_pChecker),
 _pPointSpriteSetModel((GgafDxPointSpriteSetModel*)_pModel),
 _pPointSpriteSetEffect((GgafDxPointSpriteSetEffect*)_pEffect),
-_pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
+_pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek()))
+{
     _obj_class |= Obj_GgafDxPointSpriteSetActor;
     _class_name = "GgafDxPointSpriteSetActor";
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列

@@ -28,8 +28,8 @@ GgafDxMassPointSpriteActor::GgafDxMassPointSpriteActor(const char* prm_name,
                                                                          prm_pChecker),
 _pMassPointSpriteModel((GgafDxMassPointSpriteModel*)_pModel),
 _pMassPointSpriteEffect((GgafDxMassPointSpriteEffect*)_pEffect),
-_pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
-
+_pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek()))
+{
     _obj_class |= Obj_GgafDxMassPointSpriteActor;
     _class_name = "GgafDxMassPointSpriteActor";
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列

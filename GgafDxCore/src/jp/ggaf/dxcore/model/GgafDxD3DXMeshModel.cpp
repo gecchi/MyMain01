@@ -1,17 +1,17 @@
 #include "jp/ggaf/dxcore/model/GgafDxD3DXMeshModel.h"
 
 #include "jp/ggaf/dxcore/GgafDxGod.h"
-#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
+#include "jp/ggaf/dxcore/GgafDxProperties.h"
 #include "jp/ggaf/dxcore/actor/GgafDxD3DXMeshActor.h"
 #include "jp/ggaf/dxcore/effect/GgafDxMeshEffect.h"
-#include "jp/ggaf/dxcore/manager/GgafDxTextureManager.h"
-#include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/manager/GgafDxEffectManager.h"
-#include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
-#include "jp/ggaf/dxcore/GgafDxProperties.h"
-
+#include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
+#include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
+#include "jp/ggaf/dxcore/manager/GgafDxTextureManager.h"
 #include "jp/ggaf/dxcore/model/GgafDxMassModel.h"
+#include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 

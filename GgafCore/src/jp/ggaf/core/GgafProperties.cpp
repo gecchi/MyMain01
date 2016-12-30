@@ -10,8 +10,8 @@ using namespace GgafCore;
 GgafStrMap GgafProperties::_mapProperties;
 
 uint32_t GgafProperties::MAX_SKIP_FRAME = 20;
-int GgafProperties::OBJNUM_TO_SLOWDOWN1 = 1000;
-int GgafProperties::OBJNUM_TO_SLOWDOWN2 = 1500;
+uint32_t GgafProperties::OBJNUM_TO_SLOWDOWN1 = 1000;
+uint32_t GgafProperties::OBJNUM_TO_SLOWDOWN2 = 1500;
 float GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX = 30.0f;
 std::string GgafProperties::DIR_RESOURCE = "./";
 std::string GgafProperties::DIRNAME_RESOURCE_SKIN = ".";
@@ -50,10 +50,10 @@ void GgafProperties::load(std::string prm_properties_filename) {
         GgafProperties::MAX_SKIP_FRAME = getUInt("MAX_SKIP_FRAME");
     }
     if (GgafProperties::isExistKey("OBJNUM_TO_SLOWDOWN1")) {
-        GgafProperties::OBJNUM_TO_SLOWDOWN1 = getInt("OBJNUM_TO_SLOWDOWN1");
+        GgafProperties::OBJNUM_TO_SLOWDOWN1 = getUInt("OBJNUM_TO_SLOWDOWN1");
     }
     if (GgafProperties::isExistKey("OBJNUM_TO_SLOWDOWN2")) {
-        GgafProperties::OBJNUM_TO_SLOWDOWN2 = getInt("OBJNUM_TO_SLOWDOWN2");
+        GgafProperties::OBJNUM_TO_SLOWDOWN2 = getUInt("OBJNUM_TO_SLOWDOWN2");
     }
     if (GgafProperties::isExistKey("FPS_TO_CLEAN_GARBAGE_BOX")) {
         GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX = getFloat("FPS_TO_CLEAN_GARBAGE_BOX");

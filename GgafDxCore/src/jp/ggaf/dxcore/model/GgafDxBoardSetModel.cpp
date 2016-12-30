@@ -30,8 +30,6 @@ GgafDxBoardSetModel::GgafDxBoardSetModel(const char* prm_model_name) : GgafDxMod
     _paIndexParam = nullptr;
     _obj_model |= Obj_GgafDxBoardSetModel;
 
-
-
     std::string model_name = std::string(prm_model_name);
     std::vector<std::string> names = UTIL::split(model_name, "/", 1);
     if (names.size() > 2) {
@@ -53,7 +51,6 @@ GgafDxBoardSetModel::GgafDxBoardSetModel(const char* prm_model_name) : GgafDxMod
     //で行うようにした。要参照。
 }
 
-//描画
 HRESULT GgafDxBoardSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("GgafDxBoardSetModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
 #ifdef MY_DEBUG
@@ -186,8 +183,8 @@ void GgafDxBoardSetModel::restore() {
         //1pxあたりのuvの大きさを求める
 //        float tex_width  = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
 //        float tex_height = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
-        double du = 0.0; //1.0 / tex_width  / 100000.0; //テクスチャの幅1pxの10000分の1px
-        double dv = 0.0; //1.0 / tex_height / 100000.0; //テクスチャの高さ1pxの10000分の1px
+        float du = 0.0f; //1.0 / tex_width  / 100000.0; //テクスチャの幅1pxの10000分の1px
+        float dv = 0.0f; //1.0 / tex_height / 100000.0; //テクスチャの高さ1pxの10000分の1px
         for (int i = 0; i < _set_num; i++) {
             //左上
             paVertex[i*4 + 0].x = 0.0f;
@@ -220,7 +217,6 @@ void GgafDxBoardSetModel::restore() {
          }
 
         //バッファ作成
-
         hr = GgafDxGod::_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices * _set_num,
                 D3DUSAGE_WRITEONLY,

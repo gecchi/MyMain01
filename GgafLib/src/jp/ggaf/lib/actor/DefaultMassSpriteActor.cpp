@@ -107,8 +107,7 @@ void DefaultMassSpriteActor::createVertexInstanceData(void* prm, GgafDxMassModel
 
 void DefaultMassSpriteActor::processDraw() {
     int draw_set_num = 0; //GgafDxMassSpriteActorの同じモデルで同じテクニックが
-                       //連続しているカウント数。同一描画深度は一度に描画する。
-    HRESULT hr;
+                          //連続しているカウント数。同一描画深度は一度に描画する。
     GgafDxMassSpriteModel* pMassSpriteModel = _pMassSpriteModel;
     const int model_max_set_num = pMassSpriteModel->_set_num;
     const hashval hash_technique = _hash_technique;

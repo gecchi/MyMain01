@@ -54,8 +54,6 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
 }
 
 bool LaserChip::initStatic(LaserChip* prm_pLaserChip) {
-    ID3DXEffect* const pID3DXEffect = prm_pLaserChip->getEffect()->_pID3DXEffect;
-
     return true;
 }
 

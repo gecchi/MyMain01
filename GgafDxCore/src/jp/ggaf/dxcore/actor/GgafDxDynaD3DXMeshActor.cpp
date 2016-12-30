@@ -18,13 +18,13 @@ GgafDxDynaD3DXMeshActor::GgafDxDynaD3DXMeshActor(const char* prm_name,
                                                  GgafDxChecker* prm_pChecker) :
 
                                                      GgafDxFigureActor(prm_name,
-                                                                         prm_model_id,
-                                                                         "d",
-                                                                         prm_effect_id,
-                                                                         "X",
-                                                                         prm_technique,
-                                                                         prm_pStat,
-                                                                         prm_pChecker) {
+                                                                       prm_model_id,
+                                                                       "d",
+                                                                       prm_effect_id,
+                                                                       "X",
+                                                                       prm_technique,
+                                                                       prm_pStat,
+                                                                       prm_pChecker) {
     _obj_class |= Obj_GgafDxDynaD3DXMeshActor;
     _class_name = "GgafDxDynaD3DXMeshActor";
 

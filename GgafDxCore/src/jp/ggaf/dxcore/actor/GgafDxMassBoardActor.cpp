@@ -26,8 +26,8 @@ GgafDxMassBoardActor::GgafDxMassBoardActor(const char* prm_name,
                                                                nullptr) ,
 _pMassBoardModel((GgafDxMassBoardModel*)_pModel),
 _pMassBoardEffect((GgafDxMassBoardEffect*)_pEffect),
-_pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
-
+_pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek()))
+{
     _obj_class |= Obj_GgafDxMassBoardActor;
     _class_name = "GgafDxMassBoardActor";
     _pUvFlipper->setRotation(_pMassBoardModel->_col_texture_split,

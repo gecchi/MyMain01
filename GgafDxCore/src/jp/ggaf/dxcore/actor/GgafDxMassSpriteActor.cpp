@@ -28,8 +28,8 @@ GgafDxMassSpriteActor::GgafDxMassSpriteActor(const char* prm_name,
                                                                    prm_pChecker) ,
 _pMassSpriteModel((GgafDxMassSpriteModel*)_pModel),
 _pMassSpriteEffect((GgafDxMassSpriteEffect*)_pEffect),
-_pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
-
+_pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek()))
+{
     _obj_class |= Obj_GgafDxMassSpriteActor;
     _class_name = "GgafDxMassSpriteActor";
     _pUvFlipper->setRotation(_pMassSpriteModel->_col_texture_split,

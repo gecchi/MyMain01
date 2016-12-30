@@ -127,7 +127,6 @@ HRESULT GgafDxMassSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, int pr
     hr = pDevice->SetStreamSourceFreq( 0, D3DSTREAMSOURCE_INDEXEDDATA | prm_draw_set_num);
     checkDxException(hr, D3D_OK, "SetStreamSourceFreq 0 に失敗しました。prm_draw_set_num="<<prm_draw_set_num);
 
-
     GgafDxEffect* pEffect_active = GgafDxEffectManager::_pEffect_active;
     if (GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique)  {
         if (pEffect_active) {
@@ -244,9 +243,9 @@ void GgafDxMassSpriteModel::restore() {
 
 //        float tex_width  = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
 //        float tex_height = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
-        double du = 1.0 / 10000000.0; //テクスチャの幅1pxの100000分の1px
-        double dv = 1.0 / 10000000.0; //テクスチャの高さ1pxの100000分の1px
-        double rev = 1.0;//0.99609308; //99609309で割れ
+        float du = 1.0f / 10000000.0f; //テクスチャの幅1pxの100000分の1px
+        float dv = 1.0f / 10000000.0f; //テクスチャの高さ1pxの100000分の1px
+        float rev = 1.0;//0.99609308; //99609309で割れ
         //左上
         _paVtxBuffer_data_model[0].x = (PX_DX(xdata.width)  / -2.0)*rev;
         _paVtxBuffer_data_model[0].y = (PX_DX(xdata.height) /  2.0)*rev;

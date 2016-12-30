@@ -71,8 +71,6 @@ void DefaultMassBoardActor::createVertexInstanceData(void* prm, GgafDxMassModel:
 void DefaultMassBoardActor::processDraw() {
     int draw_set_num = 0; //GgafDxMassBoardActorの同じモデルで同じテクニックが
                        //連続しているカウント数。同一描画深度は一度に描画する。
-    GgafDxMassBoardEffect* pMassBoardEffect = _pMassBoardEffect;
-    HRESULT hr;
     GgafDxFigureActor* pDrawActor = this;
     DefaultMassBoardActor* pDefaultMassBoardActor = nullptr;
     int model_set_num = _pMassBoardModel->_set_num;

@@ -67,6 +67,9 @@ public:
         int* paInt_InitUvPtnNo;
         float* paFLOAT_InitScale;
         PointSpriteXFileFmt() {
+            SquareSize = 1;
+            TextureSplitRowCol = 1;
+            VerticesNum = 1;
             paD3DVECTOR_Vertices = nullptr;
             paD3DVECTOR_VertexColors = nullptr;
             paInt_InitUvPtnNo = nullptr;

@@ -216,7 +216,7 @@ void GgafGod::makeSpacetimeMaterialize() {
     }
 #ifdef MY_DEBUG
     GgafGod::_num_drawing = 0;
-#endif;
+#endif
     GgafGod::_num_active_actor = 0;
     GgafSpacetime* pSpacetime = _pSpacetime;
     pSpacetime->preDraw();

@@ -14,7 +14,6 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-
 GgafDxMassModel::GgafDxMassModel(const char* prm_model_name) : GgafDxModel(prm_model_name) {
     _TRACE3_("_model_name="<<_model_name);
     _set_num = 0;

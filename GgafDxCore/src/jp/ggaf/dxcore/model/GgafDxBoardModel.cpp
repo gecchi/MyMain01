@@ -1,17 +1,17 @@
 #include "jp/ggaf/dxcore/model/GgafDxBoardModel.h"
 
-#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/GgafDxGod.h"
-#include "jp/ggaf/dxcore/effect/GgafDxBoardEffect.h"
 #include "jp/ggaf/dxcore/actor/GgafDxBoardActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-#include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
-#include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
+#include "jp/ggaf/dxcore/effect/GgafDxBoardEffect.h"
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/manager/GgafDxEffectManager.h"
-#include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
+#include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
+#include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
 #include "jp/ggaf/dxcore/manager/GgafDxTextureManager.h"
-
 #include "jp/ggaf/dxcore/model/GgafDxMassModel.h"
+#include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -139,8 +139,8 @@ void GgafDxBoardModel::restore() {
     //1pxあたりのuvの大きさを求める
 //    float tex_width  = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
 //    float tex_height = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
-    double du = 0.0;//1.0 / tex_width  / 100000.0; //テクスチャの幅1pxの10000分の1px
-    double dv = 0.0;//1.0 / tex_height / 100000.0; //テクスチャの高さ1pxの10000分の1px
+    float du = 0.0f;//1.0 / tex_width  / 100000.0; //テクスチャの幅1pxの10000分の1px
+    float dv = 0.0f;//1.0 / tex_height / 100000.0; //テクスチャの高さ1pxの10000分の1px
 
     //左上
     paVertex[0].x = 0.0f;

@@ -7,6 +7,7 @@ namespace GgafDxCore {
 
 
 /**
+ * TODO:現在使えません。ビデオカード依存が高い為。
  * @version 1.00
  * @since 2016/05/16
  * @author Masatoshi Tsuge
