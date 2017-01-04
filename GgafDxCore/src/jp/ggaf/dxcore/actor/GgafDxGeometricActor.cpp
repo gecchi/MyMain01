@@ -83,7 +83,6 @@ void GgafDxGeometricActor::processSettlementBehavior() {
             _matWorld._22 *= sy;
             _matWorld._23 *= sy;
         }
-
         if (_sz != LEN_UNIT) {
             const float sz = SC_R(_sz);
             _matWorld._31 *= sz;

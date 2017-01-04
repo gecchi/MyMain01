@@ -343,6 +343,7 @@ void MagicMeter::processBehavior() {
                 }
                 default: {
                     throwGgafCriticalException("["<<pMagic->getName()<<"] おかしい。来るはずがない。pMagic->last_cast_="<<(pMagic->last_cast_));
+                    break;
                 }
             }
         }
@@ -383,6 +384,7 @@ void MagicMeter::processBehavior() {
                 }
                 default: {
                     throwGgafCriticalException("["<<pMagic->getName()<<"] おかしい。来るはずがない。pMagic->last_invoke_="<<(pMagic->last_invoke_));
+                    break;
                 }
             }
         }
@@ -439,6 +441,7 @@ void MagicMeter::processBehavior() {
                 }
                 default: {
                     throwGgafCriticalException("["<<pMagic->getName()<<"] おかしい。来るはずがない。pMagic->last_effect_="<<(pMagic->last_effect_));
+                    break;
                 }
             }
         }

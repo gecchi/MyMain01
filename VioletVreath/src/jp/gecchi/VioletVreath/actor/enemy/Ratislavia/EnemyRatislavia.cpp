@@ -34,8 +34,8 @@ void EnemyRatislavia::addSubGroupAsFkOnSurface(GgafDxGeometricActor* prm_pGeoAct
     //平行移動( +r2_, +0, +0) > ang2のY軸回転 > 平行移動( +0, +0, -r1_) > ang1のX軸回転 変換行列の dx, dy, dz が欲しい
     //
     //    | COS[ang2]    , -SIN[ang2]*-SIN[ang1]             , -SIN[ang2]*COS[ang1]             , 0 |
-    //    | 0               ,  COS[ang1]                           ,  SIN[ang1]                          , 0 |
-    //    | SIN[ang2]    ,  COS[ang2]*-SIN[ang1]             ,  COS[ang2]*COS[angPos]              , 0 |
+    //    | 0            ,  COS[ang1]                        ,  SIN[ang1]                       , 0 |
+    //    | SIN[ang2]    ,  COS[ang2]*-SIN[ang1]             ,  COS[ang2]*COS[ans]              , 0 |
     //    | r2_*COS[ang2], (r2_*-SIN[ang2] + -r1_)*-SIN[ang1], (r2_*-SIN[ang2] + -r1_)*COS[ang1], 1 |
     //より
     double X = r2_*ANG_COS(prm_ang2);
@@ -44,7 +44,7 @@ void EnemyRatislavia::addSubGroupAsFkOnSurface(GgafDxGeometricActor* prm_pGeoAct
 
     //向きを求める
     //平行移動( +0, +0, -r1_) > ang1のX軸回転 変換行列の dx, dy, dz を使用
-    //    | 1, 0                 , 0                , 0 |
+    //    | 1, 0              , 0             , 0 |
     //    | 0, COS[ang1]      , SIN[ang1]     , 0 |
     //    | 0, -SIN[ang1]     , COS[ang1]     , 0 |
     //    | 0, -r1_*-SIN[ang1], -r1_*COS[ang1], 1 |
@@ -54,7 +54,7 @@ void EnemyRatislavia::addSubGroupAsFkOnSurface(GgafDxGeometricActor* prm_pGeoAct
     double Z2 = -r1_*ANG_COS(prm_ang1);
     angle rz, ry;
     UTIL::convVectorToRzRy((int)(X - X2), (int)(Y - Y2), (int)(Z - Z2),
-                           rz, ry);
+                            rz, ry);
     //ボーンとして追加
     this->addSubGroupAsFk(prm_pGeoActor, X, Y, Z, D0ANG, ry, rz);
 }
@@ -66,11 +66,11 @@ void EnemyRatislavia::createCollisionAreaArea(int prm_nSphere){
     pChecker->createCollisionArea(prm_nSphere);
     for (int i = 0; i < prm_nSphere; i++) {
         pChecker->setColliSphere(
-                i,
-                0 , ANG_SIN(paAngRadial[i]) * r1_, ANG_COS(paAngRadial[i]) * r1_,
-                r2_,
-                false, true, true
-                );
+                    i,
+                    0 , ANG_SIN(paAngRadial[i]) * r1_, ANG_COS(paAngRadial[i]) * r1_,
+                    r2_,
+                    false, true, true
+                    );
     }
     setSpecialRenderDepthIndex(RENDER_DEPTH_INDEX_BACK-2);
     GGAF_DELETE(paAngRadial);
@@ -120,8 +120,8 @@ void EnemyRatislavia::processBehavior() {
                     pE = dispatchDelayFromCommon(EffectExplosion004, RND(1,10));
                     if (pE) {
                         pE->setPosition(_x + pPart->_cx + RND(-r2_, +r2_),
-                                     _y + pPart->_cy + RND(-r2_, +r2_),
-                                     _z + pPart->_cz + RND(-r2_, +r2_));
+                                        _y + pPart->_cy + RND(-r2_, +r2_),
+                                        _z + pPart->_cz + RND(-r2_, +r2_));
                     }
                 }
             }
