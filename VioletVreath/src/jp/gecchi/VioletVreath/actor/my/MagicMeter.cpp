@@ -722,11 +722,11 @@ void MagicMeter::processDraw() {
                 if (pMagic->chkCastAble(j) <= MAGIC_CAST_NG_MP_IS_SHORT) {
                     //詠唱不可表示 (MAGIC_CAST_NG_MP_IS_SHORT か MAGIC_CAST_NG_INVOKING_NOW)
 //                    pUvFlipper->getUV(pMagic->lvinfo_[j].pno_ + 1, u, v); //右隣のテクスチャパターンが DISABLE なパターン前提
-                    p->r = 0.3;   p->g = 0.3;   p->b = 0.3;
+                    p->r = 0.3;  p->g = 0.3;  p->b = 0.3;
                 } else {
                     //詠唱可能表示
 //                    pUvFlipper->getUV(pMagic->lvinfo_[j].pno_, u, v);
-                    p->r = 1.0;   p->g = 1.0;   p->b = 1.0;
+                    p->r = 1.0;  p->g = 1.0;  p->b = 1.0;
                 }
                 pUvFlipper->getUV(pMagic->lvinfo_[j].pno_, u, v);
                 p->offset_u = u;
@@ -744,7 +744,7 @@ void MagicMeter::rollOpen(int prm_meter_index) {
 }
 
 void MagicMeter::rollClose(int prm_meter_index) {
-    r_roll_velo_[prm_meter_index] = -0.02f;
+    r_roll_velo_[prm_meter_index] = -0.1f;
 }
 
 MagicMeter::~MagicMeter() {
