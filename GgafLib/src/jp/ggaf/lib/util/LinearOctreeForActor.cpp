@@ -17,7 +17,7 @@ LinearOctreeForActor::LinearOctreeForActor(int prm_level) : GgafLinearOctree(prm
 void LinearOctreeForActor::executeAllHitChk(actorkind prm_groupA, actorkind prm_groupB) {
     _kind_groupA = prm_groupA;
     _kind_groupB = prm_groupB;
-    if ( (_paOctant[0]._kindinfobit & _kind_groupA) && (_paOctant[0]._kindinfobit & _kind_groupB) ) {
+    if ( (_paOctant[0]._kindinfobit & prm_groupA) && (_paOctant[0]._kindinfobit & prm_groupB) ) {
         //‚Å‚Í”ª•ª–Ø‚ğ„‚é—·‚Ös‚Á‚Ä‚ç‚Á‚µ‚á‚¢
         executeHitChk(0); //‚¢‚Á‚Ä‚«‚Ü‚·
         //‚Í‚¢‚¨‹A‚è‚È‚³‚¢B
