@@ -72,7 +72,7 @@ public:
                    float prm_target_distance, int prm_target_frames,
                    float prm_p1, float prm_p2, float prm_end_velo,
                    bool prm_zero_acc_end_flg = true);
-   /**
+    /**
      * 目標の軸回転方角(Z軸)へ滑らかに回転するシークエンスを実行(速度・距離指定、時間変動) .
      * 移動距離を3つのセクション(θ1,θ2,θ3)に分け、次のような角速度制御を自動的に行う。<BR>
      * ・距離角 0       ～ 距離角 θ1         まで ・・・ 現在のθ速度からトップスピードまで角加速(or減速)回転<BR>
@@ -113,8 +113,7 @@ public:
                    float prm_p1, float prm_p2, float prm_end_velo,
                    bool prm_zero_acc_end_flg = true);
 
-
-   /**
+    /**
      * モーファーの助手が振る舞う .
      * 助手が、師匠にいろいろ設定を行いますので、師匠が振る舞う(behave())前に実行しましょう。
      */

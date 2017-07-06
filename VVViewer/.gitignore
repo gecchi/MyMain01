@@ -13,3 +13,4 @@ VVViewer.exe
 back.properties
 /Release_XP/
 /Debug_XP/
+*.dll

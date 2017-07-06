@@ -22,3 +22,4 @@
 *.tmp
 /Debug_XP/
 /Release_XP/
+*.dll

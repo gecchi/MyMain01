@@ -19,3 +19,4 @@ back.properties
 *.dat
 /Debug_XP/
 /Release_XP/
+*.dll

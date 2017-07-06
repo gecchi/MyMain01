@@ -18,3 +18,4 @@ back.properties
 /gmon.out
 /Release_XP/
 /Debug_XP/
+*.dll

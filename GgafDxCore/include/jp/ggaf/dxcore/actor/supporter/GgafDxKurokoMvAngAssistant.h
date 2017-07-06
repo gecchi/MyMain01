@@ -14,12 +14,19 @@ namespace GgafDxCore {
  * @author Masatoshi Tsuge
  */
 class GgafDxKurokoMvAngAssistant : public GgafCore::GgafObject {
+	friend class GgafDxKuroko;
 
-public:
+private:
     /** [r]師匠 */
     GgafDxKuroko* const _pMaster;
     GgafCore::GgafValueAccelerator<int> _smthMvRzAng;
     GgafCore::GgafValueAccelerator<int> _smthMvRyAng;
+
+    /**
+     * 黒衣の助手が振る舞う .
+     * 師匠が振る舞う(behave())時に、自動で呼び出されるので気にしないでよいです。
+     */
+     virtual void behave();
 
 public:
     /**
@@ -246,12 +253,6 @@ public:
         _smthMvRzAng.stopAccelerating();
         _smthMvRyAng.stopAccelerating();
     }
-
-   /**
-     * 黒衣の助手が振る舞う .
-     * 助手が、師匠にいろいろ設定を行いますので、師匠が振る舞う(behave())前に実行しましょう。
-     */
-    virtual void behave();
 
     virtual ~GgafDxKurokoMvAngAssistant();
 };
