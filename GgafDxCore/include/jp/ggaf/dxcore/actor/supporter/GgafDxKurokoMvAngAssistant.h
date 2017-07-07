@@ -14,7 +14,7 @@ namespace GgafDxCore {
  * @author Masatoshi Tsuge
  */
 class GgafDxKurokoMvAngAssistant : public GgafCore::GgafObject {
-	friend class GgafDxKuroko;
+    friend class GgafDxKuroko;
 
 private:
     /** [r]師匠 */
@@ -93,7 +93,7 @@ public:
 
     /**
      * 目標の移動方角(Y軸)へ滑らかに回転するシークエンスを実行(時間指定、角速度変動) .
-     * @param prm_ang_rt_target 到達目標のY移動方角
+     * @param prm_ang_ry_target 到達目標のY移動方角
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      * @param prm_target_frames 費やす時間(Te)(フレーム数を指定、負の数は不可)
@@ -102,7 +102,7 @@ public:
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe) （内部で正負がprm_distanceの正負に合わせられる）
      * @param prm_zero_acc_end_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
-    void turnRyByDtTo(angle prm_ang_rt_target, int prm_way, int prm_target_frames,
+    void turnRyByDtTo(angle prm_ang_ry_target, int prm_way, int prm_target_frames,
                       float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                       bool prm_zero_acc_end_flg);
 

@@ -302,7 +302,7 @@ angvelo MyBunshin::getExpanse() {
 void MyBunshin::turnExpanse(coord prm_target_ang_expanse, frame prm_spent_frames) {
     bool is_local = _is_local;
     if (!is_local) { changeGeoLocal(); }  //ローカル座標の操作とする。
-    getKuroko()->asstFaceAng()->turnRzFaceAngByDtTo(prm_target_ang_expanse, TURN_CLOSE_TO,
+    getKuroko()->asstFaceAng()->turnRzByDtTo(prm_target_ang_expanse, TURN_CLOSE_TO,
                                                     prm_spent_frames, 0.3, 0.5, 0, true);
     if (!is_local) { changeGeoFinal(); }  //座標系を戻す
 }

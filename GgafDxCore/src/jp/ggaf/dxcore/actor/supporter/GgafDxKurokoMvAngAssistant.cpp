@@ -86,8 +86,8 @@ void GgafDxKurokoMvAngAssistant::turnRzByDtTo(angle prm_rz_target, int prm_way, 
                     prm_zero_acc_end_flg);
 }
 void GgafDxKurokoMvAngAssistant::turnRyByDtTo(angle prm_ry_target, int prm_way, int prm_target_frames,
-                                               float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                                               bool prm_zero_acc_end_flg) {
+                                              float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                              bool prm_zero_acc_end_flg) {
     angle distance = _pMaster->getRyMvAngDistance(prm_ry_target, prm_way);
     turnRyByDt(distance, prm_target_frames,
                     prm_p1, prm_p2, prm_end_angvelo,

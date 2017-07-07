@@ -12,6 +12,19 @@ GgafDxKurokoFaceAngAssistant::GgafDxKurokoFaceAngAssistant(GgafDxKuroko* prm_pMa
     for (int ax = 0; ax < 3; ax++) {
         _smthFaceAng[ax]._t_velo = _pMaster->_angvelo_face[ax];
         _smthFaceAng[ax]._t_acce = _pMaster->_angacce_face[ax];
+
+        _tw[ax].count = 0;
+        _tw[ax].target_num = 0;
+        for (int t = 0; t < 10; t++) {
+            _tw[ax].target[t] = 0;
+        }
+        _tw[ax].loop_num = 0;
+        _tw[ax].way = 0;
+        _tw[ax].target_frames = 0;
+        _tw[ax].p1 = 0;
+        _tw[ax].p2 = 0;
+        _tw[ax].end_angvelo = 0;
+        _tw[ax].zero_acc_end_flg = 0;
     }
 }
 
@@ -21,14 +34,34 @@ void GgafDxKurokoFaceAngAssistant::behave() {
             _smthFaceAng[ax].behave();
             _pMaster->setFaceAngVelo(ax, _smthFaceAng[ax]._t_velo - _smthFaceAng[ax]._t_acce); //こうしないと黒衣のbehaveで２回_acce足し込まれるし
             _pMaster->setFaceAngAcce(ax, _smthFaceAng[ax]._t_acce);
+        } else {
+            if (_tw[ax].target_num > 0) {
+                //ターゲットのアングルがある。ツイスト中
+                _tw[ax].count++;
+                if (_tw[ax].count == _tw[ax].loop_num) {
+                    _tw[ax].target_num = 0;
+                    continue;
+                } else {
+                    if (_tw[ax].way == TURN_CLOCKWISE) {
+                        _tw[ax].way = TURN_COUNTERCLOCKWISE;
+                    } else if (_tw[ax].way == TURN_COUNTERCLOCKWISE) {
+                        _tw[ax].way = TURN_CLOCKWISE;
+                    }
+                    int t = _tw[ax].count % _tw[ax].target_num;
+                    angle distance = _pMaster->getFaceAngDistance(ax, _tw[ax].target[t], _tw[ax].way);
+                    turnByDt(ax, distance, _tw[ax].target_frames,
+                             _tw[ax].p1, _tw[ax].p2, _tw[ax].end_angvelo,
+                             _tw[ax].zero_acc_end_flg);
+                }
+            }
         }
     }
 }
 
-void GgafDxKurokoFaceAngAssistant::turnFaceAngByDt(axis prm_axis,
-                                             angle prm_distance, int prm_target_frames,
-                                             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                                             bool prm_zero_acc_end_flg ) {
+void GgafDxKurokoFaceAngAssistant::turnByDt(axis prm_axis,
+                                            angle prm_distance, int prm_target_frames,
+                                            float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                            bool prm_zero_acc_end_flg ) {
     _smthFaceAng[prm_axis]._t_value = 0;
     _smthFaceAng[prm_axis]._t_velo = _pMaster->_angvelo_face[prm_axis];
     _smthFaceAng[prm_axis]._t_acce = _pMaster->_angacce_face[prm_axis];
@@ -38,9 +71,9 @@ void GgafDxKurokoFaceAngAssistant::turnFaceAngByDt(axis prm_axis,
 }
 
 void GgafDxKurokoFaceAngAssistant::turnByVd(axis prm_axis,
-                                             angvelo prm_top_angvelo, angle prm_distance,
-                                             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                                             bool prm_zero_acc_end_flg) {
+                                            angvelo prm_top_angvelo, angle prm_distance,
+                                            float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                            bool prm_zero_acc_end_flg) {
     _smthFaceAng[prm_axis]._t_value = 0;
     _smthFaceAng[prm_axis]._t_velo = _pMaster->_angvelo_face[prm_axis];
     _smthFaceAng[prm_axis]._t_acce = _pMaster->_angacce_face[prm_axis];
@@ -49,37 +82,37 @@ void GgafDxKurokoFaceAngAssistant::turnByVd(axis prm_axis,
                                           prm_zero_acc_end_flg);
 }
 
-void GgafDxKurokoFaceAngAssistant::turnRzFaceAngByDtTo(angle prm_rz_target, int prm_way, int prm_target_frames,
-                                                 float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                                                 bool prm_zero_acc_end_flg) {
+void GgafDxKurokoFaceAngAssistant::turnRzByDtTo(angle prm_rz_target, int prm_way, int prm_target_frames,
+                                                float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                                bool prm_zero_acc_end_flg) {
     angle distance = _pMaster->getFaceAngDistance(AXIS_Z, prm_rz_target, prm_way);
-    turnFaceAngByDt(AXIS_Z,
+    turnByDt(AXIS_Z,
                     distance, prm_target_frames,
                     prm_p1, prm_p2, prm_end_angvelo,
                     prm_zero_acc_end_flg);
 }
 
-void GgafDxKurokoFaceAngAssistant::turnRyFaceAngByDtTo(angle prm_ry_target, int prm_way, int prm_target_frames,
-                                                 float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                                                 bool prm_zero_acc_end_flg) {
+void GgafDxKurokoFaceAngAssistant::turnRyByDtTo(angle prm_ry_target, int prm_way, int prm_target_frames,
+                                                float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                                bool prm_zero_acc_end_flg) {
     angle distance = _pMaster->getFaceAngDistance(AXIS_Y, prm_ry_target, prm_way);
-    turnFaceAngByDt(AXIS_Y,
+    turnByDt(AXIS_Y,
                     distance, prm_target_frames,
                     prm_p1, prm_p2, prm_end_angvelo,
                     prm_zero_acc_end_flg);
 }
 
 void GgafDxKurokoFaceAngAssistant::rollFaceAngByDtTo(angle prm_ang_rx_target, int prm_way, int prm_target_frames,
-                                               float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                                               bool prm_zero_acc_end_flg) {
+                                                     float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                                     bool prm_zero_acc_end_flg) {
     angle distance = _pMaster->getFaceAngDistance(AXIS_X, prm_ang_rx_target, prm_way);
-    turnFaceAngByDt(AXIS_X,
-                    distance, prm_target_frames,
-                    prm_p1, prm_p2, prm_end_angvelo,
-                    prm_zero_acc_end_flg);
+    turnByDt(AXIS_X,
+             distance, prm_target_frames,
+             prm_p1, prm_p2, prm_end_angvelo,
+             prm_zero_acc_end_flg);
 }
 
-void GgafDxKurokoFaceAngAssistant::turnRzRyFaceAngByDtTo(
+void GgafDxKurokoFaceAngAssistant::turnRzRyByDtTo(
                                  angle prm_rz_target, angle prm_ry_target, int prm_way, bool prm_optimize_ang,
                                  int prm_target_frames,
                                  float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -94,17 +127,17 @@ void GgafDxKurokoFaceAngAssistant::turnRzRyFaceAngByDtTo(
         out_ry_distance = _pMaster->getFaceAngDistance(AXIS_Y, prm_ry_target, prm_way);
     }
 
-    turnFaceAngByDt(AXIS_Z,
-                    out_rz_distance, prm_target_frames,
-                    prm_p1, prm_p2, prm_end_angvelo,
-                    prm_zero_acc_end_flg);
-    turnFaceAngByDt(AXIS_Y,
-                    out_ry_distance, prm_target_frames,
-                    prm_p1, prm_p2, prm_end_angvelo,
-                    prm_zero_acc_end_flg);
+    turnByDt(AXIS_Z,
+             out_rz_distance, prm_target_frames,
+             prm_p1, prm_p2, prm_end_angvelo,
+             prm_zero_acc_end_flg);
+    turnByDt(AXIS_Y,
+             out_ry_distance, prm_target_frames,
+             prm_p1, prm_p2, prm_end_angvelo,
+             prm_zero_acc_end_flg);
 }
 
-void GgafDxKurokoFaceAngAssistant::turnFaceAngByDtTwd(
+void GgafDxKurokoFaceAngAssistant::turnByDtTwd(
                                  coord prm_tx, coord prm_ty, coord prm_tz, int prm_way, bool prm_optimize_ang,
                                  int prm_target_frames,
                                  float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -120,7 +153,7 @@ void GgafDxKurokoFaceAngAssistant::turnFaceAngByDtTwd(
         UTIL::convVectorToRzRy(vx, vy, vz,
                                out_rz_Target,
                                out_ry_Target);
-        turnRzRyFaceAngByDtTo(
+        turnRzRyByDtTo(
                 out_rz_Target, out_ry_Target, prm_way, prm_optimize_ang,
                 prm_target_frames,
                 prm_p1, prm_p2, prm_end_angvelo,
@@ -128,12 +161,12 @@ void GgafDxKurokoFaceAngAssistant::turnFaceAngByDtTwd(
     }
 }
 
-void GgafDxKurokoFaceAngAssistant::turnFaceAngByDtTwd(
+void GgafDxKurokoFaceAngAssistant::turnByDtTwd(
                                  GgafDxGeometricActor* prm_pActor_target, int prm_way, bool prm_optimize_ang,
                                  int prm_target_frames,
                                  float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                                  bool prm_zero_acc_end_flg) {
-    turnFaceAngByDtTwd(
+    turnByDtTwd(
             prm_pActor_target->_x, prm_pActor_target->_y, prm_pActor_target->_z, prm_way, prm_optimize_ang,
             prm_target_frames,
             prm_p1, prm_p2, prm_end_angvelo,
@@ -257,6 +290,30 @@ void GgafDxKurokoFaceAngAssistant::turnByVdTwd(
             prm_p1, prm_p2, prm_end_angvelo,
             prm_zero_acc_end_flg);
 }
+
+void GgafDxKurokoFaceAngAssistant::twist(axis prm_axis, angle prm_ang_ry_target1, angle prm_ang_ry_target2, int prm_twist_num,
+                                         int prm_first_way, int prm_target_frames,
+                                         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                         bool prm_zero_acc_end_flg) {
+
+    _tw[prm_axis].count = 0;
+    _tw[prm_axis].target_num = 2;
+    _tw[prm_axis].target[0] = prm_ang_ry_target1;
+    _tw[prm_axis].target[1] = prm_ang_ry_target2;
+    _tw[prm_axis].loop_num = prm_twist_num;
+    _tw[prm_axis].way = prm_first_way;
+    _tw[prm_axis].target_frames = prm_target_frames;
+    _tw[prm_axis].p1 = prm_p1;
+    _tw[prm_axis].p2 = prm_p2;
+    _tw[prm_axis].end_angvelo = prm_end_angvelo;
+    _tw[prm_axis].zero_acc_end_flg = prm_zero_acc_end_flg;
+    angle distance = _pMaster->getFaceAngDistance(prm_axis, _tw[prm_axis].target[0], _tw[prm_axis].way);
+    turnByDt(prm_axis,
+             distance, _tw[prm_axis].target_frames,
+             _tw[prm_axis].p1, _tw[prm_axis].p2, _tw[prm_axis].end_angvelo,
+             _tw[prm_axis].zero_acc_end_flg);
+}
+
 
 GgafDxKurokoFaceAngAssistant::~GgafDxKurokoFaceAngAssistant() {
 }

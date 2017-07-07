@@ -1,6 +1,7 @@
 #ifndef GGAFDXCORE_GGAFDXKUROKOFACEANGASSISTANT_H_
 #define GGAFDXCORE_GGAFDXKUROKOFACEANGASSISTANT_H_
 #include "GgafDxCommonHeader.h"
+
 #include "jp/ggaf/core/GgafObject.h"
 #include "jp/ggaf/core/util/GgafValueAccelerator.hpp"
 
@@ -14,12 +15,28 @@ namespace GgafDxCore {
  * @author Masatoshi Tsuge
  */
 class GgafDxKurokoFaceAngAssistant : public GgafCore::GgafObject {
-	friend class GgafDxKuroko;
+    friend class GgafDxKuroko;
 
 private:
+    struct Twist {
+        int count;
+        int target_num;
+        angle target[10];
+        int loop_num;
+        int way;
+        frame target_frames;
+        double p1;
+        double p2;
+        angvelo end_angvelo;
+        bool zero_acc_end_flg;
+    };
+
     /** [r]師匠 */
     GgafDxKuroko* const _pMaster;
     GgafCore::GgafValueAccelerator<int> _smthFaceAng[3];
+    /** ツイスト情報 */
+    Twist _tw[3];
+
     /**
      * 黒衣の助手が振る舞う .
      * 師匠が振る舞う(behave())時に、自動で呼び出されるので気にしないでよいです。
@@ -68,10 +85,10 @@ public:
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe) （内部で正負がprm_distanceの正負に合わせられる）
      * @param prm_zero_acc_end_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
-    void turnFaceAngByDt(axis prm_axis,
-                         angle prm_distance, int prm_target_frames,
-                         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                         bool prm_zero_acc_end_flg);
+    void turnByDt(axis prm_axis,
+                  angle prm_distance, int prm_target_frames,
+                  float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                  bool prm_zero_acc_end_flg);
 
     /**
      * 目標の軸回転方角(Z軸)へ滑らかに回転するシークエンスを実行(時間指定、角速度変動) .
@@ -84,13 +101,13 @@ public:
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe) （内部で正負がprm_distanceの正負に合わせられる）
      * @param prm_zero_acc_end_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
-    void turnRzFaceAngByDtTo(angle prm_rz_target, int prm_way, int prm_target_frames,
-                             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                             bool prm_zero_acc_end_flg);
+    void turnRzByDtTo(angle prm_rz_target, int prm_way, int prm_target_frames,
+                      float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                      bool prm_zero_acc_end_flg);
 
     /**
      * 目標の軸回転方角(Y軸)へ滑らかに回転するシークエンスを実行(時間指定、角速度変動) .
-     * @param prm_ang_rt_target 到達目標のY軸回転方角
+     * @param prm_ang_ry_target 到達目標のY軸回転方角
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      * @param prm_target_frames 費やす時間(Te)(フレーム数を指定、負の数は不可)
@@ -99,12 +116,12 @@ public:
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe) （内部で正負がprm_distanceの正負に合わせられる）
      * @param prm_zero_acc_end_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
-    void turnRyFaceAngByDtTo(angle prm_ang_rt_target, int prm_way, int prm_target_frames,
-                             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                             bool prm_zero_acc_end_flg);
+    void turnRyByDtTo(angle prm_ang_ry_target, int prm_way, int prm_target_frames,
+                      float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                      bool prm_zero_acc_end_flg);
     /**
      * 目標の軸回転方角(X軸)へ滑らかに回転するシークエンスを実行(時間指定、角速度変動) .
-     * @param prm_ang_rt_target 到達目標のX軸回転方角
+     * @param prm_ang_ry_target 到達目標のX軸回転方角
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      * @param prm_target_frames 費やす時間(Te)(フレーム数を指定、負の数は不可)
@@ -137,7 +154,7 @@ public:
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe)
      * @param prm_zero_acc_end_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
-    void turnRzRyFaceAngByDtTo(
+    void turnRzRyByDtTo(
             angle prm_rz_target, angle prm_ry_target, int prm_way, bool prm_optimize_ang,
             int prm_target_frames,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -157,7 +174,7 @@ public:
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe)
      * @param prm_zero_acc_end_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
-    void turnFaceAngByDtTwd(
+    void turnByDtTwd(
             coord prm_tx, coord prm_ty, coord prm_tz, int prm_way, bool prm_optimize_ang,
             int prm_target_frames,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -175,7 +192,7 @@ public:
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe)
      * @param prm_zero_acc_end_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
-    void turnFaceAngByDtTwd(
+    void turnByDtTwd(
             GgafDxGeometricActor* prm_pActor_target, int prm_way, bool prm_optimize_ang,
             int prm_target_frames,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -257,6 +274,27 @@ public:
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_zero_acc_end_flg);
 
+    /**
+     * 軸回転のツイスト(時間指定、角速度変動) .
+     * 内部で turnByDt() を繰り返し実行し、ツイストのような動きを行う。
+     *
+     * @param prm_axis ツイスト回転方角軸(AXIS_X or AXIS_Y or AXIS_Z)
+     * @param prm_ang_ry_target1 ツイスト到達目標１のY軸回転方角値
+     * @param prm_ang_ry_target2 ツイスト到達目標２のY軸回転方角値
+     * @param prm_twist_num ツイスト回数（-1 で無限ツイスト）
+     * @param prm_first_way ツイスト到達目標１を最初にターゲットするための、回転方向指示。次のいずれかを指定、以降のツイストは反対周りに回転を繰り返す。<BR>
+     *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
+     * @param prm_target_frames ツイスト1回に費やす時間(Te)(フレーム数を指定、負の数は不可)
+     * @param prm_p1 トップスピードに達する時刻となるような、Teに対する割合(p1)
+     * @param prm_p2 減速を開始時刻となるような、Teに対する割合(p2)
+     * @param prm_end_angvelo 目標到達時の最終角速度(ωe) （内部で正負がprm_distanceの正負に合わせられる）
+     * @param prm_zero_acc_end_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
+     */
+    void twist(axis prm_axis, angle prm_ang_ry_target1, angle prm_ang_ry_target2, int prm_twist_num,
+               int prm_first_way, int prm_target_frames,
+               float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+               bool prm_zero_acc_end_flg);
+
     inline bool isTurning() const {
         if (_smthFaceAng[AXIS_X].isAccelerating() || _smthFaceAng[AXIS_Y].isAccelerating() || _smthFaceAng[AXIS_Z].isAccelerating()) {
             return true;
@@ -269,6 +307,9 @@ public:
         _smthFaceAng[AXIS_X].stopAccelerating();
         _smthFaceAng[AXIS_Y].stopAccelerating();
         _smthFaceAng[AXIS_Z].stopAccelerating();
+        _tw[AXIS_X].target_num = 0;
+        _tw[AXIS_Y].target_num = 0;
+        _tw[AXIS_Z].target_num = 0;
     }
 
     virtual ~GgafDxKurokoFaceAngAssistant();

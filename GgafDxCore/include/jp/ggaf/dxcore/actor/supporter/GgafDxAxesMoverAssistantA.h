@@ -8,15 +8,16 @@
 namespace GgafDxCore {
 
 /**
- * 黒衣Bの助手A .
- * 師匠(黒衣B)の補佐を行います。
+ * 平行移動支援 の助手A .
+ * 師匠(平行移動支援 )の補佐を行います。
  * @version 1.00
  * @since 2013/12/16
  * @author Masatoshi Tsuge
  */
 class GgafDxAxesMoverAssistantA : public GgafCore::GgafObject {
+	friend class GgafDxAxesMover;
 
-public:
+private:
     /** [r]師匠 */
     GgafDxAxesMover* _pMaster;
     /** X軸方向加速装置 */
@@ -25,6 +26,9 @@ public:
     GgafCore::GgafValueAccelerator<coord> _smthVyMv;
     /** Z軸方向加速装置 */
     GgafCore::GgafValueAccelerator<coord> _smthVzMv;
+
+    virtual void behave();
+
 public:
     /**
      * コンストラクタ<BR>
@@ -285,8 +289,6 @@ public:
         _smthVyMv.stopAccelerating();
         _smthVzMv.stopAccelerating();
     }
-
-    virtual void behave();
 
     virtual ~GgafDxAxesMoverAssistantA();
 };

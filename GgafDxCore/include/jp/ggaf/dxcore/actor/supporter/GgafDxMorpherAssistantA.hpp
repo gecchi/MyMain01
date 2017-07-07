@@ -18,13 +18,22 @@ class GgafDxMorpher;
 template<class T>
 class GgafDxMorpherAssistantA : public GgafCore::GgafObject {
 
-public:
+//	template<class T>
+	friend class GgafDxMorpher<T>;
+
+private:
     /** [r]師匠 */
     GgafDxMorpher<T>* _pMaster;
     /** [r]重み加速器 */
     GgafCore::GgafValueAccelerator<float>* _pa_smthMph;
     /** [r]モーフターゲット数(利用頻度が高いので、モデルからコピーして保持) */
     int _target_num;
+
+    /**
+     * モーファーの助手が振る舞う .
+     * 師匠が振る舞う(behave())時に、自動で呼び出されるので気にしないでよいです。
+     */
+    virtual void behave();
 
 public:
     /**
@@ -112,12 +121,6 @@ public:
                    float prm_top_velo, float prm_target_distance,
                    float prm_p1, float prm_p2, float prm_end_velo,
                    bool prm_zero_acc_end_flg = true);
-
-    /**
-     * モーファーの助手が振る舞う .
-     * 助手が、師匠にいろいろ設定を行いますので、師匠が振る舞う(behave())前に実行しましょう。
-     */
-    virtual void behave();
 
     virtual ~GgafDxMorpherAssistantA();
 };
